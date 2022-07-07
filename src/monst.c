@@ -107,7 +107,7 @@ NEARDATA struct permonst mons[] = {
         NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
       SIZ(5, 10, MS_SILENT, MZ_TINY), 0, 0,
       M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
-      M3_INFRAVISIBLE, 0, 0, 1, CLR_GRAY),
+      0, 0, 0, 1, CLR_GRAY),
     /*
      * ants
      */
@@ -122,6 +122,12 @@ NEARDATA struct permonst mons[] = {
      * ever spent any time at all at Fort Benning, Georgia, you know
      * exactly what I'm talking about.
      */
+    MON("giant flea", S_ANT, LVL(3, 14, 8, 0, 0), (G_GENO | G_SGROUP | G_HELL | G_NOGEN),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 2), ATTK(AT_BITE, AD_PHYS, 1, 2),
+          ATTK(AT_MULTIPLY, 0, 0, 0), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(5, 10, MS_SILENT, MZ_TINY), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 5, CLR_GRAY),
     MON("giant mosquito", S_ANT, LVL(1, 20, 2, 0, 0), (G_GENO | G_LGROUP | 2),
         A(ATTK(AT_BITE, AD_DRCO, 1, 1), ATTK(AT_BITE, AD_PHYS, 1, 1),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
