@@ -1131,6 +1131,7 @@ register struct obj *obj;
 
     /* worst case, at least it'll be peaceful. */
     mtmp->mpeaceful = 1;
+    mtmp->mtraitor  = 0;	/* No longer a traitor */
     set_malign(mtmp);
     if (flags.moonphase == FULL_MOON && night() && rn2(6) && obj
         && mtmp->data->mlet == S_DOG)
@@ -1189,6 +1190,8 @@ register struct obj *obj;
         || racial_human(mtmp)
         || (is_demon(mtmp->data) && mtmp->data != &mons[PM_LAVA_DEMON]
             && !is_demon(raceptr(&youmonst)))
+         /* Mik -- New flag to indicate which things cannot be tamed... */
+	    || cannot_be_tamed(mtmp->data)
         || (obj && dogfood(mtmp, obj) >= MANFOOD))
         return FALSE;
 
@@ -1322,6 +1325,10 @@ struct monst *mtmp;
             yelp(mtmp);
         else
             growl(mtmp); /* give them a moment's worry */
+
+        /* Give monster a chance to betray you now */
+	    if (mtmp->mtame) 
+            betrayed(mtmp);
 
         if (!mtmp->mtame)
             newsym(mtmp->mx, mtmp->my);

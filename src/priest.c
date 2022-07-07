@@ -1049,6 +1049,8 @@ struct monst *mtmp;
         }
     } else if (mtmp->mpeaceful)
         Strcat(info, ", peaceful");
+    else if (mtmp->mtraitor)  
+        Strcat(info, ", traitor");
 
     if (mtmp->data == &mons[PM_LONG_WORM]) {
         int segndx, nsegs = count_wsegs(mtmp);

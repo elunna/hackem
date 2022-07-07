@@ -311,7 +311,7 @@ NH_panictrace_gdb()
  */
 static NEARDATA const char *deaths[] = {
     /* the array of death */
-    "died", "choked", "poisoned", "starvation", "drowning", "burning",
+    "died", "betrayed", "choked", "poisoned", "starvation", "drowning", "burning",
     "dissolving under the heat and pressure", "crushed", "turned to stone",
     "turned into slime", "genocided", "panic", "trickery", "quit",
     "escaped", "ascended"
@@ -319,7 +319,7 @@ static NEARDATA const char *deaths[] = {
 
 static NEARDATA const char *ends[] = {
     /* "when you %s" */
-    "died", "choked", "were poisoned",
+    "died", "were betrayed", "choked", "were poisoned",
     "starved", "drowned", "burned",
     "dissolved in the lava",
     "were crushed", "turned to stone",
@@ -659,6 +659,10 @@ int how;
     if (u.ugrave_arise >= LOW_PM
         && (mvitals[u.ugrave_arise].mvflags & G_GENOD))
         u.ugrave_arise = NON_PM;
+
+    /* --hackem: Not sure if this goes here */
+    else if (mtmp->mtraitor)
+		done(BETRAYED);
 
     done(how);
     return;

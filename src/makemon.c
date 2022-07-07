@@ -2701,7 +2701,8 @@ long mmflags;
         apply_race(mtmp, m_randrace(mndx));
 
     mtmp->mpeaceful = (mmflags & MM_ANGRY) ? FALSE : peace_minded(mtmp);
-
+    mtmp->mtraitor  = FALSE;
+    
     /* The ice queen is a much more deadly opponent
        on her birthday */
     if (ptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
