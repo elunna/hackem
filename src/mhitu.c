@@ -98,6 +98,9 @@ struct attack *mattk;
         case AT_BOOM:
             pfmt = "%s explodes!";
             break;
+        case AT_MULTIPLY:
+			/* No message. */
+		    break;
         case AT_WEAP:
             if (!MON_WEP(mtmp)) { /* AT_WEAP but isn't wielding anything */
                 if (has_claws(mtmp->data))
@@ -1049,6 +1052,37 @@ register struct monst *mtmp;
                 sum[i] = spitmu(mtmp, mattk);
             /* Note: spitmu takes care of displacement */
             break;
+        case AT_MULTIPLY:
+			/*
+			 * Monster multiplying is an AT_ for the following
+			 * reasons:
+			 *   1. Monsters will only multiply when they're close
+			 *      to you.  The whole level will not become clogged
+			 *      up with giant lice from monsters multiplying
+			 *      where you can't see them.
+			 *   2. Tame monsters won't multiply.  Too bad! (unless
+			 *      they are conflicted or confused from hunger.
+			 *      A bit of a "tactic" -- but then you'll have to
+			 *      let them bite you, and anyway who really wants
+			 *      a dozen pet fleas to feed?)
+			 *   3. Monsters have to be next to you to multiply.
+			 *      This makes the inevitable altar abuse a little
+			 *      harder.
+			 *   4. Elbereth will stop monsters multiplying.
+			 *      Otherwise a ring of conflict would crowd out a
+			 *      whole level in no time.
+			 *   5. It is a hack.  (Shrug)
+			 *
+			 * Multiplying monsters must be low-level and
+			 * low-frequency, so as to minimise altar/experience
+			 * abuse.  Any multiplying monsters above about
+			 * level 5 should be G_NOCORPSE.
+			 *
+			 * RJ
+			 */
+			if (!range2)
+			    clone_mon(mtmp, 0, 0);
+			break;
         case AT_WEAP:
             if (range2) {
                 if (!Is_rogue_level(&u.uz))

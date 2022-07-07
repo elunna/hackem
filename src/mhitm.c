@@ -871,6 +871,9 @@ int dieroll;
                 if (magr != u.ustuck)
                     Sprintf(buf, "%s squeezes", magr_name);
                 break;
+            case AT_MULTIPLY:
+				/* No message. */
+				break;
             case AT_WEAP:
                 if (!MON_WEP(magr)) { /* AT_WEAP but isn't wielding anything */
                     if (has_claws(magr->data))

@@ -3757,6 +3757,11 @@ boolean weapon_attacks; /* skip weapon attacks if false */
         case AT_GAZE: /* all done using #monster command */
             dhit = 0;
             break;
+        case AT_MULTIPLY:
+			/* Not a #monster ability -- this is something that the
+			 * player must figure out -RJ */
+			cloneu();
+			break;
 
         default: /* Strange... */
             impossible("strange attack of yours (%d)", mattk->aatyp);

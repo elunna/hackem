@@ -27,7 +27,8 @@
 #define AT_SCRE 15  /* scream - sonic attack */
 #define AT_WEAP 16  /* uses weapon */
 #define AT_MAGC 17  /* uses magic spell(s) */
-#define LAST_AT AT_MAGC
+#define AT_MULTIPLY	18	/* RJ - multiplies (yes, it's an attack) */
+#define LAST_AT AT_MULTIPLY
 
 /*	Add new damage types below.
  *

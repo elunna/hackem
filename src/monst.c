@@ -102,6 +102,12 @@ void NDECL(monst_init);
 
 #ifndef SPLITMON_2
 NEARDATA struct permonst mons[] = {
+    MON("giant tick", S_ANT, LVL(1, 12, 9, 0, 0), (G_GENO | G_SGROUP | G_HELL | G_NOGEN),
+      A(ATTK(AT_BITE, AD_PHYS, 1, 1), ATTK(AT_MULTIPLY, 0, 0, 0),
+        NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+      SIZ(5, 10, MS_SILENT, MZ_TINY), 0, 0,
+      M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
+      M3_INFRAVISIBLE, 0, 0, 1, CLR_GRAY),
     /*
      * ants
      */
@@ -109,8 +115,8 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK,
           NO_ATTK),
         SIZ(10, 10, MS_SILENT, MZ_TINY), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 0, 0, 0,
-        4, CLR_BROWN),
+        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 4, CLR_BROWN),
     /* New custom monster - the giant mosquito. Always wondered why they
      * were never created before now. These are a real thing. If you've
      * ever spent any time at all at Fort Benning, Georgia, you know
@@ -120,20 +126,20 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_DRCO, 1, 1), ATTK(AT_BITE, AD_PHYS, 1, 1),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1, 3, MS_BUZZ, MZ_TINY), 0, 0,
-        M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_OVIPAROUS,
-        M2_HOSTILE | M2_FEMALE, 0, 0, 0, 4, CLR_ORANGE),
+        M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_OVIPAROUS, M2_HOSTILE | M2_FEMALE, 
+        0, 0, 0, 4, CLR_ORANGE),
     MON("killer bee", S_ANT, LVL(1, 18, -1, 0, 0), (G_GENO | G_LGROUP | 2),
         A(ATTK(AT_STNG, AD_DRST, 1, 3), NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK,
           NO_ATTK),
         SIZ(1, 5, MS_BUZZ, MZ_TINY), MR_POISON, MR_POISON,
-        M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, M2_HOSTILE | M2_FEMALE, 0, 0, 0,
-        5, CLR_YELLOW),
+        M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, M2_HOSTILE | M2_FEMALE, 
+        0, 0, 0, 5, CLR_YELLOW),
     MON("soldier ant", S_ANT, LVL(3, 18, 3, 0, 0), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_BITE, AD_PHYS, 2, 4), ATTK(AT_STNG, AD_DRST, 3, 4), NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 5, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
-        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE, 0, 0, 0, 6, CLR_BLUE),
+        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 6, CLR_BLUE),
     MON("fire ant", S_ANT, LVL(3, 18, 3, 10, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 4), ATTK(AT_BITE, AD_FIRE, 2, 4), NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
