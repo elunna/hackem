@@ -214,7 +214,13 @@ NEARDATA struct permonst mons[] = {
         SIZ(300, 100, MS_BUZZ, MZ_MEDIUM), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, M2_HOSTILE | M2_FEMALE, 
         0, 0, 0, 12, CLR_BLACK),
-
+    MON("spitting beetle", S_ANT, 
+        LVL(14, 6, -4, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_BITE, AD_PHYS, 4, 6), ATTK(AT_SPIT, AD_ACID, 2, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(100, 100, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
+        M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 14, CLR_BROWN),
     /* From SporkHack
      */
     MON("locust", S_ANT, LVL(9, 12, 0, 0, 0), (G_GENO | G_SGROUP | 1),
