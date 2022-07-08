@@ -379,6 +379,13 @@ NEARDATA struct permonst mons[] = {
         MR_POISON | MR_FIRE,
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_OVIPAROUS, M2_HOSTILE,
         M3_INFRAVISIBLE, M4_VULNERABLE_COLD, 0, 8, CLR_RED),
+    MON("parrot", S_COCKATRICE, LVL(7, 15, 6, 0, 0), 
+        (G_GENO | 1),
+        A(ATTK(AT_BITE, AD_PHYS, 2, 6), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(75, 30, MS_PARROT, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
+        M3_INFRAVISIBLE, 0, 0, 7, CLR_GREEN),
     /* From ancient lore, the cockatrice and basilisk were virtually
      * the same creature, with just some slight differences in their origin.
      * Taking some creative license here. Bottom line, the basilisk template
