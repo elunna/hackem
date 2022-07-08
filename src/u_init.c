@@ -694,7 +694,7 @@ int damg_spit_types [] =
 
 int damg_gaze_types [] =
     { AD_FIRE, AD_COLD, AD_SLEE, AD_STUN, AD_SLOW,
-      AD_CNCL
+      AD_CNCL, AD_TLPT
     };
 
 int damg_engulf_types [] =

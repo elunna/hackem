@@ -3456,6 +3456,14 @@ struct attack *mattk;
             mdamageu(mtmp, dmg);
         }
         break;
+    case AD_TLPT:
+	        if(!mtmp->mcan && canseemon(mtmp) && mtmp->mcansee && !mtmp->mspec_used && rn2(5)) {
+	                pline("%s stares blinkingly at you!", Monnam(mtmp));
+	                if(flags.verbose)
+	                        Your("position suddenly seems very uncertain!");
+	                tele();
+		}
+		break;
     default:
         impossible("Gaze attack %d?", mattk->adtyp);
         break;
