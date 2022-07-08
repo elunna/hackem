@@ -811,6 +811,9 @@ register struct monst *mtmp;
     case MS_IMITATE:
         pline_msg = "imitates you.";
         break;
+    case MS_CHICKEN:
+	    pline_msg = "clucks.";
+	    break;
     case MS_BONES:
         pline("%s rattles noisily.", Monnam(mtmp));
         You("freeze for a moment.");
