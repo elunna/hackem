@@ -425,6 +425,9 @@ register struct monst *mtmp;
     case MS_SILENT:
         ret = "quiver";
         break;
+    case MS_PARROT:
+	    ret = "squaark";
+	    break;
     default:
         ret = "scream";
     }
@@ -481,6 +484,9 @@ register struct monst *mtmp;
             break;
         case MS_SQEEK:
             yelp_verb = (!Deaf) ? "squeal" : "quiver";
+            break;
+        case MS_PARROT:
+            yelp_verb = (!Deaf) ? "squaark" : "thrash";
             break;
         case MS_SQAWK:
             yelp_verb = (!Deaf) ? "screak" : "thrash";
@@ -765,6 +771,35 @@ register struct monst *mtmp;
         else
             pline_msg = "squawks.";
         break;
+    case MS_PARROT:
+	    switch (rn2(8)) {
+		default:
+		case 0:
+		    verbl_msg = "squaarks louldly!";
+		    break;
+		case 1:
+		    verbl_msg = "says 'Polly want a lembas wafer!'";
+		    break;
+		case 2:
+		    verbl_msg = "says 'Nobody expects the Spanish Inquisition!'";
+		    break;
+		case 3:
+		    verbl_msg = "says 'Who's a good boy, then?'";
+		    break;
+		case 4:
+		    verbl_msg = "says 'Show us yer knickers!'";
+		    break;
+		case 5:
+		    verbl_msg = "says 'You'll never make it!'";
+		    break;
+		case 6:
+		    verbl_msg = "whistles suggestively!";
+		    break;
+		case 7:
+		    verbl_msg = "says 'What sort of a sword do you call that!'";
+		    break;
+	    }
+	    break;
     case MS_HISS:
         if (mtmp->mtame && is_pseudodragon(ptr)) {
             if (mtmp->mconf || mtmp->mflee || mtmp->mtrapped
