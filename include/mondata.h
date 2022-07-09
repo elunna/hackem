@@ -345,9 +345,12 @@
 #define likes_gems(ptr) (((ptr)->mflags2 & M2_JEWELS) != 0L)
 #define likes_objs(ptr) (((ptr)->mflags2 & M2_COLLECT) != 0L || is_armed(ptr))
 #define likes_magic(ptr) (((ptr)->mflags2 & M2_MAGIC) != 0L)
-#define webmaker(ptr) \
-    ((ptr) == &mons[PM_CAVE_SPIDER] || (ptr) == &mons[PM_GIANT_SPIDER] \
-     || (ptr) == &mons[PM_JUMPING_SPIDER] || (ptr) == &mons[PM_LOLTH])
+#define webmaker(ptr)       ((ptr) == &mons[PM_CAVE_SPIDER] || \
+                            (ptr) == &mons[PM_GIANT_SPIDER] || \
+                            (ptr) == &mons[PM_RECLUSE_SPIDER] || \
+                            (ptr) == &mons[PM_WERESPIDER] || \
+                            (ptr) == &mons[PM_JUMPING_SPIDER] || \
+                            (ptr) == &mons[PM_LOLTH])
 #define is_unicorn(ptr) ((ptr)->mlet == S_UNICORN && likes_gems(ptr))
 #define is_longworm(ptr)                                                   \
     (((ptr) == &mons[PM_BABY_LONG_WORM]) || ((ptr) == &mons[PM_LONG_WORM]) \

@@ -68,6 +68,22 @@ int pm;
         return PM_DEMON_WEREDEMON;
     case PM_DEMON_WEREDEMON:
         return PM_WEREDEMON;
+    case PM_WEREPANTHER:      
+        return(PM_HUMAN_WEREPANTHER);            
+    case PM_HUMAN_WEREPANTHER:
+        return(PM_WEREPANTHER);
+    case PM_WERETIGER:        
+        return(PM_HUMAN_WERETIGER);
+    case PM_HUMAN_WERETIGER:  
+        return(PM_WERETIGER);
+    case PM_WERESNAKE:        
+        return(PM_HUMAN_WERESNAKE);
+    case PM_HUMAN_WERESNAKE:  
+        return(PM_WERESNAKE);
+    case PM_WERESPIDER:       
+        return(PM_HUMAN_WERESPIDER);
+    case PM_HUMAN_WERESPIDER: 
+        return(PM_WERESPIDER);
     default:
         return NON_PM;
     }
@@ -187,6 +203,26 @@ char *genbuf;
             if (genbuf)
                 Strcpy(genbuf, "hell hound");
             break;
+        case PM_WEREPANTHER:
+		case PM_HUMAN_WEREPANTHER:
+			typ = rn2(5) ? PM_JAGUAR : PM_PANTHER ;
+			if (genbuf) Strcpy(genbuf, "large cat");
+			break;
+		case PM_WERETIGER:
+		case PM_HUMAN_WERETIGER:
+			typ = rn2(5) ? PM_JAGUAR : PM_TIGER ;
+			if (genbuf) Strcpy(genbuf, "large cat");
+			break;
+		case PM_WERESNAKE:
+		case PM_HUMAN_WERESNAKE:
+			typ = rn2(5) ? PM_SNAKE : PM_PIT_VIPER ;
+			if (genbuf) Strcpy(genbuf, "snake");
+			break;
+		case PM_WERESPIDER:
+		case PM_HUMAN_WERESPIDER:
+			typ = rn2(5) ? PM_CAVE_SPIDER : PM_RECLUSE_SPIDER ;
+			if (genbuf) Strcpy(genbuf, "spider");
+			break;
         default:
             continue;
         }
