@@ -482,7 +482,10 @@
 /* used to vary a few messages */
 #define weirdnonliving(ptr) (is_golem(ptr) || (ptr)->mlet == S_VORTEX)
 #define nonliving(ptr) \
-    (is_undead(ptr) || (ptr) == &mons[PM_MANES] || weirdnonliving(ptr))
+    (is_undead(ptr) || \
+    (ptr) == &mons[PM_MANES] || \
+    (ptr) == &mons[PM_STATUE_GARGOYLE] || \
+    weirdnonliving(ptr))
 
 /* no corpse (ie, blank scrolls) if killed by fire */
 #define completelyburns(ptr) \
