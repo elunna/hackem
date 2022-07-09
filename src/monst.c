@@ -779,6 +779,14 @@ NEARDATA struct permonst mons[] = {
         SIZ(300, 100, MS_GROWL, MZ_HUMAN), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
         M3_INFRAVISIBLE, 0, 0, 6, CLR_GRAY),
+
+    MON("hellcat", S_FELINE, 
+        LVL(12, 12, 6, 0, 0), (G_HELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 4, 4), ATTK(AT_CLAW, AD_PHYS, 4, 4),
+          ATTK(AT_BITE, AD_FIRE, 3, 10), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(800, 400, MS_GROWL, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
+        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 12, CLR_RED),
     /*
      * gremlins and gargoyles
      */
