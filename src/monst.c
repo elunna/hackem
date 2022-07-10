@@ -1182,6 +1182,13 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK),
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0, M1_HUMANOID | M1_TPORT,
         M2_HOSTILE | M2_GREEDY, M3_INFRAVISIBLE, 0, 0, 4, CLR_GREEN),
+    MON("leprechaun wizard", S_LEPRECHAUN, 
+        LVL(8, 15, 6, 20, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_SGLD, 1, 2), ATTK(AT_MAGC, AD_SPEL, 0, 0), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
+        M1_HUMANOID | M1_TPORT,
+        M2_HOSTILE | M2_GREEDY | M2_MAGIC, 0, 0, 0, 8, HI_ZAP),
     /*
      * mimics
      */
