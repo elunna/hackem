@@ -4226,6 +4226,20 @@ struct attack *mattk;
         if (!rn2(6))
             acid_damage(MON_WEP(mtmp));
         goto assess_dmg;
+
+    case AD_SLEE:
+        /* hackem: I make no guarantees that this works correctly! 
+            check back to see if this affects riders/steeds.
+        */
+        if (resists_sleep(mtmp) || defended(mtmp, AD_SLEE)) {
+            pline("%s is not affected.", Monnam(mtmp));
+        }
+        else if (sleep_monst(mtmp, tmp, -1)) {
+            pline("%s is put to sleep by you.", Monnam(mtmp));
+             mtmp->mstrategy &= ~STRAT_WAITFORU;
+        }
+        break;
+
     case AD_DISN: {
         int chance = (youmonst.data == &mons[PM_ANTIMATTER_VORTEX] ? !rn2(3) : !rn2(6));
         if (resists_disint(mtmp) || defended(mtmp, AD_DISN)) {

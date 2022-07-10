@@ -3877,6 +3877,18 @@ boolean wep_was_destroyed;
         }
         exercise(A_STR, FALSE);
         break;
+    case AD_SLEE:
+        /* hackem: passive sleep attack for orange jelly */
+        if (mhit && !mon->mcan) {
+		    if (Sleep_resistance) {
+                pline("You yawn.");
+                break;
+            }
+		    fall_asleep(-rnd(tmp), TRUE);
+		    if (Blind) You("are put to sleep!");
+		    else You("are put to sleep by %s!", mon_nam(mon));
+		}
+		break;
     case AD_STON:
         if (mhit) { /* successful attack */
             long protector = attk_protection((int) aatyp);

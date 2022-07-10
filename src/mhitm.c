@@ -2722,6 +2722,27 @@ struct obj *mwep;
         if (!rn2(6))
             acid_damage(MON_WEP(magr));
         goto assess_dmg;
+    case AD_SLEE:
+        /* hackem: I make no guarantees that this works correctly! 
+            check back to see if this affects riders/steeds.
+        */
+        if (mhit && !mdef->mcan) {
+            Strcpy(buf, Monnam(magr));
+
+            if (resists_sleep(magr) || defended(magr, AD_SLEE)) {
+                pline("%s is not affected.", Monnam(magr));
+            }
+            else if (sleep_monst(mdef, tmp, -1)) {
+                if (vis) {
+                    pline("%s is put to sleep by %s.", buf, Monnam(magr));
+                }
+		    mdef->mstrategy &= ~STRAT_WAITFORU;
+		    slept_monst(mdef);
+            }
+        }
+        break;
+
+
     case AD_DISN: {
         int chance = (mdef->data == &mons[PM_ANTIMATTER_VORTEX] ? !rn2(3) : !rn2(6));
         if (mhit && !mdef->mcan) {
