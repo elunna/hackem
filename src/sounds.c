@@ -848,6 +848,12 @@ register struct monst *mtmp;
         break;
     case MS_CHICKEN:
 	    pline_msg = "clucks.";
+	    break; 
+    case MS_SHEEP:
+	    pline_msg = "baaaas.";
+	    break;
+    case MS_COW:
+	    pline_msg = "bellows.";
 	    break;
     case MS_BONES:
         pline("%s rattles noisily.", Monnam(mtmp));
