@@ -2148,7 +2148,74 @@ NEARDATA struct permonst mons[] = {
 * Zouthern animals
 * (the zruty has been moved to Yeti)
 */
-    
+/* --hackem: This define does not do much, but kept for future use. */
+#define M1_MARSUPIAL 0
+    /* Montronemes (egg-laying mammals)
+	 */
+    MON("echidna", S_ZOUTHERN, LVL(2, 6, 9, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 2), ATTK(AT_CLAW, AD_PHYS, 1, 2),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(15, 10, MS_SILENT, MZ_TINY), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_OVIPAROUS | M1_THICK_HIDE,
+        M2_WANDER, M3_INFRAVISIBLE, 0, 0, 2, CLR_BROWN),
+    MON("platypus", S_ZOUTHERN, LVL(4, 8, 8, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 4), ATTK(AT_KICK, AD_DRST, 1, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(20, 12, MS_SILENT, MZ_TINY), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_OVIPAROUS | M1_SWIM | M1_THICK_HIDE,
+        M2_WANDER, M3_INFRAVISIBLE, 0, 0, 4, CLR_GREEN),
+    /* ...males have a poisonous spur on their hind paws */
+    /* Bear-like marsupials
+    */
+    MON("koala", S_ZOUTHERN, LVL(7, 4, 9, 10, 0), (G_NOHELL | G_GENO | 2),
+        A(ATTK(AT_TUCH, AD_CALM, 0, 0),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(150, 50, MS_SQEEK, MZ_SMALL), MR_POISON, 0,
+        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL | M1_SEE_INVIS,
+        M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 7, CLR_GRAY),
+    /* ...cute and fuzzy!  A tame koala versus a hostile monster (or vice
+    * versa) will calm (AD_CALM) the other monster into peacefullness.
+    * Certain monsters resist.
+    * Koalas can only eat eucalyptus leaves.
+    */
+    MON("wombat", S_ZOUTHERN,
+        LVL(5, 12, 5, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_KICK, AD_PHYS, 1, 6), ATTK(AT_BITE, AD_PHYS, 1, 2),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(100, 40, MS_GROWL, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_MARSUPIAL,
+        M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 5, CLR_BROWN),
+    MON("Tasmanian devil", S_ZOUTHERN,
+        LVL(9, 12, 8, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 3, 4), ATTK(AT_CLAW, AD_PHYS, 3, 4),
+          ATTK(AT_BITE, AD_PHYS, 3, 6), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(500, 250, MS_GROWL, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_MARSUPIAL,
+        M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 9, CLR_BLACK),
+    /* ...also eats organics (like gelatinous cube) */
+    /* Macropods (kangaroos)
+    */
+    MON("wallaby", S_ZOUTHERN,
+        LVL(5, 16, 7, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_KICK, AD_PHYS, 2, 4), ATTK(AT_BITE, AD_PHYS, 1, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(400, 150, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
+        0, M3_INFRAVISIBLE, 0, 0, 5, CLR_BROWN),
+    MON("wallaroo", S_ZOUTHERN,
+        LVL(6, 20, 8, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
+        A(ATTK(AT_KICK, AD_PHYS, 2, 6), ATTK(AT_BITE, AD_PHYS, 1, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(600, 300, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
+        0, M3_INFRAVISIBLE, 0, 0, 6, CLR_RED),
+    MON("kangaroo", S_ZOUTHERN,
+        LVL(10, 24, 6, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 2),
+        A(ATTK(AT_KICK, AD_PHYS, 2, 8), ATTK(AT_KICK, AD_PHYS, 2, 8),
+          ATTK(AT_BITE, AD_PHYS, 1, 6), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1000, 500, MS_SILENT, MZ_MEDIUM), 0, 0,
+        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
+        M2_NASTY, M3_INFRAVISIBLE, 0, 0, 9, CLR_GRAY),
     /*
      * Angels and other lawful minions
      */

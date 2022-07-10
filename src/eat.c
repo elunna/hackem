@@ -99,7 +99,9 @@ register struct obj *obj;
                           && !vegan(&mons[obj->corpsenm]))
                          || (obj->otyp == EGG));
 
-    if (u.umonnum == PM_GELATINOUS_CUBE && is_organic(obj)
+    /* KMH -- Taz likes organics, too! */
+    if ((u.umonnum == PM_GELATINOUS_CUBE ||
+			u.umonnum == PM_TASMANIAN_DEVIL) && is_organic(obj)
         /* [g.cubes can eat containers and retain all contents
             as engulfed items, but poly'd player can't do that] */
         && !Has_contents(obj))

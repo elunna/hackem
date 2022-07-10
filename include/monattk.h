@@ -94,7 +94,8 @@
 #define AD_CLRC 55  /* random clerical spell */
 #define AD_SPEL 56  /* random magic spell */
 #define AD_RBRE 57  /* random breath weapon */
-#define AD_SAMU 58  /* hits, may steal Amulet (Wizard) */
+#define AD_CALM	58	/* KMH -- calms its enemies (koala) */
+#define AD_SAMU 59  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

@@ -2278,6 +2278,13 @@ do_rust:
             morehungry(rn1(40, 40));
         /* plus the normal damage */
         break;
+    case AD_CALM:	/* KMH -- koala attack */
+		hitmsg(mtmp, mattk);
+		if (uncancelled)
+            /* --hackem: Pending implementation of techniques.
+			docalm(); */
+			You("calm down.");
+		break;
     case AD_SLIM:
         hitmsg(mtmp, mattk);
         if (!uncancelled)

@@ -2909,6 +2909,17 @@ do_rust:
             }
         }
         break;
+    case AD_CALM:	/* KMH -- koala attack */
+		/* Certain monsters aren't even made peaceful. */
+		if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
+				!(mdef->data->mflags3 & M3_COVETOUS) &&
+				!(mdef->data->geno & G_UNIQ)) {
+		    pline("You calm %s.", mon_nam(mdef));
+		    mdef->mpeaceful = 1;
+		    mdef->mtame = 0;
+		    tmp = 0;
+		}
+		break;
     default:
         tmp = 0;
         break;
