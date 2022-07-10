@@ -4639,7 +4639,7 @@ x	S_xan	(xan or other extraordinary insect)
 X	S_xorn	(xorn)
 Y	S_yeti	(apelike creature)
 Z	S_zombie	(zombie)
-z	S_zruty	(zruty)
+z	S_zouthern	(zouthern)
 \ 	S_pet_override	(any pet if ACCESSIBILITY=1 is set)
 \ 	S_hero_override	(hero if ACCESSIBILITY=1 is set)
 .\"TABLE_END  Do not delete this line.

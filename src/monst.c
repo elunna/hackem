@@ -2144,16 +2144,11 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS
             | M1_NOHEAD | M1_MINDLESS | M1_UNSOLID | M1_SEE_INVIS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 7, CLR_BLACK),
-    /*
-     * zruty
-     */
-    MON("zruty", S_ZRUTY, LVL(9, 12, 2, 30, 0), (G_GENO | 2),
-        A(ATTK(AT_BITE, AD_PHYS, 3, 6), ATTK(AT_CLAW, AD_PHYS, 3, 6),
-          ATTK(AT_CLAW, AD_CLOB, 3, 6), NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1800, 1000, MS_GROWL, MZ_HUGE), 0, 0,
-        M1_ANIMAL | M1_HUMANOID | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
-            | M2_NASTY,
-        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BROWN),
+/*
+* Zouthern animals
+* (the zruty has been moved to Yeti)
+*/
+    
     /*
      * Angels and other lawful minions
      */
@@ -3424,6 +3419,14 @@ struct permonst _mons2[] = {
         SIZ(1550, 750, MS_GROWL, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_HUMANOID | M1_SEE_INVIS | M1_OMNIVORE, M2_STRONG,
         M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 9, CLR_GRAY),
+    /* Moved from 'z' */
+    MON("zruty", S_YETI, LVL(9, 12, 2, 30, 0), (G_GENO | 2),
+        A(ATTK(AT_BITE, AD_PHYS, 3, 6), ATTK(AT_CLAW, AD_PHYS, 3, 6),
+          ATTK(AT_CLAW, AD_CLOB, 3, 6), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1800, 1000, MS_GROWL, MZ_HUGE), 0, 0,
+        M1_ANIMAL | M1_HUMANOID | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
+            | M2_NASTY,
+        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BROWN),
     MON("Abominable Snowman", S_YETI, LVL(25, 12, 0, 50, 0), (G_UNIQ | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 8, 4), ATTK(AT_WEAP, AD_PHYS, 6, 6),
           ATTK(AT_CLAW, AD_CLOB, 6, 6), NO_ATTK, NO_ATTK, NO_ATTK),

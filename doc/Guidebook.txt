@@ -5402,7 +5402,7 @@
           X  S_xorn                 (xorn)
           Y  S_yeti                 (apelike creature)
           Z  S_zombie               (zombie)
-          z  S_zruty                (zruty)
+          z  S_zouthern             (zouthern)
 
 
 

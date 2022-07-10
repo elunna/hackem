@@ -179,7 +179,7 @@
      || (ptr)->mlet == S_COCKATRICE || (ptr)->mlet == S_FELINE \
      || (ptr)->mlet == S_GREMLIN || (ptr)->mlet == S_IMP       \
      || (ptr)->mlet == S_MIMIC || (ptr)->mlet == S_SPIDER      \
-     || (ptr)->mlet == S_ZRUTY || (ptr)->mlet == S_BAT         \
+     || (ptr)->mlet == S_ZOUTHERN || (ptr)->mlet == S_BAT         \
      || (ptr)->mlet == S_DRAGON || (ptr)->mlet == S_JABBERWOCK \
      || (ptr)->mlet == S_RUSTMONST || (ptr)->mlet == S_TROLL   \
      || (ptr)->mlet == S_UMBER || (ptr)->mlet == S_YETI        \
