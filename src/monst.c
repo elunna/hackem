@@ -3711,6 +3711,26 @@ struct permonst _mons2[] = {
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_LORD
             | M2_MALE | M2_MAGIC | M2_SHAPESHIFTER,
         M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, MH_UNDEAD, 26, HI_ZAP),
+    MON("fire vampire", S_VAMPIRE, LVL(12, 24, 0, 50, -5), 
+        (G_GENO | G_NOCORPSE | 1),
+        A(ATTK(AT_CLAW, AD_FIRE, 2, 4), ATTK(AT_CLAW, AD_FIRE, 2, 4),
+        ATTK(AT_BITE, AD_DRLI, 2, 4), ATTK(AT_TUCH, AD_DREN, 2, 4),
+            ATTK(AT_MAGC, AD_FIRE, 2, 12), NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_SILENT, MZ_HUMAN), 
+        MR_SLEEP | MR_POISON | MR_COLD | MR_FIRE, 0,
+        M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_CARNIVORE,
+        M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER,
+        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 12, CLR_RED),
+    MON("star vampire", S_VAMPIRE,
+        LVL(18, 18, -5, 60, -5), (G_GENO | G_NOCORPSE | 1),
+        A(ATTK(AT_TENT, AD_PHYS, 2, 6), ATTK(AT_TENT, AD_DRLI, 2, 6),
+          ATTK(AT_TENT, AD_PHYS, 2, 6), ATTK(AT_TENT, AD_DRLI, 2, 6),
+          ATTK(AT_TENT, AD_PHYS, 2, 6), ATTK(AT_TENT, AD_DRLI, 2, 6)),
+        SIZ(WT_HUMAN, 400, MS_SILENT, MZ_LARGE), 
+        MR_SLEEP | MR_POISON | MR_COLD, 0,
+        M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_CARNIVORE,
+        M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER,
+        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 0, 18, CLR_WHITE),
     /* Kas, top lieutenant to Vecna */
     MON("Kas", S_VAMPIRE, LVL(26, 16, -5, 70, -10),
         (G_NOGEN | G_NOCORPSE | G_UNIQ),
@@ -3722,6 +3742,7 @@ struct permonst _mons2[] = {
             | M2_NASTY | M2_MALE | M2_PRINCE | M2_SHAPESHIFTER,
         M3_ACCURATE | M3_WAITFORU | M3_INFRAVISIBLE,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 30, CLR_BLACK),
+
     /* The DevTeam buffed Vlad quite a bit. No need to pull any settings over
      * from GruntHack. We do have an attack tweak here from SporkHack, plus
      * Vlad will wield and use Lifestealer.
