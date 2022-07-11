@@ -3480,6 +3480,15 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 20, MS_HUMANOID, MZ_HUMAN), MR_POISON, 0,
         M1_HUMANOID | M1_OMNIVORE | M1_POIS | M1_TPORT, M2_HOSTILE | M2_NASTY,
         M3_INFRAVISIBLE, 0, 0, 14, CLR_GREEN),
+    MON("Doctor Frankenstein", S_QUANTMECH,
+        LVL(20, 12, -10, 75, 0), (G_NOGEN | G_UNIQ),
+        A(ATTK(AT_WEAP, AD_PHYS, 4, 4), ATTK(AT_CLAW, AD_TLPT, 1, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 20, MS_HUMANOID, MZ_HUMAN), 
+        MR_POISON | MR_ELEC | MR_SLEEP, 0,
+        M1_HUMANOID | M1_OMNIVORE | M1_POIS | M1_TPORT, 
+        M2_HOSTILE | M2_NOPOLY | M2_MALE | M2_PNAME, 
+        M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 20, HI_LORD),
     /*
      * Rust monster or disenchanter
      */
