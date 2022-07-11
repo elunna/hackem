@@ -1303,7 +1303,8 @@ struct obj *body;
         for (when = 12L; when < 500L; when++)
             if (!rn2(3))
                 break;
-    } else if (mptr->mlet == S_TROLL && !body->norevive) {
+    } else if ((mptr->mlet == S_TROLL || (mptr) == &mons[PM_TROLL_MUMMY]) \
+            && !body->norevive) {
         for (age = 2; age <= TAINT_AGE; age++) {
             if (!rn2(TROLL_REVIVE_CHANCE)) { /* troll revives */
                 action = REVIVE_MON;

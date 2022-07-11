@@ -429,8 +429,12 @@
     ((ptr) == &mons[PM_IRON_GOLEM] || (ptr) == &mons[PM_IRON_PIERCER])
 
 /* return TRUE if the monster tends to revive */
-#define is_reviver(ptr) (is_rider(ptr) || (ptr)->mlet == S_TROLL \
-                         || is_zombie(ptr))
+#define is_reviver(ptr) (is_rider(ptr) || \
+                    (ptr)->mlet == S_TROLL || \
+                    (ptr) == &mons[PM_TROLL_MUMMY] || \
+                    is_zombie(ptr))
+                    
+                    
 /* monsters whose corpses and statues need special handling;
    note that high priests and the Wizard of Yendor are flagged
    as unique even though they really aren't; that's ok here */

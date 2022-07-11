@@ -3270,6 +3270,15 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_POIS,
         M2_HOSTILE | M2_STRONG, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 8, CLR_BLUE),
+    MON("troll mummy", S_MUMMY, LVL(9, 14, 3, 30, -8), 
+        (G_GENO | G_NOCORPSE | 1),
+        A(ATTK(AT_CLAW, AD_WTHR, 3, 4), ATTK(AT_CLAW, AD_PHYS, 3, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1500, 375, MS_SILENT, MZ_HUGE),
+        MR_COLD | MR_SLEEP | MR_POISON, 0,
+        M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID  | M1_REGEN | M1_POIS,
+        M2_HOSTILE | M2_STRONG | M2_STALK | M2_JEWELS,
+        M3_INFRAVISION, M4_VULNERABLE_FIRE, MH_TROLL | MH_UNDEAD, 9, CLR_BROWN),  
     MON("giant mummy", S_MUMMY, LVL(8, 14, 3, 30, -7),
         (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_WTHR, 3, 4), ATTK(AT_CLAW, AD_CLOB, 3, 4), NO_ATTK,
@@ -3278,6 +3287,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_POIS,
         M2_HOSTILE | M2_STRONG | M2_JEWELS,
         M3_INFRAVISION, M4_VULNERABLE_FIRE, MH_GIANT | MH_UNDEAD, 10, CLR_CYAN),
+    
     /*
      * Nagas
      */
