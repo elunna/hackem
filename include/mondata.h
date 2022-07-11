@@ -477,9 +477,11 @@
 #define likes_ice(ptr) \
     ((ptr) == &mons[PM_FROST_SALAMANDER])
 
-#define touch_petrifies(ptr) \
-    ((ptr) == &mons[PM_COCKATRICE] || (ptr) == &mons[PM_CHICKATRICE] \
-     || (ptr) == &mons[PM_BASILISK])
+#define touch_petrifies(ptr) ( \
+    (ptr) == &mons[PM_COCKATRICE] || \
+    (ptr) == &mons[PM_CHICKATRICE] || \
+    (ptr) == &mons[PM_BASILISK] || \
+    (ptr) == &mons[PM_ASPHYNX])
 
 #define is_mind_flayer(ptr) \
     ((ptr) == &mons[PM_MIND_FLAYER] || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
