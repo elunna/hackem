@@ -2916,6 +2916,9 @@ struct _create_particular_data *d;
 
     /* determine if a race was specified for the resulting mon
        TODO?: currently limited only to player-valid races. */
+
+    
+    #if 0  /* Quick fix for bugs generating giant shoggoth/giant scorpion. */
     for (i = 0; races[i].adj; i++) {
         adjlen = strlen(races[i].adj);
         if (!strncmpi(bufp, races[i].adj, adjlen)
@@ -2925,6 +2928,7 @@ struct _create_particular_data *d;
             break;
         }
     }
+    #endif
     /* decide whether a valid monster was chosen */
     if (wizard && (!strcmp(bufp, "*") || !strcmp(bufp, "random"))) {
         d->randmonst = TRUE;
