@@ -2805,6 +2805,12 @@ do_rust:
             paralyze_monst(mdef, rnd(10));
         }
         break;
+    case AD_TCKL:
+		if (!negated && mdef->mcanmove && !rn2(3) && tmp < mdef->mhp) {
+		    if (!Blind) You("mercilessly tickle %s!", mon_nam(mdef));
+		    paralyze_monst(mdef, rnd(10));
+		}
+		break;
     case AD_SLEE:
         if (!negated && !mdef->msleeping && sleep_monst(mdef, rnd(10), -1)) {
             if (!Blind)

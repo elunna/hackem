@@ -1756,6 +1756,24 @@ register struct attack *mattk;
             }
         }
         break;
+    case AD_TCKL:
+		hitmsg(mtmp, mattk);
+		if (uncancelled && multi >= 0 && !rn2(3)) {
+		    if (Free_action)
+			    You_feel("horrible tentacles probing your flesh!");
+		    else {
+			    if (Blind) 
+                    You("are mercilessly tickled!");
+			else 
+                You("are mercilessly tickled by %s!", mon_nam(mtmp));
+			// nomovemsg = 0;	/* default: "you can move again" */
+			nomovemsg = You_can_move_again;
+            nomul(-rnd(10));
+			exercise(A_DEX, FALSE);
+			exercise(A_CON, FALSE);
+		    }
+		}
+		break;
     case AD_DRLI:
         hitmsg(mtmp, mattk);
         if (uncancelled && !rn2(3) && !Drain_resistance) {

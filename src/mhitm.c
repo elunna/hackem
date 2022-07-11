@@ -1756,6 +1756,15 @@ post_stone:
             paralyze_monst(mdef, rnd(10));
         }
         break;
+    case AD_TCKL:
+		if(!cancelled && mdef->mcanmove) {
+		    if (vis) {
+			Strcpy(buf, Monnam(magr));
+			pline("%s mercilessly tickles %s.", buf, mon_nam(mdef));
+		    }
+            paralyze_monst(mdef, rnd(10));
+  		}
+		break;
     case AD_SLOW:
         if (!cancelled && mdef->mspeed != MSLOW) {
             unsigned int oldspeed = mdef->mspeed;
