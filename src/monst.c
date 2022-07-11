@@ -3551,7 +3551,7 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_CONCEAL | M1_NOLIMBS | M1_ANIMAL | M1_SLITHY | M1_POIS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, M3_ACCURATE, 0, 0, 10, CLR_BLUE),
-    
+  
     MON("king cobra", S_SNAKE, LVL(9, 15, 2, 0, 0), (G_NOHELL | G_GENO),
         A(ATTK(AT_BITE, AD_DRST, 3, 4), ATTK(AT_BITE, AD_DRST, 3, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -3608,6 +3608,16 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_REGEN | M1_CARNIVORE,
         M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_TROLL, 12, CLR_CYAN),
+    MON("two-headed troll", S_TROLL, LVL(10, 12, 8, 0, -3), 
+        (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 6), ATTK(AT_CLAW, AD_PHYS, 1, 6),
+          ATTK(AT_BITE, AD_PHYS, 1, 10), ATTK(AT_BITE, AD_PHYS, 1, 10),
+          NO_ATTK, NO_ATTK),
+        SIZ(1200, 300, MS_GRUNT, MZ_LARGE), 0, 0,
+        M1_HUMANOID | M1_REGEN | M1_CARNIVORE,
+        M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT, 
+        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
+        0, MH_TROLL, 10, CLR_GREEN),
     MON("water troll", S_TROLL, LVL(11, 14, 4, 40, -3), (G_NOGEN | G_GENO),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 8), ATTK(AT_CLAW, AD_PHYS, 2, 8),
           ATTK(AT_BITE, AD_PHYS, 2, 6), NO_ATTK, NO_ATTK, NO_ATTK),
@@ -3622,6 +3632,15 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_REGEN | M1_CARNIVORE,
         M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_TROLL, 16, HI_LORD),
+    MON("black troll", S_TROLL, LVL(17, 12, -4, 0, -7), 
+        (G_HELL | G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 3, 6), ATTK(AT_CLAW, AD_PHYS, 3, 8),
+          ATTK(AT_BITE, AD_PHYS, 3, 6), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1500, 400, MS_GRUNT, MZ_LARGE), 0, 0,
+        M1_HUMANOID | M1_REGEN | M1_CARNIVORE,
+        M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
+        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
+        0, MH_TROLL, 17, CLR_BLACK),
     /*
      * Umber hulk
      */
