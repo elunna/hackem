@@ -3650,6 +3650,15 @@ struct permonst _mons2[] = {
           NO_ATTK),
         SIZ(1200, 500, MS_SILENT, MZ_LARGE), 0, 0, M1_TUNNEL | M1_CARNIVORE,
         M2_STRONG, M3_INFRAVISIBLE, 0, 0, 12, CLR_BROWN),
+    MON("water hulk", S_UMBER, LVL(11, 6, 2, 25, 0), 
+        (G_HELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 3, 4), ATTK(AT_CLAW, AD_PHYS, 3, 4),
+          ATTK(AT_BITE, AD_PHYS, 2, 5), ATTK(AT_GAZE, AD_CONF, 0, 0),
+          NO_ATTK, NO_ATTK),
+        SIZ(1200, 500, MS_SILENT, MZ_LARGE), 0, 0,
+        M1_SWIM | M1_TUNNEL | M1_CARNIVORE, 
+        M2_STRONG, M3_INFRAVISIBLE, 0, 0, 11, CLR_GREEN),
+
     /*
      * From SporkHack/UnNetHack
      * Placeholder for the random creature...
