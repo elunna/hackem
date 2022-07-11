@@ -1777,6 +1777,11 @@ register struct attack *mattk;
     case AD_DRLI:
         hitmsg(mtmp, mattk);
         if (uncancelled && !rn2(3) && !Drain_resistance) {
+            /* Shadow ogre has a life-drain touch attack */
+            if (mtmp->data == &mons[PM_SHADOW_OGRE]) {
+                Your("life-force is dwindling!");
+            }
+
             losexp("life drainage");
         }
         break;
