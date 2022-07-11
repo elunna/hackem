@@ -4117,8 +4117,18 @@ struct permonst _mons2[] = {
         SIZ(2800, 0, MS_SILENT, MZ_HUGE),
         MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON, 0,
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_THICK_HIDE,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_COLLECT, 0,
-        M4_VULNERABLE_FIRE, 0, 25, CLR_BRIGHT_CYAN),
+        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_COLLECT, 
+        0, M4_VULNERABLE_FIRE, 0, 25, CLR_BRIGHT_CYAN),
+    MON("Frankenstein's Monster", S_GOLEM,
+        LVL(20, 8, -5, 50, 0), (G_NOGEN | G_UNIQ),
+        A(ATTK(AT_CLAW, AD_PHYS, 3, 8), ATTK(AT_CLAW, AD_PHYS, 3, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1400, 600, MS_SILENT, MZ_LARGE),
+        MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON,
+        MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON,
+        M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
+        M2_HOSTILE | M2_STRONG | M2_NOPOLY | M2_MALE | M2_PNAME, 
+        0, 0, MH_UNDEAD, 20, HI_LORD),
     /*
      * humans, including elves and were-critters
      */
