@@ -2861,6 +2861,22 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 5, CLR_MAGENTA),
+    /* Currently only the passive poison attacks procs */
+    MON("disgusting mold", S_FUNGUS, LVL(5, 0, 7, 0, 0), (G_HELL | G_GENO | 1),
+        A(ATTK(AT_NONE, AD_DRST, 1, 8), ATTK(AT_NONE, AD_ACID, 2, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(100, 100, MS_SILENT, MZ_SMALL), MR_POISON, MR_POISON,
+        M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD 
+            | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
+        M2_HOSTILE | M2_NEUTER, 0, 0, 0, 5, CLR_CYAN),
+    /* Currently only the passive poison attacks procs */
+    MON("black mold", S_FUNGUS, LVL(6, 0, 7, 0, 0), (G_HELL | G_GENO | 1),
+        A(ATTK(AT_NONE, AD_DRST, 0, 4), ATTK(AT_NONE, AD_ACID, 1, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(100, 100, MS_SILENT, MZ_SMALL), MR_POISON, MR_POISON,
+        M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
+            | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
+        M2_HOSTILE | M2_NEUTER, 0, 0, 0, 6, CLR_BLACK),
     /* From SporkHack.
      */
     MON("gray fungus", S_FUNGUS, LVL(3, 0, 7, 0, 0), (G_GENO | 2),

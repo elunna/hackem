@@ -4178,7 +4178,21 @@ boolean wep_was_destroyed;
 	case AD_DISE: /* specifically gray fungus */
             diseasemu(ptr);
             break;
-        case AD_DRST: /* specifically green dragons */
+        case AD_DRST:
+             /* specifically molds */
+            if ((ptr == &mons[PM_DISGUSTING_MOLD])
+                || (ptr == &mons[PM_BLACK_MOLD])) {
+
+                if (!Strangled && !Breathless) {
+                    pline("You inhale a cloud of spores!");
+                    poisoned("spores", A_STR, "spore cloud", 30, FALSE);
+                    break;
+                } else {
+                    pline("A cloud of spores surrounds you!");
+                    break;
+                }
+            }
+             /* specifically green dragons */
             if (how_resistant(POISON_RES) == 100) {
                 You("are immune to %s poisonous hide.", s_suffix(mon_nam(mon)));
                 monstseesu(M_SEEN_POISON);
