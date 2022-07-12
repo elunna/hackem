@@ -5034,6 +5034,12 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_SLITHY | M1_NOLIMBS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_THICK_HIDE | M1_NOTAKE,
         M2_HOSTILE, 0, M4_VULNERABLE_ELEC, 0, 9, CLR_GRAY),
+    MON("giant crab", S_EEL, LVL(7, 12, 0, 0, 0), (G_GENO | G_NOGEN),
+        A(ATTK(AT_CLAW, AD_PHYS, 3, 6), ATTK(AT_CLAW, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(500, 350, MS_SILENT, MZ_HUGE), 0, 0, 
+        M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_OVIPAROUS,
+        M2_HOSTILE, 0, M4_VULNERABLE_ELEC, 0, 7, CLR_GREEN),
     MON("giant eel", S_EEL, LVL(5, 9, -1, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 3, 6), ATTK(AT_TUCH, AD_WRAP, 0, 0), NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
