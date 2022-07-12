@@ -58,7 +58,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## Goal 1: Porting Slash'EM
 
 ### Slash'EM monsters:
-
 - [x] giant tick (AT_MULTIPLY)
 - [x] giant flea (AT_MULTIPLY)
 	- [ ] add message for tick/flea multiplication?
