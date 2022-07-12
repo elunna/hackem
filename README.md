@@ -48,7 +48,7 @@ For Linux (TL;DR version):
 - Navigate back to the root HackEM folder, and `make all && make install`
 - Execute the `HackEM` binary
 - In the home directory of the account used to install HackEM, create your
-  rc config file - `touch .HackEMrc` and then edit as necessary
+  rc config file - `touch .hackemrc` and then edit as necessary
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -57,7 +57,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Goal 1: Porting Slash'EM
 
-Slashem monsters:
+### Slashem monsters:
+
 	- [X] giant tick (AT_MULTIPLY)
 	- [X] giant flea (AT_MULTIPLY)
 		- [ ] add message for tick/flea multiplication?
