@@ -59,311 +59,311 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ### Slashem monsters:
 
-	- [X] giant tick (AT_MULTIPLY)
-	- [X] giant flea (AT_MULTIPLY)
-		- [ ] add message for tick/flea multiplication?
-		- [ ] Allow ticks and fleas to appear in main dungeon? 
-			(They currently only appear in the lawful quest or Gehennom.
-	- [X] snow ant
-	- [X] giant louse
-	- [X] tsetse fly
-	- [X] migo drone (M3_TRAITOR)
-	- [X] yellow jacket
-	- [X] black wasp
-	- [X] migo warrior
-	- [X] giant wasp
-	- [X] spitting beetle
-	- [X] migo queen
-	- [X] assassin bug (M3_TRAITOR)
-	- [X] killer beetle
-	- [X] jiggling blob
-	- [X] lava blob
-	- [X] static blob
-	- [X] burbling blob
-	- [X] chicken
-	- [X] cockatoo
-	- [X] parrot
-	- [X] pit bull
-	- [X] dingo puppy
-	- [X] large dingo
-	- [X] death dog
-	- [X] rabid wolf
-	- [X] wolverine
-	- [X] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
-	- [X] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
-		[ ] Make mist wolves leave trail of mist?
-	- [X] glowing eye
-	- [X] bloodshot eye
-	- [X] blinking eye
-	- [X] werepanther (animal) 	5
-	- [X] weretiger 	(animal) 	7
-	- [X] werespider 	(animal) 	11
-	- [X] weresnake 	(animal) 	9
-	- [X] werepanther (human) 	5
-	- [X] werespider 	(human) 	7
-		[ ] Werespiders should summon more spider types:
-			giant spiders, jumping spiders, recluse and cave spiders.
-	- [X] weretiger 	(human) 	9
-	- [X] weresnake 	(human) 	9
-	- [X] kamadan
-	- [X] displacer beast (already present in evil)
-	- [X] caterwaul
-	- [X] sabre-toothed cat
-		(Evil has a sabre-toothed tiger)
-		[ ] Set up the sabre-tooth cat to grow up into the tiger?
-		[ ] Make sabre-tooth cat a little weaker, or tiger stronger.
+- [x] giant tick (AT_MULTIPLY)
+- [x] giant flea (AT_MULTIPLY)
+	- [ ] add message for tick/flea multiplication?
+	- [ ] Allow ticks and fleas to appear in main dungeon? 
+	  (They currently only appear in the lawful quest or Gehennom.
+- [x] snow ant
+- [x] giant louse
+- [x] tsetse fly
+- [x] migo drone (M3_TRAITOR)
+- [x] yellow jacket
+- [x] black wasp
+- [x] migo warrior
+- [x] giant wasp
+- [x] spitting beetle
+- [x] migo queen
+- [x] assassin bug (M3_TRAITOR)
+- [x] killer beetle
+- [x] jiggling blob
+- [x] lava blob
+- [x] static blob
+- [x] burbling blob
+- [x] chicken
+- [x] cockatoo
+- [x] parrot
+- [x] pit bull
+- [x] dingo puppy
+- [x] large dingo
+- [x] death dog
+- [x] rabid wolf
+- [x] wolverine
+- [x] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
+- [x] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
+	[ ] Make mist wolves leave trail of mist?
+- [x] glowing eye
+- [x] bloodshot eye
+- [x] blinking eye
+- [x] werepanther (animal) 	5
+- [x] weretiger 	(animal) 	7
+- [x] werespider 	(animal) 	11
+- [x] weresnake 	(animal) 	9
+- [x] werepanther (human) 	5
+- [x] werespider 	(human) 	7
+	[ ] Werespiders should summon more spider types:
+		giant spiders, jumping spiders, recluse and cave spiders.
+- [x] weretiger 	(human) 	9
+- [x] weresnake 	(human) 	9
+- [x] kamadan
+- [x] displacer beast (already present in evil)
+- [x] caterwaul
+- [x] sabre-toothed cat
+	(Evil has a sabre-toothed tiger)
+	[ ] Set up the sabre-tooth cat to grow up into the tiger?
+	[ ] Make sabre-tooth cat a little weaker, or tiger stronger.
 
-	- [X] hellcat
-	- [X] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
-		[ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
-		
-	- [ ] galltrit (deferred)
-	- [ ] jermlaine (deferred)
+- [x] hellcat
+- [x] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
+	[ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 	
-	- [X] dwarf thief
-		[ ] Check town/minetown for dwarf thief/gnome thief placement
-	- [X] duergar (removed MR_HITASONE)
-	- [X] deep one (growup done)
-	- [X] deeper one (growup done)
-	- [X] deepest one
-	- [X] dretch
-	- [X] rutterkin
-	- [X] nupperibo
-		[ ] Make blood imps, nupperibos drain levels as well?
-	- [X] blood imp
-		[ ] Blood imps should probably have a vampiric attack.
-	- [X] clear jelly
-		[ ] clear jelly has touch acid attack, but not passive
-		[ ] add passive acid as well?
-	- [X] yellow jelly
-		[ ] yellow jelly has passive stun, but not active 
-		[ ] add passive acid as well?
-	- [X] orange jelly (Implemented passive sleep attacks)
-		[ ] orange jelly has passive sleep, but not active attack
-		[ ] add passive acid as well?
-	- [X] rancid jelly
-		[ ] rancid jelly should leave a trail of acid slime?
-		[ ] eat organics?
-		
-		[ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
-		
-	- [X] swamp kobold
-	- [X] rock kobold
-	- [X] kobold warrior
-	- [X] Kroo the Kobold King
-		[ ] Kobolds use the orc sounds, maybe they should have their own sounds?
-		[ ] Add traitor property to all kobolds
-		
-	- [X] leprechaun wizard (Removed MR_HITASONE)
-	- [X] pixie (removed MR_HITASONE)
-	- [X] brownie (removed MR_HITASONE)
-	- [X] quickling (removed MR_HITASONE)
-	- [e] Aphrodite - Already in evil, higher  level
-	- [X] war orc
-	- [X] great orc
-	- [X] Grund the Orc King
-	- [X] snow orc
-	- [X] demon orc
-	- [X] lamb (Note: grows up)
-	- [X] sheep (MS_SHEEP)
-	- [X] goat
-	- [X] cow (MS_COW)
-	- [X] bull
-	- [X] giant badger (changed to rodent class to match honey badger)
-		[ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
-		[ ] Badgers ccan usually swim; they release a stink. 
-		These animals are usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. The body size range may vary from smallest circumboreal weasel that weight about 35 to 250 g, to largest wolverines and the sea otters weighing 32 to 45 kg.
-		[ ] Most badgers are solitary, nocturnal animals. (they spawn in very small groups, they like the dark)
-		[ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
-		
-	- [X] scramper
-	- [X] squealer
-	- [X] mangler
-	- [X] Jumbo the Elephant
-	- [X] juggernaut
-	- [X] catoblepas (Removed MR_HITASTWO)
-		[ ] catoblepas: The gaze attack doesn't seem to give a message when you die.
-			The reason for death is "gaze of death"
-		
-	- [X] rabbit
-	- [X] black rat
-	- [X] rabid rabbit
-	- [X] pack rat
-	- [X] hellrat
-	- [X] Rat King
-	- [X] recluse spider (webmaker)
-	- [X] barking spider (webmaker)
-	- [X] carrion crawler
-	- [X] nickelpede
-		[ ] Make centipede grow into nickelpede
-		[ ] Make nickelpede grow into giant centipede
-	- [X] giant scorpion
-	- [X] phase spider (webmaker)
-		[ ] make more powerful and skittish? Make them have phasing?
-	- [X] Girtab
-	- [X] Shelob
+- [ ] galltrit (deferred)
+- [ ] jermlaine (deferred)
 
-	[ ] Pegasus (evil already has pegasi)
+- [x] dwarf thief
+	[ ] Check town/minetown for dwarf thief/gnome thief placement
+- [x] duergar (removed MR_HITASONE)
+- [x] deep one (growup done)
+- [x] deeper one (growup done)
+- [x] deepest one
+- [x] dretch
+- [x] rutterkin
+- [x] nupperibo
+	[ ] Make blood imps, nupperibos drain levels as well?
+- [x] blood imp
+	[ ] Blood imps should probably have a vampiric attack.
+- [x] clear jelly
+	[ ] clear jelly has touch acid attack, but not passive
+	[ ] add passive acid as well?
+- [x] yellow jelly
+	[ ] yellow jelly has passive stun, but not active 
+	[ ] add passive acid as well?
+- [x] orange jelly (Implemented passive sleep attacks)
+	[ ] orange jelly has passive sleep, but not active attack
+	[ ] add passive acid as well?
+- [x] rancid jelly
+	[ ] rancid jelly should leave a trail of acid slime?
+	[ ] eat organics?
 	
-	- [X] larva (Note: grows up)
-	- [X] maggot (Note: grows up)
-	- [X] dung worm
-		[ ] Dung worms should be poisonous?
-		[ ] Eating dung worms should cause illness?
+	[ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 	
-	- [X] acid worm
-	- [X] bloodworm
-		[ ] allow "blood worm", "blood-worm" as spelling
-	- [X] tunnel worm
-	- [X] rot worm
-	- [X] spark bug (Removed MR_HITASONE)
-	- [X] arc bug (Removed MR_HITASONE)
-	- [X] lightning bug (Removed MR_HITASONE)
-	- [X] echidna
-	- [X] platypus
-	- [X] koala
-	- [X] wombat
-	- [X] Tasmanian devil
-	- [X] wallaby
-	- [X] wallaroo
-	- [X] kangaroo
-	- [X] movanic deva (Removed MR_PLUSONE)
-	- [X] monadic deva (Removed MR_PLUSONE)
-	- [X] astral deva (Removed MR_PLUSONE)
-	- [X] Planetar (Removed MR_PLUSFOUR)
-	- [X] Solar (Removed MR_PLUSFOUR)
-	- [X] rhumbat
-	- [X] athol
-	- [X] hellbat
-		[ ] Hellbat "pecks". Should be bite.
-	- [X] mongbat
-	- [X] mobat
-	- [X] harpy
-	- [X] byakhee
-	- [X] nightgaunt
-	- [ ] baby shimmering dragon (already in EvilHack)
-	- [ ] shimmering dragon 	 (already in EvilHack)
+- [x] swamp kobold
+- [x] rock kobold
+- [x] kobold warrior
+- [x] Kroo the Kobold King
+	[ ] Kobolds use the orc sounds, maybe they should have their own sounds?
+	[ ] Add traitor property to all kobolds
 	
-		-- adding dragon is tricky, need to maintain some orders
-	- [ ] baby deep dragon
-	- [ ] deep dragon
+- [x] leprechaun wizard (Removed MR_HITASONE)
+- [x] pixie (removed MR_HITASONE)
+- [x] brownie (removed MR_HITASONE)
+- [x] quickling (removed MR_HITASONE)
+- [e] Aphrodite - Already in evil, higher  level
+- [x] war orc
+- [x] great orc
+- [x] Grund the Orc King
+- [x] snow orc
+- [x] demon orc
+- [x] lamb (Note: grows up)
+- [x] sheep (MS_SHEEP)
+- [x] goat
+- [x] cow (MS_COW)
+- [x] bull
+- [x] giant badger (changed to rodent class to match honey badger)
+	[ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
+	[ ] Badgers ccan usually swim; they release a stink. 
+	These animals are usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. The body size range may vary from smallest circumboreal weasel that weight about 35 to 250 g, to largest wolverines and the sea otters weighing 32 to 45 kg.
+	[ ] Most badgers are solitary, nocturnal animals. (they spawn in very small groups, they like the dark)
+	[ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 	
-	- [X] wyvern (Removed MR_HITASTWO)
-	- [X] hydra  (Removed MR_HITASTWO)
-	- [X] disgusting mold
-	- [X] black mold
-	- [X] gnome thief
-	- [X] deep gnome (Removed MR_HITASONE)
-	- [X] gnome warrior (Removed MR_HITASONE)
-	- [X] Ruggo the Gnome King (Removed MR_HITASONE)
+- [x] scramper
+- [x] squealer
+- [x] mangler
+- [x] Jumbo the Elephant
+- [x] juggernaut
+- [x] catoblepas (Removed MR_HITASTWO)
+	[ ] catoblepas: The gaze attack doesn't seem to give a message when you die.
+		The reason for death is "gaze of death"
+	
+- [x] rabbit
+- [x] black rat
+- [x] rabid rabbit
+- [x] pack rat
+- [x] hellrat
+- [x] Rat King
+- [x] recluse spider (webmaker)
+- [x] barking spider (webmaker)
+- [x] carrion crawler
+- [x] nickelpede
+	[ ] Make centipede grow into nickelpede
+	[ ] Make nickelpede grow into giant centipede
+- [x] giant scorpion
+- [x] phase spider (webmaker)
+	[ ] make more powerful and skittish? Make them have phasing?
+- [x] Girtab
+- [x] Shelob
 
-	[e] gnoll (evil has?) (Note: grows up)
-		Evil also has gnoll cleric and gnoll hunter
-	gnoll warrior (Note: grows up)
-	gnoll chieftain
-	gnoll shaman
+[ ] Pegasus (evil already has pegasi)
+
+- [x] larva (Note: grows up)
+- [x] maggot (Note: grows up)
+- [x] dung worm
+	[ ] Dung worms should be poisonous?
+	[ ] Eating dung worms should cause illness?
+
+- [x] acid worm
+- [x] bloodworm
+	[ ] allow "blood worm", "blood-worm" as spelling
+- [x] tunnel worm
+- [x] rot worm
+- [x] spark bug (Removed MR_HITASONE)
+- [x] arc bug (Removed MR_HITASONE)
+- [x] lightning bug (Removed MR_HITASONE)
+- [x] echidna
+- [x] platypus
+- [x] koala
+- [x] wombat
+- [x] Tasmanian devil
+- [x] wallaby
+- [x] wallaroo
+- [x] kangaroo
+- [x] movanic deva (Removed MR_PLUSONE)
+- [x] monadic deva (Removed MR_PLUSONE)
+- [x] astral deva (Removed MR_PLUSONE)
+- [x] Planetar (Removed MR_PLUSFOUR)
+- [x] Solar (Removed MR_PLUSFOUR)
+- [x] rhumbat
+- [x] athol
+- [x] hellbat
+	[ ] Hellbat "pecks". Should be bite.
+- [x] mongbat
+- [x] mobat
+- [x] harpy
+- [x] byakhee
+- [x] nightgaunt
+- [ ] baby shimmering dragon (already in EvilHack)
+- [ ] shimmering dragon 	 (already in EvilHack)
+
+	-- adding dragon is tricky, need to maintain some orders
+- [ ] baby deep dragon
+- [ ] deep dragon
+
+- [x] wyvern (Removed MR_HITASTWO)
+- [x] hydra  (Removed MR_HITASTWO)
+- [x] disgusting mold
+- [x] black mold
+- [x] gnome thief
+- [x] deep gnome (Removed MR_HITASONE)
+- [x] gnome warrior (Removed MR_HITASONE)
+- [x] Ruggo the Gnome King (Removed MR_HITASONE)
+
+[e] gnoll (evil has?) (Note: grows up)
+	Evil also has gnoll cleric and gnoll hunter
+gnoll warrior (Note: grows up)
+gnoll chieftain
+gnoll shaman
+
+- [x] The Largest Giant (Removed MR_HITASTHREE)
+- [x] Father Dagon (deferred)
+- [x] Mother Hydra (deferred)
+- [e] vorpal jabberwock (already has the beheading attack!)
+- [x] troll mummy (Added regen and stalk, revival works fine.)
+- [x] ogre mage
+- [x] shadow ogre (Removed MR_PLUSONE)
+	[ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
+- [x] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
+	[ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
+- [x] shoggoth (Note: grows up)
+	[ ] Remove all but one corrosion attack.
+- [x] giant shoggoth
+	[ ] Remove all but one corrosion attack.
+[e] genetic engineer
+- [x] Doctor Frankenstein
+- [x] king cobra
+- [x] asphynx
+- [x] two-headed troll (Removed MR_HITASTWO)
+- [x] black troll (Removed MR_HITASTHREE)
+- [x] water hulk (Removed MR_HITASONE)
+	[ ] Add vulnerability to shock (similar to other water-critters)
 	
-	- [X] The Largest Giant (Removed MR_HITASTHREE)
-	- [X] Father Dagon (deferred)
-	- [X] Mother Hydra (deferred)
-	- [e] vorpal jabberwock (already has the beheading attack!)
-	- [X] troll mummy (Added regen and stalk, revival works fine.)
-	- [X] ogre mage
-	- [X] shadow ogre (Removed MR_PLUSONE)
-		[ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
-	- [X] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
-		[ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
-	- [X] shoggoth (Note: grows up)
-		[ ] Remove all but one corrosion attack.
-	- [X] giant shoggoth
-		[ ] Remove all but one corrosion attack.
-	[e] genetic engineer
-	- [X] Doctor Frankenstein
-	- [X] king cobra
-	- [X] asphynx
-	- [X] two-headed troll (Removed MR_HITASTWO)
-	- [X] black troll (Removed MR_HITASTHREE)
-	- [X] water hulk (Removed MR_HITASONE)
-		[ ] Add vulnerability to shock (similar to other water-critters)
-		
-	- [X] fire vampire
-	- [X] star vampire
-	[e] vampire mage
-	- [X] wight
-		[ ] Why do we have wights?  Should they not be more powerful than barrow wights?
-	[e] zruty
-	- [X] ghoul mage
-	- [X] ghast
-	- [X] ghoul queen
-	- [X] gug
-	- [X] wax golem
-	- [X] plastic golem
-	- [X] Frankenstein's Monster
-	- [X] ruby golem
-	- [X] diamond golem
-	- [X] sapphire golem
-	- [X] steel golem (Added M4_VULNERABLE_ACID)
-	- [X] crystal golem
-	- [X] gibberling
-	- [X] grimlock
-	- [X] drow (Added infravisible)
-	- [X] mugger
-	
-	- [X] gypsy (Added M3_INFRAVISIBLE)
-		[ ] Implement gypsy_chat
-	
-	- [X] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
-	- [X] shadow (Added M3_INFRAVISION)
-	- [X] spined devil (Removed MR_PLUSONE)
-	- [X] bearded devil (Removed MR_PLUSONE | MR_HITASTWO)
-	- [X] bar-lgura (Removed MR_PLUSONE | MR_HITASTWO)
-	- [X] chasme (Removed MR_PLUSONE | MR_HITASTWO)
-	- [X] babau (MR_PLUSONE | MR_HITASTWO)
-	- [X] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
-	
-	- [ ] Cthulhu (deferred)
-	
-	- [X] giant crab
-	- [X] gila monster
-	- [X] rhaumbusun
-	[e] basilisk
-	- [X] komodo dragon
-		[ ] Should komodo dragon/gila monster be vulnerable to cold?
-	- [X] bad egg
-	- [X] killer tripe ration
-	- [X] killer food ration
-	- [X] pile of killer coins (Note: grows up)
-		[ ] Make evil food vulnerable to fire - "cooking"!
-	- [X] large pile of killer coins (Note: grows up)
-	- [X] huge pile of killer coins
-	
-	Nightmare (evil has nightmares)
-	Beholder (evil has beholders)
-	Vecna
-	
-	- [X] flame mage
-	- [X] ice mage
-	- [X] necromancer
-	- [X] undead slayer
-	- [X] yeoman
-	
-	- [X] High Flame Mage (Removed MR_HITASFOUR)
-	- [X] High Ice Mage (Removed MR_HITASFOUR)
-	- [X] Dark Lord (Reoved MR_HITASFOUR)
-	- [X] Van Helsing (Removed MR_HITASFOUR)
-	- [X] Chief Yeoman Warder
-	
-	- [ ] Water Mage
-	- [ ] Earth Mage
-	- [ ] Maugneshaagar
-	- [ ] Count Dracula
-	- [ ] Colonel Blood
-	
-	- [ ] igniter
-	- [ ] froster
-	- [ ] embalmer
-	- [ ] exterminator
-	- [ ] Yeoman Warder
+- [x] fire vampire
+- [x] star vampire
+[e] vampire mage
+- [x] wight
+	[ ] Why do we have wights?  Should they not be more powerful than barrow wights?
+[e] zruty
+- [x] ghoul mage
+- [x] ghast
+- [x] ghoul queen
+- [x] gug
+- [x] wax golem
+- [x] plastic golem
+- [x] Frankenstein's Monster
+- [x] ruby golem
+- [x] diamond golem
+- [x] sapphire golem
+- [x] steel golem (Added M4_VULNERABLE_ACID)
+- [x] crystal golem
+- [x] gibberling
+- [x] grimlock
+- [x] drow (Added infravisible)
+- [x] mugger
+
+- [x] gypsy (Added M3_INFRAVISIBLE)
+	[ ] Implement gypsy_chat
+
+- [x] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
+- [x] shadow (Added M3_INFRAVISION)
+- [x] spined devil (Removed MR_PLUSONE)
+- [x] bearded devil (Removed MR_PLUSONE | MR_HITASTWO)
+- [x] bar-lgura (Removed MR_PLUSONE | MR_HITASTWO)
+- [x] chasme (Removed MR_PLUSONE | MR_HITASTWO)
+- [x] babau (MR_PLUSONE | MR_HITASTWO)
+- [x] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
+
+- [ ] Cthulhu (deferred)
+
+- [x] giant crab
+- [x] gila monster
+- [x] rhaumbusun
+[e] basilisk
+- [x] komodo dragon
+	[ ] Should komodo dragon/gila monster be vulnerable to cold?
+- [x] bad egg
+- [x] killer tripe ration
+- [x] killer food ration
+- [x] pile of killer coins (Note: grows up)
+	[ ] Make evil food vulnerable to fire - "cooking"!
+- [x] large pile of killer coins (Note: grows up)
+- [x] huge pile of killer coins
+
+Nightmare (evil has nightmares)
+Beholder (evil has beholders)
+Vecna
+
+- [x] flame mage
+- [x] ice mage
+- [x] necromancer
+- [x] undead slayer
+- [x] yeoman
+
+- [x] High Flame Mage (Removed MR_HITASFOUR)
+- [x] High Ice Mage (Removed MR_HITASFOUR)
+- [x] Dark Lord (Reoved MR_HITASFOUR)
+- [x] Van Helsing (Removed MR_HITASFOUR)
+- [x] Chief Yeoman Warder
+
+- [ ] Water Mage
+- [ ] Earth Mage
+- [ ] Maugneshaagar
+- [ ] Count Dracula
+- [ ] Colonel Blood
+
+- [ ] igniter
+- [ ] froster
+- [ ] embalmer
+- [ ] exterminator
+- [ ] Yeoman Warder
 	
 	
 Quality control on monsters:
