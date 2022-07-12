@@ -5652,6 +5652,15 @@ struct permonst _mons2[] = {
             | M2_NASTY | M2_FEMALE | M2_COLLECT | M2_MAGIC,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0,
         MH_HUMAN, 25, HI_LORD),
+    MON("Water Mage", S_HUMAN, LVL(25, 10, -10, 10, 20), (G_NOGEN | G_UNIQ),
+        A(ATTK(AT_MAGC, AD_SPEL, 0, 0), ATTK(AT_MAGC, AD_SPEL, 0, 0),
+          ATTK(AT_WEAP, AD_PHYS, 1, 6), ATTK(AT_CLAW, AD_SAMU, 1, 4),
+          NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), MR_POISON, MR_POISON, 
+        M1_HUMANOID | M1_OMNIVORE,
+        M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE | M2_NASTY |
+        M2_COLLECT | M2_MAGIC, 
+        M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 25, HI_LORD),
     MON("Cyclops", S_GIANT, LVL(18, 12, 0, 0, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 8), ATTK(AT_CLAW, AD_SAMU, 2, 6),
           ATTK(AT_WEAP, AD_CLOB, 4, 8), NO_ATTK, NO_ATTK, NO_ATTK),
@@ -5661,6 +5670,15 @@ struct permonst _mons2[] = {
             | M2_HOSTILE | M2_NASTY | M2_MALE | M2_JEWELS | M2_COLLECT,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISION | M3_INFRAVISIBLE, 0,
         MH_GIANT, 23, CLR_GRAY),
+    MON("Earth Mage", S_HUMAN, LVL(25, 10, -10, 10, 20), (G_NOGEN | G_UNIQ),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), ATTK(AT_MAGC, AD_SPEL, 0, 0),
+          ATTK(AT_MAGC, AD_SPEL, 0, 0), ATTK(AT_CLAW, AD_SAMU, 1, 4),
+          NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), MR_POISON, MR_POISON, 
+        M1_HUMANOID | M1_OMNIVORE,
+        M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE 
+            | M2_NASTY | M2_COLLECT | M2_MAGIC, 
+        M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 25, HI_LORD),
     /* Has emin, so always appears as the "Paladin of [deity]". */
     MON("Paladin", S_HUMAN, LVL(24, 12, 0, 50, 20),
         (G_NOGEN | G_UNIQ | G_NOCORPSE),
@@ -5692,6 +5710,15 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_MALE | M2_PNAME | M2_HOSTILE | M2_STRONG
             | M2_NASTY | M2_STALK | M2_COLLECT | M2_MAGIC,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 31, HI_LORD),
+    MON("Maugneshaagar", S_DEMON, LVL(16, 10, -10, 85, -20), (G_NOGEN | G_UNIQ | G_NOCORPSE),
+        A(ATTK(AT_WEAP, AD_PHYS, 8, 4), ATTK(AT_WEAP, AD_PHYS, 4, 6),
+          ATTK(AT_MAGC, AD_SPEL, 0, 0), ATTK(AT_CLAW, AD_SAMU, 2, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_LARGE), MR_FIRE | MR_POISON, 0, 
+        M1_FLY | M1_SEE_INVIS | M1_POIS, 
+        M2_NOPOLY | M2_PNAME | M2_HOSTILE | M2_STRONG | M2_STALK | M2_NASTY | M2_COLLECT, 
+        M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISION | M3_INFRAVISIBLE, 
+        0, MH_DEMON, 16, CLR_BLACK),
     MON("Nalzok", S_DEMON, LVL(16, 12, -2, 85, -127),
         (G_NOGEN | G_UNIQ | G_NOCORPSE),
         A(ATTK(AT_WEAP, AD_PHYS, 8, 4), ATTK(AT_WEAP, AD_PHYS, 4, 6),
@@ -5736,6 +5763,15 @@ struct permonst _mons2[] = {
     /*
      * Note: the Master of Thieves was defined above.
      */
+    MON("Count Dracula", S_VAMPIRE, LVL(25, 18, -8, 80, -10), (G_NOGEN | G_NOCORPSE | G_UNIQ),
+        A(ATTK(AT_WEAP, AD_PHYS, 2, 6), ATTK(AT_WEAP, AD_PHYS, 2, 6),
+          ATTK(AT_BITE, AD_DRLI, 2, 6), NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), MR_SLEEP | MR_POISON, 0,
+        M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
+        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME |
+          M2_STRONG | M2_NASTY | M2_PRINCE | M2_MALE,
+        M3_WAITFORU | M3_WANTSARTI,
+        M4_VULNERABLE_FIRE, MH_UNDEAD, 25, HI_LORD),
     MON("Lord Surtur", S_GIANT, LVL(15, 12, 2, 50, 12), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 10), ATTK(AT_CLAW, AD_SAMU, 2, 6),
           ATTK(AT_WEAP, AD_CLOB, 2, 10), NO_ATTK, NO_ATTK, NO_ATTK),
@@ -5756,6 +5792,14 @@ struct permonst _mons2[] = {
             | M2_GREEDY | M2_COLLECT | M2_MAGIC,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE | M3_INFRAVISION, 0,
         MH_ILLITHID, 20, CLR_BLACK),
+    MON("Colonel Blood", S_HUMAN, LVL(20, 10, 5, 10, -10), (G_NOGEN | G_UNIQ),
+        A(ATTK(AT_WEAP, AD_PHYS, 4, 6), ATTK(AT_WEAP, AD_PHYS, 4, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), MR_POISON, 0,
+        M1_HUMANOID | M1_OMNIVORE,
+        M2_NOPOLY | M2_PNAME | M2_STRONG | M2_MALE | M2_STALK | M2_HOSTILE |
+          M2_NASTY | M2_COLLECT | M2_MAGIC,
+        M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 20, HI_LORD),
     /*
      * quest "guardians"
      */

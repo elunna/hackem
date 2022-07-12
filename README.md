@@ -327,11 +327,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] Dark Lord (Reoved MR_HITASFOUR)
 - [x] Van Helsing (Removed MR_HITASFOUR)
 - [x] Chief Yeoman Warder
-- [ ] Water Mage
-- [ ] Earth Mage
-- [ ] Maugneshaagar
-- [ ] Count Dracula
-- [ ] Colonel Blood
+- [x] Water Mage (Removed MR_HITASFOUR)
+- [x] Earth Mage (Removed MR_HITASFOUR)
+- [x] Maugneshaagar (Removed MR_HITASFOUR)
+- [x] Count Dracula (removed MR_HITASFOUR)
+- [x] Colonel Blood
 - [ ] igniter
 - [ ] froster
 - [ ] embalmer
