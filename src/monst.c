@@ -5205,6 +5205,31 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
             | M1_NOLIMBS | M1_CARNIVORE, 
         M2_HOSTILE, 0, 0, 0, 9, CLR_BROWN),
+/*      evil coins        */
+    MON("pile of killer coins", S_BAD_COINS, LVL(6, 9, 7, 0, 0), 
+        (G_NOHELL | G_GENO | G_NOCORPSE),
+        A(ATTK(AT_BITE, AD_PHYS, 2, 6), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS |
+        M1_NOLIMBS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 6, CLR_YELLOW),
+    MON("large pile of killer coins", S_BAD_COINS, 
+        LVL(9, 12, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
+        A(ATTK(AT_BITE, AD_PHYS, 3, 6), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS |
+        M1_NOLIMBS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 9, CLR_YELLOW),
+    MON("huge pile of killer coins", S_BAD_COINS, 
+        LVL(11, 12, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
+        A(ATTK(AT_BITE, AD_PHYS, 4, 6), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS |
+        M1_NOLIMBS | M1_CARNIVORE, M2_HOSTILE, 
+        0, 0, 0, 11, CLR_YELLOW),
     /*
      * These MUST come before "long worm tail"
      * otherwise they will never randomly spawn.
