@@ -4559,6 +4559,14 @@ struct permonst _mons2[] = {
     /*
      * ghosts
      */
+    MON("shadow", S_GHOST, LVL(4, 9, 4, 0, 0), (G_NOCORPSE | G_NOGEN),
+        A(ATTK(AT_TUCH, AD_DRST, 1, 4), ATTK(AT_TUCH, AD_COLD, 1, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 0, MS_WAIL, MZ_HUMAN),
+        MR_COLD | MR_DISINT | MR_SLEEP | MR_POISON | MR_STONE, 0,
+        M1_FLY | M1_BREATHLESS | M1_WALLWALK | M1_HUMANOID | M1_SEE_INVIS,
+        M2_NOPOLY | M2_WANDER | M2_HOSTILE | M2_NASTY,
+        M3_INFRAVISION, 0, MH_UNDEAD, 4, CLR_BLACK),
     MON("ghost", S_GHOST, LVL(7, 5, 0, 80, -5), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_TUCH, AD_PLYS, 1, 1), NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK,
           NO_ATTK),
