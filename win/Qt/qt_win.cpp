@@ -10,7 +10,7 @@
 //    Michael Hohmuth <hohmuth@inf.tu-dresden.de>
 //       - Userid control
 //    Svante Gerhard <svante@algonet.se>
-//       - .evilhackrc tile and font size settings
+//       - .hackemrc tile and font size settings
 //    Dirk Schoenberger <schoenberger@signsoft.com>
 //       - KDE support
 //       - SlashEm support
@@ -649,7 +649,7 @@ NetHackQtSettings::NetHackQtSettings(int w, int h) :
 	tileheight.setValue(30);
     }
 
-    // Tile/font sizes read from .evilhackrc
+    // Tile/font sizes read from .hackemrc
     if (qt_tilewidth != NULL) {
 	tilewidth.setValue(atoi(qt_tilewidth));
 	free(qt_tilewidth);

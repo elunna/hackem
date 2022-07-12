@@ -1,0 +1,9 @@
+Changes:
+	[X] Changed zruty to Y, S_ZRUTY to S_ZOUTHERN
+
+Bug fixes:
+	[FIXED] Giant Shoggoth - showing up as H
+	[FIXED] Giant scorpions are generating as "H", with spider symbol.
+	[FIXED] issue in monflag.h: anything traitorous will also be displaced and vice versa, and anything notame will also be skittish and vice versa.
+	
+	

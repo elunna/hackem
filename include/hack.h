@@ -572,7 +572,7 @@ enum bodypart_types {
 #define CFDECLSPEC
 #endif
 
-#define DEVTEAM_EMAIL "admin@hardfought.org"
-#define DEVTEAM_URL "https://github.com/k21971/EvilHack"
+#define DEVTEAM_EMAIL "eslunna@gmail.com"
+#define DEVTEAM_URL "https://github.com/elunna/hackem"
 
 #endif /* HACK_H */

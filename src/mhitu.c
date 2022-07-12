@@ -140,7 +140,7 @@ struct attack *mattk;
 
 /* monster missed you */
 /* verbose miss descriptions taken from Slash'EM */
-/* slightly edited for EvilHack */
+/* slightly edited for HackEM */
 STATIC_OVL void
 missmu(mtmp, target, roll, mattk)
 struct monst *mtmp;

@@ -2069,7 +2069,7 @@ const char *filename;
 
 const char *default_configfile =
 #ifdef UNIX
-    ".evilhackrc";
+    ".hackemrc";
 #else
 #if defined(MAC) || defined(__BEOS__)
     "NetHack Defaults";
@@ -2205,9 +2205,9 @@ int src;
 #else /* should be only UNIX left */
     envp = nh_getenv("HOME");
     if (!envp)
-        Strcpy(tmp_config, ".evilhackrc");
+        Strcpy(tmp_config, ".hackemrc");
     else
-        Sprintf(tmp_config, "%s/%s", envp, ".evilhackrc");
+        Sprintf(tmp_config, "%s/%s", envp, ".hackemrc");
 
     set_configfile_name(tmp_config);
     if ((fp = fopenp(configfile, "r")) != (FILE *) 0)
@@ -4391,7 +4391,7 @@ reveal_paths(VOID_ARGS)
                            (int) (sizeof buf - 1 - strlen(buf)));
                 if (access(buf, 4) == -1) {
                     /* second alternate failed too, so revert to the
-                       original default ("$HOME/.evilhackrc") for message */
+                       original default ("$HOME/.hackemrc") for message */
                     copynchars(endp, default_configfile,
                                (int) (sizeof buf - 1 - strlen(buf)));
                 }

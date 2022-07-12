@@ -8,7 +8,7 @@
 # program.
 #
 # This file can also be used to set local system defaults for run-time
-# options, using the same syntax as an individual user's ./evilhackrc file.
+# options, using the same syntax as an individual user's ./hackemrc file.
 
 # Which users can use debug mode (aka wizard mode; accessed via '-D' command
 # line flag or OPTIONS=playmode:debug in the runtime options config file).
@@ -134,12 +134,12 @@ LLC_TURNS=3000
 #   %D current time, YYYYMMDDhhmmss format
 #   %n player name
 #   %N first character of player name
-DUMPLOGFILE=/dgldir/userdata/%N/%n/evilhack/dumplog/%t.evil.txt
+DUMPLOGFILE=/dgldir/userdata/%N/%n/hackem/dumplog/%t.evil.txt
 
 # End of game HTML dump.
 # Only available if NetHack was compiled with DUMPHTML
 # Allows placeholders as above.
-DUMPHTMLFILE=/dgldir/userdata/%N/%n/evilhack/dumplog/%t.evil.html
+DUMPHTMLFILE=/dgldir/userdata/%N/%n/hackem/dumplog/%t.evil.html
 
 # Number of bones file pools.
 # The pool you belong to is determined at game start. You will
@@ -167,7 +167,7 @@ PANICTRACE_LIBC=2
 # Ordinary run-time options can be set here to override the builtin-in
 # default values.  Unlike the SYSCF values above, individual users can
 # still choose their own option settings via NETHACKOPTIONS in their
-# environment or via ~/.evilhackrc run-time configuration file.
+# environment or via ~/.hackemrc run-time configuration file.
 #OPTIONS=!autopickup,fruit:tomato,symset:DECgraphics
 # The following are the NAO defaults for 3.6.0 according to paxed
 OPTIONS=bones

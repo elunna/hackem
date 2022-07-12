@@ -2181,7 +2181,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
     /* Some neat and unique effects from various artifact weapons.
      * Pulled this from SporkHack - by default, the odds of an instakill
-     * were 50/50. Because we can dual-wield artifact weapons in EvilHack,
+     * were 50/50. Because we can dual-wield artifact weapons in HackEM,
      * we need to tone this down. Significantly.
      * I've added a few extra artifact weapons here that could use some
      * love. Just be warned, this can be used against the player depending

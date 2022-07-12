@@ -13,18 +13,18 @@ NAO_CHROOT="/opt/nethack/chroot"
 DGL_CONFIG="/opt/nethack/dgamelaunch.conf"
 # already compiled versions of dgl and nethack
 DGL_GIT="/home/build/dgamelaunch"
-NETHACK_GIT="/home/build/EvilHack"
+NETHACK_GIT="/home/build/HackEM"
 # the user & group from dgamelaunch config file.
 USRGRP="games:games"
 # COMPRESS from include/config.h; the compression binary to copy. leave blank to skip.
 COMPRESSBIN="/bin/gzip"
 # fixed data to copy (leave blank to skip)
-NH_GIT="/home/build/EvilHack"
+NH_GIT="/home/build/HackEM"
 NH_BRANCH="master"
 # HACKDIR from include/config.h; aka nethack subdir inside chroot
-NHSUBDIR="evilhack-0.8.0"
+NHSUBDIR="HackEM-0.8.0"
 # VAR_PLAYGROUND from include/unixconf.h
-NH_VAR_PLAYGROUND="/evilhack-0.8.0/var/"
+NH_VAR_PLAYGROUND="/HackEM-0.8.0/var/"
 # only define this if dgl was configured with --enable-sqlite
 SQLITE_DBFILE="/dgldir/dgamelaunch.db"
 # END OF CONFIG
@@ -59,7 +59,7 @@ chown "$USRGRP" "$NAO_CHROOT/dgldir/extrainfo-evil"
 echo "Making $NAO_CHROOT/$NHSUBDIR"
 mkdir -p "$NAO_CHROOT/$NHSUBDIR"
 
-NETHACKBIN="$NETHACK_GIT/src/evilhack"
+NETHACKBIN="$NETHACK_GIT/src/HackEM"
 if [ -n "$NETHACKBIN" -a ! -e "$NETHACKBIN" ]; then
   errorexit "Cannot find NetHack binary $NETHACKBIN"
 fi
@@ -69,7 +69,7 @@ if [ -n "$NETHACKBIN" -a -e "$NETHACKBIN" ]; then
   cd "$NAO_CHROOT/$NHSUBDIR"
   NHBINFILE="`basename $NETHACKBIN`-$DATESTAMP"
   cp "$NETHACKBIN" "$NHBINFILE"
-  ln -fs "$NHBINFILE" evilhack
+  ln -fs "$NHBINFILE" HackEM
   LIBS="$LIBS `findlibs $NETHACKBIN`"
   cd "$NAO_CHROOT"
 fi

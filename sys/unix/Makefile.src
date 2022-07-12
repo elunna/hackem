@@ -371,7 +371,7 @@ WINCURSESLIB = -lncurses
 LIBS =
 
 # make NetHack
-GAME     = evilhack
+GAME     = hackem
 # GAME     = nethack.prg
 
 # if you defined RANDOM in unixconf.h/tosconf.h since your system did not come

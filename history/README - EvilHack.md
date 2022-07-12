@@ -24,7 +24,7 @@ coming changes for future versions -
 https://github.com/k21971/EvilHack/blob/master/doc/evilhack-changelog.md
 
 More information regarding this variant can be accessed at the NetHackWiki -
-https://nethackwiki.com/wiki/EvilHack - or by visiting channels #evilhack
+https://nethackwiki.com/wiki/HackEM - or by visiting channels #hackem
 or #hardfought on Libera IRC.
 
 ## Design Philosophy
@@ -65,4 +65,4 @@ For Linux (TL;DR version):
 - Navigate back to the root EvilHack folder, and `make all && make install`
 - Execute the `evilhack` binary
 - In the home directory of the account used to install EvilHack, create your
-  rc config file - `touch .evilhackrc` and then edit as necessary
+  rc config file - `touch .hackemrc` and then edit as necessary

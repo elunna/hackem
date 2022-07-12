@@ -14,10 +14,10 @@
 #   This is used for building two versions of NetHack:
 #
 #   A tty port utilizing the Win32 Console I/O subsystem, Console
-#       EvilHack.exe
+#       HackEM.exe
 #
 #   A Win32 native port built on the Windows API, Graphical NetHack or
-#       EvilHackW.exe
+#       HackEMW.exe
 #
 #       In addition to your C compiler,
 #
@@ -66,7 +66,7 @@ DEBUGINFO = Y
 #
 # 4. Uncomment these and set them appropriately if you want to
 #    include curses port support alongside TTY support in your
-#    EvilHack.exe binary. 
+#    HackEM.exe binary. 
 #
 #    You'll have to set PDCURSES_H to the correct location of the 
 #    PDCurses header (.h) files and PDCURSES_C to the location
@@ -674,7 +674,7 @@ default : install
 
 all :	install
 
-install: $(O)envchk.tag $(O)obj.tag $(O)utility.tag $(GAMEDIR)\EvilHack.exe $(GAMEDIR)\EvilHackW.exe $(O)install.tag
+install: $(O)envchk.tag $(O)obj.tag $(O)utility.tag $(GAMEDIR)\HackEM.exe $(GAMEDIR)\HackEMW.exe $(O)install.tag
 	 @echo Done.
 
 $(O)install.tag: 	$(DAT)\data	$(DAT)\rumors	 $(DAT)\dungeon \
@@ -695,7 +695,7 @@ $(O)install.tag: 	$(DAT)\data	$(DAT)\rumors	 $(DAT)\dungeon \
 	if exist $(DOC)\nethack.txt copy $(DOC)\nethack.txt $(GAMEDIR)\NetHack.txt
 	@if exist $(GAMEDIR)\NetHack.PDB echo NOTE: You may want to remove $(GAMEDIR:\=/)/NetHack.PDB to conserve space
 	@if exist $(GAMEDIR)\NetHackW.PDB echo NOTE: You may want to remove $(GAMEDIR:\=/)/NetHackW.PDB to conserve space
-	if exist $(MSWSYS)\.evilhackrc.template copy $(MSWSYS)\.evilhackrc.template $(GAMEDIR)
+	if exist $(MSWSYS)\.hackemrc.template copy $(MSWSYS)\.hackemrc.template $(GAMEDIR)
 	-if not exist $(GAMEDIR)\record. goto>$(GAMEDIR)\record.
 	echo install done > $@
 
@@ -761,11 +761,11 @@ $(O)utility.tag: $(INCL)\date.h $(INCL)\onames.h $(INCL)\pm.h \
 tileutil: $(U)gif2txt.exe $(U)gif2tx32.exe $(U)txt2ppm.exe
 	@echo Optional tile development utilities are up to date.
 
-$(O)NetHackW.res: $(TILEBMP16) $(MSWIN)\EvilHackW.rc $(MSWIN)\mnsel.bmp \
+$(O)NetHackW.res: $(TILEBMP16) $(MSWIN)\HackEMW.rc $(MSWIN)\mnsel.bmp \
 	$(MSWIN)\mnselcnt.bmp $(MSWIN)\mnunsel.bmp \
 	$(MSWIN)\petmark.bmp $(MSWIN)\pilemark.bmp $(MSWIN)\NetHack.ico $(MSWIN)\rip.bmp \
 	$(MSWIN)\splash.bmp
-	@$(rc) -r -fo$@ -i$(MSWIN) -dNDEBUG $(MSWIN)\EvilHackW.rc
+	@$(rc) -r -fo$@ -i$(MSWIN) -dNDEBUG $(MSWIN)\HackEMW.rc
 
 $(O)console.res: $(MSWSYS)\console.rc $(MSWSYS)\NetHack.ico
 	@$(rc) -r -fo$@ -i$(MSWSYS) -dNDEBUG $(MSWSYS)\console.rc
@@ -815,7 +815,7 @@ GAMEOBJ=$(GAMEOBJ:^ =^
 #    objs: $(GAMEOBJ) $(TTYOBJ) $(O)tile.o $(O)guistub.o
 
 
-$(GAMEDIR)\EvilHack.exe : $(O)gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)guistub.o \
+$(GAMEDIR)\HackEM.exe : $(O)gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)guistub.o \
 			$(ALLOBJ) $(TTYOBJ) $(GUIOBJ) $(O)console.res $(KEYDLLS)
 	@if not exist $(GAMEDIR)\*.* mkdir $(GAMEDIR)
         @echo Linking $(@:\=/)
@@ -830,7 +830,7 @@ $(GAMEDIR)\EvilHack.exe : $(O)gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)g
 <<
 	@if exist $(O)install.tag del $(O)install.tag
 
-# EvilHackW
+# HackEMW
 # full tty linkage libs:
 #    libs: $(LIBS) $(guilibs) $(COMCTRL)
 #    objs: $(GAMEOBJ) $(GUIOBJ) $(TTYOBJ) $(O)tile.o $(O)nttty.o
@@ -838,7 +838,7 @@ $(GAMEDIR)\EvilHack.exe : $(O)gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)g
 #    libs: $(LIBS) $(guilibs) $(COMCTRL)
 #    objs: $(GAMEOBJ) $(GUIOBJ) $(O)tile.o $(O)ttystub.o
 
-$(GAMEDIR)\EvilHackW.exe : $(O)gamedir.tag $(O)tile.o $(O)ttystub.o \
+$(GAMEDIR)\HackEMW.exe : $(O)gamedir.tag $(O)tile.o $(O)ttystub.o \
 			$(ALLOBJ) $(TTYOBJ) $(GUIOBJ) $(O)NetHackW.res $(O)gamedir.tag $(KEYDLLS)
 	@if not exist $(GAMEDIR)\*.* mkdir $(GAMEDIR)
 	@echo   Linking $(@:\=/)
@@ -1296,7 +1296,7 @@ spotless: clean
 	if exist $(GAMEDIR)\nhdefkey.dll del $(GAMEDIR)\nhdefkey.dll
 	if exist $(GAMEDIR)\nh340key.dll del $(GAMEDIR)\nh340key.dll
 	if exist $(GAMEDIR)\nhraykey.dll del $(GAMEDIR)\nhraykey.dll
-	if exist $(GAMEDIR)\EvilHack.exe  del $(GAMEDIR)\EvilHack.exe
+	if exist $(GAMEDIR)\HackEM.exe  del $(GAMEDIR)\HackEM.exe
 	if exist $(GAMEDIR)\NetHack.pdb  del $(GAMEDIR)\NetHack.pdb
 	if exist $(GAMEDIR)\nhdat$(NHV)  del $(GAMEDIR)\nhdat$(NHV)
 ! ENDIF

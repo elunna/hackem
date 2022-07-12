@@ -6,7 +6,7 @@
 * The first goal of this project is to become the major successor of Slash'EM and port over most of Slash'EM to a modern platform. I chose EvilHack as a base because it is based on 3.6, it's inheritly more difficult, and it contains many Quality Of Life features already baked in. See here:
 	- Nice HP Bar
 	- Enhance menu shows max and % progress on skills.
-	- Extended commands: #terrain, #annotate, #overview, #tip, #adjust splitting and merging
+	- Extended commands: #terrain, #annotate, #overview, #tip, #give, #adjust splitting and merging
 	- paranoid swim
 	- Smart shop autopickup
 	- Full bag altar BUC identification
@@ -40,18 +40,18 @@ Examples of what to change back to traditional slashem behavior:
 
 * The fifth goal is to enhance the existing content from slash'em to make more sense, be more challenging, and use the mechanics in more creative ways. When it makes sense, we'll follow the conventions that Evil has set down, otherwise we might have to invent new mechanics or abilities.
 
-* Goal six is to create some new content that is specific to hackem!  
+* Goal six is to create some new content that is specific to HackEM!  
 
 ## Installation
 
 Each OS type found under the `sys` folder has an installation guide for that
 particular operating system. Pre-compiled binaries (linux and windows) can be
-found here - https://github.com/k21971/EvilHack/releases
+found here - https://github.com/elunna/HackEM/releases
 
 For Linux (TL;DR version):
 - Dependencies needed: `make` `gcc` `gdb` `flex` `bison` `libncurses-dev`
-- From the desired directory, `git clone https://github.com/k21971/EvilHack.git`
-- Navigate to the `EvilHack/sys/unix` folder, then `./setup.sh hints/linux` or
+- From the desired directory, `git clone https://github.com/elunna/HackEM`
+- Navigate to the `HackEM/sys/unix` folder, then `./setup.sh hints/linux` or
   `./setup.sh hints/linux-debug` depending on what you intend to do
 
   - Using the standard `linux` hints file assumes running as a normal user, and
@@ -62,10 +62,10 @@ For Linux (TL;DR version):
   extra CFLAGS for debugging in a development scenario
 
   - With either hints file, edit the install paths to your liking
-- Navigate back to the root EvilHack folder, and `make all && make install`
-- Execute the `evilhack` binary
-- In the home directory of the account used to install EvilHack, create your
-  rc config file - `touch .evilhackrc` and then edit as necessary
+- Navigate back to the root HackEM folder, and `make all && make install`
+- Execute the `HackEM` binary
+- In the home directory of the account used to install HackEM, create your
+  rc config file - `touch .HackEMrc` and then edit as necessary
 
 
 ## Contributing
@@ -711,7 +711,7 @@ Slashem Mechanics:
 		- Slashem stores typically did not have many interesting services. What can we add to make things more interesting?
 	
 
-## Goal 6: Hackem specific content
+## Goal 6: HackEM specific content
 	[ ] Energy Vampires/Psychic Vampires: 
 		Inspired by: https://whatwedointheshadows.fandom.com/wiki/Psychic_vampires
 		Drain energy merely by talking to them

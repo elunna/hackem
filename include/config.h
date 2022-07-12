@@ -81,7 +81,7 @@
 #define BEOS_GRAPHICS             /* (optional) */
 #define DEFAULT_WINDOW_SYS "BeOS" /* "tty" */
 #ifndef HACKDIR                   /* override the default hackdir below */
-#define HACKDIR "/boot/apps/EvilHack"
+#define HACKDIR "/boot/apps/HackEM"
 #endif
 #endif
 
@@ -112,7 +112,7 @@
 #ifndef DEFAULT_WINDOW_SYS
 #define DEFAULT_WINDOW_SYS "mswin"
 #endif
-#define HACKDIR "\\evilhack"
+#define HACKDIR "\\hackem"
 #endif
 
 #ifndef DEFAULT_WINDOW_SYS
@@ -184,7 +184,7 @@
  *              GDBPATH      (the path to the system gdb(1) program)
  *            Regular nethack options can also be specified in order to
  *            provide system-wide default values local to your system:
- *              OPTIONS      (same as in users' .evilhackrc or defaults.nh)
+ *              OPTIONS      (same as in users' .hackemrc or defaults.nh)
  *
  *              In the future there may be other ways to supply SYSCF
  *              information (Windows registry, Apple resource forks, etc)
@@ -356,7 +356,7 @@
  * otherwise it will be the current directory.
  */
 #ifndef HACKDIR
-#define HACKDIR "/usr/games/lib/evilhackdir"
+#define HACKDIR "/usr/games/lib/hackemdir"
 #endif
 
 /*
@@ -580,7 +580,7 @@ typedef unsigned char uchar;
 #ifdef DUMPLOG
 
 #ifndef DUMPLOG_FILE
-#define DUMPLOG_FILE        "/tmp/evilhack.%n.%d.log"
+#define DUMPLOG_FILE        "/tmp/hackem.%n.%d.log"
 /* DUMPLOG_FILE allows following placeholders:
    %% literal '%'
    %v version (eg. "3.6.3-0")

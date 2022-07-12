@@ -20,7 +20,7 @@ NHSROOT=.
 
 # make NetHack
 #PREFIX	 = /usr
-GAME     = evilhack
+GAME     = hackem
 # GAME     = nethack.prg
 #GAMEUID  = games
 #GAMEGRP  = bin

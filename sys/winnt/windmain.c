@@ -128,7 +128,7 @@ build_known_folder_path(
     if(!get_known_folder_path(folder_id, path, path_size))
         return FALSE;
 
-    strcat(path, "\\EvilHack\\");
+    strcat(path, "\\HackEM\\");
     create_directory(path);
     if (versioned) {
         Sprintf(eos(path), "%d.%d\\",
@@ -383,7 +383,7 @@ void copy_config_content()
         fqn_prefix[DATAPREFIX], CONFIG_TEMPLATE, FALSE);
 
     /* If the required early game file does not exist, copy it */
-    /* NOTE: We never replace .evilhackrc or sysconf */
+    /* NOTE: We never replace .hackemrc or sysconf */
     copy_file(fqn_prefix[CONFIGPREFIX], CONFIG_FILE,
         fqn_prefix[DATAPREFIX], CONFIG_TEMPLATE);
 }
@@ -452,14 +452,14 @@ _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);*/
 # endif
 #endif
 
-    hname = "EvilHack"; /* used for syntax messages */
+    hname = "HackEM"; /* used for syntax messages */
 
 #if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
     /* Save current directory and make sure it gets restored when
      * the game is exited.
      */
     if (getcwd(orgdir, sizeof orgdir) == (char *) 0)
-        error("EvilHack: current directory path too long");
+        error("HackEM: current directory path too long");
 #endif
 
     set_default_prefix_locations(argv[0]);
@@ -506,7 +506,7 @@ _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);*/
  */
     if (argc >= 1
         && !strcmpi(default_window_sys, "mswin")
-        && (strstri(argv[0], "evilhackw.exe") || GUILaunched))
+        && (strstri(argv[0], "HackEMW.exe") || GUILaunched))
         iflags.windowtype_locked = TRUE;
     windowtype = default_window_sys;
 
@@ -516,7 +516,7 @@ _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);*/
               copyright_banner_line(3), copyright_banner_line(4));
         pline("NetHack was unable to open the required file \"%s\"",DLBFILE);
         if (file_exists(DLBFILE))
-            pline("\nAre you perhaps trying to run EvilHack within a zip utility?");
+            pline("\nAre you perhaps trying to run HackEM within a zip utility?");
         error("dlb_init failure.");
     }
 

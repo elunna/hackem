@@ -2367,7 +2367,7 @@ boolean ghostly;
  * calculated by rolling a die of this size for each level the monster has.)
  * It used to be 8 for all monsters, but it makes more sense for, say, a mumak
  * to be beefier than a killer bee of the same level.
- * For EvilHack - we randomize the amount of HD just a bit. */
+ * For hackem - we randomize the amount of HD just a bit. */
 STATIC_OVL xchar
 hd_size(ptr)
 struct permonst * ptr;
