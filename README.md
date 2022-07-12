@@ -2,45 +2,28 @@
 
 ## Design Goals
 
+**The first goal** of this project is to become the major successor of Slash'EM and port over most of Slash'EM to a modern platform. I chose EvilHack as a base because it is based on 3.6, it's inheritly more difficult, and it contains many Quality Of Life features already baked in. See here:
 
-* The first goal of this project is to become the major successor of Slash'EM and port over most of Slash'EM to a modern platform. I chose EvilHack as a base because it is based on 3.6, it's inheritly more difficult, and it contains many Quality Of Life features already baked in. See here:
 	- Nice HP Bar
 	- Enhance menu shows max and % progress on skills.
 	- Extended commands: #terrain, #annotate, #overview, #tip, #give, #adjust splitting and merging
-	- paranoid swim
-	- Smart shop autopickup
+	- Peaceful displacing, paranoid swim, Smart shop autopickup
 	- Full bag altar BUC identification
-	- Peaceful displacing
 	- New conducts: Elbereth, alignment, touched art, petless
-	- New room shapes and types (most from 3.7)
-	- New soko levels 
+	- New soko levels, new room shapes and themed rooms.
 	- object materials, quick wand wresting
 	
 Evil also has some challenging aspects that are well worth keeping:
+
 	- New roles: Infidel, convict
-	- New Races: Giant, Tortle, centaur, hobbit, and illithid
+	- New Races: giant, tortle, centaur, and illithid
 	- Elbereth: Can't use unless you found/discovered it.
-	- Partial intrinsics
-	- Reflection is not 100%
-	- No randomly genereated magic markers
-	- Zombies ressurect, mummies wither, meaner and improved spellcasters
+	- Partial intrinsics; Partial eflection
+	- No randomly generated magic markers
+	- Zombies ressurect, mummies wither, spellcasters are meaner.
 	- Monster steeds
 
-* The second goal is to apply updates (and applicable bugfixes) to Slash'EM that have been advanced in slashem-up, slashem9, and SlashTHEM. Slash'EM was a great game, but it was far from perfect. It would be nice to polish up things that were left behind (examples: updates to artifacts and quest artifacts, technique bugs, mold mechanics, polymorph bugs (ie: flame mage and ice mage).
-
-* The third goal is to differentiate this fork from EvilHack. Let's use what makes sense - but let Evil have it's own features that make it Evil.
-
-Examples of what to change back to traditional slashem behavior:
-	- Don't require defeating Goblin king to access mines
-	- Change sokobon prize system back to normal
-	- Return shopkeeper pricing to normal levels (for easier price-ID)
-	- Allow entering quest at 10 without penalty
-	
-* The fourth goal is to bring in new and interesting content from the many quality forks out there. I'd like to try not to get too wacky and keep to the spirit of Slashem. 
-
-* The fifth goal is to enhance the existing content from slash'em to make more sense, be more challenging, and use the mechanics in more creative ways. When it makes sense, we'll follow the conventions that Evil has set down, otherwise we might have to invent new mechanics or abilities.
-
-* Goal six is to create some new content that is specific to HackEM!  
+The rest of the design goals are listed below.
 
 ## Installation
 
@@ -65,217 +48,214 @@ For Linux (TL;DR version):
 - Navigate back to the root HackEM folder, and `make all && make install`
 - Execute the `HackEM` binary
 - In the home directory of the account used to install HackEM, create your
-  rc config file - `touch .HackEMrc` and then edit as necessary
-
+  rc config file - `touch .hackemrc` and then edit as necessary
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
 
 # Todo
 
 ## Goal 1: Porting Slash'EM
 
-Slashem monsters:
-	[X] giant tick (AT_MULTIPLY)
-	[X] giant flea (AT_MULTIPLY)
-		[ ] add message for tick/flea multiplication?
-		[ ] Allow ticks and fleas to appear in main dungeon? 
+### Slashem monsters:
+
+	- [X] giant tick (AT_MULTIPLY)
+	- [X] giant flea (AT_MULTIPLY)
+		- [ ] add message for tick/flea multiplication?
+		- [ ] Allow ticks and fleas to appear in main dungeon? 
 			(They currently only appear in the lawful quest or Gehennom.
-	[X] snow ant
-	[X] giant louse
-	[X] tsetse fly
-	[X] migo drone (M3_TRAITOR)
-	[X] yellow jacket
-	[X] black wasp
-	[X] migo warrior
-	[X] giant wasp
-	[X] spitting beetle
-	[X] migo queen
-	[X] assassin bug (M3_TRAITOR)
-	[X] killer beetle
-	[X] jiggling blob
-	[X] lava blob
-	[X] static blob
-	[X] burbling blob
-	[X] chicken
-	[X] cockatoo
-	[X] parrot
-	[X] pit bull
-	[X] dingo puppy
-	[X] large dingo
-	[X] death dog
-	[X] rabid wolf
-	[X] wolverine
-	[X] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
-	[X] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
+	- [X] snow ant
+	- [X] giant louse
+	- [X] tsetse fly
+	- [X] migo drone (M3_TRAITOR)
+	- [X] yellow jacket
+	- [X] black wasp
+	- [X] migo warrior
+	- [X] giant wasp
+	- [X] spitting beetle
+	- [X] migo queen
+	- [X] assassin bug (M3_TRAITOR)
+	- [X] killer beetle
+	- [X] jiggling blob
+	- [X] lava blob
+	- [X] static blob
+	- [X] burbling blob
+	- [X] chicken
+	- [X] cockatoo
+	- [X] parrot
+	- [X] pit bull
+	- [X] dingo puppy
+	- [X] large dingo
+	- [X] death dog
+	- [X] rabid wolf
+	- [X] wolverine
+	- [X] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
+	- [X] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
 		[ ] Make mist wolves leave trail of mist?
-	[X] glowing eye
-	[X] bloodshot eye
-	[X] blinking eye
-	[X] werepanther (animal) 	5
-	[X] weretiger 	(animal) 	7
-	[X] werespider 	(animal) 	11
-	[X] weresnake 	(animal) 	9
-	[X] werepanther (human) 	5
-	[X] werespider 	(human) 	7
+	- [X] glowing eye
+	- [X] bloodshot eye
+	- [X] blinking eye
+	- [X] werepanther (animal) 	5
+	- [X] weretiger 	(animal) 	7
+	- [X] werespider 	(animal) 	11
+	- [X] weresnake 	(animal) 	9
+	- [X] werepanther (human) 	5
+	- [X] werespider 	(human) 	7
 		[ ] Werespiders should summon more spider types:
 			giant spiders, jumping spiders, recluse and cave spiders.
-	[X] weretiger 	(human) 	9
-	[X] weresnake 	(human) 	9
-	[X] kamadan
-	[X] displacer beast (already present in evil)
-	[X] caterwaul
-	[X] sabre-toothed cat
+	- [X] weretiger 	(human) 	9
+	- [X] weresnake 	(human) 	9
+	- [X] kamadan
+	- [X] displacer beast (already present in evil)
+	- [X] caterwaul
+	- [X] sabre-toothed cat
 		(Evil has a sabre-toothed tiger)
 		[ ] Set up the sabre-tooth cat to grow up into the tiger?
 		[ ] Make sabre-tooth cat a little weaker, or tiger stronger.
 
-	[X] hellcat
-	[X] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
+	- [X] hellcat
+	- [X] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
 		[ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 		
-	[ ] galltrit (deferred)
-	[ ] jermlaine (deferred)
+	- [ ] galltrit (deferred)
+	- [ ] jermlaine (deferred)
 	
-	[X] dwarf thief
+	- [X] dwarf thief
 		[ ] Check town/minetown for dwarf thief/gnome thief placement
-	[X] duergar (removed MR_HITASONE)
-	[X] deep one (growup done)
-	[X] deeper one (growup done)
-	[X] deepest one
-	[X] dretch
-	[X] rutterkin
-	[X] nupperibo
+	- [X] duergar (removed MR_HITASONE)
+	- [X] deep one (growup done)
+	- [X] deeper one (growup done)
+	- [X] deepest one
+	- [X] dretch
+	- [X] rutterkin
+	- [X] nupperibo
 		[ ] Make blood imps, nupperibos drain levels as well?
-	[X] blood imp
+	- [X] blood imp
 		[ ] Blood imps should probably have a vampiric attack.
-	[X] clear jelly
+	- [X] clear jelly
 		[ ] clear jelly has touch acid attack, but not passive
 		[ ] add passive acid as well?
-	[X] yellow jelly
+	- [X] yellow jelly
 		[ ] yellow jelly has passive stun, but not active 
 		[ ] add passive acid as well?
-	[X] orange jelly (Implemented passive sleep attacks)
+	- [X] orange jelly (Implemented passive sleep attacks)
 		[ ] orange jelly has passive sleep, but not active attack
 		[ ] add passive acid as well?
-	[X] rancid jelly
+	- [X] rancid jelly
 		[ ] rancid jelly should leave a trail of acid slime?
 		[ ] eat organics?
 		
 		[ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 		
-	[X] swamp kobold
-	[X] rock kobold
-	[X] kobold warrior
-	[X] Kroo the Kobold King
+	- [X] swamp kobold
+	- [X] rock kobold
+	- [X] kobold warrior
+	- [X] Kroo the Kobold King
 		[ ] Kobolds use the orc sounds, maybe they should have their own sounds?
 		[ ] Add traitor property to all kobolds
 		
-	[X] leprechaun wizard (Removed MR_HITASONE)
-	[X] pixie (removed MR_HITASONE)
-	[X] brownie (removed MR_HITASONE)
-	[X] quickling (removed MR_HITASONE)
-	[e] Aphrodite - Already in evil, higher  level
-	[X] war orc
-	[X] great orc
-	[X] Grund the Orc King
-	[X] snow orc
-	[X] demon orc
-	[X] lamb (Note: grows up)
-	[X] sheep (MS_SHEEP)
-	[X] goat
-	[X] cow (MS_COW)
-	[X] bull
-	[X] giant badger (changed to rodent class to match honey badger)
-		
-	
+	- [X] leprechaun wizard (Removed MR_HITASONE)
+	- [X] pixie (removed MR_HITASONE)
+	- [X] brownie (removed MR_HITASONE)
+	- [X] quickling (removed MR_HITASONE)
+	- [e] Aphrodite - Already in evil, higher  level
+	- [X] war orc
+	- [X] great orc
+	- [X] Grund the Orc King
+	- [X] snow orc
+	- [X] demon orc
+	- [X] lamb (Note: grows up)
+	- [X] sheep (MS_SHEEP)
+	- [X] goat
+	- [X] cow (MS_COW)
+	- [X] bull
+	- [X] giant badger (changed to rodent class to match honey badger)
 		[ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
 		[ ] Badgers ccan usually swim; they release a stink. 
 		These animals are usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. The body size range may vary from smallest circumboreal weasel that weight about 35 to 250 g, to largest wolverines and the sea otters weighing 32 to 45 kg.
 		[ ] Most badgers are solitary, nocturnal animals. (they spawn in very small groups, they like the dark)
 		[ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 		
-	[X] scramper
-	[X] squealer
-	[X] mangler
-	[X] Jumbo the Elephant
-	[X] juggernaut
-	[X] catoblepas (Removed MR_HITASTWO)
+	- [X] scramper
+	- [X] squealer
+	- [X] mangler
+	- [X] Jumbo the Elephant
+	- [X] juggernaut
+	- [X] catoblepas (Removed MR_HITASTWO)
 		[ ] catoblepas: The gaze attack doesn't seem to give a message when you die.
 			The reason for death is "gaze of death"
 		
-	[X] rabbit
-	[X] black rat
-	[X] rabid rabbit
-	[X] pack rat
-	[X] hellrat
-	[X] Rat King
-	[X] recluse spider (webmaker)
-	[X] barking spider (webmaker)
-	[X] carrion crawler
-	[X] nickelpede
+	- [X] rabbit
+	- [X] black rat
+	- [X] rabid rabbit
+	- [X] pack rat
+	- [X] hellrat
+	- [X] Rat King
+	- [X] recluse spider (webmaker)
+	- [X] barking spider (webmaker)
+	- [X] carrion crawler
+	- [X] nickelpede
 		[ ] Make centipede grow into nickelpede
 		[ ] Make nickelpede grow into giant centipede
-	[X] giant scorpion
-	[X] phase spider (webmaker)
+	- [X] giant scorpion
+	- [X] phase spider (webmaker)
 		[ ] make more powerful and skittish? Make them have phasing?
-	[X] Girtab
-	[X] Shelob
+	- [X] Girtab
+	- [X] Shelob
 
 	[ ] Pegasus (evil already has pegasi)
 	
-	[X] larva (Note: grows up)
-	[X] maggot (Note: grows up)
-	[X] dung worm
+	- [X] larva (Note: grows up)
+	- [X] maggot (Note: grows up)
+	- [X] dung worm
 		[ ] Dung worms should be poisonous?
 		[ ] Eating dung worms should cause illness?
 	
-	[X] acid worm
-	[X] bloodworm
+	- [X] acid worm
+	- [X] bloodworm
 		[ ] allow "blood worm", "blood-worm" as spelling
-	[X] tunnel worm
-	[X] rot worm
-	[X] spark bug (Removed MR_HITASONE)
-	[X] arc bug (Removed MR_HITASONE)
-	[X] lightning bug (Removed MR_HITASONE)
-	[X] echidna
-	[X] platypus
-	[X] koala
-	[X] wombat
-	[X] Tasmanian devil
-	[X] wallaby
-	[X] wallaroo
-	[X] kangaroo
-	[X] movanic deva (Removed MR_PLUSONE)
-	[X] monadic deva (Removed MR_PLUSONE)
-	[X] astral deva (Removed MR_PLUSONE)
-	[X] Planetar (Removed MR_PLUSFOUR)
-	[X] Solar (Removed MR_PLUSFOUR)
-	[X] rhumbat
-	[X] athol
-	[X] hellbat
+	- [X] tunnel worm
+	- [X] rot worm
+	- [X] spark bug (Removed MR_HITASONE)
+	- [X] arc bug (Removed MR_HITASONE)
+	- [X] lightning bug (Removed MR_HITASONE)
+	- [X] echidna
+	- [X] platypus
+	- [X] koala
+	- [X] wombat
+	- [X] Tasmanian devil
+	- [X] wallaby
+	- [X] wallaroo
+	- [X] kangaroo
+	- [X] movanic deva (Removed MR_PLUSONE)
+	- [X] monadic deva (Removed MR_PLUSONE)
+	- [X] astral deva (Removed MR_PLUSONE)
+	- [X] Planetar (Removed MR_PLUSFOUR)
+	- [X] Solar (Removed MR_PLUSFOUR)
+	- [X] rhumbat
+	- [X] athol
+	- [X] hellbat
 		[ ] Hellbat "pecks". Should be bite.
-	[X] mongbat
-	[X] mobat
-	[X] harpy
-	[X] byakhee
-	[X] nightgaunt
-	[e] baby shimmering dragon (
-	[e] shimmering dragon
+	- [X] mongbat
+	- [X] mobat
+	- [X] harpy
+	- [X] byakhee
+	- [X] nightgaunt
+	- [ ] baby shimmering dragon (already in EvilHack)
+	- [ ] shimmering dragon 	 (already in EvilHack)
 	
 		-- adding dragon is tricky, need to maintain some orders
-	baby deep dragon
-	deep dragon
+	- [ ] baby deep dragon
+	- [ ] deep dragon
 	
-	[X] wyvern (Removed MR_HITASTWO)
-	[X] hydra  (Removed MR_HITASTWO)
-	[X] disgusting mold
-	[X] black mold
-	[X] gnome thief
-	[X] deep gnome (Removed MR_HITASONE)
-	[X] gnome warrior (Removed MR_HITASONE)
-	[X] Ruggo the Gnome King (Removed MR_HITASONE)
+	- [X] wyvern (Removed MR_HITASTWO)
+	- [X] hydra  (Removed MR_HITASTWO)
+	- [X] disgusting mold
+	- [X] black mold
+	- [X] gnome thief
+	- [X] deep gnome (Removed MR_HITASONE)
+	- [X] gnome warrior (Removed MR_HITASONE)
+	- [X] Ruggo the Gnome King (Removed MR_HITASONE)
 
 	[e] gnoll (evil has?) (Note: grows up)
 		Evil also has gnoll cleric and gnoll hunter
@@ -283,127 +263,124 @@ Slashem monsters:
 	gnoll chieftain
 	gnoll shaman
 	
-	[X] The Largest Giant (Removed MR_HITASTHREE)
-	[X] Father Dagon (deferred)
-	[X] Mother Hydra (deferred)
-	[e] vorpal jabberwock (already has the beheading attack!)
-	[X] troll mummy (Added regen and stalk, revival works fine.)
-	[X] ogre mage
-	[X] shadow ogre (Removed MR_PLUSONE)
+	- [X] The Largest Giant (Removed MR_HITASTHREE)
+	- [X] Father Dagon (deferred)
+	- [X] Mother Hydra (deferred)
+	- [e] vorpal jabberwock (already has the beheading attack!)
+	- [X] troll mummy (Added regen and stalk, revival works fine.)
+	- [X] ogre mage
+	- [X] shadow ogre (Removed MR_PLUSONE)
 		[ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
-	[X] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
+	- [X] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
 		[ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
-	[X] shoggoth (Note: grows up)
+	- [X] shoggoth (Note: grows up)
 		[ ] Remove all but one corrosion attack.
-	[X] giant shoggoth
+	- [X] giant shoggoth
 		[ ] Remove all but one corrosion attack.
 	[e] genetic engineer
-	[X] Doctor Frankenstein
-	[X] king cobra
-	[X] asphynx
-	[X] two-headed troll (Removed MR_HITASTWO)
-	[X] black troll (Removed MR_HITASTHREE)
-	[X] water hulk (Removed MR_HITASONE)
+	- [X] Doctor Frankenstein
+	- [X] king cobra
+	- [X] asphynx
+	- [X] two-headed troll (Removed MR_HITASTWO)
+	- [X] black troll (Removed MR_HITASTHREE)
+	- [X] water hulk (Removed MR_HITASONE)
 		[ ] Add vulnerability to shock (similar to other water-critters)
 		
-		
-	[X] fire vampire
-	[X] star vampire
+	- [X] fire vampire
+	- [X] star vampire
 	[e] vampire mage
-	[X] wight
+	- [X] wight
 		[ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	[e] zruty
-	[X] ghoul mage
-	[X] ghast
-	[X] ghoul queen
-	[X] gug
-	[X] wax golem
-	[X] plastic golem
-	[X] Frankenstein's Monster
+	- [X] ghoul mage
+	- [X] ghast
+	- [X] ghoul queen
+	- [X] gug
+	- [X] wax golem
+	- [X] plastic golem
+	- [X] Frankenstein's Monster
+	- [X] ruby golem
+	- [X] diamond golem
+	- [X] sapphire golem
+	- [X] steel golem (Added M4_VULNERABLE_ACID)
+	- [X] crystal golem
+	- [X] gibberling
+	- [X] grimlock
+	- [X] drow (Added infravisible)
+	- [X] mugger
 	
-	[X] ruby golem
-	[X] diamond golem
-	[X] sapphire golem
-	[X] steel golem (Added M4_VULNERABLE_ACID)
-	[X] crystal golem
-	[X] gibberling
-	[X] grimlock
-	[X] drow (Added infravisible)
-	[X] mugger
-	
-	[X] gypsy (Added M3_INFRAVISIBLE)
+	- [X] gypsy (Added M3_INFRAVISIBLE)
 		[ ] Implement gypsy_chat
 	
-	[X] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
-	[X] shadow (Added M3_INFRAVISION)
-	[X] spined devil (Removed MR_PLUSONE)
-	[X] bearded devil (Removed MR_PLUSONE | MR_HITASTWO)
-	[X] bar-lgura (Removed MR_PLUSONE | MR_HITASTWO)
-	[X] chasme (Removed MR_PLUSONE | MR_HITASTWO)
-	[X] babau (MR_PLUSONE | MR_HITASTWO)
-	[X] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
+	- [X] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
+	- [X] shadow (Added M3_INFRAVISION)
+	- [X] spined devil (Removed MR_PLUSONE)
+	- [X] bearded devil (Removed MR_PLUSONE | MR_HITASTWO)
+	- [X] bar-lgura (Removed MR_PLUSONE | MR_HITASTWO)
+	- [X] chasme (Removed MR_PLUSONE | MR_HITASTWO)
+	- [X] babau (MR_PLUSONE | MR_HITASTWO)
+	- [X] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
 	
-	Cthulhu (deferred)
+	- [ ] Cthulhu (deferred)
 	
-	[X] giant crab
-	[X] gila monster
-	[X] rhaumbusun
+	- [X] giant crab
+	- [X] gila monster
+	- [X] rhaumbusun
 	[e] basilisk
-	[X] komodo dragon
+	- [X] komodo dragon
 		[ ] Should komodo dragon/gila monster be vulnerable to cold?
-	[X] bad egg
-	[X] killer tripe ration
-	[X] killer food ration
-	[X] pile of killer coins (Note: grows up)
+	- [X] bad egg
+	- [X] killer tripe ration
+	- [X] killer food ration
+	- [X] pile of killer coins (Note: grows up)
 		[ ] Make evil food vulnerable to fire - "cooking"!
-	[X] large pile of killer coins (Note: grows up)
-	[X] huge pile of killer coins
+	- [X] large pile of killer coins (Note: grows up)
+	- [X] huge pile of killer coins
 	
 	Nightmare (evil has nightmares)
 	Beholder (evil has beholders)
 	Vecna
 	
-	[X] flame mage
-	[X] ice mage
-	[X] necromancer
-	[X] undead slayer
-	[X] yeoman
+	- [X] flame mage
+	- [X] ice mage
+	- [X] necromancer
+	- [X] undead slayer
+	- [X] yeoman
 	
-	[X] High Flame Mage (Removed MR_HITASFOUR)
-	[X] High Ice Mage (Removed MR_HITASFOUR)
-	[X] Dark Lord (Reoved MR_HITASFOUR)
-	[X] Van Helsing (Removed MR_HITASFOUR)
-	[X] Chief Yeoman Warder
+	- [X] High Flame Mage (Removed MR_HITASFOUR)
+	- [X] High Ice Mage (Removed MR_HITASFOUR)
+	- [X] Dark Lord (Reoved MR_HITASFOUR)
+	- [X] Van Helsing (Removed MR_HITASFOUR)
+	- [X] Chief Yeoman Warder
 	
-	Water Mage
-	Earth Mage
-	Maugneshaagar
-	Count Dracula
-	Colonel Blood
+	- [ ] Water Mage
+	- [ ] Earth Mage
+	- [ ] Maugneshaagar
+	- [ ] Count Dracula
+	- [ ] Colonel Blood
 	
-	igniter
-	froster
-	embalmer
-	exterminator
-	Yeoman Warder
+	- [ ] igniter
+	- [ ] froster
+	- [ ] embalmer
+	- [ ] exterminator
+	- [ ] Yeoman Warder
 	
 	
 Quality control on monsters:
-	[ ] Double-check and redo all difficulty levels for imported monsters.
-	[ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
-	[ ] Also look at what monsters are normally equipped with.
-	[ ] Update database knowledge entries for every new monster
-	[ ] Update monsters.map of the tiles
-	[ ] Import all tiles for new monsters	
-	[ ] Update infravision tags. Only body heat should be visible.
-	[ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
+	- [ ] Double-check and redo all difficulty levels for imported monsters.
+	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
+	- [ ] Also look at what monsters are normally equipped with.
+	- [ ] Update database knowledge entries for every new monster
+	- [ ] Update monsters.map of the tiles
+	- [ ] Import all tiles for new monsters	
+	- [ ] Update infravision tags. Only body heat should be visible.
+	- [ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
 	
 Other ideas:
-	[ ] Make were-critters summon more diversity of monsters
-	[ ] Check other monsters for traitor property
-	[ ] What can we replace requiresX and hitsAsX with? Forceful hits, more AC/MR
-
-	[ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
+	- [ ] Make were-critters summon more diversity of monsters
+	- [ ] Check other monsters for traitor property
+	- [ ] What can we replace requiresX and hitsAsX with? Forceful hits, more AC/MR
+	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 
 Slashem Artifacts:
 	Bat from Hell
@@ -624,13 +601,27 @@ Slashem Mechanics:
 	\#borrow command
 	
 
-## Goal 2: Apply slashem updates from slashem-up, slashem9, slashTHEM
-	https://github.com/BarclayII/slashem-up
-	https://github.com/Soviet5lo/SlashTHEM
-	https://github.com/moon-chilled/slashem9
+## Goal 2: Integrate slashem updates and bugfixes from other Slash'EM forks
+
+	- Notably from slashem-up, slashem9, and SlashTHEM.
+	- Slash'EM was a great game, but it was far from perfect. It would be nice to polish up things that were left behind (examples: updates to artifacts and quest artifacts, technique bugs, mold mechanics, polymorph bugs (ie: flame mage and ice mage).
+	- https://github.com/BarclayII/slashem-up
+	- https://github.com/Soviet5lo/SlashTHEM
+	- https://github.com/moon-chilled/slashem9
 	
 	
 ## Goal 3: Remove/edit Evil content
+
+	- differentiate this fork from EvilHack.
+	- Let's use what makes sense - but when in doubt: 
+		"Depart from evil, and do good; Seek peace, and pursue it." - Psalm 34:13-14
+
+Examples of what to change back to traditional slashem behavior:
+	- Don't require defeating Goblin king to access mines
+	- Change sokobon prize system back to normal
+	- Return shopkeeper pricing to normal levels (for easier price-ID)
+	- Allow entering quest at 10 without penalty
+	
 	[ ] Don't require defeating Goblin king to access mines
 	[ ] Remove Goblin King level - get permission from K2
 	[ ] Remove Kathryn Ice Queen branch - need permission from K2
@@ -653,11 +644,17 @@ Slashem Mechanics:
 
 	[ ] Keep evil Gnolls or use slashem ones, or ones from Splice/Dnh/Gnollhack?
 	[ ] Keep Vecna's lair? 
+
+	[ ] Unrestrict two-weaponing, and let player's get full benefits from both weapons, regardless of primary hand.
+	[ ] Possibly go back to traditional altar sacrifice system
+	
 	
 ## Goal 4: Import content from other forks.
-	3.7
-	FIQ
-	
+
+	- bring in new and interesting content from the many quality forks out there. 
+	- I'd like to try not to get too wacky and keep to the spirit of Slashem.
+	- (And yes, I realize that slashem does get a bit wacky with things like Tasmanian Devils, toilets, and lightsabers - but there are limits!)
+
 	* Bag of tricks patch (from UnNethack)
 	* Auto-ID of obvious things (UnNethack)
 	* Cartomancer role, Mermaid race (Splicehack)
@@ -666,7 +663,13 @@ Slashem Mechanics:
 	
 	* 0 turn weapon switching (dnh)
 	* slotless awesome artifacts (dnh)
+	
+	
 ## Goal 5: Homemade Ideas/Improvements for Slashem
+
+	- enhance the existing content from slash'em to make more sense, be more challenging, and use the mechanics in more creative ways. 
+	- When it makes sense, we'll follow the conventions that Evil has set down, otherwise we might have to invent new mechanics or abilities.
+
 	[ ] Pokedex for Monsters
 	[ ] Pokedex for Items
 	[ ] Techniques from SlashEm/Them
@@ -714,6 +717,9 @@ Slashem Mechanics:
 	
 
 ## Goal 6: HackEM specific content
+
+Create some new content that is specific to HackEM!  
+
 	[ ] Energy Vampires/Psychic Vampires: 
 		Inspired by: https://whatwedointheshadows.fandom.com/wiki/Psychic_vampires
 		Drain energy merely by talking to them
