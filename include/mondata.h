@@ -77,6 +77,7 @@
     is_demon(ptr) || \
     is_angel(ptr) || \
     (ptr)->msound == MS_LEADER || \
+    (ptr) == &mons[PM_GYPSY] || \
     (ptr) == &mons[PM_MOLDY_PUDDING] || \
     (ptr) == &mons[PM_CERBERUS] || \
     (ptr) == &mons[PM_DEATH])
