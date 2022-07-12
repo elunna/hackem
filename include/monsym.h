@@ -70,11 +70,12 @@ enum mon_class_types {
     S_DEMON      = 56, /* & */
     S_EEL        = 57, /* ; (fish) */
     S_LIZARD     = 58, /* : (reptiles) */
+    S_BAD_FOOD   = 59, /* % (evil food) */
 
-    S_WORM_TAIL  = 59, /* ~ */
-    S_MIMIC_DEF  = 60, /* ] */
+    S_WORM_TAIL  = 60, /* ~ */
+    S_MIMIC_DEF  = 61, /* ] */
 
-    MAXMCLASSES  = 61  /* number of monster classes */
+    MAXMCLASSES  = 62  /* number of monster classes */
 };
 
 /*

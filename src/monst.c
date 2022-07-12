@@ -5179,6 +5179,32 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS
             | M1_OVIPAROUS | M1_CARNIVORE,
         M2_STRONG | M2_HOSTILE, 0, 0, 0, 15, CLR_BROWN),
+/*      evil food         */
+/*      WAC moved Evil Food here - otherwise won't get generated */
+    MON("bad egg", S_BAD_FOOD, 
+        LVL(4, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 8), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
+            | M1_NOLIMBS | M1_CARNIVORE, 
+        M2_HOSTILE, 0, 0, 0, 4, CLR_WHITE),
+    MON("killer tripe ration", S_BAD_FOOD, 
+        LVL(7, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
+        A(ATTK(AT_BITE, AD_PHYS, 2, 8), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
+            | M1_NOLIMBS | M1_CARNIVORE, 
+        M2_HOSTILE, 0, 0, 0, 7, CLR_BROWN),
+    MON("killer food ration", S_BAD_FOOD, 
+        LVL(9, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
+        A(ATTK(AT_BITE, AD_PHYS, 2, 10), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
+            | M1_NOLIMBS | M1_CARNIVORE, 
+        M2_HOSTILE, 0, 0, 0, 9, CLR_BROWN),
     /*
      * These MUST come before "long worm tail"
      * otherwise they will never randomly spawn.
