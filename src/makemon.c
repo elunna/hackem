@@ -27,6 +27,7 @@ STATIC_DCL boolean FDECL(makemon_rnd_goodpos, (struct monst *,
 
 #define m_initsgrp(mtmp, x, y, mmf) m_initgrp(mtmp, x, y, 3, mmf)
 #define m_initlgrp(mtmp, x, y, mmf) m_initgrp(mtmp, x, y, 10, mmf)
+#define m_initvlgrp(mtmp, x, y, mmf)  m_initgrp(mtmp, x, y, 20, mmf)
 #define toostrong(monindx, lev) (mons[monindx].difficulty > lev)
 #define tooweak(monindx, lev) (mons[monindx].difficulty < lev)
 
@@ -2949,6 +2950,14 @@ long mmflags;
             else
                 m_initsgrp(mtmp, mtmp->mx, mtmp->my, mmflags);
         }
+        else if(ptr->geno & G_VLGROUP) {
+			if(rn2(3))  
+                m_initvlgrp(mtmp, mtmp->mx, mtmp->my, mmflags);
+			else if(rn2(3))  
+                m_initlgrp(mtmp, mtmp->mx, mtmp->my, mmflags);
+			else 
+                m_initsgrp(mtmp, mtmp->mx, mtmp->my, mmflags);
+	    }
     }
 
     if (allow_minvent) {

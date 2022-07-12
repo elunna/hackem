@@ -4243,6 +4243,21 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_POIS | M1_REGEN | M1_OMNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE, 0, MH_HUMAN | MH_WERE, 9, CLR_BLACK),
+    MON("gibberling", S_HUMAN, LVL(6, 12, 10, 0, -2), 
+        (G_HELL | G_GENO | G_VLGROUP | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 8), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_WAIL, MZ_HUMAN), 0, 0, 
+        M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_COLLECT, 
+        M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 6, CLR_GRAY),
+    MON("grimlock", S_HUMAN, LVL(8, 12, 5, 0, -2), 
+        (G_HELL | G_GENO | G_VLGROUP | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_GRUNT, MZ_HUMAN), 0, 0, 
+        M1_HUMANOID | M1_OMNIVORE | M1_NOEYES,
+        M2_NOPOLY | M2_COLLECT, 
+        M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 8, CLR_BLACK),
 
     /* Only generated when playing as Infidel.
      * Has emin, so always appears as a "champion of [deity]".
