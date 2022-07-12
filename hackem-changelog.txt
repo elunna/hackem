@@ -1,5 +1,8 @@
 Changes:
 	[X] Changed zruty to Y, S_ZRUTY to S_ZOUTHERN
+	[X] Update all name references from "evilhack" to "hackem"
+		Used lowercase for rc files. HackEM for game titles and binaries.
+	[X] Update contact info.
 
 Bug fixes:
 	[FIXED] Giant Shoggoth - showing up as H

@@ -80,7 +80,8 @@ Slashem monsters:
 	[X] giant tick (AT_MULTIPLY)
 	[X] giant flea (AT_MULTIPLY)
 		[ ] add message for tick/flea multiplication?
-		[ ] Allow ticks and fleas to appear in main dungeon? (They currently only appear in the lawful quest or Gehennom.
+		[ ] Allow ticks and fleas to appear in main dungeon? 
+			(They currently only appear in the lawful quest or Gehennom.
 	[X] snow ant
 	[X] giant louse
 	[X] tsetse fly
@@ -108,7 +109,7 @@ Slashem monsters:
 	[X] wolverine
 	[X] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
 	[X] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
-		[ ] Mist wolves leave trail of mist?
+		[ ] Make mist wolves leave trail of mist?
 	[X] glowing eye
 	[X] bloodshot eye
 	[X] blinking eye
@@ -118,7 +119,8 @@ Slashem monsters:
 	[X] weresnake 	(animal) 	9
 	[X] werepanther (human) 	5
 	[X] werespider 	(human) 	7
-		[ ] Werespiders should summon giant spiders, jumping spiders, and recluse spiders, and maybe cave spiders
+		[ ] Werespiders should summon more spider types:
+			giant spiders, jumping spiders, recluse and cave spiders.
 	[X] weretiger 	(human) 	9
 	[X] weresnake 	(human) 	9
 	[X] kamadan
@@ -132,8 +134,9 @@ Slashem monsters:
 	[X] hellcat
 	[X] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
 		[ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
-	galltrit (deferred)
-	jermlaine (deferred)
+		
+	[ ] galltrit (deferred)
+	[ ] jermlaine (deferred)
 	
 	[X] dwarf thief
 		[ ] Check town/minetown for dwarf thief/gnome thief placement
@@ -193,12 +196,6 @@ Slashem monsters:
 		[ ] Most badgers are solitary, nocturnal animals. (they spawn in very small groups, they like the dark)
 		[ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 		
-		
-
-	
-
-	
-	
 	[X] scramper
 	[X] squealer
 	[X] mangler
@@ -226,16 +223,13 @@ Slashem monsters:
 	[X] Girtab
 	[X] Shelob
 
-	Pegasus (evil has?)
+	[ ] Pegasus (evil already has pegasi)
 	
 	[X] larva (Note: grows up)
-
-		
 	[X] maggot (Note: grows up)
 	[X] dung worm
 		[ ] Dung worms should be poisonous?
 		[ ] Eating dung worms should cause illness?
-		
 	
 	[X] acid worm
 	[X] bloodworm
@@ -261,13 +255,13 @@ Slashem monsters:
 	[X] rhumbat
 	[X] athol
 	[X] hellbat
-		[ ] Hellbat "pecks". SHould be bite.
+		[ ] Hellbat "pecks". Should be bite.
 	[X] mongbat
 	[X] mobat
 	[X] harpy
 	[X] byakhee
 	[X] nightgaunt
-	[e] baby shimmering dragon
+	[e] baby shimmering dragon (
 	[e] shimmering dragon
 	
 		-- adding dragon is tricky, need to maintain some orders
@@ -629,17 +623,23 @@ Slashem Mechanics:
 	\#technique command
 	\#borrow command
 	
-	
 
 ## Goal 2: Apply slashem updates from slashem-up, slashem9, slashTHEM
-
-		
+	https://github.com/BarclayII/slashem-up
+	https://github.com/Soviet5lo/SlashTHEM
+	https://github.com/moon-chilled/slashem9
+	
+	
 ## Goal 3: Remove/edit Evil content
 	[ ] Don't require defeating Goblin king to access mines
+	[ ] Remove Goblin King level - get permission from K2
+	[ ] Remove Kathryn Ice Queen branch - need permission from K2
+	
 	[ ] Change sokobon prize back to normal
 	[ ] Return shopkeeper pricing back to normal (no racist pricing!)
 	[ ] Fix paranoid swim
 	[ ] Remove water from Gnomish Mines (use in a different mines - wyrm or kobold caves?
+	[ ] Remove most random water in early game (ex: No water around up/down stairs)
 	[ ] No alignment penalty in quest
 	[ ] Can enter quest at 10 - no penalty
 
@@ -664,6 +664,8 @@ Slashem Mechanics:
 	* Boots of Stomping (Splice)
 	* Sheol branch (Un)
 	
+	* 0 turn weapon switching (dnh)
+	* slotless awesome artifacts (dnh)
 ## Goal 5: Homemade Ideas/Improvements for Slashem
 	[ ] Pokedex for Monsters
 	[ ] Pokedex for Items
@@ -738,6 +740,8 @@ Slashem Mechanics:
 
 	[ ] Instead of modern firearms - add old-style Muskets?
 	[ ] Enemy compounds could even have cannons?...
+	
+	[ ] Add some passive spells for ice/flame mage?  Ice globe, ring of fire. 
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
