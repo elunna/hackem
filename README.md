@@ -126,7 +126,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] pixie (removed MR_HITASONE)
 - [x] brownie (removed MR_HITASONE)
 - [x] quickling (removed MR_HITASONE)
-- [ ] Aphrodite - Already in evil, higher level
+- [x] Aphrodite - (Already in evil with her own level, higher level)
 - [x] war orc
 - [x] great orc
 - [x] Grund the Orc King
@@ -158,7 +158,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] phase spider (webmaker)
 - [x] Girtab
 - [x] Shelob
-- [ ] Pegasus (evil already has pegasi)
 - [x] larva (Note: grows up)
 - [x] maggot (Note: grows up)
 - [x] dung worm
@@ -268,9 +267,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] pile of killer coins (Note: grows up)
 - [x] large pile of killer coins (Note: grows up)
 - [x] huge pile of killer coins
-- [ ] Nightmare (evil has nightmares)
-- [ ] Beholder (evil has beholders)
-- [ ] Vecna (evil has Vecna already)
 - [x] flame mage
 - [x] ice mage
 - [x] necromancer
@@ -291,8 +287,24 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] embalmer (Removed MR_HITASONE)
 - [x] exterminator (Removed MR_HITASONE)
 - [x] Yeoman Warder
+
+
+- [ ] Nightmare (evil has nightmares)
+	EVIL: Rename nightmares to greater nightmare
 	
+- [ ] Beholder (evil has beholders)
+	Rename the slashem unique to:  Beholder of 
+		Beholder of Infinity
+		Controller of the Beholders
+		Someone or something that is usually blinded, probably a humanoid.
+		Some kind of wizard?
+		
+- [ ] Vecna (evil has Vecna already)
+
+Leaving Out:
+	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
 	
+
 Quality control on monsters:
 	- [x] Double-check and redo all difficulty levels for imported monsters.
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)

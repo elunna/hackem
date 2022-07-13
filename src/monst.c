@@ -5495,6 +5495,43 @@ struct permonst _mons2[] = {
      * has the G_NOGEN and M2_NOPOLY attributes.
      */
 
+/*
+ * KMH -- Monsters of the aligned key quests
+ */
+    #if 0  /* Alignment quest leaders */
+    MON("Nightmare", S_UNICORN, 
+        LVL(12, 24, -2, 70, 15), (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        A(ATTK(AT_BUTT, AD_PHYS, 3, 12), ATTK(AT_KICK, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1500, 300, MS_NEIGH, MZ_LARGE),
+        MR_POISON | MR_FIRE | MR_COLD | MR_ELEC,
+        MR_POISON | MR_FIRE | MR_COLD | MR_ELEC,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
+        M2_NOPOLY | M2_PNAME | M2_FEMALE | M2_HOSTILE | M2_NASTY | M2_STALK |
+        M2_WANDER | M2_STRONG,
+        M3_WAITFORU | M3_WANTSALL, 17, CLR_RED),
+    MON("Beholder", S_EYE, 
+        LVL(15, 9, -4, 70, 0), (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        A(ATTK(AT_GAZE, AD_DETH, 1, 4), ATTK(AT_GAZE, AD_PHYS, 3, 8),
+          ATTK(AT_GAZE, AD_STUN, 1, 3), ATTK(AT_GAZE, AD_CONF, 1, 3),
+          ATTK(AT_GAZE, AD_SLEE, 1, 4), NO_ATTK),
+        SIZ(500, 100, MS_SILENT, MZ_LARGE), 0, 0,
+        M1_FLY | M1_NOLIMBS | M1_NOHEAD | M1_REGEN,
+        M2_NOPOLY | M2_NEUTER | M2_HOSTILE | M2_NASTY | M2_STALK,
+        M3_INFRAVISIBLE | M3_WAITFORU | M3_WANTSALL, 24, CLR_GRAY),
+    MON("Vecna", S_LICH, 
+        LVL(49, 9, -8, 90, -15), (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        A(ATTK(AT_TUCH, AD_COLD, 9, 6), ATTK(AT_MAGC, AD_SPEL, 0, 0),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1200, 100, 0, MS_MUMBLE, MZ_HUMAN),
+        MR_FIRE | MR_COLD | MR_SLEEP | MR_POISON | MR_STONE,
+        MR_FIRE | MR_COLD,
+        M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
+        M2_NOPOLY | M2_PNAME | M2_PRINCE | M2_MALE | M2_HOSTILE | M2_NASTY | M2_STALK |
+        M2_GREEDY | M2_JEWELS | M2_COLLECT | M2_UNDEAD | M2_STRONG | M2_MAGIC,
+        M3_WAITFORU | M3_WANTSALL, 56, HI_LORD),
+    #endif
+    
     /*
      * quest leaders
      */
