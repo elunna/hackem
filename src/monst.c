@@ -898,14 +898,52 @@ NEARDATA struct permonst mons[] = {
         M2_STRONG | M2_MALE | M2_GREEDY | M2_JEWELS | M2_COLLECT,
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 
         0, MH_DWARF, 6, CLR_GRAY),
+    #if 0 /* Evilhack version */
     MON("gnoll", S_HUMANOID, LVL(4, 8, 7, 0, -10), (G_GENO | G_LGROUP | 2),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), ATTK(AT_BITE, AD_PHYS, 1, 4), NO_ATTK,
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
+          ATTK(AT_BITE, AD_PHYS, 1, 4), NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1200, 300, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
         M1_HUMANOID | M1_OMNIVORE, M2_STRONG | M2_GREEDY | M2_COLLECT
             | M2_HOSTILE,
         M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_GNOLL, 6, CLR_BROWN),
+    #endif
+/* [Lethe] Gnolls are no longer S_HUMANOID */
+    MON("gnoll", S_GNOME,
+        LVL(18, 12, 5, 10, -5), (G_GENO | G_HELL | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 3, 6),  ATTK(AT_WEAP, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1800, 100, MS_ORC, MZ_LARGE), 0, 0,
+        M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS,
+        M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 20, CLR_GRAY),
+    MON("gnoll warrior", S_GNOME,
+        LVL(24, 15, 0, 20, -6), (G_GENO | G_HELL | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 3, 6),  ATTK(AT_WEAP, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1800, 100, MS_ORC, MZ_LARGE), 0, 0,
+        M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS,
+        M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 26, CLR_WHITE),
+    MON("gnoll chieftain", S_GNOME,
+        LVL(30, 18, -5, 40, -8), (G_GENO | G_HELL | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 3, 6),  ATTK(AT_WEAP, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1800, 100, MS_ORC, MZ_LARGE), 0, 0,
+        M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS,
+        M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 33, CLR_MAGENTA),
+    MON("gnoll shaman", S_GNOME,
+        LVL(18, 15, 0, 60, -10), (G_GENO | G_HELL | 1),
+        A(ATTK(AT_MAGC, AD_SPEL, 0, 0),  ATTK(AT_MAGC, AD_CLRC, 0, 0),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1800, 100, MS_ORC, MZ_LARGE), 0, 0,
+        M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS,
+        M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 22, CLR_YELLOW),
+
+    #if 0 /* Evilhack version */
     MON("gnoll hunter", S_HUMANOID, LVL(7, 12, 6, 0, -10), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 4), ATTK(AT_WEAP, AD_PHYS, 2, 4),
           ATTK(AT_BITE, AD_PHYS, 1, 4), NO_ATTK, NO_ATTK, NO_ATTK),
@@ -914,6 +952,9 @@ NEARDATA struct permonst mons[] = {
             | M2_HOSTILE,
         M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_GNOLL, 9, CLR_ORANGE),
+    #endif
+
+    #if 0 /* Evilhack version */
     MON("gnoll cleric", S_HUMANOID, LVL(8, 9, 6, 30, -10), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), ATTK(AT_MAGC, AD_CLRC, 0, 0), NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
@@ -921,6 +962,8 @@ NEARDATA struct permonst mons[] = {
         M1_HUMANOID | M1_OMNIVORE, M2_STRONG | M2_GREEDY | M2_COLLECT
             | M2_HOSTILE,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_GNOLL, 10, HI_ZAP),
+    #endif
+    
     MON("flind", S_HUMANOID, LVL(10, 12, 4, 20, -10), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 6), ATTK(AT_WEAP, AD_PHYS, 2, 6),
           ATTK(AT_BITE, AD_PHYS, 1, 4), NO_ATTK, NO_ATTK, NO_ATTK),

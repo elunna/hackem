@@ -55,9 +55,7 @@ For Linux (TL;DR version):
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 # Todo
-
 ## Goal 1: Porting Slash'EM
-
 ### Slash'EM monsters:
 - [x] giant tick (AT_MULTIPLY)
 - [x] giant flea (AT_MULTIPLY)
@@ -208,12 +206,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] gnome warrior (Removed MR_HITASONE)
 - [x] Ruggo the Gnome King (Removed MR_HITASONE)
 
-- [ ] gnoll (evil already has) (Note: grows up)
-- [ ] gnoll warrior (Note: grows up)
-- [ ] gnoll chieftain
-- [ ] gnoll shaman
-	- [ ] Evil also has gnoll cleric and gnoll hunter, check if these are clones or new monsters.
-	
+- [x] gnoll (evil already has) (Note: grows up)
+- [x] gnoll warrior (Note: grows up)
+- [x] gnoll chieftain
+- [x] gnoll shaman
 - [x] The Largest Giant (Removed MR_HITASTHREE)
 - [x] Father Dagon (deferred)
 - [x] Mother Hydra (deferred)
@@ -308,7 +304,7 @@ Quality control on monsters:
 	- [ ] Update infravision tags. Only body heat should be visible.
 	- [ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
 	- [ ] Add alternate spellings
-
+	- [ ] Reformat all monst listings for easier reading.
 
 Other ideas:
 	- [ ] Add message for tick/flea multiplication?
@@ -357,6 +353,10 @@ Other ideas:
 	- [ ] Make evil food vulnerable to fire - "cooking"!
 	- [ ] Make leprechauns and evil gold mortal enemies
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
+	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
+	- [ ] Add gnolls to grownup changes.
+	- [ ] Fix gehennom.des: Gnoll placement needs updating
+	- [ ] Integrate gnoll cleric and gnoll hunter?
 	
 ### Slash'EM Items
 Artifacts:
@@ -397,7 +397,6 @@ Artifacts:
 - [ ] Key of Law
 - [ ] Key of Neutrality
 - [ ] Key of Chaos
-
 
 Slashem Items:
 - [ ] Dark elven dagger
@@ -510,7 +509,6 @@ Slashem Armor:
 - [ ] Yeoman
 - [ ] Undead Slayer
 - [ ] Necromancer
-
 - [ ] Monk: Implement the monk closer to Slashem
 
 ### Races:
@@ -546,7 +544,6 @@ Slashem Armor:
 - [ ] Dispater's lair
 - [ ] Frankenstein's Lab
 
-
 ### New special rooms
 - [ ] Giant Throne Rooms
 - [ ] Fungus Farm
@@ -577,11 +574,9 @@ Slashem Armor:
 - [ ] \#borrow command
 - [ ] Monster spellcasting - make pool?
 
-
 ## Goal 2: Integrate slashem updates and bugfixes from other Slash'EM forks
+Most notably from slashem-up, slashem9, and SlashTHEM. Slash'EM was a great game, but it was far from perfect. It would be nice to polish up things that were left behind (examples: updates to artifacts and quest artifacts, technique bugs, mold mechanics, polymorph bugs (ie: flame mage and ice mage).
 
-	- Notably from slashem-up, slashem9, and SlashTHEM.
-	- Slash'EM was a great game, but it was far from perfect. It would be nice to polish up things that were left behind (examples: updates to artifacts and quest artifacts, technique bugs, mold mechanics, polymorph bugs (ie: flame mage and ice mage).
 	- https://github.com/BarclayII/slashem-up
 	- https://github.com/Soviet5lo/SlashTHEM
 	- https://github.com/moon-chilled/slashem9
@@ -591,37 +586,34 @@ Slashem Armor:
 Differentiate this fork from EvilHack. Let's use what makes sense - but when in doubt: "Depart from evil, and do good; Seek peace, and pursue it." - Psalm 34:13-14
 
 Examples of what to change back to traditional slashem behavior:
-	- Don't require defeating Goblin king to access mines
-	- Change sokobon prize system back to normal
-	- Return shopkeeper pricing to normal levels (for easier price-ID)
-	- Allow entering quest at 10 without penalty
+	- [ ] Don't require defeating Goblin king to access mines
+	- [ ] Change sokobon prize system back to normal
+	- [ ] Return shopkeeper pricing to normal levels (for easier price-ID)
+	- [ ] Allow entering quest at 10 without penalty
 	
-	[ ] Don't require defeating Goblin king to access mines
-	[] Remove Goblin King level (or repurpose somewhere else)
-	[ ] Remove Kathryn Ice Queen branch (or remix)
+	- [ ] Don't require defeating Goblin king to access mines
+	- [ ] Remove Goblin King level (or repurpose somewhere else)
+	- [ ] Remove Kathryn Ice Queen branch (or remix)
 	
-	[ ] Change sokobon prize back to normal
-	[ ] Return shopkeeper pricing back to normal (no racist pricing!)
-	[ ] Fix paranoid swim
-	[ ] Remove water from Gnomish Mines (use in a different mines - wyrm or kobold caves?
-	[ ] Remove most random water in early game (ex: No water around up/down stairs)
-	[ ] No alignment penalty in quest
-	[ ] Can enter quest at 10 - no penalty
+	- [ ] Change sokobon prize back to normal
+	- [ ] Return shopkeeper pricing back to normal (no racist pricing!)
+	- [ ] Fix paranoid swim
+	- [ ] Remove water from Gnomish Mines (use in a different mines - wyrm or kobold caves?
+	- [ ] Remove most random water in early game (ex: No water around up/down stairs)
+	- [ ] No alignment penalty in quest
+	- [ ] Can enter quest at 10 - no penalty
 
-	[ ] Revenants should shoot missiles/fireballs (ala Doom)
-	[ ] Snowball attack for ice trolls? frost giants?
-	[ ] Double check that all nobles are lords, royals are kings.
-	[ ] Revert "noble" to "lord"
-	[ ] Revert "royal" to "king"
-	[ ] Eventually add in the opposite genders from 3.7 (ladies/queens, etc)
-
-	[ ] Keep evil Gnolls or use slashem ones, or ones from Splice/Dnh/Gnollhack?
-	[ ] Keep Vecna's lair? 
-
-	[ ] Unrestrict two-weaponing, and let player's get full benefits from both weapons, regardless of primary hand.
-	[ ] Possibly go back to traditional altar sacrifice system
-	
-	[ ] No autopickup when falling through holes?
+	- [ ] Revenants should shoot missiles/fireballs (ala Doom)
+	- [ ] Snowball attack for ice trolls? frost giants?
+	- [ ] Double check that all nobles are lords, royals are kings.
+	- [ ] Revert "noble" to "lord"
+	- [ ] Revert "royal" to "king"
+	- [ ] Eventually add in the opposite genders from 3.7 (ladies/queens, etc)
+	- [ ] Keep evil Gnolls or use slashem ones, or ones from Splice/Dnh/Gnollhack?
+	- [ ] Keep Vecna's lair? 
+	- [ ] Unrestrict two-weaponing, and let player's get full benefits from both weapons, regardless of primary hand.
+	- [ ] Possibly go back to traditional altar sacrifice system
+	- [ ] No autopickup when falling through holes?
 	
 ## Goal 4: Import content from other forks.
 Bring in new and interesting content from the many quality forks out there.  I'd like to try not to get too wacky and keep to the spirit of Slashem. (And yes, I realize that slashem does get a bit wacky with things like Tasmanian Devils, toilets, and lightsabers - but there are limits!)
@@ -645,16 +637,16 @@ Enhance the existing content from slash'em to make more sense, be more challengi
 	- [ ] Pokedex for Items
 	- [ ] Techniques from SlashEm/Them
 	- [ ] Add back best roles from SlashThem
-		Convict (already in Evil)
-		Chef, 
-		Drunk, 
-		Gladiator, 
-		Pirate/Corsair (or copy from Splice) 
-		Warrior (revamp to be more in line with Gauntlet)
+		- [ ] Convict (already in Evil)
+		- [ ] Chef, 
+		- [ ] Drunk, 
+		- [ ] Gladiator, 
+		- [ ] Pirate/Corsair (or copy from Splice) 
+		- [ ] Warrior (revamp to be more in line with Gauntlet)
 	- [ ] Add back these races from SlashThem
 		[ ] Ghoul
-		[e] Giant
-		[e] Illithid
+		[x] Giant (Already in evil)
+		[x] Illithid (Already in evil)
 		[ ] Vampire
 	- [ ] Allow Giants to benefit from ring of slow digestion
 	- [ ] Change Gypsy to Fortune Teller and create a "fortune teller wish flag" that once set disallows additional fortune teller wishes.

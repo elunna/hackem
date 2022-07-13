@@ -1471,16 +1471,21 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, ARMOR);
             if (!rn2(5))
                 (void) mongets(mtmp, CLOAK);
-            if (mm != PM_GNOLL_CLERIC) {
+            // if (mm != PM_GNOLL_CLERIC) {  /* While we figure out what to do with the cleric. */
+
+            if (mm != PM_GNOLL_SHAMAN) {
                 if (rn2(4))
                     (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
                 else
                     (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
             }
+            #if 0  /* --hackem: Disabling until we figure out what to do with Gnolls. */
             if (mm == PM_GNOLL_HUNTER) {
                 (void) mongets(mtmp, BOW);
                 m_initthrow(mtmp, ARROW, 12);
             }
+            #endif
+
             if (mm == PM_FLIND) {
                 if (rn2(4))
                     (void) mongets(mtmp, HIGH_BOOTS);
