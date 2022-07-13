@@ -20,6 +20,7 @@ Evil also has some challenging aspects that are well worth keeping:
 	- Elbereth: Can't use unless you found/discovered it.
 	- Partial intrinsics; Partial eflection
 	- No randomly generated magic markers
+	- Strong monsters push through weaker monsters to get to you.
 	- Zombies ressurect, mummies wither, spellcasters are meaner.
 	- Monster steeds
 
@@ -60,9 +61,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ### Slash'EM monsters:
 - [x] giant tick (AT_MULTIPLY)
 - [x] giant flea (AT_MULTIPLY)
-	- [ ] add message for tick/flea multiplication?
-	- [ ] Allow ticks and fleas to appear in main dungeon? 
-	  (They currently only appear in the lawful quest or Gehennom.
 - [x] snow ant
 - [x] giant louse
 - [x] tsetse fly
@@ -90,7 +88,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] wolverine
 - [x] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
 - [x] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
-	- [ ] Make mist wolves leave trail of mist?
 - [x] glowing eye
 - [x] bloodshot eye
 - [x] blinking eye
@@ -100,23 +97,17 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] weresnake 	(animal) 	9
 - [x] werepanther (human) 	5
 - [x] werespider 	(human) 	7
-	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
 - [x] weretiger 	(human) 	9
 - [x] weresnake 	(human) 	9
 - [x] kamadan
 - [x] displacer beast (already present in evil)
 - [x] caterwaul
 - [x] sabre-toothed cat
-	(Evil has a sabre-toothed tiger)
-	- [ ] Set up the sabre-tooth cat to grow up into the tiger?
-	- [ ] Make sabre-tooth cat a little weaker, or tiger stronger.
 - [x] hellcat
 - [x] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
-	- [ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 - [ ] galltrit (deferred)
 - [ ] jermlaine (deferred)
 - [x] dwarf thief
-	- [ ] Check town/minetown for dwarf thief/gnome thief placement
 - [x] duergar (removed MR_HITASONE)
 - [x] deep one (growup done)
 - [x] deeper one (growup done)
@@ -124,33 +115,20 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] dretch
 - [x] rutterkin
 - [x] nupperibo
-	- [ ] Make blood imps, nupperibos drain levels as well?
 - [x] blood imp
-	- [ ] Blood imps should probably have a vampiric attack.
 - [x] clear jelly
-	- [ ] clear jelly has touch acid attack, but not passive
-	- [ ] add passive acid as well?
 - [x] yellow jelly
-	- [ ] yellow jelly has passive stun, but not active 
-	- [ ] add passive acid as well?
 - [x] orange jelly (Implemented passive sleep attacks)
-	- [ ] orange jelly has passive sleep, but not active attack
-	- [ ] add passive acid as well?
 - [x] rancid jelly
-	- [ ] rancid jelly should leave a trail of acid slime?
-	- [ ] eat organics?
-	- [ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 - [x] swamp kobold
 - [x] rock kobold
 - [x] kobold warrior
 - [x] Kroo the Kobold King
-	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
-	- [ ] Add traitor property to all kobolds
 - [x] leprechaun wizard (Removed MR_HITASONE)
 - [x] pixie (removed MR_HITASONE)
 - [x] brownie (removed MR_HITASONE)
 - [x] quickling (removed MR_HITASONE)
-- [e] Aphrodite - Already in evil, higher  level
+- [ ] Aphrodite - Already in evil, higher level
 - [x] war orc
 - [x] great orc
 - [x] Grund the Orc King
@@ -162,18 +140,12 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] cow (MS_COW)
 - [x] bull
 - [x] giant badger (changed to rodent class to match honey badger)
-	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
-	- [ ] Badgers can usually swim; add M1_SWIM?
-	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
-	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
-	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 - [x] scramper
 - [x] squealer
 - [x] mangler
 - [x] Jumbo the Elephant
 - [x] juggernaut
 - [x] catoblepas (Removed MR_HITASTWO)
-	- [ ] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
 - [x] rabbit
 - [x] black rat
 - [x] rabid rabbit
@@ -184,22 +156,16 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] barking spider (webmaker)
 - [x] carrion crawler
 - [x] nickelpede
-	- [ ] Make centipede grow into nickelpede
-	- [ ] Make nickelpede grow into giant centipede
 - [x] giant scorpion
 - [x] phase spider (webmaker)
-	- [ ] make more powerful and skittish? Make them have phasing?
 - [x] Girtab
 - [x] Shelob
 - [ ] Pegasus (evil already has pegasi)
 - [x] larva (Note: grows up)
 - [x] maggot (Note: grows up)
 - [x] dung worm
-	- [ ] Dung worms should be poisonous?
-	- [ ] Eating dung worms should cause illness?
 - [x] acid worm
 - [x] bloodworm
-	- [ ] allow "blood worm", "blood-worm" as spelling
 - [x] tunnel worm
 - [x] rot worm
 - [x] spark bug (Removed MR_HITASONE)
@@ -221,17 +187,18 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] rhumbat
 - [x] athol
 - [x] hellbat
-	- [ ] Hellbat "pecks". Should be bite. (Might happen with other bats too)
 - [x] mongbat
 - [x] mobat
 - [x] harpy
 - [x] byakhee
 - [x] nightgaunt
-- [ ] baby shimmering dragon (already in EvilHack)
-- [ ] shimmering dragon 	 (already in EvilHack)
+- [x] baby shimmering dragon (already in EvilHack)
+- [x] shimmering dragon 	 (already in EvilHack)
+
 	Note: -- adding dragons is tricky, need to maintain strict orders in code.
 - [ ] baby deep dragon
 - [ ] deep dragon
+
 - [x] wyvern (Removed MR_HITASTWO)
 - [x] hydra  (Removed MR_HITASTWO)
 - [x] disgusting mold
@@ -240,38 +207,34 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] deep gnome (Removed MR_HITASONE)
 - [x] gnome warrior (Removed MR_HITASONE)
 - [x] Ruggo the Gnome King (Removed MR_HITASONE)
+
 - [ ] gnoll (evil already has) (Note: grows up)
 - [ ] gnoll warrior (Note: grows up)
 - [ ] gnoll chieftain
 - [ ] gnoll shaman
 	- [ ] Evil also has gnoll cleric and gnoll hunter, check if these are clones or new monsters.
+	
 - [x] The Largest Giant (Removed MR_HITASTHREE)
 - [x] Father Dagon (deferred)
 - [x] Mother Hydra (deferred)
-- [e] vorpal jabberwock (already has the beheading attack!)
+- [ ] vorpal jabberwock (already has the beheading attack!)
 - [x] troll mummy (Added regen and stalk, revival works fine.)
 - [x] ogre mage
 - [x] shadow ogre (Removed MR_PLUSONE)
-	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
 - [x] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
-	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
 - [x] shoggoth (Note: grows up)
-	- [ ] Remove all but one corrosion attack.
 - [x] giant shoggoth
-	- [ ] Remove all but one corrosion attack.
-[e] genetic engineer
+- [x] genetic engineer (already in evil)
 - [x] Doctor Frankenstein
 - [x] king cobra
 - [x] asphynx
 - [x] two-headed troll (Removed MR_HITASTWO)
 - [x] black troll (Removed MR_HITASTHREE)
 - [x] water hulk (Removed MR_HITASONE)
-	- [ ] Add vulnerability to shock (similar to other water-critters)
 - [x] fire vampire
 - [x] star vampire
 - [ ] vampire mage (already in evil)
 - [x] wight
-	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 - [x] zruty
 - [x] ghoul mage
 - [x] ghast
@@ -290,7 +253,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] drow (Added infravisible)
 - [x] mugger
 - [x] gypsy (Added M3_INFRAVISIBLE)
-	- [ ] Implement gypsy_chat
 - [x] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
 - [x] shadow (Added M3_INFRAVISION)
 - [x] spined devil (Removed MR_PLUSONE)
@@ -304,19 +266,16 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] gila monster
 - [x] rhaumbusun
 - [ ] basilisk (already in evil)
-	- [ ] Compare to slashem, keep the 'c' symbol?
 - [x] komodo dragon
-	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
 - [x] bad egg
 - [x] killer tripe ration
 - [x] killer food ration
 - [x] pile of killer coins (Note: grows up)
-	- [ ] Make evil food vulnerable to fire - "cooking"!
 - [x] large pile of killer coins (Note: grows up)
 - [x] huge pile of killer coins
 - [ ] Nightmare (evil has nightmares)
 - [ ] Beholder (evil has beholders)
-- [ ] Vecna
+- [ ] Vecna (evil has Vecna already)
 - [x] flame mage
 - [x] ice mage
 - [x] necromancer
@@ -332,7 +291,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] Maugneshaagar (Removed MR_HITASFOUR)
 - [x] Count Dracula (removed MR_HITASFOUR)
 - [x] Colonel Blood
-
 - [x] igniter (Removed MR_HITASONE)
 - [x] froster (Removed MR_HITASONE)
 - [x] embalmer (Removed MR_HITASONE)
@@ -353,11 +311,53 @@ Quality control on monsters:
 
 
 Other ideas:
+	- [ ] Add message for tick/flea multiplication?
+	- [ ] Allow ticks and fleas to appear in main dungeon? (They currently only appear in the lawful quest or Gehennom.
+	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
+	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
+	- [ ] Set up the sabre-tooth cat to grow up into the tiger?
+	- [ ] Make sabre-tooth cat a little weaker, or tiger stronger.
+	- [ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
+	- [ ] Check town/minetown for dwarf thief/gnome thief placement
+	- [ ] Make blood imps, nupperibos drain levels as well?
+	- [ ] Blood imps should probably have a vampiric attack.
+	- [ ] clear jelly has touch acid attack, but not passive. Add passive acid?
+	- [ ] yellow jelly has passive stun, but not active. add passive acid?
+	- [ ] orange jelly has passive sleep, but not active attack. add passive acid?
+ 	- [ ] rancid jelly should leave a trail of acid slime?
+	- [ ] Should rancid jelly eat organics?
+	- [ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Check other monsters for traitor property
 	- [ ] What can we replace requiresX and hitsAsX with? Forceful hits, more AC/MR
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
-
+	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
+	- [ ] Add traitor property to all kobolds
+	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
+	- [ ] Badgers can usually swim; add M1_SWIM?
+	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
+	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
+	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
+	- [ ] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
+	- [ ] Make centipede grow into nickelpede
+	- [ ] Make nickelpede grow into giant centipede
+	- [ ] make phase spiders more powerful and skittish? Make them have phasing?
+	- [ ] Dung worms should be poisonous?
+	- [ ] Eating dung worms should cause illness?
+	- [ ] allow "blood worm", "blood-worm" as spelling
+	- [ ] Hellbat "pecks". Should be bite. 
+	- [ ] Check that other bats don't peck - they don't have beaks...
+	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
+	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
+	- [ ] Remove all but one corrosion attack from shoggoths and giant shoggoths.
+	- [ ] Water hulks: Add vulnerability to shock (similar to other water-critters)
+	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
+	- [ ] Implement gypsy_chat
+	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
+	- [ ] Make evil food vulnerable to fire - "cooking"!
+	- [ ] Make leprechauns and evil gold mortal enemies
+	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
+	
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
@@ -599,8 +599,8 @@ Examples of what to change back to traditional slashem behavior:
 	- Allow entering quest at 10 without penalty
 	
 	[ ] Don't require defeating Goblin king to access mines
-	[ ] Remove Goblin King level - get permission from K2
-	[ ] Remove Kathryn Ice Queen branch - need permission from K2
+	[] Remove Goblin King level (or repurpose somewhere else)
+	[ ] Remove Kathryn Ice Queen branch (or remix)
 	
 	[ ] Change sokobon prize back to normal
 	[ ] Return shopkeeper pricing back to normal (no racist pricing!)
@@ -617,63 +617,62 @@ Examples of what to change back to traditional slashem behavior:
 	[ ] Revert "royal" to "king"
 	[ ] Eventually add in the opposite genders from 3.7 (ladies/queens, etc)
 
-
 	[ ] Keep evil Gnolls or use slashem ones, or ones from Splice/Dnh/Gnollhack?
 	[ ] Keep Vecna's lair? 
 
 	[ ] Unrestrict two-weaponing, and let player's get full benefits from both weapons, regardless of primary hand.
 	[ ] Possibly go back to traditional altar sacrifice system
 	
+	[ ] No autopickup when falling through holes?
 	
 ## Goal 4: Import content from other forks.
 
-	- bring in new and interesting content from the many quality forks out there. 
-	- I'd like to try not to get too wacky and keep to the spirit of Slashem.
-	- (And yes, I realize that slashem does get a bit wacky with things like Tasmanian Devils, toilets, and lightsabers - but there are limits!)
+Bring in new and interesting content from the many quality forks out there.  I'd like to try not to get too wacky and keep to the spirit of Slashem. (And yes, I realize that slashem does get a bit wacky with things like Tasmanian Devils, toilets, and lightsabers - but there are limits!)
 
-	* Bag of tricks patch (from UnNethack)
-	* Auto-ID of obvious things (UnNethack)
-	* Cartomancer role, Mermaid race (Splicehack)
-	* Boots of Stomping (Splice)
-	* Sheol branch (Un)
-	
-	* 0 turn weapon switching (dnh)
-	* slotless awesome artifacts (dnh)
-	
+	- [ ] Bag of tricks patch (from UnNethack)
+	- [ ] Auto-ID of obvious things (UnNethack)
+	- [ ] Cartomancer role, Mermaid race (Splicehack)
+	- [ ] Boots of Stomping (Splice)
+	- [ ] Sheol branch (Un)
+	- [ ] 0 turn weapon switching (dnh)
+	- [ ] slotless awesome artifacts (dnh)
+	- [ ] Cross skill training: From dyna?
+	- [ ] Shield/armor skills: Dyna? (Should not just depend on time - but on usage, similar to weapons)
+
 	
 ## Goal 5: Homemade Ideas/Improvements for Slashem
 
 	- enhance the existing content from slash'em to make more sense, be more challenging, and use the mechanics in more creative ways. 
 	- When it makes sense, we'll follow the conventions that Evil has set down, otherwise we might have to invent new mechanics or abilities.
 
-	[ ] Pokedex for Monsters
-	[ ] Pokedex for Items
-	[ ] Techniques from SlashEm/Them
-	[ ] Add back best roles from SlashThem
+	- [ ] Pokedex for Monsters
+	- [ ] Pokedex for Items
+	- [ ] Techniques from SlashEm/Them
+	- [ ] Add back best roles from SlashThem
 		Convict (already in Evil)
 		Chef, 
 		Drunk, 
 		Gladiator, 
 		Pirate/Corsair (or copy from Splice) 
 		Warrior (revamp to be more in line with Gauntlet)
-	[ ] Add back these races from SlashThem
+	- [ ] Add back these races from SlashThem
 		[ ] Ghoul
 		[e] Giant
 		[e] Illithid
 		[ ] Vampire
-	[ ] Allow Giants to benefit from ring of slow digestion
-	[ ] Change Gypsy to Fortune Teller and create a "fortune teller wish flag" that once set disallows additional fortune teller wishes.
-	[ ] Fix Sokoban so that monsters don't spawn in the hallway and also probably no peaceful spawns in sokoban.  Both are extremely boring when they happen.  One of the variants has this, so you should be able to patch from them.
+	- [ ] Allow Giants to benefit from ring of slow digestion
+	- [ ] Change Gypsy to Fortune Teller and create a "fortune teller wish flag" that once set disallows additional fortune teller wishes.
+	- [ ] Fix Sokoban so that monsters don't spawn in the hallway and also probably no peaceful spawns in sokoban.  Both are extremely boring when they happen.  One of the variants has this, so you should be able to patch from them.
 		
-	[ ] Instead of fungus: larva/Maggots grows in some corpses, large ones?
-	[ ] Maggots could grow into other things depending on level?
-	[ ] Should water monsters have water attack? Spit water?
-	[ ] shadow monsters leave trail of darkness
-	[ ] Shadow monsters are drain/death/cold resistant?
-	[ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
+	- [ ] Instead of fungus: larva/Maggots grows in some corpses, large ones?
+	- [ ] Maggots could grow into other things depending on level?
+	- [ ] Should water monsters have water attack? Spit water?
+	- [ ] shadow monsters leave trail of darkness
+	- [ ] Shadow monsters are drain/death/cold resistant?
+	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
 	
 	
-	[ ] Regarding temp polymorph - there are pros and cons to keeping and removing it. 
+	- [ ] Regarding temp polymorph - there are pros and cons to keeping and removing it. 
 		Temp poly items nerfs polymorph a bit, not so much for potions and scrolls, but moreso for rings and amulets (and wands)
 		Temp poly introduces another descriptor "hazy" in the inventory.
 		Temp poly opens doors up for strange bugs - like +99 dwarven pick-axes.
@@ -684,26 +683,45 @@ Examples of what to change back to traditional slashem behavior:
 		
 		I'm more in favor of NOT re-implementing temp poly and keeping the traditional behavior in vanilla and evil.
 	
-	[ ] Shopkeeper services
+	- [ ] Shopkeeper services
 		- the interface needs a revamp, it's really annoying to navigate the shk services in slashem.
 		- Implement a nice menu when you press 'p' 
 		- (then we can use services even if we own money)
 		- General stores should not always allow full identify services for everything. There should be more variety in what they can id - or each one has somem different specialties
 		- Slashem stores typically did not have many interesting services. What can we add to make things more interesting?
 	
+	- [ ] Remove A for All Items (help prevent interface screw, cancelling BoH)
+	
+	- [ ] More breakable items? 
+	- [ ] Blindfolds/towels can burn up? Towels get better because you can moist them
+		Can we wet towels in evil?
+	
+	- [ ] Nerf excalibur - or at least, make it so only lawful knights can get Excalibur.
+	- [ ] Make Mjollnir Great, but it demands worthiness. 
+		- [ ] Mjollnir is normally extremely heavy but gets lighter with positive alignment.
+		- [ ] Make it intelligent
+		- [ ] It Has Force Attacks, shock is reduced so people are not dissuaded by it's item destruction. 
+		- [ ] Maybe it should just not destroy items anymore...
+		- [ ] Has some similarities to MagicBane - it randomly Blinds, stuns, confuses
+		- [ ] grants Warning against cross-aligned?
+
+
+	- [ ] "Force/Impact attacks" are like magical shoves or piledrivers. They make enemies drop items, 
+	
+	
 
 ## Goal 6: HackEM specific content
 
 Create some new content that is specific to HackEM!  
 
-	[ ] Energy Vampires/Psychic Vampires: 
+	- [ ] Energy Vampires/Psychic Vampires: 
 		Inspired by: https://whatwedointheshadows.fandom.com/wiki/Psychic_vampires
 		Drain energy merely by talking to them
 		bore - sleep
 		daywalkers, not affected by sun
 		Can drain other EVs
 	
-	[ ] Giant enhancements:
+	- [ ] Giant enhancements:
 		* Make giants have more elementals associated with their attacks:
 			Fire giants have fire attack/fireballs, passive fire. Fire trail/smoke trail
 			Frost giants have cold attack/ice balls, passive cold. Ice trail.
@@ -713,17 +731,31 @@ Create some new content that is specific to HackEM!
 		* Giants can jump and create pits.
 		* Thrown boulders hurt a LOT more.
 
-	[ ] Lord/Prince classes could be able to summon small crowds of lower minions? Or even higher?
-	[ ] Is there special handling for multi-headed monsters? Hydras, 2-headed trolled?
+	- [ ] Lord/Prince classes could be able to summon small crowds of lower minions? Or even higher?
+	- [ ] Is there special handling for multi-headed monsters? Hydras, 2-headed trolled?
 		Afffects things, beheading, regeneration, sight, etc...
-	[ ] Nagas are a little boring, is there anything we can do to spice them up? They are basically mirroring dragons but weaker.
-	[ ] Make see invisible temporary (from potions, eating stalkers, fountains)
+	- [ ] Nagas are a little boring, is there anything we can do to spice them up? They are basically mirroring dragons but weaker.
+	- [ ] Make see invisible temporary (from potions, eating stalkers, fountains)
 		Requires ring to be permanent.
 
-	[ ] Instead of modern firearms - add old-style Muskets?
-	[ ] Enemy compounds could even have cannons?...
 	
-	[ ] Add some passive spells for ice/flame mage?  Ice globe, ring of fire. 
+	- [ ] Enemy compounds could even have cannons?...
+	
+	- [ ] Add some passive spells for ice/flame mage?  Ice globe, ring of fire. 
+	- [ ] Explosive Barrels (from Doom)
+	
+	Firearms updates:
+	- [ ] Instead of modern firearms - add old-style guns?
+	- [ ] Revolver - from Alone in the Dark
+	- [ ] Muskets: https://en.wikipedia.org/wiki/Musket
+	- [ ] Low gun skill means a gun has a chance of jamming
+	- [ ] Higher gun skill is better accuracy, higher damage, and less chance of jamming.
+
+	In Alone in the Dark you can retrieve the revolver in a side room of Derceto's kitchen . Examining the pile of coal that will be on the ground you will be able to recover a shoe box inside which the gun is hidden. The revolver will initially contain 6 bullets, to which 12 more can be added in the Cellar of the villa and on the dresser of one of the guest bedrooms on the first floor. Despite the difficulty pointing and the slowness of fire is a good weapon to defend against slower enemies, causing serious damage. Unlike the gun cartridges, the revolver ammunition will not become useless when the player enters the water making the weapon effective in all situations.
+
+
+
+	
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
