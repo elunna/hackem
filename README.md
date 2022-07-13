@@ -332,11 +332,12 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] Maugneshaagar (Removed MR_HITASFOUR)
 - [x] Count Dracula (removed MR_HITASFOUR)
 - [x] Colonel Blood
-- [ ] igniter
-- [ ] froster
-- [ ] embalmer
-- [ ] exterminator
-- [ ] Yeoman Warder
+
+- [x] igniter (Removed MR_HITASONE)
+- [x] froster (Removed MR_HITASONE)
+- [x] embalmer (Removed MR_HITASONE)
+- [x] exterminator (Removed MR_HITASONE)
+- [x] Yeoman Warder
 	
 	
 Quality control on monsters:
