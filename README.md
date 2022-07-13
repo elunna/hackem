@@ -256,7 +256,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] chasme (Removed MR_PLUSONE | MR_HITASTWO)
 - [x] babau (MR_PLUSONE | MR_HITASTWO)
 - [x] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
-- [ ] Cthulhu (deferred)
+- [x] Cthulhu (deferred)
 - [x] giant crab
 - [x] gila monster
 - [x] rhaumbusun
@@ -357,6 +357,8 @@ Other ideas:
 	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [x] Added traitor property to vampire mage.
+	- [x] Added M1_OVIPAROUS to basilisk.
+	
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
@@ -743,6 +745,8 @@ Create some new content that is specific to HackEM!
 	
 	- [ ] Move scrampers/squealers/manglers to Q?
 	
+	- [ ] Should Cthulu ressurection be part of Wizard harassment?  (It's nasty)
+
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
