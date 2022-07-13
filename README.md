@@ -356,7 +356,7 @@ Other ideas:
 	- [ ] Add gnolls to grownup changes.
 	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [ ] Integrate gnoll cleric and gnoll hunter?
-	
+	- [x] Added traitor property to vampire mage.
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell

@@ -398,7 +398,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(90, 50, MS_HISS, MZ_MEDIUM), MR_POISON | MR_SLEEP | MR_STONE,
         MR_POISON | MR_STONE,
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_THICK_HIDE,
-        M2_HOSTILE | M2_LORD | M2_STRONG | M2_NASTY,
+        M2_HOSTILE | M2_LORD | M2_STRONG | M2_NASTY | M1_OVIPAROUS,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, 0, 16, CLR_BRIGHT_GREEN),
     /*
      * dogs & other canines
