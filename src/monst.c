@@ -823,6 +823,20 @@ NEARDATA struct permonst mons[] = {
         MR_SLEEP | MR_POISON | MR_STONE, 0,
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_THICK_HIDE, M2_HOSTILE, 
         0, 0, 0, 5, CLR_GRAY),
+    MON("galltrit", S_GREMLIN, LVL(3, 18, 2, 25, -9), (G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 6), ATTK(AT_CLAW, AD_PHYS, 1, 6),
+          ATTK(AT_BITE, AD_PHYS, 1, 4), ATTK(AT_CLAW, AD_CURS, 0, 0),
+          NO_ATTK, NO_ATTK),
+        SIZ(100, 20, MS_LAUGH, MZ_SMALL), MR_POISON, 0,
+        M1_SWIM | M1_HUMANOID | M1_POIS, M2_STALK, 
+        0, 0, 0, 6, CLR_BLACK),
+    MON("jermlaine", S_GREMLIN, 
+        LVL(0, 15, 7, 0, -9), (G_NOHELL | G_GENO | G_VLGROUP | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 2), NO_ATTK, NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK),
+        SIZ(100, 20, MS_LAUGH, MZ_SMALL), MR_POISON, 0,
+        M1_HUMANOID | M1_POIS, M2_STALK, 
+        0, 0, 0, 2, CLR_GRAY),
     /*
      * humanoids
      */

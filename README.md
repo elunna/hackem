@@ -105,8 +105,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] sabre-toothed cat
 - [x] hellcat
 - [x] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
-- [ ] galltrit (deferred)
-- [ ] jermlaine (deferred)
+- [x] galltrit (deferred)
+- [x] jermlaine (deferred)
 - [x] dwarf thief
 - [x] duergar (removed MR_HITASONE)
 - [x] deep one (growup done)
@@ -703,7 +703,6 @@ Enhance the existing content from slash'em to make more sense, be more challengi
 	- [ ] "Force/Impact attacks" are like magical shoves or piledrivers. They make enemies drop items, 
 	
 ## Goal 6: HackEM specific content
-
 Create some new content that is specific to HackEM!  
 
 	- [ ] Energy Vampires/Psychic Vampires: 
