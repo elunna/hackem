@@ -768,14 +768,14 @@ IF [50%] {
   } ELSE {
     MONSTER:('&',"Yeenoghu"),(12,08)
     # minions
-    MONSTER:('h',"gnoll"),(11,08),hostile
-    MONSTER:('h',"gnoll"),(13,08),hostile
-    MONSTER:('h',"gnoll hunter"),(11,07),hostile
-    MONSTER:('h',"gnoll hunter"),(11,09),hostile
-    MONSTER:('h',"gnoll cleric"),(13,07),hostile
-    MONSTER:('h',"flind"),(13,09),hostile
-    MONSTER:('h',"gnoll"),(10,08),hostile
-    MONSTER:('h',"gnoll"),(14,12),hostile
+    MONSTER:('G',"gnoll"),(11,08),hostile
+    MONSTER:('G',"gnoll"),(13,08),hostile
+    MONSTER:('G',"gnoll warrior"),(11,07),hostile
+    MONSTER:('G',"gnoll warrior"),(11,09),hostile
+    MONSTER:('G',"gnoll shaman"),(13,07),hostile
+    MONSTER:('G',"flind"),(13,09),hostile
+    MONSTER:('G',"gnoll"),(10,08),hostile
+    MONSTER:('G',"gnoll"),(14,12),hostile
   }
 } ELSE {
   IF [50%] {
@@ -956,10 +956,10 @@ IF [50%] {
   } ELSE {
     MONSTER:('&',"Yeenoghu"),(18,10)
     # their minions
-    MONSTER:('h',"flind"),(18,09),hostile
-    MONSTER:('h',"gnoll cleric"),(18,11),hostile
-    MONSTER:('h',"gnoll hunter"),(17,10),hostile
-    MONSTER:('h',"gnoll hunter"),(19,10),hostile
+    MONSTER:('G',"flind"),(18,09),hostile
+    MONSTER:('G',"gnoll shaman"),(18,11),hostile
+    MONSTER:('G',"gnoll warrior"),(17,10),hostile
+    MONSTER:('G',"gnoll warrior"),(19,10),hostile
   }
 } ELSE {
   IF [50%] {
@@ -1167,8 +1167,8 @@ IF [50%] {
   } ELSE {
     MONSTER:('&',"Yeenoghu"),(14,03)
     #entourage
-    MONSTER:('h',"flind"),(12,03),hostile
-    MONSTER:('h',"gnoll cleric"),(16,03),hostile
+    MONSTER:('G',"flind"),(12,03),hostile
+    MONSTER:('G',"gnoll shaman"),(16,03),hostile
   }
 } ELSE {
   IF [50%] {
