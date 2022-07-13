@@ -205,7 +205,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] deep gnome (Removed MR_HITASONE)
 - [x] gnome warrior (Removed MR_HITASONE)
 - [x] Ruggo the Gnome King (Removed MR_HITASONE)
-
 - [x] gnoll (evil already has) (Note: grows up)
 - [x] gnoll warrior (Note: grows up)
 - [x] gnoll chieftain
@@ -213,7 +212,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] The Largest Giant (Removed MR_HITASTHREE)
 - [x] Father Dagon (deferred)
 - [x] Mother Hydra (deferred)
-- [ ] vorpal jabberwock (already has the beheading attack!)
+- [x] vorpal jabberwock (evil already has the beheading attack!)
 - [x] troll mummy (Added regen and stalk, revival works fine.)
 - [x] ogre mage
 - [x] shadow ogre (Removed MR_PLUSONE)
@@ -229,7 +228,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] water hulk (Removed MR_HITASONE)
 - [x] fire vampire
 - [x] star vampire
-- [ ] vampire mage (already in evil)
+- [x] vampire mage (already in evil, minor changes but we'll keep)
 - [x] wight
 - [x] zruty
 - [x] ghoul mage
@@ -261,7 +260,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [x] giant crab
 - [x] gila monster
 - [x] rhaumbusun
-- [ ] basilisk (already in evil)
+- [x] basilisk (already in evil and stronger. The evil version is higher level, has more attacks, sleep res, also occupies the 'c' slot)
 - [x] komodo dragon
 - [x] bad egg
 - [x] killer tripe ration
@@ -355,7 +354,7 @@ Other ideas:
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
 	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
 	- [ ] Add gnolls to grownup changes.
-	- [ ] Fix gehennom.des: Gnoll placement needs updating
+	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [ ] Integrate gnoll cleric and gnoll hunter?
 	
 ### Slash'EM Items
