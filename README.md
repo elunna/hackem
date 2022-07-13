@@ -299,7 +299,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 	
 	
 Quality control on monsters:
-	- [ ] Double-check and redo all difficulty levels for imported monsters.
+	- [x] Double-check and redo all difficulty levels for imported monsters.
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
 	- [ ] Also look at what monsters are normally equipped with.
 	- [ ] Update database knowledge entries for every new monster
@@ -575,7 +575,8 @@ Slashem Armor:
 - [ ] \#youpoly command
 - [ ] \#technique command
 - [ ] \#borrow command
-	
+- [ ] Monster spellcasting - make pool?
+
 
 ## Goal 2: Integrate slashem updates and bugfixes from other Slash'EM forks
 
@@ -587,10 +588,7 @@ Slashem Armor:
 	
 	
 ## Goal 3: Remove/edit Evil content
-
-	- differentiate this fork from EvilHack.
-	- Let's use what makes sense - but when in doubt: 
-		"Depart from evil, and do good; Seek peace, and pursue it." - Psalm 34:13-14
+Differentiate this fork from EvilHack. Let's use what makes sense - but when in doubt: "Depart from evil, and do good; Seek peace, and pursue it." - Psalm 34:13-14
 
 Examples of what to change back to traditional slashem behavior:
 	- Don't require defeating Goblin king to access mines
@@ -626,7 +624,6 @@ Examples of what to change back to traditional slashem behavior:
 	[ ] No autopickup when falling through holes?
 	
 ## Goal 4: Import content from other forks.
-
 Bring in new and interesting content from the many quality forks out there.  I'd like to try not to get too wacky and keep to the spirit of Slashem. (And yes, I realize that slashem does get a bit wacky with things like Tasmanian Devils, toilets, and lightsabers - but there are limits!)
 
 	- [ ] Bag of tricks patch (from UnNethack)
@@ -639,11 +636,10 @@ Bring in new and interesting content from the many quality forks out there.  I'd
 	- [ ] Cross skill training: From dyna?
 	- [ ] Shield/armor skills: Dyna? (Should not just depend on time - but on usage, similar to weapons)
 
+	- [ ] Update nightgaunts to the dnh (g) version. Add a barbed tail attack
 	
 ## Goal 5: Homemade Ideas/Improvements for Slashem
-
-	- enhance the existing content from slash'em to make more sense, be more challenging, and use the mechanics in more creative ways. 
-	- When it makes sense, we'll follow the conventions that Evil has set down, otherwise we might have to invent new mechanics or abilities.
+Enhance the existing content from slash'em to make more sense, be more challenging, and use the mechanics in more creative ways. When it makes sense, we'll follow the conventions that Evil has set down, otherwise we might have to invent new mechanics or abilities.
 
 	- [ ] Pokedex for Monsters
 	- [ ] Pokedex for Items
@@ -670,7 +666,6 @@ Bring in new and interesting content from the many quality forks out there.  I'd
 	- [ ] shadow monsters leave trail of darkness
 	- [ ] Shadow monsters are drain/death/cold resistant?
 	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
-	
 	
 	- [ ] Regarding temp polymorph - there are pros and cons to keeping and removing it. 
 		Temp poly items nerfs polymorph a bit, not so much for potions and scrolls, but moreso for rings and amulets (and wands)
@@ -705,11 +700,8 @@ Bring in new and interesting content from the many quality forks out there.  I'd
 		- [ ] Has some similarities to MagicBane - it randomly Blinds, stuns, confuses
 		- [ ] grants Warning against cross-aligned?
 
-
 	- [ ] "Force/Impact attacks" are like magical shoves or piledrivers. They make enemies drop items, 
 	
-	
-
 ## Goal 6: HackEM specific content
 
 Create some new content that is specific to HackEM!  
@@ -738,7 +730,6 @@ Create some new content that is specific to HackEM!
 	- [ ] Make see invisible temporary (from potions, eating stalkers, fountains)
 		Requires ring to be permanent.
 
-	
 	- [ ] Enemy compounds could even have cannons?...
 	
 	- [ ] Add some passive spells for ice/flame mage?  Ice globe, ring of fire. 
@@ -753,8 +744,14 @@ Create some new content that is specific to HackEM!
 
 	In Alone in the Dark you can retrieve the revolver in a side room of Derceto's kitchen . Examining the pile of coal that will be on the ground you will be able to recover a shoe box inside which the gun is hidden. The revolver will initially contain 6 bullets, to which 12 more can be added in the Cellar of the villa and on the dresser of one of the guest bedrooms on the first floor. Despite the difficulty pointing and the slowness of fire is a good weapon to defend against slower enemies, causing serious damage. Unlike the gun cartridges, the revolver ammunition will not become useless when the player enters the water making the weapon effective in all situations.
 
-
-
+	- [ ] New monster: Falcon? Eagle?  Basically higher level parrot/raven?
+	- [ ] Monster magic - add make pit?  Make fog?  Make vapors?  Conjour boulders?
+	
+	- [ ] Let more monsters ride steeds.
+	
+	- [ ] Make piercers fearsome - they don't actually pierce much in vanilla.
+	
+	- [ ] Move scrampers/squealers/manglers to Q?
 	
 	
 ## Goal 8: Rethinking dungeon texture
