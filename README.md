@@ -101,7 +101,6 @@ Other ideas:
 	- [ ] orange jelly has passive sleep, but not active attack. add passive acid?
  	- [ ] rancid jelly should leave a trail of acid slime?
 	- [ ] Should rancid jelly eat organics?
-	- [ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
@@ -145,6 +144,7 @@ Other ideas:
 	- [x] Compare basilisk to slashem, keep the 'c' symbol
 	- [x] Add grownup transitions to gnolls/warriors/chieftains.
 	- [x] Check that other bats don't peck - they don't have beaks...
+	- [x] Made the new jellies also vulnerable to fire.
 	
 ### Slash'EM Items
 Artifacts:
