@@ -105,7 +105,7 @@ Other ideas:
 	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
-	- [ ] Add traitor property to all kobolds
+
 	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
 	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
 	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
@@ -117,7 +117,6 @@ Other ideas:
 	- [ ] allow "blood worm", "blood-worm" as spelling
 	- [ ] Check that other bats don't peck - they don't have beaks...
 	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
-	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
 	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
@@ -125,6 +124,9 @@ Other ideas:
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
 	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [ ] Add gnolls to grownup changes.
+	
+	- [SKIPPED] Add message for tick/flea multiplication? 
+	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
 	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [x] Added traitor property to vampire mage.
 	- [x] Added M1_OVIPAROUS to basilisk.
@@ -140,9 +142,11 @@ Other ideas:
 	- [FIXED] Hellbat "pecks". Should be bite. 
 	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
 	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
-	- [SKIPPED] Add message for tick/flea multiplication? 
+
 	- [x] Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
-		
+	- [x] Added traitor property to all kobolds
+	
+	
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
