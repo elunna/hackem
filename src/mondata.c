@@ -1240,8 +1240,6 @@ static const short grownups[][2] = {
     /* hackem -- growing up, slashem additions */
     { PM_DINGO_PUPPY, PM_DINGO}, 
     { PM_DINGO, PM_LARGE_DINGO},
-    { PM_GIANT_TICK, PM_GIANT_FLEA}, 
-    { PM_GIANT_FLEA, PM_GIANT_LOUSE},
     { PM_DEEP_ONE, PM_DEEPER_ONE}, 
     { PM_DEEPER_ONE, PM_DEEPEST_ONE},
     { PM_MIGO_DRONE, PM_MIGO_WARRIOR},
