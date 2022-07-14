@@ -80,7 +80,9 @@ Quality control on monsters:
 	- [ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
 	- [ ] Add alternate spellings
 	- [ ] Reformat all monst listings for easier reading.
-
+	- [ ] Check other monsters for traitor property
+	
+	
 	Once we are stable on the monsters we are importing, the number and placement of monsters then...
 		- [ ] win/share/monsters.map
 		- [ ] Import all tiles for new monsters	
@@ -93,8 +95,6 @@ Other ideas:
 	- [ ] Allow ticks and fleas to appear in main dungeon? (They currently only appear in the lawful quest or Gehennom.
 	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
 	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
-
-	- [ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 	- [ ] Check town/minetown for dwarf thief/gnome thief placement
 	- [ ] Make blood imps, nupperibos drain levels as well?
 	- [ ] Blood imps should probably have a vampiric attack.
@@ -105,7 +105,6 @@ Other ideas:
 	- [ ] Should rancid jelly eat organics?
 	- [ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 	- [ ] Make were-critters summon more diversity of monsters
-	- [ ] Check other monsters for traitor property
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
 	- [ ] Add traitor property to all kobolds
@@ -141,6 +140,8 @@ Other ideas:
 	- [x] Water hulks: Add vulnerability to shock (similar to other water-critters)
 	- [x] Make centipede grow into nickelpede
 	- [x] Make nickelpede grow into giant centipede
+	- [x] Put statue gargoyle in immune_death_magic, remove from nonliving list.
+
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell

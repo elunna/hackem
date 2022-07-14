@@ -81,6 +81,7 @@
     is_angel(ptr) || \
     (ptr)->msound == MS_LEADER || \
     (ptr) == &mons[PM_GYPSY] || \
+    (ptr) == &mons[PM_STATUE_GARGOYLE] || \
     (ptr) == &mons[PM_MOLDY_PUDDING] || \
     (ptr) == &mons[PM_BLACK_MARKETEER] || \
     (ptr) == &mons[PM_CERBERUS] || \
@@ -508,7 +509,6 @@
 #define nonliving(ptr) \
     (is_undead(ptr) || \
     (ptr) == &mons[PM_MANES] || \
-    (ptr) == &mons[PM_STATUE_GARGOYLE] || \
     weirdnonliving(ptr))
 
 /* no corpse (ie, blank scrolls) if killed by fire */
