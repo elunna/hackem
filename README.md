@@ -74,11 +74,6 @@ Not sure what to do about alignment quests yet...
 	
 
 Quality control on monsters:
-
-	
-
-	
-	
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
 	- [ ] Also look at what monsters are normally equipped with.
 	- [ ] Update infravision tags. Only body heat should be visible.
@@ -98,8 +93,7 @@ Other ideas:
 	- [ ] Allow ticks and fleas to appear in main dungeon? (They currently only appear in the lawful quest or Gehennom.
 	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
 	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
-	- [ ] Set up the sabre-tooth cat to grow up into the tiger?
-	- [ ] Make sabre-tooth cat a little weaker, or tiger stronger.
+
 	- [ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 	- [ ] Check town/minetown for dwarf thief/gnome thief placement
 	- [ ] Make blood imps, nupperibos drain levels as well?
@@ -141,12 +135,14 @@ Other ideas:
 	- [ ] Make leprechauns and evil gold mortal enemies
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
 	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
+	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [ ] Add gnolls to grownup changes.
 	- [x] Fix gehennom.des: Gnoll placement needs updating
-	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [x] Added traitor property to vampire mage.
 	- [x] Added M1_OVIPAROUS to basilisk.
-	
+	- [x] Set up the sabre-tooth cat to grow up into the tiger?
+	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
+
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
