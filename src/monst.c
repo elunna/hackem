@@ -5282,7 +5282,7 @@ struct permonst _mons2[] = {
         SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
         M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
             | M1_NOLIMBS | M1_CARNIVORE, 
-        M2_HOSTILE, 0, 0, 0, 5, CLR_WHITE),
+        M2_HOSTILE, 0, M4_VULNERABLE_FIRE, 0, 5, CLR_WHITE),
     MON("killer tripe ration", S_BAD_FOOD, 
         LVL(7, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
         A(ATTK(AT_BITE, AD_PHYS, 2, 8), NO_ATTK, NO_ATTK,
@@ -5290,7 +5290,7 @@ struct permonst _mons2[] = {
         SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
         M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
             | M1_NOLIMBS | M1_CARNIVORE, 
-        M2_HOSTILE, 0, 0, 0, 8, CLR_BROWN),
+        M2_HOSTILE, 0, M4_VULNERABLE_FIRE, 0, 8, CLR_BROWN),
     MON("killer food ration", S_BAD_FOOD, 
         LVL(9, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE),
         A(ATTK(AT_BITE, AD_PHYS, 2, 10), NO_ATTK, NO_ATTK,
@@ -5298,7 +5298,7 @@ struct permonst _mons2[] = {
         SIZ(0, 0, MS_SILENT, MZ_SMALL), 0, 0,
         M1_BREATHLESS | M1_NOEYES | M1_NOHEAD | M1_MINDLESS 
             | M1_NOLIMBS | M1_CARNIVORE, 
-        M2_HOSTILE, 0, 0, 0, 10, CLR_BROWN),
+        M2_HOSTILE, 0, M4_VULNERABLE_FIRE, 0, 10, CLR_BROWN),
 /*      evil coins        */
     MON("pile of killer coins", S_BAD_COINS, LVL(6, 9, 7, 0, 0), 
         (G_NOHELL | G_GENO | G_NOCORPSE),

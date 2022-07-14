@@ -131,7 +131,6 @@ Other ideas:
 	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
-	- [ ] Make evil food vulnerable to fire - "cooking"!
 	- [ ] Make leprechauns and evil gold mortal enemies
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
 	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
@@ -142,7 +141,8 @@ Other ideas:
 	- [x] Added M1_OVIPAROUS to basilisk.
 	- [x] Set up the sabre-tooth cat to grow up into the tiger?
 	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
-
+	- [x] Make evil food vulnerable to fire - "cooking"!
+	
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
@@ -422,6 +422,9 @@ Most notably from slashem-up, slashem9, and SlashTHEM. Slash'EM was a great game
 ## Goal 3: Remove/edit Evil content
 Differentiate this fork from EvilHack. Let's use what makes sense - but when in doubt: "Depart from evil, and do good; Seek peace, and pursue it." - Psalm 34:13-14
 
+	- [ ] Update nethack history to include HackEM
+	
+	
 Examples of what to change back to traditional slashem behavior:
 	- [ ] Don't require defeating Goblin king to access mines
 	- [ ] Change sokobon prize system back to normal
