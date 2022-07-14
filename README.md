@@ -105,7 +105,6 @@ Other ideas:
 	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
-
 	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
 	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
 	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
@@ -115,18 +114,16 @@ Other ideas:
 	- [ ] Dung worms should be poisonous?
 	- [ ] Eating dung worms should cause illness?
 	- [ ] allow "blood worm", "blood-worm" as spelling
-	- [ ] Check that other bats don't peck - they don't have beaks...
 
-	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
+	- [ ] Why do we have wights? Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
-	- [ ] Make leprechauns and evil gold mortal enemies
-	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
-	- [ ] Integrate gnoll cleric and gnoll hunter?
-	- [ ] Add gnolls to grownup changes.
+
 	
 	- [SKIPPED] Add message for tick/flea multiplication? 
 	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
+	- [SKIPPED] Make leprechauns and evil gold mortal enemies
+	- [SKIPPED] Integrate gnoll cleric and gnoll hunter?
 	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [x] Added traitor property to vampire mage.
 	- [x] Added M1_OVIPAROUS to basilisk.
@@ -145,6 +142,9 @@ Other ideas:
 	- [x] Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
 	- [x] Added traitor property to all kobolds
 	- [x] Gave Shadow Ogres a frequency of 2 and let them appear in the main dungeon 
+	- [x] Compare basilisk to slashem, keep the 'c' symbol
+	- [x] Add grownup transitions to gnolls/warriors/chieftains.
+	- [x] Check that other bats don't peck - they don't have beaks...
 	
 ### Slash'EM Items
 Artifacts:
