@@ -73,6 +73,8 @@ Note: -- adding dragons is tricky, need to maintain strict orders in code.
 
 Quality control on monsters:
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
+			mondata.c
+			
 	- [ ] Also look at what monsters are normally equipped with.
 	- [ ] Update infravision tags. Only body heat should be visible.
 	- [ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
@@ -89,8 +91,6 @@ Quality control on monsters:
 		- [ ] win/share/monsters.txt
 
 Other ideas:
-	- [ ] Add message for tick/flea multiplication?
-	- [ ] Allow ticks and fleas to appear in main dungeon? (They currently only appear in the lawful quest or Gehennom.
 	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
 	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
 	- [ ] Check town/minetown for dwarf thief/gnome thief placement
@@ -140,6 +140,8 @@ Other ideas:
 	- [FIXED] Hellbat "pecks". Should be bite. 
 	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
 	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
+	- [SKIPPED] Add message for tick/flea multiplication? 
+	- [x] Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
 		
 ### Slash'EM Items
 Artifacts:

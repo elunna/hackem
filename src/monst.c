@@ -103,13 +103,13 @@ void NDECL(monst_init);
 #ifndef SPLITMON_2
 NEARDATA struct permonst mons[] = {
     MON("giant tick", S_ANT, LVL(1, 12, 9, 0, 0), 
-      (G_GENO | G_SGROUP | G_HELL | G_NOGEN),
+      (G_GENO | G_SGROUP),
       A(ATTK(AT_BITE, AD_PHYS, 1, 1), 
         ATTK(AT_MULTIPLY, 0, 0, 0),
         NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
       SIZ(5, 10, MS_SILENT, MZ_TINY), 0, 0,
       M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
-      0, 0, 0, 3, CLR_GRAY),
+      0, 0, 0, 10, CLR_GRAY),
     /*
      * ants
      */
@@ -124,14 +124,14 @@ NEARDATA struct permonst mons[] = {
      * ever spent any time at all at Fort Benning, Georgia, you know
      * exactly what I'm talking about.
      */
-    MON("giant flea", S_ANT, LVL(3, 14, 8, 0, 0), (G_GENO | G_SGROUP | G_HELL | G_NOGEN),
+    MON("giant flea", S_ANT, LVL(3, 14, 8, 0, 0), (G_GENO | G_SGROUP),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2), 
           ATTK(AT_BITE, AD_PHYS, 1, 2),
           ATTK(AT_MULTIPLY, 0, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(5, 10, MS_SILENT, MZ_TINY), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
-        0, 0, 0, 5, CLR_GRAY),
+        0, 0, 0, 12, CLR_GRAY),
     MON("giant mosquito", S_ANT, LVL(1, 20, 2, 0, 0), (G_GENO | G_LGROUP | 2),
         A(ATTK(AT_BITE, AD_DRCO, 1, 1), 
           ATTK(AT_BITE, AD_PHYS, 1, 1),
@@ -181,14 +181,14 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE, M2_HOSTILE, 0, 0, 0,
         6, CLR_BLACK),
     MON("giant louse", S_ANT,
-        LVL(5, 16, 6, 0, 0), (G_GENO | G_SGROUP | G_HELL | G_NOGEN),
+        LVL(5, 16, 6, 0, 0), (G_GENO | G_SGROUP),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           ATTK(AT_BITE, AD_PHYS, 1, 4),
           ATTK(AT_MULTIPLY, 0, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(10, 10, MS_SILENT, MZ_TINY), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE, 
-        0, 0, 0, 7, CLR_GRAY),
+        0, 0, 0, 14, CLR_GRAY),
     MON("tsetse fly", S_ANT, 
         LVL(3, 15, 0, 0, 0), (G_HELL | G_GENO | G_SGROUP | 1),
         A(ATTK(AT_STNG, AD_SLEE, 1, 3), 
