@@ -1249,6 +1249,8 @@ static const short grownups[][2] = {
     { PM_LARVA, PM_MAGGOT}, 
     { PM_MAGGOT, PM_DUNG_WORM},
     { PM_SABER_TOOTHED_CAT, PM_SABER_TOOTHED_TIGER},
+    { PM_CENTIPEDE, PM_NICKELPEDE},
+    { PM_NICKELPEDE, PM_GIANT_CENTIPEDE},
     { NON_PM, NON_PM }
 };
 

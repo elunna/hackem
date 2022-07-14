@@ -114,8 +114,6 @@ Other ideas:
 	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
 	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 	- [ ] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
-	- [ ] Make centipede grow into nickelpede
-	- [ ] Make nickelpede grow into giant centipede
 	- [ ] make phase spiders more powerful and skittish? Make them have phasing?
 	- [ ] Dung worms should be poisonous?
 	- [ ] Eating dung worms should cause illness?
@@ -141,7 +139,8 @@ Other ideas:
 	- [x] Limit all shoggoths to one corrosion attack.
 	- [X] Badgers can usually swim; add M1_SWIM to badgers.
 	- [x] Water hulks: Add vulnerability to shock (similar to other water-critters)
-			
+	- [x] Make centipede grow into nickelpede
+	- [x] Make nickelpede grow into giant centipede
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
