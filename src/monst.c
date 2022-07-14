@@ -752,7 +752,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOHANDS | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE,
         M3_INFRAVISIBLE, 0, MH_WERE, 9, CLR_YELLOW),
-     MON("sabre-toothed cat", S_FELINE, LVL(9, 12, 6, 0, 0), (G_NOHELL | G_GENO | 1),
+     MON("saber-toothed cat", S_FELINE, LVL(9, 12, 6, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 4), ATTK(AT_CLAW, AD_PHYS, 4, 4),
           ATTK(AT_BITE, AD_PHYS, 2, 10), NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(800, 400, MS_GROWL, MZ_LARGE), 0, 0,

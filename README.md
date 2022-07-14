@@ -74,54 +74,7 @@ Not sure what to do about alignment quests yet...
 	
 
 Quality control on monsters:
-	- [x] Double-check and redo all difficulty levels for imported monsters.
-	- [ ] Update data.base:  knowledge entries for every new monster from the slashem db
-	- [LATER] - Find good material/quotes for these missing entries
-		giant tick
-		giant flea
-		giant louse
-		tsetse fly
-		black wasp/giant wasp/yellow jacket
-		spitting beetle/killer beetle
-		assassin bug
-		chicken
-		cockatoo, parrot
-		death dog
-		wolverine
-		glowing eye, bloodshot eye, blinking eye
-		were
-		caterwaul
-		hellcat
-		statue gargoyle
-		galltrit
-		jermlaine
-		duerger
-		dretch
-		rutterkin
-		nupperibo
-		Kroo the Kobold King
-		brownie
-		quickling
-		lamb/sheep
-		goat
-		giant badger
-		scramper/squealer/mangler (what are these?)
-		cow/bull
-		juggernaut
-		catoblepas
-		
-		rabbit/rabid rabbit
-		carrion crawler
-		nickelpede
-		Girtab
-		larva/maggot
-		dung worm
-		
-		
-		# FIXME: "dragon scales, dragon scale mail" needs its own entry
-		# FIXME too: "ac, armor class" also merits its own distinct entry
 
-		Have polearms been removed?  bec-de-corbin?
 	
 
 	
@@ -410,6 +363,58 @@ Slashem Armor:
 - [ ] \#borrow command
 - [ ] Monster spellcasting - make pool?
 
+
+### Tedious stuff
+- [x] Double-check and redo all difficulty levels for imported monsters.
+- [x] Update data.base:  knowledge entries for every new monster from the slashem db
+- [LATER] - Find good material/quotes for these missing entries
+	giant tick
+	giant flea
+	giant louse
+	tsetse fly
+	black wasp/giant wasp/yellow jacket
+	spitting beetle/killer beetle
+	assassin bug
+	chicken
+	cockatoo, parrot
+	death dog
+	wolverine
+	glowing eye, bloodshot eye, blinking eye
+	were
+	caterwaul
+	hellcat
+	statue gargoyle
+	galltrit
+	jermlaine
+	duerger
+	dretch
+	rutterkin
+	nupperibo
+	Kroo the Kobold King
+	brownie
+	quickling
+	lamb/sheep
+	goat
+	giant badger
+	scramper/squealer/mangler (what are these?)
+	cow/bull
+	juggernaut
+	catoblepas
+	
+	rabbit/rabid rabbit
+	carrion crawler
+	nickelpede
+	Girtab
+	larva/maggot
+	dung worm
+	
+	
+	# FIXME: "dragon scales, dragon scale mail" needs its own entry
+	# FIXME too: "ac, armor class" also merits its own distinct entry
+
+	Have polearms been removed?  bec-de-corbin?
+	
+		
 ## Goal 2: Integrate slashem updates and bugfixes from other Slash'EM forks
 Most notably from slashem-up, slashem9, and SlashTHEM. Slash'EM was a great game, but it was far from perfect. It would be nice to polish up things that were left behind (examples: updates to artifacts and quest artifacts, technique bugs, mold mechanics, polymorph bugs (ie: flame mage and ice mage).
 
