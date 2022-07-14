@@ -126,7 +126,6 @@ Other ideas:
 	- [ ] Check that other bats don't peck - they don't have beaks...
 	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
 	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
-	- [ ] Remove all but one corrosion attack from shoggoths and giant shoggoths.
 	- [ ] Water hulks: Add vulnerability to shock (similar to other water-critters)
 	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
@@ -142,7 +141,8 @@ Other ideas:
 	- [x] Set up the sabre-tooth cat to grow up into the tiger?
 	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
 	- [x] Make evil food vulnerable to fire - "cooking"!
-	
+	- [x] Limit all shoggoths to one corrosion attack.
+		
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
