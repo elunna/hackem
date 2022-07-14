@@ -75,17 +75,70 @@ Not sure what to do about alignment quests yet...
 
 Quality control on monsters:
 	- [x] Double-check and redo all difficulty levels for imported monsters.
-	- [ ] Update database knowledge entries for every new monster
-	- [ ] Update monsters.map of the tiles
-	- [ ] Import all tiles for new monsters	
+	- [ ] Update data.base:  knowledge entries for every new monster from the slashem db
+	- [LATER] - Find good material/quotes for these missing entries
+		giant tick
+		giant flea
+		giant louse
+		tsetse fly
+		black wasp/giant wasp/yellow jacket
+		spitting beetle/killer beetle
+		assassin bug
+		chicken
+		cockatoo, parrot
+		death dog
+		wolverine
+		glowing eye, bloodshot eye, blinking eye
+		were
+		caterwaul
+		hellcat
+		statue gargoyle
+		galltrit
+		jermlaine
+		duerger
+		dretch
+		rutterkin
+		nupperibo
+		Kroo the Kobold King
+		brownie
+		quickling
+		lamb/sheep
+		goat
+		giant badger
+		scramper/squealer/mangler (what are these?)
+		cow/bull
+		juggernaut
+		catoblepas
+		
+		rabbit/rabid rabbit
+		carrion crawler
+		nickelpede
+		Girtab
+		larva/maggot
+		dung worm
+		
+		
+		# FIXME: "dragon scales, dragon scale mail" needs its own entry
+		# FIXME too: "ac, armor class" also merits its own distinct entry
+
+		Have polearms been removed?  bec-de-corbin?
+	
+
+	
 	
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
 	- [ ] Also look at what monsters are normally equipped with.
-
 	- [ ] Update infravision tags. Only body heat should be visible.
 	- [ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
 	- [ ] Add alternate spellings
 	- [ ] Reformat all monst listings for easier reading.
+
+	Once we are stable on the monsters we are importing, the number and placement of monsters then...
+		- [ ] win/share/monsters.map
+		- [ ] Import all tiles for new monsters	
+		- [ ] sys/msdos/tiles/index
+		- [ ] win/share/mon32mi.txt
+		- [ ] win/share/monsters.txt
 
 Other ideas:
 	- [ ] Add message for tick/flea multiplication?
@@ -520,15 +573,14 @@ Create some new content that is specific to HackEM!
 
 	- [ ] New monster: Falcon? Eagle?  Basically higher level parrot/raven?
 	- [ ] Monster magic - add make pit?  Make fog?  Make vapors?  Conjour boulders?
-	
 	- [ ] Let more monsters ride steeds.
-	
 	- [ ] Make piercers fearsome - they don't actually pierce much in vanilla.
-	
 	- [ ] Move scrampers/squealers/manglers to Q?
-	
 	- [ ] Should Cthulu ressurection be part of Wizard harassment?  (It's nasty)
-
+	- [ ] Add the Cwn Annwn? (Spectral hounds)
+		https://www.celticartstudio.com/symbol/f/SYMBOLS/25
+	- [ ] Add plague rats to Rat king level (should he have a "summon rats" spell? Like priests can summon insects?
+	- [ ] Kamada has snakes on shoulders - add snake bite attacks?
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
@@ -541,6 +593,8 @@ Create some new content that is specific to HackEM!
 	Gardens/plains: sparse trees, fountains, grass, high grass
 	Swamps: water, shallow water, swamp, 
 	Wastelands/Desert: burnt trees, boulders, 
+	
+	Jungle: bushpigs, warthog, porcupine, aardvark, 
 	
 	Courtyard gardens: Pre-castle levels 
 	Castle:
