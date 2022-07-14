@@ -1661,15 +1661,15 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2), ATTK(AT_CLAW, AD_PHYS, 1, 2),
           ATTK(AT_BITE, AD_PHYS, 1, 3), NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 50, MS_SILENT, MZ_MEDIUM), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
+        M1_SWIM | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
         M3_INFRAVISIBLE, 0, 0, 4, CLR_BROWN),
     MON("honey badger", S_RODENT,
         LVL(10, 12, 0, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), ATTK(AT_CLAW, AD_PHYS, 2, 8),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(150, 100, MS_GROWL, MZ_SMALL), MR_POISON, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_TUNNEL | M1_THICK_HIDE,
-        M2_HOSTILE | M2_STRONG, 
+        M1_SWIM | M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_TUNNEL 
+          | M1_THICK_HIDE, M2_HOSTILE | M2_STRONG, 
         M3_INFRAVISIBLE, 0, 0, 12, CLR_BLACK),
     /*
      * spiders & scorpions (keep webmaker() in sync if new critters are added)

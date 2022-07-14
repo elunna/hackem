@@ -106,12 +106,10 @@ Other ideas:
 	- [ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Check other monsters for traitor property
-	- [ ] What can we replace requiresX and hitsAsX with? Forceful hits, more AC/MR
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
 	- [ ] Add traitor property to all kobolds
 	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
-	- [ ] Badgers can usually swim; add M1_SWIM?
 	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
 	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
 	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
@@ -142,6 +140,7 @@ Other ideas:
 	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
 	- [x] Make evil food vulnerable to fire - "cooking"!
 	- [x] Limit all shoggoths to one corrosion attack.
+	- [X] Badgers can usually swim; add M1_SWIM to badgers.
 		
 ### Slash'EM Items
 Artifacts:
