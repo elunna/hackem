@@ -3713,7 +3713,7 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK),
         SIZ(1200, 500, MS_SILENT, MZ_LARGE), 0, 0,
         M1_SWIM | M1_TUNNEL | M1_CARNIVORE, 
-        M2_STRONG, M3_INFRAVISIBLE, 0, 0, 14, CLR_GREEN),
+        M2_STRONG, M3_INFRAVISIBLE, M4_VULNERABLE_ELEC, 0, 14, CLR_GREEN),
 
     /*
      * From SporkHack/UnNetHack

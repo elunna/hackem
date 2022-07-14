@@ -124,7 +124,6 @@ Other ideas:
 	- [ ] Check that other bats don't peck - they don't have beaks...
 	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
 	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
-	- [ ] Water hulks: Add vulnerability to shock (similar to other water-critters)
 	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
@@ -141,7 +140,8 @@ Other ideas:
 	- [x] Make evil food vulnerable to fire - "cooking"!
 	- [x] Limit all shoggoths to one corrosion attack.
 	- [X] Badgers can usually swim; add M1_SWIM to badgers.
-		
+	- [x] Water hulks: Add vulnerability to shock (similar to other water-critters)
+			
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
