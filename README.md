@@ -125,10 +125,8 @@ Other ideas:
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
 	- [ ] Make leprechauns and evil gold mortal enemies
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
-	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
 	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [ ] Add gnolls to grownup changes.
-	
 	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [x] Added traitor property to vampire mage.
 	- [x] Added M1_OVIPAROUS to basilisk.
@@ -143,7 +141,8 @@ Other ideas:
 	- [x] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 	- [FIXED] Hellbat "pecks". Should be bite. 
 	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
-	
+	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
+		
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
