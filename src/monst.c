@@ -3768,7 +3768,7 @@ struct permonst _mons2[] = {
         M2_STRONG | M2_LORD | M2_MALE | M2_GREEDY | M2_JEWELS | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_OGRE, 10, HI_ZAP),
-  MON("shadow ogre", S_OGRE, LVL(10, 14, 0, 60, -7), (G_HELL | G_GENO),
+  MON("shadow ogre", S_OGRE, LVL(10, 14, 0, 60, -7), (G_GENO | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 5), 
           ATTK(AT_TUCH, AD_DRLI, 3, 5), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),

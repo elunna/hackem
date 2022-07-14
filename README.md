@@ -116,7 +116,7 @@ Other ideas:
 	- [ ] Eating dung worms should cause illness?
 	- [ ] allow "blood worm", "blood-worm" as spelling
 	- [ ] Check that other bats don't peck - they don't have beaks...
-	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
+
 	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
@@ -142,10 +142,9 @@ Other ideas:
 	- [FIXED] Hellbat "pecks". Should be bite. 
 	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
 	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
-
 	- [x] Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
 	- [x] Added traitor property to all kobolds
-	
+	- [x] Gave Shadow Ogres a frequency of 2 and let them appear in the main dungeon 
 	
 ### Slash'EM Items
 Artifacts:
