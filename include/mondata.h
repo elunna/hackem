@@ -264,7 +264,13 @@
 #define your_race(ptr) (((ptr)->mhflags & urace.selfmask) != 0L)
 #define racial_match(mon) mon_has_race(mon, urace.selfmask)
 #define is_bat(ptr)                                         \
-    ((ptr) == &mons[PM_BAT] || (ptr) == &mons[PM_GIANT_BAT] \
+    ((ptr) == &mons[PM_BAT] \
+     || (ptr) == &mons[PM_GIANT_BAT] \
+     || (ptr) == &mons[PM_ATHOL] \
+     || (ptr) == &mons[PM_HELLBAT] \
+     || (ptr) == &mons[PM_MOBAT] \
+     || (ptr) == &mons[PM_MONGBAT] \
+     || (ptr) == &mons[PM_RHUMBAT] \
      || (ptr) == &mons[PM_VAMPIRE_BAT])
 #define is_bird(ptr) ((ptr)->mlet == S_BAT && !is_bat(ptr))
 #define has_beak(ptr) \

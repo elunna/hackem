@@ -117,7 +117,6 @@ Other ideas:
 	- [ ] Dung worms should be poisonous?
 	- [ ] Eating dung worms should cause illness?
 	- [ ] allow "blood worm", "blood-worm" as spelling
-	- [ ] Hellbat "pecks". Should be bite. 
 	- [ ] Check that other bats don't peck - they don't have beaks...
 	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
 	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
@@ -129,6 +128,7 @@ Other ideas:
 	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
 	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [ ] Add gnolls to grownup changes.
+	
 	- [x] Fix gehennom.des: Gnoll placement needs updating
 	- [x] Added traitor property to vampire mage.
 	- [x] Added M1_OVIPAROUS to basilisk.
@@ -141,7 +141,9 @@ Other ideas:
 	- [x] Make centipede grow into nickelpede
 	- [x] Make nickelpede grow into giant centipede
 	- [x] Put statue gargoyle in immune_death_magic, remove from nonliving list.
-
+	- [FIXED] Hellbat "pecks". Should be bite. 
+	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
+	
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
