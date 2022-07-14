@@ -66,37 +66,33 @@ Note: -- adding dragons is tricky, need to maintain strict orders in code.
 	EVIL: Rename nightmares to greater nightmare
 	
 - [ ] Beholder (evil has beholders)
-	Rename the slashem unique to:  Beholder of 
-		Beholder of Infinity
-		Controller of the Beholders
-		Someone or something that is usually blinded, probably a humanoid.
-		Some kind of wizard?
+	Rename the slashem unique?
 		
 - [ ] Vecna (evil has Vecna already)
-
+	
 
 Quality control on monsters:
-	- [x] Double-check and redo all difficulty levels for imported monsters.
-	- [ ] Update database knowledge entries for every new monster
-	- [ ] Update monsters.map of the tiles
-	- [ ] Import all tiles for new monsters	
-	
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
 	- [ ] Also look at what monsters are normally equipped with.
-
 	- [ ] Update infravision tags. Only body heat should be visible.
 	- [ ] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
 	- [ ] Add alternate spellings
 	- [ ] Reformat all monst listings for easier reading.
+	- [ ] Check other monsters for traitor property
+	
+	
+	Once we are stable on the monsters we are importing, the number and placement of monsters then...
+		- [ ] win/share/monsters.map
+		- [ ] Import all tiles for new monsters	
+		- [ ] sys/msdos/tiles/index
+		- [ ] win/share/mon32mi.txt
+		- [ ] win/share/monsters.txt
 
 Other ideas:
 	- [ ] Add message for tick/flea multiplication?
 	- [ ] Allow ticks and fleas to appear in main dungeon? (They currently only appear in the lawful quest or Gehennom.
 	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
 	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
-	- [ ] Set up the sabre-tooth cat to grow up into the tiger?
-	- [ ] Make sabre-tooth cat a little weaker, or tiger stronger.
-	- [ ] Put statue gargoyle in immune_death_magic, remove from nonliving list.
 	- [ ] Check town/minetown for dwarf thief/gnome thief placement
 	- [ ] Make blood imps, nupperibos drain levels as well?
 	- [ ] Blood imps should probably have a vampiric attack.
@@ -107,42 +103,44 @@ Other ideas:
 	- [ ] Should rancid jelly eat organics?
 	- [ ] blue/spotted/ochre jellies seem vulnerable to fire, but new jellies are not in slashem. Should they be? Or vulnerable to something else?
 	- [ ] Make were-critters summon more diversity of monsters
-	- [ ] Check other monsters for traitor property
-	- [ ] What can we replace requiresX and hitsAsX with? Forceful hits, more AC/MR
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
 	- [ ] Add traitor property to all kobolds
 	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
-	- [ ] Badgers can usually swim; add M1_SWIM?
 	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
 	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
 	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 	- [ ] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
-	- [ ] Make centipede grow into nickelpede
-	- [ ] Make nickelpede grow into giant centipede
 	- [ ] make phase spiders more powerful and skittish? Make them have phasing?
 	- [ ] Dung worms should be poisonous?
 	- [ ] Eating dung worms should cause illness?
 	- [ ] allow "blood worm", "blood-worm" as spelling
-	- [ ] Hellbat "pecks". Should be bite. 
 	- [ ] Check that other bats don't peck - they don't have beaks...
 	- [ ] Let Shadow Ogres appear in the main dungeon (or at least genennom)
 	- [ ] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
-	- [ ] Remove all but one corrosion attack from shoggoths and giant shoggoths.
-	- [ ] Water hulks: Add vulnerability to shock (similar to other water-critters)
 	- [ ] Why do we have wights?  Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
-	- [ ] Make evil food vulnerable to fire - "cooking"!
 	- [ ] Make leprechauns and evil gold mortal enemies
 	- [ ] Compare basilisk to slashem, keep the 'c' symbol?
-	- [ ] Update gnolls to match evil weight (1800, 100), size of MZ_MEDIUM, use MS_LAUGH. Add poison resistance, infravisible and berzerk.
+	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [ ] Add gnolls to grownup changes.
 	- [x] Fix gehennom.des: Gnoll placement needs updating
-	- [ ] Integrate gnoll cleric and gnoll hunter?
 	- [x] Added traitor property to vampire mage.
 	- [x] Added M1_OVIPAROUS to basilisk.
-	
+	- [x] Set up the sabre-tooth cat to grow up into the tiger?
+	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
+	- [x] Make evil food vulnerable to fire - "cooking"!
+	- [x] Limit all shoggoths to one corrosion attack.
+	- [X] Badgers can usually swim; add M1_SWIM to badgers.
+	- [x] Water hulks: Add vulnerability to shock (similar to other water-critters)
+	- [x] Make centipede grow into nickelpede
+	- [x] Make nickelpede grow into giant centipede
+	- [x] Put statue gargoyle in immune_death_magic, remove from nonliving list.
+	- [FIXED] Hellbat "pecks". Should be bite. 
+	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
+	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
+		
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
@@ -359,6 +357,58 @@ Slashem Armor:
 - [ ] \#borrow command
 - [ ] Monster spellcasting - make pool?
 
+
+### Tedious stuff
+- [x] Double-check and redo all difficulty levels for imported monsters.
+- [x] Update data.base:  knowledge entries for every new monster from the slashem db
+- [LATER] - Find good material/quotes for these missing entries
+	giant tick
+	giant flea
+	giant louse
+	tsetse fly
+	black wasp/giant wasp/yellow jacket
+	spitting beetle/killer beetle
+	assassin bug
+	chicken
+	cockatoo, parrot
+	death dog
+	wolverine
+	glowing eye, bloodshot eye, blinking eye
+	were
+	caterwaul
+	hellcat
+	statue gargoyle
+	galltrit
+	jermlaine
+	duerger
+	dretch
+	rutterkin
+	nupperibo
+	Kroo the Kobold King
+	brownie
+	quickling
+	lamb/sheep
+	goat
+	giant badger
+	scramper/squealer/mangler (what are these?)
+	cow/bull
+	juggernaut
+	catoblepas
+	
+	rabbit/rabid rabbit
+	carrion crawler
+	nickelpede
+	Girtab
+	larva/maggot
+	dung worm
+	
+	
+	# FIXME: "dragon scales, dragon scale mail" needs its own entry
+	# FIXME too: "ac, armor class" also merits its own distinct entry
+
+	Have polearms been removed?  bec-de-corbin?
+	
+		
 ## Goal 2: Integrate slashem updates and bugfixes from other Slash'EM forks
 Most notably from slashem-up, slashem9, and SlashTHEM. Slash'EM was a great game, but it was far from perfect. It would be nice to polish up things that were left behind (examples: updates to artifacts and quest artifacts, technique bugs, mold mechanics, polymorph bugs (ie: flame mage and ice mage).
 
@@ -370,6 +420,9 @@ Most notably from slashem-up, slashem9, and SlashTHEM. Slash'EM was a great game
 ## Goal 3: Remove/edit Evil content
 Differentiate this fork from EvilHack. Let's use what makes sense - but when in doubt: "Depart from evil, and do good; Seek peace, and pursue it." - Psalm 34:13-14
 
+	- [ ] Update nethack history to include HackEM
+	
+	
 Examples of what to change back to traditional slashem behavior:
 	- [ ] Don't require defeating Goblin king to access mines
 	- [ ] Change sokobon prize system back to normal
@@ -522,15 +575,14 @@ Create some new content that is specific to HackEM!
 
 	- [ ] New monster: Falcon? Eagle?  Basically higher level parrot/raven?
 	- [ ] Monster magic - add make pit?  Make fog?  Make vapors?  Conjour boulders?
-	
 	- [ ] Let more monsters ride steeds.
-	
 	- [ ] Make piercers fearsome - they don't actually pierce much in vanilla.
-	
 	- [ ] Move scrampers/squealers/manglers to Q?
-	
 	- [ ] Should Cthulu ressurection be part of Wizard harassment?  (It's nasty)
-
+	- [ ] Add the Cwn Annwn? (Spectral hounds)
+		https://www.celticartstudio.com/symbol/f/SYMBOLS/25
+	- [ ] Add plague rats to Rat king level (should he have a "summon rats" spell? Like priests can summon insects?
+	- [ ] Kamada has snakes on shoulders - add snake bite attacks?
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
@@ -543,6 +595,8 @@ Create some new content that is specific to HackEM!
 	Gardens/plains: sparse trees, fountains, grass, high grass
 	Swamps: water, shallow water, swamp, 
 	Wastelands/Desert: burnt trees, boulders, 
+	
+	Jungle: bushpigs, warthog, porcupine, aardvark, 
 	
 	Courtyard gardens: Pre-castle levels 
 	Castle:

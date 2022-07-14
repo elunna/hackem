@@ -81,6 +81,7 @@
     is_angel(ptr) || \
     (ptr)->msound == MS_LEADER || \
     (ptr) == &mons[PM_GYPSY] || \
+    (ptr) == &mons[PM_STATUE_GARGOYLE] || \
     (ptr) == &mons[PM_MOLDY_PUDDING] || \
     (ptr) == &mons[PM_BLACK_MARKETEER] || \
     (ptr) == &mons[PM_CERBERUS] || \
@@ -263,7 +264,13 @@
 #define your_race(ptr) (((ptr)->mhflags & urace.selfmask) != 0L)
 #define racial_match(mon) mon_has_race(mon, urace.selfmask)
 #define is_bat(ptr)                                         \
-    ((ptr) == &mons[PM_BAT] || (ptr) == &mons[PM_GIANT_BAT] \
+    ((ptr) == &mons[PM_BAT] \
+     || (ptr) == &mons[PM_GIANT_BAT] \
+     || (ptr) == &mons[PM_ATHOL] \
+     || (ptr) == &mons[PM_HELLBAT] \
+     || (ptr) == &mons[PM_MOBAT] \
+     || (ptr) == &mons[PM_MONGBAT] \
+     || (ptr) == &mons[PM_RHUMBAT] \
      || (ptr) == &mons[PM_VAMPIRE_BAT])
 #define is_bird(ptr) ((ptr)->mlet == S_BAT && !is_bat(ptr))
 #define has_beak(ptr) \
@@ -508,7 +515,6 @@
 #define nonliving(ptr) \
     (is_undead(ptr) || \
     (ptr) == &mons[PM_MANES] || \
-    (ptr) == &mons[PM_STATUE_GARGOYLE] || \
     weirdnonliving(ptr))
 
 /* no corpse (ie, blank scrolls) if killed by fire */
