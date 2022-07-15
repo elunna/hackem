@@ -96,7 +96,6 @@ Quality control on monsters:
 		- [ ] win/share/monsters.txt
 
 Other ideas:
-
 	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
 	- [ ] Werewolves can summon shadow wolves and mist wolves.
@@ -128,14 +127,9 @@ Other ideas:
 	- [ ] Shadow monsters are drain/death/cold resistant?
 	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
 	
-Trail makers:
-	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
-	- [ ] rancid jelly should leave a trail of acid slime?
-	- [ ] Badgers leave poison gas cloud trail?
-	- [ ] shadow monsters leave trail of darkness
-	- [ ] Some watery monsters leave a trail of shallow water, that can become pools if re-tread enough?
-
 	
+	- [x] Add snow ants so they can occupy antholes.
+
 	
 ### Slash'EM Items
 Artifacts:
@@ -570,6 +564,17 @@ Create some new content that is specific to HackEM!
 		https://www.celticartstudio.com/symbol/f/SYMBOLS/25
 	- [ ] Add plague rats to Rat king level (should he have a "summon rats" spell? Like priests can summon insects?
 	- [ ] Kamadan has snakes on shoulders - add snake bite attacks?
+	
+	- [ ] Special room/zoo for ticks/fleas/louses, with dead dogs/cats :(  and random junk
+	
+	Trail makers:
+	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
+	- [ ] rancid jelly should leave a trail of acid slime?
+	- [ ] Badgers leave poison gas cloud trail?
+	- [ ] shadow monsters leave trail of darkness
+	- [ ] Some watery monsters leave a trail of shallow water, that can become pools if re-tread enough?
+
+	
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
