@@ -71,7 +71,6 @@ Note: -- adding dragons is tricky, need to maintain strict orders in code.
 		
 - [ ] Vecna (evil has Vecna already)
 	
-
 Quality control on monsters:
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
 		Search for PM_LARGE_MONSTER as well as "large monster"
@@ -115,9 +114,7 @@ Other ideas:
 
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
-	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
-	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
-	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
+
 	- [ ] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
 	- [ ] make phase spiders more powerful and skittish? Make them have phasing?
 	- [ ] Dung worms should be poisonous?
@@ -125,61 +122,21 @@ Other ideas:
 	- [ ] allow "blood worm", "blood-worm" as spelling
 	- [ ] Why do we have wights? Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
-	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
+	
 	- [ ] Should water monsters have water attack? Spit water?
-	- [ ] shadow monsters leave trail of darkness
+	- [ ] Watery monsters are much stronger in water sources?
 	- [ ] Shadow monsters are drain/death/cold resistant?
 	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
 	
-
-
-	
-	- [SKIPPED] Add message for tick/flea multiplication? 
-	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
-	- [SKIPPED] Make leprechauns and evil gold mortal enemies
-	- [SKIPPED] Integrate gnoll cleric and gnoll hunter?
-	- [x] Fix gehennom.des: Gnoll placement needs updating
-	- [x] Added traitor property to vampire mage.
-	- [x] Added M1_OVIPAROUS to basilisk.
-	- [x] Set up the sabre-tooth cat to grow up into the tiger?
-	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
-	- [x] Make evil food vulnerable to fire - "cooking"!
-	- [x] Limit all shoggoths to one corrosion attack.
-	- [X] Badgers can usually swim; add M1_SWIM to badgers.
-	- [x] Water hulks: Add vulnerability to shock (similar to other water-critters)
-	- [x] Make centipede grow into nickelpede
-	- [x] Make nickelpede grow into giant centipede
-	- [x] Put statue gargoyle in immune_death_magic, remove from nonliving list.
-	- [FIXED] Hellbat "pecks". Should be bite. 
-	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
-	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
-	- [x] Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
-	- [x] Added traitor property to all kobolds
-	- [x] Gave Shadow Ogres a frequency of 2 and let them appear in the main dungeon 
-	- [x] Compare basilisk to slashem, keep the 'c' symbol
-	- [x] Add grownup transitions to gnolls/warriors/chieftains.
-	- [x] Check that other bats don't peck - they don't have beaks...
-	- [x] Made the new jellies also vulnerable to fire.
-	
-	- [x] Double check that all nobles are lords, royals are kings.
-	- [x] Revert all noble and royal monsters to male lord and kings, respectively.
-		[xx] gnome_noble
-		[xx] gnome_royal
-		[xx] dwarf_noble
-		[xx] dwarf_royal
-		[xx] elven_noble
-		[xx] elven_royal
-		[xx] ogre_noble
-		[xx] ogre_royal
-		[xx] kobold_noble
-		[xx] vampire_noble
-		[xx] vampire_royal
-		
-
 Trail makers:
 	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
 	- [ ] rancid jelly should leave a trail of acid slime?
 	- [ ] Badgers leave poison gas cloud trail?
+	- [ ] shadow monsters leave trail of darkness
+	- [ ] Some watery monsters leave a trail of shallow water, that can become pools if re-tread enough?
+
+	
+	
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell

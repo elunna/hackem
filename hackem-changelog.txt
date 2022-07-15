@@ -1,245 +1,272 @@
 Changes:
-	[X] Changed zruty to Y, S_ZRUTY to S_ZOUTHERN
-	[X] Update all name references from "evilhack" to "hackem"
-		Used lowercase for rc files. HackEM for game titles and binaries.
-	[X] Update contact info.
+	- [x] Changed zruty to Y, S_ZRUTY to S_ZOUTHERN
+	- [x] Update all name references from "evilhack" to "hackem"
+	- [x] Used lowercase for rc files. HackEM for game titles and binaries.
+	- [x] Update contact info.
+	- [x] Fix gehennom.des: Gnoll placement needs updating
+	- [x] Added traitor property to vampire mage.
+	- [x] Added M1_OVIPAROUS to basilisk.
+	- [x] Set up the sabre-tooth cat to grow up into the tiger?
+	- [x] Make sabre-tooth cat a little weaker, or tiger stronger.
+	- [x] Make evil food vulnerable to fire - "cooking"!
+	- [x] Limit all shoggoths to one corrosion attack.
+	- [X] Badgers can usually swim; add M1_SWIM to badgers.
+	- [x] Water hulks: Add vulnerability to shock (similar to other water-critters)
+	- [x] Make centipede grow into nickelpede
+	- [x] Make nickelpede grow into giant centipede
+	- [x] Put statue gargoyle in immune_death_magic, remove from nonliving list.
+	- [x] Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.
+	- [x] Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.
+	- [x] Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
+	- [x] Added traitor property to all kobolds
+	- [x] Gave Shadow Ogres a frequency of 2 and let them appear in the main dungeon 
+	- [x] Compare basilisk to slashem, keep the 'c' symbol
+	- [x] Add grownup transitions to gnolls/warriors/chieftains.
+	- [x] Check that other bats don't peck - they don't have beaks...
+	- [x] Made the new jellies also vulnerable to fire.
+	- [x] Double check that all nobles are lords, royals are kings.
+	- [x] Reverted all noble and royal monsters to male lord and kings, respectively.
 
 
 Imported slashem monsters:
-- [x] giant tick (AT_MULTIPLY)
-- [x] giant flea (AT_MULTIPLY)
-- [x] snow ant
-- [x] giant louse
-- [x] tsetse fly
-- [x] migo drone (M3_TRAITOR)
-- [x] yellow jacket
-- [x] black wasp
-- [x] migo warrior
-- [x] giant wasp
-- [x] spitting beetle
-- [x] migo queen
-- [x] assassin bug (M3_TRAITOR)
-- [x] killer beetle
-- [x] jiggling blob
-- [x] lava blob
-- [x] static blob
-- [x] burbling blob
-- [x] chicken
-- [x] cockatoo
-- [x] parrot
-- [x] pit bull
-- [x] dingo puppy
-- [x] large dingo
-- [x] death dog
-- [x] rabid wolf
-- [x] wolverine
-- [x] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
-- [x] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
-- [x] glowing eye
-- [x] bloodshot eye
-- [x] blinking eye
-- [x] werepanther (animal) 	5
-- [x] weretiger 	(animal) 	7
-- [x] werespider 	(animal) 	11
-- [x] weresnake 	(animal) 	9
-- [x] werepanther (human) 	5
-- [x] werespider 	(human) 	7
-- [x] weretiger 	(human) 	9
-- [x] weresnake 	(human) 	9
-- [x] kamadan
-- [x] displacer beast (already present in evil)
-- [x] caterwaul
-- [x] sabre-toothed cat
-- [x] hellcat
-- [x] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
-- [x] galltrit (deferred)
-- [x] jermlaine (deferred)
-- [x] dwarf thief
-- [x] duergar (removed MR_HITASONE)
-- [x] deep one (growup done)
-- [x] deeper one (growup done)
-- [x] deepest one
-- [x] dretch
-- [x] rutterkin
-- [x] nupperibo
-- [x] blood imp
-- [x] clear jelly
-- [x] yellow jelly
-- [x] orange jelly (Implemented passive sleep attacks)
-- [x] rancid jelly
-- [x] swamp kobold
-- [x] rock kobold
-- [x] kobold warrior
-- [x] Kroo the Kobold King
-- [x] leprechaun wizard (Removed MR_HITASONE)
-- [x] pixie (removed MR_HITASONE)
-- [x] brownie (removed MR_HITASONE)
-- [x] quickling (removed MR_HITASONE)
-- [x] Aphrodite - (Already in evil with her own level, higher level)
-- [x] war orc
-- [x] great orc
-- [x] Grund the Orc King
-- [x] snow orc
-- [x] demon orc
-- [x] lamb (Note: grows up)
-- [x] sheep (MS_SHEEP)
-- [x] goat
-- [x] cow (MS_COW)
-- [x] bull
-- [x] giant badger (changed to rodent class to match honey badger)
-- [x] scramper
-- [x] squealer
-- [x] mangler
-- [x] Jumbo the Elephant
-- [x] juggernaut
-- [x] catoblepas (Removed MR_HITASTWO)
-- [x] rabbit
-- [x] black rat
-- [x] rabid rabbit
-- [x] pack rat
-- [x] hellrat
-- [x] Rat King
-- [x] recluse spider (webmaker)
-- [x] barking spider (webmaker)
-- [x] carrion crawler
-- [x] nickelpede
-- [x] giant scorpion
-- [x] phase spider (webmaker)
-- [x] Girtab
-- [x] Shelob
-- [x] larva (Note: grows up)
-- [x] maggot (Note: grows up)
-- [x] dung worm
-- [x] acid worm
-- [x] bloodworm
-- [x] tunnel worm
-- [x] rot worm
-- [x] spark bug (Removed MR_HITASONE)
-- [x] arc bug (Removed MR_HITASONE)
-- [x] lightning bug (Removed MR_HITASONE)
-- [x] echidna
-- [x] platypus
-- [x] koala
-- [x] wombat
-- [x] Tasmanian devil
-- [x] wallaby
-- [x] wallaroo
-- [x] kangaroo
-- [x] movanic deva (Removed MR_PLUSONE)
-- [x] monadic deva (Removed MR_PLUSONE)
-- [x] astral deva (Removed MR_PLUSONE)
-- [x] Planetar (Removed MR_PLUSFOUR)
-- [x] Solar (Removed MR_PLUSFOUR)
-- [x] rhumbat
-- [x] athol
-- [x] hellbat
-- [x] mongbat
-- [x] mobat
-- [x] harpy
-- [x] byakhee
-- [x] nightgaunt
-- [x] baby shimmering dragon (already in EvilHack)
-- [x] shimmering dragon 	 (already in EvilHack)
-- [x] wyvern (Removed MR_HITASTWO)
-- [x] hydra  (Removed MR_HITASTWO)
-- [x] disgusting mold
-- [x] black mold
-- [x] gnome thief
-- [x] deep gnome (Removed MR_HITASONE)
-- [x] gnome warrior (Removed MR_HITASONE)
-- [x] Ruggo the Gnome King (Removed MR_HITASONE)
-- [x] gnoll (evil already has) (Note: grows up)
-- [x] gnoll warrior (Note: grows up)
-- [x] gnoll chieftain
-- [x] gnoll shaman
-- [x] The Largest Giant (Removed MR_HITASTHREE)
-- [x] Father Dagon (deferred)
-- [x] Mother Hydra (deferred)
-- [x] vorpal jabberwock (evil already has the beheading attack!)
-- [x] troll mummy (Added regen and stalk, revival works fine.)
-- [x] ogre mage
-- [x] shadow ogre (Removed MR_PLUSONE)
-- [x] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
-- [x] shoggoth (Note: grows up)
-- [x] giant shoggoth
-- [x] genetic engineer (already in evil)
-- [x] Doctor Frankenstein
-- [x] king cobra
-- [x] asphynx
-- [x] two-headed troll (Removed MR_HITASTWO)
-- [x] black troll (Removed MR_HITASTHREE)
-- [x] water hulk (Removed MR_HITASONE)
-- [x] fire vampire
-- [x] star vampire
-- [x] vampire mage (already in evil, minor changes but we'll keep)
-- [x] wight
-- [x] zruty
-- [x] ghoul mage
-- [x] ghast
-- [x] ghoul queen
-- [x] gug
-- [x] wax golem
-- [x] plastic golem
-- [x] Frankenstein's Monster
-- [x] ruby golem
-- [x] diamond golem
-- [x] sapphire golem
-- [x] steel golem (Added M4_VULNERABLE_ACID)
-- [x] crystal golem
-- [x] gibberling
-- [x] grimlock
-- [x] drow (Added infravisible)
-- [x] mugger
-- [x] gypsy (Added M3_INFRAVISIBLE)
-- [x] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
-- [x] shadow (Added M3_INFRAVISION)
-- [x] spined devil (Removed MR_PLUSONE)
-- [x] bearded devil (Removed MR_PLUSONE | MR_HITASTWO)
-- [x] bar-lgura (Removed MR_PLUSONE | MR_HITASTWO)
-- [x] chasme (Removed MR_PLUSONE | MR_HITASTWO)
-- [x] babau (MR_PLUSONE | MR_HITASTWO)
-- [x] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
-- [x] Cthulhu (deferred)
-- [x] giant crab
-- [x] gila monster
-- [x] rhaumbusun
-- [x] basilisk (already in evil and stronger. The evil version is higher level, has more attacks, sleep res, also occupies the 'c' slot)
-- [x] komodo dragon
-- [x] bad egg
-- [x] killer tripe ration
-- [x] killer food ration
-- [x] pile of killer coins (Note: grows up)
-- [x] large pile of killer coins (Note: grows up)
-- [x] huge pile of killer coins
-- [x] flame mage
-- [x] ice mage
-- [x] necromancer
-- [x] undead slayer
-- [x] yeoman
-- [x] High Flame Mage (Removed MR_HITASFOUR)
-- [x] High Ice Mage (Removed MR_HITASFOUR)
-- [x] Dark Lord (Reoved MR_HITASFOUR)
-- [x] Van Helsing (Removed MR_HITASFOUR)
-- [x] Chief Yeoman Warder
-- [x] Water Mage (Removed MR_HITASFOUR)
-- [x] Earth Mage (Removed MR_HITASFOUR)
-- [x] Maugneshaagar (Removed MR_HITASFOUR)
-- [x] Count Dracula (removed MR_HITASFOUR)
-- [x] Colonel Blood
-- [x] igniter (Removed MR_HITASONE)
-- [x] froster (Removed MR_HITASONE)
-- [x] embalmer (Removed MR_HITASONE)
-- [x] exterminator (Removed MR_HITASONE)
-- [x] Yeoman Warder
+	- [x] giant tick (AT_MULTIPLY)
+	- [x] giant flea (AT_MULTIPLY)
+	- [x] snow ant
+	- [x] giant louse
+	- [x] tsetse fly
+	- [x] migo drone (M3_TRAITOR)
+	- [x] yellow jacket
+	- [x] black wasp
+	- [x] migo warrior
+	- [x] giant wasp
+	- [x] spitting beetle
+	- [x] migo queen
+	- [x] assassin bug (M3_TRAITOR)
+	- [x] killer beetle
+	- [x] jiggling blob
+	- [x] lava blob
+	- [x] static blob
+	- [x] burbling blob
+	- [x] chicken
+	- [x] cockatoo
+	- [x] parrot
+	- [x] pit bull
+	- [x] dingo puppy
+	- [x] large dingo
+	- [x] death dog
+	- [x] rabid wolf
+	- [x] wolverine
+	- [x] shadow wolf (Removed MR_PLUSONE | MR_HITASTWO)
+	- [x] mist wolf   (Removed MR_PLUSONE | MR_HITASTWO)
+	- [x] glowing eye
+	- [x] bloodshot eye
+	- [x] blinking eye
+	- [x] werepanther (animal) 	5
+	- [x] weretiger 	(animal) 	7
+	- [x] werespider 	(animal) 	11
+	- [x] weresnake 	(animal) 	9
+	- [x] werepanther (human) 	5
+	- [x] werespider 	(human) 	7
+	- [x] weretiger 	(human) 	9
+	- [x] weresnake 	(human) 	9
+	- [x] kamadan
+	- [x] displacer beast (already present in evil)
+	- [x] caterwaul
+	- [x] sabre-toothed cat
+	- [x] hellcat
+	- [x] statue gargoyle (Removed MR_PLUSONE and added to nonliving)
+	- [x] galltrit (deferred)
+	- [x] jermlaine (deferred)
+	- [x] dwarf thief
+	- [x] duergar (removed MR_HITASONE)
+	- [x] deep one (growup done)
+	- [x] deeper one (growup done)
+	- [x] deepest one
+	- [x] dretch
+	- [x] rutterkin
+	- [x] nupperibo
+	- [x] blood imp
+	- [x] clear jelly
+	- [x] yellow jelly
+	- [x] orange jelly (Implemented passive sleep attacks)
+	- [x] rancid jelly
+	- [x] swamp kobold
+	- [x] rock kobold
+	- [x] kobold warrior
+	- [x] Kroo the Kobold King
+	- [x] leprechaun wizard (Removed MR_HITASONE)
+	- [x] pixie (removed MR_HITASONE)
+	- [x] brownie (removed MR_HITASONE)
+	- [x] quickling (removed MR_HITASONE)
+	- [x] Aphrodite - (Already in evil with her own level, higher level)
+	- [x] war orc
+	- [x] great orc
+	- [x] Grund the Orc King
+	- [x] snow orc
+	- [x] demon orc
+	- [x] lamb (Note: grows up)
+	- [x] sheep (MS_SHEEP)
+	- [x] goat
+	- [x] cow (MS_COW)
+	- [x] bull
+	- [x] giant badger (changed to rodent class to match honey badger)
+	- [x] scramper
+	- [x] squealer
+	- [x] mangler
+	- [x] Jumbo the Elephant
+	- [x] juggernaut
+	- [x] catoblepas (Removed MR_HITASTWO)
+	- [x] rabbit
+	- [x] black rat
+	- [x] rabid rabbit
+	- [x] pack rat
+	- [x] hellrat
+	- [x] Rat King
+	- [x] recluse spider (webmaker)
+	- [x] barking spider (webmaker)
+	- [x] carrion crawler
+	- [x] nickelpede
+	- [x] giant scorpion
+	- [x] phase spider (webmaker)
+	- [x] Girtab
+	- [x] Shelob
+	- [x] larva (Note: grows up)
+	- [x] maggot (Note: grows up)
+	- [x] dung worm
+	- [x] acid worm
+	- [x] bloodworm
+	- [x] tunnel worm
+	- [x] rot worm
+	- [x] spark bug (Removed MR_HITASONE)
+	- [x] arc bug (Removed MR_HITASONE)
+	- [x] lightning bug (Removed MR_HITASONE)
+	- [x] echidna
+	- [x] platypus
+	- [x] koala
+	- [x] wombat
+	- [x] Tasmanian devil
+	- [x] wallaby
+	- [x] wallaroo
+	- [x] kangaroo
+	- [x] movanic deva (Removed MR_PLUSONE)
+	- [x] monadic deva (Removed MR_PLUSONE)
+	- [x] astral deva (Removed MR_PLUSONE)
+	- [x] Planetar (Removed MR_PLUSFOUR)
+	- [x] Solar (Removed MR_PLUSFOUR)
+	- [x] rhumbat
+	- [x] athol
+	- [x] hellbat
+	- [x] mongbat
+	- [x] mobat
+	- [x] harpy
+	- [x] byakhee
+	- [x] nightgaunt
+	- [x] baby shimmering dragon (already in EvilHack)
+	- [x] shimmering dragon 	 (already in EvilHack)
+	- [x] wyvern (Removed MR_HITASTWO)
+	- [x] hydra  (Removed MR_HITASTWO)
+	- [x] disgusting mold
+	- [x] black mold
+	- [x] gnome thief
+	- [x] deep gnome (Removed MR_HITASONE)
+	- [x] gnome warrior (Removed MR_HITASONE)
+	- [x] Ruggo the Gnome King (Removed MR_HITASONE)
+	- [x] gnoll (evil already has) (Note: grows up)
+	- [x] gnoll warrior (Note: grows up)
+	- [x] gnoll chieftain
+	- [x] gnoll shaman
+	- [x] The Largest Giant (Removed MR_HITASTHREE)
+	- [x] Father Dagon (deferred)
+	- [x] Mother Hydra (deferred)
+	- [x] vorpal jabberwock (evil already has the beheading attack!)
+	- [x] troll mummy (Added regen and stalk, revival works fine.)
+	- [x] ogre mage
+	- [x] shadow ogre (Removed MR_PLUSONE)
+	- [x] moldy pudding (Removed MR_HITASONE, added M4_VULNERABLE_FIRE)
+	- [x] shoggoth (Note: grows up)
+	- [x] giant shoggoth
+	- [x] genetic engineer (already in evil)
+	- [x] Doctor Frankenstein
+	- [x] king cobra
+	- [x] asphynx
+	- [x] two-headed troll (Removed MR_HITASTWO)
+	- [x] black troll (Removed MR_HITASTHREE)
+	- [x] water hulk (Removed MR_HITASONE)
+	- [x] fire vampire
+	- [x] star vampire
+	- [x] vampire mage (already in evil, minor changes but we'll keep)
+	- [x] wight
+	- [x] zruty
+	- [x] ghoul mage
+	- [x] ghast
+	- [x] ghoul queen
+	- [x] gug
+	- [x] wax golem
+	- [x] plastic golem
+	- [x] Frankenstein's Monster
+	- [x] ruby golem
+	- [x] diamond golem
+	- [x] sapphire golem
+	- [x] steel golem (Added M4_VULNERABLE_ACID)
+	- [x] crystal golem
+	- [x] gibberling
+	- [x] grimlock
+	- [x] drow (Added infravisible)
+	- [x] mugger
+	- [x] gypsy (Added M3_INFRAVISIBLE)
+	- [x] black marketeer (Removed MR_HITASFOUR, added M3_ACCURATE)
+	- [x] shadow (Added M3_INFRAVISION)
+	- [x] spined devil (Removed MR_PLUSONE)
+	- [x] bearded devil (Removed MR_PLUSONE | MR_HITASTWO)
+	- [x] bar-lgura (Removed MR_PLUSONE | MR_HITASTWO)
+	- [x] chasme (Removed MR_PLUSONE | MR_HITASTWO)
+	- [x] babau (MR_PLUSONE | MR_HITASTWO)
+	- [x] nabassu (Removed MR_PLUSONE | MR_HITASTHREE)
+	- [x] Cthulhu (deferred)
+	- [x] giant crab
+	- [x] gila monster
+	- [x] rhaumbusun
+	- [x] basilisk (already in evil and stronger. The evil version is higher level, has more attacks, sleep res, also occupies the 'c' slot)
+	- [x] komodo dragon
+	- [x] bad egg
+	- [x] killer tripe ration
+	- [x] killer food ration
+	- [x] pile of killer coins (Note: grows up)
+	- [x] large pile of killer coins (Note: grows up)
+	- [x] huge pile of killer coins
+	- [x] flame mage
+	- [x] ice mage
+	- [x] necromancer
+	- [x] undead slayer
+	- [x] yeoman
+	- [x] High Flame Mage (Removed MR_HITASFOUR)
+	- [x] High Ice Mage (Removed MR_HITASFOUR)
+	- [x] Dark Lord (Reoved MR_HITASFOUR)
+	- [x] Van Helsing (Removed MR_HITASFOUR)
+	- [x] Chief Yeoman Warder
+	- [x] Water Mage (Removed MR_HITASFOUR)
+	- [x] Earth Mage (Removed MR_HITASFOUR)
+	- [x] Maugneshaagar (Removed MR_HITASFOUR)
+	- [x] Count Dracula (removed MR_HITASFOUR)
+	- [x] Colonel Blood
+	- [x] igniter (Removed MR_HITASONE)
+	- [x] froster (Removed MR_HITASONE)
+	- [x] embalmer (Removed MR_HITASONE)
+	- [x] exterminator (Removed MR_HITASONE)
+	- [x] Yeoman Warder
 
 
 Leaving Out:
 	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
 
-
-Bug fixes:
-	[FIXED] Giant Shoggoth - showing up as H
-	[FIXED] Giant scorpions are generating as "H", with spider symbol.
-	[FIXED] issue in monflag.h: anything traitorous will also be displaced and vice versa, and anything notame will also be skittish and vice versa.
+	- [SKIPPED] Add message for tick/flea multiplication? 
+	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
+	- [SKIPPED] Make leprechauns and evil gold mortal enemies
+	- [SKIPPED] Integrate gnoll cleric and gnoll hunter?
 	
+Bug fixes:
+	- [FIXED] Giant Shoggoth - showing up as H
+	- [FIXED] Giant scorpions are generating as "H", with spider symbol.
+	- [FIXED] issue in monflag.h: anything traitorous will also be displaced and vice versa, and anything notame will also be skittish and vice versa.
+	- [FIXED] Hellbat "pecks". Should be bite. 
 	
