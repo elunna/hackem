@@ -904,7 +904,7 @@ NEARDATA struct permonst mons[] = {
         MR_SLEEP | MR_POISON | MR_STONE, 0,
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_THICK_HIDE, M2_HOSTILE, 
         0, 0, 0, 5, CLR_GRAY),
-    MON("galltrit", S_GREMLIN, LVL(3, 18, 2, 25, -9), (G_GENO | 1),
+    MON("galltrit", S_GREMLIN, LVL(3, 18, 2, 25, -9), (G_GENO | G_HELL | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 6), 
           ATTK(AT_CLAW, AD_PHYS, 1, 6),
           ATTK(AT_BITE, AD_PHYS, 1, 4), 
