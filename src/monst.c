@@ -1188,8 +1188,9 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 7, CLR_CYAN),
     MON("yellow jelly", S_JELLY, LVL(8, 5, 8, 20, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_ENGL, AD_ACID, 3, 6), 
+          ATTK(AT_TUCH, AD_STUN, 2, 4),
           ATTK(AT_NONE, AD_STUN, 2, 6),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(250, 220, MS_SILENT, MZ_MEDIUM), MR_ACID | MR_STONE, 0,
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_ACID | M1_OMNIVORE, 
