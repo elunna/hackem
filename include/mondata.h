@@ -243,8 +243,10 @@
      || (ptr)->mlet == S_YETI \
      || (ptr)->mlet == S_ZOUTHERN)
 #define has_claws_undead(ptr) \
-    ((ptr)->mlet == S_MUMMY || (ptr)->mlet == S_ZOMBIE          \
-     || (ptr)->mlet == S_WRAITH || (ptr)->mlet == S_VAMPIRE)
+    ((ptr)->mlet == S_MUMMY \
+     || (ptr)->mlet == S_ZOMBIE \
+     || (ptr)->mlet == S_WRAITH \
+     || (ptr)->mlet == S_VAMPIRE)
 #define is_armed(ptr) attacktype(ptr, AT_WEAP)
 #define acidic(ptr) (((ptr)->mflags1 & M1_ACID) != 0L)
 #define poisonous(ptr) (((ptr)->mflags1 & M1_POIS) != 0L)
