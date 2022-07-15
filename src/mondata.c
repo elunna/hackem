@@ -452,10 +452,15 @@ boolean
 passes_bars(mptr)
 struct permonst *mptr;
 {
-    return (boolean) (passes_walls(mptr) || amorphous(mptr) || unsolid(mptr)
-                      || is_whirly(mptr) || verysmall(mptr)
-                      || dmgtype(mptr, AD_CORR) || dmgtype(mptr, AD_RUST)
-                      || (slithy(mptr) && !bigmonst(mptr)));
+    return (boolean) \
+     (passes_walls(mptr) \
+     || amorphous(mptr) \
+     || unsolid(mptr) \
+     || is_whirly(mptr) \
+     || verysmall(mptr) \
+     || dmgtype(mptr, AD_CORR) \
+     || dmgtype(mptr, AD_RUST) \
+     || (slithy(mptr) && !bigmonst(mptr)));
 }
 
 /* returns True if monster can blow (whistle, etc) */
@@ -478,8 +483,10 @@ can_chant(mtmp)
 struct monst *mtmp;
 {
     if ((mtmp == &youmonst && Strangled)
-        || is_silent(mtmp->data) || !has_head(mtmp->data)
-        || mtmp->data->msound == MS_BUZZ || mtmp->data->msound == MS_BURBLE)
+        || is_silent(mtmp->data) \
+        || !has_head(mtmp->data) \
+        || mtmp->data->msound == MS_BUZZ \
+        || mtmp->data->msound == MS_BURBLE)
         return FALSE;
     return TRUE;
 }
@@ -586,8 +593,10 @@ sliparm(mon)
 struct monst *mon;
 {
     struct permonst *ptr = r_data(mon);
-    return (boolean) (is_whirly(ptr) || ptr->msize <= MZ_SMALL
-                      || noncorporeal(ptr));
+    return (boolean) \
+     (is_whirly(ptr) \
+     || ptr->msize <= MZ_SMALL \
+     || noncorporeal(ptr));
 }
 
 /* creature will break out of armor */
@@ -1481,7 +1490,8 @@ const struct permonst *ptr;
         /* nonvegetarian, alive monsters generally do */
         return TRUE;
     }
-    if (ptr->mlet == S_MUMMY || ptr->mlet == S_VAMPIRE
+    if (ptr->mlet == S_MUMMY \
+        || ptr->mlet == S_VAMPIRE \
         || (ptr->mlet == S_ZOMBIE && ptr != &mons[PM_SKELETON])
         || ptr == &mons[PM_FLESH_GOLEM]) {
         /* Exceptions: non-living monsters that do have flesh */
