@@ -378,7 +378,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(75, 30, MS_PARROT, MZ_SMALL), 0, 0, 
-        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
+        M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 4, CLR_WHITE),
     MON("chickatrice", S_COCKATRICE, LVL(4, 4, 8, 30, 0),
         (G_GENO | G_SGROUP | 1),
@@ -410,7 +410,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(75, 30, MS_PARROT, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
+        M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 8, CLR_GREEN),
     /* From ancient lore, the cockatrice and basilisk were virtually
      * the same creature, with just some slight differences in their origin.
