@@ -19,6 +19,9 @@
     || (ptr) == &mons[PM_FIRE_ANT] \
     || (ptr) == &mons[PM_GECKO] \
     || (ptr) == &mons[PM_GIANT_ANT] \
+    || (ptr) == &mons[PM_GIANT_FLEA] \
+    || (ptr) == &mons[PM_GIANT_LOUSE] \
+    || (ptr) == &mons[PM_GIANT_TICK] \
     || (ptr) == &mons[PM_GRID_BUG] \
     || (ptr) == &mons[PM_IGUANA] \
     || (ptr) == &mons[PM_LEPRECHAUN] \
