@@ -14,22 +14,7 @@
 #define r_biggermonst(mon) (biggermonst(r_data(mon)))
 #define biggermonst(ptr) ((ptr)->msize > (youmonst.data)->msize)
 #define vs_cantflyorswim(ptr) \
-    ((ptr) == &mons[PM_ACID_BLOB] \
-    || (ptr) == &mons[PM_CAVE_SPIDER] \
-    || (ptr) == &mons[PM_FIRE_ANT] \
-    || (ptr) == &mons[PM_GECKO] \
-    || (ptr) == &mons[PM_GIANT_ANT] \
-    || (ptr) == &mons[PM_GIANT_FLEA] \
-    || (ptr) == &mons[PM_GIANT_LOUSE] \
-    || (ptr) == &mons[PM_GIANT_TICK] \
-    || (ptr) == &mons[PM_GRID_BUG] \
-    || (ptr) == &mons[PM_IGUANA] \
-    || (ptr) == &mons[PM_LEPRECHAUN] \
-    || (ptr) == &mons[PM_LIZARD] \
-    || (ptr) == &mons[PM_IMP] \
-    || (ptr) == &mons[PM_RABID_RAT] \
-    || (ptr) == &mons[PM_SNOW_ANT] \
-    || (ptr) == &mons[PM_SOLDIER_ANT])
+    (verysmall(ptr) && !is_flyer(ptr) && !is_swimmer(ptr) && !amphibious(ptr))
 
 #define pm_resistance(ptr, typ) (((ptr)->mresists & (typ)) != 0)
 

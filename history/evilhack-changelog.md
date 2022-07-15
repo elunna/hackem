@@ -2374,4 +2374,20 @@ The following changes to date are:
 - Fix: prevent tame vampires from shifting back into animal/fog form
 - Fix: Rider revival without corpse removal
 - Update README file (install instructions), tweak a couple hints files
+- Fix: cross-aligned player priests blasted by crowning gift weapon
+  (Mjollnir)
+- Fix: passive green slime attack not active
+- Make looting less tedious
+- Add new #wizkill command
+- Don't allow fuzzer mode to use #wizkill 
+- Fix: spawning giant <monster> in wizmode
+- Fix: filename buffer overflow
+- Monsters that gain resistance to a type of damage also lose any
+  vulnerability to the same damage type
+- Fix: foo, poisoned by a cursed amulet of life saving
+- Adjust shambling horror attack/damage type combinations
+- Fix: memory corruption issues caught with address sanitizer
+- Fix: don't use 'zombified' as a death reason for player races that
+  can't turn into zombies
+- Fix: very small monsters (and players) vs shallow water/sewage
 
