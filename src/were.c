@@ -32,6 +32,12 @@ register struct monst *mon;
                 case PM_WEREDEMON:
                     howler = "hell hound";
                     break;
+                case PM_HUMAN_WEREPANTHER:	
+                    howler = "panther"; 
+                    break;
+		        case PM_HUMAN_WERETIGER:	
+                    howler = "tiger";   
+                    break;
                 default:
                     howler = (char *) 0;
                     break;
