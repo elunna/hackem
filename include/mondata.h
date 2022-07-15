@@ -205,18 +205,18 @@
 #define can_teleport(ptr) (((ptr)->mflags1 & M1_TPORT) != 0L)
 #define control_teleport(ptr) (((ptr)->mflags1 & M1_TPORT_CNTRL) != 0L)
 #define telepathic(ptr) \
-    ((ptr) == &mons[PM_FLOATING_EYE] \
+    ((ptr) == &mons[PM_ALHOON] \
+     || (ptr) == &mons[PM_ELVEN_WIZARD] \
+     || (ptr) == &mons[PM_FLOATING_EYE] \
+     || (ptr) == &mons[PM_GNOMISH_WIZARD] \
+     || (ptr) == &mons[PM_GOBLIN_SHAMAN] \
+     || (ptr) == &mons[PM_HILL_GIANT_SHAMAN] \
+     || (ptr) == &mons[PM_ILLITHID] \
+     || (ptr) == &mons[PM_KOBOLD_SHAMAN] \
      || (ptr) == &mons[PM_MIND_FLAYER] \
      || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
-     || (ptr) == &mons[PM_GOBLIN_SHAMAN] \
-     || (ptr) == &mons[PM_KOBOLD_SHAMAN] \
-     || (ptr) == &mons[PM_ORC_SHAMAN] \
-     || (ptr) == &mons[PM_HILL_GIANT_SHAMAN] \
-     || (ptr) == &mons[PM_ELVEN_WIZARD] \
-     || (ptr) == &mons[PM_GNOMISH_WIZARD] \
-     || (ptr) == &mons[PM_ALHOON] \
-     || (ptr) == &mons[PM_ILLITHID] \
-     || (ptr) == &mons[PM_NEOTHELID])
+     || (ptr) == &mons[PM_NEOTHELID] \
+     || (ptr) == &mons[PM_ORC_SHAMAN])
      /*|| (ptr) == &mons[PM_GNOLL_CLERIC]  \ */
      
 #define has_claws(ptr) \
