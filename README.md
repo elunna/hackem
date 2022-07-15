@@ -62,10 +62,11 @@ Note: -- adding dragons is tricky, need to maintain strict orders in code.
 - [ ] baby deep dragon
 - [ ] deep dragon
 
+- [ ] Comment out the Evil night
 - [ ] Nightmare (evil has nightmares)
 	EVIL: Rename nightmares to greater nightmare
 	
-- [ ] Beholder (evil has beholders)
+- [ ] Beholder (evil has beholders - rename to eye tyrants/deathsphere?)
 	Rename the slashem unique?
 		
 - [ ] Vecna (evil has Vecna already)
@@ -73,7 +74,8 @@ Note: -- adding dragons is tricky, need to maintain strict orders in code.
 
 Quality control on monsters:
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
-			mondata.c
+			mondata.c  (reformat for readability)
+			mondata.h
 			
 	- [ ] Also look at what monsters are normally equipped with.
 	- [ ] Update infravision tags. Only body heat should be visible.
@@ -91,21 +93,25 @@ Quality control on monsters:
 		- [ ] win/share/monsters.txt
 
 Other ideas:
-	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
+
+	- [ ] Make were-critters summon more diversity of monsters
 	- [ ] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
+	- [ ] Werewolves can summon shadow wolves and mist wolves.
+	- [ ] Wererats can summon new rats
+	
+	- [ ] Make Galltrits only generate in Hell.
 	- [ ] Check town/minetown for dwarf thief/gnome thief placement
 	- [ ] Make blood imps, nupperibos drain levels as well?
 	- [ ] Blood imps should probably have a vampiric attack.
 	- [ ] clear jelly has touch acid attack, but not passive. Add passive acid?
 	- [ ] yellow jelly has passive stun, but not active. add passive acid?
 	- [ ] orange jelly has passive sleep, but not active attack. add passive acid?
- 	- [ ] rancid jelly should leave a trail of acid slime?
+
 	- [ ] Should rancid jelly eat organics?
-	- [ ] Make were-critters summon more diversity of monsters
+
 	- [ ] Update mines.des to include different types of gnomes, dwarves, and thieves.
 	- [ ] Kobolds use the orc sounds, maybe they should have their own sounds?
 	- [ ] Upgrade giant badger to be much stronger, and maybe grow up into honey badger?
-	- [ ] Usually known as stinky animals due to their ability of release a nasty odor from their well-developed anal scent glands. Add a poison gas cloud trail?
 	- [ ] Most badgers are solitary, nocturnal animals. (spawn in very small groups, they like the dark)
 	- [ ] Honey badgers should love bee hives... and be mortal enemies with bees (or team a)
 	- [ ] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
@@ -113,11 +119,18 @@ Other ideas:
 	- [ ] Dung worms should be poisonous?
 	- [ ] Eating dung worms should cause illness?
 	- [ ] allow "blood worm", "blood-worm" as spelling
-
 	- [ ] Why do we have wights? Should they not be more powerful than barrow wights?
 	- [ ] Implement gypsy_chat
 	- [ ] Should komodo dragon/gila monster be vulnerable to cold?
+	- [ ] Should water monsters have water attack? Spit water?
+	- [ ] shadow monsters leave trail of darkness
+	- [ ] Shadow monsters are drain/death/cold resistant?
+	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
+	
 
+	- [ ] Double check that all nobles are lords, royals are kings.
+	- [ ] Revert "noble" to "lord"
+	- [ ] Revert "royal" to "king"
 	
 	- [SKIPPED] Add message for tick/flea multiplication? 
 	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
@@ -146,6 +159,11 @@ Other ideas:
 	- [x] Check that other bats don't peck - they don't have beaks...
 	- [x] Made the new jellies also vulnerable to fire.
 	
+
+Trail makers:
+	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)
+	- [ ] rancid jelly should leave a trail of acid slime?
+	- [ ] Badgers leave poison gas cloud trail?
 ### Slash'EM Items
 Artifacts:
 - [ ] Bat from Hell
@@ -447,10 +465,6 @@ Examples of what to change back to traditional slashem behavior:
 	- [ ] Can enter quest at 10 - no penalty
 
 	- [ ] Revenants should shoot missiles/fireballs (ala Doom)
-	- [ ] Snowball attack for ice trolls? frost giants?
-	- [ ] Double check that all nobles are lords, royals are kings.
-	- [ ] Revert "noble" to "lord"
-	- [ ] Revert "royal" to "king"
 	- [ ] Eventually add in the opposite genders from 3.7 (ladies/queens, etc)
 	- [ ] Keep evil Gnolls or use slashem ones, or ones from Splice/Dnh/Gnollhack?
 	- [ ] Keep Vecna's lair? 
@@ -497,11 +511,7 @@ Enhance the existing content from slash'em to make more sense, be more challengi
 		
 	- [ ] Instead of fungus: larva/Maggots grows in some corpses, large ones?
 	- [ ] Maggots could grow into other things depending on level?
-	- [ ] Should water monsters have water attack? Spit water?
-	- [ ] shadow monsters leave trail of darkness
-	- [ ] Shadow monsters are drain/death/cold resistant?
-	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
-	
+
 	- [ ] Regarding temp polymorph - there are pros and cons to keeping and removing it. 
 		Temp poly items nerfs polymorph a bit, not so much for potions and scrolls, but moreso for rings and amulets (and wands)
 		Temp poly introduces another descriptor "hazy" in the inventory.
@@ -536,6 +546,7 @@ Enhance the existing content from slash'em to make more sense, be more challengi
 		- [ ] grants Warning against cross-aligned?
 
 	- [ ] "Force/Impact attacks" are like magical shoves or piledrivers. They make enemies drop items, 
+	- [ ] Snowball attack for ice trolls? frost giants?
 	
 ## Goal 6: HackEM specific content
 Create some new content that is specific to HackEM!  
@@ -563,9 +574,7 @@ Create some new content that is specific to HackEM!
 	- [ ] Nagas are a little boring, is there anything we can do to spice them up? They are basically mirroring dragons but weaker.
 	- [ ] Make see invisible temporary (from potions, eating stalkers, fountains)
 		Requires ring to be permanent.
-
 	- [ ] Enemy compounds could even have cannons?...
-	
 	- [ ] Add some passive spells for ice/flame mage?  Ice globe, ring of fire. 
 	- [ ] Explosive Barrels (from Doom)
 	
@@ -578,7 +587,7 @@ Create some new content that is specific to HackEM!
 
 	In Alone in the Dark you can retrieve the revolver in a side room of Derceto's kitchen . Examining the pile of coal that will be on the ground you will be able to recover a shoe box inside which the gun is hidden. The revolver will initially contain 6 bullets, to which 12 more can be added in the Cellar of the villa and on the dresser of one of the guest bedrooms on the first floor. Despite the difficulty pointing and the slowness of fire is a good weapon to defend against slower enemies, causing serious damage. Unlike the gun cartridges, the revolver ammunition will not become useless when the player enters the water making the weapon effective in all situations.
 
-	- [ ] New monster: Falcon? Eagle?  Basically higher level parrot/raven?
+	- [ ] Falcon? Eagle?  Basically higher level parrot/raven?
 	- [ ] Monster magic - add make pit?  Make fog?  Make vapors?  Conjour boulders?
 	- [ ] Let more monsters ride steeds.
 	- [ ] Make piercers fearsome - they don't actually pierce much in vanilla.
@@ -587,7 +596,7 @@ Create some new content that is specific to HackEM!
 	- [ ] Add the Cwn Annwn? (Spectral hounds)
 		https://www.celticartstudio.com/symbol/f/SYMBOLS/25
 	- [ ] Add plague rats to Rat king level (should he have a "summon rats" spell? Like priests can summon insects?
-	- [ ] Kamada has snakes on shoulders - add snake bite attacks?
+	- [ ] Kamadan has snakes on shoulders - add snake bite attacks?
 	
 ## Goal 8: Rethinking dungeon texture
 	Every 5-9 levels, change the theme of the section. 
@@ -598,8 +607,8 @@ Create some new content that is specific to HackEM!
 	
 	
 	Gardens/plains: sparse trees, fountains, grass, high grass
-	Swamps: water, shallow water, swamp, 
-	Wastelands/Desert: burnt trees, boulders, 
+	Swamps: water, shallow water, swamp, bushes
+	Wastelands/Desert: burnt trees, boulders, rocks, 
 	
 	Jungle: bushpigs, warthog, porcupine, aardvark, 
 	
