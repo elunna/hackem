@@ -342,7 +342,7 @@ NEARDATA struct permonst mons[] = {
         MR_SLEEP | MR_FIRE, MR_FIRE,
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_WANDER | M2_HOSTILE  |M2_NEUTER, 
-        0, 0, 0, 12, CLR_RED),
+        0, M4_VULNERABLE_COLD, 0, 12, CLR_RED),
     MON("static blob", S_BLOB, 
         LVL(12, 6, 8, 0, 0), (G_NOHELL | G_GENO  |1),
         A(ATTK(AT_TUCH, AD_ELEC, 3, 8), 

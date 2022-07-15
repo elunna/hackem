@@ -565,6 +565,7 @@
 #define likes_lava(ptr) \
     ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
      || (ptr) == &mons[PM_SALAMANDER] \
+     || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_LAVA_DEMON] \
      || (ptr) == &mons[PM_LAVA_GREMLIN])
 
