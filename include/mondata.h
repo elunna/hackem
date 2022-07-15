@@ -550,6 +550,7 @@
 #define emits_light(ptr) \
     (((ptr)->mlet == S_LIGHT \
      || (ptr) == &mons[PM_FLAMING_SPHERE] \
+     || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_SHOCKING_SPHERE] \
      || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
      || (ptr) == &mons[PM_FIRE_VORTEX]) \
