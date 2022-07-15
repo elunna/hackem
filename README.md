@@ -74,6 +74,9 @@ Note: -- adding dragons is tricky, need to maintain strict orders in code.
 
 Quality control on monsters:
 	- [ ] Double check all monsters for secondary references in code (other effects/abilities, etc)
+		Search for PM_LARGE_MONSTER as well as "large monster"
+		Search related monsters (example: giant ants for snow ants to see related stuff)
+		
 			mondata.c  (reformat for readability)
 			mondata.h
 			
@@ -84,6 +87,7 @@ Quality control on monsters:
 	- [ ] Reformat all monst listings for easier reading.
 	- [ ] Check other monsters for traitor property
 	
+	- 
 	
 	Once we are stable on the monsters we are importing, the number and placement of monsters then...
 		- [ ] win/share/monsters.map
@@ -128,9 +132,7 @@ Other ideas:
 	- [ ] Anything that is "rockish", ie, rock kobolds, rock gnomes, should be stoning resistant and vulnerable to digging. Stone giant.
 	
 
-	- [ ] Double check that all nobles are lords, royals are kings.
-	- [ ] Revert "noble" to "lord"
-	- [ ] Revert "royal" to "king"
+
 	
 	- [SKIPPED] Add message for tick/flea multiplication? 
 	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
@@ -159,6 +161,20 @@ Other ideas:
 	- [x] Check that other bats don't peck - they don't have beaks...
 	- [x] Made the new jellies also vulnerable to fire.
 	
+	- [x] Double check that all nobles are lords, royals are kings.
+	- [x] Revert all noble and royal monsters to male lord and kings, respectively.
+		[xx] gnome_noble
+		[xx] gnome_royal
+		[xx] dwarf_noble
+		[xx] dwarf_royal
+		[xx] elven_noble
+		[xx] elven_royal
+		[xx] ogre_noble
+		[xx] ogre_royal
+		[xx] kobold_noble
+		[xx] vampire_noble
+		[xx] vampire_royal
+		
 
 Trail makers:
 	- [ ] Make mist wolves leave trail of mist? (Like hezrous leave gas clouds)

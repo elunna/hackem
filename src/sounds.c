@@ -642,8 +642,8 @@ register struct monst *mtmp;
          * night */
         boolean isnight = night();
         boolean kindred = (Upolyd && (u.umonnum == PM_VAMPIRE
-                                      || u.umonnum == PM_VAMPIRE_NOBLE
-                                      || u.umonnum == PM_VAMPIRE_ROYAL
+                                      || u.umonnum == PM_VAMPIRE_LORD
+                                      || u.umonnum == PM_VAMPIRE_KING
                                       || u.umonnum == PM_VAMPIRE_MAGE));
         boolean nightchild =
             (Upolyd && (u.umonnum == PM_WOLF || u.umonnum == PM_WINTER_WOLF

@@ -183,13 +183,13 @@ MONSTER:('L',"master lich"),(38,04),asleep
 MONSTER:('L',"master lich"),(38,16),asleep
 MONSTER:('L',"master lich"),(38,17),asleep
 MONSTER:('&',"weredemon"),(54,10),hostile
-MONSTER:('V',"vampire royal"),(55,09),hostile
+MONSTER:('V',"vampire king"),(55,09),hostile
 MONSTER:('V',"vampire mage"),(55,11),hostile
-MONSTER:('V',"vampire royal"),(63,07),hostile
-MONSTER:('V',"vampire royal"),(63,13),hostile
+MONSTER:('V',"vampire king"),(63,07),hostile
+MONSTER:('V',"vampire king"),(63,13),hostile
 MONSTER:('&',"balrog"),(66,10),hostile
-MONSTER:('V',"vampire royal"),(65,09),hostile
-MONSTER:('V',"vampire royal"),(65,11),hostile
+MONSTER:('V',"vampire king"),(65,09),hostile
+MONSTER:('V',"vampire king"),(65,11),hostile
 MONSTER:('L',"demilich"),(72,07),hostile
 MONSTER:('L',"demilich"),(72,13),hostile
 # Kas
