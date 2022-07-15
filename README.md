@@ -26,13 +26,13 @@ Evil also has some challenging aspects that are well worth keeping:
 
 ## Other design goals:
 
-**Goal 2:** Remove/edit Evil content
-**Goal 3:** Integrate slashem updates and bugfixes from other Slash'EM forks
-**Goal 4:** Import content from other forks.
-**Goal 5:** Homemade Ideas/Improvements for Slashem
-**Goal 6:** HackEM specific content
-**Goal 7:** Rethink dungeon texture
-**Goal 8:** Rethink Gehennom
+* **Goal 2:** Remove/edit Evil content
+* **Goal 3:** Integrate slashem updates and bugfixes from other Slash'EM forks
+* **Goal 4:** Import content from other forks.
+* **Goal 5:** Homemade Ideas/Improvements for Slashem
+* **Goal 6:** HackEM specific content
+* **Goal 7:** Rethink dungeon texture
+* **Goal 8:** Rethink Gehennom
 
 ## Installation
 
