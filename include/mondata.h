@@ -28,6 +28,7 @@
     || (ptr) == &mons[PM_LIZARD] \
     || (ptr) == &mons[PM_IMP] \
     || (ptr) == &mons[PM_RABID_RAT] \
+    || (ptr) == &mons[PM_SNOW_ANT] \
     || (ptr) == &mons[PM_SOLDIER_ANT])
 
 #define pm_resistance(ptr, typ) (((ptr)->mresists & (typ)) != 0)
