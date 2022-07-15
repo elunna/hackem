@@ -59,14 +59,23 @@
     ((mon_resistancebits(mon) & MR2_REFLECTION) != 0)
 
 #define resists_sick(ptr) \
-    ((ptr)->mlet == S_FUNGUS || nonliving(ptr)                                   \
-     || is_angel(ptr) || is_demon(ptr) || is_rider(ptr)                          \
-     || (ptr) == &mons[PM_BABY_GOLD_DRAGON] || (ptr) == &mons[PM_GOLD_DRAGON]    \
-     || (ptr) == &mons[PM_GIANT_LEECH] || (ptr) == &mons[PM_GIANT_COCKROACH]     \
-     || (ptr) == &mons[PM_LOCUST] || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN]    \
-     || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] || (ptr) == &mons[PM_CONVICT] \
-     || (ptr) == &mons[PM_AIR_ELEMENTAL] || (ptr) == &mons[PM_EARTH_ELEMENTAL]   \
-     || (ptr) == &mons[PM_FIRE_ELEMENTAL] || (ptr) == &mons[PM_WATER_ELEMENTAL])
+    ((ptr)->mlet == S_FUNGUS \
+     || nonliving(ptr) \
+     || is_angel(ptr) \
+     || is_demon(ptr) \
+     || is_rider(ptr) \
+     || (ptr) == &mons[PM_AIR_ELEMENTAL] \
+     || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
+     || (ptr) == &mons[PM_CONVICT] \
+     || (ptr) == &mons[PM_EARTH_ELEMENTAL] \
+     || (ptr) == &mons[PM_FIRE_ELEMENTAL] \
+     || (ptr) == &mons[PM_GIANT_LEECH] \
+     || (ptr) == &mons[PM_GIANT_COCKROACH]\
+     || (ptr) == &mons[PM_GOLD_DRAGON] \
+     || (ptr) == &mons[PM_LOCUST] \
+     || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
+     || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
+     || (ptr) == &mons[PM_WATER_ELEMENTAL])
 
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */
 #define resists_mgc(ptr) \
