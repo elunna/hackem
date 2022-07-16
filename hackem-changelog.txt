@@ -26,7 +26,21 @@ Changes:
 	- [x] Made the new jellies also vulnerable to fire.
 	- [x] Double check that all nobles are lords, royals are kings.
 	- [x] Reverted all noble and royal monsters to male lord and kings, respectively.
+	- [x] Add snow ants so they can occupy antholes.
+	- [x] Added claw attacks to the migos.
+	- [x] Make were-critters summon more diversity of monsters
+	- [x] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
 
+	- [x] Galltrits only generate in Hell.
+	- [x] Add drain life attack to blood imps, nupperibos.
+	- [x] Added passive acid attack to clear jelly.
+	- [x] Added stun touch to yellow jelly.
+	- [x] Added touch sleep attack to orange jelly.
+	- [x] stone golems are vulnerable to rays from a wand of digging, which halves their HP.
+	- [x] Dung worms should be poisonous?
+	- [x] allow "blood worm", "blood-worm" as spelling
+	- [x] Eating rot worms should cause illness?
+	- [x] Change rot worms from gray to bright green.
 
 Imported slashem monsters:
 	- [x] giant tick (AT_MULTIPLY)
@@ -258,11 +272,14 @@ Imported slashem monsters:
 
 Leaving Out:
 	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
-
 	- [SKIPPED] Add message for tick/flea multiplication? 
 	- [SKIPPED] Moldy pudding: Enhance a bit, only has an engulfing organic attack. No damage.
 	- [SKIPPED] Make leprechauns and evil gold mortal enemies
 	- [SKIPPED] Integrate gnoll cleric and gnoll hunter?
+	- [SKIPPED] Werewolves can summon shadow wolves and mist wolves.
+	- [SKIPPED] Wererats can summon new rats
+	- [SKIPPED] Add passive acid to yellow jelly (only procs 1 passive attack)
+	- [SKIPPED] Add passive acid to orange jelly (only procs 1 passive attack)
 	
 Bug fixes:
 	- [FIXED] Giant Shoggoth - showing up as H
