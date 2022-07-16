@@ -945,6 +945,8 @@ const char *in_str;
             /* Alternate spellings */
             { "grey dragon", PM_GRAY_DRAGON },
             { "baby grey dragon", PM_BABY_GRAY_DRAGON },
+            { "blood worm", PM_BLOODWORM },
+            { "blood-worm", PM_BLOODWORM },
             { "grey unicorn", PM_GRAY_UNICORN },
             { "grey ooze", PM_GRAY_OOZE },
             { "gray-elf", PM_GREY_ELF },
