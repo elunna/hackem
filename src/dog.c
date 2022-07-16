@@ -891,6 +891,10 @@ register struct obj *obj;
     if (is_quest_artifact(obj) || obj_resists(obj, 0, 95))
         return obj->cursed ? TABU : APPORT;
 
+	/* KMH -- Koalas can only eat eucalyptus */
+	if (mptr == &mons[PM_KOALA])
+		return (obj->otyp == EUCALYPTUS_LEAF ? DOGFOOD : APPORT);
+
     if (obj->oartifact == ART_EYE_OF_VECNA)
         return TABU;
 

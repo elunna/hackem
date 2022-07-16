@@ -107,6 +107,10 @@ register struct obj *obj;
         && !Has_contents(obj))
         return TRUE;
 
+    /* Koalas only eat Eucalyptus leaves */
+	if (u.umonnum == PM_KOALA)
+		return (boolean)(obj->otyp == EUCALYPTUS_LEAF);
+        
     if (u.umonnum == PM_HONEY_BADGER && is_royaljelly(obj))
         return TRUE;
 
