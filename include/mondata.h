@@ -206,6 +206,7 @@
      || (ptr) == &mons[PM_HILL_GIANT_SHAMAN] \
      || (ptr) == &mons[PM_ILLITHID] \
      || (ptr) == &mons[PM_KOBOLD_SHAMAN] \
+     || (ptr) == &mons[PM_LEPRECHAUN_WIZARD] \
      || (ptr) == &mons[PM_MIND_FLAYER] \
      || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
      || (ptr) == &mons[PM_NEOTHELID] \
