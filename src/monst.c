@@ -2192,7 +2192,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE | M1_NOTAKE,
+        M1_ANIMAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE | M1_NOTAKE | M1_POIS,
         M2_HOSTILE, 0, 0, 0, 4, CLR_BLACK),
     MON("acid worm", S_WORM, LVL(4, 9, 5, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_SPIT, AD_ACID, 2, 4), 
