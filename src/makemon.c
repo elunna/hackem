@@ -1589,8 +1589,26 @@ register struct monst *mtmp;
             }
         break;
     case S_KOBOLD:
-        if (!rn2(4))
-            m_initthrow(mtmp, DART, 12);
+        if (ptr == &mons[PM_ROCK_KOBOLD]) {
+            (void) mongets(mtmp, SLING);
+            if (rn2(3))
+                m_initthrow(mtmp, FLINT, 4 + rnd(6));
+            else
+                m_initthrow(mtmp, SLING_BULLET, 4 + rnd(6));
+        } else if (!rn2(4))
+            /* WAC gets orcish 1:4, otherwise darts
+                    (used to be darts 1:4)
+                gets orcish short sword 1:4, otherwise orcish dagger */
+             if (!rn2(4))
+                m_initthrow(mtmp, ORCISH_SPEAR, 1);
+            else 
+                m_initthrow(mtmp, DART, 12);
+        
+        if (!rn2(4)) 
+            mongets(mtmp, ORCISH_SHORT_SWORD);
+        else 
+            mongets(mtmp, ORCISH_DAGGER);
+
         break;
 
     case S_CENTAUR:
