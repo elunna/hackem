@@ -153,7 +153,11 @@
 /* used to decide whether plural applies so no need for 'more than 2' */
 #define eyecount(ptr) \
     (!haseyes(ptr) ? 0                                                     \
-     : ((ptr) == &mons[PM_CYCLOPS] || (ptr) == &mons[PM_FLOATING_EYE]) ? 1 \
+     : ((ptr) == &mons[PM_CYCLOPS] \
+     || (ptr) == &mons[PM_GLOWING_EYE] \
+     || (ptr) == &mons[PM_BLOODSHOT_EYE] \
+     || (ptr) == &mons[PM_BLINKING_EYE] \
+     || (ptr) == &mons[PM_FLOATING_EYE]) ? 1 \
        : 2)
 #define nohands(ptr) (((ptr)->mflags1 & M1_NOHANDS) != 0L)
 #define nolimbs(ptr) (((ptr)->mflags1 & M1_NOLIMBS) == M1_NOLIMBS)
