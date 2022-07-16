@@ -1483,6 +1483,16 @@ zap_dig()
         tmp_at(zx, zy);
         delay_output(); /* wait a little bit */
 
+            /* WAC check for monster, boulder */
+            if ((mtmp = m_at(zx, zy)) != 0) {
+                if (made_of_rock(mtmp->data)) {
+                    You("gouge a hole in %s!", mon_nam(mtmp));
+                    mtmp->mhp /= 2;
+                    if (mtmp->mhp < 1) mtmp->mhp = 1;
+		    setmangry(mtmp, TRUE);
+                } else pline("%s is unaffected!", Monnam(mtmp));
+            }
+            
         if (pitdig) { /* we are already in a pit if this is true */
             coord cc;
             struct trap *adjpit = t_at(zx, zy);

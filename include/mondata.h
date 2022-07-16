@@ -604,6 +604,11 @@
     || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
      || (ptr) == &mons[PM_ALHOON])
 
+#define made_of_rock(ptr) \
+     ((passes_walls(ptr) && thick_skinned(ptr)) \
+	 || (ptr) == &mons[PM_STONE_GOLEM] \
+	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
+
 #define is_vampire(ptr) ((ptr)->mlet == S_VAMPIRE)
 
 #define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN])
