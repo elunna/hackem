@@ -1455,6 +1455,7 @@ int mndx;
 {
     switch (mndx) {
     case PM_GARGOYLE:
+    case PM_STATUE_GARGOYLE:
     case PM_WINGED_GARGOYLE:
     case PM_EARTH_ELEMENTAL:
         return MINERAL;
