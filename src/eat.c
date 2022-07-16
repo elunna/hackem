@@ -1820,7 +1820,7 @@ struct obj *otmp;
     }
 
     if ((mnum != PM_ACID_BLOB && !stoneable && !slimeable && rotted > 5L)
-        || (otmp->zombie_corpse)) {
+        || (otmp->zombie_corpse) || mnum == PM_ROT_WORM) {
 
         boolean cannibal;
         if (has_omonst(otmp) && has_erac(OMONST(otmp)))
@@ -1846,7 +1846,10 @@ struct obj *otmp;
             make_sick(sick_time, corpse_xname(otmp, "rotted", CXN_NORMAL),
                       TRUE, SICK_VOMITABLE);
 
-            pline("(It must have died too long ago to be safe to eat.)");
+            /* --hackem: Rot worms are always rotted */
+            if (mnum != PM_ROT_WORM)
+                pline("(It must have died too long ago to be safe to eat.)");
+
         } else if (otmp->zombie_corpse) {
             if (Sick_resistance) {
                 You_feel("an odd sensation for a brief moment, but it soon passes.");
