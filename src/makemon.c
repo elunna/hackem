@@ -2835,6 +2835,10 @@ long mmflags;
     case S_NYMPH:
         if (rn2(5) && !u.uhave.amulet)
             mtmp->msleeping = 1;
+        if (mndx == PM_PIXIE) {        
+/*  			    mtmp->perminvis = TRUE;*/
+            mtmp->minvis = TRUE;
+        }
         break;
     case S_ORC:
         if (Race_if(PM_ELF))
