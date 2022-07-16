@@ -2265,7 +2265,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_CONCEAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE,
         M2_NASTY | M2_HOSTILE, 
-        0, 0, 0, 4, CLR_GRAY),
+        0, 0, 0, 4, CLR_BRIGHT_GREEN),
     /*
      * xan, &c
      */
