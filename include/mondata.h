@@ -57,6 +57,7 @@
      || (ptr) == &mons[PM_GIANT_LEECH] \
      || (ptr) == &mons[PM_GIANT_COCKROACH]\
      || (ptr) == &mons[PM_GOLD_DRAGON] \
+     || (ptr) == &mons[PM_JUGGERNAUT] \
      || (ptr) == &mons[PM_LOCUST] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
