@@ -896,7 +896,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1200, 300, MS_GRUNT, MZ_HUMAN), MR_STONE, MR_STONE,
         M1_FLY | M1_HUMANOID | M1_THICK_HIDE | M1_BREATHLESS | M1_OVIPAROUS,
         M2_LORD | M2_HOSTILE | M2_STRONG | M2_MAGIC, 0, 0, 0, 11, HI_LORD),
-    MON("statue gargoyle", S_GREMLIN, LVL(4, 9, 5, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE | 1),
+    MON("statue gargoyle", S_GREMLIN, LVL(4, 9, 1, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 3), 
           ATTK(AT_CLAW, AD_PHYS, 1, 3),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
