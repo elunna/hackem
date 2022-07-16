@@ -1363,7 +1363,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_MAGC, AD_SPEL, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
-        M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_GREEDY | M2_MAGIC, 
+        M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_GREEDY | M2_MAGIC | M1_HERBIVORE, 
         M3_INFRAVISIBLE, 0, 0, 11, CLR_BROWN),
     MON("quickling", S_NYMPH,
         LVL(3, 30, 10, 20, -10), (G_HELL | G_GENO | 1),
