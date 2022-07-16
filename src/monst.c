@@ -265,7 +265,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 100, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE, M2_HOSTILE, 
-        M3_TRAITOR, 0, 0, 12, CLR_BLACK),
+        M3_TRAITOR | M3_BERSERK, 0, 0, 12, CLR_BLACK),
     MON("killer beetle", S_ANT, 
         LVL(19, 6, -4, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 6, 6), 
