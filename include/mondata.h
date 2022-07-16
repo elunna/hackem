@@ -308,9 +308,13 @@
      || (ptr) == &mons[PM_TENGU] \
      || (ptr) == &mons[PM_VROCK])
 # define is_rat(ptr) \
-    ((ptr) == &mons[PM_ENORMOUS_RAT] \
+    ((ptr) == &mons[PM_BLACK_RAT] \
+     || (ptr) == &mons[PM_ENORMOUS_RAT] \
      || (ptr) == &mons[PM_GIANT_RAT] \
+     || (ptr) == &mons[PM_HELLRAT] \
+     || (ptr) == &mons[PM_PACK_RAT] \
      || (ptr) == &mons[PM_RABID_RAT] \
+     || (ptr) == &mons[PM_RAT_KING] \
      || (ptr) == &mons[PM_RODENT_OF_UNUSUAL_SIZE] \
      || (ptr) == &mons[PM_SEWER_RAT])
 #define has_trunk(ptr) \
