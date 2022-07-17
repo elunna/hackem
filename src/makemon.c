@@ -1394,6 +1394,82 @@ register struct monst *mtmp;
         }
         break;
 
+    case S_GNOME:
+        switch (mm) {
+            case PM_GNOLL:
+                if(!rn2(3)) (void) mongets(mtmp, ORCISH_HELM);
+                if(!rn2(3)) (void) mongets(mtmp, STUDDED_ARMOR);
+                if(!rn2(3)) (void) mongets(mtmp, ORCISH_SHIELD);
+                if(!rn2(4)) (void) mongets(mtmp, SPEAR);
+                break;
+
+		    case PM_GNOLL_WARRIOR:
+                if(!rn2(2)) (void) mongets(mtmp, ORCISH_HELM);
+
+                if (!rn2(20))
+                    (void) mongets(mtmp, ORANGE_DRAGON_SCALES);
+                else if (rn2(3))
+                    (void) mongets(mtmp, SCALE_MAIL);
+                else
+                    (void) mongets(mtmp, SPLINT_MAIL);
+
+                if(!rn2(2)) (void) mongets(mtmp, ORCISH_SHIELD);
+                if(!rn2(3)) (void) mongets(mtmp, KATANA);
+                break;
+
+            #if 0  /* --hackem: Disabling until we figure out what to do with Gnolls. */
+            case PM_GNOLL_HUNTER:
+                (void) mongets(mtmp, BOW);
+                m_initthrow(mtmp, ARROW, 12);
+            #endif
+
+		    case PM_GNOLL_CHIEFTAIN:
+                (void) mongets(mtmp, ORCISH_HELM);
+
+                if (!rn2(10))
+                    (void) mongets(mtmp, BLUE_DRAGON_SCALES);
+                else
+                    (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
+
+                (void) mongets(mtmp, ORCISH_SHIELD);
+                (void) mongets(mtmp, KATANA);
+                (void) mongets(mtmp, rnd_offensive_item(mtmp));
+                break;
+
+		    case PM_GNOLL_SHAMAN:
+                if (!rn2(10))
+                    (void) mongets(mtmp, SILVER_DRAGON_SCALES);
+                else if (rn2(5))
+                    (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
+                else
+                    (void) mongets(mtmp, RED_DRAGON_SCALES);
+
+                (void) mongets(mtmp, ATHAME);
+                m_initthrow(mtmp, SHURIKEN, 12);
+                (void) mongets(mtmp, rnd_offensive_item(mtmp));
+                (void) mongets(mtmp, rnd_offensive_item(mtmp));
+                break;
+
+            case PM_FLIND:
+                if (rn2(4))
+                    (void) mongets(mtmp, HIGH_BOOTS);
+                if (!rn2(4))
+                    (void) mongets(mtmp, HELMET);
+                (void) mongets(mtmp, !rn2(3) ? TWO_HANDED_SWORD : BATTLE_AXE);
+                break;
+
+		    default:
+                if (is_gnoll(ptr) && mm != PM_GNOLL_SHAMAN) {
+                    if (rn2(4))
+                        (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
+                    else
+                        (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
+                }
+                break;
+		}
+		break;
+
+    
     case S_HUMANOID:
         if (is_hobbit(ptr)) {
             switch (rn2(3)) {
@@ -1466,33 +1542,6 @@ register struct monst *mtmp;
             if (!rn2(4))
                 otmp->oerodeproof = 1;
             (void) mpickobj(mtmp, otmp);
-        } else if (is_gnoll(ptr)) {
-            if (rn2(4))
-                (void) mongets(mtmp, ARMOR);
-            if (!rn2(5))
-                (void) mongets(mtmp, CLOAK);
-            // if (mm != PM_GNOLL_CLERIC) {  /* While we figure out what to do with the cleric. */
-
-            if (mm != PM_GNOLL_SHAMAN) {
-                if (rn2(4))
-                    (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
-                else
-                    (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
-            }
-            #if 0  /* --hackem: Disabling until we figure out what to do with Gnolls. */
-            if (mm == PM_GNOLL_HUNTER) {
-                (void) mongets(mtmp, BOW);
-                m_initthrow(mtmp, ARROW, 12);
-            }
-            #endif
-
-            if (mm == PM_FLIND) {
-                if (rn2(4))
-                    (void) mongets(mtmp, HIGH_BOOTS);
-                if (!rn2(4))
-                    (void) mongets(mtmp, HELMET);
-                (void) mongets(mtmp, !rn2(3) ? TWO_HANDED_SWORD : BATTLE_AXE);
-            }
         }
         break;
     case S_KOP:
