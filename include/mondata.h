@@ -209,6 +209,7 @@
      || (ptr) == &mons[PM_FLOATING_EYE] \
      || (ptr) == &mons[PM_GNOMISH_WIZARD] \
      || (ptr) == &mons[PM_GOBLIN_SHAMAN] \
+     || (ptr) == &mons[PM_GNOLL_SHAMAN] \
      || (ptr) == &mons[PM_HILL_GIANT_SHAMAN] \
      || (ptr) == &mons[PM_ILLITHID] \
      || (ptr) == &mons[PM_KOBOLD_SHAMAN] \
