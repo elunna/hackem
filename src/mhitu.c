@@ -835,6 +835,12 @@ register struct monst *mtmp;
         newsym(mtmp->mx, mtmp->my);
     }
 
+	/* Make Star Vampires visible the moment they hit/miss us */
+	if(mtmp->data == &mons[PM_STAR_VAMPIRE] && mtmp->minvis
+	   && cansee(mtmp->mx, mtmp->my)) {
+	    mtmp->minvis = 0;
+	    newsym(mtmp->mx, mtmp->my);
+	}
     /*  Special demon handling code */
     if ((mtmp->cham == NON_PM) && is_demon(mdat) && !range2
         && mtmp->data != &mons[PM_BALROG] && mtmp->data != &mons[PM_SUCCUBUS]

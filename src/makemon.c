@@ -2927,6 +2927,13 @@ long mmflags;
         if (Inhell && is_bat(ptr))
             mon_adjust_speed(mtmp, 2, (struct obj *) 0);
         break;
+    case S_VAMPIRE:
+        /* [DS] Star vampires are invisible until they feed */
+        if (mndx == PM_STAR_VAMPIRE) {
+            mtmp->perminvis = TRUE;
+            mtmp->minvis = TRUE;
+        }
+        break;
     case S_DRAGON:
         /* Dragons are always generated awake and pissed for Knights. */
         if (Role_if(PM_KNIGHT)) {
