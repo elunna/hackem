@@ -2622,7 +2622,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_CLAW, AD_PHYS, 1, 6),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(130, 130, MS_SQEEK, MZ_MEDIUM), 0, 0,
-        M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
+        M1_FLY | M1_ANIMAL | M1_CARNIVORE,
         M2_WANDER | M2_HOSTILE, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 10, CLR_GRAY),
     MON("raven", S_BAT, LVL(4, 20, 6, 0, 0), (G_GENO | 2),
