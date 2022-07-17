@@ -592,7 +592,8 @@
 
 #define pm_invisible(ptr) \
     ((ptr) == &mons[PM_STALKER] \
-    || (ptr) == &mons[PM_BLACK_LIGHT])
+    || (ptr) == &mons[PM_BLACK_LIGHT] \
+    || (ptr) == &mons[PM_STAR_VAMPIRE])
 
 /* could probably add more */
 #define likes_fire(ptr) \
