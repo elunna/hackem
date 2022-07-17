@@ -2769,6 +2769,24 @@ struct attack *mattk;
                 You("are covered in slime!  It burns!");
             exercise(A_STR, FALSE);
         }
+        /* Mik: Go corrode a few things... */
+        if (mtmp->data == &mons[PM_SHOGGOTH] || mtmp->data == &mons[PM_GIANT_SHOGGOTH]) {
+            for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
+                if (is_corrodeable(otmp2))
+                    /* --hackem: I'm disabling the EF_DESTROY flag because it seems to result in 
+                    random crashes. */
+                    
+                    /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
+                    erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+            }
+        } else {	
+            for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
+                if (is_corrodeable(otmp2) && !rn2(9))
+                    /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
+                    erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+
+            }
+        }	
         break;
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
