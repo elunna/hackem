@@ -2653,7 +2653,8 @@ NEARDATA struct permonst mons[] = {
     MON("nightgaunt", S_BAT, LVL(15, 20, -2, 50, -6), (G_GENO | 2 | G_SGROUP),
         A(ATTK(AT_CLAW, AD_TCKL, 1, 6), 
           ATTK(AT_CLAW, AD_TCKL, 1, 6),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_STNG, AD_PHYS, 1, 12), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1300, 100, MS_SQEEK, MZ_MEDIUM), 
         MR_SLEEP | MR_POISON | MR_COLD, MR_COLD,
         M1_FLY | M1_BREATHLESS | M1_POIS | M1_REGEN | M1_THICK_HIDE 
