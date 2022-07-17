@@ -571,9 +571,11 @@
      || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_SHOCKING_SPHERE] \
      || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
+     || (ptr) == &mons[PM_WAX_GOLEM] \
      || (ptr) == &mons[PM_FIRE_VORTEX]) \
          ? 1 \
          : ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
+            || (ptr) == &mons[PM_FIRE_VAMPIRE] \
             || (ptr) == &mons[PM_GOLD_DRAGON] \
             || (ptr) == &mons[PM_TIAMAT]) ? 2 : 0)
     /* [Note: the light ranges above were reduced to 1 for performance,
