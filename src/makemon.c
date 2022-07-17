@@ -2246,6 +2246,32 @@ register struct monst *mtmp;
         }
         break;
     case S_VAMPIRE:
+        /* [Lethe] Star and fire vampires don't get this stuff */
+		if (ptr == &mons[PM_STAR_VAMPIRE] || 
+				ptr == &mons[PM_FIRE_VAMPIRE])
+		    break;
+	    	/* Get opera cloak */
+/*	    	otmp = readobjnam(opera_cloak);
+		if (otmp && otmp != &zeroobj) mpickobj(mtmp, otmp);*/
+        int i;
+		for (i = STRANGE_OBJECT; i < NUM_OBJECTS; i++) {
+			register const char *zn;
+			if ((zn = OBJ_DESCR(objects[i])) && !strcmpi(zn, "opera cloak")) {
+				if (!OBJ_NAME(objects[i])) i = STRANGE_OBJECT;
+				break;
+			}
+		}
+        #if 0  /* Enable with we add blood potions */
+		if (i != NUM_OBJECTS) 
+            (void)mongets(mtmp, i);
+		if (rn2(2)) {
+		    if ((int) mtmp->m_lev > rn2(30))
+			    (void)mongets(mtmp, POT_VAMPIRE_BLOOD);
+		    else
+			    (void)mongets(mtmp, POT_BLOOD);
+		}
+        #endif
+
         if (ptr == &mons[PM_KAS]) {
             otmp = mksobj(TWO_HANDED_SWORD, FALSE, FALSE);
             otmp = oname(otmp, artiname(ART_SWORD_OF_KAS));
