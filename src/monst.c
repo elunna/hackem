@@ -2769,6 +2769,8 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_GRAY),
+        /* <Umbire> The reflection comes from its scales, \
+       and they only fully grow in upon reaching adulthood. */
     MON("baby silver dragon", S_DRAGON, LVL(12, 9, 2, 10, 0), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
