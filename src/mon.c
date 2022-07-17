@@ -622,7 +622,6 @@ unsigned corpseflags;
     case PM_HUMAN_ZOMBIE:
     case PM_GIANT_ZOMBIE:
     case PM_ETTIN_ZOMBIE:
-    case PM_TROLL_MUMMY: 
     case PM_GNOLL_WITHERLING:
         corpstatflags |= CORPSTAT_ZOMBIE;
         /* FALLTHRU */
@@ -635,6 +634,7 @@ unsigned corpseflags;
     case PM_HUMAN_MUMMY:
     case PM_GIANT_MUMMY:
     case PM_ETTIN_MUMMY:
+    case PM_TROLL_MUMMY: 
         num = undead_to_corpse(mndx);
         corpstatflags |= CORPSTAT_INIT;
         obj = mkcorpstat(CORPSE, mtmp, &mons[num], x, y, corpstatflags);
