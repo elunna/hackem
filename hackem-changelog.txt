@@ -30,7 +30,6 @@ Changes:
 	- [x] Added claw attacks to the migos.
 	- [x] Make were-critters summon more diversity of monsters
 	- [x] Werespiders should summon more types: giant spiders, jumping spiders, recluse and cave spiders.
-
 	- [x] Galltrits only generate in Hell.
 	- [x] Add drain life attack to blood imps, nupperibos.
 	- [x] Added passive acid attack to clear jelly.
@@ -41,6 +40,25 @@ Changes:
 	- [x] allow "blood worm", "blood-worm" as spelling
 	- [x] Eating rot worms should cause illness?
 	- [x] Change rot worms from gray to bright green.
+	- [x] Give Tas bezerk
+	- [x] Added swimming to swamp kobolds.
+	- [x] made brownies vegetarian.
+	- [x] Give rock kobolds a sling and some rocks.
+	- [x] Lesser Nightmares and nightmares should have traitor property
+	- [x] Added infravision and NASTY to juggernaut.
+	- [x] Added fire/poison/shock/sleep/acid/stone resistance to juggernaut.
+	- [x] Removed G_NOHELL tag from juggernaut so they can appear anywhere.
+	- [x] Added regeneration to juggernaut."
+	- [x] Changed juggernaut MR to 70, and AC to -4.
+	- [x] Added M1_MINDLESS to juggernaut.
+	- [x] Added death and drain resistance to juggernaut.
+	- [x] Raised juggernaut speed to 15.
+	- [x] Added sickness resistance to juggernaut.
+	- [x] Allowed rabbits to be tamed with carrots (not rabid rabbits though.)
+	- [x] You should not be able to tame rabid monsters.
+	- [x] Add "ahool!" sounds to athol that aggravate monsters.
+	- [x] increased difficulty of athols
+	
 
 Imported slashem monsters:
 	- [x] giant tick (AT_MULTIPLY)

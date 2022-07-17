@@ -747,8 +747,14 @@ domonability(VOID_ARGS)
     } else if (is_unicorn(youmonst.data)) {
         use_unicorn_horn((struct obj *) 0);
         return 1;
-    } else if (youmonst.data->msound == MS_SHRIEK) {
-        You("shriek.");
+    } else if (youmonst.data->msound == MS_SHRIEK 
+            || youmonst.data->msound == MS_ATHOL) {
+        
+        if (youmonst.data->msound == MS_SHRIEK)
+            You("shriek.");
+        else
+            You(" howl 'athool!'");
+            
         if (u.uburied)
             pline("Unfortunately sound does not carry well through rock.");
         else

@@ -4373,6 +4373,13 @@ struct monst *mtmp;
         }
         aggravate();
     }
+    if (mtmp->data->msound == MS_ATHOL) {
+        if (!Deaf) {
+            pline("%s athools.", Monnam(mtmp));
+            stop_occupation();
+        }
+        aggravate();
+    }
     if (mtmp->data == &mons[PM_QUIVERING_BLOB]
         && canseemon(mtmp)) {
         pline("%s quivers.", Monnam(mtmp));

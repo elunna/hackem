@@ -842,6 +842,10 @@ register struct monst *mtmp;
         break;
     case MS_BURBLE:
         pline_msg = "burbles.";
+        break;    
+    case MS_ATHOL:
+        pline_msg = "athools.";
+        aggravate();
         break;
     case MS_SHRIEK:
         pline_msg = "shrieks.";

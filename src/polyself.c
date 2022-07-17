@@ -844,6 +844,8 @@ int mntmp;
             pline(use_thec, monsterc, "emit a mental blast");
         if (youmonst.data->msound == MS_SHRIEK) /* worthless, actually */
             pline(use_thec, monsterc, "shriek");
+        if (youmonst.data->msound == MS_ATHOL) /* worthless, actually */
+            pline(use_thec, monsterc, "athool");
         if (is_vampire(youmonst.data))
             pline(use_thec, monsterc, "change shape");
         if (lays_eggs(youmonst.data) && flags.female &&
