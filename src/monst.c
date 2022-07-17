@@ -2608,7 +2608,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(30, 30, MS_SQEEK, MZ_MEDIUM), 0, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
         M2_WANDER | M2_HOSTILE, 
-        M3_INFRAVISIBLE, 0, 0, 9, CLR_ORANGE),
+        M3_INFRAVISIBLE | M3_SKITTISH | M3_ACCURATE, 0, 0, 9, CLR_ORANGE),
     MON("mobat", S_BAT, LVL(9, 22, 7, 0, 0), (G_HELL | G_GENO | G_LGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 8), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
