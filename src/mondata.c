@@ -662,6 +662,7 @@ struct permonst *ptr;
     case PM_BULL:
     case PM_HORNED_DEVIL: /* ? "more than one" */
     case PM_MINOTAUR:
+    case PM_NIGHTGAUNT:
     case PM_ELDER_MINOTAUR:
     case PM_ASMODEUS:
     case PM_BAPHOMET:
