@@ -94,7 +94,7 @@ register struct obj *obj;
         return TRUE;
 
     /* Ghouls only eat non-veggy corpses or eggs (see dogfood()) */
-    if (u.umonnum == PM_GHOUL)
+    if (u.umonnum == PM_GHOUL || u.umonnum == PM_GHAST)
         return (boolean)((obj->otyp == CORPSE
                           && !vegan(&mons[obj->corpsenm]))
                          || (obj->otyp == EGG));
@@ -1832,43 +1832,50 @@ struct obj *otmp;
         else
             cannibal = maybe_cannibal(mnum, FALSE);
 
-        pline("Ulch - that %s was tainted%s!",
-              (mons[mnum].mlet == S_FUNGUS) ? "fungoid vegetation"
-                  : glob ? "glob"
-                      : vegetarian(&mons[mnum]) ? "protoplasm"
-                          : "meat",
-              cannibal ? ", you cannibal" : "");
-        if (Sick_resistance && !otmp->zombie_corpse) {
-            pline("It doesn't seem at all sickening, though...");
-        } else if (!otmp->zombie_corpse) {
-            long sick_time;
-
-            sick_time = (long) rn1(10, 10);
-            /* make sure new ill doesn't result in improvement */
-            if (Sick && (sick_time > Sick))
-                sick_time = (Sick > 1L) ? Sick - 1L : 1L;
-            make_sick(sick_time, corpse_xname(otmp, "rotted", CXN_NORMAL),
-                      TRUE, SICK_VOMITABLE);
-
-            /* --hackem: Rot worms are always rotted */
-            if (mnum != PM_ROT_WORM)
-                pline("(It must have died too long ago to be safe to eat.)");
-
-        } else if (otmp->zombie_corpse) {
-            if (Sick_resistance) {
-                You_feel("an odd sensation for a brief moment, but it soon passes.");
-            } else {
+        if (u.umonnum == PM_GHOUL || u.umonnum == PM_GHAST) {
+	    	pline("Yum - that %s was well aged%s!",
+		      mons[mnum].mlet == S_FUNGUS ? "fungoid vegetation" :
+		      !vegetarian(&mons[mnum]) ? "meat" : "protoplasm",
+		      cannibal ? ", cannibal" : "");
+	    } else {	
+            pline("Ulch - that %s was tainted%s!",
+                (mons[mnum].mlet == S_FUNGUS) ? "fungoid vegetation"
+                    : glob ? "glob"
+                        : vegetarian(&mons[mnum]) ? "protoplasm"
+                            : "meat",
+                cannibal ? ", you cannibal" : "");
+            if (Sick_resistance && !otmp->zombie_corpse) {
+                pline("It doesn't seem at all sickening, though...");
+            } else if (!otmp->zombie_corpse) {
                 long sick_time;
 
                 sick_time = (long) rn1(10, 10);
                 /* make sure new ill doesn't result in improvement */
                 if (Sick && (sick_time > Sick))
                     sick_time = (Sick > 1L) ? Sick - 1L : 1L;
-                make_sick(sick_time, corpse_xname(otmp, "diseased", CXN_NORMAL),
-                          TRUE, SICK_ZOMBIE);
+                make_sick(sick_time, corpse_xname(otmp, "rotted", CXN_NORMAL),
+                        TRUE, SICK_VOMITABLE);
 
-                You_feel("a horrifying change starting within you.");
-                You("have an overwhelming urge to consume brains...");
+                /* --hackem: Rot worms are always rotted */
+                if (mnum != PM_ROT_WORM)
+                    pline("(It must have died too long ago to be safe to eat.)");
+
+            } else if (otmp->zombie_corpse) {
+                if (Sick_resistance) {
+                    You_feel("an odd sensation for a brief moment, but it soon passes.");
+                } else {
+                    long sick_time;
+
+                    sick_time = (long) rn1(10, 10);
+                    /* make sure new ill doesn't result in improvement */
+                    if (Sick && (sick_time > Sick))
+                        sick_time = (Sick > 1L) ? Sick - 1L : 1L;
+                    make_sick(sick_time, corpse_xname(otmp, "diseased", CXN_NORMAL),
+                            TRUE, SICK_ZOMBIE);
+
+                    You_feel("a horrifying change starting within you.");
+                    You("have an overwhelming urge to consume brains...");
+                }
             }
         }
 
@@ -1877,6 +1884,10 @@ struct obj *otmp;
         else
             useupf(otmp, 1L);
         return 2;
+
+    } else if (youmonst.data == &mons[PM_GHOUL] || youmonst.data == &mons[PM_GHAST]) {
+		pline ("This corpse is too fresh!");
+		return 3;
     } else if (acidic(&mons[mnum]) && !Acid_resistance) {
         tp++;
         You("have a very bad case of stomach acid.");   /* not body_part() */

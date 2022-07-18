@@ -1521,6 +1521,7 @@ E int FDECL(pm_to_cham, (int));
 E int FDECL(minliquid, (struct monst *));
 E int NDECL(movemon);
 E int FDECL(meatmetal, (struct monst *));
+E void FDECL(meatcorpse, (struct monst *));
 E int FDECL(meatobj, (struct monst *));
 E void FDECL(mpickgold, (struct monst *));
 E int FDECL(meatjelly, (struct monst *));
