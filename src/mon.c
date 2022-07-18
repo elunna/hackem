@@ -665,6 +665,45 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         break;
+    case PM_RUBY_GOLEM:
+		/* [DS] Mik's original Lethe fobbed off the player with coloured
+		 * glass even for the higher golems. We'll play fair here - if
+		 * you can kill one of these guys, you deserve the gems. */
+		num = d(2,4);
+		while (num--)
+			obj = mksobj_at(RUBY, x, y, TRUE, FALSE);
+		free_mname(mtmp);
+		break;
+    case PM_DIAMOND_GOLEM:
+        num = d(2,4);   
+        while (num--)
+            obj = mksobj_at(DIAMOND, x, y, TRUE, FALSE);
+        free_mname(mtmp);
+        break;
+    case PM_SAPPHIRE_GOLEM:
+        num = d(2,4);
+        while (num--)
+            obj = mksobj_at(SAPPHIRE, x, y, TRUE, FALSE);
+        free_mname(mtmp);
+        break;
+    case PM_STEEL_GOLEM:
+        num = d(2,6);
+        /* [DS] Add steel chains (or handcuffs!) for steel golems? */
+        while (num--)
+            obj = mksobj_at(IRON_CHAIN, x, y, TRUE, FALSE);
+        free_mname(mtmp);
+        break;
+    case PM_CRYSTAL_GOLEM:
+        /* [DS] Generate gemstones of various hues */
+        num = d(2,4);
+        {
+            int gemspan = LAST_GEM - bases[GEM_CLASS] + 1;
+            while (num--)
+            obj = mksobj_at(bases[GEM_CLASS] + rn2(gemspan), x, y,
+                        TRUE, FALSE);
+            free_mname(mtmp);
+        }
+        break;
     case PM_CLAY_GOLEM:
         obj = mksobj_at(ROCK, x, y, FALSE, FALSE);
         obj->quan = (long) (rn2(20) + 50);
