@@ -115,11 +115,13 @@
      || (ptr) == &mons[PM_ARCHANGEL] \
      || (ptr) == &mons[PM_ARCHON] \
      || (ptr) == &mons[PM_BALROG] \
+     || (ptr) == &mons[PM_CHASME] \
      || (ptr) == &mons[PM_DEMON] \
      || (ptr) == &mons[PM_ERINYS] \
      || (ptr) == &mons[PM_HORNED_DEVIL] \
      || (ptr) == &mons[PM_INCUBUS] \
      || (ptr) == &mons[PM_PIT_FIEND] \
+     || (ptr) == &mons[PM_SPINED_DEVIL] \
      || (ptr) == &mons[PM_SUCCUBUS] \
      || (ptr) == &mons[PM_VROCK] \
      || (ptr) == &mons[PM_WINGED_GARGOYLE])
