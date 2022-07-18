@@ -700,6 +700,13 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         break;
+    case PM_PLASTIC_GOLEM:
+		num = d(2,2);
+		while (num--)
+			obj = mksobj_at(rn2(5) ? CREDIT_CARD : FAKE_AMULET_OF_YENDOR, 
+            x, y, TRUE, FALSE);
+        free_mname(mtmp);
+		break;
     case PM_GOLD_GOLEM:
         /* Good luck gives more coins */
         obj = mkgold((long) (200 - rnl(101)), x, y);
