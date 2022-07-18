@@ -603,6 +603,14 @@ unsigned corpseflags;
     case PM_LONG_WORM:
         (void) mksobj_at(WORM_TOOTH, x, y, TRUE, FALSE);
         goto default_1;
+    case PM_KILLER_TRIPE_RATION:
+		obj = mksobj_at(TRIPE_RATION, x, y, TRUE, FALSE);
+		newsym(x, y);
+		return (struct obj *)0;
+	case PM_KILLER_FOOD_RATION:
+		obj = mksobj_at(FOOD_RATION, x, y, TRUE, FALSE);
+		newsym(x, y);
+		return (struct obj *)0;
     case PM_VAMPIRE:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE_KING:
