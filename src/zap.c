@@ -1517,6 +1517,10 @@ int okind;
         pm_index = PM_ROPE_GOLEM;
         material = "cloth ";
         break;
+    case PLASTIC:
+	    pm_index = PM_PLASTIC_GOLEM;
+	    material = "plastic ";
+	    break;
     case BONE:
         pm_index = PM_SKELETON; /* nearest thing to "bone golem" */
         material = "bony ";
