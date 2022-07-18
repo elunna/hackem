@@ -638,7 +638,8 @@
 /* no corpse (ie, blank scrolls) if killed by fire */
 #define completelyburns(ptr) \
     ((ptr) == &mons[PM_PAPER_GOLEM] \
-    || (ptr) == &mons[PM_STRAW_GOLEM])
+    || (ptr) == &mons[PM_STRAW_GOLEM] \
+    || (ptr) == &mons[PM_WAX_GOLEM])
 
 /* monster can mount and ride other monsters */
 #define mon_can_ride(mon) \
