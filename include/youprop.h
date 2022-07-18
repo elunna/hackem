@@ -408,8 +408,12 @@
 
 #define HReflecting u.uprops[REFLECTING].intrinsic
 #define EReflecting u.uprops[REFLECTING].extrinsic
-#define Reflecting (HReflecting || EReflecting \
-                    || (youmonst.data == &mons[PM_SILVER_DRAGON]))
+#define Reflecting (HReflecting \
+                || EReflecting \
+                || (youmonst.data == &mons[PM_SILVER_DRAGON] \
+                || youmonst.data == &mons[PM_CRYSTAL_GOLEM] \
+			    || youmonst.data == &mons[PM_SAPPHIRE_GOLEM] \
+				|| youmonst.data == &mons[PM_DIAMOND_GOLEM]))
 
 #define HWithering u.uprops[WITHERING].intrinsic
 #define EWithering u.uprops[WITHERING].extrinsic
