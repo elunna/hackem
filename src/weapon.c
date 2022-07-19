@@ -844,6 +844,8 @@ register struct monst *mtmp;
                 propellor = oselect(mtmp, YUMI);
                 if (!propellor)
                     propellor = oselect(mtmp, ELVEN_BOW);
+                if (!propellor) 
+                    propellor = oselect(mtmp, DARK_ELVEN_BOW);
                 if (!propellor)
                     propellor = oselect(mtmp, BOW);
                 if (!propellor)
