@@ -303,6 +303,7 @@ Imported slashem monsters:
 	- [x] Yeoman Warder
 
 Imported items:
+	Weapons:
 	- [x] Dark elven dagger
 	- [x] Dark elven short sword
 	- [x] Dark elven bow
@@ -320,9 +321,22 @@ Imported items:
 		- [x] obj.h: is_elven_weapon - added droven weapons.
 		- [x] fountain.c: Add new recipes to fusions for droven weapons
 		- [x] mkobj.c: material_list - add droven items
-		
+	
+	Food: 
+	- [x] Asian pear
+	- [x] Mushroom
+	- [x] Sandwich
+	- [x] Tortilla
+	- [x] Cheese
+	- [x] Pill
+	- [x] Holy wafer
+	- [x] Made tortilla vegetarian, not vegan.
+	- [x] Upp'ed mushroom strength bonus to 3 (to make up for negative side-effects)
+	
+	Amulets:
 	- [x] Amulet of flying (already in evil)
 
+	Armor:
 	- [x] Shimmering dragon scales
 	- [x] Shimmering dragon scale mail
 	
