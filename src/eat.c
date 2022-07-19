@@ -2476,6 +2476,27 @@ struct obj *otmp;
         if (u.ulycn >= LOW_PM || is_were(youmonst.data))
             you_unwere(TRUE);
         break;
+    case HOLY_WAFER:            
+		if (u.ualign.type == A_LAWFUL) {
+			if (u.uhp < u.uhpmax) {
+				You("feel warm inside.");
+				u.uhp += rn1(20,20);
+				if (u.uhp > u.uhpmax) 
+                    u.uhp = u.uhpmax;
+			} 
+		}
+		if (Sick) 
+            make_sick(0L, (char *)0, TRUE, SICK_ALL);
+		if (u.ulycn != -1) {
+		    you_unwere(TRUE);
+		}
+		if (u.ualign.type == A_CHAOTIC) {
+		    You("feel a burning inside!");
+		    u.uhp -= rn1(10,10);
+		    /* KMH, balance patch 2 -- should not have 0 hp */
+		    if (u.uhp < 1) u.uhp = 1;
+		}
+		break;
     case CARROT:
         if (!u.uswallow
             || !attacktype_fordmg(u.ustuck->data, AT_ENGL, AD_BLND))
