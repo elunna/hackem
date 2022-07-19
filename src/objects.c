@@ -340,6 +340,9 @@ WEAPON("triple-headed flail", None,
 /* misc */
 WEAPON("bullwhip", None,
        1, 0, 0, 0,  2,  20,   4,  2,  1, 0, 0,   P_WHIP, LEATHER, CLR_BROWN),
+/* Good to-hit and small damage, but low large damage */
+WEAPON("fly swatter", (char *)0,
+	1, 0, 0, 0,  2,  10,   3, 10,  2, 2, B,   P_WHIP, PLASTIC, CLR_GREEN),
 
 /* bows */
 BOW("bow", None,               1, 1, 24, 30, 60, 0, WOOD, P_BOW, HI_WOOD),

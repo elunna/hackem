@@ -975,6 +975,7 @@ static const NEARDATA short hwep[] = {
     AKLYS, 
     CLUB,
     PICK_AXE, 
+    FLY_SWATTER, 
     RUBBER_HOSE, 
     WAR_HAMMER, 
     DARK_ELVEN_DAGGER, 
