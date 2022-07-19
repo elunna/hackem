@@ -2078,6 +2078,50 @@ struct obj *otmp;
                               FALSE);
         }
         break;
+    case PILL:            
+		You("swallow the little pink pill.");
+		switch(rn2(7)) {
+            case 0:
+                /* [Tom] wishing pills are from the Land of Oz */
+                pline ("The pink sugar coating hid a silver wishing pill!");
+                makewish();
+                break;
+            case 1:
+                if(!Poison_resistance) {
+                    You("feel your stomach twinge.");
+                    losestr(rnd(4));
+                    losehp(rnd(15), "poisonous pill", KILLED_BY_AN);
+                } else  You("seem unaffected by the poison.");
+                break;
+            case 2:
+                pline ("Everything begins to get blurry.");
+                make_stunned(HStun + 30,FALSE);
+                break;
+            case 3:
+                pline ("Oh wow!  Look at the lights!");
+                make_hallucinated(HHallucination + 150,FALSE,0L);
+                break;
+            case 4:
+                pline("That tasted like vitamins...");
+                lesshungry(600);
+                break;
+            case 5:
+                if(Sleep_resistance) {
+                    pline("Hmm. Nothing happens.");
+                } else {
+                    pline("You feel drowsy...");
+                    nomul(-rn2(50));
+                    u.usleep = 1;
+                    nomovemsg = "You wake up.";
+                }
+                break;
+            case 6:
+                pline("Wow... everything is moving in slow motion...");
+                /* KMH, balance patch -- Use incr_itimeout() instead of += */
+                incr_itimeout(&HFast, rn1(10,200));
+            break;
+		}
+		break;
     case LEMBAS_WAFER:
         if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC))) {
             pline("%s", "!#?&* elf kibble!");
