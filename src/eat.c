@@ -2145,7 +2145,7 @@ struct obj *otmp;
                 make_hallucinated(HHallucination + 150,FALSE,0L);
                 break;
             case 4:
-                gainstr(otmp, 1, TRUE);
+                gainstr(otmp, 3, TRUE);
                 // pline ("You feel stronger!");
                 break;                                           
             case 5:
