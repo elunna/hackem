@@ -2786,15 +2786,13 @@ struct attack *mattk;
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
                     break;
             }
-        } else {	
+        } else {
             for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
                 if (is_corrodeable(otmp2) && !rn2(9))
                     /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
-<<<<<<< HEAD
-
-=======
-        }	
+            }
+        }
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
             if (!Blind) {
