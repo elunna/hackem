@@ -1501,6 +1501,10 @@ int okind;
         pm_index = PM_FLESH_GOLEM;
         material = "organic ";
         break;
+    case WAX:
+		pm_index = PM_WAX_GOLEM;
+		material = "wax ";
+		break;
     case WOOD:
         pm_index = PM_WOOD_GOLEM;
         material = "wood ";
@@ -1513,6 +1517,10 @@ int okind;
         pm_index = PM_ROPE_GOLEM;
         material = "cloth ";
         break;
+    case PLASTIC:
+	    pm_index = PM_PLASTIC_GOLEM;
+	    material = "plastic ";
+	    break;
     case BONE:
         pm_index = PM_SKELETON; /* nearest thing to "bone golem" */
         material = "bony ";

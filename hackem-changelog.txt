@@ -58,6 +58,13 @@ Changes:
 	- [x] You should not be able to tame rabid monsters.
 	- [x] Add "ahool!" sounds to athol that aggravate monsters.
 	- [x] increased difficulty of athols
+	- [x] Double check all monsters for secondary references in code (other effects/abilities, etc)
+	- [x] Search for PM_LARGE_MONSTER as well as "large monster"
+	- [x] Search related monsters (example: giant ants for snow ants to see related stuff)		
+	- [x] Can I give the gnolls RDSM or SDSM?  no - just scales?
+	- [x] Wax golems should be able to created from wax poly.
+	- [x] Plastic golems can drop credit cards and fake amulets.
+	- [x] Added reflection to the higher level golems.
 	
 
 Imported slashem monsters:

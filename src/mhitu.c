@@ -835,6 +835,12 @@ register struct monst *mtmp;
         newsym(mtmp->mx, mtmp->my);
     }
 
+	/* Make Star Vampires visible the moment they hit/miss us */
+	if(mtmp->data == &mons[PM_STAR_VAMPIRE] && mtmp->minvis
+	   && cansee(mtmp->mx, mtmp->my)) {
+	    mtmp->minvis = 0;
+	    newsym(mtmp->mx, mtmp->my);
+	}
     /*  Special demon handling code */
     if ((mtmp->cham == NON_PM) && is_demon(mdat) && !range2
         && mtmp->data != &mons[PM_BALROG] && mtmp->data != &mons[PM_SUCCUBUS]
@@ -2778,16 +2784,17 @@ struct attack *mattk;
                     
                     /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+                    break;
             }
         } else {	
             for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
                 if (is_corrodeable(otmp2) && !rn2(9))
                     /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+<<<<<<< HEAD
 
-            }
+=======
         }	
-        break;
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
             if (!Blind) {

@@ -641,6 +641,11 @@ int how;
         u.ugrave_arise = PM_VAMPIRE_MAGE;
     else if (mptr->mlet == S_VAMPIRE && Race_if(PM_HUMAN))
         u.ugrave_arise = PM_VAMPIRE;
+    #if 0 /* Original slashem code did not fire/star vamps to create V */
+    else if (is_vampire(mtmp->data) && Race_if(PM_HUMAN)
+		  	&& mtmp->data != &mons[PM_FIRE_VAMPIRE]
+		  	&& mtmp->data != &mons[PM_STAR_VAMPIRE])
+    #endif
     else if (mptr == &mons[PM_GHOUL])
         u.ugrave_arise = PM_GHOUL;
     else if (mptr == &mons[PM_NAZGUL])

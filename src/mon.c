@@ -603,6 +603,14 @@ unsigned corpseflags;
     case PM_LONG_WORM:
         (void) mksobj_at(WORM_TOOTH, x, y, TRUE, FALSE);
         goto default_1;
+    case PM_KILLER_TRIPE_RATION:
+		obj = mksobj_at(TRIPE_RATION, x, y, TRUE, FALSE);
+		newsym(x, y);
+		return (struct obj *)0;
+	case PM_KILLER_FOOD_RATION:
+		obj = mksobj_at(FOOD_RATION, x, y, TRUE, FALSE);
+		newsym(x, y);
+		return (struct obj *)0;
     case PM_VAMPIRE:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE_KING:
@@ -665,6 +673,45 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         break;
+    case PM_RUBY_GOLEM:
+		/* [DS] Mik's original Lethe fobbed off the player with coloured
+		 * glass even for the higher golems. We'll play fair here - if
+		 * you can kill one of these guys, you deserve the gems. */
+		num = d(2,4);
+		while (num--)
+			obj = mksobj_at(RUBY, x, y, TRUE, FALSE);
+		free_mname(mtmp);
+		break;
+    case PM_DIAMOND_GOLEM:
+        num = d(2,4);   
+        while (num--)
+            obj = mksobj_at(DIAMOND, x, y, TRUE, FALSE);
+        free_mname(mtmp);
+        break;
+    case PM_SAPPHIRE_GOLEM:
+        num = d(2,4);
+        while (num--)
+            obj = mksobj_at(SAPPHIRE, x, y, TRUE, FALSE);
+        free_mname(mtmp);
+        break;
+    case PM_STEEL_GOLEM:
+        num = d(2,6);
+        /* [DS] Add steel chains (or handcuffs!) for steel golems? */
+        while (num--)
+            obj = mksobj_at(IRON_CHAIN, x, y, TRUE, FALSE);
+        free_mname(mtmp);
+        break;
+    case PM_CRYSTAL_GOLEM:
+        /* [DS] Generate gemstones of various hues */
+        num = d(2,4);
+        {
+            int gemspan = LAST_GEM - bases[GEM_CLASS] + 1;
+            while (num--)
+            obj = mksobj_at(bases[GEM_CLASS] + rn2(gemspan), x, y,
+                        TRUE, FALSE);
+            free_mname(mtmp);
+        }
+        break;
     case PM_CLAY_GOLEM:
         obj = mksobj_at(ROCK, x, y, FALSE, FALSE);
         obj->quan = (long) (rn2(20) + 50);
@@ -700,6 +747,13 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         break;
+    case PM_PLASTIC_GOLEM:
+		num = d(2,2);
+		while (num--)
+			obj = mksobj_at(rn2(5) ? CREDIT_CARD : FAKE_AMULET_OF_YENDOR, 
+            x, y, TRUE, FALSE);
+        free_mname(mtmp);
+		break;
     case PM_GOLD_GOLEM:
         /* Good luck gives more coins */
         obj = mkgold((long) (200 - rnl(101)), x, y);
@@ -1516,6 +1570,34 @@ register struct monst *mtmp;
         }
     }
     return 0;
+}
+
+void
+meatcorpse(mtmp)
+	register struct monst *mtmp;
+{
+	register struct obj *otmp;
+ 
+	/* If a pet, eating is handled separately, in dog.c */
+	if (mtmp->mtame) return;
+  
+	/* Eats topmost corpse if it is there */
+	for (otmp = level.objects[mtmp->mx][mtmp->my];
+						    otmp; otmp = otmp->nexthere)
+	       if (otmp->otyp == CORPSE &&
+		  otmp->age+50 <= monstermoves) {
+		    if (cansee(mtmp->mx,mtmp->my) && flags.verbose)
+                pline("%s eats %s!", Monnam(mtmp),
+                  distant_name(otmp,doname));
+
+		    /* else if (flags.soundok && flags.verbose) */
+            else if (!Deaf && flags.verbose)
+			    You("hear an awful gobbling noise!");
+		    mtmp->meating = 2;
+		    delobj(otmp);
+		    break; /* only eat one at a time... */
+		  }
+      newsym(mtmp->mx, mtmp->my);
 }
 
 /* monster eats a pile of objects */

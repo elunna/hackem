@@ -1847,6 +1847,9 @@ register int after;
                 if (meatobj(mtmp) == 2)
                     return 2; /* it died */
             }
+		    
+            if (ptr == &mons[PM_GHOUL] || ptr == &mons[PM_GHAST]) 
+                meatcorpse(mtmp);
 
             /* Maybe a honey badger raided a beehive */
             if (ptr == &mons[PM_HONEY_BADGER]) {

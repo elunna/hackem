@@ -115,11 +115,13 @@
      || (ptr) == &mons[PM_ARCHANGEL] \
      || (ptr) == &mons[PM_ARCHON] \
      || (ptr) == &mons[PM_BALROG] \
+     || (ptr) == &mons[PM_CHASME] \
      || (ptr) == &mons[PM_DEMON] \
      || (ptr) == &mons[PM_ERINYS] \
      || (ptr) == &mons[PM_HORNED_DEVIL] \
      || (ptr) == &mons[PM_INCUBUS] \
      || (ptr) == &mons[PM_PIT_FIEND] \
+     || (ptr) == &mons[PM_SPINED_DEVIL] \
      || (ptr) == &mons[PM_SUCCUBUS] \
      || (ptr) == &mons[PM_VROCK] \
      || (ptr) == &mons[PM_WINGED_GARGOYLE])
@@ -571,9 +573,11 @@
      || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_SHOCKING_SPHERE] \
      || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
+     || (ptr) == &mons[PM_WAX_GOLEM] \
      || (ptr) == &mons[PM_FIRE_VORTEX]) \
          ? 1 \
          : ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
+            || (ptr) == &mons[PM_FIRE_VAMPIRE] \
             || (ptr) == &mons[PM_GOLD_DRAGON] \
             || (ptr) == &mons[PM_TIAMAT]) ? 2 : 0)
     /* [Note: the light ranges above were reduced to 1 for performance,
@@ -590,11 +594,13 @@
 
 #define pm_invisible(ptr) \
     ((ptr) == &mons[PM_STALKER] \
-    || (ptr) == &mons[PM_BLACK_LIGHT])
+    || (ptr) == &mons[PM_BLACK_LIGHT] \
+    || (ptr) == &mons[PM_STAR_VAMPIRE])
 
 /* could probably add more */
 #define likes_fire(ptr) \
     ((ptr) == &mons[PM_FIRE_VORTEX] \
+     || (ptr) == &mons[PM_FIRE_VAMPIRE] \
      || (ptr) == &mons[PM_FLAMING_SPHERE] \
      || likes_lava(ptr))
 
@@ -634,7 +640,8 @@
 /* no corpse (ie, blank scrolls) if killed by fire */
 #define completelyburns(ptr) \
     ((ptr) == &mons[PM_PAPER_GOLEM] \
-    || (ptr) == &mons[PM_STRAW_GOLEM])
+    || (ptr) == &mons[PM_STRAW_GOLEM] \
+    || (ptr) == &mons[PM_WAX_GOLEM])
 
 /* monster can mount and ride other monsters */
 #define mon_can_ride(mon) \

@@ -3455,7 +3455,14 @@ const char *str;
         if (str)
             pline(str, s_suffix(mon_nam(mon)), "scales");
         return TRUE;
-    } else if (has_reflection(mon)) {
+    } else if (mon->data == &mons[PM_DIAMOND_GOLEM]
+	         || mon->data == &mons[PM_SAPPHIRE_GOLEM]
+	         || mon->data == &mons[PM_CRYSTAL_GOLEM]) {
+	    /* Some of the higher golems have intrinsic reflection */
+	    if (str)
+		    pline(str, s_suffix(mon_nam(mon)), "body");
+	    return TRUE;
+	} else if (has_reflection(mon)) {
         /* specifically for the monster spell MGC_REFLECTION */
         if (str)
             pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
@@ -3521,7 +3528,13 @@ const char *fmt, *str;
             pline(fmt, str, "scales");
         monstseesu(M_SEEN_REFL);
         return TRUE;
-    }
+    } else if (youmonst.data == &mons[PM_DIAMOND_GOLEM]
+	         || youmonst.data == &mons[PM_SAPPHIRE_GOLEM]
+	         || youmonst.data == &mons[PM_CRYSTAL_GOLEM]) {
+	    if (fmt && str)
+	    	pline(fmt, str, "body");
+	    return TRUE;
+	}
     return FALSE;
 }
 
