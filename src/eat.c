@@ -2122,6 +2122,40 @@ struct obj *otmp;
             break;
 		}
 		break;
+    case MUSHROOM:
+	    pline("This %s is %s", singular(otmp, xname),
+	      otmp->cursed ? (Hallucination ? "far-out!" : "terrible!") :
+		  Hallucination ? "groovy!" : "delicious!");
+		
+        switch(rn2(10)) {
+            case 0:
+            case 1:
+                if(!Poison_resistance) {
+                    You("feel rather ill....");
+                    losestr(rnd(4));
+                    losehp(rnd(15), "poisonous mushroom", KILLED_BY_AN);
+                } else  You("burp loudly.");
+                break;
+            case 2:
+                pline ("That mushroom tasted a little funny.");
+                make_stunned(HStun + 30,FALSE);
+                break;
+            case 3:
+                pline ("Whoa! Everything looks groovy!");
+                make_hallucinated(HHallucination + 150,FALSE,0L);
+                break;
+            case 4:
+                gainstr(otmp, 1, TRUE);
+                // pline ("You feel stronger!");
+                break;                                           
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                break;
+		}
+		break;
     case LEMBAS_WAFER:
         if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC))) {
             pline("%s", "!#?&* elf kibble!");
