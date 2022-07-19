@@ -717,11 +717,21 @@ static NEARDATA const int rwep[] = {
     /* BOOMERANG, */ 
 };
 
-static NEARDATA const int pwep[] = { HALBERD,       BARDICHE, SPETUM,
-                                     BILL_GUISARME, VOULGE,   RANSEUR,
-                                     GUISARME,      GLAIVE,   LUCERN_HAMMER,
-                                     BEC_DE_CORBIN, FAUCHARD, PARTISAN,
-                                     LANCE };
+static NEARDATA const int pwep[] = { 
+    HALBERD,
+    BARDICHE,
+    SPETUM,
+    BILL_GUISARME,
+    VOULGE,
+    RANSEUR,
+    GUISARME,
+    GLAIVE,
+    LUCERN_HAMMER,
+    BEC_DE_CORBIN,
+    FAUCHARD,
+    PARTISAN,
+    LANCE
+};
 
 boolean
 would_prefer_rwep(mtmp, otmp)
