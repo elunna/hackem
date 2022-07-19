@@ -65,7 +65,15 @@ Changes:
 	- [x] Wax golems should be able to created from wax poly.
 	- [x] Plastic golems can drop credit cards and fake amulets.
 	- [x] Added reflection to the higher level golems.
-	
+	- [x] For everything that had MARM - maybe use the y value instead? Look into how monsters are armed, this must be related.
+	- [x] Reformat all monst listings for easier reading.
+	- [x] Check other monsters for traitor property
+	- [x] Double-check and redo all difficulty levels for imported monsters.
+	- [x] Update data.base:  knowledge entries for every new monster from the slashem db
+	- [x] Keep the traditional behavior of polymorph in vanilla and evil.	
+	- [x] Giant (Already in evil)
+	- [x] Illithid (Already in evil)
+	- [x] Spined devils have big wings - flies
 
 Imported slashem monsters:
 	- [x] giant tick (AT_MULTIPLY)
@@ -294,7 +302,31 @@ Imported slashem monsters:
 	- [x] exterminator (Removed MR_HITASONE)
 	- [x] Yeoman Warder
 
+Imported items:
+	- [x] Dark elven dagger
+	- [x] Dark elven short sword
+	- [x] Dark elven bow
+	- [x] Dark elven arrow
+	- [x] Great dagger
+	- [x] Silver short sword (available in evil)
+	- [x] Silver long sword (available in evil)
+	- [x] Silver mace (available in evil)
+	- [x] Rapier
+	- [x] Fly swatter
+	- [SKIPPED] Fly swatter Requires adding paddle skill
+	- [x] Make fly swatter use WHIP skill
+	- [x] Heavy hammer (evil has heavy war hammer)
+	- [x] Droven equipment
+		- [x] obj.h: is_elven_weapon - added droven weapons.
+		- [x] fountain.c: Add new recipes to fusions for droven weapons
+		- [x] mkobj.c: material_list - add droven items
+		
+	- [x] Amulet of flying (already in evil)
 
+	- [x] Shimmering dragon scales
+	- [x] Shimmering dragon scale mail
+	
+	
 Leaving Out:
 	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
 	- [SKIPPED] Add message for tick/flea multiplication? 
