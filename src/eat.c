@@ -1686,6 +1686,7 @@ struct obj *otmp;
             break;
         case DAGGER:
         case ELVEN_DAGGER:
+        case DARK_ELVEN_DAGGER:
         case ORCISH_DAGGER:
         case ATHAME:
         case KNIFE:
