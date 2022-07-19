@@ -231,6 +231,9 @@ register int otyp;
     if (nn) {
         if (ocl->oc_unique)
             Strcpy(buf, actualn); /* avoid spellbook of Book of the Dead */
+        /* KMH -- "mood ring" instead of "ring of mood" */
+	    else if (otyp == RIN_MOOD)
+		    Sprintf(buf, "%s ring", actualn);
         else
             Sprintf(eos(buf), " of %s", actualn);
     }
@@ -942,8 +945,13 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     case RING_CLASS:
         if (!dknown)
             Strcpy(buf, "ring");
-        else if (nn)
-            Sprintf(eos(buf), "ring of %s", actualn);
+        else if (nn) {
+            /* KMH -- "mood ring" instead of "ring of mood" */
+			if (typ == RIN_MOOD)
+				Sprintf(buf, "%s ring", actualn);
+			else
+                Sprintf(eos(buf), "ring of %s", actualn);
+        }
         else if (un)
             Sprintf(eos(buf), "ring called %s", un);
         else

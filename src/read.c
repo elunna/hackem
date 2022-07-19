@@ -5,6 +5,10 @@
 
 #include "hack.h"
 
+/* KMH -- Copied from pray.c; this really belongs in a header file */
+#define DEVOUT 14
+#define STRIDENT 4
+
 #define Your_Own_Role(mndx)  \
     ((mndx) == urole.malenum \
      || (urole.femalenum != NON_PM && (mndx) == urole.femalenum))
@@ -15,7 +19,7 @@
 boolean known;
 
 static NEARDATA const char readable[] = { ALL_CLASSES, SCROLL_CLASS,
-                                          SPBOOK_CLASS, 0 };
+                                          SPBOOK_CLASS, RING_CLASS, 0 };
 static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
 static const char clothes[] = { ARMOR_CLASS, 0 };
 
@@ -300,6 +304,44 @@ doread()
     scroll = getobj(readable, "read");
     if (!scroll)
         return 0;
+
+    /* KMH -- some rings can be read, even while illiterate */
+	if (scroll->oclass == RING_CLASS) {
+	    const char *clr = (char *)0;
+
+	    if (Blind) {
+		    You("cannot see it!");
+		    return 0;
+	    }
+	    if (scroll->where != OBJ_INVENT || !(scroll->owornmask & W_RING)) {
+		    pline("Perhaps you should put it on first.");
+		    return 0;
+	    }
+	    #if 0
+        if (scroll->dknown && objects[scroll->otyp].oc_name_known)
+        #endif
+        if (scroll->otyp == RIN_MOOD) {
+            /* To read a mood ring, you must be wearing it, it must 
+            not be cursed, and you must not be blind or hallucinating. 
+            When read, the ring will glow a different color depending 
+            on your alignment: */
+            if (u.ualign.record >= DEVOUT)
+                clr = "green";	/* well-pleased */
+            else if (u.ualign.record >= STRIDENT)
+                clr = "yellow";	/* pleased */
+            else if (u.ualign.record > 0)
+                clr = "orange";	/* satisfied */
+            else
+                clr = "red";	/* you've been naughty */
+        }
+        if (!clr)
+            pline("There seems to be nothing special about this ring.");
+        else if (scroll->cursed)
+            pline("It appears dark.");
+        else
+            pline("It glows %s!", hcolor(clr));
+        return 1;
+	}
 
     /* outrumor has its own blindness check */
     if (scroll->otyp == FORTUNE_COOKIE) {

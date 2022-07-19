@@ -1357,6 +1357,7 @@ register struct obj *obj;
     case RIN_TELEPORT_CONTROL:
     case RIN_POLYMORPH:
     case RIN_POLYMORPH_CONTROL:
+    case RIN_MOOD:
     case RIN_FREE_ACTION:
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:
@@ -1473,6 +1474,7 @@ boolean gone;
     case RIN_TELEPORT_CONTROL:
     case RIN_POLYMORPH:
     case RIN_POLYMORPH_CONTROL:
+    case RIN_MOOD:
     case RIN_FREE_ACTION:
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:

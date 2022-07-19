@@ -694,6 +694,9 @@ register struct obj *obj;
         case RIN_WARNING:
             pline_The("sink glows %s for a moment.", hcolor(NH_WHITE));
             break;
+        case RIN_MOOD:
+			pline_The("sink looks groovy.");
+			break;
         case RIN_TELEPORT_CONTROL:
             pline_The("sink looks like it is being beamed aboard somewhere.");
             break;

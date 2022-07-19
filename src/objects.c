@@ -630,6 +630,8 @@ RING("polymorph control", "emerald",             POLYMORPH_CONTROL,        300, 
 RING("invisibility", "wire",                     INVIS,                    150, 1, 0,  5, METAL, HI_METAL),
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 0,  5, GOLD, HI_METAL),
 RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
+RING("mood", "ridged",                           0,                        100, 1, 0,  8, IRON, HI_METAL),
+
 #undef RING
 
 /* amulets ... - THE Amulet comes last because it is special */
