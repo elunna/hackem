@@ -698,6 +698,7 @@
      ? (obj)->otyp == BANANA \
      : ((is_domestic(ptr) \
         || (is_rat(ptr) && Role_if(PM_CONVICT)) \
+        || (is_rat(ptr) && (obj)->otyp == CHEESE) \
         || ((ptr) == &mons[PM_WARG] && Race_if(PM_ORC)) \
         || ((ptr) == &mons[PM_RABBIT] && (obj)->otyp == CARROT)\
         || ((ptr) == &mons[PM_SABER_TOOTHED_TIGER] && Role_if(PM_CAVEMAN))) \

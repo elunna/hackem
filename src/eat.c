@@ -2982,7 +2982,7 @@ doeat()
                 ll_conduct++;
                 livelog_printf(LL_CONDUCT, "consumed animal products for the first time, by eating %s", an(food_xname(otmp,FALSE)));
             }
-            if (otmp->otyp != EGG) {
+            if (otmp->otyp != EGG && otmp->otyp != CHEESE) {
                 if (!u.uconduct.unvegetarian && !ll_conduct)
                     livelog_printf(LL_CONDUCT, "tasted meat for the first time, by eating %s", an(food_xname(otmp,FALSE)));
                 violated_vegetarian();
