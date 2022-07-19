@@ -1456,6 +1456,31 @@ int dieroll;
             || mdat == &mons[PM_ALHOON]))
         tmp *= 2;
 
+    #if 0  /* This crashes as soon as you hit a V, needs debugging or better placement.*/
+    /* WAC Added instant kill from wooden stakes vs vampire */
+    /* based off Poison Code */
+    /* fixed stupid mistake - check that obj exists before comparing...*/
+    if (obj && obj->otyp == WOODEN_STAKE && is_vampire(mdat)) {
+        
+        /* if (Role_if(PM_UNDEAD_SLAYER) */
+        if ((P_SKILL(weapon_type(obj)) >= P_EXPERT)
+                || obj->oartifact == ART_STAKE_OF_VAN_HELSING) {
+            if (!rn2(10)) {
+                You("plunge your stake into the heart of %s.", mon_nam(mon));
+                destroyed = TRUE;
+            } else {
+                You("drive your stake into %s.", mon_nam(mon));
+                tmp += rnd(6) + 2;
+                hittxt = TRUE;
+            }
+        } else {
+            You("drive your stake into %s.", mon_nam(mon));
+            tmp += rnd(6);
+            hittxt = TRUE;
+        }
+    }
+    #endif 
+
     if (valid_weapon_attack) {
         struct obj *wep;
 

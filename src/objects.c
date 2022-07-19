@@ -166,6 +166,10 @@ WEAPON("dark elven dagger", "black runed dagger",
 	0, 1, 0, 0, 0,    4,   4,  5,  3, 2, P,   P_DAGGER, WOOD, CLR_BLACK),
 WEAPON("orcish dagger", "crude dagger",
        0, 1, 0, 0, 12,  10,   4,  3,  3, 2, P,   P_DAGGER, IRON, CLR_BLACK),
+/* Base for artifact (Stake of Van Helsing) */
+WEAPON("wooden stake", (char *)0,
+	1, 0, 0, 0,  5,  20,  50,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
+    
 WEAPON("athame", None,
        1, 1, 0, 0,  0,  10,   4,  4,  3, 2, S,   P_DAGGER, METAL, HI_METAL),
 WEAPON("scalpel", None,

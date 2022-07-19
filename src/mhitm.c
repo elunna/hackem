@@ -1264,6 +1264,36 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                     | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
     }
 
+    #if 0  /* Unstable */
+      /* Stakes do extra dmg agains vamps */
+    if (hated_obj && hated_obj->otyp == WOODEN_STAKE && is_vampire(pd)) {
+        if(hated_obj->oartifact == ART_STAKE_OF_VAN_HELSING) {
+            if (!rn2(10)) {
+                if (vis) {
+                    Strcpy(buf, Monnam(magr));
+                    pline("%s plunges the stake into the heart of %s.", buf, mon_nam(mdef));
+                    pline("%s's body vaporizes!", Monnam(mdef));
+                }
+                mondead(mdef); /* no corpse */
+                if (mdef->mhp < 0) return (MM_DEF_DIED |
+                        (grow_up(magr,mdef) ? 0 : MM_AGR_DIED));                                                
+            } else {
+                if (vis) {
+                    Strcpy(buf, Monnam(magr));
+                    pline("%s drives the stake into %s.", buf, mon_nam(mdef));
+                }
+                tmp += rnd(6) + 2;
+            }
+        } else {
+            if (vis) {
+                Strcpy(buf, Monnam(magr));
+                pline("%s drives the stake into %s.", buf, mon_nam(mdef));
+            }
+            tmp += rnd(6);
+        }
+    }
+    #endif
+    
     switch (mattk->adtyp) {
     case AD_DGST: {
         struct obj *sbarding;
