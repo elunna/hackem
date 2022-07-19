@@ -169,7 +169,11 @@ WEAPON("orcish dagger", "crude dagger",
 /* Base for artifact (Stake of Van Helsing) */
 WEAPON("wooden stake", (char *)0,
 	1, 0, 0, 0,  5,  20,  50,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
-    
+WEAPON("great dagger", (char *)0,
+	1, 0, 0, 0,  0,  20, 500,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
+	/* STEPHEN WHITE'S NEW CODE */
+	/* for necromancer artifact... */
+
 WEAPON("athame", None,
        1, 1, 0, 0,  0,  10,   4,  4,  3, 2, S,   P_DAGGER, METAL, HI_METAL),
 WEAPON("scalpel", None,
