@@ -747,6 +747,12 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         break;
+    case PM_WAX_GOLEM:
+		num = d(2,4);
+		while (num--)
+			obj = mksobj_at(WAX_CANDLE, x, y, TRUE, FALSE);
+		free_mname(mtmp);
+		break;
     case PM_PLASTIC_GOLEM:
 		num = d(2,2);
 		while (num--)
