@@ -3087,9 +3087,12 @@ doeat()
                 violated_vegetarian();
             }
         }
-        else if (otmp->otyp == PANCAKE || otmp->otyp == FORTUNE_COOKIE /*eggs*/
-                 || otmp->otyp == CREAM_PIE || otmp->otyp == CANDY_BAR /*milk*/
-                 || otmp->otyp == LUMP_OF_ROYAL_JELLY) {
+        else if (otmp->otyp == PANCAKE 
+          || otmp->otyp == FORTUNE_COOKIE /*eggs*/ \
+          || otmp->otyp == TORTILLA /*eggs*/ \
+          || otmp->otyp == CREAM_PIE \
+          || otmp->otyp == CANDY_BAR /*milk*/ \
+          || otmp->otyp == LUMP_OF_ROYAL_JELLY) {
             if(!u.uconduct.unvegan++ && !ll_conduct)
                 livelog_printf(LL_CONDUCT, "consumed animal products (%s) for the first time", food_xname(otmp,FALSE));
         }
