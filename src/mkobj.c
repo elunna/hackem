@@ -1113,7 +1113,9 @@ boolean artif;
             } else if (rn2(10) && (otmp->otyp == RIN_TELEPORTATION
                                    || otmp->otyp == RIN_POLYMORPH
                                    || otmp->otyp == RIN_AGGRAVATE_MONSTER
-                                   || otmp->otyp == RIN_HUNGER || !rn2(9))) {
+                                   || otmp->otyp == RIN_SLEEPING
+                                   || otmp->otyp == RIN_HUNGER 
+                                   || !rn2(9))) {
                 curse(otmp);
             }
             break;

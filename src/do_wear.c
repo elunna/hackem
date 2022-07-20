@@ -1363,6 +1363,17 @@ register struct obj *obj;
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
         break;
+    case RIN_SLEEPING: {
+        long newnap = (long) rnd(100);
+        long oldnap = (HSleepy & TIMEOUT);
+
+        /* avoid clobbering FROMOUTSIDE bit, which might have
+           gotten set by previously eating one of these amulets */
+        if (newnap < oldnap || oldnap == 0L)
+            HSleepy = (HSleepy & ~TIMEOUT) | newnap;
+        break;
+        /* hackem: copied from Amulet of Restful Sleep */
+    }
     case RIN_STEALTH:
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
@@ -1480,6 +1491,17 @@ boolean gone;
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
         break;
+    case RIN_SLEEPING:
+		/* Copied from Amulet of Restful Sleep */
+		/* HSleepy = 0L; -- avoid clobbering FROMOUTSIDE bit */
+        if (!ESleepy && !(HSleepy & ~TIMEOUT))
+            HSleepy &= ~TIMEOUT; /* clear timeout bits */
+        return;
+		#if 0  /* old slashem code */
+		if (!ESleeping)
+			HSleeping = 0;
+		break;
+		#endif
     case RIN_STEALTH:
         toggle_stealth(obj, (EStealth & ~mask), FALSE);
         break;
