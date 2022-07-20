@@ -1463,6 +1463,8 @@ register struct trobj *origtrop;
                    || otyp == RIN_HUNGER
                    || otyp == RIN_SLEEPING
                    || otyp == WAN_NOTHING
+                   /* Necromancers start with drain res */
+				    || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
                    /* orcs start with poison resistance */
                    || (otyp == RIN_POISON_RESISTANCE && Race_if(PM_ORC))
                    /* Monks don't use weapons */

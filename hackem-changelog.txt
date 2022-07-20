@@ -336,6 +336,15 @@ Imported items:
 	Amulets:
 	- [x] Amulet of flying (already in evil)
 
+	Rings:
+	- [x] Mood ring
+		- [x] Fix "ring of mood"
+		- [x] Needs to work if un-identified.
+	- [x] Ring of sleeping
+	- [x] Ring of gain dexterity
+	- [x] Ring of gain intelligence
+	- [x] Ring of gain wisdom
+	
 	Armor:
 	- [x] Shimmering dragon scales
 	- [x] Shimmering dragon scale mail

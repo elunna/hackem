@@ -2442,6 +2442,7 @@ struct obj *otmp;
         case AMULET_OF_LIFE_SAVING:
         case AMULET_OF_FLYING:
         case AMULET_OF_REFLECTION: /* nice try */
+        case AMULET_OF_DRAIN_RESISTANCE:
             /* can't eat Amulet of Yendor or fakes,
              * and no oc_prop even if you could -3.
              */

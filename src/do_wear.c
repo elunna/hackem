@@ -1120,6 +1120,7 @@ Amulet_on()
     switch (uamul->otyp) {
     case AMULET_OF_ESP:
     case AMULET_OF_LIFE_SAVING:
+    case AMULET_OF_DRAIN_RESISTANCE:
     case AMULET_VERSUS_POISON:
     case AMULET_OF_REFLECTION:
     case AMULET_OF_MAGIC_RESISTANCE:
@@ -1225,6 +1226,7 @@ Amulet_off()
         return;
     case AMULET_OF_LIFE_SAVING:
     case AMULET_VERSUS_POISON:
+    case AMULET_OF_DRAIN_RESISTANCE:
     case AMULET_OF_REFLECTION:
     case AMULET_OF_CHANGE:
     case AMULET_OF_UNCHANGING:

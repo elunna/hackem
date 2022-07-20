@@ -643,6 +643,7 @@ RING("sleeping", "wedding",                      SLEEPY,                 100, 1,
     OBJECT(OBJ(name, desc),                                            \
            BITS(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, P_NONE, METAL),        \
            power, AMULET_CLASS, prob, 0, 20, 150, 0, 0, 0, 0, 20, HI_METAL)
+AMULET("amulet of drain resistance",     "warped", DRAIN_RES, 60),
 AMULET("amulet of ESP",                "circular", TELEPAT, 120),
 AMULET("amulet of life saving",       "spherical", LIFESAVED, 75),
 AMULET("amulet of strangulation",          "oval", STRANGLED, 115),
