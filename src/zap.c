@@ -1283,6 +1283,9 @@ register struct obj *obj;
             }
             break;
         case POTION_CLASS:
+            /* Potions of amnesia are uncancelable. */
+            if (obj->otyp == POT_AMNESIA) break;
+            
             costly_alteration(obj,
                               (otyp != POT_WATER)
                                   ? COST_CANCEL

@@ -915,6 +915,9 @@ dip_end:
         }
     }
 
+    /* If it is an artifact, it might have a special effect. */
+    artifact_wet(obj, FALSE);
+
     switch (rnd(30)) {
     case 16: /* Curse the item */
         if (obj->oclass != COIN_CLASS && !obj->cursed) {

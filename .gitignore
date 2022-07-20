@@ -64,3 +64,4 @@ Makefile.gcc-orig
 .vscode/
 
 log
+log.txt

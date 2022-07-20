@@ -1436,6 +1436,7 @@ struct monst *mtmp;
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
                                         * redefine; nonconsecutive value is ok */
 #define MUSE_POT_OIL 25
+#define MUSE_POT_AMNESIA 26 /* Lethe */
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1759,6 +1760,12 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_POT_SLEEPING;
         }
+        /* Mik's Lethe patch - monsters use !oAmnesia */
+		nomore(MUSE_POT_AMNESIA);
+		if (obj->otyp == POT_AMNESIA) {
+			m.offensive   = obj;
+			m.has_offense = MUSE_POT_AMNESIA;
+		}
         nomore(MUSE_POT_ACID);
         if (obj->otyp == POT_ACID
             && !m_seenres(mtmp, M_SEEN_ACID)) {
@@ -2295,6 +2302,7 @@ struct monst *mtmp;
     case MUSE_POT_CONFUSION:
     case MUSE_POT_SLEEPING:
     case MUSE_POT_ACID:
+    case MUSE_POT_AMNESIA:
     case MUSE_POT_POLYMORPH_THROW:
     case MUSE_POT_HALLUCINATION:
     case MUSE_POT_OIL: {
@@ -3301,7 +3309,8 @@ struct obj *obj;
             || typ == POT_FULL_HEALING || typ == POT_POLYMORPH
             || typ == POT_GAIN_LEVEL || typ == POT_PARALYSIS
             || typ == POT_SLEEPING || typ == POT_ACID || typ == POT_CONFUSION
-            || typ == POT_HALLUCINATION || typ == POT_OIL)
+            || typ == POT_HALLUCINATION || typ == POT_OIL 
+            || typ == POT_AMNESIA)
             return TRUE;
         if (typ == POT_BLINDNESS && !attacktype(mon->data, AT_GAZE))
             return TRUE;

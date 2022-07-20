@@ -3106,6 +3106,53 @@ struct obj *obj;
     return result;
 }
 
+
+/*
+ * Artifact is dipped into water
+ * -1 not handled here (not used up here)
+ *  0 no effect but used up
+ *  else return
+ *  AD_FIRE, etc.
+ *  Note caller should handle what happens to the medium in these cases.
+ *      This only prints messages about the actual artifact.
+ */
+
+int
+artifact_wet(obj, silent)
+struct obj *obj;
+boolean silent;
+{
+	 if (!obj->oartifact) return (-1);
+	 switch (artilist[(int) (obj)->oartifact].attk.adtyp) {
+		 case AD_FIRE:
+			 if (!silent) {
+				pline("A cloud of steam rises.");
+				pline("%s is untouched.", The(xname(obj)));
+			 }
+			 return (AD_FIRE);
+		 case AD_COLD:
+			 if (!silent) {
+				pline("Icicles form and fall from the freezing %s.",
+			             the(xname(obj)));
+			 }
+			 return (AD_COLD);
+		 case AD_ELEC:
+			 if (!silent) {
+				pline_The("humid air crackles with electricity from %s.",
+						the(xname(obj)));
+			 }
+			 return (AD_ELEC);
+		 case AD_DRLI:
+			 if (!silent) {
+				pline("%s absorbs the water!", The(xname(obj)));
+			 }
+			 return (AD_DRLI);
+		 default:
+			 break;
+	}
+	return (-1);
+}
+
 /* WAC return TRUE if artifact is always lit */
 boolean
 artifact_light(obj)

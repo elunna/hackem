@@ -786,6 +786,32 @@ register struct obj *otmp;
                                  rn1(otmp->odiluted ? 100 : 200, 600 - 300 * bcsign(otmp))),
                                  TRUE, 0L);
         break;
+    case POT_AMNESIA:
+		pline(Hallucination? "This tastes like champagne!" :
+			"This liquid bubbles and fizzes as you drink it.");
+		forget((!otmp->blessed? ALL_SPELLS : 0) | ALL_MAP);
+		
+        if (Hallucination)
+		    pline("Hakuna matata!");
+		else
+		    You_feel("your memories dissolve.");
+
+		/* Blessed amnesia makes you forget lycanthropy, sickness */
+		if (otmp->blessed) {
+		    if (u.ulycn >= LOW_PM && !Race_if(PM_HUMAN_WEREWOLF)) {
+			You("forget your affinity to %s!",
+					makeplural(mons[u.ulycn].mname));
+			if (youmonst.data == &mons[u.ulycn])
+			    you_unwere(FALSE);
+			u.ulycn = NON_PM;	/* cure lycanthropy */
+		    }
+		    make_sick(0L, (char *) 0, TRUE, SICK_ALL);
+
+		    u.uhunger += 50 + rnd(50); /* You feel refreshed */
+		    newuhs(FALSE);
+		} else
+		    exercise(A_WIS, FALSE);
+		break;
     case POT_WATER:
         if (!otmp->blessed && !otmp->cursed) {
             pline("This tastes like %s.", hliquid("water"));
@@ -1057,6 +1083,17 @@ register struct obj *otmp;
                                     rn1(otmp->odiluted ? 4 : 7, 16 - 8 * bcsign(otmp))),
                       FALSE);
         break;
+    case POT_CLAIRVOYANCE:
+		/* KMH -- handle cursed, blessed, blocked */
+		if (otmp->cursed)
+			nothing++;
+		else if (!BClairvoyant) {
+			if (Hallucination) pline("Dude! See-through walls!");
+			do_vicinity_map(otmp);
+		}
+		if (otmp->blessed)
+			incr_itimeout(&HClairvoyant, rn1(50, 100));
+		break;
     case POT_GAIN_ABILITY:
         if (otmp->cursed) {
             pline("Ulch!  That potion tasted foul!");
@@ -1649,9 +1686,15 @@ int how;
                                    : obj->cursed ? " a lot" : "");
                 dmg = d(obj->cursed ? 2 : 1, obj->blessed ? 4 : 8);
                 losehp(Maybe_Half_Phys(dmg), "potion of acid", KILLED_BY_AN);
-	    } else {
-		monstseesu(M_SEEN_ACID);
-            }
+            } else {
+            monstseesu(M_SEEN_ACID);
+                }
+                break;
+        case POT_AMNESIA:
+            /* Uh-oh! */
+            if (uarmh && is_helmet(uarmh) && 
+                rn2(10 - (uarmh->cursed? 8 : 0)))
+                get_wet(uarmh, TRUE, your_fault);
             break;
         case POT_HALLUCINATION:
             if (!Halluc_resistance) {
@@ -1870,6 +1913,84 @@ int how;
                     killed(mon);
             }
             break;
+
+        case POT_AMNESIA:
+            switch (monsndx(mon->data)) {
+                case PM_GREMLIN:
+                    /* Gremlins multiply... */
+                    mon->mtame = FALSE;	
+                    (void)split_mon(mon, (struct monst *)0);
+                    break;
+                case PM_FLAMING_SPHERE:
+                case PM_IRON_GOLEM:
+                    if (canseemon(mon)) pline("%s %s.", Monnam(mon),
+                        monsndx(mon->data) == PM_IRON_GOLEM ?
+                        "rusts" : "flickers");
+                    mon->mhp -= d(1,6);
+                    if (mon->mhp < 1)
+                        if (your_fault)
+                            killed(mon);
+                        else
+                            monkilled(mon, "", AD_ACID);
+                    else
+                        mon->mtame = FALSE;	
+                    break;
+                case PM_WIZARD_OF_YENDOR:
+                    if (your_fault) {
+                        if (canseemon(mon)) 
+                            pline("%s laughs at you!", Monnam(mon));
+                        forget(1);
+                    }
+                    break;
+                case PM_MEDUSA:
+                    if (canseemon(mon))
+                        pline("%s looks like %s's having a bad hair day!", 
+                                Monnam(mon), mhe(mon));
+                    break;
+                case PM_CROESUS:
+                    if (canseemon(mon))
+                        pline("%s says: 'My gold! I must count my gold!'", 
+                            Monnam(mon));
+                    break;
+                case PM_DEATH:
+                    if (canseemon(mon))
+                        pline("%s pauses, then looks at you thoughtfully!", 
+                            Monnam(mon));
+                    break;
+                case PM_FAMINE:
+                    if (canseemon(mon))
+                        pline("%s looks unusually hungry!", Monnam(mon));
+                    break;
+                case PM_PESTILENCE:
+                    if (canseemon(mon))
+                        pline("%s looks unusually well!", Monnam(mon));
+                    break;
+                default:
+                    if (mon->data->msound == MS_NEMESIS && canseemon(mon) && your_fault)
+                        pline("%s curses your ancestors!", Monnam(mon));
+                    else if (mon->isshk) {
+                        angermon = FALSE;
+                        if (canseemon(mon))
+                            pline("%s looks at you curiously!", Monnam(mon));
+                        make_happy_shk(mon, FALSE);
+                    } else if (!is_covetous(mon->data) && !rn2(4) &&
+                            !resist(mon, POTION_CLASS, 0, 0)) {
+                        angermon = FALSE;
+                        if (canseemon(mon)) {
+                            if (mon->msleeping) {
+                                wakeup(mon, FALSE);
+                                pline("%s wakes up looking bewildered!", 
+                                        Monnam(mon));
+                            } else
+                                pline("%s looks bewildered!", Monnam(mon));
+                                mon->mpeaceful = TRUE;
+                                mon->mtame = FALSE;	
+                        }
+                    }
+                    break;
+            }
+            break;
+
         case POT_OIL:
             if (obj->lamplit)
                 explode_oil(obj, tx, ty);
@@ -2102,6 +2223,19 @@ register struct obj *obj;
                 you_were();
         }
         break;
+    case POT_AMNESIA:
+		if(u.umonnum == PM_GREMLIN)
+		    (void)split_mon(&youmonst, (struct monst *)0);
+		else if(u.umonnum == PM_FLAMING_SPHERE) {
+		    You("flicker!");
+		    losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
+		} else if(u.umonnum == PM_IRON_GOLEM) {
+		    You("rust!");
+		    losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
+		}
+		You_feel("dizzy!");
+		forget(1 + rn2(5));
+		break;
     case POT_ACID:
     case POT_POLYMORPH:
         exercise(A_CON, FALSE);
@@ -2214,6 +2348,284 @@ register struct obj *o1, *o2;
     }
 
     return STRANGE_OBJECT;
+}
+
+
+
+/* Bills an object that's about to be downgraded, assuming that's not already
+ * been done */
+STATIC_OVL
+void
+pre_downgrade_obj(obj, used)
+register struct obj *obj;
+boolean *used;
+{
+    boolean dummy = FALSE;
+
+    if (!used) used = &dummy;
+    if (!*used) Your("%s for a moment.", aobjnam(obj, "sparkle"));
+    if(obj->unpaid && costly_spot(u.ux, u.uy) && !*used) {
+	You("damage it, you pay for it.");
+	bill_dummy_object(obj);
+    }
+    *used = TRUE;
+}
+
+/* Implements the downgrading effect of potions of amnesia and Lethe water */
+STATIC_OVL
+void
+downgrade_obj(obj, nomagic, used)
+register struct obj *obj;
+int nomagic;	/* The non-magical object to downgrade to */
+boolean *used;
+{
+    pre_downgrade_obj(obj, used);
+    obj->otyp = nomagic;
+    obj->spe = 0;
+    obj->owt = weight(obj);
+    context.botl = TRUE;
+}
+
+boolean
+get_wet(obj, amnesia, ourfault)
+register struct obj *obj;
+boolean amnesia;
+boolean ourfault;
+/* returns TRUE if something happened (potion should be used up) 
+  
+  --hackem: This function feels like it could be replaced somehow by water_damage or 
+  water_damage_chain in trap.c, but this seems specifically targeted at the amnesia
+  potion so we'll let it ride for the transition.
+*/
+{
+	char Your_buf[BUFSZ];
+	boolean used = FALSE;
+
+	if (snuff_lit(obj)) return(TRUE);
+
+	if (obj->greased) {
+		grease_protect(obj,(char *)0,&youmonst);
+		return(FALSE);
+	}
+	(void) Shk_Your(Your_buf, obj);
+	/* (Rusting shop goods ought to be charged for.) */
+	switch (obj->oclass) {
+	    case POTION_CLASS:
+		if (obj->otyp == POT_WATER) {
+		    if (amnesia) {
+			Your("%s to sparkle.", aobjnam(obj,"start"));
+			obj->odiluted 	= 0;
+			obj->otyp 	= POT_AMNESIA;
+			used 		= TRUE;
+			break;
+		    }
+		    return FALSE;
+		}
+
+		/* Diluting a !ofAmnesia just gives water... */
+		if (obj->otyp == POT_AMNESIA) {
+			Your("%s flat.", aobjnam(obj, "become"));
+			obj->odiluted = 0;
+			obj->otyp = POT_WATER;
+			used = TRUE;
+			break;
+		}
+
+		/* KMH -- Water into acid causes an explosion */
+		if (obj->otyp == POT_ACID) {
+			pline("It boils vigorously!");
+			You("are caught in the explosion!");
+			losehp(Acid_resistance ? rnd(5) : rnd(10),
+			       "elementary chemistry", KILLED_BY);
+			if (amnesia) {
+			    You_feel("a momentary lapse of reason!");
+			    forget(2 + rn2(3));
+			}
+			makeknown(obj->otyp);
+			used = TRUE;
+			break;
+		}
+		if (amnesia)
+		    pline("%s%s completely.", Your_buf, aobjnam(obj, "dilute"));
+		else
+		    pline("%s %s%s.", Your_buf, aobjnam(obj, "dilute"),
+		      		obj->odiluted ? " further" : "");
+		if(obj->unpaid && costly_spot(u.ux, u.uy)) {
+		    You("dilute it, you pay for it.");
+		    bill_dummy_object(obj);
+		}
+		if (obj->odiluted || amnesia) {
+			obj->odiluted = 0;
+#ifdef UNIXPC
+			obj->blessed = FALSE;
+			obj->cursed = FALSE;
+#else
+			obj->blessed = obj->cursed = FALSE;
+#endif
+			obj->otyp = POT_WATER;
+		} else obj->odiluted++;
+		used = TRUE;
+		break;
+	    case SCROLL_CLASS:
+		if (obj->otyp != SCR_BLANK_PAPER
+#ifdef MAIL
+		    && obj->otyp != SCR_MAIL
+#endif
+		    ) {
+			if (!Blind) {
+				boolean oq1 = obj->quan == 1L;
+				pline_The("scroll%s %s.",
+					  oq1 ? "" : "s", otense(obj, "fade"));
+			}
+			if(obj->unpaid && costly_spot(u.ux, u.uy)) {
+			    You("erase it, you pay for it.");
+			    bill_dummy_object(obj);
+			}
+			obj->otyp = SCR_BLANK_PAPER;
+			obj->spe = 0;
+			used = TRUE;
+		} 
+		break;
+	    case SPBOOK_CLASS:
+		if (obj->otyp != SPE_BLANK_PAPER) {
+			if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
+	pline("%s suddenly heats up; steam rises and it remains dry.",
+				The(xname(obj)));
+			} else {
+			    if (!Blind) {
+				    boolean oq1 = obj->quan == 1L;
+				    pline_The("spellbook%s %s.",
+					oq1 ? "" : "s", otense(obj, "fade"));
+			    }
+			    if(obj->unpaid) {
+				subfrombill(obj, shop_keeper(*u.ushops));
+			        You("erase it, you pay for it.");
+			        bill_dummy_object(obj);
+			    }
+			    obj->otyp = SPE_BLANK_PAPER;
+			}
+			used = TRUE;
+		}
+		break;
+        #if 0  /* Enable when healthstones are imported */
+	    case GEM_CLASS:
+		if (amnesia && (obj->otyp == LUCKSTONE ||
+			obj->otyp == LOADSTONE || obj->otyp == HEALTHSTONE ||
+			obj->otyp == TOUCHSTONE))
+		    downgrade_obj(obj, FLINT, &used);
+		break;
+        #endif
+	    case TOOL_CLASS:
+		/* Artifacts aren't downgraded by amnesia */
+		if (amnesia && !obj->oartifact) {
+		    switch (obj->otyp) {
+			case MAGIC_LAMP:
+			    /* Magic lamps forget their djinn... */
+			    downgrade_obj(obj, OIL_LAMP, &used);
+			    break;
+            #if 0  /* Enable when magic candles are imported */
+			case MAGIC_CANDLE:
+			    downgrade_obj(obj, 
+					    rn2(2)? WAX_CANDLE : TALLOW_CANDLE,
+					    &used);
+			    break;
+            #endif
+			case DRUM_OF_EARTHQUAKE:
+			    downgrade_obj(obj, LEATHER_DRUM, &used);
+			    break;
+			case MAGIC_WHISTLE:
+			    /* Magic whistles lose their powers... */
+			    downgrade_obj(obj, PEA_WHISTLE, &used);
+			    break;
+			case MAGIC_FLUTE:
+			    /* Magic flutes sound normal again... */
+			    downgrade_obj(obj, FLUTE, &used);
+			    break;
+			case MAGIC_HARP:
+			    /* Magic harps sound normal again... */
+			    downgrade_obj(obj, HARP, &used);
+			    break;
+			case FIRE_HORN:
+			case FROST_HORN:
+			case HORN_OF_PLENTY:
+			    downgrade_obj(obj, TOOLED_HORN, &used);
+			    break;
+			case MAGIC_MARKER:
+			    /* Magic markers run... */
+			    if (obj->spe > 0) {
+				pre_downgrade_obj(obj, &used);
+				if ((obj->spe -= (3 + rn2(10))) < 0) 
+				    obj->spe = 0;
+			    }
+			    break;
+		    }
+		}
+
+		/* The only other tools that can be affected are pick axes and 
+		 * unicorn horns... */
+		if (!is_weptool(obj)) break;
+		/* Drop through for disenchantment and rusting... */
+		/* fall through */
+	    case ARMOR_CLASS:
+	    case WEAPON_CLASS:
+	    case WAND_CLASS:
+	    case RING_CLASS:
+	    /* Just "fall through" to generic rustprone check for now. */
+	    /* fall through */
+	    default:
+		switch(artifact_wet(obj, FALSE)) {
+		    case -1: break;
+		    default:
+			return TRUE;
+		}
+		/* !ofAmnesia acts as a disenchanter... */
+		if (amnesia && obj->spe > 0) {
+		    pre_downgrade_obj(obj, &used);
+
+		    drain_item(obj, ourfault);
+		}
+		if (!obj->oerodeproof && is_rustprone(obj) &&
+		    (obj->oeroded < MAX_ERODE) && !rn2(2)) {
+			pline("%s %s some%s.",
+			      Your_buf, aobjnam(obj, "rust"),
+			      obj->oeroded ? " more" : "what");
+			obj->oeroded++;
+			if(obj->unpaid && costly_spot(u.ux, u.uy) && !used) {
+			    You("damage it, you pay for it.");
+			    bill_dummy_object(obj);
+			}
+			used = TRUE;
+		} 
+		break;
+	}
+	/* !ofAmnesia might strip away fooproofing... */
+	if (amnesia && obj->oerodeproof && !rn2(13)) {
+	    pre_downgrade_obj(obj, &used);
+	    obj->oerodeproof = FALSE;
+	}
+
+	/* !ofAmnesia also strips blessed/cursed status... */
+
+	if (amnesia && (obj->cursed || obj->blessed)) {
+	    /* Blessed objects are valuable, cursed objects aren't, unless
+	     * they're water.
+	     */
+	    if (obj->blessed || obj->otyp == POT_WATER)
+		pre_downgrade_obj(obj, &used);
+	    else if (!used) {
+		Your("%s for a moment.", aobjnam(obj, "sparkle"));
+		used = TRUE;
+	    }
+	    uncurse(obj);
+	    unbless(obj);
+	}
+
+	if (used) 
+	    update_inventory();
+	else 
+	    pline("%s %s wet.", Your_buf, aobjnam(obj,"get"));
+
+	return used;
 }
 
 /* #dip command */
@@ -2334,13 +2746,23 @@ dodip()
 
         if (H2Opotion_dip(potion, obj, useeit, obj_glows))
             goto poof;
-    } else if (obj->otyp == POT_POLYMORPH || potion->otyp == POT_POLYMORPH) {
+    } else if (potion->otyp == POT_AMNESIA) {
+	    if (potion == obj) {
+            obj->in_use = FALSE;
+            potion = splitobj(obj, 1L);
+            potion->in_use = TRUE;
+	    }
+	    if (get_wet(obj, TRUE, TRUE)) goto poof;
+	}
+    else if (obj->otyp == POT_POLYMORPH || potion->otyp == POT_POLYMORPH) {
         /* some objects can't be polymorphed */
         if (obj->otyp == potion->otyp /* both POT_POLY */
-            || obj->otyp == WAN_POLYMORPH || obj->otyp == SPE_POLYMORPH
-            || obj == uball || obj == uskin
-            || obj_resists(obj->otyp == POT_POLYMORPH ? potion : obj,
-                           5, 95)) {
+            || obj->otyp == WAN_POLYMORPH 
+            || obj->otyp == SPE_POLYMORPH
+            || obj == uball 
+            || obj == uskin
+            || obj_resists(obj->otyp == POT_POLYMORPH ? 
+                potion : obj, 5, 95)) {
             pline1(nothing_happens);
         } else {
             short save_otyp = obj->otyp;

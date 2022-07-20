@@ -858,6 +858,7 @@ FOOD("tin",                  75,  0, 10, 1, METAL,   0, HI_METAL),
 POTION("gain ability",           "ruby",  1, 0, 42, 300, CLR_RED),
 POTION("restore ability",        "pink",  1, 0, 40, 100, CLR_BRIGHT_MAGENTA),
 POTION("confusion",            "orange",  1, CONFUSION, 42, 100, CLR_ORANGE),
+POTION("clairvoyance",    "luminescent",  1, 0, 20, 100, CLR_WHITE),
 POTION("blindness",            "yellow",  1, BLINDED, 40, 150, CLR_YELLOW),
 POTION("paralysis",           "emerald",  1, 0, 42, 300, CLR_BRIGHT_GREEN),
 POTION("speed",            "dark green",  1, FAST, 42, 200, CLR_GREEN),
@@ -882,6 +883,7 @@ POTION("acid",                  "white",  0, 0, 10, 250, CLR_WHITE),
 POTION("oil",                   "murky",  0, 0, 30, 250, CLR_BROWN),
 /* fixed description
  */
+POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),
 POTION("water",                 "clear",  0, 0, 92, 100, CLR_CYAN),
 #undef POTION
 

@@ -335,7 +335,9 @@ Imported items:
 	
 	Amulets:
 	- [x] Amulet of flying (already in evil)
-
+	- [x] Amulet of drain resistance
+	- [x] Amulet versus stone
+	
 	Rings:
 	- [x] Mood ring
 		- [x] Fix "ring of mood"
