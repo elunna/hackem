@@ -3132,14 +3132,12 @@ boolean silent;
 			 return (AD_FIRE);
 		 case AD_COLD:
 			 if (!silent) {
-				pline("Icicles form and fall from the freezing %s.",
-			             the(xname(obj)));
+				pline("Icicles form and fall from the freezing %s.", xname(obj));
 			 }
 			 return (AD_COLD);
 		 case AD_ELEC:
 			 if (!silent) {
-				pline_The("humid air crackles with electricity from %s.",
-						the(xname(obj)));
+				pline_The("humid air crackles with electricity from %s.", xname(obj));
 			 }
 			 return (AD_ELEC);
 		 case AD_DRLI:
