@@ -812,6 +812,10 @@ nh_timeout()
                               !Upolyd ? "normal" : "unusual");
                 }
                 break;
+            case INVULNERABLE:
+                if (!Invulnerable)
+                    You("are no longer invulnerable.");
+                break;
             case STRANGLED:
                 if (u.uswallow) {
                     killer.format = NO_KILLER_PREFIX;

@@ -3410,6 +3410,14 @@ register int n;
 register const char *knam;
 boolean k_format;
 {
+    /* [max] Invulnerable no dmg */
+	if (Invulnerable) {
+		n = 0;
+		pline("You are unharmed!");
+		/* NOTE: DO NOT RETURN - losehp is also called to check for death 
+		 * via u.uhp < 1
+		 */
+	}        
     if (Upolyd) {
         u.mh -= n;
         if (u.mhmax < u.mh)

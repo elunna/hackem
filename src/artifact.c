@@ -2432,7 +2432,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 otmp->dknown = TRUE;
                 return TRUE;
             } else {
-                if (bigmonst(youmonst.data)) {
+                /* Invulnerable player won't be bisected */
+                if (bigmonst(youmonst.data) || Invulnerable) {
                     pline("%s cuts deeply into you!",
                           magr ? Monnam(magr) : wepdesc);
                     *dmgptr *= 2;
@@ -2508,6 +2509,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     return TRUE;
                 }
                 *dmgptr = 2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER;
+                if (Invulnerable) {
+                    pline("%s slices into your %s.", wepdesc, body_part(NECK));
+                    return TRUE;
+			    }
                 pline(behead_msg[rn2(SIZE(behead_msg))], wepdesc, "you");
                 otmp->dknown = TRUE;
                 /* Should amulets fall off? */

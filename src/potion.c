@@ -1121,6 +1121,11 @@ register struct obj *otmp;
 		see_monsters();
 		break;
 	}
+    case POT_INVULNERABILITY:
+		incr_itimeout(&Invulnerable, rn1(4, 8 + 4 * bcsign(otmp)));
+		You_feel(Hallucination ?
+				"like a super-duper hero!" : "invulnerable!");
+		break;
     case POT_GAIN_ABILITY:
         if (otmp->cursed) {
             pline("Ulch!  That potion tasted foul!");

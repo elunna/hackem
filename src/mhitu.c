@@ -1507,7 +1507,7 @@ register struct attack *mattk;
         break;
     case AD_DISE:
         hitmsg(mtmp, mattk);
-        if (!diseasemu(mdat))
+        if (!diseasemu(mdat) || Invulnerable)
             dmg = 0;
         break;
     case AD_FIRE:
@@ -2299,6 +2299,10 @@ do_rust:
     case AD_PEST:
         pline("%s reaches out, and you feel fever and chills.", Monnam(mtmp));
         (void) diseasemu(mdat); /* plus the normal damage */
+        /* No damage if invulnerable; setting dmg zero prevents
+		 * "You are unharmed!" after a sickness inducing attack */
+		if (Invulnerable) 
+            dmg = 0;
         break;
     case AD_FAMN:
         pline("%s reaches out, and your body shrivels.", Monnam(mtmp));
@@ -3570,6 +3574,13 @@ struct monst *mtmp;
 int n;
 {
     context.botl = 1;
+    if (Invulnerable) 
+        n = 0;
+    if (n == 0) {
+		pline("You are unharmed.");
+		return;
+	}
+
     if (Upolyd) {
         u.mh -= n;
         if (u.mh < 1)

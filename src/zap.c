@@ -2813,6 +2813,10 @@ boolean ordinary;
                       : "You seem no more dead than before.");
             break;
         }
+        if (Invulnerable) {
+			pline("The ray passes right through you!");
+			break;
+		}
         learn_it = TRUE;
         Sprintf(killer.name, "shot %sself with a death ray", uhim());
         killer.format = NO_KILLER_PREFIX;
@@ -4533,6 +4537,9 @@ xchar sx, sy;
                 if (uarmu)
                     (void) destroy_arm(uarmu);
             }
+        }  if (Invulnerable) {
+            pline("The ray goes right through you!");
+            break;
         } else if (immune_death_magic(youmonst.data)) {
             shieldeff(sx, sy);
             You("seem unaffected.");
