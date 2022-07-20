@@ -1420,8 +1420,18 @@ register struct obj *obj;
     case RIN_GAIN_CONSTITUTION:
         which = A_CON;
         goto adjust_attrib;
+    case RIN_GAIN_INTELLIGENCE:
+        which = A_INT;
+        goto adjust_attrib;
+    case RIN_GAIN_WISDOM:
+        which = A_WIS;
+        goto adjust_attrib;
+    case RIN_GAIN_DEXTERITY:
+        which = A_DEX;
+        goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;
+    
  adjust_attrib:
         old_attrib = ACURR(which);
         ABON(which) += obj->spe;
@@ -1543,6 +1553,15 @@ boolean gone;
         goto adjust_attrib;
     case RIN_GAIN_CONSTITUTION:
         which = A_CON;
+        goto adjust_attrib;
+    case RIN_GAIN_INTELLIGENCE:
+        which = A_INT;
+        goto adjust_attrib;
+    case RIN_GAIN_WISDOM:
+        which = A_WIS;
+        goto adjust_attrib;
+    case RIN_GAIN_DEXTERITY:
+        which = A_DEX;
         goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;

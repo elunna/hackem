@@ -1215,9 +1215,27 @@ register struct obj *obj;
             context.botl = 1;
         }
         break;
+    case RIN_GAIN_DEXTERITY:
+        if ((obj->owornmask & W_RING) && u_ring) {
+            ABON(A_DEX) -= obj->spe;
+            context.botl = 1;
+        }
+        break;
     case RIN_ADORNMENT:
         if ((obj->owornmask & W_RING) && u_ring) {
             ABON(A_CHA) -= obj->spe;
+            context.botl = 1;
+        }
+        break;
+    case RIN_GAIN_INTELLIGENCE:
+        if ((obj->owornmask & W_RING) && u_ring) {
+            ABON(A_INT) -= obj->spe;
+            context.botl = 1;
+        }
+        break;
+    case RIN_GAIN_WISDOM:
+        if ((obj->owornmask & W_RING) && u_ring) {
+            ABON(A_WIS) -= obj->spe;
             context.botl = 1;
         }
         break;
