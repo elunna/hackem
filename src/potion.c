@@ -1094,6 +1094,33 @@ register struct obj *otmp;
 		if (otmp->blessed)
 			incr_itimeout(&HClairvoyant, rn1(50, 100));
 		break;
+    case POT_ESP: {
+		const char *mod;
+
+		/* KMH -- handle cursed, blessed */
+		if (otmp->cursed) {
+			if (HTelepat) mod = "less ";
+			else {
+			    unkn++;
+			    mod = NULL;
+			}
+			HTelepat = 0;
+		} else if (otmp->blessed) {
+			mod = "fully ";
+			incr_itimeout(&HTelepat, rn1(100, 200));
+			HTelepat |= FROMOUTSIDE;
+		} else {
+			mod = "more ";
+			incr_itimeout(&HTelepat, rn1(50, 100));
+		}
+		if (mod) {
+			You_feel(Hallucination ?
+				"%sin touch with the cosmos." :
+				"%smentally acute.", mod);
+        }
+		see_monsters();
+		break;
+	}
     case POT_GAIN_ABILITY:
         if (otmp->cursed) {
             pline("Ulch!  That potion tasted foul!");
