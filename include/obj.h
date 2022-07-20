@@ -389,7 +389,9 @@ struct obj {
 
 /* Light sources */
 #define Is_candle(otmp) \
-    (otmp->otyp == TALLOW_CANDLE || otmp->otyp == WAX_CANDLE)
+    (otmp->otyp == TALLOW_CANDLE \
+    || otmp->otyp == WAX_CANDLE \
+    || otmp->otyp == MAGIC_CANDLE)
 #define MAX_OIL_IN_FLASK 400 /* maximum amount of oil in a potion of oil */
 
 /* MAGIC_LAMP intentionally excluded below */
@@ -399,11 +401,15 @@ struct obj {
      || (otmp)->otyp == CANDELABRUM_OF_INVOCATION                   \
      || (otmp)->otyp == TALLOW_CANDLE || (otmp)->otyp == WAX_CANDLE \
      || (otmp)->otyp == POT_OIL)
+
 /* object can be ignited */
-#define ignitable(otmp)                                             \
-    ((otmp)->otyp == LANTERN || (otmp)->otyp == OIL_LAMP      \
-     || (otmp)->otyp == CANDELABRUM_OF_INVOCATION                   \
-     || (otmp)->otyp == TALLOW_CANDLE || (otmp)->otyp == WAX_CANDLE \
+#define ignitable(otmp) \
+    ((otmp)->otyp == LANTERN \
+     || (otmp)->otyp == OIL_LAMP \
+     || (otmp)->otyp == CANDELABRUM_OF_INVOCATION \
+     || (otmp)->otyp == TALLOW_CANDLE \
+     || (otmp)->otyp == WAX_CANDLE \
+     || (otmp)->otyp == MAGIC_CANDLE \
      || (otmp)->otyp == POT_OIL)
 
 /* things that can be read */

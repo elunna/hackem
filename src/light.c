@@ -604,7 +604,8 @@ int x, y;
                  */
                 if (artifact_light(obj))
                     continue;
-                end_burn(obj, obj->otyp != MAGIC_LAMP);
+                
+                end_burn(obj, obj->otyp != MAGIC_LAMP && obj->otyp != MAGIC_CANDLE);
                 /*
                  * The current ls element has just been removed (and
                  * ls->next is now invalid).  Return assuming that there

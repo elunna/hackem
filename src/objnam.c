@@ -1439,7 +1439,9 @@ unsigned doname_flags;
             break;
         } else if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP
                    || obj->otyp == LANTERN || Is_candle(obj)) {
+            /* WAC - magic candles are never "partly used" */
             if (Is_candle(obj)
+                && obj->otyp != MAGIC_CANDLE
                 && obj->age < 20L * (long) objects[obj->otyp].oc_cost)
                 Strcat(prefix, "partly used ");
             if (obj->lamplit)
@@ -3148,7 +3150,7 @@ struct o_range {
 STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "bag", TOOL_CLASS, SACK, BAG_OF_TRICKS },
     { "lamp", TOOL_CLASS, OIL_LAMP, MAGIC_LAMP },
-    { "candle", TOOL_CLASS, TALLOW_CANDLE, WAX_CANDLE },
+    { "candle", TOOL_CLASS, TALLOW_CANDLE, MAGIC_CANDLE },
     { "horn", TOOL_CLASS, TOOLED_HORN, HORN_OF_PLENTY },
     { "shield", ARMOR_CLASS, SMALL_SHIELD, SHIELD_OF_MOBILITY },
     { "hat", ARMOR_CLASS, DUNCE_CAP, FEDORA },

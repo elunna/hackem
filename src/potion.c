@@ -2555,13 +2555,11 @@ boolean ourfault;
 			    /* Magic lamps forget their djinn... */
 			    downgrade_obj(obj, OIL_LAMP, &used);
 			    break;
-            #if 0  /* Enable when magic candles are imported */
 			case MAGIC_CANDLE:
 			    downgrade_obj(obj, 
 					    rn2(2)? WAX_CANDLE : TALLOW_CANDLE,
 					    &used);
 			    break;
-            #endif
 			case DRUM_OF_EARTHQUAKE:
 			    downgrade_obj(obj, LEATHER_DRUM, &used);
 			    break;

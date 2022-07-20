@@ -335,7 +335,8 @@ const struct shclass shtypes[] = {
         { 5, -LANTERN },
         { 9, -OIL_LAMP },
         { 3, -MAGIC_LAMP },
-        { 5, -POT_OIL } },
+        { 5, -MAGIC_CANDLE },
+        { 5, -POT_OIL }},
       shklight },
     /* sentinel */
     { (char *) 0,
