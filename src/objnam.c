@@ -3203,6 +3203,8 @@ static const struct alt_spellings {
     { "grappling iron", GRAPPLING_HOOK },
     { "grapnel", GRAPPLING_HOOK },
     { "grapple", GRAPPLING_HOOK },
+    { "amulet versus stoning", AMULET_VERSUS_STONE },
+	{ "amulet of stone resistance", AMULET_VERSUS_STONE },
     { "protection from shape shifters", RIN_PROTECTION_FROM_SHAPE_CHAN },
     /* if we ever add other sizes, move this to o_ranges[] with "bag" */
     { "box", LARGE_BOX },

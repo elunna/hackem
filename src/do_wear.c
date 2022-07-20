@@ -1208,6 +1208,10 @@ Amulet_on()
         makeknown(AMULET_OF_GUARDING);
         find_ac();
         break;
+    case AMULET_VERSUS_STONE:
+		if (Stoned)
+            fix_petrification();
+		break;
     case AMULET_OF_YENDOR:
         break;
     }
@@ -1227,6 +1231,7 @@ Amulet_off()
     case AMULET_OF_LIFE_SAVING:
     case AMULET_VERSUS_POISON:
     case AMULET_OF_DRAIN_RESISTANCE:
+    case AMULET_VERSUS_STONE:
     case AMULET_OF_REFLECTION:
     case AMULET_OF_CHANGE:
     case AMULET_OF_UNCHANGING:

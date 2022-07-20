@@ -2438,6 +2438,11 @@ struct obj *otmp;
                 HSleepy = (HSleepy & ~TIMEOUT) | newnap;
             break;
         }
+        case AMULET_VERSUS_STONE:
+            /* no message--this gives no permanent effect */
+            if (Stoned)
+                fix_petrification();
+            break;
         case RIN_SUSTAIN_ABILITY:
         case AMULET_OF_LIFE_SAVING:
         case AMULET_OF_FLYING:
