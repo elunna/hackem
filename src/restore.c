@@ -698,7 +698,9 @@ unsigned int *stuckid, *steedid;
     otmp = uwep;   /* `uwep' usually init'd by setworn() in loop above */
     uwep = 0;      /* clear it and have setuwep() reinit */
     setuwep(otmp); /* (don't need any null check here) */
-    if (!uwep || uwep->otyp == PICK_AXE || uwep->otyp == GRAPPLING_HOOK)
+    if (!uwep || uwep->otyp == PICK_AXE 
+            || uwep->otyp == GRAPPLING_HOOK
+            || uwep->otyp == FISHING_POLE)
         unweapon = TRUE;
 
     restore_dungeon(fd);

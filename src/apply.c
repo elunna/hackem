@@ -3267,6 +3267,7 @@ struct obj *obj;
     return 1;
 }
 
+
 STATIC_OVL int
 use_axe(obj)
 struct obj *obj;
@@ -3612,6 +3613,8 @@ boolean autohit;
     coord cc;
     struct monst *mtmp;
     struct monst *hitm = context.polearm.hitmon;
+    struct obj *otmp;
+    boolean fishing;
 
     /* Are you allowed to use the pole? */
     if (u.uswallow || Hidinshell) {
@@ -3641,7 +3644,7 @@ boolean autohit;
      *  (Note: no roles in nethack can become expert or better
      *  for polearm skill; Yeoman in slash'em can become expert.)
      */
-    min_range = 4;
+    min_range = obj->otyp == FISHING_POLE ? 1 : 4;
     typ = uwep_skill_type();
     if (typ == P_NONE || P_SKILL(typ) <= P_BASIC)
         max_range = 4;
@@ -3678,6 +3681,7 @@ boolean autohit;
     } else if (distu(cc.x, cc.y) < min_range) {
         if (autohit && cc.x == u.ux && cc.y == u.uy)
             You("don't know what to hit.");
+        // else if (obj->otyp != FISHING_POLE)
         else
             pline("Too close!");
         return res;
@@ -3689,6 +3693,96 @@ boolean autohit;
         You(cant_reach);
         return res;
     }
+
+    /* What is there? */
+	mtmp = m_at(cc.x, cc.y);
+
+	if (obj->otyp == FISHING_POLE) {
+	    fishing = is_pool(cc.x, cc.y);
+	    /* Try a random effect */
+	    switch (rnd(6)) {
+            case 1:
+                /* Snag yourself */
+                You("hook yourself!");
+                losehp(rn1(10,10), "a fishing hook", KILLED_BY);
+                return 1;
+            case 2:
+                /* Reel in a fish */
+                if (mtmp) {
+                    if ((bigmonst(mtmp->data) || strongmonst(mtmp->data))
+                            && !rn2(2)) {
+                        You("are yanked toward the %s", surface(cc.x,cc.y));
+                        hurtle(sgn(cc.x-u.ux), sgn(cc.y-u.uy), 1, TRUE);
+                        return 1;
+                    } else if (enexto(&cc, u.ux, u.uy, 0)) {
+                        You("reel in %s!", mon_nam(mtmp));
+                        mtmp->mundetected = 0;
+                        rloc_to(mtmp, cc.x, cc.y);
+                        return 1;
+                    }
+                }
+                break;
+            case 3:
+                /* Snag an existing object */
+                if ((otmp = level.objects[cc.x][cc.y]) != (struct obj *)0) {
+                    You("snag an object from the %s!", surface(cc.x, cc.y));
+                    pickup_object(otmp, 1, FALSE);
+                    /* If pickup fails, leave it alone */
+                    newsym(cc.x, cc.y);
+                    return 1;
+                }
+                break;
+            case 4:
+                /* Snag some garbage */
+                if (fishing && flags.boot_count < 1 &&
+                        (otmp = mksobj(LOW_BOOTS, TRUE, FALSE)) !=
+                        (struct obj *)0) {
+                    flags.boot_count++;
+                    You("snag some garbage from the %s!",
+                        surface(cc.x, cc.y));
+                    if (pickup_object(otmp, 1, FALSE) <= 0) {
+                        obj_extract_self(otmp);
+                        place_object(otmp, u.ux, u.uy);
+                        newsym(u.ux, u.uy);
+                    }
+                    return 1;
+                }
+                #if 0  /* Enable when TOILET is imported */
+                /* Or a rat in the sink/toilet */
+                if (!(mvitals[PM_SEWER_RAT].mvflags & G_GONE) &&
+                        (IS_SINK(levl[cc.x][cc.y].typ) ||
+                        IS_TOILET(levl[cc.x][cc.y].typ))) {
+                    mtmp = makemon(&mons[PM_SEWER_RAT], cc.x, cc.y,
+                        NO_MM_FLAGS);
+                    pline("Eek!  There's %s there!",
+                        Blind ? "something squirmy" : a_monnam(mtmp));
+                    return 1;
+                }
+                #endif
+                break;
+            case 5:
+                /* Catch your dinner */
+                if (fishing && (otmp = mksobj(CRAM_RATION, TRUE, FALSE)) !=
+                        (struct obj *)0) {
+                    You("catch tonight's dinner!");
+                    if (pickup_object(otmp, 1, FALSE) <= 0) {
+                        obj_extract_self(otmp);
+                        place_object(otmp, u.ux, u.uy);
+                        newsym(u.ux, u.uy);
+                    }
+                    return 1;
+                }
+                break;
+            default:
+            case 6:
+                /* Untrap */
+                /* FIXME -- needs to deal with non-adjacent traps */
+                break;
+	    }
+        /* Skip monster hitting if we were just fishing */
+        You("don't catch anything.");
+        return 0;
+	}
 
     context.polearm.hitmon = (struct monst *) 0;
     /* Attack the monster there */
@@ -4298,6 +4392,9 @@ doapply()
     case DWARVISH_MATTOCK:
         res = use_pick_axe(obj);
         break;
+    case FISHING_POLE:
+		res = use_pole(obj, FALSE);
+		break;
     case TINNING_KIT:
         use_tinning_kit(obj);
         break;

@@ -114,6 +114,7 @@ struct flag {
 #define PARANOID_SWIM       0x0400
     int pickup_burden; /* maximum burden before prompt */
     int pile_limit;    /* controls feedback when walking over objects */
+    int  boot_count; /* boots from fishing pole */
     char inv_order[MAXOCLASSES];
     char pickup_types[MAXOCLASSES];
 #define NUM_DISCLOSURE_OPTIONS 6 /* i,a,v,g,c,o (decl.c) */
