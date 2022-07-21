@@ -337,7 +337,15 @@ Imported items:
 	- [x] Amulet of flying (already in evil)
 	- [x] Amulet of drain resistance
 	- [x] Amulet versus stone
+
 	
+	Potions:
+	- [x] Potion of ESP
+	- [x] Potion of invulnerability
+	- [x] Potion of clairvoyance
+	- [x] Potion of amnesia
+		[FIXED] "Your  potion of levitation dilutes completely."
+		
 	Rings:
 	- [x] Mood ring
 		- [x] Fix "ring of mood"
@@ -346,6 +354,19 @@ Imported items:
 	- [x] Ring of gain dexterity
 	- [x] Ring of gain intelligence
 	- [x] Ring of gain wisdom
+	
+	Spellbooks:
+	- [x] Spellbook of lightning
+	- [x] Spellbook of poison blast
+	- [x] Spellbook of acid stream (evil has acid blast)
+	- [x] Spellbook of flame sphere
+	- [x] Spellbook of freeze sphere
+	- [SKIP] Spellbook of enchant weapon (probably cut)
+	- [SKIP] Spellbook of enchant armor  (probably cut)
+	
+	Tools:
+	- [x] Fishing pole
+	- [x] Magic candle
 	
 	Armor:
 	- [x] Shimmering dragon scales
