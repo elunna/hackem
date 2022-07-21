@@ -364,6 +364,14 @@ Imported items:
 	- [SKIP] Spellbook of enchant weapon (probably cut)
 	- [SKIP] Spellbook of enchant armor  (probably cut)
 	
+	These all require implementing a IMMUNE property for 
+		full 100% temporary resistances.
+	- [SKIP] Spellbook of endure cold 
+	- [SKIP] Spellbook of endure heat
+	- [SKIP] Spellbook of insulate
+	- [SKIP] Spellbook of resist sleep
+	- [SKIP] Spellbook of resist poison
+	
 	Tools:
 	- [x] Fishing pole
 	- [x] Magic candle
