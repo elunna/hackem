@@ -1030,6 +1030,8 @@ SPELL("repair armor",    "platinum",      P_MATTER_SPELL,      20,  6, 3, 1, IMM
 SPELL("reflection",	    "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),
 SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),
 SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),
+SPELL("command undead",  "dark",          P_ENCHANTMENT_SPELL, 10,  7, 5, 1, IMMEDIATE, CLR_BLACK),
+
 /* books with fixed descriptions
  */
 SPELL("blank paper", "plain", P_NONE, 15, 0, 0, 0, 0, HI_PAPER),
