@@ -69,6 +69,8 @@ struct trobj Healer[] = {
     { POT_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { POT_EXTRA_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { WAN_SLEEP, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    /* [Tom] they might as well have a wand of healing, too */        
+	{ WAN_HEALING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     /* always blessed, so it's guaranteed readable */
     { SPE_HEALING, 0, SPBOOK_CLASS, 1, 1 },
     { SPE_EXTRA_HEALING, 0, SPBOOK_CLASS, 1, 1 },

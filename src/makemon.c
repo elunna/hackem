@@ -842,6 +842,7 @@ register struct monst *mtmp;
             ini_mon_inv(mtmp, Healer, 1);
             ini_mon_inv(mtmp, Lamp, 25);
             mongets(mtmp, SKELETON_KEY);
+            mongets(mtmp, WAN_SLEEP);
             break;
         case PM_INFIDEL:
             mkmonmoney(mtmp, (long) rn1(251, 250));

@@ -359,6 +359,8 @@ struct obj *otmp;
 #define MUSE_EUCALYPTUS_LEAF 22
 #define MUSE_WAN_UNDEAD_TURNING 24 /* also an offensive item */
 #define MUSE_POT_RESTORE_ABILITY 25
+#define MUSE_WAN_HEALING 26
+#define MUSE_WAN_EXTRA_HEALING 27
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -385,6 +387,16 @@ struct monst *mtmp;
     if ((obj = m_carrying(mtmp, POT_HEALING)) != 0) {
         m.defensive = obj;
         m.has_defense = MUSE_POT_HEALING;
+        return TRUE;
+    }
+    if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_WAN_EXTRA_HEALING;
+        return TRUE;
+    }
+    if ((obj = m_carrying(mtmp, WAN_HEALING)) != 0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_WAN_HEALING;
         return TRUE;
     }
     if (mtmp->msick || mtmp->mdiseased) {
@@ -738,6 +750,16 @@ struct monst *mtmp;
             if (obj->otyp == POT_HEALING) {
                 m.defensive = obj;
                 m.has_defense = MUSE_POT_HEALING;
+            }
+            nomore(MUSE_WAN_EXTRA_HEALING);
+            if(obj->otyp == WAN_EXTRA_HEALING && obj->spe > 0) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_EXTRA_HEALING;
+            }
+            nomore(MUSE_WAN_HEALING);
+            if(obj->otyp == WAN_HEALING && obj->spe > 0) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_HEALING;
             }
         } else { /* Pestilence */
             nomore(MUSE_POT_FULL_HEALING);
@@ -1260,6 +1282,35 @@ struct monst *mtmp;
         migrate_to_level(mtmp, ledger_no(&sstairs.tolev), MIGR_SSTAIRS,
                          (coord *) 0);
         return 2;
+    /* [Tom] */
+	case MUSE_WAN_HEALING:
+		mzapwand(mtmp, otmp, TRUE);
+		otmp->spe--;
+		i = d(5, 2) + 5 * !!bcsign(otmp);
+		mtmp->mhp += i;
+		if (mtmp->mhp > mtmp->mhpmax) 
+            mtmp->mhp = ++mtmp->mhpmax;
+		if (!otmp->cursed) 
+            mtmp->mcansee = 1;
+		if (vismon) 
+            pline("%s begins to look better.", Monnam(mtmp));
+		if (oseen) 
+            makeknown(WAN_HEALING);
+		return 2;
+    case MUSE_WAN_EXTRA_HEALING:
+		mzapwand(mtmp, otmp, TRUE);
+		otmp->spe--;
+		i = d(5, 4) + 10 * !!bcsign(otmp);
+		mtmp->mhp += i;
+		if (mtmp->mhp > mtmp->mhpmax) 
+            mtmp->mhp = ++mtmp->mhpmax;
+		if (!otmp->cursed) 
+            mtmp->mcansee = 1;
+		if (vismon) 
+            pline("%s begins to look better.", Monnam(mtmp));
+		if (oseen) 
+            makeknown(WAN_EXTRA_HEALING);
+		return 2;
     case MUSE_TELEPORT_TRAP:
         m_flee(mtmp);
         if (vis) {
@@ -3298,26 +3349,41 @@ struct obj *obj;
             return FALSE;
         if (typ == WAN_DIGGING)
             return (boolean) !is_floater(mon->data);
-        if (objects[typ].oc_dir == RAY || typ == WAN_STRIKING
-            || typ == WAN_TELEPORTATION || typ == WAN_CREATE_MONSTER
-            || typ == WAN_CANCELLATION || typ == WAN_WISHING
-            || typ == WAN_POLYMORPH || typ == WAN_UNDEAD_TURNING)
+        if (objects[typ].oc_dir == RAY 
+            || typ == WAN_STRIKING
+            || typ == WAN_TELEPORTATION 
+            || typ == WAN_CREATE_MONSTER
+            || typ == WAN_HEALING
+            || typ == WAN_EXTRA_HEALING
+            || typ == WAN_CANCELLATION 
+            || typ == WAN_WISHING
+            || typ == WAN_POLYMORPH 
+            || typ == WAN_UNDEAD_TURNING)
             return TRUE;
         break;
     case POTION_CLASS:
-        if (typ == POT_HEALING || typ == POT_EXTRA_HEALING
-            || typ == POT_FULL_HEALING || typ == POT_POLYMORPH
-            || typ == POT_GAIN_LEVEL || typ == POT_PARALYSIS
-            || typ == POT_SLEEPING || typ == POT_ACID || typ == POT_CONFUSION
-            || typ == POT_HALLUCINATION || typ == POT_OIL 
+        if (typ == POT_HEALING 
+            || typ == POT_EXTRA_HEALING
+            || typ == POT_FULL_HEALING 
+            || typ == POT_POLYMORPH
+            || typ == POT_GAIN_LEVEL 
+            || typ == POT_PARALYSIS
+            || typ == POT_SLEEPING 
+            || typ == POT_ACID 
+            || typ == POT_CONFUSION
+            || typ == POT_HALLUCINATION 
+            || typ == POT_OIL 
             || typ == POT_AMNESIA)
             return TRUE;
         if (typ == POT_BLINDNESS && !attacktype(mon->data, AT_GAZE))
             return TRUE;
         break;
     case SCROLL_CLASS:
-        if (typ == SCR_TELEPORTATION || typ == SCR_CREATE_MONSTER
-            || typ == SCR_EARTH || typ == SCR_FIRE || typ == SCR_REMOVE_CURSE
+        if (typ == SCR_TELEPORTATION 
+            || typ == SCR_CREATE_MONSTER
+            || typ == SCR_EARTH 
+            || typ == SCR_FIRE 
+            || typ == SCR_REMOVE_CURSE
             || (typ == SCR_STINKING_CLOUD && mon->mcansee)
             || typ == SCR_CHARGING)
             return TRUE;

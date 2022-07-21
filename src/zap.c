@@ -442,21 +442,38 @@ struct obj *otmp;
             mdrop_obj(mtmp, obj, FALSE);
         }
         break;
+    case WAN_HEALING:
+    case WAN_EXTRA_HEALING:
     case SPE_HEALING:
     case SPE_EXTRA_HEALING:
         reveal_invis = TRUE;
         if (mtmp->data != &mons[PM_PESTILENCE]) {
             boolean already_max = (mtmp->mhp == mtmp->mhpmax);
             wake = FALSE; /* wakeup() makes the target angry */
-            mtmp->mhp += d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
-            if (mtmp->mhp > mtmp->mhpmax)
+            mtmp->mhp += 
+              /* [ALI] FIXME: Makes no sense that cursed wands are more
+		      * effective than uncursed wands. This behaviour dates
+		      * right back to Slash v3 (and probably to v1).
+		      */
+		      otyp == WAN_HEALING ?  d(5,2) + 5 * !!bcsign(otmp) :
+		      otyp == WAN_EXTRA_HEALING ?  d(5,4) + 10 * !!bcsign(otmp) :
+              d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
+            
+            if (mtmp->mhp > mtmp->mhpmax) {
+                if (otmp->oclass == WAND_CLASS)
+			        mtmp->mhpmax++;
                 mtmp->mhp = mtmp->mhpmax;
+                
+            }
             /* plain healing must be blessed to cure blindness; extra
                healing only needs to not be cursed, so spell always cures
                [potions quaffed by monsters behave slightly differently;
                we use the rules for the hero here...] */
-            if (skilled_spell || otyp == SPE_EXTRA_HEALING)
+            if (skilled_spell 
+                    || otyp == SPE_EXTRA_HEALING
+                    || (otyp == WAN_HEALING && otmp->blessed))
                 mcureblindness(mtmp, canseemon(mtmp));
+
             if (canseemon(mtmp)) {
                 if (disguised_mimic) {
                     if (is_obj_mappear(mtmp,STRANGE_OBJECT)) {
@@ -467,7 +484,8 @@ struct obj *otmp;
                         mimic_hit_msg(mtmp, otyp);
                 } else
                     pline("%s looks%s better.", Monnam(mtmp),
-                          otyp == SPE_EXTRA_HEALING ? " much" : "");
+                      (otyp == SPE_EXTRA_HEALING || 
+                       otyp == WAN_EXTRA_HEALING) ? " much" : "");
             }
             if ((mtmp->mtame || mtmp->mpeaceful) && !already_max) {
                 if (Role_if(PM_HEALER)) {
@@ -2322,6 +2340,8 @@ struct obj *obj, *otmp;
         case WAN_NOTHING:
         case SPE_HEALING:
         case SPE_EXTRA_HEALING:
+        case WAN_HEALING:
+        case WAN_EXTRA_HEALING:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
             res = 0;
@@ -2775,7 +2795,20 @@ boolean ordinary;
         exercise(A_DEX, TRUE);
         HFast |= FROMOUTSIDE;
         break;
-
+    case WAN_HEALING:
+        You("begin to feel better.");
+        healup(d(5, 6), 0, 0, 0);
+        exercise(A_STR, TRUE);
+        makeknown(WAN_HEALING);
+		break;
+    case WAN_EXTRA_HEALING:
+        You("feel much better.");
+        healup(d(6, 8), 0, 0, 0);
+        make_hallucinated(0L, TRUE, 0L);
+        exercise(A_STR, TRUE);
+        exercise(A_CON, TRUE);
+        makeknown(WAN_EXTRA_HEALING);
+		break;
     case WAN_SLEEP:
     case SPE_SLEEP:
         learn_it = TRUE;
@@ -3080,6 +3113,8 @@ struct obj *obj; /* wand or spell */
     case WAN_SPEED_MONSTER:
     case SPE_HEALING:
     case SPE_EXTRA_HEALING:
+    case WAN_HEALING:
+    case WAN_EXTRA_HEALING:
     case SPE_DRAIN_LIFE:
     case WAN_OPENING:
     case SPE_KNOCK:

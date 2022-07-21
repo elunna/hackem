@@ -755,6 +755,13 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
+            case WAN_HEALING:
+            case WAN_EXTRA_HEALING:
+                if (!Blind) {
+                    Sprintf(post_engr_text, "The bugs on the %s look healthier!",
+                            surface(u.ux, u.uy));
+                }
+			    break;
             case WAN_POLYMORPH:
                 if (oep) {
                     if (!Blind) {

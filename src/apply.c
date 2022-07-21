@@ -4116,6 +4116,10 @@ struct obj *obj;
     case WAN_UNDEAD_TURNING:
         affects_objects = TRUE;
         break;
+    case WAN_HEALING:
+    case WAN_EXTRA_HEALING:
+		dmg = 0;
+		break;
     default:
         break;
     }
