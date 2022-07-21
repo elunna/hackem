@@ -1405,6 +1405,14 @@ boolean atme;
             }
         }
         break;
+        
+    /* KMH -- new spells */
+	case SPE_PASSWALL:
+		if (!Passes_walls)
+			You_feel("ethereal.");
+		incr_itimeout(&HPasses_walls, rn1(100, 50));
+		break;
+
     default:
         impossible("Unknown spell %d attempted.", spell);
         obfree(pseudo, (struct obj *) 0);
