@@ -1620,6 +1620,81 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
          * monsters are not visible
          */
         break;
+
+    case SPE_SUMMON_UNDEAD: {
+		int cnt = 1, oldmulti = multi;
+        struct monst *mtmp;
+		multi = 0;
+  
+		if(!rn2(73) && !sobj->blessed) 
+            cnt += rnd(4);
+		if(confused || sobj->cursed) 
+            cnt += 12;
+		
+        while(cnt--) {
+            #ifdef WIZARD
+		    if(!wizard || !(mtmp = create_particular()))
+            #endif
+
+		    switch (rn2(10)+1) {
+                case 1:
+                    mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 9:
+                    mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 10:
+                    mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+		    }
+		    /* WAC Give N a shot at controlling the beasties
+		     * (if not cursed <g>).  Check curse status in case
+		     * this ever becomes a scroll
+		     */
+		    if (mtmp)
+                if (!sobj->cursed && Role_if(PM_NECROMANCER)) {
+                    if (!resist(mtmp, sobj->oclass, 0, TELL)) {
+                        mtmp = tamedog(mtmp, (struct obj *) 0);
+                        if (mtmp)
+                            You("dominate %s!", mon_nam(mtmp));
+                    }
+                } else setmangry(mtmp, FALSE);
+		}
+		multi = oldmulti;
+		/* WAC Give those who know command undead a shot at control.
+		 * Since spell is area affect,  do this after all undead
+		 * are summoned
+		 */
+		if (!Role_if(PM_NECROMANCER) && !(sobj->cursed)) {
+		    if (objects[SPE_COMMAND_UNDEAD].oc_name_known) {
+			    int sp_no;
+                for (sp_no = 0; sp_no < MAXSPELL; sp_no++)
+                    if (spl_book[sp_no].sp_id == SPE_COMMAND_UNDEAD) {
+                        You("try to command %s", mon_nam(mtmp));
+                        spelleffects(sp_no, TRUE);
+                        break;
+                    }
+                if (sp_no == MAXSPELL)
+                    You("don't seem to have the spell command undead memorized!");
+		    } else 
+                You("don't know how to command undead...");
+		}
+        
+		/* flush monsters before asking for identification */
+		flush_screen(0);
+		break;
+	    }
     case SCR_ENCHANT_WEAPON:
         /* [What about twoweapon mode?  Proofing/repairing/enchanting both
            would be too powerful, but shouldn't we choose randomly between

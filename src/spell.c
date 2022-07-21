@@ -1297,7 +1297,8 @@ boolean atme;
     case SPE_CHARM_MONSTER:
     case SPE_MAGIC_MAPPING:
     case SPE_CREATE_MONSTER:
-    case SPE_COMMAND_UNDEAD:                
+    case SPE_COMMAND_UNDEAD:
+    case SPE_SUMMON_UNDEAD:
         (void) seffects(pseudo);
         break;
 
