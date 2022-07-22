@@ -908,6 +908,10 @@ struct obj *obj;
          * for correct calculation */
         set_moreluck();
     }
+
+    /* KMH, balance patch -- recalculate health if you've gained healthstones */
+	if (obj->otyp == HEALTHSTONE)
+		recalc_health();
 }
 
 /*
@@ -1182,6 +1186,9 @@ struct obj *obj;
     } else if (confers_luck(obj) || (obj->oprops & ITEM_EXCEL)) {
         set_moreluck();
         context.botl = 1;
+    }  else if (obj->otyp == HEALTHSTONE) {
+    /* KMH, balance patch -- recalculate health if you've lost healthstones */
+    recalc_health();
     } else if (obj->otyp == FIGURINE && obj->timed) {
         (void) stop_timer(FIG_TRANSFORM, obj_to_any(obj));
     }

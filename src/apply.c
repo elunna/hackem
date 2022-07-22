@@ -4536,6 +4536,7 @@ doapply()
     case LUCKSTONE:
     case LOADSTONE:
     case TOUCHSTONE:
+    case HEALTHSTONE:
     case ROCK:
         use_stone(&obj);
         break;

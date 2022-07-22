@@ -3442,6 +3442,19 @@ int final;
             enl_msg("Good luck ", "times", "timed", " out slowly for you", "");
     }
 
+    /* KMH, balance patch -- healthstones affect health */
+	if (u.uhealbonus) {
+		Sprintf(buf, "%s health", u.uhealbonus > 0 ? "extra" : "reduced");
+        #ifdef WIZARD
+	    if (wizard) Sprintf(eos(buf), " (%d)", u.uhealbonus);
+        #endif
+		you_have(buf, "");
+	}
+    #ifdef WIZARD
+	else if (wizard) 
+        enl_msg("Your health bonus ", "is", "was", " zero");
+    #endif
+
     if (u.ugangr) {
         Sprintf(buf, " %sangry with you",
                 u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");

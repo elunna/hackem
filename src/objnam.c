@@ -3216,6 +3216,7 @@ static const struct alt_spellings {
     { "luck stone", LUCKSTONE },
     { "load stone", LOADSTONE },
     { "touch stone", TOUCHSTONE },
+    { "health stone", HEALTHSTONE },
     { "flintstone", FLINT },
     { "shiny stone", SLING_BULLET },
     { (const char *) 0, 0 },

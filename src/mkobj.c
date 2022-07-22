@@ -921,14 +921,17 @@ boolean artif;
             break;
         case GEM_CLASS:
             otmp->corpsenm = 0; /* LOADSTONE hack */
-            if (otmp->otyp == LOADSTONE)
+            if (otmp->otyp == LOADSTONE || otmp->otyp == HEALTHSTONE)
                 curse(otmp);
             else if (otmp->otyp == ROCK)
                 otmp->quan = (long) rn1(6, 6);
             else if (otmp->otyp == SLING_BULLET)
                 otmp->quan = (long) rn1(7, 8);
-            else if (otmp->otyp != LUCKSTONE && !rn2(6))
+            else if (otmp->otyp != LUCKSTONE 
+                 && (otmp->otyp != HEALTHSTONE) 
+                 && !rn2(6)) {
                 otmp->quan = 2L;
+            }
             else
                 otmp->quan = 1L;
             break;
@@ -1396,6 +1399,8 @@ register struct obj *otmp;
     otmp->blessed = 1;
     if (carried(otmp) && confers_luck(otmp))
         set_moreluck();
+    else if (otmp->otyp == HEALTHSTONE)
+	    recalc_health();
     else if (otmp->otyp == BAG_OF_HOLDING)
         otmp->owt = weight(otmp);
     else if (otmp->otyp == FIGURINE && otmp->timed)
@@ -1416,6 +1421,8 @@ register struct obj *otmp;
     otmp->blessed = 0;
     if (carried(otmp) && confers_luck(otmp))
         set_moreluck();
+    else if (otmp->otyp == HEALTHSTONE)
+	    recalc_health();
     else if (otmp->otyp == BAG_OF_HOLDING)
         otmp->owt = weight(otmp);
     if (otmp->lamplit)
@@ -1446,6 +1453,8 @@ register struct obj *otmp;
     /* some cursed items need immediate updating */
     if (carried(otmp) && confers_luck(otmp)) {
         set_moreluck();
+    } else if (otmp->otyp == HEALTHSTONE) {
+	    recalc_health();
     } else if (otmp->otyp == BAG_OF_HOLDING) {
         otmp->owt = weight(otmp);
     } else if (otmp->otyp == FIGURINE) {
@@ -1473,6 +1482,8 @@ register struct obj *otmp;
     otmp->cursed = 0;
     if (carried(otmp) && confers_luck(otmp))
         set_moreluck();
+    else if (otmp->otyp == HEALTHSTONE)
+	    recalc_health();
     else if (otmp->otyp == BAG_OF_HOLDING)
         otmp->owt = weight(otmp);
     else if (otmp->otyp == FIGURINE && otmp->timed)

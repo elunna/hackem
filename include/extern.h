@@ -124,6 +124,7 @@ E void FDECL(change_luck, (SCHAR_P));
 E int FDECL(stone_luck, (BOOLEAN_P));
 E boolean NDECL(has_luckitem);
 E void NDECL(set_moreluck);
+E void NDECL(recalc_health);
 E void NDECL(restore_attrib);
 E void FDECL(exercise, (int, BOOLEAN_P));
 E void NDECL(exerchk);

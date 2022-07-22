@@ -2539,14 +2539,12 @@ boolean ourfault;
 			used = TRUE;
 		}
 		break;
-        #if 0  /* Enable when healthstones are imported */
 	    case GEM_CLASS:
 		if (amnesia && (obj->otyp == LUCKSTONE ||
 			obj->otyp == LOADSTONE || obj->otyp == HEALTHSTONE ||
 			obj->otyp == TOUCHSTONE))
 		    downgrade_obj(obj, FLINT, &used);
 		break;
-        #endif
 	    case TOOL_CLASS:
 		/* Artifacts aren't downgraded by amnesia */
 		if (amnesia && !obj->oartifact) {

@@ -798,22 +798,33 @@ int wtcap;
         if (u.uhp < u.uhpmax && elf_can_regen() && orc_can_regen()
             && (encumbrance_ok || Regeneration) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
+            
+            /*
+            * KMH, balance patch -- New regeneration code
+            * Healthstones have been added, which alter your effective
+            * experience level and constitution (-2 cursed, +1 uncursed,
+            * +2 blessed) for the basis of regeneration calculations.
+            */
+
+ 			int efflev = u.ulevel + u.uhealbonus;
+ 			int effcon = ACURR(A_CON) + u.uhealbonus;
+			int heal = 0;
+            
             if (u.ulevel > 9) {
                 if (!(moves % 3L)) {
-                    int Con = (int) ACURR(A_CON);
-
-                    if (Con <= 12) {
+                    if (effcon <= 12) {
                         heal = 1;
+                        
                     } else {
-                        heal = rnd(Con);
-                        if (heal > u.ulevel - 9)
-                            heal = u.ulevel - 9;
+                        heal = rnd(effcon);
+                        if (heal > efflev - 9)
+                            heal = efflev - 9;
                     }
                 }
-            } else { /* u.ulevel <= 9 */
-                if (!(moves % (long) ((MAXULEV + 12) / (u.ulevel + 2) + 1)))
-                    heal = 1;
-            }
+            } else if (efflev <= 9 && 
+                    !(moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1))) {
+                heal = 1;
+			}
 
             /* tortles gain some accelerated regeneration while
                inside their shell */

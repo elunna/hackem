@@ -456,6 +456,20 @@ set_moreluck()
         u.moreluck = -LUCKADD;
 }
 
+/* KMH, balance patch -- new function for healthstones */
+void
+recalc_health()
+{
+	register struct obj *otmp;
+
+	u.uhealbonus = 0;
+	for(otmp = invent; otmp; otmp = otmp->nobj)
+	    if (otmp->otyp == HEALTHSTONE)
+	    	u.uhealbonus += otmp->quan * (otmp->blessed 
+                ? 2 : otmp->cursed 
+                    ? -2 : 1);
+	return;
+}
 void
 restore_attrib()
 {

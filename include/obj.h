@@ -422,9 +422,12 @@ struct obj {
      || (otmp)->oartifact == ART_MAGIC___BALL || (otmp)->otyp == CANDY_BAR)
 
 /* special stones */
-#define is_graystone(obj)                                 \
-    ((obj)->otyp == LUCKSTONE || (obj)->otyp == LOADSTONE \
-     || (obj)->otyp == FLINT || (obj)->otyp == TOUCHSTONE)
+#define is_graystone(obj) \
+    ((obj)->otyp == LUCKSTONE \
+     || (obj)->otyp == LOADSTONE \
+     || (obj)->otyp == FLINT \
+     || (obj)->otyp == TOUCHSTONE \
+     || (obj)->otyp == HEALTHSTONE)
 
 /* worthless glass -- assumes all GLASS * are worthless glass */
 #define is_worthless_glass(obj) \

@@ -350,7 +350,9 @@ worst_cursed_item()
         for (otmp = invent; otmp; otmp = otmp->nobj) {
             if (!otmp->cursed)
                 continue;
-            if (otmp->otyp == LOADSTONE || confers_luck(otmp))
+            if (otmp->otyp == LOADSTONE 
+             || otmp->otyp == HEALTHSTONE
+             || confers_luck(otmp))
                 break;
         }
     }

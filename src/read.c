@@ -1534,8 +1534,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         }
                     }
                 }
-                if (sblessed || wornmask || obj->otyp == LOADSTONE
-                    || (obj->otyp == LEASH && obj->leashmon)) {
+                if (sblessed 
+                        || wornmask 
+                        || obj->otyp == LOADSTONE
+                        || obj->otyp == HEALTHSTONE
+                        || (obj->otyp == LEASH && obj->leashmon)) {
                     /* water price varies by curse/bless status */
                     boolean shop_h2o = (obj->unpaid && obj->otyp == POT_WATER);
 
