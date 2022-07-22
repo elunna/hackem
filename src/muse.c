@@ -362,6 +362,7 @@ struct obj *otmp;
 #define MUSE_WAN_HEALING 26
 #define MUSE_WAN_EXTRA_HEALING 27
 #define MUSE_WAN_DRAINING 28	/* KMH */
+#define MUSE_WAN_CREATE_HORDE 29
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -784,6 +785,11 @@ struct monst *mtmp;
             m.defensive = obj;
             m.has_defense = MUSE_SCR_CREATE_MONSTER;
         }
+        nomore(MUSE_WAN_CREATE_HORDE);
+		if(obj->otyp == WAN_CREATE_HORDE && obj->spe > 0) {
+			m.defensive = obj;
+			m.has_defense = MUSE_WAN_CREATE_HORDE;
+		}
     }
 
     return find_defensive_recurse(mtmp, mtmp->minvent);
@@ -1175,6 +1181,27 @@ struct monst *mtmp;
         m_useup(mtmp, otmp);
         return 2;
     }
+    case MUSE_WAN_CREATE_HORDE: {   
+        coord cc;
+		struct permonst *pm=rndmonst();
+		int cnt = 1;
+		if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
+            return 0;
+		mzapwand(mtmp, otmp, FALSE);
+		otmp->spe--;
+		if (oseen) 
+            makeknown(WAN_CREATE_HORDE);
+		cnt = rnd(4) + 10;
+		while(cnt--) {
+			struct monst *mon;
+			if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
+                continue;
+			mon = makemon(rndmonst(), cc.x, cc.y, NO_MM_FLAGS);
+			if (mon) 
+                newsym(mon->mx,mon->my);
+		}
+		return 2;
+	}
     case MUSE_TRAPDOOR:
         /* trap doors on "bottom" levels of dungeons are rock-drop
          * trap doors, not holes in the floor.  We check here for
@@ -3416,6 +3443,7 @@ struct obj *obj;
             || typ == WAN_STRIKING
             || typ == WAN_TELEPORTATION 
             || typ == WAN_CREATE_MONSTER
+            || typ == WAN_CREATE_HORDE
             || typ == WAN_DRAINING
             || typ == WAN_HEALING
             || typ == WAN_EXTRA_HEALING
