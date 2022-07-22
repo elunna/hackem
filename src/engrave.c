@@ -762,6 +762,12 @@ doengrave()
                             surface(u.ux, u.uy));
                 }
 			    break;
+            case WAN_FEAR:
+                if (!Blind) {
+                    Sprintf(post_engr_text, "The bugs on the %s run away!",
+                        surface(u.ux, u.uy));
+                }
+                break;
             case WAN_POLYMORPH:
                 if (oep) {
                     if (!Blind) {

@@ -401,6 +401,15 @@ struct obj *otmp;
     case SPE_WIZARD_LOCK:
         wake = closeholdingtrap(mtmp, &learn_it);
         break;
+    case WAN_FEAR:
+		if (!is_undead(mtmp->data)
+		 && !resist(mtmp, otmp->oclass, 0, NOTELL) 
+         && (!mtmp->mflee || mtmp->mfleetim)) {
+            if (canseemon(mtmp))
+                pline("%s suddenly panics!", Monnam(mtmp));
+            monflee(mtmp, 0, FALSE, TRUE);
+		}
+		break;
     case WAN_PROBING:
         wake = FALSE;
         reveal_invis = TRUE;
@@ -2344,6 +2353,7 @@ struct obj *obj, *otmp;
         case SPE_EXTRA_HEALING:
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
+        case WAN_FEAR:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
             res = 0;
@@ -2812,6 +2822,11 @@ boolean ordinary;
         exercise(A_CON, TRUE);
         makeknown(WAN_EXTRA_HEALING);
 		break;
+    case WAN_FEAR:
+        You("suddenly panic!");
+        if(!HConfusion)
+            make_confused(HConfusion + rnd(10),FALSE);
+        break;
     case WAN_SLEEP:
     case SPE_SLEEP:
         learn_it = TRUE;
