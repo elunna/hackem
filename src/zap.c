@@ -48,9 +48,13 @@ STATIC_DCL void FDECL(wishcmdassist, (int));
 #define ZT_WATER (AD_WATR - 1)
 #define ZT_ACID (AD_ACID - 1)
 
+#define ZT_FIRST                (ZT_MAGIC_MISSILE)
+#define ZT_LAST                 (ZT_ACID) /*For checking of spells of a type*/
+
 #define ZT_WAND(x) (x)
 #define ZT_SPELL(x) (10 + (x))
 #define ZT_BREATH(x) (20 + (x))
+#define ZT_MONWAND(x)   (-(30+(x)))
 
 #define is_hero_spell(type) ((type) >= 10 && (type) < 20)
 
@@ -1805,7 +1809,7 @@ int id;
 
     case WAND_CLASS:
         while (otmp->otyp == WAN_WISHING || otmp->otyp == WAN_POLYMORPH)
-            otmp->otyp = rnd_class(WAN_LIGHT, WAN_LIGHTNING);
+            otmp->otyp = rnd_class(WAN_LIGHT, WAN_FIREBALL);
         /* altering the object tends to degrade its quality
            (analogous to spellbook `read count' handling) */
         if ((int) otmp->recharged < rn2(7)) /* recharge_limit */
@@ -2354,6 +2358,7 @@ struct obj *obj, *otmp;
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
         case WAN_FEAR:
+        case WAN_FIREBALL:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
             res = 0;
@@ -2616,6 +2621,8 @@ boolean ordinary;
         (void) flashburn((long) rnd(100));
         break;
 
+    case WAN_FIREBALL:
+		makeknown(WAN_FIREBALL);
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
@@ -3666,7 +3673,7 @@ struct obj *obj;
         else if (otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_ACID_BLAST)
             buzz(otyp - SPE_MAGIC_MISSILE + 10, u.ulevel / 2 + 1, u.ux, u.uy,
                  u.dx, u.dy);
-        else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_LIGHTNING)
+        else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_FIREBALL)
             buzz(otyp - WAN_MAGIC_MISSILE,
                  (otyp == WAN_MAGIC_MISSILE) ? 2 : 6, u.ux, u.uy, u.dx, u.dy);
         else
@@ -4867,9 +4874,25 @@ boolean say; /* Announce out of sight hit/miss events if true */
     int spell_type;
     boolean is_wand = (type >= 0 && type <= 9);
 
+    /* LSZ/WWA The Wizard Patch July 96
+       * If its a Hero Spell then get its SPE_TYPE
+       */
+
+    /* horrible kludge for wands of fireball... */    
+    if (type == ZT_WAND(ZT_LIGHTNING + 1)) 
+        type = ZT_SPELL(ZT_FIRE);
+    
+    /* WAC kludge for monsters zapping wands of fireball */
+    if ((type <= ZT_MONWAND(ZT_FIRST) && type >= ZT_MONWAND(ZT_LAST))
+	        && ((abs(type) % 10) == ZT_WAND(ZT_LIGHTNING + 1))) 
+		type = - ZT_SPELL(ZT_FIRE);
+
+    /*WAC bugfix - should show right color stream now (for wands of fireball) */
+    abstype = abs(type) % 10;
+
     /* if its a Hero Spell then get its SPE_TYPE */
     spell_type = is_hero_spell(type) ? SPE_MAGIC_MISSILE + abstype : 0;
-
+    
     fltxt = flash_types[(type <= -30) ? abstype : abs(type)];
     if (u.uswallow) {
         register int tmp;

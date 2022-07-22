@@ -363,6 +363,7 @@ struct obj *otmp;
 #define MUSE_WAN_EXTRA_HEALING 27
 #define MUSE_WAN_DRAINING 28	/* KMH */
 #define MUSE_WAN_CREATE_HORDE 29
+#define MUSE_FIREBALL 30
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -1516,6 +1517,7 @@ struct monst *mtmp;
                                         * redefine; nonconsecutive value is ok */
 #define MUSE_POT_OIL 25
 #define MUSE_POT_AMNESIA 26 /* Lethe */
+#define MUSE_WAN_FIREBALL 27
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1760,6 +1762,24 @@ boolean reflection_skip;
                 m.tocharge = obj;
             }
         }
+        nomore(MUSE_WAN_FIREBALL);
+        if (obj->otyp == WAN_FIREBALL) {
+            if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
+                m.offensive = obj;
+                m.has_offense = MUSE_WAN_FIREBALL;
+            } else if (!m.tocharge || obj->spe < 1
+                        || (m.tocharge->otyp != WAN_DEATH
+                           && m.tocharge->otyp != WAN_SLEEP
+                           && m.tocharge->otyp != WAN_FIRE
+                           && m.tocharge->otyp != FIRE_HORN
+                           && m.tocharge->otyp != WAN_COLD
+                           && m.tocharge->otyp != FROST_HORN
+                           && m.tocharge->otyp != WAN_LIGHTNING
+                           && m.tocharge->otyp != WAN_MAGIC_MISSILE
+                           && m.tocharge->otyp != WAN_DRAINING)) {
+                m.tocharge = obj;
+            }
+        }
         nomore(MUSE_WAN_CANCELLATION);
         if (obj->otyp == WAN_CANCELLATION) {
             if (obj->spe > 0) {
@@ -1774,7 +1794,8 @@ boolean reflection_skip;
                            && m.tocharge->otyp != FROST_HORN
                            && m.tocharge->otyp != WAN_LIGHTNING
                            && m.tocharge->otyp != WAN_MAGIC_MISSILE
-                           && m.tocharge->otyp != WAN_DRAINING)) {
+                           && m.tocharge->otyp != WAN_DRAINING
+                           && m.tocharge->otyp != WAN_FIREBALL)) {
                 m.tocharge = obj;
             }
         }
@@ -1793,6 +1814,7 @@ boolean reflection_skip;
                            && m.tocharge->otyp != WAN_LIGHTNING
                            && m.tocharge->otyp != WAN_MAGIC_MISSILE
                            && m.tocharge->otyp != WAN_DRAINING
+                           && m.tocharge->otyp != WAN_FIREBALL
                            && m.tocharge->otyp != WAN_CANCELLATION)) {
                 m.tocharge = obj;
             }
@@ -1812,6 +1834,7 @@ boolean reflection_skip;
                            && m.tocharge->otyp != WAN_LIGHTNING
                            && m.tocharge->otyp != WAN_MAGIC_MISSILE
                            && m.tocharge->otyp != WAN_DRAINING
+                           && m.tocharge->otyp != WAN_FIREBALL
                            && m.tocharge->otyp != WAN_CANCELLATION
                            && m.tocharge->otyp != WAN_POLYMORPH)) {
                 m.tocharge = obj;
@@ -2278,6 +2301,7 @@ struct monst *mtmp;
         && (monnear(mtmp, mtmp->mux, mtmp->muy)
             && m.has_offense != MUSE_WAN_DEATH
             && m.has_offense != MUSE_WAN_SLEEP
+            && m.has_offense != MUSE_WAN_FIREBALL
             && m.has_offense != MUSE_WAN_FIRE
             && m.has_offense != MUSE_WAN_COLD
             && m.has_offense != MUSE_WAN_LIGHTNING)) {
@@ -2306,6 +2330,7 @@ struct monst *mtmp;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
     case MUSE_WAN_DEATH:
     case MUSE_WAN_SLEEP:
+    case MUSE_WAN_FIREBALL:
     case MUSE_WAN_FIRE:
     case MUSE_WAN_COLD:
     case MUSE_WAN_LIGHTNING:
@@ -2510,6 +2535,8 @@ struct monst *mtmp;
         return 0;
     if (difficulty > 7 && !rn2(35))
         return WAN_DEATH;
+    if (difficulty > 6 && !rn2(25)) 
+        return WAN_FIREBALL;
     if (difficulty > 7 && !rn2(30))
         return WAN_POLYMORPH;
 

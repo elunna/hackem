@@ -371,7 +371,19 @@ Imported items:
 	- [SKIP] Spellbook of insulate
 	- [SKIP] Spellbook of resist sleep
 	- [SKIP] Spellbook of resist poison
+	- [x] Spellbook of enlighten
+	- [x] Spellbook of passwall (*Made into ESCAPE CATEGORY)
+	- [x] Spellbook of command undead
+	- [x] Spellbook of summon undead
 	
+	Wands:
+	- [x] Wand of healing
+	- [x] Wand of extra healing
+	- [x] Wand of draining
+	- [x] Wand of fear
+	- [x] Wand of create horde (generate with WAY less charges (1-3) or very rare)
+	- [x] Wand of fireball
+
 	Tools:
 	- [x] Fishing pole
 	- [x] Magic candle

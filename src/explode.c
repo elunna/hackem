@@ -58,6 +58,7 @@ int expltype;
         /* 'type' is passed as (wand's object type * -1); save
            object type and convert 'type' itself to zap-type */
         if (type < 0) {
+            
             type = -type;
             exploding_wand_typ = (short) type;
             /* most attack wands produce specific explosions;

@@ -4092,6 +4092,22 @@ struct obj *obj;
     case WAN_LIGHTNING:
         dmg *= 4;
         goto wanexpl;
+    case WAN_FIREBALL:
+        expltype = EXPL_FIERY;
+        // original
+        /* explode(u.ux, u.uy, ZT_FIRE, dmg, WAND_CLASS, expltype); */
+
+        /* --hackem: I copied this from zap.c, for zapping one's self with
+            SPE_FIREBALL. It seems to work. */
+        explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
+
+        if (obj->dknown 
+          && !objects[obj->otyp].oc_name_known 
+          && !objects[obj->otyp].oc_uname) {
+            docall(obj);
+        }
+
+        goto discard_broken_wand;
     case WAN_FIRE:
         expltype = EXPL_FIERY;
         /*FALLTHRU*/
@@ -4133,8 +4149,7 @@ struct obj *obj;
     /* [TODO?  This really ought to prevent the explosion from being
        fatal so that we never leave a bones file where none of the
        surrounding targets (or underlying objects) got affected yet.] */
-    explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS,
-            EXPL_MAGICAL);
+    explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS, EXPL_MAGICAL);
 
     /* prepare for potential feedback from polymorph... */
     zapsetup();

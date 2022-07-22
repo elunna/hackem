@@ -1077,6 +1077,8 @@ WAND("extra healing",  "bronze",  30, 300, 1, IMMEDIATE, COPPER,   CLR_YELLOW),
 WAND("opening",          "zinc",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("locking",      "aluminum",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("probing",       "uranium",  90, 150, 1, IMMEDIATE, METAL, HI_METAL),
+/* Ray wands have to come last, and in this order. */
+/* This is extremely kludgy, but that's what zap.c expects. */
 WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
 WAND("magic missile",   "steel", 150, 150, 1, RAY, METAL, HI_METAL),
 WAND("fire",        "hexagonal", 120, 175, 1, RAY, IRON,  HI_METAL),
@@ -1084,6 +1086,7 @@ WAND("cold",            "short", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
+WAND("fireball",    "octagonal",   5, 300, 1, RAY, IRON,  HI_METAL),
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "forked",  0, 150, 1, 0, WOOD, HI_WOOD),
 WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
