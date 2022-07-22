@@ -1162,6 +1162,7 @@ ROCK("luckstone", "gray",     0,  10,  10, 60, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY
 ROCK("healthstone", "gray",	  0,   8,  10, 60, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),
 ROCK("loadstone", "gray",     0,  10, 500,  1, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
 ROCK("touchstone", "gray",    0,   8,  10, 45, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
+ROCK("whetstone", "gray",	  0,   3,  10, 45, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),
 ROCK("flint", "gray",         0,  10,   2,  1, 6, 6, 0, 10, 7, MINERAL, CLR_GRAY),
 ROCK("sling bullet", "shiny", 0,  30,   6, 10, 6, 8, 0, 10, 7, IRON, HI_METAL),
 ROCK("rock", None,            1, 100,  10,  0, 3, 3, 0, 10, 7, MINERAL, CLR_GRAY),

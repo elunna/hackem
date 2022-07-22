@@ -426,6 +426,7 @@ struct obj {
     ((obj)->otyp == LUCKSTONE \
      || (obj)->otyp == LOADSTONE \
      || (obj)->otyp == FLINT \
+     || (obj)->otyp == WHETSTONE \
      || (obj)->otyp == TOUCHSTONE \
      || (obj)->otyp == HEALTHSTONE)
 
