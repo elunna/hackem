@@ -4114,6 +4114,7 @@ struct obj *obj;
     case WAN_POLYMORPH:
     case WAN_TELEPORTATION:
     case WAN_UNDEAD_TURNING:
+    case WAN_DRAINING:	/* KMH */
         affects_objects = TRUE;
         break;
     case WAN_HEALING:

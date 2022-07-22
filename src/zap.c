@@ -566,6 +566,7 @@ struct obj *otmp;
         } else
             wake = FALSE;
         break;
+    case WAN_DRAINING:
     case SPE_DRAIN_LIFE:
         if (disguised_mimic)
             seemimic(mtmp);
@@ -2254,6 +2255,7 @@ struct obj *obj, *otmp;
 #endif
             break;
         case SPE_DRAIN_LIFE:
+        case WAN_DRAINING:	/* KMH */
             (void) drain_item(obj, TRUE);
             break;
         case WAN_TELEPORTATION:
@@ -2731,7 +2733,8 @@ boolean ordinary;
     case SPE_CANCELLATION:
         (void) cancel_monst(&youmonst, obj, TRUE, TRUE, TRUE);
         break;
-
+    case WAN_DRAINING:	/* KMH */
+		makeknown(obj->otyp);
     case SPE_DRAIN_LIFE:
         if (!Drain_resistance) {
             learn_it = TRUE; /* (no effect for spells...) */
@@ -3115,6 +3118,7 @@ struct obj *obj; /* wand or spell */
     case SPE_EXTRA_HEALING:
     case WAN_HEALING:
     case WAN_EXTRA_HEALING:
+    case WAN_DRAINING:
     case SPE_DRAIN_LIFE:
     case WAN_OPENING:
     case SPE_KNOCK:

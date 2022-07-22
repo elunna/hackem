@@ -361,6 +361,7 @@ struct obj *otmp;
 #define MUSE_POT_RESTORE_ABILITY 25
 #define MUSE_WAN_HEALING 26
 #define MUSE_WAN_EXTRA_HEALING 27
+#define MUSE_WAN_DRAINING 28	/* KMH */
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -1615,6 +1616,7 @@ boolean reflection_skip;
                     m.tocharge = obj;
                 }
             }
+
             nomore(MUSE_WAN_SLEEP);
             if (obj->otyp == WAN_SLEEP && multi >= 0) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_SLEEP)) {
@@ -1709,6 +1711,28 @@ boolean reflection_skip;
         }
         nomore(MUSE_WAN_UNDEAD_TURNING);
         m_use_undead_turning(mtmp, obj);
+
+        nomore(MUSE_WAN_DRAINING);
+        if (obj->otyp == WAN_DRAINING) {
+            #if 0  /* --hackem: Need to implement M_SEEN_DRAIN first. */
+            if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_DRAIN)) {
+            #endif
+
+            if (obj->spe > 0) {
+                m.offensive = obj;
+                m.has_offense = MUSE_WAN_DRAINING;
+            } else if (!m.tocharge || obj->spe < 1
+                       || (m.tocharge->otyp != WAN_DEATH
+                           && m.tocharge->otyp != WAN_SLEEP
+                           && m.tocharge->otyp != WAN_FIRE
+                           && m.tocharge->otyp != FIRE_HORN
+                           && m.tocharge->otyp != WAN_COLD
+                           && m.tocharge->otyp != FROST_HORN
+                           && m.tocharge->otyp != WAN_LIGHTNING
+                           && m.tocharge->otyp != WAN_MAGIC_MISSILE)) {
+                m.tocharge = obj;
+            }
+        }
         nomore(MUSE_WAN_CANCELLATION);
         if (obj->otyp == WAN_CANCELLATION) {
             if (obj->spe > 0) {
@@ -1722,7 +1746,8 @@ boolean reflection_skip;
                            && m.tocharge->otyp != WAN_COLD
                            && m.tocharge->otyp != FROST_HORN
                            && m.tocharge->otyp != WAN_LIGHTNING
-                           && m.tocharge->otyp != WAN_MAGIC_MISSILE)) {
+                           && m.tocharge->otyp != WAN_MAGIC_MISSILE
+                           && m.tocharge->otyp != WAN_DRAINING)) {
                 m.tocharge = obj;
             }
         }
@@ -1740,6 +1765,7 @@ boolean reflection_skip;
                            && m.tocharge->otyp != FROST_HORN
                            && m.tocharge->otyp != WAN_LIGHTNING
                            && m.tocharge->otyp != WAN_MAGIC_MISSILE
+                           && m.tocharge->otyp != WAN_DRAINING
                            && m.tocharge->otyp != WAN_CANCELLATION)) {
                 m.tocharge = obj;
             }
@@ -1758,6 +1784,7 @@ boolean reflection_skip;
                            && m.tocharge->otyp != FROST_HORN
                            && m.tocharge->otyp != WAN_LIGHTNING
                            && m.tocharge->otyp != WAN_MAGIC_MISSILE
+                           && m.tocharge->otyp != WAN_DRAINING
                            && m.tocharge->otyp != WAN_CANCELLATION
                            && m.tocharge->otyp != WAN_POLYMORPH)) {
                 m.tocharge = obj;
@@ -2008,6 +2035,36 @@ register struct obj *otmp;
     case SPE_CANCELLATION:
         (void) cancel_monst(mtmp, otmp, FALSE, TRUE, FALSE);
         break;
+    case WAN_DRAINING:	/* KMH */
+		tmp = d(2,6);
+		if (mtmp == &youmonst) {
+			if (Drain_resistance) {
+				shieldeff(u.ux, u.uy);
+				pline("Boing!");
+			} else
+				losexp("life drainage");
+			if (zap_oseen)
+				makeknown(WAN_DRAINING);
+			stop_occupation();
+			nomul(0);
+			break;
+		} else if (resists_drli(mtmp)) {
+			shieldeff(mtmp->mx, mtmp->my);
+			break;	/* skip makeknown */
+		} else if (!resist(mtmp, otmp->oclass, tmp, NOTELL) && mtmp->mhp > 0) {
+			mtmp->mhpmax -= tmp;
+			if (mtmp->mhpmax <= 0 || mtmp->m_lev <= 0)
+				monkilled(mtmp, "", AD_DRLI);
+			else {
+				mtmp->m_lev--;
+				if (canseemon(mtmp)) {
+					pline("%s suddenly seems weaker!", Monnam(mtmp));
+				}
+			}
+		}
+		if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
+			makeknown(WAN_DRAINING);
+		break;
     case WAN_UNDEAD_TURNING: {
         boolean learnit = FALSE;
 
@@ -2244,6 +2301,7 @@ struct monst *mtmp;
              sgn(tby));
         m_using = FALSE;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
+    case MUSE_WAN_DRAINING:	/* KMH */
     case MUSE_WAN_CANCELLATION:
     case MUSE_WAN_TELEPORTATION:
     case MUSE_WAN_POLYMORPH:
@@ -2417,8 +2475,11 @@ struct monst *mtmp;
     struct permonst *pm = mtmp->data;
     int difficulty = mons[(monsndx(pm))].difficulty;
 
-    if (is_animal(pm) || attacktype(pm, AT_EXPL) || mindless(mtmp->data)
-        || pm->mlet == S_GHOST || pm->mlet == S_KOP)
+    if (is_animal(pm) 
+     || attacktype(pm, AT_EXPL) 
+     || mindless(mtmp->data)
+     || pm->mlet == S_GHOST 
+     || pm->mlet == S_KOP)
         return 0;
     if (difficulty > 7 && !rn2(35))
         return WAN_DEATH;
@@ -2465,6 +2526,8 @@ struct monst *mtmp;
         return SCR_STINKING_CLOUD;
     case 14:
         return WAN_CANCELLATION;
+    case 15: 
+        return WAN_DRAINING;
     }
     /*NOTREACHED*/
     return 0;
@@ -3353,6 +3416,7 @@ struct obj *obj;
             || typ == WAN_STRIKING
             || typ == WAN_TELEPORTATION 
             || typ == WAN_CREATE_MONSTER
+            || typ == WAN_DRAINING
             || typ == WAN_HEALING
             || typ == WAN_EXTRA_HEALING
             || typ == WAN_CANCELLATION 
