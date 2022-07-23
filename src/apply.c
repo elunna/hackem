@@ -2649,6 +2649,7 @@ set_whetstone()
             adj--;
 	    if (Hallucination) 
             adj--;
+            
 	    if (adj > 0)
 		    whetstoneinfo.time_needed -= adj;
 
@@ -2667,12 +2668,19 @@ set_whetstone()
 	if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
 
 	    /* Remove rust first, then sharpen dull edges */
-	    if (otmp->oeroded) {
-            otmp->oeroded--;
+        boolean eroded = (otmp->oeroded || otmp->oeroded2);
+
+	    if (eroded) {
+            if (otmp->oeroded) 
+                otmp->oeroded--;    /* Remove rust */
+            else if (otmp->oeroded2)
+                otmp->oeroded2--;    /* Remove corrosion */
+
             pline("%s %s%s now.", Yname2(otmp),
                 (Blind ? "probably " : (otmp->oeroded ? "almost " : "")),
                 otense(otmp, "shine"));
-	    } else if (otmp->spe < 0) {
+	    } 
+        else if (otmp->spe < 0) {
             otmp->spe++;
             pline("%s %s %ssharper now.%s", Yname2(otmp),
                 otense(otmp, Blind ? "feel" : "look"),
@@ -2779,7 +2787,8 @@ struct obj *stone, *obj;
 		    pline("That would ruin the %s %s.",
 			  materialnm[objects[ttyp].oc_material],
 		      xname(obj));
-	    } else if (((obj->spe >= 0) || !obj->known) && !obj->oeroded) {
+	    } else if (((obj->spe >= 0) || !obj->known) 
+                && !obj->oeroded && !obj->oeroded2) {
 		    pline("%s %s sharp and pointy enough.",
 			  is_plural(obj) ? "They" : "It",
 			  otense(obj, Blind ? "feel" : "look"));
