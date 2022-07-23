@@ -2667,18 +2667,33 @@ set_whetstone()
 
 	if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
 
-	    /* Remove rust first, then sharpen dull edges */
-        boolean eroded = (otmp->oeroded || otmp->oeroded2);
+	    /* Remove erosion first, then sharpen dull edges */
+        
+        int erosion = (int) greatest_erosion(otmp);
 
-	    if (eroded) {
-            if (otmp->oeroded) 
+	    if (erosion > 0) {
+            if (otmp->oeroded)
                 otmp->oeroded--;    /* Remove rust */
             else if (otmp->oeroded2)
                 otmp->oeroded2--;    /* Remove corrosion */
 
-            pline("%s %s%s now.", Yname2(otmp),
-                (Blind ? "probably " : (otmp->oeroded ? "almost " : "")),
-                otense(otmp, "shine"));
+            erosion = (int) greatest_erosion(otmp);
+
+            /* More custom messages for how much erosion is left. */
+            if (erosion >= 3) {
+                pline("You repair some of the damage, but there is still work to be done.");
+            } else if (erosion >= 2) {
+                if (Blind)
+                    pline("%s %s starting to feel better.", Yname2(otmp), (otmp->quan > 1 ? "are": "is"));
+                else
+                    pline("%s %s starting to look better.", Yname2(otmp), (otmp->quan > 1 ? "are": "is"));
+            }
+            else {
+                pline("%s %s%s now.", Yname2(otmp),
+                    (Blind ? "probably " : (erosion ? "almost " : "")),
+                    otense(otmp, "shine"));
+            }
+
 	    } else if (otmp->spe < 0) {
             otmp->spe++;
             pline("%s %s %ssharper now.%s", Yname2(otmp),
