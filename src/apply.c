@@ -2637,6 +2637,33 @@ set_whetstone()
 	    return 0;
 	}
 
+    if (ows->cursed) {
+        /* Cursed whetstones will inflict a random bad effect on the applied weapon.
+
+            To balance this out - we will not force the player through the same
+            period of occupation required to get a positive effect. The bad effect
+            will be instantaneous.
+        */
+        switch (rn2(5)) {
+            case 0: /* Negative Enchantment */
+                pline("%s with %s aura.",
+                        Yobjnam2(otmp, "glow"), an(hcolor(NH_BLACK)));
+                otmp->spe--;
+                break;
+            case 1: /* Rust damage */
+                erode_obj(otmp, NULL, ERODE_RUST, EF_GREASE | EF_DESTROY);
+                break;
+            case 2: /* Corrosion damage */
+                erode_obj(otmp, NULL, ERODE_CORRODE, EF_GREASE | EF_DESTROY);
+                break;
+            default:
+                pline("Nothing happens.");
+                break;
+        }
+        reset_whetstone();
+        return 0;
+    }
+
 	if (--whetstoneinfo.time_needed > 0) {
 	    int adj = 2;
 	    if (Blind)
@@ -2662,7 +2689,6 @@ set_whetstone()
 
 	chance = 4 - (ows->blessed) + (ows->cursed*2) + (otmp->oartifact ? 3 : 0);
     */
-
     chance = 4 - (ows->blessed) + (ows->cursed*2);
 
 	if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
