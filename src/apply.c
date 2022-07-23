@@ -2679,14 +2679,21 @@ set_whetstone()
             pline("%s %s%s now.", Yname2(otmp),
                 (Blind ? "probably " : (otmp->oeroded ? "almost " : "")),
                 otense(otmp, "shine"));
-	    } 
-        else if (otmp->spe < 0) {
+	    } else if (otmp->spe < 0) {
             otmp->spe++;
             pline("%s %s %ssharper now.%s", Yname2(otmp),
                 otense(otmp, Blind ? "feel" : "look"),
                 (otmp->spe >= 0 ? "much " : ""),
                 Blind ? "  (Ow!)" : "");
-	    }
+	    } else if (ows->blessed && otmp->cursed) {
+            /* If our whetstone is blessed, we can remove a curse */
+            pline("%s %s %ssafer now.%s", Yname2(otmp),
+                otense(otmp, Blind ? "feel" : "look"),
+                (otmp->spe >= 0 ? "much " : ""),
+                Blind ? "  (Ooh!)" : "");
+            uncurse(otmp);
+        }
+
 	    makeknown(WHETSTONE);
 	    reset_whetstone();
 	} else {
@@ -2788,6 +2795,7 @@ struct obj *stone, *obj;
 			  materialnm[objects[ttyp].oc_material],
 		      xname(obj));
 	    } else if (((obj->spe >= 0) || !obj->known) 
+                && (stone->blessed && !obj->cursed)
                 && !obj->oeroded && !obj->oeroded2) {
 		    pline("%s %s sharp and pointy enough.",
 			  is_plural(obj) ? "They" : "It",
