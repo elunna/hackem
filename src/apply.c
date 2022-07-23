@@ -2743,6 +2743,7 @@ set_whetstone()
             }
         }
 
+
 	    makeknown(WHETSTONE);
 	    reset_whetstone();
 
@@ -2791,6 +2792,8 @@ struct obj *stone, *obj;
 	#endif
     } else if (!is_pool(u.ux, u.uy)
             && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
+            && !IS_PUDDLE(levl[u.ux][u.uy].typ)
+            && !IS_SEWAGE(levl[u.ux][u.uy].typ)
             #if 0
             && !IS_TOILET(levl[u.ux][u.uy].typ)
             #endif
