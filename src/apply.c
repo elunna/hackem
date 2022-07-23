@@ -2679,22 +2679,17 @@ set_whetstone()
             
 	    if (adj > 0)
 		    whetstoneinfo.time_needed -= adj;
-
-        /* --hackem: Should this be return adj? */
 	    return 1;
 	}
 
-    /* --hackem: Remove artifact "resist" penalty 
+    /* --hackem: Removed artifact "resist" penalty 
         (how can artifacts resist sharpening? Also most artifacts are fixed anyway)
-
-	chance = 4 - (ows->blessed) + (ows->cursed*2) + (otmp->oartifact ? 3 : 0);
     */
     chance = 4 - (ows->blessed) + (ows->cursed*2);
 
 	if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
 
 	    /* Remove erosion first, then sharpen dull edges */
-        
         int erosion = (int) greatest_erosion(otmp);
 
 	    if (erosion > 0) {
@@ -2726,24 +2721,23 @@ set_whetstone()
                 otense(otmp, Blind ? "feel" : "look"),
                 (otmp->spe >= 0 ? "much " : ""),
                 Blind ? "  (Ow!)" : "");
+
 	    } else if (ows->blessed && otmp->cursed) {
             /* If our whetstone is blessed, we can remove a curse */
-            pline("%s %s %ssafer now.%s", Yname2(otmp),
-                otense(otmp, Blind ? "feel" : "look"),
-                (otmp->spe >= 0 ? "much " : ""),
-                Blind ? "  (Ooh!)" : "");
+            pline("%s %s for a moment.", Yname2(ows), otense(ows, "glow"));
             uncurse(otmp);
+
         } else if (ows->blessed && otmp->spe == 0) {
             /* --hackem: If the weapon is otherwise fine and our whetstone is blessed, 
-                I'll boost it up to +1... But they have to pass a another rng coin flip.
+                I'll boost it up to +1... But they have to pass another coin flip.
 
                 Leo Tolstoy: “The two most powerful warriors are patience and time.”
             */
-           if (!rn2(1)) {
-            otmp->spe++;
-            pline("%s %s more powerful now.%s", Yname2(otmp),
-                otense(otmp, Blind ? "feel" : "look"), Blind ? " (Woah!)" : "");
-           }
+            if (!rn2(1)) {
+                otmp->spe++;
+                pline("%s %s more powerful now.%s", Yname2(otmp),
+                  otense(otmp, Blind ? "feel" : "look"), Blind ? " (Woah!)" : "");
+            }
         }
 
 	    makeknown(WHETSTONE);
