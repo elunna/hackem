@@ -2707,6 +2707,17 @@ set_whetstone()
                 (otmp->spe >= 0 ? "much " : ""),
                 Blind ? "  (Ooh!)" : "");
             uncurse(otmp);
+        } else if (ows->blessed && otmp->spe == 0) {
+            /* --hackem: If the weapon is otherwise fine and our whetstone is blessed, 
+                I'll boost it up to +1... But they have to pass a another rng coin flip.
+
+                Leo Tolstoy: “The two most powerful warriors are patience and time.”
+            */
+           if (!rn2(1)) {
+            otmp->spe++;
+            pline("%s %s more powerful now.%s", Yname2(otmp),
+                otense(otmp, Blind ? "feel" : "look"), Blind ? " (Woah!)" : "");
+           }
         }
 
 	    makeknown(WHETSTONE);
@@ -2810,7 +2821,7 @@ struct obj *stone, *obj;
 		    pline("That would ruin the %s %s.",
 			  materialnm[objects[ttyp].oc_material],
 		      xname(obj));
-	    } else if (((obj->spe >= 0) || !obj->known) 
+	    } else if (((obj->spe >= 1) || !obj->known) 
                 && (stone->blessed && !obj->cursed)
                 && !obj->oeroded && !obj->oeroded2) {
 		    pline("%s %s sharp and pointy enough.",
