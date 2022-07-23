@@ -2656,7 +2656,13 @@ set_whetstone()
 	    return 1;
 	}
 
+    /* --hackem: Remove artifact "resist" penalty 
+        (how can artifacts resist sharpening? Also most artifacts are fixed anyway)
+
 	chance = 4 - (ows->blessed) + (ows->cursed*2) + (otmp->oartifact ? 3 : 0);
+    */
+
+    chance = 4 - (ows->blessed) + (ows->cursed*2);
 
 	if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
 
