@@ -2759,13 +2759,16 @@ struct obj *stone, *obj;
 	    } else if (!isweapon || !isedged) {
             pline("%s sharp enough already.",
               is_plural(obj) ? "They are" : "It is");
+        #if 0
 	    } else if (stone->quan > 1) {
 		    pline("Using one %s is easier.",
               singular(stone, xname));
+        
 	    } else if (obj->quan > 1) {
 		    You("can apply %s only on one %s at a time.",
 		      the(xname(stone)),
 		      (obj->oclass == WEAPON_CLASS ? "weapon" : "item"));
+        #endif
 	    } else if (!is_metallic(obj)) {
 		    pline("That would ruin the %s %s.",
 			  materialnm[objects[ttyp].oc_material],
