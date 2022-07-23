@@ -74,7 +74,32 @@ Changes:
 	- [x] Giant (Already in evil)
 	- [x] Illithid (Already in evil)
 	- [x] Spined devils have big wings - flies
-
+	- [x] Wax golems should drop random candles (wait until we implement CANDLE)
+	- [x] Also look at what monsters are normally equipped with.
+	- [x] Update infravision tags. Only body heat should be visible.
+	- [x] Allow rats to be tamed with cheese (need CHEESE)
+	
+Make whetstones suck less.
+	- [x] Better msg for partial repair. "Your daggers shine now." doesn't fit.
+	- [x] Remove the side effects of fountains, sinks, toilets
+	- [x] We should be able to apply a stack of whetstones (treat it as 1)!
+	- [x] We should be able to sharpen a stack of weapons
+	- [x] We cannot #rub a whetstone to 1-x (with a stack)
+	- [x] We cannot #rub 1 whetstone (with a stack)
+	- [x] Remove the extra penalty for artifacts (how can artifacts resist sharpening?)
+	- [x] Whetstones can remove corrosion too
+	- [x] A blessed whetstone can uncurse a weapon too.
+	- [x] Blessed Whetstones can enchant non-corroded, uncursed, +0 weapons up to +1. Needs coin flip after first roll. 
+	- [x] Cursed whetstones can erode/negatively enchant weapons. (Only takes 1 turn though)
+	- [FIXED] We can't apply whetstones consistently.
+	- [SKIPPED] Reveal BUC status when uncursing?
+	- [x] Change the uncurse message to: pline_The("%s glows for a moment.", hliquid("whetstone"));
+	- [FIXED] When trying to apply to non-valid weapons, it checks the sharpness first...
+	- [ ] wet whetstones (similar to towels) for portable usage? 
+	- [x] Can we identify a whetstone? Yes on a successful effect.
+	- [SKIPPED] We cannot #rub a weapon first (has to be the whetstone)
+	- [FIXED] We can't apply whetstones while blind.
+	
 Imported slashem monsters:
 	- [x] giant tick (AT_MULTIPLY)
 	- [x] giant flea (AT_MULTIPLY)
@@ -388,10 +413,15 @@ Imported items:
 	- [x] Fishing pole
 	- [x] Magic candle
 	
+	Gems:
+	- [x] Healthstone
+	- [x] Whetstone
+	
 	Armor:
 	- [x] Shimmering dragon scales
 	- [x] Shimmering dragon scale mail
 	
+
 	
 Leaving Out:
 	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
