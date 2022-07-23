@@ -2724,7 +2724,10 @@ set_whetstone()
 
 	    } else if (ows->blessed && otmp->cursed) {
             /* If our whetstone is blessed, we can remove a curse */
-            pline("%s %s for a moment.", Yname2(ows), otense(ows, "glow"));
+            if (Blind)
+                pline("%s %s for a moment.", Yname2(ows), otense(ows, "warm"));
+            else
+                pline("%s %s for a moment.", Yname2(ows), otense(ows, "glow"));
             uncurse(otmp);
 
         } else if (ows->blessed && otmp->spe == 0) {
@@ -2955,7 +2958,7 @@ struct obj **optr;
         return;
     }
 
-    if (Blind) {
+    if (Blind && tstone->otyp != WHETSTONE) {
         pline(scritch);
         return;
     } else if (Hallucination) {
