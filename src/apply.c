@@ -2801,9 +2801,7 @@ struct obj *stone, *obj;
       && !IS_PUDDLE(levl[u.ux][u.uy].typ)
       && !IS_SEWAGE(levl[u.ux][u.uy].typ)
       && (!is_rusttrap)
-      #if 0
       && !IS_TOILET(levl[u.ux][u.uy].typ)
-      #endif
       && !IS_SINK(levl[u.ux][u.uy].typ)) {
 
         /* --hackem: We test if we are NOT on a water source above.
