@@ -2771,6 +2771,10 @@ struct obj *stone, *obj;
 	const char *occutext = "sharpening";
 	int tmptime = 130 + (rnl(13) * 5);
 
+    /* --hackem: For allowing use with rust traps. */
+    register struct trap *trap = t_at(u.ux, u.uy);
+    boolean is_rusttrap = trap != 0 && trap->ttyp == RUST_TRAP;
+
 	if (u.ustuck && sticks(youmonst.data)) {
 	    You("should let go of %s first.", mon_nam(u.ustuck));
 	} else if ((welded(uwep) && (uwep != stone)) 
@@ -2794,6 +2798,7 @@ struct obj *stone, *obj;
             && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
             && !IS_PUDDLE(levl[u.ux][u.uy].typ)
             && !IS_SEWAGE(levl[u.ux][u.uy].typ)
+            && (!is_rusttrap)
             #if 0
             && !IS_TOILET(levl[u.ux][u.uy].typ)
             #endif
