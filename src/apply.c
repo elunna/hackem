@@ -4047,18 +4047,15 @@ boolean autohit;
                     }
                     return 1;
                 }
-                #if 0  /* Enable when TOILET is imported */
                 /* Or a rat in the sink/toilet */
                 if (!(mvitals[PM_SEWER_RAT].mvflags & G_GONE) &&
                         (IS_SINK(levl[cc.x][cc.y].typ) ||
                         IS_TOILET(levl[cc.x][cc.y].typ))) {
-                    mtmp = makemon(&mons[PM_SEWER_RAT], cc.x, cc.y,
-                        NO_MM_FLAGS);
+                    mtmp = makemon(&mons[PM_SEWER_RAT], cc.x, cc.y, NO_MM_FLAGS);
                     pline("Eek!  There's %s there!",
                         Blind ? "something squirmy" : a_monnam(mtmp));
                     return 1;
                 }
-                #endif
                 break;
             case 5:
                 /* Catch your dinner */
