@@ -7,6 +7,8 @@
 
 extern boolean notonhead; /* for long worms */
 
+static NEARDATA const char beverages[] = { POTION_CLASS, 0 };
+
 STATIC_DCL int FDECL(use_camera, (struct obj *));
 STATIC_DCL int FDECL(use_towel, (struct obj *));
 STATIC_DCL boolean FDECL(its_dead, (int, int, int *, struct obj*));
@@ -2770,6 +2772,7 @@ struct obj *stone, *obj;
 	boolean fail_use = TRUE;
 	const char *occutext = "sharpening";
 	int tmptime = 130 + (rnl(13) * 5);
+    register struct obj *potion;
 
     /* --hackem: For allowing use with rust traps. */
     register struct trap *trap = t_at(u.ux, u.uy);
@@ -2783,8 +2786,7 @@ struct obj *stone, *obj;
                 && welded(uswapwep) 
                 && (uswapwep != obj))) {
 	    You("need both hands free.");
-	} else
-	if (nohands(youmonst.data)) {
+	} else if (nohands(youmonst.data)) {
 	    You("can't handle %s with your %s.",
 		    an(xname(stone)), makeplural(body_part(HAND)));
 	} else if (verysmall(youmonst.data)) {
@@ -2795,18 +2797,31 @@ struct obj *stone, *obj;
 		obj->quan > 1 ? "s" : "");
 	#endif
     } else if (!is_pool(u.ux, u.uy)
-            && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
-            && !IS_PUDDLE(levl[u.ux][u.uy].typ)
-            && !IS_SEWAGE(levl[u.ux][u.uy].typ)
-            && (!is_rusttrap)
-            #if 0
-            && !IS_TOILET(levl[u.ux][u.uy].typ)
-            #endif
-	        && !IS_SINK(levl[u.ux][u.uy].typ)) {
-	    
-        if (carrying(POT_WATER)
-          && objects[POT_WATER].oc_name_known) {
-		    pline("Better not waste bottled water for that.");
+      && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
+      && !IS_PUDDLE(levl[u.ux][u.uy].typ)
+      && !IS_SEWAGE(levl[u.ux][u.uy].typ)
+      && (!is_rusttrap)
+      #if 0
+      && !IS_TOILET(levl[u.ux][u.uy].typ)
+      #endif
+      && !IS_SINK(levl[u.ux][u.uy].typ)) {
+
+        /* --hackem: We test if we are NOT on a water source above.
+             A player can use a potion of water if on hand. */
+        if (carrying(POT_WATER)) {
+            potion = getobj(beverages, "apply to the stone");
+            if (!potion)
+                fail_use = TRUE;
+            else if (potion->otyp == POT_WATER) {
+                fail_use = FALSE;
+
+                if ( !rn2(7)) {
+                    /* 1 in 7 chance of using up the potion regardless of outcome */
+                    useup(potion);
+                    pline("The whetstone absorbs your water!");
+                }
+            } else
+                pline("That isn't water!");
 	    } else
 		    You("need some water when you use that.");
 	} else if (Levitation && !Lev_at_will && !u.uinwater) {
