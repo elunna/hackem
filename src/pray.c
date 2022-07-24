@@ -2602,17 +2602,22 @@ dopray()
             already went through a prompt. */
         pline("You pray to the Porcelain God.");
         
-        if (!Sick && !HConfusion && !HStun) {
+        if (!Sick && !HConfusion && !HStun && !Vomiting) {
             pline("He ignores your pleas.");
             return 1;
         }
         pline("He smiles upon you.");
+
+        /* --hackem: It doesn't make sense to NOT cure vomiting.. by vomiting. */
+        if (Vomiting)
+            make_vomiting(0L, TRUE);
         if (Sick)
             make_sick(0L, (char *)0, TRUE, SICK_ALL);
         if (HConfusion)
             make_confused(0L, TRUE);
         if (HStun)
             make_stunned(0L, TRUE);
+        
         return 1;
     }
     
