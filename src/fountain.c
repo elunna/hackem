@@ -1134,7 +1134,11 @@ int x, y;
     register int num = rn1(5, 2);
     struct monst *mtmp;
 
-    pline("The toilet suddenly shatters!");
+    if (cansee(x, y) || (x == u.ux && y == u.uy))
+        pline_The("toilet suddenly shatters!");
+    else
+        You("hear something shatter!");
+
     level.flags.ntoilets--;
     levl[x][y].typ = FOUNTAIN;
     level.flags.nfountains++;
