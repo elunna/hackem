@@ -1031,11 +1031,16 @@ makelevel()
         /* greater chance of puddles if a water source is nearby */
         if (!rn2(10))
             mkfount(0, croom);
-        if (!rn2(60))
+        if (!rn2(60)) {
             mksink(croom);
             /* Sinks are frequently paired with toilets. */
             if(!rn2(3))
                 mktoilet(croom);
+        } else if (!rn2(86)) {
+            /* But sometimes we'll see a lone toilet. */
+            mktoilet(croom);
+        }
+
         if (!rn2(40))
             mkforge(0, croom);
         if (!rn2(60))
