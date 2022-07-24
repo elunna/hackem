@@ -2594,8 +2594,14 @@ dopray()
          */
         livelog_write_string(LL_CONDUCT, "rejected atheism with a prayer");
 
-    if (IS_TOILET(levl[u.ux][u.uy].typ)) {
+    /* Praying to the Porcelain God */
+    if (IS_TOILET(levl[u.ux][u.uy].typ) && !Levitation) {
+        /* Unlike normal prayer, we need to be on the ground and
+            preferably quite close to the toilet. If we are levitating
+            we will skip straight to standard prayer since the player
+            already went through a prompt. */
         pline("You pray to the Porcelain God.");
+        
         if (!Sick && !HConfusion && !HStun) {
             pline("He ignores your pleas.");
             return 1;

@@ -1364,7 +1364,7 @@ dokick()
             
             pline("Klunk!");
             if (!rn2(4)) 
-                breaktoilet(x,y);
+                breaktoilet(x, y);
             return 1;
 		}
         if (maploc->typ == STAIRS || maploc->typ == LADDER

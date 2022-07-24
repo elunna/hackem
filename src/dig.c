@@ -579,7 +579,7 @@ int ttyp;
         breaksink(x, y);
         return;
     } else if (IS_TOILET(lev->typ)) {
-		breaktoilet(u.ux,u.uy);
+		breaktoilet(u.ux, u.uy);
         return;
 	} else if (IS_FORGE(lev->typ)) {
         breakforge(x, y);
