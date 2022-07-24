@@ -2842,10 +2842,12 @@ struct obj *stone, *obj;
 	    } else if (!isweapon || !isedged) {
             pline("%s not something you can sharpen.",
               is_plural(obj) ? "They are" : "It is");
-	    } else if (((obj->spe >= 1) || !obj->known) 
+	    } else if (obj->spe >= 1
                 && (stone->blessed && !obj->cursed)
-                && !obj->oeroded && !obj->oeroded2) {
-		    pline("%s %s sharp and pointy enough.",
+                && !obj->oeroded 
+                && !obj->oeroded2) {
+		    
+            pline("%s %s sharp and pointy enough.",
 			  is_plural(obj) ? "They" : "It",
 			  otense(obj, Blind ? "feel" : "look"));
 	    } else {
