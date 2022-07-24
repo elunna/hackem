@@ -99,7 +99,16 @@ Make whetstones suck less.
 	- [x] Can we identify a whetstone? Yes on a successful effect.
 	- [SKIPPED] We cannot #rub a weapon first (has to be the whetstone)
 	- [FIXED] We can't apply whetstones while blind.
-	
+	- [SKIPPED] Can we get a better Y/N prompt for whetstone water use?
+	- [x] Allow using potions of water, roll 1d7 to see if it's used up.
+	- [x] You can use whetstones in shallow water and sewage.
+	- [x] You can use whetstones on rust traps.
+	- [FIXED] We can't sharpen +0 daggers that haven't been formatlly identified.
+	- [x] Make sure whetstones can be used in pools and moats
+	- [SKIP] Applying whetstone to water: You make scratch marks on the stones.
+	- [SKIP] Whetstone usage fee for shopkeepers?
+	- [SKIP] bonus: whetstoning with holy or unholy water. Dips BOTH the weapon and the whetstone.
+
 Imported slashem monsters:
 	- [x] giant tick (AT_MULTIPLY)
 	- [x] giant flea (AT_MULTIPLY)
