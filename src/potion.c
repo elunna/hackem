@@ -620,7 +620,7 @@ dodrink()
     if (IS_TOILET(levl[u.ux][u.uy].typ)
         /* not as low as floor level but similar restrictions apply */
         && can_reach_floor(FALSE)) {
-        if (yn("Drink from the sink?") == 'y') {
+        if (yn("Drink from the toilet?") == 'y') {
             drinktoilet();
             return 1;
         }
