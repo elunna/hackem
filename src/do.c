@@ -479,7 +479,7 @@ polymorph_sink()
     sinklooted = levl[u.ux][u.uy].looted != 0;
     level.flags.nsinks--;
     levl[u.ux][u.uy].doormask = 0; /* levl[][].flags */
-    switch (rn2(5)) {
+    switch (rn2(6)) {
     default:
     case 0:
         sym = S_fountain;
@@ -515,6 +515,11 @@ polymorph_sink()
         sym = S_forge;
         levl[u.ux][u.uy].typ = FORGE;
         level.flags.nforges++;
+        break;
+    case 5:
+        sym = S_toilet;
+        levl[u.ux][u.uy].typ = TOILET;
+        level.flags.ntoilets++;
         break;
     }
     /* give message even if blind; we know we're not levitating,
