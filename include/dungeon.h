@@ -214,6 +214,7 @@ typedef struct mapseen {
         Bitfield(nforge, 2);
         Bitfield(nfount, 2);
         Bitfield(nsink, 2);
+        Bitfield(ntoilet, 2);
         Bitfield(naltar, 2);
         Bitfield(nthrone, 2);
 
