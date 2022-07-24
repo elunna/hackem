@@ -50,6 +50,12 @@ dosounds()
         };
         You_hear1(sink_msg[rn2(2) + hallu]);
     }
+    if (level.flags.ntoilets && !rn2(400)) {
+        static const char *const toilet_msg[3] = {
+            "running water.", "a flushing noise.", "the jiggling of a handle.",
+        };
+        You_hear1(toilet_msg[rn2(2) + hallu]);
+    }
     if (level.flags.nforges && !rn2(300)) {
         static const char *const forge_msg[3] = {
             "a slow bubbling.", "crackling flames.", "chestnuts roasting on an open fire.",

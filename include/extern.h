@@ -932,12 +932,15 @@ E void FDECL(dipforge, (struct obj *));
 E int NDECL(doforging);
 E void NDECL(drinkfountain);
 E void FDECL(dipfountain, (struct obj *));
+E void FDECL(diptoilet, (struct obj *));
 E void FDECL(breakforge, (int, int));
 E void FDECL(blowupforge, (int, int));
 E void FDECL(coolforge, (int, int));
 E void NDECL(drinkforge);
 E void FDECL(breaksink, (int, int));
+E void FDECL(breaktoilet, (int,int));
 E void NDECL(drinksink);
+E void NDECL(drinktoilet);
 
 /* ### hack.c ### */
 

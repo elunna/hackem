@@ -1792,6 +1792,9 @@ xchar x, y;
     case SINK:
         idx = S_sink;
         break;
+    case TOILET:
+        idx = S_toilet;
+        break;
     case ALTAR:
         idx = S_altar;
         break;
@@ -2010,7 +2013,7 @@ static const char *type_names[MAX_TYPE] = {
     "CROSSWALL", "TUWALL", "TDWALL", "TLWALL", "TRWALL", "DBWALL", "TREE",
     "SDOOR", "SCORR", "POOL", "MOAT", "WATER", "DRAWBRIDGE_UP", "LAVAPOOL",
     "IRON_BARS", "DEADTREE" "DOOR", "CORR", "ROOM", "STAIRS", "LADDER", "FORGE",
-    "FOUNTAIN", "THRONE", "SINK", "GRAVE", "ALTAR", "ICE", "DRAWBRIDGE_DOWN",
+    "FOUNTAIN", "THRONE", "SINK", "TOILET", "GRAVE", "ALTAR", "ICE", "DRAWBRIDGE_DOWN",
     "AIR", "CLOUD", "PUDDLE", "SEWAGE"
 };
 

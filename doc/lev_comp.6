@@ -171,6 +171,7 @@ room_detail	: room_name
 		| fountain_detail
 		| forge_detail
 		| sink_detail
+		| toilet_detail
 		| puddle_detail
 		| sewage_detail
 		| pool_detail
@@ -375,6 +376,9 @@ forge_detail : FORGE_ID ':' coordinate
 sink_detail : SINK_ID ':' coordinate
 		;
 
+toilet_detail : TOILET_ID ':' coordinate
+		;
+
 puddle_detail : PUDDLE_ID ':' coordinate
                 ;
 
@@ -528,6 +532,7 @@ The maximum size of a map is normally 76 columns by 21 rows.
 \&'U'   a forge
 \&'\\'	a throne
 \&'K'	a sink
+\&'Z'	a toilet
 \&'}'	a part of a moat or other deep water
 \&'P'	a pool
 \&'L'	lava

@@ -13,6 +13,7 @@
 STATIC_DCL void FDECL(mkfount, (int, struct mkroom *));
 STATIC_DCL void FDECL(mkforge, (int, struct mkroom *));
 STATIC_DCL void FDECL(mksink, (struct mkroom *));
+STATIC_DCL void FDECL(mktoilet,(struct mkroom *));
 STATIC_DCL void FDECL(mkaltar, (struct mkroom *));
 STATIC_DCL void FDECL(mkgrave, (struct mkroom *));
 STATIC_DCL void NDECL(makevtele);
@@ -752,6 +753,7 @@ clear_level_structures()
     level.flags.nforges = 0;
     level.flags.nfountains = 0;
     level.flags.nsinks = 0;
+    level.flags.ntoilets = 0;
     level.flags.has_shop = 0;
     level.flags.has_vault = 0;
     level.flags.has_zoo = 0;
@@ -1031,6 +1033,9 @@ makelevel()
             mkfount(0, croom);
         if (!rn2(60))
             mksink(croom);
+            /* Sinks are frequently paired with toilets. */
+            if(!rn2(3))
+                mktoilet(croom);
         if (!rn2(40))
             mkforge(0, croom);
         if (!rn2(60))
@@ -1875,6 +1880,21 @@ struct mkroom *croom;
     levl[m.x][m.y].typ = SINK;
 
     level.flags.nsinks++;
+}
+
+static void
+mktoilet(croom)
+register struct mkroom *croom;
+{
+	coord m;
+	
+    if (!somexyspace(croom, &m, 8))
+        return;
+
+	/* Put a toilet at m.x, m.y */
+	levl[m.x][m.y].typ = TOILET;
+
+	level.flags.ntoilets++;
 }
 
 STATIC_OVL void

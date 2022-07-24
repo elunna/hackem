@@ -4381,7 +4381,12 @@ struct obj *no_wish;
             level.flags.nsinks++;
             pline("A sink.");
             madeterrain = TRUE;
-        } else if (!BSTRCMPI(bp, p - 5, "forge")) {
+        } else if(!BSTRCMPI(bp, p - 6, "toilet")) {
+			lev->typ = TOILET;
+			level.flags.ntoilets++;
+			pline("A toilet.");
+			madeterrain = TRUE;
+		} else if (!BSTRCMPI(bp, p - 5, "forge")) {
             lev->typ = FORGE;
             level.flags.nforges++;
             pline("A forge.");

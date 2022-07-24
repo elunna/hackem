@@ -616,6 +616,15 @@ dodrink()
             return 1;
         }
     }
+    /* Or a toilet? (Yuck) */
+    if (IS_TOILET(levl[u.ux][u.uy].typ)
+        /* not as low as floor level but similar restrictions apply */
+        && can_reach_floor(FALSE)) {
+        if (yn("Drink from the sink?") == 'y') {
+            drinktoilet();
+            return 1;
+        }
+    }
     /* Or a forge? */
     if (IS_FORGE(levl[u.ux][u.uy].typ)
         /* not as low as floor level but similar restrictions apply */
@@ -2703,6 +2712,14 @@ dodip()
         /* "Dip <the object> into the fountain?" */
         if (yn(qbuf) == 'y') {
             dipfountain(obj);
+            return 1;
+        }
+    } else if (IS_TOILET(here)) {
+        Sprintf(qbuf, "%s%s into the toilet?", Dip_,
+                flags.verbose ? obuf : shortestname);
+        /* "Dip <the object> into the toilet?" */
+        if (yn(qbuf) == 'y') {
+            diptoilet(obj);
             return 1;
         }
     } else if (IS_FORGE(here)) {

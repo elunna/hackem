@@ -1324,6 +1324,8 @@ char c;
         return (THRONE);
     case 'K':
         return (SINK);
+    case 'Z':
+        return (TOILET);
     case '}':
         return (MOAT);
     case 'w':

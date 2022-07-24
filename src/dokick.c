@@ -811,6 +811,8 @@ const char *kickobjnam;
         what = "a headstone";
     else if (IS_SINK(maploc->typ))
         what = "a sink";
+    else if (IS_TOILET(maploc->typ))
+        what = "a toilet";        
     else if (IS_FORGE(maploc->typ))
         what = "a forge";
     else if (IS_ALTAR(maploc->typ))
@@ -1356,6 +1358,15 @@ dokick()
             }
             goto ouch;
         }
+        if(IS_TOILET(maploc->typ)) {
+            if(Levitation) 
+                goto dumb;
+            
+            pline("Klunk!");
+            if (!rn2(4)) 
+                breaktoilet(x,y);
+            return 1;
+		}
         if (maploc->typ == STAIRS || maploc->typ == LADDER
             || IS_STWALL(maploc->typ)) {
             if (!IS_STWALL(maploc->typ) && maploc->ladder == LA_DOWN)

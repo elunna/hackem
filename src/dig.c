@@ -578,7 +578,10 @@ int ttyp;
     } else if (IS_SINK(lev->typ)) {
         breaksink(x, y);
         return;
-    } else if (IS_FORGE(lev->typ)) {
+    } else if (IS_TOILET(lev->typ)) {
+		breaktoilet(u.ux,u.uy);
+        return;
+	} else if (IS_FORGE(lev->typ)) {
         breakforge(x, y);
         return;
     } else if (lev->typ == DRAWBRIDGE_DOWN

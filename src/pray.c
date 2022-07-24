@@ -2594,6 +2594,22 @@ dopray()
          */
         livelog_write_string(LL_CONDUCT, "rejected atheism with a prayer");
 
+    if (IS_TOILET(levl[u.ux][u.uy].typ)) {
+        pline("You pray to the Porcelain God.");
+        if (!Sick && !HConfusion && !HStun) {
+            pline("He ignores your pleas.");
+            return 1;
+        }
+        pline("He smiles upon you.");
+        if (Sick)
+            make_sick(0L, (char *)0, TRUE, SICK_ALL);
+        if (HConfusion)
+            make_confused(0L, TRUE);
+        if (HStun)
+            make_stunned(0L, TRUE);
+        return 1;
+    }
+    
     /* set up p_type and p_alignment */
     if (!can_pray(TRUE))
         return 0;

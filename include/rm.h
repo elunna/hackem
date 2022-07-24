@@ -68,16 +68,17 @@ enum levl_typ_types {
     FOUNTAIN  = 29,
     THRONE    = 30,
     SINK      = 31,
-    GRAVE     = 32,
-    ALTAR     = 33,
-    ICE       = 34,
-    DRAWBRIDGE_DOWN = 35,
-    AIR       = 36,
-    CLOUD     = 37,
-    PUDDLE    = 38,
-    SEWAGE    = 39,
+    TOILET    = 32,
+    GRAVE     = 33,
+    ALTAR     = 34,
+    ICE       = 35,
+    DRAWBRIDGE_DOWN = 36,
+    AIR       = 37,
+    CLOUD     = 38,
+    PUDDLE    = 39,
+    SEWAGE    = 40,
 
-    MAX_TYPE  = 40,
+    MAX_TYPE  = 41,
     INVALID_TYPE = 127
 };
 
@@ -104,6 +105,7 @@ enum levl_typ_types {
 #define IS_FORGE(typ) ((typ) == FORGE)
 #define IS_FOUNTAIN(typ) ((typ) == FOUNTAIN)
 #define IS_SINK(typ) ((typ) == SINK)
+#define IS_TOILET(typ) ((typ) == TOILET)
 #define IS_GRAVE(typ) ((typ) == GRAVE)
 #define IS_ALTAR(typ) ((typ) == ALTAR)
 #define IS_DRAWBRIDGE(typ) \
@@ -155,20 +157,21 @@ enum screen_symbols {
     S_grave     = 29,
     S_throne    = 30,
     S_sink      = 31,
-    S_forge     = 32,
-    S_fountain  = 33,
-    S_pool      = 34,
-    S_ice       = 35,
-    S_lava      = 36,
-    S_vodbridge = 37,
-    S_hodbridge = 38,
-    S_vcdbridge = 39, /* closed drawbridge, vertical wall */
-    S_hcdbridge = 40, /* closed drawbridge, horizontal wall */
-    S_air       = 41,
-    S_cloud     = 42,
-    S_puddle    = 43,
-    S_sewage    = 44,
-    S_water     = 45,
+    S_toilet    = 32,
+    S_forge     = 33,
+    S_fountain  = 34,
+    S_pool      = 35,
+    S_ice       = 36,
+    S_lava      = 37,
+    S_vodbridge = 38,
+    S_hodbridge = 39,
+    S_vcdbridge = 40, /* closed drawbridge, vertical wall */
+    S_hcdbridge = 41, /* closed drawbridge, horizontal wall */
+    S_air       = 42,
+    S_cloud     = 43,
+    S_puddle    = 44,
+    S_sewage    = 45,
+    S_water     = 46,
 
 /* end dungeon characters, begin traps */
 
@@ -582,6 +585,7 @@ struct cemetery {
 struct levelflags {
     uchar nfountains; /* number of fountains on level */
     uchar nsinks;     /* number of sinks on the level */
+    uchar ntoilets;     /* number of toilets on the level */
     uchar nforges;    /* number of forges on the level */
     /* Several flags that give hints about what's on the level */
     Bitfield(has_shop, 1);

@@ -680,7 +680,11 @@ count_features()
 {
     xchar x, y;
 
-    level.flags.nfountains = level.flags.nsinks = level.flags.nforges = 0;
+    level.flags.nfountains 
+      = level.flags.nsinks 
+        = level.flags.nforges 
+           = level.flags.ntoilets = 0;
+    
     for (y = 0; y < ROWNO; y++)
         for (x = 0; x < COLNO; x++) {
             int typ = levl[x][y].typ;
@@ -690,6 +694,8 @@ count_features()
                 level.flags.nsinks++;
             else if (typ == FORGE)
                 level.flags.nforges++;
+            else if (typ == TOILET)
+                level.flags.ntoilets++;
         }
 }
 
@@ -4468,6 +4474,9 @@ struct sp_coder *coder;
     case SPO_SINK:
         typ = SINK;
         break;
+    case SPO_TOILET:
+        typ = TOILET;
+        break;
     case SPO_POOL:
         typ = POOL;
         break;
@@ -5645,6 +5654,7 @@ sp_lev *lvl;
             spo_altar(coder);
             break;
         case SPO_SINK:
+        case SPO_TOILET:
         case SPO_POOL:
         case SPO_FORGE:
         case SPO_FOUNTAIN:

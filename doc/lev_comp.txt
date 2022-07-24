@@ -148,6 +148,7 @@ GRAMMAR
                        | fountain_detail
                        | forge_detail
                        | sink_detail
+                       | toilet_detail
                        | puddle_detail
                        | sewage_detail
                        | pool_detail
@@ -352,6 +353,9 @@ GRAMMAR
        sink_detail : SINK_ID ':' coordinate
                        ;
 
+       toilet_detail : TOILET_ID ':' coordinate
+                       ;
+
        puddle_detail : PUDDLE_ID ':' coordinate
                        ;
 
@@ -501,6 +505,7 @@ GRAMMAR
        'U'     a forge
        '\'     a throne
        'K'     a sink
+       'Z'     a toilet
        '}'     a part of a moat or other deep water
        'P'     a pool
        'L'     lava
