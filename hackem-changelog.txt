@@ -109,6 +109,21 @@ Make whetstones suck less.
 	- [SKIP] Whetstone usage fee for shopkeepers?
 	- [SKIP] bonus: whetstoning with holy or unholy water. Dips BOTH the weapon and the whetstone.
 
+Toilets:
+	[x] Get toilet info working in #overview.
+	[x] Add new messages for toilets on a level
+	[x] q: Prompts "Drink from the sink? [yn] (n)"
+	[x] We should not be able to toilet pray while levitating...
+	[x] Test whetstone in toilets
+	[x] apply.c: Enable toilets for whetstones
+	[x] Enable fishing in toilets
+	[x] polymorph_sink should be able to poly a sink into a toilet.
+	[x] If blind and the toilet shatters, the toilet symbol stays. (same for sink?)
+	[x] Toilet prayer can now stop the vomiting process
+	[FIXED] Toilets are being created TOO often (~50% of rooms)
+	[x] Toilets can appear separate from sinks.
+
+
 Imported slashem monsters:
 	- [x] giant tick (AT_MULTIPLY)
 	- [x] giant flea (AT_MULTIPLY)
