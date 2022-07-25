@@ -263,6 +263,8 @@ struct obj {
      && !is_launcher(otmp)        \
      && objects[otmp->otyp].oc_dir != WHACK)
 #define uslinging() (uwep && objects[uwep->otyp].oc_skill == P_SLING)
+#define ushooting() (uwep && objects[uwep->otyp].oc_skill == P_FIREARM)
+
 /* 'is_quest_artifact()' only applies to the current role's artifact */
 #define any_quest_artifact(o) ((o)->oartifact >= ART_XIUHCOATL)
 
