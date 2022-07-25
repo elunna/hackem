@@ -1068,6 +1068,9 @@ short otyp;
                     (oc.oc_bimanual ? "Two" : "Single"),
                     (weptool ? "-tool" : ""),
                     skill_name(skill));
+        } else if (skill == -P_FIREARM) {
+            Sprintf(buf, "Ammunition meant to be fired from %s.",
+                    skill_name(-skill));
         } else if (skill <= -P_BOW && oc.oc_skill >= -P_CROSSBOW) {
             /* Minor assumption: the skill name will be the same as the launcher
              * itself. Currently this is only bow and crossbow. */
