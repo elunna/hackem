@@ -102,6 +102,18 @@ OBJECT(OBJ("strange object", None),
            0, WEAPON_CLASS, prob, 0, wt,                            \
            cost, 2, 2, hitbon, 0, wt, color)
 
+#define GUN(name,desc,kn,bi,prob,wt,cost,range,rof,hitbon,ammotyp,sub,metal,color) \
+	OBJECT(OBJ(name,desc), \
+           BITS(kn,0,1,0,0,1,0,0,bi,0,0,sub,metal),0, \
+	    WEAPON_CLASS,prob,0,wt,cost,range,rof,hitbon,ammotyp,wt,color)
+       /* rof = Rate of Fire */
+       
+#define BULLET(name,desc,kn,prob,wt,cost,sdam,ldam,hitbon,ammotyp,typ,sub,metal,color) \
+	OBJECT(OBJ(name,desc), \
+           BITS(kn,1,1,0,0,1,0,0,0,0,typ,sub,metal),0, \
+		WEAPON_CLASS,prob,0,wt,cost,sdam,ldam,hitbon,ammotyp,wt,color)
+
+
 /* Note: for weapons that don't do an even die of damage (ex. 2-7 or 3-18)
    the extra damage is added on in weapon.c, not here! */
 
@@ -352,6 +364,28 @@ BOW("orcish bow", "crude bow", 0, 1, 12, 30, 60, 0, WOOD, P_BOW, CLR_BLACK),
 BOW("yumi", "long bow",        0, 1,  0, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER),
 BOW("crossbow", None,          1, 1, 45, 50, 40, 0, WOOD, P_CROSSBOW, HI_WOOD),
+
+/* Firearms */
+GUN("pistol",               None,	       1, 0,   0,  20,  100, 15,  0,  0, WP_BULLET,       P_FIREARM, IRON, HI_METAL),
+BULLET("bullet",            None,         1, 0,   1,   5,   20, 30,  0,     WP_BULLET,   P, -P_FIREARM, IRON, HI_METAL),
+BULLET("silver bullet",     None,         1, 0,   1,  15,   20, 30,  0,     WP_BULLET,   P, -P_FIREARM, SILVER, HI_SILVER),
+
+#if 0  /* Firearms in progress */
+GUN("submachine gun",       None,         1, 0,   0,  25,  250, 10,  3, -1, WP_BULLET,       P_FIREARM, IRON, HI_METAL),
+GUN("heavy machine gun",    None,         1, 1,   0, 500, 2000, 20,  8, -4, WP_BULLET,       P_FIREARM, IRON, HI_METAL),
+GUN("rifle",                None,		1, 1,   0,  30,  150, 22, -1,  1, WP_BULLET,       P_FIREARM, IRON, HI_METAL),
+GUN("assault rifle",        None,	       1, 0,   0,  40, 1000, 20,  5, -2, WP_BULLET,       P_FIREARM, IRON, HI_METAL),
+GUN("sniper rifle",         None,	       1, 1,   0,  50, 4000, 25, -3,  4, WP_BULLET,       P_FIREARM, IRON, HI_METAL),
+GUN("shotgun",              None,	       1, 0,   0,  35,  200,  3, -1,  3,  WP_SHELL,       P_FIREARM, IRON, HI_METAL),
+GUN("auto shotgun",         None,         1, 1,   0,  60, 1500,  3,  2,  0,  WP_SHELL,       P_FIREARM, IRON, HI_METAL),
+GUN("rocket launcher",      None,         1, 1,   0, 750, 3500, 20, -5, -4, WP_ROCKET,       P_FIREARM, IRON, HI_METAL),
+GUN("grenade launcher",     None,         1, 1,   0,  55, 1500,  6, -3, -3,WP_GRENADE,       P_FIREARM, IRON, HI_METAL),
+BULLET("shotgun shell",     None,         1, 0,   1,  10,   30, 45,  0,      WP_SHELL,   P, -P_FIREARM, IRON, CLR_RED),
+// BULLET("rocket",            None,         1, 0, 200, 450,   45, 60,  0,     WP_ROCKET, P|E, -P_FIREARM, IRON, CLR_BLUE),
+// BULLET("frag grenade",      None,         1, 0,  25, 350,    0,  0,  0,    WP_GRENADE, B|E, -P_FIREARM, IRON, CLR_GREEN),
+BULLET("gas grenade",       None,         1, 0,  25, 350,    0,  0,  0,    WP_GRENADE, B|E, -P_FIREARM, IRON, CLR_ORANGE),
+// BULLET("stick of dynamite", "red stick",  0, 0,  30, 150,    0,  0,  0,    WP_GENERIC,   B, P_NONE, PLASTIC, CLR_RED),
+#endif
 
 #undef P
 #undef S

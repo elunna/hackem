@@ -139,7 +139,14 @@ struct objclass {
     /* for weapons, and tools, rocks, and gems useful as weapons */
     schar oc_wsdam, oc_wldam; /* max small/large monster damage */
     schar oc_oc1, oc_oc2;
+#define w_ammotyp	oc_oc2		/* type of ammo taken by ranged weapon */
+#define WP_GENERIC	0		/* all ammo subclasses ok */
+#define WP_BULLET	1
+#define WP_SHELL	2
+#define WP_ROCKET	3
+#define WP_GRENADE	4
 #define oc_hitbon oc_oc1 /* weapons: "to hit" bonus */
+#define w_acbon oc_oc2 /* weapons: ac bonus */
 
 #define a_ac oc_oc1     /* armor class, used in armor_bonus in worn.c */
 #define a_can oc_oc2    /* armor: used in mhitu.c */
