@@ -4857,6 +4857,15 @@ doapply()
                 You("switch %s to %s mode.", yname(obj), 
                 (obj->altmode ? "semi-automatic" : "full automatic"));
             break;
+        case FRAG_GRENADE:
+	    case GAS_GRENADE:
+            if (!obj->oarmed) {
+                You("arm %s.", yname(obj));
+                arm_bomb(obj, TRUE);
+                update_inventory();
+            } else 
+                pline("It's already armed!");
+            break;
         default:
             /* Pole-weapons can strike at a distance */
             if (is_pole(obj)) {

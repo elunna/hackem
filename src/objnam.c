@@ -1406,6 +1406,9 @@ unsigned doname_flags;
             Strcat(prefix, sitoa(obj->spe));
             Strcat(prefix, " ");
         }
+        
+        if (is_grenade(obj))
+		    if (obj->oarmed) Strcat(bp, " (armed)");
         break;
     case TOOL_CLASS:
         add_erosion_words(obj, prefix);
@@ -3167,6 +3170,7 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "firearm", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "gun", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "machine gun", WEAPON_CLASS, SUBMACHINE_GUN, HEAVY_MACHINE_GUN },
+    { "grenade", WEAPON_CLASS, FRAG_GRENADE, GAS_GRENADE },
     { "venom", VENOM_CLASS, BLINDING_VENOM, SNOWBALL },
     { "gray stone", GEM_CLASS, LUCKSTONE, FLINT },
     { "grey stone", GEM_CLASS, LUCKSTONE, FLINT },
@@ -3227,6 +3231,7 @@ static const struct alt_spellings {
 	{ "hand gun", PISTOL },
 	{ "revolver", PISTOL },
     { "shell", SHOTGUN_SHELL },
+     { "hand grenade", FRAG_GRENADE },
     { (const char *) 0, 0 },
 };
 
@@ -3819,6 +3824,7 @@ struct obj *no_wish;
          * (also avoid "sword of kas" or "eye/hand of vecna" issues)
          */
         if (!strstri(bp, "wand ") && !strstri(bp, "spellbook ")
+            && !strstri(bp, "hand grenade ")
             && !strstri(bp, "finger ") && !strstri(bp, "eye ")
             && !strstri(bp, "hand ") && !strstri(bp, "sword of kas")) {
             if ((p = strstri(bp, "tin of ")) != 0) {

@@ -1366,6 +1366,8 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                 setuqwep((struct obj *) 0);
             setuwep(obj);
             u.twoweap = twoweap;
+        } else if (is_grenade(obj)) {
+            arm_bomb(obj, TRUE);
         } else if (u.dz < 0) {
             (void) toss_up(obj, rn2(5) && !Underwater);
         } else if (u.dz > 0 && u.usteed && obj->oclass == POTION_CLASS
@@ -1532,6 +1534,11 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
 
         if (obj_gone)
             thrownobj = (struct obj *) 0;
+    }
+
+    /* Handle grenades or rockets */
+    if (is_grenade(obj)) {
+        arm_bomb(obj, TRUE);
     }
 
     if (!thrownobj) {
@@ -2013,6 +2020,9 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                 if (broken) {
                     if (*u.ushops || obj->unpaid)
                         check_shop_obj(obj, bhitpos.x, bhitpos.y, TRUE);
+                    if ((wasthrown || thrownobj) && is_grenade(obj)) {
+                        grenade_explode(obj, bhitpos.x, bhitpos.y, obj->yours);
+                    }
                     obfree(obj, (struct obj *) 0);
                     return 1;
                 }

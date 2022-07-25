@@ -978,4 +978,19 @@ struct attack *mattk;
     killer.name[0] = '\0';
 }
 
+void arm_bomb(struct obj *obj, boolean yours)
+{
+    /* Three shall be the number of the counting and the
+       number of the counting shall be three. */
+    if (obj->oarmed) {
+        return;
+    }
+
+	if (is_grenade(obj)) {
+		attach_bomb_blow_timeout(obj,
+			    (obj->cursed ? rn2(5) + 2 : 
+                 obj->blessed ? 4 : rn2(2) + 3) , yours);
+	}
+	/* Otherwise, do nothing */
+}
 /*explode.c*/

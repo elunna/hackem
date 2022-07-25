@@ -6498,4 +6498,38 @@ blindingflash()
     }
 }
 
+/*
+ * Note: obj is not valid after return
+ */
+void
+grenade_explode(struct obj *obj, int x, int y, boolean isyou)
+{
+    int ztype;
+    int otyp = obj->otyp;
+    int yours = isyou ? 1 : -1;
+    boolean save_mon_moving = context.mon_moving;
+
+    context.mon_moving = yours ? FALSE : TRUE;
+
+    #if 0  /* --hackem: Might use this as an effect instead. */
+    if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
+        ztype = isyou * ZT_SPELL(ZT_MAGIC_MISSILE);
+        explode(x, y, ztype, d(50,6), WEAPON_CLASS,
+            isyou * -1 * EXPL_FIERY);
+    } 
+    #endif
+
+    if (otyp == FRAG_GRENADE) {
+        ztype = isyou * ZT_SPELL(EXPL_FIERY);
+        explode(x, y, ztype, d(3,6), WEAPON_CLASS,
+            isyou * -1 * EXPL_FIERY);
+    } else if (otyp == GAS_GRENADE) {
+        ztype = isyou * ZT_SPELL(ZT_POISON_GAS);
+        explode(x, y, ztype, d(3,6), WEAPON_CLASS,
+            isyou * -1 * EXPL_NOXIOUS);
+    }
+    context.mon_moving = save_mon_moving;
+    wake_nearto(x, y, 400);
+}
+
 /*zap.c*/

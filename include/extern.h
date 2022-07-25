@@ -622,6 +622,8 @@ E boolean FDECL(walk_path, (coord *, coord *,
                             boolean (*)(genericptr, int, int), genericptr_t));
 E boolean FDECL(hurtle_jump, (genericptr_t, int, int));
 E boolean FDECL(hurtle_step, (genericptr_t, int, int));
+extern int firearm_range(int);
+extern int firearm_rof(int);
 
 /* ### drawing.c ### */
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
@@ -826,6 +828,7 @@ E void FDECL(splatter_burning_oil, (int, int, BOOLEAN_P));
 E void FDECL(explode_oil, (struct obj *, int, int));
 E int FDECL(adtyp_to_expltype, (int));
 E void FDECL(mon_explodes, (struct monst *, struct attack *));
+extern void arm_bomb(struct obj *, boolean);
 
 /* ### extralev.c ### */
 
@@ -3240,6 +3243,7 @@ E int FDECL(resist, (struct monst *, CHAR_P, int, int));
 E void NDECL(makewish);
 E void FDECL(monstseesu, (unsigned long));
 E void NDECL(blindingflash);
+extern void grenade_explode(struct obj *, int, int, boolean);
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 

@@ -376,14 +376,10 @@ GUN("sniper rifle", None,	  1, 1, 0,  50, 4000,  4, WP_BULLET, IRON, P_FIREARM, 
 GUN("shotgun", None,          1, 0, 0,  35,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL),
 GUN("auto shotgun", None,	  1, 1, 0,  60, 1500,  0,  WP_SHELL, IRON, P_FIREARM, HI_METAL),
 
-BULLET("bullet", None,        1, 0, 1,   5,   20, 30, 0, WP_BULLET, P, IRON, -P_FIREARM, HI_METAL),
-BULLET("shotgun shell", None, 1, 0, 1,  10,   30, 45, 0,  WP_SHELL, P, IRON, -P_FIREARM, CLR_RED),
-
-#if 0  /* Grenades pending implementation */
-BULLET("frag grenade", None, 1,  0,  10, 20, 0, 0, 0, WP_GRENADE,   B,   IRON,    P_NONE, CLR_GREEN),
-BULLET("gas grenade", None, 1,  0,  10, 20, 0, 0, 0, WP_GRENADE,   B,   IRON,    P_NONE, CLR_ORANGE),
-#endif
-
+BULLET("bullet", None,        1, 0, 1,   5,   20, 30, 0, WP_BULLET,    P, IRON, -P_FIREARM, HI_METAL),
+BULLET("shotgun shell", None, 1, 0, 1,  10,   30, 45, 0,  WP_SHELL,    P, IRON, -P_FIREARM, CLR_RED),
+BULLET("frag grenade", None,  1, 0,10,  20,    0,  0, 0, WP_GRENADE,   B, IRON, P_NONE, CLR_GREEN),
+BULLET("gas grenade", None,   1, 0,10,  20,    0,  0, 0, WP_GRENADE,   B, IRON, P_NONE, CLR_ORANGE),
 
 #undef P
 #undef S

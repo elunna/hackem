@@ -98,6 +98,7 @@ struct obj {
 #define norevive oeroded2 /* frozen corpses */
     Bitfield(oerodeproof, 1); /* erodeproof weapon/armor */
     Bitfield(olocked, 1);     /* object is locked */
+#define oarmed olocked      /* armed explosive */
 #define sokoprize olocked     /* special flag for sokoban prize */
 #define orecursive olocked    /* special flag for preventing recursive calls */
     Bitfield(obroken, 1);     /* lock has been broken */
@@ -121,7 +122,8 @@ struct obj {
     Bitfield(cknown, 1);   /* contents of container assumed to be known */
 
     Bitfield(lknown, 1);   /* locked/unlocked status is known */
-    /* 7 free bits */
+    Bitfield(yours, 1);	/* obj is yours (eg. thrown by you) */
+    /* 6 free bits */
 
     int corpsenm;         /* type of corpse is mons[corpsenm] */
 #define leashmon corpsenm /* gets m_id of attached pet */
@@ -201,6 +203,9 @@ struct obj {
     ((otmp->oclass == WEAPON_CLASS || otmp->oclass == GEM_CLASS) \
      && objects[otmp->otyp].oc_skill >= -P_CROSSBOW              \
      && objects[otmp->otyp].oc_skill <= -P_BOW)
+#define is_grenade(otmp)	                                     \
+    (otmp->otyp == FRAG_GRENADE \
+    || otmp->otyp == GAS_GRENADE)
 #define matching_launcher(a, l) \
     ((l) && objects[(a)->otyp].oc_skill == -objects[(l)->otyp].oc_skill)
 #define ammo_and_launcher(a, l) (is_ammo(a) && matching_launcher(a, l))
