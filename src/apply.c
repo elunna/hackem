@@ -4589,12 +4589,12 @@ char class_list[];
     register struct obj *otmp;
     int otyp;
     boolean knowoil, knowtouchstone, knowflint,
-            knowwhetstone, addpotions, addstones, addfood, addweapons;
+            knowwhetstone, addpotions, addstones, addfood;
 
     knowoil = objects[POT_OIL].oc_name_known;
     knowtouchstone = objects[TOUCHSTONE].oc_name_known;
     knowflint = objects[FLINT].oc_name_known;
-    addpotions = addstones = addfood = addweapons = FALSE;
+    addpotions = addstones = addfood = FALSE;
     
     for (otmp = invent; otmp; otmp = otmp->nobj) {
         otyp = otmp->otyp;
@@ -4622,11 +4622,6 @@ char class_list[];
             addstones = TRUE;
         if (otyp == CREAM_PIE || otyp == EUCALYPTUS_LEAF)
             addfood = TRUE;
-        if (otyp == FRAG_GRENADE
-         || otyp == GAS_GRENADE
-         || otyp == SUBMACHINE_GUN
-         || otyp == AUTO_SHOTGUN)
-            addweapons = TRUE;
     }
 
     class_list[0] = '\0';
@@ -4639,8 +4634,6 @@ char class_list[];
         add_class(class_list, GEM_CLASS);
     if (addfood)
         add_class(class_list, FOOD_CLASS);
-    if (addweapons)
-        add_class(class_list, WEAPON_CLASS);
 }
 
 /* the 'a' command */

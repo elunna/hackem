@@ -1610,6 +1610,7 @@ register const char *let, *word;
                  && ((otmp->oclass == WEAPON_CLASS 
                         && !is_pick(otmp)
                         && !is_grenade(otmp)
+                        && !is_firearm(otmp)
                         && !is_axe(otmp)
                         && !is_pole(otmp) 
                         && otyp != BULLWHIP)
