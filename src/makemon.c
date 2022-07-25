@@ -994,7 +994,11 @@ register struct monst *mtmp;
             (void) mongets(mtmp, (mm != PM_ETTIN) ? BOULDER : CLUB);
         break;
     case S_HUMAN:
-        if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
+        if (mm == PM_SHOPKEEPER) {
+            (void) mongets(mtmp,SHOTGUN);
+            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+        } else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
             w1 = w2 = 0;
             switch (mm) {
             case PM_WATCHMAN:
