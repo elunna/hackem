@@ -386,6 +386,8 @@ Firearms:
 	- [x] Bullet
 	- [x] Silver bullet
 	- [x] Shotgun shell
+	- [x] Frag grenade
+	- [x] Gas grenade
 	- [SKIPPED] Assault rifle
 	- [SKIPPED] Rocket launcher
 	- [SKIPPED] Grenade launcher
@@ -399,7 +401,10 @@ Firearms:
 	- [x] Shk usually get a shotgun and shells (50% chance)
 	- [x] apply for submachine gun, heavy machine gun, 
 	- [x] WP_MODE_AUTO, WP_MODE_SINGLE, WP_MODE_AUTO
-	
+	- [FIXED] Can't apply grenades - apply doesn't bring them up as valid.
+	- [FIXED] arming frag grenades turns into "sokoban prize tools (armed)"
+
+
 	Food: 
 	- [x] Asian pear
 	- [x] Mushroom

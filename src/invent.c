@@ -1607,9 +1607,12 @@ register const char *let, *word;
                          && otyp != ROCK)))
              || (!strcmp(word, "use or apply")
                  /* Picks, axes, pole-weapons, bullwhips */
-                 && ((otmp->oclass == WEAPON_CLASS
-                      && !is_pick(otmp) && !is_axe(otmp)
-                      && !is_pole(otmp) && otyp != BULLWHIP)
+                 && ((otmp->oclass == WEAPON_CLASS 
+                        && !is_pick(otmp)
+                        && !is_grenade(otmp)
+                        && !is_axe(otmp)
+                        && !is_pole(otmp) 
+                        && otyp != BULLWHIP)
                      || (otmp->oclass == POTION_CLASS
                          /* only applicable potion is oil, and it will only
                             be offered as a choice when already discovered */

@@ -104,6 +104,18 @@ OBJECT(OBJ("strange object", None),
        0, WEAPON_CLASS, prob, 0, wt,                            \
        cost, 2, 2, hitbon, 0, wt, color)
 
+#define BULLET(name,app,kn,prob,wt,cost,sdam,ldam,hitbon,ammotyp,typ,metal,sub,color) \
+    OBJECT(OBJ(name,app), \
+       BITS(kn,1,1,0,0,1,0,0,0,0,typ,sub,metal), 0, \
+       WEAPON_CLASS, prob, 0, \
+       wt, cost, sdam, ldam, hitbon, ammotyp, wt, color )
+
+#define GUN(name,app,kn,bi,prob,wt,cost,hitbon,ammotyp,metal,sub,color) \
+	OBJECT(OBJ(name,app), \
+       BITS(kn,0,1,0,0,1,0,0,bi,0,0,sub,metal), 0, \
+       WEAPON_CLASS, prob, 0, \
+       wt, cost, 2, 2, hitbon, ammotyp, wt, color )
+
 /* Note: for weapons that don't do an even die of damage (ex. 2-7 or 3-18)
    the extra damage is added on in weapon.c, not here! */
 
@@ -354,18 +366,6 @@ BOW("orcish bow", "crude bow", 0, 1, 12, 30, 60, 0, WOOD, P_BOW, CLR_BLACK),
 BOW("yumi", "long bow",        0, 1,  0, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER),
 BOW("crossbow", None,          1, 1, 45, 50, 40, 0, WOOD, P_CROSSBOW, HI_WOOD),
-
-#define BULLET(name,app,kn,prob,wt,cost,sdam,ldam,hitbon,ammotyp,typ,metal,sub,color) \
-    OBJECT(OBJ(name,app), \
-       BITS(kn,1,1,0,0,1,0,0,0,0,typ,sub,metal), 0, \
-       WEAPON_CLASS, prob, 0, \
-       wt, cost, sdam, ldam, hitbon, ammotyp, wt, color )
-
-#define GUN(name,app,kn,bi,prob,wt,cost,hitbon,ammotyp,metal,sub,color) \
-	OBJECT(OBJ(name,app), \
-       BITS(kn,0,1,0,0,1,0,0,bi,0,0,sub,metal), 0, \
-       WEAPON_CLASS, prob, 0, \
-       wt, cost, 2, 2, hitbon, ammotyp, wt, color )
 
 /* firearms */
 GUN("pistol", None,	         1, 0, 0,  20,  100,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL),

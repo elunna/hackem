@@ -98,9 +98,10 @@ struct obj {
 #define norevive oeroded2 /* frozen corpses */
     Bitfield(oerodeproof, 1); /* erodeproof weapon/armor */
     Bitfield(olocked, 1);     /* object is locked */
-#define oarmed olocked      /* armed explosive */
 #define sokoprize olocked     /* special flag for sokoban prize */
 #define orecursive olocked    /* special flag for preventing recursive calls */
+    Bitfield(oticking, 1);     /* object is going to blow up */
+#define oarmed oticking      /* armed explosive */
     Bitfield(obroken, 1);     /* lock has been broken */
 #define degraded_horn obroken /* unicorn horn will poly to non-magic */
     Bitfield(otrapped, 1);    /* container is trapped */

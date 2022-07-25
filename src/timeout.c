@@ -905,12 +905,11 @@ boolean yours;
 {
 	long expiretime;
 
-	if (bomb->cursed && !rn2(2)) 
+	if (bomb->cursed && !rn2(2))
         return; /* doesn't arm if not armed */
 
 	/* Now if you play with other people's property... */
-	if (yours 
-            && (!carried(bomb)
+	if (yours && (!carried(bomb)
                 && costly_spot(bomb->ox, bomb->oy) 
                 && (!bomb->no_charge || bomb->unpaid))) {
 	    verbalize("You play with it, you pay for it!");
@@ -918,6 +917,7 @@ boolean yours;
 	}
 
 	expiretime = stop_timer(BOMB_BLOW, (genericptr_t) bomb);
+    
 	if (expiretime > 0L) 
         fuse = fuse - (expiretime - monstermoves);
 	bomb->yours = yours;

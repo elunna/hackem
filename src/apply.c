@@ -4594,7 +4594,8 @@ char class_list[];
     knowoil = objects[POT_OIL].oc_name_known;
     knowtouchstone = objects[TOUCHSTONE].oc_name_known;
     knowflint = objects[FLINT].oc_name_known;
-    addpotions = addstones = addfood = FALSE;
+    addpotions = addstones = addfood = addweapons = FALSE;
+    
     for (otmp = invent; otmp; otmp = otmp->nobj) {
         otyp = otmp->otyp;
         if (otyp == POT_OIL
@@ -4621,9 +4622,10 @@ char class_list[];
             addstones = TRUE;
         if (otyp == CREAM_PIE || otyp == EUCALYPTUS_LEAF)
             addfood = TRUE;
-        if (otyp == SUBMACHINE_GUN
-            || otyp == SUBMACHINE_GUN
-            || otyp == AUTO_SHOTGUN)
+        if (otyp == FRAG_GRENADE
+         || otyp == GAS_GRENADE
+         || otyp == SUBMACHINE_GUN
+         || otyp == AUTO_SHOTGUN)
             addweapons = TRUE;
     }
 
