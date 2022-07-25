@@ -240,6 +240,15 @@ struct obj {
      || otmp->otyp == STAFF_OF_HOLINESS || otmp->otyp == STAFF_OF_MATTER \
      || otmp->otyp == STAFF_OF_ESCAPE || otmp->otyp == STAFF_OF_WAR)
 
+/* firearms */
+#define is_firearm(otmp) \
+			((otmp)->oclass == WEAPON_CLASS && \
+			 objects[(otmp)->otyp].oc_skill == P_FIREARM)
+#define is_bullet(otmp)	((otmp)->oclass == WEAPON_CLASS && \
+			 objects[(otmp)->otyp].oc_skill == -P_FIREARM)
+#define is_unpoisonable_firearm_ammo(otmp)	\
+			 (is_bullet(otmp) || is_grenade(otmp))
+             
 #define is_wet_towel(o) ((o)->otyp == TOWEL && (o)->spe > 0)
 #define bimanual(otmp) \
     ((!(Race_if(PM_GIANT)) || (Race_if(PM_GIANT) && is_2h_launcher(otmp))) \

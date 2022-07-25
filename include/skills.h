@@ -43,7 +43,7 @@ enum p_skills {
     P_LANCE              = 20,
     P_BOW                = 21, /* launchers */
     P_SLING              = 22,
-    P_FIREARM            = 23,
+    P_FIREARM            = 23, /* KMH */
     P_CROSSBOW           = 24,
     P_DART               = 25, /* hand-thrown missiles */
     P_SHURIKEN           = 26,

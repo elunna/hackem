@@ -146,7 +146,8 @@ int x, y;
     struct trap *t;
 
     if (obj->otyp == CREAM_PIE || obj->oclass == VENOM_CLASS
-        || (ohit && obj->otyp == EGG))
+        || (is_bullet(obj)) || 
+        (ohit && obj->otyp == EGG))
         create = 0;
     else if (ohit && (is_multigen(obj) || obj->otyp == ROCK))
         create = !rn2(3);
@@ -320,11 +321,12 @@ struct obj *otmp, *mwep;
         if (!strcmp(trgbuf, "it"))
             Strcpy(trgbuf, humanoid(mtmp->data) ? "someone" : something);
         pline("%s %s %s%s%s!", Monnam(mtmp),
-              m_shot.s ? "shoots" : "throws", onm,
+              m_shot.s ? is_bullet(otmp) ? "fires" : "shoots" : "throws", onm,
               mtarg ? " at " : "", trgbuf);
         m_shot.o = otmp->otyp;
     } else {
         m_shot.o = STRANGE_OBJECT; /* don't give multishot feedback */
+        if (is_bullet(otmp) && !Deaf) You("hear gunfire.");
     }
     m_shot.n = multishot;
     for (m_shot.i = 1; m_shot.i <= m_shot.n; m_shot.i++) {
@@ -1509,6 +1511,7 @@ int whodidit;   /* 1==hero, 0=other, -1==just check whether it'll pass thru */
 
             hits = (oskill != -P_BOW && oskill != -P_CROSSBOW
                     && oskill != -P_DART && oskill != -P_SHURIKEN
+                    && oskill != -P_FIREARM
                     && oskill != P_SPEAR
                     && oskill != P_KNIFE); /* but not dagger */
             break;

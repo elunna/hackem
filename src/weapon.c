@@ -24,19 +24,21 @@ STATIC_DCL void FDECL(skill_advance, (int));
 #define PN_POLEARMS (-4)
 #define PN_SABER (-5)
 #define PN_HAMMER (-6)
-#define PN_WHIP (-7)
-#define PN_ATTACK_SPELL (-8)
-#define PN_HEALING_SPELL (-9)
-#define PN_DIVINATION_SPELL (-10)
-#define PN_ENCHANTMENT_SPELL (-11)
-#define PN_CLERIC_SPELL (-12)
-#define PN_ESCAPE_SPELL (-13)
-#define PN_MATTER_SPELL (-14)
+#define PN_FIREARMS (-7)
+#define PN_WHIP (-8)
+#define PN_ATTACK_SPELL (-9)
+#define PN_HEALING_SPELL (-10)
+#define PN_DIVINATION_SPELL (-11)
+#define PN_ENCHANTMENT_SPELL (-12)
+#define PN_CLERIC_SPELL (-13)
+#define PN_ESCAPE_SPELL (-14)
+#define PN_MATTER_SPELL (-15)
 
 STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     0, DAGGER, KNIFE, AXE, PICK_AXE, SHORT_SWORD, BROADSWORD, LONG_SWORD,
     TWO_HANDED_SWORD, SCIMITAR, PN_SABER, CLUB, MACE, MORNING_STAR, FLAIL,
     PN_HAMMER, QUARTERSTAFF, PN_POLEARMS, SPEAR, TRIDENT, LANCE, BOW, SLING,
+    PN_FIREARMS,
     CROSSBOW, DART, SHURIKEN, BOOMERANG, PN_WHIP, UNICORN_HORN,
     PN_ATTACK_SPELL, PN_HEALING_SPELL, PN_DIVINATION_SPELL,
     PN_ENCHANTMENT_SPELL, PN_CLERIC_SPELL, PN_ESCAPE_SPELL, PN_MATTER_SPELL,
@@ -46,8 +48,8 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
 /* note: entry [0] isn't used */
 STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
     "no skill", "bare hands", /* use barehands_or_martial[] instead */
-    "two weapon combat", "riding", "polearms", "saber", "hammer", "whip",
-    "attack spells", "healing spells", "divination spells",
+    "two weapon combat", "riding", "polearms", "saber", "hammer", "firearms", 
+    "whip", "attack spells", "healing spells", "divination spells",
     "enchantment spells", "clerical spells", "escape spells", "matter spells",
 };
 /* indexed vis Role_if(PM_ROGUE) ? 2 : is_martial() */
@@ -115,6 +117,10 @@ struct obj *obj;
     case P_CROSSBOW:
         if (is_ammo(obj))
             descr = "bolt";
+        break;
+    case P_FIREARM:
+        if (is_ammo(obj))
+            descr = "bullet";
         break;
     case P_FLAIL:
         if (obj->otyp == GRAPPLING_HOOK)
@@ -713,7 +719,8 @@ static NEARDATA const int rwep[] = {
     LOADSTONE, 
     LUCKSTONE, 
     DART, 
-    CREAM_PIE
+    CREAM_PIE, 
+    BULLET, SHOTGUN_SHELL, /* Low priority unless you have a gun? */
     /* BOOMERANG, */ 
 };
 
@@ -885,12 +892,33 @@ register struct monst *mtmp;
                 break;
             case P_CROSSBOW:
                 propellor = oselect(mtmp, CROSSBOW);
+                break;
+            
+            case P_FIREARM:
+                if ((objects[rwep[i]].w_ammotyp) == WP_BULLET) {
+                    propellor = (oselect(mtmp, HEAVY_MACHINE_GUN));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, SUBMACHINE_GUN));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, SNIPER_RIFLE));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, RIFLE));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, PISTOL));
+                } else if ((objects[rwep[i]].w_ammotyp) == WP_SHELL) {
+                    propellor = (oselect(mtmp, AUTO_SHOTGUN));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, SHOTGUN));
+                }
+                break;
             }
+            
             if (!tmpprop)
                 tmpprop = propellor;
             if ((otmp = MON_WEP(mtmp)) && mwelded(otmp) && otmp != propellor
                 && mtmp->weapon_check == NO_WEAPON_WANTED)
                 propellor = 0;
+
         }
         /* propellor = obj, propellor to use
          * propellor = &zeroobj, doesn't need a propellor
@@ -985,7 +1013,10 @@ static const NEARDATA short hwep[] = {
     ATHAME, 
     SCALPEL, 
     KNIFE, 
-    WORM_TOOTH
+    WORM_TOOTH,
+
+    /* Low priority unless you have ammo */
+    RIFLE, PISTOL, AUTO_SHOTGUN, SHOTGUN  
 };
 
 boolean

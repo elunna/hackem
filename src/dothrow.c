@@ -238,6 +238,8 @@ int shotlimit;
         multishot = rnd(multishot);
         if ((long) multishot > obj->quan)
             multishot = (int) obj->quan;
+        
+        /* Shotlimit controls your rate of fire */
         if (shotlimit > 0 && multishot > shotlimit)
             multishot = shotlimit;
     }
@@ -1244,7 +1246,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
 {
     register struct monst *mon;
     int range, urange;
-    boolean crossbowing, clear_thrownobj = FALSE,
+    boolean crossbowing, gunning, clear_thrownobj = FALSE,
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
@@ -1380,6 +1382,8 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         /* crossbow range is independent of strength */
         crossbowing = (ammo_and_launcher(obj, uwep)
                        && weapon_type(uwep) == P_CROSSBOW);
+        gunning = (ammo_and_launcher(obj, uwep)
+                       && weapon_type(uwep) == P_FIREARM);
         urange = (crossbowing ? 18 : (int) ACURRSTR) / 2;
 
         /* hard limit this so crossbows will fire further
@@ -1408,7 +1412,9 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
 
         if (is_ammo(obj)) {
             if (ammo_and_launcher(obj, uwep)) {
-                if (crossbowing) {
+                if (gunning)
+                    range = firearm_range(uwep->otyp);
+                else if (crossbowing) {
                     if (uwep->oartifact == ART_CROSSBOW_OF_CARL)
                         range += 12; /* divine workmanship */
                     else
@@ -1975,7 +1981,9 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                     broken = !rn2(4);
                 if (obj->blessed && !rnl(4))
                     broken = 0;
-
+                if (objects[otyp].oc_skill == -P_FIREARM)
+                    broken = 1;
+                    
                 /* Flint, sling bullets, and hard gems get an additional chance
                  * because they don't break easily. */
                 if (((obj->oclass == GEM_CLASS && objects[otyp].oc_tough)
@@ -2341,6 +2349,8 @@ struct obj *obj;
     case MELON:
     case ACID_VENOM:
     case BLINDING_VENOM:
+    case BULLET:
+    case SHOTGUN_SHELL:
     case SNOWBALL:
         return 1;
     default:
@@ -2373,6 +2383,9 @@ boolean in_view;
         else
             pline("%s shatter%s%s!", Doname2(obj),
                   (obj->quan == 1L) ? "s" : "", to_pieces);
+        break;
+    case BULLET:
+    case SHOTGUN_SHELL:
         break;
     case EGG:
     case MELON:
@@ -2522,6 +2535,50 @@ struct obj *obj;
     stackobj(obj);
     newsym(bhitpos.x, bhitpos.y);
     return 1;
+}
+
+int
+firearm_range(otyp)
+int otyp;
+{
+    switch(otyp) {
+    case SUBMACHINE_GUN:
+        return 10;
+    case HEAVY_MACHINE_GUN:
+        return 20;
+    case RIFLE:
+        return 22;
+    case AUTO_SHOTGUN:
+    case SHOTGUN:
+        return 3;
+    case SNIPER_RIFLE:
+        return 25;
+    case PISTOL:
+        return 15;
+    default:
+        return BOLT_LIM;
+    }
+}
+
+int
+firearm_rof(otyp)
+int otyp;
+{
+    switch(otyp) {
+    case SUBMACHINE_GUN:
+        return 3;
+    case HEAVY_MACHINE_GUN:
+        return 8;
+    case RIFLE:
+    case SHOTGUN:
+        return -1;
+    case AUTO_SHOTGUN:
+        return 2;
+    case SNIPER_RIFLE:
+        return -3;
+    default:
+        return 0;
+    }
 }
 
 /*dothrow.c*/
