@@ -56,7 +56,8 @@ struct obj {
     char oclass;    /* object class */
     char invlet;    /* designation in inventory */
     char oartifact; /* artifact array index */
-
+    schar altmode; 	/* alternate modes - eg. SMG, double Lightsaber */
+    
     long oprops;       /* item properties */
     long oprops_known; /* known item properties */
 
@@ -70,6 +71,11 @@ struct obj {
 #define OBJ_BURIED 6    /* object buried */
 #define OBJ_ONBILL 7    /* object on shk bill */
 #define NOBJ_STATES 8
+
+#define WP_MODE_AUTO	0	/* Max firing speed */
+#define WP_MODE_BURST	1	/* 1/3 of max rate */
+#define WP_MODE_SINGLE 	2	/* Single shot */
+
     xchar timed; /* # of fuses (timers) attached to this obj */
 
     Bitfield(cursed, 1);

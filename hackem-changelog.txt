@@ -79,6 +79,8 @@ Changes:
 	- [x] Update infravision tags. Only body heat should be visible.
 	- [x] Allow rats to be tamed with cheese (need CHEESE)
 	
+	
+
 Make whetstones suck less.
 	- [x] Better msg for partial repair. "Your daggers shine now." doesn't fit.
 	- [x] Remove the side effects of fountains, sinks, toilets
@@ -370,6 +372,33 @@ Imported items:
 		- [x] obj.h: is_elven_weapon - added droven weapons.
 		- [x] fountain.c: Add new recipes to fusions for droven weapons
 		- [x] mkobj.c: material_list - add droven items
+	- [SKIP] Red lightsaber
+	- [SKIP] Red double lightsaber
+	
+Firearms:
+	- [x] Pistol
+	- [x] Submachine gun
+	- [x] Heavy machine gun
+	- [x] Rifle
+	- [x] Sniper rifle
+	- [x] Shotgun
+	- [x] Auto shotgun
+	- [x] Bullet
+	- [x] Silver bullet
+	- [x] Shotgun shell
+	- [SKIPPED] Assault rifle
+	- [SKIPPED] Rocket launcher
+	- [SKIPPED] Grenade launcher
+	- [SKIPPED] Rocket
+	- [SKIPPED] Stick of dynamite
+	- [x] Copy Splice's implementation of firearms!
+	- [FIXED] Autoquiver is not working with bullets:
+	- [FIXED] Fixed Bullet inv info flub: Ammunition meant to be fired from a firearms.
+	- [x] Autoquiver with firearms, enabled What do you want to fire? Not throw.
+	- [x] Firearms - fix lookup info, dmgvssm shows range, dmgvslg shows hitbon?
+	- [x] Shk usually get a shotgun and shells (50% chance)
+	- [x] apply for submachine gun, heavy machine gun, 
+	- [x] WP_MODE_AUTO, WP_MODE_SINGLE, WP_MODE_AUTO
 	
 	Food: 
 	- [x] Asian pear
@@ -386,7 +415,6 @@ Imported items:
 	- [x] Amulet of flying (already in evil)
 	- [x] Amulet of drain resistance
 	- [x] Amulet versus stone
-
 	
 	Potions:
 	- [x] Potion of ESP
@@ -444,9 +472,17 @@ Imported items:
 	Armor:
 	- [x] Shimmering dragon scales
 	- [x] Shimmering dragon scale mail
-	
 
-	
+
+Mechanics:
+	- [x] Spell minions/entities (flame/ice spheres already in evil)
+	- [SKIP] Invisible items
+	- [x] Poison missiles
+	- [SKIP] Temp polymorph
+	- [SKIP] Require-X-to-hit monsters
+	- [SKIP] Hits-as-a-+X-weapon
+
+
 Leaving Out:
 	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
 	- [SKIPPED] Add message for tick/flea multiplication? 

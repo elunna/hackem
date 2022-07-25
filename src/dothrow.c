@@ -226,6 +226,21 @@ int shotlimit;
                 multishot++;
         }
 
+        /* Rate of fire is intrinsic to the weapon - cannot be user selected
+         * except via altmode
+         * Only for valid launchers
+         */
+        if (uwep && is_firearm(uwep)) {
+            if (firearm_rof(uwep->otyp))
+                multishot += (firearm_rof(uwep->otyp) - 1);
+            if (uwep->altmode == WP_MODE_SINGLE)
+            /* weapons switchable b/w full/semi auto */
+                multishot = 1;
+            else if (uwep->altmode == WP_MODE_BURST)
+                multishot = ((multishot > 3) ? (multishot / 3) : 1);
+            /* else it is auto == no change */
+        }
+
         /* crossbows are slow to load and probably shouldn't allow multiple
            shots at all, but that would result in players never using them;
            instead, high strength is necessary to load and shoot quickly */
