@@ -17,6 +17,7 @@ STATIC_VAR NEARDATA struct xlock_s {
 /* occupation callbacks */
 STATIC_PTR int NDECL(picklock);
 STATIC_PTR int NDECL(forcelock);
+STATIC_PTR int NDECL(forcedoor);
 
 STATIC_DCL const char *NDECL(lock_action);
 STATIC_DCL boolean FDECL(obstructed, (int, int, BOOLEAN_P));
@@ -269,6 +270,85 @@ forcelock(VOID_ARGS)
     reset_pick(); /* lock-picking context is no longer valid */
 
     return 0;
+}
+
+STATIC_PTR
+int
+forcedoor()      /* try to break/pry open a door */
+{
+	if(xlock.door != &(levl[u.ux+u.dx][u.uy+u.dy])) {
+	    return((xlock.usedtime = 0));           /* you moved */
+	} 
+
+	switch (xlock.door->doormask) {
+	    case D_NODOOR:
+            pline("This doorway has no door.");
+            return((xlock.usedtime = 0));
+	    case D_ISOPEN:
+            You("cannot lock an open door.");
+		    return((xlock.usedtime = 0));
+	    case D_BROKEN:
+            pline("This door is broken.");
+            return((xlock.usedtime = 0));
+	}
+	
+	if (xlock.usedtime++ >= 50 || nohands(youmonst.data)) {
+	    You("give up your attempt at %s the door.",
+	    	(xlock.picktyp == 2 ? "melting" : xlock.picktyp == 1 ? 
+	    		"prying open" : "breaking down"));
+	    exercise(A_STR, TRUE);      /* even if you don't succeed */
+	    return((xlock.usedtime = 0));
+	}
+
+	if(rn2(100) > xlock.chance)
+        return 1;          /* still busy */
+
+	You("succeed in %s the door.",
+	    (xlock.picktyp == 2 
+            ? "melting" : xlock.picktyp == 1
+            ? "prying open" : "breaking down"));
+
+	if(xlock.door->doormask & D_TRAPPED) {
+	    b_trapped("door", 0);
+	    xlock.door->doormask = D_NODOOR;
+	} else if (xlock.picktyp == 1)
+	    xlock.door->doormask = D_BROKEN;
+	else 
+        xlock.door->doormask = D_NODOOR;
+	unblock_point(u.ux + u.dx, u.uy + u.dy);
+
+	if (*in_rooms(u.ux + u.dx, u.uy + u.dy, SHOPBASE)) {
+	    add_damage(u.ux + u.dx, u.uy + u.dy, 400L);
+	    pay_for_damage("break", FALSE);
+
+	    if (in_town(u.ux+u.dx, u.uy+u.dy)) {
+            struct monst *mtmp;
+
+            for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp)) 
+                    continue;
+                if((mtmp->data == &mons[PM_WATCHMAN]
+                      || mtmp->data == &mons[PM_WATCH_CAPTAIN]) 
+                      && couldsee(mtmp->mx, mtmp->my) 
+                      && mtmp->mpeaceful) {
+                    if (canspotmon(mtmp))
+                        pline("%s yells:", Amonnam(mtmp));
+                    else
+                        You_hear("someone yell:");
+                    verbalize("Halt, thief!  You're under arrest!");
+                    (void) angry_guards(FALSE);
+                    break;
+                }
+            }
+	    }
+	}
+	if (Blind)
+	    feel_location(u.ux + u.dx, u.uy  +u.dy);    /* we know we broke it */
+	else
+	    newsym(u.ux + u.dx, u.uy + u.dy);
+	
+	exercise(A_STR, TRUE);
+	return((xlock.usedtime = 0));
 }
 
 void
@@ -683,6 +763,7 @@ doforce()
 {
     register struct obj *otmp;
     register int c, picktyp;
+    struct rm *door;
     char qbuf[QBUFSZ];
 
     if (u.uswallow || Hidinshell) {
@@ -733,7 +814,8 @@ doforce()
 
     /* A lock is made only for the honest man, the thief will break it. */
     xlock.box = (struct obj *) 0;
-    for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = otmp->nexthere)
+
+    for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = otmp->nexthere) {
         if (Is_box(otmp)) {
             if (otmp->otyp == IRON_SAFE) {
                 You("would need dynamite to force %s.", the(xname(otmp)));
@@ -782,12 +864,89 @@ doforce()
             xlock.usedtime = 0;
             break;
         }
+    }
 
-    if (xlock.box)
+    if (xlock.box) {
+        xlock.door = 0;
         set_occupation(forcelock, "forcing the lock", 0);
-    else
-        You("decide not to force the issue.");
-    return 1;
+    } else {		
+        /* break down/open door */
+        if(!getdir((char *)0)) 
+            return 0;
+
+        int x = u.ux + u.dx;
+        int y = u.uy + u.dy;
+        struct monst *mtmp;
+
+	    door = &levl[x][y];
+	    if ((mtmp = m_at(x, y))
+              && canseemon(mtmp)
+			  && mtmp->m_ap_type != M_AP_FURNITURE
+			  && mtmp->m_ap_type != M_AP_OBJECT) {
+
+            if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE])		
+                verbalize("What do you think you are, a Jedi?"); /* Phantom Menace */
+            else
+                pline("I don't think %s would appreciate that.", mon_nam(mtmp));
+            return 0;
+	    }
+
+	    /* Lightsabers dig through doors and walls via dig.c */
+	    if (is_pick(uwep) || is_lightsaber(uwep) || is_axe(uwep)) 
+	    	return use_pick_axe2(uwep);
+
+	    if (!IS_DOOR(door->typ)) { 
+            if (is_drawbridge_wall(x,y) >= 0)
+                pline("The drawbridge is too solid to force open.");
+            else
+                You("%s no door there.", Blind ? "feel" : "see");
+            return 0;
+	    }
+
+	    /* ALI - artifact doors */
+        #if 0
+	    if (artifact_door(x, y)) {
+            pline("This door is too solid to force open.");
+            return 0;
+	    }
+        #endif
+
+	    switch (door->doormask) {
+            case D_NODOOR:
+                pline("This doorway has no door.");
+                return 0;
+            case D_ISOPEN:
+                You("cannot force an open door.");
+                return 0;
+            case D_BROKEN:
+                pline("This door is broken.");
+                return 0;
+            default:
+                c = yn("Break down the door?");
+                if(c == 'n') 
+                    return 0;
+
+                if(picktyp == 1)
+                    You("force your %s into a crack and pry.", xname(uwep));
+                else
+                    You("start bashing it with your %s.", xname(uwep));
+
+                if (is_lightsaber(uwep))
+                    xlock.chance = uwep->spe + 38;
+                else
+                    xlock.chance = uwep->spe + objects[uwep->otyp].oc_wldam;
+                
+                xlock.picktyp = picktyp;
+                xlock.usedtime = 0;    
+                xlock.door = door;
+                xlock.box = 0;
+                set_occupation(forcedoor, "forcing the door", 0);
+                return 1;
+	    }
+	}
+
+	You("decide not to force the issue.");
+	return(0);
 }
 
 boolean

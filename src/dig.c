@@ -149,7 +149,7 @@ xchar x, y;
     if (!otmp)
         return DIGTYP_UNDIGGABLE;
     ispick = is_pick(otmp);
-    if (!ispick && !is_axe(otmp))
+    if (!ispick && !is_axe(otmp) && !is_lightsaber(otmp))
         return DIGTYP_UNDIGGABLE;
 
     return ((ispick && sobj_at(STATUE, x, y))
@@ -1062,6 +1062,7 @@ struct obj *obj;
     struct trap *trap, *trap_with_u;
     int dig_target;
     boolean ispick = is_pick(obj);
+
 	const char *verbing = ispick ? "digging" : is_lightsaber(uwep)
         ? "cutting" : "chopping";
 
@@ -1096,6 +1097,7 @@ struct obj *obj;
     } else if (u.dz == 0) {
         if (Stunned || (Confusion && !rn2(5)))
             confdir();
+        
         rx = u.ux + u.dx;
         ry = u.uy + u.dy;
         if (!isok(rx, ry)) {
@@ -1106,13 +1108,16 @@ struct obj *obj;
                 pline("Clash!");
             return 1;
         }
+
         lev = &levl[rx][ry];
         if (MON_AT(rx, ry) && attack(m_at(rx, ry)))
             return 1;
+
         dig_target = dig_typ(obj, rx, ry);
         if (dig_target == DIGTYP_UNDIGGABLE) {
             /* ACCESSIBLE or POOL */
             trap = t_at(rx, ry);
+
             if (trap && trap->ttyp == WEB) {
                 if (!trap->tseen) {
                     seetrap(trap);
@@ -1132,15 +1137,14 @@ struct obj *obj;
             } else if (IS_ROCK(lev->typ)) {
                 You("need a pick to dig rock.");
             } else if (!ispick && (sobj_at(STATUE, rx, ry)
-                                   || sobj_at(BOULDER, rx, ry))) {
+                    || sobj_at(BOULDER, rx, ry))) {
                 boolean vibrate = !rn2(3);
 
                 pline("Sparks fly as you whack the %s.%s",
                       sobj_at(STATUE, rx, ry) ? "statue" : "boulder",
                       vibrate ? " The axe-handle vibrates violently!" : "");
                 if (vibrate)
-                    losehp(Maybe_Half_Phys(2), "axing a hard object",
-                           KILLED_BY);
+                    losehp(Maybe_Half_Phys(2), "axing a hard object", KILLED_BY);
             } else if (u.utrap && u.utraptype == TT_PIT && trap
                        && (trap_with_u = t_at(u.ux, u.uy))
                        && is_pit(trap->ttyp)
