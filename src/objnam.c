@@ -686,6 +686,11 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     case WEAPON_CLASS:
         if (is_poisonable(obj) && obj->opoisoned)
             Strcat(buf, "poisoned ");
+
+        if (is_lightsaber(obj) && (obj->lamplit) ) {
+            Strcat(buf, " (lit)");
+        }
+
         /*FALLTHRU*/
     case VENOM_CLASS:
     case TOOL_CLASS:
@@ -3167,6 +3172,7 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "dragon scales", ARMOR_CLASS, FIRST_DRAGON_SCALES,
       LAST_DRAGON_SCALES },
     { "sword", WEAPON_CLASS, SHORT_SWORD, KATANA },
+    { "lightsaber", WEAPON_CLASS, GREEN_LIGHTSABER, RED_LIGHTSABER },
     { "firearm", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "gun", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "machine gun", WEAPON_CLASS, SUBMACHINE_GUN, HEAVY_MACHINE_GUN },

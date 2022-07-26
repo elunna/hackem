@@ -470,6 +470,10 @@ Firearms:
 	Tools:
 	- [x] Fishing pole
 	- [x] Magic candle
+	- [x] Green lightsaber
+	- [x] Blue lightsaber
+	- [x] Red lightsaber
+	- [SKIPPED] Red double-lightsaber
 	
 	Gems:
 	- [x] Healthstone

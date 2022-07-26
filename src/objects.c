@@ -714,10 +714,8 @@ OBJECT(OBJ("Amulet of Yendor", /* note: description == name */
     OBJECT(OBJ(name, desc),                                             \
            BITS(kn, 0, chg, 1, mgc, chg, 0, 0, 0, 0, 0, P_NONE, mat),   \
            0, TOOL_CLASS, prob, 0, wt, cost, 0, 0, 0, 0, wt, color)
-#define WEPTOOL(name,desc,kn,mgc,bi,prob,wt,cost,sdam,ldam,hitbon,sub,mat,clr) \
-    OBJECT(OBJ(name, desc),                                             \
-           BITS(kn, 0, 1, 0, mgc, 1, 0, 0, bi, 0, hitbon, sub, mat),    \
-           0, TOOL_CLASS, prob, 0, wt, cost, sdam, ldam, hitbon, 0, wt, clr)
+
+           
 /* containers */
 CONTAINER("large box",        None, 1, 0, 0, 40, 350,   8, WOOD, HI_WOOD),
 CONTAINER("chest",            None, 1, 0, 0, 25, 600,  16, WOOD, HI_WOOD),
@@ -786,20 +784,47 @@ TOOL("bell",                None, 1, 0, 0, 0,   2,  30,  50, COPPER, HI_COPPER),
 TOOL("bugle",               None, 1, 0, 0, 0,   4,  10,  15, COPPER, HI_COPPER),
 TOOL("leather drum",      "drum", 0, 0, 0, 0,   4,  25,  25, LEATHER, HI_LEATHER),
 TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  25, LEATHER, HI_LEATHER),
+
+
+#define WEPTOOL(name,desc,kn,mgc,chg, bi,prob,wt,cost,sdam,ldam,hitbon,typ,sub,mat,clr) \
+    OBJECT(OBJ(name, desc),                                             \
+           BITS(kn, 0, 1,chg, mgc, 1, 0, 0, bi, 0, hitbon, sub, mat),    \
+           0, TOOL_CLASS, prob, 0, wt, cost, sdam, ldam, hitbon, 0, wt, clr)
 /* tools useful as weapons */
-WEPTOOL("pick-axe", None,
-        1, 0, 0, 20, 100,  50,  6,  3, WHACK,  P_PICK_AXE, IRON, HI_METAL),
-WEPTOOL("fishing pole", None,
-	 1, 0, 0,  5,  30,  50,  2,  6, WHACK,  P_POLEARMS, METAL, HI_METAL),
-WEPTOOL("grappling hook", "iron hook",
-        0, 0, 0,  5,  30,  50,  2,  6, WHACK,  P_FLAIL,    IRON, HI_METAL),
-WEPTOOL("unicorn horn", None,
-        1, 1, 0,  0,  20, 100,  8, 10, PIERCE, P_UNICORN_HORN,
-                                                           BONE, CLR_WHITE),
+WEPTOOL("pick-axe", None, 1, 0, 0, 0, 20, 100,  50,  6,  3, 0, WHACK,  P_PICK_AXE, IRON, HI_METAL),
+WEPTOOL("fishing pole", None, 1, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_POLEARMS, METAL, HI_METAL),
+WEPTOOL("grappling hook", "iron hook", 0, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_FLAIL,    IRON, HI_METAL),
+WEPTOOL("unicorn horn", None, 1, 1, 0, 0,  0,  20, 100,  8, 10, 1, PIERCE, P_UNICORN_HORN, BONE, CLR_WHITE),
         /* 3.4.1: unicorn horn left classified as "magic" */
 /* two unique tools;
  * not artifacts, despite the comment which used to be here
  */
+
+/* LIGHTSABERS */
+/* [WAC]
+ * Lightsabers are -3 to hit 
+ * Double lightsaber is -4 to hit (only red)
+ * DMG is increased: 10.5/15.5
+ * green :9 + d3, 13 + d5
+ * blue : 8 + d5, 12 + d7
+ * red :  6 + d9, 10 + d11
+ * red double: 6 + d9 + d9, 10 + d11 + d11  (15/21) in double mode
+ */
+WEPTOOL("green lightsaber", "lightsaber",
+	0, 0, 1, 0,  1, 60, 500, 3,  5, -3, SLASH, P_LIGHTSABER, PLASTIC, HI_METAL),
+
+WEPTOOL("blue lightsaber",  "lightsaber",
+	0, 0, 1, 0,  1, 60, 500, 5,  7, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
+
+WEPTOOL("red lightsaber",  "lightsaber",
+	0, 0, 1, 0,  1, 60, 500, 9,  11, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
+#if 0
+WEPTOOL("red double lightsaber",  "double lightsaber",
+	0, 0, 1, 1,  0, 60,1000, 9,  11, -4, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
+#endif
+
+
+
 OBJECT(OBJ("Candelabrum of Invocation", "candelabrum"),
        BITS(0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, P_NONE, GOLD),
        0, TOOL_CLASS, 0, 0, 10, 5000, 0, 0, 0, 0, 200, HI_GOLD),

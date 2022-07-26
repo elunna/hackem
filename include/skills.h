@@ -49,30 +49,31 @@ enum p_skills {
     P_SHURIKEN           = 26,
     P_BOOMERANG          = 27,
     P_WHIP               = 28, /* flexible, one-handed */
-    P_UNICORN_HORN       = 29, /* last weapon, two-handed */
+    P_UNICORN_HORN       = 29, /* two-handed */
+    P_LIGHTSABER         = 30,  /* last weapon */
 
     /* Spell Skills added by Larry Stewart-Zerba */
-    P_ATTACK_SPELL       = 30,
-    P_HEALING_SPELL      = 31,
-    P_DIVINATION_SPELL   = 32,
-    P_ENCHANTMENT_SPELL  = 33,
-    P_CLERIC_SPELL       = 34,
-    P_ESCAPE_SPELL       = 35,
-    P_MATTER_SPELL       = 36,
+    P_ATTACK_SPELL       = 31,
+    P_HEALING_SPELL      = 32,
+    P_DIVINATION_SPELL   = 33,
+    P_ENCHANTMENT_SPELL  = 34,
+    P_CLERIC_SPELL       = 35,
+    P_ESCAPE_SPELL       = 36,
+    P_MATTER_SPELL       = 37,
 
     /* Other types of combat */
-    P_BARE_HANDED_COMBAT = 37, /* actually weaponless; gloves are ok */
-    P_TWO_WEAPON_COMBAT  = 38, /* pair of weapons, one in each hand */
-    P_RIDING             = 39, /* How well you control your steed */
+    P_BARE_HANDED_COMBAT = 38, /* actually weaponless; gloves are ok */
+    P_TWO_WEAPON_COMBAT  = 39, /* pair of weapons, one in each hand */
+    P_RIDING             = 40, /* How well you control your steed */
 
-    P_NUM_SKILLS         = 40
+    P_NUM_SKILLS         = 41
 };
 
 #define P_MARTIAL_ARTS P_BARE_HANDED_COMBAT /* Role distinguishes */
 #define P_THIEVERY P_BARE_HANDED_COMBAT
 
 #define P_FIRST_WEAPON P_DAGGER
-#define P_LAST_WEAPON P_UNICORN_HORN
+#define P_LAST_WEAPON P_LIGHTSABER
 
 #define P_FIRST_SPELL P_ATTACK_SPELL
 #define P_LAST_SPELL P_MATTER_SPELL

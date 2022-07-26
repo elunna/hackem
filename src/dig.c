@@ -187,7 +187,11 @@ int x, y;
 {
     struct trap *ttmp = t_at(x, y);
     const char *verb =
-        (madeby == BY_YOU && uwep && is_axe(uwep)) ? "chop" : "dig in";
+        (madeby == BY_YOU 
+            && uwep 
+            && is_axe(uwep)) 
+              ? "dig in" : is_lightsaber(uwep) 
+              ? "cut" : "chop";
 
     if (On_stairs(x, y)) {
         if (x == xdnladder || x == xupladder) {
@@ -242,15 +246,22 @@ dig(VOID_ARGS)
     register struct rm *lev;
     register xchar dpx = context.digging.pos.x, dpy = context.digging.pos.y;
     register boolean ispick = uwep && is_pick(uwep);
-    const char *verb = (!uwep || is_pick(uwep)) ? "dig into" : "chop through";
+	const char *verb = (!uwep || is_pick(uwep)) 
+        ? "dig into" : is_lightsaber(uwep) 
+        ? "cut through" : "chop through";
 
     lev = &levl[dpx][dpy];
     /* perhaps a nymph stole your pick-axe while you were busy digging */
     /* or perhaps you teleported away */
-    if (u.uswallow || !uwep || (!ispick && !is_axe(uwep))
+    /* WAC allow lightsabers */
+    if (u.uswallow 
+        || !uwep 
+        || (!ispick 
+        && (!is_lightsaber(uwep) || !uwep->lamplit) 
+        && !is_axe(uwep))
         || !on_level(&context.digging.level, &u.uz)
-        || ((context.digging.down ? (dpx != u.ux || dpy != u.uy)
-                                  : (distu(dpx, dpy) > 2))))
+        || ((context.digging.down 
+            ? (dpx != u.ux || dpy != u.uy) : (distu(dpx, dpy) > 2))))
         return 0;
 
     if (context.digging.down) {
@@ -269,7 +280,8 @@ dig(VOID_ARGS)
             return 0;
         }
     }
-    if (Fumbling && !rn2(3)) {
+    if (Fumbling && !is_lightsaber(uwep) && !rn2(3)) {
+        /* Can't exactly miss holding a lightsaber to the wall */
         switch (rn2(3)) {
         case 0:
             if (!welded(uwep)) {
@@ -305,6 +317,9 @@ dig(VOID_ARGS)
         context.digging.effort *= 4;
     if (lev->typ == DEADTREE)
         context.digging.effort *= 2;
+    if (is_lightsaber(uwep))
+	    context.digging.effort -= rn2(20); /* Melting a hole takes longer */
+    
     if (context.digging.down) {
         struct trap *ttmp = t_at(dpx, dpy);
 
@@ -315,8 +330,10 @@ dig(VOID_ARGS)
             return 0; /* done with digging */
         }
 
-        if (context.digging.effort <= 50
-            || (ttmp && (ttmp->ttyp == TRAPDOOR || is_pit(ttmp->ttyp)))) {
+        if (context.digging.effort <= 50 
+            || is_lightsaber(uwep)
+            || (ttmp && (ttmp->ttyp == TRAPDOOR 
+            || is_pit(ttmp->ttyp)))) {
             return 1;
         } else if (ttmp && (ttmp->ttyp == LANDMINE
                             || (ttmp->ttyp == BEAR_TRAP && !u.utrap))) {
@@ -492,7 +509,10 @@ dig(VOID_ARGS)
             return 0; /* statue or boulder got taken */
 
         if (!did_dig_msg) {
-            You("hit the %s with all your might.", d_target[dig_target]);
+            if (is_lightsaber(uwep)) 
+                You("burn steadily through %s.", the(d_target[dig_target]));
+		    else
+                You("hit the %s with all your might.", d_target[dig_target]);
             did_dig_msg = TRUE;
         }
     }
@@ -1042,7 +1062,8 @@ struct obj *obj;
     struct trap *trap, *trap_with_u;
     int dig_target;
     boolean ispick = is_pick(obj);
-    const char *verbing = ispick ? "digging" : "chopping";
+	const char *verbing = ispick ? "digging" : is_lightsaber(uwep)
+        ? "cutting" : "chopping";
 
     if (u.uswallow && attack(u.ustuck)) {
         ; /* return 1 */
@@ -1052,10 +1073,15 @@ struct obj *obj;
         pline("Turbulence torpedoes your %s attempts.", verbing);
     } else if (u.dz < 0) {
         if (Levitation)
-            You("don't have enough leverage.");
+            if (is_lightsaber(uwep))
+			    pline_The("ceiling is too hard to cut through.");
+            else
+                You("don't have enough leverage.");
         else
             You_cant("reach the %s.", ceiling(u.ux, u.uy));
     } else if (!u.dx && !u.dy && !u.dz) {
+        /* NOTREACHED for lightsabers/axes called from doforce */
+
         char buf[BUFSZ];
         int dam;
 
@@ -1073,7 +1099,11 @@ struct obj *obj;
         rx = u.ux + u.dx;
         ry = u.uy + u.dy;
         if (!isok(rx, ry)) {
-            pline("Clash!");
+            if (is_lightsaber(uwep))
+                pline("Your %s bounces off harmlessly.",
+                    aobjnam(obj, (char *)0));
+            else
+                pline("Clash!");
             return 1;
         }
         lev = &levl[rx][ry];
@@ -1137,11 +1167,22 @@ struct obj *obj;
                 You("swing %s through thin air.", yobjnam(obj, (char *) 0));
             }
         } else {
+            #if 0
             static const char *const d_action[6] = { "swinging", "digging",
                                                      "chipping the statue",
                                                      "hitting the boulder",
                                                      "chopping at the door",
                                                      "cutting the tree" };
+            #endif
+            
+            static const char * const d_action[6][2] = {
+			    {"swinging","slicing the air"},
+			    {"digging","cutting through the wall"},
+			    {"chipping the statue","cutting the statue"},
+			    {"hitting the boulder","cutting through the boulder"},
+			    {"chopping at the door","burning through the door"},
+			    {"cutting the tree","razing the tree"}
+			};
 
             did_dig_msg = FALSE;
             context.digging.quiet = FALSE;
@@ -1165,10 +1206,13 @@ struct obj *obj;
                 assign_level(&context.digging.level, &u.uz);
                 context.digging.effort = 0;
                 if (!context.digging.quiet)
-                    You("start %s.", d_action[dig_target]);
+                    // You("start %s.", d_action[dig_target]);
+                    You("start %s.", d_action[dig_target][is_lightsaber(uwep)]);
             } else {
+                // You("%s %s.", context.digging.chew ? "begin" : "continue",
+                //     d_action[dig_target]);
                 You("%s %s.", context.digging.chew ? "begin" : "continue",
-                    d_action[dig_target]);
+					d_action[dig_target][is_lightsaber(uwep)]);
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);

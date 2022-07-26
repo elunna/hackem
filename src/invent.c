@@ -1597,6 +1597,7 @@ register const char *let, *word;
                      && otyp != FAKE_AMULET_OF_YENDOR))
              || (!strcmp(word, "write with")
                  && (otmp->oclass == TOOL_CLASS
+                     && (!is_lightsaber(otmp) || !otmp->lamplit) 
                      && otyp != MAGIC_MARKER && otyp != TOWEL))
              || (!strcmp(word, "tin")
                  && (otyp != CORPSE || !tinnable(otmp)))

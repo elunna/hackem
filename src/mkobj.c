@@ -959,6 +959,13 @@ boolean artif;
                 otmp->lamplit = 0;
                 blessorcurse(otmp, 2);
                 break;
+            case GREEN_LIGHTSABER:
+            case BLUE_LIGHTSABER:
+            case RED_LIGHTSABER:
+                otmp->lamplit = 0;
+                otmp->age = (long) rn1(500,1000);
+                blessorcurse(otmp, 2);
+                break;
             case IRON_SAFE:
                 otmp->olocked = 1;
                 mkbox_cnts(otmp);

@@ -1504,7 +1504,11 @@ struct obj *obj;
         if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP
             || obj->otyp == LANTERN)
             pline("%slamp is now off.", Shk_Your(buf, obj));
-        else
+        
+        else if (is_lightsaber(obj)) {
+		    lightsaber_deactivate(obj, TRUE);
+		    return;
+        } else
             You("snuff out %s.", yname(obj));
         end_burn(obj, TRUE);
         return;
@@ -1519,8 +1523,9 @@ struct obj *obj;
     /* magic lamps with an spe == 0 (wished for) cannot be lit */
     if ((!Is_candle(obj) && obj->age == 0)
         || (obj->otyp == MAGIC_LAMP && obj->spe == 0)) {
-        if (obj->otyp == LANTERN)
-            Your("lamp has run out of power.");
+        if (obj->otyp == LANTERN || is_lightsaber(obj))
+            /* Your("lamp has run out of power."); */
+            Your("%s has run out of power.", xname(obj));
         else
             pline("This %s has no oil.", xname(obj));
         return;
@@ -1534,7 +1539,14 @@ struct obj *obj;
             || obj->otyp == LANTERN) {
             check_unpaid(obj);
             pline("%slamp is now on.", Shk_Your(buf, obj));
-        } else { /* candle(s) */
+        }  else if (is_lightsaber(obj)) {
+		    /* WAC -- lightsabers */
+		    /* you can see the color of the blade */
+		    
+		    if (!Blind) makeknown(obj->otyp);
+		    You("ignite %s.", yname(obj));
+		    unweapon = FALSE;
+		} else { /* candle(s) */
             pline("%s flame%s %s%s", s_suffix(Yname2(obj)), plur(obj->quan),
                   otense(obj, "burn"), Blind ? "." : " brightly!");
             if (obj->unpaid 
@@ -4778,6 +4790,12 @@ doapply()
         case TALLOW_CANDLE:
             use_candle(&obj);
             break;
+        case GREEN_LIGHTSABER:
+        case BLUE_LIGHTSABER:
+        case RED_LIGHTSABER:
+		    if (uwep != obj && !wield_tool(obj, (const char *)0))
+                break;
+		    /* Fall through - activate via use_lamp */
         case OIL_LAMP:
         case MAGIC_LAMP:
         case LANTERN:

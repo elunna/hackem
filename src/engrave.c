@@ -956,6 +956,14 @@ doengrave()
                 "That is a bit difficult to engrave with, don't you think?");
             return 0;
         }
+
+        if (is_lightsaber(otmp)) {
+		    if (otmp->lamplit) 
+                type = BURN;
+		    else
+                Your("%s is deactivated!", aobjnam(otmp,"are"));
+		} else
+
         switch (otmp->otyp) {
         case MAGIC_MARKER:
             if (otmp->spe <= 0)

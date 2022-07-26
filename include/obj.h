@@ -211,9 +211,10 @@ struct obj {
     ((l) && objects[(a)->otyp].oc_skill == -objects[(l)->otyp].oc_skill)
 #define ammo_and_launcher(a, l) (is_ammo(a) && matching_launcher(a, l))
 #define is_missile(otmp)                                          \
-    ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
-     && objects[otmp->otyp].oc_skill >= -P_BOOMERANG              \
-     && objects[otmp->otyp].oc_skill <= -P_DART)
+    ((otmp->oclass == WEAPON_CLASS \
+      || otmp->oclass == TOOL_CLASS) \
+      && objects[otmp->otyp].oc_skill >= -P_BOOMERANG              \
+      && objects[otmp->otyp].oc_skill <= -P_DART)
 #define is_weptool(o) \
     ((o)->oclass == TOOL_CLASS && objects[(o)->otyp].oc_skill != P_NONE)
         /* towel is not a weptool:  spe isn't an enchantment, cursed towel
@@ -251,6 +252,8 @@ struct obj {
     (otmp->otyp == STAFF_OF_DIVINATION || otmp->otyp == STAFF_OF_HEALING \
      || otmp->otyp == STAFF_OF_HOLINESS || otmp->otyp == STAFF_OF_MATTER \
      || otmp->otyp == STAFF_OF_ESCAPE || otmp->otyp == STAFF_OF_WAR)
+
+#define is_lightsaber(otmp) (objects[(otmp)->otyp].oc_skill == P_LIGHTSABER)
 
 /* firearms */
 #define is_firearm(otmp) \

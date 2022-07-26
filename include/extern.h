@@ -2671,6 +2671,7 @@ E void FDECL(learn_egg_type, (int));
 E void FDECL(burn_object, (ANY_P *, long));
 E void FDECL(begin_burn, (struct obj *, BOOLEAN_P));
 E void FDECL(end_burn, (struct obj *, BOOLEAN_P));
+E void FDECL(lightsaber_deactivate, (struct obj *, BOOLEAN_P));
 E void NDECL(do_storms);
 E boolean FDECL(start_timer, (long, SHORT_P, SHORT_P, ANY_P *));
 E long FDECL(stop_timer, (SHORT_P, ANY_P *));

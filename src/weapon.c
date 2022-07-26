@@ -15,6 +15,7 @@ STATIC_DCL boolean FDECL(could_advance, (int));
 STATIC_DCL boolean FDECL(peaked_skill, (int));
 STATIC_DCL int FDECL(slots_required, (int));
 STATIC_DCL void FDECL(skill_advance, (int));
+static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 
 /* Categories whose names don't come from OBJ_NAME(objects[type])
  */
@@ -33,6 +34,7 @@ STATIC_DCL void FDECL(skill_advance, (int));
 #define PN_CLERIC_SPELL (-13)
 #define PN_ESCAPE_SPELL (-14)
 #define PN_MATTER_SPELL (-15)
+#define PN_LIGHTSABER	(-16)
 
 STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     0, DAGGER, KNIFE, AXE, PICK_AXE, SHORT_SWORD, BROADSWORD, LONG_SWORD,
@@ -40,6 +42,7 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     PN_HAMMER, QUARTERSTAFF, PN_POLEARMS, SPEAR, TRIDENT, LANCE, BOW, SLING,
     PN_FIREARMS,
     CROSSBOW, DART, SHURIKEN, BOOMERANG, PN_WHIP, UNICORN_HORN,
+    PN_LIGHTSABER,
     PN_ATTACK_SPELL, PN_HEALING_SPELL, PN_DIVINATION_SPELL,
     PN_ENCHANTMENT_SPELL, PN_CLERIC_SPELL, PN_ESCAPE_SPELL, PN_MATTER_SPELL,
     PN_BARE_HANDED, PN_TWO_WEAPONS, PN_RIDING
@@ -50,7 +53,8 @@ STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
     "no skill", "bare hands", /* use barehands_or_martial[] instead */
     "two weapon combat", "riding", "polearms", "saber", "hammer", "firearms", 
     "whip", "attack spells", "healing spells", "divination spells",
-    "enchantment spells", "clerical spells", "escape spells", "matter spells",
+    "enchantment spells", "clerical spells", "escape spells", "matter spells", 
+    "lightsaber", 
 };
 /* indexed vis Role_if(PM_ROGUE) ? 2 : is_martial() */
 STATIC_VAR NEARDATA const char *const barehands_or_martial[] = {
@@ -283,10 +287,23 @@ struct monst *mon;
             tmp += d(2, 6);
             break;
 
+
         case TRIPLE_HEADED_FLAIL:
             tmp += d(3, 6);
             break;
+        
+		case GREEN_LIGHTSABER:  
+            tmp +=13; 
+            break;
+		case BLUE_LIGHTSABER:   
+            tmp +=12; 
+            break;
+		case RED_LIGHTSABER:    
+            tmp +=10; 
+            break;
+
         }
+
     } else {
         if (objects[otyp].oc_wsdam)
             tmp = rnd(objects[otyp].oc_wsdam);
@@ -318,6 +335,16 @@ struct monst *mon;
         case RUNESWORD:
         case VOULGE:
             tmp += rnd(4);
+            break;
+
+		case GREEN_LIGHTSABER:  
+            tmp +=9; 
+            break;
+		case BLUE_LIGHTSABER:   
+            tmp +=8;
+            break;
+		case RED_LIGHTSABER:
+            tmp +=6; 
             break;
 
         case ACID_VENOM:
@@ -365,7 +392,11 @@ struct monst *mon;
             tmp += 1;
         }
 #undef is_odd_material
-    }
+    } 
+    
+    /* lightsaber that isn't lit ;) */
+    if (is_lightsaber(otmp) && !otmp->lamplit)
+        tmp = rnd(2);
 
     /* negative modifiers mustn't produce negative damage */
     if (tmp < 0)
@@ -686,6 +717,7 @@ int x;
             && !((x == CORPSE || x == EGG)
                  && !touch_petrifies(&mons[otmp->corpsenm]))
             /* never select a weapon made of a hated material */
+            && (!is_lightsaber(otmp) || otmp->age)
             && !mon_hates_material(mtmp, otmp->material)
             && (!otmp->oartifact || touch_artifact(otmp, mtmp))) {
        	        if (!obest || dmgval(otmp, &youmonst) > dmgval(obest, &youmonst))
@@ -973,7 +1005,10 @@ static const NEARDATA short hwep[] = {
     HEAVY_MACE, 
     HEAVY_WAR_HAMMER, 
     LONG_SWORD,
-    DWARVISH_MATTOCK, 
+    DWARVISH_MATTOCK,
+    RED_LIGHTSABER,
+    BLUE_LIGHTSABER,
+    GREEN_LIGHTSABER,
     TWO_HANDED_SWORD, 
     BATTLE_AXE, 
     KATANA, 
@@ -1203,6 +1238,9 @@ register struct monst *mon;
 
         if (mw_tmp && mw_tmp->otyp == obj->otyp) {
             /* already wielding it */
+			if (is_lightsaber(obj))
+			    mon_ignite_lightsaber(obj, mon);
+
             mon->weapon_check = NEED_WEAPON;
             return 0;
         }
@@ -1271,11 +1309,38 @@ register struct monst *mon;
                           : "in the distance");
         }
         obj->owornmask = W_WEP;
+        if (is_lightsaber(obj))
+		    mon_ignite_lightsaber(obj, mon);
         return 1;
     }
     mon->weapon_check = NEED_WEAPON;
     return 0;
 }
+
+static void
+mon_ignite_lightsaber(obj, mon)
+struct obj * obj;
+struct monst * mon;
+{
+	/* No obj or not lightsaber */
+	if (!obj || !is_lightsaber(obj)) return;
+
+	/* WAC - Check lightsaber is on */
+	if (!obj->lamplit) {
+	    if (obj->cursed && !rn2(2)) {
+            if (canseemon(mon)) pline("%s %s flickers and goes out.", 
+                s_suffix(Monnam(mon)), xname(obj));
+	    } else {
+            if (canseemon(mon)) {
+                makeknown(obj->otyp);
+                pline("%s ignites %s.", Monnam(mon), an(xname(obj)));
+            }	    	
+            begin_burn(obj, FALSE);
+	    }
+	} 
+}
+
+
 
 /* force monster to stop wielding current weapon, if any */
 void
