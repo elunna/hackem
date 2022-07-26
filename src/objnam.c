@@ -687,10 +687,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         if (is_poisonable(obj) && obj->opoisoned)
             Strcat(buf, "poisoned ");
 
-        if (is_lightsaber(obj) && (obj->lamplit) ) {
-            Strcat(buf, " (lit)");
-        }
-
         /*FALLTHRU*/
     case VENOM_CLASS:
     case TOOL_CLASS:
@@ -731,6 +727,12 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             if (wizard)
                 Sprintf(eos(buf), " (%d)", obj->spe);
         }
+        if (is_lightsaber(obj) && (obj->lamplit) ) {
+            Strcat(buf, " (lit)");
+            if (wizard)
+                Sprintf(eos(buf), " (%d)", obj->age);	
+        }
+
         break;
     case ARMOR_CLASS:
         /* depends on order of the dragon scales objects */
