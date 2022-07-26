@@ -1493,6 +1493,7 @@ long timeout;
         obj = (struct obj *) 0;
         break;
 
+    case TORCH:
     case LANTERN:
     case OIL_LAMP:
         switch ((int) obj->age) {
@@ -1547,6 +1548,17 @@ long timeout;
                     break;
                 }
             }
+            
+			/* MRKR: Burnt out torches are considered worthless */
+			
+			if (obj->otyp == TORCH) {
+                if (obj->unpaid && costly_spot(u.ux, u.uy)) {
+                    const char *ithem = obj->quan > 1L ? "them" : "it";
+                    verbalize("You burn %s, you bought %s!", ithem, ithem);
+                    bill_dummy_object(obj);
+                }
+			}
+
             end_burn(obj, FALSE);
             break;
 
@@ -1846,6 +1858,7 @@ boolean already_lit;
 
     case LANTERN:
     case OIL_LAMP:
+    case TORCH:
         /* magic times are 150, 100, 50, 25, and 0 */
         if (obj->age > 150L)
             turns = obj->age - 150L;

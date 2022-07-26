@@ -332,6 +332,7 @@ const struct shclass shtypes[] = {
       D_SHOP,
       { { 30, -WAX_CANDLE },
         { 48, -TALLOW_CANDLE },
+        { 5, -TORCH },
         { 5, -LANTERN },
         { 9, -OIL_LAMP },
         { 3, -MAGIC_LAMP },

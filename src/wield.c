@@ -995,4 +995,19 @@ struct obj *obj;
     return FALSE;
 }
 
+void
+unwield(obj, put_away)
+register struct obj *obj;
+boolean put_away;
+{
+    /* MRKR: Extinguish torches when they are put away */
+    if (put_away 
+            && obj->otyp == TORCH 
+            && obj->lamplit) {
+                
+        You("extinguish %s before putting it away.", yname(obj));
+        end_burn(obj, TRUE);
+    }
+}
+
 /*wield.c*/

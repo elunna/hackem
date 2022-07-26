@@ -1008,6 +1008,18 @@ struct obj *obj;
             attach_fig_transform_timeout(obj);
         }
     }
+    else if (obj->otyp == TORCH && obj->lamplit) {
+	  /* MRKR: extinguish torches before putting them */
+	  /*       away. Should monsters do the same?  */
+        #if 0
+	    if (mon == &youmonst) {
+            You("extinguish %s before putting it away.", yname(obj));
+            end_burn(obj, TRUE);
+	    }
+        #endif
+        You("extinguish %s before putting it away.", yname(obj));
+        end_burn(obj, TRUE);
+	}	
 }
 
 /* Add an item to the inventory unless we're fumbling or it refuses to be
@@ -3810,11 +3822,14 @@ register struct obj *otmp, *obj;
 
     /* allow candle merging only if their ages are close */
     /* see begin_burn() for a reference for the magic "25" */
-    if (Is_candle(obj) && obj->age / 25 != otmp->age / 25)
+    if (obj->otyp == TORCH 
+            || Is_candle(obj) 
+                && obj->age / 25 != otmp->age / 25) {
         return FALSE;
-
+    }
     /* burning potions of oil never merge */
-    if (obj->otyp == POT_OIL && obj->lamplit)
+    /* MRKR: nor do burning torches */
+    if ((obj->otyp == POT_OIL || obj->otyp == TORCH) && obj->lamplit)
         return FALSE;
 
     /* don't merge surcharged item with base-cost item */

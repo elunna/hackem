@@ -199,6 +199,8 @@ struct trobj Tinopener[] = { { TIN_OPENER, 0, TOOL_CLASS, 1, 0 },
                                     { 0, 0, 0, 0, 0 } };
 struct trobj Lamp[] = { { OIL_LAMP, 1, TOOL_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
+struct trobj Torch[] = { { TORCH, 0, TOOL_CLASS, 2, 0 },
+                               { 0, 0, 0, 0, 0 } };
 struct trobj Blindfold[] = { { BLINDFOLD, 0, TOOL_CLASS, 1, 0 },
                                     { 0, 0, 0, 0, 0 } };
 struct trobj Instrument[] = { { FLUTE, 0, TOOL_CLASS, 1, 0 },

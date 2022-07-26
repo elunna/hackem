@@ -22,6 +22,7 @@ STATIC_DCL void FDECL(use_bell, (struct obj **));
 STATIC_DCL void FDECL(use_candelabrum, (struct obj *));
 STATIC_DCL void FDECL(use_candle, (struct obj **));
 STATIC_DCL void FDECL(use_lamp, (struct obj *));
+STATIC_DCL int FDECL(use_torch, (struct obj *));
 STATIC_DCL void FDECL(light_cocktail, (struct obj **));
 STATIC_PTR void FDECL(display_jump_positions, (int));
 STATIC_DCL void FDECL(use_tinning_kit, (struct obj *));
@@ -1442,8 +1443,11 @@ struct obj *obj;
     xchar x, y;
 
     if (obj->lamplit) {
-        if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP
-            || obj->otyp == LANTERN || obj->otyp == POT_OIL) {
+        if (obj->otyp == OIL_LAMP 
+         || obj->otyp == MAGIC_LAMP
+         || obj->otyp == LANTERN 
+         || obj->otyp == POT_OIL
+         || obj->otyp == TORCH) {
             (void) get_obj_location(obj, &x, &y, 0);
             if (obj->where == OBJ_MINVENT ? cansee(x, y) : !Blind)
                 pline("%s %s out!", Yname2(obj), otense(obj, "go"));
@@ -1474,9 +1478,13 @@ struct obj *obj;
             return FALSE;
         if (obj->otyp == CANDELABRUM_OF_INVOCATION && obj->cursed)
             return FALSE;
-        if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP
-             || obj->otyp == LANTERN) && obj->cursed && !rn2(2))
+        if ((obj->otyp == OIL_LAMP 
+             || obj->otyp == MAGIC_LAMP
+             || obj->otyp == LANTERN
+             || obj->otyp == TORCH) 
+             && obj->cursed && !rn2(2)) {
             return FALSE;
+        }
         if (obj->where == OBJ_MINVENT ? cansee(x, y) : !Blind)
             pline("%s %s light!", Yname2(obj), otense(obj, "catch"));
         if (obj->otyp == POT_OIL)
@@ -1523,9 +1531,13 @@ struct obj *obj;
     /* magic lamps with an spe == 0 (wished for) cannot be lit */
     if ((!Is_candle(obj) && obj->age == 0)
         || (obj->otyp == MAGIC_LAMP && obj->spe == 0)) {
+
         if (obj->otyp == LANTERN || is_lightsaber(obj))
             /* Your("lamp has run out of power."); */
             Your("%s has run out of power.", xname(obj));
+        else if (obj->otyp == TORCH) {
+		    Your("torch has burnt out and cannot be relit.");
+		}
         else
             pline("This %s has no oil.", xname(obj));
         return;
@@ -1539,7 +1551,12 @@ struct obj *obj;
             || obj->otyp == LANTERN) {
             check_unpaid(obj);
             pline("%slamp is now on.", Shk_Your(buf, obj));
-        }  else if (is_lightsaber(obj)) {
+        } else if (obj->otyp == TORCH) {
+		    check_unpaid(obj);
+		    pline("%s flame%s burn%s%s", s_suffix(Yname2(obj)),
+			  plur(obj->quan), obj->quan > 1L ? "" : "s",
+			  Blind ? "." : " brightly!");
+		} else if (is_lightsaber(obj)) {
 		    /* WAC -- lightsabers */
 		    /* you can see the color of the blade */
 		    
@@ -1562,6 +1579,45 @@ struct obj *obj;
         }
         begin_burn(obj, FALSE);
     }
+}
+
+/* MRKR: Torches */
+STATIC_OVL int
+use_torch(obj)
+struct obj *obj;
+{
+    struct obj *otmp = NULL;
+    if (u.uswallow) {
+        You(no_elbow_room);
+        return 0;
+    }
+    if (Underwater) {
+        pline("Sorry, fire and water don't mix.");
+        return 0;
+    }
+    if (obj->quan > 1L) {
+        if (obj == uwep && welded(obj)) {
+            You("can only hold one lit torch, but can't drop any to hold only one.");
+            return 0;
+        }
+        otmp = obj;
+        obj = splitobj(otmp, 1L);
+        obj_extract_self(otmp);	/* free from inv */
+    }
+
+    /* You can use a torch in either wielded weapon slot */
+    if (obj != uwep && (obj != uswapwep || !u.twoweap)) {
+        if (!wield_tool(obj, (const char *)0))
+            return 0;
+    }
+    use_lamp(obj);
+
+    /* shouldn't merge */
+    if (otmp) {
+        otmp = hold_another_object(otmp, "You drop %s!",
+                    doname(otmp), (const char *)0);
+    }
+    return 1;
 }
 
 STATIC_OVL void
@@ -4801,6 +4857,9 @@ doapply()
         case LANTERN:
             use_lamp(obj);
             break;
+        case TORCH:
+	        res = use_torch(obj);
+		    break;
         case POT_OIL:
             light_cocktail(&obj);
             break;

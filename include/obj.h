@@ -425,6 +425,7 @@ struct obj {
 #define age_is_relative(otmp) \
     ((otmp)->otyp == LANTERN \
      || (otmp)->otyp == OIL_LAMP \
+     || (otmp)->otyp == TORCH \
      || (otmp)->otyp == CANDELABRUM_OF_INVOCATION \
      || (otmp)->otyp == TALLOW_CANDLE || (otmp)->otyp == WAX_CANDLE \
      || (otmp)->otyp == POT_OIL \
@@ -436,6 +437,7 @@ struct obj {
 #define ignitable(otmp) \
     ((otmp)->otyp == LANTERN \
      || (otmp)->otyp == OIL_LAMP \
+     || (otmp)->otyp == TORCH \
      || (otmp)->otyp == CANDELABRUM_OF_INVOCATION \
      || (otmp)->otyp == TALLOW_CANDLE \
      || (otmp)->otyp == WAX_CANDLE \

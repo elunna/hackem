@@ -1447,8 +1447,12 @@ unsigned doname_flags;
             Sprintf(eos(bp), " (%s candle%s%s)", tmpbuf, plur(obj->spe),
                     !obj->lamplit ? " attached" : ", lit");
             break;
-        } else if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP
-                   || obj->otyp == LANTERN || Is_candle(obj)) {
+        } else if (obj->otyp == OIL_LAMP 
+                || obj->otyp == MAGIC_LAMP
+                || obj->otyp == LANTERN 
+                || obj->otyp == TORCH 
+                || Is_candle(obj)) {
+            
             /* WAC - magic candles are never "partly used" */
             if (Is_candle(obj)
                 && obj->otyp != MAGIC_CANDLE
@@ -4567,8 +4571,14 @@ struct obj *no_wish;
     otmp = typ ? mksobj(typ, TRUE, FALSE) : mkobj(oclass, FALSE);
     typ = otmp->otyp, oclass = otmp->oclass; /* what we actually got */
 
-    if (islit && (typ == OIL_LAMP || typ == MAGIC_LAMP || typ == LANTERN
-                  || Is_candle(otmp) || typ == POT_OIL)) {
+    if (islit && 
+          (typ == OIL_LAMP 
+        || typ == MAGIC_LAMP 
+        || typ == LANTERN
+        || typ == TORCH
+        || Is_candle(otmp) 
+        || typ == POT_OIL)) {
+
         place_object(otmp, u.ux, u.uy); /* make it viable light source */
         begin_burn(otmp, FALSE);
         obj_extract_self(otmp); /* now release it for caller's use */

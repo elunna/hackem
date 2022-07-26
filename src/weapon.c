@@ -1048,7 +1048,8 @@ static const NEARDATA short hwep[] = {
     ORCISH_DAGGER, 
     ATHAME, 
     SCALPEL, 
-    KNIFE, 
+    KNIFE,
+    TORCH,
     WORM_TOOTH,
 
     /* Low priority unless you have ammo */
