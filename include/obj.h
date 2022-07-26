@@ -422,11 +422,15 @@ struct obj {
 
 /* MAGIC_LAMP intentionally excluded below */
 /* age field of this is relative age rather than absolute */
-#define age_is_relative(otmp)                                       \
-    ((otmp)->otyp == LANTERN || (otmp)->otyp == OIL_LAMP      \
-     || (otmp)->otyp == CANDELABRUM_OF_INVOCATION                   \
+#define age_is_relative(otmp) \
+    ((otmp)->otyp == LANTERN \
+     || (otmp)->otyp == OIL_LAMP \
+     || (otmp)->otyp == CANDELABRUM_OF_INVOCATION \
      || (otmp)->otyp == TALLOW_CANDLE || (otmp)->otyp == WAX_CANDLE \
-     || (otmp)->otyp == POT_OIL)
+     || (otmp)->otyp == POT_OIL \
+     || (otmp)->otyp == GREEN_LIGHTSABER \
+     || (otmp)->otyp == BLUE_LIGHTSABER \
+     || (otmp)->otyp == RED_LIGHTSABER)
 
 /* object can be ignited */
 #define ignitable(otmp) \
@@ -436,7 +440,10 @@ struct obj {
      || (otmp)->otyp == TALLOW_CANDLE \
      || (otmp)->otyp == WAX_CANDLE \
      || (otmp)->otyp == MAGIC_CANDLE \
-     || (otmp)->otyp == POT_OIL)
+     || (otmp)->otyp == POT_OIL \
+     || (otmp)->otyp == GREEN_LIGHTSABER \
+     || (otmp)->otyp == BLUE_LIGHTSABER \
+     || (otmp)->otyp == RED_LIGHTSABER)
 
 /* things that can be read */
 #define is_readable(otmp)                                                    \

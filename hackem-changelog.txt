@@ -474,7 +474,7 @@ Firearms:
 	- [x] Blue lightsaber
 	- [x] Red lightsaber
 	- [SKIPPED] Red double-lightsaber
-	
+
 	Gems:
 	- [x] Healthstone
 	- [x] Whetstone
@@ -491,6 +491,14 @@ Mechanics:
 	- [SKIP] Temp polymorph
 	- [SKIP] Require-X-to-hit monsters
 	- [SKIP] Hits-as-a-+X-weapon
+	- [FIXED] #force doesn't work with lightsabers
+	- [x] Implement breaking down doors with #force
+	- [x] #force door - prying open destroys the door too?
+	- [FIXED] Can't #force doors with lightsabers: You swing your red lightsaber through thin air.
+	- [FIXED] Lit lightsabers don't show (lit) in inventory.
+	- [x] Lit lightsabers don't show charges (unless wiz)
+	- [FIXED] Lit lightsabers don't light up radius
+	[- SKIPPED] Lightsabers don't dig down. Not supported.
 
 
 Leaving Out:

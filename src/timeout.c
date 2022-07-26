@@ -1835,7 +1835,7 @@ boolean already_lit;
     case BLUE_LIGHTSABER:
     case GREEN_LIGHTSABER:
         turns = 1;
-        radius = 1;
+        radius = 2;
 		break;
     case POT_OIL:
         turns = obj->age;
