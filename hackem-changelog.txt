@@ -403,7 +403,8 @@ Firearms:
 	- [x] WP_MODE_AUTO, WP_MODE_SINGLE, WP_MODE_AUTO
 	- [FIXED] Can't apply grenades - apply doesn't bring them up as valid.
 	- [FIXED] arming frag grenades turns into "sokoban prize tools (armed)"
-
+	- [x] Take out unnecessary doapply checks for weapons - put it elsewhere.
+	- [FIXED] Frag grenades blow up in a ball of lightning
 
 	Food: 
 	- [x] Asian pear
