@@ -727,10 +727,13 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             if (wizard)
                 Sprintf(eos(buf), " (%d)", obj->spe);
         }
-        if (is_lightsaber(obj) && (obj->lamplit) ) {
-            Strcat(buf, " (lit)");
+
+        if (is_lightsaber(obj) || obj->otyp == TORCH) {
+            if (obj->lamplit)
+                Strcat(buf, " (lit)");
+            
             if (wizard)
-                Sprintf(eos(buf), " (%d)", obj->age);	
+                Sprintf(eos(buf), " (%d)", obj->age);
         }
 
         break;
@@ -1450,14 +1453,13 @@ unsigned doname_flags;
         } else if (obj->otyp == OIL_LAMP 
                 || obj->otyp == MAGIC_LAMP
                 || obj->otyp == LANTERN 
-                || obj->otyp == TORCH 
                 || Is_candle(obj)) {
             
             /* WAC - magic candles are never "partly used" */
-            if (Is_candle(obj)
-                && obj->otyp != MAGIC_CANDLE
-                && obj->age < 20L * (long) objects[obj->otyp].oc_cost)
+            if (Is_candle(obj) && obj->otyp != MAGIC_CANDLE
+                    && obj->age < 20L * (long) objects[obj->otyp].oc_cost) {
                 Strcat(prefix, "partly used ");
+            } 
             if (obj->lamplit)
                 Strcat(bp, " (lit)");
             break;
