@@ -498,7 +498,19 @@ Mechanics:
 	- [FIXED] Lit lightsabers don't show (lit) in inventory.
 	- [x] Lit lightsabers don't show charges (unless wiz)
 	- [FIXED] Lit lightsabers don't light up radius
-	[- SKIPPED] Lightsabers don't dig down. Not supported.
+	[SKIPPED] Lightsabers don't dig down. Not supported.
+	- [x] Toilets implemented.
+	- [x] Forcing open doors (lock.c)
+	- [x] Get lamp functionality to work first
+	- [FIXED] Torches do not say (lit) when lit.
+	- [x] Unwielding does not snuff the torch.
+	- [FIXED] Wielding works strangely - "You now wield a torch.  You snuff out your torch."
+	- [x] Remove requirement for torches to be wielded - lamps don't need to be wielded?
+	[FIXED] pets picking up lit torches extinguishes them
+	[x] Can we put lit torches into bags? No - auto-snuffs.
+	[FIXED] If you pick up a lit torch, you automatically extinguish it.
+	- [x] Torch
+	- [x] Torch: Get working as a light source first
 
 
 Leaving Out:
