@@ -909,6 +909,7 @@ int dieroll;
      * a hit message.
      */
     boolean hittxt = FALSE, destroyed = FALSE, already_killed = FALSE;
+    boolean burnmsg = FALSE;
     boolean get_dmg_bonus = TRUE;
     boolean ispoisoned = FALSE, needpoismsg = FALSE, poiskilled = FALSE,
             unpoisonmsg = FALSE;
@@ -1164,6 +1165,12 @@ int dieroll;
                             tmp++;
                     }
                 }
+                
+                /* MRKR: Hitting with a lit torch */
+				if (obj->otyp == TORCH && obj->lamplit) {
+                    burnmsg = TRUE;
+                }
+
                 /* maybe break your glass weapon or monster's glass armor; put
                  * this at the end so that other stuff doesn't have to check obj
                  * && obj->whatever all the time */
@@ -1173,6 +1180,7 @@ int dieroll;
                 }
                 if (obj->opoisoned && is_poisonable(obj))
                     ispoisoned = TRUE;
+                
             }
         } else if (obj->oclass == POTION_CLASS) {
             if (obj->quan > 1L)
@@ -1683,6 +1691,56 @@ int dieroll;
                         ? wep_slash[rn2(SIZE(wep_slash))] : "hit",
                 mon_nam(mon), canseemon(mon) ? exclam(tmp) : ".");
     }
+
+    if (burnmsg) {
+        /* Torch's fire damage is handled here (unfortunately) */
+        if (!Blind) {
+            if (can_vaporize(mdat))
+                pline("Your %svaporizes part of %s.", xname(obj), mon_nam(mon));
+            else
+                pline("%s is on fire!", Monnam(mon));
+        } 
+
+        if (completelyburns(mdat)) { /* paper golem or straw golem */
+            if (!Blind)
+                pline("%s burns completely!", Monnam(mon));
+            else
+                You("smell burning%s.",
+                    (mdat == &mons[PM_PAPER_GOLEM]) 
+                    ? " paper" : (   mdat == &mons[PM_STRAW_GOLEM]) 
+                    ? " straw" : "");
+            xkilled(mon, XKILL_NOMSG | XKILL_NOCORPSE);
+            tmp = 0;
+            /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
+        }
+        else {
+            tmp += rnd(6); /* +1 damage vs non-fire resistant. */
+            if (vulnerable_to(mon, AD_FIRE))
+                tmp += rnd(6);
+            if (resists_cold(mon))
+                tmp *= 1.5; /* +d3 damage vs non-fire res. */
+
+            /* A chance of setting monster's stuff on fire */
+            tmp += destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);
+            tmp += destroy_mitem(mon, SPBOOK_CLASS, AD_FIRE);
+
+            if (resists_fire(mon) || defended(mon, AD_FIRE)) {
+                if (!Blind)
+                    pline_The("fire doesn't heat %s!", mon_nam(mon));
+                golemeffects(mon, AD_FIRE, tmp);
+                shieldeff(mon->mx, mon->my);
+                tmp = 0;
+            }
+            tmp += destroy_mitem(mon, POTION_CLASS, AD_FIRE);
+
+            if (mdat == &mons[PM_WATER_ELEMENTAL]) {
+                pline("Your %s goes out.", xname(obj));
+                end_burn(obj, TRUE);
+            } else {
+                burn_faster(obj, 1); /* Use up the torch more quickly */
+            }
+        }
+	}
 
     /* The Hand of Vecna imparts cold damage to attacks,
        whether bare-handed or wielding a weapon */

@@ -1976,6 +1976,28 @@ long expire_time;
         update_inventory();
 }
 
+/*
+ * MRKR: Use up some fuel quickly, eg: when hitting a monster with
+ *       a torch.
+ */
+
+void burn_faster(struct obj *obj, long adj) {
+	if (!obj->lamplit) {
+		impossible("burn_faster: obj %s not lit", xname(obj));
+		return;
+	}
+    int turns = rnd(6);
+    if (turns > 4)
+        pline("The torch sparks and flares!");
+    else
+        pline("The torch flares up!");
+
+    obj->age -= turns;
+
+	if (obj->age < 1)
+        obj->age = 1;
+}
+
 void
 do_storms()
 {

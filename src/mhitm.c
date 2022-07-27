@@ -1441,6 +1441,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 goto do_stone;
 
             tmp += dmgval(mwep, mdef);
+
             if ((marmg = which_armor(magr, W_ARMG)) != 0
                 && marmg->otyp == GAUNTLETS_OF_POWER)
                 tmp += rn1(4, 3); /* 3..6 */

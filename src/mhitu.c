@@ -1305,6 +1305,7 @@ register struct attack *mattk;
     char buf[BUFSZ];
     struct permonst *olduasmon = youmonst.data;
     int res;
+    boolean burnmsg = FALSE;
 
     if (!canspotmon(mtmp) && mdat != &mons[PM_GHOST]) {
         /* Ghosts have an exception because if the hero can't spot it, their
@@ -1485,6 +1486,12 @@ register struct attack *mattk;
                     if (cloneu())
                         You("divide as %s hits you!", mon_nam(mtmp));
                 }
+
+                /* Hit with a burning torch */
+                if (otmp->otyp == TORCH && otmp->lamplit) {
+                    burnmsg = TRUE;
+                }
+
                 rustm(&youmonst, otmp); /* safe if otmp is NULL */
             } else if (mattk->aatyp != AT_TUCH || dmg != 0
                        || mtmp != u.ustuck) {
@@ -2501,6 +2508,41 @@ do_rust:
     if (hated_obj) {
         searmsg(mtmp, &youmonst, hated_obj, FALSE);
         exercise(A_CON, FALSE);
+    }
+
+    if (burnmsg) {
+        if (how_resistant(FIRE_RES) == 100) {
+            shieldeff(u.ux, u.uy);
+            pline_The("fire doesn't feel hot!");
+            monstseesu(M_SEEN_FIRE);
+            ugolemeffects(AD_FIRE, dmg);
+            dmg = 0;
+        } else {
+            You("are on fire!");
+            dmg += rnd(6);
+            if (Vulnerable_fire)
+                dmg += rnd(6);
+            if (Cold_resistance)
+                dmg *= 1.5;
+
+            dmg = resist_reduce(dmg, FIRE_RES);
+        }
+
+        /* Torch flame is not hot enough to guarantee */
+        /* burning away slime */
+
+        if (!rn2(2) && burnarmor(&youmonst)) {
+            if (!rn2(4)) 
+                burn_away_slime();
+            if (!rn2(3))
+                destroy_item(POTION_CLASS, AD_FIRE);
+            if (!rn2(3))
+                destroy_item(SCROLL_CLASS, AD_FIRE);
+            if (!rn2(5))
+                destroy_item(SPBOOK_CLASS, AD_FIRE);
+            }
+        // burn_faster(otmp, 1);
+        burn_faster(mon_currwep, 1);
     }
 
     #if 0   /* Unstable */

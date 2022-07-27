@@ -396,7 +396,7 @@ struct monst *mon;
     
     /* lightsaber that isn't lit ;) */
     if (is_lightsaber(otmp) && !otmp->lamplit)
-        tmp = rnd(2);
+        tmp += rnd(2);
 
     /* negative modifiers mustn't produce negative damage */
     if (tmp < 0)
