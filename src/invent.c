@@ -1008,6 +1008,10 @@ struct obj *obj;
             attach_fig_transform_timeout(obj);
         }
     }
+    #if 0 /* --hackem: This seems non-important, if a monster/pet picks up a torch,
+            they probably would not extinguish it anyway. And like lit candles, we will
+            not auto-snuff the torch when picking it up.
+          */
     else if (obj->otyp == TORCH && obj->lamplit) {
 	  /* MRKR: extinguish torches before putting them */
 	  /*       away. Should monsters do the same?  */
@@ -1020,6 +1024,7 @@ struct obj *obj;
         You("extinguish %s before putting it away.", yname(obj));
         end_burn(obj, TRUE);
 	}	
+    #endif
 }
 
 /* Add an item to the inventory unless we're fumbling or it refuses to be
