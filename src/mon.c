@@ -766,6 +766,9 @@ unsigned corpseflags;
         free_mname(mtmp);
 		break;
     case PM_GOLD_GOLEM:
+    case PM_PILE_OF_KILLER_COINS:
+    case PM_LARGE_PILE_OF_KILLER_COINS:
+    case PM_HUGE_PILE_OF_KILLER_COINS:
         /* Good luck gives more coins */
         obj = mkgold((long) (200 - rnl(101)), x, y);
         free_mname(mtmp);
