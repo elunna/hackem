@@ -1704,8 +1704,8 @@ register struct monst *mtmp;
                 They also carry miniature pikes, lassos, grappling hooks, ropes or nets.
                 They like to set traps and ride rodents/rats.
             */
-            if (!rn2(3))
-                (void) mongets(mtmp, GRAPPLING_HOOK);
+            if (!rn2(2))
+                (void) mongets(mtmp, (rn2(2) ? GRAPPLING_HOOK : BULLWHIP));
 
             if (!rn2(3))
                 (void) mongets(mtmp, POT_ACID);
