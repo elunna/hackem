@@ -627,9 +627,10 @@ int how;
      *  transformation.  (Turning to slime isn't an issue here because
      *  Unchanging prevents that from happening.)
      */
-    if (mptr == &mons[PM_WRAITH]
-        || mptr == &mons[PM_BARROW_WIGHT])
+    if (mptr == &mons[PM_WRAITH])
         u.ugrave_arise = PM_WRAITH;
+    else if (mptr == &mons[PM_SLAUGHTER_WIGHT] || mptr == &mons[PM_BARROW_WIGHT])
+        u.ugrave_arise = PM_WIGHT;
     else if (mptr->mlet == S_MUMMY && urace.mummynum != NON_PM)
         u.ugrave_arise = urace.mummynum;
     else if (zombie_maker(mptr) && zombie_form(youmonst.data) != NON_PM)
