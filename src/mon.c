@@ -751,6 +751,11 @@ unsigned corpseflags;
 		num = d(2,4);
 		while (num--)
 			obj = mksobj_at(WAX_CANDLE, x, y, TRUE, FALSE);
+        
+        /* --hackem: Small chance to drop a magic candle = NiceHack! */
+        if (!rn2(69))
+            obj = mksobj_at(MAGIC_CANDLE, x, y, TRUE, FALSE);
+
 		free_mname(mtmp);
 		break;
     case PM_PLASTIC_GOLEM:
