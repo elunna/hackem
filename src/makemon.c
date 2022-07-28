@@ -995,7 +995,7 @@ register struct monst *mtmp;
         break;
     case S_HUMAN:
         if (mm == PM_SHOPKEEPER) {
-            (void) mongets(mtmp,SHOTGUN);
+            mongets(mtmp,SHOTGUN);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
         } else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
@@ -1664,7 +1664,26 @@ register struct monst *mtmp;
             mongets(mtmp, ORCISH_DAGGER);
 
         break;
+    case S_GREMLIN:
+        pline("S_GREMLIN");
+        // potions of acid or flaming oil 
+        // miniature pikes, lassos, and grappling hooks, ropes or nets.
+        if (ptr == &mons[PM_JERMLAINE]) {
+            /* Jermlaine are known for throwing potions of acid or flaming oil.
+                They also carry miniature pikes, lassos, grappling hooks, ropes or nets.
+                They like to set traps and ride rodents/rats.
+            */
+            pline("PM_JERMLAINE");
+            (void) mongets(mtmp, GRAPPLING_HOOK);
+            
+            mkmonmoney(mtmp, (long) rn1(500, 1001));
 
+            if (!rn2(3)) {
+                (void) mongets(mtmp, POT_ACID);
+            } else
+                (void) mongets(mtmp, POT_OIL);
+        }
+        break;
     case S_CENTAUR:
         if (rn2(2)) {
             (void) mongets(mtmp, (rn2(2) ? ARMOR : STUDDED_ARMOR));

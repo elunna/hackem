@@ -1,4 +1,4 @@
-Changes:
+Monster Changes:
 	- [x] Changed zruty to Y, S_ZRUTY to S_ZOUTHERN
 	- [x] Update all name references from "evilhack" to "hackem"
 	- [x] Used lowercase for rc files. HackEM for game titles and binaries.
@@ -78,7 +78,12 @@ Changes:
 	- [x] Also look at what monsters are normally equipped with.
 	- [x] Update infravision tags. Only body heat should be visible.
 	- [x] Allow rats to be tamed with cheese (need CHEESE)
-	
+	- [x] komodo dragon/gila monster are vulnerable to cold
+	- [x] Komodo dragons can swim
+	- [x] Komodo dragons can hiss
+	- [x] Komodo dragon gets MR20 (~MC1 of chain mail)
+	- [x] Jermlaine get infravision and are skittish.
+	- [x] Jermlaine start with potions of acid, oil, or grappling hooks.
 	
 
 Make whetstones suck less.
@@ -511,6 +516,12 @@ Mechanics:
 	[FIXED] If you pick up a lit torch, you automatically extinguish it.
 	- [x] Torch
 	- [x] Torch: Get working as a light source first
+	[FIXED] - Wand zap glyphs are messed up;
+	- [SKIPPED] Deal extra damage to vulnerable to fire?
+	- [x] How to vaporize paper golems with torchess?  They should not leave scrolls
+	- [x] Implement fire/physical damage for uhitm.c
+	- [x] Implement fire/physical damage for mhitu.c
+	- [x] Implement fire/physical damage for mhitm.c
 
 
 Leaving Out:
