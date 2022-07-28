@@ -1672,12 +1672,12 @@ register struct monst *mtmp;
                 They also carry miniature pikes, lassos, grappling hooks, ropes or nets.
                 They like to set traps and ride rodents/rats.
             */
-            if (!rn2(3)) {
+            if (!rn2(3))
                 (void) mongets(mtmp, GRAPPLING_HOOK);
 
-            if (!rn2(3)) {
+            if (!rn2(3))
                 (void) mongets(mtmp, POT_ACID);
-            } else
+            else
                 (void) mongets(mtmp, POT_OIL);
         }
         break;
@@ -2147,6 +2147,11 @@ register struct monst *mtmp;
             (void) mongets(mtmp, MIRROR);
         if (!rn2(2))
             (void) mongets(mtmp, POT_OBJECT_DETECTION);
+
+        if (ptr == &mons[PM_BROWNIE]) {
+            if (!rn2(3))
+                (void) mongets(mtmp, SHORT_SWORD);
+        }
         break;
     case S_GIANT:
         if (ptr == &mons[PM_MINOTAUR] || ptr == &mons[PM_ELDER_MINOTAUR]) {
