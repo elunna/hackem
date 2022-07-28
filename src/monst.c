@@ -919,7 +919,7 @@ NEARDATA struct permonst mons[] = {
         NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 20, MS_LAUGH, MZ_SMALL), MR_POISON, 0,
         M1_HUMANOID | M1_POIS, M2_STALK, 
-        0, 0, 0, 2, CLR_GRAY),
+        M3_INFRAVISION | M3_SKITTISH, 0, 0, 2, CLR_GRAY),
     /*
      * humanoids
      */
