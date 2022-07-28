@@ -117,6 +117,9 @@
 #define big_wings(ptr) \
     ((ptr) == &mons[PM_ANGEL] \
      || (ptr) == &mons[PM_ARCHANGEL] \
+     || (ptr) == &mons[PM_MOVANIC_DEVA] \
+     || (ptr) == &mons[PM_MONADIC_DEVA] \
+     || (ptr) == &mons[PM_ASTRAL_DEVA] \
      || (ptr) == &mons[PM_ARCHON] \
      || (ptr) == &mons[PM_BALROG] \
      || (ptr) == &mons[PM_CHASME] \
