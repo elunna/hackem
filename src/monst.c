@@ -5228,7 +5228,7 @@ struct permonst _mons2[] = {
         M2_STALK | M2_HOSTILE | M2_NASTY,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_DEMON, 13, CLR_ORANGE),
-    MON("chasme", S_DEMON, LVL(8, 21, -1, 40, -9), (G_HELL | G_NOCORPSE | G_SGROUP | 1),
+    MON("chasme", S_DEMON, LVL(8, 21, -1, 70, -9), (G_HELL | G_NOCORPSE | G_SGROUP | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 6), 
           ATTK(AT_CLAW, AD_PHYS, 2, 6),
           ATTK(AT_BITE, AD_PHYS, 2, 4), 
