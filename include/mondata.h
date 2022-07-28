@@ -91,6 +91,9 @@
     || is_demon(ptr) \
     || is_angel(ptr) \
     || (ptr)->msound == MS_LEADER \
+    || (ptr) == &mons[PM_MOVANIC_DEVA] \
+    || (ptr) == &mons[PM_MONADIC_DEVA] \
+    || (ptr) == &mons[PM_ASTRAL_DEVA] \
     || (ptr) == &mons[PM_GYPSY] \
     || (ptr) == &mons[PM_JUGGERNAUT] \
     || (ptr) == &mons[PM_STATUE_GARGOYLE] \
