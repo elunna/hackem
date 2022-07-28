@@ -1665,7 +1665,6 @@ register struct monst *mtmp;
 
         break;
     case S_GREMLIN:
-        pline("S_GREMLIN");
         // potions of acid or flaming oil 
         // miniature pikes, lassos, and grappling hooks, ropes or nets.
         if (ptr == &mons[PM_JERMLAINE]) {
@@ -1673,10 +1672,8 @@ register struct monst *mtmp;
                 They also carry miniature pikes, lassos, grappling hooks, ropes or nets.
                 They like to set traps and ride rodents/rats.
             */
-            pline("PM_JERMLAINE");
-            (void) mongets(mtmp, GRAPPLING_HOOK);
-            
-            mkmonmoney(mtmp, (long) rn1(500, 1001));
+            if (!rn2(3)) {
+                (void) mongets(mtmp, GRAPPLING_HOOK);
 
             if (!rn2(3)) {
                 (void) mongets(mtmp, POT_ACID);
