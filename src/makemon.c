@@ -544,6 +544,13 @@ struct trobj Level10Kit2[] = {
     { 0, 0, 0, 0, 0 }
 };
 
+struct trobj KitHarpy[] = {
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 2, UNDEF_BLESS },
+    { HELMET, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { GAUNTLETS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
+
 #define B_MAJOR	        0 /* two-handed sword or battle-axe  */
 #define B_MINOR	        1 /* matched with axe or short sword */
 #define C_AMMO          2
@@ -2311,6 +2318,29 @@ register struct monst *mtmp;
             (void) mongets(mtmp, RIN_SLOW_DIGESTION);
         }
         break;
+    	
+    case S_BAT:
+        if (ptr == &mons[PM_HARPY]) {
+            /* Harpy can start with random jewelery. */
+            ini_mon_inv(mtmp, KitHarpy, 1);
+            
+            if (!rn2(4)) {
+                (void) mongets(mtmp, BOW);
+                m_initthrow(mtmp, ARROW, 16);
+            }
+            else
+                (void) mongets(mtmp, CLUB);
+
+            /* gems */
+            for (cnt = rn2(max(1, (int) (mtmp->m_lev / 2))); cnt; cnt--) {
+                otmp = mksobj(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1),
+                              FALSE, FALSE);
+                otmp->quan = (long) rn1(2, 3);
+                otmp->owt = weight(otmp);
+                (void) mpickobj(mtmp, otmp);
+            }
+
+        }
     case S_HUMANOID:
         if (ptr == &mons[PM_DARK_ONE]) {
             (void) mongets(mtmp, ROBE);
