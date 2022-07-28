@@ -346,6 +346,7 @@
 #define is_gnoll(ptr) (((ptr)->mhflags & MH_GNOLL) != 0L)
 #define is_not_zombie(ptr) \
     ((ptr) == &mons[PM_GHOUL] \
+     || (ptr) == &mons[PM_GHAST] \
      || (ptr) == &mons[PM_SKELETON] \
      || (ptr) == &mons[PM_REVENANT])
 #define is_zombie(ptr) ((ptr)->mlet == S_ZOMBIE && !is_not_zombie(ptr))
