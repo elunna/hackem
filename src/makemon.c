@@ -1006,15 +1006,13 @@ register struct monst *mtmp;
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
         } 
-        else if (mm == PM_GRIMLOCK) {
+        else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
             struct obj* received;
             switch (rn2(4)) {
                 case 0:
-                    w1 = rn2(2) ? CLUB : AKLYS;
-                    break;
+                    w1 = rn2(2) ? CLUB : AKLYS; break;
                 case 1:
-                    w1 = rn2(2) ? ORCISH_DAGGER : ORCISH_SPEAR;
-                    break;
+                    w1 = rn2(2) ? ORCISH_DAGGER : ORCISH_SPEAR; break;
                 case 2:
                     w1 = rn2(2) ? AXE : BATTLE_AXE;
                     received = m_carrying(mtmp, AXE);
@@ -1031,6 +1029,7 @@ register struct monst *mtmp;
                 set_material(received, BONE);
             break;
         }
+
         else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
             w1 = w2 = 0;
             switch (mm) {
