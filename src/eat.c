@@ -2103,7 +2103,19 @@ struct obj *otmp;
                 break;
             case 4:
                 pline("That tasted like vitamins...");
-                lesshungry(600);
+                lesshungry(80);
+
+                /* gain ability, blessed if "natural" luck is high */
+                int i, ii, littleluck = (u.uluck < 4);
+                i = rn2(A_MAX); /* start at a random attribute */
+                for (ii = 0; ii < A_MAX; ii++) {
+                    if (adjattrib(i, 1, littleluck ? -1 : 0) && littleluck)
+                        break;
+                    if (++i >= A_MAX)
+                        i = 0;
+                }
+                display_nhwindow(WIN_MESSAGE, FALSE);
+                exercise(A_WIS, TRUE);
                 break;
             case 5:
                 if(Sleep_resistance) {
