@@ -1757,6 +1757,9 @@ register struct monst *mtmp;
             if (!rn2(2))
                 (void) mongets(mtmp, GLAIVE);
             break;
+        case PM_BABAU:
+            (void) mongets(mtmp, rn2(4) ? TWO_HANDED_SWORD : SPEAR);
+            break;
         case PM_BALROG:
             if (!rn2(20)) {
                 otmp = mksobj(TRIDENT, FALSE, FALSE);
