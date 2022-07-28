@@ -209,6 +209,7 @@
 #define telepathic(ptr) \
     ((ptr) == &mons[PM_ALHOON] \
      || (ptr) == &mons[PM_BAR_LGURA] \
+     || (ptr) == &mons[PM_CHASME] \
      || (ptr) == &mons[PM_ELVEN_WIZARD] \
      || (ptr) == &mons[PM_FLOATING_EYE] \
      || (ptr) == &mons[PM_GNOMISH_WIZARD] \

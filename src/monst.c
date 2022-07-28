@@ -5235,7 +5235,7 @@ struct permonst _mons2[] = {
           ATTK(AT_GAZE, AD_SLEE, 1, 6),
           NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_MEDIUM), MR_FIRE | MR_POISON, 0, 
-        M1_POIS | M1_FLY, M2_STALK | M2_HOSTILE | M2_NASTY, 
+        M1_SEE_INVIS | M1_POIS | M1_FLY, M2_STALK | M2_HOSTILE | M2_NASTY, 
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_DEMON, 15, CLR_CYAN),
     MON("vrock", S_DEMON, LVL(8, 12, 0, 50, -9), (G_HELL | G_NOCORPSE | G_SGROUP | 2),
