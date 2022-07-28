@@ -2339,8 +2339,23 @@ register struct monst *mtmp;
                 otmp->owt = weight(otmp);
                 (void) mpickobj(mtmp, otmp);
             }
-
         }
+        if (ptr == &mons[PM_NIGHTGAUNT]) {
+            switch (rn2(5)) {
+            case 0:
+                (void) mongets(mtmp, TRIDENT);
+                break;
+            case 1: 
+                (void) mongets(mtmp, SPEAR);
+                break;
+            case 3: 
+                (void) mongets(mtmp, JAVELIN);
+                break;
+            default:
+                break;
+            }
+        }
+        break;
     case S_HUMANOID:
         if (ptr == &mons[PM_DARK_ONE]) {
             (void) mongets(mtmp, ROBE);
