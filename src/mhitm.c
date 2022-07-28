@@ -1460,6 +1460,53 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                     return (MM_DEF_DIED
                             | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
             }
+
+            /* Handling lit torch damage  */
+
+			if(mwep->otyp == TORCH && mwep->lamplit) {
+                boolean water = (mdef->data == &mons[PM_WATER_ELEMENTAL]);
+                if (!Blind) {
+                    static char outbuf[BUFSZ];
+                    char *s = Shk_Your(outbuf, mwep);
+                }
+
+                if (completelyburns(mdef)) { /* paper golem or straw golem */
+                    if (!Blind)
+                        pline("%s burns completely!", Monnam(mdef));
+                    else
+                        You("smell burning%s.",
+                            (mdef == &mons[PM_PAPER_GOLEM]) 
+                            ? " paper" : (   mdef == &mons[PM_STRAW_GOLEM]) 
+                            ? " straw" : "");
+                    xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
+                    tmp = 0;
+                    /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
+                }
+                else {
+                    tmp += rnd(6); /* +1 damage vs non-fire resistant. */
+                    if (vulnerable_to(mdef, AD_FIRE))
+                        tmp += rnd(6);
+                    if (resists_cold(mdef))
+                        tmp *= 1.5; /* +d3 damage vs non-fire res. */
+
+                    if (!rn2(2) && burnarmor(mdef)) {
+                        if (!rn2(3))
+                            destroy_mitem(mdef, POTION_CLASS, AD_FIRE);
+                        if (!rn2(3))
+                            destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
+                        if (!rn2(5))
+                            destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+                    }
+
+                    if (mdef == &mons[PM_WATER_ELEMENTAL]) {
+                        pline("The torch %s goes out.", xname(mwep));
+                        end_burn(mwep, TRUE);
+                    } else {
+                        burn_faster(mwep, 1); /* Use up the torch more quickly */
+                    }
+                }
+            }
+
             if (tmp)
                 rustm(mdef, mwep);
         } else if (pa == &mons[PM_PURPLE_WORM] && pd == &mons[PM_SHRIEKER]) {
