@@ -105,6 +105,7 @@
     (is_minion((mon)->data) && mon_aligntyp(mon) == A_LAWFUL)
 #define is_jumper(ptr) \
     ((ptr) == &mons[PM_GIANT_CENTIPEDE] \
+     || (ptr) == &mons[PM_BAR_LGURA] \
      || (ptr) == &mons[PM_JUMPING_SPIDER] \
      || (ptr) == &mons[PM_KNIGHT] \
      || (ptr) == &mons[PM_ZRUTY])
