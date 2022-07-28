@@ -5739,7 +5739,7 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(10, 40, MS_SILENT, MZ_TINY), MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
-        0, M4_VULNERABLE_COLD,, 0, 8, CLR_ORANGE),
+        0, M4_VULNERABLE_COLD, 0, 8, CLR_ORANGE),
     MON("tortle shaman", S_LIZARD, LVL(5, 8, 0, 20, 5), (G_GENO | G_NOHELL),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
           ATTK(AT_MAGC, AD_CLRC, 0, 0),
