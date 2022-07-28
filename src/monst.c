@@ -5224,7 +5224,7 @@ struct permonst _mons2[] = {
           ATTK(AT_BITE, AD_PHYS, 2, 12), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_LARGE),
-        MR_FIRE | MR_ELEC | MR_POISON, 0, M1_POIS,
+        MR_FIRE | MR_ELEC | MR_POISON, 0, M1_SEE_INVIS | M1_POIS,
         M2_STALK | M2_HOSTILE | M2_NASTY,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_DEMON, 13, CLR_ORANGE),
