@@ -648,6 +648,8 @@ int how;
     #endif
     else if (mptr == &mons[PM_GHOUL])
         u.ugrave_arise = PM_GHOUL;
+    else if (mptr == &mons[PM_NABASSU])
+        u.ugrave_arise = PM_GHAST;
     else if (mptr == &mons[PM_NAZGUL])
         u.ugrave_arise = PM_BARROW_WIGHT;
     else if (mptr == &mons[PM_MIND_FLAYER_LARVA])
