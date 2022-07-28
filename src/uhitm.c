@@ -1715,8 +1715,6 @@ int dieroll;
         }
         else {
             tmp += rnd(6); /* +1 damage vs non-fire resistant. */
-            if (vulnerable_to(mon, AD_FIRE))
-                tmp += rnd(6);
             if (resists_cold(mon))
                 tmp *= 1.5; /* +d3 damage vs non-fire res. */
 

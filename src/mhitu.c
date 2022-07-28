@@ -2520,8 +2520,6 @@ do_rust:
         } else {
             You("are on fire!");
             dmg += rnd(6);
-            if (Vulnerable_fire)
-                dmg += rnd(6);
             if (Cold_resistance)
                 dmg *= 1.5;
 
