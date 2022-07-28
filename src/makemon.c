@@ -1007,10 +1007,30 @@ register struct monst *mtmp;
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
         } 
         else if (mm == PM_GRIMLOCK) {
-            (void) mongets(mtmp, CLUB);
-            struct obj* received = m_carrying(mtmp, CLUB);
-            if (received)
-                set_material(received, BONE);
+            struct obj* received;
+            switch (rn2(5)) {
+                case 0:
+                    (void) mongets(mtmp, CLUB);
+                    received = m_carrying(mtmp, CLUB);
+                    if (received) set_material(received, BONE);
+                    break;
+                case 1:
+                    (void) mongets(mtmp, AKLYS);
+                    received = m_carrying(mtmp, AKLYS);
+                    if (received) set_material(received, BONE);
+                    break;
+                case 2:
+                    (void) mongets(mtmp, AXE);
+                    received = m_carrying(mtmp, AXE);
+                    if (received) set_material(received, STONE);
+                    break;
+                default:
+                    (void) mongets(mtmp, ORCISH_SPEAR);
+                    received = m_carrying(mtmp, ORCISH_SPEAR);
+                    if (received) set_material(received, BONE);
+                    break;
+            }
+            
         }
         else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
             w1 = w2 = 0;
