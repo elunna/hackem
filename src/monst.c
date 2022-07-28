@@ -5793,7 +5793,7 @@ struct permonst _mons2[] = {
           ATTK(AT_CLAW, AD_PHYS, 1, 12),
           ATTK(AT_CLAW, AD_PHYS, 1, 12), 
           NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_SILENT, MZ_LARGE), 0, 0,
+        SIZ(WT_HUMAN, 400, MS_HISS, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE | M1_SWIM, 
         M2_STRONG | M2_HOSTILE, M4_VULNERABLE_COLD, 0, 0, 11, CLR_GREEN),
     MON("frost salamander", S_LIZARD, LVL(10, 12, -3, 0, -3), (G_NOHELL | 1),
