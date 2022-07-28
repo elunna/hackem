@@ -1005,7 +1005,14 @@ register struct monst *mtmp;
             mongets(mtmp,SHOTGUN);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-        } else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
+        } 
+        else if (mm == PM_GRIMLOCK) {
+            (void) mongets(mtmp, CLUB);
+            struct obj* received = m_carrying(mtmp, CLUB);
+            if (received)
+                set_material(received, BONE);
+        }
+        else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
             w1 = w2 = 0;
             switch (mm) {
             case PM_WATCHMAN:
