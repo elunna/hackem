@@ -5788,7 +5788,7 @@ struct permonst _mons2[] = {
         SIZ(20, 40, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, 
         M2_NASTY | M2_HOSTILE, 0, 0, 0, 6, CLR_MAGENTA),
-    MON("komodo dragon", S_LIZARD, LVL(9, 9, 5, 0, 0), (G_NOHELL | G_GENO | 1),
+    MON("komodo dragon", S_LIZARD, LVL(9, 9, 5, 20, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRCO, 2, 6), 
           ATTK(AT_CLAW, AD_PHYS, 1, 12),
           ATTK(AT_CLAW, AD_PHYS, 1, 12), 
