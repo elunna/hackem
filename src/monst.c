@@ -2615,7 +2615,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(30, 30, MS_SHRIEK, MZ_MEDIUM), 0, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
-        M2_WANDER | M2_HOSTILE, 
+        M2_WANDER | M2_HOSTILE | M2_GREEDY | M2_JEWELS, 
         M3_INFRAVISIBLE, 0, 0, 11, CLR_BLACK),
     MON("harpy", S_BAT, LVL(9, 17, 5, 0, -4), (G_HELL | G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 12), 
