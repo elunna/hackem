@@ -84,7 +84,85 @@ Monster Changes:
 	- [x] Komodo dragon gets MR20 (~MC1 of chain mail)
 	- [x] Jermlaine get infravision and are skittish.
 	- [x] Jermlaine start with potions of acid, oil, or grappling hooks.
-	
+		- [x] Brownies sometimes get short swords.
+	- [x] Brownies are Vegetarian
+	- [x] Mobats collect treasure
+	- [x] Harpy can start with jewelery.
+	- [x] Harpies use primitive weapons, big bones/clubs, sometimes bows
+	- [x] Nightgaunts sometimes get tridents, spears or javelins
+	- [x] Wax golems have a small chance of death dropping a magic candle?
+	- [x] Grimlocks can start with Bone Clubs
+	- [x] Grimlocks can start with bone aklys, axes or orcish spears.
+	- [x] Grimlocks get a claw attack
+	- [x] Grimlocks can stalk you.
+	- [SKIPPED] Grimlocks don't get much clothing or armor, maybe tanned leather belts and harnesses, as well as decorative bracers.
+	- [SKIPPED] Grimlocks are vulnerable to light. Now hate light and flee light objects.
+	- [SKIPPED] Gibberlings fear bright light and fire.
+	- [x] Gibberlings carry crude weapons made from bone or dull short swords
+	- [x] Spined devils can get tridents, halberds.
+	- [x] Spined devils get a weapon attack
+	- [x] Bearded devils get glaives.
+	- [x] Bearded devil gets berserk and resists cold
+	- [x] Bearded devils gets a poisonous beard attack  (1d13 weapon)
+	- [x] Bar-Lgura get shock resistance.
+	- [x] Bar-Lgura are telepath
+	- [x] Bar-Lgura can jump
+	- [x] Bar-Lgura can see inv
+	- [x] Chasmes now have telepathy and see invisible.
+	- [x] Chasmes are also resistant to acid, cold, and shock.
+	- [x] Chasmes get a high MR of 70?
+	- [x] Babau have 1 horn.
+	- [x] Babau have thick leathery hide.
+	- [x] Babau have a passive corrosion attack (from their acidic greasy hide)
+	- [x] Babau usually use two-handed swords or spears.
+	- [x] Nabassu have a thick hide
+	- [x] Nabassu have a pair of forehead horns
+	- [x] Nabassu get M3_DISPLACES
+	- [x] Nabassu can cause victim(you) to rise as a ghast. 
+	- [SKIPPED] Nagas are a little boring, is there anything we can do to spice them up? They are basically mirroring dragons but weaker.
+	- [SKIPPED] Make piercers fearsome - they don't actually pierce much in vanilla.
+	- [SKIPPED] Rename pit bull to junkyard dog? (Or make another)
+	- [x] Give all Devas fire, shock, and death magic resistance.
+	- [x] Devas get big_wings
+	- [x] Monadic devas are breathless.
+	- [SKIPPED] Move scrampers/squealers/manglers to Q?
+	- [x] Evil coins should leave piles of coins (similar to gold golems)
+	- [SKIPPED] Evil coins should also throw coins at you.
+	- [x] Renamed wight to slaughter wight. Added infravision, ACCURATE, BERSERK, and STRONG.
+	- [x] slaughter wights have 2 Melee slams: (1d6+6 plus energy drain)
+	- [x] slaughter wights life and energy drain (1 level, DC 19) 
+	- [x] slaughter wights have AC 18: -8?
+	- [x] Hydras can spit fire/plasma (at very least, fire breath attack)
+	- [x] Made slaughter wights a red W.
+	- [x] Torch - Get fire melee damage working
+	- [SKIP] Bar-Lgura can cast spells (invisibility, teleport, entangle and disguise self)
+	- [SKIP] Bar-Lgura like to ambush and surprise
+	- [SKIP] Chasmes have magic: insect plague, ray of enfeeblement, and telekinesis, darkness
+	- [SKIP] Nabassu are stealthy and good at hiding and camoflage.
+	- [SKIP] Nabassu could also have short-ranged paralysation, teleportation, energy draining,
+	- [HARD] Nabassu get the power to turn ethereal (into a ghost/shade?)
+	- [SKIP] Snowball attack for ice trolls? frost giants?
+	- [SKIP] Lord/Prince classes could be able to summon small crowds of lower minions? Or even higher?
+	- [SKIP] Should water monsters have water attack? Spit water?
+	- [x] Check all slashem nasties to add (compare lists)
+	- [x] Make case 4 for pills a gain ability (like fountains)
+	- [x] Jermlaine can start with bullwhips
+	- [x] Shadow ogres and wolves are poison resistant and vulnerable to fire. 
+	- [x] Shadow wolves have a thick hide & don't breath
+	- [x] Shadow ogres and wolves are drain & death resistant.
+	- [x] Mist wolves are cold resistant
+	- [SKIP] Shadow wolves and ogres are Generated invisible??
+	- [HARD] Each mist wolf can exhale clouds of thick mist (similar to a wall of fog spell) - purely defensive
+	- [x] Mist wolves are lawful (4)
+	- [x] Add items
+	- [x] Add remaining monster code that depended on objects.
+	- [SKIP] Watery monsters are much stronger in water sources?
+	- [SKIP] catoblepas should have tusks (not horns)
+	- [x] Phase spiders are skittish and teleport more like tengus.
+	- [SKIP] Head shots for zombies?
+
+	- [NO] Should fountains count as pools too for fishing??
+
 
 Make whetstones suck less.
 	- [x] Better msg for partial repair. "Your daggers shine now." doesn't fit.
@@ -522,7 +600,7 @@ Mechanics:
 	- [x] Implement fire/physical damage for uhitm.c
 	- [x] Implement fire/physical damage for mhitu.c
 	- [x] Implement fire/physical damage for mhitm.c
-
+	- [x] Import the xnh change that makes item probs easier (evil had)
 
 Leaving Out:
 	- [x] Pegasus (evil already has pegasi). And Pegasus doesn't do much in slashem except pop out of Medusa.
