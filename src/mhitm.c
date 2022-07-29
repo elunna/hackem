@@ -2840,8 +2840,6 @@ struct obj *mwep;
             }
         }
         break;
-
-
     case AD_DISN: {
         int chance = (mdef->data == &mons[PM_ANTIMATTER_VORTEX] ? !rn2(3) : !rn2(6));
         if (mhit && !mdef->mcan) {
@@ -2924,6 +2922,22 @@ struct obj *mwep;
             }
         }
         break;
+    case AD_DRLI:
+        if (mhit && !magr->mcan && !rn2(3)) {
+            if (!(resists_drli(magr) || defended(magr, AD_DRLI))) {
+                tmp = d(2, 6);
+                if (vis && canspotmon(magr))
+                    pline("%s suddenly seems weaker!", Monnam(magr));
+                magr->mhpmax -= tmp;
+                if (magr->m_lev == 0)
+                    tmp = magr->mhp;
+                else
+                    magr->m_lev--;
+                /* Automatic kill if drained past level 0 */
+            }
+
+        break;
+        }
     /* Grudge patch. */
     case AD_MAGM:
       /* wrath of gods for attacking Oracle */

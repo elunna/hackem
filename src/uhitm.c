@@ -3987,6 +3987,17 @@ boolean wep_was_destroyed;
 		    else You("are put to sleep by %s!", mon_nam(mon));
 		}
 		break;
+    case AD_DRLI:
+        /* hackem: passive drain life for baby and adult deep dragons */
+        if (mhit && !mon->mcan) {
+            if (Drain_resistance) {
+                shieldeff(u.ux, u.uy);
+                /* No msg if resisted */
+            } else
+                losexp("life drainage");
+            
+        }
+        break;
     case AD_STON:
         if (mhit) { /* successful attack */
             long protector = attk_protection((int) aatyp);
@@ -4592,7 +4603,7 @@ struct attack *mattk;     /* null means we find one internally */
             }
             break;
         }
-        break;
+        break;    
     case AD_DISN: {
         int chance = (mon->data == &mons[PM_ANTIMATTER_VORTEX] ? !rn2(3) : !rn2(6));
         if (chance && !mon->mcan) {
