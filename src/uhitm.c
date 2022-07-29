@@ -4365,7 +4365,7 @@ boolean wep_was_destroyed;
                 if (how_resistant(DRAIN_RES) == 100) {
                     You("are immune to %s wicked armor.",
                         s_suffix(mon_nam(mon)));
-                    monstseesu(M_SEEN_POISON);
+                    monstseesu(M_SEEN_DRAIN);
                     break;
                 } else {
                     You_feel("weaker!");
