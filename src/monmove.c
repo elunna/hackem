@@ -1248,7 +1248,9 @@ register int after;
     }
 
     /* teleport if that lies in our nature */
-    if (mon_prop(mtmp, TELEPORT) && !rn2(ptr == &mons[PM_TENGU] ? 5 : 85)
+    if (mon_prop(mtmp, TELEPORT) 
+        && !rn2(ptr == &mons[PM_TENGU] 
+             || ptr == &mons[PM_PHASE_SPIDER]? 5 : 85)
         && !tele_restrict(mtmp) && !((mtmp->isshk || mtmp->ispriest) && mtmp->mpeaceful)) {
 	if (!decide_to_teleport(mtmp) || rn2(2))
             (void) rloc(mtmp, TRUE);
