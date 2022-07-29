@@ -1067,7 +1067,9 @@ boolean artif;
                 && (otmp->otyp == FUMBLE_BOOTS
                     || otmp->otyp == LEVITATION_BOOTS
                     || otmp->otyp == HELM_OF_OPPOSITE_ALIGNMENT
-                    || otmp->otyp == GAUNTLETS_OF_FUMBLING || !rn2(11))) {
+                    || otmp->otyp == GAUNTLETS_OF_FUMBLING
+                    || otmp->otyp == CLOAK_OF_WEAKNESS
+                    || !rn2(11))) {
                 curse(otmp);
                 otmp->spe = -rne(3);
             } else if (!rn2(10)) {

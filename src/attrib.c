@@ -1214,18 +1214,39 @@ int x;
 {
     register int tmp = (u.abon.a[x] + u.atemp.a[x] + u.acurr.a[x]);
 
+    /* robe of weakness and gauntlets of power will cancel */
+
     if (x == A_STR) {
-      if (tmp >= 125 || (uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
+        int base = u.acurr.a[x];
+        int bonus = tmp - base;
+        boolean nobonus = (uarmg && uarmg->otyp == GAUNTLETS_OF_POWER
+                        && uarm && uarm->otyp == CLOAK_OF_WEAKNESS);
+
+        if (tmp >= 125 
+          || ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
           || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA)
           || wielding_artifact(ART_GIANTSLAYER)
           || wielding_artifact(ART_SWORD_OF_KAS))
+          && !nobonus)
             return (schar) 125;
+        else if (uarmc && uarmc->otyp == CLOAK_OF_WEAKNESS && !nobonus)
+            return(3 + bonus);
         else
 #ifdef WIN32_BUG
             return (x = ((tmp <= 3) ? 3 : tmp));
 #else
             return (schar) ((tmp <= 3) ? 3 : tmp);
 #endif
+
+
+
+
+
+
+
+
+
+
     } else if (x == A_CHA) {
         if (tmp < 18
             && (youmonst.data->mlet == S_NYMPH || u.umonnum == PM_SUCCUBUS

@@ -416,6 +416,7 @@ Cloak_on(VOID_ARGS)
     case GRAY_DRAGON_SCALES:
         break;
     case CLOAK_OF_PROTECTION:
+    case CLOAK_OF_WEAKNESS:
         makeknown(uarmc->otyp);
         break;
     case ELVEN_CLOAK:
