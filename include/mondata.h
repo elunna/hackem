@@ -77,6 +77,7 @@
      || is_were(ptr) \
      || (ptr) == &mons[PM_DEATH] \
      || (ptr) == &mons[PM_BABY_DEEP_DRAGON] \
+     || (ptr) == &mons[PM_DEEP_DRAGON] \
      || (ptr) == &mons[PM_CERBERUS] \
      || (ptr) == &mons[PM_JUGGERNAUT] \
      || (ptr) == &mons[PM_SHADOW_OGRE] \
