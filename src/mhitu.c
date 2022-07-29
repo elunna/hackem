@@ -1499,7 +1499,7 @@ register struct attack *mattk;
             }
             if (mattk->adtyp == AD_CLOB && dmg != 0
                   && (youmonst.data)->msize < MZ_HUGE && !rn2(6)) {
-                    
+
                 if (defends(AD_CLOB, uarm)) {
                     pline("%s clobbers you, but your armor holds firm!",
                         Monnam(mtmp));
@@ -4196,19 +4196,15 @@ struct attack *mattk;
                 /* !m_lev: level 0 monster is killed regardless of hit points
                 rather than drop to level -1 */
                 if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
-                    pline("%s dies!", Monnam(mtmp));
-                    xkilled(mtmp, XKILL_NOMSG);
-                } else
-                    mtmp->m_lev--;
-                
-                if (mtmp->mhp < 1) {
                     if (canseemon(mtmp))
                         pline("%s dies!", Monnam(mtmp));
                     xkilled(mtmp, XKILL_NOMSG);
-                    if (!DEADMONSTER(mtmp))
-                        return 1;
-                    return 2;
-                }
+                } else
+                    mtmp->m_lev--;
+            }
+            if (!DEADMONSTER(mtmp)) {
+                    return 1;
+                return 2;
             }
             break;
 
