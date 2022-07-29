@@ -1498,13 +1498,20 @@ register struct attack *mattk;
                 hitmsg(mtmp, mattk);
             }
             if (mattk->adtyp == AD_CLOB && dmg != 0
-                && (youmonst.data)->msize < MZ_HUGE && !rn2(6)) {
-                pline("%s knocks you %s with a %s %s!", Monnam(mtmp),
-                      u.usteed ? "out of your saddle" : "back",
-                      rn2(2) ? "forceful" : "powerful", rn2(2) ? "blow" : "strike");
-                hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, rnd(2), FALSE);
-                if (!rn2(4))
-                    make_stunned((HStun & TIMEOUT) + (long) rnd(2) + 1, TRUE);
+                  && (youmonst.data)->msize < MZ_HUGE && !rn2(6)) {
+                    
+                if (defends(AD_CLOB, uarm)) {
+                    pline("%s clobbers you, but your armor holds firm!",
+                        Monnam(mtmp));
+                }
+                else {
+                    pline("%s knocks you %s with a %s %s!", Monnam(mtmp),
+                        u.usteed ? "out of your saddle" : "back",
+                        rn2(2) ? "forceful" : "powerful", rn2(2) ? "blow" : "strike");
+                    hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, rnd(2), FALSE);
+                    if (!rn2(4))
+                        make_stunned((HStun & TIMEOUT) + (long) rnd(2) + 1, TRUE);
+                }
             }
 	    if (mtmp->data == &mons[PM_WATER_ELEMENTAL]
                 || mtmp->data == &mons[PM_BABY_SEA_DRAGON]
