@@ -1743,11 +1743,7 @@ boolean reflection_skip;
 
         nomore(MUSE_WAN_DRAINING);
         if (obj->otyp == WAN_DRAINING) {
-            #if 0  /* --hackem: Need to implement M_SEEN_DRAIN first. */
             if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_DRAIN)) {
-            #endif
-
-            if (obj->spe > 0) {
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_DRAINING;
             } else if (!m.tocharge || obj->spe < 1
