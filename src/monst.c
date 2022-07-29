@@ -581,7 +581,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_COLD, 4, 6), 
           ATTK(AT_BITE, AD_PHYS, 2, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(850, 350, MS_BARK, MZ_MEDIUM), 0, 0,
+        SIZ(850, 350, MS_BARK, MZ_MEDIUM), MR_COLD, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
         0, 0, 0, 15, CLR_GREEN),    
     MON("hell hound", S_DOG, LVL(12, 14, 2, 20, 0), (G_HELL | G_GENO | 1),
