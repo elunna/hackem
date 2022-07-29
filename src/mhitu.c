@@ -4169,6 +4169,42 @@ struct attack *mattk;
                 return 2;
             }
             break;
+
+        case DEEP_DRAGON_SCALES:
+            if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
+                if (canseemon(mtmp) && !rn2(3)) {
+                    shieldeff(mtmp->mx, mtmp->my);
+                    Your("armor does not appear to affect %s",
+                         mon_nam(mtmp));
+                }
+
+            } else if (!rn2(3)) {
+                int xtmp = d(2, 6);
+
+                if (canseemon(mtmp))
+                    pline("%s suddenly seems weaker!", Monnam(mtmp));
+                mtmp->mhpmax -= xtmp;
+                damage_mon(mtmp, xtmp, AD_DRLI);
+            
+                /* !m_lev: level 0 monster is killed regardless of hit points
+                rather than drop to level -1 */
+                if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                    pline("%s dies!", Monnam(mtmp));
+                    xkilled(mtmp, XKILL_NOMSG);
+                } else
+                    mtmp->m_lev--;
+                
+                if (mtmp->mhp < 1) {
+                    if (canseemon(mtmp))
+                        pline("%s dies!", Monnam(mtmp));
+                    xkilled(mtmp, XKILL_NOMSG);
+                    if (!DEADMONSTER(mtmp))
+                        return 1;
+                    return 2;
+                }
+            }
+            break;
+
         case BLACK_DRAGON_SCALES:
             if (resists_disint(mtmp) || defended(mtmp, AD_DISN)) {
                 break;
