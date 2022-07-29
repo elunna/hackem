@@ -78,6 +78,8 @@
      || (ptr) == &mons[PM_DEATH] \
      || (ptr) == &mons[PM_CERBERUS] \
      || (ptr) == &mons[PM_JUGGERNAUT] \
+     || (ptr) == &mons[PM_SHADOW_OGRE] \
+     || (ptr) == &mons[PM_SHADOW_WOLF] \
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
      || (ptr) == &mons[PM_WATER_MAGE] \
      || (ptr) == &mons[PM_EARTH_MAGE] \
@@ -96,6 +98,8 @@
     || (ptr) == &mons[PM_ASTRAL_DEVA] \
     || (ptr) == &mons[PM_GYPSY] \
     || (ptr) == &mons[PM_JUGGERNAUT] \
+    || (ptr) == &mons[PM_SHADOW_OGRE] \
+    || (ptr) == &mons[PM_SHADOW_WOLF] \
     || (ptr) == &mons[PM_STATUE_GARGOYLE] \
     || (ptr) == &mons[PM_MOLDY_PUDDING] \
     || (ptr) == &mons[PM_BLACK_MARKETEER] \
