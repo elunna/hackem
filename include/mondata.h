@@ -30,6 +30,7 @@
 #define resists_acid(mon) ((mon_resistancebits(mon) & MR_ACID) != 0)
 #define resists_ston(mon) ((mon_resistancebits(mon) & MR_STONE) != 0)
 #define resists_psychic(mon) ((mon_resistancebits(mon) & MR_PSYCHIC) != 0)
+#define resists_clob(mon) ((mon_resistancebits(mon) & MR_CLOB) != 0)
 
 #define has_telepathy(mon) \
     (telepathic(r_data(mon)) \

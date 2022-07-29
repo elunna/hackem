@@ -62,6 +62,7 @@
 #define MR_ACID 0x00000040L    /* resists acid */
 #define MR_STONE 0x00000080L   /* resists petrification */
 #define MR_PSYCHIC 0x00000100L /* resists psychic */
+#define MR_CLOB 0x00000120L    /* resists knockback */
 /* other resistances: magic, sickness */
 /* other conveyances: teleport, teleport control, telepathy */
 
