@@ -746,6 +746,7 @@ struct obj *otmp;
             return (otyp == GOLD_DRAGON_SCALES);
         case AD_FIRE:
             return (otyp == RED_DRAGON_SCALES); /* red but not gold */
+        case AD_DRLI:
         case AD_CLOB: /* Knockback/hurtle */
             return (otyp == DEEP_DRAGON_SCALES); /* Deep roots hold you firm */
         case AD_COLD:
