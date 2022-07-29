@@ -689,6 +689,12 @@ Gloves_on(VOID_ARGS)
         if (!(HFumbling & ~TIMEOUT))
             incr_itimeout(&HFumbling, rnd(20));
         break;
+    case GAUNTLETS_OF_SWIMMING:
+		if (u.uinwater) {
+		   pline("Hey! You can swim!");
+		   spoteffects(TRUE);
+		}
+		break;
     case GAUNTLETS_OF_POWER:
     case MUMMIFIED_HAND: /* the Hand of Vecna */
         makeknown(uarmg->otyp);
@@ -751,6 +757,12 @@ Gloves_off(VOID_ARGS)
     case GAUNTLETS:
     case GAUNTLETS_OF_PROTECTION:
         break;
+    case GAUNTLETS_OF_SWIMMING:
+	    if (u.uinwater) {
+	       You("begin to thrash about!");
+	       spoteffects(TRUE);
+	    }
+	    break;
     case GAUNTLETS_OF_FUMBLING:
         if (!(HFumbling & ~TIMEOUT))
             HFumbling = EFumbling = 0;

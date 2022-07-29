@@ -589,6 +589,8 @@ GLOVES("gauntlets of dexterity", "fencing gloves",
        0, 1,          0,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of fumbling", "padded gloves",
        0, 1,   FUMBLING,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
+GLOVES("gauntlets of swimming", "black gloves",
+	0, 1,  SWIMMING,   8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("mummified hand", None,
        0, 0,          0,  0, 1,  5, 100, 9, 0,  FLESH, CLR_BLACK),
 
