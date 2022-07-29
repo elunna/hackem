@@ -443,6 +443,14 @@ Cloak_on(VOID_ARGS)
                   See_invisible ? " see through" : "not see");
         }
         break;
+    case POISONOUS_CLOAK:
+		if (how_resistant(POISON_RES) == 100)
+			pline("This cloak feels a little itchy.");
+		else {
+		    makeknown(uarmc->otyp);
+		    poisoned("cloak", A_STR, "poisonous cloak", 3, FALSE);
+		}
+		break;
     case OILSKIN_CLOAK:
         pline("%s very tightly.", Tobjnam(uarmc, "fit"));
         break;
@@ -486,6 +494,7 @@ Cloak_off(VOID_ARGS)
     case CLOAK_OF_PROTECTION:
     case CLOAK_OF_MAGIC_RESISTANCE:
     case OILSKIN_CLOAK:
+    case POISONOUS_CLOAK:
     case ROBE:
     case CLOAK:
     case GRAY_DRAGON_SCALES:

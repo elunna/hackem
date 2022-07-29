@@ -547,7 +547,9 @@ CLOAK("cloak of magic resistance", "ornamental cope",
         /*  'cope' is not a spelling mistake... leave it be */
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
-
+CLOAK("poisonous cloak", "dirty rag",
+      0, 1,          0,  5, 0, 10, 40, 10, 3, CLOTH, CLR_GREEN),
+      
 /* shields */
 SHIELD("small shield", None,
        1, 0, 0,           0, 4, 0,  30,   3, 9, 0,  WOOD, HI_WOOD),
