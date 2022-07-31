@@ -400,6 +400,7 @@ Imported slashem monsters:
 
 Imported items:
 	Weapons:
+	- [x] Upp'ed crysknives to d20/d30 damage
 	- [x] Dark elven dagger
 	- [x] Dark elven short sword
 	- [x] Dark elven bow
@@ -527,7 +528,38 @@ Firearms:
 	Armor:
 	- [x] Shimmering dragon scales
 	- [x] Shimmering dragon scale mail
+	- [x] Dark elven mithril-coat -> droven chain mail (dark elven?)
+	
+	Artifacts:
 
+
+	- [x] Bat from Hell
+	- [x] baseball bat
+	- [x] Deathsword
+	- [x] Deep Freeze			artifact_material
+	- [x] Firewall				artifact_material
+	- [x] Doomblade
+	- [x] Elfrist
+	- [x] Luckblade (already in evil!)
+	- [x] Quick Blade
+	- [x] Werebane (already in evil!)
+	- [x] Skullcrusher
+	- [x] Reaper (Yeoman)
+	- [x] Holy Spear of Light
+	- [x] Sword of Justice
+	- [x] Sword of Balance		artifact_material
+	- [x] Plague
+	- [x] Serpent's Tongue (Necro)
+	- [x] Thiefbane (1 eye sam)
+	- [x] Giantkiller (Evil has Giantslayer)
+	- [x] Disrupter
+	- [x] Mirrorbright (Healer)
+	- [x] Deluder (Wizard?)
+	- [x] Whisperfeet (Tourist)
+	- [x] Gauntlets of Defense (Monk?)
+	- [SKIPPED] Wallet of Perseus (Evil has the Bag of the Hesperides)
+	- [SKIPPED] Houchou
+	- [SKIPPED] Hellfire	(skip for now - code seems messy)
 
 Item changes:
 	- [x] Add items
@@ -633,7 +665,8 @@ Leaving Out:
 	- [SKIPPED] Wererats can summon new rats
 	- [SKIPPED] Add passive acid to yellow jelly (only procs 1 passive attack)
 	- [SKIPPED] Add passive acid to orange jelly (only procs 1 passive attack)
-	
+	- [SKIPPED] Implement gypsy_chat
+
 Bug fixes:
 	- [FIXED] Giant Shoggoth - showing up as H
 	- [FIXED] Giant scorpions are generating as "H", with spider symbol.
