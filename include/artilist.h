@@ -213,6 +213,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /*
      *      Sunsword from SporkHack was silver in nature, and also warned of nearby undead
      */
+    /* KMH -- Renamed from Holy Sword of Law (Stephen White)
+    * This is an actual sword used in British coronations!
+    */
+    A("Sword of Justice", LONG_SWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0, 
+      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1500L, NO_COLOR),
+
     A("Sunsword", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_UNDEAD,
       PHYS(5, 0), DFNS(AD_BLND), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 2500L,
       NO_COLOR),
