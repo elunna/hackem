@@ -184,6 +184,7 @@ xchar m;
     case ART_DEMONBANE:
     case ART_GRAYSWANDIR:
     case ART_HOLY_SPEAR_OF_LIGHT:
+    case ART_SWORD_OF_BALANCE:
         return SILVER;
         break;
     case ART_DIRGE:
