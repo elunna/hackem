@@ -1383,6 +1383,7 @@ struct obj *obj;
         if (!(resists_cold(mon) || defended(mon, AD_COLD)))
             rc = (dmgtype(youmonst.data, AD_COLD)
                   || wielding_artifact(ART_FROST_BRAND)
+                  || wielding_artifact(ART_DEEP_FREEZE)
                   || (u.twoweap && uswapwep->oprops & ITEM_FROST)
                   || (uwep && uwep->oprops & ITEM_FROST)) ? 25 : 5;
         break;

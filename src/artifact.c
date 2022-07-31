@@ -1791,7 +1791,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     }
     if (attacks(AD_COLD, otmp)) {
         if (realizes_damage) {
-            if (otmp->oartifact == ART_FROST_BRAND) {
+            if (otmp->oartifact == ART_FROST_BRAND 
+             || otmp->oartifact == ART_DEEP_FREEZE) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
                     if (!spec_dbon_applies) {
                         if (!youdefend)
