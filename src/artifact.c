@@ -218,6 +218,7 @@ xchar m;
         break;
     case ART_IRON_BALL_OF_LIBERATION:
     case ART_ANGELSLAYER:
+    case ART_ELFRIST:
         return IRON;
         break;
     case ART_GJALLAR:
@@ -2302,6 +2303,23 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 } else if (youdefend && maybe_polyd(is_orc(youmonst.data),
                            Race_if(PM_ORC)) && k) {
                     You("feel Orcrist slice deep across your neck!");
+                    *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
+                } else
+                    return FALSE;
+                return TRUE;
+            case ART_ELFRIST: /* --hackem: Blatant copy-paste of Orcrist */
+                if (youattack && racial_elf(mdef) && j) {
+                    You("slice open %s throat!", s_suffix(mon_nam(mdef)));
+                    *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
+                } else if (!youattack && !youdefend
+                           && magr && racial_elf(mdef) && j) {
+                    if (cansee(magr->mx, magr->my))
+                        pline("%s slices open %s throat!",
+                              Monnam(magr), s_suffix(mon_nam(mdef)));
+                    *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
+                } else if (youdefend && maybe_polyd(is_elf(youmonst.data),
+                           Race_if(PM_ELF)) && k) {
+                    You("feel Elfrist slice deep across your neck!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;

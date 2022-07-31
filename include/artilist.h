@@ -83,6 +83,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 	    (SPFX_RESTR), 0, 0,
 	    PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED),
 
+    A("Elfrist", ORCISH_SPEAR,
+      SPFX_DFLAGH, 0, MH_ELF, PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 300L, NO_COLOR),
 
     A("Mjollnir", HEAVY_WAR_HAMMER, /* Mjo:llnir */
       (SPFX_RESTR | SPFX_ATTK), 0, 0, ELEC(5, 24), DFNS(AD_ELEC), NO_CARY, 0,
