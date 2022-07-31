@@ -228,6 +228,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Vorpal Blade", LONG_SWORD, (SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN | SPFX_DFLAGH),
       0, MH_JABBERWOCK, PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L,
       NO_COLOR),
+
+    A("Disrupter", MACE, (SPFX_RESTR | MH_UNDEAD), 0, MH_UNDEAD,
+      PHYS(5,30), NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_PRIEST, NON_PM, 500L, NO_COLOR),
+
     /*
      *      Ah, never shall I forget the cry,
      *              or the shriek that shrieked he,
