@@ -63,20 +63,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 8000L,
       NO_COLOR),
 
-
-    /*
-     *      Mjollnir can be thrown when wielded if hero has 25 Strength
-     *      (usually via gauntlets of power but possible with rings of
-     *      gain strength).  If the thrower is a Valkyrie, Mjollnir will
-     *      usually (99%) return and then usually (separate 99%) be caught
-     *      and automatically be re-wielded.  When returning Mjollnir is
-     *      not caught, there is a 50:50 chance of hitting hero for damage
-     *      and its lightning shock might destroy some wands and/or rings.
-     *
-     *      Monsters don't throw Mjollnir regardless of strength (not even
-     *      fake-player valkyries).
-     */
-
     A("Thiefbane", LONG_SWORD, 
       (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI), 0, S_HUMAN,
       DRLI(5, 1), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR),
@@ -97,9 +83,26 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
       /* Auto-poison code in dothrow.c */
 
+
+    /*
+     *      Mjollnir can be thrown when wielded if hero has 25 Strength
+     *      (usually via gauntlets of power but possible with rings of
+     *      gain strength).  If the thrower is a Valkyrie, Mjollnir will
+     *      usually (99%) return and then usually (separate 99%) be caught
+     *      and automatically be re-wielded.  When returning Mjollnir is
+     *      not caught, there is a 50:50 chance of hitting hero for damage
+     *      and its lightning shock might destroy some wands and/or rings.
+     *
+     *      Monsters don't throw Mjollnir regardless of strength (not even
+     *      fake-player valkyries).
+     */
     A("Mjollnir", HEAVY_WAR_HAMMER, /* Mjo:llnir */
       (SPFX_RESTR | SPFX_ATTK), 0, 0, ELEC(5, 24), DFNS(AD_ELEC), NO_CARY, 0,
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 5000L, NO_COLOR),
+
+    A("Mirrorbright", SHIELD_OF_REFLECTION, (SPFX_RESTR | SPFX_HALRES | SPFX_REFLECT), 0, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_HEALER, NON_PM, 5000L, NO_COLOR),
+
 
     A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
       0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR),
