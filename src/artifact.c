@@ -1051,6 +1051,10 @@ struct monst *mon;
     if (!oart)
         return 1;
 
+    /* [ALI] Thiefbane has a special affinity with shopkeepers */
+    if (mon->isshk && obj->oartifact == ART_THIEFBANE) 
+        return 1;
+
     yours = (mon == &youmonst);
     /* all quest artifacts are self-willed; if this ever changes, `badclass'
        will have to be extended to explicitly include quest artifacts */
@@ -2498,13 +2502,16 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 return TRUE;
             }
         } else if (otmp->oartifact == ART_VORPAL_BLADE
-                   && (dieroll == 1 || is_jabberwock(mdef->data))) {
+                   && (dieroll == 1 || is_jabberwock(mdef->data))
+                   || (otmp->oartifact == ART_THIEFBANE && dieroll < 3)) {
             static const char *const behead_msg[2] = { "%s beheads %s!",
                                                        "%s decapitates %s!" };
 
             if (youattack && u.uswallow && mdef == u.ustuck)
                 return FALSE;
-            wepdesc = artilist[ART_VORPAL_BLADE].name;
+            wepdesc = artilist[otmp->oartifact == ART_VORPAL_BLADE 
+                ? ART_VORPAL_BLADE : ART_THIEFBANE].name;
+                
             if (!youdefend) {
                 if (!has_head(mdef->data) || notonhead || u.uswallow) {
                     if (youattack)
@@ -2690,6 +2697,18 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         }
     }
+    /* WAC -- 1/6 chance of cancellation with foobane weapons */
+	if (otmp->oartifact == ART_THIEFBANE) {
+		if (dieroll < 4) {
+		    if (realizes_damage) {
+                pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
+                    "roars deafeningly" : "shines brilliantly");
+                pline("It strikes %s!", hittee);
+		    }
+		    cancel_monst(mdef, otmp, youattack, TRUE, magr == mdef);
+		    return TRUE;
+		}
+	}
     return msgprinted;
 }
 

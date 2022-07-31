@@ -3421,7 +3421,8 @@ const char *str;
         "master key",    /* not the "master" rank */
         "ninja-to",      /* not the "ninja" rank */
         "magenta",       /* not the "mage" rank */
-        "bat from hell",  /* not the "bat" monster */
+        "bat from hell", /* not the "bat" monster */
+        "Thiefbane",     /* not the "thief" rank */
     };
     int i;
     for (i = 0; i < SIZE(non_monster_strs); ++i) {
@@ -3975,7 +3976,8 @@ struct obj *no_wish;
         && strncmpi(bp, "ninja-to", 8)      /* not the "ninja" rank */
         && strncmpi(bp, "master key", 10)   /* not the "master" rank */
         && strncmpi(bp, "magenta", 7)       /* not the "mage" rank */
-        && strncmpi(bp, "Bat from Hell", 13)) { /* not the "bat" monster */
+        && strncmpi(bp, "Bat from Hell", 13)/* not the "bat" monster */
+        && strncmpi(bp, "Thiefbane", 9)) {  /* not the "thief" rank */
        
         if (mntmp < LOW_PM && strlen(bp) > 2
             && (mntmp = name_to_mon(bp)) >= LOW_PM) {
