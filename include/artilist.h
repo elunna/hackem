@@ -75,6 +75,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      *      fake-player valkyries).
      */
 
+    A("Deathsword", TWO_HANDED_SWORD,
+      (SPFX_RESTR | SPFX_DFLAGH), 0, MH_HUMAN,
+       PHYS(5,14), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_BARBARIAN, NON_PM, 5000L, NO_COLOR),
+
     A("Bat from Hell", BASEBALL_BAT,
 	    (SPFX_RESTR), 0, 0,
 	    PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED),
