@@ -2547,6 +2547,17 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             }
         }
     }
+
+    if (otmp->oartifact == ART_DOOMBLADE && dieroll < 6) {
+	    if (youattack)
+		    You("plunge the Doomblade deeply into %s!", mon_nam(mdef));
+	    else
+		    pline("%s plunges the Doomblade deeply into %s!",
+			      Monnam(magr), hittee);
+	    *dmgptr += rnd(4) * 5;
+	    return TRUE;
+       }
+
     if (attacks(AD_DRLI, otmp)
         || spec_ability(otmp, SPFX_DRLI)) {
         /* some non-living creatures (golems, vortices) are

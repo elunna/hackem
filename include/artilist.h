@@ -91,6 +91,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
       0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR),
 
+    A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 10), NO_DFNS, NO_CARY, 
+      0, A_CHAOTIC, NON_PM, NON_PM, 1000L, NO_COLOR),
+
     /*
      *      Grimtooth glows in warning when elves are present, but its
      *      damage bonus applies to all targets rather than just elves
