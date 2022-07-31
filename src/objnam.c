@@ -3421,6 +3421,7 @@ const char *str;
         "master key",    /* not the "master" rank */
         "ninja-to",      /* not the "ninja" rank */
         "magenta",       /* not the "mage" rank */
+        "bat from hell"  /* not the "bat" monster */
     };
     int i;
     for (i = 0; i < SIZE(non_monster_strs); ++i) {
@@ -3968,7 +3969,9 @@ struct obj *no_wish;
         && strncmpi(bp, "wizard lock", 11)  /* not the "wizard" monster! */
         && strncmpi(bp, "ninja-to", 8)      /* not the "ninja" rank */
         && strncmpi(bp, "master key", 10)   /* not the "master" rank */
-        && strncmpi(bp, "magenta", 7)) {    /* not the "mage" rank */
+        && strncmpi(bp, "magenta", 7)       /* not the "mage" rank */
+        && strncmpi(bp, "Bat from Hell", 13)) { /* not the "bat" monster */
+       
         if (mntmp < LOW_PM && strlen(bp) > 2
             && (mntmp = name_to_mon(bp)) >= LOW_PM) {
             int mntmptoo, mntmplen; /* double check for rank title */
@@ -4924,6 +4927,7 @@ struct obj *no_wish;
             case ART_MASTER_KEY_OF_THIEVERY:
             case ART_STING:
             case ART_GRIMTOOTH:
+            case ART_BAT_FROM_HELL:
                 pm = PM_ROGUE;
                 break;
             case ART_TSURUGI_OF_MURAMASA:

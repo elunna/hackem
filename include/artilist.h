@@ -74,6 +74,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      *      Monsters don't throw Mjollnir regardless of strength (not even
      *      fake-player valkyries).
      */
+
+    A("Bat from Hell", BASEBALL_BAT,
+	    (SPFX_RESTR), 0, 0,
+	    PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED),
+
+
     A("Mjollnir", HEAVY_WAR_HAMMER, /* Mjo:llnir */
       (SPFX_RESTR | SPFX_ATTK), 0, 0, ELEC(5, 24), DFNS(AD_ELEC), NO_CARY, 0,
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 5000L, NO_COLOR),

@@ -343,6 +343,9 @@ WEAPON("staff of war", "ironshod staff",
 /* two-piece */
 WEAPON("aklys", "thonged club",
        0, 0, 0, 0,  8,  15,   4,  6,  3, 0, B,   P_CLUB, IRON, HI_METAL),
+/* Base for artifact */
+WEAPON("baseball bat", None,
+	1, 0, 0, 0,  0,  40,  50,  8,  6, 0, B,   P_CLUB, WOOD, HI_WOOD),
 WEAPON("flail", None,
        1, 0, 0, 0, 40,  15,   4,  6,  4, 0, B,   P_FLAIL, IRON, HI_METAL),
         /* +1 small, +1d4 large */
