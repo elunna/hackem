@@ -2578,6 +2578,42 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	    return TRUE;
        }
 
+    if (otmp->oartifact == ART_SERPENT_S_TONGUE) {
+	    otmp->dknown = TRUE;
+	    pline_The("twisted blade poisons %s!",
+		    youdefend ? "you" : mon_nam(mdef));
+	    if (youdefend ? Poison_resistance : resists_poison(mdef)) {
+            if (youdefend)
+                You("are not affected by the poison.");
+            else
+                pline("%s seems unaffected by the poison.", Monnam(mdef));
+            return TRUE;
+	    }
+	    switch (rnd(10)) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                *dmgptr += d(1,6) + 2;
+                break;
+            case 5:
+            case 6:
+            case 7:
+                *dmgptr += d(2,6) + 4;
+                break;
+            case 8:
+            case 9:
+                *dmgptr += d(3,6) + 6;
+                break;
+            case 10:
+                pline_The("poison was deadly...");
+                *dmgptr = 2 * (youdefend 
+                            ? Upolyd 
+                            ? u.mh : u.uhp : mdef->mhp) + FATAL_DAMAGE_MODIFIER;
+                break;
+	    }
+	    return TRUE;
+	}
     if (attacks(AD_DRLI, otmp)
         || spec_ability(otmp, SPFX_DRLI)) {
         /* some non-living creatures (golems, vortices) are

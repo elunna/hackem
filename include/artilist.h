@@ -120,6 +120,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* Making cl=NON_PM until ice mage is implemented. */
     A("Deep Freeze", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
       COLD(5,5), DFNS(AD_COLD), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, CLR_BLUE),
+    
+    /* Making cl=NON_PM until necromancer is implemented */
+    A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
+        PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, NO_COLOR),
+      /* See artifact.c for special poison damage */
+
 
     /* Making cl=NON_PM until flame mage is implemented. */
     A("Firewall", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
