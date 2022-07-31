@@ -111,6 +111,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Deep Freeze", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
       COLD(5,5), DFNS(AD_COLD), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, CLR_BLUE),
 
+    /* Making cl=NON_PM until flame mage is implemented. */
+    A("Firewall", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      FIRE(4,4), DFNS(AD_FIRE), NO_CARY, 0, A_LAWFUL, PM_FLAME_MAGE, NON_PM, 400L, CLR_RED),
+
     A("Orcrist", ELVEN_BROADSWORD, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 2000L,
       CLR_BRIGHT_BLUE), /* bright blue is actually light blue */

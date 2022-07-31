@@ -193,6 +193,8 @@ xchar m;
         break;
     case ART_FIRE_BRAND:
     case ART_FROST_BRAND:
+    case ART_FIREWALL:
+    case ART_DEEP_FREEZE:
     case ART_STORMBRINGER:
     case ART_LUCK_BLADE:
     case ART_VORPAL_BLADE:
@@ -1659,7 +1661,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* the four basic attacks: fire, cold, shock and missiles */
     if (attacks(AD_FIRE, otmp)) {
         if (realizes_damage) {
-            if (otmp->oartifact == ART_FIRE_BRAND) {
+            if (otmp->oartifact == ART_FIRE_BRAND
+            || otmp->oartifact == ART_FIREWALL) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
                     if (!spec_dbon_applies) {
                         if (!youdefend)

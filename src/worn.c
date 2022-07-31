@@ -1374,6 +1374,7 @@ struct obj *obj;
         if (!(resists_fire(mon) || defended(mon, AD_FIRE)))
             rc = (dmgtype(youmonst.data, AD_FIRE)
                   || wielding_artifact(ART_FIRE_BRAND)
+                  || wielding_artifact(ART_FIREWALL)
                   || wielding_artifact(ART_XIUHCOATL)
                   || wielding_artifact(ART_ANGELSLAYER)
                   || (u.twoweap && uswapwep->oprops & ITEM_FIRE)
