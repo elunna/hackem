@@ -3421,7 +3421,7 @@ const char *str;
         "master key",    /* not the "master" rank */
         "ninja-to",      /* not the "ninja" rank */
         "magenta",       /* not the "mage" rank */
-        "bat from hell"  /* not the "bat" monster */
+        "bat from hell",  /* not the "bat" monster */
     };
     int i;
     for (i = 0; i < SIZE(non_monster_strs); ++i) {
@@ -3534,8 +3534,10 @@ struct obj *no_wish;
             while (*bp == ' ')
                 bp++;
             l = 0;
-        } else if (!strncmpi(bp, "blessed ", l = 8)
-                   || !strncmpi(bp, "holy ", l = 5)) {
+        } else if (!strncmpi(bp, "blessed ", l = 8)) {
+/*WAC removed this.  Holy is in some artifact weapon names
+                || !strncmpi(bp, "holy ", l=5)
+*/
             blessed = 1;
         } else if (!strncmpi(bp, "moist ", l = 6)
                    || !strncmpi(bp, "wet ", l = 4)) {
@@ -3830,10 +3832,13 @@ struct obj *no_wish;
          * (avoid "wand/finger of death" confusion).
          * (also avoid "sword of kas" or "eye/hand of vecna" issues)
          */
-        if (!strstri(bp, "wand ") && !strstri(bp, "spellbook ")
-            && !strstri(bp, "hand grenade ")
-            && !strstri(bp, "finger ") && !strstri(bp, "eye ")
-            && !strstri(bp, "hand ") && !strstri(bp, "sword of kas")) {
+        if (!strstri(bp, "wand ") 
+         && !strstri(bp, "spellbook ")
+         && !strstri(bp, "hand grenade ")
+         && !strstri(bp, "finger ") 
+         && !strstri(bp, "eye ")
+         && !strstri(bp, "hand ")
+         && !strstri(bp, "sword of kas")) {
             if ((p = strstri(bp, "tin of ")) != 0) {
                 if (!strcmpi(p + 7, "spinach")) {
                     contents = SPINACH;

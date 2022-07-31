@@ -69,7 +69,8 @@ enum invoke_prop_types {
     CREATE_AMMO,
     PHASING,
     CHANNEL,
-    DEATH_MAGIC
+    DEATH_MAGIC,
+    LIGHT_AREA
 };
 
 #endif /* ARTIFACT_H */

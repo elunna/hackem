@@ -183,6 +183,7 @@ xchar m;
     case ART_WEREBANE:
     case ART_DEMONBANE:
     case ART_GRAYSWANDIR:
+    case ART_HOLY_SPEAR_OF_LIGHT:
         return SILVER;
         break;
     case ART_DIRGE:
@@ -2684,6 +2685,7 @@ struct obj *obj;
 {
     register const struct artifact *oart = get_artifact(obj);
     register struct monst *mtmp;
+    int unseen;
 
     if (!obj) {
         impossible("arti_invoke without obj");
@@ -2784,6 +2786,51 @@ struct obj *obj;
         }
         case LEV_TELE:
             level_tele();
+            break;
+        case LIGHT_AREA:
+            if (!Blind)
+                pline("%s shines brightly for an instant!", The(xname(obj)));
+            else
+                pline("%s grows warm for a second!", The(xname(obj)));
+            litroom(TRUE, obj);
+            vision_recalc(0);
+            
+            if (is_undead(youmonst.data)) {
+                You("burn in the radiance!");
+                /* This is ground zero.  Not good news ... */
+                u.uhp /= 100;
+                if (u.uhp < 1) {
+                    u.uhp = 0;
+                    killer.format = KILLED_BY;
+                    Strcpy(killer.name, "the Holy Spear of Light");
+                    // killer = "the Holy Spear of Light";
+                    done(DIED);
+                }
+            }
+
+            /* Undead and Demonics can't stand the light */
+            unseen = 0;
+            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp)) continue;
+                    if (distu(mtmp->mx, mtmp->my) > 9*9) 
+                        continue;
+                if (couldsee(mtmp->mx, mtmp->my) &&
+                      (is_undead(mtmp->data) || is_demon(mtmp->data)) &&
+                      !resist(mtmp, '\0', 0, TELL)) {
+                    
+                    if (canseemon(mtmp))
+                        pline("%s burns in the radiance!", Monnam(mtmp));
+                    else
+                        unseen++;
+                    
+                    /* damage depends on distance, divisor ranges from 10 to 2 */
+                    mtmp->mhp /= (10 - (distu(mtmp->mx, mtmp->my) / 10));
+                    if (mtmp->mhp < 1) 
+                        mtmp->mhp = 1;
+                }
+            }
+            if (unseen)
+                You_hear("%s of intense pain!", unseen > 1 ? "cries" : "a cry");
             break;
         case CREATE_PORTAL: {
             int i, num_ok_dungeons, last_ok_dungeon = 0;
@@ -3229,7 +3276,9 @@ struct obj *obj;
         && (obj->owornmask & W_ARMS) != 0L)
         return TRUE;
 
-    return (boolean) (get_artifact(obj) && obj->oartifact == ART_SUNSWORD);
+    return (boolean) (get_artifact(obj) && 
+        (obj->oartifact == ART_SUNSWORD
+        || obj->oartifact == ART_HOLY_SPEAR_OF_LIGHT));
 }
 
 /* KMH -- Talking artifacts are finally implemented */
