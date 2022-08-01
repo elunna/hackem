@@ -3233,11 +3233,12 @@ static const struct alt_spellings {
     { "flintstone", FLINT },
     { "shiny stone", SLING_BULLET },
     /* grenades and firearms */
+    { "bolt", CROSSBOW_BOLT },
     { "handgun", PISTOL },
 	{ "hand gun", PISTOL },
 	{ "revolver", PISTOL },
     { "shell", SHOTGUN_SHELL },
-     { "hand grenade", FRAG_GRENADE },
+    { "hand grenade", FRAG_GRENADE },
     { (const char *) 0, 0 },
 };
 
