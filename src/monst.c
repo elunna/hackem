@@ -2762,7 +2762,7 @@ NEARDATA struct permonst mons[] = {
     /* From GruntHack - baby dragons are a bit more dangerous now.
      * Sure, it's a baby... but it's still a dragon.
      */
-    MON("baby gray dragon", S_DRAGON, LVL(12, 9, 2, 10, 0), G_GENO,
+    MON("baby gray dragon", S_DRAGON, LVL(12, 9, 2, 20, 0), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4), 
