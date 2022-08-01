@@ -1077,7 +1077,7 @@ SPELL("drain life",      "velvet",        P_ATTACK_SPELL,      10,  2, 2, 1, IMM
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),
 SPELL("create monster",  "turquoise",     P_CLERIC_SPELL,      30,  3, 2, 1, NODIR, CLR_BRIGHT_CYAN),
-SPELL("summon undead",   "black",         P_ATTACK_SPELL,      10,  7, 5, 1, IMMEDIATE, CLR_BLACK),
+SPELL("summon undead",   "black",         P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),
 SPELL("detect food",     "cyan",          P_DIVINATION_SPELL,  30,  3, 1, 1, NODIR, CLR_CYAN),
 SPELL("cause fear",      "light blue",    P_ENCHANTMENT_SPELL, 25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
 SPELL("clairvoyance",    "dark blue",     P_DIVINATION_SPELL,  15,  3, 3, 1, NODIR, CLR_BLUE),
@@ -1107,7 +1107,7 @@ SPELL("repair armor",    "platinum",      P_MATTER_SPELL,      20,  6, 3, 1, IMM
 SPELL("reflection",	    "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),
 SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),
 SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),
-SPELL("command undead",  "dark",          P_ATTACK_SPELL,      10,  7, 5, 1, IMMEDIATE, CLR_BLACK),
+SPELL("command undead",  "dark",          P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),
 
 /* books with fixed descriptions
  */
