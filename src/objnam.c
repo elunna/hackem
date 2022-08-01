@@ -733,7 +733,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 Strcat(buf, " (lit)");
             
             if (wizard)
-                Sprintf(eos(buf), " (%d)", obj->age);
+                Sprintf(eos(buf), " (%ld)", obj->age);
         }
 
         break;
