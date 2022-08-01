@@ -1096,7 +1096,7 @@ SPELL("magic mapping",   "dusty",         P_DIVINATION_SPELL,  15,  7, 5, 1, NOD
 SPELL("identify",        "bronze",        P_DIVINATION_SPELL,  20,  6, 3, 1, NODIR, HI_COPPER),
 SPELL("turn undead",     "copper",        P_CLERIC_SPELL,      15,  8, 6, 1, IMMEDIATE, HI_COPPER),
 SPELL("polymorph",       "silver",        P_MATTER_SPELL,      10,  8, 6, 1, IMMEDIATE, HI_SILVER),
-SPELL("teleport away",   "gold",          P_ESCAPE_SPELL,      15,  6, 6, 1, IMMEDIATE, HI_GOLD),
+SPELL("teleport away",   "gold",          P_ESCAPE_SPELL,      15,  6, 5, 1, IMMEDIATE, HI_GOLD),
 SPELL("passwall",        "ochre",         P_ESCAPE_SPELL,       5,  7, 5, 1, NODIR,     CLR_YELLOW),
 SPELL("create familiar", "glittering",    P_CLERIC_SPELL,      10,  7, 6, 1, NODIR, CLR_WHITE),
 SPELL("cancellation",    "shining",       P_MATTER_SPELL,      15,  8, 7, 1, IMMEDIATE, CLR_WHITE),
