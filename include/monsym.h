@@ -140,6 +140,8 @@ enum mon_class_types {
 #define DEF_DEMON       '&'
 #define DEF_EEL         ';'
 #define DEF_LIZARD      ':'
+#define DEF_BAD_FOOD    '%'
+#define DEF_BAD_COINS   '$'
 
 #define DEF_INVISIBLE   'I'
 #define DEF_WORM_TAIL   '~'

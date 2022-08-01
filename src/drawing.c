@@ -117,6 +117,8 @@ const struct class_sym def_monsyms[MAXMCLASSES] = {
     { DEF_DEMON, "", "major demon" },
     { DEF_EEL, "", "sea monster" },
     { DEF_LIZARD, "", "lizard" },
+    { DEF_BAD_FOOD, "", "bad food" },
+    { DEF_BAD_COINS, "", "bad coins" },
     { DEF_WORM_TAIL, "", "long worm tail" },
     { DEF_MIMIC_DEF, "", "mimic" },
 };
