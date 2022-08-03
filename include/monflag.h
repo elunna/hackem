@@ -50,8 +50,7 @@
 #define MS_PARROT	41	/* parrots */
 #define MS_SHEEP	42	/* sheep */
 #define MS_COW		43	/* cows and bulls */
-#define MS_GYPSY	44	/* gypsies */
-#define MS_ATHOL	45	/* athols; howls like a shrieker */
+#define MS_ATHOL	44	/* athols; howls like a shrieker */
 
 #define MR_FIRE 0x00000001L    /* resists fire */
 #define MR_COLD 0x00000002L    /* resists cold */

@@ -1107,16 +1107,6 @@ register struct monst *mtmp;
         else
             verbl_msg = "We're all doomed.";
         break;
-    
-    case MS_GYPSY:	/* KMH */
-		if (mtmp->mpeaceful) {
-            #if 0  /* Rest of gypsy to be implemented later */
-			gypsy_chat(mtmp);
-            #endif
-            verbl_msg = "We're all doomed.";
-			break;
-		}
-		/* fall through */
     case MS_SPELL:
         /* deliberately vague, since it's not actually casting any spell */
         pline_msg = "seems to mutter a cantrip.";
