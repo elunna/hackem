@@ -703,8 +703,12 @@ Bug fixes:
 - [x] Smaller text
 
 
-	- [x] Go through and label all imports from Slash'EM for history.
-	- [x] Remove gypsy
-	
-	- [MEH?] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
-	- [MEH?] Rat King is showing up as '@' ?
+- [x] Go through and label all imports from Slash'EM for history.
+- [x] Remove gypsy
+
+- [MEH?] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
+- [MEH?] Rat King is showing up as '@' ?
+- [SKIP] Lycanthrope race
+- [DONE] Hobbit race
+- [x] Remove Dr. Frankenstein
+- [x] Remove Frankensteins monster

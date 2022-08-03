@@ -4209,16 +4209,6 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 20, MS_HUMANOID, MZ_HUMAN), MR_POISON, 0,
         M1_HUMANOID | M1_OMNIVORE | M1_POIS | M1_TPORT, M2_HOSTILE | M2_NASTY,
         M3_INFRAVISIBLE, 0, 0, 14, CLR_GREEN),
-    MON("Doctor Frankenstein", S_QUANTMECH,                     /* Slash'EM */
-        LVL(20, 12, -10, 75, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
-          ATTK(AT_CLAW, AD_TLPT, 1, 4),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 20, MS_HUMANOID, MZ_HUMAN), 
-        MR_POISON | MR_ELEC | MR_SLEEP, 0,
-        M1_HUMANOID | M1_OMNIVORE | M1_POIS | M1_TPORT, 
-        M2_HOSTILE | M2_NOPOLY | M2_MALE | M2_PNAME, 
-        M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 23, HI_LORD),
     /*
      * Rust monster or disenchanter
      */
@@ -5059,17 +5049,6 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_THICK_HIDE | M1_POIS,
         M2_HOSTILE | M2_STRONG | M2_COLLECT | M2_NEUTER, 
         0, 0, 0, 36, CLR_BRIGHT_BLUE),
-    MON("Frankenstein's Monster", S_GOLEM,                      /* Slash'EM */
-        LVL(20, 8, -5, 50, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_CLAW, AD_PHYS, 3, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 3, 8),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1400, 600, MS_SILENT, MZ_LARGE),
-        MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON,
-        MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON,
-        M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
-        M2_HOSTILE | M2_STRONG | M2_NOPOLY | M2_MALE | M2_PNAME, 
-        0, 0, MH_UNDEAD, 23, HI_LORD),
     /*
      * humans, including elves and were-critters
      */

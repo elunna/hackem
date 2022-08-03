@@ -3879,7 +3879,6 @@ int type;
 		case PM_SAPPHIRE_GOLEM: return 280;
 		case PM_STEEL_GOLEM: return 290;
 		case PM_CRYSTAL_GOLEM: return 300;
-		case PM_FRANKENSTEIN_S_MONSTER: return 400;
     default:
         return 0;
     }
