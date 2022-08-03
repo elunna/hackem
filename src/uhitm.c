@@ -1464,21 +1464,29 @@ int dieroll;
             || mdat == &mons[PM_ALHOON]))
         tmp *= 2;
 
-    #if 0  /* This crashes as soon as you hit a V, needs debugging or better placement.*/
     /* WAC Added instant kill from wooden stakes vs vampire */
     /* based off Poison Code */
-    /* fixed stupid mistake - check that obj exists before comparing...*/
-    if (obj && obj->otyp == WOODEN_STAKE && is_vampire(mdat)) {
-        
-        /* if (Role_if(PM_UNDEAD_SLAYER) */
-        if ((P_SKILL(weapon_type(obj)) >= P_EXPERT)
-                || obj->oartifact == ART_STAKE_OF_VAN_HELSING) {
-            if (!rn2(10)) {
+    if (uwep && uwep->otyp == WOODEN_STAKE && is_vampire(mdat)) {
+        int skill = P_SKILL(weapon_type(uwep));
+        if (Role_if(PM_UNDEAD_SLAYER))
+            skill++;
+        if (uwep->oartifact == ART_STAKE_OF_VAN_HELSING)
+            skill++;
+
+        if (skill >= P_BASIC) {
+            /* Scale insta-kill rate with skill level
+             * Basic = 2, Skilled = 3, Expert = 4
+             * Being Undead Slayer +1
+             * Using Stake of Van Helsing is +1
+             */
+            if (!rn2(10 - skill)) {
                 You("plunge your stake into the heart of %s.", mon_nam(mon));
                 destroyed = TRUE;
             } else {
                 You("drive your stake into %s.", mon_nam(mon));
-                tmp += rnd(6) + 2;
+
+                /* Scale the dmg bonus with skill level */
+                tmp += rnd(6) + skill;
                 hittxt = TRUE;
             }
         } else {
@@ -1487,7 +1495,6 @@ int dieroll;
             hittxt = TRUE;
         }
     }
-    #endif 
 
     if (valid_weapon_attack) {
         struct obj *wep;
