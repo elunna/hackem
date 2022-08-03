@@ -666,10 +666,45 @@ Leaving Out:
 	- [SKIPPED] Add passive acid to yellow jelly (only procs 1 passive attack)
 	- [SKIPPED] Add passive acid to orange jelly (only procs 1 passive attack)
 	- [SKIPPED] Implement gypsy_chat
-
+	- [SKIPPED] The Guild of Disgruntled Adventurers
+	- [SKIPPED] The Giant Caverns
+	- [SKIPPED] Frankenstein's Lab
+	- [SKIPPED] Giant Throne Rooms
+	
 Bug fixes:
 	- [FIXED] Giant Shoggoth - showing up as H
 	- [FIXED] Giant scorpions are generating as "H", with spider symbol.
 	- [FIXED] issue in monflag.h: anything traitorous will also be displaced and vice versa, and anything notame will also be skittish and vice versa.
 	- [FIXED] Hellbat "pecks". Should be bite. 
+
+-------------------------------------------------------------------------------
+- [SKIPPED - THEY ARE BAD ENOUGH ALREADY!] Fix the shoggoth engulf erosion problem: 
+	walk the list, rolling for item erosion. If you want to erode the item (20% chance or whatever), 
+	add a pointer to a temporary list. then, walk that list of pointers and erode them
+	for future reference, standard nethack convention when looping over a list of objs 
+	and maybe-deleting them as you go is to store nobj in a second variable before doing the maybe-deletion
+- [SKIPPED] Sparkling potions can ONLY be amnesia.
+	* Amnesia potions can now be anything - since amnesia was nerfed.
+- [x] Baby gray dragons get MR20 (twice the other baby dragons)
+- [FIXED] Fix default killer food symbol to % (shows up as ~)
+- [FIXED] Killer coins show up as [ (strange object)
+- [x] We should be able to wish for "bolts" for crossbow bolts.
+- [x] o_init.c shuffle code not found/different from slashem
+- [x] Lower passwall spell level slightly to 5
+- [x] Lower teleport spell to 5?
+- [x] lower command undead spell difficulty to 4
+- [x] lower summon undead spell difficulty to 4
+- [x] In SLASH'EM, pick-axes weigh just 75 aum.
+	- [x] Import artifacts first - make adjustments later!
+
+- [SKIPPED] Get visual studio to work correctly with syntax/lookup
+- [x] Setup CLion for nethack dev
+- [x] Disable typo warnings
+- [x] Smaller text
+
+
+	- [x] Go through and label all imports from Slash'EM for history.
+	- [x] Remove gypsy
 	
+	- [MEH?] catoblepas: The gaze attack doesn't seem to give a message when you die. The reason for death is "gaze of death"
+	- [MEH?] Rat King is showing up as '@' ?
