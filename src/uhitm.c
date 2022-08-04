@@ -910,6 +910,7 @@ int dieroll;
      */
     boolean hittxt = FALSE, destroyed = FALSE, already_killed = FALSE;
     boolean burnmsg = FALSE;
+    boolean vapekilled = FALSE; /* WAC added boolean for vamps vaporize */
     boolean get_dmg_bonus = TRUE;
     boolean ispoisoned = FALSE, needpoismsg = FALSE, poiskilled = FALSE,
             unpoisonmsg = FALSE;
@@ -1467,10 +1468,11 @@ int dieroll;
     /* Wooden stakes vs vampires */
     if (uwep && uwep->otyp == WOODEN_STAKE && is_vampire(mdat)) {
         int skill = P_SKILL(weapon_type(uwep));
+
         if (Role_if(PM_UNDEAD_SLAYER))
-            skill++;
+            skill += 1;
         if (uwep->oartifact == ART_STAKE_OF_VAN_HELSING)
-            skill++;
+            skill += 2;
         if (P_SKILL(weapon_type(obj)) >= P_BASIC) {
             /* Scale instakill rate with skill level
              * Basic = 2, Skilled = 3, Expert = 4
@@ -1479,14 +1481,13 @@ int dieroll;
              */
             if (!rn2(10 - skill)) {
                 You("plunge your stake into the heart of %s.", mon_nam(mon));
-                destroyed = TRUE;
+                vapekilled = TRUE;
             } else {
                 You("drive your stake into %s.", mon_nam(mon));
-
                 /* Scale the dmg bonus with skill level */
                 tmp += rnd(6) + skill;
-                hittxt = TRUE;
             }
+            hittxt = TRUE;
         } else {
             You("thrust your stake into %s.", mon_nam(mon));
             tmp += rnd(6);
@@ -1813,6 +1814,12 @@ int dieroll;
         destroyed = TRUE; /* return FALSE; */
         if (obj && (obj->oprops & ITEM_VENOM))
             obj->oprops_known |= ITEM_VENOM;
+    } else if (vapekilled) {
+        if (cansee(mon->mx, mon->my))
+            pline("%s%ss body vaporizes!", Monnam(mon),
+                  canseemon(mon) ? "'" : "");
+        if (!already_killed)
+            xkilled(mon, XKILL_NOMSG);
     } else if (destroyed) {
         if (!already_killed)
             killed(mon); /* takes care of most messages */
