@@ -110,6 +110,11 @@ struct attack *mattk;
                 else
                     pline("%s %ss you!", Monnam(mtmp),
                           mwep_none[rn2(SIZE(mwep_none))]);
+            } else if (MON_WEP(mtmp)->otyp == WOODEN_STAKE) {
+                /* Messages for wooden stakes are currently handled elsewhere
+                 * - otherwise we get multiple messages for the same hit.
+                 */
+                return;
             } else if (is_pierce(MON_WEP(mtmp)))
                 pline("%s %ss you!", Monnam(mtmp),
                       mwep_pierce[rn2(SIZE(mwep_pierce))]);
@@ -1492,6 +1497,27 @@ register struct attack *mattk;
                     burnmsg = TRUE;
                 }
 
+                /* Wooden stakes vs vampires */
+                if (otmp->otyp == WOODEN_STAKE && is_vampire(youmonst.data)) {
+                    if (!rn2(10)) {
+                        pline("%s plunges the stake into your heart.", Monnam(mtmp));
+                        // killer.format = KILLED_BY_AN;
+                        killer.format = NO_KILLER_PREFIX;
+                        Sprintf(killer.name, "staked by %s",
+                                an(mtmp->data->mname));
+
+                        // killer = "a wooden stake in the heart.";
+                        /* killer_format = KILLED_BY_AN; */
+                        // kformat = KILLED_BY;
+
+                        u.ugrave_arise = -3; /* No corpse */
+                        done(DIED);
+                    } else {
+                        pline("%s drives the stake into you.", Monnam(mtmp));
+                        dmg += rnd(6) + 2;
+                    }
+                }
+
                 rustm(&youmonst, otmp); /* safe if otmp is NULL */
             } else if (mattk->aatyp != AT_TUCH || dmg != 0
                        || mtmp != u.ustuck) {
@@ -1788,7 +1814,7 @@ register struct attack *mattk;
                 You("are mercilessly tickled by %s!", mon_nam(mtmp));
 			// nomovemsg = 0;	/* default: "you can move again" */
 			nomovemsg = You_can_move_again;
-            nomul(-rnd(10));
+                        nomul(-rnd(10));
 			exercise(A_DEX, FALSE);
 			exercise(A_CON, FALSE);
 		    }
@@ -2549,35 +2575,6 @@ do_rust:
         // burn_faster(otmp, 1);
         burn_faster(mon_currwep, 1);
     }
-
-    #if 0   /* Unstable */
-    /* Stakes do extra dmg agains vamps */
-    if (hated_obj->otyp == WOODEN_STAKE &&
-        is_vampire(youmonst.data)) {
-        if (hated_obj->oartifact == ART_STAKE_OF_VAN_HELSING) {
-            if (!rn2(10)) {
-                pline("%s plunges the stake into your heart.", Monnam(mtmp));
-                // killer.format = KILLED_BY_AN;
-                killer.format = NO_KILLER_PREFIX;
-                Sprintf(killer.name, "staked by %s",
-                    an(mtmp->data->mname));
-
-                // killer = "a wooden stake in the heart.";
-                /* killer_format = KILLED_BY_AN; */
-                // kformat = KILLED_BY;
-                
-                u.ugrave_arise = -3; /* No corpse */
-                done(DIED);
-            } else {
-                pline("%s drives the stake into you.", Monnam(mtmp));
-                dmg += rnd(6) + 2;
-            }
-        } else {
-            pline("%s drives the stake into you.", Monnam(mtmp));
-            dmg += rnd(6);
-        }
-    }
-    #endif
 
     if (dmg) {
         if (Half_physical_damage

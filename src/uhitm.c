@@ -1464,17 +1464,15 @@ int dieroll;
             || mdat == &mons[PM_ALHOON]))
         tmp *= 2;
 
-    /* WAC Added instant kill from wooden stakes vs vampire */
-    /* based off Poison Code */
+    /* Wooden stakes vs vampires */
     if (uwep && uwep->otyp == WOODEN_STAKE && is_vampire(mdat)) {
         int skill = P_SKILL(weapon_type(uwep));
         if (Role_if(PM_UNDEAD_SLAYER))
             skill++;
         if (uwep->oartifact == ART_STAKE_OF_VAN_HELSING)
             skill++;
-
-        if (skill >= P_BASIC) {
-            /* Scale insta-kill rate with skill level
+        if (P_SKILL(weapon_type(obj)) >= P_BASIC) {
+            /* Scale instakill rate with skill level
              * Basic = 2, Skilled = 3, Expert = 4
              * Being Undead Slayer +1
              * Using Stake of Van Helsing is +1
@@ -1490,7 +1488,7 @@ int dieroll;
                 hittxt = TRUE;
             }
         } else {
-            You("drive your stake into %s.", mon_nam(mon));
+            You("thrust your stake into %s.", mon_nam(mon));
             tmp += rnd(6);
             hittxt = TRUE;
         }
