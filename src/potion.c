@@ -2984,6 +2984,15 @@ dodip()
             pline_The("potion spills and covers your %s with oil.",
                       fingers_or_gloves(TRUE));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
+        } else if (obj->otyp == CLUB) {
+            /* From DNetHack */
+            You("make a torch from your club and the oil.");
+            obj->otyp = TORCH;
+            obj->age = (long) rn1(300, 600);
+            obj->oclass = TOOL_CLASS;
+            if(potion->dknown && !objects[potion->otyp].oc_name_known)
+                makeknown(potion->otyp);
+            goto poof;
         } else if (obj->oclass != WEAPON_CLASS && !is_weptool(obj)) {
             /* the following cases apply only to weapons */
             goto more_dips;
