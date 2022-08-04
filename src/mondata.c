@@ -1029,6 +1029,7 @@ const char *in_str;
             { "djinn", PM_DJINNI },
             { "mumakil", PM_MUMAK },
             { "erinyes", PM_ERINYS },
+            { "giant lice", PM_GIANT_LOUSE },	/* RJ */
             /* end of list */
             { 0, NON_PM }
         };
