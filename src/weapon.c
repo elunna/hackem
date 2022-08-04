@@ -183,6 +183,9 @@ struct monst *mon;
     if (is_spear(otmp) && index(kebabable, ptr->mlet))
         tmp += 2;
 
+    if (otmp->otyp == WOODEN_STAKE && is_vampire(ptr))
+        tmp += 1;
+
     /* trident is highly effective against swimmers */
     if (otmp->otyp == TRIDENT && is_swimmer(ptr)) {
         if (is_damp_terrain(mon->mx, mon->my))
