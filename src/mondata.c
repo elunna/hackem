@@ -949,15 +949,19 @@ const char *in_str;
         Strcpy(s + 4, "ex");
     /* nobles and royalty */
     if (slen > 5 && (s = strstri(term - 5, " lady")) != 0)
-        Strcpy(term - 4, "noble");
+        Strcpy(term - 4, "lord");
+#if 0
     else if (slen > 5 && (s = strstri(term - 5, " lord")) != 0)
         Strcpy(term - 4, "noble");
+#endif
     else if (slen > 6 && (s = strstri(term - 6, " queen")) != 0
              && strncmpi(str, "kathryn ", 8))
-        Strcpy(term - 5, "royal");
+        Strcpy(term - 5, "king");
+#if 0
     else if (slen > 5 && (s = strstri(term - 5, " king")) != 0
              && strncmpi(str, "rat ", 4) && strncmpi(str, "goblin ", 7))
         Strcpy(term - 4, "royal");
+#endif
     /* be careful with "ies"; "priest", "zombies" */
     else if (slen > 3 && !strcmpi(term - 3, "ies")
              && (slen < 7 || strcmpi(term - 7, "zombies")))
