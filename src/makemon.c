@@ -1543,6 +1543,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, DWARVISH_CLOAK);
             if (rn2(7))
                 (void) mongets(mtmp, DWARVISH_BOOTS);
+
             if (!rn2(4)) {
                 (void) mongets(mtmp, rn2(5) ? DWARVISH_SHORT_SWORD
                                             : DWARVISH_BEARDED_AXE);
@@ -1565,6 +1566,20 @@ register struct monst *mtmp;
                 }
             } else {
                 (void) mongets(mtmp, !rn2(3) ? PICK_AXE : DAGGER);
+            }
+
+            /* MRKR: Dwarves in the Mines frequently carry torches */
+            if (In_mines(&u.uz)) {
+                if (!rn2(2)) {
+                    otmp = mksobj(TORCH, TRUE, FALSE);
+                    otmp->quan = 1;
+                    (void) mpickobj(mtmp, otmp);
+
+                    /* If this spot is unlit, light the torch */
+                    if (!levl[mtmp->mx][mtmp->my].lit) {
+                        begin_burn(otmp, FALSE);
+                    }
+                }
             }
         } else if (mm == PM_MINER) {
             (void) mongets(mtmp, PICK_AXE);
