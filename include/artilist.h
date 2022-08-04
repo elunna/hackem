@@ -50,39 +50,89 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("", STRANGE_OBJECT, 0, 0, 0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 0L, NO_COLOR),
 
+        /*** Lawful artifacts ***/
+
+    /* From SporkHack. Now a silver mace with an extra property.
+       First sacrifice gift for a priest. */
+    A("Demonbane", HEAVY_MACE, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_PRIEST, NON_PM, 3000L,
+      NO_COLOR),
+
+    /* From LotR. Provides magic resistance and one level of MC when wielded.
+     * Can destroy any balrog in one hit. Warns of any demons nearby.*/
+    A("Dramborleg", DWARVISH_BEARDED_AXE,
+      (SPFX_RESTR | SPFX_INTEL | SPFX_PROTECT | SPFX_WARN | SPFX_DFLAGH), 0,
+      MH_DEMON, PHYS(8, 8), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL, NON_PM, PM_DWARF,
+      9000L, CLR_RED),
+
     A("Excalibur", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_SEEK
                                 | SPFX_DEFN | SPFX_INTEL | SPFX_SEARCH),
       0, 0, PHYS(5, 10), DFNS(AD_DRLI), NO_CARY, 0, A_LAWFUL, PM_KNIGHT, NON_PM,
       4000L, NO_COLOR),
-    /*
-     *      Stormbringer only has a 2 because it can drain a level,
-     *      providing 8 more.
-     */
-    A("Stormbringer", RUNESWORD,
-      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI), 0, 0,
-      DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 8000L,
+
+    A("Firewall", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      FIRE(4,4), DFNS(AD_FIRE), NO_CARY, 0, A_LAWFUL, PM_FLAME_MAGE, NON_PM, 400L, CLR_RED),
+
+    A("Grayswandir", SABER, (SPFX_RESTR | SPFX_HALRES), 0, 0,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 8000L,
       NO_COLOR),
 
-    A("Thiefbane", LONG_SWORD, 
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI), 0, S_HUMAN,
-      DRLI(5, 1), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR),
+    A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
+      PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR ),
 
-    A("Deathsword", TWO_HANDED_SWORD,
-      (SPFX_RESTR | SPFX_DFLAGH), 0, MH_HUMAN,
-       PHYS(5,14), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_BARBARIAN, NON_PM, 5000L, NO_COLOR),
+    A("Skullcrusher", CLUB, SPFX_RESTR, 0, 0,
+      PHYS(3, 10), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 300L, NO_COLOR),
 
-    A("Bat from Hell", BASEBALL_BAT,
-	    (SPFX_RESTR), 0, 0,
-	    PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED),
+    A("Snickersnee", KATANA, SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
+      0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR),
 
-    A("Elfrist", ORCISH_SPEAR,
-      SPFX_DFLAGH, 0, MH_ELF, PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 300L, NO_COLOR),
+    A("Spear of Light", SPEAR,
+      (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
+      PHYS(5,10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, NON_PM, NON_PM, 4000L, NO_COLOR),
 
-    /* Associated with PM_DROW */
-    A("Plague", DARK_ELVEN_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
-      PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
-      /* Auto-poison code in dothrow.c */
+    /* Silver: Warns of undead. */
+    A("Sunsword", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_UNDEAD,
+      PHYS(5, 0), DFNS(AD_BLND), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 2500L,
+      NO_COLOR),
 
+    A("Sword of Justice", LONG_SWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0,
+      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1500L, NO_COLOR),
+
+    A("Quick Blade", ELVEN_SHORT_SWORD,
+      SPFX_RESTR, 0, 0, PHYS(9,2), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
+
+
+        /*** Neutral artifacts ***/
+
+    A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
+      0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR),
+
+    A("Deluder", CLOAK_OF_DISPLACEMENT, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_WIZARD, NON_PM, 5000L, NO_COLOR),
+
+    A("Disrupter", MACE, (SPFX_RESTR | MH_UNDEAD), 0, MH_UNDEAD,
+      PHYS(5,30), NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_PRIEST, NON_PM, 500L, NO_COLOR),
+
+    A("Gauntlets of Defense", GAUNTLETS_OF_DEXTERITY, SPFX_RESTR, SPFX_HPHDAM, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, INVIS, A_NEUTRAL, PM_MONK, NON_PM, 5000L, NO_COLOR),
+
+    A("Giantslayer", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_GIANT,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
+      NO_COLOR),
+
+    /* From SporkHack - a Hawaiian war club. */
+    A("Keolewa", CLUB, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      ELEC(5, 8), DFNS(AD_ELEC), NO_CARY, 0, A_NEUTRAL, PM_CAVEMAN, NON_PM,
+      2000L, NO_COLOR),
+
+    /* Evilhack change: Magic fanfare unbalances victims in addition
+     * to doing some damage. */
+    A("Magicbane", QUARTERSTAFF, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      STUN(3, 4), DFNS(AD_MAGM), NO_CARY, 0, A_NEUTRAL, PM_WIZARD, NON_PM,
+      3500L, NO_COLOR),
+
+    A("Mirrorbright", SHIELD_OF_REFLECTION, (SPFX_RESTR | SPFX_HALRES | SPFX_REFLECT), 0, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_HEALER, NON_PM, 5000L, NO_COLOR),
 
     /*
      *      Mjollnir can be thrown when wielded if hero has 25 Strength
@@ -100,32 +150,72 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_ATTK), 0, 0, ELEC(5, 24), DFNS(AD_ELEC), NO_CARY, 0,
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 5000L, NO_COLOR),
 
-    A("Gauntlets of Defense", GAUNTLETS_OF_DEXTERITY, SPFX_RESTR, SPFX_HPHDAM, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, INVIS, A_NEUTRAL, PM_MONK, NON_PM, 5000L, NO_COLOR),
+    A("Sword of Balance", SHORT_SWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0,
+      PHYS(2, 5), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L, NO_COLOR),
 
-    A("Mirrorbright", SHIELD_OF_REFLECTION, (SPFX_RESTR | SPFX_HALRES | SPFX_REFLECT), 0, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_HEALER, NON_PM, 5000L, NO_COLOR),
-
-    A("Deluder", CLOAK_OF_DISPLACEMENT, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_WIZARD, NON_PM, 5000L, NO_COLOR),
+    A("Vorpal Blade", LONG_SWORD, (SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN | SPFX_DFLAGH),
+      0, MH_JABBERWOCK, PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L,
+      NO_COLOR),
 
     A("Whisperfeet", SPEED_BOOTS, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_TOURIST, NON_PM, 5000L, NO_COLOR),
 
-    A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
-      0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR),
 
-    A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 10), NO_DFNS, NO_CARY, 
+        /*** Chaotic artifacts ***/
+
+    A("Bat from Hell", BASEBALL_BAT,
+      (SPFX_RESTR), 0, 0,
+      PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED),
+
+    /* Yeenoghu's infamous triple-headed flail. A massive weapon reputed to have been created
+     * from the thighbone and torn flesh of an ancient god he slew. An extremely lethal artifact */
+    A("Butcher", TRIPLE_HEADED_FLAIL,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
+      SPFX_EXCLUDE, 0, STUN(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
+      NON_PM, NON_PM, 4000L, NO_COLOR),
+
+    A("Deathsword", TWO_HANDED_SWORD,
+      (SPFX_RESTR | SPFX_DFLAGH), 0, MH_HUMAN,
+      PHYS(5,14), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_BARBARIAN, NON_PM, 5000L, NO_COLOR),
+
+    A("Deep Freeze", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      COLD(5,5), DFNS(AD_COLD), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, CLR_BLUE),
+
+    /* From SporkHack, but with a twist. This is the anti-Excalibur. */
+    A("Dirge", LONG_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL), 0, 0,
+      ACID(5, 10), DFNS(AD_ACID), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      4000L, NO_COLOR),
+
+    A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 10), NO_DFNS, NO_CARY,
       0, A_CHAOTIC, NON_PM, NON_PM, 1000L, NO_COLOR),
 
-    /*
-     *      Grimtooth glows in warning when elves are present, but its
-     *      damage bonus applies to all targets rather than just elves
-     *      (handled as special case in spec_dbon()).
-     */
+    A("Elfrist", ORCISH_SPEAR,
+      SPFX_DFLAGH, 0, MH_ELF,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 300L, NO_COLOR),
+
+  /* Warns when elves are present, but its damage bonus applies to all targets.
+   *      (handled as special case in spec_dbon()). */
     A("Grimtooth", ORCISH_DAGGER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH),
       0, MH_ELF, DISE(5, 6), NO_DFNS,
       NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 1500L, CLR_RED),
+
+   /* from SporkHack - many of the same properties as Stormbringer
+    *      Meant to be wielded by Vlad. */
+    A("Lifestealer", TWO_HANDED_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI),
+      SPFX_EXCLUDE, 0, DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM,
+      NON_PM, 10000L, NO_COLOR),
+
+    /* Convict first artifact weapon. Acts like a luckstone. */
+    A("Luck Blade", BROADSWORD, (SPFX_RESTR | SPFX_LUCK), 0, 0,
+      PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_CONVICT, NON_PM, 3000L,
+      NO_COLOR),
+
+    A("Plague", DARK_ELVEN_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
+      PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
+        /* Auto-poison code in dothrow.c */
+
     /*
      *      Orcrist and Sting have same alignment as elves.
      *
@@ -133,217 +223,106 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      *      EWarn_of_mon for all monsters that have the MH_value flag.
      *      Sting and Orcrist will warn of MH_ORC monsters.
      */
-  
-    /* Making cl=NON_PM until ice mage is implemented. */
-    A("Deep Freeze", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      COLD(5,5), DFNS(AD_COLD), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, CLR_BLUE),
-    
-    /* Making cl=NON_PM until necromancer is implemented */
-    A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
-        PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, NO_COLOR),
-      /* See artifact.c for special poison damage */
-
-
-    /* Making cl=NON_PM until flame mage is implemented. */
-    A("Firewall", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      FIRE(4,4), DFNS(AD_FIRE), NO_CARY, 0, A_LAWFUL, PM_FLAME_MAGE, NON_PM, 400L, CLR_RED),
-
-    A("Quick Blade", ELVEN_SHORT_SWORD,
-      SPFX_RESTR, 0, 0, PHYS(9,2), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
-
     A("Orcrist", ELVEN_BROADSWORD, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 2000L,
       CLR_BRIGHT_BLUE), /* bright blue is actually light blue */
 
-    A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),
-      NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 800L, CLR_BRIGHT_BLUE),
-    /*
-     *      Magicbane is a bit different!  Its magic fanfare
-     *      unbalances victims in addition to doing some damage.
-     */
-    A("Magicbane", QUARTERSTAFF, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      STUN(3, 4), DFNS(AD_MAGM), NO_CARY, 0, A_NEUTRAL, PM_WIZARD, NON_PM,
-      3500L, NO_COLOR),
-
-    A("Frost Brand", SHORT_SWORD, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      COLD(5, 0), DFNS(AD_COLD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
-      NO_COLOR),
-
-    A("Fire Brand", SHORT_SWORD, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      FIRE(5, 0), DFNS(AD_FIRE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
-      NO_COLOR),
-    /*      Let's flip the script a bit - Dragonbane is no longer a weapon,
-     *      but a pair of magical gloves made from the scales of a long dead
-     *      ancient dragon. The gloves afford much of the same special abilities
-     *      as the weapon did, but swaps fire resistance for acid resistance.
-     *      Other dragons will be able to sense the power of these gloves and
-     *      will be affected accordingly.
-     */
-    A("Dragonbane", GLOVES,
-      (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REFLECT), 0, MH_DRAGON,
-      NO_ATTK, DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
-      NO_COLOR),
-    /*
-     *      Demonbane from SporkHack is a silver mace with an extra property.
-     *      Also the first sacrifice gift for a priest.
-     */
-    A("Demonbane", HEAVY_MACE, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_PRIEST, NON_PM, 3000L,
-      NO_COLOR),
-
-    A("Werebane", SABER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_WERE,
-      PHYS(5, 0), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
-      NO_COLOR),
-
-    A("Grayswandir", SABER, (SPFX_RESTR | SPFX_HALRES), 0, 0,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 8000L,
-      NO_COLOR),
-    
-    A("Skullcrusher", CLUB, SPFX_RESTR, 0, 0,
-      PHYS(3, 10), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 300L, NO_COLOR),
-
-    A("Giantslayer", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_GIANT,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
-      NO_COLOR),
-
-    A("Ogresmasher", HEAVY_WAR_HAMMER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
-      NO_COLOR),
-
-    A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
-      PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR ),
-
-    A("Spear of Light", SPEAR,
-      (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
-      PHYS(5,10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, NON_PM, NON_PM, 4000L, NO_COLOR),
-
-    A("Trollsbane", MORNING_STAR, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REGEN), 0, MH_TROLL,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 800L,
-      NO_COLOR),
-    /*
-     *      Two problems:  1) doesn't let trolls regenerate heads,
-     *      2) doesn't give unusual message for 2-headed monsters (but
-     *      allowing those at all causes more problems than worth the effort).
-     */
-    A("Vorpal Blade", LONG_SWORD, (SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN | SPFX_DFLAGH),
-      0, MH_JABBERWOCK, PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L,
-      NO_COLOR),
-
-    A("Disrupter", MACE, (SPFX_RESTR | MH_UNDEAD), 0, MH_UNDEAD,
-      PHYS(5,30), NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_PRIEST, NON_PM, 500L, NO_COLOR),
-
-    /*
-     *      Ah, never shall I forget the cry,
-     *              or the shriek that shrieked he,
-     *      As I gnashed my teeth, and from my sheath
-     *              I drew my Snickersnee!
-     *                      --Koko, Lord high executioner of Titipu
-     *                        (From Sir W.S. Gilbert's "The Mikado")
-     */
-    A("Snickersnee", KATANA, SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
-      0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR),
-    /*
-     *      Sunsword from SporkHack was silver in nature, and also warned of nearby undead
-     */
-    /* KMH -- Renamed from Holy Sword of Law (Stephen White)
-    * This is an actual sword used in British coronations!
-    */
-    A("Sword of Justice", LONG_SWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0, 
-      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1500L, NO_COLOR),
-
-    A("Sunsword", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_UNDEAD,
-      PHYS(5, 0), DFNS(AD_BLND), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 2500L,
-      NO_COLOR),
-    /*
-     *      Lifestealer from SporkHack - many of the same properties as Stormbringer
-     *      Meant to be wielded by Vlad. Enjoy the buff Vlad ;)
-     */
-    A("Lifestealer", TWO_HANDED_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI),
-      SPFX_EXCLUDE, 0, DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM,
-      NON_PM, 10000L, NO_COLOR),
-    /*
-     *      Keolewa from SporkHack - a Hawaiian war club.
-     *      Buffing this up a bit to give it more utility.
-     */
-    A("Keolewa", CLUB, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      ELEC(5, 8), DFNS(AD_ELEC), NO_CARY, 0, A_NEUTRAL, PM_CAVEMAN, NON_PM,
-      2000L, NO_COLOR),
-    /*
-     *      Dirge from SporkHack, but with a twist.
-     *      This is the anti-Excalibur. A Dark Knight needs a special weapon too...
-     */
-    A("Dirge", LONG_SWORD,
-     (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL), 0, 0,
-     ACID(5, 10), DFNS(AD_ACID), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
-     4000L, NO_COLOR),
-    /*
-     * The Sword of Kas - the sword forged by Vecna and given to his top
-     * lieutenant, Kas. This sword's specs have changed throughout ad&d
-     * editions, so we'll take some creative license here while trying to
-     * stay true to some of its abilities from ad&d.
-     */
-    A("The Sword of Kas", TWO_HANDED_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL
-          | SPFX_DALIGN), SPFX_EXCLUDE, 0,
-      DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
-      15000L, NO_COLOR),
-    /* Thought the Oracle just knew everything on her own? Guess again. Should
-     * anyone ever be foolhardy enough to take on the Oracle and succeed,
-     * they might discover the true source of her knowledge.
-     */
-    A("Magic 8-Ball", EIGHT_BALL,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_SPEAK), (SPFX_WARN | SPFX_EXCLUDE),
-      0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 5000L,
-      NO_COLOR),
-    /* Convict role first artifact weapon should they altar sacrifice for one.
-     * Acts like a luckstone.
-     */
-    A("Luck Blade", BROADSWORD, (SPFX_RESTR | SPFX_LUCK), 0, 0,
-      PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_CONVICT, NON_PM, 3000L,
-      NO_COLOR),
-
-    A("Sword of Balance", SHORT_SWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0,
-      PHYS(2, 5), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L, NO_COLOR),
-
-    /* The energy drain only works if the artifact kills its victim.
-     * Also increases sacrifice value while wielded. */
+      /* The energy drain only works if the artifact kills its victim.
+       * Also increases sacrifice value while wielded. */
     A("Secespita", KNIFE, (SPFX_RESTR | SPFX_ATTK), 0, 0,
       DREN(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_INFIDEL, NON_PM,
       1000L, NO_COLOR),
-    /* Bag of the Hesperides - this is the magicbal bag obtained by Perseus
-     * from the Hesperides (nymphs) to contain and transport Medusa's head.
-     * The bag naturally repels water, and it has greater weight reduction
-     * than a regular bag of holding. Found at the end of the Ice Queen branch
-     * with the captive pegasus.
-     */
-    A("Bag of the Hesperides", BAG_OF_HOLDING,
-      (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_PROTECT), 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
-      8000L, NO_COLOR),
+
+    A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
+      PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, NO_COLOR),
+        /* See artifact.c for special poison damage */
+
+    A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),
+      NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 800L, CLR_BRIGHT_BLUE),
+
+    /* Stormbringer only has a 2 because it can drain a level, providing 8 more. */
+    A("Stormbringer", RUNESWORD,
+      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI), 0, 0,
+      DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 8000L,
+      NO_COLOR),
+
+  /*
+   * The Sword of Kas - the sword forged by Vecna and given to his top
+   * lieutenant, Kas. */
+    A("The Sword of Kas", TWO_HANDED_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL
+       | SPFX_DALIGN), SPFX_EXCLUDE, 0,
+      DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      15000L, NO_COLOR),
+
+    A("Thiefbane", LONG_SWORD, 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI), 0, S_HUMAN,
+      DRLI(5, 1), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR),
+
+  /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
+   * those it strikes with one blow. In the form of an ornate mace/rod, the Wand
+   * of Orcus is 'a rod of obsidian topped by a skull. This instrument causes
+   * death (or annihilation) to any creature, save those of like status
+   * merely by touching their flesh'. Can only be wielded by Orcus or others
+   * of his ilk */
+    A("Wand of Orcus", ROD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
+      SPFX_EXCLUDE, 0, DETH(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
+      NON_PM, NON_PM, 10000L, CLR_BLACK),
+
+
+      /*** Unaligned artifacts ***/
+
     /* The quasi-evil twin of Demonbane, Angelslayer is an unholy trident
      * geared towards the destruction of all angelic beings */
     A("Angelslayer", TRIDENT,
       (SPFX_RESTR | SPFX_ATTK | SPFX_SEARCH | SPFX_HSPDAM | SPFX_WARN | SPFX_DFLAGH),
       0, MH_ANGEL, FIRE(5, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       5000L, NO_COLOR),
-    /* Yeenoghu's infamous triple-headed flail, also known as 'Butcher'.
-     * A massive weapon reputed to have been created from the thighbone and
-     * torn flesh of an ancient god he slew. An extremely lethal artifact */
-    A("Butcher", TRIPLE_HEADED_FLAIL,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
-      SPFX_EXCLUDE, 0, STUN(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
-      NON_PM, NON_PM, 4000L, NO_COLOR),
-    /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
-     * those it strikes with one blow. In the form of an ornate mace/rod, the Wand
-     * of Orcus is 'a rod of obsidian topped by a skull. This instrument causes
-     * death (or annihilation) to any creature, save those of like status
-     * merely by touching their flesh'. Can only be wielded by Orcus or others
-     * of his ilk */
-    A("Wand of Orcus", ROD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
-      SPFX_EXCLUDE, 0, DETH(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
-      NON_PM, NON_PM, 10000L, CLR_BLACK),
+
+    /* Bag of the Hesperides - this is the magical bag obtained by Perseus
+   * from the Hesperides (nymphs) to contain and transport Medusa's head.
+   * The bag naturally repels water, and it has greater weight reduction
+   * than a regular bag of holding. Found at the end of the Ice Queen branch
+   * with the captive pegasus.
+   */
+    A("Bag of the Hesperides", BAG_OF_HOLDING,
+      (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_PROTECT), 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
+      8000L, NO_COLOR),
+
+    /* Dragonbane is no longer a weapon, but a pair of magical gloves made from
+     * the scales of a long dead ancient dragon. The gloves afford much of the
+     * same special abilities as the weapon did, but swaps fire resistance for
+     * resistance. Other dragons will be able to sense the power of these gloves
+     * and will be affected accordingly.
+     */
+    A("Dragonbane", GLOVES,
+      (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REFLECT), 0, MH_DRAGON,
+      NO_ATTK, DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR),
+
+    A("Fire Brand", SHORT_SWORD, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      FIRE(5, 0), DFNS(AD_FIRE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR),
+
+    A("Frost Brand", SHORT_SWORD, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      COLD(5, 0), DFNS(AD_COLD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR),
+
+  /* Thought the Oracle just knew everything on her own? Guess again. Should
+   * anyone ever be foolhardy enough to take on the Oracle and succeed,
+   * they might discover the true source of her knowledge.
+   */
+    A("Magic 8-Ball", EIGHT_BALL,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_SPEAK), (SPFX_WARN | SPFX_EXCLUDE),
+      0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 5000L,
+      NO_COLOR),
+
+    A("Ogresmasher", HEAVY_WAR_HAMMER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
+      NO_COLOR),
+
     /* The Eye of Vecna, which Vecna will sometimes death drop
        before the rest of his body crumbles to dust */
     A("The Eye of Vecna", EYEBALL,
@@ -351,21 +330,22 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_XRAY | SPFX_ESP | SPFX_HSPDAM | SPFX_EXCLUDE),
       0, NO_ATTK, NO_DFNS, CARY(AD_COLD), DEATH_MAGIC, A_NONE,
       NON_PM, NON_PM, 50000L, NO_COLOR),
+
     /* The Hand of Vecna, another possible artifact that Vecna
        might drop once destroyed */
     A("The Hand of Vecna", MUMMIFIED_HAND,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_REGEN | SPFX_HPHDAM),
       SPFX_EXCLUDE, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
       NON_PM, NON_PM, 50000L, CLR_BLACK),
-    /* Dramborleg, one of the most powerful weapons ever forged from
-       Lord of The Rings series. Per lore, it's unknown exactly which
-       race created this axe, but it was wielded by Tuor, who used it
-       to slay many powerful balrogs with ease. I like to think the
-       dwarves forged it, powerful axes are their thing */
-    A("Dramborleg", DWARVISH_BEARDED_AXE,
-      (SPFX_RESTR | SPFX_INTEL | SPFX_PROTECT | SPFX_WARN | SPFX_DFLAGH), 0,
-      MH_DEMON, PHYS(8, 8), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL, NON_PM, PM_DWARF,
-      9000L, CLR_RED),
+
+    A("Trollsbane", MORNING_STAR, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REGEN), 0, MH_TROLL,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 800L,
+      NO_COLOR),
+
+    A("Werebane", SABER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_WERE,
+      PHYS(5, 0), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
+      NO_COLOR),
+
 
     /*
      *      The artifacts for the quest dungeon, all self-willed.
