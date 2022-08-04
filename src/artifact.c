@@ -183,7 +183,7 @@ xchar m;
     case ART_WEREBANE:
     case ART_DEMONBANE:
     case ART_GRAYSWANDIR:
-    case ART_HOLY_SPEAR_OF_LIGHT:
+    case ART_SPEAR_OF_LIGHT:
     case ART_SWORD_OF_BALANCE:
         return SILVER;
         break;
@@ -3334,7 +3334,7 @@ struct obj *obj;
 
     return (boolean) (get_artifact(obj) && 
         (obj->oartifact == ART_SUNSWORD
-        || obj->oartifact == ART_HOLY_SPEAR_OF_LIGHT));
+        || obj->oartifact == ART_SPEAR_OF_LIGHT));
 }
 
 /* KMH -- Talking artifacts are finally implemented */

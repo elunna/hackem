@@ -3537,10 +3537,8 @@ struct obj *no_wish;
             while (*bp == ' ')
                 bp++;
             l = 0;
-        } else if (!strncmpi(bp, "blessed ", l = 8)) {
-/*WAC removed this.  Holy is in some artifact weapon names
-                || !strncmpi(bp, "holy ", l=5)
-*/
+        } else if (!strncmpi(bp, "blessed ", l = 8)
+                || !strncmpi(bp, "holy ", l=5)) {
             blessed = 1;
         } else if (!strncmpi(bp, "moist ", l = 6)
                    || !strncmpi(bp, "wet ", l = 4)) {

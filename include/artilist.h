@@ -213,7 +213,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR ),
 
-    A("Holy Spear of Light", SPEAR,
+    A("Spear of Light", SPEAR,
       (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
       PHYS(5,10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, NON_PM, NON_PM, 4000L, NO_COLOR),
 
