@@ -3193,6 +3193,7 @@ static const struct alt_spellings {
     { "pickax", PICK_AXE },
     { "whip", BULLWHIP },
     { "sabre", SABER },
+    { "stake", WOODEN_STAKE },
     { "smooth shield", SHIELD_OF_REFLECTION },
     { "grey dragon scales", GRAY_DRAGON_SCALES },
     { "iron ball", HEAVY_IRON_BALL },
