@@ -1499,7 +1499,7 @@ register struct attack *mattk;
 
                 /* Wooden stakes vs vampires */
                 if (otmp->otyp == WOODEN_STAKE && is_vampire(youmonst.data)) {
-                    if (!rn2(10)) {
+                    if (!rn2(5)) {
                         pline("%s plunges the stake into your heart.", Monnam(mtmp));
                         // killer.format = KILLED_BY_AN;
                         killer.format = NO_KILLER_PREFIX;

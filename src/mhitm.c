@@ -1476,7 +1476,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
 
             /* Stakes do extra dmg vs vamps */
             if (mwep && mwep->otyp == WOODEN_STAKE && is_vampire(pd)) {
-                if (!rn2(10)) {
+                if (!rn2(5)) {
                     if (vis) {
                         Strcpy(buf, Monnam(magr));
                         pline("%s plunges the stake into the heart of %s.", buf, mon_nam(mdef));
