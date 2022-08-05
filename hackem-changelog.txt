@@ -1,3 +1,7 @@
+Interesting side effects of EvilHack as a base:
+	Torches can be bone
+	Pick-axes can be silver
+
 Project changes:
 	- [x] Update all name references from "evilhack" to "hackem"
 	- [x] Used lowercase for rc files. HackEM for game titles and binaries.
@@ -712,3 +716,77 @@ Bug fixes:
 - [DONE] Hobbit race
 - [x] Remove Dr. Frankenstein
 - [x] Remove Frankensteins monster
+
+
+
+
+- [x] Make sure monsters are sorted appropriately
+[x] Take .o files out of project view
+
+CLion:
+	[x] Fix Clang formatting freezing error : "Indenting with ClangFormat"
+	[x] Disabled Plugins>Installed>Clangformat  (fixed above problem)
+	[x] Clion runs pretty slow
+	
+- [x] Wooden stake
+	- [x] Fix vampire killing logic: mhitm.c, uhitm.c, mhitu.c (check splice)
+	- [x] Too many messages: The hobgoblin impales you!  The hobgoblin drives the stake into you.
+	- [x] Add better bonuses for stakes vs vampires (stacking undead slayer and using arty)
+	- [x] Vaporize message for instakill 
+	- [x] Give monsters 20% instakill rate for wooden stakes
+	- [x] Enable wishing for "stake"
+	- [x] Make sure there is a to-hit bonus of +1
+	
+	Design decision: I'm deviating from slashem here - vampires should not be vulnerable to stakes
+		while in different forms. Makes ring of prot sc more valuable.
+	- [SKIPPED] Vampire bats are not vulnerable to stakes...
+	- [SKIPPED] Specify vampire bats as part of the V race. is_vampshifter(mtmp)))
+
+
+- [SKIPPED] Crossbows are GUNS in slashem, and 2handed.
+
+- [SKIPPED] Change pea_whistle back to tin_whistle - unnecessary due to object materials system
+
+- [x] Raise the levels of Gnome Kings to 9, gnome warriors to 7.
+- [x] Holy spear fix disabled wishing for blessed/holy stuff :P
+- [x] Rename Holy Spear of Light to just Spear of Light, undo previous fix .
+- [x] Wraith corpse nerfs
+[x] - Fixed issue with wiz-generating and reverse genociding lords/kings
+
+
+[x] Copy missing slashem alt_spl names[] from mondata.h
+
+
+- [SKIPPED] Lower the damage dealt by the fishing accident to what you would deal to monsters (or slightly higher)
+- [SKIPPED] Raise the range of a fishing pole?
+- [x] Test DDSM while polymorphed
+- [x] Test DDSM encant armor without armor
+- [x] Dwarves in mines frequently get lit torches now.
+- [x] Clubs can be dipped into oil and turned into torches (dnh)
+		- [x] Organize artifacts by alignment (and alphebetize if allowed)
+- [SKIPPED] Make sure we get artifact_material updated for each - there are defaults in place though.
+
+
+- [x] Change magic lamp price to 1000
+- [x] Copy CONTRIBUTING.md from SpliceHack
+
+- [SKIPPED] What if you fish in a forge?
+- [SKIPPED] What if you dip water in a forge?
+
+	- [SKIPPED] Implement torch changes from dnh (https://nethackwiki.com/wiki/Torch)
+- [SKIPPED] Torches burn radius starts at 4, then gets smaller with age. (dnh)
+- [SKIPPED] Consider implementing (spec_prop_otyp(otmp))  from dnh for torches, etc.
+- [x] Doomblade shows an appropriate message for tiny monsters.
+
+	- [SKIPPED] Doomblade should not deal extra damage to incorporeal
+
+- [x] Elfrist should warn against elves.
+- [SKIPPED] Elfrist should cancel elves
+- [SKIPPED] Some artifact weapons should cancel their enemies (the hateful special effects are already pretty nasty)
+
+- [x] Zouthern animals have a small chance of dropping boomerangs.
+
+
+- [SKIPPED] +2 to-hit bonus against kebabable monsters. (Should also add d6 dmg)	
+- [x] Made badgers immune_poisongas (they are stinky...)
+- [x] Does the gold dragon (in evil) emit light - do the scales?
