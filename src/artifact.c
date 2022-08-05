@@ -2576,11 +2576,20 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     }
 
     if (otmp->oartifact == ART_DOOMBLADE && dieroll < 6) {
-	    if (youattack)
-		    You("plunge the Doomblade deeply into %s!", mon_nam(mdef));
-	    else
-		    pline("%s plunges the Doomblade deeply into %s!",
-			      Monnam(magr), hittee);
+        if (verysmall(mdef->data)) {
+            if (youattack)
+                You("violently smash the %s with your Doomblade!", mon_nam(mdef));
+            else
+                pline("%s violently smashes %s with its Doomblade!",
+                      Monnam(magr), hittee);
+        } else {
+            if (youattack)
+                You("plunge the Doomblade deeply into %s!", mon_nam(mdef));
+            else
+                pline("%s plunges the Doomblade deeply into %s!",
+                      Monnam(magr), hittee);
+        }
+
 	    *dmgptr += rnd(4) * 5;
 	    return TRUE;
        }
