@@ -131,7 +131,7 @@ options:	../util/makedefs
 spec_levs: ../util/lev_comp \
 	bigroom.des castle.des endgame.des gehennom.des goblintown.des \
 	icequeen.des knox.des medusa.des mines.des nymph.des oracle.des \
-	sokoban.des tower.des vecna.des yendor.des vaults.des
+	sokoban.des tower.des vecna.des yendor.des vaults.des mall-1.des mall-2.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
 	../util/lev_comp castle.des
@@ -149,6 +149,8 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp vecna.des
 	../util/lev_comp yendor.des
 	../util/lev_comp vaults.des
+	../util/lev_comp mall-1.des
+	../util/lev_comp mall-2.des
 	touch spec_levs
 
 quest_levs: ../util/lev_comp \

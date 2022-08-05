@@ -14,12 +14,19 @@
 #		number of choices for its branch level _first_.
 #
 
+
 DUNGEON:	"The Dungeons of Doom" "D" (25, 5)
 ALIGNMENT:	unaligned
 BRANCH:		"The Gnomish Mines" @ (2, 3)
 BRANCH:		"Goblin Town" @ (2, 2) portal
+
 #LEVEL:		"rogue" "R" @ (15, 4)
 #LEVELDESC:	roguelike
+
+RNDLEVEL:	"mall" "T" @ (5, 2) 2
+LEVALIGN:	lawful
+LEVELDESC:	town
+
 RNDLEVEL:	"oracle" "O" @ (5, 5) 3
 LEVALIGN:	neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
@@ -72,6 +79,11 @@ CHAINBRANCH:    "Vecna's Domain" "valley" + (1, 0) portal
 #
 #	The Mines of the Gnomes of Zurich.
 #
+#   KMH -- The Gnomish Mines are an important source of essential
+#   items for low-level characters: food, armor, and tools.  Even a
+#   short stay in the mines pays off.  Slash moved the entrance
+#   deeper, penalizing many characters.  The balance patch restores
+#   the entrance to levels 2 to 4.
 DUNGEON:	"The Gnomish Mines" "M" (8, 2)
 ALIGNMENT:	lawful
 DESCRIPTION:	mazelike
@@ -87,6 +99,12 @@ DESCRIPTION:    mazelike
 DESCRIPTION:    gtown
 ALIGNMENT:      chaotic
 LEVEL:          "goblintown" "none" @ (1, 0)
+
+#
+#   New mall is on levels 5 to 6, 75% chance.
+#   There shouldn't be any other special levels down to the Oracle.
+#   This allows a weak character to plunge to the Oracle, then return
+#   to the Mines.
 
 #
 #	The Questdungeon
