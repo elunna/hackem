@@ -2706,18 +2706,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         }
     }
-    /* WAC -- 1/6 chance of cancellation with foobane weapons */
-	if (otmp->oartifact == ART_THIEFBANE) {
-		if (dieroll < 4) {
-		    if (realizes_damage) {
-                pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
-                    "roars deafeningly" : "shines brilliantly");
-                pline("It strikes %s!", hittee);
-		    }
-		    cancel_monst(mdef, otmp, youattack, TRUE, magr == mdef);
-		    return TRUE;
-		}
-	}
     return msgprinted;
 }
 
