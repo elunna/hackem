@@ -2438,10 +2438,15 @@ register struct obj *obj;
         return 0;
     }
 
-    freeinv(obj);
+
 
     if (obj_is_burning(obj)) /* this used to be part of freeinv() */
-        (void) snuff_lit(obj);
+        if (is_lightsaber(obj))
+            lightsaber_deactivate(obj, TRUE);
+        else
+            (void) snuff_lit(obj);
+
+    freeinv(obj);
 
     if (floor_container && costly_spot(u.ux, u.uy)) {
         /* defer gold until after put-in message */
@@ -3458,6 +3463,13 @@ boolean creation;
                 continue;
         }
 
+        if (obj_is_burning(obj)) {
+            if (is_lightsaber(obj))
+                lightsaber_deactivate(obj, TRUE);
+            else
+                (void) snuff_lit(obj);
+        }
+
         obj_extract_self(obj);
 
         if (obj->otyp == LOADSTONE)
@@ -3465,8 +3477,7 @@ boolean creation;
         else if (obj->otyp == FIGURINE && obj->timed)
             (void) stop_timer(FIG_TRANSFORM, (genericptr_t) obj);
 
-        if (obj_is_burning(obj))
-            (void) snuff_lit(obj);
+
 
         if (bag->otyp == ICE_BOX && !age_is_relative(obj)) {
             obj->age = monstermoves - obj->age;

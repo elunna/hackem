@@ -1773,7 +1773,7 @@ lightsaber_deactivate (obj, timer_attached)
             switch (obj->where) {
                 case OBJ_INVENT:
                 case OBJ_MINVENT:
-                    pline("%s %s deactivates.", whose, xname(obj));
+                    pline("%s%s deactivates.", whose, xname(obj));
                     break;
                 case OBJ_FLOOR:
                     You("see %s deactivate.", an(xname(obj)));
