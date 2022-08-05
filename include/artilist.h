@@ -190,8 +190,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 10), NO_DFNS, NO_CARY,
       0, A_CHAOTIC, NON_PM, NON_PM, 1000L, NO_COLOR),
 
-    A("Elfrist", ORCISH_SPEAR,
-      SPFX_DFLAGH, 0, MH_ELF,
+    A("Elfrist", ORCISH_SPEAR, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ELF,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 300L, NO_COLOR),
 
   /* Warns when elves are present, but its damage bonus applies to all targets.
