@@ -108,7 +108,9 @@
     || (ptr) == &mons[PM_CERBERUS] \
     || (ptr) == &mons[PM_DEATH])
 
-#define immune_poisongas(ptr) ((ptr) == &mons[PM_HEZROU])
+#define immune_poisongas(ptr) \
+    ((ptr) == &mons[PM_HEZROU] \
+     || (ptr) == &mons[PM_GIANT_BADGER])
 
 #define is_lminion(mon) \
     (is_minion((mon)->data) && mon_aligntyp(mon) == A_LAWFUL)
