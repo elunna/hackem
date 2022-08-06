@@ -33,43 +33,43 @@ MONSTER: ('r', "sewer rat"), random, hostile
 MONSTER: ('r', "sewer rat"), random, hostile
 MONSTER: ('f', "kitten"), random, hostile
 
-[20%]: SUBROOM: "tool shop" , lit, (2,2), (6,4) {
+SUBROOM: "tool shop" [20%], lit, (2,2), (6,4) {
     ROOMDOOR: false, open, south, random
 }
 
-[40%]: SUBROOM: "food shop", lit, (2,9), (6,4) {
+SUBROOM: "food shop" [40%], lit, (2,9), (6,4) {
     ROOMDOOR: false, open, north, random
 }
 
-[20%]: SUBROOM: "scroll shop", unlit, (9,2), (6,4) {
+SUBROOM: "scroll shop" [20%], unlit, (9,2), (6,4) {
     ROOMDOOR: false, open, south, random
 }
 
-[30%]: SUBROOM: "potion shop", lit, (9,9), (6,4) {
+SUBROOM: "potion shop" [30%], lit, (9,9), (6,4) {
     ROOMDOOR: false, open, north, random
 }
 
-[12%]: SUBROOM: "ring shop", lit, (16,2), (4,3) {
+SUBROOM: "ring shop" [12%], lit, (16,2), (4,3) {
     ROOMDOOR: false, open, south, random
 }
 
-[33%]: SUBROOM: "candle shop", lit, (23,2), (6,3) {
+SUBROOM: "candle shop" [33%], lit, (23,2), (6,3) {
     ROOMDOOR: false, open, south, random
 }
 
-[12%]: SUBROOM: "book shop", lit, (16,10), (4,3) {
+SUBROOM: "book shop" [12%], lit, (16,10), (4,3) {
     ROOMDOOR: false, open, east, random
 }
 
-[17%]: SUBROOM: "wand shop", lit, (33,2), (3,3) {
+SUBROOM: "wand shop" [17%], lit, (33,2), (3,3) {
     ROOMDOOR: false, open, west, random
 }
 
-[20%]: SUBROOM: "weapon shop", lit, (39,2), (7,4) {
+SUBROOM: "weapon shop" [20%], lit, (39,2), (7,4) {
     ROOMDOOR: false, open, south, random
 }
 
-[22%]: SUBROOM: "armor shop", unlit, (38,10), (7,3) {
+SUBROOM: "armor shop" [22%], unlit, (38,10), (7,3) {
     ROOMDOOR: false, open, north, random
 }
 
@@ -79,26 +79,25 @@ SUBROOM: "shop", lit, (23,9), (10,4) {
 }
 }
 
-ROOM: "ordinary" , random, random, random, random {
-STAIR: random, up
-STAIR: random, down
-MONSTER: random, random
+ROOM: "ordinary", random, random, random, random {
+    STAIR: random, up
+    STAIR: random, down
+    MONSTER: random, random
 }
 
-ROOM: "ordinary" , random, random, random, random {
-MONSTER: random, random
-OBJECT: random, random
+ROOM: "ordinary", random, random, random, random {
+    MONSTER: random, random
+    OBJECT: random, random
 }
 
-ROOM: "ordinary" , random, random, random, random {
-OBJECT: random, random
+ROOM: "ordinary", random, random, random, random {
+    OBJECT: random, random
 }
 
-ROOM: "ordinary" , random, random, random, random {
-MONSTER: random, random
-OBJECT: random, random
-
-TRAP: random, random
+ROOM: "ordinary", random, random, random, random {
+    MONSTER: random, random
+    OBJECT: random, random
+    TRAP: random, random
 }
 
 RANDOM_CORRIDORS
