@@ -15,7 +15,8 @@
 #
 
 
-DUNGEON:	"The Dungeons of Doom" "D" (25, 5)
+# DUNGEON:	"The Dungeons of Doom" "D" (25, 5)
+DUNGEON:	"The Dungeons of Doom" "D" (42, 5)
 ALIGNMENT:	unaligned
 BRANCH:		"The Gnomish Mines" @ (2, 3)
 BRANCH:		"Goblin Town" @ (2, 2) portal
