@@ -132,7 +132,7 @@ spec_levs: ../util/lev_comp \
 	bigroom.des castle.des endgame.des gehennom.des goblintown.des \
 	icequeen.des knox.des medusa.des mines.des nymph.des oracle.des \
 	sokoban.des tower.des vecna.des yendor.des vaults.des \
-	mall-1.des mall-2.des kobold-1.des kobold-2.des
+	mall-1.des mall-2.des kobold-1.des kobold-2.des rats.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
 	../util/lev_comp castle.des
@@ -154,6 +154,7 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp mall-2.des
 	../util/lev_comp kobold-1.des
 	../util/lev_comp kobold-2.des
+	../util/lev_comp rats.des
 	touch spec_levs
 
 quest_levs: ../util/lev_comp \

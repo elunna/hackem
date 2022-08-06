@@ -31,7 +31,10 @@ LEVELDESC:	town
 RNDLEVEL:	"oracle" "O" @ (7, 3) 3
 LEVALIGN:	neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
+LEVEL:		"rats" "R" @ (10, 2) 50
 RNDLEVEL:	"kobold" "K" @ (11, 2) 50 2
+
+
 RNDLEVEL:	"bigrm" "B" @ (13, 3) 40 10
 CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
 BRANCH:		"Fort Ludios" @ (23, 4) portal
