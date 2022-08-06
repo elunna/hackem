@@ -7,9 +7,7 @@
 LEVEL: "mall-1"
 MESSAGE: "You hear the sounds of civilization."
 
-#RANDOM_MONSTERS:'@','r'
-MONSTER: '@', random
-MONSTER: 'r', random
+
 
 ROOM: "ordinary" , lit, random, random, (48,15) {
 #NAME: "town"
@@ -99,5 +97,9 @@ ROOM: "ordinary", random, random, random, random {
     OBJECT: random, random
     TRAP: random, random
 }
+
+#RANDOM_MONSTERS:'@','r'
+#MONSTER: '@', random
+#MONSTER: 'r', random
 
 RANDOM_CORRIDORS
