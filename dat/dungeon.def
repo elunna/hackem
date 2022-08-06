@@ -28,10 +28,11 @@ RNDLEVEL:	"mall" "T" @ (5, 2) 2
 LEVALIGN:	lawful
 LEVELDESC:	town
 
-RNDLEVEL:	"oracle" "O" @ (7, 5) 3
+RNDLEVEL:	"oracle" "O" @ (7, 3) 3
 LEVALIGN:	neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
-RNDLEVEL:	"bigrm" "B" @ (10, 3) 40 10
+RNDLEVEL:	"kobold" "K" @ (11, 2) 50 2
+RNDLEVEL:	"bigrm" "B" @ (13, 3) 40 10
 CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
 BRANCH:		"Fort Ludios" @ (23, 4) portal
 LEVEL:		"nymph" "N" @ (23, 2) 45
