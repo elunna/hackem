@@ -11,7 +11,7 @@
 #
 MAZE:"grund-1",' '
 FLAGS:noteleport,hardfloor,nommap,shortsighted
-INIT_MAP:mines, ' ',' ',false,false,lit,false
+INIT_MAP:mines,' ',' ',false,false,lit,false
 GEOMETRY:right,center
 #12345678901234567890123456789012
 #0   i    1    i    2    i    3
@@ -38,10 +38,7 @@ MAP
 ........         .........       
 ........           .....         
 ENDMAP
-
-#RANDOM_PLACES:(21,03),(14,10),(28,10),(21,17)
 $places = { (21,03),(14,10),(28,10),(21,17) }
-
 DOOR:locked,$places[0]
 STAIR:(18,07,24,13),(00,00,00,00),up
 BRANCH:(18,07,24,13),(00,00,00,00)
@@ -230,10 +227,8 @@ H--......---.-..-....----....----..+.-..-}
 -...SH.----..------.---...---....---.S..-}
 -----------------------------------------}
 ENDMAP
-#RANDOM_PLACES:(16,02),(16,08),(16,12),(16,18),(31,07)
 $places = { (16,02),(16,08),(16,12),(16,18),(31,07) }
 SHUFFLE: $places
-
 REGION:(00,00,39,20),unlit,"ordinary"
 REGION:(41,00,41,20),lit,"ordinary"
 NON_DIGGABLE:(00,00,37,20)
@@ -366,9 +361,7 @@ MONSTER:('o',"goblin"),random
 [50%]: MONSTER:('o',"goblin"),random
 [50%]: MONSTER:('o',"goblin"),random
 
-#
 TRAP:"statue",(16,10)
-#CONTAINER:'`',"statue",(16,10),"harpy",0
 OBJECT:('`',"statue"),(16,10),montype:"harpy",0
 
 # throneroom
@@ -400,7 +393,7 @@ MONSTER:('Z',"orc zombie"),(09,14),asleep,hostile
 MONSTER:('M',"orc mummy"),(08,15),asleep,hostile
 
 # prisons
-MONSTER:('Z',"skeleton"),(11,01)
+MONSTER:('Z',"skeleton"),(11,01),asleep,hostile
 [40%]: MONSTER:('@',"nurse"),(12,02),peaceful
 # [10%]: MONSTER:('@',"gypsy"),(12,18),peaceful
 MONSTER:(' ',"ghost"),(11,19),peaceful
@@ -409,12 +402,12 @@ OBJECT:('%',"corpse"),(11,19),montype:"human"
 
 # treasury
 OBJECT:('(',"chest"),(02,02)
-MONSTER:('s',"giant spider"),(02,03),asleep,hostile
-MONSTER:('s',"giant spider"),(03,01),asleep,hostile
 GOLD:1200,(02,02)
 [50%]: GOLD:350,(02,02)
+MONSTER:('s',"giant spider"),(02,03),asleep,hostile
+MONSTER:('s',"giant spider"),(03,01),asleep,hostile
 
-CONTAINER: ('(', "iron safe"),(06,01) {
+CONTAINER:('(', "iron safe"),(06,01) {
     OBJECT:('"',"amulet of magical breathing")
     OBJECT:('+',"haste self"),blessed,+4
     [20%]: OBJECT:('(',"magic marker"),cursed,34
@@ -434,15 +427,10 @@ MONSTER:('o',"orc"),(03,19),asleep,hostile
 CONTAINER:('(',"chest"),(06,19) {
     OBJECT:('[',"gauntlets of power"),cursed,+1
     # Should be up to 4 tins of spinach...
-    #OBJECT:('%',"tin"),"spinach",0
-    #OBJECT:('%',"tin"),"spinach",0
-    #[50%]: OBJECT:('%',"tin"),"spinach",0
-    #[50%]: OBJECT:('%',"tin"),"spinach",0
-
-    OBJECT:('%',"tin"),0
-    OBJECT:('%',"tin"),0
-    [50%]: OBJECT:('%',"tin"),0
-    [50%]: OBJECT:('%',"tin"),0
+    OBJECT:('%',"tin"),1
+    OBJECT:('%',"tin"),1
+    [50%]: OBJECT:('%',"tin"),1
+    [50%]: OBJECT:('%',"tin"),1
 }
 
 #traps
@@ -878,7 +866,6 @@ MONSTER:('o',"goblin"),random
 [50%]: MONSTER:('o',"goblin"),random
 [50%]: MONSTER:('o',"goblin"),random
 
-#
 TRAP:"statue",(16,10)
 OBJECT:('`',"statue"),(16,10),montype: "harpy",0
 
@@ -919,15 +906,13 @@ MONSTER:(' ',"ghost"),(11,19),peaceful
 OBJECT:('%',"corpse"),(11,19),montype:"human"
 
 # treasury
-CONTAINER:('(',"chest"),(02,02) {
-    GOLD:1200,(02,02)
-    [50%]: GOLD:350,(02,02)
-}
+OBJECT:('(',"chest"),(02,02)
+GOLD:1200,(02,02)
+[50%]: GOLD:350,(02,02)
 MONSTER:('s',"giant spider"),(02,03),asleep,hostile
 MONSTER:('s',"giant spider"),(03,01),asleep,hostile
 
-
-CONTAINER:('(',"chest"),(06,01) {
+CONTAINER:('(',"iron safe"),(06,01) {
     OBJECT:('"',"amulet of drain resistance")
     OBJECT:('+',"acid blast"),blessed,+4
     [20%]: OBJECT:('(',"magic marker"),cursed,34
@@ -935,7 +920,6 @@ CONTAINER:('(',"chest"),(06,01) {
     OBJECT:('!',"enlightenment"),blessed,0
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
-
     GOLD:8700,(06,01)
     [50%]: GOLD:1300,(06,01)
 }
@@ -947,17 +931,11 @@ MONSTER:('o',"orc"),(03,19),asleep,hostile
 
 CONTAINER:('(',"chest"),(06,19) {
     OBJECT:('[',"helm of telepathy"),blessed,+0
-
-    #OBJECT:('%',"tin"),"spinach",0
-    #OBJECT:('%',"tin"),"spinach",0
-    #[50%]: OBJECT:'%',"tin","spinach",0
-    #[50%]: OBJECT:'%',"tin","spinach",0
-
-    OBJECT:('%',"tin"),0
-    OBJECT:('%',"tin"),0
-    [50%]: OBJECT:('%',"tin"),0
-    [50%]: OBJECT:('%',"tin"),0
-
+    # Should be up to 4 tins of spinach
+    OBJECT:('%',"tin"),1
+    OBJECT:('%',"tin"),1
+    [50%]: OBJECT:('%',"tin"),1
+    [50%]: OBJECT:('%',"tin"),1
 }
 
 #traps
@@ -1393,7 +1371,6 @@ MONSTER:('o',"goblin"),random
 [50%]: MONSTER:('o',"goblin"),random
 [50%]: MONSTER:('o',"goblin"),random
 
-#
 TRAP:"statue",(16,10)
 OBJECT:('`',"statue"),(16,10),montype:"harpy",0
 
@@ -1440,7 +1417,7 @@ MONSTER:('s',"giant spider"),(03,01),asleep,hostile
 GOLD:1200,(02,02)
 [50%]: GOLD:350,(02,02)
 
-CONTAINER:('(',"chest"),(06,01) {
+CONTAINER:('(',"iron safe"),(06,01) {
     OBJECT:('"',"amulet versus stone")
     OBJECT:('+',"create monster"),blessed,+4
     [20%]: OBJECT:('(',"magic marker"),cursed,34
@@ -1448,7 +1425,6 @@ CONTAINER:('(',"chest"),(06,01) {
     OBJECT:('!',"enlightenment"),blessed,0
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
-
     GOLD:8700,(06,01)
     [50%]: GOLD:1300,(06,01)
 }
@@ -1460,17 +1436,13 @@ MONSTER:('o',"orc"),(03,19),asleep,hostile
 
 CONTAINER:('(',"chest"),(06,19) {
     OBJECT:('[',"oilskin cloak"),uncursed,+0
-
-    #OBJECT:('%',"tin"),"spinach",0
-    #OBJECT:('%',"tin"),"spinach",0
-    #[50%]: OBJECT:('%',"tin"),"spinach",0
-    #[50%]: OBJECT:('%',"tin"),"spinach",0
-
-    OBJECT:('%',"tin"),0
-    OBJECT:('%',"tin"),0
-    [50%]: OBJECT:('%',"tin"),0
-    [50%]: OBJECT:('%',"tin"),0
+    # Should be up to 4 tins of spinach
+    OBJECT:('%',"tin"),1
+    OBJECT:('%',"tin"),1
+    [50%]: OBJECT:('%',"tin"),1
+    [50%]: OBJECT:('%',"tin"),1
 }
+
 #traps
 [90%]: TRAP:"land mine",(08,10)
 [90%]: TRAP:"board",(09,10)
