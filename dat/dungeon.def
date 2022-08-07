@@ -39,6 +39,7 @@ RNDLEVEL:	"bigrm" "B" @ (13, 3) 40 10
 CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
 
 BRANCH: 	"The Wyrm Caves" @ (20, 2)
+BRANCH: 	"The Lost Tomb" @ (21, 4)
 
 #   Storage room (treasure) on levels 19-26, 66% of the time
 RNDLEVEL:	"stor" "S" @ (19, 8) 66 3
@@ -155,6 +156,13 @@ DUNGEON:        "The Wyrm Caves" "D" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "dragons" "D" @ (1, 0)
+
+
+### The Lost Tomb ###
+DUNGEON:        "The Lost Tomb" "L" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "tomb" "L" @ (1, 0)
 
 #
 #       The Ice Queen's Realm.
