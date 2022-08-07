@@ -150,7 +150,7 @@ RNDLEVEL:		"soko4" "none" @ (4, 0) 6
 DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-RNDLEVEL:       "grund" "Z" @ (1, 0) 3
+LEVEL:          "grund" "Z" @ (1, 0)
 
 #
 #	The Central Vault of Croesus.
