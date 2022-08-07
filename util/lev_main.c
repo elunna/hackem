@@ -268,7 +268,7 @@ char **argv;
         ":dat:mall-1.des",   ":dat:mall-2.des",     ":dat:dragons.des",
         ":dat:kobold-1.des", ":dat:kobold-2.des",   ":dat:tomb.des",
         ":dat:stor-1.des",   ":dat:stor-2.des",     ":dat:stor-3.des",
-        ":dat:spiders.des",
+        ":dat:spiders.des",  ":dat:mtemple.des",
     };
 
     argc = SIZE(mac_argv);

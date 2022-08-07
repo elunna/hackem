@@ -41,6 +41,7 @@ CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
 BRANCH: 	"The Wyrm Caves" @ (20, 2)
 BRANCH: 	"The Lost Tomb" @ (21, 4)
 BRANCH:		"The Spider Caves" @ (26, 2)
+BRANCH: 	"The Temple of Moloch" @ (32, 4)
 
 #   Storage room (treasure) on levels 19-26, 66% of the time
 RNDLEVEL:	"stor" "S" @ (19, 8) 66 3
@@ -170,6 +171,12 @@ DUNGEON:        "The Spider Caves" "S" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "spiders" "S" @ (1, 0)
+
+### The Temple of Moloch ###
+DUNGEON:        "The Temple of Moloch" "none" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "mtemple" "none" @ (1, 0)
 
 #
 #       The Ice Queen's Realm.
