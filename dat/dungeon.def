@@ -33,7 +33,7 @@ LEVALIGN:	neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
 LEVEL:		"rats" "R" @ (10, 2) 50
 RNDLEVEL:	"kobold" "K" @ (11, 2) 50 2
-
+BRANCH: 	"Grund's Stronghold" @ (12, 2)
 
 RNDLEVEL:	"bigrm" "B" @ (13, 3) 40 10
 CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
@@ -144,6 +144,13 @@ RNDLEVEL:		"soko1" "none" @ (1, 0) 6
 RNDLEVEL:		"soko2" "none" @ (2, 0) 6
 RNDLEVEL:		"soko3" "none" @ (3, 0) 6
 RNDLEVEL:		"soko4" "none" @ (4, 0) 6
+
+
+### Grund's Stronghold ###
+DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+RNDLEVEL:       "grund" "Z" @ (1, 0) 3
 
 #
 #	The Central Vault of Croesus.
