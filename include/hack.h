@@ -572,6 +572,16 @@ enum bodypart_types {
 #define CFDECLSPEC
 #endif
 
+#ifdef DEBUG
+# ifdef WIZARD
+#define debug_pline  if (wizard) pline
+# else
+#define debug_pline  pline
+# endif
+#else
+# define debug_pline if (0) pline
+#endif
+
 #define DEVTEAM_EMAIL "eslunna@gmail.com"
 #define DEVTEAM_URL "https://github.com/elunna/hackem"
 
