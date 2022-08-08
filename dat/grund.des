@@ -16,27 +16,27 @@ GEOMETRY:right,center
 #12345678901234567890123456789012
 #0   i    1    i    2    i    3
 MAP
-........           .....         
-........         .........       
-.........      .............     
-.........     ......-F-......    
-..........   .....---.---.....   
-..........   ....--- . ---....   
-........... ....-----------....  
-........... ...--- - - - ---...  
-...............-------------.... 
-..............-- - - - - - --... 
-..............F..---------..F... 
-..............-- - - -.- - --... 
-...............-------------.... 
-........... ...--- - - - ---...  
-........... ....-----------....  
-..........   ....--- . ---....   
-..........   .....---.---.....   
-.........     ......-F-......    
-.........      .............     
-........         .........       
-........           .....         
+........           .....
+........         .........
+.........      .............
+.........     ......-F-......
+..........   .....---.---.....
+..........   ....--- . ---....
+........... ....-----------....
+........... ...--- - - - ---...
+...............-------------....
+..............-- - - - - - --...
+..............F..---------..F...
+..............-- - - -.- - --...
+...............-------------....
+........... ...--- - - - ---...
+........... ....-----------....
+..........   ....--- . ---....
+..........   .....---.---.....
+.........     ......-F-......
+.........      .............
+........         .........
+........           .....
 ENDMAP
 $places = { (21,03),(14,10),(28,10),(21,17) }
 DOOR:locked,$places[0]
@@ -103,6 +103,8 @@ MONSTER:('o',"orc"),random,hostile
 [10%]: OBJECT:('!',"invulnerability"),random
 
 #traps
+# Organized by column right to left.
+
 [50%]: TRAP:"rust",(00,01)
 [50%]: TRAP:"rust",(00,03)
 [50%]: TRAP:"rust",(00,05)
@@ -115,48 +117,50 @@ MONSTER:('o',"orc"),random,hostile
 [50%]: TRAP:"rust",(00,19)
 
 [50%]: TRAP:"arrow",(01,00)
-[50%]: TRAP:"arrow",(02,01)
 [50%]: TRAP:"arrow",(01,02)
-[50%]: TRAP:"arrow",(02,03)
 [50%]: TRAP:"arrow",(01,04)
-[50%]: TRAP:"arrow",(02,05)
 [50%]: TRAP:"arrow",(01,06)
-[50%]: TRAP:"arrow",(02,07)
 [50%]: TRAP:"arrow",(01,08)
-[50%]: TRAP:"arrow",(02,09)
 [50%]: TRAP:"arrow",(01,10)
-[50%]: TRAP:"arrow",(02,11)
 [50%]: TRAP:"arrow",(01,12)
-[50%]: TRAP:"arrow",(02,13)
 [50%]: TRAP:"arrow",(01,14)
-[50%]: TRAP:"arrow",(02,15)
 [50%]: TRAP:"arrow",(01,16)
-[50%]: TRAP:"arrow",(02,17)
 [50%]: TRAP:"arrow",(01,18)
-[50%]: TRAP:"arrow",(02,19)
 [50%]: TRAP:"arrow",(01,20)
 
+[50%]: TRAP:"arrow",(02,01)
+[50%]: TRAP:"arrow",(02,03)
+[50%]: TRAP:"arrow",(02,05)
+[50%]: TRAP:"arrow",(02,07)
+[50%]: TRAP:"arrow",(02,09)
+[50%]: TRAP:"arrow",(02,11)
+[50%]: TRAP:"arrow",(02,13)
+[50%]: TRAP:"arrow",(02,15)
+[50%]: TRAP:"arrow",(02,17)
+[50%]: TRAP:"arrow",(02,19)
+
 [50%]: TRAP:"spiked pit",(03,00)
-[50%]: TRAP:"spiked pit",(04,01)
 [50%]: TRAP:"spiked pit",(03,02)
-[50%]: TRAP:"spiked pit",(04,03)
 [50%]: TRAP:"spiked pit",(03,04)
-[50%]: TRAP:"spiked pit",(04,05)
 [50%]: TRAP:"spiked pit",(03,06)
-[50%]: TRAP:"spiked pit",(04,07)
 [50%]: TRAP:"spiked pit",(03,08)
-[50%]: TRAP:"spiked pit",(04,09)
 [50%]: TRAP:"spiked pit",(03,10)
-[50%]: TRAP:"spiked pit",(04,11)
 [50%]: TRAP:"spiked pit",(03,12)
-[50%]: TRAP:"spiked pit",(04,13)
 [50%]: TRAP:"spiked pit",(03,14)
-[50%]: TRAP:"spiked pit",(04,15)
 [50%]: TRAP:"spiked pit",(03,16)
-[50%]: TRAP:"spiked pit",(04,17)
 [50%]: TRAP:"spiked pit",(03,18)
-[50%]: TRAP:"spiked pit",(04,19)
 [50%]: TRAP:"spiked pit",(03,20)
+
+[50%]: TRAP:"spiked pit",(04,01)
+[50%]: TRAP:"spiked pit",(04,03)
+[50%]: TRAP:"spiked pit",(04,05)
+[50%]: TRAP:"spiked pit",(04,07)
+[50%]: TRAP:"spiked pit",(04,09)
+[50%]: TRAP:"spiked pit",(04,11)
+[50%]: TRAP:"spiked pit",(04,13)
+[50%]: TRAP:"spiked pit",(04,15)
+[50%]: TRAP:"spiked pit",(04,17)
+[50%]: TRAP:"spiked pit",(04,19)
 
 TRAP:"rust",random
 TRAP:"rust",random
@@ -235,7 +239,7 @@ NON_DIGGABLE:(00,00,37,20)
 
 DRAWBRIDGE:(41,10),west,closed
 
-# (whatever it's called)
+# Entry corridor (38-39)
 MONSTER:('o',"war orc"),(39,02),hostile
 [80%]: OBJECT:('/',"sleep"),(39,02)
 OBJECT:(')',"orcish bow"),(39,02),uncursed,+1
@@ -403,7 +407,7 @@ OBJECT:('%',"corpse"),(11,19),montype:"human"
 # treasury
 OBJECT:('(',"chest"),(02,02)
 GOLD:1200,(02,02)
-[50%]: GOLD:350,(02,02)
+#[50%]: GOLD:350,(02,02)
 MONSTER:('s',"giant spider"),(02,03),asleep,hostile
 MONSTER:('s',"giant spider"),(03,01),asleep,hostile
 
@@ -429,7 +433,7 @@ CONTAINER:('(', "iron safe"),(06,01) {
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
 
     GOLD:8700,(06,01)
-    [50%]: GOLD:1300,(06,01)
+    #[50%]: GOLD:1300,(06,01)
 }
 
 # arms storage
@@ -455,7 +459,7 @@ CONTAINER:('(',"chest"),(06,19) {
     [50%]: OBJECT:('%',"tin"),1
 }
 
-#traps
+#traps going into Grund's chamber
 [90%]: TRAP:"land mine",(08,10)
 [90%]: TRAP:"board",(09,10)
 [90%]: TRAP:"anti magic",(10,10)
