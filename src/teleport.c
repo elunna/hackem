@@ -143,6 +143,17 @@ xchar xx, yy;
 struct permonst *mdat;
 unsigned entflags;
 {
+    return enexto_core_range(cc, xx, yy, mdat, entflags, 1);
+}
+
+boolean
+enexto_core_range(cc, xx, yy, mdat, entflags, start_range)
+coord *cc;
+register xchar xx, yy;
+struct permonst *mdat;
+unsigned entflags;
+int start_range; /**< Distance of checked tiles to begin with. Should be >=1. */
+{
 #define MAX_GOOD 15
     coord good[MAX_GOOD], *good_ptr;
     int x, y, range, i;
@@ -152,7 +163,9 @@ unsigned entflags;
 
     entflags &= ~GP_ALLOW_XY;
     if (!mdat) {
-        debugpline0("enexto() called with null mdat");
+#ifdef DEBUG
+        pline("enexto() called with mdat==0");
+#endif
         /* default to player's original monster type */
         mdat = &mons[u.umonster];
     }
@@ -167,30 +180,32 @@ unsigned entflags;
     rangemax = max(xmax, ymax);
     /* setup: no suitable spots yet, first iteration checks adjacent spots */
     good_ptr = good;
-    range = 1;
+    range = start_range;
     /*
      * Walk around the border of the square with center (xx,yy) and
      * radius range.  Stop when we find at least one valid position.
      */
     do {
-        xmin = max(1, xx - range);
-        xmax = min(COLNO - 1, xx + range);
-        ymin = max(0, yy - range);
-        ymax = min(ROWNO - 1, yy + range);
+        xmin = max(1, xx-range);
+        xmax = min(COLNO-1, xx+range);
+        ymin = max(0, yy-range);
+        ymax = min(ROWNO-1, yy+range);
 
         for (x = xmin; x <= xmax; x++) {
             if (goodpos(x, ymin, &fakemon, entflags)) {
                 good_ptr->x = x;
                 good_ptr->y = ymin;
                 /* beware of accessing beyond segment boundaries.. */
-                if (good_ptr++ == &good[MAX_GOOD - 1])
+                if (good_ptr++ == &good[MAX_GOOD-1]) {
                     goto full;
+                }
             }
             if (goodpos(x, ymax, &fakemon, entflags)) {
                 good_ptr->x = x;
                 good_ptr->y = ymax;
-                if (good_ptr++ == &good[MAX_GOOD - 1])
+                if (good_ptr++ == &good[MAX_GOOD-1]) {
                     goto full;
+                }
             }
         }
         /* 3.6.3: this used to use 'ymin+1' which left top row unchecked */
@@ -198,38 +213,176 @@ unsigned entflags;
             if (goodpos(xmin, y, &fakemon, entflags)) {
                 good_ptr->x = xmin;
                 good_ptr->y = y;
-                if (good_ptr++ == &good[MAX_GOOD - 1])
+                if (good_ptr++ == &good[MAX_GOOD-1]) {
                     goto full;
+                }
             }
             if (goodpos(xmax, y, &fakemon, entflags)) {
                 good_ptr->x = xmax;
                 good_ptr->y = y;
-                if (good_ptr++ == &good[MAX_GOOD - 1])
+                if (good_ptr++ == &good[MAX_GOOD-1]) {
                     goto full;
+                }
             }
         }
     } while (++range <= rangemax && good_ptr == good);
 
-    /* return False if we exhausted 'range' without finding anything */
+    /* return false if we exhausted 'range' without finding anything */
     if (good_ptr == good) {
         /* 3.6.3: earlier versions didn't have the option to try <xx,yy>,
            and left 'cc' uninitialized when returning False */
-        cc->x = xx, cc->y = yy;
+        cc->x = xx;
+        cc->y = yy;
         /* if every spot other than <xx,yy> has failed, try <xx,yy> itself */
         if (allow_xx_yy && goodpos(xx, yy, &fakemon, entflags)) {
             return TRUE; /* 'cc' is set */
         } else {
-            debugpline3("enexto(\"%s\",%d,%d) failed", mdat->mname, xx, yy);
+            debug_pline("enexto(\"%s\",%d,%d) failed", mdat->mname, xx, yy);
             return FALSE;
         }
     }
 
- full:
+full:
     /* we've got between 1 and SIZE(good) candidates; choose one */
-    i = rn2((int) (good_ptr - good));
+    i = rn2((int)(good_ptr - good));
     cc->x = good[i].x;
     cc->y = good[i].y;
     return TRUE;
+}
+
+/*
+ * "entity path to"
+ *
+ * Attempt to find nc good places for the given monster type with the shortest
+ * path to (xx,yy).  Where there is more than one valid set of positions, one
+ * will be chosen at random.  Return the number of positions found.
+ * Warning:  This routine is much slower than enexto and should be used
+ * with caution.
+ */
+
+#define EPATHTO_UNSEEN        0x0
+#define EPATHTO_INACCESSIBLE  0x1
+#define EPATHTO_DONE          0x2
+#define EPATHTO_TAIL(n)      (0x3 + ((n) & 7))
+
+#define EPATHTO_XY(x, y)    (((y) + 1) * COLNO + (x))
+#define EPATHTO_Y(xy)       ((xy) / COLNO - 1)
+#define EPATHTO_X(xy)       ((xy) % COLNO)
+
+#ifdef DEBUG
+coord epathto_debug_cc[100];
+#endif
+
+int
+epathto(cc, nc, xx, yy, mdat)
+coord *cc;
+int nc;
+register xchar xx, yy;
+struct permonst *mdat;
+{
+    int i, j, dir, ndirs, xy, x, y, r;
+    int path_len, postype;
+    int first_col, last_col;
+    int nd, n;
+    unsigned char *map;
+    static const int dirs[8] =
+        /* N, S, E, W, NW, NE, SE, SW */
+    { -COLNO, COLNO, 1, -1, -COLNO-1, -COLNO+1, COLNO+1, COLNO-1};
+    struct monst fakemon;   /* dummy monster */
+    fakemon.data = mdat;    /* set up for badpos */
+    map = (unsigned char *)alloc(COLNO * (ROWNO + 2));
+    (void) memset((genericptr_t)map, EPATHTO_INACCESSIBLE, COLNO * (ROWNO + 2));
+    for(i = 1; i < COLNO; i++)
+        for(j = 0; j < ROWNO; j++)
+            map[EPATHTO_XY(i, j)] = EPATHTO_UNSEEN;
+    map[EPATHTO_XY(xx, yy)] = EPATHTO_TAIL(0);
+    if (badpos(xx, yy, &fakemon, 0) == 0) {
+        cc[0].x = xx;
+        cc[0].y = yy;
+        nd = n = 1;
+    }
+    else
+        nd = n = 0;
+    for(path_len = 0; nd < nc; path_len++)
+    {
+        first_col = max(1, xx - path_len);
+        last_col = min(COLNO - 1, xx + path_len);
+        for(j = max(0, yy - path_len); j <= min(ROWNO - 1, yy + path_len); j++)
+            for(i = first_col; i <= last_col; i++)
+                if (map[EPATHTO_XY(i, j)] == EPATHTO_TAIL(path_len)) {
+                    map[EPATHTO_XY(i, j)] = EPATHTO_DONE;
+                    ndirs = mdat == &mons[PM_GRID_BUG] ? 4 : 8;
+                    for(dir = 0; dir < ndirs; dir++) {
+                        xy = EPATHTO_XY(i, j) + dirs[dir];
+                        if (map[xy] == EPATHTO_UNSEEN) {
+                            x = EPATHTO_X(xy);
+                            y = EPATHTO_Y(xy);
+                            postype = badpos(x, y, &fakemon, 0);
+                            map[xy] = postype < 0 ? EPATHTO_INACCESSIBLE :
+                                      EPATHTO_TAIL(path_len + 1);
+                            if (postype == 0) {
+                                if (n < nc)
+                                {
+                                    cc[n].x = x;
+                                    cc[n].y = y;
+                                }
+                                else if (rn2(n - nd + 1) < nc - nd)
+                                {
+                                    r = rn2(nc - nd) + nd;
+                                    cc[r].x = x;
+                                    cc[r].y = y;
+                                }
+                                ++n;
+                            }
+                        }
+                    }
+                }
+        if (nd == n)
+            break; /* No more positions */
+        else
+            nd = n;
+    }
+    if (nd > nc)
+        nd = nc;
+#ifdef DEBUG
+    if (cc == epathto_debug_cc)
+    {
+        winid win;
+        int glyph;
+        char row[COLNO+1];
+
+        win = create_nhwindow(NHW_TEXT);
+        putstr(win, 0, "");
+        for (y = 0; y < ROWNO; y++) {
+            for (x = 1; x < COLNO; x++) {
+                xy = EPATHTO_XY(x, y);
+                if (map[xy] == EPATHTO_INACCESSIBLE) {
+                    glyph = back_to_glyph(x, y);
+                    row[x] = showsyms[glyph_to_cmap(glyph)];
+                }
+                else
+                    row[x] = ' ';
+            }
+            for (i = 0; i < nd; i++)
+                if (cc[i].y == y)
+                    row[cc[i].x] = i < 10 ? '0' + i :
+                                   i < 36 ? 'a' + i - 10 :
+                                   i < 62 ? 'A' + i - 36 :
+                                   '?';
+            /* remove trailing spaces */
+            for (x = COLNO-1; x >= 1; x--)
+                if (row[x] != ' ') break;
+            row[x+1] = '\0';
+
+            putstr(win, 0, &row[1]);
+        }
+        display_nhwindow(win, TRUE);
+        destroy_nhwindow(win);
+    }
+#endif
+
+    free((genericptr_t)map);
+    return nd;
 }
 
 /*
