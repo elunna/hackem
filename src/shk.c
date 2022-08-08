@@ -4323,7 +4323,7 @@ struct monst *shkp;
                     (carrying(PICK_AXE) || carrying(DWARVISH_MATTOCK)
                      || eshkp->pbanned
                      || (Fast && (sobj_at(PICK_AXE, u.ux, u.uy)
-                                  || sobj_at(DWARVISH_MATTOCK, u.ux, u.uy))));
+                                  || sobj_at(DWARVISH_MATTOCK, u.ux, u.uy)))));
                 if (satdoor && badinv)
                     return 0;
                 avoid = !badinv;
