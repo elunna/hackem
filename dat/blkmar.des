@@ -3,7 +3,7 @@
 # Massimo Campostrini (campo@sunthpi3.difi.unipi.it)
 #
 LEVEL: "blkmar-1"
-FLAGS: noteleport, hardfloor, noflip, nommap
+FLAGS: noteleport, hardfloor, nommap
 GEOMETRY: center, center
 MAP
 ----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ MONSTER:(':', "giant turtle"),(08,09), "Small A'Tuin", asleep, peaceful
 
 
 LEVEL: "blkmar-2"
-FLAGS: noteleport, hardfloor, noflip, nommap
+FLAGS: noteleport, hardfloor, nommap
 GEOMETRY: center, center
 MAP
                            -------------------------------------------------
