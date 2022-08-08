@@ -4621,7 +4621,7 @@ boolean via_attack;
         if (Is_blackmarket(&u.uz)) {
             /* non-tame named monsters are presumably black marketeer's assistants */
             if (is_blkmktstaff(mtmp->data) ||
-                (has_mgivenname(mtmp) && MNAME(mtmp))) {
+                (has_mname(mtmp) && MNAME(mtmp))) {
                 blkmar_guards(mtmp);
             }
         }

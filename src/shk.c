@@ -449,7 +449,7 @@ register struct monst *mtmp;
         /* non-tame named monsters are presumably
          * black marketeer's assistants */
         else if (mt->mpeaceful &&
-                 ((!mt->mtame && has_mgivenname(mt) && MNAME(mt) &&
+                 ((!mt->mtame && has_mname(mt) && MNAME(mt) &&
                    mt->mpeaceful && mt != mtmp) ||
                   mt->data == &mons[PM_ONE_EYED_SAM])) {
             if (!mesg_given) {
