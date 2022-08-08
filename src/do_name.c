@@ -1778,7 +1778,8 @@ boolean called;
      * shopkeeper" or "Asidonhopo the blue dragon".  If hallucinating,
      * none of this applies.
      */
-    if (mtmp->isshk && !do_hallu) {
+    if (mtmp->isshk && !do_hallu 
+      && mtmp->data != &mons[PM_ONE_EYED_SAM]) {
         if (adjective && article == ARTICLE_THE) {
             /* pathological case: "the angry Asidonhopo the blue dragon"
                sounds silly */

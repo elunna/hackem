@@ -345,6 +345,7 @@ register struct monst *shkp;
     return total;
 }
 
+
 STATIC_OVL void
 call_kops(shkp, nearshop)
 register struct monst *shkp;
@@ -352,50 +353,164 @@ register boolean nearshop;
 {
     /* Keystone Kops srt@ucla */
     register boolean nokops;
+    char kopname[20];
 
-    if (!shkp)
+    Strcpy(kopname, "Keystone Kops");
+
+    if (!shkp) 
         return;
 
-    if (!Deaf)
+    if (!Deaf) {
         pline("An alarm sounds!");
+    }
 
-    nokops = ((mvitals[PM_KEYSTONE_KOP].mvflags & G_GONE)
-              && (mvitals[PM_KOP_SERGEANT].mvflags & G_GONE)
-              && (mvitals[PM_KOP_LIEUTENANT].mvflags & G_GONE)
-              && (mvitals[PM_KOP_KAPTAIN].mvflags & G_GONE));
+    nokops = ((mvitals[PM_KEYSTONE_KOP].mvflags & G_GONE) &&
+              (mvitals[PM_KOP_SERGEANT].mvflags & G_GONE) &&
+              (mvitals[PM_KOP_LIEUTENANT].mvflags & G_GONE) &&
+              (mvitals[PM_KOP_KAPTAIN].mvflags & G_GONE));
+
+    if (Is_blackmarket(&u.uz)) {
+        nokops = ((mvitals[PM_SOLDIER].mvflags & G_GONE) &&
+                  (mvitals[PM_SERGEANT].mvflags & G_GONE) &&
+                  (mvitals[PM_LIEUTENANT].mvflags & G_GONE) &&
+                  (mvitals[PM_CAPTAIN].mvflags & G_GONE));
+
+        Strcpy(kopname, "guards");
+    }
 
     if (!angry_guards(!!Deaf) && nokops) {
-        if (flags.verbose && !Deaf)
+        if (flags.verbose && !Deaf) {
             pline("But no one seems to respond to it.");
+        }
         return;
     }
 
-    if (nokops)
+    if (nokops) 
         return;
 
-    {
-        coord mm;
 
-        if (nearshop) {
-            /* Create swarm around you, if you merely "stepped out" */
-            if (flags.verbose)
-                pline_The("Keystone Kops appear!");
-            mm.x = u.ux;
-            mm.y = u.uy;
-            makekops(&mm);
-            return;
-        }
+    coord mm;
+
+    if (nearshop)
+        if (!Is_blackmarket(&u.uz)) {
+        /* Create swarm around you, if you merely "stepped out" */
         if (flags.verbose)
-            pline_The("Keystone Kops are after you!");
-        /* Create swarm near down staircase (hinders return to level) */
+            pline_The("%s appear!", kopname);
+        mm.x = u.ux;
+        mm.y = u.uy;
+        makekops(&mm);
+        return;
+    }
+    if (flags.verbose)
+        pline_The("%s are after you!", kopname);
+    /* Create swarm near down staircase (hinders return to level) */
+
+    if (Is_blackmarket(&u.uz)) {
+        struct trap *trap = ftrap;
+        while (trap) {
+            if (trap->ttyp == MAGIC_PORTAL) {
+                mm.x = trap->tx;
+                mm.y = trap->ty;
+            }
+            trap = trap->ntrap;
+        }
+    } else {
         mm.x = xdnstair;
         mm.y = ydnstair;
-        makekops(&mm);
-        /* Create swarm near shopkeeper (hinders return to shop) */
-        mm.x = shkp->mx;
-        mm.y = shkp->my;
-        makekops(&mm);
     }
+
+    makekops(&mm);
+    /* Create swarm near shopkeeper (hinders return to shop) */
+    mm.x = shkp->mx;
+    mm.y = shkp->my;
+    makekops(&mm);
+}
+
+
+void
+blkmar_guards(mtmp)
+register struct monst *mtmp;
+{
+    register struct monst *mt;
+    boolean mesg_given = FALSE; /* Only give message if assistants peaceful */
+    static boolean rlock = FALSE; /* Prevent recursive calls (via wakeup) */
+
+    if (rlock) 
+        return;
+    rlock = TRUE;
+
+    /* allow black marketeer to leave his shop */
+    hot_pursuit(mtmp);
+
+    /* wake up assistants */
+    for (mt = fmon; mt; mt = mt->nmon) {
+        if (DEADMONSTER(mt)) 
+            continue;
+        /* non-tame named monsters are presumably
+         * black marketeer's assistants */
+        else if (mt->mpeaceful &&
+                 ((!mt->mtame && has_mgivenname(mt) && MGIVENNAME(mt) &&
+                   mt->mpeaceful && mt != mtmp) ||
+                  mt->data == &mons[PM_ONE_EYED_SAM])) {
+            if (!mesg_given) {
+                pline("%s calls for help!", noit_Monnam(mtmp));
+                mesg_given = TRUE;
+                bars_around_portal(FALSE);
+
+                call_kops(mtmp, FALSE);
+
+            }
+            wakeup(mt, TRUE);
+        }
+        /* All for one and one for all */
+        else if (mt->isshk && mt->data == &mons[PM_BLACK_MARKETEER])
+            hot_pursuit(mt);
+    }
+    rlock = FALSE;
+}
+
+/* look for a portal on the level and add or
+ * remove iron bars on every adjacent square */
+void
+bars_around_portal(removebars)
+boolean removebars;
+{
+    int x, y, dx, dy;
+    boolean sawit = FALSE;
+    struct trap *trap = ftrap;
+    while (trap) {
+        if (trap->ttyp == MAGIC_PORTAL) break;
+        trap = trap->ntrap;
+    }
+    if (!trap) return;
+    if (trap->tx == u.ux && trap->ty == u.uy) return;
+    for (dx = -1; dx <= 1; dx++)
+        for (dy = -1; dy <= 1; dy++) {
+            if (!dx && !dy) continue;
+            x = trap->tx + dx;
+            y = trap->ty + dy;
+            if (removebars) {
+                if (levl[x][y].typ == IRONBARS) {
+                    dissolve_bars(x, y);
+                    if (cansee(x, y))
+                        sawit = TRUE;
+                }
+            } else {
+                if (!IS_ROCK(levl[x][y].typ) && levl[x][y].typ != IRONBARS) {
+                    levl[x][y].typ = IRONBARS;
+                    newsym(x, y);
+                    if (cansee(x, y))
+                        sawit = TRUE;
+                }
+            }
+        }
+    if (sawit) {
+        if (removebars)
+            pline("The iron bars rise back into the ceiling.");
+        else
+            pline("Iron bars drop from the ceiling around the magic portal!");
+    }
+
 }
 
 /* x,y is strictly inside shop */
@@ -455,7 +570,10 @@ boolean newlev;
     }
 
     if (rob_shop(shkp)) {
-        call_kops(shkp, (!newlev && levl[u.ux0][u.uy0].edge));
+        if (Is_blackmarket(&u.uz))
+            blkmar_guards(shkp);
+        else
+            call_kops(shkp, (!newlev && levl[u.ux0][u.uy0].edge));
     }
 }
 
@@ -476,8 +594,12 @@ xchar x, y;
         return;
 
     if (rob_shop(shkp)) {
+        if (Is_blackmarket(&u.uz))
+            blkmar_guards(shkp);
+        else
+            call_kops(shkp, FALSE);
         /*[might want to set 2nd arg based on distance from shop doorway]*/
-        call_kops(shkp, FALSE);
+        
     }
 }
 
@@ -599,17 +721,19 @@ char *enterstring;
 
     if (Invis) {
         pline("%s senses your presence.", Shknam(shkp));
-        if (!Deaf && !muteshk(shkp))
-            verbalize("Invisible customers are not welcome!");
-        else
-            pline("%s stands firm as if %s knows you are there.",
-                  Shknam(shkp), noit_mhe(shkp));
-        return;
+        if (!Is_blackmarket(&u.uz)) {
+            if (!Deaf && !muteshk(shkp)) {
+                verbalize("Invisible customers are not welcome!");
+            } else {
+                pline("%s stands firm as if %s knows you are there.", Shknam(shkp), noit_mhe(shkp));
+            }
+            return;
+        }
     }
 
-    /* Visible striped prison shirt */
-    if ((uarmu && (uarmu->otyp == STRIPED_SHIRT))
-        && !uarm && !uarmc) {
+    //* Visible striped prison shirt */
+    if (!Is_blackmarket(&u.uz) &&
+        (uarmu && (uarmu->otyp == STRIPED_SHIRT)) && !uarm && !uarmc) {
         eshkp->pbanned = TRUE;
     }
 
@@ -647,7 +771,7 @@ char *enterstring;
                 eshkp->visitct++ ? " again" : "", punct);
     }
     /* can't do anything about blocking if teleported in */
-    if (!inside_shop(u.ux, u.uy)) {
+    if (!inside_shop(u.ux, u.uy) && !(Is_blackmarket(&u.uz))) {
         boolean should_block;
         int cnt;
         const char *tool;
@@ -1441,22 +1565,24 @@ dopay()
             pay(umoney < ltmp ? umoney : ltmp, shkp);
             make_happy_shk(shkp, FALSE);
         } else {
+            /* Blackmarket shopkeeper are not easily pacified */
+            int peace_offering = (shkp->data == &mons[PM_BLACK_MARKETEER]) 
+                                  ? 5000L : 1000L;
+
             /* shopkeeper is angry, but has not been robbed --
              * door broken, attacked, etc. */
             pline("%s is after your hide, not your money!", Shknam(shkp));
-            if (umoney < 1000L) {
+            if (umoney < peace_offering) {
                 if (!umoney)
                     pline(no_money, stashed_gold ? " seem to" : "");
                 else
                     pline(not_enough_money, noit_mhim(shkp));
                 return 1;
             }
-            You("try to appease %s by giving %s 1000 gold pieces.",
-                canspotmon(shkp)
-                    ? x_monnam(shkp, ARTICLE_THE, "angry", 0, FALSE)
-                    : shkname(shkp),
-                noit_mhim(shkp));
-            pay(1000L, shkp);
+            You("try to appease %s by giving %s %d gold pieces.",
+                canspotmon(shkp) ? x_monnam(shkp, ARTICLE_THE, "angry", 0, FALSE) : shkname(shkp),
+                noit_mhim(shkp), peace_offering);
+            pay(peace_offering, shkp);
             if (strncmp(eshkp->customer, plname, PL_NSIZ) || rn2(3))
                 make_happy_shk(shkp, FALSE);
             else
@@ -1763,6 +1889,9 @@ boolean silently; /* maybe avoid messages */
     /* [should probably also return false when dead hero has been
         petrified since shk shouldn't be able to grab inventory
         which has been shut inside a statue] */
+
+    /* suppress message spam from lots of angry black marketeers */
+    if (Is_blackmarket(&u.uz)) return FALSE;
 
     /* this is where inventory will end up if any shk takes it */
     repo.location.x = repo.location.y = 0;
@@ -2390,6 +2519,20 @@ register struct monst *shkp; /* if angry, impose a surcharge */
        from the multiplier/divisor calculation */
     if (shkp && ESHK(shkp)->surcharge)
         tmp += (tmp + 2L) / 3L;
+
+    /* KMH, balance patch -- healthstone replaces rotting/health */
+    /* Used UnNetHack pricing instead of slashem's - more fair. */
+    if (Is_blackmarket(&u.uz)) {
+        if (obj->oclass==RING_CLASS    || obj->oclass==AMULET_CLASS   ||
+            obj->oclass==POTION_CLASS  || obj->oclass==SCROLL_CLASS   ||
+            obj->oclass==SPBOOK_CLASS  || obj->oclass==WAND_CLASS     ||
+            obj->otyp==LUCKSTONE       || obj->otyp==LOADSTONE        ||
+            objects[obj->otyp].oc_magic) {
+            tmp *= Role_if(PM_CONVICT) ? 20 : 25;
+        } else {
+            tmp *= Role_if(PM_CONVICT) ? 12 : 15;
+        }
+    }
     return tmp;
 }
 
@@ -4169,12 +4312,14 @@ struct monst *shkp;
         avoid = FALSE;
     } else {
 #define GDIST(x, y) (dist2(x, y, gx, gy))
-        if (Invis || u.usteed) {
+        if ((!Is_blackmarket(&u.uz) 
+                && (Invis || u.usteed) 
+                && !inside_shop(u.ux, u.uy))) {
             avoid = FALSE;
         } else {
             uondoor = (u.ux == eshkp->shd.x && u.uy == eshkp->shd.y);
             if (uondoor) {
-                badinv =
+                badinv = (!Is_blackmarket(&u.uz) &&
                     (carrying(PICK_AXE) || carrying(DWARVISH_MATTOCK)
                      || eshkp->pbanned
                      || (Fast && (sobj_at(PICK_AXE, u.ux, u.uy)
@@ -4326,30 +4471,49 @@ register int fall;
     }
 }
 
+/* modified by M. Campostrini (campo@sunthpi3.difi.unipi.it) */
+/* to allow for multiple choices of kops */
 STATIC_OVL void
 makekops(mm)
 coord *mm;
 {
-    static const short k_mndx[4] = { PM_KEYSTONE_KOP, PM_KOP_SERGEANT,
-                                     PM_KOP_LIEUTENANT, PM_KOP_KAPTAIN };
-    int k_cnt[4], cnt, mndx, k;
+    int kop_cnt[5];
+    int kop_pm[5];
+    int ik, cnt;
+    coord *mc;
 
-    k_cnt[0] = cnt = abs(depth(&u.uz)) + rnd(5);
-    k_cnt[1] = (cnt / 3) + 1; /* at least one sarge */
-    k_cnt[2] = (cnt / 6);     /* maybe a lieutenant */
-    k_cnt[3] = (cnt / 9);     /* and maybe a kaptain */
+    kop_pm[0] = PM_KEYSTONE_KOP;
+    kop_pm[1] = PM_KOP_SERGEANT;
+    kop_pm[2] = PM_KOP_LIEUTENANT;
+    kop_pm[3] = PM_KOP_KAPTAIN;
+    kop_pm[4] = 0;
 
-    for (k = 0; k < 4; k++) {
-        if ((cnt = k_cnt[k]) == 0)
-            break;
-        mndx = k_mndx[k];
-        if (mvitals[mndx].mvflags & G_GONE)
-            continue;
+    cnt = abs(depth(&u.uz)) + rnd(5);
 
-        while (cnt--)
-            if (enexto(mm, mm->x, mm->y, &mons[mndx]))
-                (void) makemon(&mons[mndx], mm->x, mm->y, NO_MM_FLAGS);
+    if (Is_blackmarket(&u.uz)) {
+        kop_pm[0] = PM_SOLDIER;
+        kop_pm[1] = PM_SERGEANT;
+        kop_pm[2] = PM_LIEUTENANT;
+        kop_pm[3] = PM_CAPTAIN;
+        kop_pm[4] = 0;
+
+        cnt = 7 + rnd(10);
     }
+
+    kop_cnt[0] = cnt;
+    kop_cnt[1] = (cnt / 3) + 1;   /* at least one sarge */
+    kop_cnt[2] = (cnt / 6);       /* maybe a lieutenant */
+    kop_cnt[3] = (cnt / 9);       /* and maybe a kaptain */
+
+    mc = (coord *)alloc(cnt * sizeof(coord));
+    for (ik=0; kop_pm[ik]; ik++) {
+        if (!(mvitals[kop_pm[ik]].mvflags & G_GONE)) {
+            cnt = epathto(mc, kop_cnt[ik], mm->x, mm->y, &mons[kop_pm[ik]]);
+            while (--cnt >= 0)
+                (void) makemon(&mons[kop_pm[ik]], mc[cnt].x, mc[cnt].y, NO_MM_FLAGS);
+        }
+    }
+    free((genericptr_t)mc);
 }
 
 void
@@ -4995,7 +5159,10 @@ register xchar x, y;
 
     if (shkp->mx == sx && shkp->my == sy && shkp->mcanmove && !shkp->msleeping
         && (x == sx - 1 || x == sx + 1 || y == sy - 1 || y == sy + 1)
-        && (Invis || carrying(PICK_AXE) || carrying(DWARVISH_MATTOCK)
+        && (Invis || 
+            (!Is_blackmarket(&u.uz) &&
+            (carrying(PICK_AXE) 
+            || carrying(DWARVISH_MATTOCK)))
             || u.usteed)) {
         pline("%s%s blocks your way!", Shknam(shkp),
               Invis ? " senses your motion and" : "");

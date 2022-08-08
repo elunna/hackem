@@ -971,7 +971,7 @@ level_tele()
         if (newlev > 0 && !force_dest
             && ((Is_valley(&u.uz) && !u.uevent.ucerberus
                  && (!wizard || yn("Cerberus is alive.  Override?") != 'y'))
-                || Is_knox(&u.uz))) {
+                || Is_knox(&u.uz) || Is_blackmarket(&u.uz))) {
             You1(shudder_for_moment);
             return;
         }
@@ -1513,6 +1513,17 @@ int in_sight;
                     seetrap(trap);
                 }
                 return 0;
+            } else if (mtmp->mtame &&
+                    (Is_blackmarket(&trap->dst) || Is_blackmarket(&u.uz))) {
+                if (in_sight) {
+                    pline("%s seems to shimmer for a moment.", Monnam(mtmp));
+                    seetrap(trap);
+                }
+                return 0;
+            } else if (Is_blackmarket(&u.uz) &&
+                       mtmp->data == &mons[PM_ONE_EYED_SAM]) {
+                return 0;
+            
             } else {
                 assign_level(&tolevel, &trap->dst);
                 migrate_typ = MIGR_PORTAL;
@@ -1636,7 +1647,11 @@ random_teleport_level()
     int nlev, max_depth, min_depth, cur_depth = (int) depth(&u.uz);
 
     /* [the endgame case can only occur in wizard mode] */
-    if ((!rn2(5) && !In_V_tower(&u.uz)) || Is_knox(&u.uz) || In_endgame(&u.uz))
+    if ((!rn2(5) 
+            && !In_V_tower(&u.uz)) 
+            || Is_knox(&u.uz) 
+            || In_endgame(&u.uz)
+            || Is_blackmarket(&u.uz))
         return cur_depth;
 
     /* What I really want to do is as follows:
@@ -1718,6 +1733,12 @@ boolean give_feedback;
             You("are no longer inside %s!", mon_nam(mtmp));
         unstuck(mtmp);
         (void) rloc(mtmp, TRUE);
+
+    } else if (((mtmp->data == &mons[PM_BLACK_MARKETEER] && rn2(5)) ||
+                (mtmp->data == &mons[PM_ONE_EYED_SAM] && rn2(13))) &&
+               enexto_core_range(&cc, u.ux, u.uy, mtmp->data, 0,
+                                 rnf(1, 10) ? 4 : 3)) {
+        rloc_to(mtmp, cc.x, cc.y);
     } else if (mon_prop(mtmp, TELEPORT_CONTROL) && rn2(13)
                && enexto(&cc, u.ux, u.uy, mtmp->data))
         rloc_to(mtmp, cc.x, cc.y);

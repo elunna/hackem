@@ -239,7 +239,8 @@
 
 #define HConflict u.uprops[CONFLICT].intrinsic
 #define EConflict u.uprops[CONFLICT].extrinsic
-#define Conflict (HConflict || EConflict)
+/* Conflict doesn't work in Black Market */
+#define Conflict    ((HConflict || EConflict) && !Is_blackmarket(&u.uz))
 
 /*** Transportation ***/
 #define HJumping u.uprops[JUMPING].intrinsic

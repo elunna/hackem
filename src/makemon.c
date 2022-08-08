@@ -3390,6 +3390,8 @@ rndmonst()
                 continue;
             if (uncommon(mndx))
                 continue;
+             if (is_domestic(ptr) && Is_blackmarket(&u.uz)) 
+                continue;
             if (Inhell && (ptr->geno & G_NOHELL))
                 continue;
             if (Iniceq && !likes_iceq(ptr))

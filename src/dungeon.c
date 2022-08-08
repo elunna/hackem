@@ -702,6 +702,7 @@ struct level_map {
                   { "hellb", &hellb_level },
                   { "hellc", &hellc_level },
                   { "knox", &knox_level },
+                  { "blkmar", &blackmarket_level },
                   { "medusa", &medusa_level },
                   { "oracle", &oracle_level },
                   { "orcus", &orcus_level },
@@ -2491,20 +2492,25 @@ recalc_mapseen()
     for (i = 0; i < SIZE(mptr->msrooms); ++i) {
         if (mptr->msrooms[i].seen) {
             if (rooms[i].rtype >= SHOPBASE) {
-                if (mptr->msrooms[i].untended)
-                    mptr->feat.shoptype = SHOPBASE - 1;
-                else if (!mptr->feat.nshop)
-                    mptr->feat.shoptype = rooms[i].rtype;
-                else if (mptr->feat.shoptype != (unsigned) rooms[i].rtype)
-                    mptr->feat.shoptype = 0;
-                count = mptr->feat.nshop + 1;
-                if (count <= 3)
-                    mptr->feat.nshop = count;
-            } else if (rooms[i].rtype == TEMPLE) {
-                /* altar and temple alignment handled below */
-                count = mptr->feat.ntemple + 1;
-                if (count <= 3)
-                    mptr->feat.ntemple = count;
+
+                /* don't record the large single shop room on the blackmarket level */
+                if (rooms[i].rtype != BLACKSHOP) {
+                    if (mptr->msrooms[i].untended)
+                        mptr->feat.shoptype = SHOPBASE - 1;
+                    else if (!mptr->feat.nshop)
+                        mptr->feat.shoptype = rooms[i].rtype;
+                    else if (mptr->feat.shoptype != (unsigned) rooms[i].rtype)
+                        mptr->feat.shoptype = 0;
+                    count = mptr->feat.nshop + 1;
+                    
+                    if (count <= 3)
+                        mptr->feat.nshop = count;
+                } else if (rooms[i].rtype == TEMPLE) {
+                    /* altar and temple alignment handled below */
+                    count = mptr->feat.ntemple + 1;
+                    if (count <= 3)
+                        mptr->feat.ntemple = count;
+                }
             } else if (rooms[i].orig_rtype == DELPHI) {
                 mptr->flags.oracle = 1;
             }
@@ -2882,6 +2888,8 @@ int rtype;
     case CANDLESHOP:
         str = "lighting shop";
         break;
+    case BLACKSHOP:
+        return "the Blackmarket";
     default:
         break;
     }

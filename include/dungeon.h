@@ -132,6 +132,7 @@ typedef struct branch {
 #define Is_mineend_level(x) (Lcheck(x, &mineend_level))
 #define Is_minetn_level(x)  (Lcheck(x, &minetn_level))
 #define Is_sokoend_level(x) (Lcheck(x, &sokoend_level))
+#define Is_blackmarket(x)   (on_level(x, &blackmarket_level))
 
 #define In_sokoban(x) ((x)->dnum == sokoban_dnum)
 #define In_tower(x) ((x)->dnum == tower_dnum)

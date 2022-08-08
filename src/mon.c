@@ -3414,6 +3414,11 @@ register struct monst *mtmp;
             break;
         }
     }
+
+    if (Is_blackmarket(&u.uz) && tmp == PM_ONE_EYED_SAM) {
+        bars_around_portal(TRUE);
+    }
+
     if (mtmp->iswiz)
         wizdead();
     if (mtmp->iscerberus)
@@ -4570,6 +4575,13 @@ boolean via_attack;
         struct permonst* oracle = &mons[PM_ORACLE];
         struct permonst* charon = &mons[PM_CHARON];
         mtmp->mstrategy &= ~STRAT_WAITMASK;
+
+        /* Even if the black marketeer is already angry he may not have called
+        * for his assistants if he or his staff have not been assaulted yet.
+        */
+        if (is_blkmktstaff(mtmp->data) && !mtmp->mpeaceful)
+            blkmar_guards(mtmp);
+
         if (!mtmp->mpeaceful)
             return;
         if (mtmp->mtame)
@@ -4603,6 +4615,15 @@ boolean via_attack;
                 pline("%s gets angry!", Monnam(mtmp));
             else if (flags.verbose && !Deaf)
                 growl(mtmp);
+        }
+
+        /* Don't misbehave in the Black Market or else... */
+        if (Is_blackmarket(&u.uz)) {
+            /* non-tame named monsters are presumably black marketeer's assistants */
+            if (is_blkmktstaff(mtmp->data) ||
+                (has_mgivenname(mtmp) && MGIVENNAME(mtmp))) {
+                blkmar_guards(mtmp);
+            }
         }
 
         /* attacking your own quest leader will anger his or her guardians */

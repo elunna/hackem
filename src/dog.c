@@ -709,6 +709,7 @@ boolean pets_only; /* true for ascension or final escape */
     register struct obj *obj;
     int num_segs;
     boolean stay_behind;
+    extern d_level new_dlevel;  /* in do.c */
 
     for (mtmp = fmon; mtmp; mtmp = mtmp2) {
         mtmp2 = mtmp->nmon;
@@ -752,6 +753,12 @@ boolean pets_only; /* true for ascension or final escape */
                 if (canseemon(mtmp))
                     pline("%s is still %s.", Monnam(mtmp),
                           mtmp->meating ? "eating" : "trapped");
+                stay_behind = TRUE;
+            } else if (mtmp->mtame &&
+                    (Is_blackmarket(&new_dlevel) || Is_blackmarket(&u.uz))) {
+                pline("%s can't follow you %s.",
+                      Monnam(mtmp), Is_blackmarket(&u.uz) ?
+                      "through the portal" : "into the Black Market");
                 stay_behind = TRUE;
             } else if (mon_has_amulet(mtmp)) {
                 if (canseemon(mtmp))

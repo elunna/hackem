@@ -1821,7 +1821,10 @@ unsigned trflags;
 
     case MAGIC_PORTAL:
         feeltrap(trap);
-        domagicportal(trap);
+        if (u.usteed && (Is_blackmarket(&trap->dst) || Is_blackmarket(&u.uz)))
+            pline("%s seems to shimmer for a moment.", Monnam(u.usteed));
+        else
+            domagicportal(trap);
         break;
 
     case VIBRATING_SQUARE:

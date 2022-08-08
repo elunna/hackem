@@ -5274,6 +5274,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_PEACEFUL
             | M2_STRONG | M2_COLLECT | M2_MAGIC,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 15, HI_DOMESTIC),
+    #if 0
     /* the black marketeer's speed (24) matches the speed boots he's wearing */
     MON("black marketeer", S_HUMAN,                             /* Slash'EM */
         LVL(25, 24, -8, 50, -2), G_NOGEN,
@@ -5285,6 +5286,26 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_COLLECT 
             | M2_MAGIC | M2_MALE, 
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 28, CLR_BLACK),
+    #endif
+    MON("black marketeer", S_HUMAN,
+        LVL(20, 20, -5, 40, -2), G_NOGEN,
+        A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, 0, MS_SELL, MZ_HUMAN),
+        MR_SLEEP|MR_STONE,
+        MR_SLEEP, M1_HUMANOID|M1_OMNIVORE,
+        M2_NOPOLY|M2_HUMAN|M2_PEACEFUL|M2_STRONG|M2_COLLECT|M2_MAGIC,
+        M3_INFRAVISIBLE, HI_SHOPKEEPER),
+    MON("One-eyed Sam", S_HUMAN,
+        LVL(25, 24, -8, 50, -2), (G_NOGEN|G_UNIQ),
+        A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, 0, MS_ONEEYEDSAM, MZ_HUMAN),
+        MR_FIRE|MR_COLD|MR_POISON|MR_SLEEP|MR_ELEC|MR_STONE,
+        MR_SLEEP, M1_HUMANOID|M1_OMNIVORE|M1_FLY,
+        M2_NOPOLY|M2_HUMAN|M2_PEACEFUL|M2_STRONG|M2_COLLECT|M2_MAGIC|
+        M2_PNAME|M2_FEMALE,
+        M3_INFRAVISIBLE, CLR_BLACK),
     MON("guard", S_HUMAN,
         LVL(12, 12, 10, 40, 10), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 4, 10), 

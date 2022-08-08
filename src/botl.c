@@ -447,6 +447,8 @@ char *buf;
         Sprintf(buf, "%s ", dungeons[u.uz.dnum].dname);
     else if (In_quest(&u.uz))
         Sprintf(buf, "Home %d ", dunlev(&u.uz));
+    else if (Is_blackmarket(&u.uz))
+        Sprintf(buf, "Blackmarket ");
     else if (In_endgame(&u.uz))
         Sprintf(buf, Is_astralevel(&u.uz) ? "Astral Plane " : "End Game ");
     else {

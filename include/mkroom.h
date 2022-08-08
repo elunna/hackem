@@ -72,21 +72,23 @@ enum roomtype_types {
     GARDEN     = 17, /* nymphs, trees and fountains */
     LEMUREPIT  = 18, /* contains lemures and horned devils */
     RNDVAULT   = 19, /* random vault, not to be confused with VAULT */
-    SHOPBASE   = 20, /* everything above this is a shop */
-    ARMORSHOP  = 21, /* specific shop defines for level compiler */
-    SCROLLSHOP = 22,
-    POTIONSHOP = 23,
-    WEAPONSHOP = 24,
-    FOODSHOP   = 25,
-    RINGSHOP   = 26,
-    WANDSHOP   = 27,
-    TOOLSHOP   = 28,
-    BOOKSHOP   = 29,
-    FODDERSHOP = 30, /* health food store */
-    CANDLESHOP = 31
+    BLACKFOYER = 20, /* Foyer to the black market */
+    SHOPBASE   = 21, /* everything above this is a shop */
+    ARMORSHOP  = 22, /* specific shop defines for level compiler */
+    SCROLLSHOP = 23,
+    POTIONSHOP = 24,
+    WEAPONSHOP = 25,
+    FOODSHOP   = 26,
+    RINGSHOP   = 27,
+    WANDSHOP   = 28,
+    TOOLSHOP   = 29,
+    BOOKSHOP   = 30,
+    FODDERSHOP = 31, /* health food store */
+    CANDLESHOP = 32,
+    BLACKSHOP  = 33
 };
 
-#define MAXRTYPE (CANDLESHOP) /* maximum valid room type */
+#define MAXRTYPE (BLACKSHOP) /* maximum valid room type */
 #define UNIQUESHOP (CANDLESHOP) /* shops here & above not randomly gen'd. */
 
 /* Special type for search_special() */

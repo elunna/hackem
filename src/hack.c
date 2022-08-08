@@ -2901,6 +2901,13 @@ register boolean newlev;
                 msg_given = FALSE;
             break;
         }
+        case BLACKFOYER:
+            if (monstinroom(&mons[PM_ONE_EYED_SAM], roomno)) {
+                verbalize("%s, %s!  Welcome to One-eyed Sam's black market!",
+                          Hello((struct monst *)0), plname);
+                verbalize("Please have a look around, but don't even think about stealing anything.");
+            }
+            break;
         case TEMPLE:
             intemple(roomno + ROOMOFFSET);
         /*FALLTHRU*/

@@ -214,6 +214,8 @@ static struct {
     { "book shop", BOOKSHOP },
     { "health food shop", FODDERSHOP },
     { "candle shop", CANDLESHOP },
+    { "black market", BLACKSHOP },
+	{ "black market foyer", BLACKFOYER },
     { 0, 0 }
 };
 

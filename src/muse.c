@@ -2392,7 +2392,9 @@ struct monst *mtmp;
             for (y = mmy - 1; y <= mmy + 1; y++) {
                 /* Is this a suitable spot? */
                 if (isok(x, y) && !closed_door(x, y)
-                    && !IS_ROCK(levl[x][y].typ) && !IS_AIR(levl[x][y].typ)
+                    && !IS_ROCK(levl[x][y].typ) 
+                    && !IS_AIR(levl[x][y].typ)
+                    && !(Is_blackmarket(&u.uz) && rn2(2))
                     && (((x == mmx) && (y == mmy)) ? !is_blessed
                                                    : !is_cursed)
                     && (x != u.ux || y != u.uy)) {

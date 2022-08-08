@@ -741,4 +741,8 @@
 
 #define is_racialmon(ptr) (is_mplayer(ptr) || is_mercenary(ptr))
 
+#define is_blkmktstaff(ptr) (Is_blackmarket(&u.uz) && \
+                             ((ptr) == &mons[PM_BLACK_MARKETEER] || \
+                              (ptr) == &mons[PM_ONE_EYED_SAM]))
+                              
 #endif /* MONDATA_H */

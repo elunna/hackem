@@ -254,10 +254,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       15000L, NO_COLOR),
 
-    A("Thiefbane", LONG_SWORD, 
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI), 0, S_HUMAN,
-      DRLI(5, 1), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR),
-
+ A("Thiefbane", TWO_HANDED_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI),
+      0, S_HUMAN, DRLI(5, 1), SPDF_NONE, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      1500L, NO_COLOR),
   /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
    * those it strikes with one blow. In the form of an ornate mace/rod, the Wand
    * of Orcus is 'a rod of obsidian topped by a skull. This instrument causes
