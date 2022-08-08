@@ -656,6 +656,8 @@ int shp_indx;
     int srace = 0;
     struct monst *shk;
     struct eshk *eshkp;
+    long shkmoney; /* Temporary placeholder for Shopkeeper's initial capital */
+
 
     /* place the shopkeeper in the given room */
     sh = sroom->fdoor;
