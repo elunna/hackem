@@ -14,6 +14,85 @@ STATIC_DCL void FDECL(mvault_tele, (struct monst *));
 STATIC_VAR struct obj *telescroll = 0;
 
 /*
+ * Is (x, y) a bad position of mtmp?  If mtmp is NULL, then is (x, y) bad
+ * for an object?
+ *
+ * Caller is responsible for checking (x, y) with isok() if required.
+ *
+ * Returns: -1: Inaccessible, 0: Good pos, 1: Temporally inacessible
+ */
+static int
+badpos(x, y, mtmp, gpflags)
+int x, y;
+struct monst *mtmp;
+unsigned gpflags;
+{
+    int is_badpos = 0, pool;
+    struct permonst *mdat = NULL;
+    boolean ignorewater = ((gpflags & MM_IGNOREWATER) != 0);
+    struct monst *mtmp2;
+
+    /* in many cases, we're trying to create a new monster, which
+     * can't go on top of the player or any existing monster.
+     * however, occasionally we are relocating engravings or objects,
+     * which could be co-located and thus get restricted a bit too much.
+     * oh well.
+     */
+    if (mtmp != &youmonst &&
+         x == u.ux &&
+         y == u.uy &&
+         (!u.usteed || mtmp != u.usteed)) {
+        is_badpos = 1;
+    }
+
+    if (mtmp) {
+        mtmp2 = m_at(x, y);
+
+        /* Be careful with long worms.  A monster may be placed back in
+         * its own location.  Normally, if m_at() returns the same monster
+         * that we're trying to place, the monster is being placed in its
+         * own location.  However, that is not correct for worm segments,
+         * because all the segments of the worm return the same m_at().
+         * Actually we overdo the check a little bit--a worm can't be placed
+         * in its own location, period.  If we just checked for mtmp->mx
+         * != x || mtmp->my != y, we'd miss the case where we're called
+         * to place the worm segment and the worm's head is at x,y.
+         */
+        if (mtmp2 && (mtmp2 != mtmp || mtmp->wormno))
+            is_badpos = 1;
+
+        mdat = mtmp->data;
+        pool = is_pool(x, y);
+        if (mdat->mlet == S_EEL && !pool && rn2(13) && !ignorewater)
+            is_badpos = 1;
+
+        if (pool && !ignorewater) {
+            if (mtmp == &youmonst)
+                return (HLevitation || Flying || Wwalking ||
+                        Swimming || Amphibious) ? is_badpos : -1;
+            else return (is_flyer(mdat) || is_swimmer(mdat) ||
+                         is_clinger(mdat)) ? is_badpos : -1;
+        } else if (is_lava(x, y)) {
+            if (mtmp == &youmonst)
+                return HLevitation ? is_badpos : -1;
+            else
+                return (is_flyer(mdat) || likes_lava(mdat)) ?
+                       is_badpos : -1;
+        }
+        if (passes_walls(mdat) && may_passwall(x, y)) return is_badpos;
+    }
+    if (!ACCESSIBLE(levl[x][y].typ)) {
+        if (!(is_pool(x, y) && ignorewater)) return -1;
+    }
+
+    if (closed_door(x, y) && (!mdat || !amorphous(mdat)))
+        return mdat && (nohands(mdat) || verysmall(mdat)) ? -1 : 1;
+    if (sobj_at(BOULDER, x, y) && (!mdat || !throws_rocks(mdat)))
+        return mdat ? -1 : 1;
+    return is_badpos;
+}
+
+/*
  * Is (x,y) a good position of mtmp?  If mtmp is NULL, then is (x,y) good
  * for an object?
  *
