@@ -239,4 +239,11 @@ int i;
     return (int) x;
 }
 
+int
+rnf(numerator, denominator) /**< @returns (rnf(n,d) < n/d) */
+int numerator, denominator;
+{
+    return rn2(denominator) < numerator;
+}
+
 /*rnd.c*/
