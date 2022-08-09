@@ -2208,13 +2208,13 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return msgprinted;
     }
 
-    if (!spec_dbon_applies) {
-        /* since damage bonus didn't apply, nothing more to do;
-           no further attacks have side-effects on inventory */
-        /* return FALSE; */
-        return msgprinted;
+    if (otmp->oartifact != ART_THIEFBANE || !youdefend) {
+        if (!spec_dbon_applies) {
+            /* since damage bonus didn't apply, nothing more to do;
+               no further attacks have side-effects on inventory */
+            return FALSE;
+        }
     }
-
     /* Some neat and unique effects from various artifact weapons.
      * Pulled this from SporkHack - by default, the odds of an instakill
      * were 50/50. Because we can dual-wield artifact weapons in HackEM,
