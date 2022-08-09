@@ -790,3 +790,49 @@ CLion:
 - [SKIPPED] +2 to-hit bonus against kebabable monsters. (Should also add d6 dmg)	
 - [x] Made badgers immune_poisongas (they are stinky...)
 - [x] Does the gold dragon (in evil) emit light - do the scales?
+
+
+- [x] Putting a lit lightsaber into a bag/container snuffs it.
+- [x] Changed chances of item randomly spawning with two properties to 1 in 666
+[SKIPPED] Doomblade gets better the higher skill you are in short sword?
+1/8 chance of deep at basic, 1/6 chance at skilled, 1/3 at expert?
+[x] Raise vorpal blade to 10% beheading
+[x] Raise Thiefbane to 10% beheading.
+[FIXED] One-eyed Sam is not carrying anything.
+[FIXED] Thiefbane is not generating on Sam...
+[x] Organize obj.h, reformat listings
+[x] Make Thiefbane warn of @
+- [x] black marketeer 
+	New Demon Prince Lairs - these might not be necessary with Evil changes...
+	- [SKIP] Yeenoghu's lair
+	- [SKIP] Demogorgon's lair
+	- [SKIP] Geryon's lair
+	- [SKIP] Dispater's lair
+
+
+[x] Extend main dungeon: from 42 to 47 levels deep...	 
+- [x] Import Mall
+- [x] Adjust ludios
+- [x] Adjust oracle
+- [x] Import Kobold level
+- [x] Nymph level
+- [x] Change Nymph level to appear where it did in slashem
+- [x] Import Rat level
+- [x] Import Storage room
+- [x] Import Wyrm Caves
+- [x] Import The Lost Tomb
+- [x] Import The Spider Caves
+- [x] Import The Temple of Moloch
+	- [x] Make sure all eggs are spider eggs (random?)
+
+- [x] Import Grund's Stronghold  (do last, little more complicated)
+	[x] Guaranteed Tins of spinach
+	[x] Make sure to randomize the places variable - for the starting door exit.
+	[x] See what the differences between grunds-1,2,3 are and consolidate to 1 des.
+	[x] Vertical stone wall 2 wide separating 2 halves of grunds...
+	[X] Try half-right for the entry point: Nope, level doesn't work that way.
+	[X] Try adding one space to the opposide side of the  level
+		Can't move the left side- the drawbridge gets messed up  (and probably lots of other stuff)
+	[X] Added 2 spaces to the right side (seemed to work the level fits together now, maybe a text editor deleted it before.)
+	[NO] Problem could be the INIT_MAP.
+	
