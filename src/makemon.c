@@ -2151,9 +2151,12 @@ register struct monst *mtmp;
         } else if (ptr == &mons[PM_ONE_EYED_SAM]) {
                 otmp = mksobj(LONG_SWORD, FALSE, FALSE);
                 otmp = oname(otmp, artiname(ART_THIEFBANE));
-                mpickobj(mtmp, otmp);
+                bless(otmp);
+                otmp->oerodeproof = TRUE;
                 if (otmp->spe < 5) 
                     otmp->spe += rnd(5);
+                (void) mpickobj(mtmp, otmp);
+
                 otmp = mksobj(SHIELD_OF_REFLECTION, FALSE, FALSE);
                 mpickobj(mtmp, otmp);
                 if (otmp->spe < 5) 
