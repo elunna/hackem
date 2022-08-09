@@ -226,34 +226,57 @@ struct obj {
      || otmp->otyp == SPIKED_BARDING || otmp->otyp == BARDING_OF_REFLECTION)
 
 #define is_lawful_artifact(otmp) \
-    (otmp->oartifact == ART_EXCALIBUR || otmp->oartifact == ART_DEMONBANE                         \
-     || otmp->oartifact == ART_GRAYSWANDIR || otmp->oartifact == ART_SNICKERSNEE                  \
-     || otmp->oartifact == ART_SUNSWORD || otmp->oartifact == ART_XIUHCOATL                       \
-     || otmp->oartifact == ART_EXCALIBUR || otmp->oartifact == ART_SCEPTRE_OF_MIGHT               \
-     || otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN || otmp->oartifact == ART_MITRE_OF_HOLINESS \
-     || otmp->oartifact == ART_TSURUGI_OF_MURAMASA || otmp->oartifact == ART_DRAMBORLEG)
+    (   otmp->oartifact == ART_DEMONBANE \
+     || otmp->oartifact == ART_DRAMBORLEG \
+     || otmp->oartifact == ART_EXCALIBUR \
+     || otmp->oartifact == ART_GRAYSWANDIR \
+     || otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN \
+     || otmp->oartifact == ART_MITRE_OF_HOLINESS \
+     || otmp->oartifact == ART_SCEPTRE_OF_MIGHT \
+     || otmp->oartifact == ART_SNICKERSNEE \
+     || otmp->oartifact == ART_SUNSWORD \
+     || otmp->oartifact == ART_TSURUGI_OF_MURAMASA \
+     || otmp->oartifact == ART_XIUHCOATL \
+     )
 
 #define is_chaotic_artifact(otmp) \
-    (otmp->oartifact == ART_STORMBRINGER || otmp->oartifact == ART_GRIMTOOTH                  \
-     || otmp->oartifact == ART_ORCRIST || otmp->oartifact == ART_STING                        \
-     || otmp->oartifact == ART_LIFESTEALER || otmp->oartifact == ART_DIRGE                    \
-     || otmp->oartifact == ART_SWORD_OF_KAS || otmp->oartifact == ART_LONGBOW_OF_DIANA        \
-     || otmp->oartifact == ART_MASTER_KEY_OF_THIEVERY || otmp->oartifact == ART_RING_OF_P_HUL \
-     || otmp->oartifact == ART_LUCK_BLADE || otmp->oartifact == ART_IRON_BALL_OF_LIBERATION   \
-     || otmp->oartifact == ART_CROSSBOW_OF_CARL || otmp->oartifact == ART_SECESPITA           \
-     || otmp->oartifact == ART_IDOL_OF_MOLOCH || otmp->oartifact == ART_BUTCHER               \
+    (   otmp->oartifact == ART_BUTCHER \
+     || otmp->oartifact == ART_CROSSBOW_OF_CARL \
+     || otmp->oartifact == ART_STORMBRINGER \
+     || otmp->oartifact == ART_DIRGE \
+     || otmp->oartifact == ART_GRIMTOOTH \
+     || otmp->oartifact == ART_IDOL_OF_MOLOCH \
+     || otmp->oartifact == ART_IRON_BALL_OF_LIBERATION \
+     || otmp->oartifact == ART_LIFESTEALER \
+     || otmp->oartifact == ART_LONGBOW_OF_DIANA\
+     || otmp->oartifact == ART_LUCK_BLADE \
+     || otmp->oartifact == ART_MASTER_KEY_OF_THIEVERY \
+     || otmp->oartifact == ART_ORCRIST \
+     || otmp->oartifact == ART_RING_OF_P_HUL \
+     || otmp->oartifact == ART_SECESPITA \
+     || otmp->oartifact == ART_STING \
+     || otmp->oartifact == ART_SWORD_OF_KAS     \
+     || otmp->oartifact == ART_THIEFBANE \
      || otmp->oartifact == ART_WAND_OF_ORCUS)
 
 #define non_wishable_artifact(otmp) \
-    (otmp->oartifact == ART_MAGIC___BALL || otmp->oartifact == ART_LIFESTEALER         \
-     || otmp->oartifact == ART_BAG_OF_THE_HESPERIDES || otmp->oartifact == ART_BUTCHER \
-     || otmp->oartifact == ART_WAND_OF_ORCUS || otmp->oartifact == ART_EYE_OF_VECNA    \
-     || otmp->oartifact == ART_HAND_OF_VECNA || otmp->oartifact == ART_SWORD_OF_KAS)
+    (   otmp->oartifact == ART_BAG_OF_THE_HESPERIDES \
+     || otmp->oartifact == ART_BUTCHER \
+     || otmp->oartifact == ART_EYE_OF_VECNA \
+     || otmp->oartifact == ART_HAND_OF_VECNA \
+     || otmp->oartifact == ART_LIFESTEALER \
+     || otmp->oartifact == ART_MAGIC___BALL \
+     || otmp->oartifact == ART_SWORD_OF_KAS \
+     || otmp->oartifact == ART_THIEFBANE \
+     || otmp->oartifact == ART_WAND_OF_ORCUS)
 
 #define is_magical_staff(otmp) \
-    (otmp->otyp == STAFF_OF_DIVINATION || otmp->otyp == STAFF_OF_HEALING \
-     || otmp->otyp == STAFF_OF_HOLINESS || otmp->otyp == STAFF_OF_MATTER \
-     || otmp->otyp == STAFF_OF_ESCAPE || otmp->otyp == STAFF_OF_WAR)
+    (   otmp->otyp == STAFF_OF_DIVINATION \
+     || otmp->otyp == STAFF_OF_ESCAPE  \
+     || otmp->otyp == STAFF_OF_HEALING \
+     || otmp->otyp == STAFF_OF_HOLINESS\
+     || otmp->otyp == STAFF_OF_MATTER \
+     || otmp->otyp == STAFF_OF_WAR)
 
 #define is_lightsaber(otmp) (objects[(otmp)->otyp].oc_skill == P_LIGHTSABER)
 
