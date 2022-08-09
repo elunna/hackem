@@ -2502,11 +2502,19 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 otmp->dknown = TRUE;
                 return TRUE;
             }
+        #if 0 /* Old boring 5% beheading code */
         } else if (otmp->oartifact == ART_VORPAL_BLADE
                    && (dieroll == 1 || is_jabberwock(mdef->data))
                    || (otmp->oartifact == ART_THIEFBANE && dieroll < 3)) {
-            static const char *const behead_msg[2] = { "%s beheads %s!",
-                                                       "%s decapitates %s!" };
+        #endif
+        /* --hackem: Sexy 10% beheading chance from Slash'EM */
+        } else if (dieroll < 3 || otmp->oartifact == ART_VORPAL_BLADE &&
+				      mdef->data == &mons[PM_JABBERWOCK]) {
+            
+            static const char *const behead_msg[2] = { 
+                "%s beheads %s!",                                       
+                "%s decapitates %s!" 
+            };
 
             if (youattack && u.uswallow && mdef == u.ustuck)
                 return FALSE;
@@ -2542,11 +2550,12 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                       mon_nam(mdef));
                 if (Hallucination && !flags.female)
                     pline("Good job Henry, but that wasn't Anne.");
-		if (is_zombie(mdef->data)
-                    || (is_troll(mdef->data) && !mlifesaver(mdef)))
-		    mdef->mcan = 1; /* kinda hard to revive if you've lost your head... */
-                otmp->dknown = TRUE;
-                return TRUE;
+		        if (is_zombie(mdef->data)
+                      || (is_troll(mdef->data) && !mlifesaver(mdef))) {
+                    mdef->mcan = 1; /* kinda hard to revive if you've lost your head... */
+                        otmp->dknown = TRUE;
+                        return TRUE;
+                }
             } else {
                 if (!has_head(youmonst.data)) {
                     pline("Somehow, %s misses you wildly.",
