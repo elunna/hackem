@@ -3608,6 +3608,18 @@ struct attack *mattk;
             poisoned("The gaze", A_STR, mtmp->data->mname, 30, FALSE);
         }
         break;
+    case AD_DRLI:
+        if(!mtmp->mcan
+            && canseemon(mtmp)
+            && mtmp->mcansee
+            && !mtmp->mspec_used
+            && !rn2(3)
+            && !Drain_resistance) {
+            pline("%s stares into your eyes...", Monnam(mtmp));
+            You("suddenly feel weaker!");
+            losexp("life drainage");
+        }
+        break;
     default:
         impossible("Gaze attack %d?", mattk->adtyp);
         break;
