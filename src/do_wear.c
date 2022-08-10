@@ -924,7 +924,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     switch (Dragon_armor_to_scales(otmp)) {
         /* grey: no extra effect */
         /* silver: no extra effect */
-    case GOLD_DRAGON_SCALES:
+    case GREEN_DRAGON_SCALES:
         if (puton) {
             ESick_resistance |= W_ARM;
         } else {
