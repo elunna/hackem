@@ -3587,13 +3587,27 @@ struct attack *mattk;
         }
         break;
     case AD_TLPT:
-	        if(!mtmp->mcan && canseemon(mtmp) && mtmp->mcansee && !mtmp->mspec_used && rn2(5)) {
-	                pline("%s stares blinkingly at you!", Monnam(mtmp));
-	                if(flags.verbose)
-	                        Your("position suddenly seems very uncertain!");
-	                tele();
-		}
-		break;
+        if(!mtmp->mcan
+              && canseemon(mtmp)
+              && mtmp->mcansee
+              && !mtmp->mspec_used
+              && rn2(5)) {
+            pline("%s stares blinkingly at you!", Monnam(mtmp));
+            if(flags.verbose)
+                Your("position suddenly seems very uncertain!");
+            tele();
+        }
+        break;
+    case AD_DRST:
+        if(!mtmp->mcan
+              && canseemon(mtmp)
+              && mtmp->mcansee
+              && !mtmp->mspec_used
+              && rn2(5)) {
+            pline("%s stares into your eyes...", Monnam(mtmp));
+            poisoned("The gaze", A_STR, mtmp->data->mname, 30, FALSE);
+        }
+        break;
     default:
         impossible("Gaze attack %d?", mattk->adtyp);
         break;
