@@ -2009,17 +2009,28 @@ post_stone:
         }
         break;
     case AD_DRLI:
-        if (!cancelled && !rn2(3)
-            && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
-            tmp = d(2, 6);
-            if (vis && canspotmon(mdef))
-                pline("%s suddenly seems weaker!", Monnam(mdef));
-            mdef->mhpmax -= tmp;
-            if (mdef->m_lev == 0)
-                tmp = mdef->mhp;
-            else
-                mdef->m_lev--;
-            /* Automatic kill if drained past level 0 */
+        if (!cancelled) {
+            if (mattk->aatyp == AT_GAZE) {
+                if (vis) {
+                    if (mdef->data->mlet == S_MIMIC
+                        && M_AP_TYPE(mdef) != M_AP_NOTHING)
+                        seemimic(mdef);
+                    Sprintf(buf, "%s gazes at", Monnam(magr));
+                    pline("%s %s...", buf,
+                          canspotmon(mdef) ? mon_nam(mdef) : "something");
+                }
+            }
+            if (!rn2(3) && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
+                tmp = d(2, 6);
+                if (vis && canspotmon(mdef))
+                    pline("%s suddenly seems weaker!", Monnam(mdef));
+                mdef->mhpmax -= tmp;
+                if (mdef->m_lev == 0)
+                    tmp = mdef->mhp;
+                else
+                    mdef->m_lev--;
+                /* Automatic kill if drained past level 0 */
+            }
         }
         break;
     case AD_SSEX:
