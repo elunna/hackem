@@ -747,8 +747,6 @@ struct obj *otmp;
         case AD_MAGM: /* magic missiles => general magic resistance */
             return (otyp == GRAY_DRAGON_SCALES
                     || otyp == CHROMATIC_DRAGON_SCALES);
-        case AD_DISE: /* blocks disease but not slime */
-            return (otyp == GOLD_DRAGON_SCALES);
         case AD_FIRE:
             return (otyp == RED_DRAGON_SCALES); /* red but not gold */
         case AD_DRLI:
@@ -757,6 +755,7 @@ struct obj *otmp;
         case AD_COLD:
             return (otyp == WHITE_DRAGON_SCALES);
         case AD_DRST: /* drain strength => poison */
+        case AD_DISE: /* blocks disease but not slime */
             return (otyp == GREEN_DRAGON_SCALES);
         case AD_SLEE: /* sleep */
             return (otyp == ORANGE_DRAGON_SCALES);
