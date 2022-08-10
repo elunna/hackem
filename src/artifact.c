@@ -747,6 +747,8 @@ struct obj *otmp;
         case AD_MAGM: /* magic missiles => general magic resistance */
             return (otyp == GRAY_DRAGON_SCALES
                     || otyp == CHROMATIC_DRAGON_SCALES);
+        case AD_BLND: /* Blinding attacks */
+            return (otyp == SILVER_DRAGON_SCALES);
         case AD_FIRE:
             return (otyp == RED_DRAGON_SCALES); /* red but not gold */
         case AD_DRLI:

@@ -2872,7 +2872,9 @@ struct attack *mattk;
         }
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
-            if (!Blind) {
+            if (defends(AD_BLND, uarm)) {
+                pline("Your armor reflects the light!");
+            } else if (!Blind) {
                 long was_blinded = Blinded;
 
                 if (!Blinded)
@@ -3065,8 +3067,11 @@ boolean ufound;
     case AD_BLND:
         not_affected = resists_blnd(&youmonst);
         if (ufound && !not_affected) {
+            if (defends(AD_BLND, uarm)) {
+                pline("Your armor reflects the explosion of light!");
+            }
             /* sometimes you're affected even if it's invisible */
-            if (mon_visible(mtmp) || (rnd(tmp /= 2) > u.ulevel)) {
+            else if (mon_visible(mtmp) || (rnd(tmp /= 2) > u.ulevel)) {
                 You("are blinded by a blast of light!");
                 make_blinded((long) tmp, FALSE);
                 if (!Blind)
@@ -3288,6 +3293,10 @@ struct attack *mattk;
                    giving the "seems puzzled/dazzled" message that often */
                 if (mtmp->mcan && mtmp->data == &mons[PM_ARCHON] && rn2(5))
                     react = -1;
+            } else if (defends(AD_BLND, uarm)) {
+                if (!rn2(5))
+                    /* Don't show msg every round, as mentioned above */
+                    pline("Your armor reflects %s radiance!",  s_suffix(mon_nam(mtmp)));
             } else {
                 int blnd = d((int) mattk->damn, (int) mattk->damd);
 
