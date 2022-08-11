@@ -4307,6 +4307,23 @@ struct attack *mattk;
                 mtmp->mspeed = MSLOW;
             }
             break;
+        case SEA_DRAGON_SCALES:
+            /* Passive wet attack (AD_RUST) */
+            if (canseemon(mtmp))
+                pline("%s is splashed!", Monnam(mtmp));
+
+            if (mtmp->data == &mons[PM_IRON_GOLEM]) {
+                if (canseemon(mtmp))
+                    pline("%s falls to pieces!", Monnam(mtmp));
+                xkilled(mtmp, XKILL_NOMSG);
+            } else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]
+                    || mtmp->data == &mons[PM_BABY_SEA_DRAGON]
+                    || mtmp->data == &mons[PM_SEA_DRAGON]) {
+                pline("%s is unaffected by the water.", Monnam(mtmp));
+            }
+            erode_armor(mtmp, ERODE_RUST);
+            tmp = 0;
+            break;
         case WHITE_DRAGON_SCALES:
             if (resists_cold(mtmp) || defended(mtmp, AD_COLD))
                 break;
