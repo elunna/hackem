@@ -4394,6 +4394,43 @@ struct attack *mattk;
                 return 2;
             }
             break;
+        case YELLOW_DRAGON_SCALES:
+            // pline("%s is spashed with goo!", Monnam(mdef));
+            if (resists_acid(mtmp) || defended(mtmp, AD_ACID)) {
+                // pline("It seems harmless to %s.", mon_nam(mdef));
+                pline("%s is covered in %s, but it seems harmless.",
+                      Monnam(mtmp), hliquid("acid"));
+                tmp = 0;
+                break;
+            }
+            pline("%s is covered in %s!", Monnam(mtmp), hliquid("acid"));
+
+            if (rn2(20)) {
+                if (!rn2(3)) {
+                    if (canseemon(mtmp))
+                        pline("%s winces from the acid burn!", Monnam(mtmp));
+                    damage_mon(mtmp, rnd(4), AD_ACID);
+                }
+            } else {
+                if (canseemon(mtmp))
+                    pline("%s is severely burned!", Monnam(mtmp));
+                damage_mon(mtmp, d(6, 6), AD_ACID);
+            }
+            /* Corrode */
+            if (!rn2(12))
+                erode_armor(mtmp, ERODE_CORRODE);
+            if (!rn2(6))
+                acid_damage(MON_WEP(mtmp));
+
+            if (mtmp->mhp < 1) {
+                if (canseemon(mtmp))
+                    pline("%s dies!", Monnam(mtmp));
+                xkilled(mtmp, XKILL_NOMSG);
+                if (!DEADMONSTER(mtmp))
+                    return 1;
+                return 2;
+            }
+            break;
         case RED_DRAGON_SCALES:
             if (resists_fire(mtmp) || defended(mtmp, AD_FIRE))
                 break;
