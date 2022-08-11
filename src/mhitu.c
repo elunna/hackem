@@ -4405,6 +4405,44 @@ struct attack *mattk;
                 return 2;
             }
             break;
+        case BLUE_DRAGON_SCALES:
+            if (resists_elec(mtmp) || defended(mtmp, AD_ELEC)) {
+                if (canseemon(mtmp)) {
+                    pline("%s is mildly tingled.", Monnam(mtmp));
+                    shieldeff(mtmp->mx, mtmp->my);
+                    golemeffects(mtmp, AD_ELEC, tmp);
+                }
+                tmp = 0;
+                break;
+            }
+            boolean zapped = FALSE;
+            if (rn2(20)) {
+                if (!rn2(3)) {
+                    if (canseemon(mtmp))
+                        pline("%s gets zapped!", Monnam(mtmp));
+                    damage_mon(mtmp, rnd(4), AD_ELEC);
+                    zapped = TRUE;
+                }
+            } else {
+                if (canseemon(mtmp))
+                    pline("%s is jolted with electricity!", Monnam(mtmp));
+                damage_mon(mtmp, d(6, 6), AD_ELEC);
+                zapped = TRUE;
+            }
+            if (zapped) {
+                tmp += destroy_mitem(mtmp, WAND_CLASS, AD_ELEC);
+                /* only rings damage resistant players in destroy_item */
+                tmp += destroy_mitem(mtmp, RING_CLASS, AD_ELEC);
+            }
+            if (mtmp->mhp < 1) {
+                if (canseemon(mtmp))
+                    pline("%s dies!", Monnam(mtmp));
+                xkilled(mtmp, XKILL_NOMSG);
+                if (!DEADMONSTER(mtmp))
+                    return 1;
+                return 2;
+            }
+            break;
         case GRAY_DRAGON_SCALES:
             if (!rn2(6))
                 (void) cancel_monst(mtmp, (struct obj *) 0, TRUE, TRUE, FALSE);
