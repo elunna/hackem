@@ -4298,9 +4298,8 @@ struct attack *mattk;
                 return 2;
             }
             break;
-        case ORANGE_DRAGON_SCALES:
-            if (resists_sleep(mtmp) || defended(mtmp, AD_SLEE))
-                break;
+        case SHIMMERING_DRAGON_SCALES:
+            /* These can have a few random effects: confuse, stun, and slow */
             if (!rn2(3) && mtmp->mspeed != MSLOW) {
                 if (canseemon(mtmp))
                     pline("%s looks a little sluggish...", Monnam(mtmp));
