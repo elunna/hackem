@@ -4346,6 +4346,19 @@ struct attack *mattk;
             erode_armor(mtmp, ERODE_RUST);
             tmp = 0;
             break;
+        case ORANGE_DRAGON_SCALES:
+            if (resists_sleep(mtmp) || defended(mtmp, AD_SLEE))
+                break;
+            if (!rn2(3)
+                    && !mtmp->msleeping
+                    && sleep_monst(mtmp, rnd(10), -1)) {
+                if (!Blind)
+                    pline("%s is put to sleep by you!", Monnam(mtmp));
+                mtmp->mstrategy &= ~STRAT_WAITFORU;
+                slept_monst(mtmp);
+                return 3;
+            }
+            break;
         case WHITE_DRAGON_SCALES:
             if (resists_cold(mtmp) || defended(mtmp, AD_COLD))
                 break;
