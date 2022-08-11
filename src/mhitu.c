@@ -6,6 +6,8 @@
 #include "hack.h"
 #include "artifact.h"
 
+extern boolean notonhead; /* for long worms */
+
 STATIC_VAR NEARDATA struct obj *mon_currwep = (struct obj *) 0;
 
 STATIC_DCL boolean FDECL(u_slip_free, (struct monst *, struct attack *));
@@ -4176,6 +4178,9 @@ struct attack *mattk;
 {
     int i, tmp;
     struct attack *oldu_mattk = 0;
+    unsigned how_seen;
+    char mlet;
+    boolean vis, monable;
 
     if (uarm && Is_dragon_scaled_armor(uarm)) {
         int otyp = Dragon_armor_to_scales(uarm);
@@ -4329,6 +4334,73 @@ struct attack *mattk;
                 }
             }
             break;
+
+        case SILVER_DRAGON_SCALES:
+            if (!mtmp || !haseyes(mtmp->data) || notonhead)
+                return 1;
+
+            /* couldsee(mtmp->mx, mtmp->my) is implied by the fact that bhit()
+               targetted it, so we can ignore possibility of X-ray vision */
+            vis = canseemon(mtmp);
+/* ways to directly see monster (excludes X-ray vision, telepathy,
+   extended detection, type-specific warning) */
+#define SEENMON (MONSEEN_NORMAL | MONSEEN_SEEINVIS | MONSEEN_INFRAVIS)
+            how_seen = vis ? howmonseen(mtmp) : 0;
+
+            /* whether monster is able to use its vision-based capabilities */
+            monable = !mtmp->mcan && (!mtmp->minvis || mon_prop(mtmp, SEE_INVIS));
+            mlet = r_data(mtmp)->mlet;
+            if (!mtmp->mcansee) {
+                if (vis)
+                    pline("%s can't see anything right now.", Monnam(mtmp));
+            } else if ((how_seen & SEENMON) == MONSEEN_INFRAVIS) {
+                if (vis) /* (redundant) */
+                    pline("%s is too far away to see %sself in the dark.",
+                          Monnam(mtmp), mhim(mtmp));
+                /* some monsters do special things */
+            } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
+                if (vis)
+                    pline("%s doesn't have a reflection.", Monnam(mtmp));
+            } else if (monable && !mtmp->mcan && !mtmp->minvis
+                       && mtmp->data == &mons[PM_MAGICAL_EYE]) {
+                if (vis) {
+                    pline("%s sees its own glare in your armor.",
+                          Monnam(mtmp));
+                    pline("%s is cancelled!", Monnam(mtmp));
+                }
+                mtmp->mcan = 1;
+                monflee(mtmp, 0, FALSE, TRUE);
+            } else if (monable && mtmp->data == &mons[PM_UMBER_HULK]) {
+                if (vis)
+                    pline("%s confuses itself!", Monnam(mtmp));
+                mtmp->mconf = 1;
+            } else if (!is_unicorn(mtmp->data) && !humanoid(mtmp->data)
+                       && (!mtmp->minvis || mon_prop(mtmp, SEE_INVIS)) && !rn2(5)) {
+                /* For the sake of balance and non-tediousness, we'll invert the mirror chances
+                 * from 80% to 20%
+                 */
+                boolean do_react = TRUE;
+
+                if (do_react) {
+                    if (vis)
+                        pline("%s is frightened by its reflection.", Monnam(mtmp));
+                    monflee(mtmp, d(2, 6), FALSE, FALSE);
+                } else if (!Blind) {
+                    if (mtmp->minvis && !See_invisible)
+                        ;
+                    else if ((mtmp->minvis && !mon_prop(mtmp, SEE_INVIS))
+                             /* redundant: can't get here if these are true */
+                             || !haseyes(mtmp->data) || notonhead
+                             || !mtmp->mcansee)
+                        pline("%s doesn't seem to notice %s reflection.",
+                              Monnam(mtmp), mhis(mtmp));
+                    else
+                        pline("%s ignores %s reflection.", Monnam(mtmp),
+                              mhis(mtmp));
+                }
+            }
+            break;
+
         case SEA_DRAGON_SCALES:
             /* Passive wet attack (AD_RUST) */
             if (canseemon(mtmp))
