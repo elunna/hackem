@@ -4359,6 +4359,18 @@ struct attack *mattk;
                 return 3;
             }
             break;
+        case GOLD_DRAGON_SCALES:
+            if (can_blnd(&youmonst, mtmp, AT_EXPL, (struct obj *) 0)) {
+                if (!Blind && mtmp->mcansee)
+                    pline("%s is blinded by your armor!", Monnam(mtmp));
+                mtmp->mcansee = 0;
+                tmp += mtmp->mblinded;
+                if (tmp > 127)
+                    tmp = 127;
+                mtmp->mblinded = tmp;
+            }
+            tmp = 0;
+            break;
         case WHITE_DRAGON_SCALES:
             if (resists_cold(mtmp) || defended(mtmp, AD_COLD))
                 break;
