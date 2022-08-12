@@ -4410,13 +4410,18 @@ struct attack *mattk;
                 if (canseemon(mtmp))
                     pline("%s falls to pieces!", Monnam(mtmp));
                 xkilled(mtmp, XKILL_NOMSG);
-            } else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]
+            } else if (flaming(mtmp->data)) {
+                /* Mega damage vs flaming/firey monsters? */
+                pline("%s is being extinguished!", Monnam(mtmp));
+                mtmp->mhp /= 2;
+            }
+            else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]
                     || mtmp->data == &mons[PM_BABY_SEA_DRAGON]
                     || mtmp->data == &mons[PM_SEA_DRAGON]) {
                 pline("%s is unaffected by the water.", Monnam(mtmp));
+                tmp = 0;
             }
             erode_armor(mtmp, ERODE_RUST);
-            tmp = 0;
             break;
         case ORANGE_DRAGON_SCALES:
             if (resists_sleep(mtmp) || defended(mtmp, AD_SLEE))
@@ -4472,26 +4477,32 @@ struct attack *mattk;
             }
             break;
         case YELLOW_DRAGON_SCALES:
-            // pline("%s is spashed with goo!", Monnam(mdef));
+            if (rn2(3))
+                break;
+
             if (resists_acid(mtmp) || defended(mtmp, AD_ACID)) {
-                // pline("It seems harmless to %s.", mon_nam(mdef));
                 pline("%s is covered in %s, but it seems harmless.",
                       Monnam(mtmp), hliquid("acid"));
                 tmp = 0;
                 break;
             }
-            pline("%s is covered in %s!", Monnam(mtmp), hliquid("acid"));
 
-            if (rn2(20)) {
-                if (!rn2(3)) {
-                    if (canseemon(mtmp))
-                        pline("%s winces from the acid burn!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_ACID);
-                }
+            if (rn2(10)) {
+                pline("%s is spashed with goo!", Monnam(mtmp));
+                if (canseemon(mtmp)) {
+                    pline("%s winces from the caustic burn!", Monnam(mtmp));
+                damage_mon(mtmp, rnd(3), AD_ACID);
+            }
             } else {
-                if (canseemon(mtmp))
+                if (canseemon(mtmp)) {
+                    pline("%s is covered in %s!", Monnam(mtmp), hliquid("acid"));
                     pline("%s is severely burned!", Monnam(mtmp));
-                damage_mon(mtmp, d(6, 6), AD_ACID);
+                }
+                /* Simulate the spotted jelly spotted passive attack
+                 * This is probably overpowered, but 1 in 10 times we'll
+                 * get a Passive (level + 1)d6 acid - not bad!
+                 */
+                damage_mon(mtmp, d(u.ulevel, 6), AD_ACID);
             }
             /* Corrode */
             if (!rn2(12))
