@@ -4544,6 +4544,35 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
+            case BLUE_DRAGON_SCALES:
+                if (how_resistant(SHOCK_RES) == 100) {
+                    shieldeff(u.ux, u.uy);
+                    monstseesu(M_SEEN_ELEC);
+                    You_feel("a mild tingle.");
+                    ugolemeffects(AD_ELEC, tmp);
+                    break;
+                }
+                boolean zapped = FALSE;
+                if (rn2(20)) {
+                    You("get zapped!");
+                    t = resist_reduce(t, SHOCK_RES);
+                    mdamageu(mon, t);
+                    zapped = TRUE;
+                } else {
+                    You("are jolted with electricity!");
+                    t = resist_reduce(t, SHOCK_RES);
+                    mdamageu(mon, d(2, 24) + t);
+                    zapped = TRUE;
+                }
+
+                if (zapped) {
+                    if ((int) mon->m_lev > rn2(20))
+                        destroy_item(WAND_CLASS, AD_ELEC);
+                    if ((int) mon->m_lev > rn2(20))
+                        destroy_item(RING_CLASS, AD_ELEC);
+                }
+                break;
+
             case GRAY_DRAGON_SCALES:
                 if (!rn2(6)) {
                     (void) cancel_monst(&youmonst,
