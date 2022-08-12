@@ -4437,6 +4437,7 @@ struct attack *mattk;
             }
             break;
         case GOLD_DRAGON_SCALES:
+            /* Using AT_EXPL to simulate yellow light explosion. */
             if (can_blnd(&youmonst, mtmp, AT_EXPL, (struct obj *) 0)) {
                 if (!Blind && mtmp->mcansee)
                     pline("%s is blinded by your armor!", Monnam(mtmp));
