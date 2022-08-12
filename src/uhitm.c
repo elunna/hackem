@@ -4494,6 +4494,34 @@ boolean wep_was_destroyed;
                 }
                 update_inventory();
                 break;
+            case SHIMMERING_DRAGON_SCALES:
+                /* These can have a few random effects: confuse, stun, and slow */
+                if (!rn2(3)) {
+                    switch (rn2(3)) {
+                    case 0:
+                        /* Passive slow */
+                        if (!Slow && !defends(AD_SLOW, uarm)) {
+                            You("feel a little sluggish...");
+                            u_slow_down();
+                        }
+                        break;
+                    case 1:
+                        /* Passive confuse */
+                        if (Confusion)
+                            You("are getting even more confused.");
+                        else
+                            You("are getting confused.");
+                        make_confused(HConfusion + d(3, 6), FALSE);
+
+                        break;
+                    case 2:
+                        /* Passive stun */
+                        int stun = d(2, 6);
+                        make_stunned((HStun & TIMEOUT) + (long) stun, TRUE);
+                        break;
+                    }
+                }
+                break;
             case ORANGE_DRAGON_SCALES:
                 if (how_resistant(SLEEP_RES) == 100) {
                     monstseesu(M_SEEN_SLEEP);
