@@ -4457,6 +4457,11 @@ struct attack *mattk;
                     pline("%s is frozen solid!", Monnam(mtmp));
                 damage_mon(mtmp, d(6, 6), AD_COLD);
             }
+
+            /* Item Destruction */
+            if (!rn2(3))
+                destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+
             if (mtmp->mhp < 1) {
                 if (canseemon(mtmp))
                     pline("%s dies!", Monnam(mtmp));
@@ -4516,6 +4521,16 @@ struct attack *mattk;
                 if (canseemon(mtmp))
                     pline("%s is severely burned!", Monnam(mtmp));
                 damage_mon(mtmp, d(6, 6), AD_FIRE);
+            }
+
+            /* TODO: Duplicated from torch code - consolidate to a function */
+            if (!rn2(2) && burnarmor(mtmp)) {
+                if (!rn2(3))
+                    destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+                if (!rn2(3))
+                    destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
+                if (!rn2(5))
+                    destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
             }
             if (mtmp->mhp < 1) {
                 if (canseemon(mtmp))
