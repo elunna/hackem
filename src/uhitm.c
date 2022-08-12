@@ -4527,6 +4527,39 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
+            case YELLOW_DRAGON_SCALES:
+                if (rn2(3))
+                    break;
+
+                if (how_resistant(ACID_RES) == 100) {
+                    shieldeff(u.ux, u.uy);
+                    monstseesu(M_SEEN_ACID);
+                    pline("You are covered in %s, but it seems harmless.",
+                          hliquid("acid"));
+                    ugolemeffects(AD_ACID, t);
+                    break;
+                }
+                if (rn2(10)) {
+                    You("are splashed with caustic goo!");
+                    t = resist_reduce(t, ACID_RES);
+                    mdamageu(mon, t);
+                } else {
+                    You("are covered in %s!", hliquid("acid"));
+                    You("are severely burned!");
+                    t = resist_reduce(t, ACID_RES);
+                    /* Same damage a spotted jelly would do */
+                    // (int) mon->m_lev
+                    mdamageu(mon, d((int) mon->m_lev, 6) + t);
+                }
+
+                /* Inventory damage */
+                if (rn2(u.twoweap ? 2 : 3))
+                    acid_damage(uwep);
+                if (u.twoweap && rn2(2))
+                    acid_damage(uswapwep);
+                if (rn2(4))
+                    erode_armor(&youmonst, ERODE_CORRODE);
+                break;
             case RED_DRAGON_SCALES:
                 if (how_resistant(FIRE_RES) == 100) {
                     shieldeff(u.ux, u.uy);
