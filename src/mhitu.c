@@ -4556,13 +4556,13 @@ struct attack *mattk;
                 if (!rn2(3)) {
                     if (canseemon(mtmp))
                         pline("%s gets zapped!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_ELEC);
+                    damage_mon(mtmp, rnd(6), AD_ELEC);
                     zapped = TRUE;
                 }
             } else {
                 if (canseemon(mtmp))
                     pline("%s is jolted with electricity!", Monnam(mtmp));
-                damage_mon(mtmp, d(6, 6), AD_ELEC);
+                damage_mon(mtmp, d(2, 24), AD_ELEC);
                 zapped = TRUE;
             }
             if (zapped) {
