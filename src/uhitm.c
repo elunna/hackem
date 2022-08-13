@@ -4506,6 +4506,12 @@ boolean wep_was_destroyed;
             case SHIMMERING_DRAGON_SCALES:
                 /* These can have a few random effects: confuse, stun, and slow */
                 if (!rn2(3)) {
+                    if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                        pline("%s protect you from %s shimmering armor!",
+                              An(bare_artifactname(ublindf)),
+                              s_suffix(mon_nam(mon)));
+                        break;
+                    }
                     switch (rn2(3)) {
                     case 0:
                         /* Passive slow */
@@ -4531,6 +4537,11 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
+
+
+
+
+
             case SEA_DRAGON_SCALES:
                 if (canseemon(mon))
                     You("are splashed!");
@@ -4590,7 +4601,6 @@ boolean wep_was_destroyed;
                     else if (uarmu)
                         (void) water_damage(uarmu, "shirt", TRUE, u.ux,
                                             u.uy);
-
                     update_inventory();
                 }
 
