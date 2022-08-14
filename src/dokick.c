@@ -1361,14 +1361,57 @@ dokick()
         if(IS_TOILET(maploc->typ)) {
             if(Levitation) 
                 goto dumb;
-            
-            pline("Klunk!");
-            exercise(A_DEX, TRUE);
-            
+
+            if (rn2(5)) {
+                if (!rn2(2))
+                    pline("Plunk! The toilet seat swings open and shut.");
+                else
+                    pline("Klunk!");
+                exercise(A_DEX, TRUE);
+                return 1;
+            }
+
             if (!rn2(7))
                 breaktoilet(x, y);
-            return 1;
-		}
+
+            /* Instead of black pudding (like sink) - brown seems appropriate. */
+            else if (!(maploc->looted & S_LPOOPY) && !rn2(3)
+                     && !(mvitals[PM_BROWN_PUDDING].mvflags & G_GONE)) {
+                if (Blind)
+                    You_hear("a gushing sound.");
+                else
+                    pline("A %s ooze gushes up from the drain!",
+                          hcolor(NH_AMBER));
+                (void) makemon(&mons[PM_BROWN_PUDDING], x, y, NO_MM_FLAGS);
+                exercise(A_DEX, TRUE);
+                newsym(x, y);
+                maploc->looted |= S_LPOOPY;
+                return 1;
+            }
+            /* Instead of rings - we can get small tools (weighing under 10) */
+            else if (!rn2(3)) {
+                if (Blind && Deaf)
+                    Sprintf(buf, " %s", body_part(FACE));
+                else
+                    buf[0] = '\0';
+                pline("%s%s%s.", !Deaf ? "Flupp! " : "",
+                      !Blind  ? "Muddy waste pops up from the drain"
+                      : !Deaf ? "You hear a sloshing sound" /* Deaf-aware */
+                              : "Something splashes you in the",
+                      buf);
+                if (!(maploc->looted & S_LTOOL)) { /* once per sink */
+                    if (!Blind)
+                        You_see("a curious tool floating in the bowl.");
+                    (void) mkobj_at(TOOL_CLASS, x, y, TRUE);
+                    newsym(x, y);
+                    exercise(A_DEX, TRUE);
+                    exercise(A_WIS, TRUE); /* a discovery! */
+                    maploc->looted |= S_LTOOL;
+                }
+                return 1;
+            }
+            goto ouch;
+        }
         if (maploc->typ == STAIRS || maploc->typ == LADDER
             || IS_STWALL(maploc->typ)) {
             if (!IS_STWALL(maploc->typ) && maploc->ladder == LA_DOWN)

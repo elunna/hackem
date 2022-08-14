@@ -392,6 +392,12 @@ extern struct symsetentry symset[NUM_GRAPHICS]; /* from drawing.c */
 #define S_LRING 4
 
 /*
+ * Toilets have 2 different types of loot that shouldn't be abused
+ */
+#define S_LPOOPY 1
+#define S_LTOOL 2
+
+/*
  * The four directions for a DrawBridge.
  */
 #define DB_NORTH 0
