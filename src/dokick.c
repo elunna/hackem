@@ -1363,7 +1363,7 @@ dokick()
                 goto dumb;
             
             pline("Klunk!");
-            if (!rn2(4)) 
+            if (!rn2(7))
                 breaktoilet(x, y);
             return 1;
 		}
