@@ -1374,8 +1374,19 @@ dokick()
             if (!rn2(7))
                 breaktoilet(x, y);
 
+            /* Kicking can always generate cockroaches, they can't be abused. */
+            if (!rn2(3) && !(mvitals[PM_GIANT_COCKROACH].mvflags & G_GONE)) {
+                if (Blind)
+                    You_hear("a skittering sound.");
+                else
+                    pline("A giant cockroach jumps out of the toilet!");
+                (void) makemon(&mons[PM_GIANT_COCKROACH], x, y, NO_MM_FLAGS);
+                exercise(A_DEX, TRUE);
+                newsym(x, y);
+                return 1;
+            }
             /* Instead of black pudding (like sink) - brown seems appropriate. */
-            else if (!(maploc->looted & S_LPOOPY) && !rn2(3)
+            if (!(maploc->looted & S_LPOOPY) && !rn2(3)
                      && !(mvitals[PM_BROWN_PUDDING].mvflags & G_GONE)) {
                 if (Blind)
                     You_hear("a gushing sound.");
