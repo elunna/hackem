@@ -12,6 +12,7 @@ STATIC_DCL void FDECL(trycall, (struct obj *));
 STATIC_DCL void NDECL(polymorph_sink);
 STATIC_DCL boolean NDECL(teleport_sink);
 STATIC_DCL void FDECL(dosinkring, (struct obj *));
+STATIC_DCL void FDECL(dotoiletamulet, (struct obj *));
 STATIC_PTR int FDECL(drop, (struct obj *));
 STATIC_PTR int NDECL(wipeoff);
 STATIC_DCL int FDECL(menu_drop, (int));
@@ -750,6 +751,108 @@ register struct obj *obj;
         useup(obj);
 }
 
+
+
+/* Dropping amulets down a toilet can help identify them, and most of the time you get the amulet back.
+ * But the amulet can be cursed or rusted in the process. If it doesn't come back, monsters are spawned. --Amy */
+STATIC_OVL
+void
+dotoiletamulet(obj)  /* obj is an amulet being dropped over a toilet */
+register struct obj *obj;
+{
+    register struct obj *otmp;
+    register boolean getitback = rn2(4);
+
+    /* you can't drop the Amulet of Yendor anyway, but in case this function is somehow called with it... */
+    if (obj->otyp == AMULET_OF_YENDOR || obj->otyp == FAKE_AMULET_OF_YENDOR)
+        return;
+
+    You("drop %s down the drain.", doname(obj));
+    obj->in_use = TRUE;	/* block free identification via interrupt */
+
+    if (!rn2(10)) { /* we don't want them to be endless; amulet is now lost without a message */
+        pline_The("pipes break!  Water spurts out!");
+        level.flags.ntoilets--;
+        levl[u.ux][u.uy].typ = FOUNTAIN;
+        level.flags.nfountains++;
+        newsym(u.ux,u.uy);
+        useup(obj);
+        return;
+    }
+
+    /* I allow you to "observe" this even if you're blind --Amy */
+    switch(obj->otyp) {
+    case AMULET_OF_DRAIN_RESISTANCE:
+        pline_The("toilet water no longer flows down the drain!");
+        break;
+    case AMULET_OF_ESP:
+        You("think you saw a rat in the toilet!");
+        break;
+    case AMULET_OF_LIFE_SAVING:
+        pline_The("toilet gains an extra life!");
+        break;
+    case AMULET_OF_STRANGULATION:
+        pline_The("toilet seems to scream in agony silently.");
+        break;
+    case AMULET_OF_RESTFUL_SLEEP:
+        pline_The("toilet doesn't feel like operating.");
+        break;
+    case AMULET_VERSUS_POISON:
+        pline_The("dirty toilet water turns clear.");
+        break;
+    case AMULET_VERSUS_STONE:
+        pline_The("toilet doesn't turn to stone.");
+        break;
+    case AMULET_OF_CHANGE:
+        pline("Suddenly the toilet seems to be made for the opposite gender!");
+        break;
+    case AMULET_OF_UNCHANGING:
+        pline_The("toilet seems indestructible.");
+        break;
+    case AMULET_OF_REFLECTION:
+        pline_The("toilet water seems to come back out of the drain!");
+        break;
+    case AMULET_OF_MAGICAL_BREATHING:
+        pline_The("toilet water flows down the drain without requiring the flushing to be operated!");
+        break;
+    case AMULET_OF_MAGIC_RESISTANCE:
+        pline_The("toilet is surrounded by a magical shield!");
+        break;
+    case AMULET_OF_GUARDING:
+        pline_The("toilet is definitely not a feature from the variant that calls itself 3.7!");
+        break;
+    case AMULET_OF_FLYING:
+        pline_The("toilet soars to the %s, then lands again.", ceiling(u.ux, u.uy));
+        break;
+    default:
+        pline("Apparently, nothing happens.");
+        break;
+    }
+
+    trycall(obj);
+
+    if (!obj->oerodeproof
+        && is_rustprone(obj)
+        && (!obj->oartifact || !rn2(4))
+        && obj->oeroded == MAX_ERODE) {
+        pline("%s rusted away completely!", doname(obj));
+        useup(obj);
+        return;
+    } else if (getitback) {
+        pline_The("toilet flushes, and %s reappears!", doname(obj));
+        obj->in_use = FALSE;
+        if (!rn2(3))
+            curse(obj);
+        if (!rn2(3))
+            (void) get_wet(obj, FALSE, TRUE);
+
+        dropx(obj);
+    } else {
+        useup(obj);
+    }
+
+}
+
 /* some common tests when trying to drop or throw items */
 boolean
 canletgo(obj, word)
@@ -826,6 +929,11 @@ register struct obj *obj;
         if ((obj->oclass == RING_CLASS || obj->otyp == MEAT_RING)
             && IS_SINK(levl[u.ux][u.uy].typ)) {
             dosinkring(obj);
+            return 1;
+        }
+        if ((obj->oclass == AMULET_CLASS)
+            && IS_TOILET(levl[u.ux][u.uy].typ)) {
+            dotoiletamulet(obj);
             return 1;
         }
         if (Sokoban && obj->otyp == BOULDER)
