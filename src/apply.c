@@ -2837,9 +2837,9 @@ STATIC_OVL void
 use_whetstone(stone, obj)
 struct obj *stone, *obj;
 {
-	boolean fail_use = TRUE;
-	const char *occutext = "sharpening";
-	int tmptime = 130 + (rnl(13) * 5);
+    boolean fail_use = TRUE;
+    const char *occutext = "sharpening";
+    int tmptime = 100 + (rnl(13) * 5);
     register struct obj *potion;
 
     /* --hackem: For allowing use with rust traps. */
