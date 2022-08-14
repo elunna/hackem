@@ -770,7 +770,7 @@ register struct obj *obj;
     You("drop %s down the drain.", doname(obj));
     obj->in_use = TRUE;	/* block free identification via interrupt */
 
-    if (!rn2(10)) { /* we don't want them to be endless; amulet is now lost without a message */
+    if (!rn2(27)) { /* we don't want them to be endless; amulet is now lost without a message */
         pline_The("pipes break!  Water spurts out!");
         level.flags.ntoilets--;
         levl[u.ux][u.uy].typ = FOUNTAIN;
