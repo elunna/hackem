@@ -2840,6 +2840,11 @@ struct obj *stone, *obj;
     boolean fail_use = TRUE;
     const char *occutext = "sharpening";
     int tmptime = 100 + (rnl(13) * 5);
+
+    /* Cavemen are good with rocks, so they can do the job in half the time. */
+    if (Role_if(PM_CAVEMAN))
+        tmptime /= 2;
+
     register struct obj *potion;
 
     /* --hackem: For allowing use with rust traps. */
