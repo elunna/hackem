@@ -1363,6 +1363,8 @@ dokick()
                 goto dumb;
             
             pline("Klunk!");
+            exercise(A_DEX, TRUE);
+            
             if (!rn2(7))
                 breaktoilet(x, y);
             return 1;
