@@ -1362,6 +1362,10 @@ dokick()
             if(Levitation) 
                 goto dumb;
 
+            /* Test gushing */
+            dogushforth(FALSE, TRUE);
+            return 1;
+
             if (rn2(5)) {
                 if (!rn2(2))
                     pline("Plunk! The toilet seat swings open and shut.");

@@ -929,7 +929,7 @@ E void FDECL(trackwish, (char *));
 /* ### fountain.c ### */
 
 E void FDECL(floating_above, (const char *));
-E void FDECL(dogushforth, (int));
+E void FDECL(dogushforth, (int, BOOLEAN_P));
 #ifdef USE_TRAMPOLI
 E void FDECL(gush, (int, int, genericptr_t));
 #endif

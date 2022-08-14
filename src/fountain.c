@@ -11,6 +11,7 @@ STATIC_DCL void NDECL(dowaterdemon);
 STATIC_DCL void NDECL(dowaternymph);
 STATIC_DCL void NDECL(dolavademon);
 STATIC_PTR void FDECL(gush, (int, int, genericptr_t));
+STATIC_PTR void FDECL(gush_sewage, (int, int, genericptr_t));
 STATIC_DCL void NDECL(dofindgem);
 
 /* used when trying to dip in or drink from fountain or sink or pool while
@@ -131,12 +132,17 @@ dolavademon()
 
 /* Gushing forth along LOS from (u.ux, u.uy) */
 void
-dogushforth(drinking)
+dogushforth(drinking, sewage)
 int drinking;
+boolean sewage;
 {
     int madepool = 0;
 
-    do_clear_area(u.ux, u.uy, 7, gush, (genericptr_t) &madepool);
+    if (sewage)
+        do_clear_area(u.ux, u.uy, 7, gush_sewage, (genericptr_t) &madepool);
+    else
+        do_clear_area(u.ux, u.uy, 7, gush, (genericptr_t) &madepool);
+
     if (!madepool) {
         if (drinking)
             Your("thirst is quenched.");
@@ -166,6 +172,38 @@ genericptr_t poolcnt;
 
     /* Put a puddle at x, y */
     levl[x][y].typ = PUDDLE, levl[x][y].flags = 0;
+    /* No kelp! */
+    del_engr_at(x, y);
+    water_damage_chain(level.objects[x][y], TRUE, 0, TRUE, x, y);
+
+    if ((mtmp = m_at(x, y)) != 0)
+        (void) minliquid(mtmp);
+    else
+        newsym(x, y);
+}
+
+/* Copied from above gush(). Refactor this later so we aren't duplicating */
+STATIC_PTR void
+gush_sewage(x, y, poolcnt)
+int x, y;
+genericptr_t poolcnt;
+{
+    register struct monst *mtmp;
+    register struct trap *ttmp;
+
+    if (((x + y) % 2) || (x == u.ux && y == u.uy)
+        || (rn2(1 + distmin(u.ux, u.uy, x, y))) || (levl[x][y].typ != ROOM)
+        || (sobj_at(BOULDER, x, y)) || nexttodoor(x, y))
+        return;
+
+    if ((ttmp = t_at(x, y)) != 0 && !delfloortrap(ttmp))
+        return;
+
+    if (!((*(int *) poolcnt)++))
+        pline("Raw sewage gushes forth from the overflowing toilet!");
+
+    /* Put a puddle at x, y */
+    levl[x][y].typ = SEWAGE, levl[x][y].flags = 0;
     /* No kelp! */
     del_engr_at(x, y);
     water_damage_chain(level.objects[x][y], TRUE, 0, TRUE, x, y);
@@ -817,7 +855,7 @@ drinkfountain()
             break;
         }
         case 30: /* Gushing forth in this room */
-            dogushforth(TRUE);
+            dogushforth(TRUE, FALSE);
             break;
         default:
             pline("This tepid %s is tasteless.",
@@ -952,7 +990,7 @@ dip_end:
         }
         /*FALLTHRU*/
     case 25: /* Water gushes forth */
-        dogushforth(FALSE);
+        dogushforth(FALSE, FALSE);
         break;
     case 26: /* Strange feeling */
         pline("A strange tingling runs up your %s.", body_part(ARM));
