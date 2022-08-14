@@ -1362,7 +1362,6 @@ dokick()
             if(Levitation) 
                 goto dumb;
 
-            /* Test gushing */
             dogushforth(FALSE, TRUE);
             return 1;
 
