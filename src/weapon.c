@@ -1252,9 +1252,8 @@ register struct monst *mon;
 
         if (mw_tmp && mw_tmp->otyp == obj->otyp) {
             /* already wielding it */
-			if (is_lightsaber(obj))
-			    mon_ignite_lightsaber(obj, mon);
-
+            if (is_lightsaber(obj))
+                mon_ignite_lightsaber(obj, mon);
             mon->weapon_check = NEED_WEAPON;
             return 0;
         }
