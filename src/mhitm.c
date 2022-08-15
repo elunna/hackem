@@ -1622,6 +1622,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         if (vis && canseemon(mdef) && !Deaf)
             pline("%s reels from the noise!", Monnam(mdef));
+
         if (!rn2(6))
             erode_armor(mdef, ERODE_FRACTURE);
         tmp += destroy_mitem(mdef, RING_CLASS, AD_LOUD);
@@ -1635,6 +1636,22 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 return 0;
             return (MM_DEF_DIED | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
         }
+        break;
+    case AD_PIER:
+        if (cancelled) {
+            tmp = 0;
+            break;
+        }
+        if (vis && canseemon(mdef) && !Deaf) {
+            pline("%s reels from the noise!", Monnam(mdef));
+        }
+        if (!magr->mstun) {
+            magr->mstun = 1;
+            if (canseemon(magr))
+                pline("%s %s...", Monnam(magr),
+                      makeplural(stagger(magr->data, "stagger")));
+        }
+
         break;
     case AD_ELEC:
         if (cancelled) {
