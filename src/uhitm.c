@@ -2583,6 +2583,20 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
         }
         break;
+    case AD_PIER:
+        /* Mobat piercing screech attack */
+        if (negated) {
+            tmp = 0;
+            break;
+        }
+        if (!Deaf && !Blind)
+            pline("%s reels from the noise!", Monnam(mdef));
+
+        if (!Blind)
+            pline("%s %s for a moment.", Monnam(mdef),
+                  makeplural(stagger(pd, "stagger")));
+        mdef->mstun = 1;
+        break;
     case AD_ELEC:
         if (negated) {
             tmp = 0;
