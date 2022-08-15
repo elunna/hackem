@@ -4116,6 +4116,10 @@ int dmg;
     if (cancelled || Deaf)
         return FALSE;
 
+    /* Used for gibberling attack */
+    int fate = rnd(30);
+    long lcount = (long) rn1(90, 10);
+
     /* scream attacks */
     switch (mattk->adtyp) {
     case AD_LOUD:
@@ -4175,14 +4179,13 @@ int dmg;
             make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
             stop_occupation();
         }
-
     case AD_SONG:
         /* Harpies have an entracing song that paralyzes */
         if (m_canseeu(mtmp))
             pline("%s releases a hypnotic melody!", Monnam(mtmp));
 
         if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
-            pline("Your %s protects your ears from the deadly melody.",
+            pline("Your %s protects your ears from %s's deadly melody.",
                   helm_simple_name(uarmh), Monnam(mtmp));
             break;
         } else {
@@ -4202,6 +4205,83 @@ int dmg;
                 }
             }
         }
+        break;
+    case AD_GIBB:
+        /* Gibberlings's emit a bunch of creepy sounds
+         *  gibber sound: uttering ghastly howls, clicks,
+         *  shrieks and insane chattering noises,
+         * */
+        if (fate < 10) {
+            break;
+        } else if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
+            pline("Your %s protects you from the %s's cacophony.",
+                  helm_simple_name(uarmh), Monnam(mtmp));
+            break;
+        }
+
+        switch (fate) {
+        case 10:
+        case 11:
+        case 12: /* Cause confusion */
+            if (m_canseeu(mtmp))
+                pline("%s utters a ghastly howl!", Monnam(mtmp));
+            if (!Confusion)
+                You("suddenly feel %s.", Hallucination ? "trippy" : "confused");
+            make_confused((HConfusion & TIMEOUT) + lcount, TRUE);
+            break;
+        case 13:
+        case 14:
+        case 15:
+        case 16: /* Cause Stunning */
+            if (m_canseeu(mtmp))
+                pline("%s emits a series of clicks!", Monnam(mtmp));
+            make_stunned((HStun & TIMEOUT) + lcount, TRUE);
+            break;
+        case 17:
+        case 18:
+        case 19:
+        case 20: /* Cause hallucination */
+            if (m_canseeu(mtmp))
+                pline("%s bays insane chattering noises!", Monnam(mtmp));
+            (void) make_hallucinated((HHallucination & TIMEOUT) + lcount,
+                                     TRUE, 0L);
+            break;
+        case 21:
+        case 22:
+        case 23:
+        case 24: /* Cause fumbling for 4-16 turns*/
+            if (m_canseeu(mtmp))
+                pline("%s ululates in your direction!", Monnam(mtmp));
+            HFumbling |= FROMOUTSIDE;
+            HFumbling &= ~TIMEOUT;
+            HFumbling += d(4, 4); /* slip on next move */
+            break;
+        case 25:
+        case 26:
+        case 27:
+        case 28: /* Cause blinding */
+            if (m_canseeu(mtmp))
+                pline("%s shrieks wildly!", Monnam(mtmp));
+            make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
+            break;
+        case 29: /* Cause vomiting */
+            if (m_canseeu(mtmp))
+                pline("%s shrills a resonant tone!", Monnam(mtmp));
+            if (Vomiting)
+                vomit();
+            else
+                make_vomiting(14L, FALSE);
+            break;
+        case 30: /* Cause deafness (rare) */
+            if (m_canseeu(mtmp))
+                pline("%s beats it's chest and howls!", Monnam(mtmp));
+            if (Deaf) /* make_deaf() won't give feedback when already deaf */
+                pline("Nothing seems to happen.");
+            make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
+            break;
+        }
+        /* We still get damage from the noise */
+        mdamageu(mtmp, dmg);
         break;
     default:
         break;

@@ -5146,8 +5146,9 @@ struct permonst _mons2[] = {
         M3_INFRAVISIBLE, 0, MH_HUMAN | MH_WERE, 8, CLR_YELLOW),
     MON("gibberling", S_HUMAN,                                  /* Slash'EM */
         LVL(6, 12, 10, 0, -2), (G_HELL | G_GENO | G_VLGROUP | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 8),
+          ATTK(AT_SCRE, AD_GIBB, 1, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_WAIL, MZ_HUMAN), 0, 0, 
         M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_COLLECT, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 9, CLR_GRAY),

@@ -98,7 +98,8 @@
 #define AD_TCKL	59  /* Tickle (Nightgaunts) */
 #define AD_PIER 60  /* Piercing scream (Mobats) */
 #define AD_SONG 61  /* Paralyzing song (Harpy) */
-#define AD_SAMU 62  /* hits, may steal Amulet (Wizard) */
+#define AD_GIBB 62  /* Gibber chitter-chatter attack (Gibberlings) */
+#define AD_SAMU 63  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*
