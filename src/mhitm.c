@@ -1651,7 +1651,24 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 pline("%s %s...", Monnam(magr),
                       makeplural(stagger(magr->data, "stagger")));
         }
+        break;
 
+
+    case AD_SONG:
+        if (cancelled) {
+            tmp = 0;
+            break;
+        }
+        if (vis && canseemon(mdef) && !Deaf)
+            pline("%s freezes from the hypnotic song!", Monnam(mdef));
+
+        if (mdef->mcanmove) {
+            if (vis && canspotmon(mdef)) {
+                Strcpy(buf, Monnam(mdef));
+                pline("%s is frozen by %s.", buf, mon_nam(magr));
+            }
+            paralyze_monst(mdef, rnd(10));
+        }
         break;
     case AD_ELEC:
         if (cancelled) {
