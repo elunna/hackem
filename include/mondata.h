@@ -110,7 +110,8 @@
 
 #define immune_poisongas(ptr) \
     ((ptr) == &mons[PM_HEZROU] \
-     || (ptr) == &mons[PM_GIANT_BADGER])
+     || (ptr) == &mons[PM_GIANT_BADGER] \
+     || (ptr) == &mons[PM_HONEY_BADGER])
 
 #define is_lminion(mon) \
     (is_minion((mon)->data) && mon_aligntyp(mon) == A_LAWFUL)

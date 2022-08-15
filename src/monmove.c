@@ -833,6 +833,13 @@ toofar:
     if (mtmp->data == &mons[PM_HEZROU]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
+    /* --hackem: I don't want an exact copy of Hezrous, but badgers are known
+         * for being stinky. So they will frequently leave trails of gas...
+     */
+    if ((mtmp->data == &mons[PM_GIANT_BADGER]
+        || mtmp->data == &mons[PM_HONEY_BADGER]) && !rn2(3)) /* badger stink */
+        create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
+
     if (!nearby || mtmp->mflee || scared || mtmp->mconf || mtmp->mstun
         || (mtmp->minvis && !rn2(3))
         || (mdat->mlet == S_LEPRECHAUN && !findgold(invent, FALSE)
