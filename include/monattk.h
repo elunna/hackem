@@ -94,9 +94,10 @@
 #define AD_CLRC 55  /* random clerical spell */
 #define AD_SPEL 56  /* random magic spell */
 #define AD_RBRE 57  /* random breath weapon */
-#define AD_CALM	58	/* KMH -- calms its enemies (koala) */
-#define AD_TCKL	59	/* Tickle (Nightgaunts) */
-#define AD_SAMU 60  /* hits, may steal Amulet (Wizard) */
+#define AD_CALM	58  /* KMH -- calms its enemies (koala) */
+#define AD_TCKL	59  /* Tickle (Nightgaunts) */
+#define AD_PIER 60  /* Piercing scream (Mobats) */
+#define AD_SAMU 61  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

@@ -4157,6 +4157,26 @@ int dmg;
             break;
         }
         break;
+
+    case AD_PIER:
+        /* Mobat's have a piercing scream */
+        if (m_canseeu(mtmp))
+            pline("%s lets out a piercing screech!", Monnam(mtmp));
+        else if (u.usleep && m_canseeu(mtmp) && (!Deaf))
+            unmul("You are frightened awake!");
+
+        if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
+            pline("Your %s protects your ears from the %s's screech.",
+                  helm_simple_name(uarmh), Monnam(mtmp));
+            break;
+        } else {
+            mdamageu(mtmp, dmg);
+
+            Your("mind reels from the noise!");
+            make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
+            stop_occupation();
+        }
+
     default:
         break;
     }
