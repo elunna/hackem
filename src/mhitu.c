@@ -4157,7 +4157,6 @@ int dmg;
             break;
         }
         break;
-
     case AD_PIER:
         /* Mobat's have a piercing scream */
         if (m_canseeu(mtmp))
@@ -4177,6 +4176,33 @@ int dmg;
             stop_occupation();
         }
 
+    case AD_SONG:
+        /* Harpies have an entracing song that paralyzes */
+        if (m_canseeu(mtmp))
+            pline("%s releases a hypnotic melody!", Monnam(mtmp));
+
+        if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
+            pline("Your %s protects your ears from the deadly melody.",
+                  helm_simple_name(uarmh), Monnam(mtmp));
+            break;
+        } else {
+            /* Copied from AD_PLYS code */
+            if (multi >= 0 && !rn2(3)) {
+                if (Free_action) {
+                    You("momentarily stiffen.");
+                } else {
+                    if (Blind)
+                        You("are frozen!");
+                    else
+                        You("are frozen by %s!", mon_nam(mtmp));
+                    nomovemsg = You_can_move_again;
+                    nomul(-rnd(10));
+                    multi_reason = "paralyzed by a monster";
+                    exercise(A_DEX, FALSE);
+                }
+            }
+        }
+        break;
     default:
         break;
     }
