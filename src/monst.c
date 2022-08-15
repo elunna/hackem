@@ -2809,7 +2809,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 1, 6),
           ATTK(AT_SCRE, AD_SONG, 1, 6),
           NO_ATTK, NO_ATTK),
-        SIZ(130, 130, MS_SQEEK, MZ_MEDIUM), 0, 0,
+        SIZ(130, 130, MS_SEDUCE, MZ_MEDIUM), 0, 0,
         M1_FLY | M1_ANIMAL | M1_CARNIVORE,
         M2_WANDER | M2_HOSTILE, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 10, CLR_GRAY),
