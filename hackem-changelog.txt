@@ -836,3 +836,109 @@ CLion:
 	[X] Added 2 spaces to the right side (seemed to work the level fits together now, maybe a text editor deleted it before.)
 	[NO] Problem could be the INIT_MAP.
 	
+
+Dragon			Primary				Secondary				Passive
+--------------------------------------------------------------------
+Blue DSM		shock res			confers speed			<<passive shock attack>> (+item destruction)
+Black DSM		disintegration res	<<slow digestion>>		passive disintegration attack
+Gray DSM		magic res			cancel protection		passive cancellation attack, 
+Green DSM		poison res			<<sickness res>>		passive poison attack
+Orange DSM		sleep res			<<free action>>			<<passive sleep attack>>
+Red DSM			fire res			+1d6 melee damage, 		passive fire attack (+item destruction)
+Silver DSM		reflection			<<blinding resistance>>	<<Passive reflection scare>>
+White DSM		cold res			freeze water/lava walk	passive cold attack (+item destruction)
+Yellow DSM		acid res			stoning resistance		<<passive acid attack>> (+item destruction)
+Shimmering DSM	displacement		stealth, warn, see inv	<<passive confusion/stunning/slow>>
+Gold DSM		light 				<<automatic searching>>	<<passive blind attack>>
+Sea DSM			magical breathing	swimming				<<passive water/rust attack>> (+item destruction)
+
+
+
+
+	- [x] Orange: Grants free action
+	- [x] Green: Blocks disease attacks, 
+	- [x] Green dragons get sickness resistance
+	- [x] Green: Grants sickness resistance
+	- [x] Gold: Remove sickness resistance... 
+	- [x] Gold dragons no longer get sickness resistance.
+	- [x] Gold: Add automatic searching
+	- [x] Black DSM: Add slow digestion
+	- [x] Silver: Add blinding resistance
+	- [x] Black dragon protects from engulfing attacks? From dragons yes. Not from gelatinous cubes.
+	- [x] Sea DSM: Add passive rust
+	- [x] Shimmering DSM gets passive slow 
+	- [x] Shimmering DSM: Add passive confuse/stun
+	- [x] Orange DSM gives passive sleep attack
+	- [FIXED] Monsters are being put to sleep by orange scales, but continue the rest of their attacks.
+	- [x] Blue DSM gives passive shock attack
+	- [x] Gold: Add passive blinding attack
+	- [x] Yellow: Add passive acid attack
+	- [x] Silver: Add passive scare attack? (mirror?)
+			- [x] Red DSM passive will burn items
+	- [x] White DSM passive will burn items
+	- [x] Blue DS: Changed passive shock to 1d6 and critical hit to 2d24.
+	- [x] Yellow DS: Changed passive acid to 1d3 and critical hit to (level + 1)d6
+		
+[FIXED] Babau:Gaze attack 7?  Program in disorder!
+	- [x] Nabassu get a gaze life drain attack: mhitu
+	- [x] Implement gaze life drain attack: mhitm
+	- [x] Sea DSM deals severe halving damage to firey monsters like fire vortex, fire elementals, etc.
+	- [x] Sea DSM rusts/wets more items/weapons
+	- [x] uhitm: blue DSM
+	- [x] uhitm: orange DSM (sleep instead of slow)
+	- [x] uhitm: yellow DSM
+	- [x] uhitm: gold DSM
+	- [x] uhitm: shimmering DSM
+	- [FIXeD] You stagger from the shimmering light!  You stagger...
+	- [SKIPPED] There is no VULN_WATER - might be worth adding for flaming/electric monsters...
+	- [SKIPPED] Sea DSM prevents engulfing by firey monsters also.
+	- [x] Sea DSM uses the water trap effects.
+	- [SKIPPED] Do passive DSM attacks violate pacifist?
+	- [SKIPPED] uhitm: silver DSM (scare us?)
+	- [x] Implement passives for uhitm
+	- [X] uhitm: sea DSM
+	- [x] Make sure all dragon scale abilities match up with dragon forms,
+	- [x] dragon scale effects should mostly be the same between monsters and us.
+	- [x] Should being blind (or EotO) protect from the shimmering dragon stuff? YES.
+	
+	- [SKIPPED] Implement passives for mhitm
+	- [SKIPPED] Should shimmering dragon also paralyze?
+	
+	
+
+	[FIXED] j - a +1 set of gold dragon scales (being worn, brilliantly lit, brilliantly lit)
+	- [x] Right now whetstones take way too long to use. Lowered time a little.
+	- [x] Add luck/dexterity to whetstone usage? 
+	- [x] Cavemen get mega bonus for whetstones
+	Whetstones:
+	- [SKIPPED] Implement whetstone side effects from sources? Fountains, sinks, toilets
+	- [SKIPPED] Can we sharpen shuriken?
+	- [x] Toilets only break 1 in 7x on kick.
+	- [x] Toilets can generate brown pudding from kicking (only 1)
+	- [x] Generate a random tool
+	- [x] Toilets can generate cockroaches from kicking
+	- [x] Toilets generate sewage with the cockroaches from kicking (Need help with - edit the gush function)
+	- [SKIPPED] Limit toilet tools to those that weigh underunder 10
+	- [SKIPPED] Add luck to toilet effects (prayer)
+	- [x] Amulet id in toilets
+	- [SKIPPED] Toilets can generate in the middle of the room within a room type
+	- [SKIPPED] Toilets can generate in small closets (like Vlad's traps, etc)
+	- [SKIPPED] Toilets should be able to generate with a small amount of sewage adjacent.
+		Use the code for adjacent sinks and toilets???
+			- [SKIPPED] Kobolds use the orc sounds, maybe they should have their own sounds?
+	
+	- [x] Mobats attack with Piercing screams that cause pain.
+	- [x] Add AD_PIER
+	- [x] mhitu: Mobats piercing screams
+	- [x] mhitm: Mobats piercing screams
+		- [SKIPPED] uhitm: Mobats piercing screams  (do when I learn how to implement #monster stuff)
+		- [x] Harpies entrance travelers with their songs: paralyze
+	- [x] Harpy song: mhitu
+	- [ ] Harpy song: uhitm (needs #monster)
+	- [x] Harpy song: mhitm
+		- [x] Look into evil's AD_LOUD attack. #define AD_LOUD 48  /* sound damage */
+		  
+		- [x] Harpies should have a #chat voice - not squeek.
+	
+		- [x] Gibberling have a gibber sound: uttering ghastly howls, clicks, shrieks and insane chattering noises,
+	- [x] Gibberlings get an AD_GIBB attack: Stuns, confuses, etc. Similar to a cursed unihorn, or a magical eye?
