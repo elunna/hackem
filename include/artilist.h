@@ -70,7 +70,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, 0, PHYS(5, 10), DFNS(AD_DRLI), NO_CARY, 0, A_LAWFUL, PM_KNIGHT, NON_PM,
       4000L, NO_COLOR),
 
-    A("Firewall", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+    A("Firewall", STAFF_OF_DIVINATION, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
       FIRE(4,4), DFNS(AD_FIRE), NO_CARY, 0, A_LAWFUL, PM_FLAME_MAGE, NON_PM, 400L, CLR_RED),
 
     A("Grayswandir", SABER, (SPFX_RESTR | SPFX_HALRES), 0, 0,
