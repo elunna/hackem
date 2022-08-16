@@ -971,6 +971,8 @@ genericptr_t p2;
     if (p2 == (genericptr_t) 0) { /* This means *YOU* Bozo! */
         if (m_poisongas_ok(&youmonst) == M_POISONGAS_OK)
             return FALSE;
+        if (dam == 0)
+            return FALSE;  /* Just a regular cloud? */
         if (!Blind) {
             Your("%s sting.", makeplural(body_part(EYE)));
             make_blinded(1L, FALSE);
@@ -991,6 +993,8 @@ genericptr_t p2;
         mtmp = (struct monst *) p2;
 
         if (m_poisongas_ok(mtmp) != M_POISONGAS_OK) {
+            if (dam == 0)
+                return FALSE;  /* Just a regular cloud? */
             if (cansee(mtmp->mx, mtmp->my))
                 pline("%s coughs!", Monnam(mtmp));
             if (heros_fault(reg))

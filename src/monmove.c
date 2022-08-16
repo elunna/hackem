@@ -840,6 +840,14 @@ toofar:
         || mtmp->data == &mons[PM_HONEY_BADGER]) && !rn2(3)) /* badger stink */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
+    /* Mist wolves make misty cloud floods */
+    if (mtmp->data == &mons[PM_MIST_WOLF] && !rn2(3)) {
+        /* Using the create poison gas function, but with 0 damage passed
+         * so we can simulate mist that blocks vision. We randomize the size
+         * of the mist clouds a bit for variety. */
+        create_gas_cloud(mtmp->mx, mtmp->my, d(1, 3), 0);
+    }
+
     if (!nearby || mtmp->mflee || scared || mtmp->mconf || mtmp->mstun
         || (mtmp->minvis && !rn2(3))
         || (mdat->mlet == S_LEPRECHAUN && !findgold(invent, FALSE)
