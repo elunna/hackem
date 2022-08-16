@@ -86,8 +86,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Snickersnee", KATANA, SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
       0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR),
 
-    A("Spear of Light", SPEAR,
-      (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
+    A("Spear of Light", SPEAR, (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
       PHYS(5,10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, NON_PM, NON_PM, 4000L, NO_COLOR),
 
     /* Silver: Warns of undead. */
