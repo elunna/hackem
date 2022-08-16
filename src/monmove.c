@@ -1876,8 +1876,17 @@ register int after;
                     return 2; /* it died */
             }
 		    
-            if (ptr == &mons[PM_GHOUL] || ptr == &mons[PM_GHAST]) 
+            if (ptr == &mons[PM_GHOUL])
                 meatcorpse(mtmp);
+
+            if (ptr == &mons[PM_GHAST]) {
+                /* Ghasts gain a level for each yummy corpse they eat */
+                if (meatcorpse(mtmp)) {
+                    grow_up(mtmp, (struct monst *) 0);
+                    if (canseemon(mtmp))
+                        pline("%s looks stronger...", Monnam(mtmp));
+                }
+            }
 
             /* Maybe a honey badger raided a beehive */
             if (ptr == &mons[PM_HONEY_BADGER]) {

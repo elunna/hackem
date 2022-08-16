@@ -1601,32 +1601,36 @@ register struct monst *mtmp;
     return 0;
 }
 
-void
+int
 meatcorpse(mtmp)
-	register struct monst *mtmp;
+register struct monst *mtmp;
 {
-	register struct obj *otmp;
- 
-	/* If a pet, eating is handled separately, in dog.c */
-	if (mtmp->mtame) return;
-  
-	/* Eats topmost corpse if it is there */
-	for (otmp = level.objects[mtmp->mx][mtmp->my];
-						    otmp; otmp = otmp->nexthere)
-	       if (otmp->otyp == CORPSE &&
-		  otmp->age+50 <= monstermoves) {
-		    if (cansee(mtmp->mx,mtmp->my) && flags.verbose)
-                pline("%s eats %s!", Monnam(mtmp),
-                  distant_name(otmp,doname));
+    register struct obj *otmp;
 
-		    /* else if (flags.soundok && flags.verbose) */
+    /* If a pet, eating is handled separately, in dog.c */
+    if (mtmp->mtame)
+        return 0;
+
+    /* Eats topmost corpse if it is there */
+    for (otmp = level.objects[mtmp->mx][mtmp->my];
+         otmp;
+         otmp = otmp->nexthere) {
+        if (otmp->otyp == CORPSE && otmp->age + 50 <= monstermoves) {
+            if (cansee(mtmp->mx, mtmp->my) && flags.verbose)
+                pline("%s eats %s!", Monnam(mtmp),
+                      distant_name(otmp, doname));
+
             else if (!Deaf && flags.verbose)
-			    You("hear an awful gobbling noise!");
-		    mtmp->meating = 2;
-		    delobj(otmp);
-		    break; /* only eat one at a time... */
-		  }
-      newsym(mtmp->mx, mtmp->my);
+                You("hear an awful gobbling noise!");
+
+            mtmp->meating = 2;
+            delobj(otmp);
+            newsym(mtmp->mx, mtmp->my);
+            return 1; /* only eat one at a time... */
+        }
+    }
+
+    return 0;
 }
 
 /* monster eats a pile of objects */
