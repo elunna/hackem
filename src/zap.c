@@ -464,19 +464,18 @@ struct obj *otmp;
             boolean already_max = (mtmp->mhp == mtmp->mhpmax);
             wake = FALSE; /* wakeup() makes the target angry */
             mtmp->mhp += 
-              /* [ALI] FIXME: Makes no sense that cursed wands are more
-		      * effective than uncursed wands. This behaviour dates
-		      * right back to Slash v3 (and probably to v1).
-		      */
-		      otyp == WAN_HEALING ?  d(5,2) + 5 * !!bcsign(otmp) :
-		      otyp == WAN_EXTRA_HEALING ?  d(5,4) + 10 * !!bcsign(otmp) :
-              d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
+            /* [ALI] FIXME: Makes no sense that cursed wands are more
+            * effective than uncursed wands. This behaviour dates
+            * right back to Slash v3 (and probably to v1).
+            */
+            otyp == WAN_HEALING ? d(5, 2) + 5 * !!bcsign(otmp) 
+                : otyp == WAN_EXTRA_HEALING ? d(5, 4) + 10 * !!bcsign(otmp) 
+                : d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
             
             if (mtmp->mhp > mtmp->mhpmax) {
                 if (otmp->oclass == WAND_CLASS)
 			        mtmp->mhpmax++;
                 mtmp->mhp = mtmp->mhpmax;
-                
             }
             /* plain healing must be blessed to cure blindness; extra
                healing only needs to not be cursed, so spell always cures
@@ -484,7 +483,8 @@ struct obj *otmp;
                we use the rules for the hero here...] */
             if (skilled_spell 
                     || otyp == SPE_EXTRA_HEALING
-                    || (otyp == WAN_HEALING && otmp->blessed))
+                    || (otyp == WAN_HEALING && otmp->blessed)
+                    || (otyp == WAN_EXTRA_HEALING && !otmp->cursed))
                 mcureblindness(mtmp, canseemon(mtmp));
 
             if (canseemon(mtmp)) {
@@ -495,10 +495,12 @@ struct obj *otmp;
                         newsym(mtmp->mx, mtmp->my);
                     } else
                         mimic_hit_msg(mtmp, otyp);
-                } else
+                } else {
                     pline("%s looks%s better.", Monnam(mtmp),
                       (otyp == SPE_EXTRA_HEALING || 
                        otyp == WAN_EXTRA_HEALING) ? " much" : "");
+                }
+                makeknown(otyp);
             }
             if ((mtmp->mtame || mtmp->mpeaceful) && !already_max) {
                 if (Role_if(PM_HEALER)) {
