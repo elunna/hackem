@@ -771,7 +771,6 @@ unsigned corpseflags;
         /* --hackem: Small chance to drop a magic candle = NiceHack! */
         if (!rn2(69))
             obj = mksobj_at(MAGIC_CANDLE, x, y, TRUE, FALSE);
-
 		free_mname(mtmp);
 		break;
     case PM_PLASTIC_GOLEM:
@@ -4483,8 +4482,12 @@ struct monst *mtmp;
     }
     if (mtmp->data->msound == MS_ATHOL) {
         if (!Deaf) {
-            pline("%s athools.", Monnam(mtmp));
-            stop_occupation();
+            if (canseemon(mtmp)) {
+                pline("%s athools.", Monnam(mtmp));
+                stop_occupation();
+            }
+            else
+                You_hear("a distant athooool!");
         }
         aggravate();
     }
