@@ -78,7 +78,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
-      PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR ),
+      PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, NO_COLOR ),
 
     A("Skullcrusher", CLUB, SPFX_RESTR, 0, 0,
       PHYS(3, 10), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 300L, NO_COLOR),
@@ -233,7 +233,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       1000L, NO_COLOR),
 
     A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
-      PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, NO_COLOR),
+      PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_NECROMANCER, NON_PM, 400L, NO_COLOR),
         /* See artifact.c for special poison damage */
 
     A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),

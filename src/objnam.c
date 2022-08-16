@@ -4892,6 +4892,7 @@ struct obj *no_wish;
             case ART_IRON_BALL_OF_LIBERATION:
                 pm = PM_CONVICT;
                 break;
+            case MIRRORBRIGHT:
             case ART_STAFF_OF_AESCULAPIUS:
                 pm = PM_HEALER;
                 break;
@@ -4905,6 +4906,7 @@ struct obj *no_wish;
             case ART_DIRGE:
                 pm = PM_KNIGHT;
                 break;
+            case ART_GAUNTLETS_OF_DEFENSE:
             case ART_EYES_OF_THE_OVERWORLD:
                 pm = PM_MONK;
                 break;
@@ -4943,6 +4945,7 @@ struct obj *no_wish;
             case ART_SNICKERSNEE:
                 pm = PM_SAMURAI;
                 break;
+            case ART_WHISPERFEET:
             case ART_YENDORIAN_EXPRESS_CARD:
             case ART_VORPAL_BLADE:
                 pm = PM_TOURIST;
@@ -4985,6 +4988,11 @@ struct obj *no_wish;
                 pm = PM_FLAME_MAGE;
             case ART_DEEP_FREEZE:
                 pm = PM_ICE_MAGE;
+            case ART_SERPENTS_TONGUE:
+                pm = PM_NECROMANCER;
+            case ART_REAPER:
+                pm = PM_YEOMAN;
+
             /* non-wishable artifacts (wizmode only) */
             case ART_MAGIC___BALL:
             case ART_LIFESTEALER:
