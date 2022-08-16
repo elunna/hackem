@@ -229,21 +229,31 @@ struct obj {
     (   otmp->oartifact == ART_DEMONBANE \
      || otmp->oartifact == ART_DRAMBORLEG \
      || otmp->oartifact == ART_EXCALIBUR \
+     || otmp->oartifact == ART_FIREWALL \
      || otmp->oartifact == ART_GRAYSWANDIR \
      || otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN \
-     || otmp->oartifact == ART_MITRE_OF_HOLINESS \
+     || otmp->oartifact == ART_MITRE_OF_HOLINESS      \
+     || otmp->oartifact == ART_QUICK_BLADE \
+     || otmp->oartifact == ART_REAPER \
      || otmp->oartifact == ART_SCEPTRE_OF_MIGHT \
-     || otmp->oartifact == ART_SNICKERSNEE \
-     || otmp->oartifact == ART_SUNSWORD \
+     || otmp->oartifact == ART_SKULLCRUSHER \
+     || otmp->oartifact == ART_SNICKERSNEE\
+     || otmp->oartifact == ART_SPEAR_OF_LIGHT \
+     || otmp->oartifact == ART_SUNSWORD  \
+     || otmp->oartifact == ART_SWORD_OF_JUSTICE \
      || otmp->oartifact == ART_TSURUGI_OF_MURAMASA \
      || otmp->oartifact == ART_XIUHCOATL \
      )
 
 #define is_chaotic_artifact(otmp) \
-    (   otmp->oartifact == ART_BUTCHER \
+    (   otmp->oartifact == ART_BAT_FROM_HELL \
+     || otmp->oartifact == ART_BUTCHER \
      || otmp->oartifact == ART_CROSSBOW_OF_CARL \
-     || otmp->oartifact == ART_STORMBRINGER \
+     || otmp->oartifact == ART_DEATHSWORD \
+     || otmp->oartifact == ART_DEEP_FREEZE \
      || otmp->oartifact == ART_DIRGE \
+     || otmp->oartifact == ART_DOOMBLADE \
+     || otmp->oartifact == ART_ELFRIST \
      || otmp->oartifact == ART_GRIMTOOTH \
      || otmp->oartifact == ART_IDOL_OF_MOLOCH \
      || otmp->oartifact == ART_IRON_BALL_OF_LIBERATION \
@@ -252,10 +262,13 @@ struct obj {
      || otmp->oartifact == ART_LUCK_BLADE \
      || otmp->oartifact == ART_MASTER_KEY_OF_THIEVERY \
      || otmp->oartifact == ART_ORCRIST \
+     || otmp->oartifact == ART_PLAGUE \
      || otmp->oartifact == ART_RING_OF_P_HUL \
      || otmp->oartifact == ART_SECESPITA \
+     || otmp->oartifact == ART_SERPENT_S_TONGUE \
      || otmp->oartifact == ART_STING \
-     || otmp->oartifact == ART_SWORD_OF_KAS     \
+     || otmp->oartifact == ART_STORMBRINGER \
+     || otmp->oartifact == ART_SWORD_OF_KAS \
      || otmp->oartifact == ART_THIEFBANE \
      || otmp->oartifact == ART_WAND_OF_ORCUS)
 
