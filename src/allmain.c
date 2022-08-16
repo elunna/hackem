@@ -556,6 +556,8 @@ boolean resuming;
                     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
                         if ((uarmg && uarmg->oartifact == ART_DRAGONBANE
                              && is_dragon(mtmp->data))
+                            || (wielding_artifact(ART_DEATHSWORD)
+                                && racial_human(mtmp))
                             || (wielding_artifact(ART_STING)
                                 && racial_orc(mtmp))
                             || (wielding_artifact(ART_ORCRIST)
