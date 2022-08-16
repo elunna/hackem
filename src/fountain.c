@@ -1183,7 +1183,7 @@ int x, y;
     newsym(x, y);
 
     if (!rn2(3)) {
-        if (!(mvitals[PM_BABY_CROCODILE].mvflags & G_GONE)) {
+        if (create_critters(num, &mons[PM_BABY_CROCODILE], TRUE)) {
             if (!Blind) {
                 if (!Hallucination) 
                     pline("Oh no! Crocodiles come out from the pipes!");
@@ -1191,12 +1191,7 @@ int x, y;
                     pline("Oh no! Tons of poopies!");
             } else
                 You("hear something scuttling around you!");
-            while(num-- > 0) {
-                if((mtmp = makemon(&mons[PM_BABY_CROCODILE],
-                        u.ux,u.uy, NO_MM_FLAGS)) 
-                        && t_at(mtmp->mx, mtmp->my))
-                    (void) mintrap(mtmp);
-            }
+
         } else
             pline("The sewers seem strangely quiet.");
     }

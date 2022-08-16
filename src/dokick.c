@@ -1360,7 +1360,6 @@ dokick()
         }
 
         if(IS_TOILET(maploc->typ)) {
-            register int num = rn1(2, 3);
             if(Levitation) 
                 goto dumb;
 
@@ -1374,11 +1373,10 @@ dokick()
             }
 
             /* Kicking can always generate sewage with cockroaches. */
-            if (!rn2(2)) {
+            if (!rn2(17)) {
                 /* Spew some sewage out */
                 dogushforth(FALSE, TRUE);
-
-                if (!(mvitals[PM_GIANT_COCKROACH].mvflags & G_GONE)) {
+                if (create_critters(rn1(2, 3), &mons[PM_GIANT_COCKROACH], TRUE)) {
                     if (!Blind) {
                         if (!Hallucination)
                             pline("Eww! Some cockroaches crawl out of the toilet!");
@@ -1387,19 +1385,11 @@ dokick()
                                 "Oh my god! Invasion of the body snatchers!");
                     } else
                         You_hear("hear something scurrying around you!");
-
-                    while (num-- > 0) {
-                        if ((mtmp = makemon(&mons[PM_GIANT_COCKROACH], u.ux,
-                                            u.uy, NO_MM_FLAGS))
-                            && t_at(mtmp->mx, mtmp->my)) {
-                            (void) mintrap(mtmp);
-                        }
-                    }
-
-                    exercise(A_DEX, TRUE);
-                    return 1;
                 }
+                exercise(A_DEX, TRUE);
+                return 1;
             }
+
             /* Instead of black pudding (like sink) - brown seems appropriate. */
             if (!(maploc->looted & S_LPOOPY) && !rn2(3)
                      && !(mvitals[PM_BROWN_PUDDING].mvflags & G_GONE)) {
@@ -1414,6 +1404,7 @@ dokick()
                 maploc->looted |= S_LPOOPY;
                 return 1;
             }
+
             /* Instead of rings - we can get small tools (weighing under 10) */
             if (!rn2(3)) {
                 if (Blind && Deaf)
@@ -1436,10 +1427,10 @@ dokick()
                 }
                 return 1;
             }
-            if (!rn2(7))
+            if (!rn2(7)) {
                 breaktoilet(x, y);
-            return 1;
-
+                return 1;
+            }
             goto ouch;
         }
         if (maploc->typ == STAIRS || maploc->typ == LADDER
