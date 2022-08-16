@@ -851,7 +851,8 @@ toofar:
     /* shadow monsters leave trail of darkness */
     if (!rn2(3)
         && (mtmp->data == &mons[PM_SHADOW_WOLF]
-         || mtmp->data == &mons[PM_SHADOW_OGRE])) {
+         || mtmp->data == &mons[PM_SHADOW_OGRE]
+         || mtmp->data == &mons[PM_NABASSU])) {
         /* litroom should be passed a "light spell" object like a scroll/wand
          * of light, but we are hacking it so it takes the monster which
          * spreads darkness instead. */
