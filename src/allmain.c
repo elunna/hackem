@@ -572,6 +572,8 @@ boolean resuming;
                                 && is_ogre(mtmp->data))
                             || (wielding_artifact(ART_SUNSWORD)
                                 && is_undead(mtmp->data))
+                            || (wielding_artifact(ART_DISRUPTER)
+                                && is_undead(mtmp->data))
                             || (wielding_artifact(ART_WEREBANE)
                                 && is_were(mtmp->data))
                             || (wielding_artifact(ART_DEMONBANE)
