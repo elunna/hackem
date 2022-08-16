@@ -212,6 +212,7 @@ xchar m;
         return GEMSTONE;
         break;
     case ART_YENDORIAN_EXPRESS_CARD:
+    case ART_THIEFBANE:
         return PLATINUM;
         break;
     case ART_DRAGONBANE:
