@@ -80,8 +80,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, NO_COLOR ),
 
-    A("Skullcrusher", CLUB, SPFX_RESTR, 0, 0,
-      PHYS(3, 10), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 300L, NO_COLOR),
+    A("Skullcrusher", CLUB, (SPFX_RESTR | SPFX_DEFN), 0, 0,
+      PHYS(5, 10), DFNS(AD_ELEC), NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 2000L, NO_COLOR),
 
     A("Snickersnee", KATANA, SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
       0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR),
@@ -120,10 +120,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
       NO_COLOR),
 
-    /* From SporkHack - a Hawaiian war club. */
-    A("Keolewa", CLUB, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      ELEC(5, 8), DFNS(AD_ELEC), NO_CARY, 0, A_NEUTRAL, PM_CAVEMAN, NON_PM,
-      2000L, NO_COLOR),
 
     /* Evilhack change: Magic fanfare unbalances victims in addition
      * to doing some damage. */

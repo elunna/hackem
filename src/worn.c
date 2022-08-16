@@ -1400,7 +1400,7 @@ struct obj *obj;
         if (!(resists_elec(mon) || defended(mon, AD_ELEC)))
             rc = (dmgtype(youmonst.data, AD_ELEC)
                   || wielding_artifact(ART_MJOLLNIR)
-                  || wielding_artifact(ART_KEOLEWA)
+                  || wielding_artifact(ART_SKULLCRUSHER)
                   || (u.twoweap && uswapwep->oprops & ITEM_SHOCK)
                   || (uwep && uwep->oprops & ITEM_SHOCK)) ? 25 : 5;
         break;

@@ -1883,24 +1883,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   : "!  Lightning strikes",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
-            } else if (otmp->oartifact == ART_KEOLEWA) {
-                if (!youattack && magr && cansee(magr->mx, magr->my)) {
-                    if (!spec_dbon_applies) {
-                        if (!youdefend)
-                            ;
-                        else
-                            pline_The("war club hits %s.", hittee);
-                    } else {
-                        pline_The("war club hits!  Lightning strikes %s%c",
-                                  hittee, !spec_dbon_applies ? '.' : '!');
-                    }
-                } else {
-                    pline_The("war club hits%s %s%c",
-                              !spec_dbon_applies
-                                  ? ""
-                                  : "!  Lightning strikes",
-                              hittee, !spec_dbon_applies ? '.' : '!');
-                }
             } else if (otmp->oclass == WEAPON_CLASS
                        && (otmp->oprops & ITEM_SHOCK)) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
