@@ -4981,6 +4981,10 @@ struct obj *no_wish;
                 else
                     pm = PM_CAVEMAN;
                 break;
+            case ART_FIREWALL:
+                pm = PM_FLAME_MAGE;
+            case ART_DEEP_FREEZE:
+                pm = PM_ICE_MAGE;
             /* non-wishable artifacts (wizmode only) */
             case ART_MAGIC___BALL:
             case ART_LIFESTEALER:
