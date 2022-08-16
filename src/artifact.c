@@ -2440,7 +2440,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* We really want "on a natural 20" but Nethack does it in */
     /* reverse from AD&D. */
     if (spec_ability(otmp, SPFX_BEHEAD)) {
-        if (otmp->oartifact == ART_TSURUGI_OF_MURAMASA && dieroll == 1) {
+        /* --hackem: Sexy 15% beheading chance (inspired by Slash'EM) */
+        if (otmp->oartifact == ART_TSURUGI_OF_MURAMASA && dieroll < 4) {
             wepdesc = "The razor-sharp blade";
             /* not really beheading, but so close, why add another SPFX */
             if (youattack && u.uswallow && mdef == u.ustuck) {
