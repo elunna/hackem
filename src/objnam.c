@@ -4892,7 +4892,7 @@ struct obj *no_wish;
             case ART_IRON_BALL_OF_LIBERATION:
                 pm = PM_CONVICT;
                 break;
-            case MIRRORBRIGHT:
+            case ART_MIRRORBRIGHT:
             case ART_STAFF_OF_AESCULAPIUS:
                 pm = PM_HEALER;
                 break;
@@ -4988,7 +4988,7 @@ struct obj *no_wish;
                 pm = PM_FLAME_MAGE;
             case ART_DEEP_FREEZE:
                 pm = PM_ICE_MAGE;
-            case ART_SERPENTS_TONGUE:
+            case ART_SERPENT_S_TONGUE:
                 pm = PM_NECROMANCER;
             case ART_REAPER:
                 pm = PM_YEOMAN;
