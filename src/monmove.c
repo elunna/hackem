@@ -848,6 +848,16 @@ toofar:
         create_gas_cloud(mtmp->mx, mtmp->my, d(1, 3), 0);
     }
 
+    /* shadow monsters leave trail of darkness */
+    if (!rn2(3)
+        && (mtmp->data == &mons[PM_SHADOW_WOLF]
+         || mtmp->data == &mons[PM_SHADOW_OGRE])) {
+        /* litroom should be passed a "light spell" object like a scroll/wand
+         * of light, but we are hacking it so it takes the monster which
+         * spreads darkness instead. */
+        litroom(FALSE, mtmp);
+    }
+
     if (!nearby || mtmp->mflee || scared || mtmp->mconf || mtmp->mstun
         || (mtmp->minvis && !rn2(3))
         || (mdat->mlet == S_LEPRECHAUN && !findgold(invent, FALSE)
