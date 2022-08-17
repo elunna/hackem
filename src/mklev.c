@@ -760,6 +760,7 @@ clear_level_structures()
     level.flags.has_court = 0;
     level.flags.has_morgue = level.flags.graveyard = 0;
     level.flags.has_lemurepit = 0;
+    level.flags.has_fungusfarm = 0;
     level.flags.has_beehive = 0;
     level.flags.has_barracks = 0;
     level.flags.has_temple = 0;
@@ -959,6 +960,9 @@ makelevel()
         else if (u_depth > 7 && !rn2(7)
                  && !(mvitals[PM_RUST_MONSTER].mvflags & G_GONE))
             mkroom(ARMORY);
+        /* fungus farms are rare... */
+	    else if (u_depth > 1 && !rn2(25)) 
+            mkroom(FUNGUSFARM);
         else if (u_depth > 8 && !rn2(5))
             mkroom(TEMPLE);
         else if (u_depth > 9 && !rn2(5)

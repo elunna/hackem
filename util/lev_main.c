@@ -202,6 +202,7 @@ static struct {
     { "nursery", NURSERY },
     { "garden", GARDEN },
     { "lemurepit", LEMUREPIT },
+    { "fungusfarm",  FUNGUSFARM },
     { "shop", SHOPBASE },
     { "armor shop", ARMORSHOP },
     { "scroll shop", SCROLLSHOP },
