@@ -806,14 +806,6 @@ struct obj *instr;
         instr_breaks = TRUE;
     }
 
-    if (instr_breaks) {
-        You("start playing %s.", yname(instr));
-        pline("The %s suddenly breaks!", xname(instr));
-        delobj(instr);
-        nomul(0);
-        return 0;
-    }
-
     if (instr->otyp != LEATHER_DRUM && instr->otyp != DRUM_OF_EARTHQUAKE
         && !(Stunned || Confusion || Hallucination)) {
         c = ynq("Improvise?");
@@ -847,6 +839,9 @@ struct obj *instr;
                     *s = 'B';
             }
         }
+
+        if (instr_breaks)
+            goto breakinstr;
 
         You(!Deaf ? "extract a strange sound from %s!"
                   : "can feel %s emitting vibrations.", the(xname(instr)));
@@ -955,12 +950,23 @@ struct obj *instr;
         }
         return 1;
     } else
+        if (instr_breaks)
+            goto breakinstr;
         return do_improvisation(instr);
 
  nevermind:
     pline1(Never_mind);
     return 0;
+
+ breakinstr:
+    You("start playing %s.", yname(instr));
+    pline("The %s suddenly breaks!", xname(instr));
+    delobj(instr);
+    nomul(0);
+    return 0;
 }
+
+
 
 #ifdef UNIX386MUSIC
 /*
