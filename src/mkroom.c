@@ -69,6 +69,9 @@ int roomtype;
         case BARRACKS:
             mkzoo(BARRACKS);
             break;
+        case DRAGONLAIR: 
+            mkzoo(DRAGONLAIR); 
+            break;
         case SWAMP:
             mkswamp();
             break;
@@ -368,6 +371,9 @@ struct mkroom *sroom;
     case LEPREHALL:
         goldlim = 500 * level_difficulty();
         break;
+    case DRAGONLAIR:
+		goldlim = 1500 * level_difficulty();
+		break;
     }
 
     for (sx = sroom->lx; sx <= sroom->hx; sx++)
@@ -425,7 +431,8 @@ struct mkroom *sroom;
                     (type == COCKNEST) ? &mons[PM_COCKATRICE] : 
                     (type == ANTHOLE) ? 
                     (sx == tx && sy == ty ? &mons[PM_QUEEN_ANT] : 
-                        antholemon()) : 
+                        antholemon()) :
+                    (type == DRAGONLAIR) ? mkclass(S_DRAGON,0) :
                     (type == OWLBNEST) ? 
                     (sx == tx && sy == ty ? &mons[PM_OWLBEAR] : 
                         &mons[PM_BABY_OWLBEAR]) : 
@@ -448,6 +455,7 @@ struct mkroom *sroom;
             }
             switch (type) {
             case ZOO:
+            case DRAGONLAIR:
             case LEPREHALL:
                 if (sroom->doorct) {
                     int distval = dist2(sx, sy, doors[sh].x, doors[sh].y);

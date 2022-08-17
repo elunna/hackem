@@ -194,6 +194,7 @@ static struct {
     { "zoo", ZOO },
     { "delphi", DELPHI },
     { "temple", TEMPLE },
+    { "dragonlair",  DRAGONLAIR },
     { "anthole", ANTHOLE },
     { "cocknest", COCKNEST },
     { "leprehall", LEPREHALL },

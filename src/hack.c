@@ -2849,6 +2849,9 @@ register boolean newlev;
         case COURT:
             You("enter an opulent throne room!");
             break;
+        case DRAGONLAIR:
+		    You("enter a dragon lair...");
+		    break;
         case LEPREHALL:
             You("enter a leprechaun hall!");
             break;
