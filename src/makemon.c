@@ -3005,6 +3005,12 @@ long mmflags;
             if (!rn2(4))
                 mount_monster(mtmp, PM_WARG);
             break;
+        case PM_JERMLAINE:
+            if (!rn2(4))
+                mount_monster(mtmp, PM_ENORMOUS_RAT);
+            else if (!rn2(4))
+                mount_monster(mtmp, PM_PACK_RAT);
+            break;
         case PM_KNIGHT:
             if (racial_centaur(mtmp))
                 break;
