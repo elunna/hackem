@@ -27,6 +27,7 @@ STATIC_DCL int FDECL(try_disarm, (struct trap *, BOOLEAN_P));
 STATIC_DCL void FDECL(reward_untrap, (struct trap *, struct monst *));
 STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *));
 STATIC_DCL int FDECL(disarm_rust_trap, (struct trap *));
+STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *));
 STATIC_DCL int FDECL(disarm_landmine, (struct trap *));
 STATIC_DCL int FDECL(disarm_squeaky_board, (struct trap *));
 STATIC_DCL int FDECL(disarm_shooting_trap, (struct trap *, int));
@@ -4902,8 +4903,44 @@ struct trap *ttmp;
 }
 
 /* getobj will filter down to cans of grease and known potions of oil */
-static NEARDATA const char oil[] = { ALL_CLASSES, TOOL_CLASS, POTION_CLASS,
-                                     0 };
+static NEARDATA const char oil[] = { ALL_CLASSES, TOOL_CLASS, POTION_CLASS, 0 };
+static NEARDATA const char disarmpotion[] = { ALL_CLASSES, POTION_CLASS, 0 };
+
+/* water disarms, oil will explode */
+STATIC_OVL int
+disarm_fire_trap(ttmp) /* Paul Sonier */
+struct trap *ttmp;
+{
+    int fails;
+    struct obj *obj;
+    boolean bad_tool;
+
+    obj = getobj(disarmpotion, "untrap with");
+    if (!obj)
+        return 0;
+
+    if (obj->otyp == POT_OIL) {
+        boolean diluted_oil = obj->odiluted;
+        Your("potion of oil explodes!");
+        splatter_burning_oil(ttmp->tx, ttmp->ty, diluted_oil);
+        if (obj)
+            delobj(obj);
+        return 1;
+    }
+
+    bad_tool = (obj->cursed || (obj->otyp != POT_WATER));
+    fails = try_disarm(ttmp, bad_tool);
+    if (fails < 2)
+        return fails;
+
+    useup(obj);
+    makeknown(POT_WATER);
+    You("manage to extinguish the pilot light!");
+    cnv_trap_obj(POT_OIL, 4 - rnl(4), ttmp, FALSE);
+    more_experienced(1, 5);
+    newexplevel();
+    return 1;
+}
 
 /* it may not make much sense to use grease on floor boards, but so what? */
 STATIC_OVL int
@@ -4919,8 +4956,9 @@ struct trap *ttmp;
         return 0;
 
     bad_tool = (obj->cursed
-                || ((obj->otyp != POT_OIL || obj->lamplit)
-                    && (obj->otyp != CAN_OF_GREASE || !obj->spe)));
+                || ((obj->otyp != POT_OIL 
+                || obj->lamplit)
+                && (obj->otyp != CAN_OF_GREASE || !obj->spe)));
     fails = try_disarm(ttmp, bad_tool);
     if (fails < 2)
         return fails;
@@ -5186,7 +5224,9 @@ boolean force;
                 case BOLT_TRAP:
                     return disarm_shooting_trap(ttmp, CROSSBOW_BOLT);
                 case RUST_TRAP:
-				    return disarm_rust_trap(ttmp);
+                    return disarm_rust_trap(ttmp);
+                case FIRE_TRAP:
+                    return disarm_fire_trap(ttmp);
                 case PIT:
                 case SPIKED_PIT:
                     if (here) {
