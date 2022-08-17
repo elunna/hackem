@@ -4508,8 +4508,12 @@ struct obj *obj;
         break;
     case WAN_HEALING:
     case WAN_EXTRA_HEALING:
-		dmg = 0;
-		break;
+        dmg = 0;
+        break;
+    case WAN_FEAR:
+        /* --hackem: It would be nicer to confuse all surrounding monsters as well. */
+        make_confused(HConfusion + d(3, 6), FALSE);
+        goto discard_broken_wand;
     default:
         break;
     }
