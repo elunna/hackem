@@ -405,15 +405,6 @@ struct obj *otmp;
     case SPE_WIZARD_LOCK:
         wake = closeholdingtrap(mtmp, &learn_it);
         break;
-    case WAN_FEAR:
-		if (!is_undead(mtmp->data)
-		 && !resist(mtmp, otmp->oclass, 0, NOTELL) 
-         && (!mtmp->mflee || mtmp->mfleetim)) {
-            if (canseemon(mtmp))
-                pline("%s suddenly panics!", Monnam(mtmp));
-            monflee(mtmp, 0, FALSE, TRUE);
-		}
-		break;
     case WAN_PROBING:
         wake = FALSE;
         reveal_invis = TRUE;
@@ -2359,7 +2350,6 @@ struct obj *obj, *otmp;
         case SPE_EXTRA_HEALING:
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
-        case WAN_FEAR:
         case WAN_FIREBALL:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
@@ -2449,6 +2439,8 @@ zapnodir(obj)
 register struct obj *obj;
 {
     boolean known = FALSE;
+    register int ct = 0;
+    register struct monst *mtmp;
 
     switch (obj->otyp) {
     case WAN_LIGHT:
@@ -2496,7 +2488,31 @@ register struct obj *obj;
         pline_The("feeling subsides.");
         exercise(A_WIS, TRUE);
         break;
+
+    case WAN_FEAR:
+        /* --hackem: Copied from read.c SPE_CAUSE_FEAR effect
+         * It might be possible to avoid code duplication by wiring it
+         * differently, but it may be of benefit to have a separate
+         * method here if we want to fine tune it. */
+        for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+            if (DEADMONSTER(mtmp))
+                continue;
+            if (cansee(mtmp->mx, mtmp->my)) {
+                if (cursed(obj, TRUE)) {
+                    mtmp->mflee = mtmp->mfrozen = mtmp->msleeping = 0;
+                    if (!mtmp->mstone || mtmp->mstone > 2)
+                        mtmp->mcanmove = 1;
+                } else if (!resist(mtmp, obj->oclass, 0, NOTELL)) {
+                    monflee(mtmp, 0, FALSE, FALSE);
+                    pline("%s suddenly panics!", Monnam(mtmp));
+                }
+                if (!mtmp->mtame)
+                    ct++; /* pets don't laugh at you */
+                known = TRUE;
+            }
+        }
     }
+
     if (known) {
         if (!objects[obj->otyp].oc_name_known)
             more_experienced(0, 10);
@@ -2835,11 +2851,6 @@ boolean ordinary;
         exercise(A_CON, TRUE);
         makeknown(WAN_EXTRA_HEALING);
 		break;
-    case WAN_FEAR:
-        You("suddenly panic!");
-        if(!HConfusion)
-            make_confused(HConfusion + rnd(10),FALSE);
-        break;
     case WAN_SLEEP:
     case SPE_SLEEP:
         learn_it = TRUE;

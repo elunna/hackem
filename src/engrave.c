@@ -729,6 +729,7 @@ doengrave()
             case WAN_CREATE_HORDE:
             case WAN_WISHING:
             case WAN_ENLIGHTENMENT:
+            case WAN_FEAR:
                 zapnodir(otmp);
                 /* pre/postknown not needed; these will make it known if
                  * applicable */
@@ -761,12 +762,6 @@ doengrave()
                 if (!Blind) {
                     Sprintf(post_engr_text, "The bugs on the %s look healthier!",
                             surface(u.ux, u.uy));
-                }
-			    break;
-            case WAN_FEAR:
-                if (!Blind) {
-                    Sprintf(post_engr_text, "The bugs on the %s run away!",
-                        surface(u.ux, u.uy));
                 }
                 break;
             case WAN_POLYMORPH:
