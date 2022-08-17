@@ -789,11 +789,24 @@ struct obj *instr;
      * They have a respectable chance of breaking.
      * This is partly to nerf the abuse on the planes, and partly to
      * nerf the infinite re-chargability.
-     *      cursed = 25% of breaking
+     *      fumbling or cursed = 25% of breaking
      *      uncursed = 10%
      *      blessed = 5%
      */
-    if (!rn2(10) && !instr->oartifact) {
+    boolean instr_breaks = FALSE;
+    if (instr->oartifact)
+        ;  /* Artifact instruments don't break on apply */
+    else if (Fumbling || (instr->cursed && !rn2(4))) {
+        instr_breaks = TRUE;
+    }
+    else if (instr->blessed && !rn2(25)) {
+        instr_breaks = TRUE;
+    }
+    else if (!rn2(10)) {  /* Uncursed case */
+        instr_breaks = TRUE;
+    }
+
+    if (instr_breaks) {
         You("start playing %s.", yname(instr));
         pline("The %s suddenly breaks!", xname(instr));
         delobj(instr);
