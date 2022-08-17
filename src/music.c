@@ -784,6 +784,23 @@ struct obj *instr;
         You("are incapable of playing %s.", the(distant_name(instr, xname)));
         return 0;
     }
+
+    /* --hackem: Musical instruments require skill to handle gracefully.
+     * They have a respectable chance of breaking.
+     * This is partly to nerf the abuse on the planes, and partly to
+     * nerf the infinite re-chargability.
+     *      cursed = 25% of breaking
+     *      uncursed = 10%
+     *      blessed = 5%
+     */
+    if (!rn2(10) && !instr->oartifact) {
+        You("start playing %s.", yname(instr));
+        pline("The %s suddenly breaks!", xname(instr));
+        delobj(instr);
+        nomul(0);
+        return 0;
+    }
+
     if (instr->otyp != LEATHER_DRUM && instr->otyp != DRUM_OF_EARTHQUAKE
         && !(Stunned || Confusion || Hallucination)) {
         c = ynq("Improvise?");
