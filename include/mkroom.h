@@ -71,21 +71,29 @@ enum roomtype_types {
     NURSERY    = 16, /* mind flayer larva nursery */
     GARDEN     = 17, /* nymphs, trees and fountains */
     LEMUREPIT  = 18, /* contains lemures and horned devils */
-    RNDVAULT   = 19, /* random vault, not to be confused with VAULT */
-    BLACKFOYER = 20, /* Foyer to the black market */
-    SHOPBASE   = 21, /* everything above this is a shop */
-    ARMORSHOP  = 22, /* specific shop defines for level compiler */
-    SCROLLSHOP = 23,
-    POTIONSHOP = 24,
-    WEAPONSHOP = 25,
-    FOODSHOP   = 26,
-    RINGSHOP   = 27,
-    WANDSHOP   = 28,
-    TOOLSHOP   = 29,
-    BOOKSHOP   = 30,
-    FODDERSHOP = 31, /* health food store */
-    CANDLESHOP = 32,
-    BLACKSHOP  = 33
+  
+    REALZOO    = 19, /* zoo-like monsters (monkeys, etc.) */
+    GIANTCOURT = 20, /* a giant courtroom */
+    DRAGONLAIR = 21, /* dragons and $$$ */
+    BADFOODSHOP= 22, /* bad food! */
+    MIGOHIVE   = 23, /* Mi-Go */
+    FUNGUSFARM = 24, /* molds, puddings, and slime */
+
+    RNDVAULT   = 25, /* random vault, not to be confused with VAULT */
+    BLACKFOYER = 26, /* Foyer to the black market */
+    SHOPBASE   = 27, /* everything above this is a shop */
+    ARMORSHOP  = 28, /* specific shop defines for level compiler */
+    SCROLLSHOP = 29,
+    POTIONSHOP = 30,
+    WEAPONSHOP = 31,
+    FOODSHOP   = 32,
+    RINGSHOP   = 33,
+    WANDSHOP   = 34,
+    TOOLSHOP   = 35,
+    BOOKSHOP   = 36,
+    FODDERSHOP = 37, /* health food store */
+    CANDLESHOP = 38, /*(UNIQUESHOP) */
+    BLACKSHOP  = 39  /*(UNIQUESHOP) */
 };
 
 #define MAXRTYPE (BLACKSHOP) /* maximum valid room type */
