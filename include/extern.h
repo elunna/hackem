@@ -1503,6 +1503,7 @@ E struct obj *FDECL(init_dummyobj, (struct obj *, SHORT_P, long));
 E void FDECL(mkroom, (int));
 E void FDECL(fill_zoo, (struct mkroom *));
 E struct permonst *NDECL(antholemon);
+E struct permonst *NDECL(realzoomon);
 E boolean FDECL(nexttodoor, (int, int));
 E boolean FDECL(bydoor, (int, int));
 E boolean FDECL(has_dnstairs, (struct mkroom *));

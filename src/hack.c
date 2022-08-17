@@ -2849,6 +2849,9 @@ register boolean newlev;
         case COURT:
             You("enter an opulent throne room!");
             break;
+        case REALZOO:
+		    You("enter a smelly zoo!");
+		    break;
         case DRAGONLAIR:
 		    You("enter a dragon lair...");
 		    break;
@@ -2946,6 +2949,7 @@ register boolean newlev;
                     level.flags.has_morgue = 0;
                     break;
                 case ZOO:
+                case REALZOO:
                     level.flags.has_zoo = 0;
                     break;
                 case BARRACKS:

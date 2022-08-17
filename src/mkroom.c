@@ -60,6 +60,9 @@ int roomtype;
         case ZOO:
             mkzoo(ZOO);
             break;
+        case REALZOO:
+            mkzoo(REALZOO);
+            break;
         case BEEHIVE:
             mkzoo(BEEHIVE);
             break;
@@ -439,6 +442,7 @@ struct mkroom *sroom;
                     (type == LEMUREPIT) ? 
                         (sx == tx && sy == ty ? &mons[PM_HORNED_DEVIL] : 
                         &mons[PM_LEMURE]) : 
+                    (type == REALZOO) ? realzoomon() :
                     (type == MIGOHIVE)?
 		                (sx == tx && sy == ty? &mons[PM_MIGO_QUEEN] :
 	                    (rn2(2)? &mons[PM_MIGO_DRONE] : 
@@ -585,6 +589,7 @@ struct mkroom *sroom;
     case BARRACKS:
         level.flags.has_barracks = 1;
         break;
+    case REALZOO: 
     case ZOO:
         level.flags.has_zoo = 1;
         break;
@@ -1077,6 +1082,31 @@ courtmon()
         return mkclass(S_GNOME, 0);
     else
         return mkclass(S_KOBOLD, 0);
+}
+
+struct permonst *
+realzoomon()
+{
+	int i = rn2(60) + rn2(3 * level_difficulty());
+    
+	if (i > 175)
+        return(&mons[PM_JUMBO_THE_ELEPHANT]);
+	else if (i > 115)
+        return(&mons[PM_MASTODON]);
+	else if (i > 85)
+        return(&mons[PM_PYTHON]);
+	else if (i > 70)
+        return(&mons[PM_MUMAK]);
+	else if (i > 55)
+        return(&mons[PM_TIGER]);
+	else if (i > 45)
+        return(&mons[PM_PANTHER]);
+	else if (i > 25)
+        return(&mons[PM_JAGUAR]);
+	else if (i > 15)
+        return(&mons[PM_APE]);
+	else
+        return(&mons[PM_MONKEY]);
 }
 
 #define NSTYPES (PM_CAPTAIN - PM_SOLDIER + 1)

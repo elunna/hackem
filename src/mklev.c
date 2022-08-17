@@ -969,6 +969,8 @@ makelevel()
         else if (u_depth > 9 && !rn2(5)
                  && !(mvitals[PM_KILLER_BEE].mvflags & G_GONE))
             mkroom(BEEHIVE);
+        else if(depth(&u.uz) > 9 && !rn2(15)) 
+            mkroom(REALZOO);
         else if (u_depth > 10 && !rn2(7)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
             mkroom(OWLBNEST);
