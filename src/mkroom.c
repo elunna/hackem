@@ -63,6 +63,9 @@ int roomtype;
         case REALZOO:
             mkzoo(REALZOO);
             break;
+        case BADFOODSHOP: 
+            mkzoo(BADFOODSHOP); 
+            break;
         case BEEHIVE:
             mkzoo(BEEHIVE);
             break;
@@ -293,7 +296,13 @@ int type;
 {
     register struct mkroom *sroom;
 
-    if ((sroom = pick_room(FALSE)) != 0) {
+    if (type == BADFOODSHOP) {
+	   if ((sroom = pick_room(TRUE)) != 0) {
+		sroom->rtype = type;
+		fill_zoo(sroom);
+	   }
+	}
+    else if ((sroom = pick_room(FALSE)) != 0) {
         sroom->rtype = type;
         fill_zoo(sroom);
     }
@@ -441,7 +450,8 @@ struct mkroom *sroom;
                         &mons[PM_BABY_OWLBEAR]) : 
                     (type == LEMUREPIT) ? 
                         (sx == tx && sy == ty ? &mons[PM_HORNED_DEVIL] : 
-                        &mons[PM_LEMURE]) : 
+                        &mons[PM_LEMURE]) :
+                    (type == BADFOODSHOP) ? mkclass(S_BAD_FOOD,0) :
                     (type == REALZOO) ? realzoomon() :
                     (type == MIGOHIVE)?
 		                (sx == tx && sy == ty? &mons[PM_MIGO_QUEEN] :
@@ -1088,7 +1098,7 @@ struct permonst *
 realzoomon()
 {
 	int i = rn2(60) + rn2(3 * level_difficulty());
-    
+
 	if (i > 175)
         return(&mons[PM_JUMBO_THE_ELEPHANT]);
 	else if (i > 115)

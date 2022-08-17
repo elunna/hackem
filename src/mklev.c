@@ -978,6 +978,8 @@ makelevel()
             mkroom(MORGUE);
         else if (u_depth > 12 && !rn2(8) && antholemon())
             mkroom(ANTHOLE);
+        else if(depth(&u.uz) > 13 && !rn2(15)) 
+            mkroom(BADFOODSHOP);
         else if (u_depth > 14 && !rn2(4)
                  && !(mvitals[PM_SOLDIER].mvflags & G_GONE))
             mkroom(BARRACKS);

@@ -942,3 +942,116 @@ Sea DSM			magical breathing	swimming				<<passive water/rust attack>> (+item des
 	
 		- [x] Gibberling have a gibber sound: uttering ghastly howls, clicks, shrieks and insane chattering noises,
 	- [x] Gibberlings get an AD_GIBB attack: Stuns, confuses, etc. Similar to a cursed unihorn, or a magical eye?
+
+	- [x] Hezrous leave trails in monmove.c (uses create_gas_cloud())
+	- [x] Badgers leave occasional poison gas clouds.
+	
+	- [SKIPPED] rancid jelly should leave a trail of slippery acid slime/puddle
+	- [SKIPPED] Ghast's have a nasty stench.
+	
+	Sonic attacks: 
+	[SKIPPED] Nazgul: ATTK(AT_SCRE, AD_LOUD, 2, 8), mhitm: The stun effect is not implemented!
+	
+	- [ ] slaughter wights release a death wail when slain. Makes surrounding undead creatures frenzied attack.
+	- [ ] Add AD_WAIL:
+		Aggravates monsters.
+		Stuns and confuses you
+		1d18 damage as well
+		Gives everything a damage boost - could we copy the midnight effect of graveyards?
+
+	Gas spores do this: ATTK(AT_BOOM, AD_PHYS, 4, 6), 
+
+	What monsters have an effect on death?
+		Gas spores (AT_BOOM) , yellow lights (AT_EXPL), black lights
+		
+		mon.c: corpse_chance() 3562
+			Calls mon_explodes
+		mondata.c: max_passive_dmg (739)
+		
+	- [ ] How to make sonic attacks work with #monster??
+		- [x] Mist wolves leave poofs of mist? 
+
+
+	- [x] shadow wolves and ogres can darken lit areas.
+	- [x] nabassu darken their environment
+
+	- [ ] A humanoid creature slain by a slaughter wight rises as a wight within 1d4 rounds of its death
+	
+		- [SKIP] Some watery monsters leave a trail of shallow water, that can become pools if re-tread enough?
+	
+	- [SKIPPED] Nightgaunts dislike flying over water? (Similar to eels on land?)
+			mondata.c: mon_hates_light
+			
+				- [x] Alert to presence of athols, you hear a distant howl
+
+
+	- [SKIPPED] Paper golems occasionally drop non-blank scrolls.
+	- [TOO MEAN] Shelob and Girtab can shoot webs at you. Maybe other spiders can too?...
+
+
+		
+	- [SKIP FOR NOW] Komodo dragons can dig pits and dig up graves
+		AD_PITS - look at this because digging pits is an attack.
+		Do they seek out graves? Or just dig when over them??
+
+	- [SKIP] Imps can shoot small fireballs
+	- [SKIP] Revenants should shoot missiles/fireballs (ala Doom)
+
+
+	- [SKIP] Rename nightmares to greater nightmare
+	
+	- [x] Ghasts gain a level for every corpse they eat.
+	
+	
+	
+		- [SKIP] Stone giant: should be stoning resistant and vulnerable to digging. 
+			if (is_pick(otmp) && made_of_rock(ptr) ) 
+				bonus += 3;
+
+	- [SKIP] Hiding pit attacks - monster hides in pit, and pulls you in when close
+		(so that walking around the trap is not always safe)
+		Could be extended to other monsters and trap types.
+		
+		
+	- [x] Add Deep Freeze to objnam.c
+	- [x] Add firewall to objnam.c
+	- [x] Made Firewall into a Staff of Divination
+	- [x] Made Deep Freeze into a Staff of Escape
+	
+	- [x] Add Gauntlet's of Defense to objnam.c (Monk)
+	- [x] Add Reaper to objnam.c (Yeoman)
+	- [x] Add Serpent's Tongue to objnam.c (Necromancer)
+	- [x] Add Bat from Hell to objnam.c (Rogues)
+	- [x] Add Mirrorbright to objnam.c (Healers)
+	- [x] Add Whisperfeet to objnam.c (Tourists)
+	- [x] Add Sword of Justice to objnam.c (Yeoman)
+	- [x] Switched Disrupter from being a priest sac gift to being Undead Slayer sac gift.
+	- [x] Removed Deathsword from being a barbarian sac gift.
+	- [x] Removed Sword of Justice from being a Yeoman sac gift."
+	- [x] Removed Deluder from being a Wizard sac gift.
+	
+		- [SKIP] Change statues back to a statue symbol - having the monster symbol is confusing.
+		
+		- [x] Add Skullcrusher to objnam.c (Caveman already get Keolewa, but maybe we combine them....)
+	- [x] Replace Keolewa with Skullcrusher.
+	
+		- [NO] Design decision: Artifacts grant a base damage bonus - should we adjust so that they deal closer to that on average?
+	- [x] Doomblade has to be d19 to make up for solid +10
+	- [x] allmain.c: Elfrist causes hostility to elves
+	- [x] Disrupter causes hostility to undead.
+	- [SKIP] make sure deep freeze isn't doubling damage like frost brand
+	- [SKIP] make sure firewall isn't doubling damage like fire brand
+	- [SKIP] Is objnam wishing weighting a thing in evil?
+	- [x] Deathsword causes hostility from humans
+	- [x] Spear of Light causes hostility from undead
+	- [x] The Tsurugi of Muramasa - up bisection to 15%
+		- [x] /* If wielding/wearing any of the 'banes, taming becomes impossible */
+	- [x] Disable wishing for Thiefbane - unless you want Sam to come with!
+	- [x] updated is_lawful_artifact() and is_chaotic_artifact() with new slashem artifacts.
+	[x] Changed Thiefbane to platinum so elves can wield it.
+
+- [FIXED] Wand of healing/extra healing do not auto-id when zapped at something
+[x] toilets: Used create_critters instead for making crocs and cockroaches. Fixed odds of cockroaches to 1 in 17 when kicking.
+
+[SKIPPED - DEBUG MSG] Bag of tricks: enexto() called with mdat==0  enexto() called with mdat==0
+	- [x] Added breakable credit cards, keys, and lock picks (from Slashem)
