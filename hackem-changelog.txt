@@ -1072,3 +1072,32 @@ Sea DSM			magical breathing	swimming				<<passive water/rust attack>> (+item des
 
 	[x] Used depth(&u.uz to u_depth for special room generation.
 	- [x] LEMUREPIT (already in Evil?)	
+	
+- [SKIP] Slashem: Breaking wands of fire = double damage?
+- [SKIPPED] Wizmode: If we try to generate a monster that doesn't exist, we get a crash.
+- [x] Reduce Black Market prices a bit.
+- [SKIPPED] Change sokobon prize system back to normal
+- [SKIPPED] Keep evil Gnolls or use slashem ones, or ones from Splice/Dnh/Gnollhack?
+- [YES] Keep Vecna's lair? 
+- [SKIPPED] Fix paranoid swim?
+- [SKIP] Robes are body armor... (probably cut this change)
+- [x] No Mysterious Force (Already removed in evilhack)
+- [x] Untrapping rust traps
+- [x] Untrapping fire traps and getting oil?
+- [x] Changed wand of fear to behave as cause fear spell (omni), removed engrave msg, added cursed effect.
+- [x] Update engrave.c NODIR wands.
+- [x] Wand of fear doesn't give any message when engraving - it's omni now
+- [x] Wand of fear becomes another omni wand.
+- [x] Remove the directionality of WAN_FEAR so we can't zap ourselves.
+- [x] Breaking wand of fear instills fear...
+- [SKIPPED] You should not be able to burn Elbereths with fireball (too smudgey!)
+- [SKIP] Towels can burn up? (wetness prevents) is_flammable
+- [SKIP] Blindfolds can burn (wetness prevents) is_flammable
+- [SKIP] Tin openers can break
+- [x] All musical instruments can break (5%) (Drums, Harps, Flutes, tooled horns, bugles)
+- [x] Artifact instruments are safe from breaking on apply.
+- [x] Cursed instruments break 25%, uncursed 10%, blessed 4%. Fumbling % = cursed.
+- [x] Higher chance of breaking instruments if fumbling
+- [x] Moved instrument break code after player commits to action.
+	- [x] Jermlaine are sometimes generated riding rats.
+	- [x] Add a couple rows of spear traps to Grunds.
