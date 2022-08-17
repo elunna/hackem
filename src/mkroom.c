@@ -99,6 +99,9 @@ int roomtype;
         case LEMUREPIT:
             mkzoo(LEMUREPIT);
             break;
+        case MIGOHIVE:
+            mkzoo(MIGOHIVE); 
+            break;
         case FUNGUSFARM:
             mkzoo(FUNGUSFARM); 
             break;
@@ -167,6 +170,10 @@ mkshop()
                 mkzoo(LEMUREPIT);
                 return;
             }
+            if (*ep == 'i' || *ep == 'I') {
+				mkzoo(MIGOHIVE);
+				return;
+			}
             if (*ep == 'f' || *ep == 'F') {
 				mkzoo(FUNGUSFARM);
 				return;
@@ -345,6 +352,7 @@ struct mkroom *sroom;
     case LEMUREPIT:
     case ANTHOLE:
     case BEEHIVE:
+    case MIGOHIVE:
         tx = sroom->lx + (sroom->hx - sroom->lx + 1) / 2;
         ty = sroom->ly + (sroom->hy - sroom->ly + 1) / 2;
         if (sroom->irregular) {
@@ -424,6 +432,10 @@ struct mkroom *sroom;
                     (type == LEMUREPIT) ? 
                         (sx == tx && sy == ty ? &mons[PM_HORNED_DEVIL] : 
                         &mons[PM_LEMURE]) : 
+                    (type == MIGOHIVE)?
+		                (sx == tx && sy == ty? &mons[PM_MIGO_QUEEN] :
+	                    (rn2(2)? &mons[PM_MIGO_DRONE] : 
+                        &mons[PM_MIGO_WARRIOR])) :
                     (struct permonst *) 0, sx, sy, MM_ASLEEP);
             }
 
@@ -464,6 +476,26 @@ struct mkroom *sroom;
             case FUNGUSFARM:
                 if (!rn2(3))
                     (void) mksobj_at(SLIME_MOLD, sx, sy, TRUE, FALSE);
+                break;
+            case MIGOHIVE:
+                switch (rn2(10)) {
+                    case 9:
+                        mksobj_at(DIAMOND, sx, sy, TRUE, FALSE);
+                        break;
+                    case 8:
+                        mksobj_at(RUBY, sx, sy, TRUE, FALSE);
+                        break;
+                    case 7:
+                    case 6:
+                        mksobj_at(AGATE, sx, sy, TRUE, FALSE);
+                        break;
+                    case 5:
+                    case 4:
+                        mksobj_at(FLUORITE, sx, sy, TRUE, FALSE);
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case BARRACKS:
                 if (!rn2(20)) /* the payroll and some loot */
@@ -560,6 +592,9 @@ struct mkroom *sroom;
     case LEMUREPIT:
         level.flags.has_lemurepit = 1;
         break;
+    case MIGOHIVE:
+		  level.flags.has_migohive = 1;
+		  break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = 1;
         break;

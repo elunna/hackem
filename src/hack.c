@@ -2865,6 +2865,9 @@ register boolean newlev;
         case BEEHIVE:
             You("enter a giant beehive!");
             break;
+        case MIGOHIVE:
+		    You("enter a strange hive!");
+		    break;
         case FUNGUSFARM:
 		    You("enter a room full of fungi!");
 		    break;
@@ -2953,6 +2956,9 @@ register boolean newlev;
                     break;
                 case BEEHIVE:
                     level.flags.has_beehive = 0;
+                    break;
+                case MIGOHIVE:
+                    level.flags.has_migohive = 0;
                     break;
                 }
             }

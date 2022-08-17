@@ -601,6 +601,7 @@ struct levelflags {
     Bitfield(has_morgue, 1);
     Bitfield(has_garden, 1);
     Bitfield(has_lemurepit, 1);
+    Bitfield(has_migohive, 1);
     Bitfield(has_fungusfarm, 1);
     Bitfield(has_beehive, 1);
     Bitfield(has_barracks, 1);

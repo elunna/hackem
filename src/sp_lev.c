@@ -2572,6 +2572,7 @@ boolean prefilled;
         case OWLBNEST:
         case NURSERY:
         case LEMUREPIT:
+        case MIGOHIVE:
         case FUNGUSFARM:
             fill_zoo(croom);
             break;
@@ -2596,6 +2597,9 @@ boolean prefilled;
     case LEMUREPIT:
         level.flags.has_lemurepit = TRUE;
         break;
+     case MIGOHIVE:
+		level.flags.has_migohive = TRUE;
+		break;
     case FUNGUSFARM:
 		level.flags.has_fungusfarm = TRUE;
 		break;

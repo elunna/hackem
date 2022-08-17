@@ -761,6 +761,7 @@ clear_level_structures()
     level.flags.has_morgue = level.flags.graveyard = 0;
     level.flags.has_lemurepit = 0;
     level.flags.has_fungusfarm = 0;
+    level.flags.has_fungusfarm = 0;
     level.flags.has_beehive = 0;
     level.flags.has_barracks = 0;
     level.flags.has_temple = 0;
@@ -986,6 +987,9 @@ makelevel()
         else if (u_depth > 17 && !rn2(7)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))
             mkroom(NURSERY);
+         else if (u_depth > 25 && !rn2(20) 
+                 && !(mvitals[PM_MIGO_DRONE].mvflags & G_GONE))
+            mkroom(MIGOHIVE);
     }
 
  skip0:
