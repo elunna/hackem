@@ -969,7 +969,7 @@ makelevel()
         else if (u_depth > 9 && !rn2(5)
                  && !(mvitals[PM_KILLER_BEE].mvflags & G_GONE))
             mkroom(BEEHIVE);
-        else if(depth(&u.uz) > 9 && !rn2(15)) 
+        else if(u_depth > 9 && !rn2(15)) 
             mkroom(REALZOO);
         else if (u_depth > 10 && !rn2(7)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
@@ -978,17 +978,19 @@ makelevel()
             mkroom(MORGUE);
         else if (u_depth > 12 && !rn2(8) && antholemon())
             mkroom(ANTHOLE);
-        else if(depth(&u.uz) > 13 && !rn2(15)) 
+        else if(u_depth > 13 && !rn2(15)) 
             mkroom(BADFOODSHOP);
         else if (u_depth > 14 && !rn2(4)
                  && !(mvitals[PM_SOLDIER].mvflags & G_GONE))
             mkroom(BARRACKS);
+        else if(u_depth > 14 && !rn2(12)) 
+            mkroom(GIANTCOURT);
         else if (u_depth > 15 && !rn2(6))
             mkroom(SWAMP);
         else if (u_depth > 16 && !rn2(8)
                  && !(mvitals[PM_COCKATRICE].mvflags & G_GONE))
             mkroom(COCKNEST);
-        else if(depth(&u.uz) > 20 && !rn2(20))
+        else if(u_depth > 20 && !rn2(20))
             mkroom(DRAGONLAIR);
         else if (u_depth > 17 && !rn2(7)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))

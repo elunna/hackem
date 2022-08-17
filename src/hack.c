@@ -2852,6 +2852,9 @@ register boolean newlev;
         case REALZOO:
 		    You("enter a smelly zoo!");
 		    break;
+        case GIANTCOURT:
+		    You("enter a giant throne room!");
+		    break;
         case DRAGONLAIR:
 		    You("enter a dragon lair...");
 		    break;
@@ -2937,6 +2940,7 @@ register boolean newlev;
                 /* No more room of that type */
                 switch (rt) {
                 case COURT:
+                case GIANTCOURT:
                     level.flags.has_court = 0;
                     break;
                 case GARDEN:

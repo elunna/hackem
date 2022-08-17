@@ -78,6 +78,9 @@ int roomtype;
         case DRAGONLAIR: 
             mkzoo(DRAGONLAIR); 
             break;
+        case GIANTCOURT:
+            mkzoo(GIANTCOURT);
+            break;
         case SWAMP:
             mkswamp();
             break;
@@ -347,6 +350,7 @@ struct mkroom *sroom;
         /* mkgarden() sets flags and we don't want other fillings */
         return;
     case COURT:
+    case GIANTCOURT:
         if (level.flags.is_maze_lev) {
             for (tx = sroom->lx; tx <= sroom->hx; tx++)
                 for (ty = sroom->ly; ty <= sroom->hy; ty++)
@@ -444,15 +448,16 @@ struct mkroom *sroom;
                     (type == ANTHOLE) ? 
                     (sx == tx && sy == ty ? &mons[PM_QUEEN_ANT] : 
                         antholemon()) :
-                    (type == DRAGONLAIR) ? mkclass(S_DRAGON,0) :
+                    (type == DRAGONLAIR) ? mkclass(S_DRAGON, 0) :
                     (type == OWLBNEST) ? 
                     (sx == tx && sy == ty ? &mons[PM_OWLBEAR] : 
                         &mons[PM_BABY_OWLBEAR]) : 
                     (type == LEMUREPIT) ? 
                         (sx == tx && sy == ty ? &mons[PM_HORNED_DEVIL] : 
                         &mons[PM_LEMURE]) :
-                    (type == BADFOODSHOP) ? mkclass(S_BAD_FOOD,0) :
+                    (type == BADFOODSHOP) ? mkclass(S_BAD_FOOD, 0) :
                     (type == REALZOO) ? realzoomon() :
+                    (type == GIANTCOURT) ? mkclass(S_GIANT, 0) :
                     (type == MIGOHIVE)?
 		                (sx == tx && sy == ty? &mons[PM_MIGO_QUEEN] :
 	                    (rn2(2)? &mons[PM_MIGO_DRONE] : 
@@ -575,7 +580,9 @@ struct mkroom *sroom;
             }
         }
     switch (type) {
-    case COURT: {
+    case COURT: 
+    case GIANTCOURT:
+    {
         struct obj *chest, *gold;
         levl[tx][ty].typ = THRONE;
         (void) somexy(sroom, &mm);

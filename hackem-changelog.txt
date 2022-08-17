@@ -1055,3 +1055,20 @@ Sea DSM			magical breathing	swimming				<<passive water/rust attack>> (+item des
 
 [SKIPPED - DEBUG MSG] Bag of tricks: enexto() called with mdat==0  enexto() called with mdat==0
 	- [x] Added breakable credit cards, keys, and lock picks (from Slashem)
+
+
+### New special rooms
+	- [x] FUNGUSFARM
+		[x] has_fungusfarm
+	- [x] MIGOHIVE
+		[x]level.flags.has_migohive = 0;
+	- [x] DRAGONLAIR
+	- [x] REALZOO
+		[x]level.flags.has_zoo
+		[x] realzoomon
+	- [x] BADFOODSHOP
+	- [x] GIANTCOURT
+		[x] level.flags.has_court = 0;
+
+	[x] Used depth(&u.uz to u_depth for special room generation.
+	- [x] LEMUREPIT (already in Evil?)	
