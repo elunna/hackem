@@ -3645,6 +3645,8 @@ register struct obj *obj;
             return 0;
 	}
 
+#if 0  /* --hackem: This currently crashes because of otyp2
+        *  Disabling until we can fix it /*
 	if (artifact_name(ONAME(obj), &otyp2) && otyp2 == obj->otyp) {
 	    int n;
 	    char c1, c2;
@@ -3659,7 +3661,7 @@ register struct obj *obj;
 	    if (oname(obj, buf) != obj)
 		panic("upgrade_obj: unhandled realloc");
 	}
-
+#endif
 	if ((!carried(obj) || obj->unpaid) &&
 #ifdef UNPOLYPILE
 		!is_hazy(obj) &&
@@ -3739,7 +3741,8 @@ register struct obj *obj;
 	    obj->otyp = otyp2;
 	    obj->owornmask = owornmask;
 	    setworn(obj, obj->owornmask);
-	    puton_worn_item(obj);
+            set_wear(obj);
+	    /* puton_worn_item(obj); */
 	}
 
 	/* if (obj->otyp == BAG_OF_HOLDING && Has_contents(obj)) { */
