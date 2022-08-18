@@ -1101,3 +1101,37 @@ Sea DSM			magical breathing	swimming				<<passive water/rust attack>> (+item des
 - [x] Moved instrument break code after player commits to action.
 	- [x] Jermlaine are sometimes generated riding rats.
 	- [x] Add a couple rows of spear traps to Grunds.
+
+
+
+	
+
+Needs branch: Gain Level Upgrades
+	- [x] Upgrading (Gain Level potion dipping)
+			upgrade_obj(obj), extern.h
+	- [x] Change BoH explosion to updated version
+	- [x] We can't prevent dipping worn objects - would enable id abuse!
+
+	[x] potion.c:3740:6: warning: implicit declaration of function ‘puton_worn_item’; did you mean ‘remove_worn_item’? [-Wimplicit-function-declaration]
+ 
+	[ ] We can't dip things we are wearing - avoid the code mess of puton_worn_item
+	[x] ‘HEAVY_HAMMER’ undeclared
+	[x] ‘ELVEN_MITHRIL_COAT’ undeclared 
+	[x] ‘DARK_ELVEN_MITHRIL_COAT’ undeclared 
+	[x] ‘STUDDED_LEATHER_ARMOR’ undeclared 
+	[x] ‘LEATHER_JACKET’ undeclared 
+	[disabled] ‘ROBE_OF_PROTECTION’ undeclared
+	[x] ‘ELVEN_LEATHER_HELM’ undeclared 
+	[x] ‘DWARVISH_IRON_HELM’ undeclared
+	[x] ‘BRASS_LANTERN’ undeclared
+	[x] ‘TIN_WHISTLE’ undeclared-o
+	[x] ‘WOODEN_FLUTE’ undeclared
+	[x] ‘WOODEN_HARP’ undeclared
+	[FIXED] potion.c:3699:14: error: too many arguments to function ‘stolen_value’
+ 3699 |       (void) stolen_value(obj, ox, oy, FALSE, FALSE, FALSE);
+ 	[x] potion.c:3029:6: error: ‘res’ undeclared (first use in this function)
+	
+ 	[x] ../include/extern.h:72:21: note: expected ‘short int *’ but argument is of type ‘int *’
+   72 | E const char *FDECL(artifact_name, (const char *, short *));
+   
+ [x] potion.c:3747:21: warning: implicit declaration of function ‘mbag_explodes’; did you mean ‘mon_explodes’? [-Wimplicit-function-declaration]
