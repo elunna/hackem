@@ -2017,7 +2017,6 @@ NEARDATA struct permonst mons[] = {
         SIZ(50, 100, MS_SILENT, MZ_SMALL), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE, M3_ACCURATE, 0, 0, 8, CLR_RED),
-
     MON("nickelpede", S_SPIDER,                                 /* Slash'EM */
         LVL(8, 4, 3, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 3, 4), 
@@ -2655,7 +2654,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_NOHANDS | M1_SEE_INVIS,
         M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY | M2_LORD,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 21, CLR_BLACK),
-    
     MON("monadic deva", S_ANGEL,                                /* Slash'EM */
         LVL(15, 18, -4, 90, 15), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 4), 
@@ -2667,6 +2665,17 @@ NEARDATA struct permonst mons[] = {
         M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY, 
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 
         0, MH_ANGEL, 23, CLR_BRIGHT_CYAN),
+    MON("astral deva", S_ANGEL,                                 /* Slash'EM */
+        LVL(18, 18, -6, 90, 15), (G_NOHELL | G_NOCORPSE | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 3, 12), 
+          ATTK(AT_WEAP, AD_STUN, 1, 4),
+          ATTK(AT_MAGC, AD_CLRC, 3, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_CUSS, MZ_MEDIUM), MR_FIRE | MR_ELEC, 0,
+        M1_FLY | M1_HUMANOID | M1_SEE_INVIS,
+        M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY, 
+        M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 
+        0, MH_ANGEL, 27, CLR_WHITE),
     /* You'll only ever be graced by the presence of an Archangel
      * on the Astral Plane. And one other place... */
     MON("Archangel", S_ANGEL,                                   /* EvilHack */
@@ -2697,17 +2706,6 @@ NEARDATA struct permonst mons[] = {
         M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY | M2_LORD
             | M2_COLLECT | M2_MAGIC,
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 26, HI_LORD),
-    MON("astral deva", S_ANGEL,                                 /* Slash'EM */
-        LVL(18, 18, -6, 90, 15), (G_NOHELL | G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 3, 12), 
-          ATTK(AT_WEAP, AD_STUN, 1, 4),
-          ATTK(AT_MAGC, AD_CLRC, 3, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_CUSS, MZ_MEDIUM), MR_FIRE | MR_ELEC, 0,
-        M1_FLY | M1_HUMANOID | M1_SEE_INVIS,
-        M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY, 
-        M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 
-        0, MH_ANGEL, 27, CLR_WHITE),
     MON("Planetar", S_ANGEL,                                    /* Slash'EM */
         LVL(29, 16, -10, 80, 15), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
@@ -2967,7 +2965,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_GRAY),
-
     MON("baby silver dragon", S_DRAGON,
         LVL(12, 9, 2, 10, 0), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
@@ -3709,7 +3706,6 @@ struct permonst _mons2[] = {
             | M2_COLLECT | M2_NOPOLY | M2_MAGIC | M2_JEWELS, 
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_GIANT, 31, HI_LORD),
-    
     MON("minotaur", S_GIANT,
         LVL(15, 15, 6, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 10), 
@@ -4757,7 +4753,7 @@ struct permonst _mons2[] = {
         0, M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
         M2_STALK | M2_HOSTILE, M3_ACCURATE | M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_ELF | MH_UNDEAD, 4, CLR_GREEN),
-        MON("ghoul", S_ZOMBIE,
+    MON("ghoul", S_ZOMBIE,
         LVL(3, 6, 10, 0, -2), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PLYS, 1, 2), 
           ATTK(AT_CLAW, AD_PHYS, 1, 3), 
@@ -4786,7 +4782,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
         M2_STALK | M2_HOSTILE, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_GNOLL | MH_UNDEAD, 6, CLR_ORANGE),
-        MON("ghast", S_ZOMBIE,                                      /* Slash'EM */
+    MON("ghast", S_ZOMBIE,                                      /* Slash'EM */
         LVL(4, 6, 10, 0, -2), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PLYS, 1, 2), 
           ATTK(AT_CLAW, AD_PHYS, 1, 4),
@@ -4807,9 +4803,6 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
         M2_STALK | M2_HOSTILE | M2_STRONG, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 7, CLR_BLUE),
-
-
-
     MON("giant zombie", S_ZOMBIE,
         LVL(8, 5, 6, 0, -4), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_DRCO, 2, 8), 
