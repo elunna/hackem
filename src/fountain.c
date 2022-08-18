@@ -1050,33 +1050,33 @@ void
 diptoilet(obj)
 register struct obj *obj;
 {
-	if (Levitation) {
-	    floating_above("toilet");
-	    return;
-	}
+    int er;
+    if (Levitation) {
+        floating_above("toilet");
+        return;
+    }
 
-    int er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
+    er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
 
-    if (obj->otyp == POT_ACID
-        && er != ER_DESTROYED) { /* Acid and water don't mix */
+    if (obj->otyp == POT_ACID && er != ER_DESTROYED) {
+        /* Acid and water don't mix */
         useup(obj);
         return;
     } 
 
-	if(is_poisonable(obj)) {
-	    if (flags.verbose)  
+    if (is_poisonable(obj)) {
+        if (flags.verbose)
             You("cover it in filth.");
-	    obj->opoisoned = TRUE;
-	}
-	if (obj->oclass == FOOD_CLASS) {
-	    if (flags.verbose)
+        obj->opoisoned = TRUE;
+    }
+    if (obj->oclass == FOOD_CLASS) {
+        if (flags.verbose)
             pline("My! It certainly looks tastier now...");
-	    obj->orotten = TRUE;
-	}
-	if (flags.verbose)  
+        obj->orotten = TRUE;
+    }
+    if (flags.verbose)
         pline("Yuck!");
 }
-
 
 void
 breakforge(x, y)
@@ -1170,7 +1170,6 @@ breaktoilet(x,y)
 int x, y;
 {
     register int num = rn1(5, 2);
-    struct monst *mtmp;
 
     if (cansee(x, y) || (x == u.ux && y == u.uy))
         pline_The("toilet suddenly shatters!");
@@ -1191,7 +1190,6 @@ int x, y;
                     pline("Oh no! Tons of poopies!");
             } else
                 You("hear something scuttling around you!");
-
         } else
             pline("The sewers seem strangely quiet.");
     }

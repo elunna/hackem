@@ -164,6 +164,7 @@ xchar x, y;
 {
     boolean clumsy = FALSE;
     int i, j;
+    struct obj* hated_obj;
 
     /* anger target even if wild miss will occur */
     setmangry(mon, TRUE);
@@ -216,7 +217,6 @@ xchar x, y;
                 continue;
 
             kickdieroll = rnd(20);
-            struct obj* hated_obj;
             specialdmg = special_dmgval(&youmonst, mon, W_ARMF, &hated_obj);
             if (noncorporeal(mon->data) && !specialdmg) {
                 /* doesn't matter whether it would have hit or missed,

@@ -2099,7 +2099,7 @@ static const char *special_oracle[] = {
     "Theorem 7.18  There exist recursive languages A and B such that",
     "  (1)  P(A) == NP(A), and", "  (2)  P(B) != NP(B)", "",
     "This provides impressive evidence that the techniques that are",
-    "currently available will not suffice for proving that P != NP or        "
+    "currently available will not suffice for proving that P != NP or        ",
     "  ",
     "that P == NP.\"  [Garey and Johnson, p. 185.]"
 };

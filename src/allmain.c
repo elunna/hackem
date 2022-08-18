@@ -814,9 +814,9 @@ int wtcap;
             * +2 blessed) for the basis of regeneration calculations.
             */
 
- 			int efflev = u.ulevel + u.uhealbonus;
- 			int effcon = ACURR(A_CON) + u.uhealbonus;
-			int heal = 0;
+            int efflev = u.ulevel + u.uhealbonus;
+            int effcon = ACURR(A_CON) + u.uhealbonus;
+            heal = 0;
             
             if (u.ulevel > 9) {
                 if (!(moves % 3L)) {

@@ -782,15 +782,14 @@ struct obj *mwep;
 int dieroll;
 {
     struct obj *otmp;
+    boolean weaponhit = ((mattk->aatyp == AT_WEAP
+                          || (mattk->aatyp == AT_CLAW && mwep)));
+    boolean showit = FALSE;
 
     /* Possibly awaken nearby monsters */
     if ((!is_silent(magr->data) || !helpless(mdef)) && rn2(10)) {
         wake_nearto(magr->mx, magr->my, combat_noise(magr->data));
     }
-
-    boolean weaponhit = ((mattk->aatyp == AT_WEAP
-                          || (mattk->aatyp == AT_CLAW && mwep))),
-            showit = FALSE;
 
     /* unhiding or unmimicking happens even if hero can't see it
        because the formerly concealed monster is now in action */
@@ -1209,10 +1208,12 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     struct obj *obj;
     char buf[BUFSZ];
     struct permonst *pa = magr->data, *pd = mdef->data;
+    struct obj* hated_obj;
+    long armask;
     int armpro, num,
         tmp = d((int) mattk->damn, (int) mattk->damd),
         res = MM_MISS;
-    boolean cancelled;
+    boolean cancelled, no_effect;
 
     if ((touch_petrifies(pd) /* or flesh_petrifies() */
          || (mattk->adtyp == AD_DGST && pd == &mons[PM_MEDUSA]))
@@ -1254,8 +1255,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     cancelled = magr->mcan || !(rn2(10) >= 3 * armpro);
 
     /* check for special damage sources (e.g. hated material) */
-    long armask = attack_contact_slots(magr, mattk->aatyp);
-    struct obj* hated_obj;
+    armask = attack_contact_slots(magr, mattk->aatyp);
     tmp += special_dmgval(magr, mdef, armask, &hated_obj);
     if (hated_obj) {
         searmsg(magr, mdef, hated_obj, FALSE);
@@ -1433,19 +1433,17 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
 
             /* Handling lit torch damage  */
             if(mwep->otyp == TORCH && mwep->lamplit) {
-                boolean water = (mdef->data == &mons[PM_WATER_ELEMENTAL]);
                 if (!Blind) {
                     static char outbuf[BUFSZ];
-                    char *s = Shk_Your(outbuf, mwep);
                 }
 
-                if (completelyburns(mdef)) { /* paper golem or straw golem */
+                if (completelyburns(pd)) { /* paper golem or straw golem */
                     if (!Blind)
                         pline("%s burns completely!", Monnam(mdef));
                     else
                         You("smell burning%s.",
-                            (mdef == &mons[PM_PAPER_GOLEM]) 
-                            ? " paper" : (   mdef == &mons[PM_STRAW_GOLEM]) 
+                            (pd == &mons[PM_PAPER_GOLEM])
+                            ? " paper" : (   pd == &mons[PM_STRAW_GOLEM])
                             ? " straw" : "");
                     xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
                     tmp = 0;
@@ -1465,7 +1463,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                             destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
                     }
 
-                    if (mdef == &mons[PM_WATER_ELEMENTAL]) {
+                    if (pd == &mons[PM_WATER_ELEMENTAL]) {
                         pline("The torch %s goes out.", xname(mwep));
                         end_burn(mwep, TRUE);
                     } else {
@@ -1652,8 +1650,6 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                       makeplural(stagger(magr->data, "stagger")));
         }
         break;
-
-
     case AD_SONG:
         if (cancelled) {
             tmp = 0;
@@ -2392,7 +2388,7 @@ msickness:
     case AD_WTHR: {
         uchar withertime = max(2, tmp);
         tmp = 0; /* doesn't deal immediate damage */
-        boolean no_effect =
+        no_effect =
             (nonliving(pd) /* This could use is_fleshy(), but that would
                               make a large set of monsters immune like
                               fungus, blobs, and jellies. */

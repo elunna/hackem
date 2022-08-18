@@ -1313,6 +1313,8 @@ register struct attack *mattk;
     struct permonst *olduasmon = youmonst.data;
     int res;
     boolean burnmsg = FALSE;
+    boolean no_effect;
+    long armask;
 
     if (!canspotmon(mtmp) && mdat != &mons[PM_GHOST]) {
         /* Ghosts have an exception because if the hero can't spot it, their
@@ -1503,15 +1505,9 @@ register struct attack *mattk;
                 if (otmp->otyp == WOODEN_STAKE && is_vampire(youmonst.data)) {
                     if (!rn2(5)) {
                         pline("%s plunges the stake into your heart.", Monnam(mtmp));
-                        // killer.format = KILLED_BY_AN;
                         killer.format = NO_KILLER_PREFIX;
                         Sprintf(killer.name, "staked by %s",
                                 an(mtmp->data->mname));
-
-                        // killer = "a wooden stake in the heart.";
-                        /* killer_format = KILLED_BY_AN; */
-                        // kformat = KILLED_BY;
-
                         u.ugrave_arise = -3; /* No corpse */
                         done(DIED);
                     } else {
@@ -2449,7 +2445,7 @@ do_rust:
     case AD_WTHR: {
         uchar withertime = max(2, dmg);
         dmg = 0; /* doesn't deal immediate damage */
-        boolean no_effect =
+        no_effect =
             (nonliving(youmonst.data) /* This could use is_fleshy(), but that would
                                          make a large set of monsters immune like
                                          fungus, blobs, and jellies. */
@@ -2537,7 +2533,7 @@ do_rust:
 
     /* handle body/equipment made out of harmful materials for touch attacks */
     /* should come after AC damage reduction */
-    long armask = attack_contact_slots(mtmp, mattk->aatyp);
+    armask = attack_contact_slots(mtmp, mattk->aatyp);
     struct obj* hated_obj;
     dmg += special_dmgval(mtmp, &youmonst, armask, &hated_obj);
     if (hated_obj) {
@@ -3131,6 +3127,7 @@ struct attack *mattk;
         "lackluster",            /* [9] */
     };
     int react = -1;
+    int dmg, permdmg = 0;
     boolean cancelled = (mtmp->mcan != 0), already = FALSE;
 
     /* assumes that hero has to see monster's gaze in order to be
@@ -3529,7 +3526,6 @@ struct attack *mattk;
                 You("are unaffected by death magic.");
                 break;
             }
-            int dmg, permdmg = 0;
             switch (rn2(20)) {
             case 19:
             case 18:
@@ -4087,6 +4083,8 @@ struct attack *mattk;
 int dmg;
 {
     boolean cancelled = (mtmp->mcan != 0);
+    int fate;
+    long lcount;
 
     /* Assumes that the hero has to hear the monster's
      * scream in order to be affected.
@@ -4116,9 +4114,7 @@ int dmg;
     if (cancelled || Deaf)
         return FALSE;
 
-    /* Used for gibberling attack */
-    int fate = rnd(30);
-    long lcount = (long) rn1(90, 10);
+
 
     /* scream attacks */
     switch (mattk->adtyp) {
@@ -4211,8 +4207,11 @@ int dmg;
          *  gibber sound: uttering ghastly howls, clicks,
          *  shrieks and insane chattering noises,
          * */
+        fate = rnd(30);
+        lcount = (long) rn1(90, 10);
         if (fate < 10) {
             break;
+
         } else if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
             pline("Your %s protects you from the %s's cacophony.",
                   helm_simple_name(uarmh), Monnam(mtmp));
@@ -4302,7 +4301,7 @@ struct permonst *olduasmon;
 struct monst *mtmp;
 struct attack *mattk;
 {
-    int i, tmp;
+    int i, tmp = 0;
     struct attack *oldu_mattk = 0;
     unsigned how_seen;
     char mlet;
@@ -4355,7 +4354,7 @@ struct attack *mattk;
                     pline("%s suddenly seems weaker!", Monnam(mtmp));
                 mtmp->mhpmax -= xtmp;
                 damage_mon(mtmp, xtmp, AD_DRLI);
-            
+
                 /* !m_lev: level 0 monster is killed regardless of hit points
                 rather than drop to level -1 */
                 if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
@@ -4689,21 +4688,17 @@ struct attack *mattk;
                 tmp = 0;
                 break;
             }
-            boolean zapped = FALSE;
-            if (rn2(20)) {
-                if (!rn2(3)) {
+
+            if (!rn2(3)) {
+                if (rn2(20)) {
                     if (canseemon(mtmp))
                         pline("%s gets zapped!", Monnam(mtmp));
                     damage_mon(mtmp, rnd(6), AD_ELEC);
-                    zapped = TRUE;
+                } else {
+                    if (canseemon(mtmp))
+                        pline("%s is jolted with electricity!", Monnam(mtmp));
+                    damage_mon(mtmp, d(2, 24), AD_ELEC);
                 }
-            } else {
-                if (canseemon(mtmp))
-                    pline("%s is jolted with electricity!", Monnam(mtmp));
-                damage_mon(mtmp, d(2, 24), AD_ELEC);
-                zapped = TRUE;
-            }
-            if (zapped) {
                 tmp += destroy_mitem(mtmp, WAND_CLASS, AD_ELEC);
                 /* only rings damage resistant players in destroy_item */
                 tmp += destroy_mitem(mtmp, RING_CLASS, AD_ELEC);

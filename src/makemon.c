@@ -741,6 +741,7 @@ register struct monst *mtmp;
 {
     register struct permonst *ptr = mtmp->data;
     register int mm = monsndx(ptr);
+    struct obj* received;
     struct obj *otmp = mtmp->minvent;
     int bias, w1, w2, randwand, quan;
 
@@ -1007,8 +1008,7 @@ register struct monst *mtmp;
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
         } 
         else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
-            struct obj* received;
-            switch (rn2(4)) {
+            switch (rn2(3)) {
                 case 0:
                     w1 = rn2(2) ? CLUB : AKLYS; break;
                 case 1:
@@ -1016,9 +1016,8 @@ register struct monst *mtmp;
                 case 2:
                     w1 = rn2(2) ? AXE : BATTLE_AXE;
                     received = m_carrying(mtmp, AXE);
-                    if (received) set_material(received, STONE);
-                    break;
-                default:
+                    if (received)
+                        set_material(received, STONE);
                     break;
             }
             (void) mongets(mtmp, w1);
@@ -1363,7 +1362,7 @@ register struct monst *mtmp;
             }
         } else if (mm == PM_CROESUS) {
             (void) mongets(mtmp, TWO_HANDED_SWORD);
-            struct obj* received = m_carrying(mtmp, TWO_HANDED_SWORD);
+            received = m_carrying(mtmp, TWO_HANDED_SWORD);
             if (received)
                 set_material(received, GOLD);
             int item = rn2(2) ? BANDED_MAIL : PLATE_MAIL;
@@ -1696,15 +1695,15 @@ register struct monst *mtmp;
                 m_initthrow(mtmp, FLINT, 4 + rnd(6));
             else
                 m_initthrow(mtmp, SLING_BULLET, 4 + rnd(6));
-        } else if (!rn2(4))
+        } else if (!rn2(4)) {
             /* WAC gets orcish 1:4, otherwise darts
                     (used to be darts 1:4)
                 gets orcish short sword 1:4, otherwise orcish dagger */
-             if (!rn2(4))
+            if (!rn2(4))
                 m_initthrow(mtmp, ORCISH_SPEAR, 1);
-            else 
+            else
                 m_initthrow(mtmp, DART, 12);
-        
+        }
         if (!rn2(4)) 
             mongets(mtmp, ORCISH_SHORT_SWORD);
         else 
@@ -1712,8 +1711,6 @@ register struct monst *mtmp;
 
         break;
     case S_GREMLIN:
-        // potions of acid or flaming oil 
-        // miniature pikes, lassos, and grappling hooks, ropes or nets.
         if (ptr == &mons[PM_JERMLAINE]) {
             /* Jermlaine are known for throwing potions of acid or flaming oil.
                 They also carry miniature pikes, lassos, grappling hooks, ropes or nets.
@@ -1721,7 +1718,6 @@ register struct monst *mtmp;
             */
             if (!rn2(2))
                 (void) mongets(mtmp, (rn2(2) ? GRAPPLING_HOOK : BULLWHIP));
-
             if (!rn2(3))
                 (void) mongets(mtmp, POT_ACID);
             else
@@ -1990,6 +1986,8 @@ register struct monst *mtmp;
     register int cnt;
     register struct obj *otmp;
     register struct permonst *ptr = mtmp->data;
+    struct obj* received;
+    int i;
 
     if (Is_rogue_level(&u.uz))
         return;
@@ -2293,7 +2291,7 @@ register struct monst *mtmp;
     case S_ORC:
         if (ptr == &mons[PM_GOBLIN_KING]) {
             (void) mongets(mtmp, QUARTERSTAFF);
-            struct obj* received = m_carrying(mtmp, QUARTERSTAFF);
+            received = m_carrying(mtmp, QUARTERSTAFF);
             if (received)
                 set_material(received, BONE);
         }
@@ -2365,29 +2363,29 @@ register struct monst *mtmp;
         break;
     case S_VAMPIRE:
         /* [Lethe] Star and fire vampires don't get this stuff */
-		if (ptr == &mons[PM_STAR_VAMPIRE] || 
-				ptr == &mons[PM_FIRE_VAMPIRE])
-		    break;
-	    	/* Get opera cloak */
-/*	    	otmp = readobjnam(opera_cloak);
-		if (otmp && otmp != &zeroobj) mpickobj(mtmp, otmp);*/
-        int i;
-		for (i = STRANGE_OBJECT; i < NUM_OBJECTS; i++) {
-			register const char *zn;
-			if ((zn = OBJ_DESCR(objects[i])) && !strcmpi(zn, "opera cloak")) {
-				if (!OBJ_NAME(objects[i])) i = STRANGE_OBJECT;
-				break;
-			}
-		}
+        if (ptr == &mons[PM_STAR_VAMPIRE] || ptr == &mons[PM_FIRE_VAMPIRE])
+            break;
+        /* Get opera cloak */
+/*	    otmp = readobjnam(opera_cloak);
+        if (otmp && otmp != &zeroobj) mpickobj(mtmp, otmp);*/
+
+        for (i = STRANGE_OBJECT; i < NUM_OBJECTS; i++) {
+            const char *zn;
+            if ((zn = OBJ_DESCR(objects[i])) && !strcmpi(zn, "opera cloak")) {
+                if (!OBJ_NAME(objects[i]))
+                    i = STRANGE_OBJECT;
+                break;
+            }
+        }
         #if 0  /* Enable with we add blood potions */
-		if (i != NUM_OBJECTS) 
+        if (i != NUM_OBJECTS)
             (void)mongets(mtmp, i);
-		if (rn2(2)) {
-		    if ((int) mtmp->m_lev > rn2(30))
-			    (void)mongets(mtmp, POT_VAMPIRE_BLOOD);
-		    else
-			    (void)mongets(mtmp, POT_BLOOD);
-		}
+            if (rn2(2)) {
+                if ((int) mtmp->m_lev > rn2(30))
+                    (void)mongets(mtmp, POT_VAMPIRE_BLOOD);
+                else
+                    (void)mongets(mtmp, POT_BLOOD);
+            }
         #endif
 
         if (ptr == &mons[PM_KAS]) {

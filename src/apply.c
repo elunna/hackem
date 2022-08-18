@@ -1858,10 +1858,17 @@ int x, y;
     mc.x = mtmp->mx, mc.y = mtmp->my;
     tc.x = x, tc.y = y; /* target */
 
+#if 0 /* TODO: Cleanup */
     int traj,
         dx = x - u.ux, dy = y - u.uy,
         ax = abs(dx), ay = abs(dy);
-    /* traj: flatten out the trajectory => some diagonals re-classified */
+#endif
+    int traj;
+    int dx = x - u.ux;
+    int dy = y - u.uy;
+    int ax = abs(dx);
+    int ay = abs(dy);
+/* traj: flatten out the trajectory => some diagonals re-classified */
     if (ax >= 2 * ay)
         ay = 0;
     else if (ay >= 2 * ax)
@@ -2837,19 +2844,18 @@ STATIC_OVL void
 use_whetstone(stone, obj)
 struct obj *stone, *obj;
 {
-    boolean fail_use = TRUE;
     const char *occutext = "sharpening";
     int tmptime = 100 + (rnl(13) * 5);
-
-    /* Cavemen are good with rocks, so they can do the job in half the time. */
-    if (Role_if(PM_CAVEMAN))
-        tmptime /= 2;
-
     register struct obj *potion;
+    boolean fail_use = TRUE;
 
     /* --hackem: For allowing use with rust traps. */
     register struct trap *trap = t_at(u.ux, u.uy);
     boolean is_rusttrap = trap != 0 && trap->ttyp == RUST_TRAP;
+
+    /* Cavemen are good with rocks, so they can do the job in half the time. */
+    if (Role_if(PM_CAVEMAN))
+        tmptime /= 2;
 
 	if (u.ustuck && sticks(youmonst.data)) {
 	    You("should let go of %s first.", mon_nam(u.ustuck));
@@ -4054,7 +4060,6 @@ boolean autohit;
     } else if (distu(cc.x, cc.y) < min_range) {
         if (autohit && cc.x == u.ux && cc.y == u.uy)
             You("don't know what to hit.");
-        // else if (obj->otyp != FISHING_POLE)
         else
             pline("Too close!");
         return res;

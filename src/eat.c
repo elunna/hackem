@@ -2094,6 +2094,8 @@ STATIC_OVL void
 fprefx(otmp)
 struct obj *otmp;
 {
+    int i, ii, littleluck = (u.uluck < 4); /* For pills */
+
     switch (otmp->otyp) {
     case FOOD_RATION: /* nutrition 800 */
         /* 200+800 remains below 1000+1, the satiation threshold */
@@ -2155,7 +2157,6 @@ struct obj *otmp;
                 lesshungry(80);
 
                 /* gain ability, blessed if "natural" luck is high */
-                int i, ii, littleluck = (u.uluck < 4);
                 i = rn2(A_MAX); /* start at a random attribute */
                 for (ii = 0; ii < A_MAX; ii++) {
                     if (adjattrib(i, 1, littleluck ? -1 : 0) && littleluck)
@@ -2207,7 +2208,6 @@ struct obj *otmp;
                 break;
             case 4:
                 gainstr(otmp, 3, TRUE);
-                // pline ("You feel stronger!");
                 break;                                           
             case 5:
             case 6:

@@ -236,23 +236,24 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /* Stormbringer only has a 2 because it can drain a level, providing 8 more. */
     A("Stormbringer", RUNESWORD,
-      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI), 0, 0,
-      DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 8000L,
-      NO_COLOR),
+      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI),
+      0, 0, DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      8000L, NO_COLOR),
+
+    A("Thiefbane", LONG_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI | SPFX_WARN),
+      SPFX_EXCLUDE, S_HUMAN, DRLI(5, 1), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      1500L, NO_COLOR),
+
 
   /*
    * The Sword of Kas - the sword forged by Vecna and given to his top
    * lieutenant, Kas. */
-    A("The Sword of Kas", TWO_HANDED_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL
-       | SPFX_DALIGN), SPFX_EXCLUDE, 0,
-      DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+    A("The Sword of Kas", TWO_HANDED_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DALIGN),
+      SPFX_EXCLUDE, 0, DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       15000L, NO_COLOR),
 
-    A("Thiefbane", LONG_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI | SPFX_WARN),
-      0, S_HUMAN, DRLI(5, 1), SPFX_NONE, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
-      1500L, NO_COLOR),
+
 
   /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
    * those it strikes with one blow. In the form of an ornate mace/rod, the Wand

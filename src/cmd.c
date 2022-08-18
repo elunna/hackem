@@ -3123,7 +3123,8 @@ int final;
             if (((otmp->owornmask & (W_ARMOR | W_ACCESSORY | W_WEP))
                     || (u.twoweap && (otmp->owornmask & W_SWAPWEP)))
                 && has_glow_warning(otmp)) {
-                for (int i = 0; i < 32; i++) {
+                int i;
+                for (i = 0; i < 32; i++) {
                     /* Artifacts let you know they are responsible even in non-Wizard mode. */
                     if (has_glow_warning(otmp) & (1 << i)) {
                         Sprintf(buf, "aware of the presence of %s because of ",

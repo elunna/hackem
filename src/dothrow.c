@@ -2448,12 +2448,14 @@ boolean
 break_glass_obj(obj)
 struct obj* obj;
 {
+    boolean your_fault, ucarried;
+
     if (!obj || !breaktest(obj) || rn2(6))
         return FALSE;
     /* now we are definitely breaking it */
 
-    boolean your_fault = !context.mon_moving;
-    boolean ucarried = carried(obj);
+    your_fault = !context.mon_moving;
+    ucarried = carried(obj);
 
     /* remove its worn flags */
     long unwornmask = obj->owornmask;

@@ -760,7 +760,6 @@ void
 dotoiletamulet(obj)  /* obj is an amulet being dropped over a toilet */
 register struct obj *obj;
 {
-    register struct obj *otmp;
     register boolean getitback = rn2(4);
 
     /* you can't drop the Amulet of Yendor anyway, but in case this function is somehow called with it... */
@@ -850,7 +849,6 @@ register struct obj *obj;
     } else {
         useup(obj);
     }
-
 }
 
 /* some common tests when trying to drop or throw items */
@@ -2384,9 +2382,10 @@ long timeout;
 {
     struct obj *body = arg->a_obj;
     struct permonst *mptr = &mons[body->corpsenm];
+    int zmon = zombie_form(mptr);
+
     if (!body->zombie_corpse && has_omonst(body) && has_erac(OMONST(body)))
          mptr = r_data(OMONST(body));
-    int zmon = zombie_form(mptr);
 
     if (zmon != NON_PM) {
         if (has_omid(body))

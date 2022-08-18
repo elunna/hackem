@@ -2493,8 +2493,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                    || (otmp->oartifact == ART_THIEFBANE && dieroll < 3)) {
         #endif
         /* --hackem: Sexy 10% beheading chance from Slash'EM */
-        } else if (dieroll < 3 || otmp->oartifact == ART_VORPAL_BLADE &&
-				      mdef->data == &mons[PM_JABBERWOCK]) {
+        } else if (dieroll < 3 || (otmp->oartifact == ART_VORPAL_BLADE &&
+				      mdef->data == &mons[PM_JABBERWOCK])) {
             
             static const char *const behead_msg[2] = { 
                 "%s beheads %s!",                                       
@@ -2865,7 +2865,6 @@ struct obj *obj;
                     u.uhp = 0;
                     killer.format = KILLED_BY;
                     Strcpy(killer.name, "the Holy Spear of Light");
-                    // killer = "the Holy Spear of Light";
                     done(DIED);
                 }
             }

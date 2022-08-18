@@ -1210,11 +1210,8 @@ struct obj *obj;
                 assign_level(&context.digging.level, &u.uz);
                 context.digging.effort = 0;
                 if (!context.digging.quiet)
-                    // You("start %s.", d_action[dig_target]);
                     You("start %s.", d_action[dig_target][is_lightsaber(uwep)]);
             } else {
-                // You("%s %s.", context.digging.chew ? "begin" : "continue",
-                //     d_action[dig_target]);
                 You("%s %s.", context.digging.chew ? "begin" : "continue",
 					d_action[dig_target][is_lightsaber(uwep)]);
                 context.digging.chew = FALSE;
@@ -2262,9 +2259,10 @@ struct monst *mdef, *magr;
     const int typ = levl[x][y].typ;
     struct trap *trap = t_at(x, y);
     const boolean canseexy = cansee(x, y);
+    const char *to_the_bottom;
     struct obj *boulder = sobj_at(BOULDER, x, y);
     boolean sent_down_hole = FALSE;
-
+    boolean make_hole;
     /* check for illegalities: out of bounds, terrain unsuitable for traps,
      * or trap types that should not be deleted and replaced with pits */
     if (!isok(x, y) || !SPACE_POS(typ) || IS_FURNITURE(typ) || IS_AIR(typ)
@@ -2303,7 +2301,7 @@ struct monst *mdef, *magr;
                   trap->ttyp == HOLE ? "chasm" : "pit",
                   youdefend ? "you" : mon_nam(mdef));
         }
-        boolean make_hole = !rn2(40);
+        make_hole = !rn2(40);
         if ((youattack && u.mh * 5 <= u.mhmax)
             || (!youattack && mdef->mhp * 5 <= mdef->mhpmax)) {
             make_hole = !rn2(10);
@@ -2351,7 +2349,7 @@ struct monst *mdef, *magr;
     /* Now that terrain has been modified, take care of mdef.
      * We have guaranteed that (x,y) now contains either a pit, spiked pit, or
      * hole. */
-    const char *to_the_bottom = is_pit(trap->ttyp) ? " to the bottom" : "";
+    to_the_bottom = is_pit(trap->ttyp) ? " to the bottom" : "";
     if (youdefend) {
         reset_utrap(FALSE);
         pline("%s hurls you down%s!", Monnam(magr), to_the_bottom);

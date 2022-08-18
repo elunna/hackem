@@ -2092,6 +2092,8 @@ cursed(otmp, silent)
 struct obj *otmp;
 boolean silent;
 {
+    boolean use_plural;
+
     if (!otmp) {
         impossible("cursed without otmp");
         return 0;
@@ -2105,7 +2107,7 @@ boolean silent;
         return 1;
 
     /* Curses, like chickens, come home to roost. */
-    boolean use_plural = (is_boots(otmp) || is_gloves(otmp)
+    use_plural = (is_boots(otmp) || is_gloves(otmp)
                           || otmp->otyp == LENSES || otmp->quan > 1L);
 
     /* might be trying again after applying grease to hands */

@@ -810,6 +810,7 @@ doforce()
     register int c, picktyp;
     struct rm *door;
     char qbuf[QBUFSZ];
+    int x, y;  /* Used for force door */
 
     if (u.uswallow || Hidinshell) {
         You_cant("force anything from inside here.");
@@ -919,8 +920,8 @@ doforce()
         if(!getdir((char *)0)) 
             return 0;
 
-        int x = u.ux + u.dx;
-        int y = u.uy + u.dy;
+        x = u.ux + u.dx;
+        y = u.uy + u.dy;
         struct monst *mtmp;
 
 	    door = &levl[x][y];
