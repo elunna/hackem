@@ -15,10 +15,10 @@
 #   This is used for building two versions of NetHack:
 #
 #   A tty port utilizing the Win32 Console I/O subsystem, Console
-#       EvilHack.
+#       HackEM.
 #
 #   A Win32 native port built on the Windows API, Graphical NetHack or
-#       EvilHackW.
+#       HackEMW.
 #
 #   In addition to your C compiler,
 #
@@ -837,11 +837,11 @@ $(O)utility.tag: $(INCL)/date.h $(INCL)/onames.h $(INCL)/pm.h \
 tileutil: $(U)gif2txt.exe $(U)gif2tx32.exe $(U)txt2ppm.exe
 	@echo Optional tile development utilities are up to date.
 
-$(O)winres.o: $(TILEBMP16) $(MSWIN)/EvilHackW.rc $(MSWIN)/mnsel.bmp \
+$(O)winres.o: $(TILEBMP16) $(MSWIN)/HackEMW.rc $(MSWIN)/mnsel.bmp \
 	 $(MSWIN)/mnselcnt.bmp $(MSWIN)/mnunsel.bmp \
 	 $(MSWIN)/petmark.bmp $(MSWIN)/pilemark.bmp $(MSWIN)/NetHack.ico $(MSWIN)/rip.bmp \
 	 $(MSWIN)/splash.bmp
-	$(rc) -o$@ --include-dir $(MSWIN) -i $(MSWIN)/EvilHackW.rc
+	$(rc) -o$@ --include-dir $(MSWIN) -i $(MSWIN)/HackEMW.rc
 
 $(O)conres.o: $(MSWSYS)/console.rc $(MSWSYS)/NetHack.ico
 	$(rc) -o$@ --include-dir $(MSWSYS) -i $(MSWSYS)/console.rc
@@ -862,7 +862,7 @@ $(GAMEDIR)/EvilHack.exe : gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)guist
 		$(O)guistub.o $(O)conres.o $(PDCLIB) $(conlibs) -static -lstdc++
 	$(subst /,\,@if exist $(O)install.tag del $(O)install.tag)
 
-# EvilHackW
+# HackEMW
 # full tty linkage libs:
 #    libs: $(LIBS) $(guilibs) $(COMCTRL)
 #    objs: $(GAMEOBJ) $(GUIOBJ) $(TTYOBJ) $(O)tile.o $(O)nttty.o
@@ -871,7 +871,7 @@ $(GAMEDIR)/EvilHack.exe : gamedir.tag $(PDCLIB) $(O)tile.o $(O)nttty.o $(O)guist
 #    objs: $(GAMEOBJ) $(GUIOBJ) $(O)tile.o $(O)ttystub.o
 
 ifneq "$(SKIP_NETHACKW)" "Y"
-$(GAMEDIR)/EvilHackW.exe : gamedir.tag $(PDCLIB) $(O)tile.o $(O)ttystub.o \
+$(GAMEDIR)/HackEMW.exe : gamedir.tag $(PDCLIB) $(O)tile.o $(O)ttystub.o \
 			$(ALLOBJ) $(TTYOBJ) $(GUIOBJ) $(O)winres.o $(KEYDLLS)
 	@echo Linking $@...
 	$(link) $(lflags) -mwindows -o$@ $(ALLOBJ) $(GUIOBJ) $(O)tile.o $(O)ttystub.o \
