@@ -2,37 +2,39 @@
 
 ## Design Goals
 
-**The first goal** of this project is to become the major successor of Slash'EM and port over most of Slash'EM to a modern platform. I chose EvilHack as a base because it is based on 3.6, it's inheritly more difficult, and it contains many Quality Of Life features already baked in. See here:
+**The first goal** of this project is to become the major successor of Slash'EM and port over most of Slash'EM to a modern platform. I chose EvilHack as a base because it's inheritly more difficult and contains many Quality Of Life features already baked in. See here:
 
 	- Nice HP Bar
-	- Enhance menu shows max and % progress on skills.
+	- Enhance menu shows max and % progress on skills
 	- Extended commands: #terrain, #annotate, #overview, #tip, #give, #adjust splitting and merging
 	- Peaceful displacing, paranoid swim, Smart shop autopickup
 	- Full bag altar BUC identification
 	- New conducts: Elbereth, alignment, touched art, petless
-	- New soko levels, new room shapes and themed rooms.
-	- object materials, quick wand wresting
+	- New soko levels, new room shapes and themed rooms
+	- Object materials, quick wand wresting
+    - dtsund patch for dragon scales
 	
-Evil also has some challenging aspects that are well worth keeping:
+Evil also has some challenging aspects that complement Slash'EM:
 
 	- New roles: Infidel, convict
 	- New Races: giant, tortle, centaur, and illithid
-	- Elbereth: Can't use unless you found/discovered it.
-	- Partial intrinsics; Partial eflection
+	- Elbereth: Can't use unless you found/discovered it
+	- Partial intrinsics and partial reflection
 	- No randomly generated magic markers
-	- Strong monsters push through weaker monsters to get to you.
-	- Zombies ressurect, mummies wither, spellcasters are meaner.
+	- Strong monsters push through weaker monsters to get to you
+	- Zombies ressurect, mummies wither, spellcasters are meaner
 	- Monster steeds
+    - Revamped Gehennom and new branches
+
 
 ## Other design goals:
 
-* **Goal 2:** Remove/edit Evil content
-* **Goal 3:** Integrate slashem updates and bugfixes from other Slash'EM forks
-* **Goal 4:** Import content from other forks.
-* **Goal 5:** Homemade Ideas/Improvements for Slashem
-* **Goal 6:** HackEM specific content
-* **Goal 7:** Rethink dungeon texture
-* **Goal 8:** Rethink Gehennom
+* **Goal 2:** Remove/edit Evil content so that users can more easily transition from vanilla to HackEM
+* **Goal 3:** Integrate slashem updates and bugfixes from other Slash'EM forks: slashem-up, slashem9, and slashTHEM.
+* **Goal 4:** Import content from other forks like UnNetHack, SpliceHack, and XNethack.
+* **Goal 5:** Improve upon the original Slashem content
+* **Goal 6:** Generate brand new content and mechanics!
+* **Goal 7:** Rethink dungeon texture and rethink Gehennom
 
 ## Installation
 
