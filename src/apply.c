@@ -4670,6 +4670,7 @@ char class_list[];
 
     knowoil = objects[POT_OIL].oc_name_known;
     knowtouchstone = objects[TOUCHSTONE].oc_name_known;
+    knowwhetstone = objects[WHETSTONE].oc_name_known;
     knowflint = objects[FLINT].oc_name_known;
     addpotions = addstones = addfood = FALSE;
     
