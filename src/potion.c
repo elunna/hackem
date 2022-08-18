@@ -3026,7 +3026,7 @@ dodip()
         useup(potion);
         return 1;
     } else if (potion->otyp == POT_GAIN_LEVEL) {
-	    res = upgrade_obj(obj);
+	    int res = upgrade_obj(obj);
 	    if (res != 0) {
 		if (res == 1) {
 		    /* The object was upgraded */
@@ -3293,7 +3293,7 @@ register struct obj *obj;
  * returns -1 if object exploded (potion should be used up) 
  */
 {
-	int chg, otyp = obj->otyp, otyp2;
+	short chg, otyp = obj->otyp, otyp2;
 	xchar ox, oy;
 	long owornmask;
 	struct obj *otmp;
@@ -3742,8 +3742,9 @@ register struct obj *obj;
 	    puton_worn_item(obj);
 	}
 
-	if (obj->otyp == BAG_OF_HOLDING && Has_contents(obj)) {
-	    explodes = FALSE;
+	/* if (obj->otyp == BAG_OF_HOLDING && Has_contents(obj)) { */
+        if (Is_mbag(obj) && Has_contents(obj)) {
+                explodes = FALSE;
 
 	    for (otmp = obj->cobj; otmp; otmp = otmp->nobj) {
                 if (mbag_explodes(otmp, 0)) {

@@ -29,7 +29,6 @@ STATIC_DCL long FDECL(carry_count, (struct obj *, struct obj *, long,
                                     BOOLEAN_P, int *, int *));
 STATIC_DCL int FDECL(lift_object, (struct obj *, struct obj *, long *,
                                    BOOLEAN_P));
-STATIC_DCL boolean FDECL(mbag_explodes, (struct obj *, int));
 STATIC_DCL long FDECL(boh_loss, (struct obj *container, int));
 STATIC_PTR int FDECL(in_container, (struct obj *));
 STATIC_PTR int FDECL(out_container, (struct obj *));
@@ -2311,7 +2310,7 @@ boolean *mon_interact;
  * Decide whether an object being placed into a magic bag will cause
  * it to explode.  If the object is a bag itself, check recursively.
  */
-STATIC_OVL boolean
+boolean
 mbag_explodes(obj, depthin)
 struct obj *obj;
 int depthin;
