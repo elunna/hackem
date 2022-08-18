@@ -3369,9 +3369,9 @@ register struct obj *obj;
             obj->otyp = CLUB;
             break;
         case WAR_HAMMER:
-            obj->otyp = HEAVY_HAMMER;
+            obj->otyp = HEAVY_WAR_HAMMER;
             break;
-        case HEAVY_HAMMER:
+        case HEAVY_WAR_HAMMER:
             obj->otyp = WAR_HAMMER;
             break;
         case ELVEN_BOW:
@@ -3401,11 +3401,11 @@ register struct obj *obj;
             }
             break;
         /* armour */
-        case ELVEN_MITHRIL_COAT:
-            obj->otyp = DARK_ELVEN_MITHRIL_COAT;
+        case ELVEN_CHAIN_MAIL:
+            obj->otyp = DARK_ELVEN_CHAIN_MAIL;
             break;
-        case DARK_ELVEN_MITHRIL_COAT:
-            obj->otyp = ELVEN_MITHRIL_COAT;
+        case DARK_ELVEN_CHAIN_MAIL:
+            obj->otyp = ELVEN_CHAIN_MAIL;
             break;
         case ORCISH_CHAIN_MAIL:
             obj->otyp = CHAIN_MAIL;
@@ -3413,13 +3413,14 @@ register struct obj *obj;
         case CHAIN_MAIL:
             obj->otyp = ORCISH_CHAIN_MAIL;
             break;
-        case STUDDED_LEATHER_ARMOR:
-        case LEATHER_JACKET:
-            obj->otyp = LEATHER_ARMOR;
+        case STUDDED_ARMOR:
+        case JACKET:
+            obj->otyp = ARMOR;
             break;
-        case LEATHER_ARMOR:
-            obj->otyp = STUDDED_LEATHER_ARMOR;
+        case ARMOR:
+            obj->otyp = STUDDED_ARMOR;
             break;
+#if 0
         /* robes */
         case ROBE:
             if (!rn2(2))
@@ -3431,6 +3432,7 @@ register struct obj *obj;
         case ROBE_OF_POWER:
             obj->otyp = ROBE;
             break;
+#endif
         /* cloaks */
         case CLOAK_OF_PROTECTION:
         case CLOAK_OF_INVISIBILITY:
@@ -3454,9 +3456,9 @@ register struct obj *obj;
             break;
         /* helms */
         case FEDORA:
-            obj->otyp = ELVEN_LEATHER_HELM;
+            obj->otyp = ELVEN_HELM;
             break;
-        case ELVEN_LEATHER_HELM:
+        case ELVEN_HELM:
             obj->otyp = FEDORA;
             break;
         case DENTED_POT:
@@ -3465,9 +3467,9 @@ register struct obj *obj;
         case ORCISH_HELM:
         case HELM_OF_BRILLIANCE:
         case HELM_OF_TELEPATHY:
-            obj->otyp = DWARVISH_IRON_HELM;
+            obj->otyp = DWARVISH_HELM;
             break;
-        case DWARVISH_IRON_HELM:
+        case DWARVISH_HELM:
             if (!rn2(2))
                 obj->otyp = HELM_OF_BRILLIANCE;
             else
@@ -3480,7 +3482,7 @@ register struct obj *obj;
             obj->otyp = CORNUTHAUM;
             break;
         /* gloves */
-        case LEATHER_GLOVES:
+        case GLOVES:
             if (!rn2(2))
                 obj->otyp = GAUNTLETS_OF_SWIMMING;
             else
@@ -3488,7 +3490,7 @@ register struct obj *obj;
             break;
         case GAUNTLETS_OF_SWIMMING:
         case GAUNTLETS_OF_DEXTERITY:
-            obj->otyp = LEATHER_GLOVES;
+            obj->otyp = GLOVES;
             break;
         /* shields */
         case ELVEN_SHIELD:
@@ -3555,23 +3557,23 @@ register struct obj *obj;
             obj->otyp = TALLOW_CANDLE;
             break;
         case OIL_LAMP:
-            obj->otyp = BRASS_LANTERN;
+            obj->otyp = LANTERN;
             break;
-        case BRASS_LANTERN:
+        case LANTERN:
             obj->otyp = OIL_LAMP;
             break;
-        case TIN_WHISTLE:
+        case PEA_WHISTLE:
             obj->otyp = MAGIC_WHISTLE;
             break;
         case MAGIC_WHISTLE:
-            obj->otyp = TIN_WHISTLE;
+            obj->otyp = PEA_WHISTLE;
             break;
-        case WOODEN_FLUTE:
+        case FLUTE:
             obj->otyp = MAGIC_FLUTE;
             obj->spe = rn1(5,10);
             break;
         case MAGIC_FLUTE:
-            obj->otyp = WOODEN_FLUTE;
+            obj->otyp = FLUTE;
             break;
         case TOOLED_HORN:
             obj->otyp = rn1(HORN_OF_PLENTY - TOOLED_HORN, FROST_HORN);
@@ -3583,13 +3585,13 @@ register struct obj *obj;
         case FROST_HORN:
             obj->otyp = TOOLED_HORN;
             break;
-        case WOODEN_HARP:
+        case HARP:
             obj->otyp = MAGIC_HARP;
             obj->spe = rn1(5,10);
             obj->known = 0;
             break;
         case MAGIC_HARP:
-            obj->otyp = WOODEN_HARP;
+            obj->otyp = HARP;
             break;
         case LEASH:
             obj->otyp = SADDLE;
