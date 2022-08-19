@@ -1704,27 +1704,27 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 } else
                     setmangry(mtmp, FALSE);
                 }
-            }
-            multi = oldmulti;
-            /* WAC Give those who know command undead a shot at control.
-             * Since spell is area affect,  do this after all undead
-             * are summoned
-             */
-            if (!Role_if(PM_NECROMANCER) && !(sobj->cursed)) {
-                if (objects[SPE_COMMAND_UNDEAD].oc_name_known) {
-                        int sp_no;
-            for (sp_no = 0; sp_no < MAXSPELL; sp_no++)
-                if (spl_book[sp_no].sp_id == SPE_COMMAND_UNDEAD) {
-                    You("try to command %s", mon_nam(mtmp));
-                    spelleffects(sp_no, TRUE);
-                    break;
-                }
-            if (sp_no == MAXSPELL)
-                You("don't seem to have the spell command undead memorized!");
-                } else
-            You("don't know how to command undead...");
-            }
+                multi = oldmulti;
 
+                /* WAC Give those who know command undead a shot at control.
+                 * Since spell is area affect,  do this after all undead
+                 * are summoned
+                 */
+                if (!Role_if(PM_NECROMANCER) && !(sobj->cursed)) {
+                    if (objects[SPE_COMMAND_UNDEAD].oc_name_known) {
+                        int sp_no;
+                        for (sp_no = 0; sp_no < MAXSPELL; sp_no++)
+                            if (spl_book[sp_no].sp_id == SPE_COMMAND_UNDEAD) {
+                                You("try to command %s", mon_nam(mtmp));
+                                spelleffects(sp_no, TRUE);
+                                break;
+                            }
+                        if (sp_no == MAXSPELL)
+                            You("don't seem to have the spell command undead memorized!");
+                    } else
+                        You("don't know how to command undead...");
+                }
+            }
             /* flush monsters before asking for identification */
             flush_screen(0);
             break;
