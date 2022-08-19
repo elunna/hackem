@@ -1686,6 +1686,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 case 10:
                     mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
                     break;
+                default:
+                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
             }
             /* WAC Give N a shot at controlling the beasties
              * (if not cursed <g>).  Check curse status in case
