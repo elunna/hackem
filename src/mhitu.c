@@ -4453,7 +4453,7 @@ struct attack *mattk;
                     /* Passive stun */
                     if (!Blind)
                         pline("%s %s for a moment.", Monnam(mtmp),
-                              makeplural(stagger(mtmp, "stagger")));
+                              makeplural(stagger(mtmp->data, "stagger")));
                     mtmp->mstun = 1;
                     break;
                 }
