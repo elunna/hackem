@@ -2362,11 +2362,12 @@ litroom(on, obj)
 register boolean on; /* True: make nearby area lit; False: cursed scroll */
 struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
 {
+    /* To allow passing monster effects (ex: Shadow Wolf, Shadow Ogre) we
+     * will handle obj being NULL as the monster effect */
     struct obj *otmp = 0;
     boolean blessed_effect = (obj && obj->oclass == SCROLL_CLASS
                               && obj->blessed);
-    boolean monster_effect = otmp == &mons[PM_SHADOW_WOLF]
-                          || otmp == &mons[PM_SHADOW_OGRE];
+
 
     char is_lit = 0; /* value is irrelevant but assign something anyway; its
                       * address is used as a 'not null' flag for set_lit() */
@@ -2409,7 +2410,7 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
                 pline_The("ambient light seems dimmer.");
             else if (u.uswallow)
                 pline("It seems even darker in here than before.");
-            else if (monster_effect)
+            else if (!obj)
                 pline("It seems darker in here.");
             else
                 You("are surrounded by darkness!");
@@ -2465,7 +2466,7 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
             rooms[rnum].rlit = on;
         }
         /* hallways remain dark on the rogue level */
-    } else if (monster_effect) {
+    } else if (!obj) {
         /* --hackem: Real hack here to allow monsters to spread darkness. */
         do_clear_area(u.ux, u.uy, d(1, 3),
                       set_lit, (genericptr_t) (on ? &is_lit : (char *) 0));

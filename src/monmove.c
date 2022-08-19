@@ -856,7 +856,7 @@ toofar:
         /* litroom should be passed a "light spell" object like a scroll/wand
          * of light, but we are hacking it so it takes the monster which
          * spreads darkness instead. */
-        litroom(FALSE, mtmp);
+        litroom(FALSE, NULL);
     }
 
     if (!nearby || mtmp->mflee || scared || mtmp->mconf || mtmp->mstun
