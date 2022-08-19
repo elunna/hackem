@@ -143,7 +143,7 @@ int
 resist_reduce(amount, which)
 int amount, which;
 {
-    float tmp = 100 - how_resistant(which);
+    float tmp = 100.0 - (float) how_resistant(which);
 
     tmp /= 100;
     /* debug line */
@@ -3606,6 +3606,7 @@ register struct obj *obj;
         case TINNING_KIT:
             obj->otyp = TIN_OPENER;
             break;
+#if 0 /* --hackem: Disabling - not a useful upgrade and not in the spirit of Evil either */
         case CRYSTAL_BALL:
             /* "ball-point pen" */
             obj->otyp = MAGIC_MARKER;
@@ -3618,6 +3619,7 @@ register struct obj *obj;
                 obj->spe = chg;
             obj->known = 0;
             break;
+#endif
         case K_RATION:
         case C_RATION:
         case LEMBAS_WAFER:

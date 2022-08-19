@@ -1452,7 +1452,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 else {
                     tmp += rnd(6); /* +1 damage vs non-fire resistant. */
                     if (resists_cold(mdef))
-                        tmp *= 1.5; /* +d3 damage vs non-fire res. */
+                        tmp = (int) (tmp * 1.5); /* +d3 damage vs non-fire res. */
 
                     if (!rn2(2) && burnarmor(mdef)) {
                         if (!rn2(3))

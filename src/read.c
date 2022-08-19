@@ -1137,6 +1137,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             scursed = sobj->cursed, already_known, old_erodeproof,
             new_erodeproof;
     struct obj *otmp = (struct obj *) 0;
+    struct monst *mtmp;
 
     if (objects[otyp].oc_magic)
         exercise(A_WIS, TRUE);                       /* just for trying */
@@ -1652,7 +1653,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 
     case SPE_SUMMON_UNDEAD: {
 		int cnt = 1, oldmulti = multi;
-        struct monst *mtmp;
 		multi = 0;
   
 		if(!rn2(73) && !sobj->blessed) 
