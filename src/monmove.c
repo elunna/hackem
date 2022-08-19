@@ -1384,7 +1384,7 @@ register int after;
             && !mtmp->mpeaceful)
             minr--;
         /* guards shouldn't get too distracted */
-        if (!mtmp->mpeaceful && is_mercenary(ptr) || is_blkmktstaff(ptr))
+        if (!mtmp->mpeaceful && (is_mercenary(ptr) || is_blkmktstaff(ptr)))
             minr = 1;
 
         if ((likegold || likegems || likeobjs || likemagic || likerock

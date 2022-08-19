@@ -769,6 +769,7 @@ struct obj *instr;
     char *s;
     int x, y;
     boolean ok;
+    boolean instr_breaks = FALSE;
 
     if (Hidinshell) {
         You("are incapable of playing %s while hiding in your shell.",
@@ -793,7 +794,6 @@ struct obj *instr;
      *      uncursed = 10%
      *      blessed = 5%
      */
-    boolean instr_breaks = FALSE;
     if (instr->oartifact)
         ;  /* Artifact instruments don't break on apply */
     else if (Fumbling || (instr->cursed && !rn2(4))) {

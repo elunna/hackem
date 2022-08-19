@@ -1595,6 +1595,8 @@ dosacrifice()
     static NEARDATA const char cloud_of_smoke[] =
         "A cloud of %s smoke surrounds you...";
     register struct obj *otmp;
+    struct monst *mtmp;
+    int i;
     int value = 0, pm;
     boolean highaltar;
     aligntyp altaralign = a_align(u.ux, u.uy);
@@ -1644,7 +1646,6 @@ dosacrifice()
         } else {
             ptr = &mons[otmp->corpsenm];
         }
-        struct monst *mtmp;
         /* is this a conversion attempt? */
         boolean to_other_god =  ugod_is_angry() && !your_race(ptr)
                                 && u.ualign.type != altaralign;
@@ -2219,7 +2220,7 @@ dosacrifice()
 
                             /* apply starting inventory subs - so we'll get racial gear if possible */
                             if (urace.malenum != PM_HUMAN) {
-                                for (int i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
+                                for (i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
                                     if (inv_subs[i].race_pm == urace.malenum
                                         && typ == inv_subs[i].item_otyp) {
                                         typ = inv_subs[i].subs_otyp;
@@ -2381,7 +2382,7 @@ dosacrifice()
                              * racial gear if possible
                              */
                             if (urace.malenum != PM_HUMAN) {
-                                for (int i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
+                                for (i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
                                     if (inv_subs[i].race_pm == urace.malenum
                                         && typ == inv_subs[i].item_otyp) {
                                         typ = inv_subs[i].subs_otyp;

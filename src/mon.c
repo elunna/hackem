@@ -302,6 +302,7 @@ struct monst* mdef;
     mdef->data = &mons[PM_MIND_FLAYER];
     boolean willspot = canspotmon(mdef);
     mdef->data = mdat;
+    char name[PL_PSIZ];
 
     if (couldspot && willspot) {
         /* only print if you can spot both the dying monster and the arising
@@ -340,7 +341,6 @@ struct monst* mdef;
         /* wipe all mextra structs (to prevent a compromised shk/priest/guard/etc
          * from continuing to behave as what it used to be), then restore name
          * if present */
-        char name[PL_PSIZ];
         name[0] = '\0';
         if (has_eshk(mdef)) {
             if (!Hallucination)
@@ -872,7 +872,7 @@ minliquid(mtmp)
 register struct monst *mtmp;
 {
     boolean inpool, inlava, infountain, inshallow, inforge, inopenair;
-
+    const char *how;
     /* [ceiling clingers are handled below] */
     inpool = (is_pool(mtmp->mx, mtmp->my)
               && (!(is_flyer(mtmp->data) || is_floater(mtmp->data))
@@ -889,7 +889,7 @@ register struct monst *mtmp;
                       || is_clinger(mtmp->data)
                       || ((mtmp == u.usteed) && Flying)));
 
-    /* Flying and levitation keeps our steed out of the liquid
+        /* Flying and levitation keeps our steed out of the liquid
        (but not water-walking or swimming; note: if hero is in a
        water location on the Plane of Water, flight and levitating
        are blocked so this (Flying || Levitation) test fails there
@@ -979,7 +979,7 @@ register struct monst *mtmp;
                     struct attack *dummy;
                     dummy = has_erac(mtmp) ? &ERAC(mtmp)->mattk[0]
                                            : &mtmp->data->mattk[0];
-                    const char *how = on_fire(mtmp->data, dummy);
+                    how = on_fire(mtmp->data, dummy);
 
                     pline("%s %s.", Monnam(mtmp),
                           !strcmp(how, "boiling") ? "boils away"
@@ -6072,13 +6072,13 @@ void
 icequeenrevive(mtmp)
 struct monst *mtmp;
 {
-    /* our hero has freed the Ice Queen from her curse */
-    if (mtmp->data != &mons[PM_KATHRYN_THE_ICE_QUEEN])
-        return;
-
     struct monst *mon;
     struct permonst *bourbon = &mons[PM_BOURBON];
     struct permonst *ozzy = &mons[PM_OZZY];
+
+    /* our hero has freed the Ice Queen from her curse */
+    if (mtmp->data != &mons[PM_KATHRYN_THE_ICE_QUEEN])
+        return;
 
     /* in case player kills themselves while defeating
        the ice queen and isn't lifesaved */

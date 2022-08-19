@@ -760,6 +760,7 @@ struct permonst * pm;
 {
     char buf[BUFSZ];
     char buf2[BUFSZ];
+    int i;
     int gen = pm->geno;
     int freq = (gen & G_FREQ);
     int pct = max(5, (int) (pm->cwt / 90));
@@ -995,7 +996,6 @@ struct permonst * pm;
 
     /* Attacks */
     buf[0] = buf2[0] = '\0';
-    int i;
     for (i = 0; i < 6; i++) {
         char dicebuf[20]; /* should be a safe limit */
         struct attack * attk = &(pm->mattk[i]);
@@ -1047,6 +1047,8 @@ short otyp;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional"
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
+    const char* dmgtyp;
+    boolean weptool;
 
 #define OBJPUTSTR(str) putstr(datawin, ATR_NONE, str)
 #define ADDCLASSPROP(cond, str)          \
@@ -1060,7 +1062,7 @@ short otyp;
     OBJPUTSTR("");
 
     /* Object classes currently with no special messages here: amulets. */
-    boolean weptool = (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
+    weptool = (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
     if (olet == WEAPON_CLASS || weptool) {
         const int skill = oc.oc_skill;
         if (skill >= 0) {
@@ -1082,7 +1084,7 @@ short otyp;
         }
         OBJPUTSTR(buf);
 
-        const char* dmgtyp = "blunt";
+        dmgtyp = "blunt";
         if (oc.oc_dir & PIERCE) {
             dmgtyp = "piercing";
             if (oc.oc_dir & SLASH) {
@@ -1471,6 +1473,9 @@ char *supplemental_name;
     winid datawin = WIN_ERR;
     short otyp, mat;
     boolean lookat_mon = (pm != (struct permonst *) 0);
+    long entry_offset, fseekoffset;
+    int entry_count;
+    int i;
 
     fp = dlb_fopen(DATAFILE, "r");
     if (!fp) {
@@ -1697,9 +1702,6 @@ char *supplemental_name;
             }
 
             /* database entry should exist, now find where it is */
-            long entry_offset, fseekoffset;
-            int entry_count;
-            int i;
             if (found_in_file) {
                 /* skip over other possible matches for the info */
                 do {

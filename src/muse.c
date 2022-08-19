@@ -3752,7 +3752,8 @@ boolean by_you;
 {
     struct obj *obj;
     boolean tinok;
-
+    register struct obj *otemp, *onext;
+    register struct obj *pseudo;
     if (resists_ston(mon) || defended(mon, AD_STON))
         return FALSE;
     if (mon->meating || !mon->mcanmove || mon->msleeping)
@@ -3766,8 +3767,8 @@ boolean by_you;
         if (mon->mspec_used)
             return FALSE;
 
-        register struct obj *otemp, *onext;
-        register struct obj *pseudo = mksobj(SPE_STONE_TO_FLESH, FALSE, FALSE);
+
+        pseudo = mksobj(SPE_STONE_TO_FLESH, FALSE, FALSE);
         pseudo->blessed = pseudo->cursed = 0;
         mon->mspec_used = mon->mspec_used + rn2(7);
         if (canspotmon(mon))

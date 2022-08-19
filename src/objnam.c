@@ -3341,6 +3341,7 @@ const char * in_str;
     short otyp;
     int i;
     char oclass = 0;
+    const struct alt_spellings *as;
 
     /* Search for class names: XXXXX potion, scroll of XXXXX.  Avoid */
     /* false hits on, e.g., rings for "ring mail".
@@ -3392,8 +3393,6 @@ const char * in_str;
         }
     }
     /* try alternate spellings */
-    const struct alt_spellings *as;
-
     for (as = spellings; as->sp != 0; as++) {
         if (!strcmpi(in_str, as->sp)) {
             return as->ob;
@@ -3452,6 +3451,7 @@ struct obj *no_wish;
     register char *p;
     register int i;
     register struct obj *otmp;
+    struct permonst* ldr;
     int cnt, spe, spesgn, typ, very, rechrg;
     int blessed, uncursed, iscursed, ispoisoned, isgreased;
     int magical;
@@ -3461,6 +3461,8 @@ struct obj *no_wish;
     int material;
     int tmp, tinv, tvariety;
     int wetness, gsize = 0;
+    int l = 0;
+    int of = 4;
     boolean zombo;
     struct fruit *f;
     int ftype = context.current_fruit;
@@ -3854,9 +3856,8 @@ struct obj *no_wish;
                 typ = TIN;
                 goto typfnd;
             }
-
-            int l = 0;
-            int of = 4;
+            l = 0;
+            of = 4;
 
             char *tmpp;
 
@@ -4861,7 +4862,7 @@ struct obj *no_wish;
                  */
                 if (!((role->ldrnum == PM_MASTER_OF_THIEVES) && Role_if(PM_TOURIST))) {
                     pm = role->ldrnum;
-                    struct permonst* ldr = &mons[pm];
+                    ldr = &mons[pm];
                     /* remove flags that tag quest leaders as
                        peaceful or spawn them mediating */
                     ldr->mflags2 &= ~(M2_PEACEFUL);
@@ -5281,6 +5282,8 @@ dragon_scales_color(obj)
 struct obj *obj;
 {
     char* buf = nextobuf();
+    const struct permonst *pm;
+    const char* endp;
     if (!obj) {
         impossible("dragon_scales_color: null obj");
         return NULL;
@@ -5291,8 +5294,8 @@ struct obj *obj;
         Strcpy(buf, "bugged color");
         return buf;
     }
-    const struct permonst *pm = &mons[Dragon_armor_to_pm(obj)];
-    const char* endp = strstri(pm->mname, " dragon");
+    pm = &mons[Dragon_armor_to_pm(obj)];
+    endp = strstri(pm->mname, " dragon");
     if (!endp) {
         impossible("dragon_scales_color found non-dragon monster (%s)",
                    pm->mname);

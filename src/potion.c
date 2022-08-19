@@ -3298,7 +3298,6 @@ register struct obj *obj;
 	long owornmask;
 	struct obj *otmp;
 	boolean explodes;
-	char buf[BUFSZ];
 
 	/* Check to see if object is valid */
 	if (!obj)
@@ -3646,7 +3645,7 @@ register struct obj *obj;
 	}
 
 #if 0  /* --hackem: This currently crashes because of otyp2
-        *  Disabling until we can fix it /*
+        *  Disabling until we can fix it */
 	if (artifact_name(ONAME(obj), &otyp2) && otyp2 == obj->otyp) {
 	    int n;
 	    char c1, c2;

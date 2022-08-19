@@ -354,6 +354,7 @@ register boolean nearshop;
     /* Keystone Kops srt@ucla */
     register boolean nokops;
     char kopname[20];
+    coord mm;
 
     Strcpy(kopname, "Keystone Kops");
 
@@ -387,9 +388,6 @@ register boolean nearshop;
 
     if (nokops) 
         return;
-
-
-    coord mm;
 
     if (nearshop)
         if (!Is_blackmarket(&u.uz)) {
@@ -731,9 +729,11 @@ char *enterstring;
         }
     }
 
-    //* Visible striped prison shirt */
+    /* Visible striped prison shirt */
     if (!Is_blackmarket(&u.uz) &&
-        (uarmu && (uarmu->otyp == STRIPED_SHIRT)) && !uarm && !uarmc) {
+        (uarmu && (uarmu->otyp == STRIPED_SHIRT))
+        && !uarm
+        && !uarmc) {
         eshkp->pbanned = TRUE;
     }
 

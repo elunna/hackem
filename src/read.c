@@ -1661,11 +1661,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             cnt += 12;
 		
         while(cnt--) {
-            #ifdef WIZARD
-		    if(!wizard || !(mtmp = create_particular()))
-            #endif
+        #ifdef WIZARD
+            if(!wizard || !(mtmp = create_particular()))
+        #endif
 
-		    switch (rn2(10)+1) {
+            switch (rn2(10)+1) {
                 case 1:
                     mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
                     break;
@@ -1686,44 +1686,46 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 case 10:
                     mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
                     break;
-		    }
-		    /* WAC Give N a shot at controlling the beasties
-		     * (if not cursed <g>).  Check curse status in case
-		     * this ever becomes a scroll
-		     */
-		    if (mtmp)
+            }
+            /* WAC Give N a shot at controlling the beasties
+             * (if not cursed <g>).  Check curse status in case
+             * this ever becomes a scroll
+             */
+            if (mtmp) {
                 if (!sobj->cursed && Role_if(PM_NECROMANCER)) {
                     if (!resist(mtmp, sobj->oclass, 0, TELL)) {
-                        mtmp = tamedog(mtmp, (struct obj *) 0);
-                        if (mtmp)
+                        /* mtmp = tamedog(mtmp, (struct obj *) 0); */
+                        if (tamedog(mtmp, (struct obj *) 0))
                             You("dominate %s!", mon_nam(mtmp));
                     }
-                } else setmangry(mtmp, FALSE);
-		}
-		multi = oldmulti;
-		/* WAC Give those who know command undead a shot at control.
-		 * Since spell is area affect,  do this after all undead
-		 * are summoned
-		 */
-		if (!Role_if(PM_NECROMANCER) && !(sobj->cursed)) {
-		    if (objects[SPE_COMMAND_UNDEAD].oc_name_known) {
-			    int sp_no;
-                for (sp_no = 0; sp_no < MAXSPELL; sp_no++)
-                    if (spl_book[sp_no].sp_id == SPE_COMMAND_UNDEAD) {
-                        You("try to command %s", mon_nam(mtmp));
-                        spelleffects(sp_no, TRUE);
-                        break;
-                    }
-                if (sp_no == MAXSPELL)
-                    You("don't seem to have the spell command undead memorized!");
-		    } else 
-                You("don't know how to command undead...");
-		}
-        
-		/* flush monsters before asking for identification */
-		flush_screen(0);
-		break;
-	    }
+                } else
+                    setmangry(mtmp, FALSE);
+                }
+            }
+            multi = oldmulti;
+            /* WAC Give those who know command undead a shot at control.
+             * Since spell is area affect,  do this after all undead
+             * are summoned
+             */
+            if (!Role_if(PM_NECROMANCER) && !(sobj->cursed)) {
+                if (objects[SPE_COMMAND_UNDEAD].oc_name_known) {
+                        int sp_no;
+            for (sp_no = 0; sp_no < MAXSPELL; sp_no++)
+                if (spl_book[sp_no].sp_id == SPE_COMMAND_UNDEAD) {
+                    You("try to command %s", mon_nam(mtmp));
+                    spelleffects(sp_no, TRUE);
+                    break;
+                }
+            if (sp_no == MAXSPELL)
+                You("don't seem to have the spell command undead memorized!");
+                } else
+            You("don't know how to command undead...");
+            }
+
+            /* flush monsters before asking for identification */
+            flush_screen(0);
+            break;
+        }
     case SCR_ENCHANT_WEAPON:
         /* [What about twoweapon mode?  Proofing/repairing/enchanting both
            would be too powerful, but shouldn't we choose randomly between
@@ -2360,7 +2362,7 @@ litroom(on, obj)
 register boolean on; /* True: make nearby area lit; False: cursed scroll */
 struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
 {
-    struct obj *otmp;
+    struct obj *otmp = 0;
     boolean blessed_effect = (obj && obj->oclass == SCROLL_CLASS
                               && obj->blessed);
     boolean monster_effect = otmp == &mons[PM_SHADOW_WOLF]

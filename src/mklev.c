@@ -285,6 +285,7 @@ long curr_total_freq = -1;
 char *
 rndvault_getname()
 {
+    long frq;
     if (!rndvault_gen) rndvault_gen_load();
     if (rndvault_gen) {
         long cdepth = depth(&u.uz);
@@ -298,7 +299,7 @@ rndvault_getname()
             }
             curr_vault_depth = cdepth;
         }
-        long frq = rn2(curr_total_freq);
+        frq = rn2(curr_total_freq);
 	struct _rndvault *tmp = rndvault_gen->vaults;
 
         while (tmp) {

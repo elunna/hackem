@@ -3626,6 +3626,7 @@ valid_obj_material(obj, mat)
 struct obj* obj;
 int mat;
 {
+    const struct icp* materials;
     if (obj->oartifact) {
         /* shenanigans possible here, ignore them */
         return TRUE;
@@ -3639,7 +3640,7 @@ int mat;
         if (invalid_obj_material(obj, mat))
             return FALSE;
 
-        const struct icp* materials = material_list(obj);
+        materials = material_list(obj);
 
         if (materials) {
             int i = 100; /* guarantee going through everything */
