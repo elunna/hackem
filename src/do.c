@@ -538,6 +538,35 @@ polymorph_sink()
     newsym(u.ux, u.uy);
 }
 
+/* Transforms the toilet at the player's position into a sink. */
+STATIC_DCL void
+polymorph_toilet()
+{
+    uchar sym = S_toilet;
+    boolean sinklooted;
+    int algn;
+
+    if (levl[u.ux][u.uy].typ != TOILET)
+        return;
+
+    sinklooted = levl[u.ux][u.uy].looted != 0;
+    level.flags.ntoilets--;
+    levl[u.ux][u.uy].doormask = 0; /* levl[][].flags */
+
+
+    sym = S_sink;
+    levl[u.ux][u.uy].typ = SINK;
+    level.flags.nsinks++;
+
+    /* give message even if blind; we know we're not levitating,
+       so can feel the outcome even if we can't directly see it */
+    if (levl[u.ux][u.uy].typ != ROOM)
+        pline_The("toilet transforms into %s!", an(defsyms[sym].explanation));
+    else
+        pline_The("toilet vanishes.");
+    newsym(u.ux, u.uy);
+}
+
 /* Teleports the sink at the player's position;
    return True if sink teleported. */
 STATIC_DCL boolean
@@ -840,7 +869,7 @@ register struct obj *obj;
             /* pline_The("toilet doesn't turn to stone."); */
         break;
     case AMULET_OF_CHANGE:
-        pline("The toilet transforms into a sink!");
+        polymorph_toilet();
 
         /* Never get this one back - lost in the pipes... */
         getitback = FALSE;
