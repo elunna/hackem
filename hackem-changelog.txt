@@ -1135,3 +1135,20 @@ Needs branch: Gain Level Upgrades
    72 | E const char *FDECL(artifact_name, (const char *, short *));
    
  [x] potion.c:3747:21: warning: implicit declaration of function ‘mbag_explodes’; did you mean ‘mon_explodes’? [-Wimplicit-function-declaration]
+ 
+ 
+ - [x] README: Fix "Partial eflection"
+- [x] README: Update with more info about evilhack base.
+
+- [x] Unrestrict two-weaponing (already in evil with minor limitations
+
+
+- [x] Once stable on the monsters and items.
+- [x] Import all tiles for new monsters	
+- [x] win/share/monsters.txt
+- [x] win/share/objects.txt
+- [x] win/share/other.txt
+- [x] toilet tile
+- [x] New item tiles
+
+	- [x] \#borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
