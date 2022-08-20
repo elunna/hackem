@@ -973,6 +973,7 @@ init_dungeons()
     quest_dnum = dname_to_dnum("The Quest");
     sokoban_dnum = dname_to_dnum("Sokoban");
     mines_dnum = dname_to_dnum("The Gnomish Mines");
+    spiders_dnum = dname_to_dnum("The Spider Caves");  
     tower_dnum = dname_to_dnum("Vlad's Tower");
 
     /* one special fixup for dummy surface level */
@@ -1435,6 +1436,13 @@ In_mines(lev)
 d_level *lev;
 {
     return (boolean) (lev->dnum == mines_dnum);
+}
+
+boolean
+In_spiders(lev) /* are you in the spider dungeon? */
+d_level *lev;
+{
+	return((boolean) (lev->dnum == spiders_dnum));
 }
 
 /* are you in the Ice Queen branch? */
