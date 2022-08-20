@@ -609,8 +609,8 @@ register struct obj *obj;
         You_hear("loud noises coming from the drain.");
         break;
     case RIN_SLEEPING:		/* ALI */
-		You_hear("loud snores coming from the drain.");
-		break;
+        You_hear("loud snores coming from the drain.");
+        break;
     case RIN_SUSTAIN_ABILITY: /* KMH */
         pline_The("%s flow seems fixed.", hliquid("water"));
         break;
@@ -846,8 +846,12 @@ register struct obj *obj;
         /* pline_The("toilet is definitely not a feature from the variant that calls itself 3.7!"); */
         break;
     case AMULET_OF_FLYING:
-        pline_The("toilet %s erupts in a geyser to the %s!", hliquid("water"), ceiling(u.ux, u.uy));
+        pline_The("toilet %s erupts in a geyser to the %s!",
+                  hliquid("water"), ceiling(u.ux, u.uy));
         /* pline_The("toilet soars to the %s, then lands again.", ceiling(u.ux, u.uy)); */
+
+        /* We should always get this one back if the effect would push it out */
+        getitback = TRUE;
         break;
     default:
         pline("Apparently, nothing happens.");
