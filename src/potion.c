@@ -2654,7 +2654,7 @@ boolean ourfault;
 	if (used) 
 	    update_inventory();
 	else 
-	    pline("%s %s wet.", Your_buf, aobjnam(obj,"get"));
+	    pline("%s%s wet.", Your_buf, aobjnam(obj,"get"));
 
 	return used;
 }
