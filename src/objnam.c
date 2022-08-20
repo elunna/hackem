@@ -47,20 +47,22 @@ struct Jitem {
              && typ != SAPPHIRE && typ != BLACK_OPAL && typ != EMERALD \
              && typ != OPAL)))
 
-STATIC_OVL struct Jitem Japanese_items[] = { { SHORT_SWORD, "wakizashi" },
-                                             { BROADSWORD, "ninja-to" },
-                                             { FLAIL, "nunchaku" },
-                                             { GLAIVE, "naginata" },
-                                             { LOCK_PICK, "osaku" },
-                                             { HARP, "koto" },
-                                             { KNIFE, "shito" },
-                                             { PLATE_MAIL, "tanko" },
-                                             { HELMET, "kabuto" },
-                                             { GLOVES, "yugake" },
-                                             { GAUNTLETS, "tekko" },
-                                             { FOOD_RATION, "gunyoki" },
-                                             { POT_BOOZE, "sake" },
-                                             { 0, "" } };
+STATIC_OVL struct Jitem Japanese_items[] = { 
+    { SHORT_SWORD, "wakizashi" },
+    { BROADSWORD, "ninja-to" },
+    { FLAIL, "nunchaku" },
+    { GLAIVE, "naginata" },
+    { LOCK_PICK, "osaku" },
+    { HARP, "koto" },
+    { KNIFE, "shito" },
+    { PLATE_MAIL, "tanko" },
+    { HELMET, "kabuto" },
+    { GLOVES, "yugake" },
+    { GAUNTLETS, "tekko" },
+    { FOOD_RATION, "gunyoki" },
+    { POT_BOOZE, "sake" },
+    { 0, "" } 
+};
 
 STATIC_DCL const char *FDECL(Japanese_item_name, (int i));
 
@@ -3192,56 +3194,114 @@ static const struct alt_spellings {
     const char *sp;
     int ob;
 } spellings[] = {
+    /* weapons */
     { "pickax", PICK_AXE },
     { "whip", BULLWHIP },
     { "sabre", SABER },
     { "stake", WOODEN_STAKE },
-    { "smooth shield", SHIELD_OF_REFLECTION },
-    { "grey dragon scales", GRAY_DRAGON_SCALES },
-    { "iron ball", HEAVY_IRON_BALL },
-    { "lantern", LANTERN },
     { "mattock", DWARVISH_MATTOCK },
     { "bearded axe", DWARVISH_BEARDED_AXE },
-    { "amulet of poison resistance", AMULET_VERSUS_POISON },
-    { "amulet of protection", AMULET_OF_GUARDING },
-    { "potion of sleep", POT_SLEEPING },
-    { "stone", ROCK },
-    { "camera", EXPENSIVE_CAMERA },
-    { "tee shirt", T_SHIRT },
-    { "can", TIN },
-    { "can opener", TIN_OPENER },
-    { "kelp", KELP_FROND },
-    { "eucalyptus", EUCALYPTUS_LEAF },
-    { "royal jelly", LUMP_OF_ROYAL_JELLY },
-    { "lembas", LEMBAS_WAFER },
-    { "cookie", FORTUNE_COOKIE },
-    { "pie", CREAM_PIE },
-    { "marker", MAGIC_MARKER },
-    { "hook", GRAPPLING_HOOK },
-    { "grappling iron", GRAPPLING_HOOK },
-    { "grapnel", GRAPPLING_HOOK },
-    { "grapple", GRAPPLING_HOOK },
-    { "amulet versus stoning", AMULET_VERSUS_STONE },
-	{ "amulet of stone resistance", AMULET_VERSUS_STONE },
-    { "protection from shape shifters", RIN_PROTECTION_FROM_SHAPE_CHAN },
-    /* if we ever add other sizes, move this to o_ranges[] with "bag" */
-    { "box", LARGE_BOX },
-    /* normally we wouldn't have to worry about unnecessary <space>, but
-       " stone" will get stripped off, preventing a wishymatch; that actually
-       lets "flint stone" be a match, so we also accept bogus "flintstone" */
-    { "luck stone", LUCKSTONE },
-    { "load stone", LOADSTONE },
-    { "touch stone", TOUCHSTONE },
-    { "health stone", HEALTHSTONE },
-    { "flintstone", FLINT },
-    { "shiny stone", SLING_BULLET },
-    /* grenades and firearms */
     { "bolt", CROSSBOW_BOLT },
     { "handgun", PISTOL },
 	{ "hand gun", PISTOL },
 	{ "revolver", PISTOL },
     { "shell", SHOTGUN_SHELL },
     { "hand grenade", FRAG_GRENADE },
+
+    /* armor */
+    { "smooth shield", SHIELD_OF_REFLECTION },
+    { "grey dragon scales", GRAY_DRAGON_SCALES },
+    { "T shirt", T_SHIRT },
+	{ "tee shirt", T_SHIRT },
+    { "BoL",  LEVITATION_BOOTS},
+    { "BoS",  SPEED_BOOTS},
+    { "SB",  SPEED_BOOTS},
+    { "BoWW",  WATER_WALKING_BOOTS},
+    { "WWB",  WATER_WALKING_BOOTS},
+    { "CoD",  CLOAK_OF_DISPLACEMENT},
+    { "CoI",  CLOAK_OF_INVISIBILITY},
+    { "CoMR",  CLOAK_OF_MAGIC_RESISTANCE},
+    { "GoD",  GAUNTLETS_OF_DEXTERITY},
+    { "GoP",  GAUNTLETS_OF_POWER},
+    { "HoB",  HELM_OF_BRILLIANCE},
+    { "HoOA",  HELM_OF_OPPOSITE_ALIGNMENT},
+    { "HoT",  HELM_OF_TELEPATHY},
+    { "SoR",  SHIELD_OF_REFLECTION},
+
+    /* food */
+    { "kelp", KELP_FROND },
+    { "eucalyptus", EUCALYPTUS_LEAF },
+    { "royal jelly", LUMP_OF_ROYAL_JELLY },
+    { "lembas", LEMBAS_WAFER },
+    { "cookie", FORTUNE_COOKIE },
+    { "pie", CREAM_PIE },
+    { "kiwifruit", APPLE },
+	{ "kiwi fruit", APPLE },
+	{ "kiwi", APPLE }, /* Actually refers to the bird */
+
+    /* jewelery */
+    { "amulet of poison resistance", AMULET_VERSUS_POISON },
+    { "amulet of protection", AMULET_OF_GUARDING },
+    { "amulet versus stoning", AMULET_VERSUS_STONE },
+	{ "amulet of stone resistance", AMULET_VERSUS_STONE },
+    { "AoESP",  AMULET_OF_ESP},
+    { "AoLS",  AMULET_OF_LIFE_SAVING},
+    { "AoY",  AMULET_OF_YENDOR},
+    { "protection from shape shifters", RIN_PROTECTION_FROM_SHAPE_CHAN },
+    { "RoC", RIN_CONFLICT },
+    { "RoPC", RIN_POLYMORPH_CONTROL },
+    { "RoTC", RIN_TELEPORT_CONTROL },
+
+    /* normally we wouldn't have to worry about unnecessary <space>, but
+       " stone" will get stripped off, preventing a wishymatch; that actually
+       lets "flint stone" be a match, so we also accept bogus "flintstone" */
+    { "stone", ROCK },
+    { "luck stone", LUCKSTONE },
+    { "load stone", LOADSTONE },
+    { "touch stone", TOUCHSTONE },
+    { "health stone", HEALTHSTONE },
+    { "flintstone", FLINT },
+    { "shiny stone", SLING_BULLET },
+
+    /* Scrolls */
+    { "SoC", SCR_CHARGING },
+    { "SoEA", SCR_ENCHANT_ARMOR },
+    { "SoEW", SCR_ENCHANT_WEAPON },
+    { "SoG", SCR_GENOCIDE },
+    { "SoI", SCR_IDENTIFY },
+    { "SoRC", SCR_REMOVE_CURSE },
+
+    /* potions */
+    { "potion of sleep", POT_SLEEPING },
+    { "PoEH",  POT_EXTRA_HEALING},
+    { "PoGL",  POT_GAIN_LEVEL},
+    { "PoW",  POT_WATER},
+    
+    /* Wands */
+    { "WoW",  WAN_WISHING},
+    { "WoCM",  WAN_CREATE_MONSTER},
+    { "WoT",  WAN_TELEPORTATION},
+    { "WoUT",  WAN_UNDEAD_TURNING},
+
+    /* tools */
+    { "iron ball", HEAVY_IRON_BALL },
+    { "lantern", LANTERN },
+    { "camera", EXPENSIVE_CAMERA },
+    { "can", TIN },
+    { "can opener", TIN_OPENER },
+    { "marker", MAGIC_MARKER },
+    { "hook", GRAPPLING_HOOK },
+    { "grappling iron", GRAPPLING_HOOK },
+    { "grapnel", GRAPPLING_HOOK },
+    { "grapple", GRAPPLING_HOOK },
+    /* if we ever add other sizes, move this to o_ranges[] with "bag" */
+    { "box", LARGE_BOX },
+    { "BoH", BAG_OF_HOLDING },
+    { "BoO", BELL_OF_OPENING },
+    { "ML", MAGIC_LAMP },
+    { "MM", MAGIC_MARKER },
+    { "UH", UNICORN_HORN },
+    
     { (const char *) 0, 0 },
 };
 
