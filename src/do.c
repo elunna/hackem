@@ -763,6 +763,7 @@ register struct obj *obj;
  *  - Updated the messages from dropping amulets to be more "in the spirit of
  *    NetHack" if that makes sense... Also included effects when blind or
  *    hallucinatig.
+ *  - Being blind makes it harder to identify amulets.
  *
  *    obj is an amulet being dropped over a toilet
  */
@@ -773,6 +774,7 @@ register struct obj *obj;
 {
     register boolean getitback = rn2(4);
     char buf2[BUFSZ], *orcname;
+    boolean ideed = TRUE;
 
     /* you can't drop the Amulet of Yendor anyway, but in case this function is somehow called with it... */
     if (obj->otyp == AMULET_OF_YENDOR || obj->otyp == FAKE_AMULET_OF_YENDOR)
@@ -797,42 +799,65 @@ register struct obj *obj;
         pline_The("toilet water no longer flows down the drain!");
         break;
     case AMULET_OF_ESP:
-        You("think you saw a %s in the toilet!",
-            Hallucination ? rndmonnam(NULL) : "flies");
+        if (Blind) {
+            ideed = FALSE;
+        }
+        else
+            You("think you saw a %s in the toilet!",
+                Hallucination ? rndmonnam(NULL) : "rat");
         break;
     case AMULET_OF_LIFE_SAVING:
-        orcname = rndorcname(buf2);
-        if (Hallucination)
-            You("notice a sign that says 'Property of %s' on the toilet.",
-                      orcname);
-        else
-            You("suddenly notice an extended warranty on the toilet.");
-        /* pline_The("toilet gains an extra life!"); */
+        if (Blind) {
+                ideed = FALSE;
+        } else {
+            orcname = rndorcname(buf2);
+            if (Hallucination)
+                You("notice a sign that says 'Property of %s' on the toilet.",
+                    orcname);
+            else
+                You("suddenly notice an extended warranty on the toilet.");
+            /* pline_The("toilet gains an extra life!"); */
+        }
         break;
     case AMULET_OF_STRANGULATION:
-        pline_The("toilet can't flush!");
+        pline_The("toilet can't flush anymore!");
         /* pline_The("toilet seems to scream in agony silently."); */
         break;
     case AMULET_OF_RESTFUL_SLEEP:
-        pline_The("toilet doesn't feel like operating.");
+        pline_The("toilet water stops running.");
         break;
     case AMULET_VERSUS_POISON:
-        pline_The("dirty toilet %s turns clear.", hliquid("water"));
+        if (Blind) {
+            ideed = FALSE;
+        } else
+            pline_The("dirty toilet %s turns clear.", hliquid("water"));
         break;
     case AMULET_VERSUS_STONE:
-        pline_The("toilet looks very limber.");
-        /* pline_The("toilet doesn't turn to stone."); */
+        if (Blind) {
+            pline_The("toilet feels rubbery.");
+        } else
+            pline_The("toilet looks very limber.");
+            /* pline_The("toilet doesn't turn to stone."); */
         break;
     case AMULET_OF_CHANGE:
-        pline("Suddenly the toilet seems to be made for the opposite gender!");
+        pline("The toilet transforms into a sink!");
+
+        /* Never get this one back - lost in the pipes... */
+        getitback = FALSE;
         break;
     case AMULET_OF_UNCHANGING:
-        pline_The("toilet looks nothing like a sink.");
-        /* pline_The("toilet seems indestructible."); */
+        if (Blind) {
+            ideed = FALSE;
+        } else
+            pline_The("toilet looks nothing like a sink.");
+            /* pline_The("toilet seems indestructible."); */
         break;
     case AMULET_OF_REFLECTION:
-        You_see("yourself in the toilet %s.", hliquid("water"));
-        /* pline_The("toilet water seems to come back out of the drain!"); */
+        if (Blind) {
+            ideed = FALSE;
+        } else
+            You_see("yourself in the toilet %s.", hliquid("water"));
+            /* pline_The("toilet water seems to come back out of the drain!"); */
         break;
     case AMULET_OF_MAGICAL_BREATHING:
         pline_The("toilet won't stop flushing!");
@@ -842,12 +867,14 @@ register struct obj *obj;
         pline_The("toilet is surrounded by a magical shield!");
         break;
     case AMULET_OF_GUARDING:
-        pline_The("toilet looks very sturdy!");
-        /* pline_The("toilet is definitely not a feature from the variant that calls itself 3.7!"); */
+        if (Blind) {
+            ideed = FALSE;
+        } else
+            pline_The("toilet looks very sturdy!");
+            /* pline_The("toilet is definitely not a feature from the variant that calls itself 3.7!"); */
         break;
     case AMULET_OF_FLYING:
-        pline_The("toilet %s erupts in a geyser to the %s!",
-                  hliquid("water"), ceiling(u.ux, u.uy));
+        pline_The("toilet %s erupts in a geyser!", hliquid("water"));
         /* pline_The("toilet soars to the %s, then lands again.", ceiling(u.ux, u.uy)); */
 
         /* We should always get this one back if the effect would push it out */
@@ -858,7 +885,8 @@ register struct obj *obj;
         break;
     }
 
-    trycall(obj);
+    if (ideed)
+        trycall(obj);
 
     if (!obj->oerodeproof
         && is_rustprone(obj)
