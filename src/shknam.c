@@ -1215,9 +1215,9 @@ register int sh;
      * door get objects).
      */
     /* [max] removed register int cl,  char buf[bufsz] */
-    int i, sx, sy, first = 0, next = 0, total, partial;
+    int sx, sy, first = 0, next = 0, total, partial;
     /* int blkmar_gen[NUM_OBJECTS+2]; */
-    int *clp, *lastclp;
+    int *clp, *lastclp = NULL;
     int goodcl[12];
 
     goodcl[ 0] = WEAPON_CLASS;
@@ -1238,19 +1238,19 @@ register int sh;
        } */
 
     total = 0;
-    for (clp=goodcl; *clp!=0; clp++)  {
+    for (clp = goodcl; *clp != 0; clp++)  {
         lastclp = clp;
         first = bases[*clp];
         /* this assumes that luckstone & loadstone comes just after the gems */
         next = (*clp==GEM_CLASS) ? (LOADSTONE+1) : bases[(*clp)+1];
         total += next-first;
     }
-    if (total==0) 
+    if (total == 0)
         return;
 
-    if (sroom->hx-sroom->lx<2) 
+    if (sroom->hx-sroom->lx < 2)
         return;
-    clp = goodcl-1;
+    clp = goodcl - 1;
     partial = 0;
 
     int blkmar_size = (sroom->hx-sroom->lx+1) * (sroom->hy-sroom->ly+1);
