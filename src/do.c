@@ -917,21 +917,16 @@ register struct obj *obj;
     if (ideed)
         trycall(obj);
 
-    if (!obj->oerodeproof
-        && is_rustprone(obj)
-        && (!obj->oartifact || !rn2(4))
-        && obj->oeroded == MAX_ERODE) {
+    /* Object gets wet */
+    if (erode_obj(obj, NULL, ERODE_RUST, EF_GREASE | EF_DESTROY) == 3) {
         pline("%s rusted away completely!", doname(obj));
-        useup(obj);
-        return;
     } else if (getitback) {
         pline_The("toilet flushes, and %s reappears!", doname(obj));
         obj->in_use = FALSE;
+        
+        /* 1 in 3 chance of cursing */
         if (!rn2(3))
             curse(obj);
-        if (!rn2(3))
-            (void) get_wet(obj, FALSE, TRUE);
-
         dropx(obj);
     } else {
         useup(obj);
