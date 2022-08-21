@@ -923,7 +923,7 @@ register struct obj *obj;
     } else if (getitback) {
         pline_The("toilet flushes, and %s reappears!", doname(obj));
         obj->in_use = FALSE;
-        
+
         /* 1 in 3 chance of cursing */
         if (!rn2(3))
             curse(obj);

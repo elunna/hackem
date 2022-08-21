@@ -272,41 +272,41 @@ forcelock(VOID_ARGS)
     return 0;
 }
 
+/* try to break/pry open a door */
 STATIC_PTR
 int
-forcedoor()      /* try to break/pry open a door */
+forcedoor()
 {
 	if(xlock.door != &(levl[u.ux+u.dx][u.uy+u.dy])) {
-	    return((xlock.usedtime = 0));           /* you moved */
+	    return((xlock.usedtime = 0)); /* you moved */
 	} 
 
 	switch (xlock.door->doormask) {
 	    case D_NODOOR:
-            pline("This doorway has no door.");
-            return((xlock.usedtime = 0));
+                pline("This doorway has no door.");
+                return ((xlock.usedtime = 0));
 	    case D_ISOPEN:
-            You("cannot lock an open door.");
-		    return((xlock.usedtime = 0));
+                You("cannot lock an open door.");
+                return ((xlock.usedtime = 0));
 	    case D_BROKEN:
-            pline("This door is broken.");
-            return((xlock.usedtime = 0));
+                pline("This door is broken.");
+                return((xlock.usedtime = 0));
 	}
 	
 	if (xlock.usedtime++ >= 50 || nohands(youmonst.data)) {
 	    You("give up your attempt at %s the door.",
-	    	(xlock.picktyp == 2 ? "melting" : xlock.picktyp == 1 ? 
-	    		"prying open" : "breaking down"));
+	    	(xlock.picktyp == 2 ? "melting" :
+                 xlock.picktyp == 1 ? "prying open" : "breaking down"));
 	    exercise(A_STR, TRUE);      /* even if you don't succeed */
-	    return((xlock.usedtime = 0));
+	    return ((xlock.usedtime = 0));
 	}
 
-	if(rn2(100) > xlock.chance)
+	if (rn2(100) > xlock.chance)
         return 1;          /* still busy */
 
 	You("succeed in %s the door.",
-	    (xlock.picktyp == 2 
-            ? "melting" : xlock.picktyp == 1
-            ? "prying open" : "breaking down"));
+	    (xlock.picktyp == 2 ? "melting" :
+             xlock.picktyp == 1 ? "prying open" : "breaking down"));
 
 	if(xlock.door->doormask & D_TRAPPED) {
 	    b_trapped("door", 0);
@@ -314,7 +314,8 @@ forcedoor()      /* try to break/pry open a door */
 	} else if (xlock.picktyp == 1)
 	    xlock.door->doormask = D_BROKEN;
 	else 
-        xlock.door->doormask = D_NODOOR;
+            xlock.door->doormask = D_NODOOR;
+
 	unblock_point(u.ux + u.dx, u.uy + u.dy);
 
 	if (*in_rooms(u.ux + u.dx, u.uy + u.dy, SHOPBASE)) {
@@ -322,24 +323,24 @@ forcedoor()      /* try to break/pry open a door */
 	    pay_for_damage("break", FALSE);
 
 	    if (in_town(u.ux+u.dx, u.uy+u.dy)) {
-            struct monst *mtmp;
+                struct monst *mtmp;
 
-            for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                if (DEADMONSTER(mtmp)) 
-                    continue;
-                if((mtmp->data == &mons[PM_WATCHMAN]
-                      || mtmp->data == &mons[PM_WATCH_CAPTAIN]) 
-                      && couldsee(mtmp->mx, mtmp->my) 
-                      && mtmp->mpeaceful) {
-                    if (canspotmon(mtmp))
-                        pline("%s yells:", Amonnam(mtmp));
-                    else
-                        You_hear("someone yell:");
-                    verbalize("Halt, thief!  You're under arrest!");
-                    (void) angry_guards(FALSE);
-                    break;
+                for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                    if (DEADMONSTER(mtmp))
+                        continue;
+                    if ((mtmp->data == &mons[PM_WATCHMAN]
+                          || mtmp->data == &mons[PM_WATCH_CAPTAIN])
+                          && couldsee(mtmp->mx, mtmp->my)
+                          && mtmp->mpeaceful) {
+                        if (canspotmon(mtmp))
+                            pline("%s yells:", Amonnam(mtmp));
+                        else
+                            You_hear("someone yell:");
+                        verbalize("Halt, thief!  You're under arrest!");
+                        (void) angry_guards(FALSE);
+                        break;
+                    }
                 }
-            }
 	    }
 	}
 	if (Blind)
@@ -839,17 +840,17 @@ doforce()
         return 0;
     }
     if (u.utrap && u.utraptype == TT_WEB) {
-	    You("are entangled in a web!");
-	    return 0;
-	} else if (uwep && is_lightsaber(uwep)) {
-	    if (!uwep->lamplit) {
-		    Your("lightsaber is deactivated!");
-		return 0;
-	    }
+        You("are entangled in a web!");
+        return 0;
+    } else if (uwep && is_lightsaber(uwep)) {
+        if (!uwep->lamplit) {
+            Your("lightsaber is deactivated!");
+            return 0;
+        }
     }
-	if (is_lightsaber(uwep))
-	    picktyp = 2;
-	else
+    if (is_lightsaber(uwep))
+        picktyp = 2;
+    else
         picktyp = is_blade(uwep) && !is_pick(uwep);
     
     if (xlock.usedtime && xlock.box && picktyp == xlock.picktyp) {
@@ -893,15 +894,15 @@ doforce()
                 continue;
 
             if(picktyp == 2)
-		        You("begin melting it with your %s.", xname(uwep));
-		    else if (picktyp)
+                You("begin melting it with your %s.", xname(uwep));
+            else if (picktyp)
                 You("force %s into a crack and pry.", yname(uwep));
             else
                 You("start bashing it with %s.", yname(uwep));
             xlock.box = otmp;
 
             if (is_lightsaber(uwep))
-		        xlock.chance = uwep->spe * 2 + 75;
+                xlock.chance = uwep->spe * 2 + 75;
             else
                 xlock.chance = objects[uwep->otyp].oc_wldam * 2;
             
@@ -915,49 +916,48 @@ doforce()
     if (xlock.box) {
         xlock.door = 0;
         set_occupation(forcelock, "forcing the lock", 0);
-    } else {		
+    } else {
         /* break down/open door */
-        if(!getdir((char *)0)) 
+        if (!getdir((char *) 0))
             return 0;
 
         x = u.ux + u.dx;
         y = u.uy + u.dy;
         struct monst *mtmp;
 
-	    door = &levl[x][y];
-	    if ((mtmp = m_at(x, y))
-              && canseemon(mtmp)
-			  && mtmp->m_ap_type != M_AP_FURNITURE
-			  && mtmp->m_ap_type != M_AP_OBJECT) {
+        door = &levl[x][y];
+        if ((mtmp = m_at(x, y)) && canseemon(mtmp)
+                  && mtmp->m_ap_type != M_AP_FURNITURE
+                  && mtmp->m_ap_type != M_AP_OBJECT) {
 
-            if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE])		
-                verbalize("What do you think you are, a Jedi?"); /* Phantom Menace */
-            else
-                pline("I don't think %s would appreciate that.", mon_nam(mtmp));
-            return 0;
-	    }
+        if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE])
+            verbalize("What do you think you are, a Jedi?"); /* Phantom Menace */
+        else
+            pline("I don't think %s would appreciate that.", mon_nam(mtmp));
+        return 0;
+        }
 
-	    /* Lightsabers dig through doors and walls via dig.c */
-	    if (is_pick(uwep) || is_lightsaber(uwep) || is_axe(uwep)) 
-	    	return use_pick_axe2(uwep);
+        /* Lightsabers dig through doors and walls via dig.c */
+        if (is_pick(uwep) || is_lightsaber(uwep) || is_axe(uwep))
+            return use_pick_axe2(uwep);
 
-	    if (!IS_DOOR(door->typ)) { 
-            if (is_drawbridge_wall(x,y) >= 0)
-                pline("The drawbridge is too solid to force open.");
-            else
-                You("%s no door there.", Blind ? "feel" : "see");
-            return 0;
-	    }
+        if (!IS_DOOR(door->typ)) {
+        if (is_drawbridge_wall(x,y) >= 0)
+            pline("The drawbridge is too solid to force open.");
+        else
+            You("%s no door there.", Blind ? "feel" : "see");
+        return 0;
+        }
 
-	    /* ALI - artifact doors */
-        #if 0
-	    if (artifact_door(x, y)) {
+        /* ALI - artifact doors */
+#if 0
+        if (artifact_door(x, y)) {
             pline("This door is too solid to force open.");
             return 0;
-	    }
-        #endif
+        }
+#endif
 
-	    switch (door->doormask) {
+        switch (door->doormask) {
             case D_NODOOR:
                 pline("This doorway has no door.");
                 return 0;
@@ -972,7 +972,7 @@ doforce()
                 if(c == 'n') 
                     return 0;
 
-                if(picktyp == 1)
+                if (picktyp == 1)
                     You("force your %s into a crack and pry.", xname(uwep));
                 else
                     You("start bashing it with your %s.", xname(uwep));
