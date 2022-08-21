@@ -552,7 +552,7 @@ struct {
 {S_toilet,   "toilet", "toilet"},
 {S_forge,    "forge", "forge"},
 {S_fountain, "fountain", "fountain"},
-{S_pool,     "pool", "pool"},
+{S_pool,     "water", "pool"},
 {S_ice,      "ice", "ice"},
 {S_lava,     "lava", "molten lava"},
 {S_vodbridge, "vertical open drawbridge", "lowered drawbridge"},
