@@ -1368,6 +1368,9 @@ wiz_map_levltyp(VOID_ARGS)
         if (level.flags.nsinks)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_sink].sym,
                     (int) level.flags.nsinks);
+        if (level.flags.ntoilets)
+            Sprintf(eos(dsc), " %c:%d", defsyms[S_toilet].sym,
+                    (int) level.flags.ntoilets);
         if (level.flags.nforges)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_forge].sym,
                     (int) level.flags.nforges);
@@ -6034,7 +6037,7 @@ boolean doit;
     win = create_nhwindow(NHW_MENU);
     start_menu(win);
 
-    if (IS_FOUNTAIN(typ) || IS_SINK(typ)) {
+    if (IS_FOUNTAIN(typ) || IS_SINK(typ) || IS_TOILET(typ)) {
         Sprintf(buf, "Drink from the %s",
                 defsyms[IS_FOUNTAIN(typ) ? S_fountain : S_sink].explanation);
         add_herecmd_menuitem(win, dodrink, buf);
@@ -6171,6 +6174,7 @@ int x, y, mod;
             /* here */
             if (IS_FOUNTAIN(levl[u.ux][u.uy].typ)
                 || IS_SINK(levl[u.ux][u.uy].typ)
+                || IS_TOILET(levl[u.ux][u.uy].typ)
                 || IS_FORGE(levl[u.ux][u.uy].typ)) {
                 cmd[0] = cmd_from_func(mod == CLICK_1 ? dodrink : dodip);
                 return cmd;

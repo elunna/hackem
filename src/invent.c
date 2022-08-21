@@ -3484,7 +3484,7 @@ char *buf;
     else if (IS_SINK(ltyp))
         cmap = S_sink; /* "sink" */
     else if (IS_TOILET(ltyp))
-	    cmap = S_toilet;  /* "toilet" */
+        cmap = S_toilet;  /* "toilet" */
     else if (IS_FORGE(ltyp))
         cmap = S_forge; /* "forge" */
     else if (IS_ALTAR(ltyp)) {

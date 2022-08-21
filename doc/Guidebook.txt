@@ -5330,6 +5330,7 @@
           R  S_rustmonst            (rust monster or disenchanter)
           ?  S_scroll               (scroll)
           #  S_sink                 (sink)
+          #  S_toilet               (toilet)
           ^  S_sleeping_gas_trap    (sleeping gas trap)
           S  S_snake                (snake)
           s  S_spider               (arachnid or centipede)

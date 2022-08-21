@@ -549,6 +549,7 @@ struct {
 {S_grave,    "grave", "grave"},
 {S_throne,   "throne", "opulent throne"},
 {S_sink,     "sink", "sink"},
+{S_toilet,   "toilet", "toilet"},
 {S_forge,    "forge", "forge"},
 {S_fountain, "fountain", "fountain"},
 {S_pool,     "pool", "water"},

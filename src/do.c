@@ -552,8 +552,6 @@ polymorph_toilet()
     sinklooted = levl[u.ux][u.uy].looted != 0;
     level.flags.ntoilets--;
     levl[u.ux][u.uy].doormask = 0; /* levl[][].flags */
-
-
     sym = S_sink;
     levl[u.ux][u.uy].typ = SINK;
     level.flags.nsinks++;

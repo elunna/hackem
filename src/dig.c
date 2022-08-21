@@ -599,9 +599,9 @@ int ttyp;
         breaksink(x, y);
         return;
     } else if (IS_TOILET(lev->typ)) {
-		breaktoilet(u.ux, u.uy);
+        breaktoilet(u.ux, u.uy);
         return;
-	} else if (IS_FORGE(lev->typ)) {
+    } else if (IS_FORGE(lev->typ)) {
         breakforge(x, y);
         return;
     } else if (lev->typ == DRAWBRIDGE_DOWN
@@ -1727,6 +1727,9 @@ char *msg;
 #endif
     } else if (IS_SINK(ltyp)) {
         Strcpy(msg, "A tangled mass of plumbing remains below the sink.");
+        return FALSE;
+    } else if (IS_TOILET(ltyp)) {
+        Strcpy(msg, "A tangled mass of plumbing remains below the toilet.");
         return FALSE;
     } else if (IS_FORGE(ltyp)) {
         Strcpy(msg, "A volcanic vent remains below the forge.");
