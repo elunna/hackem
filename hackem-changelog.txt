@@ -1151,4 +1151,32 @@ Needs branch: Gain Level Upgrades
 - [x] toilet tile
 - [x] New item tiles
 
-	- [x] \#borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
+- [x] \#borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
+
+
+- [x] Change DEVTEAM_URL "https://github.com/k21971/EvilHack"
+- [x] Update nethack history to include HackEM (EvilHack History file)
+- [x] decl.h has some other important stuff:
+- [x] Missed some stuff with spiders_dnum, d_spiders_dnum
+	- [x] Update nasties lists with slashem monsters.
+- [x] Nasties: Add gugs, slaughter wights, devas, revenants, 
+
+- [x] Copy a lot of the stuff from slashem's objnam.c - spellings and other...
+
+- [x] Update amulet toilet dropping messages 
+- [FIXED] "Your  amulet of life saving gets wet."
+- [x] Amulets of Flying are always regurgitated from toilets.
+- [x] toilet amulet messages (while blind) and naming
+- [x] hallucination effects, blindness effects (hearing?)
+- [x] Amulet of Change polymorphs toilet into a sink
+- [x] Update toilet/amulet corrosion code
+
+
+- [x] forcedoor: Fix some of the logic, some duplicated coce between doforce and forcedoor()
+
+- [x] Double check new Nymph level against old one...
+
+	[KEEPING] Can't handle thiefbane, even as a chaotic non-human...
+- [SKIPPED] Make Thiefbane also affect all covetous monsters.
+- [SKIPPED] Thiefbane causes hostility from any stealing creatures, muggers, pickpockets, thieves, etc.
+- [SKIPPED] Thiefbane prevents theft attacks. AD_SITM
