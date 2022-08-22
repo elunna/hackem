@@ -66,18 +66,31 @@ TRAP: random,random
 TRAP: random,random
 TRAP: random,random
 
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+
 OBJECT:('(',"chest"),(45,12)
 OBJECT:'*',(45,12)
 OBJECT:'/',(45,12)
 OBJECT:'*',(45,12)
+
 OBJECT:('(',"chest"),(65,13)
 OBJECT:'*',(65,13)
 OBJECT:'*',(65,13)
 OBJECT:'*',(65,13)
+GOLD: 2d200,(65,13)
+
 OBJECT:'*',(68,2)
 OBJECT:'*',(68,2)
 OBJECT:'*',(68,2)
+GOLD: 3d200,(68,2)
 OBJECT:('(',"chest"),(68,2)
+
 OBJECT:('(',"chest"),(2,1)
 OBJECT:('(',"chest"),(3,1)
 OBJECT:('(',"chest"),(4,1)
@@ -146,19 +159,3 @@ MONSTER: 'k', (21,13), hostile
 MONSTER: 'k', (20,15), hostile
 MONSTER: 'k', (21,15), hostile
 
-
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,(45,12)
-#GOLD: random,(45,12)
-#GOLD: random,(45,12)
-#GOLD: random,(65,13)
-#GOLD: random,(65,13)
-#GOLD: random,(68,2)
-#GOLD: random,(68,2)
-#GOLD: random,(68,2)

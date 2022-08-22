@@ -2438,26 +2438,26 @@ OBJECT: ('*', "luckstone"), random
 OBJECT: ('(',"pick-axe"), $places[0]
 
 #20 bunches of gold all around...
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
 
 # throne room
 MONSTER: ('G', "Ruggo the Gnome King"), (59,7), hostile
@@ -2605,11 +2605,11 @@ OBJECT: '*',random
 OBJECT: ('*', "luckstone"), random
 
 #5 bunches of gold all around...
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
-#GOLD: random,random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
 
 # Set about the fountains
 OBJECT: ('`', "statue"), (13,08), montype:"gnome king",1

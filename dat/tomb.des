@@ -50,16 +50,9 @@ TRAP: "spiked pit",random
 TRAP: "spiked pit",random
 
 OBJECT:('(',"chest"),(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
-#GOLD: random,(47,9)
+
+GOLD: 10d200,(47,9)
+
 OBJECT: '?', (47,9)
 OBJECT: '?', (47,9)
 OBJECT: '?', (47,9)
@@ -83,16 +76,9 @@ OBJECT: random, (24,18)
 OBJECT: random, (24,18)
 
 OBJECT:('(',"chest"),(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
-#GOLD: random,(47,10)
+
+GOLD: 10d200,(47,10)
+
 OBJECT: '?', (47,10)
 OBJECT: '?', (47,10)
 OBJECT: '?', (47,10)

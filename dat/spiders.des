@@ -100,11 +100,11 @@ OBJECT: ('%',"egg"),random, montype:'s'
 OBJECT: ('%',"egg"),random, montype:'s'
 OBJECT: ('%',"egg"),random, montype:'s'
 
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
-#GOLD: random, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
 
 MONSTER: 's', random, hostile
 MONSTER: 's', random, hostile

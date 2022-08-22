@@ -425,8 +425,8 @@ OBJECT:('%',"corpse"),(11,19),montype:"human"
 
 # treasury
 OBJECT:('(',"chest"),(02,02)
-GOLD:1200,(02,02)
-#[50%]: GOLD:350,(02,02)
+GOLD: 1200, (02,02)
+GOLD: 1d200, (02,02)
 MONSTER:('s',"giant spider"),(02,03),asleep,hostile
 MONSTER:('s',"giant spider"),(03,01),asleep,hostile
 
@@ -451,8 +451,8 @@ CONTAINER:('(', "iron safe"),(06,01) {
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
     [50%]: OBJECT:('!',"enlightenment"),blessed,0
 
-    GOLD:8700,(06,01)
-    #[50%]: GOLD:1300,(06,01)
+    GOLD: 8700, (06,01)
+    GOLD: 1d200,(06,01)
 }
 
 # arms storage
