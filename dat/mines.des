@@ -1370,8 +1370,11 @@ DOOR:locked,(40,14)
 DOOR:locked,(50,03)
 DOOR:locked,(51,16)
 DOOR:locked,(66,02)
+
 # Stairs
 STAIR:(36,04),up
+STAIR:$place[6],down
+
 # Non diggable walls
 NON_DIGGABLE:(00,00,74,17)
 # Niches
@@ -1506,6 +1509,7 @@ DOOR:locked,(12,02)
 DOOR:locked,(11,06)
 # Stairs
 STAIR:(36,04),up
+STAIR:(70,06),down
 # Non diggable walls
 NON_DIGGABLE:(00,00,52,17)
 NON_DIGGABLE:(53,00,74,00)
@@ -1637,6 +1641,7 @@ DOOR:closed,(73,5)
 DOOR:closed,(2,15)
 MAZEWALK:(36,8),west,false
 STAIR:(42,8),up
+STAIR:$place[2],down
 WALLIFY
 
 # Objects
@@ -1735,6 +1740,7 @@ SHUFFLE: $stones
 REGION:(0,0,75,19),lit,"ordinary"
 NON_DIGGABLE:(0,0,75,19)
 STAIR:(1,9),up
+STAIR:(73,18),down
 
 #SOME ORCS (The religious kind)
 # Hostile to anyone, regardless of race,  who disturbs their sacred temple
@@ -1903,6 +1909,8 @@ DOOR:locked,(68,04)
 DOOR:locked,(67,11)
 # Stairs
 STAIR:(48,12),up
+STAIR:random,up
+
 # Non diggable / non phase walls
 NON_DIGGABLE:(00,00,74,17)
 NON_PASSWALL:(00,00,74,17)
@@ -2348,5 +2356,174 @@ OBJECT: '(', random
 OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
+
+#
+#    Ruggo the Gnome King's own special level
+#
+#
+MAZE: "mineking",' '
+GEOMETRY: center,center
+#0        1         2         3         4         5         6
+#1234567890123456789012345678901234567890123456789012345678901234567890
+MAP
+
+                   #                      #                  #
+                  ##                    #####          #######
+                  #                         #          #     #
+    ###############  ###           ######   #      #####     ########
+    #             ####             #        #      #
+    #          ####      #####################    ##  -----------      ###
+  #########    #  ########         #         #     #  |....\....|      #
+         #     #              ######       ###     #  |.........|   ####
+        ##     #              #           ## #######  |.........|  ##  #
+        #      ####   #       ########    #  #     #  -----+-----      #
+               #      #########      #    #  #             #           #
+          #######          #  #  #####       ###############       #####
+          #  #       ########    #        #    #       #           #   #
+             #       #        ######     #########    ##############
+                     #     ####  #       #       #           #
+                           #                                 #
+ENDMAP
+$places = { (19,1),(42,1),(61,1),(21,15),(41,15),(61,16) }
+# only $places[0] is currently used
+
+STAIR: (35,06), up
+#BRANCH: (35,06,35,06), (0,0,0,0)
+
+DOOR: closed, (59,10)
+
+# 40 random gems all around...
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: ('*', "luckstone"), random
+
+# Pickaxe in case of trappedness on Wine Cellar Mine's end
+OBJECT: ('(',"pick-axe"), $places[0]
+
+#20 bunches of gold all around...
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+#GOLD: random, random
+
+# throne room
+MONSTER: ('G', "Ruggo the Gnome King"), (59,7), hostile
+
+OBJECT: ')', (59,7)
+OBJECT: '/', (59,7)
+OBJECT: '!', (59,7)
+OBJECT: '!', (59,7)
+OBJECT: '[', (59,7)
+MONSTER: 'G', (55,7), hostile
+MONSTER: 'G', (56,7), hostile
+MONSTER: 'G', (57,7), hostile
+MONSTER: 'G', (58,7), hostile
+MONSTER: 'G', (60,7), hostile
+MONSTER: 'G', (61,7), hostile
+MONSTER: 'G', (62,7), hostile
+MONSTER: 'G', (63,7), hostile
+MONSTER: 'G', (55,8), hostile
+MONSTER: 'G', (56,8), hostile
+MONSTER: 'G', (57,8), hostile
+MONSTER: 'G', (58,8), hostile
+MONSTER: 'G', (59,8), hostile
+MONSTER: 'G', (60,8), hostile
+MONSTER: 'G', (61,8), hostile
+MONSTER: 'G', (62,8), hostile
+MONSTER: 'G', (63,8), hostile
+MONSTER: 'G', (55,9), hostile
+MONSTER: 'G', (56,9), hostile
+MONSTER: 'G', (57,9), hostile
+MONSTER: 'G', (58,9), hostile
+MONSTER: 'G', (59,9), hostile
+MONSTER: 'G', (60,9), hostile
+MONSTER: 'G', (61,9), hostile
+MONSTER: 'G', (62,9), hostile
+MONSTER: 'G', (63,9), hostile
+# the mine workers
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "gnomish wizard"), random, hostile
+MONSTER: ('G', "gnomish wizard"), random, hostile
 
 # end mines.des
