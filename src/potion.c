@@ -3606,20 +3606,13 @@ register struct obj *obj;
         case TINNING_KIT:
             obj->otyp = TIN_OPENER;
             break;
-#if 0 /* --hackem: Disabling - not a useful upgrade and not in the spirit of Evil either */
         case CRYSTAL_BALL:
-            /* "ball-point pen" */
-            obj->otyp = MAGIC_MARKER;
-            /* Keep the charges (crystal ball usually less than marker) */
+            obj->otyp = LENSES;
             break;
-        case MAGIC_MARKER:
+        case LENSES:
             obj->otyp = CRYSTAL_BALL;
-            chg = rn1(10,3);
-            if (obj->spe > chg)
-                obj->spe = chg;
             obj->known = 0;
             break;
-#endif
         case K_RATION:
         case C_RATION:
         case LEMBAS_WAFER:
