@@ -104,8 +104,8 @@ ALIGNMENT:	lawful
 DESCRIPTION:	mazelike
 RNDLEVEL:	"minetn" "T" @ (3, 2) 11
 LEVELDESC:	town
-RNDLEVEL:	"minend" "E" @ (-2, 0) 7
-RNDLEVEL:	"mineking" "M" @ (-1, 0) 2
+RNDLEVEL:	"minend" "E" @ (-2, 0) 6
+RNDLEVEL:	"mineking" "M" @ (-1, 0) 3
 #
 #       Goblin Town
 #
