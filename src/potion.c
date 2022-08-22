@@ -1097,38 +1097,37 @@ register struct obj *otmp;
 		if (otmp->blessed)
 			incr_itimeout(&HClairvoyant, rn1(50, 100));
 		break;
-    case POT_ESP: {
-		const char *mod;
-
-		/* KMH -- handle cursed, blessed */
-		if (otmp->cursed) {
-			if (HTelepat) mod = "less ";
-			else {
-			    unkn++;
-			    mod = NULL;
-			}
-			HTelepat = 0;
-		} else if (otmp->blessed) {
-			mod = "fully ";
-			incr_itimeout(&HTelepat, rn1(100, 200));
-			HTelepat |= FROMOUTSIDE;
-		} else {
-			mod = "more ";
-			incr_itimeout(&HTelepat, rn1(50, 100));
-		}
-		if (mod) {
-			You_feel(Hallucination ?
-				"%sin touch with the cosmos." :
-				"%smentally acute.", mod);
+    case POT_ESP:
+        const char *mod;
+        /* KMH -- handle cursed, blessed */
+        if (otmp->cursed) {
+            if (HTelepat)
+                mod = "less ";
+            else {
+                unkn++;
+                mod = NULL;
+            }
+            HTelepat = 0;
+        } else if (otmp->blessed) {
+            /* --hackem: Granting full telepathy is too good, nerfed from SlashEM */
+            mod = "more ";
+            incr_itimeout(&HTelepat, rn1(250, 350));
+        } else {
+            mod = "more ";
+            incr_itimeout(&HTelepat, rn1(50, 100));
         }
-		see_monsters();
-		break;
-	}
+        if (mod) {
+            You_feel(Hallucination ?
+                    "%sin touch with the cosmos." :
+                    "%smentally acute.", mod);
+        }
+        see_monsters();
+        break;
     case POT_INVULNERABILITY:
-		incr_itimeout(&Invulnerable, rn1(4, 8 + 4 * bcsign(otmp)));
-		You_feel(Hallucination ?
-				"like a super-duper hero!" : "invulnerable!");
-		break;
+        incr_itimeout(&Invulnerable, rn1(4, 8 + 4 * bcsign(otmp)));
+        You_feel(Hallucination ?
+                 "like a super-duper hero!" : "invulnerable!");
+        break;
     case POT_GAIN_ABILITY:
         if (otmp->cursed) {
             pline("Ulch!  That potion tasted foul!");
