@@ -20,6 +20,7 @@ STATIC_DCL void FDECL(gods_upset, (ALIGNTYP_P));
 STATIC_DCL void FDECL(consume_offering, (struct obj *));
 STATIC_DCL boolean FDECL(water_prayer, (BOOLEAN_P));
 STATIC_DCL boolean FDECL(blocked_boulder, (int, int));
+static void FDECL(god_gives_benefit,(ALIGNTYP_P));
 
 /* simplify a few tests */
 #define Cursed_obj(obj, typ) ((obj) && (obj)->otyp == (typ) && cursed(obj, TRUE))
@@ -2505,6 +2506,11 @@ dosacrifice()
                                    uhim(), align_gname(u.ualign.type));
                     return 1;
                 }
+            } else if (!rnl(30 + u.ulevel)) {
+                /* no artifact, but maybe a random blessing */
+                god_gives_benefit(altaralign);
+                /* u.usacrifice = 0; */
+                return 1;
             }
 
             change_luck((value * LUCKMAX) / (MAXVALUE * 2));
@@ -3132,4 +3138,57 @@ int dx, dy;
     return FALSE;
 }
 
+/* Give away something */
+void
+god_gives_benefit(alignment)
+aligntyp alignment;
+{
+    register struct obj *otmp;
+    const char *what = (const char *)0;
+
+    /* randomly bless items */
+
+    /* weapon takes precedence if it interferes
+       with taking off a ring or shield */
+    if (uwep && !uwep->blessed) /* weapon */
+        otmp = uwep;
+    else if (uswapwep && !uswapwep->blessed) /* secondary weapon */
+        otmp = uswapwep;
+    /* gloves come next, due to rings */
+    else if (uarmg && !uarmg->blessed)    /* gloves */
+        otmp = uarmg;
+    /* then shield due to two handed weapons and spells */
+    else if (uarms && !uarms->blessed)    /* shield */
+        otmp = uarms;
+    /* then cloak due to body armor */
+    else if (uarmc && !uarmc->blessed)    /* cloak */
+        otmp = uarmc;
+    else if (uarm && !uarm->blessed)      /* armor */
+        otmp = uarm;
+    else if (uarmh && !uarmh->blessed)    /* helmet */
+        otmp = uarmh;
+    else if (uarmf && !uarmf->blessed)    /* boots */
+        otmp = uarmf;
+    else if (uarmu && !uarmu->blessed)    /* shirt */
+        otmp = uarmu;
+    else if (uleft && !uleft->blessed)    /* rings */
+        otmp = uleft;
+    else if (uright && !uright->blessed)
+        otmp = uright;
+    else if (uamul && !uamul->blessed) /* amulet */
+        otmp = uamul;
+    else {
+        for(otmp = invent; otmp; otmp = otmp->nobj)
+            if (!otmp->blessed)
+                break;
+        return; /* Nothing to do! */
+    }
+    bless(otmp);
+    otmp->bknown = TRUE;
+
+    if (!Blind)
+        Your("%s %s.", what ? what :
+                            (const char *)aobjnam (otmp, "softly glow"),
+             hcolor(NH_AMBER));
+}
 /*pray.c*/
