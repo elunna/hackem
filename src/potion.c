@@ -1154,29 +1154,24 @@ register struct obj *otmp;
         }
         break;
     case POT_SPEED:
+    case SPE_HASTE_SELF:
+        if (otmp->otyp != POT_SPEED) { /* haste self */
+            speed_up(rn1(10, 100 + 60 * bcsign(otmp)));
+            break;
+        }
+
         /* skip when mounted; heal_legs() would heal steed's legs */
         if (Wounded_legs && !otmp->cursed && !u.usteed) {
             heal_legs(0);
             unkn++;
-            break;
         }
-        /* FALLTHRU */
-    case SPE_HASTE_SELF:
-        /* will fix intrinsic 'slow' */
-        if (Slow) {
-            HSlow = 0;
-            if (!ESlow) {
-                You("no longer feel sluggish.");
-            }
+        speed_up(rn1(10, 15 + 10 * bcsign(otmp)));
+        if (!otmp->cursed && !(HFast & INTRINSIC)) {
+            /* This message currently doubles the other speed msg and feels
+             * out of place */
+            /* Your("quickness feels very natural."); */
+            HFast |= FROMOUTSIDE;
         }
-        if (!Very_fast && !Slow) { /* wwf@doe.carleton.ca */
-            You("are suddenly moving %sfaster.", Fast ? "" : "much ");
-        } else if (!Slow) {
-            Your("%s get new energy.", makeplural(body_part(LEG)));
-            unkn++;
-        }
-        exercise(A_DEX, TRUE);
-        incr_itimeout(&HFast, rn1(otmp->odiluted ? 5 : 10, 100 + 60 * bcsign(otmp)));
         break;
     case POT_BLINDNESS:
         if (Blind)
