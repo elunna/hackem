@@ -1947,17 +1947,6 @@ NEARDATA struct permonst mons[] = {
         M1_SWIM | M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_TUNNEL
             | M1_THICK_HIDE, M2_HOSTILE | M2_STRONG,
         M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BLACK),
-    MON("the Rat King", S_RODENT, 
-        LVL(12, 15, 7, 0, 0), (G_UNIQ | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 2, 4), 
-          ATTK(AT_BITE, AD_PHYS, 2, 3), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(200, 120, MS_SQEEK, MZ_MEDIUM), MR_STONE, MR_STONE,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
-        M2_STRONG | M2_PNAME | M2_PRINCE | M2_MALE | M2_GREEDY | M2_STALK
-            | M2_HOSTILE | M2_NASTY | M2_NOPOLY | M2_JEWELS | M2_COLLECT
-            | M2_MAGIC, 
-        M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 16, HI_LORD),
     /*
      * spiders & scorpions
      * Note: (keep webmaker() in sync if new critters are added)

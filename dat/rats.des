@@ -49,7 +49,7 @@ ROOM: "ordinary" , unlit, random, random, (16,8) {
     MONSTER: ('r', "sewer rat"), random, hostile
     MONSTER: ('r', "sewer rat"), random, hostile
     MONSTER: ('r', "rabid rat"), random, hostile
-    MONSTER: ('r', "the Rat King"), (8,8), hostile
+    MONSTER: ('@', "Rat King"), (8,8), hostile
 }
 
 ROOM: "ordinary" , random, random, random, random {
