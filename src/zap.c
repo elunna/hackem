@@ -2821,28 +2821,17 @@ boolean ordinary;
         }
         break;
     }
-
     case WAN_SPEED_MONSTER:
-        if (!(HFast & INTRINSIC)) {
-            learn_it = TRUE;
-            if (!Fast && !Slow)
-                You("speed up.");
-            else if (!Slow)
-                Your("quickness feels more natural.");
-            } else if (Slow) {
-                HSlow = 0;
-                if (!ESlow)
-                    You("no longer feel sluggish.");
-            }
-        exercise(A_DEX, TRUE);
-        HFast |= FROMOUTSIDE;
+        /* no longer gives intrinsic, but gives very fast speed instead */
+        speed_up(rn1(25, 50));
+        learn_it = TRUE;
         break;
     case WAN_HEALING:
         You("begin to feel better.");
         healup(d(5, 6), 0, 0, 0);
         exercise(A_STR, TRUE);
         makeknown(WAN_HEALING);
-		break;
+        break;
     case WAN_EXTRA_HEALING:
         You("feel much better.");
         healup(d(6, 8), 0, 0, 0);
@@ -2850,7 +2839,7 @@ boolean ordinary;
         exercise(A_STR, TRUE);
         exercise(A_CON, TRUE);
         makeknown(WAN_EXTRA_HEALING);
-		break;
+        break;
     case WAN_SLEEP:
     case SPE_SLEEP:
         learn_it = TRUE;

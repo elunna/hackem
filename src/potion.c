@@ -740,6 +740,7 @@ register struct obj *otmp;
 {
     register int i, ii, lim;
     struct monst *mtmp;
+    const char *mod;
 
     switch (otmp->otyp) {
     case POT_RESTORE_ABILITY:
@@ -1098,7 +1099,6 @@ register struct obj *otmp;
 			incr_itimeout(&HClairvoyant, rn1(50, 100));
 		break;
     case POT_ESP:
-        const char *mod;
         /* KMH -- handle cursed, blessed */
         if (otmp->cursed) {
             if (HTelepat)
@@ -3760,6 +3760,19 @@ register struct obj *obj;
 	    }
 	}
 	return 1;
+}
+
+/* Character becomes very fast temporarily. */
+void
+speed_up(long duration)
+{
+    if (!Very_fast) {
+        You("are suddenly moving %sfaster.", Fast ? "" : "much ");
+    } else {
+        Your("%s get new energy.", makeplural(body_part(LEG)));
+    }
+    exercise(A_DEX, TRUE);
+    incr_itimeout(&HFast, duration);
 }
 
 /*potion.c*/

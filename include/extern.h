@@ -2161,6 +2161,7 @@ E void FDECL(djinni_from_bottle, (struct obj *));
 E struct monst *FDECL(split_mon, (struct monst *, struct monst *));
 E const char *NDECL(bottlename);
 E int FDECL(upgrade_obj, (struct obj *));
+extern void speed_up(long);
 
 /* ### pray.c ### */
 
