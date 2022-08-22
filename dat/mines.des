@@ -2049,4 +2049,305 @@ MONSTER:('w',"giant leech"),random
 MONSTER:('w',"giant leech"),random
 
 
+
+#
+# Gnome King's Apiary (Kelly Bailey)
+#
+MAZE: "minend-6", ' '
+FLAGS:nommap
+GEOMETRY:center,center
+MAP
+-----                                ------------------------------------  
+|...|--   ---------------------------|..................................|  
+|.....|---|.............................................................|  
+|..|..........-----------------------------------..------------S-----...|  
+|..----.......|  |...............| ||.||...S...............-..|.|   |...|  
+|.......------|---...---|....|...| --.--...|...........--.....|.| ---...|  
+----....|.....|......|  |....|...--|...|-----.-----------------.| |...{.|  
+   --...|.........------|.-----..|.......|  -B-----------------S------..|  
+..  |.....---------|....|.....|--|.......|--|.........B..........|...|----|
+..  |--...|   |....|...---....+.............+.........B..........S...+.S..|
+      |..---| |...............|--|.......|--|.........B..........|...|----|
+|-----|.....|-|.|..---|...-----  |.......|  -B-----------------S------..|  
+|...........|.|.|.....|...|  ------|...|-----.-----------------.| |...{.|  
+|......-----|...|.....-----  |.....--.--...|..-..........-....|.| ---...|  
+|..|............|.........|  |.....||.||...S.........--.......|.|   |...|  
+|..|..|.....-------------------..----------------..------------S-----...|  
+|-----|.................................................................|  
+      |..|---------------------------|..................................|  
+      ----                           ------------------------------------  
+ENDMAP
+#Dungeon Description
+REGION: (00,00,74,18), unlit, "ordinary"
+REGION: (45,08,53,10), lit, "beehive"
+
+# Normal Doors
+DOOR: closed, (30,09)
+DOOR: closed, (44,09)
+DOOR: locked, (69,09)
+# Secret Doors
+DOOR: locked, (43,04)
+DOOR: locked, (43,14)
+DOOR: locked, (63,03)
+DOOR: locked, (63,07)
+DOOR: locked, (63,11)
+DOOR: locked, (63,15)
+DOOR: locked, (71,09)
+
+# Stairs
+STAIR: (37,09), up
+STAIR: (73,09), down
+
+ENGRAVING: (41,09), engrave, "The Gnome King's Royal Apiary"
+ENGRAVING: (42,09), engrave, "Keep Out!"
+
+# No digging
+NON_DIGGABLE: (00,00,74,18)
+
+# Statues
+OBJECT: ('`', "statue"), (49,09), montype: "queen bee",1
+OBJECT: ('`', "statue"), (55,09), montype: "killer bee",1
+OBJECT: ('`', "statue"), (61,09), montype: "gnome king",1
+
+# Boulders
+OBJECT: ('`', "boulder"), (41,04)
+OBJECT: ('`', "boulder"), (41,14)
+OBJECT: ('`', "boulder"), (63,05)
+OBJECT: ('`', "boulder"), (63,13)
+
+# Treasure chamber
+#Darshan - since we need room for the downstairs,
+#          shifted these gems over to the same square
+#          as those above
+OBJECT: ('*', "luckstone"), (72,09)
+OBJECT: ('*', "diamond"), (72,09)
+OBJECT: ('*', "diamond"), (72,09)
+OBJECT: ('*', "emerald"), (72,09)
+OBJECT: ('*', "emerald"), (72,09)
+OBJECT: ('*', "emerald"), (72,09)
+OBJECT: ('*', "amethyst"), (72,09)
+OBJECT: ('*', "amethyst"), (72,09)
+OBJECT: ('*', "ruby"), (72,09)
+OBJECT: ('*', "ruby"), (72,09)
+OBJECT: '*', (72,09)
+OBJECT: '*', (72,09)
+OBJECT: '*', (72,09)
+OBJECT: '*', (72,09)
+OBJECT: '*', (72,09)
+OBJECT: '*', (72,09)
+OBJECT: '*', (72,09)
+
+#Random objects
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: ('/', "death"), (01,08)
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+#Monsters
+MONSTER: ('E', "air elemental"), (0,8), hostile
+MONSTER: ('E', "air elemental"), (0,9), hostile
+MONSTER: ('E', "air elemental"), (1,8), hostile
+MONSTER: ('E', "air elemental"), (1,9), hostile
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'a', random
+MONSTER: 'F', random
+MONSTER: 'F', random
+MONSTER: 'F', random
+MONSTER: 'F', random
+MONSTER: 'F', random
+MONSTER: 'F', random
+MONSTER: ('G', "gnomish wizard"), (45,8), hostile
+MONSTER: ('y', "black light"), (36,9), hostile
+
+#Traps
+TRAP: random, (68,08)
+TRAP: random, (68,09)
+TRAP: random, (68,10)
+TRAP: random, (67,08)
+TRAP: random, (67,09)
+TRAP: random, (67,10)
+TRAP: random, (66,08)
+TRAP: random, (66,09)
+TRAP: random, (66,10)
+TRAP: "land mine", (38,9)
+TRAP: "board", (43,09)
+TRAP: "polymorph", (45,9)
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
+#
+# "Boulder Bonanza"
+#
+MAZE: "minend-7", ' '
+GEOMETRY:center,center
+MAP
+                        ---------  ----                        
+                ---------.......-.--..--   ---                 
+                -..........----S---....-- --.--       ---      
+    ----------  --.....-----  -.........---...-       -.---    
+  ---........--  -...---     --....-...--.....----   --...---  
+ --...........-- -...-     ---....--.............--  -......-- 
+--.....---.....---...-     -.....--...............- --....---  
+-......--..........---     --..........----.....--- -.....-    
+-..................-      --...........-  -....--   -.....--   
+--.............-----      -............-- --....-  --......-   
+ --..........---     ------....----.....- .--...----.......-   
+  --........--      --.........-  ---...----..............--   
+   ---...----       -...-......-    -.....................-    
+     -----          -..---....--    --.......---..........-    
+                    -...--...--      -....---- --.......---    
+                    --......--     ---...--     --.....--      
+                     --------      -.....-       -------       
+                                   --...--                     
+                                    -----                      
+ENDMAP
+$places = { (01,07), (03,06), (04,05), (06,04), (07,09), (10,09), (12,05), (13,08), (14,07), (16,08) }
+SHUFFLE: $places
+
+NON_DIGGABLE: (00,00,62,18)
+
+STAIR: (56,04), up
+STAIR: (17,02), down
+DOOR: locked, (31,02)
+
+TRAP: "rolling boulder", random
+TRAP: "rolling boulder", random
+TRAP: "rolling boulder", random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: "falling rock", random
+TRAP: "falling rock", random
+TRAP: "falling rock", random
+TRAP: "falling rock", random
+TRAP: "board", (17,07)
+
+# Mindless critters
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', (42,10)
+MONSTER: ''', $places[0], asleep
+MONSTER: ''', $places[1], asleep
+MONSTER: ''', $places[2], asleep
+MONSTER: ''', $places[3], asleep
+MONSTER: ''', $places[4], asleep
+MONSTER: ''', $places[5], asleep
+MONSTER: (''', "stone golem"), $places[6], asleep
+MONSTER: ''', $places[7], asleep
+MONSTER: ''', $places[8], asleep
+MONSTER: ''', $places[9], asleep
+
+# Many, many boulders and rocks
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('*', "rock"), (02,09)
+OBJECT: ('*', "rock"), (04,11)
+OBJECT: ('*', "rock"), (06,08)
+OBJECT: ('*', "rock"), (09,07)
+OBJECT: ('*', "rock"), (11,11)
+OBJECT: ('*', "rock"), (13,06)
+OBJECT: ('*', "rock"), (15,08)
+OBJECT: ('*', "rock"), (09,10)
+OBJECT: ('*', "rock"), (07,04)
+OBJECT: ('*', "rock"), (10,04)
+OBJECT: ('*', "flint"), (01,08)
+OBJECT: ('*', "flint"), (03,05)
+OBJECT: ('*', "flint"), (07,12)
+OBJECT: ('*', "flint"), (08,11)
+OBJECT: ('*', "flint"), (12,09)
+OBJECT: ('*', "flint"), (16,07)
+OBJECT: ('*', "flint"), (12,10)
+OBJECT: ('*', "flint"), $places[0]
+OBJECT: ('*', "flint"), $places[2]
+OBJECT: ('*', "flint"), $places[3]
+OBJECT: ('*', "flint"), $places[6]
+OBJECT: ('*', "flint"), $places[9]
+OBJECT: ('*', "loadstone"), (05,10)
+OBJECT: ('*', "loadstone"), (10,10)
+OBJECT: ('*', "loadstone"), (14,09)
+OBJECT: ('*', "loadstone"), (04,10)
+OBJECT: ('*', "loadstone"), (08,05)
+OBJECT: ('*', "loadstone"), $places[1]
+OBJECT: ('*', "loadstone"), $places[4]
+OBJECT: ('*', "loadstone"), $places[5]
+OBJECT: ('*', "loadstone"), $places[7]
+OBJECT: ('*', "loadstone"), $places[8]
+OBJECT: ('*', "luckstone"), $places[6],blessed,0
+OBJECT: ('*', "diamond"), $places[0]
+OBJECT: ('*', "diamond"), $places[2]
+OBJECT: ('*', "emerald"), $places[4]
+OBJECT: ('*', "emerald"), $places[6]
+OBJECT: ('*', "emerald"), $places[8]
+OBJECT: ('*', "ruby"), $places[0]
+OBJECT: ('*', "ruby"), $places[2]
+OBJECT: ('*', "amethyst"), $places[3]
+OBJECT: ('*', "amethyst"), $places[5]
+OBJECT: '*', $places[1]
+OBJECT: '*', $places[3]
+OBJECT: '*', $places[5]
+OBJECT: '*', $places[7]
+OBJECT: '*', $places[9]
+OBJECT: '*', $places[1]
+OBJECT: '*', $places[4]
+OBJECT: '*', $places[8]
+OBJECT: '*', $places[9]
+OBJECT: '*', $places[7]
+
+OBJECT: ('(', "magic marker"), (42,10)
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
 # end mines.des
