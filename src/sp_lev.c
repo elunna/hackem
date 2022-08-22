@@ -1649,6 +1649,26 @@ struct mkroom *croom;
     if (!class)
         pm = (struct permonst *) 0;
     else if (m->id != NON_PM) {
+        /* in the Gnome Mines, make the gnomes & dwarves into orcs, ogres,
+         * & zombies (because gnomes & dwarves are friendly... the mines
+         * would be hella easy otherwise) */
+        if (In_mines(&u.uz) && (Race_if(PM_DWARF) ||
+                                Race_if(PM_GNOME) ||
+                                Race_if(PM_HOBBIT))) {
+            switch (m->id) {
+            case PM_GNOME: m->id = PM_GNOME_MUMMY; break;
+            case PM_ROCK_GNOME: m->id = PM_GNOME_ZOMBIE; break;
+            case PM_GNOMISH_WIZARD: m->id = PM_ORC_SHAMAN; break;
+            case PM_GNOME_LORD: m->id = PM_GNOME_MUMMY; break;
+            case PM_GNOME_KING: m->id = PM_OGRE; break;
+            case PM_DWARF: m->id = PM_DWARF_MUMMY; break;
+            case PM_MOUNTAIN_DWARF: m->id = PM_DWARF_ZOMBIE; break;
+            case PM_DWARF_LORD: m->id = PM_DWARF_MUMMY; break;
+            case PM_DWARF_KING: m->id = PM_WAR_ORC; break;
+            case PM_HOBBIT: m->id = PM_HOBBIT_ZOMBIE; break;
+            case PM_HOBBIT_PICKPOCKET: m->id = PM_HOBBIT_ZOMBIE; break;
+            }
+        }
         pm = &mons[m->id];
         g_mvflags = (unsigned) mvitals[monsndx(pm)].mvflags;
         if ((pm->geno & G_UNIQ) && (g_mvflags & G_EXTINCT))
@@ -1660,9 +1680,11 @@ struct mkroom *croom;
         /* if we can't get a specific monster type (pm == 0) then the
            class has been genocided, so settle for a random monster */
     }
+#if 0 /* this was from evil - the SlashEM code above should take care of this */
     if (In_mines(&u.uz) && pm && your_race(pm)
         && (Race_if(PM_DWARF) || Race_if(PM_GNOME)) && rn2(3))
         pm = (struct permonst *) 0;
+#endif
 
     /* Make Sanctum monsters more friendly to Infidels */
     if (u.ualign.type == A_NONE && Is_sanctum(&u.uz) && m->peaceful == 0)
