@@ -2,13 +2,6 @@
 #       Copyright (c) 1989 by Jean-Christophe Collet
 #       Copyright (c) 1991 by M. Stephenson
 # NetHack may be freely redistributed.  See license for details.
-#
-#
-#       The "fill" level for the mines.
-#
-#       This level is used to fill out any levels not occupied by specific
-#       levels as defined above.
-#
 
 MAZE: "spiders" , ' '
 GEOMETRY: center,center
@@ -43,62 +36,62 @@ BRANCH:(32,10,32,10),(0,0,0,0)
 
 #
 # the stuff to find here
-OBJECT: ('!',"invulnerability"),random
-OBJECT: ('!',"invulnerability"),random
-OBJECT: ('/',"make invisible"),random
-OBJECT: ('"',"amulet versus poison"),random
-OBJECT: ('[',"speed boots"),random
-OBJECT: ('=',"conflict"),random
-OBJECT: ('/',"death"),random
+OBJECT: ('!', "invulnerability"), random
+OBJECT: ('!', "invulnerability"), random
+OBJECT: ('/', "make invisible"), random
+OBJECT: ('"', "amulet versus poison"), random
+OBJECT: ('[', "speed boots"), random
+OBJECT: ('=', "conflict"), random
+OBJECT: ('/', "death"), random
 
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
-OBJECT: ('%',"egg"),random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
+OBJECT: ('%', "egg"), random, montype:'s'
 
 GOLD: 1d200, random
 GOLD: 1d200, random
