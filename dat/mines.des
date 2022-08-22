@@ -1024,6 +1024,310 @@ ROOM: "ordinary" , random, random, random, random {
 
 RANDOM_CORRIDORS
 
+#
+# Minetown variant 9
+# Mini-Castle Town
+# 
+MAZE:"mintn-9",' '
+# INIT_MAP:'.','-',true,true,lit,true
+INIT_MAP:mines,'.','-',true,true,lit,true
+GEOMETRY:center,center
+MAP
+----...}}}}}}}}}}}}}}}}}}}}}}}.--.---
+--.....}---------------------}..-..--
+-.----.}|........|.....|..|.|}......-
+..|..|.}|.-----..|.....S.K|.|}.......
+..|..|.}|.|...|..|.....|..|.|}.......
+..|..|.}|.|...+..---+------.|}.......
+..--+-.}|.|...|.............|}......-
+.......}|.-----..T...{...T..|}......-
+..{....}|...................|}.......
+.......}|.--+--.-----.-----.|}.......
+.......}|.|...--|...|.|...|.|}.......
+.......}|.|...S.|...+.+...|.|}.......
+..-....}|.|...|.|...|.|...|.|}.-+--..
+---....}|.-----------.-----.|}.|..|..
+-......}|...................|}.|....-
+--..-..}---------------------}......-
+------.}}}}}}}}}}}}}}}}}}}}}}}..-----
+ENDMAP
+
+REGION: (0,0,36,16), lit, "ordinary"
+NON_DIGGABLE: (8,1,28,15)
+STAIR: levregion(1,1,20,20), (0,0,36,16), down
+STAIR: levregion(60,1,78,20), (0,0,36,16), up
+
+REGION: (3,3,4,5), lit, "food shop"
+REGION: (11,4,13,6), lit, "candle shop"
+REGION: (18,2,22,4), lit, "temple"
+ALTAR: (20,3), align[1], shrine
+REGION: (24,2,25,4), lit, "ordinary"
+REGION: (11,10,12,12), lit, "ordinary"
+REGION: (14,11,15,12), unlit, "ordinary"
+REGION: (17,10,19,12), lit, "tool shop"
+REGION: (23,10,25,12), lit, "shop"
+
+DOOR: closed, (4,6)
+DOOR: closed, (14,5)
+DOOR: closed, (20,5)
+DOOR: locked, (23,3)
+DOOR: locked, (12,9)
+DOOR: locked, (14,11)
+DOOR: closed, (20,11)
+DOOR: closed, (22,11)
+DOOR: locked, (32,12)
+
+DRAWBRIDGE:(7,8),east,open
+DRAWBRIDGE:(29,8),west,open
+
+MONSTER: ('@', "watchman"), (3,8), peaceful
+MONSTER: ('@', "watchman"), (13,8), peaceful
+MONSTER: ('@', "watchman"), (23,8), peaceful
+MONSTER: ('@', "watch captain"), (18,7), peaceful, asleep
+MONSTER: ('G', "gnomish wizard"), (25,3)
+MONSTER: ('G', "gnomish wizard"), (24,3)
+MONSTER: ('G', "gnome lord"), (11,12)
+MONSTER: ('G', "gnome"), (12,12)
+MONSTER: ('G', "gnome"), (11,11)
+MONSTER: ('Z', "skeleton"), (15,12)
+MONSTER: ('O', "ogre"), (33,13), asleep
+MONSTER: ('O', "ogre"), (32,13), asleep
+MONSTER: ('O', "ogre"), (33,14), asleep
+
+OBJECT: ('`', "boulder"), (34,14)
+NOMAP
+MONSTER: ('G', "gnome"), random
+MONSTER: ('h', "dwarf"), random
+MONSTER: ('h', "dwarf lord"), random
+MONSTER: ('G', "gnome lord"), random
+
+# "Creek Town" by L.
+# No fountains in this town, for obvious reasons.
+#
+# Minetown variant 10
+MAZE: "mintn-10",' '
+GEOMETRY:left,center
+#         1         2         3         4         5         6         7
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+                ----            ---         |www|                 ---       
+                |..----         |.-----  ----www|                --.--  --- 
+     ----  ---- |.....----------|.....-- |..www--                |...----.--
+ ----|..|  |..|------..................---.www--        ---      --...||...|
+ |...+..----..|.....|---...................ww.| ---------.-----   |...-|..--
+ |...|....|...+.....|..|.-----------+-....w.w.---.............|   --...|..| 
+ |...|........|.....|..|.|..|..|.....|....ww......--------+--.--------....| 
+ |---|........-------+--.|F+-F+|.....|...wwww.....|.....|...|..--..| --...--
+ |  |....................|.....|-----|..wwPww.....|.....|...|......----....|
+ | --...........-+-----+-|.....| |...|.wwPPww.....|.....|---|.|...........--
+ ---...---+---..|..|..|..|.....| |...|.wwPPw......--+---|...|.|--.......--- 
+|--....|.....|..|..|..|..--+-----|...|..wPPww...........|...|.|...--....|   
+|......|.....|..----+-----.......|...|.wwwPPww..........--+--.|.----.|..--  
+|.T....|.....|..................--+---.wwwwPww-+---+-...........|  ----..|  
+|......|.....|...------...............ww..wPww|..|..|.........------- --.-- 
+--..T..--------..+....|.....------...ww..wwPw.|..|..|....----.......|  ---  
+ --.........-----|....|.....+..| |..w.w..wwww.-------...--..--......---     
+---.----.....----------.....|..| |.www....www................|........--    
+|...| |.....................|-----www.....www.----------.----.....--...|    
+----- -----------------------  --www.---.wwww.| |      ---  --.|..|-----    
+                               |www--- ---wwww| |            ------         
+ENDMAP
+REGION: (01,01,75,20), lit, "ordinary"
+REGION: (2,4,4,6), lit, "candle shop"
+REGION: (15,4,19,6), lit, "shop"
+REGION: (34,9,36,12), lit, "scroll shop"
+REGION: (51,07,55,09), lit, "food shop"
+REGION: (8,11,12,14), lit, "temple"
+ALTAR: (10,13), align[0], shrine
+
+# Protect the watch-house walls
+NON_DIGGABLE: (25,5,31,11)
+
+# Stairs
+STAIR: levregion(60,12,75,19), (0,0,15,20), up
+STAIR: levregion(60,03,75,11), (0,0,15,20), down
+
+# Doors
+DOOR: closed, (5,4)
+DOOR: closed, (14,5)
+DOOR: closed, (10,10)
+DOOR: locked, (17,9)
+DOOR: locked, (20,12)
+DOOR: locked, (21,7)
+DOOR: locked, (23,9)
+DOOR: locked, (17,15)
+DOOR: locked, (27,7)
+DOOR: locked, (30,7)
+DOOR: open, (27,11)
+DOOR: locked, (28,16)
+DOOR: locked, (36,5)
+DOOR: closed, (34,13)
+DOOR: locked, (47,13)
+DOOR: closed, (52,10)
+DOOR: closed, (51,13)
+DOOR: locked, (58,6)
+DOOR: locked, (58,12)
+
+# Traps
+# Loose floorboard
+# TRAP: "board", random
+
+# Furniture
+OBJECT: ('(', "chest"), (18,11)
+OBJECT: ('(', "chest"), (20,10)
+OBJECT: ('(', "chest"), (21,15)
+OBJECT: ('`', "statue"), (8,7), montype:"gnome king", 1
+OBJECT: ('(', "chest"), (47,15)
+
+# Junk
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+# Guards
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "watchman"), (27,9), peaceful
+MONSTER: ('@', "watchman"), (8,7), peaceful
+MONSTER: ('@', "watchman"), (25,14), peaceful
+MONSTER: ('@', "watchman"), (50,15), peaceful
+
+# Watchdog
+MONSTER: ('d',"pit bull"),(30,8),peaceful,asleep
+
+# Citizens
+MONSTER: ('G', "gnome"), (17,10), hostile
+MONSTER: ('G', "gnome king"), (20,16), hostile
+MONSTER: 'G', (47,14)
+MONSTER: ('G', "gnome"), random
+MONSTER: ('G', "gnome"), random
+MONSTER: ('G', "gnome lord"), random
+MONSTER: ('G', "gnome lord"), random
+MONSTER: ('G', "gnome lord"), random
+MONSTER: ('h', "dwarf lord"), random
+MONSTER: ('G', "gnome thief"), random
+MONSTER: ('h', "dwarf thief"), random
+MONSTER: ('h', "hobbit"), random
+MONSTER: ('o', "bugbear"), random
+MONSTER: ('o', "bugbear"), random
+MONSTER: ('h', "dwarf"), random
+
+# River feeders
+[75%]: MONSTER: (';', "jellyfish"), random
+[75%]: MONSTER: (';', "jellyfish"), random
+[75%]: MONSTER: (';', "jellyfish"), random
+[75%]: MONSTER: (';', "jellyfish"), random
+[75%]: MONSTER: (';', "jellyfish"), random
+[25%]: MONSTER: (';', "piranha"), random
+[25%]: MONSTER: (';', "piranha"), random
+[25%]: MONSTER: (';', "piranha"), random
+[25%]: MONSTER: (';', "piranha"), random
+[25%]: MONSTER: (';', "piranha"), random
+
+#
+# Minetown variant 11
+# Ruined & Dangerous Town
+#
+MAZE: "mintn-11",' '
+#INIT_MAP:'.','-',true,true,unlit,true
+INIT_MAP:mines,'.','-',true,true,lit,true
+GEOMETRY: center,top
+MAP
+.--------..--.----.--.----..----.
+.|-----...{....---------.----.-|.
+..|...|........|..||...|......|..
+..|...|.------....||...|......||.
+..|...+.|....|....||...|.|....||.
+.||...+.|....|...--|...|.--..--..
+.||...|.|....+.....--+--.......|.
+.||...|.------...........}ww}}}|.
+.|-----..........--.+-...ww}}}w|.
+.------------------..-----------.
+.................................
+ENDMAP
+ENGRAVING: (19,9), burn, "BEWARE"
+ENGRAVING: (23,7), mark, "DANGER"
+NON_DIGGABLE: (0,0,32,10)
+
+REGION: (0,0,32,10), unlit, "ordinary"
+REGION: (3,2,5,7), lit, "temple"
+REGION: (9,4,12,6), lit, "candle shop"
+REGION: (16,2,17,4), lit, "food shop"
+REGION: (20,2,22,5), lit, "shop"
+REGION: (26,2,29,4), lit, "tool shop"
+
+STAIR: (24,1), down
+STAIR: levregion(01,02,75,20), (0,1,32,10), up
+
+DOOR: open, (20,8)
+DOOR: locked, (6,4)
+DOOR: locked, (6,5)
+DOOR: closed, (13,6)
+DOOR: closed, (21,6)
+
+ALTAR: (4,2), random, altar
+OBJECT: ('`', "boulder"), (25,2)
+OBJECT: ('`', "boulder"), (25,3)
+OBJECT: ('`', "boulder"), (27,5)
+OBJECT: ('`', "boulder"), (28,5)
+OBJECT: ('`', "boulder"), (31,5)
+OBJECT: ('`', "boulder"), (31,2)
+OBJECT: ('`', "boulder"), (1,2)
+OBJECT: ('`', "boulder"), (1,3)
+OBJECT: ('`', "boulder"), (1,4)
+OBJECT: ('`', "boulder"), (9,0)
+OBJECT: ('`', "boulder"), (10,0)
+OBJECT: ('`', "boulder"), (13,0)
+OBJECT: ('`', "boulder"), (18,0)
+OBJECT: ('`', "boulder"), (21,0)
+OBJECT: ('`', "boulder"), (26,0)
+OBJECT: ('`', "boulder"), (27,0)
+OBJECT: ('`', "boulder"), (15,3)
+OBJECT: ('`', "boulder"), (15,4)
+OBJECT: ('`', "boulder"), (15,5)
+OBJECT: ('`', "boulder"), (16,5)
+OBJECT: ('`', "boulder"), (16,8)
+OBJECT: ('`', "boulder"), (19,8)
+OBJECT: ('`', "boulder"), (20,9)
+OBJECT: ('%', "corpse"), (27,2), montype:"shopkeeper",0
+OBJECT: '(', (28,2)
+OBJECT: '(', (28,2)
+CONTAINER: ('`', "statue"), (30,8), montype:"gnome king", 1 {
+    [50%]: OBJECT: ('(', "bag of holding"), cursed, 0
+}
+
+MONSTER: ('G', "gnome"), (3,2), hostile
+MONSTER: ('G', "gnome"), (4,2), hostile
+MONSTER: ('G', "gnome"), (5,2), hostile
+MONSTER: ('G', "gnome"), (3,3), hostile
+MONSTER: ('G', "gnome"), (4,3), hostile
+MONSTER: ('G', "gnome"), (5,3), hostile
+MONSTER: ('G', "gnome"), (3,4), hostile
+MONSTER: ('G', "gnome"), (4,4), hostile
+MONSTER: ('G', "gnome"), (5,4), hostile
+MONSTER: ('G', "gnome thief"), random
+MONSTER: ('G', "gnomish wizard"), (3,5), hostile
+MONSTER: ('G', "gnomish wizard"), (4,5), hostile
+MONSTER: ('G', "gnome king"), (5,5), hostile
+MONSTER: ('G', "gnome lord"), random, hostile
+MONSTER: ('h', "dwarf thief"), random
+MONSTER: (';', "giant eel"), (29,7), hostile
+
+# White dragon is a bit too sadistic...let's do a bugbear chieftain instead
+# --hackem: We don't have bugbear chieftains... baby white dragon instead?
+MONSTER: ('D', "baby white dragon"), (29,2), hostile
+
+NOMAP
+MONSTER: 'o', random
+MONSTER: 'o', random
+MONSTER: 'o', random
+MONSTER: 'h', random
+MONSTER: 'h', random
+OBJECT: ')', random
+OBJECT: ')', random
+OBJECT: '(', random
+OBJECT: '(', random
+
+
 # Mine end level variant 1
 # "Mimic of the Mines"
 #
