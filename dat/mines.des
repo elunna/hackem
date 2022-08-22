@@ -1028,7 +1028,7 @@ RANDOM_CORRIDORS
 # Minetown variant 9
 # Mini-Castle Town
 # 
-MAZE:"mintn-9",' '
+MAZE:"minetn-9",' '
 # INIT_MAP:'.','-',true,true,lit,true
 INIT_MAP:mines,'.','-',true,true,lit,true
 GEOMETRY:center,center
@@ -1105,7 +1105,7 @@ MONSTER: ('G', "gnome lord"), random
 # No fountains in this town, for obvious reasons.
 #
 # Minetown variant 10
-MAZE: "mintn-10",' '
+MAZE: "minetn-10",' '
 GEOMETRY:left,center
 #         1         2         3         4         5         6         7
 #123456789012345678901234567890123456789012345678901234567890123456789012345
@@ -1227,7 +1227,7 @@ MONSTER: ('h', "dwarf"), random
 # Minetown variant 11
 # Ruined & Dangerous Town
 #
-MAZE: "mintn-11",' '
+MAZE: "minetn-11",' '
 #INIT_MAP:'.','-',true,true,unlit,true
 INIT_MAP:mines,'.','-',true,true,lit,true
 GEOMETRY: center,top
@@ -1326,7 +1326,6 @@ OBJECT: ')', random
 OBJECT: ')', random
 OBJECT: '(', random
 OBJECT: '(', random
-
 
 # Mine end level variant 1
 # "Mimic of the Mines"
