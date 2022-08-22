@@ -49,6 +49,7 @@ const struct propname {
     { DETECT_MONSTERS, "monster detection" },
     { SEE_INVIS, "see invisible" },
     { INVIS, "invisible" },
+    { TELEPAT, "telepathic" },
     /* properties beyond here don't have timed values during normal play,
        so there's not much point in trying to order them sensibly;
        they're either on or off based on equipment, role, actions, &c */
@@ -68,7 +69,6 @@ const struct propname {
     { FUMBLING, "fumbling" },
     { HUNGER, "voracious hunger" },
     { FOOD_SENSE, "recognizes detrimental food" },
-    { TELEPAT, "telepathic" },
     { WARNING, "warning" },
     { WARN_OF_MON, "warn: monster type or class" },
     { WARN_UNDEAD, "warn: undead" },
@@ -866,6 +866,8 @@ nh_timeout()
             case GLIB:
                 make_glib(0); /* might update persistent inventory */
                 break;
+            case TELEPAT:
+                You_feel("mentally dulled");
             }
         }
 
