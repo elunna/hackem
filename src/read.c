@@ -2413,8 +2413,10 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
                 pline_The("ambient light seems dimmer.");
             else if (u.uswallow)
                 pline("It seems even darker in here than before.");
+#if 0 /* Disabling this because we get messages for out-of-sight enemies */
             else if (!obj)
                 pline("It seems darker in here.");
+#endif
             else
                 You("are surrounded by darkness!");
         }
