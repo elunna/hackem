@@ -1180,3 +1180,68 @@ Needs branch: Gain Level Upgrades
 - [SKIPPED] Make Thiefbane also affect all covetous monsters.
 - [SKIPPED] Thiefbane causes hostility from any stealing creatures, muggers, pickpockets, thieves, etc.
 - [SKIPPED] Thiefbane prevents theft attacks. AD_SITM
+
+
+
+- [x] Instead of crystal balls <-> magic markers, go lenses <-> orbs.
+- [x] Much stronger artifact blasting (6d6 to 8d10)
+- [x] Make blessed potion of ESP temporary (250-350 turns)
+- [x] Wand of invisibility is temp (already in Evil)
+- [x] Wand of speed monster is temp (xnh)
+- [x] Make see invisible temporary (from potions, eating stalkers, fountains) - already in EVIL
+- [x] Make telepathy from floating eyes temp.
+
+	- [x] Update mines.des to include different types of gnomes, dwarves, and thieves.
+	- [x] Check town/minetown for dwarf thief/gnome thief placement (See SlashTHEM for this)
+	- [x] Imported minetown variants from SlashTHEM: Mini-Castle, Creek Town, Ruined & Dangerous Town
+- [x] Mines end varients
+- [x] Imported Gnome King's Apiary
+- [x] Imported Boulder Bonanza
+- [x] Removed water from Gnomish Mines (use in a different mines - wyrm or kobold caves?
+	src/mkmap.c and mkrivers()
+ 
+
+- [x] Gnomish mines monsters will usually be undead if you are dwarf/gnome/hobbit (from SlashEM).
+- [x] Gnomish mines hobbits will be undead if you are a hobbit.
+
+	
+[x] Ruggo the Gnome King's level - slashem
+[x] Ruggo the Gnome King's level - slashthem
+- [x] Fixed all GOLD placements in new .des files/levels.
+
+- [x] 'The Sewers of Waterdeep' has the Rat King already!
+- [x] Make the Sewers a Gnome King ending instead...
+- [SKIPPED] Divvy up the Spider Cave eggs so they are not all random.
+- [x] Take notes from the slashTHEM spider level...
+- [SKIPPED] Can you hide eggs underground? WIll they still hatch?
+- [x] Re-use the rat king in the rat level instead of the slashem rat.
+- [x] Make temple priests hostile if made on an unaligned altar.
+- [x] Sacrifice offerings can sometimes bless random objects.
+- [x] SLASH'EM's shopkeepers have had their base level doubled as compared to vanilla. 
+	- [x] treefruits: Add asian pear
+	- [x] Cleanup the get_wet function.
+
+
+	-[NOT FIXABLE?] Grunds: Statue traps are doubling the statues (winged gargoyle and harpy)			   
+
+[FIXED] Shadow ogre message when we can't see them across level...
+
+	
+	- [FIXED] A stack of grenades doesn't all blow up
+	- [FIXED] Applying a stack of grenades arms the entire stack.
+	- [FIXED] A stack of grenades only blows up one (leaves a weird stack of armed)
+	- [FIXED] Grenades arm correctly now
+
+
+
+	- [SKIPPED] Can cancel grenades with Wands...
+	    - [x] Captain/Watch Captain/prison guard: 50/50 chance of a gas or frag grenade.
+    - [x] Orcish Captain: 1 frag grenade.
+    - [x] One-Eyed Sam: 3 gas grenades.
+    - [x] All Mercernaries: 1/6 chance of a random grenade.
+    - [SKIP} All Pirates: 1/2 chance of a frag grenade.
+
+
+- [SKIP] Altars can crumble on any #offer - depending on luck/alignment,etc. (Spork? Grunt?)
+- [SKIP] Find good places to use iron/crystal safes.
+- [x] Multiple healthstones can no longer be created from upgrading flint stones, only singles.

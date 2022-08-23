@@ -1313,10 +1313,8 @@ $(TEMP)\mall-1.lev : $(DAT)\mall-1.des $(TEMP)\lev_comp.exe
 	$(MAKEB) LF=mall-1 do_slev
 $(TEMP)\mall-2.lev : $(DAT)\mall-2.des $(TEMP)\lev_comp.exe
 	$(MAKEB) LF=mall-2 do_slev
-$(TEMP)\kobold-1.lev : $(DAT)\kobold-1.des $(TEMP)\lev_comp.exe
+$(TEMP)\kobold-1.lev : $(DAT)\kobold.des $(TEMP)\lev_comp.exe
 	$(MAKEB) LF=kobold-1 do_slev
-$(TEMP)\kobold-2.lev : $(DAT)\kobold-2.des $(TEMP)\lev_comp.exe
-	$(MAKEB) LF=kobold-2 do_slev
 do_slev :
 	$(TEMP)\lev_comp $(DAT)\$(LF).des
 	$(CP) $(LF).lev $(GAMEDIR)

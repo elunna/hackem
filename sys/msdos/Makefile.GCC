@@ -1017,8 +1017,7 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)/knight.des  $(DAT)/monk.des     $(DAT)/priest.des \
 	$(DAT)/ranger.des  $(DAT)/rogue.des    $(DAT)/samurai.des \
 	$(DAT)/tourist.des $(DAT)/valkyrie.des $(DAT)/wizard.des \
-	$(DAT)/mall-1.des   $(DAT)/mall-2.des \
-	$(DAT)/kobold-1.des $(DAT)/kobold-2.des \
+	$(DAT)/mall-1.des   $(DAT)/mall-2.des  $(DAT)/kobold.des \
 	@$(subst /,\,cd $(DAT))
 	@$(subst /,\,$(U)lev_comp bigroom.des)
 	@$(subst /,\,$(U)lev_comp castle.des)
@@ -1047,8 +1046,7 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	@$(subst /,\,$(U)lev_comp wizard.des)
 	@$(subst /,\,$(U)lev_comp mall-1.des)
 	@$(subst /,\,$(U)lev_comp mall-2.des)
-	@$(subst /,\,$(U)lev_comp kobold-1.des)
-	@$(subst /,\,$(U)lev_comp kobold-2.des)
+	@$(subst /,\,$(U)lev_comp kobold.des)
 
 	@$(subst /,\,cd $(SRC))
 	@$(subst /,\,echo sp_levs done > $@)
