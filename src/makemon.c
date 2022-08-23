@@ -1165,6 +1165,7 @@ register struct monst *mtmp;
                 else
                     w1 = rn2(2) ? LONG_SWORD : SABER;
                 mongets(mtmp, SKELETON_KEY);
+                (void) mongets(mtmp, rn2(2) ? FRAG_GRENADE : GAS_GRENADE);
                 break;
             case PM_TEMPLAR:
                 w1 = rn2(2) ? LONG_SWORD : SABER;
@@ -1657,6 +1658,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, ORCISH_CHAIN_MAIL);
             if (!rn2(3))
                 (void) mongets(mtmp, ORCISH_BOOTS);
+            (void) mongets(mtmp, FRAG_GRENADE);
             break;
         default:
             if (mm != PM_ORC_SHAMAN && rn2(2))
@@ -2181,6 +2183,7 @@ register struct monst *mtmp;
                 otmp = mksobj(AMULET_OF_LIFE_SAVING, FALSE, FALSE);
                 mpickobj(mtmp, otmp);
                 (void) mongets(mtmp, SKELETON_KEY);
+                m_initthrow(mtmp, GAS_GRENADE, 3);
         } else if (ptr->msound == MS_PRIEST
                    || quest_mon_represents_role(ptr, PM_PRIEST)) {
             if (!racial_giant(mtmp)) {
@@ -2448,6 +2451,10 @@ register struct monst *mtmp;
         break;
     default:
         break;
+    }
+
+    if (is_mercenary(ptr) && !rn2(6)) {
+        (void) mongets(mtmp, rn2(2) ? FRAG_GRENADE : GAS_GRENADE);
     }
 
     /* ordinary soldiers rarely have access to magic (or gold :-) */
