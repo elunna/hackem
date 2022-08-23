@@ -7,12 +7,34 @@ LEVEL: "stor-1"
 ROOM: "ordinary", unlit, random, random, (4,4) {
     #NAME: "central"
     OBJECT:('(',"chest"),(2,2)
-    OBJECT:'/',(2,2)
-    OBJECT:'(',(2,2)
-    OBJECT:'(',(2,2)
-    OBJECT:'"',(2,2)
-    OBJECT:'=',(2,2)
-    ENGRAVING:(2,2),burn,"Begone! Keep Off! Shoo!"
+   
+IF [33%] {
+    OBJECT: '/', (2,2)
+    OBJECT: '(', (2,2)
+    OBJECT: '(', (2,2)
+    OBJECT: '=', (2,2)
+    OBJECT: '"', (2,2)
+    ENGRAVING: (2,2), burn, "Begone! Keep Off! Shoo!"
+} ELSE {
+    IF [50%] {
+        OBJECT: '/', (2,2)
+        OBJECT: '(', (2,2)
+        OBJECT: '(', (2,2)
+        OBJECT: '=', (2,2)
+        OBJECT: ('=', "regeneration"), (2,2)
+        OBJECT: '*', (2,2)
+        ENGRAVING: (2,2), burn, "Danger! Cursed Items! Do Not Touch!"
+    } ELSE {
+        OBJECT: '/', (2, 2)
+        OBJECT: '(', (2, 2) 
+        OBJECT: '(', (2, 2)
+        OBJECT: '=', (2, 2) 
+        OBJECT: '/', (2, 2) 
+        OBJECT: '(', (2, 2) 
+        ENGRAVING : (2, 2), burn, "Property of the Wizard! Do Not Touch!"
+   }
+}
+
     TRAP: random, random
     TRAP: random, random
     TRAP: random, random
