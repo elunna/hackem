@@ -273,7 +273,7 @@ char **argv;
         ":dat:knox.des",     ":dat:medusa.des",     ":dat:mines.des",
         ":dat:nymph.des",    ":dat:oracle.des",     ":dat:sokoban.des",
         ":dat:tower.des",    ":dat:vecna.des",      ":dat:yendor.des",
-        ":dat:mall-1.des",   ":dat:mall-2.des",     ":dat:dragons.des",
+        ":dat:mall.des",   ":dat:dragons.des",
         ":dat:kobold.des",   ":dat:tomb.des",
         ":dat:stor-1.des",   ":dat:stor-2.des",     ":dat:stor-3.des",
         ":dat:spiders.des",  ":dat:mtemple.des",    ":dat:grund.des",
