@@ -1367,152 +1367,100 @@ ENDMAP
 
 # -- The town is creepy. Therefore, the town is dark.
 #des.region(selection.area(01,01,37,18), "unlit")
-REGION:(01,01,37,18),unlit,"ordinary"
+REGION: (01,01,37,18), unlit, "ordinary"
 
-#des.levregion({ type="stair-up", region={01,03,20,19}, region_islev=1,
-		#exclude={00,01,37,17} });
-#des.levregion({ type="stair-down", region={61,03,75,19}, region_islev=1,
-		#exclude={00,01,37,17} })
+    #des.levregion({ type="stair-up", region={01,03,20,19}, region_islev=1,
+            #exclude={00,01,37,17} });
+    #des.levregion({ type="stair-down", region={61,03,75,19}, region_islev=1,
+            #exclude={00,01,37,17} })
 
-STAIR: levregion(01,03,20,19),(00,01,37,17),up
-STAIR: levregion(61,03,75,19),(00,01,37,17),down
+    STAIR: levregion(01,03,20,19),(00,01,37,17),up
+    STAIR: levregion(61,03,75,19),(00,01,37,17),down
 
+    # -- A few fountains.
+    #des.feature("fountain",05,11)
+    FOUNTAIN:(05,11)
 
-# -- A few fountains.
-#des.feature("fountain",05,11)
-FOUNTAIN:(05,11)
+    # -- The masouleum
+    REGION:(19,12,21,14),lit,"temple"
+    ALTAR:(20,13),align[0],shrine
 
-# -- The masouleum
-#des.region({ region={19,12, 21,14}, lit=1, type="temple", filled=1 })
-#des.altar({ x=20,y=13,align=align[1],type="shrine"})
-REGION:(19,12,21,14),lit,"temple"
-ALTAR:(20,13),align[0],shrine
+    # -- The big graveyard
+    # local graveyard = selection.floodfill(27,14);
 
-# -- The big graveyard
-# local graveyard = selection.floodfill(27,14);
+    # des.region({ region={27,14, 36,16},lit=0,type="morgue",filled=0 })
+    REGION:(27,14, 36,16),lit,"morgue",filled {
+        GRAVE: random, "Buried Alive"
+        GRAVE: random
+        GRAVE: random
+        GRAVE: random
+        GRAVE: random
+        GRAVE: random
+        GRAVE: random
+        MONSTER:('Z',"skeleton"),random, peaceful, asleep
+        MONSTER:'Z', random, peaceful, asleep
+        MONSTER:'Z', random, peaceful, asleep
+    }
 
-# des.region({ region={27,14, 36,16},lit=0,type="morgue",filled=0 })
-REGION:(27,14, 36,16),lit,"morgue",filled {
-    GRAVE: random, "Buried Alive"
-    GRAVE: random
-    GRAVE: random
-    GRAVE: random
-    GRAVE: random
-    GRAVE: random
-    GRAVE: random
-    MONSTER:('Z',"skeleton"),random, peaceful, asleep
-    MONSTER:'Z', random, peaceful, asleep
-    MONSTER:'Z', random, peaceful, asleep
+    DOOR: closed, (26,14)
+    DOOR: closed, (22,13)
+    DOOR: closed, (20,11)
+    DOOR: closed, (20,15)
+    DOOR: locked, (08,13)
+    DOOR: closed, (08,04)
+    DOOR: closed, (13,07)
+    DOOR: closed, (21,04)
+    DOOR: closed, (25,08)
+    DOOR: closed, (34,03)
 
-    #des.grave({ coord = {graveyard:rndcoord(1)}, text = "Buried Alive" });
-    #des.grave({ coord = {graveyard:rndcoord(1)} });
-    #des.grave({ coord = {graveyard:rndcoord(1)} });
-    #des.grave({ coord = {graveyard:rndcoord(1)} });
-    #des.grave({ coord = {graveyard:rndcoord(1)} });
-    #des.grave({ coord = {graveyard:rndcoord(1)} });
-    #des.grave({ coord = {graveyard:rndcoord(1)} });
+    # -- The shops
+    #des.region({ region={10,14, 12,16}, lit=1, type="tool shop", filled=1 })
+    SUBROOM: "tool shop", lit, (10,14), (12,16) {
+      ROOMDOOR: false, closed, north, random
+    }
 
-    #des.monster({ id = "skeleton", coord={graveyard:rndcoord(1)}, peaceful = 0, asleep = 1})
-    #des.monster({ class = "Z", coord={graveyard:rndcoord(1)}, peaceful = 0, asleep = 1})
-    #des.monster({ class = "Z", coord={graveyard:rndcoord(1)}, peaceful = 0, asleep = 1})
+    #des.region({ region={26,07, 34,08}, lit=1, type="shop", filled=1 })
+    SUBROOM: "shop" , lit, (26,07), (34,08) {
+      ROOMDOOR: false, closed, west, random
+    }
 
+    #des.region({ region={22,04, 24,06}, lit=1, type="candle shop", filled=1 })
+    SUBROOM: "candle shop", lit, (22,04),(24,06) {
+      ROOMDOOR: false, closed, west, random
+    }
 
-}
+    #des.region({ region={04,04, 07,07}, lit=1, type=monkfoodshop(), filled=1 })
+    SUBROOM: "food shop", lit, (04,04), (07,07) {
+      ROOMDOOR: false, closed, east, random
+    }
 
-# -- Doors
-#des.door("closed",26,14)
-#des.door("closed",22,13)
-#des.door("closed",20,11)
-#des.door("closed",20,15)
-#des.door("locked",08,13)
-#des.door("closed",08,04)
-#des.door("closed",13,07)
-#des.door("closed",21,04)
-#des.door("closed",25,08)
-#des.door("closed",34,03)
+    # -- Wary citizens
+    MONSTER: ('h', "dwarf"), random
+    MONSTER: ('G', "gnomish wizard"), random
+    MONSTER: ('G', "gnomish wizard"), random
+    MONSTER: ('G', "gnomish wizard"), random
+    MONSTER: ('G', "gnome"), random
+    MONSTER: ('G', "gnome king"), random
+    MONSTER: ('G', "gnome thief"), random
 
-DOOR: closed, (26,14)
-DOOR: closed, (22,13)
-DOOR: closed, (20,11)
-DOOR: closed, (20,15)
-DOOR: locked, (08,13)
-DOOR: closed, (08,04)
-DOOR: closed, (13,07)
-DOOR: closed, (21,04)
-DOOR: closed, (25,08)
-DOOR: closed, (34,03)
+    # -- Boo!
+    MONSTER: ('Z', "dwarf zombie"), random
+    MONSTER: ('Z', "dwarf zombie"), random
+    MONSTER: ('Z', "dwarf zombie"), random
+    MONSTER: ('Z', "gnome zombie"), random
+    MONSTER: ('Z', "gnome zombie"), random
+    MONSTER:(' ',"ghost"),random
+    MONSTER:(' ',"ghost"),random
+    MONSTER: ('Z', "human zombie"), random
 
-# -- The shops
-#des.region({ region={10,14, 12,16}, lit=1, type="tool shop", filled=1 })
-SUBROOM: "tool shop", lit, (10,14), (12,16) {
-  ROOMDOOR: false, closed, north, random
-}
+    # -- A ghoulish gravekeeper.
+    MONSTER: ('Z', "ghoul"), random, peaceful
 
-#des.region({ region={26,07, 34,08}, lit=1, type="shop", filled=1 })
-SUBROOM: "shop" , lit, (26,07), (34,08) {
-  ROOMDOOR: false, closed, west, random
-}
-
-#des.region({ region={22,04, 24,06}, lit=1, type="candle shop", filled=1 })
-SUBROOM: "candle shop", lit, (22,04),(24,06) {
-  ROOMDOOR: false, closed, west, random
-}
-
-#des.region({ region={04,04, 07,07}, lit=1, type=monkfoodshop(), filled=1 })
-SUBROOM: "food shop", lit, (04,04), (07,07) {
-  ROOMDOOR: false, closed, east, random
-}
-
-# -- Wary citizens
-#des.monster("dwarf")
-#des.monster("gnomish wizard")
-#des.monster("gnomish wizard")
-#des.monster("gnomish wizard")
-#des.monster("gnome")
-#des.monster("gnome ruler")
-
-MONSTER: ('h', "dwarf"), random
-MONSTER: ('G', "gnomish wizard"), random
-MONSTER: ('G', "gnomish wizard"), random
-MONSTER: ('G', "gnomish wizard"), random
-MONSTER: ('G', "gnome"), random
-MONSTER: ('G', "gnome king"), random
-MONSTER: ('G', "gnome thief"), random
-
-# -- Boo!
-#des.monster("dwarf zombie")
-#des.monster("dwarf zombie")
-#des.monster("dwarf zombie")
-#des.monster("gnome zombie")
-#des.monster("gnome zombie")
-#des.monster("ghost")
-#des.monster("ghost")
-#des.monster("human zombie", 05, 05)
-
-MONSTER: ('Z', "dwarf zombie"), random
-MONSTER: ('Z', "dwarf zombie"), random
-MONSTER: ('Z', "dwarf zombie"), random
-MONSTER: ('Z', "gnome zombie"), random
-MONSTER: ('Z', "gnome zombie"), random
-MONSTER:(' ',"ghost"),random
-MONSTER:(' ',"ghost"),random
-MONSTER: ('Z', "human zombie"), random
-
-
-# -- A ghoulish gravekeeper.
-#des.monster({ id = "ghoul", peaceful = 1 })
-MONSTER: ('Z', "ghoul"), random, peaceful
-
-# -- The Watch.
-#des.monster({ id = "watchman", peaceful = 1 })
-#des.monster({ id = "watchman", peaceful = 1 })
-#des.monster({ id = "watchman", peaceful = 1 })
-#des.monster({ id = "watch captain", peaceful = 1 })
-
-MONSTER: ('@', "watchman"), random, peaceful
-MONSTER: ('@', "watchman"), random, peaceful
-MONSTER: ('@', "watchman"), random, peaceful
-MONSTER: ('@', "watch captain"), random, peaceful
+    # -- The Watch.
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
 
 
 # Mine end level variant 1
