@@ -3282,6 +3282,7 @@ register struct obj *obj;
 	long owornmask;
 	struct obj *otmp;
 	boolean explodes;
+        boolean split1off;
 
 	/* Check to see if object is valid */
 	if (!obj)
@@ -3613,6 +3614,10 @@ register struct obj *obj;
             obj->otyp = FLINT;
             break;
         case FLINT:
+            split1off = (obj->quan > 1L);
+            if (split1off)
+                obj = splitobj(obj, 1L);
+
             if (!rn2(2))
                 obj->otyp = LUCKSTONE;
             else
