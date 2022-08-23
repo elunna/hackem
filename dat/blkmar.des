@@ -5,6 +5,8 @@
 LEVEL: "blkmar-1"
 FLAGS: noteleport, hardfloor, nommap
 GEOMETRY: center, center
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+#0   i    1    i    2    i    3    i    4    i    5    i    6    i    7    i
 MAP
 ----------------------------------------------------------------------------
 |.....||...................................................................|
@@ -16,52 +18,51 @@ MAP
 |||.|| |...................................................................|
 ||...|||...................................................................|
 |.....||...................................................................|
-||...|||...................................................................|
-|||.|| |...................................................................|
-||...|||...................................................................|
-|.....||...................................................................|
 |......+...................................................................|
 |.....||...................................................................|
-||...|||...................................................................|
- ----- ---------------------------------------------------------------------
+ ---------------------------------------------------------------------------
 ENDMAP
 NON_DIGGABLE: (00,00,75,17)
 NON_PASSWALL: (00,00,75,17)
-REGION: (08,01,74,16), lit, "black market", filled
+REGION: (08,01,74,11), lit, "black market", filled
 
 REGION: (01,01,05,03), lit, "ordinary", unfilled
 REGION: (01,03,05,07), lit, "ordinary", unfilled
 REGION: (01,08,05,11), lit, "ordinary", unfilled
-REGION: (01,12,05,16), lit, "ordinary", unfilled
+#REGION: (01,12,05,16), lit, "ordinary", unfilled
 
 BRANCH: (03,01,03,01), (0,0,0,0)
-DOOR: open, (07,14)
+DOOR: open, (07,10)
 ENGRAVING: (03,03), engrave, "Pets are not allowed in the shop"
 ENGRAVING: (03,07), engrave, "Thieves will be killed."
-ENGRAVING: (03,11), engrave, "Sorry about the mess. Remember, ask if you need help!"
-ENGRAVING: (07,14), engrave, "Don't even think about stealing anything."
+ENGRAVING: (03,10), engrave, "Sorry about the mess. Remember, ask if you need help!"
+#ENGRAVING: (07,14), engrave, "Don't even think about stealing anything."
 
 # black marketeer's assistants:
-# from The Hobbit (Tolkien)
-MONSTER:('T', "rock troll"),  (08,03), "William", asleep, peaceful
-MONSTER:('T', "rock troll"),  (08,12), "Thomas",  asleep, peaceful
-# from the Bible
-MONSTER:('H', "frost giant"), (08,16), "Goliath", asleep, peaceful
-# from Greek mythology & high-energy physics
-MONSTER:('n', "wood nymph"),  (08,08), "Daphne",  asleep, peaceful
+
 # Add your favorite monsters here.  Make them peaceful and named,
 # otherwise they will not behave like assistants.
-MONSTER:('&', "balrog"),      (08,04), "Njalnohaar",   asleep, peaceful
-MONSTER:('&', "pit fiend"),   (08,02), "Hilvuuloth",   asleep, peaceful
-MONSTER:('c', "cockatrice"),  (08,13), "Wilbur",       asleep, peaceful
-MONSTER:('c', "cockatrice"),  (08,07), "Simon",        asleep, peaceful
-MONSTER:(':', "salamander"),  (08,11), "Izzy",         asleep, peaceful
-MONSTER:(':', "giant turtle"),(08,09), "Small A'Tuin", asleep, peaceful
+MONSTER:('T', "rock troll"),   (08,02), "William",      asleep, peaceful
+MONSTER:('T', "rock troll"),   (08,03), "Thomas",       asleep, peaceful
+MONSTER:('T', "rock troll"),   (08,03), "Travis",       asleep, peaceful
+MONSTER:('T', "black troll"),  (08,04), "Boris",       asleep, peaceful
+MONSTER:('T', "black troll"),  (08,05), "Vladimir",         asleep, peaceful
+MONSTER:('T', "black troll"),  (08,05), "Dmitry ",         asleep, peaceful
+MONSTER:('c', "cockatrice"),   (08,06), "Simon",        asleep, peaceful
 
+MONSTER:('c', "cockatrice"),   (09,12), "Simone",        asleep, peaceful
+MONSTER:('H', "frost giant"),  (10,12), "Goliath",      asleep, peaceful
+MONSTER:('H', "frost giant"),  (11,12), "Giga",      asleep, peaceful
+MONSTER:('H', "frost giant"),  (12,12), "Gorgon",      asleep, peaceful
+MONSTER:('H', "storm giant"),  (13,12), "Gordon",      asleep, peaceful
+MONSTER:('H', "storm giant"),  (14,12), "Grimmace",      asleep, peaceful
+MONSTER:('H', "storm giant"),  (15,12), "Grifter",      asleep, peaceful
 
 LEVEL: "blkmar-2"
 FLAGS: noteleport, hardfloor, nommap
 GEOMETRY: center, center
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+#0   i    1    i    2    i    3    i    4    i    5    i    6    i    7    i
 MAP
                            -------------------------------------------------
          -----------       |.......|...............|.........|.............|
