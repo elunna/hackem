@@ -831,7 +831,7 @@ E void FDECL(splatter_burning_oil, (int, int, BOOLEAN_P));
 E void FDECL(explode_oil, (struct obj *, int, int));
 E int FDECL(adtyp_to_expltype, (int));
 E void FDECL(mon_explodes, (struct monst *, struct attack *));
-extern void arm_bomb(struct obj *, boolean);
+E void arm_bomb(struct obj *, boolean);
 
 /* ### extralev.c ### */
 

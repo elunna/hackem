@@ -4724,8 +4724,10 @@ int
 doapply()
 {
     struct obj *obj;
+    struct obj *otmp = NULL;
     register int res = 1;
     char class_list[MAXOCLASSES + 2];
+    boolean split1off;
 
     if (check_capacity((char *) 0))
         return 0;
@@ -4945,13 +4947,26 @@ doapply()
                 (obj->altmode ? "semi-automatic" : "full automatic"));
             break;
         case FRAG_GRENADE:
-	    case GAS_GRENADE:
+        case GAS_GRENADE:
+            split1off = (obj->quan > 1L);
+            if (split1off)
+                obj = splitobj(obj, 1L);
+
             if (!obj->oarmed) {
                 You("arm %s.", yname(obj));
                 arm_bomb(obj, TRUE);
                 update_inventory();
             } else 
                 pline("It's already armed!");
+
+            if (split1off) {
+                obj_extract_self(obj); /* free from inv */
+                obj->nomerge = 1;
+                obj = hold_another_object(obj, "You drop %s!", doname(obj),
+                                          (const char *) 0);
+                if (obj)
+                    obj->nomerge = 0;
+            }
             break;
         default:
             /* Pole-weapons can strike at a distance */

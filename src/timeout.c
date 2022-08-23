@@ -908,7 +908,7 @@ boolean yours;
 	long expiretime;
 
 	if (bomb->cursed && !rn2(2))
-        return; /* doesn't arm if not armed */
+            return; /* doesn't arm if not armed */
 
 	/* Now if you play with other people's property... */
 	if (yours && (!carried(bomb)
@@ -918,14 +918,19 @@ boolean yours;
 	    bill_dummy_object(bomb);
 	}
 
-	expiretime = stop_timer(BOMB_BLOW, (genericptr_t) bomb);
+	expiretime = stop_timer(BOMB_BLOW, obj_to_any(bomb));
     
 	if (expiretime > 0L) 
-        fuse = fuse - (expiretime - monstermoves);
+            fuse = fuse - (expiretime - monstermoves);
 	bomb->yours = yours;
 	bomb->oarmed = TRUE;
 
-	(void) start_timer((long)fuse, TIMER_OBJECT, BOMB_BLOW, obj_to_any(bomb));
+	(void) start_timer(
+            (long)fuse,
+            TIMER_OBJECT,
+            BOMB_BLOW,
+            obj_to_any(bomb)
+        );
 }
 
 /* timer callback routine: detonate the explosives */
@@ -955,7 +960,7 @@ long timeout;
 			    if (canseemon(mtmp))
 				    You("see %s engulfed in an explosion!", mon_nam(mtmp));
 			}
-		    mtmp->mhp -= d(2,5);
+		    mtmp->mhp -= d(2, 5);
 			if (mtmp->mhp < 1) {
 				if(!bomb->yours)
 					monkilled(mtmp, (silent ? "" : "explosion"), AD_PHYS);
