@@ -986,11 +986,10 @@ void arm_bomb(struct obj *obj, boolean yours)
         return;
     }
 
-	if (is_grenade(obj)) {
-		attach_bomb_blow_timeout(obj,
-			    (obj->cursed ? rn2(5) + 2 : 
-                 obj->blessed ? 4 : rn2(2) + 3) , yours);
-	}
-	/* Otherwise, do nothing */
+    if (is_grenade(obj)) {
+        attach_bomb_blow_timeout(obj, (obj->cursed ? rn2(5) + 2 :
+             obj->blessed ? 4 : rn2(2) + 3) , yours);
+    }
+    /* Otherwise, do nothing */
 }
 /*explode.c*/

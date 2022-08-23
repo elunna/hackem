@@ -3247,10 +3247,6 @@ static const struct icp firearm_materials[] = {
     { 70, MITHRIL},
     { 10, GOLD},
     { 10, PLATINUM},
-    #if 0
-    { 10, ORICHALCUM},
-    {  5, ADAMANTINE},
-    #endif
 };
 
 /* for objects which are normally wooden */

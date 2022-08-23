@@ -944,7 +944,7 @@ long timeout;
 	silent = (timeout != monstermoves);     /* exploded while away */
 
 	if (get_obj_location(bomb, &x, &y, BURIED_TOO | CONTAINED_TOO)) {
-		switch(bomb->where) {
+		switch (bomb->where) {
 		case OBJ_MINVENT:
 		    mtmp = bomb->ocarry;
 			if (bomb == MON_WEP(mtmp)) {
@@ -977,7 +977,7 @@ long timeout;
 			    uqwepgone();
 			    stop_occupation();
 			}
-            losehp(d(2,5), "carrying live explosives", KILLED_BY);
+            losehp(d(2, 5), "carrying live explosives", KILLED_BY);
             break;
 		case OBJ_FLOOR:
 			underwater = is_pool(x, y);

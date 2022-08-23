@@ -3261,7 +3261,7 @@ E int FDECL(resist, (struct monst *, CHAR_P, int, int));
 E void NDECL(makewish);
 E void FDECL(monstseesu, (unsigned long));
 E void NDECL(blindingflash);
-extern void grenade_explode(struct obj *, int, int, boolean);
+E void grenade_explode(struct obj *, int, int, boolean);
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 

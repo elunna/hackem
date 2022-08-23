@@ -6524,11 +6524,11 @@ grenade_explode(struct obj *obj, int x, int y, boolean isyou)
     if (otyp == FRAG_GRENADE) {
         /* ztype = isyou * ZT_SPELL(EXPL_FIERY);*/
         ztype = isyou * ZT_SPELL(ZT_FIRE);
-        explode(x, y, ztype, d(3,6), WEAPON_CLASS, isyou * -1 * EXPL_FIERY);
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_FIERY);
 
     } else if (otyp == GAS_GRENADE) {
         ztype = isyou * ZT_SPELL(ZT_POISON_GAS);
-        explode(x, y, ztype, d(3,6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
     }
     context.mon_moving = save_mon_moving;
     wake_nearto(x, y, 400);
