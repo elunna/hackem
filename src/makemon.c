@@ -1165,7 +1165,8 @@ register struct monst *mtmp;
                 else
                     w1 = rn2(2) ? LONG_SWORD : SABER;
                 mongets(mtmp, SKELETON_KEY);
-                (void) mongets(mtmp, rn2(2) ? FRAG_GRENADE : GAS_GRENADE);
+                if (!racial_elf(mtmp))
+                    (void) mongets(mtmp, rn2(2) ? FRAG_GRENADE : GAS_GRENADE);
                 break;
             case PM_TEMPLAR:
                 w1 = rn2(2) ? LONG_SWORD : SABER;
@@ -2453,7 +2454,7 @@ register struct monst *mtmp;
         break;
     }
 
-    if (is_mercenary(ptr) && !rn2(6)) {
+    if (is_mercenary(ptr) && !rn2(6) && !racial_elf(mtmp)) {
         (void) mongets(mtmp, rn2(2) ? FRAG_GRENADE : GAS_GRENADE);
     }
 
