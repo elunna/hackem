@@ -5251,7 +5251,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_MERC | M2_STALK | M2_HOSTILE | M2_STRONG | M2_COLLECT,
         M3_INFRAVISIBLE, 0, MH_HUMAN, 14, HI_METAL),
     MON("shopkeeper", S_HUMAN,
-        LVL(13, 18, 0, 50, 0), G_NOGEN,
+        LVL(24, 18, -6, 50, 0), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
           ATTK(AT_WEAP, AD_PHYS, 4, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
