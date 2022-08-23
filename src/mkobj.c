@@ -1717,7 +1717,7 @@ struct obj * obj;
     return diff;
 }
 
-static int treefruits[] = { APPLE, ORANGE, PEAR, BANANA, EUCALYPTUS_LEAF };
+static int treefruits[] = { APPLE, ORANGE, PEAR, ASIAN_PEAR, BANANA, EUCALYPTUS_LEAF };
 
 /* called when a tree is kicked; never returns Null */
 struct obj *
