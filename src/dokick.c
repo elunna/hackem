@@ -1407,6 +1407,9 @@ dokick()
 
             /* Instead of rings - we can get small tools (weighing under 10) */
             if (!rn2(3)) {
+                struct obj *otmp = NULL;
+                int cnt;
+
                 if (Blind && Deaf)
                     Sprintf(buf, " %s", body_part(FACE));
                 else
@@ -1414,12 +1417,25 @@ dokick()
                 pline("%s%s%s.", !Deaf ? "Flupp! " : "",
                       !Blind  ? "Muddy waste pops up from the drain"
                       : !Deaf ? "You hear a sloshing sound" /* Deaf-aware */
-                              : "Something splashes you in the",
-                      buf);
+                              : "Something splashes you in the", buf);
+
                 if (!(maploc->looted & S_LTOOL)) { /* once per sink */
-                    if (!Blind)
-                        You_see("a curious tool floating in the bowl.");
-                    (void) mkobj_at(TOOL_CLASS, x, y, TRUE);
+                    for (cnt = 3;
+                         cnt > 0 && (otmp = mkobj(TOOL_CLASS, FALSE));
+                         cnt--) {
+                        if (otmp->owt < 15 && !objects[otmp->otyp].oc_big)
+                            break;
+                        You_hear("a loud %s in the plumbing.",
+                            !rn2(2) ? "clank" : "clunk");
+                    }
+                    if (otmp->owt > 15) {
+                        pline_The("toilet groans... And fractures as an object bursts out!");
+                        breaktoilet(x, y);
+                    } else if (!Blind)
+                        You_see("something floating in the bowl.");
+
+                    // (void) mkobj_at(TOOL_CLASS, x, y, TRUE);
+                    place_object(otmp, x, y);
                     newsym(x, y);
                     exercise(A_DEX, TRUE);
                     exercise(A_WIS, TRUE); /* a discovery! */

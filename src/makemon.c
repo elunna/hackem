@@ -4331,7 +4331,8 @@ struct obj *bag;
                 otmp = mksobj(IRON_CHAIN, FALSE, FALSE);
             }
             pline("%s spits %s out.", The(xname(bag)), something);
-            otmp = hold_another_object(otmp, "It slips away from you.", (char*)0, (char*)0);
+            otmp = hold_another_object(otmp,
+                                       "It slips away from you.", (char*)0, (char*)0);
             break;
         case 2:
             pline_The("bag wriggles away from you!");
