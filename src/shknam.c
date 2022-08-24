@@ -861,6 +861,7 @@ int shp_indx;
 
     if (Is_blackmarket(&u.uz))
         shkmoney = 7*shkmoney + rn2(3*shkmoney);
+    mkmonmoney(shk, shkmoney);
 
     if (!strcmp(shkname(shk), "Izchak")) {
         struct obj *otmp;
