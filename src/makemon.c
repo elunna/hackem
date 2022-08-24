@@ -4304,19 +4304,135 @@ int *seencount;  /* secondary output */
     if (!bag || bag->otyp != BAG_OF_TRICKS) {
         impossible("bad bag o' tricks");
     } else if (bag->spe < 1) {
-        /* if tipping known empty bag, give normal empty container message */
-        pline1((tipping && bag->cknown) ? "It's empty." : nothing_happens);
-        /* now known to be empty if sufficiently discovered */
-        if (bag->dknown && objects[bag->otyp].oc_name_known) {
-            bag->cknown = 1;
-            update_inventory(); /* for perm_invent */
-        }
-    } else {
+        return use_container(&bag, 1, FALSE);
+    } 
+    
+    else {
+        boolean gotone = TRUE;
+        int cnt;
         struct monst *mtmp;
+        struct obj *otmp = NULL;
         int creatcnt = 1, seecount = 0;
 
         consume_obj_charge(bag, !tipping);
 
+        switch(rn2(40)) {
+        case 0:
+        case 1:
+            if (bag->recharged==0 && !bag->cursed) {
+                for (cnt = 3; cnt > 0 && (otmp = mkobj(RANDOM_CLASS, FALSE)); cnt--) {
+                    if (otmp->owt < 100 && !objects[otmp->otyp].oc_big)
+                        break;
+                    obj_extract_self(otmp);
+                    obfree(otmp, (struct obj *)0);
+                    otmp = (struct obj*)0;
+                }
+                if (!otmp) {
+                    pline_The("bag coughs nervously.");
+                    break;
+                }
+            } else {
+                otmp = mksobj(IRON_CHAIN, FALSE, FALSE);
+            }
+            pline("%s spits %s out.", The(xname(bag)), something);
+            otmp = hold_another_object(otmp, "It slips away from you.", (char*)0, (char*)0);
+            break;
+        case 2:
+            pline_The("bag wriggles away from you!");
+            dropx(bag);
+            break;
+        case 3:
+            /* nomul(-1*(rnd(4)), "sucked by a bag"); */
+            nomul(-1 * (rnd(4)));
+            if (Hallucination) {
+                You("start climbing into the bag.");
+                nomovemsg = "You give up your attempt to climb into the bag.";
+            } else {
+                pline("%s tries to pull you into the bag!", Something);
+                nomovemsg = "You manage to free yourself.";
+            }
+            break;
+        case 4:
+            if (Blind)
+                You_hear("a loud eructation.");
+            else
+                pline_The("bag belches out %s.",
+                        Hallucination ? "the alphabet" : "a noxious cloud");
+            /* (void)create_gas_cloud(u.ux, u.uy, 2, 8, rn1(3, 2)); */
+            (void)create_gas_cloud(u.ux, u.uy, 2, 8);
+            break;
+        case 5:
+            if (Blind) {
+                if (breathless(youmonst.data))
+                    You_feel("a puff of air.");
+                else
+                    You("smell a musty odor.");
+            } else {
+                pline_The("bag exhales a puff of spores.");
+            }
+            if (!breathless(youmonst.data))
+                (void) make_hallucinated(HHallucination + rn1(35, 10), TRUE, 0L);
+            break;
+        case 6:
+            pline_The("bag yells \"%s\".", Hallucination ? "!ooB" : "Boo!");
+            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp)) 
+                    continue;
+                if (cansee(mtmp->mx, mtmp->my)) {
+                    if (!resist(mtmp, bag->oclass, 0, NOTELL))
+                        monflee(mtmp, 0, FALSE, FALSE);
+                }
+            }
+            if ((ACURR(A_WIS) < rnd(20) && !bag->blessed) || bag->cursed) {
+                You("are startled into immobility.");
+                /* nomul(-1*rnd(3), "startled by a bag"); */
+                nomul(-1 * rnd(3));
+                nomovemsg = "You regain your composure.";
+            }
+            break;
+        case 7:
+            pline_The("bag develops a huge set of %s you!",
+                Hallucination ? "lips and kisses" : "teeth and bites");
+            cnt = rnd(10);
+            if (Half_physical_damage) 
+                cnt = (cnt + 1) / 2;
+            losehp(cnt, Hallucination ? "amorous bag" : "carnivorous bag", KILLED_BY_AN);
+            break;
+        case 8:
+            if (uwep || uswapwep) {
+                otmp = rn2(2) ? uwep : uswapwep;
+                if (!otmp) 
+                    otmp = uwep ? uwep : uswapwep;
+                if (Blind)
+                    pline("%s grabs %s away from you.", Something, yname(otmp));
+                else
+                    pline_The("bag sprouts a tongue and flicks %s %s.",
+                            yname(otmp),
+                            (Is_airlevel(&u.uz) ||
+                                Is_waterlevel(&u.uz) ||
+                                levl[u.ux][u.uy].typ < IRONBARS ||
+                                levl[u.ux][u.uy].typ >= ICE) ?
+                            "away from you" : "to the floor");
+                dropx(otmp);
+            } else {
+                pline("%s licks your %s.",
+                        Blind ? Something : "The bag sprouts a tongue and",
+                        body_part(HAND));
+            }
+            break;
+        default:
+            cnt = 1;
+            gotone = FALSE;
+            if (!rn2(23)) cnt += rn1(7, 1);
+            while (cnt-- > 0) {
+                if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
+                    gotone = TRUE;
+            }
+        }
+        if (gotone)
+            makeknown(BAG_OF_TRICKS);
+
+#if 0
         if (!rn2(23))
             creatcnt += rnd(7);
         do {
@@ -4337,6 +4453,7 @@ int *seencount;  /* secondary output */
         } else if (!tipping) {
             pline1(!moncount ? nothing_happens : "Nothing seems to happen.");
         }
+#endif /* Old BoT behavior */
     }
     return moncount;
 }

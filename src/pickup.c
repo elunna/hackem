@@ -1811,9 +1811,10 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
         int tmp;
 
         You("carefully open %s...", the(xname(cobj)));
-        pline("It develops a huge set of teeth and bites you!");
-        tmp = rnd(10);
-        losehp(Maybe_Half_Phys(tmp), "carnivorous bag", KILLED_BY_AN);
+        pline("It develops a huge set of %s you!",
+              Hallucination ? "lips and kisses" : "teeth and bites");
+        losehp(Maybe_Half_Phys(rnd(10)),
+                Hallucination ? "amorous bag" : "carnivorous bag", KILLED_BY_AN);
         makeknown(BAG_OF_TRICKS);
         abort_looting = TRUE;
         return 1;

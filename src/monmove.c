@@ -2168,20 +2168,40 @@ struct monst *mtmp;
 
         if (typ == COIN_CLASS && obj->quan > 100L)
             return TRUE;
-        if (obj->oclass != GEM_CLASS && !(typ >= ARROW && typ <= BOOMERANG)
-            && !(typ >= DAGGER && typ <= CRYSKNIFE) && typ != SLING
-            && !is_cloak(obj) && typ != FEDORA && typ != TOQUE && !is_gloves(obj)
-            && typ != JACKET && typ != CREDIT_CARD && !is_shirt(obj)
+        if (obj->oclass != GEM_CLASS 
+            && !(typ >= ARROW && typ <= BOOMERANG)
+            && !(typ >= DAGGER && typ <= CRYSKNIFE) 
+            && typ != SLING
+            && !is_cloak(obj) 
+            && typ != FEDORA
+            && typ != TOQUE 
+            && !is_gloves(obj)
+            && typ != JACKET 
+            && typ != CREDIT_CARD 
+            && !is_shirt(obj)
             && !(typ == CORPSE && verysmall(&mons[obj->corpsenm]))
-            && typ != FORTUNE_COOKIE && typ != CANDY_BAR && typ != PANCAKE
-            && typ != LEMBAS_WAFER && typ != LUMP_OF_ROYAL_JELLY
-            && obj->oclass != AMULET_CLASS && obj->oclass != RING_CLASS
-            && obj->oclass != VENOM_CLASS && typ != SACK
-            && typ != BAG_OF_HOLDING && typ != BAG_OF_TRICKS
-            && !Is_candle(obj) && typ != OILSKIN_SACK && typ != LEASH
-            && typ != STETHOSCOPE && typ != BLINDFOLD && typ != TOWEL
-            && typ != PEA_WHISTLE && typ != MAGIC_WHISTLE
-            && typ != MAGIC_MARKER && typ != TIN_OPENER && typ != SKELETON_KEY
+            && typ != FORTUNE_COOKIE 
+            && typ != CANDY_BAR 
+            && typ != PANCAKE
+            && typ != LEMBAS_WAFER 
+            && typ != LUMP_OF_ROYAL_JELLY
+            && obj->oclass != AMULET_CLASS 
+            && obj->oclass != RING_CLASS
+            && obj->oclass != VENOM_CLASS 
+            && typ != SACK
+            && typ != BAG_OF_HOLDING 
+            && typ != BAG_OF_TRICKS
+            && !Is_candle(obj) 
+            && typ != OILSKIN_SACK 
+            && typ != LEASH
+            && typ != STETHOSCOPE 
+            && typ != BLINDFOLD 
+            && typ != TOWEL
+            && typ != PEA_WHISTLE 
+            && typ != MAGIC_WHISTLE
+            && typ != MAGIC_MARKER 
+            && typ != TIN_OPENER 
+            && typ != SKELETON_KEY
             && typ != LOCK_PICK)
             return TRUE;
         if (Is_container(obj) && obj->cobj)
