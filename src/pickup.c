@@ -3743,7 +3743,7 @@ boolean allowempty;
 
     } else if (box->otyp == BAG_OF_TRICKS || box->otyp == HORN_OF_PLENTY) {
         boolean bag = box->otyp == BAG_OF_TRICKS;
-        int old_spe = box->spe, seen = 0;
+        int old_spe = box->spe;
         boolean maybeshopgoods = !carried(box) && costly_spot(box->ox, box->oy);
         xchar ox = u.ux, oy = u.uy;
 
@@ -3754,21 +3754,21 @@ boolean allowempty;
             addtobill(box, FALSE, FALSE, TRUE);
         /* apply this bag/horn until empty or monster/object creation fails
            (if the latter occurs, force the former...) */
+        /* --hackem: Ignore above, Apply the bag/horn only once - 
+            exhausting them will have to come later. */ 
+
         do {
-            if (!(bag ? bagotricks(box, TRUE, &seen)
+            if (!(bag ? bagotricks(box)
                       : hornoplenty(box, TRUE)))
                 break;
         } while (box->spe > 0);
 
         if (box->spe < old_spe) {
-            if (bag)
-                pline((seen == 0) ? "Nothing seems to happen."
-                                  : (seen == 1) ? "A monster appears."
-                                                : "Monsters appear!");
+            int tmp_spe = box->spe;  /* We'll return to the current spe in a sec */
             /* check_unpaid wants to see a non-zero charge count */
             box->spe = old_spe;
             check_unpaid_usage(box, TRUE);
-            box->spe = 0; /* empty */
+            box->spe = tmp_spe;
             box->cknown = 1;
         }
         if (maybeshopgoods && !box->no_charge)

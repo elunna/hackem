@@ -4292,15 +4292,12 @@ register struct monst *mtmp;
         block_point(mx, my);
 }
 
-/* release monster from bag of tricks; return number of monsters created */
+/* release monster from bag of tricks;
+return 1 if monster created, 0 if an alternate effect occured. */
 int
-bagotricks(bag, tipping, seencount)
+bagotricks(bag)
 struct obj *bag;
-boolean tipping; /* caller emptying entire contents; affects shop handling */
-int *seencount;  /* secondary output */
 {
-    int moncount = 0;
-
     if (!bag || bag->otyp != BAG_OF_TRICKS) {
         impossible("bad bag o' tricks");
     } else if (bag->spe < 1) {
@@ -4312,14 +4309,13 @@ int *seencount;  /* secondary output */
         int cnt;
         struct monst *mtmp;
         struct obj *otmp = NULL;
-        int creatcnt = 1, seecount = 0;
 
-        consume_obj_charge(bag, !tipping);
+        consume_obj_charge(bag, TRUE);
 
         switch(rn2(40)) {
         case 0:
         case 1:
-            if (bag->recharged==0 && !bag->cursed) {
+            if (bag->recharged == 0 && !bag->cursed) {
                 for (cnt = 3; cnt > 0 && (otmp = mkobj(RANDOM_CLASS, FALSE)); cnt--) {
                     if (otmp->owt < 100 && !objects[otmp->otyp].oc_big)
                         break;
@@ -4423,39 +4419,19 @@ int *seencount;  /* secondary output */
         default:
             cnt = 1;
             gotone = FALSE;
-            if (!rn2(23)) cnt += rn1(7, 1);
+            if (!rn2(23)) 
+                cnt += rn1(7, 1);
             while (cnt-- > 0) {
                 if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
                     gotone = TRUE;
             }
-        }
-        if (gotone)
-            makeknown(BAG_OF_TRICKS);
-
-#if 0
-        if (!rn2(23))
-            creatcnt += rnd(7);
-        do {
-            mtmp = makemon((struct permonst *) 0, u.ux, u.uy, NO_MM_FLAGS);
-            if (mtmp) {
-                ++moncount;
-                if (canspotmon(mtmp))
-                    ++seecount;
-            }
-        } while (--creatcnt > 0);
-        if (seecount) {
-            if (seencount)
-                *seencount += seecount;
-            if (bag->dknown) {
+            if (gotone) 
                 makeknown(BAG_OF_TRICKS);
-                update_inventory(); /* for perm_invent */
-            }
-        } else if (!tipping) {
-            pline1(!moncount ? nothing_happens : "Nothing seems to happen.");
+            return 1;
         }
-#endif /* Old BoT behavior */
+            
     }
-    return moncount;
+    return 0;
 }
 
 /*makemon.c*/

@@ -4790,7 +4790,7 @@ doapply()
             res = use_container(&obj, 1, FALSE);
             break;
         case BAG_OF_TRICKS:
-            (void) bagotricks(obj, FALSE, (int *) 0);
+            (void) bagotricks(obj);
             break;
         case CAN_OF_GREASE:
             use_grease(obj);
