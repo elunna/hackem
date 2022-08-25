@@ -1276,7 +1276,7 @@ Needs branch: Gain Level Upgrades
 
 	- [FIXED] Grenades do magical explosions when thrown from monsters instead of intended effects.
 
-Orctown: wants polluted fountains
+
 
 	- [ ] Fix the magic 11s for wand of fireball/hellfire/fireballs.
 	
@@ -1284,9 +1284,25 @@ Orctown: wants polluted fountains
 	#define ZT_SPELL_O_FIRE 11 /* value kludge, see zap.c */
     explode(x, y, ZT_SPELL_O_FIRE, dmg, BURNING_OIL, EXPL_FIERY);
 	
-
-Rename scroll of genocide to scroll of anhillation, use Unnethack implementation??? Or splice?
-	In any case, no easy class-wide genocides.
-	Also avoids the dumb case of genociding h and killing yourself as a dwarf
 	
 		[SKIPPED] alternate names for wyrm caves "The Deep Caves", Whispering Caverns, Forgotten Caverns
+		
+
+
+	- [x] First create a long dungeon from the dragon caves?
+	- [x] Start with standard mines fill levels for dragon caves.
+	
+		- [x] mkmap.c: Enabled river generation in dragon caves.
+	- [x] Create Is_Caves method to allow some conditional stuff.
+	[x] Changed dragons.des to caves.des, dragons to caveend, and dragfill to cavefill
+	
+		[x] Change rot worms back to original color (clashes with acid worms and giant leeches)
+	[x] Forced 15 baby dragons to be created in Wyrm cave end
+	[x] Added dragon eggs to cave end and worms to cave filler.
+
+	
+	[x] Added some variety to the wyrm cave monsters: duergars, drow, and randomized chances of all types.
+	- [x] Caves with water and sewage, and mean water critters
+	- [x] Instead of dwarves and gnomes, what are the dominant species in the caves? (Jermlaine, Ogres, Trolls?)
+
+	- [x] Move Spider cave to Wyrm Cave dungeon
