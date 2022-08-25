@@ -2,7 +2,7 @@
 # Storage level (#1)
 #
 
-LEVEL: "stor-1"
+LEVEL: "stor"
 
 ROOM: "ordinary", unlit, random, random, (4,4) {
     #NAME: "central"
