@@ -155,15 +155,15 @@ int x, y;
         create = 1;
 
     /* Detonate rockets */
-	if (is_grenade(obj)) {
-		if (!ohit) {
-			create = 1; /* Don't destroy */
-			arm_bomb(obj, FALSE);
-		} else {
+    if (is_grenade(obj)) {
+        if (!ohit) {
+            create = 1; /* Don't destroy */
+            arm_bomb(obj, FALSE);
+        } else {
             create = 0;
-			grenade_explode(obj, bhitpos.x, bhitpos.y, FALSE);
-		}
-	}
+            grenade_explode(obj, bhitpos.x, bhitpos.y, FALSE);
+        }
+    }
 
     if (create && !((mtmp = m_at(x, y)) != 0 && mtmp->mtrapped
                     && (t = t_at(x, y)) != 0

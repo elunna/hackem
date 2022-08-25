@@ -6521,13 +6521,16 @@ grenade_explode(struct obj *obj, int x, int y, boolean isyou)
     } 
     #endif
 
-    if (otyp == FRAG_GRENADE) {
-        /* ztype = isyou * ZT_SPELL(EXPL_FIERY);*/
-        ztype = isyou * ZT_SPELL(ZT_FIRE);
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_FIERY);
+    /* --hackem: Currently, passing WEAPON_CLASS does not have any handling
+     * in explode() - this could probably be improved but for now it works. */
 
+    if (otyp == FRAG_GRENADE) {
+        /* value kludge, see zap.c */
+        ztype = ZT_SPELL(AD_FIRE-1);  /* = 10+(2-1) = 11 */
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_FIERY);
     } else if (otyp == GAS_GRENADE) {
-        ztype = isyou * ZT_SPELL(ZT_POISON_GAS);
+        /* value kludge, see zap.c */
+        ztype = ZT_SPELL(AD_DRST - 1); /* = 10+(7-1) = 16 */
         explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
     }
     context.mon_moving = save_mon_moving;
