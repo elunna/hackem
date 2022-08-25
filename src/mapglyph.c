@@ -166,6 +166,8 @@ unsigned mgflags;
                 color = CLR_BLACK;
             else if (In_mines(&u.uz)) /* no in_rooms check */
                 color = CLR_BROWN;
+            else if (In_caves(&u.uz)) /* no in_rooms check */
+                color = CLR_BLACK;
             else if (Is_astralevel(&u.uz))
                 color = CLR_WHITE;
             else if (getroomtype(x, y) == DELPHI)

@@ -298,16 +298,17 @@ INSTDUNGEONFILES1= \
 	$(SLIB)juiblex.lev	$(SLIB)knox-1.lev	$(SLIB)medusa-1.lev \
 	$(SLIB)medusa-2.lev	$(SLIB)minend-1.lev	$(SLIB)minend-2.lev \
 	$(SLIB)minetn-1.lev	$(SLIB)minetn-2.lev	$(SLIB)minefill.lev \
+	$(SLIB)dragfill.lev \
 	$(SLIB)options		$(SLIB)oracle.lev	$(SLIB)orcus.lev \
 	$(SLIB)sanctum.lev	$(SLIB)soko1-1.lev	$(SLIB)soko1-2.lev \
 	$(SLIB)soko2-1.lev	$(SLIB)soko2-2.lev	$(SLIB)soko3-1.lev \
 	$(SLIB)soko3-2.lev	$(SLIB)soko4-1.lev	$(SLIB)soko4-2.lev \
 	$(SLIB)tower1.lev	$(SLIB)tower2.lev	$(SLIB)tower3.lev \
 	$(SLIB)valley.lev	$(SLIB)water.lev	$(SLIB)wizard1.lev \
-	$(SLIB)wizard2.lev	$(SLIB)wizard3.lev      $(SLIB)castle-2.lev \
-        $(SLIB)castle-3.lev     $(SLIB)knox-2.lev       $(SLIB)knox-3.lev \
-        $(SLIB)hellfill.lev     $(SLIB)demogor.lev      $(SLIB)dis.lev \
-        $(SLIB)yeenoghu.lev     $(SLIB)geryon.lev	$(SLIB)tower4.lev \
+	$(SLIB)wizard2.lev	$(SLIB)wizard3.lev  $(SLIB)castle-2.lev \
+	$(SLIB)castle-3.lev $(SLIB)knox-2.lev   $(SLIB)knox-3.lev \
+	$(SLIB)hellfill.lev $(SLIB)demogor.lev  $(SLIB)dis.lev \
+	$(SLIB)yeenoghu.lev $(SLIB)geryon.lev	$(SLIB)tower4.lev \
 	$(XDFILES)
 
 INSTDUNGEONFILES= $(NETHACK)NetHack.cnf $(INSTDUNGEONFILES1)
@@ -399,6 +400,7 @@ spotless:  clean
 #	-delete $(SLIB)oracle.lev $(SLIB)wizard1.lev $(SLIB)wizard2.lev
 #	-delete $(SLIB)wizard3.lev $(DAT)dungeon.pdf $(SLIB)valley.lev
 #	-delete $(SLIB)minefill.lev
+#	-delete $(SLIB)dragfill.lev
 #	-delete $(SLIB)minetn-1 $(SLIB)minetn-2 $(SLIB)minend-1 $(SLIB)minend-2
 #	-delete	$(SLIB)soko1-1.lev $(SLIB)soko1-2.lev $(SLIB)soko2-1.lev
 #	-delete $(SLIB)soko2-2.lev $(SLIB)soko3-1.lev $(SLIB)soko3-2.lev

@@ -5124,7 +5124,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
 
  make_bounce:
             bchance = (!isok(sx, sy) || levl[sx][sy].typ == STONE) ? 10
-                : (In_mines(&u.uz) && IS_WALL(levl[sx][sy].typ)) ? 20
+                : ((In_mines(&u.uz) || In_caves(&u.uz)) && IS_WALL(levl[sx][sy].typ)) ? 20
                 : 75;
             bounce = 0;
             fireball = (type == ZT_SPELL(ZT_FIRE));

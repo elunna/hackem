@@ -973,6 +973,7 @@ init_dungeons()
     quest_dnum = dname_to_dnum("The Quest");
     sokoban_dnum = dname_to_dnum("Sokoban");
     mines_dnum = dname_to_dnum("The Gnomish Mines");
+    caves_dnum = dname_to_dnum("The Wyrm Caves");
     spiders_dnum = dname_to_dnum("The Spider Caves");  
     tower_dnum = dname_to_dnum("Vlad's Tower");
 
@@ -1436,6 +1437,14 @@ In_mines(lev)
 d_level *lev;
 {
     return (boolean) (lev->dnum == mines_dnum);
+}
+
+/* are you in the wyrm caves dungeon? */
+boolean
+In_caves(lev)
+d_level *lev;
+{
+    return (boolean) (lev->dnum == caves_dnum);
 }
 
 boolean

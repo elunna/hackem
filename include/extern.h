@@ -684,6 +684,7 @@ E boolean FDECL(Can_rise_up, (int, int, d_level *));
 E boolean FDECL(has_ceiling, (d_level *));
 E boolean FDECL(In_quest, (d_level *));
 E boolean FDECL(In_mines, (d_level *));
+E boolean FDECL(In_caves, (d_level *));
 E boolean FDECL(In_icequeen_branch, (d_level *));
 E boolean FDECL(In_vecna_branch, (d_level *));
 E boolean FDECL(In_goblintown, (d_level *));

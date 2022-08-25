@@ -82,6 +82,8 @@ struct substitute {
 } substitutes[] = { { GLYPH_CMAP_OFF + S_vwall, GLYPH_CMAP_OFF + S_trwall,
                       "mine walls", "In_mines(plev)" },
                     { GLYPH_CMAP_OFF + S_vwall, GLYPH_CMAP_OFF + S_trwall,
+                      "cave walls", "In_caves(plev)" },
+                    { GLYPH_CMAP_OFF + S_vwall, GLYPH_CMAP_OFF + S_trwall,
                       "gehennom walls", "In_hell(plev)" },
                     { GLYPH_CMAP_OFF + S_vwall, GLYPH_CMAP_OFF + S_trwall,
                       "knox walls", "Is_knox(plev)" },

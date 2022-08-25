@@ -824,6 +824,9 @@ makelevel()
         } else if (In_mines(&u.uz)) {
             makemaz("minefill");
             return;
+        } else if (In_caves(&u.uz)) {
+            makemaz("dragfill");
+            return;
         } else if (In_quest(&u.uz)) {
             char fillname[9];
             s_level *loc_lev;
@@ -1160,7 +1163,7 @@ boolean skip_lvl_checks;
         && (In_hell(&u.uz) || In_V_tower(&u.uz) || Is_rogue_level(&u.uz)
             || level.flags.arboreal
             || ((sp = Is_special(&u.uz)) != 0 && !Is_oracle_level(&u.uz)
-                && (!In_mines(&u.uz) || sp->flags.town))))
+                && (!In_mines(&u.uz) || !In_caves(&u.uz) || sp->flags.town))))
         return;
 
     /* basic level-related probabilities */
@@ -1174,7 +1177,10 @@ boolean skip_lvl_checks;
         if (In_mines(&u.uz)) {
             goldprob *= 2;
             gemprob *= 3;
-        } else if (In_quest(&u.uz)) {
+        } else if (In_caves(&u.uz)) {
+            gemprob *= 6; /* Caves have regular gold, but even more gems */
+        } 
+        else if (In_quest(&u.uz)) {
             goldprob /= 4;
             gemprob /= 6;
         }

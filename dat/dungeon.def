@@ -106,6 +106,8 @@ RNDLEVEL:	"minetn" "T" @ (3, 2) 12
 LEVELDESC:	town
 RNDLEVEL:	"minend" "E" @ (-2, 0) 6
 RNDLEVEL:	"mineking" "M" @ (-1, 0) 3
+
+
 #
 #       Goblin Town
 #
@@ -162,10 +164,10 @@ ALIGNMENT:	unaligned
 RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 
 ### The Wyrm Caves ###
-DUNGEON:        "The Wyrm Caves" "D" (1, 0)
+DUNGEON:        "The Wyrm Caves" "D" (3, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-LEVEL:          "dragons" "D" @ (1, 0)
+LEVEL:          "dragons" "D" @ (-1, 0)
 
 ### The Black Market ###
 DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)

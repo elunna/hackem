@@ -2239,7 +2239,10 @@ mk_dgl_extrainfo()
         } else if (In_mines(&u.uz)) {
             Sprintf(tmpdng, "M%i", dunlev(&u.uz));
             sortval += 215+(dunlev(&u.uz));
-        } else {
+        } else if (In_caves(&u.uz)) {
+            Sprintf(tmpdng, "C%i", dunlev(&u.uz));
+            sortval += 205+(dunlev(&u.uz));     /* FIXME: Might need to be adjusted */
+        }else {
             Sprintf(tmpdng, "D%i", depth(&u.uz));
             sortval += (depth(&u.uz));
         }

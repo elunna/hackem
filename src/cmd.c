@@ -1424,6 +1424,8 @@ wiz_map_levltyp(VOID_ARGS)
             Strcat(dsc, " dungeon");
         else if (u.uz.dnum == mines_dnum)
             Strcat(dsc, " mines");
+        else if (u.uz.dnum == caves_dnum)
+            Strcat(dsc, " caves");
         else if (In_sokoban(&u.uz))
             Strcat(dsc, " sokoban");
         else if (u.uz.dnum == quest_dnum)

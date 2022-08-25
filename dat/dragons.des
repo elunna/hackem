@@ -2,13 +2,63 @@
 #       Copyright (c) 1989 by Jean-Christophe Collet
 #       Copyright (c) 1991 by M. Stephenson
 # NetHack may be freely redistributed.  See license for details.
+
+
 #
+#	The "fill" level for the mines.
 #
-#       The "fill" level for the mines.
+MAZE: "dragfill" , ' '
+INIT_MAP: mines, '.' , ' ' , true , true , random , true
+NOMAP
 #
-#       This level is used to fill out any levels not occupied by specific
-#       levels as defined above.
+STAIR: random, up
+STAIR: random, down
 #
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '(', random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+#
+
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: 'k', random
+MONSTER: ('g', "jermlaine"), random
+MONSTER: ('g', "jermlaine"), random
+MONSTER: ('g', "jermlaine"), random
+MONSTER: ('g', "jermlaine"), random
+
+
+#MONSTER: ('G', "rock gnome"), random
+#MONSTER: ('G', "rock gnome"), random
+#MONSTER: ('G', "rock gnome"), random
+#MONSTER: ('G', "rock gnome"), random
+#MONSTER: ('G', "gnome lord"), random
+#MONSTER: ('G', "gnome lord"), random
+#MONSTER: ('h', "mountain dwarf"), random
+#MONSTER: ('h', "mountain dwarf"), random
+#MONSTER: 'G', random
+#MONSTER: 'G', random
+#MONSTER: 'h', random
+
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
 
 MAZE: "dragons" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
@@ -92,6 +142,7 @@ MONSTER: 'D', random, hostile
 MONSTER: 'D', random, hostile
 MONSTER: 'D', random, hostile
 MONSTER: 'D', random, hostile
+
 MONSTER: 'w', random, hostile
 MONSTER: 'w', random, hostile
 MONSTER: 'w', random, hostile
