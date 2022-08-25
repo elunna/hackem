@@ -825,7 +825,7 @@ makelevel()
             makemaz("minefill");
             return;
         } else if (In_caves(&u.uz)) {
-            makemaz("dragfill");
+            makemaz("cavefill");
             return;
         } else if (In_quest(&u.uz)) {
             char fillname[9];

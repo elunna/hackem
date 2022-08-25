@@ -989,7 +989,7 @@ nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\oracles $(DAT)\options \
 	echo MEDUSA-1.LEV  >>dlb.lst
 	echo MEDUSA-2.LEV  >>dlb.lst
 	echo MINEFILL.LEV  >>dlb.lst
-	echo DRAGFILL.LEV  >>dlb.lst
+	echo CAVEFILL.LEV  >>dlb.lst
 	echo MINEND-1.LEV  >>dlb.lst
 	echo MINEND-2.LEV  >>dlb.lst
 	echo MINEND-3.LEV  >>dlb.lst

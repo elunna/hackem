@@ -7,7 +7,7 @@
 #
 #	The "fill" level for the mines.
 #
-MAZE: "dragfill" , ' '
+MAZE: "cavefill" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 NOMAP
 #
@@ -60,7 +60,7 @@ TRAP: random, random
 TRAP: random, random
 
 
-MAZE: "dragons" , ' '
+MAZE: "caveend" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 NOMAP
 # RANDOM_MONSTERS: 'D','w'

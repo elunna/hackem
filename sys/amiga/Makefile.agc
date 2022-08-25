@@ -298,7 +298,6 @@ INSTDUNGEONFILES1= \
 	$(SLIB)juiblex.lev	$(SLIB)knox-1.lev	$(SLIB)medusa-1.lev \
 	$(SLIB)medusa-2.lev	$(SLIB)minend-1.lev	$(SLIB)minend-2.lev \
 	$(SLIB)minetn-1.lev	$(SLIB)minetn-2.lev	$(SLIB)minefill.lev \
-	$(SLIB)dragfill.lev \
 	$(SLIB)options		$(SLIB)oracle.lev	$(SLIB)orcus.lev \
 	$(SLIB)sanctum.lev	$(SLIB)soko1-1.lev	$(SLIB)soko1-2.lev \
 	$(SLIB)soko2-1.lev	$(SLIB)soko2-2.lev	$(SLIB)soko3-1.lev \
@@ -400,7 +399,7 @@ spotless:  clean
 #	-delete $(SLIB)oracle.lev $(SLIB)wizard1.lev $(SLIB)wizard2.lev
 #	-delete $(SLIB)wizard3.lev $(DAT)dungeon.pdf $(SLIB)valley.lev
 #	-delete $(SLIB)minefill.lev
-#	-delete $(SLIB)dragfill.lev
+#	-delete $(SLIB)cavefill.lev
 #	-delete $(SLIB)minetn-1 $(SLIB)minetn-2 $(SLIB)minend-1 $(SLIB)minend-2
 #	-delete	$(SLIB)soko1-1.lev $(SLIB)soko1-2.lev $(SLIB)soko2-1.lev
 #	-delete $(SLIB)soko2-2.lev $(SLIB)soko3-1.lev $(SLIB)soko3-2.lev

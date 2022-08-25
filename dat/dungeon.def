@@ -14,7 +14,6 @@
 #		number of choices for its branch level _first_.
 #
 
-
 # DUNGEON:	"The Dungeons of Doom" "D" (25, 5)
 DUNGEON:	"The Dungeons of Doom" "D" (42, 5)
 ALIGNMENT:	unaligned
@@ -107,7 +106,6 @@ LEVELDESC:	town
 RNDLEVEL:	"minend" "E" @ (-2, 0) 6
 RNDLEVEL:	"mineking" "M" @ (-1, 0) 3
 
-
 #
 #       Goblin Town
 #
@@ -148,7 +146,6 @@ RNDLEVEL:		"soko2" "none" @ (2, 0) 6
 RNDLEVEL:		"soko3" "none" @ (3, 0) 6
 RNDLEVEL:		"soko4" "none" @ (4, 0) 6
 
-
 ### Grund's Stronghold ###
 DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
 ALIGNMENT:      chaotic
@@ -167,13 +164,13 @@ RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 DUNGEON:        "The Wyrm Caves" "D" (3, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-LEVEL:          "dragons" "D" @ (-1, 0)
+LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###
 DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-RNDLEVEL:       "blkmar" "D" @ (1, 0) 2
+RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
 ### The Lost Tomb ###
 DUNGEON:        "The Lost Tomb" "L" (1, 0)
