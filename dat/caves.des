@@ -3,17 +3,16 @@
 #       Copyright (c) 1991 by M. Stephenson
 # NetHack may be freely redistributed.  See license for details.
 
-
 #
 #	The "fill" level for the mines.
 #
 MAZE: "cavefill" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 NOMAP
-#
+
 STAIR: random, up
 STAIR: random, down
-#
+
 OBJECT: '*', random
 OBJECT: '*', random
 OBJECT: '*', random
@@ -21,7 +20,6 @@ OBJECT: '(', random
 OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
-#
 
 MONSTER: 'k', random
 MONSTER: 'k', random
@@ -38,19 +36,6 @@ MONSTER: ('g', "jermlaine"), random
 MONSTER: ('g', "jermlaine"), random
 MONSTER: ('g', "jermlaine"), random
 MONSTER: ('g', "jermlaine"), random
-
-
-#MONSTER: ('G', "rock gnome"), random
-#MONSTER: ('G', "rock gnome"), random
-#MONSTER: ('G', "rock gnome"), random
-#MONSTER: ('G', "rock gnome"), random
-#MONSTER: ('G', "gnome lord"), random
-#MONSTER: ('G', "gnome lord"), random
-#MONSTER: ('h', "mountain dwarf"), random
-#MONSTER: ('h', "mountain dwarf"), random
-#MONSTER: 'G', random
-#MONSTER: 'G', random
-#MONSTER: 'h', random
 
 TRAP: random, random
 TRAP: random, random
@@ -117,42 +102,66 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
-#
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
-MONSTER: 'D', random, hostile
 
-MONSTER: 'w', random, hostile
-MONSTER: 'w', random, hostile
-MONSTER: 'w', random, hostile
-MONSTER: 'w', random, hostile
-MONSTER: ('w', "rot worm"), random, hostile
-MONSTER: ('w', "rot worm"), random, hostile
-MONSTER: ('w', "rot worm"), random, hostile
-MONSTER: ('w', "rot worm"), random, hostile
-MONSTER: ('w', "rot worm"), random, hostile
+$mon_names = MONSTER: {
+    ('D', "baby red dragon"),
+    ('D', "baby white dragon"),
+    ('D', "baby yellow dragon"),
+    ('D', "baby blue dragon"),
+    ('D', "baby green dragon"),
+    ('D', "baby shimmering dragon"),
+    ('D', "baby sea dragon"),
+    ('D', "baby gold dragon"),
+    ('D', "baby deep dragon"),
+    ('D', "baby gray dragon"),
+    ('D', "baby silver dragon"),
+    ('D', "baby orange dragon"),
+    ('D', "baby black dragon")
+}
 
+# 15 baby dragons
+# 1d13 covers the above list (don't need to worry about 0 index)
+
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+MONSTER: $mon_names[1d13], random, hostile
+
+# 10 random dragons (very likely adult dragons)
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+#MONSTER: 'D', random, hostile
+
+# Worms for the wyrm caves
+MONSTER: 'w', random, hostile
+MONSTER: 'w', random, hostile
+MONSTER: 'w', random, hostile
+MONSTER: 'w', random, hostile
+
+# Mean worms for the wyrm caves
+MONSTER: ('w', "rot worm"), random, hostile
+MONSTER: ('w', "rot worm"), random, hostile
+MONSTER: ('w', "rot worm"), random, hostile
+MONSTER: ('w', "rot worm"), random, hostile
+MONSTER: ('w', "rot worm"), random, hostile
 
 TRAP: random, random
 TRAP: random, random
