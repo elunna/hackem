@@ -41,21 +41,21 @@ OBJECT: random, random
 [50%]: OBJECT: ('%', "egg"), random, montype:'D'
 [50%]: OBJECT: ('%', "egg"), random, montype:'D'
 
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: 'k', random
-MONSTER: ('g', "jermlaine"), random
-MONSTER: ('g', "jermlaine"), random
-MONSTER: ('g', "jermlaine"), random
-MONSTER: ('g', "jermlaine"), random
+# Mean denizens of the caves...
+[75%]: MONSTER: 'k', random
+[75%]: MONSTER: 'k', random
+[75%]: MONSTER: 'k', random
+[75%]: MONSTER: 'k', random
+[50%]: MONSTER: ('g', "jermlaine"), random, hostile
+[50%]: MONSTER: ('g', "jermlaine"), random, hostile
+[50%]: MONSTER: ('g', "jermlaine"), random, hostile
+[50%]: MONSTER: ('g', "jermlaine"), random, hostile
+[25%]: MONSTER: ('h', "duergar"), random
+[25%]: MONSTER: ('h', "duergar"), random
+[25%]: MONSTER: ('h', "duergar"), random
+[25%]: MONSTER: ('@', "drow"), random
+[25%]: MONSTER: ('@', "drow"), random
+[25%]: MONSTER: ('@', "drow"), random
 
 TRAP: random, random
 TRAP: random, random
