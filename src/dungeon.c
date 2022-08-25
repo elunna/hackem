@@ -714,6 +714,7 @@ struct level_map {
                   { "wizard2", &wiz2_level },
                   { "wizard3", &wiz3_level },
                   { "minend", &mineend_level },
+                  { "dragons", &caveend_level },
                   { "minetn", &minetn_level },
                   { "soko1", &sokoend_level },
                   { X_START, &qstart_level },

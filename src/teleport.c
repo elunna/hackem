@@ -1329,6 +1329,7 @@ level_tele()
            vs "from anywhere" rather than to control destination */
         d_level *dbranch = In_quest(&u.uz) ? &qstart_level
                           : In_mines(&u.uz) ? &mineend_level
+                          : In_caves(&u.uz) ? &caveend_level
                             : &sanctum_level;
         int deepest = dungeons[dbranch->dnum].depth_start
                       + dunlevs_in_dungeon(dbranch) - 1;

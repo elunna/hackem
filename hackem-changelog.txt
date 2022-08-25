@@ -1284,3 +1284,9 @@ Orctown: wants polluted fountains
 	#define ZT_SPELL_O_FIRE 11 /* value kludge, see zap.c */
     explode(x, y, ZT_SPELL_O_FIRE, dmg, BURNING_OIL, EXPL_FIERY);
 	
+
+Rename scroll of genocide to scroll of anhillation, use Unnethack implementation??? Or splice?
+	In any case, no easy class-wide genocides.
+	Also avoids the dumb case of genociding h and killing yourself as a dwarf
+	
+		[SKIPPED] alternate names for wyrm caves "The Deep Caves", Whispering Caverns, Forgotten Caverns
