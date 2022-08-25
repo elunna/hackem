@@ -40,7 +40,6 @@ CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
 BRANCH: 	"The Wyrm Caves" @ (20, 2)
 BRANCH: 	"The Lost Tomb" @ (21, 4)
 BRANCH:		"One-eyed Sam's Market" @ (22, 2) portal
-BRANCH:		"The Spider Caves" @ (26, 2)
 BRANCH: 	"The Temple of Moloch" @ (32, 4)
 
 #   Storage room (treasure) on levels 19-26, 66% of the time
@@ -161,9 +160,10 @@ ALIGNMENT:	unaligned
 RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 
 ### The Wyrm Caves ###
-DUNGEON:        "The Wyrm Caves" "D" (3, 2)
+DUNGEON:        "The Wyrm Caves" "D" (8, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
+BRANCH:		    "The Spider Caves" @ (3, 2)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###
