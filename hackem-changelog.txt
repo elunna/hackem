@@ -918,7 +918,7 @@ Sea DSM			magical breathing	swimming				<<passive water/rust attack>> (+item des
 	- [x] Generate a random tool
 	- [x] Toilets can generate cockroaches from kicking
 	- [x] Toilets generate sewage with the cockroaches from kicking (Need help with - edit the gush function)
-	- [SKIPPED] Limit toilet tools to those that weigh underunder 10
+
 	- [SKIPPED] Add luck to toilet effects (prayer)
 	- [x] Amulet id in toilets
 	- [SKIPPED] Toilets can generate in the middle of the room within a room type
@@ -1245,3 +1245,42 @@ Needs branch: Gain Level Upgrades
 - [SKIP] Altars can crumble on any #offer - depending on luck/alignment,etc. (Spork? Grunt?)
 - [SKIP] Find good places to use iron/crystal safes.
 - [x] Multiple healthstones can no longer be created from upgrading flint stones, only singles.
+
+	- [x] Combine some of the multi-des files into one?? [x] mall, [x] kobolds, [x] storageroom
+		- [x] Black Market Layout 1: Thinner normal shop.
+		- [SKIPPED] Make crowning much more difficult in evil - otherwise post crown is too easy.
+	- [SKIPPED] Crowning only grants 50% resistance to everything.
+	- [SKIPPED] Allow Giants to benefit from ring of slow digestion
+
+	[FIXED] mon 545 doesn't like any materials for obj 102--More-
+	
+	Mines:
+	- [x] SpliceHack also adds a new "spooky" Minetown layout called "Lavender Town".
+	- [x] Reorganize monst.c into what makes sense. Group like monsters together.
+
+		- [FIXED] Shopkeepers don't have any money??
+	
+	- [x] Bag of tricks patch (from UnNethack)
+- [x] Adjusted BoT #tip behavior - it stops when it reaches a non-monster effect.
+- [SKIP] m_stash_items - intelligent monsters will stash in empty BoT
+	
+[x] Copy bits from BoT code for Toilets to attempt to make tools that weigh under 10...
+[x] 3 chances - if all 3 fail, the toilet breaks and gushes forth a big tool.
+	
+	
+	- [x] Limit toilet tools to those that weigh under under 15
+		tools under 15: key, lockpick, credit card, tallow/wax/mag candle, camera, mirror, lenses, blindfold, towel, stethoscope, leash, tin opener, marker, pea whistle, mag whistle, flute, mag flute, bugle (20)
+		
+		tools over 15: drum, Mdrum, bell, harp, Mharp, hornx4, beartrap, landmine, figure, grease, tinkit, bardingx3?, saddle, 8ball, orb, lampx3 (21)
+
+
+	- [FIXED] Grenades do magical explosions when thrown from monsters instead of intended effects.
+
+Orctown: wants polluted fountains
+
+	- [ ] Fix the magic 11s for wand of fireball/hellfire/fireballs.
+	
+	/* ZT_SPELL(ZT_FIRE) = ZT_SPELL(AD_FIRE-1) = 10+(2-1) = 11 */
+	#define ZT_SPELL_O_FIRE 11 /* value kludge, see zap.c */
+    explode(x, y, ZT_SPELL_O_FIRE, dmg, BURNING_OIL, EXPL_FIERY);
+	
