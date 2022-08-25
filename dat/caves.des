@@ -21,6 +21,26 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
+# Since these are the wyrm caves we should have a lot of
+# wyrm/worm eggs sprinkled in.
+# Make the gen randomized for variety.
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+[50%]: OBJECT: ('%', "egg"), random, montype:'w'
+
+# Just a couple D eggs - there will be many at the dragon nest.
+[50%]: OBJECT: ('%', "egg"), random, montype:'D'
+[50%]: OBJECT: ('%', "egg"), random, montype:'D'
+
 MONSTER: 'k', random
 MONSTER: 'k', random
 MONSTER: 'k', random
@@ -102,6 +122,29 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
+
+# 20 random dragon eggs
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+OBJECT: ('%', "egg"), random, montype:'D'
+
 
 $mon_names = MONSTER: {
     ('D', "baby red dragon"),
