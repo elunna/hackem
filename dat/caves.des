@@ -371,18 +371,118 @@ TRAP: "web", random
 
 
 
+#
+# Cavern variant 3: Based on the dnh drow noble quest level (Ndr-loca")
+#
+MAZE: "cavevar-3", ' '
+FLAGS: noteleport, shortsighted
+GEOMETRY: center,center
+#0         1         2         3         4         5         6         7
+#01234567890123456789012345678901234567890123456789012345678901234567890123
+MAP
+0                        --------------------------
+1                    -----###|.+...|....|...+.|###-----
+2                -----###|###|.|...+....+...|.|###|###-----
+3        ---------###|###|###|.|-+-|....|-+-|.|###|###|###---------
+4    -----###|###|###|###|-+-|.|...|....|...|.|-+-|###|###|###|###-----
+5    |###|###|###|###|-+--...|.|...|....|...|.|...--+-|###|###|###|###|
+6    |###|###|###|-+--.......|.|...|.\..|...|.|.......--+-|###|###|###|
+7----|###|-+---+--....-----..|.--------------.|..-----....--+---+-|###|----
+8|###|-+--............|###|..|................|..|###|............--+-|###|
+9|###+................+###|..--------++--------..|###+................+###|
+0|###|-+--............|###|......................|###|............--+-|###|
+1----|###|-+---+--....-----......................-----....--+---+-|###|----
+2    |###|###|###|-+--.............------.............--+-|###|###|###|
+3    |###|###|###|###|-+--.........|....|.........--+-|###|###|###|###|
+4    -----###|###|###|###|-+--.....|....|.....--+-|###|###|###|###-----
+5        ---------###|###|###|-+-|.|....|.|-+-|###|###|###---------
+6                -----###|###|###|.|-++-|.|###|###|###-----
+7                    -----###|###|........|###|###-----
+8                        ----|###|--------|###|----
+9                            -----        -----
+ENDMAP
+#01234567890123456789012345678901234567890123456789012345678901234567890123
+#0         1         2         3         4         5         6         7
+
+STAIR: (36,14), up
+STAIR: (00,00,73,19), (34,12,39,16), down
+
+OBJECT: ('(', "chest"), random
+OBJECT: ('(', "chest"), random
+OBJECT: ('(', "chest"), random
 
 
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+MONSTER: ('F', "lichen"), random
+
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
+MONSTER: ('F', "violet fungus"), random
 
 
+MONSTER: ('F', "brown mold"), random
+MONSTER: ('F', "brown mold"), random
+MONSTER: ('F', "brown mold"), random
+MONSTER: ('F', "brown mold"), random
+
+MONSTER: ('F', "red mold"), random
+MONSTER: ('F', "red mold"), random
+MONSTER: ('F', "red mold"), random
+MONSTER: ('F', "red mold"), random
 
 
+MONSTER: ('F', "shrieker"), random
+MONSTER: ('F', "shrieker"), random
+MONSTER: ('F', "shrieker"), random
+MONSTER: ('F', "shrieker"), random
+MONSTER: ('F', "shrieker"), random
 
-
-
-
-
-
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('w', "long worm"), random
+MONSTER: ('w', "long worm"), random
+MONSTER: ('w', "long worm"), random
+MONSTER: ('w', "baby long worm"), random
+MONSTER: ('w', "baby long worm"), random
+MONSTER: ('w', "baby long worm"), random
+MONSTER: ('w', "baby long worm"), random
+MONSTER: ('w', "baby long worm"), random
+MONSTER: ('w', "purple worm"), random
+MONSTER: ('w', "purple worm"), random
+MONSTER: ('w', "purple worm"), random
 
 MAZE: "caveend" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
