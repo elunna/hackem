@@ -164,6 +164,7 @@ DUNGEON:        "The Wyrm Caves" "D" (8, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 BRANCH:		    "The Spider Caves" @ (3, 2)
+BRANCH:		    "The Sunless Sea" @ (5, 2)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###
@@ -183,6 +184,12 @@ DUNGEON:        "The Spider Caves" "S" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "spiders" "S" @ (1, 0)
+
+### The Sunless Sea ###
+DUNGEON:        "The Sunless Sea" "none" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "sea" "none" @ (1, 0)
 
 ### The Temple of Moloch ###
 DUNGEON:        "The Temple of Moloch" "none" (1, 0)

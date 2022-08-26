@@ -133,7 +133,7 @@ spec_levs: ../util/lev_comp \
 	icequeen.des knox.des medusa.des mines.des nymph.des oracle.des \
 	sokoban.des tower.des vecna.des yendor.des vaults.des \
 	mall.des kobold.des rats.des \
-	stor.des caves.des tomb.des \
+	stor.des caves.des sea.des tomb.des \
 	spiders.des mtemple.des grund.des blkmar.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
@@ -159,6 +159,7 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp caves.des
 	../util/lev_comp tomb.des
 	../util/lev_comp spiders.des
+	../util/lev_comp sea.des
 	../util/lev_comp mtemple.des
 	../util/lev_comp grund.des
 	../util/lev_comp blkmar.des
