@@ -163,6 +163,7 @@ RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 DUNGEON:        "The Wyrm Caves" "D" (8, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
+LEVEL:          "cavebegn" "D" @ (1, 0)
 BRANCH:		    "The Spider Caves" @ (3, 2)
 BRANCH:		    "The Sunless Sea" @ (5, 2)
 LEVEL:          "caveend" "D" @ (-1, 0)

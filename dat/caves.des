@@ -65,6 +65,80 @@ TRAP: random, random
 TRAP: random, random
 
 
+
+#
+# Cave entrance (inspired by dnh Erebor goal level)
+#
+MAZE: "cavebegn", ' '
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0                                      ..
+1                                     ....
+2                                     .....
+3                                    .....
+4                                   .....
+5                                    .t....
+6                                    .....t
+7                                 .......t
+8                                 ...t....
+9                                  .........
+0                                .....t....
+1                                   ..........
+2                                  ..........
+3                               ...........
+4                                 ....T........
+5                             ...............
+6                            ................
+7                              .....T...........
+8                                ......T..........
+9                                 .................
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+
+# Dungeon Description
+REGION: (00,00,74,19), lit, "ordinary"
+#TELEPORT_REGION: levregion(00,00,70,01), levregion(0,0,0,0), down
+
+# Stairs
+STAIR: (38,1), up
+STAIR: (49,19), down
+BRANCH:(38,1,38,1),(0,0,0,0)
+
+# Downstairs blocked by a few boulders
+
+OBJECT: ('`', "boulder"), (44,19)
+OBJECT: ('`', "boulder"), (45,18)
+OBJECT: ('`', "boulder"), (48,19)
+OBJECT: ('`', "boulder"), (48,18)
+OBJECT: ('`', "boulder"), (49,19)
+OBJECT: ('*', "rock"), (43,18)
+OBJECT: ('*', "rock"), (40,18)
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+
+# Some random debris
+# Some cave guards
+MONSTER: ('o', "orc-captain"), (41,19)
+MONSTER: ('o', "orc shaman"), (41,19)
+MONSTER: ('o', "hill orc"), (41,19)
+MONSTER: ('o', "hill orc"), (41,19)
+MONSTER: ('o', "hill orc"), (41,19)
+MONSTER: ('o', "hill orc"), (41,19)
+
+
 MAZE: "caveend" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 NOMAP
