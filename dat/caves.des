@@ -484,6 +484,143 @@ MONSTER: ('w', "purple worm"), random
 MONSTER: ('w', "purple worm"), random
 MONSTER: ('w', "purple worm"), random
 
+
+
+#
+# Cavern variant 4: Based on the dnh drow noble quest level (Ndr-loca")
+#
+MAZE: "cavevar-4", ' '
+FLAGS: noteleport,hardfloor
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0      ---------------       ------------------       ---------------
+1      |..|...|......|--------................--------|......|...|..|
+2      |..|...|---F---.............------.............---F---|...|..|
+3      |..--F---.........---------.------.---------.........---F--..|
+4      -F--........-------||.....|........|.....||-------........--F-
+5    ---......------......||.....|........|.....||......------......---
+6  ---.....----....|......|---+---.... ...---+---|......|....----.....---
+7---.....------....---+-----........ ... .......-----+---....------.....---
+8|.......|....--+---..................}.................--+---....|.......|
+9|.......|....+................... ..}}}.. ..................+....|.......|
+0|.......|....--+---..................}.................--+---....|.......|
+1---.....------....---+-----........ ... .......-----+---....------.....---
+2  ---.....----....|......|---+---.... ...---+---|......|....----.....---
+3    ---......------......||.....|........|.....||......------......---
+4      -F--........-------||.....|........|.....||-------........--F-
+5      |..--F---.........---------.------.---------.........---F--..|
+6      |..|...|---F---.............------.............---F---|...|..|
+7      |..|...|......|--------................--------|......|...|..|
+8      ---------------       ------------------       ---------------
+ENDMAP
+#01234567890123456789012345678901234567890123456789012345678901234567890123
+#0         1         2         3         4         5         6         7
+
+NON_DIGGABLE:(00,00,73,18)
+
+# Stairs
+STAIR: (00,00,73,18), (08,03,65,15), up
+STAIR: (00,00,73,18), (08,03,65,15), down
+
+# Monsters
+MONSTER: ('h', "alhoon"), (37,09), hostile
+
+# Some lil babies
+MONSTER: (';', "mind flayer larva"), (36,09)
+MONSTER: (';', "mind flayer larva"), (38,09)
+MONSTER: (';', "mind flayer larva"), (37,08)
+MONSTER: (';', "mind flayer larva"), (37,10)
+
+
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+MONSTER: ('h', "mind flayer"), random
+
+MONSTER: ('h', "master mind flayer"), random
+MONSTER: ('h', "master mind flayer"), random
+
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('U', "umber hulk"), random
+MONSTER: ('w', "long worm"), random
+MONSTER: ('w', "long worm"), random
+MONSTER: ('w', "long worm"), random
+
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+MONSTER: ('@', "grimlock"), random
+
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+
+
+#
+# The dragon pit at the bottom of the Wyrm Caves
+#
 MAZE: "caveend" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 NOMAP
