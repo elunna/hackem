@@ -139,6 +139,251 @@ MONSTER: ('o', "hill orc"), (41,19)
 MONSTER: ('o', "hill orc"), (41,19)
 
 
+
+
+
+#
+# Cavern variant 1: Based on the dnh Grue level
+#
+MAZE:"cavevar-1",' '
+FLAGS: noteleport,shortsighted
+GEOMETRY:center,center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0
+1                                |--------|      |---|
+2                             |---........--------...-----|
+3                            |-....}}}}}}.................---------|
+4                           |-....}}}}}}}}.........................-|
+5     |-----|              |-......}}}}}}...........................-|
+6   |--.....--|           |-....-.............---------..............|
+7  |-.........--|        |-....-|-.........---|       |-.............|
+8  |............----------....-| |..-------|           |............-|
+9  |........................--|  |..|                  |-..........-|
+0  |........................|  |--..|     |-----|   |---....-----.-|
+1  |-.........--............----....|  |---.....-||--.....--|   |.|
+2   |-.......-||---.................-||-.........--.....--|     |.---|
+3    |----.--     |-.................--................-|      |-....-|
+4       |.-|      |-.................................--|       |......|
+5     |--.---------...----.........................--|         |......|
+6    |-...............-| |---..........--........--|           |......|
+7    |.................|    |-.....----||-.-...--|             |-....-|
+8    |.................|     |-----|     |-|---|                |----|
+9    |-...............-|
+0     |---------------|
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+
+$places = { (31,11),(45,11),(50,02) }
+REGION: (00,00,75,20), unlit, "ordinary"
+
+# Teleport
+TELEPORT_REGION: (03,04,18,19), (0,0,0,0), down
+
+# Stairs
+STAIR: (13,18), up
+STAIR: (66,15), down
+
+# Non diggable walls
+NON_DIGGABLE: (00,00,75,20)
+
+# unlit light sources in the walls, waiting to be lit and/or looted
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+OBJECT: ('(', "tallow candle"), random
+[50%]: OBJECT: ('(', "wax candle"), random
+[50%]: OBJECT: ('(', "wax candle"), random
+[50%]: OBJECT: ('(', "wax candle"), random
+[50%]: OBJECT: ('(', "wax candle"), random
+
+# Objects
+OBJECT: ('%', "egg"), random, montype:"rot worm",0
+[50%]: OBJECT: ('%',"egg"), random, montype:"rot worm",0
+[50%]: OBJECT: ('%',"egg"), random, montype:"rot worm",0
+OBJECT: ('?', "light"), random, blessed,0
+OBJECT: ('?', "light"), random, cursed, 0
+
+OBJECT: ('!', "gain level"),random
+OBJECT: '+', random
+OBJECT: (')', "arrow"), random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+# Warning
+ENGRAVING:(13,18), dust, "BEWARE OF GRUE"
+
+# An unlucky adventurer
+OBJECT: ('%', "corpse"), $places[0], montype:"Elvenking", 0
+OBJECT: ('/', "light"), $places[0]
+OBJECT: (')', "elven broadsword"), $places[0], uncursed, 4
+OBJECT: ('[', "cloak of invisibility"), $places[0], cursed, -1
+ENGRAVING: $places[0], engrave, "Elbere-"
+
+# Traps
+TRAP: random, random
+TRAP: random, random
+TRAP: "rust", random
+TRAP: "rust", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", (64,11)
+
+# Monsters
+#MONSTER: 'U',"Grue", (66,15), asleep
+MONSTER: ('w',"rot worm"), (67,15)
+MONSTER: ('w',"rot worm"), (65,15)
+MONSTER: ('w',"rot worm"), (68,14)
+MONSTER: ('w',"rot worm"), (64,14)
+MONSTER: ('w',"tunnel worm"), random
+[50%]: MONSTER: ('w',"tunnel worm"), random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+MONSTER: 'w', random
+
+MONSTER: (';', "kraken"), (36,04)
+MONSTER: ('L', "lich"), $places[1]
+MONSTER: ('W', "barrow wight"), (41,15)
+MONSTER: ('d', "warg"), (48,04)
+MONSTER: ('d', "warg"), (49,04)
+MONSTER: ('d', "warg"), (50,04)
+MONSTER: ('d', "warg"), (51,04)
+
+
+
+#
+# Cavern variant 2: Based on the dnh drow quest level
+#
+MAZE:"cavevar-2", ' '
+FLAGS: hardfloor, shortsighted
+GEOMETRY: center, center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0
+1 ..       ....            ......            ...        .......         ..
+2  ..     ......H...     ..........         .....       ........       ....
+3   ..    .. ...   .    ......... ..          .           .....       ....
+4    ..  ..        .      .....    ..         .             ..       .....
+5     ....         .         ..     ..        H               ..        ..
+6    ....          H        ..       ..      ....               ..      ..
+7    .....        ...      ..         ..    ........              ..    ..
+8   ......      ......   ...           ..  ............           ...  ...
+9    ....      .. ....   ....       ........................H....H......
+0       ..    ..   ..     ...     ........................         ..
+1        ..  ..          ..       ........................          ..
+2  ....   ....          ..         ........................         ..
+3 ......   ..          ..    ...    ....................           ..
+4  ....   ....        ..    .....    ............                 ..
+5   ..   ..  ..      ..       ...  .H    ............          ....     ...
+6   .. ..     ..............    ....      ............      ....  ..   .....
+7    ...                   ..            ..     ....    .....      ..   ....
+8                           ..............         ......           .....
+9
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+# Dungeon Description
+REGION: (00,00,75,19), unlit, "ordinary"
+
+# Stairs
+STAIR: (01,13), up
+STAIR: (73,02), down
+
+OBJECT: ('(',"chest"), random
+
+# 12 random objects
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+
+# Some guards
+MONSTER: ('C', "mountain centaur"), random, hostile
+MONSTER: ('C', "mountain centaur"), random, hostile
+MONSTER: ('C', "mountain centaur"), random, hostile
+MONSTER: ('C', "mountain centaur"), random, hostile
+
+MONSTER: ('C', "mountain centaur"), random, hostile
+MONSTER: ('C', "mountain centaur"), random, hostile
+MONSTER: ('C', "mountain centaur"), random, hostile
+MONSTER: ('C', "mountain centaur"), random, hostile
+
+# Some spiders
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+MONSTER: 's', random, hostile
+
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+TRAP: "web", random
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 MAZE: "caveend" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 NOMAP
