@@ -734,6 +734,134 @@ MONSTER: ('s', "phase spider"), random, hostile
 MONSTER: ('s', "phase spider"), random, hostile
 
 
+
+#
+# Cavern variant 6: Based on the dnh HalfDragonFemaleNoble quest locate level (Hdf-loca")
+#
+MAZE: "cavevar-6", ' '
+FLAGS: hardfloor
+
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTT-----TTTTTTTTTTTTTTTTTT
+1TT..TTTTTTTTT..TTTTT.TTTTTT--   --TTTTTTTTTTTTTTTTT
+2T....TTTTTTT.........TTT----     -TTTTTTTTTTTTTTTTT
+3T.T..TTTTTTTT...TTT..TT          S..TTTTT.TTTTTTTT --- --     ----------
+4T.T........TT...TTTTTTTT----     -..T.TT...TTTTTTT -                   -
+5T.TTTTTTTT.TTT..TTTTTTTTTTT--   --T.......TTTTTTTT -    -     -        -
+6T.TTTTTTTT...T...TTTTTTTTTTT----TTTT......TTTTTTTT -                   -
+7T.TTTTTTTTTT.......TTTTTTTTTTTTTTTTT......TTTTTTTT -    -     - ----- --
+8T..TTTTTTT........TTTTTTTT..TTTTTTTTT..TTTTTTTTTTT -    -
+9T..TTTTTTT........TTTTTT.....TTTTTTTT..TTTTTTTTTTT ------ -- --
+0TTTTTTTTTTT.TT....TT..TT.......TTTTT...TTTTTT..TTT        -   -
+1TTTTTTTTTTTTTTTT......TTT.T......TT....TTTT... .TT            -
+2TTTTTTTTTTTTTTTTT...TTTTTTTT............TTT.. ..TT        -----
+3TTTTTTTTTTTTTTTTTTT.TTTTTTTT....................TT                    ------
+4TTTTTTTTTTTTTTTTTTT...T.......................TTTT    ------- - - --  -
+5TTTTTTTTTTTTTTTTTTTTT....TTTT..TTT..........TTTTTT          - -    -  -
+6TTTTTTTTTTTTTTTTTTT.............................TT    -     - -    -  -
+7TTTTTTTTTTTTTTTTTTT.....TTTTTTTT........TT..TTT.T.    -     - -    -
+8TTTTTTTTTTTTTTTTTTTT.....TTTTTT ........TTTTTTT...    ------- -       ------
+9TTTTTTTTTTTTTTTTTTTTTT..TTTTTTTT.TT.T.TTTTTTTTTT..T           ------
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTT-----TTTTTTTTTTTTTTTTTT
+1TT  TTTTTTTTT  TTTTT TTTTTT--   --TTTTTTTTTTTTTTTTT
+2T    TTTTTTT         TTT----     -TTTTTTTTTTTTTTTTT   #
+3T T  TTTTTTTT   TTT  TT          S  TTTTT TTTTTTTT ---S--     ----------
+4T T        TT   TTTTTTTT----     -  T TT   TTTTTTT -....+#####+........-
+5T TTTTTTTT TTT  TTTTTTTTTTT--   --T       TTTTTTTT -....-     -........-
+6T TTTTTTTT   T   TTTTTTTTTTT----TTTT      TTTTTTTT -....+#  ##+........-
+7T TTTTTTTTTT       TTTTTTTTTTTTTTTTT      TTTTTTTT -....-#  # -S-----+--
+8T  TTTTTTT        TTTTTTTT  TTTTTTTTT  TTTTTTTTTTT -....-#  #  #     #
+9T  TTTTTTT        TTTTTT     TTTTTTTT  TTTTTTTTTTT ------#--+--      #
+0TTTTTTTTTTT TT    TT  TT       TTTTT   TTTTTT  TTT       #-...-    ###
+1TTTTTTTTTTTTTTTT      TTT T      TT    TTTT     TT       #+...-    #
+2TTTTTTTTTTTTTTTTT   TTTTTTTT            TTT     TT        -----  ###
+3TTTTTTTTTTTTTTTTTTT TTTTTTTT                    TT   ########### #    ------
+4TTTTTTTTTTTTTTTTTTT   T                       TTTT   #------- -+-+--  -....-
+5TTTTTTTTTTTTTTTTTTTTT    TTTT  TTT          TTTTTT ###+.....- -....-  -....-
+6TTTTTTTTTTTTTTTTTTT                             TT #  -.....- -....-  -....-
+7TTTTTTTTTTTTTTTTTTT     TTTTTTTT        TT  TTT T +#  -.....- -....- #+....-
+8TTTTTTTTTTTTTTTTTTTT     TTTTTT         TTTTTTT       ------- -....+##------
+9TTTTTTTTTTTTTTTTTTTTTT  TTTTTTTT TT T TTTTTTTTTT  T           ------
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTT-----TTTTTTTTTTTTTTTTTT
+1TT..TTTTTTTTT..TTTTT.TTTTTT--...--TTTTTTTTTTTTTTTTT
+2T....TTTTTTT.........TTT----.....-TTTTTTTTTTTTTTTTT   #
+3T.T..TTTTTTTT...TTT..TT..........S..TTTTT.TTTTTTTT ---S--     ----------
+4T.T........TT...TTTTTTTT----.....-..T.TT...TTTTTTT -....+#####+........-
+5T.TTTTTTTT.TTT..TTTTTTTTTTT--...--T.......TTTTTTTT -....-     -........-
+6T.TTTTTTTT...T...TTTTTTTTTTT-----TTT......TTTTTTTT -....+#  ##+........-
+7T.TTTTTTTTTT.......TTTTTTTTTTTTTTTTT......TTTTTTTT -....-#  # -S-----+--
+8T..TTTTTTT........TTTTTTTT..TTTTTTTTT..TTTTTTTTTTT -....-#  #  #     #
+9T..TTTTTTT........TTTTTT.....TTTTTTTT..TTTTTTTTTTT ------#--+--      #
+0TTTTTTTTTTT.TT....TT..TT.......TTTTT...TTTTTT..TTT       #-...-    ###
+1TTTTTTTTTTTTTTTT......TTT.T......TT....TTTT.....TT       #+...-    #
+2TTTTTTTTTTTTTTTTT...TTTTTTTT............TTT.....TT        -----  ###
+3TTTTTTTTTTTTTTTTTTT.TTTTTTTT....................TT   ########### #    ------
+4TTTTTTTTTTTTTTTTTTT...T.......................TTTT   #------- -+-+--  -....-
+5TTTTTTTTTTTTTTTTTTTTT....TTTT..TTT..........TTTTTT ###+.....- -....-  -....-
+6TTTTTTTTTTTTTTTTTTT.............................TT #  -.....- -....-  -....-
+7TTTTTTTTTTTTTTTTTTT.....TTTTTTTT........TT..TTT.T.+#  -.....- -....- #+....-
+8TTTTTTTTTTTTTTTTTTTT.....TTTTTT.........TTTTTTT...    ------- -....+##------
+9TTTTTTTTTTTTTTTTTTTTTT..TTTTTTTT.TT.T.TTTTTTTTTT..T           ------
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+#
+$places = { (53,07),(57,16),(60,11),(67,05),(64,17),(63,08) }
+STAIR: (01,09), up
+STAIR: $places[0], down
+
+
+
+
+
+
 #
 # The dragon pit at the bottom of the Wyrm Caves
 #
