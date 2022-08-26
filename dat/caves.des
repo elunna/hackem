@@ -619,6 +619,122 @@ OBJECT: random, random
 
 
 #
+# Cavern variant 5: Based on the dnh drow noble quest level (Ndr-loca")
+#
+MAZE: "cavevar-5", ' '
+GEOMETRY: center, center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0 -----                                                                -----
+1--...------------------------------------------------------------------...--
+2-..........................................................................-
+3--...------------------------S-------+---------------------------------...--
+4 --.--   ............     .......    #                   .......      --.--
+5  -.- .............................  ########........   .........H..   -.-
+6  -.-  ............    .  ......             .      .    .......   ..  -.-
+7  -.-    .........     .   .... -----+-----  . ...  .               .. -.-
+8  -.-       H    ----- .        |.........|  .H.    .H...............  -.-
+9  -.- ...   .   --...--.        |.........|         .                  -.-
+0  -.-........   -.....S.+####H #+....\....+####HH##H.                  -.-
+1  -.- ...       --...--  H      |.........|          ..      .....     -.-
+2  -.-            -----  ..      |.........|           ..      ......   -.-
+3  -.-     .......     ...       -----+-----  ....    ....    ..........S.-
+4  -.-..............  ..              #      ......  ..  .............  -.-
+5 --.--   .............                     ..........          ...... --.-
+6--...--------S-----------------------+---------------------------------..---
+7-..........................................................................-
+8--...------------------------------------------------------------------...--
+9 -----                                                                -----
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+REGION: (00,00,75,19), lit, "ordinary"
+
+# Non diggable walls
+NON_DIGGABLE: (00,00,75,19)
+
+# Stairs
+STAIR: (19,10), up
+STAIR: random, down
+
+DOOR:locked,(24,10)
+DOOR:closed,(32,10)
+DOOR:closed,(37,03)
+DOOR:closed,(37,07)
+DOOR:closed,(37,13)
+DOOR:closed,(37,16)
+DOOR:closed,(42,10)
+
+OBJECT: ('(', "crystal ball"), (37,10), blessed
+OBJECT: ('(', "chest"), (37,10)
+OBJECT: random, (36,09)
+OBJECT: random, (36,10)
+OBJECT: random, (36,11)
+OBJECT: random, (37,09)
+OBJECT: random, (37,11)
+OBJECT: random, (38,09)
+OBJECT: random, (38,10)
+OBJECT: random, (38,11)
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+# Random traps
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
+# Random monsters.
+MONSTER: ('Z', "ghoul mage"), (37,10), hostile
+MONSTER: ('o', "Mordor orc"), (36,09), hostile
+MONSTER: ('o', "Mordor orc"), (36,10), hostile
+MONSTER: ('o', "Mordor orc"), (36,11), hostile
+MONSTER: ('o', "Mordor orc"), (37,09), hostile
+MONSTER: ('o', "Mordor orc"), (37,11), hostile
+MONSTER: ('o', "Mordor orc"), (38,09), hostile
+MONSTER: ('o', "goblin"), (38,10), hostile
+MONSTER: ('o', "goblin"), (38,11), hostile
+MONSTER: ('o', "goblin"), (02,02), hostile
+MONSTER: ('o', "goblin"), (71,02), hostile
+MONSTER: ('o', "goblin"), (02,16), hostile
+MONSTER: ('o', "goblin"), (71,16), hostile
+MONSTER: ('o', "Mordor orc"), random, hostile
+MONSTER: ('o', "Mordor orc"), random, hostile
+MONSTER: ('o', "goblin"), random, hostile
+MONSTER: ('o', "goblin"), random, hostile
+MONSTER: ('O', "ogre"), (03,02), hostile
+MONSTER: ('O', "ogre"), (72,02), hostile
+MONSTER: ('O', "ogre"), (03,17), hostile
+MONSTER: ('O', "ogre"), (72,17), hostile
+MONSTER: ('O', "ogre"), (41,10), hostile
+MONSTER: ('O', "ogre"), (33,09), hostile
+MONSTER: ('O', "ogre"), random, hostile
+MONSTER: ('O', "ogre"), random, hostile
+MONSTER: 'O', random, hostile
+MONSTER: 'o', random, hostile
+MONSTER: 'o', random, hostile
+
+MONSTER: ('s', "recluse spider"), random, hostile
+MONSTER: ('s', "recluse spider"), random, hostile
+MONSTER: ('s', "giant spider"), random, hostile
+MONSTER: ('s', "giant spider"), random, hostile
+
+MONSTER: ('s', "jumping spider"), random, hostile
+MONSTER: ('s', "jumping spider"), random, hostile
+MONSTER: ('s', "jumping spider"), random, hostile
+
+MONSTER: ('s', "phase spider"), random, hostile
+MONSTER: ('s', "phase spider"), random, hostile
+MONSTER: ('s', "phase spider"), random, hostile
+
+
+#
 # The dragon pit at the bottom of the Wyrm Caves
 #
 MAZE: "caveend" , ' '
