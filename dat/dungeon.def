@@ -164,10 +164,14 @@ DUNGEON:        "The Wyrm Caves" "D" (13, 4)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
-RNDLEVEL:       "cavepass" "D" @ (2, 0) 9
-LEVEL:          "cavevar-2" "D" @ (3, 0)
-RNDLEVEL:       "cavepass" "D" @ (4, 0) 9
+LEVEL:          "cavepass" "D" @ (2, 0)
+LEVEL:          "cavepass" "D" @ (3, 0)
+LEVEL:          "cavepass" "D" @ (4, 0)
 
+#LEVEL:       "nesta-1" "D" @ (2, 0)
+#LEVEL:       "nesta-1" "D" @ (3, 0)
+#LEVEL:       "nesta-1" "D" @ (4, 0)
+#LEVEL:          "cavevar-2" "D" @ (3, 0)
 BRANCH:		    "The Spider Caves" @ (4, 2)
 BRANCH:		    "The Sunless Sea" @ (7, 2)
 LEVEL:          "caveend" "D" @ (-1, 0)
