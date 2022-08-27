@@ -177,7 +177,19 @@ REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
 
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 #
 # Cave passage - variant 2
@@ -215,7 +227,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 
 
@@ -255,7 +279,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 
 
@@ -295,7 +331,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 
 #
@@ -334,7 +382,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 
 #
@@ -373,7 +433,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 #
 # Cave passage - variant 7
 #
@@ -410,7 +482,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 #
 # Cave passage - variant 8
@@ -448,7 +532,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 #
 # Cave passage - variant 9
 #
@@ -485,7 +581,19 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 STAIR: random, up
 STAIR: random, down
-
+# Add some, but not too many items to the passage.
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('*', "rock"), random
+[50%]: OBJECT: ('`', "boulder"), (48,18)
+[50%]: OBJECT: ('`', "boulder"), (49,19)
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+[50%]: OBJECT: random, random
+MONSTER: random, random
+[50%]: MONSTER: random, random
 
 
 
