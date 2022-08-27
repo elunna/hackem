@@ -147,8 +147,8 @@ MONSTER: ('o', "hill orc"), (41,19)
 # standard mines filler for the caves.
 #
 MAZE: "cavepass", ' '
-FLAGS: noteleport, hardfloor
-REGION: (00,00,75,20), lit, "ordinary"
+FLAGS: noteleport, hardfloor, shortsighted
+REGION: (00,00,75,20), unlit, "ordinary"
 NOMAP
 
 # These are the different path starting and ending points.
