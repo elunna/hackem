@@ -1397,11 +1397,11 @@ unsigned doname_flags;
             if (obj == uarmg && Glib) /* just appended "(something)",
                                        * change to "(something; slippery)" */
                 Strcpy(rindex(bp, ')'), "; slippery)");
-#if 0
+
             else if (!Blind && obj->lamplit && artifact_light(obj))
                 Sprintf(rindex(bp, ')'), ", %s lit)",
                         arti_light_description(obj));
-#endif
+
             else if (obj->otyp == MUMMIFIED_HAND)
                 Sprintf(rindex(bp, ' '), " (merged to your left %s)",
                         body_part(ARM));
@@ -1576,6 +1576,9 @@ unsigned doname_flags;
         } else if (obj->lamplit && artifact_light(obj)) {
             Sprintf(eos(bp) - 1, ", %s lit)", arti_light_description(obj));
         }
+    /* --hackem: Light from non-wielded artifact lights - dumb code dupe. */
+    } else if (obj->lamplit && artifact_light(obj)) {
+        Sprintf(eos(bp), ", %s lit)", arti_light_description(obj));
     }
 
     if (obj->owornmask & W_QUIVER) {
