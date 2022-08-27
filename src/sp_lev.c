@@ -1986,6 +1986,13 @@ struct mkroom *croom;
         }
     }
 
+    /* Light up Candle of Eternal Flame and
+	 * Holy Spear of Light on creation.
+     */
+    if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD) {
+        begin_burn(otmp, FALSE);
+    }
+
     if (o->eroded) {
         if (o->eroded < 0) {
             otmp->oerodeproof = 1;

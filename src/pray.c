@@ -2487,6 +2487,13 @@ dosacrifice()
                     place_object(otmp, u.ux, u.uy);
                     newsym(u.ux, u.uy);
                     godvoice(u.ualign.type, "Use my gift wisely!");
+
+                    /* Light up Candle of Eternal Flame and
+		     * Holy Spear of Light on creation.
+                     */
+                    if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD)
+                        begin_burn(otmp, FALSE);
+
                     u.ugifts++;
                     u.ublesscnt = rnz(300 + (50 * u.ugifts));
                     exercise(A_WIS, TRUE);
