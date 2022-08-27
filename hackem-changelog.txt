@@ -1310,3 +1310,33 @@ Needs branch: Gain Level Upgrades
 	- [x] Instead of dwarves and gnomes, what are the dominant species in the caves? (Jermlaine, Ogres, Trolls?)
 
 	- [x] Move Spider cave to Wyrm Cave dungeon
+
+- [FIXED] BUG on spider level: Couldn't place lregion type 3!
+
+[x] Fix stor.des references - still thinks there are 3 separate .des files
+
+- [x] The Sunless Sea
+
+[x] copy dnh, Erebor.des goal lev (for cave entrance?)
+[x] dnh, grue.des - some good nests here!
+dnh, chaos2 - maybe some caves
+[x] drow.des, some really good stuff
+[x] drownoble has a mind flayer type level...
+[x] elf.des - elf goal is a decent jermlaine level
+[x] halfdragonfemalenoble - interesting layouts
+[x] HedrewNoble
+neutrality.des - has a cool river, and lethe river maps
+
+
+
+[x] Some narrow passage levels (cavepass-*)
+This acts as fun filler, but also deepens the caves subtley.
+Use flipping - not available in evil, is it difficult to add?
+[x] Make 5 more passages
+[x] Randomize the up and down stairs on these. Or make as far apart as possible
+[x] Add random rocks and boulders
+[x] Couple random objects, monsters, traps
+
+
+
+- [x] Spear of Light should always be lit
