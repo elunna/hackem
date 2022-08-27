@@ -140,6 +140,211 @@ MONSTER: ('o', "hill orc"), (41,19)
 
 
 
+#
+# Cave passage - variant 1
+#
+MAZE: "cavepass-1", ' '
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+TT
+TT
+
+         ..
+          ..
+           ...
+            ..
+             ...
+              ..
+               ..
+                ..
+                .. .
+                 ....       .
+                  . ....  .....
+                     . ....   ...
+                                ..     .       .
+                                 .  . ....  . ....
+                                 ........... .. ...
+                                  .  .  . .....
+
+
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+REGION: (00,00,74,19), lit, "ordinary"
+STAIR: random, up
+STAIR: random, down
+
+
+
+#
+# Cave passage - variant 2
+#
+MAZE: "cavepass-2", ' '
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+TT
+TT
+
+
+
+
+
+
+                         . ...                             ..
+                     ............. .    .               .......
+                   ......     ........ .....  ...      ... .....
+                 ....               .... . .... .... ...     ...
+        .      ....                                ...
+       .... . ...
+     ...  .....
+    ...    .
+   ..
+   .
+  ..
+ ...
+  ..
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+REGION: (00,00,74,19), lit, "ordinary"
+STAIR: random, up
+STAIR: random, down
+
+
+
+
+#
+# Cave passage - variant 3
+#
+MAZE: "cavepass-3", ' '
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+TT                                           ...
+TT                                            ....
+                                                 ..
+                                                  . .
+                                                  . ...
+                                                  ... ...
+                                                       ...
+                                                         ...
+                                                           ..
+                                                            ...
+                                                              .
+                                                              ..
+                                                               ....
+                                                                  ..
+                                                                   ..
+                                                                    ..
+                                                                    ...
+                                                                      .
+                                                                      .
+                                                                      ...
+
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+REGION: (00,00,74,19), lit, "ordinary"
+STAIR: random, up
+STAIR: random, down
+
+
+
+
+#
+# Cave passage - variant 4
+#
+MAZE: "cavepass-4", ' '
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+TT
+TT
+                                                                         ...
+                                                                         ...
+                                                                        ...
+                                                                  ...  ..
+                                                             ..  .. ....
+                                                            ......    .
+                                                           ... ...    ..
+                                                         ...  .        .
+                                                    .    . .           .
+                                                   ...  ...           ..
+                                                .... ....            ..
+                                                 .    ..
+                                            .   ..
+                                        . .. . ..
+                                         .  ....
+                                       .......
+                                      ..
+                                  .. ..
+                                  ....
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+REGION: (00,00,74,19), lit, "ordinary"
+STAIR: random, up
+STAIR: random, down
+
+
+
+#
+# Cave passage - variant 5
+#
+MAZE: "cavepass-5", ' '
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+TT                                         .
+TT                                       ...
+                                       ... .
+                                      ...  ...
+                                    ...     ....
+                                   ..        .
+                                    ..       ... .
+                                   ..          ...
+                             .   . .          ..
+                            ..... ..          . .
+                             .  ...           .... ..
+                            ..                   ...
+                           ..                      ..
+                          ..                        ..
+                           .                        ..
+                                                    ..
+                                                     .
+                                           ... .   ...
+                                            ...... .
+                                           ...   ...
+                                                  .
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+REGION: (00,00,74,19), lit, "ordinary"
+STAIR: random, up
+STAIR: random, down
+
+
+
+
+
+
+
+
+
+
+
 
 
 #
@@ -216,7 +421,7 @@ OBJECT: ('%', "egg"), random, montype:"rot worm",0
 OBJECT: ('?', "light"), random, blessed,0
 OBJECT: ('?', "light"), random, cursed, 0
 
-OBJECT: ('!', "gain level"),random
+OBJECT: ('!', "gain level"), random
 OBJECT: '+', random
 OBJECT: (')', "arrow"), random
 OBJECT: random, random
@@ -269,7 +474,6 @@ MONSTER: ('d', "warg"), (48,04)
 MONSTER: ('d', "warg"), (49,04)
 MONSTER: ('d', "warg"), (50,04)
 MONSTER: ('d', "warg"), (51,04)
-
 
 
 #
@@ -367,8 +571,6 @@ TRAP: "web", random
 TRAP: "web", random
 TRAP: "web", random
 TRAP: "web", random
-
-
 
 
 #
@@ -483,7 +685,6 @@ MONSTER: ('w', "baby long worm"), random
 MONSTER: ('w', "purple worm"), random
 MONSTER: ('w', "purple worm"), random
 MONSTER: ('w', "purple worm"), random
-
 
 
 #
@@ -733,8 +934,6 @@ MONSTER: ('s', "phase spider"), random, hostile
 MONSTER: ('s', "phase spider"), random, hostile
 MONSTER: ('s', "phase spider"), random, hostile
 
-
-
 #
 # Cavern variant 6: Based on the dnh HalfDragonFemaleNoble quest locate level (Hdf-loca")
 #
@@ -911,210 +1110,6 @@ MONSTER: ('F', "lichen"), random
 MONSTER: ('F', "lichen"), random
 MONSTER: ('F', "lichen"), random
 MONSTER: ('F', "lichen"), random
-
-
-#
-# Cavern variant 8:
-#
-#	The head of the river.
-#	The river starts at the top of the gorge with a big pool.
-#	There are a few interesting things hidden around the place.
-#
-MAZE: "cavevar-8", ' '
-FLAGS: hardfloor
-GEOMETRY:center,center
-#0         1         2         3         4         5         6         7
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-MAP
-0
-1   -------                #######H...............#####      ...       ....
-2   |.....|               ##         .......   ...    #####.......    ......
-3   |..{..+###           ##              #      H     H     .......   .....
-4   |.....|  #############  #########.....      .     ##      ....     ...
-5   ---S---                 #         ......           ###     #        ....
-6      #                ........  }}}}}}}}}}}}}    ....  #     ##     ##....
-7                    ........}}}}}}}}}}}}}}}}}}}}}}} ....#      #     #  ..
-8             #####H..... .}}}}}}}}}}}}}}}}}}}}}}}}}}}}...    ###     #
-9             #      ...}}}}}}}}}}...........}}}}}}}}}}}}}}   #       ###
-0          ####       .}}}}}}}}}}.....-........}}}}}}}}}}}}}  H         #
-1          #             }}}}}}}}}}}......-...}}}}}}}}}}}}}}}...        #
-2        .....         }}}}}}}}}}}}}}}}}}}}}}}}}}}}  ##  }}}}}.....   .....
-3       .......       }}}}}}}}}}}}}}}}}}}}}}}}}}}...#####..}}}}}}......-....
-4     ........}}}      }}}}}}}}}}}}}}}}}}}}}}}}....        .}}}}}}}}}}}}}}}}}
-5     .........}         ..}}}}}}   }}}}}}} .....           ..}}}}}}}}}}}}}}}
-6      .......       ###.....         ........-      ....     ..}}}}}}}}}}}}}
-7         .....########     ####         #          ......      ...........
-8                              ###########           .....###H#........
-9
-ENDMAP
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-#0         1         2         3         4         5         6         7
-#The altar of the unknown god
-MONSTER: ('@', "aligned priest"), (38,10), noalign,hostile
-
-#Altar to Nodens
-ALTAR: (35,10), noalign, altar
-
-# Dungeon Description
-REGION: (00,00,75,19), lit, "ordinary"
-REGION: (04,02,08,04), lit, "ordinary"
-REGION: (05,12,17,15), unlit, "ordinary"
-REGION: (34,01,48,02), unlit, "ordinary"
-REGION: (58,01,65,04), unlit, "ordinary"
-REGION: (69,01,74,07), unlit, "ordinary"
-REGION: (51,16,56,18), unlit, "ordinary"
-
-STAIR: (72,02), down
-STAIR: (04,03), up
-
-DOOR: locked, (09,03)
-DOOR: locked, (06,05)
-
-# Dragons
-MONSTER: ('D', "red dragon"), (10,13), asleep
-MONSTER: ('D', "red dragon"), (11,16), asleep
-
-# The Dragons Hoard
-OBJECT: ('(', "chest"), (05,14)
-OBJECT: ('%', "egg"), (05,15)
-OBJECT: ('%', "egg"), (06,14)
-OBJECT: ('%', "egg"), (06,15)
-OBJECT: ('%', "egg"), (06,16)
-OBJECT: ('%', "egg"), (07,14)
-OBJECT: ('%', "egg"), (07,15)
-OBJECT: ('*', "luckstone"), (05,15)
-OBJECT: '/', (06,14)
-OBJECT: '*', (06,14)
-OBJECT: '*', (06,15)
-OBJECT: '*', (06,15)
-OBJECT: '*', (07,13)
-GOLD: 1d200, (05,14)
-GOLD: 1d200, (05,15)
-GOLD: 1d200, (06,14)
-GOLD: 1d200, (06,15)
-GOLD: 1d200, (06,16)
-GOLD: 1d200, (07,13)
-GOLD: 1d200, (07,14)
-GOLD: 1d200, (07,15)
-GOLD: 1d200, (07,16)
-GOLD: 1d200, (08,15)
-GOLD: 1d200, (08,16)
-TRAP: "board", (10,12)
-
-# Sea monsters for the lake
-MONSTER: (';', "electric eel"), (53,08)
-MONSTER: (';', "electric eel"), (45,14)
-MONSTER: ';', (63,13)
-MONSTER: ';', (28,07)
-MONSTER: ';', (22,10)
-MONSTER: ';', (59,14)
-MONSTER: ';', (39,06)
-MONSTER: ';', (26,15)
-MONSTER: ';', (29,12)
-MONSTER: ';', (30,12)
-MONSTER: ';', (28,11)
-MONSTER: ';', (52,10)
-MONSTER: ';', (69,15)
-
-# Nightgaunts living on the island
-MONSTER: ('B', "nightgaunt"), (34,09)
-MONSTER: ('B', "nightgaunt"), (42,10)
-MONSTER: ('B', "nightgaunt"), (38,11)
-MONSTER: ('B', "nightgaunt"), (39,09)
-MONSTER: ('B', "nightgaunt"), (34,10)
-MONSTER: ('B', "nightgaunt"), (43,10)
-MONSTER: ('B', "nightgaunt"), (35,10), asleep
-MONSTER: ('B', "nightgaunt"), (42,09), asleep
-[75%]: MONSTER: ('B', "nightgaunt"), (38,09), asleep
-[50%]: MONSTER: ('B', "nightgaunt"), (40,11), asleep
-
-# And some (empty) decorations
-OBJECT: ('`', "statue"), (33,10)
-OBJECT: ('`', "statue"), (35,09)
-OBJECT: ('`', "statue"), (44,10)
-OBJECT: ('`', "statue"), (36,11)
-
-# And even some treasure
-CONTAINER: ('(', "chest"), (39,10) {
-    [25%]: OBJECT: ('(', "magic lamp"), cursed, 0
-    OBJECT: ('!', "oil")
-}
-
-# Ruins of a library
-[50%]: OBJECT: ('(', "magic marker"), random
-[50%]: OBJECT: ('?', "blank paper"), (37,10)
-[50%]: OBJECT: ('+', "blank paper"), (37,10)
-[50%]: OBJECT: ('?', "blank paper"), (41,11)
-[50%]: OBJECT: ('+', "blank paper"), (41,11)
-MONSTER: (''', "paper golem"), (41,10)
-[25%]: MONSTER: (''', "paper golem"), (38,10)
-#
-# A few random flapping things
-MONSTER: ('B', "vampire bat"), random
-MONSTER: ('B', "raven"), random
-MONSTER: 'B', random
-MONSTER: 'B', random
-[50%]: MONSTER: 'B', random
-[50%]: MONSTER: 'B', random
-
-# Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "pit", random
-TRAP: "pit", random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-
-# Hidden in the corridor
-[50%]: OBJECT: ('[', "armor"), (47,04), blessed, +2
-[50%]: OBJECT: ('[', "armor"), (47,04), cursed, -2
-
-# The fountain room
-MONSTER: (''', "clay golem"), (04,03), asleep
-MONSTER: (''', "clay golem"), (07,03), asleep
-OBJECT: ('?', "teleportation"), (06,06), cursed, 0
-OBJECT: ('?', "amnesia"), (06,06)
-
-# Second dragon (note; this guy is awake)
-MONSTER: 'D', (55,18)
-
-# Second dragons hoard
-GOLD: 1d200, (51,17)
-GOLD: 1d200, (52,17)
-GOLD: 1d200, (52,16)
-GOLD: 1d200, (53,16)
-
-OBJECT: '/', (51,17)
-OBJECT: '*', (51,17)
-OBJECT: '*', (52,17)
-OBJECT: '*', (52,16)
-OBJECT: '*', (53,16)
-OBJECT: ('?', "enchant weapon"), (52,16)
-
-# Monsters in the dark
-MONSTER: ('t', "trapper"), (62,03)
-MONSTER: ('t', "lurker above"), (43,01)
-
-# Lurking Ones
-[80%]: MONSTER: ('t', "lurker above"), (07,13)
-[80%]: MONSTER: ('t', "lurker above"), (09,17)
-[80%]: MONSTER: ('t', "lurker above"), (24,15)
-[80%]: MONSTER: ('t', "lurker above"), (26,02)
-[80%]: MONSTER: ('t', "lurker above"), (36,02)
-[80%]: MONSTER: ('t', "lurker above"), (47,04)
-[80%]: MONSTER: ('t', "lurker above"), (50,06)
-[80%]: MONSTER: ('t', "lurker above"), (64,02)
-[80%]: MONSTER: ('t', "lurker above"), (64,02)
-[80%]: MONSTER: ('t', "lurker above"), (74,02)
-[80%]: MONSTER: ('t', "lurker above"), (69,12)
-[80%]: MONSTER: ('t', "lurker above"), (69,18)
-[80%]: MONSTER: ('t', "lurker above"), (51,17)
-[80%]: MONSTER: ('t', "lurker above"), (52,13)
-[80%]: MONSTER: ('t', "lurker above"), (44,16)
-
-
 
 
 #

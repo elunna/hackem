@@ -1,3 +1,7 @@
+Special thanks: K2, amateurhour, qt
+Thanks: riker, bhaak, kes, shadowrider, aosdict 
+
+
 Interesting side effects of EvilHack as a base:
 	Torches can be bone
 	Pick-axes can be silver
