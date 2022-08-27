@@ -141,7 +141,10 @@ MONSTER: ('o', "hill orc"), (41,19)
 
 
 #
-# Cave passage - variant 1
+# Cave passages
+# Every level will be completely randomized in a simple,
+# but hopefully pleasing manner. I want to have something else besides
+# standard mines filler for the caves.
 #
 MAZE: "cavepass", ' '
 FLAGS: noteleport, hardfloor
@@ -151,26 +154,36 @@ NOMAP
 # These are the different path starting and ending points.
 # Each should be at least 1 away from the edge of the map.
 $places = {
-    (01,01), (36,01), (75,01),
-    (01,10), (36,10), (75,10),
-    (01,20), (36,20), (75,20)
+    (01,01), (36,01), (72,01),
+    (01,10), (36,10), (72,10),
+    (01,19), (36,19), (72,19)
 }
 SHUFFLE: $places
-
-
 TERRAIN: grow(north | west, randline $places[1], $places[2], 10), '.'
 
-#TERRAIN: grow(north | west, randline ($x1,$y1), ($x1,$y2), 15), '.'
+# grow lets us create a walkable path, without it we would just have a
+# 1-tile-wide path. We'll try alternating between 2-3 thickness for variety.
+IF [50%] {
+    TERRAIN: grow(north | west, randline $places[1], $places[2], 10), '.'
+} ELSE {
+    TERRAIN: grow(east, randline $places[1], $places[2], 10), '.'
+}
 
-#IF [50%] {
-#  TERRAIN: grow(north | west, randline (01,01), (71,17), 15), '.'
-#} ELSE {
-#  TERRAIN: grow(east, randline (01,01), (71,17), 15), '.'
-#}
+# Mix in different paths so the levels are not tiny.
+IF [75%] {
+    TERRAIN: grow(north, randline $places[1], $places[3], 10), '.'
+}
+IF [25%] {
+    TERRAIN: grow(north, randline $places[2], $places[4], 10), '.'
+}
+IF [15%] {
+    TERRAIN: grow(north | east, randline $places[1], $places[5], 10), '.'
+}
 
-
-STAIR: random, up
-STAIR: random, down
+# Make sure the stairs are at the ending points,
+# otherwise they will probably be too short.
+STAIR: $places[1], up
+STAIR: $places[2], down
 
 # Add some, but not too many items to the passage.
 OBJECT: ('*', "rock"), random
