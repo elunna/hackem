@@ -139,7 +139,6 @@ MONSTER: ('o', "hill orc"), (41,19)
 MONSTER: ('o', "hill orc"), (41,19)
 
 
-
 #
 # Cave passages
 # Every level will be completely randomized in a simple,
@@ -202,9 +201,10 @@ MONSTER: random, random
 
 #
 # Nest-easy - variant 1
-# Rat nest
+# Underground nest - we'll encounter a bunch of a certain monster symbol
+# nesting.
 #
-MAZE: "nesta-1", ' '
+MAZE: "cavenest", ' '
 FLAGS: noteleport, hardfloor
 INIT_MAP: mines, '.' , ' ' , true , true , random , true
 GEOMETRY: center, center
@@ -234,33 +234,169 @@ ENDMAP
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
 #          1         2         3         4         5         6         7
 
-STAIR: random, up
-STAIR: random, down
-
-# $coords = { (01,01), (71,17) }
-
-
-#TERRAIN: (randline (01,01), (71,17), 15), '.'
-
-IF [50%] {
-  TERRAIN: grow(north | west, randline (01,01), (71,17), 15), '.'
-} ELSE {
-  TERRAIN: grow(north | west, randline (01,01), (71,17), 15), '.'
+$middle = (36,10)
+$places = {
+    (01,01), (36,01), (72,01),
+    (01,10), (72,10),
+    (01,19), (36,19), (72,19)
 }
 
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
-MONSTER: 'r', (35,09)
+# The main path has to go through the middle
+TERRAIN: grow(north | west, randline $middle, $places[1], 15), '.'
+TERRAIN: grow(north | west, randline $middle, $places[2], 15), '.'
+
+# We'll add in one more random path for variety.
+IF [50%] {
+  TERRAIN: grow(north | west, randline $places[3], $places[4], 7), '.'
+}
+
+STAIR: $places[1], up
+STAIR: $places[2], down
+
+$mon_names = MONSTER: { 'F', 'i', ':', 'N', 'S', 'B', 'w' }
+SHUFFLE: $mon_names
+
+# Generate 45 monsters of the type in the middle of the level, they'll spread out...
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+MONSTER: $mon_names[0], (30,09)
+
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+MONSTER: $mon_names[0], (35,09)
+
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+MONSTER: $mon_names[0], (40,09)
+
+# Debris
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+OBJECT: ('`', "boulder"), random
+[50%]: OBJECT: ('`', "boulder"), random
+[50%]: OBJECT: ('`', "boulder"), random
+[50%]: OBJECT: ('`', "boulder"), random
+[50%]: OBJECT: ('`', "boulder"), random
+[50%]: OBJECT: ('`', "boulder"), random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+
+# Wouldn't be a nest without eggs...
+[50%]: OBJECT: ('%', "egg"), (34,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,08), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,08), montype:$mon_names[0]
+
+[50%]: OBJECT: ('%', "egg"), (34,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,09), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,09), montype:$mon_names[0]
+
+[50%]: OBJECT: ('%', "egg"), (34,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (34,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (35,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,10), montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), (36,10), montype:$mon_names[0]
+
+# They misplaced some!
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+[50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0]
+
+OBJECT: ('(', "chest"), (34,08)
+[50%]: OBJECT: ('(', "chest"), (33,08)
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+# Some traps to protect the stash!
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
 
 #
 # The dragon pit at the bottom of the Wyrm Caves
