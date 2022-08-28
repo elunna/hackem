@@ -91,7 +91,7 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
         wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev \
         mall-?.lev kobold-?.lev rats.lev stor.lev cavepass.lev \
         cavenest.lev cavefill.lev cavebegn.lev caveend.lev sea.lev \
-        jermlain-?.lev \
+        jermlain.lev \
         tomb.lev spiders.lev mtemple.lev grund.lev blkmar-?.lev
 QUEST_LEVS = ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev
 

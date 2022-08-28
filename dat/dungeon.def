@@ -165,7 +165,7 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
 LEVEL:          "cavenest" "D" @ (2, 3)
-RNDLEVEL:       "jermlain" "D" @ (2, 2) 1
+LEVEL:          "jermlain" "D" @ (2, 10) 66
 LEVEL:          "cavepass" "D" @ (2, 3) 50
 
 BRANCH:		    "The Spider Caves" @ (4, 2)
