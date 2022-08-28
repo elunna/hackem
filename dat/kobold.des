@@ -174,7 +174,7 @@ OBJECT:('(',"chest"),(68,2)
 OBJECT:('(',"chest"),(2,1)
 OBJECT:('(',"chest"),(3,1)
 OBJECT:('(',"chest"),(4,1)
-OBJECT:('(',"chest"),(18,14)
+OBJECT:('(',"chest"),(18,13)
 OBJECT: ')',(18,14)
 OBJECT: ')',(18,14)
 OBJECT: '/',(18,14)
@@ -182,6 +182,8 @@ OBJECT: '[',(18,14)
 OBJECT: '[',(18,14)
 OBJECT: '!',(18,14)
 OBJECT: '!',(18,14)
+
+# Throne position: (18,14)
 
 MONSTER: ('B',"rhumbat"), (43,11), hostile, asleep
 MONSTER: ('B',"rhumbat"), (65,13), hostile, asleep
