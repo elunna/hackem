@@ -398,6 +398,258 @@ TRAP: random, random
 TRAP: random, random
 TRAP: random, random
 
+
+#
+# Jermlaine village:  variant 6:
+# Based on the dnh HalfDragonFemaleNoble quest locate level (Hdf-loca")
+#
+MAZE: "jermlain-1", ' '
+FLAGS: hardfloor
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTT-----TTTTTTTTTTTTTTTTTT
+1TT..TTTTTTTTT..TTTTT.TTTTTT--   --TTTTTTTTTTTTTTTTT
+2T....TTTTTTT.........TTT----     -TTTTTTTTTTTTTTTTT
+3T.T..TTTTTTTT...TTT..TT          S..TTTTT.TTTTTTTT --- --     ----------
+4T.T........TT...TTTTTTTT----     -..T.TT...TTTTTTT -                   -
+5T.TTTTTTTT.TTT..TTTTTTTTTTT--   --T.......TTTTTTTT -    -     -        -
+6T.TTTTTTTT...T...TTTTTTTTTTT----TTTT......TTTTTTTT -                   -
+7T.TTTTTTTTTT.......TTTTTTTTTTTTTTTTT......TTTTTTTT -    -     - ----- --
+8T..TTTTTTT........TTTTTTTT..TTTTTTTTT..TTTTTTTTTTT -    -
+9T..TTTTTTT........TTTTTT.....TTTTTTTT..TTTTTTTTTTT ------ -- --
+0TTTTTTTTTTT.TT....TT..TT.......TTTTT...TTTTTT..TTT        -   -
+1TTTTTTTTTTTTTTTT......TTT.T......TT....TTTT... .TT            -
+2TTTTTTTTTTTTTTTTT...TTTTTTTT............TTT.. ..TT        -----
+3TTTTTTTTTTTTTTTTTTT.TTTTTTTT....................TT                    ------
+4TTTTTTTTTTTTTTTTTTT...T.......................TTTT    ------- - - --  -
+5TTTTTTTTTTTTTTTTTTTTT....TTTT..TTT..........TTTTTT          - -    -  -
+6TTTTTTTTTTTTTTTTTTT.............................TT    -     - -    -  -
+7TTTTTTTTTTTTTTTTTTT.....TTTTTTTT........TT..TTT.T.    -     - -    -
+8TTTTTTTTTTTTTTTTTTTT.....TTTTTT ........TTTTTTT...    ------- -       ------
+9TTTTTTTTTTTTTTTTTTTTTT..TTTTTTTT.TT.T.TTTTTTTTTT..T           ------
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+MONSTER: ('g', "jermlaine"), random, hostile
+
+# Jermlaine love their traps!
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
+
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTT-----TTTTTTTTTTTTTTTTTT
+1TT  TTTTTTTTT  TTTTT TTTTTT--   --TTTTTTTTTTTTTTTTT
+2T    TTTTTTT         TTT----     -TTTTTTTTTTTTTTTTT   #
+3T T  TTTTTTTT   TTT  TT          S  TTTTT TTTTTTTT ---S--     ----------
+4T T        TT   TTTTTTTT----     -  T TT   TTTTTTT -....+#####+........-
+5T TTTTTTTT TTT  TTTTTTTTTTT--   --T       TTTTTTTT -....-     -........-
+6T TTTTTTTT   T   TTTTTTTTTTT----TTTT      TTTTTTTT -....+#  ##+........-
+7T TTTTTTTTTT       TTTTTTTTTTTTTTTTT      TTTTTTTT -....-#  # -S-----+--
+8T  TTTTTTT        TTTTTTTT  TTTTTTTTT  TTTTTTTTTTT -....-#  #  #     #
+9T  TTTTTTT        TTTTTT     TTTTTTTT  TTTTTTTTTTT ------#--+--      #
+0TTTTTTTTTTT TT    TT  TT       TTTTT   TTTTTT  TTT       #-...-    ###
+1TTTTTTTTTTTTTTTT      TTT T      TT    TTTT     TT       #+...-    #
+2TTTTTTTTTTTTTTTTT   TTTTTTTT            TTT     TT        -----  ###
+3TTTTTTTTTTTTTTTTTTT TTTTTTTT                    TT   ########### #    ------
+4TTTTTTTTTTTTTTTTTTT   T                       TTTT   #------- -+-+--  -....-
+5TTTTTTTTTTTTTTTTTTTTT    TTTT  TTT          TTTTTT ###+.....- -....-  -....-
+6TTTTTTTTTTTTTTTTTTT                             TT #  -.....- -....-  -....-
+7TTTTTTTTTTTTTTTTTTT     TTTTTTTT        TT  TTT T +#  -.....- -....- #+....-
+8TTTTTTTTTTTTTTTTTTTT     TTTTTT         TTTTTTT       ------- -....+##------
+9TTTTTTTTTTTTTTTTTTTTTT  TTTTTTTT TT T TTTTTTTTTT  T           ------
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+
+# (60, 11) - stash
+OBJECT: ('(', "chest"), (60, 11)
+[50%]: OBJECT: ('(', "chest"), (59, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, (60, 11)
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+# And some guards
+MONSTER: ('g', "jermlaine"), (60, 11), hostile
+MONSTER: ('g', "jermlaine"), (60, 11), hostile
+MONSTER: ('g', "jermlaine"), (60, 11), hostile
+MONSTER: ('g', "jermlaine"), (60, 11), hostile
+MONSTER: ('g', "jermlaine"), (60, 11), hostile
+MONSTER: ('g', "jermlaine"), (60, 11), hostile
+
+
+# Jermlaine love their traps!
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
+GEOMETRY:center,center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTT-----TTTTTTTTTTTTTTTTTT
+1TT..TTTTTTTTT..TTTTT.TTTTTT--...--TTTTTTTTTTTTTTTTT
+2T....TTTTTTT.........TTT----.....-TTTTTTTTTTTTTTTTT   #
+3T.T..TTTTTTTT...TTT..TT..........S..TTTTT.TTTTTTTT ---S--     ----------
+4T.T........TT...TTTTTTTT----.....-..T.TT...TTTTTTT -....+#####+........-
+5T.TTTTTTTT.TTT..TTTTTTTTTTT--...--T.......TTTTTTTT -....-     -........-
+6T.TTTTTTTT...T...TTTTTTTTTTT-----TTT......TTTTTTTT -....+#  ##+........-
+7T.TTTTTTTTTT.......TTTTTTTTTTTTTTTTT......TTTTTTTT -....-#  # -S-----+--
+8T..TTTTTTT........TTTTTTTT..TTTTTTTTT..TTTTTTTTTTT -....-#  #  #     #
+9T..TTTTTTT........TTTTTT.....TTTTTTTT..TTTTTTTTTTT ------#--+--      #
+0TTTTTTTTTTT.TT....TT..TT.......TTTTT...TTTTTT..TTT       #-...-    ###
+1TTTTTTTTTTTTTTTT......TTT.T......TT....TTTT.....TT       #+...-    #
+2TTTTTTTTTTTTTTTTT...TTTTTTTT............TTT.....TT        -----  ###
+3TTTTTTTTTTTTTTTTTTT.TTTTTTTT....................TT   ########### #    ------
+4TTTTTTTTTTTTTTTTTTT...T.......................TTTT   #------- -+-+--  -....-
+5TTTTTTTTTTTTTTTTTTTTT....TTTT..TTT..........TTTTTT ###+.....- -....-  -....-
+6TTTTTTTTTTTTTTTTTTT.............................TT #  -.....- -....-  -....-
+7TTTTTTTTTTTTTTTTTTT.....TTTTTTTT........TT..TTT.T.+#  -.....- -....- #+....-
+8TTTTTTTTTTTTTTTTTTTT.....TTTTTT.........TTTTTTT...    ------- -....+##------
+9TTTTTTTTTTTTTTTTTTTTTT..TTTTTTTT.TT.T.TTTTTTTTTT..T           ------
+0TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+#
+$places = { (53,07),(57,16),(60,11),(67,05),(64,17),(63,08) }
+SHUFFLE: $places
+STAIR: (01,09), up
+STAIR: $places[0], down
+
+
+# Welcoming party
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+MONSTER: ('g', "jermlaine"), (35,15), hostile
+
+# Reinforcements
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+MONSTER: ('g', "jermlaine"), (30,03), hostile
+
+MONSTER: 'g', random, hostile
+MONSTER: 'g', random, hostile
+MONSTER: 'g', random, hostile
+MONSTER: 'g', random, hostile
+MONSTER: 'g', random, hostile
+MONSTER: 'g', random, hostile
+
+# Rat zoo #1 (67,05)
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+MONSTER: 'r', (67,05), hostile
+
+# Rat zoo #2 (57,16)
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+MONSTER: 'r', (57,16), hostile
+
 #
 # The dragon pit at the bottom of the Wyrm Caves
 #
@@ -408,7 +660,7 @@ NOMAP
 #
 STAIR: random, up
 STAIR: random, down
-#
+
 OBJECT: '*', random
 OBJECT: '*', random
 OBJECT: '*', random
