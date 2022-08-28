@@ -32,7 +32,12 @@ LEVEL:		    "rats" "R" @ (10, 2) 50
 RNDLEVEL:	    "kobold" "K" @ (11, 2) 50 2
 RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 10
 CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
-BRANCH: 	    "Grund's Stronghold" @ (12, 2)
+
+# BRANCH: 	        "Grund's Stronghold" "G" @ (19, 2)
+LEVEL:          "grund" "Z" @ (19, 2)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+
 BRANCH: 	    "The Wyrm Caves" @ (21, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (22, 2) portal
 BRANCH: 	    "The Lost Tomb" @ (25, 4)
@@ -137,10 +142,10 @@ RNDLEVEL:		"soko3" "none" @ (3, 0) 6
 RNDLEVEL:		"soko4" "none" @ (4, 0) 6
 
 ### Grund's Stronghold ###
-DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
-ALIGNMENT:      chaotic
-DESCRIPTION:    mazelike
-LEVEL:          "grund" "Z" @ (1, 0)
+#DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
+#ALIGNMENT:      chaotic
+#DESCRIPTION:    mazelike
+#LEVEL:          "grund" "Z" @ (1, 0)
 
 #
 #	The Central Vault of Croesus.
