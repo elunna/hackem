@@ -103,7 +103,7 @@ DESCRIPTION:	mazelike
 RNDLEVEL:	"minetn" "T" @ (3, 2) 12
 LEVELDESC:	town
 RNDLEVEL:	"minend" "E" @ (-2, 0) 6
-RNDLEVEL:	"mineking" "M" @ (-1, 0) 3
+RNDLEVEL:	"mineking" "M" @ (-1, 0) 4
 
 #
 #       Goblin Town

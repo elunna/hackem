@@ -2974,4 +2974,243 @@ MONSTER:('w',"giant leech"),random
 MONSTER:('w',"giant leech"),random
 MONSTER:('w',"giant leech"),random
 
+# Mine King's level variant 4
+# Copied on the dnh drow noble quest level (Ndr-loca")
+#
+MAZE: "mineking-4",' '
+GEOMETRY: center, center
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0 -----                                                                -----
+1--...------------------------------------------------------------------...--
+2-..........................................................................-
+3--...------------------------S-------+---------------------------------...--
+4 --.--   ............     .......    #                   .......      --.--
+5  -.- .............................  ########........   .........H..   -.-
+6  -.-  ............    .  ......             .      .    .......   ..  -.-
+7  -.-    .........     .   .... -----+-----  . ...  .               .. -.-
+8  -.-       H    ----- .        |.........|  .H.    .H...............  -.-
+9  -.- ...   .   --...--.        |.........|         .                  -.-
+0  -.-........   -.....S.+####H #+....\....+####HH##H.                  -.-
+1  -.- ...       --...--  H      |.........|          ..      .....     -.-
+2  -.-            -----  ..      |.........|           ..      ......   -.-
+3  -.-     .......     ...       -----+-----  ....    ....    ..........S.-
+4  -.-..............  ..              #      ......  ..  .............  -.-
+5 --.--   .............                     ..........          ...... --.-
+6--...--------S-----------------------+---------------------------------..---
+7-..........................................................................-
+8--...------------------------------------------------------------------...--
+9 -----                                                                -----
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+REGION: (00,00,75,19), lit, "ordinary"
+
+# Non diggable walls
+NON_DIGGABLE: (00,00,75,19)
+
+STAIR: (19,10), up
+
+DOOR: locked, (24,10)
+DOOR: closed, (32,10)
+DOOR: closed, (37,03)
+DOOR: closed, (37,07)
+DOOR: closed, (37,13)
+DOOR: closed, (37,16)
+DOOR: closed, (42,10)
+
+# throne room
+MONSTER: 'G', (33,08), hostile
+MONSTER: 'G', (34,08), hostile
+MONSTER: 'G', (35,08), hostile
+MONSTER: 'G', (36,08), hostile
+MONSTER: 'G', (37,08), hostile
+MONSTER: 'G', (38,08), hostile
+MONSTER: 'G', (39,08), hostile
+MONSTER: 'G', (40,08), hostile
+MONSTER: 'G', (41,08), hostile
+
+MONSTER: 'G', (33,09), hostile
+MONSTER: 'G', (34,09), hostile
+MONSTER: 'G', (35,09), hostile
+MONSTER: 'G', (36,09), hostile
+MONSTER: 'G', (37,09), hostile
+MONSTER: 'G', (38,09), hostile
+MONSTER: 'G', (39,09), hostile
+MONSTER: 'G', (40,09), hostile
+MONSTER: 'G', (41,09), hostile
+
+MONSTER: 'G', (33,10), hostile
+MONSTER: 'G', (34,10), hostile
+MONSTER: 'G', (35,10), hostile
+MONSTER: 'G', (36,10), hostile
+MONSTER: ('G', "Ruggo the Gnome King"), (37,10), hostile
+MONSTER: 'G', (38,10), hostile
+MONSTER: 'G', (39,10), hostile
+MONSTER: 'G', (40,10), hostile
+MONSTER: 'G', (41,10), hostile
+
+MONSTER: 'G', (33,11), hostile
+MONSTER: 'G', (34,11), hostile
+MONSTER: 'G', (35,11), hostile
+MONSTER: 'G', (36,11), hostile
+MONSTER: 'G', (37,11), hostile
+MONSTER: 'G', (38,11), hostile
+MONSTER: 'G', (39,11), hostile
+MONSTER: 'G', (40,11), hostile
+MONSTER: 'G', (41,11), hostile
+
+MONSTER: 'G', (33,12), hostile
+MONSTER: 'G', (34,12), hostile
+MONSTER: 'G', (35,12), hostile
+MONSTER: 'G', (36,12), hostile
+MONSTER: 'G', (37,12), hostile
+MONSTER: 'G', (38,12), hostile
+MONSTER: 'G', (39,12), hostile
+MONSTER: 'G', (40,12), hostile
+MONSTER: 'G', (41,12), hostile
+
+# the mine workers
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "rock gnome"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "gnome warrior"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "deep gnome"), random, hostile
+MONSTER: ('G', "gnomish wizard"), random, hostile
+MONSTER: ('G', "gnomish wizard"), random, hostile
+
+# Random monsters.
+MONSTER: ('O', "ogre"), random, hostile
+MONSTER: ('O', "ogre"), random, hostile
+MONSTER: 'O', random, hostile
+
+MONSTER: ('s', "recluse spider"), random, hostile
+MONSTER: ('s', "recluse spider"), random, hostile
+MONSTER: ('s', "giant spider"), random, hostile
+MONSTER: ('s', "giant spider"), random, hostile
+MONSTER: ('s', "jumping spider"), random, hostile
+MONSTER: ('s', "jumping spider"), random, hostile
+MONSTER: ('s', "phase spider"), random, hostile
+MONSTER: ('s', "phase spider"), random, hostile
+MONSTER: ('s', "phase spider"), random, hostile
+
+# 40 random gems all around...
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: ('*', "luckstone"), random
+
+OBJECT: ')', (37,10)
+OBJECT: '/', (37,10)
+OBJECT: '!', (37,10)
+OBJECT: '!', (37,10)
+OBJECT: '[', (37,10)
+
+OBJECT: ('(', "crystal ball"), (37,10), blessed
+OBJECT: ('(', "chest"), (37,10)
+OBJECT: random, (36,09)
+OBJECT: random, (36,10)
+OBJECT: random, (36,11)
+OBJECT: random, (37,09)
+OBJECT: random, (37,11)
+OBJECT: random, (38,09)
+OBJECT: random, (38,10)
+OBJECT: random, (38,11)
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+OBJECT: random, random
+
+# 20 bunches of gold all around...
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+
+# Random traps
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
 # end mines.des
