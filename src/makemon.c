@@ -1721,10 +1721,18 @@ register struct monst *mtmp;
             */
             if (!rn2(2))
                 (void) mongets(mtmp, (rn2(2) ? GRAPPLING_HOOK : BULLWHIP));
-            if (!rn2(3))
-                (void) mongets(mtmp, POT_ACID);
-            else
-                (void) mongets(mtmp, POT_OIL);
+
+            /* 50% of Jermlaine carry an offensive potion. */
+            if (!rn2(2)) {
+                int chance = rnd(25);
+
+                if (chance < 5)
+                    (void) mongets(mtmp, POT_OIL);
+                else if (chance < 12)
+                    (void) mongets(mtmp, POT_CONFUSION);
+                else
+                    (void) mongets(mtmp, POT_ACID);
+            }
         }
         break;
     case S_CENTAUR:
