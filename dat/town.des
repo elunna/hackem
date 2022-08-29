@@ -1,0 +1,145 @@
+#
+# Angband-1
+# Copyright (c) 2009 by Patric Mueller
+#
+# NetHack may be freely redistributed.  See license for details.
+#
+LEVEL: "town-1"
+MESSAGE: "You step into the sunlight. You hear the sounds of civilization."
+ROOM: "ordinary", lit, random, random, (76,17) {
+    #NAME: "town"
+    STAIR: random, down
+    STAIR: random, up
+
+    ENGRAVING: random, mark, "Welcome to the town of Angband!"
+    FOUNTAIN: (06,12)
+    FOUNTAIN: (39,09)
+    FOUNTAIN: (68,03)
+
+    # The Town Watch.
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
+
+    # Some distracting townspeople
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "bandit"), random, hostile
+    MONSTER: ('@', "bandit"), random, hostile
+    MONSTER: ('r', "sewer rat"), random, hostile
+    MONSTER: ('r', "sewer rat"), random, hostile
+    MONSTER: ('d', "little dog"), random, hostile
+
+
+    SUBROOM: "armor shop" [66%], lit, (10,4), (5,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "pet shop" [66%], lit, (26,4), (6,3) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "tool shop" [66%], lit, (44,2), (3,3) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "candle shop" [66%], lit, (59,6), (2,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "shop", lit, (16,12), (3,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "weapon shop" [66%], lit, (30,13), (3,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "music shop" [66%], lit, (48,11), (2,3) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "tin shop" [66%], lit, (65,13), (4,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+}
+
+#
+# Angband-2
+# Copyright (c) 2009 by Patric Mueller
+#
+# NetHack may be freely redistributed.  See license for details.
+#
+LEVEL: "town-2"
+MESSAGE: "You reach the surface.  You hear the sounds of civilization."
+ROOM: "ordinary", lit, random, random, (76,17) {
+    #NAME: "town"
+
+    STAIR: random, down
+    STAIR: random, up
+
+    FOUNTAIN: (55,9)
+    FOUNTAIN: (22,8)
+    ENGRAVING: random, mark, "Welcome to the city of Angband!"
+
+    # The Town Watch.
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watchman"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
+    MONSTER: ('@', "watch captain"), random, peaceful
+
+    # Some distracting townspeople
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "mugger"), random, hostile
+    MONSTER: ('@', "bandit"), random, hostile
+    MONSTER: ('@', "bandit"), random, hostile
+    MONSTER: ('r', "sewer rat"), random, hostile
+    MONSTER: ('r', "sewer rat"), random, hostile
+    MONSTER: ('f', "kitten"), random, hostile
+
+    # The Shops
+    SUBROOM: "armor shop" [66%], lit, (7,5), (7,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "weapon shop" [66%], lit, (28,3), (3,3) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "music shop" [66%], lit, (44,5), (5,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "pet shop" [66%], lit, (62,5), (7,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "potion shop" [66%], lit, (13,11), (5,3) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "tin shop", lit, (31,11), (4,3) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    SUBROOM: "ring shop" [66%], lit, (46,12), (4,2) {
+        ROOMDOOR: false, closed, random, random
+    }
+
+    # a shop for sale?
+    SUBROOM: "ordinary", lit, (60,12), (6,1) {
+        ROOMDOOR: false, closed, north, random
+    }
+
+}
