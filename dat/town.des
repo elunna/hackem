@@ -4,6 +4,91 @@
 #
 # NetHack may be freely redistributed.  See license for details.
 #
+
+
+#
+# The filler levels for the Town branch.
+#
+LEVEL:"townfill"
+FLAGS: mazelevel
+INIT_MAP: solidfill, ' '
+GEOMETRY: center,center
+MAP
+-----................................................................
+|........................................................................
+|..........................................................................
+|...........................................................................
+|...........................................................................
+|...........................................................................
+|..........................................................................
+|..........................................................................
+|...........................................................................
+|...........................................................................
+|...........................................................................
+|..........................................................................
+|..........................................................................
+|..........................................................................
+|.........................................................................
+|.........................................................................
+|..........................................................................
+|..........................................................................
+|..........................................................................
+|........................................................................
+----------.............................................................
+ENDMAP
+# Dungeon Description
+REGION:(01,01,75,20), lit, "ordinary"
+BRANCH: levregion(70,01,76,20), (0,0,0,0)
+STAIR: levregion(01,01,10,20), (0,0,0,0), up
+
+# Add some rivers so that getting to the town level is a bit more
+# difficult and it makes for some nice scenery porn.
+IF [50%] {
+  TERRAIN: filter(90%, grow(randline (10,01),(20,20), 20)), '}'
+} ELSE {
+  TERRAIN: filter(90%, grow(randline (20,01),(10,20), 20)), '}'
+}
+
+IF [50%] {
+  TERRAIN: filter(90%, grow(randline (30,1),(40,20), 20)), '}'
+  TERRAIN: filter(90%, grow(randline (50,1),(40,20), 20)), '}'
+} ELSE {
+  TERRAIN: filter(90%, grow(randline (40,1),(30,20), 20)), '}'
+  TERRAIN: filter(90%, grow(randline (40,1),(50,20), 20)), '}'
+}
+TERRAIN: filter(90%, grow(randline (60,1),(60,20), 20)), '}'
+
+
+# "broken" walls
+[90%]: OBJECT: ('*', "rock"), (05,00), 3d4
+[50%]: OBJECT: ('*', "rock"), (06,00), 3d3
+[50%]: OBJECT: ('*', "rock"), (07,00), 2d3
+[25%]: OBJECT: ('*', "rock"), (09,00), 1d3
+[90%]: OBJECT: ('*', "rock"), (10,20), 3d4
+[50%]: OBJECT: ('*', "rock"), (11,20), 3d3
+[50%]: OBJECT: ('*', "rock"), (12,20), 2d3
+[25%]: OBJECT: ('*', "rock"), (13,20), 1d3
+
+# Random objects
+LOOP [3] {
+  OBJECT: random, random
+}
+# Random traps
+LOOP [4] {
+  TRAP: random, random
+}
+# Random monsters.
+[25%]: MONSTER: (':', "giant turtle"), random
+LOOP [5] { MONSTER: random, random }
+
+# random boulders
+LOOP [2d3] { OBJECT:('`', "boulder"), random }
+
+
+#
+# Angband-1
+# Copyright (c) 2009 by Patric Mueller
+#
 LEVEL: "town-1"
 MESSAGE: "You step into the sunlight. You hear the sounds of civilization."
 ROOM: "ordinary", lit, random, random, (76,17) {
@@ -73,8 +158,6 @@ ROOM: "ordinary", lit, random, random, (76,17) {
 #
 # Angband-2
 # Copyright (c) 2009 by Patric Mueller
-#
-# NetHack may be freely redistributed.  See license for details.
 #
 LEVEL: "town-2"
 MESSAGE: "You reach the surface.  You hear the sounds of civilization."
