@@ -239,6 +239,9 @@ REGION: (00,00,39,20), unlit, "ordinary"
 REGION: (41,00,41,20), lit, "ordinary"
 NON_DIGGABLE: (00,00,37,20)
 
+# Invisible barrier separating the left & right halves of the level
+NON_PASSWALL: (40,00,40,20)	
+
 STAIR: (00, 10), down
 
 DRAWBRIDGE: (41,10), west, closed
