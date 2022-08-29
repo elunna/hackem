@@ -26,6 +26,9 @@ LEVELDESC:	    town
 RNDLEVEL:	    "oracle" "O" @ (7, 3) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
+
+CHAINBRANCH:	"Town" "oracle" + (2, 0) up
+
 LEVEL:		    "nymph" "N" @ (8, 32) 45
 BRANCH:		    "Fort Ludios" @ (10, 32) portal
 LEVEL:		    "rats" "R" @ (10, 2) 50
@@ -140,6 +143,15 @@ RNDLEVEL:		"soko1" "none" @ (1, 0) 6
 RNDLEVEL:		"soko2" "none" @ (2, 0) 6
 RNDLEVEL:		"soko3" "none" @ (3, 0) 6
 RNDLEVEL:		"soko4" "none" @ (4, 0) 6
+
+#
+#   The city of Angband
+#
+DUNGEON:	"Town" "A" (3, 0)
+LEVALIGN:       lawful
+LEVEL:          "village" "none" @ (1, 0)
+RNDLEVEL:       "town" "T" @ (2, 0) 2
+LEVELDESC:      town
 
 ### Grund's Stronghold ###
 #DUNGEON:        "Grund's Stronghold" "Z" (1, 0)

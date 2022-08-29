@@ -1340,3 +1340,116 @@ Use flipping - not available in evil, is it difficult to add?
 
 
 - [x] Spear of Light should always be lit
+
+
+
+	- [x] Narrow shafts
+	- [x] Copy tiamats lair
+	
+Rewrite the passage levels:
+	[x] Pick one point from a list of points, Draw a random line 
+	[x] Use 2 random points and connect via randlines
+	[x] Make the stairs at the ending points.
+	[x] 75% - mix in another point
+	[x] 25% - mix in another set of paths.
+	[x] 15% mix in one more set of paths
+	[x] Occasionally mix in another path (for variety and confusion)
+	
+	
+	[SKIP FOR NOW] Passages: Sprinkle in random light patterns in passages
+	[x] Passages: Make shortsighted and unlit
+	
+
+	cavenest- (easier - base on the circle first) - Generate 40?
+		- [x] Fungal caves (F)
+		- [x] Lizard pit (:)
+		- [x] Minor demon nest (i)
+		- [x] Naga nest (N) - only generates adult Nagas...
+		- [x] Snake pit (S)
+		- [x] bat nest (B)
+		- [x] Worm nest (w)
+		
+	- [x] Create a bunch of "nest" type cave levels (~10)
+	
+- [x] cavevar-5" - use as a ming king level instead?
+
+Deep Wyrm caves branch parts
+	* Cave entrance (cavebgn)
+	* Generic cave filler (with rivers) (cavefill)
+	* Narrow passage levels
+	* Some random river levels?
+	* Nasty nests  (cavenest-*): 66% chance
+	* Nasty pits (cavepit-*): 66% chance
+	* Jermlaine village
+	* Branches: Spiders, sunless sea
+	* Random portal to Beholder Quest - For Key of Access.
+	* Cave ending (caveend))
+
+
+- [x] Jermlaine village varients
+- [x] Jermlaine lair is guaranteed: About halfway, 	
+- [x] Has a rat zoo
+- [x] Lots of traps: bear traps, sleep traps, pits, spiked pits, spear, random traps.
+- [x] Due to the Jermlaine lair - make sure there are always rats in the caves
+[x] Jermlaine village is cavevar-2		
+	nastnest-: (nasty) - weirder shapes
+		- [x] Fungal caves + Shoggoths
+		- [x] Mind flayer nest
+		- [x] Basilisk nest
+		- [x] Ooze pit, shoggoths, etc.
+		
+- [ ] Jermlaine rover - only seen in main dungeon
+- [ ] Jermlaine mage/shaman: Give the curse ability of gremlin.
+
+- [SKIPPED UNTIL DIG STATUS IS THOUGHT OUT] Add lots of hole traps to every cave level, so players get stranded in mean pits.
+
+
+[x] Some nest levels have inaccessible stairs, extend water 2-3 on the sides
+- [x] Kobold level - move stairs so you have to navigate the level.
+- [SKIP] Kobold level can definitely be a variant of the town level - ransacked by Kobolds!
+	This creates another valid town level 
+	
+	
+
+- [x] Jermlaine have WAY too many potions of oil - reduce a bit, increase potion variety.
+[x] dnh: Has new variations on the storage room, copy these over.
+	
+- [x] Convert Grunds to a mandatory level at 19/20/21 
+- [x] Grunds downstairs are behind the throne.
+
+	
+	Adding shops:
+		[x] lev_main.c
+		[x] shknam.c
+		[x] dungeon.c
+		[x] mk_room.h
+		[x] shkmusic
+		[x] shkpet
+		[x] shktins
+		
+	[x] Add pet shop/pet store (PETSHOP) (From unnethack)
+	[x] Add music shop/rare instruments (INSTRUMENTSHOP) (From unnethack)
+	[x] Add tin shop/canned food factory" (TINSHOP) (From unnethack)
+	
+
+	
+	
+		- [x] Used gremlin tile for jermlaine and galltrit (not in slashthem)
+	- [x] jermlaine - Replaced slaughter wight tile with ratman tile from SpliceHack.
+	- [x] galltrit -  Replaced slaughter wight tile with ratman squeaker tile from SpliceHack.
+	- [x] Used wight tile for slaughter wight - update 
+	- [x] Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
+		
+		
+	[x] Add bandit (for town)
+	[x] Add peasant (dnh has tile)
+	[x] Add bards - use apprentice tile
+	[x] Add musicians - use apprentice tile
+	[x] Add street thug leader (rogue quest has thugs)
+	[x] Add street thug (Copy pirate crewmate)
+	
+	- [SKIPPED] Import Dragon caves from (Un) - Problems with formatting?
+
+- [SKIPPED] Stalactite/Stalagmite traps
+
+	[x] Add town branch from SlashTHEM

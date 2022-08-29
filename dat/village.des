@@ -1,0 +1,220 @@
+# 
+#       Pleasantville
+#
+#       Green hills, trees, sheep, nymphs and people.
+#       Also has a hideout of thieves with a staircase
+#       that leads to town.  The thieves here usually charge
+#       high prices to get through, but of course you don't
+#       care about such things.
+#
+#       Adapted from Pleaseant Valley from the Lethe patch.
+#
+MAZE: "village",' '
+MESSAGE: "You smell fresh air."
+GEOMETRY: center, center
+MAP
+                                       -----------------
+  ....            ...T..T.             |...|...|...|...|              ....
+ ......    T....T..T......T.     .T....--.---.---.---.--.           ##..{..
+  ...    .....T.......T......T............................T.      ###  ...
+  #      .  T....T..T.....T....T.......T.........T.............   #
+  ##    .T....T.....T...T..T........T...............T............ ..
+   #   ....T.....T.....T......T...........T..............T...........
+ ....##.  ....T......T...T..T....................T.............T.......|---|
+ ....  .. T..   ...}}}}}}}}}}}}}}.....T......T.......................T.....|
+      ......  }}}}}}}}}}}}}}}}}}}}}}}.................T................|---|
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}........................T..........|
+}}}}}}}}}}}}}}}}}}}..........}}}}}}}}}}}}}}.}....T.......T.............|---|
+}}}}}}}}}}}}}}}.................}}}}}}}}}}w}w}w}w}..................T......|
+  ---------------....................}}}}w}w}w}w}}w}.............T.....|---|
+  |.......|.....|........................}w}w}}}}w}w}w}....T...............|
+  |.......+.....+..........................}w}w}w}w}w}}................|---|
+  |.......|.....|----.......................}w}w}w}w}..T......T............|
+  |.......------|...|....................... }}}}}}}}  ............T...|---|
+  |...\...S.....S...|.         ...........    }}}}}}     ............
+  -------------------                          }}}}
+ENDMAP
+# Stairs and Branch
+STAIR: (03,02), down
+
+# Regions
+# Entry Caves
+REGION: (01,01,06,03), unlit, "ordinary"
+REGION: (01,07,04,08), unlit, "ordinary"
+
+# The wild wood
+REGION: (07,01,31,09), lit, "ordinary"
+
+# North Eastern Fields
+REGION: (32,02,70,18), lit, "ordinary"
+
+# Fountain
+REGION: (66,01,74,05), unlit, "ordinary"
+
+# South Western Fields
+REGION: (01,10,32,18), lit, "ordinary"
+
+# Northern huts
+REGION: (40,01,42,01), unlit, "ordinary"
+REGION: (44,01,46,01), unlit, "ordinary"
+REGION: (48,01,50,01), unlit, "ordinary"
+REGION: (52,01,54,01), unlit, "ordinary"
+
+# Eastern Huts
+REGION: (72,08,74,08), unlit, "ordinary"
+REGION: (72,10,74,10), unlit, "ordinary"
+REGION: (72,12,74,12), unlit, "ordinary"
+REGION: (72,14,74,14), unlit, "ordinary"
+REGION: (72,16,74,16), unlit, "ordinary"
+
+# Tower
+REGION: (11,14,15,16), unlit, "ordinary"
+REGION: (03,14,09,17), unlit, "ordinary"
+REGION: (11,18,15,18), unlit, "ordinary"
+REGION: (17,17,19,18), unlit, "ordinary"
+
+DOOR: locked, (16,15)
+DOOR: locked, (10,15)
+DOOR: locked, (10,18)
+DOOR: locked, (16,18)
+
+# Random animals to keep the player a bit busy.
+MONSTER: ('B', "raven"), random
+MONSTER: ('B', "raven"), random
+MONSTER: ('B', "raven"), random
+MONSTER: ('B', "raven"), random
+MONSTER: ('d', "coyote"), random
+MONSTER: ('d', "fox"), random
+MONSTER: ('Y', "monkey"), random
+MONSTER: ('Y', "monkey"), random
+MONSTER: ('Y', "monkey"), random
+MONSTER: ('Y', "monkey"), random
+
+# An assortment of nymphs
+MONSTER: ('n', "wood nymph"), (37,04), asleep
+MONSTER: ('n', "wood nymph"), (42,07), asleep
+MONSTER: ('n', "brownie"), (41,09), asleep
+MONSTER: ('n', "water nymph"), (47,13), asleep
+MONSTER: ('n', "water nymph"), (51,16), asleep
+
+# A few people
+#MONSTER: ('@', "peasant"), (41,01), peaceful
+#MONSTER: ('@', "peasant"), (46,01), peaceful
+#MONSTER: ('@', "peasant"), (49,01), peaceful
+#MONSTER: ('@', "peasant"), (53,01), peaceful
+#MONSTER: ('@', "peasant"), (73,08), peaceful
+
+# The village healer, guard, and priest.  Also a good chance to have a gypsy.
+MONSTER: ('@', "healer"), (73,10), peaceful
+# [80%]: MONSTER: ('@', "gypsy"),(73,12), peaceful,"Shirley"
+MONSTER: ('@', "warrior"), (73,14), peaceful
+MONSTER: ('@', "priest"), (73,16), peaceful
+
+# A few sheep and and a couple of goats
+MONSTER: ('q', "sheep"), (47,05), peaceful
+MONSTER: ('q', "lamb"), (48,06), peaceful
+MONSTER: ('q', "sheep"), (48,04), peaceful
+MONSTER: ('q', "sheep"), (55,06), peaceful
+MONSTER: ('q', "lamb"), (54,05), peaceful
+MONSTER: ('q', "sheep"), (57,04), peaceful
+MONSTER: ('q', "cow"), (58,05), peaceful
+MONSTER: ('q', "sheep"), (56,06), peaceful
+MONSTER: ('q', "lamb"), (58,08), peaceful
+MONSTER: ('q', "goat"), (60,17), peaceful
+MONSTER: ('q', "goat"), (64,16), peaceful
+MONSTER: ('c', "chicken"), (63,12), peaceful
+MONSTER: ('c', "chicken"), (65,11), peaceful
+MONSTER: ('c', "chicken"), (64,09), peaceful
+
+# Watch Dogs
+MONSTER: ('d', "wolf"), (12,14), asleep, hostile
+MONSTER: ('d', "wolf"), (14,15), asleep, hostile
+MONSTER: ('d', "wolf"), (12,16), asleep, hostile
+MONSTER: ('@', "werewolf"), (11,15), asleep, hostile
+
+#Various henchmen and cronies.
+MONSTER: ('@', "mugger"), (03,14), asleep
+MONSTER: ('@', "mugger"), (03,15), asleep
+MONSTER: ('@', "mugger"), (03,16), asleep
+MONSTER: ('@', "bandit"), (03,17), asleep
+MONSTER: ('@', "mugger"), (09,14), asleep
+MONSTER: ('@', "mugger"), (09,15), asleep
+MONSTER: ('@', "mugger"), (09,16), asleep
+MONSTER: ('@', "bandit"), (09,17), asleep
+
+# The terrible trio | Names from Yatterman and Doraemon
+MONSTER: ('@', "street thug leader"), (06,18), asleep,hostile, "Goda"
+MONSTER: ('@', "street thug"), (04,18), asleep, hostile, "Tonzura"
+MONSTER: ('@', "street thug"), (08,18), asleep, hostile, "Boyakky"
+
+# And the last resort guards.
+MONSTER: (''', "gold golem"), (14,18), asleep, hostile
+MONSTER: (''', "wood golem"), (19,18), asleep, hostile
+
+# Musicians (should only be present on Sundays)
+[50%]: MONSTER: ('@', "bard"), (15,02), peaceful
+[50%]: MONSTER: ('@', "musician"), (25,03), peaceful
+[50%]: MONSTER: ('@', "musician"), (19,06), peaceful
+[50%]: MONSTER: ('@', "bard"), (29,04), peaceful
+
+# Loot in the cache room, gold/gems and random junk from villagers
+CONTAINER: ('(', "chest"), (19,18) {
+
+  # Potential easter eggs hidden within the chest...
+  #[5%]: OBJECT: (')', "silver long sword"), blessed, +3, "The Master Sword"
+  [5%]: OBJECT: (')', "long sword"), blessed, +3, name:"The Master Sword"
+  [5%]: OBJECT: ('[', "plate mail"), blessed, +5, name:"Erdrick's Armor"
+  #[5%]: OBJECT: (')', "mallet"), blessed, +4, name:"Tendo Mallet"
+  [5%]: OBJECT: (')', "broadsword"), blessed, +2, name:"Grandleon"
+  [5%]: OBJECT: (')', "katana"), blessed, +3, name:"Kusanagi Blade"
+  [15%]: OBJECT: ('[', "plate mail"), cursed, -5, name:"Alucart Mail"
+  [15%]: OBJECT: (')', "submachine gun"), cursed, -6, name:"Klobb"
+  [15%]: OBJECT: (')', "runesword"), cursed, -9, name:"Excalipoor"
+  [10%]: OBJECT: (')', "broadsword"), cursed, +3, name:"Soul Edge"
+}
+
+LOOP [5] { GOLD: 1d200, (19,18) }
+
+
+OBJECT: ('*', "obsidian"), (19,18)
+OBJECT: ('*', "jade"), (19,18)
+OBJECT: ('*', "agate"), (19,18)
+OBJECT: ')', (19,18)
+OBJECT: '[', (19,18)
+OBJECT: '!', (19,18)
+OBJECT: '(', (19,18)
+
+[50%]: OBJECT: random, (18,18)
+[50%]: OBJECT: random, (18,18)
+[50%]: OBJECT: random, (18,18)
+[50%]: OBJECT: random, (18,18)
+[50%]: OBJECT: random, (19,17)
+[50%]: OBJECT: random, (19,17)
+[50%]: OBJECT: random, (19,17)
+[50%]: OBJECT: random, (18,17)
+[50%]: OBJECT: random, (18,17)
+[50%]: OBJECT: random, (18,17)
+[50%]: OBJECT: random, (17,17)
+[50%]: OBJECT: random, (17,17)
+[50%]: OBJECT: random, (17,17)
+
+# Other random loot
+LOOP [5] { OBJECT: '%', random }
+LOOP [5] { OBJECT: random, random }
+
+# Traps outside the door
+TRAP: "spiked pit", (17,14)
+TRAP: "spiked pit", (18,14)
+TRAP: "spiked pit", (20,15)
+TRAP: "magic", (21,14)
+TRAP: "magic", (29,16)
+TRAP: "magic", (19,12)
+TRAP: "magic", (25,13)
+TRAP: "magic", (33,15)
+TRAP: "magic", (39,16)
+TRAP: "magic", (27,17)
+TRAP: "anti magic", (15,15)
+TRAP: "pit", (26,03)
+TRAP: "pit", (21,06)
+TRAP: "pit", (30,05)
+TRAP: "board", (19,03)
