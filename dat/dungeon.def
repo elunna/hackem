@@ -111,12 +111,6 @@ ALIGNMENT:      chaotic
 LEVEL:          "goblintown" "none" @ (1, 0)
 
 #
-#   New mall is on levels 5 to 6, 75% chance.
-#   There shouldn't be any other special levels down to the Oracle.
-#   This allows a weak character to plunge to the Oracle, then return
-#   to the Mines.
-
-#
 #	The Questdungeon
 #
 #	This is a proto-dungeon.  The level file names will be prepended with
