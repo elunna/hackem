@@ -138,12 +138,12 @@ RNDLEVEL:		"soko4" "none" @ (4, 0) 6
 #
 #   The city of Angband
 #
-DUNGEON:	"Town" "A" (3, 0)
+DUNGEON:	    "Town" "A" (3, 0)
 LEVALIGN:       lawful
-ENTRY:		-1
-RNDLEVEL:       "town" "T" @ (1, 0) 2
+ENTRY:		    -1
+RNDLEVEL:       "town" "none" @ (1, 0) 2
 LEVEL:          "village" "none" @ (2, 0)
-LEVEL:          "townfill" "T" @ (3, 0)
+LEVEL:          "townfill" "none" @ (3, 0)
 LEVELDESC:      town
 
 ### Grund's Stronghold ###
