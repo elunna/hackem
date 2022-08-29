@@ -20,9 +20,6 @@ BRANCH:		    "The Gnomish Mines" @ (2, 3)
 BRANCH:		    "Goblin Town" @ (2, 2) portal
 #LEVEL:		    "rogue" "R" @ (15, 4)
 #LEVELDESC:	    roguelike
-RNDLEVEL:	    "mall" "T" @ (5, 2) 2
-LEVALIGN:	    lawful
-LEVELDESC:	    town
 RNDLEVEL:	    "oracle" "O" @ (7, 3) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
