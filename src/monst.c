@@ -5132,6 +5132,15 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_HOSTILE | M2_COLLECT, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 4, CLR_BLACK),
+    MON("bandit", S_HUMAN, /* 5lo: Mugger, but will steal objects instead of gold...*/
+        LVL(2, 12, 10, 0, -8), (G_GENO | G_NOGEN),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 4),
+          ATTK(AT_CLAW, AD_SITM, 1, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
+        0, M1_HUMANOID | M1_OMNIVORE,
+        M2_NOPOLY | M2_STRONG | M2_HOSTILE | M2_COLLECT | M2_GREEDY,
+        M3_INFRAVISIBLE | M3_TRAITOR, MH_HUMAN, 4, CLR_BLACK),
     /* Only generated when playing as Infidel.
      * Has emin, so always appears as a "champion of [deity]".
      * Note: the difficulty is purposefully lowered. */
