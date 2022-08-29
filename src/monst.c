@@ -5141,6 +5141,14 @@ struct permonst _mons2[] = {
         0, M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_HOSTILE | M2_COLLECT | M2_GREEDY,
         M3_INFRAVISIBLE | M3_TRAITOR, MH_HUMAN, 4, CLR_BLACK),
+    MON("peasant", S_HUMAN,
+        LVL(1, 10, 10, 0, 1), G_NOGEN,
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 1),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
+        0, M1_HUMANOID | M1_OMNIVORE,
+        M2_NOPOLY | M2_STRONG | M2_COLLECT,
+        M3_INFRAVISIBLE, MH_HUMAN, 2, HI_DOMESTIC),
     /* Only generated when playing as Infidel.
      * Has emin, so always appears as a "champion of [deity]".
      * Note: the difficulty is purposefully lowered. */

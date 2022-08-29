@@ -1006,7 +1006,20 @@ register struct monst *mtmp;
             mongets(mtmp,SHOTGUN);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-        } 
+        }
+        else if (mm ==  PM_PEASANT) {
+            switch (rn2(5)) {
+#if 0
+            case 0: (void) mongets(mtmp, GRAIN_SCYTHE); break;
+#endif
+            case 0:
+            case 1: (void) mongets(mtmp, KNIFE); break;
+            case 2: (void) mongets(mtmp, CLUB); break;
+            case 3: (void) mongets(mtmp, AXE); break;
+            case 4: (void) mongets(mtmp, VOULGE); break;
+            }
+
+        }
         else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
             switch (rn2(3)) {
                 case 0:
