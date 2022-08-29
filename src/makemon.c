@@ -850,6 +850,12 @@ register struct monst *mtmp;
             mongets(mtmp, SKELETON_KEY);
             mongets(mtmp, GRAPPLING_HOOK);
             break;
+        case PM_MUSICIAN:
+            if (!rn2(20))
+                (void) mongets(mtmp, rnd_misc_item(mtmp));
+            if (!rn2(20))
+                (void) mongets(mtmp, rnd_misc_item(mtmp));
+            break;
         case PM_HEALER:
             mkmonmoney(mtmp, (long) rn1(1000, 1001));
             ini_mon_inv(mtmp, Healer, 1);
