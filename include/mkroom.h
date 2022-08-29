@@ -34,7 +34,7 @@ struct shclass {
     struct itp {
         int iprob;    /* probability of an item type */
         int itype;    /* item type: if >=0 a class, if < 0 a specific item */
-    } iprobs[6];
+    } iprobs[20];
     const char *const *shknms; /* list of shopkeeper names for this type */
 };
 
@@ -92,8 +92,11 @@ enum roomtype_types {
     TOOLSHOP   = 35,
     BOOKSHOP   = 36,
     FODDERSHOP = 37, /* health food store */
-    CANDLESHOP = 38, /*(UNIQUESHOP) */
-    BLACKSHOP  = 39  /*(UNIQUESHOP) */
+    TINSHOP    = 38,
+    INSTRUMENTSHOP = 39,
+    PETSHOP    = 40, /* Stephen White */
+    CANDLESHOP = 41, /*(UNIQUESHOP) */
+    BLACKSHOP  = 42  /*(UNIQUESHOP) */
 };
 
 #define MAXRTYPE (BLACKSHOP) /* maximum valid room type */

@@ -188,6 +188,33 @@ static const char *const shkhealthfoods[] = {
     "=Zennia",  "=Zoe",      "=Zora",    0
 };
 
+
+static const char *shkmusic[] = {
+    "John", "Paul", "George", "Ringo",
+    "Elvis", "Mick", "Keith", "Ron", "Charlie",
+    "Joseph", "Franz", "Richard", "Ludwig", "Wolfgang Amadeus",
+    "Johann Sebastian",
+    "Karlheinz", "Gyorgy",
+    "Luciano", "Placido", "Jose", "Enrico",
+    "Falco", "_Britney", "_Christina", "_Toni", "_Brandy",
+    0
+};
+
+static const char *shkpet[] = {
+    /* Albania */
+    "Elbasan", "Vlore", "Shkoder", "Berat", "Kavaje", "Pogradec",
+    "Sarande", "Peshkopi", "Shijak", "Librazhd", "Tepelene",
+    "Fushe-Kruje", "Rreshen",
+    0
+};
+
+static const char *shktins[] = {
+    /* Sweden */
+    "Trosa", "Torshalla", "Morgongava", "Uppsala", "Norrkoping",
+    "Nybro", "Alingsas", "Vadstena", "Fagersta", "Skelleftea",
+    "Solleftea", "Ystad", "Avesta", "Sala", "Norrtalje",
+    0
+};
 /*
  * To add new shop types, all that is necessary is to edit the shtypes[]
  * array.  See mkroom.h for the structure definition.  Typically, you'll
@@ -204,10 +231,7 @@ static const char *const shkhealthfoods[] = {
  * (by testing the sign) whether to use mkobj() or mksobj().
  */
 const struct shclass shtypes[] = {
-    { "general store",
-      RANDOM_CLASS,
-      42,
-      D_SHOP,
+    { "general store", RANDOM_CLASS, 42, D_SHOP,
       { { 100, RANDOM_CLASS },
         { 0, 0 },
         { 0, 0 },
@@ -215,10 +239,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkgeneral },
-    { "used armor dealership",
-      ARMOR_CLASS,
-      14,
-      D_SHOP,
+    { "used armor dealership", ARMOR_CLASS, 14, D_SHOP,
       { { 90, ARMOR_CLASS },
         { 10, WEAPON_CLASS },
         { 0, 0 },
@@ -226,10 +247,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkarmors },
-    { "second-hand bookstore",
-      SCROLL_CLASS,
-      10,
-      D_SHOP,
+    { "second-hand bookstore", SCROLL_CLASS, 10, D_SHOP,
       { { 90, SCROLL_CLASS },
         { 10, SPBOOK_CLASS },
         { 0, 0 },
@@ -237,10 +255,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkbooks },
-    { "liquor emporium",
-      POTION_CLASS,
-      10,
-      D_SHOP,
+    { "liquor emporium", POTION_CLASS, 10, D_SHOP,
       { { 100, POTION_CLASS },
         { 0, 0 },
         { 0, 0 },
@@ -248,10 +263,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkliquors },
-    { "antique weapons outlet",
-      WEAPON_CLASS,
-      5,
-      D_SHOP,
+    { "antique weapons outlet", WEAPON_CLASS, 5, D_SHOP,
       { { 90, WEAPON_CLASS },
         { 10, ARMOR_CLASS },
         { 0, 0 },
@@ -259,10 +271,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkweapons },
-    { "delicatessen",
-      FOOD_CLASS,
-      5,
-      D_SHOP,
+    { "delicatessen", FOOD_CLASS, 5, D_SHOP,
       { { 83, FOOD_CLASS },
         { 5, -POT_FRUIT_JUICE },
         { 4, -POT_BOOZE },
@@ -270,10 +279,7 @@ const struct shclass shtypes[] = {
         { 3, -ICE_BOX },
         { 0, 0 } },
       shkfoods },
-    { "jewelers",
-      RING_CLASS,
-      3,
-      D_SHOP,
+    { "jewelers", RING_CLASS, 3, D_SHOP,
       { { 85, RING_CLASS },
         { 10, GEM_CLASS },
         { 5, AMULET_CLASS },
@@ -281,19 +287,13 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkrings },
-    { "quality apparel and accessories",
-      WAND_CLASS,
-      3,
-      D_SHOP,
+    { "quality apparel and accessories", WAND_CLASS, 3, D_SHOP,
       { { 90, WAND_CLASS },
         { 5, -GLOVES },
         { 5, -ELVEN_CLOAK },
         { 0, 0 } },
       shkwands },
-    { "hardware store",
-      TOOL_CLASS,
-      3,
-      D_SHOP,
+    { "hardware store", TOOL_CLASS, 3, D_SHOP,
       { { 100, TOOL_CLASS },
         { 0, 0 },
         { 0, 0 },
@@ -301,10 +301,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shktools },
-    { "rare books",
-      SPBOOK_CLASS,
-      3,
-      D_SHOP,
+    { "rare books", SPBOOK_CLASS, 3, D_SHOP,
       { { 90, SPBOOK_CLASS },
         { 10, SCROLL_CLASS },
         { 0, 0 },
@@ -312,10 +309,7 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkbooks },
-    { "health food store",
-      FOOD_CLASS,
-      2,
-      D_SHOP,
+    { "health food store", FOOD_CLASS, 2, D_SHOP,
       { { 70, VEGETARIAN_CLASS },
         { 20, -POT_FRUIT_JUICE },
         { 4, -POT_HEALING },
@@ -323,14 +317,33 @@ const struct shclass shtypes[] = {
         { 2, -SCR_FOOD_DETECTION },
         { 1, -LUMP_OF_ROYAL_JELLY } },
       shkhealthfoods },
+    {"canned food factory", FOOD_CLASS, 1, D_SHOP,
+      { {10, -ICE_BOX},         {90, -TIN},
+        /* shopkeeper will pay for corpses, but they aren't generated */
+        /* on the shop floor */
+        {0, -CORPSE},           {0, 0} },
+      shktins },
+    {"rare instruments", TOOL_CLASS, 1, D_SHOP,
+      { { 10, -PEA_WHISTLE  }, { 3, -MAGIC_WHISTLE },
+        { 10, -FLUTE },        { 3, -MAGIC_FLUTE },
+        { 10, -TOOLED_HORN  }, { 3, -FROST_HORN },
+        {  3, -FIRE_HORN    }, { 3, -HORN_OF_PLENTY },
+        { 10, -HARP  },        { 3, -MAGIC_HARP },
+        { 10, -BELL },         {10, -BUGLE },
+        { 10, -LEATHER_DRUM }, { 2, -DRUM_OF_EARTHQUAKE },
+        { 5, -T_SHIRT },       { 5, -LOCK_PICK  },
+        { 0, 0} },
+      shkmusic },
+    {"pet store", FOOD_CLASS, 1, D_SHOP,
+      { {67, -FIGURINE},        {5, -LEASH},
+        {10, -TRIPE_RATION},    {5, -SADDLE},
+        {10, -PEA_WHISTLE}, {3, -MAGIC_WHISTLE} },
+      shkpet },
     /* Shops below this point are "unique".  That is they must all have a
      * probability of zero.  They are only created via the special level
      * loader.
      */
-    { "lighting store",
-      TOOL_CLASS,
-      0,
-      D_SHOP,
+    { "lighting store", TOOL_CLASS, 0, D_SHOP,
       { { 30, -WAX_CANDLE },
         { 48, -TALLOW_CANDLE },
         // { 5, -TORCH },
@@ -340,10 +353,7 @@ const struct shclass shtypes[] = {
         // { 5, -MAGIC_CANDLE },
         { 5, -POT_OIL }},
       shklight },
-    { "black market", 
-      RANDOM_CLASS, 
-      0, 
-      D_SHOP,
+    { "black market", RANDOM_CLASS, 0, D_SHOP,
       { { 100, RANDOM_CLASS }, 
         { 0, 0 },
         { 0, 0 }, 
@@ -553,6 +563,8 @@ const char *const *nlp;
             if (nlp == shktools) {
                 shname = shktools[rn2(names_avail)];
                 shk->female = 0; /* reversed below for '_' prefix */
+            } else if (nlp == shkmusic) {
+                shname = shkmusic[rn2(names_avail)];
             } else if (name_wanted < names_avail) {
                 shname = nlp[name_wanted];
             } else if ((i = rn2(names_avail)) != 0) {

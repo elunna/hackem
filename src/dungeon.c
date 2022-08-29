@@ -2906,6 +2906,18 @@ int rtype;
     case CANDLESHOP:
         str = "lighting shop";
         break;
+    case TOOLSHOP:
+        str = "a tool shop";
+        break;
+    case INSTRUMENTSHOP:
+        str =  "a music store";
+        break;
+    case TINSHOP:
+        str =  "a tin shop";
+        break;
+    case PETSHOP:
+        str =  "a pet store";
+        break;
     case BLACKSHOP:
         return "the Blackmarket";
     default:
