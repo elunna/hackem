@@ -832,6 +832,11 @@ register struct monst *mtmp;
             ini_mon_inv(mtmp, Lamp, 6);
             mongets(mtmp, SKELETON_KEY);
             break;
+
+        case PM_BARD:
+            (void) mongets(mtmp, CLOAK);
+            mkmonmoney(mtmp, (long) rn1(mtmp->m_lev, 15));
+            break;
         case PM_CAVEMAN:
         case PM_CAVEWOMAN:
             Cave_man[C_AMMO].trquan = rn1(11, 10); /* 10..20 */
