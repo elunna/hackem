@@ -77,6 +77,8 @@ ENDMAP
 REGION: (00,00,74,19), lit, "ordinary"
 #TELEPORT_REGION: levregion(00,00,70,01), levregion(0,0,0,0), down
 
+ENGRAVING: (38,2), burn, "No entry! Stay oot!! Orderz uv Grund!"
+
 # Stairs
 STAIR: (38,1), up
 STAIR: (49,19), down
