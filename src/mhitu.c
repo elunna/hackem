@@ -3593,6 +3593,23 @@ struct attack *mattk;
             mdamageu(mtmp, dmg);
         }
         break;
+    case AD_PLYS:
+        if(!mtmp->mcan 
+              && multi >= 0 
+              && canseemon(mtmp)
+              && mtmp->mcansee 
+              && !mtmp->mspec_used && rn2(5)) {
+            pline("%s stares at you!", Monnam(mtmp));
+            if (Free_action) 
+                You("stiffen momentarily.");
+            else {
+                You("are frozen by %s!", mon_nam(mtmp));
+                nomovemsg = 0;
+                nomul(-rnd(4));
+                exercise(A_DEX, FALSE);
+            }
+        }
+        break;
     case AD_TLPT:
         if(!mtmp->mcan
               && canseemon(mtmp)
