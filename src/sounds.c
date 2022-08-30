@@ -386,16 +386,6 @@ dosounds()
         You_hear1(vecnabranch_msg[rn2(2 + hallu)]);
         return;
     }
-    if (!In_goblintown(&u.uz0) && at_dgn_entrance("Goblin Town")
-        && !rn2(200)) {
-        static const char* const gtown_msg[] = {
-            "the sounds of a bustling town nearby.",
-            "what sounds like a goblin war party off in the distance.",
-            "a chorus singing \"We are the Lollipop Guild\"..."
-        };
-        You_hear1(gtown_msg[rn2(2 + hallu)]);
-        return;
-    }
 }
 
 static const char *const h_sounds[] = {
@@ -969,39 +959,15 @@ register struct monst *mtmp;
             verbl_msg = "I'm hungry.";
         /* Specific monsters' interests */
         else if (racial_elf(mtmp)) {
-            if (mtmp->mpeaceful && Ingtown) {
-                if (u.uevent.ugking) {
-                    verbl_msg = "The Goblin King is dead!";
-                } else {
-                    verbl_msg = rn2(2) ? "Death to the Goblin King!"
-                                       : "Curse this wretched town!";
-                }
-            } else {
-                pline_msg = "curses orcs.";
-            }
+            pline_msg = "curses orcs.";
         } else if (racial_dwarf(mtmp)) {
-            if (mtmp->mpeaceful && Ingtown) {
-                if (u.uevent.ugking) {
-                    verbl_msg = "The Goblin King has fallen!  Back to mining, lads!";
-                } else {
-                    verbl_msg = rn2(2) ? "Baruk Khazad!  Khazad ai-menu!"
-                                       : "Bah!  Not a single pint of ale to be found!";
-                }
-            } else {
-                pline_msg = "talks about mining.";
-            }
+            pline_msg = "talks about mining.";
         } else if (likes_magic(ptr))
             pline_msg = "talks about spellcraft.";
         else if (ptr->mlet == S_CENTAUR)
             pline_msg = "discusses hunting.";
         else if (racial_gnome(mtmp)) {
-            if (mtmp->mpeaceful && Ingtown) {
-                if (u.uevent.ugking) {
-                    verbl_msg = "The Goblin King is no more!  Mine Town is open for business!";
-                } else {
-                    verbl_msg = "We must free our brothers and sisters in the Mines!";
-                }
-            } else if (Hallucination && (gnomeplan = rn2(4)) % 2) {
+            if (Hallucination && (gnomeplan = rn2(4)) % 2) {
                 /* skipped for rn2(4) result of 0 or 2;
                    gag from an early episode of South Park called "Gnomes";
                    initially, Tweek (introduced in that episode) is the only

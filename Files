@@ -35,7 +35,7 @@ Infidel.des     Knight.des    Monk.des      Priest.des    Ranger.des
 Rogue.des       Samurai.des   Tourist.des   Valkyrie.des  Wizard.des
 bigroom.des     bogusmon.txt  castle.des    cmdhelp       data.base
 dungeon.def     endgame.des   engrave.txt   epitaph.txt   gehennom.des
-goblintown.des  help          hh            history       icequeen.des
+help            hh            history       icequeen.des
 keyhelp         knox.des      license       medusa.des    mines.des
 nymph.des       opthelp       oracle.des    oracles.txt   quest.txt
 rumors.fal      rumors.tru    sokoban.des   symbols       tower.des
@@ -492,7 +492,7 @@ Wiz-fila.lev   Wiz-filb.lev   Wiz-goal.lev   Wiz-loca.lev   Wiz-strt.lev
 air.lev        astral.lev     bigrm-1.lev    bigrm-2.lev    bigrm-3.lev
 bigrm-4.lev    bigrm-5.lev    bigrm-6.lev    bigrm-7.lev    bigrm-8.lev
 bigrm-9.lev    bigrm-10.lev   castle-1.lev   caste-2.lev    castle-3.lev
-earth.lev      fakewiz1.lev   fakewiz2.lev   fire.lev       goblintown.lev
+earth.lev      fakewiz1.lev   fakewiz2.lev   fire.lev       
 hella-1.lev    hella-2.lev    hella-3.lev    hella-4.lev    hellb-1.lev
 hellb-2.lev    hellb-3.lev    hellc-1.lev    hellc-2.lev    hellc-3.lev
 hellfill.lev   icequeen-1.lev icequeen-2.lev icequeen-3.lev knox-1.lev

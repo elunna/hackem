@@ -1755,31 +1755,6 @@ boolean at_stairs, falling, portal;
         return;
     }
 
-    /* Prevent the player from accessing either Mine Town or Mines' End
-     * unless they have defeated the Goblin King. Using the stairs or
-     * falling through a hole or trap door is blocked, but our hero can
-     * still levelport to either location. The Goblin King's wards are
-     * decent, but they aren't all-powerful */
-    if (at_stairs || falling) {
-        if ((!up && (ledger_no(&u.uz) == ledger_no(&minetn_level) - 1))
-            || (!up && (ledger_no(&u.uz) == ledger_no(&minetn_level)))
-            || (!up && (ledger_no(&u.uz) == ledger_no(&mineend_level) - 1))) {
-            if (!u.uevent.ugking) {
-                if (at_stairs) {
-                    if (Blind) {
-                        pline("A mysterious force prevents you from accessing the stairs.");
-                    } else {
-                        You("see a magical glyph hovering in midair, preventing access to the stairs.");
-                        pline("It reads 'Access denied, by order of the Goblin King'.");
-                    }
-                } else if (falling) {
-                    pline("A mysterious force prevents you from falling.");
-                }
-                return;
-            }
-        }
-    }
-
     if (on_level(newlevel, &u.uz))
         return; /* this can happen */
 
@@ -2111,16 +2086,7 @@ boolean at_stairs, falling, portal;
         display_nhwindow(WIN_MESSAGE, FALSE);
 #endif
     }
-
-    if (!In_goblintown(&u.uz0) && Ingtown
-        && !u.uevent.gtown_entered) {
-        u.uevent.gtown_entered = 1;
-        You("have entered Goblin Town, the lair of the Goblin King.");
-#ifdef MICRO
-        display_nhwindow(WIN_MESSAGE, FALSE);
-#endif
-    }
-
+    
     if (familiar) {
         static const char *const fam_msgs[4] = {
             "You have a sense of deja vu.",

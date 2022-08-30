@@ -3168,14 +3168,6 @@ vecnadead()
 }
 
 void
-goblinkingdead()
-{
-    if (!u.uevent.ugking)
-        u.uevent.ugking = TRUE;
-    com_pager(305);
-}
-
-void
 mondead(mtmp)
 register struct monst *mtmp;
 {
@@ -3428,8 +3420,6 @@ register struct monst *mtmp;
         cerberusdead();
     if (mtmp->isvecna)
         vecnadead();
-    if (mtmp->isgking)
-        goblinkingdead();
     if (tmp == urole.neminum)
         nemdead();
     if (mtmp->data->msound == MS_LEADER)
@@ -3447,9 +3437,6 @@ register struct monst *mtmp;
     } else if (mtmp->isvecna && !u.uachieve.killed_vecna) {
         u.uachieve.killed_vecna = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "destroyed Vecna");
-    } else if (mtmp->isgking && !u.uachieve.killed_gking) {
-        u.uachieve.killed_gking = 1;
-        livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed the Goblin King");
     } else if (mtmp->data == &mons[PM_DEATH]) {
         switch (mvitals[tmp].died) {
         case 1:

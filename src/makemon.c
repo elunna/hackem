@@ -1209,7 +1209,7 @@ register struct monst *mtmp;
                 w2 = KNIFE;
             if (w2)
                 (void) mongets(mtmp, w2);
-        } else if (racial_elf(mtmp) && !Ingtown) {
+        } else if (racial_elf(mtmp)) {
             if (rn2(2))
                 (void) mongets(mtmp,
 		 (rn2(2) && (mm == PM_GREY_ELF || mm == PM_ELF_LORD
@@ -1563,7 +1563,7 @@ register struct monst *mtmp;
                 if (!rn2(8))
                     (void) mongets(mtmp, SACK);
             }
-        } else if (is_dwarf(ptr) && !Ingtown) {
+        } else if (is_dwarf(ptr)) {
             if (rn2(7))
                 (void) mongets(mtmp, DWARVISH_CLOAK);
             if (rn2(7))
@@ -1630,7 +1630,7 @@ register struct monst *mtmp;
             (void) mongets(mtmp, (rn2(2)) ? CLUB : RUBBER_HOSE);
         break;
     case S_ORC:
-        if (mm != PM_GOBLIN_KING && rn2(2))
+        if (rn2(2))
             (void) mongets(mtmp, ORCISH_HELM);
         switch ((mm != PM_ORC_CAPTAIN) ? mm
                 : rn2(2) ? PM_MORDOR_ORC : PM_URUK_HAI) {
@@ -1922,10 +1922,7 @@ register struct monst *mtmp;
                 if (strongmonst(ptr))
                     (void) mongets(mtmp, BATTLE_AXE);
                 else {
-                    if (is_gnome(ptr) && Ingtown)
-                        ;
-                    else
-                        m_initthrow(mtmp, DART, 12);
+                    m_initthrow(mtmp, DART, 12);
                 }
             }
             break;
@@ -1934,23 +1931,15 @@ register struct monst *mtmp;
                 if (strongmonst(ptr))
                     (void) mongets(mtmp, TWO_HANDED_SWORD);
                 else {
-                    if (is_gnome(ptr) && Ingtown) {
-                        ;
-                    } else {
-                        (void) mongets(mtmp, CROSSBOW);
-                        m_initthrow(mtmp, CROSSBOW_BOLT, 12);
-                    }
+                    (void) mongets(mtmp, CROSSBOW);
+                    m_initthrow(mtmp, CROSSBOW_BOLT, 12);
                 }
             }
             break;
         case 3:
             if (!unique_corpstat(ptr)) {
-                if (is_gnome(ptr) && Ingtown) {
-                    ;
-                } else {
-                    (void) mongets(mtmp, BOW);
-                    m_initthrow(mtmp, ARROW, 12);
-                }
+                (void) mongets(mtmp, BOW);
+                m_initthrow(mtmp, ARROW, 12);
             }
             break;
         case 4:
@@ -1958,10 +1947,7 @@ register struct monst *mtmp;
                 if (strongmonst(ptr))
                     (void) mongets(mtmp, LONG_SWORD);
                 else {
-                    if (is_gnome(ptr) && Ingtown)
-                        ;
-                    else
-                        m_initthrow(mtmp, DAGGER, 3);
+                    m_initthrow(mtmp, DAGGER, 3);
                 }
             }
             break;
@@ -1970,10 +1956,7 @@ register struct monst *mtmp;
                 if (strongmonst(ptr))
                     (void) mongets(mtmp, LUCERN_HAMMER);
                 else {
-                    if (is_gnome(ptr) && Ingtown)
-                        ;
-                    else
-                        (void) mongets(mtmp, AKLYS);
+                    (void) mongets(mtmp, AKLYS);
                 }
             }
             break;
@@ -2323,14 +2306,6 @@ register struct monst *mtmp;
     case S_MUMMY:
         if (rn2(7))
             (void) mongets(mtmp, MUMMY_WRAPPING);
-        break;
-    case S_ORC:
-        if (ptr == &mons[PM_GOBLIN_KING]) {
-            (void) mongets(mtmp, QUARTERSTAFF);
-            received = m_carrying(mtmp, QUARTERSTAFF);
-            if (received)
-                set_material(received, BONE);
-        }
         break;
     case S_QUANTMECH:
         if (!rn2(20) && ptr == &mons[PM_QUANTUM_MECHANIC]) {
@@ -3167,8 +3142,6 @@ long mmflags;
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;
-    } else if (mndx == PM_GOBLIN_KING) {
-        mtmp->isgking = TRUE;
     } else if (mndx == PM_WIZARD_OF_YENDOR) {
         mtmp->iswiz = TRUE;
         context.no_of_wizards++;
@@ -3476,8 +3449,6 @@ rndmonst()
             if (Iniceq && !likes_iceq(ptr))
                 continue;
             if (!Iniceq && is_iceq_only(ptr))
-                continue;
-            if (Ingtown && !likes_gtown(ptr))
                 continue;
             ct = (int) (ptr->geno & G_FREQ) + align_shift(ptr);
 	    if (!is_mplayer(ptr))
