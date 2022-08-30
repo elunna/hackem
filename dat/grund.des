@@ -74,9 +74,6 @@ NON_DIGGABLE: (67,00,74,20)
 NON_DIGGABLE: (60,00,66,06)
 NON_DIGGABLE: (60,14,66,20)
 
-TRAP: "statue", (53,10)
-OBJECT: ('`', "statue"), (53,10), montype:"winged gargoyle",0
-
 # monsters (Fussvolk)
 MONSTER: ('o', "orc-captain"), random, hostile
 LOOP [8] { MONSTER: ('o', "orc"), random, hostile }
@@ -515,3 +512,8 @@ DOOR: locked, (12,11)
 DOOR: locked, (14,09)
 DOOR: locked, (14,11)
 DOOR: locked, (15,10)
+
+
+# Put last so the statue trap doesn't get overwritten by another trap.
+TRAP: "statue", (53,10)
+OBJECT: ('`', "statue"), (53,10), montype:"winged gargoyle",0
