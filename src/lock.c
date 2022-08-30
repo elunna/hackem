@@ -649,8 +649,6 @@ struct obj *container; /* container, for autounlock */
                     ch = 4 * ACURR(A_DEX) + 25 * Role_if(PM_ROGUE);
                     break;
                 case SKELETON_KEY:
-                    pline("key attempt");
-
                     if(!rn2(15) && !pick->blessed && !pick->oartifact) {
                         Your("key didn't quite fit the lock and snapped!");
                         delobj(pick);
