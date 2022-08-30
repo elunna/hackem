@@ -240,6 +240,8 @@ int shotlimit;
                 multishot = ((multishot > 3) ? (multishot / 3) : 1);
             /* else it is auto == no change */
         }
+        if (multishot < 1) 
+            multishot = 1;
 
         /* crossbows are slow to load and probably shouldn't allow multiple
            shots at all, but that would result in players never using them;
@@ -251,13 +253,17 @@ int shotlimit;
             multishot = rnd(multishot);
 
         multishot = rnd(multishot);
+        
         if ((long) multishot > obj->quan)
             multishot = (int) obj->quan;
         
         /* Shotlimit controls your rate of fire */
         if (shotlimit > 0 && multishot > shotlimit)
             multishot = shotlimit;
+        
+        
     }
+    
 
     m_shot.s = ammo_and_launcher(obj, uwep) ? TRUE : FALSE;
     /* give a message if shooting more than one, or if player
