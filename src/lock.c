@@ -879,19 +879,20 @@ doforce()
                 There("is %s here, but its lock is already %s.",
                       doname(otmp), otmp->obroken ? "broken" : "unlocked");
                 otmp->lknown = 1;
-                continue;
+                return 0;
             }
             (void) safe_qbuf(qbuf, "There is ", " here; force its lock?",
                              otmp, doname, ansimpleoname, "a box");
             otmp->lknown = 1;
 
-            c = ynq(qbuf);
-            if (c == 'q')
+            c = yn(qbuf);
+               
+            if (c == 'n') {
+                You("decide not to force the issue.");
                 return 0;
-            if (c == 'n')
-                continue;
-
-            if(picktyp == 2)
+            }
+            
+            if (picktyp == 2)
                 You("begin melting it with your %s.", xname(uwep));
             else if (picktyp)
                 You("force %s into a crack and pry.", yname(uwep));
@@ -988,9 +989,7 @@ doforce()
                 return 1;
 	    }
 	}
-
-	You("decide not to force the issue.");
-	return(0);
+	return 0;
 }
 
 boolean
