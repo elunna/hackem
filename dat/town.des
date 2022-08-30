@@ -572,3 +572,158 @@ MONSTER: 'k', (18,13), hostile
 MONSTER: 'k', (21,13), hostile
 MONSTER: 'k', (20,15), hostile
 MONSTER: 'k', (21,15), hostile
+
+
+
+
+#
+# Mall #3 (Variant of kobold-2)
+# Oh no, kobolds have taken over the 
+#
+LEVEL: "town-6"
+MESSAGE: "You enter a cramped bazaar."
+GEOMETRY: center,center
+# 0        1         2         3         4         5         6
+#01234567890123456789012345678901234567890123456789012345678901234567890
+MAP
+0|--------------------------------------    -------------------|  ----|
+1|....|...|.|...|......|.|......|......|----|............+.....S##+...|
+2|S---|...|.+...|......|.+......|......|....|.|---+------|.....|  |...|
+3|....|...+.|...|......+.|......|......|....+.|..|.......|.....|  |---|
+4|....|...|.|...|......|.|......|......|....|.|..--|.....|.....S#### 
+5|--+------+------------+----------+---------.+....|.....------|   #  
+6|.......................|.....|..............|....|.....|.....|   ### 
+7|+--------------------|.|.....+.|---+-----S------------+|.....|     # 
+8|.......+.+.....|.....|.|.....|.|......|  #           |.|.....|     # 
+9|.---+---.|----.+.....|.|.....|.|......|  ##          |.+.....|     # 
+0|.|.....|.|...|.|.....|.-------.|------|   #          |.|.....|  #### 
+1|.|.....|.+...|+|-----|.|...|...|....|     ###        |+------|  #   
+2|.|-----|.|...|.......|.|...|.|-|....|     ###        |.......| |+--|
+3|.|.....|.|...|.......|.|...|.+K|....|                |.......| |...|
+4|.|.....|.----|.......|.--+--.-----+------------------|.......| |...|
+5|.+.....|.....+.......+..............S................|.......| |---|
+6|--------------------------------------------------------------
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+
+STAIR: (67,2), down
+
+# Possible Shop locations (From top left to bottom right) 
+# Top row
+# (06,01,08,04)  small  wand
+# (12,01,14,04)  small  scroll
+# (16,01,21,04)  big    wand
+# (25,01,21,04)  big    scroll
+# (32,01,37,04)  big    tool
+# (39,02,42,04)  mid    food
+# Middle-ish row
+# (03,10,07,11)   mid    gen
+# (17,08,21,10)   mid    book
+# (25,06,29,09)   big    weapon
+# (33,08,38,09)   mid    potion
+# (55,12,61,15)   big    ring
+# (57,06,61,10)   big    armor
+# Bottom row
+# (03,13,07,15)   mid    general store
+# (11,10,13,13)   sm     book
+# (15,11,17,13)   sm     ring
+# (13,11,16,13)   sm     candle
+
+
+
+# 2 possible positions for wand, scroll, and book shops.
+IF [50%] {
+    [30%]: REGION: (06,01,08,04), lit, "wand shop"
+} ELSE {
+    [20%]: REGION: (16,01,21,04), lit, "wand shop"
+}
+IF [50%] {
+    [40%]: REGION: (12,01,14,04), lit, "scroll shop"
+} ELSE {
+    [30%]: REGION: (25,01,30,04), lit, "scroll shop"
+}
+IF [50%] {
+    [42%]: REGION: (17,08,21,10), lit, "book shop"
+} ELSE {
+    [34%]: REGION: (11,10,13,13), lit, "book shop"
+}
+
+# Guaranteed general store
+REGION: (03,10,07,11), lit, "shop"
+
+[55%]: REGION: (32,01,37,04), lit, "tool shop"
+[40%]: REGION: (39,02,42,04), lit, "food shop"
+[25%]: REGION: (55,12,61,15), lit, "ring shop"
+[35%]: REGION: (25,06,29,09), lit, "weapon shop"
+[42%]: REGION: (57,06,61,10), lit, "armor shop"
+[35%]: REGION: (33,08,38,09), lit, "potion shop"
+[45%]: REGION: (25,11,27,13), lit, "music shop"
+
+
+DOOR: random, (1,7)
+DOOR: open, (2,15)
+DOOR: closed, (3,5)
+DOOR: closed, (5,9)
+DOOR: random, (8,8)
+DOOR: closed, (9,3)
+DOOR: closed, (10,5)
+DOOR: random, (10,11)
+DOOR: closed, (10,8)
+DOOR: closed, (11,2)
+DOOR: random, (14,15)
+DOOR: closed, (15,11)
+DOOR: closed, (16,9)
+DOOR: closed, (22,15)
+DOOR: closed, (22,3)
+DOOR: closed, (23,5)
+DOOR: random, (24,2)
+DOOR: closed, (26,14)
+DOOR: closed, (30,7)
+DOOR: closed, (30,13)
+DOOR: closed, (34,5)
+DOOR: random, (35,14)
+DOOR: closed, (36,7)
+DOOR: closed, (43,3)
+DOOR: closed, (45,5)
+DOOR: random, (49,2)
+DOOR: closed, (55,7)
+DOOR: closed, (55,11)
+DOOR: closed, (56,1)
+DOOR: random, (56,9)
+DOOR: random, (59,5)
+
+# The Town Watch.
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+
+# Some distracting townspeople
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "bandit"), random, hostile
+MONSTER: ('r', "sewer rat"), random, hostile
+MONSTER: ('r', "sewer rat"), random, hostile
+
+# Replacements for the rhumbats
+MONSTER: ('s',"cave spider"), (43,11), hostile, asleep
+MONSTER: ('s',"cave spider"), (65,13), hostile, asleep
+MONSTER: ('s',"giant spider"), (67,1), hostile, asleep
+
+
+# Shopkeeper stores (booze and gold)
+CONTAINER: ('(', "chest"), (45,12) {
+    OBJECT: ('!', "booze")
+}
+
+OBJECT:('(',"chest"),(65,13) 
+OBJECT:('(',"chest"),(2,1)
+OBJECT:('(',"chest"),(3,1)
+OBJECT:('(',"chest"),(4,1)
+OBJECT:('(',"chest"),(18,13)
+
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
