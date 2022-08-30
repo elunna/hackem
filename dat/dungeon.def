@@ -28,11 +28,9 @@ CHAINBRANCH:	"Town" "oracle" + (3, 2) up
 LEVEL:		    "nymph" "N" @ (8, 22) 45
 BRANCH:		    "Fort Ludios" @ (10, 24) portal
 LEVEL:		    "rats" "R" @ (10, 2) 50
-RNDLEVEL:	    "kobold" "K" @ (11, 2) 50 2
 RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 10
 CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
 
-# BRANCH: 	        "Grund's Stronghold" "G" @ (19, 2)
 LEVEL:          "grund" "Z" @ (19, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
@@ -131,7 +129,8 @@ RNDLEVEL:		"soko4" "none" @ (4, 0) 6
 DUNGEON:	    "Town" "A" (3, 0)
 LEVALIGN:       lawful
 ENTRY:		    -1
-RNDLEVEL:       "town" "none" @ (1, 0) 2
+#RNDLEVEL:       "town" "none" @ (1, 0) 5
+LEVEL:          "town-5" "none" @ (1, 0)
 LEVEL:          "village" "none" @ (2, 0)
 LEVEL:          "townfill" "none" @ (3, 0)
 LEVELDESC:      town

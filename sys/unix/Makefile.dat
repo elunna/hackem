@@ -132,7 +132,7 @@ spec_levs: ../util/lev_comp \
 	bigroom.des castle.des endgame.des gehennom.des \
 	icequeen.des knox.des medusa.des mines.des nymph.des oracle.des \
 	sokoban.des tower.des vecna.des yendor.des vaults.des \
-	town.des village.des kobold.des rats.des \
+	town.des village.des rats.des \
 	stor.des caves.des sea.des tomb.des \
 	spiders.des mtemple.des grund.des blkmar.des
 	-rm -f vaults.dat
@@ -153,7 +153,6 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp vaults.des
 	../util/lev_comp town.des
 	../util/lev_comp village.des
-	../util/lev_comp kobold.des
 	../util/lev_comp rats.des
 	../util/lev_comp stor.des
 	../util/lev_comp caves.des
