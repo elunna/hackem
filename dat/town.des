@@ -727,3 +727,126 @@ OBJECT:('(',"chest"),(18,13)
 TRAP: random, random
 TRAP: random, random
 TRAP: random, random
+
+
+#
+# Angband Raided!
+# Copyright (c) 2022 by Erik Lunna
+#
+LEVEL: "town-7"
+MESSAGE: "You step into the sunlight. You hear the sounds of riff-raff."
+ROOM: "ordinary", lit, random, random, (76,17) {
+    STAIR: random, down
+
+    ENGRAVING: random, mark, "Welcome... to HELL!!"
+    FOUNTAIN: (06,12)
+    FOUNTAIN: (39,09)
+    FOUNTAIN: (68,03)
+
+    SUBROOM: "ordinary", lit, (10,4), (5,2) {
+        # Armor shop: Area=10, 66%
+        ROOMDOOR: false, random, random, random
+    }
+
+    SUBROOM: "ordinary", lit, (26,4), (6,3) {
+        # Pet shop: Area=18, 66%
+        ROOMDOOR: false, random, random, random
+    }
+
+    SUBROOM: "ordinary", lit, (44,2), (3,3) {
+        # Tool shop: Area=9, 66%
+        ROOMDOOR: false, random, random, random
+    }
+
+    SUBROOM: "ordinary", lit, (59,6), (2,2) {
+        # Candle shop: Area=4, 66%
+        ROOMDOOR: false, random, random, random
+        #[66%]: MONSTER: ('@', "shopkeeper"), random, dead
+    }
+
+    SUBROOM: "ordinary", lit, (16,12), (3,2) {
+        # General Store: Area=6, 100%
+        ROOMDOOR: false, random, random, random
+        #MONSTER: ('@', "shopkeeper"), random, dead
+    }
+
+    SUBROOM: "ordinary", lit, (30,13), (3,2) {
+        # Weapon shop: Area=6, 66%
+        ROOMDOOR: false, random, random, random
+        #[66%]: MONSTER: ('@', "shopkeeper"), random, dead
+    }
+
+    SUBROOM: "ordinary", lit, (48,11), (2,3) {
+        # Music shop: Area=6, 66%
+        ROOMDOOR: false, random, random, random
+        #[66%]: MONSTER: ('@', "shopkeeper"), random, dead
+    }
+
+    SUBROOM: "ordinary", lit, (65,13), (4,2) {
+        # Tin shop: Area=8, 66%
+        ROOMDOOR: false, closed, random, random
+        #[66%]: MONSTER: ('@', "shopkeeper"), random, dead
+    }
+
+    # the remains of the Watch
+    LOOP [4] {
+        MONSTER: ('@', "watchman"), random, dead
+        MONSTER: ('@', "watch captain"), random, dead
+    }
+
+    # The ragged gang
+    LOOP [4] {
+        MONSTER: ('@', "mugger"), random, hostile
+        MONSTER: ('@', "bandit"), random, hostile
+        MONSTER: ('@', "street thug"), random, hostile
+    }
+
+    LOOP [2] {
+        MONSTER: ('h', "dwarf thief"), random, hostile
+        MONSTER: ('h', "hobbit pickpocket"), random, hostile
+        MONSTER: ('G', "gnome thief"), random, hostile
+        MONSTER: ('n', "water nymph"), random, hostile
+        MONSTER: ('r', "pack rat"), random, hostile
+        MONSTER: ('d', "rabid dog"), random, hostile
+    }
+    MONSTER: ('d', "pit bull"), random, hostile
+    MONSTER: ('&', "succubus"), random, hostile
+
+    # I thought about putting in the street thug leader, but he is already in the village.
+
+    # Shopkeeper "bones" piles. One spot each in most shops...
+    $shk_demise = { (12,06), (27,05), (45,03), (60,07), (17,13), (31,14), (49,12), (66,14) }
+
+    SHUFFLE: $shk_demise
+
+    MONSTER: ('@', "shopkeeper"), $shk_demise[0], dead
+    MONSTER: ('@', "shopkeeper"), $shk_demise[1], dead
+    MONSTER: ('@', "shopkeeper"), $shk_demise[2], dead
+
+    OBJECT: ('`', "boulder"), $shk_demise[0]
+    OBJECT: ('`', "boulder"), $shk_demise[1]
+    OBJECT: ('`', "boulder"), $shk_demise[2]
+
+    # knock a few holes in the shop interior walls
+    REPLACE_TERRAIN: (10,04,65,15), '|', '.', 18%
+    REPLACE_TERRAIN: (10,04,65,15), '-', '.', 18%
+    
+    # Rubble!
+    LOOP [5 + 2d5] {
+        [90%]: OBJECT: ('`', "boulder"), random
+        OBJECT: ('*', "rock"), random
+    }
+
+    # shop inventories... A bit messy, but that's what a raid looks like...
+    LOOP [7] {
+        OBJECT: '(', random
+        OBJECT: '%', random
+        OBJECT: random, random
+        GOLD: 1d200, random
+    }
+
+    # The treasure stashes
+    OBJECT: ('(', "chest"), random
+    OBJECT: ('(', "chest"), random
+    OBJECT: ('(', "iron safe"), random
+}
