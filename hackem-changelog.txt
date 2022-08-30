@@ -1453,3 +1453,65 @@ Deep Wyrm caves branch parts
 - [SKIPPED] Stalactite/Stalagmite traps
 
 	[x] Add town branch from SlashTHEM
+	
+
+[x] Add town fill level (from Unnethack)	
+[x] Change village stairs 
+
+[x] Add sign that says - "No entry! Stay oot!! Orderz uv Grund!"
+	[x] Combine town and mall levels
+	
+- [x] Added a phase blocking line to middle of Grunds stronghold - kinda works but doesn't block xorning through the iron bars
+- [x] Grunds: Make sure the level divider does not keep fucking up
+
+	- [FIXED] Grunds has lots of random stuff embedded in walls
+- [x] Combine the 2 parts of the level into one, have to adjust all the coordinates probably.
+		This might work, but the entry has a mazetype maker
+		
+	[SKIPPED] Peasants get a GRAIN_SCYTHE
+
+	[FIXED] Rhambausaum: Gaze attack 15?  Program in disorder!
+[FIXED] I can't open drawbridges on grunds...
+
+	Goblin Town: (goblin branch)
+	https://github.com/k21971/EvilHack/commit/7829e667eec8aa393821ada29c38b5160845c3e7
+	- [x] Remove Goblin Town branch
+	- [x] Don't require defeating Goblin king to access mines
+
+	[FIXED] Grunds: Wing gargoyle trap had a different trap on it.
+	
+	[x] Add a kobold mall
+	[x] Removed throne from kobold mall
+	[x] Kobold mall: Move chest near >
+	[x] Add town watch to kobold mall.
+	[x] Add some pickpockets to kobold mall.
+	[x] Move mall version 2 stuff to kobolds
+	[x] At least 1 guaranteed shop in the "good" versions
+	[x] Mix in tin/pet/music shops too.
+	
+
+	
+	[x] Add angband raided by thieves
+		[x]the remains of the Watch
+		[x] shop doors; could be broken down (random)
+		[x] knock a few holes in the shop interior walls (REPLACE TERRAIN)
+		[x] # Rubble!
+		[x]Shopkeeper "bones" piles.
+		[x] Treasure stash: 2 chests and an iron safe
+		[x] shop inventories
+		[x] the bandit Army: thugs, bandits, street thugs, couple dwarf thieves, gnome thieves, hobbit pickpockets, nymphs, some foocubi, rabid dogs, pit bulls, pack rats
+		
+
+	[SKIPPED] Put toilets in the kobold level
+
+	[SKIPPED] Add zombie mall 
+
+	[FIXED] "You are surrounded by darkness!" when I can't see dark monsters
+
+	[FIXED] You force your scalpel into a crack and pry.  You decide not to force the issue.
+		[x] Fix previous light shop def to match slashem/them
+
+	[x] Shooting a shotgun: rnd(-1) attempted
+	[x] Shotgun range is only 3?
+		
+		- [SKIP] Add in the opposite genders from 3.7 (ladies/queens, etc)

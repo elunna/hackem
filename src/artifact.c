@@ -2747,6 +2747,8 @@ struct obj *obj;
 {
     register const struct artifact *oart = get_artifact(obj);
     register struct monst *mtmp;
+    register struct monst *mtmp2;
+    register struct permonst *pm;
     int unseen;
 
     if (!obj) {
@@ -2965,6 +2967,16 @@ struct obj *obj;
         }
         case ENLIGHTENING:
             enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+            break;
+        case SUMMON_FIRE_ELEMENTAL:
+            pm = &mons[PM_FIRE_ELEMENTAL];
+            mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
+   
+            pline("You summon an elemental.");
+   
+            if ((mtmp2 = tamedog(mtmp, (struct obj *)0)) != 0)
+                mtmp = mtmp2;
+            mtmp->mtame = 30;
             break;
         case CREATE_AMMO: {
             struct obj *otmp = mksobj(obj->otyp == CROSSBOW ? CROSSBOW_BOLT : ARROW, TRUE, FALSE);
@@ -3344,7 +3356,8 @@ struct obj *obj;
 
     return (boolean) (get_artifact(obj) && 
         (obj->oartifact == ART_SUNSWORD
-        || obj->oartifact == ART_SPEAR_OF_LIGHT));
+        || obj->oartifact == ART_SPEAR_OF_LIGHT
+        || obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME));
 }
 
 /* KMH -- Talking artifacts are finally implemented */

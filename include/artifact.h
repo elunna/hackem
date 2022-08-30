@@ -70,7 +70,8 @@ enum invoke_prop_types {
     PHASING,
     CHANNEL,
     DEATH_MAGIC,
-    LIGHT_AREA
+    LIGHT_AREA,
+    SUMMON_FIRE_ELEMENTAL
 };
 
 #endif /* ARTIFACT_H */

@@ -1576,9 +1576,9 @@ unsigned doname_flags;
         } else if (obj->lamplit && artifact_light(obj)) {
             Sprintf(eos(bp) - 1, ", %s lit)", arti_light_description(obj));
         }
-    /* --hackem: Light from non-wielded artifact lights - dumb code dupe. */
-    } else if (obj->lamplit && artifact_light(obj)) {
-        Sprintf(eos(bp), ", %s lit)", arti_light_description(obj));
+    /* --hackem: Light from unwielded spear of light. */
+    } else if (!Blind && obj->oartifact == ART_SPEAR_OF_LIGHT && obj->lamplit) {
+        Sprintf(eos(bp), " (%s lit)", arti_light_description(obj));
     }
 
     if (obj->owornmask & W_QUIVER) {
