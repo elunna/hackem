@@ -1389,6 +1389,8 @@ $(BFILES) : $(DAT)\Barb.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Bar QF=Barb do_quest
 $(CFILES) : $(DAT)\Caveman.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Cav QF=Caveman do_quest
+$(HFILES) : $(DAT)\Flame.des $(TEMP)\lev_comp.exe
+	$(MAKEB) QQ=Fla QF=Flame do_quest
 $(HFILES) : $(DAT)\Healer.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Hea QF=Healer do_quest
 $(IFILES) : $(DAT)\Infidel.des $(TEMP)\lev_comp.exe

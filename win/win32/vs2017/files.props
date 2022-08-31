@@ -34,6 +34,7 @@
     <Desfiles Include = "castle.des"/>
     <Desfiles Include = "caveman.des"/>
     <Desfiles Include = "convict.des"/>
+    <Desfiles Include = "flame.des"/>
     <Desfiles Include = "endgame.des"/>
     <Desfiles Include = "gehennom.des"/>
     <Desfiles Include = "healer.des"/>

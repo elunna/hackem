@@ -62,6 +62,20 @@ struct trobj Convict[] = {
     { STRIPED_SHIRT, 0, ARMOR_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
+static struct trobj Flame_Mage[] = {
+#define F_BOOK          9
+	{ QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },        /* for dealing with ghosts */
+	{ STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
+	{ UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 1, UNDEF_BLESS },
+	{ UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
+	{ WAN_FIRE, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+	{ SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+	{ SPE_FIREBALL, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+	{ UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+  	{ 0, 0, 0, 0, 0 }
+};
 struct trobj Healer[] = {
     { SCALPEL, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { GLOVES, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -384,6 +398,38 @@ static const struct def_skill Skill_Con[] = {
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
+
+static const struct def_skill Skill_F[] = {
+/*Style: small-med edged weapons, blunt weapons*/
+    { P_DAGGER, P_EXPERT },             { P_KNIFE,  P_SKILLED },
+    { P_AXE, P_BASIC },                 /*{ P_PICK_AXE, P_BASIC },*/
+    { P_SHORT_SWORD, P_EXPERT },        /*{ P_BROAD_SWORD, P_BASIC },*/
+    { P_LONG_SWORD, P_SKILLED },        /*{ P_TWO_HANDED_SWORD, P_BASIC },*/
+    { P_SCIMITAR, P_SKILLED },          { P_SABER, P_SKILLED },
+    /* { P_PADDLE, P_BASIC }, */
+    { P_MACE, P_BASIC },                /*{ P_MORNING_STAR, P_BASIC },
+    { P_FLAIL, P_BASIC },*/               { P_HAMMER, P_BASIC },
+    { P_QUARTERSTAFF, P_SKILLED },       /* { P_POLEARMS, P_BASIC },*/
+/* Relies on spells for ranged attack
+    { P_SPEAR, P_BASIC },               { P_JAVELIN, P_BASIC },
+    { P_TRIDENT, P_BASIC },             { P_LANCE, P_BASIC },
+    { P_BOW, P_BASIC },                 { P_SLING, P_BASIC },
+    { P_CROSSBOW, P_BASIC },            { P_DART, P_EXPERT },
+    { P_SHURIKEN, P_BASIC },            { P_BOOMERANG, P_BASIC },
+*/
+    { P_WHIP, P_BASIC },                { P_UNICORN_HORN, P_SKILLED },
+
+    { P_ATTACK_SPELL, P_SKILLED },      { P_HEALING_SPELL, P_BASIC },
+    { P_DIVINATION_SPELL, P_EXPERT },   { P_ENCHANTMENT_SPELL, P_BASIC },
+    { P_CLERIC_SPELL, P_BASIC },      { P_ESCAPE_SPELL, P_SKILLED },
+    { P_MATTER_SPELL, P_EXPERT },
+/*  Added expert matter spell (elements), skilled in attack, basic in rest
+        He is a mage,  so knows the types.*/
+    { P_RIDING, P_SKILLED },
+    { P_TWO_WEAPON_COMBAT, P_SKILLED }, { P_BARE_HANDED_COMBAT, P_SKILLED },
+    { P_NONE, 0 }
+};
+
 static const struct def_skill Skill_H[] = {
     { P_DAGGER, P_SKILLED },
     { P_KNIFE, P_EXPERT },
@@ -808,6 +854,19 @@ u_init()
         }
         skill_init(Skill_C);
         break;
+    case PM_FLAME_MAGE:
+		switch (rnd(2)) {                
+			case 1: Flame_Mage[F_BOOK].trotyp = SPE_DETECT_MONSTERS; break;
+			case 2: Flame_Mage[F_BOOK].trotyp = SPE_LIGHT; break;
+			default: break;
+		}
+		ini_inv(Flame_Mage);
+		if(!rn2(5)) 
+            ini_inv(Lamp);
+		else if(!rn2(5)) 
+            ini_inv(Blindfold);
+		skill_init(Skill_F);
+		break;
     case PM_CONVICT:
         ini_inv(Convict);
         if (Race_if(PM_ILLITHID))
@@ -1109,7 +1168,8 @@ u_init()
 
     case PM_ORC:
         /* compensate for generally inferior equipment */
-        if (!Role_if(PM_WIZARD) && !Role_if(PM_CONVICT))
+        if (!Role_if(PM_WIZARD) && !Role_if(PM_CONVICT)
+            && !Role_if(PM_FLAME_MAGE))
             ini_inv(Xtra_food);
         /* Orcs can recognize all orcish objects */
         knows_object(ORCISH_SHORT_SWORD);
@@ -1380,6 +1440,9 @@ int otyp;
     case PM_CONVICT:
         skills = Skill_Con;
         break;
+    case PM_FLAME_MAGE:
+        skills = Skill_F;
+        break;
     case PM_HEALER:
         skills = Skill_H;
         break;
@@ -1472,6 +1535,11 @@ register struct trobj *origtrop;
                    || otyp == RIN_HUNGER
                    || otyp == RIN_SLEEPING
                    || otyp == WAN_NOTHING
+                   /* Elemental mage stuff */
+                   || ((Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE))
+					    && (otyp == RIN_FIRE_RESISTANCE 
+                            || otyp == RIN_COLD_RESISTANCE))
+
                    /* Necromancers start with drain res */
 				    || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
                    /* orcs start with poison resistance */

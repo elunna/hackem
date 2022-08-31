@@ -121,9 +121,7 @@ const struct Role roles[] = {
         { "Rover", 0 },
         { "Pioneer", 0 } },
       "Anu", "_Ishtar", "Anshar", /* Babylonian */
-      "Cav",
-      "the Caves of the Ancestors",
-      "Annam's Lair",
+      "Cav", "the Caves of the Ancestors", "Annam's Lair",
       PM_CAVEMAN,
       PM_CAVEWOMAN,
       PM_LITTLE_DOG,
@@ -142,16 +140,9 @@ const struct Role roles[] = {
       { 30, 6, 7, 20, 30, 7 },
       /* Init   Lower  Higher */
       { 14, 0, 0, 8, 2, 0 }, /* Hit points */
-      { 1, 0, 0, 1, 0, 1 },
-      10, /* Energy */
-      0,
-      12,
-      0,
-      1,
-      8,
-      A_INT,
-      0,
-      -4 },
+      { 1, 0, 0, 1, 0, 1 }, 10, /* Energy */
+      0, 12, 0, 
+      1, 8, A_INT, 0, -4 },
     { { "Convict", 0 },
       { { "Detainee", 0 },
         { "Inmate", 0 },
@@ -679,6 +670,37 @@ const struct Role roles[] = {
       A_INT,
       SPE_MAGIC_MISSILE,
       -4 },
+    { { "Flame Mage", 0 }, {
+            { "Spark",         0 },   /* WAC was Igniter */
+            { "Igniter",       0 },
+            { "Broiler",       0 },   /* WAC was Igniter */
+            { "Combuster",     0 },   /* WAC was Torcher */
+            { "Torcher",       0 },
+            { "Scorcher",      0 },   /* WAC was Torcher */
+            { "Incinerator",   0 },
+            { "Disintegrator", 0 },   /* WAC was Incinerator */
+            { "Flame-Master",  0 } },
+        "Earth", "Fire", "Ash", /* Special */
+        "Fla", "the great Circle of Flame", "the Water Mage's Cave",
+        PM_FLAME_MAGE, NON_PM, PM_HELL_HOUND_PUP,
+        PM_HIGH_FLAME_MAGE, PM_IGNITER, PM_WATER_MAGE,
+        PM_WATER_ELEMENTAL, PM_RUST_MONSTER, S_ELEMENTAL, S_RUSTMONST,
+#if 0
+	ART_FIREWALL, ART_FIRE_BRAND,
+#endif
+        ART_CANDLE_OF_ETERNAL_FLAME,
+        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT | 
+            ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+        
+        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+        {   7, 10,  7,  7,  7,  7 },
+        {  10, 30, 10, 20, 20, 10 },
+        /* Init   Lower  Higher */
+        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+        {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
+        0, 1, 0, 
+        2, 10, A_INT, SPE_FIREBALL,        -4 /* From old role.c */
+    },
     /* Array terminator */
     { { 0, 0 } }
 };

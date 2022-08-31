@@ -856,6 +856,12 @@ register struct monst *mtmp;
             if (!rn2(20))
                 (void) mongets(mtmp, rnd_misc_item(mtmp));
             break;
+        case PM_FLAME_MAGE:
+            (void) mongets(mtmp, QUARTERSTAFF);
+            (void) mongets(mtmp, STUDDED_ARMOR);
+            (void) mongets(mtmp, WAN_FIRE);
+            mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+		    break;
         case PM_HEALER:
             mkmonmoney(mtmp, (long) rn1(1000, 1001));
             ini_mon_inv(mtmp, Healer, 1);

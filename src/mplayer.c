@@ -338,6 +338,7 @@ struct monst *mtmp;
         if (race == PM_DWARF)
             rptr->ralign = 3;
         break;
+    case PM_FLAME_MAGE:
     case PM_WIZARD:
         /* flags for all wizards regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;

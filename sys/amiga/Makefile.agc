@@ -853,6 +853,12 @@ $(SLIB)Hea-goal.lev:	$(DAT)Healer.des $(SBIN)lev_comp
 
 $(IDFILES1):   $(SLIB)Inf-goal.lev
 
+$(HDFILES1):	$(SLIB)Fla-goal.lev
+
+$(SLIB)Fla-goal.lev:	$(DAT)Flame.des $(SBIN)lev_comp
+
+$(IDFILES1):   $(SLIB)Fla-goal.lev
+
 $(SLIB)Inf-goal.lev:   $(DAT)Infidel.des $(SBIN)lev_comp
 
 $(KDFILES1):	$(SLIB)Kni-goal.lev

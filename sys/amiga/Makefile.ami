@@ -1155,6 +1155,12 @@ $(SLIB)Hea-goal.lev:	$(DAT)Healer.des $(SBIN)lev_comp
 #SFD_INSTEAD $(SBIN)lev_comp $(DAT)Healer.des
 #none
 
+$(HDFILES1):	$(SLIB)Fla-goal.lev
+
+$(SLIB)Fla-goal.lev:	$(DAT)Flame.des $(SBIN)lev_comp
+#SFD_INSTEAD $(SBIN)lev_comp $(DAT)Flame.des
+#none
+
 $(IDFILES1):   $(SLIB)Inf-goal.lev
 
 $(SLIB)Inf-goal.lev:   $(DAT)Infidel.des $(SBIN)lev_comp

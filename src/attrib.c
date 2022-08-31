@@ -42,6 +42,10 @@ static const struct innate {
                  { 20, &(HSearching), "perceptive", "unaware" },
                  { 0, 0, 0, 0 } },
 
+  fla_abil[] = { {   1, &(HFire_resistance), "", "" },
+                 {  13, &(HCold_resistance), "warm", "cooler" },
+                 {   0, 0, 0, 0 } },
+  
   hea_abil[] = { { 3, &(HPoison_resistance), "healthy", "" },
                  { 15, &(HSick_resistance), "hale", "" },
                  { 0, 0, 0, 0 } },
@@ -806,6 +810,7 @@ int r;
         { PM_BARBARIAN, bar_abil },
         { PM_CAVEMAN, cav_abil },
         { PM_CONVICT, con_abil},
+        { PM_FLAME_MAGE, fla_abil },
         { PM_HEALER, hea_abil },
         { PM_INFIDEL, inf_abil },
         { PM_KNIGHT, kni_abil },

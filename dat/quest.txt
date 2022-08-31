@@ -1226,6 +1226,263 @@ the Astral plane.  There you must offer the Amulet
 to %d."
 %E ["Take the amulet to the Astral plane and offer it to %d."]
 #
+#	Flame Mage
+#
+%Cc Fla 00001
+Waves of blistering heat ripple off of the lava-covered landscape that
+surrounds you.  Off in the distance, you can see the craggy rocks
+of %H.
+
+Suddenly, the hairs on your neck stand on end as you detect a faint hint of
+evil moisture in the air.
+
+%E
+%Cp Fla 00002
+Once again, you near %H.  You know that %l
+will be waiting.
+%E
+%Cp Fla 00003
+Again, and you think possibly for the last time, you approach
+%H.
+%E
+%Cp Fla 00005
+"The battles here have been good -- our enemies' blood has boiled away!"
+%E
+%Cp Fla 00006
+"May your days always be warm!"
+%E
+%Cp Fla 00007
+"We have had trouble concentrating on our studies!"
+%E
+%Cp Fla 00008
+"The water elementals are fierce, but they boil away under our fire!"
+%E
+%Cp Fla 00009
+"%lC is a strange one, but he has helped defend us."
+%E
+%Cp Fla 00010
+"The battles here have been good -- our enemies' blood has boiled away!"
+%E
+%Cp Fla 00011
+"May your days always be warm!"
+%E
+%Cp Fla 00012
+"Since the defeat of the hoarde, all can concentrate fully on our studies!"
+%E
+%Cp Fla 00013
+"I'm taking my holidays in Gehennom this year - very warm there, supposedly"
+%E
+%Cp Fla 00014
+"Have you noticed how much stronger %l is since %o was recovered?"
+%E
+%Cc Fla 00015
+"Ah, %p.  You have returned at last.  The world is in dire
+need of your help.  There is a great quest you must undertake.
+
+"But first, I must see if you are ready to take on such a challenge."
+%E
+%Cp Fla 00016
+"%p, you are back.  Are you ready now for the challenge?"
+%E
+%Cp Fla 00017
+"Again, you stand before me, %p.  Surely you have prepared yourself."
+%E
+%Cc Fla 00018
+"Pah!  You have betrayed the gods, %p.  You will never attain
+the glory which you aspire to.  Your failure to follow the true path has
+closed this future to you.
+
+"I will protect these people as best I can, but soon %n will overcome
+me and destroy all who once called you %s.  Now begone!"
+%E
+%Cc Fla 00019
+"%p, I fear that you are as yet too inexperienced to face
+%n.  Only %Ra with the help of %d could ever hope to
+defeat him."
+%E
+%Cp Fla 00020
+"%p!  You have wandered from the path of the %a!
+If you attempt to overcome %n in this state, he will surely
+enslave your soul.  Your only hope, and ours, lies in your purification.
+Go forth, and return when you feel ready."
+%E
+%Cc Fla 00021
+"The world is in great need of your assistance, %p.
+
+"About six months ago, I learned that a mysterious sorcerer, known
+as %n, had begun to summon horrible elementals from the plane of 
+Water.
+
+"%nC and his hordes of elementals swept down upon %H and stole
+%o, and seeks to bend it to his will.  
+After many brave wizards were slain by his watery servants, I
+sent forth a summons for you!
+
+"If %n can bend %o to his will, he will become
+almost indestructible.  He will then be able to enslave our elementals,
+and destroy us.  You are our only hope.  The gods smile upon you,
+and with %d behind you, you alone can defeat %n.
+
+"You must go to %i.  From there, you can track down
+%n, defeat him, and return %o to us.  Only
+then will the world be safe."
+%E
+%Cp Fla 00025
+"%n is strong in the dark arts, but not immune to cold steel."
+%E
+%Cp Fla 00026
+"Remember that %n is a great sorcerer.  He lived in the time
+of Atlantis."
+%E
+%Cp Fla 00027
+"If you fail, %p, I will not be able to protect these people long."
+%E
+%Cp Fla 00028
+"To enter %i, you must be very stealthy.  The elementals will be on
+guard."
+%E
+%Cp Fla 00029
+"Call upon %d in your time of need."
+%E
+%Cp Fla 00030
+"May %d protect you, and guide your steps."
+%E
+%Cp Fla 00031
+"If you can lay hands upon %o, carry it for good fortune."
+%E
+%Cp Fla 00032
+"I cannot stand against %ns sorcery.  But %d will help you."
+%E
+%Cp Fla 00033
+"Do not fear %n.  I know you can defeat him."
+%E
+%Cp Fla 00034
+"You have a great road to travel, %p, but only after you defeat
+%n."
+%E
+%Cc Fla 00035
+The soggy scent of water comes to you in the breeze.  You know that
+you have located %i.
+%E
+%Cp Fla 00036
+Yet again you have a chance to infiltrate %i.
+%E
+%Cc Fla 00040
+You sense an evil energy in the very air around you.  You fight
+down a primordial panic that seeks to make you turn and run.
+This is surely the lair of %n.
+%E
+%Cp Fla 00041
+Yet again you feel the air around you heavy with malevolent magical energy.
+%E
+%Cc Fla 00050
+"So.  This is what that second rate sorcerer %l sends to do his bidding.
+I have slain many before you.  You shall give me little sport.
+
+"Prepare to die, %c."
+%E
+%Cp Fla 00051
+"I have wasted too much time on you already.  Now, you shall die."
+%E
+%Cp Fla 00052
+"You return yet again, %c!  Are you prepared for death now?"
+%E
+%Cp Fla 00053
+"I shall have %o back, you pitiful excuse for %ca.
+And your life as well."
+%E
+%Cp Fla 00060
+"My pets will dine on your carcass tonight!"
+%E
+%Cp Fla 00061
+"You are a sorry excuse for %ra."
+%E
+%Cp Fla 00062
+"Run while you can, %c.  My next spell will be your last."
+%E
+%Cp Fla 00063
+"I shall use your very skin to bind my next grimoire."
+%E
+%Cp Fla 00064
+"%d cannot protect you now.  Here, you die."
+%E
+%Cp Fla 00065
+"Your %a nature makes you weak.  You cannot defeat me."
+%E
+%Cp Fla 00066
+"Come, %c.  I shall kill you, then unleash the horde on your people."
+%E
+%Cp Fla 00067
+"Once you are dead, my horde shall finish off %l, and your people."
+%E
+%Cp Fla 00068
+"Fight, %c, or are you afraid of the mighty %nt?"
+%E
+%Cp Fla 00069
+"You have failed, %c.  Now, my victory is complete."
+%E
+%Cc Fla 00070
+As you pick up %o, you feel the power of it
+flowing through your hands.  It seems to be in two or more places
+at once, even though you are holding it.
+%E
+%Cp Fla 00080
+%n falls to the ground, and utters a last curse at you.  Then his
+body fades slowly, seemingly dispersing into the air around you.  You
+slowly become aware that the overpowering aura of magic in the air has
+begun to fade.
+%E
+%Cc Fla 00081
+When %l sees %o, he smiles, and says:
+
+    Well done, %p.  You have saved the world from certain doom.
+    What, now, should be done with %o?
+
+    These wizards, brave as they are, cannot hope to guard it from
+    other sorcerers who will detect it, as surely as %n did.
+
+    Take %o with you, %p.  It will guard you in
+    your adventures, and you can best guard it.  You embark on a
+    quest far greater than you realize.
+
+    Remember me, %p, and return when you have triumphed.  I
+    will tell you then of what you must do.  You will understand when the
+    time comes.
+%E
+%Cc Fla 00082
+%l gazes at %o warmly for a moment, then looks at you.
+
+"You are its keeper now, and the time has come to resume your search
+for the Amulet.  %Z await your return through the
+magic portal which brought you here."
+%E
+%Cp Fla 00090
+"Tell us, %p, have you fared well on your great quest?"
+%E
+%Cc Fla 00091
+"This is wondrous, %p.  I feared that you could not possibly
+succeed in your quest, but here you are in possession of the Amulet
+of Yendor!
+
+"I have studied the texts of the magi constantly since you left.  In
+the Book of Skelos, I found this:
+
+    %d will cause a child to be sent into the world.  This child is to
+    be made strong by trial of battle and magic, for %d has willed it so.
+    It is said that the child of %d will recover the Amulet of Yendor
+    that was stolen from the Creator at the beginning of time.
+
+"As you now possess the amulet, %p, I suspect that the Book
+speaks of you.
+
+    The child of %d will take the Amulet, and travel to the Astral
+    Plane, where the Great Temple of %d is to be found.  The Amulet
+    will be sacrificed to %d, there on His altar.  Then the child will
+    stand by %d as champion of all %cP for eternity.
+
+"This is all I know, %p.  I hope it will help you."
+%E
+#
 #	Healer
 #
 %Cc Hea 00001

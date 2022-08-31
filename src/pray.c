@@ -2166,8 +2166,8 @@ dosacrifice()
             boolean primary_casters, primary_casters_priest;
 
             /* Primary casting roles */
-            primary_casters = Role_if(PM_HEALER)
-                                      || Role_if(PM_WIZARD) || Role_if(PM_INFIDEL);
+            primary_casters = Role_if(PM_HEALER) || Role_if(PM_FLAME_MAGE) 
+                              || Role_if(PM_WIZARD) || Role_if(PM_INFIDEL);
             primary_casters_priest = Role_if(PM_PRIEST);
 
             /* you were already in pretty good standing
