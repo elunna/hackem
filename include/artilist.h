@@ -462,8 +462,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     */
     A("The Stake of Van Helsing", WOODEN_STAKE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 0, 0,
-      PHYS(5,12),    NO_DFNS,        CARY(AD_MAGM),
-      0, A_LAWFUL, NON_PM, NON_PM, 5000L, NO_COLOR),
+      PHYS(5, 12), NO_DFNS, CARY(AD_MAGM), 0, A_LAWFUL, 
+      NON_PM, NON_PM, 5000L, NO_COLOR),
 
 #if 0 /* Replaced by Gjallar */
     A("The Orb of Fate", CRYSTAL_BALL,
@@ -481,6 +481,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_EREGEN | SPFX_HSPDAM), 0,
       NO_ATTK, DFNS(AD_MAGM), NO_CARY, CREATE_PORTAL, A_NEUTRAL, PM_WIZARD,
       NON_PM, 4000L, NO_COLOR),
+    
+    A("The Crown of Saint Edward", HELM_OF_TELEPATHY,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_HSPDAM), 0,
+      NO_ATTK, NO_DFNS, CARY(AD_MAGM), 0,  
+      A_LAWFUL, PM_YEOMAN, NON_PM, 5000L, NO_COLOR ),
+    
     /*
      *      Based loosely off of the Ring of P'hul - from 'The Lords of Dus' series
      *      by Lawrence Watt-Evans. This is another one of those artifacts that would
