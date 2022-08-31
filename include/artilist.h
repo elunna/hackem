@@ -174,7 +174,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5,14), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR),
 
     A("Deep Freeze", STAFF_OF_ESCAPE, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      COLD(5,5), DFNS(AD_COLD), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 400L, CLR_BLUE),
+      COLD(5,5), DFNS(AD_COLD), NO_CARY, 0, A_CHAOTIC, PM_ICE_MAGE, NON_PM, 400L, CLR_BLUE),
 
     /* From SporkHack, but with a twist. This is the anti-Excalibur. */
     A("Dirge", LONG_SWORD,

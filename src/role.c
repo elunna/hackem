@@ -186,6 +186,40 @@ const struct Role roles[] = {
       A_INT,
       SPE_TELEPORT_AWAY,
       -4 },
+    { { "Flame Mage", 0 }, {
+            { "Spark",         0 },   /* WAC was Igniter */
+            { "Igniter",       0 },
+            { "Broiler",       0 },   /* WAC was Igniter */
+            { "Combuster",     0 },   /* WAC was Torcher */
+            { "Torcher",       0 },
+            { "Scorcher",      0 },   /* WAC was Torcher */
+            { "Incinerator",   0 },
+            { "Disintegrator", 0 },   /* WAC was Incinerator */
+            { "Flame-Master",  0 } },
+        "Earth", "Fire", "Ash", /* Special */
+        "Fla", "the great Circle of Flame", "the Water Mage's Cave",
+        PM_FLAME_MAGE, 
+        NON_PM, 
+        PM_HELL_HOUND_PUP,
+        PM_HIGH_FLAME_MAGE, 
+        PM_IGNITER,
+        PM_WATER_MAGE,
+        PM_WATER_ELEMENTAL, 
+        PM_RUST_MONSTER, 
+        S_ELEMENTAL, 
+        S_RUSTMONST,
+        ART_CANDLE_OF_ETERNAL_FLAME,
+        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT,
+        ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+        {   7, 10,  7,  7,  7,  7 },
+        {  10, 30, 10, 20, 20, 10 },
+        /* Init   Lower  Higher */
+        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+        {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
+        0, 1, 0, 
+        2, 10, A_INT, SPE_FIREBALL,        -4 /* From old role.c */
+    },
     { { "Healer", 0 },
       { { "Rhizotomist", 0 },
         { "Empiric", 0 },
@@ -229,6 +263,41 @@ const struct Role roles[] = {
       A_WIS,
       SPE_CURE_SICKNESS,
       -4 },
+    { { "Ice Mage", 0}, {
+            { "Cooler",        0 },   /* WAC was Chiller */
+            { "Condenser",     0 },   /* WAC was Chiller */
+            { "Chiller",       0 },
+            { "Froster",       0 },
+            { "Permafroster",  0 },   /* WAC was Froster */
+            { "Icer",          0 },   /* WAC was Froster */
+            { "Freezer",       0 },
+            { "Sublimer",      0 },   /* WAC was Freezer */
+            { "Ice-Master",    0 } },
+        "Air", "Frost", "Smoke", /* Special */
+        "Ice", "the great Ring of Ice", "the Earth Mage's Cave",
+        PM_ICE_MAGE, 
+        NON_PM, 
+        PM_WINTER_WOLF_CUB,
+        PM_HIGH_ICE_MAGE, 
+        PM_FROSTER, 
+        PM_EARTH_MAGE,
+        PM_RUST_MONSTER, 
+        PM_XORN, 
+        S_RUSTMONST, 
+        S_XORN,
+        ART_STORM_WHISTLE,
+        /* --hackem: Removed MH_VAMPIRE */
+        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT, 
+        ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+        {   7, 10,  7,  7,  7,  7 },
+        {  10, 30, 10, 20, 20, 10 },
+        /* Init   Lower  Higher */
+        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+        {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
+        0, 1, 0, 
+        2, 10, A_INT, SPE_CONE_OF_COLD,    -4 /* From old role.c */
+    },
     { { "Infidel", 0 },
       { { "Apostate", 0 },
         { "Heathen", 0 },
@@ -644,8 +713,10 @@ const struct Role roles[] = {
       PM_WIZARD,
       NON_PM,
       PM_PSEUDODRAGON,
+      
       PM_NEFERET_THE_GREEN,
       PM_APPRENTICE,
+      
       PM_DARK_ONE,
       PM_VAMPIRE_BAT,
       PM_XORN,
@@ -670,37 +741,6 @@ const struct Role roles[] = {
       A_INT,
       SPE_MAGIC_MISSILE,
       -4 },
-    { { "Flame Mage", 0 }, {
-            { "Spark",         0 },   /* WAC was Igniter */
-            { "Igniter",       0 },
-            { "Broiler",       0 },   /* WAC was Igniter */
-            { "Combuster",     0 },   /* WAC was Torcher */
-            { "Torcher",       0 },
-            { "Scorcher",      0 },   /* WAC was Torcher */
-            { "Incinerator",   0 },
-            { "Disintegrator", 0 },   /* WAC was Incinerator */
-            { "Flame-Master",  0 } },
-        "Earth", "Fire", "Ash", /* Special */
-        "Fla", "the great Circle of Flame", "the Water Mage's Cave",
-        PM_FLAME_MAGE, NON_PM, PM_HELL_HOUND_PUP,
-        PM_HIGH_FLAME_MAGE, PM_IGNITER, PM_WATER_MAGE,
-        PM_WATER_ELEMENTAL, PM_RUST_MONSTER, S_ELEMENTAL, S_RUSTMONST,
-#if 0
-	ART_FIREWALL, ART_FIRE_BRAND,
-#endif
-        ART_CANDLE_OF_ETERNAL_FLAME,
-        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT | 
-            ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
-        
-        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
-        {   7, 10,  7,  7,  7,  7 },
-        {  10, 30, 10, 20, 20, 10 },
-        /* Init   Lower  Higher */
-        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-        {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
-        0, 1, 0, 
-        2, 10, A_INT, SPE_FIREBALL,        -4 /* From old role.c */
-    },
     /* Array terminator */
     { { 0, 0 } }
 };

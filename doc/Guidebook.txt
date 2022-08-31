@@ -110,6 +110,10 @@
           practice earns them quite reasonable amounts of money, with which
           they enter the dungeon.
 
+               Ice Mages command the forces of cold.  An  experienced  Mage
+          can  summon  great blizzards yet remain unaffected by the turmoil
+          of the elements.
+
                Knights are distinguished  from  the  common  skirmisher  by
           their  devotion  to  the ideals of chivalry and by the surpassing
           excellence of their armor.

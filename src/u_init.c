@@ -63,18 +63,19 @@ struct trobj Convict[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Flame_Mage[] = {
-#define F_BOOK          9
-	{ QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },        /* for dealing with ghosts */
-	{ STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
-	{ UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 1, UNDEF_BLESS },
-	{ UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
-	{ WAN_FIRE, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
-	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
-	{ SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-	{ SPE_FIREBALL, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-	{ UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-  	{ 0, 0, 0, 0, 0 }
+#define F_BOOK 9
+    /* for dealing with ghosts */
+    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },        
+    { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
+    { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { WAN_FIRE, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { SPE_FIREBALL, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { 0, 0, 0, 0, 0 }
 };
 struct trobj Healer[] = {
     { SCALPEL, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
@@ -90,6 +91,21 @@ struct trobj Healer[] = {
     { SPE_EXTRA_HEALING, 0, SPBOOK_CLASS, 1, 1 },
     { SPE_STONE_TO_FLESH, 0, SPBOOK_CLASS, 1, 1 },
     { APPLE, 0, FOOD_CLASS, 5, 0 },
+    { 0, 0, 0, 0, 0 }
+};
+static struct trobj Ice_Mage[] = {
+#define I_BOOK          9
+    /* for dealing with ghosts */
+    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
+    { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
+    { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { WAN_COLD, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
@@ -450,6 +466,32 @@ static const struct def_skill Skill_H[] = {
     { P_CLERIC_SPELL, P_SKILLED },
     { P_RIDING, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_BASIC },
+    { P_NONE, 0 }
+};
+static const struct def_skill Skill_I[] = {
+/*Resorts mostly to stabbing weapons*/
+    { P_DAGGER, P_EXPERT },             { P_KNIFE,  P_SKILLED },
+/*  { P_AXE, P_BASIC },                 { P_PICK_AXE, P_BASIC },
+    { P_SHORT_SWORD, P_EXPERT },        { P_BROAD_SWORD, P_BASIC },*/
+    { P_LONG_SWORD, P_SKILLED },      /*{ P_TWO_HANDED_SWORD, P_BASIC },
+    { P_SCIMITAR, P_SKILLED },          { P_SABER, P_SKILLED },
+    { P_MACE, P_BASIC },                { P_MORNING_STAR, P_BASIC },
+    { P_FLAIL, P_BASIC },               { P_HAMMER, P_BASIC },*/
+    { P_QUARTERSTAFF, P_SKILLED },      { P_POLEARMS, P_BASIC },
+    { P_SPEAR, P_BASIC },             /*{ P_JAVELIN, P_BASIC },*/
+    { P_TRIDENT, P_BASIC },             { P_LANCE, P_BASIC },
+/*  { P_BOW, P_BASIC },                 { P_SLING, P_BASIC },
+    { P_CROSSBOW, P_BASIC },            { P_DART, P_EXPERT },
+    { P_SHURIKEN, P_BASIC },            { P_BOOMERANG, P_BASIC },*/
+    { P_WHIP, P_BASIC },                { P_UNICORN_HORN, P_SKILLED },
+
+    { P_ATTACK_SPELL, P_BASIC },        { P_HEALING_SPELL, P_SKILLED },
+    { P_DIVINATION_SPELL, P_BASIC },    { P_ENCHANTMENT_SPELL, P_EXPERT },
+    { P_CLERIC_SPELL, P_SKILLED },      { P_ESCAPE_SPELL, P_BASIC },
+    { P_MATTER_SPELL, P_EXPERT },
+    /*WAC - same as Flame Mage*/
+    { P_RIDING, P_SKILLED },
+    { P_TWO_WEAPON_COMBAT, P_SKILLED }, { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_Inf[] = {
@@ -855,18 +897,42 @@ u_init()
         skill_init(Skill_C);
         break;
     case PM_FLAME_MAGE:
-		switch (rnd(2)) {                
-			case 1: Flame_Mage[F_BOOK].trotyp = SPE_DETECT_MONSTERS; break;
-			case 2: Flame_Mage[F_BOOK].trotyp = SPE_LIGHT; break;
-			default: break;
-		}
-		ini_inv(Flame_Mage);
-		if(!rn2(5)) 
+        switch (rnd(2)) {                
+            case 1: 
+                Flame_Mage[F_BOOK].trotyp = SPE_DETECT_MONSTERS; 
+                break;
+            case 2: 
+                Flame_Mage[F_BOOK].trotyp = SPE_LIGHT; 
+                break;
+            default: 
+                break;
+        }
+        ini_inv(Flame_Mage);
+        if(!rn2(5)) 
             ini_inv(Lamp);
-		else if(!rn2(5)) 
+        else if (!rn2(5)) 
             ini_inv(Blindfold);
-		skill_init(Skill_F);
-		break;
+        skill_init(Skill_F);
+        break;
+    case PM_ICE_MAGE:
+        switch (rnd(2)) {            
+        case 1: 
+            Ice_Mage[I_BOOK].trotyp = SPE_CONFUSE_MONSTER; 
+            break;
+        case 2: 
+            Ice_Mage[I_BOOK].trotyp = SPE_SLOW_MONSTER; 
+            break;
+        default: 
+            break;
+        }
+        ini_inv(Ice_Mage);
+        if(!rn2(5)) 
+            ini_inv(Lamp);
+        else if(!rn2(5)) 
+            ini_inv(Blindfold);
+        skill_init(Skill_I);
+        break;
+
     case PM_CONVICT:
         ini_inv(Convict);
         if (Race_if(PM_ILLITHID))
@@ -1168,8 +1234,10 @@ u_init()
 
     case PM_ORC:
         /* compensate for generally inferior equipment */
-        if (!Role_if(PM_WIZARD) && !Role_if(PM_CONVICT)
-            && !Role_if(PM_FLAME_MAGE))
+        if (!Role_if(PM_WIZARD) 
+              && !Role_if(PM_CONVICT)
+              && !Role_if(PM_FLAME_MAGE) 
+              && !Role_if(PM_ICE_MAGE))
             ini_inv(Xtra_food);
         /* Orcs can recognize all orcish objects */
         knows_object(ORCISH_SHORT_SWORD);
@@ -1440,9 +1508,11 @@ int otyp;
     case PM_CONVICT:
         skills = Skill_Con;
         break;
+    #if 0 /* Wait to see if we need this */
     case PM_FLAME_MAGE:
         skills = Skill_F;
         break;
+    #endif
     case PM_HEALER:
         skills = Skill_H;
         break;
@@ -1537,8 +1607,8 @@ register struct trobj *origtrop;
                    || otyp == WAN_NOTHING
                    /* Elemental mage stuff */
                    || ((Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE))
-					    && (otyp == RIN_FIRE_RESISTANCE 
-                            || otyp == RIN_COLD_RESISTANCE))
+                       && (otyp == RIN_FIRE_RESISTANCE 
+                           || otyp == RIN_COLD_RESISTANCE))
 
                    /* Necromancers start with drain res */
 				    || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))

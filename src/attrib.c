@@ -50,6 +50,10 @@ static const struct innate {
                  { 15, &(HSick_resistance), "hale", "" },
                  { 0, 0, 0, 0 } },
 
+  ice_abil[] = { { 1, &(HCold_resistance), "", "" },
+		         { 13, &(HFire_resistance), "cool", "warmer" },
+		         { 0, 0, 0, 0 } },
+
   inf_abil[] = { { 1, &(HFire_resistance), "", "" },
                  { 15, &(HWarning), "sensitive", "" },
                  { 20, &(HShock_resistance), "insulated", "conductive" },
@@ -812,6 +816,7 @@ int r;
         { PM_CONVICT, con_abil},
         { PM_FLAME_MAGE, fla_abil },
         { PM_HEALER, hea_abil },
+        { PM_ICE_MAGE, ice_abil },
         { PM_INFIDEL, inf_abil },
         { PM_KNIGHT, kni_abil },
         { PM_MONK, mon_abil },

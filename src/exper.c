@@ -30,6 +30,7 @@ int en;
     switch (Role_switch) {
     /* WAC 'F' and 'I' get bonus similar to 'W' */
     case PM_FLAME_MAGE:
+    case PM_ICE_MAGE:
     case PM_PRIEST:
     case PM_WIZARD:
         return (2 * en);

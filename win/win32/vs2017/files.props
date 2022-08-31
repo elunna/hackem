@@ -38,6 +38,7 @@
     <Desfiles Include = "endgame.des"/>
     <Desfiles Include = "gehennom.des"/>
     <Desfiles Include = "healer.des"/>
+    <Desfiles Include = "ice.des"/>
     <Desfiles Include = "icequeen.des"/>
     <Desfiles Include = "infidel.des"/>
     <Desfiles Include = "knight.des"/>

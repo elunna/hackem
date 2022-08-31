@@ -1393,6 +1393,8 @@ $(HFILES) : $(DAT)\Flame.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Fla QF=Flame do_quest
 $(HFILES) : $(DAT)\Healer.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Hea QF=Healer do_quest
+$(HFILES) : $(DAT)\Ice.des $(TEMP)\lev_comp.exe
+	$(MAKEB) QQ=Ice QF=Ice do_quest
 $(IFILES) : $(DAT)\Infidel.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Inf QF=Infidel do_quest
 $(KFILES) : $(DAT)\Knight.des $(TEMP)\lev_comp.exe

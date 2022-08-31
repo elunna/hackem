@@ -268,7 +268,7 @@ char **argv;
         "lev_comp", /* dummy argv[0] */
         ":dat:Arch.des",     ":dat:Barb.des",       ":dat:Caveman.des",
         ":dat:Convict.des",  ":dat:Healer.des",     ":dat:Infidel.des",
-        ":dat:Flame.des",
+        ":dat:Flame.des",    ":dat:Ice.des",
         ":dat:Knight.des",   ":dat:Monk.des",       ":dat:Priest.des",
         ":dat:Ranger.des",   ":dat:Rogue.des",      ":dat:Samurai.des",
         ":dat:Tourist.des",  ":dat:Valkyrie.des",   ":dat:Wizard.des",

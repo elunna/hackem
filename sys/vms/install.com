@@ -46,7 +46,7 @@ $	spec_input = "bigroom.des castle.des endgame.des " -
 		   + "oracle.des sokoban.des tower.des yendor.des"
 $	qstl_files = "%%%-GOAL.LEV,%%%-FIL%.LEV,%%%-LOCA.LEV,%%%-STRT.LEV"
 $	qstl_input = "Arch.des Barb.des Caveman.des Convict.des Healer.des " -
-		   + "Flame.des " -
+		   + "Flame.des Ice.des " -
 		   + "Infidel.des Knight.des Monk.des Priest.des Ranger.des " -
 		   + "Rogue.des Samurai.des Tourist.des Wizard.des Valkyrie.des"
 $	dngn_files = "DUNGEON."

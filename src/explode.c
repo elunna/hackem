@@ -76,6 +76,7 @@ int expltype;
         switch (Role_switch) {
         /*WAC add Flame,  Ice mages,  Necromancer */
 		case PM_FLAME_MAGE:
+        case PM_ICE_MAGE:
         case PM_PRIEST:
         case PM_MONK:
         case PM_WIZARD:
