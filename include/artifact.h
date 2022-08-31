@@ -71,7 +71,8 @@ enum invoke_prop_types {
     CHANNEL,
     DEATH_MAGIC,
     LIGHT_AREA,
-    SUMMON_FIRE_ELEMENTAL
+    SUMMON_FIRE_ELEMENTAL,
+    SUMMON_WATER_ELEMENTAL
 };
 
 #endif /* ARTIFACT_H */
