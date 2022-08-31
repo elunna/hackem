@@ -43,7 +43,9 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
 
   fla_abil[] = { {   1, &(HFire_resistance), "", "" },
+#if 0 /* --hackem: Disabling cold res for an extra challenge. */
                  {  13, &(HCold_resistance), "warm", "cooler" },
+#endif
                  {   0, 0, 0, 0 } },
   
   hea_abil[] = { { 3, &(HPoison_resistance), "healthy", "" },
@@ -51,8 +53,10 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
 
   ice_abil[] = { { 1, &(HCold_resistance), "", "" },
-		         { 13, &(HFire_resistance), "cool", "warmer" },
-		         { 0, 0, 0, 0 } },
+#if 0 /* --hackem: Disabling cold res for an extra challenge. */
+                 { 13, &(HFire_resistance), "cool", "warmer" },
+#endif
+                 { 0, 0, 0, 0 } },
 
   inf_abil[] = { { 1, &(HFire_resistance), "", "" },
                  { 15, &(HWarning), "sensitive", "" },
