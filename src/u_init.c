@@ -1170,11 +1170,12 @@ u_init()
         break;
 
     case PM_UNDEAD_SLAYER:
-		switch (rn2(100) / 25) {
+        switch (rn2(100) / 25) {
         case 0:	/* Pistol and silver bullets */
             UndeadSlayer[U_MINOR].trotyp = PISTOL;
             /*UndeadSlayer[U_RANGE].trotyp = SILVER_BULLET; */
             UndeadSlayer[U_RANGE].trotyp = BULLET;
+            
             UndeadSlayer[U_RANGE].trquan = rn1(10, 30);
             break;
         case 1:	/* Crossbow and bolts */
@@ -1191,14 +1192,14 @@ u_init()
             break;
         case 3:	/* Silver spear and daggers */
             break;
-		}
-		ini_inv(UndeadSlayer);
-		knows_class(WEAPON_CLASS);
-		knows_class(ARMOR_CLASS);
-		if (!rn2(6)) 
+        }
+        ini_inv(UndeadSlayer);
+        knows_class(WEAPON_CLASS);
+        knows_class(ARMOR_CLASS);
+        if (!rn2(6)) 
             ini_inv(Lamp);
-		skill_init(Skill_U);
-		break;
+        skill_init(Skill_U);
+        break;
     case PM_VALKYRIE:
         ini_inv(Valkyrie);
         if (!rn2(6))
@@ -1881,6 +1882,18 @@ register struct trobj *origtrop;
             if (Role_if(PM_INFIDEL) && obj->oclass == ARMOR_CLASS) {
                 /* Infidels are used to playing with fire */
                 obj->oerodeproof = 1;
+            }
+            
+            /* --hackem: Undead Slayers get special silver weapons.
+             * Before the object materials patch this was easy, but 
+             * looks like we'll just do it here. */
+            if (Role_if(PM_UNDEAD_SLAYER)) { 
+                if (obj->otyp == SPEAR 
+                    || obj->otyp == DAGGER
+                    || obj->otyp == BULLET)
+                    set_material(obj, SILVER);
+                if (obj->otyp == JACKET) 
+                    set_material(obj, LEATHER);
             }
             if (obj->otyp == STRIPED_SHIRT)
                 obj->cursed = TRUE;
