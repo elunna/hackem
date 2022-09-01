@@ -597,7 +597,8 @@ $(HOST_O)panic.o: $(CONFIG_H) $(U)panic.c
 #	$(DAT)/medusa.des  $(DAT)/oracle.des   $(DAT)/tower.des \
 #	$(DAT)/yendor.des  $(DAT)/arch.des     $(DAT)/barb.des \
 #	$(DAT)/caveman.des   $(DAT)/healer.des   $(DAT)/knight.des \
-#   $(DAT)/flame.des     $(DAT)/ice.des \
+#   $(DAT)/flame.des     $(DAT)/ice.des     $(DAT)/necro.des \
+#   $(DAT)/slayer.des \
 #	$(DAT)/monk.des      $(DAT)/priest.des   $(DAT)/ranger.des \
 #	$(DAT)/rogue.des     $(DAT)/samurai.des  $(DAT)/tourist.des \
 #	$(DAT)/valkyrie.des  $(DAT)/wizard.des
@@ -621,10 +622,12 @@ $(HOST_O)panic.o: $(CONFIG_H) $(U)panic.c
 #	$(U)lev_comp healer.des
 #	$(U)lev_comp knight.des
 #	$(U)lev_comp monk.des
+#	$(U)lev_comp necro.des
 #	$(U)lev_comp priest.des
 #	$(U)lev_comp ranger.des
 #	$(U)lev_comp rogue.des
 #	$(U)lev_comp samurai.des
+#	$(U)lev_comp slayer.des
 #	$(U)lev_comp tourist.des
 #	$(U)lev_comp valkyrie.des
 #	$(U)lev_comp wizard.des

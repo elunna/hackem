@@ -217,6 +217,25 @@ struct trobj Tourist[] = {
     { CREDIT_CARD, 0, TOOL_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
+static struct trobj UndeadSlayer[] = {
+#define U_MINOR 1       /* silver spear or whip [Castlevania] 25/25% */
+                        /* crossbow 50% [Buffy] */
+#define U_RANGE 2       /* silver daggers or crossbow bolts */
+#define U_MISC  3       /* +1 boots [Buffy can kick] or helmet */
+#define U_ARMOR 4       /* Tshirt/leather +1 or chain mail */
+	{ WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+	/*{ SILVER_SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },*/
+	/*{ SILVER_DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },*/
+        { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+        { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
+	{ HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ CHAIN_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
+	{ SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 5, 1 },
+	{ HOLY_WAFER, 0, FOOD_CLASS, 4, 0 },
+	{ POT_WATER, 0, POTION_CLASS, 4, 1 },        /* holy water */
+	{ 0, 0, 0, 0, 0 }
+};
 struct trobj Valkyrie[] = {
     { LONG_SWORD, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
@@ -733,6 +752,39 @@ static const struct def_skill Skill_T[] = {
     { P_FIREARM, P_BASIC },
     { P_NONE, 0 }
 };
+
+static const struct def_skill Skill_U[] = {
+/*WAC
+ * -made dagger skill expert too,  since it's a starting weapon
+ * -made spear skill Expert rather than Skilled
+ *      Slayer artifact is a spear,  after all
+ * -made crossbow skill Expert - Dracula movies
+ * -changed bare handed basic to martial arts master-Buffy the Vampire Slayer
+ * -Added whip Expert - Castlevania
+ * -made club, flail, mace, morning star, hammer, quarterstaff Skilled
+        from Expert to balance
+ * -removed Trident skill - from Skilled to Restricted
+ * -removed Lance skill - from Basic to Restricted
+ */
+    { P_DAGGER, P_EXPERT },             { P_LONG_SWORD, P_SKILLED },
+    { P_CLUB, P_SKILLED },              /*{ P_PADDLE, P_SKILLED },*/
+    { P_MACE, P_SKILLED },              { P_MORNING_STAR, P_SKILLED },
+    { P_FLAIL, P_SKILLED },             { P_HAMMER, P_SKILLED },
+    { P_QUARTERSTAFF, P_SKILLED },      { P_POLEARMS, P_SKILLED },
+    { P_SPEAR, P_EXPERT },              /*{ P_JAVELIN, P_SKILLED },*/
+    { P_BOW, P_BASIC },			{ P_SLING, P_BASIC },
+    { P_FIREARM, P_EXPERT },
+    { P_CROSSBOW, P_EXPERT },           { P_DART, P_BASIC },
+    { P_SHURIKEN, P_BASIC },		{ P_BOOMERANG, P_BASIC },
+    { P_WHIP, P_EXPERT },               { P_UNICORN_HORN, P_SKILLED },
+
+    { P_CLERIC_SPELL, P_SKILLED },      { P_ESCAPE_SPELL, P_SKILLED },
+    { P_MATTER_SPELL, P_BASIC },
+/*WAC - added PROTECTION spells,  body spells as skilled, basic
+        matter spells - for the fire vs undead*/
+    { P_BARE_HANDED_COMBAT, P_GRAND_MASTER },    { P_NONE, 0 }
+};
+
 static const struct def_skill Skill_V[] = {
     { P_DAGGER, P_EXPERT },
     { P_AXE, P_EXPERT },
@@ -1116,6 +1168,37 @@ u_init()
             ini_inv(Towel);
         skill_init(Skill_T);
         break;
+
+    case PM_UNDEAD_SLAYER:
+		switch (rn2(100) / 25) {
+        case 0:	/* Pistol and silver bullets */
+            UndeadSlayer[U_MINOR].trotyp = PISTOL;
+            /*UndeadSlayer[U_RANGE].trotyp = SILVER_BULLET; */
+            UndeadSlayer[U_RANGE].trotyp = BULLET;
+            UndeadSlayer[U_RANGE].trquan = rn1(10, 30);
+            break;
+        case 1:	/* Crossbow and bolts */
+            UndeadSlayer[U_MINOR].trotyp = CROSSBOW;
+            UndeadSlayer[U_RANGE].trotyp = CROSSBOW_BOLT;
+            UndeadSlayer[U_RANGE].trquan = rn1(10, 30);
+            UndeadSlayer[U_MISC].trotyp = LOW_BOOTS;
+            UndeadSlayer[U_MISC].trspe = 1;
+            UndeadSlayer[U_ARMOR].trotyp = JACKET;
+            UndeadSlayer[U_ARMOR].trspe = 1;
+        case 2:	/* Whip and daggers */
+            UndeadSlayer[U_MINOR].trotyp = BULLWHIP;
+            UndeadSlayer[U_MINOR].trspe = 2;
+            break;
+        case 3:	/* Silver spear and daggers */
+            break;
+		}
+		ini_inv(UndeadSlayer);
+		knows_class(WEAPON_CLASS);
+		knows_class(ARMOR_CLASS);
+		if (!rn2(6)) 
+            ini_inv(Lamp);
+		skill_init(Skill_U);
+		break;
     case PM_VALKYRIE:
         ini_inv(Valkyrie);
         if (!rn2(6))
@@ -1590,6 +1673,9 @@ int otyp;
         break;
     case PM_TOURIST:
         skills = Skill_T;
+        break;
+    case PM_UNDEAD_SLAYER:
+        skills = Skill_U;
         break;
     case PM_VALKYRIE:
         skills = Skill_V;

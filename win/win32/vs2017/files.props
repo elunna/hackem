@@ -53,6 +53,7 @@
     <Desfiles Include = "ranger.des"/>
     <Desfiles Include = "rogue.des"/>
     <Desfiles Include = "samurai.des"/>
+    <Desfiles Include = "slayer.des"/>
     <Desfiles Include = "sokoban.des"/>
     <Desfiles Include = "tourist.des"/>
     <Desfiles Include = "tower.des"/>

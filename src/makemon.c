@@ -961,6 +961,14 @@ register struct monst *mtmp;
             else if (!rn2(25))
                 ini_mon_inv(mtmp, Towel, 1);
             break;
+        case PM_UNDEAD_SLAYER:
+            (void) mongets(mtmp, SPEAR);
+            received = m_carrying(mtmp, SPEAR);
+            if (received)
+                set_material(received, SILVER);
+            (void) mongets(mtmp, CHAIN_MAIL);
+            mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+            break;
         case PM_VALKYRIE:
             ini_mon_inv(mtmp, Valkyrie, 1);
             ini_mon_inv(mtmp, Lamp, 6);

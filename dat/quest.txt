@@ -1230,7 +1230,7 @@ of %H.
 
 Suddenly, the hairs on your neck stand on end as you detect a faint hint of
 evil moisture in the air.
-%E
+%E [You have arrived at %ls Great Circle of Flame but something is very wrong.]
 %Cp Fla 00002
 Once again, you near %H.  You know that %l
 will be waiting.
@@ -1274,7 +1274,7 @@ Again, and you think possibly for the last time, you approach
 need of your help.  There is a great quest you must undertake.
 
 "But first, I must see if you are ready to take on such a challenge."
-%E
+%E [You have come a long way, but are you ready for the task I require?]
 %Cp Fla 00016
 "%p, you are back.  Are you ready now for the challenge?"
 %E
@@ -1288,18 +1288,18 @@ closed this future to you.
 
 "I will protect these people as best I can, but soon %n will overcome
 me and destroy all who once called you %s.  Now begone!"
-%E
+%E ["Begone with you!"]
 %Cc Fla 00019
 "%p, I fear that you are as yet too inexperienced to face
 %n.  Only %Ra with the help of %d could ever hope to
 defeat him."
-%E
+%E [Go; return when you are %Ra.]
 %Cp Fla 00020
 "%p!  You have wandered from the path of the %a!
 If you attempt to overcome %n in this state, he will surely
 enslave your soul.  Your only hope, and ours, lies in your purification.
 Go forth, and return when you feel ready."
-%E
+%E [Go; come back when you are worthy of %d.]
 %Cc Fla 00021
 "The world is in great need of your assistance, %p.
 
@@ -1320,7 +1320,7 @@ and with %d behind you, you alone can defeat %n.
 "You must go to %i.  From there, you can track down
 %n, defeat him, and return %o to us.  Only
 then will the world be safe."
-%E
+%E [Travel to %i; overcome %n; return with %o.]
 %Cp Fla 00024
 "Remember, you must return with %o so
 that we may lift the curse from the silver bell."
@@ -1378,10 +1378,10 @@ Yet again you feel the air around you heavy with malevolent magical energy.
 I have slain many before you.  You shall give me little sport.
 
 "Prepare to die, %c."
-%E
+%E ["Your destruction should make for little sport."]
 %Cp Fla 00051
 "I have wasted too much time on you already.  Now, you shall die."
-%E
+%E ["Now, you shall die."]
 %Cp Fla 00052
 "You return yet again, %c!  Are you prepared for death now?"
 %E
@@ -1423,18 +1423,18 @@ And your life as well."
 As you pick up %o, you feel the power of it
 flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it.
-%E
+%E [You feel %os power and know you should return %oh to %l.]
 %Cc Fla 00071
 As you pick up %o, you feel the power of it
 flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it.
-%E
+%E [You feel %os power.]
 %Cp Fla 00080
 %n falls to the ground, and utters a last curse at you.  Then his
 body fades slowly, seemingly dispersing into the air around you.  You
 slowly become aware that the overpowering aura of magic in the air has
 begun to fade.
-%E
+%E [%nC curses you as %nh dies.]
 %Cc Fla 00081
 When %l sees %o, he smiles, and says:
 
@@ -1451,14 +1451,14 @@ When %l sees %o, he smiles, and says:
     Remember me, %p, and return when you have triumphed.  I
     will tell you then of what you must do.  You will understand when the
     time comes.
-%E
+%E [Take %o with you in your quest for the Amulet.]
 %Cc Fla 00082
 %l gazes at %o warmly for a moment, then looks at you.
 
 "You are its keeper now, and the time has come to resume your search
 for the Amulet.  %Z await your return through the
 magic portal which brought you here."
-%E
+%E [Keep %o, return through the portal to %Z; find the Amulet.]
 %Cc Fla 00083
 %l gazes intently at %o, then back at you
 
@@ -1500,7 +1500,7 @@ speaks of you.
     stand by %d as champion of all %cP for eternity.
 
 "This is all I know, %p.  I hope it will help you."
-%E
+%E [Take the Amulet to %ds altar on the Astral Plane.]
 #
 #	Healer
 #
@@ -1809,7 +1809,7 @@ Off in the distance, you can see the familiar ice crags that surround
 Suddenly, the hairs on your neck stand on end as you detect the aura of
 evil magic in the air.
 
-%E
+%E [You are at %H; the land is in turmoil.  %lC needs your help!]
 %Cp Ice 00002
 Once again, you near %H.  You know that %l
 will be waiting.
@@ -1853,7 +1853,7 @@ Again, and you think possibly for the last time, you approach
 need of your help.  There is a great quest you must undertake.
 
 "But first, I must see if you are ready to take on such a challenge."
-%E
+%E [You have returned and we need your help.  Are you ready?]
 %Cp Ice 00016
 "%p, you are back.  Are you ready now for the challenge?"
 %E
@@ -1867,18 +1867,18 @@ closed this future to you.
 
 "I will protect my people as best I can, but soon %n will overcome
 me and destroy all who once called you %s.  Now begone!"
-%E
+%E [You are a heretic who has deviated from the teachings of %d.]
 %Cc Ice 00019
 "%p, I fear that you are as yet too inexperienced to face
 %n.  Only %Ra with the help of %d could ever hope to
 defeat him."
-%E
+%E [%rA cannot withstand %n.  Come back when you are %Ra.]
 %Cp Ice 00020
 "%p!  You have wandered from the path of the %a!
 If you attempt to overcome %n in this state, he will surely
 enslave your soul.  Your only hope, and ours, lies in your purification.
 Go forth, and return when you are ready."
-%E
+%E [You have deviated from the path.  Return when you have purified yourself.]
 %Cc Ice 00021
 "The world is in great need of your assistance, %p.
 
@@ -1897,7 +1897,7 @@ and with %d behind you, you alone can defeat %n.
 "You must go to %i.  From there, you can track down
 %n, defeat him, and return %o to us.  Only
 then will the world be safe."
-%E
+%E [%nC invaded %H and captured %o.  Defeat %ni and retrieve %oh.]
 %Cp Ice 00024
 "Remember, you must return with %o so
 that we may lift the curse from the silver bell."
@@ -1936,7 +1936,7 @@ guard."
 %E
 %Cc Ice 00035
 The air is heavy and claustrophobic. You know that you have located %i.
-%E
+%E [You have found %i.  The trail to %n lies ahead.]
 %Cp Ice 00036
 Yet again you have a chance to infiltrate %i.
 %E
@@ -1944,7 +1944,7 @@ Yet again you have a chance to infiltrate %i.
 The hairs on the nape of your neck lift as you sense an energy in the
 very air around you.  You fight down a primordial panic that seeks to
 make you turn and run.  This is surely the lair of %n.
-%E
+%E [The stink of earth and rock surrounds you.]
 %Cp Ice 00041
 Yet again you feel the air around you heavy with malevolent magical energy.
 %E
@@ -1953,7 +1953,7 @@ Yet again you feel the air around you heavy with malevolent magical energy.
 I have slain many before you.  You shall give me little sport.
 
 "Prepare to die, %c."
-%E
+%E  [%lC has sent you, but you are no %gC.  I shall destroy you.]
 %Cp Ice 00051
 "I have wasted too much time on you already.  Now, you shall die."
 %E
@@ -2002,19 +2002,19 @@ at once, even though you are holding it.
 You sense a message from %d.  Though not verbal, you
 get the impression that you must return to %l as soon
 as possible.
-%E
+%E [You feel %d as you pick up %o; return %oh to %l.]
 %Cc Ice 00071
 As you pick up %o, you feel the power of it
 flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it. You know now why %n stole 
 it from %H, for with it, %ca of %d could easily defeat his plans.
-%E
+%E [You feel %d as you pick up %o.]
 %Cp Ice 00080
 %nC falls to the ground, and utters a last curse at you.  Then his
 body fades slowly, seemingly dispersing into the air around you.  You
 slowly become aware that the overpowering aura of magic in the air has
 begun to fade.
-%E
+%E [%nC dies.]
 %Cc Ice 00081
 When %l sees %o, he smiles, and says:
 
@@ -2031,14 +2031,14 @@ When %l sees %o, he smiles, and says:
     Remember me, %p, and return when you have triumphed.  I
     will tell you then of what you must do.  You will understand when the
     time comes.
-%E
+%E [Congratulations, %p.  Keep %o; go and recover the Amulet.]
 %Cc Ice 00082
 %l handles %o for a moment, then looks at you.
 
 "You are its keeper now, and the time has come to resume your search
 for the Amulet.  %Z await your return through the
 magic portal which brought you here."
-%E
+%E [%oC is yours now.  Return to %Z and find the Amulet.]
 %Cc Ice 00083
 "You have returned, %p.  And with %o, I see.
 Congratulations.
@@ -2081,7 +2081,7 @@ speaks of you.
     stand by %d as champion of all %cP for eternity.
 
 "This is all I know, %p.  I hope it will help you."
-%E
+%E [Take the Amulet to the Astral Plane and offer it on %ds altar.]
 #
 #	Infidel
 #
@@ -3030,7 +3030,7 @@ leathery wings.
 
 You know %l would never allow such creatures to approach the
 tower...  unless something were dreadfully wrong!
-%E
+%E [You arrive back at %H and must find %l.]
 %Cp Nec 00002
 Once again, you are back at %H.
 %E
@@ -3077,7 +3077,7 @@ Yes, I see that you have come a long way since you went out into the
 world, leaving the confines of this tower.  However, I must first
 determine if you have all of the skills required to take on the task
 I require of you."
-%E
+%E [%l is weak from the struggle with %n.  %lH wants to examine you.]
 %Cp Nec 00016
 "Well, %p, you have returned.  Perhaps you are now ready..."
 %E
@@ -3088,13 +3088,13 @@ I certainly hope that you are truly ready this time!"
 %Cc Nec 00018
 "You fool, %p!  Why did I waste all of those years teaching you
 the dark arts?  Get out of here!  I shall find another."
-%E
+%E [You are a fool who has deviated from the teachings of %d.]
 %Cc Nec 00019
 "Alas, %p, you have not yet shown your proficiency as a worthy
 necromancer.  As %ra, you would surely be overcome in the challenge
 ahead.  Go, now, expand your horizons, and return when you have attained
 renown as %Ra."
-%E
+%E [%rA cannot withstand %n.  Come back when you are %Ra.]
 %Cc Nec 00020
 "You amaze me, %p!  How many times did I tell you that sorcery
 requires care.  One must maintain the balance of darkness within oneself,
@@ -3102,7 +3102,7 @@ lest one leave it in ruins and simplify the task of %n.
 
 "You must go back and show your worthiness.  Do not return until you are
 truly ready for this quest.  May %d guide you in this task."
-%E
+%E [You have deviated from the path.  Return when you have purified yourself.]
 %Cc Nec 00021
 "Yes, %p, you truly are ready for this dire task.  Listen,
 carefully, for what I tell you now will be of vital importance.
@@ -3122,7 +3122,7 @@ to %n.
 find and overcome %n, and return %o to me.
 
 "Go now, with %d, and return freedom to our tower."
-%E
+%E [%nC invaded %H and captured %o.  Defeat %ni and retrieve %oh.]
 %Cp Nec 00024
 "Remember, you must return with %o so
 that we may lift the curse from the silver bell."
@@ -3160,13 +3160,13 @@ destroy %n."
 %E
 %Cp Nec 00035
 Wisps of dark mist swirl nearby.  You feel that %ns lair is close.
-%E
+%E [You have found %i.  The trail to %n lies ahead.]
 %Cp Nec 00036
 You believe that you may once again invade %i.
 %E
 %Cp Nec 00040
 You feel your mentor's presence; perhaps %o is nearby.
-%E
+%E 
 %Cp Nec 00041
 The aura of %o tingles at the edge of your perception.
 %E
@@ -3177,7 +3177,7 @@ fool to send such a mental weakling against me.
 
 "Your destruction, however, should make for good sport.  In the end, you
 shall beg me to kill you!"
-%E
+%E [%lC has sent you, but you are no %gC.  I shall destroy you.]
 %Cc Nec 00051
 "How nice of you to return, %p!  I enjoyed our last meeting.  Are you
 still hungry for more pain?
@@ -3229,12 +3229,12 @@ As you touch %o, its comforting power infuses you
 with new energy.  Although you yearn to use %o
 to attack the Wizard of Yendor, you know you must return it to its
 rightful owner, %l.
-%E
+%E [You feel %d as you pick up %o; return %oh to %l.]
 %Cc Nec 00071
 As you touch %o, its comforting power infuses you
 with new energy.  You realize that its power is what has protected
 your %sp against their enemies for so long.
-%E
+%E [You feel %d as you pick up %o.]
 %Cc Nec 00080
 %nC croaks out, as his body begins to shrivel up:
 
@@ -3242,7 +3242,7 @@ your %sp against their enemies for so long.
     curses on you and %l.
 
 Then, the body bursts into a cloud of choking dust, and blows away.
-%E
+%E [%nC dies.]
 %Cc Nec 00081
 %lC notices %o in your possession,
 beams at you and says:
@@ -3255,14 +3255,14 @@ beams at you and says:
     its dark mind to yours already.
 
     May %d guide you in your quest, and keep you from harm.
-%E
+%E [Congratulations, %p.  Keep %o; go and recover the Amulet.]
 %Cc Nec 00082
 %l handles %o for a moment, then looks at you.
 
 "You are its keeper now, and the time has come to resume your search
 for the Amulet.  %Z await your return through the
 magic portal which brought you here."
-%E
+%E [%oC is yours now.  Return to %Z and find the Amulet.]
 %Cc Nec 00083
 %l inspects %o reverently.
 
@@ -4704,6 +4704,278 @@ our oral history foretells for you.  Forever more, though, your name shall
 be spoken by the %gP with awe.  You are truly an inspiration to your
 %sp!"
 %E [You have the Amulet.  Take it to the Astral Plane to finish your task.]
+#
+#       Undead Slayer
+#
+%Cc Und 00001
+You find yourself standing in sight of %H.  Something
+is obviously wrong here.  The holy light that usually fills the sky
+is gone, and strange human shapes shamble around outside.
+
+You realize that %l needs your assistance!
+%E [You find yourself back at %H, but it doesn't feel like home anymore.]
+%Cp Und 00002
+Once again, you stand before %H.
+%E
+%Cp Und 00003
+Again you face %H.  Your intuition hints that this may be
+the final time you come here.
+%E
+%Cp Und 00005
+"Greetings, %r.  It is good to see you."
+%E
+%Cp Und 00006
+"Ah, %p!  Surely you can help us in our hour of need."
+%E
+%Cp Und 00007
+"Greetings, %s.  %lC has great need of your help."
+%E
+%Cp Und 00008
+"Alas, it seems as if even %d has deserted us."
+%E
+%Cp Und 00009
+"May %d be with you, %s."
+%E
+%Cp Und 00010
+"Greetings, %r.  It is good to see you."
+%E
+%Cp Und 00011
+"May %d be with you, %s."
+%E
+%Cp Und 00012
+"Have you heard the rumors about the vampire known as 'The Day Walker'
+that stalks his own breed?"
+%E
+%Cp Und 00013
+"With %n destroyed, we are safe once more!"
+%E
+%Cp Und 00014
+"I hear you are to be nominated as next leader of the order!"
+%E
+%Cc Und 00015
+"Ah, %p, my %S.  You have returned to us at last.
+A great blow has befallen our order; perhaps you can help us.
+First, however, I must determine if you are prepared for this
+great challenge."
+%E [Someone must defeat %n.  Are your ready?]
+%Cp Und 00016
+"Again, my %S, you stand before me.  Are you ready now to help us?"
+%E
+%Cp Und 00017
+"Once more, %p, you stand within the sanctum.  Are you ready now?"
+%E
+%Cc Und 00018
+"You are a heretic, %p!  How can you, %ra, deviate so from the
+teachings of %d?  Begone from this temple.  You are no longer
+%sa to this order.  We will pray to %d for other assistance,
+as you have failed us utterly."
+%E [Leave %H and never return.]
+%Cc Und 00019
+"Alas, %p, it is not yet to be.  A mere %r could never
+withstand the might of %n.  Go forth, again into the world, and return
+when you have attained the post of %R."
+%E [Return when you are %Ra.]
+%Cc Und 00020
+"This is terrible, %p.  You have deviated from the true path!
+You know that %d requires the most strident devotion of this
+order.  The %shood must stand for utmost piety.
+
+"Go from here, atone for your sins against %d.  Return only when
+you have purified yourself."
+%E [You are not sufficiently %a.  Return when you are.]
+%Cc Und 00021
+"Yes, %p.  You are truly ready now.  Attend to me and I shall
+tell you of what has transpired:
+
+"Recently, %n and a legion of undead invaded %H.
+Many %gP were killed, and %o was stolen from us!
+
+"Now, there are barely enough %gP left to keep
+the undead at bay.
+
+"We need you to find %i, and then, from there, travel
+to %ns lair.  If you can manage to defeat %n
+and return %o here, we can then drive off the
+legions of undead that befoul the land.
+
+"Go with %d as your guide, %p."
+%E [Enter %i and recover %o from %n.]
+%Cp Tou 00024
+"Remember, you must return with %o so
+that we may lift the curse from the silver bell."
+%E
+%Cp Und 00025
+"You can prevail, if you rely on %d."
+%E
+%Cp Und 00026
+"Remember that %n has great magic at his command."
+%E
+%Cp Und 00027
+"Be pure, my %S."
+%E
+%Cp Und 00028
+"Beware, %i is surrounded by a great graveyard."
+%E
+%Cp Und 00029
+"Remember, no mercy for the evil!"
+%E
+%Cp Und 00030
+"Acquire and wield %o if you can.  It will aid you
+against %n."
+%E
+%Cp Und 00031
+"Call upon %d when your need is greatest.  You will be answered."
+%E
+%Cp Und 00032
+"The undead legions are weakest during the daylight hours."
+%E
+%Cp Und 00033
+"Do not lose faith, %p.  If you do so, %n will grow stronger."
+%E
+%Cp Und 00034
+"Wear %o.  It will assist you against the undead."
+%E
+%Cc Und 00035
+You stand facing a large graveyard.  The sky above is filled with clouds
+that seem to get thicker closer to the center.  You sense the presence of
+undead in larger numbers than you have ever encountered before.
+
+You remember the descriptions of %i, given to you by
+%l.  It is ahead that you will find %ns trail.
+%E [Destiny beckons, follow %ns dark trail.]
+%Cp Und 00036
+Again, you stand before %i.
+%E
+%Cc Und 00040
+The stench of brimstone is all about you, and the shrieks and moans
+of tortured souls assault your psyche.
+
+Ahead, there is a small clearing amidst the bubbling pits of lava...
+%E
+%Cp Und 00041
+Again, you have invaded %ns domain.
+%E
+%Cc Und 00050
+"Ah, so %l has sent another %g to retrieve
+%o.
+
+"No, I see you are no %g.  Perhaps I shall have some fun today
+after all.  Prepare to die, %r!  You shall never regain
+%o."
+%E [%rA will not defeat me.]
+%Cp Und 00051
+"So, %r.  Again you challenge me."
+%E
+%Cp Und 00052
+"Die now, %r.  %d has no power here to aid you."
+%E [Run away or you will suffer severely.]
+%Cp Und 00053
+"You shall die, %r, and I will have %o back."
+%E ["Return %o to me and you might live."]
+%Cp Und 00060
+"Submit to my will, %c, and I shall spare you."
+%E
+%Cp Und 00061
+"Your puny powers are no match for me, %c."
+%E
+%Cp Und 00062
+"I shall have you turned into a zombie for my pleasure!"
+%E
+%Cp Und 00063
+"Despair now, %r.  %d cannot help you."
+%E
+%Cp Und 00064
+"I shall feast upon your soul for many days, %c."
+%E
+%Cp Und 00065
+"Your death will be slow and painful.  That I promise!"
+%E
+%Cp Und 00066
+"You cannot defeat %n, you fool.  I shall kill you now."
+%E
+%Cp Und 00067
+"Your precious %l will be my next victim."
+%E
+%Cp Und 00068
+"I feel your powers failing you, %r.  You shall die now."
+%E
+%Cp Und 00069
+"With %o, nothing can stand in my way."
+%E
+%Cc Und 00070
+As you pick up %o, you feel the essence of
+%d fill your soul.  You know now why %n stole it from
+%H, for with it, %ca of %d could
+easily defeat his plans.
+
+You sense a message from %d.  Though not verbal, you
+get the impression that you must return to %l as soon
+as possible.
+%E [You pick up %o and feel relief.  Return it to %l.]
+%Cc Und 00071
+As you pick up %o, you feel the essence of
+%d fill your soul.  You know now why %n stole it from
+%H, for with it, %ca of %d could
+easily defeat his plans.
+%E [You pick up %o and feel relief.]
+%Cc Und 00080
+You feel a wrenching shift in the ether as %ns body dissolves
+into a cloud of noxious gas.
+
+Suddenly, a voice booms out:
+
+    Mark my words, niggling! I shall return!
+
+You then hear the voice of %n, laughing insanely...
+%E
+%Cc Und 00081
+"You have returned, %p.  And with %o, I see.
+Congratulations.
+
+"I have been in meditation, and have received direction from
+a minion of %d.  %d commands that you retain
+%o.  With it, you must recover the Amulet
+of Yendor.
+
+"Go forth, and let %d guide your steps."
+%E [Take %o and with %ds guidance, recover the Amulet.]
+%Cc Und 00082
+%l reiterates that %o is yours now.
+
+"The time has come to resume your search for the Amulet.
+%Z await your return through the magic portal which brought
+you here."
+%E
+%Cc Und 00083
+As %l detects the presence of %o,
+he almost smiles for the first time in many a full moon.
+
+As he looks up from %o he says:
+
+    "Well done, %p.  You have defeated %n and
+    recovered %o, and we
+    have lifted the curse from the silver bell.
+    However, I fear that %o
+    shall never be truly safe unless it is kept
+    here with us at %H.
+
+    Please %p, return %o to us now.
+%E ["%lC asks you to forfeit %o."]
+%Cc Und 00084
+"Thank you %p for your sacrifice, I know this must have been
+difficult to do. Rest assured, %d smiles down
+upon you this day.  %o will
+be safe with us."
+%E ["You give %o to %l."]
+%Cp Und 00090
+"Welcome back, %p.  How is your quest for the Amulet going?"
+%E
+%Cc Und 00091
+"You have prevailed, %p!  %d is surely with you.  Now,
+you must take the amulet, and sacrifice it on %ds altar on
+the Astral plane.  I suspect that I shall never see you again in this
+life, but I hope to at %ds feet."
+%E
 #
 #	Valkyrie
 #

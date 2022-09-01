@@ -527,6 +527,14 @@ struct obj *obj;
         case PM_TOURIST:
             (void) mongets(mtmp, EXPENSIVE_CAMERA);
             break;
+        case PM_UNDEAD_SLAYER:
+            if (rn2(2)) {
+                weapon = SPEAR;
+                set_material(weapon, SILVER);
+            }
+            if (rn2(2)) 
+                armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
+            break;
         case PM_VALKYRIE:
             if (rn2(2))
                 weapon = WAR_HAMMER;

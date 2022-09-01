@@ -714,7 +714,7 @@ U  = $(UTIL)\				# comment so \ isn't last char
 SPLEVDES = $(DAT)\Arch.des $(DAT)\Barb.des $(DAT)\bigroom.des \
 	$(DAT)\castle.des $(DAT)\Caveman.des $(DAT)\endgame.des \
 	$(DAT)\gehennom.des $(DAT)\Healer.des $(DAT)\Infidel.des \
-	$(DAT)\Flame.des $(DAT)\Ice.des \
+	$(DAT)\Flame.des $(DAT)\Ice.des $(DAT)\Necro.des $(DAT)\Slayer.des \
 	$(DAT)\Knight.des $(DAT)\knox.des $(DAT)\Monk.des \
 	$(DAT)\medusa.des $(DAT)\mines.des $(DAT)\oracle.des \
 	$(DAT)\Priest.des $(DAT)\Ranger.des $(DAT)\Rogue.des \
@@ -982,10 +982,12 @@ $(DAT)\sp_lev.tag: $(U)utility.tag $(SPLEVDES)
 	$(U)lev_comp infidel.des
 	$(U)lev_comp knight.des
 	$(U)lev_comp monk.des
+	$(U)lev_comp necro.des
 	$(U)lev_comp priest.des
 	$(U)lev_comp ranger.des
 	$(U)lev_comp rogue.des
 	$(U)lev_comp samurai.des
+	$(U)lev_comp slayer.des
 	$(U)lev_comp tourist.des
 	$(U)lev_comp valkyrie.des
 	$(U)lev_comp wizard.des

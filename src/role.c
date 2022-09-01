@@ -690,6 +690,32 @@ const struct Role roles[] = {
       A_INT,
       SPE_CHARM_MONSTER,
       -4 },
+    { { "Undead Slayer", 0 }, {
+	  { "Assistant",    0 },
+	  { "Eliminator",   0 },
+	  { "Eliminator",   0 },
+	  { "Exterminator", 0 },
+	  { "Exterminator", 0 },
+	  { "Destroyer",   0 },
+	  { "Vindicator",  0 },
+	  { "Vindicator",  0 },
+	  { "Undead Slayer", 0 } },
+	"Seeker", "Osiris", "Seth", /* Egyptian */
+	"Und", "the Temple of Light", "the Crypt of Dracula",
+	PM_UNDEAD_SLAYER, NON_PM, NON_PM,
+	PM_VAN_HELSING, PM_EXTERMINATOR, PM_COUNT_DRACULA,
+	PM_HUMAN_MUMMY, PM_VAMPIRE, S_MUMMY, S_VAMPIRE,
+	ART_STAKE_OF_VAN_HELSING,
+    /* --hackem: Disabled MH_WERE, MH_ORC */
+	MH_HUMAN | MH_ELF | MH_GNOME | MH_HOBBIT,
+	ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+	/* Str Int Wis Dex Con Cha */ /* Modified from Knight */
+	{  13,  7, 14,  8, 10, 10 },
+	{  20, 15, 15, 10, 20, 10 },
+	/* Init   Lower  Higher */
+	{ 14, 0,  0, 8,  2, 0 },	/* Hit points */
+	{  1, 4,  0, 1,  0, 2 },10,	/* Energy */
+	10, 8,-2, 0,  9, A_WIS, SPE_TURN_UNDEAD, -4 },
     { { "Valkyrie", 0 },
       { { "Stripling", 0 },
         { "Skirmisher", 0 },

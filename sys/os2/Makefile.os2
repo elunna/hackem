@@ -1401,6 +1401,8 @@ $(KFILES) : $(DAT)\Knight.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Kni QF=Knight do_quest
 $(MFILES) : $(DAT)\Monk.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Mon QF=Monk do_quest
+$(MFILES) : $(DAT)\Necro.des $(TEMP)\lev_comp.exe
+	$(MAKEB) QQ=Nec QF=Necro do_quest
 $(PFILES) : $(DAT)\Priest.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Pri QF=Priest do_quest
 $(RANFILES) : $(DAT)\Ranger.des $(TEMP)\lev_comp.exe
@@ -1409,6 +1411,8 @@ $(RFILES) : $(DAT)\Rogue.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Rog QF=Rogue do_quest
 $(SFILES) : $(DAT)\Samurai.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Sam QF=Samurai do_quest
+$(SFILES) : $(DAT)\Slayer.des $(TEMP)\lev_comp.exe
+	$(MAKEB) QQ=Und QF=Slayer do_quest
 $(TFILES) : $(DAT)\Tourist.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Tou QF=Tourist do_quest
 $(VFILES) : $(DAT)\Valkyrie.des $(TEMP)\lev_comp.exe

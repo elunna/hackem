@@ -109,6 +109,14 @@ static const struct innate {
                  { 20, &(HPoison_resistance), "hardy", "" },
                  { 0, 0, 0, 0 } },
 
+  und_abil[] = { { 1, &(HStealth), "", "" },
+                 { 1, &(HDrain_resistance), "", "" },
+                 { 1, &(HSick_resistance), "", "" },
+                 { 1, &(HUndead_warning), "", "" },
+                 { 7, &(HFast), "quick", "slow" },
+                 { 9, &(HPoison_resistance), "hardy", "less healthy" },
+                 { 0, 0, 0, 0 } },
+
   val_abil[] = { { 1, &(HCold_resistance), "", "" },
                  { 1, &(HStealth), "", "" },
                  { 7, &(HFast), "quick", "slow" },
@@ -835,6 +843,7 @@ int r;
         { PM_ROGUE, rog_abil },
         { PM_SAMURAI, sam_abil },
         { PM_TOURIST, tou_abil },
+        { PM_UNDEAD_SLAYER, und_abil },
         { PM_VALKYRIE, val_abil },
         { PM_WIZARD, wiz_abil },
         { 0, 0 }
