@@ -8,49 +8,44 @@
 #	dialogue must have at least these entries.
 #
 #	QT_FIRSTTIME	 1
-#	QT_NEXTTIME	 2
+#	QT_NEXTTIME	     2
 #	QT_OTHERTIME	 3
-#	QT_ALTSTART	 4	/* alternate game start message (optional) */
+#	QT_ALTSTART	     4	/* alternate game start message (optional) */
 #	QT_GUARDTALK	 5	/* 5 random things guards say before quest */
 #	QT_GUARDTALK2	10	/* 5 random things guards say after quest */
-#
 #	QT_FIRSTLEADER	15
 #	QT_NEXTLEADER	16
 #	QT_OTHERLEADER	17
 #	QT_LASTLEADER	18
-#	QT_BADLEVEL	19
-#	QT_BADALIGN	20
+#	QT_BADLEVEL	    19
+#	QT_BADALIGN	    20
 #	QT_ASSIGNQUEST	21
-#
 #	QT_ENCOURAGE	24	/* 1-11 random encouragement messages */
-#
 #	QT_FIRSTLOCATE	35
 #	QT_NEXTLOCATE	36
-#
 #	QT_FIRSTGOAL	40	/* %n (nemesis) and %o (artifact) will always
 #				   be present on first visit in normal play */
-#	QT_NEXTGOAL	41	/* subsequent visits to goal level */
-#	QT_ALTGOAL	42	/* alternate to NEXTGOAL if quest artifact
+#	QT_NEXTGOAL	    41	/* subsequent visits to goal level */
+#	QT_ALTGOAL	    42	/* alternate to NEXTGOAL if quest artifact
 #				   is absent from the level (optional) */
 #	QT_FIRSTNEMESIS	50
 #	QT_NEXTNEMESIS	51
 #	QT_OTHERNEMESIS	52
 #	QT_NEMWANTSIT	53	/* you somehow got the artifact */
-#
 #	QT_DISCOURAGE	60	/* 1-10 random maledictive messages */
-#
-#	QT_GOTIT	70
-#	QT_GOTIT2	71	/* got it, but the quest leader is dead */
-#
+#	QT_GOTIT	    70
+#	QT_GOTIT2	    71	/* got it, but the quest leader is dead */
 #				/* For Infidels: Moloch's dialogue */
-#	QT_MOLOCH_1	72	/* offered Amulet, no Idol */
-#	QT_MOLOCH_2	73	/* offered Amulet, got Idol */
-#	QT_MOLOCH_3	74	/* high priest's altar hint */
+#	QT_MOLOCH_1	    72	/* offered Amulet, no Idol */
+#	QT_MOLOCH_2	    73	/* offered Amulet, got Idol */
+#	QT_MOLOCH_3	    74	/* high priest's altar hint */
 #	QT_MOLOCH_4     75      /* high priest's altar hint, quest leader is dead */
-#
+
+
 #	QT_KILLEDNEM	80
 #	QT_OFFEREDIT	81
 #	QT_OFFEREDIT2	82	/* if you throw artifact to leader after #81 */
+
 #	QT_WANTSIT	83	/* quest leader wants to keep the quest artifact */
 #	QT_GAVEITUP	84	/* player forfeits quest artifact to their quest leader */
 #
@@ -1235,7 +1230,6 @@ of %H.
 
 Suddenly, the hairs on your neck stand on end as you detect a faint hint of
 evil moisture in the air.
-
 %E
 %Cp Fla 00002
 Once again, you near %H.  You know that %l
@@ -1326,6 +1320,10 @@ and with %d behind you, you alone can defeat %n.
 "You must go to %i.  From there, you can track down
 %n, defeat him, and return %o to us.  Only
 then will the world be safe."
+%E
+%Cp Fla 00024
+"Remember, you must return with %o so
+that we may lift the curse from the silver bell."
 %E
 %Cp Fla 00025
 "%n is strong in the dark arts, but not immune to cold steel."
@@ -1426,6 +1424,11 @@ As you pick up %o, you feel the power of it
 flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it.
 %E
+%Cc Fla 00071
+As you pick up %o, you feel the power of it
+flowing through your hands.  It seems to be in two or more places
+at once, even though you are holding it.
+%E
 %Cp Fla 00080
 %n falls to the ground, and utters a last curse at you.  Then his
 body fades slowly, seemingly dispersing into the air around you.  You
@@ -1456,6 +1459,22 @@ When %l sees %o, he smiles, and says:
 for the Amulet.  %Z await your return through the
 magic portal which brought you here."
 %E
+%Cc Fla 00083
+%l gazes intently at %o, then back at you
+
+"Well done, %p.  You have defeated %n and
+recovered %o, and we have lifted the curse from
+the silver bell.  Alas, I fear that %o shall
+never be truly safe unless it is kept here with
+us at %H.
+
+Please %p, return %o to us now.
+%E ["%lC asks you to forfeit %o."]
+%Cc Fla 00084
+"Thank you %p for your sacrifice, I know this must have been
+difficult to do. Rest assured, %d smiles down
+upon you this day.  %o will be safe with us."
+%E ["You give %o to %l."]
 %Cp Fla 00090
 "Tell us, %p, have you fared well on your great quest?"
 %E
@@ -1879,6 +1898,10 @@ and with %d behind you, you alone can defeat %n.
 %n, defeat him, and return %o to us.  Only
 then will the world be safe."
 %E
+%Cp Ice 00024
+"Remember, you must return with %o so
+that we may lift the curse from the silver bell."
+%E
 %Cp Ice 00025
 "%nC is strong in the dark arts, but not immune to cold steel."
 %E
@@ -1975,6 +1998,16 @@ And your life as well."
 As you pick up %o, you feel the power of it
 flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it.
+
+You sense a message from %d.  Though not verbal, you
+get the impression that you must return to %l as soon
+as possible.
+%E
+%Cc Ice 00071
+As you pick up %o, you feel the power of it
+flowing through your hands.  It seems to be in two or more places
+at once, even though you are holding it. You know now why %n stole 
+it from %H, for with it, %ca of %d could easily defeat his plans.
 %E
 %Cp Ice 00080
 %nC falls to the ground, and utters a last curse at you.  Then his
@@ -2006,6 +2039,23 @@ When %l sees %o, he smiles, and says:
 for the Amulet.  %Z await your return through the
 magic portal which brought you here."
 %E
+%Cc Ice 00083
+"You have returned, %p.  And with %o, I see.
+Congratulations.
+
+"Well done, %p.  You have defeated %n and
+recovered %o, and I have lifted the curse from
+the silver bell.  However, %d has
+directed that %o shall be kept
+here with us at %H.
+
+Please %p, return %o to us now.
+%E ["%lC asks you to forfeit %o."]
+%Cc Ice 00084
+"Thank you %p for your sacrifice, I know this must have been
+difficult to do. Rest assured, %d smiles down
+upon you this day.  %o will be safe with us."
+%E ["You give %o to %l."]
 %Cp Ice 00090
 "Tell us, %p, have you fared well on your great quest?"
 %E
@@ -2967,6 +3017,282 @@ upon you this day.  %o will be safe with us."
 you must take the Amulet, and sacrifice it on %ds altar on
 the Astral Plane.  I suspect that I shall never see you again in this
 life, but I hope to at %ds feet."
+%E [Take the Amulet to the Astral Plane and deliver it to %d.]
+#
+#       Necromancer
+#
+%Cc Nec 00001
+You are suddenly surrounded by stinking mists. Ah! The smell of home!
+
+However, things are not the same as when you were last here.  You hear
+demoniac cackling from all around, and the dry, rustling flap of
+leathery wings.
+
+You know %l would never allow such creatures to approach the
+tower...  unless something were dreadfully wrong!
+%E
+%Cp Nec 00002
+Once again, you are back at %H.
+%E
+%Cp Nec 00003
+You are back at %H.
+You have an odd feeling this may be the last time you ever come here.
+%E
+%Cp Nec 00005
+"Would you happen to have some eye of newt in that overstuffed pack, %s?"
+%E
+%Cp Nec 00006
+"Ah, the spell to create the magic portal worked.  Outstanding!"
+%E
+%Cp Nec 00007
+"Hurry!  %lC may not survive that casting of the
+portal spell!!"
+%E
+%Cp Nec 00008
+"We must strive to destroy that bloodless demon, or all is lost."
+%E
+%Cp Nec 00009
+"I, too, will venture into the world, because %n is but one of
+many demons to be vanquished."
+%E
+%Cp Nec 00010
+"Would you happen to have some eye of newt in that overstuffed pack, %s?"
+%E
+%Cp Nec 00011
+"Ah, the spell to create the magic portal worked.  Outstanding!"
+%E
+%Cp Nec 00012
+"I, too, will venture into the world, because %n was but one of
+many demons to be vanquished."
+%E
+%Cp Nec 00013
+"Yes! I have been rostered the graveyard shift this week!"
+%E
+%Cp Nec 00014
+"I wonder how Doctor Frankenstein's work progresses?"
+%E
+%Cc Nec 00015
+"Come closer, %p, for my voice falters in my old age.
+Yes, I see that you have come a long way since you went out into the
+world, leaving the confines of this tower.  However, I must first
+determine if you have all of the skills required to take on the task
+I require of you."
+%E
+%Cp Nec 00016
+"Well, %p, you have returned.  Perhaps you are now ready..."
+%E
+%Cp Nec 00017
+"This is getting tedious, %p, but perseverance is a sign of a true mage.
+I certainly hope that you are truly ready this time!"
+%E
+%Cc Nec 00018
+"You fool, %p!  Why did I waste all of those years teaching you
+the dark arts?  Get out of here!  I shall find another."
+%E
+%Cc Nec 00019
+"Alas, %p, you have not yet shown your proficiency as a worthy
+necromancer.  As %ra, you would surely be overcome in the challenge
+ahead.  Go, now, expand your horizons, and return when you have attained
+renown as %Ra."
+%E
+%Cc Nec 00020
+"You amaze me, %p!  How many times did I tell you that sorcery
+requires care.  One must maintain the balance of darkness within oneself,
+lest one leave it in ruins and simplify the task of %n.
+
+"You must go back and show your worthiness.  Do not return until you are
+truly ready for this quest.  May %d guide you in this task."
+%E
+%Cc Nec 00021
+"Yes, %p, you truly are ready for this dire task.  Listen,
+carefully, for what I tell you now will be of vital importance.
+
+"Since you left us to hone your skills in the world, we unexpectedly came
+under attack by the forces of %n.  As you know,
+we thought he had perished at the end of the last age, but, alas,
+this was not the case.
+
+"%nC sent an army of abominations against us.  Among them
+was a minion, mindless and ensorcelled, and thus, in the confusion,
+it was able to penetrate our defenses.  Alas, this creature has stolen
+%o and I fear it has delivered it
+to %n.
+
+"You must travel to %i, and within its dungeons,
+find and overcome %n, and return %o to me.
+
+"Go now, with %d, and return freedom to our tower."
+%E
+%Cp Nec 00024
+"Remember, you must return with %o so
+that we may lift the curse from the silver bell."
+%E
+%Cp Nec 00025
+"Beware, for %n is immune to most magical attacks."
+%E
+%Cp Nec 00026
+"To enter %i you must pass many traps."
+%E
+%Cp Nec 00027
+"%nC may be vulnerable to physical attacks."
+%E
+%Cp Nec 00028
+"%d will come to your aid when you call."
+%E
+%Cp Nec 00029
+"You must utterly destroy %n.  He will pursue you otherwise."
+%E
+%Cp Nec 00030
+"%oC is a mighty artifact.  With it you can
+destroy %n."
+%E
+%Cp Nec 00031
+"Go forth with the blessings of %d."
+%E
+%Cp Nec 00032
+"I will have my %gP watch for your return."
+%E
+%Cp Nec 00033
+"Feel free to take any items in that chest that might aid you."
+%E
+%Cp Nec 00034
+"You will know when %o is near.  Proceed with care!"
+%E
+%Cp Nec 00035
+Wisps of dark mist swirl nearby.  You feel that %ns lair is close.
+%E
+%Cp Nec 00036
+You believe that you may once again invade %i.
+%E
+%Cp Nec 00040
+You feel your mentor's presence; perhaps %o is nearby.
+%E
+%Cp Nec 00041
+The aura of %o tingles at the edge of your perception.
+%E
+%Cc Nec 00050
+"Ah, I recognize you, %p.  So, %l has sent you to steal
+%o from me, hmmm?  Well, %l is a
+fool to send such a mental weakling against me.
+
+"Your destruction, however, should make for good sport.  In the end, you
+shall beg me to kill you!"
+%E
+%Cc Nec 00051
+"How nice of you to return, %p!  I enjoyed our last meeting.  Are you
+still hungry for more pain?
+
+"Come!  Your soul, like %o, shall soon be mine to
+command."
+%E
+%Cp Nec 00052
+"I'm sure that your perseverance shall be the subject of innumerable
+ballads, but you shall not be around to hear them, I fear!"
+%E
+%Cp Nec 00053
+"Thief!  %o belongs to me, now.  I shall feed
+your living flesh to my minions."
+%E
+%Cp Nec 00060
+"Your puny powers are no match for me, fool!"
+%E
+%Cp Nec 00061
+"When you are defeated, your torment will last for a thousand years."
+%E
+%Cp Nec 00062
+"After your downfall, %p, I shall devour %l
+for dessert!"
+%E
+%Cp Nec 00063
+"Are you ready yet to beg for mercy?  I could be lenient..."
+%E
+%Cp Nec 00064
+"Your soul shall join the enslaved multitude I command!"
+%E
+%Cp Nec 00065
+"Your lack of will is evident, and you shall die as a result."
+%E
+%Cp Nec 00066
+"Your faith in %d is for naught!  Come, submit to me now!"
+%E
+%Cp Nec 00067
+"A mere %r is nothing compared to my skill!"
+%E
+%Cp Nec 00068
+"So, you are the best hope of %l?  How droll."
+%E
+%Cp Nec 00069
+"Feel my power, %c!  My victory is imminent!"
+%E
+%Cc Nec 00070
+As you touch %o, its comforting power infuses you
+with new energy.  Although you yearn to use %o
+to attack the Wizard of Yendor, you know you must return it to its
+rightful owner, %l.
+%E
+%Cc Nec 00071
+As you touch %o, its comforting power infuses you
+with new energy.  You realize that its power is what has protected
+your %sp against their enemies for so long.
+%E
+%Cc Nec 00080
+%nC croaks out, as his body begins to shrivel up:
+
+    I shall haunt your progress until the end of time.  A thousand
+    curses on you and %l.
+
+Then, the body bursts into a cloud of choking dust, and blows away.
+%E
+%Cc Nec 00081
+%lC notices %o in your possession,
+beams at you and says:
+
+    I knew you could defeat %n and retrieve
+    %o.  Good...
+
+    Take %o with you in your quest for
+    the Amulet of Yendor.  I can sense that it has attuned
+    its dark mind to yours already.
+
+    May %d guide you in your quest, and keep you from harm.
+%E
+%Cc Nec 00082
+%l handles %o for a moment, then looks at you.
+
+"You are its keeper now, and the time has come to resume your search
+for the Amulet.  %Z await your return through the
+magic portal which brought you here."
+%E
+%Cc Nec 00083
+%l inspects %o reverently.
+
+"Well done, %p.  You have defeated %n and
+recovered %o, and we have lifted the curse from
+the silver bell.  Alas, I fear that %o shall
+never be truly safe unless it is kept here with
+us at %H.
+
+Please %p, return %o to us now.
+%E ["%lC asks you to forfeit %o."]
+%Cc Nec 00084
+"Thank you %p for your sacrifice, I know this must have been
+difficult to do. Rest assured, %d smiles down
+upon you this day.  %o will be safe with us."
+%E ["You give %o to %l."]
+%Cc Nec 00090
+"Come near, my %S, and share your adventures with me.  So, have you
+succeeded in your quest for the Amulet of Yendor?"
+%E
+%Cc Nec 00091
+"Congratulations, %p.  I always knew that if anyone could succeed
+in defeating the Wizard of Yendor and his minions, it would be you.
+
+"Go now, and take the Amulet to the astral plane.  Once there, present
+the Amulet on the altar of %d.  Along the way you shall pass through the
+four elemental planes.  These planes are like nothing you have ever
+experienced before, so be prepared!
+
+"For this you were born, %s!  I am very proud of you."
 %E [Take the Amulet to the Astral Plane and deliver it to %d.]
 #
 #	Priest
