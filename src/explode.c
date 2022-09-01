@@ -77,6 +77,7 @@ int expltype;
         /*WAC add Flame,  Ice mages,  Necromancer */
 		case PM_FLAME_MAGE:
         case PM_ICE_MAGE:
+        case PM_NECROMANCER:
         case PM_PRIEST:
         case PM_MONK:
         case PM_WIZARD:

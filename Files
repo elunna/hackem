@@ -31,7 +31,7 @@ prepare-commit-msg
 dat:
 (files for all versions)
 Arch.des        Barb.des      Caveman.des   GENFILES      Healer.des
-Flame.des       Ice.des
+Flame.des       Ice.des       Necro.des
 Infidel.des     Knight.des    Monk.des      Priest.des    Ranger.des
 Rogue.des       Samurai.des   Tourist.des   Valkyrie.des  Wizard.des
 bigroom.des     bogusmon.txt  castle.des    cmdhelp       data.base

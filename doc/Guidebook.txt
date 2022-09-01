@@ -122,6 +122,11 @@
           mental disciplines have become capable of fighting as effectively
           without weapons as with.  They wear no armor but make up  for  it
           with increased mobility.
+               
+               Necromancers  have  delved  into  the darkest of the magical
+          lore, and mastered some of the  most  forbidden  of  the  magical
+          lore.  Many have fallen to the armies of the undead that they are
+          capable of bringing forth and controlling.
 
                Priests  and Priestesses are clerics militant, crusaders ad-
           vancing the cause of righteousness with  arms,  armor,  and  arts
@@ -132,9 +137,7 @@
                Rangers are most at home in the woods, and some say slightly
           out of place in a dungeon.  They are, however, experts in archery
           as well as tracking and stealthy movement.
-
-
-
+          
           NetHack 3.6                                    September 29, 2021
 
 

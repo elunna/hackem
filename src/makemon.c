@@ -905,6 +905,15 @@ register struct monst *mtmp;
             ini_mon_inv(mtmp, Lamp, 10);
             mongets(mtmp, SKELETON_KEY);
             break;
+        case PM_NECROMANCER:
+            (void) mongets(mtmp, ATHAME);
+            if (!rn2(4))
+                (void) mongets(mtmp, PICK_AXE);
+            (void) mongets(mtmp, rnd_offensive_item(mtmp));
+            (void) mongets(mtmp, rnd_defensive_item(mtmp));
+
+		    mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+		    break;
         case PM_PRIEST:
         case PM_PRIESTESS:
             mkmonmoney(mtmp, (long) rn1(10, 20));

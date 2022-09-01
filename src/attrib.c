@@ -83,6 +83,11 @@ static const struct innate {
                  { 30, &(HSick_resistance), "hale", "" },
                  { 0, 0, 0, 0 } },
 
+  nec_abil[] = { { 1, &(HDrain_resistance), "", "" },
+                 { 1, &(HSick_resistance), "", "" },
+                 { 3, &(HUndead_warning), "sensitive", "" },
+                 { 0, 0, 0, 0 } },
+
   pri_abil[] = { { 15, &(HWarning), "sensitive", "" },
                  { 20, &(HFire_resistance), "cool", "warmer" },
                  { 0, 0, 0, 0 } },
@@ -824,6 +829,7 @@ int r;
         { PM_INFIDEL, inf_abil },
         { PM_KNIGHT, kni_abil },
         { PM_MONK, mon_abil },
+        { PM_NECROMANCER, nec_abil },
         { PM_PRIEST, pri_abil },
         { PM_RANGER, ran_abil },
         { PM_ROGUE, rog_abil },

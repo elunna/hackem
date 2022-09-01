@@ -636,7 +636,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             || (objects[obj->otyp].oc_magic && !nn)
             || obj->oartifact))
         obj->oprops_known |= ITEM_MAGICAL;
-    if (Role_if(PM_PRIEST))
+    if (Role_if(PM_PRIEST) || Role_if(PM_NECROMANCER))
         obj->bknown = 1; /* actively avoid set_bknown();
                           * we mustn't call update_inventory() now because
                           * it would call xname() (via doname()) recursively
@@ -1346,7 +1346,8 @@ unsigned doname_flags;
 #endif
                      && obj->otyp != FAKE_AMULET_OF_YENDOR
                      && obj->otyp != AMULET_OF_YENDOR
-                     && !Role_if(PM_PRIEST)))
+                     && !Role_if(PM_PRIEST) 
+                     && !Role_if(PM_NECROMANCER)))
             Strcat(prefix, "uncursed ");
     }
 

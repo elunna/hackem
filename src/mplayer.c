@@ -535,6 +535,7 @@ struct obj *obj;
             break;
         case PM_FLAME_MAGE:
 		case PM_ICE_MAGE:
+        case PM_NECROMANCER:
         case PM_WIZARD:
             if (rn2(4))
                 weapon = rn2(2) ? QUARTERSTAFF : ATHAME;

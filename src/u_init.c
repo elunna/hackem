@@ -148,6 +148,23 @@ struct trobj Monk[] = {
     { FORTUNE_COOKIE, 0, FOOD_CLASS, 3, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
+static struct trobj Necromancer[] = {
+#define N_BOOK          8
+/* pretty much like Wizard, except with pick-axe instead of magic resist. */
+	{ QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },        /* for dealing with ghosts */
+	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 2, UNDEF_BLESS },
+	{ UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
+	{ UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 3, UNDEF_BLESS },
+	{ SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
+	{ SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
+	{ SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
+		/* WAC -- gave him drain life rather than turn undead */
+	{ WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+		/* KMH -- ...and the matching wand for the inexperienced */
+	{ UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+	{ PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
+	{ 0, 0, 0, 0, 0 }
+};
 struct trobj Priest[] = {
     { MACE, 1, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -565,6 +582,24 @@ static const struct def_skill Skill_Mon[] = {
     { P_MARTIAL_ARTS, P_GRAND_MASTER },
     { P_NONE, 0 }
 };
+
+static const struct def_skill Skill_N[] = {
+    { P_DAGGER, P_EXPERT },             { P_KNIFE,  P_SKILLED },
+    { P_AXE, P_SKILLED },               { P_PICK_AXE, P_SKILLED },
+    { P_CLUB, P_SKILLED },              { P_MACE, P_BASIC },
+    { P_QUARTERSTAFF, P_EXPERT },       { P_POLEARMS, P_SKILLED },
+    { P_SPEAR, P_BASIC },             /*{ P_JAVELIN, P_BASIC },*/
+    { P_TRIDENT, P_BASIC },             { P_SLING, P_SKILLED },
+    { P_DART, P_EXPERT },               { P_SHURIKEN, P_BASIC },
+
+    { P_ATTACK_SPELL, P_EXPERT },
+    { P_MATTER_SPELL, P_EXPERT },
+/*WAC-  expert of dark arts - attack spells,  skilled in matter
+        -for fireball and cone of cold*/
+    { P_BARE_HANDED_COMBAT, P_BASIC },
+    { P_NONE, 0 }
+};
+
 static const struct def_skill Skill_P[] = {
     { P_CLUB, P_EXPERT },
     { P_MACE, P_EXPERT },
@@ -994,6 +1029,21 @@ u_init()
         skill_init(Skill_Mon);
         break;
     }
+    case PM_NECROMANCER:
+		switch (rnd(5)) {   
+        case 1: Necromancer[N_BOOK].trotyp = SPE_FORCE_BOLT; break;
+        case 2: Necromancer[N_BOOK].trotyp = SPE_KNOCK; break;
+        case 3: Necromancer[N_BOOK].trotyp = SPE_MAGIC_MISSILE; break;
+        case 4: Necromancer[N_BOOK].trotyp = SPE_CREATE_MONSTER; break;
+        case 5: Necromancer[N_BOOK].trotyp = SPE_WIZARD_LOCK; break;
+		default: break;
+		}
+		ini_inv(Necromancer);
+		knows_class(SPBOOK_CLASS);
+		if(!rn2(5)) 
+            ini_inv(Blindfold);
+		skill_init(Skill_N);
+		break;
     case PM_PRIEST:
         ini_inv(Priest);
         if (Race_if(PM_ILLITHID))
@@ -1237,7 +1287,8 @@ u_init()
         if (!Role_if(PM_WIZARD) 
               && !Role_if(PM_CONVICT)
               && !Role_if(PM_FLAME_MAGE) 
-              && !Role_if(PM_ICE_MAGE))
+              && !Role_if(PM_ICE_MAGE)
+              && !Role_if(PM_NECROMANCER))
             ini_inv(Xtra_food);
         /* Orcs can recognize all orcish objects */
         knows_object(ORCISH_SHORT_SWORD);
