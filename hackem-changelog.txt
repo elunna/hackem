@@ -1515,3 +1515,56 @@ Deep Wyrm caves branch parts
 	[x] Shotgun range is only 3?
 		
 		- [SKIP] Add in the opposite genders from 3.7 (ladies/queens, etc)
+		
+
+	- [SKIP] Make shops impossible to steal from with pets.
+	- [SKIP] Pets treat shop entrance and/or unpaid items as cursed.
+			- [x] The Candle of Eternal Flame
+		- [x] SUMMON_FIRE_ELEMENTAL
+		- [x] Candle of Eternal Flame should always be lit
+		- [x] Reduce price of eternal candle to 5000L
+		- [x] The Storm Whistle
+		- [x] Great Dagger of Glaurgnaa
+		- [x] Crown of Saint Edward
+		- [x] Stake of Van Helsing (Undead Slayer)
+		
+		- [x] Flame mage quest
+- [x] Ice mage quest
+- [x] Undead Slayer quest
+- [x] Necro quest
+- [x] Yeoman quest
+	- [x] Flame Mage
+		[x] Can't start with Magic marker.
+		[x] P_BODY_SPELL -> Escape
+		[x] P_PROTECTION_SPELL -> Cleric
+		[x] attrib.c: adjabil(oldlevel,newlevel)?
+		[x] Added to /* Primary casting roles */ in pray.c
+		[x] PM_FLAME_MAGE
+		[x] Skill_F
+		[x] "Flame Mage"
+		[x] Flame_Mage
+		
+			- [x] Ice Mage
+		[x]Added to /* Primary casting roles */ in pray.c
+- [FIXED] Ice Mage shows up as 'i', Infidel is also 'i'
+- [x] Make sure roles array is alphabetized.
+- [x] Remove Flame Mage Cold res at level 13
+- [x] Remove Ice Mage fire res at level 13
+- [SKIP] Doppleganger race - Skip until better ideas come along.
+[x] Convert Fireball from an attack spell to a Matter spell
+[x] Convert Cone of cold from an attack spell to a Matter spell.
+[x] Changed Deep Freeze back to an Athame (good to have a Deep Freeze and Firewall be kind of unique)
+[x] Removed possible magic marker from Necromancer starting inv.
+- [x] Undead Slayer
+	- [x] Make sure starting silver daggers/bullets/spear work.
+	- [x] Make sure starting jacket is leather...
+
+	[x] Add any missing messages to old slashem quest txt
+	
+
+[x] Quests.txt Add any missing [info] messages from evil: flame mage, 
+	- [x] Yeoman
+	
+	- [SKIPPED] Drow
+		- [ ] Add racial bonus to drow for using DARK_ELVEN_BOW (Need to add it first)
+		- [ ] Add drow starting equipment (need to add them first!)
