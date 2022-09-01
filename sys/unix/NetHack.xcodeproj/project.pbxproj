@@ -1328,6 +1328,7 @@
 				"$(NH_DAT_DIR)/Tourist.des",
 				"$(NH_DAT_DIR)/Valkyrie.des",
 				"$(NH_DAT_DIR)/Wizard.des",
+				"$(NH_DAT_DIR)/Yeoman.des",
 			);
 			name = "Build quest levels";
 			outputFileListPaths = (

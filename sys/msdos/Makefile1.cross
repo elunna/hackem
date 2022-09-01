@@ -601,7 +601,7 @@ $(HOST_O)panic.o: $(CONFIG_H) $(U)panic.c
 #   $(DAT)/slayer.des \
 #	$(DAT)/monk.des      $(DAT)/priest.des   $(DAT)/ranger.des \
 #	$(DAT)/rogue.des     $(DAT)/samurai.des  $(DAT)/tourist.des \
-#	$(DAT)/valkyrie.des  $(DAT)/wizard.des
+#	$(DAT)/valkyrie.des  $(DAT)/wizard.des   $(DAT)/yeoman.des
 #	cd $(DAT)
 #	$(U)lev_comp bigroom.des
 #	$(U)lev_comp castle.des
@@ -631,6 +631,7 @@ $(HOST_O)panic.o: $(CONFIG_H) $(U)panic.c
 #	$(U)lev_comp tourist.des
 #	$(U)lev_comp valkyrie.des
 #	$(U)lev_comp wizard.des
+#	$(U)lev_comp yeoman.des
 #	cd $(SRC)
 #	echo sp_levs done > $@
 

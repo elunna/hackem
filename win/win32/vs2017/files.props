@@ -61,6 +61,7 @@
     <Desfiles Include = "vaults.des"/>
     <Desfiles Include = "vecna.des"/>
     <Desfiles Include = "wizard.des"/>	
+    <Desfiles Include = "yeoman.des"/>	
     <Desfiles Include = "yendor.des"/>
   </ItemGroup>
   <ItemGroup>

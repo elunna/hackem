@@ -257,6 +257,19 @@ struct trobj Wizard[] = {
     { 0, 0, 0, 0, 0 }
 };
 
+static struct trobj Yeoman[] = {
+	{ SHORT_SWORD, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
+	{ PARTISAN, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+	{ ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ APPLE, 0, FOOD_CLASS, 10, 0 },
+	{ CARROT, 0, FOOD_CLASS, 10, 0 },
+	{ POT_WATER, 0, POTION_CLASS, 3, 0 },
+	{ FISHING_POLE, 0, TOOL_CLASS, 1, 0 },
+	{ 0, 0, 0, 0, 0 }
+};
+
 /*
  *      Optional extra inventory items.
  */
@@ -826,6 +839,28 @@ static const struct def_skill Skill_W[] = {
     { P_NONE, 0 }
 };
 
+static const struct def_skill Skill_Y[] = {
+    { P_DAGGER, P_SKILLED },            { P_KNIFE, P_BASIC },
+    { P_AXE, P_SKILLED },               { P_SHORT_SWORD, P_EXPERT },
+    { P_BROAD_SWORD, P_BASIC },         { P_LONG_SWORD, P_SKILLED },
+    { P_SABER, P_SKILLED },           /*{ P_PADDLE, P_SKILLED },*/
+    { P_HAMMER, P_BASIC },              { P_QUARTERSTAFF, P_SKILLED },
+    { P_POLEARMS, P_EXPERT },           { P_SPEAR, P_BASIC },
+    /*{ P_JAVELIN, P_SKILLED },*/       { P_TRIDENT, P_SKILLED },
+    { P_LANCE, P_SKILLED },             { P_BOW, P_EXPERT },
+    { P_SLING, P_BASIC },
+    { P_FIREARM, P_SKILLED },
+    { P_CROSSBOW, P_SKILLED },          { P_DART, P_BASIC },
+    { P_WHIP, P_BASIC },                { P_UNICORN_HORN, P_BASIC },
+
+    { P_ENCHANTMENT_SPELL, P_SKILLED }, { P_CLERIC_SPELL, P_SKILLED },
+    { P_ESCAPE_SPELL, P_BASIC },
+
+    { P_RIDING, P_EXPERT },
+    { P_TWO_WEAPON_COMBAT, P_SKILLED }, { P_BARE_HANDED_COMBAT, P_SKILLED },
+    { P_NONE, 0 }
+};
+
 STATIC_OVL void
 knows_object(obj)
 register int obj;
@@ -1240,7 +1275,12 @@ u_init()
         }
         skill_init(Skill_W);
         break;
-
+    case PM_YEOMAN:
+		ini_inv(Yeoman);
+		knows_class(WEAPON_CLASS);
+		knows_class(ARMOR_CLASS);
+		skill_init(Skill_Y);
+		break;
     default: /* impossible */
         break;
     }
@@ -1683,6 +1723,9 @@ int otyp;
         break;
     case PM_WIZARD:
         skills = Skill_W;
+        break;
+    case PM_YEOMAN:
+        skills = Skill_Y;
         break;
     default:
         skills = 0; /* lint suppression */

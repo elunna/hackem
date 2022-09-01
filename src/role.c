@@ -795,14 +795,38 @@ const struct Role roles[] = {
       { 10, 0, 0, 8, 1, 0 }, /* Hit points */
       { 4, 3, 0, 2, 0, 3 },
       12, /* Energy */
-      0,
-      1,
-      0,
-      3,
-      10,
-      A_INT,
-      SPE_MAGIC_MISSILE,
-      -4 },
+      0, 1, 0, 3, 10, A_INT,
+      SPE_MAGIC_MISSILE, -4 },
+
+    { { "Yeoman", 0 },
+	/* Landowner titles, naval ranks and positions */
+	/* We intentionally avoid Lieutenant and Captain */
+	  { { "Usher",          0 },
+        { "Steward", "Stewardess" },
+        { "Keeper",         0 },
+        { "Marshal",        0 },
+        { "Master Steward", "Master Stewardess" },
+        { "Chamberlain",    0 },
+        { "Constable",      0 },
+        { "Chancellor",     0 },
+        { "Regent",         0} },
+	"His Majesty", "His Holiness", "The Commons", /* The three estates */
+	"Yeo", "London", "the inner ward",
+	PM_YEOMAN, NON_PM, PM_PONY,
+	PM_CHIEF_YEOMAN_WARDER, PM_YEOMAN_WARDER, PM_COLONEL_BLOOD,
+	PM_RAVEN, PM_WEREWOLF, S_RODENT, S_DOG,
+
+	ART_CROWN_OF_SAINT_EDWARD,
+	MH_HUMAN | MH_ELF | MH_HOBBIT,
+    ROLE_MALE | ROLE_LAWFUL,
+	/* Str Int Wis Dex Con Cha */
+	{  12,  7, 10, 12, 12,  7 },
+	{  20, 15, 15, 10, 20, 10 },
+	/* Init   Lower  Higher */
+	{ 14, 0,  0, 8,  2, 0 },	/* Hit points */
+	{  1, 4,  0, 1,  0, 2 },10,	/* Energy */
+	10, 8,-2, 0,  9, A_WIS, SPE_KNOCK,     -4
+},
     /* Array terminator */
     { { 0, 0 } }
 };

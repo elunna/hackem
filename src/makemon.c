@@ -883,6 +883,9 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, subInfidel, 1);
             mongets(mtmp, SKELETON_KEY);
             break;
+        /* --hackem: This is a cheap copy for now, but exactly how it was in 
+            slashem. The Yeoman will get their own gear soon. */ 
+        case PM_YEOMAN:
         case PM_KNIGHT:
             ini_mon_inv(mtmp, Knight, 1);
             mongets(mtmp, SKELETON_KEY);
@@ -1082,7 +1085,10 @@ register struct monst *mtmp;
             break;
         }
 
-        else if (is_mercenary(ptr) || mm == PM_TEMPLAR) {
+        else if (is_mercenary(ptr) 
+                || mm == PM_CHIEF_YEOMAN_WARDER
+                || mm == PM_YEOMAN_WARDER
+                || mm == PM_TEMPLAR) {
             w1 = w2 = 0;
             switch (mm) {
             case PM_WATCHMAN:
@@ -1224,6 +1230,12 @@ register struct monst *mtmp;
             case PM_TEMPLAR:
                 w1 = rn2(2) ? LONG_SWORD : SABER;
                 mongets(mtmp, SKELETON_KEY);
+                break;
+            case PM_YEOMAN_WARDER:
+                w1 = rn2(2) ? FLAIL : MACE;
+                break;
+            case PM_CHIEF_YEOMAN_WARDER:
+                w1 = rn2(2) ? BROADSWORD : LONG_SWORD;
                 break;
             default:
                 if (!rn2(4))
@@ -2055,6 +2067,7 @@ register struct monst *mtmp;
                 mac = -2;
                 break;
             case PM_SOLDIER:
+            case PM_YEOMAN_WARDER:
                 mac = 3;
                 break;
             case PM_SERGEANT:
@@ -2069,6 +2082,9 @@ register struct monst *mtmp;
             case PM_WATCHMAN:
                 mac = 3;
                 break;
+            case PM_CHIEF_YEOMAN_WARDER:
+				mongets(mtmp, TALLOW_CANDLE);
+                /* FALLTHROUGH */
             case PM_WATCH_CAPTAIN:
                 mac = -2;
                 break;

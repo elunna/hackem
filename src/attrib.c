@@ -126,6 +126,11 @@ static const struct innate {
                  { 17, &(HTeleport_control), "controlled", "uncontrolled" },
                  { 0, 0, 0, 0 } },
 
+  yeo_abil[] = {
+		         { 7, &(HFast), "quick", "slow" },
+		         { 15, &(HSwimming), "ready to swim", "afraid of the water" },
+		         {  0, 0, 0, 0 } },
+
   /* Intrinsics conferred by race */
   dwa_abil[] = { { 1, &(HInfravision), "", "" },
                  { 0, 0, 0, 0 } },
@@ -846,6 +851,7 @@ int r;
         { PM_UNDEAD_SLAYER, und_abil },
         { PM_VALKYRIE, val_abil },
         { PM_WIZARD, wiz_abil },
+        { PM_YEOMAN, yeo_abil },
         { 0, 0 }
     };
     int i;

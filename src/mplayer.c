@@ -486,6 +486,9 @@ struct obj *obj;
             if (rn2(2))
                 shield = STRANGE_OBJECT;
             break;
+         /* --hackem: This is a cheap copy for now, but exactly how it was in 
+            slashem. The Yeoman will get their own gear soon. */ 
+        case PM_YEOMAN:
         case PM_KNIGHT:
             if (rn2(4))
                 weapon = LONG_SWORD;

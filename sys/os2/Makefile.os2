@@ -1419,7 +1419,8 @@ $(VFILES) : $(DAT)\Valkyrie.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Val QF=Valkyrie do_quest
 $(WFILES) : $(DAT)\Wizard.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Wiz QF=Wizard do_quest
-
+$(WFILES) : $(DAT)\Yeoman.des $(TEMP)\lev_comp.exe
+	$(MAKEB) QQ=Yeo QF=Yeoman do_quest
 do_quest :
 	$(TEMP)\lev_comp $(DAT)\$(QF).des
 	$(CP) $(QQ)-fil?.lev $(GAMEDIR)

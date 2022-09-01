@@ -247,7 +247,7 @@ $(O)sp_lev.tag:  $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\infidel.des  $(DAT)\knight.des   $(DAT)\monk.des    \
 	$(DAT)\priest.des   $(DAT)\ranger.des   $(DAT)\rogue.des   \
 	$(DAT)\samurai.des  $(DAT)\sokoban.des  $(DAT)\tourist.des \
-	$(DAT)\valkyrie.des $(DAT)\wizard.des
+	$(DAT)\valkyrie.des $(DAT)\wizard.des   $(DAT)\yeoman.des
 	cd $(DAT)
 	$(U)lev_comp bigroom.des
 	$(U)lev_comp castle.des
@@ -279,6 +279,7 @@ $(O)sp_lev.tag:  $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)lev_comp tourist.des
 	$(U)lev_comp valkyrie.des
 	$(U)lev_comp wizard.des
+	$(U)lev_comp yeoman.des
 	cd $(WINCE)
 	echo sp_levs done > $(O)sp_lev.tag
 
