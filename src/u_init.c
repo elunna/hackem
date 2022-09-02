@@ -97,7 +97,7 @@ struct trobj Healer[] = {
 static struct trobj Ice_Mage[] = {
 #define I_BOOK          9
     /* for dealing with ghosts */
-    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
+    { STILETTO, 3, WEAPON_CLASS, 1, 1 },
     { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 1, UNDEF_BLESS },
