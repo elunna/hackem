@@ -218,7 +218,7 @@ const struct Role roles[] = {
         { 10, 0,  0, 8,  1, 0 },	/* Hit points */
         {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
         0, 1, 0, 
-        2, 10, A_INT, SPE_FIREBALL,        -4 /* From old role.c */
+        2, 10, A_WIS, SPE_FIREBALL,        -4 /* From old role.c */
     },
     { { "Healer", 0 },
       { { "Rhizotomist", 0 },
