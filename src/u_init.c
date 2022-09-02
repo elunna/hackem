@@ -65,7 +65,7 @@ struct trobj Convict[] = {
 static struct trobj Flame_Mage[] = {
 #define F_BOOK 9
     /* for dealing with ghosts */
-    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },        
+    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
     { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { POT_OIL, UNDEF_SPE, POTION_CLASS, 2, UNDEF_BLESS },
@@ -75,6 +75,7 @@ static struct trobj Flame_Mage[] = {
     { SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_FIREBALL, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { FRAG_GRENADE, 0, WEAPON_CLASS, 2, 0 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Healer[] = {
