@@ -6980,6 +6980,7 @@ struct permonst _mons2[] = {
             | M2_HOSTILE | M2_NASTY | M2_MALE | M2_JEWELS | M2_COLLECT,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISION | M3_INFRAVISIBLE, 0,
         MH_GIANT, 23, CLR_GRAY),
+    #if 0 /* Replaced by Ragnaros */
     MON("Earth Mage", S_HUMAN,                                  /* Slash'EM */
         LVL(25, 10, -10, 10, 20), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
@@ -6992,6 +6993,22 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE 
             | M2_NASTY | M2_COLLECT | M2_MAGIC, 
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 34, HI_LORD),
+    #endif
+    MON("Ragnaros", S_ELEMENTAL,
+        LVL(25, 12, -10, 50, -10), (G_NOGEN | G_UNIQ | G_NOCORPSE),
+        A(ATTK(AT_MAGC, AD_SPEL, 0, 0),
+          ATTK(AT_MAGC, AD_CLRC, 0, 0),
+          ATTK(AT_CLAW, AD_FIRE, 6, 6), 
+          ATTK(AT_CLAW, AD_PHYS, 6, 4),
+          ATTK(AT_CLAW, AD_SAMU, 1, 4), 
+          ATTK(AT_NONE, AD_FIRE, 4, 4)),
+        SIZ(2500, 0, MS_NEMESIS, MZ_HUGE), 
+        MR_POISON | MR_FIRE | MR_STONE | MR_ACID, 0, 
+        M1_NOEYES | M1_NOLIMBS| M1_NOHEAD | M1_UNSOLID | M1_FLY,
+        M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE | M2_NASTY 
+          | M2_COLLECT | M2_MAGIC | M2_MALE | M2_PNAME | M2_LORD, 
+        M3_WANTSARTI | M3_WAITFORU, 0, MH_GIANT, 34, CLR_YELLOW),
+
     /* Has emin, so always appears as the "Paladin of [deity]". */
     MON("Paladin", S_HUMAN,                                     /* EvilHack */
         LVL(24, 12, 0, 50, 20), (G_NOGEN | G_UNIQ | G_NOCORPSE),

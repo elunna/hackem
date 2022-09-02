@@ -85,7 +85,6 @@
      || (ptr) == &mons[PM_SHADOW_WOLF] \
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
      || (ptr) == &mons[PM_WATER_MAGE] \
-     || (ptr) == &mons[PM_EARTH_MAGE] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS])
 /* is_were() doesn't handle hero in human form */
@@ -106,7 +105,8 @@
     || (ptr) == &mons[PM_MOLDY_PUDDING] \
     || (ptr) == &mons[PM_BLACK_MARKETEER] \
     || (ptr) == &mons[PM_CERBERUS] \
-    || (ptr) == &mons[PM_DEATH])
+    || (ptr) == &mons[PM_DEATH] \
+    || (ptr) == &mons[PM_RAGNAROS] )
 
 #define immune_poisongas(ptr) \
     ((ptr) == &mons[PM_HEZROU] \

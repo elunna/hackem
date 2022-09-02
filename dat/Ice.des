@@ -69,25 +69,32 @@ MONSTER: ('D', "white dragon"), random, peaceful
 NON_DIGGABLE:(00,00,75,19)
 
 # Random traps
-TRAP: "falling rock", random
-TRAP: "falling rock", random
-TRAP: "falling rock", random
-TRAP: "falling rock", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
 TRAP: "falling rock", random
 TRAP: "falling rock", random
 TRAP: "magic", random
 TRAP: "magic", random
 
 # Monsters on siege duty.
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('c', "pyrolisk"), random, hostile
+MONSTER: ('c', "pyrolisk"), random, hostile
+MONSTER: ('d', "hell hound pup"), random, hostile
+MONSTER: ('d', "hell hound pup"), random, hostile
  
 #
 #       The "locate" level for the quest.
@@ -139,28 +146,38 @@ OBJECT: random, random
 OBJECT: random, random
 
 # Random traps
-TRAP: "falling rock", random
-TRAP: "falling rock", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
 TRAP: "falling rock", random
 TRAP: "falling rock", random
 TRAP: random, random
 TRAP: random, random
 
 # Random monsters.
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: (':', "salamander"), random, hostile
+MONSTER: (':', "salamander"), random, hostile
+MONSTER: ('N', "red naga"), random, hostile
+MONSTER: ('N', "red naga"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('o', "demon orc"), random, hostile
+MONSTER: ('o', "demon orc"), random, hostile
+MONSTER: ('H', "fire giant"), random, hostile
+MONSTER: ('H', "fire giant"), random, hostile
 
 #
 #       The "goal" level for the quest.
@@ -219,8 +236,10 @@ OBJECT: random, random
 OBJECT: random, random
 
 # Random traps
-TRAP: "falling rock", random
-TRAP: "falling rock", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
+TRAP: "fire", random
 TRAP: "falling rock", random
 TRAP: "falling rock", random
 TRAP: random, random
@@ -230,20 +249,34 @@ TRAP: random, random
 ALTAR: (17,08), noalign, altar
 
 # Random monsters.
-MONSTER: ('@', "Earth Mage"), (17,08)
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('E', "earth elemental"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
+MONSTER: ('E', "Ragnaros"), (17,08)
+MONSTER: ('D', "red dragon"), (17,09), asleep, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('E', "fire elemental"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: (':', "salamander"), random, hostile
+MONSTER: (':', "salamander"), random, hostile
+MONSTER: (':', "salamander"), random, hostile
+MONSTER: (':', "salamander"), random, hostile
+MONSTER: ('N', "red naga"), random, hostile
+MONSTER: ('N', "red naga"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('V', "fire vampire"), random, hostile
+MONSTER: ('V', "fire vampire"), random, hostile
+MONSTER: ('b', "lava blob"), random, hostile
+MONSTER: ('b', "lava blob"), random, hostile
+MONSTER: '&', random
+MONSTER: '&', random
 
 #
 #       The "fill" levels for the quest.
@@ -268,16 +301,25 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('d', "hell hound pup"), random, hostile
+MONSTER: ('d', "hell hound pup"), random, hostile
+MONSTER: ('H', "fire giant"), random, hostile
+MONSTER: ('H', "fire giant"), random, hostile
 
 TRAP: random, random
 TRAP: random, random
@@ -300,15 +342,27 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('E', "earth elemental"), random
-MONSTER: ('X', "xorn"), random, hostile
-MONSTER: ('X', "xorn"), random, hostile
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('E', "fire elemental"), random
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "steam vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('v', "fire vortex"), random, hostile
+MONSTER: ('N', "red naga"), random, hostile
+MONSTER: ('N', "red naga"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: ('d', "hell hound"), random, hostile
+MONSTER: '&', random, hostile
+MONSTER: '&', random, hostile
+MONSTER: ('o', "demon orc"), random, hostile
+MONSTER: ('o', "demon orc"), random, hostile
+MONSTER: ('o', "demon orc"), random, hostile
 
 TRAP: "falling rock", random
 TRAP: "falling rock", random

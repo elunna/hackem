@@ -280,7 +280,7 @@ const struct Role roles[] = {
         PM_WINTER_WOLF_CUB,
         PM_HIGH_ICE_MAGE, 
         PM_FROSTER, 
-        PM_EARTH_MAGE,
+        PM_RAGNAROS,
         PM_RUST_MONSTER, 
         PM_XORN, 
         S_RUSTMONST, 
