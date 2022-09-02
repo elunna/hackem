@@ -4324,6 +4324,30 @@ struct attack *mattk;
     char mlet;
     boolean vis, monable;
 
+    if (carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)) {
+		tmp = d(1, 10);
+		pline("%s is suddenly on fire!", Monnam(mtmp));
+		tmp += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
+		tmp += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+        
+		if (resists_fire(mtmp)) {
+		    shieldeff(mtmp->mx, mtmp->my);
+		    pline("The fire doesn't burns %s.", Monnam(mtmp));
+		    golemeffects(mtmp, AD_FIRE, tmp);
+		} else {
+			if (resists_cold(mtmp))
+				tmp += 3;
+		}
+		tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+		if ((mtmp->mhp -= tmp) <= 0) {
+			pline("%s dies!", Monnam(mtmp));
+			xkilled(mtmp,0);
+			if (mtmp->mhp > 0) 
+                return 1;
+			return 2;
+		}
+	}
+    
     if (uarm && Is_dragon_scaled_armor(uarm)) {
         int otyp = Dragon_armor_to_scales(uarm);
 

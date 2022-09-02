@@ -3947,6 +3947,25 @@ boolean wep_was_destroyed;
     register struct attack *mattk;
     mattk = has_erac(mon) ? ERAC(mon)->mattk : ptr->mattk;
 
+    /* If carrying the Candle of Eternal Flame, deal passive fire damage */
+	if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
+		tmp = d(1, 10);
+		if (monnear(mon, u.ux, u.uy)) {
+			pline("Magic fire suddenly surrounds you!");
+			if (how_resistant(FIRE_RES) == 100) {
+				shieldeff(u.ux, u.uy);
+				pline_The("fire doesn't feel hot.");
+				ugolemeffects(AD_FIRE, tmp);
+			} else {
+                tmp = resist_reduce(tmp, FIRE_RES);
+                mdamageu(mon, tmp); /* fire damage */
+            }
+            destroy_item(SCROLL_CLASS, AD_FIRE);
+			destroy_item(POTION_CLASS, AD_FIRE);
+			destroy_item(SPBOOK_CLASS, AD_FIRE);
+		}
+	}
+
     for (i = 0;; i++) {
         if (i >= NATTK)
             return (malive | mhit); /* no passive attacks */

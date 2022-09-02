@@ -1318,6 +1318,18 @@ register int type;
     return (struct obj *) 0;
 }
 
+struct obj *
+carrying_arti(arti)
+register char arti;
+{
+    register struct obj *otmp;
+    
+    for (otmp = invent; otmp; otmp = otmp->nobj)
+        if (otmp->oartifact == arti)
+            return otmp;
+    return (struct obj *) 0;
+}
+
 /* Fictional and not-so-fictional currencies.
  * http://concord.wikia.com/wiki/List_of_Fictional_Currencies
  */

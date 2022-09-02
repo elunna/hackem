@@ -1093,6 +1093,7 @@ E void FDECL(delobj_core, (struct obj *, boolean));
 E struct obj *FDECL(sobj_at, (int, int, int));
 E struct obj *FDECL(nxtobj, (struct obj *, int, BOOLEAN_P));
 E struct obj *FDECL(carrying, (int));
+E struct obj *FDECL(carrying_arti, (char));
 E boolean NDECL(have_lizard);
 E struct obj *NDECL(u_have_novel);
 E struct obj *FDECL(o_on, (unsigned int, struct obj *));
@@ -1766,6 +1767,7 @@ E boolean FDECL(linedup_callback, (XCHAR_P, XCHAR_P, XCHAR_P, XCHAR_P,
 E boolean FDECL(linedup, (XCHAR_P, XCHAR_P, XCHAR_P, XCHAR_P, int));
 E boolean FDECL(lined_up, (struct monst *));
 E struct obj *FDECL(m_carrying, (struct monst *, int));
+E struct obj *FDECL(m_carrying_arti, (struct monst *, char));
 E int FDECL(thrwmm, (struct monst *, struct monst *));
 E int FDECL(spitmm, (struct monst *, struct attack *, struct monst *));
 E int FDECL(breamm, (struct monst *, struct attack *, struct monst *));

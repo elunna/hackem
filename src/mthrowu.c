@@ -1470,6 +1470,21 @@ int type;
     return (struct obj *) 0;
 }
 
+/* Check if a monster is carrying a particular artifact.
+ */
+struct obj *
+m_carrying_arti(mtmp, arti)
+struct monst *mtmp;
+char arti;
+{
+	register struct obj *otmp;
+
+	for(otmp = mtmp->minvent; otmp; otmp = otmp->nobj)
+		if(otmp->oartifact == arti)
+			return otmp;
+	return ((struct obj *)0);
+}
+
 void
 hit_bars(objp, objx, objy, barsx, barsy, breakflags)
 struct obj **objp;   /* *objp will be set to NULL if object breaks */
