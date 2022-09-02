@@ -468,7 +468,7 @@ static const struct def_skill Skill_F[] = {
 /*Style: small-med edged weapons, blunt weapons*/
     { P_DAGGER, P_BASIC },             { P_KNIFE,  P_SKILLED },
     { P_AXE, P_BASIC },                 /*{ P_PICK_AXE, P_BASIC },*/
-    { P_SHORT_SWORD, P_EXPERT },        /*{ P_BROAD_SWORD, P_BASIC },*/
+    { P_SHORT_SWORD, P_SKILLED },        /*{ P_BROAD_SWORD, P_BASIC },*/
     /*{ P_LONG_SWORD, P_SKILLED },*/        /*{ P_TWO_HANDED_SWORD, P_BASIC },*/
     { P_SCIMITAR, P_SKILLED },          /*{ P_SABER, P_SKILLED },*/
     /* { P_PADDLE, P_BASIC }, */
