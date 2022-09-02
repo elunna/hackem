@@ -3949,7 +3949,7 @@ boolean wep_was_destroyed;
 
     /* If carrying the Candle of Eternal Flame, deal passive fire damage */
 	if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
-		tmp = d(1, 10);
+		tmp = d(2, 7);
 		if (monnear(mon, u.ux, u.uy)) {
 			pline("Magic fire suddenly surrounds you!");
 			if (how_resistant(FIRE_RES) == 100) {
