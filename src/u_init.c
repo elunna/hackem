@@ -69,7 +69,7 @@ static struct trobj Flame_Mage[] = {
     { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { POT_OIL, UNDEF_SPE, POTION_CLASS, 2, UNDEF_BLESS },
-    { SCR_FIRE, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { SCR_FIRE, UNDEF_SPE, SCROLL_CLASS, 1, 0 },
     { WAN_FIRE, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
@@ -1926,6 +1926,11 @@ register struct trobj *origtrop;
             if (Role_if(PM_INFIDEL) && obj->oclass == ARMOR_CLASS) {
                 /* Infidels are used to playing with fire */
                 obj->oerodeproof = 1;
+            }
+            if (Role_if(PM_FLAME_MAGE)) {
+                    /* Flame mages are also used to playing with fire */
+                if (obj->oclass == ARMOR_CLASS || obj->otyp == QUARTERSTAFF)
+                    obj->oerodeproof = 1;
             }
             
             /* --hackem: Undead Slayers get special silver weapons.
