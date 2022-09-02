@@ -53,9 +53,11 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
 
   ice_abil[] = { { 1, &(HCold_resistance), "", "" },
+                 { 10, &(HVulnerable_fire), "very cool", "much warmer" },
 #if 0 /* --hackem: Disabling cold res for an extra challenge. */
                  { 13, &(HFire_resistance), "cool", "warmer" },
 #endif
+                 
                  { 0, 0, 0, 0 } },
 
   inf_abil[] = { { 1, &(HFire_resistance), "", "" },
