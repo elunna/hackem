@@ -288,7 +288,7 @@ const struct Role roles[] = {
         ART_STORM_WHISTLE,
         /* --hackem: Removed MH_VAMPIRE */
         MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT, 
-        ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+        ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
         /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
         {   7, 10,  7,  7,  7,  7 },
         {  10, 30, 10, 20, 20, 10 },
