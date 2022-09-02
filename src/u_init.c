@@ -306,6 +306,11 @@ struct trobj AoMR[] = { { AMULET_OF_MAGIC_RESISTANCE, 0, AMULET_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
 struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
+struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
+                           { 0, 0, 0, 0, 0 } };
+struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
+                          { 0, 0, 0, 0, 0 } };
+
 
 /* race-based substitutions for initial inventory;
    the weaker cloak for elven rangers is intentional--they shoot better */
@@ -1050,6 +1055,10 @@ u_init()
             break;
         }
         ini_inv(Ice_Mage);
+        if (!rn2(2)) 
+            ini_inv(Lenses);
+        else
+            ini_inv(GrapplingHook);
         skill_init(Skill_I);
         break;
 
