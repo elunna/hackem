@@ -554,7 +554,7 @@ CLOAK("cloak of magic resistance", "ornamental cope",
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
 CLOAK("poisonous cloak", "dirty rag",
-      0, 1,          0,  5, 0, 10, 60, 10, 2, CLOTH, CLR_GREEN),
+      0, 1,          0,  5, 0, 10, 60, 10, 2, CLOTH, CLR_BLACK),
 CLOAK("cloak of weakness", "green cloak",
       0, 1,          0,  5, 0, 10, 50, 10, 1, CLOTH, CLR_GREEN),
 
