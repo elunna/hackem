@@ -83,8 +83,13 @@ MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('&', "water demon"), random, hostile
+MONSTER: ('n', "water nymph"), random, hostile
+MONSTER: ('n', "water nymph"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
  
@@ -152,13 +157,18 @@ MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('&', "water demon"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+MONSTER: ('R', "disenchanter"), random, hostile
 
 #
 #       The "goal" level for the quest.
@@ -234,22 +244,36 @@ ALTAR: (17,08), noalign, altar
 
 # Random monsters.
 MONSTER: ('@', "Water Mage"),(17,08)
+MONSTER: ('D', "white dragon"), (17,09), asleep, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
 MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
+MONSTER: ('v', "ice vortex"), random, hostile
+MONSTER: ('v', "ice vortex"), random, hostile
+MONSTER: ('v', "ice vortex"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('U', "water hulk"), random, hostile
+MONSTER: ('U', "water hulk"), random, hostile
+MONSTER: ('&', "water demon"), random, hostile
+MONSTER: ('&', "water demon"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('n', "water nymph"), random, hostile
+MONSTER: ('n', "water nymph"), random, hostile
+MONSTER: (';', "electric eel"), random, hostile
+MONSTER: (';', "electric eel"), random, hostile
+MONSTER: (';', "kraken"), random, hostile
+MONSTER: (';', "kraken"), random, hostile
+MONSTER: (';', "giant eel"), random, hostile
+MONSTER: (';', "giant eel"), random, hostile
+MONSTER: (';', "giant eel"), random, hostile
+MONSTER: (';', "giant eel"), random, hostile
 
 #
 #       The "fill" levels for the quest.
@@ -284,6 +308,12 @@ MONSTER: ('E', "water elemental"), random
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
+MONSTER: ('n', "water nymph"), random, hostile
+MONSTER: ('n', "water nymph"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
 
 TRAP: random, random
 TRAP: random, random
@@ -312,10 +342,24 @@ MONSTER: ('E', "water elemental"), random
 MONSTER: ('E', "water elemental"), random
 MONSTER: ('E', "water elemental"), random
 MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
-
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('&', "water demon"), random, hostile
+MONSTER: ('&', "water demon"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('U', "water hulk"), random, hostile
+MONSTER: (';', "electric eel"), random, hostile
+MONSTER: (';', "electric eel"), random, hostile
+MONSTER: ';', random, hostile
+MONSTER: ';', random, hostile
+MONSTER: ';', random, hostile
+MONSTER: ';', random, hostile
 TRAP: "rust", random
 TRAP: "rust", random
 TRAP: "rust", random
