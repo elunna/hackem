@@ -1415,7 +1415,10 @@ snuff_candle(otmp)
 struct obj *otmp;
 {
     boolean candle = Is_candle(otmp);
-
+    if (otmp->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
+        pline("The candle flickers briefly, but it's flame burns on!");
+        return;
+    }
     if ((candle || otmp->otyp == CANDELABRUM_OF_INVOCATION)
         && otmp->lamplit) {
         char buf[BUFSZ];
@@ -1514,8 +1517,12 @@ struct obj *obj;
             pline("%slamp is now off.", Shk_Your(buf, obj));
         
         else if (is_lightsaber(obj)) {
-		    lightsaber_deactivate(obj, TRUE);
-		    return;
+            lightsaber_deactivate(obj, TRUE);
+            return;
+        } 
+        else if (obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
+            pline("The Candle of Eternal Flame will not stop burning!");
+            return;
         } else
             You("snuff out %s.", yname(obj));
         end_burn(obj, TRUE);
