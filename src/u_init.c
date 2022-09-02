@@ -520,27 +520,27 @@ static const struct def_skill Skill_H[] = {
 };
 static const struct def_skill Skill_I[] = {
 /*Resorts mostly to stabbing weapons*/
-    { P_DAGGER, P_EXPERT },             { P_KNIFE,  P_SKILLED },
-/*  { P_AXE, P_BASIC },                 { P_PICK_AXE, P_BASIC },
-    { P_SHORT_SWORD, P_EXPERT },        { P_BROAD_SWORD, P_BASIC },*/
-    { P_LONG_SWORD, P_SKILLED },      /*{ P_TWO_HANDED_SWORD, P_BASIC },
+    { P_DAGGER, P_SKILLED },             { P_KNIFE,  P_EXPERT },
+    { P_AXE, P_BASIC },               /*{ P_PICK_AXE, P_BASIC },*/
+    { P_SHORT_SWORD, P_EXPERT },        { P_BROAD_SWORD, P_BASIC },
+    { P_LONG_SWORD, P_BASIC },        /*{ P_TWO_HANDED_SWORD, P_BASIC },
     { P_SCIMITAR, P_SKILLED },          { P_SABER, P_SKILLED },
     { P_MACE, P_BASIC },                { P_MORNING_STAR, P_BASIC },
     { P_FLAIL, P_BASIC },               { P_HAMMER, P_BASIC },*/
-    { P_QUARTERSTAFF, P_SKILLED },      { P_POLEARMS, P_BASIC },
-    { P_SPEAR, P_BASIC },             /*{ P_JAVELIN, P_BASIC },*/
-    { P_TRIDENT, P_BASIC },             { P_LANCE, P_BASIC },
-/*  { P_BOW, P_BASIC },                 { P_SLING, P_BASIC },
-    { P_CROSSBOW, P_BASIC },            { P_DART, P_EXPERT },
+    /*{ P_QUARTERSTAFF, P_SKILLED },*//*{ P_POLEARMS, P_BASIC },*/
+    { P_SPEAR, P_SKILLED },           /*{ P_JAVELIN, P_BASIC },*/
+    { P_TRIDENT, P_EXPERT },          /*{ P_LANCE, P_BASIC },*/
+/*  { P_BOW, P_BASIC },*/                 { P_SLING, P_BASIC },
+/*  { P_CROSSBOW, P_BASIC },            { P_DART, P_EXPERT },
     { P_SHURIKEN, P_BASIC },            { P_BOOMERANG, P_BASIC },*/
-    { P_WHIP, P_BASIC },                { P_UNICORN_HORN, P_SKILLED },
+    /*{ P_WHIP, P_BASIC },*/              { P_UNICORN_HORN, P_SKILLED },
 
-    { P_ATTACK_SPELL, P_BASIC },        { P_HEALING_SPELL, P_SKILLED },
-    { P_DIVINATION_SPELL, P_BASIC },    { P_ENCHANTMENT_SPELL, P_EXPERT },
+  /*{ P_ATTACK_SPELL, P_BASIC },*/      /*{ P_HEALING_SPELL, P_SKILLED },*/
+  /*{ P_DIVINATION_SPELL, P_BASIC },*/  { P_ENCHANTMENT_SPELL, P_EXPERT },
     { P_CLERIC_SPELL, P_SKILLED },      { P_ESCAPE_SPELL, P_BASIC },
     { P_MATTER_SPELL, P_EXPERT },
     /*WAC - same as Flame Mage*/
-    { P_RIDING, P_SKILLED },
+    { P_RIDING, P_EXPERT },
     { P_TWO_WEAPON_COMBAT, P_SKILLED }, { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
