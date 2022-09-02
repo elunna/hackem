@@ -1063,8 +1063,18 @@ boolean atme;
              * understand quite well how to cast spells.
              */
             intell = acurr(A_INT);
-            if (!Role_if(PM_WIZARD))
+            
+            /* --hackem: Let Flame and Ice Mages have hungerless bonus too.
+             * We decrease it slightly so Wizards are still special. */
+            if (Role_if(PM_FLAME_MAGE)) {
+                /* Flame Mages use WIS for spells */
+                intell = acurr(A_WIS) - 2; 
+            }
+            else if (Role_if(PM_ICE_MAGE))
+                intell -= 2;
+            else if (!Role_if(PM_WIZARD))
                 intell = 10;
+            
             switch (intell) {
             case 25:
             case 24:
