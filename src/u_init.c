@@ -486,12 +486,12 @@ static const struct def_skill Skill_F[] = {
 
     { P_ATTACK_SPELL, P_SKILLED },      { P_HEALING_SPELL, P_BASIC },
     { P_DIVINATION_SPELL, P_EXPERT },   { P_ENCHANTMENT_SPELL, P_BASIC },
-    { P_CLERIC_SPELL, P_BASIC },      { P_ESCAPE_SPELL, P_SKILLED },
+    { P_CLERIC_SPELL, P_BASIC },        { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_EXPERT },
 /*  Added expert matter spell (elements), skilled in attack, basic in rest
         He is a mage,  so knows the types.*/
     { P_RIDING, P_SKILLED },
-    { P_TWO_WEAPON_COMBAT, P_SKILLED }, { P_BARE_HANDED_COMBAT, P_SKILLED },
+    /*{ P_TWO_WEAPON_COMBAT, P_SKILLED },*/ { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
 
