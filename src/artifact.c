@@ -2970,19 +2970,19 @@ struct obj *obj;
             break;
         case SUMMON_FIRE_ELEMENTAL:
             pm = &mons[PM_FIRE_ELEMENTAL];
-            mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
             pline("You summon an elemental.");
-            if ((mtmp2 = tamedog(mtmp, (struct obj *)0)) != 0)
-                mtmp = mtmp2;
-            mtmp->mtame = 30;
+            mtmp = makemon(pm, u.ux, u.uy, MM_EDOG | MM_IGNOREWATER);
+            initedog(mtmp);
+            u.uconduct.pets++;
+            mtmp->msleeping = 0;
             break;
         case SUMMON_WATER_ELEMENTAL:
             pm = &mons[PM_WATER_ELEMENTAL];
-            mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
+            mtmp = makemon(pm, u.ux, u.uy, MM_EDOG | MM_IGNOREWATER);
             pline("You summon an elemental.");
-            if ((mtmp2 = tamedog(mtmp, (struct obj *)0)) != 0)
-                mtmp = mtmp2;
-            mtmp->mtame = 30;
+            initedog(mtmp);
+            u.uconduct.pets++;
+            mtmp->msleeping = 0;
             break;
         case CREATE_AMMO: {
             struct obj *otmp = mksobj(obj->otyp == CROSSBOW ? CROSSBOW_BOLT : ARROW, TRUE, FALSE);
