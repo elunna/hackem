@@ -474,7 +474,7 @@ static const struct def_skill Skill_F[] = {
     /* { P_PADDLE, P_BASIC }, */
     { P_MACE, P_BASIC },                /*{ P_MORNING_STAR, P_BASIC },
     { P_FLAIL, P_BASIC },*/               { P_HAMMER, P_BASIC },
-    { P_QUARTERSTAFF, P_SKILLED },       /* { P_POLEARMS, P_BASIC },*/
+    { P_QUARTERSTAFF, P_EXPERT },       /* { P_POLEARMS, P_BASIC },*/
 /* Relies on spells for ranged attack
     { P_SPEAR, P_BASIC },               { P_JAVELIN, P_BASIC },
     { P_TRIDENT, P_BASIC },             { P_LANCE, P_BASIC },
