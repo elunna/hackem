@@ -107,6 +107,7 @@ static struct trobj Ice_Mage[] = {
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
@@ -1049,10 +1050,6 @@ u_init()
             break;
         }
         ini_inv(Ice_Mage);
-        if(!rn2(5)) 
-            ini_inv(Lamp);
-        else if(!rn2(5)) 
-            ini_inv(Blindfold);
         skill_init(Skill_I);
         break;
 
