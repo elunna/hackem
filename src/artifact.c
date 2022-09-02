@@ -2977,9 +2977,21 @@ struct obj *obj;
             mtmp->msleeping = 0;
             break;
         case SUMMON_WATER_ELEMENTAL:
-            pm = &mons[PM_WATER_ELEMENTAL];
+            /* --hackem: Added more variety for "stormy" pets here */
+            switch (rnd(10)) {
+            case 1: pm = &mons[PM_WATER_ELEMENTAL]; break;
+            case 2: pm = &mons[PM_AIR_ELEMENTAL]; break;
+            case 3: pm = &mons[PM_ICE_VORTEX]; break;
+            case 4: pm = &mons[PM_ENERGY_VORTEX]; break;
+            case 5: pm = &mons[PM_BABY_WHITE_DRAGON]; break;
+            case 6: pm = &mons[PM_BABY_BLUE_DRAGON]; break;
+            case 7: pm = &mons[PM_FROST_GIANT]; break;
+            case 8: pm = &mons[PM_STORM_GIANT]; break;
+            case 9: pm = &mons[PM_FREEZING_SPHERE]; break;
+            case 10: pm = &mons[PM_SHOCKING_SPHERE]; break;
+            }
             mtmp = makemon(pm, u.ux, u.uy, MM_EDOG | MM_IGNOREWATER);
-            pline("You summon an elemental.");
+            pline("You blow the whistle and a creature appears from a storm cloud!");
             initedog(mtmp);
             u.uconduct.pets++;
             mtmp->msleeping = 0;
