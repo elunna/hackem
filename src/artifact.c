@@ -1106,10 +1106,15 @@ struct monst *mon;
         losehp(dmg, buf, KILLED_BY); /* magic damage, not physical */
         exercise(A_WIS, FALSE);
     }
-
+    
     /* can pick it up unless you're totally non-synch'd with the artifact */
+    /* --hackem: Elemental mages have special restrictions */
     if ((badclass && badalign && self_willed)
-        || (yours && obj->oartifact == ART_WAND_OF_ORCUS && !wizard)) {
+        || (yours && obj->oartifact == ART_WAND_OF_ORCUS && !wizard)
+        || (yours && obj->oartifact == ART_FROST_BRAND && Role_if(PM_FLAME_MAGE))
+        || (yours && obj->oartifact == ART_DEEP_FREEZE && Role_if(PM_FLAME_MAGE))
+        || (yours && obj->oartifact == ART_FIRE_BRAND && Role_if(PM_ICE_MAGE))
+        || (yours && obj->oartifact == ART_FIREWALL && Role_if(PM_ICE_MAGE))) {
         if (yours) {
             if (!carried(obj))
                 pline("%s your grasp!", Tobjnam(obj, "evade"));
