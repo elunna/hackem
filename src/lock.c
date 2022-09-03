@@ -1338,6 +1338,7 @@ int x, y;
         case WAN_OPENING:
         case SPE_KNOCK:
         case WAN_STRIKING:
+        case SPE_FIRE_BOLT:
         case SPE_FORCE_BOLT:
             door->typ = DOOR;
             door->doormask = D_CLOSED | (door->doormask & D_TRAPPED);
@@ -1419,6 +1420,7 @@ int x, y;
             res = FALSE;
         break;
     case WAN_STRIKING:
+    case SPE_FIRE_BOLT:
     case SPE_FORCE_BOLT:
         if (door->doormask & (D_LOCKED | D_CLOSED)) {
             if (door->doormask & D_TRAPPED) {

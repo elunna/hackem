@@ -1104,10 +1104,12 @@ SPELL("protection",      "dull",          P_CLERIC_SPELL,      15,  3, 1, 1, NOD
 SPELL("jumping",         "thin",          P_ESCAPE_SPELL,      20,  3, 2, 1, IMMEDIATE, HI_PAPER),
 SPELL("stone to flesh",  "thick",         P_HEALING_SPELL,     15,  1, 3, 1, IMMEDIATE, HI_PAPER),
 SPELL("repair armor",    "platinum",      P_MATTER_SPELL,      20,  6, 3, 1, IMMEDIATE, HI_PAPER),
-SPELL("reflection",	    "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),
+SPELL("reflection",	 "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),
 SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),
 SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),
 SPELL("command undead",  "dark",          P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),
+SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
+/* Fire Bolt is Flame Mage special spell - not randomly generated. */
 
 /* books with fixed descriptions
  */

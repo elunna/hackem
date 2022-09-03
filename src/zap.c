@@ -198,6 +198,63 @@ struct obj *otmp;
             miss(zap_type_text, mtmp);
         learn_it = TRUE;
         break;
+    case SPE_FIRE_BOLT:
+        /* New special spell just for Flame Mages */
+        
+        reveal_invis = TRUE;
+        if (disguised_mimic)
+            seemimic(mtmp);
+        /* Damage scales with level - every 4 levels we add a cumulative
+             * 1d10 to the total damage.
+             * Level 1 = 1d10 fire damage
+             * Level 4 = 2d10 fire
+             * Level 8 = 3d10 fire - and etc. */
+        dmg = d((u.ulevel / 4) + 1, 10);
+        
+        if (dbldam)
+            dmg *= 2;
+        if (otyp == SPE_FIRE_BOLT) {
+            dmg = spell_damage_bonus(dmg);
+        }
+        if (wizard)
+            pline("Fire bolt %dd%d = (%d)", (u.ulevel / 4) + 1, 10, dmg);
+
+        /* A chance of setting monster's stuff on fire */
+        if (!rn2(3)) 
+            erode_armor(mtmp, ERODE_BURN);
+        if (!rn2(3)) 
+            dmg += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
+        if (!rn2(3)) 
+            dmg += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+        if (!rn2(3)) 
+            dmg += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+        
+        if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) { /* match effect on player */
+            golemeffects(mtmp, AD_FIRE, dmg);
+            shieldeff(mtmp->mx, mtmp->my);
+            pline("Swoosh!");
+            break; /* skip makeknown */
+        } else if (completelyburns(mdat)) { /* paper golem or straw golem */
+            if (!Blind)
+                pline("%s burns completely!", Monnam(mtmp));
+            else
+                You("smell burning%s.", (mdat == &mons[PM_PAPER_GOLEM]) 
+                        ? " paper" : (   mdat == &mons[PM_STRAW_GOLEM]) 
+                        ? " straw" : "");
+            xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
+        }
+        else if (!resist(mtmp, otmp->oclass, dmg, NOTELL)
+                   && !DEADMONSTER(mtmp)) {
+            
+            hit(zap_type_text, mtmp, exclam(dmg));
+            damage_mon(mtmp, dmg, AD_FIRE);
+            
+            if (DEADMONSTER(mtmp)) {
+                killed(mtmp);
+            } 
+        }
+        learn_it = TRUE;
+        break;
     case SPE_PSIONIC_WAVE:
         if (!(maybe_polyd(is_illithid(youmonst.data),
             Race_if(PM_ILLITHID)))) {
@@ -2351,6 +2408,7 @@ struct obj *obj, *otmp;
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
         case WAN_FIREBALL:
+        case SPE_FIRE_BOLT:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
             res = 0;
@@ -2640,12 +2698,13 @@ boolean ordinary;
         break;
 
     case WAN_FIREBALL:
-		makeknown(WAN_FIREBALL);
+        makeknown(WAN_FIREBALL);
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
         break;
     case WAN_FIRE:
+    case SPE_FIRE_BOLT:
     case FIRE_HORN:
         learn_it = TRUE;
         if (how_resistant(FIRE_RES) == 100) {
@@ -4124,6 +4183,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
             case SPE_KNOCK:
             case SPE_WIZARD_LOCK:
             case SPE_FORCE_BOLT:
+            case SPE_FIRE_BOLT:
                 if (doorlock(obj, bhitpos.x, bhitpos.y)) {
                     if (cansee(bhitpos.x, bhitpos.y)
                         || (obj->otyp == WAN_STRIKING && !Deaf))

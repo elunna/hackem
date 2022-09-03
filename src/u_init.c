@@ -72,8 +72,8 @@ static struct trobj Flame_Mage[] = {
     { SCR_FIRE, UNDEF_SPE, SCROLL_CLASS, 1, 0 },
     { WAN_FIRE, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { SPE_FIRE_BOLT, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-    { SPE_FIREBALL, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { FRAG_GRENADE, 0, WEAPON_CLASS, 2, 0 },
     { 0, 0, 0, 0, 0 }
@@ -472,31 +472,42 @@ static const struct def_skill Skill_Con[] = {
 
 static const struct def_skill Skill_F[] = {
 /*Style: small-med edged weapons, blunt weapons*/
-    /*{ P_DAGGER, P_BASIC },*/        /*{ P_KNIFE,  P_SKILLED },*/
-    { P_AXE, P_SKILLED },               { P_PICK_AXE, P_BASIC },
-    { P_SHORT_SWORD, P_SKILLED },     /*{ P_BROAD_SWORD, P_BASIC },*/
-    /*{ P_LONG_SWORD, P_SKILLED },*/  /*{ P_TWO_HANDED_SWORD, P_BASIC },*/
-    /*{ P_SCIMITAR, P_SKILLED },*/    /*{ P_SABER, P_SKILLED },*/
-    { P_MACE, P_SKILLED },              /*{ P_MORNING_STAR, P_BASIC },*/
-    { P_CLUB, P_SKILLED },             /*{ P_HAMMER, P_SKILLED },
-    { P_QUARTERSTAFF, P_EXPERT },    /* { P_POLEARMS, P_BASIC },*/
-/* Relies on spells for ranged attack
-    { P_SPEAR, P_BASIC },               
-    { P_TRIDENT, P_BASIC },             { P_LANCE, P_BASIC },
-    { P_BOW, P_BASIC },                 { P_SLING, P_BASIC },
-    { P_CROSSBOW, P_BASIC },            { P_DART, P_EXPERT },
-    { P_SHURIKEN, P_BASIC },            { P_BOOMERANG, P_BASIC },
-*/
-    { P_WHIP, P_EXPERT },               { P_UNICORN_HORN, P_BASIC },
-
-    { P_ATTACK_SPELL, P_SKILLED },      /*{ P_HEALING_SPELL, P_BASIC },*/
-    { P_DIVINATION_SPELL, P_EXPERT },   /*{ P_ENCHANTMENT_SPELL, P_BASIC },*/
-    /*{ P_CLERIC_SPELL, P_BASIC },*/    /*{ P_ESCAPE_SPELL, P_SKILLED },*/
+/*  { P_DAGGER, P_BASIC },*/        
+/*  { P_KNIFE,  P_SKILLED },*/
+    { P_AXE, P_SKILLED },               
+    { P_PICK_AXE, P_BASIC },
+    { P_SHORT_SWORD, P_SKILLED },     
+/*  { P_BROAD_SWORD, P_BASIC },*/
+/*  { P_LONG_SWORD, P_SKILLED },*/  
+/*  { P_TWO_HANDED_SWORD, P_BASIC },*/
+/*  { P_SCIMITAR, P_SKILLED },*/   
+/*  { P_SABER, P_SKILLED },*/
+    { P_MACE, P_SKILLED },              
+/*  { P_MORNING_STAR, P_BASIC },*/
+    { P_CLUB, P_SKILLED },             
+    { P_HAMMER, P_SKILLED },
+    { P_QUARTERSTAFF, P_EXPERT },    
+/*  { P_POLEARMS, P_BASIC },*/
+/*  { P_SPEAR, P_BASIC },               
+    { P_TRIDENT, P_BASIC },            
+    { P_LANCE, P_BASIC },
+    { P_BOW, P_BASIC },                 
+    { P_SLING, P_BASIC },
+    { P_CROSSBOW, P_BASIC },            
+    { P_DART, P_EXPERT },
+    { P_SHURIKEN, P_BASIC },            
+    { P_BOOMERANG, P_BASIC }, */
+    { P_WHIP, P_EXPERT },               
+    { P_UNICORN_HORN, P_BASIC },
+    { P_ATTACK_SPELL, P_SKILLED },      
+/*  { P_HEALING_SPELL, P_BASIC },*/
+    { P_DIVINATION_SPELL, P_EXPERT },   
+/*  { P_ENCHANTMENT_SPELL, P_BASIC },*/
+/*  { P_CLERIC_SPELL, P_BASIC },*/    
+/*  { P_ESCAPE_SPELL, P_SKILLED },*/
     { P_MATTER_SPELL, P_EXPERT },
-/*  Added expert matter spell (elements), skilled in attack, basic in rest
-        He is a mage,  so knows the types.*/
-    /*{ P_RIDING, P_SKILLED },*/
-    /*{ P_TWO_WEAPON_COMBAT, P_SKILLED },*/ 
+/*  { P_RIDING, P_SKILLED },*/
+/*  { P_TWO_WEAPON_COMBAT, P_SKILLED },*/ 
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
@@ -1060,7 +1071,6 @@ u_init()
             ini_inv(GrapplingHook);
         skill_init(Skill_I);
         break;
-
     case PM_CONVICT:
         ini_inv(Convict);
         if (Race_if(PM_ILLITHID))
@@ -1282,11 +1292,11 @@ u_init()
         skill_init(Skill_W);
         break;
     case PM_YEOMAN:
-		ini_inv(Yeoman);
-		knows_class(WEAPON_CLASS);
-		knows_class(ARMOR_CLASS);
-		skill_init(Skill_Y);
-		break;
+        ini_inv(Yeoman);
+        knows_class(WEAPON_CLASS);
+        knows_class(ARMOR_CLASS);
+        skill_init(Skill_Y);
+        break;
     default: /* impossible */
         break;
     }
@@ -1689,11 +1699,9 @@ int otyp;
     case PM_CONVICT:
         skills = Skill_Con;
         break;
-    #if 0 /* Wait to see if we need this */
     case PM_FLAME_MAGE:
         skills = Skill_F;
         break;
-    #endif
     case PM_HEALER:
         skills = Skill_H;
         break;

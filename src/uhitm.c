@@ -1168,7 +1168,7 @@ int dieroll;
                 }
                 
                 /* MRKR: Hitting with a lit torch */
-				if (obj->otyp == TORCH && obj->lamplit) {
+                if (obj->otyp == TORCH && obj->lamplit) {
                     burnmsg = TRUE;
                 }
 
@@ -1744,7 +1744,7 @@ int dieroll;
                 burn_faster(obj, 1); /* Use up the torch more quickly */
             }
         }
-	}
+    }
 
     /* The Hand of Vecna imparts cold damage to attacks,
        whether bare-handed or wielding a weapon */

@@ -345,7 +345,7 @@ learn(VOID_ARGS)
     char splname[BUFSZ];
     boolean costly = TRUE;
     struct obj *book = context.spbook.book;
-
+    
     /* JDS: lenses give 50% faster reading; 33% smaller read time */
     if (context.spbook.delay && ublindf && ublindf->otyp == LENSES && rn2(2))
         context.spbook.delay++;
@@ -377,7 +377,7 @@ learn(VOID_ARGS)
     for (i = 0; i < MAXSPELL; i++)
         if (spellid(i) == booktype || spellid(i) == NO_SPELL)
             break;
-
+    
     if (i == MAXSPELL) {
         impossible("Too many spells memorized!");
     } else if (spellid(i) == booktype) {
@@ -488,6 +488,22 @@ register struct obj *spellbook;
             set_material(spellbook, PAPER);
             makeknown(booktype);
             return 1;
+        }
+        
+        /* --hackem: Elemental mages are not receptive to opposite element's teachings 
+         * We'll auto-id it if rejected as compensation. */
+        if (Role_if(PM_FLAME_MAGE)) {
+            if (booktype == SPE_CONE_OF_COLD || booktype == SPE_FREEZE_SPHERE) {
+                pline("This spellbook is tainted by cold magic!");
+                makeknown(booktype);
+                return 1;
+            }
+        } else if (Role_if(PM_ICE_MAGE)) {
+            if (booktype == SPE_FIREBALL || booktype == SPE_FLAME_SPHERE) {
+                pline("This spellbook is tainted by fire magic!");
+                makeknown(booktype);
+                return 1;
+            }
         }
 
         /* 3.6 tribute */
@@ -1257,6 +1273,7 @@ boolean atme;
     case SPE_DRAIN_LIFE:
     case SPE_STONE_TO_FLESH:
     case SPE_PSIONIC_WAVE:
+    case SPE_FIRE_BOLT:
         if (objects[otyp].oc_dir != NODIR) {
             if (otyp == SPE_HEALING || otyp == SPE_EXTRA_HEALING) {
                 /* healing and extra healing are actually potion effects,
@@ -1427,11 +1444,11 @@ boolean atme;
 		break;
 
     /* KMH -- new spells */
-	case SPE_PASSWALL:
-		if (!Passes_walls)
-			You_feel("ethereal.");
-		incr_itimeout(&HPasses_walls, rn1(100, 50));
-		break;
+    case SPE_PASSWALL:
+            if (!Passes_walls)
+                    You_feel("ethereal.");
+            incr_itimeout(&HPasses_walls, rn1(100, 50));
+            break;
 
     default:
         impossible("Unknown spell %d attempted.", spell);
