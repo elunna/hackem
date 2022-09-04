@@ -207,9 +207,9 @@ struct obj *otmp;
         /* Damage scales with level - every 4 levels we add a cumulative
              * 1d10 to the total damage.
              * Level 1 = 1d10 fire damage
-             * Level 4 = 2d10 fire
-             * Level 8 = 3d10 fire - and etc. */
-        dmg = d((u.ulevel / 4) + 1, 10);
+             * Level 5 = 2d10 fire
+             * Level 10 = 3d10 fire - and etc. */
+        dmg = d((u.ulevel / 5) + 1, 10);
         
         if (dbldam)
             dmg *= 2;
