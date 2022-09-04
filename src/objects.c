@@ -1109,7 +1109,10 @@ SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 2, 1, NOD
 SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),
 SPELL("command undead",  "dark",          P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),
 SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
-/* Fire Bolt is Flame Mage special spell - not randomly generated. */
+/* Fire Bolt is the Flame Mage's special spell - not randomly generated. */
+SPELL("snowball",        "dappled",       P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_GRAY),
+/* Snowball is the Ice Mage's special spell - not randomly generated. */
+
 
 /* books with fixed descriptions
  */

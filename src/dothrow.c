@@ -1276,9 +1276,9 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
 
     /* KMH -- Handle Plague here */
-	if (uwep && uwep->oartifact == ART_PLAGUE &&
-			ammo_and_launcher(obj, uwep) && is_poisonable(obj))
-		obj->opoisoned = 1;
+    if (uwep && uwep->oartifact == ART_PLAGUE &&
+        ammo_and_launcher(obj, uwep) && is_poisonable(obj))
+        obj->opoisoned = 1;
 
     notonhead = FALSE; /* reset potentially stale value */
     if (((obj->cursed && u.ualign.type != A_NONE)
@@ -1476,6 +1476,9 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                 range /= 2;
         }
 
+        if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+            range += 2; /* Small bonus for snowball spell */
+        }
         if (Is_airlevel(&u.uz) || Levitation) {
             /* action, reaction... */
             urange -= range;
@@ -1845,7 +1848,16 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             break;
         }
     }
-
+    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+        /* This is needed because otherwise we miss way too much */
+        if (P_SKILL(P_MATTER_SPELL) >= P_BASIC) 
+            tmp += 8;
+        if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) 
+            tmp += 2;
+        if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) 
+            tmp += 2;
+    }
+    
     tmp += omon_adj(mon, obj, TRUE);
     if (racial_orc(mon)
         && maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))

@@ -1335,15 +1335,13 @@ int dieroll;
                     tmp = 1;
                     break;
                 case CREAM_PIE:
-                case BLINDING_VENOM:
                 case SNOWBALL:
+                case BLINDING_VENOM:
                     mon->msleeping = 0;
                     if (can_blnd(&youmonst, mon,
                                  (uchar) (((obj->otyp == BLINDING_VENOM)
                                           || (obj->otyp == SNOWBALL))
-                                               ? AT_SPIT
-                                               : AT_WEAP),
-                                 obj)) {
+                                           ? AT_SPIT : AT_WEAP), obj)) {
                         if (Blind) {
                             pline(obj->otyp == CREAM_PIE ? "Splat!"
                                   : obj->otyp == SNOWBALL ? "Thwap!"
@@ -1377,13 +1375,59 @@ int dieroll;
                               : obj->otyp == SNOWBALL ? "Thwap!" : "Splash!");
                         setmangry(mon, TRUE);
                     }
+                    
+                    /* Handle Ice Mage's SNOWBALL spell here */
+                    int snow = 1;
+                    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+                        if (u.ulevel > 4) snow += 1;
+                        if (u.ulevel > 10) snow += 1;
+                        
+                        if (resists_cold(mon) || defended(mon, AD_COLD)) {
+                            /* If they resist cold, they won't take damage from 
+                             * the "snowball" part. Everything else is a hard
+                             * and sharp icy shell that deals physical dmg. 
+                             * We just reset the snow multiplier here. */
+                            /* golemeffects(mon, AD_COLD, dmg); */
+                            shieldeff(mon->mx, mon->my);
+                            pline("%s resists the snowball!", Monnam(mon));
+                            snow = 0;
+                        }
+                        /* Iceball */
+                        if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
+                            snow += 1;
+                            /* Bonus: 10% chance of another 1d6 & stunning */
+                            if (!rn2(10)) {
+                                snow += 1;
+                                if (!Blind)
+                                    pline("%s %s for a moment.", Monnam(mon),
+                                          makeplural(stagger(mon->data, "stagger")));
+                                mon->mstun = 1;
+                            }
+                        }
+                        /* Super Iceballs! */
+                        if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
+                            snow += 1;
+                            /* Bonus: 10% chance of another 2d6! */
+                            if (!rn2(10)) {
+                                pline("Headshot!");
+                                snow += 2;
+                            }
+                            /* Item Destruction */
+                            if (!rn2(3))
+                                destroy_mitem(mon, POTION_CLASS, AD_COLD);
+                        }
+                        tmp = d(snow, 6);
+                        pline("snowball dmg %dd%d (%d)", snow, 6, tmp);
+                    } else
+                        tmp = 0;
+                    
                     if (thrown)
                         obfree(obj, (struct obj *) 0);
                     else
                         useup(obj);
                     hittxt = TRUE;
                     get_dmg_bonus = FALSE;
-                    tmp = 0;
+                    
                     break;
                 case ACID_VENOM: /* thrown (or spit) */
                     if (resists_acid(mon) || defended(mon, AD_ACID)) {
@@ -4560,7 +4604,6 @@ boolean wep_was_destroyed;
                         else
                             You("are getting confused.");
                         make_confused(HConfusion + d(3, 6), FALSE);
-
                         break;
                     case 2:
                         /* Passive stun */
@@ -4570,11 +4613,6 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
-
-
-
-
-
             case SEA_DRAGON_SCALES:
                 if (canseemon(mon))
                     You("are splashed!");

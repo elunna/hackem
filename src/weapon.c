@@ -289,22 +289,19 @@ struct monst *mon;
         case TWO_HANDED_SWORD:
             tmp += d(2, 6);
             break;
-
-
+            
         case TRIPLE_HEADED_FLAIL:
             tmp += d(3, 6);
             break;
-        
-		case GREEN_LIGHTSABER:  
-            tmp +=13; 
+        case GREEN_LIGHTSABER:  
+            tmp += 13; 
             break;
-		case BLUE_LIGHTSABER:   
-            tmp +=12; 
+        case BLUE_LIGHTSABER:   
+            tmp += 12; 
             break;
-		case RED_LIGHTSABER:    
-            tmp +=10; 
+        case RED_LIGHTSABER:    
+            tmp += 10; 
             break;
-
         }
 
     } else {

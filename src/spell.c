@@ -1274,6 +1274,7 @@ boolean atme;
     case SPE_STONE_TO_FLESH:
     case SPE_PSIONIC_WAVE:
     case SPE_FIRE_BOLT:
+    case SPE_SNOWBALL:
         if (objects[otyp].oc_dir != NODIR) {
             if (otyp == SPE_HEALING || otyp == SPE_EXTRA_HEALING) {
                 /* healing and extra healing are actually potion effects,

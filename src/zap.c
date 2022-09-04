@@ -257,6 +257,14 @@ struct obj *otmp;
         }
         learn_it = TRUE;
         break;
+    case SPE_SNOWBALL:
+        /* New special spell just for Ice Mages */
+        otmp = mksobj(SNOWBALL, TRUE, FALSE);
+        otmp->spe = 1; /* to indicate it's yours */
+        throwit(otmp, 0L, FALSE);
+        /* throwit will uncover mimics */
+        learn_it = TRUE;
+        break;
     case SPE_PSIONIC_WAVE:
         if (!(maybe_polyd(is_illithid(youmonst.data),
             Race_if(PM_ILLITHID)))) {
@@ -2411,6 +2419,7 @@ struct obj *obj, *otmp;
         case WAN_EXTRA_HEALING:
         case WAN_FIREBALL:
         case SPE_FIRE_BOLT:
+        case SPE_SNOWBALL:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
             res = 0;

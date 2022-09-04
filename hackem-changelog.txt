@@ -1568,3 +1568,145 @@ Deep Wyrm caves branch parts
 	- [SKIPPED] Drow
 		- [ ] Add racial bonus to drow for using DARK_ELVEN_BOW (Need to add it first)
 		- [ ] Add drow starting equipment (need to add them first!)
+
+
+Flame Mage
+	- [SKIP] Create a more original flame mage quest (based on valkyrie)
+	- [SKIP] Flame mage: polyself.c - polymorphing into a red dragon. (Slashem)
+	
+	- [ ] Intrinsic flaming at higher levels?
+	
+	
+
+
+	Rational for Flame mage skill changes: 
+		Hardly any piercing weapons - except short swords. Ice mages will get the piercings stuff.
+		Pick-axes for digging up coal, 
+		axes for chopping down wood.
+		Quarterstaff because sac gift is Firewall, a quarterstaff
+		Short sword b/c Fire Brand is a ss in evil
+		Club - because clubs/torches can be lit.
+		Mace - No good reason, just variety.
+		Whip - (Potentially for flaming whips, but also a bit of a callback to balrogs)
+	
+	[FIXED] Could 2-weapon in slashem based on race
+	[FIXED] gets away with using daggers and melee weapons too much.		
+	- [x] Flame mage: Removed these skills: 2-weapon skill, Riding, long sword, saber, scimitar, dagger, knife.
+	- [x] Flame mages can reach expert in Quarterstaff
+	- [x] Flame mages can reach expert in Whip 
+	- [x] Flame mages have Short Sword max skill reduced to Skilled
+	- [x] Flame mage starts with 2 potions of Oil
+	- [x] Flame mage: Increase Axe, Flail, and Mace skills to SKILLED max.
+	- [x] Flame mages can reach Basic in Pick-Axe
+	- [x] Flame mages can reach Skilled in Club
+	- [x] Flame mages have Unicorn Horn skill reduced to Basic
+	- [x] Flame mages can only specialize in Matter, Attack, and Divination spells.
+	- [x] Flame mage starts with scroll of fire 
+	- [SKIPPED] Flame mages can never get cold resistance
+	- [x] Flame mages start with 2 frag grenades.
+	- [x] Flame mage starts with a fireproof quarterstaff
+	
+	- [x] Slashem-up: The Candle of Eternal Flame now confers 
+			[x] - cold res 
+			[x] - teleport control (slashem)
+			[x] - Warning
+			[x] - faster energy regeneration (More like Encanto)
+			[x] - passive 2d7 fire attack (can destroy burnables). 
+		- [x] Firewall can generate Fire elementals (moved from Candle)
+	- [x] Make Flame Mage only Lawful/Neutral
+	- [x] Flame mages cast using Wisdom, 
+	- [x] Fire mages have more blunt skills (torches are clubs?)
+	- [x] differentiate them from Wizards!
+	- [x] Make sure Eternal Candle cannot be snuffed.
+	- [x] Copy flame mage quest changes from slashem-up
+	- [x] spell-hunger reduction for mages as for wizards (a bit less, to still give an advantage to wizards).
+		(say hunger spell is similar to a wizard with 2 less in INT
+
+
+
+
+	- [x] Ice mage: Move riding to expert (Elsa can ride!)
+	- [x] Ice mage: Long sword -> Basic
+	- [x] Ice mage: Short sword -> Expert
+	- [x] Ice mage: Remove quarterstaff
+	- [x] Ice mage: Move trident to expert
+	- [x] Ice mage: Move knife to expert
+	- [x] Ice mage: Spear -> Skilled
+	- [x] Remove polearms, lance, long sword, whip skills
+	- [x] Ice mage: Moved dagger down to skilled.
+		- [x] Create a more original ice mage quest (ALSO based on valkyrie?)
+	- [x] Invoke for a random "storm" related pet? Water Elemental, Air Elemental, ice vortex, energy vortex, baby white dragon, baby blue dragon, frost giant, storm giant, freezing sphere, shocking sphere.
+	- [x] Make Ice Mage only Chaotic/Neutral
+	[x] The Storm Whistle no longer grants fire resistance, instead it grants shock resistance.
+	- [SKIPPED] Ice mages can never get fire resistance
+	- [x] Freeze Sphere is a level 1 spell - levels out early game a bit more for them.
+	[FIXED] gets away with using daggers and melee weapons too much.
+	[SKIPPED] Could 2-weapon in slashem based on race
+	[x] Ice mages have more piercing weapon skills (ice is sharp)
+
+	[x] Ice Mage: Replaced their starting quarterstaff with a +3 stilletto
+	- [x] Ice mages get gloves, lenses or grappling hook. No potions (they might freeze in the cold.)
+
+		[x] Level 10: Ice mages become Vulnerabile to fire.
+
+
+
+[x] Flame mages become vulnerable to cold at level 10.
+
+[x] Flame Mages cannot use Frost Brand/Deep Freeze
+[x] Ice mages cannot use Fire Brand/Firewall.
+		[x] Ice/Flame Mages cannot read opposite elemental books
+
+		
+Ice and Flame mages cannot use anything that is decidedly the opposite's domain:
+	[SKIP] Flame Mages cannot be gifted Frost Brand/Deep Freeze
+	[SKIP] Ice Mages cannot be gifted  Fire Brand/Firewall.
+	
+		
+	- [x] Flame Mages need to start with Matter spells at level 1
+	- [x] Ice Mages need to start with Matter spells at level 1
+	
+	- [x] Flame Mages start with Fire Bolt instead of Fireball 
+	
+
+	[x] Fire Bolt: 1d10 fire damage (avg 5.5). 
+		- Fire Bolt is only available to the Flame Mage - spellbooks are 0 prob. 
+		- This also helps keep other roles from knowing too many spellbooks.
+		- This is a another fire attack that doesn't reflect.
+		[x] - Like Force Bolt - can hit multiple targets.
+		[x] - Increases by 1d10 for every 4 levels.
+		[x] - Destroys doors
+		[x] - Destroys straw/paper golems
+		[x] - Can destroy scrolls/potions/armor.
+		[SKIP] - trees, webs?
+		[SKIP] - Can we get a cool animation?
+		[FIXED] What an interesting effect (469) - zap: 2390
+
+
+	- [x] Snowball spell for Ice Mages (take from snow golem)
+			[x] Create a snowball in inventory, then dothrow immediately?
+			
+			base: 0d5							0d5
+			bonus +1: BASIC 					1d6
+			bonus +1: SKILLED					2d7
+			bonus +1: EXPERT					3d8
+			bonus +1: level 5 (medium size)		4d9
+			bonus +1: level 11 (medium size)	5d10
+
+	- [x] differentiate them from Wizards!  The Ice Mage gets a good quest artifact for making pets and controlling them (magic whistle). So they might be a potentially really good pet master and rider - an interesting mix for a mage.
+
+
+Snowball spell:
+[x] Already will blind foes.
+[x] Increase chance that snowball will hit... seems to miss a lot!
+
+Skilled - 
+[x] Deals physical damage on top.
+[x] sometimes Stuns (10%)
+[x] Snowballs turn into Iceballs: Deals physical damage as well as cold.
+[x] Can break fragile items (like force bolt - potions, glass, etc)
+
+[x] Expert - sometimes headshot/crit hit for an extra dice.
+[SKIP] Shooting a rust trap turns it into an ice trap?
+[x] Account for resistance to cold.
+			
