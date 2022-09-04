@@ -210,7 +210,9 @@ struct obj *otmp;
              * Level 5 = 2d10 fire
              * Level 10 = 3d10 fire - and etc. */
         dmg = d((u.ulevel / 5) + 1, 10);
-        
+        if (dmg > 45)
+            dmg = 45; /* We'll let them go slightly above 4d10, but cap it */
+         
         if (dbldam)
             dmg *= 2;
         if (otyp == SPE_FIRE_BOLT) {
