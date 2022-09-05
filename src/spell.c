@@ -1353,11 +1353,10 @@ boolean atme;
         (void) peffects(pseudo);
         break;
     /* end of potion-like spells */
-#if 0
+
     case SPE_CURE_BLINDNESS:
         healup(0, 0, FALSE, TRUE);
         break;
-#endif
     case SPE_CREATE_FAMILIAR:
         (void) make_familiar((struct obj *) 0, u.ux, u.uy, FALSE);
         break;
@@ -1445,15 +1444,15 @@ boolean atme;
             }
         }
         break;
-#if 0
+    
     case SPE_ENLIGHTEN: 
-        You("feel self-knowledgeable...");
-        display_nhwindow(WIN_MESSAGE, FALSE);
-        enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
-        pline("The feeling subsides.");
-        exercise(A_WIS, TRUE);
-        break;
-#endif
+		You("feel self-knowledgeable...");
+		display_nhwindow(WIN_MESSAGE, FALSE);
+		enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+		pline("The feeling subsides.");
+		exercise(A_WIS, TRUE);
+		break;
+
     /* KMH -- new spells */
     case SPE_PASSWALL:
             if (!Passes_walls)
@@ -2059,9 +2058,7 @@ int spell;
 
     /* `healing spell' bonus */
     if (spellid(spell) == SPE_HEALING || spellid(spell) == SPE_EXTRA_HEALING
-#if 0
         || spellid(spell) == SPE_CURE_BLINDNESS
-#endif
         || spellid(spell) == SPE_CURE_SICKNESS
         || spellid(spell) == SPE_RESTORE_ABILITY
         || spellid(spell) == SPE_REMOVE_CURSE)
