@@ -1072,7 +1072,6 @@ SPELL("healing",         "white",         P_HEALING_SPELL,     35,  2, 1, 1, IMM
 SPELL("knock",           "pink",          P_MATTER_SPELL,      35,  1, 1, 1, IMMEDIATE, CLR_BRIGHT_MAGENTA),
 SPELL("force bolt",      "red",           P_ATTACK_SPELL,      35,  2, 1, 1, IMMEDIATE, CLR_RED),
 SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_ORANGE),
-SPELL("cure blindness",  "yellow",        P_HEALING_SPELL,     20,  2, 2, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("drain life",      "velvet",        P_ATTACK_SPELL,      10,  2, 2, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),
@@ -1085,7 +1084,6 @@ SPELL("cure sickness",   "indigo",        P_HEALING_SPELL,     30,  3, 3, 1, IMM
 SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 5, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("haste self",      "purple",        P_ESCAPE_SPELL,      30,  4, 3, 1, NODIR, CLR_MAGENTA),
 SPELL("detect unseen",   "violet",        P_DIVINATION_SPELL,  20,  4, 2, 1, NODIR, CLR_MAGENTA),
-SPELL("enlighten",       "faded",         P_DIVINATION_SPELL,  15,  5, 4, 1, NODIR, CLR_GRAY),
 SPELL("levitation",      "tan",           P_ESCAPE_SPELL,      20,  4, 4, 1, NODIR, CLR_BROWN),
 SPELL("extra healing",   "plaid",         P_HEALING_SPELL,     25,  5, 3, 1, IMMEDIATE, CLR_GREEN),
 SPELL("restore ability", "light brown",   P_HEALING_SPELL,     25,  5, 2, 1, NODIR, CLR_BROWN),
@@ -1113,6 +1111,10 @@ SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMM
 SPELL("snowball",        "dappled",       P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_GRAY),
 /* Snowball is the Ice Mage's special spell - not randomly generated. */
 
+#if 0 /* Making room for new spells */
+SPELL("cure blindness",  "yellow",        P_HEALING_SPELL,     20,  2, 2, 1, IMMEDIATE, CLR_YELLOW),
+SPELL("enlighten",       "faded",         P_DIVINATION_SPELL,  15,  5, 4, 1, NODIR, CLR_GRAY),
+#endif
 
 /* books with fixed descriptions
  */
