@@ -1531,7 +1531,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(800, 200, MS_ORC, MZ_MEDIUM), MR_POISON, 0, M1_HUMANOID | M1_OMNIVORE,
         M2_COLLECT, M3_INFRAVISIBLE | M3_INFRAVISION | M3_ACCURATE, 0,
         MH_ORC, 8, CLR_WHITE),
-    /* --hackem: Removed goblintown, so not using Gking right now */
+#if 0 /* --hackem: Removed goblintown, so not using Gking right now */
     MON("Goblin King", S_ORC,                                   /* EvilHack */
         LVL(8, 12, 7, 10, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 6),
@@ -1543,7 +1543,7 @@ NEARDATA struct permonst mons[] = {
             | M2_MALE | M2_GREEDY | M2_JEWELS | M2_COLLECT | M2_MAGIC,
         M3_WAITFORU | M3_INFRAVISION | M3_INFRAVISIBLE, 0,
         MH_ORC, 10, CLR_BRIGHT_MAGENTA),
-
+#endif
     /* plain "orc" for zombie corpses only; not created at random
      */
     MON("orc", S_ORC,
