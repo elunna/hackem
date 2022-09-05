@@ -1532,7 +1532,7 @@ NEARDATA struct permonst mons[] = {
         M2_COLLECT, M3_INFRAVISIBLE | M3_INFRAVISION | M3_ACCURATE, 0,
         MH_ORC, 8, CLR_WHITE),
     /* --hackem: Removed goblintown, so not using Gking right now */
-#if 0
+#if 0 /* OBSOLETE */
     MON("Goblin King", S_ORC,                                   /* EvilHack */
         LVL(8, 12, 7, 10, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 6),
