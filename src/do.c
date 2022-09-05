@@ -544,7 +544,6 @@ polymorph_toilet()
 {
     uchar sym = S_toilet;
     boolean sinklooted;
-    int algn;
 
     if (levl[u.ux][u.uy].typ != TOILET)
         return;
