@@ -22,8 +22,15 @@
 
 #define spellev(spell) spl_book[spell].sp_lev
 #define spellname(spell) OBJ_NAME(objects[spellid(spell)])
-#define spellet(spell) \
+#if 0
+#define spellet(spell)   /* Evil has 52 spell letters available */
     ((char) ((spell < 26) ? ('a' + spell) : ('A' + spell - 26)))
+#endif
+
+#define spellet(spell)	\
+	((char) ((spell < 26) ? ('a' + spell) : \
+	        (spell < 52) ? ('A' + spell - 26) : \
+		(spell < 62) ? ('0' + spell - 52) : 0 ))
 
 STATIC_DCL int FDECL(spell_let_to_idx, (CHAR_P));
 STATIC_DCL boolean FDECL(cursed_book, (struct obj * bp));
@@ -64,6 +71,8 @@ static const char clothes[] = { ARMOR_CLASS, 0 };
  *      Tou are aware of magic from all the great films they have seen
  *      Val have limited magical awareness, preferring fighting
  *      Wiz are trained mages
+ *      Fla are trained in fire magic
+ *      Ice are trained in ice/cold magic
  *
  *      The arms penalty is lessened for trained fighters Bar, Kni, Ran,
  *      Sam, Val -- the penalty is its metal interference, not encumbrance.
