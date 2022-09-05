@@ -13073,7 +13073,7 @@ Z = (195, 195, 195)
   ....CJJJCLAAAAAA
   ..LLLLL.LLLLLAA.
 }
-# tile 686 (Earth Mage)
+# tile 686 (Ragnaros)
 {
   .........GK.....
   ......GGGKF.....
