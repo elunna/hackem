@@ -2752,7 +2752,6 @@ struct obj *obj;
 {
     register const struct artifact *oart = get_artifact(obj);
     register struct monst *mtmp;
-    register struct monst *mtmp2;
     register struct permonst *pm;
     int unseen;
 
@@ -2994,6 +2993,7 @@ struct obj *obj;
             case 8: pm = &mons[PM_STORM_GIANT]; break;
             case 9: pm = &mons[PM_FREEZING_SPHERE]; break;
             case 10: pm = &mons[PM_SHOCKING_SPHERE]; break;
+            default: pm = &mons[PM_WATER_ELEMENTAL]; break;
             }
             mtmp = makemon(pm, u.ux, u.uy, MM_EDOG | MM_IGNOREWATER);
             pline("You blow the whistle and a creature appears from a storm cloud!");

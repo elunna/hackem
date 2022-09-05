@@ -1417,7 +1417,7 @@ struct obj *otmp;
     boolean candle = Is_candle(otmp);
     if (otmp->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
         pline("The candle flickers briefly, but it's flame burns on!");
-        return;
+        return FALSE;
     }
     if ((candle || otmp->otyp == CANDELABRUM_OF_INVOCATION)
         && otmp->lamplit) {
