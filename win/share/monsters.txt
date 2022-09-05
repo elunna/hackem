@@ -13092,7 +13092,7 @@ Z = (195, 195, 195)
   ....CJJJCLAAAAAA
   ..LLLLL.LLLLLAA.
 }
-# tile 686 (Ragnaros)
+# tile 687 (Ragnaros)
 {
   .........GK.....
   ......GGGKF.....
