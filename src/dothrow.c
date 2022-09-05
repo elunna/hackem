@@ -1851,11 +1851,11 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
         /* This is needed because otherwise we miss way too much */
         if (P_SKILL(P_MATTER_SPELL) >= P_BASIC) 
-            tmp += 8;
+            tmp += 10;
         if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) 
-            tmp += 2;
+            tmp += 1;
         if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) 
-            tmp += 2;
+            tmp += 1;
     }
     
     tmp += omon_adj(mon, obj, TRUE);
