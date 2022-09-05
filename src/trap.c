@@ -3908,7 +3908,10 @@ xchar x, y;
           */
         return FALSE;
     } else if (obj->oclass == SCROLL_CLASS || obj->oclass == SPBOOK_CLASS) {
-        if (obj->otyp == SCR_FIRE || obj->otyp == SPE_FIREBALL)
+        if (obj->otyp == SCR_FIRE 
+            || obj->otyp == SPE_FIRE_BOLT
+            || obj->otyp == SPE_FLAME_SPHERE
+            || obj->otyp == SPE_FIREBALL)
             return FALSE;
         if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
             if (in_sight)
