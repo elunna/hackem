@@ -6980,20 +6980,6 @@ struct permonst _mons2[] = {
             | M2_HOSTILE | M2_NASTY | M2_MALE | M2_JEWELS | M2_COLLECT,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISION | M3_INFRAVISIBLE, 0,
         MH_GIANT, 23, CLR_GRAY),
-    #if 0 /* Replaced by Ragnaros */
-    MON("Earth Mage", S_HUMAN,                                  /* Slash'EM */
-        LVL(25, 10, -10, 10, 20), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          ATTK(AT_MAGC, AD_SPEL, 0, 0),
-          ATTK(AT_MAGC, AD_SPEL, 0, 0), 
-          ATTK(AT_CLAW, AD_SAMU, 1, 4),
-          NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), MR_POISON, MR_POISON, 
-        M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE 
-            | M2_NASTY | M2_COLLECT | M2_MAGIC, 
-        M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 34, HI_LORD),
-    #endif
     MON("Ragnaros", S_ELEMENTAL,
         LVL(25, 12, -10, 50, -10), (G_NOGEN | G_UNIQ | G_NOCORPSE),
         A(ATTK(AT_MAGC, AD_SPEL, 0, 0),
