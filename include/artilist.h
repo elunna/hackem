@@ -77,7 +77,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Grayswandir", SABER, (SPFX_RESTR | SPFX_HALRES), 0, 0,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 8000L,
       NO_COLOR),
-
+    
+    A("The Master Sword", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR), 0, 0,
+      PHYS(3, 3), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
+    
     A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, NO_COLOR ),
 

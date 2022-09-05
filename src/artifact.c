@@ -183,6 +183,7 @@ xchar m;
     case ART_WEREBANE:
     case ART_DEMONBANE:
     case ART_GRAYSWANDIR:
+    case ART_MASTER_SWORD:
     case ART_SPEAR_OF_LIGHT:
     case ART_SWORD_OF_BALANCE:
         return SILVER;
