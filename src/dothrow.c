@@ -134,8 +134,12 @@ int shotlimit;
                          : obj->oclass == WEAPON_CLASS)
         && !(Confusion || Stunned)) {
         /* some roles don't get a volley bonus until becoming expert */
-        weakmultishot = (Role_if(PM_WIZARD) || Role_if(PM_PRIEST)
+        weakmultishot = (Role_if(PM_WIZARD) 
+                         || Role_if(PM_PRIEST)
                          || (Role_if(PM_HEALER) && skill != P_KNIFE)
+                         || (Role_if(PM_NECROMANCER))
+                         || (Role_if(PM_UNDEAD_SLAYER))
+                         || (Role_if(PM_ICE_MAGE) && skill != P_KNIFE)
                          || (Role_if(PM_INFIDEL) && skill != P_DAGGER)
                          || (Role_if(PM_TOURIST) && skill != -P_DART)
                          /* poor dexterity also inhibits multishot */

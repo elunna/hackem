@@ -802,13 +802,6 @@ static const struct def_skill Skill_T[] = {
 };
 
 static const struct def_skill Skill_U[] = {
-/*WAC
-    
- * -made club, flail, mace, morning star, hammer, quarterstaff Skilled
-        from Expert to balance
- * -removed Trident skill - from Skilled to Restricted
- * -removed Lance skill - from Basic to Restricted
- */
     { P_DAGGER, P_EXPERT },         /* starting weapon */
     { P_LONG_SWORD, P_SKILLED },    /* Meh? */
     { P_CLUB, P_SKILLED },
