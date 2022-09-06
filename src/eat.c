@@ -35,6 +35,7 @@ STATIC_DCL int FDECL(bounded_increase, (int, int, int));
 STATIC_DCL void FDECL(accessory_has_effect, (struct obj *));
 STATIC_DCL void FDECL(eataccessory, (struct obj *));
 STATIC_DCL void NDECL(eatpill);
+STATIC_DCL void FDECL(eatmushroom, (struct obj *));
 STATIC_DCL const char *FDECL(foodword, (struct obj *));
 STATIC_DCL int FDECL(tin_variety, (struct obj *, BOOLEAN_P));
 STATIC_DCL boolean FDECL(maybe_cannibal, (int, BOOLEAN_P));
@@ -2132,38 +2133,8 @@ struct obj *otmp;
         eatpill();
         break;
     case MUSHROOM:
-	    pline("This %s is %s", singular(otmp, xname),
-	      otmp->cursed ? (Hallucination ? "far-out!" : "terrible!") :
-		  Hallucination ? "groovy!" : "delicious!");
-		
-        switch(rn2(10)) {
-            case 0:
-            case 1:
-                if(!Poison_resistance) {
-                    You("feel rather ill....");
-                    losestr(rnd(4));
-                    losehp(rnd(15), "poisonous mushroom", KILLED_BY_AN);
-                } else  You("burp loudly.");
-                break;
-            case 2:
-                pline ("That mushroom tasted a little funny.");
-                make_stunned(HStun + 30,FALSE);
-                break;
-            case 3:
-                pline ("Whoa! Everything looks groovy!");
-                make_hallucinated(HHallucination + 150,FALSE,0L);
-                break;
-            case 4:
-                gainstr(otmp, 3, TRUE);
-                break;                                           
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-                break;
-		}
-		break;
+	eatmushroom(otmp);
+        break;
     case LEMBAS_WAFER:
         if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC))) {
             pline("%s", "!#?&* elf kibble!");
@@ -2521,6 +2492,47 @@ eatpill()
         incr_itimeout(&HFast, rn1(10,200));
         break;
     default:
+        break;
+    }
+}
+
+
+
+
+STATIC_OVL void
+eatmushroom(otmp)
+struct obj *otmp;
+{
+    pline("This %s is %s", singular(otmp, xname),
+          otmp->cursed ? (Hallucination ? "far-out!" : "terrible!") :
+          Hallucination ? "groovy!" : "delicious!");
+		
+    switch (rn2(10)) {
+    case 0:
+    case 1:
+        if (!Poison_resistance) {
+            You("feel rather ill....");
+            losestr(rnd(4));
+            losehp(rnd(15), "poisonous mushroom", KILLED_BY_AN);
+        } else
+            You("burp loudly.");
+        break;
+    case 2:
+        pline ("That mushroom tasted a little funny.");
+        make_stunned(HStun + 30, FALSE);
+        break;
+    case 3:
+        pline ("Whoa! Everything looks groovy!");
+        make_hallucinated(HHallucination + 150, FALSE, 0L);
+        break;
+    case 4:
+        gainstr(otmp, 3, TRUE);
+        break;                                           
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
         break;
     }
 }
