@@ -34,6 +34,7 @@ STATIC_DCL void NDECL(eatspecial);
 STATIC_DCL int FDECL(bounded_increase, (int, int, int));
 STATIC_DCL void FDECL(accessory_has_effect, (struct obj *));
 STATIC_DCL void FDECL(eataccessory, (struct obj *));
+STATIC_DCL void NDECL(eatpill);
 STATIC_DCL const char *FDECL(foodword, (struct obj *));
 STATIC_DCL int FDECL(tin_variety, (struct obj *, BOOLEAN_P));
 STATIC_DCL boolean FDECL(maybe_cannibal, (int, BOOLEAN_P));
@@ -2094,8 +2095,6 @@ STATIC_OVL void
 fprefx(otmp)
 struct obj *otmp;
 {
-    int i, ii, littleluck = (u.uluck < 4); /* For pills */
-
     switch (otmp->otyp) {
     case FOOD_RATION: /* nutrition 800 */
         /* 200+800 remains below 1000+1, the satiation threshold */
@@ -2129,61 +2128,9 @@ struct obj *otmp;
                               FALSE);
         }
         break;
-    case PILL:            
-		You("swallow the little pink pill.");
-		switch(rn2(7)) {
-            case 0:
-                /* [Tom] wishing pills are from the Land of Oz */
-                pline ("The pink sugar coating hid a silver wishing pill!");
-                makewish();
-                break;
-            case 1:
-                if(!Poison_resistance) {
-                    You("feel your stomach twinge.");
-                    losestr(rnd(4));
-                    losehp(rnd(15), "poisonous pill", KILLED_BY_AN);
-                } else  You("seem unaffected by the poison.");
-                break;
-            case 2:
-                pline ("Everything begins to get blurry.");
-                make_stunned(HStun + 30,FALSE);
-                break;
-            case 3:
-                pline ("Oh wow!  Look at the lights!");
-                make_hallucinated(HHallucination + 150,FALSE,0L);
-                break;
-            case 4:
-                pline("That tasted like vitamins...");
-                lesshungry(80);
-
-                /* gain ability, blessed if "natural" luck is high */
-                i = rn2(A_MAX); /* start at a random attribute */
-                for (ii = 0; ii < A_MAX; ii++) {
-                    if (adjattrib(i, 1, littleluck ? -1 : 0) && littleluck)
-                        break;
-                    if (++i >= A_MAX)
-                        i = 0;
-                }
-                display_nhwindow(WIN_MESSAGE, FALSE);
-                exercise(A_WIS, TRUE);
-                break;
-            case 5:
-                if(Sleep_resistance) {
-                    pline("Hmm. Nothing happens.");
-                } else {
-                    pline("You feel drowsy...");
-                    nomul(-rn2(50));
-                    u.usleep = 1;
-                    nomovemsg = "You wake up.";
-                }
-                break;
-            case 6:
-                pline("Wow... everything is moving in slow motion...");
-                /* KMH, balance patch -- Use incr_itimeout() instead of += */
-                incr_itimeout(&HFast, rn1(10,200));
-            break;
-		}
-		break;
+    case PILL:
+        eatpill();
+        break;
     case MUSHROOM:
 	    pline("This %s is %s", singular(otmp, xname),
 	      otmp->cursed ? (Hallucination ? "far-out!" : "terrible!") :
@@ -2514,6 +2461,67 @@ struct obj *otmp;
              */
             break;
         }
+    }
+}
+
+STATIC_OVL void
+eatpill()
+{
+    int i, ii, littleluck = (u.uluck < 4); /* For pills */
+    You("swallow the little pink pill.");
+    switch(rn2(7)) {
+    case 0:
+        /* [Tom] wishing pills are from the Land of Oz */
+        pline ("The pink sugar coating hid a silver wishing pill!");
+        makewish();
+        break;
+    case 1:
+        if(!Poison_resistance) {
+            You("feel your stomach twinge.");
+            losestr(rnd(4));
+            losehp(rnd(15), "poisonous pill", KILLED_BY_AN);
+        } else  You("seem unaffected by the poison.");
+        break;
+    case 2:
+        pline ("Everything begins to get blurry.");
+        make_stunned(HStun + 30,FALSE);
+        break;
+    case 3:
+        pline ("Oh wow!  Look at the lights!");
+        make_hallucinated(HHallucination + 150,FALSE,0L);
+        break;
+    case 4:
+        pline("That tasted like vitamins...");
+        lesshungry(80);
+        
+        /* gain ability, blessed if "natural" luck is high */
+        i = rn2(A_MAX); /* start at a random attribute */
+        for (ii = 0; ii < A_MAX; ii++) {
+            if (adjattrib(i, 1, littleluck ? -1 : 0) && littleluck)
+                break;
+            if (++i >= A_MAX)
+                i = 0;
+        }
+        display_nhwindow(WIN_MESSAGE, FALSE);
+        exercise(A_WIS, TRUE);
+        break;
+    case 5:
+        if (Sleep_resistance) {
+            pline("Hmm. Nothing happens.");
+        } else {
+            pline("You feel drowsy...");
+            nomul(-rn2(50));
+            u.usleep = 1;
+            nomovemsg = "You wake up.";
+        }
+        break;
+    case 6:
+        pline("Wow... everything is moving in slow motion...");
+        /* KMH, balance patch -- Use incr_itimeout() instead of += */
+        incr_itimeout(&HFast, rn1(10,200));
+        break;
+    default:
+        break;
     }
 }
 
