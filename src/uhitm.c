@@ -20,7 +20,7 @@ void NDECL(demonpet);
 STATIC_DCL void FDECL(start_engulf, (struct monst *));
 STATIC_DCL void NDECL(end_engulf);
 STATIC_DCL int FDECL(gulpum, (struct monst *, struct attack *));
-STATIC_DCL boolean FDECL(hmonas, (struct monst *, int, boolean));
+STATIC_DCL boolean FDECL(hmonas, (struct monst *, int, BOOLEAN_P));
 STATIC_DCL void FDECL(nohandglow, (struct monst *));
 STATIC_DCL boolean FDECL(shade_aware, (struct obj *));
 
@@ -1153,8 +1153,14 @@ int dieroll;
                     && (is_ammo(obj) || is_missile(obj))) {
                     if (ammo_and_launcher(obj, uwep)) {
                         /* Slings hit giants harder (as Goliath) */
-                        if ((uwep->otyp == SLING) && is_giant(mdat))
+                        if ((uwep->otyp == SLING) && racial_giant(mon))
                             tmp *= 2;
+                        /* The Longbow of Diana and the Crossbow of Carl
+                           impart a damage bonus to the ammo fired from
+                           them */
+                        if (uwep->oartifact == ART_LONGBOW_OF_DIANA
+                            || uwep->oartifact == ART_CROSSBOW_OF_CARL)
+                            tmp += rnd(6);
                         /* Elves and Samurai do extra damage using
                          * their bows&arrows; they're highly trained.
                          */
@@ -2141,6 +2147,8 @@ struct monst *mdef;
 struct attack *mattk;
 {
     struct obj *otmp, *gold = 0, *stealoid, **minvent_ptr;
+    int i = rn2(10), dex_pick = 0, no_vis = 0,
+        size = 0, enc = 0, other = 0, cap;
     boolean as_mon = could_seduce(&youmonst, mdef, mattk);
 
     otmp = mdef->minvent;
@@ -2184,12 +2192,9 @@ struct attack *mattk;
     if (as_mon && gold)
         obj_extract_self(gold);
 
-    /* Rogue uses the thievery skill */
-    int i = rn2(10), dex_pick = 0, no_vis = 0,
-        size = 0, enc = 0, other = 0, cap;
-
-    /* dexterity directly affects how successful
-       a pickpocketing attempt will be */
+    /* Rogue uses the thievery skill; dexterity directly
+       affects how successful a pickpocketing attempt
+       will be */
     if (ACURR(A_DEX) <= 6)
         dex_pick += 3;
     else if (ACURR(A_DEX) <= 9)
@@ -2540,7 +2545,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
         }
         if (!Blind)
-            pline("%s is %s!", Monnam(mdef), on_fire(pd, mattk));
+            pline("%s is %s!", Monnam(mdef), on_fire(mdef, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
         if (completelyburns(pd)) { /* paper golem or straw golem */
             if (!Blind)
                 pline("%s burns completely!", Monnam(mdef));
@@ -3017,13 +3022,13 @@ do_rust:
         break;
     case AD_WTHR: {
         uchar withertime = max(2, tmp);
-        tmp = 0; /* doesn't deal immediate damage */
         boolean no_effect =
             (nonliving(pd) /* This could use is_fleshy(), but that would
                               make a large set of monsters immune like
                               fungus, blobs, and jellies. */
              || is_vampshifter(mdef) || negated);
         boolean lose_maxhp = (withertime >= 8); /* if already withering */
+        tmp = 0; /* doesn't deal immediate damage */
 
         if (!no_effect) {
             if (canseemon(mdef))
@@ -3391,7 +3396,7 @@ register struct attack *mattk;
                         pline("%s seems mildly hot.", Monnam(mdef));
                         dam = 0;
                     } else
-                        pline("%s is burning to a crisp!", Monnam(mdef));
+                        pline("%s is %s!", Monnam(mdef), on_fire(mdef, ON_FIRE_ENGULF));
                     golemeffects(mdef, (int) mattk->adtyp, dam);
                 } else
                     dam = 0;
@@ -3556,7 +3561,8 @@ boolean weapon_attacks; /* skip weapon attacks if false */
     struct obj *weapon, **originalweapon;
     boolean altwep = FALSE, weapon_used = !weapon_attacks,
             stop_attacking = FALSE;
-    int i, tmp, armorpenalty, sum[NATTK], nsum = 0, dhit = 0, attknum = 0;
+    int i, tmp, armorpenalty, sum[NATTK], dhit = 0, attknum = 0;
+    /* int nsum = 0; */ /* nsum is not currently used */
     int dieroll;
     boolean monster_survived, Old_Upolyd = Upolyd;
 
@@ -3943,10 +3949,10 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             /* defender dead */
             (void) passive(mon, weapon, 1, 0, mattk->aatyp, FALSE);
             stop_attacking = TRUE; /* zombification; DEADMONSTER is false */
-            nsum = 0; /* return value below used to be 'nsum > 0' */
+            /* nsum = 0; */ /* return value below used to be 'nsum > 0' */
         } else {
             (void) passive(mon, weapon, sum[i], 1, mattk->aatyp, FALSE);
-            nsum |= sum[i];
+            /* nsum |= sum[i]; */
         }
 
         /* don't use sum[i] beyond this point;

@@ -53,7 +53,9 @@ For Linux (TL;DR version):
   Invoking `sudo` should not be necessary
 
   - Using the `linux-debug` hints file assumes installing as root, and includes
-  extra CFLAGS for debugging in a development scenario
+  extra CFLAGS for debugging in a development scenario. If you prefer using clang
+  as your compiler and have it installed, see `clang-linux-debug` as an alternative
+  hints file to use
 
   - With either hints file, edit the install paths to your liking
 - Navigate back to the root HackEM folder, and `make all && make install`

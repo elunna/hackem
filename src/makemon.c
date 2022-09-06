@@ -1428,20 +1428,27 @@ register struct monst *mtmp;
                 break;
             }
         } else if (mm == PM_CROESUS) {
-            (void) mongets(mtmp, TWO_HANDED_SWORD);
-            received = m_carrying(mtmp, TWO_HANDED_SWORD);
-            if (received)
-                set_material(received, GOLD);
-            int item = rn2(2) ? BANDED_MAIL : PLATE_MAIL;
+            struct obj* received;
+            int item;
+
+            item = TWO_HANDED_SWORD;
             (void) mongets(mtmp, item);
             received = m_carrying(mtmp, item);
             if (received)
                 set_material(received, GOLD);
+
+            item = rn2(2) ? BANDED_MAIL : PLATE_MAIL;
+            (void) mongets(mtmp, item);
+            received = m_carrying(mtmp, item);
+            if (received)
+                set_material(received, GOLD);
+
             item = rn2(2) ? HELMET : DWARVISH_HELM;
             (void) mongets(mtmp, item);
             received = m_carrying(mtmp, item);
             if (received)
                 set_material(received, GOLD);
+
             item = rn2(2) ? KICKING_BOOTS : DWARVISH_BOOTS;
             (void) mongets(mtmp, item);
             received = m_carrying(mtmp, item);
@@ -4264,6 +4271,13 @@ register struct monst *mtmp;
     } else if (rt == TEMPLE) {
         ap_type = M_AP_FURNITURE;
         appear = S_altar;
+    } else if (rt == GARDEN) {
+        ap_type = M_AP_FURNITURE;
+        if (rn2(3)) {
+            appear = S_tree;
+        } else {
+            appear = S_deadtree;
+        }
 
     /*
      * We won't bother with beehives, morgues, barracks, throne rooms

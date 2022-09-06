@@ -1861,21 +1861,14 @@ check_mon_jump(mtmp, x, y)
 struct monst *mtmp;
 int x, y;
 {
+    int traj,
+        dx = x - u.ux, dy = y - u.uy,
+        ax = abs(dx), ay = abs(dy);
     coord mc, tc;
     mc.x = mtmp->mx, mc.y = mtmp->my;
     tc.x = x, tc.y = y; /* target */
 
-#if 0 /* TODO: Cleanup */
-    int traj,
-        dx = x - u.ux, dy = y - u.uy,
-        ax = abs(dx), ay = abs(dy);
-#endif
-    int traj;
-    int dx = x - u.ux;
-    int dy = y - u.uy;
-    int ax = abs(dx);
-    int ay = abs(dy);
-/* traj: flatten out the trajectory => some diagonals re-classified */
+    /* traj: flatten out the trajectory => some diagonals re-classified */
     if (ax >= 2 * ay)
         ay = 0;
     else if (ay >= 2 * ax)
@@ -1928,7 +1921,7 @@ int magic; /* 0=Physical, otherwise skill level */
 
     /* attempt "jumping" spell if hero has no innate jumping ability */
     if (!magic && !Jumping && known_spell(SPE_JUMPING))
-        return spelleffects(spell_idx(SPE_JUMPING), FALSE);
+        return spelleffects(spell_idx(SPE_JUMPING), FALSE, FALSE);
 
     if (!magic && (nolimbs(youmonst.data) || slithy(youmonst.data))) {
         /* normally (nolimbs || slithy) implies !Jumping,

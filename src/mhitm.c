@@ -982,7 +982,8 @@ struct monst *magr, *mdef;
     int dx, dy;
 
     /* can't swallow something that's too big */
-    if (r_data(mdef)->msize >= MZ_HUGE)
+    if (r_data(mdef)->msize >= MZ_HUGE
+        || (r_data(magr)->msize < r_data(mdef)->msize && !is_whirly(magr->data)))
         return FALSE;
 
     /* can't swallow trapped monsters. TODO: could do some? */
@@ -1213,7 +1214,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     int armpro, num,
         tmp = d((int) mattk->damn, (int) mattk->damd),
         res = MM_MISS;
-    boolean cancelled, no_effect;
+    boolean cancelled;
 
     if ((touch_petrifies(pd) /* or flesh_petrifies() */
          || (mattk->adtyp == AD_DGST && pd == &mons[PM_MEDUSA]))
@@ -1397,6 +1398,9 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         if (mattk->aatyp != AT_WEAP && mattk->aatyp != AT_CLAW)
             mwep = 0;
 
+        if (magr->mberserk && !rn2(3))
+            tmp += d((int) mattk->damn, (int) mattk->damd);
+
         if (shade_miss(magr, mdef, mwep, FALSE, TRUE)) {
             tmp = 0;
         } else if (mattk->aatyp == AT_KICK && thick_skinned(pd)) {
@@ -1557,7 +1561,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             }
         }
         if (vis && canseemon(mdef))
-            pline("%s is %s!", Monnam(mdef), on_fire(pd, mattk));
+            pline("%s is %s!", Monnam(mdef), on_fire(mdef, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
         if (completelyburns(pd)) { /* paper golem or straw golem */
             if (vis && canseemon(mdef))
                 pline("%s burns completely!", Monnam(mdef));
@@ -1805,10 +1809,6 @@ post_stone:
         break;
     case AD_TLPT:
         if (!cancelled && tmp < mdef->mhp && !tele_restrict(mdef)) {
-	    /* works on other critters too.. */
-	    if (magr->mnum == PM_BOOJUM) {
-		mdef->perminvis = mdef->minvis = TRUE;
-	    }
             char mdef_Monnam[BUFSZ];
             boolean wasseen = canspotmon(mdef);
 
@@ -1816,6 +1816,9 @@ post_stone:
                we'll get "it" in the suddenly disappears message */
             if (vis && wasseen)
                 Strcpy(mdef_Monnam, Monnam(mdef));
+            /* works on other critters too.. */
+            if (magr->mnum == PM_BOOJUM)
+                mdef->perminvis = mdef->minvis = TRUE;
             mdef->mstrategy &= ~STRAT_WAITFORU;
             (void) rloc(mdef, TRUE);
             if (vis && wasseen && !canspotmon(mdef) && mdef != u.usteed)
@@ -2387,13 +2390,13 @@ msickness:
 		break;
     case AD_WTHR: {
         uchar withertime = max(2, tmp);
-        tmp = 0; /* doesn't deal immediate damage */
-        no_effect =
+        boolean no_effect =
             (nonliving(pd) /* This could use is_fleshy(), but that would
                               make a large set of monsters immune like
                               fungus, blobs, and jellies. */
              || is_vampshifter(mdef) || cancelled);
         boolean lose_maxhp = (withertime >= 8); /* if already withering */
+        tmp = 0; /* doesn't deal immediate damage */
 
         if (!no_effect) {
             if (canseemon(mdef))

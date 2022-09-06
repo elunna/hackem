@@ -1378,7 +1378,10 @@ unsigned trflags;
         break;
 
     case PIT:
-    case SPIKED_PIT:
+    case SPIKED_PIT: {
+        /* is the pit an "open grave"? (if it's in a graveyard, yes) */
+        boolean is_grave = (getroomtype(u.ux, u.uy) == MORGUE
+                            && ttype != SPIKED_PIT);
         /* KMH -- You can't escape the Sokoban level traps */
         if (!Sokoban && (Levitation || (Flying && !plunged)))
             break;
@@ -1394,9 +1397,6 @@ unsigned trflags;
             }
             break;
         }
-        /* is the pit an "open grave"? (if it's in a graveyard, yes) */
-        boolean is_grave = (getroomtype(u.ux, u.uy) == MORGUE
-                            && ttype != SPIKED_PIT);
         if (!Sokoban) {
             char verbbuf[BUFSZ];
 
@@ -1498,7 +1498,7 @@ unsigned trflags;
             exercise(A_DEX, FALSE);
         }
         break;
-
+    }
     case HOLE:
     case TRAPDOOR:
         if (!Can_fall_thru(&u.uz)) {
@@ -2759,14 +2759,14 @@ register struct monst *mtmp;
                 if (rn2(2)) {
                     if (in_sight)
                         pline_The("water evaporates!");
-                        levl[mtmp->mx][mtmp->my].typ = ROOM;
+                    levl[mtmp->mx][mtmp->my].typ = ROOM;
                 }
                 if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) {
                     if (in_sight) {
                         shieldeff(mtmp->mx, mtmp->my);
                         pline("%s is uninjured.", Monnam(mtmp));
                     }
-                } else if (thitm(0, mtmp, (struct obj *)0, rnd(3), FALSE))
+                } else if (thitm(0, mtmp, (struct obj *) 0, rnd(3), FALSE))
                            trapkilled = TRUE;
                 if (see_it)
                     seetrap(trap);
@@ -4090,6 +4090,7 @@ xchar x, y;
 {
     struct obj *otmp, *ncobj;
     int in_sight = !Blind && couldsee(x, y); /* Don't care if it's lit */
+    boolean ucarried;
 
     if (!obj)
         return ER_NOTHING;
@@ -4100,7 +4101,7 @@ xchar x, y;
     if (!ostr)
         ostr = cxname(obj);
 
-    boolean ucarried = carried(obj);
+    ucarried = carried(obj);
     if (obj->otyp == CAN_OF_GREASE && obj->spe > 0) {
         return ER_NOTHING;
     } else if (obj->otyp == TOWEL && obj->spe < 7) {
@@ -4475,7 +4476,12 @@ drown()
         }
         vision_recalc(2); /* unsee old position */
         u.uinwater = 1;
-        under_water(1);
+        if (!See_underwater) {
+            under_water(1);
+        } else {
+            vision_reset();
+            docrt();
+        }
         vision_full_recalc = 1;
         return FALSE;
     }
@@ -6366,19 +6372,13 @@ lava_effects()
         iflags.in_lava_effects--;
 
         /* s/he died... */
-        boil_away = (u.umonnum == PM_WATER_ELEMENTAL
-                     || u.umonnum == PM_STEAM_VORTEX
-                     || u.umonnum == PM_WATER_TROLL
-                     || u.umonnum == PM_BABY_SEA_DRAGON
-                     || u.umonnum == PM_SEA_DRAGON
-                     || u.umonnum == PM_FOG_CLOUD);
         for (;;) {
             u.uhp = -1;
             /* killer format and name are reconstructed every iteration
                because lifesaving resets them */
             killer.format = KILLED_BY;
             Strcpy(killer.name, lava_killer);
-            You("%s...", boil_away ? "boil away" : "burn to a crisp");
+            You("%s...", on_fire(&youmonst, ON_FIRE_DEAD));
             done(BURNING);
             if (safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT))
                 break; /* successful life-save */

@@ -1954,15 +1954,19 @@ domove_core()
     /* Paranoid checks for dangerous moves, unless specified with 'm' */
     if (!context.nopick || context.run) {
         boolean known_wwalking, known_lwalking;
-        known_wwalking = (uarmf && uarmf->otyp == WATER_WALKING_BOOTS
-                          && objects[WATER_WALKING_BOOTS].oc_name_known
+        known_wwalking = (((uarmf && uarmf->otyp == WATER_WALKING_BOOTS
+                            && objects[WATER_WALKING_BOOTS].oc_name_known)
+                           || (uarm && Is_dragon_scaled_armor(uarm)
+                               && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES))
                           && !u.usteed);
         /* FIXME: This can be exploited to identify the ring of fire resistance
          * if the player is wearing it unidentified and has identified
          * fireproof boots of water walking and is walking over lava. However,
          * this is such a marginal case that it may not be worth fixing. */
-        known_lwalking = (known_wwalking && Fire_resistance
-                          && uarmf->oerodeproof && uarmf->rknown);
+        known_lwalking = ((known_wwalking && Fire_resistance
+                           && uarmf->oerodeproof && uarmf->rknown)
+                          || (uarm && Is_dragon_scaled_armor(uarm)
+                               && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES));
         if (!Levitation && !Flying && grounded(youmonst.data)
             && !Stunned && !Confusion && levl[x][y].seenv
             && ((is_pool(x, y) && !is_pool(u.ux, u.uy))
@@ -2376,6 +2380,8 @@ boolean newspot;             /* true if called by spoteffects */
 
             u.uinwater = 0;       /* leave the water */
             if (was_underwater) { /* restore vision */
+                if (See_underwater)
+                    vision_reset();
                 docrt();
                 vision_full_recalc = 1;
             }
@@ -3042,7 +3048,7 @@ pickup_checks()
             You_cant("reach the bottom to pick things up.");
             return 0;
         } else if (!likes_lava(youmonst.data)) {
-            You("would burn to a crisp trying to pick things up.");
+            You("would %s trying to pick things up.", on_fire(&youmonst, ON_FIRE_DEAD));
             return 0;
         }
     }

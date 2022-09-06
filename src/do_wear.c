@@ -2106,10 +2106,8 @@ boolean silent;
     if (silent)
         return 1;
 
-    /* Curses, like chickens, come home to roost. */
     use_plural = (is_boots(otmp) || is_gloves(otmp)
-                          || otmp->otyp == LENSES || otmp->quan > 1L);
-
+                  || otmp->otyp == LENSES || otmp->quan > 1L);
     /* might be trying again after applying grease to hands */
     if (Glib && otmp->bknown
         /* for weapon, we'll only get here via 'A )' */

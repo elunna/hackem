@@ -841,7 +841,7 @@ boolean artif;
             if (is_poisonable(otmp) && !rn2(100))
                 otmp->opoisoned = 1;
 
-            if (artif && !rn2(30))
+            if (artif && !rn2(30 + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
             else if (rn2(175) < (level_difficulty() / 2))
                 otmp = create_oprop(otmp, TRUE);
@@ -1077,7 +1077,7 @@ boolean artif;
                 otmp->spe = rne(3);
             } else
                 blessorcurse(otmp, 10);
-            if (artif && !rn2(40))
+            if (artif && !rn2(40 + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
             else if (!rn2(150))
                 otmp = create_oprop(otmp, TRUE);
@@ -3633,10 +3633,10 @@ int mat;
     if (objects[obj->otyp].oc_material == mat) {
         return TRUE;
     } else {
+        const struct icp* materials = material_list(obj);
+
         if (invalid_obj_material(obj, mat))
             return FALSE;
-
-        materials = material_list(obj);
 
         if (materials) {
             int i = 100; /* guarantee going through everything */

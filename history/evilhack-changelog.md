@@ -2396,3 +2396,49 @@ The following changes to date are:
 - Adjust feedback when hit by an artifact or weapon that deals poison
   damage
 
+
+### Version 0.8.1
+
+- Latest merges from 'vanilla' NetHack 3.6.6 official release (as of January 23rd, 2022)
+- Initial preparation for new version (0.8.1)
+- Fix: fire damage feedback
+- Retool berserkers
+- Make berserkers more willing to fight hand-to-hand
+- Fix: compatability checking for development
+- Add missing wizard mode commands to guidebook
+- Fix: a couple minor issues with character creation
+- Unlock trident skill for tortles playing a role that normally wouldn't have it
+- Tortles, various monsters can move fast whilst underwater
+- Fix: tortles and breathing underwater
+- Fix: You are very fast from something
+- Fix: sections of wall being visible when they shouldn't yet
+- Fix: triggering knockback feedback on an already dead monster
+- Sickness countdown
+- Valkyries start with a spear instead of a long sword; Giantslayer changes
+- Grid bugs don't have hands
+- Pyrolisk, fire damage changes
+- Mimics and dead trees
+- Fix: typo in 'The Adventurer's Journal'
+- Kathryn grudges all things that can sting
+- Fix: warnings during compile using gcc version 11
+- Make hitting with a wielded potion hit you far less
+- Fix: engulfing mounted hero
+- Adjust random item artifact chances
+- Monsters will use teleportation wands offensively
+- Change kitchen sink glyph and color
+- Adjust random item artifact chances again
+- Monsters can blind you with a camera
+- Monsters will use wands of slow monster offensively
+- Allow normal sight whilst underwater given the right conditions
+- Fix: paranoid swim and wearing white dragon-scaled armor
+- Fix: See_underwater as a tortle when saving/reloading, hidden
+  monsters underwater
+- Fix: better way to handle hidden monsters underwater; new hints file
+- Minor README update
+- Fix: ammo damage from the Longbow of Diana/Crossbow of Carl
+- Fix: silence several compile warnings (clang)
+- Fix: corrections to last commit (silencing compile warnings w/ clang)
+- Fix: move check for starting L1 spellbook to include non-random spellbooks
+- Fix: lit status of worn light sources appearing twice in inventory
+- Fix: could not blind self with an expensive camera
+

@@ -1314,7 +1314,8 @@ register struct attack *mattk;
     int res;
     boolean burnmsg = FALSE;
     boolean no_effect;
-    long armask;
+    long armask = attack_contact_slots(mtmp, mattk->aatyp);
+    struct obj* hated_obj;
 
     if (!canspotmon(mtmp) && mdat != &mons[PM_GHOST]) {
         /* Ghosts have an exception because if the hero can't spot it, their
@@ -1376,21 +1377,6 @@ register struct attack *mattk;
             dmg += d((int) mattk->damn, (int) mattk->damd);
     }
 
-    if (is_berserker(mdat)) {
-        if (!rn2(7) && (mtmp->mhp < (mtmp->mhpmax / 3))) {
-            if (mdat->mlet == S_HUMAN || mdat->mlet == S_ORC
-                || mdat->mlet == S_GIANT || mdat->mlet == S_OGRE
-                || mdat->mlet == S_HUMANOID) {
-                if (cansee(mtmp->mx, mtmp->my))
-                    pline("%s flies into a berserker rage!", Monnam(mtmp));
-                else if (!Deaf)
-                    pline("%s %s with rage!", Amonnam(mtmp),
-                          rn2(2) ? "roars" : "howls");
-            }
-            dmg += d((int) mattk->damn, (int) mattk->damd);
-        }
-    }
-
     /*  Next a cancellation factor.
      *  Use uncancelled when cancellation factor takes into account certain
      *  armor's special magic protection.  Otherwise just use !mtmp->mcan.
@@ -1436,6 +1422,9 @@ register struct attack *mattk;
             }
         } else { /* hand to hand weapon */
             struct obj *otmp = mon_currwep;
+
+            if (mtmp->mberserk && !rn2(3))
+                dmg += d((int) mattk->damn, (int) mattk->damd);
 
             if (mattk->aatyp == AT_WEAP && otmp) {
                 struct obj *marmg;
@@ -1551,7 +1540,7 @@ register struct attack *mattk;
     case AD_FIRE:
         hitmsg(mtmp, mattk);
         if (uncancelled) {
-            pline("You're %s!", on_fire(youmonst.data, mattk));
+            pline("You're %s!", on_fire(&youmonst, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
             if (completelyburns(youmonst.data)) { /* paper or straw golem */
                 You("go up in flames!");
                 /* KMH -- this is okay with unchanging */
@@ -2444,13 +2433,13 @@ do_rust:
         break;
     case AD_WTHR: {
         uchar withertime = max(2, dmg);
-        dmg = 0; /* doesn't deal immediate damage */
-        no_effect =
+        boolean no_effect =
             (nonliving(youmonst.data) /* This could use is_fleshy(), but that would
                                          make a large set of monsters immune like
                                          fungus, blobs, and jellies. */
              || is_vampshifter(&youmonst) || !uncancelled);
         boolean lose_maxhp = (withertime >= 8); /* if already withering */
+        dmg = 0; /* doesn't deal immediate damage */
 
         hitmsg(mtmp, mattk);
         if (!no_effect) {
@@ -2533,8 +2522,6 @@ do_rust:
 
     /* handle body/equipment made out of harmful materials for touch attacks */
     /* should come after AC damage reduction */
-    armask = attack_contact_slots(mtmp, mattk->aatyp);
-    struct obj* hated_obj;
     dmg += special_dmgval(mtmp, &youmonst, armask, &hated_obj);
     if (hated_obj) {
         searmsg(mtmp, &youmonst, hated_obj, FALSE);
@@ -2680,15 +2667,15 @@ struct attack *mattk;
         place_monster(mtmp, u.ux, u.uy);
         u.ustuck = mtmp;
         newsym(mtmp->mx, mtmp->my);
-        if (is_swallower(mtmp->data) && u.usteed) {
+        if (u.usteed) {
             char buf[BUFSZ];
 
-            /* Too many quirks presently if hero and steed
-             * are swallowed. Pretend purple worms don't
-             * like horses for now :-)
-             */
             Strcpy(buf, mon_nam(u.usteed));
-            pline("%s lunges forward and plucks you off %s!", Monnam(mtmp),
+            pline("%s %s forward and plucks you off %s!",
+                  Monnam(mtmp),
+                  is_animal(mtmp->data) ? "lunges"
+                    : amorphous(mtmp->data) ? "oozes"
+                      : "surges",
                   buf);
             dismount_steed(DISMOUNT_ENGULFED);
         } else
@@ -2713,7 +2700,11 @@ struct attack *mattk;
         if (touch_petrifies(youmonst.data)
             && !(resists_ston(mtmp) || defended(mtmp, AD_STON))) {
             /* put the attacker back where it started;
-               the resulting statue will end up there */
+               the resulting statue will end up there
+               [note: if poly'd hero could ride or non-poly'd hero could
+               acquire touch_petrifies() capability somehow, this code
+               would need to deal with possibility of steed having taken
+               engulfer's previous spot when hero was forcibly dismounted] */
             remove_monster(mtmp->mx, mtmp->my); /* u.ux,u.uy */
             place_monster(mtmp, omx, omy);
             minstapetrify(mtmp, TRUE);
@@ -2813,7 +2804,9 @@ struct attack *mattk;
          * suffocation-y things like drowning attacks.
          * Generally, only give a message if this is the first engulf, not a
          * subsequent attack when already engulfed. */
-        if (Breathless) {
+        if (Breathless
+            || (Amphibious && (mtmp->data == &mons[PM_WATER_ELEMENTAL]
+                               || mtmp->data == &mons[PM_SEA_DRAGON]))) {
             if (!old_uswallow) {
                 if (!(HMagical_breathing || EMagical_breathing)) {
                     /* test this one first, in case breathless and also wearing
@@ -2925,7 +2918,7 @@ struct attack *mattk;
                 ugolemeffects(AD_FIRE, tmp);
                 tmp = 0;
             } else {
-                You("are burning to a crisp!");
+                You("are %s!", on_fire(&youmonst, ON_FIRE_ENGULF));
                 tmp = resist_reduce(tmp, FIRE_RES);
             }
             burn_away_slime();
@@ -3327,12 +3320,17 @@ struct attack *mattk;
 
                 pline("%s attacks you with a fiery gaze!", Monnam(mtmp));
                 stop_occupation();
-	        dmg = resist_reduce(dmg, FIRE_RES);
-		if (dmg < 1) {
+                dmg = resist_reduce(dmg, FIRE_RES);
+                if (how_resistant(FIRE_RES) == 100) {
+                    shieldeff(u.ux, u.uy);
                     pline_The("fire feels mildly hot.");
                     monstseesu(M_SEEN_FIRE);
+                    ugolemeffects(AD_FIRE, d(12, 6));
+                    dmg = 0;
                 }
                 burn_away_slime();
+                if (lev > rn2(20))
+                    (void) burnarmor(&youmonst);
                 if (lev > rn2(20))
                     destroy_item(SCROLL_CLASS, AD_FIRE);
                 if (lev > rn2(20))
@@ -3354,10 +3352,13 @@ struct attack *mattk;
 
                 pline("%s attacks you with a chilling gaze!", Monnam(mtmp));
                 stop_occupation();
-		dmg = resist_reduce(dmg, COLD_RES);
-		if (dmg < 1) {
+                dmg = resist_reduce(dmg, COLD_RES);
+                if (how_resistant(COLD_RES) == 100) {
+                    shieldeff(u.ux, u.uy);
                     pline_The("chilling gaze feels mildly cool.");
                     monstseesu(M_SEEN_COLD);
+                    ugolemeffects(AD_COLD, d(12, 6));
+                    dmg = 0;
                 }
                 if (lev > rn2(20))
                     destroy_item(POTION_CLASS, AD_COLD);
@@ -3373,10 +3374,10 @@ struct attack *mattk;
             mtmp->mspec_used = mtmp->mspec_used + 3 + rn2(8);
 
             if (uwep && uwep->otyp == MIRROR && uwep->blessed) {
-	        pline("%s sees its own glare in your mirror.", Monnam(mtmp));
-	        pline("%s is cancelled!", Monnam(mtmp));
-	        mtmp->mcan = 1;
-	        monflee(mtmp, 0, FALSE, TRUE);
+                pline("%s sees its own glare in your mirror.", Monnam(mtmp));
+                pline("%s is cancelled!", Monnam(mtmp));
+                mtmp->mcan = 1;
+                monflee(mtmp, 0, FALSE, TRUE);
             } else {
                 change_luck(-1);
                 pline("You don't feel as lucky as before.");
@@ -3518,6 +3519,7 @@ struct attack *mattk;
     case AD_DETH:
         if (canseemon(mtmp) && couldsee(mtmp->mx, mtmp->my)
             && mtmp->mcansee && rn2(4)) {
+            int dmg, permdmg = 0;
             /* currently only Vecna has the gaze of death */
             if (mtmp && mtmp->data == &mons[PM_VECNA])
                 You("meet %s deadly gaze!", s_suffix(mon_nam(mtmp)));

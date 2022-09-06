@@ -2020,6 +2020,7 @@ int spellnum;
         } else {
             register int i, j;
             int makeindex, tmp = (u.ulevel > 3) ? u.ulevel / 3 : 1;
+            const char *mappear;
             coord bypos;
 
             if (mtmp)
@@ -2029,7 +2030,7 @@ int spellnum;
             else
                 bypos.x = mattk->mx, bypos.y = mattk->my;
 
-            for (i = rnd(tmp); i > 0; --i)
+            for (i = rnd(tmp); i > 0; --i) {
                 for (j = 0; j < 20; j++) {
                     do {
                         makeindex = pick_nasty();
@@ -2061,9 +2062,8 @@ int spellnum;
                         break;
                     }
                 }
-
+            }
             mappear = (count == 1) ? "A monster appears" : "Monsters appear";
-
             if (yours || canseemon(mtmp))
                 pline("%s from nowhere!", mappear);
         }
@@ -2159,10 +2159,11 @@ int spellnum;
             impossible("ucast haste but not yours?");
             return;
         }
-        if (!(HFast & INTRINSIC))
+        if (!(HFast & INTRINSIC)) {
             You("are suddenly moving faster.");
             HFast |= INTRINSIC;
-            dmg = 0;
+        }
+        dmg = 0;
         break;
     case MGC_CURE_SELF:
         if (!yours)

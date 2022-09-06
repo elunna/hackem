@@ -51,8 +51,8 @@ set -e
 umask 022
 
 echo "Creating inprogress and extrainfo directories"
-mkdir -p "$NAO_CHROOT/dgldir/inprogress-evil080"
-chown "$USRGRP" "$NAO_CHROOT/dgldir/inprogress-evil080"
+mkdir -p "$NAO_CHROOT/dgldir/inprogress-evil081"
+chown "$USRGRP" "$NAO_CHROOT/dgldir/inprogress-evil081"
 mkdir -p "$NAO_CHROOT/dgldir/extrainfo-evil"
 chown "$USRGRP" "$NAO_CHROOT/dgldir/extrainfo-evil"
 
@@ -92,6 +92,8 @@ mkdir -p "$NAO_CHROOT/$NHSUBDIR/var"
 chown -R "$USRGRP" "$NAO_CHROOT/$NHSUBDIR/var"
 mkdir -p "$NAO_CHROOT/$NHSUBDIR/var/save"
 chown -R "$USRGRP" "$NAO_CHROOT/$NHSUBDIR/var/save"
+mkdir -p "$NAO_CHROOT/$NHSUBDIR/var/save/backup"
+chown -R "$USRGRP" "$NAO_CHROOT/$NHSUBDIR/var/save/backup"
 mkdir -p "$NAO_CHROOT/$NHSUBDIR/var/whereis"
 chown -R "$USRGRP" "$NAO_CHROOT/$NHSUBDIR/var/whereis"
 

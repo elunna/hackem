@@ -1641,15 +1641,18 @@ dosacrifice()
     }
 
     if (otmp->otyp == CORPSE) {
-        register struct permonst *ptr;
+        struct permonst *ptr;
+        struct monst *mtmp;
+        boolean to_other_god;
+
         if (has_omonst(otmp) && has_erac(OMONST(otmp))) {
             ptr = &mons[ERAC(OMONST(otmp))->rmnum];
         } else {
             ptr = &mons[otmp->corpsenm];
         }
         /* is this a conversion attempt? */
-        boolean to_other_god =  ugod_is_angry() && !your_race(ptr)
-                                && u.ualign.type != altaralign;
+        to_other_god = (ugod_is_angry() && !your_race(ptr)
+                        && u.ualign.type != altaralign);
 
         /* KMH, conduct */
         if (!u.uconduct.gnostic++)
@@ -2224,6 +2227,7 @@ dosacrifice()
 
                             /* apply starting inventory subs - so we'll get racial gear if possible */
                             if (urace.malenum != PM_HUMAN) {
+                                int i;
                                 for (i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
                                     if (inv_subs[i].race_pm == urace.malenum
                                         && typ == inv_subs[i].item_otyp) {
@@ -2399,6 +2403,7 @@ dosacrifice()
                              * racial gear if possible
                              */
                             if (urace.malenum != PM_HUMAN) {
+                                int i;
                                 for (i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
                                     if (inv_subs[i].race_pm == urace.malenum
                                         && typ == inv_subs[i].item_otyp) {
@@ -2775,7 +2780,7 @@ doturn()
     if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT)) {
         /* Try to use the "turn undead" spell. */
         if (known_spell(SPE_TURN_UNDEAD))
-            return spelleffects(spell_idx(SPE_TURN_UNDEAD), FALSE);
+            return spelleffects(spell_idx(SPE_TURN_UNDEAD), FALSE, FALSE);
         You("don't know how to turn undead!");
         return 0;
     }

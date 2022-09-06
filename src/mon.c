@@ -31,7 +31,6 @@ STATIC_DCL void FDECL(m_detach, (struct monst *, struct permonst *));
 STATIC_DCL void FDECL(lifesaved_monster, (struct monst *));
 STATIC_DCL void FDECL(migrate_mon, (struct monst *, XCHAR_P, XCHAR_P));
 STATIC_DCL boolean FDECL(ok_to_obliterate, (struct monst *));
-STATIC_DCL void FDECL(deal_with_overcrowding, (struct monst *));
 STATIC_DCL void FDECL(icequeenrevive, (struct monst *));
 
 /* note: duplicated in dog.c */
@@ -298,9 +297,9 @@ become_flayer(mdef)
 struct monst* mdef;
 {
     struct permonst* mdat = mdef->data;
-    boolean couldspot = canspotmon(mdef);
+    boolean willspot, couldspot = canspotmon(mdef);
     mdef->data = &mons[PM_MIND_FLAYER];
-    boolean willspot = canspotmon(mdef);
+    willspot = canspotmon(mdef);
     mdef->data = mdat;
     char name[PL_PSIZ];
 
@@ -311,6 +310,7 @@ struct monst* mdef;
     }
 
     if (newcham(mdef, &mons[PM_MIND_FLAYER], FALSE, FALSE)) {
+        char name[PL_PSIZ];
         /* off-chance Izchak succumbs to a mind flayer larva's physical attack */
         if (is_izchak(mdef, TRUE)) {
             pline("But wait!  %s transforms again into his true form!",
@@ -975,17 +975,8 @@ register struct monst *mtmp;
                     return 0;
             }
             if (!(resists_fire(mtmp) || defended(mtmp, AD_FIRE))) {
-                if (cansee(mtmp->mx, mtmp->my)) {
-                    struct attack *dummy;
-                    dummy = has_erac(mtmp) ? &ERAC(mtmp)->mattk[0]
-                                           : &mtmp->data->mattk[0];
-                    how = on_fire(mtmp->data, dummy);
-
-                    pline("%s %s.", Monnam(mtmp),
-                          !strcmp(how, "boiling") ? "boils away"
-                             : !strcmp(how, "melting") ? "melts away"
-                                : "burns to a crisp");
-                }
+                if (cansee(mtmp->mx, mtmp->my))
+                    pline("%s %s.", Monnam(mtmp), on_fire(mtmp, ON_FIRE_DEAD));
                 /* unlike fire -> melt ice -> pool, there's no way for the
                    hero to create lava beneath a monster, so the !mon_moving
                    case is not expected to happen (and we haven't made a
@@ -1100,6 +1091,9 @@ struct monst *mon;
      */
     if (mon->mspeed == MSLOW)
         mmove = (2 * mmove + 1) / 3;
+    /* various monsters get a slight bump in speed when in their natural element */
+    else if (is_pool(mon->mx, mon->my) && is_fast_underwater(mon->data))
+        mmove = (3 * mmove + 2) / 3;
     else if (mon->mspeed == MFAST)
         mmove = (4 * mmove + 2) / 3;
 
@@ -1218,6 +1212,28 @@ mcalcdistress()
         /* regenerate hit points - note that if withering, they won't gain hp,
          * but we still need to call this for mspec_used */
         mon_regen(mtmp, FALSE);
+
+        if (is_berserker(mtmp->data) && !noattacks(mtmp->data)) {
+            if ((mtmp->mhp < (mtmp->mhpmax / 3)) && !mtmp->mberserk
+                && !rn2(15)) {
+                if (canseemon(mtmp) && humanoid(mtmp->data)
+                    && !mindless(mtmp->data)) {
+                    pline("%s flies into a berserker rage!",
+                          Monnam(mtmp));
+                } else if (canseemon(mtmp)) { /* animal/mindless */
+                    pline("%s seems to go berserk!", Monnam(mtmp));
+                } else {
+                    You_hear("an enraged %s %s!",
+                             !rn2(3) ? "roar" : rn2(2) ? "bellow" : "howl",
+                             (distu(mtmp->mx, mtmp->my) > (6 * 6)
+                                ? "in the distance" : "nearby"));
+                }
+                mtmp->mberserk = 1;
+                mtmp->mflee = 0;
+            } else if (mtmp->mhp > (mtmp->mhpmax / 2)) {
+                mtmp->mberserk = 0;
+            }
+        }
 
         /* sick monsters can die from their illness */
         if (mtmp->msick && mtmp->msicktime <= 1) {
@@ -2708,10 +2724,7 @@ struct monst *magr, /* monster that is currently deciding where to move */
 
     /* berserk monsters sometimes lash out at everything
        when trying to attack you  */
-    if (is_berserker(ma) && m_canseeu(magr)
-        && magr->mpeaceful == FALSE && !rn2(7)
-        && (magr->mhp < (magr->mhpmax / 5))
-        && !noattacks(ma))
+    if (magr->mberserk && !magr->mpeaceful && !rn2(3) && m_canseeu(magr))
         return ALLOW_M | ALLOW_TM;
 
     /* The Riders, and huge/gigantic monsters
@@ -2741,6 +2754,13 @@ struct monst *magr, /* monster that is currently deciding where to move */
        will attack anything not mindless */
     if (ma == &mons[PM_NEOTHELID]
         && !mindless(md))
+        return ALLOW_M | ALLOW_TM;
+
+    /* mini-me recently had a bad encounter with a yellowjacket.
+       she now hates all things that can sting */
+    if ((ma == &mons[PM_KATHRYN_THE_ICE_QUEEN]
+         || ma == &mons[PM_KATHRYN_THE_ENCHANTRESS])
+        && can_sting(md))
         return ALLOW_M | ALLOW_TM;
 
     /* now test all two-way aggressions both ways */
@@ -4349,7 +4369,7 @@ struct monst *mtmp;
     return;
 }
 
-STATIC_OVL void
+void
 deal_with_overcrowding(mtmp)
 struct monst *mtmp;
 {

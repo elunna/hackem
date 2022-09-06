@@ -58,9 +58,6 @@ STATIC_DCL void FDECL(wishcmdassist, (int));
 
 #define is_hero_spell(type) ((type) >= 10 && (type) < 20)
 
-#define M_IN_WATER(ptr) \
-    ((ptr)->mlet == S_EEL || amphibious(ptr) || is_swimmer(ptr))
-
 STATIC_VAR const char are_blinded_by_the_flash[] =
     "are blinded by the flash!";
 
@@ -188,10 +185,12 @@ struct obj *otmp;
             hit(zap_type_text, mtmp, exclam(dmg));
             if (dmg > 16) {
                 last_hurtled = mtmp;
-                pline_The("force of %s knocks %s back!",
-                          (otyp == SPE_FORCE_BOLT) ? "your spell" : "the wand",
-                          mon_nam(mtmp));
-                mhurtle_to_doom(mtmp, dmg, &mdat, FALSE);
+                if (dmg < mtmp->mhp) {
+                    pline_The("force of %s knocks %s back!",
+                              (otyp == SPE_FORCE_BOLT) ? "your spell" : "the wand",
+                              mon_nam(mtmp));
+                    mhurtle_to_doom(mtmp, dmg, &mdat, FALSE);
+                }
             }
             (void) resist(mtmp, otmp->oclass, dmg, TELL);
         } else
@@ -2989,13 +2988,12 @@ boolean ordinary;
     case EXPENSIVE_CAMERA:
         if (!damage)
             damage = 5;
-        if (obj->otyp == WAN_LIGHT && !cursed(obj, TRUE)) {
-            damage = lightdamage(obj, ordinary, damage);
-            damage += rnd(25);
+        damage = lightdamage(obj, ordinary, damage);
+        damage += rnd(25);
+        if (flashburn((long) damage))
+            learn_it = TRUE;
+        if (obj->otyp == WAN_LIGHT && !cursed(obj, TRUE))
             blindingflash();
-            if (flashburn((long) damage))
-                learn_it = TRUE;
-        }
         damage = 0; /* reset */
         break;
     case WAN_OPENING:
@@ -6510,10 +6508,6 @@ makewish()
                        "wished for \"%s\"", bufcpy);
 
     if (otmp != &zeroobj) {
-#ifdef WISH_TRACKER
-        /* write it out to our universal wishtracker file */
-        trackwish(bufcpy);
-#endif
         const char
             *verb = ((Is_airlevel(&u.uz) || u.uinwater) ? "slip" : "drop"),
             *oops_msg = (u.uswallow
@@ -6524,6 +6518,10 @@ makewish()
                             ? "Oops!  %s away from you!"
                             : "Oops!  %s to the floor!");
 
+#ifdef WISH_TRACKER
+        /* write it out to our universal wishtracker file */
+        trackwish(bufcpy);
+#endif
         /* The(aobjnam()) is safe since otmp is unidentified -dlc */
         (void) hold_another_object(otmp, oops_msg,
                                    The(aobjnam(otmp, verb)),

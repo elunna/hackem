@@ -33,7 +33,7 @@ struct trobj Archeologist[] = {
     { JACKET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FEDORA, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 3, 0 },
-    { PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
+    { PICK_AXE, 0, TOOL_CLASS, 1, UNDEF_BLESS },
     { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { TOUCHSTONE, 0, GEM_CLASS, 1, 0 },
     { SACK, 0, TOOL_CLASS, 1, 0 },
@@ -239,7 +239,7 @@ static struct trobj UndeadSlayer[] = {
 	{ 0, 0, 0, 0, 0 }
 };
 struct trobj Valkyrie[] = {
-    { LONG_SWORD, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { SPEAR, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { SMALL_SHIELD, 3, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 1, 0 },
@@ -376,6 +376,7 @@ struct inv_sub {
     { PM_TORTLE, ROBE, TOQUE },
     { PM_TORTLE, HAWAIIAN_SHIRT, TOQUE },
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
+    { PM_TORTLE, SACK, OILSKIN_SACK },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
 };
 
@@ -829,7 +830,7 @@ static const struct def_skill Skill_V[] = {
     { P_HAMMER, P_EXPERT },
     { P_QUARTERSTAFF, P_BASIC },
     { P_POLEARMS, P_SKILLED },
-    { P_SPEAR, P_SKILLED },
+    { P_SPEAR, P_EXPERT },
     { P_TRIDENT, P_BASIC },
     { P_LANCE, P_SKILLED },
     { P_SLING, P_BASIC },
@@ -1361,13 +1362,19 @@ u_init()
 
     case PM_TORTLE:
         /* if their role lists trident as a trainable skill,
-           raise the max proficiency level by one */
-        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK))
+           raise the max proficiency level by one. If non-priest,
+           add trident skill, and allow training up to basic */
+        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK)) {
             P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
-        if (Role_if(PM_HEALER) || Role_if(PM_TOURIST))
+        } else if (Role_if(PM_HEALER) || Role_if(PM_TOURIST)) {
             P_MAX_SKILL(P_TRIDENT) = P_SKILLED;
+        } else if (!Role_if(PM_PRIEST)) {
+            unrestrict_weapon_skill(P_TRIDENT);
+            P_MAX_SKILL(P_TRIDENT) = P_BASIC;
+        }
 
-        if (!rn2(4)) {
+        if (!rn2(4)
+            && !Role_if(PM_ARCHEOLOGIST) && !Role_if(PM_ROGUE)) {
             /* in case they want to go for a swim */
             ini_inv(Oilskin);
         }
@@ -1763,8 +1770,9 @@ register struct trobj *origtrop;
     int otyp, i;
     struct trobj temptrop;
     register struct trobj *trop = &temptrop;
-    memcpy(&temptrop, origtrop, sizeof(struct trobj));
     boolean got_sp1 = FALSE; /* got a level 1 spellbook? */
+
+    memcpy(&temptrop, origtrop, sizeof(struct trobj));
 
     while (origtrop->trclass) {
         otyp = (int) trop->trotyp;
@@ -1860,9 +1868,6 @@ register struct trobj *origtrop;
             /* Don't have 2 of the same ring or spellbook */
             if (obj->oclass == RING_CLASS || obj->oclass == SPBOOK_CLASS)
                 nocreate4 = otyp;
-            /* First spellbook should be level 1 - did we get it? */
-            if (obj->oclass == SPBOOK_CLASS && objects[obj->otyp].oc_level == 1)
-                got_sp1 = TRUE;
         }
 
         /* Put post-creation object adjustments that don't depend on whether it
@@ -2013,6 +2018,10 @@ register struct trobj *origtrop;
             initialspell(obj);
         if (obj->oclass == AMULET_CLASS)
             setworn(obj, W_AMUL);
+
+        /* First spellbook should be level 1 - did we get it? */
+        if (obj->oclass == SPBOOK_CLASS && objects[obj->otyp].oc_level == 1)
+            got_sp1 = TRUE;
 
         /* Don't allow gear with object properties
          * to be start scummed for */

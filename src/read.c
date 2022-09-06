@@ -1744,7 +1744,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         for (sp_no = 0; sp_no < MAXSPELL; sp_no++)
                             if (spl_book[sp_no].sp_id == SPE_COMMAND_UNDEAD) {
                                 You("try to command %s", mon_nam(mtmp));
-                                spelleffects(sp_no, TRUE);
+                                spelleffects(sp_no, TRUE, FALSE);
                                 break;
                             }
                         if (sp_no == MAXSPELL)

@@ -9,7 +9,7 @@
 /*
  * PATCHLEVEL is updated for each release.
  */
-#define PATCHLEVEL 0
+#define PATCHLEVEL 1
 /*
  * Incrementing EDITLEVEL can be used to force invalidation of old bones
  * and save files.
@@ -31,8 +31,15 @@
  * 0x = literal prefix "0x", MM = major version, mm = minor version,
  * PP = patch level, ee = edit level, L = literal suffix "L",
  * with all four numbers specified as two hexadecimal digits.
+ *
+ * When developing a new version, VERSION_COMPATIBILITY should be
+ * commented out so that increments of EDITLEVEL can be used to forcibly
+ * invalidate existing save files whenever incompatible changes are made
+ * to saved data.  [Bones files should be less sensitive (only changes
+ * to individual level files matter; changes to general game state don't)
+ * but the extra complexity to support that is not worth the effort.]
  */
-#define VERSION_COMPATIBILITY 0x00080000L
+/*#define VERSION_COMPATIBILITY 0x00080100L*/
 
 /****************************************************************************/
 /* Version 3.6.x */

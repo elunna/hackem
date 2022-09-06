@@ -1,32 +1,36 @@
 #
 # NetHack 3.6  linux $NHDT-Date: 1432512814 2015/05/25 00:13:34 $  $NHDT-Branch: master $:$NHDT-Revision: 1.12 $
 # Copyright (c) Kenneth Lorber, Kensington, Maryland, 2007.
-# NetHack may be freely redistributed.  See license for details.
+# NetHack may be freely redistributed.  See license for details. 
 #
 #-PRE
 # Linux hints file
-# This hints file provides a chrooted build for Linux, specifically
+# This hints file provides a single-user tty build for Linux, specifically
 # for Ubuntu dapper.
-# Does not copy required libraries or termcap files into the chroot.
 
-COMPILEREVISION?=1
 
-# this is the chroot dir
-PREFIX=/opt/nethack/chroot
+# Typical install path for normal user (non-root)
+#PREFIX=$(wildcard ~)
+#HACKDIR=$(PREFIX)/games/$(GAME)dir
 
-# this is the dir where NetHack is inside the chroot
-HACKDIR=/hackem-0.8.0
-INSTDIR=$(PREFIX)$(HACKDIR)
-# DGL does not use the shell script launcher
-SHELLDIR=/tmp
-VARDIR=$(INSTDIR)/var
+# Default install path (assumes running at root)
+PREFIX=/usr
+HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
+
+SHELLDIR = $(PREFIX)/games
+INSTDIR = $(HACKDIR)
+VARDIR = $(HACKDIR)/var
+
 
 
 POSTINSTALL=cp -n sys/unix/sysconf $(INSTDIR)/sysconf; $(CHOWN) $(GAMEUID) $(INSTDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(INSTDIR)/sysconf; chmod $(VARFILEPERM) $(INSTDIR)/sysconf;
 
-CFLAGS1=-DCOMPRESS=\"/bin/gzip\" -DCOMPRESS_EXTENSION=\".gz\"
-CFLAGS=-g3 -O0 -I../include -DNOTPARMDECL $(CFLAGS1) -DDLB
-CFLAGS+=-Wno-format-overflow
+CFLAGS=-g3 -O0 -I../include -DNOTPARMDECL -fno-common
+CFLAGS+=-DDLB
+CFLAGS+=-DCOMPRESS=\"/bin/gzip\" -DCOMPRESS_EXTENSION=\".gz\"
+CFLAGS+=-DGCC_WARN -Wall -Wextra -Wno-missing-field-initializers
+CFLAGS+=-Wimplicit -Wreturn-type -Wunused -Wformat -Wswitch
+CFLAGS+=-Wshadow -Wwrite-strings -ansi -pedantic -Wno-long-long
 CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
 CFLAGS+=-DTIMED_DELAY
 CFLAGS+=-DHACKDIR=\"$(HACKDIR)\"
@@ -49,17 +53,17 @@ WINSRC = $(WINTTYSRC) $(WINCURSESSRC)
 WINOBJ = $(WINTTYOBJ) $(WINCURSESOBJ)
 WINLIB = $(WINTTYLIB) $(WINCURSESLIB)
 
-WINTTYLIB=-lncurses -ltinfo
-
 # if TTY_TILES_ESCCODES
 WINSRC += tile.c
 WINOBJ += tile.o
+
+WINTTYLIB=-lncurses -ltinfo
 
 CHOWN=true
 CHGRP=true
 
 GAMEUID=games
-GAMEGRP=games
+GAMEGRP=bin
 
 VARDIRPERM = 0755
 VARFILEPERM = 0600

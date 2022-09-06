@@ -2380,7 +2380,7 @@ d_level *lev;
 #define INTEREST(feat)                                                   \
     ((feat).nfount || (feat).nsink || (feat).nthrone || (feat).naltar    \
      || (feat).ngrave || (feat).ntree || (feat).nshop || (feat).ntemple  \
-     || (feat).nforge || (feat).ntoilet)
+     || (feat).nforge || (feat).ntoilet || (feat).ndeadtree)
   /* || (feat).water || (feat).ice || (feat).lava */
 
 /* returns true if this level has something interesting to print out */
@@ -2414,11 +2414,10 @@ mapseen *mptr;
        or user annotation or known connection to another dungeon branch
        or is the furthest level reached in its branch */
     return (boolean) (INTEREST(mptr->feat)
-                      || (mptr->final_resting_place
-                          && (mptr->flags.knownbones || wizard))
-                      || mptr->custom || mptr->br
-                      || (mptr->lev.dlevel
-                          == dungeons[mptr->lev.dnum].dunlev_ureached));
+          || (mptr->final_resting_place && (mptr->flags.knownbones || wizard))
+          || mptr->custom 
+          || mptr->br
+          || (mptr->lev.dlevel == dungeons[mptr->lev.dnum].dunlev_ureached));
 }
 
 /* recalculate mapseen for the current level */
@@ -2577,6 +2576,11 @@ recalc_mapseen()
                 count = mptr->feat.ntree + 1;
                 if (count <= 3)
                     mptr->feat.ntree = count;
+                break;
+            case DEADTREE:
+                count = mptr->feat.ndeadtree + 1;
+                if (count <= 3)
+                    mptr->feat.ndeadtree = count;
                 break;
             case FOUNTAIN:
                 count = mptr->feat.nfount + 1;
@@ -3058,6 +3062,7 @@ boolean printdun;
         ADDNTOBUF("toilet", mptr->feat.ntoilet);
         ADDNTOBUF("grave", mptr->feat.ngrave);
         ADDNTOBUF("tree", mptr->feat.ntree);
+        ADDNTOBUF("dead tree", mptr->feat.ndeadtree);
 #if 0
         ADDTOBUF("water", mptr->feat.water);
         ADDTOBUF("lava", mptr->feat.lava);

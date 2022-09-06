@@ -1504,7 +1504,7 @@ struct monst *mtmp;
 #define MUSE_FROST_HORN 12
 #define MUSE_FIRE_HORN 13
 #define MUSE_POT_ACID 14
-/*#define MUSE_WAN_TELEPORTATION 15*/
+#define MUSE_WAN_TELEPORTATION 15
 #define MUSE_POT_SLEEPING 16
 #define MUSE_SCR_EARTH 17
 #define MUSE_WAN_CANCELLATION 18
@@ -1518,6 +1518,8 @@ struct monst *mtmp;
 #define MUSE_POT_OIL 25
 #define MUSE_POT_AMNESIA 26 /* Lethe */
 #define MUSE_WAN_FIREBALL 27
+#define MUSE_CAMERA 31 /* Skipping so other values don't overlap */
+#define MUSE_WAN_SLOW_MONSTER 32
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1836,6 +1838,43 @@ boolean reflection_skip;
                 m.tocharge = obj;
             }
         }
+        /* use_offensive() has had some code to support wand of teleportation
+         * for a long time, but find_offensive() never selected one;
+         * re-enable it */
+        nomore(MUSE_WAN_TELEPORTATION);
+        if (obj->otyp == WAN_TELEPORTATION && obj->spe > 0
+            /* don't give controlled hero a free teleport */
+            && !Teleport_control
+            /* same hack as MUSE_WAN_TELEPORTATION_SELF */
+            && (!level.flags.noteleport
+                || !(mtmp->mtrapseen & (1 << (TELEP_TRAP - 1))))
+            /* do try to move hero to a more vulnerable spot */
+            && (onscary(u.ux, u.uy, mtmp)
+                || (u.ux == sstairs.sx && u.uy == sstairs.sy))) {
+            m.offensive = obj;
+            m.has_offense = MUSE_WAN_TELEPORTATION;
+        } else if (!m.tocharge || obj->spe < 1
+                   || (m.tocharge->otyp != WAN_DEATH
+                       && m.tocharge->otyp != WAN_SLEEP
+                       && m.tocharge->otyp != WAN_FIRE
+                       && m.tocharge->otyp != FIRE_HORN
+                       && m.tocharge->otyp != WAN_COLD
+                       && m.tocharge->otyp != FROST_HORN
+                       && m.tocharge->otyp != WAN_LIGHTNING
+                       && m.tocharge->otyp != WAN_MAGIC_MISSILE
+                       && m.tocharge->otyp != WAN_CANCELLATION
+                       && m.tocharge->otyp != WAN_POLYMORPH
+                       && m.tocharge->otyp != WAN_STRIKING)) {
+            m.tocharge = obj;
+        }
+        nomore(MUSE_WAN_SLOW_MONSTER);
+        /* don't bother recharging this one */
+        if (obj->otyp == WAN_SLOW_MONSTER) {
+            if (obj->spe > 0 && !Slow) {
+                m.offensive = obj;
+                m.has_offense = MUSE_WAN_SLOW_MONSTER;
+            }
+        }
         if (m.has_offense == MUSE_SCR_CHARGING && m.tocharge)
             continue;
         if (obj->otyp == SCR_CHARGING) {
@@ -1935,6 +1974,14 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_SCR_FIRE;
         }
+        nomore(MUSE_CAMERA);
+        if (obj->otyp == EXPENSIVE_CAMERA
+            && (!Blind || hates_light(youmonst.data))
+            && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 2
+            && obj->spe > 0 && !rn2(6)) {
+            m.offensive = obj;
+            m.has_offense = MUSE_CAMERA;
+        }
     }
     if (m.has_offense == 0 && m.tocharge && charge_scroll) {
         m.offensive = charge_scroll;
@@ -2019,7 +2066,7 @@ register struct obj *otmp;
                 makeknown(WAN_STRIKING);
         }
         break;
-#if 0   /* disabled because find_offensive() never picks WAN_TELEPORTATION */
+   /* disabled because find_offensive() never picks WAN_TELEPORTATION */
     case WAN_TELEPORTATION:
         if (hits_you) {
             tele();
@@ -2034,7 +2081,6 @@ register struct obj *otmp;
                 (void) rloc(mtmp, TRUE);
         }
         break;
-#endif
     case WAN_POLYMORPH:
         if (hits_you) {
             if (Antimagic) {
@@ -2140,6 +2186,14 @@ register struct obj *otmp;
             makeknown(WAN_UNDEAD_TURNING);
         break;
     }
+    case WAN_SLOW_MONSTER:
+        if (hits_you) {
+            if (!Slow)
+                u_slow_down();
+        }
+        if (zap_oseen)
+            makeknown(WAN_SLOW_MONSTER);
+        break;
     default:
         break;
     }
@@ -2355,6 +2409,7 @@ struct monst *mtmp;
     case MUSE_WAN_POLYMORPH:
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
+    case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
         m_using = TRUE;
@@ -2408,7 +2463,7 @@ struct monst *mtmp;
         }
 
         return (DEADMONSTER(mtmp)) ? 1 : 2;
-    }
+    } /* case MUSE_SCR_EARTH */
     case MUSE_SCR_FIRE: {
         boolean vis = cansee(mtmp->mx, mtmp->my);
 
@@ -2455,7 +2510,23 @@ struct monst *mtmp;
             }
         }
         return 2;
-    }
+    } /* case MUSE_SCR_FIRE */
+    case MUSE_CAMERA: {
+        if (Hallucination)
+            verbalize("Say cheese!");
+        else
+            pline("%s takes a picture of you with %s!",
+                  Monnam(mtmp), an(xname(otmp)));
+        m_using = TRUE;
+        if (!Blind) {
+            You("are blinded by the flash of light!");
+            make_blinded(Blinded + (long) rnd(1 + 50), FALSE);
+        }
+        lightdamage(otmp, TRUE, 5);
+        m_using = FALSE;
+        otmp->spe--;
+        return 1;
+    } /* case MUSE_CAMERA */
     case MUSE_POT_PARALYSIS:
     case MUSE_POT_BLINDNESS:
     case MUSE_POT_CONFUSION:
@@ -2580,6 +2651,8 @@ struct monst *mtmp;
         return WAN_CANCELLATION;
     case 15: 
         return WAN_DRAINING;
+    case 16:
+        return WAN_SLOW_MONSTER;
     }
     /*NOTREACHED*/
     return 0;
@@ -3475,7 +3548,8 @@ struct obj *obj;
             || typ == WAN_CANCELLATION 
             || typ == WAN_WISHING
             || typ == WAN_POLYMORPH 
-            || typ == WAN_UNDEAD_TURNING)
+            || typ == WAN_UNDEAD_TURNING
+            || typ == WAN_SLOW_MONSTER)
             return TRUE;
         break;
     case POTION_CLASS:
@@ -3534,6 +3608,8 @@ struct obj *obj;
             || typ == SACK || (typ == BAG_OF_TRICKS && obj->spe > 0))
             return TRUE;
         if (typ == FIGURINE)
+            return TRUE;
+        if (typ == EXPENSIVE_CAMERA && obj->spe > 0)
             return TRUE;
         break;
     case FOOD_CLASS:
@@ -3763,10 +3839,10 @@ boolean by_you;
     if (is_spellcaster(mon) && !mon->mcan
         && can_cast_spells(mon) && !mon->mconf
         && mon->m_lev >= 5) {
+        struct obj *otemp, *onext, *pseudo;
 
         if (mon->mspec_used)
             return FALSE;
-
 
         pseudo = mksobj(SPE_STONE_TO_FLESH, FALSE, FALSE);
         pseudo->blessed = pseudo->cursed = 0;

@@ -635,9 +635,10 @@ static char _killed_uniques[640];
 static char*
 killed_uniques(void)
 {
+    int i, len;
     _killed_uniques[0] = '\0';
 
-    for (int i = LOW_PM; i < NUMMONS; i++) {
+    for (i = LOW_PM; i < NUMMONS; i++) {
 	if ((mons[i].geno & G_UNIQ) && mvitals[i].died) {
     	    if (i == PM_LONG_WORM_TAIL)
                 continue;
@@ -647,8 +648,7 @@ killed_uniques(void)
 	}
     }
 
-    int len;
-    if ((len=strlen(_killed_uniques))) {
+    if ((len = strlen(_killed_uniques))) {
         _killed_uniques[len-1] = '\0';
     }
 

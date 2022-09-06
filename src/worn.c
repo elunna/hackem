@@ -1554,13 +1554,15 @@ long
 armor_provides_extrinsic(armor)
 struct obj *armor;
 {
-    if (!armor) {
+    long prop;
+
+    if (!armor)
         return 0;
-    }
-    long prop = objects[armor->otyp].oc_oprop;
-    if (!prop && Is_dragon_armor(armor)) {
+
+    prop = objects[armor->otyp].oc_oprop;
+    if (!prop && Is_dragon_armor(armor))
         return objects[Dragon_armor_to_scales(armor)].oc_oprop;
-    }
+
     return prop;
 }
 

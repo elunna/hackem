@@ -1568,14 +1568,16 @@ unsigned doname_flags;
         && ((obj->owornmask & (W_ARMOR | W_ACCESSORY | W_WEP))
         || (u.twoweap && (obj->owornmask & W_SWAPWEP)))) {
         /* Warning glow from in-use artifacts. */
-        if (obj->lastwarncnt && strcmp(glow_color(obj->oartifact), "no color")) {
+        if (obj->lastwarncnt
+            && strcmp(glow_color(obj->oartifact), "no color")) {
             Sprintf(eos(bp) - 1, ", %s %s)",
-                glow_verb(obj->lastwarncnt, TRUE),
-                glow_color(obj->oartifact));
+                    glow_verb(obj->lastwarncnt, TRUE),
+                    glow_color(obj->oartifact));
 
         /* Light from always-lit artifacts. */
-        } else if (obj->lamplit && artifact_light(obj)) {
-            Sprintf(eos(bp) - 1, ", %s lit)", arti_light_description(obj));
+        } else if (!Blind && obj->lamplit && artifact_light(obj)) {
+            Sprintf(eos(bp) - 1, ", %s lit)",
+                    arti_light_description(obj));
         }
     /* --hackem: Light from unwielded spear of light. */
     } else if (!Blind && obj->oartifact == ART_SPEAR_OF_LIGHT && obj->lamplit) {
@@ -3402,6 +3404,7 @@ short
 name_to_otyp(in_str)
 const char * in_str;
 {
+    struct Jitem *ji;
     short otyp;
     int i;
     char oclass = 0;
@@ -3463,10 +3466,9 @@ const char * in_str;
         }
     }
     /* try Japanese names */
-    struct Jitem *j;
-    for (j = Japanese_items; j->item != 0; j++) {
-        if (!strcmpi(in_str, j->name)) {
-            return j->item;
+    for (ji = Japanese_items; ji->item != 0; ji++) {
+        if (!strcmpi(in_str, ji->name)) {
+            return ji->item;
         }
     }
     /* try fruits */
@@ -3902,12 +3904,15 @@ struct obj *no_wish;
          * (also avoid "sword of kas" or "eye/hand of vecna" issues)
          */
         if (!strstri(bp, "wand ") 
-         && !strstri(bp, "spellbook ")
-         && !strstri(bp, "hand grenade ")
-         && !strstri(bp, "finger ") 
-         && !strstri(bp, "eye ")
-         && !strstri(bp, "hand ")
-         && !strstri(bp, "sword of kas")) {
+              && !strstri(bp, "spellbook ")
+              && !strstri(bp, "finger ") 
+              && !strstri(bp, "hand grenade ")
+              && !strstri(bp, "eye ")
+              && !strstri(bp, "hand ")
+              && !strstri(bp, "sword of kas")) {
+            int l = 0, of = 4;
+            char *tmpp;
+
             if ((p = strstri(bp, "tin of ")) != 0) {
                 if (!strcmpi(p + 7, "spinach")) {
                     contents = SPINACH;
@@ -3920,13 +3925,8 @@ struct obj *no_wish;
                 typ = TIN;
                 goto typfnd;
             }
-            l = 0;
-            of = 4;
-
-            char *tmpp;
 
             p = bp;
-
             while (p != 0) {
                 tmpp = strstri(p, " of ");
                 if (tmpp) {
@@ -4924,11 +4924,13 @@ struct obj *no_wish;
                 /* Don't bring the Rogue's leader to fight a Tourist when he is also
                  * the Tourist's quest nemesis.
                  */
-                if (!((role->ldrnum == PM_MASTER_OF_THIEVES) && Role_if(PM_TOURIST))) {
+                if (!((role->ldrnum == PM_MASTER_OF_THIEVES)
+                      && Role_if(PM_TOURIST))) {
+                    struct permonst* ldr;
                     pm = role->ldrnum;
-                    ldr = &mons[pm];
                     /* remove flags that tag quest leaders as
                        peaceful or spawn them mediating */
+                    ldr = &mons[pm];
                     ldr->mflags2 &= ~(M2_PEACEFUL);
                     ldr->mflags3 &= ~(M3_WAITMASK);
                 }
@@ -5348,6 +5350,8 @@ struct obj *obj;
     char* buf = nextobuf();
     const struct permonst *pm;
     const char* endp;
+    int colorlen;
+
     if (!obj) {
         impossible("dragon_scales_color: null obj");
         return NULL;
@@ -5366,7 +5370,7 @@ struct obj *obj;
         Strcpy(buf, "bugged color");
         return buf;
     }
-    int colorlen = endp - pm->mname;
+    colorlen = endp - pm->mname;
     strncpy(buf, pm->mname, colorlen);
     buf[colorlen] = '\0';
     return buf;

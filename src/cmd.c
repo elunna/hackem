@@ -947,6 +947,29 @@ wiz_map(VOID_ARGS)
     return 0;
 }
 
+/* ^S command - cast any spell. */
+STATIC_PTR int
+wiz_spell(VOID_ARGS)
+{
+    char buf[BUFSZ] = DUMMY;
+    int last_spbook, i;
+    while (buf[0] == '\0' || buf[0] == '\033') {
+        getlin("What spell do you successfully cast without energy use?", buf);
+        (void) mungspaces(buf);
+    }
+    last_spbook = (SPBOOK_CLASS + 1 < MAXOCLASSES ? bases[SPBOOK_CLASS + 1] : NUM_OBJECTS) - 1;
+    for (i = bases[SPBOOK_CLASS]; i <= last_spbook; ++i) {
+        if (objects[i].oc_skill < P_FIRST_SPELL || objects[i].oc_skill > P_LAST_SPELL)
+            continue;
+        if (!strcmpi(buf, OBJ_NAME(objects[i]))) {
+            /* pline("Casting [%d] %s", i, buf); */
+            return spelleffects(i, FALSE, TRUE);
+        }
+    }
+    pline("There is no such spell.");
+    return 0;
+}
+
 /* ^G command - generate monster(s); a count prefix will be honored */
 STATIC_PTR int
 wiz_genesis(VOID_ARGS)
@@ -3297,7 +3320,9 @@ int final;
     if (Breathless)
         you_can("survive without air", from_what(MAGICAL_BREATHING));
     else if (Amphibious)
-        you_can("breathe water", from_what(MAGICAL_BREATHING));
+        you_can("breathe water",
+                amphibious(youmonst.data) ? " from current creature form"
+                                          : from_what(MAGICAL_BREATHING));
     if (Passes_walls)
         you_can("walk through walls", from_what(PASSES_WALLS));
 
@@ -3405,7 +3430,10 @@ int final;
     }
     /* movement and non-armor-based protection */
     if (Fast)
-        you_are(Very_fast ? "very fast" : "fast", from_what(FAST));
+        you_are(Very_fast ? "very fast" : "fast",
+                (Underwater && is_fast_underwater(youmonst.data))
+                    ? " from current creature form"
+                    : from_what(FAST));
     if (Slow)
         you_are("slow", from_what(SLOW));
     if (Reflecting)
@@ -4066,6 +4094,8 @@ struct ext_func_tab extcmdlist[] = {
             wiz_rumor_check, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { '\0', "wizsmell", "smell monster",
             wiz_smell, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
+    { C('s'), "wizspell", "cast a spell",
+            wiz_spell, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { '\0', "wiztelekinesis", "telekinesis",
             wiz_telekinesis, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { '\0', "wizwhere", "show locations of special levels",
@@ -6042,10 +6072,11 @@ boolean doit;
     if (IS_FORGE(typ)) {
         add_herecmd_menuitem(win, dodrink, "Really drink the lava from the forge?");
     }
-    if (IS_FOUNTAIN(typ) || IS_FORGE(typ))
+    if (IS_FOUNTAIN(typ) || IS_FORGE(typ)) {
         Sprintf(buf, "Dip something into the %s",
                 defsyms[IS_FOUNTAIN(typ) ? S_fountain : S_forge].explanation);
         add_herecmd_menuitem(win, dodip, buf);
+    }
     if (IS_FORGE(typ)) {
         Sprintf(buf, "Combine objects in the %s",
                 defsyms[S_forge].explanation);
