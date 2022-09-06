@@ -463,6 +463,10 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
                 bonchance += otmp->quan;
         }
 
+    /* STEPHEN WHITE'S NEW CODE */
+    if (uarmh && uarmh->otyp == FEDORA && !uarmh->cursed) 
+        bonchance += 2;
+	
     return sgn((int) bonchance);
 }
 
@@ -1275,20 +1279,13 @@ int x;
             return (schar) ((tmp <= 3) ? 3 : tmp);
 #endif
 
-
-
-
-
-
-
-
-
-
     } else if (x == A_CHA) {
         if (tmp < 18
             && (youmonst.data->mlet == S_NYMPH || u.umonnum == PM_SUCCUBUS
                 || u.umonnum == PM_INCUBUS))
             return (schar) 18;
+        if (uarmh && uarmh->otyp == FEDORA) 
+            tmp += 1;        
         if ((uwep && (uwep->oprops & ITEM_EXCEL))
             || (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
             if (tmp > 6 && (uwep->cursed || (u.twoweap && uswapwep->cursed)))

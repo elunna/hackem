@@ -600,6 +600,9 @@ struct obj *obj;
     if (obj->otyp == LUCKSTONE)
         return TRUE;
 
+    if (obj->otyp == FEDORA && obj == uarmh) 
+        return TRUE;
+    
     if (obj->oprops & ITEM_EXCEL
         && obj->owornmask & (W_ARMOR | W_WEP | W_SWAPWEP))
         return TRUE;
