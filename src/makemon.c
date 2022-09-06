@@ -863,9 +863,9 @@ register struct monst *mtmp;
             mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
             break;
         case PM_ICE_MAGE:
-            (void )mongets(mtmp, QUARTERSTAFF);
-            (void )mongets(mtmp, STUDDED_ARMOR);
-            (void )mongets(mtmp, WAN_COLD);
+            (void) mongets(mtmp, QUARTERSTAFF);
+            (void) mongets(mtmp, STUDDED_ARMOR);
+            (void) mongets(mtmp, WAN_COLD);
             mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
             break;
         case PM_HEALER:
@@ -914,9 +914,8 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, PICK_AXE);
             (void) mongets(mtmp, rnd_offensive_item(mtmp));
             (void) mongets(mtmp, rnd_defensive_item(mtmp));
-
-		    mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
-		    break;
+            mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+            break;
         case PM_PRIEST:
         case PM_PRIESTESS:
             mkmonmoney(mtmp, (long) rn1(10, 20));
