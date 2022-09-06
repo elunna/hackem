@@ -471,19 +471,19 @@ static const struct def_skill Skill_F[] = {
 /*Style: small-med edged weapons, blunt weapons*/
 /*  { P_DAGGER, P_BASIC },*/
 /*  { P_KNIFE,  P_SKILLED },*/
-    { P_AXE, P_SKILLED },
-    { P_PICK_AXE, P_BASIC },
-    { P_SHORT_SWORD, P_SKILLED },
+    { P_AXE, P_SKILLED },               /* for chopping down wood. */
+    { P_PICK_AXE, P_BASIC },            /* for digging up coal */
+    { P_SHORT_SWORD, P_SKILLED },       /* For access to fire-brand */
 /*  { P_BROAD_SWORD, P_BASIC },*/
 /*  { P_LONG_SWORD, P_SKILLED },*/
 /*  { P_TWO_HANDED_SWORD, P_BASIC },*/
 /*  { P_SCIMITAR, P_SKILLED },*/
 /*  { P_SABER, P_SKILLED },*/
-    { P_MACE, P_SKILLED },
+    { P_MACE, P_SKILLED },              /*  No good reason, just variety.*/
 /*  { P_MORNING_STAR, P_BASIC },*/
-    { P_CLUB, P_SKILLED },
+    { P_CLUB, P_SKILLED },              /* because clubs/torches can be lit.*/
     { P_HAMMER, P_SKILLED },
-    { P_QUARTERSTAFF, P_EXPERT },
+    { P_QUARTERSTAFF, P_EXPERT },   /* sac gift is Firewall, a quarterstaff */
 /*  { P_POLEARMS, P_BASIC },*/
 /*  { P_SPEAR, P_BASIC },
     { P_TRIDENT, P_BASIC },
@@ -494,7 +494,7 @@ static const struct def_skill Skill_F[] = {
     { P_DART, P_EXPERT },
     { P_SHURIKEN, P_BASIC },
     { P_BOOMERANG, P_BASIC }, */
-    { P_WHIP, P_EXPERT },
+    { P_WHIP, P_EXPERT },               /* Potentially for flaming whips */
     { P_UNICORN_HORN, P_BASIC },
     { P_ATTACK_SPELL, P_SKILLED },
 /*  { P_HEALING_SPELL, P_BASIC },*/
