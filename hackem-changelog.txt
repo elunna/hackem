@@ -1710,3 +1710,50 @@ Skilled -
 [SKIP] Shooting a rust trap turns it into an ice trap?
 [x] Account for resistance to cold.
 			
+			
+
+	[SKIPPED] Special spellbooks for Ice/Flame mages?  Fireball/Cone of Cold? 
+		- [SKIP] IceLevel 1: Can walk on ice without slipping
+	- [SKIP] Ice mage: polyself.c - polymorphing into a white dragon. (slashem)
+	[FIXED] skill_init: curr > max: quarterstaff  Program in disorder!
+	
+[FIXED] error: for tile 684 (numbered 684) of monsters.txt,
+	found 'Warden Arianna' while expecting 'Goblin King'
+[FIXED] ..\src\apply.c(1420): warning C4033: 'snuff_candle' must return a value
+[FIXED] D:\a\hackem\hackem\src\apply.c(1437) : warning C4715: 'snuff_candle': not all control paths return a value
+[FIXED] ..\src\artifact.c(2755): warning C4101: 'mtmp2': unreferenced local variable
+[FIXED] D:\a\hackem\hackem\src\artifact.c(2998) : error C4703: potentially uninitialized local pointer variable 'pm' used
+..\src\apply.c(2925): warning C4113: 'int (__cdecl *)()' differs in parameter lists from 'int (__cdecl *)(void)'
+..\src\apply.c(2960): warning C4113: 'int (__cdecl *)()' differs in parameter lists from 'int (__cdecl *)(void)'
+	
+	[x] Add "The Master Sword" as an actual artifact (Give it +3 tohit and +1d3 dmg), silver
+
+	[x] Your spellbook of flame sphere catches fire and burns!
+	[x] Your spellbook of fire bolt catches fire and burns!
+
+	[x] Add 0-9 to spells list letters
+	[FIXED] Snowball still misses way too much!
+	[x] ..\src\do.c(547): warning C4101: 'algn': unreferenced local variable
+
+[x] Snow orcs can throw snowballs.
+	- [x] Reformat u_init.c
+	- [x] Reformat roles.c
+	
+
+[x] Necro - Removed skills: quarterstaff, polearms, trident, sling, shuriken
+[x] Necro:  Dagger lowered to basic, Pickaxe-> EXPERT, Dart->SKILLED, Matter->SKILLED, 	
+
+- [x] Monks get skill for lightsabers?
+
+- [x] Make subroutine for eating pills.
+
+[x] Make sure pickaxe is +1 (copy archaeologist logic)
+[x] Remove starting quarterstaff
+[x] Give a wand of undead turning? Potion of oil?	
+[x] Necros don't start with scrolls
+[x] Necros start with wand of turn undead
+[x] Necro's only start with 1 ring.
+
+- [x] Fedora acts as luckstone and +1 cha
+
+- [x] Caveman gets nightvision radius 2
