@@ -813,7 +813,7 @@ static const struct def_skill Skill_U[] = {
     { P_LONG_SWORD, P_SKILLED },    /* Meh? */
     { P_CLUB, P_SKILLED },
     { P_MACE, P_SKILLED },
-    { P_MORNING_STAR, P_SKILLED },  /* Should be expert */
+    { P_MORNING_STAR, P_EXPERT },  /* Should be expert */
     { P_FLAIL, P_SKILLED },
     { P_HAMMER, P_SKILLED },
     { P_QUARTERSTAFF, P_SKILLED },  /* Meh? */
