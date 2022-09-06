@@ -153,16 +153,16 @@ struct trobj Monk[] = {
 static struct trobj Necromancer[] = {
 #define N_BOOK          8
 /* pretty much like Wizard, except with pick-axe instead of magic resist. */
-	{ QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },        /* for dealing with ghosts */
-	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 2, UNDEF_BLESS },
+	{ GREAT_DAGGER, 0, WEAPON_CLASS, 1, 1 },
+	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
 	{ UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
-	{ UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 3, UNDEF_BLESS },
 	{ SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
 	{ SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
 	{ SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
 	{ WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+        { WAN_UNDEAD_TURNING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
 	{ UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-	{ PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
+	{ PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },
 	{ 0, 0, 0, 0, 0 }
 };
 struct trobj Priest[] = {
@@ -648,7 +648,7 @@ static const struct def_skill Skill_Mon[] = {
 };
 
 static const struct def_skill Skill_N[] = {
-    { P_DAGGER, P_BASIC },
+    { P_DAGGER, P_EXPERT },
     { P_KNIFE,  P_EXPERT },             /* For... making bodies */
     { P_AXE, P_SKILLED },               /* For choppin up bodies */
     { P_PICK_AXE, P_EXPERT },           /* For digging up graves */
