@@ -630,6 +630,7 @@ static const struct def_skill Skill_K[] = {
 };
 static const struct def_skill Skill_Mon[] = {
     { P_QUARTERSTAFF, P_EXPERT },
+    { P_LIGHTSABER, P_SKILLED },
     { P_SHURIKEN, P_BASIC },
     { P_SPEAR, P_SKILLED },
     { P_TRIDENT, P_SKILLED },
