@@ -1053,6 +1053,7 @@ u_init()
         skill_init(Skill_B);
         break;
     case PM_CAVEMAN:
+        u.nv_range = 2;
         Cave_man[C_AMMO].trquan = rn1(11, 10); /* 10..20 */
         ini_inv(Cave_man);
         if (Race_if(PM_GIANT)) {
