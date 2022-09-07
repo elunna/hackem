@@ -2,361 +2,377 @@ Special thanks to K2, amateurhour, qt
 Thanks: riker, bhaak, kes, shadowrider, aosdict 
 
 Imported these monsters from slashem:
-	- [x] giant tick
+	- (a) giant tick
 		- Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
-	- [x] giant flea
-	- [x] giant louse
-	- [x] snow ant
+	- (a) giant flea
+	- (a) giant louse
+	- (a) snow ant
 		- Added snow ants so they can occupy antholes.
-	- [x] tsetse fly
-	- [x] yellow jacket
-	- [x] black wasp
-	- [x] giant wasp
-	- [x] spitting beetle
-	- [x] migo drone
+	- (a) tsetse fly
+	- (a) yellow jacket
+	- (a) black wasp
+	- (a) giant wasp
+	- (a) spitting beetle
+	- (a) migo drone
 		- Added claw attack
-	- [x] migo warrior
+	- (a) migo warrior
 		- Added claw attack
-	- [x] migo queen
+	- (a) migo queen
 		- Added claw attack
-	- [x] assassin bug
-	- [x] killer beetle
-	- [x] jiggling blob
-	- [x] lava blob
-	- [x] static blob
-	- [x] burbling blob
-	- [x] chicken
-	- [x] cockatoo
-	- [x] parrot
-	- [x] pit bull
-	- [x] dingo puppy
-	- [x] large dingo
-	- [x] death dog
-	- [x] rabid wolf
-	- [x] wolverine
-	- [x] shadow wolf
+	- (a) assassin bug
+		- Added BERSERK
+	- (a) killer beetle
+	- (b) jiggling blob
+	- (b) lava blob
+	- (b) static blob
+	- (b) burbling blob
+	- (c) basilisk (already in evil and stronger.)
+		- The evil version is higher level, has more attacks, 
+		  sleep res, also occupies the 'c' slot)
+		- Added M1_OVIPAROUS to basilisk.
+	- (c) chicken
+	- (c) cockatoo
+	- (c) parrot
+	- (d) pit bull
+	- (d) dingo puppy
+	- (d) large dingo
+	- (d) death dog
+	- (d) rabid wolf
+		- Added BERSERK
+	- (d) wolverine
+		- Added BERSERK
+	- (d) shadow wolf
 		- Made drain & death resistant.
 		- Can darken lit areas.
-	- [x] mist wolf
+	- (d) mist wolf
 		- Made cold resistant
 		- Each mist wolf can exhale clouds of thick mist - purely defensive
-	- [x] glowing eye
-	- [x] bloodshot eye
-	- [x] blinking eye
-	- [x] werepanther 
-	- [x] weretiger 	
-	- [x] werespider 	
-	- [x] weresnake
-	- [x] kamadan
-	- [x] displacer beast (already present in evil)
-	- [x] caterwaul
-	- [x] saber-toothed cat
+	- (e) glowing eye
+	- (e) bloodshot eye
+	- (e) blinking eye
+	- (f) kamadan
+	- (f) displacer beast (already present in evil)
+	- (f) caterwaul
+	- (f) saber-toothed cat
 		- Saber-tooth cats can grow up into saber-toothed tigers
 		- Made a little weaker than the tigers.
-	- [x] hellcat
-	- [x] statue gargoyle
+	- (f) hellcat
+	- (g) statue gargoyle
 		- Made immune to death magic
-	- [x] galltrit
+	- (g) galltrit
 		- Only generate in Hell.
 		- Using ratman squeaker tile from SpliceHack.
-	- [x] jermlaine
+	- (g) jermlaine
 		- Gets infravision and are skittish.
 		- Start with potions of acid, oil, or others.
 		- Jermlaine can start with bullwhips or grappling hooks.
 		- Sometimes generated riding rats.
 		- Using ratman tile from SpliceHack.
-	- [x] dwarf thief
-	- [x] duergar
-	- [x] deep one
-	- [x] deeper one
-	- [x] deepest one
-	- [x] dretch
-	- [x] rutterkin
-	- [x] nupperibo
+	- (h) dwarf thief
+		- Added BERSERK (all dwarves get berserk in evil)
+	- (h) duergar
+		- Added BERSERK
+	- (h) deep one
+	- (h) deeper one
+	- (h) deepest one
+	- (i) dretch
+	- (i) rutterkin
+	- (i) nupperibo
 		- Added a drain life bite 
-	- [x] blood imp
+	- (i) blood imp
 		- Added a drain life bite 
-	- [x] clear jelly
+	- (j) clear jelly
 		- added vulnerable to fire (matches existing j)
 		- Added passive acid attack
-	- [x] yellow jelly
+	- (j) yellow jelly
 		- added vulnerable to fire (matches existing j)
 		- Added stun touch
-	- [x] orange jelly 
+	- (j) orange jelly 
 		- added vulnerable to fire (matches existing j)
 		- Added passive sleep attack
 		- Added touch sleep attack
-	- [x] rancid jelly
+	- (j) rancid jelly
 		- added vulnerable to fire (matches existing j)
-	- [x] swamp kobold
+	- (k) swamp kobold
 		- Added swimming 
-	- [x] rock kobold
+	- (k) rock kobold
 		- Rock kobolds sometimes start with a sling and some rocks.
-	- [x] kobold warrior
-	- [x] Kroo the Kobold King
+	- (k) kobold warrior
+	- (k) Kroo the Kobold King
 		- Added traitor property to all kobolds
-	- [x] leprechaun wizard
-	- [x] pixie
-	- [x] brownie
+	- (l) leprechaun wizard
+	- (n) pixie
+	- (n) brownie
 		- made brownies vegetarian.
 		- Brownies sometimes get short swords.
-	- [x] quickling
-	- [x] Aphrodite - (Already in evil with her own level)
-	- [x] war orc
-	- [x] great orc
-	- [x] Grund the Orc King
-	- [x] snow orc
+	- (n) quickling
+	- (n) Aphrodite - (Already in evil with her own level)
+	- (o) war orc
+		- Added BERSERK
+	- (o) great orc
+		- Added BERSERK
+	- (o) Grund the Orc King
+		- Added BERSERK
+	- (o) snow orc
+		- Added BERSERK
 		- can throw snowballs like snow golems
-	- [x] demon orc
-	- [x] lamb
-	- [x] sheep
-	- [x] goat
-	- [x] cow
-	- [x] bull
-	- [x] giant badger
-		- Changed to rodent class to match honey badger, was 'q' in slashem
-		- added M1_SWIM to all badgers.
-		- Badgers leave occasional poison gas clouds (they are stinky...)
-		- Made badgers immune to poison gas (immune their own stink)
-	- [x] scramper
-	- [x] squealer
-	- [x] mangler
-	- [x] Jumbo the Elephant
-	- [x] juggernaut
+	- demon orc
+		- Added BERSERK
+	- (q) lamb
+	- (q) sheep
+	- (q) goat
+	- (q) cow
+	- (q) bull
+	- (q) scramper
+	- (q) squealer
+	- (q) mangler
+	- (q) Jumbo the Elephant
+	- (q) juggernaut
 		- Buffed significantly: Now is NASTY
 		- Removed G_NOHELL tag from juggernaut so they can appear anywhere.
 		- Added fire/poison/shock/sleep/acid/stone/death/drain/sickness resistances
 		- Added infravision, regeneration, M1_MINDLESS
 		- Changed juggernaut MR to 70, AC to -4,  speed to 15
-	- [x] catoblepas
-	- [x] rabbit
+	- (q) catoblepas
+	- (r) rabbit
 		- Can be tamed with carrots (not rabid rabbits though.)
-	- [x] black rat
-	- [x] rabid rabbit
-	- [x] pack rat
-	- [x] hellrat
-	- [x] recluse spider
-	- [x] barking spider
-	- [x] carrion crawler
-	- [x] nickelpede
+	- (r) black rat
+	- (r) rabid rabbit
+		- Added BERSERK
+	- (r) pack rat
+	- (r) hellrat
+	- (r) giant badger
+		- Changed to rodent class to match honey badger, was 'q' in slashem
+		- added M1_SWIM to all badgers.
+		- Badgers leave occasional poison gas clouds (they are stinky...)
+		- Made badgers immune to poison gas (immune their own stink)
+		- Added BERSERK
+	- (s) recluse spider
+	- (s) barking spider
+	- (s) carrion crawler
+	- (s) nickelpede
 		- centipedes grow into nickelpede
 		- nickelpedes grow into giant centipedes
-	- [x] giant scorpion
-	- [x] phase spider
+	- (s) giant scorpion
+	- (s) phase spider
 		- Made skittish and teleport more like tengus.
-	- [x] Girtab
-	- [x] Shelob
+	- (s) Girtab
+	- (s) Shelob
 		- [SKIPPED- TOO MEAN] Shelob and Girtab can shoot webs at you.
-	- [x] larva
-	- [x] maggot
-	- [x] dung worm
+	- (w) larva
+	- (w) maggot
+	- (w) dung worm
 		- Made poisonous to eat
-	- [x] acid worm
-	- [x] bloodworm
-	- [x] tunnel worm
-	- [x] rot worm
+	- (w) acid worm
+	- (w) bloodworm
+	- (w) tunnel worm
+	- (w) rot worm
 		- Eating rot worms causes food poisoning?
-	- [x] spark bug
-	- [x] arc bug
-	- [x] lightning bug
+	- (x) spark bug
+	- (x) arc bug
+	- (x) lightning bug
 
-		- [x] All Zouthern animals have a small chance of dropping boomerangs.)
+		- Note: All Zouthern animals now have a small chance of dropping boomerangs.)
 	
-	- [x] echidna
-	- [x] platypus
-	- [x] koala
-	- [x] wombat
-	- [x] Tasmanian devil
+	- (z) echidna
+	- (z) platypus
+	- (z) koala
+	- (z) wombat
+	- (z) Tasmanian devil
 		- Added bezerk
-	- [x] wallaby
-	- [x] wallaroo
-	- [x] kangaroo
-	- [x] movanic deva
+	- (z) wallaby
+	- (z) wallaroo
+	- (z) kangaroo
+	- (A) movanic deva
 		- Added fire/shock/death magic resistance. Has big_wings
-	- [x] monadic deva
+	- (A) monadic deva
 		- Added fire/shock/death magic resistance. Has big_wings
 		- Made  breathless.
-	- [x] astral deva
+	- (A) astral deva
 		- Added fire/shock/death magic resistance. Has big_wings
-	- [x] Planetar
-	- [x] Solar
-	- [x] rhumbat
-	- [x] athol
+	- (A) Planetar
+	- (A) Solar
+	- (B) rhumbat
+	- (B) athol
 		- Added "ahool!" sounds that aggravate monsters.
 		- Alert to presence of athols, you hear a distant howl
 		- Increased difficulty of athols
-	- [x] hellbat
-	- [x] mongbat
-	- [x] mobat
+	- (B) hellbat
+	- (B) mongbat
+	- (B) mobat
 		- Mobats collect treasure
 		- Mobats attack with Piercing screams that cause pain (AD_PIER)
-	- [x] harpy
+	- (B) harpy
 		- can start with jewelery.
 		- use primitive weapons, big bones/clubs, sometimes bows
 		- Added song attack that can paralyze from a distance.
 		- Changed #chat voice to MS_SEDUCE (but could be better)
-	- [x] byakhee
-	- [x] nightgaunt
+	- (B) byakhee
+	- (B) nightgaunt
 		- Sometimes get tridents, spears or javelins
-	- [x] baby deep dragon
-	- [x] deep dragons:
+	- (D) baby deep dragon
+	- (D) deep dragons:
 		- Added AD_DRLI to passive attacks (AT_NONE)
 		- Baby/adult deep dragons resist poison and drain magic
-	- [x] baby shimmering dragon (already in EvilHack)
-	- [x] shimmering dragon 	 (already in EvilHack)
-	- [x] wyvern
-	- [x] hydra
+	- (D) baby shimmering dragon (already in EvilHack)
+	- (D) shimmering dragon 	 (already in EvilHack)
+	- (D) wyvern
+	- (D) hydra
 		- can spit fire/plasma (at very least, fire breath attack)
-	- [x] disgusting mold
-	- [x] black mold
-	- [x] gnome thief
-	- [x] deep gnome 
-	- [x] gnome warrior
-	- [x] Ruggo the Gnome King
-	- [x] gnoll
-	- [x] gnoll warrior
-	- [x] gnoll chieftain
-	- [x] gnoll shaman
+	- (F) disgusting mold
+	- (F) black mold
+	- (G) gnome thief
+	- (G) deep gnome 
+	- (G) gnome warrior
+	- (G) Ruggo the Gnome King
+	- (G) gnoll
+		- Added BERSERK
+	- (G) gnoll warrior
+		- Added BERSERK
+	- (G) gnoll chieftain
+		- Added BERSERK
+	- (G) gnoll shaman
+		- Added BERSERK
 		(Note: Evil already had gnolls, so I disabled the Evil gnolls in 
 		favor of the slashem versions - and used the G symbol instead)
 		- Update gnolls to match evil weight, MZ_MEDIUM size, 
 			use MS_LAUGH, have poison res, infravisible and berzerk.
-	- [x] The Largest Giant
-	- [x] Father Dagon (deferred)
-	- [x] Mother Hydra (deferred)
-	- [x] vorpal jabberwock (evil already had with the beheading attack!)
-	- [x] troll mummy 
+	- (H) The Largest Giant
+	- (J) vorpal jabberwock (evil already had with the beheading attack!)
+	- (M) troll mummy 
 		- Added regen and stalk, revival works fine.
-	- [x] ogre mage
-	- [x] shadow ogre
+	- (O) ogre mage
+	- (O) shadow ogre
 		- Gave a frequency of 2; let them appear in the main dungeon 
 		- Made poison, drain & death resistant and vulnerable to fire. 
 		- can darken lit areas.
-	- [x] moldy pudding 
+	- (P) moldy pudding 
 		- added vulnerability to fire
-	- [x] shoggoth
+	- (P) shoggoth
 		- Limited to one corrosion attack.
-	- [x] giant shoggoth
+	- (P) giant shoggoth
 		- Limited to one corrosion attack.
-	- [x] genetic engineer (already in evil)
-	- [x] king cobra
-	- [x] asphynx
-	- [x] two-headed troll
-	- [x] black troll 
-	- [x] water hulk
+	- (Q) genetic engineer (already in evil)
+	- (S) king cobra
+	- (S) asphynx
+	- (T) two-headed troll
+	- (T) black troll 
+	- (U) water hulk
 		- Added vulnerability to shock (similar to other water-critters)
-	- [x] fire vampire
-	- [x] star vampire
-	- [x] vampire mage (already in evil with minor changes)
+	- (V) fire vampire
+	- (V) star vampire
+	- (V) vampire mage (already in evil with minor changes)
 		- Added traitor property
-	- [x] wight
-	- [x] zruty
-	- [x] ghoul mage
-	- [x] ghast
+	- (W) wight
+	- (Y) zruty
+		- [x] Changed zruty from z to Y (to accomodate zouthern animals)
+	- (Z) ghoul mage
+	- (Z) ghast
 		- Ghasts gain a level for every corpse they eat.
-	- [x] ghoul queen
-	- [x] gug
-	- [x] wax golem
+	- (Z) ghoul queen
+	- (Z) gug
+	- (`) wax golem
 		- can be  created from wax poly.
 		- Wax golems have a small chance of death dropping a magic candle
-	- [x] plastic golem
+	- (`) plastic golem
 		- Can drop credit cards and fake amulets.
-	- [x] ruby golem
-	- [x] diamond golem
-	- [x] sapphire golem
-	- [x] steel golem 
+	- (`) ruby golem
+	- (`) diamond golem
+	- (`) sapphire golem
+	- (`) steel golem 
 		- Added vulnerability to acid
-	- [x] crystal golem
+	- (`) crystal golem
 		- Added reflection to the higher level golems.
-	- [x] gibberling
+	- (f/@) werepanther 
+	- (f/@) weretiger 	
+	- (s/@) werespider 	
+	- (S/@) weresnake
+	- (@) gibberling
 		- Carry crude weapons made from bone or dull short swords
 		- Gibberlings get an AD_GIBB sonic attack: 
 			Stuns, confuses, etc. Similar to a cursed unihorn
-	- [x] grimlock
+	- (@) grimlock
 		- can start with Bone Clubs, bone aklys, axes or orcish spears.
 		- added a claw attack
 		- can stalk you.
-	- [x] drow 
+	- (@) drow 
 		- Added infravisible
-	- [x] mugger
-	- [x] black marketeer 
+	- (@) mugger
+	- (@) black marketeer 
 		- added M3_ACCURATE
-	- [x] shadow 
+	- (@) flame mage, High Flame Mage, igniter, and Water Mage
+	- (@) ice mage, High Ice Mage, froster, and Earth Mage (Replaced with Ragnaros from slashem-up)
+	- (@) necromancer, Dark Lord, embalmer, Maugneshaagar
+	- (@) undead slayer, Van Helsing, exterminator, Count Dracula 
+	- (@) yeoman, Chief Yeoman Warder, Yeoman Warder, Colonel Blood
+	- ( ) shadow 
 		- Added M3_INFRAVISION
-	- [x] spined devil
+	- (&) spined devil
 		- Spined devils have big wings - flies
 		- can get tridents, halberds.
 		- Added a weapon attack
-	- [x] bearded devil
-		- Added berserk and resists cold
+	- (&) bearded devil
+		- Added BERSERK and resists cold
 		- Bearded devils get glaives.
 		- Bearded devils gets a poisonous beard attack  (1d13 weapon)
-	- [x] bar-lgura
+	- (&) bar-lgura
 		- Added shock resistance.
 		- Bar-Lgura are telepath, can jump, see inv
-	- [x] chasme
+	- (&) chasme
 		- Added telepathy, see invisible, resistance to acid, cold, and shock.
 		- Added high MR of 70?
-	- [x] babau
+	- (&) babau
 		- Babau have 1 horn.
 		- Babau have thick leathery hide.
 		- Added a passive corrosion attack (from their acidic greasy hide)
 		- Babau usually use two-handed swords or spears.
-	- [x] nabassu
+	- (&) nabassu
 		- Nabassu have a thick hide and a pair of forehead horns
 		- Added M3_DISPLACES
 		- Nabassu can cause victims(you) to rise as a ghast. 
 		- Nabassu get a gaze life drain attack
 		- Nabassu darken their environment when moving
-
-	- [x] Cthulhu (deferred)
-	- [x] giant crab
-	- [x] gila monster
+	- (;) giant crab
+	- (:) gila monster
 		- Made vulnerable to cold
-	- [x] rhaumbusun
-	- [x] basilisk (already in evil and stronger.)
-		- The evil version is higher level, has more attacks, 
-		  sleep res, also occupies the 'c' slot)
-		- Added M1_OVIPAROUS to basilisk.
-	- [x] komodo dragon
+	- (:) rhaumbusun
+	- (:) komodo dragon
 		- Made vulnerable to cold
 		- Komodo dragons can swim and can hiss
 		- Added MR20 (~MC1 of chain mail)
-	- [x] bad egg
+	- (%) bad egg
 		- vulnerable to fire - "cooking"!
-	- [x] killer tripe ration
+	- (%) killer tripe ration
 		- vulnerable to fire
-	- [x] killer food ration
+	- (%) killer food ration
 		- vulnerable to fire
-	- [x] pile of killer coins
+	- ($) pile of killer coins
 		- leaves piles of coins (similar to gold golems)
-	- [x] large pile of killer coins
+	- ($) large pile of killer coins
 		- leaves piles of coins
-	- [x] huge pile of killer coins
+	- ($) huge pile of killer coins
 		- leaves piles of coins
 	
-	Slashem Roles:
-	- [x] Flame Mage, High Flame Mage, igniter, and Water Mage
-	- [x] ice mage, High Ice Mage, froster, and Earth Mage (Replaced with Ragnaros from slashem-up)
-	- [x] necromancer, Dark Lord, embalmer, Maugneshaagar
-	- [x] undead slayer, Van Helsing, exterminator, Count Dracula 
-	- [x] yeoman, Chief Yeoman Warder, Yeoman Warder, Colonel Blood
+	Not used yet:
+	- [x] Cthulhu (deferred)
+	- [x] Father Dagon (deferred)
+	- [x] Mother Hydra (deferred)
 
-	Left out from slashem import:
-		- Doctor Frankenstein/Frankenstein's Monster: Left out Frankenstein's level
-		- Gypsy - too complex to integrate, imbalanced, offensive?
-		- Pegasus (evil already has pegasi). 
-			  And Pegasus doesn't do much in slashem except pop out of Medusa.
-		- Rat King - Removed and kept Evil's Rat King instead.
+Left out from slashem import:
+	- Doctor Frankenstein/Frankenstein's Monster: Left out Frankenstein's level
+	- Gypsy - too complex to integrate, imbalanced, offensive?
+	- Pegasus (evil already has pegasi). 
+			And Pegasus doesn't do much in slashem except pop out of Medusa.
+	- Rat King - Removed and kept Evil's Rat King instead.
 
 Monsters imported from other variants:
-	- [x] bandit (for town)
-	- [x] peasant (for village; dnh tile)
-	- [x] bards - (for village; used apprentice tile)
-	- [x] musicians - (for village; used apprentice tile)
-	- [x] street thug leader (for village)
-	- [x] street thug (for village; use pirate crewmate tile)
-	- [x] black marketeer 
+	- (@) bandit (for town)
+	- (@) peasant (for village; dnh tile)
+	- (@) bards - (for village; used apprentice tile)
+	- (@) musicians - (for village; used apprentice tile)
+	- (@) street thug leader (for village)
+	- (@) street thug (for village; use pirate crewmate tile)
+	- (@) black marketeer 
 	
 New Monsters:
 	Slaughter Wight:
@@ -368,19 +384,18 @@ New Monsters:
 		- [x] Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
 
 Monster changes:
-	- [x] Removed any "Hits as +x weapon" or "Requires +x weapon to be hit" properties from slashem monsters
-	- [x] Changed zruty to Y
-	- [x] Changed S_ZRUTY to S_ZOUTHERN (z)
-	- [x] Reverted all noble and royal monsters to male lord and kings, respectively.
-		  (Eventually I might add in female counterparts, but I don't want to double the tile base
-		  like Splice did; pending an elegant solution.)
-	- [x] stone golems are vulnerable to rays from a wand of digging, which halves their HP.
+	- [x] Removed "Hits as +x weapon" property from slashem monsters
+	- [x] Removed "Requires +x weapon to be hit" property from slashem monsters
+	- [x] Reverted all noble and royal monsters to male lord and kings.
+		  (Eventually I might add in female counterparts, but I don't want to
+		  double the tile base like Splice did; pending an elegant solution.)
+	- [x] Stone golems are vulnerable to rays from a wand of digging, which halves their HP.
 	- [x] Allow rats to be tamed with cheese (need CHEESE)
 	- [x] Shk usually get a shotgun and shells (50% chance)
+	- [x] Shopkeepers have had their base level doubled as compared to vanilla (from SlashEM) 
 	- [x] Baby gray dragons get MR20 (twice the other baby dragons)
 	- [x] Raise the levels of Gnome Kings to 9, gnome warriors to 7.
 	- [x] Were-critters summon wider (and more dangerous) diversity of monsters
-	- [x] SLASH'EM's shopkeepers have had their base level doubled as compared to vanilla. 
 	- [x] Lesser Nightmares and nightmares should have traitor property
 	- [x] You should not be able to tame rabid monsters.
 	- [x] Can I give the gnolls RDSM or SDSM?  no - just scales?
@@ -388,7 +403,6 @@ Monster changes:
 
 
 Weapons:
-	- [x] Upp'ed crysknives to d20/d30 damage
 	- [x] Dark elven dagger
 	- [x] Dark elven short sword
 	- [x] Dark elven bow
@@ -417,9 +431,10 @@ Weapons:
              */
 		- Give monsters 20% instakill rate for wooden stakes
 		- Added to-hit bonus of +1
-		
-		Design decision: I'm deviating from slashem here - vampires should not be vulnerable to stakes
-			while in different forms. Makes ring of prot sc more valuable.
+		- Design decision: I'm deviating from slashem here - vampires should not be vulnerable to stakes
+			while in different forms (like Vampire Bats). Makes ring of prot sc more valuable.
+
+	- [x] Crysknife: Changed sm/lg damage to d20/d30 damage (From SlashEM)
 
 Firearms:
 	- [x] Pistol
@@ -445,7 +460,6 @@ Firearms:
 	- [SKIPPED] Stick of dynamite - (We'll probably bring this in though, good for arc/flame mage)
 	
 Armor:
-
 	- [x] Dark elven mithril-coat -> droven chain mail (dark elven?)
 	- [x] Robe of weakness -> Cloak of Weakness
 	- [x] Poisonous cloak
@@ -460,6 +474,7 @@ Armor:
 	- [SKIPPED] Lab coat (Evil/vanilla has alchemy smock)
 	- [SKIPPED] Robe of protection (we have the cloak of protection.)
 	- [SKIPPED] Robe of power (we have regular robes)
+	- [SKIPPED] Robes are body armor in SlashEM
 
 Dragons and Dragon Scales
 
@@ -642,6 +657,7 @@ Tools/Weapon Tools:
 
 Gems:
 	- [x] Healthstone
+		- Fixed a bug from SlashEM where healthstones would not work under level 10.
 	- [x] Whetstone
 		- Made whetstones not suck!
 		- We can now apply a stack of whetstones to a stack of weapons. 
@@ -670,9 +686,6 @@ Gems:
 
 		- [SKIPPED] Applying whetstone to water: You make scratch marks on the stones.
 		- [SKIPPED] bonus: whetstoning with holy or unholy water. Dips BOTH the weapon and the whetstone.
-
-
-
 
 Artifacts:
 	Design decision: 
@@ -1064,7 +1077,6 @@ Role/Race Changes:
 		- only start with 1 ring.
 		
 	- [x] Undead Slayer
-		- [x] Make sure starting silver daggers/bullets/spear work.
 		- Starting jacket is always leather...
 
 	- [x] Yeoman
@@ -1074,8 +1086,6 @@ Role/Race Changes:
 
 	Caveman
 		- gets nightvision radius 2 (From SlashEM)
-
-
 
 Races:
 - [SKIPPED] Doppleganger race - Skip until better ideas come along.
@@ -1088,103 +1098,61 @@ Races:
 Skipped Changes/ideas
 
 Monsters:
-	- [SKIPPED] Jermlaine rover - only seen in main dungeon
-	- [SKIPPED] Jermlaine mage/shaman: Give the curse ability of gremlin.
-
-
-	- [SKIPPED - THEY ARE BAD ENOUGH ALREADY!] Fix the shoggoth engulf erosion problem: 
-	walk the list, rolling for item erosion. If you want to erode the item (20% chance or whatever), 
-	add a pointer to a temporary list. then, walk that list of pointers and erode them
-	for future reference, standard nethack convention when looping over a list of objs 
-	and maybe-deleting them as you go is to store nobj in a second variable before doing the maybe-deletion
 	- [SKIPPED] Snowball attack for ice trolls? frost giants?
 	- [SKIPPED] Should water monsters have water attack? Spit water?
 	- [SKIPPED] Head shots for zombies?
-
-	[SKIPPED] Nazgul: ATTK(AT_SCRE, AD_LOUD, 2, 8), mhitm: The stun effect is not implemented!
 	- [SKIPPED] Imps can shoot small fireballs
 	- [SKIPPED] Revenants should shoot missiles/fireballs (ala Doom)
-	- [SKIPPED] Stone giant: should be stoning resistant and vulnerable to digging. 
+	- [SKIPPED] Stone giant: should be stoning resistant and vulnerable to digging.
 	- [SKIPPED] Rename nightmares to greater nightmare
 	- [SKIPPED] Some watery monsters leave a trail of shallow water, that can become pools if re-tread enough?
 	- [SKIPPED] Paper golems occasionally drop non-blank scrolls.
 	- [SKIPPED] Move scrampers/squealers/manglers to Q?
-- [SKIPPED] rancid jelly should leave a trail of slippery acid slime/puddle
-- [SKIPPED] catoblepas should have tusks (not horns)
-- [SKIPPED] uhitm: Mobats piercing screams  (do when I learn how to implement #monster stuff)
-- [SKIPPED] Nightgaunts dislike flying over water? (Similar to eels on land?)
-			mondata.c: mon_hates_light
+	- [SKIPPED] uhitm: Mobats piercing screams  (do when I learn how to implement #monster stuff)
+	- [SKIPPED] Nightgaunts dislike flying over water? (Similar to eels on land?)
+				mondata.c: mon_hates_light
+	- [SKIPPED] Ghast's have a nasty stench.
+	- [SKIPPED] Gibberlings fear bright light and fire.
+	- [SKIPPED] Grimlocks are vulnerable to light. Now hate light and flee light objects.
+	- [SKIPPED] Bar-Lgura can cast spells (invisibility, teleport, entangle and disguise self)
+	- [SKIPPED] Bar-Lgura like to ambush and surprise
+	- [SKIPPED] Chasmes have magic: insect plague, ray of enfeeblement, and telekinesis, darkness
+	- [SKIPPED] Nabassu are stealthy and good at hiding and camoflage.
+	- [SKIPPED] Nabassu could also have short-ranged paralysation, teleportation, energy draining,
+	- [SKIPPED] Nabassu get the power to turn ethereal (into a ghost/shade?)
+	- [SKIPPED] Komodo dragons can dig pits and dig up graves
+		AD_PITS - look at this because digging pits is an attack.
+		Do they seek out graves? Or just dig when over them??
+	- [SKIPPED] Evil coins should also throw coins at you.
+	- [SKIPPED] slaughter wights release a death wail when slain. 1d18 damage, Aggravates monsters. Stuns and confuses you
+	- [SKIPPED] A humanoid creature slain by a slaughter wight rises as a wight within 1d4 rounds of its death
+	- [SKIPPED] +2 to-hit bonus against kebabable monsters also adds d6 dmg
+	- [SKIPPED] All Pirates: 1/2 chance of a frag grenade.
+	- [SKIPPED] Hiding pit attacks - monster hides in pit, and pulls you in when close
+		(so that walking around the trap is not always safe)
+		Could be extended to other monsters and trap types.
+
+	- [SKIPPED] Slaughter wight death wail:
+		Gas spores do this: ATTK(AT_BOOM, AD_PHYS, 4, 6), 
+		What monsters have an effect on death?
+			Gas spores (AT_BOOM) , yellow lights (AT_EXPL), black lights
+			mon.c: corpse_chance() 3562
+				Calls mon_explodes
+			mondata.c: max_passive_dmg (739)
 		
-- [SKIPPED] Ghast's have a nasty stench.
-- [SKIPPED] Gibberlings fear bright light and fire.
-- [SKIPPED] Grimlocks don't get much clothing or armor, maybe tanned leather belts and harnesses, as well as decorative bracers.
-- [SKIPPED] Grimlocks are vulnerable to light. Now hate light and flee light objects.
-- [SKIPPED] Bar-Lgura can cast spells (invisibility, teleport, entangle and disguise self)
-- [SKIPPED] Bar-Lgura like to ambush and surprise
-- [SKIPPED] Chasmes have magic: insect plague, ray of enfeeblement, and telekinesis, darkness
-- [SKIPPED] Nabassu are stealthy and good at hiding and camoflage.
-- [SKIPPED] Nabassu could also have short-ranged paralysation, teleportation, energy draining,
-- [HARD] Nabassu get the power to turn ethereal (into a ghost/shade?)
-- [SKIP FOR NOW] Komodo dragons can dig pits and dig up graves
-	AD_PITS - look at this because digging pits is an attack.
-	Do they seek out graves? Or just dig when over them??
-
-		- [SKIPPED] Evil coins should also throw coins at you.
-		- [SKIPPED] slaughter wights release a death wail when slain. 1d18 damage, Aggravates monsters. Stuns and confuses you
-		- [SKIPPED] A humanoid creature slain by a slaughter wight rises as a wight within 1d4 rounds of its death
-[SKIPPED] Peasants get a GRAIN_SCYTHE
-
-	- [SKIPPED] +2 to-hit bonus against kebabable monsters. (Should also add d6 dmg)	
 
 
+Item Changes:
+	- [SKIPPED] Slashem: Breaking wands of fire = double damage?
+	- [SKIPPED] Crossbows are GUNS in slashem, and 2handed.
 
-
-
-
-
-
-
-
-- [SKIPPED] Slashem: Breaking wands of fire = double damage?
-- [SKIPPED] Wizmode: If we try to generate a monster that doesn't exist, we get a crash.
-- [SKIPPED] Change sokobon prize system back to normal
-
-- [SKIPPED] Hiding pit attacks - monster hides in pit, and pulls you in when close
-	(so that walking around the trap is not always safe)
-	Could be extended to other monsters and trap types.
-
-- [SKIPPED] Fix paranoid swim?
-- [SKIPPED] Robes are body armor... (probably cut this change)
-- [SKIPPED] Allow Giants to benefit from ring of slow digestion
-- [SKIPPED] Stalactite/Stalagmite traps
-- [SKIPPED] Make shops impossible to steal from with pets.
-- [SKIPPED] Pets treat shop entrance and/or unpaid items as cursed.
-
-
-
-Slaughter wight death wail:
-	Gas spores do this: ATTK(AT_BOOM, AD_PHYS, 4, 6), 
-
-	What monsters have an effect on death?
-		Gas spores (AT_BOOM) , yellow lights (AT_EXPL), black lights
-		
-		mon.c: corpse_chance() 3562
-			Calls mon_explodes
-		mondata.c: max_passive_dmg (739)
-		
+Mechanics:
+	- [SKIPPED] Wizmode: If we try to generate a monster that doesn't exist, we get a crash.
+	- [SKIPPED] Change sokobon prize system back to normal
+	- [SKIPPED] Fix paranoid swim?
+	- [SKIPPED] Allow Giants to benefit from ring of slow digestion
+	- [SKIPPED] Stalactite/Stalagmite traps
+	- [SKIPPED] Make shops impossible to steal from with pets.
+	- [SKIPPED] Pets treat shop entrance and/or unpaid items as cursed.
 	- [ ] How to make sonic attacks work with #monster??
 
-
-		- [SKIPPED] Vampire bats are not vulnerable to stakes...
-		- [SKIPPED] Specify vampire bats as part of the V race. is_vampshifter(mtmp)))
-
-
-		- [SKIP} All Pirates: 1/2 chance of a frag grenade.
-		- [FIXED] Grenades do magical explosions when thrown from monsters instead of intended effects.
-
-		- [SKIPPED] Can cancel grenades with Wands...
-
-
-- [SKIPPED] Crossbows are GUNS in slashem, and 2handed.
-
-[SKIPPED] Passages: Sprinkle in random light patterns in passages
