@@ -910,8 +910,8 @@ struct obj *obj;
     }
 
     /* KMH, balance patch -- recalculate health if you've gained healthstones */
-	if (obj->otyp == HEALTHSTONE)
-		recalc_health();
+    if (obj->otyp == HEALTHSTONE)
+        recalc_health();
 }
 
 /*
@@ -1204,8 +1204,8 @@ struct obj *obj;
         set_moreluck();
         context.botl = 1;
     }  else if (obj->otyp == HEALTHSTONE) {
-    /* KMH, balance patch -- recalculate health if you've lost healthstones */
-    recalc_health();
+        /* KMH, balance patch -- recalculate health if you've lost healthstones */
+        recalc_health();
     } else if (obj->otyp == FIGURINE && obj->timed) {
         (void) stop_timer(FIG_TRANSFORM, obj_to_any(obj));
     }

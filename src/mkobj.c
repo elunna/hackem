@@ -1416,7 +1416,7 @@ register struct obj *otmp;
     if (carried(otmp) && confers_luck(otmp))
         set_moreluck();
     else if (otmp->otyp == HEALTHSTONE)
-	    recalc_health();
+        recalc_health();
     else if (otmp->otyp == BAG_OF_HOLDING)
         otmp->owt = weight(otmp);
     else if (otmp->otyp == FIGURINE && otmp->timed)
@@ -1438,7 +1438,7 @@ register struct obj *otmp;
     if (carried(otmp) && confers_luck(otmp))
         set_moreluck();
     else if (otmp->otyp == HEALTHSTONE)
-	    recalc_health();
+        recalc_health();
     else if (otmp->otyp == BAG_OF_HOLDING)
         otmp->owt = weight(otmp);
     if (otmp->lamplit)
@@ -1470,7 +1470,7 @@ register struct obj *otmp;
     if (carried(otmp) && confers_luck(otmp)) {
         set_moreluck();
     } else if (otmp->otyp == HEALTHSTONE) {
-	    recalc_health();
+        recalc_health();
     } else if (otmp->otyp == BAG_OF_HOLDING) {
         otmp->owt = weight(otmp);
     } else if (otmp->otyp == FIGURINE) {
@@ -1499,7 +1499,7 @@ register struct obj *otmp;
     if (carried(otmp) && confers_luck(otmp))
         set_moreluck();
     else if (otmp->otyp == HEALTHSTONE)
-	    recalc_health();
+        recalc_health();
     else if (otmp->otyp == BAG_OF_HOLDING)
         otmp->owt = weight(otmp);
     else if (otmp->otyp == FIGURINE && otmp->timed)

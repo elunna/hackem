@@ -4939,7 +4939,7 @@ doapply()
             use_stone(&obj);
             break;
         case AUTO_SHOTGUN:
-	    case SUBMACHINE_GUN:		
+        case SUBMACHINE_GUN:		
             if (obj->altmode == WP_MODE_AUTO) 
                 obj-> altmode = WP_MODE_SINGLE;
             else obj->altmode = WP_MODE_AUTO;

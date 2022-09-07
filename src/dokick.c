@@ -1360,8 +1360,8 @@ dokick()
             goto ouch;
         }
 
-        if(IS_TOILET(maploc->typ)) {
-            if(Levitation) 
+        if (IS_TOILET(maploc->typ)) {
+            if (Levitation) 
                 goto dumb;
 
             if (rn2(5)) {
