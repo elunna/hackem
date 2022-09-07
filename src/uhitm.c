@@ -1431,9 +1431,9 @@ int dieroll;
                         obfree(obj, (struct obj *) 0);
                     else
                         useup(obj);
+                    
                     hittxt = TRUE;
                     get_dmg_bonus = FALSE;
-                    
                     break;
                 case ACID_VENOM: /* thrown (or spit) */
                     if (resists_acid(mon) || defended(mon, AD_ACID)) {

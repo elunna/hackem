@@ -258,6 +258,8 @@ struct obj *otmp;
         break;
     case SPE_SNOWBALL:
         /* New special spell just for Ice Mages */
+        pline("casted");  /* For testing */
+        
         otmp = mksobj(SNOWBALL, TRUE, FALSE);
         otmp->spe = 1; /* to indicate it's yours */
         throwit(otmp, 0L, FALSE);

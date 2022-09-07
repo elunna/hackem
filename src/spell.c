@@ -1454,19 +1454,19 @@ boolean wiz_cast;
         break;
     
     case SPE_ENLIGHTEN: 
-		You("feel self-knowledgeable...");
-		display_nhwindow(WIN_MESSAGE, FALSE);
-		enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
-		pline("The feeling subsides.");
-		exercise(A_WIS, TRUE);
-		break;
+        You("feel self-knowledgeable...");
+        display_nhwindow(WIN_MESSAGE, FALSE);
+        enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+        pline("The feeling subsides.");
+        exercise(A_WIS, TRUE);
+        break;
 
     /* KMH -- new spells */
     case SPE_PASSWALL:
-            if (!Passes_walls)
-                    You_feel("ethereal.");
-            incr_itimeout(&HPasses_walls, rn1(100, 50));
-            break;
+        if (!Passes_walls)
+            You_feel("ethereal.");
+        incr_itimeout(&HPasses_walls, rn1(100, 50));
+        break;
 
     default:
         impossible("Unknown spell %d attempted.", spell);
