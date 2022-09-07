@@ -1466,11 +1466,23 @@ boolean wiz_cast;
         break;
     case SPE_SNOWBALL:
         /* New special spell just for Ice Mages */
-        getdir((char *) 0);
         otmp = mksobj(SNOWBALL, TRUE, FALSE);
         otmp->spe = 1; /* to indicate it's yours */
+        
+        /* This is an outlier in this group of spells, but we have to get a 
+         * direction for which direction to shoot the snowball. */
+        getdir((char *) 0);
+        
+        if (!u.dx && !u.dy && !u.dz) {
+            if (!Blind) {
+                if (can_blnd((struct monst *) 0, &youmonst, AT_SPIT, otmp)) {
+                    //blindinc = rnd(25);
+                    make_blinded(Blinded + (long) rnd(25), FALSE);
+                }
+            } 
+            You("shoot a snowball into your face.");
+        }
         throwit(otmp, 0L, FALSE);
-        /* throwit will uncover mimics */
         break;
     default:
         impossible("Unknown spell %d attempted.", spell);
