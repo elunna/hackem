@@ -1423,7 +1423,7 @@ int dieroll;
                                 destroy_mitem(mon, POTION_CLASS, AD_COLD);
                         }
                         tmp = d(snow, 6);
-                        pline("snowball dmg %dd%d (%d)", snow, 6, tmp);
+                        /* pline("snowball dmg %dd%d (%d)", snow, 6, tmp);*/
                     } else
                         tmp = 0;
                     

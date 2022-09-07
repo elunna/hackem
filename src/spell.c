@@ -1291,7 +1291,6 @@ boolean wiz_cast;
     case SPE_STONE_TO_FLESH:
     case SPE_PSIONIC_WAVE:
     case SPE_FIRE_BOLT:
-    case SPE_SNOWBALL:
         if (objects[otyp].oc_dir != NODIR) {
             if (otyp == SPE_HEALING || otyp == SPE_EXTRA_HEALING) {
                 /* healing and extra healing are actually potion effects,
@@ -1460,14 +1459,19 @@ boolean wiz_cast;
         pline("The feeling subsides.");
         exercise(A_WIS, TRUE);
         break;
-
-    /* KMH -- new spells */
     case SPE_PASSWALL:
         if (!Passes_walls)
             You_feel("ethereal.");
         incr_itimeout(&HPasses_walls, rn1(100, 50));
         break;
-
+    case SPE_SNOWBALL:
+        /* New special spell just for Ice Mages */
+        getdir((char *) 0);
+        otmp = mksobj(SNOWBALL, TRUE, FALSE);
+        otmp->spe = 1; /* to indicate it's yours */
+        throwit(otmp, 0L, FALSE);
+        /* throwit will uncover mimics */
+        break;
     default:
         impossible("Unknown spell %d attempted.", spell);
         obfree(pseudo, (struct obj *) 0);

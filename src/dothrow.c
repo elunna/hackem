@@ -1657,6 +1657,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             breakobj(obj, bhitpos.x, bhitpos.y, TRUE, TRUE);
             clear_thrownobj = TRUE;
             goto throwit_return;
+            
         }
         if (flooreffects(obj, bhitpos.x, bhitpos.y, "fall")) {
             clear_thrownobj = TRUE;

@@ -256,16 +256,6 @@ struct obj *otmp;
         }
         learn_it = TRUE;
         break;
-    case SPE_SNOWBALL:
-        /* New special spell just for Ice Mages */
-        pline("casted");  /* For testing */
-        
-        otmp = mksobj(SNOWBALL, TRUE, FALSE);
-        otmp->spe = 1; /* to indicate it's yours */
-        throwit(otmp, 0L, FALSE);
-        /* throwit will uncover mimics */
-        learn_it = TRUE;
-        break;
     case SPE_PSIONIC_WAVE:
         if (!(maybe_polyd(is_illithid(youmonst.data),
             Race_if(PM_ILLITHID)))) {
