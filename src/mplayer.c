@@ -507,9 +507,9 @@ struct obj *obj;
             if (rn2(2))
                 weapon = MACE;
             if (rn2(2))
-                armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
+                armor = ROBE;
             if (rn2(4))
-                cloak = ROBE;
+                cloak = CLOAK_OF_PROTECTION;
             if (rn2(4))
                 helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
             if (rn2(2))

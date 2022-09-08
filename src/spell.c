@@ -2044,11 +2044,27 @@ int spell;
                    || Role_if(PM_RANGER) || Role_if(PM_ROGUE) || Role_if(PM_SAMURAI)
                    || Role_if(PM_TOURIST) || Role_if(PM_VALKYRIE));
 
+	/* Calculate armor penalties */
+	if (uarm && (uarm->otyp != ROBE
+            && uarm->otyp != ROBE_OF_POWER
+		    && uarm->otyp != ROBE_OF_PROTECTION)) 
+	    splcaster += 5;
+    
+    /* Robes are body armour in SLASH'EM */
+    if (uarm && is_metallic(uarm) && !paladin_bonus) 
+	    splcaster += urole.spelarmr;
+
+    #if 0
     if (uarm && is_metallic(uarm) && !paladin_bonus)
         splcaster += (uarmc && uarmc->otyp == ROBE) ? urole.spelarmr / 2
                                                     : urole.spelarmr;
-    else if (uarmc && uarmc->otyp == ROBE)
+    else if (uarmc && 
+            (uarmc->otyp == ROBE
+            || uarmc->otyp == ROBE_OF_POWER
+            || uarmc->otyp == ROBE_OF_PROTECTION))
         splcaster -= urole.spelarmr;
+    #endif
+
     if (uarms)
         splcaster += urole.spelshld;
 
@@ -2082,13 +2098,17 @@ int spell;
         splcaster += urole.spelsbon;
 
     /* `healing spell' bonus */
-    if (spellid(spell) == SPE_HEALING || spellid(spell) == SPE_EXTRA_HEALING
+    if (spellid(spell) == SPE_HEALING 
+        || spellid(spell) == SPE_EXTRA_HEALING
         || spellid(spell) == SPE_CURE_BLINDNESS
         || spellid(spell) == SPE_CURE_SICKNESS
         || spellid(spell) == SPE_RESTORE_ABILITY
         || spellid(spell) == SPE_REMOVE_CURSE)
         splcaster += special;
 
+    if (uarm && uarm->otyp == ROBE_OF_POWER) 
+        splcaster -= 3;
+    
     if (splcaster > 20)
         splcaster = 20;
 
@@ -2191,7 +2211,10 @@ int spell;
      * to this calculation. Obtaining skilled or expert in
      * various spell schools can offset this penalty.
      */
-    if (uarm && uarm->otyp != CRYSTAL_PLATE_MAIL) {
+    if (uarm && (uarm->otyp != CRYSTAL_PLATE_MAIL
+            && uarm->otyp != ROBE
+            && uarm->otyp != ROBE_OF_POWER
+		    && uarm->otyp != ROBE_OF_PROTECTION)) {
 #define PENALTY_NON_CASTER (spellev(spell) * 10)
 #define PENALTY_PRI_CASTER (spellev(spell) * 10) - 30
         if (primary_casters && spellev(spell) >= 4)

@@ -305,7 +305,8 @@ int *attk_count, *role_roll_penalty;
 
     /* role/race adjustments */
     if (Role_if(PM_MONK) && !Upolyd) {
-        if (uarm)
+        if (uarm && 
+              (uarm->otyp < ROBE || uarm->otyp > ROBE_OF_WEAKNESS))
             tmp -= (*role_roll_penalty = urole.spelarmr) + 20;
         else if (!uwep && !uarms)
             tmp += (u.ulevel / 3) + 2;

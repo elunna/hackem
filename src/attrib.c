@@ -1261,7 +1261,7 @@ int x;
         int base = u.acurr.a[x];
         int bonus = tmp - base;
         boolean nobonus = (uarmg && uarmg->otyp == GAUNTLETS_OF_POWER
-                        && uarm && uarm->otyp == CLOAK_OF_WEAKNESS);
+                        && uarm && uarm->otyp == ROBE_OF_WEAKNESS);
 
         if (tmp >= 125 
           || ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
@@ -1270,7 +1270,7 @@ int x;
           || wielding_artifact(ART_SWORD_OF_KAS))
           && (!nobonus))
             return (schar) 125;
-        else if (uarmc && uarmc->otyp == CLOAK_OF_WEAKNESS && !nobonus)
+        else if (uarm && uarm->otyp == ROBE_OF_WEAKNESS && !nobonus)
             return(3 + bonus);
         else
 #ifdef WIN32_BUG

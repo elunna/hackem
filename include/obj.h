@@ -224,6 +224,11 @@ struct obj {
 #define is_barding(otmp) \
     (otmp->otyp == BARDING                                                   \
      || otmp->otyp == SPIKED_BARDING || otmp->otyp == BARDING_OF_REFLECTION)
+#define is_robe(otmp) \
+    (otmp->otyp == ROBE \
+     || otmp->otyp == ROBE_OF_POWER \
+     || otmp->otyp == ROBE_OF_PROTECTION \
+     || otmp->otyp == ROBE_OF_WEAKNESS)
 
 #define is_lawful_artifact(otmp) \
     (   otmp->oartifact == ART_DEMONBANE \

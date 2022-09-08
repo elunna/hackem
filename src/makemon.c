@@ -1337,7 +1337,9 @@ register struct monst *mtmp;
             otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
             otmp->spe = rnd(2) + 1;
             (void) mpickobj(mtmp, otmp);
-            (void) mongets(mtmp, ROBE);
+            /* (void) mongets(mtmp, ROBE); */
+            (void) mongets(mtmp, 
+                           rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE));
             (void) mongets(mtmp, CORNUTHAUM);
         } else if (mm == PM_TWOFLOWER) {
             (void) mongets(mtmp, EXPENSIVE_CAMERA);
@@ -1458,7 +1460,7 @@ register struct monst *mtmp;
             otmp->oprops = (rn2(3) ? ITEM_FIRE : rn2(2) ? ITEM_FROST : ITEM_VENOM);
             otmp->spe = rnd(4) + 1;
             (void) mpickobj(mtmp, otmp);
-            (void) mongets(mtmp, ROBE);
+            (void) mongets(mtmp, ROBE_OF_POWER);
             (void) mongets(mtmp, CORNUTHAUM);
             if (rn2(2))
                 (void) mongets(mtmp, rn2(2) ? AMULET_OF_GUARDING
@@ -1577,7 +1579,6 @@ register struct monst *mtmp;
                 break;
 		}
 		break;
-
     
     case S_HUMANOID:
         if (is_hobbit(ptr)) {
@@ -1658,16 +1659,36 @@ register struct monst *mtmp;
             otmp = mksobj(LANTERN, TRUE, FALSE);
             (void) mpickobj(mtmp, otmp);
             begin_burn(otmp, FALSE);
-        } else if (mm == PM_ALHOON && !rn2(3)) {
-            otmp = mksobj(rn2(3) ? ATHAME : QUARTERSTAFF, TRUE,
-                          rn2(13) ? FALSE : TRUE);
-            if (otmp->spe < 2)
-                otmp->spe = rnd(3);
-            if (!rn2(4))
-                otmp->oerodeproof = 1;
-            (void) mpickobj(mtmp, otmp);
+        } 
+        else switch(mm) {
+         /* Mind flayers get robes */
+        case PM_MIND_FLAYER:
+            if (!rn2(2)) 
+                (void) mongets(mtmp, ROBE);
+            break;
+        case PM_MASTER_MIND_FLAYER:
+            if (!rn2(10)) 
+                (void) mongets(mtmp, ROBE_OF_PROTECTION);
+			else if (!rn2(10)) 
+                (void) mongets(mtmp, ROBE_OF_POWER);
+			else 
+                (void) mongets(mtmp, ROBE);
+            break;
+        case PM_ALHOON:
+            if (!rn2(3)) {
+                otmp = mksobj(rn2(3) 
+                    ? ATHAME : QUARTERSTAFF, TRUE,
+                    rn2(13) ? FALSE : TRUE);
+                if (otmp->spe < 2)
+                    otmp->spe = rnd(3);
+                if (!rn2(4))
+                    otmp->oerodeproof = 1;
+                (void) mpickobj(mtmp, otmp);
+            }
+            break;
         }
-        break;
+       
+    
     case S_KOP:
         /* create Keystone Kops with cream pies to
            throw. As suggested by KAA.     [MRS] */
@@ -2254,10 +2275,10 @@ register struct monst *mtmp;
         } else if (ptr->msound == MS_PRIEST
                    || quest_mon_represents_role(ptr, PM_PRIEST)) {
             if (!racial_giant(mtmp)) {
-                (void) mongets(mtmp, rn2(7) ? ROBE
-                                            : rn2(3)
-                                                ? CLOAK_OF_PROTECTION
-                                                : CLOAK_OF_MAGIC_RESISTANCE);
+                (void) mongets(mtmp, rn2(7) 
+                    ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE)
+                    : rn2(3) ? CLOAK_OF_PROTECTION
+                    : CLOAK_OF_MAGIC_RESISTANCE);
                 (void) mongets(mtmp, SMALL_SHIELD);
             } else {
                 (void) mongets(mtmp, rn2(7) ? HIGH_BOOTS
@@ -2274,10 +2295,14 @@ register struct monst *mtmp;
             }
             mkmonmoney(mtmp, (long) rn1(10, 20));
         } else if (quest_mon_represents_role(ptr, PM_MONK)) {
-            (void) mongets(mtmp, rn2(11) ? ROBE : CLOAK_OF_MAGIC_RESISTANCE);
+            (void) mongets(mtmp, rn2(11) 
+                ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE) 
+                : CLOAK_OF_MAGIC_RESISTANCE);
         } else if (ptr == &mons[PM_ARCHBISHOP_OF_MOLOCH]) {
             (void) mongets(mtmp, QUARTERSTAFF);
-            (void) mongets(mtmp, rn2(3) ? ROBE : CLOAK_OF_PROTECTION);
+            (void) mongets(mtmp, rn2(3) 
+                ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE) 
+                : CLOAK_OF_PROTECTION);
         } else if (ptr == &mons[PM_PALADIN]) {
             otmp = mksobj(MORNING_STAR, FALSE, FALSE);
             otmp->blessed = otmp->oerodeproof = 1;

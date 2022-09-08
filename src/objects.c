@@ -515,6 +515,16 @@ ARMOR("armor", None,
 ARMOR("jacket", None,
       1, 0, 0,  0, 12, 0,  30,  10,  9, 0,  ARM_SUIT, LEATHER, CLR_BLACK),
 
+/* Robes */
+ARMOR("robe", "red robe",
+      0, 0, 0, 0,           1, 1, 40, 25, 9, 0, ARM_SUIT, LEATHER, CLR_RED),
+ARMOR("robe of protection", "blue robe",
+      0, 1, 0, PROTECTION,  1, 1, 40, 50, 5, 0, ARM_SUIT, LEATHER, CLR_BLUE),
+ARMOR("robe of power", "orange robe",
+      0, 1, 0, 0,           0, 1, 40, 50, 9, 0, ARM_SUIT, LEATHER, CLR_ORANGE),
+ARMOR("robe of weakness", "green robe",
+      0, 1, 0, 0,           1, 1, 40, 50, 9, 0, ARM_SUIT, LEATHER, CLR_GREEN),
+
 /* shirts */
 ARMOR("Hawaiian shirt", None,
       1, 0, 0,  0, 10, 0,   5,   3, 10, 0,  ARM_SHIRT, CLOTH, CLR_MAGENTA),
@@ -535,10 +545,6 @@ CLOAK("dwarvish cloak", "hooded cloak",
       0, 0,          0,  8, 0, 10, 50, 10, 1,  CLOTH, HI_CLOTH),
 CLOAK("oilskin cloak", "slippery cloak",
       0, 0,          0,  8, 0, 10, 50,  9, 2,  CLOTH, HI_CLOTH),
-CLOAK("robe", None,
-      1, 1,          0,  3, 0, 15, 50,  8, 2,  CLOTH, CLR_RED),
-        /* robe was adopted from slash'em, where it's worn as a suit
-           rather than as a cloak and there are several variations */
 CLOAK("alchemy smock", "apron",
       0, 1, POISON_RES,  9, 0, 10, 50,  9, 1,  CLOTH, CLR_WHITE),
 CLOAK("cloak", None,
@@ -551,12 +557,11 @@ CLOAK("cloak of invisibility", "opera cloak",
 CLOAK("cloak of magic resistance", "ornamental cope",
       0, 1,  ANTIMAGIC,  1, 0, 10, 60,  9, 1,  CLOTH, CLR_WHITE),
         /*  'cope' is not a spelling mistake... leave it be */
-CLOAK("cloak of displacement", "dusty cloak",
-      0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
 CLOAK("poisonous cloak", "dirty rag",
       0, 1,          0,  5, 0, 10, 60, 10, 2, CLOTH, CLR_BLACK),
-CLOAK("cloak of weakness", "green cloak",
-      0, 1,          0,  5, 0, 10, 50, 10, 1, CLOTH, CLR_GREEN),
+CLOAK("cloak of displacement", "dusty cloak",
+      0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
+
 
 /* shields */
 SHIELD("small shield", None,
@@ -621,10 +626,10 @@ BOOTS("elven boots", "mud boots",
 BOOTS("kicking boots", "buckled boots",
       0, 1,          0, 12, 2, 50,  8, 9, 0, IRON, CLR_BROWN),
         /* CLR_BROWN for same reason as gauntlets of power */
-BOOTS("levitation boots", "snow boots",
-      0, 1, LEVITATION, 12, 2, 15, 30, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("fumble boots", "riding boots",
       0, 1,   FUMBLING, 12, 2, 20, 30, 9, 0, LEATHER, HI_LEATHER),
+BOOTS("levitation boots", "snow boots",
+      0, 1, LEVITATION, 12, 2, 15, 30, 9, 0, LEATHER, HI_LEATHER),
 #undef HELM
 #undef CLOAK
 #undef SHIELD

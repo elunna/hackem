@@ -3404,7 +3404,7 @@ register struct obj *obj;
         case ARMOR:
             obj->otyp = STUDDED_ARMOR;
             break;
-#if 0
+            
         /* robes */
         case ROBE:
             if (!rn2(2))
@@ -3416,7 +3416,7 @@ register struct obj *obj;
         case ROBE_OF_POWER:
             obj->otyp = ROBE;
             break;
-#endif
+
         /* cloaks */
         case CLOAK_OF_PROTECTION:
         case CLOAK_OF_INVISIBILITY:

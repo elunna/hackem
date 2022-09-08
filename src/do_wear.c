@@ -411,12 +411,11 @@ Cloak_on(VOID_ARGS)
     case ORCISH_CLOAK:
     case DWARVISH_CLOAK:
     case CLOAK_OF_MAGIC_RESISTANCE:
-    case ROBE:
     case CLOAK:
     case GRAY_DRAGON_SCALES:
         break;
     case CLOAK_OF_PROTECTION:
-    case CLOAK_OF_WEAKNESS:
+    case ROBE_OF_WEAKNESS:
         makeknown(uarmc->otyp);
         break;
     case ELVEN_CLOAK:
@@ -496,7 +495,6 @@ Cloak_off(VOID_ARGS)
     case CLOAK_OF_MAGIC_RESISTANCE:
     case OILSKIN_CLOAK:
     case POISONOUS_CLOAK:
-    case ROBE:
     case CLOAK:
     case GRAY_DRAGON_SCALES:
         break;
@@ -1050,9 +1048,15 @@ Armor_on(VOID_ARGS)
     if (!uarm) /* no known instances of !uarm here but play it safe */
         return 0;
 
-    if (Role_if(PM_MONK))
+    if (Role_if(PM_MONK) && !is_robe(uarm))
         You_feel("extremely uncomfortable wearing such armor.");
 
+    switch (uarm->otyp) {
+        case ROBE_OF_PROTECTION:
+        case ROBE_OF_WEAKNESS:
+            makeknown(uarm->otyp);
+            break;
+    }
     uarm->known = 1; /* suit's +/- evident because of status line AC */
     check_wings(FALSE);
     oprops_on(uarm, W_ARM);
@@ -1067,7 +1071,7 @@ Armor_off(VOID_ARGS)
     struct obj *otmp = uarm;
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
 
-    if (Role_if(PM_MONK))
+    if (Role_if(PM_MONK) && !is_robe(otmp))
         You_feel("much more comfortable and free now.");
 
     if (otmp)

@@ -1068,7 +1068,7 @@ boolean artif;
                     || otmp->otyp == LEVITATION_BOOTS
                     || otmp->otyp == HELM_OF_OPPOSITE_ALIGNMENT
                     || otmp->otyp == GAUNTLETS_OF_FUMBLING
-                    || otmp->otyp == CLOAK_OF_WEAKNESS
+                    || otmp->otyp == ROBE_OF_WEAKNESS
                     || !rn2(11))) {
                 curse(otmp);
                 otmp->spe = -rne(3);

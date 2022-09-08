@@ -192,6 +192,8 @@ int *lo_p, *hi_p; /* output: range that item belongs among */
             *lo_p = CLOAK_OF_PROTECTION, *hi_p = CLOAK_OF_DISPLACEMENT;
         else if (otyp >= SPEED_BOOTS && otyp <= LEVITATION_BOOTS)
             *lo_p = SPEED_BOOTS, *hi_p = LEVITATION_BOOTS;
+        else if (otyp >= ROBE && otyp <= ROBE_OF_WEAKNESS)
+            *lo_p = ROBE, *hi_p = ROBE_OF_WEAKNESS;
         break;
     case POTION_CLASS:
         /* potion of water has the only fixed description */
@@ -237,7 +239,7 @@ shuffle_all()
     };
     /* sub-class type ranges (one item from each group) */
     static short shuffle_types[] = {
-        HELMET, GLOVES, CLOAK_OF_PROTECTION, SPEED_BOOTS,
+        HELMET, GLOVES, CLOAK_OF_PROTECTION, SPEED_BOOTS, ROBE
     };
     int first, last, idx;
 
