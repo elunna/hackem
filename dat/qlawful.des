@@ -1,0 +1,346 @@
+#	SCCS Id: @(#)nightmar.des	0.0.7	2002/03/13
+#	$Id$
+# NetHack may be freely redistributed.  See license for details.
+#
+# Nightmare's Nightmare World
+MAZE:"qlawful",' '
+#FLAGS: noteleport, hardfloor, nommap, shortsighted, spooky
+FLAGS: noteleport, hardfloor, nommap, shortsighted
+
+GEOMETRY: center, center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0  T.    T.T                    CC     CC    #######H#H                      
+1 T.... ......   ...T  LLL    CCCCCC  CCCC   #       H   #################H. 
+2   .T...TTTT.. ..T.. LL LL  CCCCCC   C CCC  # --+---+-- #                   
+3  ..TTTTT. TT...T..  LL    CCCCCCCC    CCC  # -...-...- #                   
+4 T.TTTT.TTTTTTTTT.  CCLL  CCCCCCCCCC CCCCC  # +...+...+ #                   
+5 ... TT. T T T .T.. CCCLLLCCCCCCCCCCCCCCC   # -...-...- #      .     .      
+6  .TTTTTTTTTTTTTTT.  CCCCLLLCCCCCCCCCCC     # --+---+-- #                   
+7  .T T T T TT. T T.. CCCCCCLL-S-CCCCCC  C   #     -...- #                   
+8 ..TTTTTTTTTTTTTTTT.  CCCCLL--.--CCCCC CCC  #H### +...+ #   .  H- - -H  .   
+9T.TT TTT T\T T . T.. CCCCLLL-.{.-CCCC  CC   #   # -...- #      -.}}}.-      
+0 .TTTT.TTTTTTTTTTT.  CCLLLLL--.--CCCC CCC   # .H# --+-- #       }.}.}       
+1..TT T T T T T TT.. CCLLCCCLL---LCCCCCCC    #   # -...- #      -}}.}}-      
+2.TTTTTTT.TTTTT.T..  LLL CCCCLLLLLLCCCCCCCC  ##### +...+ #       }.}.}       
+3.T T . TTT . TTT.. LL   CCCCCCLCCLLLCCCCC         -...- #      -.}}}.-      
+4.TTTTTTTTTTTTTTTT.  L. CCCCCCLLCCCCLLLCCC --+---+---+-- #   .  H- - -H  .   
+5.TT. T T T T T TT..     CCCLLLCCCCCCCLLC  -...-...-...- #                   
+6 .TTTTTTTTTTTT..TT.. . CCLLLCCCCCCCCCCLC  +...+...+...+H#                   
+7 ...TT T .TT TTTTTT... LLLCCCCCCCCC CCLC  -...-...-...- H      .     .      
+8  T..TTTTTT....T.TT. .LL  CCCCCCCC   LLCC --+---+---+--                     
+9    ....TT..  .....  LL    CCCCCC   LL CC               #H                  
+0       ....     T.  LL       CC     L   CH###############                   
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+
+$places = { (25,02), (21,14), (20,20), (36,20) }
+SHUFFLE: $places
+[80%]: OBJECT: ('=', "fire resistance"), $places[0]
+
+GEOMETRY:center,center
+MAP
+  T.    T.T                    CC     CC    #######H#H                      
+ T.... ......   ...T  LLL    CCCCCC  CCCC   #       H   #################H. 
+   .T...TTTT.. ..T.. LL LL  CCCCCC   C CCC  # --+---+-- #                   
+  ..TTTTT. TT...T..  LL    CCCCCCCC    CCC  # -...-...- #                   
+ T.TTTT.TTTTTTTTT.  CCLL  CCCCCCCCCC CCCCC  # +...+...+ #                   
+ ... TT. T T T .T.. CCCLLLCCCCCCCCCCCCCCC   # -...-...- #      .     .      
+  .TTTTTTTTTTTTTTT.  CCCCLLLCCCCCCCCCCC     # --+---+-- #                   
+  .T T T T TT. T T.. CCCCCCLL-S-CCCCCC  C   #     -...- #                   
+ ..TTTTTTTTTTTTTTTT.  CCCCLL--.--CCCCC CCC  #H### +...+ #   .  H- - -H  .   
+T.TT TTT T\T T . T.. CCCCLLL-.{.-CCCC  CC   #   # -...- #      -.}}}.-      
+ .TTTT.TTTTTTTTTTT.  CCLLLLL--.--CCCC CCC   # .H# --+-- #       }.}.}       
+..TT T T T T T TT.. CCLLCCCLL---LCCCCCCC    #   # -...- #      -}}.}}-      
+.TTTTTTT.TTTTT.T..  LLL CCCCLLLLLLCCCCCCCC  ##### +...+ #       }.}.}       
+.T T . TTT . TTT.. LL   CCCCCCLCCLLLCCCCC         -...- #      -.}}}.-      
+.TTTTTTTTTTTTTTTT.  L. CCCCCCLLCCCCLLLCCC --+---+---+-- #   .  H- - -H  .   
+.TT. T T T T T TT..     CCCLLLCCCCCCCLLC  -...-...-...- #                   
+ .TTTTTTTTTTTT..TT.. . CCLLLCCCCCCCCCCLC  +...+...+...+H#                   
+ ...TT T .TT TTTTTT... LLLCCCCCCCCC CCLC  -...-...-...- H      .     .      
+  T..TTTTTT....T.TT. .LL  CCCCCCCC   LLCC --+---+---+--                     
+    ....TT..  .....  LL    CCCCCC   LL CC               #H                  
+       ....     T.  LL       CC     L   CH###############                   
+ENDMAP
+
+$places = { (48,04), (52,04), (52,08), (52,12), (44,16), (52,16) }
+SHUFFLE: $places
+
+BRANCH: (48,16,48,16), (00,00,00,00)
+TELEPORT_REGION: (47,15,49,17), (00,00,00,00)
+NON_DIGGABLE: (00,00,75,20)
+
+NON_PASSWALL: (43,00,43,12)
+NON_PASSWALL: (40,13,49,13)
+NON_PASSWALL: (49,07,49,12)
+NON_PASSWALL: (45,07,48,07)
+NON_PASSWALL: (45,01,45,06)
+NON_PASSWALL: (46,01,54,01)
+NON_PASSWALL: (55,00,55,19)
+NON_PASSWALL: (42,19,54,19)
+NON_PASSWALL: (41,13,41,20)
+NON_PASSWALL: (64,08,68,08)
+NON_PASSWALL: (64,14,68,14)
+NON_PASSWALL: (63,09,63,13)
+NON_PASSWALL: (69,09,69,13)
+
+MAZEWALK: (74,01), south
+MAZEWALK: (10,09), south
+
+# entrance
+REGION: (47,15,49,17), lit, "ordinary"
+ENGRAVING: (48,16), engrave, "Beware of Dreams come true!"
+
+MONSTER: ('i', "imp"), (49,15), hostile
+
+[60%]: TRAP: "sleep gas", (48,15)
+[60%]: TRAP: "sleep gas", (47,16)
+[60%]: TRAP: "sleep gas", (49,16)
+[60%]: TRAP: "sleep gas", (48,17)
+
+# false treasure
+MONSTER: ('$', "large pile of killer coins"), $places[0], asleep
+[80%]: MONSTER: ('$', "pile of killer coins"), $places[0], asleep
+[80%]: MONSTER: ('$', "pile of killer coins"), $places[0], asleep
+[40%]: MONSTER: ('$', "pile of killer coins"), $places[0], asleep
+[80%]: MONSTER: ('$', "huge pile of killer coins"), $places[0], asleep
+[80%]: MONSTER: ('$', "huge pile of killer coins"), $places[0], asleep
+[40%]: MONSTER: ('$', "huge pile of killer coins"), $places[0], asleep
+[80%]: MONSTER: ('$', "large pile of killer coins"), $places[0], asleep
+[40%]: MONSTER: ('$', "large pile of killer coins"), $places[0], asleep
+[60%]: OBJECT: ('*', "worthless piece of white glass"), $places[0], cursed,0
+[60%]: OBJECT: ('*', "worthless piece of white glass"), $places[0], uncursed,0
+[60%]: OBJECT: ('*', "worthless piece of white glass"), $places[0], blessed,0
+
+# bad food
+MONSTER: ('%',"killer food ration"), $places[1], asleep
+[80%]: MONSTER: ('%', "killer food ration"), $places[1], asleep
+[80%]: MONSTER: ('%', "killer food ration"), $places[1], asleep
+[40%]: MONSTER: ('%', "killer food ration"), $places[1], asleep
+[40%]: MONSTER: ('%', "killer food ration"), $places[1], asleep
+[80%]: MONSTER: ('%', "killer tripe ration"), $places[1], asleep
+[80%]: MONSTER: ('%', "bad egg"), $places[1], asleep
+[60%]: MONSTER: ('%', "bad egg"), $places[1], asleep
+[40%]: MONSTER: ('%', "bad egg"), $places[1], asleep
+OBJECT: ('%', "egg"), $places[1], montype:"giant louse", 2
+[40%]: OBJECT: ('%', "egg"), $places[1], montype:"giant flea", 0
+[20%]: OBJECT: ('%', "mushroom"), $places[1], cursed, 0
+[50%]: OBJECT: ('%', "tin"), $places[1], montype:"asphynx", 0
+[50%]: OBJECT: ('%', "tin"), $places[1], montype:"green slime", 0
+
+# junk
+[40%]: OBJECT: ('!', "sickness"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "sleeping"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "confusion"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "hallucination"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "blindness"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "polymorph"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "sickness"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "acid"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "paralysis"), $places[2], cursed, 0
+[40%]: OBJECT: ('!', "polymorph"), $places[2], cursed, 0
+[40%]: OBJECT: ('/', "draining"), $places[2], cursed, 0
+[60%]: OBJECT: ('/', "opening"), $places[2], cursed, 0
+[80%]: OBJECT: ('/', "nothing"), $places[2], cursed, 0
+[60%]: OBJECT: ('/', "secret door detection"), $places[2], cursed, 0
+[40%]: OBJECT: ('[', "fumble boots"), $places[2], cursed, -2
+[40%]: OBJECT: ('[', "gauntlets of fumbling"), $places[2], cursed, -4
+[40%]: OBJECT: ('[', "poisonous cloak"), $places[2], cursed, -1
+[40%]: OBJECT: (')', "fly swatter"), $places[2], cursed,-2, name:"Bugshmasher"
+[40%]: OBJECT: (')', "worm tooth"), $places[2], cursed,-4, name:"Storm Brand"
+[40%]: OBJECT: (')', "short sword"), $places[2], cursed,-3, name:"Chaosbane"
+[40%]: OBJECT: ('"', "amulet of strangulation"), $places[2], cursed, 0, name:"life saving"
+[40%]: OBJECT: ('=', "sleeping"), $places[2], cursed, 0, name:"slow digestion"
+[40%]: OBJECT: ('=', "hunger"), $places[2], cursed, 0, name:"free action"
+[40%]: OBJECT: ('=', "increase accuracy"), $places[2], blessed, -9, name:"polymorph control"
+[40%]: OBJECT: ('(', "oil lamp"), $places[2], cursed, 0
+
+# TODO: Reenable after robe changes
+#[40%]: OBJECT: ('[', "robe of weakness"), $places[2], cursed, 0
+
+MONSTER: '@', $places[2], hostile
+MONSTER: '@', $places[2], hostile
+[80%]: MONSTER: '@', $places[2], peaceful
+[60%]: MONSTER: '@', $places[2], asleep
+[60%]: MONSTER: '@', $places[2], hostile
+[60%]: MONSTER: '@', $places[2], peaceful
+[60%]: MONSTER: '@', $places[2], hostile
+[40%]: MONSTER: '@', $places[2], hostile
+[40%]: MONSTER: '@', $places[2], peaceful
+
+# such a waste...
+OBJECT: ('(', "tinning kit"), $places[3], cursed, 0
+OBJECT: ('%', "corpse"), $places[3], montype:"black dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"deep dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"red dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"orange dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"yellow dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"green dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"blue dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"shimmering dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"gray dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"white dragon", 0
+MONSTER: ('w', "maggot"), $places[3], hostile
+MONSTER: ('w', "maggot"), $places[3], hostile
+MONSTER: ('w', "maggot"), $places[3], hostile
+MONSTER: ('w', "maggot"), $places[3], hostile
+MONSTER: ('w', "maggot"), $places[3], hostile
+MONSTER: ('w', "maggot"), $places[3], hostile
+[50%]: MONSTER: ('w', "maggot"), $places[3], hostile
+[50%]: MONSTER: ('w', "maggot"), $places[3], hostile
+[50%]: MONSTER: ('s', "carrion crawler"), $places[3], asleep
+
+# snake pit
+TRAP: "spiked pit", $places[4]
+[90%]: MONSTER: ('S', "king cobra"), $places[4], hostile
+[90%]: MONSTER: ('S', "pit viper"), $places[4], asleep
+[90%]: MONSTER: ('S', "pit viper"), $places[4], hostile
+MONSTER: 'S', $places[4], hostile
+MONSTER: 'S', $places[4], asleep
+[50%]: MONSTER: 'S', $places[4], hostile
+[50%]: MONSTER: 'S', $places[4], asleep
+MONSTER: 's', $places[4], asleep
+[50%]: MONSTER: 's', $places[4], hostile
+
+# no temple 
+ALTAR: $places[5], coaligned, altar
+MONSTER: ('@', "aligned priest"), $places[5], coaligned, peaceful
+
+# boulder path
+OBJECT: ('`', "boulder"), (44,0)
+TRAP: "rolling boulder", (44,01)
+TRAP: "rolling boulder", (44,07)
+OBJECT: ('/', "striking"), (46,10), uncursed, 2 
+OBJECT: (')', "runesword"), (46,10), cursed, 0
+[60%]: MONSTER: (' ', "ghost"), (47,00), hostile
+[60%]: MONSTER: (' ', "ghost"), (50,00), hostile
+
+# maze 
+[60%]: MONSTER: ('w', "rot worm"), (63,05), hostile
+[60%]: MONSTER: ('w', "rot worm"), (69,05), hostile
+[60%]: MONSTER: ('w', "rot worm"), (60,08), hostile
+[60%]: MONSTER: ('w', "rot worm"), (72,08), hostile
+[60%]: MONSTER: ('w', "rot worm"), (60,14), hostile
+[60%]: MONSTER: ('w', "rot worm"), (72,14), hostile
+[60%]: MONSTER: ('w', "rot worm"), (63,17), hostile
+[60%]: MONSTER: ('w', "rot worm"), (69,17), hostile
+
+[50%]: MONSTER: (' ', "shade"), (63,05), hostile
+[50%]: MONSTER: (' ', "shade"), (69,17), hostile
+
+# room
+REGION: (64,09,68,13), unlit, "swamp"
+OBJECT: ('[', "gray dragon scales"), (66,11), cursed, -9
+TRAP: "statue", (66,11)
+CONTAINER: ('`', "statue"), (66,11), montype:"arch-lich", 0 {
+  OBJECT: ('/', "fireball")
+  OBJECT: ('/', "create horde"), uncursed, 1
+  OBJECT: ('/', "speed monster"), uncursed, 1
+  OBJECT: ('/', "make invisible"), uncursed, 1
+  OBJECT: ('%', "corpse"), montype:"cockatrice", 0
+  OBJECT: ('[', "gloves"), cursed, -1
+}
+
+MONSTER: (';', "electric eel"), (66,10), hostile
+MONSTER: (';', "electric eel"), (66,12), hostile
+MONSTER: (';', "electric eel"), (65,11), hostile
+MONSTER: (';', "electric eel"), (67,11), hostile
+[50%]: MONSTER: (';', "electric eel"), (64,11), hostile
+[50%]: MONSTER: (';', "electric eel"), (68,11), hostile
+
+# cloud
+MONSTER: ('E', "air elemental"), (23,07), hostile
+MONSTER: ('E', "fire elemental"), (32,15), hostile
+MONSTER: ('E', "earth elemental"), (40,08), hostile
+MONSTER: ('E', "water elemental"), (31,02), hostile
+MONSTER: ('E', "stalker"), (40,03), hostile
+[60%]: MONSTER: ('E', "air elemental"), (24,08), hostile
+[60%]: MONSTER: ('E', "fire elemental"), (33,16), hostile
+[60%]: MONSTER: ('E', "earth elemental"), (39,09), hostile
+[60%]: MONSTER: ('E', "water elemental"), (32,03), hostile
+[60%]: MONSTER: ('E',"stalker"), (39,04), hostile
+[40%]: MONSTER: 'E', (33,07), hostile
+[40%]: MONSTER: 'E', (34,08), hostile
+[40%]: MONSTER: 'E', (25,13), hostile
+[40%]: MONSTER: 'E', (26,14), hostile
+
+MONSTER: ('g', "gremlin"), (38,12), "Clown", hostile
+
+MONSTER: ('h', "mind flayer"), (29,09), "Ginger", hostile
+[80%]: MONSTER: ('h', "mind flayer"), (30,09), "Victoria", hostile
+[80%]: MONSTER: ('h', "mind flayer"), (31,09), "Emma", hostile
+[60%]: MONSTER: ('h', "master mind flayer"), (30,08), "Mel C.", hostile
+[60%]: MONSTER: ('h', "master mind flayer"), (30,10), "Mel B.", hostile
+CONTAINER: ('(', "chest"), (30,09) {
+  [70%]: OBJECT: ('"', "amulet of flying")
+  OBJECT: ('/', "cold"), uncursed, +16
+  [80%]: OBJECT: ('/', "digging")
+}
+# forest
+
+# TODO: Replace with Nebuchadnezzar
+# MONSTER: ('u', "Nightmare"), (10,09), asleep
+
+[60%]: MONSTER: ('n', "pixie"), (10,09), asleep
+[60%]: MONSTER: ('n', "pixie"), (10,09), hostile
+[60%]: MONSTER: ('n', "quickling"), (10,09), asleep
+[60%]: MONSTER: ('n', "quickling"), (10,09), hostile
+[60%]: MONSTER: ('n', "pixie"), (10,09), asleep
+[60%]: MONSTER: ('n', "pixie"), (10,09), hostile
+MONSTER: ('u', "black unicorn"), (10,09), hostile
+MONSTER: ('u', "gray unicorn"), (10,09), hostile
+MONSTER: ('u', "white unicorn"), (10,09), hostile
+MONSTER: ('n', "wood nymph"), (10,09), hostile
+MONSTER: ('n', "brownie"), (10,09), asleep
+MONSTER: ('n', "pixie"), (10,09), asleep
+MONSTER: ('n', "pixie"), (10,09), hostile
+MONSTER: ('n', "pixie"), (10,09), asleep
+MONSTER: ('n', "pixie"), (10,09), hostile
+MONSTER: ('n', "quickling"), (10,09), asleep
+MONSTER: ('n', "quickling"), (10,09), hostile
+
+# all around
+
+# Monsters
+LOOP [8] { MONSTER: ('y', "black light"), random, hostile }
+LOOP [8] { [50%]: MONSTER: ('y', "black light"), random, hostile }
+LOOP [4] { MONSTER: (' ', "shadow"), random, hostile }
+LOOP [4] { [40%]: MONSTER: (' ', "shadow"), random, hostile }
+
+
+# Traps
+LOOP [8] { TRAP: "sleep gas", random }
+LOOP [4] { [50%]: TRAP: "sleep gas", random }
+LOOP [2] { TRAP: "anti magic", random }
+LOOP [2] { [50%]: TRAP: "anti magic", random }
+
+# Engravings
+ENGRAVING: random, random, "You can feel eyes on your back."
+ENGRAVING: random, random, "I can see you..."
+
+# doors
+DOOR: locked, (30,07)
+DOOR: locked, (48,02)
+DOOR: locked, (52,02)
+DOOR: locked, (46,04)
+DOOR: locked, (50,04)
+DOOR: locked, (54,04)
+DOOR: locked, (48,06)
+DOOR: locked, (52,06)
+DOOR: locked, (50,08)
+DOOR: locked, (54,08)
+DOOR: locked, (52,10)
+DOOR: locked, (50,12)
+DOOR: locked, (54,12)
+DOOR: locked, (44,14)
+DOOR: locked, (48,14)
+DOOR: locked, (52,14)
+DOOR: locked, (42,16)
+DOOR: locked, (46,16)
+DOOR: locked, (50,16)
+DOOR: locked, (54,16)
+DOOR: locked, (44,18)
+DOOR: locked, (48,18)
+DOOR: locked, (52,18)

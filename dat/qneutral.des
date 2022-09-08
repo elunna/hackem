@@ -1,0 +1,57 @@
+#       SCCS Id: @(#)beholder.des  3.4     1993/02/23
+#       Copyright (c) 1989 by Jean-Christophe Collet
+#       Copyright (c) 1991 by M. Stephenson
+# NetHack may be freely redistributed.  See license for details.
+#
+#	The Beholder's dungeon.
+#
+
+MAZE: "qneutral",' '
+GEOMETRY: center,center
+#          1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0                                                   |----                   
+1                  |--------|                  |-----...|                   
+2                  |........|------------------|........|                   
+3                  |........+...........................|                   
+4                  |........|---------|..|-----|........|                   
+5                  |........|         |..|     -------|.|             ---   
+6                  ----------        -|..|            |.|         ----|.|   
+7                                    |..-|     |--- ---.|---------|.....--- 
+8                        |---|   |---|..|     -|..|-|.....................| 
+9                      -|-...----|......|-    |.......------------........| 
+0                      |............--|..|-| -|....---|          |........| 
+1                      |.....-------| -|...|--.....|-            --|...---- 
+2                      |-----|         -|...........|              ----|    
+3                                       |-----|....|-                       
+4                                             ------                        
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#          1         2         3         4         5         6         7
+
+#RANDOM_MONSTERS: 'e','F'
+
+DOOR: closed, (25,03)
+
+FOUNTAIN: (52,01)
+STAIR: (45,12), up
+BRANCH: (45,12,45,12), (0,0,0,0)
+
+TRAP: "spiked pit", (26,03)
+TRAP: "spiked pit", (28,03)
+TRAP: "spiked pit", (30,03)
+
+LOOP [5] { TRAP: random, random }
+
+# Loot
+OBJECT: ('(', "chest"), (17,4)
+LOOP [7]  { OBJECT: random, random }
+LOOP [9]  { GOLD: 1d200, (17,4) }
+
+# TODO: Replace with Chromium Dragon
+# MONSTER: ('e', "Beholder"), (17,04)
+
+# A LOT of gas spores
+LOOP [37] { MONSTER: ('e', "gas spore"), random }
+LOOP [4]  { MONSTER: random, random }
