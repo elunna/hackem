@@ -6624,8 +6624,8 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_HUMAN),
         MR_FIRE | MR_ELEC | MR_SLEEP | MR_STONE, 0,
         M1_HUMANOID | M1_SEE_INVIS | M1_OMNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_MALE | M2_COLLECT
-            | M2_MAGIC,
+        M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_STRONG | M2_MALE 
+            | M2_COLLECT | M2_MAGIC,
         M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 20, CLR_YELLOW),
     MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
@@ -6638,7 +6638,7 @@ struct permonst _mons2[] = {
         SIZ(800, 200, MS_SILENT, MZ_LARGE), 
         MR_COLD | MR_ELEC | MR_POISON | MR_STONE, MR_POISON,
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_NEUTER,
+        M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_NEUTER,
         M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 20, CLR_YELLOW),
     
     MON("Acererak", S_LICH,//32 /*Needs encyc entry*/
