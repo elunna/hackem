@@ -27,7 +27,11 @@ LEVEL:		    "nymph" "N" @ (8, 22) 45
 BRANCH:		    "Fort Ludios" @ (10, 24) portal
 LEVEL:		    "rats" "R" @ (10, 2) 50
 RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 10
-CHAINBRANCH:	"The Quest" "oracle" + (6, 2) portal
+
+BRANCH:         "The Quest" @ (15, 5) portal
+BRANCH:         "Lawful Quest" @ (15, 5) portal
+BRANCH:         "Neutral Quest" @ (15, 5) portal
+BRANCH:         "Chaotic Quest" @ (15, 5) portal
 
 LEVEL:          "grund" "Z" @ (19, 2)
 ALIGNMENT:      chaotic
@@ -108,6 +112,23 @@ DUNGEON:	"The Quest" "Q" (5, 2)
 LEVEL:	"x-strt" "none" @ (1, 1)
 LEVEL:	"x-loca" "L" @ (3, 1)
 LEVEL:	"x-goal" "none" @ (-1, 0)
+
+
+### The aligned key quests ###
+DUNGEON:		"Lawful Quest" "none" (1, 0)
+ALIGNMENT:		lawful
+DESCRIPTION:	mazelike
+LEVEL:			"qlawful" "none" @ (1, 0)
+
+DUNGEON:		"Neutral Quest" "none" (1, 0)
+ALIGNMENT:		neutral
+DESCRIPTION:	mazelike
+LEVEL:			"wneutral" "none" @ (1, 0)
+
+DUNGEON:		"Chaotic Quest" "none" (1, 0)
+ALIGNMENT:		chaotic
+DESCRIPTION:	mazelike
+LEVEL:			"qchaos" "none" @ (1, 0)
 
 #
 # Sokoban
