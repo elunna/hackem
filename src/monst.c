@@ -3890,12 +3890,9 @@ struct permonst _mons2[] = {
         SIZ(1200, 100, MS_CUSS, MZ_HUMAN),
         MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_POISON, 
         MR_FIRE | MR_COLD,
-
         M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_FLY | M1_SEE_INVIS,
-
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_STRONG
             | M2_MAGIC | M2_NASTY | M2_PRINCE | M2_MALE,
-
         M3_WANTSBOOK | M3_WAITFORU | M3_CLOSE | M3_INFRAVISION,
         0, MH_UNDEAD, 50, CLR_BRIGHT_MAGENTA),
     /*
@@ -6617,6 +6614,20 @@ struct permonst _mons2[] = {
 /*
  * KMH -- Monsters of the aligned key quests
  */
+    MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),  
+        (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
+          ATTK(AT_GAZE, AD_SLEE, 2, 25),
+          ATTK(AT_GAZE, AD_DISN, 0, 0), 
+          ATTK(AT_GAZE, AD_STON, 0, 0),
+          ATTK(AT_GAZE, AD_CNCL, 4, 4), 
+          ATTK(AT_BITE, AD_PHYS, 8, 8)),
+        SIZ(800, 200, MS_SILENT, MZ_LARGE), 
+        MR_COLD | MR_ELEC | MR_POISON | MR_STONE, MR_POISON,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
+        M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_NEUTER,
+        M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 20, CLR_GRAY),
+    
     MON("Acererak", S_LICH,//32 /*Needs encyc entry*/
         LVL(33, 15, -9, 99, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
@@ -6627,15 +6638,11 @@ struct permonst _mons2[] = {
         SIZ(1200, 100, MS_CUSS, MZ_HUMAN),
         MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_POISON | MR_STONE, 
         MR_FIRE | MR_COLD, /* Grants fire/cold res if eaten? */
-
-        M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_SEE_INVIS, 
-
+        M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_SEE_INVIS,
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_STRONG 
             | M2_MAGIC | M2_NASTY | M2_PRINCE | M2_MALE  
-             | M2_GREEDY | M2_JEWELS | M2_COLLECT, 
-            
+             | M2_GREEDY | M2_JEWELS | M2_COLLECT,
         M3_WANTSALL | M3_WAITFORU | M3_CLOSE | M3_INFRAVISION,
-
         0, MH_UNDEAD, 36, CLR_YELLOW),
     
     /*
