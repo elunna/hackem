@@ -32,25 +32,25 @@ ENDMAP
 
 #RANDOM_MONSTERS: 'e','F'
 
-DOOR: closed, (25,03)
+DOOR: closed, (27,03)
 
-FOUNTAIN: (52,01)
-STAIR: (45,12), up
-BRANCH: (45,12,45,12), (0,0,0,0)
+FOUNTAIN: (54,01)
+# STAIR: (45,12), up
+BRANCH: (47,12,47,12), (0,0,0,0)
 
-TRAP: "spiked pit", (26,03)
 TRAP: "spiked pit", (28,03)
 TRAP: "spiked pit", (30,03)
+TRAP: "spiked pit", (32,03)
 
 LOOP [5] { TRAP: random, random }
 
 # Loot
-OBJECT: ('(', "chest"), (17,4)
+OBJECT: ('(', "chest"), (19,4)
 LOOP [7]  { OBJECT: random, random }
-LOOP [9]  { GOLD: 1d200, (17,4) }
+LOOP [9]  { GOLD: 1d200, (19,4) }
 
-# TODO: Replace with Chromium Dragon
-# MONSTER: ('e', "Beholder"), (17,04)
+# Replaced Beholder with Xanathar.
+MONSTER: ('e', "Xanathar"), (21,04)
 
 # A LOT of gas spores
 LOOP [37] { MONSTER: ('e', "gas spore"), random }

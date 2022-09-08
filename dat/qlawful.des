@@ -280,8 +280,8 @@ CONTAINER: ('(', "chest"), (30,09) {
 }
 # forest
 
-# TODO: Replace with Nebuchadnezzar
-# MONSTER: ('u', "Nightmare"), (10,09), asleep
+# Replaced Nightmare with Nebuchadnezzar
+MONSTER: ('@', "Nebuchadnezzar"), (10,09), asleep
 
 [60%]: MONSTER: ('n', "pixie"), (10,09), asleep
 [60%]: MONSTER: ('n', "pixie"), (10,09), hostile

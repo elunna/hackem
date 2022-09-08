@@ -10,8 +10,7 @@ ROOM: "ordinary" , unlit, random, random, (05,05) {
     STAIR: random, up
     OBJECT: random, random
 }
-
-
+               
 ROOM: "ordinary" , unlit, random, random, (20,10) {
     #NAME: "central"
     LOOP [8] { OBJECT: ('(', "chest"), random }
@@ -23,14 +22,13 @@ ROOM: "ordinary" , unlit, random, random, (20,10) {
 
     LOOP [4] { TRAP: random, random }
 
-    # TODO: Replace with Acererak
-    # MONSTER: 'L', "Vecna", random, hostile
+    # Replaced Vecna with Acererak (from dnh)
+    MONSTER: ('L', "Acererak"), random, hostile
     
     LOOP [13] { MONSTER: 'L', random, hostile }
     LOOP [5] { MONSTER: 'W', random, hostile }
     LOOP [7] { MONSTER: 'V', random, hostile }
     LOOP [10] { MONSTER: 'Z', random, hostile }
-
 }
 
 ROOM: "ordinary" , random, random, random, random {

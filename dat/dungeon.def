@@ -123,7 +123,7 @@ LEVEL:			"qlawful" "none" @ (1, 0)
 DUNGEON:		"Neutral Quest" "none" (1, 0)
 ALIGNMENT:		neutral
 DESCRIPTION:	mazelike
-LEVEL:			"wneutral" "none" @ (1, 0)
+LEVEL:			"qneutral" "none" @ (1, 0)
 
 DUNGEON:		"Chaotic Quest" "none" (1, 0)
 ALIGNMENT:		chaotic
