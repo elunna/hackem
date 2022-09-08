@@ -346,7 +346,24 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
       NO_COLOR),
 
+    /*** Alignment quest artifacts ***/
+    A("The Key Of Access", SKELETON_KEY,
+      (SPFX_RESTR | SPFX_NOGEN), 
+      0, 0, NO_ATTK, NO_DFNS, NO_CARY,
+      CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR ),
+    
+    A("The Staff of Withering",	STAFF_OF_WAR,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL | SPFX_DRLI | SPFX_DALIGN), 
+      0, 0, DRLI(3,5), NO_DFNS, CARY(AD_COLD),
+      ENERGY_BOOST, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR ),
 
+    /* Xanathar's eyestalk ring of proof against detection and location */
+    A("Xanathar's Ring of Proof", RIN_STEALTH,
+      (SPFX_NOGEN | SPFX_RESTR), SPFX_WARN, 0,
+      NO_ATTK, NO_DFNS, CARY(AD_MAGM),
+      INVIS, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR ),
+			
+    
     /*
      *      The artifacts for the quest dungeon, all self-willed.
      */

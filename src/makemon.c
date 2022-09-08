@@ -3189,7 +3189,36 @@ long mmflags;
                Let newcham() pick the shape. */
             && newcham(mtmp, (struct permonst *) 0, FALSE, FALSE))
             allow_minvent = FALSE;
-    } else if (mndx == PM_CERBERUS) {
+    } 
+    else if (mndx == PM_NEBUCHADNEZZAR) {
+        struct obj *otmp;
+        
+        otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
+                     artiname(ART_KEY_OF_ACCESS));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
+    } else if (mndx == PM_XANATHAR) {
+        struct obj *otmp;
+        otmp = oname(mksobj(RIN_STEALTH, TRUE, FALSE),
+                     artiname(ART_XANATHAR_S_RING_OF_PROOF));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
+    } else if (mndx == PM_ACERERAK) {
+        struct obj *otmp;
+        otmp = oname(mksobj(STAFF_OF_WAR, TRUE, FALSE),
+                     artiname(ART_STAFF_OF_WITHERING));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
+    }
+    
+    
+    else if (mndx == PM_CERBERUS) {
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;
