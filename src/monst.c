@@ -6614,6 +6614,19 @@ struct permonst _mons2[] = {
 /*
  * KMH -- Monsters of the aligned key quests
  */
+    MON("Nebuchadnezzar", S_HUMAN,
+        LVL(20, 15, -4, 75, 0), (G_NOGEN | G_UNIQ | G_NOCORPSE),
+        A(ATTK(AT_WEAP, AD_PHYS, 3, 10), 
+          ATTK(AT_KICK, AD_PHYS, 2, 8),
+          ATTK(AT_MAGC, AD_CLRC, 2, 8), 
+          ATTK(AT_MAGC, AD_CLRC, 2, 8), 
+          NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_SILENT, MZ_HUMAN),
+        MR_FIRE | MR_ELEC | MR_SLEEP | MR_STONE, 0,
+        M1_HUMANOID | M1_SEE_INVIS | M1_OMNIVORE,
+        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_MALE | M2_COLLECT
+            | M2_MAGIC,
+        M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 20, CLR_WHITE),
     MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
         A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
