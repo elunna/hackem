@@ -1558,9 +1558,11 @@ dopay()
     if (!eshkp->billct && !eshkp->debit) {
         umoney = money_cnt(invent);
         if (!ltmp && NOTANGRY(shkp)) {
+#if 0 /* Don't annoy player about being broke when looking at services */
             You("do not owe %s anything.", shkname(shkp));
             if (!umoney)
                 pline(no_money, stashed_gold ? " seem to" : "");
+#endif 
             shk_other_services();
         } else if (ltmp) {
             pline("%s is after blood, not money!", shkname(shkp));
@@ -1760,9 +1762,8 @@ dopay()
 }
 
 /*
-** FUNCTION shk_other_services
-**
-** Called when you don't owe any money.  Called after all checks have been
+** Called when you don't owe any money.  
+ * Called after all checks have been
 ** made (in shop, not angry shopkeeper, etc.)
 */
 static void
@@ -1775,11 +1776,7 @@ shk_other_services()
     anything any;
     menu_item *selected;
     int n;
-
-    /* Do you want to use other services */
-    if (yn("Do you wish to try our other services?") != 'y' ) 
-        return;
-
+    
     /* Init your name */
     if (!is_human(youmonst.data))
         slang = "ugly";
