@@ -89,7 +89,7 @@ STATIC_DCL const char *FDECL(cad, (BOOLEAN_P));
 /* services */
 #define NOBOUND         (-1)    /* No lower/upper limit to charge       */
 static void NDECL(shk_other_services);
-static void FDECL(shk_identify, (const char *, struct monst *));
+static void FDECL(shk_identify, (const char *, struct monst *, char ident_type));
 static void FDECL(shk_uncurse, (const char *, struct monst *));
 static void FDECL(shk_appraisal, (const char *, struct monst *));
 static void FDECL(shk_weapon_works, (const char *, struct monst *));
@@ -1792,9 +1792,13 @@ shk_other_services()
     ** Figure out what services he/she offers
     **
     ** i = identify
+    **      [B]asic service or [P]remier
     ** a = appraise weapon's worth
     ** u = uncurse
     ** w = weapon-works (including poison)
+    **      Enchant
+    **      Enchant
+    **      Enchant
     ** p = poison weapon
     ** r = armor-works
     ** c = charge wands
@@ -1807,12 +1811,17 @@ shk_other_services()
     start_menu(tmpwin);
     /* All shops can identify (some better than others) */
     any.a_int = 1;
-    if (ESHK(shkp)->services & (SHK_ID_BASIC | SHK_ID_PREMIUM))
-         add_menu(tmpwin, NO_GLYPH, &any , 'i', 0, ATR_NONE,
-             "Identify", MENU_ITEMFLAGS_NONE);
+    if (ESHK(shkp)->services & (SHK_ID_BASIC))
+        add_menu(tmpwin, NO_GLYPH, &any , 'b', 0, ATR_NONE,
+                 "Basic Identify", MENU_ITEMFLAGS_NONE);
 
-    /* All shops can uncurse */
     any.a_int = 2;
+    if (ESHK(shkp)->services & (SHK_ID_PREMIUM))
+        add_menu(tmpwin, NO_GLYPH, &any , 'i', 0, ATR_NONE,
+                 "Premier Identify", MENU_ITEMFLAGS_NONE);
+    
+    /* All shops can uncurse */
+    any.a_int = 3;
     if (ESHK(shkp)->services & (SHK_UNCURSE))
          add_menu(tmpwin, NO_GLYPH, &any , 'u', 0, ATR_NONE,
              "Uncurse", MENU_ITEMFLAGS_NONE);
@@ -1820,16 +1829,16 @@ shk_other_services()
     /* Weapon appraisals.  Weapon & general stores can do this. */
     if ((ESHK(shkp)->services & (SHK_UNCURSE)) &&
                     (shk_class_match(WEAPON_CLASS, shkp))) {
-            any.a_int = 3;
-            add_menu(tmpwin, NO_GLYPH, &any , 'a', 0, ATR_NONE,
-                     "Appraise", MENU_ITEMFLAGS_NONE);
+        any.a_int = 4;
+        add_menu(tmpwin, NO_GLYPH, &any , 'a', 0, ATR_NONE,
+                 "Appraise", MENU_ITEMFLAGS_NONE);
     }
 
     /* Weapon-works!  Only a weapon store. */
     if ((ESHK(shkp)->services & 
          (SHK_SPECIAL_A | SHK_SPECIAL_B | SHK_SPECIAL_C))
         && (shk_class_match(WEAPON_CLASS, shkp) == SHK_MATCH)) {
-            any.a_int = 4;
+            any.a_int = 5;
             if (ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B))
                 add_menu(tmpwin, NO_GLYPH, &any , 'w', 0, ATR_NONE,
                         "Weapon-works", MENU_UNSELECTED);
@@ -1841,7 +1850,7 @@ shk_other_services()
     /* Armor-works */
     if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B))
                      && (shk_class_match(ARMOR_CLASS, shkp) == SHK_MATCH)) {
-        any.a_int = 5;
+        any.a_int = 6;
         add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
                  "Armor-works", MENU_UNSELECTED);
     }
@@ -1852,11 +1861,14 @@ shk_other_services()
                 (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH) ||
                 (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
                 (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
-        any.a_int = 6;
+        any.a_int = 7;
         add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
                  "Charge", MENU_ITEMFLAGS_NONE);
     }
 
+    /* TODO: Show any available credit */
+
+    
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -1864,21 +1876,24 @@ shk_other_services()
     if (n > 0) {
         switch (selected[0].item.a_int) {
         case 1:
-            shk_identify(slang, shkp);
+            shk_identify(slang, shkp, 'b');
             break;
         case 2:
-            shk_uncurse(slang, shkp);
+            shk_identify(slang, shkp, 'i');
             break;
         case 3:
-            shk_appraisal(slang, shkp);
+            shk_uncurse(slang, shkp);
             break;
         case 4:
-            shk_weapon_works(slang, shkp);
+            shk_appraisal(slang, shkp);
             break;
         case 5:
-            shk_armor_works(slang, shkp);
+            shk_weapon_works(slang, shkp);
             break;
         case 6:
+            shk_armor_works(slang, shkp);
+            break;
+        case 7:
             shk_charge(slang, shkp);
             break;
         default:
@@ -3842,7 +3857,50 @@ xchar x, y;
         }
     }
 }
-
+static int
+base_id_charge(obj)
+struct obj *obj;
+{
+    switch (obj->oclass) {        
+    case AMULET_CLASS:
+        return 375;
+        break;
+    case WEAPON_CLASS:
+        return 75;
+        break;
+    case ARMOR_CLASS:
+        return 100;
+        break;
+    case FOOD_CLASS:
+        return 25;   
+        break;
+    case SCROLL_CLASS:
+        return 150;   
+        break;
+    case SPBOOK_CLASS:
+        return 250;   
+        break;
+    case POTION_CLASS:
+        return 150;   
+        break;
+    case RING_CLASS:
+        return 300;   
+        break;
+    case WAND_CLASS:
+        return 200;   
+        break;
+    case TOOL_CLASS:
+        return 50;   
+        break;
+    case GEM_CLASS:
+        return 500;
+        break;
+    default:
+        return 75;
+        break;
+    }
+}
+    
 static NEARDATA const char identify_types[] = { ALL_CLASSES, 0 };
 static NEARDATA const char weapon_types[] = { WEAPON_CLASS, TOOL_CLASS, 0 };
 static NEARDATA const char armor_types[] = { ARMOR_CLASS, 0 };
@@ -3855,15 +3913,15 @@ static NEARDATA const char armor_types[] = { ARMOR_CLASS, 0 };
 static NEARDATA const char ident_chars[] = "bp";
 
 static void
-shk_identify(slang, shkp)
+shk_identify(slang, shkp, ident_type)
 const char *slang;
 struct monst *shkp;
+char ident_type;
 {
     register struct obj *obj;       /* The object to identify       */
-    int charge, mult;               /* Cost to identify             */
+    int charge;                     /* Cost to identify             */
     boolean guesswork;              /* Will shkp be guessing?       */
-    boolean ripoff=FALSE;           /* Shkp ripping you off?        */
-    char ident_type;
+    boolean ripoff = FALSE;         /* Shkp ripping you off?        */
 
     /* Pick object */
     if ( !(obj = getobj(identify_types, "have identified"))) 
@@ -3873,21 +3931,21 @@ struct monst *shkp;
         verbalize("I don't handle that sort of item, but I could try...");
     }
 
-    /* Here we go */
-    /* KMH -- fixed */
-    if (ESHK(shkp)->services & (SHK_ID_BASIC|SHK_ID_PREMIUM)) {
+#if 0
+    if (ESHK(shkp)->services & (SHK_ID_BASIC | SHK_ID_PREMIUM)) {
         ident_type = yn_function("[B]asic service or [P]remier",
              ident_chars, '\0');
         if (ident_type == '\0') 
             return;
+        
     } else if (ESHK(shkp)->services & SHK_ID_BASIC) {
         verbalize("I only offer basic identification.");
         ident_type = 'b';
     } else if (ESHK(shkp)->services & SHK_ID_PREMIUM) {
         verbalize("I only make complete identifications.");
-        ident_type = 'p';
+        ident_type = 'i';
     }
-
+#endif
     /*
     ** Shopkeeper is ripping you off if:
     ** Basic service and object already known.
@@ -3895,9 +3953,9 @@ struct monst *shkp;
     **      rustproof, etc.
     */
     if (obj->dknown && objects[obj->otyp].oc_name_known) {
-        if (ident_type=='b') 
+        if (ident_type == 'b') 
             ripoff = TRUE;
-        if (ident_type == 'p' && obj->bknown && obj->rknown && obj->known) 
+        if (ident_type == 'i' && obj->bknown && obj->rknown && obj->known) 
             ripoff = TRUE;
     }
 
@@ -3910,54 +3968,15 @@ struct monst *shkp;
         }
         /* Object already identified: Try and cheat the customer. */
         pline("%s chuckles greedily...", mon_nam(shkp));
-        mult = 1;
-
-    /* basic */        
-    } else if (ident_type=='b') 
-        mult = 1;
-    /* premier */
-    else 
-        mult = 2;
-    
-    switch (obj->oclass) {        
-        case AMULET_CLASS:
-            charge = 375 * mult;
-            break;
-        case WEAPON_CLASS:
-            charge = 75 * mult;
-            break;
-        case ARMOR_CLASS:
-            charge = 100 * mult;
-            break;
-        case FOOD_CLASS:
-            charge = 25 * mult;   
-            break;
-        case SCROLL_CLASS:
-            charge = 150 * mult;   
-            break;
-        case SPBOOK_CLASS:
-            charge = 250 * mult;   
-            break;
-        case POTION_CLASS:
-            charge = 150 * mult;   
-            break;
-        case RING_CLASS:
-            charge = 300 * mult;   
-            break;
-        case WAND_CLASS:
-            charge = 200 * mult;   
-            break;
-        case TOOL_CLASS:
-            charge = 50 * mult;   
-            break;
-        case GEM_CLASS:
-            charge = 500 * mult;
-            break;
-        default:
-            charge = 75 * mult;
-            break;
+        charge = base_id_charge(obj);
+    } else if (ident_type == 'b') 
+        /* basic */    
+        charge = base_id_charge(obj);
+    else {
+        /* premier */
+        charge = base_id_charge(obj) * 2;
     }
-            
+    
     /* Artifacts cost more to deal with */
     /* KMH -- Avoid floating-point */
     if (obj->oartifact) 
@@ -3992,7 +4011,7 @@ struct monst *shkp;
         }
     }
 
-    if (ident_type == 'p') {
+    if (ident_type == 'i') {
         identify(obj);
     } else { 
         /* Basic */
