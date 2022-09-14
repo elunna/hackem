@@ -94,7 +94,7 @@ static void FDECL(shk_uncurse, (const char *, struct monst *));
 static void FDECL(shk_appraisal, (const char *, struct monst *));
 static void FDECL(shk_weapon_works, (const char *, struct monst *));
 static void FDECL(shk_armor_works, (const char *, struct monst *));
-static void FDECL(shk_charge, (const char *, struct monst *));
+static void FDECL(shk_charge, (const char *, struct monst *, char ident_type));
 static boolean FDECL(shk_obj_match, (struct obj *, struct monst *));
 /*static int FDECL(shk_class_match, (long class, struct monst *shkp));*/
 static boolean FDECL(shk_offer_price, (const char *, long, struct monst *));
@@ -1855,6 +1855,7 @@ shk_other_services()
                  "Armor-works", MENU_UNSELECTED);
     }
 
+#if 0
     /* Charging: / ( = */
     if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B)) &&
           ((shk_class_match(WAND_CLASS, shkp) == SHK_MATCH) ||
@@ -1866,7 +1867,32 @@ shk_other_services()
         add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
                  "Charge", MENU_ITEMFLAGS_NONE);
     }
-
+#endif
+    
+    /* Basic Charging: / ( = */
+    if ((ESHK(shkp)->services & SHK_SPECIAL_A) &&
+        ((shk_class_match(WAND_CLASS, shkp) == SHK_MATCH) ||
+         (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH) ||
+         (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
+         (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
+        
+        any.a_int = 7;
+        add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
+                 "Basic Charging", MENU_ITEMFLAGS_NONE);
+    }
+    
+    /* Premier/Complete Charging: / ( = */
+    if ((ESHK(shkp)->services & SHK_SPECIAL_B) &&
+        ((shk_class_match(WAND_CLASS, shkp) == SHK_MATCH) ||
+         (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH) ||
+         (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
+         (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
+        
+        any.a_int = 8;
+        add_menu(tmpwin, NO_GLYPH, &any , 'C', 0, ATR_NONE,
+                 "Premier Charging", MENU_ITEMFLAGS_NONE);
+    }
+    
     /* TODO: Show any available credit */
 
     
@@ -1895,7 +1921,10 @@ shk_other_services()
             shk_armor_works(slang, shkp);
             break;
         case 7:
-            shk_charge(slang, shkp);
+            shk_charge(slang, shkp, 'b');
+            break;
+        case 8:
+            shk_charge(slang, shkp, 'p');
             break;
         default:
             pline("Unknown Service");
@@ -4477,23 +4506,29 @@ struct monst *shkp;
 **
 ** Charge something (for a price!)
 */
-static NEARDATA const char wand_types[] = { WAND_CLASS, 0 };
-static NEARDATA const char tool_types[] = { TOOL_CLASS, 0 };
-static NEARDATA const char ring_types[] = { RING_CLASS, 0 };
-static NEARDATA const char spbook_types[] = { SPBOOK_CLASS, 0 };
+static const char wand_types[] = { WAND_CLASS, 0 };
+static const char tool_types[] = { TOOL_CLASS, 0 };
+static const char ring_types[] = { RING_CLASS, 0 };
+static const char spbook_types[] = { SPBOOK_CLASS, 0 };
+static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
 
 static void
-shk_charge(slang, shkp)
+shk_charge(slang, shkp, ident_type)
 const char *slang;
 struct monst *shkp;
+char ident_type;
 {
     struct obj *obj = NULL; /* The object picked            */
     struct obj *tobj;       /* Temp obj                     */
-    char type;              /* Basic/premier service        */
     int charge;             /* How much to charge customer  */
     char invlet;            /* Inventory letter             */
 
     /* What type of shop are we? */
+    obj = getobj(all_count, "charge");
+    if (!obj) 
+        return;
+    
+#if 0 /* This isn't working */
     if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH)
         obj = getobj(wand_types, "charge");
     else if (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH)
@@ -4504,33 +4539,59 @@ struct monst *shkp;
         obj = getobj(spbook_types, "charge");
     if (!obj) 
         return;
+#endif
 
+    /* Verify the item we picked matches the shop type */
+    if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH 
+            && obj->oclass != WAND_CLASS ) {
+        pline("I only can charge wands.");
+        return;
+    }
+    else if (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH 
+             && obj->oclass != TOOL_CLASS) {
+        pline("I only can charge tools.");
+        return;
+    }
+    else if (shk_class_match(RING_CLASS, shkp) == SHK_MATCH 
+             && obj->oclass != RING_CLASS) {
+        pline("I only can charge rings.");
+        return;
+    }
+    else if (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH 
+             && obj->oclass != SPBOOK_CLASS) {
+        pline("I only can charge spellbooks.");
+        return;
+    }
+
+        
     /*
     ** Wand shops can offer special service!
     ** Extra charges (for a lot of extra money!)
     */
+#if 0
     if (obj->oclass == WAND_CLASS) {
         /* What type of service? */
-        if ((ESHK(shkp)->services & (SHK_SPECIAL_A|SHK_SPECIAL_B)) 
-              == (SHK_SPECIAL_A|SHK_SPECIAL_B)) {
-            type = yn_function("[B]asic service or [P]remier", ident_chars, '\0');
-            if (type == '\0') 
+        if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B)) 
+              == (SHK_SPECIAL_A | SHK_SPECIAL_B)) {
+            ident_type = yn_function("[B]asic service or [P]remier", ident_chars, '\0');
+            if (ident_type == '\0') 
                 return;
         } else if (ESHK(shkp)->services & SHK_SPECIAL_A) {
-            pline ("I only perform basic charging.");
-            type = 'b';
+            pline("I only perform basic charging.");
+            ident_type = 'b';
         } else if (ESHK(shkp)->services & SHK_SPECIAL_B) {
-            pline ("I only perform complete charging.");
-            type = 'p';
+            pline("I only perform complete charging.");
+            ident_type = 'p';
         } else {
-            type = 'b';
+            ident_type = 'b';
         }
     } else {
-        type = 'b';
+        ident_type = 'b';
     }
+#endif
 
     /* Compute charge */
-    if (type == 'b')
+    if (ident_type == 'b')
         charge = 300;
     else
         charge = 1000;
@@ -4540,8 +4601,7 @@ struct monst *shkp;
         charge *= 3;
     else /* Smooth out the charge a bit */
         shk_smooth_charge(&charge, 100, 1000);
-
-    /* Go for it? */
+    
     if (shk_offer_price(slang, charge, shkp) == FALSE)
         return;
 
@@ -4550,17 +4610,15 @@ struct monst *shkp;
         pline("%s says it's charged and pushes you toward the door", Monnam(shkp));
         return;
     }
-
-    /* Do it */
+    
     invlet = obj->invlet;
-    recharge(obj, (type=='b') ? 0 : 1, &youmonst);
+    recharge(obj, (ident_type == 'b') ? 0 : 1, &youmonst);
 
     /*
-    ** Did the object blow up?  We need to check this in a way
-    ** that has nothing to do with dereferencing the obj pointer.
-    ** We saved the inventory letter of this item; now cycle
-    ** through all objects and see if there is an object
-    ** with that letter.
+    ** Did the object blow up?  We need to check this in a way that has 
+     * nothing to do with dereferencing the obj pointer. We saved the inventory 
+     * letter of this item; now cycle through all objects and see if there is
+     * an object with that letter.
     */
     for (obj = 0, tobj = invent; tobj; tobj=tobj->nobj) {
         if (tobj->invlet == invlet) {
@@ -4578,14 +4636,14 @@ struct monst *shkp;
         /* Wand of wishing? */
         if (obj->otyp == WAN_WISHING) {
             /* Premier gives you ONE more charge */
-            /* KMH -- Okay, but that's pretty generous */
-            if (type == 'p') 
+            if (ident_type == 'p') 
                 obj->spe++;
 
-            /* Fun */
+#if 0 /* --hackem: This seems too cheeky */
             verbalize("Since you'll have everything you always wanted,");
             verbalize("...How about loaning me some money?");
             money2mon(shkp, money_cnt(invent));
+#endif 
             makeknown(obj->otyp);
             bot();
         } else {
@@ -4595,7 +4653,7 @@ struct monst *shkp;
             ** Add a few more still.
             */
             if (obj->spe < 16) 
-                obj->spe += rn1(5,5);
+                obj->spe += rn1(5, 5);
             else if (obj->spe < 20) 
                 obj->spe += 1;
         }

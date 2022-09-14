@@ -221,8 +221,8 @@ enum obj_class_types {
  */
 
 #define shk_class_match(class, shkp) \
-        ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == RANDOM_CLASS) ? \
-                SHK_GENERAL : \
+        ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == \
+            RANDOM_CLASS) ? SHK_GENERAL : \
          ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == class) ? \
                 SHK_MATCH : SHK_NOMATCH))
 
