@@ -1115,17 +1115,27 @@ struct monst *shk;
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_WEAPON;
+        /* Weapon shops offer armor id 50% of the time */
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_ARMOR;
     } 
     else if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_ARMOR;
+        /* Armor shops offer weapon id 50% of the time */
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_WEAPON;
     } 
     else if (shk_class_match(SCROLL_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_SCROLL;
-        ESHK(shk)->services |= SHK_ID_BOOK;
+        /* Scroll stores offer book ID 50% of the time. */
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_BOOK;
     } 
     else if (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_SCROLL;
         ESHK(shk)->services |= SHK_ID_BOOK;
+        /* Book stores offer scroll ID 50% of the time. */
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_SCROLL;
     } 
     else if (shk_class_match(POTION_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_POTION;
@@ -1140,9 +1150,15 @@ struct monst *shk;
     } 
     else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_WAND;
+        /* Wand shops offer armor id 25% of the time */
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_ARMOR;
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_FOOD;
+        /* Deli shops offer potion id 50% of the time. */
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_POTION;
     }
     
     /* 1/3 of all shops have the uncursing service */
@@ -1164,10 +1180,27 @@ struct monst *shk;
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_SPECIAL_B;
     }
+    /* --hackem: Some gross sour syntax here... */
+    if (shtypes[ESHK(shk)->shoptype-SHOPBASE].name == "pet store") {
+        /* Pet shops offer tool/food id 50% of the time */
+        if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_FOOD;
+        if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_TOOL;
+    }
+    
+    if (shtypes[ESHK(shk)->shoptype-SHOPBASE].name == "lighting store") {
+        /* Light shops can sometimes offer potion ID: 25% */
+        if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(4))
+            ESHK(shk)->services |= SHK_ID_POTION;
+
+    }
+    
+    
     /* 1/4 of weapon shops offer the poisoning service */
     if (!rn2(4) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
         ESHK(shk)->services |= SHK_SPECIAL_C;
-
+    
     return;
 }
 
