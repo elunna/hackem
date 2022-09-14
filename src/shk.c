@@ -1824,7 +1824,7 @@ shk_other_services()
     any.a_int = 3;
     if (ESHK(shkp)->services & (SHK_UNCURSE))
          add_menu(tmpwin, NO_GLYPH, &any , 'u', 0, ATR_NONE,
-             "Uncurse", MENU_ITEMFLAGS_NONE);
+                 "Uncurse", MENU_ITEMFLAGS_NONE);
 
     /* Weapon appraisals.  Weapon & general stores can do this. */
     if ((ESHK(shkp)->services & (SHK_UNCURSE)) &&
@@ -1857,10 +1857,11 @@ shk_other_services()
 
     /* Charging: / ( = */
     if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B)) &&
-                ((shk_class_match(WAND_CLASS, shkp) == SHK_MATCH) ||
-                (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH) ||
-                (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
-                (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
+          ((shk_class_match(WAND_CLASS, shkp) == SHK_MATCH) ||
+          (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH) ||
+          (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
+          (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
+        
         any.a_int = 7;
         add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
                  "Charge", MENU_ITEMFLAGS_NONE);

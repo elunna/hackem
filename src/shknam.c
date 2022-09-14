@@ -1092,10 +1092,10 @@ struct monst *shk;
      * Requested by Dave <mitch45678@aol.com>
      */
     if (Is_blackmarket(&u.uz)) {
-            ESHK(shk)->services = 
-                SHK_ID_BASIC|SHK_ID_PREMIUM|SHK_UNCURSE|SHK_APPRAISE|
-                SHK_SPECIAL_A|SHK_SPECIAL_B|SHK_SPECIAL_C;
-            return;
+        ESHK(shk)->services = 
+            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE | SHK_APPRAISE |
+            SHK_SPECIAL_A | SHK_SPECIAL_B | SHK_SPECIAL_C;
+        return;
     }
 
     /* Guarantee some form of identification
@@ -1103,26 +1103,35 @@ struct monst *shk;
      * 2/15 	Premium ID only
      * 8/15 	Basic ID only
      */
-    if (!rn2(2)) ESHK(shk)->services |= (SHK_ID_BASIC|SHK_ID_PREMIUM);
-    else if (!rn2(4)) ESHK(shk)->services |= SHK_ID_PREMIUM;
-    else ESHK(shk)->services |= SHK_ID_BASIC;
+    if (!rn2(2)) 
+        ESHK(shk)->services |= (SHK_ID_BASIC | SHK_ID_PREMIUM);
+    else if (!rn2(4)) 
+        ESHK(shk)->services |= SHK_ID_PREMIUM;
+    else 
+        ESHK(shk)->services |= SHK_ID_BASIC;
 
-    if (!rn2(3)) ESHK(shk)->services |= SHK_UNCURSE;
+    /* 1/3 of all shops have the uncursing service */
+    if (!rn2(3)) 
+        ESHK(shk)->services |= SHK_UNCURSE;
 
+    /* 1/3 of all weapon shops offer the appraisal service */
     if (!rn2(3) && shk_class_match(WEAPON_CLASS, shk))
-            ESHK(shk)->services |= SHK_APPRAISE;
+        ESHK(shk)->services |= SHK_APPRAISE;
 
-    if ((shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) ||
-    (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) ||
-    (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) ||
-    (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) ||
-    (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) ||
-    (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
-            if (!rn2(4/*5*/)) ESHK(shk)->services |= SHK_SPECIAL_A;
-            if (!rn2(4/*5*/)) ESHK(shk)->services |= SHK_SPECIAL_B;
+    if (     (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) 
+          || (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) 
+          || (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
+          || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) 
+          || (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) 
+          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
+        if (!rn2(4)) 
+            ESHK(shk)->services |= SHK_SPECIAL_A;
+        if (!rn2(4)) 
+            ESHK(shk)->services |= SHK_SPECIAL_B;
     }
-    if (!rn2(4/*5*/) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
-     ESHK(shk)->services |= SHK_SPECIAL_C;
+    /* 1/4 of weapon shops offer the poisoning service */
+    if (!rn2(4) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
+        ESHK(shk)->services |= SHK_SPECIAL_C;
 
     return;
 }
