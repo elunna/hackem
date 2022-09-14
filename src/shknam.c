@@ -1091,6 +1091,12 @@ struct monst *shk;
     /* KMH, balance patch 2 -- Increase probability of shopkeeper services.
      * Requested by Dave <mitch45678@aol.com>
      */
+    
+    /* Guarantee some form of identification (for black market only)
+     * 1/3 	both Basic and Premium ID
+     * 2/15 	Premium ID only
+     * 8/15 	Basic ID only
+     */
     if (Is_blackmarket(&u.uz)) {
         ESHK(shk)->services = 
             SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE | SHK_APPRAISE |
@@ -1098,18 +1104,37 @@ struct monst *shk;
         return;
     }
 
-    /* Guarantee some form of identification (for general stores only)
-     * 1/3 		both Basic and Premium ID
-     * 2/15 	Premium ID only
-     * 8/15 	Basic ID only
+    /* --hackem: Instead of offering basic/premier identify services,
+     * general stores will have a random selection of 2-5 item classes
+     * they can identify (at premier level). 
      */
     if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL) {
+        int num_svc = rnd(4) + 1;
+        int offset;
+        while (num_svc > 0) {
+            switch (rn2(11)) {
+            case 0: ESHK(shk)->services |= SHK_ID_WEAPON; break; 
+            case 1: ESHK(shk)->services |= SHK_ID_ARMOR; break; 
+            case 2: ESHK(shk)->services |= SHK_ID_SCROLL; break; 
+            case 3: ESHK(shk)->services |= SHK_ID_BOOK; break; 
+            case 4: ESHK(shk)->services |= SHK_ID_POTION; break; 
+            case 5: ESHK(shk)->services |= SHK_ID_RING; break; 
+            case 6: ESHK(shk)->services |= SHK_ID_AMULET; break; 
+            case 7: ESHK(shk)->services |= SHK_ID_WAND; break; 
+            case 8: ESHK(shk)->services |= SHK_ID_TOOL; break; 
+            case 9: ESHK(shk)->services |= SHK_ID_GEM; break; 
+            case 10: ESHK(shk)->services |= SHK_ID_FOOD; break;
+            }
+            num_svc--;
+        }
+#if 0                 
         if (!rn2(2))
             ESHK(shk)->services |= (SHK_ID_BASIC | SHK_ID_PREMIUM);
         else if (!rn2(4))
             ESHK(shk)->services |= SHK_ID_PREMIUM;
         else
             ESHK(shk)->services |= SHK_ID_BASIC;
+#endif
     }
 
     /* Each shop type offers it's own identify service */
