@@ -4032,7 +4032,7 @@ char ident_type;
     }
 
     if (guesswork) {
-        if (!rn2(ident_type == 'b' ? 4 : 2)) {
+        if (!rn2(ident_type == 'b' ? 4 : 6)) {
             verbalize("Success!");
             /* Rest of msg will come from identify(); */
         } else {
