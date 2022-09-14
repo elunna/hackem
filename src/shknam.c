@@ -1098,18 +1098,53 @@ struct monst *shk;
         return;
     }
 
-    /* Guarantee some form of identification
+    /* Guarantee some form of identification (for general stores only)
      * 1/3 		both Basic and Premium ID
      * 2/15 	Premium ID only
      * 8/15 	Basic ID only
      */
-    if (!rn2(2)) 
-        ESHK(shk)->services |= (SHK_ID_BASIC | SHK_ID_PREMIUM);
-    else if (!rn2(4)) 
-        ESHK(shk)->services |= SHK_ID_PREMIUM;
-    else 
-        ESHK(shk)->services |= SHK_ID_BASIC;
+    if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL) {
+        if (!rn2(2))
+            ESHK(shk)->services |= (SHK_ID_BASIC | SHK_ID_PREMIUM);
+        else if (!rn2(4))
+            ESHK(shk)->services |= SHK_ID_PREMIUM;
+        else
+            ESHK(shk)->services |= SHK_ID_BASIC;
+    }
 
+    /* Each shop type offers it's own identify service */
+    if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_WEAPON;
+    } 
+    else if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_ARMOR;
+    } 
+    else if (shk_class_match(SCROLL_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_SCROLL;
+        ESHK(shk)->services |= SHK_ID_BOOK;
+    } 
+    else if (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_SCROLL;
+        ESHK(shk)->services |= SHK_ID_BOOK;
+    } 
+    else if (shk_class_match(POTION_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_POTION;
+    } 
+    else if (shk_class_match(RING_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_RING;
+        ESHK(shk)->services |= SHK_ID_AMULET;
+        ESHK(shk)->services |= SHK_ID_GEM;
+    }
+    else if (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_TOOL;
+    } 
+    else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_WAND;
+    } 
+    else if (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_TOOL;
+    }
+    
     /* 1/3 of all shops have the uncursing service */
     if (!rn2(3)) 
         ESHK(shk)->services |= SHK_UNCURSE;

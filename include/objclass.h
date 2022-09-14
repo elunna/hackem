@@ -221,18 +221,29 @@ enum obj_class_types {
  */
 
 #define shk_class_match(class, shkp) \
-        ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == \
-            RANDOM_CLASS) ? SHK_GENERAL : \
-         ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == class) ? \
-                SHK_MATCH : SHK_NOMATCH))
+        ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == RANDOM_CLASS) \
+         ? SHK_GENERAL               \
+         : ((shtypes[ESHK(shkp)->shoptype-SHOPBASE].symb == class)      \
+                ? SHK_MATCH          \
+                : SHK_NOMATCH))
 
-#define SHK_ID_BASIC    01L
-#define SHK_ID_PREMIUM  02L
-#define SHK_UNCURSE     010L
-#define SHK_APPRAISE    0100L
-#define SHK_SPECIAL_A   01000L
-#define SHK_SPECIAL_B   02000L
-#define SHK_SPECIAL_C   04000L
+#define SHK_ID_BASIC    0x00000001L
+#define SHK_ID_PREMIUM  0x00000002L
+#define SHK_ID_WEAPON   0x00000004L
+#define SHK_ID_ARMOR    0x00000008L
+#define SHK_ID_SCROLL   0x00000010L
+#define SHK_ID_BOOK     0x00000020L
+#define SHK_ID_POTION   0x00000040L
+#define SHK_ID_RING     0x00000080L
+#define SHK_ID_AMULET   0x00000100L
+#define SHK_ID_WAND     0x00000200L
+#define SHK_ID_TOOL     0x00000400L
+#define SHK_ID_GEM      0x00000800L
+#define SHK_APPRAISE    0x00001000L
+#define SHK_UNCURSE     0x00002000L
+#define SHK_SPECIAL_A   0x00004000L
+#define SHK_SPECIAL_B   0x00008000L
+#define SHK_SPECIAL_C   0x00010000L
 
 #if 0 /* moved to decl.h so that makedefs.c won't see them */
 extern const struct class_sym

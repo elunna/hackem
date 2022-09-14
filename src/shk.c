@@ -89,7 +89,7 @@ STATIC_DCL const char *FDECL(cad, (BOOLEAN_P));
 /* services */
 #define NOBOUND         (-1)    /* No lower/upper limit to charge       */
 static void NDECL(shk_other_services);
-static void FDECL(shk_identify, (const char *, struct monst *, char ident_type));
+static void FDECL(shk_identify, (const char *, struct monst *, long ident_type));
 static void FDECL(shk_uncurse, (const char *, struct monst *));
 static void FDECL(shk_appraisal, (const char *, struct monst *));
 static void FDECL(shk_weapon_works, (const char *, struct monst *));
@@ -1811,26 +1811,77 @@ shk_other_services()
     start_menu(tmpwin);
     /* All shops can identify (some better than others) */
     any.a_int = 1;
-    if (ESHK(shkp)->services & (SHK_ID_BASIC))
+    if (ESHK(shkp)->services & SHK_ID_BASIC)
         add_menu(tmpwin, NO_GLYPH, &any , 'b', 0, ATR_NONE,
                  "Basic Identify", MENU_ITEMFLAGS_NONE);
 
     any.a_int = 2;
-    if (ESHK(shkp)->services & (SHK_ID_PREMIUM))
+    if (ESHK(shkp)->services & SHK_ID_PREMIUM)
         add_menu(tmpwin, NO_GLYPH, &any , 'i', 0, ATR_NONE,
                  "Premier Identify", MENU_ITEMFLAGS_NONE);
     
-    /* All shops can uncurse */
     any.a_int = 3;
-    if (ESHK(shkp)->services & (SHK_UNCURSE))
+    if (ESHK(shkp)->services & SHK_ID_WEAPON)
+        add_menu(tmpwin, NO_GLYPH, &any , ')', 0, ATR_NONE,
+                 "Identify Weapon", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 4;
+    if (ESHK(shkp)->services & SHK_ID_ARMOR)
+        add_menu(tmpwin, NO_GLYPH, &any , '[', 0, ATR_NONE,
+                 "Identify Armor", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 5;
+    if (ESHK(shkp)->services & SHK_ID_SCROLL)
+        add_menu(tmpwin, NO_GLYPH, &any , '?', 0, ATR_NONE,
+                 "Identify Scroll", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 6;
+    if (ESHK(shkp)->services & SHK_ID_BOOK)
+        add_menu(tmpwin, NO_GLYPH, &any , '+', 0, ATR_NONE,
+                 "Identify Spellbook", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 7;
+    if (ESHK(shkp)->services & SHK_ID_POTION)
+        add_menu(tmpwin, NO_GLYPH, &any , '!', 0, ATR_NONE,
+                 "Identify Potion", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 8;
+    if (ESHK(shkp)->services & SHK_ID_RING)
+        add_menu(tmpwin, NO_GLYPH, &any , '=', 0, ATR_NONE,
+                 "Identify Ring", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 9;
+    if (ESHK(shkp)->services & SHK_ID_AMULET)
+        add_menu(tmpwin, NO_GLYPH, &any , '"', 0, ATR_NONE,
+                 "Identify Amulet", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 10;
+    if (ESHK(shkp)->services & SHK_ID_WAND)
+        add_menu(tmpwin, NO_GLYPH, &any , '/', 0, ATR_NONE,
+                 "Identify Wand", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 11;
+    if (ESHK(shkp)->services & SHK_ID_TOOL)
+        add_menu(tmpwin, NO_GLYPH, &any , '*', 0, ATR_NONE,
+                 "Identify Tool", MENU_ITEMFLAGS_NONE);
+    
+    any.a_int = 12;
+    if (ESHK(shkp)->services & SHK_ID_GEM)
+        add_menu(tmpwin, NO_GLYPH, &any , '*', 0, ATR_NONE,
+                 "Identify Gem/Stone", MENU_ITEMFLAGS_NONE);
+    
+
+    /* All shops can uncurse */
+    any.a_int = 13;
+    if (ESHK(shkp)->services & SHK_UNCURSE)
          add_menu(tmpwin, NO_GLYPH, &any , 'u', 0, ATR_NONE,
                  "Uncurse", MENU_ITEMFLAGS_NONE);
 
     /* Weapon appraisals.  Weapon & general stores can do this. */
-    if ((ESHK(shkp)->services & (SHK_UNCURSE)) &&
+    if ((ESHK(shkp)->services & SHK_UNCURSE) &&
                     (shk_class_match(WEAPON_CLASS, shkp))) {
-        any.a_int = 4;
-        add_menu(tmpwin, NO_GLYPH, &any , 'a', 0, ATR_NONE,
+        any.a_int = 14;
+        add_menu(tmpwin, NO_GLYPH, &any , 'A', 0, ATR_NONE,
                  "Appraise", MENU_ITEMFLAGS_NONE);
     }
 
@@ -1838,9 +1889,9 @@ shk_other_services()
     if ((ESHK(shkp)->services & 
          (SHK_SPECIAL_A | SHK_SPECIAL_B | SHK_SPECIAL_C))
         && (shk_class_match(WEAPON_CLASS, shkp) == SHK_MATCH)) {
-            any.a_int = 5;
+            any.a_int = 15;
             if (ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B))
-                add_menu(tmpwin, NO_GLYPH, &any , 'w', 0, ATR_NONE,
+                add_menu(tmpwin, NO_GLYPH, &any , 'W', 0, ATR_NONE,
                         "Weapon-works", MENU_UNSELECTED);
             else
                 add_menu(tmpwin, NO_GLYPH, &any , 'p', 0, ATR_NONE,
@@ -1850,24 +1901,10 @@ shk_other_services()
     /* Armor-works */
     if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B))
                      && (shk_class_match(ARMOR_CLASS, shkp) == SHK_MATCH)) {
-        any.a_int = 6;
+        any.a_int = 16;
         add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
                  "Armor-works", MENU_UNSELECTED);
     }
-
-#if 0
-    /* Charging: / ( = */
-    if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B)) &&
-          ((shk_class_match(WAND_CLASS, shkp) == SHK_MATCH) ||
-          (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH) ||
-          (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
-          (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
-        
-        any.a_int = 7;
-        add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
-                 "Charge", MENU_ITEMFLAGS_NONE);
-    }
-#endif
     
     /* Basic Charging: / ( = */
     if ((ESHK(shkp)->services & SHK_SPECIAL_A) &&
@@ -1876,7 +1913,7 @@ shk_other_services()
          (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
          (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
         
-        any.a_int = 7;
+        any.a_int = 17;
         add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
                  "Basic Charging", MENU_ITEMFLAGS_NONE);
     }
@@ -1888,7 +1925,7 @@ shk_other_services()
          (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
          (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
         
-        any.a_int = 8;
+        any.a_int = 18;
         add_menu(tmpwin, NO_GLYPH, &any , 'C', 0, ATR_NONE,
                  "Premier Charging", MENU_ITEMFLAGS_NONE);
     }
@@ -1902,28 +1939,58 @@ shk_other_services()
 
     if (n > 0) {
         switch (selected[0].item.a_int) {
+        /* Identification services */
         case 1:
-            shk_identify(slang, shkp, 'b');
+            shk_identify(slang, shkp, SHK_ID_BASIC);
             break;
         case 2:
-            shk_identify(slang, shkp, 'i');
+            shk_identify(slang, shkp, SHK_ID_PREMIUM);
             break;
         case 3:
-            shk_uncurse(slang, shkp);
+            shk_identify(slang, shkp, SHK_ID_WEAPON);
             break;
         case 4:
-            shk_appraisal(slang, shkp);
+            shk_identify(slang, shkp, SHK_ID_ARMOR);
             break;
         case 5:
-            shk_weapon_works(slang, shkp);
+            shk_identify(slang, shkp, SHK_ID_SCROLL);
             break;
         case 6:
-            shk_armor_works(slang, shkp);
+            shk_identify(slang, shkp, SHK_ID_BOOK);
             break;
         case 7:
-            shk_charge(slang, shkp, 'b');
+            shk_identify(slang, shkp, SHK_ID_POTION);
             break;
         case 8:
+            shk_identify(slang, shkp, SHK_ID_RING);
+            break;
+        case 9:
+            shk_identify(slang, shkp, SHK_ID_AMULET);
+            break;
+        case 10:
+            shk_identify(slang, shkp, SHK_ID_WAND);
+            break;
+        case 11:
+            shk_identify(slang, shkp, SHK_ID_GEM);
+            break;
+            
+        /* Other service types */
+        case 12:
+            shk_uncurse(slang, shkp);
+            break;
+        case 13:
+            shk_appraisal(slang, shkp);
+            break;
+        case 14:
+            shk_weapon_works(slang, shkp);
+            break;
+        case 15:
+            shk_armor_works(slang, shkp);
+            break;
+        case 16:
+            shk_charge(slang, shkp, 'b');
+            break;
+        case 17:
             shk_charge(slang, shkp, 'p');
             break;
         default:
@@ -3946,7 +4013,7 @@ static void
 shk_identify(slang, shkp, ident_type)
 const char *slang;
 struct monst *shkp;
-char ident_type;
+long ident_type;
 {
     register struct obj *obj;       /* The object to identify       */
     int charge;                     /* Cost to identify             */
@@ -3958,9 +4025,14 @@ char ident_type;
         return;
 
     if ((guesswork = !shk_obj_match(obj, shkp))) {
+        verbalize("I don't handle that sort of item, sorry...");
+        return;
+    }
+#if 0
+    if ((guesswork = !shk_obj_match(obj, shkp))) {
         verbalize("I don't handle that sort of item, but I could try...");
     }
-
+#endif 
 #if 0
     if (ESHK(shkp)->services & (SHK_ID_BASIC | SHK_ID_PREMIUM)) {
         ident_type = yn_function("[B]asic service or [P]remier",
@@ -3983,9 +4055,9 @@ char ident_type;
     **      rustproof, etc.
     */
     if (obj->dknown && objects[obj->otyp].oc_name_known) {
-        if (ident_type == 'b') 
+        if (ident_type == SHK_ID_BASIC) 
             ripoff = TRUE;
-        if (ident_type == 'i' && obj->bknown && obj->rknown && obj->known) 
+        if (ident_type == SHK_ID_PREMIUM && obj->bknown && obj->rknown && obj->known) 
             ripoff = TRUE;
     }
 
@@ -3999,7 +4071,7 @@ char ident_type;
         /* Object already identified: Try and cheat the customer. */
         pline("%s chuckles greedily...", mon_nam(shkp));
         charge = base_id_charge(obj);
-    } else if (ident_type == 'b') 
+    } else if (ident_type == SHK_ID_BASIC) 
         /* basic */    
         charge = base_id_charge(obj);
     else {
@@ -4020,7 +4092,7 @@ char ident_type;
         return;
 
     /* Shopkeeper deviousness */
-    if (ident_type == 'b') {
+    if (ident_type == SHK_ID_BASIC) {
         if (Hallucination) {
             pline("You hear %s tell you it's a pot of flowers.",
                     mon_nam(shkp));
@@ -4032,7 +4104,7 @@ char ident_type;
     }
 
     if (guesswork) {
-        if (!rn2(ident_type == 'b' ? 4 : 6)) {
+        if (!rn2(ident_type == SHK_ID_BASIC ? 4 : 6)) {
             verbalize("Success!");
             /* Rest of msg will come from identify(); */
         } else {
@@ -4041,7 +4113,7 @@ char ident_type;
         }
     }
 
-    if (ident_type == 'i') {
+    if (ident_type == SHK_ID_PREMIUM) {
         identify(obj);
     } else { 
         /* Basic */
