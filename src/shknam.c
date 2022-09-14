@@ -1122,7 +1122,7 @@ struct monst *shk;
           || (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) 
           || (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
           || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) 
-          || (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) 
+          /* || (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) */
           || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_SPECIAL_A;

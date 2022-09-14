@@ -4557,12 +4557,13 @@ char ident_type;
         pline("I only can charge rings.");
         return;
     }
+#if 0 /* Disabled charging spellbooks */
     else if (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH 
              && obj->oclass != SPBOOK_CLASS) {
         pline("I only can charge spellbooks.");
         return;
     }
-
+#endif
         
     /*
     ** Wand shops can offer special service!
