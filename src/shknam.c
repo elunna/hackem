@@ -1141,8 +1141,8 @@ struct monst *shk;
     else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_WAND;
     } 
-    else if (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_TOOL;
+    else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
+        ESHK(shk)->services |= SHK_ID_FOOD;
     }
     
     /* 1/3 of all shops have the uncursing service */

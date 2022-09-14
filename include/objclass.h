@@ -239,11 +239,12 @@ enum obj_class_types {
 #define SHK_ID_WAND     0x00000200L
 #define SHK_ID_TOOL     0x00000400L
 #define SHK_ID_GEM      0x00000800L
-#define SHK_APPRAISE    0x00001000L
-#define SHK_UNCURSE     0x00002000L
-#define SHK_SPECIAL_A   0x00004000L
-#define SHK_SPECIAL_B   0x00008000L
-#define SHK_SPECIAL_C   0x00010000L
+#define SHK_ID_FOOD     0x00001000L
+#define SHK_APPRAISE    0x00002000L
+#define SHK_UNCURSE     0x00004000L
+#define SHK_SPECIAL_A   0x00008000L
+#define SHK_SPECIAL_B   0x00010000L
+#define SHK_SPECIAL_C   0x00020000L
 
 #if 0 /* moved to decl.h so that makedefs.c won't see them */
 extern const struct class_sym

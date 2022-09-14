@@ -1809,6 +1809,8 @@ shk_other_services()
     /* start_menu(tmpwin, MENU_BEHAVE_STANDARD); */
     
     start_menu(tmpwin);
+    /* TODO: Show any available credit */
+    
     /* All shops can identify (some better than others) */
     any.a_int = 1;
     if (ESHK(shkp)->services & SHK_ID_BASIC)
@@ -1862,7 +1864,7 @@ shk_other_services()
     
     any.a_int = 11;
     if (ESHK(shkp)->services & SHK_ID_TOOL)
-        add_menu(tmpwin, NO_GLYPH, &any , '*', 0, ATR_NONE,
+        add_menu(tmpwin, NO_GLYPH, &any , '(', 0, ATR_NONE,
                  "Identify Tool", MENU_ITEMFLAGS_NONE);
     
     any.a_int = 12;
@@ -1870,26 +1872,30 @@ shk_other_services()
         add_menu(tmpwin, NO_GLYPH, &any , '*', 0, ATR_NONE,
                  "Identify Gem/Stone", MENU_ITEMFLAGS_NONE);
     
-
-    /* All shops can uncurse */
     any.a_int = 13;
-    if (ESHK(shkp)->services & SHK_UNCURSE)
-         add_menu(tmpwin, NO_GLYPH, &any , 'u', 0, ATR_NONE,
-                 "Uncurse", MENU_ITEMFLAGS_NONE);
-
+    if (ESHK(shkp)->services & SHK_ID_FOOD)
+        add_menu(tmpwin, NO_GLYPH, &any , '%', 0, ATR_NONE,
+                 "Identify Food", MENU_ITEMFLAGS_NONE);
+    
     /* Weapon appraisals.  Weapon & general stores can do this. */
     if ((ESHK(shkp)->services & SHK_UNCURSE) &&
-                    (shk_class_match(WEAPON_CLASS, shkp))) {
+        (shk_class_match(WEAPON_CLASS, shkp))) {
         any.a_int = 14;
         add_menu(tmpwin, NO_GLYPH, &any , 'A', 0, ATR_NONE,
                  "Appraise", MENU_ITEMFLAGS_NONE);
     }
-
+    
+    /* All shops can uncurse */
+    any.a_int = 15;
+    if (ESHK(shkp)->services & SHK_UNCURSE)
+         add_menu(tmpwin, NO_GLYPH, &any , 'u', 0, ATR_NONE,
+                 "Uncurse", MENU_ITEMFLAGS_NONE);
+    
     /* Weapon-works!  Only a weapon store. */
     if ((ESHK(shkp)->services & 
          (SHK_SPECIAL_A | SHK_SPECIAL_B | SHK_SPECIAL_C))
         && (shk_class_match(WEAPON_CLASS, shkp) == SHK_MATCH)) {
-            any.a_int = 15;
+            any.a_int = 16;
             if (ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B))
                 add_menu(tmpwin, NO_GLYPH, &any , 'W', 0, ATR_NONE,
                         "Weapon-works", MENU_UNSELECTED);
@@ -1901,7 +1907,7 @@ shk_other_services()
     /* Armor-works */
     if ((ESHK(shkp)->services & (SHK_SPECIAL_A | SHK_SPECIAL_B))
                      && (shk_class_match(ARMOR_CLASS, shkp) == SHK_MATCH)) {
-        any.a_int = 16;
+        any.a_int = 17;
         add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
                  "Armor-works", MENU_UNSELECTED);
     }
@@ -1913,7 +1919,7 @@ shk_other_services()
          (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
          (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
         
-        any.a_int = 17;
+        any.a_int = 18;
         add_menu(tmpwin, NO_GLYPH, &any , 'c', 0, ATR_NONE,
                  "Basic Charging", MENU_ITEMFLAGS_NONE);
     }
@@ -1925,14 +1931,10 @@ shk_other_services()
          (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH) ||
          (shk_class_match(RING_CLASS, shkp) == SHK_MATCH))) {
         
-        any.a_int = 18;
+        any.a_int = 19;
         add_menu(tmpwin, NO_GLYPH, &any , 'C', 0, ATR_NONE,
                  "Premier Charging", MENU_ITEMFLAGS_NONE);
     }
-    
-    /* TODO: Show any available credit */
-
-    
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -1971,26 +1973,32 @@ shk_other_services()
             shk_identify(slang, shkp, SHK_ID_WAND);
             break;
         case 11:
+            shk_identify(slang, shkp, SHK_ID_TOOL);
+            break;
+        case 12:
             shk_identify(slang, shkp, SHK_ID_GEM);
+            break;
+        case 13:
+            shk_identify(slang, shkp, SHK_ID_FOOD);
             break;
             
         /* Other service types */
-        case 12:
-            shk_uncurse(slang, shkp);
-            break;
-        case 13:
+        case 14:
             shk_appraisal(slang, shkp);
             break;
-        case 14:
-            shk_weapon_works(slang, shkp);
-            break;
         case 15:
-            shk_armor_works(slang, shkp);
+            shk_uncurse(slang, shkp);
             break;
         case 16:
-            shk_charge(slang, shkp, 'b');
+            shk_weapon_works(slang, shkp);
             break;
         case 17:
+            shk_armor_works(slang, shkp);
+            break;
+        case 18:
+            shk_charge(slang, shkp, 'b');
+            break;
+        case 19:
             shk_charge(slang, shkp, 'p');
             break;
         default:
@@ -4023,31 +4031,35 @@ long ident_type;
     /* Pick object */
     if ( !(obj = getobj(identify_types, "have identified"))) 
         return;
-
+    
+    /* Validate item against service */
+    if (     (ident_type == SHK_ID_WEAPON && obj->oclass != WEAPON_CLASS)
+          || (ident_type == SHK_ID_ARMOR && obj->oclass != ARMOR_CLASS)
+          || (ident_type == SHK_ID_SCROLL && obj->oclass != SCROLL_CLASS)
+          || (ident_type == SHK_ID_BOOK && obj->oclass != SPBOOK_CLASS)
+          || (ident_type == SHK_ID_POTION && obj->oclass != POTION_CLASS)
+          || (ident_type == SHK_ID_RING && obj->oclass != RING_CLASS)
+          || (ident_type == SHK_ID_AMULET && obj->oclass != AMULET_CLASS)
+          || (ident_type == SHK_ID_WAND && obj->oclass != WAND_CLASS)
+          || (ident_type == SHK_ID_TOOL && obj->oclass != TOOL_CLASS)
+          || (ident_type == SHK_ID_GEM && obj->oclass != GEM_CLASS)
+          || (ident_type == SHK_ID_FOOD && obj->oclass != FOOD_CLASS)
+          ) {
+        verbalize("That item doesn't work with this service.");
+        return;
+    }
+    
+    /* All specialty identify services default to premium. 
+     * We should only see BASIC identify in general stores or black market */
+    if (ident_type != SHK_ID_BASIC)
+        ident_type = SHK_ID_PREMIUM;
+#if 0
     if ((guesswork = !shk_obj_match(obj, shkp))) {
         verbalize("I don't handle that sort of item, sorry...");
         return;
     }
-#if 0
-    if ((guesswork = !shk_obj_match(obj, shkp))) {
-        verbalize("I don't handle that sort of item, but I could try...");
-    }
-#endif 
-#if 0
-    if (ESHK(shkp)->services & (SHK_ID_BASIC | SHK_ID_PREMIUM)) {
-        ident_type = yn_function("[B]asic service or [P]remier",
-             ident_chars, '\0');
-        if (ident_type == '\0') 
-            return;
-        
-    } else if (ESHK(shkp)->services & SHK_ID_BASIC) {
-        verbalize("I only offer basic identification.");
-        ident_type = 'b';
-    } else if (ESHK(shkp)->services & SHK_ID_PREMIUM) {
-        verbalize("I only make complete identifications.");
-        ident_type = 'i';
-    }
 #endif
+    
     /*
     ** Shopkeeper is ripping you off if:
     ** Basic service and object already known.
@@ -4057,12 +4069,14 @@ long ident_type;
     if (obj->dknown && objects[obj->otyp].oc_name_known) {
         if (ident_type == SHK_ID_BASIC) 
             ripoff = TRUE;
-        if (ident_type == SHK_ID_PREMIUM && obj->bknown && obj->rknown && obj->known) 
+        if (ident_type == SHK_ID_PREMIUM 
+              && obj->bknown 
+              && obj->rknown 
+              && obj->known) 
             ripoff = TRUE;
     }
 
     /* Compute the charge */
-    
     if (ripoff) {
         if (no_cheat) {
             verbalize("That item's already identified!");
