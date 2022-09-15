@@ -4421,6 +4421,7 @@ long svc_type;
         impossible("Unknown Weapon Enhancement");
         return 0;
     }
+    pline("%s", doname(obj));
     return 1;
 }
 
@@ -4528,6 +4529,7 @@ long svc_type;
         pline("Unknown Armor Enhancement");
         return 0;
     }
+    pline("%s", doname(obj));
     return 1;
 }
 
