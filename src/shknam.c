@@ -1180,7 +1180,6 @@ struct monst *shk;
     /* 1/3 of all shops have the uncursing service */
     if (!rn2(3)) 
         ESHK(shk)->services |= SHK_UNCURSE;
-
     
     /* Weapon shop services */
     if (shk_class_match(WEAPON_CLASS, shk)) {
@@ -1209,10 +1208,10 @@ struct monst *shk;
     }
     
     /* Charging services */
-    if (   (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
+    if (     (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
           || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH)
           || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)
-        || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
+          || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_CHG_BAS;
         /* Only wand shops offer premium charging */
