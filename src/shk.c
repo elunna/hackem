@@ -2768,6 +2768,17 @@ register struct monst *shkp; /* if angry, impose a surcharge */
     else if (ACURR(A_CHA) <= 10)
         multiplier *= 4L, divisor *= 3L;
 
+	/* character classes who are discriminated against... */
+	/* barbarians are gullible... */
+	if (Role_if(PM_BARBARIAN)) 
+            tmp *= 3L;
+	/* rogues are untrustworthy... */
+	if (Role_if(PM_ROGUE)) 
+            tmp *= 2L;
+	/* samurais are from out of town... */
+	if (Role_if(PM_SAMURAI)) 
+            tmp *= 2L;
+
     /* possible additional surcharges based on shk race, if one was passed in */
     if (shkp) {
         long numer = 1L, denom = 1L;
