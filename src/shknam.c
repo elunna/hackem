@@ -1287,6 +1287,10 @@ struct monst *shk;
         if (!(ESHK(shk)->services & SHK_ID_SCROLL) && !rn2(2))
             ESHK(shk)->services |= SHK_ID_SCROLL;
     }
+    
+    /* Rumours: Each shk has a 10% of offering rumors */
+    if (!rn2(10))
+        ESHK(shk)->services |= SHK_RUMOR;
     return;
 }
 

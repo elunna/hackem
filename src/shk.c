@@ -95,6 +95,7 @@ static int FDECL(shk_appraisal, (const char *, struct monst *));
 static int FDECL(shk_weapon_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_armor_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_charge, (const char *, struct monst *, char svc_type));
+static int FDECL(shk_rumor, (const char *, struct monst *));
 static boolean FDECL(shk_obj_match, (struct obj *, struct monst *));
 static boolean FDECL(shk_offer_price, (const char *, long, struct monst *));
 static void FDECL(shk_smooth_charge, (int *, int, int));
@@ -1938,6 +1939,12 @@ shk_other_services()
         add_menu(tmpwin, NO_GLYPH, &any , 'C', 0, ATR_NONE,
                  "Premier Charging", MENU_ITEMFLAGS_NONE);
     }
+    
+    /* Rumors */
+    any.a_int = 23;
+    add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
+             "Rumors", MENU_ITEMFLAGS_NONE);
+    
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -2012,6 +2019,9 @@ shk_other_services()
             break;
         case 22:
             result = shk_charge(slang, shkp, 'p');
+            break;
+        case 23:
+            result = shk_rumor(slang, shkp);
             break;
         default:
             pline("Unknown Service");
@@ -4674,7 +4684,27 @@ char svc_type;
     return 1;
 }
 
-
+static int
+shk_rumor(slang, shkp)
+const char *slang;
+struct monst *shkp;
+{
+    boolean ripoff = FALSE;         /* Shkp ripping you off?        */
+    int charge = 250;                     /* Rumor Cost */
+                                    
+    pline("I heard some juicy stuff the other day...");
+    /* Go ahead? */
+    if (shk_offer_price(slang, charge, shkp) == FALSE) 
+        return 0;
+    
+    if (Hallucination) {
+        pline("You hear %s say: 'You Are Here.'", mon_nam(shkp));
+    } else if (Confusion) {
+        pline("%s tells you something... but you forget.", mon_nam(shkp));
+    } else
+        outrumor(0, BY_OTHER);
+    return 1;
+}
 /*
 ** Does object "obj" match the type of shop?
 */
