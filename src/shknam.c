@@ -1087,7 +1087,8 @@ init_shk_services(shk)
 struct monst *shk;
 {
     ESHK(shk)->services = 0L;
-
+    const struct permonst *shkdat = &mons[ERAC(shk)->rmnum];
+    
     /* KMH, balance patch 2 -- Increase probability of shopkeeper services.
      * Requested by Dave <mitch45678@aol.com>
      */
@@ -1232,7 +1233,59 @@ struct monst *shk;
         /* Light shops can sometimes offer potion ID: 25% */
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(4))
             ESHK(shk)->services |= SHK_ID_POTION;
+    }
+    
+    /* Racial based services:
+     * --hackem: We'll offer additional services occasionally that are
+     * related to the race of the shk.
+     */
+    if (is_dwarf(shkdat)) {
+        /* Dwarves have some familiarity with weapons/armor */
 
+        if (!(ESHK(shk)->services & SHK_ID_ARMOR) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_ARMOR;
+        if (!(ESHK(shk)->services & SHK_ID_WEAPON) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_WEAPON;
+        /* Dwarves are also quite familiar with gems! */
+        if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_GEM;
+    }
+    else if (is_orc(shkdat)) {
+        /* Orcs know how to use poison */
+        if (!(ESHK(shk)->services & SHK_WEP_POI) && !rn2(2))
+            ESHK(shk)->services |= SHK_WEP_POI;
+    }
+    else if (is_gnome(shkdat)) {
+        /* Gnomes are very familiar with tools */
+        if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_TOOL;
+    }
+    else if (is_giant(shkdat)) {
+        /* Giants are familiar with gems. */
+        if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_GEM;
+    }
+    else if (shkdat == &mons[PM_NYMPH]) {
+        if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_RING;
+        /* Nymphs always have potions so this makes sense. */
+
+        if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_POTION;
+    }
+    else if (shkdat == &mons[PM_HOBBIT]) {
+        /* Cheesy LOTR reference */
+        if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_RING;
+        /* Hobbits are food obsessed */
+        if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_FOOD;
+    }
+    else if (is_illithid(shkdat)) {
+        if (!(ESHK(shk)->services & SHK_ID_BOOK) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_BOOK;
+        if (!(ESHK(shk)->services & SHK_ID_SCROLL) && !rn2(2))
+            ESHK(shk)->services |= SHK_ID_SCROLL;
     }
     return;
 }
