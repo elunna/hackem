@@ -1168,7 +1168,7 @@ struct monst *shk;
     else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_WAND;
         /* Wand shops offer armor id 25% of the time */
-        if (!rn2(2))
+        if (!rn2(4))
             ESHK(shk)->services |= SHK_ID_ARMOR;
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
