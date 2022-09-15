@@ -1099,8 +1099,7 @@ struct monst *shk;
      */
     if (Is_blackmarket(&u.uz)) {
         ESHK(shk)->services = 
-            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE | SHK_APPRAISE |
-            SHK_SPECIAL_A | SHK_SPECIAL_B | SHK_SPECIAL_C;
+            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE | SHK_APPRAISE;
         return;
     }
 
@@ -1127,14 +1126,6 @@ struct monst *shk;
             }
             num_svc--;
         }
-#if 0                 
-        if (!rn2(2))
-            ESHK(shk)->services |= (SHK_ID_BASIC | SHK_ID_PREMIUM);
-        else if (!rn2(4))
-            ESHK(shk)->services |= SHK_ID_PREMIUM;
-        else
-            ESHK(shk)->services |= SHK_ID_BASIC;
-#endif
     }
 
     /* Each shop type offers it's own identify service */
@@ -1190,22 +1181,46 @@ struct monst *shk;
     if (!rn2(3)) 
         ESHK(shk)->services |= SHK_UNCURSE;
 
-    /* 1/3 of all weapon shops offer the appraisal service */
-    if (!rn2(3) && shk_class_match(WEAPON_CLASS, shk))
-        ESHK(shk)->services |= SHK_APPRAISE;
-
-    if (     (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) 
-          || (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) 
-          || (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
-          || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) 
-          /* || (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) */
-          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
+    
+    /* Weapon shop services */
+    if (shk_class_match(WEAPON_CLASS, shk)) {
+        /* Appraisal service */
+        if (!rn2(3))
+            ESHK(shk)->services |= SHK_APPRAISE;
+        /* Weapon rust/erode-proofing */
         if (!rn2(4)) 
-            ESHK(shk)->services |= SHK_SPECIAL_A;
+            ESHK(shk)->services |= SHK_WEP_FIX;
+        /* Weapon enchanting */
         if (!rn2(4)) 
-            ESHK(shk)->services |= SHK_SPECIAL_B;
+            ESHK(shk)->services |= SHK_WEP_ENC;
+        /* Weapon poisoning */
+        if (!rn2(4) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
+            ESHK(shk)->services |= SHK_WEP_POI;
     }
-    /* --hackem: Some gross sour syntax here... */
+    
+    /* Armor shop services */
+    if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
+        /* Armor rust/erode-proofing */
+        if (!rn2(4)) 
+            ESHK(shk)->services |= SHK_ARM_FIX;
+        /* Armor enchanting */
+        if (!rn2(4)) 
+            ESHK(shk)->services |= SHK_ARM_ENC;
+    }
+    
+    /* Charging services */
+    if (   (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
+          || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH)
+          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)
+        || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
+        if (!rn2(4)) 
+            ESHK(shk)->services |= SHK_CHG_BAS;
+        /* Only wand shops offer premium charging */
+        if (!rn2(4) && (shk_class_match(WAND_CLASS, shk) == SHK_MATCH)) 
+            ESHK(shk)->services |= SHK_CHG_PRE;
+    }
+    /* --hackem: Some misc shop details here - using really gross syntax... */
+    
     if (shtypes[ESHK(shk)->shoptype-SHOPBASE].name == "pet store") {
         /* Pet shops offer tool/food id 50% of the time */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
@@ -1220,12 +1235,6 @@ struct monst *shk;
             ESHK(shk)->services |= SHK_ID_POTION;
 
     }
-    
-    
-    /* 1/4 of weapon shops offer the poisoning service */
-    if (!rn2(4) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
-        ESHK(shk)->services |= SHK_SPECIAL_C;
-    
     return;
 }
 
