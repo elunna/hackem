@@ -151,9 +151,10 @@ struct trobj Monk[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Necromancer[] = {
-#define N_BOOK          8
+#define N_BOOK          9
 /* pretty much like Wizard, except with pick-axe instead of magic resist. */
 	{ GREAT_DAGGER, 0, WEAPON_CLASS, 1, 1 },
+        { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
 	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
 	{ UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
 	{ SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
