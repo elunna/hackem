@@ -856,6 +856,8 @@ long wp_mask;
         mask = &EStone_resistance;
     else if (dtyp == AD_DISE)
         mask = &ESick_resistance;
+    else if (dtyp == AD_PLYS)
+        mask = &Free_action;
 
     if (mask && wp_mask == W_ART && !on) {
         /* find out if some other artifact also confers this intrinsic;
@@ -934,6 +936,7 @@ long wp_mask;
         else
             EStealth &= ~wp_mask;
     }
+    
     if (spfx & SPFX_REGEN) {
         if (on)
             ERegeneration |= wp_mask;

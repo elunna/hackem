@@ -532,7 +532,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      */
     A("The Iron Ball of Liberation", HEAVY_IRON_BALL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
-      (SPFX_STLTH | SPFX_SEARCH | SPFX_WARN), 0,
+      (SPFX_STLTH | SPFX_SEARCH | SPFX_WARN | SPFX_FREE), 0,
       NO_ATTK, NO_DFNS, CARY(AD_MAGM), PHASING,
       A_CHAOTIC, PM_CONVICT, NON_PM, 10000L, NO_COLOR),
 #endif
