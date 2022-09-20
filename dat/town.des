@@ -412,9 +412,10 @@ RANDOM_CORRIDORS
 
 #
 # Kobold Mall
-# Oh no, kobolds have taken over the 
+# Oh no, kobolds have taken over the place!
 #
 LEVEL: "town-5"
+MESSAGE: "Where's the bazaar?  It smells like wet dog..."
 GEOMETRY: center,center
 #0        1         2         3         4         5         6
 #1234567890123456789012345678901234567890123456789012345678901234567890
@@ -486,70 +487,41 @@ GOLD: 1d200, random
 GOLD: 1d200, random
 GOLD: 1d200, random
 
-OBJECT:('(',"chest"),(45,12)
-OBJECT:'*',(45,12)
-OBJECT:'/',(45,12)
-OBJECT:'*',(45,12)
+OBJECT: ('(', "chest"), (45,12)
+OBJECT: '*', (45,12)
+OBJECT: '/', (45,12)
+OBJECT: '*', (45,12)
 
-OBJECT:('(',"chest"),(65,13)
-OBJECT:'*',(65,13)
-OBJECT:'*',(65,13)
-OBJECT:'*',(65,13)
-GOLD: 2d200,(65,13)
+OBJECT: ('(', "chest"), (65,13)
+OBJECT: '*', (65,13)
+OBJECT: '*', (65,13)
+OBJECT: '*', (65,13)
+GOLD: 2d200, (65,13)
 
-OBJECT:'*',(68,2)
-OBJECT:'*',(68,2)
-OBJECT:'*',(68,2)
-GOLD: 3d200,(68,2)
-OBJECT:('(',"chest"),(68,2)
+OBJECT: '*', (68,2)
+OBJECT: '*', (68,2)
+OBJECT: '*', (68,2)
+GOLD: 3d200, (68,2)
+OBJECT: ('(', "chest"), (68,2)
 
-OBJECT:('(',"chest"),(2,1)
-OBJECT:('(',"chest"),(3,1)
-OBJECT:('(',"chest"),(4,1)
-OBJECT:('(',"chest"),(18,13)
-OBJECT: ')',(18,14)
-OBJECT: ')',(18,14)
-OBJECT: '/',(18,14)
-OBJECT: '[',(18,14)
-OBJECT: '[',(18,14)
-OBJECT: '!',(18,14)
-OBJECT: '!',(18,14)
+OBJECT: ('(', "chest"), (2,1)
+OBJECT: ('(', "chest"), (3,1)
+OBJECT: ('(', "chest"), (4,1)
+OBJECT: ('(', "chest"), (18,13)
+OBJECT: ')', (18,14)
+OBJECT: ')', (18,14)
+OBJECT: '/', (18,14)
+OBJECT: '[', (18,14)
+OBJECT: '[', (18,14)
+OBJECT: '!', (18,14)
+OBJECT: '!', (18,14)
 
 # Throne position: (18,14)
 
 MONSTER: ('B',"rhumbat"), (43,11), hostile, asleep
 MONSTER: ('B',"rhumbat"), (65,13), hostile, asleep
 MONSTER: ('s',"giant spider"), (67,1), hostile, asleep
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
-MONSTER: ('k', "kobold"), random, hostile
+LOOP [30] { MONSTER: ('k', "kobold"), random, hostile }
 MONSTER: ('k', "large kobold"), (15,12), hostile
 MONSTER: ('k', "large kobold"), (19,12), hostile
 MONSTER: ('k', "rock kobold"), (20,12), hostile
@@ -561,11 +533,7 @@ MONSTER: ('k', "Kroo the Kobold King"), (18,14), hostile
 MONSTER: ('k', "rock kobold"), (20,14), hostile
 MONSTER: ('k', "kobold shaman"), (15,15), hostile
 MONSTER: ('k', "kobold shaman"), (16,15), hostile
-MONSTER: 'k', random, hostile
-MONSTER: 'k', random, hostile
-MONSTER: 'k', random, hostile
-MONSTER: 'k', random, hostile
-MONSTER: 'k', random, hostile
+LOOP [5] { MONSTER: 'k', random, hostile }
 MONSTER: 'k', (17,12), hostile
 MONSTER: 'k', (21,12), hostile
 MONSTER: 'k', (18,13), hostile
@@ -591,17 +559,17 @@ MAP
 2|S---|...|.+...|......|.+......|......|....|.|---+------|.....|  |...|
 3|....|...+.|...|......+.|......|......|....+.|..|.......|.....|  |---|
 4|....|...|.|...|......|.|......|......|....|.|..--|.....|.....S#### 
-5|--+------+------------+----------+---------.+....|.....------|   #  
+5|--+------.------------.----------+---------.+....|.....------|   #  
 6|.......................|.....|..............|....|.....|.....|   ### 
-7|+--------------------|.|.....+.|---+-----S------------+|.....|     # 
-8|.......+.+.....|.....|.|.....|.|......|  #           |.|.....|     # 
+7|.--------------------|.|.....+.|---+-----S------------.|.....|     # 
+8|.........+.....|.....|.|.....|.|......|  #           |.|.....|     # 
 9|.---+---.|----.+.....|.|.....|.|......|  ##          |.+.....|     # 
 0|.|.....|.|...|.|.....|.-------.|------|   #          |.|.....|  #### 
-1|.|.....|.+...|+|-----|.|...|...|....|     ###        |+------|  #   
+1|.|.....|.+...|.|-----|.|...|...|....|     ###        |+------|  #   
 2|.|-----|.|...|.......|.|...|.|-|....|     ###        |.......| |+--|
 3|.|.....|.|...|.......|.|...|.+K|....|                |.......| |...|
 4|.|.....|.----|.......|.--+--.-----+------------------|.......| |...|
-5|.+.....|.....+.......+..............S................|.......| |---|
+5|.+.....|.............+..............S................|.......| |---|
 6|--------------------------------------------------------------
 ENDMAP
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
@@ -629,7 +597,6 @@ STAIR: (67,2), down
 # (11,10,13,13)   sm     book
 # (15,11,17,13)   sm     ring
 # (13,11,16,13)   sm     candle
-
 
 
 # 2 possible positions for wand, scroll, and book shops.
@@ -660,23 +627,16 @@ REGION: (03,10,07,11), lit, "shop"
 [35%]: REGION: (33,08,38,09), lit, "potion shop"
 [45%]: REGION: (25,11,27,13), lit, "music shop"
 
-
-DOOR: random, (1,7)
 DOOR: open, (2,15)
 DOOR: closed, (3,5)
 DOOR: closed, (5,9)
-DOOR: random, (8,8)
 DOOR: closed, (9,3)
-DOOR: closed, (10,5)
 DOOR: random, (10,11)
 DOOR: closed, (10,8)
 DOOR: closed, (11,2)
-DOOR: random, (14,15)
-DOOR: closed, (15,11)
 DOOR: closed, (16,9)
 DOOR: closed, (22,15)
 DOOR: closed, (22,3)
-DOOR: closed, (23,5)
 DOOR: random, (24,2)
 DOOR: closed, (26,14)
 DOOR: closed, (30,7)
@@ -687,11 +647,10 @@ DOOR: closed, (36,7)
 DOOR: closed, (43,3)
 DOOR: closed, (45,5)
 DOOR: random, (49,2)
-DOOR: closed, (55,7)
 DOOR: closed, (55,11)
 DOOR: closed, (56,1)
 DOOR: random, (56,9)
-DOOR: random, (59,5)
+
 
 # The Town Watch.
 MONSTER: ('@', "watchman"), random, peaceful
