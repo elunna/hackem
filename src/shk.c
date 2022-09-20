@@ -4059,7 +4059,7 @@ long ident_type;
 {
     register struct obj *obj;       /* The object to identify       */
     int charge;                     /* Cost to identify             */
-    boolean guesswork;              /* Will shkp be guessing?       */
+    boolean guesswork = TRUE;      /* Will shkp be guessing?       */
     boolean ripoff = FALSE;         /* Shkp ripping you off?        */
 
     /* Pick object */
@@ -4333,10 +4333,6 @@ long svc_type;
 {
     struct obj *obj;
     int charge;
-    winid tmpwin;
-    anything any;
-    menu_item *selected;
-    int service;
     int n;
 
     /* Pick weapon */
@@ -4459,10 +4455,7 @@ long svc_type;
     struct obj *obj;
     int charge;
     /*WAC - Windowstuff*/
-    winid tmpwin;
     anything any;
-    menu_item *selected;
-    int n;
 
     /* Pick armor */
     if ( !(obj = getobj(armor_types, "improve")))
