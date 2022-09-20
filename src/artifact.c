@@ -220,7 +220,7 @@ xchar m;
     case ART_BAG_OF_THE_HESPERIDES:
         return DRAGON_HIDE;
         break;
-    case ART_IRON_BALL_OF_LIBERATION:
+    case ART_SPOON_OF_LIBERATION:
     case ART_ANGELSLAYER:
     case ART_ELFRIST:
         return IRON;
@@ -1083,6 +1083,9 @@ struct monst *mon;
     } else { /* an M3_WANTSxxx monster or a fake player */
         /* special monsters trying to take the Amulet, invocation tools or
            quest item can touch anything except `spec_applies' artifacts */
+        if (mon->data == &mons[PM_WARDEN_ARIANNA] 
+            && obj->oartifact == ART_SPOON_OF_LIBERATION)
+            badclass = badalign = TRUE;
         badclass = badalign = FALSE;
     }
     /* weapons which attack specific categories of monsters are
@@ -1127,6 +1130,7 @@ struct monst *mon;
         }
         return 0;
     }
+#if 0
     if (oart == &artilist[ART_IRON_BALL_OF_LIBERATION]) {
         if (Role_if(PM_CONVICT) && (!obj->oerodeproof)) {
             obj->oerodeproof = TRUE;
@@ -1135,6 +1139,10 @@ struct monst *mon;
         if (Punished && (obj != uball)) {
             unpunish(); /* Remove a mundane heavy iron ball */
         }
+    }
+#endif
+    if (Punished && (obj != uball)) {
+        unpunish(); /* Remove a mundane heavy iron ball */
     }
     if (oart == &artilist[ART_CROSSBOW_OF_CARL]) {
         if (yours ? Role_if(PM_RANGER) && Race_if(PM_GNOME)
@@ -3031,6 +3039,7 @@ struct obj *obj;
         case PHASING:   /* Walk through walls and stone like a xorn */
             if (Passes_walls)
                 goto nothing_special;
+#if 0 /* This artifact is replaced by the Iron Spoon of Liberation */
             if (oart == &artilist[ART_IRON_BALL_OF_LIBERATION]) {
                 if (Punished && (obj != uball)) {
                     unpunish(); /* Remove a mundane heavy iron ball */
@@ -3049,6 +3058,7 @@ struct obj *obj;
                     Your("%s chains itself to you!", xname(obj));
                 }
             }
+#endif
             if (!Hallucination) {
                 Your("body begins to feel less solid.");
             } else {

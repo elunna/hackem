@@ -526,6 +526,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, DFNS(AD_MAGM), CARY(AD_DISE), 0, A_CHAOTIC, PM_BARBARIAN,
       NON_PM, 5000L, NO_COLOR),
 
+#if 0 /* --hackem: Disabled because this quest artifact SUCKS! */
     /* Convict role quest artifact. Provides magic resistance when carried,
      * invoke to phase through walls like a xorn.
      */
@@ -534,9 +535,30 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_STLTH | SPFX_SEARCH | SPFX_WARN), 0,
       NO_ATTK, NO_DFNS, CARY(AD_MAGM), PHASING,
       A_CHAOTIC, PM_CONVICT, NON_PM, 10000L, NO_COLOR),
-
+#endif
+    
+    /* Convict role quest artifact (from dnh)
+     * has a +1d5 to-hit bonus and does double damage to all monsters. 
+     * When carried, it confers automatic searching, free action, and luck, 
+     * when wielded, it confers stealth. 
+     * Invoking allows you to phase through walls for a limited time, 
+     * Applying The Iron Spoon of Liberation allows you to dig; 
+     * It can also be used to engrave with the same quality and speed as an athame.
+     * Also - As a spoon, Convicts wielding it can make sneak attacks similar to a Rogue.
+     */
+    /* --hackem: I added stealth to the carry effects, since we don't have
+     * some of these extra fields in dnh. */
+    A("The Spoon of Liberation", SPOON,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_LUCK | SPFX_INTEL), 
+      (SPFX_STLTH | SPFX_SEARCH | SPFX_SEEK), 0,
+      PHYS(5,0), NO_DFNS, CARY(AD_PLYS), PHASING, 
+      A_CHAOTIC, PM_CONVICT, NON_PM, 5000L, NO_COLOR),
+    /*Note: it had caried stealth before*/
+      /*SPFX2_STLTH | SPFX2_DIG, SPFX3_ENGRV, 0), */
+    
     /* Infidel role quest artifact. Confers energy regeneration,
      * but only to those in good standing with Moloch. */
+    
     A("The Idol of Moloch", FIGURINE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), SPFX_HSPDAM, 0,
       NO_ATTK, NO_DFNS, CARY(AD_MAGM), CHANNEL, A_CHAOTIC, PM_INFIDEL, NON_PM,

@@ -1427,7 +1427,12 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, CLUB);
                 (void) mongets(mtmp, ARMOR);
                 break;
+            case PM_INMATE:
+                (void) mongets(mtmp, rn2(2) ? HEAVY_IRON_BALL : SPOON);
+                (void) mongets(mtmp, STRIPED_SHIRT);
+                break;
             }
+            
         } else if (mm == PM_CROESUS) {
             struct obj* received;
             int item;

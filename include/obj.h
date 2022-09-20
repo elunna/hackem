@@ -261,7 +261,7 @@ struct obj {
      || otmp->oartifact == ART_ELFRIST \
      || otmp->oartifact == ART_GRIMTOOTH \
      || otmp->oartifact == ART_IDOL_OF_MOLOCH \
-     || otmp->oartifact == ART_IRON_BALL_OF_LIBERATION \
+     || otmp->oartifact == ART_SPOON_OF_LIBERATION \
      || otmp->oartifact == ART_LIFESTEALER \
      || otmp->oartifact == ART_LONGBOW_OF_DIANA\
      || otmp->oartifact == ART_LUCK_BLADE \

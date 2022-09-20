@@ -4142,6 +4142,7 @@ struct obj *no_wish;
         && strncmpi(bp, "armor", 5)
         && strncmpi(bp, "tooled horn", 11)
         && strncmpi(bp, "ring of p'", 10)
+        /*&& strncmpi(bp, "iron spoon of liberation", 24)*/
         && strncmpi(bp, "wand of orcus", 13)
         && strncmpi(bp, "food ration", 11)
         && strncmpi(bp, "meat ring", 9))
@@ -4950,7 +4951,7 @@ struct obj *no_wish;
                 pm = PM_CAVEMAN;
                 break;
             case ART_LUCK_BLADE:
-            case ART_IRON_BALL_OF_LIBERATION:
+            case ART_SPOON_OF_LIBERATION:
                 pm = PM_CONVICT;
                 break;
             case ART_MIRRORBRIGHT:
