@@ -671,7 +671,7 @@ const struct Role roles[] = {
         { "Magician", 0 },
         { "Enchanter", "Enchantress" },
         { "Sorcerer", "Sorceress" },
-        { "Necromancer", 0 },
+        { "Warlock", "Witch"},
         { "Wizard", 0 },
         { "Mage", 0 } },
       "Ptah", "Thoth", "Anhur", /* Egyptian */
