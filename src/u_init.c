@@ -95,12 +95,11 @@ struct trobj Healer[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Ice_Mage[] = {
-#define I_BOOK          9
+#define I_BOOK          8
     /* for dealing with ghosts */
     { STILETTO, 3, WEAPON_CLASS, 1, 1 },
-    { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
-    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
     { WAN_COLD, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },

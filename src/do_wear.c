@@ -2862,6 +2862,26 @@ find_ac()
             tortle_ac -= 10;
     }
 
+    /* --hackem: The Ice Mage is inheriting the generous AC bonus that the 
+     * SlashEM monk enjoyed. The Ice Mage probably has a better argument since
+     * they are "growing" an ice armor as they grow more powerful - kind of 
+     * like the tortle. The Ice Mage has a bit of a deficit compared to the 
+     * Flame Mage, so hopefully this helps offset the imbalance. 
+     * We'll impose similar restrictions - 
+     * no armor (except robes) and no shields allowed */
+    if (Role_if(PM_ICE_MAGE) && (!uarm ||
+              uarm->otyp == ROBE ||
+              uarm->otyp == ROBE_OF_POWER ||
+              uarm->otyp == ROBE_OF_WEAKNESS ||
+              uarm->otyp == ROBE_OF_PROTECTION)
+        && !uarms) {
+        /*WAC cap off the ac bonus to -11 */
+        if (u.ulevel > 18) 
+            uac -= 11;
+        else 
+            uac -= (u.ulevel / 2) + 2;
+    }
+    
     /* Dexterity affects your base AC */
     dex_adjust_ac = 0;
     if (ACURR(A_DEX) <= 6)
