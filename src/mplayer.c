@@ -533,7 +533,8 @@ struct obj *obj;
         case PM_UNDEAD_SLAYER:
             if (rn2(2)) {
                 weapon = SPEAR;
-                set_material(weapon, SILVER);
+                /* TODO: Figure out how to make this silver */
+                /*set_material(weapon, SILVER);*/
             }
             if (rn2(2)) 
                 armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
