@@ -1313,7 +1313,6 @@ register struct attack *mattk;
     struct permonst *olduasmon = youmonst.data;
     int res;
     boolean burnmsg = FALSE;
-    boolean no_effect;
     long armask = attack_contact_slots(mtmp, mattk->aatyp);
     struct obj* hated_obj;
 
@@ -3120,7 +3119,7 @@ struct attack *mattk;
         "lackluster",            /* [9] */
     };
     int react = -1;
-    int dmg, permdmg = 0;
+    int permdmg = 0;
     boolean cancelled = (mtmp->mcan != 0), already = FALSE;
 
     /* assumes that hero has to see monster's gaze in order to be

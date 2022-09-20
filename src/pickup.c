@@ -1808,8 +1808,6 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
     }
 
     if (cobj->otyp == BAG_OF_TRICKS) {
-        int tmp;
-
         You("carefully open %s...", the(xname(cobj)));
         pline("It develops a huge set of %s you!",
               Hallucination ? "lips and kisses" : "teeth and bites");

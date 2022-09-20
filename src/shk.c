@@ -4333,7 +4333,6 @@ long svc_type;
 {
     struct obj *obj;
     int charge;
-    int n;
 
     /* Pick weapon */
     if (svc_type == SHK_WEP_FIX || svc_type == SHK_WEP_ENC)
@@ -4454,8 +4453,6 @@ long svc_type;
 {
     struct obj *obj;
     int charge;
-    /*WAC - Windowstuff*/
-    anything any;
 
     /* Pick armor */
     if ( !(obj = getobj(armor_types, "improve")))

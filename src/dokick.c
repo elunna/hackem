@@ -164,7 +164,6 @@ xchar x, y;
 {
     boolean clumsy = FALSE;
     int i, j;
-    struct obj* hated_obj;
 
     /* anger target even if wild miss will occur */
     setmangry(mon, TRUE);

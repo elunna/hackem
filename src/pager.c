@@ -1052,7 +1052,6 @@ short otyp;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional"
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
-    const char* dmgtyp;
 
 #define OBJPUTSTR(str) putstr(datawin, ATR_NONE, str)
 #define ADDCLASSPROP(cond, str)          \
@@ -1473,10 +1472,7 @@ char *supplemental_name;
     winid datawin = WIN_ERR;
     short otyp, mat;
     boolean lookat_mon = (pm != (struct permonst *) 0);
-    long entry_offset, fseekoffset;
-    int entry_count;
-    int i;
-
+    
     fp = dlb_fopen(DATAFILE, "r");
     if (!fp) {
         pline("Cannot open 'data' file!");

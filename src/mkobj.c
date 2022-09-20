@@ -3622,7 +3622,6 @@ valid_obj_material(obj, mat)
 struct obj* obj;
 int mat;
 {
-    const struct icp* materials;
     if (obj->oartifact) {
         /* shenanigans possible here, ignore them */
         return TRUE;

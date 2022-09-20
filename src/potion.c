@@ -3277,7 +3277,7 @@ register struct obj *obj;
  * returns -1 if object exploded (potion should be used up) 
  */
 {
-	short chg, otyp = obj->otyp, otyp2;
+	short otyp = obj->otyp, otyp2;
 	xchar ox, oy;
 	long owornmask;
 	struct obj *otmp;

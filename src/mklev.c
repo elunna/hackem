@@ -285,7 +285,6 @@ long curr_total_freq = -1;
 char *
 rndvault_getname()
 {
-    long frq;
     if (!rndvault_gen) rndvault_gen_load();
     if (rndvault_gen) {
         struct _rndvault *tmp = rndvault_gen->vaults;
