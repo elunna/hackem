@@ -3828,8 +3828,6 @@ boolean by_you;
 {
     struct obj *obj;
     boolean tinok;
-    register struct obj *otemp, *onext;
-    register struct obj *pseudo;
     if (resists_ston(mon) || defended(mon, AD_STON))
         return FALSE;
     if (mon->meating || !mon->mcanmove || mon->msleeping)

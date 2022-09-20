@@ -1912,7 +1912,6 @@ int spellnum;
 {
     boolean resisted = FALSE;
     boolean yours = (mattk == &youmonst);
-    const char *mappear;
 
     if (dmg == 0 && !is_undirected_spell(AD_SPEL, spellnum)) {
         impossible("cast directed wizard spell (%d) with dmg = 0?", spellnum);

@@ -301,7 +301,6 @@ struct monst* mdef;
     mdef->data = &mons[PM_MIND_FLAYER];
     willspot = canspotmon(mdef);
     mdef->data = mdat;
-    char name[PL_PSIZ];
 
     if (couldspot && willspot) {
         /* only print if you can spot both the dying monster and the arising
@@ -872,7 +871,6 @@ minliquid(mtmp)
 register struct monst *mtmp;
 {
     boolean inpool, inlava, infountain, inshallow, inforge, inopenair;
-    const char *how;
     /* [ceiling clingers are handled below] */
     inpool = (is_pool(mtmp->mx, mtmp->my)
               && (!(is_flyer(mtmp->data) || is_floater(mtmp->data))

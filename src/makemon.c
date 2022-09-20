@@ -2072,7 +2072,6 @@ register struct monst *mtmp;
     register int cnt;
     register struct obj *otmp;
     register struct permonst *ptr = mtmp->data;
-    struct obj* received;
     int i;
 
     if (Is_rogue_level(&u.uz))

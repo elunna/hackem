@@ -1596,8 +1596,6 @@ dosacrifice()
     static NEARDATA const char cloud_of_smoke[] =
         "A cloud of %s smoke surrounds you...";
     register struct obj *otmp;
-    struct monst *mtmp;
-    int i;
     int value = 0, pm;
     boolean highaltar;
     aligntyp altaralign = a_align(u.ux, u.uy);

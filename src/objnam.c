@@ -3512,7 +3512,6 @@ struct obj *no_wish;
     register char *p;
     register int i;
     register struct obj *otmp;
-    struct permonst* ldr;
     int cnt, spe, spesgn, typ, very, rechrg;
     int blessed, uncursed, iscursed, ispoisoned, isgreased;
     int magical;

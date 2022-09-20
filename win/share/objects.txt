@@ -3676,26 +3676,7 @@ Z = (195, 195, 195)
   ................
   ................
 }
-# tile 192 (snow boots / levitation boots)
-{
-  ................
-  ................
-  .......NNLLLL...
-  ......NOAAAALL..
-  ......OOOOOOOLA.
-  .......LOOOOOLA.
-  .......LLOOOOLA.
-  ........LOOOOA..
-  ........OLOOLA..
-  ...NOAOAOLLOLA..
-  ..NOOAOAOLOOOLA.
-  .OOOOOOOOOOOOOA.
-  .OOOOOOOOOOOOOA.
-  ..LALALALALALAA.
-  ...A.A.A.A.A.A..
-  ................
-}
-# tile 193 (riding boots / fumble boots)
+# tile 192 (riding boots / fumble boots)
 {
   ................
   ................
@@ -3712,6 +3693,25 @@ Z = (195, 195, 195)
   ...AAAAAAAAAAP..
   ...PPPPPPPPPPP..
   ................
+  ................
+}
+# tile 193 (snow boots / levitation boots)
+{
+  ................
+  ................
+  .......NNLLLL...
+  ......NOAAAALL..
+  ......OOOOOOOLA.
+  .......LOOOOOLA.
+  .......LLOOOOLA.
+  ........LOOOOA..
+  ........OLOOLA..
+  ...NOAOAOLLOLA..
+  ..NOOAOAOLOOOLA.
+  .OOOOOOOOOOOOOA.
+  .OOOOOOOOOOOOOA.
+  ..LALALALALALAA.
+  ...A.A.A.A.A.A..
   ................
 }
 # tile 194 (wooden / adornment)

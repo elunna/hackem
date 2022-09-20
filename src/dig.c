@@ -2262,10 +2262,8 @@ struct monst *mdef, *magr;
     const int typ = levl[x][y].typ;
     struct trap *trap = t_at(x, y);
     const boolean canseexy = cansee(x, y);
-    const char *to_the_bottom;
     struct obj *boulder = sobj_at(BOULDER, x, y);
     boolean sent_down_hole = FALSE;
-    boolean make_hole;
     /* check for illegalities: out of bounds, terrain unsuitable for traps,
      * or trap types that should not be deleted and replaced with pits */
     if (!isok(x, y) || !SPACE_POS(typ) || IS_FURNITURE(typ) || IS_AIR(typ)
