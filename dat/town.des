@@ -683,10 +683,11 @@ OBJECT:('(',"chest"),(3,1)
 OBJECT:('(',"chest"),(4,1)
 OBJECT:('(',"chest"),(18,13)
 
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-
+TRAP: "spear", (13,10)
+TRAP: "spear", (2,1)
+TRAP: "dart", (3,1)
+TRAP: "spiked pit", (4,1)
+TRAP: "arrow", (65,13)
 
 #
 # Angband Raided!
