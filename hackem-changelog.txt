@@ -1156,3 +1156,78 @@ Mechanics:
 	- [SKIPPED] Pets treat shop entrance and/or unpaid items as cursed.
 	- [ ] How to make sonic attacks work with #monster??
 
+
+Shops/Shopkeeper Services
+	* All shops offer a form of identify but not necessarily any other services. 
+	* The black market always has full id services, appraisal, and uncursing services.
+	* Lighting stores and general tool shops can both charge all types of tools.
+	* Only wand shops can offer premier charging
+	
+	Basic: Just identifies the type of an object; Doesn't reveal BUC/charges/contents	
+	Premium: Completely identify an object ( like a scroll of identify)
+	Appraisal (saying how much damage a weapon does),
+		* told the basic dmg your weapon does vs small and large foes. 
+		* General shk have a 1/10 chance of not being able to tell you anything,
+		  a 1/10 chance of not being sure about small foes, 
+		  and a 1/10 chance of not being sure about large foes.
+
+Problem: The normal slashem user case for identifying takes 6 key presses!
+Problem: Gem abuse - Players have an easy path from the mines to any general store. 
+	- [x] Shopkeeper services (copied splice?)
+	- [x] Clean up imported code.
+	- [x] When you press 'p' (and owe 0$), pop up the service menu immediately.
+	- [x] Put identify base charges into a separate function
+	- [x] put all the identify services on the main menu: Basic and/or Premier
+	- [X] Removed shk stealing all your money when you charge WoW
+	- [x] "Decreased odds of shk identifying things out of their knowledge to 1 in 4 for basic id and 1 in 6 for premium."
+	- [x] Remove ability to charge spellbooks (only in slashem)
+	- [x] Expand identify services into each item classes own respective service (ALL ARE PREMIUM)
+	- [FIXED] Tool shops aren't getting identify 
+	- [x] Put all charging services on main menu: Basic/Premier charging
+	- [x] Only general stores (maybe only black market) can have the "identify any" service
+	- [x] All other shops only offer selective ID, based on shop type or race.
+	- [FIXED] Music shop - no services, but p brings up a menu.
+	- [FIXED] The identify services are a bit interchangeable - ex: at a ring 
+	- [FIXED] Items are limited to what the shop stocks as well. Could be confusing for newbs.
+	- [x] Move appraise so it's right after identify services.
+	- [x] Make sure all shop specific services are premier
+	- [x] Scroll stores offer book ID 50% of the time
+	- [x] Spellbook stores offer scroll ID 50% of the time
+	- [x] Wand shops offer armor id 25% of the time
+	- [x] Weapon shops offer armor id 50% of the time
+	- [x] Armor shops offer weapon id 50% of the time
+	- [x] Deli/food shops offer potion id 50% of the time.
+	- [x] Pet shops offer tool/food id 50% of the time
+	- [x] Light shops can sometimes offer potion ID: 25%
+	- [FIXED] Deli/tinshop - has no services, pressing p doesn't do anything - wastes a turn.
+	- [x] General stores will have 0-4 identify services
+	- [x] General stores should not always allow full identify services for everything. 
+		Each gets 1-3 different classes of items they can accurately ID.	
+	- [x] premier/complete charging - Only wand shops offer this.
+	- [x] Put all weapon/armor works on main menu
+	- [x] Put all armor works on main menu
+	- [FIXED] Shk services menu takes a turn even if you cancel the action.
+	- [x] Service interface needs a revamp, really annoying to navigate.
+	- [x] Implement a nice menu when you press 'p' 
+	- [x] Add feedback for proofing/enchanting/poisoning weapons
+	- [x] Add feedback for proofing/enchanting armor
+	- [x] Add additional race specific services:
+		[x] Dwarf: learn pickaxe, gem id, can id weapons/armor
+		[x] Orc: poison 
+		[x] Gnome: id tools
+		[x] Giant: gem id
+		[x] Nymphs are good at identifying rings/potions
+		[x] Hobbit: Ring id, Food appraisal
+		[x] Illithid: spellbook and scroll id.
+	[x] Shopkeeper Rumors - Each shk has a 10% of offering them (Costs $250 right now)
+	- [SKIPPED] Get rid of artifact price increase (not really a big deal anyway)
+	- [SKIPPED] Show all prices on the main menu		
+	- [x] General stores and light shops should be able to charge
+	- [SKIPPED] When you press (i)dentify, immediately display the inventory.
+			Look at inventory command for this?
+			Use the appropriate object class for getobj lookups too.
+	- [SKIPPED] Show player credit on the menu
+
+
+
+- [x] Fix armor light sources display error
