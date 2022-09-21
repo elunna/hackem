@@ -2758,10 +2758,11 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             
             if (mdef->mhp < xtmp) 
                 xtmp = mdef->mhp;
-            if (maybe_polyd(is_vampiric(youmonst.data), 
-                  Race_if(PM_VAMPIRE)) 
-                  && mattk->aatyp == AT_BITE 
-                  && has_blood(pd)) {
+            /* Player vampires are smart enough not to feed while
+                           biting if they might have trouble getting it down */
+            if (maybe_polyd(is_vampiric(youmonst.data),
+                Race_if(PM_VAMPIRE)) && u.uhunger <= 1420 &&
+                mattk->aatyp == AT_BITE && has_blood(pd)) {
                 /* For the life of a creature is in the blood (Lev 17:11) */
                 if (flags.verbose)
                     You("feed on the lifeblood.");
