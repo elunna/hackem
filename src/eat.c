@@ -3485,7 +3485,7 @@ gethungry()
        will need to wear an Amulet of Unchanging so still burn a small
        amount of nutrition in the 'moves % 20' ring/amulet check below */
     if ((!Unaware || !rn2(10)) /* slow metabolic rate while asleep */
-        && !inediate(raceptr(&youmonst))
+        && (!inediate(raceptr(&youmonst)) || is_vampire(raceptr(&youmonst)))
         /* Convicts can last twice as long at hungry and below */
         && (!Role_if(PM_CONVICT) || (moves % 2) || (u.uhs < HUNGRY))
         && !Slow_digestion)

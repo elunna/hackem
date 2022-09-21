@@ -3333,8 +3333,10 @@ int final;
     if (!orc_can_regen()) you_are("in direct contact with mithril", "");
     if (Slow_digestion)
         you_have("slower digestion", from_what(SLOW_DIGESTION));
-    if (inediate(raceptr(&youmonst)))
+    if (inediate(raceptr(&youmonst)) && !is_vampiric(raceptr(&youmonst)))
         you_can("survive without having to eat", "");
+    else if (is_vampire(raceptr(&youmonst)))
+        you_can("feed on blood and lifeblood", "");
     if (immune_death_magic(raceptr(&youmonst)))
         you_are("immune to the effects of death magic", "");
     if (u.uhitinc)
