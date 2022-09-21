@@ -936,6 +936,16 @@ register struct obj *obj;
                            : (starving && !vegan(fptr))
                               ? ACCFOOD
                               : POISON;
+            /* vampires only "eat" very fresh corpses ...
+	     * Assume meat -> blood
+             */
+            if (is_vampire(mon->data)) {
+                return (obj->otyp == CORPSE &&
+                        has_blood(&mons[obj->corpsenm]) && !obj->oeaten &&
+                        peek_at_iced_corpse_age(obj) + 5 >= monstermoves) ?
+                           DOGFOOD : TABU;
+            }
+            
             if (obj->otyp == EGG)
                 return stale_egg(obj) ? CADAVER : starving ? ACCFOOD : POISON;
             return TABU;

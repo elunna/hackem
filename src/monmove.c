@@ -169,7 +169,7 @@ struct monst *mtmp;
 
     /* should this still be true for defiled/molochian altars? */
     if (IS_ALTAR(levl[x][y].typ)
-        && (mtmp->data->mlet == S_VAMPIRE || is_vampshifter(mtmp)))
+        && (is_vampire(mtmp->data) || is_vampshifter(mtmp)))
         return TRUE;
 
     /* Conflicted monsters ignore scary things on the floor. */

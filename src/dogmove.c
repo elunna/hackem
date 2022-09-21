@@ -486,6 +486,7 @@ boolean devour;
     register struct edog *edog = EDOG(mtmp);
     boolean poly, grow, heal, eyes, slimer, deadmimic, unstone, unsick, vis;
     int nutrit, corpsenm;
+    boolean vampiric = is_vampire(mtmp->data);
     long oprice;
     char objnambuf[BUFSZ];
 
@@ -513,6 +514,11 @@ boolean devour;
             mtmp->meating /= 2;
         if (nutrit > 1)
             nutrit = (nutrit * 3) / 4;
+    }
+    /* vampires only get 1/5 normal nutrition */
+    if (vampiric) {
+        mtmp->meating = (mtmp->meating + 4) / 5;
+        nutrit = (nutrit + 4) / 5;
     }
     edog->hungrytime += nutrit;
     mtmp->mconf = 0;
@@ -556,9 +562,13 @@ boolean devour;
                 pline("%s digs in.", noit_Monnam(mtmp));
             else
                 pline("%s %s %s.", noit_Monnam(mtmp),
-                      devour ? "devours" : "eats", distant_name(obj, doname));
+                      /*devour ? "devours" : "eats", */
+                      vampiric ? "drains" : devour ? "devours" : "eats",
+                      distant_name(obj, doname));
         } else if (seeobj)
-            pline("It %s %s.", devour ? "devours" : "eats",
+            pline("It %s %s.", 
+                  /*devour ? "devours" : "eats",*/
+                  vampiric ? "drains" : devour ? "devours" : "eats",
                   distant_name(obj, doname));
     }
     if (obj->unpaid) {
@@ -584,6 +594,29 @@ boolean devour;
             pline("%s spits %s out in disgust!", Monnam(mtmp),
                   distant_name(obj, doname));
         }
+    } else if (vampiric) {
+        /* Split Object */
+        if (obj->quan > 1L) {
+            if(!carried(obj)) {
+                (void) splitobj(obj, 1L);
+            } else {
+                /* Carried */
+                obj = splitobj(obj, obj->quan - 1L);
+			
+                freeinv(obj);
+                if (inv_cnt(FALSE) >= 52 && !merge_choice(invent, obj))
+                    dropy(obj);
+                else
+                    obj = addinv(obj); /* unlikely but a merge is possible */
+            }
+            if (wizard)
+                pline("split object,");
+        }
+		
+        /* Take away blood nutrition */
+        obj->oeaten = drainlevel(obj);
+        obj->odrained = 1;
+        
     } else if (obj == uball) {
         unpunish();
         delobj(obj); /* we assume this can't be unpaid */

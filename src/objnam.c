@@ -1494,9 +1494,20 @@ unsigned doname_flags;
         }
         break;
     case FOOD_CLASS:
-        if (obj->oeaten)
-            Strcat(prefix, "partly eaten ");
+        if (obj->otyp == CORPSE && obj->odrained) {
+            if (wizard && obj->oeaten < drainlevel(obj))
+                Strcpy(tmpbuf, "over-drained ");
+            else
+                Sprintf(tmpbuf, "%sdrained ",
+                        (obj->oeaten > drainlevel(obj)) ? "partly " : "");
+        } else if (obj->oeaten)
+            Strcpy(tmpbuf, "partly eaten ");
+        else
+            tmpbuf[0] = '\0';
+        /* TODO: resolve the commented out line below from vampire import */
+        /*Strcat(prefix, tmpbuf);*/
         add_erosion_words(obj, prefix);
+
         if (obj->otyp == CORPSE) {
             /* (quan == 1) => want corpse_xname() to supply article,
                (quan != 1) => already have count or "some" as prefix;
@@ -1504,7 +1515,7 @@ unsigned doname_flags;
             unsigned cxarg = (((obj->quan != 1L) ? 0 : CXN_ARTICLE)
                               | CXN_NOCORPSE);
             char *cxstr = corpse_xname(obj, prefix, cxarg);
-
+            /* Strcat(prefix, tmpbuf); */
             Sprintf(prefix, "%s ", cxstr);
             /* avoid having doname(corpse) consume an extra obuf */
             releaseobuf(cxstr);
@@ -3513,10 +3524,10 @@ struct obj *no_wish;
     register int i;
     register struct obj *otmp;
     int cnt, spe, spesgn, typ, very, rechrg;
-    int blessed, uncursed, iscursed, ispoisoned, isgreased;
+    int blessed, uncursed, iscursed, ispoisoned, isgreased, isdrained;
     int magical;
     int eroded, eroded2, erodeproof, locked, unlocked, broken;
-    int halfeaten, mntmp, contents;
+    int halfeaten, halfdrained, mntmp, contents;
     int islit, unlabeled, ishistoric, isdiluted, trapped;
     int material;
     int tmp, tinv, tvariety;
@@ -3549,10 +3560,10 @@ struct obj *no_wish;
     long objpropcount = 0;
 
     cnt = spe = spesgn = typ = 0;
-    very = rechrg = blessed = uncursed = iscursed = magical =
-        ispoisoned = isgreased = eroded = eroded2 = erodeproof =
-        halfeaten = islit = unlabeled = ishistoric = isdiluted =
-        trapped = locked = unlocked = broken = 0;
+    very = rechrg = blessed = uncursed = iscursed = isdrained = halfdrained 
+        = magical = ispoisoned = isgreased = eroded = eroded2 = erodeproof 
+        = halfeaten = islit = unlabeled = ishistoric = isdiluted = trapped 
+        = locked = unlocked = broken = 0;
     tvariety = RANDOM_TIN;
     mntmp = NON_PM;
 #define UNDEFINED 0
@@ -3674,6 +3685,12 @@ struct obj *no_wish;
                    || !strncmpi(bp, "deteriorated ", l = 13)) {
             eroded2 = 1 + very;
             very = 0;
+        } else if (!strncmpi(bp, "partly drained ", l=15)) {
+            isdrained = 1;
+            halfdrained = 1;
+        } else if (!strncmpi(bp, "drained ", l=8)) {
+            isdrained = 1;
+            halfdrained = 0;
         } else if (!strncmpi(bp, "partly eaten ", l = 13)
                    || !strncmpi(bp, "partially eaten ", l = 16)) {
             halfeaten = 1;
@@ -5210,6 +5227,18 @@ struct obj *no_wish;
             otmp->oeaten = objects[otmp->otyp].oc_nutrition;
         /* (do this adjustment before setting up object's weight) */
         consume_oeaten(otmp, 1);
+    }
+    if (isdrained && otmp->otyp == CORPSE && mons[otmp->corpsenm].cnutrit) {
+        int amt;
+        otmp->odrained = 1;
+        amt = mons[otmp->corpsenm].cnutrit - drainlevel(otmp);
+        if (halfdrained) {
+            amt /= 2;
+            if (amt == 0)
+                amt++;
+        }
+        /* (do this adjustment before setting up object's weight) */
+        consume_oeaten(otmp, -amt);
     }
     otmp->owt = weight(otmp);
     if (very && otmp->otyp == HEAVY_IRON_BALL)

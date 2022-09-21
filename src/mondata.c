@@ -412,7 +412,7 @@ int material;
             if (ptr == &mons[PM_TENGU] || ptr == &mons[PM_LEPRECHAUN])
                 return FALSE;
         }
-        return (is_were(ptr) || ptr->mlet == S_VAMPIRE
+        return (is_were(ptr) || is_vampire(ptr)
                 || is_demon(ptr) || ptr == &mons[PM_SHADE]
                 || (ptr->mlet == S_IMP));
     } else if (material == IRON) {

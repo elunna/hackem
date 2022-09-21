@@ -948,7 +948,7 @@ struct obj *obj;
                     }
                     nomovemsg = 0; /* default, "you can move again" */
                 }
-            } else if (youmonst.data->mlet == S_VAMPIRE)
+            } else if (is_vampire(youmonst.data))
                 You("don't have a reflection.");
             else if (u.umonnum == PM_UMBER_HULK) {
                 pline("Huh?  That doesn't look like you!");
@@ -1014,7 +1014,7 @@ struct obj *obj;
             pline("%s is too far away to see %sself in the dark.",
                   Monnam(mtmp), mhim(mtmp));
         /* some monsters do special things */
-    } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
+    } else if (is_vampire(mtmp->data) || mlet == S_GHOST || is_vampshifter(mtmp)) {
         if (vis)
             pline("%s doesn't have a reflection.", Monnam(mtmp));
     } else if (monable && mtmp->data == &mons[PM_MEDUSA]) {
@@ -2086,7 +2086,11 @@ boolean
 tinnable(corpse)
 struct obj *corpse;
 {
+    if (corpse->otyp != CORPSE) 
+        return 0;
     if (corpse->oeaten)
+        return 0;
+    if (corpse->odrained) 
         return 0;
     if (!mons[corpse->corpsenm].cnutrit)
         return 0;
@@ -2110,7 +2114,7 @@ struct obj *obj;
     }
     if (!(corpse = floorfood("tin", 2)))
         return;
-    if (corpse->oeaten) {
+    if (corpse->otyp == CORPSE && (corpse->oeaten || corpse->odrained)) {
         You("cannot tin %s which is partly eaten.", something);
         return;
     }

@@ -652,7 +652,8 @@
 	 || (ptr) == &mons[PM_STONE_GOLEM] \
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
 
-#define is_vampire(ptr) ((ptr)->mlet == S_VAMPIRE)
+#define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
+                         (ptr) == &mons[PM_VAMPIRE_BAT])
 
 #define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN])
 
@@ -715,6 +716,11 @@
     ((ptr)->mlet == S_BLOB \
      || (ptr)->mlet == S_JELLY \
      || (ptr)->mlet == S_PUDDING)
+
+/* For vampires */
+#define has_blood(ptr) (!vegetarian(ptr) && \
+                        (ptr)->mlet != S_GOLEM && \
+                        (!is_undead(ptr) || is_vampire(ptr)))
 
 /* monkeys are tameable via bananas but not pacifiable via food,
    otherwise their theft attack could be nullified too easily;

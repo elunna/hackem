@@ -2755,7 +2755,23 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         if (!negated && !rn2(3)
             && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
             int xtmp = d(2, 6);
-
+            
+            if (mdef->mhp < xtmp) 
+                xtmp = mdef->mhp;
+            if (maybe_polyd(is_vampire(youmonst.data), 
+                  Race_if(PM_VAMPIRE)) 
+                  && mattk->aatyp == AT_BITE 
+                  && has_blood(pd)) {
+                /* For the life of a creature is in the blood (Lev 17:11) */
+                if (flags.verbose)
+                    You("feed on the lifeblood.");
+                /* [ALI] Biting monsters does not count against
+                   eating conducts. The draining of life is
+                   considered to be primarily a non-physical
+                   effect */
+                lesshungry(xtmp * 6);
+            }
+            
             if (canseemon(mdef))
                 pline("%s suddenly seems weaker!", Monnam(mdef));
             mdef->mhpmax -= xtmp;
@@ -3677,12 +3693,17 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                 break;
             /*FALLTHRU*/
         case AT_BITE:
+            /* [ALI] Vampires are also smart. They avoid biting
+               monsters if doing so would be fatal */
             if ((uwep || !uwep || (u.twoweap && uswapwep))
                 && is_vampire(youmonst.data)
-                && (touch_petrifies(mon->data)
-                    || (how_resistant(DISINT_RES) == 0
+                &&   (touch_petrifies(mon->data)
+                  || (how_resistant(DISINT_RES) == 0
                         && (mon->data == &mons[PM_BLACK_DRAGON]
-                            || mon->data == &mons[PM_BABY_BLACK_DRAGON]))))
+                        || mon->data == &mons[PM_BABY_BLACK_DRAGON]))
+                    || is_rider(mon->data) 
+                    || mon->data == &mons[PM_GREEN_SLIME]
+                ))
                 break;
             if (is_zombie(youmonst.data)
                 && mattk->aatyp == AT_BITE
@@ -4016,8 +4037,11 @@ boolean wep_was_destroyed;
 			destroy_item(SPBOOK_CLASS, AD_FIRE);
 		}
 	}
-
-    for (i = 0;; i++) {
+    if (mhit && aatyp == AT_BITE && is_vampire(youmonst.data)) {
+        if (bite_monster(mon))
+            return 2;			/* lifesaved */
+    }
+    for (i = 0; ; i++) {
         if (i >= NATTK)
             return (malive | mhit); /* no passive attacks */
         if (mattk[i].aatyp == AT_NONE)

@@ -2053,6 +2053,12 @@ post_stone:
                           canspotmon(mdef) ? mon_nam(mdef) : "something");
                 }
             }
+            if (magr->mtame && !magr->isminion &&
+                is_vampire(pa) && mattk->aatyp == AT_BITE &&
+                has_blood(pd)) {
+                EDOG(magr)->hungrytime +=
+                    ((int) ((mdef->data)->cnutrit / 20) + 1);
+            }
             if (!rn2(3) && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
                 tmp = d(2, 6);
                 if (vis && canspotmon(mdef))
