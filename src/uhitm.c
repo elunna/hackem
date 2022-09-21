@@ -3685,6 +3685,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                     || is_rider(mon->data)
                     || mon->data == &mons[PM_MEDUSA]
                     || mon->data == &mons[PM_GREEN_SLIME]
+                    || mon->data == &mons[PM_SHADE]
                     || (u.ulycn >= LOW_PM
                         && were_beastie(mon->mnum) == u.ulycn
                         && !Role_if(PM_CAVEMAN) && !Race_if(PM_ORC))
