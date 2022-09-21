@@ -3683,8 +3683,11 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
 
         /* hero can't handle this object, but didn't get touch_artifact()'s
            "<obj> evades your grasp|control" message; give an alternate one */
-
+#if 0
         if (!bane && !(hatemat && obj->material == SILVER)) {
+#else
+        if (!bane) {
+#endif
             pline("The %s of %s %s!", materialnm[obj->material],
                   yname(obj), rn2(2) ? "hurts to touch" : "burns your skin");
         } else {
@@ -3710,7 +3713,11 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
          * In keeping with the flavor of searing vs just pain implemented
          * everywhere else, only silver is actually unbearable -- other
          * hated non-silver materials can be used too. */
+#if 0
         if (!bane && !(hatemat && obj->material == SILVER))
+#else      
+        if (!bane)
+#endif
             return 1;
     }
 
