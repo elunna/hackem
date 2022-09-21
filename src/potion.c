@@ -1423,6 +1423,55 @@ no_rise:
         if (!Unchanging)
             polyself(0);
         break;
+    case POT_BLOOD:
+    case POT_VAMPIRE_BLOOD:
+        unkn++;
+        u.uconduct.unvegan++;
+        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+            violated_vegetarian();
+            if (otmp->cursed)
+                pline("Yecch!  This %s.", Hallucination 
+                      ? "liquid could do with a good stir" 
+                      : "blood has congealed");
+            else pline(Hallucination 
+                      ? "The %s liquid stirs memories of home." 
+                      : "The %s blood tastes delicious.",
+                      otmp->odiluted ? "watery" : "thick");
+            if (!otmp->cursed)
+                lesshungry((otmp->odiluted ? 1 : 2) *
+                           (otmp->otyp == POT_VAMPIRE_BLOOD ? 400 :
+                            otmp->blessed ? 15 : 10));
+            if (otmp->otyp == POT_VAMPIRE_BLOOD && otmp->blessed) {
+                int num = newhp();
+                if (Upolyd) {
+                    u.mhmax += num;
+                    u.mh += num;
+                } else {
+                    u.uhpmax += num;
+                    u.uhp += num;
+                }
+            }
+        } else if (otmp->otyp == POT_VAMPIRE_BLOOD) {
+            /* [CWC] fix conducts for potions of (vampire) blood -
+               doesn't use violated_vegetarian() to prevent
+               duplicated "you feel guilty" messages */
+            u.uconduct.unvegetarian++;
+            if (u.ualign.type == A_LAWFUL || Role_if(PM_MONK)) {
+                You_feel("%sguilty about drinking such a vile liquid.",
+                         Role_if(PM_MONK) ? "especially " : "");
+                u.ugangr++;
+                adjalign(-15);
+            } else if (u.ualign.type == A_NEUTRAL)
+                adjalign(-3);
+            exercise(A_CON, FALSE);
+            if (!Unchanging && polymon(PM_VAMPIRE))
+                u.mtimedone = 0;	/* "Permament" change */
+        } else {
+            violated_vegetarian();
+            pline("Ugh.  That was vile.");
+            make_vomiting(Vomiting+d(10,8), TRUE);
+        }
+        break;
     default:
         impossible("What a funny potion! (%u)", otmp->otyp);
         return 0;
@@ -2269,6 +2318,15 @@ register struct obj *obj;
     case POT_POLYMORPH:
         exercise(A_CON, FALSE);
         break;
+    case POT_BLOOD:
+    case POT_VAMPIRE_BLOOD:
+        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+            exercise(A_WIS, FALSE);
+            You_feel("a %ssense of loss.",
+                     obj->otyp == POT_VAMPIRE_BLOOD ? "terrible " : "");
+        } else
+            exercise(A_CON, FALSE);
+        break;
     /*
     case POT_GAIN_LEVEL:
     case POT_LEVITATION:
@@ -2326,6 +2384,8 @@ register struct obj *o1, *o2;
         case POT_HALLUCINATION:
         case POT_BLINDNESS:
         case POT_CONFUSION:
+        case POT_BLOOD:
+        case POT_VAMPIRE_BLOOD:
             return POT_WATER;
         }
         break;
@@ -2354,6 +2414,10 @@ register struct obj *o1, *o2;
         switch (o2typ) {
         case POT_SICKNESS:
             return POT_SICKNESS;
+        case POT_BLOOD:
+            return POT_BLOOD;
+        case POT_VAMPIRE_BLOOD:
+            return POT_VAMPIRE_BLOOD;
         case POT_ENLIGHTENMENT:
         case POT_SPEED:
             return POT_BOOZE;

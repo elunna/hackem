@@ -2468,16 +2468,15 @@ register struct monst *mtmp;
                 break;
             }
         }
-        #if 0  /* Enable with we add blood potions */
+
         if (i != NUM_OBJECTS)
-            (void)mongets(mtmp, i);
+            (void) mongets(mtmp, i);
             if (rn2(2)) {
                 if ((int) mtmp->m_lev > rn2(30))
-                    (void)mongets(mtmp, POT_VAMPIRE_BLOOD);
+                    (void) mongets(mtmp, POT_VAMPIRE_BLOOD);
                 else
-                    (void)mongets(mtmp, POT_BLOOD);
+                    (void) mongets(mtmp, POT_BLOOD);
             }
-        #endif
 
         if (ptr == &mons[PM_KAS]) {
             otmp = mksobj(TWO_HANDED_SWORD, FALSE, FALSE);

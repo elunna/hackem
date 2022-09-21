@@ -2308,7 +2308,12 @@ boolean hero_caused; /* is this the hero's fault? */
 boolean from_invent;
 {
     boolean fracture = FALSE;
-
+    int am;
+    if (IS_ALTAR(levl[x][y].typ))
+        am = levl[x][y].altarmask & AM_MASK;
+    else
+        am = AM_NONE;
+    
     switch (obj->oclass == POTION_CLASS ? POT_WATER : obj->otyp) {
     case MIRROR:
         if (hero_caused)
@@ -2318,6 +2323,29 @@ boolean from_invent;
         obj->in_use = 1; /* in case it's fatal */
         if (obj->otyp == POT_OIL && obj->lamplit) {
             explode_oil(obj, x, y);
+        } else if ((obj->otyp == POT_VAMPIRE_BLOOD ||
+                    obj->otyp == POT_BLOOD) &&
+                   am != AM_CHAOTIC && am != AM_NONE) {
+            /* ALI: If blood is spilt on a lawful or
+             * neutral altar the effect is similar to
+             * human sacrifice. There's no effect on
+             * chaotic or unaligned altars since it is
+             * not sufficient to summon a demon.
+             */
+            if (hero_caused) {
+                /* Regardless of your race/alignment etc.
+                 * Lawful and neutral gods really _dont_
+                 * like vampire or (presumed) human blood
+                 * on their altars.
+                 */
+                pline("You'll regret this infamous offense!");
+                exercise(A_WIS, FALSE);
+            }
+            /* curse the lawful/neutral altar */
+            pline_The("altar is stained with blood.");
+            if (!Is_astralevel(&u.uz))
+                levl[x][y].altarmask = AM_CHAOTIC;
+            angry_priest();
         } else if (distu(x, y) <= 2) {
             if (!breathless(youmonst.data) || haseyes(youmonst.data)) {
                 if (obj->otyp != POT_WATER) {

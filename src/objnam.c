@@ -3912,10 +3912,13 @@ struct obj *no_wish;
          * Find corpse type using "of" (figurine of an orc, tin of orc meat)
          * Don't check if it's a wand or spellbook.
          * (avoid "wand/finger of death" confusion).
+         * (ALI "potion of vampire blood" also).
          * (also avoid "sword of kas" or "eye/hand of vecna" issues)
          */
         if (!strstri(bp, "wand ") 
               && !strstri(bp, "spellbook ")
+              && !strstri(bp, "potion ")
+              && !strstri(bp, "potions ")
               && !strstri(bp, "finger ") 
               && !strstri(bp, "hand grenade ")
               && !strstri(bp, "eye ")
@@ -4054,7 +4057,8 @@ struct obj *no_wish;
         && strncmpi(bp, "ninja-to", 8)      /* not the "ninja" rank */
         && strncmpi(bp, "master key", 10)   /* not the "master" rank */
         && strncmpi(bp, "magenta", 7)       /* not the "mage" rank */
-        && strncmpi(bp, "Bat from Hell", 13)/* not the "bat" monster */
+        && strncmpi(bp, "Bat from Hell", 13)
+        && strncmpi(bp, "vampire blood", 13) /* not the "vampire" monster */
         && strncmpi(bp, "Thiefbane", 9)) {  /* not the "thief" rank */
        
         if (mntmp < LOW_PM && strlen(bp) > 2

@@ -364,6 +364,7 @@ struct obj *otmp;
 #define MUSE_WAN_DRAINING 28	/* KMH */
 #define MUSE_WAN_CREATE_HORDE 29
 #define MUSE_FIREBALL 30
+#define MUSE_POT_VAMPIRE_BLOOD 31
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -390,6 +391,12 @@ struct monst *mtmp;
     if ((obj = m_carrying(mtmp, POT_HEALING)) != 0) {
         m.defensive = obj;
         m.has_defense = MUSE_POT_HEALING;
+        return TRUE;
+    }
+    if (is_vampire(mtmp->data) &&
+        (obj = m_carrying(mtmp, POT_VAMPIRE_BLOOD)) !=0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_POT_VAMPIRE_BLOOD;
         return TRUE;
     }
     if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0) {
@@ -887,6 +894,11 @@ struct obj *start;
             if (obj->otyp == POT_HEALING) {
                 m.defensive = obj;
                 m.has_defense = MUSE_POT_HEALING;
+            }
+            nomore(MUSE_POT_VAMPIRE_BLOOD);
+            if(is_vampire(mtmp->data) && obj->otyp == POT_VAMPIRE_BLOOD) {
+                m.defensive = obj;
+                m.has_defense = MUSE_POT_VAMPIRE_BLOOD;
             }
         } else { /* Pestilence */
             nomore(MUSE_POT_FULL_HEALING);
@@ -1411,6 +1423,19 @@ struct monst *mtmp;
             pline("%s looks completely healed.", Monnam(mtmp));
         if (oseen)
             makeknown(otmp->otyp);
+        m_useup(mtmp, otmp);
+        return 2;
+    case MUSE_POT_VAMPIRE_BLOOD:
+        mquaffmsg(mtmp, otmp);
+        if (!otmp->cursed) {
+            i = rnd(8) + rnd(2);
+            mtmp->mhp += i;
+            mtmp->mhpmax += i;
+            if (vismon) pline("%s looks full of life.", Monnam(mtmp));
+        }
+        else if (vismon)
+            pline("%s discards the congealed blood in disgust.", Monnam(mtmp));
+        if (oseen) makeknown(POT_VAMPIRE_BLOOD);
         m_useup(mtmp, otmp);
         return 2;
     case MUSE_LIZARD_CORPSE:
@@ -3553,6 +3578,8 @@ struct obj *obj;
             return TRUE;
         break;
     case POTION_CLASS:
+        if (typ == POT_VAMPIRE_BLOOD)
+            return is_vampire(mon->data);
         if (typ == POT_HEALING 
             || typ == POT_EXTRA_HEALING
             || typ == POT_FULL_HEALING 
