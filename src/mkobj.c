@@ -2461,6 +2461,13 @@ boolean tipping; /* caller emptying entire contents; affects shop handling */
             if (objects[obj->otyp].oc_magic)
                 do {
                     obj->otyp = rnd_class(POT_BOOZE, POT_WATER);
+                    if (!rn2(131)) { /* this number is very large on purpose */
+                        if (!rn2(5)) {
+                            obj->otyp = POT_VAMPIRE_BLOOD;
+                        } else {
+                            obj->otyp = POT_BLOOD;
+                        }
+                    }
                 } while (obj->otyp == POT_SICKNESS);
             what = (obj->quan > 1L) ? "Some potions" : "A potion";
         } else {
