@@ -504,7 +504,7 @@ register struct monst *mtmp;
         return FALSE;
     }
 
-    if (Upolyd)
+    if (Upolyd || Race_if(PM_VAMPIRE))
         (void) hmonas(mtmp, NON_PM, TRUE);
     else
         (void) hitum(mtmp, youmonst.data->mattk);
