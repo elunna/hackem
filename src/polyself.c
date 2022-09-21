@@ -699,7 +699,8 @@ int mntmp;
     boolean sticky = sticks(youmonst.data) && u.ustuck && !u.uswallow,
             was_blind = !!Blind, dochange = FALSE;
     int mlvl;
-
+    const char *s;
+    
     if (mvitals[mntmp].mvflags & G_GENOD) { /* allow G_EXTINCT */
         You_feel("rather %s-ish.", mons[mntmp].mname);
         exercise(A_WIS, TRUE);
@@ -769,7 +770,14 @@ int mntmp;
         mntmp = PM_STONE_GOLEM;
         make_stoned(0L, "You turn to stone!", 0, (char *) 0);
     }
-
+    
+    if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
+        !strcmp(s, "opera cloak") &&
+        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        ABON(A_CHA) -= 1;
+        context.botl = 1;
+    }
+    
     u.mtimedone = rn1(500, 500);
     u.umonnum = mntmp;
     set_uasmon();
@@ -780,6 +788,16 @@ int mntmp;
     if (strongmonst(&mons[mntmp]))
         ABASE(A_STR) = AMAX(A_STR) = STR18(100);
 
+    if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
+        !strcmp(s, "opera cloak") &&
+        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        You("%s very impressive in your %s.", Blind ||
+            (Invis && !See_invisible) ? "feel" : "look",
+            OBJ_DESCR(objects[uarmc->otyp]));
+        ABON(A_CHA) += 1;
+        context.botl = 1;
+    }
+    
     if (Stone_resistance && Stoned) { /* parnes@eniac.seas.upenn.edu */
         make_stoned(0L, "You no longer seem to be petrifying.", 0,
                     (char *) 0);
