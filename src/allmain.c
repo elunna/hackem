@@ -105,6 +105,46 @@ orc_can_regen()
     return 1;
 }
 
+boolean
+vamp_can_regen()
+{
+    if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        if (uwep && is_silver(uwep)
+            && !is_quest_artifact(uwep) && !uarmg)
+            return 0;
+        if (uarm && is_silver(uarm) && !uarmu)
+            return 0;
+        if (uarmu && is_silver(uarmu))
+            return 0;
+        if (uarmc && is_silver(uarmc) && !uarmu && !uarm)
+            return 0;
+        if (uarmh && is_silver(uarmh)
+            && !is_quest_artifact(uarmh))
+            return 0;
+        if (uarms && is_silver(uarms) && !uarmg)
+            return 0;
+        if (uarmg && is_silver(uarmg))
+            return 0;
+        if (uarmf && is_silver(uarmf))
+            return 0;
+        if (uleft && is_silver(uleft))
+            return 0;
+        if (uright && is_silver(uright))
+            return 0;
+        if (uamul && is_silver(uamul) && !is_quest_artifact(uamul)
+            && !uarmu && !uarm)
+            return 0;
+        if (ublindf && is_silver(ublindf))
+            return 0;
+        if (uchain && is_silver(uchain))
+            return 0;
+        if (uswapwep && is_silver(uswapwep)
+            && u.twoweap && !uarmg)
+            return 0;
+    }
+    return 1;
+}
+
 void
 moveloop(resuming)
 boolean resuming;
@@ -121,7 +161,8 @@ boolean resuming;
     int past_clock;
     boolean elf_regen = elf_can_regen();
     boolean orc_regen = orc_can_regen();
-
+    boolean vamp_regen = vamp_can_regen();
+    
     /* Note:  these initializers don't do anything except guarantee that
             we're linked properly.
     */
@@ -677,6 +718,15 @@ boolean resuming;
 	    orc_regen = orc_can_regen();
 	}
 
+        if (vamp_regen != vamp_can_regen()) {
+            if (!Hallucination)
+                You_feel("%s.", (vamp_regen) ? "itchy" : "relief");
+            else
+                You_feel("%s.", (vamp_can_regen) ? "semi-precious" 
+                                            : "like you are no longer failing Organic Chemistry");
+            
+            vamp_regen = vamp_can_regen();
+        }
         context.move = 1;
 
         if (multi >= 0 && occupation) {
@@ -805,7 +855,7 @@ int wtcap;
            no !Upolyd check here, so poly'd hero recovered lost u.uhp
            once u.mh reached u.mhmax; that may have been convenient
            for the player, but it didn't make sense for gameplay...] */
-        if (u.uhp < u.uhpmax && elf_can_regen() && orc_can_regen()
+        if (u.uhp < u.uhpmax && elf_can_regen() && orc_can_regen() && vamp_can_regen()
             && (encumbrance_ok || Regeneration) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
             

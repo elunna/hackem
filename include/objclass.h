@@ -88,6 +88,7 @@ struct objclass {
 #define is_dragonhide(otmp) (otmp->material == DRAGON_HIDE)
 #define is_mithril(otmp) (otmp->material == MITHRIL)
 #define is_iron(otmp) (otmp->material == IRON)
+#define is_silver(otmp) (otmp->material == SILVER)
 #define is_glass(otmp) (otmp->material == GLASS)
 #define is_wood(otmp) (otmp->material == WOOD)
 #define is_bone(otmp) (otmp->material == BONE)

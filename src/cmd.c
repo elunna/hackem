@@ -3327,10 +3327,11 @@ int final;
         you_can("walk through walls", from_what(PASSES_WALLS));
 
     /*** Physical attributes ***/
-    if (Regeneration && elf_can_regen() && orc_can_regen())
+    if (Regeneration && elf_can_regen() && orc_can_regen() && vamp_can_regen())
         enl_msg("You regenerate", "", "d", "", from_what(REGENERATION));
     if (!elf_can_regen()) you_are("in direct contact with cold iron", "");
     if (!orc_can_regen()) you_are("in direct contact with mithril", "");
+    if (!vamp_can_regen()) you_are("in direct contact with silver", "");
     if (Slow_digestion)
         you_have("slower digestion", from_what(SLOW_DIGESTION));
     if (inediate(raceptr(&youmonst)) && !is_vampiric(raceptr(&youmonst)))
