@@ -586,7 +586,9 @@ exerper()
         debugpline0("exerper: Hunger checks");
         switch (hs) {
         case SATIATED:
-            if (!Race_if(PM_VAMPIRE))  /* undead */
+        case SATIATED:	
+            if (maybe_polyd(!is_vampire(youmonst.data),
+                            !Race_if(PM_VAMPIRE)))  /* undead */
                 exercise(A_DEX, FALSE);
             if (Role_if(PM_MONK))
                 exercise(A_WIS, FALSE);
