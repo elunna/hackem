@@ -2456,17 +2456,18 @@ register struct monst *mtmp;
         /* [Lethe] Star and fire vampires don't get this stuff */
         if (ptr == &mons[PM_STAR_VAMPIRE] || ptr == &mons[PM_FIRE_VAMPIRE])
             break;
-        /* Get opera cloak */
-/*	    otmp = readobjnam(opera_cloak);
-        if (otmp && otmp != &zeroobj) mpickobj(mtmp, otmp);*/
-
-        for (i = STRANGE_OBJECT; i < NUM_OBJECTS; i++) {
+        
+        /* some vampires get an opera cloak */
+        for (i = CLOAK_OF_PROTECTION; i < NUM_OBJECTS; i++) {
             const char *zn;
             if ((zn = OBJ_DESCR(objects[i])) && !strcmpi(zn, "opera cloak")) {
-                if (!OBJ_NAME(objects[i]))
+                if (!OBJ_NAME(objects[i])) 
                     i = STRANGE_OBJECT;
                 break;
             }
+        }
+        if (i != NUM_OBJECTS && rnf(1,8)) {
+            mongets(mtmp, i);
         }
 
         if (i != NUM_OBJECTS)
