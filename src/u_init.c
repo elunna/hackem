@@ -1933,6 +1933,7 @@ register struct trobj *origtrop;
                                 (trop->trotyp == UNDEF_TYP) ? "random " : "",
                                 OBJ_NAME(objects[otyp]));
                     otyp = obj->otyp = inv_subs[i].subs_otyp;
+                    obj->oclass = objects[otyp].oc_class;
                     /* This might have created a bad material combination, such
                      * as a dagger (which was forced to be iron earlier) turning
                      * into an elven dagger, but now remaining iron. Fix this up
