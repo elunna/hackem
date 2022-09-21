@@ -1379,6 +1379,8 @@ register struct obj *obj;
                    whereas see invisible tastes like "enchanted" fruit
                    juice, it similarly cancels */
                 obj->otyp = POT_FRUIT_JUICE;
+            } else if (obj->otyp == POT_VAMPIRE_BLOOD) {
+                obj->otyp = POT_BLOOD;
             } else {
                 obj->otyp = POT_WATER;
                 obj->odiluted = 0; /* same as any other water */
