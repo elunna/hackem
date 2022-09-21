@@ -2191,7 +2191,9 @@ boolean already_partly_eaten;
         return;
     }
 
-    Sprintf(msgbuf, "eating %s", food_xname(otmp, TRUE));
+    /* Sprintf(msgbuf, "eating %s", food_xname(otmp, TRUE)); */
+    Sprintf(msgbuf, "%s %s", otmp->odrained ? "draining" : "eating",
+            food_xname(otmp, TRUE));
     set_occupation(eatfood, msgbuf, 0);
 }
 
