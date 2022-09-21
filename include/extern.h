@@ -2104,6 +2104,7 @@ E void VDECL(config_error_add, (const char *, ...)) PRINTF_F(1, 2);
 
 /* ### polyself.c ### */
 
+E void NDECL(init_uasmon);
 E void NDECL(set_uasmon);
 E void NDECL(float_vs_flight);
 E void NDECL(change_sex);

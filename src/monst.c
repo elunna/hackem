@@ -4438,7 +4438,8 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 400, MS_VAMPIRE, MZ_HUMAN), MR_SLEEP | MR_POISON, 0,
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_SHAPESHIFTER,
-        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, MH_UNDEAD, 12, CLR_RED),
+        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 12, CLR_RED),
     MON("vampire lord", S_VAMPIRE,
         LVL(12, 14, 0, 50, -9), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 8), 
@@ -4448,7 +4449,8 @@ struct permonst _mons2[] = {
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_STALK | M2_HOSTILE | M2_MALE | M2_STRONG | M2_NASTY 
             | M2_LORD | M2_SHAPESHIFTER,
-        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, MH_UNDEAD, 14, CLR_BLUE),
+        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 14, CLR_BLUE),
     MON("vampire king", S_VAMPIRE,                              /* EvilHack */
         LVL(16, 18, -2, 50, -9), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 6), 
@@ -4458,7 +4460,8 @@ struct permonst _mons2[] = {
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_STALK | M2_HOSTILE | M2_MALE | M2_STRONG | M2_NASTY | M2_PRINCE
             | M2_SHAPESHIFTER,
-        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, MH_UNDEAD, 18, HI_LORD),
+        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 18, HI_LORD),
     MON("fire vampire", S_VAMPIRE,                              /* Slash'EM */
         LVL(12, 24, 0, 50, -5), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_FIRE, 2, 4), 
@@ -4471,7 +4474,8 @@ struct permonst _mons2[] = {
         MR_SLEEP | MR_POISON | MR_COLD | MR_FIRE, 0,
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER,
-        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 22, CLR_RED),
+        M3_INFRAVISIBLE | M3_TRAITOR, 0, 
+        MH_VAMPIRE, 22, CLR_RED),
     MON("vampire mage", S_VAMPIRE,                              /* Slash'EM */
         LVL(20, 14, -4, 50, -9), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_DRLI, 2, 8), 
@@ -4483,7 +4487,8 @@ struct permonst _mons2[] = {
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_LORD
             | M2_MALE | M2_MAGIC | M2_SHAPESHIFTER,
-        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, MH_UNDEAD, 26, HI_ZAP),
+        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 26, HI_ZAP),
     MON("star vampire", S_VAMPIRE,                              /* Slash'EM */
         LVL(18, 18, -5, 60, -5), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_TENT, AD_PHYS, 2, 6), 
@@ -4496,7 +4501,8 @@ struct permonst _mons2[] = {
         MR_SLEEP | MR_POISON | MR_COLD, 0,
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER,
-        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 0, 28, CLR_WHITE),
+        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 
+        MH_VAMPIRE, 28, CLR_WHITE),
     /* Kas, top lieutenant to Vecna */
     MON("Kas", S_VAMPIRE,                                      /* EvilHack */
         LVL(26, 16, -5, 70, -10), (G_NOGEN | G_NOCORPSE | G_UNIQ),
@@ -4509,7 +4515,8 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_STRONG
             | M2_NASTY | M2_MALE | M2_PRINCE | M2_SHAPESHIFTER,
         M3_ACCURATE | M3_WAITFORU | M3_INFRAVISIBLE,
-        M4_VULNERABLE_FIRE, MH_UNDEAD, 30, CLR_BLACK),
+        M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 30, CLR_BLACK),
 
     /* The DevTeam buffed Vlad quite a bit. No need to pull any settings over
      * from GruntHack. We do have an attack tweak here from SporkHack, plus
@@ -4526,7 +4533,8 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_STRONG
             | M2_NASTY | M2_PRINCE | M2_MALE | M2_SHAPESHIFTER,
         M3_ACCURATE | M3_WAITFORU | M3_WANTSCAND | M3_INFRAVISIBLE,
-        M4_VULNERABLE_FIRE, MH_UNDEAD, 32, CLR_BRIGHT_MAGENTA),
+        M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 32, CLR_BRIGHT_MAGENTA),
     /*
      * Wraiths
      */
@@ -7103,7 +7111,8 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME |
           M2_STRONG | M2_NASTY | M2_PRINCE | M2_MALE,
         M3_WAITFORU | M3_WANTSARTI,
-        M4_VULNERABLE_FIRE, MH_UNDEAD, 33, HI_LORD),
+        M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 33, HI_LORD),
     MON("Lord Surtur", S_GIANT,
         LVL(15, 12, 2, 50, 12), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 10), 

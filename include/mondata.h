@@ -653,7 +653,7 @@
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
 
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
-                         (ptr) == &mons[PM_VAMPIRE_BAT])
+                         ((ptr)->mflags2 & MH_VAMPIRE) != 0)
 /** feeds on blood */
 #define is_vampiric(ptr) ((is_vampire(ptr)) || \
                           (ptr) == &mons[PM_VAMPIRE_BAT])

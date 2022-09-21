@@ -135,6 +135,7 @@ struct mkroom *upstairs_room, *dnstairs_room, *sstairs_room;
 dlevel_t level; /* level map */
 struct trap *ftrap = (struct trap *) 0;
 NEARDATA struct monst youmonst = DUMMY;
+NEARDATA struct permonst upermonst = DUMMY;
 NEARDATA struct context_info context = DUMMY;
 NEARDATA struct flag flags = DUMMY;
 #ifdef SYSFLAGS

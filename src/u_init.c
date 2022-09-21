@@ -346,6 +346,8 @@ struct inv_sub {
     { PM_DWARF, LONG_SWORD, DWARVISH_BEARDED_AXE },
     { PM_GNOME, BOW, CROSSBOW },
     { PM_GNOME, ARROW, CROSSBOW_BOLT },
+    { PM_VAMPIRE, POT_FRUIT_JUICE, POT_BLOOD	      },
+    { PM_VAMPIRE, FOOD_RATION, POT_VAMPIRE_BLOOD     },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
@@ -975,7 +977,8 @@ u_init()
                                  ? urole.femalenum
                                  : urole.malenum;
     u.ulycn = NON_PM;
-    set_uasmon();
+    /*set_uasmon();*/
+    init_uasmon();
 
     u.ulevel = 0; /* set up some of the initial attributes */
     u.uhp = u.uhpmax = newhp();
@@ -1322,6 +1325,7 @@ u_init()
         skill_init(Skill_Y);
         break;
     default: /* impossible */
+        pline("u_init: unknown role %d", Role_switch);
         break;
     }
 
@@ -1470,8 +1474,15 @@ u_init()
         knows_object(ORCISH_BOOTS);
         knows_object(ORCISH_MORNING_STAR);
         break;
+        
+    case PM_VAMPIRE:
+        /* Vampires start off with gods not as pleased, luck penalty */
+        adjalign(-5); 
+        change_luck(-1);
+        break;
 
     default: /* impossible */
+        pline("u_init: unknown race %d", Race_switch);
         break;
     }
 

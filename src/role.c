@@ -50,7 +50,7 @@ const struct Role roles[] = {
       S_SNAKE,
       S_MUMMY,
       ART_XIUHCOATL,
-      MH_HUMAN | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_TORTLE,
+      MH_HUMAN | MH_DWARF | MH_GNOME | MH_VAMPIRE | MH_HOBBIT | MH_TORTLE,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 10, 7, 7, 7 },
@@ -86,7 +86,7 @@ const struct Role roles[] = {
       S_OGRE,
       S_TROLL,
       ART_RING_OF_P_HUL,
-      MH_HUMAN | MH_DWARF | MH_ORC | MH_GIANT | MH_CENTAUR
+      MH_HUMAN | MH_DWARF | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR
           | MH_TORTLE,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -256,8 +256,7 @@ const struct Role roles[] = {
         S_RUSTMONST, 
         S_XORN,
         ART_STORM_WHISTLE,
-        /* --hackem: Removed MH_VAMPIRE */
-        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT, 
+        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE, 
         ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
         /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
         {   7, 10,  7,  7,  7,  7 },
@@ -400,8 +399,7 @@ const struct Role roles[] = {
       S_BAT, 
       S_IMP,
       ART_GREAT_DAGGER_OF_GLAURGNAA,
-      /* --hackem: MH_VAMPIRE disabled for now. */
-      MH_HUMAN | MH_ELF | MH_ORC,
+      MH_HUMAN | MH_ELF | MH_ORC | MH_VAMPIRE,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
 	  /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
 	  {   7, 10,  7,  7,  7,  7 },
@@ -474,7 +472,7 @@ const struct Role roles[] = {
       S_NYMPH,
       S_NAGA,
       ART_MASTER_KEY_OF_THIEVERY,
-      MH_HUMAN | MH_ELF | MH_ORC | MH_HOBBIT | MH_GNOME,
+      MH_HUMAN | MH_ELF | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 7, 10, 7, 6 },
@@ -690,7 +688,7 @@ const struct Role roles[] = {
       S_BAT,
       S_WRAITH,
       ART_EYE_OF_THE_AETHIOPICA,
-      MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_ORC
+      MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_ORC | MH_VAMPIRE
           | MH_HOBBIT | MH_GIANT | MH_ILLITHID | MH_TORTLE,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -1052,6 +1050,18 @@ const struct Race races[] = {
         /* Init   Lower  Higher */
         { 2, 0, 0, 2, 1, 0 }, /* Hit points */
         { 2, 0, 2, 1, 2, 0 }  /* Energy */
+    },
+    {	"vampire", "vampiric", "vampirehood", "Vam",
+        {0, 0},
+        PM_VAMPIRE, NON_PM, PM_HUMAN_MUMMY, PM_HUMAN_ZOMBIE,
+        MH_VAMPIRE | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
+        MH_VAMPIRE, 0, MH_ELF | MH_GNOME | MH_DWARF | MH_ORC,
+        /*    Str     Int Wis Dex Con Cha */
+        {      4,      0,  0,  4,  3,  4 },
+        { STR19(19), 18, 18, 20, 20, 20 },
+        /* Init   Lower  Higher */
+        {  3, 0,  0, 3,  2, 0 },	/* Hit points */
+        {  3, 0,  4, 0,  4, 0 }		/* Energy */
     },
     /* Array terminator */
     { 0, 0, 0, 0 }

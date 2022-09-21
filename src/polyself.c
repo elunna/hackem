@@ -36,6 +36,35 @@ STATIC_VAR const char no_longer_petrify_resistant[] =
    change sex (ought to be an arg to polymon() and newman() instead) */
 STATIC_VAR int sex_change_ok = 0;
 
+
+/* Assumes u.umonster is set up already */
+/* Use u.umonster since we might be restoring and you may be polymorphed */
+void
+init_uasmon()
+{
+    int i;
+    upermonst = mons[u.umonster];
+
+    /* Fix up the flags */
+    /* Default flags assume human,  so replace with your race's flags */
+
+    upermonst.mflags1 &= ~(mons[PM_HUMAN].mflags1);
+    upermonst.mflags1 |= (mons[urace.malenum].mflags1);
+
+    upermonst.mflags2 &= ~(mons[PM_HUMAN].mflags2);
+    upermonst.mflags2 |= (mons[urace.malenum].mflags2);
+
+    upermonst.mflags3 &= ~(mons[PM_HUMAN].mflags3);
+    upermonst.mflags3 |= (mons[urace.malenum].mflags3);
+	
+    /* Fix up the attacks */
+    for(i = 0; i < NATTK; i++) {
+        upermonst.mattk[i] = mons[urace.malenum].mattk[i];
+    }
+	
+    set_uasmon();
+}
+
 /* update the youmonst.data structure pointer and intrinsics */
 void
 set_uasmon()
@@ -44,6 +73,11 @@ set_uasmon()
     struct permonst *racedat; /* for infravision, flying */
 
     set_mon_data(&youmonst, mdat);
+    
+    /* TODO: Is this necessary? The newer version might be better */
+    /* set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
+        ? &upermonst : &mons[u.umonnum]), 0);  */
+    
     racedat = raceptr(&youmonst);
 
 #define PROPSET(PropIndx, ON)                          \
