@@ -2758,7 +2758,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             
             if (mdef->mhp < xtmp) 
                 xtmp = mdef->mhp;
-            if (maybe_polyd(is_vampire(youmonst.data), 
+            if (maybe_polyd(is_vampiric(youmonst.data), 
                   Race_if(PM_VAMPIRE)) 
                   && mattk->aatyp == AT_BITE 
                   && has_blood(pd)) {
@@ -4037,7 +4037,7 @@ boolean wep_was_destroyed;
 			destroy_item(SPBOOK_CLASS, AD_FIRE);
 		}
 	}
-    if (mhit && aatyp == AT_BITE && is_vampire(youmonst.data)) {
+    if (mhit && aatyp == AT_BITE && is_vampiric(youmonst.data)) {
         if (bite_monster(mon))
             return 2;			/* lifesaved */
     }

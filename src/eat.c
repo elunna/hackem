@@ -120,7 +120,7 @@ register struct obj *obj;
     /* [ALI] (fully) drained food is not presented as an option,
 	 * but partly eaten food is (even though you can't drain it).
      */
-    if (is_vampire(youmonst.data))
+    if (is_vampiric(youmonst.data))
         return (boolean)(obj->otyp == CORPSE 
               && has_blood(&mons[obj->corpsenm]) 
               && (!obj->odrained || obj->oeaten > drainlevel(obj)));
@@ -455,7 +455,7 @@ eatfood(VOID_ARGS)
         do_reset_eat();
         return 0;
     }
-    if (is_vampire(youmonst.data) != context.victual.piece->odrained) {
+    if (is_vampiric(youmonst.data) != context.victual.piece->odrained) {
         /* Polymorphed while eating/draining */
         do_reset_eat();
         return 0;
@@ -1949,7 +1949,7 @@ struct obj *otmp;
      * Thus happens before the conduct checks intentionally - should it be after?
      * Blood is assumed to be meat and flesh.
      */
-    if (is_vampire(youmonst.data)) {
+    if (is_vampiric(youmonst.data)) {
         /* oeaten is set up by touchfood */
         if (otmp->odrained ? otmp->oeaten <= drainlevel(otmp) :
                            otmp->oeaten < mons[otmp->corpsenm].cnutrit) {
@@ -3230,7 +3230,7 @@ doeat()
     /* [ALI] Hero polymorphed in the meantime.
      */
     if (otmp == context.victual.piece &&
-        is_vampire(youmonst.data) != otmp->odrained)
+        is_vampiric(youmonst.data) != otmp->odrained)
         context.victual.piece = (struct obj *)0;	/* Can't resume */
                                           
     /* [ALI] Blood can coagulate during the interruption

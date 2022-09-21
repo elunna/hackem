@@ -486,7 +486,7 @@ boolean devour;
     register struct edog *edog = EDOG(mtmp);
     boolean poly, grow, heal, eyes, slimer, deadmimic, unstone, unsick, vis;
     int nutrit, corpsenm;
-    boolean vampiric = is_vampire(mtmp->data);
+    boolean vampiric = is_vampiric(mtmp->data);
     long oprice;
     char objnambuf[BUFSZ];
 

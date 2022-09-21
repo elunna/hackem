@@ -654,6 +654,9 @@
 
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
                          (ptr) == &mons[PM_VAMPIRE_BAT])
+/** feeds on blood */
+#define is_vampiric(ptr) ((is_vampire(ptr)) || \
+                          (ptr) == &mons[PM_VAMPIRE_BAT])
 
 #define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN])
 
