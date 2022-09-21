@@ -3695,13 +3695,17 @@ boolean weapon_attacks; /* skip weapon attacks if false */
         case AT_BITE:
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
+#if 0
             if ((uwep || !uwep || (u.twoweap && uswapwep))
                 && is_vampire(youmonst.data)
-                &&   (touch_petrifies(mon->data)
-                  || (how_resistant(DISINT_RES) == 0
+#endif
+            if (i > 0 && is_vampire(youmonst.data) &&
+                  (how_resistant(DISINT_RES) == 0
                         && (mon->data == &mons[PM_BLACK_DRAGON]
-                        || mon->data == &mons[PM_BABY_BLACK_DRAGON]))
+                        || mon->data == &mons[PM_BABY_BLACK_DRAGON])
                     || is_rider(mon->data) 
+                    || touch_petrifies(mon->data) 
+                    || mon->data == &mons[PM_MEDUSA] 
                     || mon->data == &mons[PM_GREEN_SLIME]
                 ))
                 break;
