@@ -1502,8 +1502,10 @@ boolean telekinesis;
         }
     }
 
+#if 0
     if (obj->otyp == SCR_SCARE_MONSTER && result <= 0 && !container)
         obj->spe = 0;
+#endif
     return result;
 }
 
@@ -1553,10 +1555,15 @@ boolean telekinesis; /* not picking it up directly by hand */
                       (obj->quan == 1L) ? "it" : "them");
             if (!(objects[SCR_SCARE_MONSTER].oc_name_known)
                 && !(objects[SCR_SCARE_MONSTER].oc_uname))
-                docall(obj);
+                makeknown(obj->otyp);
             useupf(obj, obj->quan);
             return 1; /* tried to pick something up and failed, but
                          don't want to terminate pickup loop yet   */
+        }
+        /* BUC known but scroll still unknown */
+        if (obj->bknown && !objects[obj->otyp].oc_name_known) {
+            Your("%s %s briefly.", xname(obj), otense(obj, "vibrate"));
+            makeknown(obj->otyp);
         }
     }
 
