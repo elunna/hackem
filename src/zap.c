@@ -2924,6 +2924,7 @@ boolean ordinary;
         break;
 
     case WAN_TELEPORTATION:
+        makeknown(WAN_TELEPORTATION);
     case SPE_TELEPORT_AWAY:
         tele();
         /* same criteria as when mounted (zap_steed) */
@@ -3181,6 +3182,7 @@ struct obj *obj; /* wand or spell */
         steedhit = TRUE;
         break;
     case WAN_TELEPORTATION:
+        makeknown(WAN_TELEPORTATION);
     case SPE_TELEPORT_AWAY:
         /* you go together */
         tele();
