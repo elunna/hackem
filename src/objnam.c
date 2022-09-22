@@ -1262,6 +1262,14 @@ unsigned doname_flags;
                                 end (Strcat is used on the end) */
     register char *bp = xname(obj);
 
+    /* tourists get a special identification service for shop items */
+    if (Role_if(PM_TOURIST)) {
+        int nochrg = 0;
+        long price = get_cost_of_shop_item(obj, &nochrg);
+        if (price > 0) {
+            discover_object(obj->otyp,TRUE,FALSE);
+        }
+    }
     if (iflags.override_ID) {
         known = dknown = cknown = bknown = lknown = TRUE;
         obj->oprops_known = ITEM_PROP_MASK;
@@ -1634,6 +1642,8 @@ unsigned doname_flags;
                 globwt(obj, globbuf, &weightshown),
                 quotedprice, currency(quotedprice));
     } else if (with_price) { /* on floor or in container on floor */
+         /* price needs to be recalculated in case identification
+         * changes the price e.g. with worthless glass */
         int nochrg = 0;
         long price = get_cost_of_shop_item(obj, &nochrg);
 
