@@ -952,8 +952,9 @@ const char *word;
             pline("For some reason, you cannot %s%s the stone%s!", word,
                   obj->corpsenm ? " any of" : "", plur(obj->quan));
         }
-        obj->corpsenm = 0; /* reset */
-        set_bknown(obj, 1);
+        obj->corpsenm = 0;	/* reset */
+        obj->bknown = 1;	/* unambiguously cursed */
+        makeknown(obj->otyp);	/* unambiguously a loadstone */
         return FALSE;
     }
     if (obj->otyp == LEASH && obj->leashmon != 0) {
