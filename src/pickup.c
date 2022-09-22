@@ -3065,7 +3065,7 @@ boolean put_in;
         all_categories = FALSE;
         Sprintf(buf, "%s what type of objects?", action);
         mflags =
-          (ALL_TYPES | UNPAID_TYPES | UNIDED_TYPES | BUCX_TYPES | CHOOSE_ALL);
+          (ALL_TYPES | UNPAID_TYPES | UNIDED_TYPES | BUCX_TYPES );
         n = query_category(buf, put_in ? invent : current_container->cobj,
                            mflags, &pick_list, PICK_ANY);
         if (!n)
