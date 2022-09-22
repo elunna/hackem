@@ -668,6 +668,7 @@ struct permonst *ptr;
     case PM_BAPHOMET:
     case PM_BALROG:
     case PM_NABASSU:
+    case PM_CATOBLEPAS:
         return 2;
     case PM_BABAU:
     case PM_WHITE_UNICORN:
