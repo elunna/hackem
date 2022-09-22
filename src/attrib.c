@@ -187,6 +187,13 @@ static const struct innate {
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
 
+  /* --hackem: This is a workaround. For some reason, I can't get vampires
+   * to start with regeneration. This might be a better approach, so we
+   * can sprinkle in some other attributes as they gain levels. */
+  vam_abil[] = { { 1, &(HRegeneration), "resilient", "less resilient" },
+                 { 0, 0, 0, 0 } },
+  
+  
   hum_abil[] = { { 0, 0, 0, 0 } };
 
 STATIC_DCL void NDECL(exerper);
@@ -913,6 +920,9 @@ long frommask;
         case PM_HUMAN:
             abil = hum_abil;
             break;
+        case PM_VAMPIRE:
+            abil = vam_abil;
+            break;
         default:
             break;
         }
@@ -1104,10 +1114,12 @@ int oldlevel, newlevel;
     case PM_TORTLE:
         rabil = trt_abil;
         break;
+    case PM_VAMPIRE:
+        rabil = vam_abil;
+        break;
     case PM_HUMAN:
     case PM_DWARF:
     case PM_GNOME:
-    case PM_VAMPIRE:
     default:
         rabil = 0;
         break;

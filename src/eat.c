@@ -3804,6 +3804,7 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     register struct obj *otmp;
     char qbuf[QBUFSZ];
     char c;
+    /* TODO: Add verb for vampire drain? */
     boolean feeding = !strcmp(verb, "eat"),    /* corpsecheck==0 */
         offering = !strcmp(verb, "sacrifice"); /* corpsecheck==1 */
 
