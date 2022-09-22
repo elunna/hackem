@@ -2397,6 +2397,10 @@ do_permonst()
         Fprintf(ofp, "\n        LOW_PM = 0,");
 #endif
     }
+    
+    if (strcmp(mons[0].mname, "playermon") != 0)
+        Fprintf(ofp,"\n#define\tPM_PLAYERMON\t(-1)");
+    
     for (i = 0; mons[i].mlet; i++) {
         SpinCursor(3);
         if (use_enum)

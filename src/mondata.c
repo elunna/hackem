@@ -874,11 +874,10 @@ monsndx(ptr)
 struct permonst *ptr;
 {
     register int i;
-
-#if 0  /* From Unnethack, is this required? */
+    
     if (ptr == &upermonst) 
         return PM_PLAYERMON;
-#endif
+
     i = (int) (ptr - &mons[0]);
     if (i < LOW_PM || i >= NUMMONS) {
         panic("monsndx - could not index monster (%s: %d)",
