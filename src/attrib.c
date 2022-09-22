@@ -1442,4 +1442,19 @@ int reason; /* 0==conversion, 1==helm-of-OA on, 2==helm-of-OA off */
     }
 }
 
+/** Returns the hitpoints of your current form. */
+int
+uhp()
+{
+	return (Upolyd ? u.mh : u.uhp);
+}
+
+/** Returns the maximal hitpoints of your current form. */
+int
+uhpmax()
+{
+	return (Upolyd ? u.mhmax : u.uhpmax);
+}
+
+
 /*attrib.c*/
