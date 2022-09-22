@@ -1231,3 +1231,130 @@ Problem: Gem abuse - Players have an easy path from the mines to any general sto
 
 
 - [x] Fix armor light sources display error
+
+
+
+	[x] Necromancer should start with a robe (special dark robe?)
+	[x] Creek town has a room with sink with no doors (has secret door)
+	[FIXED] Ruined and dangerous town:  One shk was kind of wandering. Some shops broken up...
+	[FIXED] lavender town has no shops?
+	[x] Get rid of some of the doors in the kobold mall, annoying
+	[x] traps generate in shops in the kobold mall (use more appropriate traps?)s
+
+	
+	- [x] New tile for Nebuchadnezzar (copy from Splice? Or use an old unused tile?)
+	- [x] New tile for Xanathar (copy from slashem beholder)
+	- [x] New tile for Acererak (copy from dnh)
+	- [x] Update robe tiles
+	- [x] Make a script to reorder the monsters/objects files (this is getting really annoying to do.)
+	- [SKIPPED] Gauntlets of power change
+	
+One-eyed Sam's Black Market:
+	- [x] Unnethack made entire levels undiggable and phaseproof.
+
+[x] Ice Mage: Intrinsic Ice armor AC protection
+	Similar to slashem monk - get AC bonus for every level gained? 
+	Removed studded armor, replaced with robe. Removed starting gloves - too good.
+
+	- [x] Grunds: Try 3 differences in the Grunds moat: lava, water, and sewage.
+	- [x] Grunds: Consider making moat 2 wide, and a solid phaseproof wall behind iron chains
+		
+	- [x] Replace iron ball of liberation with iron spoon of liberation (dnh)
+	- [x] Carrying the spoon confers free action
+	[x] Come up with another title for the Wizard's necromancer title.
+	- [x] Fix the convict quest and artifact
+	- [x] Add secret doors to some of the cells, and around the level, so possibly it's easier to navigate.
+		
+		
+
+Vampires:
+	- [x] Vampire 
+		- [x] Potion of blood (pending vampires?)
+		- [x] Potion of vampire blood (pending vampires?)
+		
+		[x] I'm not allowing cavemen to be vamps, feels wrong.
+		[x] Ice Mages and Necromancers can be vampires.
+		has_blood
+		
+		make 
+	Slashem Implementation:
+		start with: Regen, Unbreathing, Flying, drain res
+		No poison, cold, sleep res (like a normal vamp)
+		techs: draw blood, dazzle
+		extra attack – drain life bite
+		Can only drain corpses and drink blood.
+		restricted in the two-weapon skill.
+		start with a small penalty to luck and alignment, -1 and -5 respectively
+	
+	
+	unnethack implementation:
+		Same as slashem
+		[x] Vampires who wear an Opera cloak get a +1 Charisma bonus:
+		Vampires can wield and wear silver items, but it blocks their natural regeneration ("You feel itchy").
+		
+		
+	Splice implementation:
+
+
+
+
+
+	[x] Add tile for spoon and Iron Spoon
+	
+		[SKIPPED] Wielding spoon: You are wielding a knife.
+
+	- [x] catoblepas should have tusks (not horns)
+
+
+
+	- [SKIPPED] potion.c: upgrade_obj - fix the artifact stuff, buggy
+		Upgrading: Artifacts cannot be upgraded.
+	
+		- [SKIPPED] AC/Dex changes
+	- [SKIPPED] 0 turn weapon switching (dnh)
+	- [SKIPPED] Nerf the rubber chicken (FIQhack changes)
+	- [SKIPPED] Merge scimitar and saber
+	- [SKIPPED] slotless awesome artifacts (dnh)
+	- [SKIPPED] Remove A for All Items (help prevent interface screw, cancelling BoH)
+		pickup.c: invlet = 'A';
+	- [SKIPPED] #youpoly command
+		[x] Evil wiki: Permanent See Invisible is no longer attainable from fountain quaffing, blessed potions of see invisible, or eating invisible stalkers.
+		
+Bigger explosions: https://github.com/copperwater/xnethack/tree/big-expl-animation
+	Figure out how to hook into explode(), and might go through walls
+	
+	
+
+Makes robes body armor:
+	Make a is_robe define for spell.c
+
+	[x] Check all variants for robe differences
+	[ ] Change any cloaks back to robe counterparts
+		[x] ROBE
+		[x] ROBE_OF_PROTECTION 
+		[x] ROBE_OF_WEAKNESS (stunned?)
+		[x] ROBE_OF_POWER
+	[x] Change robe to body armor.
+	[x] "ROBE"
+	[x] objects: 
+	[x] do_wear.c (some monk AC stuff leftover)
+	
+	[x] uhitm - some lingering monk stuff to take care of (no penalties for wearing robes.)
+	
+	Test robes with monks
+		ROBE- You finish taking off your suit.  You feel much more comfortable and free now.
+			[fixed] protection went from 44% to 54% with robe on ...
+			[good] no msg putting it on
+			[good] Not getting any cumbersome messages while fighting
+		ROBE OF POWER:
+
+		[x] Test spellcasting effects
+	
+	
+	Upgrades:
+		a robe of power robe enhances your spellcasting ability, but not as much. Its enchantment makes no difference
+		Let's at least match vanilla robe
+		((its enchantment makes no difference).
+		
+		- [x] Add role adjusted pricing for sam/barb/rog (2-3x - from SlashEM)
+
