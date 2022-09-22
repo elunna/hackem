@@ -72,11 +72,11 @@ set_uasmon()
     struct permonst *mdat = &mons[u.umonnum];
     struct permonst *racedat; /* for infravision, flying */
 
-    set_mon_data(&youmonst, mdat);
+    /* set_mon_data(&youmonst, mdat); */
     
-    /* TODO: Is this necessary? The newer version might be better */
-    /* set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
-        ? &upermonst : &mons[u.umonnum]), 0);  */
+    /* TODO: From Un: Is this necessary? The newer version might be better */
+    set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
+        ? &upermonst : &mons[u.umonnum]));
     
     racedat = raceptr(&youmonst);
 
