@@ -274,9 +274,13 @@ Boots_on(VOID_ARGS)
     case LOW_BOOTS:
     case DWARVISH_BOOTS:
     case HIGH_BOOTS:
-    case JUMPING_BOOTS:
     case KICKING_BOOTS:
     case ORCISH_BOOTS:
+        break;
+    case JUMPING_BOOTS:
+        /* jumping is obvious no matter what the situation */
+        makeknown(uarmf->otyp);
+        pline("Your %s feel longer.", makeplural(body_part(LEG)));
         break;
     case WATER_WALKING_BOOTS:
         if (u.uinwater)
@@ -380,10 +384,14 @@ Boots_off(VOID_ARGS)
             float_vs_flight(); /* maybe toggle (BFlying & I_SPECIAL) */
         }
         break;
+    case JUMPING_BOOTS:
+        /* jumping is obvious no matter what the situation */
+        makeknown(otyp);
+        pline("Your %s feel shorter.", makeplural(body_part(LEG)));
+        break;
     case LOW_BOOTS:
     case DWARVISH_BOOTS:
     case HIGH_BOOTS:
-    case JUMPING_BOOTS:
     case KICKING_BOOTS:
     case ORCISH_BOOTS:
         break;
