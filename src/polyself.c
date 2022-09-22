@@ -56,10 +56,22 @@ init_uasmon()
 
     upermonst.mflags3 &= ~(mons[PM_HUMAN].mflags3);
     upermonst.mflags3 |= (mons[urace.malenum].mflags3);
-	
+    
+    upermonst.mflags4 &= ~(mons[PM_HUMAN].mflags4);
+    upermonst.mflags4 |= (mons[urace.malenum].mflags4);
+    
     /* Fix up the attacks */
-    for(i = 0; i < NATTK; i++) {
-        upermonst.mattk[i] = mons[urace.malenum].mattk[i];
+    /* crude workaround, needs better general solution */
+    if (Race_if(PM_VAMPIRE)) {
+        for(i = 0; i < NATTK; i++) {
+            upermonst.mattk[i] = mons[urace.malenum].mattk[i];
+        }
+    }
+    
+    /* Fix mflags because of impossible mixing of role and race flags */
+    if (Role_if(PM_MONK)) {
+        /* monks are declared herbivorous */
+        upermonst.mflags1 &= ~M1_CARNIVORE;
     }
 	
     set_uasmon();
