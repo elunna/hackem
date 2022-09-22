@@ -804,8 +804,15 @@ doengrave()
                     }
                 }
                 break;
-            case WAN_NOTHING:
             case WAN_UNDEAD_TURNING:
+                if (!Blind) {
+                    Sprintf(post_engr_text,
+                            "The dead bugs on the %s start moving!",
+                            surface(u.ux, u.uy));
+                    postknown = TRUE;
+                }
+                break;
+            case WAN_NOTHING:
             case WAN_OPENING:
             case WAN_LOCKING:
             case WAN_PROBING:
