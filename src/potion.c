@@ -2219,6 +2219,7 @@ register struct obj *obj;
         exercise(A_CON, TRUE);
         break;
     case POT_SICKNESS:
+        kn++;
         if (!Role_if(PM_HEALER)) {
             if (Upolyd) {
                 if (u.mh <= 5)
@@ -2236,6 +2237,7 @@ register struct obj *obj;
         }
         break;
     case POT_HALLUCINATION: {
+        kn++;
         boolean not_affected = Blind || (u.umonnum == PM_BLACK_LIGHT
                                   || u.umonnum == PM_VIOLET_FUNGUS
                                   || dmgtype(youmonst.data, AD_STUN));
@@ -2288,8 +2290,10 @@ register struct obj *obj;
         }
         break;
     case POT_SPEED:
-        if (!Fast && !Slow)
+        if (!Fast && !Slow) {
+            kn++;
             Your("knees seem more flexible now.");
+        }
         incr_itimeout(&HFast, rnd(5));
         exercise(A_DEX, TRUE);
         break;
