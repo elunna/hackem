@@ -533,6 +533,8 @@ struct obj *obj;
         else
             You(whistle_str, obj->cursed ? "shrill" : "high");
         wake_nearby();
+        if (obj->otyp == PEA_WHISTLE) 
+            makeknown_msg(obj->otyp);
         if (obj->cursed)
             vault_summon_gd();
     }
@@ -589,9 +591,9 @@ struct obj *obj;
                 }
             }
         }
-        if (pet_cnt > 0)
-            makeknown(obj->otyp);
+        /* if (pet_cnt > 0) makeknown(obj->otyp); */
     }
+    makeknown_msg(obj->otyp);
 }
 
 boolean
