@@ -2413,6 +2413,7 @@ struct obj *obj, *otmp;
         case WAN_NOTHING:
         case SPE_HEALING:
         case SPE_EXTRA_HEALING:
+        case WAN_SLEEP:
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
         case WAN_FIREBALL:
