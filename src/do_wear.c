@@ -283,8 +283,9 @@ Boots_on(VOID_ARGS)
         pline("Your %s feel longer.", makeplural(body_part(LEG)));
         break;
     case WATER_WALKING_BOOTS:
-        if (u.uinwater)
+        if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy))
             spoteffects(TRUE);
+            /* makeknown_msg(uarmf->otyp); */
         /* (we don't need a lava check here since boots can't be
            put on while feet are stuck) */
         break;
