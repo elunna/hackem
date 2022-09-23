@@ -713,7 +713,12 @@ struct monst *mtmp;
 
     is_cursed = curse_bless < 0;
     is_blessed = curse_bless > 0;
-
+    
+    /* Scrolls of charging now ID charge count, as well as doing
+               the charging, unless cursed. */
+    if (!is_cursed) 
+        obj->known = 1;
+    
     if (obj->oclass == WAND_CLASS) {
         int lim = (obj->otyp == WAN_WISHING)
                       ? 3
