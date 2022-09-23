@@ -621,6 +621,7 @@ struct obj *instr;
             Hallucination ? "piped" : "soft");
         put_monsters_to_sleep(u.ulevel * 5);
         exercise(A_DEX, TRUE);
+        makeknown_msg(MAGIC_FLUTE);
         break;
     case FLUTE: /* May charm snakes */
         do_spec &= (rn2(ACURR(A_DEX)) + u.ulevel > 25);
@@ -704,6 +705,7 @@ struct obj *instr;
             You_feel("very soothing vibrations.");
         charm_monsters((u.ulevel - 1) / 3 + 1);
         exercise(A_DEX, TRUE);
+        makeknown_msg(MAGIC_FLUTE);
         break;
     case HARP: /* May calm Nymph */
         do_spec &= (rn2(ACURR(A_DEX)) + u.ulevel > 25);
