@@ -4528,7 +4528,7 @@ struct obj *obj;
                 }
             }
         }
-        /*FALLTHRU*/
+        break;
     case WAN_COLD:
         if (expltype == EXPL_MAGICAL)
             expltype = EXPL_FROSTY;
@@ -4551,7 +4551,7 @@ struct obj *obj;
             }
         }
 #endif
-        /*FALLTHRU*/
+        break;
     case WAN_MAGIC_MISSILE:
     wanexpl:
         explode(u.ux, u.uy, -(obj->otyp), dmg, WAND_CLASS, expltype);
@@ -4577,7 +4577,7 @@ struct obj *obj;
         /* we want this before the explosion instead of at the very end */
         pline("A wall of force smashes down around you!");
         dmg = d(1 + obj->spe, 6); /* normally 2d12 */
-        /*FALLTHRU*/
+        break;
     case WAN_TELEPORTATION:
         /* WAC make tele trap if you broke a wand of teleport */
         if ((obj->spe > 2) && rn2(obj->spe - 2) && !level.flags.noteleport &&
@@ -4597,6 +4597,7 @@ struct obj *obj;
             }
         }
         affects_objects = TRUE;
+        break;
     case WAN_POLYMORPH:
         /* make poly trap if you broke a wand of polymorph */
         if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
@@ -4615,6 +4616,7 @@ struct obj *obj;
             }
         }
         affects_objects = TRUE;
+        break;
     case WAN_SLEEP:
         /* make sleeping gas trap if you broke a wand of sleep */
         if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
@@ -4632,6 +4634,7 @@ struct obj *obj;
                 }
             }
         }
+        break;
     case WAN_CANCELLATION:
         /* make anti-magic trap if you broke a wand of cancellation */
         if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
@@ -4650,6 +4653,7 @@ struct obj *obj;
             }
         }
         affects_objects = TRUE;
+        break;
     case WAN_UNDEAD_TURNING:
     case WAN_DRAINING:	/* KMH */
         affects_objects = TRUE;
