@@ -147,6 +147,7 @@ struct obj *otmp;
 {
     boolean wake = TRUE; /* Most 'zaps' should wake monster */
     boolean reveal_invis = FALSE, learn_it = FALSE;
+    boolean visible = FALSE;
     boolean dbldam = Role_if(PM_KNIGHT) && u.uhave.questart;
     boolean skilled_spell, helpful_gesture = FALSE;
     int dmg, otyp = otmp->otyp;
@@ -430,7 +431,11 @@ struct obj *otmp;
     case SPE_TELEPORT_AWAY:
         if (disguised_mimic)
             seemimic(mtmp);
+        visible = canspotmon(mtmp);
         reveal_invis = !u_teleport_mon(mtmp, TRUE);
+        /* if you can tell the monster has teleported, ID the wand */
+        if (!reveal_invis && visible && otyp == WAN_TELEPORTATION)
+            makeknown(otyp);
         break;
     case WAN_MAKE_INVISIBLE: {
         int oldinvis = mtmp->minvis;
