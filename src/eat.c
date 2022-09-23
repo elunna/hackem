@@ -3507,10 +3507,11 @@ gethungry()
      */
     accessorytime = rn2(20); /* rn2(20) replaces (int) (moves % 20L) */
     if (accessorytime % 2) { /* odd */
-        /* Regeneration uses up food, unless due to an artifact
+         /* Regeneration uses up food when injured, unless due to an artifact
          * or playing as a Giant */
         if ((HRegeneration & ~(FROMFORM | FROMRACE))
-            || (ERegeneration & ~(W_ARTI | W_WEP | W_ARMOR)))
+            || (ERegeneration & ~(W_ARTI | W_WEP | W_ARMOR)) &&
+             (uhp() < uhpmax()))
             u.uhunger--;
         if (near_capacity() > SLT_ENCUMBER)
             u.uhunger--;
