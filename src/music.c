@@ -651,7 +651,8 @@ struct obj *instr;
             buzz((instr->otyp == FROST_HORN) ? AD_COLD - 1 : AD_FIRE - 1,
                  rn1(6, 6), u.ux, u.uy, u.dx, u.dy);
         }
-        makeknown(instr->otyp);
+        /* makeknown(instr->otyp); */
+        makeknown_msg(instr->otyp);
         break;
     case TOOLED_HORN: /* Awaken or scare monsters */
         if (!Deaf) {
@@ -735,7 +736,8 @@ struct obj *instr;
         }
         /* shake up monsters in a much larger radius... */
         awaken_monsters(ROWNO * COLNO);
-        makeknown(DRUM_OF_EARTHQUAKE);
+        /* makeknown(DRUM_OF_EARTHQUAKE); */
+        makeknown_msg(DRUM_OF_EARTHQUAKE);
         break;
     case LEATHER_DRUM: /* Awaken monsters */
         if (!mundane) {
