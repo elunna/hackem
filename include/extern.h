@@ -445,8 +445,9 @@ E void FDECL(goto_level, (d_level *, BOOLEAN_P, BOOLEAN_P, BOOLEAN_P));
 E void FDECL(schedule_goto, (d_level *, BOOLEAN_P, BOOLEAN_P, int,
                              const char *, const char *));
 E void NDECL(deferred_goto);
-E boolean FDECL(revive_corpse, (struct obj *));
+E boolean revive_corpse(struct obj *, boolean);
 E void FDECL(revive_mon, (ANY_P *, long));
+E void moldy_corpse(union any *, long);
 E void FDECL(zombify_mon, (ANY_P *, long));
 E int NDECL(donull);
 E int NDECL(dowipe);

@@ -34,6 +34,7 @@ enum timeout_types {
     HATCH_EGG,
     FIG_TRANSFORM,
     MELT_ICE_AWAY,
+    MOLDY_CORPSE,
     BOMB_BLOW,
     NUM_TIME_FUNCS
 };

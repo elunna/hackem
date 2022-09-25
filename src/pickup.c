@@ -292,7 +292,7 @@ boolean remotely;
 
     pline("At your %s, the corpse suddenly moves...",
           remotely ? "attempted acquisition" : "touch");
-    (void) revive_corpse(obj);
+    (void) revive_corpse(obj, FALSE);
     exercise(A_WIS, FALSE);
     return TRUE;
 }
@@ -2472,6 +2472,7 @@ register struct obj *obj;
         /* stop any corpse timeouts when frozen */
         if (obj->otyp == CORPSE && obj->timed) {
             (void) stop_timer(ROT_CORPSE, obj_to_any(obj));
+            (void) stop_timer(MOLDY_CORPSE, obj_to_any(obj));
             (void) stop_timer(REVIVE_MON, obj_to_any(obj));
         }
     } else if (Is_mbag(current_container) && mbag_explodes(obj, 0)) {

@@ -359,8 +359,9 @@ Imported these monsters from slashem:
 	- [x] Mother Hydra (deferred)
 
 Left out from slashem import:
-	- Doctor Frankenstein/Frankenstein's Monster: Left out Frankenstein's level
-	- Gypsy - too complex to integrate, imbalanced, offensive?
+	- Doctor Frankenstein/Frankenstein's Monster
+		Left out Frankenstein's level. I always felt this one was either not designed well, or just didn't fit into the game. It also makes searching for Vlad's more annoying.
+	- Gypsy - too complex to integrate. This NPC is imbalanced in the way that players might try to take advantage of the infinite wish trick - which is just degenerate. There is also an issue with the term "Gypsy" in that it's used in a derogatory fashion in some countries for the Roma culture.
 	- Pegasus (evil already has pegasi). 
 			And Pegasus doesn't do much in slashem except pop out of Medusa.
 	- Rat King - Removed and kept Evil's Rat King instead.
@@ -457,7 +458,6 @@ Firearms:
 	- [SKIPPED] Rocket launcher
 	- [SKIPPED] Grenade launcher
 	- [SKIPPED] Rocket
-	- [SKIPPED] Stick of dynamite - (We'll probably bring this in though, good for arc/flame mage)
 	
 Armor:
 	- [x] Dark elven mithril-coat -> droven chain mail (dark elven?)
@@ -469,15 +469,15 @@ Armor:
 	- [x] Fedora acts as luckstone and +1 cha
 	
 	- [SKIPPED] Make sure players can't start with a bad cloak.
-	- [SKIPPED] Shimmering dragon scales (already in evil)
-	- [SKIPPED] Shimmering dragon scale mail (already in evil)
-	- [SKIPPED] Lab coat (Evil/vanilla has alchemy smock)
-	- [SKIPPED] Robe of protection (we have the cloak of protection.)
-	- [SKIPPED] Robe of power (we have regular robes)
-	- [SKIPPED] Robes are body armor in SlashEM
+	- [x] Shimmering dragon scales (already in evil)
+	- [x] Shimmering dragon scale mail (already in evil)
+	- [x] Lab coat (Evil/vanilla has alchemy smock)
+	- [x] Robe of protection
+	- [x] Robe of power
+	- [x] Robe of weakness
+	- [x] Robes are body armor in SlashEM
 
 Dragons and Dragon Scales
-
 	Evil uses the dtsund patch for dragon scales, which means that dragon scale
 	mail no longer exists - but we can apply dragon scales to any armor. Evil 
 	introduced some passive effects, I have expanded these so that every dragon 
@@ -529,7 +529,7 @@ Food:
 	- [x] Made tortilla vegetarian, not vegan.
 
 Amulets:
-	- [SKIPPED] Amulet of flying (already in evil)
+	- [x] Amulet of flying (already in evil)
 	- [x] Amulet of drain resistance
 	- [x] Amulet versus stone
 	
@@ -651,7 +651,7 @@ Tools/Weapon Tools:
 		- [x] Green lightsaber
 		- [x] Blue lightsaber
 		- [x] Red lightsaber
-		- [SKIPPED] Red double lightsaber
+
 	 
 	- [x] Pick-axe: Changed weight to 75 aum (From SLASH'EM)
 
@@ -688,12 +688,17 @@ Gems:
 		- [SKIPPED] bonus: whetstoning with holy or unholy water. Dips BOTH the weapon and the whetstone.
 
 Artifacts:
-	Design decision: 
+	Design decision #1: 
 		In SlashEM, artifacts grant a base damage bonus - should we adjust so 
 		that they deal closer to that on average? Currently, we'll say no and
 		see how things play out. (Except for Doomblade which I specifically 
 		want close to slashem levels.)
 	
+	Design decision #2: 
+		Any roles that had 2 guaranteed altar sacrifice gifts have been reduced to just 1. 
+		Having 2 just seems excessive, and most of the time, the second gift was just a barrier to overcome to
+		get to better stuff (example: Deathsword for Barbarian, or even Deluder for Wizards)
+		
 	- [x] Added much stronger artifact blasting (6d6 to 8d10) (from Slashem)
 
 	- [x] Bat from Hell
@@ -701,16 +706,12 @@ Artifacts:
 		- Removed Deathsword from being a barbarian sac gift.
 		- Deathsword causes hostility from humans
 	- [x] Deep Freeze
-		- [SKIPPED] Can be invoked for a shield of ice? (that also freezes the ground)
 	- [x] Firewall
 		- Changed into a Staff of Divination
 		- Firewall can generate Fire elementals (moved from Candle)
 	- [x] Doomblade
 		- Deals an extra d19 to make up for solid +10
 		- Shows an appropriate message for tiny monsters.
-		- [SKIPPED] Doomblade should not deal extra damage to incorporeal
-		- [SKIPPED] Doomblade gets better the higher skill you are in short sword?
-		  1/8 chance of deep at basic, 1/6 chance at skilled, 1/3 at expert?
 	- [x] Elfrist
 		- Warns against elves.
 		- Elfrist causes hostility to elves
@@ -740,6 +741,8 @@ Artifacts:
 		- Removed Deluder from being a Wizard sac gift.
 	- [x] Whisperfeet (Tourist)
 	- [x] Gauntlets of Defense (Monk?)
+	- [x] Luckblade (already in evil!)
+	- [x] Werebane (already in evil!)
 	- [x] Added "The Master Sword" as an actual artifact
 		- +3 to-hit and +1d3 dmg)
 		- Was a "named" silver long sword in the village level, 
@@ -750,14 +753,7 @@ Artifacts:
 
 	- [x] /* If wielding/wearing any of the 'banes, taming becomes impossible */
 	
-	- [SKIPPED] Houchou
-	- [SKIPPED] Hellfire (skip for now - code seems messy)
-	- [SKIPPED] Wallet of Perseus (Evil has the Bag of the Hesperides)
-	- [SKIPPED] Luckblade (already in evil!)
-	- [SKIPPED] Werebane (already in evil!)
 	- [SKIPPED] Giantkiller (Evil has Giantslayer)
-	- [SKIPPED] make sure deep freeze isn't doubling damage like frost brand
-	- [SKIPPED] make sure firewall isn't doubling damage like fire brand
 
 
 Quest Artifacts:
@@ -820,7 +816,6 @@ Toilets:
 Forges:
 	- [x] fountain.c: Add new recipes to fusions for droven weapons
 
-
 Mechanics:
 	- Changed chances of item randomly spawning with two properties to 1 in 666
 		(In Evil the chances are 1 in 100000! K2 what?!)
@@ -866,6 +861,10 @@ Mechanics:
 		- Adjusted BoT #tip behavior - it stops when it reaches a non-monster effect.
 		- This is a compromize between BoT behavior between UnNethack and Evil.
 		- [SKIPPED] m_stash_items - intelligent monsters will stash in empty BoT
+	- [x] Add Spell minions/entities (flame/ice spheres already in evil)
+	- [x] Poisoned missiles (daggers, knives - already in evil)
+	- [x] No Mysterious Force (Already removed in evilhack)
+	- [x] #borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
 	
 
 	- [SKIPPED] Find good places to use iron/crystal safes.
@@ -881,24 +880,13 @@ Mechanics:
 	- [SKIPPED] Tin openers can break
 	- [SKIPPED] You should not be able to burn Elbereths with fireball (too smudgey?)
 
-	- [SKIPPED] Add Spell minions/entities (flame/ice spheres already in evil)
-	- [SKIPPED] Poisoned missiles (daggers, knives - already in evil)
-	- [SKIPPED] No Mysterious Force (Already removed in evilhack)
-	- [SKIPPED] #borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
-
-
-
-
 Religion/Prayer/Alters:
 	- Make temple priests hostile if made on an unaligned altar.
 		(This means the VoTD priest is always hostile now - no free donates kiddies!)
 	- Sacrifice offerings can sometimes bless random objects (From SlashEM)
-	
 	- [SKIPPED] Altars can crumble on any #offer - depending on luck/alignment,etc. (Spork? Grunt?)
-	- [SKIPPED] Crowning only grants 50% resistance to everything.
-	- [SKIPPED] Make crowning much more difficult in evil - otherwise post crown is too easy.
+	- [SKIPPED] Make crowning more difficult to achieve - otherwise post crown is too easy.
 		
-
 
 Dungeon Changes:
 	- [x] Extend main dungeon: Now 35-40 levels deep
@@ -918,7 +906,6 @@ Dungeon Changes:
 	- [x] Import The Lost Tomb
 	- [x] Import The Spider Caves
 		- [x] Make sure all eggs are spider eggs (random?)
-		- [SKIPPED] Divvy up the Spider Cave eggs so they are not all random.
 		- [SKIPPED] Can you hide eggs underground? WIll they still hatch?
 	- [x] Import The Temple of Moloch
 
@@ -931,9 +918,6 @@ Dungeon Changes:
 		- [x] Grunds: Make sure the level divider does not keep fucking up
 		- [x] Combine the 2 parts of the level into one, have to adjust all the coordinates probably.
 
-		
-	
-
 	[x] Add town branch from SlashTHEM
 		- Added town fill level (from Unnethack)	
 		- Change village stairs 
@@ -942,7 +926,6 @@ Dungeon Changes:
 		- Created a Kobold "mall" level that is peaceful and has a lot of shops.
 		- Created a "Raided Angband" level that is been ransacked by bandits and thieves.
 		[SKIPPED] Add zombie mall 
-	
 	
 	Black Market:
 		- Reduce Black Market prices a bit.
@@ -968,7 +951,6 @@ Dungeon Changes:
 				replaced rat king with Ruggo.
 			- Create a variant of the dnh drow noble quest level (Ndr-loca")
 	
-	
 	Extended Wyrm Caves branch (Appears level 21-22)
 		- 9-13 levels deep
 		- Has standard mines fill levels - but with the rivers mixed in.
@@ -993,16 +975,14 @@ Dungeon Changes:
 			 Has a rat zoo and Lots of traps:
 		- Bottom is a dragon nest with baby and adult dragons, as well as eggs and a treasure horde.
 		
-		- [SKIPPED] Random portal to Beholder Quest - For Key of Access.
 		- [SKIPPED] Import Dragon caves from (Un) - Problems with formatting?
-		- [SKIPPED UNTIL DIG STATUS IS THOUGHT OUT] 
-			Add lots of hole traps to every cave level, so players get stranded in mean pits.
+		- [SKIPPED] Add hole traps to every cave level, so players get stranded in mean pits.
 
 	- [YES] Keep Vecna's lair? 
 
 
 	- [SKIPPED] The Guild of Disgruntled Adventurers
-	- [SKIPPED] The Giant Caverns
+	- [SKIPPED] The Giant Caverns (We already have special Giant Throne rooms)
 	- [SKIPPED] Frankenstein's Lab
 	- [SKIPPED] Yeenoghu's lair
 	- [SKIPPED] Demogorgon's lair
@@ -1017,7 +997,6 @@ New special rooms
 	- [x] BADFOODSHOP
 	- [x] GIANTCOURT
 	- [x] LEMUREPIT (already in Evil?)
-	
 
 	[x] Add pet store (From unnethack)
 	[x] Add music shop (From unnethack)
@@ -1042,7 +1021,6 @@ Role/Race Changes:
 		- Flame Mage can only be Lawful/Neutral
 		- [x] Flame mages now cast spells using Wisdom
 
-		- [SKIPPED] Flame mages can never get cold resistance
 		- [SKIPPED] Flame mage: polyself.c - polymorphing into a red dragon. (Slashem)
 		- [SKIPPED] Intrinsic flaming at higher levels?
 
@@ -1056,8 +1034,6 @@ Role/Race Changes:
 		- Starts with gloves, lenses or grappling hook. 
 		- Removed starting potions (they might freeze in the cold.)
 
-		- [SKIPPED] Ice mages can never get fire resistance
-		- [SKIPPED] IceLevel 1: Can walk on ice without slipping
 		- [SKIPPED] Ice mage: polyself.c - polymorphing into a white dragon. (slashem)
 
 	Ice and Flame mages cannot use anything that is decidedly the opposite's domain:
@@ -1065,9 +1041,6 @@ Role/Race Changes:
 		- Flame mages cannot read cold based spellbooks.
 		- Ice mages cannot use Fire Brand/Firewall.
 		- Ice mages cannot read fire based spellbooks.
-		[SKIPPED] Ice Mages cannot be gifted  Fire Brand/Firewall.
-		[SKIPPED] Flame Mages cannot be gifted Frost Brand/Deep Freeze
-
 
 	- [x] Necromancer
 		- Make sure pickaxe is +1 (copy archaeologist logic)
@@ -1088,9 +1061,9 @@ Role/Race Changes:
 		- gets nightvision radius 2 (From SlashEM)
 
 Races:
+- [x] Hobbit race (already in evil)
 - [SKIPPED] Doppleganger race - Skip until better ideas come along.
 - [SKIPPED] Lycanthrope race
-- [SKIPPED] Hobbit race (already in evil)
 - [SKIPPED] Drow
 		- [ ] Add racial bonus to drow for using DARK_ELVEN_BOW (Need to add it first)
 		- [ ] Add drow starting equipment (need to add them first!)
@@ -1104,14 +1077,11 @@ Monsters:
 	- [SKIPPED] Imps can shoot small fireballs
 	- [SKIPPED] Revenants should shoot missiles/fireballs (ala Doom)
 	- [SKIPPED] Stone giant: should be stoning resistant and vulnerable to digging.
-	- [SKIPPED] Rename nightmares to greater nightmare
-	- [SKIPPED] Some watery monsters leave a trail of shallow water, that can become pools if re-tread enough?
 	- [SKIPPED] Paper golems occasionally drop non-blank scrolls.
 	- [SKIPPED] Move scrampers/squealers/manglers to Q?
 	- [SKIPPED] uhitm: Mobats piercing screams  (do when I learn how to implement #monster stuff)
 	- [SKIPPED] Nightgaunts dislike flying over water? (Similar to eels on land?)
 				mondata.c: mon_hates_light
-	- [SKIPPED] Ghast's have a nasty stench.
 	- [SKIPPED] Gibberlings fear bright light and fire.
 	- [SKIPPED] Grimlocks are vulnerable to light. Now hate light and flee light objects.
 	- [SKIPPED] Bar-Lgura can cast spells (invisibility, teleport, entangle and disguise self)
@@ -1124,7 +1094,6 @@ Monsters:
 		AD_PITS - look at this because digging pits is an attack.
 		Do they seek out graves? Or just dig when over them??
 	- [SKIPPED] Evil coins should also throw coins at you.
-	- [SKIPPED] slaughter wights release a death wail when slain. 1d18 damage, Aggravates monsters. Stuns and confuses you
 	- [SKIPPED] A humanoid creature slain by a slaughter wight rises as a wight within 1d4 rounds of its death
 	- [SKIPPED] +2 to-hit bonus against kebabable monsters also adds d6 dmg
 	- [SKIPPED] All Pirates: 1/2 chance of a frag grenade.
@@ -1132,6 +1101,7 @@ Monsters:
 		(so that walking around the trap is not always safe)
 		Could be extended to other monsters and trap types.
 
+	- [SKIPPED] slaughter wights release a death wail when slain. 1d18 damage, Aggravates monsters. Stuns and confuses you
 	- [SKIPPED] Slaughter wight death wail:
 		Gas spores do this: ATTK(AT_BOOM, AD_PHYS, 4, 6), 
 		What monsters have an effect on death?
@@ -1141,15 +1111,12 @@ Monsters:
 			mondata.c: max_passive_dmg (739)
 		
 
-
 Item Changes:
-	- [SKIPPED] Slashem: Breaking wands of fire = double damage?
 	- [SKIPPED] Crossbows are GUNS in slashem, and 2handed.
 
 Mechanics:
 	- [SKIPPED] Wizmode: If we try to generate a monster that doesn't exist, we get a crash.
 	- [SKIPPED] Change sokobon prize system back to normal
-	- [SKIPPED] Fix paranoid swim?
 	- [SKIPPED] Allow Giants to benefit from ring of slow digestion
 	- [SKIPPED] Stalactite/Stalagmite traps
 	- [SKIPPED] Make shops impossible to steal from with pets.
@@ -1157,6 +1124,9 @@ Mechanics:
 	- [ ] How to make sonic attacks work with #monster??
 
 
+===============================================================================
+Cleanup below here...
+===============================================================================
 Shops/Shopkeeper Services
 	* All shops offer a form of identify but not necessarily any other services. 
 	* The black market always has full id services, appraisal, and uncursing services.
@@ -1228,10 +1198,7 @@ Problem: Gem abuse - Players have an easy path from the mines to any general sto
 			Use the appropriate object class for getobj lookups too.
 	- [SKIPPED] Show player credit on the menu
 
-
-
 - [x] Fix armor light sources display error
-
 
 
 	[x] Necromancer should start with a robe (special dark robe?)

@@ -470,6 +470,7 @@ enum bodypart_types {
 #define BALL_IN_MON (u.uswallow && uball && uball->where == OBJ_FREE)
 #define CHAIN_IN_MON (u.uswallow && uchain && uchain->where == OBJ_FREE)
 #define NODIAG(monnum) ((monnum) == PM_GRID_BUG)
+#define MOLDY_CHANCE 290       /* 1/290 chance for 200 turns ~ 50% chance */
 
 /* Flags to control menus */
 #define MENUTYPELEN sizeof("traditional ")
