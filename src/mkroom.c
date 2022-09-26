@@ -657,6 +657,13 @@ struct mkroom *sroom;
         break;
     case MINIGUILD:
         level.flags.has_guild = 1;
+        i = 100;
+        do { /* don't place toilet on top of stairs */
+            (void) somexy(sroom, &mm);
+            tx = mm.x;
+            ty = mm.y;
+        } while (occupied((xchar) tx, (xchar) ty) && --i > 0);
+        levl[tx][ty].typ = TOILET;
         break;
     }
 }
@@ -752,7 +759,7 @@ guildmon()
     do {
         /* We don't want to fill the room with player monsters, ok if it's 
          * a bit sparse. */
-        if (rn2(3))
+        if (!rn2(3))
             mtyp = PM_ARCHEOLOGIST + rn2(22); 
         else {
             /* They have some pets to help them */
