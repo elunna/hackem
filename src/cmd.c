@@ -1409,6 +1409,8 @@ wiz_map_levltyp(VOID_ARGS)
             Strcat(dsc, " morgue");
         if (level.flags.has_barracks)
             Strcat(dsc, " barracks");
+        if (level.flags.has_guild)
+            Strcat(dsc, " guild");
         if (level.flags.has_beehive)
             Strcat(dsc, " hive");
         if (level.flags.has_swamp)

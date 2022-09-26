@@ -192,6 +192,8 @@ unsigned mgflags;
                 color = HI_METAL;
             else if (getroomtype(x, y) == LEMUREPIT)
                 color = CLR_RED;
+            else if (getroomtype(x, y) == MINIGUILD)
+                color = CLR_BROWN;
             else
                 cmap_color(offset);
 

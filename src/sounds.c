@@ -103,6 +103,16 @@ dosounds()
         You1(swamp_msg[rn2(2) + hallu]);
         return;
     }
+    if (level.flags.has_guild && !rn2(200)) {
+        static const char *guild_msg[4] = {
+            "hear someone complaining about the pay!",
+            "hear equipment being vaporized!",
+            "hear the RNG grinding!",
+            "hear the hardfought server crash!",
+        };
+        You1(guild_msg[rn2(2) + 2 * hallu]);
+        return;
+    }
     if (level.flags.has_vault && !rn2(200)) {
         if (!(sroom = search_special(VAULT))) {
             /* strange ... */

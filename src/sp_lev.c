@@ -2627,11 +2627,14 @@ boolean prefilled;
         level.flags.has_lemurepit = TRUE;
         break;
      case MIGOHIVE:
-		level.flags.has_migohive = TRUE;
-		break;
+        level.flags.has_migohive = TRUE;
+        break;
     case FUNGUSFARM:
-		level.flags.has_fungusfarm = TRUE;
-		break;
+        level.flags.has_fungusfarm = TRUE;
+        break;
+    case MINIGUILD:
+        level.flags.has_guild = TRUE;
+        break;
     case BEEHIVE:
         level.flags.has_beehive = TRUE;
         break;

@@ -761,7 +761,7 @@ clear_level_structures()
     level.flags.has_morgue = level.flags.graveyard = 0;
     level.flags.has_lemurepit = 0;
     level.flags.has_fungusfarm = 0;
-    level.flags.has_fungusfarm = 0;
+    level.flags.has_guild = 0;
     level.flags.has_beehive = 0;
     level.flags.has_barracks = 0;
     level.flags.has_temple = 0;
@@ -952,50 +952,51 @@ makelevel()
         else if (u_depth > 1 && u_depth < depth(&medusa_level)
                  && nroom >= room_threshold && rn2(u_depth) < 3)
             mkroom(SHOPBASE);
-        else if (u_depth > 4 && !rn2(6))
+        else if (u_depth > 4 && !rn2(11))
             mkroom(COURT);
-        else if (u_depth > 5 && !rn2(8)
+        else if (u_depth > 5 && !rn2(13)
                  && !(mvitals[PM_LEPRECHAUN].mvflags & G_GONE))
             mkroom(LEPREHALL);
-        else if (u_depth > 6 && !rn2(7))
+        else if (u_depth > 6 && !rn2(12))
             mkroom(ZOO);
-        else if (u_depth > 7 && !rn2(6))
+        else if (u_depth > 7 && !rn2(11))
             mkroom(GARDEN);
-        else if (u_depth > 7 && !rn2(7)
+        else if (u_depth > 7 && !rn2(12)
                  && !(mvitals[PM_RUST_MONSTER].mvflags & G_GONE))
             mkroom(ARMORY);
-        /* fungus farms are rare... */
-	    else if (u_depth > 1 && !rn2(25)) 
+        else if (u_depth > 1 && !rn2(25)) 
             mkroom(FUNGUSFARM);
-        else if (u_depth > 8 && !rn2(5))
+        else if (u_depth > 8 && !rn2(10))
             mkroom(TEMPLE);
-        else if (u_depth > 9 && !rn2(5)
+        else if (u_depth > 9 && !rn2(10)
                  && !(mvitals[PM_KILLER_BEE].mvflags & G_GONE))
             mkroom(BEEHIVE);
-        else if(u_depth > 9 && !rn2(15)) 
+        else if (u_depth > 9 && !rn2(19)) 
             mkroom(REALZOO);
-        else if (u_depth > 10 && !rn2(7)
+        else if (u_depth > 10 && !rn2(16)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
             mkroom(OWLBNEST);
-        else if (u_depth > 11 && !rn2(6))
+        else if (u_depth > 11 && !rn2(13))
             mkroom(MORGUE);
-        else if (u_depth > 12 && !rn2(8) && antholemon())
+        else if (u_depth > 12 && !rn2(13) && antholemon())
             mkroom(ANTHOLE);
-        else if(u_depth > 13 && !rn2(15)) 
+        else if (u_depth > 13 && !rn2(15)) 
             mkroom(BADFOODSHOP);
-        else if (u_depth > 14 && !rn2(4)
+        else if (u_depth > 14 && !rn2(9)
                  && !(mvitals[PM_SOLDIER].mvflags & G_GONE))
             mkroom(BARRACKS);
-        else if(u_depth > 14 && !rn2(12)) 
+        else if (u_depth > 14 && !rn2(17)) 
             mkroom(GIANTCOURT);
-        else if (u_depth > 15 && !rn2(6))
+        else if (u_depth > 15 && !rn2(11))
             mkroom(SWAMP);
-        else if (u_depth > 16 && !rn2(8)
+        else if (u_depth > 15 && !rn2(2))
+            mkroom(MINIGUILD);
+        else if (u_depth > 16 && !rn2(13)
                  && !(mvitals[PM_COCKATRICE].mvflags & G_GONE))
             mkroom(COCKNEST);
-        else if(u_depth > 20 && !rn2(20))
+        else if (u_depth > 20 && !rn2(20))
             mkroom(DRAGONLAIR);
-        else if (u_depth > 17 && !rn2(7)
+        else if (u_depth > 17 && !rn2(12)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))
             mkroom(NURSERY);
          else if (u_depth > 25 && !rn2(20) 

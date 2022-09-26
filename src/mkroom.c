@@ -25,7 +25,8 @@ STATIC_DCL void FDECL(mkgarden, (struct mkroom *));
 STATIC_DCL coord *FDECL(shrine_pos, (int));
 STATIC_DCL struct permonst *NDECL(morguemon);
 STATIC_DCL struct permonst *NDECL(squadmon);
-STATIC_DCL struct permonst * NDECL(fungus);
+STATIC_DCL struct permonst *NDECL(fungus);
+STATIC_DCL struct permonst *NDECL(guildmon);
 STATIC_DCL struct permonst *NDECL(armorymon);
 STATIC_DCL struct permonst *NDECL(nurserymon);
 STATIC_DCL void FDECL(save_room, (int, struct mkroom *));
@@ -117,6 +118,9 @@ int roomtype;
         case FUNGUSFARM:
             mkzoo(FUNGUSFARM); 
             break;
+        case MINIGUILD:
+            mkzoo(MINIGUILD); 
+            break;
         default:
             impossible("Tried to make a room of type %d.", roomtype);
         }
@@ -183,13 +187,17 @@ mkshop()
                 return;
             }
             if (*ep == 'i' || *ep == 'I') {
-				mkzoo(MIGOHIVE);
-				return;
-			}
+                mkzoo(MIGOHIVE);
+                return;
+            }
             if (*ep == 'f' || *ep == 'F') {
-				mkzoo(FUNGUSFARM);
-				return;
-			}
+                mkzoo(FUNGUSFARM);
+                return;
+            }
+            if (*ep == 'g' || *ep == 'G') {
+                mkzoo(MINIGUILD);
+                return;
+            }
             if (*ep == '_') {
                 mktemple();
                 return;
@@ -388,8 +396,8 @@ struct mkroom *sroom;
         goldlim = 500 * level_difficulty();
         break;
     case DRAGONLAIR:
-		goldlim = 1500 * level_difficulty();
-		break;
+        goldlim = 1500 * level_difficulty();
+        break;
     }
 
     for (sx = sroom->lx; sx <= sroom->hx; sx++)
@@ -440,6 +448,7 @@ struct mkroom *sroom;
                     (type == BARRACKS) ? squadmon() : 
                     (type == MORGUE) ? morguemon() : 
                     (type == FUNGUSFARM) ? fungus() :
+                    (type == MINIGUILD) ? guildmon() :
                     (type == BEEHIVE) ? 
                         (sx == tx && sy == ty ? &mons[PM_QUEEN_BEE] : 
                         &mons[PM_KILLER_BEE]) : 
@@ -467,7 +476,9 @@ struct mkroom *sroom;
 
             if (mon) {
                 mon->msleeping = 1;
-                if (type == COURT && mon->mpeaceful) {
+                /* We don't want any guild members to be peaceful. */
+                if ((type == COURT || type == MINIGUILD) 
+                         && mon->mpeaceful) {
                     mon->mpeaceful = 0;
                     set_malign(mon);
                 }
@@ -539,6 +550,22 @@ struct mkroom *sroom;
                                 sobj, mkobj(RANDOM_CLASS, FALSE));
                         sobj->owt = weight(sobj);
                     }
+                }
+                break;
+            case MINIGUILD:
+                /* # stuff for them to use on you... */
+                if (!rn2(10))
+                    (void) mksobj_at((rn2(3)) ? LARGE_BOX : CHEST, sx, sy,
+                                     TRUE, FALSE);
+                else {
+                    if (!rn2(10))
+                        (void) mkobj_at(SCROLL_CLASS, sx, sy, FALSE);
+                    if (!rn2(10))
+                        (void) mkobj_at(WAND_CLASS, sx, sy, FALSE);
+                    if (!rn2(10))
+                        (void) mkobj_at(POTION_CLASS, sx, sy, FALSE);
+                    if (!rn2(10))
+                        (void) mkobj_at(RANDOM_CLASS, sx, sy, FALSE);
                 }
                 break;
             case ANTHOLE:
@@ -623,10 +650,13 @@ struct mkroom *sroom;
         level.flags.has_lemurepit = 1;
         break;
     case MIGOHIVE:
-		  level.flags.has_migohive = 1;
-		  break;
+        level.flags.has_migohive = 1;
+        break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = 1;
+        break;
+    case MINIGUILD:
+        level.flags.has_guild = 1;
         break;
     }
 }
@@ -713,39 +743,85 @@ antholemon()
                                              : &mons[mtyp]);
 }
 
+struct permonst *
+guildmon()
+{
+    int mtyp, indx, trycnt = 0;
+    
+    /* casts are for dealing with time_t */
+/*
+    indx = (int) ((long) ubirthday % 4L);
+    indx += level_difficulty(); */
+    indx = rn2(22);
+    /* Same monsters within a level, different ones between levels */
+    do {
+        switch (indx) {
+        case 0: mtyp = PM_ARCHEOLOGIST; break;
+        case 1: mtyp = PM_BARBARIAN; break;
+        case 2: mtyp = PM_BARD; break;
+        case 3: mtyp = PM_CAVEMAN; break;
+        case 4: mtyp = PM_CAVEWOMAN; break;
+        case 5: mtyp = PM_CONVICT; break;
+        case 6: mtyp = PM_FLAME_MAGE; break;
+        case 7: mtyp = PM_HEALER; break;
+        case 8: mtyp = PM_ICE_MAGE; break;
+        case 9: mtyp = PM_INFIDEL; break;
+        case 10: mtyp = PM_KNIGHT; break;
+        case 11: mtyp = PM_MONK; break;
+        case 12: mtyp = PM_NECROMANCER; break;
+        case 13: mtyp = PM_PRIEST; break;
+        case 14: mtyp = PM_PRIESTESS; break;
+        case 15: mtyp = PM_RANGER; break;
+        case 16: mtyp = PM_ROGUE; break;
+        case 17: mtyp = PM_SAMURAI; break;
+        case 18: mtyp = PM_TOURIST; break;
+        case 19: mtyp = PM_UNDEAD_SLAYER; break;
+        case 20: mtyp = PM_VALKYRIE; break;
+        case 21: mtyp = PM_WIZARD; break;
+        case 22: mtyp = PM_YEOMAN; break;
+        default: mtyp = PM_VALKYRIE; break;
+        }
+        /* try again if chosen type has been genocided or used up */
+    } while (++trycnt < 3 && (mvitals[mtyp].mvflags & G_GONE));
+
+    return ((mvitals[mtyp].mvflags & G_GONE) ? (struct permonst *) 0
+                                             : &mons[mtyp]);
+}
+
 
 STATIC_OVL struct permonst *
 fungus()
 {
-	register int i, hd = level_difficulty(), mtyp = 0;
+    register int i, hd = level_difficulty(), mtyp = 0;
 
-	i = rn2(hd > 20 ? 17 : hd > 12 ? 14 : 12);
+    i = rn2(hd > 20 ? 17 : hd > 12 ? 14 : 12);
 
-	switch (i) {
-	case 0:
-	case 1: mtyp = PM_LICHEN; 		    break;	
-	case 2: mtyp = PM_BROWN_MOLD;		break;
-	case 3: mtyp = PM_YELLOW_MOLD;		break;
-	case 4: mtyp = PM_GREEN_MOLD;		break;
-	case 5: mtyp = PM_RED_MOLD;		    break;
-	case 6: mtyp = PM_SHRIEKER;		    break;
-	case 7: mtyp = PM_VIOLET_FUNGUS;	break;
-	case 8: mtyp = PM_BLUE_JELLY;		break;
-	case 9: mtyp = PM_DISGUSTING_MOLD;	break;
-	case 10: mtyp = PM_BLACK_MOLD;		break;
-	case 11: mtyp = PM_GRAY_OOZE;		break;
-	/* Following only after level 12... */
-	case 12: mtyp = PM_SPOTTED_JELLY;	break;
-	case 13: mtyp = PM_BROWN_PUDDING;	break;
-	/* Following only after level 20... */
-	case 14: mtyp = PM_GREEN_SLIME;		break;
-	case 15: mtyp = PM_BLACK_PUDDING;	break;
-	case 16: mtyp = PM_OCHRE_JELLY;		break;
-	}
+    switch (i) {
+    case 0:
+    case 1: mtyp = PM_LICHEN; break;	
+    case 2: mtyp = PM_BROWN_MOLD; break;
+    case 3: mtyp = PM_YELLOW_MOLD; break;
+    case 4: mtyp = PM_GREEN_MOLD; break;
+    case 5: mtyp = PM_RED_MOLD;	break;
+    case 6: mtyp = PM_SHRIEKER;	break;
+    case 7: mtyp = PM_VIOLET_FUNGUS; break;
+    case 8: mtyp = PM_BLUE_JELLY; break;
+    case 9: mtyp = PM_DISGUSTING_MOLD; break;
+    case 10: mtyp = PM_BLACK_MOLD; break;
+    case 11: mtyp = PM_GRAY_OOZE; break;
+    /* Following only after level 12... */
+    case 12: mtyp = PM_SPOTTED_JELLY; break;
+    case 13: mtyp = PM_BROWN_PUDDING; break;
+    /* Following only after level 20... */
+    case 14: mtyp = PM_GREEN_SLIME; break;
+    case 15: mtyp = PM_BLACK_PUDDING; break;
+    case 16: mtyp = PM_OCHRE_JELLY; break;
+    }
 
-	return ((mvitals[mtyp].mvflags & G_GONE) ?
-			(struct permonst *)0 : &mons[mtyp]);
+    return ((mvitals[mtyp].mvflags & G_GONE) ?
+                    (struct permonst *)0 : &mons[mtyp]);
 }
+
 static struct permonst *
 armorymon()
 {

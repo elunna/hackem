@@ -78,25 +78,25 @@ enum roomtype_types {
     BADFOODSHOP= 22, /* bad food! */
     MIGOHIVE   = 23, /* Mi-Go */
     FUNGUSFARM = 24, /* molds, puddings, and slime */
-
-    RNDVAULT   = 25, /* random vault, not to be confused with VAULT */
-    BLACKFOYER = 26, /* Foyer to the black market */
-    SHOPBASE   = 27, /* everything above this is a shop */
-    ARMORSHOP  = 28, /* specific shop defines for level compiler */
-    SCROLLSHOP = 29,
-    POTIONSHOP = 30,
-    WEAPONSHOP = 31,
-    FOODSHOP   = 32,
-    RINGSHOP   = 33,
-    WANDSHOP   = 34,
-    TOOLSHOP   = 35,
-    BOOKSHOP   = 36,
-    FODDERSHOP = 37, /* health food store */
-    TINSHOP    = 38,
-    INSTRUMENTSHOP = 39,
-    PETSHOP    = 40, /* Stephen White */
-    CANDLESHOP = 41, /*(UNIQUESHOP) */
-    BLACKSHOP  = 42  /*(UNIQUESHOP) */
+    MINIGUILD  = 25, /* Replacement for SlashEM guild of Disgruntled Adventurers. */
+    RNDVAULT   = 26, /* random vault, not to be confused with VAULT */
+    BLACKFOYER = 27, /* Foyer to the black market */
+    SHOPBASE   = 28, /* everything above this is a shop */
+    ARMORSHOP  = 29, /* specific shop defines for level compiler */
+    SCROLLSHOP = 30,
+    POTIONSHOP = 31,
+    WEAPONSHOP = 32,
+    FOODSHOP   = 33,
+    RINGSHOP   = 34,
+    WANDSHOP   = 35,
+    TOOLSHOP   = 36,
+    BOOKSHOP   = 37,
+    FODDERSHOP = 38, /* health food store */
+    TINSHOP    = 39,
+    INSTRUMENTSHOP = 40,
+    PETSHOP    = 41, /* Stephen White */
+    CANDLESHOP = 42, /*(UNIQUESHOP) */
+    BLACKSHOP  = 43  /*(UNIQUESHOP) */
 };
 
 #define MAXRTYPE (BLACKSHOP) /* maximum valid room type */

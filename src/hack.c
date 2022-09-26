@@ -2881,11 +2881,14 @@ register boolean newlev;
             You("enter a giant beehive!");
             break;
         case MIGOHIVE:
-		    You("enter a strange hive!");
-		    break;
+            You("enter a strange hive!");
+            break;
         case FUNGUSFARM:
-		    You("enter a room full of fungi!");
-		    break;
+            You("enter a room full of fungi!");
+            break;
+        case MINIGUILD:
+            You("enter a smelly guild!");
+            break;
         case COCKNEST:
             You("enter a disgusting nest!");
             break;
@@ -2964,6 +2967,9 @@ register boolean newlev;
                     break;
                 case BARRACKS:
                     level.flags.has_barracks = 0;
+                    break;
+                case MINIGUILD:
+                    level.flags.has_guild = 0;
                     break;
                 case TEMPLE:
                     level.flags.has_temple = 0;
