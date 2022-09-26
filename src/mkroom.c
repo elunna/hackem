@@ -746,40 +746,23 @@ antholemon()
 struct permonst *
 guildmon()
 {
-    int mtyp, indx, trycnt = 0;
-    
-    /* casts are for dealing with time_t */
-/*
-    indx = (int) ((long) ubirthday % 4L);
-    indx += level_difficulty(); */
-    indx = rn2(22);
+    int mtyp, trycnt = 0;
+
     /* Same monsters within a level, different ones between levels */
     do {
-        switch (indx) {
-        case 0: mtyp = PM_ARCHEOLOGIST; break;
-        case 1: mtyp = PM_BARBARIAN; break;
-        case 2: mtyp = PM_BARD; break;
-        case 3: mtyp = PM_CAVEMAN; break;
-        case 4: mtyp = PM_CAVEWOMAN; break;
-        case 5: mtyp = PM_CONVICT; break;
-        case 6: mtyp = PM_FLAME_MAGE; break;
-        case 7: mtyp = PM_HEALER; break;
-        case 8: mtyp = PM_ICE_MAGE; break;
-        case 9: mtyp = PM_INFIDEL; break;
-        case 10: mtyp = PM_KNIGHT; break;
-        case 11: mtyp = PM_MONK; break;
-        case 12: mtyp = PM_NECROMANCER; break;
-        case 13: mtyp = PM_PRIEST; break;
-        case 14: mtyp = PM_PRIESTESS; break;
-        case 15: mtyp = PM_RANGER; break;
-        case 16: mtyp = PM_ROGUE; break;
-        case 17: mtyp = PM_SAMURAI; break;
-        case 18: mtyp = PM_TOURIST; break;
-        case 19: mtyp = PM_UNDEAD_SLAYER; break;
-        case 20: mtyp = PM_VALKYRIE; break;
-        case 21: mtyp = PM_WIZARD; break;
-        case 22: mtyp = PM_YEOMAN; break;
-        default: mtyp = PM_VALKYRIE; break;
+        /* We don't want to fill the room with player monsters, ok if it's 
+         * a bit sparse. */
+        if (rn2(3))
+            mtyp = PM_ARCHEOLOGIST + rn2(22); 
+        else {
+            /* They have some pets to help them */
+            switch (rn2(5)) {
+            case 0: mtyp = PM_LITTLE_DOG + rn2(4); break;
+            case 1: mtyp = PM_KITTEN + rn2(3); break;
+            case 2: mtyp = PM_PONY + rn2(6); break;
+            case 3: mtyp = PM_PSEUDODRAGON + rn2(3); break;
+            case 4: mtyp = PM_SEWER_RAT; break;
+            }
         }
         /* try again if chosen type has been genocided or used up */
     } while (++trycnt < 3 && (mvitals[mtyp].mvflags & G_GONE));
