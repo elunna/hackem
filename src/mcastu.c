@@ -26,7 +26,8 @@ enum mcast_mage_spells {
     MGC_CLONE_WIZ,
     MGC_CANCELLATION,
     MGC_REFLECTION,
-    MGC_DEATH_TOUCH
+    MGC_DEATH_TOUCH,
+    MGC_CREATE_POOL
 };
 
 /* monster cleric spells */
@@ -194,9 +195,10 @@ int spellval;
         }
         return i;
     case 12:
+        return MGC_CREATE_POOL;
     case 11:
-        return MGC_CURSE_ITEMS;
     case 10:
+        return MGC_CURSE_ITEMS;
     case 9:
     case 8:
         return MGC_DESTRY_ARMR;
@@ -676,6 +678,18 @@ int spellnum;
                 losehp(dmg, "touch of death", KILLED_BY_AN);
             }
         }
+        dmg = 0;
+        break;
+    case MGC_CREATE_POOL:
+        if (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR) {
+            pline("A pool appears beneath you!");
+            levl[u.ux][u.uy].typ = POOL;
+            del_engr_at(u.ux, u.uy);
+            water_damage_chain(level.objects[u.ux][u.uy], TRUE, 0, TRUE, u.ux, u.uy);
+            spoteffects(FALSE);  /* possibly drown, notice objects */
+        }
+        else
+            impossible("bad pool creation?");
         dmg = 0;
         break;
     case MGC_CANCELLATION:
@@ -1299,6 +1313,17 @@ int spellnum;
         /* don't summon monsters if it doesn't think you're around */
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
             && spellnum == MGC_CLONE_WIZ)
+            return TRUE;
+        /* pools can only be created in certain locations and then only
+        * rarely unless you're carrying the amulet.
+        */
+        if ((levl[u.ux][u.uy].typ 
+              != ROOM 
+                && levl[u.ux][u.uy].typ 
+                  != CORR
+                    || !u.uhave.amulet 
+                      && rn2(10)) 
+                        && spellnum == MGC_CREATE_POOL)
             return TRUE;
         /* Don't try to destroy armor if none is being worn */
         if (!(mdef->misc_worn_check & W_ARMOR)
