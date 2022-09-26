@@ -27,7 +27,8 @@ enum mcast_mage_spells {
     MGC_CANCELLATION,
     MGC_REFLECTION,
     MGC_DEATH_TOUCH,
-    MGC_CREATE_POOL
+    MGC_CREATE_POOL,
+    MGC_CALL_UNDEAD
 };
 
 /* monster cleric spells */
@@ -146,7 +147,7 @@ int spellval;
 
     /* for 3.4.3 and earlier, val greater than 22 selected the default spell
      */
-    while (spellval > 24 && rn2(25))
+    while (spellval > 25 && rn2(25))
         spellval = rn2(spellval);
 
     /* If we're hurt, seriously consider fixing ourselves a priority */
@@ -154,8 +155,8 @@ int spellval;
         spellval = 1;
 
     switch (spellval) {
+    case 25:
     case 24:
-    case 23:
         i = rn2(3);
         switch (i) {
         case 2:
@@ -171,21 +172,21 @@ int spellval;
                 return MGC_PSI_BOLT;
         }
         /*FALLTHRU*/
+    case 23:
     case 22:
     case 21:
-    case 20:
         return MGC_DEATH_TOUCH;
+    case 20:
     case 19:
-    case 18:
         return MGC_CLONE_WIZ;
+    case 18:
     case 17:
-    case 16:
         return MGC_SUMMON_MONS;
-    case 15:
+    case 16:
         return MGC_CANCELLATION;
-    case 14:
+    case 15:
         return MGC_ACID_BLAST;
-    case 13:
+    case 14:
         i = rnd(2);
         switch (i) {
         case 1:
@@ -194,11 +195,13 @@ int spellval;
             return MGC_REFLECTION;
         }
         return i;
-    case 12:
+    case 13:
         return MGC_CREATE_POOL;
+    case 12:
     case 11:
-    case 10:
         return MGC_CURSE_ITEMS;
+    case 10:
+        return MGC_CALL_UNDEAD;
     case 9:
     case 8:
         return MGC_DESTRY_ARMR;
@@ -646,7 +649,8 @@ int dmg;
 int spellnum;
 {
     int ml = min(mtmp->m_lev, 50);
-
+    coord mm;
+    
     if (dmg == 0 && !is_undirected_spell(AD_SPEL, spellnum)) {
         impossible("cast directed wizard spell (%d) with dmg=0?", spellnum);
         return;
@@ -770,6 +774,13 @@ int spellnum;
         dmg = 0;
         break;
     }
+    case MGC_CALL_UNDEAD:
+        mm.x = u.ux;   
+        mm.y = u.uy;   
+        pline("Undead creatures are called forth from the grave!");   
+        mkundead(&mm, FALSE, NO_MINVENT);   
+        dmg = 0;   
+        break;   
     case MGC_AGGRAVATION:
         You_feel("that monsters are aware of your presence.");
         aggravate();
@@ -1260,6 +1271,7 @@ int spellnum;
         case MGC_DISAPPEAR:
         case MGC_HASTE_SELF:
         case MGC_CURE_SELF:
+        case MGC_CALL_UNDEAD:
         case MGC_FIRE_BOLT:
         case MGC_ICE_BOLT:
         case MGC_CANCELLATION:
@@ -1292,8 +1304,10 @@ int spellnum;
     if (adtyp == AD_SPEL) {
         /* aggravate monsters, etc. won't be cast by peaceful monsters */
         if (mtmp->mpeaceful
-            && (spellnum == MGC_AGGRAVATION || spellnum == MGC_SUMMON_MONS
-                || spellnum == MGC_CLONE_WIZ))
+            && (spellnum == MGC_AGGRAVATION 
+             || spellnum == MGC_SUMMON_MONS
+             || spellnum == MGC_CLONE_WIZ 
+             || spellnum == MGC_CALL_UNDEAD))
             return TRUE;
         /* haste self when already fast */
         if (mtmp->permspeed == MFAST && spellnum == MGC_HASTE_SELF)
@@ -1312,7 +1326,13 @@ int spellnum;
             return TRUE;
         /* don't summon monsters if it doesn't think you're around */
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
-            && spellnum == MGC_CLONE_WIZ)
+            && (spellnum == MGC_CLONE_WIZ 
+            || spellnum == MGC_CALL_UNDEAD))
+            return TRUE;
+        /* only lichs can cast call undead */
+        /* [BarclayII] so can necromancers */
+        if ((mtmp->data->mlet != S_LICH || mtmp->data == &mons[PM_NECROMANCER]) 
+            && spellnum == MGC_CALL_UNDEAD)
             return TRUE;
         /* pools can only be created in certain locations and then only
         * rarely unless you're carrying the amulet.
