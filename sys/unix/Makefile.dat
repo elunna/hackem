@@ -135,7 +135,7 @@ spec_levs: ../util/lev_comp \
 	qlawful.des qneutral.des qchaos.des \
 	town.des village.des rats.des \
 	stor.des caves.des sea.des tomb.des \
-	spiders.des mtemple.des grund.des blkmar.des
+	spiders.des mtemple.des grund.des longhall.des blkmar.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
 	../util/lev_comp castle.des
@@ -162,6 +162,7 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp sea.des
 	../util/lev_comp mtemple.des
 	../util/lev_comp grund.des
+	../util/lev_comp longhall.des
 	../util/lev_comp blkmar.des
 	../util/lev_comp qlawful.des
 	../util/lev_comp qneutral.des

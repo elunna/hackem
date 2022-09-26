@@ -279,7 +279,7 @@ char **argv;
         ":dat:nymph.des",    ":dat:oracle.des",     ":dat:sokoban.des",
         ":dat:tower.des",    ":dat:vecna.des",      ":dat:yendor.des",
         ":dat:town.des",       ":dat:village.des",
-        ":dat:caves.des",
+        ":dat:caves.des",   ":dat:longhall.des",
         ":dat:tomb.des",     ":dat:stor.des",       ":dat:spiders.des",  
         ":dat:mtemple.des",  ":dat:grund.des",      ":dat:blkmar.des"
     };

@@ -1325,3 +1325,54 @@ Makes robes body armor:
 		
 		- [x] Add role adjusted pricing for sam/barb/rog (2-3x - from SlashEM)
 
+
+
+	- [SKIPPED - too difficult to import] Bring in Autoexplore from UnNetHack
+
+
+	- [x] Auto-ID of obvious things (UnNethack)
+QoL features from UnNethack:
+[x] Auto-ID for ring of regeneration
+[x] Auto-ID jumping boots (from AceHack)
+Auto-ID loadstones upon discovering the inability to drop them.
+More Auto-ID
+[x] 642d3279a	guest41	Regeneration only causes additional hunger when injured.
+[x] 24cbc43f9 	Tung Nguyen	Show message when formally identifying whistles on use	
+[x] 3359c6758	Tung Nguyen	Formally identify magic flutes and harps on use
+[x] 1dc1281b4	guest41	Seeing the successful effect of a wand of teleportation on a monster IDs the wand.
+[x] b825ffc34	guest41	Non-cursed charging identifies how many charges an item has (from AceHack).
+[x] 62b65126b	guest41	Only blessed scrolls of charging identify the charges of an item.
+
+[x] 1d26d8685"	Patric Mueller	Auto-ID for ring of regeneration
+[x] 9384478d9"	Patric Mueller	Auto-ID jumping boots (from AceHack)
+[x] f9d25486a"	guest41	Auto-ID loadstones upon discovering the inability to drop them.
+[x] 12d22c880"	Patric Mueller	Automatically identify rings dropped into a sink when message is shown
+[x] b72d2684d"	Patric Mueller	Automatically identify some potions when inhaling their vapors
+[x] c96b22444	Patric Mueller	Automatically identify scrolls of scare monster during pickup
+[x] 8752e44ff"	guest41	Wands with unambiguous effects and messages are automatically identified.
+[x] 43d13313f	Patric Mueller	Autoidentify wand of undead turning if engraving produces a message
+[x] ab691c5c2	Patric Mueller	Autoidentify dunce cap upon wearing
+[x] cc0405777	Patric Mueller	Autoidentify magic lamps and oil lamps when rubbing
+[x] 324988f24	Patric Mueller	Remove "Auto-select every item" when putting into containers
+[x] e7ad4edbe"	Patric Mueller	Tourists get automatic typ identification for shop items
+[x] e99e3bf9c	Patric Mueller	Autoidentify water walking boots (when putting them on in water,etc)
+
+	- [x] Nerf #naming glitches - Copy from a better fork (Un, FIQ)
+		- [x] Making traps from breaking wands (unnethack)
+- [x] Mold/Fungus ressurection (ported from Splicehack, which ported from xnh)
+
+- [SKIPPED] Houchou: I'm skipping this because it's kind of a filler artifact. It's only good for one shot.
+- [x]  Monster spellcasting: MGC_CREATE_POOL
+	- [x] Monster spellcasting: MGC_CALL_UNDEAD
+
+- [SKIPPED] Unicorn Horn mechanic change
+	Slashem introduces a change where the enchantment level of the unihorn affects the chances of success.
+	For now I'm skipping this change because it doesn't seem to add much of interest to the game. 
+	
+- [SKIPPED] Stick of dynamite - (Skip - confusing to port over, I would like this item since it fits Archaeologists - so if anyone wants to figure out how to translate it from slashem be my guest.)
+
+- [SHIPPED] Hellfire (skip for now - code is a bit messy, requires passing a monst to drop_throw so we know what shot the crossbow/bolt)
+- [SKIPPED] Red double lightsaber
+[SKIPPED] Pokedex for monsters: Evil has it, you have to specify the monster: Press "/", then "?", then monster name.
+
+- [SKIPPED] Doomblade should not deal extra damage to incorporeal

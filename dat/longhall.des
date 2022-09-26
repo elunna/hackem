@@ -1,0 +1,84 @@
+# NetHack 3.6 longhall.des $NHDT-Date: 1649428422 2022/09/26 14:33:42 $  $NHDT-Branch: master $:$NHDT-Revision: 1.9 $
+#	Copyright (c) 2022 by Erik Lunna
+# NetHack may be freely redistributed.  See license for details.
+#
+#	The Long Hall
+#
+#	Upstream to the entry level, downstream to the Gulf.
+#
+
+MAZE: "longhall",' '
+FLAGS: hardfloor
+GEOMETRY:center,center
+
+#0         1         2         3         4         5         6         7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0  ---------   ---     ---      ---      ---    ---    ---    ---      ------
+1  |.......|----#-------#--------#--------#------#------#------#-------|....|
+2  |.......+...........................................................+....|
+3  |.......|----#-------#--------#--------#------#------#------#-------|....|
+4  ---------   ---     ---      ---      ---    ---    ---    ---      ------
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#0         1         2         3         4         5         6         7
+
+# Dungeon Description
+REGION:(00,00,75,04),lit,"ordinary"
+REGION:(03,01,09,03),lit,"ordinary"
+REGION:(11,01,69,03),unlit,"ordinary"
+REGION:(71,01,74,03),lit,"ordinary"
+
+# Stairs
+STAIR: (73,02), down
+STAIR: (04,02), up 
+# Doors
+DOOR: locked, (10,02)
+DOOR: locked, (70,02)
+# A few statues
+CONTAINER: ('`', "statue"), (03,02), montype:"aligned priest", 1 {
+    OBJECT: ('%', "fortune cookie")
+}
+OBJECT: ('`', "statue"), (04,01), montype:"water elemental", 1
+OBJECT: ('`', "statue"), (04,03), montype:"water elemental", 1
+OBJECT: ('`', "statue"), (06,01), montype:"Angel", 1
+OBJECT: ('`', "statue"), (06,03), montype:"Angel", 1
+OBJECT: ('`', "statue"), (08,01), montype:"nightgaunt", 1
+OBJECT: ('`', "statue"), (08,03), montype:"nightgaunt", 1
+
+# Long hall
+OBJECT: ('`', "statue"), (15,01), montype:"shoggoth", 1
+OBJECT: ('`', "statue"), (15,03), montype:"titanothere", 1
+CONTAINER: ('`', "statue"), (23,01), montype:"Cthulhu", 1 {
+    OBJECT: ('=', "aggravate monster"), cursed, 0
+}
+OBJECT: ('`', "statue"), (23,03), montype:"migo queen", 1
+OBJECT: ('`', "statue"), (32,01), montype:"Green-elf", 1
+OBJECT: ('`', "statue"), (32,03), montype:"orc", 1
+OBJECT: ('`', "statue"), (41,01), montype:"elf-lord", 1
+OBJECT: ('`', "statue"), (41,03), montype:"dwarf lord", 1
+OBJECT: ('`', "statue"), (48,01), montype:"gnoll", 1
+OBJECT: ('`', "statue"), (48,03), montype:"kobold", 1
+OBJECT: ('`', "statue"), (55,01), montype:"knight", 1
+OBJECT: ('`', "statue"), (55,03), montype:"deepest one", 1
+OBJECT: ('`', "statue"), (62,01), montype:"hobbit", 1
+OBJECT: ('`', "statue"), (62,03), montype:"mind flayer", 1
+
+# Final Room
+OBJECT: ('`', "statue"), (73,01), montype:"high priest", 1
+OBJECT: ('`', "statue"), (73,03), montype:"high priest", 1
+OBJECT: ('`', "statue"), (74,02), montype:"high priest", 1
+
+# A few traps
+TRAP: "pit", (21,02)
+TRAP: "pit", (30,02)
+
+TRAP: random, random
+TRAP: random, random
+TRAP: random, random
+
+# Some random objects
+LOOP [6] { OBJECT: random, random }
+
+# A couple of random monsters to finish
+LOOP [3] { MONSTER: random, random }
