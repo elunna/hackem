@@ -989,7 +989,7 @@ makelevel()
             mkroom(GIANTCOURT);
         else if (u_depth > 15 && !rn2(11))
             mkroom(SWAMP);
-        else if (u_depth > 15 && !rn2(2))
+        else if (u_depth > 15 && !rn2(17))
             mkroom(MINIGUILD);
         else if (u_depth > 16 && !rn2(13)
                  && !(mvitals[PM_COCKATRICE].mvflags & G_GONE))
