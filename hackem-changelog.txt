@@ -1376,3 +1376,37 @@ More Auto-ID
 [SKIPPED] Pokedex for monsters: Evil has it, you have to specify the monster: Press "/", then "?", then monster name.
 
 - [SKIPPED] Doomblade should not deal extra damage to incorporeal
+
+
+- [SKIPPED] Pokedex for Monsters
+
+[x] Toss a long hallway level near the end of the main dungeon. 
+	[ ] Couple of variations, with cheap hitters in the sides.
+	[ ] No dig, no teleport, no phasing. HAVE to endure the gauntlet.
+
+- [SKIPPED] Grenades blowing up don't trigger other grenades (Fire(y) explosions should ignite)
+
+- [x] The Guild of Disgruntled Adventurers - mini rooms
+	Make sure these are not too big, original has 36-38 pmonsters!
+	Don't fill only with player monsters, mix in some other stuff...
+		[x] Chests? 
+		[x] toilet
+		[x] Pets: Dogs, cats, horses, pit bulls, pseudodragons, rats, wolfs, were-x? Elves, giants
+		[x] random scrolls, wands, potions, objects.
+		
+
+	[x] MINIGUILD, put after FUNGUSFARM
+	[x] hack.c: You enter msg
+	[x] mkroom.c: define	
+	[x] color - brown
+	[x] mkroom: odds
+	[x] mkshop: g/G
+	[x] bitfield: level.flags.has_guild = 0;
+	[x] sounds: 
+	[FIXED] pmonsters are level 1?
+	[FIXED] some pmonsters are peaceful
+	[FIXED] pmonsters are all barbarians...
+
+	- [x] Adjust special room generation so that they don't mix in until later in the dungeon.
+	- [RANDOM BUG?] Disable shops from generating with water in the middle
+	- [SKIP] Wallet of Perseus (Evil has the Bag of the Hesperides, rename it?)
