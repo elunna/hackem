@@ -3444,7 +3444,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(20, 200, MS_SILENT, MZ_SMALL), 0, 0,
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS 
             | M1_NOTAKE | M1_REGEN,
-        M2_HOSTILE | M2_NEUTER, 0, M4_STATIONARY,
+        M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 5, CLR_BRIGHT_GREEN),
     MON("dungeon fern spore", S_EYE,
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
@@ -3453,7 +3453,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
-        M2_HOSTILE | M2_NEUTER, 0, 0,
+        M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0,
         0, 1, CLR_GREEN),
     
     /*
