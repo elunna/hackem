@@ -567,7 +567,8 @@ boolean notpool;
             if (u.uz.dlevel >= 5) {
                 (void) makemon(rn2(3) ? &mons[PM_GIANT_LEECH]
                                       : rn2(8) ? &mons[PM_GIANT_COCKROACH]
-                                               : &mons[PM_CROCODILE], cx, cy, NO_MM_FLAGS);
+                                      : rn2(2) ? &mons[PM_SWAMP_FERN] 
+                                      : &mons[PM_CROCODILE], cx, cy, NO_MM_FLAGS);
             } else {
                 (void) makemon(rn2(3) ? &mons[PM_GIANT_LEECH]
                                       : &mons[PM_GIANT_COCKROACH], cx, cy, NO_MM_FLAGS);
