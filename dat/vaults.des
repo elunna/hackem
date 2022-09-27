@@ -1222,3 +1222,35 @@ ROOM:"rndvault", random, random, random, random {
   IF [50%] { MONSTER: ('F', "blazing fern"), random, hostile }
   IF [50%] { MONSTER: ('F', "swamp fern"), random, hostile }
 }
+
+# Center stage toilet
+LEVEL:"vlt-0071"
+FLAGS:rndvault
+MINDEPTH:7
+GEOMETRY:random
+MAP
+#01234567890
+0-----------
+1|.........|
+2|.........|
+3|.........|
+4|...LLL...|
+5|...LLL...|
+6|...LLL...|
+7|.........|
+8|.........|
+9|.........|
+0-----------
+ENDMAP
+IF [75%] {
+  $terr = TERRAIN:{ '-', 'P', 's', 'C' }
+  SHUFFLE: $terr
+  REPLACE_TERRAIN:(1,1,9,9),'L', $terr[0],100%
+}
+REPLACE_TERRAIN:(5,5,5,5),'Z', $terr[0],100%                                 
+
+IF [80%] {
+  REGION:(1,1,1,1),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(1,1,1,1),random,"ordinary",irregular { }
+}
