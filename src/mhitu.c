@@ -3683,6 +3683,10 @@ struct attack *mattk;
             } else { /* currently these should not be generated */
                 makemon(&mons[PM_FERN_SPORE], mm.x, mm.y, NO_MM_FLAGS);
             }
+
+            /* Sprouts will gain a level each time they release a spore */
+            if (is_fern_sprout(mtmp->data))
+                grow_up(mtmp, (struct monst *) 0);
             
             if (canseemon(mtmp)) 
                 pline("%s releases a spore!", Monnam(mtmp));
