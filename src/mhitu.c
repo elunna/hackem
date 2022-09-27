@@ -3661,7 +3661,7 @@ struct attack *mattk;
         /* release a spore if the player is nearby */
         if (is_fern(mtmp->data) 
                     && !mtmp->mcan 
-                    && distu(mtmp->mx, mtmp->my) <= 96 
+                    && distu(mtmp->mx, mtmp->my) <= 100 
                     && !is_fern_sprout(mtmp->data) ? !rn2(2) : !rn2(4)) {
             coord mm;
             mm.x = mtmp->mx; mm.y = mtmp->my;

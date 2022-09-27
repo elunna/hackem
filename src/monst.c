@@ -3445,7 +3445,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 200, MS_SILENT, MZ_SMALL), MR_POISON | MR_ACID, 0,
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS 
-            | M1_NOTAKE | M1_REGEN,
+            | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 14, CLR_WHITE),
     MON("dungeon fern sprout", S_FUNGUS,
@@ -3465,7 +3465,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0,
         0, 4, CLR_GREEN),
-
     MON("arctic fern", S_FUNGUS,
         LVL(12, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
@@ -3491,7 +3490,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0, 
         0, 4, CLR_BRIGHT_BLUE),
-
     MON("blazing fern", S_FUNGUS,
         LVL(12, 2, 10, 0, 0), (G_HELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
@@ -3517,7 +3515,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0,
         0, 4, CLR_RED),
-
     MON("swamp fern", S_FUNGUS,
         LVL(12, 2, 10, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), NO_ATTK,
@@ -3543,7 +3540,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0, 
         0, 4, CLR_CYAN),
-
     MON("fern spore", S_EYE, /* generic fern spore */
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_EXPL, AD_PHYS, 2, 4), 
