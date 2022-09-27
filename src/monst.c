@@ -3424,6 +3424,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD 
             | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 7, CLR_CYAN),
+#if 0 /* Disabled to make room for swamp ferns */
     MON("black mold", S_FUNGUS,                                 /* Slash'EM */
         LVL(6, 0, 7, 0, 0), (G_HELL | G_GENO | 1),
         /* --hackem: Only the first passive procs */
@@ -3434,6 +3435,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 8, CLR_BLACK),
+#endif
     /*
      * ferns and their spores
      */

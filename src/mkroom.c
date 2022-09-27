@@ -796,8 +796,8 @@ fungus()
     case 6: mtyp = PM_SHRIEKER;	break;
     case 7: mtyp = PM_VIOLET_FUNGUS; break;
     case 8: mtyp = PM_BLUE_JELLY; break;
-    case 9: mtyp = PM_DISGUSTING_MOLD; break;
-    case 10: mtyp = PM_BLACK_MOLD; break;
+    case 9: 
+    case 10: mtyp = PM_DISGUSTING_MOLD; break;
     case 11: mtyp = PM_GRAY_OOZE; break;
     /* Following only after level 12... */
     case 12: mtyp = PM_SPOTTED_JELLY; break;

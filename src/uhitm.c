@@ -4417,9 +4417,7 @@ boolean wep_was_destroyed;
             break;
         case AD_DRST:
              /* specifically molds */
-            if ((ptr == &mons[PM_DISGUSTING_MOLD])
-                || (ptr == &mons[PM_BLACK_MOLD])) {
-
+            if (ptr == &mons[PM_DISGUSTING_MOLD]) {
                 if (!Strangled && !Breathless) {
                     pline("You inhale a cloud of spores!");
                     poisoned("spores", A_STR, "spore cloud", 30, FALSE);
