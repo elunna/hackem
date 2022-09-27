@@ -452,14 +452,16 @@ struct mkroom *sroom;
                     (type == BEEHIVE) ? 
                         (sx == tx && sy == ty ? &mons[PM_QUEEN_BEE] : 
                         &mons[PM_KILLER_BEE]) : 
-                    (type == LEPREHALL) ? &mons[PM_LEPRECHAUN] : 
+                    (type == LEPREHALL) ?
+                        (rn2(9) ? &mons[PM_LEPRECHAUN] 
+                          : &mons[PM_LEPRECHAUN_WIZARD]) : 
                     (type == COCKNEST) ? &mons[PM_COCKATRICE] : 
                     (type == ANTHOLE) ? 
-                    (sx == tx && sy == ty ? &mons[PM_QUEEN_ANT] : 
+                        (sx == tx && sy == ty ? &mons[PM_QUEEN_ANT] : 
                         antholemon()) :
                     (type == DRAGONLAIR) ? mkclass(S_DRAGON, 0) :
                     (type == OWLBNEST) ? 
-                    (sx == tx && sy == ty ? &mons[PM_OWLBEAR] : 
+                        (sx == tx && sy == ty ? &mons[PM_OWLBEAR] : 
                         &mons[PM_BABY_OWLBEAR]) : 
                     (type == LEMUREPIT) ? 
                         (sx == tx && sy == ty ? &mons[PM_HORNED_DEVIL] : 
@@ -467,10 +469,9 @@ struct mkroom *sroom;
                     (type == BADFOODSHOP) ? mkclass(S_BAD_FOOD, 0) :
                     (type == REALZOO) ? realzoomon() :
                     (type == GIANTCOURT) ? mkclass(S_GIANT, 0) :
-                    (type == MIGOHIVE)?
-		                (sx == tx && sy == ty? &mons[PM_MIGO_QUEEN] :
-	                    (rn2(2)? &mons[PM_MIGO_DRONE] : 
-                        &mons[PM_MIGO_WARRIOR])) :
+                    (type == MIGOHIVE) ? (sx == tx && sy == ty 
+                         ? &mons[PM_MIGO_QUEEN] : (rn2(2) 
+                         ? &mons[PM_MIGO_DRONE] : &mons[PM_MIGO_WARRIOR])) :
                     (struct permonst *) 0, sx, sy, MM_ASLEEP);
             }
 
@@ -784,7 +785,7 @@ fungus()
 {
     register int i, hd = level_difficulty(), mtyp = 0;
 
-    i = rn2(hd > 20 ? 17 : hd > 12 ? 14 : 12);
+    i = rn2(hd > 20 ? 19 : hd > 12 ? 15 : 12);
 
     switch (i) {
     case 0:
@@ -796,16 +797,18 @@ fungus()
     case 6: mtyp = PM_SHRIEKER;	break;
     case 7: mtyp = PM_VIOLET_FUNGUS; break;
     case 8: mtyp = PM_BLUE_JELLY; break;
-    case 9: 
+    case 9: mtyp = PM_MOLDY_PUDDING; break;
     case 10: mtyp = PM_DISGUSTING_MOLD; break;
     case 11: mtyp = PM_GRAY_OOZE; break;
     /* Following only after level 12... */
     case 12: mtyp = PM_SPOTTED_JELLY; break;
     case 13: mtyp = PM_BROWN_PUDDING; break;
+    case 14: mtyp = PM_GRAY_FUNGUS; break;
     /* Following only after level 20... */
-    case 14: mtyp = PM_GREEN_SLIME; break;
-    case 15: mtyp = PM_BLACK_PUDDING; break;
-    case 16: mtyp = PM_OCHRE_JELLY; break;
+    case 15: mtyp = PM_GREEN_SLIME; break;
+    case 16: mtyp = PM_BLACK_PUDDING; break;
+    case 17: mtyp = PM_OCHRE_JELLY; break;
+    case 18: mtyp = PM_SHOGGOTH; break;
     }
 
     return ((mvitals[mtyp].mvflags & G_GONE) ?
