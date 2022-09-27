@@ -3062,6 +3062,7 @@ boolean ufound;
     case AD_FIRE:
     case AD_ELEC:
     case AD_ACID:
+    case AD_DISE:
         mon_explodes(mtmp, mattk);
         if (!DEADMONSTER(mtmp)) {
             kill_agr = FALSE; /* lifesaving? */
