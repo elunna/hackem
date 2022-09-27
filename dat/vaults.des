@@ -98,7 +98,8 @@ ROOM:"rndvault", random, random, random, random {
              "page", "attendant", "neanderthal", "chieftain", "student", "inmate", "cultist",
              "wizard", "valkyrie", "tourist", "samurai", "rogue", "ranger", "priest", "priestess",
              "monk", "knight", "healer", "caveman", "cavewoman", "barbarian", "archeologist",
-             "convict", "infidel" }
+             "convict", "infidel", "flame mage", "ice mage", "necromancer", "undead slayer",
+             "yeoman" }
   SHUFFLE: $mon
   LOOP [5d5] {
     IF [25%] { SHUFFLE: $mon }
