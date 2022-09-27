@@ -21,111 +21,683 @@ VAULTGEN:200
 ROOM:"ordinary", random, random, random, random {
 }
 
-# lava/ice/pool/tree/sewage/fountain room
+# L-shaped
 LEVEL:"vlt-0001"
 FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, (3,3) {
-  $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{', 's' }
-  SHUFFLE: $terr
-   IF [10%] { TERRAIN:(0,0), $terr[0] }
-   IF [10%] { TERRAIN:(1,0), $terr[0] }
-   IF [10%] { TERRAIN:(2,0), $terr[0] }
-   IF [10%] { TERRAIN:(0,1), $terr[0] }
-   TERRAIN:(1,1),$terr[0]
-   IF [10%] { TERRAIN:(2,1), $terr[0] }
-   IF [10%] { TERRAIN:(0,2), $terr[0] }
-   IF [10%] { TERRAIN:(1,2), $terr[0] }
-   IF [10%] { TERRAIN:(2,2), $terr[0] }
-}
+MINDEPTH:8
+GEOMETRY:random
+MAP
+-----xxx
+|...|xxx
+|...|xxx
+|...----
+|......|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(1,1,3,3),random,"rndvault",irregular { }
 
-# tiny cage, big monster
+# L-shaped, r2
 LEVEL:"vlt-0002"
 FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, (5,5) {
-  TERRAIN:(1,1) & (2,1) & (3,1) &
-          (1,2) &         (3,2) &
-          (1,3) & (2,3) & (3,3), 'F'
-  IF [80%] {
-    $mons = MONSTER: { 'M', 'D', 'O', 'Z', 'T', 'H' }
-    SHUFFLE: $mons
-    MONSTER: $mons[0],(2,2),hostile
-  } ELSE {
-    TRAP:random, (2,2)
-  }
-}
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+|......|
+|...----
+|...|xxx
+|...|xxx
+-----xxx
+ENDMAP
+REGION:(1,1,3,3),random,"ordinary",unfilled,irregular { }
 
-# boulder room
+# L-shaped, r3
 LEVEL:"vlt-0003"
 FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, random {
-  LOOP [1d6 + 3] {
-    OBJECT:"boulder", random
-  }
-  LOOP [1d4] {
-    TRAP:"rolling boulder", random
-  }
-}
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+|......|
+----...|
+xxx|...|
+xxx|...|
+xxx-----
+ENDMAP
+REGION:(1,1,3,3),random,"ordinary",unfilled,irregular { }
 
-# random cloud/lava/ice/pool/tree room
+# L-shaped, r4
 LEVEL:"vlt-0004"
 FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, random {
-  $fill = selection: filter(30%, floodfill(1,1))
-  $terr = TERRAIN: { 'C', 'L', 'I', 'P', 'T', 't' }
-  SHUFFLE: $terr
-  TERRAIN:$fill, $terr[0]
-}
+GEOMETRY:random
+MAP
+xxx-----
+xxx|...|
+xxx|...|
+----...|
+|......|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(4,1,6,3),random,"ordinary",unfilled,irregular { }
 
-# buried treasure
+# L-shaped, big
 LEVEL:"vlt-0005"
 FLAGS:rndvault
-# note: intentionally ordinary.
-ROOM:"ordinary", random, random, random, random {
-  CONTAINER:('(', "chest"), random,buried {
-    LOOP [3d4] {
-      OBJECT:random
-    }
-  }
-}
+MINDEPTH:11
+GEOMETRY:random
+MAP
+-------xxxxxx
+|.....|xxxxxx
+|.....|xxxxxx
+|.....|xxxxxx
+|.....|xxxxxx
+|.....-------
+|...........|
+|...........|
+|...........|
+|...........|
+|...........|
+-------------
+ENDMAP
+REGION:(3,3,3,3),random,"rndvault",irregular { }
 
-# massacre
+# L-shaped, big, r2
 LEVEL:"vlt-0006"
 FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, random {
-    $mon = MONSTER: { '@', "apprentice", "warrior", "ninja", "thug", "hunter", "acolyte", "abbot",
-             "page", "attendant", "neanderthal", "chieftain", "student", "inmate", "cultist",
-             "wizard", "valkyrie", "tourist", "samurai", "rogue", "ranger", "priest", "priestess",
-             "monk", "knight", "healer", "caveman", "cavewoman", "barbarian", "archeologist",
-             "convict", "infidel", "flame mage", "ice mage", "necromancer", "undead slayer",
-             "yeoman" }
-  SHUFFLE: $mon
-  LOOP [5d5] {
-    IF [25%] { SHUFFLE: $mon }
-    OBJECT:('%', "corpse"), random, montype: $mon[0]
-  }
-}
+GEOMETRY:random
+MAP
+-------------
+|...........|
+|...........|
+|...........|
+|...........|
+|...........|
+|.....-------
+|.....|xxxxxx
+|.....|xxxxxx
+|.....|xxxxxx
+|.....|xxxxxx
+-------xxxxxx
+ENDMAP
+REGION:(3,3,3,3),random,"rndvault",unfilled,irregular { }
 
-# statuary
+# L-shaped, big, r3
 LEVEL:"vlt-0007"
 FLAGS:rndvault
+GEOMETRY:random
+MAP
+-------------
+|...........|
+|...........|
+|...........|
+|...........|
+|...........|
+-------.....|
+xxxxxx|.....|
+xxxxxx|.....|
+xxxxxx|.....|
+xxxxxx|.....|
+xxxxxx-------
+ENDMAP
+REGION:(3,3,3,3),random,"rndvault",unfilled,irregular { }
+
+# L-shaped, big, r4
+LEVEL:"vlt-0008"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+xxxxxx-------
+xxxxxx|.....|
+xxxxxx|.....|
+xxxxxx|.....|
+xxxxxx|.....|
+-------.....|
+|...........|
+|...........|
+|...........|
+|...........|
+|...........|
+-------------
+ENDMAP
+REGION:(8,8,8,8),random,"rndvault",unfilled,irregular { }
+
+
+# Tetris L-shaped
+LEVEL:"vlt-0009"
+FLAGS:rndvault
+MINDEPTH:7
+GEOMETRY:random
+MAP
+-----xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...----
+|......|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+# Tetris L-shaped, r2
+LEVEL:"vlt-0010"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+-----------
+|.........|
+|.........|
+|.........|
+|...-------
+|...|xxxxxx
+|...|xxxxxx
+-----xxxxxx
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+# Tetris L-shaped, r3
+LEVEL:"vlt-0011"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+|......|
+----...|
+xxx|...|
+xxx|...|
+xxx|...|
+xxx|...|
+xxx|...|
+xxx-----
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# Tetris L-shaped, r4
+LEVEL:"vlt-0012"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+xxxxxx-----
+xxxxxx|...|
+xxxxxx|...|
+-------...|
+|.........|
+|.........|
+|.........|
+-----------
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# Tetris J-shaped
+LEVEL:"vlt-0013"
+FLAGS:rndvault
+MINDEPTH:7      
+GEOMETRY:random
+MAP
+xxx-----
+xxx|...|
+xxx|...|
+xxx|...|
+xxx|...|
+xxx|...|
+----...|
+|......|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# Tetris J-shaped, r2
+LEVEL:"vlt-0014"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+-----xxxxxx
+|...|xxxxxx
+|...|xxxxxx
+|...-------
+|.........|
+|.........|
+|.........|
+-----------
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+# Tetris J-shaped, r3
+LEVEL:"vlt-0015"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+|......|
+|...----
+|...|xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...|xxx
+-----xxx
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+# Tetris J-shaped, r4
+LEVEL:"vlt-0016"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+-----------
+|.........|
+|.........|
+|.........|
+-------...|
+xxxxxx|...|
+xxxxxx|...|
+xxxxxx-----
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+# T-shaped
+LEVEL:"vlt-0017"
+FLAGS:rndvault
 MINDEPTH:11
-ROOM:"rndvault", random, random, random, random {
-  LOOP [5d5] {
-    CONTAINER:('`', "statue"), random { }
-  }
-  [50%]: TRAP:"statue", random
-  [50%]: TRAP:"statue", random
-  [50%]: TRAP:"statue", random
+GEOMETRY:random
+MAP
+xxx-----xxx
+xxx|...|xxx
+xxx|...|xxx
+----...----
+|.........|
+|.........|
+|.........|
+-----------
+ENDMAP
+IF [80%] {
+  REGION:(5,5,5,5),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(5,5,5,5),random,"ordinary",irregular { }
 }
+
+# T-shaped, r2
+LEVEL:"vlt-0018"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+-----xxx
+|...|xxx
+|...|xxx
+|...----
+|......|
+|......|
+|......|
+|...----
+|...|xxx
+|...|xxx
+-----xxx
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# T-shaped, r3
+LEVEL:"vlt-0019"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+-----------
+|.........|
+|.........|
+|.........|
+----...----
+xxx|...|xxx
+xxx|...|xxx
+xxx-----xxx
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# T-shaped, r4
+LEVEL:"vlt-0020"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+xxx-----
+xxx|...|
+xxx|...|
+----...|
+|......|
+|......|
+|......|
+----...|
+xxx|...|
+xxx|...|
+xxx-----
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# S-shaped
+LEVEL:"vlt-0021"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+-----xxx
+|...|xxx
+|...|xxx
+|...----
+|......|
+|......|
+|......|
+----...|
+xxx|...|
+xxx|...|
+xxx-----
+ENDMAP
+IF [80%] {
+  REGION:(5,5,5,5),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(5,5,5,5),random,"ordinary",irregular { }
+}
+
+# S-shaped, r2
+LEVEL:"vlt-0022"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+xxx--------
+xxx|......|
+xxx|......|
+----......|
+|......----
+|......|xxx
+|......|xxx
+--------xxx
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# Z-shaped
+LEVEL:"vlt-0023"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+xxx-----
+xxx|...|
+xxx|...|
+----...|
+|......|
+|......|
+|......|
+|...----
+|...|xxx
+|...|xxx
+-----xxx
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# Z-shaped, r2
+LEVEL:"vlt-0024"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+--------xxx
+|......|xxx
+|......|xxx
+|......----
+----......|
+xxx|......|
+xxx|......|
+xxx--------
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+
+# U-shaped
+LEVEL:"vlt-0025"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+-----xxx-----
+|...|xxx|...|
+|...|xxx|...|
+|...-----...|
+|...........|
+|...........|
+|...........|
+-------------
+ENDMAP
+IF [80%] {
+  REGION:(5,5,5,5),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(5,5,5,5),random,"ordinary",irregular { }
+}
+
+# U-shaped, reversed
+LEVEL:"vlt-0026"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+-------------
+|...........|
+|...........|
+|...........|
+|...-----...|
+|...|xxx|...|
+|...|xxx|...|
+-----xxx-----
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+# C-shaped
+LEVEL:"vlt-0027"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+|...----
+|...|xxx
+|...|xxx
+|...----
+|......|
+|......|
+--------
+ENDMAP
+IF [80%] {
+  REGION:(1,1,1,1),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(1,1,1,1),random,"ordinary",irregular { }
+}
+
+# C-shaped, reversed
+LEVEL:"vlt-0028"
+FLAGS:rndvault
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+----...|
+xxx|...|
+xxx|...|
+----...|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+
+# Circular, small
+LEVEL:"vlt-0029"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+xx---xx
+x--.--x
+|-...-|
+|.....|
+|-...-|
+x--.--x
+xx---xx
+ENDMAP
+IF [80%] {
+  REGION:(3,3,3,3),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(3,3,3,3),random,"ordinary",irregular { }
+}
+
+# Circular, medium
+LEVEL:"vlt-0030"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+xx-----xx
+x--...--x
+|-.....-|
+|.......|
+|.......|
+|.......|
+|-.....-|
+x--...--x
+xx-----xx
+ENDMAP
+IF [80%] {
+  REGION:(4,4,4,4),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(4,4,4,4),random,"ordinary",irregular { }
+}
+
+# Circular, big
+LEVEL:"vlt-0031"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+xxx-----xxx
+x---...---x
+x-.......-x
+|-.......-|
+|.........|
+|.........|
+|.........|
+|-.......-|
+x-.......-x
+x---...---x
+xxx-----xxx
+ENDMAP
+IF [80%] {
+  REGION:(5,5,5,5),random,"rndvault",irregular { }
+} ELSE {
+  REGION:(5,5,5,5),random,"ordinary",irregular { }
+}
+
+# Cross
+LEVEL:"vlt-0032"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+xxx-----xxx
+xxx|...|xxx
+xxx|...|xxx
+----...----
+|.........|
+|.........|
+|.........|
+----...----
+xxx|...|xxx
+xxx|...|xxx
+xxx-----xxx
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
+
+# Four-leaf clover
+LEVEL:"vlt-0033"
+FLAGS:rndvault
+MINDEPTH:11
+GEOMETRY:random
+MAP
+-----x-----
+|...|x|...|
+|...---...|
+|.........|
+---.....---
+xx|.....|xx
+---.....---
+|.........|
+|...---...|
+|...|x|...|
+-----x-----
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+
+
+# Below are "split" rooms - a little more complicated
+
+# Split horizontally
+LEVEL:"vlt-0034"
+FLAGS:rndvault
+MINDEPTH:5
+GEOMETRY:random
+MAP
+--------
+|......|
+|......|
+|------|
+|......|
+|......|
+|......|
+--------
+ENDMAP
+IF [40%] {
+  $terr = TERRAIN:{ 'L', 'F' }
+  SHUFFLE: $terr
+  REPLACE_TERRAIN:(1,3,6,3),'-', $terr[0],100%
+}
+REGION:(1,1,6,2),random,"ordinary",unfilled { }
+REGION:(1,4,6,6),random,"ordinary",unfilled { }
+
+# Split vertically
+LEVEL:"vlt-0035"
+FLAGS:rndvault
+MINDEPTH:7
+GEOMETRY:random
+MAP
+---------
+|...|...|
+|...|...|
+|...|...|
+|...|...|
+|...|...|
+|...|...|
+---------
+ENDMAP
+IF [40%] {
+  $terr = TERRAIN:{ 'L', 'F' }
+  SHUFFLE: $terr
+  REPLACE_TERRAIN:(4,1,4,6),'-', $terr[0],100%
+}
+REGION:(1,1,3,6),random,"ordinary",unfilled { }
+REGION:(5,1,7,6),random,"ordinary",unfilled { }
 
 # Split
 # must be rndvault, otherwise causes problems due to both sides being same room.
-LEVEL:"vlt-0008"
+LEVEL:"vlt-0036"
 FLAGS:rndvault
 MINDEPTH:6
 ROOM:"rndvault", random, random, random, (5,5) {
@@ -164,71 +736,242 @@ ROOM:"rndvault", random, random, random, (5,5) {
   TERRAIN:$hole,'.'
 }
 
-# L-shaped
-LEVEL:"vlt-0009"
+# With a corner room (top right)
+LEVEL:"vlt-0037"
 FLAGS:rndvault
-MINDEPTH:8
-GEOMETRY:random
-MAP
------xxx
-|...|xxx
-|...|xxx
-|...----
-|......|
-|......|
-|......|
---------
-ENDMAP
-REGION:(1,1,3,3),random,"rndvault",irregular { }
-
-# Split horizontally
-LEVEL:"vlt-0010"
-FLAGS:rndvault
-MINDEPTH:5
-GEOMETRY:random
-MAP
---------
-|......|
-|......|
-|------|
-|......|
-|......|
-|......|
---------
-ENDMAP
-IF [40%] {
-  $terr = TERRAIN:{ 'L', 'F' }
-  SHUFFLE: $terr
-  REPLACE_TERRAIN:(1,3,6,3),'-', $terr[0],100%
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, (6,6) {
+  SUBROOM:"ordinary", random, (4,0), (2,2) {
+    ROOMDOOR:random, random, south|west, random
+  }
 }
-REGION:(1,1,6,2),random,"ordinary",unfilled { }
-REGION:(1,4,6,6),random,"ordinary",unfilled { }
 
-# Split vertically
-LEVEL:"vlt-0011"
+# With a corner room (bottom left)
+LEVEL:"vlt-0022"
 FLAGS:rndvault
-MINDEPTH:7
-GEOMETRY:random
-MAP
----------
-|...|...|
-|...|...|
-|...|...|
-|...|...|
-|...|...|
-|...|...|
----------
-ENDMAP
-IF [40%] {
-  $terr = TERRAIN:{ 'L', 'F' }
-  SHUFFLE: $terr
-  REPLACE_TERRAIN:(4,1,4,6),'-', $terr[0],100%
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, (6,6) {
+  SUBROOM:"ordinary", random, (0,4), (2,2) {
+    ROOMDOOR:random, random, north|east, random
+  }
 }
-REGION:(1,1,3,6),random,"ordinary",unfilled { }
-REGION:(5,1,7,6),random,"ordinary",unfilled { }
+
+# Three rooms (right side)
+LEVEL:"vlt-0038"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, (6,6) {
+  SUBROOM:"ordinary", random, (4,0), (2,2) {
+    ROOMDOOR:random, random, west, random
+  }
+  SUBROOM:"ordinary", random, (4,3), (2,3) {
+    ROOMDOOR:random, random, north|west, random
+  }
+}
+
+# Three rooms (left side)
+LEVEL:"vlt-0039"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, (6,6) {
+  SUBROOM:"ordinary", random, (0,4), (2,2) {
+    ROOMDOOR:random, random, east, random
+  }
+  SUBROOM:"ordinary", random, (0,0), (2,3) {
+    ROOMDOOR:random, random, south|east, random
+  }
+}
+
+# room with a subroom
+LEVEL:"vlt-0040"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, random {
+  SUBROOM:"ordinary", random, random, random {
+    ROOMDOOR:random, random, random, random
+  }
+}
+
+# big room, 1, random type
+LEVEL:"vlt-0041"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:random, random, random, random, (17,10) {
+}
+
+# big room, 1
+LEVEL:"vlt-0042"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (30,10) {
+   IF [75%] {
+      SUBROOM:random,random,random,random {
+         ROOMDOOR:random,random,random,random
+         IF [50%] { ROOMDOOR:random,random,random,random }
+      }
+   }
+}
+
+# big room, 2 (max. vertical height)
+LEVEL:"vlt-0043"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (10,17) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# thin, long, horizontal room
+LEVEL:"vlt-0044"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (17,3) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# thin, long, vertical room
+LEVEL:"vlt-0045"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (3,17) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# very thin, long, horizontal room
+LEVEL:"vlt-0046"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (50,5) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# very very thin, long, horizontal room
+LEVEL:"vlt-0047"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (70,3) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+
+
+# Below are distinct themed rooms - the most complicated and differentiated
+# by monsters/terrains or other.
+
+
+# lava/ice/pool/tree/sewage/fountain room
+LEVEL:"vlt-0048"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, (3,3) {
+  $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{', 's' }
+  SHUFFLE: $terr
+   IF [10%] { TERRAIN:(0,0), $terr[0] }
+   IF [10%] { TERRAIN:(1,0), $terr[0] }
+   IF [10%] { TERRAIN:(2,0), $terr[0] }
+   IF [10%] { TERRAIN:(0,1), $terr[0] }
+   TERRAIN:(1,1),$terr[0]
+   IF [10%] { TERRAIN:(2,1), $terr[0] }
+   IF [10%] { TERRAIN:(0,2), $terr[0] }
+   IF [10%] { TERRAIN:(1,2), $terr[0] }
+   IF [10%] { TERRAIN:(2,2), $terr[0] }
+}
+
+# tiny cage, big monster
+LEVEL:"vlt-0049"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, (5,5) {
+  TERRAIN:(1,1) & (2,1) & (3,1) &
+          (1,2) &         (3,2) &
+          (1,3) & (2,3) & (3,3), 'F'
+  IF [80%] {
+    $mons = MONSTER: { 'M', 'D', 'O', 'Z', 'T', 'H' }
+    SHUFFLE: $mons
+    MONSTER: $mons[0],(2,2),hostile
+  } ELSE {
+    TRAP:random, (2,2)
+  }
+}
+
+# boulder room
+LEVEL:"vlt-0050"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, random {
+  LOOP [1d6 + 3] {
+    OBJECT:"boulder", random
+  }
+  LOOP [1d4] {
+    TRAP:"rolling boulder", random
+  }
+}
+
+# random cloud/lava/ice/pool/tree room
+LEVEL:"vlt-0051"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, random {
+  $fill = selection: filter(30%, floodfill(1,1))
+  $terr = TERRAIN: { 'C', 'L', 'I', 'P', 'T', 't' }
+  SHUFFLE: $terr
+  TERRAIN:$fill, $terr[0]
+}
+
+# buried treasure
+LEVEL:"vlt-0052"
+FLAGS:rndvault
+# note: intentionally ordinary.
+ROOM:"ordinary", random, random, random, random {
+  CONTAINER:('(', "chest"), random,buried {
+    LOOP [3d4] {
+      OBJECT:random
+    }
+  }
+}
+
+# massacre
+LEVEL:"vlt-0053"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, random {
+    $mon = MONSTER: { '@', "apprentice", "warrior", "ninja", "thug", "hunter", "acolyte", "abbot",
+             "page", "attendant", "neanderthal", "chieftain", "student", "inmate", "cultist",
+             "wizard", "valkyrie", "tourist", "samurai", "rogue", "ranger", "priest", "priestess",
+             "monk", "knight", "healer", "caveman", "cavewoman", "barbarian", "archeologist",
+             "convict", "infidel", "flame mage", "ice mage", "necromancer", "undead slayer",
+             "yeoman" }
+  SHUFFLE: $mon
+  LOOP [5d5] {
+    IF [25%] { SHUFFLE: $mon }
+    OBJECT:('%', "corpse"), random, montype: $mon[0]
+  }
+}
+
+# statuary
+LEVEL:"vlt-0054"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, random {
+  LOOP [5d5] {
+    CONTAINER:('`', "statue"), random { }
+  }
+  [50%]: TRAP:"statue", random
+  [50%]: TRAP:"statue", random
+  [50%]: TRAP:"statue", random
+}
 
 # Blocked center
-LEVEL:"vlt-0012"
+LEVEL:"vlt-0055"
 FLAGS:rndvault
 MINDEPTH:11
 GEOMETRY:random
@@ -256,270 +999,8 @@ IF [80%] {
   REGION:(1,1,1,1),random,"ordinary",irregular { }
 }
 
-# Circular
-LEVEL:"vlt-0013"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
-xx-----xx
-x--...--x
-|-.....-|
-|.......|
-|.......|
-|.......|
-|-.....-|
-x--...--x
-xx-----xx
-ENDMAP
-IF [80%] {
-  REGION:(4,4,4,4),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(4,4,4,4),random,"ordinary",irregular { }
-}
-
-# Circular, small
-LEVEL:"vlt-0014"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
-xx---xx
-x--.--x
-|-...-|
-|.....|
-|-...-|
-x--.--x
-xx---xx
-ENDMAP
-IF [80%] {
-  REGION:(3,3,3,3),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(3,3,3,3),random,"ordinary",irregular { }
-}
-
-# T-shaped
-LEVEL:"vlt-0015"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
-xxx-----xxx
-xxx|...|xxx
-xxx|...|xxx
-----...----
-|.........|
-|.........|
-|.........|
------------
-ENDMAP
-IF [80%] {
-  REGION:(5,5,5,5),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(5,5,5,5),random,"ordinary",irregular { }
-}
-
-# S-shaped
-LEVEL:"vlt-0016"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
------xxx
-|...|xxx
-|...|xxx
-|...----
-|......|
-|......|
-|......|
-----...|
-xxx|...|
-xxx|...|
-xxx-----
-ENDMAP
-IF [80%] {
-  REGION:(5,5,5,5),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(5,5,5,5),random,"ordinary",irregular { }
-}
-
-# U-shaped
-LEVEL:"vlt-0017"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
------xxx-----
-|...|xxx|...|
-|...|xxx|...|
-|...-----...|
-|...........|
-|...........|
-|...........|
--------------
-ENDMAP
-IF [80%] {
-  REGION:(5,5,5,5),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(5,5,5,5),random,"ordinary",irregular { }
-}
-
-# C-shaped
-LEVEL:"vlt-0018"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
---------
-|......|
-|......|
-|...----
-|...|xxx
-|...|xxx
-|...----
-|......|
-|......|
---------
-ENDMAP
-IF [80%] {
-  REGION:(1,1,1,1),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(1,1,1,1),random,"ordinary",irregular { }
-}
-
-# Circular, big
-LEVEL:"vlt-0019"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
-xxx-----xxx
-x---...---x
-x-.......-x
-|-.......-|
-|.........|
-|.........|
-|.........|
-|-.......-|
-x-.......-x
-x---...---x
-xxx-----xxx
-ENDMAP
-IF [80%] {
-  REGION:(5,5,5,5),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(5,5,5,5),random,"ordinary",irregular { }
-}
-
-# L-shaped, big
-LEVEL:"vlt-0020"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
--------xxxxxx
-|.....|xxxxxx
-|.....|xxxxxx
-|.....|xxxxxx
-|.....|xxxxxx
-|.....-------
-|...........|
-|...........|
-|...........|
-|...........|
-|...........|
--------------
-ENDMAP
-REGION:(3,3,3,3),random,"rndvault",irregular { }
-
-# With a corner room (top right)
-LEVEL:"vlt-0021"
-FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, (6,6) {
-  SUBROOM:"ordinary", random, (4,0), (2,2) {
-    ROOMDOOR:random, random, south|west, random
-  }
-}
-
-# With a corner room (bottom left)
-LEVEL:"vlt-0022"
-FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, (6,6) {
-  SUBROOM:"ordinary", random, (0,4), (2,2) {
-    ROOMDOOR:random, random, north|east, random
-  }
-}
-
-# Three rooms (right side)
-LEVEL:"vlt-0023"
-FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, (6,6) {
-  SUBROOM:"ordinary", random, (4,0), (2,2) {
-    ROOMDOOR:random, random, west, random
-  }
-  SUBROOM:"ordinary", random, (4,3), (2,3) {
-    ROOMDOOR:random, random, north|west, random
-  }
-}
-
-# Three rooms (left side)
-LEVEL:"vlt-0024"
-FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, (6,6) {
-  SUBROOM:"ordinary", random, (0,4), (2,2) {
-    ROOMDOOR:random, random, east, random
-  }
-  SUBROOM:"ordinary", random, (0,0), (2,3) {
-    ROOMDOOR:random, random, south|east, random
-  }
-}
-
-# Cross
-LEVEL:"vlt-0025"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
-xxx-----xxx
-xxx|...|xxx
-xxx|...|xxx
-----...----
-|.........|
-|.........|
-|.........|
-----...----
-xxx|...|xxx
-xxx|...|xxx
-xxx-----xxx
-ENDMAP
-REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
-
-# Four-leaf clover
-LEVEL:"vlt-0026"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
------x-----
-|...|x|...|
-|...---...|
-|.........|
----.....---
-xx|.....|xx
----.....---
-|.........|
-|...---...|
-|...|x|...|
------x-----
-ENDMAP
-REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
-
 # spider nest
-LEVEL:"vlt-0027"
+LEVEL:"vlt-0056"
 FLAGS:rndvault
 MINDEPTH:5
 ROOM:"rndvault", unlit, random, random, random {
@@ -529,7 +1010,7 @@ ROOM:"rndvault", unlit, random, random, random {
 }
 
 # house of spears
-LEVEL:"vlt-0028"
+LEVEL:"vlt-0057"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
@@ -539,7 +1020,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # house of horrors
-LEVEL:"vlt-0029"
+LEVEL:"vlt-0058"
 FLAGS:rndvault
 MINDEPTH:19
 ROOM:"rndvault", random, random, random, (6,6) {
@@ -556,7 +1037,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 }
 
 # room with dangerous monster and loot
-LEVEL:"vlt-0030"
+LEVEL:"vlt-0059"
 FLAGS:rndvault
 MINDEPTH:15
 ROOM:"rndvault", random, random, random, random {
@@ -572,7 +1053,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # mausoleum
-LEVEL:"vlt-0031"
+LEVEL:"vlt-0060"
 FLAGS:rndvault
 MINDEPTH:18
 ROOM:"rndvault", random, random, random, (5,5) {
@@ -595,7 +1076,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 }
 
 # beam me up scotty
-LEVEL:"vlt-0032"
+LEVEL:"vlt-0061"
 FLAGS:rndvault
 MINDEPTH:15
 ROOM:"rndvault", random, random, random, random {
@@ -604,18 +1085,8 @@ ROOM:"rndvault", random, random, random, random {
   }
 }
 
-# room with a subroom
-LEVEL:"vlt-0033"
-FLAGS:rndvault
-MINDEPTH:11
-ROOM:"rndvault", random, random, random, random {
-  SUBROOM:"ordinary", random, random, random {
-    ROOMDOOR:random, random, random, random
-  }
-}
-
 # Fake Delphi
-LEVEL:"vlt-0034"
+LEVEL:"vlt-0062"
 FLAGS:rndvault
 MINDEPTH:5
 ROOM: "rndvault", lit, random, random, (11,9) {
@@ -625,51 +1096,8 @@ ROOM: "rndvault", lit, random, random, (11,9) {
   }
 }
 
-# big room, 1
-LEVEL:"vlt-0035"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:"rndvault", random, random, random, (30,10) {
-   IF [75%] {
-      SUBROOM:random,random,random,random {
-         ROOMDOOR:random,random,random,random
-         IF [50%] { ROOMDOOR:random,random,random,random }
-      }
-   }
-}
-
-# big room, 2 (max. vertical height)
-LEVEL:"vlt-0036"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:"rndvault", random, random, random, (10,17) {
-  LOOP [ 2d3 ] {
-     MONSTER: random, random, hostile
-  }
-}
-
-# thin, long, horizontal room
-LEVEL:"vlt-0037"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:"rndvault", random, random, random, (17,3) {
-  LOOP [ 2d3 ] {
-     MONSTER: random, random, hostile
-  }
-}
-
-# thin, long, vertical room
-LEVEL:"vlt-0038"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:"rndvault", random, random, random, (3,17) {
-  LOOP [ 2d3 ] {
-     MONSTER: random, random, hostile
-  }
-}
-
 # light source
-LEVEL:"vlt-0039"
+LEVEL:"vlt-0063"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"ordinary", unlit, random, random, random {
@@ -677,7 +1105,7 @@ ROOM:"ordinary", unlit, random, random, random {
 }
 
 # potentially spooky
-LEVEL:"vlt-0040"
+LEVEL:"vlt-0064"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"ordinary", unlit, random, random, random {
@@ -685,36 +1113,9 @@ GRAVE:random
 [20%]: GRAVE:random, random
 MONSTER: '&', random
 }
-                                              
-# big room, 1, random type
-LEVEL:"vlt-0041"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:random, random, random, random, (17,10) {
-}
-
-# very thin, long, horizontal room
-LEVEL:"vlt-0042"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:"rndvault", random, random, random, (50,5) {
-  LOOP [ 2d3 ] {
-     MONSTER: random, random, hostile
-  }
-}
-
-# very very thin, long, horizontal room
-LEVEL:"vlt-0043"
-FLAGS:rndvault
-MINDEPTH:17
-ROOM:"rndvault", random, random, random, (70,3) {
-  LOOP [ 2d3 ] {
-     MONSTER: random, random, hostile
-  }
-}
 
 # watcher in the water
-LEVEL:"vlt-0044"
+LEVEL:"vlt-0065"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", unlit, random, random, random {
@@ -727,7 +1128,7 @@ ROOM:"rndvault", unlit, random, random, random {
 }
                        
 # room with sessile growths
-LEVEL:"vlt-0045"
+LEVEL:"vlt-0066"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", random, random, random, random {
@@ -739,7 +1140,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # Trapped rust monster, disenchanter
-LEVEL:"vlt-0046"
+LEVEL:"vlt-0067"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", random, random, random, (5,5) {
@@ -751,7 +1152,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 }
                        
 # Ozymandias' Tomb
-LEVEL:"vlt-0047"
+LEVEL:"vlt-0068"
 FLAGS:rndvault
 MINDEPTH:17
 GEOMETRY:random
@@ -783,7 +1184,7 @@ OBJECT:('`',"statue"),(7,3),montype:('d', "werejackal")
 OBJECT:('`',"statue"),(7,7),montype:('@', "elvenking")
 
 # Pacman
-LEVEL:"vlt-0048"
+LEVEL:"vlt-0069"
 FLAGS:rndvault
 MINDEPTH:17
 GEOMETRY:random
@@ -810,43 +1211,3 @@ MONSTER:"ghost",random,"Inky"
 MONSTER:"ghost",random,"Blinky"
 MONSTER:"ghost",random,"Pinky"
 MONSTER:"ghost",random,"Clyde"
-
-# Tetris L-shaped
-LEVEL:"vlt-0049"
-FLAGS:rndvault
-MINDEPTH:7
-GEOMETRY:random
-MAP
------xxx
-|...|xxx
-|...|xxx
-|...|xxx
-|...|xxx
-|...|xxx
-|...----
-|......|
-|......|
-|......|
---------
-ENDMAP
-REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
-
-# Tetris J-shaped
-LEVEL:"vlt-0050"
-FLAGS:rndvault
-MINDEPTH:7      
-GEOMETRY:random
-MAP
-xxx-----
-xxx|...|
-xxx|...|
-xxx|...|
-xxx|...|
-xxx|...|
-----...|
-|......|
-|......|
-|......|
---------
-ENDMAP
-REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
