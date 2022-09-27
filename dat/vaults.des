@@ -21,12 +21,12 @@ VAULTGEN:200
 ROOM:"ordinary", random, random, random, random {
 }
 
-# lava/ice/pool/tree/fountain room
+# lava/ice/pool/tree/sewage/fountain room
 LEVEL:"vlt-0001"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, (3,3) {
-  $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{' }
+  $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{', 's' }
   SHUFFLE: $terr
    IF [10%] { TERRAIN:(0,0), $terr[0] }
    IF [10%] { TERRAIN:(1,0), $terr[0] }
@@ -246,7 +246,7 @@ MAP
 -----------
 ENDMAP
 IF [75%] {
-  $terr = TERRAIN:{ '-', 'P' }
+  $terr = TERRAIN:{ '-', 'P', 's', 'C' }
   SHUFFLE: $terr
   REPLACE_TERRAIN:(1,1,9,9),'L', $terr[0],100%
 }
@@ -432,7 +432,6 @@ MAP
 ENDMAP
 REGION:(3,3,3,3),random,"rndvault",irregular { }
 
-
 # With a corner room (top right)
 LEVEL:"vlt-0021"
 FLAGS:rndvault
@@ -539,7 +538,7 @@ ROOM:"rndvault", random, random, random, random {
   }
 }
 
-# house of horros
+# house of horrors
 LEVEL:"vlt-0029"
 FLAGS:rndvault
 MINDEPTH:19
@@ -615,3 +614,239 @@ ROOM:"rndvault", random, random, random, random {
   }
 }
 
+# Fake Delphi
+LEVEL:"vlt-0034"
+FLAGS:rndvault
+MINDEPTH:5
+ROOM: "rndvault", lit, random, random, (11,9) {
+  SUBROOM: "ordinary", lit, (4,3), (3,3) {
+     ROOMDOOR:random,random,random,random
+     IF [25%] { ROOMDOOR:random,random,random,random }
+  }
+}
+
+# big room, 1
+LEVEL:"vlt-0035"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (30,10) {
+   IF [75%] {
+      SUBROOM:random,random,random,random {
+         ROOMDOOR:random,random,random,random
+         IF [50%] { ROOMDOOR:random,random,random,random }
+      }
+   }
+}
+
+# big room, 2 (max. vertical height)
+LEVEL:"vlt-0036"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (10,17) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# thin, long, horizontal room
+LEVEL:"vlt-0037"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (17,3) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# thin, long, vertical room
+LEVEL:"vlt-0038"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (3,17) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# light source
+LEVEL:"vlt-0039"
+FLAGS:rndvault
+MINDEPTH:8
+ROOM:"ordinary", unlit, random, random, random {
+  OBJECT:('(', "oil lamp"), random, lit
+}
+
+# potentially spooky
+LEVEL:"vlt-0040"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"ordinary", unlit, random, random, random {
+GRAVE:random
+[20%]: GRAVE:random, random
+MONSTER: '&', random
+}
+                                              
+# big room, 1, random type
+LEVEL:"vlt-0041"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:random, random, random, random, (17,10) {
+}
+
+# very thin, long, horizontal room
+LEVEL:"vlt-0042"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (50,5) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# very very thin, long, horizontal room
+LEVEL:"vlt-0043"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (70,3) {
+  LOOP [ 2d3 ] {
+     MONSTER: random, random, hostile
+  }
+}
+
+# watcher in the water
+LEVEL:"vlt-0044"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", unlit, random, random, random {
+  LOOP [1d3] {
+    TERRAIN: random, 'P'
+  }
+  $mon = monster: { (';', "giant eel"), (';', "electric eel"), (';', "kraken") }
+  SHUFFLE: $mon
+  MONSTER: $mon[0], random
+}
+                       
+# room with sessile growths
+LEVEL:"vlt-0045"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, random {
+  $mon = monster: { ('e', "gas spore"), 'F', 'b', 'j', 'P' }
+  SHUFFLE: $mon
+  LOOP [4d3] {
+    MONSTER: $mon[0], random, asleep
+  }
+}
+
+# Trapped rust monster, disenchanter
+LEVEL:"vlt-0046"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, (5,5) {
+  SUBROOM:"rndvault", random, (2,2), (1,1), filled {
+    MONSTER: 'R', (0,0), hostile
+  }
+  REPLACE_TERRAIN:(0,0, 4,4), '-', 'P', 100%
+  REPLACE_TERRAIN:(0,0, 4,4), '|', 'P', 100%
+}
+                       
+# Ozymandias' Tomb
+LEVEL:"vlt-0047"
+FLAGS:rndvault
+MINDEPTH:17
+GEOMETRY:random
+MAP
+---------
+|.......|
+|.......|
+|.......|
+|......\|
+|.......|
+|.......|
+|.......|
+---------
+ENDMAP
+REGION:(1,1,7,7),lit,"rndvault",filled { }
+ENGRAVING: (6,4), burn, "Look on my works, ye mighty, and despair"
+[10%]: ENGRAVING: (5,4), burn, "My name is Ozymandias, king of kings"
+[50%]: TRAP: "hole", (3,2)
+[80%]: TRAP: "hole", (5,3)
+[30%]: TRAP: "hole", (3,6)
+[75%]: TRAP: "web", (1,1)
+[75%]: TRAP: "web", (1,6)
+TRAP: "web", (7,6)
+
+CONTAINER:"chest", (7,1), trapped { }
+TRAP: "statue", (7,3)
+TRAP: "statue", (7,7)
+OBJECT:('`',"statue"),(7,3),montype:('d', "werejackal")
+OBJECT:('`',"statue"),(7,7),montype:('@', "elvenking")
+
+# Pacman
+LEVEL:"vlt-0048"
+FLAGS:rndvault
+MINDEPTH:17
+GEOMETRY:random
+MAP
+--------------------
+|....|........|....|
+|.--.|.------.|.--.|
+|.|..............|.|
+|.|.--.|-FF-|.--.|.|
+|......|    |......|
+|.|.--.|----|.--.|.|
+|.|..............|.|
+|.--.|.------.|.--.|
+|....|........|....|
+--------------------
+ENDMAP
+REGION:(1,1,1,1),lit,"rndvault",irregular,joined { }
+OBJECT:"apple",random
+OBJECT:"pear",random
+OBJECT:"banana",random
+OBJECT:"orange",random
+OBJECT:"melon",random
+MONSTER:"ghost",random,"Inky"
+MONSTER:"ghost",random,"Blinky"
+MONSTER:"ghost",random,"Pinky"
+MONSTER:"ghost",random,"Clyde"
+
+# Tetris L-shaped
+LEVEL:"vlt-0049"
+FLAGS:rndvault
+MINDEPTH:7
+GEOMETRY:random
+MAP
+-----xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...|xxx
+|...----
+|......|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
+# Tetris J-shaped
+LEVEL:"vlt-0050"
+FLAGS:rndvault
+MINDEPTH:7      
+GEOMETRY:random
+MAP
+xxx-----
+xxx|...|
+xxx|...|
+xxx|...|
+xxx|...|
+xxx|...|
+----...|
+|......|
+|......|
+|......|
+--------
+ENDMAP
+REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
