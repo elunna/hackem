@@ -99,7 +99,8 @@
 #define AD_PIER 60  /* Piercing scream (Mobats) */
 #define AD_SONG 61  /* Paralyzing song (Harpy) */
 #define AD_GIBB 62  /* Gibber chitter-chatter attack (Gibberlings) */
-#define AD_SAMU 63  /* hits, may steal Amulet (Wizard) */
+#define AD_SPOR	63	/* generate spore */
+#define AD_SAMU 64  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

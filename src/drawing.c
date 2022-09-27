@@ -90,7 +90,7 @@ const struct class_sym def_monsyms[MAXMCLASSES] = {
     { DEF_CENTAUR, "", "centaur" },
     { DEF_DRAGON, "", "dragon" },
     { DEF_ELEMENTAL, "", "elemental" },
-    { DEF_FUNGUS, "", "fungus or mold" },
+    { DEF_FUNGUS, "", "fungus, mold or fern" },
     { DEF_GNOME, "", "gnome" },
     { DEF_GIANT, "", "giant humanoid" },
     { '\0', "", "invisible monster" },

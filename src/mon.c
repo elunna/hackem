@@ -2703,6 +2703,17 @@ struct monst *magr, /* monster that is currently deciding where to move */
     if (ma == &mons[PM_RAVEN] && md == &mons[PM_FLOATING_EYE])
         return ALLOW_M | ALLOW_TM;
 
+    /* dungeon fern spores hate everything */
+    if(ma == &mons[PM_DUNGEON_FERN_SPORE] &&
+        md != &mons[PM_DUNGEON_FERN] &&
+        md != &mons[PM_DUNGEON_FERN_SPORE])
+        return ALLOW_M|ALLOW_TM;
+    /* and everything hates them */
+    if(md == &mons[PM_DUNGEON_FERN_SPORE] &&
+        ma != &mons[PM_DUNGEON_FERN] &&
+        ma != &mons[PM_DUNGEON_FERN_SPORE])
+        return ALLOW_M|ALLOW_TM;
+    
     /* insect-eating bugs vs insects */
     if (ma->mlet == S_SPIDER && (md->mlet == S_ANT || md->mlet == S_XAN))
         return ALLOW_M | ALLOW_TM;
@@ -3617,6 +3628,19 @@ boolean was_swallowed; /* digestion */
     return (boolean) !rn2(tmp);
 }
 
+void
+spore_dies(mon)
+struct monst *mon;
+{
+    if (mon->mhp <= 0) {
+        coord mm;
+        mm.x = mon->mx; mm.y = mon->my;
+        create_gas_cloud(mm.x, mm.y, rn1(2,1), rnd(8));
+        if (!rn2(3)) 
+            makemon(&mons[PM_DUNGEON_FERN], mm.x, mm.y, NO_MM_FLAGS);
+    }
+}
+
 /* drop (perhaps) a cadaver and remove monster */
 void
 mondied(mdef)
@@ -3770,6 +3794,10 @@ int how;
     else
         mondied(mdef);
 
+    if (mdef->data == &mons[PM_DUNGEON_FERN_SPORE]) {
+        spore_dies(mdef);
+    }
+    
     if (be_sad && DEADMONSTER(mdef))
         You("have a sad feeling for a moment, then it passes.");
 }
@@ -3929,6 +3957,10 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
 
     mdat = mtmp->data; /* note: mondead can change mtmp->data */
     mndx = monsndx(mdat);
+    
+    if (mdat == &mons[PM_DUNGEON_FERN_SPORE]) {
+        spore_dies(mtmp);
+    }
 
     if (stoned) {
         stoned = FALSE;

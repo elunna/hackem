@@ -1139,6 +1139,9 @@ register int after;
     int omx = mtmp->mx, omy = mtmp->my;
     int offer;
 
+    if (stationary(mtmp->data)) 
+        return 0;
+    
     if (mtmp->mtrapped) {
         int i = mintrap(mtmp);
 

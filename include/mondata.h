@@ -663,6 +663,8 @@
 
 #define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN])
 
+#define stationary(ptr)     ((ptr)->mflags4 & M4_STATIONARY)
+
 /* used to vary a few messages */
 #define weirdnonliving(ptr) \
     (is_golem(ptr) \
@@ -722,6 +724,8 @@
     ((ptr)->mlet == S_BLOB \
      || (ptr)->mlet == S_JELLY \
      || (ptr)->mlet == S_PUDDING)
+
+#define is_vegetation(ptr)	((ptr) == &mons[PM_DUNGEON_FERN])
 
 /* For vampires */
 #define has_blood(ptr) (!vegetarian(ptr) && \

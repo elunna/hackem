@@ -663,6 +663,9 @@ register struct monst *magr, *mdef;
                 continue;
 
             res[i] = explmm(magr, mdef, mattk);
+            if (magr->data == &mons[PM_DUNGEON_FERN_SPORE]) 
+                spore_dies(magr);
+            
             if (res[i] == MM_MISS) { /* cancelled--no attack */
                 strike = 0;
                 attk = 0;
@@ -968,8 +971,10 @@ struct attack *mattk;
                 return MM_AGR_DIED;
             }
         }
+    /* ranged actions of plants are implemented as gaze attacks */
+    } else if (is_vegetation(magr->data)) {
+        return (MM_MISS);
     }
-
     return mdamagem(magr, mdef, mattk, (struct obj *) 0, 0, &otmp);
 }
 

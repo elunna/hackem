@@ -142,6 +142,9 @@ register int nk;
     if (mtmp->m_lev > 8)
         tmp += 50;
 
+/*	Dungeon fern spores give no experience */
+	if(mtmp->data == &mons[PM_DUNGEON_FERN_SPORE]) tmp = 0;
+
 #ifdef MAIL
     /* Mail daemons put up no fight. */
     if (mtmp->data == &mons[PM_MAIL_DAEMON])

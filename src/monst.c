@@ -3434,6 +3434,27 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 8, CLR_BLACK),
+    /*
+    * dungeon ferns and spores
+     */
+    MON("dungeon fern", S_FUNGUS,
+        LVL(11, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | 1),
+        A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(20, 200, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS 
+            | M1_NOTAKE | M1_REGEN,
+        M2_HOSTILE | M2_NEUTER, 0, M4_STATIONARY,
+        0, 5, CLR_BRIGHT_GREEN),
+    MON("dungeon fern spore", S_EYE,
+        LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
+        A(ATTK(AT_EXPL, AD_PHYS, 3, 6), 
+          ATTK(AT_BOOM, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
+        M2_HOSTILE | M2_NEUTER, 0, 0,
+        0, 1, CLR_GREEN),
     
     /*
      * Gnomes
