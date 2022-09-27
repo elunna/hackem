@@ -327,9 +327,12 @@ boolean fleemsg;
                 fleetime++;
             mtmp->mfleetim = (unsigned) min(fleetime, 127);
         }
-        if (!mtmp->mflee && fleemsg && canseemon(mtmp)
+        if (!mtmp->mflee 
+            && fleemsg 
+            && canseemon(mtmp)
             && M_AP_TYPE(mtmp) != M_AP_FURNITURE
-            && M_AP_TYPE(mtmp) != M_AP_OBJECT) {
+            && M_AP_TYPE(mtmp) != M_AP_OBJECT
+            && !is_vegetation(mtmp->data)) {
             /* unfortunately we can't distinguish between temporary
                sleep and temporary paralysis, so both conditions
                receive the same alternate message */

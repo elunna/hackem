@@ -663,7 +663,7 @@ register struct monst *magr, *mdef;
                 continue;
 
             res[i] = explmm(magr, mdef, mattk);
-            if (magr->data == &mons[PM_DUNGEON_FERN_SPORE]) 
+            if (is_fern_spore(magr->data)) spore_dies(magr);
                 spore_dies(magr);
             
             if (res[i] == MM_MISS) { /* cancelled--no attack */

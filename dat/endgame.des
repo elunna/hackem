@@ -374,6 +374,9 @@ MONSTER:(':',"salamander"),random,hostile
 MONSTER:(':',"salamander"),random,hostile
 MONSTER:(':',"salamander"),random,hostile
 MONSTER:(':',"salamander"),random,hostile
+[25%]: MONSTER:('F',"blazing fern"),random,hostile
+[25%]: MONSTER:('F',"blazing fern"),random,hostile
+[25%]: MONSTER:('F',"blazing fern"),random,hostile
 
 OBJECT:('`',"boulder"),random
 OBJECT:('`',"boulder"),random

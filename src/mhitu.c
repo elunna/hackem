@@ -3676,6 +3676,9 @@ struct attack *mattk;
             } else if (mtmp->data == &mons[PM_DUNGEON_FERN] 
                     || mtmp->data == &mons[PM_DUNGEON_FERN_SPROUT]) {
                 makemon(&mons[PM_DUNGEON_FERN_SPORE], mm.x, mm.y, NO_MM_FLAGS);
+            } else if (mtmp->data == &mons[PM_SWAMP_FERN] 
+                    || mtmp->data == &mons[PM_SWAMP_FERN_SPROUT]) {
+                makemon(&mons[PM_SWAMP_FERN_SPORE], mm.x, mm.y, NO_MM_FLAGS);
             } else { /* currently these should not be generated */
                 makemon(&mons[PM_FERN_SPORE], mm.x, mm.y, NO_MM_FLAGS);
             }

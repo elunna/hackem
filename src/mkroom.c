@@ -919,6 +919,9 @@ mkswamp() /* Michiel Huisjes & Fred de Wilde */
                                               ? mkclass(S_FUNGUS, 0)
                                               : &mons[PM_GIANT_MOSQUITO],
                                            sx, sy, NO_MM_FLAGS);
+                        else if (!rn2(2)) /* swamp ferns like swamps */
+                            (void) makemon(&mons[PM_SWAMP_FERN],
+                                           sx, sy, NO_MM_FLAGS);
                     }
                 }
         level.flags.has_swamp = 1;

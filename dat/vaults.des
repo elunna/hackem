@@ -1211,3 +1211,14 @@ MONSTER:"ghost",random,"Inky"
 MONSTER:"ghost",random,"Blinky"
 MONSTER:"ghost",random,"Pinky"
 MONSTER:"ghost",random,"Clyde"
+                                                                                                                  
+# Fern nursery
+LEVEL:"vlt-0070"
+FLAGS:rndvault
+MINDEPTH:11
+ROOM:"rndvault", random, random, random, random {
+  IF [25%] { MONSTER: ('F', "dungeon fern"), random, hostile }
+  IF [50%] { MONSTER: ('F', "arctic fern"), random, hostile }
+  IF [50%] { MONSTER: ('F', "blazing fern"), random, hostile }
+  IF [50%] { MONSTER: ('F', "swamp fern"), random, hostile }
+}

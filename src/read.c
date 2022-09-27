@@ -2133,10 +2133,22 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline1(Never_mind);
             break;
         }
-        if (!is_valid_stinking_cloud_pos(cc.x, cc.y, TRUE))
-            break;
-        (void) create_gas_cloud(cc.x, cc.y, 3 + bcsign(sobj),
-                                8 + 4 * bcsign(sobj));
+        
+        if (!confused) {
+            if (!is_valid_stinking_cloud_pos(cc.x, cc.y, TRUE))
+                break;
+            (void) create_gas_cloud(cc.x, cc.y, 3 + bcsign(sobj),
+                                    8 + 4 * bcsign(sobj));
+        } else {
+            int i;
+            if (!sblessed) {
+                for (i = 0; i < 30 + rn2(70); i++)
+                    makemon(&mons[PM_GAS_SPORE], 0, 0, NO_MM_FLAGS);
+            } else {
+                for (i = 0; i < rnd(3); i++)
+                    makemon(&mons[PM_FERN_SPORE], 0, 0, NO_MM_FLAGS);
+            }
+        }
         break;
     }
     case SCR_MAGIC_DETECTION:
