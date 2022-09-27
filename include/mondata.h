@@ -725,7 +725,8 @@
      || (ptr)->mlet == S_JELLY \
      || (ptr)->mlet == S_PUDDING)
 
-#define is_vegetation(ptr)	((ptr) == &mons[PM_DUNGEON_FERN])
+#define is_vegetation(ptr)	((ptr) == &mons[PM_DUNGEON_FERN] || \
+				 (ptr) == &mons[PM_DUNGEON_FERN_SPROUT])
 
 /* For vampires */
 #define has_blood(ptr) (!vegetarian(ptr) && \

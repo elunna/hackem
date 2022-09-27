@@ -492,7 +492,7 @@ int expltype;
                     else if (resists_fire(mtmp) && adtyp == AD_COLD)
                         mdam *= 2;
                     /* dungeon ferns are immune to explosions */
-                    if (mtmp->data == &mons[PM_DUNGEON_FERN])
+                    if (is_vegetation(mtmp->data))
                         mdam = idamres = idamnonres = 0;
                     
                     damage_mon(mtmp, mdam, adtyp);
