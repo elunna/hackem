@@ -739,25 +739,13 @@
 				 (ptr) == &mons[PM_ARCTIC_FERN_SPORE] || \
 				 (ptr) == &mons[PM_BLAZING_FERN_SPORE] || \
 				 (ptr) == &mons[PM_DUNGEON_FERN_SPORE] || \
-                                 (ptr) == &mons[PM_SWAMP_FERN_SPORE])
+                 (ptr) == &mons[PM_SWAMP_FERN_SPORE])
 
 #define is_fern(ptr)		(is_fern_sprout(ptr) || \
 				 (ptr) == &mons[PM_ARCTIC_FERN] || \
 				 (ptr) == &mons[PM_BLAZING_FERN] || \
 				 (ptr) == &mons[PM_DUNGEON_FERN] || \
-                                 (ptr) == &mons[PM_SWAMP_FERN])
-
-#define is_vegetation(ptr)	(is_fern(ptr))
-
-#define is_fern_spore(ptr)	((ptr) == &mons[PM_FERN_SPORE] || \
-				 (ptr) == &mons[PM_ARCTIC_FERN_SPORE] || \
-				 (ptr) == &mons[PM_BLAZING_FERN_SPORE] || \
-				 (ptr) == &mons[PM_DUNGEON_FERN_SPORE])
-
-#define is_fern(ptr)		(is_fern_sprout(ptr) || \
-				 (ptr) == &mons[PM_ARCTIC_FERN] || \
-				 (ptr) == &mons[PM_BLAZING_FERN] || \
-				 (ptr) == &mons[PM_DUNGEON_FERN])
+                 (ptr) == &mons[PM_SWAMP_FERN])
 
 #define is_vegetation(ptr)	(is_fern(ptr))
 
