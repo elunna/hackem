@@ -3673,20 +3673,19 @@ struct monst *mon;
             if (rn2(3)) 
                 return;
         } else if (mon->data == &mons[PM_SWAMP_FERN_SPORE]) {
-            /* swamp ferns can only reproduce in swamp */
-            if (is_sewage(mm.x, mm.y))
+            /* swamp ferns can only reproduce in swamp or puddles */
+            if (is_sewage(mm.x, mm.y) || is_puddle(mm.x, mm.y))
                 sporetype = 3;
             else 
                 return;
             if (rn2(3)) 
                 return;
         } else {
-            if (is_ice(mm.x, mm.y) 
-                || is_pool(mm.x, mm.y)) {
+            if (is_ice(mm.x, mm.y) || is_pool(mm.x, mm.y)) {
                 sporetype = 1;
             } else if (is_lava(mm.x, mm.y)) {
                 sporetype = 2;
-            } else if (is_sewage(mm.x, mm.y)) {
+            } else if (is_sewage(mm.x, mm.y) || is_puddle(mm.x, mm.y)) {
                 sporetype = 3;
             } else {
                 sporetype = rn2(4);
@@ -3702,7 +3701,8 @@ struct monst *mon;
                 makemon(&mons[PM_DUNGEON_FERN_SPROUT], mm.x, mm.y, NO_MM_FLAGS);
             break;
         case 1:
-            if (ltyp == POOL || ltyp == MOAT || is_sewage(mm.x, mm.y)) {
+            if (ltyp == POOL || ltyp == MOAT 
+                || is_sewage(mm.x, mm.y) || is_puddle(mm.x, mm.y)) {
                 levl[mm.x][mm.y].typ = ICE;
                 You_hear(Hallucination 
                              ? "someone selling hot chocolate." 
