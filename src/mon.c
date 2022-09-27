@@ -3655,8 +3655,12 @@ struct monst *mon;
             sporetype = 2;
             if (rn2(3)) 
                 return;
+        } else if (mon->data == &mons[PM_SWAMP_FERN_SPORE]) {
+            sporetype = 3;
+            if (rn2(3)) 
+                return;
         } else {
-            sporetype = rn2(3);
+            sporetype = rn2(4);
         }
         /* when creating a new fern, 5/6 chance of creating
            a fern sprout and 1/6 chance of a fully-grown one */
@@ -3693,6 +3697,15 @@ struct monst *mon;
                     makemon(&mons[PM_BLAZING_FERN], mm.x, mm.y, NO_MM_FLAGS);
                 else 
                     makemon(&mons[PM_BLAZING_FERN_SPROUT], mm.x, mm.y, NO_MM_FLAGS);
+            }
+            break;
+        case 3:
+            /* swamp ferns can only reproduce in swamp */
+            if (is_sewage(mm.x, mm.y)) {
+                if (!rn2(6)) 
+                    makemon(&mons[PM_SWAMP_FERN], mm.x, mm.y, NO_MM_FLAGS);
+                else 
+                    makemon(&mons[PM_SWAMP_FERN_SPROUT], mm.x, mm.y, NO_MM_FLAGS);
             }
             break;
         }
