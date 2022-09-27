@@ -2956,6 +2956,10 @@ MONSTER:('w',"giant leech"),random
 MONSTER:('w',"giant leech"),random
 MONSTER:('w',"giant leech"),random
 
+MONSTER:('F',"swamp fern"),random
+MONSTER:('F',"swamp fern"),random
+
+
 # Mine King's level variant 4
 # Copied on the dnh drow noble quest level (Ndr-loca")
 #
