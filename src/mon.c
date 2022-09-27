@@ -2704,14 +2704,14 @@ struct monst *magr, /* monster that is currently deciding where to move */
         return ALLOW_M | ALLOW_TM;
 
     /* dungeon fern spores hate everything */
-    if (ma == &mons[PM_DUNGEON_FERN_SPORE] &&
-        md != &mons[PM_DUNGEON_FERN_SPORE] &&
-        !is_vegetation(md))
+    if (is_fern_spore(ma) 
+        && !is_fern_spore(md) 
+        && !is_vegetation(md))
         return ALLOW_M|ALLOW_TM;
     /* and everything hates them */
-    if (md == &mons[PM_DUNGEON_FERN_SPORE] &&
-        ma != &mons[PM_DUNGEON_FERN_SPORE] &&
-        !is_vegetation(ma))
+    if (is_fern_spore(md) 
+        && !is_fern_spore(ma) 
+        && !is_vegetation(ma))
         return ALLOW_M|ALLOW_TM;
     
     /* insect-eating bugs vs insects */
@@ -3633,21 +3633,70 @@ spore_dies(mon)
 struct monst *mon;
 {
     if (mon->mhp <= 0) {
-        coord mm;
-        mm.x = mon->mx; mm.y = mon->my;
-        create_gas_cloud(mm.x, mm.y, rn1(2,1), rnd(8));
+        int sporetype;
+        coord mm; 
+        schar ltyp;
+        mm.x = mon->mx; 
+        mm.y = mon->my;
+        ltyp = levl[mm.x][mm.y].typ;
         
-        /* Possibly reproduce and create a new fern */
-        /* ferns cannot produce viable offspring on ice, lava, or water; swamp is okay */
-        if (!rn2(3) 
-                && !is_ice(mm.x, mm.y) 
-                && !is_lava(mm.x, mm.y)) {
-                /*&& !is_pool(mm.x, mm.y)) { */
+        create_gas_cloud(mm.x, mm.y, rn1(2, 1), rnd(8));
+        /* all fern spores have a 2/3 chance of creating nothing, except for
+           the generic fern spore, which is random and will depend on terrain */
+        if (mon->data == &mons[PM_DUNGEON_FERN_SPORE]) {
+            sporetype = 0;
+            if (rn2(3)) 
+                return;
+        } else if (mon->data == &mons[PM_ARCTIC_FERN_SPORE]) {
+            sporetype = 1;
+            if (rn2(3)) 
+                return;
+        } else if (mon->data == &mons[PM_BLAZING_FERN_SPORE]) {
+            sporetype = 2;
+            if (rn2(3)) 
+                return;
+        } else {
+            sporetype = rn2(3);
+        }
+        /* when creating a new fern, 5/6 chance of creating
+           a fern sprout and 1/6 chance of a fully-grown one */
+        switch (sporetype) {
+        case 0:
+            /* dungeon ferns cannot reproduce on ice, lava, or water; swamp is okay */
+            if (   !is_ice(mm.x, mm.y) 
+                && !is_lava(mm.x, mm.y) 
+                && !is_pool(mm.x, mm.y)) {
             if (!rn2(6)) 
                 makemon(&mons[PM_DUNGEON_FERN], mm.x, mm.y, NO_MM_FLAGS);
             else 
                 makemon(&mons[PM_DUNGEON_FERN_SPROUT], mm.x, mm.y, NO_MM_FLAGS);
+            }
+            break;
+        case 1:
+            /* arctic ferns can only reproduce on water, ice, or in swamp */
+            if (ltyp == POOL || ltyp == MOAT || is_ice(mm.x, mm.y) || is_sewage(mm.x, mm.y)) {
+                if (ltyp == POOL || ltyp == MOAT || is_sewage(mm.x, mm.y)) {
+                    levl[mm.x][mm.y].typ = ICE;
+                    You_hear("a crackling sound.");
+                }
+                if (!rn2(6)) 
+                    makemon(&mons[PM_ARCTIC_FERN], mm.x, mm.y, NO_MM_FLAGS);
+                else 
+                    makemon(&mons[PM_ARCTIC_FERN_SPROUT], mm.x, mm.y, NO_MM_FLAGS);
+            }
+            break;
+        case 2:
+            /* blazing ferns can only reproduce on lava */
+            if (is_lava(mm.x, mm.y)) {
+                levl[mm.x][mm.y].typ = ROOM;
+                if (!rn2(6)) 
+                    makemon(&mons[PM_BLAZING_FERN], mm.x, mm.y, NO_MM_FLAGS);
+                else 
+                    makemon(&mons[PM_BLAZING_FERN_SPROUT], mm.x, mm.y, NO_MM_FLAGS);
+            }
+            break;
         }
+        
     }
 }
 
@@ -3804,7 +3853,7 @@ int how;
     else
         mondied(mdef);
 
-    if (mdef->data == &mons[PM_DUNGEON_FERN_SPORE]) {
+    if (is_fern_spore(mdef->data)) {
         spore_dies(mdef);
     }
     
@@ -3968,7 +4017,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     mdat = mtmp->data; /* note: mondead can change mtmp->data */
     mndx = monsndx(mdat);
     
-    if (mdat == &mons[PM_DUNGEON_FERN_SPORE]) {
+    if (is_fern_spore(mtmp->data)) {
         spore_dies(mtmp);
     }
 

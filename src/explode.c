@@ -450,7 +450,8 @@ int expltype;
                 } else if (cansee(i + x - 1, j + y - 1)) {
                     if (mtmp->m_ap_type)
                         seemimic(mtmp);
-                    pline("%s is caught in the %s!", Monnam(mtmp), str);
+                    if (!is_vegetation(mtmp->data)) /* vegetation is immune */
+                        pline("%s is caught in the %s!", Monnam(mtmp), str);
                 }
 
                 if (adtyp == AD_FIRE)

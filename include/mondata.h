@@ -602,7 +602,10 @@
      || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_SHOCKING_SPHERE] \
      || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
-     || (ptr) == &mons[PM_WAX_GOLEM] \
+     || (ptr) == &mons[PM_WAX_GOLEM]      \
+     || (ptr) == &mons[PM_BLAZING_FERN] \
+     || (ptr) == &mons[PM_BLAZING_FERN_SPROUT] \
+     || (ptr) == &mons[PM_BLAZING_FERN_SPORE] \
      || (ptr) == &mons[PM_FIRE_VORTEX]) \
          ? 1 \
          : ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
@@ -725,8 +728,23 @@
      || (ptr)->mlet == S_JELLY \
      || (ptr)->mlet == S_PUDDING)
 
-#define is_vegetation(ptr)	((ptr) == &mons[PM_DUNGEON_FERN] || \
+/* Keep track of ferns, fern sprouts, fern spores, and other plants */
+
+#define is_fern_sprout(ptr)	((ptr) == &mons[PM_ARCTIC_FERN_SPROUT] || \
+				 (ptr) == &mons[PM_BLAZING_FERN_SPROUT] || \
 				 (ptr) == &mons[PM_DUNGEON_FERN_SPROUT])
+
+#define is_fern_spore(ptr)	((ptr) == &mons[PM_FERN_SPORE] || \
+				 (ptr) == &mons[PM_ARCTIC_FERN_SPORE] || \
+				 (ptr) == &mons[PM_BLAZING_FERN_SPORE] || \
+				 (ptr) == &mons[PM_DUNGEON_FERN_SPORE])
+
+#define is_fern(ptr)		(is_fern_sprout(ptr) || \
+				 (ptr) == &mons[PM_ARCTIC_FERN] || \
+				 (ptr) == &mons[PM_BLAZING_FERN] || \
+				 (ptr) == &mons[PM_DUNGEON_FERN])
+
+#define is_vegetation(ptr)	(is_fern(ptr))
 
 /* For vampires */
 #define has_blood(ptr) (!vegetarian(ptr) && \
