@@ -19,6 +19,7 @@ STATIC_DCL int FDECL(mkroll_launch, (struct trap *, XCHAR_P, XCHAR_P,
                                      SHORT_P, long));
 STATIC_DCL boolean FDECL(isclearpath, (coord *, int, SCHAR_P, SCHAR_P));
 STATIC_DCL void FDECL(dofiretrap, (struct obj *));
+STATIC_DCL void FDECL(doicetrap, (struct obj *));
 STATIC_DCL void NDECL(domagictrap);
 STATIC_DCL boolean FDECL(emergency_disrobe, (boolean *));
 STATIC_DCL int FDECL(untrap_prob, (struct trap *));
@@ -1376,7 +1377,11 @@ unsigned trflags;
         seetrap(trap);
         dofiretrap((struct obj *) 0);
         break;
-
+    case ICE_TRAP:
+        seetrap(trap);
+        doicetrap((struct obj*)0);
+        break;
+        
     case PIT:
     case SPIKED_PIT: {
         /* is the pit an "open grave"? (if it's in a graveyard, yes) */
@@ -2024,6 +2029,31 @@ static struct {
     struct obj *obj;
     xchar x, y;
 } launchplace;
+
+STATIC_OVL void
+doicetrap(box)
+struct obj *box;	/* at the moment only for floor traps */
+{
+	int num = 0;
+	num = d(4, 4);
+	if (box) {
+		impossible("doicetrap() called with non-null box.");
+		return;
+	}
+
+	pline("A freezing cloud shoots from %s!", surface(u.ux, u.uy));
+	if (Cold_resistance) {
+		shieldeff(u.ux, u.uy);
+		num = 0;
+	}
+
+	if (!num)
+		You("are uninjured.");
+	else
+		losehp(num, "freezing cloud", KILLED_BY_AN);
+
+	destroy_item(POTION_CLASS, AD_COLD);
+}
 
 STATIC_OVL void
 launch_drop_spot(obj, x, y)
@@ -2746,6 +2776,30 @@ register struct monst *mtmp;
             }
             break;
         } /* RUST_TRAP */
+        case ICE_TRAP:
+            if (in_sight)
+                pline("A freezing cloud shoots from "
+                      "the %s under %s!",
+                      surface(mtmp->mx, mtmp->my),
+                      mon_nam(mtmp));
+            else if (see_it)
+                You("see a freezing cloud shoot from the %s!",
+                    surface(mtmp->mx, mtmp->my));
+            
+            if (resists_cold(mtmp)) {
+                if (in_sight) {
+                    shieldeff(mtmp->mx,mtmp->my);
+                    pline("%s is uninjured.", Monnam(mtmp));
+                }
+            } else {
+                int num = d(2,4);
+                if (thitm(0, mtmp, (struct obj *)0, num, FALSE))
+                    trapkilled = TRUE;
+                else if (!rn2(2))
+                    (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+            }
+            if (see_it) seetrap(trap);
+            break; 
         case FIRE_TRAP:
         mfiretrap:
             if ((is_puddle(mtmp->mx, mtmp->my)

@@ -212,7 +212,8 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '^', "magic trap", C(HI_ZAP) },               /* trap */
        { '^', "anti-magic field", C(HI_ZAP) },         /* trap */
        { '^', "polymorph trap", C(CLR_BRIGHT_GREEN) }, /* trap */
-/*70*/ { '^', "spear trap", C(CLR_BROWN) },            /* trap */
+/*70*/ { '^', "ice trap",	C(CLR_WHITE)},         /* trap */
+       { '^', "spear trap", C(CLR_BROWN) },            /* trap */
        { '^', "magic beam trap", C(CLR_YELLOW) },      /* trap */
        { '~', "vibrating square", C(CLR_MAGENTA) },    /* "trap" */
        /* zap colors are changed by mapglyph() to match type of beam */
@@ -222,8 +223,8 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '/', "", C(CLR_GRAY) },                /* rslant */
        { '*', "", C(CLR_WHITE) },               /* dig beam */
        { '!', "", C(CLR_WHITE) },               /* camera flash beam */
-       { ')', "", C(HI_WOOD) },                 /* boomerang open left */
-/*80*/ { '(', "", C(HI_WOOD) },                 /* boomerang open right */
+/*80*/ { ')', "", C(HI_WOOD) },                 /* boomerang open left */
+       { '(', "", C(HI_WOOD) },                 /* boomerang open right */
        { '0', "", C(HI_ZAP) },                  /* 4 magic shield symbols */
        { '#', "", C(HI_ZAP) },
        { '@', "", C(HI_ZAP) },
@@ -233,8 +234,8 @@ const struct symdef defsyms[MAXPCHARS] = {
        /* swallow colors are changed by mapglyph() to match engulfing monst */
        { '/', "", C(CLR_GREEN) },         /* swallow top left      */
        { '-', "", C(CLR_GREEN) },         /* swallow top center    */
-       { '\\', "", C(CLR_GREEN) },        /* swallow top right     */
-/*90*/ { '|', "", C(CLR_GREEN) },         /* swallow middle left   */
+/*90*/ { '\\', "", C(CLR_GREEN) },        /* swallow top right     */
+       { '|', "", C(CLR_GREEN) },         /* swallow middle left   */
        { '|', "", C(CLR_GREEN) },         /* swallow middle right  */
        { '\\', "", C(CLR_GREEN) },        /* swallow bottom left   */
        { '-', "", C(CLR_GREEN) },         /* swallow bottom center */
@@ -244,8 +245,8 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '-', "", C(CLR_ORANGE) },        /* explosion top center   */
        { '\\', "", C(CLR_ORANGE) },       /* explosion top right    */
        { '|', "", C(CLR_ORANGE) },        /* explosion middle left  */
-       { ' ', "", C(CLR_ORANGE) },        /* explosion middle center*/
-/*100*/{ '|', "", C(CLR_ORANGE) },        /* explosion middle right */
+/*100*/{ ' ', "", C(CLR_ORANGE) },        /* explosion middle center*/
+       { '|', "", C(CLR_ORANGE) },        /* explosion middle right */
        { '\\', "", C(CLR_ORANGE) },       /* explosion bottom left  */
        { '-', "", C(CLR_ORANGE) },        /* explosion bottom center*/
        { '/', "", C(CLR_ORANGE) },        /* explosion bottom right */
@@ -722,6 +723,7 @@ struct symparse loadsyms[] = {
     { SYM_PCHAR, S_magic_trap, "S_magic_trap" },
     { SYM_PCHAR, S_anti_magic_trap, "S_anti_magic_trap" },
     { SYM_PCHAR, S_polymorph_trap, "S_polymorph_trap" },
+    { SYM_PCHAR, S_ice_trap, "S_ice_trap" },
     { SYM_PCHAR, S_spear_trap, "S_spear_trap" },
     { SYM_PCHAR, S_magic_beam_trap, "S_magic_beam_trap" },
     { SYM_PCHAR, S_vibrating_square, "S_vibrating_square" },

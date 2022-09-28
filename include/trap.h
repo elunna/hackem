@@ -79,11 +79,12 @@ enum trap_types {
     MAGIC_TRAP   = 21,
     ANTI_MAGIC   = 22,
     POLY_TRAP    = 23,
-    SPEAR_TRAP   = 24,
-    MAGIC_BEAM_TRAP  = 25,
-    VIBRATING_SQUARE = 26,
+    ICE_TRAP	 = 24,
+    SPEAR_TRAP   = 25,
+    MAGIC_BEAM_TRAP  = 26,
+    VIBRATING_SQUARE = 27,
 
-    TRAPNUM      = 27
+    TRAPNUM      = 28
 };
 
 #define is_pit(ttyp) ((ttyp) == PIT || (ttyp) == SPIKED_PIT)
