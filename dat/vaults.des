@@ -1254,3 +1254,12 @@ IF [80%] {
 } ELSE {
   REGION:(1,1,1,1),random,"ordinary",irregular { }
 }
+
+# ice room
+LEVEL:"vlt-0072"
+FLAGS:rndvault
+MINDEPTH:17
+ROOM:"rndvault", random, random, random, random {
+  [10%]: TRAP: "cold", random
+  TERRAIN:floodfill(1,1), 'I'
+}
