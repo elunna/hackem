@@ -172,7 +172,7 @@ static struct {
                    { "magic", MAGIC_TRAP },
                    { "anti magic", ANTI_MAGIC },
                    { "polymorph", POLY_TRAP },
-                   { "cold", COLD_TRAP },
+                   { "cold", ICE_TRAP },
                    { "spear", SPEAR_TRAP },
                    { "magic beam", MAGIC_BEAM_TRAP },
                    { "vibrating square", VIBRATING_SQUARE },
