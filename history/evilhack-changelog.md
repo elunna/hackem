@@ -2441,4 +2441,25 @@ The following changes to date are:
 - Fix: move check for starting L1 spellbook to include non-random spellbooks
 - Fix: lit status of worn light sources appearing twice in inventory
 - Fix: could not blind self with an expensive camera
+- Monsters can use rings/boots of levitation
+- To-hit calculation on the bottom line
+- Magic negation (MC) value on the bottom line
+- Fix: MC and to-hit status not appearing in dumplog
+- Allow looting of containers that are in water
+- New object: goggles
+- Fix: quirk with underwater vision
+- Revamp monsters eating containers
+- Fix: tipping into containers
+- Resurrecting named pets will show their name once resurrected
+- Fix: force-fight 'unknown obstacle' descriptions
+- Fix: to-hit display weirdness under certain conditions
+- Fix: to-hit display revealing weapon enchantment, other tweaks
+- Fix: impossible from splitting named stack on bill
+- Physical knockback attack doesn't affect unsolid monsters
+- Weapon familiarity
+- Better way to suppress weapon enchantment on to-hit display, include
+  rings of increase accuracy
+- Fix: exploiting artifact name rejection
+- Fix: unique monster doppelganger and bones bug
+- Better way of handling livelogging of destroying a player's ghost
 

@@ -1495,7 +1495,7 @@ E void FDECL(add_to_buried, (struct obj *));
 E void FDECL(dealloc_obj, (struct obj *));
 E void FDECL(obj_ice_effects, (int, int, BOOLEAN_P));
 E long FDECL(peek_at_iced_corpse_age, (struct obj *));
-E int FDECL(hornoplenty, (struct obj *, BOOLEAN_P));
+E int FDECL(hornoplenty, (struct obj *, BOOLEAN_P, struct obj *));
 E void NDECL(obj_sanity_check);
 E struct obj *FDECL(obj_nexto, (struct obj *));
 E struct obj *FDECL(obj_nexto_xy, (struct obj *, int, int, BOOLEAN_P));
@@ -1541,6 +1541,7 @@ E int FDECL(genus, (int, int));
 E int FDECL(pm_to_cham, (int));
 E int FDECL(minliquid, (struct monst *));
 E int NDECL(movemon);
+E void FDECL(meatbox, (struct monst *, struct obj *));
 E int FDECL(meatmetal, (struct monst *));
 E int FDECL(meatcorpse, (struct monst *));
 E int FDECL(meatobj, (struct monst *));
@@ -2078,7 +2079,7 @@ E int NDECL(doloot);
 E void FDECL(observe_quantum_cat, (struct obj *, BOOLEAN_P, BOOLEAN_P));
 E boolean FDECL(container_gone, (int (*)(OBJ_P)));
 E boolean NDECL(u_handsy);
-E int FDECL(use_container, (struct obj **, int, BOOLEAN_P));
+E int FDECL(use_container, (struct obj **, BOOLEAN_P, BOOLEAN_P));
 E int FDECL(loot_mon, (struct monst *, int *, boolean *));
 E int NDECL(dotip);
 E struct autopickup_exception *FDECL(check_autopickup_exceptions, (struct obj *));
@@ -3039,6 +3040,8 @@ E int FDECL(vms_get_saved_games, (const char *, char ***));
 /* ### weapon.c ### */
 
 E const char *FDECL(weapon_descr, (struct obj *));
+E int FDECL(base_hitbonus, (struct obj *));
+E int NDECL(botl_hitbonus);
 E int FDECL(hitval, (struct obj *, struct monst *));
 E int FDECL(dmgval, (struct obj *, struct monst *));
 E int FDECL(special_dmgval, (struct monst *, struct monst *, long,

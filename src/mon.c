@@ -873,18 +873,21 @@ register struct monst *mtmp;
     boolean inpool, inlava, infountain, inshallow, inforge, inopenair;
     /* [ceiling clingers are handled below] */
     inpool = (is_pool(mtmp->mx, mtmp->my)
-              && (!(is_flyer(mtmp->data) || is_floater(mtmp->data))
+              && (!(is_flyer(mtmp->data)
+                    || is_floater(mtmp->data) || can_levitate(mtmp))
                   /* there's no "above the surface" on the plane of water */
                   || Is_waterlevel(&u.uz)));
     inlava = (is_lava(mtmp->mx, mtmp->my)
-              && !(is_flyer(mtmp->data) || is_floater(mtmp->data)));
+              && !(is_flyer(mtmp->data)
+                   || is_floater(mtmp->data) || can_levitate(mtmp)));
     infountain = IS_FOUNTAIN(levl[mtmp->mx][mtmp->my].typ);
     inforge = IS_FORGE(levl[mtmp->mx][mtmp->my].typ);
     inshallow = ((is_puddle(mtmp->mx, mtmp->my) || is_sewage(mtmp->mx, mtmp->my))
-                 && !(is_flyer(mtmp->data) || is_floater(mtmp->data)));
+                 && !(is_flyer(mtmp->data)
+                      || is_floater(mtmp->data) || can_levitate(mtmp)));
     inopenair = (is_open_air(mtmp->mx, mtmp->my)
                  && !(is_flyer(mtmp->data) || is_floater(mtmp->data)
-                      || is_clinger(mtmp->data)
+                      || is_clinger(mtmp->data) || can_levitate(mtmp)
                       || ((mtmp == u.usteed) && Flying)));
 
         /* Flying and levitation keeps our steed out of the liquid
@@ -1504,6 +1507,41 @@ movemon()
     return somebody_can_move;
 }
 
+/* dispose of contents of an eaten container; used for pets and other mons */
+void
+meatbox(mon, otmp)
+struct monst *mon;
+struct obj *otmp;
+{
+    boolean engulf_contents = (mon->data == &mons[PM_GELATINOUS_CUBE]);
+    int x = mon->mx, y = mon->my;
+    struct obj *cobj;
+
+    if (!Has_contents(otmp) || !isok(x, y)
+        || otmp->otyp == CRYSTAL_CHEST)
+        return;
+
+    /* contents of eaten containers become engulfed or dropped onto
+      the floor; this is arbitrary, but otherwise g-cubes are too
+      powerful */
+    if (!engulf_contents && cansee(x, y)) {
+        pline("%s contents spill out onto the %s.",
+              s_suffix(The(distant_name(otmp, xname))),
+              surface(x, y));
+    }
+    while ((cobj = otmp->cobj) != 0) {
+        obj_extract_self(cobj);
+        if (otmp->otyp == ICE_BOX)
+            removed_from_icebox(cobj);
+        if (engulf_contents) {
+            (void) mpickobj(mon, cobj);
+        } else {
+            if (!flooreffects(cobj, x, y, ""))
+                place_object(cobj, x, y);
+        }
+    }
+}
+
 #define mstoning(obj)                                       \
     (ofood(obj) && (touch_petrifies(&mons[(obj)->corpsenm]) \
                     || (obj)->corpsenm == PM_MEDUSA))
@@ -1519,7 +1557,7 @@ int
 meatmetal(mtmp)
 register struct monst *mtmp;
 {
-    register struct obj *otmp, *otmp2, *ncobj;
+    register struct obj *otmp;
     struct permonst *ptr;
     int poly, grow, heal, mstone;
 
@@ -1563,16 +1601,8 @@ register struct monst *mtmp;
                     if (mtmp->mhp > mtmp->mhpmax)
                         mtmp->mhp = mtmp->mhpmax;
                 }
-                if (Has_contents(otmp)) {
-                    if (cansee(mtmp->mx, mtmp->my))
-                        pline("Its contents fall out.");
-                    for (otmp2 = otmp->cobj; otmp2; otmp2 = ncobj) {
-                        ncobj = otmp2->nobj;
-                        obj_extract_self(otmp2);
-                        if (!flooreffects(otmp2, mtmp->mx, mtmp->my, ""))
-                            place_object(otmp2, mtmp->mx, mtmp->my);
-                    }
-                }
+                if (Has_contents(otmp))
+                    meatbox(mtmp, otmp);
                 if (otmp == uball) {
                     unpunish();
                     delobj(otmp);
@@ -1739,20 +1769,11 @@ struct monst *mtmp;
                 if (mtmp->mhp > mtmp->mhpmax)
                     mtmp->mhp = mtmp->mhpmax;
             }
-            if (Has_contents(otmp)) {
-                register struct obj *otmp3;
-
-                /* contents of eaten containers become engulfed; this
-                   is arbitrary, but otherwise g.cubes are too powerful */
-                while ((otmp3 = otmp->cobj) != 0) {
-                    obj_extract_self(otmp3);
-                    if (otmp->otyp == ICE_BOX && otmp3->otyp == CORPSE) {
-                        otmp3->age = monstermoves - otmp3->age;
-                        start_corpse_timeout(otmp3);
-                    }
-                    (void) mpickobj(mtmp, otmp3);
-                }
-            }
+            if (Has_contents(otmp))
+                meatbox(mtmp, otmp);
+            /* possibility of being turned to stone or into slime can't
+               reach here (don't touch for cockatrice corpse, engulf rather
+               than eat for tin, cockatrice egg, or glob of green slime) */
             poly = polyfodder(otmp);
             grow = mlevelgain(otmp);
             heal = mhealup(otmp);
@@ -1796,7 +1817,8 @@ register struct monst *mtmp;
     register struct obj *gold;
     int mat_idx;
 
-    if ((gold = g_at(mtmp->mx, mtmp->my)) != 0) {
+    if ((gold = g_at(mtmp->mx, mtmp->my)) != 0
+        && !(is_floater(mtmp->data) || can_levitate(mtmp))) {
         mat_idx = gold->material;
         obj_extract_self(gold);
         add_to_minv(mtmp, gold);
@@ -1884,6 +1906,10 @@ boolean vismon;
         return res; /* 0 */
     /* FIXME: handle cursed bag of holding */
     if (Is_mbag(container) && container->cursed)
+        return res; /* 0 */
+    /* levitating/floating monsters can't reach containers
+       on the ground */
+    if (is_floater(mon->data) || can_levitate(mon))
         return res; /* 0 */
 
     switch (rn2(10)) {
@@ -2001,6 +2027,11 @@ register const char *str;
 
     /* prevent shopkeepers from leaving the door of their shop */
     if (mtmp->isshk && inhishop(mtmp))
+        return FALSE;
+
+    /* levitating/floating monsters can't reach the ground, just
+       like levitating players */
+    if (is_floater(mtmp->data) || can_levitate(mtmp))
         return FALSE;
 
     for (otmp = level.objects[mtmp->mx][mtmp->my]; otmp; otmp = otmp2) {
@@ -2326,12 +2357,14 @@ long flag;
     wantsewage = (mdat == &mons[PM_GIANT_LEECH]);
     wantice = (mdat == &mons[PM_FROST_SALAMANDER]);
     poolok = ((!Is_waterlevel(&u.uz)
-               && (is_flyer(mdat) || is_floater(mdat) || is_clinger(mdat)))
+               && (is_flyer(mdat) || is_floater(mdat)
+                   || is_clinger(mdat) || can_levitate(mon)))
               || ((is_swimmer(mdat) || has_cold_feet(mon)) && !wantpool)
               || can_wwalk(mon));
     /* note: floating eye is the only is_floater() so this could be
        simplified, but then adding another floater would be error prone */
-    lavaok = (is_flyer(mdat) || is_floater(mdat) || is_clinger(mdat)
+    lavaok = (is_flyer(mdat) || is_floater(mdat)
+              || is_clinger(mdat) || can_levitate(mon)
               || ((has_cold_feet(mon) || likes_lava(mdat)) && !wantlava));
     if (mdat == &mons[PM_FLOATING_EYE]) /* prefers to avoid heat */
         lavaok = FALSE;
@@ -2414,7 +2447,7 @@ long flag;
             /* avoid open air if gravity is in effect */
             if (is_open_air(nx, ny)
                 && !(is_flyer(mdat) || is_floater(mdat)
-                     || is_clinger(mdat)))
+                     || is_clinger(mdat) || can_levitate(mon)))
                 continue;
             if ((is_pool(nx, ny) == wantpool || poolok)
                 && (is_lava(nx, ny) == wantlava || lavaok)
@@ -2528,16 +2561,19 @@ long flag;
                         && ttmp->ttyp != VIBRATING_SQUARE
                         && ((!is_pit(ttmp->ttyp) && !is_hole(ttmp->ttyp))
                             || (!is_flyer(mdat) && !is_floater(mdat)
-                                && !is_clinger(mdat)) || Sokoban)
+                                && !is_clinger(mdat) && !can_levitate(mon))
+                            || Sokoban)
                         && (ttmp->ttyp != SLP_GAS_TRAP
                             || !(resists_sleep(mon) || defended(mon, AD_SLEE)))
                         && (ttmp->ttyp != BEAR_TRAP
                             || (mdat->msize > MZ_SMALL && !amorphous(mdat)
                                 && !is_flyer(mdat) && !is_floater(mdat)
-                                && !is_whirly(mdat) && !unsolid(mdat)))
+                                && !is_whirly(mdat) && !unsolid(mdat)
+                                && !can_levitate(mon)))
                         && (ttmp->ttyp != FIRE_TRAP
                             || !(resists_fire(mon) || defended(mon, AD_FIRE)))
-                        && (ttmp->ttyp != SQKY_BOARD || !is_flyer(mdat))
+                        && (ttmp->ttyp != SQKY_BOARD
+                            || !(is_flyer(mdat) || can_levitate(mon)))
                         && (ttmp->ttyp != WEB
                             || (!amorphous(mdat) && !webmaker(mdat)
                                 && !is_whirly(mdat) && !unsolid(mdat)))
@@ -4242,14 +4278,13 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     /* malign was already adjusted for u.ualign.type and randomization */
     adjalign(mtmp->malign);
 
-    if (is_bones_monster(mtmp->data)
-        && strlen(mtmp->former_rank) > 0) {
-        if (mtmp->data == &mons[PM_GHOST])
-            livelog_printf(LL_UMONST, "destroyed %s, the former %s",
-                           livelog_mon_nam(mtmp), mtmp->former_rank);
-        else
-            livelog_printf(LL_UMONST, "destroyed %s, and former %s",
-                           livelog_mon_nam(mtmp), mtmp->former_rank);
+    if (mtmp->former_rank.mnum != NON_PM) {
+        livelog_printf(LL_UMONST, "destroyed %s, %s former %s",
+                       livelog_mon_nam(mtmp),
+                       (mtmp->data == &mons[PM_GHOST]) ? "the" : "and",
+                       rank_of(mtmp->former_rank.lev,
+                               mtmp->former_rank.mnum,
+                               mtmp->former_rank.female));
     }
 }
 

@@ -136,12 +136,13 @@ struct obj {
                                * (index into objects[], not mons[]) */
     int usecount;           /* overloaded for various things that tally */
 #define spestudied usecount /* # of times a spellbook has been studied */
-#define newwarncnt usecount /* How many monsters a glow warning artifact is currently warning of. */
+#define wep_kills usecount  /* number of kills a weapon has */
+#define newwarncnt usecount /* How many monsters a glow warning artifact is currently warning of */
     unsigned oeaten;        /* nutrition left in food, if partly eaten */
-#define lastwarncnt oeaten /* How many monsters a glow warning artifact was last warning of. */
+#define lastwarncnt oeaten  /* How many monsters a glow warning artifact was last warning of */
     long age;               /* creation date */
     long owornmask;
-    struct oextra *oextra; /* pointer to oextra struct */
+    struct oextra *oextra;  /* pointer to oextra struct */
 };
 
 #define newobj() (struct obj *) alloc(sizeof(struct obj))
@@ -523,7 +524,9 @@ struct obj {
         "a pair of lenses named the Eyes of the Overworld" is not */    \
      || ((o)->oartifact == ART_EYES_OF_THE_OVERWORLD                    \
          && !undiscovered_artifact(ART_EYES_OF_THE_OVERWORLD)))
-#define pair_of(o) ((o)->otyp == LENSES || is_gloves(o) || is_boots(o))
+#define pair_of(o) \
+    ((o)->otyp == LENSES || (o)->otyp == GOGGLES \
+     || is_gloves(o) || is_boots(o))
 
 /* 'PRIZE' values override obj->corpsenm so prizes mustn't be object types
    which use that field for monster type (or other overloaded purpose) */

@@ -143,6 +143,95 @@ struct obj *obj;
     return makesingular(descr);
 }
 
+int
+base_hitbonus(otmp)
+struct obj *otmp;
+{
+    int tmp = 0;
+    boolean Is_weapon;
+
+    if (!otmp)
+        return 0;
+
+    Is_weapon = (otmp->oclass == WEAPON_CLASS || is_weptool(otmp));
+
+    if (Is_weapon)
+        tmp += otmp->spe;
+    /* Put weapon specific "to hit" bonuses in below: */
+    tmp += objects[otmp->otyp].oc_hitbon;
+    return tmp;
+}
+
+
+/* calculate and display base to-hit on the botl; bits of
+   find_roll_to_hit() and included here, minus calculations
+   that include the actual target, as the display doesn't
+   have any way of knowing what you intend to attack */
+int
+botl_hitbonus()
+{
+    int tmp, tmp2;
+    int wepskill, twowepskill, useskill;
+    uchar aatyp = youmonst.data->mattk[0].aatyp;
+    struct obj *weapon = uwep;
+
+    tmp = 1 + (Luck / 3) + abon() + u.uhitinc
+          + (int) maybe_polyd(youmonst.data->mlevel, (u.ulevel > 20 ? 20 : u.ulevel));
+
+    /* suppress weapon/ring enchantments unless their enchantment is
+       known - try not to hand out any freebies */
+    if (weapon && !weapon->known)
+        tmp -= weapon->spe;
+
+    if (uleft && uleft->otyp == RIN_INCREASE_ACCURACY
+        && !uleft->known)
+        tmp -= uleft->spe;
+
+    if (uright && uright->otyp == RIN_INCREASE_ACCURACY
+        && !uright->known)
+        tmp -= uright->spe;
+
+    if (u.ulevel == 30)
+        tmp += 4;
+
+    if (Role_if(PM_MONK) && !Upolyd) {
+        if (uarm)
+            tmp -= urole.spelarmr + 20;
+        else if (!uwep && !uarms)
+            tmp += (u.ulevel / 3) + 2;
+    }
+
+    if (uwep && (uwep->otyp == HEAVY_IRON_BALL))
+        tmp += 4;
+
+    if (!uwep && uarmg)
+        tmp += uarmg->spe;
+
+    if ((tmp2 = near_capacity()) != 0)
+        tmp -= (tmp2 * 2) - 1;
+    if (u.utrap)
+        tmp -= 3;
+
+    if (aatyp == AT_WEAP || aatyp == AT_CLAW) {
+        if (weapon)
+            tmp += base_hitbonus(uwep);
+        tmp += weapon_hit_bonus(weapon);
+    } else if (aatyp == AT_KICK && martial_bonus()) {
+        tmp += weapon_hit_bonus((struct obj *) 0);
+    }
+
+    if (uwep && aatyp == AT_WEAP && !u.uswallow) {
+        wepskill = P_SKILL(weapon_type(uwep));
+        twowepskill = P_SKILL(P_TWO_WEAPON_COMBAT);
+        /* use the lesser skill of two-weapon or your primary */
+        useskill = (u.twoweap && twowepskill < wepskill) ? twowepskill : wepskill;
+        if ((useskill == P_UNSKILLED || useskill == P_ISRESTRICTED) && tmp > 15)
+            tmp = 15;
+    }
+
+    return tmp;
+}
+
 /*
  *      hitval returns an integer representing the "to hit" bonuses
  *      of "otmp" against the monster.
@@ -156,11 +245,8 @@ struct monst *mon;
     struct permonst *ptr = mon->data;
     boolean Is_weapon = (otmp->oclass == WEAPON_CLASS || is_weptool(otmp));
 
-    if (Is_weapon)
-        tmp += otmp->spe;
-
-    /* Put weapon specific "to hit" bonuses in below: */
-    tmp += objects[otmp->otyp].oc_hitbon;
+    /* Add the weapon's basic to-hit bonus */
+    tmp += base_hitbonus(otmp);
 
     /* Put weapon vs. monster type "to hit" bonuses in below: */
 
@@ -2044,26 +2130,26 @@ struct obj *weapon;
             bonus = 0; /* if you're an expert, there shouldn't be a penalty */
             break;
         }
-	/* Heavy things are hard to use in your offhand unless you're
-	 * very good at what you're doing, or are very strong (see below).
-	 */
-	switch (P_SKILL(P_TWO_WEAPON_COMBAT)) {
-    	    default:
-                impossible(bad_skill, P_SKILL(P_TWO_WEAPON_COMBAT)); /* fall through */
-	    case P_ISRESTRICTED:
-	    case P_UNSKILLED:
-                maxweight = 20; /* can use tridents/javelins, crysknives, unicorn horns or anything lighter */
-                break;
-	    case P_BASIC:
-                maxweight = 30; /* can use short swords/spears or a mace */
-                break;
-	    case P_SKILLED:
-        	maxweight = 40; /* can use sabers/long swords */
-                break;
-	    case P_EXPERT:
-                maxweight = 70; /* expert level can offhand any one-handed weapon */
-                break;
-	}
+        /* Heavy things are hard to use in your offhand unless you're
+           very good at what you're doing, or are very strong (see below) */
+        switch (P_SKILL(P_TWO_WEAPON_COMBAT)) {
+        default:
+            impossible(bad_skill, P_SKILL(P_TWO_WEAPON_COMBAT)); /* fall through */
+        case P_ISRESTRICTED:
+        case P_UNSKILLED:
+            maxweight = 20; /* can use tridents/javelins, crysknives, unicorn horns
+                               or anything lighter */
+            break;
+        case P_BASIC:
+            maxweight = 30; /* can use short swords/spears or a mace */
+            break;
+        case P_SKILLED:
+            maxweight = 40; /* can use sabers/long swords */
+            break;
+        case P_EXPERT:
+            maxweight = 70; /* expert level can offhand any one-handed weapon */
+            break;
+        }
 
         /* basically no restrictions if you're a giant, or have giant strength */
         if ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
@@ -2071,15 +2157,10 @@ struct obj *weapon;
             || maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
             maxweight = 200;
 
-	if (uswapwep && uswapwep->owt > maxweight) {
-	    Your("%s seem%s very %s.",
-                 xname(uswapwep), uswapwep->quan == 1 ? "s" : "",
-                 rn2(2) ? "unwieldy" : "cumbersome");
-            if (!rn2(10))
-                Your("%s %s too heavy to effectively fight offhand with.",
-                     xname(uswapwep), uswapwep->quan == 1 ? "is" : "are");
-	    bonus = -30;
-	}
+        if (uswapwep && uswapwep->owt > maxweight) {
+            /* feedback handled in attack() */
+            bonus = -30;
+        }
     } else if (type == P_BARE_HANDED_COMBAT) {
         /*
          *        b.h. m.a. giant b.h. m.a.
@@ -2124,16 +2205,7 @@ struct obj *weapon;
     if (uwep && Role_if(PM_PRIEST)
         && (uwep->oclass == WEAPON_CLASS || is_weptool(uwep))
         && (is_pierce(uwep) || is_slash(uwep) || is_ammo(uwep))) {
-        if (!rn2(4))
-            pline("%s has %s you from using %s weapons such as %s!",
-                  align_gname(u.ualign.type), rn2(2) ? "forbidden" : "prohibited",
-                  is_slash(uwep) ? "edged" : "piercing", ansimpleoname(uwep));
-        exercise(A_WIS, FALSE);
-        if (!rn2(10)) {
-            Your("behavior has displeased %s.",
-                 align_gname(u.ualign.type));
-            adjalign(-1);
-        }
+        /* feedback handled in attack() */
         bonus = -30;
     }
     return bonus;

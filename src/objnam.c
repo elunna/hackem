@@ -694,6 +694,8 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     case TOOL_CLASS:
         if (typ == LENSES)
             Strcat(buf, "pair of ");
+        else if (typ == GOGGLES)
+            Strcat(buf, "pair of ");
         else if (is_wet_towel(obj))
             Strcat(buf, (obj->spe < 3) ? "moist " : "wet ");
 
@@ -1317,10 +1319,12 @@ unsigned doname_flags;
            (when that is known, suffix of "(n:0)" will be appended,
            making the prefix be redundant; note that 'known' flag
            isn't set when emptiness gets discovered because then
-           charging magic would yield known number of new charges) */
-        && ((obj->otyp == BAG_OF_TRICKS)
-             ? (obj->spe == 0 && !obj->known)
-             /* not bag of tricks: empty if container which has no contents */
+           charging magic would yield known number of new charges);
+           horn of plenty isn't a container but is close enough */
+        && ((obj->otyp == BAG_OF_TRICKS || obj->otyp == HORN_OF_PLENTY)
+             ? (obj->spe == 0 && !known)
+             /* not a bag of tricks or horn of plenty: it's empty if
+                it is a container that has no contents */
              : ((Is_container(obj) || obj->otyp == STATUE)
                 && !Has_contents(obj))))
         Strcat(prefix, "empty ");
@@ -2597,7 +2601,7 @@ static struct sing_plur one_off[] = {
 static const char *const as_is[] = {
     /* makesingular() leaves these plural due to how they're used */
     "boots",   "shoes",     "gloves",    "lenses",   "scales",
-    "eyes",    "gauntlets", "iron bars",
+    "eyes",    "gauntlets", "iron bars", "goggles",
     /* both singular and plural are spelled the same */
     "bison",   "deer",      "elk",       "fish",      "fowl",
     "tuna",    "yaki",      "-hai",      "krill",     "manes",
