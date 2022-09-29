@@ -135,12 +135,14 @@ spec_levs: ../util/lev_comp \
 	qlawful.des qneutral.des qchaos.des \
 	town.des village.des rats.des \
 	stor.des caves.des sea.des tomb.des \
-	spiders.des mtemple.des grund.des longhall.des blkmar.des
+	spiders.des mtemple.des grund.des longhall.des blkmar.des \
+	lethe.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
 	../util/lev_comp castle.des
 	../util/lev_comp endgame.des
 	../util/lev_comp gehennom.des
+	../util/lev_comp lethe.des
 	../util/lev_comp icequeen.des
 	../util/lev_comp knox.des
 	../util/lev_comp medusa.des

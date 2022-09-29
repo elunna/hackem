@@ -41,11 +41,31 @@ LEVEL:          "longhall" "none" @ (25, 10)
 LEVEL:	        "stor" "S" @ (26, 8) 66
 BRANCH: 	    "The Temple of Moloch" @ (30, 4)
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
-LEVALIGN:	    chaotic
 CHAINBRANCH:	"The Ice Queen's Realm" "medusa" + (-1, 0) portal
-RNDLEVEL:	    "castle" "none" @ (-1, 0) 3
-CHAINBRANCH:	"Gehennom" "castle" + (0, 0) down
+BRANCH:		    "The Lethe Gorge" @ (-1,0) down
+
+#LEVALIGN:	    chaotic
+#RNDLEVEL:	    "castle" "none" @ (-1, 0) 3
+#CHAINBRANCH:	"Gehennom" "castle" + (0, 0) down
 BRANCH:		    "The Elemental Planes" @ (1, 0) no_down up
+
+#	The Lethe Gorge.
+#
+DUNGEON:	"The Lethe Gorge" "L" (9, 0)
+ALIGNMENT:	unaligned
+DESCRIPTION:	mazelike
+ENTRY:		2
+RNDLEVEL:	"leth-a"  "A" @ (1,0) 2
+LEVEL:		"leth-b" "B" @ (2,0)
+RNDLEVEL:		"castle" "none" @ (3, 0) 3
+#CHAINBRANCH:	"Castle Dungeon" "castle" + (0, 0) 
+RNDLEVEL:	"leth-c"  "C" @ (4,0) 2
+RNDLEVEL:	"leth-d"  "D" @ (5,0) 2
+LEVEL:		"leth-e" "E" @ (6,0)
+LEVEL:		"leth-f" "F" @ (7,0)
+LEVEL:		"leth-g" "G" @ (8,0)
+LEVEL:		"leth-z" "Z" @ (9,0)
+CHAINBRANCH:	"Gehennom" "leth-z" + (0, 0) down
 
 #
 #	Gehennom
@@ -81,6 +101,10 @@ CHAINLEVEL:	"wizard3" "Y" "wizard1" + (2, 0)
 LEVEL:		"fakewiz1" "F" @ (-6, 4)
 LEVEL:		"fakewiz2" "G" @ (-6, 4)
 CHAINBRANCH:    "Vecna's Domain" "valley" + (1, 0) portal
+
+
+
+
 
 #
 #	The Mines of the Gnomes of Zurich.

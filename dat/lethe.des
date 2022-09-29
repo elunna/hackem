@@ -435,7 +435,7 @@ TRAP: random, random
 #	Upstream to the dragons lair, downstream to the castle.
 #
 
-MAZE: "lethe-b",' '
+MAZE: "leth-b",' '
 FLAGS: hardfloor
 GEOMETRY:center,center
 #0         1         2         3         4         5         6         7     
@@ -1165,13 +1165,13 @@ GEOMETRY: center, center
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
 MAP
 0 ------------------------------------   }}}}              -----             
-1 |..................................|    }}}}             |...|             
-2 |..................................|  ..}}}}..           |...|             
-3 |..................................| ...}}}}...          --+--         ..  
-4 |..................................|...}}}}}}...|  -----   #          .... 
-5 |..................................|..}}}}}}}}..|  |...|   #        ##.... 
-6 |..................................+..}}}}}}}}..+##S...+####        # .... 
-7 |..................................|..}}}}}}}}..|  |...|            #  ..  
+1 |.............}...........}........|    }}}}             |...|             
+2 |}}}}..}}}}}..}}}..}}}}}..}}}..}}..|  ..}}}}..           |...|             
+3 |......}...}...........}..}.....}..| ...}}}}...          --+--         ..  
+4 |..}}}}}}..}..}}}}}}}..}.....{..}..|...}}}}}}...|  -----   #          .... 
+5 |..........}..}.....}}}}..}.....}..|..}}}}}}}}..|  |...|   #        ##.... 
+6 |}}}}..}}}}}..}}}}..}..}..}}}..}}..+..}}}}}}}}..+##S...+####        # .... 
+7 |..........}........}.....}........|..}}}}}}}}..|  |...|            #  ..  
 8 |..........-----------------------S|...}}}}}}...|  -----            ##     
 9 |....}}....|.........|..|.|..|.....-------------------  ....         ##    
 0 |....}}....|.........|+--+--+|.....|..........|.|....| ..}}}}}}       H    
@@ -1190,14 +1190,14 @@ ENDMAP
 # Dungeon Description
 
 # The swamp replaces the fungusfarms in dnh
-#REGION:(02,01,35,07),lit,"ordinary"
+REGION:(02,01,35,07),lit,"ordinary"
 REGION: (02,01,35,07), lit, "swamp"
 
-#REGION: (03,02,10,06), lit, "fungusfarm"
+REGION: (03,02,10,06), lit, "fungusfarm"
 #REGION: (13,01,20,03), lit, "fungusfarm"
-#REGION: (13,05,20,07), lit, "fungusfarm"
+REGION: (13,05,20,07), lit, "fungusfarm"
 #REGION: (23,02,26,06), lit, "fungusfarm"
-#REGION: (29,01,32,02), lit, "fungusfarm"
+REGION: (29,01,32,02), lit, "fungusfarm"
 #REGION: (29,04,32,04), lit, "fungusfarm"
 #REGION: (29,06,32,07), lit, "fungusfarm"
 
@@ -1348,7 +1348,7 @@ TRAP: random, random
 #	Upstream to the entry level, downstream to the Gulf.
 #
 
-MAZE: "lethe-e",' '
+MAZE: "leth-e",' '
 FLAGS: hardfloor
 GEOMETRY:center,center
 #0         1         2         3         4         5         6         7
@@ -1475,7 +1475,7 @@ TRAP: random, random
 #
 #	Upstream to the entry level, downstream to the castle.
 #
-MAZE: "lethe-f",' '
+MAZE: "leth-f",' '
 FLAGS: hardfloor
 GEOMETRY: center, center
 #         1         2         3         4         5         6         7    7
@@ -1653,7 +1653,7 @@ OBJECT: random, random
 #	Upstream to the entry level, downstream to the castle.
 #
 
-MAZE: "lethe-g",' '
+MAZE: "leth-g",' '
 FLAGS: hardfloor
 GEOMETRY: center, center
 #0         1         2         3         4         5         6         7    7
@@ -1792,7 +1792,7 @@ MONSTER: random, random
 #	The river flows through an impressive gates guarded by angels and
 #	demons and thence into he depths of Gehennom itself.
 #
-MAZE: "lethe-z",' '
+MAZE: "leth-z",' '
 #FLAGS: lethe
 GEOMETRY:center,center
 #0         1         2   	  3	      4	    5		  6	      7
