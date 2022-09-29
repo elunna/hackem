@@ -37,7 +37,7 @@ DESCRIPTION:    mazelike
 BRANCH: 	    "The Wyrm Caves" @ (22, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
 BRANCH: 	    "The Lost Tomb" @ (25, 4)
-LEVEL:          "longhall" "none" @ (25, 10)
+#LEVEL:          "longhall" "none" @ (25, 10)
 LEVEL:	        "stor" "S" @ (26, 8) 66
 BRANCH: 	    "The Temple of Moloch" @ (30, 4)
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
