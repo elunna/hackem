@@ -1098,8 +1098,7 @@ struct monst *mon;
 
     if (((badclass || badalign) && self_willed)
         || (badalign && (!yours || !rn2(4)))
-        || ((yours || !is_demon(mon->data))
-            && obj->oartifact == ART_WAND_OF_ORCUS)) {
+        || (!is_demon(mon->data) && obj->oartifact == ART_WAND_OF_ORCUS)) {
         int dmg;
         char buf[BUFSZ];
 
@@ -1120,7 +1119,7 @@ struct monst *mon;
     /* can pick it up unless you're totally non-synch'd with the artifact */
     /* --hackem: Elemental mages have special restrictions */
     if ((badclass && badalign && self_willed)
-        || (yours && obj->oartifact == ART_WAND_OF_ORCUS && !wizard)
+        || (!is_demon(mon->data) && obj->oartifact == ART_WAND_OF_ORCUS)
         || (yours && obj->oartifact == ART_FROST_BRAND && Role_if(PM_FLAME_MAGE))
         || (yours && obj->oartifact == ART_DEEP_FREEZE && Role_if(PM_FLAME_MAGE))
         || (yours && obj->oartifact == ART_FIRE_BRAND && Role_if(PM_ICE_MAGE))
