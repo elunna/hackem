@@ -51,7 +51,7 @@ BRANCH:		    "The Elemental Planes" @ (1, 0) no_down up
 
 #	The Lethe Gorge.
 #
-DUNGEON:	"The Lethe Gorge" "L" (9, 0)
+DUNGEON:	"The Lethe Gorge" "L" (13, 0)
 ALIGNMENT:	unaligned
 DESCRIPTION:	mazelike
 ENTRY:		2
@@ -65,7 +65,13 @@ LEVEL:		"leth-e" "E" @ (6,0)
 LEVEL:		"leth-f" "F" @ (7,0)
 LEVEL:		"leth-g" "G" @ (8,0)
 LEVEL:		"leth-z" "Z" @ (9,0)
-CHAINBRANCH:	"Gehennom" "leth-z" + (0, 0) down
+RNDLEVEL:	"nkai-a" "none" @ (10, 0) 2
+LEVEL:		"nkai-b" "none" @ (11, 0)
+# Disabling this wiz tower entrance for now.
+#CHAINBRANCH:	"Wizards Tower" "nkai-b" + (0, 0) portal
+LEVEL:		"nkai-c" "none" @ (12, 0)
+LEVEL:		"nkai-z" "none" @ (13, 0)
+CHAINBRANCH:	"Gehennom" "nkai-z" + (0, 0) down
 
 #
 #	Gehennom
@@ -85,7 +91,7 @@ CHAINBRANCH:	"Gehennom" "leth-z" + (0, 0) down
 #		circumstances.
 #   --hackem: I blatantly ignored the above to add the Lethe Gorge..
 
-DUNGEON:	"Gehennom" "G" (25, 5)
+DUNGEON:	"Gehennom" "G" (20, 5)
 DESCRIPTION:	mazelike
 DESCRIPTION:	hellish
 ALIGNMENT:	noalign
@@ -99,17 +105,9 @@ LEVEL:		"orcus" "O" @ (8, 4)
 LEVEL:		"wizard1" "none" @ (11, 6)
 CHAINLEVEL:	"wizard2" "X" "wizard1" + (1, 0)
 CHAINLEVEL:	"wizard3" "Y" "wizard1" + (2, 0)
-
-LEVEL:		"fakewiz1" "F" @ (-9, 3)
-LEVEL:		"fakewiz2" "G" @ (-9, 3)
+LEVEL:		"fakewiz1" "F" @ (-6, 3)
+LEVEL:		"fakewiz2" "G" @ (-6, 3)
 CHAINBRANCH:    "Vecna's Domain" "valley" + (1, 0) portal
-
-RNDLEVEL:	"nkai-a" "none" @ (-5, 0) 2
-LEVEL:		"nkai-b" "none" @ (-4, 0)
-# Disabling this wiz tower entrance for now.
-#CHAINBRANCH:	"Wizards Tower" "nkai-b" + (0, 0) portal
-LEVEL:		"nkai-c" "none" @ (-3, 0)
-LEVEL:		"nkai-z" "none" @ (-2, 0)
 LEVEL:		"sanctum" "none" @ (-1, 0)
 
 

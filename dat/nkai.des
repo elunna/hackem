@@ -629,6 +629,7 @@ REGION: (01,01,75,19), unlit, "morgue", unfilled
 STAIR: (17,01), up
 BRANCH: (01,01,74,18), (00,00,00,00)
 
+
 # Sea monsters for the river
 MONSTER: ';', (34,02)
 MONSTER: ';', (35,08)
