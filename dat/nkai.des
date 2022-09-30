@@ -1,0 +1,716 @@
+#
+#	The Gulf of N'Kai
+#
+#	A dark, bare place haunted by Night gaunts, Byakhee, Demons
+#	and Gugs.  A suitably dire place for the wizard to hide his
+#	tower.  Beware of the shuggoths.
+#
+#	Unlike the other lethe levels, these are not a hardfloor
+#	level, allowing the player to fall through to deeper
+#	levels of the gulf.
+#
+
+#
+# An introductory level...
+#
+MAZE: "nkai-a-1",' '
+#FLAGS: lethe
+GEOMETRY: center, center
+
+#0         1         2         3         4         5         6         7    
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+0                                 }}}}                                       
+1   ..      ......        ....   }}}}  ..........  ......  ...... ....     . 
+2 .. ... ... .. .. ...  ...  ... }}} } ... . .. ... .. ..  ... ... ..... ... 
+3 .... ... .. ..  ..  ...  ..   }} }} }..     ...     ... ... ..  ..   ...   
+4   ..  ..  ...  ..  ..   ..  .} }}.}..}..  ...  ..  ..   ..   .. ..  ..   . 
+5    ....  ..   ..    ..  .. ..}..}}.}}..  ..     ....   ....   ...  .... .. 
+6   ..    ....   ..  ..   ....  }..}}}.}  ....  ...  ... .. .. .. .. ..  ..  
+7  ..   ...  .. ..  .... ..  ..}  ..}}}.}  ....  ...  ....  ....   ...  ...  
+8 .... ..     ...  ..  ...   .}.  .}}.}}. ..  .... ....  ....  .. .. ....    
+9  .....   .... .. ..   ... ...}..}}...}...  ..      ... .. ....  ..  ..     
+0    .... ..     ...      .... .}.}.}.}..  ...   ..  . ...   ..   ...  ..    
+1   ..  ...    ... ..    ..  .  } }}.}.}  ..   ...  ....    ....   ..   ..   
+2  ..  .. ..  ..    ..  ..   ..  }}.} }  .... ...    ....  ..  .. ....  ...  
+3   ....   .. ..   .... ... .... .}} } } ...... ... ..  ....    .... .  .... 
+4    .... ..  ...   ..   ....  ..}}.} } }.....    ...    ..      ... .. .... 
+5  .... ...     .....     .......}.}.}.}.}...    .. .... ...   ...   .. ...  
+6 ....   ....  ... ...   .........}.}.}.}...    ...   .....   .....   ...    
+7  .... ... ....     ......  ......}.}.}}..   ....      ........  ...     .. 
+8    .....    .....    ...     ...  }.}}}.   ......       ....      .......  
+9                                   }}}}                                     
+ENDMAP
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
+#         1         2         3         4         5         6         7    
+
+# Regions
+# The whole gulf is dark and quiet
+REGION:(01,01,75,19),unlit,"morgue",unfilled
+         
+# Stairs and Branch
+STAIR: (03,08), down
+STAIR: (73,14), up
+BRANCH: (01,01,74,18), (00,00,00,00)
+
+# Sea monsters for the river
+MONSTER: ';', (34,02)
+MONSTER: ';', (35,08)
+MONSTER: ';', (39,07)
+MONSTER: ';', (37,12)
+MONSTER: ';', (32,14)
+MONSTER: ';', (38,18)
+
+# Some random flappy things
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+
+# Some not so random flappy things
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+
+# A few undead
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'W', random
+MONSTER: 'V', random
+
+# A couple of slithy things
+MONSTER: 'P', random
+MONSTER: 'P', random
+MONSTER: ('P', "shoggoth"), random
+
+# Some random objects (no potions or food)
+OBJECT: '?', random
+OBJECT: '?', random
+OBJECT: '+', random
+OBJECT: '/', random
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: ')', random
+OBJECT: ')', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+
+# A few traps
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
+#
+
+#
+# An alternate introductory level...
+#
+MAZE: "nkai-a-2",' '
+#FLAGS: lethe
+GEOMETRY: center, center
+
+#         1         2         3         4         5         6         7    7
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+                                 }}}}                                       
+ ...    .....            ...    }}..}}  ....        .....       .....   ... 
+ ...  ....  ..     ... ... ....}.}..}.}   ...    ..........   ...   .....   
+  .  ...     ...  .. ...    ..}.}....}.}    . .......    .......    ..  ..  
+  ....         .....   .... .}.}.....}..}   ....     ...      .......  ..   
+    ...   .... .. ..    ..  }..}....}...}. ...     ...... ....      ....    
+   .. ..... ....   ..  ..  }....}..}...}.....    .....  ...   ...   . ...   
+  ..    ..   ..     ....  }.}..}.}..}.}..      ....  ........  .... .   ..  
+ ..    ....   ...  .. ... .}....}}}..}}}...  ...     ...........  ...    .  
+  ..   .. ..    ....   ....}...}.}}}}}.}} ...  .... ........  ..   ..    .  
+  ... ..   ...  .. ...   ...}.}...}}}...}  ..    ....  ...     .. ...    .. 
+    ...      ....    ...  ..}..}...}}}...}   ...   ..    ...    ....    ... 
+   .....    ..  ...    ....  }}...}}}...}..    ..   ..     ..  ..  ..   ..  
+  ... ...    ..  ..     ..   .}....}}}...}..   ...   .... ... ... ..    .   
+ ...    ...   ....  ...  ......}....}}}.}. .. .. ...   .... ... ...   ...   
+ ...     ... ... ..   .....  ...}....}}}.   ...   .....      ..    ....     
+  ...     ....     ..  ...    ...}..}}}.     .    .   .....      .... ..    
+   ....  ....  ...  ....    ...   }..}}}... .... ... ..   ........     ...  
+  ... ....  .... .....    ....     }}}.}  ... .... ...    .   ......    ... 
+                                   }}}}                                     
+ENDMAP
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+#         1         2         3         4         5         6         7    7
+
+# Regions
+# The whole gulf is dark and quiet
+REGION: (01,01,75,19), unlit, "morgue", unfilled
+
+# Stairs and Branch
+STAIR: (57,08), down
+STAIR: (02,02), up
+BRANCH: (01,01,74,18), (45,04,68,15)
+
+# Sea monsters for the river
+MONSTER: ';', (33,02)
+MONSTER: ';', (36,08)
+MONSTER: ';', (39,07)
+MONSTER: ';', (37,12)
+MONSTER: ';', (31,14)
+MONSTER: ';', (37,17)
+
+# Some random flappy things
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+
+# Some not so random flappy things
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+
+# A few undead
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'W', random
+MONSTER: 'V', random
+
+# A couple of slithy things
+MONSTER: 'P', random
+MONSTER: 'P', random
+MONSTER: ('P', "shoggoth"), random
+
+# Some random objects (no potions or food)
+OBJECT: '?', random
+OBJECT: '?', random
+OBJECT: '+', random
+OBJECT: '/', random
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: ')', random
+OBJECT: ')', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+
+# A few traps
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
+#
+
+#
+# The level with the wizards fortress...
+#
+MAZE: "nkai-b",' '
+#FLAGS: lethe
+GEOMETRY: center, center
+
+#         1         2         3         4         5         6         7    7
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+                                 }}}}                                       
+ ..  ..   .     .. ....  .... ....}}}}.....  ...       .......     ....     
+  .. .   ...   .  ......... ... .}}}}.}  .....      ....  .. ..   .   .   . 
+   .... ..  . .     ....        }.}}}}.}           ..  ..    ......      .. 
+ ...  ...    ...             ... }.}}}. }  ....  ...    ... ...   ...  ..   
+  .    ....  .  ...    .........}.} }.}}} ........        ...       ...     
+ ..  ...  ....   .   .... .....} }.} }...}... ...  ...     ..      ... .    
+ ......  ..  .........      ... } }.}.....}.   ..... ..   ....     ..   ... 
+  ... ....    ........ ...  .....}}}...  }..   ..     ...... ..  ...     .  
+  ..    ...  .....   ... .......}.} }.  }.} ......      ...   ....  ...  .. 
+   ..  .  .... ...   .    .. . } }.}.} }.}  ...  ...    ..    .....    ...  
+    ...    ..  ..  ..  }}     ..}...}.}.} }.....   ... ..    .   ... ...    
+   ....   ..   ....  .}}}}}    }.... }.}...}  ...   .....   ..  .. ... .    
+ .... ..  .   ...   .}}---}}  } }.. }.}...}.   ...  ..  ..     ...     ..   
+ ....  .. ......   .}}}|.|}}}} } } }.} }.}.   .......    ..   ......    .   
+ ...    ... ...   . }---.---}}    }.} }.}      ......     .....    ..  ..   
+   ......    ..    .}|.....|}..    }}..}}  ...  ..  ..     ...  ..  ....    
+  ...   .......  .. }---.---}}.. ...}}}}  .......    ...  ..   ......  .. . 
+   .       ...   .. }|.S.|}}} .... }}}}    ....        ....   .....     ... 
+                    }-----}}       }}}}                                     
+ENDMAP
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+#         1         2         3         4         5         6         7    7
+
+# Regions
+# The whole gulf is dark and quiet
+REGION: (01,01,75,19), unlit, "morgue", unfilled
+
+# Stairs, Branches and the wizards portal
+STAIR: (64,17), down
+STAIR: (03,17), up
+BRANCH: (22,18,22,18), (00,00,00,00)
+
+# The wizard gets a drawbridge...
+DRAWBRIDGE: (28,16), west, closed
+
+# One secret door
+DOOR: locked, (23,18)
+
+# One sneaky trap
+TRAP: "magic", (24,16)
+
+# The Wizard has some guards
+MONSTER: (''', "iron golem"), (22,16), hostile, asleep
+MONSTER: ('d', "hell hound"), (24,14), hostile, asleep
+MONSTER: ('P', "green slime"), (24,18), hostile, asleep
+MONSTER: ('Z', "skeleton"), (26,16), hostile, asleep
+
+# And a door bell...
+TRAP: "board", (29,16)
+
+# Sea monsters for the river
+MONSTER: ';', (35,02)
+MONSTER: ';', (35,08)
+MONSTER: ';', (42,07)
+MONSTER: ';', (39,12)
+MONSTER: ';', (31,12)
+MONSTER: ';', (38,17)
+MONSTER: ';', (27,18)
+MONSTER: (';', "kraken"), (28,15)
+MONSTER: ';', (23,12)
+
+# Some random flappy things
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+
+# Some not so random flappy things
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+
+# A few undead
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'W', random
+MONSTER: 'V', random
+
+# A couple of slithy things
+MONSTER: 'P', random
+MONSTER: 'P', random
+MONSTER: ('P', "shoggoth"), random
+MONSTER: ('P', "shoggoth"), random
+
+# A small tribe of ghouls
+MONSTER: ('Z', "gug"), (43,16), hostile, asleep
+MONSTER: ('Z', "gug"), (44,17), hostile, asleep
+MONSTER: ('Z', "gug"), (45,18), hostile, asleep
+MONSTER: ('Z', "gug"), (43,18), hostile, asleep
+MONSTER: ('Z', "gug"), (45,16), hostile, asleep
+
+# And some toys for them...
+OBJECT: ('/', "death"), (43,16)
+#OBJECT: ('?', "demonology"), (44,17), cursed,0
+OBJECT: ('?', "create monster"), (45,18), cursed,0
+
+# Some random objects (no potions or food)
+OBJECT: '?', random
+OBJECT: '?', random
+OBJECT: '+', random
+OBJECT: '/', random
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: ')', random
+OBJECT: ')', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+
+# A few traps
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "magic", (31,17)
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", (47,17)
+#
+
+#
+# A third gulf level...
+#
+MAZE: "nkai-c",' '
+#FLAGS: lethe
+GEOMETRY:center,center
+
+#         1         2         3         4         5         6         7    7
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+                                 }}}}                                       
+  ...   ...            ...      }}}}   ....        .    .       ..... ....  
+  ...  .......       ... ...  ...}}}}   .......     .   ...    ..   ....... 
+  . ..  ...  ..    ...     .....}}}}}}        ..    ..    ......       ...  
+     ....     ...  .    .... ..}}}}}}}}}       ......    ....  ...          
+      . ..   .. ....  ...    }}}}}}}}}}}}..    .. ..   ...    .. ...   ..   
+      .  .. ..     ....      }}}}}}}}}}}}}... ..  ... .. ......    .. ..    
+     ..   ...       ..      }}}}}}}.}}}}}}}}...   .....   ..  .     ....    
+   ...     ..        ..  .}}}}}}}}-.--}}}}}       ....   ..        .. ...   
+  .. ..  .....      .......}}}}}}......}}}}}}}.    ....   ...    ...    ..  
+ ..   ....   ..    .. .  }}}}}}}.|...|}}}}}}}...   ....    .... ..       .. 
+  ..   ..     ..  .. ...  }}}}}}}--...}}}}}}.. ..  ....       ...       ..  
+   .. ..       ....    .    }}}}}}...}}}}}}}.   .. ....      .. ...     ..  
+   ......    ... ..    ...   }}}}}}.}}}}}}}      .....     ...    ..    ..  
+   H .. ..  ..   ..   ..       }}}}}}}}}}}.       ....    .. ...   ......   
+  ..     ....     .. ..   ....  }}}}}}}}....      ....  ...    .....        
+   ....    ..      ....  ..  .. .}}}}}}. ...     ...... .    ...   ......   
+  ......    ....  ..  .. ..   ....}}}}}.  ...  ...    ...  ... ..    ...... 
+   ....        ....    .....    ..}}}}.     ....        ....    ..    ....  
+                                   }}}}                                     
+ENDMAP
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+#         1         2         3         4         5         6         7    7
+
+# Regions
+# The whole gulf is dark and quiet
+REGION: (01,01,75,19), unlit, "morgue", unfilled
+
+# Stairs and Branch
+STAIR: (05,17), down
+STAIR: (72,02), up
+BRANCH: (01,01,74,18), (30,06,40,14)
+
+# Sea monsters for the river
+MONSTER: ';', (35,02)
+MONSTER: ';', (35,08)
+MONSTER: ';', (42,09)
+MONSTER: ';', (39,12)
+MONSTER: ';', (31,12)
+MONSTER: ';', (38,17)
+
+# Some random flappy things
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+
+# Some not so random flappy things
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+
+# A few undead
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'W', random
+MONSTER: 'V', random
+
+# A couple of slithy things
+MONSTER: 'P', random
+MONSTER: 'P', random
+MONSTER: ('P', "shoggoth"), random
+MONSTER: ('P', "shoggoth"), random
+MONSTER: ('P', "shoggoth"), random
+
+# Something on the island
+MONSTER: ('D', "black dragon"), (35,09), hostile, asleep
+MONSTER: ('D', "black dragon"), (34,10), hostile, asleep
+MONSTER: ('D', "black dragon"), (36,11), hostile, asleep
+MONSTER: ('D', "baby black dragon"), (34,09), hostile, asleep
+MONSTER: ('D', "baby black dragon"), (35,10), hostile, asleep
+MONSTER: ('D', "baby black dragon"), (36,10), hostile, asleep
+MONSTER: ('D', "baby black dragon"), (37,09), hostile, asleep
+
+# Being black dragon, there's not much loot
+GOLD: 1d200, (35,09)
+GOLD: 1d200, (34,10)
+GOLD: 1d200, (36,10)
+
+# One little door bell
+TRAP: "board",(36,09)
+
+# Fungi on the beaches
+MONSTER: ('F', "shrieker"), (30,03)
+MONSTER: ('F', "shrieker"), (25,09)
+MONSTER: ('F', "shrieker"), (32,17)
+MONSTER: ('F', "shrieker"), (43,06)
+MONSTER: ('F', "shrieker"), (45,11)
+MONSTER: ('F', "shrieker"), (41,15)
+
+# Some random objects (no potions or food)
+OBJECT: '?', random
+OBJECT: '?', random
+OBJECT: '+', random
+OBJECT: '/', random
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: ')', random
+OBJECT: ')', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+
+# A few traps
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
+
+#
+#
+# The bottom of the gulf (so look for the vibrating square)...
+#
+# This level is hardfloor, as it's over the sanctum.  Players need to
+# be able to dig on this level, as the vibrating square might be hidden
+# somewhere inaccessible (without dropping a lot of thie kit).
+#
+MAZE: "nkai-z",' '
+FLAGS: hardfloor
+GEOMETRY: center, center
+
+#         1         2         3         4         5         6         7    7
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+MAP
+                                 }}}}                                       
+  ....   ...   ........ ....    }}} }}      . .....              .......    
+  ..       .  ......  ... ..   }} }} }}    . ........          ....    ..   
+   ......  .... ..         ...}} }..}.}}. .   ....  ...       ...     ....  
+     }  ....     ......     .}.}}.}}.}}.}.            ......}...  .  .....  
+    ..}}..            ......}.}..}..}. }.}.        .......}}...  ...  ...   
+   ..  .}}}....      ..  .}}..} }.}}.}  } }...  .......}}}  ..}   ......    
+   ...    .}}}}}... ..}}}}...}..}.}}..} }  }}.....}}}}} ..}}}}         .    
+     ...      ..}}}}}}.    }}..}..}}.}. }.   }}}}}          ..}}   ....     
+    .. ..  ..}}}.     ...}}  .}   }}...  }. .     }}.        ...}.....      
+   ..   ...}}.   .}}..}}}   .}    }}     .}}}... ...}...    ..  ....        
+  ...   ..}..     ..}}.     }.   }}}}     .}.} ... .} .}   ....  ......     
+   ..    ...     ..}.. .   } }. }}}}}}   ..}..   .   }}.  .....    ......   
+    .  ...      ..}..   .    }. }}}}}}   .}.}   ....  .}   ..    ..         
+    . ....      ....   ...  }. .}}}}}}   . .}  ....    .}      .....        
+     ..  ..      ..   ..... .    }}}}.     ..           .   .....}}......   
+    ...   .. .. ..   .....  .     .....     .    ....  .........}}}}......  
+   .....   ......     .... .... ..... ...  .... .......    ....}}}......    
+   ....      ...         ...  ......    ....   ......         .......       
+                                                                            
+ENDMAP
+#123456789012345678901234567890123456789012345678901234567890123456789012345
+#         1         2         3         4         5         6         7    7
+
+# Regions
+# The whole gulf is dark and quiet
+REGION: (01,01,75,19), unlit, "morgue", unfilled
+# Stairs and Branch
+STAIR: (17,01), up
+BRANCH: (01,01,74,18), (00,00,00,00)
+
+# Sea monsters for the river
+MONSTER: ';', (34,02)
+MONSTER: ';', (35,08)
+MONSTER: ';', (40,07)
+MONSTER: ';', (34,12)
+MONSTER: ';', (33,14)
+MONSTER: ';', (23,07)
+
+# Some random flappy things
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+MONSTER: 'B', random
+
+# Some not so random flappy things
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "nightgaunt"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+MONSTER: ('B', "byakhee"), random
+
+# A few undead
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: ('Z', "gug"), random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'Z', random
+MONSTER: 'W', random
+MONSTER: 'V', random
+
+# A couple of slithy things
+MONSTER: 'P', random
+MONSTER: 'P', random
+MONSTER: ('P', "shoggoth"), random
+MONSTER: ('P', "shoggoth"), random
+MONSTER: ('P', "shoggoth"), random
+MONSTER: ('P', "giant shoggoth"), random
+
+# Some random objects (no potions or food)
+OBJECT: '?', random
+OBJECT: '?', random
+OBJECT: '+', random
+OBJECT: '/', random
+OBJECT: '(', random
+OBJECT: '(', random
+OBJECT: ')', random
+OBJECT: ')', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '[', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+OBJECT: '*', random
+
+# A few traps
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "spiked pit", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "anti magic", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "pit", random
+TRAP: "board", random
+TRAP: "board", random
+TRAP: "board", random
