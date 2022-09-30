@@ -95,7 +95,7 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
         cavevar-?.lev jermlain.lev longhall.lev \
         tomb.lev spiders.lev mtemple.lev grund.lev blkmar-?.lev \
         qlawful.lev qneutral.lev qchaos.lev \
-        leth-*.lev nkai-*.lev
+        leth-*.lev nkai-*.lev ucastle.lev
 QUEST_LEVS = ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev
 
 DATNODLB = $(VARDATND) license symbols $(CSS)

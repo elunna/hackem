@@ -58,7 +58,7 @@ ENTRY:		2
 RNDLEVEL:	"leth-a"  "A" @ (1,0) 2
 LEVEL:		"leth-b" "B" @ (2,0)
 RNDLEVEL:		"castle" "none" @ (3, 0) 3
-#CHAINBRANCH:	"Castle Dungeon" "castle" + (0, 0) 
+CHAINBRANCH:	"Castle Dungeon" "castle" + (0, 0) 
 RNDLEVEL:	"leth-c"  "C" @ (4,0) 2
 RNDLEVEL:	"leth-d"  "D" @ (5,0) 2
 LEVEL:		"leth-e" "E" @ (6,0)
@@ -240,6 +240,12 @@ DUNGEON:        "The Temple of Moloch" "none" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "mtemple" "none" @ (1, 0)
+
+###	Under the castle ###
+DUNGEON:	"Castle Dungeon" "U" (1, 0)
+ALIGNMENT:	unaligned
+ENTRY:		1
+LEVEL:		"ucastle" "E" @ (1, 0)
 
 #
 #       The Ice Queen's Realm.
