@@ -84,15 +84,23 @@ set_uasmon()
     struct permonst *mdat = &mons[u.umonnum];
     struct permonst *racedat; /* for infravision, flying */
 
-    set_mon_data(&youmonst, mdat);
+    racedat = raceptr(&youmonst);
     
+    if (is_vampire(racedat))
+        set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
+                                     ? &upermonst : &mons[u.umonnum]));
+    else 
+        set_mon_data(&youmonst, mdat);
+    
+
     /* TODO: From Un: Is this necessary? The newer version might be better */
 #if 0
     set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
         ? &upermonst : &mons[u.umonnum]));
 #endif
-    racedat = raceptr(&youmonst);
-
+    
+    
+    
 #define PROPSET(PropIndx, ON)                          \
     do {                                               \
         if (ON)                                        \
