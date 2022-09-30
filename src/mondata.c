@@ -875,10 +875,11 @@ monsndx(ptr)
 struct permonst *ptr;
 {
     register int i;
-    
+
     if (ptr == &upermonst) 
         return PM_PLAYERMON;
 
+    
     i = (int) (ptr - &mons[0]);
     if (i < LOW_PM || i >= NUMMONS) {
         panic("monsndx - could not index monster (%s: %d)",

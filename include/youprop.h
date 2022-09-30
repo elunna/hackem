@@ -308,8 +308,10 @@
      || (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) \
      || (ublindf && ublindf->otyp == GOGGLES))
 
+#define HBreathless u.uprops[BREATHLESS].intrinsic
 #define Breathless \
-    (HMagical_breathing || EMagical_breathing || breathless(youmonst.data))
+    (HMagical_breathing || EMagical_breathing \
+     || breathless(youmonst.data) || HBreathless)
 
 #define Underwater (u.uinwater)
 /* Note that Underwater and u.uinwater are both used in code.

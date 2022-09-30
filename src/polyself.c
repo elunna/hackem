@@ -46,7 +46,7 @@ init_uasmon()
     upermonst = mons[u.umonster];
 
     /* Fix up the flags */
-    /* Default flags assume human,  so replace with your race's flags */
+    /* Default flags assume human, so replace with your race's flags */
 
     upermonst.mflags1 &= ~(mons[PM_HUMAN].mflags1);
     upermonst.mflags1 |= (mons[urace.malenum].mflags1);
@@ -63,7 +63,7 @@ init_uasmon()
     /* Fix up the attacks */
     /* crude workaround, needs better general solution */
     if (Race_if(PM_VAMPIRE)) {
-        for(i = 0; i < NATTK; i++) {
+        for (i = 0; i < NATTK; i++) {
             upermonst.mattk[i] = mons[urace.malenum].mattk[i];
         }
     }
@@ -83,23 +83,9 @@ set_uasmon()
 {
     struct permonst *mdat = &mons[u.umonnum];
     struct permonst *racedat; /* for infravision, flying */
-
+    
+    set_mon_data(&youmonst, mdat);
     racedat = raceptr(&youmonst);
-    
-    if (is_vampire(racedat))
-        set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
-                                     ? &upermonst : &mons[u.umonnum]));
-    else 
-        set_mon_data(&youmonst, mdat);
-    
-
-    /* TODO: From Un: Is this necessary? The newer version might be better */
-#if 0
-    set_mon_data(&youmonst, ((u.umonnum == u.umonster) 
-        ? &upermonst : &mons[u.umonnum]));
-#endif
-    
-    
     
 #define PROPSET(PropIndx, ON)                          \
     do {                                               \

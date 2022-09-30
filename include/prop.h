@@ -93,6 +93,7 @@ enum prop_types {
     VULN_COLD         = 73,
     VULN_ELEC         = 74,
     VULN_ACID         = 75,
+    BREATHLESS        = 76,
 };
 #define LAST_PROP (VULN_ACID)
 
