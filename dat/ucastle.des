@@ -1,0 +1,114 @@
+MAZE:"ucastle", random
+FLAGS: noteleport, hardfloor
+GEOMETRY: center, center
+#0         1         2         3         4         5         6         7    
+#01234567890123456789012345678901234567890123456789012345678901234567890
+MAP
+                                         # # # # # # # # # # #
+   -----                                -+-+-+-+-+-+-+-+-+-+-+-
+   |...+###          ########           |.....................|
+   -----  #          #------+------     |......w.w.w.w.w......|
+      ----+----      #|...........|     |.....w.PPPPPPP.w.....|
+      |.......|      #|...........+#####+......w.s.w.s.w......|
+      |.......+#######|...........|     |.....s.sssssss.s.....|
+      |.......|       -------------     |......s.s.s.s.s......|
+      ----+----                         |.....................|
+          #         ----------  -----   -+-+-+-+-+-+-+-+-+-+-+- 
+          #         |.....{..|  |...|    # # # # # # # # # # # 
+          ##########+........+##S..K|
+                    |.....U..|  -----
+                    ----------
+ENDMAP
+#01234567890123456789012345678901234567890123456789012345678901234567890
+#0         1         2         3         4         5         6         7    
+
+#  Regions
+REGION: (04,02,06,02), lit, "ordinary"
+REGION: (07,05,13,07), lit, "barracks"
+REGION: (21,10,28,12), unlit, "ordinary"
+REGION: (23,04,33,06), unlit, "ordinary"
+REGION: (32,10,34,11), unlit, "ordinary"
+REGION: (41,02,61,08), unlit, "swamp"
+
+# Stairs
+BRANCH: (04,02,04,02), (00,00,00,00)
+TELEPORT_REGION: (41,02,61,08), (00,00,00,00)
+
+#  Doors
+DOOR: closed, (07,02)
+DOOR: closed, (10,04)
+DOOR: locked, (10,08)
+DOOR: locked, (20,11)
+DOOR: locked, (14,06)
+DOOR: locked, (28,03)
+DOOR: locked, (34,05)
+DOOR: locked, (40,05)
+
+# Cells top row
+DOOR: random, (41,01)
+DOOR: random, (43,01)
+DOOR: random, (45,01)
+DOOR: random, (47,01)
+DOOR: random, (49,01)
+DOOR: random, (51,01)
+DOOR: random, (53,01)
+DOOR: random, (55,01)
+DOOR: random, (57,01)
+DOOR: random, (59,01)
+DOOR: random, (61,01)
+# Cells bottom row
+DOOR: random, (41,09)
+DOOR: random, (43,09)
+DOOR: random, (45,09)
+DOOR: random, (47,09)
+DOOR: random, (49,09)
+DOOR: random, (51,09)
+DOOR: random, (53,09)
+DOOR: random, (55,09)
+DOOR: random, (57,09)
+DOOR: random, (59,09)
+DOOR: random, (61,09)
+
+# Traps
+TRAP: "board", (33,05)
+TRAP: "board", (13,06)
+TRAP: "fire", (30,04)
+TRAP: "magic", (30,06)
+
+# Guardians
+MONSTER: ''', (26,04)
+MONSTER: ''', (25,05)
+MONSTER: ''', (26,06)
+[50%]: MONSTER: ''', (24,04)
+[50%]: MONSTER: ''', (24,06)
+
+# Jellies and Puddings
+[50%]: MONSTER: 'j', (44,04)
+[50%]: MONSTER: 'j', (56,06)
+[80%]: MONSTER: 'F', (44,06)
+[80%]: MONSTER: 'F', (57,04)
+[80%]: MONSTER: 'F', (49,06)
+[50%]: MONSTER: 'P', (51,07)
+[50%]: MONSTER: 'P', (43,03)
+MONSTER: ('P',"green slime"), (59,10)
+MONSTER: ('P',"green slime"), (51,10)
+[50%]: MONSTER: ('P',"green slime"), (43,10)
+
+# Wine Celler
+OBJECT: ('!', "amnesia"),(21,10)
+OBJECT: ('!', "booze"), (23,10)
+OBJECT: ('!', "booze"), (25,10)
+OBJECT: ('!', "booze"), (28,10)
+OBJECT: ('!', "booze"), (22,12)
+OBJECT: ('!', "booze"), (24,12)
+OBJECT: ('!', "booze"), (26,12)
+OBJECT: '!', (22,10)
+OBJECT: '!', (24,10)
+OBJECT: '!', (26,10)
+OBJECT: '!', (27,10)
+OBJECT: '!', (21,12)
+OBJECT: '!', (23,12)
+OBJECT: '!', (25,12)
+OBJECT: '!', (27,12)
+OBJECT: '!', (28,12)
+
