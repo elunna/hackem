@@ -307,7 +307,9 @@ REGION: (01,01,75,19), unlit, "morgue", unfilled
 # Stairs, Branches and the wizards portal
 STAIR: (64,17), down
 STAIR: (03,17), up
-BRANCH: (22,18,22,18), (00,00,00,00)
+
+#Pending design decision.
+#BRANCH: (22,18,22,18), (00,00,00,00)
 
 # The wizard gets a drawbridge...
 DRAWBRIDGE: (28,16), west, closed
