@@ -1664,8 +1664,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_KICK, AD_PHYS, 1, 2),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 50, MS_SHEEP, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC
-                                                   | M2_PEACEFUL,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 3, CLR_WHITE),
     MON("sheep", S_QUADRUPED,                                   /* Slash'EM */
         LVL(3, 12, 8, 0, 0), (G_GENO | G_SGROUP | 2),
@@ -1673,8 +1672,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_KICK, AD_PHYS, 1, 3),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(700, 100, MS_SHEEP, MZ_MEDIUM), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC 
-            | M2_PEACEFUL,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 5, CLR_WHITE),
     MON("rothe", S_QUADRUPED,
         LVL(2, 9, 7, 0, 0), (G_GENO | G_SGROUP | 4),
@@ -1700,8 +1698,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_KICK, AD_PHYS, 2, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2000, 300, MS_COW, MZ_MEDIUM), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC 
-            | M2_PEACEFUL | M2_FEMALE, 
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC | M2_FEMALE, 
         M3_INFRAVISIBLE, 0, 0, 8, CLR_WHITE),
     MON("bull", S_QUADRUPED,                                    /* Slash'EM */
         LVL(10, 15, 5, 0, 0), (G_GENO | 1),
