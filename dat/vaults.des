@@ -41,6 +41,7 @@ REGION:(1,1,3,3),random,"rndvault",irregular { }
 # L-shaped, r2
 LEVEL:"vlt-0002"
 FLAGS:rndvault
+MINDEPTH:8
 GEOMETRY:random
 MAP
 --------
@@ -57,6 +58,7 @@ REGION:(1,1,3,3),random,"ordinary",unfilled,irregular { }
 # L-shaped, r3
 LEVEL:"vlt-0003"
 FLAGS:rndvault
+MINDEPTH:8
 GEOMETRY:random
 MAP
 --------
@@ -73,6 +75,7 @@ REGION:(1,1,3,3),random,"ordinary",unfilled,irregular { }
 # L-shaped, r4
 LEVEL:"vlt-0004"
 FLAGS:rndvault
+MINDEPTH:8
 GEOMETRY:random
 MAP
 xxx-----
@@ -110,6 +113,7 @@ REGION:(3,3,3,3),random,"rndvault",irregular { }
 # L-shaped, big, r2
 LEVEL:"vlt-0006"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 -------------
@@ -130,6 +134,7 @@ REGION:(3,3,3,3),random,"rndvault",unfilled,irregular { }
 # L-shaped, big, r3
 LEVEL:"vlt-0007"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 -------------
@@ -150,6 +155,7 @@ REGION:(3,3,3,3),random,"rndvault",unfilled,irregular { }
 # L-shaped, big, r4
 LEVEL:"vlt-0008"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 xxxxxx-------
@@ -187,9 +193,11 @@ MAP
 --------
 ENDMAP
 REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
+
 # Tetris L-shaped, r2
 LEVEL:"vlt-0010"
 FLAGS:rndvault
+MINDEPTH:7
 GEOMETRY:random
 MAP
 -----------
@@ -206,6 +214,7 @@ REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
 # Tetris L-shaped, r3
 LEVEL:"vlt-0011"
 FLAGS:rndvault
+MINDEPTH:7
 GEOMETRY:random
 MAP
 --------
@@ -225,6 +234,7 @@ REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
 # Tetris L-shaped, r4
 LEVEL:"vlt-0012"
 FLAGS:rndvault
+MINDEPTH:7
 GEOMETRY:random
 MAP
 xxxxxx-----
@@ -261,6 +271,7 @@ REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
 # Tetris J-shaped, r2
 LEVEL:"vlt-0014"
 FLAGS:rndvault
+MINDEPTH:7
 GEOMETRY:random
 MAP
 -----xxxxxx
@@ -277,6 +288,7 @@ REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
 # Tetris J-shaped, r3
 LEVEL:"vlt-0015"
 FLAGS:rndvault
+MINDEPTH:7
 GEOMETRY:random
 MAP
 --------
@@ -296,6 +308,7 @@ REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
 # Tetris J-shaped, r4
 LEVEL:"vlt-0016"
 FLAGS:rndvault
+MINDEPTH:7
 GEOMETRY:random
 MAP
 -----------
@@ -333,6 +346,7 @@ IF [80%] {
 # T-shaped, r2
 LEVEL:"vlt-0018"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 -----xxx
@@ -352,6 +366,7 @@ REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
 # T-shaped, r3
 LEVEL:"vlt-0019"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 -----------
@@ -368,6 +383,7 @@ REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
 # T-shaped, r4
 LEVEL:"vlt-0020"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 xxx-----
@@ -411,6 +427,7 @@ IF [80%] {
 # S-shaped, r2
 LEVEL:"vlt-0022"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 xxx--------
@@ -427,6 +444,7 @@ REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
 # Z-shaped
 LEVEL:"vlt-0023"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 xxx-----
@@ -446,6 +464,7 @@ REGION:(5,5,5,5),random,"ordinary",unfilled,irregular { }
 # Z-shaped, r2
 LEVEL:"vlt-0024"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 --------xxx
@@ -484,6 +503,7 @@ IF [80%] {
 # U-shaped, reversed
 LEVEL:"vlt-0026"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 -------------
@@ -523,6 +543,7 @@ IF [80%] {
 # C-shaped, reversed
 LEVEL:"vlt-0028"
 FLAGS:rndvault
+MINDEPTH:11
 GEOMETRY:random
 MAP
 --------
@@ -652,7 +673,7 @@ REGION:(1,1,1,1),random,"ordinary",unfilled,irregular { }
 # Split horizontally
 LEVEL:"vlt-0034"
 FLAGS:rndvault
-MINDEPTH:5
+MINDEPTH:7
 GEOMETRY:random
 MAP
 --------
@@ -871,7 +892,7 @@ ROOM:"rndvault", random, random, random, (70,3) {
 # lava/ice/pool/tree/sewage/fountain room
 LEVEL:"vlt-0048"
 FLAGS:rndvault
-MINDEPTH:11
+MINDEPTH:8
 ROOM:"rndvault", random, random, random, (3,3) {
   $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{', 's' }
   SHUFFLE: $terr
@@ -930,6 +951,7 @@ ROOM:"rndvault", random, random, random, random {
 # buried treasure
 LEVEL:"vlt-0052"
 FLAGS:rndvault
+MINDEPTH:5
 # note: intentionally ordinary.
 ROOM:"ordinary", random, random, random, random {
   CONTAINER:('(', "chest"), random,buried {
@@ -1022,7 +1044,7 @@ ROOM:"rndvault", random, random, random, random {
 # house of horrors
 LEVEL:"vlt-0058"
 FLAGS:rndvault
-MINDEPTH:19
+MINDEPTH:17
 ROOM:"rndvault", random, random, random, (6,6) {
   $terr = TERRAIN: { 'F', 'L', 'P' }
   SHUFFLE: $terr
@@ -1039,7 +1061,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 # room with dangerous monster and loot
 LEVEL:"vlt-0059"
 FLAGS:rndvault
-MINDEPTH:15
+MINDEPTH:17
 ROOM:"rndvault", random, random, random, random {
   $mons = MONSTER: { 'M', 'D', 'O', 'Z', 'T', 'H' }
   SHUFFLE: $mons
@@ -1055,7 +1077,7 @@ ROOM:"rndvault", random, random, random, random {
 # mausoleum
 LEVEL:"vlt-0060"
 FLAGS:rndvault
-MINDEPTH:18
+MINDEPTH:17
 ROOM:"rndvault", random, random, random, (5,5) {
   TERRAIN:(1,1) & (2,1) & (3,1) &
           (1,2) &         (3,2) &
@@ -1226,7 +1248,7 @@ ROOM:"rndvault", random, random, random, random {
 # Center stage toilet
 LEVEL:"vlt-0071"
 FLAGS:rndvault
-MINDEPTH:7
+MINDEPTH:11
 GEOMETRY:random
 MAP
 #01234567890
@@ -1243,7 +1265,7 @@ MAP
 0-----------
 ENDMAP
 IF [75%] {
-  $terr = TERRAIN:{ '-', 'P', 's', 'C' }
+  $terr = TERRAIN:{ '-', 'P', 's', 'C', 'F'}
   SHUFFLE: $terr
   REPLACE_TERRAIN:(1,1,9,9),'L', $terr[0],100%
 }
@@ -1258,7 +1280,7 @@ IF [80%] {
 # ice room
 LEVEL:"vlt-0072"
 FLAGS:rndvault
-MINDEPTH:17
+MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
   [10%]: TRAP: "cold", random
   TERRAIN:floodfill(1,1), 'I'
