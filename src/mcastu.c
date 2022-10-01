@@ -684,6 +684,7 @@ int spellnum;
         }
         dmg = 0;
         break;
+#if 0 /* Original slashem version - disabled because buggy */
     case MGC_CREATE_POOL:
         if (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR) {
             pline("A pool appears beneath you!");
@@ -694,6 +695,46 @@ int spellnum;
         }
         else
             impossible("bad pool creation?");
+        dmg = 0;
+        break;
+#endif
+    /* Imported from slashem-up 
+     * Create pool spell can be affected by invisibility and/or
+     * displacement.
+     */
+    case MGC_CREATE_POOL: 
+        if (Invisible 
+            && !perceives(mtmp->data) 
+            && (mtmp->mux != u.ux || mtmp->muy != u.uy)
+            && (levl[mtmp->mux][mtmp->muy].typ == ROOM || 
+                levl[mtmp->mux][mtmp->muy].typ == CORR)) {
+            pline("A pool appears beneath a spot near you!");
+            levl[mtmp->mux][mtmp->muy].typ = POOL;
+            del_engr_at(mtmp->mux, mtmp->muy);
+            /*water_damage(level.objects[mtmp->mux][mtmp->muy], FALSE, TRUE);*/
+            water_damage_chain(level.objects[mtmp->mux][mtmp->muy], TRUE, 0, TRUE, mtmp->mux, mtmp->muy);
+            spoteffects(FALSE);
+        } else if (Displaced 
+                   && (mtmp->mux != u.ux || mtmp->muy != u.uy)
+                   && (levl[mtmp->mux][mtmp->muy].typ == ROOM || 
+                       levl[mtmp->mux][mtmp->muy].typ == CORR)) {
+            pline("A pool appears beneath your displaced image!");
+            levl[mtmp->mux][mtmp->muy].typ = POOL;
+            del_engr_at(mtmp->mux, mtmp->muy);
+            /*water_damage(level.objects[mtmp->mux][mtmp->muy], FALSE, TRUE);*/
+            water_damage_chain(level.objects[mtmp->mux][mtmp->muy], TRUE, 0, TRUE, mtmp->mux, mtmp->muy);
+            spoteffects(FALSE);
+        }
+        else if (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR) {
+            pline("A pool appears beneath you!");
+            levl[u.ux][u.uy].typ = POOL;
+            del_engr_at(u.ux, u.uy);
+            /*water_damage(level.objects[u.ux][u.uy], FALSE, TRUE);*/
+            water_damage_chain(level.objects[u.ux][u.uy], TRUE, 0, TRUE, u.ux, u.uy);
+            spoteffects(FALSE);  /* possibly drown, notice objects */
+        }
+        else
+            pline("Some water comes down from the ceiling.");
         dmg = 0;
         break;
     case MGC_CANCELLATION:
@@ -1337,13 +1378,9 @@ int spellnum;
         /* pools can only be created in certain locations and then only
         * rarely unless you're carrying the amulet.
         */
-        if ((levl[u.ux][u.uy].typ 
-              != ROOM 
-                && levl[u.ux][u.uy].typ 
-                  != CORR
-                    || !u.uhave.amulet 
-                      && rn2(10)) 
-                        && spellnum == MGC_CREATE_POOL)
+        if (spellnum == MGC_CREATE_POOL
+             && (levl[u.ux][u.uy].typ != ROOM && levl[u.ux][u.uy].typ != CORR 
+             || !u.uhave.amulet && rn2(10)))
             return TRUE;
         /* Don't try to destroy armor if none is being worn */
         if (!(mdef->misc_worn_check & W_ARMOR)
