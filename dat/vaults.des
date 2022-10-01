@@ -1247,7 +1247,7 @@ IF [75%] {
   SHUFFLE: $terr
   REPLACE_TERRAIN:(1,1,9,9),'L', $terr[0],100%
 }
-REPLACE_TERRAIN:(5,5,5,5),'Z', $terr[0],100%                                 
+REPLACE_TERRAIN:(5,5,5,5),'L', 'Z',100%                                 
 
 IF [80%] {
   REGION:(1,1,1,1),random,"rndvault",irregular { }
