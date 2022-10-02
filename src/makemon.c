@@ -3265,6 +3265,8 @@ long mmflags;
         mitem = BELL_OF_OPENING;
     } else if (mndx == PM_PESTILENCE) {
         mitem = POT_SICKNESS;
+    } else if (mndx == PM_DEATH) {
+        mitem = SCYTHE;
     }
     if (mitem && allow_minvent)
         (void) mongets(mtmp, mitem);

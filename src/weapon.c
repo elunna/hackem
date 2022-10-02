@@ -355,6 +355,7 @@ struct monst *mon;
         case FLAIL:
         case RANSEUR:
         case VOULGE:
+        case SCYTHE:
             tmp += rnd(4);
             break;
 
@@ -420,6 +421,7 @@ struct monst *mon;
         case ELVEN_BROADSWORD:
         case RUNESWORD:
         case VOULGE:
+        case SCYTHE:
             tmp += rnd(4);
             break;
 
