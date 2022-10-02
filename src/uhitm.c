@@ -2951,11 +2951,12 @@ do_rust:
         if (m_slips_free(mdef, mattk))
             break;
 
-        if ((helmet = which_armor(mdef, W_ARMH)) != 0 && rn2(8)) {
-            if (!Blind)
-                pline("%s %s blocks your attack to %s %s.",
-                      s_suffix(Monnam(mdef)), helm_simple_name(helmet),
-                      mhis(mdef), mbodypart(mdef, HEAD));
+        
+        if ((helmet = which_armor(mdef, W_ARMH)) != 0 && (rn2(8) ||
+              which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT)) {
+            pline("%s %s blocks your attack to %s head.",
+                  s_suffix(Monnam(mdef)), helm_simple_name(helmet),
+                  mhis(mdef));
             break;
         }
 

@@ -580,6 +580,9 @@ Helmet_on(VOID_ARGS)
     case ORCISH_HELM:
     case HELM_OF_TELEPATHY:
         break;
+    case TINFOIL_HAT:
+        pline("Your thoughts feel much more secure.");
+        break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
         break;
@@ -672,6 +675,7 @@ Helmet_off(VOID_ARGS)
     case ELVEN_HELM:
     case DWARVISH_HELM:
     case ORCISH_HELM:
+    case TINFOIL_HAT:
         break;
     case DUNCE_CAP:
         context.botl = 1;

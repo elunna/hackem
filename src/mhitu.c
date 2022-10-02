@@ -1691,6 +1691,12 @@ register struct attack *mattk;
                  helm_simple_name(uarmh), is_zombie(mdat) ? "bite" : "attack");
             break;
         }
+        if (uarmh->otyp == TINFOIL_HAT) {
+            /* not body_part(HEAD) */
+            Your("%s blocks the attack to your head.",
+                 helm_simple_name(uarmh));
+            break;
+        }
 
         if (uarmh && !is_hard(uarmh) && rn2(2)) {
             Your("%s repels the %s to your head.",

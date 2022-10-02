@@ -2188,7 +2188,8 @@ post_stone:
             tmp = 0;
             break;
         }
-        if ((mdef->misc_worn_check & (W_ARMH | W_BARDING)) && rn2(8)) {
+        if ((mdef->misc_worn_check & (W_ARMH | W_BARDING)) && rn2(8) 
+            || which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT) {
             if (vis && canspotmon(magr) && canseemon(mdef)) {
                 Strcpy(buf, s_suffix(Monnam(mdef)));
                 pline("%s %s blocks %s attack to %s %s.", buf,

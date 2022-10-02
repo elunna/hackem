@@ -467,6 +467,8 @@ HELM("helm of opposite alignment", "crested helmet",
      0, 1,           0,  6, 1, 50, 50,  9, 0, IRON, HI_METAL),
 HELM("helm of speed", "winged helmet",
      0, 1,        FAST,  2, 1, 50, 50,  9, 0, METAL, HI_GOLD),
+HELM("tinfoil hat", "fearsome helmet",
+     0, 1, PSYCHIC_RES,  2, 1, 50, 50,  9, 0, IRON, CLR_YELLOW),
 HELM("helm of telepathy", "visored helmet",
      0, 1,     TELEPAT,  2, 1, 50, 50,  9, 0, IRON, HI_METAL),
 
