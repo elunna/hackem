@@ -1213,8 +1213,12 @@ short otyp;
                 case FORTUNE_COOKIE:
                 case EGG:
                 case CREAM_PIE:
+                case APPLE_PIE:
+                case PUMPKIN_PIE:
+                case SLICE_OF_CAKE:
                 case CANDY_BAR:
                 case LUMP_OF_ROYAL_JELLY:
+                case FRUITCAKE:
                     OBJPUTSTR("Is vegetarian but not vegan.");
                     break;
                 default:

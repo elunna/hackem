@@ -334,7 +334,7 @@ struct monst *mon;
 
     if (!ptr) ptr = &mons[NUMMONS];
 
-    if (otyp == CREAM_PIE)
+    if (otyp == CREAM_PIE || otyp == APPLE_PIE || otyp == PUMPKIN_PIE)
         return 0;
 
     if (r_bigmonst(mon)) {
@@ -839,6 +839,8 @@ static NEARDATA const int rwep[] = {
     LOADSTONE, 
     LUCKSTONE, 
     DART, 
+    FRUITCAKE, 
+    PINEAPPLE,
     CREAM_PIE, 
     BULLET, SHOTGUN_SHELL, /* Low priority unless you have a gun? */
     /* BOOMERANG, CHAKRAM */ 

@@ -404,6 +404,7 @@
     ((((ptr)->mhflags & MH_DEMON) != 0L) \
      || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_DEMON)))
 #define is_dragon(ptr) (((ptr)->mhflags & MH_DRAGON) != 0L)
+#define is_feline(ptr) ((ptr)->mlet == S_FELINE)
 #define is_pseudodragon(ptr) \
     ((ptr) == &mons[PM_PSEUDODRAGON] \
      || (ptr) == &mons[PM_ELDER_PSEUDODRAGON] || (ptr) == &mons[PM_ANCIENT_PSEUDODRAGON])

@@ -1407,6 +1407,27 @@ int dieroll;
                     }
                     tmp = 1;
                     break;
+                case PINCH_OF_CATNIP:
+                    tmp = 0;
+                    if (is_feline(mdat)) {
+                        if (!Blind)
+                            pline("%s chases %s tail!", Monnam(mon), mhis(mon));
+                        (void) tamedog(mon, (struct obj *) 0);
+                        mon->mconf = 1;
+                        if (thrown)
+                            obfree(obj, (struct obj *) 0);
+                        else
+                            useup(obj);
+                        return FALSE;
+                    } else {
+                        You("%s catnip fly everywhere!", Blind ? "feel" : "see");
+                        setmangry(mon, TRUE);
+                    }
+                    if (thrown)
+                        obfree(obj, (struct obj *) 0);
+                    else
+                        useup(obj);
+                    break;
                 case CREAM_PIE:
                 case SNOWBALL:
                 case BLINDING_VENOM:
