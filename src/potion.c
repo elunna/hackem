@@ -577,18 +577,6 @@ ghost_from_bottle()
     scary_ghost(mtmp);
 }
 
-/* getobj callback for object to drink from, which also does double duty as
-   the callback for dipping into (both just allow potions). */
-static int
-drink_ok(struct obj *obj)
-{
-    if (obj && (obj->oclass == POTION_CLASS 
-                || obj->otyp == KEG))
-        return GETOBJ_SUGGEST;
-    
-    return GETOBJ_EXCLUDE;
-}
-
 /* "Quaffing is like drinking, except you spill more." - Terry Pratchett */
 int
 dodrink()
@@ -679,11 +667,8 @@ dodrink()
             return 1;
         }
     }
-#if 0
+
     otmp = getobj(beverages, "drink");
-#endif
-    otmp = getobj("drink", drink_ok, GETOBJ_NOFLAGS);
-    
     if (!otmp)
         return 0;
 
@@ -1165,6 +1150,19 @@ register struct obj *otmp;
                     if (adjattrib(i, 1, itmp) && !otmp->blessed)
                         break;
                 }
+            }
+        }
+        break;
+    case POT_REFLECTION:
+        if (otmp->cursed) {
+            pline("It\'s like drinking glue!");
+            unkn++;
+        } else {
+            pline("You are covered in a mirror-like sheen!");
+            if (otmp->blessed) {
+                set_itimeout(&HReflecting, rn1(50, 250));
+            } else {
+                set_itimeout(&HReflecting, rn1(10, 20));
             }
         }
         break;
