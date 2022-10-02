@@ -588,7 +588,7 @@ struct obj *obj;
  * padded gloves" would give the game away if we did not check their
  * identification status */
 #define force_material_name(typ) \
-    ((typ) == ARMOR || (typ) == STUDDED_ARMOR                     \
+    ((typ) == LIGHT_ARMOR || (typ) == STUDDED_ARMOR                     \
      || (typ) == JACKET || (typ) == CLOAK                         \
      || ((typ) == GLOVES && objects[GLOVES].oc_name_known)        \
      || ((typ) == GAUNTLETS && objects[GAUNTLETS].oc_name_known))
@@ -4199,7 +4199,7 @@ struct obj *no_wish;
                     goto srch;
                 else {
                     oclass = 0;
-                    typ = ARMOR;
+                    typ = LIGHT_ARMOR;
                     goto typfnd;
                 }
             }
@@ -4229,7 +4229,7 @@ struct obj *no_wish;
                     goto srch;
                 else {
                     oclass = 0;
-                    typ = ARMOR;
+                    typ = LIGHT_ARMOR;
                     goto typfnd;
                 }
             }

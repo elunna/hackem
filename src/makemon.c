@@ -220,7 +220,7 @@ struct trobj subInfidel[] = {
 
 /* Specialized structs for centaurian player monsters */
 struct trobj Level10KitCentaur1[] = {
-    { ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HELMET, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { CLOAK, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { GAUNTLETS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -511,7 +511,7 @@ struct trobj Level20Kit6[] = {
 };
 
 struct trobj Level20Kit7[] = {
-    { ARMOR, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
+    { LIGHT_ARMOR, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
     { GAUNTLETS_OF_DEXTERITY, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
     { JUMPING_BOOTS, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
     { CLOAK_OF_MAGIC_RESISTANCE, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
@@ -529,7 +529,7 @@ struct trobj Level20Kit8[] = {
 };
 
 struct trobj Level10Kit1[] = {
-    { ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HELMET, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HIGH_BOOTS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { GAUNTLETS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -1321,7 +1321,7 @@ register struct monst *mtmp;
         } else if (mm == PM_AGENT) {
             (void) mongets(mtmp, rn2(4) ? SHORT_SWORD : DAGGER);
             if (!rn2(3))
-                (void) mongets(mtmp, ARMOR);
+                (void) mongets(mtmp, LIGHT_ARMOR);
             (void) mongets(mtmp, POT_INVISIBILITY);
         } else if (mm == PM_KING_ARTHUR) {
             /* If it has not yet been generated, of course
@@ -1398,7 +1398,7 @@ register struct monst *mtmp;
             case PM_ROSHI:
             case PM_WARRIOR:
                 (void) mongets(mtmp, rn2(3) ? LONG_SWORD : SHORT_SWORD);
-                (void) mongets(mtmp, rn2(3) ? CHAIN_MAIL : ARMOR);
+                (void) mongets(mtmp, rn2(3) ? CHAIN_MAIL : LIGHT_ARMOR);
                 if (rn2(2))
                     (void) mongets(mtmp, rn2(2) ? LOW_BOOTS : HIGH_BOOTS);
                 if (!rn2(3))
@@ -1412,7 +1412,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rn2(3) ? SHORT_SWORD : DAGGER);
                 if (rn2(2))
                     (void) mongets(mtmp, rn2(2) ? JACKET
-                                                : ARMOR);
+                                                : LIGHT_ARMOR);
                 (void) mongets(mtmp, BOW);
                 m_initthrow(mtmp, ARROW, 12);
                 break;
@@ -1421,11 +1421,11 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rn2(3) ? DAGGER : KNIFE);
                 if (rn2(2))
                     (void) mongets(mtmp, GLOVES);
-                (void) mongets(mtmp, rn2(2) ? JACKET : ARMOR);
+                (void) mongets(mtmp, rn2(2) ? JACKET : LIGHT_ARMOR);
                 break;
             case PM_NEANDERTHAL:
                 (void) mongets(mtmp, CLUB);
-                (void) mongets(mtmp, ARMOR);
+                (void) mongets(mtmp, LIGHT_ARMOR);
                 break;
             case PM_INMATE:
                 (void) mongets(mtmp, rn2(2) ? HEAVY_IRON_BALL : SPOON);
@@ -1834,7 +1834,7 @@ register struct monst *mtmp;
         break;
     case S_CENTAUR:
         if (rn2(2)) {
-            (void) mongets(mtmp, (rn2(2) ? ARMOR : STUDDED_ARMOR));
+            (void) mongets(mtmp, (rn2(2) ? LIGHT_ARMOR : STUDDED_ARMOR));
             (void) mongets(mtmp, (rn2(2) ? GLOVES : ELVEN_HELM));
         if (ptr == &mons[PM_FOREST_CENTAUR]) {
             (void) mongets(mtmp, BOW);
@@ -1855,7 +1855,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
         }
         if (!rn2(4))
-            (void) mongets(mtmp, ARMOR);
+            (void) mongets(mtmp, LIGHT_ARMOR);
         if (!rn2(4))
             (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
         break;
@@ -2151,9 +2151,9 @@ register struct monst *mtmp;
                                                   : STUDDED_ARMOR);
             else if (rn2(5) && racial_orc(mtmp))
                 mac += 3 + mongets(mtmp, (rn2(3)) ? ORCISH_RING_MAIL
-                                                  : ARMOR);
+                                                  : LIGHT_ARMOR);
             else if (!racial_giant(mtmp))
-                mac += 2 + mongets(mtmp, ARMOR);
+                mac += 2 + mongets(mtmp, LIGHT_ARMOR);
 
             if (mac < 10 && rn2(3)
                 && (!(racial_elf(mtmp) || racial_orc(mtmp))))

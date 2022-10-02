@@ -2314,7 +2314,7 @@ dosacrifice()
                             case 0:
                                 /* body armor (inc. shirts) */
                                 if (primary_casters || primary_casters_priest) {
-                                    typ = rn2(2) ? rnd_class(ARMOR, JACKET)
+                                    typ = rn2(2) ? rnd_class(LIGHT_ARMOR, JACKET)
                                                  : rn2(6) ? typ == STUDDED_ARMOR
                                                           : typ == CRYSTAL_PLATE_MAIL;
                                 } else {

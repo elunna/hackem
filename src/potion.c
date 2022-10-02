@@ -3480,9 +3480,9 @@ register struct obj *obj;
             break;
         case STUDDED_ARMOR:
         case JACKET:
-            obj->otyp = ARMOR;
+            obj->otyp = LIGHT_ARMOR;
             break;
-        case ARMOR:
+        case LIGHT_ARMOR:
             obj->otyp = STUDDED_ARMOR;
             break;
             

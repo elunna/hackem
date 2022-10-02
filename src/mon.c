@@ -756,7 +756,7 @@ unsigned corpseflags;
             obj = mkobj_at(RANDOM_CLASS, x, y, FALSE);
             if (!valid_obj_material(obj, LEATHER)) {
                 delobj(obj);
-                obj = mksobj_at(ARMOR, x, y, TRUE, FALSE);
+                obj = mksobj_at(LIGHT_ARMOR, x, y, TRUE, FALSE);
             }
             set_material(obj, LEATHER);
         }
