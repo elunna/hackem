@@ -135,6 +135,8 @@ PROJECTILE("orcish arrow", "crude arrow",
            0, 20, 1, 2, 5, 6, 0,        IRON, -P_BOW, CLR_BLACK),
 PROJECTILE("ya", "long arrow",
            0, 15, 1, 4, 7, 7, 1,        WOOD, -P_BOW, HI_WOOD),
+PROJECTILE("light arrow", None,
+           1,  0, 0, 20, 12, 12, 2,     GLASS, -P_BOW, CLR_YELLOW),
 PROJECTILE("crossbow bolt", None,
            1, 55, 1, 2, 4, 6, 0,        IRON, -P_CROSSBOW, HI_METAL),
 
