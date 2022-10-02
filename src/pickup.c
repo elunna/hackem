@@ -1825,7 +1825,21 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
         makeknown(BAG_OF_TRICKS);
         abort_looting = TRUE;
         return 1;
+    } else if (cobj->otyp == BAG_OF_RATS) {
+        You("carefully open %s...", the(xname(cobj)));
+        if (cobj->spe && create_critters(1 + rn2(7), &mons[PM_RABID_RAT], TRUE)) {
+            pline("A torrent of rats spews out!");
+            makeknown(BAG_OF_RATS);
+            cobj->spe = 0;
+            check_unpaid(cobj);
+        } else {
+            pline("%s emits a petulant squeaking noise and snaps shut.",
+                  The(xname(cobj)));
+        }
+        abort_looting = TRUE;
+        return 1;
     }
+    
 
     return use_container(cobjp, FALSE, (boolean) (cindex < ccount));
 }
@@ -2324,7 +2338,9 @@ struct obj *obj;
 int depthin;
 {
     /* these won't cause an explosion when they're empty/no enchantment */
-    if ((obj->otyp == WAN_CANCELLATION || obj->otyp == BAG_OF_TRICKS
+    if ((obj->otyp == WAN_CANCELLATION 
+         || obj->otyp == BAG_OF_TRICKS 
+         || obj->otyp == BAG_OF_RATS
          || obj->oartifact == ART_MAGICBANE)
         && obj->spe <= 0)
         return FALSE;
@@ -3777,7 +3793,7 @@ boolean *cancelled;
         /* skip non-containers; bag of tricks passes Is_container() test,
            only include it if it isn't known to be a bag of tricks */
         if (!Is_container(otmp)
-            || (otmp->otyp == BAG_OF_TRICKS && otmp->dknown
+            || ((otmp->otyp == BAG_OF_TRICKS || otmp->otyp == BAG_OF_RATS) && otmp->dknown
                 && objects[otmp->otyp].oc_name_known))
             continue;
         if (!n_conts++)
@@ -3824,7 +3840,7 @@ boolean allowempty;    /* affects result when box is empty */
     /* undiscovered bag of tricks is acceptable as a container-to-container
        destination but it can't receive items; it has to be opened in
        preparation so apply it once before even trying to tip source box */
-    if (targetbox && targetbox->otyp == BAG_OF_TRICKS) {
+    if (targetbox && (targetbox->otyp == BAG_OF_TRICKS || targetbox->otyp == BAG_OF_RATS)) {
         int seencount = 0;
 
         bagotricks(targetbox);
@@ -3859,9 +3875,11 @@ boolean allowempty;    /* affects result when box is empty */
         }
         return TIPCHECK_TRAPPED;
 
-    } else if (box->otyp == BAG_OF_TRICKS || box->otyp == HORN_OF_PLENTY) {
+    } else if (box->otyp == BAG_OF_TRICKS 
+                   || box->otyp == BAG_OF_RATS 
+                   || box->otyp == HORN_OF_PLENTY) {
         int res = TIPCHECK_OK;
-        boolean bag = box->otyp == BAG_OF_TRICKS;
+        boolean bag = box->otyp == BAG_OF_TRICKS || BAG_OF_RATS;
         int old_spe = box->spe;
         boolean maybeshopgoods = !carried(box) && costly_spot(box->ox, box->oy);
         xchar ox = u.ux, oy = u.uy;

@@ -4425,7 +4425,7 @@ int
 bagotricks(bag)
 struct obj *bag;
 {
-    if (!bag || bag->otyp != BAG_OF_TRICKS) {
+    if (!bag || (bag->otyp != BAG_OF_TRICKS && bag->otyp != BAG_OF_RATS)) {
         impossible("bad bag o' tricks");
     } else if (bag->spe < 1) {
         return use_container(&bag, 1, FALSE);
@@ -4434,12 +4434,15 @@ struct obj *bag;
     else {
         boolean gotone = TRUE;
         int cnt;
+        int choice = -1;
         struct monst *mtmp;
         struct obj *otmp = NULL;
 
         consume_obj_charge(bag, TRUE);
-
-        switch(rn2(40)) {
+        if (bag->otyp == BAG_OF_TRICKS)
+            choice = rn2(40);
+                
+        switch(choice) {
         case 0:
         case 1:
             if (bag->recharged == 0 && !bag->cursed) {
@@ -4547,14 +4550,25 @@ struct obj *bag;
         default:
             cnt = 1;
             gotone = FALSE;
-            if (!rn2(23)) 
+            if (bag->otyp == BAG_OF_RATS && !rn2(4))
+                cnt += rnd(3);
+            else if (!rn2(23)) 
                 cnt += rn1(7, 1);
             while (cnt-- > 0) {
+#if 0
                 if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
                     gotone = TRUE;
+#endif
+                if (makemon(bag->otyp == BAG_OF_TRICKS ?
+                      (struct permonst *) 0 : &mons[PM_SEWER_RAT + rn2(2)],
+                       u.ux, u.uy, NO_MM_FLAGS))
+                    gotone = TRUE;
             }
-            if (gotone) 
-                makeknown(BAG_OF_TRICKS);
+            if (gotone)
+                if (bag->otyp == BAG_OF_TRICKS)
+                    makeknown(BAG_OF_TRICKS);
+                else
+                    makeknown(BAG_OF_RATS);
             return 1;
         }
             

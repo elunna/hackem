@@ -962,6 +962,7 @@ struct monst *mtmp;
             }
             break;
         case BAG_OF_TRICKS:
+        case BAG_OF_RATS:
             /* if there are any objects inside the bag, devour them */
             if (!is_cursed) {
                 struct obj *curr, *otmp;

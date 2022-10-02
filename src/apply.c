@@ -4942,6 +4942,7 @@ doapply()
         res = use_container(&obj, 1, FALSE);
         break;
     case BAG_OF_TRICKS:
+    case BAG_OF_RATS:
         (void) bagotricks(obj);
         break;
     case CAN_OF_GREASE:

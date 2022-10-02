@@ -1321,7 +1321,9 @@ unsigned doname_flags;
            isn't set when emptiness gets discovered because then
            charging magic would yield known number of new charges);
            horn of plenty isn't a container but is close enough */
-        && ((obj->otyp == BAG_OF_TRICKS || obj->otyp == HORN_OF_PLENTY)
+        && ((obj->otyp == BAG_OF_TRICKS 
+             || obj->otyp == HORN_OF_PLENTY
+             || obj->otyp == BAG_OF_RATS)
              ? (obj->spe == 0 && !known)
              /* not a bag of tricks or horn of plenty: it's empty if
                 it is a container that has no contents */
@@ -4859,7 +4861,9 @@ struct obj *no_wish;
     }
     /* empty for containers rather than for tins */
     if (contents == EMPTY) {
-        if (otmp->otyp == BAG_OF_TRICKS || otmp->otyp == HORN_OF_PLENTY) {
+        if (otmp->otyp == BAG_OF_TRICKS 
+              || otmp->otyp == BAG_OF_RATS
+              || otmp->otyp == HORN_OF_PLENTY) {
             if (otmp->spe > 0)
                 otmp->spe = 0;
         } else if (Has_contents(otmp)) {

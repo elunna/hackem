@@ -1010,7 +1010,9 @@ boolean artif;
                 break;
             case HORN_OF_PLENTY:
             case BAG_OF_TRICKS:
-                otmp->spe = rnd(20);
+            case BAG_OF_RATS:
+                /* otmp->spe = rnd(20); */
+                otmp->spe = rn1(18, 3); /* 0..17 + 3 => 3..20 */
                 break;
             case FIGURINE:
                 tryct = 0;
