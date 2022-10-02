@@ -1037,7 +1037,8 @@ boolean artif;
             if (rn2(10) && (otmp->otyp == AMULET_OF_STRANGULATION
                             || otmp->otyp == AMULET_OF_CHANGE
                             || otmp->otyp == AMULET_OF_RESTFUL_SLEEP
-                            || otmp->otyp == AMULET_OF_NAUSEA)) {
+                            || otmp->otyp == AMULET_OF_NAUSEA
+                            || otmp->otyp == AMULET_OF_DANGER)) {
                 curse(otmp);
             } else
                 blessorcurse(otmp, 10);

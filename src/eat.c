@@ -2520,6 +2520,13 @@ struct obj *otmp;
         case AMULET_OF_NAUSEA:
             make_vomiting((long) rn1(15, 10), FALSE);
             break;
+        case AMULET_OF_DANGER: {
+            if (Hallucination)
+                pline("You\'re in the Danger Zone...");
+            else
+                You("feel more dangerous!");
+            break;
+        }
         case RIN_SLEEPING:
         case AMULET_OF_RESTFUL_SLEEP: { /* another bad idea! */
             long newnap = (long) rnd(100), oldnap = (HSleepy & TIMEOUT);
