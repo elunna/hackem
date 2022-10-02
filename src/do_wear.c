@@ -1287,6 +1287,9 @@ Amulet_on()
             pline("It constricts your throat!");
         }
         break;
+    case AMULET_OF_NAUSEA:
+        make_vomiting((long) rnd(100), FALSE);
+        break;
     case AMULET_OF_RESTFUL_SLEEP: {
         long newnap = (long) rnd(100), oldnap = (HSleepy & TIMEOUT);
 
@@ -1380,6 +1383,9 @@ Amulet_off()
         if (!ESleepy && !(HSleepy & ~TIMEOUT))
             HSleepy &= ~TIMEOUT; /* clear timeout bits */
         return;
+    case AMULET_OF_NAUSEA:
+        make_vomiting(0L, FALSE);
+        break;
     case AMULET_OF_FLYING: {
         boolean was_flying = !!Flying;
 

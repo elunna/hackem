@@ -1036,7 +1036,8 @@ boolean artif;
                 context.made_amulet = TRUE;
             if (rn2(10) && (otmp->otyp == AMULET_OF_STRANGULATION
                             || otmp->otyp == AMULET_OF_CHANGE
-                            || otmp->otyp == AMULET_OF_RESTFUL_SLEEP)) {
+                            || otmp->otyp == AMULET_OF_RESTFUL_SLEEP
+                            || otmp->otyp == AMULET_OF_NAUSEA)) {
                 curse(otmp);
             } else
                 blessorcurse(otmp, 10);
