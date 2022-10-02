@@ -1810,6 +1810,7 @@ struct obj *otmp;
         case KNIFE:
         case STILETTO:
         case CRYSKNIFE:
+        case PARAZONIUM:
             tmp = 3;
             break;
         case PICK_AXE:

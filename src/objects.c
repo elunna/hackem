@@ -192,6 +192,8 @@ WEAPON("great dagger", (char *)0,
 
 WEAPON("athame", None,
        1, 1, 0, 0,  0,  10,   4,  4,  3, 2, S,   P_DAGGER, METAL, HI_METAL),
+WEAPON("parazonium", "triangular dagger",
+       0, 1, 0, 0,  1,  12,  15,  6,  4, 1, S,   P_DAGGER, METAL, HI_METAL),
 WEAPON("scalpel", None,
        1, 1, 0, 0,  0,   5,   6,  3,  3, 2, S,   P_KNIFE, METAL, HI_METAL),
 WEAPON("knife", None,

@@ -1560,7 +1560,7 @@ register struct monst *mtmp;
                 else
                     (void) mongets(mtmp, RED_DRAGON_SCALES);
 
-                (void) mongets(mtmp, ATHAME);
+                (void) mongets(mtmp, PARAZONIUM);
                 m_initthrow(mtmp, SHURIKEN, 12);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
@@ -1850,6 +1850,11 @@ register struct monst *mtmp;
         (void) mongets(mtmp, LONG_SWORD);
         break;
     case S_ZOMBIE:
+        if (mm == PM_SKELETON) {
+            if (!rn2(4))
+                /* (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS)); */
+                (void) mongets(mtmp, PARAZONIUM);
+        }
         if (!rn2(4))
             (void) mongets(mtmp, ARMOR);
         if (!rn2(4))
