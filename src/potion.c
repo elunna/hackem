@@ -1166,6 +1166,21 @@ register struct obj *otmp;
             }
         }
         break;
+    case POT_REGENERATION:
+        if (otmp->cursed) {
+            You("begin to wither away!");
+            incr_itimeout(&HWithering, rn1(10, 20));
+            unkn++;
+            context.botl = TRUE;
+        } else {
+            You("metabolism kicks into overdrive!");
+            if (otmp->blessed) {
+                set_itimeout(&HRegeneration, rn1(100, 100));
+            } else {
+                set_itimeout(&HRegeneration, rn1(50, 50));
+            }
+        }
+        break;
     case POT_SPEED:
     case SPE_HASTE_SELF:
         if (otmp->otyp != POT_SPEED) { /* haste self */
@@ -2116,6 +2131,12 @@ int how;
                 }
             }
             break;
+        case POT_REGENERATION:
+            if (obj->cursed) {
+                pline("%s begins to wither!", Monnam(mon));
+                mon->mwither = 1;
+            }
+            break;
         case POT_POLYMORPH:
             (void) bhitm(mon, obj);
             break;
@@ -2230,6 +2251,18 @@ register struct obj *obj;
             make_deaf(0L, TRUE);
         }
         exercise(A_CON, TRUE);
+        break;
+    case POT_REGENERATION:
+        if (obj->cursed) {
+            incr_itimeout(&HWithering, rn1(5, 5));
+            exercise(A_CON, FALSE);
+            You("start to shrivel up!");
+        } else {
+            You("feel a tiny bit better.");
+            set_itimeout(&HRegeneration, rn1(5, 5));
+            kn++;
+        }
+        context.botl = TRUE;
         break;
     case POT_SICKNESS:
         kn++;
