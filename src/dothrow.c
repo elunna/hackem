@@ -1845,7 +1845,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             tmp -= 9;
             break;
         case GAUNTLETS_OF_PROTECTION:
-        case GAUNTLETS_OF_SWIMMING:  
+        case GAUNTLETS_OF_SWIMMING:
+        case ROGUES_GLOVES:
         case GLOVES:
         case MUMMIFIED_HAND: /* the Hand of Vecna */
             break;
