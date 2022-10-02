@@ -428,8 +428,8 @@ Cloak_on(VOID_ARGS)
         makeknown(uarmc->otyp);
         break;
     case CLOAK_OF_FLIGHT:
-        pline("%s into a magnificent pair of wings!",
-              Tobjnam(uarmc, "transform"));
+        pline("%s you up into the air!",
+              Tobjnam(uarmc, "hoists"));
         makeknown(uarmc->otyp);
         break;
     case ELVEN_CLOAK:
