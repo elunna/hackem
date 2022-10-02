@@ -689,6 +689,17 @@ struct obj *instr;
             awaken_monsters(u.ulevel * 30);
         exercise(A_WIS, FALSE);
         break;
+    case LUTE: /* Has a small chance of ending confusion effects */
+        do_spec &= (rn2(ACURR(A_DEX)) + u.ulevel > 30);
+        if (!Deaf)
+            pline("%s %s.", Yname2(instr),
+                  do_spec ? "produces a quick little ditty" : "produces a plunking noise");
+        else
+            You("silently jam out.");
+        if (do_spec)
+            make_confused(0L, TRUE);
+        exercise(A_DEX, TRUE);
+        break;
     case BUGLE: /* Awaken & attract soldiers */
         if (!Deaf)
             You("extract a loud noise from %s.", yname(instr));

@@ -1313,6 +1313,7 @@ short otyp;
         case FROST_HORN:
         case HARP:
         case MAGIC_HARP:
+        case LUTE:
             subclass = "tonal instrument";
             break;
         }

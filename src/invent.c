@@ -137,6 +137,7 @@ struct obj *obj;
             case HARP:
             case MAGIC_HARP:
             case BUGLE:
+            case LUTE:
             case LEATHER_DRUM:
             case DRUM_OF_EARTHQUAKE:
             case HORN_OF_PLENTY: /* not a musical instrument */
