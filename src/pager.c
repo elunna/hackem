@@ -1314,6 +1314,7 @@ short otyp;
         case HARP:
         case MAGIC_HARP:
         case LUTE:
+        case BAGPIPE:
             subclass = "tonal instrument";
             break;
         }

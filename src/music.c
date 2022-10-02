@@ -700,6 +700,19 @@ struct obj *instr;
             make_confused(0L, TRUE);
         exercise(A_DEX, TRUE);
         break;
+    /* I love bagpipes, but I think this is still kind of funny. */
+    case BAGPIPE: /* Aggravates monsters, unless you play them well. */
+        do_spec &= (rn2(ACURR(A_DEX)) + u.ulevel > 30);
+        if (!Deaf)
+            pline("%s %s.", Yname2(instr),
+                  do_spec ? "produces beautiful harmonies" : "produces a horrendous din");
+        else
+            You("feel the vibrations in your soul.");
+        if (do_spec)
+            exercise(A_CHA, TRUE);
+        else
+            aggravate();
+        break;
     case BUGLE: /* Awaken & attract soldiers */
         if (!Deaf)
             You("extract a loud noise from %s.", yname(instr));
