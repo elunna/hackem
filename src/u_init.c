@@ -1030,6 +1030,9 @@ u_init()
         if (rn2(100) >= 50) { /* see above comment */
             Barbarian[B_MAJOR].trotyp = BATTLE_AXE;
             Barbarian[B_MINOR].trotyp = SHORT_SWORD;
+        } else if (rn2(100) >= 50) {
+            Barbarian[B_MAJOR].trotyp = FALCHION;
+            Barbarian[B_MINOR].trotyp = SCIMITAR;
         }
         ini_inv(Barbarian);
         if (!rn2(6))
