@@ -572,6 +572,8 @@ CLOAK("cloak of protection", "tattered cape",
       0, 1, PROTECTION,  9, 0, 10, 50,  7, 3,  CLOTH, HI_CLOTH),
 CLOAK("cloak of invisibility", "opera cloak",
       0, 1,      INVIS, 10, 0, 10, 60,  9, 1,  CLOTH, CLR_BRIGHT_MAGENTA),
+CLOAK("cloak of flight", "feathery cloak",
+      0, 1,      FLYING, 2, 0, 10, 60,  9, 1,  CLOTH, CLR_CYAN),
 CLOAK("cloak of magic resistance", "ornamental cope",
       0, 1,  ANTIMAGIC,  1, 0, 10, 60,  9, 1,  CLOTH, CLR_WHITE),
         /*  'cope' is not a spelling mistake... leave it be */

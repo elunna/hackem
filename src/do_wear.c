@@ -427,6 +427,11 @@ Cloak_on(VOID_ARGS)
     case ROBE_OF_WEAKNESS:
         makeknown(uarmc->otyp);
         break;
+    case CLOAK_OF_FLIGHT:
+        pline("%s into a magnificent pair of wings!",
+              Tobjnam(uarmc, "transform"));
+        makeknown(uarmc->otyp);
+        break;
     case ELVEN_CLOAK:
         toggle_stealth(uarmc, oldprop, TRUE);
         break;
@@ -512,6 +517,7 @@ Cloak_off(VOID_ARGS)
     case DWARVISH_CLOAK:
     case CLOAK_OF_PROTECTION:
     case CLOAK_OF_MAGIC_RESISTANCE:
+    case CLOAK_OF_FLIGHT:
     case OILSKIN_CLOAK:
     case POISONOUS_CLOAK:
     case CLOAK:
