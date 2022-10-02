@@ -870,6 +870,7 @@ Shield_on(VOID_ARGS)
     case SHIELD_OF_LIGHT:
     case SHIELD_OF_MOBILITY:
     case TOWER_SHIELD:
+    case HIDE_SHIELD:
         break;
     default:
         impossible(unknown_type, c_shield, uarms->otyp);
@@ -906,6 +907,7 @@ Shield_off(VOID_ARGS)
     case SHIELD_OF_LIGHT:
     case SHIELD_OF_MOBILITY:
     case TOWER_SHIELD:
+    case HIDE_SHIELD:
         break;
     default:
         impossible(unknown_type, c_shield, otmp->otyp);
