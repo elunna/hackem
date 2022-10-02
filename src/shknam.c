@@ -278,6 +278,7 @@ const struct shclass shtypes[] = {
         { 4, -POT_BOOZE },
         { 5, -POT_WATER },
         { 3, -ICE_BOX },
+        { 3, -KEG },
         { 0, 0 } },
       shkfoods },
     { "jewelers", RING_CLASS, 3, D_SHOP,

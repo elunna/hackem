@@ -1279,6 +1279,7 @@ short otyp;
         case LARGE_BOX:
         case CHEST:
         case ICE_BOX:
+        case KEG:
         case IRON_SAFE:
         case CRYSTAL_CHEST:
         case SACK:

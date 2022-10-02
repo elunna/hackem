@@ -995,6 +995,9 @@ boolean artif;
             case BAG_OF_HOLDING:
                 mkbox_cnts(otmp);
                 break;
+            case KEG:
+                otmp->spe = rn1(10, 5);
+                break;
             case EXPENSIVE_CAMERA:
             case TINNING_KIT:
             case MAGIC_MARKER:

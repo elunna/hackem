@@ -4876,6 +4876,7 @@ doapply()
 {
     struct obj *obj;
     struct obj *otmp = NULL;
+    struct obj *pseudo;
     register int res = 1;
     char class_list[MAXOCLASSES + 2];
     boolean split1off;
@@ -5077,6 +5078,22 @@ doapply()
     case LEATHER_DRUM:
     case DRUM_OF_EARTHQUAKE:
         res = do_play_instrument(obj);
+        break;
+    case KEG:
+        if (obj->spe > 0) {
+            consume_obj_charge(obj, TRUE);
+            otmp = mksobj(POT_BOOZE, FALSE, FALSE);
+            otmp->blessed = obj->blessed;
+            otmp->cursed = obj->cursed;
+            /* u.uconduct.alcohol++; */
+            You("chug some booze from %s.",
+                yname(obj));
+            (void) peffects(otmp);
+            obfree(otmp, (struct obj *) 0);
+        } else if (Hallucination) 
+            pline("Where has the rum gone?");
+        else
+            pline("It's empty.");
         break;
     case HORN_OF_PLENTY: /* not a musical instrument */
         (void) hornoplenty(obj, FALSE, (struct obj *) 0);
