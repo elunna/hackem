@@ -819,6 +819,7 @@ static NEARDATA const int rwep[] = {
     SPEAR, 
     ORCISH_SPEAR, 
     JAVELIN, 
+    THROWING_AXE,
     SHURIKEN, 
     LIGHT_ARROW,
     YA, 

@@ -208,9 +208,11 @@ WEAPON("crysknife", None,
 
 /* axes */
 WEAPON("axe", None,
-       1, 0, 0, 0, 40,  60,   8,  6,  4, 0, S,   P_AXE, IRON, HI_METAL),
+       1, 0, 0,  0, 40,  60,   8,  6,  4, 0, S,   P_AXE, IRON, HI_METAL),
+WEAPON("throwing axe", None,
+       1, 1, 0,  0, 10,  60,  10,  5,  3, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("dwarvish bearded axe", "broad bearded axe",
-       0, 0, 0, 0, 20,  70,  25,  8, 10, 0, S,   P_AXE, IRON, HI_METAL),
+       0, 0, 0 , 0, 20,  70,  25,  8, 10, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("battle-axe", "double-headed axe",       /* "double-bitted"? */
        0, 0, 0, 1, 10, 120,  40,  8,  6, 0, S,   P_AXE, IRON, HI_METAL),
 

@@ -1237,12 +1237,16 @@ boolean
 throwing_weapon(obj)
 struct obj *obj;
 {
-    return (boolean) (is_missile(obj) || is_spear(obj)
+    return (boolean) (is_missile(obj) 
+                      || is_spear(obj)
                       /* daggers and knife (excludes scalpel) */
-                      || (is_blade(obj) && !is_sword(obj)
+                      || (is_blade(obj) 
+                          && !is_sword(obj)
                           && (objects[obj->otyp].oc_dir & PIERCE))
                       /* special cases [might want to add AXE] */
-                      || obj->otyp == HEAVY_WAR_HAMMER || obj->otyp == AKLYS);
+                      || obj->otyp == HEAVY_WAR_HAMMER 
+                      || obj->otyp == AKLYS
+                      || obj->otyp == THROWING_AXE);
 }
 
 /* the currently thrown object is returning to you (not for boomerangs) */
