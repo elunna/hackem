@@ -26,7 +26,7 @@ STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
     ((((wmsk) & W_WEP) != 0                                             \
       && ((o)->otyp == AKLYS || (o)->oartifact == ART_XIUHCOATL         \
           || ((o)->oartifact == ART_MJOLLNIR && Role_if(PM_VALKYRIE)))) \
-     || (o)->otyp == BOOMERANG)
+     || (o)->otyp == BOOMERANG || (o)->otyp == CHAKRAM)
 
 static NEARDATA const char toss_objs[] = { ALLOW_COUNT, COIN_CLASS,
                                            ALL_CLASSES, WEAPON_CLASS, 0 };
@@ -1400,7 +1400,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         clear_thrownobj = TRUE;
         goto throwit_return;
 
-    } else if (obj->otyp == BOOMERANG && !Underwater) {
+    } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
         iflags.returning_missile = 0; /* doesn't return if it hits monster */
@@ -1974,7 +1974,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                 }
             }
         } else { /* thrown non-ammo or applied polearm/grapnel */
-            if (otyp == BOOMERANG) /* arbitrary */
+            if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
                 tmp += 4;
             else if (throwing_weapon(obj)) /* meant to be thrown */
                 tmp += 2;

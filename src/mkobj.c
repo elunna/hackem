@@ -3503,6 +3503,7 @@ struct obj* obj;
         case BARDING_OF_REFLECTION:
         case SHIELD_OF_LIGHT:
         case SHIELD_OF_MOBILITY:
+        case CHAKRAM:
             return shiny_materials;
         case BOW:
         case YUMI:

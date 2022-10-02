@@ -4359,12 +4359,12 @@ int dx, dy;
             if (Fumbling || rn2(20) >= ACURR(A_DEX)) {
                 /* we hit ourselves */
                 (void) thitu(10 + obj->spe, dmgval(obj, &youmonst), &obj,
-                             "boomerang");
+                             obj->otyp == BOOMERANG ? "boomerang" : "chakram");
                 endmultishot(TRUE);
                 break;
             } else { /* we catch it */
                 tmp_at(DISP_END, 0);
-                You("skillfully catch the boomerang.");
+                You("skillfully catch the %s.", obj->otyp == BOOMERANG ? "boomerang" : "chakram");
                 return &youmonst;
             }
         }

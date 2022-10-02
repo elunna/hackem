@@ -841,7 +841,7 @@ static NEARDATA const int rwep[] = {
     DART, 
     CREAM_PIE, 
     BULLET, SHOTGUN_SHELL, /* Low priority unless you have a gun? */
-    /* BOOMERANG, */ 
+    /* BOOMERANG, CHAKRAM */ 
 };
 
 static NEARDATA const int pwep[] = { 
