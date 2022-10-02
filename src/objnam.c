@@ -3223,6 +3223,7 @@ static const struct alt_spellings {
     /* weapons */
     { "pickax", PICK_AXE },
     { "whip", BULLWHIP },
+    { "lash", FLAMING_LASH },
     { "sabre", SABER },
     { "stake", WOODEN_STAKE },
     { "mattock", DWARVISH_MATTOCK },

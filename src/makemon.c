@@ -1852,8 +1852,7 @@ register struct monst *mtmp;
     case S_ZOMBIE:
         if (mm == PM_SKELETON) {
             if (!rn2(4))
-                /* (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS)); */
-                (void) mongets(mtmp, PARAZONIUM);
+                (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
         }
         if (!rn2(4))
             (void) mongets(mtmp, ARMOR);
@@ -1894,6 +1893,7 @@ register struct monst *mtmp;
                 otmp->spe = rnd(3);
                 (void) mpickobj(mtmp, otmp);
             } else {
+                (void) mongets(mtmp, FLAMING_LASH);
                 otmp = mksobj(BROADSWORD, FALSE, FALSE);
                 otmp->oprops = ITEM_FIRE;
                 otmp->spe = rnd(3) + 2;

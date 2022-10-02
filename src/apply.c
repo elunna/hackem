@@ -4922,6 +4922,7 @@ doapply()
         res = use_cream_pie(obj);
         break;
     case BULLWHIP:
+    case FLAMING_LASH:
         res = use_whip(obj);
         break;
     case DWARVISH_BEARDED_AXE:

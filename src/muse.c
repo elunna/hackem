@@ -2781,7 +2781,7 @@ struct monst *mtmp;
             m.has_misc = MUSE_WAN_WISHING;
         }
         nomore(MUSE_BULLWHIP);
-        if (obj->otyp == BULLWHIP && !mtmp->mpeaceful
+        if ((obj->otyp == BULLWHIP || obj->otyp == FLAMING_LASH) && !mtmp->mpeaceful
             /* the random test prevents whip-wielding
                monster from attempting disarm every turn */
             && uwep && !rn2(5) && obj == MON_WEP(mtmp)

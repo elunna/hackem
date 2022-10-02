@@ -2441,6 +2441,8 @@ struct obj *obj;
     case BULLET:
     case SHOTGUN_SHELL:
     case SNOWBALL:
+    /* In Splice the lash breaks upon throwing, not sure why but we'll leave it. */
+    case FLAMING_LASH: 
         return 1;
     default:
         return 0;
@@ -2472,6 +2474,10 @@ boolean in_view;
         else
             pline("%s shatter%s%s!", Doname2(obj),
                   (obj->quan == 1L) ? "s" : "", to_pieces);
+        break;
+    case FLAMING_LASH:
+        if (in_view)
+            pline("%s crumbles.", Doname2(obj));
         break;
     case BULLET:
     case SHOTGUN_SHELL:
