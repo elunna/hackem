@@ -306,7 +306,7 @@ WEAPON("lucern hammer", "pronged polearm",
 WEAPON("bec de corbin", "beaked polearm",
        0, 0, 0, 1,  4, 100,   8,  8,  6, 0, P, P_POLEARMS, IRON, HI_METAL),
 WEAPON("scythe", "curved polearm",
-       0, 0, 1,  0,  60,   5,  8,  10, 0, 0, S, P_POLEARMS, IRON, HI_METAL),
+       0, 0, 0, 1,  0,  60,   5,  8, 10, 0, S, P_POLEARMS, IRON, HI_METAL),
         /* +1d4 both */
 /* bludgeons */
 WEAPON("mace", None,
