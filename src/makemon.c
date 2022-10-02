@@ -222,7 +222,7 @@ struct trobj subInfidel[] = {
 struct trobj Level10KitCentaur1[] = {
     { LIGHT_ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HELMET, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
-    { CLOAK, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { PLAIN_CLOAK, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { GAUNTLETS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
@@ -834,7 +834,7 @@ register struct monst *mtmp;
             break;
 
         case PM_BARD:
-            (void) mongets(mtmp, CLOAK);
+            (void) mongets(mtmp, PLAIN_CLOAK);
             mkmonmoney(mtmp, (long) rn1(mtmp->m_lev, 15));
             break;
         case PM_CAVEMAN:
@@ -1387,7 +1387,7 @@ register struct monst *mtmp;
                     (void) mongets(mtmp, rn2(3) ? DAGGER : KNIFE);
                 if (rn2(5))
                     (void) mongets(mtmp, rn2(3) ? JACKET
-                                                : CLOAK);
+                                                : PLAIN_CLOAK);
                 if (rn2(3))
                     (void) mongets(mtmp, rn2(3) ? LOW_BOOTS : HIGH_BOOTS);
                 if (rn2(3))
@@ -1402,7 +1402,7 @@ register struct monst *mtmp;
                 if (rn2(2))
                     (void) mongets(mtmp, rn2(2) ? LOW_BOOTS : HIGH_BOOTS);
                 if (!rn2(3))
-                    (void) mongets(mtmp, CLOAK);
+                    (void) mongets(mtmp, PLAIN_CLOAK);
                 if (!rn2(3)) {
                     (void) mongets(mtmp, BOW);
                     m_initthrow(mtmp, ARROW, 12);
@@ -2192,7 +2192,7 @@ register struct monst *mtmp;
             else if (mac < 10 && rn2(2)
                      && (!(racial_giant(mtmp)
                            || racial_elf(mtmp) || racial_orc(mtmp))))
-                mac += 1 + mongets(mtmp, CLOAK);
+                mac += 1 + mongets(mtmp, PLAIN_CLOAK);
             else if (mac < 10 && rn2(2)
                      && racial_elf(mtmp))
                 mac += 1 + mongets(mtmp, ELVEN_CLOAK);
@@ -2330,7 +2330,7 @@ register struct monst *mtmp;
              * because she looks cooler without a helmet */
             (void) mongets(mtmp, GLOVES);
             (void) mongets(mtmp, SHIELD_OF_REFLECTION);
-            (void) mongets(mtmp, CLOAK);
+            (void) mongets(mtmp, PLAIN_CLOAK);
             (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
             (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, POT_SPEED);

@@ -432,7 +432,7 @@ Cloak_on(VOID_ARGS)
     case ORCISH_CLOAK:
     case DWARVISH_CLOAK:
     case CLOAK_OF_MAGIC_RESISTANCE:
-    case CLOAK:
+    case PLAIN_CLOAK:
     case GRAY_DRAGON_SCALES:
         break;
     case CLOAK_OF_PROTECTION:
@@ -532,7 +532,7 @@ Cloak_off(VOID_ARGS)
     case CLOAK_OF_FLIGHT:
     case OILSKIN_CLOAK:
     case POISONOUS_CLOAK:
-    case CLOAK:
+    case PLAIN_CLOAK:
     case GRAY_DRAGON_SCALES:
         break;
     case ELVEN_CLOAK:

@@ -589,7 +589,7 @@ struct obj *obj;
  * identification status */
 #define force_material_name(typ) \
     ((typ) == LIGHT_ARMOR || (typ) == STUDDED_ARMOR                     \
-     || (typ) == JACKET || (typ) == CLOAK                         \
+     || (typ) == JACKET || (typ) == PLAIN_CLOAK                         \
      || ((typ) == GLOVES && objects[GLOVES].oc_name_known)        \
      || ((typ) == GAUNTLETS && objects[GAUNTLETS].oc_name_known))
 
