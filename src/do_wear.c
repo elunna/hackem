@@ -298,6 +298,12 @@ Boots_on(VOID_ARGS)
                      (oldprop || HFast) ? " a bit more" : "");
         }
         break;
+    case STOMPING_BOOTS:
+        if (!Stealth && !Levitation && !Flying) {
+            You("begin stomping around very loudly.");
+            makeknown(uarmf->otyp);
+        }
+        break;
     case ELVEN_BOOTS:
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
@@ -367,6 +373,12 @@ Boots_off(VOID_ARGS)
             /* make boots known in case you survive the drowning */
             makeknown(otyp);
             spoteffects(TRUE);
+        }
+        break;
+    case STOMPING_BOOTS:
+        if (!Stealth && !Levitation && !Flying) {
+            pline("Your footsteps become considerably less violent.");
+            makeknown(otyp);
         }
         break;
     case ELVEN_BOOTS:

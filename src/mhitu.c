@@ -598,6 +598,7 @@ register struct monst *mtmp;
     struct attack *mattk, alt_attk;
     int i, j = 0, tmp, sum[NATTK];
     struct permonst *mdat = mtmp->data;
+    struct obj * marmf = which_armor(mtmp, W_ARMF);
     boolean ranged = (distu(mtmp->mx, mtmp->my) > 3);
     /* Is it near you?  Affects your actions */
     boolean range2 = !monnear(mtmp, mtmp->mux, mtmp->muy);
@@ -810,6 +811,20 @@ register struct monst *mtmp;
         return 0;
     }
 
+    if (!range2 && marmf && marmf->otyp == STOMPING_BOOTS 
+        && verysmall(youmonst.data)) {
+        pline("%s stomps on you!", Monnam(mtmp));
+        makeknown(marmf->otyp);
+        if (Upolyd && !Unchanging) {
+            rehumanize();
+            You("surge out from under the boot of %s!", mon_nam(mtmp));
+        } else {
+            killer.format = KILLED_BY;
+            Strcpy(killer.name, "getting stomped on");
+            done(DIED);
+        }
+    }
+    
     /*  Work out the armor class differential   */
     tmp = AC_VALUE(u.uac) + 10; /* tmp ~= 0 - 20 */
     tmp += mtmp->m_lev;
