@@ -1043,6 +1043,7 @@ SCROLL("gold detection",                 "THARR",  1,  34, 100),
 SCROLL("food detection",               "YUM YUM",  1,  25, 100),
 SCROLL("knowledge",                   "POTESTAS",  1,  20,  20), /* power */
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
+SCROLL("air",                        "TRATS ARL",  1,  35, 200), /* LRA START */
 SCROLL("magic mapping",              "ELAM EBOW",  1,  45, 100),
 SCROLL("amnesia",                   "DUAM XNAHT",  1,  35, 200),
 SCROLL("fire",                  "ANDOVA BEGARIN",  1,  30, 100),

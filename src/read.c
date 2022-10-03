@@ -2042,6 +2042,39 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("You're not carrying anything to be identified.");
         }
         break;
+    case SCR_AIR: {
+        int i;
+        struct monst *mtmp, *mtmp2;
+
+        if (scursed) {
+            if (!breathless(youmonst.data)) {
+                known = TRUE;
+                pline("The air is sucked from your lungs!");
+                losehp(d(3, 4), "asphyxiation", KILLED_BY);
+            } else {
+                strange_feeling(sobj, "You feel oddly breathless.");
+                sobj = 0;
+            }
+            break;
+        } else if (sblessed)
+            i = 4;
+        else
+            i = 2;
+        /* TODO: Remove poison gas as well. */
+        pline("A tornado whips up around you!");
+        known = TRUE;
+        for (mtmp = fmon; mtmp; mtmp = mtmp2) {
+            mtmp2 = mtmp->nmon;
+            if (distu(mtmp->mx, mtmp->my) <= 2) {
+                mhurtle(mtmp, mtmp->mx - u.ux, mtmp->my - u.uy, i + rn2(4));
+                if (!Blind)
+                    pline("%s is buffeted by winds!", Monnam(mtmp));
+                setmangry(mtmp, TRUE);
+                mtmp->mstun = 1;
+            }
+        }
+        break;
+    }
     case SCR_CHARGING:
         if (confused) {
             if (scursed) {
