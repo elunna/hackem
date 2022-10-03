@@ -15,6 +15,11 @@
 #define Your_Own_Race(mndx)  \
     ((mndx) == urace.malenum \
      || (urace.femalenum != NON_PM && (mndx) == urace.femalenum))
+/* For create_critters and demonology... */
+#define MAKE_EM_NATURAL		0	/* Create monsters... */
+#define MAKE_EM_HOSTILE		1	/* Create hostile monsters... */
+#define MAKE_EM_PEACEFUL	2	/* Create peaceful monsters... */
+#define MAKE_EM_TAME		3	/* Create tamed monsters... */
 
 boolean known;
 
@@ -1684,7 +1689,80 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
          * monsters are not visible
          */
         break;
-
+    case SCR_ELEMENTALISM: {
+        struct permonst *critter = (struct permonst *) 0;
+        boolean confused = (Confusion != 0);
+        int i = 0;
+        int n = 1;
+        int state = MAKE_EM_HOSTILE;
+        struct monst *mtmp;
+        /* struct obj *sobj = *sobjp; */
+        /* find the number of critters */
+        if (sblessed) {
+            if (confused) {
+                n = 3 + rn2(10);
+                state = MAKE_EM_TAME;
+            } else if (!rn2(3)) {
+                state = MAKE_EM_HOSTILE; /* 1 in 3 */
+            } else {
+                state = MAKE_EM_TAME;
+            }
+        } else if (scursed) {
+            if (!confused) {
+                n = 2 + rn2(3);
+            }
+        } else {
+            if (confused) {
+                n = 3 + rn2(10);
+            } else if (!rn2(2)) {
+                state = MAKE_EM_PEACEFUL;
+            }
+        }
+        /* create the critter */
+        if (confused) {
+            /* Normally you get an elemental... */
+            switch (rn2(4)) {
+            case 0: /* Air */
+                critter = &mons[PM_GAS_SPORE];
+                break;
+            case 1: /* Fire */
+                critter = &mons[PM_FLAMING_SPHERE];
+                break;
+            case 2: /* Water */
+                critter = &mons[PM_FREEZING_SPHERE];
+                break;
+            default:
+            case 3: /* Earth */
+                critter = &mons[PM_SHOCKING_SPHERE];
+                break;
+            }
+        } else {
+            critter = &mons[rand_elemental()];
+        }
+        /* Summoning demons is a chaotic thing... */
+        for (i = 0; i < n; i++) {
+            mtmp = makemon(critter, u.ux, u.uy,
+                           state == MAKE_EM_TAME
+                               ? MM_EDOG | MM_IGNOREWATER | NO_MINVENT
+                               : MM_IGNOREWATER | NO_MINVENT);
+            if (!mtmp) {
+                break;
+            } else if (state == MAKE_EM_TAME) {
+                initedog(mtmp);
+            } else if (state == MAKE_EM_PEACEFUL) {
+                mtmp->mpeaceful = 1;
+            } else if (state == MAKE_EM_HOSTILE) {
+                mtmp->mpeaceful = 0;
+            }
+        }
+        known = TRUE;
+        if (Hallucination) {
+            You_feel("you have experienced something fundamental.");
+        } else {
+            pline("The elements swirl around you.");
+        }
+        break;
+    }
     case SPE_SUMMON_UNDEAD: {
 		int cnt = 1, oldmulti = multi;
 		multi = 0;

@@ -1367,6 +1367,7 @@ E long FDECL(attack_contact_slots, (struct monst *, int));
 E void FDECL(newemin, (struct monst *));
 E void FDECL(free_emin, (struct monst *));
 E int FDECL(monster_census, (BOOLEAN_P));
+E int rand_elemental(void);
 E int FDECL(msummon, (struct monst *));
 E struct monst *FDECL(summon_minion, (ALIGNTYP_P, BOOLEAN_P));
 E int FDECL(demon_talk, (struct monst *));

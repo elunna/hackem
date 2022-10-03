@@ -1035,6 +1035,7 @@ SCROLL("enchant weapon",         "DAIYEN FOOELS",  1,  80,  60),
 SCROLL("create monster",       "LEP GEX VEN ZEA",  1,  45, 200),
 SCROLL("taming",                   "PRIRUTSENIE",  1,  15, 200),
 SCROLL("genocide",                  "ELBIB YLOH",  1,  15, 300),
+SCROLL("elementalism",          "4OFAE OF9 SCC9",  1,  10, 300), /* Voynich */
 SCROLL("light",                 "VERR YED HORRE",  1,  90,  50),
 SCROLL("teleportation",        "VENZAR BORGAVVE",  1,  55, 100),
 SCROLL("gold detection",                 "THARR",  1,  34, 100),

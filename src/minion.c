@@ -46,6 +46,12 @@ boolean spotted; /* seen|sensed vs all */
     return count;
 }
 
+/* returns a basic elemental */
+int
+rand_elemental() {
+    return PM_AIR_ELEMENTAL + rn2(PM_WATER_ELEMENTAL - PM_AIR_ELEMENTAL);
+}
+
 /* mon summons a monster */
 int
 msummon(mon)
