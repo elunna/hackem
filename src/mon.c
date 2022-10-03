@@ -6549,4 +6549,26 @@ short raceidx;
     rptr->mflags3 |= ptr->mflags3;
 }
 
+/**
+ * Kills every member of the specified monster species on the current
+ * level.
+ */
+void
+    kill_monster_on_level(mndx)
+        int mndx; /**< Monster index number */
+{
+    struct monst *mtmp;
+    struct monst *mtmp2;
+    int tmp_mndx;
+    
+    for (mtmp = fmon; mtmp; mtmp = mtmp2) {
+        mtmp2 = mtmp->nmon;
+        if (DEADMONSTER(mtmp)) continue;
+        tmp_mndx = monsndx(mtmp->data);
+        if (mndx == tmp_mndx) {
+            mondead(mtmp);
+        }
+    }
+}
+
 /*mon.c*/
