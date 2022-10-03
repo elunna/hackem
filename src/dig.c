@@ -956,29 +956,35 @@ coord *cc;
         You("have violated the sanctity of this grave!");
     }
 
-    switch (rn2(5)) {
-    case 0:
-    case 1:
-        You("unearth a corpse.");
-        if ((otmp = mk_tt_object(CORPSE, dig_x, dig_y)) != 0)
-            otmp->age -= 100; /* this is an *OLD* corpse */
-        break;
-    case 2:
-        if (!Blind)
-            pline(Hallucination ? "Dude!  The living dead!"
-                                : "The grave's owner is very upset!");
-        (void) makemon(mkclass(S_ZOMBIE, 0), dig_x, dig_y, NO_MM_FLAGS);
-        break;
-    case 3:
-        if (!Blind)
-            pline(Hallucination ? "I want my mummy!"
-                                : "You've disturbed a tomb!");
-        (void) makemon(mkclass(S_MUMMY, 0), dig_x, dig_y, NO_MM_FLAGS);
-        break;
-    default:
-        /* No corpse */
-        pline_The("grave seems unused.  Strange....");
-        break;
+    if (!rn2(13)) {
+        You("unearth a pine box.");
+        otmp = mksobj_at(LARGE_BOX, u.ux, u.uy, TRUE, FALSE);
+        otmp->spe = +4;
+    } else {
+        switch (rn2(5)) {
+        case 0:
+        case 1:
+            You("unearth a corpse.");
+            if ((otmp = mk_tt_object(CORPSE, dig_x, dig_y)) != 0)
+                otmp->age -= 100; /* this is an *OLD* corpse */
+            break;
+        case 2:
+            if (!Blind)
+                pline(Hallucination ? "Dude!  The living dead!"
+                                    : "The grave's owner is very upset!");
+            (void) makemon(mkclass(S_ZOMBIE, 0), dig_x, dig_y, NO_MM_FLAGS);
+            break;
+        case 3:
+            if (!Blind)
+                pline(Hallucination ? "I want my mummy!"
+                                    : "You've disturbed a tomb!");
+            (void) makemon(mkclass(S_MUMMY, 0), dig_x, dig_y, NO_MM_FLAGS);
+            break;
+        default:
+            /* No corpse */
+            pline_The("grave seems unused.  Strange....");
+            break;
+        }
     }
     levl[dig_x][dig_y].typ = ROOM, levl[dig_x][dig_y].flags = 0;
     del_engr_at(dig_x, dig_y);
