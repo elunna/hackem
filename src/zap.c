@@ -661,6 +661,7 @@ struct obj *otmp;
         }
         break;
     case WAN_NOTHING:
+    case WAN_WONDER:
         wake = FALSE;
         break;
     default:
@@ -2420,6 +2421,7 @@ struct obj *obj, *otmp;
         case SPE_SNOWBALL:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
+        case WAN_WONDER:
             res = 0;
             break;
         case SPE_STONE_TO_FLESH:
@@ -2506,6 +2508,28 @@ zapnodir(obj)
 register struct obj *obj;
 {
     boolean known = FALSE;
+    /* This code for wonder seems redundant, but is actually necessary
+       in order to catch various cases for engraving and keeping Wands
+       from being identified erroneously. */
+    boolean wonder = FALSE;
+    if (obj->otyp == WAN_WONDER) {
+        switch (rn2(4)) {
+        case 0:
+            obj->otyp = WAN_LIGHT;
+            break;
+        case 1:
+            obj->otyp = WAN_SECRET_DOOR_DETECTION;
+            break;
+        case 2:
+            obj->otyp = WAN_CREATE_MONSTER;
+            break;
+        case 3:
+            obj->otyp = WAN_ENLIGHTENMENT;
+            break;
+        }
+        wonder = TRUE;
+    }
+    
     register int ct = 0;
     register struct monst *mtmp;
 
@@ -2579,7 +2603,10 @@ register struct obj *obj;
             }
         }
     }
-
+    if (wonder) {
+        obj->otyp = WAN_WONDER;
+        known = TRUE;
+    }
     if (known) {
         if (!objects[obj->otyp].oc_name_known)
             more_experienced(0, 10);
@@ -2668,7 +2695,37 @@ struct obj *obj;
 boolean ordinary;
 {
     boolean learn_it = FALSE;
+    boolean wonder = FALSE;
     int damage = 0;
+    if (obj->otyp == WAN_WONDER) {
+        if (!obj->dknown) pline("You have found a wand of wonder!");
+        switch (rn2(7)) {
+        /* Not a complete list, just some interesting effects. */
+        case 1:
+            obj->otyp = WAN_LIGHTNING;
+            break;
+        case 2:
+            obj->otyp = WAN_MAGIC_MISSILE;
+            break;
+        case 3:
+            obj->otyp = WAN_POLYMORPH;
+            break;
+        case 4:
+            obj->otyp = WAN_UNDEAD_TURNING;
+            break;
+        case 5:
+            obj->otyp = WAN_TELEPORTATION;
+            break;
+        case 6:
+            obj->otyp = WAN_DEATH;
+            break;
+        default:
+            obj->otyp = WAN_SLEEP;
+            break;
+        }
+        wonder = TRUE;
+        learn_it = TRUE;
+    }
 
     switch (obj->otyp) {
     case WAN_STRIKING:
@@ -3095,6 +3152,11 @@ boolean ordinary;
     default:
         impossible("zapyourself: object %d used?", obj->otyp);
         break;
+    }
+    /* wand of wonder case */
+    if (wonder) {
+        learn_it = FALSE;
+        obj->otyp = WAN_WONDER;
     }
     /* if effect was observable then discover the wand type provided
        that the wand itself has been seen */
@@ -3740,8 +3802,26 @@ weffects(obj)
 struct obj *obj;
 {
     int otyp = obj->otyp;
+    int wondertemp;
     boolean disclose = FALSE, was_unkn = !objects[otyp].oc_name_known;
-
+    boolean wonder = FALSE;
+    
+    if (otyp == WAN_WONDER) {
+        wondertemp = WAN_LIGHT + rn2(WAN_FIREBALL - WAN_LIGHT);
+        if (wondertemp == WAN_WISHING && !rn2(100))
+            /* wondertemp = WAN_POISON_GAS; */
+            wondertemp = WAN_FEAR;
+        if (wondertemp == WAN_WONDER)
+            wondertemp = WAN_POLYMORPH;
+        if (wondertemp == WAN_NOTHING)
+            wondertemp = WAN_DEATH;
+        obj->otyp = wondertemp;
+        otyp = wondertemp;
+        wonder = TRUE;
+        disclose = TRUE;
+        if (!obj->dknown) pline("You have found a wand of wonder!");
+    }
+    
     exercise(A_WIS, TRUE);
     if (u.usteed && (objects[otyp].oc_dir != NODIR) && !u.dx && !u.dy
         && (u.dz > 0) && zap_steed(obj)) {
@@ -3775,6 +3855,10 @@ struct obj *obj;
                  (otyp == WAN_MAGIC_MISSILE) ? 2 : 6, u.ux, u.uy, u.dx, u.dy);
         else
             impossible("weffects: unexpected spell or wand");
+        disclose = TRUE;
+    }
+    if (wonder) {
+        obj->otyp = WAN_WONDER;
         disclose = TRUE;
     }
     if (disclose) {

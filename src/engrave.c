@@ -542,6 +542,7 @@ doengrave()
     boolean ptext = TRUE;      /* TRUE if we must prompt for engrave text */
     boolean teleengr = FALSE;  /* TRUE if we move the old engraving */
     boolean zapwand = FALSE;   /* TRUE if we remove a wand charge */
+    boolean wonder = FALSE;   /* TRUE if the wand is a wand of wonder */
     xchar type = DUST;         /* Type of engraving made */
     xchar oetype = 0;          /* will be set to type of current engraving */
     char buf[BUFSZ];           /* Buffer for final/poly engraving text */
@@ -718,6 +719,11 @@ doengrave()
             if (!can_reach_floor(TRUE))
                 ptext = FALSE;
 
+            if (otmp->otyp == WAN_WONDER) {
+                otmp->otyp = WAN_LIGHT + rn2(WAN_LIGHTNING - WAN_LIGHT);
+                if (!otmp->dknown) pline("You have found a wand of wonder!");
+                wonder = TRUE;
+            }
             switch (otmp->otyp) {
             /* DUST wands */
             default:
@@ -730,6 +736,8 @@ doengrave()
             case WAN_WISHING:
             case WAN_ENLIGHTENMENT:
             case WAN_FEAR:
+                if (wonder)
+                    otmp->otyp = WAN_WONDER;
                 zapnodir(otmp);
                 /* pre/postknown not needed; these will make it known if
                  * applicable */
@@ -1040,7 +1048,11 @@ doengrave()
     /*
      * End of implement setup
      */
-
+    /* Cleanup wand of wonder */
+    if (wonder) {
+        otmp->otyp = WAN_WONDER;
+        learnwand(otmp);
+    }
     /* Identify stylus */
     if (preknown) {
         engraving_learn_wand(otmp);

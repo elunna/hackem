@@ -1119,6 +1119,8 @@ boolean artif;
             if (otmp->otyp == WAN_WISHING) {
                 otmp->spe = rnd(3);
                 otmp->recharged = Is_stronghold(&u.uz) ? 0 : 1;
+            } else if (otmp->otyp == WAN_WONDER) {
+                otmp->spe = rn1(10, 15);
             } else {
                 otmp->spe =
                     rn1(5, (objects[otmp->otyp].oc_dir == NODIR) ? 11 : 4);
