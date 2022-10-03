@@ -4473,6 +4473,23 @@ boolean *lostsome;
     return TRUE;
 }
 
+int
+uwatereffects()
+{
+    int i;
+    
+    if (u.umonnum == PM_GREMLIN && rn2(3))
+        (void) split_mon(&youmonst, (struct monst *) 0);
+    else if (u.umonnum == PM_IRON_GOLEM) {
+        You("rust!");
+        i = Maybe_Half_Phys(d(2, 6));
+        if (u.mhmax > i)
+            u.mhmax -= i;
+        losehp(i, "rusting away", KILLED_BY);
+        return 0;
+    }
+    return 1;
+}
 
 /*  return TRUE iff player relocated */
 boolean
@@ -4505,16 +4522,8 @@ drown()
     }
 
     water_damage_chain(invent, FALSE, 0, TRUE, u.ux, u.uy);
-
-    if (u.umonnum == PM_GREMLIN && rn2(3))
-        (void) split_mon(&youmonst, (struct monst *) 0);
-    else if (u.umonnum == PM_IRON_GOLEM) {
-        You("rust!");
-        i = Maybe_Half_Phys(d(2, 6));
-        if (u.mhmax > i)
-            u.mhmax -= i;
-        losehp(i, "rusting away", KILLED_BY);
-    }
+    uwatereffects();
+    
     if (inpool_ok)
         return FALSE;
 

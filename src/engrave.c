@@ -858,6 +858,18 @@ doengrave()
                         postknown = TRUE;
                 }
                 break;
+            case WAN_WATER:
+                if (!Blind) {
+                    Sprintf(post_engr_text,
+                            "The bugs on the %s get washed away!", surface(u.ux, u.uy));
+                    postknown = TRUE;
+                } else if (!Deaf) {
+                    Strcpy(post_engr_text,
+                           "Something sprays from the wand.");
+                }
+                if (oep && oep->engr_type != BURN)
+                    dengr = TRUE;
+                break;
             case WAN_COLD:
                 if (!Blind) {
                     Strcpy(post_engr_text,

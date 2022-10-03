@@ -1549,6 +1549,7 @@ struct monst *mtmp;
 #define MUSE_CAMERA 31 /* Skipping so other values don't overlap */
 #define MUSE_WAN_SLOW_MONSTER 32
 #define MUSE_WAN_WINDSTORM 33
+#define MUSE_WAN_WATER 34
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1906,10 +1907,14 @@ boolean reflection_skip;
             }
         }
         nomore(MUSE_WAN_WINDSTORM);
-         /* don't bother recharging this one */
         if (obj->otyp == WAN_WINDSTORM && obj->spe > 0 && !rn2(3)) {
             m.offensive = obj;
             m.has_offense = MUSE_WAN_WINDSTORM;
+        }
+        nomore(MUSE_WAN_WATER);
+        if (obj->otyp == WAN_WATER && obj->spe > 0) {
+            m.offensive = obj;
+            m.has_offense = MUSE_WAN_WATER;
         }
         if (m.has_offense == MUSE_SCR_CHARGING && m.tocharge)
             continue;
@@ -2105,6 +2110,44 @@ register struct obj *otmp;
     case WAN_WINDSTORM:
         You("get blasted by hurricane-force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, 5 + rn2(5), TRUE);
+        break;
+    case WAN_WATER:
+        reveal_invis = TRUE;
+        if (mtmp == &youmonst) {
+            if (zap_oseen)
+                makeknown(WAN_WATER);
+            if (rnd(20) < 10 + u.uac) {
+                tmp = d(likes_fire(youmonst.data) ? 12 : 1, 6);
+                pline_The("jet of water hits you!");
+                erode_armor(&youmonst, ERODE_RUST);
+                losehp(tmp, "jet of water", KILLED_BY_AN);
+            } else
+                pline_The("jet of water misses you.");
+            stop_occupation();
+            nomul(0);
+        } else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]) {
+            mtmp->mhp += d(6, 6);
+            if (mtmp->mhp > mtmp->mhpmax)
+                mtmp->mhp = mtmp->mhpmax;
+            if (canseemon(mtmp)) {
+                pline("%s looks a lot better.", Monnam(mtmp));
+            }
+        }
+#if 0 /* Pending Mud Elementals */
+        else if (mtmp->data == &mons[PM_EARTH_ELEMENTAL]) {
+            if (canseemon(mtmp))
+                pline("%s turns into a roiling pile of mud!", Monnam(mtmp));
+            (void) newcham(mtmp, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
+        } 
+#endif
+        else if (rnd(20) < 10 + find_mac(mtmp)) {
+            tmp = d(likes_fire(mtmp->data) ? 12 : 1, 6);
+            hit("jet of water", mtmp, exclam(tmp));
+        } else {
+            miss("jet of water", mtmp);
+            if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
+                makeknown(WAN_WATER);
+        }
         break;
    /* disabled because find_offensive() never picks WAN_TELEPORTATION */
     case WAN_TELEPORTATION:
@@ -2450,6 +2493,7 @@ struct monst *mtmp;
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
     case MUSE_WAN_WINDSTORM:
+    case MUSE_WAN_WATER:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
@@ -3582,8 +3626,9 @@ struct obj *obj;
             || typ == WAN_STRIKING
             || typ == WAN_TELEPORTATION 
             || typ == WAN_CREATE_MONSTER
-            || typ == WAN_WINDSTORM 
             || typ == WAN_CREATE_HORDE
+            || typ == WAN_WINDSTORM 
+            || typ == WAN_WATER
             || typ == WAN_DRAINING
             || typ == WAN_HEALING
             || typ == WAN_EXTRA_HEALING

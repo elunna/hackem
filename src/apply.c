@@ -4579,6 +4579,10 @@ struct obj *obj;
         pline("A tornado surrounds you!");
         affects_objects = TRUE;
         break;
+    case WAN_WATER:
+        pline("KER-SPLOOSH!");
+        affects_objects = TRUE;
+        break;
     case WAN_STRIKING:
         /* we want this before the explosion instead of at the very end */
         pline("A wall of force smashes down around you!");
@@ -4684,7 +4688,7 @@ struct obj *obj;
     /* [TODO?  This really ought to prevent the explosion from being
        fatal so that we never leave a bones file where none of the
        surrounding targets (or underlying objects) got affected yet.] */
-    if (obj->otyp != WAN_WINDSTORM)
+    if (obj->otyp != WAN_WINDSTORM && obj->otyp != WAN_WATER)
         explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS,
                 EXPL_MAGICAL);
     /* prepare for potential feedback from polymorph... */
