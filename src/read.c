@@ -42,6 +42,7 @@ STATIC_DCL boolean FDECL(is_valid_stinking_cloud_pos, (int, int, BOOLEAN_P));
 STATIC_PTR void FDECL(display_stinking_cloud_positions, (int));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_DCL void NDECL(do_class_genocide);
+STATIC_PTR void specified_id(void);
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
@@ -1989,6 +1990,26 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (food_detect(sobj))
             sobj = 0; /* nothing detected: strange_feeling -> useup */
         break;
+    case SCR_KNOWLEDGE: {
+        /*struct obj *sobj = *sobjp;*/
+        int otyp = sobj->otyp;
+        boolean already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
+                                 || objects[otyp].oc_name_known);
+        useup(sobj);
+        /* *sobjp = 0; */
+        sobj = 0; /* it's gone */
+        if (confused)
+            You("know this to be a knowledge scroll.");
+        else {
+            specified_id();
+            if (sblessed)
+                specified_id();
+        }
+        You("feel more knowledgeable.");
+        if (!already_known)
+            (void) learnscrolltyp(SCR_KNOWLEDGE);
+        break;
+    }
     case SCR_IDENTIFY:
         /* known = TRUE; -- handled inline here */
         /* use up the scroll first, before makeknown() performs a
@@ -2257,6 +2278,49 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     if (!sobj)
         update_inventory();
     return sobj ? 0 : 1;
+}
+
+static void
+specified_id()
+{
+    static char buf[BUFSZ] = DUMMY;
+    char promptbuf[BUFSZ];
+    char bufcpy[BUFSZ];
+    short otyp;
+    int tries = 0;
+    
+    promptbuf[0] = '\0';
+    if (flags.verbose)
+        You("may learn about any non-artifact.");
+retry:
+    Strcpy(promptbuf, "What non-artifact do you want to learn about");
+    Strcat(promptbuf, "?");
+    getlin(promptbuf, buf);
+    (void) mungspaces(buf);
+    if (buf[0] == '\033') {
+        buf[0] = '\0';
+    }
+    strcpy(bufcpy, buf);
+    otyp = name_to_otyp(buf);
+    if (otyp == STRANGE_OBJECT) {
+        pline("No specific object of that name exists.");
+        if (++tries < 5)
+            goto retry;
+        pline1(thats_enough_tries);
+        if (!otyp)
+            return; /* for safety; should never happen */
+    }
+    if (objects[otyp].oc_name_known) {
+        pline("You already know what that object looks like.");
+        if (++tries < 5)
+            goto retry;
+        pline1(thats_enough_tries);
+        if (!otyp)
+            return;
+    }
+    (void) makeknown(otyp);
+    You("now know more about %s.", makeplural(simple_typename(otyp)));
+    update_inventory();
 }
 
 void

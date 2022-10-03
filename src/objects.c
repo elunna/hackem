@@ -1041,6 +1041,7 @@ SCROLL("time",                   "TEMP USF UGIT",  1,  20, 100), /* tempus fugit
 SCROLL("teleportation",        "VENZAR BORGAVVE",  1,  55, 100),
 SCROLL("gold detection",                 "THARR",  1,  34, 100),
 SCROLL("food detection",               "YUM YUM",  1,  25, 100),
+SCROLL("knowledge",                   "POTESTAS",  1,  20,  20), /* power */
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
 SCROLL("magic mapping",              "ELAM EBOW",  1,  45, 100),
 SCROLL("amnesia",                   "DUAM XNAHT",  1,  35, 200),
