@@ -1548,6 +1548,7 @@ struct monst *mtmp;
 #define MUSE_WAN_FIREBALL 27
 #define MUSE_CAMERA 31 /* Skipping so other values don't overlap */
 #define MUSE_WAN_SLOW_MONSTER 32
+#define MUSE_WAN_WINDSTORM 33
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1866,6 +1867,7 @@ boolean reflection_skip;
                 m.tocharge = obj;
             }
         }
+
         /* use_offensive() has had some code to support wand of teleportation
          * for a long time, but find_offensive() never selected one;
          * re-enable it */
@@ -1902,6 +1904,12 @@ boolean reflection_skip;
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_SLOW_MONSTER;
             }
+        }
+        nomore(MUSE_WAN_WINDSTORM);
+         /* don't bother recharging this one */
+        if (obj->otyp == WAN_WINDSTORM && obj->spe > 0 && !rn2(3)) {
+            m.offensive = obj;
+            m.has_offense = MUSE_WAN_WINDSTORM;
         }
         if (m.has_offense == MUSE_SCR_CHARGING && m.tocharge)
             continue;
@@ -2093,6 +2101,10 @@ register struct obj *otmp;
             if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
                 makeknown(WAN_STRIKING);
         }
+        break;
+    case WAN_WINDSTORM:
+        You("get blasted by hurricane-force winds!");
+        hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, 5 + rn2(5), TRUE);
         break;
    /* disabled because find_offensive() never picks WAN_TELEPORTATION */
     case WAN_TELEPORTATION:
@@ -2437,6 +2449,7 @@ struct monst *mtmp;
     case MUSE_WAN_POLYMORPH:
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
+    case MUSE_WAN_WINDSTORM:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
@@ -3569,6 +3582,7 @@ struct obj *obj;
             || typ == WAN_STRIKING
             || typ == WAN_TELEPORTATION 
             || typ == WAN_CREATE_MONSTER
+            || typ == WAN_WINDSTORM 
             || typ == WAN_CREATE_HORDE
             || typ == WAN_DRAINING
             || typ == WAN_HEALING

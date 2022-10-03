@@ -835,6 +835,18 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
+            case WAN_WINDSTORM:
+                if (!Blind)
+                    Sprintf(post_engr_text, "The bugs on the %s are blown away!",
+                            surface(u.ux, u.uy));
+                else
+                    You_feel("a sudden, tremendous breeze!");
+                if (Hallucination)
+                    You_feel("like a Student of Winds!");
+                scatter(u.ux, u.uy, 4, MAY_DESTROY | MAY_HIT | VIS_EFFECTS,
+                        (struct obj *) 0);
+                preknown = TRUE;
+                break;
             /* can't tell sleep from death - Eric Backus */
             case WAN_SLEEP:
             case WAN_DEATH:

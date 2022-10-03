@@ -4553,6 +4553,7 @@ struct obj *obj;
         }
 #endif
         break;
+        
     case WAN_MAGIC_MISSILE:
     wanexpl:
         explode(u.ux, u.uy, -(obj->otyp), dmg, WAND_CLASS, expltype);
@@ -4574,6 +4575,10 @@ struct obj *obj;
             }
         }
         goto discard_broken_wand;
+    case WAN_WINDSTORM:
+        pline("A tornado surrounds you!");
+        affects_objects = TRUE;
+        break;
     case WAN_STRIKING:
         /* we want this before the explosion instead of at the very end */
         pline("A wall of force smashes down around you!");
@@ -4679,8 +4684,9 @@ struct obj *obj;
     /* [TODO?  This really ought to prevent the explosion from being
        fatal so that we never leave a bones file where none of the
        surrounding targets (or underlying objects) got affected yet.] */
-    explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS, EXPL_MAGICAL);
-
+    if (obj->otyp != WAN_WINDSTORM)
+        explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS,
+                EXPL_MAGICAL);
     /* prepare for potential feedback from polymorph... */
     zapsetup();
 
