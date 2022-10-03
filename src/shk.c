@@ -6093,6 +6093,7 @@ boolean altusage; /* some items have an "alternate" use with different cost */
          */
         tmp /= 2L;
     } else if (otmp->otyp == BAG_OF_TRICKS /* 1 - 20 */
+               || otmp->otyp == BAG_OF_RATS
                || otmp->otyp == HORN_OF_PLENTY) {
         /* altusage: emptying of all the contents at once */
         if (!altusage)
@@ -6151,6 +6152,7 @@ boolean altusage;
     } else if (otmp->otyp == POT_OIL) {
         fmt = "%s%sThat will cost you %ld %s (Yendorian Fuel Tax).";
     } else if (altusage && (otmp->otyp == BAG_OF_TRICKS
+                            || otmp->otyp == BAG_OF_RATS
                             || otmp->otyp == HORN_OF_PLENTY)) {
         fmt = "%s%sEmptying that will cost you %ld %s.";
         if (!rn2(3))

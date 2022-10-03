@@ -542,6 +542,7 @@ doengrave()
     boolean ptext = TRUE;      /* TRUE if we must prompt for engrave text */
     boolean teleengr = FALSE;  /* TRUE if we move the old engraving */
     boolean zapwand = FALSE;   /* TRUE if we remove a wand charge */
+    boolean wonder = FALSE;   /* TRUE if the wand is a wand of wonder */
     xchar type = DUST;         /* Type of engraving made */
     xchar oetype = 0;          /* will be set to type of current engraving */
     char buf[BUFSZ];           /* Buffer for final/poly engraving text */
@@ -718,6 +719,11 @@ doengrave()
             if (!can_reach_floor(TRUE))
                 ptext = FALSE;
 
+            if (otmp->otyp == WAN_WONDER) {
+                otmp->otyp = WAN_LIGHT + rn2(WAN_LIGHTNING - WAN_LIGHT);
+                if (!otmp->dknown) pline("You have found a wand of wonder!");
+                wonder = TRUE;
+            }
             switch (otmp->otyp) {
             /* DUST wands */
             default:
@@ -730,6 +736,8 @@ doengrave()
             case WAN_WISHING:
             case WAN_ENLIGHTENMENT:
             case WAN_FEAR:
+                if (wonder)
+                    otmp->otyp = WAN_WONDER;
                 zapnodir(otmp);
                 /* pre/postknown not needed; these will make it known if
                  * applicable */
@@ -827,6 +835,18 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
+            case WAN_WINDSTORM:
+                if (!Blind)
+                    Sprintf(post_engr_text, "The bugs on the %s are blown away!",
+                            surface(u.ux, u.uy));
+                else
+                    You_feel("a sudden, tremendous breeze!");
+                if (Hallucination)
+                    You_feel("like a Student of Winds!");
+                scatter(u.ux, u.uy, 4, MAY_DESTROY | MAY_HIT | VIS_EFFECTS,
+                        (struct obj *) 0);
+                preknown = TRUE;
+                break;
             /* can't tell sleep from death - Eric Backus */
             case WAN_SLEEP:
             case WAN_DEATH:
@@ -837,6 +857,31 @@ doengrave()
                     if (objects[WAN_SLEEP].oc_name_known || objects[WAN_DEATH].oc_name_known)
                         postknown = TRUE;
                 }
+                break;
+            case WAN_POISON_GAS:
+                if (Hallucination)
+                    Sprintf(post_engr_text,
+                            "The bugs on the %s cough!", surface(u.ux, u.uy));
+                else if (!Blind)
+                    Sprintf(post_engr_text,
+                            "The bugs on the %s stop moving!", surface(u.ux, u.uy));
+                else if (!Deaf)
+                    Strcpy(post_engr_text,
+                           "Something sprays from the wand.");
+                create_gas_cloud(u.ux, u.uy, 1, 4);
+                postknown = TRUE;
+            break;
+            case WAN_WATER:
+                if (!Blind) {
+                    Sprintf(post_engr_text,
+                            "The bugs on the %s get washed away!", surface(u.ux, u.uy));
+                    postknown = TRUE;
+                } else if (!Deaf) {
+                    Strcpy(post_engr_text,
+                           "Something sprays from the wand.");
+                }
+                if (oep && oep->engr_type != BURN)
+                    dengr = TRUE;
                 break;
             case WAN_COLD:
                 if (!Blind) {
@@ -921,6 +966,17 @@ doengrave()
                 }
                 Strcpy(post_engr_text, Blind ? "You feel the wand heat up." 
                                              : "Flames fly from the wand.");
+                break;
+            case WAN_ACID:
+                ptext = TRUE;
+                type = BURN;
+                if (!objects[otmp->otyp].oc_name_known && !Blind) {
+                    if (flags.verbose)
+                        pline("This %s is a wand of acid!", xname(otmp));
+                    postknown = TRUE;
+                } else if (!Deaf) {
+                    Sprintf(post_engr_text, "Something sprays from the wand.");
+                }
                 break;
             case WAN_LIGHTNING:
                 ptext = TRUE;
@@ -1040,7 +1096,11 @@ doengrave()
     /*
      * End of implement setup
      */
-
+    /* Cleanup wand of wonder */
+    if (wonder) {
+        otmp->otyp = WAN_WONDER;
+        learnwand(otmp);
+    }
     /* Identify stylus */
     if (preknown) {
         engraving_learn_wand(otmp);

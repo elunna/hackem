@@ -26,7 +26,7 @@ STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
     ((((wmsk) & W_WEP) != 0                                             \
       && ((o)->otyp == AKLYS || (o)->oartifact == ART_XIUHCOATL         \
           || ((o)->oartifact == ART_MJOLLNIR && Role_if(PM_VALKYRIE)))) \
-     || (o)->otyp == BOOMERANG)
+     || (o)->otyp == BOOMERANG || (o)->otyp == CHAKRAM)
 
 static NEARDATA const char toss_objs[] = { ALLOW_COUNT, COIN_CLASS,
                                            ALL_CLASSES, WEAPON_CLASS, 0 };
@@ -755,6 +755,8 @@ int x, y;
         ) {
         const char *mnam, *pronoun;
         int glyph = glyph_at(x, y);
+        boolean stomping = (uarmf && uarmf->otyp == STOMPING_BOOTS && verysmall(mon->data));
+
 
         mon->mundetected = 0; /* wakeup() will handle mimic */
         mnam = a_monnam(mon); /* after unhiding */
@@ -763,9 +765,9 @@ int x, y;
             mnam = !strcmp(pronoun, "it") ? "something" : "someone";
         }
         if (!glyph_is_monster(glyph) && !glyph_is_invisible(glyph))
-            You("find %s by bumping into %s.", mnam, pronoun);
+            You("find %s by %s %s.", mnam, stomping ? "stomping on" : "bumping into", pronoun);
         else
-            You("bump into %s.", mnam);
+            You("%s %s.", stomping ? "stomp on" : "bump into", mnam);
         wakeup(mon, FALSE);
         if (!canspotmon(mon))
             map_invisible(mon->mx, mon->my);
@@ -779,6 +781,15 @@ int x, y;
         if (touch_petrifies(youmonst.data)
             && !which_armor(mon, W_ARMU | W_ARM | W_ARMC)) {
             minstapetrify(mon, TRUE);
+        }
+        if (stomping && verysmall(mon->data)) {
+            xkilled(mon, XKILL_GIVEMSG);
+            makeknown(uarmf->otyp);
+            if (Hallucination) 
+                verbalize("Woohoo!");
+        } else {
+            unmul((char *) 0);
+            return FALSE;
         }
         wake_nearto(x, y, 10);
         return FALSE;
@@ -1128,6 +1139,9 @@ boolean hitsroof;
         breakobj(obj, u.ux, u.uy, TRUE, TRUE);
         obj = 0; /* it's now gone */
         switch (otyp) {
+        case PINEAPPLE:
+            pline("Ouch! %s is covered in spikes!", Doname2(obj));
+            break;
         case EGG:
             if (petrifier && !Stone_resistance
                 && !(poly_when_stoned(youmonst.data)
@@ -1176,6 +1190,10 @@ boolean hitsroof;
                 dmg = 1;
             else if (dmg > 6)
                 dmg = 6;
+            if (obj->otyp == PINEAPPLE)
+                dmg = dmg + 2;
+            if (obj->otyp == FRUITCAKE)
+                dmg = 18;
             if (noncorporeal(youmonst.data) && !shade_glare(obj))
                 dmg = 0;
         }
@@ -1237,12 +1255,16 @@ boolean
 throwing_weapon(obj)
 struct obj *obj;
 {
-    return (boolean) (is_missile(obj) || is_spear(obj)
+    return (boolean) (is_missile(obj) 
+                      || is_spear(obj)
                       /* daggers and knife (excludes scalpel) */
-                      || (is_blade(obj) && !is_sword(obj)
+                      || (is_blade(obj) 
+                          && !is_sword(obj)
                           && (objects[obj->otyp].oc_dir & PIERCE))
                       /* special cases [might want to add AXE] */
-                      || obj->otyp == HEAVY_WAR_HAMMER || obj->otyp == AKLYS);
+                      || obj->otyp == HEAVY_WAR_HAMMER 
+                      || obj->otyp == AKLYS
+                      || obj->otyp == THROWING_AXE);
 }
 
 /* the currently thrown object is returning to you (not for boomerangs) */
@@ -1396,7 +1418,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         clear_thrownobj = TRUE;
         goto throwit_return;
 
-    } else if (obj->otyp == BOOMERANG && !Underwater) {
+    } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
         iflags.returning_missile = 0; /* doesn't return if it hits monster */
@@ -1735,6 +1757,10 @@ boolean mon_notices;
     }
     /* some objects are more likely to hit than others */
     switch (obj->otyp) {
+    case PINEAPPLE:
+    case FRUITCAKE:
+        tmp += 4;
+        break;
     case HEAVY_IRON_BALL:
         if (obj != uball)
             tmp += 2;
@@ -1834,6 +1860,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     if (uarmg && uwep && objects[uwep->otyp].oc_skill == P_BOW) {
         switch (uarmg->otyp) {
         case GAUNTLETS_OF_POWER: /* metal */
+        case BOXING_GLOVES: /* bulky */
         case GAUNTLETS:
             tmp -= 2;
             break;
@@ -1841,7 +1868,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             tmp -= 9;
             break;
         case GAUNTLETS_OF_PROTECTION:
-        case GAUNTLETS_OF_SWIMMING:  
+        case GAUNTLETS_OF_SWIMMING:
+        case ROGUES_GLOVES:
         case GLOVES:
         case MUMMIFIED_HAND: /* the Hand of Vecna */
             break;
@@ -1970,7 +1998,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                 }
             }
         } else { /* thrown non-ammo or applied polearm/grapnel */
-            if (otyp == BOOMERANG) /* arbitrary */
+            if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
                 tmp += 4;
             else if (throwing_weapon(obj)) /* meant to be thrown */
                 tmp += 2;
@@ -2087,7 +2115,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         }
 
     } else if ((otyp == EGG || otyp == CREAM_PIE || otyp == BLINDING_VENOM
-                || otyp == ACID_VENOM || otyp == SNOWBALL)
+                || otyp == ACID_VENOM || otyp == SNOWBALL || otyp == PINEAPPLE
+                || otyp == FRUITCAKE)
                && (guaranteed_hit || ACURR(A_DEX) > rnd(25))) {
         (void) hmon(mon, obj, hmode, dieroll);
         return 1; /* hmon used it up */
@@ -2095,6 +2124,14 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     } else if (obj->oclass == POTION_CLASS
                && (guaranteed_hit || ACURR(A_DEX) > rnd(25))) {
         potionhit(mon, obj, POTHIT_HERO_THROW);
+        return 1;
+
+    } else if (obj->otyp == PINCH_OF_CATNIP
+             && is_feline(mon->data)) {
+        if (!Blind)
+            pline("%s chases %s tail!", Monnam(mon), mhis(mon));
+        (void) tamedog(mon, (struct obj *) 0);
+        mon->mconf = 1;
         return 1;
 
     } else if (befriend_with_obj(mon->data, obj)
@@ -2431,12 +2468,17 @@ struct obj *obj;
     case POT_WATER: /* really, all potions */
     case EGG:
     case CREAM_PIE:
+    case APPLE_PIE:
+    case PUMPKIN_PIE:
+    case SLICE_OF_CAKE:
     case MELON:
     case ACID_VENOM:
     case BLINDING_VENOM:
     case BULLET:
     case SHOTGUN_SHELL:
     case SNOWBALL:
+    /* In Splice the lash breaks upon throwing, not sure why but we'll leave it. */
+    case FLAMING_LASH: 
         return 1;
     default:
         return 0;
@@ -2469,6 +2511,10 @@ boolean in_view;
             pline("%s shatter%s%s!", Doname2(obj),
                   (obj->quan == 1L) ? "s" : "", to_pieces);
         break;
+    case FLAMING_LASH:
+        if (in_view)
+            pline("%s crumbles.", Doname2(obj));
+        break;
     case BULLET:
     case SHOTGUN_SHELL:
         break;
@@ -2477,8 +2523,15 @@ boolean in_view;
         pline("Splat!");
         break;
     case CREAM_PIE:
+    case APPLE_PIE:
+    case PUMPKIN_PIE:
         if (in_view)
             pline("What a mess!");
+        break;
+    case SLICE_OF_CAKE:
+    case FRUITCAKE:
+        if (in_view)
+            pline("Dirt cake!");
         break;
     case ACID_VENOM:
     case BLINDING_VENOM:

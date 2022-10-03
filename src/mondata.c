@@ -1214,10 +1214,12 @@ static const short grownups[][2] = {
     { PM_CHICKATRICE, PM_COCKATRICE },
     { PM_LITTLE_DOG, PM_DOG },
     { PM_DOG, PM_LARGE_DOG },
+    { PM_LARGE_DOG, PM_GUARD_DOG },
     { PM_HELL_HOUND_PUP, PM_HELL_HOUND },
     { PM_WINTER_WOLF_CUB, PM_WINTER_WOLF },
     { PM_KITTEN, PM_HOUSECAT },
     { PM_HOUSECAT, PM_LARGE_CAT },
+    { PM_LARGE_CAT, PM_FAT_CAT },
     { PM_PONY, PM_HORSE },
     { PM_HORSE, PM_WARHORSE },
     { PM_LESSER_NIGHTMARE, PM_NIGHTMARE },
@@ -1317,6 +1319,9 @@ static const short grownups[][2] = {
     { PM_NICKELPEDE, PM_GIANT_CENTIPEDE},
     { PM_PILE_OF_KILLER_COINS, PM_LARGE_PILE_OF_KILLER_COINS},
     { PM_LARGE_PILE_OF_KILLER_COINS, PM_HUGE_PILE_OF_KILLER_COINS},
+    
+    /* Splice additions */
+    { PM_MAGGOT, PM_GIANT_FLY },
     { NON_PM, NON_PM }
 };
 

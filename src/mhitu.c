@@ -598,6 +598,7 @@ register struct monst *mtmp;
     struct attack *mattk, alt_attk;
     int i, j = 0, tmp, sum[NATTK];
     struct permonst *mdat = mtmp->data;
+    struct obj * marmf = which_armor(mtmp, W_ARMF);
     boolean ranged = (distu(mtmp->mx, mtmp->my) > 3);
     /* Is it near you?  Affects your actions */
     boolean range2 = !monnear(mtmp, mtmp->mux, mtmp->muy);
@@ -810,6 +811,20 @@ register struct monst *mtmp;
         return 0;
     }
 
+    if (!range2 && marmf && marmf->otyp == STOMPING_BOOTS 
+        && verysmall(youmonst.data)) {
+        pline("%s stomps on you!", Monnam(mtmp));
+        makeknown(marmf->otyp);
+        if (Upolyd && !Unchanging) {
+            rehumanize();
+            You("surge out from under the boot of %s!", mon_nam(mtmp));
+        } else {
+            killer.format = KILLED_BY;
+            Strcpy(killer.name, "getting stomped on");
+            done(DIED);
+        }
+    }
+    
     /*  Work out the armor class differential   */
     tmp = AC_VALUE(u.uac) + 10; /* tmp ~= 0 - 20 */
     tmp += mtmp->m_lev;
@@ -906,10 +921,14 @@ register struct monst *mtmp;
         if (mtmp == u.ustuck) {
             pline("%s loosens its grip slightly.", Monnam(mtmp));
         } else if (!range2) {
-            if (youseeit || sensemon(mtmp))
-                pline("%s starts to attack you, but pulls back.",
-                      Monnam(mtmp));
-            else
+            if (youseeit || sensemon(mtmp)) {
+                if (mtmp->data == &mons[PM_GIANT_PRAYING_MANTIS])
+                    pline("%s bows %s head in prayer.", Monnam(mtmp),
+                          mhis(mtmp));
+                else
+                    pline("%s starts to attack you, but pulls back.",
+                          Monnam(mtmp));
+            } else
                 You_feel("%s move nearby.", something);
         }
         return 0;
@@ -1689,6 +1708,12 @@ register struct attack *mattk;
             /* not body_part(HEAD) */
             Your("%s blocks the %s to your head.",
                  helm_simple_name(uarmh), is_zombie(mdat) ? "bite" : "attack");
+            break;
+        }
+        if (uarmh->otyp == TINFOIL_HAT) {
+            /* not body_part(HEAD) */
+            Your("%s blocks the attack to your head.",
+                 helm_simple_name(uarmh));
             break;
         }
 

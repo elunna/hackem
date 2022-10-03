@@ -298,6 +298,12 @@ Boots_on(VOID_ARGS)
                      (oldprop || HFast) ? " a bit more" : "");
         }
         break;
+    case STOMPING_BOOTS:
+        if (!Stealth && !Levitation && !Flying) {
+            You("begin stomping around very loudly.");
+            makeknown(uarmf->otyp);
+        }
+        break;
     case ELVEN_BOOTS:
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
@@ -369,6 +375,12 @@ Boots_off(VOID_ARGS)
             spoteffects(TRUE);
         }
         break;
+    case STOMPING_BOOTS:
+        if (!Stealth && !Levitation && !Flying) {
+            pline("Your footsteps become considerably less violent.");
+            makeknown(otyp);
+        }
+        break;
     case ELVEN_BOOTS:
         toggle_stealth(otmp, oldprop, FALSE);
         break;
@@ -420,11 +432,16 @@ Cloak_on(VOID_ARGS)
     case ORCISH_CLOAK:
     case DWARVISH_CLOAK:
     case CLOAK_OF_MAGIC_RESISTANCE:
-    case CLOAK:
+    case PLAIN_CLOAK:
     case GRAY_DRAGON_SCALES:
         break;
     case CLOAK_OF_PROTECTION:
     case ROBE_OF_WEAKNESS:
+        makeknown(uarmc->otyp);
+        break;
+    case CLOAK_OF_FLIGHT:
+        pline("%s you up into the air!",
+              Tobjnam(uarmc, "hoists"));
         makeknown(uarmc->otyp);
         break;
     case ELVEN_CLOAK:
@@ -512,9 +529,10 @@ Cloak_off(VOID_ARGS)
     case DWARVISH_CLOAK:
     case CLOAK_OF_PROTECTION:
     case CLOAK_OF_MAGIC_RESISTANCE:
+    case CLOAK_OF_FLIGHT:
     case OILSKIN_CLOAK:
     case POISONOUS_CLOAK:
-    case CLOAK:
+    case PLAIN_CLOAK:
     case GRAY_DRAGON_SCALES:
         break;
     case ELVEN_CLOAK:
@@ -579,6 +597,9 @@ Helmet_on(VOID_ARGS)
     case DWARVISH_HELM:
     case ORCISH_HELM:
     case HELM_OF_TELEPATHY:
+        break;
+    case TINFOIL_HAT:
+        pline("Your thoughts feel much more secure.");
         break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
@@ -672,6 +693,7 @@ Helmet_off(VOID_ARGS)
     case ELVEN_HELM:
     case DWARVISH_HELM:
     case ORCISH_HELM:
+    case TINFOIL_HAT:
         break;
     case DUNCE_CAP:
         context.botl = 1;
@@ -718,6 +740,8 @@ Gloves_on(VOID_ARGS)
     switch (uarmg->otyp) {
     case GLOVES:
     case GAUNTLETS:
+    case ROGUES_GLOVES:
+    case BOXING_GLOVES:
         break;
     case GAUNTLETS_OF_FUMBLING:
         if (!(HFumbling & ~TIMEOUT))
@@ -790,6 +814,8 @@ Gloves_off(VOID_ARGS)
     case GLOVES:
     case GAUNTLETS:
     case GAUNTLETS_OF_PROTECTION:
+    case ROGUES_GLOVES:
+    case BOXING_GLOVES:
         break;
     case GAUNTLETS_OF_SWIMMING:
 	    if (u.uinwater) {
@@ -859,6 +885,8 @@ Shield_on(VOID_ARGS)
     case SHIELD_OF_REFLECTION:
     case SHIELD_OF_LIGHT:
     case SHIELD_OF_MOBILITY:
+    case TOWER_SHIELD:
+    case HIDE_SHIELD:
         break;
     default:
         impossible(unknown_type, c_shield, uarms->otyp);
@@ -894,6 +922,8 @@ Shield_off(VOID_ARGS)
     case SHIELD_OF_REFLECTION:
     case SHIELD_OF_LIGHT:
     case SHIELD_OF_MOBILITY:
+    case TOWER_SHIELD:
+    case HIDE_SHIELD:
         break;
     default:
         impossible(unknown_type, c_shield, otmp->otyp);
@@ -1204,6 +1234,7 @@ Amulet_on()
     case AMULET_OF_ESP:
     case AMULET_OF_LIFE_SAVING:
     case AMULET_OF_DRAIN_RESISTANCE:
+    case AMULET_OF_DANGER:
     case AMULET_VERSUS_POISON:
     case AMULET_OF_REFLECTION:
     case AMULET_OF_MAGIC_RESISTANCE:
@@ -1256,6 +1287,9 @@ Amulet_on()
             context.botl = TRUE;
             pline("It constricts your throat!");
         }
+        break;
+    case AMULET_OF_NAUSEA:
+        make_vomiting((long) rnd(100), FALSE);
         break;
     case AMULET_OF_RESTFUL_SLEEP: {
         long newnap = (long) rnd(100), oldnap = (HSleepy & TIMEOUT);
@@ -1314,6 +1348,7 @@ Amulet_off()
     case AMULET_OF_LIFE_SAVING:
     case AMULET_VERSUS_POISON:
     case AMULET_OF_DRAIN_RESISTANCE:
+    case AMULET_OF_DANGER:
     case AMULET_VERSUS_STONE:
     case AMULET_OF_REFLECTION:
     case AMULET_OF_CHANGE:
@@ -1350,6 +1385,9 @@ Amulet_off()
         if (!ESleepy && !(HSleepy & ~TIMEOUT))
             HSleepy &= ~TIMEOUT; /* clear timeout bits */
         return;
+    case AMULET_OF_NAUSEA:
+        make_vomiting(0L, FALSE);
+        break;
     case AMULET_OF_FLYING: {
         boolean was_flying = !!Flying;
 

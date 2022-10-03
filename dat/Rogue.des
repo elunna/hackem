@@ -103,7 +103,7 @@ DOOR: closed, (65,18)
 DOOR: closed, (68,18)
 # Master of Thieves
 MONSTER:('@',"Master of Thieves"),(36,11) {
-  OBJECT:('[',"armor"),+5
+  OBJECT:('[',"light armor"),+5
   OBJECT:(')',"dagger"),+5
 }
 # The treasure of Master of Thieves

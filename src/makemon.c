@@ -220,9 +220,9 @@ struct trobj subInfidel[] = {
 
 /* Specialized structs for centaurian player monsters */
 struct trobj Level10KitCentaur1[] = {
-    { ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HELMET, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
-    { CLOAK, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { PLAIN_CLOAK, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { GAUNTLETS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
@@ -511,7 +511,7 @@ struct trobj Level20Kit6[] = {
 };
 
 struct trobj Level20Kit7[] = {
-    { ARMOR, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
+    { LIGHT_ARMOR, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
     { GAUNTLETS_OF_DEXTERITY, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
     { JUMPING_BOOTS, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
     { CLOAK_OF_MAGIC_RESISTANCE, (4 | RND_SPE), ARMOR_CLASS, 1, 1 },
@@ -529,7 +529,7 @@ struct trobj Level20Kit8[] = {
 };
 
 struct trobj Level10Kit1[] = {
-    { ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HELMET, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { HIGH_BOOTS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
     { GAUNTLETS, (2 | RND_SPE), ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -834,7 +834,7 @@ register struct monst *mtmp;
             break;
 
         case PM_BARD:
-            (void) mongets(mtmp, CLOAK);
+            (void) mongets(mtmp, PLAIN_CLOAK);
             mkmonmoney(mtmp, (long) rn1(mtmp->m_lev, 15));
             break;
         case PM_CAVEMAN:
@@ -1321,7 +1321,7 @@ register struct monst *mtmp;
         } else if (mm == PM_AGENT) {
             (void) mongets(mtmp, rn2(4) ? SHORT_SWORD : DAGGER);
             if (!rn2(3))
-                (void) mongets(mtmp, ARMOR);
+                (void) mongets(mtmp, LIGHT_ARMOR);
             (void) mongets(mtmp, POT_INVISIBILITY);
         } else if (mm == PM_KING_ARTHUR) {
             /* If it has not yet been generated, of course
@@ -1387,7 +1387,7 @@ register struct monst *mtmp;
                     (void) mongets(mtmp, rn2(3) ? DAGGER : KNIFE);
                 if (rn2(5))
                     (void) mongets(mtmp, rn2(3) ? JACKET
-                                                : CLOAK);
+                                                : PLAIN_CLOAK);
                 if (rn2(3))
                     (void) mongets(mtmp, rn2(3) ? LOW_BOOTS : HIGH_BOOTS);
                 if (rn2(3))
@@ -1398,11 +1398,11 @@ register struct monst *mtmp;
             case PM_ROSHI:
             case PM_WARRIOR:
                 (void) mongets(mtmp, rn2(3) ? LONG_SWORD : SHORT_SWORD);
-                (void) mongets(mtmp, rn2(3) ? CHAIN_MAIL : ARMOR);
+                (void) mongets(mtmp, rn2(3) ? CHAIN_MAIL : LIGHT_ARMOR);
                 if (rn2(2))
                     (void) mongets(mtmp, rn2(2) ? LOW_BOOTS : HIGH_BOOTS);
                 if (!rn2(3))
-                    (void) mongets(mtmp, CLOAK);
+                    (void) mongets(mtmp, PLAIN_CLOAK);
                 if (!rn2(3)) {
                     (void) mongets(mtmp, BOW);
                     m_initthrow(mtmp, ARROW, 12);
@@ -1412,7 +1412,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rn2(3) ? SHORT_SWORD : DAGGER);
                 if (rn2(2))
                     (void) mongets(mtmp, rn2(2) ? JACKET
-                                                : ARMOR);
+                                                : LIGHT_ARMOR);
                 (void) mongets(mtmp, BOW);
                 m_initthrow(mtmp, ARROW, 12);
                 break;
@@ -1421,11 +1421,11 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rn2(3) ? DAGGER : KNIFE);
                 if (rn2(2))
                     (void) mongets(mtmp, GLOVES);
-                (void) mongets(mtmp, rn2(2) ? JACKET : ARMOR);
+                (void) mongets(mtmp, rn2(2) ? JACKET : LIGHT_ARMOR);
                 break;
             case PM_NEANDERTHAL:
                 (void) mongets(mtmp, CLUB);
-                (void) mongets(mtmp, ARMOR);
+                (void) mongets(mtmp, LIGHT_ARMOR);
                 break;
             case PM_INMATE:
                 (void) mongets(mtmp, rn2(2) ? HEAVY_IRON_BALL : SPOON);
@@ -1560,7 +1560,7 @@ register struct monst *mtmp;
                 else
                     (void) mongets(mtmp, RED_DRAGON_SCALES);
 
-                (void) mongets(mtmp, ATHAME);
+                (void) mongets(mtmp, PARAZONIUM);
                 m_initthrow(mtmp, SHURIKEN, 12);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
@@ -1834,7 +1834,7 @@ register struct monst *mtmp;
         break;
     case S_CENTAUR:
         if (rn2(2)) {
-            (void) mongets(mtmp, (rn2(2) ? ARMOR : STUDDED_ARMOR));
+            (void) mongets(mtmp, (rn2(2) ? LIGHT_ARMOR : STUDDED_ARMOR));
             (void) mongets(mtmp, (rn2(2) ? GLOVES : ELVEN_HELM));
         if (ptr == &mons[PM_FOREST_CENTAUR]) {
             (void) mongets(mtmp, BOW);
@@ -1850,8 +1850,12 @@ register struct monst *mtmp;
         (void) mongets(mtmp, LONG_SWORD);
         break;
     case S_ZOMBIE:
+        if (mm == PM_SKELETON) {
+            if (!rn2(4))
+                (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
+        }
         if (!rn2(4))
-            (void) mongets(mtmp, ARMOR);
+            (void) mongets(mtmp, LIGHT_ARMOR);
         if (!rn2(4))
             (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
         break;
@@ -1889,6 +1893,7 @@ register struct monst *mtmp;
                 otmp->spe = rnd(3);
                 (void) mpickobj(mtmp, otmp);
             } else {
+                (void) mongets(mtmp, FLAMING_LASH);
                 otmp = mksobj(BROADSWORD, FALSE, FALSE);
                 otmp->oprops = ITEM_FIRE;
                 otmp->spe = rnd(3) + 2;
@@ -2146,9 +2151,9 @@ register struct monst *mtmp;
                                                   : STUDDED_ARMOR);
             else if (rn2(5) && racial_orc(mtmp))
                 mac += 3 + mongets(mtmp, (rn2(3)) ? ORCISH_RING_MAIL
-                                                  : ARMOR);
+                                                  : LIGHT_ARMOR);
             else if (!racial_giant(mtmp))
-                mac += 2 + mongets(mtmp, ARMOR);
+                mac += 2 + mongets(mtmp, LIGHT_ARMOR);
 
             if (mac < 10 && rn2(3)
                 && (!(racial_elf(mtmp) || racial_orc(mtmp))))
@@ -2187,7 +2192,7 @@ register struct monst *mtmp;
             else if (mac < 10 && rn2(2)
                      && (!(racial_giant(mtmp)
                            || racial_elf(mtmp) || racial_orc(mtmp))))
-                mac += 1 + mongets(mtmp, CLOAK);
+                mac += 1 + mongets(mtmp, PLAIN_CLOAK);
             else if (mac < 10 && rn2(2)
                      && racial_elf(mtmp))
                 mac += 1 + mongets(mtmp, ELVEN_CLOAK);
@@ -2325,7 +2330,7 @@ register struct monst *mtmp;
              * because she looks cooler without a helmet */
             (void) mongets(mtmp, GLOVES);
             (void) mongets(mtmp, SHIELD_OF_REFLECTION);
-            (void) mongets(mtmp, CLOAK);
+            (void) mongets(mtmp, PLAIN_CLOAK);
             (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
             (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, POT_SPEED);
@@ -3265,6 +3270,8 @@ long mmflags;
         mitem = BELL_OF_OPENING;
     } else if (mndx == PM_PESTILENCE) {
         mitem = POT_SICKNESS;
+    } else if (mndx == PM_DEATH) {
+        mitem = SCYTHE;
     }
     if (mitem && allow_minvent)
         (void) mongets(mtmp, mitem);
@@ -4418,7 +4425,7 @@ int
 bagotricks(bag)
 struct obj *bag;
 {
-    if (!bag || bag->otyp != BAG_OF_TRICKS) {
+    if (!bag || (bag->otyp != BAG_OF_TRICKS && bag->otyp != BAG_OF_RATS)) {
         impossible("bad bag o' tricks");
     } else if (bag->spe < 1) {
         return use_container(&bag, 1, FALSE);
@@ -4427,12 +4434,15 @@ struct obj *bag;
     else {
         boolean gotone = TRUE;
         int cnt;
+        int choice = -1;
         struct monst *mtmp;
         struct obj *otmp = NULL;
 
         consume_obj_charge(bag, TRUE);
-
-        switch(rn2(40)) {
+        if (bag->otyp == BAG_OF_TRICKS)
+            choice = rn2(40);
+                
+        switch(choice) {
         case 0:
         case 1:
             if (bag->recharged == 0 && !bag->cursed) {
@@ -4540,14 +4550,25 @@ struct obj *bag;
         default:
             cnt = 1;
             gotone = FALSE;
-            if (!rn2(23)) 
+            if (bag->otyp == BAG_OF_RATS && !rn2(4))
+                cnt += rnd(3);
+            else if (!rn2(23)) 
                 cnt += rn1(7, 1);
             while (cnt-- > 0) {
+#if 0
                 if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
                     gotone = TRUE;
+#endif
+                if (makemon(bag->otyp == BAG_OF_TRICKS ?
+                      (struct permonst *) 0 : &mons[PM_SEWER_RAT + rn2(2)],
+                       u.ux, u.uy, NO_MM_FLAGS))
+                    gotone = TRUE;
             }
-            if (gotone) 
-                makeknown(BAG_OF_TRICKS);
+            if (gotone)
+                if (bag->otyp == BAG_OF_TRICKS)
+                    makeknown(BAG_OF_TRICKS);
+                else
+                    makeknown(BAG_OF_RATS);
             return 1;
         }
             

@@ -124,7 +124,8 @@
      || (ptr) == &mons[PM_BAR_LGURA] \
      || (ptr) == &mons[PM_JUMPING_SPIDER] \
      || (ptr) == &mons[PM_KNIGHT] \
-     || (ptr) == &mons[PM_ZRUTY])
+     || (ptr) == &mons[PM_ZRUTY]  \
+     || (ptr) == &mons[PM_SERVAL])
 #define is_flyer(ptr) (((ptr)->mflags1 & M1_FLY) != 0L)
 /* humanoid shape with big wings (flight blocked by most body armor) */
 #define big_wings(ptr) \
@@ -404,6 +405,7 @@
     ((((ptr)->mhflags & MH_DEMON) != 0L) \
      || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_DEMON)))
 #define is_dragon(ptr) (((ptr)->mhflags & MH_DRAGON) != 0L)
+#define is_feline(ptr) ((ptr)->mlet == S_FELINE)
 #define is_pseudodragon(ptr) \
     ((ptr) == &mons[PM_PSEUDODRAGON] \
      || (ptr) == &mons[PM_ELDER_PSEUDODRAGON] || (ptr) == &mons[PM_ANCIENT_PSEUDODRAGON])

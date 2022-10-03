@@ -449,6 +449,15 @@ register struct monst *mtmp;
         }
     }
 
+    if (uarmf && uarmf->otyp == STOMPING_BOOTS
+        && !Levitation && verysmall(mtmp->data)) {
+        You("stomp on %s!", mon_nam(mtmp));
+        xkilled(mtmp, XKILL_GIVEMSG);
+        wake_nearby();
+        makeknown(uarmf->otyp);
+        return TRUE;
+    }
+
     /* possibly set in attack_checks;
        examined in known_hitum, called via hitum or hmonas below */
     override_confirmation = FALSE;
@@ -1398,6 +1407,27 @@ int dieroll;
                     }
                     tmp = 1;
                     break;
+                case PINCH_OF_CATNIP:
+                    tmp = 0;
+                    if (is_feline(mdat)) {
+                        if (!Blind)
+                            pline("%s chases %s tail!", Monnam(mon), mhis(mon));
+                        (void) tamedog(mon, (struct obj *) 0);
+                        mon->mconf = 1;
+                        if (thrown)
+                            obfree(obj, (struct obj *) 0);
+                        else
+                            useup(obj);
+                        return FALSE;
+                    } else {
+                        You("%s catnip fly everywhere!", Blind ? "feel" : "see");
+                        setmangry(mon, TRUE);
+                    }
+                    if (thrown)
+                        obfree(obj, (struct obj *) 0);
+                    else
+                        useup(obj);
+                    break;
                 case CREAM_PIE:
                 case SNOWBALL:
                 case BLINDING_VENOM:
@@ -1669,8 +1699,11 @@ int dieroll;
         hittxt = TRUE;
     } else if (unarmed && tmp > 1 && !thrown && !obj && !Upolyd && !thievery) {
         /* VERY small chance of stunning or confusing opponent if unarmed. */
-        if (rnd(Race_if(PM_GIANT) ? 40 : 100) < P_SKILL(P_BARE_HANDED_COMBAT)
-            && !biggermonst(mdat) && !thick_skinned(mdat) && !unsolid(mdat)) {
+        if ((rnd(Race_if(PM_GIANT) ? 40 : 100) < P_SKILL(P_BARE_HANDED_COMBAT)
+                || (rnd(25) && uarmg && uarmg->otyp == BOXING_GLOVES))
+              && !biggermonst(mdat) 
+              && !thick_skinned(mdat) 
+              && !unsolid(mdat)) {
             if (rn2(2)) {
                 if (canspotmon(mon))
                     pline("%s %s from your powerful strike!", Monnam(mon),
@@ -2951,11 +2984,12 @@ do_rust:
         if (m_slips_free(mdef, mattk))
             break;
 
-        if ((helmet = which_armor(mdef, W_ARMH)) != 0 && rn2(8)) {
-            if (!Blind)
-                pline("%s %s blocks your attack to %s %s.",
-                      s_suffix(Monnam(mdef)), helm_simple_name(helmet),
-                      mhis(mdef), mbodypart(mdef, HEAD));
+        
+        if ((helmet = which_armor(mdef, W_ARMH)) != 0 && (rn2(8) ||
+              which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT)) {
+            pline("%s %s blocks your attack to %s head.",
+                  s_suffix(Monnam(mdef)), helm_simple_name(helmet),
+                  mhis(mdef));
             break;
         }
 

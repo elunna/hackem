@@ -995,6 +995,9 @@ boolean artif;
             case BAG_OF_HOLDING:
                 mkbox_cnts(otmp);
                 break;
+            case KEG:
+                otmp->spe = rn1(10, 5);
+                break;
             case EXPENSIVE_CAMERA:
             case TINNING_KIT:
             case MAGIC_MARKER:
@@ -1010,7 +1013,9 @@ boolean artif;
                 break;
             case HORN_OF_PLENTY:
             case BAG_OF_TRICKS:
-                otmp->spe = rnd(20);
+            case BAG_OF_RATS:
+                /* otmp->spe = rnd(20); */
+                otmp->spe = rn1(18, 3); /* 0..17 + 3 => 3..20 */
                 break;
             case FIGURINE:
                 tryct = 0;
@@ -1036,7 +1041,9 @@ boolean artif;
                 context.made_amulet = TRUE;
             if (rn2(10) && (otmp->otyp == AMULET_OF_STRANGULATION
                             || otmp->otyp == AMULET_OF_CHANGE
-                            || otmp->otyp == AMULET_OF_RESTFUL_SLEEP)) {
+                            || otmp->otyp == AMULET_OF_RESTFUL_SLEEP
+                            || otmp->otyp == AMULET_OF_NAUSEA
+                            || otmp->otyp == AMULET_OF_DANGER)) {
                 curse(otmp);
             } else
                 blessorcurse(otmp, 10);
@@ -1112,6 +1119,8 @@ boolean artif;
             if (otmp->otyp == WAN_WISHING) {
                 otmp->spe = rnd(3);
                 otmp->recharged = Is_stronghold(&u.uz) ? 0 : 1;
+            } else if (otmp->otyp == WAN_WONDER) {
+                otmp->spe = rn1(10, 15);
             } else {
                 otmp->spe =
                     rn1(5, (objects[otmp->otyp].oc_dir == NODIR) ? 11 : 4);
@@ -1622,6 +1631,13 @@ register struct obj *obj;
        when we assume this is a brand new glob so use objects[].oc_weight */
     if (obj->globby && obj->owt > 0)
         wt = obj->owt;
+    if (obj->otyp == LARGE_BOX && obj->spe) { /* Schroedinger's Cat */
+        if (obj->spe == 1) {
+            wt += mons[PM_HOUSECAT].cwt;
+        } else if (obj->spe == 4) {
+            wt += mons[PM_VAMPIRE].cwt;
+        }
+    }
     if (Is_container(obj) || obj->otyp == STATUE) {
         struct obj *contents;
         register int cwt = 0;
@@ -3474,6 +3490,7 @@ struct obj* obj;
          * Return NULL so that init_obj_material and valid_obj_material both
          * work properly. */
         case BULLWHIP:
+        case FLAMING_LASH:
         case WORM_TOOTH:
         case CRYSKNIFE:
         case STAFF_OF_DIVINATION:
@@ -3502,6 +3519,7 @@ struct obj* obj;
         case BARDING_OF_REFLECTION:
         case SHIELD_OF_LIGHT:
         case SHIELD_OF_MOBILITY:
+        case CHAKRAM:
             return shiny_materials;
         case BOW:
         case YUMI:
@@ -3543,6 +3561,7 @@ struct obj* obj;
         case MAGIC_FLUTE:
         case HARP:
         case MAGIC_HARP:
+        case LUTE:
             return resonant_materials;
         case SKELETON_KEY:
         case TOOLED_HORN:
@@ -3716,4 +3735,37 @@ int material;
         otmp->oerodeproof = FALSE;
 }
 
+
+/* Based on init_obj_material by aosdict. */
+boolean
+warp_material(obj,by_you)
+struct obj* obj;
+boolean by_you;
+{
+    if (obj->oartifact && rn2(20))
+        return FALSE;
+    int origmat = obj->material;
+    
+    int j = 0;
+    int newmat;
+    while (j < 200) {
+        newmat = 1 + rn2(NUM_MATERIAL_TYPES);
+        if (newmat != origmat && valid_obj_material(obj, newmat))
+            break;
+        j++;
+    }
+    if (!Hate_material(newmat))
+        obj->material = newmat;
+    else
+        /* can use a 0 in the list to default to the base material */
+        obj->material = objects[obj->otyp].oc_material;
+    obj->owt = weight(obj);
+    if (origmat != obj->material) {
+        /* Charge for the cost of the object */
+        if (by_you)
+            costly_alteration(obj, COST_DRAIN);
+        return TRUE;
+    }
+    return FALSE;
+}
 /*mkobj.c*/

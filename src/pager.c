@@ -699,9 +699,9 @@ static const char * damagetypes[] = {
     "shock",
     "strength poison",
     "acid",
-    "water",
-    NULL, /* AD_SPC1 - not used */
-    NULL, /* AD_SPC2 - not used */
+    "water", 
+    "sonic",    /* prev AD_SPC2  */
+    "psionic",  /* prev AD_SPC1  */
     "blind",
     "stun",
     "slow",
@@ -737,8 +737,6 @@ static const char * damagetypes[] = {
     "cancel",
     "behead",
     "affects luck",
-    "psionic",
-    "sonic",
     "knock-back",
     "polymorph",
     "withering",
@@ -1213,8 +1211,12 @@ short otyp;
                 case FORTUNE_COOKIE:
                 case EGG:
                 case CREAM_PIE:
+                case APPLE_PIE:
+                case PUMPKIN_PIE:
+                case SLICE_OF_CAKE:
                 case CANDY_BAR:
                 case LUMP_OF_ROYAL_JELLY:
+                case FRUITCAKE:
                     OBJPUTSTR("Is vegetarian but not vegan.");
                     break;
                 default:
@@ -1275,6 +1277,7 @@ short otyp;
         case LARGE_BOX:
         case CHEST:
         case ICE_BOX:
+        case KEG:
         case IRON_SAFE:
         case CRYSTAL_CHEST:
         case SACK:
@@ -1313,6 +1316,8 @@ short otyp;
         case FROST_HORN:
         case HARP:
         case MAGIC_HARP:
+        case LUTE:
+        case BAGPIPE:
             subclass = "tonal instrument";
             break;
         }
@@ -1330,7 +1335,8 @@ short otyp;
     if (olet == SCROLL_CLASS || olet == SPBOOK_CLASS) {
         if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
             OBJPUTSTR("Can be written on.");
-        } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD) {
+        } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD
+                   || otyp == SCR_KNOWLEDGE) {
             OBJPUTSTR("Cannot be written.");
         } else {
             Sprintf(buf, "Takes %d to %d ink to write.",

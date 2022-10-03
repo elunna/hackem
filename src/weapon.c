@@ -334,7 +334,7 @@ struct monst *mon;
 
     if (!ptr) ptr = &mons[NUMMONS];
 
-    if (otyp == CREAM_PIE)
+    if (otyp == CREAM_PIE || otyp == APPLE_PIE || otyp == PUMPKIN_PIE)
         return 0;
 
     if (r_bigmonst(mon)) {
@@ -355,6 +355,7 @@ struct monst *mon;
         case FLAIL:
         case RANSEUR:
         case VOULGE:
+        case SCYTHE:
             tmp += rnd(4);
             break;
 
@@ -420,6 +421,7 @@ struct monst *mon;
         case ELVEN_BROADSWORD:
         case RUNESWORD:
         case VOULGE:
+        case SCYTHE:
             tmp += rnd(4);
             break;
 
@@ -817,7 +819,10 @@ static NEARDATA const int rwep[] = {
     SPEAR, 
     ORCISH_SPEAR, 
     JAVELIN, 
-    SHURIKEN, YA, 
+    THROWING_AXE,
+    SHURIKEN, 
+    LIGHT_ARROW,
+    YA, 
     ELVEN_ARROW, 
     DARK_ELVEN_ARROW, 
     ARROW,
@@ -834,9 +839,11 @@ static NEARDATA const int rwep[] = {
     LOADSTONE, 
     LUCKSTONE, 
     DART, 
+    FRUITCAKE, 
+    PINEAPPLE,
     CREAM_PIE, 
     BULLET, SHOTGUN_SHELL, /* Low priority unless you have a gun? */
-    /* BOOMERANG, */ 
+    /* BOOMERANG, CHAKRAM */ 
 };
 
 static NEARDATA const int pwep[] = { 
@@ -1087,11 +1094,13 @@ static const NEARDATA short hwep[] = {
     HEAVY_MACE, 
     HEAVY_WAR_HAMMER, 
     LONG_SWORD,
+    FLAMING_LASH,
     DWARVISH_MATTOCK,
     RED_LIGHTSABER,
     BLUE_LIGHTSABER,
     GREEN_LIGHTSABER,
     TWO_HANDED_SWORD, 
+    FALCHION,
     BATTLE_AXE, 
     KATANA, 
     ELVEN_LONG_SWORD, 

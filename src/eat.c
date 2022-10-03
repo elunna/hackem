@@ -1810,6 +1810,7 @@ struct obj *otmp;
         case KNIFE:
         case STILETTO:
         case CRYSKNIFE:
+        case PARAZONIUM:
             tmp = 3;
             break;
         case PICK_AXE:
@@ -2246,6 +2247,29 @@ struct obj *otmp;
     case MUSHROOM:
 	eatmushroom(otmp);
         break;
+    case SLICE_OF_CAKE:
+        if (otmp->cursed) {
+            pline("This cake is very filling! You feel bloated.");
+            exercise(A_DEX, FALSE);
+        } else if (Hallucination) {
+            pline("You have some cake, and you eat it too!");
+        } else {
+            pline("This cake is fantastic! You feel amazing.");
+            /* blessed restore ability */
+            int ii;
+            for (ii = 0; ii < A_MAX; ii++)
+                if (ABASE(ii) < AMAX(ii)) {
+                    ABASE(ii) = AMAX(ii);
+                    context.botl = 1;
+                }
+        }
+        break;
+    case FRUITCAKE:
+        if (otmp->cursed) {
+            pline("Ouch! It's like eating rocks!");
+            losehp(d(1, 6), "biting into a particularly tough fruitcake", KILLED_BY);
+        }
+        break;
     case LEMBAS_WAFER:
         if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC))) {
             pline("%s", "!#?&* elf kibble!");
@@ -2266,6 +2290,14 @@ struct obj *otmp;
     case HUGE_CHUNK_OF_MEAT:
     case MEAT_RING:
         goto give_feedback;
+    case PINCH_OF_CATNIP:
+        if (is_feline(youmonst.data)) {
+            pline("Wow! That was excellent!");
+            make_confused(HConfusion + d(2, 4), FALSE);
+        } else {
+            pline("Blech! That was not very enjoyable.");
+        }
+        break;
     case CLOVE_OF_GARLIC:
         if (is_undead(youmonst.data)) {
             make_vomiting((long) rn1(context.victual.reqtime, 5), FALSE);
@@ -2317,7 +2349,7 @@ struct obj *otmp;
         } else {
  give_feedback:
             pline("This %s is %s", singular(otmp, xname),
-                  otmp->cursed
+                  (otmp->cursed || otmp->otyp == FRUITCAKE)
                      ? (Hallucination ? "grody!" : "terrible!")
                      : (otmp->otyp == CRAM_RATION
                         || otmp->otyp == K_RATION
@@ -2516,6 +2548,16 @@ struct obj *otmp;
             /* no message--this gives no permanent effect */
             choke(otmp);
             break;
+        case AMULET_OF_NAUSEA:
+            make_vomiting((long) rn1(15, 10), FALSE);
+            break;
+        case AMULET_OF_DANGER: {
+            if (Hallucination)
+                pline("You\'re in the Danger Zone...");
+            else
+                You("feel more dangerous!");
+            break;
+        }
         case RIN_SLEEPING:
         case AMULET_OF_RESTFUL_SLEEP: { /* another bad idea! */
             long newnap = (long) rnd(100), oldnap = (HSleepy & TIMEOUT);
@@ -3336,7 +3378,11 @@ doeat()
           || otmp->otyp == FORTUNE_COOKIE /*eggs*/ \
           || otmp->otyp == TORTILLA /*eggs*/ \
           || otmp->otyp == CREAM_PIE \
+          || otmp->otyp == APPLE_PIE
+          || otmp->otyp == PUMPKIN_PIE
+          || otmp->otyp == SLICE_OF_CAKE /*eggs AND milk*/
           || otmp->otyp == CANDY_BAR /*milk*/ \
+          || otmp->otyp == FRUITCAKE
           || otmp->otyp == LUMP_OF_ROYAL_JELLY) {
             if(!u.uconduct.unvegan++ && !ll_conduct)
                 livelog_printf(LL_CONDUCT, "consumed animal products (%s) for the first time", food_xname(otmp,FALSE));

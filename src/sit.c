@@ -274,7 +274,8 @@ dosit()
                 pline("A voice echoes:");
                 verbalize("By thine Imperious order, %s...",
                           flags.female ? "Dame" : "Sire");
-                do_genocide(5); /* REALLY|ONTHRONE, see do_genocide() */
+                /* Dungeon wide */
+                do_genocide(5, FALSE);	/* REALLY|ONTHRONE, see do_genocide() */
                 break;
             case 9:
                 /* Magical voice not affected by deafness */

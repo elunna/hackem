@@ -149,6 +149,7 @@ struct monst {
     Bitfield(mcanmove, 1);  /* paralysis, similar to mblinded */
 
     Bitfield(mconf, 1);     /* confused */
+    Bitfield(mreflect, 1);  /* reflects things */
     Bitfield(msick, 2);     /* monsters ill from zombies */
     Bitfield(msickbyu, 1);  /* monsters ill from you as a zombie */
     Bitfield(mdiseased, 1); /* monsters infected with disease */
@@ -173,7 +174,7 @@ struct monst {
     Bitfield(mstonebyu, 1);  /* you caused the monster to start stoning */
     Bitfield(mstone, 3);     /* monster is turning to stone */
     Bitfield(mberserk, 1);   /* monster is berserk */
-    /* 3 free bits */
+    /* 2 free bits */
 
     uchar mwither;           /* withering; amount of turns left till recovery */
 #define MAX_NUM_WORMS 32    /* should be 2^(wormno bitfield size) */

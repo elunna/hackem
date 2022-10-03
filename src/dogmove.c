@@ -1500,7 +1500,7 @@ int after; /* this is extra fast monster movement */
         || attacktype(mtmp->data, AT_GAZE)
         || attacktype(mtmp->data, AT_SPIT)
         || (attacktype(mtmp->data, AT_MAGC)
-        && (((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp <= AD_SPC2)))
+        && (((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp <= AD_PSYC)))
             || (attacktype(mtmp->data, AT_WEAP)
             && select_rwep(mtmp)))
             && mtmp->mlstmv != monstermoves) {

@@ -1688,6 +1688,9 @@ level_difficulty()
              */
 #endif /*0*/
     }
+    if (uamul && uamul->otyp == AMULET_OF_DANGER) {
+        res += 15;
+    }
     return (xchar) res;
 }
 

@@ -588,8 +588,8 @@ struct obj *obj;
  * padded gloves" would give the game away if we did not check their
  * identification status */
 #define force_material_name(typ) \
-    ((typ) == ARMOR || (typ) == STUDDED_ARMOR                     \
-     || (typ) == JACKET || (typ) == CLOAK                         \
+    ((typ) == LIGHT_ARMOR || (typ) == STUDDED_ARMOR                     \
+     || (typ) == JACKET || (typ) == PLAIN_CLOAK                         \
      || ((typ) == GLOVES && objects[GLOVES].oc_name_known)        \
      || ((typ) == GAUNTLETS && objects[GAUNTLETS].oc_name_known))
 
@@ -1321,7 +1321,9 @@ unsigned doname_flags;
            isn't set when emptiness gets discovered because then
            charging magic would yield known number of new charges);
            horn of plenty isn't a container but is close enough */
-        && ((obj->otyp == BAG_OF_TRICKS || obj->otyp == HORN_OF_PLENTY)
+        && ((obj->otyp == BAG_OF_TRICKS 
+             || obj->otyp == HORN_OF_PLENTY
+             || obj->otyp == BAG_OF_RATS)
              ? (obj->spe == 0 && !known)
              /* not a bag of tricks or horn of plenty: it's empty if
                 it is a container that has no contents */
@@ -3223,6 +3225,7 @@ static const struct alt_spellings {
     /* weapons */
     { "pickax", PICK_AXE },
     { "whip", BULLWHIP },
+    { "lash", FLAMING_LASH },
     { "sabre", SABER },
     { "stake", WOODEN_STAKE },
     { "mattock", DWARVISH_MATTOCK },
@@ -4198,7 +4201,7 @@ struct obj *no_wish;
                     goto srch;
                 else {
                     oclass = 0;
-                    typ = ARMOR;
+                    typ = LIGHT_ARMOR;
                     goto typfnd;
                 }
             }
@@ -4228,7 +4231,7 @@ struct obj *no_wish;
                     goto srch;
                 else {
                     oclass = 0;
-                    typ = ARMOR;
+                    typ = LIGHT_ARMOR;
                     goto typfnd;
                 }
             }
@@ -4858,7 +4861,9 @@ struct obj *no_wish;
     }
     /* empty for containers rather than for tins */
     if (contents == EMPTY) {
-        if (otmp->otyp == BAG_OF_TRICKS || otmp->otyp == HORN_OF_PLENTY) {
+        if (otmp->otyp == BAG_OF_TRICKS 
+              || otmp->otyp == BAG_OF_RATS
+              || otmp->otyp == HORN_OF_PLENTY) {
             if (otmp->spe > 0)
                 otmp->spe = 0;
         } else if (Has_contents(otmp)) {

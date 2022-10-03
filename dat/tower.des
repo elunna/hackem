@@ -36,12 +36,12 @@ MONSTER:('V',"Vlad the Impaler"),(28,03) {
   OBJECT:(')',"two-handed sword"),1d3,name:"Lifestealer",cursed,erodeproof
   OBJECT:('(',"Candelabrum of Invocation")
 }
-MONSTER:'V',$niches[0]
-MONSTER:'V',$niches[1]
-MONSTER:'V',$niches[2]
-MONSTER:'V',$niches[3]
-MONSTER:'V',$niches[4]
-MONSTER:'V',$niches[5]
+#MONSTER:'V',$niches[0]
+#MONSTER:'V',$niches[1]
+#MONSTER:'V',$niches[2]
+#MONSTER:'V',$niches[3]
+#MONSTER:'V',$niches[4]
+#MONSTER:'V',$niches[5]
 MONSTER:'e',$niches[6]
 MONSTER:'&',$niches[7]
 MONSTER:('U',"shambling horror"),(14,01)
@@ -70,20 +70,29 @@ OBJECT:('(',"chest"),(28,04)
 OBJECT:('(',"iron safe"),(13,01)
 OBJECT:('(',"crystal chest"),(16,14)
 
-OBJECT:('(',"chest"),$niches[0]
-OBJECT:('(',"chest"),$niches[1]
-OBJECT:('(',"chest"),$niches[2]
-OBJECT:('(',"chest"),$niches[3]
-OBJECT:('(',"chest"),$niches[4]
-CONTAINER:('(',"chest"),$niches[5] {
+#OBJECT:('(',"chest"),$niches[0]
+#OBJECT:('(',"chest"),$niches[1]
+#OBJECT:('(',"chest"),$niches[2]
+#OBJECT:('(',"chest"),$niches[3]
+#OBJECT:('(',"chest"),$niches[4]
+
+# +4 containers are secretly coffins.
+OBJECT:('(',"large box"),$niches[0],cursed,+4
+OBJECT:('(',"large box"),$niches[1],cursed,+4
+OBJECT:('(',"large box"),$niches[2],cursed,+4
+OBJECT:('(',"large box"),$niches[3],cursed,+4
+OBJECT:('(',"large box"),$niches[4],cursed,+4
+
+CONTAINER:('(',"large box"),$niches[5],cursed,+4 {
   OBJECT:('"', "amulet of flying")
 }
-CONTAINER:('(',"chest"),$niches[6] {
+CONTAINER:('(',"large box"),$niches[6],cursed,+4 {
   OBJECT:('(', "wax candle"), quantity:4d2
 }
-CONTAINER:('(',"chest"),$niches[7] {
+CONTAINER:('(',"large box"),$niches[7],cursed,+4 {
   OBJECT:('(', "tallow candle"), quantity:4d2
 }
+
 # Random corpses of past adventurers
 OBJECT:('%',"corpse"),random,montype:"monk"
 OBJECT:('%',"corpse"),random,montype:"caveman"

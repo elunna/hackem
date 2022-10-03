@@ -43,6 +43,7 @@ short otyp;
     case SCR_CHARGING:
     case SCR_MAGIC_DETECTION:
         return 16;
+    case SCR_ELEMENTALISM:
     case SCR_SCARE_MONSTER:
     case SCR_STINKING_CLOUD:
     case SCR_TAMING:
@@ -239,6 +240,10 @@ found:
 
     /* see if there's enough ink */
     basecost = ink_cost(new_obj->otyp);
+    if (new_obj->otyp == SCR_KNOWLEDGE) {
+        You("cannot write something you do not know!");
+        return 1;
+    }
     if (pen->spe < basecost / 2) {
         Your("marker is too dry to write that!");
         obfree(new_obj, (struct obj *) 0);

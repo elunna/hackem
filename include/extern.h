@@ -1367,6 +1367,7 @@ E long FDECL(attack_contact_slots, (struct monst *, int));
 E void FDECL(newemin, (struct monst *));
 E void FDECL(free_emin, (struct monst *));
 E int FDECL(monster_census, (BOOLEAN_P));
+E int rand_elemental(void);
 E int FDECL(msummon, (struct monst *));
 E struct monst *FDECL(summon_minion, (ALIGNTYP_P, BOOLEAN_P));
 E int FDECL(demon_talk, (struct monst *));
@@ -1505,6 +1506,7 @@ E void FDECL(pudding_merge_message, (struct obj *, struct obj *));
 E void FDECL(init_obj_material, (struct obj *));
 E boolean FDECL(valid_obj_material, (struct obj *, int));
 E void FDECL(set_material, (struct obj *, int));
+E boolean warp_material(struct obj *, boolean);
 E struct obj *FDECL(init_dummyobj, (struct obj *, SHORT_P, long));
 
 /* ### mkroom.c ### */
@@ -1604,6 +1606,7 @@ E int FDECL(can_be_hatched, (int));
 E int FDECL(egg_type_from_parent, (int, BOOLEAN_P));
 E boolean FDECL(dead_species, (int, BOOLEAN_P));
 E void NDECL(kill_genocided_monsters);
+E void FDECL(kill_monster_on_level, (int));
 E void FDECL(golemeffects, (struct monst *, int, int));
 E boolean FDECL(angry_guards, (BOOLEAN_P));
 E void NDECL(pacify_guards);
@@ -2051,7 +2054,6 @@ E void NDECL(getlock);
 #endif /* MICRO */
 
 /* ### pickup.c ### */
-
 E int FDECL(collect_obj_classes, (char *, struct obj *, BOOLEAN_P,
                                   boolean FDECL((*), (OBJ_P)), int *));
 E boolean FDECL(rider_corpse_revival, (struct obj *, BOOLEAN_P));
@@ -2077,6 +2079,7 @@ E int NDECL(encumber_msg);
 E int FDECL(container_at, (int, int, BOOLEAN_P));
 E int NDECL(doloot);
 E void FDECL(observe_quantum_cat, (struct obj *, BOOLEAN_P, BOOLEAN_P));
+E void FDECL(open_coffin, (struct obj *, boolean));
 E boolean FDECL(container_gone, (int (*)(OBJ_P)));
 E boolean NDECL(u_handsy);
 E int FDECL(use_container, (struct obj **, BOOLEAN_P, BOOLEAN_P));
@@ -2290,7 +2293,7 @@ E void FDECL(mwand_explode, (struct monst *, struct obj *));
 E void FDECL(set_lit, (int, int, genericptr_t));
 #endif
 E void FDECL(litroom, (BOOLEAN_P, struct obj *));
-E void FDECL(do_genocide, (int));
+E void FDECL(do_genocide, (int,BOOLEAN_P));
 E void FDECL(punish, (struct obj *));
 E void NDECL(unpunish);
 E boolean FDECL(cant_revive, (int *, BOOLEAN_P, struct obj *));
@@ -2775,6 +2778,7 @@ E int FDECL(water_damage,
             (struct obj *, const char *, BOOLEAN_P, XCHAR_P, XCHAR_P));
 E void FDECL(water_damage_chain,
              (struct obj *, BOOLEAN_P, int, BOOLEAN_P, XCHAR_P, XCHAR_P));
+E int uwatereffects(void);
 E boolean NDECL(drown);
 E void FDECL(drain_en, (int));
 E int NDECL(dountrap);

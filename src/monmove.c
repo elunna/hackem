@@ -700,7 +700,8 @@ register struct monst *mtmp;
         if (canseemon(mtmp))
             pline("%s concentrates.", Monnam(mtmp));
         if (distu(mtmp->mx, mtmp->my) > BOLT_LIM * BOLT_LIM) {
-            You("sense a faint wave of psychic energy.");
+            if (!(uarmh && uarmh->otyp == TINFOIL_HAT))
+                You("sense a faint wave of psychic energy.");
             goto toofar;
         }
         pline("A wave of psychic energy pours over you!");
@@ -2183,7 +2184,7 @@ struct monst *mtmp;
         if (typ == COIN_CLASS && obj->quan > 100L)
             return TRUE;
         if (obj->oclass != GEM_CLASS 
-            && !(typ >= ARROW && typ <= BOOMERANG)
+            && !(typ >= ARROW && typ <= CHAKRAM)
             && !(typ >= DAGGER && typ <= CRYSKNIFE) 
             && typ != SLING
             && !is_cloak(obj) 

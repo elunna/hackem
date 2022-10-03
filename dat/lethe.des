@@ -161,8 +161,8 @@ TRAP: random, random
 TRAP: random, random
 
 # Hidden in the corridor
-[50%]: OBJECT: ('[', "armor"), (47,04), blessed, +2
-[50%]: OBJECT: ('[', "armor"), (47,04), cursed, -2
+[50%]: OBJECT: ('[', "light armor"), (47,04), blessed, +2
+[50%]: OBJECT: ('[', "light armor"), (47,04), cursed, -2
 
 # The fountain room 
 MONSTER: (''', "clay golem"), (04,03), asleep
@@ -352,7 +352,7 @@ TRAP: "board", (62,05)
 TRAP: "board", (56,02)
 
 # Hidden in the corridor
-OBJECT: ('[',"armor"), (47,04), cursed, -2
+OBJECT: ('[',"light armor"), (47,04), cursed, -2
 
 # Zombie beyond
 MONSTER: 'Z', (46,01)

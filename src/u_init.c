@@ -54,7 +54,7 @@ struct trobj Cave_man[] = {
     { SLING, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
     { FLINT, 0, GEM_CLASS, 15, UNDEF_BLESS }, /* trquan is overridden below */
     { SLING_BULLET, 0, GEM_CLASS, 1, UNDEF_BLESS },
-    { ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Convict[] = {
@@ -191,7 +191,7 @@ struct trobj Rogue[] = {
 #define R_DAGGERS 1
     { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 10, 0 }, /* quan is variable */
-    { ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { POT_SICKNESS, 0, POTION_CLASS, 1, 0 },
     { LOCK_PICK, 0, TOOL_CLASS, 1, 0 },
     { SACK, 0, TOOL_CLASS, 1, 0 },
@@ -258,7 +258,7 @@ struct trobj Wizard[] = {
 static struct trobj Yeoman[] = {
 	{ SHORT_SWORD, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
 	{ PARTISAN, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
-	{ ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+	{ LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
 	{ HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
 	{ GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
 	{ APPLE, 0, FOOD_CLASS, 10, 0 },
@@ -351,7 +351,7 @@ struct inv_sub {
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
-    { PM_GIANT, ARMOR, HELMET },
+    { PM_GIANT, LIGHT_ARMOR, HELMET },
     { PM_GIANT, CLOAK_OF_MAGIC_RESISTANCE, LOW_BOOTS },
     { PM_GIANT, RIN_STEALTH, RIN_SEARCHING },
     { PM_GIANT, SPLINT_MAIL, LARGE_SPLINT_MAIL },
@@ -1030,6 +1030,9 @@ u_init()
         if (rn2(100) >= 50) { /* see above comment */
             Barbarian[B_MAJOR].trotyp = BATTLE_AXE;
             Barbarian[B_MINOR].trotyp = SHORT_SWORD;
+        } else if (rn2(100) >= 50) {
+            Barbarian[B_MAJOR].trotyp = FALCHION;
+            Barbarian[B_MINOR].trotyp = SCIMITAR;
         }
         ini_inv(Barbarian);
         if (!rn2(6))
@@ -1343,7 +1346,8 @@ u_init()
          */
         if (Role_if(PM_PRIEST) || Role_if(PM_WIZARD)) {
             static int trotyp[] = { FLUTE,  TOOLED_HORN,       HARP,
-                                    BELL,         BUGLE,       LEATHER_DRUM };
+                                    BELL,         BUGLE,       LEATHER_DRUM,
+                                    LUTE,         BAGPIPE };
             Instrument[0].trotyp = trotyp[rn2(SIZE(trotyp))];
             ini_inv(Instrument);
         }

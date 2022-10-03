@@ -1090,7 +1090,7 @@ unsigned trflags;
         }
         if (!Fumbling && !undestroyable_trap(ttype)
             && ttype != ANTI_MAGIC && !forcebungle && !plunged
-            && !conj_pit && !adj_pit
+            && !conj_pit && !adj_pit && (uarmf && uarmf->otyp != STOMPING_BOOTS)
             && (!rn2(5) || (is_pit(ttype)
                             && is_clinger(youmonst.data)))) {
                 You("escape %s %s.", (ttype == ARROW_TRAP && !trap->madeby_u)
@@ -3957,6 +3957,11 @@ xchar x, y;
                     place_object(otmp, x, y);
             }
         }
+        if (obj->otyp == KEG && obj->spe > 0) {
+            if (in_sight)
+                pline("It explodes!");
+            explode(x, y, 11, d(12, 6), 0, EXPL_FIERY);
+        }
         setnotworn(obj);
         delobj(obj);
         return TRUE;
@@ -4468,6 +4473,23 @@ boolean *lostsome;
     return TRUE;
 }
 
+int
+uwatereffects()
+{
+    int i;
+    
+    if (u.umonnum == PM_GREMLIN && rn2(3))
+        (void) split_mon(&youmonst, (struct monst *) 0);
+    else if (u.umonnum == PM_IRON_GOLEM) {
+        You("rust!");
+        i = Maybe_Half_Phys(d(2, 6));
+        if (u.mhmax > i)
+            u.mhmax -= i;
+        losehp(i, "rusting away", KILLED_BY);
+        return 0;
+    }
+    return 1;
+}
 
 /*  return TRUE iff player relocated */
 boolean
@@ -4500,16 +4522,8 @@ drown()
     }
 
     water_damage_chain(invent, FALSE, 0, TRUE, u.ux, u.uy);
-
-    if (u.umonnum == PM_GREMLIN && rn2(3))
-        (void) split_mon(&youmonst, (struct monst *) 0);
-    else if (u.umonnum == PM_IRON_GOLEM) {
-        You("rust!");
-        i = Maybe_Half_Phys(d(2, 6));
-        if (u.mhmax > i)
-            u.mhmax -= i;
-        losehp(i, "rusting away", KILLED_BY);
-    }
+    uwatereffects();
+    
     if (inpool_ok)
         return FALSE;
 

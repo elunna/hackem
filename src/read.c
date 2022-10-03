@@ -15,6 +15,11 @@
 #define Your_Own_Race(mndx)  \
     ((mndx) == urace.malenum \
      || (urace.femalenum != NON_PM && (mndx) == urace.femalenum))
+/* For create_critters and demonology... */
+#define MAKE_EM_NATURAL		0	/* Create monsters... */
+#define MAKE_EM_HOSTILE		1	/* Create hostile monsters... */
+#define MAKE_EM_PEACEFUL	2	/* Create peaceful monsters... */
+#define MAKE_EM_TAME		3	/* Create tamed monsters... */
 
 boolean known;
 
@@ -37,6 +42,7 @@ STATIC_DCL boolean FDECL(is_valid_stinking_cloud_pos, (int, int, BOOLEAN_P));
 STATIC_PTR void FDECL(display_stinking_cloud_positions, (int));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_DCL void NDECL(do_class_genocide);
+STATIC_PTR void specified_id(void);
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
@@ -962,6 +968,7 @@ struct monst *mtmp;
             }
             break;
         case BAG_OF_TRICKS:
+        case BAG_OF_RATS:
             /* if there are any objects inside the bag, devour them */
             if (!is_cursed) {
                 struct obj *curr, *otmp;
@@ -1683,7 +1690,80 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
          * monsters are not visible
          */
         break;
-
+    case SCR_ELEMENTALISM: {
+        struct permonst *critter = (struct permonst *) 0;
+        boolean confused = (Confusion != 0);
+        int i = 0;
+        int n = 1;
+        int state = MAKE_EM_HOSTILE;
+        struct monst *mtmp;
+        /* struct obj *sobj = *sobjp; */
+        /* find the number of critters */
+        if (sblessed) {
+            if (confused) {
+                n = 3 + rn2(10);
+                state = MAKE_EM_TAME;
+            } else if (!rn2(3)) {
+                state = MAKE_EM_HOSTILE; /* 1 in 3 */
+            } else {
+                state = MAKE_EM_TAME;
+            }
+        } else if (scursed) {
+            if (!confused) {
+                n = 2 + rn2(3);
+            }
+        } else {
+            if (confused) {
+                n = 3 + rn2(10);
+            } else if (!rn2(2)) {
+                state = MAKE_EM_PEACEFUL;
+            }
+        }
+        /* create the critter */
+        if (confused) {
+            /* Normally you get an elemental... */
+            switch (rn2(4)) {
+            case 0: /* Air */
+                critter = &mons[PM_GAS_SPORE];
+                break;
+            case 1: /* Fire */
+                critter = &mons[PM_FLAMING_SPHERE];
+                break;
+            case 2: /* Water */
+                critter = &mons[PM_FREEZING_SPHERE];
+                break;
+            default:
+            case 3: /* Earth */
+                critter = &mons[PM_SHOCKING_SPHERE];
+                break;
+            }
+        } else {
+            critter = &mons[rand_elemental()];
+        }
+        /* Summoning demons is a chaotic thing... */
+        for (i = 0; i < n; i++) {
+            mtmp = makemon(critter, u.ux, u.uy,
+                           state == MAKE_EM_TAME
+                               ? MM_EDOG | MM_IGNOREWATER | NO_MINVENT
+                               : MM_IGNOREWATER | NO_MINVENT);
+            if (!mtmp) {
+                break;
+            } else if (state == MAKE_EM_TAME) {
+                initedog(mtmp);
+            } else if (state == MAKE_EM_PEACEFUL) {
+                mtmp->mpeaceful = 1;
+            } else if (state == MAKE_EM_HOSTILE) {
+                mtmp->mpeaceful = 0;
+            }
+        }
+        known = TRUE;
+        if (Hallucination) {
+            You_feel("you have experienced something fundamental.");
+        } else {
+            pline("The elements swirl around you.");
+        }
+        break;
+    }
     case SPE_SUMMON_UNDEAD: {
 		int cnt = 1, oldmulti = multi;
 		multi = 0;
@@ -1860,10 +1940,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (!already_known)
             You("have found a scroll of genocide!");
         known = TRUE;
-        if (sblessed)
-            do_class_genocide();
-        else
-            do_genocide((!scursed) | (2 * !!Confusion));
+        do_genocide(!sobj->cursed | (2 * !!Confusion),
+                    !sobj->blessed);
         break;
     case SCR_LIGHT:
         if (!confused || rn2(5)) {
@@ -1881,6 +1959,21 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                    TRUE);
         }
         break;
+    case SCR_TIME:
+        known = TRUE;
+        if (confused || scursed) {
+            You("are frozen in time!");
+            nomul(-(rn1(5, 10 - 5 * bcsign(sobj))));
+            multi_reason = "frozen in time";
+            nomovemsg = "Your natural flow of time reasserts itself.";
+        } else {
+            if (Hallucination)
+                pline("ZA WARUDO!");
+            else
+                pline("Time slows down to a crawl around you!");
+            youmonst.movement = 50 + bcsign(sobj) * 25;
+            morehungry(rn1(30, 30));
+        }
     case SCR_TELEPORTATION:
         if (confused || scursed) {
             level_tele();
@@ -1897,6 +1990,26 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (food_detect(sobj))
             sobj = 0; /* nothing detected: strange_feeling -> useup */
         break;
+    case SCR_KNOWLEDGE: {
+        /*struct obj *sobj = *sobjp;*/
+        int otyp = sobj->otyp;
+        boolean already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
+                                 || objects[otyp].oc_name_known);
+        useup(sobj);
+        /* *sobjp = 0; */
+        sobj = 0; /* it's gone */
+        if (confused)
+            You("know this to be a knowledge scroll.");
+        else {
+            specified_id();
+            if (sblessed)
+                specified_id();
+        }
+        You("feel more knowledgeable.");
+        if (!already_known)
+            (void) learnscrolltyp(SCR_KNOWLEDGE);
+        break;
+    }
     case SCR_IDENTIFY:
         /* known = TRUE; -- handled inline here */
         /* use up the scroll first, before makeknown() performs a
@@ -1929,6 +2042,72 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("You're not carrying anything to be identified.");
         }
         break;
+    case SCR_AIR: {
+        int i;
+        struct monst *mtmp, *mtmp2;
+
+        if (scursed) {
+            if (!breathless(youmonst.data)) {
+                known = TRUE;
+                pline("The air is sucked from your lungs!");
+                losehp(d(3, 4), "asphyxiation", KILLED_BY);
+            } else {
+                strange_feeling(sobj, "You feel oddly breathless.");
+                sobj = 0;
+            }
+            break;
+        } else if (sblessed)
+            i = 4;
+        else
+            i = 2;
+        /* TODO: Remove poison gas as well. */
+        pline("A tornado whips up around you!");
+        known = TRUE;
+        for (mtmp = fmon; mtmp; mtmp = mtmp2) {
+            mtmp2 = mtmp->nmon;
+            if (distu(mtmp->mx, mtmp->my) <= 2) {
+                mhurtle(mtmp, mtmp->mx - u.ux, mtmp->my - u.uy, i + rn2(4));
+                if (!Blind)
+                    pline("%s is buffeted by winds!", Monnam(mtmp));
+                setmangry(mtmp, TRUE);
+                mtmp->mstun = 1;
+            }
+        }
+        break;
+    }
+    case SCR_CHANGE_MATERIAL: 
+    {
+        struct obj *otmp;
+
+        if (uwep && rn2(2))
+            otmp = uwep;
+        else
+            otmp = some_armor(&youmonst);
+        if (!otmp) {
+            strange_feeling(sobj, "Your skin crawls for a moment.");
+            sobj = 0; /* useup() in strange_feeling() */
+            exercise(A_CON, !scursed);
+            exercise(A_STR, !scursed);
+            break;
+        }
+        if (confused || scursed) {
+            pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
+            curse(otmp);
+            otmp->oerodeproof = 0;
+            if (valid_obj_material(otmp, PLASTIC)) {
+                otmp->material = PLASTIC;
+                costly_alteration(otmp, COST_DRAIN);
+            } else
+                warp_material(otmp, TRUE);
+            break;
+        } else {
+            if (sblessed)
+                bless(otmp);
+            pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
+            warp_material(otmp, TRUE);
+        }
+        break;
+    }
     case SCR_CHARGING:
         if (confused) {
             if (scursed) {
@@ -2167,6 +2346,49 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     return sobj ? 0 : 1;
 }
 
+static void
+specified_id()
+{
+    static char buf[BUFSZ] = DUMMY;
+    char promptbuf[BUFSZ];
+    char bufcpy[BUFSZ];
+    short otyp;
+    int tries = 0;
+    
+    promptbuf[0] = '\0';
+    if (flags.verbose)
+        You("may learn about any non-artifact.");
+retry:
+    Strcpy(promptbuf, "What non-artifact do you want to learn about");
+    Strcat(promptbuf, "?");
+    getlin(promptbuf, buf);
+    (void) mungspaces(buf);
+    if (buf[0] == '\033') {
+        buf[0] = '\0';
+    }
+    strcpy(bufcpy, buf);
+    otyp = name_to_otyp(buf);
+    if (otyp == STRANGE_OBJECT) {
+        pline("No specific object of that name exists.");
+        if (++tries < 5)
+            goto retry;
+        pline1(thats_enough_tries);
+        if (!otyp)
+            return; /* for safety; should never happen */
+    }
+    if (objects[otyp].oc_name_known) {
+        pline("You already know what that object looks like.");
+        if (++tries < 5)
+            goto retry;
+        pline1(thats_enough_tries);
+        if (!otyp)
+            return;
+    }
+    (void) makeknown(otyp);
+    You("now know more about %s.", makeplural(simple_typename(otyp)));
+    update_inventory();
+}
+
 void
 drop_boulder_on_player(confused, helmet_protects, byu, skip_uswallow)
 boolean confused, helmet_protects, byu, skip_uswallow;
@@ -2334,6 +2556,8 @@ int chg; /* recharging */
     case WAN_FIRE:
     case WAN_LIGHTNING:
     case WAN_MAGIC_MISSILE:
+    case WAN_POISON_GAS:
+    case WAN_ACID:
         k = 8;
         break;
     case WAN_NOTHING:
@@ -2751,8 +2975,10 @@ do_class_genocide()
 #define PLAYER 2
 #define ONTHRONE 4
 void
-do_genocide(how)
+do_genocide(how, only_on_level)
 int how;
+boolean only_on_level; /**< if TRUE only genocide monsters on current level,
+                            not in the complete dungeon */
 /* 0 = no genocide; create monsters (cursed scroll) */
 /* 1 = normal genocide */
 /* 3 = forced genocide of player */
@@ -2763,7 +2989,8 @@ int how;
     register int mndx;
     register struct permonst *ptr;
     const char *which;
-
+    const char *on_this_level;
+    
     if (how & PLAYER) {
         mndx = u.umonster; /* non-polymorphed mon num */
         ptr = &mons[mndx];
@@ -2822,6 +3049,23 @@ int how;
                 return;
             }
 
+#ifdef WIZARD	/* to aid in topology testing; remove pesky monsters */
+            /* copy from do_class_genocide */
+            if (wizard && buf[0] == '*') {
+                register struct monst *mtmp, *mtmp2;
+                
+                int gonecnt = 0;
+                for (mtmp = fmon; mtmp; mtmp = mtmp2) {
+                    mtmp2 = mtmp->nmon;
+                    if (DEADMONSTER(mtmp)) continue;
+                    mongone(mtmp);
+                    gonecnt++;
+                }
+                pline("Eliminated %d monster%s.", gonecnt, plur(gonecnt));
+                return;
+            }
+#endif
+
             mndx = name_to_mon(buf);
             if (mndx == NON_PM || (mvitals[mndx].mvflags & G_GENOD)) {
                 pline("Such creatures %s exist in this world.",
@@ -2864,6 +3108,7 @@ int how;
         mndx = monsndx(ptr); /* needed for the 'no free pass' cases */
     }
 
+    on_this_level = only_on_level ? " on this level" : "";
     which = "all ";
     if (Hallucination) {
         if (Upolyd)
@@ -2886,9 +3131,12 @@ int how;
             livelog_printf(LL_GENOCIDE, "genocided %s", makeplural(buf));
 
         /* setting no-corpse affects wishing and random tin generation */
-        mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE);
-        pline("Wiped out %s%s.", which,
-              (*which != 'a') ? buf : makeplural(buf));
+        if (!only_on_level) { 
+            mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE); 
+        }
+        pline("Wiped out %s%s%s.", which,
+              (*which != 'a') ? buf : makeplural(buf),
+              on_this_level);
 
         if (killplayer) {
             /* might need to wipe out dual role */
@@ -2925,9 +3173,13 @@ int how;
         } else if (ptr == youmonst.data) {
             rehumanize();
         }
-        reset_rndmonst(mndx);
-        kill_genocided_monsters();
-        update_inventory(); /* in case identified eggs were affected */
+        if (only_on_level) {
+            kill_monster_on_level(mndx);
+        } else {
+            reset_rndmonst(mndx);
+            kill_genocided_monsters();
+            update_inventory();	/* in case identified eggs were affected */
+        }
     } else {
         int cnt = 0, census = monster_census(FALSE);
 

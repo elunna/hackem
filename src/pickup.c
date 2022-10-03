@@ -1825,7 +1825,21 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
         makeknown(BAG_OF_TRICKS);
         abort_looting = TRUE;
         return 1;
+    } else if (cobj->otyp == BAG_OF_RATS) {
+        You("carefully open %s...", the(xname(cobj)));
+        if (cobj->spe && create_critters(1 + rn2(7), &mons[PM_RABID_RAT], TRUE)) {
+            pline("A torrent of rats spews out!");
+            makeknown(BAG_OF_RATS);
+            cobj->spe = 0;
+            check_unpaid(cobj);
+        } else {
+            pline("%s emits a petulant squeaking noise and snaps shut.",
+                  The(xname(cobj)));
+        }
+        abort_looting = TRUE;
+        return 1;
     }
+    
 
     return use_container(cobjp, FALSE, (boolean) (cindex < ccount));
 }
@@ -2324,7 +2338,9 @@ struct obj *obj;
 int depthin;
 {
     /* these won't cause an explosion when they're empty/no enchantment */
-    if ((obj->otyp == WAN_CANCELLATION || obj->otyp == BAG_OF_TRICKS
+    if ((obj->otyp == WAN_CANCELLATION 
+         || obj->otyp == BAG_OF_TRICKS 
+         || obj->otyp == BAG_OF_RATS
          || obj->oartifact == ART_MAGICBANE)
         && obj->spe <= 0)
         return FALSE;
@@ -2466,7 +2482,10 @@ register struct obj *obj;
         return -1;
 
     /* boxes, boulders, and big statues can't fit into any container */
-    if (obj->otyp == ICE_BOX || Is_box(obj) || obj->otyp == BOULDER
+    if (obj->otyp == ICE_BOX 
+        || obj->otyp == KEG
+        || Is_box(obj) 
+        || obj->otyp == BOULDER
         || (obj->otyp == STATUE && bigmonst(&mons[obj->corpsenm]))) {
         /*
          *  xname() uses a static result array.  Save obj's name
@@ -2748,6 +2767,36 @@ boolean makecat, givemsg;
     return;
 }
 
+void
+open_coffin(box, past)
+struct obj *box;
+boolean past;
+{
+    /* static NEARDATA const char sc[] = "Schroedinger's Cat"; */
+    /* Would be nice to name the vampire and put the name on the coffin. But not today. */
+    struct monst *vampire;
+    xchar ox, oy;
+
+    pline(past ? "That wasn't %s, it was a coffin!" :
+		"This isn't %s, it's a coffin!", an(simple_typename(box->otyp)));
+    box->spe = 3;    /* box->owt will be updated below */
+    if (get_obj_location(box, &ox, &oy, 0))
+    box->ox = ox, box->oy = oy;  /* in case it's being carried */
+
+    vampire = makemon(mkclass(S_VAMPIRE,0), box->ox, box->oy, NO_MM_FLAGS);
+    set_malign(vampire);
+    if (!canspotmon(vampire)) {
+	You("think %s brushed against your %s.", something, body_part(HAND));
+    } else {
+	pline("There %s a %s in the coffin.", past ? "was" : "is",
+		Hallucination ? "dark knight" : m_monnam(vampire));
+	pline_The("%s rises!", Hallucination ? "dark knight" : m_monnam(vampire));
+    }
+    /* (void) christen_monst(vampire, sc); */
+    box->owt = weight(box);
+    return;
+}
+
 #undef Icebox
 
 /* used by askchain() to check for magic bag explosion */
@@ -2860,7 +2909,12 @@ boolean more_containers; /* True iff #loot multiple and this isn't last one */
     quantum_cat = SchroedingersBox(current_container);
     if (quantum_cat) {
         observe_quantum_cat(current_container, TRUE, TRUE);
+                         
         used = 1;
+    } else if (obj->spe == 4) {
+        open_coffin(obj, FALSE); //FALSE: the box was not destroyed. Use present tense.
+        used = 1;
+        return used;
     }
 
     cursed_mbag = Is_mbag(current_container)
@@ -3777,7 +3831,7 @@ boolean *cancelled;
         /* skip non-containers; bag of tricks passes Is_container() test,
            only include it if it isn't known to be a bag of tricks */
         if (!Is_container(otmp)
-            || (otmp->otyp == BAG_OF_TRICKS && otmp->dknown
+            || ((otmp->otyp == BAG_OF_TRICKS || otmp->otyp == BAG_OF_RATS) && otmp->dknown
                 && objects[otmp->otyp].oc_name_known))
             continue;
         if (!n_conts++)
@@ -3824,7 +3878,7 @@ boolean allowempty;    /* affects result when box is empty */
     /* undiscovered bag of tricks is acceptable as a container-to-container
        destination but it can't receive items; it has to be opened in
        preparation so apply it once before even trying to tip source box */
-    if (targetbox && targetbox->otyp == BAG_OF_TRICKS) {
+    if (targetbox && (targetbox->otyp == BAG_OF_TRICKS || targetbox->otyp == BAG_OF_RATS)) {
         int seencount = 0;
 
         bagotricks(targetbox);
@@ -3859,9 +3913,11 @@ boolean allowempty;    /* affects result when box is empty */
         }
         return TIPCHECK_TRAPPED;
 
-    } else if (box->otyp == BAG_OF_TRICKS || box->otyp == HORN_OF_PLENTY) {
+    } else if (box->otyp == BAG_OF_TRICKS 
+                   || box->otyp == BAG_OF_RATS 
+                   || box->otyp == HORN_OF_PLENTY) {
         int res = TIPCHECK_OK;
-        boolean bag = box->otyp == BAG_OF_TRICKS;
+        boolean bag = box->otyp == BAG_OF_TRICKS || BAG_OF_RATS;
         int old_spe = box->spe;
         boolean maybeshopgoods = !carried(box) && costly_spot(box->ox, box->oy);
         xchar ox = u.ux, oy = u.uy;
