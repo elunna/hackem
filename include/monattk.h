@@ -46,8 +46,8 @@
 #define AD_DRST 7   /* drains str (poison) */
 #define AD_ACID 8   /* acid damage */
 #define AD_WATR 9   /* water (physical) attack */
-#define AD_SPC1 10  /* for extension of buzz() */
-#define AD_SPC2 11  /* for extension of buzz() */
+#define AD_LOUD 10  /* sound damage         (prev AD_SPC1 extension of buzz() */
+#define AD_PSYC 11  /* psionic attack       (prev AD_SPC2 extension of buzz() */
 #define AD_BLND 12  /* blinds (yellow light) */
 #define AD_STUN 13  /* stuns */
 #define AD_SLOW 14  /* slows */
@@ -83,24 +83,22 @@
 #define AD_CNCL 44  /* cancellation */
 #define AD_BHED 45  /* beheading (vorpal jabberwock) */
 #define AD_LUCK 46  /* affects luck (magical eye) */
-#define AD_PSYC 47  /* psionic attack */
-#define AD_LOUD 48  /* sound damage */
-#define AD_CLOB 49  /* knock-back attack */
-#define AD_POLY 50  /* polymorph the target (genetic engineer) */
-#define AD_WTHR 51  /* withering attack (mummies) */
-#define AD_PITS 52  /* create pit under target (pit fiend) */
-#define AD_WEBS 53  /* entangles target in webbing */
-#define AD_CURS 54  /* random curse (ex. gremlin) */
-#define AD_CLRC 55  /* random clerical spell */
-#define AD_SPEL 56  /* random magic spell */
-#define AD_RBRE 57  /* random breath weapon */
-#define AD_CALM	58  /* KMH -- calms its enemies (koala) */
-#define AD_TCKL	59  /* Tickle (Nightgaunts) */
-#define AD_PIER 60  /* Piercing scream (Mobats) */
-#define AD_SONG 61  /* Paralyzing song (Harpy) */
-#define AD_GIBB 62  /* Gibber chitter-chatter attack (Gibberlings) */
-#define AD_SPOR	63	/* generate spore */
-#define AD_SAMU 64  /* hits, may steal Amulet (Wizard) */
+#define AD_CLOB 47  /* knock-back attack */
+#define AD_POLY 48  /* polymorph the target (genetic engineer) */
+#define AD_WTHR 49  /* withering attack (mummies) */
+#define AD_PITS 50  /* create pit under target (pit fiend) */
+#define AD_WEBS 51  /* entangles target in webbing */
+#define AD_CURS 52  /* random curse (ex. gremlin) */
+#define AD_CLRC 53  /* random clerical spell */
+#define AD_SPEL 54  /* random magic spell */
+#define AD_RBRE 55  /* random breath weapon */
+#define AD_CALM	56  /* KMH -- calms its enemies (koala) */
+#define AD_TCKL	57  /* Tickle (Nightgaunts) */
+#define AD_PIER 58  /* Piercing scream (Mobats) */
+#define AD_SONG 59  /* Paralyzing song (Harpy) */
+#define AD_GIBB 60  /* Gibber chitter-chatter attack (Gibberlings) */
+#define AD_SPOR	61	/* generate spore */
+#define AD_SAMU 62  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

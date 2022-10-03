@@ -4530,6 +4530,11 @@ struct obj *obj;
             }
         }
         break;
+    case WAN_ACID:
+    case WAN_POISON_GAS:
+        if (expltype == EXPL_MAGICAL)
+            expltype = EXPL_NOXIOUS;
+        break;
     case WAN_COLD:
         if (expltype == EXPL_MAGICAL)
             expltype = EXPL_FROSTY;

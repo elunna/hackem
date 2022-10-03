@@ -1236,6 +1236,8 @@ WAND("cold",            "short", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
+WAND("poison gas",  "octagonal",  20, 175, 1, RAY, IRON,  HI_METAL),
+WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD),
 WAND("fireball",    "octagonal",   5, 300, 1, RAY, IRON,  HI_METAL),
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "forked",  0, 150, 1, 0, WOOD, HI_WOOD),

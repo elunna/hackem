@@ -47,6 +47,8 @@ STATIC_DCL void FDECL(wishcmdassist, (int));
 #define ZT_POISON_GAS (AD_DRST - 1)
 #define ZT_WATER (AD_WATR - 1)
 #define ZT_ACID (AD_ACID - 1)
+#define ZT_SONIC (AD_LOUD - 1)
+#define ZT_PSYCHIC (AD_PSYC - 1)
 
 #define ZT_FIRST                (ZT_MAGIC_MISSILE)
 #define ZT_LAST                 (ZT_ACID) /*For checking of spells of a type*/
@@ -65,7 +67,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
     {
         "magic missile", /* Wands must be 0-9 */
         "bolt of fire", "bolt of cold", "sleep ray", "death ray",
-        "bolt of lightning", "", "", "", "",
+        "bolt of lightning", "poison gas", "acid stream", 
+        "water stream", "",
 
         "magic missile", /* Spell equivalents must be 10-19 */
         "fireball", "cone of cold", "sleep ray", "finger of death",
@@ -2894,7 +2897,15 @@ boolean ordinary;
             damage = resist_reduce(d(12, 6), POISON_RES);
         }
         break;
-
+    case WAN_POISON_GAS:
+        learn_it = TRUE;
+        if (!Deaf) {
+            pline("Whoosh!");
+        }
+        (void) create_gas_cloud(u.ux, u.uy, 1, 8);
+        break;
+    case WAN_ACID:
+        learn_it = TRUE;
     case SPE_ACID_BLAST:
         learn_it = TRUE;
         if (Acid_resistance) {
@@ -3901,8 +3912,7 @@ struct obj *obj;
         wondertemp = WAN_LIGHT + rn2(WAN_FIREBALL - WAN_LIGHT);
         /* --hackem: Significantly reduced the chances of wishes */
         if (wondertemp == WAN_WISHING && rn2(100))
-            /* wondertemp = WAN_POISON_GAS; */
-            wondertemp = WAN_FEAR;
+            wondertemp = WAN_POISON_GAS;
         if (wondertemp == WAN_WONDER)
             wondertemp = WAN_POLYMORPH;
         if (wondertemp == WAN_NOTHING)
@@ -3933,7 +3943,6 @@ struct obj *obj;
 
     } else if (objects[otyp].oc_dir == NODIR) {
         zapnodir(obj);
-
     } else {
         /* neither immediate nor directionless */
 
@@ -4743,6 +4752,17 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         tmp = d(nd, 6);
         break;
+    case ZT_ACID:
+        if (resists_acid(mon) || defended(mon, AD_ACID)) {
+            sho_shieldeff = TRUE;
+            break;
+        }
+        tmp = d(nd, 6);
+        if (!rn2(6))
+            acid_damage(MON_WEP(mon));
+        if (!rn2(6))
+            erode_armor(mon, ERODE_CORRODE);
+        break;
     case ZT_WATER:
         tmp = d(nd, 8);
         if (mon->data == &mons[PM_WATER_ELEMENTAL]
@@ -4764,17 +4784,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         if (!rn2(6))
             erode_armor(mon, ERODE_RUST);
         break;
-    case ZT_ACID:
-        if (resists_acid(mon) || defended(mon, AD_ACID)) {
-            sho_shieldeff = TRUE;
-            break;
-        }
-        tmp = d(nd, 6);
-        if (!rn2(6))
-            acid_damage(MON_WEP(mon));
-        if (!rn2(6))
-            erode_armor(mon, ERODE_CORRODE);
-        break;
+
     }
     if (sho_shieldeff)
         shieldeff(mon->mx, mon->my);
@@ -4961,6 +4971,26 @@ xchar sx, sy;
             poisoned("blast", A_DEX, "poisoned blast", 15, FALSE);
         }
         break;
+    case ZT_ACID:
+        if (Acid_resistance) {
+            pline_The("%s doesn't hurt.", hliquid("acid"));
+            monstseesu(M_SEEN_ACID);
+            dam = 0;
+        } else {
+            pline_The("%s burns!", hliquid("acid"));
+            dam = d(nd, 6);
+            exercise(A_STR, FALSE);
+        }
+        if (!Reflecting) {
+            /* using two weapons at once makes both of them more vulnerable */
+            if (!rn2(u.twoweap ? 3 : 6))
+                acid_damage(uwep);
+            if (u.twoweap && !rn2(3))
+                acid_damage(uswapwep);
+            if (!rn2(6))
+                erode_armor(&youmonst, ERODE_CORRODE);
+        }
+        break;
     case ZT_WATER:
         dam = d(nd, 8);
         if (Half_physical_damage)
@@ -4986,26 +5016,6 @@ xchar sx, sy;
                 water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
             if (!rn2(6))
                 erode_armor(&youmonst, ERODE_RUST);
-        }
-        break;
-    case ZT_ACID:
-        if (Acid_resistance) {
-            pline_The("%s doesn't hurt.", hliquid("acid"));
-            monstseesu(M_SEEN_ACID);
-            dam = 0;
-        } else {
-            pline_The("%s burns!", hliquid("acid"));
-            dam = d(nd, 6);
-            exercise(A_STR, FALSE);
-        }
-        if (!Reflecting) {
-            /* using two weapons at once makes both of them more vulnerable */
-            if (!rn2(u.twoweap ? 3 : 6))
-                acid_damage(uwep);
-            if (u.twoweap && !rn2(3))
-                acid_damage(uswapwep);
-            if (!rn2(6))
-                erode_armor(&youmonst, ERODE_CORRODE);
         }
         break;
     }
@@ -5175,12 +5185,12 @@ boolean say; /* Announce out of sight hit/miss events if true */
        */
 
     /* horrible kludge for wands of fireball... */    
-    if (type == ZT_WAND(ZT_LIGHTNING + 1)) 
+    if (type == ZT_WAND(ZT_ACID + 1)) 
         type = ZT_SPELL(ZT_FIRE);
     
     /* WAC kludge for monsters zapping wands of fireball */
     if ((type <= ZT_MONWAND(ZT_FIRST) && type >= ZT_MONWAND(ZT_LAST))
-	        && ((abs(type) % 10) == ZT_WAND(ZT_LIGHTNING + 1))) 
+	        && ((abs(type) % 10) == ZT_WAND(ZT_ACID + 1))) 
 		type = - ZT_SPELL(ZT_FIRE);
 
     /*WAC bugfix - should show right color stream now (for wands of fireball) */
