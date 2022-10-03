@@ -1540,6 +1540,17 @@ NEARDATA struct permonst mons[] = {
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_GREEDY | M2_MAGIC | M1_HERBIVORE, 
         M3_INFRAVISIBLE, 0, 0, 11, CLR_BROWN),
+    MON("thriae", S_NYMPH, 
+        LVL(14, 12, 0, 0, 0), (G_GENO | G_SGROUP | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
+          ATTK(AT_STNG, AD_DRST, 2, 6),
+          ATTK(AT_CLAW, AD_SEDU, 0, 0), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(600, 300, MS_BUZZ, MZ_HUMAN), MR_POISON, MR_POISON,
+        M1_HUMANOID | M1_POIS | M1_FLY,
+        M2_HOSTILE | M2_FEMALE | M2_COLLECT, 0, 0, 0, 
+        20, CLR_YELLOW),
+   
     /* In Slash'EM, but we kept the EvilHack version - almost identical */
     MON("Aphrodite", S_NYMPH,
         LVL(10, 15, -5, 20, 0), (G_UNIQ | G_NOGEN | 1),
