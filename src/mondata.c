@@ -1317,6 +1317,9 @@ static const short grownups[][2] = {
     { PM_NICKELPEDE, PM_GIANT_CENTIPEDE},
     { PM_PILE_OF_KILLER_COINS, PM_LARGE_PILE_OF_KILLER_COINS},
     { PM_LARGE_PILE_OF_KILLER_COINS, PM_HUGE_PILE_OF_KILLER_COINS},
+    
+    /* Splice additions */
+    { PM_MAGGOT, PM_GIANT_FLY },
     { NON_PM, NON_PM }
 };
 
