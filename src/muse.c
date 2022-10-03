@@ -2772,6 +2772,7 @@ struct monst *mtmp;
 #define MUSE_FIGURINE 12
 #define MUSE_DWARVISH_BEARDED_AXE_WEAPON 13
 #define MUSE_DWARVISH_BEARDED_AXE_SHIELD 14
+#define MUSE_POT_REFLECT 15
 
 boolean
 find_misc(mtmp)
@@ -2930,6 +2931,13 @@ struct monst *mtmp;
             && mons[monsndx(mdat)].difficulty < 6) {
             m.misc = obj;
             m.has_misc = MUSE_WAN_POLYMORPH_SELF;
+        }
+        nomore(MUSE_POT_REFLECT);
+        if (obj->otyp == POT_REFLECTION && !mtmp->mreflect &&
+              mtmp->data != &mons[PM_SILVER_DRAGON] &&
+              mtmp->data != &mons[PM_BABY_SILVER_DRAGON]) {
+            m.misc = obj;
+            m.has_misc = MUSE_POT_REFLECT;
         }
         nomore(MUSE_POT_POLYMORPH);
         if (obj->otyp == POT_POLYMORPH && (mtmp->cham == NON_PM)
@@ -3245,6 +3253,15 @@ struct monst *mtmp;
            player's character becomes "very fast" temporarily;
            monster becomes "one stage faster" permanently */
         mon_adjust_speed(mtmp, 1, otmp);
+        m_useup(mtmp, otmp);
+        return 2;
+    case MUSE_POT_REFLECT:
+        mquaffmsg(mtmp, otmp);
+        mtmp->mreflect = 1;
+        if (canseemon(mtmp) && !Blind)
+            pline("%s is covered in a silvery sheen!", Monnam(mtmp));
+        if (oseen)
+            makeknown(POT_REFLECTION);
         m_useup(mtmp, otmp);
         return 2;
     case MUSE_WAN_POLYMORPH_SELF:
@@ -3579,7 +3596,7 @@ struct monst *mtmp;
     if (!rn2(40) && !nonliving(pm) && !is_vampshifter(mtmp))
         return AMULET_OF_LIFE_SAVING;
 
-    switch (rn2(3)) {
+    switch (rn2(4)) {
     case 0:
         if (mtmp->isgd)
             return 0;
@@ -3590,6 +3607,8 @@ struct monst *mtmp;
         return rn2(6) ? POT_INVISIBILITY : WAN_MAKE_INVISIBLE;
     case 2:
         return POT_GAIN_LEVEL;
+    case 3:
+        return POT_REFLECTION;
     }
     /*NOTREACHED*/
     return 0;
@@ -3630,6 +3649,8 @@ struct obj *obj;
                           && !attacktype(mon->data, AT_GAZE));
     if (typ == WAN_SPEED_MONSTER || typ == POT_SPEED)
         return (boolean) (mon->mspeed != MFAST);
+    if (typ == POT_REFLECTION)
+        return mon->mreflect != 1;
 
     switch (obj->oclass) {
     case WAND_CLASS:

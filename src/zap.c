@@ -1129,6 +1129,9 @@ boolean by_hero;
     if (M_AP_TYPE(mtmp))
         seemimic(mtmp);
 
+    /* monsters do not come back reflective */
+    mtmp->mreflect = 0;
+    
     one_of = (corpse->quan > 1L);
     if (one_of)
         corpse = splitobj(corpse, 1L);
