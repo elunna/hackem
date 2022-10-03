@@ -137,6 +137,13 @@ NEARDATA struct permonst mons[] = {
         SIZ(30, 10, MS_SILENT, MZ_TINY), MR_COLD, MR_COLD,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE,
         0, M4_VULNERABLE_FIRE, 0, 6, CLR_CYAN),
+    MON("bullet ant", S_ANT, 
+        LVL(4, 18, 3, 0, 0), (G_GENO | G_SGROUP | 2),
+        A(ATTK(AT_STNG, AD_DRCO, 5, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(20, 5, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
+        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
+        M2_HOSTILE, 0, 0, 0, 8, CLR_GRAY),
     MON("queen ant", S_ANT,                                     /* EvilHack */
         LVL(14, 24, -8, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 3, 8),
