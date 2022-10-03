@@ -2512,20 +2512,16 @@ register struct obj *obj;
        in order to catch various cases for engraving and keeping Wands
        from being identified erroneously. */
     boolean wonder = FALSE;
+    /* TODO: Move all omni wands to be contiguous in objects.c so we can use 
+     * a single random statement instead of switch */
     if (obj->otyp == WAN_WONDER) {
-        switch (rn2(4)) {
-        case 0:
-            obj->otyp = WAN_LIGHT;
-            break;
-        case 1:
-            obj->otyp = WAN_SECRET_DOOR_DETECTION;
-            break;
-        case 2:
-            obj->otyp = WAN_CREATE_MONSTER;
-            break;
-        case 3:
-            obj->otyp = WAN_ENLIGHTENMENT;
-            break;
+        switch (rn2(6)) {
+        case 0: obj->otyp = WAN_LIGHT; break;
+        case 1: obj->otyp = WAN_SECRET_DOOR_DETECTION; break;
+        case 2: obj->otyp = WAN_CREATE_MONSTER; break;
+        case 3: obj->otyp = WAN_CREATE_HORDE; break;
+        case 4: obj->otyp = WAN_ENLIGHTENMENT; break;
+        case 5: obj->otyp = WAN_FEAR; break;
         }
         wonder = TRUE;
     }
@@ -2701,24 +2697,12 @@ boolean ordinary;
         if (!obj->dknown) pline("You have found a wand of wonder!");
         switch (rn2(7)) {
         /* Not a complete list, just some interesting effects. */
-        case 1:
-            obj->otyp = WAN_LIGHTNING;
-            break;
-        case 2:
-            obj->otyp = WAN_MAGIC_MISSILE;
-            break;
-        case 3:
-            obj->otyp = WAN_POLYMORPH;
-            break;
-        case 4:
-            obj->otyp = WAN_UNDEAD_TURNING;
-            break;
-        case 5:
-            obj->otyp = WAN_TELEPORTATION;
-            break;
-        case 6:
-            obj->otyp = WAN_DEATH;
-            break;
+        case 1: obj->otyp = WAN_LIGHTNING; break;
+        case 2: obj->otyp = WAN_MAGIC_MISSILE; break;
+        case 3: obj->otyp = WAN_POLYMORPH; break;
+        case 4: obj->otyp = WAN_UNDEAD_TURNING; break;
+        case 5: obj->otyp = WAN_TELEPORTATION; break;
+        case 6: obj->otyp = WAN_DEATH; break;
         default:
             obj->otyp = WAN_SLEEP;
             break;
