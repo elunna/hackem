@@ -2548,7 +2548,7 @@ long timeout;
          mptr = r_data(OMONST(body));
     zmon = zombie_form(mptr);
 
-    if (zmon != NON_PM) {
+    if (zmon != NON_PM && !(mvitals[zmon].mvflags & G_GENOD)) {
         if (has_omid(body))
             free_omid(body);
         if (has_omonst(body))
