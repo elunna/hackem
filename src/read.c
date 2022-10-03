@@ -2075,6 +2075,39 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     }
+    case SCR_CHANGE_MATERIAL: 
+    {
+        struct obj *otmp;
+
+        if (uwep && rn2(2))
+            otmp = uwep;
+        else
+            otmp = some_armor(&youmonst);
+        if (!otmp) {
+            strange_feeling(sobj, "Your skin crawls for a moment.");
+            sobj = 0; /* useup() in strange_feeling() */
+            exercise(A_CON, !scursed);
+            exercise(A_STR, !scursed);
+            break;
+        }
+        if (confused || scursed) {
+            pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
+            curse(otmp);
+            otmp->oerodeproof = 0;
+            if (valid_obj_material(otmp, PLASTIC)) {
+                otmp->material = PLASTIC;
+                costly_alteration(otmp, COST_DRAIN);
+            } else
+                warp_material(otmp, TRUE);
+            break;
+        } else {
+            if (sblessed)
+                bless(otmp);
+            pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
+            warp_material(otmp, TRUE);
+        }
+        break;
+    }
     case SCR_CHARGING:
         if (confused) {
             if (scursed) {

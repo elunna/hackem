@@ -3726,4 +3726,37 @@ int material;
         otmp->oerodeproof = FALSE;
 }
 
+
+/* Based on init_obj_material by aosdict. */
+boolean
+warp_material(obj,by_you)
+struct obj* obj;
+boolean by_you;
+{
+    if (obj->oartifact && rn2(20))
+        return FALSE;
+    int origmat = obj->material;
+    
+    int j = 0;
+    int newmat;
+    while (j < 200) {
+        newmat = 1 + rn2(NUM_MATERIAL_TYPES);
+        if (newmat != origmat && valid_obj_material(obj, newmat))
+            break;
+        j++;
+    }
+    if (!Hate_material(newmat))
+        obj->material = newmat;
+    else
+        /* can use a 0 in the list to default to the base material */
+        obj->material = objects[obj->otyp].oc_material;
+    obj->owt = weight(obj);
+    if (origmat != obj->material) {
+        /* Charge for the cost of the object */
+        if (by_you)
+            costly_alteration(obj, COST_DRAIN);
+        return TRUE;
+    }
+    return FALSE;
+}
 /*mkobj.c*/
