@@ -3792,7 +3792,8 @@ struct obj *obj;
     
     if (otyp == WAN_WONDER) {
         wondertemp = WAN_LIGHT + rn2(WAN_FIREBALL - WAN_LIGHT);
-        if (wondertemp == WAN_WISHING && !rn2(100))
+        /* --hackem: Significantly reduced the chances of wishes */
+        if (wondertemp == WAN_WISHING && rn2(100))
             /* wondertemp = WAN_POISON_GAS; */
             wondertemp = WAN_FEAR;
         if (wondertemp == WAN_WONDER)
