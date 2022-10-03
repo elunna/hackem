@@ -43,6 +43,7 @@ short otyp;
     case SCR_CHARGING:
     case SCR_MAGIC_DETECTION:
         return 16;
+    case SCR_ELEMENTALISM:
     case SCR_SCARE_MONSTER:
     case SCR_STINKING_CLOUD:
     case SCR_TAMING:
