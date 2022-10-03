@@ -199,6 +199,9 @@ boolean destroyit;
 
         pline("In fact, you've totally destroyed %s.", the(xname(box)));
         /* Put the contents on ground at the hero's feet. */
+        if (xlock.box->spe == 4) {
+            open_coffin(xlock.box, TRUE);		/* TRUE: use past tense */
+        }
         while ((otmp = box->cobj) != 0) {
             obj_extract_self(otmp);
             if (!rn2(3) || otmp->oclass == POTION_CLASS) {

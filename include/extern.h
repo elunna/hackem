@@ -2054,7 +2054,6 @@ E void NDECL(getlock);
 #endif /* MICRO */
 
 /* ### pickup.c ### */
-
 E int FDECL(collect_obj_classes, (char *, struct obj *, BOOLEAN_P,
                                   boolean FDECL((*), (OBJ_P)), int *));
 E boolean FDECL(rider_corpse_revival, (struct obj *, BOOLEAN_P));
@@ -2080,6 +2079,7 @@ E int NDECL(encumber_msg);
 E int FDECL(container_at, (int, int, BOOLEAN_P));
 E int NDECL(doloot);
 E void FDECL(observe_quantum_cat, (struct obj *, BOOLEAN_P, BOOLEAN_P));
+E void FDECL(open_coffin, (struct obj *, boolean));
 E boolean FDECL(container_gone, (int (*)(OBJ_P)));
 E boolean NDECL(u_handsy);
 E int FDECL(use_container, (struct obj **, BOOLEAN_P, BOOLEAN_P));

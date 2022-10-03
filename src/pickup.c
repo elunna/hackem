@@ -2767,6 +2767,36 @@ boolean makecat, givemsg;
     return;
 }
 
+void
+open_coffin(box, past)
+struct obj *box;
+boolean past;
+{
+    /* static NEARDATA const char sc[] = "Schroedinger's Cat"; */
+    /* Would be nice to name the vampire and put the name on the coffin. But not today. */
+    struct monst *vampire;
+    xchar ox, oy;
+
+    pline(past ? "That wasn't %s, it was a coffin!" :
+		"This isn't %s, it's a coffin!", an(simple_typename(box->otyp)));
+    box->spe = 3;    /* box->owt will be updated below */
+    if (get_obj_location(box, &ox, &oy, 0))
+    box->ox = ox, box->oy = oy;  /* in case it's being carried */
+
+    vampire = makemon(&mons[PM_VAMPIRE], box->ox, box->oy, NO_MINVENT);
+    set_malign(vampire);
+    if (!canspotmon(vampire)) {
+	You("think %s brushed against your %s.", something, body_part(HAND));
+    } else {
+	pline("There %s a %s in the coffin.", past ? "was" : "is",
+		Hallucination ? "dark knight" : m_monnam(vampire));
+	pline_The("%s rises!", Hallucination ? "dark knight" : m_monnam(vampire));
+    }
+    /* (void) christen_monst(vampire, sc); */
+    box->owt = weight(box);
+    return;
+}
+
 #undef Icebox
 
 /* used by askchain() to check for magic bag explosion */
@@ -2879,7 +2909,12 @@ boolean more_containers; /* True iff #loot multiple and this isn't last one */
     quantum_cat = SchroedingersBox(current_container);
     if (quantum_cat) {
         observe_quantum_cat(current_container, TRUE, TRUE);
+                         
         used = 1;
+    } else if (obj->spe == 4) {
+        open_coffin(obj, FALSE); //FALSE: the box was not destroyed. Use present tense.
+        used = 1;
+        return used;
     }
 
     cursed_mbag = Is_mbag(current_container)

@@ -1631,6 +1631,13 @@ register struct obj *obj;
        when we assume this is a brand new glob so use objects[].oc_weight */
     if (obj->globby && obj->owt > 0)
         wt = obj->owt;
+    if (obj->otyp == LARGE_BOX && obj->spe) { /* Schroedinger's Cat */
+        if (obj->spe == 1) {
+            wt += mons[PM_HOUSECAT].cwt;
+        } else if (obj->spe == 4) {
+            wt += mons[PM_VAMPIRE].cwt;
+        }
+    }
     if (Is_container(obj) || obj->otyp == STATUE) {
         struct obj *contents;
         register int cwt = 0;
