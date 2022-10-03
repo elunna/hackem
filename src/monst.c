@@ -688,6 +688,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOHANDS | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG,
         M3_INFRAVISIBLE, M4_VULNERABLE_COLD, MH_WERE, 16, CLR_RED),
+    
 #if 0 /* Rest in peace Koa... */
     MON("Koa", S_DOG, LVL(20, 20, 2, 40, 0), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_BITE, AD_PHYS, 4, 6), 
@@ -750,6 +751,13 @@ NEARDATA struct permonst mons[] = {
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
         M1_FLY | M1_AMPHIBIOUS | M1_NOLIMBS | M1_NOHEAD | M1_NOTAKE | M1_REGEN,
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 3, CLR_BLUE),
+    MON("weeping eye", S_EYE, 
+        LVL(2, 1, 9, 10, 0), (G_GENO | 2),
+        A(ATTK(AT_NONE, AD_RUST, 0, 70), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_FLY | M1_AMPHIBIOUS | M1_NOLIMBS | M1_NOHEAD | M1_NOTAKE,
+        M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 3, CLR_BROWN),
     MON("glowing eye", S_EYE,                                  /* Slash'EM */
         LVL(5, 3, 4, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_GAZE, AD_BLND, 3, 4), 
