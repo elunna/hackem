@@ -1958,6 +1958,21 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                    TRUE);
         }
         break;
+    case SCR_TIME:
+        known = TRUE;
+        if (confused || scursed) {
+            You("are frozen in time!");
+            nomul(-(rn1(5, 10 - 5 * bcsign(sobj))));
+            multi_reason = "frozen in time";
+            nomovemsg = "Your natural flow of time reasserts itself.";
+        } else {
+            if (Hallucination)
+                pline("ZA WARUDO!");
+            else
+                pline("Time slows down to a crawl around you!");
+            youmonst.movement = 50 + bcsign(sobj) * 25;
+            morehungry(rn1(30, 30));
+        }
     case SCR_TELEPORTATION:
         if (confused || scursed) {
             level_tele();
