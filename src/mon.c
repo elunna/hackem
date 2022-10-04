@@ -420,6 +420,9 @@ int mndx;
     case PM_TROLL_MUMMY:    
         mndx = PM_TROLL;
         break;
+    case PM_ZOMBIE_DRAGON:
+        mndx =  PM_RED_DRAGON;
+        break;
     default:
         break;
     }
@@ -635,6 +638,7 @@ unsigned corpseflags;
     case PM_ETTIN_ZOMBIE:
     case PM_GNOLL_WITHERLING:
     case PM_DRAUGR:
+    case PM_ZOMBIE_DRAGON:
         corpstatflags |= CORPSTAT_ZOMBIE;
         /* FALLTHRU */
     case PM_KOBOLD_MUMMY:

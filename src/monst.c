@@ -5658,6 +5658,17 @@ struct permonst _mons2[] = {
         M2_WANDER | M2_HOSTILE | M2_FEMALE | M2_COLLECT | M2_MAGIC,
         M3_INFRAVISION | M3_TRAITOR,  
         M4_VULNERABLE_FIRE, MH_UNDEAD, 20, CLR_BLACK),
+    MON("zombie dragon", S_ZOMBIE, 
+        LVL(14, 8, -1, 20, -4), (G_GENO | 1),
+        A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
+          ATTK(AT_CLAW, AD_PHYS, 1, 4),
+          ATTK(AT_CLAW, AD_PHYS, 1, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_DRAGON, 1500, MS_SILENT, MZ_GIGANTIC), MR_FIRE, 0,
+        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_BREATHLESS |
+        M1_MINDLESS,
+        M2_HOSTILE | M2_STRONG | M2_NASTY | M2_MAGIC,
+        M3_INFRAVISIBLE, 0, MH_UNDEAD, 17, CLR_ORANGE),
 
     /*
      * golems
