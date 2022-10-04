@@ -2298,6 +2298,13 @@ NEARDATA struct permonst mons[] = {
             | M1_CARNIVORE | M3_SKITTISH,
         M2_HOSTILE | M2_STRONG,
         0, 0, 0, 10, CLR_BLUE),
+    MON("monstrous spider", S_SPIDER, 
+        LVL(8, 15, 4, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_BITE, AD_DRST, 4, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(200, 200, MS_SILENT, MZ_HUGE), MR_POISON, MR_POISON,
+        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
+        M2_HOSTILE | M2_STRONG, 0, 0, 0, 10, CLR_ORANGE),
     MON("werespider", S_SPIDER,                                 /* Slash'EM */
         LVL(11, 15, 3, 0, 0), (G_GENO | G_NOGEN | 1),
         A(ATTK(AT_BITE, AD_WERE, 4, 4),
