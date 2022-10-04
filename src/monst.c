@@ -2918,6 +2918,17 @@ NEARDATA struct permonst mons[] = {
         M1_HUMANOID | M1_SEE_INVIS,
         M2_MINION | M2_STALK | M2_NASTY | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 12, CLR_YELLOW),
+    MON("lamassu", S_ANGEL, 
+        LVL(12, 12, -3, 50, 0), (G_NOHELL | G_NOCORPSE | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
+          ATTK(AT_CLAW, AD_PHYS, 2, 4),
+          ATTK(AT_BITE, AD_PHYS, 1, 6), 
+          ATTK(AT_MAGC, AD_CLRC, 2, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(600, 300, MS_CUSS, MZ_LARGE), MR_FIRE, 0,
+        M1_ANIMAL | M1_SEE_INVIS | M1_CARNIVORE | M1_FLY,
+        M2_HOSTILE | M2_STALK | M2_NASTY | M2_STRONG | M2_MINION,
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 16, CLR_BROWN),
     /* Angels start with the emin extension attached, and usually have
        the isminion flag set; however, non-minion Angels can be tamed
        and will switch to edog (guardian Angel is handled specially and
