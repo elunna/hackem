@@ -2913,7 +2913,8 @@ register boolean newlev;
             if (monstinroom(&mons[PM_SOLDIER], roomno)
                 || monstinroom(&mons[PM_SERGEANT], roomno)
                 || monstinroom(&mons[PM_LIEUTENANT], roomno)
-                || monstinroom(&mons[PM_CAPTAIN], roomno))
+                || monstinroom(&mons[PM_CAPTAIN], roomno)
+                || monstinroom(&mons[PM_GENERAL], roomno))
                 You("enter a military barracks!");
             else
                 You("enter an abandoned barracks.");

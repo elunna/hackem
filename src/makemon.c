@@ -1221,6 +1221,9 @@ register struct monst *mtmp;
                     (void) mongets(mtmp, randwand);
                 }
                 break;
+            case PM_GENERAL:
+                (void) mongets(mtmp, rnd_offensive_item(mtmp));
+                /* FALLTHRU */
             case PM_CAPTAIN:
             case PM_WATCH_CAPTAIN:
             case PM_PRISON_GUARD:
@@ -2168,6 +2171,9 @@ register struct monst *mtmp;
                 break;
             case PM_CAPTAIN:
                 mac = -3;
+                break;
+             case PM_GENERAL:
+                mac = -5;
                 break;
             case PM_WATCHMAN:
                 mac = 3;

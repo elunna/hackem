@@ -6239,6 +6239,15 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_MERC | M2_STALK
             | M2_HOSTILE | M2_STRONG | M2_COLLECT,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 14, CLR_BLUE),
+    MON("general", S_HUMAN, 
+        LVL(16, 10, 10, 15, -6), (G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 5, 4), 
+          ATTK(AT_WEAP, AD_PHYS, 5, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_SOLDIER, MZ_HUMAN), 0, 0,
+        M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_MERC | M2_STALK
+          | M2_HOSTILE | M2_STRONG | M2_COLLECT /*| M2_FLANK*/,
+        M3_INFRAVISIBLE, 0,MH_HUMAN, 18, CLR_MAGENTA),
     /* Keep these separate - some of the mkroom code assumes that
      * all the soldiers are contiguous.
      */
