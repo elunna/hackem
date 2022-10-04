@@ -1322,6 +1322,7 @@ static const short grownups[][2] = {
     
     /* Splice additions */
     { PM_MAGGOT, PM_GIANT_FLY },
+    { PM_DUST_VORTEX, PM_DUST_DEVIL },
     { NON_PM, NON_PM }
 };
 
