@@ -4917,6 +4917,14 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_CONCEAL | M1_NOLIMBS | M1_ANIMAL | M1_SLITHY | M1_POIS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, M3_ACCURATE, 0, 0, 10, CLR_BLUE),
+     MON("cerastes", S_SNAKE, 
+        LVL(7, 0, 15, 10, 0), (G_GENO | 2),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 6), 
+          ATTK(AT_BUTT, AD_PHYS, 1, 8), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(600, 250, MS_SILENT, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE | M1_NOTAKE |
+        M1_CONCEAL, M2_HOSTILE, 0, 0, 0, 8, CLR_YELLOW),
     MON("asphynx", S_SNAKE,                                     /* Slash'EM */
         LVL(8, 15, 3, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_STON, 1, 6), 
