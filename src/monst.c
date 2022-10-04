@@ -5305,6 +5305,18 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_HUMANOID,
         M2_STALK | M2_NASTY | M2_WANDER | M2_COLLECT, 
         M3_INFRAVISION, 0, MH_UNDEAD, 10, CLR_YELLOW),
+    MON("banshee", S_WRAITH, 
+        LVL(15, 10, 10, 0, 5), (G_GENO | G_NOCORPSE | 1),
+        A(ATTK(AT_TUCH, AD_PHYS, 2, 6), 
+          ATTK(AT_TUCH, AD_PHYS, 2, 6),
+          ATTK(AT_SCRE, AD_FEAR, 3, 6), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 0, MS_WAIL, MZ_HUMAN),
+        MR_COLD | MR_DISINT | MR_SLEEP | MR_POISON | MR_STONE, 0,
+        M1_FLY | M1_WALLWALK | M1_HUMANOID | M1_UNSOLID
+            | M1_SEE_INVIS,
+        M2_WANDER | M2_STALK | M2_HOSTILE | M2_NASTY,
+        M3_INFRAVISION, 0, MH_UNDEAD, 16, CLR_CYAN),
     /* --hackem: Slaughter wights have 2 really powerful slam attacks. */
     MON("slaughter wight", S_WRAITH,                /* New HackEM monster! */
         LVL(18, 18, -8, 18, -4), (G_NOCORPSE | G_GENO | 1 | G_LGROUP),
