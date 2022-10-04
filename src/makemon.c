@@ -1883,18 +1883,33 @@ register struct monst *mtmp;
         (void) mongets(mtmp, LONG_SWORD);
         break;
     case S_ZOMBIE:
-        if (!rn2(4))
-            (void) mongets(mtmp, LIGHT_ARMOR);
-        if (!rn2(4))
-            (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
-        
         switch (mm) {
         case PM_SKELETON:
             if (!rn2(4))
                 (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
+            if (!rn2(4))
+                (void) mongets(mtmp, LIGHT_ARMOR);
             break;
         case PM_DRAUGR:
             mongets(mtmp, (rn2(4) ? WAR_HAMMER : RUNESWORD));
+            break;
+        case PM_SKELETAL_PIRATE:
+            otmp = rn2(2) ? mksobj(SCIMITAR, FALSE, FALSE) :
+                          mksobj(KNIFE, FALSE, FALSE);
+            curse(otmp);
+            otmp->oeroded = 1;
+            (void) mpickobj(mtmp, otmp);
+            otmp = rn2(2) ? mksobj(HIGH_BOOTS, FALSE, FALSE) :
+                          mksobj(JACKET, FALSE, FALSE);
+            curse(otmp);
+            otmp->oeroded2 = 1;
+            (void) mpickobj(mtmp, otmp);
+            break;
+        default:
+            if (!rn2(4))
+                (void) mongets(mtmp, LIGHT_ARMOR);
+            if (!rn2(4))
+                (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
             break;
         }
         break;

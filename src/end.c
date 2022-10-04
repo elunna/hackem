@@ -1633,6 +1633,7 @@ int how;
         }
     }
 
+    /* TODO: Add the skeletal pirate here (from splice) */
     if (u.ugrave_arise >= LOW_PM && !done_stopprint) {
         /* give this feedback even if bones aren't going to be created,
            so that its presence or absence doesn't tip off the player to
