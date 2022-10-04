@@ -378,8 +378,7 @@
 #define is_troll(ptr) (((ptr)->mhflags & MH_TROLL) != 0L)
 #define is_gnoll(ptr) (((ptr)->mhflags & MH_GNOLL) != 0L)
 #define is_not_zombie(ptr) \
-    ((ptr) == &mons[PM_GHOUL] \
-     || (ptr) == &mons[PM_GHAST] \
+    (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \
      || (ptr) == &mons[PM_REVENANT])
 #define is_zombie(ptr) ((ptr)->mlet == S_ZOMBIE && !is_not_zombie(ptr))
@@ -465,6 +464,10 @@
     (is_demon(ptr) && (((ptr)->mflags2 & (M2_LORD | M2_PRINCE)) == 0L))
 #define is_dlord(ptr) (is_demon(ptr) && is_lord(ptr))
 #define is_dprince(ptr) (is_demon(ptr) && is_prince(ptr))
+#define is_ghoul(ptr) ((ptr) == &mons[PM_GHOUL] \
+                       || (ptr) == &mons[PM_GHAST] \
+                       || (ptr) == &mons[PM_GHOUL_MAGE] \
+                       || (ptr) == &mons[PM_VOMITOUS_GHOUL])
 #define is_minion(ptr) (((ptr)->mflags2 & M2_MINION) != 0L)
 #define likes_gold(ptr) (((ptr)->mflags2 & M2_GREEDY) != 0L)
 #define likes_gems(ptr) (((ptr)->mflags2 & M2_JEWELS) != 0L)

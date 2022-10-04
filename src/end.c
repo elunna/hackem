@@ -649,7 +649,7 @@ int how;
 		  	&& mtmp->data != &mons[PM_FIRE_VAMPIRE]
 		  	&& mtmp->data != &mons[PM_STAR_VAMPIRE])
     #endif
-    else if (mptr == &mons[PM_GHOUL])
+    else if (is_ghoul(mptr))
         u.ugrave_arise = PM_GHOUL;
     else if (mptr == &mons[PM_NABASSU])
         u.ugrave_arise = PM_GHAST;
