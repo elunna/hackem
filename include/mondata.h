@@ -339,6 +339,7 @@
      || (ptr) == &mons[PM_MONGBAT] \
      || (ptr) == &mons[PM_RHUMBAT] \
      || (ptr) == &mons[PM_ZOO_BAT] \
+     || (ptr) == &mons[PM_GAOL_BAT] \
      || (ptr) == &mons[PM_VAMPIRE_BAT])
 #define is_bird(ptr) ((ptr)->mlet == S_BAT && !is_bat(ptr))
 #define has_beak(ptr) \
