@@ -7006,6 +7006,16 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_SLITHY | M1_NOLIMBS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, 0, M4_VULNERABLE_ELEC, 0, 8, CLR_ORANGE),
+    MON("sea horse", S_EEL, 
+        LVL(6, 20, 5, 0, 0), (G_GENO | 2),
+        A(ATTK(AT_KICK, AD_PHYS, 1, 8), 
+          ATTK(AT_BITE, AD_PHYS, 1, 3),
+          ATTK(AT_TUCH, AD_WRAP, 0, 0),
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1500, 300, MS_NEIGH, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_SWIM | M1_AMPHIBIOUS |
+        M1_SLITHY, M2_WANDER | M2_STRONG | M2_DOMESTIC, 
+        M3_INFRAVISIBLE, 0, 0, 8, HI_DOMESTIC),
     MON("shark", S_EEL,
         LVL(7, 12, 2, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 5, 6), 
