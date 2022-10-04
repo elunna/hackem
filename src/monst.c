@@ -2833,6 +2833,15 @@ NEARDATA struct permonst mons[] = {
         SIZ(20, 12, MS_SILENT, MZ_TINY), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_OVIPAROUS | M1_SWIM | M1_THICK_HIDE,
         M2_WANDER, M3_INFRAVISIBLE, 0, 0, 6, CLR_GREEN),
+     /* IRC YANI */
+    MON("drop bear", S_ZOUTHERN,
+        LVL(4, 9, 7, 0, 0), (G_NOHELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 2), 
+          ATTK(AT_CLAW, AD_PHYS, 1, 2),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(400, 100, MS_SQEEK, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_CLING | M1_HIDE | M1_NOHANDS | M1_OMNIVORE,
+        0, M3_INFRAVISIBLE, 0, 0, 5, CLR_YELLOW),
     MON("wombat", S_ZOUTHERN,                                   /* Slash'EM */
         LVL(5, 12, 5, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_KICK, AD_PHYS, 1, 6), 
