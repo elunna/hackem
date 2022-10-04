@@ -1883,14 +1883,20 @@ register struct monst *mtmp;
         (void) mongets(mtmp, LONG_SWORD);
         break;
     case S_ZOMBIE:
-        if (mm == PM_SKELETON) {
-            if (!rn2(4))
-                (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
-        }
         if (!rn2(4))
             (void) mongets(mtmp, LIGHT_ARMOR);
         if (!rn2(4))
             (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
+        
+        switch (mm) {
+        case PM_SKELETON:
+            if (!rn2(4))
+                (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
+            break;
+        case PM_DRAUGR:
+            mongets(mtmp, (rn2(4) ? WAR_HAMMER : RUNESWORD));
+            break;
+        }
         break;
     case S_LIZARD:
         if (mm == PM_SEA_TORTLE)
