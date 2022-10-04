@@ -1458,6 +1458,7 @@ enum on_fire_types attktype;
         break;
     case PM_WATER_ELEMENTAL:
     case PM_MUD_ELEMENTAL:
+    case PM_ACID_ELEMENTAL:
     case PM_FOG_CLOUD:
     case PM_STEAM_VORTEX:
     case PM_WATER_TROLL:

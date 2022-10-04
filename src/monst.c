@@ -3711,6 +3711,16 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_WALLWALK | M1_UNSOLID | M1_THICK_HIDE | M1_AMPHIBIOUS | M1_SWIM,
         M2_STRONG | M2_NEUTER, 0, 0, 0, 11, CLR_BROWN),
+    MON("acid elemental", S_ELEMENTAL, 
+        LVL(8, 6, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
+        A(ATTK(AT_CLAW, AD_ACID, 3, 6), 
+          ATTK(AT_NONE, AD_ACID, 0, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(2500, 0, MS_SILENT, MZ_HUGE),
+        MR_FIRE | MR_COLD | MR_POISON | MR_ACID, 0,
+        M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
+            | M1_WALLWALK | M1_THICK_HIDE | M1_UNSOLID | M1_AMPHIBIOUS | M1_SWIM,
+        M2_STRONG | M2_NEUTER, 0, 0, 0, 12, CLR_BRIGHT_GREEN),
     /*
      * Fungi
      */

@@ -835,7 +835,8 @@ toofar:
     /*  Now the actual movement phase
      */
 
-    if (mtmp->data == &mons[PM_HEZROU]) /* stench */
+    if (mtmp->data == &mons[PM_HEZROU] 
+        || mtmp->data == &mons[PM_ACID_ELEMENTAL]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
     /* --hackem: I don't want an exact copy of Hezrous, but badgers are known
