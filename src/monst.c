@@ -7052,6 +7052,17 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE,
         M4_VULNERABLE_ELEC, 0, 22, CLR_RED),
+    MON("giant squid", S_EEL, 
+        LVL(30, 12, 6, 0, -3), (G_GENO | G_NOGEN),
+        A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
+          ATTK(AT_MAGC, AD_SPEL, 4, 4),
+          ATTK(AT_HUGS, AD_WRAP, 2, 6), 
+          ATTK(AT_BITE, AD_PHYS, 5, 4), 
+          NO_ATTK, NO_ATTK),
+        SIZ(1800, 1000, MS_SILENT, MZ_GIGANTIC), 0, 0,
+        M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
+        M2_NOPOLY | M2_HOSTILE | M2_STRONG, 
+        M3_INFRAVISIBLE, 0, 0, 34, HI_LORD),
     /*
      * lizards, &c
      */
