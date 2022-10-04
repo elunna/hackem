@@ -5358,6 +5358,15 @@ struct permonst _mons2[] = {
     /*
      * Apelike beasts
      */
+    /* not to be confused with lemure */
+    MON("lemur", S_YETI, 
+        LVL(0, 12, 8, 0, 0), (G_GENO | 2),
+        A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
+          ATTK(AT_BITE, AD_PHYS, 1, 3), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(100, 50, MS_GROWL, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_HUMANOID | M1_HERBIVORE, 0,
+        M3_INFRAVISIBLE, 0, 0, 2, CLR_GRAY),
     /* tameable via banana; does not grow up into ape...
        not flagged as domestic, so no guilt penalty for eating non-pet one */
     MON("monkey", S_YETI,
