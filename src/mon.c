@@ -3591,6 +3591,19 @@ boolean was_swallowed; /* digestion */
         return FALSE;
     }
 
+    /* magma elementals dissolve into a pile of lava */
+    if (mdat == &mons[PM_MAGMA_ELEMENTAL]) {
+        if (levl[mon->mx][mon->my].typ != STAIRS &&
+                levl[mon->mx][mon->my].typ != LADDER) {
+            levl[mon->mx][mon->my].typ = LAVAPOOL;
+            newsym(mon->mx, mon->my);
+        if (cansee(mon->mx, mon->my) && !was_swallowed)
+            pline("%s body dissolves into a pool of lava.",
+                s_suffix(Monnam(mon)));
+        }
+        return FALSE;
+    }
+
     /* Trolls don't leave a corpse when the player is wielding Trollsbane */
     if (mdat->mlet == S_TROLL
         && wielding_artifact(ART_TROLLSBANE)) {
