@@ -212,6 +212,7 @@ char *genbuf;
             break;
         case PM_WEREWOLF:
         case PM_HUMAN_WEREWOLF:
+        case PM_NOSFERATU:
             // typ = rn2(5) ? PM_WOLF : rn2(2) ? PM_WARG : PM_WINTER_WOLF;
             typ = rn2(3) ? PM_WOLF : rn2(2) ? PM_WINTER_WOLF : rn2(2) ? PM_RABID_WOLF : PM_WARG ;
             if (genbuf)

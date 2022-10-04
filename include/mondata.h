@@ -681,7 +681,8 @@
 #define is_vampiric(ptr) ((is_vampire(ptr)) || \
                           (ptr) == &mons[PM_VAMPIRE_BAT])
 
-#define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN])
+#define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN]  \
+                          || (ptr) == &mons[PM_NOSFERATU])
 
 #define stationary(ptr)     ((ptr)->mflags4 & M4_STATIONARY)
 

@@ -615,6 +615,7 @@ unsigned corpseflags;
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE_KING:
     case PM_VAMPIRE_MAGE:
+    case PM_NOSFERATU:
         /* include mtmp in the mkcorpstat() call */
         num = undead_to_corpse(mndx);
         corpstatflags |= CORPSTAT_INIT;
@@ -5447,6 +5448,7 @@ struct monst *mon;
     case PM_VAMPIRE_KING:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE:
+    case PM_NOSFERATU:
         mndx = pickvampshape(mon);
         break;
     case NON_PM: /* ordinary */

@@ -3678,12 +3678,12 @@ struct attack *mattk;
             mdamageu(mtmp, dmg);
         }
         break;
+#if 0 /* Old code for rhaumbusun */
     case AD_PLYS:
-        if(!mtmp->mcan 
-              && multi >= 0 
-              && canseemon(mtmp)
-              && mtmp->mcansee 
+        if(!mtmp->mcan && multi >= 0 
+              && canseemon(mtmp) && mtmp->mcansee 
               && !mtmp->mspec_used && rn2(5)) {
+
             pline("%s stares at you!", Monnam(mtmp));
             if (Free_action) 
                 You("stiffen momentarily.");
@@ -3692,6 +3692,43 @@ struct attack *mattk;
                 nomovemsg = 0;
                 nomul(-rnd(4));
                 exercise(A_DEX, FALSE);
+            }
+        }
+        break;
+#endif
+    case AD_PLYS:
+        if (!mtmp->mcan 
+            && canseemon(mtmp) 
+            && !cancelled
+            && couldsee(mtmp->mx, mtmp->my) 
+            && !is_fainted()
+            && !mtmp->mspec_used 
+            && rn2(4)
+            && multi>=0 
+            && !((is_undead(youmonst.data)
+                || is_demon(youmonst.data)) && is_undead(mtmp->data))) {
+            
+            pline("%s aberrant stare frightens you to the core!",
+                s_suffix(Monnam(mtmp)));
+            if (Free_action){
+                pline("But you quickly regain composure.");
+            } else {
+                int prlys = d((int) mattk->damn, (int) mattk->damd);
+                int numhelp, numseen;
+                nomul(-prlys);
+                nomovemsg = 0;	/* default: "you can move again" */
+
+                if (!mtmp->cham && mtmp->data == &mons[PM_NOSFERATU] 
+                      && !mtmp->mcan && !rn2(3)){
+                    numhelp = were_summon(mtmp->data, FALSE, &numseen, 0);
+                    pline("%s summons help!", Monnam(mtmp));
+                    if (numhelp > 0) {
+                        if (numseen == 0)
+                            You_feel("hemmed in.");
+                    } else 
+                        pline("But none comes.");
+                }
+                mtmp->mspec_used += prlys * 3/2 + rn2(prlys);
             }
         }
         break;
