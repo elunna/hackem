@@ -347,6 +347,15 @@
      || (ptr) == &mons[PM_OWLBEAR] \
      || (ptr) == &mons[PM_TENGU] \
      || (ptr) == &mons[PM_VROCK])
+#define is_bear(ptr) \
+    ((ptr)->omnum == PM_BUGBEAR \
+     || (ptr)->omnum == PM_OWLBEAR \
+     || (ptr)->omnum == PM_BABY_OWLBEAR \
+     || (ptr)->omnum == PM_WEREBEAR\
+     || (ptr)->omnum == PM_GRIZZLY_BEAR \
+     || (ptr)->omnum == PM_BLACK_BEAR)
+     /* || (ptr)->omnum == PM_HELLBEAR \ */
+
 # define is_rat(ptr) \
     ((ptr) == &mons[PM_BLACK_RAT] \
      || (ptr) == &mons[PM_ENORMOUS_RAT] \
