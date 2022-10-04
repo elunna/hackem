@@ -1989,6 +1989,15 @@ NEARDATA struct permonst mons[] = {
         SIZ(3500, 700, MS_ROAR, MZ_HUGE), 0, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_HERBIVORE,
         M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE, 0, 0, 10, CLR_GRAY),
+    MON("chimera", S_QUADRUPED, 
+        LVL(10, 12, 4, 20, -1), (G_GENO | 2),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 10), 
+          ATTK(AT_BITE, AD_DRST, 2, 4),
+          ATTK(AT_BUTT, AD_PHYS, 3, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(2500, 500, MS_HISS, MZ_LARGE), MR_FIRE, MR_FIRE,
+        M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_STRONG |
+        M2_NASTY, M3_INFRAVISIBLE, 0, 0, 12, CLR_GREEN),
     /* Grizzly bears are always hostile because come on--They're grizzlies. */
     MON("grizzly bear", S_QUADRUPED, 
         LVL(12, 12, 7, 0, 0), (G_GENO | 2),
