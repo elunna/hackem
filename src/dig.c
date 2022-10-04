@@ -1395,9 +1395,13 @@ register struct monst *mtmp;
             (void) rnd_treefruit_at(mtmp->mx, mtmp->my);
     } else {
         here->typ = CORR, here->flags = 0;
+
         if (pile && pile < 5)
-            (void) mksobj_at((pile == 1) ? BOULDER : ROCK, mtmp->mx, mtmp->my,
-                             TRUE, FALSE);
+            (void) mksobj_at((pile == 1) ?
+            (mtmp->data == &mons[PM_HUNGER_HULK]) ? 
+            HUGE_CHUNK_OF_MEAT : BOULDER : 
+                (mtmp->data == &mons[PM_HUNGER_HULK]) ? 
+                MEATBALL : ROCK, mtmp->mx, mtmp->my, TRUE, FALSE);
     }
     newsym(mtmp->mx, mtmp->my);
     if (!sobj_at(BOULDER, mtmp->mx, mtmp->my))

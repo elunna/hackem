@@ -1535,6 +1535,11 @@ dogaze()
             break;
         }
     }
+
+    if (adtyp == AD_HNGY || adtyp == AD_LUCK) 
+        adtyp = AD_CONF;
+
+
     if (adtyp != AD_CONF && adtyp != AD_FIRE) {
         impossible("gaze attack %d?", adtyp);
         return 0;

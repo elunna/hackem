@@ -2293,6 +2293,7 @@ E void FDECL(mwand_explode, (struct monst *, struct obj *));
 E void FDECL(set_lit, (int, int, genericptr_t));
 #endif
 E void FDECL(litroom, (BOOLEAN_P, struct obj *));
+E void litroom_mon(boolean, struct obj *, int, int);
 E void FDECL(do_genocide, (int,BOOLEAN_P));
 E void FDECL(punish, (struct obj *));
 E void NDECL(unpunish);
