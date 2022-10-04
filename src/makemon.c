@@ -1927,6 +1927,11 @@ register struct monst *mtmp;
         break;
     case S_DEMON:
         switch (mm) {
+        case PM_ARMANITE:
+            (void) mongets(mtmp, CROSSBOW);
+            (void) mongets(mtmp, rn2(2) ? RANSEUR : LANCE);
+            m_initthrow(mtmp, CROSSBOW_BOLT, 20);
+            break;
         case PM_HORNED_DEVIL:
             (void) mongets(mtmp, rn2(4) ? TRIDENT : BULLWHIP);
             break;
