@@ -376,6 +376,15 @@ struct obj *otmp;
         break;
     case WAN_SPEED_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {
+             if (mtmp->data == &mons[PM_HEDGEHOG]) {
+                pline("Gotta go fast!");
+                if (!mtmp->mtame) {
+                    (void) tamedog(mtmp, (struct obj *) 0);
+                    mtmp->movement += VERY_FAST;
+                    if (Hallucination) 
+                        mtmp = christen_monst(mtmp, "Sonic");
+                }
+            }
             if (disguised_mimic)
                 seemimic(mtmp);
             mon_adjust_speed(mtmp, 1, otmp);

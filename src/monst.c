@@ -1860,6 +1860,15 @@ NEARDATA struct permonst mons[] = {
     /*
      * quadrupeds
      */
+    MON("hedgehog", S_QUADRUPED, 
+        LVL(0, 12, 0, 0, 0), (G_GENO | 3),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 1), 
+          /* ATTK(AT_NONE, AD_QUIL, 2, 3), */
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(300, 250, MS_BARK, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, 
+        M2_PEACEFUL, M3_INFRAVISIBLE, 0, 0, 
+        2, CLR_YELLOW),
     MON("lamb", S_QUADRUPED,                                    /* Slash'EM */
         LVL(1, 12, 10, 0, 0), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_BUTT, AD_PHYS, 1, 2),
