@@ -1945,6 +1945,15 @@ register struct monst *mtmp;
         case PM_BABAU:
             (void) mongets(mtmp, rn2(4) ? TWO_HANDED_SWORD : SPEAR);
             break;
+        case PM_DAMNED_PIRATE:
+            otmp = mksobj(SCIMITAR, FALSE, FALSE);
+            curse(otmp);
+            (void) mpickobj(mtmp, otmp);
+            otmp = mksobj(LIGHT_ARMOR, FALSE, FALSE);
+            curse(otmp);
+            otmp->oeroded = 1;
+            (void) mpickobj(mtmp, otmp);
+            break;
         case PM_BALROG:
             if (!rn2(20)) {
                 otmp = mksobj(TRIDENT, FALSE, FALSE);
@@ -2044,7 +2053,7 @@ register struct monst *mtmp;
         /* prevent djinn and mail daemons from leaving objects when
          * they vanish
          */
-        if (!is_demon(ptr))
+        if (!is_demon(ptr) && mm != PM_DAMNED_PIRATE)
             break;
         /*FALLTHRU*/
     default:
