@@ -4753,6 +4753,17 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
         M2_HOSTILE | M2_NEUTER | M2_NASTY, 0, 0, 0, 9, CLR_RED),
+    MON("gel", S_PUDDING, 
+        LVL(7, 5, 4, 0, 0), (G_GENO | G_NOCORPSE | 2), 
+        A(ATTK(AT_ENGL, AD_POTN, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(500, 250, MS_SILENT, MZ_MEDIUM),
+        MR_COLD | MR_ELEC | MR_POISON | MR_ACID | MR_STONE,
+        MR_COLD | MR_ELEC | MR_POISON,
+        M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
+            | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
+        M2_HOSTILE | M2_NEUTER | M2_NASTY, 
+        0, 0, 0, 9, CLR_BRIGHT_CYAN),
     MON("moldy pudding", S_PUDDING,                             /* Slash'EM */
         LVL(8, 3, 8, 0, 0), (G_NOHELL | G_GENO),
         A(ATTK(AT_ENGL, AD_DCAY, 4, 4), 

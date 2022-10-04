@@ -99,7 +99,8 @@
 #define AD_GIBB 60  /* Gibber chitter-chatter attack (Gibberlings) */
 #define AD_SPOR	61	/* generate spore */
 #define AD_DSRM 62  /* disarm the player */
-#define AD_SAMU 63  /* hits, may steal Amulet (Wizard) */
+#define AD_POTN 63 /* potion effect (gel) */
+#define AD_SAMU 64  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*
