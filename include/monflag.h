@@ -53,6 +53,7 @@
 #define MS_ATHOL	44	/* athols; howls like a shrieker */
 #define MS_ONEEYEDSAM   45  /* One-eyed Sam */
 #define MS_PIG          46 /* Pigs, hogs */
+#define MS_YAWN         47      /* hippos yawn when angry */
     
 #define MR_FIRE 0x00000001L    /* resists fire */
 #define MR_COLD 0x00000002L    /* resists cold */
