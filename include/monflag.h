@@ -51,7 +51,8 @@
 #define MS_SHEEP	42	/* sheep */
 #define MS_COW		43	/* cows and bulls */
 #define MS_ATHOL	44	/* athols; howls like a shrieker */
-#define MS_ONEEYEDSAM 45  /* One-eyed Sam */
+#define MS_ONEEYEDSAM   45  /* One-eyed Sam */
+#define MS_PIG          46 /* Pigs, hogs */
 
 #define MR_FIRE 0x00000001L    /* resists fire */
 #define MR_COLD 0x00000002L    /* resists cold */

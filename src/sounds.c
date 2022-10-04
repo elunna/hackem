@@ -440,6 +440,9 @@ register struct monst *mtmp;
     case MS_WAIL:
         ret = "wail";
         break;
+    case MS_PIG:
+        ret = "squeal";
+        break;
     case MS_SILENT:
         ret = "quiver";
         break;
@@ -857,6 +860,9 @@ register struct monst *mtmp;
             pline_msg = "whinnies.";
         else
             pline_msg = "whickers.";
+        break;
+    case MS_PIG:
+        pline_msg = mtmp->mpeaceful ? "oinks." : "squeals angrily.";
         break;
     case MS_WAIL:
         pline_msg = "wails mournfully.";
