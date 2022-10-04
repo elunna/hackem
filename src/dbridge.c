@@ -596,6 +596,10 @@ struct entity *etmp;
     if (is_u(etmp) ? Stunned : etmp->emon->mstun)
         tmp -= 3;
 
+    /* Panicked jumping */
+    if (is_u(etmp) ? Afraid : etmp->emon->mflee)
+        tmp += 4;
+    
     if (is_db_wall(etmp->ex, etmp->ey))
         tmp -= 2; /* less room to maneuver */
 

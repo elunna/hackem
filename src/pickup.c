@@ -1984,7 +1984,7 @@ doloot()
         /* always use a turn when choosing a direction is impaired,
            even if you've successfully targetted a saddled creature
            and then answered "no" to the "remove its saddle?" prompt */
-        if (Confusion || Stunned)
+        if (Confusion || Stunned || Afraid)
             timepassed = 1;
 
         /* Preserve pre-3.3.1 behaviour for containers.

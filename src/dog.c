@@ -927,7 +927,7 @@ register struct obj *obj;
         /* ghouls prefer old corpses and unhatchable eggs, yum!
            they'll eat fresh non-veggy corpses and hatchable eggs
            when starving; they never eat stone-to-flesh'd meat */
-        if (mptr == &mons[PM_GHOUL] || mon->data == &mons[PM_GHAST]) {
+        if (is_ghoul(mptr)) {
             if (obj->otyp == CORPSE)
                 return (peek_at_iced_corpse_age(obj) + 50L <= monstermoves
                         && fptr != &mons[PM_LIZARD]

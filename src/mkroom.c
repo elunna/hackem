@@ -1198,7 +1198,7 @@ realzoomon()
         return(&mons[PM_MONKEY]);
 }
 
-#define NSTYPES (PM_CAPTAIN - PM_SOLDIER + 1)
+#define NSTYPES (PM_GENERAL - PM_SOLDIER + 1)
 
 static struct {
     unsigned pm;
@@ -1206,7 +1206,8 @@ static struct {
 } squadprob[NSTYPES] = { { PM_SOLDIER, 80 },
                          { PM_SERGEANT, 15 },
                          { PM_LIEUTENANT, 4 },
-                         { PM_CAPTAIN, 1 } };
+                         { PM_CAPTAIN, 1 },
+                         { PM_GENERAL, 1} };
 
 /* return soldier types. */
 STATIC_OVL struct permonst *

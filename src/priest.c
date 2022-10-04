@@ -1031,7 +1031,7 @@ const char *suffix;
 
 /* stethoscope or probing applied to monster -- one-line feedback */
 void
-mstatusline(mtmp)
+    mstatusline(mtmp)
 struct monst *mtmp;
 {
     aligntyp alignment = mon_aligntyp(mtmp);
@@ -1138,6 +1138,9 @@ struct monst *mtmp;
                                : ", engulfing you");
     if (mtmp == u.usteed)
         Strcat(info, ", carrying you");
+    
+    if (mtmp == u.fearedmon)
+        Strcat(info, ", causing you fear");
 
     if (vulnerable_to(mtmp, AD_FIRE))
         Strcat(info, ", vulnerable to fire");

@@ -2785,6 +2785,7 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
     return;
 }
 
+
 STATIC_OVL void
 do_class_genocide()
 {

@@ -4131,6 +4131,7 @@ boolean wep_was_destroyed;
     register int i, t, tmp;
     register struct attack *mattk;
     mattk = has_erac(mon) ? ERAC(mon)->mattk : ptr->mattk;
+    struct obj *otmp;
 
     /* If carrying the Candle of Eternal Flame, deal passive fire damage */
 	if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
@@ -4419,6 +4420,18 @@ boolean wep_was_destroyed;
      */
     if (malive && !mon->mcan && rn2(3)) {
         switch (mattk[i].adtyp) {
+        case AD_DSRM: /* adherer */
+            if (uwep) {
+                otmp = uwep;
+                pline("Your weapon sticks to %s!", mon_nam(mon));
+                dropx(uwep);
+                obj_extract_self(otmp);
+                add_to_minv(mon, otmp);
+            } else {
+                u.ustuck = mon;
+                pline("You stick to %s!", mon_nam(mon));
+            }
+            break;
         case AD_PLYS:
             if (ptr == &mons[PM_FLOATING_EYE]) {
                 if (!canseemon(mon)) {

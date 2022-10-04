@@ -409,7 +409,7 @@ int material;
     if (material == SILVER) {
         if (ptr->mlet == S_IMP) {
             /* impish creatures that aren't actually demonic */
-            if (ptr == &mons[PM_TENGU] || ptr == &mons[PM_LEPRECHAUN])
+            if (ptr == &mons[PM_TENGU] || ptr == &mons[PM_REDCAP])
                 return FALSE;
         }
         return (is_were(ptr) || is_vampire(ptr)
@@ -1287,6 +1287,7 @@ static const short grownups[][2] = {
     { PM_SOLDIER, PM_SERGEANT },
     { PM_SERGEANT, PM_LIEUTENANT },
     { PM_LIEUTENANT, PM_CAPTAIN },
+    { PM_CAPTAIN, PM_GENERAL },
     { PM_WATCHMAN, PM_WATCH_CAPTAIN },
     { PM_ALIGNED_PRIEST, PM_HIGH_PRIEST },
     { PM_STUDENT, PM_ARCHEOLOGIST },
@@ -1322,6 +1323,16 @@ static const short grownups[][2] = {
     
     /* Splice additions */
     { PM_MAGGOT, PM_GIANT_FLY },
+    { PM_DUST_VORTEX, PM_DUST_DEVIL },
+    { PM_GLASS_PIERCER, PM_DIAMOND_PIERCER },
+    { PM_DIAMOND_PIERCER, PM_GOD_PIERCER },
+    { PM_PIG, PM_FERAL_HOG },
+    { PM_GIANT_SPIDER, PM_MONSTROUS_SPIDER },
+    { PM_SHRIEKER, PM_SCREAMER },
+    { PM_RED_MOLD, PM_RED_MOLDIER },
+    { PM_YELLOW_MOLD, PM_YELLOW_MOLDIER },
+    { PM_GREEN_MOLD, PM_GREEN_MOLDIER },
+    { PM_BROWN_MOLD, PM_BROWN_MOLDIER },
     { NON_PM, NON_PM }
 };
 
@@ -1452,6 +1463,8 @@ enum on_fire_types attktype;
         what = "already on fire";
         break;
     case PM_WATER_ELEMENTAL:
+    case PM_MUD_ELEMENTAL:
+    case PM_ACID_ELEMENTAL:
     case PM_FOG_CLOUD:
     case PM_STEAM_VORTEX:
     case PM_WATER_TROLL:

@@ -37,6 +37,7 @@ STATIC_DCL void FDECL(backfire, (struct obj *));
 STATIC_DCL int FDECL(spell_hit_bonus, (int, BOOLEAN_P));
 STATIC_DCL void FDECL(destroy_one_item, (struct obj *, int, int));
 STATIC_DCL void FDECL(wishcmdassist, (int));
+STATIC_DCL boolean elemental_shift(struct monst *, int);
 
 #define ZT_MAGIC_MISSILE (AD_MAGM - 1)
 #define ZT_FIRE (AD_FIRE - 1)
@@ -216,14 +217,12 @@ struct obj *otmp;
             if (canseemon(mtmp)) {
                 pline("%s looks a lot better.", Monnam(mtmp));
             }
-        } 
-#if 0 /* Pending Mud Elementals */
+        }
         else if (mtmp->data == &mons[PM_EARTH_ELEMENTAL]) {
             if (canseemon(mtmp))
                 pline("%s turns into a roiling pile of mud!", Monnam(mtmp));
             (void) newcham(mtmp, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
-        } 
-#endif
+        }
         else if (rnd(20) < 10 + find_mac(mtmp)) {
             erode_armor(mtmp, ERODE_RUST);
             dmg = d(likes_fire(mtmp->data) ? 12 : 1, 6);
@@ -376,6 +375,15 @@ struct obj *otmp;
         break;
     case WAN_SPEED_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {
+             if (mtmp->data == &mons[PM_HEDGEHOG]) {
+                pline("Gotta go fast!");
+                if (!mtmp->mtame) {
+                    (void) tamedog(mtmp, (struct obj *) 0);
+                    mtmp->movement += VERY_FAST;
+                    if (Hallucination) 
+                        mtmp = christen_monst(mtmp, "Sonic");
+                }
+            }
             if (disguised_mimic)
                 seemimic(mtmp);
             mon_adjust_speed(mtmp, 1, otmp);
@@ -4594,6 +4602,40 @@ int dx, dy;
     return (struct monst *) 0;
 }
 
+
+static const short elem_pairings[][3] = {
+    { PM_WATER_ELEMENTAL, ZT_FIRE, PM_STEAM_VORTEX },
+    { PM_WATER_ELEMENTAL, ZT_COLD, PM_ICE_ELEMENTAL },
+    { PM_WATER_ELEMENTAL, ZT_ACID, PM_ACID_ELEMENTAL },
+    { PM_EARTH_ELEMENTAL, ZT_FIRE, PM_MAGMA_ELEMENTAL },
+    /* { PM_FIRE_ELEMENTAL, ZT_LIGHTNING, PM_PLASMA_ELEMENTAL },*/
+    /* { PM_AIR_ELEMENTAL, ZT_ELEC, PM_STORM_ELEMENTAL }, */
+    { PM_ICE_ELEMENTAL, ZT_FIRE, PM_WATER_ELEMENTAL },
+    { PM_MAGMA_ELEMENTAL, ZT_COLD, PM_EARTH_ELEMENTAL },
+    { NON_PM, 0, NON_PM }
+};
+
+static boolean
+elemental_shift(struct monst *mtmp, int zt)
+{
+    int i, pm = 0;
+    int orig_pm = monsndx(mtmp->data);
+    short zt_s = (short) zt;
+
+    for (i = 0; elem_pairings[i][0] >= LOW_PM; i++) {
+        if (zt_s == elem_pairings[i][1] && orig_pm == elem_pairings[i][0]) {
+            pm = elem_pairings[i][2];
+            break;
+        }
+    }
+
+    if (!pm)
+        return FALSE;
+
+    (void) newcham(mtmp, &mons[pm], FALSE, TRUE);
+    return TRUE;
+}
+
 /* used by buzz(); also used by munslime(muse.c); returns damage applied
    to mon; note: caller is responsible for killing mon if damage is fatal */
 int
@@ -4788,6 +4830,10 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             erode_armor(mon, ERODE_RUST);
         break;
 
+    }
+    if (elemental_shift(mon, abstype)) {
+        sho_shieldeff = TRUE;
+        tmp = 0;
     }
     if (sho_shieldeff)
         shieldeff(mon->mx, mon->my);

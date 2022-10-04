@@ -98,7 +98,11 @@
 #define AD_SONG 59  /* Paralyzing song (Harpy) */
 #define AD_GIBB 60  /* Gibber chitter-chatter attack (Gibberlings) */
 #define AD_SPOR	61	/* generate spore */
-#define AD_SAMU 62  /* hits, may steal Amulet (Wizard) */
+#define AD_DSRM 62  /* disarm the player */
+#define AD_POTN 63 /* potion effect (gel) */
+#define AD_HNGY 64 /* a mini version of FAMN, should fake a higher hunger rating instead  */
+#define AD_FEAR 65 /* inflict fear (eye of fear and flame) */
+#define AD_SAMU 66  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

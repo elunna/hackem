@@ -40,11 +40,16 @@ struct permonst *ptr;
         case PM_AIR_ELEMENTAL:
             return Is_airlevel(&u.uz);
         case PM_FIRE_ELEMENTAL:
+        case PM_MAGMA_ELEMENTAL:
             return Is_firelevel(&u.uz);
         case PM_EARTH_ELEMENTAL:
+        case PM_ACID_ELEMENTAL:
             return Is_earthlevel(&u.uz);
         case PM_WATER_ELEMENTAL:
+        case PM_ICE_ELEMENTAL: /* and iceplanelevel */
             return Is_waterlevel(&u.uz);
+        case PM_MUD_ELEMENTAL:
+            return Is_earthlevel(&u.uz) || Is_waterlevel(&u.uz);
         }
     return FALSE;
 }
@@ -1043,6 +1048,11 @@ register struct monst *mtmp;
         if (rn2(2))
             (void) mongets(mtmp, (mm != PM_ETTIN) ? BOULDER : CLUB);
         break;
+    case S_IMP:
+        if (mm == PM_REDCAP) {
+            (void) mongets(mtmp, SCYTHE);
+        }
+        break;
     case S_HUMAN:
         if (mm == PM_SHOPKEEPER) {
             mongets(mtmp,SHOTGUN);
@@ -1211,6 +1221,9 @@ register struct monst *mtmp;
                     (void) mongets(mtmp, randwand);
                 }
                 break;
+            case PM_GENERAL:
+                (void) mongets(mtmp, rnd_offensive_item(mtmp));
+                /* FALLTHRU */
             case PM_CAPTAIN:
             case PM_WATCH_CAPTAIN:
             case PM_PRISON_GUARD:
@@ -1519,7 +1532,7 @@ register struct monst *mtmp;
                 if(!rn2(4)) (void) mongets(mtmp, SPEAR);
                 break;
 
-		    case PM_GNOLL_WARRIOR:
+            case PM_GNOLL_WARRIOR:
                 if(!rn2(2)) (void) mongets(mtmp, ORCISH_HELM);
 
                 if (!rn2(20))
@@ -1539,7 +1552,7 @@ register struct monst *mtmp;
                 m_initthrow(mtmp, ARROW, 12);
             #endif
 
-		    case PM_GNOLL_CHIEFTAIN:
+            case PM_GNOLL_CHIEFTAIN:
                 (void) mongets(mtmp, ORCISH_HELM);
 
                 if (!rn2(10))
@@ -1551,8 +1564,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, KATANA);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 break;
-
-		    case PM_GNOLL_SHAMAN:
+            case PM_GNOLL_SHAMAN:
                 if (!rn2(10))
                     (void) mongets(mtmp, SILVER_DRAGON_SCALES);
                 else if (rn2(5))
@@ -1565,7 +1577,6 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 break;
-
             case PM_FLIND:
                 if (rn2(4))
                     (void) mongets(mtmp, HIGH_BOOTS);
@@ -1580,10 +1591,35 @@ register struct monst *mtmp;
                         (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
                     else
                         (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
-                }
+                    
+            case PM_MARRASHI:
+                /* Many varieties of arrows */
+                m_initthrow(mtmp, ARROW, 15);
+                m_initthrow(mtmp, ARROW, 15);
+                m_initthrow(mtmp, ARROW, 15);
+                m_initthrow(mtmp, ARROW, 15);
+                /* Marrashi have one special arrow that causes sickness. */
+                otmp = mksobj(ARROW, TRUE, FALSE);
+                otmp->blessed = TRUE;
+                otmp->oerodeproof = TRUE;
+                /* otmp->opoisoned = POT_FILTH; */
+                otmp->opoisoned = TRUE;
+                otmp->spe = 5;
+                otmp->quan = (long) 1;
+                otmp->owt = weight(otmp);
+                (void) mpickobj(mtmp, otmp);
+                /* powerful bow */
+                otmp = mksobj(FOOTBOW, TRUE, FALSE);
+                otmp->spe = 3;
+                (void) mpickobj(mtmp, otmp);
+                /* defenses */
+                (void) mongets(mtmp, rnd_defensive_item(mtmp));
+                (void) mongets(mtmp, GREEN_DRAGON_SCALES);
                 break;
-		}
-		break;
+        }
+        break;
+    }
+    break;
     
     case S_HUMANOID:
         if (is_hobbit(ptr)) {
@@ -1850,14 +1886,35 @@ register struct monst *mtmp;
         (void) mongets(mtmp, LONG_SWORD);
         break;
     case S_ZOMBIE:
-        if (mm == PM_SKELETON) {
+        switch (mm) {
+        case PM_SKELETON:
             if (!rn2(4))
                 (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
+            if (!rn2(4))
+                (void) mongets(mtmp, LIGHT_ARMOR);
+            break;
+        case PM_DRAUGR:
+            mongets(mtmp, (rn2(4) ? WAR_HAMMER : RUNESWORD));
+            break;
+        case PM_SKELETAL_PIRATE:
+            otmp = rn2(2) ? mksobj(SCIMITAR, FALSE, FALSE) :
+                          mksobj(KNIFE, FALSE, FALSE);
+            curse(otmp);
+            otmp->oeroded = 1;
+            (void) mpickobj(mtmp, otmp);
+            otmp = rn2(2) ? mksobj(HIGH_BOOTS, FALSE, FALSE) :
+                          mksobj(JACKET, FALSE, FALSE);
+            curse(otmp);
+            otmp->oeroded2 = 1;
+            (void) mpickobj(mtmp, otmp);
+            break;
+        default:
+            if (!rn2(4))
+                (void) mongets(mtmp, LIGHT_ARMOR);
+            if (!rn2(4))
+                (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
+            break;
         }
-        if (!rn2(4))
-            (void) mongets(mtmp, LIGHT_ARMOR);
-        if (!rn2(4))
-            (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
         break;
     case S_LIZARD:
         if (mm == PM_SEA_TORTLE)
@@ -1870,6 +1927,11 @@ register struct monst *mtmp;
         break;
     case S_DEMON:
         switch (mm) {
+        case PM_ARMANITE:
+            (void) mongets(mtmp, CROSSBOW);
+            (void) mongets(mtmp, rn2(2) ? RANSEUR : LANCE);
+            m_initthrow(mtmp, CROSSBOW_BOLT, 20);
+            break;
         case PM_HORNED_DEVIL:
             (void) mongets(mtmp, rn2(4) ? TRIDENT : BULLWHIP);
             break;
@@ -1882,6 +1944,15 @@ register struct monst *mtmp;
             break;
         case PM_BABAU:
             (void) mongets(mtmp, rn2(4) ? TWO_HANDED_SWORD : SPEAR);
+            break;
+        case PM_DAMNED_PIRATE:
+            otmp = mksobj(SCIMITAR, FALSE, FALSE);
+            curse(otmp);
+            (void) mpickobj(mtmp, otmp);
+            otmp = mksobj(LIGHT_ARMOR, FALSE, FALSE);
+            curse(otmp);
+            otmp->oeroded = 1;
+            (void) mpickobj(mtmp, otmp);
             break;
         case PM_BALROG:
             if (!rn2(20)) {
@@ -1982,7 +2053,7 @@ register struct monst *mtmp;
         /* prevent djinn and mail daemons from leaving objects when
          * they vanish
          */
-        if (!is_demon(ptr))
+        if (!is_demon(ptr) && mm != PM_DAMNED_PIRATE)
             break;
         /*FALLTHRU*/
     default:
@@ -2114,6 +2185,9 @@ register struct monst *mtmp;
                 break;
             case PM_CAPTAIN:
                 mac = -3;
+                break;
+             case PM_GENERAL:
+                mac = -5;
                 break;
             case PM_WATCHMAN:
                 mac = 3;
@@ -2410,6 +2484,15 @@ register struct monst *mtmp;
                 otmp->owt = weight(otmp);
             }
             (void) mpickobj(mtmp, otmp);
+        }
+        if (ptr == &mons[PM_ALCHEMIST]) {
+            for (cnt = rnd(3); cnt; cnt--) {
+                otmp = mksobj(rnd_class(POT_REFLECTION, POT_OIL),
+                              FALSE, FALSE);
+                (void) mpickobj(mtmp, otmp);
+            }
+            (void) mongets(mtmp, POT_ACID);
+            (void) mongets(mtmp, POT_ACID);
         }
         break;
     case S_LEPRECHAUN:

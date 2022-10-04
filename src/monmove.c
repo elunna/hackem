@@ -260,6 +260,7 @@ register struct monst *mtmp;
         && (!(mtmp->data->mlet == S_NYMPH
               || mtmp->data == &mons[PM_JABBERWOCK]
               || mtmp->data == &mons[PM_VORPAL_JABBERWOCK]
+              || mtmp->data == &mons[PM_SLUMBER_HULK]
               || mtmp->data->mlet == S_LEPRECHAUN) || !rn2(50))
         && (Aggravate_monster
             || (mtmp->data->mlet == S_DOG || mtmp->data->mlet == S_HUMAN)
@@ -513,6 +514,11 @@ register struct monst *mtmp;
         if (Hallucination)
             newsym(mtmp->mx, mtmp->my);
         return 0;
+    }
+    
+    if (mtmp->data == &mons[PM_SLUMBER_HULK] && !mtmp->msleeping && !rn2(10)) {
+        if (canseemon(mtmp)) pline("%s falls asleep and begins to snore.", Monnam(mtmp));
+        mtmp->msleeping = 1;
     }
 
     /* not frozen or sleeping: wipe out texts written in the dust */
@@ -835,7 +841,8 @@ toofar:
     /*  Now the actual movement phase
      */
 
-    if (mtmp->data == &mons[PM_HEZROU]) /* stench */
+    if (mtmp->data == &mons[PM_HEZROU] 
+        || mtmp->data == &mons[PM_ACID_ELEMENTAL]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
     /* --hackem: I don't want an exact copy of Hezrous, but badgers are known

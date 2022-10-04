@@ -387,7 +387,8 @@ register boolean nearshop;
         nokops = ((mvitals[PM_SOLDIER].mvflags & G_GONE) &&
                   (mvitals[PM_SERGEANT].mvflags & G_GONE) &&
                   (mvitals[PM_LIEUTENANT].mvflags & G_GONE) &&
-                  (mvitals[PM_CAPTAIN].mvflags & G_GONE));
+                  (mvitals[PM_CAPTAIN].mvflags & G_GONE) &&
+                  (mvitals[PM_GENERAL].mvflags & G_GONE));
 
         Strcpy(kopname, "guards");
     }

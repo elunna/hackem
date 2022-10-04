@@ -795,6 +795,10 @@ int mntmp;
     if (strongmonst(&mons[mntmp]))
         ABASE(A_STR) = AMAX(A_STR) = STR18(100);
 
+    /* In the canon of a certain tabletop game, nosferatu are notoriously ugly */
+    if (mntmp == PM_NOSFERATU)
+        ABASE(A_CHA) = AMAX(A_CHA) = 3;
+
     if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
         !strcmp(s, "opera cloak") &&
         maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
@@ -1535,6 +1539,11 @@ dogaze()
             break;
         }
     }
+
+    if (adtyp == AD_HNGY || adtyp == AD_LUCK) 
+        adtyp = AD_CONF;
+
+
     if (adtyp != AD_CONF && adtyp != AD_FIRE) {
         impossible("gaze attack %d?", adtyp);
         return 0;
@@ -1611,7 +1620,18 @@ dogaze()
                         damage_mon(mtmp, dmg, AD_FIRE);
                     if (DEADMONSTER(mtmp))
                         killed(mtmp);
-                }
+                } else if (adtyp == AD_PLYS) {
+                    You("fix %s with an aberrant glare...", mon_nam(mtmp));
+                    if (mtmp->data == &mons[PM_NOSFERATU]) {
+                        pline("%s looks disdainful, and mutters something about amateurs.", Monnam(mtmp));
+                    } else if (is_undead(mtmp->data) || mindless(mtmp->data) 
+                                || is_demon(mtmp->data)) {
+                        pline("%s does not seem to care.", Monnam(mtmp));
+                    } else {
+                        pline("%s reels in shock and horror!", Monnam(mtmp));
+                        paralyze_monst(mtmp, rnd(10));
+                    }
+                } 
                 /* For consistency with passive() in uhitm.c, this only
                  * affects you if the monster is still alive.
                  */

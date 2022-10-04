@@ -702,8 +702,10 @@ register struct monst *mtmp;
             set_apparxy(mtmp);
             newsym(u.ux, u.uy);
 
-            if (youmonst.data->mlet != S_PIERCER)
+            if (youmonst.data->mlet != S_PIERCER
+                && youmonst.data != &mons[PM_DROP_BEAR])
                 return 0; /* lurkers don't attack */
+                          
 
             obj = which_armor(mtmp, WORN_HELMET);
             if (obj && is_metallic(obj)) {
@@ -2127,7 +2129,7 @@ register struct attack *mattk;
 	    } else {
                 if (flags.verbose)
                     Your("position suddenly seems %suncertain!",
-                         (Teleport_control && !Stunned && !unconscious()) ? ""
+                         (Teleport_control && !Stunned && !Afraid && !unconscious()) ? ""
                          : "very ");
             }
             tele();
@@ -2679,6 +2681,7 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     struct trap *t = t_at(u.ux, u.uy);
+    struct obj *pseudo;
     int tmp = d((int) mattk->damn, (int) mattk->damd);
     int tim_tmp;
     struct obj *otmp2;
@@ -2835,6 +2838,24 @@ struct attack *mattk;
             exercise(A_STR, FALSE);
         }
         break;
+    case AD_POTN:
+        You("get some of %s in your mouth!", mon_nam(mtmp));
+        i = POT_GAIN_ABILITY +
+            (mtmp->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
+        if (i == POT_GAIN_LEVEL ||
+             i == POT_EXTRA_HEALING ||
+             i == POT_HEALING ||
+             i == POT_FULL_HEALING ||
+             i == POT_GAIN_ABILITY ||
+             i == POT_GAIN_ENERGY) {
+            i = POT_ACID;
+        }
+        pseudo = mksobj(i, FALSE, FALSE);
+        pseudo->blessed = 0;
+        pseudo->cursed = rn2(2);
+        (void) peffects(pseudo);
+        obfree(pseudo, (struct obj *) 0); /* now, get rid of it */
+        /*FALLTHRU*/
     case AD_WRAP:
         /* Initially pulled from GruntHack, and then improved upon by
          * aosdict for xNetHack (see git commit ee808b): AD_WRAP is used because
@@ -3267,6 +3288,18 @@ struct attack *mattk;
             }
         }
         break;
+    case AD_HNGY:
+        if(!mtmp->mcan && canseemon(mtmp) && !cancelled
+            && couldsee(mtmp->mx, mtmp->my) && !is_fainted()
+            && mtmp->mcansee && !mtmp->mspec_used && rn2(5)) {
+            int hunger = 20 + d(3,4);
+
+            mtmp->mspec_used = mtmp->mspec_used + (hunger + rn2(6));
+            pline("%s gaze reminds you of delicious %s.",
+                s_suffix(Monnam(mtmp)), fruitname(FALSE));
+            morehungry(hunger);
+        }
+        break;
     case AD_CONF:
         if (canseemon(mtmp) && couldsee(mtmp->mx, mtmp->my) && mtmp->mcansee
             && !mtmp->mspec_used && rn2(5)) {
@@ -3315,6 +3348,17 @@ struct attack *mattk;
         }
         break;
     case AD_BLND:
+        if (mtmp->data == &mons[PM_UMBRAL_HULK]){
+            if (!mtmp->mspec_used && !Blind && couldsee(mtmp->mx, mtmp->my) &&
+                    can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj*)0)) {
+                pline("You meet %s gaze! The shadows merge into utter darkness!",
+                      s_suffix(mon_nam(mtmp)) );
+                make_blinded(Blinded + d((int)mattk->damn, (int)mattk->damd), FALSE);
+                if (!Blind) Your1(vision_clears);
+            }
+            break;
+        }
+
         if (canseemon(mtmp) && !resists_blnd(&youmonst)
             && distu(mtmp->mx, mtmp->my) <= BOLT_LIM * BOLT_LIM) {
             if (cancelled) {
@@ -3422,6 +3466,20 @@ struct attack *mattk;
                 pline("You don't feel as lucky as before.");
             }
             stop_occupation();
+        }
+        break;
+    case AD_FEAR:
+        if (canseemon(mtmp) 
+                && couldsee(mtmp->mx, mtmp->my) 
+                && mtmp->mcansee && !rn2(3)
+                && !mtmp->mspec_used 
+                && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
+            
+            You("are struck with a terrible fear of %s!", mon_nam(mtmp));
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+            u.fearedmon = mtmp;
+            if (mtmp->data == &mons[PM_BODAK]) 
+                u.ugrave_arise = PM_BODAK;
         }
         break;
     /* Comment out the PM_BEHOLDER indef here so the below attack types function */
@@ -3634,12 +3692,12 @@ struct attack *mattk;
             mdamageu(mtmp, dmg);
         }
         break;
+#if 0 /* Old code for rhaumbusun */
     case AD_PLYS:
-        if(!mtmp->mcan 
-              && multi >= 0 
-              && canseemon(mtmp)
-              && mtmp->mcansee 
+        if(!mtmp->mcan && multi >= 0 
+              && canseemon(mtmp) && mtmp->mcansee 
               && !mtmp->mspec_used && rn2(5)) {
+
             pline("%s stares at you!", Monnam(mtmp));
             if (Free_action) 
                 You("stiffen momentarily.");
@@ -3648,6 +3706,43 @@ struct attack *mattk;
                 nomovemsg = 0;
                 nomul(-rnd(4));
                 exercise(A_DEX, FALSE);
+            }
+        }
+        break;
+#endif
+    case AD_PLYS:
+        if (!mtmp->mcan 
+            && canseemon(mtmp) 
+            && !cancelled
+            && couldsee(mtmp->mx, mtmp->my) 
+            && !is_fainted()
+            && !mtmp->mspec_used 
+            && rn2(4)
+            && multi>=0 
+            && !((is_undead(youmonst.data)
+                || is_demon(youmonst.data)) && is_undead(mtmp->data))) {
+            
+            pline("%s aberrant stare frightens you to the core!",
+                s_suffix(Monnam(mtmp)));
+            if (Free_action){
+                pline("But you quickly regain composure.");
+            } else {
+                int prlys = d((int) mattk->damn, (int) mattk->damd);
+                int numhelp, numseen;
+                nomul(-prlys);
+                nomovemsg = 0;	/* default: "you can move again" */
+
+                if (!mtmp->cham && mtmp->data == &mons[PM_NOSFERATU] 
+                      && !mtmp->mcan && !rn2(3)){
+                    numhelp = were_summon(mtmp->data, FALSE, &numseen, 0);
+                    pline("%s summons help!", Monnam(mtmp));
+                    if (numhelp > 0) {
+                        if (numseen == 0)
+                            You_feel("hemmed in.");
+                    } else 
+                        pline("But none comes.");
+                }
+                mtmp->mspec_used += prlys * 3/2 + rn2(prlys);
             }
         }
         break;
@@ -4248,6 +4343,20 @@ int dmg;
             rehumanize();
             break;
         }
+        break;
+    case AD_FEAR:
+        if (m_canseeu(mtmp)) {
+            pline("%s lets out a horrific wail!", Monnam(mtmp));
+        } else {
+            You_hear("a terrible wail!");
+        }
+        if (u.usleep && m_canseeu(mtmp)) {
+            unmul("What a horrible nightmare! You wake up!");
+        }
+        You("are struck with a sudden, terrible fear.");
+        make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
+        aggravate();
+        stop_occupation();
         break;
     case AD_PIER:
         /* Mobat's have a piercing scream */

@@ -1585,7 +1585,7 @@ int damg_gaze_types [] =
     };
 
 int damg_engulf_types [] =
-    { AD_PLYS, AD_DGST, AD_WRAP };
+    { AD_PLYS, AD_DGST, AD_WRAP, AD_POTN };
 
 int damg_magic_types [] =
     { AD_SPEL, AD_CLRC, AD_MAGM, AD_FIRE, AD_COLD,

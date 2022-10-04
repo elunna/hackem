@@ -402,6 +402,8 @@ int mndx;
     case PM_VAMPIRE_MAGE:
     case PM_HUMAN_ZOMBIE:
     case PM_HUMAN_MUMMY:
+    case PM_NOSFERATU:
+    case PM_DRAUGR:
         mndx = PM_HUMAN;
         break;
     case PM_GIANT_ZOMBIE:
@@ -417,6 +419,9 @@ int mndx;
         break;
     case PM_TROLL_MUMMY:    
         mndx = PM_TROLL;
+        break;
+    case PM_ZOMBIE_DRAGON:
+        mndx =  PM_RED_DRAGON;
         break;
     default:
         break;
@@ -615,6 +620,7 @@ unsigned corpseflags;
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE_KING:
     case PM_VAMPIRE_MAGE:
+    case PM_NOSFERATU:
         /* include mtmp in the mkcorpstat() call */
         num = undead_to_corpse(mndx);
         corpstatflags |= CORPSTAT_INIT;
@@ -631,6 +637,8 @@ unsigned corpseflags;
     case PM_GIANT_ZOMBIE:
     case PM_ETTIN_ZOMBIE:
     case PM_GNOLL_WITHERLING:
+    case PM_DRAUGR:
+    case PM_ZOMBIE_DRAGON:
         corpstatflags |= CORPSTAT_ZOMBIE;
         /* FALLTHRU */
     case PM_KOBOLD_MUMMY:
@@ -2923,6 +2931,8 @@ struct monst *mtmp, *mtmp2;
         u.ustuck = mtmp2;
     if (u.usteed == mtmp)
         u.usteed = mtmp2;
+    if (u.fearedmon == mtmp)
+        u.fearedmon = mtmp2;
     if (mtmp2->isshk)
         replshk(mtmp, mtmp2);
 
@@ -3414,6 +3424,9 @@ register struct monst *mtmp;
     /* Player is thrown from his steed when it dies */
     if (mtmp == u.usteed)
         dismount_steed(DISMOUNT_GENERIC);
+    /* Clear feared monster */
+    if (mtmp == u.fearedmon)
+        remove_fearedmon();
     /* The same is true for monsters riding steeds */
     rider = get_mon_rider(mtmp);
     if (rider)
@@ -3426,6 +3439,8 @@ register struct monst *mtmp;
         mtmp->cham = NON_PM;
     } else if (mtmp->data == &mons[PM_WEREJACKAL])
         set_mon_data(mtmp, &mons[PM_HUMAN_WEREJACKAL]);
+    else if (mtmp->data == &mons[PM_WEREBEAR])
+        set_mon_data(mtmp, &mons[PM_HUMAN_WEREBEAR]);
     else if (mtmp->data == &mons[PM_WEREWOLF])
         set_mon_data(mtmp, &mons[PM_HUMAN_WEREWOLF]);
     else if (mtmp->data == &mons[PM_WERERAT])
@@ -3585,6 +3600,19 @@ boolean was_swallowed; /* digestion */
             }
             curse(otmp);
             place_object(otmp, mon->mx, mon->my);
+        }
+        return FALSE;
+    }
+
+    /* magma elementals dissolve into a pile of lava */
+    if (mdat == &mons[PM_MAGMA_ELEMENTAL]) {
+        if (levl[mon->mx][mon->my].typ != STAIRS &&
+                levl[mon->mx][mon->my].typ != LADDER) {
+            levl[mon->mx][mon->my].typ = LAVAPOOL;
+            newsym(mon->mx, mon->my);
+        if (cansee(mon->mx, mon->my) && !was_swallowed)
+            pline("%s body dissolves into a pool of lava.",
+                s_suffix(Monnam(mon)));
         }
         return FALSE;
     }
@@ -3804,6 +3832,9 @@ struct monst *mdef;
     if (rider)
         separate_steed_and_rider(rider);
 
+    /* feared monster cleared */
+    if (mdef == u.fearedmon)
+        remove_fearedmon();
     /* stuck to you? release */
     unstuck(mdef);
     /* drop special items like the Amulet so that a dismissed Kop or nurse
@@ -4685,6 +4716,13 @@ struct monst *mtmp;
     }
 }
 
+void
+remove_fearedmon() {
+    u.fearedmon = (struct monst *) 0;
+    if (u.ugrave_arise == PM_BODAK)
+        u.ugrave_arise = NON_PM;
+}
+
 /* Called whenever the player attacks mtmp; also called in other situations
    where mtmp gets annoyed at the player. Handles mtmp getting annoyed at the
    attack and any ramifications that might have. Useful also in situations
@@ -5432,6 +5470,7 @@ struct monst *mon;
     case PM_VAMPIRE_KING:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE:
+    case PM_NOSFERATU:
         mndx = pickvampshape(mon);
         break;
     case NON_PM: /* ordinary */

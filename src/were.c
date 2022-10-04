@@ -38,6 +38,10 @@ register struct monst *mon;
 		        case PM_HUMAN_WERETIGER:	
                     howler = "tiger";   
                     break;
+                case PM_WEREBEAR:
+                    howler = "bear";
+                    /* howl = "roaring";*/
+                    break;
                 default:
                     howler = (char *) 0;
                     break;
@@ -90,6 +94,10 @@ int pm;
         return(PM_HUMAN_WERESPIDER);
     case PM_HUMAN_WERESPIDER: 
         return(PM_WERESPIDER);
+    case PM_WEREBEAR:
+        return PM_HUMAN_WEREBEAR;
+    case PM_HUMAN_WEREBEAR:
+        return PM_WEREBEAR;
     default:
         return NON_PM;
     }
@@ -121,6 +129,11 @@ int pm;
     case PM_WEREDEMON:
     case PM_HELL_HOUND:
         return PM_WEREDEMON;
+    case PM_WEREBEAR:
+    case PM_BLACK_BEAR:
+    /*case PM_DROP_BEAR:
+    case PM_GRIZZLY_BEAR:*/
+        return PM_WEREBEAR;
     default:
         break;
     }
@@ -199,6 +212,7 @@ char *genbuf;
             break;
         case PM_WEREWOLF:
         case PM_HUMAN_WEREWOLF:
+        case PM_NOSFERATU:
             // typ = rn2(5) ? PM_WOLF : rn2(2) ? PM_WARG : PM_WINTER_WOLF;
             typ = rn2(3) ? PM_WOLF : rn2(2) ? PM_WINTER_WOLF : rn2(2) ? PM_RABID_WOLF : PM_WARG ;
             if (genbuf)
@@ -235,6 +249,12 @@ char *genbuf;
             typ = rn2(3) ? PM_RECLUSE_SPIDER : rn2(2) ? PM_GIANT_SPIDER : rn2(2) ? PM_JUMPING_SPIDER : PM_PHASE_SPIDER ;
 			if (genbuf) Strcpy(genbuf, "spider");
 			break;
+        case PM_HUMAN_WEREBEAR:
+        case PM_WEREBEAR:
+            typ = rn2(15) ? PM_BLACK_BEAR : PM_GRIZZLY_BEAR;
+            if (genbuf)
+                Strcpy(genbuf, "bear");
+            break;
         default:
             continue;
         }
@@ -254,7 +274,7 @@ void
 you_were()
 {
     char qbuf[QBUFSZ];
-    boolean controllable_poly = Polymorph_control && !(Stunned || Unaware);
+    boolean controllable_poly = Polymorph_control && !(Stunned || Afraid || Unaware);
 
     if (Unchanging || u.umonnum == u.ulycn)
         return;
@@ -272,7 +292,7 @@ void
 you_unwere(purify)
 boolean purify;
 {
-    boolean controllable_poly = Polymorph_control && !(Stunned || Unaware);
+    boolean controllable_poly = Polymorph_control && !(Stunned || Afraid || Unaware);
 
     if (purify) {
         You_feel("purified.");

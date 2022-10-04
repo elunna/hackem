@@ -1298,7 +1298,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     int range, urange;
     boolean crossbowing, gunning, clear_thrownobj = FALSE,
             impaired = (Confusion || Stunned || Blind
-                        || Hallucination || Fumbling),
+                        || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
 
     /* KMH -- Handle Plague here */

@@ -3709,11 +3709,13 @@ static struct condition_t {
     { BL_MASK_DEAF,     { "Deaf",     "Def",   "Df"  } },
     { BL_MASK_STUN,     { "Stun",     "Stun",  "St"  } },
     { BL_MASK_CONF,     { "Conf",     "Cnf",   "Cf"  } },
+    { BL_MASK_AFRAID,   { "Afraid",   "Fear",  "Fr"  } },
     { BL_MASK_HALLU,    { "Hallu",    "Hal",   "Hl"  } },
     { BL_MASK_LEV,      { "Lev",      "Lev",   "Lv"  } },
     { BL_MASK_FLY,      { "Fly",      "Fly",   "Fl"  } },
     { BL_MASK_RIDE,     { "Ride",     "Rid",   "Rd"  } },
     { BL_MASK_SLOW,     { "Slow",     "Slo",   "Slo" } },
+    
 };
 static const char *encvals[3][6] = {
     { "", "Burdened", "Stressed", "Strained", "Overtaxed", "Overloaded" },

@@ -35,6 +35,7 @@ const struct propname {
     { STUNNED, "stunned" },
     { SLOW, "slow" },
     { CONFUSION, "confused" },
+    { AFRAID, "afraid" },
     { HALLUC, "hallucinating" },
     { BLINDED, "blinded" },
     { DEAF, "deafness" },
@@ -774,6 +775,14 @@ nh_timeout()
                 make_stunned(0L, TRUE);
                 if (!Stunned)
                     stop_occupation();
+                break;
+            case AFRAID:
+                set_itimeout(&HAfraid, 1L);
+                make_afraid(0L, TRUE);
+                if (!Afraid) {
+                    stop_occupation();
+                    You("are no longer afraid.");
+                }
                 break;
             case BLINDED:
                 set_itimeout(&Blinded, 1L);

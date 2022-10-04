@@ -35,9 +35,9 @@ STATIC_DCL struct monst *FDECL(restmonchn, (int, BOOLEAN_P));
 STATIC_DCL struct fruit *FDECL(loadfruitchn, (int));
 STATIC_DCL void FDECL(freefruitchn, (struct fruit *));
 STATIC_DCL void FDECL(ghostfruit, (struct obj *));
-STATIC_DCL boolean FDECL(restgamestate, (int, unsigned int *, unsigned int *));
+STATIC_DCL boolean FDECL(restgamestate, (int, unsigned int *, unsigned int *, unsigned int *));
 STATIC_DCL void FDECL(restmonsteeds, (BOOLEAN_P));
-STATIC_DCL void FDECL(restlevelstate, (unsigned int, unsigned int));
+STATIC_DCL void FDECL(restlevelstate, (unsigned int, unsigned int, unsigned int));
 STATIC_DCL int FDECL(restlevelfile, (int, XCHAR_P));
 STATIC_OVL void FDECL(restore_msghistory, (int));
 STATIC_DCL void FDECL(reset_oattached_mids, (BOOLEAN_P));
@@ -550,9 +550,9 @@ register struct obj *otmp;
 
 STATIC_OVL
 boolean
-restgamestate(fd, stuckid, steedid)
+restgamestate(fd, stuckid, steedid, fearedmonid)
 register int fd;
-unsigned int *stuckid, *steedid;
+unsigned int *stuckid, *steedid, *fearedmonid;
 {
     struct flag newgameflags;
 #ifdef SYSFLAGS
@@ -718,6 +718,8 @@ unsigned int *stuckid, *steedid;
         mread(fd, (genericptr_t) stuckid, sizeof *stuckid);
     if (u.usteed)
         mread(fd, (genericptr_t) steedid, sizeof *steedid);
+    if (u.fearedmon)
+        mread(fd, (genericptr_t) fearedmonid, sizeof *fearedmonid);
     mread(fd, (genericptr_t) pl_character, sizeof pl_character);
 
     mread(fd, (genericptr_t) pl_fruit, sizeof pl_fruit);
@@ -788,8 +790,8 @@ boolean ghostly;
  * don't dereference a wild u.ustuck when saving the game state, for instance)
  */
 STATIC_OVL void
-restlevelstate(stuckid, steedid)
-unsigned int stuckid, steedid;
+restlevelstate(stuckid, steedid, fearedmonid)
+unsigned int stuckid, steedid, fearedmonid;
 {
     register struct monst *mtmp;
 
@@ -809,6 +811,14 @@ unsigned int stuckid, steedid;
             panic("Cannot find the monster usteed.");
         u.usteed = mtmp;
         remove_monster(mtmp->mx, mtmp->my);
+    }
+    if (fearedmonid) {
+        for (mtmp = fmon; mtmp; mtmp = mtmp->nmon)
+            if (mtmp->m_id == fearedmonid)
+                break;
+        if (!mtmp)
+            panic("Cannot find the monster fearedmon.");
+        u.fearedmon = mtmp;
     }
 }
 
@@ -874,7 +884,7 @@ int
 dorecover(fd)
 register int fd;
 {
-    unsigned int stuckid = 0, steedid = 0; /* not a register */
+    unsigned int stuckid = 0, steedid = 0, fearedmonid = 0; /* not a register */
     xchar ltmp;
     int rtmp;
     struct obj *otmp;
@@ -882,7 +892,7 @@ register int fd;
     program_state.restoring = 1;
     get_plname_from_file(fd, plname);
     getlev(fd, 0, (xchar) 0, FALSE);
-    if (!restgamestate(fd, &stuckid, &steedid)) {
+    if (!restgamestate(fd, &stuckid, &steedid, &fearedmonid)) {
         display_nhwindow(WIN_MESSAGE, TRUE);
         savelev(-1, 0, FREE_SAVE); /* discard current level */
         (void) nhclose(fd);
@@ -890,7 +900,7 @@ register int fd;
         program_state.restoring = 0;
         return 0;
     }
-    restlevelstate(stuckid, steedid);
+    restlevelstate(stuckid, steedid, fearedmonid);
     /* check crowned infidels (demonic form) for its wings,
        ensure they stay tucked away under their body armor
        upon reload */
@@ -910,6 +920,7 @@ register int fd;
      */
     u.ustuck = (struct monst *) 0;
     u.usteed = (struct monst *) 0;
+    u.fearedmon = (struct monst *) 0;
 
 #ifdef MICRO
 #ifdef AMII_GRAPHICS
@@ -973,7 +984,7 @@ register int fd;
      */
     reset_restpref();
 
-    restlevelstate(stuckid, steedid);
+    restlevelstate(stuckid, steedid, fearedmonid);
     program_state.something_worth_saving = 1; /* useful data now exists */
 
     if (!wizard && !discover)

@@ -3013,6 +3013,7 @@ register struct monst *mtmp;
             case PM_CYCLOPS:
             case PM_LORD_SURTUR:
             case PM_ANNAM:
+            case PM_GIANT_SQUID:
                 tear_web = TRUE;
                 break;
             }
@@ -4719,7 +4720,7 @@ struct trap *ttmp;
         chance++;
     if (Blind)
         chance++;
-    if (Stunned)
+    if (Stunned || Afraid)
         chance += 2;
     if (Fumbling)
         chance *= 2;

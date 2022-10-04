@@ -627,7 +627,9 @@ int how;
      *  transformation.  (Turning to slime isn't an issue here because
      *  Unchanging prevents that from happening.)
      */
-    if (mptr == &mons[PM_WRAITH])
+    if (mptr == &mons[PM_BODAK] || (u.fearedmon && u.fearedmon->data == &mons[PM_BODAK]))
+        u.ugrave_arise = PM_BODAK;
+    else if (mptr == &mons[PM_WRAITH])
         u.ugrave_arise = PM_WRAITH;
     else if (mptr == &mons[PM_SLAUGHTER_WIGHT] || mptr == &mons[PM_BARROW_WIGHT])
         u.ugrave_arise = PM_WIGHT;
@@ -647,7 +649,7 @@ int how;
 		  	&& mtmp->data != &mons[PM_FIRE_VAMPIRE]
 		  	&& mtmp->data != &mons[PM_STAR_VAMPIRE])
     #endif
-    else if (mptr == &mons[PM_GHOUL])
+    else if (is_ghoul(mptr))
         u.ugrave_arise = PM_GHOUL;
     else if (mptr == &mons[PM_NABASSU])
         u.ugrave_arise = PM_GHAST;
@@ -1631,6 +1633,7 @@ int how;
         }
     }
 
+    /* TODO: Add the skeletal pirate here (from splice) */
     if (u.ugrave_arise >= LOW_PM && !done_stopprint) {
         /* give this feedback even if bones aren't going to be created,
            so that its presence or absence doesn't tip off the player to

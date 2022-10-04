@@ -116,6 +116,9 @@
 #define HStun u.uprops[STUNNED].intrinsic /* timed or FROMFORM */
 #define Stunned HStun
 
+#define HAfraid u.uprops[AFRAID].intrinsic
+#define Afraid HAfraid
+
 #define HConfusion u.uprops[CONFUSION].intrinsic
 #define Confusion HConfusion
 

@@ -410,6 +410,7 @@ struct you {
     int uinshell;            /* time in shell */
     struct monst *ustuck;    /* engulfer or grabber, maybe grabbee if Upolyd */
     struct monst *usteed;    /* mount when riding */
+    struct monst *fearedmon; /* object of the player's fear */
     long ugallop;            /* turns steed will run after being kicked */
     int urideturns;          /* time spent riding, for skill advancement */
     int umortality;          /* how many times you died */

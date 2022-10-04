@@ -183,6 +183,8 @@ do_statusline2()
     }
     if (Withering)
         Strcpy(nb = eos(nb), " Wither");
+    if (Afraid)
+        Strcpy(nb = eos(nb), " Afraid");
     if (u.uhs != NOT_HUNGRY)
         Sprintf(nb = eos(nb), " %s", hu_stat[u.uhs]);
     if ((cap = near_capacity()) > UNENCUMBERED)
@@ -797,6 +799,8 @@ bot_via_windowport()
         blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_STUN;
     if (Confusion)
         blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_CONF;
+    if (Afraid)
+        blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_AFRAID;
     if (Hallucination)
         blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_HALLU;
     /* levitation and flying are mututally exclusive */
@@ -2382,11 +2386,12 @@ const struct condmap valid_conditions[] = {
     { "deaf",     BL_MASK_DEAF },
     { "stun",     BL_MASK_STUN },
     { "conf",     BL_MASK_CONF },
+    { "afraid",   BL_MASK_AFRAID },
     { "hallu",    BL_MASK_HALLU },
     { "lev",      BL_MASK_LEV },
     { "fly",      BL_MASK_FLY },
     { "ride",     BL_MASK_RIDE },
-    { "slow",     BL_MASK_SLOW},
+    { "slow",     BL_MASK_SLOW },
     { "wither",   BL_MASK_WITHER }
 };
 
@@ -2399,11 +2404,11 @@ const struct condmap condition_aliases[] = {
                         | BL_MASK_BLIND | BL_MASK_DEAF | BL_MASK_STUN
                         | BL_MASK_CONF | BL_MASK_HALLU | BL_MASK_LEV
                         | BL_MASK_FLY | BL_MASK_RIDE | BL_MASK_SLOW
-                        | BL_MASK_WITHER },
+                        | BL_MASK_WITHER | BL_MASK_AFRAID },
     { "major_troubles", BL_MASK_STONE | BL_MASK_SLIME | BL_MASK_STRNGL
                         | BL_MASK_FOODPOIS | BL_MASK_TERMILL | BL_MASK_WITHER},
     { "minor_troubles", BL_MASK_BLIND | BL_MASK_DEAF | BL_MASK_STUN
-                        | BL_MASK_CONF | BL_MASK_HALLU },
+                        | BL_MASK_CONF | BL_MASK_HALLU | BL_MASK_AFRAID },
     { "movement",       BL_MASK_LEV | BL_MASK_FLY | BL_MASK_RIDE | BL_MASK_SLOW }
 };
 

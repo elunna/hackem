@@ -286,7 +286,9 @@ struct obj *otmp, *mwep;
             || (racial_orc(mtmp) && otmp->otyp == ORCISH_ARROW
                 && mwep->otyp == ORCISH_BOW)
             || (racial_gnome(mtmp) && otmp->otyp == CROSSBOW_BOLT
-                && mwep->otyp == CROSSBOW))
+                && mwep->otyp == CROSSBOW)
+            || (mtmp->data == &mons[PM_MARRASHI] && otmp->otyp == ARROW
+                && mwep->otyp == FOOTBOW))
             multishot++;
     }
 

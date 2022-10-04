@@ -64,6 +64,7 @@
      || (ptr) == &mons[PM_LOCUST] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
+     || (ptr) == &mons[PM_MARRASHI] \
      || (ptr) == &mons[PM_WATER_ELEMENTAL])
 
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */
@@ -338,6 +339,8 @@
      || (ptr) == &mons[PM_MOBAT] \
      || (ptr) == &mons[PM_MONGBAT] \
      || (ptr) == &mons[PM_RHUMBAT] \
+     || (ptr) == &mons[PM_ZOO_BAT] \
+     || (ptr) == &mons[PM_GAOL_BAT] \
      || (ptr) == &mons[PM_VAMPIRE_BAT])
 #define is_bird(ptr) ((ptr)->mlet == S_BAT && !is_bat(ptr))
 #define has_beak(ptr) \
@@ -347,6 +350,15 @@
      || (ptr) == &mons[PM_OWLBEAR] \
      || (ptr) == &mons[PM_TENGU] \
      || (ptr) == &mons[PM_VROCK])
+#define is_bear(ptr) \
+    ((ptr)->omnum == PM_BUGBEAR \
+     || (ptr)->omnum == PM_OWLBEAR \
+     || (ptr)->omnum == PM_BABY_OWLBEAR \
+     || (ptr)->omnum == PM_WEREBEAR\
+     || (ptr)->omnum == PM_GRIZZLY_BEAR \
+     || (ptr)->omnum == PM_HELLBEAR \
+     || (ptr)->omnum == PM_BLACK_BEAR)
+
 # define is_rat(ptr) \
     ((ptr) == &mons[PM_BLACK_RAT] \
      || (ptr) == &mons[PM_ENORMOUS_RAT] \
@@ -366,8 +378,7 @@
 #define is_troll(ptr) (((ptr)->mhflags & MH_TROLL) != 0L)
 #define is_gnoll(ptr) (((ptr)->mhflags & MH_GNOLL) != 0L)
 #define is_not_zombie(ptr) \
-    ((ptr) == &mons[PM_GHOUL] \
-     || (ptr) == &mons[PM_GHAST] \
+    (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \
      || (ptr) == &mons[PM_REVENANT])
 #define is_zombie(ptr) ((ptr)->mlet == S_ZOMBIE && !is_not_zombie(ptr))
@@ -453,6 +464,10 @@
     (is_demon(ptr) && (((ptr)->mflags2 & (M2_LORD | M2_PRINCE)) == 0L))
 #define is_dlord(ptr) (is_demon(ptr) && is_lord(ptr))
 #define is_dprince(ptr) (is_demon(ptr) && is_prince(ptr))
+#define is_ghoul(ptr) ((ptr) == &mons[PM_GHOUL] \
+                       || (ptr) == &mons[PM_GHAST] \
+                       || (ptr) == &mons[PM_GHOUL_MAGE] \
+                       || (ptr) == &mons[PM_VOMITOUS_GHOUL])
 #define is_minion(ptr) (((ptr)->mflags2 & M2_MINION) != 0L)
 #define likes_gold(ptr) (((ptr)->mflags2 & M2_GREEDY) != 0L)
 #define likes_gems(ptr) (((ptr)->mflags2 & M2_JEWELS) != 0L)
@@ -623,7 +638,8 @@
 
 #define likes_lava(ptr) \
     ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
-     || (ptr) == &mons[PM_SALAMANDER] \
+     || (ptr) == &mons[PM_SALAMANDER]  \
+     || (ptr) == &mons[PM_MAGMA_ELEMENTAL]  \
      || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_LAVA_DEMON] \
      || (ptr) == &mons[PM_LAVA_GREMLIN])
@@ -668,7 +684,8 @@
 #define is_vampiric(ptr) ((is_vampire(ptr)) || \
                           (ptr) == &mons[PM_VAMPIRE_BAT])
 
-#define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN])
+#define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN]  \
+                          || (ptr) == &mons[PM_NOSFERATU])
 
 #define stationary(ptr)     ((ptr)->mflags4 & M4_STATIONARY)
 
@@ -724,7 +741,9 @@
 
 #define vegetarian(ptr) \
     (vegan(ptr)         \
-     || ((ptr)->mlet == S_PUDDING && (ptr) != &mons[PM_BLACK_PUDDING]))
+     || ((ptr)->mlet == S_PUDDING \
+         && (ptr) != &mons[PM_BLACK_PUDDING] \
+         && (ptr) != &mons[PM_BLOOD_PUDDING]))
 
 /* jello-like creatures */
 #define can_flollop(ptr) \

@@ -1693,6 +1693,9 @@ wiz_intrinsic(VOID_ARGS)
             case STUNNED:
                 make_stunned(newtimeout, TRUE);
                 break;
+            case AFRAID:
+                make_afraid(newtimeout, TRUE);
+                break;
             case VOMITING:
                 Sprintf(buf, fmt, !Vomiting ? "" : " still", "vomiting");
                 make_vomiting(newtimeout, FALSE);
@@ -2660,6 +2663,15 @@ int final;
         you_are("nauseated", "");
     if (Stunned)
         you_are("stunned", "");
+    if (Afraid) {
+        if (u.fearedmon) {
+            Sprintf(buf, "terrified by %s",
+                canseemon(u.fearedmon) ? a_monnam(u.fearedmon) : "an unseen monster");
+            you_are(buf, "");
+        } else {
+            you_are("frightened", "");
+        }
+    }
     if (Confusion)
         you_are("confused", "");
     if (Hallucination)
@@ -5672,6 +5684,8 @@ const char *s;
         You_cant("orient yourself that direction.");
         return 0;
     }
+    if (!u.dz && Afraid && rn2(3))
+        feardir();
     if (!u.dz && (Stunned || (Confusion && !rn2(5))))
         confdir();
     return 1;
@@ -5872,6 +5886,19 @@ confdir()
 
     u.dx = xdir[x];
     u.dy = ydir[x];
+    return;
+}
+
+void
+feardir(void)
+{
+    if (!u.fearedmon || !couldsee(u.fearedmon->mx, u.fearedmon->my)) {
+        confdir();
+        return;
+    }
+
+    u.dx = sgn(u.ux - u.fearedmon->mx);
+    u.dy = sgn(u.uy - u.fearedmon->my);
     return;
 }
 
