@@ -4651,6 +4651,18 @@ struct permonst _mons2[] = {
         M1_NOLIMBS | M1_SLITHY | M1_THICK_HIDE | M1_OVIPAROUS | M1_POIS
             | M1_NOTAKE | M1_OMNIVORE,
         M2_STRONG, 0, 0, 0, 16, CLR_GREEN),
+    MON("ha-naga", S_NAGA, 
+        LVL(20, 18, -4, 70, -2), (G_GENO | G_HELL | 1),
+        A(ATTK(AT_BITE, AD_PLYS, 2, 3), 
+          ATTK(AT_SPIT, AD_DRST, 3, 6),
+          ATTK(AT_HUGS, AD_PHYS, 4, 8), 
+          ATTK(AT_MAGC, AD_SPEL, 5, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(3200, 800, MS_MUMBLE, MZ_GIGANTIC), 
+        MR_POISON | MR_ACID | MR_FIRE, MR_POISON,
+        M1_NOLIMBS | M1_SLITHY | M1_THICK_HIDE | M1_OVIPAROUS | M1_POIS
+            | M1_OMNIVORE | M1_FLY,
+        M2_STRONG | M2_FEMALE, 0, 0, 0, 24, CLR_BRIGHT_MAGENTA),
     /*
      * Ogres
      */
