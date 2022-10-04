@@ -2204,13 +2204,11 @@ register struct obj *otmp;
                 pline("%s looks a lot better.", Monnam(mtmp));
             }
         }
-#if 0 /* Pending Mud Elementals */
         else if (mtmp->data == &mons[PM_EARTH_ELEMENTAL]) {
             if (canseemon(mtmp))
                 pline("%s turns into a roiling pile of mud!", Monnam(mtmp));
             (void) newcham(mtmp, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
-        } 
-#endif
+        }
         else if (rnd(20) < 10 + find_mac(mtmp)) {
             tmp = d(likes_fire(mtmp->data) ? 12 : 1, 6);
             hit("jet of water", mtmp, exclam(tmp));
