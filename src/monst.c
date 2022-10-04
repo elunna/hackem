@@ -3846,7 +3846,46 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 8, CLR_BLACK),
+        
 #endif
+
+    MON("brown moldier", S_FUNGUS, 
+        LVL(5, 12, 8, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
+          ATTK(AT_NONE, AD_COLD, 0, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
+        MR_COLD | MR_SLEEP | MR_POISON, 0,
+        M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
+        M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_BROWN),
+    MON("yellow moldier", S_FUNGUS, 
+        LVL(5, 12, 8, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
+          ATTK(AT_NONE, AD_STUN, 0, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
+        MR_SLEEP | MR_POISON, 0,
+        M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
+        M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_YELLOW),
+    MON("green moldier", S_FUNGUS, 
+        LVL(5, 12, 8, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
+          ATTK(AT_NONE, AD_ACID, 0, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
+        MR_SLEEP | MR_ACID | MR_STONE, 0,
+        M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
+        M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_GREEN),
+    MON("red moldier", S_FUNGUS, 
+        LVL(5, 12, 8, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 4), ATTK(AT_NONE, AD_FIRE, 0, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
+        MR_SLEEP | MR_FIRE | MR_STONE, 0,
+        M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
+        M2_STALK | M2_NEUTER | M2_HOSTILE, 
+        M3_INFRAVISIBLE, 0, 0, 7, CLR_RED),
+    
     /*
      * ferns and their spores
      */
