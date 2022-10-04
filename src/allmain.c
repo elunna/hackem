@@ -299,7 +299,7 @@ boolean resuming;
                             monclock = MIN_MONGEN_RATE / 4;
                         if (monclock > MIN_MONGEN_RATE / 6 && u.uevent.udemigod)
                             monclock = MIN_MONGEN_RATE / 6;
-	            }
+	                }
 		    /* make sure we don't fall off the bottom */
                     if (monclock < MAX_MONGEN_RATE)
                         monclock = MAX_MONGEN_RATE;
@@ -334,11 +334,15 @@ boolean resuming;
                             /* gain a free action on 1/3 of turns */
                             if (rn2(3) == 0)
                                 moveamt += NORMAL_SPEED;
-			} else if (Slow) {
-			    /* average movement noticeably slower */
-			    if (rn2(3) != 0)
+                        } else if (Slow) {
+                            /* average movement noticeably slower */
+                            if (rn2(3) != 0)
                                 moveamt -= NORMAL_SPEED / 2;
                         }
+                    }
+
+                    if (Afraid && rn2(4)) { /* Afraid of a monster */
+                        moveamt += NORMAL_SPEED;
                     }
 
                     switch (wtcap) {

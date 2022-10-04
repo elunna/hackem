@@ -1790,6 +1790,7 @@ boolean at_stairs, falling, portal;
     fill_pit(u.ux, u.uy);
     u.ustuck = 0; /* idem */
     u.uinwater = 0;
+    remove_fearedmon();
     u.uundetected = 0; /* not hidden, even if means are available */
     keepdogs(FALSE);
     if (u.uswallow) /* idem */

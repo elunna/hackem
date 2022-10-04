@@ -2129,7 +2129,7 @@ register struct attack *mattk;
 	    } else {
                 if (flags.verbose)
                     Your("position suddenly seems %suncertain!",
-                         (Teleport_control && !Stunned && !unconscious()) ? ""
+                         (Teleport_control && !Stunned && !Afraid && !unconscious()) ? ""
                          : "very ");
             }
             tele();
@@ -3468,6 +3468,20 @@ struct attack *mattk;
             stop_occupation();
         }
         break;
+    case AD_FEAR:
+        if (canseemon(mtmp) 
+                && couldsee(mtmp->mx, mtmp->my) 
+                && mtmp->mcansee && !rn2(3)
+                && !mtmp->mspec_used 
+                && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
+            
+            You("are struck with a terrible fear of %s!", mon_nam(mtmp));
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+            u.fearedmon = mtmp;
+            if (mtmp->data == &mons[PM_BODAK]) 
+                u.ugrave_arise = PM_BODAK;
+        }
+        break;
     /* Comment out the PM_BEHOLDER indef here so the below attack types function */
     case AD_SLEE:
         if (canseemon(mtmp) && couldsee(mtmp->mx, mtmp->my) && mtmp->mcansee
@@ -4329,6 +4343,20 @@ int dmg;
             rehumanize();
             break;
         }
+        break;
+    case AD_FEAR:
+        if (m_canseeu(mtmp)) {
+            pline("%s lets out a horrific wail!", Monnam(mtmp));
+        } else {
+            You_hear("a terrible wail!");
+        }
+        if (u.usleep && m_canseeu(mtmp)) {
+            unmul("What a horrible nightmare! You wake up!");
+        }
+        You("are struck with a sudden, terrible fear.");
+        make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
+        aggravate();
+        stop_occupation();
         break;
     case AD_PIER:
         /* Mobat's have a piercing scream */

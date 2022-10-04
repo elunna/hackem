@@ -794,7 +794,7 @@ struct obj *scroll;
         if (!wizard || yn("Override?") != 'y')
             return FALSE;
     }
-    if ((Teleport_control && !Stunned) || wizard) {
+    if ((Teleport_control && !Afraid && !Stunned) || wizard) {
         if (unconscious()) {
             pline("Being unconscious, you cannot control your teleport.");
         } else {

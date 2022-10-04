@@ -627,7 +627,9 @@ int how;
      *  transformation.  (Turning to slime isn't an issue here because
      *  Unchanging prevents that from happening.)
      */
-    if (mptr == &mons[PM_WRAITH])
+    if (mptr == &mons[PM_BODAK] || (u.fearedmon && u.fearedmon->data == &mons[PM_BODAK]))
+        u.ugrave_arise = PM_BODAK;
+    else if (mptr == &mons[PM_WRAITH])
         u.ugrave_arise = PM_WRAITH;
     else if (mptr == &mons[PM_SLAUGHTER_WIGHT] || mptr == &mons[PM_BARROW_WIGHT])
         u.ugrave_arise = PM_WIGHT;

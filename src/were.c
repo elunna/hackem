@@ -274,7 +274,7 @@ void
 you_were()
 {
     char qbuf[QBUFSZ];
-    boolean controllable_poly = Polymorph_control && !(Stunned || Unaware);
+    boolean controllable_poly = Polymorph_control && !(Stunned || Afraid || Unaware);
 
     if (Unchanging || u.umonnum == u.ulycn)
         return;
@@ -292,7 +292,7 @@ void
 you_unwere(purify)
 boolean purify;
 {
-    boolean controllable_poly = Polymorph_control && !(Stunned || Unaware);
+    boolean controllable_poly = Polymorph_control && !(Stunned || Afraid || Unaware);
 
     if (purify) {
         You_feel("purified.");

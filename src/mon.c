@@ -2924,6 +2924,8 @@ struct monst *mtmp, *mtmp2;
         u.ustuck = mtmp2;
     if (u.usteed == mtmp)
         u.usteed = mtmp2;
+    if (u.fearedmon == mtmp)
+        u.fearedmon = mtmp2;
     if (mtmp2->isshk)
         replshk(mtmp, mtmp2);
 
@@ -3415,6 +3417,9 @@ register struct monst *mtmp;
     /* Player is thrown from his steed when it dies */
     if (mtmp == u.usteed)
         dismount_steed(DISMOUNT_GENERIC);
+    /* Clear feared monster */
+    if (mtmp == u.fearedmon)
+        remove_fearedmon();
     /* The same is true for monsters riding steeds */
     rider = get_mon_rider(mtmp);
     if (rider)
@@ -3820,6 +3825,9 @@ struct monst *mdef;
     if (rider)
         separate_steed_and_rider(rider);
 
+    /* feared monster cleared */
+    if (mdef == u.fearedmon)
+        remove_fearedmon();
     /* stuck to you? release */
     unstuck(mdef);
     /* drop special items like the Amulet so that a dismissed Kop or nurse
@@ -4699,6 +4707,13 @@ struct monst *mtmp;
                 break;
             }
     }
+}
+
+void
+remove_fearedmon() {
+    u.fearedmon = (struct monst *) 0;
+    if (u.ugrave_arise == PM_BODAK)
+        u.ugrave_arise = NON_PM;
 }
 
 /* Called whenever the player attacks mtmp; also called in other situations

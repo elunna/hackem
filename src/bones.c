@@ -524,6 +524,8 @@ struct obj *corpse;
        before cleaning up dead monsters */
     if (u.usteed)
         dismount_steed(DISMOUNT_BONES);
+    if (u.fearedmon)
+        remove_fearedmon();
     /* in case these characters are not in their home bases */
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
