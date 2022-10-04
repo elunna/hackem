@@ -64,6 +64,7 @@
      || (ptr) == &mons[PM_LOCUST] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
+     || (ptr) == &mons[PM_MARRASHI] \
      || (ptr) == &mons[PM_WATER_ELEMENTAL])
 
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */

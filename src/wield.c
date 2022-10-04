@@ -370,7 +370,10 @@ dowield()
         return doswapweapon();
     else if (wep == uquiver)
         setuqwep((struct obj *) 0);
-    else if (wep->owornmask & (W_ARMOR | W_ACCESSORY | W_SADDLE | W_BARDING)) {
+    else if (wep->otyp == FOOTBOW && !humanoid(youmonst.data)) {
+        You("lack the sole strength to wield that.");
+        return 0;
+    } else if (wep->owornmask & (W_ARMOR | W_ACCESSORY | W_SADDLE | W_BARDING)) {
         You("cannot wield that!");
         return 0;
     }

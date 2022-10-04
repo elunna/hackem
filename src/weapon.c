@@ -999,7 +999,9 @@ register struct monst *mtmp;
         if (prop < 0) {
             switch (-prop) {
             case P_BOW:
-                propellor = oselect(mtmp, YUMI);
+                propellor = oselect(mtmp, FOOTBOW);
+                if (!propellor)
+                    propellor = oselect(mtmp, YUMI);
                 if (!propellor)
                     propellor = oselect(mtmp, ELVEN_BOW);
                 if (!propellor) 

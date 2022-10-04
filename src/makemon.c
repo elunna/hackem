@@ -1529,7 +1529,7 @@ register struct monst *mtmp;
                 if(!rn2(4)) (void) mongets(mtmp, SPEAR);
                 break;
 
-		    case PM_GNOLL_WARRIOR:
+            case PM_GNOLL_WARRIOR:
                 if(!rn2(2)) (void) mongets(mtmp, ORCISH_HELM);
 
                 if (!rn2(20))
@@ -1549,7 +1549,7 @@ register struct monst *mtmp;
                 m_initthrow(mtmp, ARROW, 12);
             #endif
 
-		    case PM_GNOLL_CHIEFTAIN:
+            case PM_GNOLL_CHIEFTAIN:
                 (void) mongets(mtmp, ORCISH_HELM);
 
                 if (!rn2(10))
@@ -1561,8 +1561,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, KATANA);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 break;
-
-		    case PM_GNOLL_SHAMAN:
+            case PM_GNOLL_SHAMAN:
                 if (!rn2(10))
                     (void) mongets(mtmp, SILVER_DRAGON_SCALES);
                 else if (rn2(5))
@@ -1575,7 +1574,6 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 break;
-
             case PM_FLIND:
                 if (rn2(4))
                     (void) mongets(mtmp, HIGH_BOOTS);
@@ -1590,10 +1588,35 @@ register struct monst *mtmp;
                         (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
                     else
                         (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
-                }
+                    
+            case PM_MARRASHI:
+                /* Many varieties of arrows */
+                m_initthrow(mtmp, ARROW, 15);
+                m_initthrow(mtmp, ARROW, 15);
+                m_initthrow(mtmp, ARROW, 15);
+                m_initthrow(mtmp, ARROW, 15);
+                /* Marrashi have one special arrow that causes sickness. */
+                otmp = mksobj(ARROW, TRUE, FALSE);
+                otmp->blessed = TRUE;
+                otmp->oerodeproof = TRUE;
+                /* otmp->opoisoned = POT_FILTH; */
+                otmp->opoisoned = TRUE;
+                otmp->spe = 5;
+                otmp->quan = (long) 1;
+                otmp->owt = weight(otmp);
+                (void) mpickobj(mtmp, otmp);
+                /* powerful bow */
+                otmp = mksobj(FOOTBOW, TRUE, FALSE);
+                otmp->spe = 3;
+                (void) mpickobj(mtmp, otmp);
+                /* defenses */
+                (void) mongets(mtmp, rnd_defensive_item(mtmp));
+                (void) mongets(mtmp, GREEN_DRAGON_SCALES);
                 break;
-		}
-		break;
+        }
+        break;
+    }
+    break;
     
     case S_HUMANOID:
         if (is_hobbit(ptr)) {

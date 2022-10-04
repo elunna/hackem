@@ -3523,6 +3523,7 @@ struct obj* obj;
             return shiny_materials;
         case BOW:
         case YUMI:
+        case FOOTBOW:
         case BOOMERANG: /* wooden base, similar shape */
             return bow_materials;
         case ELVEN_HELM:

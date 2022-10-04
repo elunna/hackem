@@ -4159,6 +4159,16 @@ NEARDATA struct permonst mons[] = {
             | M2_HOSTILE,
         M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_GNOLL, 12, CLR_YELLOW),
+    MON("marrashi", S_GNOME,
+      	LVL(20, 15, 0, 60, 5), (G_GENO | 1),
+      	A(ATTK(AT_WEAP, AD_PHYS, 3, 6), 
+          ATTK(AT_WEAP, AD_PHYS, 3, 6),
+      	  ATTK(AT_BITE, AD_DISE, 1, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+      	SIZ(2200, 100, MS_LAUGH, MZ_HUMAN), 0, 0,
+      	M1_FLY | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
+      	M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS,
+      	M3_INFRAVISION | M3_ACCURATE, 0, MH_GNOLL, 26, CLR_YELLOW),
 #ifdef SPLITMON_1
 };
 #endif
