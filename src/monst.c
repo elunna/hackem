@@ -4953,6 +4953,18 @@ struct permonst _mons2[] = {
         M1_NOLIMBS | M1_SWIM | M1_SLITHY | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M1_NOTAKE, 
         M3_INFRAVISIBLE, 0, MH_WERE, 12, CLR_BROWN),
+    MON("amphisbaena", S_SNAKE, 
+        LVL(9, 12, 5, 0, -3), (G_GENO | 2),
+        A(ATTK(AT_BITE, AD_DRST, 2, 4), 
+          ATTK(AT_BITE, AD_DRST, 2, 4),
+          ATTK(AT_TUCH, AD_PHYS, 0, 0), 
+          ATTK(AT_HUGS, AD_PHYS, 2, 4), 
+          NO_ATTK, NO_ATTK),
+        SIZ(250, 100, MS_HISS, MZ_HUGE), 0, 0,
+        M1_SWIM | M1_NOLIMBS | M1_ANIMAL | M1_SLITHY | M1_CARNIVORE
+            | M1_OVIPAROUS | M1_NOTAKE,
+        M2_HOSTILE | M2_STRONG /*| M2_FLANK*/, 
+        M3_INFRAVISION, 0, 0, 13, CLR_ORANGE),
     MON("giant anaconda", S_SNAKE,                              /* EvilHack */
         LVL(10, 6, 2, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
