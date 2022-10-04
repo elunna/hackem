@@ -4743,6 +4743,26 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_ACID | M1_POIS,
         M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 8, CLR_GREEN),
+    MON("blood pudding", S_PUDDING, 
+        LVL(7, 5, 4, 0, 0), (G_GENO | G_NOCORPSE | 1), 
+        A(ATTK(AT_TUCH, AD_DRLI, 0, 0), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(500, 250, MS_SILENT, MZ_MEDIUM),
+        MR_COLD | MR_ELEC | MR_POISON | MR_ACID | MR_STONE,
+        MR_COLD | MR_ELEC | MR_POISON,
+        M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
+            | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
+        M2_HOSTILE | M2_NEUTER | M2_NASTY, 0, 0, 0, 9, CLR_RED),
+    MON("moldy pudding", S_PUDDING,                             /* Slash'EM */
+        LVL(8, 3, 8, 0, 0), (G_NOHELL | G_GENO),
+        A(ATTK(AT_ENGL, AD_DCAY, 4, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(500, 250, MS_SILENT, MZ_MEDIUM),
+        MR_COLD | MR_ELEC | MR_POISON | MR_ACID | MR_STONE,
+        MR_COLD | MR_ELEC | MR_POISON,
+        M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS 
+            | M1_NOHEAD | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
+        M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 9, CLR_GREEN),
     MON("black pudding", S_PUDDING,
         LVL(10, 6, 6, 0, 0), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_BITE, AD_CORR, 3, 8), 
@@ -4754,16 +4774,6 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
         M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 12, CLR_BLACK),
-    MON("moldy pudding", S_PUDDING,                             /* Slash'EM */
-        LVL(8, 3, 8, 0, 0), (G_NOHELL | G_GENO),
-        A(ATTK(AT_ENGL, AD_DCAY, 4, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(500, 250, MS_SILENT, MZ_MEDIUM),
-        MR_COLD | MR_ELEC | MR_POISON | MR_ACID | MR_STONE,
-        MR_COLD | MR_ELEC | MR_POISON,
-        M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS 
-            | M1_NOHEAD | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
-        M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 9, CLR_GREEN),
     MON("shoggoth", S_PUDDING,                                  /* Slash'EM */
         LVL(18, 15, -5, 25, -5), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 8), 

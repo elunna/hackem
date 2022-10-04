@@ -737,7 +737,9 @@
 
 #define vegetarian(ptr) \
     (vegan(ptr)         \
-     || ((ptr)->mlet == S_PUDDING && (ptr) != &mons[PM_BLACK_PUDDING]))
+     || ((ptr)->mlet == S_PUDDING \
+         && (ptr) != &mons[PM_BLACK_PUDDING] \
+         && (ptr) != &mons[PM_BLOOD_PUDDING]))
 
 /* jello-like creatures */
 #define can_flollop(ptr) \
