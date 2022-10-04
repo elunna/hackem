@@ -1043,6 +1043,11 @@ register struct monst *mtmp;
         if (rn2(2))
             (void) mongets(mtmp, (mm != PM_ETTIN) ? BOULDER : CLUB);
         break;
+    case S_IMP:
+        if (mm == PM_REDCAP) {
+            (void) mongets(mtmp, SCYTHE);
+        }
+        break;
     case S_HUMAN:
         if (mm == PM_SHOPKEEPER) {
             mongets(mtmp,SHOTGUN);
