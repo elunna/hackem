@@ -7149,6 +7149,16 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS
             | M1_OVIPAROUS | M1_CARNIVORE,
         M2_STRONG | M2_HOSTILE, 0, 0, 0, 7, CLR_BROWN),
+    MON("velociraptor", S_LIZARD, 
+        LVL(7, 18, 5, 0, 0), (G_NOGEN | G_SGROUP | 6),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
+          ATTK(AT_CLAW, AD_PHYS, 2, 4),
+          ATTK(AT_CLAW, AD_PHYS, 2, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_GROWL, MZ_MEDIUM), 0, 0,
+        M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS
+            | M1_CARNIVORE,
+        M2_STRONG | M2_HOSTILE /*| M2_FLANK*/, 0, 0, 0, 9, CLR_RED),
     MON("giant turtle", S_LIZARD, /* SporkHack */
         LVL(7, 2, -8, 10, 0), (G_GENO | G_NOHELL | 1),
         A(ATTK(AT_BITE, AD_PHYS, 4, 6),
@@ -7185,6 +7195,16 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_SLITHY | M1_THICK_HIDE | M1_POIS,
         M2_STALK | M2_HOSTILE | M2_COLLECT | M2_MAGIC, M3_INFRAVISIBLE,
         M4_VULNERABLE_COLD, 0, 12, CLR_ORANGE),
+    MON("T-Rex", S_LIZARD, 
+        LVL(15, 15, 5, 0, 0), (G_NOGEN | 4),
+        A(ATTK(AT_BITE, AD_CLOB, 5, 10), 
+          ATTK(AT_BITE, AD_CLOB, 1, 4),
+          ATTK(AT_BITE, AD_CLOB, 1, 4), 
+          ATTK(AT_ENGL, AD_DGST, 1, 10),
+          NO_ATTK, NO_ATTK),
+        SIZ(WT_DRAGON, 500, MS_ROAR, MZ_HUGE), 0, 0,
+        M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_OVIPAROUS,
+        M2_STRONG | M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 18, CLR_RED),
     MON("frost salamander", S_LIZARD,                           /* EvilHack */
         LVL(10, 12, -3, 0, -3), (G_NOHELL | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 8), 

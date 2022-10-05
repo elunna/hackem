@@ -1544,6 +1544,12 @@ u_init()
         break;
     }
 
+    /* For cavemen, extinct monsters are generated. */
+    if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN)) {
+        mons[PM_VELOCIRAPTOR].geno &= ~(G_NOGEN);
+        mons[PM_T_REX].geno &= ~(G_NOGEN);
+    }
+    
     /* If we have at least one spell, force starting Pw to be 5,
        so hero can cast the level 1 spell they should have */
     if (num_spells() && (u.uenmax < 5))
