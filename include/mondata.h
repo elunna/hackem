@@ -775,6 +775,12 @@
 
 #define is_vegetation(ptr)	(is_fern(ptr))
 
+#define is_moldier(ptr) \
+    ((ptr) == &mons[PM_RED_MOLDIER] \
+    || (ptr) == &mons[PM_YELLOW_MOLDIER] \
+    || (ptr) == &mons[PM_GREEN_MOLDIER] \
+    || (ptr) == &mons[PM_BROWN_MOLDIER])
+
 /* For vampires */
 #define has_blood(ptr) (!vegetarian(ptr) && \
                         ((ptr)->mlet != S_GOLEM || \
