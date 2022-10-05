@@ -127,6 +127,7 @@
      || (ptr) == &mons[PM_JUMPING_SPIDER] \
      || (ptr) == &mons[PM_KNIGHT] \
      || (ptr) == &mons[PM_ZRUTY]  \
+     || (ptr) == &mons[PM_LANDSHARK]  \
      || (ptr) == &mons[PM_SERVAL])
 #define is_flyer(ptr) (((ptr)->mflags1 & M1_FLY) != 0L)
 /* humanoid shape with big wings (flight blocked by most body armor) */
