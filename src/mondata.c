@@ -956,6 +956,9 @@ const char *in_str;
     else if (!strncmp(str, "the ", 4))
         str += 4;
 
+    if (strstr(str, " hydra") != NULL)
+        return PM_HYDRA;
+        
     slen = strlen(str);
     term = str + slen;
 

@@ -3683,12 +3683,11 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         0, 0, MH_DRAGON, 24, CLR_BROWN),
     MON("hydra", S_DRAGON,                                      /* Slash'EM */
-        LVL(26, 9, -4, 20, 7), (G_GENO|1),
-        A(ATTK(AT_BITE, AD_PHYS, 4, 8), 
-          ATTK(AT_BITE, AD_PHYS, 4, 8),
-          ATTK(AT_BITE, AD_PHYS, 4, 8), 
-          ATTK(AT_BREA, AD_FIRE, 7, 6),
-          NO_ATTK, NO_ATTK),
+        LVL(13, 9, -2, 5, 7), (G_GENO|1),
+        A(ATTK(AT_NONE, AD_HYDR, 0, 0), 
+          ATTK(AT_BITE, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          /* ATTK(AT_BREA, AD_FIRE, 7, 6), */
         SIZ(WT_DRAGON, 500, MS_ROAR, MZ_GIGANTIC),
         MR_POISON | MR_STONE, MR_POISON,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_CARNIVORE,

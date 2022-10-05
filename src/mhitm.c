@@ -439,6 +439,7 @@ register struct monst *magr, *mdef;
         attk,       /* attack attempted this time */
         struck = 0, /* hit at least once */
         res[NATTK], /* results of all attacks */
+        k,          /* hydra head counter */
         dieroll = 0,
         saved_mhp = (mdef ? mdef->mhp : 0); /* for print_mon_wounded() */
     struct attack *mattk, alt_attk;
@@ -526,6 +527,20 @@ register struct monst *magr, *mdef;
      * and it shouldn't move again.
      */
     magr->mlstmv = monstermoves;
+
+    /* handle multiple hydra attacks */
+    /* if (magr->data->omnum == PM_HYDRA) { */
+    if (pa == &mons[PM_HYDRA]) {
+        k = min(magr->m_lev - magr->data->mlevel + 1, 10);
+    } 
+#if 0 /* Pending monster implementation */
+    else if (magr->data->omnum == PM_HECATONCHEIRE) {
+        k = 100;
+    } 
+#endif
+    else {
+        k = 0;
+    }
 
     /* Now perform all attacks for the monster. */
     for (i = 0; i < NATTK; i++) {
@@ -789,6 +804,14 @@ register struct monst *magr, *mdef;
             return res[i];
         if (res[i] & MM_HIT)
             struck = 1; /* at least one hit */
+        
+        /* handle multiple hydra attacks */
+        if (magr->data == &mons[PM_HYDRA] 
+            && mattk->aatyp == AT_BITE 
+            && k > 0) {
+            i -= 1;
+            k -= 1;
+        }
     }
     if (struck && mdef->mtame) {
         print_mon_wounded(mdef, saved_mhp);
@@ -3094,6 +3117,17 @@ struct obj *mwep;
     /* These affect the enemy only if defender is still alive */
     if (rn2(3))
         switch (mdattk[i].adtyp) {
+        case AD_HYDR: /* grow additional heads (hydra) */
+            if (mhit && !mdef->mcan && MON_WEP(magr) && rn2(3)) {
+                if ((is_blade(MON_WEP(magr)) || is_axe(MON_WEP(magr)))
+                      && MON_WEP(magr)->oartifact != ART_FIRE_BRAND) {
+                    pline("%s decapitates %s, but two more heads spring forth!",
+                      Monnam(magr), mon_nam(mdef));
+                    grow_up(mdef, (struct monst *) 0);
+                }
+            }
+            tmp = 0;
+            break;
         case AD_PLYS: /* Floating eye */
             if (tmp > 127)
                 tmp = 127;

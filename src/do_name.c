@@ -1868,6 +1868,11 @@ boolean called;
             Strcat(buf, name);
             name_at_start = TRUE;
         }
+    } else if (mdat == &mons[PM_HYDRA] 
+          && mtmp->m_lev - mtmp->data->mlevel > -1) {
+        Sprintf(eos(buf), "%d-headed hydra",
+            mtmp->m_lev - mtmp->data->mlevel + 2);
+        name_at_start = FALSE;
     } else if ((is_mplayer(mdat) || mdat == &mons[PM_RONIN])
                && !In_endgame(&u.uz)) {
         char pbuf[BUFSZ];

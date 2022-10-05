@@ -988,6 +988,9 @@ struct permonst * pm;
         else if (vegetarian(pm))
             MONPUTSTR("May be eaten by vegetarians.");
     }
+    if (pm == &mons[PM_HYDRA]) {
+        MONPUTSTR("Attacks an extra time for each head beyond the first.");
+    }
     Sprintf(buf, "Is %sa valid polymorph form.",
             polyok(pm) ? "" : "not ");
     MONPUTSTR(buf);
