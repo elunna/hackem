@@ -1492,6 +1492,7 @@ register struct obj *obj;
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
+    case RIN_SONIC_RESISTANCE:
         break;
     case RIN_REGENERATION:
         if (!oldprop && !HRegeneration && !regenerates(youmonst.data)) {
@@ -1639,6 +1640,7 @@ boolean gone;
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
+    case RIN_SONIC_RESISTANCE:
         break;
     case RIN_SLEEPING:
 		/* Copied from Amulet of Restful Sleep */
