@@ -2823,7 +2823,6 @@ NEARDATA struct permonst mons[] = {
                | M1_NOHEAD | M1_MINDLESS | M1_UNSOLID | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_WANDER, 
         M3_INFRAVISIBLE, 0, 0, 4, CLR_WHITE),
-    
     MON("yellow light", S_LIGHT,
         LVL(3, 15, 0, 0, 0), (G_NOCORPSE | G_GENO | 4),
         A(ATTK(AT_EXPL, AD_BLND, 10, 20), 
@@ -7086,6 +7085,15 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_SLITHY | M1_NOLIMBS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 10, CLR_BRIGHT_BLUE),
+    MON("mermaid", S_EEL, 
+		    LVL(9, 15, 4, 10, -10), (G_GENO | G_SGROUP | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 2, 4),
+			    ATTK(AT_TUCH, AD_SITM, 0, 0),
+			    NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_ELF, 350, MS_HUMANOID, MZ_HUMAN), MR_SLEEP, 0,
+        M1_HUMANOID | M1_OMNIVORE | M1_SWIM | M1_AMPHIBIOUS | M1_OVIPAROUS,
+        M2_COLLECT | M2_HOSTILE | M2_FEMALE, 
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 12, CLR_MAGENTA),
     MON("kraken", S_EEL,
         LVL(20, 3, 6, 0, -3), (G_GENO | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
