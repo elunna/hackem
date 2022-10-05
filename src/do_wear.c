@@ -885,6 +885,7 @@ Shield_on(VOID_ARGS)
     case SHIELD_OF_REFLECTION:
     case SHIELD_OF_LIGHT:
     case SHIELD_OF_MOBILITY:
+    case RESONANT_SHIELD:
     case TOWER_SHIELD:
     case HIDE_SHIELD:
         break;
@@ -922,6 +923,7 @@ Shield_off(VOID_ARGS)
     case SHIELD_OF_REFLECTION:
     case SHIELD_OF_LIGHT:
     case SHIELD_OF_MOBILITY:
+    case RESONANT_SHIELD:
     case TOWER_SHIELD:
     case HIDE_SHIELD:
         break;

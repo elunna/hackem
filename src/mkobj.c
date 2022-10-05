@@ -3516,6 +3516,7 @@ struct obj* obj;
             return NULL;
         /* Any other cases for specific object types go here. */
         case SHIELD_OF_REFLECTION:
+        case RESONANT_SHIELD:
         case BARDING_OF_REFLECTION:
         case SHIELD_OF_LIGHT:
         case SHIELD_OF_MOBILITY:
