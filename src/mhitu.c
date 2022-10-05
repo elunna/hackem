@@ -1098,6 +1098,10 @@ register struct monst *mtmp;
                 sum[i] = spitmu(mtmp, mattk);
             /* Note: spitmu takes care of displacement */
             break;
+        case AT_VOLY:
+            if (range2)
+                sum[i] = volleymu(mtmp, mattk);
+            break;
         case AT_MULTIPLY:
 			/*
 			 * Monster multiplying is an AT_ for the following
@@ -5181,6 +5185,19 @@ struct attack *mattk;
                 You("explode!");
                 /* KMH, balance patch -- this is okay with unchanging */
                 rehumanize();
+                goto assess_dmg;
+            }
+            break;
+        case AD_QUIL:
+            if (oldu_mattk->aatyp == AT_NONE) {
+                if (!rn2(2)) {
+                    pline("%s is jabbed by %squills!", Monnam(mtmp),
+                          /* temporary? hack for sequencing issue:  "your acid"
+                             looks strange coming immediately after player has
+                             been told that hero has reverted to normal form */
+                          !Upolyd ? "" : "your ");
+                } else
+                    tmp = 0;
                 goto assess_dmg;
             }
             break;

@@ -864,6 +864,11 @@ OBJECT(OBJ("torch", (char *)0),
 	20, 8, 2, 5, WHACK, 0, 20, HI_WOOD ),
 #endif
 
+/* manticore spikes */
+OBJECT(OBJ("spike", None),
+      BITS(1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, P_NONE, BONE), 0,
+      TOOL_CLASS, 0, 0, 1, 0, 6, 6, 0, 0, 0, HI_ORGANIC),
+      
 /* two unique tools;
  * not artifacts, despite the comment which used to be here
  */

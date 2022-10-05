@@ -811,6 +811,7 @@ toofar:
             && mtmp->data != &mons[PM_MEDUSA])
         || attacktype(mtmp->data, AT_SPIT)
         || attacktype(mtmp->data, AT_SCRE)
+        || attacktype(mtmp->data, AT_VOLY)
         || (attacktype(mtmp->data, AT_MAGC)
             && (((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp
                 <= AD_LOUD)))) && !mtmp->mspec_used)

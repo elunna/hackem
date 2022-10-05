@@ -833,6 +833,8 @@ register boolean verbose;
                         hitv++;
                     if (singleobj->otyp == ELVEN_ARROW)
                         dam++;
+                } else if (mon->data == &mons[PM_MANTICORE]) {
+                    hitv += 7;
                 }
                 if (bigmonst(youmonst.data))
                     hitv++;
@@ -1022,6 +1024,9 @@ struct attack *mattk;
     otmp = (struct obj *) 0;
     if (mlined_up(mtmp, mtarg, FALSE)) {
         switch (mattk->adtyp) {
+        case AD_QUIL:
+            otmp = mksobj(SPIKE, TRUE, FALSE);
+            break;
         case AD_BLND:
         case AD_DRST:
             otmp = mksobj(BLINDING_VENOM, TRUE, FALSE);
@@ -1060,6 +1065,49 @@ struct attack *mattk;
             }
             return 1;
         }
+    }
+    return 0;
+}
+
+/* monster fires a volley of projectiles at monster */
+int
+volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
+{
+    struct obj *otmp = (struct obj*) 0;
+    int i;
+    int numattacks = d(mattk->damn, mattk->damd);
+
+    if (mtmp->mcan) {
+        if (!Deaf)
+            pline("A dry rattle comes from %s body.",
+                  s_suffix(mon_nam(mtmp)));
+        return 0;
+    }
+
+    if (mlined_up(mtarg, mtmp, FALSE) && !rn2(BOLT_LIM-distmin(mtmp->mx,mtmp->my,mtarg->mx,mtarg->my))) {
+        for (i = 0; i < numattacks; i++) {
+            switch (mattk->adtyp) {
+            case AD_QUIL:
+                otmp = mksobj(SPIKE, TRUE, FALSE);
+                break;
+            default:
+                impossible("bad attack type in volleymm");
+                break;
+            }
+            if (canseemon(mtmp)) {
+                if (otmp->otyp == SPIKE) {
+                    pline("%s fires a volley of spikes!", Monnam(mtmp));
+                } else {
+                    pline("%s fires a volley!", Monnam(mtmp));
+                }
+            }
+            target = mtarg;
+            m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
+                    distmin(mtmp->mx,mtmp->my,mtarg->mx,mtarg->my), otmp, TRUE);
+            target = (struct monst *)0;
+        }
+        nomul(0);
+        return 1;
     }
     return 0;
 }
@@ -1222,6 +1270,42 @@ struct monst *mtmp;
     monshoot(mtmp, otmp, mwep); /* multishot shooting or throwing */
     nomul(0);
     return TRUE;
+}
+
+/* monster fires a volley of projectiles at you */
+int
+volleymu(struct monst *mtmp, struct attack *mattk)
+{
+    struct obj *otmp = (struct obj*) 0;
+    int i;
+    int numattacks = d(mattk->damn, mattk->damd);
+
+    if (mtmp->mcan) {
+        if (!Deaf)
+            pline("A dry rattle comes from %s body.",
+                  s_suffix(mon_nam(mtmp)));
+        return 0;
+    }
+    if (lined_up(mtmp) && !rn2(BOLT_LIM
+                 - distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy))) {
+            if (canseemon(mtmp)) {
+                pline("%s fires a volley of spikes!", Monnam(mtmp));
+            }
+            for (i = 0; i < numattacks; i++) {
+                switch (mattk->adtyp) {
+                case AD_QUIL:
+                    otmp = mksobj(SPIKE, TRUE, FALSE);
+                    break;
+                default:
+                    impossible("bad attack type in volleymu");
+                }
+                m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
+                        distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp, TRUE);
+            }
+            nomul(0);
+            return 0;
+    }
+    return 0;
 }
 
 /* monster spits substance at you */

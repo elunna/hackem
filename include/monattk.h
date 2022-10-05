@@ -25,10 +25,12 @@
 #define AT_GAZE 13  /* gaze - ranged */
 #define AT_TENT 14  /* tentacles */
 #define AT_SCRE 15  /* scream - sonic attack */
-#define AT_WEAP 16  /* uses weapon */
-#define AT_MAGC 17  /* uses magic spell(s) */
-#define AT_MULTIPLY	18	/* RJ - multiplies (yes, it's an attack) */
-#define LAST_AT AT_MULTIPLY
+#define AT_VOLY 16  /* launch projectiles (ex. manticore spikes) */
+#define AT_MULTIPLY	17	/* RJ - multiplies (yes, it's an attack) */
+
+#define AT_WEAP 18  /* uses weapon */
+#define AT_MAGC 19  /* uses magic spell(s) */
+#define LAST_AT AT_MAGC
 
 /*	Add new damage types below.
  *
@@ -104,7 +106,8 @@
 #define AD_FEAR 65 /* inflict fear (eye of fear and flame) */
 #define AD_WIND 66  /* cause the defender to hurtle */
 #define AD_HYDR 67  /* regrow heads (hydra) */
-#define AD_SAMU 68  /* hits, may steal Amulet (Wizard) */
+#define AD_QUIL 68  /* quills and spikes (porcupine and manticore) */
+#define AD_SAMU 69  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

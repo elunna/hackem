@@ -4073,6 +4073,8 @@ boolean weapon_attacks; /* skip weapon attacks if false */
 
         case AT_BREA:
         case AT_SPIT:
+        case AT_VOLY:
+        case AT_SCRE:
         case AT_GAZE: /* all done using #monster command */
             dhit = 0;
             break;
@@ -4191,6 +4193,16 @@ boolean wep_was_destroyed;
             } else if (aatyp == AT_WEAP || aatyp == AT_CLAW
                        || aatyp == AT_MAGC || aatyp == AT_TUCH)
                 (void) passive_obj(mon, weapon, &(mattk[i]));
+        }
+        break;
+    case AD_QUIL:
+        if (monnear(mon, u.ux, u.uy) && mhit) {
+            if (Blind || !flags.verbose) {
+                You("are jabbed by something sharp!");
+            } else {
+                You("are jabbed by %s spikes!", s_suffix(mon_nam(mon)));
+            }
+            mdamageu(mon, tmp);
         }
         break;
     case AD_ACID:
