@@ -664,6 +664,8 @@ int how;
        or higher when they died */
     else if (mptr == &mons[PM_SPECTRE] || u.ulevel > 21)
         u.ugrave_arise = PM_SPECTRE;
+    else if (is_moldier(mptr))
+        u.ugrave_arise = PM_BROWN_MOLDIER + rn2(3);
     /* this could happen if a high-end vampire kills the hero
        when ordinary vampires are genocided; ditto for wraiths */
     if (u.ugrave_arise >= LOW_PM

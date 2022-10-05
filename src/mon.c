@@ -1685,6 +1685,56 @@ register struct monst *mtmp;
     return 0;
 }
 
+
+/* Based on meatcorpse */
+void
+minfestcorpse(struct monst *mtmp)
+{
+    register struct obj *otmp;
+    coord cc;
+    /* If a pet, eating is handled separately, in dog.c */
+    if (mtmp->mtame) return;
+
+    /* Infest topmost corpse if it is there */
+    for (otmp = level.objects[mtmp->mx][mtmp->my];
+                  otmp; otmp = otmp->nexthere)
+
+        if (otmp->otyp == CORPSE && !otmp->oeroded) {
+            /* touch sensitive items */
+            if (otmp->otyp == CORPSE && is_rider(&mons[otmp->corpsenm])) {
+                /* Rider corpse isn't just inedible; can't engulf it either */
+                if (cansee(mtmp->mx, mtmp->my) && flags.verbose)
+                    pline("%s attempts to infest %s!", Monnam(mtmp),
+                      distant_name(otmp,doname));
+                (void) revive_corpse(otmp, FALSE);
+                return;
+            }
+            if (cansee(mtmp->mx,mtmp->my) && flags.verbose)
+                pline("%s infests %s!", Monnam(mtmp),
+                  distant_name(otmp,doname));
+            else if (!Deaf && flags.verbose)
+                You("hear an unsettling writhing noise.");
+            
+            dog_givit(mtmp, &mons[otmp->corpsenm]);
+            
+            if (mtmp->data == &mons[PM_MAGGOT]) {
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum]))
+                    makemon(&mons[mtmp->mnum], cc.x, cc.y, NO_MINVENT);
+            } else {
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum]))
+                    makemon(&mons[mtmp->mnum], cc.x, cc.y, NO_MINVENT);
+            }
+#if 0 /* Pending worm that walks */
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
+                    makemon(&mons[rn2(3) ? PM_GIANT_FLY : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
+            }
+#endif
+            delobj(otmp);
+            break; /* only eat one at a time... */
+        }
+    newsym(mtmp->mx, mtmp->my);
+}
+
 /* monster eats a pile of objects */
 int
 meatobj(mtmp) /* for gelatinous cubes */

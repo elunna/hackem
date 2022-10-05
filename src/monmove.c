@@ -1188,7 +1188,11 @@ register int after;
             return offer;
         }
     }
-
+    
+    /* Infest corpses. */
+    if (is_moldier(ptr) || mtmp->data == &mons[PM_MAGGOT])
+        minfestcorpse(mtmp);
+        
     set_apparxy(mtmp);
     /* where does mtmp think you are? */
     /* Not necessary if m_move called from this file, but necessary in
