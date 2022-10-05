@@ -2895,6 +2895,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(100, 40, MS_GROWL, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_MARSUPIAL,
         M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 6, CLR_BROWN),
+    /* wallabies, wallaroos, and kangaroos can all jump */
     MON("wallaby", S_ZOUTHERN,                                  /* Slash'EM */
         LVL(5, 16, 7, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_KICK, AD_PHYS, 2, 4), 
