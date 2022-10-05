@@ -394,16 +394,7 @@ int material;
         } else if (material == MITHRIL) {
             return (racial_orc(mon));
         }
-    } else if (material == COPPER) {
-        /* copper has antibacterial and antifungal properties,
-         * very good versus sickness, mold and decay */
-        return (mon->data->mlet == S_FUNGUS);
-#if 0 /* TODO: Switch function to take a permonst to check attack types */
-        return (ptr->mlet == S_FUNGUS || dmgtype(ptr, AD_DISE)
-                || dmgtype(ptr, AD_DCAY) || dmgtype(ptr, AD_PEST));
-#endif
-    }
-
+    } 
     return FALSE;
 }
 
@@ -426,14 +417,24 @@ int material;
     } else if (material == IRON) {
         if (is_undead(ptr))
             return FALSE;
-        /* cold iron: elves hate it */
-        return (is_elf(ptr));
+        /* cold iron: elves, fairy/fae hate it */
+        return (is_elf(ptr) 
+                || ptr->mlet == S_NYMPH
+                || ptr->mlet == S_IMP);
     } else if (material == MITHRIL) {
         if (is_undead(ptr))
             return FALSE;
         /* mithril: orcs hate it */
         return (is_orc(ptr));
+    } else if (material == COPPER) {
+        /* copper has antibacterial and antifungal properties,
+         * very good versus sickness, mold and decay */
+        return (ptr->mlet == S_FUNGUS 
+                || dmgtype(ptr, AD_DISE)
+                || dmgtype(ptr, AD_DCAY) 
+                || dmgtype(ptr, AD_PEST));
     }
+    
     return FALSE;
 }
 

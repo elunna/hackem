@@ -332,6 +332,7 @@
     ((((ptr)->mhflags & MH_TORTLE) != 0L) \
      || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_TORTLE)))
 #define racial_tortle(mon) mon_has_race(mon, MH_TORTLE)
+#define is_nymph(ptr) ((ptr)->mlet == S_NYMPH)
 #define your_race(ptr) (((ptr)->mhflags & urace.selfmask) != 0L)
 #define racial_match(mon) mon_has_race(mon, urace.selfmask)
 #define is_bat(ptr)                                         \
