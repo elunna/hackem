@@ -1188,7 +1188,11 @@ register int after;
             return offer;
         }
     }
-    
+    /* Crystal golems scintilate. */
+    if (mtmp->data == &mons[PM_CRYSTAL_GOLEM]) {
+        mons[PM_CRYSTAL_GOLEM].mcolor = rn2(CLR_MAX);
+        newsym(mtmp->mx, mtmp->my);
+    }
     /* Infest corpses. */
     if (is_moldier(ptr) || mtmp->data == &mons[PM_MAGGOT])
         minfestcorpse(mtmp);
