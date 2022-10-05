@@ -394,6 +394,14 @@ int material;
         } else if (material == MITHRIL) {
             return (racial_orc(mon));
         }
+    } else if (material == COPPER) {
+        /* copper has antibacterial and antifungal properties,
+         * very good versus sickness, mold and decay */
+        return (mon->data->mlet == S_FUNGUS);
+#if 0 /* TODO: Switch function to take a permonst to check attack types */
+        return (ptr->mlet == S_FUNGUS || dmgtype(ptr, AD_DISE)
+                || dmgtype(ptr, AD_DCAY) || dmgtype(ptr, AD_PEST));
+#endif
     }
 
     return FALSE;
