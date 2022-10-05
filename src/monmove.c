@@ -699,7 +699,9 @@ register struct monst *mtmp;
     if (is_watch(mdat)) {
         watch_on_duty(mtmp);
 
-    } else if ((is_mind_flayer(mdat) || mdat == &mons[PM_NEOTHELID])
+    } else if ((is_mind_flayer(mdat) 
+                || mdat == &mons[PM_NEOTHELID]
+                || mdat == &mons[PM_GNOMISH_PSYKER])
                && !rn2(20)) {
         struct monst *m2, *nmon = (struct monst *) 0;
 
