@@ -46,8 +46,8 @@
 #define AD_DRST 7   /* drains str (poison) */
 #define AD_ACID 8   /* acid damage */
 #define AD_LOUD 9   /* sound damage */
-#define AD_PSYC 10  /* psionic attack               (prev AD_SPC1 of buzz() */
-#define AD_WATR 11  /* water (physical) attack     (prev AD_SPC2 of buzz() */
+#define AD_WATR 10  /* water (physical) attack     (prev AD_SPC1 of buzz() */
+#define AD_PSYC 11  /* psionic attack               (prev AD_SPC2 of buzz() */
 #define AD_BLND 12  /* blinds (yellow light) */
 #define AD_STUN 13  /* stuns */
 #define AD_SLOW 14  /* slows */

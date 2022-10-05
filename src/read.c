@@ -2557,6 +2557,7 @@ int chg; /* recharging */
     case WAN_LIGHTNING:
     case WAN_MAGIC_MISSILE:
     case WAN_POISON_GAS:
+    case WAN_SONICS:
     case WAN_ACID:
         k = 8;
         break;

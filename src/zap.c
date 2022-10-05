@@ -46,13 +46,13 @@ STATIC_DCL boolean elemental_shift(struct monst *, int);
 #define ZT_DEATH (AD_DISN - 1) /* or disintegration */
 #define ZT_LIGHTNING (AD_ELEC - 1)
 #define ZT_POISON_GAS (AD_DRST - 1)
-#define ZT_WATER (AD_WATR - 1)
 #define ZT_ACID (AD_ACID - 1)
 #define ZT_SONIC (AD_LOUD - 1)
+#define ZT_WATER (AD_WATR - 1)
 #define ZT_PSYCHIC (AD_PSYC - 1)
 
 #define ZT_FIRST                (ZT_MAGIC_MISSILE)
-#define ZT_LAST                 (ZT_ACID) /*For checking of spells of a type*/
+#define ZT_LAST                 (ZT_PSYCHIC) /*For checking of spells of a type*/
 
 #define ZT_WAND(x) (x)
 #define ZT_SPELL(x) (10 + (x))
@@ -69,18 +69,19 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "magic missile", /* Wands must be 0-9 */
         "bolt of fire", "bolt of cold", "sleep ray", "death ray",
         "bolt of lightning", "poison gas", "acid stream", 
-        "water stream", "",
+        "sonic beam", "water stream", "",
 
         "magic missile", /* Spell equivalents must be 10-19 */
         "fireball", "cone of cold", "sleep ray", "finger of death",
-        "bolt of lightning", "blast of poison gas", "blast of acid",
-        "", "",
+        "bolt of lightning", 
+        "blast of poison gas", "blast of acid",
+        "sonic beam",  "water stream",
 
         "blast of missiles", /* Dragon breath equivalents 20-29*/
         "blast of fire", "blast of frost", "blast of sleep gas",
         "blast of disintegration", "blast of lightning",
-        "blast of poison gas",  "blast of acid", "blast of water",
-        ""
+        "blast of poison gas",  "blast of acid", 
+        "blast of sound", "blast of water"
     };
 
 /*
@@ -2351,6 +2352,7 @@ struct obj *obj, *otmp;
             if (res)
                 learn_it = TRUE;
             break;
+        case WAN_SONICS:
         case WAN_STRIKING:
         case SPE_FORCE_BOLT:
             /* learn the type if you see or hear something break
@@ -2879,6 +2881,8 @@ boolean ordinary;
         uwatereffects();
         break;
 
+    case WAN_SONICS:
+        learn_it = TRUE;
 
     case WAN_COLD:
     case SPE_CONE_OF_COLD:
@@ -5234,12 +5238,12 @@ boolean say; /* Announce out of sight hit/miss events if true */
        */
 
     /* horrible kludge for wands of fireball... */    
-    if (type == ZT_WAND(ZT_ACID + 1)) 
+    if (type == ZT_WAND(ZT_SONIC + 1)) 
         type = ZT_SPELL(ZT_FIRE);
     
     /* WAC kludge for monsters zapping wands of fireball */
     if ((type <= ZT_MONWAND(ZT_FIRST) && type >= ZT_MONWAND(ZT_LAST))
-	        && ((abs(type) % 10) == ZT_WAND(ZT_ACID + 1))) 
+	        && ((abs(type) % 10) == ZT_WAND(ZT_SONIC + 1))) 
 		type = - ZT_SPELL(ZT_FIRE);
 
     /*WAC bugfix - should show right color stream now (for wands of fireball) */

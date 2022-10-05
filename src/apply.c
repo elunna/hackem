@@ -4493,6 +4493,7 @@ struct obj *obj;
         goto discard_broken_wand;
     case WAN_DEATH:
     case WAN_LIGHTNING:
+    case WAN_SONICS:
         dmg *= 4;
         goto wanexpl;
     case WAN_FIREBALL:

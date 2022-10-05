@@ -765,6 +765,14 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
+            case WAN_SONICS:
+                if (!Deaf) {
+                    Strcpy(post_engr_text,
+                        "The wand issues a series of loud bangs!");
+                    preknown = TRUE;
+                }
+                wake_nearto(u.ux, u.uy, 5 * 5);
+                break;
             case WAN_HEALING:
             case WAN_EXTRA_HEALING:
                 if (!Blind) {

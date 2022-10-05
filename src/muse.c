@@ -1610,6 +1610,7 @@ struct monst *mtmp;
 #define MUSE_WAN_WATER 34
 #define MUSE_WAN_ACID 35
 #define MUSE_WAN_POISON_GAS 36
+#define MUSE_WAN_SONICS 37
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1986,7 +1987,11 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_WAN_POISON_GAS;
         }
-
+        nomore(MUSE_WAN_SONICS);
+            if (obj->otyp == WAN_SONICS && obj->spe > 0) {
+                m.offensive = obj;
+                m.has_offense = MUSE_WAN_SONICS;
+            }
         if (m.has_offense == MUSE_SCR_CHARGING && m.tocharge)
             continue;
         if (obj->otyp == SCR_CHARGING) {
@@ -2539,6 +2544,7 @@ struct monst *mtmp;
     case MUSE_WAN_MAGIC_MISSILE:
     case MUSE_WAN_ACID:
     case MUSE_WAN_POISON_GAS:
+    case MUSE_WAN_SONICS:
         mzapwand(mtmp, otmp, FALSE);
         if (oseen)
             makeknown(otmp->otyp);
