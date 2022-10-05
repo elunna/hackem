@@ -876,7 +876,8 @@ toofar:
         || (mdat->mlet == S_LEPRECHAUN && !findgold(invent, FALSE)
             && (findgold(mtmp->minvent, FALSE) || rn2(2)))
         || (is_wanderer(mdat) && !rn2(4)) || (Conflict && !mtmp->iswiz) || is_skittish(mdat)
-        || (!mtmp->mcansee && !rn2(4)) || mtmp->mpeaceful) {
+        || (!mtmp->mcansee && !rn2(4)) || mtmp->mpeaceful
+        || (nearby && !mtmp->mpeaceful && is_outflanker(mtmp->data) && !rn2(2))) {
         /* Possibly cast an undirected spell if not attacking you */
         /* note that most of the time castmu() will pick a directed
            spell and do nothing, so the monster moves normally */
@@ -1133,6 +1134,7 @@ register int after;
 {
     register int appr;
     xchar gx, gy, nix, niy, chcnt;
+    int i, j;
     int chi; /* could be schar except for stupid Sun-2 compiler */
     boolean likegold = 0, likegems = 0, likeobjs = 0, likemagic = 0,
             conceals = 0;
@@ -1300,6 +1302,34 @@ register int after;
         mmoved = 1;
         goto postmov;
     }
+
+    /* if smart enough, then attempt to outflank the player.
+       We do this by modifying the gx and gy coords.  */
+    if (!mtmp->mpeaceful && is_outflanker(ptr)
+        && monnear(mtmp, u.ux, u.uy)) {
+        if (!calculate_flankers(mtmp, &youmonst)) {
+            for (i = u.ux - 1; i <= u.ux + 1; i++) {
+                for (j = u.uy - 1; j <= u.uy + 1; j++) {
+                    if (i == u.ux && j == u.uy) continue;
+                    if (i == mtmp->mx && j == mtmp->my) continue;
+                    if (!MON_AT(i, j)) continue;
+                    /* Set our goal position */
+                    gx = i + (2 * (u.ux - i));
+                    gy = j + (2 * (u.uy - j));
+                    if (monnear(mtmp, gx, gy)) {
+                        goto not_special;
+                    }
+                }
+            }
+            goto not_special;
+        } else {
+            gx = 0;
+            gy = 0;
+            mmoved = 0;
+            goto postmov;
+        }
+    }
+
  not_special:
     if (u.uswallow && !mtmp->mflee && u.ustuck != mtmp)
         return 1;

@@ -1746,6 +1746,11 @@ register struct attack *mattk;
             dmg = 0;
         }
         break;
+    case AD_WIND:
+        You("are blasted by wind!");
+        hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, dmg, TRUE);
+        dmg = 0;
+        break;
     case AD_ACID:
         if (canseemon(mdef))
             pline("%s is covered in acid.", Monnam(mdef));

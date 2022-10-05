@@ -139,6 +139,8 @@
 #define M2_GREEDY 0x10000000L       /* likes gold */
 #define M2_JEWELS 0x20000000L       /* likes gems */
 #define M2_COLLECT 0x40000000L      /* picks up weapons and food */
+#define M2_FLANK     0x80000000L    /* will attempt to outflank the player */
+
 #ifdef NHSTDC
 #define M2_MAGIC 0x80000000UL       /* picks up magic items */
 #else

@@ -1362,6 +1362,8 @@ E void FDECL(mdamageu, (struct monst *, int));
 E int FDECL(could_seduce, (struct monst *, struct monst *, struct attack *));
 E int FDECL(doseduce, (struct monst *));
 E long FDECL(attack_contact_slots, (struct monst *, int));
+E boolean calculate_flankers(struct monst *, struct monst *);
+
 
 /* ### minion.c ### */
 

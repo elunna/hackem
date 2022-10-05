@@ -302,6 +302,11 @@ int *attk_count, *role_roll_penalty;
         }
     }
 
+    if (calculate_flankers(&youmonst, mtmp)) {
+        tmp += 4;
+        pline("You flank %s.", mon_nam(mtmp));
+    }
+    
     /* level adjustment. maxing out has some benefits */
     if (u.ulevel == 30)
         tmp += 4;
@@ -3255,6 +3260,11 @@ register struct attack *mattk;
             pline("%s is affected by your flash of light!", Monnam(mdef));
             mdef->mconf = 1;
         }
+        break;
+    case AD_WIND:
+        pline("%s is blasted by wind!", Monnam(mdef));
+        mhurtle(mdef, mdef->mx - u.ux, mdef->my - u.uy, tmp);
+        tmp = 0;
         break;
     case AD_COLD:
     case AD_FIRE:

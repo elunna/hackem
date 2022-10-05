@@ -102,7 +102,8 @@
 #define AD_POTN 63 /* potion effect (gel) */
 #define AD_HNGY 64 /* a mini version of FAMN, should fake a higher hunger rating instead  */
 #define AD_FEAR 65 /* inflict fear (eye of fear and flame) */
-#define AD_SAMU 66  /* hits, may steal Amulet (Wizard) */
+#define AD_WIND 66  /* cause the defender to hurtle */
+#define AD_SAMU 67  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

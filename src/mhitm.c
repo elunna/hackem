@@ -478,7 +478,13 @@ register struct monst *magr, *mdef;
         tmp += 4;
         mdef->msleeping = 0;
     }
-
+    if (calculate_flankers(magr, mdef)) {
+        tmp += 4;
+        if (magr->mtame && canseemon(magr)) {
+            pline("You help %s flank %s.", mon_nam(magr), mon_nam(mdef));
+        }
+    }
+    
     /* find rings of increase accuracy */
     {
 	struct obj *o;
@@ -1370,6 +1376,14 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                   makeplural(stagger(pd, "stagger")));
         mdef->mstun = 1;
         goto physical;
+    case AD_WIND:
+        if (magr->mcan)
+            break;
+        if (canseemon(mdef))
+                pline("%s is blasted by wind!", Monnam(mdef));
+            mhurtle(mdef, mdef->mx - magr->mx, mdef->my - magr->my, tmp);
+            tmp = 0;
+        break;
     case AD_LEGS:
         if (magr->mcan) {
             tmp = 0;
