@@ -1610,7 +1610,10 @@ register struct attack *mattk;
         break;
     case AD_LOUD:
         hitmsg(mtmp, mattk);
-        if (uncancelled) {
+        if (Sonic_resistance) {
+            You("are unaffected by the noise.");
+            dmg = 0;
+        } else if (uncancelled) {
             if (Deaf)
                 dmg = 1;
             else
@@ -1635,7 +1638,6 @@ register struct attack *mattk;
         if (dmg > 0 && u.umonnum == PM_GLASS_GOLEM) {
             You("shatter into a million pieces!");
             rehumanize();
-            break;
         }
         break;
     case AD_ELEC:
