@@ -1223,6 +1223,7 @@ boolean wiz_cast;
     case SPE_CONE_OF_COLD:
     case SPE_POISON_BLAST:
     case SPE_ACID_BLAST:
+    case SPE_SONICBOOM:
         if (role_skill >= P_SKILLED && yn("Cast advanced spell?") == 'y') {
             if (throwspell()) {
                 cc.x = u.dx;

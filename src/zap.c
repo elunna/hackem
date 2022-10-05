@@ -69,7 +69,7 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "magic missile", /* Wands must be 0-9 */
         "bolt of fire", "bolt of cold", "sleep ray", "death ray",
         "bolt of lightning", "poison gas", "acid stream", 
-        "sonic beam", "water stream", "",
+        "sonic beam", "water stream",
 
         "magic missile", /* Spell equivalents must be 10-19 */
         "fireball", "cone of cold", "sleep ray", "finger of death",
@@ -2883,7 +2883,24 @@ boolean ordinary;
 
     case WAN_SONICS:
         learn_it = TRUE;
-
+        /* FALLTHRU */
+    case SPE_SONICBOOM:
+        if (!Deaf) {
+            pline("KABOOM! You deafen yourself!");
+            incr_itimeout(&HDeaf, rn1(300, 100));
+            damage = d(6, 6);
+        }
+        if (Sonic_resistance) {
+            shieldeff(u.ux, u.uy);
+            pline("KABOOM! Well that was loud.");
+        }
+        destroy_item(ARMOR_CLASS, AD_LOUD);
+        destroy_item(RING_CLASS, AD_LOUD);
+        destroy_item(TOOL_CLASS, AD_LOUD);
+        destroy_item(WAND_CLASS, AD_LOUD);
+        destroy_item(POTION_CLASS, AD_LOUD);
+        break;
+        
     case WAN_COLD:
     case SPE_CONE_OF_COLD:
     case FROST_HORN:
@@ -3963,7 +3980,9 @@ struct obj *obj;
 
         if (otyp == WAN_DIGGING || otyp == SPE_DIG)
             zap_dig();
-        else if (otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_ACID_BLAST)
+        else if (otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_SONICBOOM)
+            /* --hackem: Alert! Had to adjust the + 10
+             * to a + 9 after adding some spellbooks. */
             buzz(otyp - SPE_MAGIC_MISSILE + 10, u.ulevel / 2 + 1, u.ux, u.uy,
                  u.dx, u.dy);
         else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_FIREBALL)
@@ -5244,10 +5263,10 @@ boolean say; /* Announce out of sight hit/miss events if true */
     /* WAC kludge for monsters zapping wands of fireball */
     if ((type <= ZT_MONWAND(ZT_FIRST) && type >= ZT_MONWAND(ZT_LAST))
 	        && ((abs(type) % 10) == ZT_WAND(ZT_SONIC + 1))) 
-		type = - ZT_SPELL(ZT_FIRE);
+		type = -ZT_SPELL(ZT_FIRE);
 
     /*WAC bugfix - should show right color stream now (for wands of fireball) */
-    abstype = abs(type) % 10;
+    /* abstype = abs(type) % 10; */
 
     /* if its a Hero Spell then get its SPE_TYPE */
     spell_type = is_hero_spell(type) ? SPE_MAGIC_MISSILE + abstype : 0;
