@@ -858,6 +858,8 @@ long wp_mask;
         mask = &ESick_resistance;
     else if (dtyp == AD_PLYS)
         mask = &Free_action;
+    else if (dtyp == AD_LOUD)
+        mask = &ESonic_resistance;
 
     if (mask && wp_mask == W_ART && !on) {
         /* find out if some other artifact also confers this intrinsic;

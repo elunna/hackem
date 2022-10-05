@@ -4667,7 +4667,8 @@ struct monst *mtmp;
 {
     if (mtmp->data->msound == MS_SHRIEK) {
         if (!Deaf) {
-            pline("%s shrieks.", Monnam(mtmp));
+            pline("%s %s.", Monnam(mtmp), 
+                  (mtmp->data == &mons[PM_SHRIEKER] ? "shrieks" : "screams"));
             stop_occupation();
         }
         if (!rn2(10)) {

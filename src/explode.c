@@ -180,6 +180,10 @@ int expltype;
             adstr = "torrent of acid";
             adtyp = AD_ACID;
             break;
+        case 8:
+            adstr = "sonicboom";
+            adtyp = AD_LOUD;
+            break;
         default:
             impossible("explosion base type %d?", type);
             return;
@@ -229,6 +233,10 @@ int expltype;
                     explmask[i][j] = !!Acid_resistance;
                     physical_dmg = TRUE;
                     break;
+                case AD_LOUD:
+                    explmask[i][j] = !!Sonic_resistance;
+                    physical_dmg = TRUE;
+                    break;
                 default:
                     impossible("explosion type %d?", adtyp);
                     break;
@@ -274,6 +282,9 @@ int expltype;
                     case AD_ACID:
                         explmask[i][j] |= (resists_acid(mtmp)
                                            || defended(mtmp, AD_DRST));
+                        break;
+                    case AD_LOUD:
+                        explmask[i][j] |= resists_acid(mtmp);
                         break;
                     default:
                         impossible("explosion type %d?", adtyp);
@@ -413,6 +424,9 @@ int expltype;
                         case AD_ACID:
                             adj = "an upset stomach";
                             break;
+                        case AD_LOUD:
+                            adj = "a case of the hiccups";
+                            break;
                         default:
                             adj = "fried";
                             break;
@@ -440,6 +454,9 @@ int expltype;
                             break;
                         case AD_ACID:
                             adj = "burned";
+                            break;
+                        case AD_LOUD:
+                            adj = "blasted";
                             break;
                         default:
                             adj = "fried";
@@ -924,6 +941,8 @@ const int adtyp;
     case AD_DREN:
     case AD_ENCH:
         return EXPL_MAGICAL;
+    case AD_LOUD:
+        return EXPL_DARK;
     case AD_FIRE:
         return EXPL_FIERY;
     case AD_COLD:

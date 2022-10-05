@@ -85,6 +85,10 @@
 #define EAcid_resistance u.uprops[ACID_RES].extrinsic
 #define Acid_resistance (HAcid_resistance || EAcid_resistance)
 
+#define HSonic_resistance u.uprops[SONIC_RES].intrinsic
+#define ESonic_resistance u.uprops[SONIC_RES].extrinsic
+#define Sonic_resistance (HSonic_resistance || ESonic_resistance)
+
 #define HStone_resistance u.uprops[STONE_RES].intrinsic
 #define EStone_resistance u.uprops[STONE_RES].extrinsic
 #define Stone_resistance (HStone_resistance || EStone_resistance)

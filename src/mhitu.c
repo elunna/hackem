@@ -80,7 +80,7 @@ struct attack *mattk;
         case AT_TUCH:
             if (mtmp->data == &mons[PM_GIANT_CENTIPEDE])
                 pline("%s coils its body around you!", Monnam(mtmp));
-            else
+            else if (mtmp->data != &mons[PM_SCREAMER])
                 pfmt = "%s touches you!";
             break;
         case AT_TENT:
@@ -544,7 +544,8 @@ struct attack *alt_attk_buf;
         attk = alt_attk_buf;
         if (attk->adtyp == AD_ACID || attk->adtyp == AD_ELEC
             || attk->adtyp == AD_COLD || attk->adtyp == AD_FIRE
-            || attk->adtyp == AD_DISE || attk->adtyp == AD_DISN) {
+            || attk->adtyp == AD_DISE || attk->adtyp == AD_DISN
+            || attk->adtyp == AD_LOUD) {
             attk->aatyp = AT_TUCH;
         } else {
             /* neothelids have a breath attack plus multiple tentacle
@@ -3114,6 +3115,7 @@ boolean ufound;
     case AD_FIRE:
     case AD_ELEC:
     case AD_ACID:
+    case AD_LOUD:
     case AD_DISE:
         mon_explodes(mtmp, mattk);
         if (!DEADMONSTER(mtmp)) {
@@ -4291,11 +4293,12 @@ int dmg;
         || !m_canseeu(mtmp) || mtmp->mspec_used)
         return FALSE;
 
-    if (canseemon(mtmp) && Deaf) {
-        pline("It looks as if %s is yelling at you.",
-              mon_nam(mtmp));
-    } else if (!cancelled && m_canseeu(mtmp)
-               && Blind && Deaf) {
+    if (canseemon(mtmp)  && (Deaf || Sonic_resistance)) {
+        pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
+    }
+    if (!cancelled 
+        && ((m_canseeu(mtmp) && Blind && Deaf) 
+        || Sonic_resistance)) {
         You("sense a disturbing vibration in the air.");
     } else if (m_canseeu(mtmp) && canseemon(mtmp)
                && !Deaf && cancelled) {
@@ -4307,7 +4310,7 @@ int dmg;
     /* Set mspec->mused */
     mtmp->mspec_used = mtmp->mspec_used + (dmg + rn2(6));
 
-    if (cancelled || Deaf)
+    if (cancelled || Deaf || Sonic_resistance)
         return FALSE;
 
 
