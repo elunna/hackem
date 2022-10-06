@@ -148,6 +148,7 @@
 #define Strangled u.uprops[STRANGLED].intrinsic
 #define Vomiting u.uprops[VOMITING].intrinsic
 #define Glib u.uprops[GLIB].intrinsic
+#define LarvaCarrier u.uprops[LARVACARRIER].intrinsic
 #define Slimed u.uprops[SLIMED].intrinsic /* [Tom] */
 
 /* Hallucination is solely a timeout */

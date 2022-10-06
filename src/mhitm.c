@@ -1350,6 +1350,17 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     }
     
     switch (mattk->adtyp) {
+    case AD_LARV:
+        /* mhitm */
+        if (!magr->mcan && !thick_skinned(mdef->data)
+            && mdef->mhp < 5 && !rn2(4)) {
+            tmp = mdef->mhp;
+            pline("%s burst out of %s and immediately fly off!",
+                Hallucination ? rndmonnam(NULL) : "Insects",
+                mon_nam(mdef));
+            return (MM_DEF_DIED
+                    | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
+        }
     case AD_DGST: {
         struct obj *sbarding;
 

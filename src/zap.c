@@ -3160,6 +3160,10 @@ boolean ordinary;
             You("are no longer withering away.");
             set_itimeout(&HWithering, (long) 0);
         }
+        if (LarvaCarrier) {
+            You("feel as if something inside you has just died.");
+            make_carrier(0L, FALSE);
+        }
         healup(0, 0, TRUE, FALSE);
         break;
     case WAN_LIGHT: /* (broken wand) */

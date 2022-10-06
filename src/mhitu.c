@@ -1223,6 +1223,10 @@ boolean
 diseasemu(mdat)
 struct permonst *mdat;
 {
+    if (LarvaCarrier) {
+        You("feel as if your body is your own again.");
+        make_carrier(0L, FALSE);
+    }
     if (Sick_resistance) {
         You_feel("a slight illness.");
         return FALSE;
@@ -1430,6 +1434,17 @@ register struct attack *mattk;
     permdmg = 0;
     /*  Now, adjust damages via resistances or specific attacks */
     switch (mattk->adtyp) {
+    case AD_LARV:
+        hitmsg(mtmp, mattk);
+        if (uncancelled && !thick_skinned(youmonst.data)
+              && !LarvaCarrier && !rn2(4)) {
+            pline("%s injects something into you!", Monnam(mtmp));
+            make_carrier((long) 100 + rn2(200), TRUE);
+            if (big_to_little(mtmp->mnum))
+                u.ueggpm = big_to_little(mtmp->mnum);
+            else
+                u.ueggpm = mtmp->mnum;
+        }
     case AD_CLOB:
     case AD_PHYS:
         if ((mattk->aatyp == AT_HUGS

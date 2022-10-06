@@ -2568,6 +2568,24 @@ int specialdmg; /* blessed and/or silver bonus against various things */
     }
 
     switch (mattk->adtyp) {
+    case AD_LARV:
+    {
+        struct monst* mtmp;
+        /* since hero can't be cancelled, only defender's armor applies */
+        boolean negated = !(rn2(10) >= 3 * armpro);
+        if (!negated 
+              && !thick_skinned(mdef->data) 
+              && mdef->mhp < 5 
+              && !rn2(4)) {
+            tmp = mdef->mhp;
+            pline("%s burst out of %s!",
+                Hallucination ? rndmonnam(NULL) : "larvae",
+                mon_nam(mdef));
+            mtmp = makemon(&mons[PM_ICHNEUMON_LARVA],
+                u.ux, u.uy, MM_EDOG);
+            initedog(mtmp);
+        }
+    }
     case AD_STUN:
         if (!Blind)
             pline("%s %s for a moment.", Monnam(mdef),

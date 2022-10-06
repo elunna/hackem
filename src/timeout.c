@@ -29,6 +29,7 @@ const struct propname {
 } propertynames[] = {
     { INVULNERABLE, "invulnerable" },
     { STONED, "petrifying" },
+    { LARVACARRIER, "hosting monster eggs" },
     { SLIMED, "becoming slime" },
     { STRANGLED, "strangling" },
     { SICK, "fatally sick" },
@@ -327,6 +328,34 @@ levitation_dialogue()
     }
 }
 
+static NEARDATA const char *const larva_texts[] = {
+    "You are feeling a little strange.",
+    "Your skin is crawling.",
+    "You can feel something moving inside your body!",
+    "%s burst from your body!"
+};
+
+static void
+larva_dialogue()
+{
+    register long i = (LarvaCarrier & TIMEOUT) / 2L;
+
+    if (((LarvaCarrier & TIMEOUT) % 2L) && i >= 0L && i < SIZE(larva_texts)) {
+        char buf[BUFSZ];
+
+        Strcpy(buf, larva_texts[SIZE(larva_texts) - i - 1L]);
+        if (index(buf, '%')) {
+            pline(buf,
+                  makeplural(Hallucination ? rndmonnam(NULL) : "Insect"));
+        } else
+            pline1(buf);
+    }
+    if (i <= 4L) {
+        stop_occupation();
+    }
+    exercise(A_CON, FALSE);
+}
+
 static NEARDATA const char *const slime_texts[] = {
     "You are turning a little %s.",   /* 5 */
     "Your limbs are getting oozy.",   /* 4 */
@@ -605,6 +634,8 @@ nh_timeout()
         return; /* things past this point could kill you */
     if (Stoned)
         stoned_dialogue();
+    if (LarvaCarrier)
+        larva_dialogue();
     if (Slimed)
         slime_dialogue();
     if (Vomiting)
@@ -674,6 +705,12 @@ nh_timeout()
                 dealloc_killer(kptr);
                 /* (unlike sliming, you aren't changing form here) */
                 done_timeout(STONING, STONED);
+                break;
+            case LARVACARRIER:
+                /* must be in this order for bones files. */
+                create_critters(rnd(3), &mons[u.ueggpm], TRUE);
+                losehp(d(1, 5), "being eaten from the inside by insects", KILLED_BY);
+                u.uhp = (int) (u.uhp / 2);
                 break;
             case SLIMED:
                 /* involuntarily break "never changed form" conduct */

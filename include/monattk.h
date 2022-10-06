@@ -107,7 +107,8 @@
 #define AD_WIND 66  /* cause the defender to hurtle */
 #define AD_HYDR 67  /* regrow heads (hydra) */
 #define AD_QUIL 68  /* quills and spikes (porcupine and manticore) */
-#define AD_SAMU 69  /* hits, may steal Amulet (Wizard) */
+#define AD_LARV 69  /* Inject Larvae (Brood Wasp) */
+#define AD_SAMU 70  /* hits, may steal Amulet (Wizard) */
 #define LAST_AD AD_SAMU
 
 /*

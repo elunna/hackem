@@ -292,6 +292,23 @@ int type;
 }
 
 void
+make_carrier(xtime, talk)
+long xtime;
+boolean talk;
+{
+    long old = LarvaCarrier;
+
+    if (Unaware)
+        talk = FALSE;
+
+    set_itimeout(&LarvaCarrier, xtime);
+    context.botl = TRUE;
+    if (!xtime && old)
+        if (talk)
+            You_feel("much more yourself.");
+}
+
+void
 make_slimed(xtime, msg)
 long xtime;
 const char *msg;
@@ -1102,6 +1119,10 @@ register struct obj *otmp;
         if (Hallucination) {
             You("are shocked back to your senses!");
             (void) make_hallucinated(0L, FALSE, 0L);
+        }
+        if (LarvaCarrier) {
+            You("feel as if your body is your own again.");
+            make_carrier(0L, FALSE);
         }
         break;
     case POT_CONFUSION:

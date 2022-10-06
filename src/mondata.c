@@ -1345,6 +1345,7 @@ static const short grownups[][2] = {
     { PM_YELLOW_MOLD, PM_YELLOW_MOLDIER },
     { PM_GREEN_MOLD, PM_GREEN_MOLDIER },
     { PM_BROWN_MOLD, PM_BROWN_MOLDIER },
+    { PM_ICHNEUMON_LARVA, PM_GIANT_ICHNEUMON },
     { NON_PM, NON_PM }
 };
 
