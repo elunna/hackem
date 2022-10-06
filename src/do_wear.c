@@ -1788,6 +1788,9 @@ struct obj *otmp;
     if (changed) {
         toggle_blindness(); /* potion.c */
     }
+    if (ublindf && ublindf->otyp == MASK)
+        if (use_mask(&ublindf)) 
+            return; 
 }
 
 void
@@ -1808,7 +1811,8 @@ struct obj *otmp;
         if (was_blind) {
             /* "still cannot see" makes no sense when removing lenses
                since they can't have been the cause of your blindness */
-            if (otmp->otyp != LENSES || otmp->otyp != GOGGLES)
+            if (otmp->otyp != LENSES || otmp->otyp != GOGGLES
+                  || otmp->otyp != MASK)
                 You("still cannot see.");
         } else {
             changed = TRUE; /* !was_blind */
@@ -1826,6 +1830,16 @@ struct obj *otmp;
     }
     if (changed) {
         toggle_blindness(); /* potion.c */
+    }
+    if (otmp && otmp->otyp == MASK) {
+        if (otmp->blessed) {
+            otmp->blessed = 0;
+            pline("Your mask seems more brittle.");
+        } else if (!otmp->blessed && !otmp->cursed && !rn2(3)) {
+            otmp->cursed = 1;
+            pline("This mask is about to break.");
+        }
+        /* rehumanize(); */
     }
 }
 
@@ -2199,8 +2213,11 @@ boolean silent;
     if (silent)
         return 1;
 
-    use_plural = (is_boots(otmp) || is_gloves(otmp)
-                  || otmp->otyp == LENSES || otmp->otyp == GOGGLES
+    use_plural = (is_boots(otmp) 
+                  || is_gloves(otmp)
+                  || otmp->otyp == LENSES 
+                  || otmp->otyp == GOGGLES
+                  || otmp->otyp == MASK
                   || otmp->quan > 1L);
     /* might be trying again after applying grease to hands */
     if (Glib && otmp->bknown
@@ -2577,8 +2594,11 @@ struct obj *obj;
     }
     armor = (obj->oclass == ARMOR_CLASS);
     ring = (obj->oclass == RING_CLASS || obj->otyp == MEAT_RING);
-    eyewear = (obj->otyp == BLINDFOLD || obj->otyp == TOWEL
-               || obj->otyp == LENSES || obj->otyp == GOGGLES);
+    eyewear = (obj->otyp == BLINDFOLD 
+               || obj->otyp == TOWEL
+               || obj->otyp == LENSES 
+               || obj->otyp == GOGGLES
+               || obj->otyp == MASK);
     /* checks which are performed prior to actually touching the item */
     if (armor) {
         if (!canwearobj(obj, &mask, TRUE))
@@ -2667,7 +2687,10 @@ struct obj *obj;
             }
         } else if (eyewear) {
             if (ublindf) {
-                if (ublindf->otyp == TOWEL)
+                if (ublindf->otyp == MASK)
+                    Your("%s is already covered by a mask.",
+                         body_part(FACE));
+                else if (ublindf->otyp == TOWEL)
                     Your("%s is already covered by a towel.",
                          body_part(FACE));
                 else if (ublindf->otyp == BLINDFOLD) {

@@ -50,6 +50,7 @@ E int NDECL(uhpmax);
 E void FDECL(check_leash, (XCHAR_P, XCHAR_P));
 E boolean FDECL(um_dist, (XCHAR_P, XCHAR_P, XCHAR_P));
 E boolean FDECL(snuff_candle, (struct obj *));
+E boolean FDECL(use_mask, (struct obj **));
 E boolean FDECL(check_mon_jump, (struct monst *, int, int));
 E boolean FDECL(snuff_lit, (struct obj *));
 E boolean FDECL(catch_lit, (struct obj *));

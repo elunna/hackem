@@ -721,7 +721,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         propnames(buf, obj->oprops, obj->oprops_known,
                   TRUE, !!strstri(buf, " of "));
 
-        if (typ == FIGURINE && omndx != NON_PM) {
+        if ((typ == FIGURINE || typ == MASK) && omndx != NON_PM) {
             char anbuf[10]; /* [4] would be enough: 'a','n',' ','\0' */
 
             Sprintf(eos(buf), " of %s%s",
@@ -4803,6 +4803,7 @@ struct obj *no_wish;
             set_corpsenm(otmp, mntmp);
             break;
         case FIGURINE:
+        case MASK:
             if (!(mons[mntmp].geno & G_UNIQ) && !is_human(&mons[mntmp])
 #ifdef MAIL
                 && mntmp != PM_MAIL_DAEMON

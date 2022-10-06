@@ -4469,8 +4469,12 @@ register struct monst *mtmp;
     mtmp->mappearance = appear;
     /* when appearing as an object based on a monster type, pick a shape */
     if (ap_type == M_AP_OBJECT
-        && (appear == STATUE || appear == FIGURINE
-            || appear == CORPSE || appear == EGG || appear == TIN)) {
+        && (appear == STATUE 
+            || appear == FIGURINE
+            || appear == CORPSE 
+            || appear == EGG 
+            || appear == TIN 
+            || appear == MASK)) {
         int mndx = rndmonnum(),
             nocorpse_ndx = (mvitals[mndx].mvflags & G_NOCORPSE) != 0;
 

@@ -127,9 +127,10 @@ struct obj *obj;
             } else {
                 const char *what;
 
-                what = (ublindf->otyp == LENSES)
-                           ? "lenses" : (ublindf->otyp == GOGGLES)
-                             ? "goggles" : (obj->otyp == ublindf->otyp)
+                what = (ublindf->otyp == LENSES) ? "lenses" 
+                        : (ublindf->otyp == MASK) ? "mask"
+                        : (ublindf->otyp == GOGGLES) ? "goggles" 
+                        : (obj->otyp == ublindf->otyp)
                                ? "other towel" : "blindfold";
                 if (ublindf->cursed) {
                     You("push your %s %s.", what,
@@ -2511,6 +2512,31 @@ boolean quietly;
         return FALSE;
     }
     return TRUE;
+}
+
+boolean
+use_mask(optr)
+struct obj **optr;
+{
+    register struct obj *obj = *optr;
+    if (!polyok(&mons[obj->corpsenm])) {
+        pline("%s violently, then splits in two!", Tobjnam(obj, "shudder"));
+        useup(obj);
+        return TRUE;
+    }
+    if (!Unchanging) {
+        polymon(obj->corpsenm);
+        if (obj->cursed) {
+            You1(shudder_for_moment);
+            losehp(rnd(30), "system shock", KILLED_BY_AN);
+            pline("%s, then splits in two!", Tobjnam(obj, "shudder"));
+            useup(obj);
+            return TRUE;
+        }
+    } else {
+        pline("Unfortunately, no mask will hide what you truly are.");
+    }
+    return FALSE;
 }
 
 void
@@ -4923,6 +4949,7 @@ doapply()
     case BLINDFOLD:
     case LENSES:
     case GOGGLES:
+    case MASK:
         if (obj == ublindf) {
             if (!cursed(obj, FALSE))
                 Blindf_off(obj);

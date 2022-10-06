@@ -485,6 +485,11 @@ int psflags;
         pline("You fail to transform!");
         return;
     }
+    if (ublindf && ublindf->otyp == MASK &&
+        ublindf->corpsenm == monsndx(youmonst.data)) {
+        pline("Your mask prevents you from transforming.");
+        return;
+    }
     /* being Stunned|Unaware doesn't negate this aspect of Poly_control */
     if (!Polymorph_control && !forcecontrol && !draconian && !iswere
         && !isvamp) {
@@ -1171,6 +1176,22 @@ break_armor()
             dropp(otmp);
         }
     }
+    /* not armor, but eyewear shouldn't stay worn without a head to wear
+       it/them on (should also come off if head is too tiny or too huge,
+       but putting accessories on doesn't reject those cases [yet?]);
+       amulet stays worn */
+    if ((otmp = ublindf) != 0 && !has_head(youmonst.data) && otmp->otyp != MASK) {
+        int l;
+        const char *eyewear = simpleonames(otmp); /* blindfold|towel|lenses */
+
+        if (!strncmp(eyewear, "pair of ", l = 8)) /* lenses */
+            eyewear += l;
+        Your("%s %s off!", eyewear, vtense(eyewear, "fall"));
+        (void) Blindf_off((struct obj *) 0); /* Null: skip usual off mesg */
+        dropp(otmp);
+    }
+
+    /* rings stay worn even when no hands */
     if (racial_tortle(&youmonst)) {
         if ((otmp = uarmh) != 0 && is_hard(otmp)) {
             if (donning(otmp))
@@ -1302,6 +1323,9 @@ rehumanize()
     retouch_equipment(2);
     if (!uarmg)
         selftouch(no_longer_petrify_resistant);
+    if (ublindf && ublindf->otyp == MASK) {
+        remove_worn_item(ublindf, FALSE);
+    }
 }
 
 int

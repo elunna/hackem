@@ -649,7 +649,8 @@ nh_timeout()
     if (HPasses_walls & TIMEOUT)
         phaze_dialogue();
     if (u.mtimedone && !--u.mtimedone) {
-        if (Unchanging)
+        if (Unchanging ||
+            (ublindf && ublindf->otyp == MASK))
             u.mtimedone = rnd(100 * youmonst.data->mlevel + 1);
         else if (is_were(youmonst.data))
             you_unwere(FALSE); /* if polycontrl, asks whether to rehumanize */

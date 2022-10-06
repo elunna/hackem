@@ -1024,6 +1024,13 @@ boolean artif;
                 while (is_human(&mons[otmp->corpsenm]) && tryct++ < 30);
                 blessorcurse(otmp, 4);
                 break;
+            case MASK:
+                tryct = 0;
+                /* Splice has a difficulty cap for pick_nasty */
+                /*otmp->corpsenm = pick_nasty(50); */
+                otmp->corpsenm = pick_nasty();
+                blessorcurse(otmp, 4);
+                break;
             case BELL_OF_OPENING:
                 otmp->spe = 3;
                 break;
@@ -1188,6 +1195,7 @@ boolean artif;
         /*FALLTHRU*/
     case STATUE:
     case FIGURINE:
+    case MASK:
         if (otmp->corpsenm == NON_PM)
             otmp->corpsenm = rndmonnum();
         /*FALLTHRU*/
@@ -3047,8 +3055,11 @@ struct obj *obj;
             if (obj->oclass != RING_CLASS && obj->otyp != MEAT_RING)
                 what = "ring";
         } else if (owornmask & W_TOOL) {
-            if (obj->otyp != BLINDFOLD && obj->otyp != TOWEL
-                && obj->otyp != LENSES && obj->otyp != GOGGLES)
+            if (obj->otyp != BLINDFOLD 
+                && obj->otyp != TOWEL
+                && obj->otyp != LENSES 
+                && obj->otyp != GOGGLES
+                && obj->otyp != MASK)
                 what = "blindfold";
         } else if (owornmask & W_BALL) {
             if (obj->oclass != BALL_CLASS)
@@ -3546,6 +3557,7 @@ struct obj* obj;
             return elven_weapon_materials;
         case CHEST:
         case LARGE_BOX:
+        case MASK:
             return wood_materials;
         case LOCK_PICK:
         case TIN_OPENER:
