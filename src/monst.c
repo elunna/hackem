@@ -4482,6 +4482,16 @@ struct permonst _mons2[] = {
     /*
      * Liches
      */
+    MON("worm that walks", S_LICH, 
+        LVL(11, 6, 0, 30, -9), (G_GENO | G_NOCORPSE | 1),
+        A(ATTK(AT_WEAP, AD_DRCO, 1, 10), 
+          ATTK(AT_MAGC, AD_SPEL, 0, 0), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1200, 100, MS_MUMBLE, MZ_HUMAN), 
+        MR_SLEEP | MR_POISON, MR_POISON, 
+        M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
+        M2_HOSTILE | M2_MAGIC, M3_INFRAVISION, 0, 
+        MH_UNDEAD, 15, CLR_GREEN),
     MON("lich", S_LICH,
         LVL(11, 6, 0, 30, -9), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_TUCH, AD_COLD, 1, 10), 

@@ -1718,17 +1718,13 @@ minfestcorpse(struct monst *mtmp)
             dog_givit(mtmp, &mons[otmp->corpsenm]);
             
             if (mtmp->data == &mons[PM_MAGGOT]) {
-                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum]))
-                    makemon(&mons[mtmp->mnum], cc.x, cc.y, NO_MINVENT);
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
+                    makemon(&mons[rn2(3) ? PM_GIANT_FLY : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
             } else {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum]))
                     makemon(&mons[mtmp->mnum], cc.x, cc.y, NO_MINVENT);
             }
-#if 0 /* Pending worm that walks */
-                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
-                    makemon(&mons[rn2(3) ? PM_GIANT_FLY : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
-            }
-#endif
+
             delobj(otmp);
             break; /* only eat one at a time... */
         }
@@ -3298,13 +3294,26 @@ register struct monst *mtmp;
 {
     struct permonst *mptr;
     struct monst *rider;
-    int tmp;
-
+    int tmp, i;
+    coord cc;
+    
     mtmp->mhp = 0; /* in case caller hasn't done this */
     lifesaved_monster(mtmp);
     if (!DEADMONSTER(mtmp))
         return;
 
+    if (mtmp->data == &mons[PM_WORM_THAT_WALKS]) {
+        if (cansee(mtmp->mx, mtmp->my)) {
+            pline_The("body of %s dissolves into maggots!", mon_nam(mtmp));
+        } else {
+            You_hear("the slithering of many bodies.");
+        }
+        for (i = 0; i < (mtmp->data == &mons[PM_WORM_THAT_WALKS] ? rnd(10) : rnd(20)); i++) {
+            if (!enexto(&cc, mtmp->mx, mtmp->my, 0))
+                break;
+            makemon(&mons[PM_MAGGOT], cc.x, cc.y, NO_MINVENT);
+        }
+    }
     /* someone or something decided to mess with Izchak. oops... */
     if (is_izchak(mtmp, TRUE)) {
         if (canspotmon(mtmp)) {
@@ -3633,8 +3642,10 @@ boolean was_swallowed; /* digestion */
     struct obj *otmp;
     int i, tmp;
 
-    if (mdat == &mons[PM_VLAD_THE_IMPALER] || mdat->mlet == S_LICH
-        || mdat == &mons[PM_ALHOON] || mdat == &mons[PM_KAS]) {
+    if (mdat == &mons[PM_VLAD_THE_IMPALER]
+        || mdat == &mons[PM_ALHOON] 
+        || mdat == &mons[PM_KAS]
+        || (mdat->mlet == S_LICH && mdat != &mons[PM_WORM_THAT_WALKS])) {
         if (cansee(mon->mx, mon->my) && !was_swallowed)
             pline("%s body crumbles into dust.", s_suffix(Monnam(mon)));
         if (mon->isvecna) {
