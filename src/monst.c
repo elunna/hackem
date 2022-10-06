@@ -1657,11 +1657,13 @@ NEARDATA struct permonst mons[] = {
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
         M1_HUMANOID, M2_HOSTILE | M2_GREEDY | M2_NASTY,
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 8, CLR_BLUE),
+    /* The AD_LOST attack makes you forget maps, replaced with stunning instead. */
     MON("yuki-onna", S_NYMPH, 
         LVL(5, 12, 9, 20, 5), (G_GENO | 2),
-        A(ATTK(AT_TUCH, AD_COLD, 2, 6), 
+        A(ATTK(AT_TUCH, AD_COLD, 2, 6),
+          ATTK(AT_TUCH, AD_STUN, 0, 0),
           /* ATTK(AT_TUCH, AD_LOST, 0, 0), */
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
         M3_INFRAVISIBLE, 0, 0, 7, CLR_WHITE),
