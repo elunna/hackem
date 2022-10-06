@@ -3202,6 +3202,18 @@ NEARDATA struct permonst mons[] = {
         SIZ(30, 20, MS_SQEEK, MZ_SMALL), MR_POISON, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_HOSTILE | M2_FLANK, M3_INFRAVISIBLE, 0, 0, 9, HI_GOLD),
+    MON("phoenix", S_BAT, 
+        LVL(15, 20, -7, 40, 7), (G_GENO | G_NOCORPSE | 2),
+        A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
+          ATTK(AT_CLAW, AD_PHYS, 3, 6),
+          ATTK(AT_CLAW, AD_PHYS, 3, 6), 
+          ATTK(AT_BOOM, AD_FIRE, 8, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(40, 20, MS_SQAWK, MZ_SMALL), MR_FIRE, MR_FIRE,
+        M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_OVIPAROUS,
+        M2_WANDER | M2_STRONG | M2_NASTY, 
+        M3_INFRAVISIBLE, 0, 0, 20, CLR_ORANGE),
+    
     MON("harpy", S_BAT,                                         /* Slash'EM */
         LVL(9, 17, 5, 0, -4), (G_HELL | G_GENO | G_SGROUP | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 12), 

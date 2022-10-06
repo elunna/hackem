@@ -2497,8 +2497,6 @@ struct obj *obj, *otmp;
         case WAN_SLEEP:
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
-        case WAN_FIREBALL:
-        case SPE_FIRE_BOLT:
         case SPE_SNOWBALL:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
@@ -2507,6 +2505,13 @@ struct obj *obj, *otmp;
             break;
         case SPE_STONE_TO_FLESH:
             res = stone_to_flesh_obj(obj);
+            break;
+        case SPE_FIRE_BOLT:
+        case WAN_FIREBALL:
+        case WAN_FIRE:
+            if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
+                revive_egg(obj);
+            }
             break;
         default:
             impossible("What an interesting effect (%d)", otmp->otyp);
@@ -6219,6 +6224,8 @@ int osym, dmgtyp;
             if (obj->otyp == GLOB_OF_GREEN_SLIME) {
                 dindx = 1; /* boil and explode */
                 dmg = (obj->owt + 19) / 20;
+            } else if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
+                    revive_egg(obj);
             } else {
                 skip++;
             }

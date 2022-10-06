@@ -2466,7 +2466,6 @@ struct obj *obj;
     switch (obj->oclass == POTION_CLASS ? POT_WATER : obj->otyp) {
     case EXPENSIVE_CAMERA:
     case POT_WATER: /* really, all potions */
-    case EGG:
     case CREAM_PIE:
     case APPLE_PIE:
     case PUMPKIN_PIE:
@@ -2480,6 +2479,10 @@ struct obj *obj;
     /* In Splice the lash breaks upon throwing, not sure why but we'll leave it. */
     case FLAMING_LASH: 
         return 1;
+    case EGG:
+        if (obj->corpsenm != PM_PHOENIX)
+            return 1;
+        /* FALLTHRU */
     default:
         return 0;
     }
