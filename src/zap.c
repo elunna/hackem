@@ -2887,6 +2887,7 @@ boolean ordinary;
         break;
 
     case WAN_SONICS:
+    case HORN_OF_BLASTING:
         learn_it = TRUE;
         /* FALLTHRU */
     case SPE_SONICBOOM:
@@ -4840,6 +4841,22 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         if (!rn2(6))
             erode_armor(mon, ERODE_CORRODE);
         break;
+    case ZT_SONIC:
+        if (resists_sonic(mon)) {
+            sho_shieldeff = TRUE;
+            break;
+        }
+        tmp = d(nd, 6);
+        if (spellcaster)
+            tmp = spell_damage_bonus(tmp);
+        if (!rn2(3)) {
+            destroy_mitem(mon, ARMOR_CLASS, AD_LOUD);
+            destroy_mitem(mon, RING_CLASS, AD_LOUD);
+            destroy_mitem(mon, TOOL_CLASS, AD_LOUD);
+            destroy_mitem(mon, WAND_CLASS, AD_LOUD);
+            destroy_mitem(mon, POTION_CLASS, AD_LOUD);
+        }
+        break;
     case ZT_WATER:
         tmp = d(nd, 8);
         if (mon->data == &mons[PM_WATER_ELEMENTAL]
@@ -5071,6 +5088,24 @@ xchar sx, sy;
             if (!rn2(6))
                 erode_armor(&youmonst, ERODE_CORRODE);
         }
+        break;
+    case ZT_SONIC:
+        if (Sonic_resistance) {
+            shieldeff(sx, sy);
+            pline("That was rather loud.");
+        } else {
+            dam = d(nd, 6);
+        }
+        if (!rn2(3))
+            destroy_item(POTION_CLASS, AD_LOUD);
+        if (!rn2(3))
+            destroy_item(TOOL_CLASS, AD_LOUD);
+        if (!rn2(3))
+            destroy_item(RING_CLASS, AD_LOUD);
+        if (!rn2(3))
+            destroy_item(ARMOR_CLASS, AD_LOUD);
+        if (!rn2(3))
+            destroy_item(WAND_CLASS, AD_LOUD);
         break;
     case ZT_WATER:
         dam = d(nd, 8);
@@ -5986,6 +6021,11 @@ boolean moncast;
             new_doormask = D_NODOOR;
             see_txt = "The door freezes and shatters!";
             sense_txt = "feel cold.";
+            break;
+        case ZT_SONIC:
+            new_doormask = D_NODOOR;
+            see_txt = "The door is blown off its hinges!";
+            hear_txt =  "a loud bang.";
             break;
         case ZT_DEATH:
             /* death spells/wands don't disintegrate */

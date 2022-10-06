@@ -134,6 +134,7 @@ struct obj *obj;
             case TOOLED_HORN:
             case FROST_HORN:
             case FIRE_HORN:
+            case HORN_OF_BLASTING:
             case HARP:
             case MAGIC_HARP:
             case BUGLE:

@@ -1020,6 +1020,7 @@ struct monst *mtmp;
         case MAGIC_HARP:
         case FROST_HORN:
         case FIRE_HORN:
+        case HORN_OF_BLASTING:
         case DRUM_OF_EARTHQUAKE:
             if (is_cursed) {
                 stripspe(obj);

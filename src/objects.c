@@ -840,6 +840,7 @@ TOOL("magic flute",      "flute", 0, 0, 1, 1,   2,   5,  36, WOOD, HI_WOOD),
 TOOL("tooled horn",       "horn", 0, 0, 0, 0,   5,  18,  15, BONE, CLR_WHITE),
 TOOL("frost horn",        "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
 TOOL("fire horn",         "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
+TOOL("horn of blasting",  "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
 TOOL("horn of plenty",    "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
         /* horn, but not an instrument */
 TOOL("harp",              "harp", 0, 0, 0, 0,   4,  30,  50, WOOD, HI_WOOD),

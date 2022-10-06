@@ -644,6 +644,7 @@ struct obj *instr;
         break;
     case FIRE_HORN:  /* Idem wand of fire */
     case FROST_HORN: /* Idem wand of cold */
+    case HORN_OF_BLASTING: /* Idem wand of sonics */
         consume_obj_charge(instr, TRUE);
 
         if (!getdir((char *) 0)) {
@@ -657,8 +658,16 @@ struct obj *instr;
                 losehp(damage, buf, KILLED_BY); /* fire or frost damage */
             }
         } else {
-            buzz((instr->otyp == FROST_HORN) ? AD_COLD - 1 : AD_FIRE - 1,
-                 rn1(6, 6), u.ux, u.uy, u.dx, u.dy);
+            if (instr->otyp == HORN_OF_BLASTING) {
+                static const char * const blasting_msg[3] = {
+                    "OOMPH BLAT!",
+                    "BRAAAAAAAAAAAAAAAP!",
+                    "PWAAAAOOMP!"};
+                if (!Deaf) pline("%s", blasting_msg[rn2(3)]);
+            }
+            buzz((instr->otyp == FROST_HORN) ? AD_COLD - 1 : 
+                    (instr->otyp == HORN_OF_BLASTING) ? AD_LOUD - 1 : AD_FIRE - 1,
+                    rn1(6, 6), u.ux, u.uy, u.dx, u.dy);
         }
         /* makeknown(instr->otyp); */
         makeknown_msg(instr->otyp);
@@ -817,7 +826,8 @@ struct obj *instr;
         return 0;
     } else if ((instr->otyp == FLUTE || instr->otyp == MAGIC_FLUTE
                 || instr->otyp == TOOLED_HORN || instr->otyp == FROST_HORN
-                || instr->otyp == FIRE_HORN || instr->otyp == BUGLE)
+                || instr->otyp == FIRE_HORN || instr->otyp == HORN_OF_BLASTING 
+                || instr->otyp == BUGLE)
                && !can_blow(&youmonst)) {
         You("are incapable of playing %s.", the(distant_name(instr, xname)));
         return 0;
