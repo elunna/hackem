@@ -3811,7 +3811,8 @@ NEARDATA struct permonst mons[] = {
         LVL(8, 12, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 5, 6), 
           ATTK(AT_NONE, AD_COLD, 0, 4),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_SPIT, AD_COLD, 1, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2500, 0, MS_SILENT, MZ_LARGE), 
         MR_POISON | MR_STONE | MR_COLD, 0,
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
@@ -3820,8 +3821,8 @@ NEARDATA struct permonst mons[] = {
     MON("magma elemental", S_ELEMENTAL, 
         LVL(8, 6, 2, 30, 0), (G_NOCORPSE | G_HELL),
         A(ATTK(AT_CLAW, AD_FIRE, 4, 5), 
-          ATTK(AT_NONE, AD_FIRE, 0, 4), NO_ATTK,
-          NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_NONE, AD_FIRE, 0, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(0, 0, MS_SILENT, MZ_LARGE), MR_FIRE, 0,
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_THICK_HIDE | M1_NOTAKE,
