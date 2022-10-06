@@ -1685,7 +1685,8 @@ NEARDATA struct permonst mons[] = {
     MON("dream thief", S_NYMPH, 
         LVL(14, 15, 4, 40, 0), (G_NOHELL | 1),
         A(ATTK(AT_CLAW, AD_CURS, 0, 0), 
-          ATTK(AT_MAGC, AD_PSYC, 5, 5),
+          /*ATTK(AT_MAGC, AD_PSYC, 5, 5),*/
+          ATTK(AT_MAGC, AD_CLRC, 5, 5),
           ATTK(AT_CLAW, AD_SITM, 0, 0), 
           /* ATTK(AT_TUCH, AD_MEMR, 0, 0), */
           ATTK(AT_CLAW, AD_SITM, 0, 0), 
