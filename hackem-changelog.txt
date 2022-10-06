@@ -411,6 +411,7 @@ Weapons:
 	- [x] Great dagger
 	- [x] Rapier
 	- [x] baseball bat
+		baseball bats are only generated in junk shops.
 	- [x] Fly swatter (uses WHIP skill instead of PADDLE)
 
 	- [SKIPPED] Silver short sword (object materials has this covered)
@@ -1533,27 +1534,54 @@ Gehennom work
 	[SKIPPED] sconce
 	[SKIPPED] amulet of reincarnation
 		[ ] Buggy - there seems to be a lot of forms that SUCK to reincarnate into, this is not fun...
-	- [SKIPPING] /o psionics (wands are pain in the ass to add)
-	- [SKIPPING] +o psystrike
+	[SKIPPING] /o psionics (wands are pain in the ass to add)
+	[SKIPPING] +o psystrike
 	[SKIPPED] dress/gown/tuxedo - instead of these, maybe a fine suit
-	[SKIPPED] ?o cloning
-		A bit complicated - has some stuff updated in get_obj
-		
-[x] scythe", "curved polearm",
+	[SKIPPED] ?o cloning: A bit complicated - has some stuff updated in get_obj
+	[SKIPPED] encyclopedia
+	
+	
+	[x] scythe", "curved polearm",
 		[x] Death gets a scythe
 	[x] light arrow
 		Found only in archery shops or the inventory of an avenger archon.
 	[x] throwing axe
 		Does 1 less damage than a regular axe, but counts as a throwing weapon.
 		This is great for the Gauntlet Warrior role....
-	[x] executioner's mace: Base item for Mortality Dial?
-	[x] falchion", "heavy sword",
+	[x] executioner's mace: Base item for Mortality Dial?	
+	[x] falchion/heavy sword
 		Barbarians sometimes start with a falcion/scimitar set instead of axe/short sword (like GoT dothraki?)
-	[x] parazonium", "triangular dagger"
-	[X] "gladius", Non
-[x] chakram (silver based boomerang)
-	[x] footbow", "warped bow - bit of work, but worth it.
-	[x] tinfoil hat", "fearsome helmet",
+	[x] parazonium/triangular dagger
+	[X] gladius
+	[x] chakram (silver based boomerang)
+	[x] footbow/warped bow
+	[x] "spiked chain"
+	[x] flaming lash",
+		[x] Added fire damage, used existing torch code?
+		[x] Fix flaming lash (AC stat left on, should match bullship?)
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+	
+	
+	[x] tinfoil hat/fearsome helmet
 		protects against psychic attacks, brain eating.
 	[x] light armor
 	[x] cloak of flight", "feathery cloak",
@@ -1583,7 +1611,9 @@ Gehennom work
 	[x] ?o time
 	[x] ?o knowledge
 		[x] specified_id();
-[x] ?o change material"
+	[x] ?o change material
+		[x] Change ?oChangeMaterials to Scroll of Transmogrify
+	
 	[x] /o wonder 
 		[x] Change wish chances
 		[x ] Make sure it includes omni effects too (Fear)
@@ -1597,6 +1627,7 @@ Gehennom work
 		[x] 6cf7801e1	tedav	There is now a 1/13 chance for finding a coffin (vampire included) when digging up a grave.
 	- [x] /o windstorm
 		[x] muse
+		[x] Rename wand of windstorm to Wand of Wind
 	- [x] /o water
 		[x] muse
 	- [x] /o acid
@@ -1619,39 +1650,46 @@ Gehennom work
 		[x] Wand breaking?
 	- [x] +o sonicboom
 		[ ] Advanced spell looks like fireball...
-	[x] "spiked chain"
+	[x] ?o air
+		[SKIPPED] Make scroll of air remove poison gas as well.
+	- [x] horn of blasting 
+	[x] masks /* monster type specified by obj->corpsenm */
+		[x] Lot of work, but probably worth it - they are fun and have special shops.
+		[x] use_mask
+		[x] misc_worn_check
+		[x] MASK
 	
-	=
 Splice Monsters
 	[SKIPPED] pack lord/human pack lord - needs both were forms, and all the were crap...
 	[SKIPPED] orc warlord
 	[SKIPPED] plasma elemental
 	[SKIPPED] fusion elemental
-			
 	[SKIPPED] goristro - demonic minotaur
 	[SKIPPED] hecatoncheire (Hundred Handed One ) - redo as arch millipede?
-	[SKIPPED]Korrupt Kop
-	[SKIPPED ] Alucard - unique vampire
+	[SKIPPED] Korrupt Kop
+	[SKIPPED] Alucard - unique vampire
 	[SKIPPED] bonewalker
 	[SKIPPED] silver golem
 	[SKIPPED] gehennan maw
 	[SKIPPED] headless rider, uses the pumpkin
 	[SKIPPED] molydeus, nasty demon with a poly attack
 	[SKIPPED] killer croc - we have a lot of crocs already
-	
 	[SKIPPED] mind flayer telepath
-	[SKIPPED] sphere of the void" - unique???
-		AD_VOID - basically same as disintegrate
+	[SKIPPED] sphere of the void" - AD_VOID - basically same as disintegrate
 	[SKIPPED] transmuter
-		[SKIPPED] thought eater - AD_MEMR attack
+	[SKIPPED] thought eater - AD_MEMR attack
+	[SKIPPED] psionic sphere (AD_PSYC)
+	
 
-
+		
+	[x] bullet ant
+		[x] MS_ANT for ants
 	[x] giant fly
 	[x] giant praying mantis
-		[x] M2_FLANK
 	[x] barghest: luck stealing dog
 	[x] guard dog
 	[x] vulpenferno
+		Renamed to nova fox
 		Bumped lvl up to 16, diff to 19. 
 		Added resistance to fire/shock, and grants fire/shk res.
 	[x] weeping eye
@@ -1670,9 +1708,6 @@ Splice Monsters
 	[x] dust devil
 	[x] redcap
 	[x] killer mimic
-
-
-	 
 	[x] lampad (
 	[x] diamond piercer
 	[x] god piercer
@@ -1695,7 +1730,6 @@ Splice Monsters
 	[x] lamassu
 	[x] zoo bat
 	[x] gaol bat
-	
 	[x] volatile mushroom
 	[x] Implement elemental_shift - for zapping various things at elementals.
 	[x] brown moldier
@@ -1703,7 +1737,6 @@ Splice Monsters
 	[x] green moldier
 	[x] red moldier
 	[x] marrashi - high level gnoll?
-	
 	[x] adherer
 	[x] ha-naga
 	[x] blood pudding
@@ -1727,7 +1760,7 @@ Splice Monsters
 		[x] AD_FEAR - implemented the "Afraid" status, booze cures
 	[x] banshee
 	[x] lemur - apelike not a lemure
-[x] vomitous ghoul
+	[x] vomitous ghoul
 		[x] Import is_ghoul
 	[x] skeletal pirate
 	[x] zombie dragon
@@ -1742,33 +1775,19 @@ Splice Monsters
 	[x] velociraptor
 	[x] T-Rex
 	[x] Implement Flanking:
-[x] screamer
+	[x] screamer
 		[x] MR_SONIC
 		[x] Maybe remove the "The screamer touches you!" - to make it blend better with the shrieking
 		[x] The screamer shrieks.
-	concussive sphere
+	[x] concussive sphere
 		[x] AD_LOUD
 		[x] Update mon_explodes
 		[x] Sonic_resistance
-		
 	[x] landshark
 	[x] will-o'-the-wisp
 	[x] merfolk - Combination of Splice and SlashTHEM versions
 	[x] planar pirate
 	[x] is_moldier
-	[x] minfestcorpse?  Moldiers/maggots...
-	[SKIP] mon_givit - this is just dog_givit in evil	
-	[x] In SpliceHack, all fungi receive an extra d6 damage from copper. F hates copper.
-	[x] Nymphs also hate iron.
-	[x] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks."
-[splice dd5b42411] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks.
-	[x] pack rat is a little tougher
-		Now level 2; Added M2_COLLECT | M2_STRONG | M2_FLANK
-		Can appear randomly.
-	[x] Check other zouthern animals and nerfs
-		echidna: Added M3_INFRAVISIBLE
-		wallabys, wallaroos, kangas can now jump
-	[x] Crystal golems scintilate. */????
 	[x] manticore
 		[x] AD_QUIL	
 		[x] AT_VOLY
@@ -1782,8 +1801,6 @@ Splice Monsters
 		Wand of undead turning doesn't affect phoenix egg
 		- Phoenix egg revival via fire is very buggy.
 		- Phoenix eggs hatch instantly when exposed to lava, and are not damaged  by fire.
-  
-
 	[x] ichneumon larva
 	[x] giant ichneumon
 		[x] AD_LARV ?
@@ -1794,24 +1811,14 @@ Splice Monsters
 	[x] spibrawulf
 		[x] AD_LARV - lays eggs inside you?
 		Rename to infester demon
-		
-
-	[x] flaming lash",
-		[x] Added fire damage, used existing torch code?
-		[x] Fix flaming lash (AC stat left on, should match bullship?)
-	[SKIPPED] psionic sphere (AD_PSYC)
-
-[x] Rename wand of windstorm to Wand of Wind
 	[x] eye of fear and flame" - high level lich? between demi and master
 		[x] ATTK(AT_GAZE, AD_FEAR, 0, 4), */
-	
-[x] hedgehog
-	[x] AD_QUIL
-	[x] move to 'r' symbols (even though it's not a rodent, it feels like one more than a quadraped)	
-[x] whirling sphere:
-	[x] AD_WIND?
-	DDSM protects against clobber/wind/hurtle
-
+	[x] hedgehog
+		[x] AD_QUIL
+		[x] move to 'r' symbols (even though it's not a rodent, it feels like one more than a quadraped)	
+	[x] whirling sphere:
+		[x] AD_WIND?
+		DDSM protects against clobber/wind/hurtle
 	[x] mud elemental
 		[x] Added engulf attack (like water E)
 	[x] acid elemental
@@ -1824,46 +1831,67 @@ Splice Monsters
 		Multiple heads mechanic
 		- [ ] make the hydra fire res 
 		- compare splice vs slashem...
-	
 	[x] draugr - zombie?
 	[x] Add zombie bite attack, and vulnerable to fire.
 	
-[x] lion
-		Adjust level?
-		
-	[x] Change ?oChangeMaterials to Scroll of Transmogrify
-
-In SpliceHack, the player can sometimes become too afraid to control their actions.
-	similar to the effects of being stunned or confused. 
-	The player cannot control the direction of their actions. 
-	The player also loses control of teleports and polymorphs.
-	
-[x] bullet ant
-	[x] MS_ANT for ants
-
-
-	- [SKIPPED] Splice has ACBONUS for some weapons/items? Is this possible in evil?
-	
-	[x] ?o air
-		[SKIPPED] Make scroll of air remove poison gas as well.
-	
-	
-	- [x] horn of blasting 
-	
-	[x] masks /* monster type specified by obj->corpsenm */
-		[x] Lot of work, but probably worth it - they are fun and have special shops.
-		[x] use_mask
-		[x] misc_worn_check
-		[x] MASK
-
-[SKIPPED] encyclopedia
 
 	[x] yuki-onna
 		[x] Replace AD_LOST attack with AD_STUN
 	[x] dream thief (oneroi, oneroi)
-	 [x] Replaced AD_MEMR attack with spellcasting.
+		[x] Replaced AD_MEMR attack with spellcasting.
+	[x] lion
+		Adjust level?
+	
+	
+	
+	[x] minfestcorpse?  Moldiers/maggots...
+	[SKIP] mon_givit - this is just dog_givit in evil	
+	[x] In SpliceHack, all fungi receive an extra d6 damage from copper. F hates copper.
+	[x] Nymphs also hate iron.
+	[x] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks."
+[splice dd5b42411] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks.
+	[x] pack rat is a little tougher
+		Now level 2; Added M2_COLLECT | M2_STRONG | M2_FLANK
+		Can appear randomly.
+	[x] Check other zouthern animals and nerfs
+		echidna: Added M3_INFRAVISIBLE
+		wallabys, wallaroos, kangas can now jump
+	[x] Crystal golems scintilate. */????
+
+	[x] In SpliceHack, the player can sometimes become too afraid to control their actions.
+		similar to the effects of being stunned or confused. 
+		The player cannot control the direction of their actions. 
+		The player also loses control of teleports and polymorphs.
+	- [SKIPPED] Splice has ACBONUS for some weapons/items? Is this possible in evil?
+	
+
+
+
 	[x] gnomish psyker
 		[ ] Redo as kobold psyker?
 		[ ] Nerf their flayer attack a bit?
 		[ ] Make into a touch attack
 	
+
+	[x] JUNKSHOP/"junk shop"
+		[x] Added fly swatter, rubber hoses, bag of rats, iron chain, tin opener, 
+	[x] ARCHERYSHOP/"archery shop"
+	[x] MASKSHOP/"mask shop"
+		[x] Look through mkobj.c, update with nicer splice values. They are a bit more generous.	
+			Crystal balls, cans of grease
+			
+	[x] Update pager (object lookup) and make sure it shows correct damage for new weapons/armor/items.
+
+	[x] Applied FLANKING from SpliceHack to monsters in hackem:
+		assassin bug, coyote, wolf, warg, hellcat, hobbit, dwarf king, deep one, deeper one, deepest one, manes
+		all kobolds, hobgoblin, mordor orc, uruk hai, orc captain, war orc, black rat, pack rat, rat king, lightning bug, 
+		angels, archons, solars, plaetars, athols, mountain centaur, gnome king, 
+		All gnolls, all kops, ogre king, olog hai, all vampires, 
+		kobold zombie, ghast, ghoul mage, skeleton, prison guard, grey-elf, elf lord, drow, elvenking, doppleganger, 
+		all soldiers, watch captain, shade, water demon, lava demon, foocubus, 
+		horned devil, erinys, barbed devil, marilith, bar-lgura, chasme, bone devil, hezrou, ice devil, nalfeshnee, pit fiend, sandestin, 
+		
+	[x] Label every monster and item that came from Splice.
+
+	[x] Reorder objects and monsters
+	[x] Add tiles for new objects and monsters.

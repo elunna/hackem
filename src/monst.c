@@ -2303,7 +2303,7 @@ NEARDATA struct permonst mons[] = {
         M2_WANDER | M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 4, CLR_BROWN),
 
     /*  “Badgers? Badgers? We don’t need no stinking badgers!” --UHF  */
-      MON("giant badger", S_RODENT,                             /* Slash'EM */
+    MON("giant badger", S_RODENT,                             /* Slash'EM */
         LVL(2, 12, 6, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2),
           ATTK(AT_CLAW, AD_PHYS, 1, 2),
