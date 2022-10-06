@@ -2913,6 +2913,12 @@ int rtype;
     case PETSHOP:
         str =  "a pet store";
         break;
+    case ARCHERYSHOP:
+        str = "archery emporium";
+        break;
+    case MASKSHOP:
+        str = "mask shop";
+        break;
     case JUNKSHOP:
         str = "junk shop";
         break;

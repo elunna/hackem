@@ -217,6 +217,19 @@ static const char *shktins[] = {
     0
 };
 
+static const char *const shkarchery[] = {
+    /* Famous Archers, perhaps? */
+    "Robin",      "+William",  "Paris",  "Skadi",
+    "Cupid",      "Ullr",      "-Artemis",
+    "-Meduka",
+    /* Elven names from Tolkien's canon. */
+    "+Teleporno", "+Feano", 0
+};
+
+static const char *const shkmasks[] = {
+    "Happy", 0
+};
+
 static const char *const shkjunk[] = {
     /* Silly names, clown names */
     "=Spiffy", "=Bonko", "=Binky", "=Tubby", "=Zippy", "=Jumbo"
@@ -319,7 +332,23 @@ const struct shclass shtypes[] = {
         { 0, 0 },
         { 0, 0 } },
       shkbooks },
-     { "junk shop", RANDOM_CLASS, 2, D_SHOP,
+    { "archery emporium", WEAPON_CLASS, 2,
+      D_SHOP,
+      { { 30, -BOW },
+        { 35, -ELVEN_ARROW },
+        { 20, -ELVEN_BOW },
+        { 10, -LIGHT_ARROW },
+        { 5, WEAPON_CLASS } },
+      shkarchery },
+    { "mask shop", RANDOM_CLASS, 2,
+      D_SHOP,
+      { { 90, -MASK },
+        { 5, -LENSES },
+        { 5, -BLINDFOLD },
+        { 5, -GOGGLES },
+        { 0, 0} },
+      shkmasks },
+    { "junk shop", RANDOM_CLASS, 2, D_SHOP,
       { { 45, RANDOM_CLASS },
         /* {  2, -DECK_OF_FATE },*/
         { 10, -BASEBALL_BAT },

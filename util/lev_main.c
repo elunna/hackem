@@ -222,6 +222,8 @@ static struct {
     { "tin shop", TINSHOP },
     { "music shop", INSTRUMENTSHOP },
     { "pet shop", PETSHOP },	/* Stephen White */
+    { "archery shop", ARCHERYSHOP },
+    { "mask shop", MASKSHOP },
     { "junk shop", JUNKSHOP },
     { "health food shop", FODDERSHOP },
     { "candle shop", CANDLESHOP },

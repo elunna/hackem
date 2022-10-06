@@ -1794,3 +1794,76 @@ Splice Monsters
 	[x] spibrawulf
 		[x] AD_LARV - lays eggs inside you?
 		Rename to infester demon
+		
+
+	[x] flaming lash",
+		[x] Added fire damage, used existing torch code?
+		[x] Fix flaming lash (AC stat left on, should match bullship?)
+	[SKIPPED] psionic sphere (AD_PSYC)
+
+[x] Rename wand of windstorm to Wand of Wind
+	[x] eye of fear and flame" - high level lich? between demi and master
+		[x] ATTK(AT_GAZE, AD_FEAR, 0, 4), */
+	
+[x] hedgehog
+	[x] AD_QUIL
+	[x] move to 'r' symbols (even though it's not a rodent, it feels like one more than a quadraped)	
+[x] whirling sphere:
+	[x] AD_WIND?
+	DDSM protects against clobber/wind/hurtle
+
+	[x] mud elemental
+		[x] Added engulf attack (like water E)
+	[x] acid elemental
+		[x] Added acid engulf? (like shoggoth?)
+	[x] ice elemental
+		[x] Spits snowballs?
+	[x] magma elemental
+		[ ] Engulf or Spit attack?
+	[x] hydra - changed to : class
+		Multiple heads mechanic
+		- [ ] make the hydra fire res 
+		- compare splice vs slashem...
+	
+	[x] draugr - zombie?
+	[x] Add zombie bite attack, and vulnerable to fire.
+	
+[x] lion
+		Adjust level?
+		
+	[x] Change ?oChangeMaterials to Scroll of Transmogrify
+
+In SpliceHack, the player can sometimes become too afraid to control their actions.
+	similar to the effects of being stunned or confused. 
+	The player cannot control the direction of their actions. 
+	The player also loses control of teleports and polymorphs.
+	
+[x] bullet ant
+	[x] MS_ANT for ants
+
+
+	- [SKIPPED] Splice has ACBONUS for some weapons/items? Is this possible in evil?
+	
+	[x] ?o air
+		[SKIPPED] Make scroll of air remove poison gas as well.
+	
+	
+	- [x] horn of blasting 
+	
+	[x] masks /* monster type specified by obj->corpsenm */
+		[x] Lot of work, but probably worth it - they are fun and have special shops.
+		[x] use_mask
+		[x] misc_worn_check
+		[x] MASK
+
+[SKIPPED] encyclopedia
+
+	[x] yuki-onna
+		[x] Replace AD_LOST attack with AD_STUN
+	[x] dream thief (oneroi, oneroi)
+	 [x] Replaced AD_MEMR attack with spellcasting.
+	[x] gnomish psyker
+		[ ] Redo as kobold psyker?
+		[ ] Nerf their flayer attack a bit?
+		[ ] Make into a touch attack
+	
