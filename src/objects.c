@@ -322,7 +322,7 @@ WEAPON("mace", None,
 WEAPON("heavy mace", None,
        1, 0, 0, 0, 15,  50,  10, 10, 10, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
-WEAPON("executioner's mace", None,
+WEAPON("executioner's mace", None, /* Originally B|S */
        1, 0, 0, 0, 30,   5,  12, 12, 0,  0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
 /* placeholder for certain special weapons; does not spawn randomly */
@@ -370,6 +370,9 @@ WEAPON("flail", None,
 WEAPON("triple-headed flail", None,
        1, 0, 0, 1,  0, 150,  30, 12,  6, 3, B,   P_FLAIL, BONE, CLR_WHITE),
         /* +d4 small, +3d6 large */
+/* many-piece */
+WEAPON("spiked chain", None, /* Originally P|S */
+       1, 0, 0, 1,  3,  50,  80,  6,  4, 1, S,   P_FLAIL, IRON, HI_METAL),
 
 /* misc */
 WEAPON("bullwhip", None,

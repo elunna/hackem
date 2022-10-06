@@ -1234,7 +1234,8 @@ struct monst *mtmp;
 
         if (canseemon(mtmp)) {
             onm = xname(otmp);
-            pline("%s thrusts %s.", Monnam(mtmp),
+            pline("%s %s %s.", Monnam(mtmp),
+                  otmp->otyp == SPIKED_CHAIN ? "flicks" : "thrusts",
                   obj_is_pname(otmp) ? the(onm) : an(onm));
         }
 

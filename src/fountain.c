@@ -494,6 +494,8 @@ static const struct forge_recipe {
     { HEAVY_WAR_HAMMER, WAR_HAMMER, WAR_HAMMER, 1, 1 },
     { AKLYS, FLAIL, SPEAR, 1, 1 },
     { FLAIL, MORNING_STAR, MACE, 1, 1 },
+    { SPIKED_CHAIN,  IRON_CHAIN, DAGGER },
+    { SPIKED_CHAIN,  IRON_CHAIN, KNIFE },
     /* armor (helmets) */
     { ORCISH_HELM, DENTED_POT, ORCISH_DAGGER, 1, 1 },
     { DWARVISH_HELM, HELMET, DWARVISH_SHORT_SWORD, 1, 1 },

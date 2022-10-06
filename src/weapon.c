@@ -368,6 +368,7 @@ struct monst *mon;
         case BATTLE_AXE:
         case BARDICHE:
         case TRIDENT:
+        case SPIKED_CHAIN:
             tmp += d(2, 4);
             break;
 
@@ -406,6 +407,7 @@ struct monst *mon;
         case TRIPLE_HEADED_FLAIL:
         case SPETUM:
         case TRIDENT:
+        case SPIKED_CHAIN:
             tmp++;
             break;
 
@@ -847,6 +849,7 @@ static NEARDATA const int rwep[] = {
 };
 
 static NEARDATA const int pwep[] = { 
+    SPIKED_CHAIN,
     HALBERD,
     BARDICHE,
     SPETUM,
@@ -1088,6 +1091,7 @@ struct obj *obj;
 /* Weapons in order of preference */
 static const NEARDATA short hwep[] = {
     CORPSE, /* cockatrice corpse */
+    SPIKED_CHAIN,
     TSURUGI, 
     RUNESWORD, 
     ROD, 

@@ -1090,7 +1090,10 @@ int dieroll;
                 /* or strike with a missile in your hand... */
                 || (!thrown && (is_missile(obj) || is_ammo(obj)))
                 /* or use a pole at short range and not mounted or not a centaur... */
-                || (!thrown && !u.usteed && !Race_if(PM_CENTAUR) && is_pole(obj))
+                || (!thrown && !u.usteed 
+                      && !Race_if(PM_CENTAUR) 
+                      && is_pole(obj) 
+                      && obj->otyp != SPIKED_CHAIN)
                 /* or throw a missile without the proper bow... */
                 || (is_ammo(obj) && (thrown != HMON_THROWN
                                      || !ammo_and_launcher(obj, uwep)))) {
