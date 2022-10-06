@@ -137,7 +137,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(30, 10, MS_ANT, MZ_TINY), MR_COLD, MR_COLD,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE, M2_HOSTILE,
         0, M4_VULNERABLE_FIRE, 0, 6, CLR_CYAN),
-    MON("bullet ant", S_ANT, 
+    MON("bullet ant", S_ANT,                                  /* SpliceHack */
         LVL(4, 18, 3, 0, 0), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_STNG, AD_DRCO, 5, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -163,14 +163,14 @@ NEARDATA struct permonst mons[] = {
         SIZ(1, 5, MS_BUZZ, MZ_TINY), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, M2_HOSTILE | M2_FEMALE,
         0, 0, 0, 5, CLR_YELLOW),
-    MON("ichneumon larva", S_ANT, 
+    MON("ichneumon larva", S_ANT,                             /* SpliceHack */
         LVL(3, 18, -1, 0, 0), (G_GENO),
         A(ATTK(AT_STNG, AD_DRDX, 2, 3), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(30, 30, MS_BUZZ, MZ_TINY), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, 
         M2_HOSTILE, 0, 0, 0, 6, CLR_BRIGHT_BLUE),
-    MON("giant ichneumon", S_ANT, 
+    MON("giant ichneumon", S_ANT,                             /* SpliceHack */
         LVL(8, 18, -1, 0, 0), (G_GENO | 2),
         A(ATTK(AT_STNG, AD_DRDX, 2, 3), 
           ATTK(AT_STNG, AD_LARV, 2, 3),
@@ -209,7 +209,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_FEMALE | M2_PRINCE, 0, 0, 0, 13, HI_LORD),
 
     /* Various bugs */
-    MON("giant fly", S_ANT, 
+    MON("giant fly", S_ANT,                                   /* SpliceHack */
         LVL(1, 12, 3, 0, 0), (G_GENO | G_SGROUP | 3),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -240,7 +240,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1, 5, MS_BUZZ, MZ_TINY), MR_POISON | MR_SLEEP, MR_POISON | MR_SLEEP,
         M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, M2_HOSTILE | M2_NASTY, 
         0, 0, 0, 8, CLR_GREEN),
-    MON("giant praying mantis", S_ANT, 
+    MON("giant praying mantis", S_ANT,                        /* SpliceHack */
         LVL(7, 12, 2, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 6), 
           ATTK(AT_CLAW, AD_PHYS, 3, 6),
@@ -535,7 +535,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(800, 250, MS_BARK, MZ_MEDIUM), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_STRONG | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 7, HI_DOMESTIC),
-      MON("guard dog", S_DOG, 
+      MON("guard dog", S_DOG,                                 /* SpliceHack */
         LVL(10, 14, 4, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 3, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -608,7 +608,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(500, 250, MS_BARK, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE | M3_TRAITOR | M3_BERSERK, 0, 0, 8, CLR_BROWN),
-    MON("barghest", S_DOG, 
+    MON("barghest", S_DOG,                                    /* SpliceHack */
         LVL(7, 12, 4, 20, -7), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
           ATTK(AT_GAZE, AD_LUCK, 0, 0),
@@ -665,7 +665,8 @@ NEARDATA struct permonst mons[] = {
         SIZ(850, 350, MS_BARK, MZ_MEDIUM), MR_COLD, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 
         0, 0, 0, 15, CLR_GREEN),
-    MON("nova fox", S_DOG,  /* AKA "vulpenferno" */
+    /* Previously known as "vulpenferno" in Splice */
+    MON("nova fox", S_DOG,                                    /* SpliceHack */
         LVL(16, 16, 0, 5, 0), (G_GENO | 1),
         A(ATTK(AT_KICK, AD_PHYS, 2, 3), 
           ATTK(AT_TUCH, AD_ELEC, 1, 3),
@@ -770,7 +771,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
         M1_FLY | M1_AMPHIBIOUS | M1_NOLIMBS | M1_NOHEAD | M1_NOTAKE | M1_REGEN,
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 3, CLR_BLUE),
-    MON("weeping eye", S_EYE, 
+    MON("weeping eye", S_EYE,                                 /* SpliceHack */
         LVL(2, 1, 9, 10, 0), (G_GENO | 2),
         A(ATTK(AT_NONE, AD_RUST, 0, 70), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -810,7 +811,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 8, HI_ZAP),
-    MON("whirling sphere", S_EYE, 
+    MON("whirling sphere", S_EYE,                             /* SpliceHack */
         LVL(6, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2), 
         A(ATTK(AT_EXPL, AD_WIND, 3, 2), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -818,7 +819,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 7, CLR_CYAN),
-     MON("corrosive sphere", S_EYE, 
+     MON("corrosive sphere", S_EYE,                           /* SpliceHack */
         LVL(6, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2), 
         A(ATTK(AT_EXPL, AD_ACID, 4, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -827,7 +828,7 @@ NEARDATA struct permonst mons[] = {
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0,
         8, CLR_BRIGHT_GREEN),
-    MON("concussive sphere", S_EYE, 
+    MON("concussive sphere", S_EYE,                           /* SpliceHack */
         LVL(6, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2), 
         A(ATTK(AT_EXPL, AD_LOUD, 4, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -887,7 +888,7 @@ NEARDATA struct permonst mons[] = {
     /*
      * felines
      */
-    MON("serval", S_FELINE, 
+    MON("serval", S_FELINE,                                   /* SpliceHack */
         LVL(0, 13, 8, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2), 
           ATTK(AT_CLAW, AD_PHYS, 1, 2),
@@ -973,7 +974,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(300, 100, MS_GROWL, MZ_HUMAN), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 8, CLR_GRAY),
-    MON("lion", S_FELINE, 
+    MON("lion", S_FELINE,                                     /* SpliceHack */
         LVL(6, 12, 6, 0, 0), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -1001,7 +1002,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOHANDS | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE,
         M3_INFRAVISIBLE, 0, MH_WERE, 9, CLR_YELLOW),
-    MON("fat cat", S_FELINE, 
+    MON("fat cat", S_FELINE,                                  /* SpliceHack */
         LVL(10, 14, 3, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 3, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -1048,7 +1049,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(800, 400, MS_GROWL, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_FLANK, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 14, CLR_RED),
-    MON("serpopard", S_FELINE, 
+    MON("serpopard", S_FELINE,                                /* SpliceHack */
         LVL(27, 15, 6, 0, 0), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 6, 9), 
           ATTK(AT_CLAW, AD_PHYS, 6, 9),
@@ -1069,7 +1070,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(100, 20, MS_LAUGH, MZ_SMALL), MR_POISON, 0,
         M1_HUMANOID | M1_POIS, M2_STALK,
         M3_INFRAVISION | M3_SKITTISH, 0, 0, 2, CLR_GRAY),
-    MON("telamon", S_GREMLIN, 
+    MON("telamon", S_GREMLIN,                                 /* SpliceHack */
         LVL(2, 10, 4, 20, 3), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 12), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -1211,7 +1212,7 @@ NEARDATA struct permonst mons[] = {
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION | M3_BERSERK,
         0, MH_DWARF, 6, CLR_GRAY),
     /* Placeholder for player race Illithid, not generated at random */
-    MON("illithid", S_HUMANOID,
+    MON("illithid", S_HUMANOID,                                 /* EvilHack */
         LVL(0, 12, 10, 0, -8), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6),
           ATTK(AT_TENT, AD_DRIN, 2, 1),
@@ -1258,7 +1259,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_NASTY | M2_MAGIC | M2_GREEDY | M2_JEWELS | M2_COLLECT,
         M3_WANTSBOOK | M3_INFRAVISIBLE | M3_INFRAVISION, 0,
         MH_ILLITHID | MH_UNDEAD, 30, CLR_GRAY),
-    MON("planar pirate", S_HUMANOID, 
+    MON("planar pirate", S_HUMANOID,                          /* SpliceHack */
         LVL(15, 16, -7, 0, 0), (G_SGROUP | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK), 
@@ -1384,7 +1385,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(300, 200, MS_SQAWK, MZ_SMALL), MR_POISON, MR_POISON,
         M1_TPORT | M1_TPORT_CNTRL, M2_STALK, M3_INFRAVISIBLE | M3_INFRAVISION,
         0, 0, 7, CLR_CYAN),
-    MON("dust devil", S_IMP, 
+    MON("dust devil", S_IMP,                                  /* SpliceHack */
         LVL(6, 20, -6, 20, 11), (G_HELL | G_NOCORPSE | 2),
         A(ATTK(AT_CLAW, AD_BLND, 1, 4), 
           ATTK(AT_CLAW, AD_BLND, 1, 4),
@@ -1411,7 +1412,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(20, 10, MS_CUSS, MZ_TINY), 0, 0,
         M1_REGEN, M2_WANDER | M2_STALK, 
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 11, CLR_BLACK),
-    MON("redcap", S_IMP, 
+    MON("redcap", S_IMP,                                      /* SpliceHack */
         LVL(10, 15, 2, 30, 7), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2), 
           ATTK(AT_WEAP, AD_PHYS, 2, 4),
@@ -1601,7 +1602,7 @@ NEARDATA struct permonst mons[] = {
             | M1_NOEYES | M1_NOHEAD | M1_NOLIMBS | M1_THICK_HIDE
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, 0, 11, HI_LORD),
-    MON("killer mimic", S_MIMIC, 
+    MON("killer mimic", S_MIMIC,                              /* SpliceHack */
         LVL(10, 12, 7, 20, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_STCK, 3, 4), 
           ATTK(AT_BITE, AD_STCK, 3, 4), 
@@ -1668,7 +1669,7 @@ NEARDATA struct permonst mons[] = {
         M1_HUMANOID, M2_HOSTILE | M2_GREEDY | M2_NASTY,
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 8, CLR_BLUE),
     /* The AD_LOST attack makes you forget maps, replaced with stunning instead. */
-    MON("yuki-onna", S_NYMPH, 
+    MON("yuki-onna", S_NYMPH,                                 /* SpliceHack */
         LVL(5, 12, 9, 20, 5), (G_GENO | 2),
         A(ATTK(AT_TUCH, AD_COLD, 2, 6),
           ATTK(AT_TUCH, AD_STUN, 0, 0),
@@ -1685,7 +1686,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_GREEDY | M2_MAGIC | M1_HERBIVORE, 
         M3_INFRAVISIBLE, 0, 0, 11, CLR_BROWN),
-    MON("lampad", S_NYMPH, 
+    MON("lampad", S_NYMPH,                                    /* SpliceHack */
         LVL(10, 12, 0, 50, 0), (G_GENO | G_HELL | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 6), 
           ATTK(AT_CLAW, AD_PHYS, 3, 6),
@@ -1694,7 +1695,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
         M3_INFRAVISIBLE, 0, 0, 12, CLR_BLACK),
-    MON("dream thief", S_NYMPH, 
+    MON("dream thief", S_NYMPH,                               /* SpliceHack */
         LVL(14, 15, 4, 40, 0), (G_NOHELL | 1),
         A(ATTK(AT_CLAW, AD_CURS, 0, 0), 
           /*ATTK(AT_MAGC, AD_PSYC, 5, 5),*/
@@ -1707,7 +1708,7 @@ NEARDATA struct permonst mons[] = {
         M1_HUMANOID | M1_TPORT | M1_FLY,
         M2_HOSTILE | M2_MALE | M2_COLLECT, M3_INFRAVISIBLE, 
         0, 0, 18, CLR_BRIGHT_GREEN),
-    MON("thriae", S_NYMPH, 
+    MON("thriae", S_NYMPH,                                    /* SpliceHack */
         LVL(14, 12, 0, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
           ATTK(AT_STNG, AD_DRST, 2, 6),
@@ -1719,7 +1720,7 @@ NEARDATA struct permonst mons[] = {
         20, CLR_YELLOW),
    
     /* In Slash'EM, but we kept the EvilHack version - almost identical */
-    MON("Aphrodite", S_NYMPH,
+    MON("Aphrodite", S_NYMPH,                                   /* Slash'EM */
         LVL(10, 15, -5, 20, 0), (G_UNIQ | G_NOGEN | 1),
         A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
           ATTK(AT_CLAW, AD_SEDU, 0, 0),
@@ -1892,7 +1893,7 @@ NEARDATA struct permonst mons[] = {
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 9, CLR_WHITE),
-    MON("diamond piercer", S_PIERCER, 
+    MON("diamond piercer", S_PIERCER,                         /* SpliceHack */
         LVL(8, 1, 0, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 8, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -1900,7 +1901,7 @@ NEARDATA struct permonst mons[] = {
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 9, CLR_BLUE),
-    MON("god piercer", S_PIERCER, 
+    MON("god piercer", S_PIERCER,                             /* SpliceHack */
         LVL(20, 1, 0, 0, 3), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 16, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -1920,14 +1921,14 @@ NEARDATA struct permonst mons[] = {
         SIZ(200, 50, MS_SHEEP, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 3, CLR_WHITE),
-    MON("pig", S_QUADRUPED, 
+    MON("pig", S_QUADRUPED,                                   /* SpliceHack */
         LVL(1, 12, 7, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 100, MS_PIG, MZ_MEDIUM), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 2, HI_DOMESTIC),
-    MON("feral hog", S_QUADRUPED, 
+    MON("feral hog", S_QUADRUPED,                             /* SpliceHack */
         LVL(2, 12, 7, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BUTT, AD_PHYS, 1, 4), 
           ATTK(AT_BUTT, AD_PHYS, 1, 4),
@@ -1953,7 +1954,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(400, 100, MS_SILENT, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE, M2_HOSTILE, M3_INFRAVISIBLE,
         0, 0, 4, CLR_BROWN),
-    MON("llama", S_QUADRUPED, 
+    MON("llama", S_QUADRUPED,                                 /* SpliceHack */
         LVL(3, 9, 7, 0, 0), (G_GENO | 2),
         A(ATTK(AT_KICK, AD_PHYS, 2, 4), 
           ATTK(AT_SPIT, AD_ACID, 1, 4),
@@ -1961,7 +1962,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(400, 100, MS_SILENT, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 4, HI_DOMESTIC),
-    MON("goat", S_QUADRUPED,                                  /* Slash'EM */
+    MON("goat", S_QUADRUPED,                                    /* Slash'EM */
         LVL(4, 12, 6, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BUTT, AD_PHYS, 2, 4), 
           ATTK(AT_KICK, AD_PHYS, 1, 4),
@@ -1978,7 +1979,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(2000, 300, MS_COW, MZ_MEDIUM), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC | M2_FEMALE, 
         M3_INFRAVISIBLE, 0, 0, 8, CLR_WHITE),
-    MON("black bear", S_QUADRUPED, 
+    MON("black bear", S_QUADRUPED,                            /* SpliceHack */
         LVL(7, 12, 7, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 8), 
           ATTK(AT_CLAW, AD_PHYS, 1, 3),
@@ -1988,7 +1989,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_STRONG, M3_INFRAVISIBLE, 0, 0,
         8, CLR_BLACK),
-    MON("werebear", S_QUADRUPED, 
+    MON("werebear", S_QUADRUPED,                              /* SpliceHack */
         LVL(7, 12, 7, 0, 0), (G_GENO | G_NOCORPSE),
         A(ATTK(AT_BITE, AD_WERE, 1, 8), 
           ATTK(AT_CLAW, AD_PHYS, 1, 3),
@@ -2016,7 +2017,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1200, 500, MS_IMITATE, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE, M2_HOSTILE | M2_STRONG,
         M3_INFRAVISIBLE, 0, 0, 8, CLR_RED),
-    MON("landshark", S_QUADRUPED, 
+    MON("landshark", S_QUADRUPED,                             /* SpliceHack */
         LVL(7, 12, 2, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 5, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -2032,7 +2033,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(2500, 500, MS_BURBLE, MZ_LARGE), 0, 0,
         M1_CLING | M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE, 0, 0, 9, CLR_CYAN),
-     MON("manticore", S_QUADRUPED, 
+     MON("manticore", S_QUADRUPED,                            /* SpliceHack */
         LVL(10, 12, 3, 10, 0), (G_GENO | 2),
         A(ATTK(AT_NONE, AD_QUIL, 3, 3), 
           ATTK(AT_BITE, AD_PHYS, 2, 4),
@@ -2050,7 +2051,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(3500, 700, MS_ROAR, MZ_HUGE), 0, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_HERBIVORE,
         M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE, 0, 0, 10, CLR_GRAY),
-    MON("chimera", S_QUADRUPED, 
+    MON("chimera", S_QUADRUPED,                               /* SpliceHack */
         LVL(10, 12, 4, 20, -1), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 10), 
           ATTK(AT_BITE, AD_DRST, 2, 4),
@@ -2060,7 +2061,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_STRONG |
         M2_NASTY, M3_INFRAVISIBLE, 0, 0, 12, CLR_GREEN),
     /* Grizzly bears are always hostile because come on--They're grizzlies. */
-    MON("grizzly bear", S_QUADRUPED, 
+    MON("grizzly bear", S_QUADRUPED,                          /* SpliceHack */
         LVL(12, 12, 7, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 3),
@@ -2070,7 +2071,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_STRONG | M2_HOSTILE, M3_INFRAVISIBLE, 0, 0,
         5, CLR_YELLOW),
-    MON("hippo", S_QUADRUPED, 
+    MON("hippo", S_QUADRUPED,                                 /* SpliceHack */
         LVL(10, 3, 2, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 8, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -2092,7 +2093,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(3800, 800, MS_SILENT, MZ_HUGE), 0, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_HERBIVORE,
         M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE, 0, 0, 15, CLR_GRAY),
-    MON("hellbear", S_QUADRUPED, 
+    MON("hellbear", S_QUADRUPED,                              /* SpliceHack */
         LVL(16, 13, 5, 0, -1), (G_GENO | G_HELL | 3),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -2186,7 +2187,7 @@ NEARDATA struct permonst mons[] = {
       /* Hedgehog was 'q' class in SpliceHack, but it is small and 
       fits a little better with the rodents and stands out as yellow.
       */
-      MON("hedgehog", S_RODENT, 
+      MON("hedgehog", S_RODENT,                               /* SpliceHack */
         LVL(0, 12, 0, 0, 0), (G_GENO | 3),
         A(ATTK(AT_BITE, AD_PHYS, 1, 1), 
           ATTK(AT_NONE, AD_QUIL, 2, 3),
@@ -2240,7 +2241,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, 
          M2_HOSTILE | M2_COLLECT | M2_STRONG | M2_FLANK,
         M3_INFRAVISIBLE, 0, 0, 3, CLR_BLACK),
-    MON("skunk", S_RODENT, 
+    MON("skunk", S_RODENT,                                    /* SpliceHack */
         LVL(1, 10, 8, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           ATTK(AT_NONE, AD_BLND, 0, 0),
@@ -2302,7 +2303,7 @@ NEARDATA struct permonst mons[] = {
         M2_WANDER | M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 4, CLR_BROWN),
 
     /*  “Badgers? Badgers? We don’t need no stinking badgers!” --UHF  */
-      MON("giant badger", S_RODENT,                               /* Slash'EM */
+      MON("giant badger", S_RODENT,                             /* Slash'EM */
         LVL(2, 12, 6, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2),
           ATTK(AT_CLAW, AD_PHYS, 1, 2),
@@ -2311,7 +2312,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(200, 50, MS_SILENT, MZ_MEDIUM), 0, 0,
         M1_SWIM | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 4, CLR_BROWN),
-    MON("honey badger", S_RODENT,
+    MON("honey badger", S_RODENT,                               /* EvilHack */
         LVL(10, 12, 0, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6),
           ATTK(AT_CLAW, AD_PHYS, 2, 8),
@@ -2338,7 +2339,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(50, 50, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE, 0, 0, 0, 5, CLR_BROWN),
-    MON("jumping spider", S_SPIDER,
+    MON("jumping spider", S_SPIDER,                             /* EvilHack */
         LVL(3, 15, 3, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_DRST, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -2371,7 +2372,7 @@ NEARDATA struct permonst mons[] = {
             | M1_CARNIVORE | M3_SKITTISH,
         M2_HOSTILE | M2_STRONG,
         0, 0, 0, 10, CLR_BLUE),
-    MON("monstrous spider", S_SPIDER, 
+    MON("monstrous spider", S_SPIDER,                         /* SpliceHack */
         LVL(8, 15, 4, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 4, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -2407,8 +2408,6 @@ NEARDATA struct permonst mons[] = {
         M2_STRONG | M2_PNAME | M2_PRINCE | M2_FEMALE | M2_STALK
             | M2_HOSTILE | M2_NASTY | M2_NOPOLY,
         M3_INFRAVISION | M3_NOTAME, 0, 0, 31, CLR_BLACK),
-
-
     MON("scorpion", S_SPIDER,
         LVL(5, 15, 3, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2), 
@@ -2519,7 +2518,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_WANDER | M2_STRONG | M2_DOMESTIC, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 5, CLR_GREEN),
-    MON("nightmare", S_UNICORN,
+    MON("nightmare", S_UNICORN,                                 /* EvilHack */
         LVL(5, 20, 5, 0, -9), (G_GENO | 2),
         A(ATTK(AT_KICK, AD_PHYS, 1, 8),
           ATTK(AT_BITE, AD_DRST, 1, 2),
@@ -2536,7 +2535,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_WANDER | M2_STRONG | M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 10, CLR_GREEN),
-    MON("selkie", S_UNICORN, 
+    MON("selkie", S_UNICORN,                                  /* SpliceHack */
         LVL(11, 24, 4, 0, 0), (G_GENO | 1),
         A(ATTK(AT_KICK, AD_PHYS, 1, 10), 
           ATTK(AT_BITE, AD_DRLI, 2, 6),
@@ -2860,7 +2859,7 @@ NEARDATA struct permonst mons[] = {
     /*
      * lights
      */
-    MON("will-o'-the-wisp", S_LIGHT, 
+    MON("will-o'-the-wisp", S_LIGHT,                          /* SpliceHack */
         LVL(2, 9, 2, 0, 0), (G_NOCORPSE | G_SGROUP | G_GENO | 4),
         A(ATTK(AT_TUCH, AD_BLND, 1, 2), 
           ATTK(AT_TUCH, AD_ELEC, 1, 1),
@@ -2919,7 +2918,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_OVIPAROUS | M1_SWIM | M1_THICK_HIDE,
         M2_WANDER, M3_INFRAVISIBLE, 0, 0, 6, CLR_GREEN),
      /* IRC YANI */
-    MON("drop bear", S_ZOUTHERN,
+    MON("drop bear", S_ZOUTHERN,                              /* SpliceHack */
         LVL(4, 9, 7, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2), 
           ATTK(AT_CLAW, AD_PHYS, 1, 2),
@@ -3004,7 +3003,7 @@ NEARDATA struct permonst mons[] = {
         M1_HUMANOID | M1_SEE_INVIS,
         M2_MINION | M2_STALK | M2_NASTY | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 12, CLR_YELLOW),
-    MON("lamassu", S_ANGEL, 
+    MON("lamassu", S_ANGEL,                                   /* SpliceHack */
         LVL(12, 12, -3, 50, 0), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3166,7 +3165,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(30, 30, MS_SQEEK, MZ_SMALL), 0, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
         M2_WANDER | M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 3, CLR_RED),
-    MON("zoo bat", S_BAT, 
+    MON("zoo bat", S_BAT,                                     /* SpliceHack */
         LVL(3, 20, 7, 0, 0), (G_GENO | G_LGROUP | 3),
         A(ATTK(AT_BITE, AD_PHYS, 1, 3), 
           ATTK(AT_BITE, AD_CONF, 1, 6),
@@ -3224,7 +3223,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
         M2_WANDER | M2_HOSTILE | M2_FLANK, 
         M3_INFRAVISIBLE, 0, 0, 10, CLR_GRAY),
-    MON("gaol bat", S_BAT, 
+    MON("gaol bat", S_BAT,                                    /* SpliceHack */
         LVL(8, 20, 6, 0, 0), (G_GENO | G_HELL | G_SGROUP | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 6), 
           ATTK(AT_BITE, AD_DRST, 0, 0),
@@ -3233,7 +3232,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(30, 20, MS_SQEEK, MZ_SMALL), MR_POISON, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_HOSTILE | M2_FLANK, M3_INFRAVISIBLE, 0, 0, 9, HI_GOLD),
-    MON("phoenix", S_BAT, 
+    MON("phoenix", S_BAT,                                     /* SpliceHack */
         LVL(15, 20, -7, 40, 7), (G_GENO | G_NOCORPSE | 2),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
           ATTK(AT_CLAW, AD_PHYS, 3, 6),
@@ -3244,7 +3243,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_OVIPAROUS,
         M2_WANDER | M2_STRONG | M2_NASTY, 
         M3_INFRAVISIBLE, 0, 0, 20, CLR_ORANGE),
-    
     MON("harpy", S_BAT,                                         /* Slash'EM */
         LVL(9, 17, 5, 0, -4), (G_HELL | G_GENO | G_SGROUP | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 12), 
@@ -3293,7 +3291,7 @@ NEARDATA struct permonst mons[] = {
     /*
      * Centaurs
      */
-    MON("centaur", S_CENTAUR,
+    MON("centaur", S_CENTAUR,                                   /* EvilHack */
         LVL(0, 18, 4, 0, 0), G_NOGEN, /* placeholder */
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
           ATTK(AT_KICK, AD_PHYS, 1, 6), 
@@ -3420,7 +3418,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, DRAGON_SILVER),
-    MON("baby shimmering dragon", S_DRAGON,
+    MON("baby shimmering dragon", S_DRAGON,            /* Evilhack/Slash'EM */
         LVL(12, 9, 2, 10, 0), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3567,7 +3565,8 @@ NEARDATA struct permonst mons[] = {
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         0, 0, MH_DRAGON, 20, DRAGON_SILVER),
-    MON("shimmering dragon", S_DRAGON, LVL(15, 9, -1, 20, 4), (G_GENO | 1),
+    MON("shimmering dragon", S_DRAGON,                 /* Evilhack/Slash'EM */
+        LVL(15, 9, -1, 20, 4), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_MAGM, 4, 6), 
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
@@ -3734,7 +3733,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         0, 0, MH_DRAGON, 24, CLR_BROWN),
-    MON("hydra", S_DRAGON,                                      /* Slash'EM */
+    MON("hydra", S_DRAGON,                         /* Slash'EM + SpliceHack */
         LVL(13, 9, -2, 5, 7), (G_GENO|1),
         A(ATTK(AT_NONE, AD_HYDR, 0, 0), 
           ATTK(AT_BITE, AD_PHYS, 3, 6),
@@ -3797,7 +3796,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_UNSOLID | M1_AMPHIBIOUS | M1_SWIM,
         M2_STRONG | M2_NEUTER, 0, M4_VULNERABLE_ELEC, 0, 10, CLR_BLUE),
-    MON("mud elemental", S_ELEMENTAL, 
+    MON("mud elemental", S_ELEMENTAL,                         /* SpliceHack */
         LVL(8, 6, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 6), 
           ATTK(AT_ENGL, AD_WRAP, 4, 4),
@@ -3808,7 +3807,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_WALLWALK | M1_UNSOLID | M1_THICK_HIDE | M1_AMPHIBIOUS | M1_SWIM,
         M2_STRONG | M2_NEUTER, 0, 0, 0, 11, CLR_BROWN),
-    MON("acid elemental", S_ELEMENTAL, 
+    MON("acid elemental", S_ELEMENTAL,                        /* SpliceHack */
         LVL(8, 6, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_CLAW, AD_ACID, 3, 6), 
           ATTK(AT_NONE, AD_ACID, 0, 4),
@@ -3819,7 +3818,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_WALLWALK | M1_THICK_HIDE | M1_UNSOLID | M1_AMPHIBIOUS | M1_SWIM,
         M2_STRONG | M2_NEUTER, 0, 0, 0, 12, CLR_BRIGHT_GREEN),
-    MON("ice elemental", S_ELEMENTAL, 
+    MON("ice elemental", S_ELEMENTAL,                         /* SpliceHack */
         LVL(8, 12, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 5, 6), 
           ATTK(AT_NONE, AD_COLD, 0, 4),
@@ -3830,7 +3829,7 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_UNSOLID | M1_AMPHIBIOUS | M1_SWIM,
         M2_STRONG | M2_NEUTER, 0, 0, 0, 12, CLR_WHITE),
-    MON("magma elemental", S_ELEMENTAL, 
+    MON("magma elemental", S_ELEMENTAL,                       /* SpliceHack */
         LVL(8, 6, 2, 30, 0), (G_NOCORPSE | G_HELL),
         A(ATTK(AT_CLAW, AD_FIRE, 4, 5), 
           ATTK(AT_NONE, AD_FIRE, 0, 4), 
@@ -3867,7 +3866,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_POIS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 2, CLR_YELLOW),
-    MON("volatile mushroom", S_FUNGUS, 
+    MON("volatile mushroom", S_FUNGUS,                        /* SpliceHack */
         LVL(1, 0, 9, 0, 0), (G_GENO | G_LGROUP | 1),
         A(ATTK(AT_BOOM, AD_PHYS, 4, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -3907,7 +3906,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 5, CLR_MAGENTA),
-    MON("screamer", S_FUNGUS, 
+    MON("screamer", S_FUNGUS,                                 /* SpliceHack */
         LVL(4, 4, 7, 0, 0), (G_GENO | 1),
         A(ATTK(AT_TUCH, AD_LOUD, 3, 3),
         NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -3948,7 +3947,7 @@ NEARDATA struct permonst mons[] = {
         
 #endif
 
-    MON("brown moldier", S_FUNGUS, 
+    MON("brown moldier", S_FUNGUS,                            /* SpliceHack */
         LVL(5, 12, 8, 0, 0), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
           ATTK(AT_NONE, AD_COLD, 0, 6),
@@ -3957,7 +3956,7 @@ NEARDATA struct permonst mons[] = {
         MR_COLD | MR_SLEEP | MR_POISON, 0,
         M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
         M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_BROWN),
-    MON("yellow moldier", S_FUNGUS, 
+    MON("yellow moldier", S_FUNGUS,                           /* SpliceHack */
         LVL(5, 12, 8, 0, 0), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
           ATTK(AT_NONE, AD_STUN, 0, 4),
@@ -3966,7 +3965,7 @@ NEARDATA struct permonst mons[] = {
         MR_SLEEP | MR_POISON, 0,
         M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
         M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_YELLOW),
-    MON("green moldier", S_FUNGUS, 
+    MON("green moldier", S_FUNGUS,                            /* SpliceHack */
         LVL(5, 12, 8, 0, 0), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
           ATTK(AT_NONE, AD_ACID, 0, 4),
@@ -3975,7 +3974,7 @@ NEARDATA struct permonst mons[] = {
         MR_SLEEP | MR_ACID | MR_STONE, 0,
         M1_BREATHLESS | M1_HUMANOID | M1_NOEYES,
         M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_GREEN),
-    MON("red moldier", S_FUNGUS, 
+    MON("red moldier", S_FUNGUS,                              /* SpliceHack */
         LVL(5, 12, 8, 0, 0), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4), ATTK(AT_NONE, AD_FIRE, 0, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -3988,7 +3987,7 @@ NEARDATA struct permonst mons[] = {
     /*
      * ferns and their spores
      */
-    MON("dungeon fern", S_FUNGUS,
+    MON("dungeon fern", S_FUNGUS,                              /* UnNetHack */
         LVL(12, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | G_NOHELL | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           ATTK(AT_NONE, AD_ACID, 2, 8),
@@ -3998,7 +3997,7 @@ NEARDATA struct permonst mons[] = {
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 14, CLR_WHITE),
-    MON("dungeon fern sprout", S_FUNGUS,
+    MON("dungeon fern sprout", S_FUNGUS,                       /* UnNetHack */
         LVL(6, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4006,7 +4005,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 8, CLR_WHITE),
-    MON("dungeon fern spore", S_EYE,
+    MON("dungeon fern spore", S_EYE,                           /* UnNetHack */
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_EXPL, AD_PHYS, 2, 6), 
           ATTK(AT_BOOM, AD_PHYS, 2, 6),
@@ -4015,7 +4014,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0,
         0, 4, CLR_GREEN),
-    MON("arctic fern", S_FUNGUS,
+    MON("arctic fern", S_FUNGUS,                               /* UnNetHack */
         LVL(12, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           ATTK(AT_NONE, AD_COLD, 2, 8),
@@ -4024,7 +4023,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 14, CLR_BLUE),
-    MON("arctic fern sprout", S_FUNGUS,
+    MON("arctic fern sprout", S_FUNGUS,                        /* UnNetHack */
         LVL(6, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4032,7 +4031,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 8, CLR_BLUE),
-    MON("arctic fern spore", S_EYE,
+    MON("arctic fern spore", S_EYE,                            /* UnNetHack */
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_EXPL, AD_COLD, 2, 4), 
           ATTK(AT_BOOM, AD_PHYS, 2, 4),
@@ -4041,7 +4040,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0, 
         0, 4, CLR_BRIGHT_BLUE),
-    MON("blazing fern", S_FUNGUS,
+    MON("blazing fern", S_FUNGUS,                              /* UnNetHack */
         LVL(12, 2, 10, 0, 0), (G_HELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0),
           ATTK(AT_NONE, AD_FIRE, 2, 8),
@@ -4050,7 +4049,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 14, CLR_ORANGE),
-    MON("blazing fern sprout", S_FUNGUS,
+    MON("blazing fern sprout", S_FUNGUS,                       /* UnNetHack */
         LVL(6, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4058,7 +4057,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY,
         0, 8, CLR_ORANGE),
-    MON("blazing fern spore", S_EYE,
+    MON("blazing fern spore", S_EYE,                           /* UnNetHack */
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_EXPL, AD_FIRE, 2, 4), 
           ATTK(AT_BOOM, AD_PHYS, 2, 4),
@@ -4067,7 +4066,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0,
         0, 4, CLR_RED),
-    MON("swamp fern", S_FUNGUS,
+    MON("swamp fern", S_FUNGUS,                                /* UnNetHack */
         LVL(12, 2, 10, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           ATTK(AT_NONE, AD_DISE, 0, 0),
@@ -4076,7 +4075,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY, 
         0, 14, CLR_BLACK),
-    MON("swamp fern sprout", S_FUNGUS,
+    MON("swamp fern sprout", S_FUNGUS,                         /* UnNetHack */
         LVL(6, 2, 10, 0, 0), (G_GENO | G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_GAZE, AD_SPOR, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4084,7 +4083,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, M4_STATIONARY, 
         0, 8, CLR_BLACK),
-    MON("swamp fern spore", S_EYE,
+    MON("swamp fern spore", S_EYE,                             /* UnNetHack */
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_EXPL, AD_PHYS, 4, 8), 
           ATTK(AT_BOOM, AD_ACID, 4, 8),
@@ -4093,7 +4092,8 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS,
         M2_HOSTILE | M2_NEUTER | M2_NOPOLY, 0, 0, 
         0, 4, CLR_CYAN),
-    MON("fern spore", S_EYE, /* generic fern spore */
+    /* generic fern spore */
+    MON("fern spore", S_EYE,                                   /* UnNetHack */
         LVL(1, 3, 5, 0, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_EXPL, AD_PHYS, 2, 4), 
           ATTK(AT_BOOM, AD_PHYS, 2, 4),
@@ -4141,7 +4141,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(700, 120, MS_HUMANOID, MZ_SMALL), 0, 0, M1_HUMANOID | M1_OMNIVORE,
         M2_MAGIC, M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_GNOME, 5, HI_ZAP),
-    MON("gnomish psyker", S_GNOME, 
+    MON("gnomish psyker", S_GNOME,                            /* SpliceHack */
         LVL(3, 10, 4, 10, 0), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4196,42 +4196,50 @@ NEARDATA struct permonst mons[] = {
 
     /* [Lethe] Gnolls are no longer S_HUMANOID */
 
-    MON("gnoll", S_GNOME,
+    MON("gnoll", S_GNOME,                                       /* Slash'EM */
         LVL(18, 12, 5, 10, -5), (G_GENO | G_HELL | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 6),  
           ATTK(AT_WEAP, AD_PHYS, 3, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1200, 300, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
         M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS | M2_FLANK,
-        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 20, CLR_GRAY),
-    MON("gnoll warrior", S_GNOME,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS
+          | M2_FLANK,
+        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
+        0, MH_GNOLL, 20, CLR_GRAY),
+    MON("gnoll warrior", S_GNOME,                               /* Slash'EM */
         LVL(24, 15, 0, 20, -6), (G_GENO | G_HELL | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 6),  
           ATTK(AT_WEAP, AD_PHYS, 3, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1300, 350, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
         M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS, | M2_FLANK
-        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 26, CLR_WHITE),
-    MON("gnoll chieftain", S_GNOME,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS 
+          | M2_FLANK,
+        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
+        0, MH_GNOLL, 26, CLR_WHITE),
+    MON("gnoll chieftain", S_GNOME,                             /* Slash'EM */
         LVL(30, 18, -5, 40, -8), (G_GENO | G_HELL | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 6),  
           ATTK(AT_WEAP, AD_PHYS, 3, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1200, 300, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
         M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS | M2_FLANK,
-        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 33, CLR_MAGENTA),
-    MON("gnoll shaman", S_GNOME,
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS 
+          | M2_FLANK,
+        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
+        0, MH_GNOLL, 33, CLR_MAGENTA),
+    MON("gnoll shaman", S_GNOME,                                /* Slash'EM */
         LVL(18, 15, 0, 60, -10), (G_GENO | G_HELL | 1),
         A(ATTK(AT_MAGC, AD_SPEL, 0, 0), 
           ATTK(AT_MAGC, AD_CLRC, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1200, 300, MS_LAUGH , MZ_MEDIUM), MR_POISON, 0,
         M1_HIDE | M1_HUMANOID | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS | M2_FLANK,
-        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOLL, 22, CLR_YELLOW),
+        M2_NOPOLY | M2_HOSTILE | M2_COLLECT | M2_MAGIC | M2_GREEDY | M2_JEWELS 
+          | M2_FLANK,
+        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
+        0, MH_GNOLL, 22, CLR_YELLOW),
 
     #if 0 /* Evilhack version */
     MON("gnoll hunter", S_GNOME, LVL(7, 12, 6, 0, -10), (G_GENO | G_SGROUP | 2),
@@ -4266,7 +4274,7 @@ NEARDATA struct permonst mons[] = {
             | M2_HOSTILE | M2_FLANK,
         M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_GNOLL, 12, CLR_YELLOW),
-    MON("marrashi", S_GNOME,
+    MON("marrashi", S_GNOME,                                  /* SpliceHack */
       	LVL(20, 15, 0, 60, 5), (G_GENO | 1),
       	A(ATTK(AT_WEAP, AD_PHYS, 3, 6), 
           ATTK(AT_WEAP, AD_PHYS, 3, 6),
@@ -4527,7 +4535,7 @@ struct permonst _mons2[] = {
     /*
      * Liches
      */
-    MON("worm that walks", S_LICH, 
+    MON("worm that walks", S_LICH,                            /* SpliceHack */
         LVL(11, 6, 0, 30, -9), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_WEAP, AD_DRCO, 1, 10), 
           ATTK(AT_MAGC, AD_SPEL, 0, 0), 
@@ -4555,7 +4563,7 @@ struct permonst _mons2[] = {
         MR_COLD, M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_HOSTILE | M2_MAGIC, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 18, CLR_RED),
-    MON("eye of fear and flame", S_LICH, 
+    MON("eye of fear and flame", S_LICH,                      /* SpliceHack */
         LVL(16, 9, -4, 70, -13), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_GAZE, AD_FEAR, 0, 4),
           ATTK(AT_GAZE, AD_FIRE, 4, 4),
@@ -4566,7 +4574,6 @@ struct permonst _mons2[] = {
         MR_COLD, M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_HOSTILE | M2_MAGIC, M3_INFRAVISION, 0, 
         MH_UNDEAD, 18, CLR_ORANGE),
-    
     MON("master lich", S_LICH,
         LVL(17, 9, -4, 90, -15), (G_HELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_TUCH, AD_COLD, 3, 6), 
@@ -4670,7 +4677,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_POIS,
         M2_HOSTILE | M2_STRONG, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 8, CLR_BLUE),
-    MON("adherer", S_MUMMY, 
+    MON("adherer", S_MUMMY,                                   /* SpliceHack */
         LVL(7, 12, 4, 30, -5), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_STCK, 2, 4), 
           ATTK(AT_CLAW, AD_WTHR, 2, 4),
@@ -4768,7 +4775,7 @@ struct permonst _mons2[] = {
         M1_NOLIMBS | M1_SLITHY | M1_THICK_HIDE | M1_OVIPAROUS | M1_POIS
             | M1_NOTAKE | M1_OMNIVORE,
         M2_STRONG, 0, 0, 0, 16, CLR_GREEN),
-    MON("ha-naga", S_NAGA, 
+    MON("ha-naga", S_NAGA,                                    /* SpliceHack */
         LVL(20, 18, -4, 70, -2), (G_GENO | G_HELL | 1),
         A(ATTK(AT_BITE, AD_PLYS, 2, 3), 
           ATTK(AT_SPIT, AD_DRST, 3, 6),
@@ -4860,7 +4867,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_ACID | M1_POIS,
         M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 8, CLR_GREEN),
-    MON("blood pudding", S_PUDDING, 
+    MON("blood pudding", S_PUDDING,                           /* SpliceHack */
         LVL(7, 5, 4, 0, 0), (G_GENO | G_NOCORPSE | 1), 
         A(ATTK(AT_TUCH, AD_DRLI, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4870,7 +4877,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
         M2_HOSTILE | M2_NEUTER | M2_NASTY, 0, 0, 0, 9, CLR_RED),
-    MON("gel", S_PUDDING, 
+    MON("gel", S_PUDDING,                                     /* SpliceHack */
         LVL(7, 5, 4, 0, 0), (G_GENO | G_NOCORPSE | 2), 
         A(ATTK(AT_ENGL, AD_POTN, 3, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -4944,7 +4951,7 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 20, MS_HUMANOID, MZ_HUMAN), MR_POISON, 0,
         M1_HUMANOID | M1_OMNIVORE | M1_POIS | M1_TPORT, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 9, CLR_CYAN),
-    MON("alchemist", S_QUANTMECH, 
+    MON("alchemist", S_QUANTMECH,                             /* SpliceHack */
         LVL(9, 12, 3, 10, 0), (G_GENO | 3),
         A(ATTK(AT_NONE, AD_ACID, 2, 3), 
           ATTK(AT_WEAP, AD_PHYS, 3, 4),
@@ -5034,7 +5041,7 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_CONCEAL | M1_NOLIMBS | M1_ANIMAL | M1_SLITHY | M1_POIS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, M3_ACCURATE, 0, 0, 10, CLR_BLUE),
-     MON("cerastes", S_SNAKE, 
+     MON("cerastes", S_SNAKE,                                 /* SpliceHack */
         LVL(7, 0, 15, 10, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 6), 
           ATTK(AT_BUTT, AD_PHYS, 1, 8), 
@@ -5070,7 +5077,7 @@ struct permonst _mons2[] = {
         M1_NOLIMBS | M1_SWIM | M1_SLITHY | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M1_NOTAKE, 
         M3_INFRAVISIBLE, 0, MH_WERE, 12, CLR_BROWN),
-    MON("amphisbaena", S_SNAKE, 
+    MON("amphisbaena", S_SNAKE,                               /* SpliceHack */
         LVL(9, 12, 5, 0, -3), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_DRST, 2, 4), 
           ATTK(AT_BITE, AD_DRST, 2, 4),
@@ -5158,7 +5165,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_REGEN | M1_CARNIVORE,
         M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT | M2_FLANK,
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_TROLL, 16, HI_LORD),
-     MON("cave troll", S_TROLL, 
+     MON("cave troll", S_TROLL,                               /* SpliceHack */
         LVL(16, 12, 4, 0, -3), (G_GENO | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 2), 
           ATTK(AT_CLAW, AD_PHYS, 3, 2),
@@ -5180,7 +5187,7 @@ struct permonst _mons2[] = {
         M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_TROLL, 21, CLR_BLACK),
-    MON("grave troll", S_TROLL, 
+    MON("grave troll", S_TROLL,                               /* SpliceHack */
         LVL(22, 8, 0, 60, 0), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 12), 
           ATTK(AT_CLAW, AD_PHYS, 2, 12),
@@ -5204,7 +5211,7 @@ struct permonst _mons2[] = {
         SIZ(1200, 500, MS_SILENT, MZ_LARGE), 0, 0, 
         M1_TUNNEL | M1_CARNIVORE, M2_STRONG, 
         M3_INFRAVISIBLE, 0, 0, 12, CLR_BROWN),
-    MON("umbral hulk", S_UMBER, 
+    MON("umbral hulk", S_UMBER,                     /* SpliceHack/SlashTHEM */
         LVL(10, 6, 2, 25, -3), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           ATTK(AT_CLAW, AD_PHYS, 3, 4),
@@ -5214,7 +5221,7 @@ struct permonst _mons2[] = {
         SIZ(1200, 500, MS_SILENT, MZ_LARGE), 0, 0,
         M1_CARNIVORE, M2_STRONG | M2_WANDER | M2_HOSTILE, 
         M3_INFRAVISIBLE, 0, 0, 14, CLR_BLACK),
-    MON("hunger hulk", S_UMBER, 
+    MON("hunger hulk", S_UMBER,                      /* SpliceHack/SlashTHEM */
         LVL(11, 6, 2, 25, -3), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           ATTK(AT_CLAW, AD_PHYS, 3, 4),
@@ -5224,7 +5231,7 @@ struct permonst _mons2[] = {
         SIZ(1200, 1, MS_SILENT, MZ_LARGE), 0, 0,
         M1_CARNIVORE | M1_TUNNEL, M2_STRONG, 
         M3_INFRAVISIBLE, 0, 0, 15, CLR_RED),
-    MON("slumber hulk", S_UMBER, 
+    MON("slumber hulk", S_UMBER,                     /* SpliceHack/SlashTHEM */
         LVL(9, 6, -12, 25, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           ATTK(AT_CLAW, AD_PHYS, 3, 4),
@@ -5234,7 +5241,7 @@ struct permonst _mons2[] = {
         SIZ(1200, 500, MS_SILENT, MZ_LARGE), 0, 0, 
         M1_TUNNEL | M1_CARNIVORE, M2_STRONG, 
         M3_INFRAVISIBLE, 0, 0, 16, CLR_BLUE),
-    MON("water hulk", S_UMBER,
+    MON("water hulk", S_UMBER,                                  /* Slash'EM */
         LVL(11, 6, 2, 25, 0), (G_HELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           ATTK(AT_CLAW, AD_PHYS, 3, 4),
@@ -5336,7 +5343,7 @@ struct permonst _mons2[] = {
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER | M2_FLANK,
         M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 
         MH_VAMPIRE, 28, CLR_WHITE),
-    MON("nosferatu", S_VAMPIRE, 
+    MON("nosferatu", S_VAMPIRE,                     /* SpliceHack/SlashTHEM */
         LVL(20, 14, -4, 50, -9), (G_GENO | G_NOCORPSE | 1),
       	A(ATTK(AT_CLAW, AD_DRLI, 2, 8), 
           ATTK(AT_BITE, AD_DRLI, 1, 8),
@@ -5413,7 +5420,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_FLY | M1_HUMANOID | M1_UNSOLID,
         M2_STALK | M2_HOSTILE, 0,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 8, CLR_BLACK),
-    MON("bodak", S_WRAITH, 
+    MON("bodak", S_WRAITH,                                    /* SpliceHack */
         LVL(8, 12, 6, 10, 0), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_DRLI, 1, 6), 
           ATTK(AT_GAZE, AD_FEAR, 0, 4),
@@ -5422,7 +5429,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_HUMANOID,
         M2_STALK | M2_NASTY | M2_WANDER | M2_COLLECT, 
         M3_INFRAVISION, 0, MH_UNDEAD, 10, CLR_YELLOW),
-    MON("banshee", S_WRAITH, 
+    MON("banshee", S_WRAITH,                                  /* SpliceHack */
         LVL(15, 10, 10, 0, 5), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_TUCH, AD_PHYS, 2, 6), 
           ATTK(AT_TUCH, AD_PHYS, 2, 6),
@@ -5476,7 +5483,7 @@ struct permonst _mons2[] = {
      * Apelike beasts
      */
     /* not to be confused with lemure */
-    MON("lemur", S_YETI, 
+    MON("lemur", S_YETI,                                      /* SpliceHack */
         LVL(0, 12, 8, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
           ATTK(AT_BITE, AD_PHYS, 1, 3), 
@@ -5638,7 +5645,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
         M2_STALK | M2_HOSTILE, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 5, HI_DOMESTIC),
-    MON("draugr", S_ZOMBIE, 
+    MON("draugr", S_ZOMBIE,                                   /* SpliceHack */
         LVL(5, 12, 8, 0, -3), (G_GENO | G_SGROUP | G_NOCORPSE | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
           ATTK(AT_BITE, AD_DRIN, 1, 4),
@@ -5687,7 +5694,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_POIS | M1_OMNIVORE,
         M2_WANDER | M2_HOSTILE, M3_INFRAVISION,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 5, CLR_BLACK),
-    MON("vomitous ghoul", S_ZOMBIE, 
+    MON("vomitous ghoul", S_ZOMBIE,                           /* SpliceHack */
         LVL(4, 6, 10, 0, -2), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PLYS, 1, 2),
           ATTK(AT_CLAW, AD_PHYS, 1, 3),
@@ -5698,7 +5705,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_POIS | M1_OMNIVORE,
         M2_WANDER | M2_HOSTILE, M3_INFRAVISION, 
         0, MH_UNDEAD, 6, CLR_BLACK),
-    MON("skeletal pirate", S_ZOMBIE, 
+    MON("skeletal pirate", S_ZOMBIE,                          /* SpliceHack */
         LVL(5, 8, 4, 0, 0), (G_SGROUP | G_NOCORPSE | 1),
      	  A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK), 
@@ -5776,7 +5783,7 @@ struct permonst _mons2[] = {
         M2_WANDER | M2_HOSTILE | M2_FEMALE | M2_COLLECT | M2_MAGIC,
         M3_INFRAVISION | M3_TRAITOR,  
         M4_VULNERABLE_FIRE, MH_UNDEAD, 20, CLR_BLACK),
-    MON("zombie dragon", S_ZOMBIE, 
+    MON("zombie dragon", S_ZOMBIE,                            /* SpliceHack */
         LVL(14, 8, -1, 20, -4), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 1, 4),
@@ -6011,7 +6018,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_POIS | M1_REGEN | M1_OMNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE, 0, MH_HUMAN | MH_WERE, 8, CLR_YELLOW),
-    MON("werebear", S_HUMAN, 
+    MON("werebear", S_HUMAN,                                  /* SpliceHack */
         LVL(5, 12, 10, 20, 5), (1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -6051,7 +6058,8 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_HOSTILE | M2_COLLECT, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 4, CLR_BLACK),
-    MON("bandit", S_HUMAN, /* 5lo: Mugger, but will steal objects instead of gold...*/
+    /* 5lo: Mugger, but will steal objects instead of gold...*/
+    MON("bandit", S_HUMAN,                                     /* SlashTHEM */
         LVL(2, 12, 10, 0, -8), (G_GENO | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4),
           ATTK(AT_CLAW, AD_SITM, 1, 4),
@@ -6060,7 +6068,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_HOSTILE | M2_COLLECT | M2_GREEDY,
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 4, CLR_BLACK),
-    MON("street thug", S_HUMAN,
+    MON("street thug", S_HUMAN,                                /* SlashTHEM */
         LVL(5, 12, 7, 0, -8), (G_GENO | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8),
           ATTK(AT_TUCH, AD_SITM, 0, 0),
@@ -6069,7 +6077,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 5, CLR_BLACK),
-    MON("street thug leader", S_HUMAN,
+    MON("street thug leader", S_HUMAN,                         /* SlashTHEM */
         LVL(9, 12, 5, 20, 0), (G_GENO|G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 12),
           ATTK(AT_TUCH, AD_SITM, 0, 0),
@@ -6078,7 +6086,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_COLLECT,
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_HUMAN, 10, CLR_RED),
-    MON("peasant", S_HUMAN,
+    MON("peasant", S_HUMAN,                                    /* SlashTHEM */
         LVL(1, 10, 10, 0, 1), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 1, 1),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -6243,7 +6251,7 @@ struct permonst _mons2[] = {
             | M2_MAGIC | M2_MALE, 
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 28, CLR_BLACK),
     #endif
-    MON("black marketeer", S_HUMAN,
+    MON("black marketeer", S_HUMAN,                            /* UnNetHack */
         LVL(20, 20, -5, 40, -2), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
@@ -6252,7 +6260,7 @@ struct permonst _mons2[] = {
         MR_SLEEP, M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_COLLECT | M2_MAGIC,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 24, HI_DOMESTIC),
-    MON("One-eyed Sam", S_HUMAN,
+    MON("One-eyed Sam", S_HUMAN,                               /* UnNetHack */
         LVL(25, 24, -8, 50, -2), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
           NO_ATTK, NO_ATTK, NO_ATTK),
@@ -6357,7 +6365,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_MERC | M2_STALK
             | M2_HOSTILE | M2_STRONG | M2_COLLECT | M2_FLANK,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 14, CLR_BLUE),
-    MON("general", S_HUMAN, 
+    MON("general", S_HUMAN,                                   /* SpliceHack */
         LVL(16, 10, 10, 15, -6), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 5, 4), 
           ATTK(AT_WEAP, AD_PHYS, 5, 4), 
@@ -6439,7 +6447,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_PEACEFUL | M2_PNAME | M2_MALE | M2_GREEDY
             | M2_COLLECT,
         M3_CLOSE | M3_INFRAVISIBLE, 0, MH_HUMAN | MH_UNDEAD, 38, CLR_WHITE),
-    MON("Rat King", S_HUMAN,
+    MON("Rat King", S_HUMAN,                                    /* EvilHack */
         LVL(12, 12, 3, 30, -10), (G_UNIQ | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 4), 
           ATTK(AT_BITE, AD_WERE, 1, 6), 
@@ -6668,7 +6676,7 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_LARGE), MR_FIRE | MR_POISON, 0,
         M1_POIS, M2_STALK | M2_HOSTILE | M2_NASTY | M2_COLLECT | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_DEMON, 13, CLR_GRAY),
-    MON("armanite", S_DEMON, 
+    MON("armanite", S_DEMON,                                  /* SpliceHack */
         LVL(9, 20, 2, 10, -3), (G_GENO | G_LGROUP | G_HELL | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 8), 
           ATTK(AT_KICK, AD_PHYS, 2, 6),
@@ -6678,14 +6686,14 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_STRONG | M2_GREEDY | M2_COLLECT | M2_HOSTILE | M2_FLANK,
         M3_INFRAVISIBLE, 0, MH_DEMON, 16, CLR_RED),
-    MON("damned pirate", S_DEMON,
+    MON("damned pirate", S_DEMON,                             /* SpliceHack */
      	  LVL(10, 12, -4, 0, 0), (G_NOCORPSE | G_SGROUP | G_NOGEN | 1),
      	  A(ATTK(AT_WEAP, AD_PHYS, 2, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
    	    SIZ(300, 5, MS_BONES, MZ_HUMAN),
    	    MR_FIRE| MR_SLEEP | MR_POISON | MR_STONE, 0,
    	    M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
-   	    M2_WANDER | M2_HOSTILE | M2_STRONG | M2_COLLECT | M2_NASTY /*| M2_FLANK*/,
+   	    M2_WANDER | M2_HOSTILE | M2_STRONG | M2_COLLECT | M2_NASTY | M2_FLANK,
    	    M3_INFRAVISION, 0, MH_DEMON, 13, CLR_WHITE),
     MON("ice devil", S_DEMON,
         LVL(11, 9, -4, 55, -12), (G_HELL | G_NOCORPSE | 2),
@@ -6720,7 +6728,7 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 400, MS_SPELL, MZ_LARGE), MR_FIRE | MR_POISON, 0,
         M1_HUMANOID | M1_POIS, M2_STALK | M2_HOSTILE | M2_NASTY | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_DEMON, 15, CLR_RED),
-    MON("spibrawulf", S_DEMON, 
+    MON("spibrawulf", S_DEMON,                                /* SpliceHack */
         LVL(11, 18, 3, 35, -12), (G_HELL | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           ATTK(AT_CLAW, AD_PHYS, 3, 4),
@@ -6920,7 +6928,7 @@ struct permonst _mons2[] = {
     /* Multi-headed, possessing the breath attacks of all the other dragons
      * (selected at random when attacking).
      */
-    MON("Tiamat", S_DRAGON,
+    MON("Tiamat", S_DRAGON,                                     /* EvilHack */
         LVL(103, 15, -8, 80, -20), (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
         A(ATTK(AT_BREA, AD_RBRE, 6, 6), 
           ATTK(AT_MAGC, AD_SPEL, 2, 4),
@@ -7126,7 +7134,7 @@ struct permonst _mons2[] = {
             | M1_OMNIVORE,
         M2_HOSTILE | M2_NASTY | M2_NEUTER, M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_ILLITHID, 8, CLR_BRIGHT_MAGENTA),
-    MON("swordfish", S_EEL,
+    MON("swordfish", S_EEL,                                   /* SpliceHack */
         LVL(6, 20, 4, 0, 0), (G_GENO | G_NOGEN | G_SGROUP),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -7134,7 +7142,7 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_SLITHY | M1_NOLIMBS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, 0, M4_VULNERABLE_ELEC, 0, 8, CLR_ORANGE),
-    MON("sea horse", S_EEL, 
+    MON("sea horse", S_EEL,                                   /* SpliceHack */
         LVL(6, 20, 5, 0, 0), (G_GENO | 2),
         A(ATTK(AT_KICK, AD_PHYS, 1, 8), 
           ATTK(AT_BITE, AD_PHYS, 1, 3),
@@ -7169,7 +7177,7 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_SLITHY | M1_NOLIMBS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 10, CLR_BRIGHT_BLUE),
-    MON("mermaid", S_EEL, 
+    MON("mermaid", S_EEL,                         /* SpliceHack + SlashTHEM */
 		    LVL(9, 15, 4, 10, -10), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 4),
 			    ATTK(AT_TUCH, AD_SITM, 0, 0),
@@ -7189,7 +7197,8 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE,
         M4_VULNERABLE_ELEC, 0, 22, CLR_RED),
-    MON("giant squid", S_EEL, 
+    /* Previously known as "thing from below" in Splice */
+    MON("giant squid", S_EEL,                                 /* SpliceHack */
         LVL(30, 12, 6, 0, -3), (G_GENO | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
           ATTK(AT_MAGC, AD_SPEL, 4, 4),
@@ -7203,7 +7212,7 @@ struct permonst _mons2[] = {
     /*
      * lizards, &c
      */
-    MON("tortle", S_LIZARD,
+    MON("tortle", S_LIZARD,                                     /* EvilHack */
         LVL(0, 10, 0, 0, 3), G_NOGEN, /* placeholder */
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -7286,7 +7295,8 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS
             | M1_OVIPAROUS | M1_CARNIVORE,
         M2_STRONG | M2_HOSTILE, 0, 0, 0, 7, CLR_BROWN),
-    MON("velociraptor", S_LIZARD, 
+    /* Only appears when playing as caveman/cavewoman */
+    MON("velociraptor", S_LIZARD,                             /* SpliceHack */
         LVL(7, 18, 5, 0, 0), (G_NOGEN | G_SGROUP | 6),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -7296,7 +7306,7 @@ struct permonst _mons2[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS
             | M1_CARNIVORE,
         M2_STRONG | M2_HOSTILE | M2_FLANK, 0, 0, 0, 9, CLR_RED),
-    MON("giant turtle", S_LIZARD, /* SporkHack */
+    MON("giant turtle", S_LIZARD,                              /* SporkHack */
         LVL(7, 2, -8, 10, 0), (G_GENO | G_NOHELL | 1),
         A(ATTK(AT_BITE, AD_PHYS, 4, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -7332,7 +7342,8 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_SLITHY | M1_THICK_HIDE | M1_POIS,
         M2_STALK | M2_HOSTILE | M2_COLLECT | M2_MAGIC, M3_INFRAVISIBLE,
         M4_VULNERABLE_COLD, 0, 12, CLR_ORANGE),
-    MON("T-Rex", S_LIZARD, 
+    /* Only appears when playing as caveman/cavewoman */
+    MON("T-Rex", S_LIZARD,                                    /* SpliceHack */
         LVL(15, 15, 5, 0, 0), (G_NOGEN | 4),
         A(ATTK(AT_BITE, AD_CLOB, 5, 10), 
           ATTK(AT_BITE, AD_CLOB, 1, 4),
@@ -7442,7 +7453,7 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_COLLECT, M3_INFRAVISIBLE, 0,
         MH_HUMAN, 12, CLR_YELLOW),
-    MON("bard", S_HUMAN,
+    MON("bard", S_HUMAN,                                       /* SlashTHEM */
         LVL(10, 12, 10, 2, -3), (1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -7667,8 +7678,7 @@ struct permonst _mons2[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
         M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_NEUTER,
         M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 20, CLR_YELLOW),
-    
-    MON("Acererak", S_LICH,//32 /*Needs encyc entry*/
+    MON("Acererak", S_LICH,                                     /* dNetHack */
         LVL(33, 15, -9, 99, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
           ATTK(AT_TUCH, AD_DRLI, 5, 6), 
@@ -8013,7 +8023,6 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE | M2_NASTY 
           | M2_COLLECT | M2_MAGIC | M2_MALE | M2_PNAME | M2_LORD, 
         M3_WANTSARTI | M3_WAITFORU, 0, MH_GIANT, 34, CLR_YELLOW),
-
     /* Has emin, so always appears as the "Paladin of [deity]". */
     MON("Paladin", S_HUMAN,                                     /* EvilHack */
         LVL(24, 12, 0, 50, 20), (G_NOGEN | G_UNIQ | G_NOCORPSE),
