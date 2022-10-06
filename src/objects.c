@@ -322,6 +322,9 @@ WEAPON("mace", None,
 WEAPON("heavy mace", None,
        1, 0, 0, 0, 15,  50,  10, 10, 10, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
+WEAPON("executioner's mace", None,
+       1, 0, 0, 0, 30,   5,  12, 12, 0,  0, B,   P_MACE, IRON, HI_METAL),
+        /* +1 small */
 /* placeholder for certain special weapons; does not spawn randomly */
 WEAPON("rod", "ornate mace",
        0, 0, 0, 0,  0,  40, 250,  6,  8, 0, B,   P_MACE, GEMSTONE, CLR_RED),

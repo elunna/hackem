@@ -1104,6 +1104,7 @@ static const NEARDATA short hwep[] = {
     TWO_HANDED_SWORD, 
     FALCHION,
     BATTLE_AXE, 
+    EXECUTIONER_S_MACE,
     KATANA, 
     ELVEN_LONG_SWORD, 
     DWARVISH_BEARDED_AXE,
