@@ -2659,6 +2659,8 @@ int final;
                 you_are("terminally sick from food poisoning", "");
         }
     }
+    if (LarvaCarrier)
+        you_are("hosting monster eggs", "");
     if (Withering)
         you_are("withering away", "");
     if (Vomiting)
