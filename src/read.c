@@ -2075,7 +2075,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     }
-    case SCR_CHANGE_MATERIAL: 
+    case SCR_TRANSMOGRIFY: 
     {
         struct obj *otmp;
 
