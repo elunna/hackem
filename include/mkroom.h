@@ -95,8 +95,9 @@ enum roomtype_types {
     TINSHOP    = 39,
     INSTRUMENTSHOP = 40,
     PETSHOP    = 41, /* Stephen White */
-    CANDLESHOP = 42, /*(UNIQUESHOP) */
-    BLACKSHOP  = 43  /*(UNIQUESHOP) */
+    JUNKSHOP   = 42,
+    CANDLESHOP = 43, /*(UNIQUESHOP) */
+    BLACKSHOP  = 44  /*(UNIQUESHOP) */
 };
 
 #define MAXRTYPE (BLACKSHOP) /* maximum valid room type */

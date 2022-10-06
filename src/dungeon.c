@@ -2913,6 +2913,9 @@ int rtype;
     case PETSHOP:
         str =  "a pet store";
         break;
+    case JUNKSHOP:
+        str = "junk shop";
+        break;
     case BLACKSHOP:
         return "the Blackmarket";
     default:
