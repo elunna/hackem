@@ -4541,10 +4541,10 @@ struct permonst _mons2[] = {
         M4_VULNERABLE_FIRE, MH_UNDEAD, 18, CLR_RED),
     MON("eye of fear and flame", S_LICH, 
         LVL(16, 9, -4, 70, -13), (G_GENO | G_NOCORPSE | 1),
-        A(/*ATTK(AT_GAZE, AD_FEAR, 0, 4), */
+        A(ATTK(AT_GAZE, AD_FEAR, 0, 4),
           ATTK(AT_GAZE, AD_FIRE, 4, 4),
           ATTK(AT_MAGC, AD_SPEL, 0, 0), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1200, 100, MS_MUMBLE, MZ_HUMAN),
         MR_COLD | MR_FIRE | MR_SLEEP | MR_POISON,
         MR_COLD, M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
