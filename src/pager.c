@@ -1117,6 +1117,7 @@ short otyp;
         case TRIPLE_HEADED_FLAIL:
         case SPETUM:
         case TRIDENT:
+        case SPIKED_CHAIN:
             sdambon = " + 1";
             break;
         case BATTLE_AXE:
@@ -1131,6 +1132,7 @@ short otyp;
         case ELVEN_BROADSWORD:
         case RUNESWORD:
         case VOULGE:
+        case SCYTHE:
             sdambon = " + 1d4";
             break;
         }
@@ -1148,6 +1150,7 @@ short otyp;
         case FLAIL:
         case RANSEUR:
         case VOULGE:
+        case SCYTHE:
             ldambon = " + 1d4";
             break;
         case HALBERD:
@@ -1157,6 +1160,7 @@ short otyp;
         case BATTLE_AXE:
         case BARDICHE:
         case TRIDENT:
+        case SPIKED_CHAIN:
             ldambon = " + 2d4";
             break;
         case TSURUGI:
