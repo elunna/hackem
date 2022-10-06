@@ -449,6 +449,9 @@ register struct monst *mtmp;
     case MS_PARROT:
 	    ret = "squaark";
 	    break;
+    case MS_ANT:
+        ret = "clicks";
+        break;
     default:
         ret = "scream";
     }
@@ -789,6 +792,12 @@ register struct monst *mtmp;
         /*FALLTHRU*/
     case MS_GROWL:
         pline_msg = mtmp->mpeaceful ? "snarls." : "growls!";
+        break;
+    case MS_ANT:
+        if (Hallucination)
+            verbl_msg = "Go team ant!";
+        else
+            pline_msg = "chitters.";
         break;
     case MS_ROAR:
         pline_msg = mtmp->mpeaceful ? "snarls." : "roars!";
