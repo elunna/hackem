@@ -4581,7 +4581,7 @@ struct obj *obj;
             }
         }
         goto discard_broken_wand;
-    case WAN_WINDSTORM:
+    case WAN_WIND:
         pline("A tornado surrounds you!");
         affects_objects = TRUE;
         break;
@@ -4694,7 +4694,7 @@ struct obj *obj;
     /* [TODO?  This really ought to prevent the explosion from being
        fatal so that we never leave a bones file where none of the
        surrounding targets (or underlying objects) got affected yet.] */
-    if (obj->otyp != WAN_WINDSTORM && obj->otyp != WAN_WATER)
+    if (obj->otyp != WAN_WIND && obj->otyp != WAN_WATER)
         explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS,
                 EXPL_MAGICAL);
     /* prepare for potential feedback from polymorph... */

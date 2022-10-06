@@ -1606,7 +1606,7 @@ struct monst *mtmp;
 #define MUSE_WAN_FIREBALL 27
 #define MUSE_CAMERA 31 /* Skipping so other values don't overlap */
 #define MUSE_WAN_SLOW_MONSTER 32
-#define MUSE_WAN_WINDSTORM 33
+#define MUSE_WAN_WIND 33
 #define MUSE_WAN_WATER 34
 #define MUSE_WAN_ACID 35
 #define MUSE_WAN_POISON_GAS 36
@@ -1967,10 +1967,10 @@ boolean reflection_skip;
                 m.has_offense = MUSE_WAN_SLOW_MONSTER;
             }
         }
-        nomore(MUSE_WAN_WINDSTORM);
-        if (obj->otyp == WAN_WINDSTORM && obj->spe > 0 && !rn2(3)) {
+        nomore(MUSE_WAN_WIND);
+        if (obj->otyp == WAN_WIND && obj->spe > 0 && !rn2(3)) {
             m.offensive = obj;
-            m.has_offense = MUSE_WAN_WINDSTORM;
+            m.has_offense = MUSE_WAN_WIND;
         }
         nomore(MUSE_WAN_WATER);
         if (obj->otyp == WAN_WATER && obj->spe > 0) {
@@ -2183,7 +2183,7 @@ register struct obj *otmp;
                 makeknown(WAN_STRIKING);
         }
         break;
-    case WAN_WINDSTORM:
+    case WAN_WIND:
         You("get blasted by hurricane-force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, 5 + rn2(5), TRUE);
         break;
@@ -2569,7 +2569,7 @@ struct monst *mtmp;
     case MUSE_WAN_POLYMORPH:
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
-    case MUSE_WAN_WINDSTORM:
+    case MUSE_WAN_WIND:
     case MUSE_WAN_WATER:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
@@ -3725,7 +3725,7 @@ struct obj *obj;
             || typ == WAN_TELEPORTATION 
             || typ == WAN_CREATE_MONSTER
             || typ == WAN_CREATE_HORDE
-            || typ == WAN_WINDSTORM 
+            || typ == WAN_WIND
             || typ == WAN_WATER
             || typ == WAN_DRAINING
             || typ == WAN_HEALING

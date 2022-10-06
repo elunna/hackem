@@ -360,7 +360,7 @@ struct obj *otmp;
             }
         }
         break;
-    case WAN_WINDSTORM:
+    case WAN_WIND:
         if (u.uswallow && (mtmp == u.ustuck)) {
             if (is_whirly(mtmp->data)) {
                 You("blast a hole in %s!", mon_nam(mtmp));
@@ -2388,7 +2388,7 @@ struct obj *obj, *otmp;
             if (maybelearnit)
                 learn_it = TRUE;
             break;
-        case WAN_WINDSTORM:
+        case WAN_WIND:
             scatter(obj->ox, obj->oy, 4, MAY_HIT | MAY_DESTROY | VIS_EFFECTS,
                     obj);
             break;
@@ -2548,7 +2548,7 @@ schar zz;
             learnwand(obj);
     }
 
-    if (obj->otyp == WAN_WINDSTORM) {
+    if (obj->otyp == WAN_WIND) {
         scatter(tx, ty, 4, MAY_DESTROY | MAY_HIT | VIS_EFFECTS,
                 (struct obj *) 0);
         learnwand(obj);
@@ -2819,7 +2819,7 @@ boolean ordinary;
             exercise(A_STR, FALSE);
         }
         break;
-    case WAN_WINDSTORM:
+    case WAN_WIND:
         learn_it = TRUE;
         pline("Whoosh!");
         if (is_whirly(youmonst.data)) {
@@ -3409,7 +3409,7 @@ struct obj *obj; /* wand or spell */
     case SPE_DRAIN_LIFE:
     case WAN_OPENING:
     case SPE_KNOCK:
-    case WAN_WINDSTORM:
+    case WAN_WIND:
         (void) bhitm(u.usteed, obj);
         steedhit = TRUE;
         break;
@@ -3704,7 +3704,7 @@ struct obj *obj; /* wand or spell */
         if (!ptmp)
             Your("probe reveals nothing.");
         return TRUE; /* we've done our own bhitpile */
-    case WAN_WINDSTORM:
+    case WAN_WIND:
         if (u.dz > 0) {
             You("stir up a whirlwind above you!");
         } else {
@@ -3889,7 +3889,7 @@ struct obj *obj; /* wand or spell */
                 break;
             case WAN_STRIKING:
             case SPE_FORCE_BOLT:
-            case WAN_WINDSTORM:
+            case WAN_WIND:
             case WAN_WATER:
                 wipe_engr_at(x, y, d(2, 4), TRUE);
                 break;
@@ -4337,7 +4337,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 pline("Splash!");
                 learn_it = TRUE;
                 break;
-            case WAN_WINDSTORM:
+            case WAN_WIND:
                 if (typ != DRAWBRIDGE_UP)
                     pline("For all your huffing and puffing, you cannot blow this drawbridge down.");
                 learn_it = TRUE;

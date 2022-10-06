@@ -843,7 +843,7 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
-            case WAN_WINDSTORM:
+            case WAN_WIND:
                 if (!Blind)
                     Sprintf(post_engr_text, "The bugs on the %s are blown away!",
                             surface(u.ux, u.uy));
