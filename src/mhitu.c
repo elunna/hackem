@@ -1544,7 +1544,8 @@ register struct attack *mattk;
                 }
 
                 /* Hit with a burning torch */
-                if (otmp->otyp == TORCH && otmp->lamplit) {
+                if ((otmp->otyp == TORCH && otmp->lamplit) 
+                    || otmp->otyp == FLAMING_LASH) {
                     burnmsg = TRUE;
                 }
 
@@ -2636,7 +2637,8 @@ do_rust:
                 destroy_item(SPBOOK_CLASS, AD_FIRE);
             }
         // burn_faster(otmp, 1);
-        burn_faster(mon_currwep, 1);
+        if (mon_currwep->otyp == TORCH)
+            burn_faster(mon_currwep, 1);
     }
 
     if (dmg) {

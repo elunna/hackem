@@ -1249,7 +1249,8 @@ int dieroll;
                 }
                 
                 /* MRKR: Hitting with a lit torch */
-                if (obj->otyp == TORCH && obj->lamplit) {
+                if ((obj->otyp == TORCH && obj->lamplit)
+                    || obj->otyp == FLAMING_LASH) {
                     burnmsg = TRUE;
                 }
 
@@ -1886,11 +1887,13 @@ int dieroll;
             }
             tmp += destroy_mitem(mon, POTION_CLASS, AD_FIRE);
 
-            if (mdat == &mons[PM_WATER_ELEMENTAL]) {
-                pline("Your %s goes out.", xname(obj));
-                end_burn(obj, TRUE);
-            } else {
-                burn_faster(obj, 1); /* Use up the torch more quickly */
+            if (obj->otyp == TORCH) {
+                if (mdat == &mons[PM_WATER_ELEMENTAL]) {
+                    pline("Your %s goes out.", xname(obj));
+                    end_burn(obj, TRUE);
+                } else {
+                    burn_faster(obj, 1); /* Use up the torch more quickly */
+                }
             }
         }
     }

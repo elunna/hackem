@@ -378,7 +378,7 @@ WEAPON("spiked chain", None, /* Originally P|S */
 WEAPON("bullwhip", None,
        1, 0, 0, 0,  2,  20,   4,  2,  1, 0, 0,   P_WHIP, LEATHER, CLR_BROWN),
 WEAPON("flaming lash", None,
-       1, 0, 0, 0,  0, 180,   4, 12, 12, 0, 1,   P_WHIP, LEATHER, CLR_RED),
+       1, 0, 0, 0,  0, 180,   4, 12, 12, 0, 0,   P_WHIP, LEATHER, CLR_RED),
 /* Good to-hit and small damage, but low large damage */
 WEAPON("fly swatter", (char *)0,
 	1, 0, 0, 0,  2,  10,   3, 10,  2, 2, B,   P_WHIP, PLASTIC, CLR_GREEN),

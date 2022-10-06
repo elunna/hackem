@@ -1539,7 +1539,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             }
 
             /* Handling lit torch damage  */
-            if(mwep->otyp == TORCH && mwep->lamplit) {
+            if ((mwep->otyp == TORCH && mwep->lamplit)
+                || mwep->otyp == FLAMING_LASH) {
                 if (!Blind) {
                     static char outbuf[BUFSZ];
                 }
@@ -1569,12 +1570,14 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                         if (!rn2(5))
                             destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
                     }
-
-                    if (pd == &mons[PM_WATER_ELEMENTAL]) {
-                        pline("The torch %s goes out.", xname(mwep));
-                        end_burn(mwep, TRUE);
-                    } else {
-                        burn_faster(mwep, 1); /* Use up the torch more quickly */
+                    if (mwep->otyp == TORCH) {
+                        if (pd == &mons[PM_WATER_ELEMENTAL]) {
+                            pline("The torch %s goes out.", xname(mwep));
+                            end_burn(mwep, TRUE);
+                        } else {
+                            burn_faster(
+                                mwep, 1); /* Use up the torch more quickly */
+                        }
                     }
                 }
             }

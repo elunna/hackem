@@ -1466,3 +1466,331 @@ Fern Spores
 		
 	[SKIPPED] Find replacement tile for bandit (used same tile as mugger)
 	[SKIPPED] Find replacement tile for Ragnaros (used Earth Mage tile)
+
+
+- x ] Implement cold traps (Un)
+[x] "5fbb72644"	Mikko Juola	Sheol: Add ice traps.
+[x] 9850a2f5c"	tedav	Made cold traps visible to the level compiler. Hopefully this fixed the problem with the previous commit. (fix suggested by paxed)
+[x] 60d2f688f"	tedav	Ok, *NOW* the problem with the ice traps should be fixed. (thanks again to paxed)	
+"d428ce04c"	tedav	Cold traps can now appear in the "trap room" random vault
+
+	* [x] Search for anything with: "KMH, balance patch"
+	
+- [DEFERRED] Minion Summoning (Prayer/Altar Gifts) lawful_minion, neutral_minion, chaotic_minion
+	I think this feature can be ported - but it needs a little work.
+	Minions need to be balanced a bit
+	Also - Only give a minion if pets < 1? Or if =1, 25% chance? I know from slashem how annoying it is to altar camp and build up a group of minions crowding you and the level, having to haul them off to other levels...
+
+
+Vampires intrinsics:
+	Breathless			lvl 1
+	Vulnerable to fire	lvl 1
+	[I] Flying
+	[I] Drain Res
+	[I] Death res
+	[I] Sickness res
+	[I] Hates Silver
+	Hunger				lvl 5
+	Regenerates			lvl 7
+	Poison Resistant	lvl 10 (vampire lvl)
+	Sleep resistant		lvl 16 (vmapire king lvl)
+
+	[FIXED] "Murdering" peaceful cows, etc
+		Removed M2_PEACEFUL from lambs, sheep, and cows, otherwise due to a change in evil, if we kill them it counts as murder.
+		
+	[FIXED] If monsters try to cast make pool while you are on stairs, "bad pool creation?"
+		[FIXED] Levelporting around lethe gorge goes straight to VoTD
+
+- [x] Make sure all themed rooms have a minlevel
+
+[x] Added tiles for ferns
+	[SKIPPED] Find a script for changing all numbers in lev_comp.h
+
+
+Gehennom work
+	Lethe-Patch:
+		[x] Import Lethe Gorge
+			[x] - remove long hall in main dungeon (this is duplicated in the lethe gorge)
+		[x] Put gulf of nkai levels at bottom of lethe gorge.
+		[x] Import the castle-lower dungeon - as branch
+
+		
+			[SKIP] How to expand max number of dungeon levels?
+	
+	
+[x] 0e5b64da9	Patric Mueller	Scrolls of genocide kill monster on level (uncursed) or globally (blessed)
+[x] eea03316d	Patric Mueller	Genocides from thrones are dungeon-wide
+[x] c9f520d7c"	Patric Mueller	Enabling killing all monsters on level by reading scrolls of genocide
+[x] 07cd5bc58"	tedav	Keystone Kops can no longer be genocided
+[x] 0e602c8d2	Patric Mueller	Check genocided zombies before raising the zombified corpse
+
+	
+
+	[SKIPPED] nasty pike", "vulgar polearm", - same as partisan
+	[SKIPPED] ornate mace: Base item type for Sharur. Normally made of gold.
+	[SKIPPED] pumpkin - interesting, but a bit complicated being a helmet
+	[SKIPPED] scabbard: Base item type for Avalon.
+	[SKIPPED] sconce
+	[SKIPPED] amulet of reincarnation
+		[ ] Buggy - there seems to be a lot of forms that SUCK to reincarnate into, this is not fun...
+	- [SKIPPING] /o psionics (wands are pain in the ass to add)
+	- [SKIPPING] +o psystrike
+	[SKIPPED] dress/gown/tuxedo - instead of these, maybe a fine suit
+	[SKIPPED] ?o cloning
+		A bit complicated - has some stuff updated in get_obj
+		
+[x] scythe", "curved polearm",
+		[x] Death gets a scythe
+	[x] light arrow
+		Found only in archery shops or the inventory of an avenger archon.
+	[x] throwing axe
+		Does 1 less damage than a regular axe, but counts as a throwing weapon.
+		This is great for the Gauntlet Warrior role....
+	[x] executioner's mace: Base item for Mortality Dial?
+	[x] falchion", "heavy sword",
+		Barbarians sometimes start with a falcion/scimitar set instead of axe/short sword (like GoT dothraki?)
+	[x] parazonium", "triangular dagger"
+	[X] "gladius", Non
+[x] chakram (silver based boomerang)
+	[x] footbow", "warped bow - bit of work, but worth it.
+	[x] tinfoil hat", "fearsome helmet",
+		protects against psychic attacks, brain eating.
+	[x] light armor
+	[x] cloak of flight", "feathery cloak",
+	[x] tower shield
+	[x] "hide shield
+	[x] rogues gloves", "fingerless gloves",
+	[x] "boxing gloves", "boiled gloves",
+		Increased chance of stunning from 1 in 50 to 1 in 25.
+	[x] "stomping boots", "steel-toed boots",
+	[x] plain cloak	[		Replaces the leather cloak as part of the object materials system.
+	[x] "amulet of nausea",
+	[x] amulet of danger",
+		Provides infravision, greatly increases dungeon difficulty. Usually cursed.
+	[x] bag of rats
+		Can upgrade to...
+		Widen range of rats that can be created...
+	[x] lute
+	[x] bagpipe
+	[x] pineapple: Gains bonuses when used as a thrown weapon. (Can upgrade to a grenade)
+	[x] fruitcake: Provides high nutrition.
+	[x] apple pie
+	[x] pumpkin pie
+	[x] slice of cake: Very filling. Cursed cake abuses dexterity; non-cursed cake functions as a blessed potion of restore ability.
+	[x] pinch of catnip: Using this on a feline will tame it, but also confuse it.
+		Can tame any f except displacer beast?
+	[x] !o regeneration
+	[x] ?o time
+	[x] ?o knowledge
+		[x] specified_id();
+[x] ?o change material"
+	[x] /o wonder 
+		[x] Change wish chances
+		[x ] Make sure it includes omni effects too (Fear)
+		[ ] Update zapyourself to use the objects list to draw from all ray effects.
+		[ ] Make all immediate wands contiguous for wonder effects
+	[x] coffin (from Un)
+		We can't actually get coffins, they are part of the mechanics (count as large boxes with +4)
+		[x] f7181dc56	guest41	Vlad's tower has Vampires in 'coffins' (from dNetHack).
+		[x] 5b30b9e23	guest41	Any kind of vampire can appear in a coffin, not just a regular ones.
+		[x] cae440d27	guest41	Coin flipping uses the rand() function instead of rn2(), allow vampires in coffins to be generated with inventory.
+		[x] 6cf7801e1	tedav	There is now a 1/13 chance for finding a coffin (vampire included) when digging up a grave.
+	- [x] /o windstorm
+		[x] muse
+	- [x] /o water
+		[x] muse
+	- [x] /o acid
+		[x] muse
+		[FIXED] The  bounces!  Alphabet soup: 'the("")'.-
+	- [x] /o poison gas
+		[x] muse
+	[x] !o reflection
+		[x] muse code
+	[x] ?o elementalism
+		[x] muse
+		[x] ‘rand_elemental’  (cleans it up)
+	- [x] resonant shield/humming shield
+		- [x] Requires implementing SONIC_RES
+	- [x] =o sonic resistance/glass
+	[x] =o "psychic resistance", "crystal",
+	- [x] /o sonics
+		[x] muse
+		[x] MUSE_WAN_SONICS
+		[x] Wand breaking?
+	- [x] +o sonicboom
+		[ ] Advanced spell looks like fireball...
+	[x] "spiked chain"
+	
+	=
+Splice Monsters
+	[SKIPPED] pack lord/human pack lord - needs both were forms, and all the were crap...
+	[SKIPPED] orc warlord
+	[SKIPPED] plasma elemental
+	[SKIPPED] fusion elemental
+			
+	[SKIPPED] goristro - demonic minotaur
+	[SKIPPED] hecatoncheire (Hundred Handed One ) - redo as arch millipede?
+	[SKIPPED]Korrupt Kop
+	[SKIPPED ] Alucard - unique vampire
+	[SKIPPED] bonewalker
+	[SKIPPED] silver golem
+	[SKIPPED] gehennan maw
+	[SKIPPED] headless rider, uses the pumpkin
+	[SKIPPED] molydeus, nasty demon with a poly attack
+	[SKIPPED] killer croc - we have a lot of crocs already
+	
+	[SKIPPED] mind flayer telepath
+	[SKIPPED] sphere of the void" - unique???
+		AD_VOID - basically same as disintegrate
+	[SKIPPED] transmuter
+		[SKIPPED] thought eater - AD_MEMR attack
+
+
+	[x] giant fly
+	[x] giant praying mantis
+		[x] M2_FLANK
+	[x] barghest: luck stealing dog
+	[x] guard dog
+	[x] vulpenferno
+		Bumped lvl up to 16, diff to 19. 
+		Added resistance to fire/shock, and grants fire/shk res.
+	[x] weeping eye
+	[x] thriae - 
+		[x] changed to yellow n (they are bee nymphs)
+		[x] Upped level to 14, diff 20
+	[x] corrosive sphere
+	[x] serval
+		[x] jumper
+	[x] serpopard
+		Increased to lvl 27, diff 30.
+		Both claw attacks are now 6d9.
+	[x] fat cat
+	[x] telamon(caryatid, loadbearer)
+		flanks
+	[x] dust devil
+	[x] redcap
+	[x] killer mimic
+
+
+	 
+	[x] lampad (
+	[x] diamond piercer
+	[x] god piercer
+	[x] pig (sow)
+	[x] feral hog
+	[x] llama
+	[x] black bear
+		Raised level to 7.
+	[x] werebear
+		update howl sounds in were.c
+	[x] grizzly bear
+	[x] chimera
+	[x] hippo
+		MS_YAWN is not implemented...
+	[x] hellbear
+	[x] skunk
+	[x] monstrous spider
+	[x] selkie
+	[x] drop bear
+	[x] lamassu
+	[x] zoo bat
+	[x] gaol bat
+	
+	[x] volatile mushroom
+	[x] Implement elemental_shift - for zapping various things at elementals.
+	[x] brown moldier
+	[x] yellow moldier
+	[x] green moldier
+	[x] red moldier
+	[x] marrashi - high level gnoll?
+	
+	[x] adherer
+	[x] ha-naga
+	[x] blood pudding
+		[x] specified this is not vegetarian
+	[x] gel
+		[x] AD_POTN
+	[x] alchemist
+		[x] Added M3_SKITTISH to substitute for avoids_player
+	[x] cerastes
+	[x] amphisbaena	
+	[x] cave troll
+	[x] grave troll
+	[x] umbral hulk"
+		- they have a darkness movement, litroom_mon
+	[x] hunger hulk"
+	[x] slumber hulk
+	[x] nosferatu
+		[ ] hates light - test this
+		[x] moved were_summon from rats to wolves
+	[x] bodak - wraithlike?
+		[x] AD_FEAR - implemented the "Afraid" status, booze cures
+	[x] banshee
+	[x] lemur - apelike not a lemure
+[x] vomitous ghoul
+		[x] Import is_ghoul
+	[x] skeletal pirate
+	[x] zombie dragon
+	[x] werebear
+	[x] general
+	[x] armanite - fast demon
+	[x] damned pirate
+	[x] swordfish
+	[x] sea horse
+	[x] thing from below
+		[x] rename to giant squid
+	[x] velociraptor
+	[x] T-Rex
+	[x] Implement Flanking:
+[x] screamer
+		[x] MR_SONIC
+		[x] Maybe remove the "The screamer touches you!" - to make it blend better with the shrieking
+		[x] The screamer shrieks.
+	concussive sphere
+		[x] AD_LOUD
+		[x] Update mon_explodes
+		[x] Sonic_resistance
+		
+	[x] landshark
+	[x] will-o'-the-wisp
+	[x] merfolk - Combination of Splice and SlashTHEM versions
+	[x] planar pirate
+	[x] is_moldier
+	[x] minfestcorpse?  Moldiers/maggots...
+	[SKIP] mon_givit - this is just dog_givit in evil	
+	[x] In SpliceHack, all fungi receive an extra d6 damage from copper. F hates copper.
+	[x] Nymphs also hate iron.
+	[x] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks."
+[splice dd5b42411] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks.
+	[x] pack rat is a little tougher
+		Now level 2; Added M2_COLLECT | M2_STRONG | M2_FLANK
+		Can appear randomly.
+	[x] Check other zouthern animals and nerfs
+		echidna: Added M3_INFRAVISIBLE
+		wallabys, wallaroos, kangas can now jump
+	[x] Crystal golems scintilate. */????
+	[x] manticore
+		[x] AD_QUIL	
+		[x] AT_VOLY
+		[x] spike (manticore spike)
+		- add to shambling horror
+		- test cancelled manticore
+	[x] worm that walks
+		[ ] Ressurection message?
+	[x] phoenix
+		[ ] If I anger a phoenix and kill it, it comes back peaceful. Bug? meh...
+		Wand of undead turning doesn't affect phoenix egg
+		- Phoenix egg revival via fire is very buggy.
+		- Phoenix eggs hatch instantly when exposed to lava, and are not damaged  by fire.
+  
+
+	[x] ichneumon larva
+	[x] giant ichneumon
+		[x] AD_LARV ?
+		[x] LarvaCarrier
+		[x] make_carrier
+		u.ueggpm
+		LARVACARRIER
+	[x] spibrawulf
+		[x] AD_LARV - lays eggs inside you?
+		Rename to infester demon
