@@ -354,6 +354,12 @@ MONSTER:('w',"giant leech"),(16,14)
 MONSTER:('a',"giant cockroach"),random
 MONSTER:('a',"giant cockroach"),random
 MONSTER:('a',"giant cockroach"),random
+
+MONSTER:('y',"will-o'-the-wisp"),random
+MONSTER:('y',"will-o'-the-wisp"),random
+MONSTER:('y',"will-o'-the-wisp"),random
+[50%]: MONSTER:('y',"will-o'-the-wisp"),random
+
 # Some random objects
 OBJECT:'!',random
 OBJECT:'!',random

@@ -913,6 +913,9 @@ mkswamp() /* Michiel Huisjes & Fred de Wilde */
                             if (!rn2(50))
                                 (void) makemon(&mons[PM_SEA_DRAGON],
                                                sx, sy, NO_MM_FLAGS);
+                            if (!rn2(19))
+                                (void) makemon(&mons[PM_WILL_O__THE_WISP],
+                                               sx, sy, NO_MM_FLAGS);
                             eelct++;
                         }
                     } else {
