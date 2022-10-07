@@ -1537,7 +1537,7 @@ Gehennom work
 	[SKIPPING] /o psionics (wands are pain in the ass to add)
 	[SKIPPING] +o psystrike
 	[SKIPPED] dress/gown/tuxedo - instead of these, maybe a fine suit
-	[SKIPPED] ?o cloning: A bit complicated - has some stuff updated in get_obj
+
 	[SKIPPED] encyclopedia
 	
 	
@@ -1658,14 +1658,15 @@ Gehennom work
 		[x] use_mask
 		[x] misc_worn_check
 		[x] MASK
-	
+		
+	[x] ?o cloning: A bit complicated - has some stuff updated in get_obj
 Splice Monsters
 	[SKIPPED] pack lord/human pack lord - needs both were forms, and all the were crap...
 	[SKIPPED] orc warlord
 	[SKIPPED] plasma elemental
 	[SKIPPED] fusion elemental
 	[SKIPPED] goristro - demonic minotaur
-	[SKIPPED] hecatoncheire (Hundred Handed One ) - redo as arch millipede?
+	[SKIPPED] goristro - demonic minotaur
 	[SKIPPED] Korrupt Kop
 	[SKIPPED] Alucard - unique vampire
 	[SKIPPED] bonewalker
@@ -1895,3 +1896,36 @@ Splice Monsters
 
 	[x] Reorder objects and monsters
 	[x] Add tiles for new objects and monsters.
+	
+	
+[SKIPPED] !o filth
+
+
+	[x] Add database entries from splice
+[x] Added M3_BERSERK to black bear, werebear, grizzly bear, hellbear.
+	[SKIPPED] DECK_OF_FATE
+	[SKIPPED] sacrificial knife: 
+		increases the potency of the sacrifice; if it is cursed, the sacrifice will count as same-race.
+	
+	
+
+[x] xnethack opinions on splice: https://gist.github.com/copperwater/9aab1388d82d7258ee5d9e45553a2289
+		
+[x] Will-o-the-wisp spawns in swamp rooms and Juiblex's level.
+
+[x] Shriekers now have sonic resistance
+Lowered the weight of throwing axes to 40 and added +1 to-hit.
+[SKIPPED] Splice: Naming humans and nymphs:
+[x] Crossbows and bolts can now appear in archery shops.
+	THEMEROOM
+	[SKIPPED] DEN - We already have smelly zoos
+
+	[x] hecatoncheire (Hundred Handed One ) - redo as arch millipede?
+
+[x] forges: only let them appear below level 5
+
+[x] Breaking a wand of fear causes you to panic in fear.
+
+[x] Increase chance of traitorous pets betraying. 1 in 527 each turn of checking. Removed requirement that pet have higher HP.
+	- [SKIPPED] In SLASH'EM, the range of the polearm is expanded and not restricted by skill level.
+		
