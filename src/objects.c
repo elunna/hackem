@@ -214,7 +214,7 @@ WEAPON("crysknife", None,
 WEAPON("axe", None,
        1, 0, 0,  0, 40,  60,   8,  6,  4, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("throwing axe", None,                                   /* SpliceHack */
-       1, 1, 0,  0, 10,  60,  10,  5,  3, 0, S,   P_AXE, IRON, HI_METAL),
+       1, 1, 0,  0, 10,  40,  10,  5,  3, 1, S,   P_AXE, IRON, HI_METAL),
 WEAPON("dwarvish bearded axe", "broad bearded axe",            /* EvilHack */
        0, 0, 0 , 0, 20,  70,  25,  8, 10, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("battle-axe", "double-headed axe", /* "double-bitted"? */
