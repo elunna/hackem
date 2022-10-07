@@ -1145,7 +1145,7 @@ NEARDATA struct permonst mons[] = {
         NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(500, 200, MS_HUMANOID, MZ_SMALL), 0, 0, 
         M1_HUMANOID | M1_OMNIVORE,
-        M2_COLLECT, M3_INFRAVISIBLE | M3_INFRAVISION | M2_FLANK, 
+        M2_COLLECT | M2_FLANK, M3_INFRAVISIBLE | M3_INFRAVISION, 
         0, MH_HOBBIT, 2, CLR_GREEN),
     MON("hobbit pickpocket", S_HUMANOID,                        /* EvilHack */
         LVL(2, 9, 8, 0, -1), (G_GENO | 2),
