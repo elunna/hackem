@@ -748,7 +748,7 @@ register struct monst *mtmp;
     register int mm = monsndx(ptr);
     struct obj* received;
     struct obj *otmp = mtmp->minvent;
-    int bias, w1, w2, randwand, quan;
+    int bias, w1, w2, randwand, quan, hbold;
 
     if (Is_rogue_level(&u.uz))
         return;
@@ -1047,6 +1047,10 @@ register struct monst *mtmp;
     case S_GIANT:
         if (rn2(2))
             (void) mongets(mtmp, (mm != PM_ETTIN) ? BOULDER : CLUB);
+        if (mm == PM_HECATONCHEIRE) {
+            for (hbold = 0; hbold < rn1(3, 4); hbold++)
+              (void) mongets(mtmp, BOULDER);
+        }
         break;
     case S_IMP:
         if (mm == PM_REDCAP) {

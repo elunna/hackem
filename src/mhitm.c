@@ -550,16 +550,11 @@ register struct monst *magr, *mdef;
     magr->mlstmv = monstermoves;
 
     /* handle multiple hydra attacks */
-    /* if (magr->data->omnum == PM_HYDRA) { */
     if (pa == &mons[PM_HYDRA]) {
         k = min(magr->m_lev - magr->data->mlevel + 1, 10);
-    } 
-#if 0 /* Pending monster implementation */
-    else if (magr->data->omnum == PM_HECATONCHEIRE) {
+    } else if (pa == &mons[PM_HECATONCHEIRE]) {
         k = 100;
-    } 
-#endif
-    else {
+    } else {
         k = 0;
     }
 
@@ -842,8 +837,13 @@ register struct monst *magr, *mdef;
         
         /* handle multiple hydra attacks */
         if (magr->data == &mons[PM_HYDRA] 
-            && mattk->aatyp == AT_BITE 
-            && k > 0) {
+            && mattk->aatyp == AT_BITE && k > 0) {
+            i -= 1;
+            k -= 1;
+        }
+        /* hundred handed ones attack until they miss (up to 100 times) */
+        if (magr->data == &mons[PM_HECATONCHEIRE] 
+            && (res[i] & MM_HIT)) {
             i -= 1;
             k -= 1;
         }

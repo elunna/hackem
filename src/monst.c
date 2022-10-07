@@ -4415,6 +4415,14 @@ struct permonst _mons2[] = {
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_WANDER | M2_STALK | M2_LORD,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_BERSERK,
         0, 0, 29, CLR_BLACK),
+    MON("hecatoncheire", S_GIANT, 
+        LVL(20, 9, -5, 60, 5), (G_GENO | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 1), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(2300, 900, MS_BOAST, MZ_HUGE), 0, 0, 
+        M1_HUMANOID | M1_OMNIVORE,
+        M2_STRONG | M2_ROCKTHROW | M2_NASTY | M2_COLLECT | M2_JEWELS | M2_FLANK,
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 27, CLR_MAGENTA),
     /* --hackem: Could not find difficulty for Father Dagon -
      *           temporarily same as level. */
     MON("Father Dagon", S_GIANT,                                /* Slash'EM */

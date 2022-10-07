@@ -953,6 +953,9 @@ register struct monst *mtmp;
     if (mtmp->data == &mons[PM_HYDRA]) {
         k = min(mtmp->m_lev - mtmp->data->mlevel + 1, 10);
     }
+    if (mtmp->data == &mons[PM_HECATONCHEIRE]) {
+        k = 100;
+    }
     
     for (i = 0; i < NATTK; i++) {
         sum[i] = 0;
@@ -1212,6 +1215,13 @@ register struct monst *mtmp;
         /* handle multiple hydra attacks */
         if (mtmp->data == &mons[PM_HYDRA] 
             && mattk->aatyp == AT_BITE && k > 0) {
+            i -= 1;
+            k -= 1;
+        }
+        /* handle hundred-handed ones */
+        if (mtmp->data == &mons[PM_HECATONCHEIRE] 
+            && mattk->aatyp == AT_WEAP && k > 0
+            && sum[i] == MM_HIT) {
             i -= 1;
             k -= 1;
         }

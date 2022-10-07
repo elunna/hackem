@@ -227,6 +227,10 @@ struct obj *otmp, *mwep;
         /* fake players treated as skilled (regardless of role limits) */
         else if (is_mplayer(mtmp->data))
             multishot++;
+        /* Some people might call this stupid. They would be right. */
+        else if (monsndx(mtmp->data) == PM_HECATONCHEIRE)
+            multishot += 100;
+
         /* Medusa is an expert archer */
         else if (mtmp->data == &mons[PM_MEDUSA])
             multishot += 2;
