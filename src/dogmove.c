@@ -1355,7 +1355,7 @@ register struct monst *mtmp;
     if (udist < 4 && has_edog && !rn2(3)
     	    && can_betray(mtmp->data)
 		    && !mindless(mtmp->data)
-		    && mtmp->mhp >= u.uhp	/* Pet is buff enough */
+		    /*&& mtmp->mhp >= u.uhp */	/* Pet is buff enough */
 		    && rn2(22) > mtmp->mtame	/* Roll against tameness */
 		    && rn2(edog->abuse + 2)) {
 	/* Treason */
@@ -1431,7 +1431,8 @@ int after; /* this is extra fast monster movement */
         return 0;
 
     /* Intelligent pets may rebel (apart from minions, spell beings) */
-	if (!rn2(850) && betrayed(mtmp)) return 1;
+    if (!rn2(527) && betrayed(mtmp)) 
+        return 1;
     
     nix = omx; /* set before newdogpos */
     niy = omy;
