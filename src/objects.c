@@ -1074,6 +1074,8 @@ SCROLL("fire",                  "ANDOVA BEGARIN",  1,  30, 100),
 SCROLL("earth",                          "KIRJE",  1,  18, 200),
 SCROLL("punishment",            "VE FORBRYDERNE",  1,  15, 300),
 SCROLL("charging",                "HACKEM MUCHE",  1,  15, 300),
+SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack */
+            /* Fire burn and cauldron bubble. */
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
 SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
     /* Extra descriptions, shuffled into use at start of new game.

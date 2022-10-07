@@ -43,6 +43,7 @@ STATIC_PTR void FDECL(display_stinking_cloud_positions, (int));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_DCL void NDECL(do_class_genocide);
 STATIC_PTR void specified_id(void);
+static void seffect_cloning(struct obj **);
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
@@ -1960,6 +1961,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                    TRUE);
         }
         break;
+    case SCR_CLONING:
+        seffect_cloning(&sobj);
+        break;
     case SCR_TIME:
         known = TRUE;
         if (confused || scursed) {
@@ -3603,5 +3607,90 @@ create_particular()
 
     return FALSE;
 }
+
+static NEARDATA const char cloneables[] = { ALL_CLASSES, ALLOW_NONE, 0 };
+
+
+static void
+seffect_cloning(struct obj **sobjp)
+{
+    struct obj *sobj = *sobjp;
+    struct obj *otmp;
+    struct obj *otmp2;
+    struct monst *mtmp;
+    int otyp = sobj->otyp;
+    int otyp2;
+    boolean sblessed = sobj->blessed;
+    boolean scursed = sobj->cursed;
+    boolean confused = (Confusion != 0);
+    boolean already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
+                             || objects[otyp].oc_name_known);
+
+    known = TRUE;
+    if (confused) {
+        if (!Hallucination) {
+            You("clone yourself!");
+        } else {
+            You("realize that you have been a clone all along!");
+        }
+        mtmp = cloneu();
+        if (mtmp) 
+            mtmp->mpeaceful = 0;
+    } else {
+        if (!already_known)
+            You("have found a scroll of cloning!");
+        otmp = getobj(cloneables, "clone");
+        if (!otmp) {
+            pline("Never mind.");
+            return;
+        }
+        /* Unique items */
+        if (otmp->otyp == BELL_OF_OPENING) {
+            otyp2 = BELL;
+            return;
+        } else if (otmp->otyp == CANDELABRUM_OF_INVOCATION) {
+            otyp2 = WAX_CANDLE;
+            return;
+        } else if (otmp->otyp == AMULET_OF_YENDOR) {
+            otyp2 = FAKE_AMULET_OF_YENDOR;
+            return;
+        } else if (otmp->otyp == SPE_BOOK_OF_THE_DEAD) {
+            otyp2 = SPE_BLANK_PAPER;
+            return;
+        } else {
+            otyp2 = otmp->otyp;
+        }
+        otmp2 = mksobj_at(otyp2, u.ux, u.uy, FALSE, FALSE);
+        if (otmp2 == &zeroobj) impossible("Invalid cloned object?");
+        /* beatitude */
+        if (scursed) 
+            curse(otmp2);
+        else 
+            otmp2->blessed = otmp->blessed;
+        /* charge / enchantment */
+        if (sblessed) 
+            otmp2->spe = otmp->spe;
+        else 
+            otmp2->spe = min(otmp->spe, 0);
+        /* other properties */
+        otmp2->material = otmp->material;
+        otmp2->greased = otmp->greased;
+        otmp2->oeroded = otmp->oeroded;
+        otmp2->oeroded2 = otmp->oeroded2;
+        otmp2->opoisoned = otmp->opoisoned;
+        otmp2->corpsenm = otmp->corpsenm;
+        /* Prevent exploits */
+        if (otmp2->otyp == WAN_WISHING) 
+            otmp2->spe = -1;
+        else if (otmp2->otyp == MAGIC_MARKER && otmp2->spe >= 16)
+            otmp2->spe = 15;
+        otmp2->quan = 1;
+        obj_extract_self(otmp2);
+        (void) hold_another_object(otmp2, "Whoops! %s out of your grasp.",
+                                The(aobjnam(otmp2, "tumbles")),
+                                (const char *) 0);
+    }
+}
+
 
 /*read.c*/

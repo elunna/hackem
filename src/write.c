@@ -49,7 +49,9 @@ short otyp;
     case SCR_TAMING:
     case SCR_TELEPORTATION:
         return 20;
+    case SCR_TIME:
     case SCR_GENOCIDE:
+    case SCR_CLONING:
         return 30;
     case SCR_BLANK_PAPER:
     default:
