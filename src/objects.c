@@ -217,8 +217,7 @@ WEAPON("throwing axe", None,                                   /* SpliceHack */
        1, 1, 0,  0, 10,  60,  10,  5,  3, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("dwarvish bearded axe", "broad bearded axe",            /* EvilHack */
        0, 0, 0 , 0, 20,  70,  25,  8, 10, 0, S,   P_AXE, IRON, HI_METAL),
-WEAPON("battle-axe", "double-headed axe",
-       /* "double-bitted"? */
+WEAPON("battle-axe", "double-headed axe", /* "double-bitted"? */
        0, 0, 0, 1, 10, 120,  40,  8,  6, 0, S,   P_AXE, IRON, HI_METAL),
 
 /* swords */
@@ -242,7 +241,7 @@ WEAPON("orcish scimitar", "crude curved sword",
        0, 0, 0, 0, 15,  40,  15,  6,  8, 0, S,   P_SCIMITAR, IRON, CLR_BLACK),
 WEAPON("saber", None,
        1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
-WEAPON("rapier", (char *)0,                                     /* Slash'EM */
+WEAPON("rapier", None,                                           /* Slash'EM */
 	1, 0, 0,  0, 0,  30, 40,  6,  8,  0, P,   P_SABER, METAL, CLR_BLACK),
 WEAPON("broadsword", None,
        1, 0, 0, 0,  8,  70,  10,  4,  6, 0, S,   P_BROAD_SWORD, IRON, HI_METAL),
@@ -381,7 +380,7 @@ WEAPON("bullwhip", None,
 WEAPON("flaming lash", None,                                   /* SpliceHack */
        1, 0, 0, 0,  0, 180,   4, 12, 12, 0, 0,   P_WHIP, LEATHER, CLR_RED),
 /* Good to-hit and small damage, but low large damage */
-WEAPON("fly swatter", (char *)0,                                /* Slash'EM */
+WEAPON("fly swatter", None,                                /* Slash'EM */
 	1, 0, 0, 0,  2,  10,   3, 10,  2, 2, B,   P_WHIP, PLASTIC, CLR_GREEN),
 
 /* launchers */
