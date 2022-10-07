@@ -1061,7 +1061,8 @@ makelevel()
             mktoilet(croom);
         }
 
-        if (!rn2(40))
+        /* Forges only start appearing below level 5 */
+        if (!rn2(40) && depth(&u.uz) > 5)
             mkforge(0, croom);
         if (!rn2(60))
             mkaltar(croom);
