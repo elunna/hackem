@@ -4726,6 +4726,7 @@ void
 m_respond(mtmp)
 struct monst *mtmp;
 {
+    int i;
     if (mtmp->data->msound == MS_SHRIEK) {
         if (!Deaf) {
             pline("%s %s.", Monnam(mtmp), 
@@ -4775,6 +4776,28 @@ struct monst *mtmp;
                 (void) gazemu(mtmp, &mtmp->data->mattk[i]);
                 break;
             }
+    }
+    /* Frightful presence! */
+    if (mtmp->data->msound == MS_ROAR && !mtmp->mpeaceful
+        && is_dragon(mtmp->data) && monsndx(mtmp->data) >= PM_GRAY_DRAGON) {
+        if (!Deaf && canseemon(mtmp)) {
+            pline("%s lets out a thunderous roar!", Monnam(mtmp));
+            stop_occupation();
+        } else if (!Deaf) {
+            You_hear("a loud roar!");
+        } else if (canseemon(mtmp)) {
+            pline("%s bellows soundlessly!", Monnam(mtmp));
+        }
+        wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
+        if (canseemon(mtmp) || !Deaf) {
+            i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
+            if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
+                u.fearedmon = mtmp;
+                make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
+            } else {
+                You("hold firm.");
+            }
+        }
     }
 }
 
