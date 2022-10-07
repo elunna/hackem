@@ -1514,10 +1514,10 @@ register int after;
                         || (likegems && otmp->oclass == GEM_CLASS
                             && otmp->material != MINERAL)
                         || (conceals && !cansee(otmp->ox, otmp->oy))
-                        || (ptr == &mons[PM_GELATINOUS_CUBE]
-                            && !index(indigestion, otmp->oclass))))
-                        && !((otmp->otyp == CORPSE
-                             && touch_petrifies(&mons[otmp->corpsenm]))))
+                        || (is_bigeater(ptr)
+                             && !index(indigestion, otmp->oclass)
+                             && !(otmp->otyp == CORPSE
+                                  && touch_petrifies(&mons[otmp->corpsenm]))))))
                         && touch_artifact(otmp, mtmp)) {
                         if (((can_carry(mtmp, otmp) > 0 || (Is_container(otmp)))
                             && ((racial_throws_rocks(mtmp)) || !sobj_at(BOULDER, xx, yy)))
@@ -1936,8 +1936,7 @@ register int after;
                 mpickgold(mtmp);
 
             /* Maybe a cube ate just about anything */
-            if (ptr == &mons[PM_GELATINOUS_CUBE] ||
-			    ptr == &mons[PM_TASMANIAN_DEVIL]) {
+            if (is_bigeater(ptr)) {
                 if (meatobj(mtmp) == 2)
                     return 2; /* it died */
             }

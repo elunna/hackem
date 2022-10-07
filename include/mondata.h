@@ -793,6 +793,15 @@
                          (ptr) == &mons[PM_FLESH_GOLEM]) && \
                         (!is_undead(ptr) || is_vampire(ptr)))
 
+/* instantly eats any organic object it comes into contact with */
+#define is_bigeater(ptr) \
+    ((ptr) == &mons[PM_GELATINOUS_CUBE] \
+     || (ptr) == &mons[PM_SHOGGOTH] \
+     || (ptr) == &mons[PM_GIANT_SHOGGOTH] \
+     || (ptr) == &mons[PM_TASMANIAN_DEVIL] \
+     || (ptr) == &mons[PM_LOCUST])
+
+
 /* monkeys are tameable via bananas but not pacifiable via food,
    otherwise their theft attack could be nullified too easily;
    dogs and cats can be tamed by anything they like to eat and are
