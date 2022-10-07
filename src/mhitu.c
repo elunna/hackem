@@ -1755,22 +1755,13 @@ register struct attack *mattk;
         /* The material of the helmet on your head determines how effective
          * it will be when deflecting tentacle/bite attacks. Harder material
          * will do a better job than a soft cap. */
-        if (uarmh && is_hard(uarmh) && rn2(4)) {
+        if (uarmh && ((is_hard(uarmh) && rn2(4))
+                      || uarmh->otyp == TINFOIL_HAT)) {
             /* not body_part(HEAD) */
-            Your("%s blocks the %s to your head.",
-                 helm_simple_name(uarmh), is_zombie(mdat) ? "bite" : "attack");
-            break;
-        }
-        if (uarmh->otyp == TINFOIL_HAT) {
-            /* not body_part(HEAD) */
-            Your("%s blocks the attack to your head.",
-                 helm_simple_name(uarmh));
-            break;
-        }
-
-        if (uarmh && !is_hard(uarmh) && rn2(2)) {
-            Your("%s repels the %s to your head.",
-                 helm_simple_name(uarmh), is_zombie(mdat) ? "bite" : "attack");
+            Your("%s %s the %s to your head.",
+                 helm_simple_name(uarmh), 
+                 rn2(2) ? "blocks" : "repels", 
+                 is_zombie(mdat) ? "bite" : "attack");
             break;
         }
 
