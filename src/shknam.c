@@ -338,6 +338,8 @@ const struct shclass shtypes[] = {
         { 35, -ELVEN_ARROW },
         { 20, -ELVEN_BOW },
         { 10, -LIGHT_ARROW },
+        { 10, -CROSSBOW },
+        { 20, -CROSSBOW_BOLT },
         { 5, WEAPON_CLASS } },
       shkarchery },
     { "mask shop", RANDOM_CLASS, 2,
