@@ -3006,7 +3006,7 @@ NEARDATA struct permonst mons[] = {
     MON("lamassu", S_ANGEL,                                   /* SpliceHack */
         LVL(12, 12, -3, 50, 0), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
-          ATTK(AT_CLAW, AD_PHYS, 2, 4),
+          ATTK(AT_BUTT, AD_PHYS, 2, 4),
           ATTK(AT_BITE, AD_PHYS, 1, 6), 
           ATTK(AT_MAGC, AD_CLRC, 2, 6),
           NO_ATTK, NO_ATTK),
