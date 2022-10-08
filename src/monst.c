@@ -1063,7 +1063,7 @@ NEARDATA struct permonst mons[] = {
      * gremlins and gargoyles
      */
     MON("jermlaine", S_GREMLIN,                                 /* Slash'EM */
-        LVL(0, 15, 7, 0, -9), (G_NOHELL | G_GENO | G_VLGROUP | 1),
+        LVL(2, 15, 7, 0, -9), (G_NOGEN | G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 2),
           ATTK(AT_CLAW, AD_PHYS, 1, 2),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -1076,8 +1076,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1200, 400, MS_HUMANOID, MZ_HUMAN), MR_POISON | MR_STONE, 0,
         M1_HUMANOID | M1_THICK_HIDE | M1_BREATHLESS, 
-        M2_STRONG | M2_FLANK, 0, 0, 0, 
-        3, CLR_GRAY),
+        M2_STRONG | M2_FLANK, 0, 0, 0, 3, CLR_GRAY),
     MON("statue gargoyle", S_GREMLIN,                           /* Slash'EM */
         LVL(4, 9, 1, 0, 0), (G_NOHELL | G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 3),
@@ -2233,7 +2232,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, M3_INFRAVISIBLE,
         0, 0, 2, CLR_BROWN),
     MON("pack rat", S_RODENT,                                   /* Slash'EM */
-        LVL(2, 12, 7, 0, 0), (G_GENO | 1),
+        LVL(2, 12, 7, 0, 0), (G_NOGEN | G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 3),
           ATTK(AT_TUCH, AD_SITM, 1, 1),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
