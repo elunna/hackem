@@ -2066,7 +2066,7 @@ int spell;
         splcaster -= urole.spelarmr;
     #endif
 
-    if (uarms)
+    if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
 
     if (uarmh && is_metallic(uarmh) && uarmh->otyp != HELM_OF_BRILLIANCE && !paladin_bonus)
@@ -2158,8 +2158,8 @@ int spell;
      * player's role-specific spell.  Metallic shields still adversely
      * affect spellcasting, no matter how light they are.
      */
-    if (uarms && (is_metallic(uarms)
-                  || (weight(uarms) > (int) objects[SMALL_SHIELD].oc_weight))) {
+    if (uarms && (is_metallic(uarms) || (weight(uarms) > (int) objects[SMALL_SHIELD].oc_weight))
+                  && uarms->oartifact != ART_MIRRORBRIGHT) {
         if (spellid(spell) == urole.spelspec) {
             chance /= 2;
         } else {
