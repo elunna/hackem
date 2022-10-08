@@ -1585,9 +1585,13 @@ domove_core()
 
             if (!skates)
                 skates = find_skates();
-            if ((uarmf && uarmf->otyp == skates) || resists_cold(&youmonst)
-                || Flying || is_floater(youmonst.data)
-                || is_clinger(youmonst.data) || is_whirly(youmonst.data)
+            if ((uarmf && uarmf->otyp == skates) 
+                || Role_if(PM_ICE_MAGE)
+                || resists_cold(&youmonst)
+                || Flying 
+                || is_floater(youmonst.data)
+                || is_clinger(youmonst.data) 
+                || is_whirly(youmonst.data)
                 || (uarm && Is_dragon_scaled_armor(uarm)
                     && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES)) {
                 on_ice = FALSE;
