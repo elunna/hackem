@@ -1811,7 +1811,6 @@ Splice Monsters
 		LARVACARRIER
 	[x] spibrawulf
 		[x] AD_LARV - lays eggs inside you?
-		Rename to infester demon
 	[x] eye of fear and flame" - high level lich? between demi and master
 		[x] ATTK(AT_GAZE, AD_FEAR, 0, 4), */
 	[x] hedgehog
@@ -1929,3 +1928,76 @@ Lowered the weight of throwing axes to 40 and added +1 to-hit.
 [x] Increase chance of traitorous pets betraying. 1 in 527 each turn of checking. Removed requirement that pet have higher HP.
 	- [SKIPPED] In SLASH'EM, the range of the polearm is expanded and not restricted by skill level.
 		
+[x] Dragon roaring: MS_ROAR
+	[ x] dragon bellows: mon.c: 3860 /* Frightful presence! */
+	[x] is_bigeater - eats organic stuff
+	
+[x] yuki onna; changed stun attack to a fear gaze attack.
+	yuki onna - doubled difficulty to 14
+	brownie - increased difficulty to 18
+	lampad- doubled difficulty to 22
+	dream thief - increased difficulty to 25
+	thriae - increased difficulty to 27.
+	
+[FIXED] Gnome zombie bite attack - crashed. (at mhitu.c:1764)
+[x] Wand of wind - postknown
+[x] Yuki-onna: Should have cold resistance
+[x] Flame mage: Nix armor
+[x] Pack rat - increase difficulty. No longer randomly generates in dungeon (they appear with jerm with BoRats)
+[x] Jermlaine - increased level and difficulty
+[FIXED] Convicts can still buy services if banned.
+[FIXED] Wand of draining doesn't auto id on zapping monster
+[x] Vampires: not neutral - can only be chaotic.
+[x] Scroll of air- shouldn't damage vampires!
+[x] Yeoman start slow (verified)
+[THEY DO] Vampires don't show up in randomizer?
+[TEMP FIX] Vampire ice mage - is a VAMPIRE MAGE??
+[x] Ice traps only generate after level 8 (like poly)
+[CAN"T REPLICATE] Freezing sphere leaves poison cloud
+
+
+[x] "Ice Mages can walk on ice without slipping.
+[x] 50% chance (with a luck bonus) of slipping free with free action
+
+[x] Removed cursed weapons reverse hitting. Cursed weapons will miss 25% of the time now instead of 20% to compensate.
+
+[x] Wand of fear doesn't ID, no msg - by design
+[FIXED] Wand of Acid doesn't id properly - says it's a wand of acid, but doesn't id
+[FIXED] Wand of sonics - should be post known
+[x] wand of create horde - Creates 7-11 instead of 7-13 monsters.
+	[x] Also hates_light: gibberlinges, grimlocks...
+
+	[x] Do troll mummies still revive with Trollsbane? NO - they explode in flame.
+
+Barghest is amphibious: . In East Anglia, where it was thought to be amphibious, the dog had only one eye and was known as Black Shuck, or Shock. Also gave berserk
+
+[x] lampad: Usually bear torches 
+[x] Added berserk to redcaps
+[x] Chimera: fire-breathing 3d6
+[x] lamassu should have 2 horns;  Replaced one of the claw attacks with a butt attack.
+[x] marrashi gets berserk
+[x] Hydra: Added poisonous breath, 	passive poison 
+	
+	[x] glowing eye/bloodshot eye/blinking eye: added M3_SKITTISH.
+
+	[x] Pay attention to behavior of engraving with new wands (preknown or postknown more appropriate?)
+
+[x] Added traitor to: Displacer beast, jermlaine, gremlin, lava gremlin, gargoyle,winged gargoyle, hobbit pickpocker,
+	mind flayer, master mind flayer, redcap, goblin, hobgoblin, orc, hill orc, mordor orc, uruk-hai, orc shaman, orc captain, 
+	forest centaur, mountain centaur, red dragon, stalker, worm that walks, all liches (All L), ogres, ogre lord, ogre king, disenchanter
+	all trolls, all vampires, 
+
+Added more upgrade paths for gray stones. Luckstones and whetstones can be upgraded into healthstones and vice versa. Flintstones upgrade into luck/whetstones.
+
+	- [x] Fire mages can be giants, dwaves
+	- [x] Ice mages can be illithid, centaurs
+	
+[x] Put Cthulu in the middle of sanctum
+
+[x] Mirrorbright is not the first guaranteed gift to healers any more.
+	Healers don't benefit from it much - their best weapon is the 2-handed Staff. And it usually hinders spells.
+	
+[x] Mirrorbright no longer hinders spell-casting.
+
+	- [SKIPPED]  GRAIN_SCYTHE (from THEM, basically same as scythe in splice)
+	[x] keg
