@@ -1564,6 +1564,10 @@ dopay()
             if (!umoney)
                 pline(no_money, stashed_gold ? " seem to" : "");
 #endif 
+            if (eshkp->pbanned) {
+                verbalize("I don't service your kind here.");
+                return 0;
+            }
             if (!shk_other_services())
                 return 0;
         } else if (ltmp) {
