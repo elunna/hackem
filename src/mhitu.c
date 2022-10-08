@@ -1285,7 +1285,14 @@ struct attack *mattk;
             update_inventory();
         }
         return TRUE;
-    }
+    /* 50% chance (with a luck bonus) of slipping free with free action */
+	} else if (Free_action && (rnl(10) < 5)) {
+        pline("%s %s you, but you quickly free yourself!",
+                Monnam(mtmp),
+                (mattk->adtyp == AD_WRAP) ?
+                "swings itself around of" : "grabs");
+        return TRUE;
+	}
     return FALSE;
 }
 
