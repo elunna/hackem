@@ -1607,6 +1607,7 @@ coord *tm;
                 break;
             case STATUE_TRAP:
             case POLY_TRAP:
+            case ICE_TRAP:
                 if (lvl < 8)
                     kind = NO_TRAP;
                 break;
