@@ -2649,7 +2649,7 @@ register struct obj *obj;
                                 (struct permonst *) 0, FALSE);
         break;
     case WAN_CREATE_HORDE:
-        known = create_critters(rn1(7, 6), 
+        known = create_critters(rn1(7, 4), 
                                 (struct permonst *) 0, FALSE);
         break;
     case WAN_WISHING:
