@@ -1672,12 +1672,12 @@ NEARDATA struct permonst mons[] = {
     MON("yuki-onna", S_NYMPH,                                 /* SpliceHack */
         LVL(5, 12, 9, 20, 5), (G_GENO | 2),
         A(ATTK(AT_TUCH, AD_COLD, 2, 6),
-          ATTK(AT_TUCH, AD_STUN, 0, 0),
+          ATTK(AT_GAZE, AD_FEAR, 0, 4),
           /* ATTK(AT_TUCH, AD_LOST, 0, 0), */
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), MR_COLD, 0, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
-        M3_INFRAVISIBLE, 0, 0, 7, CLR_WHITE),
+        M3_INFRAVISIBLE, 0, 0, 14, CLR_WHITE),
     MON("brownie", S_NYMPH,                                     /* Slash'EM */
         LVL(8, 15, 3, 20, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
@@ -1685,7 +1685,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_GREEDY | M2_MAGIC | M1_HERBIVORE, 
-        M3_INFRAVISIBLE, 0, 0, 11, CLR_BROWN),
+        M3_INFRAVISIBLE, 0, 0, 18, CLR_BROWN),
     MON("lampad", S_NYMPH,                                    /* SpliceHack */
         LVL(10, 12, 0, 50, 0), (G_GENO | G_HELL | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 6), 
@@ -1694,7 +1694,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
-        M3_INFRAVISIBLE, 0, 0, 12, CLR_BLACK),
+        M3_INFRAVISIBLE, 0, 0, 22, CLR_BLACK),
     MON("dream thief", S_NYMPH,                               /* SpliceHack */
         LVL(14, 15, 4, 40, 0), (G_NOHELL | 1),
         A(ATTK(AT_CLAW, AD_CURS, 0, 0), 
@@ -1707,7 +1707,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0,
         M1_HUMANOID | M1_TPORT | M1_FLY,
         M2_HOSTILE | M2_MALE | M2_COLLECT, M3_INFRAVISIBLE, 
-        0, 0, 18, CLR_BRIGHT_GREEN),
+        0, 0, 25, CLR_BRIGHT_GREEN),
     MON("thriae", S_NYMPH,                                    /* SpliceHack */
         LVL(14, 12, 0, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
@@ -1717,7 +1717,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_BUZZ, MZ_HUMAN), MR_POISON, MR_POISON,
         M1_HUMANOID | M1_POIS | M1_FLY,
         M2_HOSTILE | M2_FEMALE | M2_COLLECT, 0, 0, 0, 
-        20, CLR_YELLOW),
+        27, CLR_YELLOW),
    
     /* In Slash'EM, but we kept the EvilHack version - almost identical */
     MON("Aphrodite", S_NYMPH,                                   /* Slash'EM */
