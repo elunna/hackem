@@ -769,7 +769,7 @@ doengrave()
                 if (!Deaf) {
                     Strcpy(post_engr_text,
                         "The wand issues a series of loud bangs!");
-                    preknown = TRUE;
+                    postknown = TRUE;
                 }
                 wake_nearto(u.ux, u.uy, 5 * 5);
                 break;
