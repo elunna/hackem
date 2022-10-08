@@ -66,7 +66,7 @@ static struct trobj Flame_Mage[] = {
 #define F_BOOK 9
     /* for dealing with ghosts */
     { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
-    { STUDDED_ARMOR, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { POT_OIL, UNDEF_SPE, POTION_CLASS, 2, UNDEF_BLESS },
     { SCR_FIRE, UNDEF_SPE, SCROLL_CLASS, 1, 0 },
