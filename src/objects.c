@@ -185,9 +185,9 @@ WEAPON("dark elven dagger", "black runed dagger",               /* Slash'EM */
 WEAPON("orcish dagger", "crude dagger",
        0, 1, 0, 0, 12,  10,   4,  3,  3, 2, P,   P_DAGGER, IRON, CLR_BLACK),
 /* Base for artifact (Stake of Van Helsing) */
-WEAPON("wooden stake", (char *)0,                               /* Slash'EM */
+WEAPON("wooden stake", None,                               /* Slash'EM */
 	1, 0, 0, 0,  5,  20,  50,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
-WEAPON("great dagger", (char *)0,                               /* Slash'EM */
+WEAPON("great dagger", None,                               /* Slash'EM */
 	1, 0, 0, 0,  0,  20, 500,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
 	/* STEPHEN WHITE'S NEW CODE */
 	/* for necromancer artifact... */
