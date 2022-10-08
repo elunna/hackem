@@ -837,228 +837,203 @@ struct Role urole = {
 /* Table of all races */
 const struct Race races[] = {
     {
-        "human",
-        "human",
-        "humanity",
-        "Hum",
-        { "man", "woman" },
-        PM_HUMAN,
-        NON_PM,
-        PM_HUMAN_MUMMY,
-        PM_HUMAN_ZOMBIE,
+        "human", "human", "humanity", "Hum",
+        { "man", "woman" },  /* individual as a noun */
+        PM_HUMAN,   /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_HUMAN_MUMMY, /* PM_ as a mummy */
+        PM_HUMAN_ZOMBIE, /* PM_ as a zombie */
         MH_HUMAN | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
-            | ROLE_CHAOTIC,
-        MH_HUMAN,
-        0,
-        MH_GNOME | MH_ORC | MH_CENTAUR | MH_ILLITHID,
-        /*    Str     Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR18(100), 18, 18, 18, 18, 18 },
+            | ROLE_CHAOTIC, /* allowed variations */
+        MH_HUMAN,   /* your own race's bit mask */
+        0,          /* always peaceful */
+        MH_GNOME | MH_ORC | MH_CENTAUR | MH_ILLITHID, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR18(100), 18, 18, 18, 18, 18 },/* max allowable */
         /* Init   Lower  Higher */
         { 2, 0, 0, 2, 1, 0 }, /* Hit points */
         { 1, 0, 2, 0, 2, 0 }  /* Energy */
     },
     {
-        "elf",
-        "elven",
-        "elvenkind",
-        "Elf",
-        { 0, 0 },
-        PM_ELF,
-        NON_PM,
-        PM_ELF_MUMMY,
-        PM_ELF_ZOMBIE,
-        MH_ELF | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
-        MH_ELF,
-        MH_ELF,
-        MH_ORC | MH_ILLITHID,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { 18, 20, 20, 20, 16, 18 },
+        "elf", "elven", "elvenkind", "Elf",
+        { 0, 0 },   /* individual as a noun */
+        PM_ELF,     /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_ELF_MUMMY, /* PM_ as a mummy */
+        PM_ELF_ZOMBIE, /* PM_ as a zombie */
+        MH_ELF | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
+        MH_ELF,     /* your own race's bit mask */
+        MH_ELF,     /* always peaceful */
+        MH_ORC | MH_ILLITHID, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { 18, 20, 20, 20, 16, 18 },        /* max allowable */
         /* Init   Lower  Higher */
         { 1, 0, 0, 1, 1, 0 }, /* Hit points */
         { 2, 0, 3, 0, 3, 0 }  /* Energy */
     },
     {
-        "dwarf",
-        "dwarven",
-        "dwarvenkind",
-        "Dwa",
-        { 0, 0 },
-        PM_DWARF,
-        NON_PM,
-        PM_DWARF_MUMMY,
-        PM_DWARF_ZOMBIE,
-        MH_DWARF | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-        MH_DWARF,
-        MH_DWARF | MH_GNOME,
-        MH_ORC | MH_ILLITHID | MH_GIANT,
-        /*    Str     Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR18(100), 16, 16, 20, 20, 16 },
+        "dwarf", "dwarven", "dwarvenkind", "Dwa",
+        { 0, 0 },   /* individual as a noun */
+        PM_DWARF,   /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_DWARF_MUMMY, /* PM_ as a mummy */
+        PM_DWARF_ZOMBIE, /* PM_ as a zombie */
+        MH_DWARF | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL, /* allowed variations */
+        MH_DWARF,   /* your own race's bit mask */
+        MH_DWARF | MH_GNOME, /* always peaceful */
+        MH_ORC | MH_ILLITHID | MH_GIANT, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR18(100), 16, 16, 20, 20, 16 },/* max allowable */
         /* Init   Lower  Higher */
         { 4, 0, 0, 3, 2, 0 }, /* Hit points */
         { 0, 0, 0, 0, 0, 0 }  /* Energy */
     },
     {
-        "gnome",
-        "gnomish",
-        "gnomehood",
-        "Gno",
-        { 0, 0 },
-        PM_GNOME,
-        NON_PM,
-        PM_GNOME_MUMMY,
-        PM_GNOME_ZOMBIE,
-        MH_GNOME | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
-        MH_GNOME,
-        MH_DWARF | MH_GNOME,
-        MH_HUMAN | MH_ORC | MH_GIANT | MH_ILLITHID,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR18(50), 19, 18, 18, 18, 18 },
+        "gnome", "gnomish", "gnomehood", "Gno",
+        { 0, 0 },   /* individual as a noun */
+        PM_GNOME,   /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_GNOME_MUMMY, /* PM_ as a mummy */
+        PM_GNOME_ZOMBIE, /* PM_ as a zombie */
+        MH_GNOME | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
+        MH_GNOME,   /* your own race's bit mask */
+        MH_DWARF | MH_GNOME, /* always peaceful */
+        MH_HUMAN | MH_ORC | MH_GIANT | MH_ILLITHID, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR18(50), 19, 18, 18, 18, 18 }, /* max allowable */
         /* Init   Lower  Higher */
         { 1, 0, 0, 1, 0, 0 }, /* Hit points */
         { 2, 0, 2, 0, 2, 0 }  /* Energy */
     },
     {
-        "orc",
-        "orcish",
-        "orcdom",
-        "Orc",
-        { 0, 0 },
-        PM_ORC,
-        NON_PM,
-        PM_ORC_MUMMY,
-        PM_ORC_ZOMBIE,
-        MH_ORC | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
-        MH_ORC,
-        0,
+        "orc", "orcish", "orcdom", "Orc",
+        { 0, 0 },   /* individual as a noun */
+        PM_ORC,     /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_ORC_MUMMY, /* PM_ as a mummy */
+        PM_ORC_ZOMBIE, /* PM_ as a zombie */
+        MH_ORC | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC, /* allowed variations */
+        MH_ORC,     /* your own race's bit mask */
+        0,          /* always peaceful */
         MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT
-            | MH_TORTLE,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR18(50), 16, 16, 18, 19, 16 },
+            | MH_TORTLE, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR18(50), 16, 16, 18, 19, 16 }, /* max allowable */
         /* Init   Lower  Higher */
         { 1, 0, 0, 1, 0, 0 }, /* Hit points */
         { 1, 0, 1, 0, 1, 0 }  /* Energy */
     },
     {
-        "giant",
-        "giant",
-        "giant-kind",
-        "Gia",
-        { 0, 0 },
-        PM_GIANT,
-        NON_PM,
-        PM_GIANT_MUMMY,
-        PM_GIANT_ZOMBIE,
+        "giant", "giant", "giant-kind", "Gia",
+        { 0, 0 },   /* individual as a noun */
+        PM_GIANT,   /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_GIANT_MUMMY, /* PM_ as a mummy */
+        PM_GIANT_ZOMBIE, /* PM_ as a zombie */
         MH_GIANT | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
-            | ROLE_CHAOTIC,
-        MH_GIANT,
-        MH_GIANT,
-        MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_ILLITHID,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR19(25), 14, 18, 14, 25, 16 },
+            | ROLE_CHAOTIC, /* allowed variations */
+        MH_GIANT,   /* your own race's bit mask */
+        MH_GIANT,   /* always peaceful */
+        MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_ILLITHID, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR19(25), 14, 18, 14, 25, 16 }, /* max allowable */
         /* Init   Lower  Higher */
         { 4, 3, 1, 4, 3, 3 }, /* Hit points */
         { 1, 0, 1, 0, 1, 0 }  /* Energy */
     },
     {
-        "hobbit",
-        "hobbit",
-        "halfling",
-        "Hob",
-        { 0, 0 },
-        PM_HOBBIT,
-        NON_PM,
-        PM_HOBBIT_MUMMY,
-        PM_HOBBIT_ZOMBIE,
-        MH_HOBBIT | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-        MH_HOBBIT,
-        MH_HOBBIT | MH_TORTLE,
-        MH_ORC | MH_ILLITHID,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { 16, 16, 20, 20, 20, 16 },
+        "hobbit", "hobbit", "halfling", "Hob",
+        { 0, 0 },   /* individual as a noun */
+        PM_HOBBIT,  /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        PM_HOBBIT_MUMMY, /* PM_ as a mummy */
+        PM_HOBBIT_ZOMBIE, /* PM_ as a zombie */
+        MH_HOBBIT | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL, /* allowed variations */
+        MH_HOBBIT,  /* your own race's bit mask */
+        MH_HOBBIT | MH_TORTLE, /* always peaceful */
+        MH_ORC | MH_ILLITHID, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { 16, 16, 20, 20, 20, 16 },        /* max allowable */
         /* Init   Lower  Higher */
         { 2, 0, 0, 2, 1, 0 }, /* Hit points */
         { 2, 0, 2, 1, 2, 0 }  /* Energy */
     },
     {
-        "centaur",
-        "centaurian",
-        "centaurian",
-        "Cen",
-        { 0, 0 },
-        PM_CENTAUR,
-        NON_PM,
-        NON_PM,
-        NON_PM,
-        MH_CENTAUR | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
-        MH_CENTAUR,
-        MH_CENTAUR,
-        MH_HUMAN | MH_DWARF | MH_GNOME | MH_ILLITHID,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR19(20), 12, 14, 20, 18, 16 },
+        "centaur", "centaurian", "centaurian", "Cen",
+        { 0, 0 }, /* individual as a noun */
+        PM_CENTAUR, /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        NON_PM,     /* PM_ as a mummy */
+        NON_PM,     /* PM_ as a zombie */
+        MH_CENTAUR | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
+        MH_CENTAUR, /* your own race's bit mask */
+        MH_CENTAUR, /* always peaceful */
+        MH_HUMAN | MH_DWARF | MH_GNOME | MH_ILLITHID, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR19(20), 12, 14, 20, 18, 16 }, /* max allowable */
         /* Init   Lower  Higher */
         { 3, 3, 1, 2, 2, 2 }, /* Hit points */
         { 1, 0, 1, 0, 1, 0 }  /* Energy */
     },
     {
-        "illithid",
-        "illithid",
-        "illithid-kind",
-        "Ith",
-        { 0, 0 },
-        PM_ILLITHID,
-        NON_PM,
-        NON_PM,
-        NON_PM,
-        MH_ILLITHID | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
-        MH_ILLITHID,
-        MH_ILLITHID,
+        "illithid", "illithid", "illithid-kind", "Ith",
+        { 0, 0 }, /* individual as a noun */
+        PM_ILLITHID, /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        NON_PM,     /* PM_ as a mummy */
+        NON_PM,     /* PM_ as a zombie */
+        MH_ILLITHID | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC, /* allowed variations */
+        MH_ILLITHID, /* your own race's bit mask */
+        MH_ILLITHID, /* always peaceful */
         MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT
-            | MH_GIANT | MH_CENTAUR | MH_ORC | MH_TORTLE,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { 10, 22, 22, 20, 12, 16 },
+            | MH_GIANT | MH_CENTAUR | MH_ORC | MH_TORTLE, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { 10, 22, 22, 20, 12, 16 },        /* max allowable */
         /* Init   Lower  Higher */
         { 2, 0, 1, 1, 1, 0 }, /* Hit points */
         { 3, 0, 3, 0, 4, 0 }  /* Energy */
     },
     {
-        "tortle",
-        "tortle",
-        "tortle",
-        "Trt",
-        { 0, 0 },
-        PM_TORTLE,
-        NON_PM,
-        NON_PM,
-        NON_PM,
+        "tortle", "tortle", "tortle", "Trt",
+        { 0, 0 },   /* individual as a noun */
+        PM_TORTLE,  /* PM_ as a male monster */
+        NON_PM,     /* as a female (NON_PM == same) */
+        NON_PM,     /* PM_ as a mummy */
+        NON_PM,     /* PM_ as a zombie */
         MH_TORTLE | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL
-            | ROLE_NEUTRAL,
-        MH_TORTLE,
-        MH_TORTLE | MH_HOBBIT,
-        MH_ORC | MH_ILLITHID,
-        /*  Str    Int Wis Dex Con Cha */
-        { 3, 3, 3, 3, 3, 3 },
-        { STR19(19), 18, 20, 10, 18, 14 },
+            | ROLE_NEUTRAL, /* allowed variations */
+        MH_TORTLE, /* your own race's bit mask */
+        MH_TORTLE | MH_HOBBIT, /* always peaceful */
+        MH_ORC | MH_ILLITHID,  /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR19(19), 18, 20, 10, 18, 14 }, /* max allowable */
         /* Init   Lower  Higher */
         { 2, 0, 0, 2, 1, 0 }, /* Hit points */
         { 2, 0, 2, 1, 2, 0 }  /* Energy */
     },
     {	"vampire", "vampiric", "vampirehood", "Vam",
-        {0, 0},
-        PM_VAMPIRE, NON_PM, PM_HUMAN_MUMMY, PM_HUMAN_ZOMBIE,
-        MH_VAMPIRE | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
-        MH_VAMPIRE, 0, MH_ELF | MH_GNOME | MH_DWARF | MH_ORC,
-        /*    Str     Int Wis Dex Con Cha */
-        {      3,      3,  3,  3,  3,  3 },
-        { STR19(19), 18, 18, 20, 20, 20 },
+        {0, 0},     /* individual as a noun */
+        PM_VAMPIRE, /* PM_ as a male monster */
+        NON_PM,     /* ...or as a female (NON_PM == same) */
+        PM_HUMAN_MUMMY, /* PM_ as a mummy */
+        PM_HUMAN_ZOMBIE, /* PM_ as a zombie */
+        MH_VAMPIRE | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC, /* allowed variations */
+        MH_VAMPIRE, /* your own race's bit mask */
+        0,          /* always peaceful */
+        MH_ELF | MH_GNOME | MH_DWARF | MH_ORC, /* always hostile */
+        /*    Str    Int Wis Dex Con Cha */
+        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        { STR19(19), 18, 18, 20, 20, 20 }, /* max allowable */
         /* Init   Lower  Higher */
         {  3, 0,  0, 3,  2, 0 },	/* Hit points */
         {  3, 0,  4, 0,  4, 0 }		/* Energy */
