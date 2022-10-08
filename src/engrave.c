@@ -981,7 +981,7 @@ doengrave()
                 if (!objects[otmp->otyp].oc_name_known && !Blind) {
                     if (flags.verbose)
                         pline("This %s is a wand of acid!", xname(otmp));
-                    postknown = TRUE;
+                    preknown = TRUE;
                 } else if (!Deaf) {
                     Sprintf(post_engr_text, "Something sprays from the wand.");
                 }
