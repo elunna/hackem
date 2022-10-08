@@ -372,7 +372,7 @@ struct obj *otmp;
             pline("%s gets blasted by hurricane-force winds!", Monnam(mtmp));
             mhurtle(mtmp, mtmp->mx - u.ux, mtmp->my - u.uy, 5 + rn2(5));
         }
-        learn_it=TRUE;
+        learn_it = TRUE;
         break;
     case WAN_SPEED_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {

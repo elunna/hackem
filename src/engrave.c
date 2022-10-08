@@ -853,7 +853,7 @@ doengrave()
                     You_feel("like a Student of Winds!");
                 scatter(u.ux, u.uy, 4, MAY_DESTROY | MAY_HIT | VIS_EFFECTS,
                         (struct obj *) 0);
-                preknown = TRUE;
+                postknown = TRUE;
                 break;
             /* can't tell sleep from death - Eric Backus */
             case WAN_SLEEP:
