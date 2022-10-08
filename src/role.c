@@ -256,7 +256,8 @@ const struct Role roles[] = {
         S_RUSTMONST, 
         S_XORN,
         ART_STORM_WHISTLE,
-        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE | MH_ILLITHID, 
+        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE 
+            | MH_ILLITHID | MH_CENTAUR, 
         ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
         /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
         {   7, 10,  7,  7,  7,  7 },
