@@ -2052,7 +2052,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         struct monst *mtmp, *mtmp2;
 
         if (scursed) {
-            if (!breathless(youmonst.data)) {
+            if (!Breathless && !breathless(youmonst.data)) {
                 known = TRUE;
                 pline("The air is sucked from your lungs!");
                 losehp(d(3, 4), "asphyxiation", KILLED_BY);
