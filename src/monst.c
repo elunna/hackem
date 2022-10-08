@@ -7008,9 +7008,11 @@ struct permonst _mons2[] = {
       random demon lord or demon prince.  See minion.c */
 
     /* Original Slash'EM/SlashTHEM Cthulu. */
-
+    /* --hackem: Matched Un's -8AC, 
+     * added regen, omnivore, rockthrow, M2_MAGIC*/
     MON("Cthulhu", S_DEMON,
-        LVL(106, 18, -15, 95, 0), (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
+        LVL(106, 18, -8, 95, 0), 
+        (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
         A(ATTK(AT_MAGC, AD_CLRC, 4, 6), 
           ATTK(AT_CLAW, AD_PHYS, 6, 8),
           ATTK(AT_BITE, AD_PHYS, 4, 10), 
@@ -7018,13 +7020,13 @@ struct permonst _mons2[] = {
           ATTK(AT_TENT, AD_DRIN, 2, 1), 
           ATTK(AT_GAZE, AD_CONF, 0, 0)),
         SIZ(3000, 500, MS_ROAR, MZ_GIGANTIC), 
-	      MR_POISON | MR_STONE | MR_DISINT | MR_SLEEP | MR_ACID, 0,
+        MR_POISON | MR_STONE | MR_DISINT | MR_SLEEP | MR_ACID, 0,
         M1_SWIM | M1_AMPHIBIOUS | M1_BREATHLESS | M1_THICK_HIDE 
-          | M1_SEE_INVIS | M1_NOHANDS | M1_POIS,
-        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME 
-          | M2_NASTY | M2_STRONG | M2_PRINCE | M2_NEUTER,
-        M3_WAITFORU | M3_INFRAVISION | M3_NOTAME, 
-        0, MH_DEMON, 61, HI_LORD),
+          | M1_SEE_INVIS | M1_NOHANDS | M1_POIS | M1_REGEN | M1_OMNIVORE,
+        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_STRONG 
+            | M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,
+        M3_WAITFORU | M3_INFRAVISION | M3_NOTAME, 0, 
+        MH_DEMON, 61, CLR_BRIGHT_GREEN),
       
       /* UnNetHack version: */
       #if 0
@@ -7038,11 +7040,11 @@ struct permonst _mons2[] = {
           ATTK(AT_GAZE, AD_CONF, 0, 0)),
         SIZ(3000, 500, 0, MS_ROAR, MZ_GIGANTIC),
         MR_POISON | MR_STONE | MR_DISINT | MR_SLEEP | MR_ACID, 0,
-        M1_SWIM | M1_AMPHIBIOUS | M1_BREATHLESS | M1_THICK_HIDE | M1_SEE_INVIS |
-        M1_POIS | M1_REGEN | M1_SEE_INVIS | M1_TPORT | M1_TPORT_CNTRL |
-        M1_OMNIVORE,
-        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_STRONG |
-        M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,
+        M1_SWIM | M1_AMPHIBIOUS | M1_BREATHLESS | M1_THICK_HIDE 
+            | M1_SEE_INVIS | M1_POIS | M1_REGEN | M1_SEE_INVIS | M1_TPORT 
+            | M1_TPORT_CNTRL | M1_OMNIVORE,
+        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_STRONG 
+            | M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,
         M3_WANTSAMUL | M3_WAITFORU | M3_INFRAVISION, CLR_BRIGHT_GREEN), /* M3_NOTAME */
     #endif
 
