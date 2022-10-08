@@ -1675,7 +1675,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_TUCH, AD_STUN, 0, 0),
           /* ATTK(AT_TUCH, AD_LOST, 0, 0), */
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0, 
+        SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), MR_COLD, 0, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
         M3_INFRAVISIBLE, 0, 0, 7, CLR_WHITE),
     MON("brownie", S_NYMPH,                                     /* Slash'EM */
