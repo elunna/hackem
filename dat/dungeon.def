@@ -14,7 +14,7 @@
 #		number of choices for its branch level _first_.
 #
 
-DUNGEON:	    "The Dungeons of Doom" "D" (31, 5)
+DUNGEON:	    "The Dungeons of Doom" "D" (31, 3)
 ALIGNMENT:	    unaligned
 BRANCH:		    "The Gnomish Mines" @ (2, 3)
 #LEVEL:		    "rogue" "R" @ (15, 4)
@@ -37,7 +37,6 @@ DESCRIPTION:    mazelike
 BRANCH: 	    "The Wyrm Caves" @ (22, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
 BRANCH: 	    "The Lost Tomb" @ (25, 4)
-#LEVEL:          "longhall" "none" @ (25, 10)
 LEVEL:	        "stor" "S" @ (22, 8) 66
 BRANCH: 	    "The Temple of Moloch" @ (26, 4)
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
@@ -197,7 +196,7 @@ ALIGNMENT:	unaligned
 RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 
 ### The Wyrm Caves ###
-DUNGEON:        "The Wyrm Caves" "D" (9, 4)
+DUNGEON:        "The Wyrm Caves" "D" (9, 3)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
@@ -207,7 +206,7 @@ LEVEL:          "cavepass" "D" @ (2, 3) 50
 BRANCH:		    "The Spider Caves" @ (4, 2)
 RNDLEVEL:       "cavevar" "D" @ (5, 7) 5
 LEVEL:          "cavepass" "D" @ (5, 3)
-LEVEL:          "cavepass" "D" @ (8, 3)
+LEVEL:          "cavepass" "D" @ (7, 3)
 BRANCH:		    "The Sunless Sea" @ (8, 2)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
