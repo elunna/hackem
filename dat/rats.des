@@ -18,37 +18,15 @@ ROOM: "ordinary" , unlit, random, random, (16,8) {
     OBJECT: '/',(8,4)
     OBJECT: '!',(8,4)
 
-    MONSTER: 'r', random, hostile
-    MONSTER: 'r', random, hostile
-    MONSTER: 'r', random, hostile
-    MONSTER: 'r', random, hostile
-    MONSTER: 'r', random, hostile
-    MONSTER: ('r', "pack rat"), random, hostile
-    MONSTER: ('r', "pack rat"), random, hostile
-    MONSTER: ('r', "pack rat"), random, hostile
-    MONSTER: ('r', "pack rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "black rat"), random, hostile
-    MONSTER: ('r', "giant rat"), random, hostile
-    MONSTER: ('r', "giant rat"), random, hostile
-    MONSTER: ('r', "giant rat"), random, hostile
-    MONSTER: ('r', "giant rat"), random, hostile
-    MONSTER: ('r', "giant rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "sewer rat"), random, hostile
-    MONSTER: ('r', "rabid rat"), random, hostile
+    LOOP [3] { MONSTER: 'r', random, hostile }
+    LOOP [4] { MONSTER: ('r', "pack rat"), random, hostile}
+    LOOP [8] { MONSTER: ('r', "black rat"), random, hostile}
+    LOOP [5] { MONSTER: ('r', "giant rat"), random, hostile }
+    LOOP [8] { MONSTER: ('r', "sewer rat"), random, hostile }
+    LOOP [2] { MONSTER: ('r', "rabid rat"), random, hostile }
+
+    MONSTER: ('r', "wererat"), random, hostile
+    MONSTER: ('r', "rodent of unusual size"), random, hostile
     MONSTER: ('@', "Rat King"), (8,8), hostile
 }
 
