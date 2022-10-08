@@ -1749,13 +1749,13 @@ Splice Monsters
 	[x] cerastes
 	[x] amphisbaena	
 	[x] cave troll
+		Buffed some of the attacks.
 	[x] grave troll
-	[x] umbral hulk"
+	[x] umbral hulk
 		- they have a darkness movement, litroom_mon
 	[x] hunger hulk"
 	[x] slumber hulk
 	[x] nosferatu
-		[ ] hates light - test this
 		[x] moved were_summon from rats to wolves
 	[x] bodak - wraithlike?
 		[x] AD_FEAR - implemented the "Afraid" status, booze cures
