@@ -8,7 +8,7 @@
 boolean notonhead = FALSE;
 
 static NEARDATA int nothing, unkn;
-static NEARDATA const char beverages[] = { POTION_CLASS, 0 };
+static NEARDATA const char beverages[] = { POTION_CLASS, TOOL_CLASS, 0 };
 
 STATIC_DCL long FDECL(itimeout, (long));
 STATIC_DCL long FDECL(itimeout_incr, (long, int));
@@ -732,6 +732,41 @@ dodrink()
         remove_worn_item(otmp, FALSE);
     }
     otmp->in_use = TRUE; /* you've opened the stopper */
+
+    
+    if (otmp->otyp == KEG) {
+        if (yn("Really drink the entire keg at once?") == 'n') {
+            pline("Perhaps not.");
+            return 0;
+        }
+        if (otmp->spe) {
+            int quan = 0;
+            while (otmp->spe) {
+                /* u.uconduct.alcohol++; */
+                consume_obj_charge(otmp, TRUE);
+                check_unpaid(otmp);
+                if (!otmp->cursed)
+                    healup(1, 0, FALSE, FALSE);
+                if (!otmp->blessed)
+                    make_confused(itimeout_incr(HConfusion, d(3, 8)), FALSE);
+                u.uhunger += 10 * (2 + bcsign(otmp));
+                quan++;
+            }
+            You("down the entire keg! You are incredibly drunk!");
+            if (quan > 5 && !maybe_polyd(is_dwarf(youmonst.data) || is_giant(youmonst.data), 
+                Race_if(PM_DWARF))) {
+                u.uhp = 0;
+                losehp(1, "drinking too much booze", KILLED_BY);
+            }
+        } else {
+            pline("Unfortunately, your keg is dry as a desert.");
+            return 0;
+        }
+        return 1;
+    } else if (otmp->oclass != POTION_CLASS) {
+        pline(silly_thing_to, "drink");
+        return 0;
+    }
 
     potion_descr = OBJ_DESCR(objects[otmp->otyp]);
     if (potion_descr) {
