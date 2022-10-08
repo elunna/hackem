@@ -131,7 +131,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       3500L, NO_COLOR),
 
     A("Mirrorbright", SHIELD_OF_REFLECTION, (SPFX_RESTR | SPFX_HALRES | SPFX_REFLECT), 0, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_HEALER, NON_PM, 5000L, NO_COLOR),
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L, NO_COLOR),
 
     /*
      *      Mjollnir can be thrown when wielded if hero has 25 Strength
