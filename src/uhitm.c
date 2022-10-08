@@ -765,9 +765,11 @@ struct attack *uattk;
        if twoweaponing, as that isn't possible */
     if (uwep && uwep->cursed && !rn2(7)
         && u.ualign.type != A_NONE) {
-        if (!rn2(5)) {
+        if (!rn2(4)) {
             You("swing wildly and miss!");
-        } else {
+        }
+#if 0 /* --hackem: I just don't like this. Plus it causes a bunch of bugs */
+        else {
             Your("cursed %s turns against you!", simpleonames(uwep));
             You("hit yourself in the %s!", body_part(FACE));
             if (uwep->oartifact
@@ -787,6 +789,7 @@ struct attack *uattk;
             }
             losehp(dmg_wep, "hitting themselves in the face", KILLED_BY);
         }
+#endif
         return 0;
     }
 
