@@ -3799,7 +3799,19 @@ register struct obj *obj;
             if (!rn2(2))
                 obj->otyp = LUCKSTONE;
             else
-                obj->otyp = HEALTHSTONE;
+                obj->otyp = WHETSTONE;
+            break;
+        case LUCKSTONE:
+            obj->otyp = HEALTHSTONE;
+            break;
+        case WHETSTONE:
+            obj->otyp = HEALTHSTONE;
+            break;
+        case HEALTHSTONE:
+            if (!rn2(2))
+                obj->otyp = LUCKSTONE;
+            else
+                obj->otyp = WHETSTONE;
             break;
         default:
             /* This object is not upgradable */
