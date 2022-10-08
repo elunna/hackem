@@ -2424,6 +2424,10 @@ register struct monst *mtmp;
             if (!rn2(3))
                 (void) mongets(mtmp, SHORT_SWORD);
         }
+        if (ptr == &mons[PM_LAMPAD]) {
+            if (!rn2(2))
+                (void) mongets(mtmp, TORCH);
+        }
         break;
     case S_GIANT:
         if (ptr == &mons[PM_MINOTAUR] || ptr == &mons[PM_ELDER_MINOTAUR]) {
