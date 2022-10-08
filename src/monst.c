@@ -2054,8 +2054,9 @@ NEARDATA struct permonst mons[] = {
         LVL(10, 12, 4, 20, -1), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 10), 
           ATTK(AT_BITE, AD_DRST, 2, 4),
-          ATTK(AT_BUTT, AD_PHYS, 3, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_BUTT, AD_PHYS, 3, 4),
+          ATTK(AT_BREA, AD_FIRE, 3, 6),
+          NO_ATTK, NO_ATTK),
         SIZ(2500, 500, MS_HISS, MZ_LARGE), MR_FIRE, MR_FIRE,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_STRONG |
         M2_NASTY, M3_INFRAVISIBLE, 0, 0, 12, CLR_GREEN),
