@@ -5323,7 +5323,7 @@ struct permonst _mons2[] = {
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER | M2_FLANK,
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 
         MH_VAMPIRE, 22, CLR_RED),
-    MON("vampire mage", S_VAMPIRE,                              /* Slash'EM */
+    MON("vampire sorcerer", S_VAMPIRE,                              /* Slash'EM */
         LVL(20, 14, -4, 50, -9), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_DRLI, 2, 8), 
           ATTK(AT_BITE, AD_DRLI, 1, 8),
@@ -5333,7 +5333,8 @@ struct permonst _mons2[] = {
             | MR_PSYCHIC, 0,
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_LORD
-            | M2_MALE | M2_MAGIC | M2_SHAPESHIFTER | M2_FLANK,
+            | M2_MALE | M2_MAGIC | M2_SHAPESHIFTER | M2_FLANK
+            | M2_NOPOLY, /* For testing */
         M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 
         MH_UNDEAD | MH_VAMPIRE, 26, HI_ZAP),
     MON("star vampire", S_VAMPIRE,                              /* Slash'EM */
