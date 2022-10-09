@@ -4072,6 +4072,9 @@ boolean autohit;
     else
         max_range = 8; /* (P_SKILL(typ) >= P_EXPERT) */
 
+    if (obj->oartifact == ART_GLEIPNIR)
+        max_range = max_range * 3;
+
     polearm_range_min = min_range;
     polearm_range_max = max_range;
 
@@ -4382,7 +4385,8 @@ struct obj *obj;
             break;
         notonhead = (bhitpos.x != mtmp->mx || bhitpos.y != mtmp->my);
         save_confirm = flags.confirm;
-        if (r_verysmall(mtmp) && !rn2(4)
+        if (((r_verysmall(mtmp) && !rn2(4)) ||
+            (obj->oartifact == ART_GLEIPNIR))
             && enexto(&cc, u.ux, u.uy, (struct permonst *) 0)) {
             flags.confirm = FALSE;
             (void) attack_checks(mtmp, uwep);

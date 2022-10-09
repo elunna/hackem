@@ -345,6 +345,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       COLD(5, 0), DFNS(AD_COLD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
       NO_COLOR),
 
+    /* Based on the bindings used to trap Fenrir. This hook can grapple
+     *       things regardless of size, and has a massive range. */
+    A("Gleipnir", GRAPPLING_HOOK, (SPFX_RESTR), 0, 0, PHYS(5, 8),
+      NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1700L, NO_COLOR),
+      
   /* Thought the Oracle just knew everything on her own? Guess again. Should
    * anyone ever be foolhardy enough to take on the Oracle and succeed,
    * they might discover the true source of her knowledge.
