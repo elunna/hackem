@@ -971,8 +971,8 @@ const struct Race races[] = {
         { 0, 0 }, /* individual as a noun */
         PM_CENTAUR, /* PM_ as a male monster */
         NON_PM,     /* as a female (NON_PM == same) */
-        NON_PM,     /* PM_ as a mummy */
-        NON_PM,     /* PM_ as a zombie */
+        PM_CENTAUR_MUMMY,     /* PM_ as a mummy */
+        PM_CENTAUR_ZOMBIE,     /* PM_ as a zombie */
         MH_CENTAUR | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
         MH_CENTAUR, /* your own race's bit mask */
         MH_CENTAUR, /* always peaceful */

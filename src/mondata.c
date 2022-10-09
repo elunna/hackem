@@ -810,8 +810,10 @@ struct permonst *pm1, *pm2;
         return (let2 == S_OGRE);
     if (let1 == S_NYMPH)
         return (let2 == S_NYMPH);
-    if (let1 == S_CENTAUR)
-        return (let2 == S_CENTAUR);
+    if (let1 == S_CENTAUR || pm1 == &mons[PM_CENTAUR_ZOMBIE]
+        || pm1 == &mons[PM_CENTAUR_MUMMY])
+        return (let2 == S_CENTAUR || pm2 == &mons[PM_CENTAUR_ZOMBIE]
+                || pm2 == &mons[PM_CENTAUR_MUMMY]);
     if (is_unicorn(pm1))
         return is_unicorn(pm2);
     if (let1 == S_DRAGON)

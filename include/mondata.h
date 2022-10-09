@@ -393,6 +393,7 @@
 #define can_become_zombie(ptr) \
     ((ptr)->mlet == S_KOBOLD  \
      || (ptr)->mlet == S_GIANT \
+     || (ptr)->mlet == S_CENTAUR \
      || (ptr)->mlet == S_HUMAN \
      || (ptr)->mlet == S_KOP \
      || ((ptr)->mlet == S_HUMANOID && !is_illithid(ptr)) \
