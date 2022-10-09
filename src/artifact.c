@@ -230,6 +230,7 @@ xchar m;
         return BONE;
         break;
     case ART_SECESPITA:
+    case ART_CIRCE_S_WITCHSTAFF:
         return COPPER;
         break;
     case ART_HAND_OF_VECNA:
@@ -2590,6 +2591,33 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 /* Should amulets fall off? */
                 return TRUE;
             }
+        } 
+    }
+    
+    if (otmp->oartifact == ART_CIRCE_S_WITCHSTAFF && dieroll < 3) {
+        wepdesc = "The witch's rod";
+        if (youdefend && !Antimagic && !Unchanging) {
+            pline("%s sends bizarre energies coursing through you!", wepdesc);
+            polyself(5);
+            return TRUE;
+        } else if (youdefend) {
+            shieldeff(u.ux, u.uy);
+            pline("%s blasts you with weird energies, but you manage to fight them off!", wepdesc);
+            return FALSE;
+        }
+
+        if (resists_magm(mdef) || defended(mdef, AD_MAGM)) {
+            shieldeff(mdef->mx, mdef->my);
+            pline("%s blasts %s with magical energies, but to no great effect.", wepdesc, mon_nam(mdef));
+            return FALSE;
+        } else if (youattack && u.uswallow && mdef == u.ustuck) {
+            You("compact %s around you and burst free from it!", mon_nam(mdef));
+            *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
+            return TRUE;
+        } else {
+            pline("%s blasts %s with magical power!", wepdesc, mon_nam(mdef));
+            newcham(mdef, rn2(2) ? &mons[PM_PIG] : &mons[PM_FERAL_HOG], FALSE, TRUE);
+            return TRUE;
         }
     }
 
