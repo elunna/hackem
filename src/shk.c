@@ -4945,7 +4945,7 @@ boolean shk_buying;
     case WEAPON_CLASS:
         if (obj->spe > 0)
             tmp += 10L * (long) obj->spe;
-        if (is_grenade(obj) && obj->oarmed) 
+        if (is_bomb(obj) && obj->oarmed) 
             tmp = 0L;
         break;
     case TOOL_CLASS:

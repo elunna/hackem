@@ -2517,8 +2517,8 @@ struct obj *obj, *otmp;
                 revive_egg(obj);
             }
             /* Try to arm bombs on the ground */
-            if (is_grenade(obj)) {
-                arm_grenade(obj, FALSE);
+            if (is_bomb(obj)) {
+                handle_bomb(obj, FALSE);
             }
             break;
         default:
@@ -5182,8 +5182,8 @@ boolean u_caused;
         obj2 = obj->nexthere;
         
         /* Try to arm bombs on the ground */
-        if (is_grenade(obj)) {
-            arm_grenade(obj, FALSE);
+        if (is_bomb(obj)) {
+            handle_bomb(obj, FALSE);
             continue;
         }
         
@@ -6305,10 +6305,10 @@ int osym, dmgtyp;
             }
             break;
         case WEAPON_CLASS:
-            if (is_grenade(obj)) {
-                arm_grenade(obj, FALSE);
+            if (is_bomb(obj)) {
+                handle_bomb(obj, FALSE);
             }
-            return; /* For now we'll just light one grenade at a time */
+            return; /* For now we'll just light one bomb at a time */
         default:
             skip++;
             break;
@@ -6598,10 +6598,10 @@ int osym, dmgtyp;
                 }
                 break;
             case WEAPON_CLASS:
-                if (is_grenade(obj)) {
-                    arm_grenade(obj, FALSE);
+                if (is_bomb(obj)) {
+                    handle_bomb(obj, FALSE);
                 }
-                return 0; /* For now we'll just light one grenade at a time */ 
+                return 0; /* For now we'll just light one bomb at a time */ 
             default:
                 skip++;
                 break;
@@ -6981,7 +6981,7 @@ blindingflash()
  * Note: obj is not valid after return
  */
 void
-grenade_explode(struct obj *obj, int x, int y, boolean isyou)
+bomb_explode(struct obj *obj, int x, int y, boolean isyou)
 {
     int ztype;
     int otyp = obj->otyp;

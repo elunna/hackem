@@ -210,7 +210,7 @@ struct obj {
     ((otmp->oclass == WEAPON_CLASS || otmp->oclass == GEM_CLASS) \
      && objects[otmp->otyp].oc_skill >= -P_CROSSBOW              \
      && objects[otmp->otyp].oc_skill <= -P_BOW)
-#define is_grenade(otmp)	                                     \
+#define is_bomb(otmp)	                                     \
     (otmp->otyp == FIRE_BOMB \
     || otmp->otyp == GAS_BOMB)
 #define matching_launcher(a, l) \
@@ -309,7 +309,7 @@ struct obj {
 #define is_bullet(otmp)	((otmp)->oclass == WEAPON_CLASS && \
 			 objects[(otmp)->otyp].oc_skill == -P_FIREARM)
 #define is_unpoisonable_firearm_ammo(otmp)	\
-			 (is_bullet(otmp) || is_grenade(otmp))
+			 (is_bullet(otmp) || is_bomb(otmp))
              
 #define is_wet_towel(o) ((o)->otyp == TOWEL && (o)->spe > 0)
 #define bimanual(otmp) \

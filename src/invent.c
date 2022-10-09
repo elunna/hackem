@@ -1643,7 +1643,7 @@ register const char *let, *word;
                  /* Picks, axes, pole-weapons, bullwhips */
                  && ((otmp->oclass == WEAPON_CLASS 
                         && !is_pick(otmp)
-                        && !is_grenade(otmp)
+                        && !is_bomb(otmp)
                         && !is_firearm(otmp)
                         && !is_axe(otmp)
                         && !is_pole(otmp) 
@@ -3833,8 +3833,8 @@ register struct obj *otmp, *obj;
             return FALSE;
     }
     
-    /* armed grenades do not merge */
-	if ((obj->timed || otmp->timed) && is_grenade(obj))
+    /* armed bombs do not merge */
+	if ((obj->timed || otmp->timed) && is_bomb(obj))
 	    return FALSE;
         
     /* hatching eggs don't merge; ditto for revivable corpses */

@@ -3608,7 +3608,7 @@ struct obj* obj;
         return dwarvish_materials;
     else if (is_orcish_obj(obj) && default_material != CLOTH)
         return orcish_materials;
-    else if (is_firearm(obj) || is_bullet(obj) || is_grenade(obj))
+    else if (is_firearm(obj) || is_bullet(obj) || is_bomb(obj))
         return firearm_materials;
     else if (obj->oclass == AMULET_CLASS)
         /* could use metal_materials too */

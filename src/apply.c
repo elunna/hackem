@@ -1506,8 +1506,8 @@ struct obj *obj;
         begin_burn(obj, FALSE);
         return TRUE;
     }
-    if (is_grenade(obj)) {
-        arm_grenade(obj, FALSE);
+    if (is_bomb(obj)) {
+        handle_bomb(obj, FALSE);
         return TRUE;
     }
     return FALSE;
@@ -5176,7 +5176,7 @@ doapply()
         break;
     case FIRE_BOMB:
     case GAS_BOMB:
-        arm_grenade(obj, TRUE);
+        handle_bomb(obj, TRUE);
         break;
     default:
         /* Pole-weapons can strike at a distance */
@@ -5242,7 +5242,7 @@ boolean is_horn;
 }
 
 void
-arm_grenade(obj, yourfault) 
+handle_bomb(obj, yourfault) 
 struct obj *obj;
 boolean yourfault;
 {
@@ -5254,7 +5254,7 @@ boolean yourfault;
         if (yourfault)
             You("arm %s.", yname(obj));
         else
-            pline("The grenade suddenly becomes armed!");
+            pline("A bomb fuse suddenly ignites!");
         arm_bomb(obj, TRUE);
         update_inventory();
     } else if (yourfault)

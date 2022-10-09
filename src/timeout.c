@@ -1120,7 +1120,7 @@ long timeout;
 			goto free_bomb;
 			break;
 		}
-		grenade_explode(bomb, x, y, bomb->yours);
+                bomb_explode(bomb, x, y, bomb->yours);
 
 free_bomb:
         if (carried(bomb)) {
@@ -1131,7 +1131,7 @@ free_bomb:
         }
         newsym(x, y);
 		return;
-	} /* Migrating grenades "blow up in midair" */
+	} /* Migrating bombs "blow up in midair" */
 }
 
 

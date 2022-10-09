@@ -1431,7 +1431,7 @@ unsigned doname_flags;
             Strcat(prefix, " ");
         }
         
-        if (is_grenade(obj))
+        if (is_bomb(obj))
 		    if (obj->oarmed) Strcat(bp, " (armed)");
         break;
     case TOOL_CLASS:
@@ -3208,6 +3208,7 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "firearm", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "gun", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "machine gun", WEAPON_CLASS, SUBMACHINE_GUN, HEAVY_MACHINE_GUN },
+    { "bomb", WEAPON_CLASS, FIRE_BOMB, GAS_BOMB },
     { "grenade", WEAPON_CLASS, FIRE_BOMB, GAS_BOMB },
     { "venom", VENOM_CLASS, BLINDING_VENOM, SNOWBALL },
     { "gray stone", GEM_CLASS, LUCKSTONE, FLINT },
@@ -3236,7 +3237,8 @@ static const struct alt_spellings {
 	{ "revolver", PISTOL },
     { "shell", SHOTGUN_SHELL },
     { "hand grenade", FIRE_BOMB },
-
+    { "frag grenade", FIRE_BOMB },
+    { "gas grenade", GAS_BOMB },
     /* armor */
     { "smooth shield", SHIELD_OF_REFLECTION },
     { "grey dragon scales", GRAY_DRAGON_SCALES },
