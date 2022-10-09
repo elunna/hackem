@@ -58,6 +58,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(4, 9), DFNS(AD_FIRE), NO_CARY,
       0, A_LAWFUL, NON_PM, NON_PM, 1000L, CLR_BROWN),
 
+    /* This lance does a lot of damage, and also automatically unseats any
+    *       mounted person it hits. */
+    A("Bradamante\'s Fury", LANCE, (SPFX_RESTR), 0, 0,
+      PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
+      NO_COLOR),
+
+
     /* From SporkHack. Now a silver mace with an extra property.
        First sacrifice gift for a priest. */
     A("Demonbane", HEAVY_MACE, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,

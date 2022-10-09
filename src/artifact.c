@@ -2729,8 +2729,28 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         }
     }
-
-        /* Balmung item destruction */
+    /* Bradamante's Fury forces dismounts */
+    if (otmp->oartifact == ART_BRADAMANTE_S_FURY) {
+        if (youdefend) {
+            if (u.usteed) {
+                dismount_steed(DISMOUNT_THROWN);
+                return TRUE;
+            }
+            if (!rn2(10))
+                make_stunned((HStun & TIMEOUT) + 10L, FALSE);
+        } else {
+            if (has_erid(mdef)) {
+                separate_steed_and_rider(mdef);
+                mdef->mstun = 1;
+                if (vis)
+                    pline_The("powerful lance unseats %s!", mon_nam(mdef));
+                return TRUE;
+            }
+            if (!rn2(10))
+                mdef->mstun = 1;
+        }
+    }
+    /* Balmung item destruction */
     if (otmp->oartifact == ART_BALMUNG) {
         register struct obj *obj = some_armor(mdef);
         if (youdefend) {
