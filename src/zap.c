@@ -5337,7 +5337,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
 		type = -ZT_SPELL(ZT_FIRE);
 
     /*WAC bugfix - should show right color stream now (for wands of fireball) */
-    /* abstype = abs(type) % 10; */
+    abstype = abs(type) % 10;
 
     /* if its a Hero Spell then get its SPE_TYPE */
     spell_type = is_hero_spell(type) ? SPE_MAGIC_MISSILE + abstype : 0;
