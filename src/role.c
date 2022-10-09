@@ -256,7 +256,7 @@ const struct Role roles[] = {
         S_RUSTMONST, 
         S_XORN,
         ART_STORM_WHISTLE,
-        MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE 
+        MH_HUMAN | MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE 
             | MH_ILLITHID | MH_CENTAUR, 
         ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
         /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
@@ -293,7 +293,7 @@ const struct Role roles[] = {
       S_DOG,
       S_UNICORN,
       ART_IDOL_OF_MOLOCH,
-      MH_HUMAN | MH_ELF | MH_ORC | MH_ILLITHID | MH_GIANT,
+      MH_HUMAN | MH_ORC | MH_ILLITHID | MH_GIANT,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC, /* actually unaligned */
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 10, 7, 7, 7 },
@@ -400,7 +400,7 @@ const struct Role roles[] = {
       S_BAT, 
       S_IMP,
       ART_GREAT_DAGGER_OF_GLAURGNAA,
-      MH_HUMAN | MH_ELF | MH_ORC | MH_VAMPIRE,
+      MH_HUMAN | MH_ORC | MH_VAMPIRE,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
 	  /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
 	  {   7, 10,  7,  7,  7,  7 },
@@ -473,7 +473,7 @@ const struct Role roles[] = {
       S_NYMPH,
       S_NAGA,
       ART_MASTER_KEY_OF_THIEVERY,
-      MH_HUMAN | MH_ELF | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE,
+      MH_HUMAN | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 7, 10, 7, 6 },
@@ -522,7 +522,7 @@ const struct Role roles[] = {
       S_CENTAUR,
       S_SPIDER,
       ART_LONGBOW_OF_DIANA,
-      MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | MH_HOBBIT
+      MH_HUMAN | MH_GNOME | MH_ORC | MH_HOBBIT
           | MH_CENTAUR,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -757,7 +757,7 @@ const struct Role align_roles[] = {
       S_IMP,
       S_JELLY,
       ART_MAGIC_MIRROR_OF_MERLIN,
-      MH_HUMAN | MH_DWARF | MH_ELF | MH_ORC,
+      MH_HUMAN | MH_DWARF | MH_ORC,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 13, 7, 14, 8, 10, 17 },
@@ -863,7 +863,7 @@ const struct Race races[] = {
         NON_PM,     /* as a female (NON_PM == same) */
         PM_ELF_MUMMY, /* PM_ as a mummy */
         PM_ELF_ZOMBIE, /* PM_ as a zombie */
-        MH_ELF | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
+        MH_ELF | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_LAWFUL, /* allowed variations */
         MH_ELF,     /* your own race's bit mask */
         MH_ELF,     /* always peaceful */
         MH_ORC | MH_ILLITHID, /* always hostile */
