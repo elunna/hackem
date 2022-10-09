@@ -2001,3 +2001,42 @@ Added more upgrade paths for gray stones. Luckstones and whetstones can be upgra
 
 	- [SKIPPED]  GRAIN_SCYTHE (from THEM, basically same as scythe in splice)
 	[x] keg
+
+
+The Rogue no longer gets the Bat from Hell as a sacrifice gift.
+
+[x] Spellbooks of flame sphere, fire bolt still catching fire....
+
+Grenades are ignited by fire
+	Careful to update inventory letters
+	[x] new arm_grenade routine
+	[x] Scrolls
+	[x] Explosions: Exploding oil
+	[x] Broken wand
+		[ ] The grenade suddenly becomes armed!  What an interesting effect (552)-
+		This could either be trap creation (very unlikely), or the bomb arming.
+	[x] Fire trap (includes burn floor objects)
+	[x] Wand of fireball
+	[x] Flaming sphere
+	[x] Ray from wand of fire, zapself
+	[x] firebolt at self., 
+	[x] Wand of Fire zapped over burn_floor_objects
+	[x] Spell Fire bolt zapped over burn_floor_objects
+	[n/a] Wand of Fireball zapped over burn_floor_objects - might not be possible...
+	[n/a] Spell Fireball zapped over burn_floor_objects	- might not be possible...
+	[x] Fireball explosions burn_floor_objects (Wand/spell of fireball)
+		Other explostion?
+	[x] Magic trap (calls dofiretrap)
+	[x] Chest trap (fire)
+	[FIXED] Bombs armed on the floor become the players property!
+	[FIXED] Arming bombs on the floor takes them away from the player...
+	[x] Monster Fire attacks/passive fire, etc. (Pyrolisk, Red mold, dragon breath, etc)
+		ATTK(AT_GAZE, AD_FIRE, 2, 6), 
+	[x] Artifact fire attacks
+	[x] CLC_FIRE_PILLAR
+	[x] MGC_FIRE_BOLT
+	[x] Exploding door (explodes)
+	[x] Rename grenades to bombs;
+		Change message to - "you light the fuse", "the fuse suddenly ignites!"
+		FRAG_GRENADE -> FIRE_BOMB
+		GAS_GRENADE -> GAS_BOMB
