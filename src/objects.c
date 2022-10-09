@@ -405,8 +405,8 @@ GUN("auto shotgun", None,	  1, 1, 0,  60, 1500,  0,  WP_SHELL, IRON, P_FIREARM, 
 
 BULLET("bullet", None,        1, 0, 1,   5,   20, 30, 0, WP_BULLET,    P, IRON, -P_FIREARM, HI_METAL), /* Slash'EM */
 BULLET("shotgun shell", None, 1, 0, 1,  10,   30, 45, 0,  WP_SHELL,    P, IRON, -P_FIREARM, CLR_RED), /* Slash'EM */
-BULLET("frag grenade", None,  1, 0,10,  20,    0,  0, 0, WP_GRENADE,   B, IRON, P_NONE, CLR_GREEN), /* Slash'EM */
-BULLET("gas grenade", None,   1, 0,10,  20,    0,  0, 0, WP_GRENADE,   B, IRON, P_NONE, CLR_ORANGE), /* Slash'EM */
+BULLET("fire bomb", None,  1, 0,10,  20,    0,  0, 0, WP_GRENADE,   B, IRON, P_NONE, CLR_GREEN), /* Slash'EM */
+BULLET("gas bomb", None,   1, 0,10,  20,    0,  0, 0, WP_GRENADE,   B, IRON, P_NONE, CLR_ORANGE), /* Slash'EM */
 
 #undef P
 #undef S

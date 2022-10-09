@@ -3208,7 +3208,7 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "firearm", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "gun", 	WEAPON_CLASS, PISTOL, AUTO_SHOTGUN },
     { "machine gun", WEAPON_CLASS, SUBMACHINE_GUN, HEAVY_MACHINE_GUN },
-    { "grenade", WEAPON_CLASS, FRAG_GRENADE, GAS_GRENADE },
+    { "grenade", WEAPON_CLASS, FIRE_BOMB, GAS_BOMB },
     { "venom", VENOM_CLASS, BLINDING_VENOM, SNOWBALL },
     { "gray stone", GEM_CLASS, LUCKSTONE, FLINT },
     { "grey stone", GEM_CLASS, LUCKSTONE, FLINT },
@@ -3235,7 +3235,7 @@ static const struct alt_spellings {
 	{ "hand gun", PISTOL },
 	{ "revolver", PISTOL },
     { "shell", SHOTGUN_SHELL },
-    { "hand grenade", FRAG_GRENADE },
+    { "hand grenade", FIRE_BOMB },
 
     /* armor */
     { "smooth shield", SHIELD_OF_REFLECTION },

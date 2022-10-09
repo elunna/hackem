@@ -211,8 +211,8 @@ struct obj {
      && objects[otmp->otyp].oc_skill >= -P_CROSSBOW              \
      && objects[otmp->otyp].oc_skill <= -P_BOW)
 #define is_grenade(otmp)	                                     \
-    (otmp->otyp == FRAG_GRENADE \
-    || otmp->otyp == GAS_GRENADE)
+    (otmp->otyp == FIRE_BOMB \
+    || otmp->otyp == GAS_BOMB)
 #define matching_launcher(a, l) \
     ((l) && objects[(a)->otyp].oc_skill == -objects[(l)->otyp].oc_skill)
 #define ammo_and_launcher(a, l) (is_ammo(a) && matching_launcher(a, l))

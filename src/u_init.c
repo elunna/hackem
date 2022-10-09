@@ -75,7 +75,7 @@ static struct trobj Flame_Mage[] = {
     { SPE_FIRE_BOLT, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_FLAME_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-    { FRAG_GRENADE, 0, WEAPON_CLASS, 2, 0 },
+    { FIRE_BOMB, 0, WEAPON_CLASS, 2, 0 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Healer[] = {
