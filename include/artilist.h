@@ -141,6 +141,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
       NO_COLOR),
 
+    /* Gungnir has an insane to-hit bonus. */
+    A("Gungnir", DWARVISH_SPEAR, (SPFX_RESTR), 0, 0, 
+      PHYS(20, 12), NO_DFNS, NO_CARY, LIGHTNING_BOLT, A_NEUTRAL, 
+      PM_VALKYRIE, NON_PM, 4000L, NO_COLOR),
+
 
     /* Evilhack change: Magic fanfare unbalances victims in addition
      * to doing some damage. */
@@ -349,7 +354,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      *       things regardless of size, and has a massive range. */
     A("Gleipnir", GRAPPLING_HOOK, (SPFX_RESTR), 0, 0, PHYS(5, 8),
       NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1700L, NO_COLOR),
-      
+
   /* Thought the Oracle just knew everything on her own? Guess again. Should
    * anyone ever be foolhardy enough to take on the Oracle and succeed,
    * they might discover the true source of her knowledge.
