@@ -1818,6 +1818,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             (void) destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
         if (!rn2(7))
             (void) destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+        if (rn2(3))
+            (void) destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
         if (youdefend && Slimed)
             burn_away_slime();
         msgprinted = TRUE;

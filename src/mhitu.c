@@ -1637,6 +1637,9 @@ register struct attack *mattk;
                 destroy_item(POTION_CLASS, AD_FIRE);
             if ((int) mtmp->m_lev > rn2(25))
                 destroy_item(SPBOOK_CLASS, AD_FIRE);
+            if (rn2(3)) 
+                destroy_item(WEAPON_CLASS, AD_FIRE);
+        
             burn_away_slime();
         } else
             dmg = 0;
@@ -2644,7 +2647,10 @@ do_rust:
             if (!rn2(5))
                 destroy_item(SPBOOK_CLASS, AD_FIRE);
             }
-        // burn_faster(otmp, 1);
+        if (rn2(3)) 
+            destroy_item(WEAPON_CLASS, AD_FIRE);
+        
+            // burn_faster(otmp, 1);
         if (mon_currwep->otyp == TORCH)
             burn_faster(mon_currwep, 1);
     }
@@ -3474,6 +3480,8 @@ struct attack *mattk;
                     destroy_item(POTION_CLASS, AD_FIRE);
                 if (lev > rn2(25))
                     destroy_item(SPBOOK_CLASS, AD_FIRE);
+                if (rn2(3)) 
+                    destroy_item(WEAPON_CLASS, AD_FIRE);
                 if (dmg)
                     mdamageu(mtmp, dmg);
             }
@@ -4568,6 +4576,8 @@ struct attack *mattk;
 		pline("%s is suddenly on fire!", Monnam(mtmp));
 		tmp += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
 		tmp += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+                if (rn2(3)) 
+                    tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
         
 		if (resists_fire(mtmp)) {
 		    shieldeff(mtmp->mx, mtmp->my);
@@ -4940,7 +4950,6 @@ struct attack *mattk;
                 damage_mon(mtmp, d(6, 6), AD_FIRE);
             }
 
-            /* TODO: Duplicated from torch code - consolidate to a function */
             if (!rn2(2) && burnarmor(mtmp)) {
                 if (!rn2(3))
                     destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
@@ -4949,6 +4958,8 @@ struct attack *mattk;
                 if (!rn2(5))
                     destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
             }
+            if (rn2(3)) 
+                destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
             if (mtmp->mhp < 1) {
                 if (canseemon(mtmp))
                     pline("%s dies!", Monnam(mtmp));

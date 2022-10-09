@@ -1880,7 +1880,8 @@ int dieroll;
             /* A chance of setting monster's stuff on fire */
             tmp += destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);
             tmp += destroy_mitem(mon, SPBOOK_CLASS, AD_FIRE);
-
+            tmp += destroy_mitem(mon, WEAPON_CLASS, AD_FIRE);
+            
             if (resists_fire(mon) || defended(mon, AD_FIRE)) {
                 if (!Blind)
                     pline_The("fire doesn't heat %s!", mon_nam(mon));
@@ -2699,6 +2700,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         }
         tmp += destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
         tmp += destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+        tmp += destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
+        
         if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
             if (!Blind)
                 pline_The("fire doesn't heat %s!", mon_nam(mdef));
@@ -4173,23 +4176,24 @@ boolean wep_was_destroyed;
     struct obj *otmp;
 
     /* If carrying the Candle of Eternal Flame, deal passive fire damage */
-	if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
-		tmp = d(2, 7);
-		if (monnear(mon, u.ux, u.uy)) {
-			pline("Magic fire suddenly surrounds you!");
-			if (how_resistant(FIRE_RES) == 100) {
-				shieldeff(u.ux, u.uy);
-				pline_The("fire doesn't feel hot.");
-				ugolemeffects(AD_FIRE, tmp);
-			} else {
+    if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
+        tmp = d(2, 7);
+        if (monnear(mon, u.ux, u.uy)) {
+            pline("Magic fire suddenly surrounds you!");
+            if (how_resistant(FIRE_RES) == 100) {
+                shieldeff(u.ux, u.uy);
+                pline_The("fire doesn't feel hot.");
+                ugolemeffects(AD_FIRE, tmp);
+            } else {
                 tmp = resist_reduce(tmp, FIRE_RES);
                 mdamageu(mon, tmp); /* fire damage */
             }
             destroy_item(SCROLL_CLASS, AD_FIRE);
-			destroy_item(POTION_CLASS, AD_FIRE);
-			destroy_item(SPBOOK_CLASS, AD_FIRE);
-		}
-	}
+            destroy_item(POTION_CLASS, AD_FIRE);
+            destroy_item(SPBOOK_CLASS, AD_FIRE);
+            destroy_item(WEAPON_CLASS, AD_FIRE);
+        }
+    }
     if (mhit && aatyp == AT_BITE && is_vampiric(youmonst.data)) {
         if (bite_monster(mon))
             return 2;			/* lifesaved */

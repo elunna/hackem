@@ -471,14 +471,15 @@ int expltype;
                         pline("%s is caught in the %s!", Monnam(mtmp), str);
                 }
 
-                if (adtyp == AD_FIRE)
+                if (adtyp == AD_FIRE) {
                     (void) burnarmor(mtmp);
-
+                }
                 idamres += destroy_mitem(mtmp, SCROLL_CLASS, (int) adtyp);
                 idamres += destroy_mitem(mtmp, SPBOOK_CLASS, (int) adtyp);
                 idamnonres += destroy_mitem(mtmp, POTION_CLASS, (int) adtyp);
                 idamnonres += destroy_mitem(mtmp, RING_CLASS, (int) adtyp);
                 idamnonres += destroy_mitem(mtmp, WAND_CLASS, (int) adtyp);
+                idamnonres += destroy_mitem(mtmp, WEAPON_CLASS, (int) adtyp);
 
                 if (explmask[i][j] == 1) {
                     golemeffects(mtmp, (int) adtyp, dam + idamres);
@@ -589,7 +590,8 @@ int expltype;
         destroy_item(POTION_CLASS, (int) adtyp);
         destroy_item(RING_CLASS, (int) adtyp);
         destroy_item(WAND_CLASS, (int) adtyp);
-
+        destroy_item(WEAPON_CLASS, (int) adtyp);
+        
         ugolemeffects((int) adtyp, damu);
         if (uhurt == 2) {
             /* if poly'd hero is grabbing another victim, hero takes

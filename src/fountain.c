@@ -402,6 +402,7 @@ result:
             blowupforge(u.ux, u.uy);
         } else {
            pline("Molten lava surges up and splashes all over you!");
+           
            losehp(resist_reduce(d(3, 8), FIRE_RES), "dipping into a forge", KILLED_BY);
         }
         break;

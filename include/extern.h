@@ -61,8 +61,9 @@ E void NDECL(reset_trapset);
 E int FDECL(use_pole, (struct obj *, BOOLEAN_P));
 E void FDECL(fig_transform, (ANY_P *, long));
 E int FDECL(unfixable_trouble_count, (BOOLEAN_P));
+E void FDECL(arm_grenade, (struct obj *, BOOLEAN_P));
 
-/* ### artifact.c ### */
+    /* ### artifact.c ### */
 
 E boolean FDECL(exclude_nartifact_exist, (int));
 E void NDECL(init_artifacts);

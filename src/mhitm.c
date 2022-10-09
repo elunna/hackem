@@ -1570,6 +1570,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                         if (!rn2(5))
                             destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
                     }
+                    if (rn2(3))
+                        destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
                     if (mwep->otyp == TORCH) {
                         if (pd == &mons[PM_WATER_ELEMENTAL]) {
                             pline("The torch %s goes out.", xname(mwep));
@@ -1681,6 +1683,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         tmp += destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
         tmp += destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+        tmp += destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
+        
         if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
             if (vis && canseemon(mdef))
                 pline_The("fire doesn't seem to burn %s!", mon_nam(mdef));

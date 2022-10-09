@@ -2876,6 +2876,7 @@ register struct monst *mtmp;
                 (void) destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
                 (void) destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
                 (void) destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+                (void) destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
             }
             if (burn_floor_objects(mtmp->mx, mtmp->my, see_it, FALSE)
                 && !see_it && distu(mtmp->mx, mtmp->my) <= 3 * 3)
@@ -3720,6 +3721,7 @@ struct obj *box; /* null for floor trap */
         destroy_item(SCROLL_CLASS, AD_FIRE);
         destroy_item(SPBOOK_CLASS, AD_FIRE);
         destroy_item(POTION_CLASS, AD_FIRE);
+        destroy_item(WEAPON_CLASS, AD_FIRE);
     }
     if (!box && burn_floor_objects(u.ux, u.uy, see_it, TRUE) && !see_it)
         You("smell paper burning.");
@@ -5852,8 +5854,9 @@ boolean disarm;
                     (void) destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);
                     (void) destroy_mitem(mon, SPBOOK_CLASS, AD_FIRE);
                     (void) destroy_mitem(mon, POTION_CLASS, AD_FIRE);
+                    (void) destroy_mitem(mon, WEAPON_CLASS, AD_FIRE);
                 }
-
+                
                 if (burn_floor_objects(mon->mx, mon->my, canseemon(mon), FALSE)
                     && !canseemon(mon) && distu(mon->mx, mon->my) <= 3 * 3)
                     You("smell smoke.");

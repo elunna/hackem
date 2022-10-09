@@ -272,6 +272,8 @@ struct obj *otmp;
             dmg += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
         if (!rn2(3)) 
             dmg += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+        if (rn2(3)) 
+            dmg += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
         
         if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) { /* match effect on player */
             golemeffects(mtmp, AD_FIRE, dmg);
@@ -2514,6 +2516,10 @@ struct obj *obj, *otmp;
             if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
                 revive_egg(obj);
             }
+            /* Try to arm bombs on the ground */
+            if (is_grenade(obj)) {
+                arm_grenade(obj, FALSE);
+            }
             break;
         default:
             impossible("What an interesting effect (%d)", otmp->otyp);
@@ -2553,6 +2559,14 @@ schar zz;
     if (obj->otyp == WAN_WIND) {
         scatter(tx, ty, 4, MAY_DESTROY | MAY_HIT | VIS_EFFECTS,
                 (struct obj *) 0);
+        learnwand(obj);
+    }
+    if (obj->otyp == SPE_FIRE_BOLT) {
+        if (burn_floor_objects(tx, ty, FALSE, couldsee(tx, ty))) {
+            /* newsym(x, y); */
+            You("%s of smoke.", !Blind ? "see a puff" : "smell a whiff");
+            hitanything = 1;
+        }
         learnwand(obj);
     }
     poly_zapped = -1;
@@ -2877,6 +2891,7 @@ boolean ordinary;
         destroy_item(POTION_CLASS, AD_FIRE);
         destroy_item(SPBOOK_CLASS, AD_FIRE);
         destroy_item(FOOD_CLASS, AD_FIRE); /* only slime for now */
+        destroy_item(WEAPON_CLASS, AD_FIRE);
         break;
 
     case WAN_WATER:
@@ -4716,6 +4731,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             if (!rn2(5))
                 (void) destroy_mitem(mon, SPBOOK_CLASS, AD_FIRE);
             destroy_mitem(mon, FOOD_CLASS, AD_FIRE); /* carried slime */
+            destroy_mitem(mon, WEAPON_CLASS, AD_FIRE); /* carried bombs */
         }
         break;
     case ZT_COLD:
@@ -4941,6 +4957,7 @@ xchar sx, sy;
                 if (!rn2(5))
                     destroy_item(SPBOOK_CLASS, AD_FIRE);
                 destroy_item(FOOD_CLASS, AD_FIRE);
+                destroy_item(WEAPON_CLASS, AD_FIRE); /* Destroy carried bombs */
             }
         }
         break;
@@ -5163,7 +5180,15 @@ boolean u_caused;
 
     for (obj = level.objects[x][y]; obj; obj = obj2) {
         obj2 = obj->nexthere;
-        if (obj->oclass == SCROLL_CLASS || obj->oclass == SPBOOK_CLASS
+        
+        /* Try to arm bombs on the ground */
+        if (is_grenade(obj)) {
+            arm_grenade(obj, FALSE);
+            continue;
+        }
+        
+        if (obj->oclass == SCROLL_CLASS 
+            || obj->oclass == SPBOOK_CLASS
             || (obj->oclass == FOOD_CLASS
                 && obj->otyp == GLOB_OF_GREEN_SLIME)) {
             if (obj->otyp == SCR_FIRE || obj->otyp == SPE_FIREBALL
@@ -6279,6 +6304,11 @@ int osym, dmgtyp;
                 skip++;
             }
             break;
+        case WEAPON_CLASS:
+            if (is_grenade(obj)) {
+                arm_grenade(obj, FALSE);
+            }
+            return; /* For now we'll just light one grenade at a time */
         default:
             skip++;
             break;
@@ -6567,6 +6597,11 @@ int osym, dmgtyp;
                     skip++;
                 }
                 break;
+            case WEAPON_CLASS:
+                if (is_grenade(obj)) {
+                    arm_grenade(obj, FALSE);
+                }
+                return 0; /* For now we'll just light one grenade at a time */ 
             default:
                 skip++;
                 break;

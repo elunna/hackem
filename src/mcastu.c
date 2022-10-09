@@ -1033,6 +1033,7 @@ int spellnum;
         destroy_item(SCROLL_CLASS, AD_FIRE);
         destroy_item(POTION_CLASS, AD_FIRE);
         destroy_item(SPBOOK_CLASS, AD_FIRE);
+        destroy_item(WEAPON_CLASS, AD_FIRE);
         (void) burn_floor_objects(u.ux, u.uy, TRUE, FALSE);
         break;
     case CLC_LIGHTNING: {
@@ -2290,6 +2291,7 @@ int spellnum;
                 destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
                 destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
                 destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+                destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
                 (void) burn_floor_objects(mtmp->mx, mtmp->my, TRUE, FALSE);
             }
         }
@@ -2392,6 +2394,7 @@ int spellnum;
         destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
         destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
         destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+        destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
         (void) burn_floor_objects(mtmp->mx, mtmp->my, TRUE, FALSE);
         break;
     case CLC_LIGHTNING: {

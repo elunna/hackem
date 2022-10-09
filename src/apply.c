@@ -1506,6 +1506,10 @@ struct obj *obj;
         begin_burn(obj, FALSE);
         return TRUE;
     }
+    if (is_grenade(obj)) {
+        arm_grenade(obj, FALSE);
+        return TRUE;
+    }
     return FALSE;
 }
 
@@ -5172,25 +5176,7 @@ doapply()
         break;
     case FRAG_GRENADE:
     case GAS_GRENADE:
-        split1off = (obj->quan > 1L);
-        if (split1off)
-            obj = splitobj(obj, 1L);
-        
-        if (!obj->oarmed) {
-            You("arm %s.", yname(obj));
-            arm_bomb(obj, TRUE);
-            update_inventory();
-        } else 
-            pline("It's already armed!");
-
-        if (split1off) {
-            obj_extract_self(obj); /* free from inv */
-            obj->nomerge = 1;
-            obj = hold_another_object(obj, "You drop %s!", doname(obj),
-                                      (const char *) 0);
-            if (obj)
-                obj->nomerge = 0;
-        }
+        arm_grenade(obj, TRUE);
         break;
     default:
         /* Pole-weapons can strike at a distance */
@@ -5255,4 +5241,37 @@ boolean is_horn;
     return unfixable_trbl;
 }
 
+void
+arm_grenade(obj, yourfault) 
+struct obj *obj;
+boolean yourfault;
+{
+    boolean split1off = (obj->quan > 1L);
+    if (split1off)
+        obj = splitobj(obj, 1L); /* Also works when on the floor */
+        
+    if (!obj->oarmed) {
+        if (yourfault)
+            You("arm %s.", yname(obj));
+        else
+            pline("The grenade suddenly becomes armed!");
+        arm_bomb(obj, TRUE);
+        update_inventory();
+    } else if (yourfault)
+        pline("It's already armed!");
+    
+    if (split1off && obj->where == OBJ_INVENT) {
+        obj_extract_self(obj); /* free from inv */
+        obj->nomerge = 1;
+        obj = hold_another_object(obj, "You drop %s!", doname(obj),
+                                  (const char *) 0);
+        if (obj)
+            obj->nomerge = 0;
+    } else if (split1off && obj->where == OBJ_MINVENT) {
+        obj_extract_self(obj); /* free from inv */
+        obj->nomerge = 1;
+        if (obj)
+            obj->nomerge = 0;
+    }
+}
 /*apply.c*/
