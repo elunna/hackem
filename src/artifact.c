@@ -2729,6 +2729,25 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         }
     }
+
+        /* Balmung item destruction */
+    if (otmp->oartifact == ART_BALMUNG) {
+        register struct obj *obj = some_armor(mdef);
+        if (youdefend) {
+            destroy_arm(some_armor(&youmonst));
+        } else if (obj) {
+            obj_extract_self(obj);
+            if (obj->owornmask) {
+                mdef->misc_worn_check &= ~obj->owornmask;
+                obj->owornmask = 0L;
+                update_mon_intrinsics(mdef, obj, FALSE, FALSE);
+                mdef->misc_worn_check |= I_SPECIAL;
+            }
+            if (vis)
+                pline("%s under the brown blade!", An(aobjnam(obj, "shred")));
+            obfree(obj, (struct obj *)0);
+        }
+    }
     /* WAC -- 1/6 chance of cancellation with foobane weapons */
     if (otmp->oartifact == ART_ORCRIST ||
         otmp->oartifact == ART_DEMONBANE ||
