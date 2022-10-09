@@ -6244,7 +6244,10 @@ int osym, dmgtyp;
     case AD_FIRE:
         xresist = (how_resistant(FIRE_RES) == 100 && obj->oclass != POTION_CLASS
                    && obj->otyp != GLOB_OF_GREEN_SLIME);
-        if (obj->otyp == SCR_FIRE || obj->otyp == SPE_FIREBALL)
+        if (obj->otyp == SCR_FIRE 
+            || obj->otyp == SPE_FLAME_SPHERE
+            || obj->otyp == SPE_FIRE_BOLT
+            || obj->otyp == SPE_FIREBALL)
             skip++;
         if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
             skip++;
@@ -6531,7 +6534,10 @@ int osym, dmgtyp;
                 skip++;
             break;
         case AD_FIRE:
-            if (obj->otyp == SCR_FIRE || obj->otyp == SPE_FIREBALL)
+            if (obj->otyp == SCR_FIRE 
+                || obj->otyp == SPE_FIRE_BOLT
+                || obj->otyp == SPE_FLAME_SPHERE
+                || obj->otyp == SPE_FIREBALL)
                 skip++;
             if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
                 skip++;
