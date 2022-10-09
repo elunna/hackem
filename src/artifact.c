@@ -2729,6 +2729,23 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         }
     }
+
+    /* Chains of Malcanthet */
+    if (attacks(AD_PLYS, otmp) && !rn2(5)) {
+        if (realizes_damage) {
+            pline_The("slithering chains bind %s!", hittee);
+        }
+        if (youdefend && Free_action) {
+            pline_The("slithering chains cannot seem to keep a hold on you.");
+        } else if (youdefend) {
+            nomul(-4);
+            multi_reason = "bound by the Chains of Malcanthet";
+            nomovemsg = You_can_move_again;
+        } else if (mdef->mcanmove) {
+            paralyze_monst(mdef, rnd(4));
+        }
+        return realizes_damage;
+    }
     /* Bradamante's Fury forces dismounts */
     if (otmp->oartifact == ART_BRADAMANTE_S_FURY) {
         if (youdefend) {

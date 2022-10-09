@@ -1300,6 +1300,8 @@ int x;
 #endif
 
     } else if (x == A_CHA) {
+        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+            return (schar) 25;
         if (tmp < 18
             && (youmonst.data->mlet == S_NYMPH || u.umonnum == PM_SUCCUBUS
                 || u.umonnum == PM_INCUBUS))
@@ -1368,6 +1370,9 @@ int attrindx;
             lolimit = hilimit;
     } else if (attrindx == A_CON) {
         if (wielding_artifact(ART_OGRESMASHER))
+            lolimit = hilimit;
+    }  else if (attrindx == A_CHA) {
+        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
             lolimit = hilimit;
     }
     /* this exception is hypothetical; the only other worn item affecting

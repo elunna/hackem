@@ -2485,6 +2485,8 @@ int mode, final, attrindx;
             hide_innate_value = TRUE;
         break;
     case A_CHA:
+        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET && uwep->cursed)
+            hide_innate_value = TRUE;
         break;
     default:
         return; /* impossible */

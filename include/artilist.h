@@ -35,6 +35,7 @@ static const char *artifact_names[] = {
 #define     DREN(a,b)   {0,AD_DREN,a,b}         /* drains energy */
 #define     STON(a,b)   {0,AD_STON,a,b}         /* petrification */
 #define     DETH(a,b)   {0,AD_DETH,a,b}         /* special death attack */
+#define     PLYS(a,b)   {0,AD_PLYS,a,b}         /* whip binding */
 /* clang-format on */
 
 STATIC_OVL NEARDATA struct artifact artilist[] = {
@@ -51,7 +52,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NON_PM, NON_PM, 0L, NO_COLOR),
 
         /*** Lawful artifacts ***/
-
 
     /* Balmung shreds the armor of opponents. */
     A("Balmung", BROADSWORD, (SPFX_RESTR), 0, 0, 
@@ -308,6 +308,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_PROTECT), 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       8000L, NO_COLOR),
+
+    /* Warning vs demons; grants 25 charisma while wielded; special paralysis hit*/
+    A("Chains of Malcanthet", SPIKED_CHAIN, 
+      (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
+      PLYS(6, 10), NO_DFNS, NO_CARY, 0, A_NONE,
+      NON_PM, NON_PM, 800L, CLR_RED),
 
     /* Dragonbane is no longer a weapon, but a pair of magical gloves made from
      * the scales of a long dead ancient dragon. The gloves afford much of the

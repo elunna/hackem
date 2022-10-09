@@ -105,6 +105,11 @@ register struct obj *obj;
         context.botl = 1;
 
     if (uwep == obj
+        && ((uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+            || (olduwep && olduwep->oartifact == ART_CHAINS_OF_MALCANTHET)))
+        context.botl = 1;
+
+    if (uwep == obj
         && ((uwep && uwep->oartifact == ART_GIANTSLAYER)
             || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
         context.botl = 1;
