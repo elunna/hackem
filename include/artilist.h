@@ -64,6 +64,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
       NO_COLOR),
 
+    /* Some "worse" sacrifice gifts are needed to avoid making #offer
+    *       overpowered. Used to be PM_KNIGHT. */
+    A("Carnwennan", KNIFE, (SPFX_RESTR | SPFX_SEARCH | SPFX_STLTH), 0, 0,
+      PHYS(3, 8), NO_DFNS, NO_CARY, INVIS, A_LAWFUL,
+      NON_PM, NON_PM, 400L, NO_COLOR),
 
     /* From SporkHack. Now a silver mace with an extra property.
        First sacrifice gift for a priest. */
