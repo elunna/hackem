@@ -38,6 +38,7 @@ static const char *artifact_names[] = {
 #define     DETH(a,b)   {0,AD_DETH,a,b}         /* special death attack */
 #define     PLYS(a,b)   {0,AD_PLYS,a,b}         /* whip binding */
 #define     SLEE(a,b)   {0,AD_SLEE,a,b}         /* Sleep attack  */
+#define     LOUD(a,b)   {0,AD_LOUD,a,b}         /* Sonic attack  */
 /* clang-format on */
 
 STATIC_OVL NEARDATA struct artifact artilist[] = {
@@ -426,6 +427,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       SPFX_EXCLUDE, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
       NON_PM, NON_PM, 50000L, CLR_BLACK),
 
+    /* Resisted by very few monsters, but is a morning star and also
+    *       happens to destroy tons of items. Was Sonicboom */
+    A("Thunderstruck", MORNING_STAR, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      LOUD(5, 20), DFNS(AD_LOUD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR),
+
     A("Trollsbane", MORNING_STAR, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REGEN), 0, MH_TROLL,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 800L,
       NO_COLOR),
@@ -680,6 +687,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #undef STON
 #undef DETH
 #undef PLYS
+#undef LOUD
 #endif
 
 /*artilist.h*/

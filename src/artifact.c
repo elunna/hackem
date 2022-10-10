@@ -1268,6 +1268,8 @@ struct monst *mtmp;
                             : (how_resistant(SLEEP_RES) > 99) ? TRUE : FALSE);
         case AD_DRLI:
             return !(yours ? Drain_resistance : resists_drli(mtmp));
+        case AD_LOUD:
+            return !(yours ? Sonic_resistance : resists_sonic(mtmp));
         case AD_DREN:
             return !nonliving(ptr);
         case AD_STON:
@@ -2875,6 +2877,42 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             obfree(obj, (struct obj *)0);
         }
     }
+
+    if (attacks(AD_LOUD, otmp)) {
+        if (realizes_damage) {
+            pline_The("thunderous morningstar %s %s%c",
+                      !spec_dbon_applies ? "hits" : "blasts", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+            
+            /* Occasionally shoot out a sonic beam */
+            if (!rn2(4)) {
+                if (youattack) {
+                    dobuzz((int) (20 + (AD_LOUD - 1)), 3, u.ux, u.uy, u.dx,
+                           u.dy, TRUE);
+                } else {
+                    dobuzz((int) (-20 - (AD_LOUD - 1)), 3, magr->mx, magr->my,
+                           sgn(tbx), sgn(tby), TRUE);
+                }
+            }
+            if (!rn2(4))
+                destroy_mitem(mdef, ARMOR_CLASS, AD_LOUD);
+            if (!rn2(4))
+                destroy_mitem(mdef, POTION_CLASS, AD_LOUD);
+            if (!rn2(7))
+                destroy_mitem(mdef, RING_CLASS, AD_LOUD);
+            if (!rn2(7))
+                destroy_mitem(mdef, TOOL_CLASS, AD_LOUD);
+            if (!rn2(7))
+                destroy_mitem(mdef, WAND_CLASS, AD_LOUD);
+            if (mdef->data == &mons[PM_GLASS_GOLEM]) {
+                pline("%s shatters into a million pieces!", Monnam(mdef));
+                *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
+                return TRUE;
+            }
+            return realizes_damage;
+        }
+    }
+
     /* WAC -- 1/6 chance of cancellation with foobane weapons */
     if (otmp->oartifact == ART_ORCRIST ||
         otmp->oartifact == ART_DEMONBANE ||
@@ -3676,6 +3714,7 @@ long *abil;
         { &EAcid_resistance, AD_ACID },
         { &EStone_resistance, AD_STON },
         { &ESick_resistance, AD_DISE },
+        { &ESonic_resistance, AD_LOUD },
     };
     int k;
 
