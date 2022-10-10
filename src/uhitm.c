@@ -1214,6 +1214,11 @@ int dieroll;
                     hittxt = TRUE;
                 }
                 
+                /* In SpliceHack, launchers contribute to damage. */
+                if (uwep && ammo_and_launcher(obj, uwep) && obj->spe < uwep->spe) {
+                    tmp += (uwep->spe - obj->spe);
+                }
+                
                 /* handle the damages of special artifacts */
                 if (obj->oartifact && obj->oartifact == ART_LUCKLESS_FOLLY) {
                     tmp -= 2 * Luck;
