@@ -2239,7 +2239,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Drowsing Rod */
     if (attacks(AD_SLEE, otmp) && !rn2(4)) {
         if (realizes_damage) {
-            pline_The("rod sprays a green %s at %s!", 
+            pline_The("rod sprays a %s %s at %s!", rndcolor(),
             (rn2(2) ? "gas" : "mist"), hittee);
         }
         if (youdefend && 
