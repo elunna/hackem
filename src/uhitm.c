@@ -1068,12 +1068,12 @@ int dieroll;
             hittxt = TRUE;
         }
 
-        /* Blessed gloves give bonuses when fighting 'bare-handed'.  So do
-           rings or gloves made of a hated material.  Note:  rings are worn
-           under gloves, so you don't get both bonuses, and two hated rings
-           don't give double bonus. */
-        tmp += special_dmgval(&youmonst, mon, (W_ARMG | W_RINGL | W_RINGR),
-                              &hated_obj);
+    /* Blessed gloves give bonuses when fighting 'bare-handed'.  So do
+        rings or gloves made of a hated material.  Note:  rings are worn
+        under gloves, so you don't get both bonuses, and two hated rings
+        don't give double bonus. */
+    tmp += special_dmgval(&youmonst, mon, (W_ARMG | W_RINGL | W_RINGR),
+                            &hated_obj);
     } else {
         if (obj->oartifact == ART_SWORD_OF_KAS)
             iskas = TRUE;
@@ -1213,6 +1213,12 @@ int dieroll;
                         return TRUE;
                     hittxt = TRUE;
                 }
+                
+                /* handle the damages of special artifacts */
+                if (obj->oartifact && obj->oartifact == ART_LUCKLESS_FOLLY) {
+                    tmp -= 2 * Luck;
+                }
+
                 if (mon_hates_material(mon, obj->material)) {
                     /* dmgval() already added bonus damage */
                     hated_obj = obj;

@@ -467,7 +467,8 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (confers_luck(otmp)) {
-            if (otmp->cursed)
+            if (otmp->cursed ||
+            (otmp->oartifact && otmp->oartifact == ART_LUCKLESS_FOLLY))
                 bonchance -= otmp->quan;
             else if (otmp->blessed)
                 bonchance += otmp->quan;

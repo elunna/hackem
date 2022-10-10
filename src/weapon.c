@@ -2224,6 +2224,12 @@ struct obj *weapon;
         /* feedback handled in attack() */
         bonus = -30;
     }
+    /* handle the to-hits of Luckless Folly */
+    if (weapon && weapon->oartifact &&
+        weapon->oartifact == ART_LUCKLESS_FOLLY) {
+        bonus += 2 * Luck;
+    }
+
     return bonus;
 }
 

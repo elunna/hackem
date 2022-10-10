@@ -250,6 +250,17 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_CONVICT, NON_PM, 3000L,
       NO_COLOR),
 
+    /*
+    *       This bizarre weapon acts as a cursed luckstone regardless of its
+    *       BCU status. It gets bonuses to hit and damage based on the opposite
+    *       of your luck value. Allows for a very unconventional playstyle,
+    *       since getting luck of -13 will give this weapon an automatic +13
+    *       to damage and hit, but playing with -13 luck would be really hard.
+    */
+    A("Luckless Folly", SHORT_SWORD, (SPFX_RESTR | SPFX_NOGEN | SPFX_LUCK), 0,
+      0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 3000L,
+      NO_COLOR),
+      
     A("Plague", DARK_ELVEN_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
       PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
         /* Auto-poison code in dothrow.c */
