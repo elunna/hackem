@@ -1127,7 +1127,8 @@ register struct obj *obj;
     if (wielding_artifact(ART_GIANTSLAYER) && racial_giant(mtmp))
         return FALSE;
 
-    if (wielding_artifact(ART_TROLLSBANE) && is_troll(mtmp->data))
+    if ((wielding_artifact(ART_TROLLSBANE) || wielding_artifact(ART_MORTALITY_DIAL)) 
+        && is_troll(mtmp->data))
         return FALSE;
 
     if (wielding_artifact(ART_OGRESMASHER) && is_ogre(mtmp->data))

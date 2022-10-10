@@ -401,6 +401,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 5000L,
       NO_COLOR),
 
+    /* Created by fusing werebane and trollsbane. Original idea by Spicy. 
+            Prevents all monster regen. */
+    A("Mortality Dial", EXECUTIONER_S_MACE, (SPFX_RESTR | SPFX_REGEN | SPFX_NOGEN | SPFX_RESTR), 
+      0, 0, PHYS(10, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 5000L,
+      NO_COLOR),
+
     A("Ogresmasher", HEAVY_WAR_HAMMER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
       NO_COLOR),

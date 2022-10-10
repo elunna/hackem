@@ -212,10 +212,13 @@ mon_regen(mon, digest_meal)
 struct monst *mon;
 boolean digest_meal;
 {
-    if (mon->mhp < mon->mhpmax && !mon->mwither
+    if (mon->mhp < mon->mhpmax 
+        && !mon->mwither
         && (!Is_valley(&u.uz) || is_undead(r_data(mon)))
-        && (moves % 20 == 0 || mon_prop(mon, REGENERATION)))
+        && (moves % 20 == 0 || mon_prop(mon, REGENERATION))
+        && !(uwep && uwep->oartifact && uwep->oartifact == ART_MORTALITY_DIAL))
         mon->mhp++;
+
     if (mon->mspec_used)
         mon->mspec_used--;
     if (mon->msummoned)

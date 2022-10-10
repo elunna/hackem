@@ -186,6 +186,7 @@ xchar m;
     case ART_MASTER_SWORD:
     case ART_SPEAR_OF_LIGHT:
     case ART_SWORD_OF_BALANCE:
+    case ART_MORTALITY_DIAL:
         return SILVER;
         break;
     case ART_DIRGE:
@@ -2351,6 +2352,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     return FALSE;
                 return TRUE;
             case ART_TROLLSBANE:
+            case ART_MORTALITY_DIAL:
                 if (youattack && is_troll(mdef->data) && j) {
                     pline("As you strike %s, it bursts into flame!", mon_nam(mdef));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
