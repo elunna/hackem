@@ -655,6 +655,7 @@ static const struct def_skill Skill_N[] = {
     { P_AXE, P_SKILLED },               /* For choppin up bodies */
     { P_PICK_AXE, P_EXPERT },           /* For digging up graves */
     { P_CLUB, P_SKILLED },              /* So aklys is an option */
+    { P_POLEARMS, P_EXPERT },           /* For scythes */
     { P_MACE, P_BASIC },
     { P_SPEAR, P_BASIC },
     { P_SCIMITAR, P_SKILLED},
