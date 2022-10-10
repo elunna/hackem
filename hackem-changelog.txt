@@ -2040,3 +2040,59 @@ Grenades are ignited by fire
 		Change message to - "you light the fuse", "the fuse suddenly ignites!"
 		FRAG_GRENADE -> FIRE_BOMB
 		GAS_GRENADE -> GAS_BOMB
+		
+
+[x] [ALI] Elves in the Slash'EM universe are based on Tolkien * and are lawful rather than chaotic.
+[FIXED] Elven yeoman not available
+[x] Added Centaur zombie, mountain centaur, male
+[x] centaur mummy (plains centaur, male)
+
+Drowsing Rod: Wand of Healing
+	Attacks with a gas/vapor from the head of the staff - so breathless monsters are not affected.
+	[x] Sleep attack 25% of the time
+	[x] Grants sleep res
+	[x] Implement sleep res because of rod.
+	
+[x] SPLICEHACK ARTIFACTS!
+	[SKIPPED] Acidfall (we have the cooler dirge)
+	[SKIPPED] Gae Bulg - already have some spears
+	[SKIPPED] Shamblestick
+	[SKIPPED] Squall
+	[x] Add STABLE property, HStable, EStable, Stable
+	[x] Balmung (destruction proof, but destroys armor like a boss, 
+	[x] Bradamante\'s Fury
+	[x] Carnwennan
+	[x] Chains of Malcanthet (CANNOT WISH FOR)
+	[x] Circe's Witchstaff
+		[x] Changed to a STAFF_OF_MATTER; poly attack upped to 10%; can change enemies into pigs or feral hogs.
+	[x] The End:
+		[x] Changed to Chaotic.
+	[ ] Lenses of Death Perception
+	[x] Gleipnir
+	[x] Gungnir
+		+20 tohit, +1d12 from dnh.
+	[ ] Hand Grenade of Antioch
+	[x] Imhullu
+	[x] Luckless Folly
+	[x] Origin
+		The spellboosting mechanic wasn't implemented in splice, so I just changed it to a STAFF_OF_ESCAPE.
+	[x] Pridwen
+		[x] Also grants STABLE.
+	[x] Poseidon\'s Trident
+	
+	[x] Sonicboom (renamed to Thunderstruck)
+		Increased attack to AD_LOUD(5, 20) - gotta make up for the item loss.
+		Destroys glass, ruby, sapphire, crystal, diamond golems?
+		Added 25% chance of sonic beam shooting out.
+	[x] Sunspot
+	[x] Sword of Justice changed to broadsword
+	[x] Mortality Dial
+		COLD_IRON - made it silver.
+		Cancels trolls and zombies
+		
+[x] Add sonic bombs
+[x] Enabled necromancer to reach expert in polearms (for access to scythes)
+ [x] Randomize colors for drowsing rod gasses.
+	
+[x] In SpliceHack, launchers contribute to damage.
+	With this change, we can make the ranged roles more focused on ranged attacks (nerf their melee stuff...)
