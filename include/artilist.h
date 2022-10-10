@@ -29,6 +29,7 @@ static const char *artifact_names[] = {
 #define     FIRE(a,b)   {0,AD_FIRE,a,b}
 #define     ELEC(a,b)   {0,AD_ELEC,a,b}         /* electrical shock */
 #define     STUN(a,b)   {0,AD_STUN,a,b}         /* magical attack */
+#define     WIND(a,b)   {0,AD_WIND,a,b}         /* wind blast */
 #define     DRST(a,b)   {0,AD_DRST,a,b}         /* poison attack */
 #define     ACID(a,b)   {0,AD_ACID,a,b}         /* acid attack */
 #define     DISE(a,b)   {0,AD_DISE,a,b}         /* disease attack */
@@ -145,7 +146,15 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Gungnir", DWARVISH_SPEAR, (SPFX_RESTR), 0, 0, 
       PHYS(20, 12), NO_DFNS, NO_CARY, LIGHTNING_BOLT, A_NEUTRAL, 
       PM_VALKYRIE, NON_PM, 4000L, NO_COLOR),
-
+      
+    /* Mesopatamian in origin. Grants stability. against clobber/hurtle.
+      Invoke for a scroll of air. 
+      Hitting a monster with a tornado does 3d4 bonus damage, takes place 1/3 of the time.
+      - Does not affect big monsters.
+    */
+    A("Imhullu", GLAIVE, (SPFX_RESTR), 0, 0, 
+      WIND(4, 5), DFNS(AD_CLOB), NO_CARY, SEFFECT, A_NEUTRAL, 
+      NON_PM, NON_PM, 2000L, NO_COLOR),
 
     /* Evilhack change: Magic fanfare unbalances victims in addition
      * to doing some damage. */
@@ -629,12 +638,14 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #undef FIRE
 #undef ELEC
 #undef STUN
+#undef WIND
 #undef DRST
 #undef ACID
 #undef DISE
 #undef DREN
 #undef STON
 #undef DETH
+#undef PLYS
 #endif
 
 /*artilist.h*/

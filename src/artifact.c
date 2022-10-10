@@ -1254,6 +1254,8 @@ struct monst *mtmp;
             return !(yours ? Stone_resistance : resists_ston(mtmp));
         case AD_ACID:
             return !(yours ? Acid_resistance : resists_acid(mtmp));
+        case AD_WIND:
+            return !(yours ? (/*Stable &&*/ bigmonst(youmonst.data) ) : !bigmonst(mtmp->data));
         case AD_DISE:
             return !(yours ? Sick_resistance : resists_sick(ptr));
         case AD_DETH:
@@ -2208,7 +2210,22 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         msgprinted = TRUE;
         return realizes_damage;
     }
-
+    /* Imhullu */
+    if (attacks(AD_WIND, otmp)) {
+        if (realizes_damage) {
+            if (rn2(3))
+                pline_The("humming glaive buffets %s with a massive blast of wind!", hittee);
+            else {
+                pline_The("humming glaive strikes %s with a tornado!", hittee);
+                if (youdefend)
+                    hurtle(u.ux - magr->mx, u.uy - magr->my, 5 + rn2(7), TRUE);
+                else
+                    mhurtle(mdef, mdef->mx - u.ux, mdef->my - u.uy, 5 + rn2(7));
+                *dmgptr += d(3, 4);
+            }
+        }
+        return realizes_damage;
+    }
     if (attacks(AD_STUN, otmp) && dieroll <= MB_MAX_DIEROLL) {
         if (dieroll <= MB_MAX_DIEROLL)
             /* Magicbane's special attacks (possibly modifies hittee[]) */
@@ -2861,6 +2878,7 @@ struct obj *obj;
     register struct monst *mtmp;
     register struct permonst *pm;
     int unseen;
+    int artinum = obj->oartifact;
 
     if (!obj) {
         impossible("arti_invoke without obj");
@@ -3124,8 +3142,25 @@ struct obj *obj;
                 buzz(9 + AD_ELEC, 8, u.ux, u.uy, u.dx, u.dy);
             }
             obfree(pseudo, NULL);
+            break;
         }
-        break;
+        case SEFFECT: {
+            struct obj* pseudo = NULL;
+            switch(artinum) {
+            case ART_IMHULLU:
+                pseudo = mksobj(SCR_AIR, FALSE, FALSE);
+                break;
+            default:
+                impossible("bad artifact invocation seffect?");
+                break;
+            }
+            if (pseudo) {
+                pseudo->blessed = TRUE;
+                pseudo->cursed = FALSE;
+                if (!seffects(pseudo))
+                    obfree(pseudo, NULL);
+            }
+        }
         case CREATE_AMMO: {
             struct obj *otmp = mksobj(obj->otyp == CROSSBOW ? CROSSBOW_BOLT : ARROW, TRUE, FALSE);
 
