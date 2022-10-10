@@ -24,7 +24,7 @@ LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
 CHAINBRANCH:	"Town" "oracle" + (3, 2) up
 LEVEL:		    "nymph" "N" @ (8, 22) 45
-BRANCH:		    "Fort Ludios" @ (10, 24) portal
+BRANCH:		    "Fort Ludios" @ (10, 20) portal
 LEVEL:		    "rats" "R" @ (10, 2) 50
 RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 10
 BRANCH:         "The Quest" @ (15, 5) portal
