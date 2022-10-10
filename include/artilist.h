@@ -260,7 +260,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Luckless Folly", SHORT_SWORD, (SPFX_RESTR | SPFX_NOGEN | SPFX_LUCK), 0,
       0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 3000L,
       NO_COLOR),
-      
+
     A("Plague", DARK_ELVEN_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
       PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
         /* Auto-poison code in dothrow.c */
@@ -387,6 +387,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Ogresmasher", HEAVY_WAR_HAMMER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
       NO_COLOR),
+
+    /* Quarterstaff that grants teleport control, and also greatly increases
+     *      spellcasting ability (as a robe). */
+    A("Origin", STAFF_OF_ESCAPE,
+      (SPFX_RESTR | SPFX_TCTRL), 0, 0,
+      PHYS(2, 6), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
+      CLR_MAGENTA),
 
     /* The Eye of Vecna, which Vecna will sometimes death drop
        before the rest of his body crumbles to dust */
