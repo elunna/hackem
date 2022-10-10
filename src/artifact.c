@@ -3490,7 +3490,7 @@ struct obj *obj;
             break;
         case WWALKING:
             if (on) {
-                pline_The(" %s starts to tremble!", generic_lvl_desc());
+                pline_The(" dungeon starts to tremble!");
                 do_earthquake(7);
                 Your("feet are surrounded by a swirl of foam!");
                 if (u.uinwater)
