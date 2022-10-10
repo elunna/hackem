@@ -3122,6 +3122,8 @@ int final;
         you_are(buf, "");
     /* End of partial intrinsic resistances */
 
+    if (Stable)
+        you_are("stable", from_what(STABLE));
     if (Acid_resistance)
         you_are("acid resistant", from_what(ACID_RES));
     if (Psychic_resistance)

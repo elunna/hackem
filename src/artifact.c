@@ -851,6 +851,8 @@ long wp_mask;
         mask = &EPoison_resistance;
     else if (dtyp == AD_DRLI)
         mask = &EDrain_resistance;
+    else if (dtyp == AD_CLOB)
+        mask = &EStable;
     else if (dtyp == AD_ACID)
         mask = &EAcid_resistance;
     else if (dtyp == AD_STON)
@@ -1255,7 +1257,7 @@ struct monst *mtmp;
         case AD_ACID:
             return !(yours ? Acid_resistance : resists_acid(mtmp));
         case AD_WIND:
-            return !(yours ? (/*Stable &&*/ bigmonst(youmonst.data) ) : !bigmonst(mtmp->data));
+            return !(yours ? (Stable && bigmonst(youmonst.data) ) : !bigmonst(mtmp->data));
         case AD_DISE:
             return !(yours ? Sick_resistance : resists_sick(ptr));
         case AD_DETH:
@@ -3608,6 +3610,7 @@ long *abil;
         { &EDisint_resistance, AD_DISN },
         { &EPoison_resistance, AD_DRST },
         { &EDrain_resistance, AD_DRLI },
+        { &EStable, AD_CLOB },
         { &EAcid_resistance, AD_ACID },
         { &EStone_resistance, AD_STON },
         { &ESick_resistance, AD_DISE },

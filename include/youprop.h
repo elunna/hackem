@@ -443,6 +443,10 @@
 #define EWithering u.uprops[WITHERING].extrinsic
 #define Withering (HWithering || EWithering)
 
+#define HStable u.uprops[STABLE].intrinsic
+#define EStable u.uprops[STABLE].extrinsic
+#define Stable (EStable || HStable)
+
 #define Free_action u.uprops[FREE_ACTION].extrinsic /* [Tom] */
 
 #define Fixed_abil u.uprops[FIXED_ABIL].extrinsic /* KMH */

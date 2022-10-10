@@ -102,6 +102,7 @@ const struct propname {
     { FREE_ACTION, "free action" },
     { FIXED_ABIL, "fixed abilities" },
     { WITHERING, "withering away" },
+    { STABLE,    "extraodinarily stable" },
     { LIFESAVED, "life will be saved" },
     {  0, 0 },
 };
@@ -768,6 +769,9 @@ nh_timeout()
             case WITHERING:
                 You("are no longer withering away.");
                 context.botl = TRUE;
+                break;
+            case STABLE:
+                You("are a little less sure of your footing.");
                 break;
             case FAST:
                 if (!Very_fast)

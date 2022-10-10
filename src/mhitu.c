@@ -1587,13 +1587,12 @@ register struct attack *mattk;
                 hitmsg(mtmp, mattk);
             }
             if (mattk->adtyp == AD_CLOB && dmg != 0
-                && !wielding_artifact(ART_GIANTSLAYER)
                 && (youmonst.data)->msize < MZ_HUGE 
                 && !unsolid(youmonst.data) && !rn2(6)) {
 
-                if (defends(AD_CLOB, uarm)) {
-                    pline("%s clobbers you, but your armor holds firm!",
-                        Monnam(mtmp));
+                if (Stable) {
+                    pline("%s clobbers you, but you hold %s!", Monnam(mtmp),
+                              rn2(2) ? "firm" : "your ground");
                 }
                 else {
                     pline("%s knocks you %s with a %s %s!", Monnam(mtmp),

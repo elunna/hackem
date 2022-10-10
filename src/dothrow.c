@@ -962,6 +962,10 @@ boolean verbose;
         You_feel("a tug from the iron ball.");
         nomul(0);
         return;
+    } else if (Stable) {
+        pline("Your fortitude prevents you from moving.");
+        nomul(0);
+        return;
     } else if (u.utrap) {
         You("are anchored by the %s.",
             u.utraptype == TT_WEB

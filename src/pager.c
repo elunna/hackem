@@ -1406,6 +1406,7 @@ short otyp;
                     case POLYMORPH_CONTROL:
                     case FREE_ACTION:
                     case FIXED_ABIL:
+                    case STABLE:
                         confers = "Confers";
                         break;
                     default:

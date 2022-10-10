@@ -139,7 +139,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, INVIS, A_NEUTRAL, PM_MONK, NON_PM, 5000L, NO_COLOR),
 
     A("Giantslayer", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_GIANT,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
+      PHYS(5, 0), DFNS(AD_CLOB), NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
       NO_COLOR),
 
     /* Gungnir has an insane to-hit bonus. */
