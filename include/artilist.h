@@ -282,6 +282,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 2000L,
       CLR_BRIGHT_BLUE), /* bright blue is actually light blue */
 
+    /* Grants waterbreathing.
+          Invoke for water-walking and an earthquake. */
+    A("Poseidon\'s Trident", TRIDENT, (SPFX_RESTR | SPFX_BREATHE), 0, 0, PHYS(3, 7),
+      NO_DFNS, NO_CARY, WWALKING, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR),
+
       /* The energy drain only works if the artifact kills its victim.
        * Also increases sacrifice value while wielded. */
     A("Secespita", KNIFE, (SPFX_RESTR | SPFX_ATTK), 0, 0,
