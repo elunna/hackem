@@ -849,6 +849,8 @@ long wp_mask;
         mask = &EDisint_resistance;
     else if (dtyp == AD_DRST)
         mask = &EPoison_resistance;
+    else if (dtyp == AD_SLEE)
+        mask = &ESleep_resistance;
     else if (dtyp == AD_DRLI)
         mask = &EDrain_resistance;
     else if (dtyp == AD_CLOB)
@@ -1261,6 +1263,9 @@ struct monst *mtmp;
         case AD_DRST:
             return !(!yours ? resists_poison(mtmp)
                             : (how_resistant(POISON_RES) > 99) ? TRUE : FALSE);
+        case AD_SLEE:
+            return !(!yours ? resists_sleep(mtmp)
+                            : (how_resistant(SLEEP_RES) > 99) ? TRUE : FALSE);
         case AD_DRLI:
             return !(yours ? Drain_resistance : resists_drli(mtmp));
         case AD_DREN:
@@ -1333,12 +1338,14 @@ int tmp;
                             && ((yours) ? (!Shock_resistance) : (!resists_elec(mon))))
                                 || (attacks(AD_DRST, otmp)
                                     && ((yours) ? (!Poison_resistance) : (!resists_poison(mon))))
-                                        || (attacks(AD_ACID, otmp)
-                                            && ((yours) ? (!Acid_resistance) : (!resists_acid(mon))))
-                                                || (attacks(AD_DISE, otmp)
-                                                    && ((yours) ? (!Sick_resistance) : (!resists_sick(mon->data))))
-                                                        || (attacks(AD_DETH, otmp)
-                                                            && !(nonliving(mon->data) || is_demon(mon->data)))) {
+                                        || (attacks(AD_SLEE, otmp)
+                                        && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
+                                            || (attacks(AD_ACID, otmp)
+                                                && ((yours) ? (!Acid_resistance) : (!resists_acid(mon))))
+                                                    || (attacks(AD_DISE, otmp)
+                                                        && ((yours) ? (!Sick_resistance) : (!resists_sick(mon->data))))
+                                                            || (attacks(AD_DETH, otmp)
+                                                                && !(nonliving(mon->data) || is_demon(mon->data)))) {
 
 
             spec_dbon_applies = TRUE;
@@ -2223,6 +2230,29 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             }
         }
         msgprinted = TRUE;
+        return realizes_damage;
+    }
+
+    /* Drowsing Rod */
+    if (attacks(AD_SLEE, otmp) && !rn2(4)) {
+        if (realizes_damage) {
+            pline_The("rod sprays a green %s at %s!", 
+            (rn2(2) ? "gas" : "mist"), hittee);
+        }
+        if (youdefend && 
+            (how_resistant(SLEEP_RES) == 100 || Breathless)) {
+            pline_The("rod's vapors do not affect you.");
+        } else if (youdefend) {
+            fall_asleep(-resist_reduce(rnd(10), SLEEP_RES), TRUE);
+            if (Blind)
+                You("are put to sleep!");
+            else
+                You("are put to sleep by the Drowsing Rod!");
+        } else if (mdef->mcanmove && !breathless(mdef->data) && sleep_monst(mdef, rnd(10), -1)) {
+             if (!Blind)
+                pline("%s is put to sleep by Drowsing Rod's vapors!", Monnam(mdef));
+            slept_monst(mdef);
+        }
         return realizes_damage;
     }
     /* Imhullu */
@@ -3640,6 +3670,7 @@ long *abil;
         { &EAntimagic, AD_MAGM },
         { &EDisint_resistance, AD_DISN },
         { &EPoison_resistance, AD_DRST },
+        { &ESleep_resistance, AD_SLEE },
         { &EDrain_resistance, AD_DRLI },
         { &EStable, AD_CLOB },
         { &EAcid_resistance, AD_ACID },

@@ -37,6 +37,7 @@ static const char *artifact_names[] = {
 #define     STON(a,b)   {0,AD_STON,a,b}         /* petrification */
 #define     DETH(a,b)   {0,AD_DETH,a,b}         /* special death attack */
 #define     PLYS(a,b)   {0,AD_PLYS,a,b}         /* whip binding */
+#define     SLEE(a,b)   {0,AD_SLEE,a,b}         /* Sleep attack  */
 /* clang-format on */
 
 STATIC_OVL NEARDATA struct artifact artilist[] = {
@@ -372,6 +373,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REFLECT), 0, MH_DRAGON,
       NO_ATTK, DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
       NO_COLOR),
+
+    A("Drowsing Rod", STAFF_OF_HEALING, (SPFX_RESTR), 0, 0,
+      SLEE(3, 8), DFNS(AD_SLEE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
+      CLR_MAGENTA),
 
     A("Fire Brand", SHORT_SWORD, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
       FIRE(5, 0), DFNS(AD_FIRE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
