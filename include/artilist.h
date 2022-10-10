@@ -125,7 +125,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), DFNS(AD_BLND), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 2500L,
       NO_COLOR),
 
-    A("Sword of Justice", LONG_SWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0,
+    A("Sword of Justice", BROADSWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0,
       PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1500L, NO_COLOR),
 
     A("Quick Blade", ELVEN_SHORT_SWORD,
