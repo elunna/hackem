@@ -427,6 +427,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       SPFX_EXCLUDE, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
       NON_PM, NON_PM, 50000L, CLR_BLACK),
 
+    /* Blinding mace. */
+    A("Sunspot", MACE, (SPFX_RESTR | SPFX_BLIND), 0, 0,
+      PHYS(5, 5), DFNS(AD_BLND), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 2000L,
+      NO_COLOR),
+
     /* Resisted by very few monsters, but is a morning star and also
     *       happens to destroy tons of items. Was Sonicboom */
     A("Thunderstruck", MORNING_STAR, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,

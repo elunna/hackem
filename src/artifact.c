@@ -2685,6 +2685,22 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
     }
 
+    if (spec_ability(otmp, SPFX_BLIND) && !rn2(3)) {
+        if (!youdefend) {
+            if (mdef->mcansee) {
+                pline("%s blinds %s!", The(distant_name(otmp, xname)),
+                      mon_nam(mdef));
+                mdef->mcansee = 0;
+                mdef->mblinded = 17;
+                return TRUE;
+            }
+        } else if (!Blind) {
+            pline("Your vision is consumed in a flash of blinding light!");
+            make_blinded(Blinded + 17, FALSE);
+            return TRUE;
+        }
+        *dmgptr += d(1, 10);
+    }
     if (otmp->oartifact == ART_DOOMBLADE && dieroll < 6) {
         if (verysmall(mdef->data)) {
             if (youattack)
