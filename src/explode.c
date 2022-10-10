@@ -284,7 +284,8 @@ int expltype;
                                            || defended(mtmp, AD_DRST));
                         break;
                     case AD_LOUD:
-                        explmask[i][j] |= resists_acid(mtmp);
+                        explmask[i][j] |= resists_sonic(mtmp)
+                                          || defended(mtmp, AD_LOUD);
                         break;
                     default:
                         impossible("explosion type %d?", adtyp);
@@ -398,6 +399,7 @@ int expltype;
                     } while (*hallu_buf != lowc(*hallu_buf));
                     str = hallu_buf;
                 }
+                
                 if (u.uswallow && mtmp == u.ustuck) {
                     const char *adj = (char *) 0;
 

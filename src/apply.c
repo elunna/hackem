@@ -5180,6 +5180,7 @@ doapply()
         break;
     case FIRE_BOMB:
     case GAS_BOMB:
+    case SONIC_BOMB:
         handle_bomb(obj, TRUE);
         break;
     default:

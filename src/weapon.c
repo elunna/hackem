@@ -815,7 +815,9 @@ int x;
 
 /* TODO: have monsters use aklys' throw-and-return */
 static NEARDATA const int rwep[] = {
-    FIRE_BOMB, GAS_BOMB,
+    FIRE_BOMB, 
+    SONIC_BOMB, 
+    GAS_BOMB,
     DWARVISH_SPEAR, 
     ELVEN_SPEAR, 
     SPEAR, 

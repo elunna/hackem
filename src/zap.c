@@ -7004,11 +7004,15 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
 
     if (otyp == FIRE_BOMB) {
         /* value kludge, see zap.c */
-        ztype = ZT_SPELL(AD_FIRE-1);  /* = 10+(2-1) = 11 */
+        ztype = ZT_SPELL(AD_FIRE - 1);  /* = 10+(2-1) = 11 */
         explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_FIERY);
     } else if (otyp == GAS_BOMB) {
         /* value kludge, see zap.c */
         ztype = ZT_SPELL(AD_DRST - 1); /* = 10+(7-1) = 16 */
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
+    }
+    else if (otyp == SONIC_BOMB) {
+        ztype = ZT_SPELL(AD_LOUD - 1);
         explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
     }
     context.mon_moving = save_mon_moving;
