@@ -440,9 +440,9 @@ struct obj {
      || (otmp)->otyp == ELVEN_BROADSWORD \
      || (otmp)->otyp == ELVEN_BOW \
      || (otmp)->otyp == ELVEN_LONG_SWORD \
-     || (otmp)->otyp == DARK_ELVEN_DAGGER \
-     || (otmp)->otyp == DARK_ELVEN_SHORT_SWORD \
-     || (otmp)->otyp == DARK_ELVEN_BOW)
+     || (otmp)->otyp == DROVEN_DAGGER \
+     || (otmp)->otyp == DROVEN_SHORT_SWORD \
+     || (otmp)->otyp == DROVEN_BOW)
 #define is_elven_obj(otmp) (is_elven_armor(otmp) || is_elven_weapon(otmp))
 
 /* Orcish gear */

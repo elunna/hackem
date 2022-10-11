@@ -3515,10 +3515,10 @@ register struct obj *obj;
             if (!rn2(2))
                 obj->otyp = ELVEN_DAGGER;
             else
-                obj->otyp = DARK_ELVEN_DAGGER;
+                obj->otyp = DROVEN_DAGGER;
             break;
         case ELVEN_DAGGER:
-        case DARK_ELVEN_DAGGER:
+        case DROVEN_DAGGER:
             obj->otyp = GREAT_DAGGER;
             break;
         case KNIFE:
@@ -3543,7 +3543,7 @@ register struct obj *obj;
             obj->otyp = SHORT_SWORD;
             break;
         case ELVEN_SHORT_SWORD:
-        case DARK_ELVEN_SHORT_SWORD:
+        case DROVEN_SHORT_SWORD:
         case SHORT_SWORD:
             obj->otyp = DWARVISH_SHORT_SWORD;
             break;
@@ -3551,7 +3551,7 @@ register struct obj *obj;
             if (!rn2(2))
                 obj->otyp = ELVEN_SHORT_SWORD;
             else
-                obj->otyp = DARK_ELVEN_SHORT_SWORD;
+                obj->otyp = DROVEN_SHORT_SWORD;
             break;
         case BROADSWORD:
             obj->otyp = ELVEN_BROADSWORD;
@@ -3572,7 +3572,7 @@ register struct obj *obj;
             obj->otyp = WAR_HAMMER;
             break;
         case ELVEN_BOW:
-        case DARK_ELVEN_BOW:
+        case DROVEN_BOW:
         case YUMI:
         case ORCISH_BOW:
             obj->otyp = BOW;
@@ -3580,12 +3580,12 @@ register struct obj *obj;
         case BOW:
             switch (rn2(3)) {
             case 0: obj->otyp = ELVEN_BOW; break;
-            case 1: obj->otyp = DARK_ELVEN_BOW; break;
+            case 1: obj->otyp = DROVEN_BOW; break;
             case 2: obj->otyp = YUMI; break;
             }
             break;
         case ELVEN_ARROW:
-        case DARK_ELVEN_ARROW:
+        case DROVEN_ARROW:
         case YA:
         case ORCISH_ARROW:
             obj->otyp = ARROW;
@@ -3593,15 +3593,15 @@ register struct obj *obj;
         case ARROW:
             switch (rn2(3)) {
             case 0: obj->otyp = ELVEN_ARROW; break;
-            case 1: obj->otyp = DARK_ELVEN_ARROW; break;
+            case 1: obj->otyp = DROVEN_ARROW; break;
             case 2: obj->otyp = YA; break;
             }
             break;
         /* armour */
         case ELVEN_CHAIN_MAIL:
-            obj->otyp = DARK_ELVEN_CHAIN_MAIL;
+            obj->otyp = DROVEN_CHAIN_MAIL;
             break;
-        case DARK_ELVEN_CHAIN_MAIL:
+        case DROVEN_CHAIN_MAIL:
             obj->otyp = ELVEN_CHAIN_MAIL;
             break;
         case ORCISH_CHAIN_MAIL:

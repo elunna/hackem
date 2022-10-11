@@ -3549,9 +3549,9 @@ struct obj* obj;
             return dwarvish_weapon_materials;
         case ELVEN_SPEAR:
         case ELVEN_DAGGER:
-        case DARK_ELVEN_DAGGER:
+        case DROVEN_DAGGER:
         case ELVEN_SHORT_SWORD:
-        case DARK_ELVEN_SHORT_SWORD:
+        case DROVEN_SHORT_SWORD:
         case ELVEN_BROADSWORD:
         case ELVEN_LONG_SWORD:
             return elven_weapon_materials;
