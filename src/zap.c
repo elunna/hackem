@@ -7016,7 +7016,7 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     }
     else if (otyp == SONIC_BOMB) {
         ztype = ZT_SPELL(AD_LOUD - 1);
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_DARK);
     }
     context.mon_moving = save_mon_moving;
     wake_nearto(x, y, 400);

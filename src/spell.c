@@ -1247,7 +1247,9 @@ boolean wiz_cast;
                                       EXPL_NOXIOUS :
                                       (otyp == SPE_ACID_BLAST) ?
                                          EXPL_ACID :
-                                         EXPL_FIERY);
+                                           (otyp == SPE_SONICBOOM) ?
+                                            EXPL_DARK :
+                                                EXPL_FIERY);
                     }
                     u.dx = cc.x + rnd(3) - 2;
                     u.dy = cc.y + rnd(3) - 2;
