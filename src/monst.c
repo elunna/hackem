@@ -608,6 +608,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(500, 250, MS_BARK, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE | M3_TRAITOR | M3_BERSERK, 0, 0, 8, CLR_BROWN),
+    - "In East Anglia, where it was thought to be amphibious, the dog had only one eye and was known as Black Shuck, or Shock."
     MON("barghest", S_DOG,                                    /* SpliceHack */
         LVL(7, 12, 4, 20, -7), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
