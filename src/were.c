@@ -13,41 +13,52 @@ register struct monst *mon;
         return;
 
     if (is_human(mon->data) || is_demon(mon->data)) {
+        /* Rat King isn't a real were-creature */
         if (mon->data == &mons[PM_RAT_KING])
             return;
+
         if (!Protection_from_shape_changers
             && !rn2(night() ? (flags.moonphase == FULL_MOON ? 3 : 30)
                             : (flags.moonphase == FULL_MOON ? 10 : 50))) {
             new_were(mon); /* change into animal form */
             if (!Deaf && !canseemon(mon)) {
-                const char *howler;
+                const char *howler, *howl;
 
                 switch (monsndx(mon->data)) {
                 case PM_WEREWOLF:
                     howler = "wolf";
+                    howl = "howling";
                     break;
                 case PM_WEREJACKAL:
                     howler = "jackal";
+                    howl = "howling";
                     break;
                 case PM_WEREDEMON:
                     howler = "hell hound";
+                    howl = "howling";
                     break;
                 case PM_HUMAN_WEREPANTHER:	
-                    howler = "panther"; 
+                    howler = "panther";
+                    howl = "yowling";
                     break;
 		        case PM_HUMAN_WERETIGER:	
-                    howler = "tiger";   
+                    howler = "tiger";
+                    howl = "yowling";
                     break;
                 case PM_WEREBEAR:
                     howler = "bear";
-                    /* howl = "roaring";*/
+                    howl = "roaring";
                     break;
                 default:
                     howler = (char *) 0;
                     break;
                 }
-                if (howler)
-                    You_hear("a %s howling at the moon.", howler);
+                if (howler) {
+                    if (Hallucination)
+                        You_hear("the moon %s like a %s", howl, howler);
+                    else
+                        You_hear("a %s %s at the moon.", howler, howl);
+                }
             }
         }
     } else if (!rn2(30) || Protection_from_shape_changers) {
