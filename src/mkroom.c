@@ -345,6 +345,7 @@ struct mkroom *sroom;
 {
     struct monst *mon;
     struct obj *oegg;
+    struct obj *otmp;
     register int sx, sy, i;
     int sh, tx = 0, ty = 0, goldlim = 0, type = sroom->rtype;
     int rmno = (int) ((sroom - rooms) + ROOMOFFSET);
@@ -513,8 +514,17 @@ struct mkroom *sroom;
                                      FALSE);
                 break;
             case FUNGUSFARM:
-                if (!rn2(3))
+                if (!rn2(3)) {}
                     (void) mksobj_at(SLIME_MOLD, sx, sy, TRUE, FALSE);
+                
+                break;
+            case BADFOODSHOP:
+                /* Rotten eggs */
+                if (!rn2(3)) {
+                    otmp = mksobj(EGG, TRUE, FALSE);
+                    otmp->orotten = 1;
+                    place_object(otmp, sx, sy);
+                }
                 break;
             case MIGOHIVE:
                 switch (rn2(10)) {
