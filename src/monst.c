@@ -5766,7 +5766,7 @@ struct permonst _mons2[] = {
         LVL(4, 6, 10, 0, -2), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PLYS, 1, 2),
           ATTK(AT_CLAW, AD_PHYS, 1, 4),
-          ATTK(AT_BITE, AD_PHYS, 1, 6),
+          ATTK(AT_BITE, AD_PHYS, 0, 6),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(400, 50, MS_SILENT, MZ_SMALL),
         MR_COLD | MR_SLEEP | MR_POISON, 0,
