@@ -1201,7 +1201,9 @@ register int after;
         newsym(mtmp->mx, mtmp->my);
     }
     /* Infest corpses. */
-    if (is_moldier(ptr) || mtmp->data == &mons[PM_MAGGOT])
+    if (is_moldier(ptr) 
+        || mtmp->data == &mons[PM_MAGGOT]
+        || mtmp->data == &mons[PM_LARVA])
         minfestcorpse(mtmp);
         
     set_apparxy(mtmp);

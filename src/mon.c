@@ -1720,8 +1720,10 @@ minfestcorpse(struct monst *mtmp)
             if (mtmp->data == &mons[PM_MAGGOT]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
                     makemon(&mons[rn2(3) ? PM_GIANT_FLY : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
-            } else {
-                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum]))
+            } else if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum])) {
+                if (mtmp->data == &mons[PM_LARVA])
+                    makemon(&mons[PM_MAGGOT], cc.x, cc.y, NO_MINVENT);
+                else
                     makemon(&mons[mtmp->mnum], cc.x, cc.y, NO_MINVENT);
             }
 
