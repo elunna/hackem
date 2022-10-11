@@ -1671,6 +1671,10 @@ int dieroll;
     if (DeathVision) {
         tmp *= 2;
     }
+    /* If we wield the Staff of Rot and are withering, we get double damage. */
+    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)  {
+        tmp *= 2;
+    }
 
     if (!ispotion && obj /* potion obj will have been freed by here */
         && (ispoisoned || iskas || isvenom)) {

@@ -7,6 +7,7 @@
 #include "artifact.h"
 #include "artilist.h"
 #include "qtext.h"
+#include <limits.h>
 
 /*
  * Note:  both artilist[] and artiexist[] have a dummy element #0,
@@ -228,6 +229,7 @@ xchar m;
         break;
     case ART_GJALLAR:
     case ART_BUTCHER:
+    case ART_STAFF_OF_ROT:
         return BONE;
         break;
     case ART_SECESPITA:
@@ -1283,6 +1285,8 @@ struct monst *mtmp;
             return !(yours ? Sick_resistance : resists_sick(ptr));
         case AD_DETH:
             return !immune_death_magic(ptr);
+        case AD_WTHR:
+            return !(nonliving(mtmp->data) && is_vampshifter(mtmp));
         default:
             impossible("Weird weapon special attack.");
         }
@@ -2931,6 +2935,53 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
     }
 
+    /* Staff of Rot */
+    if (attacks(AD_WTHR, otmp) && !rn2(3)) {
+        /* Duplicated from uhitm.c */
+        uchar withertime = max(2, *dmgptr);
+        boolean lose_maxhp = (withertime >= 8); /* if already withering */
+        
+        /* Most monster attacks don't do their normal damange, but the Staff
+         * of Rot is an exceptions - it's not a monster attack, and the 
+         * quarterstaff needs some help anyway. */
+        /* tmp = 0;  doesn't deal immediate damage */
+        
+        boolean no_effect = (nonliving(youmonst.data) || is_vampshifter(&youmonst));
+        if (youdefend && !no_effect) {
+            boolean lose_maxhp = (withertime >= 8); /* if already withering */
+                                                    
+            if (Withering)
+                Your("withering speeds up!");
+            else
+                You("begin to wither away!");
+            incr_itimeout(&HWithering, withertime);
+            
+            if (lose_maxhp) {
+                if (Upolyd && u.mhmax > 1) {
+                    u.mhmax--;
+                    u.mh = min(u.mh, u.mhmax);
+                } else if (u.uhpmax > 1) {
+                    u.uhpmax--;
+                    u.uhp = min(u.uhp, u.uhpmax);
+                }
+            }
+        } else {
+            if (canseemon(mdef))
+                pline("%s is withering away!", Monnam(mdef));
+
+            if (mdef->mwither + withertime > UCHAR_MAX)
+                mdef->mwither = UCHAR_MAX;
+            else
+                mdef->mwither += withertime;
+
+            if (lose_maxhp && mdef->mhpmax > 1) {
+                mdef->mhpmax--;
+                mdef->mhp = min(mdef->mhp, mdef->mhpmax);
+            }
+            mdef->mwither_from_u = TRUE;
+        }
+        return realizes_damage;
+    }
     /* WAC -- 1/6 chance of cancellation with foobane weapons */
     if (otmp->oartifact == ART_ORCRIST ||
         otmp->oartifact == ART_DEMONBANE ||
@@ -3261,6 +3312,29 @@ struct obj *obj;
                 if (!seffects(pseudo))
                     obfree(pseudo, NULL);
             }
+        }
+        case WITHER: {
+            uchar withertime = max(20, 60);
+            boolean lose_maxhp = (withertime >= 8); /* if already withering */
+            pline_The("Staff of Rot gleams with dark energy!");
+            aggravate();
+            
+            if (Withering)
+                Your("withering speeds up!");
+            else
+                You("begin to wither away!");
+            incr_itimeout(&HWithering, withertime);
+
+            if (lose_maxhp) {
+                if (Upolyd && u.mhmax > 1) {
+                    u.mhmax--;
+                    u.mh = min(u.mh, u.mhmax);
+                } else if (u.uhpmax > 1) {
+                    u.uhpmax--;
+                    u.uhp = min(u.uhp, u.uhpmax);
+                }
+            }
+            break;
         }
         case CREATE_AMMO: {
             struct obj *otmp = mksobj(obj->otyp == CROSSBOW ? CROSSBOW_BOLT : ARROW, TRUE, FALSE);
@@ -3733,6 +3807,7 @@ long *abil;
         { &EStone_resistance, AD_STON },
         { &ESick_resistance, AD_DISE },
         { &ESonic_resistance, AD_LOUD },
+        /* AD_WTHR has no Withering Resistance */
     };
     int k;
 

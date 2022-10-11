@@ -5,6 +5,7 @@
 
 #include "hack.h"
 #include "artifact.h"
+#include <limits.h>
 
 extern boolean notonhead; /* for long worms */
 
@@ -4571,30 +4572,59 @@ struct attack *mattk;
     boolean vis, monable;
 
     if (carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)) {
-		tmp = d(2, 7);
-		pline("%s is suddenly on fire!", Monnam(mtmp));
-		tmp += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
-		tmp += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
-                if (rn2(3)) 
-                    tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
-        
-		if (resists_fire(mtmp)) {
-		    shieldeff(mtmp->mx, mtmp->my);
-		    pline("The fire doesn't burns %s.", Monnam(mtmp));
-		    golemeffects(mtmp, AD_FIRE, tmp);
-		} else {
-			if (resists_cold(mtmp))
-				tmp += 3;
-		}
-		tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
-		if ((mtmp->mhp -= tmp) <= 0) {
-			pline("%s dies!", Monnam(mtmp));
-			xkilled(mtmp,0);
-			if (mtmp->mhp > 0) 
+        tmp = d(2, 7);
+        pline("%s is suddenly on fire!", Monnam(mtmp));
+        tmp += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
+        tmp += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+        if (rn2(3)) 
+            tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
+
+        if (resists_fire(mtmp)) {
+            shieldeff(mtmp->mx, mtmp->my);
+            pline("The fire doesn't burns %s.", Monnam(mtmp));
+            golemeffects(mtmp, AD_FIRE, tmp);
+        } else {
+            if (resists_cold(mtmp))
+                tmp += 3;
+        }
+        tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+        if ((mtmp->mhp -= tmp) <= 0) {
+            pline("%s dies!", Monnam(mtmp));
+            xkilled(mtmp,0);
+            if (mtmp->mhp > 0) 
                 return 1;
-			return 2;
-		}
-	}
+            return 2;
+        }
+    }
+    
+    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && !rn2(3))  {
+        /* Duplicated from uhitm.c */
+        boolean no_effect = nonliving(mtmp->data) || is_vampshifter(mtmp);
+        uchar withertime = max(2, tmp);
+        boolean lose_maxhp = (withertime >= 8); /* if already withering */
+        tmp = 0;  /*doesn't deal immediate damage */
+
+        if (!no_effect) {
+            if (canseemon(mtmp))
+                pline("%s is withering away!", Monnam(mtmp));
+            
+            if (mtmp->mwither + withertime > UCHAR_MAX)
+                mtmp->mwither = UCHAR_MAX;
+            else
+                mtmp->mwither += withertime;
+
+            if (lose_maxhp && mtmp->mhpmax > 1) {
+                mtmp->mhpmax--;
+                mtmp->mhp = min(mtmp->mhp, mtmp->mhpmax);
+            }
+            mtmp->mwither_from_u = TRUE;
+            
+            /* Monsters won't just keep pounding on you and withering */
+            if (rn2(3) && (!mtmp->mflee || mtmp->mfleetim)) {
+                monflee(mtmp, 0, FALSE, TRUE);
+            }
+        }
+    }
     
     if (uarm && Is_dragon_scaled_armor(uarm)) {
         int otyp = Dragon_armor_to_scales(uarm);

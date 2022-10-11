@@ -3339,7 +3339,7 @@ long mmflags;
     } else if (mndx == PM_ACERERAK) {
         struct obj *otmp;
         otmp = oname(mksobj(STAFF_OF_WAR, TRUE, FALSE),
-                     artiname(ART_STAFF_OF_WITHERING));
+                     artiname(ART_STAFF_OF_ROT));
         if (otmp) {
             otmp->blessed = otmp->cursed = 0;
             mpickobj(mtmp, otmp);

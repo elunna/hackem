@@ -39,6 +39,7 @@ static const char *artifact_names[] = {
 #define     PLYS(a,b)   {0,AD_PLYS,a,b}         /* whip binding */
 #define     SLEE(a,b)   {0,AD_SLEE,a,b}         /* Sleep attack  */
 #define     LOUD(a,b)   {0,AD_LOUD,a,b}         /* Sonic attack  */
+#define     WTHR(a,b)   {0,AD_WTHR,a,b}         /* Withering attack  */
 /* clang-format on */
 
 STATIC_OVL NEARDATA struct artifact artilist[] = {
@@ -217,9 +218,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       SPFX_EXCLUDE, 0, STUN(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
       NON_PM, NON_PM, 4000L, NO_COLOR),
 
-    /* Staff of Circe. 1/20 chance of turning target into an animal.
-     
-    */
+    /* Staff of Circe. 1/20 chance of turning target into an animal. */
     A("Circe's Witchstaff", STAFF_OF_MATTER,
       (SPFX_RESTR | SPFX_WARN) , 0, 0,
       PHYS(4, 4), NO_DFNS, NO_CARY, TAMING, A_NEUTRAL, NON_PM, NON_PM, 3500,
@@ -468,10 +467,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, 0, NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR ),
     
-    A("The Staff of Withering",	STAFF_OF_WAR,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL | SPFX_DRLI | SPFX_DALIGN), 
-      0, 0, DRLI(3,5), NO_DFNS, CARY(AD_COLD),
-      ENERGY_BOOST, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR ),
+    A("The Staff of Rot", STAFF_OF_HOLINESS,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), 
+      0, 0, WTHR(6, 6), NO_DFNS, NO_CARY,
+      WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR ),
 
     /* Xanathar's eyestalk ring of proof against detection and location */
     A("Xanathar's Ring of Proof", RIN_STEALTH,
@@ -709,6 +708,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #undef DETH
 #undef PLYS
 #undef LOUD
+#undef WTHR
 #endif
 
 /*artilist.h*/

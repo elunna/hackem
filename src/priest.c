@@ -1031,7 +1031,7 @@ const char *suffix;
 
 /* stethoscope or probing applied to monster -- one-line feedback */
 void
-    mstatusline(mtmp)
+mstatusline(mtmp)
 struct monst *mtmp;
 {
     aligntyp alignment = mon_aligntyp(mtmp);
