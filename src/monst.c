@@ -556,7 +556,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 150, MS_BARK, MZ_SMALL), MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE, M2_HOSTILE | M2_WANDER,
-        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 4, CLR_GRAY),
+        M3_INFRAVISIBLE | M3_BERSERK | M3_NOTAME, 0, 0, 4, CLR_GRAY),
     MON("dingo puppy", S_DOG,                                   /* Slash'EM */
         LVL(2, 18, 6, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 6),
@@ -607,7 +607,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(500, 250, MS_BARK, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
-        M3_INFRAVISIBLE | M3_TRAITOR | M3_BERSERK, 0, 0, 8, CLR_BROWN),
+        M3_INFRAVISIBLE | M3_NOTAME | M3_BERSERK, 0, 0, 8, CLR_BROWN),
     /* "In East Anglia, where it was thought to be amphibious, the dog had 
      * only one eye and was known as Black Shuck, or Shock." */
     MON("barghest", S_DOG,                                    /* SpliceHack */
@@ -2215,7 +2215,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 12, MS_SQEEK, MZ_TINY), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_HOSTILE,
-        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 3, CLR_WHITE),
+        M3_INFRAVISIBLE | M3_BERSERK | M3_NOTAME, 0, 0, 3, CLR_WHITE),
     /* Rats */
     MON("sewer rat", S_RODENT,
         LVL(0, 12, 7, 0, 0), (G_GENO | G_SGROUP | 1),
@@ -2261,7 +2261,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(30, 5, MS_SQEEK, MZ_TINY), MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE, M2_HOSTILE,
-        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 5, CLR_BROWN),
+        M3_INFRAVISIBLE | M3_BERSERK | M3_NOTAME, 0, 0, 5, CLR_BROWN),
     MON("hellrat", S_RODENT,                                    /* Slash'EM */
         LVL(5, 15, 7, 0, 0), (G_HELL | G_GENO | G_LGROUP | G_NOCORPSE | 1),
         A(ATTK(AT_BITE, AD_FIRE, 3, 3),
