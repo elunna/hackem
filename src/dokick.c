@@ -1366,10 +1366,19 @@ dokick()
                 goto dumb;
 
             if (rn2(5)) {
-                if (!rn2(2))
+                switch (rnd(14)) {
+                case 1: 
                     pline("Plunk! The toilet seat swings open and shut.");
-                else
+                    break;
+                case 2:
+                    pline("Blintz! The toilet handle rattles sharply.");
+                    break;
+                case 3:
+                    pline("Foompa! The tank lid pops up momentarily.");
+                    break;
+                default:
                     pline("Klunk!");
+                }
                 exercise(A_DEX, TRUE);
                 return 1;
             }
