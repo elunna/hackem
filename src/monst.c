@@ -2381,7 +2381,8 @@ NEARDATA struct permonst mons[] = {
     MON("monstrous spider", S_SPIDER,                         /* SpliceHack */
         LVL(8, 15, 4, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 4, 6),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_SCRE, AD_FEAR, 2, 4), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 200, MS_SILENT, MZ_HUGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, 0, 10, CLR_ORANGE),
