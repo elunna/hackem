@@ -99,6 +99,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 8000L,
       NO_COLOR),
     
+    /* I cannot believe this hasn't been done yet. */
+    A("Hand Grenade of Antioch", FIRE_BOMB, (SPFX_RESTR), 0, 0, 
+      PHYS(1, 1), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 300L, NO_COLOR),
+
     A("The Master Sword", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR), 0, 0,
       PHYS(3, 3), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
     

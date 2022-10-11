@@ -5252,15 +5252,24 @@ struct obj *obj;
 boolean yourfault;
 {
     boolean split1off = (obj->quan > 1L);
+    boolean artibomb = obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH;
+    
     if (split1off)
         obj = splitobj(obj, 1L); /* Also works when on the floor */
         
     if (!obj->oarmed) {
-        if (yourfault)
-            You("arm %s.", yname(obj));
-        else
+        if (yourfault) {
+            if (artibomb)
+                You("pull the holy pin.");
+            else
+                You("arm %s.", yname(obj));
+            arm_bomb(obj, TRUE);
+        } else if (!artibomb) {
+            /* We don't want the Holy Hand Grenade being accidentally ignited
+               because it doesn't have a fuse. */
             pline("A bomb fuse suddenly ignites!");
-        arm_bomb(obj, TRUE);
+            arm_bomb(obj, TRUE);
+        }
         update_inventory();
     } else if (yourfault)
         pline("It's already armed!");

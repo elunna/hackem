@@ -6994,18 +6994,15 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
 
     context.mon_moving = yours ? FALSE : TRUE;
 
-    #if 0  /* --hackem: Might use this as an effect instead. */
-    if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
-        ztype = isyou * ZT_SPELL(ZT_MAGIC_MISSILE);
-        explode(x, y, ztype, d(50,6), WEAPON_CLASS,
-            isyou * -1 * EXPL_FIERY);
-    } 
-    #endif
-
     /* --hackem: Currently, passing WEAPON_CLASS does not have any handling
      * in explode() - this could probably be improved but for now it works. */
 
-    if (otyp == FIRE_BOMB) {
+    if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
+        ztype = ZT_SPELL(ZT_MAGIC_MISSILE);
+        explode(x, y, ztype, d(50, 6), WEAPON_CLASS, EXPL_FIERY);
+    } 
+
+    else if (otyp == FIRE_BOMB) {
         /* value kludge, see zap.c */
         ztype = ZT_SPELL(AD_FIRE - 1);  /* = 10+(2-1) = 11 */
         explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_FIERY);

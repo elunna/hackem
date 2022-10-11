@@ -1031,8 +1031,9 @@ void arm_bomb(struct obj *obj, boolean yours)
     if (obj->oarmed) {
         return;
     }
-
-    if (is_bomb(obj)) {
+    if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
+        attach_bomb_blow_timeout(obj, 3, yours);
+    } else if (is_bomb(obj)) {
         attach_bomb_blow_timeout(obj,
                                  (obj->cursed ? rn2(5) + 2 :
                                   obj->blessed ? 4 :
