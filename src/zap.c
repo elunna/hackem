@@ -246,14 +246,17 @@ struct obj *otmp;
         reveal_invis = TRUE;
         if (disguised_mimic)
             seemimic(mtmp);
-        /* Damage scales with level - every 4 levels we add a cumulative
+        /* Damage scales with level - every 5 levels we add a cumulative
              * 1d10 to the total damage.
              * Level 1 = 1d10 fire damage
              * Level 5 = 2d10 fire
-             * Level 10 = 3d10 fire - and etc. */
+             * Level 10 = 3d10 fire - and etc. 
+             * Level 15 = 4d10 fire 
+             * Level 20 = 5d10 fire (but damage is capped at 45 max */
+        
         dmg = d((u.ulevel / 5) + 1, 10);
         if (dmg > 45)
-            dmg = 45; /* We'll let them go slightly above 4d10, but cap it */
+            dmg = 45;
          
         if (dbldam)
             dmg *= 2;

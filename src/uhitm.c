@@ -1496,8 +1496,8 @@ int dieroll;
                     /* Handle Ice Mage's SNOWBALL spell here */
                     int snow = 1;
                     if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
-                        if (u.ulevel > 4) snow += 1;
-                        if (u.ulevel > 10) snow += 1;
+                        if (u.ulevel > 3) snow += 1;
+                        if (u.ulevel > 7) snow += 1;
                         
                         if (resists_cold(mon) || defended(mon, AD_COLD)) {
                             /* If they resist cold, they won't take damage from 
