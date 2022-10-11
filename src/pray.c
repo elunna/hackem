@@ -2875,7 +2875,7 @@ doturn()
                 /* this is intentional, lichs are tougher
                    than zombies. */
                 case S_LICH:
-                case PM_ALHOON:
+                /* case PM_ALHOON: */
                     xlev += 2;
                     /*FALLTHRU*/
                 case S_GHOST:
