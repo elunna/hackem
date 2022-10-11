@@ -723,14 +723,14 @@ struct permonst *
 antholemon()
 {
     int mtyp, indx, trycnt = 0;
-
+    int NUMANTS = 4;
     /* casts are for dealing with time_t */
     indx = (int) ((long) ubirthday % 4L);
     indx += level_difficulty();
-
+    
     /* Same monsters within a level, different ones between levels */
     do {
-        switch ((indx + trycnt) % 3) {
+        switch ((indx + trycnt) % NUMANTS) {
         case 0:
             mtyp = PM_SOLDIER_ANT;
             break;
@@ -740,12 +740,15 @@ antholemon()
         case 2:		
             mtyp = PM_SNOW_ANT; 
             break;
+        case 3:		
+            mtyp = PM_BULLET_ANT; 
+            break;
         default:
             mtyp = PM_GIANT_ANT;
             break;
         }
         /* try again if chosen type has been genocided or used up */
-    } while (++trycnt < 3 && (mvitals[mtyp].mvflags & G_GONE));
+    } while (++trycnt < NUMANTS && (mvitals[mtyp].mvflags & G_GONE));
 
     return ((mvitals[mtyp].mvflags & G_GONE) ? (struct permonst *) 0
                                              : &mons[mtyp]);
