@@ -377,6 +377,10 @@
      || (ptr) == &mons[PM_RAT_KING] \
      || (ptr) == &mons[PM_RODENT_OF_UNUSUAL_SIZE] \
      || (ptr) == &mons[PM_SEWER_RAT])
+# define is_migo(ptr) \
+    ((ptr) == &mons[PM_MIGO_DRONE] \
+     || (ptr) == &mons[PM_MIGO_WARRIOR] \
+     || (ptr) == &mons[PM_MIGO_QUEEN])
 #define has_trunk(ptr) \
     ((ptr) == &mons[PM_MUMAK] \
      || (ptr) == &mons[PM_MASTODON] \
@@ -385,6 +389,7 @@
 #define is_ogre(ptr) (((ptr)->mhflags & MH_OGRE) != 0L)
 #define is_troll(ptr) (((ptr)->mhflags & MH_TROLL) != 0L)
 #define is_gnoll(ptr) (((ptr)->mhflags & MH_GNOLL) != 0L)
+
 #define is_not_zombie(ptr) \
     (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \

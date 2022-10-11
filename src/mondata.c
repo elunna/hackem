@@ -429,7 +429,8 @@ int material;
     } else if (material == COPPER) {
         /* copper has antibacterial and antifungal properties,
          * very good versus sickness, mold and decay */
-        return (ptr->mlet == S_FUNGUS 
+        return (ptr->mlet == S_FUNGUS
+                || is_migo(ptr)
                 || dmgtype(ptr, AD_DISE)
                 || dmgtype(ptr, AD_DCAY) 
                 || dmgtype(ptr, AD_PEST));
