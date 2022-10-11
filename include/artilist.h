@@ -396,6 +396,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Gleipnir", GRAPPLING_HOOK, (SPFX_RESTR), 0, 0, PHYS(5, 8),
       NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1700L, NO_COLOR),
 
+    /* Attacks deal double damage, but at the cost of hallucination.
+    *      This effect is only active while the user can see. */
+    A("Mystic Eyes", LENSES, (SPFX_RESTR | SPFX_SEARCH), 0, 0, 
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR),
+
   /* Thought the Oracle just knew everything on her own? Guess again. Should
    * anyone ever be foolhardy enough to take on the Oracle and succeed,
    * they might discover the true source of her knowledge.
@@ -443,7 +448,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     /* Resisted by very few monsters, but is a morning star and also
-    *       happens to destroy tons of items. Was Sonicboom */
+    *       happens to destroy tons of items. 
+     *      (Previously known as Sonicboom in SpliceHack) */
     A("Thunderstruck", MORNING_STAR, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
       LOUD(5, 20), DFNS(AD_LOUD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
       NO_COLOR),

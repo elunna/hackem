@@ -2682,6 +2682,8 @@ int final;
         you_are("confused", "");
     if (Hallucination)
         you_are("hallucinating", from_what(HALLUC));
+    if (DeathVision)
+        you_are("dealing double damage due to comprehending death", "");
     if (Blind) {
         /* from_what() (currently wizard-mode only) checks !haseyes()
            before u.uroleplay.blind, so we should too */

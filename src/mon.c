@@ -6148,6 +6148,11 @@ int type;
         amount = ((amount * 3) + 1) / 2;
 
     mon->mhp -= amount;
+    
+    /* For debugging */
+    if (wizard)
+        showdmg(amount);
+    
     return (mon->mhp < 1);
 }
 

@@ -1667,6 +1667,11 @@ int dieroll;
         use_skill(wtype, 1);
     }
 
+    /* Eyes of death perception bonus applied here */
+    if (DeathVision) {
+        tmp *= 2;
+    }
+
     if (!ispotion && obj /* potion obj will have been freed by here */
         && (ispoisoned || iskas || isvenom)) {
         int nopoison = (10 - (obj->owt / 10));

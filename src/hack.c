@@ -3453,6 +3453,20 @@ maybe_wail()
     }
 }
 
+
+             
+/* Print the amount of damage inflicted */
+/* KMH -- Centralized to one function */
+void
+showdmg(n)
+	register int n;
+{
+    if (wizard)
+        pline("(%d pts.)", n);
+	return;
+}
+
+
 void
 losehp(n, knam, k_format)
 register int n;

@@ -1788,6 +1788,10 @@ struct obj *otmp;
     if (changed) {
         toggle_blindness(); /* potion.c */
     }
+    
+    if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES)
+        pline("With madness comes clarity.");
+
     if (ublindf && ublindf->otyp == MASK)
         if (use_mask(&ublindf)) 
             return; 

@@ -112,6 +112,8 @@
 
 #define Invulnerable u.uprops[INVULNERABLE].intrinsic /* [Tom] */
 
+#define DeathVision (ublindf && ublindf->oartifact == ART_MYSTIC_EYES && !Blind)
+
 /*** Troubles ***/
 /* Pseudo-property */
 #define Punished (uball != 0)
@@ -161,7 +163,7 @@
 #define EHalluc_resistance u.uprops[HALLUC_RES].extrinsic
 #define Halluc_resistance (HHalluc_resistance || EHalluc_resistance)
 #define Hallucination ((HHallucination && !Halluc_resistance) || \
-                       u.uroleplay.hallu)
+                       u.uroleplay.hallu || DeathVision)
 
 /* Timeout, plus a worn mask */
 #define HDeaf u.uprops[DEAF].intrinsic
