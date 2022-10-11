@@ -3819,6 +3819,13 @@ register struct obj *obj;
             else
                 obj->otyp = FOOD_RATION;
             break;
+        case PINEAPPLE:
+            switch (rnd(3)) {
+            case 1: obj->otyp = FIRE_BOMB; break;
+            case 2: obj->otyp = GAS_BOMB; break;
+            case 3: obj->otyp = SONIC_BOMB; break;
+            }
+            break;
         case FOOD_RATION:
         case CRAM_RATION:
             obj->otyp = LEMBAS_WAFER;
