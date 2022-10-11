@@ -1084,6 +1084,24 @@ Quest Artifacts:
 		- Replaces the Iron Ball of Liberation
 		- Carrying the spoon confers free action
 
+	- [x] Staff of Withering (Staff of War)
+		- Intelligent Chaotic
+		- Wielded by Acererak in the Chaotic Quest
+		- Drain life Attack
+		- Grants cold resistance (while carried)
+		- Invoke for energy boost
+
+	- [x] Xanathar's Ring of Proof (Ring of Stealth)
+		- Guarded by Xanathar in the Neutral Quest
+		- Neutral
+		- Grants stealth, warning and magic resistance while carried.
+		- Invoke for invisibility
+
+	- [x] The Key Of Access
+		- Guarded by Nebuchadnezzar in the Lawful quest.
+		- Lawful
+		- Invoke for branchport
+
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 
@@ -1318,6 +1336,7 @@ Role Changes:
 	- No slashem roles can start with magic markers anymore (to stay in line with Evil)
 	- Both Ice and Fire mages now get spell-hunger reduction (similar to wizards
 	  but it's calculated with (int - 2)
+	- Flame/Ice mages get the multishot penalty
 
 	- [x] Flame Mage
 		- Remove gaining Cold res at level 13
