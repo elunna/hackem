@@ -696,7 +696,10 @@ int mm_flags;
         if (mdat && enexto(&cc, mm->x, mm->y, mdat)
             && (!revive_corpses
                 || !(otmp = sobj_at(CORPSE, cc.x, cc.y))
-                || !revive(otmp, FALSE)))
+                || !revive(otmp, FALSE))
+            || mdat == &mons[PM_GHOUL_MAGE]
+            || mdat == &mons[PM_GHOUL_QUEEN]
+            || mdat == &mons[PM_VAMPIRE_SORCERER])
             (void) makemon(mdat, cc.x, cc.y, mm_flags);
     }
     level.flags.graveyard = TRUE; /* reduced chance for undead corpse */
