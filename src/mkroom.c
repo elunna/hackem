@@ -478,7 +478,7 @@ struct mkroom *sroom;
             if (mon) {
                 mon->msleeping = 1;
                 /* We don't want any guild members to be peaceful. */
-                if ((type == COURT || type == MINIGUILD) 
+                if ((type == COURT || type == MINIGUILD || type == BARRACKS) 
                          && mon->mpeaceful) {
                     mon->mpeaceful = 0;
                     set_malign(mon);
@@ -1221,6 +1221,10 @@ static struct {
 STATIC_OVL struct permonst *
 squadmon()
 {
+    /* They occasionally keep guard dogs around. */
+    if (!rn2(20))
+        return (&mons[PM_GUARD_DOG]);
+    
     int sel_prob, i, cpro, mndx;
 
     sel_prob = rnd(80 + level_difficulty());
