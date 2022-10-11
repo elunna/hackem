@@ -9,9 +9,24 @@
 Special thanks to K2, amateurhour, qt
 Thanks: riker, bhaak, kes, shadowrider, aosdict, paxxed
 
+Table of Contents:
+	- New Monsters
+	- Monster changes
+	- Dragons and Dragon Scales
+	- New Weapons:
+	- New Items
+	- Spellbooks and spells
+	- New Artifacts:
+	- Dungeon Features
+	- Mechanics and Quality of Life Features
+	- Dungeon Changes/Special Rooms
+	- Role and Race Changes:
+	- Shops/Shopkeeper Services
+	- Nerfs
+
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
-Imported these monsters from other forks:
+New Monsters (Imported or created):
 	- (a) giant tick
 		- Can appear in main dungeon; increased difficulty by 7.
 	- (a) giant flea
@@ -645,6 +660,8 @@ Yellow DSM		acid res			stoning resistance		<<passive acid attack>> !!
 
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
+New items:
+
 New Weapons:
 	- [x] dark elven bow
 	- [x] footbow/warped bow
@@ -820,67 +837,6 @@ Scrolls:
 	- [x] scroll of cloning
 			
 
-Spellbooks:
-	- [x] spellbook of lightning
-	- [x] spellbook of poison blast
-	- [x] spellbook of acid stream (evil has acid blast)
-	- [x] spellbook of flame sphere
-		- Evil made this a Level 2 spell
-	- [x] spellbook of freeze sphere
-		- Made a level 1 spell (as in slashem) - levels out early game a bit more for ice mages.
-	- [x] spellbook of enlighten
-	- [x] spellbook of passwall 
-		- Moved to ESCAPE category
-		- Lowered spell level slightly to 5
-	- [x] spellbook of command undead
-		- Lowered command undead spell difficulty to 4
-	- [x] spellbook of summon undead
-		- lowered summon undead spell difficulty to 4
-	- [x] spellbook of sonicboom
-
-	[x] New spell: spellbook of fire bolt
-		- Fire Bolt is only available to the Flame Mage - spellbooks are 0 prob. 
-		- This also helps keep other roles from knowing too many spellbooks.
-		- 1d10 fire damage (avg 5.5).
-		- Increases by 1d10 for every 4 levels.
-		- A fire attack (similar to force bolt) that doesn't reflect.
-		- Can hit multiple targets, destroys doors, and burns straw/paper golems
-		- [SKIPPED] - Burns trees, webs?
-		- /* Damage scales with level - every 5 levels we add a cumulative
-             * 1d10 to the total damage.
-             * Level 1 = 1d10 fire damage
-             * Level 5 = 2d10 fire
-             * Level 10 = 3d10 fire - and etc. 
-             * Level 15 = 4d10 fire 
-             * Level 20 = 5d10 fire (but damage is capped at 45 max)
-
-	[x] New spell: spellbook of snowball
-		- Snowball is only available to the Ice Mage - spellbooks are 0 prob. 
-		- Like the snowballs that snow golems throw,
-		  these have a high chance of blinding monsters.
-
-		- The higher your experience and/or spell level, the bigger and harder the snowball hits.
-		- Skilled and Expert spells grants some great random bonuses. 
-			base:				   1d6 (blinds enemies)
-			level 4: 	 	bonus +1d6
-			level 8: 	 	bonus +1d6
-			SKILLED: 	 	bonus +1d6
-				10% chance: bonus +1d6 (and stuns enemy)
-			EXPERT:  	 	bonus +1d6
-				10% chance: bonus +2d6
-		 		(also a 1/3 chance of shattering potions on the enemy)
-
-
-Spellcasting:
-	- [x] Got rid of the BODY spell class in SlashEM, moved to the Escape spells
-	- [x] Got rid of the PROTECTION spell class in SlashEM, moved to the CLERIC spells
-	- [x] Changed Fireball from an attack spell to a Matter spell
-	- [x] Convert Cone of cold from an attack spell to a Matter spell.
-	- [x] Add 0-9 to spells list letters
-	- [x] Lowered teleport spell to level 5
-	- [x] Spellbooks of flame sphere, firebolt are immune to fire.
-
-
 Tools/Weapon Tools:
 	- [x] lute
 	- [x] bagpipe
@@ -952,7 +908,71 @@ Gems:
 
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
+Spellbooks:
+	- [x] spellbook of lightning
+	- [x] spellbook of poison blast
+	- [x] spellbook of acid stream (evil has acid blast)
+	- [x] spellbook of flame sphere
+		- Evil made this a Level 2 spell
+	- [x] spellbook of freeze sphere
+		- Made a level 1 spell (as in slashem) - levels out early game a bit more for ice mages.
+	- [x] spellbook of enlighten
+	- [x] spellbook of passwall 
+		- Moved to ESCAPE category
+		- Lowered spell level slightly to 5
+	- [x] spellbook of command undead
+		- Lowered command undead spell difficulty to 4
+	- [x] spellbook of summon undead
+		- lowered summon undead spell difficulty to 4
+	- [x] spellbook of sonicboom
+
+	[x] New spell: spellbook of fire bolt
+		- Fire Bolt is only available to the Flame Mage - spellbooks are 0 prob. 
+		- This also helps keep other roles from knowing too many spellbooks.
+		- 1d10 fire damage (avg 5.5).
+		- Increases by 1d10 for every 4 levels.
+		- A fire attack (similar to force bolt) that doesn't reflect.
+		- Can hit multiple targets, destroys doors, and burns straw/paper golems
+		- [SKIPPED] - Burns trees, webs?
+		- /* Damage scales with level - every 5 levels we add a cumulative
+             * 1d10 to the total damage.
+             * Level 1 = 1d10 fire damage
+             * Level 5 = 2d10 fire
+             * Level 10 = 3d10 fire - and etc. 
+             * Level 15 = 4d10 fire 
+             * Level 20 = 5d10 fire (but damage is capped at 45 max)
+
+	[x] New spell: spellbook of snowball
+		- Snowball is only available to the Ice Mage - spellbooks are 0 prob. 
+		- Like the snowballs that snow golems throw,
+		  these have a high chance of blinding monsters.
+
+		- The higher your experience and/or spell level, the bigger and harder the snowball hits.
+		- Skilled and Expert spells grants some great random bonuses. 
+			base:				   1d6 (blinds enemies)
+			level 4: 	 	bonus +1d6
+			level 8: 	 	bonus +1d6
+			SKILLED: 	 	bonus +1d6
+				10% chance: bonus +1d6 (and stuns enemy)
+			EXPERT:  	 	bonus +1d6
+				10% chance: bonus +2d6
+		 		(also a 1/3 chance of shattering potions on the enemy)
+
+
+Spellcasting:
+	- [x] Got rid of the BODY spell class in SlashEM, moved to the Escape spells
+	- [x] Got rid of the PROTECTION spell class in SlashEM, moved to the CLERIC spells
+	- [x] Changed Fireball from an attack spell to a Matter spell
+	- [x] Convert Cone of cold from an attack spell to a Matter spell.
+	- [x] Add 0-9 to spells list letters
+	- [x] Lowered teleport spell to level 5
+	- [x] Spellbooks of flame sphere, firebolt are immune to fire.
+
+
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
+
 Artifacts:
+
 	Design decision #1: 
 		In SlashEM, artifacts grant a base damage bonus - should we adjust so 
 		that they deal closer to that on average? Currently, we'll say no and
@@ -1103,7 +1123,7 @@ Quest Artifacts:
 		- Invoke for branchport
 
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
-
+Dungeon Features
 
 Trap Mechanics:
 	- Breaking wands will usually create related traps (unnethack)
@@ -1198,6 +1218,7 @@ Religion/Prayer/Alters:
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Dungeon Changes:
+
 	- [x] Extend main dungeon: Now 31-34 levels deep
 		  (Slashem was 42-47, but this went over the max)
 	- [x] Removed Goblin Town and requirement to defeat Goblin King (Evil)
