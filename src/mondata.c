@@ -1321,6 +1321,7 @@ static const short grownups[][2] = {
     { PM_BLAZING_FERN_SPROUT, PM_BLAZING_FERN },
     { PM_DUNGEON_FERN_SPROUT, PM_DUNGEON_FERN },
     { PM_SWAMP_FERN_SPROUT, PM_SWAMP_FERN },
+    { PM_GIBBERSLUG, PM_GIBBERLING },
     
     /* hackem -- growing up, slashem additions */
     { PM_DINGO_PUPPY, PM_DINGO}, 

@@ -711,7 +711,11 @@ nh_timeout()
             case LARVACARRIER:
                 /* must be in this order for bones files. */
                 create_critters(rnd(3), &mons[u.ueggpm], TRUE);
-                losehp(d(1, 5), "being eaten from the inside by insects", KILLED_BY);
+                if (u.ueggpm == PM_GIBBERSLUG)
+                    losehp(d(4, 5), "being eaten from the inside by slugs", KILLED_BY);
+                else
+                    losehp(d(1, 5), "being eaten from the inside by insects", KILLED_BY);
+                
                 u.uhp = (int) (u.uhp / 2);
                 break;
             case SLIMED:

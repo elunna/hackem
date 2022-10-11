@@ -2604,8 +2604,9 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             pline("%s burst out of %s!",
                 Hallucination ? rndmonnam(NULL) : "larvae",
                 mon_nam(mdef));
-            mtmp = makemon(&mons[PM_ICHNEUMON_LARVA],
+            mtmp = makemon(&mons[big_to_little(u.umonnum)],
                 u.ux, u.uy, MM_EDOG);
+
             initedog(mtmp);
         }
     }
