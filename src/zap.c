@@ -6998,22 +6998,20 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
      * in explode() - this could probably be improved but for now it works. */
 
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
-        ztype = ZT_SPELL(ZT_MAGIC_MISSILE);
+        ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
         explode(x, y, ztype, d(50, 6), WEAPON_CLASS, EXPL_FIERY);
-    } 
-
-    else if (otyp == FIRE_BOMB) {
-        /* value kludge, see zap.c */
-        ztype = ZT_SPELL(AD_FIRE - 1);  /* = 10+(2-1) = 11 */
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_FIERY);
-    } else if (otyp == GAS_BOMB) {
-        /* value kludge, see zap.c */
-        ztype = ZT_SPELL(AD_DRST - 1); /* = 10+(7-1) = 16 */
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_NOXIOUS);
     }
+    else if (otyp == FIRE_BOMB) {
+        ztype = ZT_SPELL(ZT_FIRE) * yours;
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_FIERY);
+    } 
+    else if (otyp == GAS_BOMB) {
+        ztype = ZT_SPELL(ZT_POISON_GAS) * yours; 
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_NOXIOUS);
+    } 
     else if (otyp == SONIC_BOMB) {
-        ztype = ZT_SPELL(AD_LOUD - 1);
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, isyou * -1 * EXPL_DARK);
+        ztype = ZT_SPELL(ZT_SONIC) * yours;
+        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_DARK);
     }
     context.mon_moving = save_mon_moving;
     wake_nearto(x, y, 400);
