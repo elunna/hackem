@@ -1,11 +1,23 @@
+  _    _            _    ______ __  __ 
+ | |  | |          | |  |  ____|  \/  |
+ | |__| | __ _  ___| | _| |__  | \  / |
+ |  __  |/ _` |/ __| |/ /  __| | |\/| |
+ | |  | | (_| | (__|   <| |____| |  | |
+ |_|  |_|\__,_|\___|_|\_\______|_|  |_|
+                                       
+
 Special thanks to K2, amateurhour, qt
 Thanks: riker, bhaak, kes, shadowrider, aosdict, paxxed
 
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
+
 Imported these monsters from other forks:
 	- (a) giant tick
-		- Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.
+		- Can appear in main dungeon; increased difficulty by 7.
 	- (a) giant flea
+		- Can appear in main dungeon; increased difficulty by 7.
 	- (a) giant louse
+		- Can appear in main dungeon; increased difficulty by 7.
 	- (a) giant fly
 	- (a) bullet ant
 	- (a) snow ant
@@ -32,21 +44,19 @@ Imported these monsters from other forks:
 	- (b) static blob
 	- (b) burbling blob
 	- (c) basilisk (already in evil and stronger.)
-		- The evil version is higher level, has more attacks, 
-		  sleep res, also occupies the 'c' slot)
+		- Previously occupied the ':' slot
+		- higher level, has more attacks than SlashEM
+		- Added sleep res
 		- Added M1_OVIPAROUS to basilisk.
 	- (c) chicken
 	- (c) cockatoo
 	- (c) parrot
-	
 	- (d) pit bull
 	- (d) guard dog
 	- (d) dingo puppy
 	- (d) large dingo
 	- (d) barghest
-		- "In East Anglia, where it was thought to be amphibious, the dog had only one eye and was known as Black Shuck, or Shock."
 		- Made amphibious; Added M3_BERSERK
-
 	- (d) death dog
 	- (d) rabid wolf
 		- Added BERSERK
@@ -54,24 +64,24 @@ Imported these monsters from other forks:
 		- Added BERSERK
 	- (d) shadow wolf
 		- Made drain & death resistant.
-		- Can darken lit areas.
+		- Can darken lit areas when moving
 	- (d) mist wolf
 		- Made cold resistant
 		- Each mist wolf can exhale clouds of thick mist - purely defensive
 	- (d) nova fox
-		Renamed from vulpenferno in splicehack
-		Bumped lvl up to 16, diff to 19. 
-		Added resistance to fire/shock, and grants fire/shk res.
+		- Renamed from vulpenferno in splicehack
+		- Bumped lvl up to 16, diff to 19. 
+		- Added resistance to fire/shock, and grants fire/shk res.
 	- (e) glowing eye
-		- M3_SKITTISH
+		- Added skittish behavior
 	- (e) bloodshot eye
-		- M3_SKITTISH
+		- Added skittish behavior
 	- (e) blinking eye
-		- M3_SKITTISH
+		- Added skittish behavior
 	- (e) weeping eye
 	- (e) corrosive sphere
 	- (e) concussive sphere
-	- (e)  whirling sphere:
+	- (e) whirling sphere:
 	- (f) kamadan
 	- (f) displacer beast (already present in evil)
 	- (f) caterwaul
@@ -99,8 +109,9 @@ Imported these monsters from other forks:
 		- Sometimes generated riding rats.
 		- Using ratman tile from SpliceHack.
 	- (g) telamon(caryatid, loadbearer)
+	- (h) hobbit pickpocket
 	- (h) dwarf thief
-		- Added BERSERK (all dwarves get berserk in evil)
+		- Added BERSERK 
 	- (h) duergar
 		- Added BERSERK
 	- (h) deep one
@@ -114,7 +125,7 @@ Imported these monsters from other forks:
 	- (i) blood imp
 		- Added a drain life bite 
 	- (i) redcap
-		Added berserk
+		- Added berserk, traitor property
 	- (i) dust devil
 	- (j) clear jelly
 		- added vulnerable to fire (matches existing j)
@@ -131,13 +142,11 @@ Imported these monsters from other forks:
 	- (k) swamp kobold
 		- Added swimming 
 	- (k) rock kobold
-		- Rock kobolds sometimes start with a sling and some rocks.
+		- sometimes start with a sling and some rocks.
 	- (k) kobold warrior
 	- (k) Kroo the Kobold King
-		- Added traitor property to all kobolds
 	- (l) leprechaun wizard
 	- (m) killer mimic
-	- (n) Nymphs now hate iron.
 	- (n) pixie
 	- (n) brownie
 		- made brownies vegetarian.
@@ -147,7 +156,7 @@ Imported these monsters from other forks:
 	- (n) lampad
 		- doubled difficulty to 22
 		- Usually bears torches 
-	- (n) thriae - 
+	- (n) thriae
 		- changed from 'a' to yellow 'n' (they are bee nymphs)
 		- Upped level to 14, difficulty to 27.
 	- (n) Aphrodite - (Already in evil with her own level)
@@ -159,16 +168,11 @@ Imported these monsters from other forks:
 		- Replaced AD_MEMR attack with spellcasting.
 		- increased difficulty to 25
 	- (o) war orc
-		- Added BERSERK
 	- (o) great orc
-		- Added BERSERK
 	- (o) Grund the Orc King
-		- Added BERSERK
 	- (o) snow orc
-		- Added BERSERK
 		- can throw snowballs like snow golems
 	- (o) demon orc
-		- Added BERSERK
 	- (p) diamond piercer
 	- (p) god piercer
 	- (q) lamb
@@ -190,31 +194,26 @@ Imported these monsters from other forks:
 		- Added infravision, regeneration, M1_MINDLESS
 		- Changed juggernaut MR to 70, AC to -4,  speed to 15
 	- (q) catoblepas
-		- [x] Specified they have 2 tusks/horns
+		- Specified they have 2 tusks/horns
 	- (q) manticore
 	- (q) landshark
-	- (q) pig (sow)
+	- (q) pig
 	- (q) feral hog
 	- (q) llama
 	- (q) black bear
-		Raised level to 7. Added M3_BERSERK.
+		- Raised level to 7. Added berserk.
 	- (q/@) werebear
-		update howl sounds in were.c
-		Added M3_BERSERK
 	- (q) grizzly bear
-		Changed color to red to avoid clashing with manticore
-		Added M3_BERSERK
+		- Changed color to red to avoid clashing with manticore
 	- (q) chimera
 		fire-breathing 3d6
 	- (q) hippo
-		MS_YAWN is not implemented...
 	- (q) hellbear
-		Added M3_BERSERK
 	- (r) rabbit
 		- Can be tamed with carrots (not rabid rabbits though.)
 	- (r) black rat
 	- (r) rabid rabbit
-		- Added BERSERK
+		- Added berserk
 	- (r) pack rat
 		- Made a little tougher
 		- Now level 2; Added M2_COLLECT | M2_STRONG | M2_FLANK
@@ -227,7 +226,7 @@ Imported these monsters from other forks:
 		- Added BERSERK
 	- (r) skunk
 	- (r) hedgehog
-		- moved to 'r' from 'q'
+		- Previously occupied the 'q' slot
 	- (s) recluse spider
 	- (s) barking spider
 	- (s) carrion crawler
@@ -240,6 +239,7 @@ Imported these monsters from other forks:
 	- (s) Girtab
 	- (s) Shelob
 	- (s) monstrous spider
+	- (s/@) werespider 	
 	- (u) selkie
 	- (w) larva
 	- (w) maggot
@@ -257,8 +257,6 @@ Imported these monsters from other forks:
 	- (x) lightning bug
 	- (y) will-o'-the-wisp
 		- Spawns in swamp rooms and Juiblex's level.
-
-	- (z) All Zouthern animals now have a small chance of dropping boomerangs.)
 	- (z) echidna
 		- Added M3_INFRAVISIBLE
 	- (z) platypus
@@ -285,7 +283,6 @@ Imported these monsters from other forks:
 	- (A) lamassu
 		- lamassu should have 2 horns
 		- Replaced one of the claw attacks with a butt attack.
-
 	- (B) rhumbat
 	- (B) athol
 		- Added "ahool!" sounds that aggravate monsters.
@@ -300,20 +297,16 @@ Imported these monsters from other forks:
 		- can start with jewelery.
 		- use primitive weapons, big bones/clubs, sometimes bows
 		- Added song attack that can paralyze from a distance.
-		- Changed #chat voice to MS_SEDUCE (but could be better)
+		- Changed #chat voice to MS_SEDUCE (could be better...)
 	- (B) byakhee
 	- (B) nightgaunt
 		- Sometimes get tridents, spears or javelins
 	- (B) zoo bat
 	- (B) gaol bat
 	- (B) phoenix
-		- [ ] Wand of undead turning doesn't affect phoenix egg
-		- [ ] Phoenix egg revival via fire is very buggy.
 		- Phoenix eggs hatch instantly when exposed to lava, and are not damaged  by fire.
-	- (D) All dragons: 
-		- Can now bellow a frightful roar that causes Afraid status.
 	- (D) baby deep dragon
-	- (D) deep dragons:
+	- (D) deep dragons
 		- Added AD_DRLI to passive attacks (AT_NONE)
 		- Baby/adult deep dragons resist poison and drain magic
 	- (D) baby shimmering dragon (already in EvilHack)
@@ -322,6 +315,10 @@ Imported these monsters from other forks:
 	- (D) hydra
 		- Added poisonous breath, passive poison 
 		- Imported Multiple heads mechanic from splicehack.
+	- [x] Father Dagon
+		- Not used yet
+	- [x] Mother Hydra
+		- Not used yet
 	- (E) mud elemental
 		- Added engulf attack (like water elemental)
 	- (E) acid elemental
@@ -329,8 +326,6 @@ Imported these monsters from other forks:
 	- (E) ice elemental
 		- Spits snowballs
 	- (E) magma elemental
-		[ ] Add an Engulf or Spit attack?
-	- (F) All fungi receive an extra d6 damage from copper. F hates copper.
 	- (F) disgusting mold
 	- (F) black mold
 		- Disabled to make room for swamp ferns.
@@ -341,58 +336,44 @@ Imported these monsters from other forks:
 	- (F) shrieker
 		- Added sonic resistance
 	- (F) screamer
-		[x] MR_SONIC
-	- (F) Dungeon Fern/Dungeon Fern Sprout
+		- Has a touch attack, but removed the "touches you" msg.
+	- (F) dungeon fern/dungeon fern sprout
 		- added acid res
 		- Changed color to White
 		- Every time a fern sprout releases a spore, it gains a level.
 		  Now sprouts can grow up into adult ferns.
-	- (F) Arctic Fern/ Arctic Fern Sprout
-		Changed color to blue (spores to bright blue not to confuse with floating eyes)
-	- (F) Blazing Fern/Blazing Fern Sprout
-	- (F) Swamp Fern/Swamp Fern Sprout
+	- (F) arctic fern/arctic fern sprout
+		- Changed color to blue (spores to bright blue not to confuse with floating eyes)
+	- (F) blazing fern/blazing fern sprout
+	- (F) swamp fern/swamp fern sprout
 		- Changed from cyan to black
 		- Added swamp ferns to mine/cave river generation (if there is sewage)
-	- (e) Dungeon Fern Spore
-	- (e) Arctic Fern Spore
-	- (e) Blazing Fern Spore
-	- (e) Swamp Fern Spore
-	- (e) Fern Spore
+	- (e) dungeon fern spore
+	- (e) arctic fern spore
+	- (e) blazing fern spore
+	- (e) swamp fern spore
+	- (e) fern spore
 	- (F) volatile mushroom
 	- (G) gnome thief
 	- (G) deep gnome 
 	- (G) gnome warrior
 	- (G) Ruggo the Gnome King
-	- (G) gnoll
-		- Added BERSERK
-	- (G) gnoll warrior
-		- Added BERSERK
-	- (G) gnoll chieftain
-		- Added BERSERK
-	- (G) gnoll shaman
-		- Added BERSERK
-		(Note: Evil already had gnolls, so I disabled the Evil gnolls in 
+	- Gnolls: Evil already had gnolls, so I disabled the Evil gnolls in 
 		favor of the slashem versions - and used the G symbol instead)
-		- Update gnolls to match evil weight, MZ_MEDIUM size, 
-			use MS_LAUGH, have poison res, infravisible and berzerk.
+		- Updated to match evil weight/size, poison res, infravisible, berzerk.
+	- (G) gnoll
+	- (G) gnoll warrior
+	- (G) gnoll chieftain
+	- (G) gnoll shaman
 	- (G) marrashi
-		- Added BERSERK
 	- (G) gnomish psyker
 		- Removed the AD_PSYC attack from splice, and used the mind flayers
 		  mind attack.
-		[ ] Redo as kobold psyker?
-		[ ] Nerf their flayer attack a bit?
-		[ ] Make into a touch attack
 	- (H) The Largest Giant
 	- (H) hecatoncheire (Hundred Handed One)
-		redo as arch millipede?
-
 	- (J) vorpal jabberwock (evil already had with the beheading attack!)
-	- (K) Keystone Kops can no longer be genocided
-	- (L) eye of fear and flame" - high level lich? between demi and master
-		[x] ATTK(AT_GAZE, AD_FEAR, 0, 4), */
+	- (L) eye of fear and flame
 	- (L) worm that walks
-		[ ] Ressurection message?
 	- (M) troll mummy 
 		- Added regen and stalk, revival works fine.
 	- (M) adherer
@@ -411,22 +392,23 @@ Imported these monsters from other forks:
 	- (P) giant shoggoth
 		- Limited to one corrosion attack.
 	- (P) blood pudding
-		[x] specified this is not vegetarian
+		- specified not vegetarian
 	- (P) gel
 	- (Q) genetic engineer (already in evil)
 	- (Q) alchemist
-		[x] Added M3_SKITTISH to substitute for avoids_player
+		- Added skittich behavior
 	- (S) king cobra
 	- (S) asphynx
 	- (S) cerastes
-	- (S) amphisbaena	
+	- (S) amphisbaena
+	- (S/@) weresnake
 	- (T) two-headed troll
 	- (T) black troll 
 	- (T) cave troll
 		- Buffed some of the attacks.
 	- (T) grave troll
 	- (U) water hulk
-		- Added vulnerability to shock (similar to other water-critters)
+		- Added vulnerability to shock
 	- (U) umbral hulk
 		- they have a darkness movement, litroom_mon
 	- (U) hunger hulk"
@@ -434,36 +416,37 @@ Imported these monsters from other forks:
 	- (V) fire vampire
 	- (V) star vampire
 	- (V) vampire mage/sorcerer (already in evil with minor changes)
-		- Added traitor property
 		- Renamed to vampire sorcerer to avoid conflict with Ice Mages.
 	- (V) nosferatu
-		[x] moved were_summon from rats to wolves
+		- Instead of were_summoning rats, summons wolves
 	- (W) wight
 	- (W) bodak
 	- (W) banshee
-	- (W) wraith
-		- Wraith corpses nerfed (from slashem) - New effects:
-		- 10% lose exp; 10% max HP/Pw decreases; 
-		- 10% max HP/Pw increases.	
-		- 50% Gain xp; 20% nothing happens.
+	- (W) slaughter wight
+		- A HackEM original!
+		- Renamed wight to slaughter wight. Added infravision, ACCURATE, BERSERK, and STRONG.
+		- slaughter wights have 2 Melee slams: (1d6+6 plus energy drain)
+		- slaughter wights life and energy drain (1 level, DC 19) 
+		- slaughter wights have AC 18: -8?
+		- Made slaughter wights a red W.
+		- Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
 	- (Y) zruty
-		- [x] Changed zruty from z to Y (to accomodate zouthern animals)
-	- (Y) lemur - apelike not a lemure
+		- Changed zruty from z to Y (to accomodate zouthern animals)
+	- (Y) lemur
 	- (Z) ghoul mage
 	- (Z) ghast
 		- Ghasts gain a level for every corpse they eat.
 	- (Z) ghoul queen
 	- (Z) gug
-	- (Z) draugr - zombie?
+	- (Z) draugr
 		- Added zombie bite attack, and vulnerable to fire.
 	- (Z) vomitous ghoul
-		[x] Import is_ghoul
 	- (Z) skeletal pirate
 	- (Z) zombie dragon
 	- (Z) centaur zombie
 		- A Hack'EM original!
 	- (`) wax golem
-		- can be  created from wax poly.
+		- can be created from wax poly.
 		- Wax golems have a small chance of death dropping a magic candle
 	- (`) plastic golem
 		- Can drop credit cards and fake amulets.
@@ -475,29 +458,29 @@ Imported these monsters from other forks:
 	- (`) crystal golem
 		- Added reflection to the higher level golems.
 		- Changes color every turn
-	- (s/@) werespider 	
-	- (S/@) weresnake
 	- (@) gibberling
 		- Hates light
 		- Carry crude weapons made from bone or dull short swords
-		- Gibberlings get an AD_GIBB sonic attack: 
-			Stuns, confuses, etc. Similar to a cursed unihorn
+		- Gibberlings get a sonic attack: Stuns, confuses, etc. Similar to a cursed unihorn
 	- (@) grimlock
-		- Hates light
+		- Hates light and can stalk you.
 		- can start with Bone Clubs, bone aklys, axes or orcish spears.
 		- added a claw attack
-		- can stalk you.
 	- (@) drow 
 		- Added infravisible
 	- (@) mugger
 	- (@) black marketeer 
-		- added M3_ACCURATE
+		- added accurate behavior
 	- (@) general
-	- (@) flame mage, High Flame Mage, igniter, and Water Mage
-	- (@) ice mage, High Ice Mage, froster, and Earth Mage (Replaced with Ragnaros from slashem-up)
-	- (@) necromancer, Dark Lord, embalmer, Maugneshaagar
-	- (@) undead slayer, Van Helsing, exterminator, Count Dracula 
-	- (@) yeoman, Chief Yeoman Warder, Yeoman Warder, Colonel Blood
+	- (@) bandit
+	- (@) peasant
+	- (@) bards
+	- (@) musicians
+		- (for village; used apprentice tile)
+	- (@) street thug leader (for village)
+	- (@) street thug 
+		- (for village; use pirate crewmate tile)
+	- (@) black marketeer 
 	- ( ) shadow 
 		- Added M3_INFRAVISION
 	- (&) spined devil
@@ -529,10 +512,11 @@ Imported these monsters from other forks:
 	- (&) damned pirate
 	- (&) spibrawulf
 	- (&) Cthulhu
-		[x] Put Cthulu in the middle of sanctum
-
+		- Put Cthulhu in the middle of sanctum
+		- Cthulhu cannot teleport (as in UnNethack)
 	- (;) giant crab
-	- (;) merfolk - Combination of Splice and SlashTHEM versions
+	- (;) merfolk
+		- Combination of Splice and SlashTHEM versions
 	- (;) swordfish
 	- (;) sea horse
 	- (;) giant squid 
@@ -559,52 +543,75 @@ Imported these monsters from other forks:
 	- ($) huge pile of killer coins
 		- leaves piles of coins
 	
-	Not used yet:
-
-	- [x] Father Dagon (deferred)
-	- [x] Mother Hydra (deferred)
-
-
-Monsters imported from other variants:
-	- (@) bandit (for town)
-	- (@) peasant (for village; dnh tile)
-	- (@) bards - (for village; used apprentice tile)
-	- (@) musicians - (for village; used apprentice tile)
-	- (@) street thug leader (for village)
-	- (@) street thug (for village; use pirate crewmate tile)
-	- (@) black marketeer 
-	
-New Monsters:
-	Slaughter Wight:
-		- [x] Renamed wight to slaughter wight. Added infravision, ACCURATE, BERSERK, and STRONG.
-		- [x] slaughter wights have 2 Melee slams: (1d6+6 plus energy drain)
-		- [x] slaughter wights life and energy drain (1 level, DC 19) 
-		- [x] slaughter wights have AC 18: -8?
-		- [x] Made slaughter wights a red W.
-		- [x] Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
+Role related additions:
+	- (@) flame mage, High Flame Mage, igniter, and Water Mage
+	- (@) ice mage, High Ice Mage, froster, and Earth Mage (Replaced with Ragnaros from slashem-up)
+	- (@) necromancer, Dark Lord, embalmer, Maugneshaagar
+	- (@) undead slayer, Van Helsing, exterminator, Count Dracula 
+	- (@) yeoman, Chief Yeoman Warder, Yeoman Warder, Colonel Blood
 
 Monster changes:
 	- [x] Removed "Hits as +x weapon" property from slashem monsters
 	- [x] Removed "Requires +x weapon to be hit" property from slashem monsters
+	- [x] BERSERK behavior from evil:
+		- Added to many of the imported monsters as felt appropriate
+	
 	- [x] Reverted all noble and royal monsters to male lord and kings.
 		  (Eventually I might add in female counterparts, but I don't want to
 		  double the tile base like Splice did; pending an elegant solution.)
 	- [x] Stone golems are vulnerable to rays from a wand of digging, which halves their HP.
-	- [x] Allow rats to be tamed with cheese (need CHEESE)
+	- [x] Allow rats to be tamed with cheese
 	- [x] Shk usually get a shotgun and shells (50% chance)
 	- [x] Shopkeepers have had their base level doubled as compared to vanilla (from SlashEM) 
 	- [x] Baby gray dragons get MR20 (twice the other baby dragons)
-	- [x] Raise the levels of Gnome Kings to 9, gnome warriors to 7.
-	- [x] Were-critters summon wider (and more dangerous) diversity of monsters
-	- [x] Lesser Nightmares and nightmares should have traitor property
-	- [x] You should not be able to tame rabid monsters.
-	- [x] Can I give the gnolls RDSM or SDSM?  no - just scales?
+	- [x] Gnome Kings: Raised to lvl 9, gnome warriors to 7.
+	- [x] Were-foo summon wider (and more dangerous) diversity of monsters
 	- [x] Updated nasties lists with slashem monsters. Added gugs, slaughter wights, devas, revenants 
+	- [x] Coffins: Coffins can be found in Vlad's tower (or graves) that contain vampires
+	- [x] Monster spells: Added Create Pool and Call Undead spells (from SlashEM)
+	- [x] Mold/Fungus ressurection 
+		- (ported from Splicehack, which ported from xnh)
+	- [x] Nymphs now hate iron.
+	- [x] Imps now hate iron.
+	- [x] All fungi receive an extra d6 damage from copper. F hates copper
+	- [x] Copper does extra damage vski monsters with disease, decay, and pestilense attacks."
+	- [x] All Zouthern animals now have a small chance of death-dropping boomerangs.
+	- [x] All dragons can now bellow a frightful roar that causes Afraid status.
+	- [x] Keystone Kops can no longer be genocided
+	- [x] Elementals can be zapped and transformed 
+		  (Ex: Zap water elemental with / of Cold to turn it into Ice Elemental)
 
+	- [x] Added these monster attacks:
+		AD_LOUD: For sonic attacks
+		AD_LARV: For egg infection attacks.
+		AD_WIND: For hurtle attacks
+		AD_QUIL: Usually manticore attack.
+		AT_VOLY: Manticore spike volley attack
+		AD_POTN: Random potion attack (only used by Gel)
+		AD_FEAR: Inflict Fear attack
+		AD_HYDR: Regrow heads (only used by hydra)
+		AD_HNGY: a mini version of FAMN, should fake a higher hunger rating instead 
+		AD_DSRM: disarm the player */
+		AD_SPOR: Gibber chitter-chatter attack (Gibberlings)
+		AD_CALM: calms its enemies (koala)
+		AD_TCKL: Tickle (Nightgaunts)
+		AD_PIER: Piercing scream (Mobats)
+		AD_SONG: Paralyzing song (Harpy)
+	- [x] Monster traitor property (M3_TRAITOR): If tame, these monsters have a chance to betray you.
+		  In slashem this used to depend on the monsters HP being lower than yours, but removed that condition.
+		  I also increased the chance of betraying significantly each turn.
+		  Added the traitor property to all monsters that had it in SlashEM/THEM, and related new imported monsters.
+	- [x] Implemented Flanking (M2_FLANK) - Monsters with flanking are "tactical"
+		- Monsters gain a large bonus to hit when flanking the player (located on opposite sides of
+  the player's position).
+		- I applied FLANKING from SpliceHack to many appropriate monsters in hackem:
+		
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Dragons and Dragon Scales
 	Evil uses the dtsund patch for dragon scales, which means that dragon scale
-	mail no longer exists - but we can apply dragon scales to any armor. Evil 
+	mail no longer exists - but we can apply dragon scales to any armor. Since
+	robes are now body armor - we can even created dragon scaled robes! Evil 
 	introduced some passive effects, I have expanded these so that every dragon 
 	scale provides them. I have also switched around or added new abilities.
 	Most of these abilities are from other forks, but some are my own addition.
@@ -617,7 +624,7 @@ Dragon			Primary				Secondary				Passive
 Black DSM		disintegration res	<<slow digestion>>		passive disintegration attack !!
 Blue DSM		shock res			confers speed			<<passive shock attack>> !!
 															1d6 and critical hit of 2d24.
-Deep DSM		Drain res			clobber/hurtling res	passive drain life
+Deep DSM		Drain res			Stable (hurtling res)	passive drain life
 Gold DSM		light 				<<automatic searching>>	<<passive blind attack>>
 Gray DSM		magic res			cancel protection		passive cancellation attack !!
 Green DSM		poison res			<<sickness res>>		passive poison attack
@@ -632,267 +639,266 @@ Yellow DSM		acid res			stoning resistance		<<passive acid attack>> !!
 															1d3 and critical hit of (level + 1)d6
 
 !! - Item destruction from attack AD_TYPE
-	- Most of the passive attacks only trigger 33% of the time.
-	- Black DSM also protects from engulfing digest attacks due to slow digestion? 
-		  (But Not from gelatinous cubes because they have a engulf wrap attack)
-	- [SKIPPED] Sea DSM prevents engulfing by firey monsters also.
-	
-	- [x] Make sure all dragon scale abilities match up with dragon forms
+- Most of the passive attacks only trigger 33% of the time.
+- Black DSM also protects from engulfing digest attacks due to slow digestion? 
+  (But Not from gelatinous cubes because they have a engulf wrap attack)
 
-Weapons:
-	- [x] Dark elven bow
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
+
+New Weapons:
+	- [x] dark elven bow
 	- [x] footbow/warped bow
-	- [x] Dark elven arrow
+	- [x] dark elven arrow
 	- [x] light arrow
 		Found only in archery shops
-	- [x] Dark elven dagger
-	- [x] Great dagger	
-	- [x] parazonium/triangular dagger
+	- [x] dark elven dagger
+	- [x] great dagger	
+	- [x] parazonium
 	- [x] chakram (silver based boomerang)
 	- [x] throwing axe
 		- Does 1 less damage than a regular axe, but counts as a throwing weapon.
 		Lowered the weight of throwing axes to 40 and added +1 to-hit.
-
-	- [x] Dark elven short sword
+	- [x] dark elven short sword
 	- [X] gladius
-	- [x] falchion/heavy sword
+	- [x] falchion (heavy sword)
 		- Barbarians sometimes start with a falcion/scimitar
-	- [x] "spiked chain"
-	- [x] flaming lash",
+	- [x] spiked chain
+	- [x] flaming lash
 		- Added fire damage
-	- [x] Rapier
+	- [x] rapier
 	- [x] baseball bat
 		- baseball bats are only generated in junk shops.
-	- [x] Fly swatter (uses WHIP skill instead of PADDLE)
+	- [x] fly swatter 
+		- uses WHIP skill instead of PADDLE
 	- [x] scythe
 		- Death gets a scythe
-	- [x] executioner's mace: Base item for Mortality Dial?	
-	
-	- [x] Wooden stake
-		- Add better bonuses for stakes vs vampires 
-			  (dagger skill, undead slayer and artifact-stake bonuses stack)
-			/* Scale instakill rate with skill level
-             * Basic = 2, Skilled = 3, Expert = 4
-             * Being Undead Slayer +1
-             * Using Stake of Van Helsing is +1
-			 * Chance of instakill is: (!rn2(10 - skill)
-
-				Best case would be expert skill in dagger, undead slayer using stake of van helsing:
-					1 in 4 (25%)
-             */
+	- [x] executioner's mace
+	- [x] wooden stake
+		- Added better bonuses for stakes vs vampires 
+		- dagger skill, undead slayer and artifact-stake bonuses stack)
 		- Give monsters 20% instakill rate for wooden stakes
 		- Added to-hit bonus of +1
 		- Design decision: I'm deviating from slashem here - vampires should not be vulnerable to stakes
 			while in different forms (like Vampire Bats). Makes ring of prot sc more valuable.
 
-	- [x] Crysknife: Changed sm/lg damage to d20/d30 damage (From SlashEM)
+	- [x] crysknife: Changed sm/lg damage to d20/d30 damage (From SlashEM)
 
 Firearms:
-	- [x] Pistol
-	- [x] Submachine gun (can be switched between different firing modes)
-	- [x] Heavy machine gun
-	- [x] Rifle
-	- [x] Sniper rifle
-	- [x] Shotgun
-	- [x] Auto shotgun (can be switched between different firing modes)
-	- [x] Bullet (Silver bullets are covered by object materials)
-	- [x] Shotgun shell
-
-	- [x] Bombs (previously known as grenades)
-		- [x] Fire Bombs
-		- [x] Gas Bomb
-		- [x] Sonic Bomb
-			- A Hack'EM original!
-
+	- [x] pistol
+	- [x] submachine gun 
+		- (apply for different firing modes)
+	- [x] heavy machine gun
+	- [x] rifle
+	- [x] sniper rifle
+	- [x] shotgun
+	- [x] auto shotgun
+		- (apply for different firing modes)
+	- [x] bullet 
+		- (Silver bullets are covered by object materials)
+	- [x] shotgun shell
+	- [x] bombs (previously known as grenades)
 		- All bombs can be ignited by sources of fire (fire rays, explosions, etc)
+		  This will start their normal timer. 
+		  (In SlashEM, grenade explosions would be calculated and happen instantaneously)
+		- [x] fire bombs
+		- [x] gas bomb
+		- [x] sonic bomb
+			- A Hack'EM original!
 	
 Armor:
 	- [x] light armor
 		- Replaces leather armor as part of the object materials system.
-	- [x] Shimmering dragon scales (already in evil)
-	- [x] Shimmering dragon scale mail (already in evil)
-	- [x] Dark elven mithril-coat -> droven chain mail (dark elven?)
-
-
-	- [x] Fedora:
-		Now acts as luckstone and grants +1 cha
-	- [x] tinfoil hat
-		protects against psychic attacks, brain eating.
+	- [x] shimmering dragon scales (already in evil)
+	- [x] dark elven mithril-coat -> droven chain mail (dark elven?)
+	- [x] Robes occupy the body armor slot instead of the robe slot  (SlashEM)
+	- [x] robe of protection
+	- [x] robe of power
+	- [x] robe of weakness
 	- [x] plain cloak
 		- Replaces the leather cloak as part of the object materials system.
-	- [x] Poisonous cloak
+	- [x] poisonous cloak
+	- [SKIPPED] lab coat (Evil/vanilla has alchemy smock)
 	- [x] cloak of flight
-	- [x] Gauntlets of swimming
+	- [x] fedora
+		- Now acts as luckstone and grants +1 charisma
+	- [x] tinfoil hat
+		- protects against psychic attacks, brain eating.
+	- [x] gauntlets of swimming
 	- [x] rogues gloves
 	- [x] boxing gloves
-		Increased chance of stunning from 1 in 50 to 1 in 25.
-
+		- Increased chance of stunning from 1 in 50 to 1 in 25.
 	- [x] tower shield
 	- [x] hide shield
 	- [x] resonant shield
-	
 	- [x] stomping boots
 
-	
-	
-	- [SKIPPED] Lab coat (Evil/vanilla has alchemy smock)
-	- [x] Robe of protection
-	- [x] Robe of power
-	- [x] Robe of weakness
-	- [x] Robes occupy the body armor slot instead of the robe slot  (SlashEM)
-
 Food: 
-	- [x] Asian pear
-		- Add asian pear to possible tree fruits
-	- [x] Mushroom
+	- [x] asian pear
+		- Added asian pear to possible tree fruits
+	- [x] mushroom
 		- Upp'ed mushroom strength bonus to 3 (to make up for negative side-effects)
-	- [x] Sandwich
-	- [x] Tortilla
-	- [x] Cheese
-	- [x] Pill
+	- [x] sandwich
+	- [x] tortilla
+		- [x] Made vegetarian, not vegan.
+	- [x] cheese
+	- [x] pill
 		- Make case 4 for pills a gain ability (like fountains, blessed if high luck)
-	- [x] Holy wafer
-	- [x] Made tortilla vegetarian, not vegan.
-	- [x] pineapple: Gains bonuses when used as a thrown weapon. (Can upgrade to a grenade)
-	- [x] fruitcake: Provides high nutrition.
+	- [x] holy wafer
+	- [x] pineapple
+		- Gains bonuses when used as a thrown weapon. 
+	- [x] fruitcake
 	- [x] apple pie
 	- [x] pumpkin pie
-	- [x] slice of cake: Very filling. Cursed cake abuses dexterity; non-cursed cake functions as a blessed potion of restore ability.
-	- [x] pinch of catnip: Using this on a feline will tame it, but also confuse it.
-		Can tame any f except displacer beast?
+	- [x] slice of cake
+	- [x] pinch of catnip
+		- Can tame any f except displacer beast?
 
 Amulets:
-	- [x] Amulet of flying (already in evil)
-	- [x] Amulet of drain resistance
-	- [x] Amulet versus stone
+	- [x] amulet of flying (already in evil)
+	- [x] amulet of drain resistance
+	- [x] amulet versus stone
+		- The amulet provides permanent and durable resistance 
+		- in SlashEM it would change BUC status when it protected you and disintegrate when cursed.
 	- [x] amulet of nausea
 	- [x] amulet of danger
 		- Provides infravision, 
 		- greatly increases dungeon difficulty. Usually cursed.
 
-
 Rings:
-	- [x] Mood ring
-	- [x] Ring of sleeping
-	- [x] Ring of gain dexterity
-	- [x] Ring of gain intelligence
-	- [x] Ring of gain wisdom
-	- [x] Ring of sonic resistances
-	- [x] Ring of psychic resistance
-	- Ring of free action	
+	- [x] mood ring
+	- [x] ring of sleeping
+	- [x] ring of gain dexterity
+	- [x] ring of gain intelligence
+	- [x] ring of gain wisdom
+	- [x] ring of sonic resistances
+	- [x] ring of psychic resistance
+	- ring of free action	
 		- 50% chance (with a luck bonus) of slipping free with free action
 Potions:
-	- [x] Potion of ESP
+	- [x] potion of ESP
 		- Made blessed potion of ESP temporary (250-350 turns)
-	- [x] Potion of invulnerability
-	- [x] Potion of clairvoyance
-	- [x] Potion of amnesia
+	- [x] potion of invulnerability
+	- [x] potion of clairvoyance
+	- [x] potion of amnesia
 		* Amnesia potions can now be anything - since the amnesia mechanic was nerfed.
-	- [x] Potion of blood
-	- [x] Potion of vampire blood
-	- [x] Potion of regeneration
-	- [x] Potion of reflection
+	- [x] potion of blood
+	- [x] potion of vampire blood
+	- [x] potion of regeneration
+	- [x] potion of reflection
 
 Wands:
-	- [x] Wand of healing
-	- [x] Wand of extra healing
-	- [x] Wand of draining
-	- [x] Wand of fear
+	- [x] wand of healing
+	- [x] wand of extra healing
+	- [x] wand of draining
+	- [x] wand of fear
 		- Changed to an omni wand that behaves as the cause fear spell, 
 		- removed engrave msg, added cursed effect.
 		- Breaking causes you to panic in fear.
-	- [x] Wand of create horde 
+	- [x] wand of create horde 
 		- generates with WAY less charges (1-3) and very rare
 		- Creates 7-11 instead of 7-13 monsters.
-	- [x] Wand of fireball
-	- [x] Wand of Wind
-		[x] Renamed wand of windstorm to Wand of Wind
-	- [x] Wand of water
-	- [x] Wand of acid
-	- [x] Wand of poison gas
-	- [x] Wand of wonder (splice implementation)
-	- [x] Wand of sonics
+	- [x] wand of fireball
+	- [x] wand of Wind
+		- Renamed wand of windstorm to Wand of Wind
+	- [x] wand of water
+	- [x] wand of acid
+	- [x] wand of poison gas
+	- [x] wand of wonder (splice implementation)
+	- [x] wand of sonics
 
 Scrolls:
-	- [x] Scroll of time
-	- [x] Scroll of knowledge
-		[x] specified_id();
-	- [x] Scroll of change material
-		[x] Change ?oChangeMaterials to Scroll of Transmogrify
-	- [x] Scrolls of Genocides
-		- Changed to UnNetHack behavior:
-		- kills a single monster type on level (uncursed) or globally (blessed)
+	- [x] scroll of time
+	- [x] scroll of knowledge
+	- [x] scroll of transmogrify
+		- Previously known as "scroll of change material"
+	- [x] scroll of genocide
+		- Changed to UnNetHack behavior
+		- Now kills a single monster type on level (uncursed) or globally (blessed)
 		- Genocides from thrones are dungeon-wide
-	- [x] Scroll of elementalism
-	- [x] ?o air
-		[SKIPPED] Make scroll of air remove poison gas as well.
-	- [x] ?o cloning: A bit complicated - has some stuff updated in get_obj
+	- [x] scroll of elementalism
+	- [x] scroll of air
+	- [x] scroll of cloning
+			
 
 Spellbooks:
-	- [x] Spellbook of lightning
-	- [x] Spellbook of poison blast
-	- [x] Spellbook of acid stream (evil has acid blast)
-	- [x] Spellbook of flame sphere
+	- [x] spellbook of lightning
+	- [x] spellbook of poison blast
+	- [x] spellbook of acid stream (evil has acid blast)
+	- [x] spellbook of flame sphere
 		- Evil made this a Level 2 spell
-	- [x] Spellbook of freeze sphere
+	- [x] spellbook of freeze sphere
 		- Made a level 1 spell (as in slashem) - levels out early game a bit more for ice mages.
-	
-	- [x] Spellbook of enlighten
-	- [x] Spellbook of passwall 
-		- (Moved to ESCAPE CATEGORY)
-		- Lowered passwall spell level slightly to 5
-	- [x] Spellbook of command undead
+	- [x] spellbook of enlighten
+	- [x] spellbook of passwall 
+		- Moved to ESCAPE category
+		- Lowered spell level slightly to 5
+	- [x] spellbook of command undead
 		- Lowered command undead spell difficulty to 4
-	- [x] Spellbook of summon undead
+	- [x] spellbook of summon undead
 		- lowered summon undead spell difficulty to 4
-	- [x] Spellbook of sonicboom
-		[ ] Advanced spell looks like fireball...
+	- [x] spellbook of sonicboom
 
-	- "firey" spellbooks like flame sphere, fire bolt are immune to fire.
-
-
-Spellcasting:
-	- [x] Got rid of the BODY spell class, moved to the Escape spells
-	- [x] Got rid of the PROTECTION spell class, moved to the CLERIC spells
-	- [x] Changed Fireball from an attack spell to a Matter spell
-	- [x] Convert Cone of cold from an attack spell to a Matter spell.
-	- [x] Add 0-9 to spells list letters
-	- [x] Lowered teleport spell to 5
-	- [x] Spellbooks of flame sphere and firebolt are immune to fire.
-	
-
-	[x] New spell: Spellbook of Fire Bolt
+	[x] New spell: spellbook of fire bolt
 		- Fire Bolt is only available to the Flame Mage - spellbooks are 0 prob. 
 		- This also helps keep other roles from knowing too many spellbooks.
-		- 1d10 fire damage (avg 5.5). 
+		- 1d10 fire damage (avg 5.5).
 		- Increases by 1d10 for every 4 levels.
 		- A fire attack (similar to force bolt) that doesn't reflect.
 		- Can hit multiple targets, destroys doors, and burns straw/paper golems
 		- [SKIPPED] - Burns trees, webs?
+		- /* Damage scales with level - every 5 levels we add a cumulative
+             * 1d10 to the total damage.
+             * Level 1 = 1d10 fire damage
+             * Level 5 = 2d10 fire
+             * Level 10 = 3d10 fire - and etc. 
+             * Level 15 = 4d10 fire 
+             * Level 20 = 5d10 fire (but damage is capped at 45 max)
 
-	[x] New spell: Spellbook of Snowball
+	[x] New spell: spellbook of snowball
 		- Snowball is only available to the Ice Mage - spellbooks are 0 prob. 
 		- Like the snowballs that snow golems throw,
 		  these have a high chance of blinding monsters.
 
-		The higher your experience and/or spell level, the bigger and harder the snowball hits.
-			base: 1d6							1d6
-			bonus +1: level 5 (medium size)		4d6
-			bonus +1: level 11 (medium size)	5d6
-			bonus  0: BASIC 					1d6
-			bonus +1: SKILLED					2d6
-			bonus +1: EXPERT					3d6
+		- The higher your experience and/or spell level, the bigger and harder the snowball hits.
+		- Skilled and Expert spells grants some great random bonuses. 
+			base:				   1d6 (blinds enemies)
+			level 4: 	 	bonus +1d6
+			level 8: 	 	bonus +1d6
+			SKILLED: 	 	bonus +1d6
+				10% chance: bonus +1d6 (and stuns enemy)
+			EXPERT:  	 	bonus +1d6
+				10% chance: bonus +2d6
+		 		(also a 1/3 chance of shattering potions on the enemy)
 
-		At skilled, there is a bonus 10% chance of adding 1d6 and stunning the enemy.
-		At expert, there is another bonus 10% of adding 2d6 (simulating a "headshot")
-		At expert, there is also a 1/3 chance of shattering potions on the enemy.
+
+Spellcasting:
+	- [x] Got rid of the BODY spell class in SlashEM, moved to the Escape spells
+	- [x] Got rid of the PROTECTION spell class in SlashEM, moved to the CLERIC spells
+	- [x] Changed Fireball from an attack spell to a Matter spell
+	- [x] Convert Cone of cold from an attack spell to a Matter spell.
+	- [x] Add 0-9 to spells list letters
+	- [x] Lowered teleport spell to level 5
+	- [x] Spellbooks of flame sphere, firebolt are immune to fire.
 
 
 Tools/Weapon Tools:
 	- [x] lute
 	- [x] bagpipe
 	- [x] horn of blasting 
-	- [x] Torch
+	- [x] fishing pole
+	- [x] magic candle
+	- [x] magic lamp: Changed price to 1000
+	- [x] keg
+	- [x] masks /* monster type specified by obj->corpsenm */
+	- [x] bag of rats
+	- [x] bag of tricks patch (from UnNethack)
+		- The bag of tricks has a bunch of new random effects on apply:
+		- When the BoT is empty however, we can use it like a normal bag!
+		- When the BoT has 0 charges, it is safe to put in a Bag of Holding.
+		- Adjusted BoT #tip behavior - it stops when it reaches a non-monster effect.
+		  (This is a compromize between BoT behavior between UnNethack and Evil.)
+
+	- [x] torch
 		(The slashem implementation of torches was a bit cumbersome for the player, 
 		you could only have a lit torch by wielding it. I have tried to address that.)
 		- Removed requirement for torches to be wielded -
@@ -901,42 +907,21 @@ Tools/Weapon Tools:
 		- Clubs can be dipped into oil and turned into torches (from dnh)
 		- Dwarves in mines frequently get lit torches now.
 		- Putting lit torches into containers auto-snuffs.
-	- [x] Fishing pole
-	- [x] Magic candle
-	- [x] Magic lamp: Changed price to 1000
-	- [x] keg
-	- [x] bag of rats
-	- [x] Bag of tricks patch (from UnNethack)
-		- The bag of tricks has a bunch of new effects on apply:
-			Creates a random object
-			You drop the bag
-			The bag tries to pull you in
-			The bag farts a poison gas clouds
-			The bag emits a spore cloud (hallucination)
-			The bag scares you (paralyzes)
-			The bag bites you
-			The bag knocks your weapon to the floor
-			The bag makes a monster.
-		- When the BoT is empty however, we can start to use it like a normal bag!
-		- Adjusted BoT #tip behavior - it stops when it reaches a non-monster effect.
-		- This is a compromize between BoT behavior between UnNethack and Evil.
-	- [x] masks /* monster type specified by obj->corpsenm */
-
 	
 	Lightsabers:
-		- [x] Green lightsaber
-		- [x] Blue lightsaber
-		- [x] Red lightsaber
+		- [x] green lightsaber
+		- [x] blue lightsaber
+		- [x] red lightsaber
 		- Lit lightsabers act as a light source.
 		- We can force locks and break down doors with #force
 		- Putting a lit lightsaber into a bag/container snuffs it.
 	
-	- [x] Pick-axe: Changed weight to 75 aum (From SLASH'EM)
+	- [x] Pick-axe: Changed weight to 75 aum (From Slash'EM)
 
 Gems:
-	- [x] Healthstone
+	- [x] healthstone
 		- Fixed a bug from SlashEM where healthstones would not work under level 10.
-	- [x] Whetstone
+	- [x] whetstone
 		- Made whetstones not suck!
 		- We can now apply a stack of whetstones to a stack of weapons. 
 		  (Before this was limited to applying 1 whetstone to a single object, 
@@ -962,9 +947,10 @@ Gems:
 		  of water to wet the whetstone, would a bunch of Water Moccasins pop
 		  out because of that? 
 	- Added more upgrade paths for gray stones. 
-	- Luckstones and whetstones can be upgraded into healthstones and vice versa. 
-	- Flintstones upgrade into luck/whetstones.
+	- luckstones and whetstones can be upgraded into healthstones and vice versa. 
+	- flintstones upgrade into luck/whetstones.
 
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Artifacts:
 	Design decision #1: 
@@ -979,11 +965,12 @@ Artifacts:
 		get to better stuff (example: Deathsword for Barbarian, or even Deluder for Wizards)
 		
 	- [x] Added much stronger artifact blasting (6d6 to 8d10) (from Slashem)
-
+	- [x] If wielding/wearing any of the 'banes, taming becomes impossible */
+	
 	- [x] Bat from Hell
-		- The Rogue no longer gets the Bat from Hell as a sacrifice gift.
+		- Rogues no longer receive this as a guaranteed sacrifice gift.
 	- [x] Deathsword
-		- Removed Deathsword from being a barbarian sac gift.
+		- Barbs no longer receive this as a guaranteed sacrifice gift.
 		- Deathsword causes hostility from humans
 	- [x] Deep Freeze
 	- [x] Firewall
@@ -1002,7 +989,7 @@ Artifacts:
 	- [x] Holy Spear of Light (Renamed to just Spear of Light)
 		- Spear of Light causes hostility from undead
 	- [x] Sword of Justice
-		- Removed Sword of Justice from being a Yeoman sac gift.
+		- Yeoman no longer receive this as a guaranteed sacrifice gift.
 		- changed to broadsword
 	- [x] Sword of Balance
 	- [x] Plague
@@ -1022,9 +1009,9 @@ Artifacts:
 		- Mirrorbright no longer hinders spell-casting.
 		- [ ] Idea: Since we made Mirrorbright not hinder spellcasting, we might be able to get away with 1-handed staves...
 	- [x] Deluder
-		- Removed Deluder from being a Wizard sac gift.
-	- [x] Whisperfeet (Tourist)
-	- [x] Gauntlets of Defense (Monk)
+		- Wizards no longer receive this as a guaranteed sacrifice gift.
+	- [x] Whisperfeet (Tourist sac gift)
+	- [x] Gauntlets of Defense (Monk sac gift)
 	- [x] Luckblade (already in evil)
 	- [x] Werebane (already in evil)
 	- [x] Added "The Master Sword" as an actual artifact
@@ -1052,31 +1039,29 @@ Artifacts:
 		  so I just changed it to a STAFF_OF_ESCAPE.
 	- [x] Pridwen
 		- Also grants STABLE.
-	- [x] Poseidon\'s Trident
-	- [x] Sonicboom (renamed to Thunderstruck)
-		Increased attack to AD_LOUD(5, 20) - gotta make up for the item loss.
-		Destroys glass, ruby, sapphire, crystal, diamond golems?
-		Added 25% chance of sonic beam shooting out.
+	- [x] Poseidon's Trident
+	- [x] Thunderstruck (previously known as Sonicboom)
+		- Increased attack to AD_LOUD(5, 20) - gotta make up for the item loss.
+		- Destroys glass, ruby, sapphire, crystal, diamond golems?
+		- Added 25% chance of sonic beam shooting out.
 	- [x] Sunspot
 	- [x] Mortality Dial
-		COLD_IRON - made it silver.
-		Cancels trolls and zombies
-	- [x] Vorpal Blade: Raised beheading chance to 10%.
-	- [x] The Tsurugi of Muramasa: Raised bisection chance to 15%
-
-	- [x] If wielding/wearing any of the 'banes, taming becomes impossible */
-	
+		- Was COLD_IRON in splice, but made it silver.
+		- Cancels trolls and zombies from reviving.
 	- [x] Drowsing Rod (Staff of Healing)
 		- A Hack'EM original!
 		- Attacks with a 25% chance of sleep gas from the head of the staff - 
 		so breathless monsters are not affected.
 		- Grants sleep res
 
+	- [x] Vorpal Blade
+		- Raised beheading chance to 10%.
+	- [x] The Tsurugi of Muramasa
+		- Raised bisection chance to 15%
 
 Quest Artifacts:
 	- [x] The Candle of Eternal Flame (Flame Mage)
 		- Fixed so it's always lit
-		- Reduced price to 5000L	
 		- Removed the #invoke for Fire Elemental ability and moved to Firewall.
 		- Confers cold res, teleport control, and warning
 		- Also confers faster energy regeneration (like Encanto!)
@@ -1097,86 +1082,76 @@ Quest Artifacts:
 
 	- [x] Iron Spoon of Liberation (dnh)
 		- Replaces the Iron Ball of Liberation
-		- Added secret doors to some of the cells on the quest home level, 
-		  and around the level, so it's easier to navigate.
+		- Carrying the spoon confers free action
 
-Dungeon Features:
-	Trap Mechanics:
-		- [x] Making traps from breaking wands (unnethack)
-		- [x] Can #untrap rust traps (they turn into fountains)
-		- [x] Can #untrap fire traps (requires water)
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
+
+
+Trap Mechanics:
+	- Breaking wands will usually create related traps (unnethack)
+		Example: Breaking a wand of fire creates a fire trap.
+	- Can #untrap rust traps (they turn into fountains)
+	- Can #untrap fire traps (requires water)
+
+Toilets:
+	- I know toilets are a bit silly, but I have enhanced them so they are more
+	interesting and useful!
 	
+	- Toilet info works in #overview, toilets are tracked separately from sinks now.
+	- Toilets can appear separate from sinks, in slashem they only appeared in a pair with sinks.
+	- Add new messages for toilets on a level
+	- Enable fishing in toilets
+	- Dropping a ring of poly into a sink can poly into a toilet.
 	
-	Toilets:
-		- I know toilets are a bit silly, but I have enhanced them so they are more
-		interesting and useful!
-		
-		- Toilet info works in #overview, toilets are tracked separately from sinks now.
-		- Toilets can appear separate from sinks, in slashem they only appeared in a pair with sinks.
-		- Add new messages for toilets on a level
-		- Enable fishing in toilets
-		- Dropping a ring of poly into a sink can poly into a toilet.
-		
-		Toilet #pray:
-			- Prevented toilet prayer while levitating.
-			- Toilet prayer can now stop the vomiting process 
-				(before it could not and you could vomit and still be in the vomiting process)
+	Toilet #pray:
+		- Prevented toilet prayer while levitating.
+		- Toilet prayer can now stop the vomiting process 
+			(before it could not and you could vomit and still be in the vomiting process)
 
-		Toilet #kicking:
-			- Kicking now only breaks the toilet 1 in 7x on kick (Was 1/4 in slashem)
-			- Kicking can generate brown puddings (only once per toilet)
-			- Kicking can generate cockroaches and sewage from kicking (1 in 17 chance)
-			- Kicking can generate a random tool, normally this tool will weigh under 15aum,
-				but sometimes you'll get a large tool that bonks against the piping.
-				If a large tool bonks 3x - you'll get that tool no matter now big it is and
-				the toilet is destroyed in the process.		
+	Toilet #kicking:
+		- Kicking now only breaks the toilet 1 in 7x on kick (Was 1/4 in slashem)
+		- Kicking can generate brown puddings (only once per toilet)
+		- Kicking can generate cockroaches and sewage from kicking (1 in 17 chance)
+		- Kicking can generate a random tool, normally this tool will weigh under 15aum,
+			but sometimes you'll get a large tool that bonks against the piping.
+			If a large tool bonks 3x - you'll get that tool no matter now big it is and
+			the toilet is destroyed in the process.		
 
-		Amulet identification in toilets (From Slex)
-			- Updated amulet feedback messages, blind effects, and hallucination effects.
-			- Amulets of Flying are always regurgitated from toilets.
-			- Amulets of Change will polymorph the toilet into a sink
-		
-		- [x] Toilets can generate in the middle of the room within a room type
+	Amulet identification in toilets (From Slex)
+		- Updated amulet feedback messages, blind effects, and hallucination effects.
+		- Amulets of Flying are always regurgitated from toilets.
+		- Amulets of Change will polymorph the toilet into a sink
+	
+	- [x] Toilets can generate in the middle of the room within a room type
 
-	Forges:
-		- [x] Added new recipes for various imported weapons
-		- [x] Forges don't appear until after level 5.
+Forges:
+	- [x] Added new recipes for various imported weapons
+	- [x] Forges don't appear until after level 5.
+
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Mechanics:
 	- Changed chances of item randomly spawning with two properties to 1 in 666
 		(In Evil the chances are 1 in 100000! K2 what?!)
 	- [x] #force can also be used on doors
-	- [x] Nerf #naming glitches - Players can no longer #name items for identification clues.
-	- [x] Mold/Fungus ressurection (ported from Splicehack, which ported from xnh)
-	- [x] Added breakable credit cards, keys, and lock picks (from Slashem)
-	- [x] All musical instruments can break 
-		- Drums, Harps, Flutes, tooled horns, bugles
-		- Artifact instruments are safe from breaking on apply.
-		- Cursed instruments break 25%, uncursed 10%, blessed 4%. 
-		- Fumbling % = cursed %
-		- Higher chance of breaking instruments if fumbling
-
+	
 	Upgrading mechanic (via potions of gain level):
 		- [x] Instead of crystal balls <-> magic markers, go lenses <-> orbs.
-		- [x] Multiple healthstones can no longer be created from upgrading flint stones, only singles.
-
-	- [x] Wand of invisibility is temp (already in Evil)
-	- [x] Wand of speed monster is temp (xnh)
-	- [x] Make see invisible temporary (from potions, eating stalkers, fountains) - already in EVIL
-	- [x] Make telepathy from floating eyes temp.
-
-	- [x] Add Spell minions/entities (flame/ice spheres already in evil)
 	- [x] Poisoned missiles (already in evil)
 	- [x] No Mysterious Force (already removed in evilhack)
 	- [x] #borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
-	
-	- [x] Add role adjusted pricing for sam/barb/rog (2-3x - from SlashEM)
-
-	- [x] Monster spells: Added Create Pool and Call Undead spells (from SlashEM)
-	- [x] Increase chance of traitorous pets betraying. 1 in 527 each turn of checking. Removed requirement that pet have higher HP.
 	- [x] Removed cursed weapons reverse hitting. Cursed weapons will miss 25% of the time now instead of 20% to compensate.
-
-
+	- [x] Implemented "Afraid" status; 
+		- The player can sometimes become too afraid to control their actions.
+		- similar to the effects of being stunned or confused. 
+		- Caused by dragon roars and some monster attacks.
+	- [x] Add "Stable" property
+		- Protects you(or monsters) from clobber and hurtle attacks.
+	- [x] In SpliceHack, launchers contribute to damage.
+	- [x] Added Sonic Resistance property
+		- Protects you(or monsters) from sonic attacks.
+	- [x] Added LarvaCarrier property - some monsters can infect you with eggs!
+	
 Quality-of-Life/Auto-ID:
 	- [x] Remove "Auto-select every item" when putting into containers
 	- [x] Auto-ID for ring of regeneration
@@ -1191,18 +1166,19 @@ Quality-of-Life/Auto-ID:
 	- [x] Auto-ID rings dropped into a sink when message is shown
 	- [x] Auto-ID some potions when inhaling their vapors
 	- [x] Auto-ID scrolls of scare monster during pickup
-	- [x]	Auto-ID wands with unambiguous effects and messages
+	- [x] Auto-ID wands with unambiguous effects and messages
 	- [x] Auto-ID wand of undead turning if engraving produces a message
 	- [x] Auto-ID dunce cap upon wearing
 	- [x] Auto-ID magic lamps and oil lamps when rubbing
 	- [x] Autoidentify water walking boots (when putting them on in water,etc)
 
-	
 Religion/Prayer/Alters:
 	- Make temple priests hostile if made on an unaligned altar.
 		(This means the VoTD priest is always hostile now - no free donates kiddies!)
 	- Sacrifice offerings can sometimes bless random objects (From SlashEM)
 	
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
+
 Dungeon Changes:
 	- [x] Extend main dungeon: Now 31-34 levels deep
 		  (Slashem was 42-47, but this went over the max)
@@ -1230,7 +1206,6 @@ Dungeon Changes:
 		- Added a phase blocking line to middle of Grunds stronghold
 		- Made moat 2 tiles wide; can be lava, water, or sewage.
 		
-
 	[x] Add town branch from SlashTHEM/UnNethack
 		- Appears 3-4 levels below the Oracle.
 		- Imported Mall levels from SlashEM and added to town variants.
@@ -1264,6 +1239,23 @@ Dungeon Changes:
 				replaced rat king with Ruggo.
 			- Create a variant of the dnh drow noble quest level (Ndr-loca")
 	
+	Imported Alignment Quests (From SlashEM)
+		- The alignment quests are now totally optional 
+		- no artifact keys, no artifact doors in Vlad'S
+
+		Lawful Quest
+			- has a new boss because we already have nightmares (from Evil)
+			- Nebuchadnezzar now guards the 
+
+		Neutral Quest
+			- has a new boss because we already have beholders (from Evil) 
+			- Xanathar now guards the Ring of Proof
+
+		Chaotic Quest: 
+			- has a new boss because Vecna gets his own branch in Gehennom.
+			- Acererak now guards the Staff of Withering
+
+
 	Extended Wyrm Caves branch (Appears level 21-22)
 		- 9-13 levels deep
 		- Has standard mines fill levels - but with the rivers mixed in.
@@ -1289,7 +1281,11 @@ Dungeon Changes:
 		- Bottom is a dragon nest with baby and adult dragons, as well as eggs and a treasure horde.
 		
 
-	- [YES] Keep Vecna's lair? 
+	Lethe Gorge/Gulf of N'Kai:
+		- Implemented from the Lethe Patch (without the lethe water)
+		- I added this branch just after Medusa's Island.
+		- Gulf of nkai levels at combined at the bottom of lethe gorge.
+		- Import the lower castle dungeon - as a separate mini branch
 
 
 New special rooms
@@ -1304,15 +1300,6 @@ New special rooms
 		- These replace the Guild of Disgruntled Adventurers in Slash'EM. 
 		- Much smaller, less densely packed - other monsters include typical pets.
 
-New shop types:
-	[x] PETSHOP (From unnethack)
-	[x] INSTRUMENTSHOP (From unnethack)
-	[x] TINSHOP: "canned food factory" (From unnethack)
-	[x] JUNKSHOP/"junk shop"
-		- Added fly swatter, rubber hoses, bag of rats, iron chain, tin opener, 
-	[x] ARCHERYSHOP/"archery shop"
-		- Crossbows and bolts can now appear in archery shops.
-	[x] MASKSHOP/"mask shop"
 
 Themed Rooms:
 	- Evilhack already had most of the themed rooms but I added more.
@@ -1323,6 +1310,8 @@ Themed Rooms:
 Traps:
 	- [x] Added ice traps (Un)
 		- Ice traps only generate after level 8
+
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Role Changes:
 	- Rebalanced all SlashEM role skills.
@@ -1357,8 +1346,6 @@ Role Changes:
 		- Ice Mages can walk on ice without slipping.
 
 		[BUG] Vampire ice mage start as vampire mages.
-	
-
 
 	Ice and Flame mages cannot use anything that is decidedly the opposite's domain:
 		- Flame Mages cannot use Frost Brand/Deep Freeze
@@ -1373,7 +1360,8 @@ Role Changes:
 		- Starts with a robe (special dark robe?)
 		- Removed starting scrolls
 		- only start with 1 ring.
-		
+		- Enabled necromancer to reach expert in polearms (for access to scythes)
+
 	- [x] Undead Slayer
 		- Starting jacket is always leather...
 
@@ -1384,12 +1372,17 @@ Role Changes:
 
 	Convict:
 		- [x] Replaced Iron Ball of Liberation with Iron Spoon of Liberation
-		- [x] Carrying the spoon confers free action
 		- [x] Convicts cannot buy services if banned from a shop.
+		- [x] Added secret doors to some of the cells on the quest home level, 
+		  and around the level, so it's easier to navigate.
 	Caveman
 		- gets nightvision radius 2 (From SlashEM)
 	Tourist:
 		- [x] Tourists get automatic type identification for shop items
+	
+	- [x] Add role adjusted pricing for sam/barb/rog (2-3x - from SlashEM)
+
+
 Races:
 	- [x] Hobbit race (already in evil)
 	
@@ -1414,14 +1407,8 @@ Races:
 		Level 10: Poison resistance
 		Level 16: Sleep resistance
 
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
--------------------------------------------------------------------------------
-
-
-
-===============================================================================
-Cleanup below here...
-===============================================================================
 Shops/Shopkeeper Services
 	* Instead of every store offering a general Identify service - every
 	  shop offers premier Identifies based on their shop type or the race of 
@@ -1437,15 +1424,15 @@ Shops/Shopkeeper Services
 	* Only Black Market can have the "identify any" service
 
 	Identify service details
-		- [x] Scroll stores offer book ID 50% of the time
-		- [x] Spellbook stores offer scroll ID 50% of the time
-		- [x] Wand shops offer armor id 25% of the time
-		- [x] Weapon shops offer armor id 50% of the time
-		- [x] Armor shops offer weapon id 50% of the time
-		- [x] Deli/food shops offer potion id 50% of the time.
-		- [x] Pet shops offer tool/food id 50% of the time
-		- [x] Light shops can sometimes offer potion ID: 25%
-		- [x] General stores will have 1-4 identify services
+		- [x] Scroll stores:	offer book ID 50% of the time
+		- [x] Spellbook stores:	offer scroll ID 50% of the time
+		- [x] Wand shops:		offer armor id 25% of the time
+		- [x] Weapon shops:		offer armor id 50% of the time
+		- [x] Armor shops:		offer weapon id 50% of the time
+		- [x] Deli/food shops:	offer potion id 50% of the time.
+		- [x] Pet shops:		offer tool/food id 50% of the time
+		- [x] Light shops:		offer potion ID: 25%
+		- [x] General stores will have 1-5 identify services
 
 	Additional race specific services:
 		- [x] Dwarf: gems, weapons/armor
@@ -1457,183 +1444,39 @@ Shops/Shopkeeper Services
 		- [x] Illithid: spellbooks/scrolls
 
 
-	
-	- [x] New tile for Nebuchadnezzar (copy from Splice? Or use an old unused tile?)
-	- [x] New tile for Xanathar (copy from slashem beholder)
-	- [x] New tile for Acererak (copy from dnh)
+	New shop types:
+		[x] Pet Shops (From unnethack)
+		[x] Instrument Shop (From unnethack)
+		[x] Tin Shop ("canned food factory") (From unnethack)
+		[x] junk shop
+			- Added fly swatter, rubber hoses, bag of rats, iron chain, tin opener, 
+		[x] archery shop
+			- Crossbows and bolts can now appear in archery shops.
+		[x] mask shop
 
 
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
-		
+NERFS!
+	These changes could go in all kinds of categories, but in general they try to reduce exploitative play.
 
-
-
-
-
-
-
-	
-	
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-Gehennom work
-	Lethe-Patch:
-		[x] Import Lethe Gorge
-			[x] - remove long hall in main dungeon (this is duplicated in the lethe gorge)
-		[x] Put gulf of nkai levels at bottom of lethe gorge.
-		[x] Import the castle-lower dungeon - as branch
-
-		
-	
-
-	
-
-
-	
-	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	[x] coffin (from Un)
-		We can't actually get coffins, they are part of the mechanics (count as large boxes with +4)
-		[x] f7181dc56	guest41	Vlad's tower has Vampires in 'coffins' (from dNetHack).
-		[x] 5b30b9e23	guest41	Any kind of vampire can appear in a coffin, not just a regular ones.
-		[x] cae440d27	guest41	Coin flipping uses the rand() function instead of rn2(), allow vampires in coffins to be generated with inventory.
-		[x] 6cf7801e1	tedav	There is now a 1/13 chance for finding a coffin (vampire included) when digging up a grave.
-	
-	
-
-	
-
-	
-		
-	
-	
-
-
-		
-
-
-	
-	
-	
-
-
-	
-
-	
-	
-	
-	[x] minfestcorpse?  Moldiers/maggots...
-
-	
-	[x] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks."
-[splice dd5b42411] Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks.
-	
-
-	[x] In SpliceHack, the player can sometimes become too afraid to control their actions.
-		similar to the effects of being stunned or confused. 
-		The player cannot control the direction of their actions. 
-		The player also loses control of teleports and polymorphs.
-	- [SKIPPED] Splice has ACBONUS for some weapons/items? Is this possible in evil?
-	
-
-		[x] AD_LOUD
-		[x] Update mon_explodes
-		[x] Sonic_resistance
-		[x] AD_LARV ?
-		[x] LarvaCarrier
-		[x] make_carrier
-		u.ueggpm
-		LARVACARRIER
-		[x] AD_WIND?
-		DDSM protects against clobber/wind/hurtle
-		[x] AD_QUIL	
-		[x] AT_VOLY
-		[x] spike (manticore spike)
-		- add to shambling horror
-		- test cancelled manticore
-	[x] Implement Flanking:
-	[x] is_moldier
-	[x] AD_LARV - lays eggs inside you?
- - wraithlike?
-		[x] AD_FEAR - implemented the "Afraid" status, booze cures
-	[x] AD_POTN
-- [x] Requires implementing SONIC_RES
-
-		[x] AD_QUIL
-	
-	[x] Implement elemental_shift - for zapping various things at elementals.
-
-
-			
-	[x] Update pager (object lookup) and make sure it shows correct damage for new weapons/armor/items.
-
-
-
-[x] xnethack opinions on splice: https://gist.github.com/copperwater/9aab1388d82d7258ee5d9e45553a2289
-		
-
-
-[CAN"T REPLICATE] Freezing sphere leaves poison cloud
-
-[x] Applied FLANKING from SpliceHack to monsters in hackem:
-	assassin bug, coyote, wolf, warg, hellcat, hobbit, dwarf king, deep one, deeper one, deepest one, manes
-	all kobolds, hobgoblin, mordor orc, uruk hai, orc captain, war orc, black rat, pack rat, rat king, lightning bug, 
-	angels, archons, solars, plaetars, athols, mountain centaur, gnome king, 
-	All gnolls, all kops, ogre king, olog hai, all vampires, 
-	kobold zombie, ghast, ghoul mage, skeleton, prison guard, grey-elf, elf lord, drow, elvenking, doppleganger, 
-	all soldiers, watch captain, shade, water demon, lava demon, foocubus, 
-	horned devil, erinys, barbed devil, marilith, bar-lgura, chasme, bone devil, hezrou, ice devil, nalfeshnee, pit fiend, sandestin, 
-		
-[x] Added traitor to: Displacer beast, jermlaine, gremlin, lava gremlin, gargoyle,winged gargoyle, hobbit pickpocker,
-	mind flayer, master mind flayer, redcap, goblin, hobgoblin, orc, hill orc, mordor orc, uruk-hai, orc shaman, orc captain, 
-	forest centaur, mountain centaur, red dragon, stalker, worm that walks, all liches (All L), ogres, ogre lord, ogre king, disenchanter
-	all trolls, all vampires, 
-
-
-
-
-
-
-
-	[x] Add STABLE property, HStable, EStable, Stable
-
-
-[x] Enabled necromancer to reach expert in polearms (for access to scythes)
-
-	
-[x] In SpliceHack, launchers contribute to damage.
-	With this change, we can make the ranged roles more focused on ranged attacks (nerf their melee stuff...)
+	- [x] Nerf #naming glitches - Players can no longer #name items for identification clues.
+	- [x] Added breakable credit cards, keys, and lock picks (from Slashem)
+	- [x] All musical instruments can break 
+		- Artifact instruments are safe from breaking on apply.
+		- Cursed instruments break 25%, uncursed 10%, blessed 4%. 
+		- Higher chance if fumbling (Fumbling % = cursed %)
+	- [x] Multiple healthstones can no longer be created from upgrading flint stones, only singles.
+	- [x] Increase chance of traitorous pets betraying. 1 in 527 each turn of checking. Removed requirement that pet have higher HP.
+	- [x] See Invisible is now temporary from potions, eating stalkers, and fountains (Evil)
+	- [x] Telepathy from floating eyes is now temporary.
+	- [x] Invisibility from wands of invisibility is now temporary (Evil)
+	- [x] Speed from wands of speed monster is now temporary (xnh)
+	- [x] ESP from blessed potions of ESP is now temporary
+	- [x] Wraith corpses nerfed (from slashem) - New effects:
+		- 10% lose exp; 10% max HP/Pw decreases; 
+		- 10% max HP/Pw increases.	
+		- 50% Gain xp; 20% nothing happens.
+===============================================================================
+Cleanup below here...
+===============================================================================
