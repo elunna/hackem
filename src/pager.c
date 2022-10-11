@@ -685,8 +685,10 @@ static const char * attacktypes[] = {
     "gaze",
     "tentacle",
     "scream",
+    "volley",
+    "multiply",
     "weapon",
-    "spellcast"
+    "spellcast",
 };
 
 static const char * damagetypes[] = {
@@ -699,8 +701,8 @@ static const char * damagetypes[] = {
     "shock",
     "strength poison",
     "acid",
-    "water", 
     "sonic",    /* prev AD_SPC2  */
+    "water", 
     "psionic",  /* prev AD_SPC1  */
     "blind",
     "stun",
@@ -746,7 +748,22 @@ static const char * damagetypes[] = {
     "clerical",
     "arcane",
     "random breath",
+    "calm",
+    "tickle",
+    "piercing scream",
+    "song",
+    "gibber",
+    "generate spore",
+    "disarm",
+    "potion effect",
+    "hunger",
+    "fear",
+    "wind",
+    "regrow heads",
+    "quills",
+    "larva",
     "steal Amulet",
+    
 };
 
 /* Add some information to an encyclopedia window which is printing information
@@ -821,7 +838,8 @@ struct permonst * pm;
                 nogen ? "only appears specially" :
                 "appears in any branch",
                 (gen & G_SGROUP) ? " in groups" :
-                (gen & G_LGROUP) ? " in large groups" : "",
+                (gen & G_LGROUP) ? " in large groups" :
+                (gen & G_VLGROUP) ? " in very large groups" : "",
                 freq >= 5 ? "very common" :
                 freq == 4 ? "common" :
                 freq == 3 ? "slightly rare" :
@@ -840,6 +858,7 @@ struct permonst * pm;
     ADDRESIST(pm_resistance(pm, MR_STONE), "petrification");
     ADDRESIST(pm_resistance(pm, MR_SONIC), "sonic");
     ADDRESIST(pm_resistance(pm, MR_PSYCHIC), "psionic attacks");
+    ADDRESIST(pm_resistance(pm, MR_CLOB), "hurtle");
     ADDRESIST(resists_drain(pm), "life-drain");
     ADDRESIST(resists_sick(pm), "sickness");
     ADDRESIST(resists_mgc(pm), "magic");
@@ -934,6 +953,7 @@ struct permonst * pm;
     APPENDC(regenerates(pm), "regenerating");
     APPENDC(is_reviver(pm), "reviving");
     APPENDC(is_floater(pm), "floating");
+    APPENDC(stationary(pm), "stationary");
     APPENDC(pm_invisible(pm), "invisible");
     APPENDC(is_undead(pm), "undead");
     if (!is_undead(pm))
@@ -963,6 +983,12 @@ struct permonst * pm;
     APPENDC(can_teleport(pm), "teleport");
     APPENDC(is_clinger(pm), "cling to the ceiling");
     APPENDC(is_jumper(pm), "jump");
+    APPENDC(is_outflanker(pm), "flank");
+    
+    APPENDC(is_berserker(pm), "berserk");
+    APPENDC(can_betray(pm), "betray you");
+    APPENDC(cannot_be_tamed(pm), "not be tamed");
+    
     APPENDC(webmaker(pm), "spin webs");
     APPENDC(needspick(pm), "mine");
     if (!needspick(pm))
