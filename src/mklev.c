@@ -1056,7 +1056,7 @@ makelevel()
             /* Sinks are frequently paired with toilets. */
             if(!rn2(3))
                 mktoilet(croom);
-        } else if (!rn2(86)) {
+        } else if (!rn2(125)) {
             /* But sometimes we'll see a lone toilet. */
             mktoilet(croom);
         }
