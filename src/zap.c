@@ -2650,7 +2650,7 @@ register struct obj *obj;
         if (!Blind)
             known = TRUE;
         if (obj->otyp == WAN_LIGHT && !cursed(obj, TRUE)) {
-            blindingflash();
+            /* blindingflash();     --hackem: NIMF! */
             if (lightdamage(obj, TRUE, 5))
                 known = TRUE;
         }
@@ -3200,8 +3200,10 @@ boolean ordinary;
         damage += rnd(25);
         if (flashburn((long) damage))
             learn_it = TRUE;
+#if 0 /* --hackem: NIMF! */
         if (obj->otyp == WAN_LIGHT && !cursed(obj, TRUE))
             blindingflash();
+#endif
         damage = 0; /* reset */
         break;
     case WAN_OPENING:

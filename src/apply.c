@@ -4833,8 +4833,10 @@ struct obj *obj;
         /* only needs to be done once */
         if (cursed(obj, TRUE))
             litroom(FALSE, obj);
-        else
+        else {
             litroom(TRUE, obj);
+            blindingflash();
+        }
     }
 
 discard_broken_wand:
