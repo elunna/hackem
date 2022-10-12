@@ -4531,12 +4531,7 @@ struct obj *obj;
         dmg *= 4;
         goto wanexpl;
     case WAN_FIREBALL:
-        expltype = EXPL_FIERY;
-        // original
-        /* explode(u.ux, u.uy, ZT_FIRE, dmg, WAND_CLASS, expltype); */
-
-        /* --hackem: I copied this from zap.c, for zapping one's self with
-            SPE_FIREBALL. It seems to work. */
+        /* --hackem: The magic 11 is ZT_SPELL(ZT_FIRE)*/
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
 
         if (obj->dknown 

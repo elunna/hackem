@@ -2874,6 +2874,7 @@ boolean ordinary;
         makeknown(WAN_FIREBALL);
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
+        
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
         break;
     case WAN_FIRE:
@@ -5337,7 +5338,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
     
     /* WAC kludge for monsters zapping wands of fireball */
     if ((type <= ZT_MONWAND(ZT_FIRST) && type >= ZT_MONWAND(ZT_LAST))
-	        && ((abs(type) % 10) == ZT_WAND(ZT_SONIC + 1))) 
+	        && ((abs(type) % 10) == ZT_WAND(ZT_SONIC + 1)))
 		type = -ZT_SPELL(ZT_FIRE);
 
     /*WAC bugfix - should show right color stream now (for wands of fireball) */
