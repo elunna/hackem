@@ -22,7 +22,7 @@ register struct monst *mon;
                             : (flags.moonphase == FULL_MOON ? 10 : 50))) {
             new_were(mon); /* change into animal form */
             if (!Deaf && !canseemon(mon)) {
-                const char *howler, *howl;
+                const char *howler, *howl = "";
 
                 switch (monsndx(mon->data)) {
                 case PM_WEREWOLF:
