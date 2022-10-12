@@ -3275,7 +3275,7 @@ static const struct alt_spellings {
     { "amulet of poison resistance", AMULET_VERSUS_POISON },
     { "amulet of protection", AMULET_OF_GUARDING },
     { "amulet versus stoning", AMULET_VERSUS_STONE },
-	{ "amulet of stone resistance", AMULET_VERSUS_STONE },
+    { "amulet of stone resistance", AMULET_VERSUS_STONE },
     { "AoESP",  AMULET_OF_ESP},
     { "AoLS",  AMULET_OF_LIFE_SAVING},
     { "AoY",  AMULET_OF_YENDOR},
@@ -3314,6 +3314,7 @@ static const struct alt_spellings {
     { "WoCM",  WAN_CREATE_MONSTER},
     { "WoT",  WAN_TELEPORTATION},
     { "WoUT",  WAN_UNDEAD_TURNING},
+    { "wand of teleport", WAN_TELEPORTATION },
 
     /* tools */
     { "iron ball", HEAVY_IRON_BALL },

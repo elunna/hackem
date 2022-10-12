@@ -1112,8 +1112,10 @@ struct obj *obj;
             if (is_lightsaber(uwep))
                 pline("Your %s bounces off harmlessly.",
                     aobjnam(obj, (char *)0));
-            else
+            else {
                 pline("Clash!");
+                wake_nearby();
+            }
             return 1;
         }
 
@@ -1151,8 +1153,11 @@ struct obj *obj;
                 pline("Sparks fly as you whack the %s.%s",
                       sobj_at(STATUE, rx, ry) ? "statue" : "boulder",
                       vibrate ? " The axe-handle vibrates violently!" : "");
-                if (vibrate)
-                    losehp(Maybe_Half_Phys(2), "axing a hard object", KILLED_BY);
+                if (vibrate) {
+                    losehp(Maybe_Half_Phys(2), "axing a hard object",
+                           KILLED_BY);
+                    wake_nearby();
+                }
             } else if (u.utrap && u.utraptype == TT_PIT && trap
                        && (trap_with_u = t_at(u.ux, u.uy))
                        && is_pit(trap->ttyp)
@@ -1225,6 +1230,7 @@ struct obj *obj;
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);
+            wake_nearby(); /* --hackem: No more freebies in sokobon! */
         }
     } else if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)) {
         /* it must be air -- water checked above */
