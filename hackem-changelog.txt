@@ -731,23 +731,49 @@ Monster spawn rates
 
 
 
+Mage spells
+- [x] Touch of death
+	- if you have MR you'll take damage (8d6) and your maximum hit point level can be reduced slightly. 
+	- Having MR and half spell damage together can reduce those effects even more.
+- [x] Cancellation (new)
+	- Acts just like having a wand of cancellation zapped at the player.
+	- The spellcasting monster must be lined up with the player before it can cast this spell.
+- [x] Acid blast (new)	
+	- A powerful area of effect spell, does acid damage to its target. 
+	- The damage output is dependent on the level of the monster casting it. 
+	- The acid from this spell also has a chance of eroding any unprotected weapons or armor in open inventory.
+- [x] Destroy armor	
+	- Vanilla behavior – if the player didn't have magic resistance, one piece of armor would be completely destroyed. 
+	- In HackEM, any piece of worn armor can have its fixed status removed, and then deteriorated.
+	- Even armor that is normally erodeproof is affected. 
+	- Having MR keeps the erosion level at one per cast, otherwise 1-3 levels per cast. 
+	- Armor-based quest artifacts are immune to this spell, as is crystal plate mail.
+- [x] Fire bolt	(new)
+	- A small area of effect spell, this spell explodes a small fireball upon its target.
+	- Any flammable objects in open inventory are subject to being burned.
+	- low-level spell, any spellcaster has access to it.
+- [x] Ice bolt (new)
+	- A small area of effect spell, this spell explodes a small ice storm upon its target. 
+	- Any non-protected objects in open inventory are subject to being frozen. 
+	- low-level spell, any spellcaster has access to it.
+- [x] Reflection (new)
+	- Creates a shimmering globe around the caster, granting them reflection for several turns.
+
+Clerical spells:
+- [x] Summon minion	(new)
+	- Summon a type of minion based on its alignment. 
+	- Demons that can cast clerical spells are not given access to this spell (they can already demon-gate).
+- [x] Geyser
+	- A powerful spell that causes a large geyser of water to slam into its target, causing physical damage (8d6). 
+	- What's new: can now rust any unprotected worn armor.
+- [x] Vulnerability	 (new)
+	- It's target temporarily becomes vulnerable to either fire, cold, shock or acid-based attacks, 
+	  dropping its resistance (if any exists) by 50%.
+
 Monster spells
 	- [x] Monster spells: Added Create Pool and Call Undead spells (from SlashEM)
-
-[x] Nerf Call Undead so that chain summoners doesn't happen 
+	[x] Nerf Call Undead so that chain summoners doesn't happen 
 	(no ghoul mages, vampires mages, ghoul queens, L)
-
-Spell	Type	Status	Notes
-Touch of death	Mage	existing	Vanilla NetHack behavior – no magic resistance, you're dead. With MR, nothing happens. In EvilHack, if you have MR you'll take damage (8d6) and your maximum hit point level can be reduced slightly. Having MR and half spell damage together can reduce those effects even more.
-Cancellation	Mage	new	Acts just like having a wand of cancellation zapped at the player. The spellcasting monster must be lined up with the player before it can cast this spell.
-Acid blast	Mage	new	A powerful area of effect spell, does acid damage to its target. The damage output is dependent on the level of the monster casting it. The acid from this spell also has a chance of eroding any unprotected weapons or armor in open inventory.
-Destroy armor	Mage	existing	Vanilla NetHack behavior – if the player didn't have magic resistance, one piece of armor would be completely destroyed. In EvilHack, this spell isn't as direct, but is more insidious, and having magic resistance is no longer full protection against this spell. Any piece of armor being worn can have its fixed status removed, and then can be deteriorated to the point that it's completely destroyed. Even armor that is normally erodeproof (dragonhide and dragon scales, mithril, etc) is affected. Having MR keeps the erosion level at one per cast, otherwise the erosion level is of one to three levels per cast. The counterbalance to this spell is the player spell Repair Armor. Blessed pieces of armor have a small chance of resisting. Armor-based quest artifacts are immune to this spell, as is crystal plate mail.
-Fire bolt	Mage	new	A small area of effect spell, this spell explodes a small fireball upon its target. Any flammable objects in open inventory are subject to being burned. This is a low-level spell, so access to this spell is given to every monster spellcaster that has access to mage-based spells.
-Ice bolt	Mage	new	A small area of effect spell, this spell explodes a small ice storm upon its target. Any non-protected objects in open inventory are subject to being frozen. This is a low-level spell, so access to this spell is given to every monster spellcaster that has access to mage-based spells.
-Summon minion	Clerical	new	Allows the monster spellcaster to summon a type of minion based on its alignment. Demons that can cast clerical-based spells are not given access to this spell as they already have the ability to gate in other demons.
-Geyser	Clerical	existing	A powerful spell that causes a large geyser of water to slam into its target, causing physical damage (8d6). What's new to this spell vs vanilla NetHack is that it can now rust any unprotected worn armor.
-Vulnerability	Clerical	new	The target of this spell temporarily becomes vulnerable to either fire, cold, shock or acid-based attacks, dropping its resistance (if any exists) by 50%.
-Reflection	Mage	new	A spell that creates a shimmering globe around the caster, granting them reflection for several turns.
 
 
 Unique Monster Changes:
@@ -758,9 +784,11 @@ Unique Monster Changes:
 		- The snakes on her head can attack (poisonous bite) 
 		- her own bite causes slow-stoning. 
 		- Her gaze is still of the instant petrification type. 
-		Having reflection is no longer a guaranteed kill, she resists most of the time.
+		- Having reflection is no longer a guaranteed kill, she resists most of the time.
 	
-	- The demon lords/princes encountered in Gehennom, along with which lair they may appear in, has been completely randomized. Your experience in Gehennom can be a very different experience per game.
+	demon lords/princes encountered in Gehennom, 
+		- along with which lair they may appear in, has been completely randomized. 
+		- Your experience in Gehennom can be a very different experience per game.
 	
 	Juiblex:
 		- enhanced, and has many more acid-based attacks at its disposal.
@@ -771,6 +799,7 @@ Unique Monster Changes:
 	The Wizard of Yendor:
 		- can use any artifact weapons or armor that he steals against the player.
 		- Color changed to bright magenta.
+		
 	The Riders:
 		- have had their hit points increased significantly, and each Rider has its own steed which it rides, each with unique attacks and abilities.
 
@@ -851,7 +880,6 @@ New Weapons:
 		- Design decision: I'm deviating from slashem here - vampires should not be vulnerable to stakes
 			while in different forms (like Vampire Bats). Makes ring of prot sc more valuable.
 
-
 Firearms:
 	- [x] pistol
 	- [x] submachine gun 
@@ -887,9 +915,8 @@ Cloaks:
 	- [x] plain cloak
 		- Replaces the leather cloak as part of the object materials system.
 	- [x] poisonous cloak
-	- [SKIPPED] lab coat (Evil/vanilla has alchemy smock)
 	- [x] cloak of flight
-
+	- [SKIPPED] lab coat (Evil/vanilla has alchemy smock)
 Helms:
 	- [x] tinfoil hat
 		- protects against psychic attacks, brain eating.
@@ -948,7 +975,7 @@ Food:
 		- Upp'ed mushroom strength bonus to 3 (to make up for negative side-effects)
 	- [x] sandwich
 	- [x] tortilla
-		- [x] Made vegetarian, not vegan.
+		- Made vegetarian, not vegan.
 	- [x] cheese
 	- [x] pill
 		- Make case 4 for pills a gain ability (like fountains, blessed if high luck)
@@ -991,7 +1018,7 @@ Potions:
 	- [x] potion of invulnerability
 	- [x] potion of clairvoyance
 	- [x] potion of amnesia
-		* Amnesia potions can now be anything - since the amnesia mechanic was nerfed.
+		- Amnesia potions can now be anything - since the amnesia mechanic was nerfed.
 	- [x] potion of blood
 	- [x] potion of vampire blood
 	- [x] potion of regeneration
@@ -1030,7 +1057,6 @@ Scrolls:
 		- An uncursed scroll will label such items as 'magical'
 		- a blessed scroll will identify fully those same items (except beatitude).
 
-
 Tools/Weapon Tools:
 	- [x] lute
 	- [x] bagpipe
@@ -1060,8 +1086,6 @@ Tools/Weapon Tools:
 		- [x] blue lightsaber
 		- [x] red lightsaber
 	
-	
-
 Gems:
 	- [x] healthstone
 		- Fixed a bug from SlashEM where healthstones would not work under level 10.
@@ -1093,7 +1117,6 @@ Gems:
 	- Added more upgrade paths for gray stones. 
 	- luckstones and whetstones can be upgraded into healthstones and vice versa. 
 	- flintstones upgrade into luck/whetstones.
-
 
 Containers:
 	- [x] Iron safe
@@ -1166,7 +1189,7 @@ Additional item changes
 	- [x] crysknife: Changed sm/lg damage to d20/d30 damage (From SlashEM)
 	- [x] fedora
 		- Now acts as luckstone and grants +1 charisma
-	- [x] Iron shoes were renamed to 'dwarvish boots'.
+	- [x] iron shoes were renamed to 'dwarvish boots'.
 	- [x] Robes occupy the body armor slot instead of the robe slot  (SlashEM)
 
 	- [x] Many body armor types have had their weights reduced.
@@ -1179,10 +1202,15 @@ Additional item changes
 	- [x] Object properties – various weapons and armor are sometimes created with magical properties.
 	- [x] Changed chances of item randomly spawning with two properties to 1 in 666
 		(In Evil the chances are 1 in 100000! K2 what?!)
-	- [x] Poisoned missiles (already in evil)
+	- [x] All edged weapons can be poisoned (ex: daggers, swords)
 	- [x] Removed cursed weapons reverse hitting.
 		- Cursed weapons will miss 25% of the time now instead of 20% to compensate.
 	- [x] Launchers now contribute to damage.
+	- [x] All musical instruments can now break 
+		- Artifact instruments are safe from breaking on apply.
+		- Cursed instruments break 25%, uncursed 10%, blessed 4%. 
+		- Higher chance if fumbling (Fumbling % = cursed %)
+
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Spellbooks:
@@ -1959,32 +1987,33 @@ Shopkeeper Services
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 NERFS!
-	These changes could go in all kinds of categories, but in general they try to reduce exploitative play.
+	- This is a quick reference of notable things that have been changed to avoid exploitation or to encourage more creative play.
 
-	You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
+	- [x] You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
 	Conflict negates Elbereth.
 	
 	- [x] Unicorn horns no longer cure attribute loss; they can now be wielded in one hand.
 	- [x] Nerf #naming glitches - Players can no longer #name items for identification clues.
 	- [x] Added breakable credit cards, keys, and lock picks (from Slashem)
-	- [x] All musical instruments can break 
-		- Artifact instruments are safe from breaking on apply.
-		- Cursed instruments break 25%, uncursed 10%, blessed 4%. 
-		- Higher chance if fumbling (Fumbling % = cursed %)
+	- [x] Musical instruments can now break (based on BUC status)
 	- [x] Multiple healthstones can no longer be created from upgrading flint stones, only singles.
 	- [x] Increase chance of traitorous pets betraying. 1 in 527 each turn of checking. Removed requirement that pet have higher HP.
 	- [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil)
 	- [x] Telepathy from floating eyes is now temporary.
 	- [x] Invisibility from wands of invisibility is now temporary (Evil)
 	- [x] Speed from wands of speed monster is now temporary (xnh)
+	- [x] Wands of death can be recharged only once.
+	- [x] Wands of wishing are always generated charged once (except the Castle wand)
+	- [x] Magic markers don't generate randomly and can't be polypiled.
 	- [x] ESP from blessed potions of ESP is now temporary
+	- [x] Scrolls of genocide are limited to a single monster type (UnNetHack style)
 	- [x] Wraith corpses nerfed (from slashem) - New effects:
 		- 10% lose exp; 10% max HP/Pw decreases; 
 		- 10% max HP/Pw increases.	
 		- 50% Gain xp; 20% nothing happens.
 	- [x] If the player tries to hit a monster with a weapon they are restricted/unskilled in, or any non-weapon object, they'll never have better than a 75% chance of landing a hit (bare-handed is exempt).
 	- [x] The player is unable to regenerate hit points while in the Valley of the Dead – healing via other methods (potions, healing spells) is still possible.
-	
+	- - Digging down doors with pickaxe is not quiet anymore.
 	Stoning – monsters being stoned is a slow-stoning process, just as it is for the player.
 	
 ===============================================================================
