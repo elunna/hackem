@@ -895,6 +895,12 @@ Helms:
 		- protects against psychic attacks, brain eating.
 	- [x] helm of speed
 		- Grants very fast speed like speed boots.
+	- [x] Helm Of Madness
+		- A HackEM original!
+		- Random appearance added - "top hat"
+		- Causes hallucination, grants +3 charisma while worn.
+		- Usually generated cursed.
+		- Auto-curses on wear
 
 Gloves:
 	- [x] gauntlets

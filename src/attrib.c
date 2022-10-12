@@ -1309,6 +1309,8 @@ int x;
             return (schar) 18;
         if (uarmh && uarmh->otyp == FEDORA) 
             tmp += 1;        
+        if (uarmh && uarmh->otyp == HELM_OF_MADNESS) 
+            tmp += 3; 
         if ((uwep && (uwep->oprops & ITEM_EXCEL))
             || (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
             if (tmp > 6 && (uwep->cursed || (u.twoweap && uswapwep->cursed)))

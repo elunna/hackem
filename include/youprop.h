@@ -162,8 +162,10 @@
 #define HHalluc_resistance u.uprops[HALLUC_RES].intrinsic
 #define EHalluc_resistance u.uprops[HALLUC_RES].extrinsic
 #define Halluc_resistance (HHalluc_resistance || EHalluc_resistance)
-#define Hallucination ((HHallucination && !Halluc_resistance) || \
-                       u.uroleplay.hallu || DeathVision)
+#define Hallucination ((HHallucination && !Halluc_resistance) \
+                       || u.uroleplay.hallu                   \
+                       || (uarmh && uarmh->otyp == HELM_OF_MADNESS) \
+                       || DeathVision)
 
 /* Timeout, plus a worn mask */
 #define HDeaf u.uprops[DEAF].intrinsic

@@ -1084,6 +1084,7 @@ boolean artif;
                 && (otmp->otyp == FUMBLE_BOOTS
                     || otmp->otyp == LEVITATION_BOOTS
                     || otmp->otyp == HELM_OF_OPPOSITE_ALIGNMENT
+                    || otmp->otyp == HELM_OF_MADNESS
                     || otmp->otyp == GAUNTLETS_OF_FUMBLING
                     || otmp->otyp == ROBE_OF_WEAKNESS
                     || !rn2(11))) {

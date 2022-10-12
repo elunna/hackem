@@ -478,6 +478,8 @@ HELM("helm of speed", "winged helmet",                         /* EvilHack */
      0, 1,        FAST,  2, 1, 50, 50,  9, 0, METAL, HI_GOLD),
 HELM("tinfoil hat", "fearsome helmet",                     /* SpliceHack/Un */
      0, 1, PSYCHIC_RES,  2, 1, 50, 50,  9, 0, IRON, CLR_YELLOW),
+HELM("helm of madness", "top hat",                           /* SpliceHack/Un */
+     0, 1, HALLUC,  2, 1, 50, 50,  9, 0, CLOTH, CLR_BLACK),
 HELM("helm of telepathy", "visored helmet",
      0, 1,     TELEPAT,  2, 1, 50, 50,  9, 0, IRON, HI_METAL),
 

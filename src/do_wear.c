@@ -604,6 +604,13 @@ Helmet_on(VOID_ARGS)
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
         break;
+    case HELM_OF_MADNESS:
+        pline("You feel your sanity drift away...");
+        uarmh->known = 1;
+        context.botl = 1;
+        curse(uarmh);
+        makeknown(HELM_OF_MADNESS);
+        break;
     case CORNUTHAUM:
         /* people think marked wizards know what they're talking about,
            but it takes trained arrogance to pull it off, and the actual
@@ -694,6 +701,7 @@ Helmet_off(VOID_ARGS)
     case DWARVISH_HELM:
     case ORCISH_HELM:
     case TINFOIL_HAT:
+    case HELM_OF_MADNESS:
         break;
     case DUNCE_CAP:
         context.botl = 1;
