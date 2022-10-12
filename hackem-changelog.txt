@@ -36,10 +36,11 @@ New Monsters (Imported or created):
 	- (a) giant fly
 	- (a) giant mosquito
 	- (a) bullet ant
+		- can occupy antholes.
 	- (a) snow ant
-		- Added snow ants so they can occupy antholes.
-	- (a) Queen ant
-	- (a) Giant cockroach
+		- can occupy antholes.
+	- (a) queen ant
+	- (a) giant cockroach
 	- (a) tsetse fly
 	- (a) giant praying mantis
 	- (a) yellow jacket
@@ -55,6 +56,7 @@ New Monsters (Imported or created):
 	- (a) assassin bug
 		- Added BERSERK
 	- (a) killer beetle
+	- (a) gibberslug
 	- (a) ichneumon larva
 	- (a) giant ichneumon
 	- (a) locust
@@ -106,8 +108,10 @@ New Monsters (Imported or created):
 	- (e) concussive sphere
 	- (e) whirling sphere
 	- (e) beholder
+		- Removed M1_NOHEAD | M1_MINDLESS
 	- (e) magical eye
 	- (f) kamadan
+		- raised difficulty to 13
 	- (f) displacer beast (already present in evil)
 	- (f) caterwaul
 	- (f) saber-toothed cat
@@ -287,6 +291,7 @@ New Monsters (Imported or created):
 	- (u) Red horse
 	- (w) giant leech
 	- (w) larva
+		- Larva's can infest corpses and create maggots?
 	- (w) maggot
 		- Can infest corpses and create further maggots.
 		- Can also create a Worm That Walks by infesting another maggot corpse. 
@@ -381,6 +386,7 @@ New Monsters (Imported or created):
 	- (E) ice elemental
 		- Spits snowballs
 	- (E) magma elemental
+		- Added engulf attack 
 	- (F) gray fungus
 	- (F) disgusting mold
 	- (F) black mold
@@ -501,6 +507,8 @@ New Monsters (Imported or created):
 	- (Z) ghoul mage
 	- (Z) ghast
 		- Ghasts gain a level for every corpse they eat.
+		- Ghast's bite attack now scales with their level."
+
 	- (Z) ghoul queen
 	- (Z) revenant
 	- (Z) gug
@@ -529,6 +537,7 @@ New Monsters (Imported or created):
 		- Hates light
 		- Carry crude weapons made from bone or dull short swords
 		- Gibberlings get a sonic attack: Stuns, confuses, etc. Similar to a cursed unihorn
+		- Can infect monsters/players with gibberslug larva.
 	- (@) grimlock
 		- Hates light and can stalk you.
 		- can start with Bone Clubs, bone aklys, axes or orcish spears.
@@ -638,7 +647,7 @@ Monster changes:
 		- (ported from Splicehack, which ported from xnh)
 	- [x] Nymphs: now hate iron.
 	- [x] Imps: now hate iron.
-	- [x] All Fungi: now hate copper and receive an extra d6 damage from copper.
+	- [x] All Fungi/migos: now hate copper and receive an extra d6 damage from copper.
 	- [x] Copper does extra damage vs monsters with disease, decay, and pestilense attacks."
 	- [x] All Zouthern animals now have a small chance of death-dropping boomerangs.
 	- [x] Dragons: 
@@ -656,6 +665,8 @@ Monster changes:
 	- [x] Intelligent monsters can use a whole new range of weapons and objects, either defensively or offensively.
 	- [x] Lichens: Got a weak slow touch attack.
 	- [x] Leprechauns will steal anything made of gold
+	- [x] Rabid monsters can no longer be tamed - added the M3_NOTAME tag to rabid dog, rabid wolf, rabid rabbit, rabid rat.
+	- [x] Elves are lawful instead of chaotic
 	- [x] All orcs are immune to poison
 		- Wargs can now be ridden by player orcs, and subsequently can only be tamed by the same.
 
@@ -663,18 +674,16 @@ Monster changes:
 	- [x] Tigers are now orange.
 	
 	
-	[x] Mumakil and mastodons/woolly mammoth:
+	- [x] Mumakil and mastodons/woolly mammoth:
 		- can attack with their trunks, grabbing onto and crushing their target. 
 		- difficultly level increased 
-	[x] Salamanders: can grab onto the player and pull them into lava.
-	[x] Ghosts: 
+	- [x] Salamanders: can grab onto the player and pull them into lava.
+	- [x] Ghosts: 
 		- All incorporeal monsters can only be hit with blessed, silver, or bone objects
 		- can also turn invisible and reappear - scaring (and paralyzing) the player time.
-	
 	- [x] Shape-changing monsters (except for vampires and were-creatures) 
 		- will revert back to their original form when their polymorphed form dies. 
 		- They cannot change form again once this happens.
-
 	- [x] Player monsters:
 		- can be encountered throughout the game. 
 		- They covet the Amulet of Yendor, and attempt to steal it.
@@ -724,6 +733,9 @@ Monster spawn rates
 
 Monster spells
 	- [x] Monster spells: Added Create Pool and Call Undead spells (from SlashEM)
+
+[x] Nerf Call Undead so that chain summoners doesn't happen 
+	(no ghoul mages, vampires mages, ghoul queens, L)
 
 Spell	Type	Status	Notes
 Touch of death	Mage	existing	Vanilla NetHack behavior – no magic resistance, you're dead. With MR, nothing happens. In EvilHack, if you have MR you'll take damage (8d6) and your maximum hit point level can be reduced slightly. Having MR and half spell damage together can reduce those effects even more.
@@ -937,6 +949,7 @@ Food:
 	- [x] holy wafer
 	- [x] pineapple
 		- Gains bonuses when used as a thrown weapon. 
+		- can upgrade to random bomb types, via dipping in ! of Gain Lvl
 	- [x] fruitcake
 	- [x] apple pie
 	- [x] pumpkin pie
@@ -1077,21 +1090,20 @@ Gems:
 
 
 Containers:
-	- [x] Iron safe: 
+	- [x] Iron safe
 		- A secure container that can only be 'cracked' using a stethoscope. 
 		- Cannot be physically locked again once it's been unlocked. 
 		- Can appear randomly.
-	- [x] Crystal Chest: 
+	- [x] Crystal Chest
 		- cannot be locked, unlocked or forced open by any physical means. 
 		- Can only open or lock by magical means. 
 		- immune to all other forms of magic
 		- cannot be probed, cancelled, or polymorphed. 
-	- [x] Coffins: 
+	- [x] Coffins
 		- Coffins can be found in Vlad's tower (or graves) that contain vampires
 		- Not actual objects - used the UnNetHack hack that turns large boxes into coffins using +4 enchantment.
 
 Additional item changes
-
 	- [x] Wands of wishing
 		- are more rare to find randomly, 
 		- are always charged once already (1:x). 
@@ -1100,9 +1112,10 @@ Additional item changes
 		- can be recharged only once.
 	- [x] Wands of striking/force bolt spell:
 		- knocks its target back one space with 16+ damage).
-	- [x] Cursed wands of light:
-		- cast darkness instead of light.
-	- [x] Wands of nothing:
+	- [x] Cursed wands of light
+		- Cursed WoL cast darkness instead of light.
+		- In Evil, zapping around peaceful monsters could anger them. I have removed this mechanic except for when you break a WoL.
+	- [x] Wands of nothing
 		- have a base price of 500
 	- [x] Cursed wands of invisibility:
 		- will make its target visible if already invisible, 
@@ -1114,17 +1127,20 @@ Additional item changes
 		- Genocides from thrones are dungeon-wide
 	- [x] ring of free action	
 		- 50% chance (with a luck bonus) of slipping free with free action
-	- [x] Amulets of life saving:
+	- [x] Amulets of life saving
 		- do not work if cursed or worn by a non-living creature. 
 		- This applies to monsters as well as the player.
-	- [x] Magic markers:
-		- now never generate randomly, nor will they appear in a player's starting inventory. Also, because they do not generate randomly, you cannot polypile for one. The only ways to obtain a marker are wishing for one, being lucky enough to find one in a bones pile, looting the crystal chest that belongs to the High priest of Moloch in the Sanctum, or choosing the 'tool' as the prize for completing Sokoban (50–50 chance between a marker or a bag of holding). There is also a very small chance (10%) of finding one in the Goblin King's treasure stash in Goblin Town and the final Ice Queen branch level.
-	- [x] Magic lamps:
+	- [x] Magic markers
+		- now never generate randomly, nor will they appear in a player's starting inventory. 
+		- Also cannot be polypiled. 
+		- Can wish for, find one in a bones pile, looting the High Priest's crystal chest in the Sanctum,
+		  or choosing the 'tool' as the Sokoban prize. 
+	- [x] Magic lamps
 		- Changed price to 1000
 		- can be wished for. 
 		- Cursed magic lamps give off darkness instead of light (same radius); 
 		- the aura of darkness overrides any light source.
-	- [x] Exploding bags of holding:
+	- [x] Exploding bags of holding
 		- scatter their contents in a roughly 10 by 10 area. 
 		- Breakable items are subject to breakage from the force of the explosion.
 	- [x] bag of tricks patch (from UnNethack)
@@ -1136,7 +1152,7 @@ Additional item changes
 
 	- [x] Pick-axe: 
 		- Changed weight to 75 aum (From Slash'EM)
-
+		- Digging down doors with pickaxe is not quiet anymore.
 	- [x] luckstones:
 		-  will slow down your luck timeout based on its beatitude; 
 		- a blessed luckstone no longer halts the timeout entirely.
@@ -1153,7 +1169,14 @@ Additional item changes
 	- [x] Any item or object can be fixed (wielding the object and reading a scroll of enchant weapon while confused) if its material allows for it.
 	- [x] Monsters can drink restore ability to cure cancellation, or you can hit a monster with a potion of restore ability to forcibly uncancel them.
 	- [x] Cursed locking tools (keys/lockpicks/credit cards) have a 20% chance of breaking with each use, whether locking or unlocking. Artifact locking tools are not affected.
-
+	- [x] Object materials – many objects and items can spawn made from something other than its base material.
+	- [x] Object properties – various weapons and armor are sometimes created with magical properties.
+	- [x] Changed chances of item randomly spawning with two properties to 1 in 666
+		(In Evil the chances are 1 in 100000! K2 what?!)
+	- [x] Poisoned missiles (already in evil)
+	- [x] Removed cursed weapons reverse hitting.
+		- Cursed weapons will miss 25% of the time now instead of 20% to compensate.
+	- [x] Launchers now contribute to damage.
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Spellbooks:
@@ -1213,7 +1236,6 @@ Spellbooks:
 				10% chance: bonus +2d6
 		 		(also a 1/3 chance of shattering potions on the enemy)
 
-
 Spellcasting:
 	- [x] Got rid of the BODY spell class in SlashEM, moved to the Escape spells
 	- [x] Got rid of the PROTECTION spell class in SlashEM, moved to the CLERIC spells
@@ -1263,7 +1285,10 @@ Artifacts:
 	- [x] When sacrificing, your deity may gift you a regular piece of gear instead of an artifact.
 	- [x] Added much stronger artifact blasting (6d6 to 8d10) (from Slashem)
 	- [x] If wielding/wearing any of the 'banes, taming becomes impossible */
-	
+	- [x] Wishing for artifacts: 
+		- Instead of being based off of how many artifacts exist in the game total (vanilla NetHack method), success is based off of how many artifacts the player has wished for (successful or not). 
+		- ALSO - the odds are high that it comes with its owner...
+
 	- [x] Bat from Hell
 		- Rogues no longer receive this as a guaranteed sacrifice gift.
 	- [x] Deathsword
@@ -1345,16 +1370,18 @@ Artifacts:
 	- [x] Mortality Dial
 		- Was COLD_IRON in splice, but made it silver.
 		- Cancels trolls and zombies from reviving.
+	- [x] Hand Grenade of Antioch
+		This will not be lit accidentally!
+	- [x] Mystic Eyes (Previously known as Lenses of Death Perception)
+		- Grants DeathVision
+	  	- As long as the wearer is not blind, they deal double damage, but constantly hallucinate.
+  		- Grants searching.
+
 	- [x] Drowsing Rod (Staff of Healing)
 		- A Hack'EM original!
 		- Attacks with a 25% chance of sleep gas from the head of the staff - 
 		so breathless monsters are not affected.
 		- Grants sleep res
-
-	- [x] Vorpal Blade
-		- Raised beheading chance to 10%.
-	- [x] The Tsurugi of Muramasa
-		- Raised bisection chance to 15%
 
 Quest Artifacts:
 	- [x] The Candle of Eternal Flame (Flame Mage)
@@ -1381,17 +1408,20 @@ Quest Artifacts:
 		- Replaces the Iron Ball of Liberation
 		- Carrying the spoon confers free action
 
-	- [x] Staff of Withering (Staff of War)
-		- Intelligent Chaotic
+	- [x] Staff of rot:
+		- Very strong, but with a cost..
 		- Wielded by Acererak in the Chaotic Quest
-		- Drain life Attack
-		- Grants cold resistance (while carried)
-		- Invoke for energy boost
-
+		- Has a special wither attack
+		- While wielding, passive wither attack (and occasional fear)
+		- If you are wielding and withering, you deal double damage.
+		- #invoke for withering and aggravate monster
+		
+	
 	- [x] Xanathar's Ring of Proof (Ring of Stealth)
 		- Guarded by Xanathar in the Neutral Quest
 		- Neutral
-		- Grants stealth, warning and magic resistance while carried.
+		- Grants stealth, warning while carried.
+		- Grants magic resistance while worn.
 		- Invoke for invisibility
 
 	- [x] The Key Of Access
@@ -1401,24 +1431,52 @@ Quest Artifacts:
 
 
 Changes to existing artifacts:
+	- [x] Vorpal Blade
+		- Raised beheading chance to 10%.
+	- [x] The Tsurugi of Muramasa
+		- Raised bisection chance to 15%
+		- now confers half physical damage when wielded.
 
-Only lawful Knights can dip for Excalibur, and there's a danger that the sword will rust away completely when you do (if not fixed). Once it is "thoroughly rusty", subsequent dips can cause it to rust away unless you are successful in getting Excalibur.
-Mjollnir and Ogresmasher have had their base types changed from a war hammer to a heavy war hammer, which deals significantly more damage.
-The Sceptre of Might has had its base type changed from a mace to a rod, which deals slightly more damage per hit.
-Demonbane is made of silver and has been switched from a long sword to a heavy mace, and is the first sacrifice artifact gift for Priests.
-Sunsword is made of gemstone (crystal), much like its same-named counterpart in AD&D (5th edition).
-Fire Brand and Frost Brand are now short swords, and are each made of steel.
-Dragonbane has been switched to a pair of dragonhide gloves that provides reflection, warns against dragons, and provides acid resistance.
-Magicbane is no longer an athame, and is now a quarterstaff. None of its special abilities or functions have otherwise been changed.
-The Knight quest artifact The Magic Mirror of Merlin has had magic resistance removed. In its place is reflection and half spell damage when carried.
-The Priest quest artifact The Mitre of Holiness allows #pray and #turn to function in Gehennom when worn.
-The Samurai quest artifact The Tsurugi of Muramasa confers half physical damage when wielded.
-Various artifacts that have a nemesis monster warn against those monsters.
-Almost all of the stock weapon artifacts have had their to-hit and damage modifiers adjusted in the players favor.
-Certain artifacts can either deliver extra damage to their nemesis monsters, or have a small percentage chance of delivering a fatal blow – this applies to the player as well, so beware of that hill orc wielding Grimtooth if you're playing an elven character.
-Putting Magicbane into a bag of holding runs a risk of exploding the bag and destroying the artifact due to Magicbane's cancellation magic.
-Grimtooth now has a sickness-inducing attack that has a 1 in 6 chance of making its target terminally ill (player or other monsters). Just like using a poisoned weapon, lawfully-aligned players incur a small alignment penalty when using Grimtooth.
-The Eyes of the Overworld now protect the wearer against many forms of gaze attacks, greatly reducing the need for the player to have to remove them to blind themselves with a blindfold or towel. Take note, Medusa's petrifying gaze attack is too powerful and will overcome the EotO's protection.
+	- [x] Excalibur:
+		- Only lawful Knights can dip for Excalibur,
+		- and there's a danger that the sword will rust away completely when you do (if not fixed).
+	- [x] Mjollnir 
+		- base type is now heavy war hammer
+	- [x] Ogresmasher 
+		- base type is now heavy war hammer
+	- [x] The Sceptre of Might:
+		- base type changed from a mace to a rod, deals slightly more damage per hit.
+	- [x] Demonbane 
+		- switched from a long sword to a silver heavy mace, 
+		- first sacrifice artifact gift for Priests.
+	- [x] Sunsword 
+		- made of gemstone (crystal)
+	- [x] Fire Brand and Frost Brand are now short swords, and are each made of steel.
+	- [x] Dragonbane 
+		- switched to a pair of dragonhide gloves 
+		- Now provides reflection, acid resistance, and warns against dragons.
+	- [x] Magicbane	
+		- no longer an athame, switched to a quarterstaff. 
+		- None of its special abilities or functions have otherwise been changed.
+		- Putting Magicbane into a bag of holding can explode the bag (and even destroy itself).
+	- [x] The Magic Mirror of Merlin
+		- has had magic resistance removed. 
+		- In its place is reflection and half spell damage when carried.
+	- [x] The Mitre of Holiness 
+		- allows #pray and #turn to function in Gehennom when worn.
+	- [x] Grimtooth 
+		- now has a sickness-inducing attack
+		- has a 1 in 6 chance of making its target terminally ill. 
+	- [x] The Eyes of the Overworld 
+		- now protect the wearer against many forms of gaze attacks, 
+		- greatly reducing the need for the player to have to remove them to blind themselves with a blindfold or towel. 
+		- Take note, Medusa's petrifying gaze attack is too powerful and will overcome the EotO's protection.
+
+	- Various artifacts that have a nemesis monster warn against those monsters.
+	- Almost all of the stock weapon artifacts have had their to-hit and damage modifiers adjusted in the players favor.
+	- [x] Certain artifacts can either deliver extra damage to their nemesis monsters, 
+		or have a small percentage chance of delivering a fatal blow – this applies to the player as well!
+
 
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 Dungeon Features
@@ -1468,32 +1526,26 @@ Forges:
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Mechanics:
-	- The mysterious force has been removed.
-	- Object materials – many objects and items can spawn made from something other than its base material.
-	- Object properties – various weapons and armor are sometimes created with magical properties.
-	- Changed chances of item randomly spawning with two properties to 1 in 666
-		(In Evil the chances are 1 in 100000! K2 what?!)
-		
-	- Intrinsic resistances are no longer binary, but are percentages instead. The spread is 5% to 50% resistance gained from eating per corpse. Damage reduction from various attacks is determined by how much partial resistance the player has to it.
-	- Reflection is not 100%; it can lessen the effects of an attack it reflects, but will never negate it.
-	- The "shower of missiles" monster attack is not completely negated by magic resistance.
-
 	- [x] #force can also be used on doors
-	- #loot can be used at your pet to both give and take away items from its inventory.
-	
-	Upgrading mechanic (via potions of gain level):
-		- [x] Instead of crystal balls <-> magic markers, go lenses <-> orbs.
-	- [x] Poisoned missiles (already in evil)
-	- [x] No Mysterious Force (already removed in evilhack)
+	- [x] #loot can be used at your pet to both give and take away items from its inventory.
 	- [x] #borrow command (Evil has the "Thievery" skill for Rogues, and #loot for pets)
-	- [x] Removed cursed weapons reverse hitting. Cursed weapons will miss 25% of the time now instead of 20% to compensate.
+
+	- [x] The mysterious force has been removed.
+	
+	- [x] Intrinsic resistances are no longer binary, but are percentages instead. The spread is 5% to 50% resistance gained from eating per corpse. Damage reduction from various attacks is determined by how much partial resistance the player has to it.
+	- [x] Reflection is not 100%; it can lessen the effects of an attack it reflects, but will never negate it.
+	- [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
+
+
+	- [x] Upgrading mechanic (via potions of gain level from Slash'EM)
+		- [x] Instead of crystal balls <-> magic markers, go lenses <-> orbs.
+
 	- [x] Implemented "Afraid" status; 
 		- The player can sometimes become too afraid to control their actions.
 		- similar to the effects of being stunned or confused. 
 		- Caused by dragon roars and some monster attacks.
 	- [x] Add "Stable" property
 		- Protects you(or monsters) from clobber and hurtle attacks.
-	- [x] In SpliceHack, launchers contribute to damage.
 	- [x] Added Sonic Resistance property
 		- Protects you(or monsters) from sonic attacks.
 	- [x] Added LarvaCarrier property - some monsters can infect you with eggs!
@@ -1515,11 +1567,6 @@ Altar sacrificing
 
 	- Prayer timeout and the chances of receiving another gift are affected in the same way as if you had received an actual artifact.
 
-Wishing for artifacts
-	- Instead of being based off of how many artifacts exist in the game total (vanilla NetHack method), success is based off of how many artifacts the player has wished for (successful or not). 
-	- ALSO - the odds are high that it comes with its owner...
-
-
 Twoweaponing
 	Twoweaponing has been changed so that the weight of your offhand weapon combined with your skill in twoweaponing has a significant bearing on how successful you'll be in landing a hit. As you increase your skill in twoweaponing, heavier weapons become a viable option to use in your offhand without penalty. That penalty is −30 to-hit, and you'll receive feedback stating that your offhand weapon is too heavy to wield successfully as you try to use it. Below is a listing of what weights and weapons are acceptable per your skill in twoweaponing:
 
@@ -1530,10 +1577,16 @@ Twoweaponing
 	If playing as a giant, or if wearing gauntlets of power, the maximum weight of your offhand weapon can be 200 aum, meaning you can basically offhand any normal object. Bear in mind that object materials can alter an items base weight – at basic twoweaponing skill you could offhand a normal short sword without penalty, but not a silver short sword, as silver adds extra weight compared to iron (33 aum vs 30 aum). But at the same time, a mithril katana (15 aum) would be perfectly acceptable at the same skill level as mithril is much lighter than any other metal in the game.
 
 Conflict:
-	When causing conflict (ring of conflict is most common), it now takes the player's charisma score into account. The formula is 'charisma - monster level + player level' and if that value is greater than 19, clamps it to be 19. There's then a percentage chance (rnd(20)) against the value generated on whether conflict kicks in or not. So even with charisma and your xp level maxed out, there's still a 5% chance of conflict not working. Also, the monsters affected have to see you for conflict to work.
+	- When causing conflict, it now takes the player's charisma score into account. 
+	- The formula is 'charisma - monster level + player level' 
+	- if that value is greater than 19, clamps it to be 19. 
+	- There's then a percentage chance (rnd(20)) against the value generated on whether conflict kicks in or not. 
+	- So even with charisma and your xp level maxed out, there's still a 5% chance of conflict not working. 
+	- Also, the monsters affected have to see you for conflict to work.
 
 Dexterity :
-	can directly affect the player's armor class, for better or worse. See the table below – being encumbered, or wearing any kind of heavy metallic body armor (read: not mithril) or other rigid material (bone, stone, wood) will negate any favorable armor class bonuses from Dexterity.
+	- Can directly affect the player's AC, for better or worse. 
+	- being encumbered, or wearing any kind of heavy metallic body armor (read: not mithril) or other rigid material (bone, stone, wood) will negate any favorable armor class bonuses from Dexterity.
 
 Quality-of-Life/Auto-ID:
 	- [x] Remove "Auto-select every item" when putting into containers
@@ -1563,54 +1616,17 @@ Religion/Prayer/Alters:
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 Dungeon Changes:
-	- Gehennom is no longer a series of mazes, but are mines-style levels with lava. Areas such as the Sanctum and the entrance to the Wizard's Tower have also been adjusted, and Cerberus now guards the entrance to Gehennom.
-	- Vlad the Impaler's tower has undergone a complete revamp.
-	- A second completely new and optional side branch has been added, known as Vecna's Domain - Vecna is an uber-powerful Lich that is the source of power for all other liches. Because of this, all types of liches (including alhoons) cannot be genocided until Vecna is destroyed.
-	- The first four Planes levels are randomized and appear in a different order every game.
-	- Additional variants of the Castle, Fort Ludios, Sokoban, Mine Town and Mines End have been added.
-	- The last room of Sokoban has more prize variety, with a catch.
-	
-	- The Rogue level has been removed.
+
 	- [x] Extend main dungeon: Now 31-34 levels deep
 		  (Slashem was 42-47, but this went over the max)
-	- [x] Removed Goblin Town and requirement to defeat Goblin King (Evil)
-		  Commit: https://github.com/k21971/EvilHack/commit/7829e667eec8aa393821ada29c38b5160845c3e7
 	- [x] Adjusted ludios (appears levels 10-30)
 	- [x] Adjusted oracle (appears levels 5-9)
 	- [x] Adjusted Nymph level (appears levels 8-30)
 
-	- [x] Imported the Rat level
-	- [x] Imported the Storage room (appears 22-30)
-		[x] Added the 4 variations from dnh
+	- [x] Removed Goblin Town and requirement to defeat Goblin King (Evil)
+		  Commit: https://github.com/k21971/EvilHack/commit/7829e667eec8aa393821ada29c38b5160845c3e7
 	
-	- [x] Import Wyrm Caves (appears 22-23)
-	- [x] Import The Lost Tomb (appears 25-29)
-	- [x] Import The Spider Caves
-		- [x] Make sure all eggs are spider eggs (random?)
-		
-	- [x] Import The Temple of Moloch
-
-	- [x] Import Grund's Stronghold (appears 20-21)
-		- Add a couple rows of spear traps to Grunds.
-		- Convert Grunds to a mandatory level at 19/20/21 
-		- Grunds downstairs are behind the throne.
-		- Added a phase blocking line to middle of Grunds stronghold
-		- Made moat 2 tiles wide; can be lava, water, or sewage.
-		
-	[x] Add town branch from SlashTHEM/UnNethack
-		- Appears 3-4 levels below the Oracle.
-		- Imported Mall levels from SlashEM and added to town variants.
-		- Imported Kobold level from SlashEM and added to town variants.
-		- Created a Kobold "mall" level that is peaceful and has a lot of shops.
-		- Created a "Raided Angband" level that is been ransacked by bandits and thieves.
-		
-	
-	Black Market:
-		- Reduce Black Market prices a bit.
-		- Black Market Layout 1: Thinner normal shop.
-		- Now undiggable and phaseproof.
-
-	Gnomish Mines:
+	- [x] Gnomish Mines:
 		- Include new different types of gnomes, dwarves, and thieves.
 		- Added dwarf/gnome thieves to most town/minetown variants
 		- Removed river/sewage generation from Gnomish Mines
@@ -1630,7 +1646,21 @@ Dungeon Changes:
 				replaced rat king with Ruggo.
 			- Create a variant of the dnh drow noble quest level (Ndr-loca")
 	
-	Imported Alignment Quests (From SlashEM)
+	- [x] Sokoban
+		- The last room of Sokoban has more prize variety, with a catch.
+	
+	- [x] Imported the town branch from SlashTHEM/UnNethack
+		- Appears 3-4 levels below the Oracle.
+		- Imported Mall levels from SlashEM and added to town variants.
+		- Imported Kobold level from SlashEM and added to town variants.
+		- Created a Kobold "mall" level that is peaceful and has a lot of shops.
+		- Created a "Raided Angband" level that is been ransacked by bandits and thieves.
+		
+	- [x] The Rogue level has been removed.
+
+	- [x] Imported the Rat level (levels 10-11)
+	
+	- [x] Imported Alignment Quests (appears 15-19, From SlashEM)
 		- The alignment quests are now totally optional 
 		- no artifact keys, no artifact doors in Vlad'S
 
@@ -1646,38 +1676,73 @@ Dungeon Changes:
 			- has a new boss because Vecna gets his own branch in Gehennom.
 			- Acererak now guards the Staff of Withering
 
+	- [x] Imported Grund's Stronghold (appears 20-21)
+		- Add a couple rows of spear traps to Grunds.
+		- Convert Grunds to a mandatory level at 19/20/21 
+		- Grunds downstairs are behind the throne.
+		- Added a phase blocking line to middle of Grunds stronghold
+		- Made moat 2 tiles wide; can be lava, water, or sewage.
 
-	Extended Wyrm Caves branch (Appears level 21-22)
+	- [x] Extended Wyrm Caves branch (Appears level 21-22)
 		- 9-13 levels deep
 		- Has standard mines fill levels - but with the rivers mixed in.
 			wyrm cave monsters: duergars, drow
 		- Created dynamic narrow passage filler levels that are always random.
 
 		- Created an entrance level (from dnh Erebor.des)
-		- Moved Spider caves here as an optional branch.
-		- Moved the Sunless Sea here as an optional branch.
+		- Imported the Spider Caves and move here as an optional branch.
+		- Imported the Sunless Sea and moved here as an optional branch.
 		
 		- You'll encounter one "nest" level: 
 			Random chance of 'F', 'i', ':', 'N', 'S', 'B', 'w' monsters and eggs
 		
 		- You'll encounter another much more difficult nest variant deeper.
 			Pulled levels from dnh for inspiration.
-			- Fungal caves, 
-			- Mind flayer nest
-			- Footrice/Basilisk nest
-			- Ooze pit, shoggoths, etc.
+			- Fungal caves, Mind flayer nest, Footrice nest, or Ooze pit.
 
 		- 66% chance of encountering the Jermlaine village
-			 Has a rat zoo and Lots of traps:
+
 		- Bottom is a dragon nest with baby and adult dragons, as well as eggs and a treasure horde.
 		
+	- [x] Imported Black Market (appears 23-24):
+		- Reduce Black Market prices a bit.
+		- Black Market Layout 1: Thinner normal shop.
+		- Now undiggable and phaseproof.
 
-	Lethe Gorge/Gulf of N'Kai:
+	- [x] Imported the Storage room (appears 22-30)
+		- Added the 4 variations from dnh
+
+	- [x] Imported The Lost Tomb (appears 25-29)
+
+	- [x] Imported The Temple of Moloch (appears 26-29)
+		
+
+	
+
+
+
+
+	- [x] Lethe Gorge/Gulf of N'Kai:
 		- Implemented from the Lethe Patch (without the lethe water)
 		- I added this branch just after Medusa's Island.
 		- Gulf of nkai levels at combined at the bottom of lethe gorge.
 		- Import the lower castle dungeon - as a separate mini branch
 
+	- [x] Gehennom
+		- no longer a series of mazes, but are mines-style levels with lava. 
+		- Areas such as the Sanctum and the entrance to the Wizard's Tower have also been adjusted, 
+		- and Cerberus now guards the entrance to Gehennom.
+		- Vlad the Impaler's tower has undergone a complete revamp.
+	
+	- [x] Vecna's Domain
+		- completely new and optional side branch has been added, known as  - Vecna is an uber-powerful Lich that is the source of power for all other liches. Because of this, all types of liches (including alhoons) cannot be genocided until Vecna is destroyed.
+	
+	- [x] Elemental Planes:
+		- The first four Planes levels are randomized and appear in a different order every game.
+	- [x] Additional variants of the Castle, Fort Ludios, Sokoban, Mine Town and Mines End have been added.
+	
+
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
 
 New special rooms
 	- [x] FUNGUSFARM
@@ -1685,19 +1750,20 @@ New special rooms
 	- [x] DRAGONLAIR
 	- [x] REALZOO
 	- [x] BADFOODSHOP
+		- Full of bad food and rotten eggs.
 	- [x] GIANTCOURT
 	- [x] LEMUREPIT
 	- [x] MINIGUILD
 		- These replace the Guild of Disgruntled Adventurers in Slash'EM. 
 		- Much smaller, less densely packed - other monsters include typical pets.
 
-
 Themed Rooms:
 	- Evilhack already had most of the themed rooms but I added more.
 	- Add any missing flipped versions of rooms for completeness
 	- Added minimum levels to all themed Rooms
 		The dungeon is pretty clean of themed rooms until level 8.
-		At levels 11 and 17 we introduce more variety.
+		At levels 8, 11, and 17 we introduce more variety.
+
 Traps:
 	- [x] Added ice traps (Un)
 		- Ice traps only generate after level 8
