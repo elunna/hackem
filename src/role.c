@@ -1024,7 +1024,7 @@ const struct Race races[] = {
     },
     {	"vampire", "vampiric", "vampirehood", "Vam",
         {0, 0},     /* individual as a noun */
-        PM_VAMPIRE, /* PM_ as a male monster */
+        PM_VAMPIRIC, /* PM_ as a male monster */
         NON_PM,     /* ...or as a female (NON_PM == same) */
         PM_HUMAN_MUMMY, /* PM_ as a mummy */
         PM_HUMAN_ZOMBIE, /* PM_ as a zombie */

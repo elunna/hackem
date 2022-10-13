@@ -5308,7 +5308,16 @@ struct permonst _mons2[] = {
     /*
      * Vampires
      */
-    MON("vampire", S_VAMPIRE,       /* placeholder */
+    MON("vampiric", S_VAMPIRE,       /* placeholder */
+        LVL(0, 12, 1, 25, -8), G_NOGEN,
+        A(ATTK(AT_BITE, AD_DRLI, 1, 6), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_VAMPIRE, MZ_HUMAN), MR_SLEEP | MR_POISON, 0,
+        M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_REGEN,
+        M2_STRONG | M2_SHAPESHIFTER | M2_FLANK,
+        M3_INFRAVISIBLE, M4_VULNERABLE_FIRE, 
+        MH_UNDEAD | MH_VAMPIRE, 12, CLR_RED),
+    MON("vampire", S_VAMPIRE,
         LVL(10, 12, 1, 25, -8), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 6), 
           ATTK(AT_BITE, AD_DRLI, 1, 6), 
