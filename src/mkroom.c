@@ -699,7 +699,7 @@ int mm_flags;
                 || !revive(otmp, FALSE))
             || mdat == &mons[PM_GHOUL_MAGE]
             || mdat == &mons[PM_GHOUL_QUEEN]
-            || mdat == &mons[PM_VAMPIRE_SORCERER])
+            || mdat == &mons[PM_VAMPIRE_MAGE])
             (void) makemon(mdat, cc.x, cc.y, mm_flags);
     }
     level.flags.graveyard = TRUE; /* reduced chance for undead corpse */

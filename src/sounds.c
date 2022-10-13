@@ -669,11 +669,11 @@ register struct monst *mtmp;
         boolean kindred = (Upolyd && (u.umonnum == PM_VAMPIRE
                                       || u.umonnum == PM_VAMPIRE_LORD
                                       || u.umonnum == PM_VAMPIRE_KING
-                                      || u.umonnum == PM_VAMPIRE_SORCERER));
+                                      || u.umonnum == PM_VAMPIRE_MAGE));
 #endif
         boolean kindred = maybe_polyd(u.umonnum == PM_VAMPIRE 
                                       || u.umonnum == PM_VAMPIRE_LORD,
-                                      /* DEFERRED u.umonnum == PM_VAMPIRE_SORCERER, */
+                                      /* DEFERRED u.umonnum == PM_VAMPIRE_MAGE, */
                                       Race_if(PM_VAMPIRE));
         boolean nightchild =
             (Upolyd && (u.umonnum == PM_WOLF \

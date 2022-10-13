@@ -469,7 +469,7 @@ int how;
         || (mon_nm == PM_WRAITH && !rn2(8))
         || (mon_nm == PM_GHOUL && !rn2(6))
         || (mons[mon_nm].mlet == S_VAMPIRE && !rn2(10))
-        || (mon_nm == PM_VAMPIRE_SORCERER && !rn2(20))
+        || (mon_nm == PM_VAMPIRE_MAGE && !rn2(20))
         || (mon_nm == PM_BARROW_WIGHT && !rn2(10))
         || (mon_nm == PM_MIND_FLAYER && !rn2(20))
         || (mon_nm == PM_REVENANT && !rn2(8))
@@ -639,9 +639,9 @@ int how;
         u.ugrave_arise = zombie_form(youmonst.data);
     /* Vampire Mages can produce more of their kind if
        conditions are just right */
-    else if (mptr == &mons[PM_VAMPIRE_SORCERER] && Race_if(PM_HUMAN)
+    else if (mptr == &mons[PM_VAMPIRE_MAGE] && Race_if(PM_HUMAN)
              && Role_if(PM_WIZARD))
-        u.ugrave_arise = PM_VAMPIRE_SORCERER;
+        u.ugrave_arise = PM_VAMPIRE_MAGE;
     else if (is_vampire(mtmp->data) && Race_if(PM_HUMAN))
         u.ugrave_arise = PM_VAMPIRE;
     else if (mptr == &mons[PM_WORM_THAT_WALKS])

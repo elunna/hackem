@@ -399,7 +399,7 @@ int mndx;
     case PM_VAMPIRE:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE_KING:
-    case PM_VAMPIRE_SORCERER:
+    case PM_VAMPIRE_MAGE:
     case PM_HUMAN_ZOMBIE:
     case PM_HUMAN_MUMMY:
     case PM_NOSFERATU:
@@ -619,7 +619,7 @@ unsigned corpseflags;
     case PM_VAMPIRE:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE_KING:
-    case PM_VAMPIRE_SORCERER:
+    case PM_VAMPIRE_MAGE:
     case PM_NOSFERATU:
         /* include mtmp in the mkcorpstat() call */
         num = undead_to_corpse(mndx);
@@ -5408,7 +5408,7 @@ struct monst *mon;
         }
     /*FALLTHRU*/
     case PM_VAMPIRE_KING:
-    case PM_VAMPIRE_SORCERER: /* vampire kings/queens and mages can become a warg */
+    case PM_VAMPIRE_MAGE: /* vampire kings/queens and mages can become a warg */
         if (!rn2(wolfchance) && !uppercase_only) {
             if (IS_AIR(levl[mon->mx][mon->my].typ))
                 mndx = (!rn2(4) && !uppercase_only) ? PM_FOG_CLOUD : PM_VAMPIRE_BAT;
@@ -5553,7 +5553,7 @@ struct monst *mon;
         break;
     case PM_VLAD_THE_IMPALER:
     case PM_KAS:
-    case PM_VAMPIRE_SORCERER:
+    case PM_VAMPIRE_MAGE:
     case PM_VAMPIRE_KING:
     case PM_VAMPIRE_LORD:
     case PM_VAMPIRE:

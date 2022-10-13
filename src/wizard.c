@@ -73,7 +73,7 @@ static NEARDATA const int nasties[] = {
     PM_RED_DRAGON,
     PM_REVENANT,
     PM_STORM_GIANT,
-    /* PM_VAMPIRE_SORCERER - summoner too nasty for nasties */
+    /* PM_VAMPIRE_MAGE - summoner too nasty for nasties */
     PM_VAMPIRE_KING,
     PM_WINGED_GARGOYLE,
 

@@ -417,7 +417,7 @@
      || (ptr) == &mons[PM_GHOUL] \
      || (ptr) == &mons[PM_SPECTRE] \
      || (ptr) == &mons[PM_VAMPIRE] \
-     || (ptr) == &mons[PM_VAMPIRE_SORCERER] \
+     || (ptr) == &mons[PM_VAMPIRE_MAGE] \
      || (ptr) == &mons[PM_WRAITH] \
      || (ptr)->mlet == S_MUMMY \
      || is_zombie(ptr) \

@@ -491,8 +491,7 @@ New Monsters (Imported or created):
 		- Traitorous
 	- (V) fire vampire
 	- (V) star vampire
-	- (V) vampire mage/sorcerer (already in evil with minor changes)
-		- Renamed to vampire sorcerer to avoid conflict with Ice Mages.
+	- (V) vampire mage (already in evil with minor changes)
 	- (V) nosferatu
 		- Instead of were_summoning rats, summons wolves
 	- (W) wight
