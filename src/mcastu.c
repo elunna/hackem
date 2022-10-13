@@ -1469,7 +1469,7 @@ int spellnum;
         /* aggravate monsters, etc. won't be cast by peaceful monsters */
         if (mtmp->mpeaceful
             && (spellnum == MGC_AGGRAVATION || spellnum == MGC_SUMMON_MONS
-                || spellnum == MGC_CLONE_WIZ))
+                || spellnum == MGC_CLONE_WIZ || spellnum == MGC_CALL_UNDEAD))
             return TRUE;
         /* haste self when already fast */
         if (mtmp->permspeed == MFAST && spellnum == MGC_HASTE_SELF)
@@ -1491,8 +1491,9 @@ int spellnum;
         if (mtmp->mhp == mtmp->mhpmax && spellnum == MGC_CURE_SELF)
             return TRUE;
         /* don't summon monsters if it doesn't think you're around */
-        if (!mcouldseeu && (spellnum == MGC_SUMMON_MONS
-                            || (!mtmp->iswiz && spellnum == MGC_CLONE_WIZ)))
+        if (!mcouldseeu 
+            && ((spellnum == MGC_CLONE_WIZ || spellnum == MGC_CALL_UNDEAD)
+            || (!mtmp->iswiz && spellnum == MGC_CLONE_WIZ)))
             return TRUE;
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
             && spellnum == MGC_CLONE_WIZ)
