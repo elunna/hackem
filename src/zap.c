@@ -6990,32 +6990,35 @@ blindingflash()
 void
 bomb_explode(struct obj *obj, int x, int y, boolean isyou)
 {
-    int ztype;
+    int ztype, expltype;
+    int d1 = 3, d2 = 6;
     int otyp = obj->otyp;
     int yours = isyou ? 1 : -1;
     boolean save_mon_moving = context.mon_moving;
 
     context.mon_moving = yours ? FALSE : TRUE;
 
-    /* --hackem: Currently, passing WEAPON_CLASS does not have any handling
-     * in explode() - this could probably be improved but for now it works. */
+    /* --hackem: WEAPON_CLASS does not have any handling in explode(). */
 
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
-        ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
-        explode(x, y, ztype, d(50, 6), WEAPON_CLASS, EXPL_FIERY);
+        ztype = ZT_SPELL(ZT_MAGIC_MISSILE);
+        expltype = EXPL_FIERY;
+        d1 = 50, d2 = 6;
     }
     else if (otyp == FIRE_BOMB) {
-        ztype = ZT_SPELL(ZT_FIRE) * yours;
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_FIERY);
+        ztype = ZT_SPELL(ZT_FIRE);
+        expltype = EXPL_FIERY;
     } 
     else if (otyp == GAS_BOMB) {
-        ztype = ZT_SPELL(ZT_POISON_GAS) * yours; 
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_NOXIOUS);
+        ztype = ZT_SPELL(ZT_POISON_GAS); 
+        expltype = EXPL_NOXIOUS;
     } 
     else if (otyp == SONIC_BOMB) {
-        ztype = ZT_SPELL(ZT_SONIC) * yours;
-        explode(x, y, ztype, d(3, 6), WEAPON_CLASS, EXPL_DARK);
+        ztype = ZT_SPELL(ZT_SONIC);
+        expltype = EXPL_DARK;
     }
+    explode(x, y, ztype * yours, d(d1, d2), WEAPON_CLASS, expltype * isyou * -1);
+    
     context.mon_moving = save_mon_moving;
     wake_nearto(x, y, 400);
 }
