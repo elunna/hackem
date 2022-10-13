@@ -3613,7 +3613,8 @@ static NEARDATA const char cloneables[] = { ALL_CLASSES, ALLOW_NONE, 0 };
 
 
 static void
-seffect_cloning(struct obj **sobjp)
+seffect_cloning(sobjp)
+struct obj **sobjp;
 {
     struct obj *sobj = *sobjp;
     struct obj *otmp;
@@ -3634,9 +3635,33 @@ seffect_cloning(struct obj **sobjp)
         } else {
             You("realize that you have been a clone all along!");
         }
-        mtmp = cloneu();
-        if (mtmp) 
-            mtmp->mpeaceful = 0;
+        if (Upolyd)
+            mtmp = cloneu();
+        else {
+            int mndx = monsndx(youmonst.data);
+            
+            if (sblessed) {
+                mtmp = makemon(&mons[mndx], u.ux, u.uy,
+                               NO_MINVENT | MM_REVIVE | MM_EDOG);
+                initedog(mtmp);
+                u.uconduct.pets++;
+            } else if (scursed) {
+                mtmp = makemon(&mons[mndx], u.ux, u.uy,
+                               NO_MINVENT | MM_REVIVE | MM_ANGRY);
+            } else {
+                mtmp = makemon(&mons[mndx], u.ux, u.uy, NO_MINVENT | MM_REVIVE);
+                mtmp->mpeaceful = 1; 
+            }
+            mtmp->mcloned = 1;
+            mtmp = christen_monst(mtmp, plname);
+            /* TODO: Match race */
+            
+            mtmp->m_lev = u.ulevel;
+            mtmp->mhpmax = u.uhpmax;
+            mtmp->mhp = u.uhp;
+            newsym(mtmp->mx, mtmp->my);
+            context.botl = 1;
+        }
     } else {
         if (!already_known)
             You("have found a scroll of cloning!");
@@ -3680,6 +3705,7 @@ seffect_cloning(struct obj **sobjp)
         otmp2->oeroded2 = otmp->oeroded2;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
+        
         /* Prevent exploits */
         if (otmp2->otyp == WAN_WISHING) 
             otmp2->spe = -1;
