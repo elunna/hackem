@@ -109,7 +109,9 @@ New Monsters (Imported or created):
 	- (e) whirling sphere
 	- (e) beholder
 		- Removed M1_NOHEAD | M1_MINDLESS
+		- Cannot tame
 	- (e) magical eye
+		- Cannot tame
 	- (f) kamadan
 		- raised difficulty to 13
 	- (f) displacer beast (already present in evil)
@@ -148,6 +150,7 @@ New Monsters (Imported or created):
 	- (h) deepest one
 	- (h) planar pirate
 	- (h) alhoon
+		Traitorous
 	- (i) dretch
 	- (i) rutterkin
 	- (i) nupperibo
@@ -302,6 +305,8 @@ New Monsters (Imported or created):
 	- (w) tunnel worm
 	- (w) rot worm
 		- Eating rot worms causes food poisoning?
+	- (w) neothelid
+		- Traitorous
 	- (x) spark bug
 	- (x) arc bug
 	- (x) lightning bug
@@ -435,6 +440,7 @@ New Monsters (Imported or created):
 	- (H) The Largest Giant
 	- (H) hecatoncheire (Hundred Handed One)
 	- (H) elder minotaur
+		- Traitorous
 	- (J) vorpal jabberwock (evil already had with the beheading attack!)
 	- (J) snark
 	- (J) boojum
@@ -481,7 +487,8 @@ New Monsters (Imported or created):
 		- they have a darkness movement, litroom_mon
 	- (U) hunger hulk"
 	- (U) slumber hulk
-	- (U) Shambling horror
+	- (U) shambling horror
+		- Traitorous
 	- (V) fire vampire
 	- (V) star vampire
 	- (V) vampire mage/sorcerer (already in evil with minor changes)

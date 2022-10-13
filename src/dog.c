@@ -1099,6 +1099,7 @@ register struct obj *obj;
         && mtmp->data == &mons[PM_KI_RIN])
         return FALSE;
 
+#if 0 /* This section has been replaced by using M3_NOTAME and M3_TRAITOR tags instead */
     /* These monsters should never be able to be tamed. Ever. Just no */
     if (mtmp->data == &mons[PM_BEHOLDER]
         || mtmp->data == &mons[PM_FELL_BEAST]
@@ -1112,7 +1113,8 @@ register struct obj *obj;
         || mtmp->data == &mons[PM_NEOTHELID]
         || mtmp->data == &mons[PM_SHAMBLING_HORROR])
         return FALSE;
-
+#endif
+    
     /* If wielding/wearing any of the 'banes, taming becomes
        impossible */
     if (wielding_artifact(ART_STING) && racial_orc(mtmp))

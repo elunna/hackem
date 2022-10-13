@@ -877,7 +877,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(10, 10, MS_SILENT, MZ_SMALL), MR_COLD | MR_FIRE | MR_ELEC, 0,
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD,
         M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
-        M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 12, HI_LORD),
+        M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0, 0, 12, HI_LORD),
     /* One of my favorite creatures from GruntHack. I'm not going to make it
      * identical to how it is now in that variant, but it is going to get some
      * changes here from the original template.
@@ -893,7 +893,7 @@ NEARDATA struct permonst mons[] = {
             | MR_STONE, MR_POISON,
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS,
         M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_NEUTER,
-        M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 14, CLR_BROWN),
+        M3_SKITTISH | M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 14, CLR_BROWN),
     /*
      * felines
      */
@@ -1267,7 +1267,7 @@ NEARDATA struct permonst mons[] = {
                                                | MR_SLEEP | MR_ELEC | MR_POISON, MR_FIRE | MR_COLD,
         M1_BREATHLESS | M1_HUMANOID | M1_FLY | M1_SEE_INVIS | M1_POIS | M1_REGEN,
         M2_HOSTILE | M2_NASTY | M2_MAGIC | M2_GREEDY | M2_JEWELS | M2_COLLECT,
-        M3_WANTSBOOK | M3_INFRAVISIBLE | M3_INFRAVISION, 0,
+        M3_WANTSBOOK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0,
         MH_ILLITHID | MH_UNDEAD, 30, CLR_GRAY),
     MON("planar pirate", S_HUMANOID,                          /* SpliceHack */
         LVL(15, 16, -7, 0, 0), (G_SGROUP | G_NOGEN),
@@ -2623,7 +2623,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_COLD | MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS,
         M2_NOPOLY | M2_NASTY | M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE, 0, MH_UNDEAD, 21, CLR_GRAY),
+        M3_INFRAVISION | M3_INFRAVISIBLE | M3_NOTAME, 0, MH_UNDEAD, 21, CLR_GRAY),
     MON("White Horse", S_UNICORN,                             /* SpliceHack */
         LVL(18, 24, 0, 70, 0), (G_NOGEN | G_NOCORPSE | G_UNIQ),
         A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
@@ -2633,7 +2633,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_COLD | MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS,
         M2_NOPOLY | M2_NASTY | M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE, 0, 0, 21, CLR_WHITE),
+        M3_INFRAVISION | M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 21, CLR_WHITE),
     MON("Black Horse", S_UNICORN,                             /* SpliceHack */
         LVL(18, 24, 0, 70, 0), (G_NOGEN | G_NOCORPSE | G_UNIQ),
         A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
@@ -2643,7 +2643,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_COLD | MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS,
         M2_NOPOLY | M2_NASTY | M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE, 0, 0, 21, CLR_BLACK),
+        M3_INFRAVISION | M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 21, CLR_BLACK),
     MON("Red Horse", S_UNICORN,                               /* SpliceHack */
         LVL(30, 24, -10, 70, 0), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
@@ -2832,7 +2832,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(3000, 800, MS_SILENT, MZ_GIGANTIC), MR_PSYCHIC | MR_ACID, 0,
         M1_ANIMAL | M1_SWIM | M1_SLITHY | M1_NOLIMBS | M1_ACID | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER,
-        0, 0, MH_ILLITHID, 36, CLR_MAGENTA), /* can be mistaken for a purple worm */
+        M3_TRAITOR, 0, MH_ILLITHID, 36, CLR_MAGENTA), /* can be mistaken for a purple worm */
     /*
      * xan, &c
      */
@@ -3387,7 +3387,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_POIS | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
                       | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY,
-        M3_ACCURATE | M3_INFRAVISION, 0, 0, 16, HI_LORD),
+        M3_ACCURATE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 16, HI_LORD),
     /*
      * Dragons
      */
@@ -4429,7 +4429,7 @@ struct permonst _mons2[] = {
         SIZ(2200, 900, MS_ROAR, MZ_HUGE), 0, 0,
         M1_ANIMAL | M1_HUMANOID | M1_CARNIVORE | M1_THICK_HIDE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_WANDER | M2_STALK | M2_LORD,
-        M3_INFRAVISIBLE | M3_INFRAVISION | M3_BERSERK,
+        M3_INFRAVISIBLE | M3_INFRAVISION | M3_BERSERK | M3_TRAITOR,
         0, 0, 29, CLR_BLACK),
     MON("hecatoncheire", S_GIANT, 
         LVL(20, 9, -5, 60, 5), (G_GENO | 1),
@@ -5304,7 +5304,7 @@ struct permonst _mons2[] = {
         A(NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(25, 25, MS_SILENT, MZ_TINY), 0, 0,
         M1_CARNIVORE, M2_NOPOLY | M2_HOSTILE,
-        0, 0, 0, 15, DRAGON_SILVER),
+        M3_TRAITOR, 0, 0, 15, DRAGON_SILVER),
     /*
      * Vampires
      */
