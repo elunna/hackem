@@ -473,7 +473,7 @@ static const struct def_skill Skill_F[] = {
 /*Style: small-med edged weapons, blunt weapons*/
 /*  { P_DAGGER, P_BASIC },*/
 /*  { P_KNIFE,  P_SKILLED },*/
-    { P_AXE, P_SKILLED },               /* for chopping down wood. */
+    { P_AXE, P_SKILLED },               /* for chopping wood. */
     { P_PICK_AXE, P_BASIC },            /* for digging up coal */
     { P_SHORT_SWORD, P_SKILLED },       /* For access to fire-brand */
 /*  { P_BROAD_SWORD, P_BASIC },*/
@@ -490,9 +490,9 @@ static const struct def_skill Skill_F[] = {
 /*  { P_SPEAR, P_BASIC },
     { P_TRIDENT, P_BASIC },
     { P_LANCE, P_BASIC },
-    { P_BOW, P_BASIC },
-    { P_SLING, P_BASIC },
-    { P_CROSSBOW, P_BASIC },
+    { P_BOW, P_BASIC }, */
+    { P_SLING, P_SKILLED },               /* Familiar with flint stones */  
+/*  { P_CROSSBOW, P_BASIC },
     { P_DART, P_EXPERT },
     { P_SHURIKEN, P_BASIC },
     { P_BOOMERANG, P_BASIC }, */
