@@ -1246,15 +1246,12 @@ Spellbooks:
 		- lowered summon undead spell difficulty to 4
 	
 	[x] spellbook of fire bolt (new Hack'EM special!)
-		- Fire Bolt is only available to the Flame Mage - spellbooks are 0 prob. 
-		- This also helps keep other roles from knowing too many spellbooks.
+		- Fire Bolt is only available to the Flame Mage and will not generate randomly.
 		- 1d10 fire damage (avg 5.5).
-		- Increases by 1d10 for every 4 levels.
 		- A fire attack (similar to force bolt) that doesn't reflect.
 		- Can hit multiple targets, destroys doors, and burns straw/paper golems
 		- [SKIPPED] - Burns trees, webs?
-		- /* Damage scales with level - every 5 levels we add a cumulative
-             * 1d10 to the total damage.
+		- Damage scales with level - every 5 levels we add a cumulative 1d10 fire damage.
              * Level 1 = 1d10 fire damage
              * Level 5 = 2d10 fire
              * Level 10 = 3d10 fire - and etc. 
@@ -1262,7 +1259,7 @@ Spellbooks:
              * Level 20 = 5d10 fire (but damage is capped at 45 max)
 
 	[x] spellbook of snowball (new Hack'EM special!)
-		- Snowball is only available to the Ice Mage - spellbooks are 0 prob. 
+		- Snowball is only available to the Ice Mage - not generated randomly.
 		- Like the snowballs that snow golems throw,
 		  these have a high chance of blinding monsters.
 
@@ -2026,3 +2023,24 @@ NERFS!
 ===============================================================================
 Cleanup below here...
 ===============================================================================
+
+
+- [FIXED] Cloning self currently does not work
+	[FIXED] Cloning works while you are polymorphed - but the first turn your pet is not always highlighted
+	solved: steeds created with knight
+	
+	Confused cursed = hostile clone
+		MM_ANGRY
+	Confused uncursed = peaceful clone
+	Confused blessed = tame clone
+	
+	
+[SKIPPED] problem: Scroll of cloning races don't match
+	
+[FIXED] My tame lich called undead on me...
+[x] Zombie revivals are nerfed a little by moldy corpses
+[x] Hell hounds don't eat any corpses (nice benefit)
+
+[FIXED] Monster vs monster zombie bite crash
+	[x] Better test upoly into zombie to flesh it out. - seems fine!
+
