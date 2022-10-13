@@ -6997,27 +6997,29 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     boolean save_mon_moving = context.mon_moving;
 
     context.mon_moving = yours ? FALSE : TRUE;
-
-    /* --hackem: WEAPON_CLASS does not have any handling in explode(). */
-
+    
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
-        ztype = ZT_SPELL(ZT_MAGIC_MISSILE);
-        expltype = EXPL_FIERY;
+        ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
+        expltype = EXPL_FIERY  * isyou * -1;
         d1 = 50, d2 = 6;
     }
     else if (otyp == FIRE_BOMB) {
-        ztype = ZT_SPELL(ZT_FIRE);
-        expltype = EXPL_FIERY;
+        ztype = ZT_SPELL(ZT_FIRE) * yours;          /* 11 */
+        expltype = EXPL_FIERY  * isyou * -1;        /*  5 */
     } 
     else if (otyp == GAS_BOMB) {
-        ztype = ZT_SPELL(ZT_POISON_GAS); 
-        expltype = EXPL_NOXIOUS;
+        ztype = ZT_SPELL(ZT_POISON_GAS) * yours;    /* 16 */
+        expltype = EXPL_NOXIOUS  * isyou * -1;      /*  1 */
     } 
     else if (otyp == SONIC_BOMB) {
-        ztype = ZT_SPELL(ZT_SONIC);
-        expltype = EXPL_DARK;
+        ztype = ZT_SPELL(ZT_SONIC) * yours;         /* 18 */
+        expltype = EXPL_DARK  * isyou * -1;         /*  0 */
     }
-    explode(x, y, ztype * yours, d(d1, d2), WEAPON_CLASS, expltype * isyou * -1);
+    if (wizard)
+        pline("yours=%d ztype=%d expltype=%d", yours, ztype, expltype);
+    
+    /* --hackem: WEAPON_CLASS does not have any special handling in explode(). */
+    explode(x, y, ztype, d(d1, d2), WEAPON_CLASS, expltype);
     
     context.mon_moving = save_mon_moving;
     wake_nearto(x, y, 400);
