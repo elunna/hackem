@@ -2874,7 +2874,7 @@ NEARDATA struct permonst mons[] = {
      * lights
      */
     MON("will-o'-the-wisp", S_LIGHT,                          /* SpliceHack */
-        LVL(2, 9, 2, 0, 0), (G_NOCORPSE | G_SGROUP | G_GENO | 4),
+        LVL(2, 9, 2, 0, 0), (G_NOCORPSE | G_SGROUP | G_GENO | 3),
         A(ATTK(AT_TUCH, AD_BLND, 1, 2), 
           ATTK(AT_TUCH, AD_ELEC, 1, 1),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
