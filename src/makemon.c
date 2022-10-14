@@ -2637,7 +2637,7 @@ register struct monst *mtmp;
     }
 
     if (is_mercenary(ptr) && !rn2(6) && !racial_elf(mtmp)) {
-        (void) mongets(mtmp, rn2(2) ? FIRE_BOMB : GAS_BOMB);
+        (void) mongets(mtmp, FIRE_BOMB + rn2(3));
     }
 
     /* ordinary soldiers rarely have access to magic (or gold :-) */
