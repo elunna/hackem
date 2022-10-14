@@ -3565,6 +3565,9 @@ register struct obj *obj;
         case AKLYS:
             obj->otyp = CLUB;
             break;
+        case BOOMERANG:
+            obj->otyp = CHAKRAM;
+            break;
         case WAR_HAMMER:
             obj->otyp = HEAVY_WAR_HAMMER;
             break;
