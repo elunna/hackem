@@ -15,6 +15,7 @@
    period but didn't get adjusted when that period got doubled to 20000) */
 #define KEEN 20000
 #define CAST_BOOST 	  500	/* memory increase for successful casting */
+#define MAX_KNOW 	70000	/* Absolute Max timeout */
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
