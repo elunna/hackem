@@ -771,22 +771,34 @@ unsigned corpseflags;
         free_mname(mtmp);
         break;
     case PM_WAX_GOLEM:
-		num = d(2,4);
-		while (num--)
-			obj = mksobj_at(WAX_CANDLE, x, y, TRUE, FALSE);
+        num = d(2,4);
+        while (num--)
+            obj = mksobj_at(WAX_CANDLE, x, y, TRUE, FALSE);
         
         /* --hackem: Small chance to drop a magic candle = NiceHack! */
         if (!rn2(69))
             obj = mksobj_at(MAGIC_CANDLE, x, y, TRUE, FALSE);
-		free_mname(mtmp);
-		break;
+            free_mname(mtmp);
+            break;
     case PM_PLASTIC_GOLEM:
-		num = d(2,2);
-		while (num--)
-			obj = mksobj_at(rn2(5) ? CREDIT_CARD : FAKE_AMULET_OF_YENDOR, 
-            x, y, TRUE, FALSE);
-        free_mname(mtmp);
-		break;
+        num = d(2, 4);
+        while (num--) {
+            switch (rnd(15)) {
+                case 1:
+                    obj = mksobj_at(FLY_SWATTER, x, y, TRUE, FALSE);
+                    break;
+                case 2:
+                    obj = mksobj_at(RUBBER_HOSE, x, y, TRUE, FALSE);
+                    break;
+                case 3:
+                    obj = mksobj_at(EIGHT_BALL, x, y, TRUE, FALSE);
+                    break;
+                default:
+                    /* We'll throw in a small chance for a lightsaber for fun's sake */
+                    obj = mksobj_at(rn2(250) ? CREDIT_CARD : GREEN_LIGHTSABER, x, y, TRUE, FALSE);
+                }
+        }
+        break;
     case PM_GOLD_GOLEM:
     case PM_PILE_OF_KILLER_COINS:
     case PM_LARGE_PILE_OF_KILLER_COINS:
