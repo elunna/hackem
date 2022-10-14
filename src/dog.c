@@ -232,7 +232,9 @@ makedog()
     u.uconduct.pets++;
 
     pettype = pet_type();
-    if (pettype == PM_LITTLE_DOG)
+    if (pettype == PM_LITTLE_DOG
+        || pettype == PM_HELL_HOUND_PUP
+        || pettype == PM_WINTER_WOLF_CUB)
         petname = dogname;
     else if (pettype == PM_PSEUDODRAGON)
         petname = pseudoname;
