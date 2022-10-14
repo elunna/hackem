@@ -813,6 +813,9 @@ unsigned corpseflags;
     case PM_GRAY_OOZE:
     case PM_BROWN_PUDDING:
     case PM_GREEN_SLIME:
+    case PM_BLOOD_PUDDING:
+    case PM_GEL:
+    case PM_MOLDY_PUDDING:
     case PM_BLACK_PUDDING:
         /* we have to do this here because most other places
            expect there to be an object coming back; not this one */
