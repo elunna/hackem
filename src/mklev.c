@@ -964,7 +964,7 @@ makelevel()
         else if (u_depth > 7 && !rn2(12)
                  && !(mvitals[PM_RUST_MONSTER].mvflags & G_GONE))
             mkroom(ARMORY);
-        else if (u_depth > 1 && !rn2(25)) 
+        else if (u_depth > 7 && !rn2(25)) 
             mkroom(FUNGUSFARM);
         else if (u_depth > 8 && !rn2(10))
             mkroom(TEMPLE);
