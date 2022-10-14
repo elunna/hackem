@@ -103,6 +103,7 @@ set_uasmon()
     PROPSET(POISON_RES, resists_poison(&youmonst));
     PROPSET(ACID_RES, resists_acid(&youmonst));
     PROPSET(STONE_RES, resists_ston(&youmonst));
+    PROPSET(SONIC_RES, resists_sonic(&youmonst));
     PROPSET(PSYCHIC_RES, resists_psychic(&youmonst));
     {
         /* resists_drli() takes wielded weapon into account; suppress it */
