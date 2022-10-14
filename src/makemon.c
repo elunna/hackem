@@ -888,7 +888,7 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, subInfidel, 1);
             mongets(mtmp, SKELETON_KEY);
             break;
-        /* --hackem: This is a cheap copy for now, but exactly how it was in 
+        /* --hackem: TODO: This is a cheap copy for now, but exactly how it was in 
             slashem. The Yeoman will get their own gear soon. */ 
         case PM_YEOMAN:
         case PM_KNIGHT:
@@ -1065,10 +1065,7 @@ register struct monst *mtmp;
         }
         else if (mm ==  PM_PEASANT) {
             switch (rn2(5)) {
-#if 0
-            case 0: (void) mongets(mtmp, GRAIN_SCYTHE); break;
-#endif
-            case 0:
+            case 0: (void) mongets(mtmp, SCYTHE); break;
             case 1: (void) mongets(mtmp, KNIFE); break;
             case 2: (void) mongets(mtmp, CLUB); break;
             case 3: (void) mongets(mtmp, AXE); break;
