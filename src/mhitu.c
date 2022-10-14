@@ -848,6 +848,8 @@ register struct monst *mtmp;
     if (calculate_flankers(mtmp, &youmonst) && !Blind) {
         You("are being flanked!");
         tmp += 4;
+        /* Scale with monster difficulty */
+        tmp += (int) ((mtmp->m_lev - 4) / 2);
     }
 
     /* find rings of increase accuracy */
