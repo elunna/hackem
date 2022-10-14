@@ -637,12 +637,12 @@ GLOVES("boxing gloves", "boiled gloves",                       /* SpliceHack */
        0, 1,          0,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of protection", "boxing gloves",             /* EvilHack */
        0, 1, PROTECTION,  4, 1, 10,  60, 8, 3,  CLOTH, CLR_BROWN),
-GLOVES("gauntlets of dexterity", "fencing gloves",
-       0, 1,          0,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of fumbling", "padded gloves",
        0, 1,   FUMBLING,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of swimming", "black gloves",                 /* Slash'EM */
 	0, 1,  SWIMMING,   8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
+GLOVES("gauntlets of dexterity", "fencing gloves",
+       0, 1,          0,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("mummified hand", None,                                 /* EvilHack */
        0, 0,          0,  0, 1,  5, 100, 9, 0,  FLESH, CLR_BLACK),
 
@@ -863,13 +863,13 @@ TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  25, LEATHER, HI_LEATHER
            BITS(kn, 0, 1,chg, mgc, 1, 0, 0, bi, 0, hitbon, sub, mat),    \
            0, TOOL_CLASS, prob, 0, wt, cost, sdam, ldam, hitbon, 0, wt, clr)
 /* tools useful as weapons */
+WEPTOOL("spoon", None,                 1, 0, 0, 0,  1,   1,  1,   1,  1, 0, PIERCE, P_KNIFE, IRON, HI_METAL), /* Slash'EM */
 WEPTOOL("pick-axe", None,              1, 0, 0, 0, 20,  75,  50,  6,  3, 0, WHACK,  P_PICK_AXE, IRON, HI_METAL),
 WEPTOOL("fishing pole", None,          1, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_POLEARMS, METAL, HI_METAL), /* Slash'EM */
 WEPTOOL("grappling hook", "iron hook", 0, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_FLAIL,    IRON, HI_METAL),
+WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHACK,  P_CLUB, WOOD, HI_WOOD), /* Slash'EM */
 WEPTOOL("unicorn horn", None,          1, 1, 0, 0,  0,  20, 100,  8, 10, 1, PIERCE, P_UNICORN_HORN, BONE, CLR_WHITE),
         /* 3.4.1: unicorn horn left classified as "magic" */
-WEPTOOL("spoon", None,                 1, 0, 0, 0,  1,   1,  1,   1,  1, 0, PIERCE, P_KNIFE, IRON, HI_METAL), /* Slash'EM */
-WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHACK,  P_CLUB, WOOD, HI_WOOD), /* Slash'EM */
 #if 0
 OBJECT(OBJ("torch", (char *)0),
 	BITS(1,1,1,0,0,1,0,0,0,0,WHACK,P_CLUB,WOOD),
