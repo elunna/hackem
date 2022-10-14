@@ -4045,6 +4045,11 @@ xchar x, y;
 {
     int otyp = obj->otyp, ocls = obj->oclass;
 
+    if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
+        pline("The egg starts to hatch!");
+        hatch_faster(obj);
+        return FALSE;
+    }
     /* the Amulet, invocation items, and Rider corpses are never destroyed
        (let Book of the Dead fall through to fire_damage() to get feedback) */
     if (obj_resists(obj, 0, 0) && otyp != SPE_BOOK_OF_THE_DEAD)
