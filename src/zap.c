@@ -2518,7 +2518,7 @@ struct obj *obj, *otmp;
         case WAN_FIREBALL:
         case WAN_FIRE:
             if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
-                revive_egg(obj);
+                hatch_faster(obj);
             }
             /* Try to arm bombs on the ground */
             if (is_bomb(obj)) {
@@ -5188,6 +5188,10 @@ boolean u_caused;
     for (obj = level.objects[x][y]; obj; obj = obj2) {
         obj2 = obj->nexthere;
         
+        if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
+            hatch_faster(obj);
+            continue;
+        }
         /* Try to arm bombs on the ground */
         if (is_bomb(obj)) {
             handle_bomb(obj, FALSE);
@@ -6306,7 +6310,7 @@ int osym, dmgtyp;
                 dindx = 1; /* boil and explode */
                 dmg = (obj->owt + 19) / 20;
             } else if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
-                    revive_egg(obj);
+                hatch_faster(obj);
             } else {
                 skip++;
             }
@@ -6600,6 +6604,8 @@ int osym, dmgtyp;
                 if (obj->otyp == GLOB_OF_GREEN_SLIME) {
                     dindx = 1; /* boil and explode */
                     tmp += (obj->owt + 19) / 20;
+                } else if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
+                    hatch_faster(obj);
                 } else {
                     skip++;
                 }

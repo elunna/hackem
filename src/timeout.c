@@ -2090,10 +2090,10 @@ long expire_time;
  */
 
 void burn_faster(struct obj *obj, long adj) {
-	if (!obj->lamplit) {
-		impossible("burn_faster: obj %s not lit", xname(obj));
-		return;
-	}
+    if (!obj->lamplit) {
+        impossible("burn_faster: obj %s not lit", xname(obj));
+        return;
+    }
     int turns = rnd(6);
     if (turns > 4)
         pline("The torch sparks and flares!");
@@ -2102,8 +2102,14 @@ void burn_faster(struct obj *obj, long adj) {
 
     obj->age -= turns;
 
-	if (obj->age < 1)
+    if (obj->age < 1)
         obj->age = 1;
+}
+
+void hatch_faster(struct obj *obj) {
+    /* For phoenix eggs */
+    kill_egg(obj);
+    attach_egg_hatch_timeout(obj, 1L);
 }
 
 void
