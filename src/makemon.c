@@ -1585,14 +1585,6 @@ register struct monst *mtmp;
                     (void) mongets(mtmp, HELMET);
                 (void) mongets(mtmp, !rn2(3) ? TWO_HANDED_SWORD : BATTLE_AXE);
                 break;
-
-		    default:
-                if (is_gnoll(ptr) && mm != PM_GNOLL_SHAMAN) {
-                    if (rn2(4))
-                        (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
-                    else
-                        (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
-                    
             case PM_MARRASHI:
                 /* Many varieties of arrows */
                 m_initthrow(mtmp, ARROW, 15);
@@ -1617,7 +1609,14 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rnd_defensive_item(mtmp));
                 (void) mongets(mtmp, GREEN_DRAGON_SCALES);
                 break;
-        }
+            default:
+                if (is_gnoll(ptr) && mm != PM_GNOLL_SHAMAN) {
+                    if (rn2(4))
+                        (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
+                    else
+                        (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
+
+                }
         break;
     }
     break;
