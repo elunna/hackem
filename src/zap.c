@@ -2597,17 +2597,14 @@ int
 zappable(wand)
 register struct obj *wand;
 {
-    int zap_it = 1;
-    if (wand->spe < 0)
+    int wrestchance = (wand->blessed ? 7 : (wand->cursed ? 121 : 23));
+    if (wand->spe < 0 || (wand->spe == 0 && rn2(wrestchance)))
         return 0;
 
-    if (wand->spe == 0) {
-        int prob = 6 + (wand->cursed ? 1 : (wand->blessed ? - 1 : 0));
-        if ((zap_it = !rn2(prob)))
-            You("wrest one last charge from the worn-out wand.");
-    }
+    if (wand->spe == 0)
+        You("wrest one last charge from the worn-out wand.");
     wand->spe--;
-    return zap_it;
+    return 1;
 }
 
 /*
