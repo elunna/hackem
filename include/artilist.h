@@ -62,12 +62,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(4, 9), DFNS(AD_FIRE), NO_CARY,
       0, A_LAWFUL, NON_PM, NON_PM, 1000L, CLR_BROWN),
 
-    /* This lance does a lot of damage, and also automatically unseats any
-    *       mounted person it hits. */
-    A("Bradamante\'s Fury", LANCE, (SPFX_RESTR), 0, 0,
-      PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
-      NO_COLOR),
-
     /* Some "worse" sacrifice gifts are needed to avoid making #offer
     *       overpowered. Used to be PM_KNIGHT. */
     A("Carnwennan", KNIFE, (SPFX_RESTR | SPFX_SEARCH | SPFX_STLTH), 0, 0,
@@ -139,6 +133,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
         /*** Neutral artifacts ***/
 
+    /* This lance does a lot of damage, and also automatically unseats any
+    *       mounted person it hits. */
+    A("Bradamante\'s Fury", LANCE, (SPFX_RESTR), 0, 0,
+      PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
+      NO_COLOR),
+    
     A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
       0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR),
 
