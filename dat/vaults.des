@@ -964,7 +964,7 @@ ROOM:"ordinary", random, random, random, random {
 # massacre
 LEVEL:"vlt-0053"
 FLAGS:rndvault
-MINDEPTH:11
+MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
     $mon = MONSTER: { '@', "apprentice", "warrior", "ninja", "thug", "hunter", "acolyte", "abbot",
              "page", "attendant", "neanderthal", "chieftain", "student", "inmate", "cultist",
