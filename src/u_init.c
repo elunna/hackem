@@ -805,21 +805,18 @@ static const struct def_skill Skill_T[] = {
 };
 
 static const struct def_skill Skill_U[] = {
-    { P_DAGGER, P_EXPERT },         /* starting weapon */
-    { P_LONG_SWORD, P_SKILLED },    /* Meh? */
+    { P_DAGGER, P_EXPERT },         /* Wooden stake and quest artifact */
+    { P_LONG_SWORD, P_BASIC },      /* Buffy */
+    { P_BROAD_SWORD, P_SKILLED },    /* Buffy */
     { P_CLUB, P_SKILLED },
     { P_MACE, P_SKILLED },
-    { P_MORNING_STAR, P_EXPERT },  /* Should be expert */
+    { P_MORNING_STAR, P_EXPERT },  /* Castlevania */
     { P_FLAIL, P_SKILLED },
     { P_HAMMER, P_SKILLED },
-    { P_QUARTERSTAFF, P_SKILLED },  /* Meh? */
-    { P_POLEARMS, P_SKILLED },      /* Meh? */
+    { P_POLEARMS, P_SKILLED },
     { P_SPEAR, P_EXPERT },          /* starting weapon/artifact */
-    { P_BOW, P_BASIC },
-    { P_SLING, P_BASIC },           /* Meh? */
-    { P_FIREARM, P_EXPERT },        /* Meh? */
-    { P_CROSSBOW, P_EXPERT },       /*  Dracula movies */
-    { P_DART, P_BASIC },
+    { P_FIREARM, P_EXPERT },        /* Buffy? */
+    { P_CROSSBOW, P_EXPERT },       /* Dracula movies */
     { P_SHURIKEN, P_BASIC },        /* Meh? */
     { P_BOOMERANG, P_BASIC },       /* Meh? */
     { P_WHIP, P_EXPERT },           /* Castlevania */

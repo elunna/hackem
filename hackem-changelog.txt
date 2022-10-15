@@ -433,9 +433,6 @@ New Monsters (Imported or created):
 	- (G) gnoll chieftain
 	- (G) gnoll shaman
 	- (G) marrashi
-	- (G) gnomish psyker
-		- Removed the AD_PSYC attack from splice, and used the mind flayers
-		  mind attack.
 	- (H) hill giant shaman
 	- (H) The Largest Giant
 	- (H) hecatoncheire (Hundred Handed One)
@@ -2043,3 +2040,55 @@ Cleanup below here...
 [FIXED] Monster vs monster zombie bite crash
 	[x] Better test upoly into zombie to flesh it out. - seems fine!
 
+
+[x] Give flame mage skilled in sling skills?  they would be good with flint right?
+
+[x] Reduce flame mage bombs to just 1.
+[x] Add the +500 turns per spellcast (from slashem), make spellcasting rewarded
+	any spell that is successfully cast every 500 turns will never be forgotten. 
+	[x]Change Xanathar's ring to See Inv (since that's pretty hard to get now)
+[x] Town should only be 1-2 levels below soko
+
+willowisps are appearing a little soon?
+
+
+Peasants can get scythes
+
+	[FIXED] Brown pudding left huge chunk of meat (twice)
+		What if this is a bug with globs?
+		
+		
+Add upgrade and recipes for boomerang to chamram
+[FIXED] Hell hound name?  was "Opal"
+tame hell hound pup will attack priests/shopkeepers with breath!
+
+[x] It is possible to gain strength by draining giant corpses, but one must pass both the 20% test for being a Vampire as well as meeting the 25% chance SLASH'EM imposes on increasing strength.[
+
+[FIXED?] Engulf symbols are a little weird: 
+[x] polyself - PROPSET, needs to be updated with sonic res, 
+Made rock trolls stoning resistant (from xnh)"
+
+
+- [x] Phoenix egg revival via fire
+- [FIXED] throwing a phoenix egg into lava burns up, or dipping into forge.
+	[FIXED] Water walking boots id when not walking on water?
+[x] Flanking scales with monster level :4 + (mdiffulty - 4) / 2
+
+
+	[FIXED] Fungus Farm appeared on level 2
+
+
+
+[SKIPPED] Fungi should be able to grow on zombie corpses?
+
+[x] Shopkeeper prices - flatten out race charges - just makes things more fun.
+	shk_racial_adjustments
+
+Increased frequency of unicorns slightly.
+[x] Merged the gray fungus of evil with slashthem - they can now move (speed 1) and get a little touch attack.
+[x] Reduced prob of executioner's mace to 3. Was 0 in splice.
+[FIXED] Shopkeeper identify - general store failed identifying ring!
+[x] Increased all frequency of all pet domestics to 3; in slashem they were over-boosted to 7, but it feels like the player needs some help with all the extra monsters added.
+[x] Get rid of gnomish psykers - they don't fit yet.
+[x] Rebalanced Undead slayer skills a bit: 
+	
