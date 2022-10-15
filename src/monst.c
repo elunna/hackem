@@ -4924,7 +4924,7 @@ struct permonst _mons2[] = {
         MR_COLD | MR_ELEC | MR_POISON,
         M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS 
             | M1_NOHEAD | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
-        M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 9, CLR_GREEN),
+        M2_HOSTILE | M2_NEUTER, 0, M4_VULNERABLE_FIRE, 0, 9, CLR_BRIGHT_GREEN),
     MON("black pudding", S_PUDDING,
         LVL(10, 6, 6, 0, 0), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_BITE, AD_CORR, 3, 8), 

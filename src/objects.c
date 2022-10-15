@@ -951,6 +951,9 @@ OBJECT(OBJ("meat ring", None),
 FOOD("glob of gray ooze",     0,  2, 20, 0, FLESH,  20, CLR_GRAY),
 FOOD("glob of brown pudding", 0,  2, 20, 0, FLESH,  20, CLR_BROWN),
 FOOD("glob of green slime",   0,  2, 20, 0, FLESH,  20, CLR_GREEN),
+FOOD("glob of blood pudding", 0,  2, 20, 0, FLESH,  20, CLR_RED),
+FOOD("glob of gel",           0,  2, 20, 0, FLESH,  20, CLR_BRIGHT_CYAN),
+FOOD("glob of moldy pudding", 0,  2, 20, 0, FLESH,  20, CLR_BRIGHT_GREEN),
 FOOD("glob of black pudding", 0,  2, 20, 0, FLESH,  20, CLR_BLACK),
 
 /* fruits & veggies */
