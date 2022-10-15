@@ -498,6 +498,7 @@ struct obj **optr;
         You("vigorously shake %s...", yname(obj));
         check_unpaid_usage(obj, TRUE);
 
+#if 0 /* --hackem: Disabled this. I don't want to encourage degenerate  behavior. */
         /* Applying the 8-Ball gives a 1 in 100000 chance of granting a wish,
          * but only if it's blessed. Otherwise, it will never grant one. */
         chance = (obj->blessed) ? rn2(100000) : 99999;
@@ -513,6 +514,7 @@ struct obj **optr;
         default:
             break;
         }
+#endif
     }
 }
 
