@@ -1728,8 +1728,8 @@ register struct monst *mtmp;
             }
             break;
         }
-       
-    
+        break;
+        
     case S_KOP:
         /* create Keystone Kops with cream pies to
            throw. As suggested by KAA.     [MRS] */
