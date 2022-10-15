@@ -193,7 +193,7 @@ static const struct innate {
 vam_abil[] =   { { 1, &(HBreathless), "", "" },
                  { 1, &(HVulnerable_fire), "", "" },
                  { 5, &(HHunger), "ravenous", "less revenous" },
-                 { 7, &(HRegeneration), "resilient", "less resilient" },
+                 { 5, &(HRegeneration), "resilient", "less resilient" },
                  { 10, &(HPoison_resistance), "durable", "vulnerable" },
                  { 16, &(HSleep_resistance), "awake", "tired" },
                  { 0, 0, 0, 0 } },
