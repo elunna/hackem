@@ -2773,17 +2773,23 @@ register struct monst *shkp; /* if angry, impose a surcharge */
     else if (ACURR(A_CHA) <= 10)
         multiplier *= 4L, divisor *= 3L;
 
-	/* character classes who are discriminated against... */
-	/* barbarians are gullible... */
-	if (Role_if(PM_BARBARIAN)) 
-            tmp *= 3L;
-	/* rogues are untrustworthy... */
-	if (Role_if(PM_ROGUE)) 
-            tmp *= 2L;
-	/* samurais are from out of town... */
-	if (Role_if(PM_SAMURAI)) 
-            tmp *= 2L;
-
+#if 0 /* If I'm removing shk racism, might as well remove Slash'EM's discrimination
+ * as well. The main factor in price calculation should be charisma right?!?!?!?! */
+    /* character classes who are discriminated against... */
+    /* barbarians are gullible... */
+    if (Role_if(PM_BARBARIAN)) 
+        tmp *= 3L;
+    /* rogues are untrustworthy... */
+    if (Role_if(PM_ROGUE)) 
+        tmp *= 2L;
+    /* samurais are from out of town... */
+    if (Role_if(PM_SAMURAI)) 
+        tmp *= 2L;
+#endif
+    
+#if 0 /* --hackem: Disabled racist shopkeepers; One meta-thing I enjoy about 
+        * NetHack is the mini-game of price identification. I think this over
+        * complicates that and makes the game harder in a not-as-fun way. */
     /* possible additional surcharges based on shk race, if one was passed in */
     if (shkp) {
         long numer = 1L, denom = 1L;
@@ -2793,6 +2799,7 @@ register struct monst *shkp; /* if angry, impose a surcharge */
         multiplier *= numer;
         divisor *= denom;
     }
+#endif
 
     /* tmp = (tmp * multiplier) / divisor [with roundoff tweak] */
     tmp *= multiplier;
@@ -3028,6 +3035,7 @@ register struct monst *shkp;
             multiplier *= 3L, divisor *= 4L;
     }
 
+#if 0 /* --hackem: Disabled racist shopkeepers */
     /* possible additional surcharges based on shk race, if one was passed in */
     if (shkp) {
         long numer = 1L, denom = 1L;
@@ -3035,7 +3043,8 @@ register struct monst *shkp;
             shk_racial_adjustments(ERAC(shkp)->rmnum, &denom, &numer);
         }
     }
-
+#endif 
+    
     if (tmp >= 1L) {
         /* [see get_cost()] */
         tmp *= multiplier;
