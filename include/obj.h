@@ -386,7 +386,7 @@ struct obj {
      || o->otyp == GLOB_OF_GREEN_SLIME                                \
      || o->otyp == GLOB_OF_BLOOD_PUDDING                              \
      || o->otyp == GLOB_OF_GEL                                        \
-     || o->otyp == GLOB_OF_MOLDY                                      \
+     || o->otyp == GLOB_OF_MOLDY_PUDDING                              \
      || o->otyp == GLOB_OF_BLACK_PUDDING)
 
 /* Containers */
