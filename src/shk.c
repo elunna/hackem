@@ -4064,7 +4064,6 @@ long ident_type;
 {
     register struct obj *obj;       /* The object to identify       */
     int charge;                     /* Cost to identify             */
-    boolean guesswork = TRUE;      /* Will shkp be guessing?       */
     boolean ripoff = FALSE;         /* Shkp ripping you off?        */
 
     /* Pick object */
@@ -4092,12 +4091,6 @@ long ident_type;
      * We should only see BASIC identify in general stores or black market */
     if (ident_type != SHK_ID_BASIC)
         ident_type = SHK_ID_PREMIUM;
-#if 0
-    if ((guesswork = !shk_obj_match(obj, shkp))) {
-        verbalize("I don't handle that sort of item, sorry...");
-        return 0;
-    }
-#endif
     
     /*
     ** Shopkeeper is ripping you off if:
@@ -4153,17 +4146,7 @@ long ident_type;
             return 1;
         }
     }
-
-    if (guesswork) {
-        if (!rn2(ident_type == SHK_ID_BASIC ? 4 : 6)) {
-            verbalize("Success!");
-            /* Rest of msg will come from identify(); */
-        } else {
-            verbalize("Sorry.  I guess it's not your lucky day.");
-            return 1;
-        }
-    }
-
+    
     if (ident_type == SHK_ID_PREMIUM) {
         identify(obj);
     } else { 
