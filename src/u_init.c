@@ -346,8 +346,8 @@ struct inv_sub {
     { PM_DWARF, LONG_SWORD, DWARVISH_BEARDED_AXE },
     { PM_GNOME, BOW, CROSSBOW },
     { PM_GNOME, ARROW, CROSSBOW_BOLT },
-    { PM_VAMPIRE, POT_FRUIT_JUICE, POT_BLOOD	      },
-    { PM_VAMPIRE, FOOD_RATION, POT_VAMPIRE_BLOOD     },
+    { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD	      },
+    { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD     },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
@@ -1477,7 +1477,7 @@ u_init()
         knows_object(ORCISH_MORNING_STAR);
         break;
         
-    case PM_VAMPIRE:
+    case PM_VAMPIRIC:
         /* Vampires start off with gods not as pleased, luck penalty */
         adjalign(-5); 
         change_luck(-1);
