@@ -223,6 +223,10 @@ struct trobj Tourist[] = {
     { HAWAIIAN_SHIRT, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { EXPENSIVE_CAMERA, UNDEF_SPE, TOOL_CLASS, 1, 0 },
     { CREDIT_CARD, 0, TOOL_CLASS, 1, 0 },
+    { LEASH, 0, TOOL_CLASS, 1, 0 },
+    { MAGIC_MARKER, 0, TOOL_CLASS, 1, 0 },
+    { TIN_OPENER, 0, TOOL_CLASS, 1, 0 },
+    { TOWEL, 0, TOOL_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj UndeadSlayer[] = {
@@ -1272,12 +1276,6 @@ u_init()
         Tourist[T_DARTS].trquan = rn1(20, 21);
         u.umoney0 = rn1(500, 1000);
         ini_inv(Tourist);
-        if (!rn2(25))
-            ini_inv(Tinopener);
-        else if (!rn2(25))
-            ini_inv(Leash);
-        else if (!rn2(5))
-            ini_inv(Towel);
         skill_init(Skill_T);
         break;
 
