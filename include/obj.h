@@ -381,8 +381,13 @@ struct obj {
 #define drainlevel(corpse) (mons[(corpse)->corpsenm].cnutrit*4/5)
 #define is_royaljelly(o) (o->otyp == LUMP_OF_ROYAL_JELLY)
 #define Is_pudding(o)                                                 \
-    (o->otyp == GLOB_OF_GRAY_OOZE || o->otyp == GLOB_OF_BROWN_PUDDING \
-     || o->otyp == GLOB_OF_GREEN_SLIME || o->otyp == GLOB_OF_BLACK_PUDDING)
+    (o->otyp == GLOB_OF_GRAY_OOZE                                     \
+     || o->otyp == GLOB_OF_BROWN_PUDDING                              \
+     || o->otyp == GLOB_OF_GREEN_SLIME                                \
+     || o->otyp == GLOB_OF_BLOOD_PUDDING                              \
+     || o->otyp == GLOB_OF_GEL                                        \
+     || o->otyp == GLOB_OF_MOLDY                                      \
+     || o->otyp == GLOB_OF_BLACK_PUDDING)
 
 /* Containers */
 #define carried(o) ((o)->where == OBJ_INVENT)
