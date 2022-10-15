@@ -2232,7 +2232,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_SWIM, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 1, CLR_BROWN),
     MON("black rat",  S_RODENT,                                 /* Slash'EM */
-        LVL(0, 12, 7, 0, 0), (G_NOGEN | G_GENO),
+        LVL(0, 12, 7, 0, 0), (G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 1, 3), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 12, MS_SQEEK, MZ_TINY), 0, 0,
