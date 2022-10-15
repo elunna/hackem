@@ -350,6 +350,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, MH_ANGEL, FIRE(5, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       5000L, NO_COLOR),
 
+#if 0 
     /* Bag of the Hesperides - this is the magical bag obtained by Perseus
    * from the Hesperides (nymphs) to contain and transport Medusa's head.
    * The bag naturally repels water, and it has greater weight reduction
@@ -360,7 +361,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_PROTECT), 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       8000L, NO_COLOR),
-
+#endif
+    
+    A("Wallet of Perseus", BAG_OF_HOLDING, SPFX_RESTR, SPFX_PROTECT, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
+      10000L, NO_COLOR),
     /* Warning vs demons; grants 25 charisma while wielded; special paralysis hit*/
     A("Chains of Malcanthet", SPIKED_CHAIN, 
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,

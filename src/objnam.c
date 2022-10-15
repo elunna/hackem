@@ -2221,7 +2221,7 @@ const char *verb;
             && obj->oartifact != ART_GJALLAR)
         || obj->oartifact == ART_DRAGONBANE
         || obj->oartifact == ART_MAGIC___BALL
-        || obj->oartifact == ART_BAG_OF_THE_HESPERIDES) {
+        || obj->oartifact == ART_WALLET_OF_PERSEUS) {
         char *outbuf = shk_your(nextobuf(), obj);
         int space_left = BUFSZ - 1 - strlen(outbuf);
 
@@ -2306,7 +2306,7 @@ struct obj *obj;
             && obj->oartifact != ART_GJALLAR)
         || obj->oartifact == ART_DRAGONBANE
         || obj->oartifact == ART_MAGIC___BALL
-        || obj->oartifact == ART_BAG_OF_THE_HESPERIDES) {
+        || obj->oartifact == ART_WALLET_OF_PERSEUS) {
         char *outbuf = shk_your(nextobuf(), obj);
         int space_left = BUFSZ - 1 - strlen(outbuf);
 
@@ -5107,7 +5107,6 @@ struct obj *no_wish;
             /* non-wishable artifacts (wizmode only) */
             case ART_MAGIC___BALL:
             case ART_LIFESTEALER:
-            case ART_BAG_OF_THE_HESPERIDES:
             case ART_BUTCHER:
             case ART_WAND_OF_ORCUS:
             case ART_EYE_OF_VECNA:

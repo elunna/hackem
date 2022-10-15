@@ -283,8 +283,7 @@ struct obj {
      || otmp->oartifact == ART_WAND_OF_ORCUS)
 
 #define non_wishable_artifact(otmp) \
-    (   otmp->oartifact == ART_BAG_OF_THE_HESPERIDES \
-     || otmp->oartifact == ART_BUTCHER \
+    (otmp->oartifact == ART_BUTCHER \
      || otmp->oartifact == ART_EYE_OF_VECNA \
      || otmp->oartifact == ART_HAND_OF_VECNA \
      || otmp->oartifact == ART_LIFESTEALER \
@@ -406,7 +405,7 @@ struct obj {
    excludes statues, which aren't vulernable to water even when cursed */
 #define Waterproof_container(o) \
     ((o)->otyp == OILSKIN_SACK || (o)->otyp == ICE_BOX || Is_box(o) \
-     || (o)->oartifact == ART_BAG_OF_THE_HESPERIDES)
+     || (o)->oartifact == ART_WALLET_OF_PERSEUS)
 
 /* dragon gear
  * NOTE: this assumes that gray dragons come first and yellow last, as detailed

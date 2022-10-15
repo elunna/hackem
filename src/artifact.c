@@ -219,7 +219,7 @@ xchar m;
         return PLATINUM;
         break;
     case ART_DRAGONBANE:
-    case ART_BAG_OF_THE_HESPERIDES:
+    case ART_WALLET_OF_PERSEUS:
         return DRAGON_HIDE;
         break;
     case ART_SPOON_OF_LIBERATION:

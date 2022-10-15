@@ -385,7 +385,6 @@ struct obj *obj;
     case ART_WAND_OF_ORCUS:
         lair = &orcus_level;
         break;
-    case ART_BAG_OF_THE_HESPERIDES:
     case ART_LIFESTEALER:
     case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:

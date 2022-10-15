@@ -65,8 +65,8 @@ STATIC_DCL void NDECL(del_soko_prizes);
 static NEARDATA struct obj *current_container;
 static NEARDATA boolean abort_looting;
 #define Icebox (current_container->otyp == ICE_BOX)
-#define BotH (current_container->oartifact == ART_BAG_OF_THE_HESPERIDES)
-#define tipBotH (targetbox->oartifact == ART_BAG_OF_THE_HESPERIDES)
+#define BotH (current_container->oartifact == ART_WALLET_OF_PERSEUS)
+#define tipBotH (targetbox->oartifact == ART_WALLET_OF_PERSEUS)
 
 static const char
         moderateloadmsg[] = "You have a little trouble lifting",
@@ -2542,7 +2542,7 @@ register struct obj *obj;
             do_boh_explosion(obj, (obj->where == OBJ_FLOOR));
         obfree(obj, (struct obj *) 0);
         livelog_printf(LL_ACHIEVE, "just blew up %s %s", uhis(),
-                       BotH ? "Bag of the Hesperides" : "bag of holding");
+                       BotH ? "Wallet of Perseus" : "bag of holding");
         /* if carried, shop goods will be flagged 'unpaid' and obfree() will
            handle bill issues, but if on floor, we need to put them on bill
            before deleting them (non-shop items will be flagged 'no_charge') */
@@ -3713,7 +3713,7 @@ struct obj *box; /* or bag */
                         useupf(targetbox, targetbox->quan);
 
                     livelog_printf(LL_ACHIEVE, "just blew up %s %s", uhis(),
-                                   tipBotH ? "Bag of the Hesperides" : "bag of holding");
+                                   tipBotH ? "Wallet of Perseus" : "bag of holding");
 
                     if (tipBotH)
                         losehp(Maybe_Half_Phys(d(12, 12)), "exploding magical artifact bag", KILLED_BY_AN);
