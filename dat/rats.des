@@ -15,6 +15,7 @@ ROOM: "ordinary" , unlit, random, random, (16,8) {
     OBJECT: ('[',"elven boots"),(8,4)
     OBJECT: ('%',"cheese"),(8,4)
     OBJECT: ('%',"cheese"),(8,4)
+    OBJECT: ('(',"bag of rats"),(8,4)
     OBJECT: '/',(8,4)
     OBJECT: '!',(8,4)
 
