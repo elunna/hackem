@@ -138,10 +138,9 @@ do_statusline2()
     hpmax = Upolyd ? u.mhmax : u.uhpmax;
     if (hp < 0)
         hp = 0;
-    Sprintf(hlth, "HP:%d(%d) Pw:%d(%d) AC:%-2d MC:%d TH:%-2d",
+    Sprintf(hlth, "HP:%d(%d) Pw:%d(%d) AC:%-2d MC:%d",
             min(hp, 9999), min(hpmax, 9999),
-            min(u.uen, 9999), min(u.uenmax, 9999), u.uac,
-            magic_negation(&youmonst), botl_hitbonus());
+            min(u.uen, 9999), min(u.uenmax, 9999), u.uac, magic_negation(&youmonst));
     hln = strlen(hlth);
 
     /* experience */
@@ -586,7 +585,6 @@ STATIC_VAR struct istat_s initblstats[MAXBLSTATS] = {
     INIT_BLSTATP("experience-level", " Xp:%s", ANY_INT, 10, BL_EXP, BL_XP),
     INIT_BLSTAT("armor-class", " AC:%s", ANY_INT, 10, BL_AC),
     INIT_BLSTAT("magic-neg", " MC:%s", ANY_INT, 10, BL_MC),
-    INIT_BLSTAT("to-hit", " TH:%s", ANY_INT, 10, BL_TOHIT),
     INIT_BLSTAT("HD", " HD:%s", ANY_INT, 10, BL_HD),
     INIT_BLSTAT("time", " T:%s", ANY_LONG, 20, BL_TIME),
     /* hunger used to be 'ANY_UINT'; see note below in bot_via_windowport() */
@@ -743,9 +741,6 @@ bot_via_windowport()
 
     /* Magic negation */
     blstats[idx][BL_MC].a.a_int = magic_negation(&youmonst);
-
-    /* To-hit bonus */
-    blstats[idx][BL_TOHIT].a.a_int = botl_hitbonus();
 
     /* Monster level (if Upolyd) */
     blstats[idx][BL_HD].a.a_int = Upolyd ? (int) mons[u.umonnum].mlevel : 0;
@@ -1496,7 +1491,6 @@ static struct fieldid_t {
     { "xplvl",    BL_XP },
     { "ac",       BL_AC },
     { "mc",       BL_MC },
-    { "tohit",    BL_TOHIT },
     { "hit-dice", BL_HD },
     { "turns",    BL_TIME },
     { "hp",       BL_HP },
@@ -2220,11 +2214,10 @@ boolean from_configfile;
 
             op = gt ? ">" : ge ? ">=" : lt ? "<" : le ? "<=" : "=";
             if (dt == ANY_INT
-                /* AC and TOHIT are the only fields where negative values
-                   make sense but accept >-1 for other fields; reject <0
-                   for non-AC */
+                /* AC is the only field where negative values make sense but
+                   accept >-1 for other fields; reject <0 for non-AC */
                 && (hilite.value.a_int
-                    < ((fld == BL_AC || fld == BL_TOHIT) ? -128 : gt ? -1 : lt ? 1 : 0)
+                    < ((fld == BL_AC) ? -128 : gt ? -1 : lt ? 1 : 0)
                 /* percentages have another more comprehensive check below */
                     || hilite.value.a_int > (percent ? (lt ? 101 : 100)
                                                      : LARGEST_INT))) {
@@ -3323,9 +3316,9 @@ choose_value:
             if (!index(numstart, '%'))
                 Strcat(numstart, "%");
 
-        /* reject negative values except for AC/TOHIT and >-1; reject 0 for < */
+        /* reject negative values except for AC and >-1; reject 0 for < */
         } else if (dt == ANY_INT
-                   && (aval.a_int < ((fld == BL_AC || fld == BL_TOHIT) ? -128
+                   && (aval.a_int < ((fld == BL_AC) ? -128
                                      : (lt_gt_eq == GT_VALUE) ? -1
                                        : (lt_gt_eq == LT_VALUE) ? 1 : 0))) {
             pline("%s'%s%d'%s", threshold_value,
@@ -3341,7 +3334,7 @@ choose_value:
 
         if (lt_gt_eq == NO_LTEQGT) {
             boolean ltok = ((dt == ANY_INT)
-                            ? (aval.a_int > 0 || fld == BL_AC || fld == BL_TOHIT)
+                            ? (aval.a_int > 0 || fld == BL_AC)
                             : (aval.a_long > 0L)),
                     gtok = (!percent || aval.a_long < 100);
 
