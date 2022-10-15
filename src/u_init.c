@@ -28,11 +28,14 @@ STATIC_DCL boolean FDECL(restricted_spell_discipline, (int));
  */
 
 struct trobj Archeologist[] = {
+#define A_BOOK          4
     /* if adventure has a name...  idea from tan@uvm-gen */
     { BULLWHIP, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
     { JACKET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FEDORA, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 3, 0 },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },        
+    { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 2, UNDEF_BLESS },
     { PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { TOUCHSTONE, 0, GEM_CLASS, 1, 0 },
@@ -45,7 +48,7 @@ struct trobj Barbarian[] = {
     { TWO_HANDED_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { AXE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { RING_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { FOOD_RATION, 0, FOOD_CLASS, 1, 0 },
+    { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Cave_man[] = {
@@ -82,6 +85,7 @@ struct trobj Healer[] = {
     { SCALPEL, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { GLOVES, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { STETHOSCOPE, 0, TOOL_CLASS, 1, 0 },
+    /* Missing medical kit */
     { POT_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { POT_EXTRA_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { WAN_SLEEP, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
@@ -168,7 +172,7 @@ static struct trobj Necromancer[] = {
 struct trobj Priest[] = {
     { MACE, 1, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { SMALL_SHIELD, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { SMALL_SHIELD, 2, ARMOR_CLASS, 1, UNDEF_BLESS },
     { POT_WATER, 0, POTION_CLASS, 4, 1 }, /* holy water */
     { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 1, 0 },
     { SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 1, 0 },
@@ -189,12 +193,16 @@ struct trobj Ranger[] = {
 };
 struct trobj Rogue[] = {
 #define R_DAGGERS 1
+#define R_DARTS   2
     { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 10, 0 }, /* quan is variable */
+    { DART, 0, WEAPON_CLASS, 25, UNDEF_BLESS },
     { LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { POT_SICKNESS, 0, POTION_CLASS, 1, 0 },
+    { SCR_GOLD_DETECTION, 0, SCROLL_CLASS, 2, 1 },
+    { SCR_TELEPORTATION, 0, SCROLL_CLASS, 2, 1 },
     { LOCK_PICK, 0, TOOL_CLASS, 1, 0 },
-    { SACK, 0, TOOL_CLASS, 1, 0 },
+    { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Samurai[] = {
@@ -209,9 +217,9 @@ struct trobj Samurai[] = {
 struct trobj Tourist[] = {
 #define T_DARTS 0
     { DART, 2, WEAPON_CLASS, 25, UNDEF_BLESS }, /* quan is variable */
-    { UNDEF_TYP, UNDEF_SPE, FOOD_CLASS, 10, 0 },
+    { UNDEF_TYP, UNDEF_SPE, FOOD_CLASS, 12, 0 },
     { POT_EXTRA_HEALING, 0, POTION_CLASS, 2, UNDEF_BLESS },
-    { SCR_MAGIC_MAPPING, 0, SCROLL_CLASS, 4, UNDEF_BLESS },
+    { SCR_MAGIC_MAPPING, 0, SCROLL_CLASS, 6, UNDEF_BLESS },
     { HAWAIIAN_SHIRT, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { EXPENSIVE_CAMERA, UNDEF_SPE, TOOL_CLASS, 1, 0 },
     { CREDIT_CARD, 0, TOOL_CLASS, 1, 0 },
@@ -1015,9 +1023,17 @@ u_init()
      * skew the results if we use rn2(2)...  --KAA
      */
     case PM_ARCHEOLOGIST:
+        switch (rnd(5)) {   
+        case 1: Archeologist[A_BOOK].trotyp = SPE_DETECT_FOOD; break;
+        case 2: Archeologist[A_BOOK].trotyp = SPE_DETECT_MONSTERS; break;
+        case 3: Archeologist[A_BOOK].trotyp = SPE_LIGHT; break;
+        case 4: Archeologist[A_BOOK].trotyp = SPE_KNOCK; break;
+        case 5: Archeologist[A_BOOK].trotyp = SPE_WIZARD_LOCK; break;
+        default: break;
+        }
         ini_inv(Archeologist);
         if (!rn2(10))
-            ini_inv(Tinopener);
+            (rn2(100) > 50 ? ini_inv(Lamp) : ini_inv(Torch));
         else if (!rn2(2))
             ini_inv(Lamp);
         knows_object(SACK);
@@ -1034,7 +1050,7 @@ u_init()
         }
         ini_inv(Barbarian);
         if (!rn2(6))
-            ini_inv(Lamp);
+            ini_inv(Torch);
         if (Race_if(PM_GIANT)) {
             struct trobj RandomGem = Gem[0];
             while (!rn2(3)) {
@@ -1119,7 +1135,15 @@ u_init()
             force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(25))
             ini_inv(Lamp);
+        /* --hackem: Naturally familiar with these potions in their work */
+        knows_object(POT_SICKNESS);
+        knows_object(POT_PARALYSIS);
+        knows_object(POT_SLEEPING);
+        knows_object(POT_REGENERATION);
+        knows_object(POT_RESTORE_ABILITY);
         knows_object(POT_FULL_HEALING);
+        knows_object(POT_BLOOD);
+        knows_object(HEALTHSTONE);	/* KMH */
         knows_object(HEALTHSTONE);	/* KMH */
         skill_init(Skill_H);
         break;
@@ -1184,6 +1208,7 @@ u_init()
         if (!rn2(4))
             ini_inv(Lamp);
         knows_object(POT_WATER);
+        
         if (Race_if(PM_GIANT)) {
             struct trobj RandomGem = Gem[0];
             while (!rn2(6)) {
@@ -1211,11 +1236,17 @@ u_init()
         break;
     case PM_ROGUE:
         Rogue[R_DAGGERS].trquan = rn1(10, 6);
+        Rogue[R_DARTS].trquan = rn1(10, 25);
+        if (rn2(100) < 30) {
+            Rogue[R_DAGGERS].trotyp = PISTOL;
+            Rogue[R_DAGGERS].trquan = 1;
+            Rogue[R_DARTS].trotyp = BULLET;
+        }
         u.umoney0 = 0;
         ini_inv(Rogue);
         if (!rn2(5))
             ini_inv(Blindfold);
-        knows_object(SACK);
+        knows_object(OILSKIN_SACK);
         skill_init(Skill_R);
         break;
     case PM_SAMURAI:
@@ -1239,7 +1270,7 @@ u_init()
         break;
     case PM_TOURIST:
         Tourist[T_DARTS].trquan = rn1(20, 21);
-        u.umoney0 = rnd(1000);
+        u.umoney0 = rn1(500, 1000);
         ini_inv(Tourist);
         if (!rn2(25))
             ini_inv(Tinopener);
@@ -1282,7 +1313,7 @@ u_init()
     case PM_VALKYRIE:
         ini_inv(Valkyrie);
         if (!rn2(6))
-            ini_inv(Lamp);
+            (rn2(100) > 50 ? ini_inv(Lamp) : ini_inv(Torch));
         if (Race_if(PM_GIANT)) {
             struct trobj RandomGem = Gem[0];
             while (!rn2(3)) {
