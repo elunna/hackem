@@ -4158,14 +4158,6 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(700, 120, MS_HUMANOID, MZ_SMALL), 0, 0, M1_HUMANOID | M1_OMNIVORE,
         M2_MAGIC, M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_GNOME, 5, HI_ZAP),
-    MON("gnomish psyker", S_GNOME,                            /* SpliceHack */
-        LVL(3, 10, 4, 10, 0), (G_GENO | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(700, 120, MS_ORC, MZ_SMALL), MR_PSYCHIC, 0,
-        M1_HUMANOID | M1_OMNIVORE,
-        M2_MAGIC, M3_INFRAVISIBLE | M3_INFRAVISION, 
-        0, MH_GNOME, 5, CLR_BRIGHT_MAGENTA),
     MON("deep gnome", S_GNOME,                                  /* Slash'EM */
         LVL(5, 10, 10, 20, 0), (G_HELL | G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 6), 
