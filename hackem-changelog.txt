@@ -2086,3 +2086,109 @@ Increased frequency of unicorns slightly.
 [x] Get rid of gnomish psykers - they don't fit yet.
 [x] Rebalanced Undead slayer skills a bit: 
 	
+
+	[x] Remove the to-hit display
+	
+	- After a while of using a wielded weapon, you will identify it and it's enchantment
+	- MC is now displayed on the status bar.
+	[x] Remove Magic 8 ball wish granting.
+[x] Vampires e both regen and hunger at level 5
+
+[x] Black rats cannot be genocided.
+  [x] The rat king level generates in 25% of games, rather than 50%.
+  [x] Rat level Contains a guaranteed bag of rats.
+
+[x] Replaced the Bag of the Hesperides with wallet of perseus
+	Keeps MC1 and oilskin properties, can wish for.
+	
+	[x] Make sure vampires don't spawn with food
+
+[x] Bring back vanilla wand wresting behavior (halve it to 61)
+	Went with an in-between behavior
+	blessed = 1 in 7
+	uc = 1 in 23
+	cursed = 1 in 121.
+	
+[x] Pimp out the starting roles more like slashem does: ex priest gets more stuff
+	Arc starts with 2 spellbooks; can start with torch or lamp
+	Barbs start with 2 food rations
+	Priest gets a +2 shield
+	Rogues get scrolls of teleport and gold detection (2 each) and oilskin sack
+	Rogues also get darts; 30% that they are replaced with a pistol and bullets.
+	Tourists get 2 extra magic maps, 2 extra food.	
+	Healer are familiar with more health based potions
+[x] Tourists start with all of their optional equipment. The magic marker that a tourist starts with is always 0:0.
+
+	[FIXED] Monsters (dwarves/gnomes) being generated with cream pies, rubber hoses.
+
+[x] Vampiric cannot be polymorphed into.
+[x] Race_if(PM_VAMPIRE) -> Race_if(PM_VAMPIRIC)
+	Check how Race_if works..
+[FIXED] Potions of vampire blood don't poly vampirics
+[FIXED] New problem: Quaffing a potion of vampire blood as a "vampiric" turns you into a vampire
+
+	[FIXED] Vampires still getting magic attacks from their player monster forms
+
+	[FIXED] Pet food problems
+
+[FIXED] Can break wands of cold to create ice traps.
+[NOT A BUG] We can drain the blood from a corpse in a pit.
+[x] Don't autowield torches on apply.
+
+
+Wand Breaking:
+	Death/Lightning/Sonics/acid/poisongas/wind/striking - none
+	
+	Wand of Cold 		-> Ice Trap
+	Wand of Opening 	-> Trap Door
+	Wand of Fire 		-> Fire trap
+	Wand of fireball 	-> Fire trap
+	magic missile 		-> Magic trap
+	teleport 			-> teleport trap
+	poly 				-> poly trap
+	sleep 				-> sleeping gas trap
+	cancel 				-> antimagic trap
+	digging 			-> creates holes/pits
+	water				-> rust trap
+
+
+
+
+[x] Update database reference for wizard
+[x] Add database ref for necromancer
+[x] Add database ref for flame mage
+[x] Add database ref for ice mage
+[x] Add database ref for undead slayer
+[x] Add database ref for yeoman
+
+
+	Recipes for new weapons: 
+	
+		[x] throwing axes: axe + dagger
+		[x] parazonium: dagger + knife
+		[x] great dagger: parazonium + knife
+		[x] gladius: broadsword + short sword
+		[x] executioner's mace: heavy mace + mace
+		
+		[x] submachine gun: pistol + iron chain
+		[x] heavy machine gun: submachine gun + iron chain
+		[x] rifle: pistol + crossbow
+		[x] sniper rifle: rifle + iron chain
+		[x] shotgun: pistol + broadsword
+		[x] auto shotgun: shotgun + iron chain
+		[x] tower shield: large shield + small shield
+		[x] wooden stake: quarterstaff + dagger
+		
+			
+	[x] Include recipes as a database lookup
+	[x] The recipes (and upgrades) are a HUGE part of the game, makes it more fun - so I want to make it as accessible as possible
+	[x] Move Blacksmith cookbook from tribute novels to database
+
+		
+[x] Make throwing axes 4/5 instead, +2 to hit, weighs 20. More rare.
+[x] Fix executioner mace stats; executioner's mace doesn't generate randomly. 
+[x] Make the Wooden Stake into a plain "stake" (for object materials). Stake of Van Helsing will always be wooden.
+[x] Made chakram dmg 11 vs small, 10 vs lg, and +1 tohit. Decreased probability to half of boomerang.
+[x] Poisonous cloak can be upgraded to alchemy smock
+[x]	Removed all droven items and drow (I don't plan on implementing the drow race for a while); changed Plague to an orcish bow.
+

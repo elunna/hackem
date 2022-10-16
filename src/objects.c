@@ -465,7 +465,7 @@ HELM("helm of speed", "winged helmet",                         /* EvilHack */
 HELM("tinfoil hat", "fearsome helmet",                     /* SpliceHack/Un */
      0, 1, PSYCHIC_RES,  2, 1, 50, 50,  9, 0, IRON, CLR_YELLOW),
 HELM("helm of madness", "top hat",                           /* SpliceHack/Un */
-     0, 1, HALLUC,  2, 1, 50, 50,  9, 0, CLOTH, CLR_BLACK),
+     0, 1, HALLUC,       2, 1, 50, 50,  9, 0, CLOTH, CLR_BLACK),
 HELM("helm of telepathy", "visored helmet",
      0, 1,     TELEPAT,  2, 1, 50, 50,  9, 0, IRON, HI_METAL),
 
@@ -576,7 +576,6 @@ CLOAK("poisonous cloak", "dirty rag",                           /* Slash'EM */
       0, 1,          0,  5, 0, 10, 60, 10, 2, CLOTH, CLR_BLACK),
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
-
 
 /* shields */
 SHIELD("small shield", None,
