@@ -3624,6 +3624,9 @@ register struct obj *obj;
             else
                 obj->otyp = ELVEN_CLOAK;
             break;
+        case POISONOUS_CLOAK:
+            obj->otyp = ALCHEMY_SMOCK;
+            break;
         case OILSKIN_CLOAK:
         case ELVEN_CLOAK:
             switch (rn2(4)) {
