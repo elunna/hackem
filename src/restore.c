@@ -632,8 +632,7 @@ unsigned int *stuckid, *steedid, *fearedmonid;
     /* current time is the time to use for next urealtime.realtime update */
     urealtime.start_timing = getnow();
 
-    /*set_uasmon();*/
-    init_uasmon();
+    set_uasmon();
     
 #ifdef CLIPPING
     cliparound(u.ux, u.uy);

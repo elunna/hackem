@@ -987,8 +987,7 @@ u_init()
                                  ? urole.femalenum
                                  : urole.malenum;
     u.ulycn = NON_PM;
-    /*set_uasmon();*/
-    init_uasmon();
+    set_uasmon();
 
     u.ulevel = 0; /* set up some of the initial attributes */
     u.uhp = u.uhpmax = newhp();

@@ -36,55 +36,26 @@ STATIC_VAR const char no_longer_petrify_resistant[] =
    change sex (ought to be an arg to polymon() and newman() instead) */
 STATIC_VAR int sex_change_ok = 0;
 
-
-/* Assumes u.umonster is set up already */
-/* Use u.umonster since we might be restoring and you may be polymorphed */
-void
-init_uasmon()
-{
-    int i;
-    upermonst = mons[u.umonster];
-
-    /* Fix up the flags */
-    /* Default flags assume human, so replace with your race's flags */
-
-    upermonst.mflags1 &= ~(mons[PM_HUMAN].mflags1);
-    upermonst.mflags1 |= (mons[urace.malenum].mflags1);
-
-    upermonst.mflags2 &= ~(mons[PM_HUMAN].mflags2);
-    upermonst.mflags2 |= (mons[urace.malenum].mflags2);
-
-    upermonst.mflags3 &= ~(mons[PM_HUMAN].mflags3);
-    upermonst.mflags3 |= (mons[urace.malenum].mflags3);
-    
-    upermonst.mflags4 &= ~(mons[PM_HUMAN].mflags4);
-    upermonst.mflags4 |= (mons[urace.malenum].mflags4);
-    
-    /* Fix up the attacks */
-    /* crude workaround, needs better general solution */
-    if (Race_if(PM_VAMPIRIC)) {
-        for (i = 0; i < NATTK; i++) {
-            upermonst.mattk[i] = mons[urace.malenum].mattk[i];
-        }
-    }
-    
-    /* Fix mflags because of impossible mixing of role and race flags */
-    if (Role_if(PM_MONK)) {
-        /* monks are declared herbivorous */
-        upermonst.mflags1 &= ~M1_CARNIVORE;
-    }
-	
-    set_uasmon();
-}
-
 /* update the youmonst.data structure pointer and intrinsics */
 void
 set_uasmon()
 {
+    upermonst = mons[u.umonster];
     struct permonst *mdat = &mons[u.umonnum];
     struct permonst *racedat; /* for infravision, flying */
+#if 0 /* For debugging vampires */
+    debug_pline("u.umonster = %d", u.umonster);
+    debug_pline("urace.malenum = %d", urace.malenum);
+    debug_pline("monsndx(upermonst) = %d", monsndx(&upermonst));
+    debug_pline("mdat->name = %s", mdat->mname);
+#endif
     
-    set_mon_data(&youmonst, mdat);
+    if (Race_if(PM_VAMPIRIC)) {
+        set_mon_data(&youmonst, &mons[PM_VAMPIRIC]);
+    }
+    else 
+        set_mon_data(&youmonst, mdat);
+    
     racedat = raceptr(&youmonst);
     
 #define PROPSET(PropIndx, ON)                          \
