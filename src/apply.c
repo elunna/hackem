@@ -4571,7 +4571,6 @@ struct obj *obj;
         if (expltype == EXPL_MAGICAL)
             expltype = EXPL_FROSTY;
         dmg *= 2;
-#if 0 /* Import ice traps from Un */
         /* make ice trap if you broke a wand of cold */
         if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
             !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
@@ -4588,9 +4587,7 @@ struct obj *obj;
                 }
             }
         }
-#endif
         break;
-        
     case WAN_MAGIC_MISSILE:
     wanexpl:
         explode(u.ux, u.uy, -(obj->otyp), dmg, WAND_CLASS, expltype);
