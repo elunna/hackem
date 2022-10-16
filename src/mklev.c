@@ -999,7 +999,7 @@ makelevel()
         else if (u_depth > 17 && !rn2(12)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))
             mkroom(NURSERY);
-         else if (u_depth > 25 && !rn2(20) 
+         else if (u_depth > 18 && !rn2(20) 
                  && !(mvitals[PM_MIGO_DRONE].mvflags & G_GONE))
             mkroom(MIGOHIVE);
     }
