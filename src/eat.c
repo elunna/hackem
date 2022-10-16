@@ -43,7 +43,7 @@ STATIC_DCL boolean FDECL(maybe_cannibal, (int, BOOLEAN_P));
 char msgbuf[BUFSZ];
 
 /* also used to see if you're allowed to eat cats and dogs */
-#define CANNIBAL_ALLOWED() (Role_if(PM_CAVEMAN) || Race_if(PM_ORC) || Race_if(PM_VAMPIRE))
+#define CANNIBAL_ALLOWED() (Role_if(PM_CAVEMAN) || Race_if(PM_ORC) || Race_if(PM_VAMPIRIC))
 
 /* monster types that cause hero to be turned into stone if eaten */
 #define flesh_petrifies(pm) (touch_petrifies(pm) || (pm) == &mons[PM_MEDUSA])
@@ -502,7 +502,7 @@ boolean message;
         if (has_omonst(piece) && has_erac(OMONST(piece)))
             cpostfx(ERAC(OMONST(piece))->rmnum);
         
-        else if (!piece->odrained || Race_if(PM_VAMPIRE) && !rn2(5))
+        else if (!piece->odrained || Race_if(PM_VAMPIRIC) && !rn2(5))
             cpostfx(piece->corpsenm);
         else
             cpostfx(piece->corpsenm);
@@ -1874,7 +1874,7 @@ rottenfood(obj)
 struct obj *obj;
 {
     pline("Blecch!  Rotten %s!",
-          Race_if(PM_VAMPIRE) ? "blood" : foodword(obj));
+          Race_if(PM_VAMPIRIC) ? "blood" : foodword(obj));
     
     if (!rn2(4)) {
         if (Hallucination)

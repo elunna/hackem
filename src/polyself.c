@@ -62,7 +62,7 @@ init_uasmon()
     
     /* Fix up the attacks */
     /* crude workaround, needs better general solution */
-    if (Race_if(PM_VAMPIRE)) {
+    if (Race_if(PM_VAMPIRIC)) {
         for (i = 0; i < NATTK; i++) {
             upermonst.mattk[i] = mons[urace.malenum].mattk[i];
         }
@@ -786,7 +786,7 @@ int mntmp;
     
     if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
         !strcmp(s, "opera cloak") &&
-        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         ABON(A_CHA) -= 1;
         context.botl = 1;
     }
@@ -807,7 +807,7 @@ int mntmp;
 
     if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
         !strcmp(s, "opera cloak") &&
-        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         You("%s very impressive in your %s.", Blind ||
             (Invis && !See_invisible) ? "feel" : "look",
             OBJ_DESCR(objects[uarmc->otyp]));

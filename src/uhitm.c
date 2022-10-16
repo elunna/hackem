@@ -573,7 +573,7 @@ register struct monst *mtmp;
         return FALSE;
     }
 
-    if (Upolyd || Race_if(PM_VAMPIRE))
+    if (Upolyd || Race_if(PM_VAMPIRIC))
         (void) hmonas(mtmp, NON_PM, TRUE);
     else
         (void) hitum(mtmp, youmonst.data->mattk);
@@ -2921,7 +2921,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             /* Player vampires are smart enough not to feed while
                            biting if they might have trouble getting it down */
             if (maybe_polyd(is_vampiric(youmonst.data),
-                Race_if(PM_VAMPIRE)) && u.uhunger <= 1420 &&
+                Race_if(PM_VAMPIRIC)) && u.uhunger <= 1420 &&
                 mattk->aatyp == AT_BITE && has_blood(pd)) {
                 /* For the life of a creature is in the blood (Lev 17:11) */
                 if (flags.verbose)

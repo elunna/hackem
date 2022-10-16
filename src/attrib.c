@@ -599,7 +599,7 @@ exerper()
         debugpline0("exerper: Hunger checks");
         switch (hs) {
         case SATIATED:
-            if (!Race_if(PM_VAMPIRE))  /* undead */
+            if (!Race_if(PM_VAMPIRIC))  /* undead */
                 exercise(A_DEX, FALSE);
             if (Role_if(PM_MONK))
                 exercise(A_WIS, FALSE);

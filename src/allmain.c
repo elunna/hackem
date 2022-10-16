@@ -108,7 +108,7 @@ orc_can_regen()
 boolean
 vamp_can_regen()
 {
-    if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+    if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         if (uwep && is_silver(uwep)
             && !is_quest_artifact(uwep) && !uarmg)
             return 0;

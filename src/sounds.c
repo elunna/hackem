@@ -674,7 +674,7 @@ register struct monst *mtmp;
         boolean kindred = maybe_polyd(u.umonnum == PM_VAMPIRE 
                                       || u.umonnum == PM_VAMPIRE_LORD,
                                       /* DEFERRED u.umonnum == PM_VAMPIRE_MAGE, */
-                                      Race_if(PM_VAMPIRE));
+                                      Race_if(PM_VAMPIRIC));
         boolean nightchild =
             (Upolyd && (u.umonnum == PM_WOLF \
                      || u.umonnum == PM_WINTER_WOLF \

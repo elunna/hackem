@@ -563,12 +563,10 @@ boolean devour;
                 pline("%s digs in.", noit_Monnam(mtmp));
             else
                 pline("%s %s %s.", noit_Monnam(mtmp),
-                      /*devour ? "devours" : "eats", */
                       vampiric ? "drains" : devour ? "devours" : "eats",
                       distant_name(obj, doname));
         } else if (seeobj)
-            pline("It %s %s.", 
-                  /*devour ? "devours" : "eats",*/
+            pline("It %s %s.",
                   vampiric ? "drains" : devour ? "devours" : "eats",
                   distant_name(obj, doname));
     }

@@ -4656,7 +4656,7 @@ crawl:
     You("drown.");
     
     /* [ALI] Vampires return to vampiric form on drowning. */
-    if (Upolyd && !Unchanging && Race_if(PM_VAMPIRE)) {
+    if (Upolyd && !Unchanging && Race_if(PM_VAMPIRIC)) {
         rehumanize();
         u.uinwater = 0;
         /* should be unnecessary as spoteffects() should get called */

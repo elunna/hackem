@@ -1578,7 +1578,7 @@ no_rise:
             } else if (u.ualign.type == A_NEUTRAL)
                 adjalign(-3);
             exercise(A_CON, FALSE);
-            if (Race_if(PM_VAMPIRE)) {
+            if (Race_if(PM_VAMPIRIC)) {
                 if (!Unchanging) 
                     rehumanize();
                 break;
@@ -2469,7 +2469,7 @@ register struct obj *obj;
         break;
     case POT_BLOOD:
     case POT_VAMPIRE_BLOOD:
-        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
             exercise(A_WIS, FALSE);
             You_feel("a %ssense of loss.",
                      obj->otyp == POT_VAMPIRE_BLOOD ? "terrible " : "");

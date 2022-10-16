@@ -492,7 +492,7 @@ Cloak_on(VOID_ARGS)
     const char* cloak_desc = OBJ_DESCR(objects[uarmc->otyp]);
     if (cloak_desc != (char *)0 &&
           !strcmp(cloak_desc, "opera cloak") &&
-          maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+          maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         You("%s very impressive in it.", Blind || (Invis && !See_invisible)
                                              ? "feel" : "look");
         ABON(A_CHA) += 1;
@@ -570,7 +570,7 @@ Cloak_off(VOID_ARGS)
     const char* cloak_desc = OBJ_DESCR(objects[otyp]);
     if (cloak_desc != (char *)0 &&
         !strcmp(cloak_desc, "opera cloak") &&
-        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         ABON(A_CHA) -= 1;
         context.botl = 1;
     }
