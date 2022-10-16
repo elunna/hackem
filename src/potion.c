@@ -1541,7 +1541,7 @@ no_rise:
     case POT_VAMPIRE_BLOOD:
         unkn++;
         u.uconduct.unvegan++;
-        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRE))) {
+        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
             violated_vegetarian();
             if (otmp->cursed)
                 pline("Yecch!  This %s.", Hallucination 
