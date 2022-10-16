@@ -1519,9 +1519,9 @@ register int after;
                             && otmp->material != MINERAL)
                         || (conceals && !cansee(otmp->ox, otmp->oy))
                         || (is_bigeater(ptr)
-                             && !index(indigestion, otmp->oclass)
-                             && !(otmp->otyp == CORPSE
-                                  && touch_petrifies(&mons[otmp->corpsenm]))))))
+                                  && !index(indigestion, otmp->oclass))))
+                         && !((otmp->otyp == CORPSE
+                               && touch_petrifies(&mons[otmp->corpsenm]))))
                         && touch_artifact(otmp, mtmp)) {
                         if (((can_carry(mtmp, otmp) > 0 || (Is_container(otmp)))
                             && ((racial_throws_rocks(mtmp)) || !sobj_at(BOULDER, xx, yy)))
