@@ -741,12 +741,10 @@ static NEARDATA const int rwep[] = {
     SHURIKEN, 
     LIGHT_ARROW,
     YA, 
-    ELVEN_ARROW, 
-    DROVEN_ARROW, 
+    ELVEN_ARROW,
     ARROW,
     ORCISH_ARROW, 
-    CROSSBOW_BOLT, 
-    DROVEN_DAGGER, 
+    CROSSBOW_BOLT,
     ELVEN_DAGGER,
     DAGGER, 
     ORCISH_DAGGER, 
@@ -923,8 +921,6 @@ register struct monst *mtmp;
                     propellor = oselect(mtmp, YUMI);
                 if (!propellor)
                     propellor = oselect(mtmp, ELVEN_BOW);
-                if (!propellor) 
-                    propellor = oselect(mtmp, DROVEN_BOW);
                 if (!propellor)
                     propellor = oselect(mtmp, BOW);
                 if (!propellor)
@@ -1036,7 +1032,6 @@ static const NEARDATA short hwep[] = {
     BROADSWORD, 
     SCIMITAR, 
     MORNING_STAR,
-    DROVEN_SHORT_SWORD,
     ELVEN_SHORT_SWORD, 
     DWARVISH_SHORT_SWORD, 
     SHORT_SWORD, 
@@ -1056,8 +1051,7 @@ static const NEARDATA short hwep[] = {
     PICK_AXE, 
     FLY_SWATTER, 
     RUBBER_HOSE, 
-    WAR_HAMMER, 
-    DROVEN_DAGGER, 
+    WAR_HAMMER,
     ELVEN_DAGGER, 
     DAGGER, 
     ORCISH_DAGGER, 

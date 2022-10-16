@@ -1896,7 +1896,6 @@ weapon f*
     
     dagger                  = knife + 2 arrows
     elven dagger            = knife + 2 elven arrows
-    droven dagger           = knife + 2 droven arrows
     orcish dagger           = knife + 2 orcish arrows
     athame                  = dagger + stiletto
     parazonium              = dagger + knife
@@ -1924,7 +1923,6 @@ weapon f*
     
     short sword             = dagger + 2 crossbow bolts 
     elven short sword       = elven dagger + 2 crossbow bolts
-    droven short sword      = droven dagger + 2 crossbow bolts
     orcish short sword      = orcish dagger + 2 crossbow bolts
     dwarvish short sword    = short sword + dwarvish spear
     gladius                 = short sword + broadsword

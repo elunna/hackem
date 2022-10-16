@@ -546,8 +546,6 @@ New Monsters (Imported or created):
 		- can start with Bone Clubs, bone aklys, axes or orcish spears.
 		- added a claw attack
 	- (@) elven wizard
-	- (@) drow 
-		- Added infravisible
 	- (@) mugger
 	- (@) black marketeer 
 		- added accurate behavior
@@ -848,19 +846,15 @@ Yellow DSM		acid res			stoning resistance		<<passive acid attack>> !!
 New items:
 
 New Weapons:
-	- [x] droven bow (previously "dark elven")
 	- [x] footbow/warped bow
-	- [x] droven arrow (previously "dark elven")
 	- [x] light arrow
 		Found only in archery shops
-	- [x] droven dagger (previously "dark elven")
 	- [x] great dagger	
 	- [x] parazonium
 	- [x] chakram (silver based boomerang)
 	- [x] throwing axe
 		- Does 1 less damage than a regular axe, but counts as a throwing weapon.
 		Lowered the weight of throwing axes to 40 and added +1 to-hit.
-	- [x] droven short sword (previously "dark elven")
 	- [X] gladius
 	- [x] falchion (heavy sword)
 		- Barbarians sometimes start with a falcion/scimitar
@@ -909,7 +903,6 @@ Armor:
 	- [x] light armor
 		- Replaces leather armor as part of the object materials system.
 	- [x] shimmering dragon scales (already in evil)
-	- [x] droven mithril-coat -> droven chain mail (previously "dark elven")
 	- [x] robe of protection
 	- [x] robe of power
 	- [x] robe of weakness

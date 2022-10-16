@@ -128,9 +128,6 @@ PROJECTILE("arrow", None,
            1, 67, 1, 2, 6, 6, 0,        IRON, -P_BOW, HI_METAL),
 PROJECTILE("elven arrow", "runed arrow",
            0, 20, 1, 2, 7, 6, 0,        WOOD, -P_BOW, HI_WOOD),
-/* Only generated in drow inventory */
-PROJECTILE("droven arrow", "black runed arrow",             /* Slash'EM */
-	    0,  0, 1, 2, 7, 6, 0,        WOOD, -P_BOW, CLR_BLACK),
 PROJECTILE("orcish arrow", "crude arrow",
            0, 20, 1, 2, 5, 6, 0,        IRON, -P_BOW, CLR_BLACK),
 PROJECTILE("ya", "long arrow",
@@ -179,9 +176,6 @@ WEAPON("dagger", None,
        1, 1, 0, 0, 33,  10,   4,  4,  3, 2, P,   P_DAGGER, IRON, HI_METAL),
 WEAPON("elven dagger", "runed dagger",
        0, 1, 0, 0, 10,   4,   4,  5,  3, 2, P,   P_DAGGER, WOOD, HI_WOOD),
-/* Only generated in drow inventory */
-WEAPON("droven dagger", "black runed dagger",               /* Slash'EM */
-       0, 1, 0, 0, 0,    4,   4,  5,  3, 2, P,   P_DAGGER, WOOD, CLR_BLACK),
 WEAPON("orcish dagger", "crude dagger",
        0, 1, 0, 0, 12,  10,   4,  3,  3, 2, P,   P_DAGGER, IRON, CLR_BLACK),
 WEAPON("athame", None,
@@ -222,8 +216,6 @@ WEAPON("short sword", None,
        1, 0, 0, 0,  8,  30,  10,  6,  8, 0, P,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("elven short sword", "runed short sword",
        0, 0, 0, 0,  2,  11,  10,  8,  8, 0, P,   P_SHORT_SWORD, WOOD, HI_WOOD),
-WEAPON("droven short sword", "black runed short sword",     /* Slash'EM */
-	0, 0, 0, 0,  2,  11,  10,  8,  8, 0, P,   P_SHORT_SWORD, WOOD, CLR_BLACK),
 WEAPON("orcish short sword", "crude short sword",
        0, 0, 0, 0,  3,  30,  10,  5,  8, 0, P,   P_SHORT_SWORD, IRON, CLR_BLACK),
 WEAPON("dwarvish short sword", "broad short sword",
@@ -384,8 +376,6 @@ WEAPON("fly swatter", None,                                /* Slash'EM */
 BOW("bow", None,               1, 1, 24, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("elven bow", "runed bow",  0, 1, 12, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("footbow", "warped bow",   0, 0, 30, 60, 0,  0, BONE, P_BOW, CLR_WHITE), /* SpliceHack */
-BOW("droven bow", "black runed bow", 0, 1, 0, 30, 60, 0, WOOD, P_BOW, CLR_BLACK), /* Slash'EM */
-
 BOW("orcish bow", "crude bow", 0, 1, 12, 30, 60, 0, WOOD, P_BOW, CLR_BLACK),
 BOW("yumi", "long bow",        0, 1,  0, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER),
@@ -524,8 +514,6 @@ ARMOR("dwarvish chain mail", None,
       1, 0, 0,  0, 12, 1, 200,  75,  4, 2,  ARM_SUIT, IRON, HI_METAL),
 ARMOR("elven chain mail", None,
       1, 0, 0,  0, 15, 1, 200,  75,  5, 2,  ARM_SUIT, COPPER, HI_COPPER),
-ARMOR("droven chain mail", None,
-      1, 0, 0,  0, 15, 1, 175,  75,  5, 2,  ARM_SUIT, COPPER, CLR_BLACK),
 ARMOR("orcish chain mail", "crude chain mail",
       0, 0, 0,  0, 20, 5, 200,  75,  6, 1,  ARM_SUIT, IRON, CLR_BLACK),
 ARMOR("scale mail", None,

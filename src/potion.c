@@ -3512,13 +3512,9 @@ register struct obj *obj;
             break;
         case GREAT_DAGGER:
         case DAGGER:
-            if (!rn2(2))
-                obj->otyp = ELVEN_DAGGER;
-            else
-                obj->otyp = DROVEN_DAGGER;
+            obj->otyp = ELVEN_DAGGER;
             break;
         case ELVEN_DAGGER:
-        case DROVEN_DAGGER:
             obj->otyp = GREAT_DAGGER;
             break;
         case KNIFE:
@@ -3543,15 +3539,11 @@ register struct obj *obj;
             obj->otyp = SHORT_SWORD;
             break;
         case ELVEN_SHORT_SWORD:
-        case DROVEN_SHORT_SWORD:
         case SHORT_SWORD:
             obj->otyp = DWARVISH_SHORT_SWORD;
             break;
         case DWARVISH_SHORT_SWORD:
-            if (!rn2(2))
-                obj->otyp = ELVEN_SHORT_SWORD;
-            else
-                obj->otyp = DROVEN_SHORT_SWORD;
+            obj->otyp = ELVEN_SHORT_SWORD;
             break;
         case BROADSWORD:
             obj->otyp = ELVEN_BROADSWORD;
@@ -3575,37 +3567,24 @@ register struct obj *obj;
             obj->otyp = WAR_HAMMER;
             break;
         case ELVEN_BOW:
-        case DROVEN_BOW:
         case YUMI:
         case ORCISH_BOW:
             obj->otyp = BOW;
             break;
         case BOW:
-            switch (rn2(3)) {
-            case 0: obj->otyp = ELVEN_BOW; break;
-            case 1: obj->otyp = DROVEN_BOW; break;
-            case 2: obj->otyp = YUMI; break;
-            }
+            obj->otyp = (rn2(2)) ? ELVEN_BOW : YUMI;
             break;
         case ELVEN_ARROW:
-        case DROVEN_ARROW:
         case YA:
         case ORCISH_ARROW:
             obj->otyp = ARROW;
             break;
         case ARROW:
-            switch (rn2(3)) {
-            case 0: obj->otyp = ELVEN_ARROW; break;
-            case 1: obj->otyp = DROVEN_ARROW; break;
-            case 2: obj->otyp = YA; break;
-            }
+            obj->otyp = (rn2(2)) ? ELVEN_ARROW : YA;
             break;
         /* armour */
         case ELVEN_CHAIN_MAIL:
-            obj->otyp = DROVEN_CHAIN_MAIL;
-            break;
-        case DROVEN_CHAIN_MAIL:
-            obj->otyp = ELVEN_CHAIN_MAIL;
+            obj->otyp = DWARVISH_CHAIN_MAIL;
             break;
         case ORCISH_CHAIN_MAIL:
             obj->otyp = CHAIN_MAIL;

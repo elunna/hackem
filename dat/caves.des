@@ -35,7 +35,6 @@ LOOP [ 12 ] { [50%]: OBJECT: ('%', "egg"), random, montype:'w' }
 LOOP [4] { [75%]: MONSTER: 'k', random }
 LOOP [4] { [50%]: MONSTER: ('g', "jermlaine"), random, hostile }
 LOOP [3] { [25%]: MONSTER: ('h', "duergar"), random }
-LOOP [3] { [25%]: MONSTER: ('@', "drow"), random }
 
 LOOP [6] { TRAP: random, random }
 

@@ -435,7 +435,6 @@ struct obj {
     (FIRST_DRAGON_SCALES + (mndx - FIRST_DRAGON))
 
 /* Elven gear */
-/* For simplicity we will put droven equipment here */
 #define is_elven_weapon(otmp) \
     ((otmp)->otyp == ELVEN_ARROW \
      || (otmp)->otyp == ELVEN_SPEAR \
@@ -443,10 +442,7 @@ struct obj {
      || (otmp)->otyp == ELVEN_SHORT_SWORD \
      || (otmp)->otyp == ELVEN_BROADSWORD \
      || (otmp)->otyp == ELVEN_BOW \
-     || (otmp)->otyp == ELVEN_LONG_SWORD \
-     || (otmp)->otyp == DROVEN_DAGGER \
-     || (otmp)->otyp == DROVEN_SHORT_SWORD \
-     || (otmp)->otyp == DROVEN_BOW)
+     || (otmp)->otyp == ELVEN_LONG_SWORD)
 #define is_elven_obj(otmp) (is_elven_armor(otmp) || is_elven_weapon(otmp))
 
 /* Orcish gear */
