@@ -145,7 +145,7 @@ WEAPON("shuriken", "throwing star",
 WEAPON("boomerang", None,
        1, 1, 0, 0, 15,   5,  20,  9,  9, 0, B,   -P_BOOMERANG, WOOD, HI_WOOD),
 WEAPON("chakram", "circular blade",                            /* SpliceHack */
-       0, 1, 0, 0, 8,   5,  20,  11,10, 1, S,   -P_BOOMERANG, SILVER, HI_SILVER),
+       0, 1, 0, 0, 8,    5,  20, 11, 10, 1, S,   -P_BOOMERANG, SILVER, HI_SILVER),
 
 /* spears [note: javelin used to have a separate skill from spears,
    because the latter are primarily stabbing weapons rather than
@@ -164,7 +164,6 @@ WEAPON("javelin", "throwing spear",
 /* Base weapon for the artifact weapon Xiuhcoatl */
 WEAPON("atlatl", None,                                         /* EvilHack */
        1, 0, 0, 0,  0,  30,  10,  8, 12, 2, P,   P_SPEAR, WOOD, CLR_BLACK),
-/* --------------------------------------------- */
 
 /* spearish; doesn't stack, not intended to be thrown */
 WEAPON("trident", None,
@@ -205,7 +204,7 @@ WEAPON("crysknife", None,
 WEAPON("axe", None,
        1, 0, 0,  0, 40,  60,   8,  6,  4, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("throwing axe", None,                                   /* SpliceHack */
-       1, 1, 0,  0, 10,  40,  10,  5,  3, 1, S,   P_AXE, IRON, HI_METAL),
+       1, 1, 0,  0, 5,   20,  10,  5,  4, 2, S,   P_AXE, IRON, HI_METAL),
 WEAPON("dwarvish bearded axe", "broad bearded axe",            /* EvilHack */
        0, 0, 0 , 0, 20,  70,  25,  8, 10, 0, S,   P_AXE, IRON, HI_METAL),
 WEAPON("battle-axe", "double-headed axe", /* "double-bitted"? */
@@ -231,7 +230,7 @@ WEAPON("orcish scimitar", "crude curved sword",
 WEAPON("saber", None,
        1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
 WEAPON("rapier", None,                                           /* Slash'EM */
-	1, 0, 0,  0, 0,  30, 40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
+       1, 0, 0,  0, 0,  30,  40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
 WEAPON("broadsword", None,
        1, 0, 0, 0,  8,  70,  10,  4,  6, 0, S,   P_BROAD_SWORD, IRON, HI_METAL),
         /* +d4 small, +1 large */
