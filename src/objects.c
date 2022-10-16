@@ -181,21 +181,18 @@ WEAPON("elven dagger", "runed dagger",
        0, 1, 0, 0, 10,   4,   4,  5,  3, 2, P,   P_DAGGER, WOOD, HI_WOOD),
 /* Only generated in drow inventory */
 WEAPON("droven dagger", "black runed dagger",               /* Slash'EM */
-	0, 1, 0, 0, 0,    4,   4,  5,  3, 2, P,   P_DAGGER, WOOD, CLR_BLACK),
+       0, 1, 0, 0, 0,    4,   4,  5,  3, 2, P,   P_DAGGER, WOOD, CLR_BLACK),
 WEAPON("orcish dagger", "crude dagger",
        0, 1, 0, 0, 12,  10,   4,  3,  3, 2, P,   P_DAGGER, IRON, CLR_BLACK),
-/* Base for artifact (Stake of Van Helsing) */
-WEAPON("wooden stake", None,                               /* Slash'EM */
-	1, 0, 0, 0,  5,  20,  50,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
-WEAPON("great dagger", None,                               /* Slash'EM */
-	1, 0, 0, 0,  0,  20, 500,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
-	/* STEPHEN WHITE'S NEW CODE */
-	/* for necromancer artifact... */
-
 WEAPON("athame", None,
        1, 1, 0, 0,  0,  10,   4,  4,  3, 2, S,   P_DAGGER, METAL, HI_METAL),
 WEAPON("parazonium", "triangular dagger",                      /* SpliceHack */
        0, 1, 0, 0,  1,  12,  15,  6,  4, 1, S,   P_DAGGER, METAL, HI_METAL),
+WEAPON("wooden stake", None,                               /* Slash'EM */
+       1, 0, 0, 0,  5,  20,  50,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
+WEAPON("great dagger", None,                               /* Slash'EM */
+       1, 0, 0, 0,  0,  20, 500,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
+
 WEAPON("scalpel", None,
        1, 1, 0, 0,  0,   5,   6,  3,  3, 2, S,   P_KNIFE, METAL, HI_METAL),
 WEAPON("knife", None,
@@ -242,7 +239,7 @@ WEAPON("orcish scimitar", "crude curved sword",
 WEAPON("saber", None,
        1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
 WEAPON("rapier", None,                                           /* Slash'EM */
-	1, 0, 0,  0, 0,  30, 40,  6,  8,  0, P,   P_SABER, METAL, CLR_BLACK),
+	1, 0, 0,  0, 0,  30, 40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
 WEAPON("broadsword", None,
        1, 0, 0, 0,  8,  70,  10,  4,  6, 0, S,   P_BROAD_SWORD, IRON, HI_METAL),
         /* +d4 small, +1 large */
@@ -323,7 +320,7 @@ WEAPON("heavy mace", None,                                     /* EvilHack */
        1, 0, 0, 0, 15,  50,  10, 10, 10, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
 WEAPON("executioner's mace", None, /* Originally B|S */        /* SpliceHack */
-       1, 0, 0, 0, 3,   5,  12, 12, 0,  0, B,   P_MACE, IRON, HI_METAL),
+       1, 0, 0, 0,  3,   5,  12, 12,  0, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
 /* placeholder for certain special weapons; does not spawn randomly */
 WEAPON("rod", "ornate mace",                                   /* EvilHack */
@@ -395,13 +392,13 @@ BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER
 BOW("crossbow", None,          1, 1, 45, 50, 40, 0, WOOD, P_CROSSBOW, HI_WOOD),
 
 /* firearms */
-GUN("pistol", None,	         1, 0, 0,  20,  100,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("submachine gun", None,   1, 0, 0,  25,  250, -1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("heavy machine gun", None,1, 1, 0, 500, 2000, -4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("rifle", None,		  1, 1, 0,  30,  150,  1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("sniper rifle", None,	  1, 1, 0,  50, 4000,  4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("shotgun", None,          1, 0, 0,  35,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("auto shotgun", None,	  1, 1, 0,  60, 1500,  0,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("pistol", None,	       1, 0, 0,  20,  100,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("submachine gun", None,    1, 0, 0,  25,  250, -1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("heavy machine gun", None, 1, 1, 0, 500, 2000, -4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("rifle", None,	       1, 1, 0,  30,  150,  1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("sniper rifle", None,      1, 1, 0,  50, 4000,  4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("shotgun", None,           1, 0, 0,  35,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("auto shotgun", None,      1, 1, 0,  60, 1500,  0,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 
 BULLET("bullet", None,        1, 0, 1,   5,   20, 30, 0, WP_BULLET,    P, IRON, -P_FIREARM, HI_METAL), /* Slash'EM */
 BULLET("shotgun shell", None, 1, 0, 1,  10,   30, 45, 0, WP_SHELL,    P, IRON, -P_FIREARM, CLR_RED), /* Slash'EM */
