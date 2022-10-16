@@ -47,6 +47,7 @@ suit or piece of armor
 ~*dragon*scale*
 ~scroll of mail
 *mail
+~forging armor
 	"The last spot on the school jousting team came down to another
 	boy and me.  He was poor, and his only armor was a blanket his
 	mother had made him from her hair.  I, on the other hand, had
@@ -1866,23 +1867,136 @@ dunce*
 ~dungeon fern*
 dungeon*
 forge
-	At once as far as Angels kenn he views
-	The dismal Situation waste and wilde,
-	A Dungeon horrible, on all sides round
-	As one great Furnace flam'd, yet from those flames
-	No light, but rather darkness visible
-	Serv'd only to discover sights of woe,
-	Regions of sorrow, doleful shades, where peace
-	And rest can never dwell, hope never comes
-	That comes to all; but torture without end
-	Still urges, and a fiery Deluge, fed
-	With ever-burning Sulphur unconsum'd:
-	Such place Eternal Justice had prepar'd
-	For those rebellious, here their Prison ordain'd
-	In utter darkness, and their portion set
-	As far remov'd from God and light of Heav'n
-	As from the Center thrice to th' utmost Pole.
-		[ Paradise Lost, by John Milton ]
+    Getting Started
+    
+    1) Find a forge.
+    2) Find a hammer, any will do.
+    3) Find two gemstone or metallic objects from the recipe
+       chapters.
+    4) Put both of those objects into the forge whilst
+       wielding your hammer (#forge).
+    5) Start forging.  If successful, you'll forge a brand
+       new object.
+    
+    Make sure your secondary object has the material and
+    enchantments you want to carry over to your newly
+    forged creation.
+    
+    Don't try to forge things you know you shouldn't.
+    Also see: "forging weapons", "forging armor"
+      [The Blacksmith's Cookbook]
+
+forging weapons
+    Forging Weapons      (See "forge" for instructions)
+    
+    dagger                  = knife + 2 arrows
+    elven dagger            = knife + 2 elven arrows
+    droven dagger           = knife + 2 droven arrows
+    orcish dagger           = knife + 2 orcish arrows
+    athame                  = dagger + stiletto
+    knife                   = 2 arrows + 2 darts
+    stiletto                = knife + 2 crossbow bolts
+    scalpel                 = knife + stiletto
+    aklys                   = spear + flail
+    shuriken (3-4)          = dagger + 2 darts
+    chakram                 = boomerang + shuriken
+        
+    spear                   = dagger + 2 arrows
+    elven spear             = elven dagger + 2 elven arrows
+    orcish spear            = orcish dagger + 2 orcish arrows
+    dwarvish spear          = spear + 2 arrows
+    javelin                 = spear + 2 crossbow bolts
+    
+    axe                     = dagger + spear 
+    dwarvish bearded axe    = axe + dwarvish short sword 
+    battle-axe              = axe + broadsword 
+    battle-axe              = axe + axe
+    dwarvish mattock        = pick-axe + dwarvish short sword
+    
+    short sword             = dagger + 2 crossbow bolts 
+    elven short sword       = elven dagger + 2 crossbow bolts
+    droven short sword      = droven dagger + 2 crossbow bolts
+    orcish short sword      = orcish dagger + 2 crossbow bolts
+    dwarvish short sword    = short sword + dwarvish spear
+    
+    scimitar                = knife + short sword
+    orcish scimitar         = knife + orcish short sword
+    saber                   = scimitar + long sword 
+    falchion                = scimitar + scimitar
+    trident                 = scimitar + spear 
+    
+    broadsword              = scimitar + short sword 
+    elven broadsword        = scimitar + elven short sword 
+    runesword               = broadsword + dagger
+    
+    long sword              = short sword + short sword
+    elven long sword        = elven short sword (x2) 
+    orcish long sword       = orcish short sword (x2)
+    katana                  = long sword + long sword
+    two-handed sword        = long sword + broadsword
+    tsurugi                 = katana + two-handed sword
+    
+    mace                    = war hammer + dagger 
+    heavy mace              = mace + mace
+    rod                     = mace + 2 rubies 
+    morning star            = mace + dagger 
+    orcish morning star     = mace + orcish dagger 
+    war hammer              = mace + flail
+    heavy war hammer        = war hammer + war hammer
+    flail                   = mace + morning star 
+    triple-headed flail     = flail + spiked chain
+    spiked chain            = iron chain + 2 daggers
+    spiked chain            = iron chain + 2 knives
+    
+    lance                   = glaive + javelin
+    partisan                = spear + broadsword
+    ranseur                 = spear + stiletto
+    spetum                  = spear + knife
+    glaive                  = spear + short sword 
+    halberd                 = ranseur + axe 
+    bardiche                = spear + battle-axe 
+    voulge                  = spear + axe  
+    fauchard                = spear + saber 
+    guisarme                = spear + grappling hook 
+    bill-guisarme           = spear + guisarme
+    lucern hammer           = spear + heavy war hammer 
+    bec de corbin           = spear + war hammer
+    
+forging armor
+    Forging Weapons      (See "forge" for instructions)
+    
+    plate mail              = splint mail + chain mail
+    crystal plate mail      = plate mail + 3 dilithium crystals
+    splint mail             = scale mail + chain mail
+    large splint mail       = plate mail + plate mail
+    banded mail             = scale mail + ring mail
+    chain mail              = ring mail + ring mail
+    dwarvish chain mail     = chain mail + dwarvish roundshield
+    elven chain mail        = chain mail + elven shield
+    orcish chain mail       = ring mail + orcish shield
+    scale mail              = ring mail + helmet
+    ring mail               = large shield + helmet
+    orcish ring mail        = orcish shield + orcish helm
+    
+    orcish helm             = dented pot + orcish dagger
+    dwarvish helm           = helmet + dwarvish short sword
+    dented pot              = knife + war hammer 
+    helmet                  = dented pot + dagger
+    tinfoil hat             = dented pot + dunce cap
+    small shield            = helmet + dagger
+    elven shield            = small shield + elven dagger
+    uruk-hai shield         = orcish shield + orcish shield
+    orcish shield           = orcish helm + orcish boots
+    large shield            = helmet + helmet
+    dwarvish roundshield    = large shield + dwarvish helm
+    gauntlets               = helmet + mace
+    dwarvish boots          = gauntlets + dwarvish short sword
+    orcish boots            = gauntlets + orcish short sword
+
+    barding                 = saddle + plate mail
+    spiked barding          = barding + morning star 
+    barding of reflection   = barding + shield of reflection
+
 dust devil
 	Sometimes the sands hide things we do not wish to see.
 ~dwarf ??m*
