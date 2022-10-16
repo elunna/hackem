@@ -900,9 +900,9 @@ register struct obj *obj;
     if (is_quest_artifact(obj) || obj_resists(obj, 0, 95))
         return obj->cursed ? TABU : APPORT;
 
-	/* KMH -- Koalas can only eat eucalyptus */
-	if (mptr == &mons[PM_KOALA])
-		return (obj->otyp == EUCALYPTUS_LEAF ? DOGFOOD : APPORT);
+    /* KMH -- Koalas can only eat eucalyptus */
+    if (mptr == &mons[PM_KOALA])
+        return (obj->otyp == EUCALYPTUS_LEAF ? DOGFOOD : APPORT);
 
     if (obj->oartifact == ART_EYE_OF_VECNA)
         return TABU;
@@ -935,24 +935,25 @@ register struct obj *obj;
                         && fptr != &mons[PM_LIZARD]
                         && fptr != &mons[PM_LICHEN])
                            ? DOGFOOD
-                           : (starving && !vegan(fptr))
-                              ? ACCFOOD
-                              : POISON;
-            /* vampires only "eat" very fresh corpses ...
-	     * Assume meat -> blood
-             */
-            if (is_vampiric(mon->data)) {
-                return (obj->otyp == CORPSE &&
-                        has_blood(&mons[obj->corpsenm]) && !obj->oeaten &&
-                        peek_at_iced_corpse_age(obj) + 5 >= monstermoves) ?
-                           DOGFOOD : TABU;
-            }
-            
+                       : (starving && !vegan(fptr)) ? ACCFOOD
+                                                    : POISON;
             if (obj->otyp == EGG)
                 return stale_egg(obj) ? CADAVER : starving ? ACCFOOD : POISON;
+        
             return TABU;
         }
-
+        /* vampires only "eat" very fresh corpses ...
+         * Assume meat -> blood
+         */
+        if (is_vampiric(mon->data)) {
+            return (obj->otyp == CORPSE &&
+                    has_blood(&mons[obj->corpsenm]) && !obj->oeaten &&
+                    peek_at_iced_corpse_age(obj) + 5 >= monstermoves) ?
+                       DOGFOOD : TABU;
+        }
+        
+        
+        
         switch (obj->otyp) {
         case TRIPE_RATION:
         case MEATBALL:
@@ -1212,15 +1213,20 @@ register struct obj *obj;
             return FALSE;
     }
 
-    if (mtmp->mtame || !mtmp->mcanmove
+    if (mtmp->mtame 
+        || !mtmp->mcanmove
         /* monsters with conflicting structures cannot be tamed */
-        || mtmp->isshk || mtmp->isgd || mtmp->ispriest || mtmp->isminion
-        || is_covetous(mtmp->data) || is_human(mtmp->data)
+        || mtmp->isshk 
+        || mtmp->isgd 
+        || mtmp->ispriest 
+        || mtmp->isminion
+        || is_covetous(mtmp->data) 
+        || is_human(mtmp->data)
         || racial_human(mtmp)
         || (is_demon(mtmp->data) && mtmp->data != &mons[PM_LAVA_DEMON]
             && !is_demon(raceptr(&youmonst)))
          /* Mik -- New flag to indicate which things cannot be tamed... */
-	    || cannot_be_tamed(mtmp->data)
+        || cannot_be_tamed(mtmp->data)
         || (obj && dogfood(mtmp, obj) >= MANFOOD))
         return FALSE;
 
