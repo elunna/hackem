@@ -690,11 +690,11 @@
 	 || (ptr) == &mons[PM_STONE_GOLEM] \
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
 
-#define racial_vampire(mon) mon_has_race(mon, MH_VAMPIRE)
+#define racial_vampire(mon) mon_has_race(mon, MH_VAMPIRIC)
 
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
-                          ((ptr)->mflags2 & MH_VAMPIRE) != 0 || \
-                            (urace.selfmask & MH_VAMPIRE))
+                          (ptr)->mhflags & MH_VAMPIRE != 0)
+
 /** feeds on blood */
 #define is_vampiric(ptr) ((is_vampire(ptr)) || \
                           (ptr) == &mons[PM_VAMPIRE_BAT])
