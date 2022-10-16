@@ -7882,7 +7882,8 @@ enchanter
 enchantress
 sorcerer
 sorceress
-necromancer
+warlock
+witch
 mage
 	Wizard ranks
 	  title            level
@@ -7894,9 +7895,120 @@ mage
 	 Enchantress     14 to 17
 	Sorcerer,
 	 Sorceress       18 to 21
-	Necromancer      22 to 25
+	Warlock,
+	 Witch           22 to 25
 	Wizard           26 to 29
 	Mage                30
+
+fla* ranks
+spark
+igniter
+broiler
+combuster
+torcher
+scorcher
+incinerator
+disintegrator
+flame-master
+	Flame Mage ranks
+	  title            level
+	Spark             1 to 2
+	Igniter           3 to 5
+	Broiler           6 to 9
+	Combuster        10 to 13
+	Torcher          14 to 17
+	Scorcher         18 to 21
+	Incinerator      22 to 25
+	Disintegrator    26 to 29
+	Flame-Master        30
+	
+ice* ranks
+cooler
+condenser
+chiller
+froster
+permafroster
+icer
+freezer
+sublimer
+ice-master
+	Ice Mage ranks
+	  title            level
+	Cooler            1 to 2
+	Condenser         3 to 5
+	Chiller           6 to 9
+	Froster          10 to 13
+	Permafroster     14 to 17
+	Icer             18 to 21
+	Freezer          22 to 25
+	Sublimer         26 to 29
+	Ice-Master          30
+	
+nec* ranks
+gravedigger
+embalmer
+mortician
+zombie lord
+ghoul master
+necromancer
+undead master
+lich lord
+	Necromancer ranks
+	  title            level
+	Gravedigger       1 to 2
+	Embalmer          3 to 5
+	Mortician         6 to 9
+	Zombie Lord      10 to 13
+	Ghoul Master     14 to 17
+	Necromancer      18 to 21
+	Necromancer      22 to 25
+	Undead Master    26 to 29
+	Lich Lord           30
+
+und* ranks
+assistant
+eliminator
+exterminator
+destroyer
+vindicator
+undead slayer
+	Undead Slayer ranks
+	  title            level
+	Assistant         1 to 2
+	Eliminator        3 to 5
+	Eliminator         6 to 9
+	Exterminator     10 to 13
+	Exterminator     14 to 17
+	Destroyer        18 to 21
+	Vindicator       22 to 25
+	Vindicator       26 to 29
+	Undead Slayer       30
+	
+yeo* ranks
+usher
+steward*
+keeper
+marshal
+master steward
+master stewardess
+chamberlain
+constable
+chancellor
+regent
+	Yeoman ranks
+	  title            level
+	Usher               1 to 2
+	Steward
+	 Stewardess         3 to 5
+	Keeper              6 to 9
+	Marshal            10 to 13
+	Master Steward
+	 Master Stewardess 14 to 17
+	Chamberlain        18 to 21
+	Constable          22 to 25
+	Chancellor         26 to 29
+	Regent                30
+	
 ##
 # list the titles for all the Discworld novels (3.6 tribute);
 # the extra leading spaces are intentional--tty displays the whole list
