@@ -926,7 +926,7 @@ long frommask;
         case PM_HUMAN:
             abil = hum_abil;
             break;
-        case PM_VAMPIRE:
+        case PM_VAMPIRIC:
             abil = vam_abil;
             break;
         default:
@@ -1120,7 +1120,7 @@ int oldlevel, newlevel;
     case PM_TORTLE:
         rabil = trt_abil;
         break;
-    case PM_VAMPIRE:
+    case PM_VAMPIRIC:
         rabil = vam_abil;
         break;
     case PM_HUMAN:

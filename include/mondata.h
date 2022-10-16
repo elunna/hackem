@@ -690,8 +690,6 @@
 	 || (ptr) == &mons[PM_STONE_GOLEM] \
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
 
-#define racial_vampire(mon) mon_has_race(mon, MH_VAMPIRIC)
-
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
                           (ptr)->mhflags & MH_VAMPIRE != 0)
 
