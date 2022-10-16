@@ -4619,6 +4619,22 @@ struct obj *obj;
     case WAN_WATER:
         pline("KER-SPLOOSH!");
         affects_objects = TRUE;
+        /* make rust trap if you broke a wand of water */
+        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
+            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
+                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
+                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
+            struct trap *ttmp;
+            ttmp = maketrap(u.ux, u.uy, RUST_TRAP);
+            if (ttmp) {
+                ttmp->madeby_u = 1;
+                ttmp->tseen = 1;
+                newsym(u.ux, u.uy);
+                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
+                    add_damage(u.ux, u.uy, 0L);             
+                }
+            }
+        }
         break;
     case WAN_STRIKING:
         /* we want this before the explosion instead of at the very end */
