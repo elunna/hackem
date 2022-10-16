@@ -1625,7 +1625,7 @@ int dieroll;
         tmp *= 2;
 
     /* Wooden stakes vs vampires */
-    if (uwep && uwep->otyp == WOODEN_STAKE && is_vampire(mdat)) {
+    if (uwep && uwep->otyp == STAKE && is_vampire(mdat)) {
         int skill = P_SKILL(weapon_type(uwep));
 
         if (Role_if(PM_UNDEAD_SLAYER))

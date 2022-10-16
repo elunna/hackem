@@ -239,6 +239,9 @@ xchar m;
     case ART_HAND_OF_VECNA:
         return FLESH;
         break;
+    case ART_STAKE_OF_VAN_HELSING:
+        return WOOD;
+        break;
     default:
         /* default material for that item */
         return objects[artilist[m].otyp].oc_material;

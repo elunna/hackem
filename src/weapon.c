@@ -183,7 +183,7 @@ struct monst *mon;
     if (is_spear(otmp) && index(kebabable, ptr->mlet))
         tmp += 2;
 
-    if (otmp->otyp == WOODEN_STAKE && is_vampire(ptr))
+    if (otmp->otyp == STAKE && is_vampire(ptr))
         tmp += 1;
 
     /* trident is highly effective against swimmers */
@@ -1043,7 +1043,7 @@ static const NEARDATA short hwep[] = {
     SPEAR, 
     ORCISH_SPEAR, 
     FLAIL,
-    WOODEN_STAKE,
+    STAKE,
     QUARTERSTAFF, 
     JAVELIN,
     AKLYS, 

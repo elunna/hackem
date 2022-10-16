@@ -235,7 +235,7 @@ static struct trobj UndeadSlayer[] = {
 #define U_RANGE 2       /* silver daggers or crossbow bolts */
 #define U_MISC  3       /* +1 boots [Buffy can kick] or helmet */
 #define U_ARMOR 4       /* Tshirt/leather +1 or chain mail */
-	{ WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+	{ STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
         { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
         { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
 	{ HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },

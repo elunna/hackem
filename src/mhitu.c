@@ -113,7 +113,7 @@ struct attack *mattk;
                 else
                     pline("%s %ss you!", Monnam(mtmp),
                           mwep_none[rn2(SIZE(mwep_none))]);
-            } else if (MON_WEP(mtmp)->otyp == WOODEN_STAKE) {
+            } else if (MON_WEP(mtmp)->otyp == STAKE) {
                 /* Messages for wooden stakes are currently handled elsewhere
                  * - otherwise we get multiple messages for the same hit.
                  */
@@ -1570,7 +1570,7 @@ register struct attack *mattk;
                 }
 
                 /* Wooden stakes vs vampires */
-                if (otmp->otyp == WOODEN_STAKE && is_vampire(youmonst.data)) {
+                if (otmp->otyp == STAKE && is_vampire(youmonst.data)) {
                     if (!rn2(5)) {
                         pline("%s plunges the stake into your heart.", Monnam(mtmp));
                         killer.format = NO_KILLER_PREFIX;

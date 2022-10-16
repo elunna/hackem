@@ -3228,7 +3228,7 @@ static const struct alt_spellings {
     { "whip", BULLWHIP },
     { "lash", FLAMING_LASH },
     { "sabre", SABER },
-    { "stake", WOODEN_STAKE },
+    { "stake", STAKE },
     { "mattock", DWARVISH_MATTOCK },
     { "bearded axe", DWARVISH_BEARDED_AXE },
     { "bolt", CROSSBOW_BOLT },

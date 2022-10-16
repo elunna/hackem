@@ -602,7 +602,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* KMH -- More effective against normal monsters
     * Was +10 to-hit, +d20 damage only versus vampires
     */
-    A("The Stake of Van Helsing", WOODEN_STAKE,
+    A("The Stake of Van Helsing", STAKE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 0, 0,
       PHYS(5, 12), NO_DFNS, CARY(AD_MAGM), 0, A_LAWFUL, 
       PM_UNDEAD_SLAYER, NON_PM, 5000L, NO_COLOR),

@@ -237,7 +237,7 @@ REGION: (00,00,25,10), unlit, "ordinary"
 STAIR: (20,05), up
 
 # Objects
-OBJECT: (')', "wooden stake"), (13,05), blessed, 0, name:"The Stake of Van Helsing"
+OBJECT: (')', "stake"), (13,05), blessed, 0, name:"The Stake of Van Helsing"
 OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random

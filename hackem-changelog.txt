@@ -869,7 +869,8 @@ New Weapons:
 	- [x] scythe
 		- Death gets a scythe
 	- [x] executioner's mace
-	- [x] wooden stake
+	- [x] stake
+	    - "wooden stake" renamed to "stake" so object materials make more sense.
 		- Added better bonuses for stakes vs vampires 
 		- dagger skill, undead slayer and artifact-stake bonuses stack)
 		- Give monsters 20% instakill rate for wooden stakes

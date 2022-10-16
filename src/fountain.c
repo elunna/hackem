@@ -443,7 +443,7 @@ static const struct forge_recipe {
     { ATHAME, DAGGER, STILETTO, 1, 1 },
     { PARAZONIUM, DAGGER, KNIFE, 1, 1 },
     { GREAT_DAGGER, PARAZONIUM, KNIFE, 1, 1 },
-    { WOODEN_STAKE, QUARTERSTAFF, KNIFE, 1, 1 },
+    { STAKE, QUARTERSTAFF, KNIFE, 1, 1 },
     { KNIFE, ARROW, DART, 2, 2 },
     { STILETTO, CROSSBOW_BOLT, KNIFE, 2, 1 },
     { SCALPEL, KNIFE, STILETTO, 1, 1 },
