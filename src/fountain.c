@@ -442,6 +442,9 @@ static const struct forge_recipe {
     { DROVEN_DAGGER, DROVEN_ARROW, KNIFE, 2, 1 },
     { ORCISH_DAGGER, ORCISH_ARROW, KNIFE, 2, 1 },
     { ATHAME, DAGGER, STILETTO, 1, 1 },
+    { PARAZONIUM, DAGGER, KNIFE, 1, 1 },
+    { GREAT_DAGGER, PARAZONIUM, KNIFE, 1, 1 },
+    { WOODEN_STAKE, QUARTERSTAFF, KNIFE, 1, 1 },
     { KNIFE, ARROW, DART, 2, 2 },
     { STILETTO, CROSSBOW_BOLT, KNIFE, 2, 1 },
     { SCALPEL, KNIFE, STILETTO, 1, 1 },
@@ -457,6 +460,7 @@ static const struct forge_recipe {
     
     /* melee weapons */
     { AXE, DAGGER, SPEAR, 1, 1 },
+    { THROWING_AXE, DAGGER, AXE, 1, 1 },
     { DWARVISH_BEARDED_AXE, AXE, DWARVISH_SHORT_SWORD, 1, 1 },
     { BATTLE_AXE, AXE, BROADSWORD, 1, 1 },
     { BATTLE_AXE, AXE, AXE, 1, 1 },
@@ -467,7 +471,8 @@ static const struct forge_recipe {
     { DROVEN_SHORT_SWORD, CROSSBOW_BOLT, DROVEN_DAGGER, 2, 1 },
     { ORCISH_SHORT_SWORD, CROSSBOW_BOLT, ORCISH_DAGGER, 2, 1 },
     { DWARVISH_SHORT_SWORD, DWARVISH_SPEAR, SHORT_SWORD, 1, 1 },
-    
+    { GLADIUS, BROADSWORD, SHORT_SWORD, 1, 1 },
+        
     { SCIMITAR, KNIFE, SHORT_SWORD, 1, 1 },
     { ORCISH_SCIMITAR, KNIFE, ORCISH_SHORT_SWORD, 1, 1 },
     { SABER, SCIMITAR, LONG_SWORD, 1, 1 },
@@ -489,6 +494,8 @@ static const struct forge_recipe {
     { MACE, WAR_HAMMER, DAGGER, 1, 1 },
     { HEAVY_MACE, MACE, MACE, 1, 1 },
     { ROD, RUBY, MACE, 2, 1 },
+    { EXECUTIONER_S_MACE, HEAVY_MACE, MACE, 1, 1 },
+    
     { MORNING_STAR, MACE, DAGGER, 1, 1 },
     { ORCISH_MORNING_STAR, MACE, ORCISH_DAGGER, 1, 1 },
     { WAR_HAMMER, MACE, FLAIL, 1, 1 },
@@ -511,6 +518,14 @@ static const struct forge_recipe {
     { BILL_GUISARME, SPEAR, GUISARME, 1, 1 },
     { LUCERN_HAMMER, SPEAR, HEAVY_WAR_HAMMER, 1, 1 },
     { BEC_DE_CORBIN, SPEAR, WAR_HAMMER, 1, 1 },
+    
+    /* No recipe for pistol...  */
+    { SUBMACHINE_GUN, PISTOL, IRON_CHAIN, 1, 1 },
+    { HEAVY_MACHINE_GUN, SUBMACHINE_GUN, IRON_CHAIN, 1, 1 },
+    { RIFLE, PISTOL, CROSSBOW, 1, 1 },
+    { SNIPER_RIFLE, RIFLE, IRON_CHAIN, 1, 1 },
+    { SHOTGUN, PISTOL, BROADSWORD, 1, 1 },
+    { AUTO_SHOTGUN, SHOTGUN, IRON_CHAIN, 1, 1 },
     
     /* armor (helmets) */
     { ORCISH_HELM, DENTED_POT, ORCISH_DAGGER, 1, 1 },
@@ -541,6 +556,7 @@ static const struct forge_recipe {
     { URUK_HAI_SHIELD, ORCISH_SHIELD, ORCISH_SHIELD, 1, 1 },
     { ORCISH_SHIELD, ORCISH_HELM, ORCISH_BOOTS, 1, 1 },
     { LARGE_SHIELD, HELMET, HELMET, 1, 1 },
+    { TOWER_SHIELD, LARGE_SHIELD, SMALL_SHIELD, 1, 1 },
     { DWARVISH_ROUNDSHIELD, LARGE_SHIELD, DWARVISH_HELM, 1, 1 },
     
     /* armor (gauntlets and boots) */

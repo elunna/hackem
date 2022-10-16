@@ -40,14 +40,16 @@ abbot
 # FIXME: "dragon scales, dragon scale mail" needs its own entry
 # FIXME too: "ac, armor class" also merits its own distinct entry
 ac
-armor*
-armour*
+armor
+armour
+~forging armor
 *armor
 suit or piece of armor
 ~*dragon*scale*
 ~scroll of mail
 *mail
-~forging armor
+~armor r*
+~armor f*
 	"The last spot on the school jousting team came down to another
 	boy and me.  He was poor, and his only armor was a blanket his
 	mother had made him from her hair.  I, on the other hand, had
@@ -1864,9 +1866,9 @@ dunce*
 	it is frequently depicted in popular culture such as
 	children's cartoons.
 		[ Wikipedia, the free encyclopedia ]
-~dungeon fern*
-dungeon*
 forge
+cookbook
+fusions
     Getting Started
     
     1) Find a forge.
@@ -1886,7 +1888,10 @@ forge
     Also see: "forging weapons", "forging armor"
       [The Blacksmith's Cookbook]
 
-forging weapons
+# forging weapons, weapon recipes, weapon fusions
+forging w*
+weapon r*
+weapon f*
     Forging Weapons      (See "forge" for instructions)
     
     dagger                  = knife + 2 arrows
@@ -1894,6 +1899,9 @@ forging weapons
     droven dagger           = knife + 2 droven arrows
     orcish dagger           = knife + 2 orcish arrows
     athame                  = dagger + stiletto
+    parazonium              = dagger + knife
+    great dagger            = parazonium + knife
+    wooden stake            = quarterstaff + knife
     knife                   = 2 arrows + 2 darts
     stiletto                = knife + 2 crossbow bolts
     scalpel                 = knife + stiletto
@@ -1907,7 +1915,8 @@ forging weapons
     dwarvish spear          = spear + 2 arrows
     javelin                 = spear + 2 crossbow bolts
     
-    axe                     = dagger + spear 
+    axe                     = dagger + spear
+    throwing axe            = axe + dagger
     dwarvish bearded axe    = axe + dwarvish short sword 
     battle-axe              = axe + broadsword 
     battle-axe              = axe + axe
@@ -1918,6 +1927,7 @@ forging weapons
     droven short sword      = droven dagger + 2 crossbow bolts
     orcish short sword      = orcish dagger + 2 crossbow bolts
     dwarvish short sword    = short sword + dwarvish spear
+    gladius                 = short sword + broadsword
     
     scimitar                = knife + short sword
     orcish scimitar         = knife + orcish short sword
@@ -1939,6 +1949,7 @@ forging weapons
     mace                    = war hammer + dagger 
     heavy mace              = mace + mace
     rod                     = mace + 2 rubies 
+    executioner's mace      = heavy mace + mace
     morning star            = mace + dagger 
     orcish morning star     = mace + orcish dagger 
     war hammer              = mace + flail
@@ -1962,7 +1973,17 @@ forging weapons
     lucern hammer           = spear + heavy war hammer 
     bec de corbin           = spear + war hammer
     
-forging armor
+    submachine gun          = pistol + iron chain
+    heavy machine gun       = submachine gun + iron chain
+    rifle                   = pistol + crossbow
+    sniper rifle            = rifle + iron chain
+    shotgun                 = pistol + broadsword
+    auto shotgun            = shotgun + iron chain
+
+# forging armor, armor recipes, armor fusions
+forging a*
+armor r*
+armor f*
     Forging Weapons      (See "forge" for instructions)
     
     plate mail              = splint mail + chain mail
@@ -1989,6 +2010,7 @@ forging armor
     orcish shield           = orcish helm + orcish boots
     large shield            = helmet + helmet
     dwarvish roundshield    = large shield + dwarvish helm
+    tower shield            = large shield + small shield
     gauntlets               = helmet + mace
     dwarvish boots          = gauntlets + dwarvish short sword
     orcish boots            = gauntlets + orcish short sword
