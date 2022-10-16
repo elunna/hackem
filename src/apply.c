@@ -4542,8 +4542,8 @@ struct obj *obj;
           && !objects[obj->otyp].oc_uname) {
             docall(obj);
         }
-
-        goto discard_broken_wand;
+        
+        /* FALLTHROUGH */
     case WAN_FIRE:
         expltype = EXPL_FIERY;
         /* make fire trap if you broke a wand of fire */
@@ -4562,6 +4562,8 @@ struct obj *obj;
                 }
             }
         }
+        if (obj->otyp == WAN_FIREBALL)
+            goto discard_broken_wand;
         break;
     case WAN_ACID:
     case WAN_POISON_GAS:
