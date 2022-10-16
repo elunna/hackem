@@ -312,7 +312,7 @@ WEAPON("heavy mace", None,                                     /* EvilHack */
        1, 0, 0, 0, 15,  50,  10, 10, 10, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
 WEAPON("executioner's mace", None, /* Originally B|S */        /* SpliceHack */
-       1, 0, 0, 0,  3,   5,  12, 12,  0, 0, B,   P_MACE, IRON, HI_METAL),
+       1, 0, 0, 0,  0,  65,  40, 12, 12, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
 /* placeholder for certain special weapons; does not spawn randomly */
 WEAPON("rod", "ornate mace",                                   /* EvilHack */
