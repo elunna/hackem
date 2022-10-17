@@ -1923,7 +1923,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         maybe_tame(u.ustuck, sobj);
         } else {
             int i, j, bd = confused ? 5 : 1;
-            struct monst *mtmp;
 
             for (i = -bd; i <= bd; i++) {
                 for (j = -bd; j <= bd; j++) {

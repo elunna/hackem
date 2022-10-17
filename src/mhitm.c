@@ -1575,8 +1575,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                             pline("The torch %s goes out.", xname(mwep));
                             end_burn(mwep, TRUE);
                         } else {
-                            burn_faster(
-                                mwep, 1); /* Use up the torch more quickly */
+                            burn_faster(mwep); /* Use up the torch more quickly */
                         }
                     }
                 }

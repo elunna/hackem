@@ -1913,7 +1913,7 @@ int dieroll;
                     pline("Your %s goes out.", xname(obj));
                     end_burn(obj, TRUE);
                 } else {
-                    burn_faster(obj, 1); /* Use up the torch more quickly */
+                    burn_faster(obj); /* Use up the torch more quickly */
                 }
             }
         }
@@ -3863,9 +3863,9 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
             if ((i > 0 && is_vampire(youmonst.data))
-                && (how_resistant(DISINT_RES) == 0
+                && ((how_resistant(DISINT_RES) == 0
                         && (mon->data == &mons[PM_BLACK_DRAGON]
-                        || mon->data == &mons[PM_BABY_BLACK_DRAGON])
+                        || mon->data == &mons[PM_BABY_BLACK_DRAGON]))
                     || is_rider(mon->data) 
                     || touch_petrifies(mon->data) 
                     || mon->data == &mons[PM_MEDUSA] 

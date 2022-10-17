@@ -2652,10 +2652,8 @@ do_rust:
             }
         if (rn2(3)) 
             destroy_item(WEAPON_CLASS, AD_FIRE);
-        
-            // burn_faster(otmp, 1);
         if (mon_currwep->otyp == TORCH)
-            burn_faster(mon_currwep, 1);
+            burn_faster(mon_currwep);
     }
 
     if (dmg) {

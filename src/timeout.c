@@ -2089,7 +2089,7 @@ long expire_time;
  *       a torch.
  */
 
-void burn_faster(struct obj *obj, long adj) {
+void burn_faster(struct obj *obj) {
     if (!obj->lamplit) {
         impossible("burn_faster: obj %s not lit", xname(obj));
         return;

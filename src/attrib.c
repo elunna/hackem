@@ -1284,12 +1284,12 @@ int x;
         boolean nobonus = (uarmg && uarmg->otyp == GAUNTLETS_OF_POWER
                         && uarm && uarm->otyp == ROBE_OF_WEAKNESS);
 
-        if (tmp >= 125 
-          || ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
+        if (tmp >= 125
+          || (((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
           || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA)
           || wielding_artifact(ART_GIANTSLAYER)
           || wielding_artifact(ART_SWORD_OF_KAS))
-          && !nobonus)
+          && !nobonus))
             return (schar) 125;
         else if (uarm && uarm->otyp == ROBE_OF_WEAKNESS && !nobonus)
             return(3 + bonus);

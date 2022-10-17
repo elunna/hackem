@@ -1381,7 +1381,7 @@ int spellnum;
         */
         if (spellnum == MGC_CREATE_POOL
              && ((levl[u.ux][u.uy].typ != ROOM && levl[u.ux][u.uy].typ != CORR)
-             || !u.uhave.amulet && rn2(10)))
+             || (!u.uhave.amulet && rn2(10))))
             return TRUE;
         /* Don't try to destroy armor if none is being worn */
         if (!(mdef->misc_worn_check & W_ARMOR)

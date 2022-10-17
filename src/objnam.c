@@ -4388,11 +4388,11 @@ struct obj *no_wish;
        earlier than the former in the fruit list. */
     {
         char *fp;
-        int l, cntf;
+        int cntf = 0;
         int blessedf, iscursedf, uncursedf, halfeatenf;
 
         blessedf = iscursedf = uncursedf = halfeatenf = 0;
-        cntf = 0;
+        l = 0;
 
         fp = fruitbuf;
         for (;;) {
