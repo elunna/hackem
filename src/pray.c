@@ -2283,20 +2283,20 @@ dosacrifice()
 
                         while (--trycnt > 0) {
                             if (otmp->otyp != SPE_BLANK_PAPER) {
-#if 0 /* TODO This probably isn't correct yet, refine later. */
+
                                 if (Role_if(PM_ICE_MAGE) &&
                                     (otmp->otyp == SPE_FIREBALL
                                     || otmp->otyp == SPE_FIRE_BOLT
                                     || otmp->otyp == SPE_FLAME_SPHERE)) {
                                     ; /* Ice mages shouldn't get fire magic */
-                                } else if (Role_if(PM_FLAME_MAGE) &&
+                                } 
+                                else if (Role_if(PM_FLAME_MAGE) &&
                                     (otmp->otyp == SPE_CONE_OF_COLD
                                     || otmp->otyp == SPE_SNOWBALL
                                     || otmp->otyp == SPE_FREEZE_SPHERE)) {
                                     ; /* Flame mages shouldn't get ice magic */
                                 } 
-#endif
-                            if (!known_spell(otmp->otyp)
+                                else if (!known_spell(otmp->otyp)
                                     && !P_RESTRICTED(spell_skilltype(otmp->otyp)))
                                     break; /* usable, but not yet known */
                             } else {
