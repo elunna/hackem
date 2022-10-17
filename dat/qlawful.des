@@ -156,9 +156,7 @@ OBJECT: ('%', "egg"), $places[1], montype:"giant louse", 2
 [40%]: OBJECT: ('=', "hunger"), $places[2], cursed, 0, name:"free action"
 [40%]: OBJECT: ('=', "increase accuracy"), $places[2], blessed, -9, name:"polymorph control"
 [40%]: OBJECT: ('(', "oil lamp"), $places[2], cursed, 0
-
-# TODO: Reenable after robe changes
-#[40%]: OBJECT: ('[', "robe of weakness"), $places[2], cursed, 0
+[40%]: OBJECT: ('[', "robe of weakness"), $places[2], cursed, 0
 
 MONSTER: '@', $places[2], hostile
 MONSTER: '@', $places[2], hostile
