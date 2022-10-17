@@ -1275,7 +1275,7 @@ struct monst *shk;
     }
     /* --hackem: Some misc shop details here - using really gross syntax... */
     
-    if (shtypes[ESHK(shk)->shoptype-SHOPBASE].name == "pet store") {
+    if (strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "pet store")) {
         /* Pet shops offer tool/food id 50% of the time */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             ESHK(shk)->services |= SHK_ID_FOOD;
@@ -1283,7 +1283,7 @@ struct monst *shk;
             ESHK(shk)->services |= SHK_ID_TOOL;
     }
     
-    if (shtypes[ESHK(shk)->shoptype-SHOPBASE].name == "lighting store") {
+    if (strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "lighting store")) {
         /* Light shops can sometimes offer potion ID: 25% */
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(4))
             ESHK(shk)->services |= SHK_ID_POTION;
