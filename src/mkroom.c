@@ -829,7 +829,6 @@ fungus()
 static struct permonst *
 armorymon()
 {
-    /* TODO: Use a switch statement here */
     return (!rn2(5) ? mkclass(S_RUSTMONST, 0)
                     : rn2(6) ? &mons[PM_BROWN_PUDDING]
                         : rn2(3) ? &mons[PM_BLACK_PUDDING] 

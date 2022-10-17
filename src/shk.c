@@ -4323,6 +4323,10 @@ long svc_type;
         break;
 
     case SHK_ARM_ENC:
+        if (Is_dragon_scales(obj)) {
+            verbalize("Sorry I don't handle dragon scales yet.");
+            return 0;
+        }
         verbalize("Nobody will ever hit on you again.");
 
         /* Higher enchantment levels cost more. */
@@ -4345,25 +4349,10 @@ long svc_type;
             charge = 0;
             break;
         }
-        /* Have some fun! */
+
         if (Hallucination)
             Your("%s looks dented.", xname(obj));
-
-#if 0 /* TODO: Handle dragon scales later! */
-        if (obj->otyp >= GRAY_DRAGON_SCALES &&
-                                obj->otyp <= YELLOW_DRAGON_SCALES) {
-                /* dragon scales get turned into dragon scale mail */
-                Your("%s merges and hardens!", xname(obj));
-                setworn((struct obj *)0, W_ARM);
-                /* assumes same order */
-                obj->otyp = GRAY_DRAGON_SCALE_MAIL +
-                                        obj->otyp - GRAY_DRAGON_SCALES;
-                obj->cursed = 0;
-                obj->known = 1;
-                setworn(obj, W_ARM);
-                break;
-        }
-#endif
+        
         obj->spe++;
         adj_abon(obj, 1);
         break;
