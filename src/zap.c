@@ -790,6 +790,8 @@ struct monst *mtmp;
         pline("%s is not carrying anything%s.", noit_Monnam(mtmp),
               (u.uswallow && mtmp == u.ustuck) ? " besides you" : "");
     }
+    if (mtmp->data == &mons[PM_SHAMBLING_HORROR])
+        u.uevent.know_horror = TRUE;
 }
 
 /*

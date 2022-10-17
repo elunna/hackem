@@ -454,7 +454,10 @@ register struct obj *obj;
         } else if (flags.verbose && !canspotmon(mtmp)) {
             There("is %s there.", mnm);
         }
-
+        
+        if (mtmp->data == &mons[PM_SHAMBLING_HORROR])
+            u.uevent.know_horror = TRUE;
+        
         mstatusline(mtmp);
         if (!canspotmon(mtmp))
             map_invisible(rx, ry);

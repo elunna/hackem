@@ -44,6 +44,7 @@ struct u_event {
     Bitfield(qexpelled, 1);    /* expelled from the Quest dungeon */
     Bitfield(qcompleted, 1);   /* successfully completed Quest task */
     Bitfield(uheard_tune, 2);  /* 1=know about, 2=heard passtune */
+    Bitfield(know_horror, 1);  /* know about shambling horror */
 
     Bitfield(entered_the_blackmarket, 1);   /* entered the Blackmarket */
     Bitfield(uopened_dbridge, 1);   /* opened the drawbridge */
