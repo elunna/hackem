@@ -763,30 +763,11 @@ struct attack *uattk;
     if (uwep && uwep->cursed && !rn2(7)
         && u.ualign.type != A_NONE) {
         if (!rn2(4)) {
-            You("swing wildly and miss!");
+            if (rn2(2))
+                You("swing wildly and miss!");
+            else
+                Your("cursed %s veers wildly off course!!", simpleonames(uwep));
         }
-#if 0 /* --hackem: I just don't like this. Plus it causes a bunch of bugs */
-        else {
-            Your("cursed %s turns against you!", simpleonames(uwep));
-            You("hit yourself in the %s!", body_part(FACE));
-            if (uwep->oartifact
-                || (uwep->oclass == WEAPON_CLASS && uwep->oprops))
-                /* need a fake die roll here; rn1(18,2) avoids 1 and 20 */
-                (void) artifact_hit((struct monst *) 0, &youmonst, uwep, &dmg_wep,
-                                    rn1(18, 2));
-            if (dmg_wep > 0)
-                dmg_wep += u.udaminc;
-            if (dmg_wep < 0)
-                dmg_wep = 0; /* beware negative rings of increase damage */
-            dmg_wep = Maybe_Half_Phys(dmg_wep);
-            if (Hate_material(uwep->material)) {
-                /* dmgval() already added extra damage */
-                searmsg(&youmonst, &youmonst, uwep, FALSE);
-                exercise(A_CON, FALSE);
-            }
-            losehp(dmg_wep, "hitting themselves in the face", KILLED_BY);
-        }
-#endif
         return 0;
     }
 

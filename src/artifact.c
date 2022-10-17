@@ -1158,17 +1158,6 @@ struct monst *mon;
         }
         return 0;
     }
-#if 0
-    if (oart == &artilist[ART_IRON_BALL_OF_LIBERATION]) {
-        if (Role_if(PM_CONVICT) && (!obj->oerodeproof)) {
-            obj->oerodeproof = TRUE;
-            obj->owt = 300; /* Magically lightened, but still heavy */
-        }
-        if (Punished && (obj != uball)) {
-            unpunish(); /* Remove a mundane heavy iron ball */
-        }
-    }
-#endif
     if (Punished && (obj != uball)) {
         unpunish(); /* Remove a mundane heavy iron ball */
     }
@@ -2584,11 +2573,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 otmp->dknown = TRUE;
                 return TRUE;
             }
-        #if 0 /* Old boring 5% beheading code */
-        } else if (otmp->oartifact == ART_VORPAL_BLADE
-                   && (dieroll == 1 || is_jabberwock(mdef->data))
-                   || (otmp->oartifact == ART_THIEFBANE && dieroll < 3)) {
-        #endif
         /* --hackem: Sexy 10% beheading chance from Slash'EM */
         } else if (dieroll < 3 || (otmp->oartifact == ART_VORPAL_BLADE &&
 				      mdef->data == &mons[PM_JABBERWOCK])) {
@@ -3366,26 +3350,6 @@ struct obj *obj;
         case PHASING:   /* Walk through walls and stone like a xorn */
             if (Passes_walls)
                 goto nothing_special;
-#if 0 /* This artifact is replaced by the Iron Spoon of Liberation */
-            if (oart == &artilist[ART_IRON_BALL_OF_LIBERATION]) {
-                if (Punished && (obj != uball)) {
-                    unpunish(); /* Remove a mundane heavy iron ball */
-                }
-
-                if (!Punished) {
-                    setworn(mkobj(CHAIN_CLASS, TRUE), W_CHAIN);
-                    setworn(obj, W_BALL);
-                    uball->spe = 1;
-                    uchain->oerodeproof = 1;
-                    if (!u.uswallow) {
-                        placebc();
-                        if (Blind) set_bc(1);	/* set up ball and chain variables */
-                            newsym(u.ux, u.uy);	/* see ball&chain if can't see self */
-                    }
-                    Your("%s chains itself to you!", xname(obj));
-                }
-            }
-#endif
             if (!Hallucination) {
                 Your("body begins to feel less solid.");
             } else {

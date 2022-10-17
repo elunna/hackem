@@ -312,20 +312,17 @@ doread()
         return 0;
 
     /* KMH -- some rings can be read, even while illiterate */
-	if (scroll->oclass == RING_CLASS) {
-	    const char *clr = (char *)0;
+    if (scroll->oclass == RING_CLASS) {
+        const char *clr = (char *)0;
 
-	    if (Blind) {
-		    You("cannot see it!");
-		    return 0;
-	    }
-	    if (scroll->where != OBJ_INVENT || !(scroll->owornmask & W_RING)) {
-		    pline("Perhaps you should put it on first.");
-		    return 0;
-	    }
-	    #if 0
-        if (scroll->dknown && objects[scroll->otyp].oc_name_known)
-        #endif
+        if (Blind) {
+            You("cannot see it!");
+            return 0;
+        }
+        if (scroll->where != OBJ_INVENT || !(scroll->owornmask & W_RING)) {
+            pline("Perhaps you should put it on first.");
+            return 0;
+        }
         if (scroll->otyp == RIN_MOOD) {
             /* To read a mood ring, you must be wearing it, it must 
             not be cursed, and you must not be blind or hallucinating. 
@@ -347,7 +344,7 @@ doread()
         else
             pline("It glows %s!", hcolor(clr));
         return 1;
-	}
+    }
 
     /* outrumor has its own blindness check */
     if (scroll->otyp == FORTUNE_COOKIE) {
@@ -3038,13 +3035,7 @@ struct obj *sobj;
         return;
     }
     setworn(mkobj(CHAIN_CLASS, TRUE), W_CHAIN);
-#if 0 /* Disabled Iron Ball of Liberation */
-    if (((otmp = carrying(HEAVY_IRON_BALL)) != 0)
-        && (otmp->oartifact == ART_IRON_BALL_OF_LIBERATION)) {
-        setworn(otmp, W_BALL);
-        Your("%s chains itself to you!", xname(otmp));
-    } else if (!reuse_ball)
-#endif
+
     if (!reuse_ball)
         setworn(mkobj(BALL_CLASS, TRUE), W_BALL);
     else

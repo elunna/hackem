@@ -1654,16 +1654,11 @@ boolean gone;
     case RIN_SONIC_RESISTANCE:
         break;
     case RIN_SLEEPING:
-		/* Copied from Amulet of Restful Sleep */
-		/* HSleepy = 0L; -- avoid clobbering FROMOUTSIDE bit */
+        /* Copied from Amulet of Restful Sleep */
+        /* HSleepy = 0L; -- avoid clobbering FROMOUTSIDE bit */
         if (!ESleepy && !(HSleepy & ~TIMEOUT))
             HSleepy &= ~TIMEOUT; /* clear timeout bits */
         return;
-		#if 0  /* old slashem code */
-		if (!ESleeping)
-			HSleeping = 0;
-		break;
-		#endif
     case RIN_STEALTH:
         toggle_stealth(obj, (EStealth & ~mask), FALSE);
         break;

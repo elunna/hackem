@@ -646,7 +646,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, DFNS(AD_MAGM), CARY(AD_DISE), 0, A_CHAOTIC, PM_BARBARIAN,
       NON_PM, 5000L, NO_COLOR),
 
-#if 0 /* --hackem: Disabled because this quest artifact SUCKS! */
+#if 0 /* --hackem: Disabled */
     /* Convict role quest artifact. Provides magic resistance when carried,
      * invoke to phase through walls like a xorn.
      */

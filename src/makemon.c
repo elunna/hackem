@@ -2331,12 +2331,6 @@ register struct monst *mtmp;
                 mpickobj(mtmp, otmp);
                 if (otmp->spe < 5) 
                     otmp->spe += rnd(5);
-                #if 0
-                otmp = mksobj(GRAY_DRAGON_SCALE_MAIL, FALSE, FALSE);
-                mpickobj(mtmp, otmp);
-                if (otmp->spe < 5) 
-                    otmp->spe += rnd(5);
-                #endif
                 /* Replacements for GDSM */
                 otmp = mksobj(CRYSTAL_PLATE_MAIL, FALSE, FALSE);
                 mpickobj(mtmp, otmp);
@@ -4649,10 +4643,6 @@ struct obj *bag;
             else if (!rn2(23)) 
                 cnt += rn1(7, 1);
             while (cnt-- > 0) {
-#if 0
-                if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
-                    gotone = TRUE;
-#endif
                 if (makemon(bag->otyp == BAG_OF_TRICKS ?
                       (struct permonst *) 0 : &mons[PM_SEWER_RAT + rn2(2)],
                        u.ux, u.uy, NO_MM_FLAGS))

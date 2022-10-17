@@ -1184,14 +1184,6 @@ struct obj *obj;
                 You("swing %s through thin air.", yobjnam(obj, (char *) 0));
             }
         } else {
-            #if 0
-            static const char *const d_action[6] = { "swinging", "digging",
-                                                     "chipping the statue",
-                                                     "hitting the boulder",
-                                                     "chopping at the door",
-                                                     "cutting the tree" };
-            #endif
-            
             static const char * const d_action[6][2] = {
 			    {"swinging","slicing the air"},
 			    {"digging","cutting through the wall"},

@@ -3778,28 +3778,8 @@ register struct obj *obj;
             /* This object is not upgradable */
             return 0;
 	}
-
-#if 0  /* --hackem: This currently crashes because of otyp2
-        *  Disabling until we can fix it */
-	if (artifact_name(ONAME(obj), &otyp2) && otyp2 == obj->otyp) {
-	    int n;
-	    char c1, c2;
-
-	    Strcpy(buf, ONAME(obj));
-	    n = rn2((int)strlen(buf));
-	    c1 = lowc(buf[n]);
-	    do {
-                c2 = 'a' + rn2('z' - 'a');
-            } while (c1 == c2);
-	    buf[n] = (buf[n] == c1) ? c2 : highc(c2);  /* keep same case */
-	    if (oname(obj, buf) != obj)
-		panic("upgrade_obj: unhandled realloc");
-	}
-#endif
+        
 	if ((!carried(obj) || obj->unpaid) &&
-#ifdef UNPOLYPILE
-		!is_hazy(obj) &&
-#endif
 		get_obj_location(obj, &ox, &oy, BURIED_TOO | CONTAINED_TOO) &&
 		costly_spot(ox, oy)) {
 	    char objroom = *in_rooms(ox, oy, SHOPBASE);

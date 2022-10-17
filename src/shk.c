@@ -4352,7 +4352,7 @@ long svc_type;
         if (Hallucination)
             Your("%s looks dented.", xname(obj));
 
-#if 0 /* Handle dragon scales later! */
+#if 0 /* TODO: Handle dragon scales later! */
         if (obj->otyp >= GRAY_DRAGON_SCALES &&
                                 obj->otyp <= YELLOW_DRAGON_SCALES) {
                 /* dragon scales get turned into dragon scale mail */
@@ -4385,7 +4385,7 @@ long svc_type;
 **
 ** Charge something (for a price!)
 */
-#if 0 /* Not using these until we grok getobj */
+#if 0 /* TODO: Not using these until we grok getobj */
 static const char wand_types[] = { WAND_CLASS, 0 };
 static const char tool_types[] = { TOOL_CLASS, 0 };
 static const char ring_types[] = { RING_CLASS, 0 };

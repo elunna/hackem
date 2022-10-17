@@ -931,10 +931,6 @@ register struct monst *mtmp;
         } else {
             if (ptr != &mons[PM_PRISONER])
                 verbl_msg = "This will teach you not to disturb me!";
-#if 0
-            else
-                verbl_msg = "??????????";
-#endif
         }
         break;
     case MS_BOAST: /* giants */

@@ -26,11 +26,8 @@
 				 : spl_book[spell].sp_know + boost)
 #define spellev(spell) spl_book[spell].sp_lev
 #define spellname(spell) OBJ_NAME(objects[spellid(spell)])
-#if 0
-#define spellet(spell)   /* Evil has 52 spell letters available */
-    ((char) ((spell < 26) ? ('a' + spell) : ('A' + spell - 26)))
-#endif
 
+/* Added 10 more spell slots (from SlashEM) */
 #define spellet(spell)	\
 	((char) ((spell < 26) ? ('a' + spell) : \
 	        (spell < 52) ? ('A' + spell - 26) : \
@@ -2055,25 +2052,12 @@ int spell;
                    || Role_if(PM_TOURIST) || Role_if(PM_VALKYRIE));
 
 	/* Calculate armor penalties */
-	if (uarm && (uarm->otyp != ROBE
-            && uarm->otyp != ROBE_OF_POWER
-		    && uarm->otyp != ROBE_OF_PROTECTION)) 
+	if (uarm && (!is_robe(uarm))) 
 	    splcaster += 5;
     
     /* Robes are body armour in SLASH'EM */
     if (uarm && is_metallic(uarm) && !paladin_bonus) 
 	    splcaster += urole.spelarmr;
-
-    #if 0
-    if (uarm && is_metallic(uarm) && !paladin_bonus)
-        splcaster += (uarmc && uarmc->otyp == ROBE) ? urole.spelarmr / 2
-                                                    : urole.spelarmr;
-    else if (uarmc && 
-            (uarmc->otyp == ROBE
-            || uarmc->otyp == ROBE_OF_POWER
-            || uarmc->otyp == ROBE_OF_PROTECTION))
-        splcaster -= urole.spelarmr;
-    #endif
 
     if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
@@ -2221,10 +2205,7 @@ int spell;
      * to this calculation. Obtaining skilled or expert in
      * various spell schools can offset this penalty.
      */
-    if (uarm && (uarm->otyp != CRYSTAL_PLATE_MAIL
-            && uarm->otyp != ROBE
-            && uarm->otyp != ROBE_OF_POWER
-		    && uarm->otyp != ROBE_OF_PROTECTION)) {
+    if (uarm && (uarm->otyp != CRYSTAL_PLATE_MAIL && !is_robe(uarm))) {
 #define PENALTY_NON_CASTER (spellev(spell) * 10)
 #define PENALTY_PRI_CASTER (spellev(spell) * 10) - 30
         if (primary_casters && spellev(spell) >= 4)

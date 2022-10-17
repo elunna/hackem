@@ -913,9 +913,6 @@ int shp_indx;
     eshkp->customer[0] = '\0';
     /* WAC init services */
     init_shk_services(shk);
-    #if 0
-    mkmonmoney(shk, 1000L + 30L * (long) rnd(100)); /* initial capital */
-    #endif
     shkmoney = 1000L + 30L * (long) rnd(100);  /* initial capital */
     /* [CWC] Lets not create the money yet until we see if the
          shk is a black marketeer, else we'll have to create
@@ -982,22 +979,12 @@ int shp_indx;
                 otmp->spe += rnd(5);
             (void) mpickobj(shk, otmp);
         }
-
         if (!rn2(2)) {
             otmp = mksobj(SHIELD_OF_REFLECTION, FALSE, FALSE);
             mpickobj(shk, otmp);
             if (otmp->spe < 5) 
                 otmp->spe += rnd(5);
         }
-        #if 0 /* GDSM n/a in EvilHack */
-        if (!rn2(2)) {
-            otmp = mksobj(GRAY_DRAGON_SCALE_MAIL, FALSE, FALSE);
-            mpickobj(shk, otmp);
-            if (otmp->spe < 5) 
-                otmp->spe += rnd(5);
-        }
-        #endif
-        
         if (!rn2(2)) {  /* Replacement for GDSM */
             otmp = mksobj(CLOAK_OF_MAGIC_RESISTANCE, FALSE, FALSE);
             bless(otmp);
@@ -1005,7 +992,6 @@ int shp_indx;
             otmp->oerodeproof = TRUE;
             (void) mpickobj(shk, otmp);
         }
-        
         if (!rn2(2)) {  /* Replacement for GDSM */
             otmp = mksobj(CRYSTAL_PLATE_MAIL, FALSE, FALSE);
             bless(otmp);
@@ -1013,14 +999,12 @@ int shp_indx;
             otmp->oerodeproof = TRUE;
             (void) mpickobj(shk, otmp);
         }
-
         if (!rn2(2)) {
             otmp = mksobj(SPEED_BOOTS, FALSE, FALSE);
             mpickobj(shk, otmp);
             if (otmp->spe < 5) 
                 otmp->spe += rnd(5);
         }
-        
         if (!rn2(2)) {
             otmp = mksobj(AMULET_OF_LIFE_SAVING, FALSE, FALSE);
             mpickobj(shk, otmp);

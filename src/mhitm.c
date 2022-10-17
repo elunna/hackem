@@ -52,15 +52,7 @@ register struct attack *mattk;
 {
     const char* noise;
     boolean farq = (distu(magr->mx, magr->my) > 15);
-#if 0 /* Old evil code */
-    if (!Deaf && (farq != far_noise || moves - noisetime > 10)) {
-        far_noise = farq;
-        noisetime = moves;
-        You_hear("%s%s.",
-                 (mattk->aatyp == AT_EXPL) ? "an explosion" : "some noises",
-                 farq ? " in the distance" : "");
-    }
-#endif
+
     if (!Deaf && (farq != far_noise || moves - noisetime > 10)) {
         far_noise = farq;
         noisetime = moves;
@@ -1591,12 +1583,9 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                     }
                     xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
                     tmp = 0;
-#if 0
-                    or
+#if 0 /* Alternates - keep in case we need to fix in the future */
                     return (MM_DEF_DIED | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
-#endif
-
-#if 0
+                    or 
                     mondead(mdef); /* no corpse */
                     if (mdef->mhp < 0)
                         return (MM_DEF_DIED | (grow_up(magr,mdef) ? 0 : MM_AGR_DIED));

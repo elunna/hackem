@@ -1602,13 +1602,7 @@ struct obj *obj;
         obj = splitobj(otmp, 1L);
         obj_extract_self(otmp);	/* free from inv */
     }
-#if 0  /* Don't auto-wield torches when lit, annoying */
-    /* You can use a torch in either wielded weapon slot */
-    if (obj != uwep && (obj != uswapwep || !u.twoweap)) {
-        if (!wield_tool(obj, (const char *)0))
-            return 0;
-    }
-#endif
+
     use_lamp(obj);
 
     /* shouldn't merge */
@@ -2967,24 +2961,6 @@ struct obj *stone, *obj;
             whetstoneinfo.wsobj = stone;
             You("start %s %s.", occutext, yname(obj));
             set_occupation(set_whetstone, occutext, 0);
-            
-            /* --hackem: Are any of these effects necessary?
-                Normally a whetstone uses a trivial amount of water.
-            */
-            #if 0
-            if (IS_FOUNTAIN(levl[u.ux][u.uy].typ))
-                /* This is a duplication of dipfountain. 
-                    We'll dip the object. 
-                whetstone_fountain_effects(obj);
-                */
-                dipfountain(obj)
-
-            else if (IS_SINK(levl[u.ux][u.uy].typ))
-                whetstone_sink_effects(obj);
-
-            else if (IS_TOILET(levl[u.ux][u.uy].typ)) 
-                whetstone_toilet_effects(obj);
-            #endif
 	    }
 	} else 
         You("wave %s in the %s.", the(xname(stone)),
