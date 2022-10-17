@@ -100,7 +100,6 @@
                          || youmonst.data->mlet == S_FUNGUS             \
                          || youmonst.data->mlet == S_ZOMBIE             \
                          || youmonst.data->mlet == S_WRAITH             \
-                         || youmonst.data->mlet == S_VAMPIRE            \
                          || youmonst.data->mlet == S_GHOST              \
                          || youmonst.data->mlet == S_MUMMY              \
                          || youmonst.data->mlet == S_LICH               \
@@ -109,6 +108,8 @@
                          || youmonst.data == &mons[PM_BABY_GREEN_DRAGON] \
                          || youmonst.data == &mons[PM_GREEN_DRAGON]      \
                          || defended(&youmonst, AD_DISE))
+/* Removed sickness resistance for vampires so that the starting race
+ * isn't too overpowered to start with. They can get it later. */
 
 #define Invulnerable u.uprops[INVULNERABLE].intrinsic /* [Tom] */
 
