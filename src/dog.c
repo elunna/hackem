@@ -1009,9 +1009,12 @@ register struct obj *obj;
         case APPLE:
         case ORANGE:
         case PEAR:
+        case ASIAN_PEAR:
         case MELON:
         case KELP_FROND:
         case SLIME_MOLD:
+        case MUSHROOM:
+        case PINEAPPLE:
             return herbi ? DOGFOOD : starving ? ACCFOOD : MANFOOD;
         case CARROT:
             return (herbi || mblind) ? DOGFOOD : starving ? ACCFOOD : MANFOOD;
