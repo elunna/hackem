@@ -593,26 +593,24 @@ struct mkroom *sroom;
                     set_corpsenm(oegg, PM_OWLBEAR);
                 }
                 break;
-            case ARMORY:
-                {
-                    struct obj *otmp;
-                    if (rn2(4)) {
-                        if (rn2(2)) {
-                            if (rn2(4)) {
-                                otmp = mkobj_at(WEAPON_CLASS, sx, sy, FALSE);
-                                otmp->spe = 0;
-                            } else {
-                                otmp = mkobj_at(TOOL_CLASS, sx, sy, FALSE);
-                            }
-                        } else {
-                            otmp = mkobj_at(ARMOR_CLASS, sx, sy, FALSE);
+            case ARMORY: {
+                if (rn2(4)) {
+                    if (rn2(2)) {
+                        if (rn2(4)) {
+                            otmp = mkobj_at(WEAPON_CLASS, sx, sy, FALSE);
                             otmp->spe = 0;
+                        } else {
+                            otmp = mkobj_at(TOOL_CLASS, sx, sy, FALSE);
                         }
-                        if (is_rustprone(otmp) || is_flammable(otmp))
-                            otmp->oeroded = rn2(4);
-                        else if (is_corrodeable(otmp) || is_rottable(otmp))
-                            otmp->oeroded2 = rn2(4);
+                    } else {
+                        otmp = mkobj_at(ARMOR_CLASS, sx, sy, FALSE);
+                        otmp->spe = 0;
                     }
+                    if (is_rustprone(otmp) || is_flammable(otmp))
+                        otmp->oeroded = rn2(4);
+                    else if (is_corrodeable(otmp) || is_rottable(otmp))
+                        otmp->oeroded2 = rn2(4);
+                }
                 }
                 break;
             }
@@ -693,10 +691,9 @@ int mm_flags;
 
     while (cnt--) {
         mdat = morguemon();
-        if (mdat && enexto(&cc, mm->x, mm->y, mdat)
-            && (!revive_corpses
-                || !(otmp = sobj_at(CORPSE, cc.x, cc.y))
-                || !revive(otmp, FALSE))
+        if ((mdat && enexto(&cc, mm->x, mm->y, mdat)
+            && (!revive_corpses || !(otmp = sobj_at(CORPSE, cc.x, cc.y))) 
+              || !revive(otmp, FALSE))
             || mdat == &mons[PM_GHOUL_MAGE]
             || mdat == &mons[PM_GHOUL_QUEEN]
             || mdat == &mons[PM_VAMPIRE_MAGE])

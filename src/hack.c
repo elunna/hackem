@@ -3462,7 +3462,7 @@ showdmg(n)
 {
     if (wizard)
         pline("(%d pts.)", n);
-	return;
+    return;
 }
 
 

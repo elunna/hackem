@@ -967,10 +967,10 @@ doengrave()
             case WAN_FIREBALL:
                 ptext = TRUE;
                 type  = BURN;
-                if(!objects[otmp->otyp].oc_name_known) {
+                if (!objects[otmp->otyp].oc_name_known) {
                     if (flags.verbose)
                         pline("This %s is a wand of fireballs!", xname(otmp));
-                        preknown = TRUE;
+                    preknown = TRUE;
                 }
                 Strcpy(post_engr_text, Blind ? "You feel the wand heat up." 
                                              : "Flames fly from the wand.");

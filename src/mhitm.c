@@ -1361,6 +1361,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             return (MM_DEF_DIED
                     | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
         }
+        break;
     case AD_DGST: {
         struct obj *sbarding;
 
@@ -1541,9 +1542,6 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             /* Handling lit torch damage  */
             if ((mwep->otyp == TORCH && mwep->lamplit)
                 || mwep->otyp == FLAMING_LASH) {
-                if (!Blind) {
-                    static char outbuf[BUFSZ];
-                }
 
                 if (completelyburns(pd)) { /* paper golem or straw golem */
                     if (!Blind)
@@ -3101,9 +3099,8 @@ struct obj *mwep;
                     magr->m_lev--;
                 /* Automatic kill if drained past level 0 */
             }
-
-        break;
         }
+        break;
     case AD_QUIL:
         if (mhit && !rn2(2)) {
             Strcpy(buf, Monnam(magr));

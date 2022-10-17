@@ -2951,7 +2951,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         
         boolean no_effect = (nonliving(youmonst.data) || is_vampshifter(&youmonst));
         if (youdefend && !no_effect) {
-            boolean lose_maxhp = (withertime >= 8); /* if already withering */
+            lose_maxhp = (withertime >= 8); /* if already withering */
                                                     
             if (Withering)
                 Your("withering speeds up!");
@@ -3315,6 +3315,7 @@ struct obj *obj;
                 if (!seffects(pseudo))
                     obfree(pseudo, NULL);
             }
+            break;
         }
         case WITHER: {
             uchar withertime = max(20, 60);

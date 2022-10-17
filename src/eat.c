@@ -501,7 +501,7 @@ boolean message;
         if (has_omonst(piece) && has_erac(OMONST(piece)))
             cpostfx(ERAC(OMONST(piece))->rmnum);
         
-        else if (!piece->odrained || Race_if(PM_VAMPIRIC) && !rn2(5))
+        else if ((!piece->odrained || Race_if(PM_VAMPIRIC)) && !rn2(5))
             cpostfx(piece->corpsenm);
         else
             cpostfx(piece->corpsenm);
@@ -1281,6 +1281,7 @@ int pm;
                 default:
                     break;
             }
+            break;
     case PM_HUMAN_WERERAT:
         catch_lycanthropy = PM_WERERAT;
         break;
@@ -3560,8 +3561,8 @@ gethungry()
          /* Regeneration uses up food when injured, unless due to an artifact
          * or playing as a Giant */
         if ((HRegeneration & ~(FROMFORM | FROMRACE))
-            || (ERegeneration & ~(W_ARTI | W_WEP | W_ARMOR)) &&
-             (uhp() < uhpmax()))
+            || ((ERegeneration & ~(W_ARTI | W_WEP | W_ARMOR)) &&
+             (uhp() < uhpmax())))
             u.uhunger--;
         if (near_capacity() > SLT_ENCUMBER)
             u.uhunger--;

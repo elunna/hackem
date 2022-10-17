@@ -1380,7 +1380,7 @@ int spellnum;
         * rarely unless you're carrying the amulet.
         */
         if (spellnum == MGC_CREATE_POOL
-             && (levl[u.ux][u.uy].typ != ROOM && levl[u.ux][u.uy].typ != CORR 
+             && ((levl[u.ux][u.uy].typ != ROOM && levl[u.ux][u.uy].typ != CORR)
              || !u.uhave.amulet && rn2(10)))
             return TRUE;
         /* Don't try to destroy armor if none is being worn */

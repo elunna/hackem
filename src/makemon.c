@@ -1448,7 +1448,6 @@ register struct monst *mtmp;
             }
             
         } else if (mm == PM_CROESUS) {
-            struct obj* received;
             int item;
 
             item = TWO_HANDED_SWORD;
@@ -2567,12 +2566,13 @@ register struct monst *mtmp;
 
         if (i != NUM_OBJECTS)
             (void) mongets(mtmp, i);
-            if (rn2(2)) {
-                if ((int) mtmp->m_lev > rn2(30))
-                    (void) mongets(mtmp, POT_VAMPIRE_BLOOD);
-                else
-                    (void) mongets(mtmp, POT_BLOOD);
-            }
+        
+        if (rn2(2)) {
+            if ((int) mtmp->m_lev > rn2(30))
+                (void) mongets(mtmp, POT_VAMPIRE_BLOOD);
+            else
+                (void) mongets(mtmp, POT_BLOOD);
+        }
 
         if (ptr == &mons[PM_KAS]) {
             otmp = mksobj(TWO_HANDED_SWORD, FALSE, FALSE);
@@ -4658,11 +4658,12 @@ struct obj *bag;
                        u.ux, u.uy, NO_MM_FLAGS))
                     gotone = TRUE;
             }
-            if (gotone)
+            if (gotone) {
                 if (bag->otyp == BAG_OF_TRICKS)
                     makeknown(BAG_OF_TRICKS);
                 else
                     makeknown(BAG_OF_RATS);
+            }
             return 1;
         }
             

@@ -543,12 +543,10 @@ STATIC_DCL void
 polymorph_toilet()
 {
     uchar sym = S_toilet;
-    boolean sinklooted;
 
     if (levl[u.ux][u.uy].typ != TOILET)
         return;
-
-    sinklooted = levl[u.ux][u.uy].looted != 0;
+    
     level.flags.ntoilets--;
     levl[u.ux][u.uy].doormask = 0; /* levl[][].flags */
     sym = S_sink;
@@ -2332,13 +2330,14 @@ boolean moldy;
             break;
 
         case OBJ_FLOOR:
-            if (cansee(mtmp->mx, mtmp->my))
+            if (cansee(mtmp->mx, mtmp->my)) {
                 if (moldy)
                     pline("%s grows on a moldy corpse!", Amonnam(mtmp));
                 else
                     pline("%s rises from the dead!",
-                      chewed ? Adjmonnam(mtmp, "bite-covered")
-                             : Monnam(mtmp));
+                          chewed ? Adjmonnam(mtmp, "bite-covered")
+                                 : Monnam(mtmp));
+            }
             break;
 
         case OBJ_MINVENT: /* probably a nymph's */

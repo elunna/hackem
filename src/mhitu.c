@@ -1465,6 +1465,7 @@ register struct attack *mattk;
             else
                 u.ueggpm = mtmp->mnum;
         }
+        break;
     case AD_CLOB:
     case AD_PHYS:
         if ((mattk->aatyp == AT_HUGS
@@ -2961,13 +2962,14 @@ struct attack *mattk;
         /* Mik: Go corrode a few things... */
         if (mtmp->data == &mons[PM_SHOGGOTH] || mtmp->data == &mons[PM_GIANT_SHOGGOTH]) {
             for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
-                if (is_corrodeable(otmp2))
-                    /* --hackem: I'm disabling the EF_DESTROY flag because it seems to result in 
-                    random crashes. */
-                    
+                if (is_corrodeable(otmp2)) {
+                    /* --hackem: I'm disabling the EF_DESTROY flag because it
+                    seems to result in random crashes. */
+
                     /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
                     break;
+                }
             }
         } else {
             for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
@@ -2976,6 +2978,7 @@ struct attack *mattk;
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
             }
         }
+        break;
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
             if (defends(AD_BLND, uarm)) {
@@ -3680,7 +3683,7 @@ struct attack *mattk;
     case AD_DETH:
         if (canseemon(mtmp) && couldsee(mtmp->mx, mtmp->my)
             && mtmp->mcansee && rn2(4)) {
-            int dmg, permdmg = 0;
+            int dmg = 0;
             /* currently only Vecna has the gaze of death */
             if (mtmp && mtmp->data == &mons[PM_VECNA])
                 You("meet %s deadly gaze!", s_suffix(mon_nam(mtmp)));
@@ -4441,6 +4444,7 @@ int dmg;
             make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
             stop_occupation();
         }
+        break;
     case AD_SONG:
         /* Harpies have an entracing song that paralyzes */
         if (m_canseeu(mtmp))

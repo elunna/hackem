@@ -778,8 +778,8 @@ unsigned corpseflags;
         /* --hackem: Small chance to drop a magic candle = NiceHack! */
         if (!rn2(69))
             obj = mksobj_at(MAGIC_CANDLE, x, y, TRUE, FALSE);
-            free_mname(mtmp);
-            break;
+        free_mname(mtmp);
+        break;
     case PM_PLASTIC_GOLEM:
         num = d(2, 4);
         while (num--) {
@@ -4786,8 +4786,6 @@ struct monst *mtmp;
                      !rn2(3) ? "a low groaning" : "a low moaning");
     }
     if (mtmp->data == &mons[PM_MEDUSA]) {
-        register int i;
-
         for (i = 0; i < NATTK; i++)
             if (mtmp->data->mattk[i].aatyp == AT_GAZE) {
                 (void) gazemu(mtmp, &mtmp->data->mattk[i]);
