@@ -30,6 +30,7 @@ STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *));
 STATIC_DCL int FDECL(disarm_rust_trap, (struct trap *));
 STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *));
 STATIC_DCL int FDECL(disarm_landmine, (struct trap *));
+STATIC_DCL int FDECL(disarm_spear_trap, (struct trap *));
 STATIC_DCL int FDECL(disarm_squeaky_board, (struct trap *));
 STATIC_DCL int FDECL(disarm_shooting_trap, (struct trap *, int));
 STATIC_DCL void FDECL(clear_conjoined_pits, (struct trap *));
@@ -5004,6 +5005,42 @@ struct trap *ttmp;
 }
 
 STATIC_OVL int
+disarm_spear_trap(ttmp) /* Erik Lunna */
+struct trap *ttmp;
+{
+    xchar trapx = ttmp->tx, trapy = ttmp->ty;
+    int fails = try_disarm(ttmp, FALSE);
+    
+    if (fails < 2)
+        return fails;
+    You("disarm %s spear trap.", the_your[ttmp->madeby_u]);
+    
+    if (rnl(10) > 5) {
+        switch (rn2(5)) {
+        case 0:
+            cnv_trap_obj(SPEAR, 1, ttmp, FALSE);
+            break;
+        case 1:
+            cnv_trap_obj(ELVEN_SPEAR, 1, ttmp, FALSE);
+            break;
+        case 2:
+            cnv_trap_obj(ORCISH_SPEAR, 1, ttmp, FALSE);
+            break;
+        case 3:
+            cnv_trap_obj(DWARVISH_SPEAR, 1, ttmp, FALSE);
+            break;
+        case 4:
+            cnv_trap_obj(STAKE, 1, ttmp, FALSE);
+        }
+    } else {
+        You("broke the spear during your efforts.");
+        deltrap(ttmp);
+        newsym(trapx, trapy);
+    }
+    return 1;
+}
+
+STATIC_OVL int
 disarm_rust_trap(ttmp) /* Paul Sonier */
 struct trap *ttmp;
 {
@@ -5341,6 +5378,8 @@ boolean force;
                     return disarm_shooting_trap(ttmp, ARROW);
                 case BOLT_TRAP:
                     return disarm_shooting_trap(ttmp, CROSSBOW_BOLT);
+                case SPEAR_TRAP:
+                    return disarm_spear_trap(ttmp);
                 case RUST_TRAP:
                     return disarm_rust_trap(ttmp);
                 case FIRE_TRAP:
