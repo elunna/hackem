@@ -40,17 +40,17 @@ enum p_skills {
     P_POLEARMS           = 17, /* attack two or three steps away */
     P_SPEAR              = 18, /* includes javelin */
     P_TRIDENT            = 19,
-    P_LANCE              = 20,
-    P_BOW                = 21, /* launchers */
-    P_SLING              = 22,
-    P_FIREARM            = 23, /* KMH */
-    P_CROSSBOW           = 24,
-    P_DART               = 25, /* hand-thrown missiles */
-    P_SHURIKEN           = 26,
-    P_BOOMERANG          = 27,
-    P_WHIP               = 28, /* flexible, one-handed */
-    P_UNICORN_HORN       = 29, /* two-handed */
-    P_LIGHTSABER         = 30,  /* last weapon */
+    P_LIGHTSABER         = 20,
+    P_LANCE              = 21,
+    P_BOW                = 22, /* launchers */
+    P_SLING              = 23,
+    P_FIREARM            = 24, /* KMH */
+    P_CROSSBOW           = 25,
+    P_DART               = 26, /* hand-thrown missiles */
+    P_SHURIKEN           = 27,
+    P_BOOMERANG          = 28,
+    P_WHIP               = 29, /* flexible, one-handed */
+    P_UNICORN_HORN       = 30, /* last weapon */
 
     /* Spell Skills added by Larry Stewart-Zerba */
     P_ATTACK_SPELL       = 31,

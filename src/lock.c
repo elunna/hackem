@@ -826,14 +826,13 @@ doforce()
                   || objects[uwep->otyp].oc_skill > P_LANCE)
                : uwep->oclass != ROCK_CLASS)) {
         
-        if (objects[uwep->otyp].oc_skill != P_LIGHTSABER) {
-            You_cant("force anything %s weapon.",
-                 !uwep ? "when not wielding a"
-                       : (uwep->oclass != WEAPON_CLASS && !is_weptool(uwep))
-                             ? "without a proper"
-                             : "with that");
-            return 0;
-        }
+        You_cant("force anything %s weapon.",
+             !uwep ? "when not wielding a"
+                   : (uwep->oclass != WEAPON_CLASS && !is_weptool(uwep))
+                         ? "without a proper"
+                         : "with that");
+        return 0;
+        
     }
     if (!can_reach_floor(TRUE)) {
         cant_reach_floor(u.ux, u.uy, FALSE, TRUE);
