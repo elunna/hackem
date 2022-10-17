@@ -591,7 +591,13 @@ struct obj *obj;
             /* mplayers knew better than to overenchant Magicbane */
             if (otmp->oartifact == ART_MAGICBANE)
                 otmp->spe = rnd(4);
+            
+            /* No easy way to do this */
+            if (monsndx(ptr) == PM_UNDEAD_SLAYER)
+                set_material(otmp, SILVER);
+            
             (void) mpickobj(mtmp, otmp);
+            
         }
 
         if (ascending) {
