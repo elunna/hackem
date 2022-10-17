@@ -888,8 +888,7 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, subInfidel, 1);
             mongets(mtmp, SKELETON_KEY);
             break;
-        /* --hackem: TODO: This is a cheap copy for now, but exactly how it was in 
-            slashem. The Yeoman will get their own gear soon. */ 
+        /* --hackem: TODO: Give Yeomen their own gear . */ 
         case PM_YEOMAN:
         case PM_KNIGHT:
             ini_mon_inv(mtmp, Knight, 1);

@@ -677,7 +677,7 @@ int how;
 
     /* --hackem: Not sure if this goes here */
     else if (mtmp->mtraitor)
-		done(BETRAYED);
+        done(BETRAYED);
 
     done(how);
     return;

@@ -36,4 +36,4 @@
 * Some of the things that can be done in Lua were also possible with DES files, and the documentation in the DES page is a bit more detailed, so it's worth checking if you get stuck!
 * Look in the dat/ folder for other Lua files that describe levels. If the map is one static thing without any variety, maybe work in a random chance for some grass, or a random chance to change the shape of a terrain feature.
 
---hackemslashem: Credit and Thanks to SpliceHack for setting up this document!
+--hackem: Credit and Thanks to SpliceHack for setting up this document!

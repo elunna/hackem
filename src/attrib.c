@@ -179,10 +179,7 @@ static const struct innate {
                  { 5, &(HWarning), "sensitive", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
-
-  /* --hackem: This is a workaround. For some reason, I can't get vampires
-   * to start with regeneration. This might be a better approach, so we
-   * can sprinkle in some other attributes as they gain levels. */
+  
 vam_abil[] =   { { 1, &(HBreathless), "", "" },
                  { 1, &(HVulnerable_fire), "", "" },
                  { 5, &(HHunger), "ravenous", "less revenous" },

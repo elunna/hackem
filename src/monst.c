@@ -2911,7 +2911,7 @@ NEARDATA struct permonst mons[] = {
     * (the zruty has been moved to Yeti)
     */
 
-/* --hackem: This define does not do much, but kept for future use. */
+/* --hackem: Does nothing, but kept for future use. */
 #define M1_MARSUPIAL 0
 
     MON("echidna", S_ZOUTHERN,                                  /* Slash'EM */

@@ -2991,7 +2991,7 @@ find_ac()
 
     /* --hackem: The Ice Mage is inheriting the generous AC bonus that the 
      * SlashEM monk enjoyed. The Ice Mage probably has a better argument since
-     * they are "growing" an ice armor as they grow more powerful - kind of 
+     * they are "growing" an ice armor as they increase in power - kind of 
      * like the tortle. The Ice Mage has a bit of a deficit compared to the 
      * Flame Mage, so hopefully this helps offset the imbalance. 
      * We'll impose similar restrictions - 

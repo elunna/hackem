@@ -1596,7 +1596,7 @@ unsigned doname_flags;
             Sprintf(eos(bp) - 1, ", %s lit)",
                     arti_light_description(obj));
         }
-    /* --hackem: Light from unwielded spear of light. */
+
     } else if (!Blind && obj->oartifact == ART_SPEAR_OF_LIGHT && obj->lamplit) {
         Sprintf(eos(bp), " (%s lit)", arti_light_description(obj));
     }

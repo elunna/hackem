@@ -50,7 +50,7 @@ $places = { (64,03), (64,17), (57,10), (71,10)  }
 SHUFFLE: $places
 DOOR: locked, $places[0]
 
-# --hackem: Prevent xorning through the center wal.
+# Prevent xorning through the center wall.
 NON_PASSWALL: (40,00,40,20)	
 
 STAIR: (00, 10), down

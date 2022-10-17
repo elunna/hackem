@@ -2432,12 +2432,12 @@ do_rust:
         /* plus the normal damage */
         break;
     case AD_CALM:	/* KMH -- koala attack */
-		hitmsg(mtmp, mattk);
-		if (uncancelled)
-            /* --hackem: Pending implementation of techniques.
-			docalm(); */
-			You("calm down.");
-		break;
+        hitmsg(mtmp, mattk);
+        if (uncancelled)
+        /* --hackem: Pending implementation of techniques.
+            docalm(); */
+            You("calm down.");
+        break;
     case AD_SLIM:
         hitmsg(mtmp, mattk);
         if (!uncancelled)
@@ -2961,8 +2961,8 @@ struct attack *mattk;
         if (mtmp->data == &mons[PM_SHOGGOTH] || mtmp->data == &mons[PM_GIANT_SHOGGOTH]) {
             for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
                 if (is_corrodeable(otmp2)) {
-                    /* --hackem: I'm disabling the EF_DESTROY flag because it
-                    seems to result in random crashes. */
+                    /* --hackem: I'm disabling the EF_DESTROY flag because it requires
+                     * a more complicated loop and it's a bit unfair. */
 
                     /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);

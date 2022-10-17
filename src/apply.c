@@ -2778,7 +2778,7 @@ set_whetstone()
 	}
 
     /* --hackem: Removed artifact "resist" penalty 
-        (how can artifacts resist sharpening? Also most artifacts are fixed anyway)
+        (Most artifacts are fixed anyway)
     */
     chance = 4 - (ows->blessed) + (ows->cursed*2);
 
@@ -4483,7 +4483,7 @@ struct obj *obj;
         dmg *= 4;
         goto wanexpl;
     case WAN_FIREBALL:
-        /* --hackem: The magic 11 is ZT_SPELL(ZT_FIRE)*/
+        /* The magic 11 is ZT_SPELL(ZT_FIRE)*/
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
 
         if (obj->dknown 
@@ -4678,7 +4678,7 @@ struct obj *obj;
         dmg = 0;
         break;
     case WAN_FEAR:
-        /* --hackem: It would be nicer to scare all surrounding monsters as well. */
+        /* --hackem: It would be nice to scare all surrounding monsters as well. */
         You("suddenly panic!");
         make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
         goto discard_broken_wand;

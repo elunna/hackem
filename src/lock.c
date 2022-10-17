@@ -826,7 +826,6 @@ doforce()
                   || objects[uwep->otyp].oc_skill > P_LANCE)
                : uwep->oclass != ROCK_CLASS)) {
         
-        /* --hackem: Bit of a kludge for lightsabers */
         if (objects[uwep->otyp].oc_skill != P_LIGHTSABER) {
             You_cant("force anything %s weapon.",
                  !uwep ? "when not wielding a"
