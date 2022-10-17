@@ -1797,11 +1797,8 @@ shk_other_services()
     /*WAC - did this using the windowing system...*/
     any.a_void = 0;         /* zero out all bits */
     tmpwin = create_nhwindow(NHW_MENU);
-    /* start_menu(tmpwin, MENU_BEHAVE_STANDARD); */
-    
+
     start_menu(tmpwin);
-    
-    /* TODO: Show any available credit */
     
     /* All shops can identify (some better than others) */
     if (ESHK(shkp)->services & SHK_ID_BASIC)

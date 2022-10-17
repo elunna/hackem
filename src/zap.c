@@ -2620,8 +2620,6 @@ register struct obj *obj;
        in order to catch various cases for engraving and keeping Wands
        from being identified erroneously. */
     boolean wonder = FALSE;
-    /* TODO: Move all omni wands to be contiguous in objects.c so we can use 
-     * a single random statement instead of switch */
     if (obj->otyp == WAN_WONDER) {
         switch (rn2(6)) {
         case 0: obj->otyp = WAN_LIGHT; break;

@@ -1518,8 +1518,6 @@ unsigned doname_flags;
             Strcpy(tmpbuf, "partly eaten ");
         else
             tmpbuf[0] = '\0';
-        /* TODO: resolve the commented out line below from vampire import */
-        /*Strcat(prefix, tmpbuf);*/
         add_erosion_words(obj, prefix);
 
         if (obj->otyp == CORPSE) {
@@ -1529,7 +1527,6 @@ unsigned doname_flags;
             unsigned cxarg = (((obj->quan != 1L) ? 0 : CXN_ARTICLE)
                               | CXN_NOCORPSE);
             char *cxstr = corpse_xname(obj, prefix, cxarg);
-            /* Strcat(prefix, tmpbuf); */
             Sprintf(prefix, "%s ", cxstr);
             /* avoid having doname(corpse) consume an extra obuf */
             releaseobuf(cxstr);
