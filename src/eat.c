@@ -498,13 +498,12 @@ boolean message;
              ? "draining" : "eating", food_xname(piece, TRUE));
 
     if (piece->otyp == CORPSE || piece->globby) {
+
         if (has_omonst(piece) && has_erac(OMONST(piece)))
             cpostfx(ERAC(OMONST(piece))->rmnum);
-        
-        else if ((!piece->odrained || Race_if(PM_VAMPIRIC)) && !rn2(5))
+        else 
             cpostfx(piece->corpsenm);
-        else
-            cpostfx(piece->corpsenm);
+
     } else
         fpostfx(piece);
 
@@ -1206,6 +1205,10 @@ int pm;
     int catch_lycanthropy = NON_PM;
     boolean check_intrinsics = FALSE;
 
+    /*if (!piece->odrained || (Race_if(PM_VAMPIRIC) && !rn2(5))) */
+    if (Race_if(PM_VAMPIRIC) && rn2(5))
+        return;
+        
     /* in case `afternmv' didn't get called for previously mimicking
        gold, clean up now to avoid `eatmbuf' memory leak */
     if (eatmbuf)
