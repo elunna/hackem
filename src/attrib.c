@@ -180,14 +180,16 @@ static const struct innate {
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
   
-vam_abil[] =   { { 1, &(HBreathless), "", "" },
-                 { 1, &(HVulnerable_fire), "", "" },
-                 { 5, &(HHunger), "ravenous", "less revenous" },
+
+  vam_abil[] =   { { 3, &(HHunger), "ravenous", "less revenous" },
                  { 5, &(HRegeneration), "resilient", "less resilient" },
-                 { 10, &(HPoison_resistance), "durable", "vulnerable" },
+                 { 7, &(HPoison_resistance), "durable", "vulnerable" },
+                 { 9, &(HFlying), "light", "heavy" },
+                 { 12, &(HSick_resistance), "hale", "" },
                  { 16, &(HSleep_resistance), "awake", "tired" },
                  { 0, 0, 0, 0 } },
-  
+               /*{ 1, &(HBreathless), "", "" },
+                 { 1, &(HVulnerable_fire), "", "" },*/
   
   hum_abil[] = { { 0, 0, 0, 0 } };
 
