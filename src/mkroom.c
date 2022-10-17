@@ -686,7 +686,7 @@ int mm_flags;
 {
     int cnt = (level_difficulty() + 1) / 10 + rnd(5);
     struct permonst *mdat;
-    struct obj *otmp = NULL;
+    struct obj *otmp = 0;
     coord cc;
 
     while (cnt--) {
