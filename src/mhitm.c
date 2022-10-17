@@ -1287,6 +1287,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     struct permonst *pa = magr->data, *pd = mdef->data;
     struct obj* hated_obj;
     long armask;
+    boolean mon_vorpal_wield = (MON_WEP(mdef)
+                                && MON_WEP(mdef)->oartifact == ART_VORPAL_BLADE);
     int armpro, num,
         tmp = d((int) mattk->damn, (int) mattk->damd),
         res = MM_MISS;
@@ -1453,11 +1455,12 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         goto physical;
     case AD_BHED:
-        if ((!rn2(15) || is_jabberwock(mdef->data)) && !magr->mcan) {
+        if ((!rn2(15) || is_jabberwock(mdef->data))
+            && !magr->mcan) {
             Strcpy(buf, Monnam(magr));
-            if (!has_head(mdef->data)) {
+            if (!has_head(mdef->data) || mon_vorpal_wield) {
                 if (canseemon(mdef))
-                    pline("Somehow, %s misses %s wildly.", buf, mon_nam(mdef));
+                    pline("%s somehow misses %s wildly.", buf, mon_nam(mdef));
                 tmp = 0;
                 break;
             }
@@ -1468,10 +1471,11 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 goto physical;
             }
             if (mdef->data == &mons[PM_CERBERUS]) {
-                pline("%s removes one of %s heads!", buf,
-                      s_suffix(mon_nam(mdef)));
-                if (canseemon(mdef))
+                if (canseemon(mdef)) {
+                    pline("%s removes one of %s heads!", buf,
+                          s_suffix(mon_nam(mdef)));
                     You("watch in horror as it quickly grows back.");
+                }
                 tmp = rn2(15) + 10;
                 goto physical;
             }
