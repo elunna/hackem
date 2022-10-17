@@ -715,7 +715,7 @@ register struct monst *magr, *mdef;
                 continue;
 
             res[i] = explmm(magr, mdef, mattk);
-            if (is_fern_spore(magr->data)) spore_dies(magr);
+            if (is_fern_spore(magr->data))
                 spore_dies(magr);
             
             if (res[i] == MM_MISS) { /* cancelled--no attack */
