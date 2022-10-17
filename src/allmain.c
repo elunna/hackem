@@ -727,7 +727,7 @@ boolean resuming;
             if (!Hallucination)
                 You_feel("%s.", (vamp_regen) ? "itchy" : "relief");
             else
-                You_feel("%s.", (vamp_can_regen) ? "semi-precious" 
+                You_feel("%s.", (vamp_can_regen()) ? "semi-precious" 
                                             : "like you are no longer failing Organic Chemistry");
             
             vamp_regen = vamp_can_regen();

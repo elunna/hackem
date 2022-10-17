@@ -488,7 +488,6 @@ use_eight_ball(optr)
 struct obj **optr;
 {
     struct obj *obj = *optr;
-    int chance;
 
     if (HStun) {
         You("are incapable of using %s.", yname(obj));
@@ -497,24 +496,6 @@ struct obj **optr;
     } else {
         You("vigorously shake %s...", yname(obj));
         check_unpaid_usage(obj, TRUE);
-
-#if 0 /* --hackem: Disabled this. I don't want to encourage degenerate  behavior. */
-        /* Applying the 8-Ball gives a 1 in 100000 chance of granting a wish,
-         * but only if it's blessed. Otherwise, it will never grant one. */
-        chance = (obj->blessed) ? rn2(100000) : 99999;
-
-        switch (chance) {
-        case 0:
-            pline("The Magic 8-Ball has granted you a wish!");
-            makewish();
-            pline("The Magic 8-Ball winks out of existence, but not before spreading one last rumor.");
-            useup(obj); /* one wish is all you get */
-            *optr = (struct obj *) 0;
-            break;
-        default:
-            break;
-        }
-#endif
     }
 }
 
@@ -2900,24 +2881,16 @@ struct obj *stone, *obj;
     if (Role_if(PM_CAVEMAN))
         tmptime /= 2;
 
-	if (u.ustuck && sticks(youmonst.data)) {
-	    You("should let go of %s first.", mon_nam(u.ustuck));
-	} else if ((welded(uwep) && (uwep != stone)) 
-            || (uswapwep 
-                && u.twoweap 
-                && welded(uswapwep) 
-                && (uswapwep != obj))) {
-	    You("need both hands free.");
-	} else if (nohands(youmonst.data)) {
-	    You("can't handle %s with your %s.",
-		    an(xname(stone)), makeplural(body_part(HAND)));
-	} else if (verysmall(youmonst.data)) {
-	    You("are too small to use %s effectively.", an(xname(stone)));
-	#if 0
-    } else if (obj == &goldobj) {
-	    pline("Shopkeepers would spot the lighter coin%s immediately.",
-		obj->quan > 1 ? "s" : "");
-	#endif
+    if (u.ustuck && sticks(youmonst.data)) {
+        You("should let go of %s first.", mon_nam(u.ustuck));
+    } else if ((welded(uwep) && (uwep != stone)) 
+        || (uswapwep && u.twoweap && welded(uswapwep) && (uswapwep != obj))) {
+        You("need both hands free.");
+    } else if (nohands(youmonst.data)) {
+        You("can't handle %s with your %s.",
+                an(xname(stone)), makeplural(body_part(HAND)));
+    } else if (verysmall(youmonst.data)) {
+        You("are too small to use %s effectively.", an(xname(stone)));
     } else if (!is_pool(u.ux, u.uy)
       && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
       && !IS_PUDDLE(levl[u.ux][u.uy].typ)
