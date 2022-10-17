@@ -756,7 +756,6 @@ struct attack *uattk;
                                              &attknum, &armorpenalty);
     int dieroll = rnd(20), oldumort = u.umortality;
     int mhit = (tmp > dieroll || u.uswallow);
-    int dmg_wep = (uwep ? dmgval(uwep, &youmonst) : 0);
 
     /* using cursed weapons can sometimes do unexpected things.
        no need to set a condition for cursed secondary weapon
@@ -2593,11 +2592,10 @@ int specialdmg; /* blessed and/or silver bonus against various things */
     }
 
     switch (mattk->adtyp) {
-    case AD_LARV:
-    {
+    case AD_LARV: {
         struct monst* mtmp;
         /* since hero can't be cancelled, only defender's armor applies */
-        boolean negated = !(rn2(10) >= 3 * armpro);
+        negated = !(rn2(10) >= 3 * armpro);
         if (!negated 
               && !thick_skinned(mdef->data) 
               && mdef->mhp < 5 
@@ -2611,6 +2609,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
 
             initedog(mtmp);
         }
+        break;
     }
     case AD_STUN:
         if (!Blind)
@@ -3863,19 +3862,14 @@ boolean weapon_attacks; /* skip weapon attacks if false */
         case AT_BITE:
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
-#if 0
-            if ((uwep || !uwep || (u.twoweap && uswapwep))
-                && is_vampire(youmonst.data)
-#endif
-            if (i > 0 && is_vampire(youmonst.data) &&
-                  (how_resistant(DISINT_RES) == 0
+            if ((i > 0 && is_vampire(youmonst.data))
+                && (how_resistant(DISINT_RES) == 0
                         && (mon->data == &mons[PM_BLACK_DRAGON]
                         || mon->data == &mons[PM_BABY_BLACK_DRAGON])
                     || is_rider(mon->data) 
                     || touch_petrifies(mon->data) 
                     || mon->data == &mons[PM_MEDUSA] 
-                    || mon->data == &mons[PM_GREEN_SLIME]
-                ))
+                    || mon->data == &mons[PM_GREEN_SLIME] ))
                 break;
             if (is_zombie(youmonst.data)
                 && mattk->aatyp == AT_BITE
@@ -4867,7 +4861,6 @@ boolean wep_was_destroyed;
                 }
 
                 /* Copied from rust trap */
-                struct obj *otmp;
                 switch (rn2(5)) {
                 case 0:
                     pline("A gush of water hits you on the %s!",

@@ -1293,6 +1293,7 @@ u_init()
             UndeadSlayer[U_MISC].trspe = 1;
             UndeadSlayer[U_ARMOR].trotyp = JACKET;
             UndeadSlayer[U_ARMOR].trspe = 1;
+            break;
         case 2:	/* Whip and daggers */
             UndeadSlayer[U_MINOR].trotyp = BULLWHIP;
             UndeadSlayer[U_MINOR].trspe = 2;

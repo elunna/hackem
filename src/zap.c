@@ -2869,9 +2869,9 @@ boolean ordinary;
 
     case WAN_FIREBALL:
         makeknown(WAN_FIREBALL);
+        /* FALLTHROUGH */
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
-        
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
         break;
     case WAN_FIRE:
@@ -2963,6 +2963,7 @@ boolean ordinary;
         break;
     case WAN_ACID:
         learn_it = TRUE;
+        /* FALLTHROUGH */
     case SPE_ACID_BLAST:
         learn_it = TRUE;
         if (Acid_resistance) {
@@ -3042,7 +3043,8 @@ boolean ordinary;
         (void) cancel_monst(&youmonst, obj, TRUE, TRUE, TRUE);
         break;
     case WAN_DRAINING:	/* KMH */
-		makeknown(obj->otyp);
+        makeknown(obj->otyp);
+        /* FALLTHROUGH */
     case SPE_DRAIN_LIFE:
         if (!Drain_resistance) {
             learn_it = TRUE; /* (no effect for spells...) */
@@ -3131,6 +3133,7 @@ boolean ordinary;
 
     case WAN_TELEPORTATION:
         makeknown(WAN_TELEPORTATION);
+        /* FALLTHROUGH */
     case SPE_TELEPORT_AWAY:
         tele();
         /* same criteria as when mounted (zap_steed) */
@@ -3400,6 +3403,7 @@ struct obj *obj; /* wand or spell */
         break;
     case WAN_TELEPORTATION:
         makeknown(WAN_TELEPORTATION);
+        /* FALLTHROUGH */
     case SPE_TELEPORT_AWAY:
         /* you go together */
         tele();
