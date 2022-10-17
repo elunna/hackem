@@ -3677,7 +3677,7 @@ register struct obj *obj;
         case HIGH_BOOTS: obj->otyp = DWARVISH_BOOTS; break;
 
         /* Add value to junk */
-        case FUMBLE_BOOTS: obj->otyp = HIGH_BOOTS; break;
+        case FUMBLE_BOOTS: obj->otyp = DWARVISH_BOOTS; break;
 
         /* rings,  amulets */
         case SACK:
@@ -3710,6 +3710,7 @@ register struct obj *obj;
             obj->known = 0;
             break;
         case HORN_OF_PLENTY:
+        case HORN_OF_BLASTING:
         case FIRE_HORN:
         case FROST_HORN:
             obj->otyp = TOOLED_HORN;
@@ -3770,7 +3771,7 @@ register struct obj *obj;
                 obj->otyp = WHETSTONE;
             break;
         case LOADSTONE:
-            obj->otyp = FLINT;
+            obj->otyp = WHETSTONE;
             break;
         default:
             /* This object is not upgradable */
