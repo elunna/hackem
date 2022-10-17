@@ -599,7 +599,7 @@ SHIELD("shield of reflection", "polished shield",
 SHIELD("shield of light", "shiny shield",                      /* EvilHack */
        0, 1, 0,           0, 3, 0,  60, 400, 8, 0,  GOLD, CLR_YELLOW),
 SHIELD("resonant shield", "humming shield",                    /* SpliceHack */
-       0, 1, 0, SONIC_RES, 3, 0,  50, 50, 8, 0,  SILVER, HI_METAL),
+       0, 1, 0,   SONIC_RES, 3, 0,  50,  50, 8, 0,  SILVER, HI_METAL),
 SHIELD("shield of mobility", "slippery shield",                /* EvilHack */
        0, 1, 0, FREE_ACTION, 3, 0,  50, 300, 8, 0,  METAL, HI_METAL),
 
