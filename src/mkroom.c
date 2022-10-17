@@ -594,6 +594,7 @@ struct mkroom *sroom;
                 }
                 break;
             case ARMORY: {
+                struct obj *otmp;
                 if (rn2(4)) {
                     if (rn2(2)) {
                         if (rn2(4)) {
@@ -686,7 +687,7 @@ int mm_flags;
 {
     int cnt = (level_difficulty() + 1) / 10 + rnd(5);
     struct permonst *mdat;
-    struct obj *otmp;
+    struct obj *otmp = NULL;
     coord cc;
 
     while (cnt--) {

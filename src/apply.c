@@ -4915,10 +4915,8 @@ doapply()
 {
     struct obj *obj;
     struct obj *otmp = NULL;
-    struct obj *pseudo;
     register int res = 1;
     char class_list[MAXOCLASSES + 2];
-    boolean split1off;
 
     if (check_capacity((char *) 0))
         return 0;
