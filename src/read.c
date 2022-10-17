@@ -41,7 +41,6 @@ STATIC_DCL boolean FDECL(get_valid_stinking_cloud_pos, (int, int));
 STATIC_DCL boolean FDECL(is_valid_stinking_cloud_pos, (int, int, BOOLEAN_P));
 STATIC_PTR void FDECL(display_stinking_cloud_positions, (int));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
-STATIC_DCL void NDECL(do_class_genocide);
 STATIC_PTR void specified_id(void);
 static void seffect_cloning(struct obj **);
 
@@ -2782,192 +2781,6 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
 }
 
 
-STATIC_OVL void
-do_class_genocide()
-{
-    int i, j, immunecnt, gonecnt, goodcnt, class, feel_dead = 0, ll_done = 0;
-    int killed, candidates;
-    char buf[BUFSZ] = DUMMY;
-    boolean gameover = FALSE; /* true iff killed self */
-
-    for (j = 0;; j++) {
-        if (j >= 5) {
-            pline1(thats_enough_tries);
-            return;
-        }
-        do {
-            getlin("What class of monsters do you wish to genocide?", buf);
-            (void) mungspaces(buf);
-        } while (!*buf);
-        /* choosing "none" preserves genocideless conduct */
-        if (*buf == '\033' || !strcmpi(buf, "none")
-            || !strcmpi(buf, "nothing"))
-            return;
-
-        /* Liches and the like are immune to genocide until Vecna
-           is destroyed */
-        if (!u.uevent.uvecna && !strcmpi(buf, "L")) {
-            pline_The("voice of Vecna fills your mind:");
-            verbalize("Thou shalt do no harm to my kind whilst I exist!");
-            /* the dark magic causes the scroll to burn */
-            pline("A dark magic catches the scroll on fire and you burn your %s.",
-                  makeplural(body_part(HAND)));
-            if (how_resistant(FIRE_RES) == 100) {
-                shieldeff(u.ux, u.uy);
-                monstseesu(M_SEEN_FIRE);
-            } else {
-                losehp(rnd(3), "burning scroll of genocide", KILLED_BY_AN);
-            }
-            return;
-        }
-
-        class = name_to_monclass(buf, (int *) 0);
-        if (class == 0 && (i = name_to_mon(buf)) != NON_PM)
-            class = mons[i].mlet;
-        immunecnt = gonecnt = goodcnt = 0;
-        for (i = LOW_PM; i < NUMMONS; i++) {
-            if (mons[i].mlet == class) {
-                if (!(mons[i].geno & G_GENO))
-                    immunecnt++;
-                else if (mvitals[i].mvflags & G_GENOD)
-                    gonecnt++;
-                else
-                    goodcnt++;
-            }
-        }
-        if (!goodcnt && class != mons[urole.malenum].mlet
-            && class != mons[urace.malenum].mlet) {
-            if (gonecnt)
-                pline("All such monsters are already nonexistent.");
-            else if (immunecnt || class == S_invisible)
-                You("aren't permitted to genocide such monsters.");
-            else if (wizard && buf[0] == '*') {
-                register struct monst *mtmp, *mtmp2;
-
-                gonecnt = 0;
-                for (mtmp = fmon; mtmp; mtmp = mtmp2) {
-                    mtmp2 = mtmp->nmon;
-                    if (DEADMONSTER(mtmp))
-                        continue;
-                    mongone(mtmp);
-                    gonecnt++;
-                }
-                pline("Eliminated %d monster%s.", gonecnt, plur(gonecnt));
-                return;
-            } else
-                pline("That %s does not represent any monster.",
-                      strlen(buf) == 1 ? "symbol" : "response");
-            continue;
-        }
-
-        killed = candidates = 0;
-        for (i = LOW_PM; i < NUMMONS; i++) {
-            if (mons[i].mlet == class) {
-                char nam[BUFSZ];
-
-                Strcpy(nam, makeplural(mons[i].mname));
-                /* Although "genus" is Latin for race, the hero benefits
-                 * from both race and role; thus genocide affects either.
-                 */
-                candidates++;
-                if (!u.uevent.uvecna && i == PM_ALHOON) {
-                    if (!gameover)
-                        pline("A dark magic prevents you from genociding alhoons.");
-                    return;
-                } else if (Your_Own_Role(i) || Your_Own_Race(i)
-                    || ((mons[i].geno & G_GENO)
-                        && !(mvitals[i].mvflags & G_GENOD))) {
-                    /* This check must be first since player monsters might
-                     * have G_GENOD or !G_GENO. We also have to keep track of
-                     * whether there are only two or fewer critters left available for us
-		     * to geno in the first place; we must get them all then.
-		     * finally, we have to make sure the self-geno cases always happen.
-                     */
-                    if (!ll_done++) {
-                        if (!num_genocides())
-                            livelog_printf(LL_CONDUCT | LL_GENOCIDE,
-                                           "performed %s first genocide (two random monsters from class %c)",
-                                           uhis(), def_monsyms[class].sym);
-                        else
-                            livelog_printf(LL_GENOCIDE, "genocided two random monsters from class %c",
-                                           def_monsyms[class].sym);
-                    }
-		    if ((killed < 2 && (!rn2(goodcnt) || (killed + candidates > goodcnt - 2)))
-			|| Your_Own_Role(i) || Your_Own_Race(i)) {
-			killed++;
-		        mvitals[i].mvflags |= (G_GENOD | G_NOCORPSE);
-	                reset_rndmonst(i);
-			kill_genocided_monsters();
-                        update_inventory();	/* eggs & tins */
-			pline("Wiped out all %s.", nam);
-			if (Upolyd && i == u.umonnum) {
-                            u.mh = -1;
-			    if (Unchanging) {
-			        if (!feel_dead++) You("die.");
-				    /* finish genociding this class of
-				       monsters before ultimately dying */
-			            gameover = TRUE;
-			    } else
-			        rehumanize();
-			}
-			/* Self-genocide if it matches either your race
-		 	   or role.  Assumption:  male and female forms
-			   share same monster class. */
-			if (i == urole.malenum || i == urace.malenum) {
-			    u.uhp = -1;
-			    if (Upolyd) {
-				if (!feel_dead++)
-                                    You_feel("dead inside.");
-			    } else {
-				if (!feel_dead++)
-                                    You("die.");
-			        gameover = TRUE;
-			    }
-			}
-		    }
-                } else if (mvitals[i].mvflags & G_GENOD) {
-                    if (!gameover)
-                        pline("All %s are already nonexistent.", nam);
-                } else if (!gameover) {
-                    /* suppress feedback about quest beings except
-                       for those applicable to our own role */
-                    if ((mons[i].msound != MS_LEADER
-                         || quest_info(MS_LEADER) == i)
-                        && (mons[i].msound != MS_NEMESIS
-                            || quest_info(MS_NEMESIS) == i)
-                        && (mons[i].msound != MS_GUARDIAN
-                            || quest_info(MS_GUARDIAN) == i)
-                        /* non-leader/nemesis/guardian role-specific monster
-                           */
-                        && (i != PM_NINJA /* nuisance */
-                            || Role_if(PM_SAMURAI))
-                        && ((i != PM_TEMPLAR && i != PM_CHAMPION
-                            && i != PM_AGENT) || Role_if(PM_INFIDEL))) {
-                        boolean named, uniq;
-
-                        named = type_is_pname(&mons[i]) ? TRUE : FALSE;
-                        uniq = (mons[i].geno & G_UNIQ) ? TRUE : FALSE;
-                        /* one special case */
-                        if (i == PM_HIGH_PRIEST)
-                            uniq = FALSE;
-
-                        You("aren't permitted to genocide %s%s.",
-                            (uniq && !named) ? "the " : "",
-                            (uniq || named) ? mons[i].mname : nam);
-                    }
-                }
-            }
-        }
-        if (gameover || u.uhp == -1) {
-            killer.format = KILLED_BY_AN;
-            Strcpy(killer.name, "scroll of genocide");
-            if (gameover)
-                done(GENOCIDED);
-        }
-        return;
-    }
-}
-
 #define REALLY 1
 #define PLAYER 2
 #define ONTHRONE 4
@@ -3047,7 +2860,6 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
             }
 
 #ifdef WIZARD	/* to aid in topology testing; remove pesky monsters */
-            /* copy from do_class_genocide */
             if (wizard && buf[0] == '*') {
                 register struct monst *mtmp, *mtmp2;
                 
