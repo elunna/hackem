@@ -1164,7 +1164,7 @@ register int after;
         return 0;
     
     if (mtmp->mtrapped) {
-        int i = mintrap(mtmp);
+        i = mintrap(mtmp);
 
         if (i >= 2) {
             newsym(mtmp->mx, mtmp->my);
@@ -1597,7 +1597,7 @@ register int after;
     if (doorbuster)
         flag |= BUSTDOOR;
     {
-        register int i, j, nx, ny, nearer;
+        register int nx, ny, nearer;
         int jcnt, cnt;
         int ndist, nidist;
         register coord *mtrk;
@@ -1653,8 +1653,6 @@ register int after;
     }
 
     if (mmoved) {
-        register int j;
-
         if (mmoved == 1 && (u.ux != nix || u.uy != niy) && itsstuck(mtmp))
             return 3;
 

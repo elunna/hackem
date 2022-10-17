@@ -996,10 +996,11 @@ struct obj *instr;
             }
         }
         return 1;
-    } else
-        if (instr_breaks)
-            goto breakinstr;
-        return do_improvisation(instr);
+    } 
+    if (instr_breaks)
+        goto breakinstr;
+    
+    return do_improvisation(instr);
 
  nevermind:
     pline1(Never_mind);

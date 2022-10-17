@@ -20,7 +20,7 @@ STATIC_DCL void FDECL(gods_upset, (ALIGNTYP_P));
 STATIC_DCL void FDECL(consume_offering, (struct obj *));
 STATIC_DCL boolean FDECL(water_prayer, (BOOLEAN_P));
 STATIC_DCL boolean FDECL(blocked_boulder, (int, int));
-static void FDECL(god_gives_benefit,(ALIGNTYP_P));
+static void god_gives_benefit(void);
 
 /* simplify a few tests */
 #define Cursed_obj(obj, typ) ((obj) && (obj)->otyp == (typ) && cursed(obj, TRUE))
@@ -2283,7 +2283,7 @@ dosacrifice()
 
                         while (--trycnt > 0) {
                             if (otmp->otyp != SPE_BLANK_PAPER) {
-#if 0 /* This probably isn't correct yet, refine later.
+#if 0 /* TODO This probably isn't correct yet, refine later. */
                                 if (Role_if(PM_ICE_MAGE) &&
                                     (otmp->otyp == SPE_FIREBALL
                                     || otmp->otyp == SPE_FIRE_BOLT
@@ -2556,7 +2556,7 @@ dosacrifice()
                 }
             } else if (!rnl(30 + u.ulevel)) {
                 /* no artifact, but maybe a random blessing */
-                god_gives_benefit(altaralign);
+                god_gives_benefit();
                 /* u.usacrifice = 0; */
                 return 1;
             }
@@ -3188,8 +3188,7 @@ int dx, dy;
 
 /* Give away something */
 void
-god_gives_benefit(alignment)
-aligntyp alignment;
+god_gives_benefit()
 {
     register struct obj *otmp;
     const char *what = (const char *)0;

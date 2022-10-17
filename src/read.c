@@ -697,10 +697,9 @@ struct obj *obj;
                           && (obj->known
                               || (obj->dknown
                                   && objects[obj->otyp].oc_name_known)));
-    if (is_weptool(obj)) /* specific check before general tools */
-        if (is_lightsaber(obj))
-	        return TRUE;
-        return FALSE;
+    if (is_weptool(obj)) { /* specific check before general tools */
+        return is_lightsaber(obj);
+    }
     if (obj->oclass == TOOL_CLASS)
         return (boolean) objects[obj->otyp].oc_charged;
     return FALSE; /* why are weapons/armor considered charged anyway? */
@@ -1179,7 +1178,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             scursed = sobj->cursed, already_known, old_erodeproof,
             new_erodeproof;
     struct obj *otmp = (struct obj *) 0;
-    struct monst *mtmp;
+    struct monst *mtmp, *mtmp2;
 
     if (objects[otyp].oc_magic)
         exercise(A_WIS, TRUE);                       /* just for trying */
@@ -1525,8 +1524,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SCR_SCARE_MONSTER:
     case SPE_CAUSE_FEAR: {
         register int ct = 0;
-        register struct monst *mtmp;
-
+        
         for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
             if (DEADMONSTER(mtmp))
                 continue;
@@ -1694,12 +1692,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_ELEMENTALISM: {
         struct permonst *critter = (struct permonst *) 0;
-        boolean confused = (Confusion != 0);
         int i = 0;
         int n = 1;
         int state = MAKE_EM_HOSTILE;
-        struct monst *mtmp;
-        /* struct obj *sobj = *sobjp; */
+
         /* find the number of critters */
         if (sblessed) {
             if (confused) {
@@ -1891,7 +1887,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             results = vis_results = maybe_tame(u.ustuck, sobj);
         } else {
             int i, j, bd = confused ? 5 : 1;
-            struct monst *mtmp;
 
             /* note: maybe_tame() can return either positive or
                negative values, but not both for the same scroll */
@@ -1923,21 +1918,24 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     }
     case SPE_COMMAND_UNDEAD:
-		if (u.uswallow) {
-		    if (is_undead(u.ustuck->data)) 
-                maybe_tame(u.ustuck, sobj);
-		} else {
-		    int i, j, bd = confused ? 5 : 1;
-		    struct monst *mtmp;
+        if (u.uswallow) {
+            if (is_undead(u.ustuck->data)) 
+        maybe_tame(u.ustuck, sobj);
+        } else {
+            int i, j, bd = confused ? 5 : 1;
+            struct monst *mtmp;
 
-		    for(i = -bd; i <= bd; i++) for(j = -bd; j <= bd; j++) {
-                if (!isok(u.ux + i, u.uy + j)) 
-                    continue;
-                if ((mtmp = m_at(u.ux + i, u.uy + j)) != 0 && is_undead(mtmp->data))
-                    maybe_tame(mtmp, sobj);
-		    }
-		}
-		break;
+            for (i = -bd; i <= bd; i++) {
+                for (j = -bd; j <= bd; j++) {
+                    if (!isok(u.ux + i, u.uy + j))
+                        continue;
+                    if ((mtmp = m_at(u.ux + i, u.uy + j)) != 0
+                        && is_undead(mtmp->data))
+                        maybe_tame(mtmp, sobj);
+                }
+            }
+        }
+        break;
     case SCR_GENOCIDE:
         if (!already_known)
             You("have found a scroll of genocide!");
@@ -1979,6 +1977,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             youmonst.movement = 50 + bcsign(sobj) * 25;
             morehungry(rn1(30, 30));
         }
+        break;
     case SCR_TELEPORTATION:
         if (confused || scursed) {
             level_tele();
@@ -1996,12 +1995,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             sobj = 0; /* nothing detected: strange_feeling -> useup */
         break;
     case SCR_KNOWLEDGE: {
-        /*struct obj *sobj = *sobjp;*/
-        int otyp = sobj->otyp;
-        boolean already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
-                                 || objects[otyp].oc_name_known);
         useup(sobj);
-        /* *sobjp = 0; */
         sobj = 0; /* it's gone */
         if (confused)
             You("know this to be a knowledge scroll.");
@@ -2049,7 +2043,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_AIR: {
         int i;
-        struct monst *mtmp, *mtmp2;
 
         if (scursed) {
             if (!Breathless && !breathless(youmonst.data)) {
@@ -2080,10 +2073,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     }
-    case SCR_TRANSMOGRIFY: 
-    {
-        struct obj *otmp;
-
+    case SCR_TRANSMOGRIFY: {
         if (uwep && rn2(2))
             otmp = uwep;
         else
@@ -3217,7 +3207,6 @@ struct obj *sobj;
 {
     struct obj *reuse_ball = (sobj && sobj->otyp == HEAVY_IRON_BALL)
                                 ? sobj : (struct obj *) 0;
-    struct obj *otmp;
 
     /* KMH -- Punishment is still okay when you are riding */
     if (!reuse_ball)

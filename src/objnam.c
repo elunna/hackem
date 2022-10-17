@@ -3612,8 +3612,6 @@ struct obj *no_wish;
     Strcpy(fruitbuf, bp);
 
     for (;;) {
-        register int l;
-
         if (!bp || !*bp)
             goto any;
         if (!strncmpi(bp, "an ", l = 3) || !strncmpi(bp, "a ", l = 2)) {
@@ -3947,7 +3945,7 @@ struct obj *no_wish;
               && !strstri(bp, "eye ")
               && !strstri(bp, "hand ")
               && !strstri(bp, "sword of kas")) {
-            int l = 0, of = 4;
+            l = 0, of = 4;
             char *tmpp;
 
             if ((p = strstri(bp, "tin of ")) != 0) {
@@ -5095,14 +5093,19 @@ struct obj *no_wish;
                 break;
             case ART_FIREWALL:
                 pm = PM_FLAME_MAGE;
+                break;
             case ART_DEEP_FREEZE:
                 pm = PM_ICE_MAGE;
+                break;
             case ART_SERPENT_S_TONGUE:
                 pm = PM_NECROMANCER;
+                break;
             case ART_REAPER:
                 pm = PM_YEOMAN;
+                break;
             case ART_DISRUPTER:
                 pm = PM_UNDEAD_SLAYER;
+                break;
 
             /* non-wishable artifacts (wizmode only) */
             case ART_MAGIC___BALL:

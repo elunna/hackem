@@ -3879,8 +3879,6 @@ boolean allowempty;    /* affects result when box is empty */
        destination but it can't receive items; it has to be opened in
        preparation so apply it once before even trying to tip source box */
     if (targetbox && (targetbox->otyp == BAG_OF_TRICKS || targetbox->otyp == BAG_OF_RATS)) {
-        int seencount = 0;
-
         bagotricks(targetbox);
         return TIPCHECK_CANNOT;
     }

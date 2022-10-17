@@ -2186,10 +2186,11 @@ int how;
                                 wakeup(mon, FALSE);
                                 pline("%s wakes up looking bewildered!", 
                                         Monnam(mon));
-                            } else
+                            } else {
                                 pline("%s looks bewildered!", Monnam(mon));
-                                mon->mpeaceful = TRUE;
-                                mon->mtame = FALSE;	
+                            }
+                            mon->mpeaceful = TRUE;
+                            mon->mtame = FALSE;	
                         }
                     }
                     break;

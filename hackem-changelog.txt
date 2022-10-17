@@ -2076,6 +2076,7 @@ Made rock trolls stoning resistant (from xnh)"
 [SKIPPED] Fungi should be able to grow on zombie corpses?
 
 [x] Shopkeeper prices - flatten out race charges - just makes things more fun.
+    Let's us do price identification again.
 	shk_racial_adjustments
 
 Increased frequency of unicorns slightly.

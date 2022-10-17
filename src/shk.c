@@ -51,7 +51,6 @@ STATIC_DCL void FDECL(clear_unpaid_obj, (struct monst *, struct obj *));
 STATIC_DCL void FDECL(clear_unpaid, (struct monst *, struct obj *));
 STATIC_DCL long FDECL(check_credit, (long, struct monst *));
 STATIC_DCL void FDECL(pay, (long, struct monst *));
-STATIC_DCL void FDECL(shk_racial_adjustments, (SHORT_P, long *, long *));
 STATIC_DCL long FDECL(get_cost, (struct obj *, struct monst *));
 STATIC_DCL long FDECL(set_cost, (struct obj *, struct monst *));
 STATIC_DCL const char *FDECL(shk_embellish, (struct obj *, long));
@@ -96,7 +95,6 @@ static int FDECL(shk_weapon_works, (const char *, struct monst *, long svc_type)
 static int FDECL(shk_armor_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_charge, (const char *, struct monst *, char svc_type));
 static int FDECL(shk_rumor, (const char *, struct monst *));
-static boolean FDECL(shk_obj_match, (struct obj *, struct monst *));
 static boolean FDECL(shk_offer_price, (const char *, long, struct monst *));
 static void FDECL(shk_smooth_charge, (int *, int, int));
 /*
@@ -2537,125 +2535,6 @@ unsigned oid;
     return res;
 }
 
-/* Do racial adjustments to price, based on the race of the shopkeeper and the
- * player's race, as well as other factors.
- *
- * Returns a fraction, representing how much the shk will inflate the price of
- * something they're selling, as returned in *numerator and *denominator.
- *
- * E.g. if a human shopkeeper hates orcish characters and charges them a 4/3
- * markup on anything they buy, this should return *numerator = 4 and
- * *denominator = 3.
- */
-void
-shk_racial_adjustments(mnum, numerator, denominator)
-short mnum; /* shkp->mnum, not player */
-long *numerator, *denominator;
-{
-    const struct permonst *shkdat = &mons[mnum];
-    *numerator = 1L;
-    *denominator = 1L;
-
-    if (is_human(shkdat)) {
-        if (Race_if(PM_ORC) || Race_if(PM_GNOME)) {
-            *numerator = 4L;
-            *denominator = 3L;
-        } else if (Race_if(PM_CENTAUR)) {
-            *numerator = 3L;
-            *denominator = 2L;
-        }
-    } else if (is_elf(shkdat)) {
-        if (Race_if(PM_ORC) || Race_if(PM_ILLITHID)) {
-            *numerator = 2L;
-        } else if (Race_if(PM_DWARF) || Race_if(PM_TORTLE)) {
-            *numerator = 4L;
-            *denominator = 3L;
-        } else if (Race_if(PM_ELF)) {
-            *numerator = 4L;
-            *denominator = 5L;
-        }
-    } else if (is_dwarf(shkdat)) {
-        if (Race_if(PM_ORC) || Race_if(PM_ILLITHID)) {
-            *numerator = 2L;
-        } else if (Race_if(PM_ELF)) {
-            *numerator = 4L;
-            *denominator = 3L;
-        } else if (Race_if(PM_GIANT)) {
-            *numerator = 3L;
-            *denominator = 2L;
-        } else if (Race_if(PM_DWARF)) {
-            *numerator = 3L;
-            *denominator = 4L;
-        }
-    } else if (is_orc(shkdat)) {
-        if (Race_if(PM_ELF) || Race_if(PM_GNOME)
-            || Race_if(PM_HOBBIT)) {
-            *numerator = 3L;
-        } else if (Race_if(PM_DWARF) || Race_if(PM_TORTLE)) {
-            *numerator = 5L;
-            *denominator = 3L;
-        } else if (Race_if(PM_HUMAN)) {
-            *numerator = 4L;
-            *denominator = 3L;
-        } else if (Race_if(PM_ORC)) {
-            *numerator = 2L;
-            *denominator = 3L;
-        }
-    } else if (is_gnome(shkdat)) {
-        if (ACURR(A_INT) < 15) {
-            *numerator = 3L;
-            *denominator = 2L;
-        } else if (ACURR(A_INT) < 18) {
-            *numerator = 4L;
-            *denominator = 3L;
-        }
-    } else if (is_illithid(shkdat)) {
-        if (mnum < PM_ILLITHID) {
-            impossible("mnum for illithid shopkeeper is too low!");
-            return;
-        }
-        if (!Race_if(PM_ILLITHID))
-            *numerator = ((mnum - PM_ILLITHID + 1) * 10);
-    } else if (is_centaur(shkdat)) {
-        if (Race_if(PM_HUMAN) || Race_if(PM_GNOME)
-            || Race_if(PM_DWARF) || Race_if(PM_ORC)
-            || Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)) {
-            *numerator = 3L;
-            *denominator = 2L;
-        } else if (Race_if(PM_CENTAUR)) {
-            *numerator = 3L;
-            *denominator = 4L;
-        }
-    } else if (is_giant(shkdat)) {
-        if (Race_if(PM_HUMAN) || Race_if(PM_GNOME)
-            || Race_if(PM_ILLITHID) || Race_if(PM_ORC)
-            || Race_if(PM_HOBBIT) || Race_if(PM_TORTLE)) {
-            *numerator = 4L;
-            *denominator = 3L;
-        } else if (Race_if(PM_DWARF)) {
-            *numerator = 3L;
-            *denominator = 2L;
-        } else if (Race_if(PM_GIANT)) {
-            *numerator = 3L;
-            *denominator = 4L;
-        }
-    } else if (shkdat == &mons[PM_NYMPH]) {
-        if (mnum < PM_NYMPH) {
-            impossible("mnum for nymph shopkeeper is too low!");
-            return;
-        }
-        if (ACURR(A_CHA) > 14) {
-            *numerator = 4L;
-            *denominator = 3L;
-        } else {
-            *numerator = 5L;
-            *denominator = 3L;
-        }
-    } else {
-        ; /* other monsters are possible (e.g. polyed shopkeeper); don't do any
-             adjustment in that case */
-    }
-}
 
 /* Relative prices for the different materials.
  * Units for this are much more poorly defined than for weights; the best
@@ -2772,35 +2651,7 @@ register struct monst *shkp; /* if angry, impose a surcharge */
         multiplier *= 3L, divisor *= 2L;
     else if (ACURR(A_CHA) <= 10)
         multiplier *= 4L, divisor *= 3L;
-
-#if 0 /* If I'm removing shk racism, might as well remove Slash'EM's discrimination
- * as well. The main factor in price calculation should be charisma right?!?!?!?! */
-    /* character classes who are discriminated against... */
-    /* barbarians are gullible... */
-    if (Role_if(PM_BARBARIAN)) 
-        tmp *= 3L;
-    /* rogues are untrustworthy... */
-    if (Role_if(PM_ROGUE)) 
-        tmp *= 2L;
-    /* samurais are from out of town... */
-    if (Role_if(PM_SAMURAI)) 
-        tmp *= 2L;
-#endif
     
-#if 0 /* --hackem: Disabled racist shopkeepers; One meta-thing I enjoy about 
-        * NetHack is the mini-game of price identification. I think this over
-        * complicates that and makes the game harder in a not-as-fun way. */
-    /* possible additional surcharges based on shk race, if one was passed in */
-    if (shkp) {
-        long numer = 1L, denom = 1L;
-        if (!is_izchak(shkp, TRUE) && has_erac(shkp)) {
-            shk_racial_adjustments(ERAC(shkp)->rmnum, &numer, &denom);
-        }
-        multiplier *= numer;
-        divisor *= denom;
-    }
-#endif
-
     /* tmp = (tmp * multiplier) / divisor [with roundoff tweak] */
     tmp *= multiplier;
     if (divisor > 1L) {
@@ -3035,16 +2886,7 @@ register struct monst *shkp;
             multiplier *= 3L, divisor *= 4L;
     }
 
-#if 0 /* --hackem: Disabled racist shopkeepers */
-    /* possible additional surcharges based on shk race, if one was passed in */
-    if (shkp) {
-        long numer = 1L, denom = 1L;
-        if (!is_izchak(shkp, TRUE) && has_erac(shkp)) {
-            shk_racial_adjustments(ERAC(shkp)->rmnum, &denom, &numer);
-        }
-    }
-#endif 
-    
+   
     if (tmp >= 1L) {
         /* [see get_cost()] */
         tmp *= multiplier;
@@ -4063,7 +3905,6 @@ static NEARDATA const char armor_types[] = { ARMOR_CLASS, 0 };
 **
 ** Pay the shopkeeper to identify an item.
 */
-static NEARDATA const char ident_chars[] = "bp";
 
 static int
 shk_identify(slang, shkp, ident_type)
@@ -4314,9 +4155,6 @@ struct monst *shkp;
 }
 
 
-
-static const char we_offer[] = "We offer the finest service available!";
-
 /*
 ** FUNCTION shk_weapon_works
 **
@@ -4547,10 +4385,12 @@ long svc_type;
 **
 ** Charge something (for a price!)
 */
+#if 0 /* Not using these until we grok getobj */
 static const char wand_types[] = { WAND_CLASS, 0 };
 static const char tool_types[] = { TOOL_CLASS, 0 };
 static const char ring_types[] = { RING_CLASS, 0 };
 static const char spbook_types[] = { SPBOOK_CLASS, 0 };
+#endif
 static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
 
 static int
@@ -4687,7 +4527,6 @@ shk_rumor(slang, shkp)
 const char *slang;
 struct monst *shkp;
 {
-    boolean ripoff = FALSE;         /* Shkp ripping you off?        */
     int charge = 250;                     /* Rumor Cost */
                                     
     pline("I heard some juicy stuff the other day...");
@@ -4702,17 +4541,6 @@ struct monst *shkp;
     } else
         outrumor(0, BY_OTHER);
     return 1;
-}
-/*
-** Does object "obj" match the type of shop?
-*/
-static boolean
-shk_obj_match(obj, shkp)
-struct obj *obj;
-struct monst *shkp;
-{
-    /* object matches type of shop? */
-    return saleable(shkp, obj);
 }
 
 
