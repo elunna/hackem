@@ -367,6 +367,7 @@ struct inv_sub {
     { PM_GIANT, CLOAK_OF_MAGIC_RESISTANCE, LOW_BOOTS },
     { PM_GIANT, RIN_STEALTH, RIN_SEARCHING },
     { PM_GIANT, SPLINT_MAIL, LARGE_SPLINT_MAIL },
+    { PM_GIANT, CHAIN_MAIL, LOW_BOOTS },
     { PM_GIANT, JACKET, LOW_BOOTS },
     { PM_GIANT, CLOAK_OF_PROTECTION, GAUNTLETS_OF_PROTECTION },
     /* Hobbits have a thing for elven gear */
@@ -1289,7 +1290,7 @@ u_init()
             UndeadSlayer[U_MINOR].trotyp = CROSSBOW;
             UndeadSlayer[U_RANGE].trotyp = CROSSBOW_BOLT;
             UndeadSlayer[U_RANGE].trquan = rn1(10, 30);
-            UndeadSlayer[U_MISC].trotyp = LOW_BOOTS;
+            /* UndeadSlayer[U_MISC].trotyp = LOW_BOOTS; */
             UndeadSlayer[U_MISC].trspe = 1;
             UndeadSlayer[U_ARMOR].trotyp = JACKET;
             UndeadSlayer[U_ARMOR].trspe = 1;
