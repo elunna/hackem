@@ -1581,7 +1581,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         if (obj_gone)
             thrownobj = (struct obj *) 0;
     }
-
+    
     /* Handle bombs or rockets */
     if (is_bomb(obj)) {
         arm_bomb(obj, TRUE);
@@ -1983,7 +1983,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         } else if (is_ammo(obj)) {
             if (!ammo_and_launcher(obj, uwep)) {
                 tmp -= 4;
-            } else {
+            }     /* Handle bombs or rockets */
+            else {
                 tmp += uwep->spe - greatest_erosion(uwep);
                 tmp += weapon_hit_bonus(uwep);
                 if (uwep->oartifact)
@@ -2003,6 +2004,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                         tmp++;
                 }
             }
+        } else if (is_bomb(obj)) {
+            /* arm_bomb(obj, TRUE); */
+            bomb_explode(obj, bhitpos.x, bhitpos.y, TRUE);
+            return 1;
         } else { /* thrown non-ammo or applied polearm/grapnel */
             if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
                 tmp += 4;
