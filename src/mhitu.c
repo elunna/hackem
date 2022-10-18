@@ -1562,8 +1562,7 @@ register struct attack *mattk;
                     if (cloneu())
                         You("divide as %s hits you!", mon_nam(mtmp));
                 }
-
-                if  (otmp) { /* Guard against possible item loss here */
+                
                 /* Hit with a burning torch */
                 if (otmp && ((otmp->otyp == TORCH && otmp->lamplit) 
                     || otmp->otyp == FLAMING_LASH)) {
