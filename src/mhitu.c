@@ -1563,14 +1563,15 @@ register struct attack *mattk;
                         You("divide as %s hits you!", mon_nam(mtmp));
                 }
 
+                if  (otmp) { /* Guard against possible item loss here */
                 /* Hit with a burning torch */
-                if ((otmp->otyp == TORCH && otmp->lamplit) 
-                    || otmp->otyp == FLAMING_LASH) {
+                if (otmp && ((otmp->otyp == TORCH && otmp->lamplit) 
+                    || otmp->otyp == FLAMING_LASH)) {
                     burnmsg = TRUE;
                 }
 
                 /* Wooden stakes vs vampires */
-                if (otmp->otyp == STAKE && is_vampire(youmonst.data)) {
+                if (otmp && otmp->otyp == STAKE && is_vampire(youmonst.data)) {
                     if (!rn2(5)) {
                         pline("%s plunges the stake into your heart.", Monnam(mtmp));
                         killer.format = NO_KILLER_PREFIX;
