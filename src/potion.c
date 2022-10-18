@@ -1174,16 +1174,17 @@ register struct obj *otmp;
                       FALSE);
         break;
     case POT_CLAIRVOYANCE:
-		/* KMH -- handle cursed, blessed, blocked */
-		if (otmp->cursed)
-			nothing++;
-		else if (!BClairvoyant) {
-			if (Hallucination) pline("Dude! See-through walls!");
-			do_vicinity_map(otmp);
-		}
-		if (otmp->blessed)
-			incr_itimeout(&HClairvoyant, rn1(50, 100));
-		break;
+        /* KMH -- handle cursed, blessed, blocked */
+        if (otmp->cursed)
+            nothing++;
+        else if (!BClairvoyant) {
+            if (Hallucination)
+                pline("Dude! See-through walls!");
+            do_vicinity_map(otmp);
+        }
+        if (otmp->blessed)
+            incr_itimeout(&HClairvoyant, rn1(50, 100));
+        break;
     case POT_ESP:
         /* KMH -- handle cursed, blessed */
         if (otmp->cursed) {
@@ -1279,7 +1280,10 @@ register struct obj *otmp;
             heal_legs(0);
             unkn++;
         }
+#if 0   /* --hackem: Reverted back to vanilla behavior */
         speed_up(rn1(10, 15 + 10 * bcsign(otmp)));
+#endif
+        speed_up(rn1(10, 100 + 60 * bcsign(otmp)));
         if (!otmp->cursed && !(HFast & INTRINSIC)) {
             /* This message currently doubles the other speed msg and feels
              * out of place */
