@@ -1030,6 +1030,12 @@ const char *drop_fmt, *drop_arg, *hold_msg;
     if (!Blind)
         obj->dknown = 1; /* maximize mergibility */
     if (obj->oartifact) {
+        /* Make sure Eternal Flame gets lit */
+        if (artifact_light(obj) 
+              && !obj->lamplit
+              && obj->oartifact != ART_SUNSWORD)
+            begin_burn(obj, FALSE);
+        
         /* place_object may change these */
         boolean crysknife = (obj->otyp == CRYSKNIFE);
         int oerode = obj->oerodeproof;
