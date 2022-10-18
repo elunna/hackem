@@ -814,46 +814,6 @@ potion of sleeping
 	to Dame Van Winkle!"
 		[ Rip Van Winkle, a Posthumous Writing
 		  of Diedrich Knickerbocker, by Washington Irving ]
-healing
-potion of healing
-    When quaffed, this potion restores your health and exercises constitution.
-    - blessed: Restores 12d4 HP (6d4 if diluted). If fully restored this adds 1 max HP.
-    - uncursed: Restores 10d4 HP (5d4 if diluted). If fully restored this adds 1 max HP.
-    - cursed: Restores 8d4 HP (4d4 if diluted)
-    
-    - If not cursed, cures blindness and deafness.
-    - Dipping a poisoned weapon into a potion of healing will neutralize the poison and use up the potion.
-extra healing
-potion of extra healing
-    When quaffed, this potion restores your health, exercises constitution and strength.
-    - blessed: Restores 12d8 HP (6d4 if diluted). If fully restored this adds 5 max HP.
-    - uncursed: Restores 10d8 HP (5d4 if diluted). If fully restored this adds 2 max HP.
-    - cursed: Restores 8d8 HP (4d4 if diluted)
-    
-    - Cures blindness, hallucination, and deafness.
-    - If not cursed, cures sickness.
-    - Dipping a poisoned weapon into a potion of extra healing will neutralize the poison and use up the potion.
-
-    Alchemy Recipes:
-    - potion of healing + potion of speed
-    - potion of healing + potion of gain level
-    - potion of healing + potion of gain energy
-
-full healing
-potion of full healing
-    When quaffed, this potion restores your health, exercises constitution and strength.
-    - blessed: Restores 400 HP. If fully restored this adds 8 max HP.
-    - uncursed: Restores 10d8 HP (5d4 if diluted). If fully restored this adds 4 max HP.
-    - cursed: Restores 8d8 HP (4d4 if diluted)
-    
-    - Cures blindness, hallucination, and deafness.
-    - If not cursed, cures sickness.
-    - Dipping a poisoned weapon into a potion of full healing will neutralize the poison and use up the potion.
-
-    Alchemy recipes:
-    - potion of extra healing + potion of gain level or
-    - potion of extra healing + potion of gain energy
-    
 boulder
 	I worked the lever well under, and stretched my back; the end
 	of the stone rose up, and I kicked the fulcrum under.  Then,
@@ -2534,6 +2494,17 @@ fox
 	fermentation, e.g., in bread and alcoholic beverage
 	production.
 		[ The Concise Columbia Encyclopedia ]
+gain ability
+potion of gain ability
+    When quaffed, this potion can increase your attributes.
+    - blessed: Increases all attributes by one point.
+    - uncursed: Increases a random attribute by one point.
+    - cursed: No effect.
+    
+    Alchemy recipes:
+    - potion of full healing + potion of gain energy
+    - potion of full healing + potion of gain level
+
 *gargoyle
 	And so it came to pass that while Man ruled on Earth, the
 	gargoyles waited, lurking, hidden from the light.  Reborn
@@ -3025,6 +2996,46 @@ hecubus
 	Sir Simon Milligan:
 	  But Hecubus, I haven't seen the movie yet... Evil! Evil!
 		[ Simon & Hecubus, The Kids in the Hall ]
+healing
+potion of healing
+    When quaffed, this potion restores your health and exercises constitution.
+    - blessed: Restores 12d4 HP (6d4 if diluted). If fully restored this adds 1 max HP.
+    - uncursed: Restores 10d4 HP (5d4 if diluted). If fully restored this adds 1 max HP.
+    - cursed: Restores 8d4 HP (4d4 if diluted)
+    
+    - If not cursed, cures blindness and deafness.
+    - Dipping a poisoned weapon into a potion of healing will neutralize the poison and use up the potion.
+extra healing
+potion of extra healing
+    When quaffed, this potion restores your health, exercises constitution and strength.
+    - blessed: Restores 12d8 HP (6d4 if diluted). If fully restored this adds 5 max HP.
+    - uncursed: Restores 10d8 HP (5d4 if diluted). If fully restored this adds 2 max HP.
+    - cursed: Restores 8d8 HP (4d4 if diluted)
+    
+    - Cures blindness, hallucination, and deafness.
+    - If blessed, cures withering.
+    - If not cursed, cures sickness.
+    - Dipping a poisoned weapon into a potion of extra healing will neutralize the poison and use up the potion.
+
+    Alchemy Recipes:
+    - potion of healing + potion of speed
+    - potion of healing + potion of gain level
+    - potion of healing + potion of gain energy
+
+full healing
+potion of full healing
+    When quaffed, this potion restores your health, exercises constitution and strength.
+    - blessed: Restores 400 HP. If fully restored this adds 8 max HP.
+    - uncursed: Restores 10d8 HP (5d4 if diluted). If fully restored this adds 4 max HP.
+    - cursed: Restores 8d8 HP (4d4 if diluted)
+    
+    - Cures blindness, hallucination, and deafness.
+    - If not cursed, cures sickness and withering.
+    - Dipping a poisoned weapon into a potion of full healing will neutralize the poison and use up the potion.
+
+    Alchemy recipes:
+    - potion of extra healing + potion of gain level or
+    - potion of extra healing + potion of gain energy
 # no longer the Barbarian quest artifact
 #heart of ahriman
 #	The other three drew in their breath sharply, and the dark,
