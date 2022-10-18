@@ -1583,7 +1583,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     }
     
     /* Handle bombs or rockets */
-    if (is_bomb(obj)) {
+    if (obj && is_bomb(obj)) {
         arm_bomb(obj, TRUE);
     }
 
