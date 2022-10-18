@@ -871,31 +871,31 @@ register struct obj *otmp;
                                  TRUE, 0L);
         break;
     case POT_AMNESIA:
-		pline(Hallucination? "This tastes like champagne!" :
-			"This liquid bubbles and fizzes as you drink it.");
-		forget((!otmp->blessed? ALL_SPELLS : 0) | ALL_MAP);
+        pline(Hallucination? "This tastes like champagne!" :
+                "This liquid bubbles and fizzes as you drink it.");
+        forget((!otmp->blessed? ALL_SPELLS : 0) | ALL_MAP);
 		
         if (Hallucination)
-		    pline("Hakuna matata!");
-		else
-		    You_feel("your memories dissolve.");
+            pline("Hakuna matata!");
+        else
+            You_feel("your memories dissolve.");
 
-		/* Blessed amnesia makes you forget lycanthropy, sickness */
-		if (otmp->blessed) {
-		    if (u.ulycn >= LOW_PM && !Race_if(PM_HUMAN_WEREWOLF)) {
-			You("forget your affinity to %s!",
-					makeplural(mons[u.ulycn].mname));
-			if (youmonst.data == &mons[u.ulycn])
-			    you_unwere(FALSE);
-			u.ulycn = NON_PM;	/* cure lycanthropy */
-		    }
-		    make_sick(0L, (char *) 0, TRUE, SICK_ALL);
+        /* Blessed amnesia makes you forget lycanthropy, sickness */
+        if (otmp->blessed) {
+            if (u.ulycn >= LOW_PM && !Race_if(PM_HUMAN_WEREWOLF)) {
+                You("forget your affinity to %s!",
+                                makeplural(mons[u.ulycn].mname));
+                if (youmonst.data == &mons[u.ulycn])
+                    you_unwere(FALSE);
+                u.ulycn = NON_PM;	/* cure lycanthropy */
+            }
+            make_sick(0L, (char *) 0, TRUE, SICK_ALL);
 
-		    u.uhunger += 50 + rnd(50); /* You feel refreshed */
-		    newuhs(FALSE);
-		} else
-		    exercise(A_WIS, FALSE);
-		break;
+            u.uhunger += 50 + rnd(50); /* You feel refreshed */
+            newuhs(FALSE);
+        } else
+            exercise(A_WIS, FALSE);
+        break;
     case POT_WATER:
         if (!otmp->blessed && !otmp->cursed) {
             pline("This tastes like %s.", hliquid("water"));
@@ -2456,18 +2456,18 @@ register struct obj *obj;
         }
         break;
     case POT_AMNESIA:
-		if(u.umonnum == PM_GREMLIN)
-		    (void)split_mon(&youmonst, (struct monst *)0);
-		else if(u.umonnum == PM_FLAMING_SPHERE) {
-		    You("flicker!");
-		    losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
-		} else if(u.umonnum == PM_IRON_GOLEM) {
-		    You("rust!");
-		    losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
-		}
-		You_feel("dizzy!");
-		forget(1 + rn2(5));
-		break;
+        if (u.umonnum == PM_GREMLIN)
+            (void) split_mon(&youmonst, (struct monst *)0);
+        else if (u.umonnum == PM_FLAMING_SPHERE) {
+            You("flicker!");
+            losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
+        } else if (u.umonnum == PM_IRON_GOLEM) {
+            You("rust!");
+            losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
+        }
+        You_feel("dizzy!");
+        forget(1 + rn2(5));
+        break;
     case POT_ACID:
     case POT_POLYMORPH:
         exercise(A_CON, FALSE);
@@ -2988,13 +2988,14 @@ dodip()
         if (H2Opotion_dip(potion, obj, useeit, obj_glows))
             goto poof;
     } else if (potion->otyp == POT_AMNESIA) {
-	    if (potion == obj) {
+        if (potion == obj) {
             obj->in_use = FALSE;
             potion = splitobj(obj, 1L);
             potion->in_use = TRUE;
-	    }
-	    if (get_wet(obj, TRUE, TRUE)) goto poof;
-	}
+        }
+        if (get_wet(obj, TRUE, TRUE)) 
+            goto poof;
+    }
     else if (obj->otyp == POT_POLYMORPH || potion->otyp == POT_POLYMORPH) {
         /* some objects can't be polymorphed */
         if (obj->otyp == potion->otyp /* both POT_POLY */
