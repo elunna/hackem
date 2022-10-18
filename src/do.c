@@ -369,11 +369,11 @@ deletedwithboulder:
         newsym(x, y);
     }
     
-    if (is_lightsaber(obj) && obj->lamplit) {
-		if (cansee(x, y)) 
+    if (obj && is_lightsaber(obj) && obj->lamplit) {
+        if (cansee(x, y)) 
             You("see %s deactivate.", an(xname(obj)));
-		lightsaber_deactivate(obj, TRUE);
-	}
+        lightsaber_deactivate(obj, TRUE);
+    }
 
     bhitpos = save_bhitpos;
     return res;
