@@ -1570,9 +1570,8 @@ dogaze()
 
     if (adtyp == AD_HNGY || adtyp == AD_LUCK) 
         adtyp = AD_CONF;
-
-
-    if (adtyp != AD_CONF && adtyp != AD_FIRE) {
+    
+    if (adtyp != AD_CONF && adtyp != AD_FIRE && adtyp != AD_DRLI) {
         impossible("gaze attack %d?", adtyp);
         return 0;
     }
@@ -1659,7 +1658,28 @@ dogaze()
                         pline("%s reels in shock and horror!", Monnam(mtmp));
                         paralyze_monst(mtmp, rnd(10));
                     }
-                } 
+                } else if (adtyp == AD_DRLI) {
+                    int dmg = d(2, 6);
+
+                    You("attack %s with a deathly gaze!", mon_nam(mtmp));
+                    
+                    if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
+                        pline_The("gaze doesn't affect %s!", mon_nam(mtmp));
+                        dmg = 0;
+                    }
+                    else {
+                        if (mtmp->mhp < dmg) 
+                            dmg = mtmp->mhp;
+                        mtmp->mhpmax -= dmg;
+                        damage_mon(mtmp, dmg, AD_DRLI);
+
+                        if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                            pline("%s dies!", Monnam(mtmp));
+                            xkilled(mtmp, XKILL_NOMSG);
+                        } else
+                            mtmp->m_lev--;
+                    }
+                }
                 /* For consistency with passive() in uhitm.c, this only
                  * affects you if the monster is still alive.
                  */
