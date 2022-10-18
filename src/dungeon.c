@@ -2953,11 +2953,11 @@ char *outbuf;
 /* some utility macros for print_mapseen */
 #define TAB "   " /* three spaces */
 #if 0
-#define BULLET "" /* empty; otherwise output becomes cluttered */
-#define PREFIX TAB TAB BULLET
+#define SBULLET "" /* empty; otherwise output becomes cluttered */
+#define PREFIX TAB TAB SBULLET
 #else                   /*!0*/
 /* K&R: don't require support for concatenation of adjacent string literals */
-#define PREFIX "      " /* two TABs + empty BULLET: six spaces */
+#define PREFIX "      " /* two TABs + empty SBULLET: six spaces */
 #endif
 #define COMMA (i++ > 0 ? ", " : PREFIX)
 /* "iterate" once; safe to use as ``if (cond) ADDTOBUF(); else whatever;'' */
