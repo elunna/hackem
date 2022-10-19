@@ -160,27 +160,6 @@ amber*
 	fossil.  One finds all kinds of insects in amber - including
 	biting insects that have sucked blood from larger animals."
 		[ Jurassic Park, by Michael Crichton ]
-*amnesia
-maud
-	Get thee hence, nor come again,
-	Mix not memory with doubt,
-	Pass, thou deathlike type of pain,
-	Pass and cease to move about!
-	'Tis the blot upon the brain
-	That will show itself without.
-		...
-	For, Maud, so tender and true,
-	As long as my life endures
-	I feel I shall owe you a debt,
-	That I never can hope to pay;
-	And if ever I should forget
-	That I owe this debt to you
-	And for your sweet sake to yours;
-	O then, what then shall I say? -
-	If ever I should forget,
-	May God make me more wretched
-	Than ever I have been yet!
-		[ Maud, And Other Poems by Alfred, Lord Tennyson ]
 ~amulet of yendor
 ~amulet of restful sleep
 *amulet
@@ -799,21 +778,6 @@ boomerang
 	guarded secret, possibly derived from nonhumans (see Dwarfs,
 	Elves, and Gnomes).
 	  [ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
-*booze
-potion of sleeping
-	On waking, he found himself on the green knoll whence he had
-	first seen the old man of the glen.  He rubbed his eyes -- it
-	was a bright sunny morning.  The birds were hopping and
-	twittering among the bushes, and the eagle was wheeling aloft,
-	and breasting the pure mountain breeze.  "Surely," thought Rip,
-	"I have not slept here all night."  He recalled the occurrences
-	before he fell asleep.  The strange man with a keg of liquor --
-	the mountain ravine -- the wild retreat among the rocks -- the
-	woe-begone party at ninepins -- the flagon -- "Oh! that flagon!
-	that wicked flagon!" thought Rip -- "what excuse shall I make
-	to Dame Van Winkle!"
-		[ Rip Van Winkle, a Posthumous Writing
-		  of Diedrich Knickerbocker, by Washington Irving ]
 boulder
 	I worked the lever well under, and stretched my back; the end
 	of the stone rose up, and I kicked the fulcrum under.  Then,
@@ -2996,46 +2960,6 @@ hecubus
 	Sir Simon Milligan:
 	  But Hecubus, I haven't seen the movie yet... Evil! Evil!
 		[ Simon & Hecubus, The Kids in the Hall ]
-healing
-potion of healing
-    When quaffed, this potion restores your health and exercises constitution.
-    - blessed: Restores 12d4 HP (6d4 if diluted). If fully restored this adds 1 max HP.
-    - uncursed: Restores 10d4 HP (5d4 if diluted). If fully restored this adds 1 max HP.
-    - cursed: Restores 8d4 HP (4d4 if diluted)
-    
-    - If not cursed, cures blindness and deafness.
-    - Dipping a poisoned weapon into a potion of healing will neutralize the poison and use up the potion.
-extra healing
-potion of extra healing
-    When quaffed, this potion restores your health, exercises constitution and strength.
-    - blessed: Restores 12d8 HP (6d4 if diluted). If fully restored this adds 5 max HP.
-    - uncursed: Restores 10d8 HP (5d4 if diluted). If fully restored this adds 2 max HP.
-    - cursed: Restores 8d8 HP (4d4 if diluted)
-    
-    - Cures blindness, hallucination, and deafness.
-    - If blessed, cures withering.
-    - If not cursed, cures sickness.
-    - Dipping a poisoned weapon into a potion of extra healing will neutralize the poison and use up the potion.
-
-    Alchemy Recipes:
-    - potion of healing + potion of speed
-    - potion of healing + potion of gain level
-    - potion of healing + potion of gain energy
-
-full healing
-potion of full healing
-    When quaffed, this potion restores your health, exercises constitution and strength.
-    - blessed: Restores 400 HP. If fully restored this adds 8 max HP.
-    - uncursed: Restores 10d8 HP (5d4 if diluted). If fully restored this adds 4 max HP.
-    - cursed: Restores 8d8 HP (4d4 if diluted)
-    
-    - Cures blindness, hallucination, and deafness.
-    - If not cursed, cures sickness and withering.
-    - Dipping a poisoned weapon into a potion of full healing will neutralize the poison and use up the potion.
-
-    Alchemy recipes:
-    - potion of extra healing + potion of gain level or
-    - potion of extra healing + potion of gain energy
 # no longer the Barbarian quest artifact
 #heart of ahriman
 #	The other three drew in their breath sharply, and the dark,
@@ -5556,34 +5480,582 @@ poseido*n
 	powerful ruler, every inch a king.
 	    [ The Encyclopedia of Myths and Legends of All Nations,
 		by Herbert Robinson and Knox Wilson ]
-~*sleeping
-~*booze
-*potion*
-	POTABLE, n.  Suitable for drinking.  Water is said to be
-	potable; indeed, some declare it our natural beverage,
-	although even they find it palatable only when suffering
-	from the recurrent disorder known as thirst, for which it
-	is a medicine.  Upon nothing has so great and diligent
-	ingenuity been brought to bear in all ages and in all
-	countries, except the most uncivilized, as upon the
-	invention of substitutes for water.  To hold that this
-	general aversion to that liquid has no basis in the
-	preservative instinct of the race is to be unscientific --
-	and without science we are as the snakes and toads.
-		[ The Devil's Dictionary, by Ambrose Bierce ]
+potion of acid
+    When quaffed, this potion will inflict damage, abuse 
+    constitution, and cure stoning.
+    - blessed: 1d4 damage
+    - uncursed: 1d8 damage 
+    - cursed: 2d8 damage 
+    
+	- A potion of acid may not be diluted to water. 
+	- If #dipped in water, acid will explode and cause you 1-10 
+	  points of damage (except in containers)
+	- Dipping items vulnerable to corrosion such as iron erodes
+	  the dipped item.
+	- Acid is able to be cancelled into water.
 
-	Jack Burton:  What's in the flask, Egg?  Magic potion?
-	   Egg Shen:  Yeah.
-	       Jack:  I thought so, good.  What do we do?  Drink it?
-	        Egg:  Yeah.
-	       Jack:  Good, I thought so.
-	     [later]
-	       Jack:  This does what again, exactly?
-	        Egg:  Huge buzz!  [drinks]  Oh good!  See things no
-	              one else can see, do things no one else can do.
-		[ Big Trouble in Little China, directed by
-		  John Carpenter, written by Gary Goldman &
-		  David Z. Weinstein, adaptation by W. D. Richter ]
+	- Dipping a lichen corpse into this causes it to 'turn red
+	  around the edges', or orange if the potion is somehow 
+	  diluted. This does not consume the potion.
+	
+    Alchemy recipes: None
+
+maud
+potion of amnesia
+    When quaffed, this potion causes you to forget things 
+    (similar to a scroll of amnesia).
+	- You can lose skills, forget about your ball and chain 
+	  (if punished), and forget traps.
+	
+	- blessed: Cures lycanthropy, sickness, and gives you 51-100 
+	  nutrition points.
+	- non-blessed: May also cause you to forget some spells. 
+    
+	- This potion cannot be cancelled.
+	- Dipping this into a water source immediately dilutes it.
+	- Dipping an object into the potion has a number of effects. 
+	  Objects with positive enchantment may lose one level of
+	  enchantment. Rustprone objects have a 50% chance of rusting, 
+	  erodeproof objects have a 1/13 chance of losing their 
+	  erodeproof status. Blessed or cursed objects will also become 
+	  uncursed. Magic markers lose 2 + 1d10 charges. Some objects 
+	  will also be downgraded to non-magical versions. 
+	
+	- This potion can also be used to pacify angry shopkeepers.
+	  They will forget about any debt that you have.
+	- Hitting a non-covetous monster with a potion of amnesia has
+	  a 75% chance of making them peaceful (and untame if they were tame) 
+	
+    Alchemy recipes: None
+
+	Get thee hence, nor come again,
+	Mix not memory with doubt,
+	Pass, thou deathlike type of pain,
+	Pass and cease to move about!
+	'Tis the blot upon the brain
+	That will show itself without.
+		...
+	For, Maud, so tender and true,
+	As long as my life endures
+	I feel I shall owe you a debt,
+	That I never can hope to pay;
+	And if ever I should forget
+	That I owe this debt to you
+	And for your sweet sake to yours;
+	O then, what then shall I say? -
+	If ever I should forget,
+	May God make me more wretched
+	Than ever I have been yet!
+		[ Maud, And Other Poems by Alfred, Lord Tennyson ]
+
+potion of blindness
+    When quaffed, this potion temporarily blinds you.
+    - blessed: 125-324 turns (125-224 turns if diluted)
+    - uncursed: 250-449 turns (250-349 turns if diluted)
+    - cursed: 375-574 turns (375-474 turns if diluted)
+    
+	- Dipping a unicorn horn into one of these will produce an
+	  uncursed potion of water.
+potion of blood
+    When quaffed, this potion gives nutrition to vampires.
+    - blessed: a player vampire gains 30 nutrition (15 if diluted)
+    - uncursed: a player vampire gains 20 nutrition (10 if diluted)
+    - cursed: No nutrition (contents have congealed)
+    
+	- Non-vampire players that drink any potion of blood will 
+	  instead become nauseous and vomit for 10d8 (more) turns.
+	- Drinking this potion also breaks vegetarian conduct.
+	
+	- A thrown potion of blood that lands on a non-chaotic altar 
+	  will convert the altar to chaotic, abuse your wisdom regardless
+	  of alignment and angers any attendant priest.
+	
+	- Dipping a unicorn horn into it converts it into water.
+	
+    Alchemy recipes:
+    - Potions of blood can be made via alchemy by dipping blood
+      into potions of fruit juice.
+potion of sake
+potion of booze
+    When quaffed, this potion provides nutrition, abuses wisdom, 
+    and may confuse you.
+    - blessed:  30 nutrition
+    - uncursed: 20 nutrition, confusion for 3d8 (more) turns.
+    - cursed:   10 nutrition, confusion for 3d8 (more) turns, 
+      makes you pass out for 1-15 turns.
+
+    - Non-diluted potions also heal 1 hit point.
+	- Hitting a monster with this may cause it to become confused.
+	- Breathing it's vapors will confuse you for d5 (more) turns.
+	
+	- Dipping an amethyst into booze converts it to fruit juice.
+
+    Alchemy recipes:
+    - ! of fruit juice + ! of enlightenment = ! of booze
+	- ! of fruit juice + ! of speed         = ! of booze
+	- ! of booze       + ! of enlightenment = ! of confusion
+	- ! of booze       + ! of gain level    = ! of hallucination
+	- ! of booze       + ! of gain energy   = ! of hallucination
+	- ! of confusion   + ! of gain level    = ! of booze (6/10 chance)
+	- ! of confusion   + ! of gain energy   = ! of booze (6/10 chance)
+	
+    On waking, he found himself on the green knoll whence he had
+    first seen the old man of the glen.  He rubbed his eyes -- it
+    was a bright sunny morning.  The birds were hopping and
+    twittering among the bushes, and the eagle was wheeling aloft,
+    and breasting the pure mountain breeze.  "Surely," thought Rip,
+    "I have not slept here all night."  He recalled the occurrences
+    before he fell asleep.  The strange man with a keg of liquor --
+    the mountain ravine -- the wild retreat among the rocks -- the
+    woe-begone party at ninepins -- the flagon -- "Oh! that flagon!
+    that wicked flagon!" thought Rip -- "what excuse shall I make
+    to Dame Van Winkle!"
+        [ Rip Van Winkle, a Posthumous Writing
+          of Diedrich Knickerbocker, by Washington Irving ]
+potion of clairvoyance
+    When quaffed
+    - blessed: Grants 100-149 turns of intrinsic clairvoyance,
+        occasionally mapping the surrounding 19x11 area.
+    - uncursed: Grants a single application of clairvoyance, 
+      revealing all corridors, walls, and stairs in a 19x11 region
+      around you.
+    - cursed: No effect.
+    
+    Alchemy recipes: None
+potion of confusion
+    When quaffed, this potion temporarily makes you confused
+    - blessed: 8-14 turns (8-11 if diluted)
+    - uncursed: 16-22 turns (16-19 if diluted)
+    - cursed: 24-30 turns (24-27 if diluted)
+    
+	- Dipping a unicorn horn into a potion of confusion converts 
+	  it to uncursed water.
+
+    Alchemy recipes:
+    - ! of confusion + ! of gain energy = ! of booze or enlightenment
+	- ! of confusion + ! of gain level  = ! of booze or enlightenment
+potion of enlightenment
+    When quaffed: 
+    - blessed: Exercises wisdom and provides enlightenment.
+      Increases INT and WIS by 1 point each.
+    - uncursed: Exercises wisdom and provides enlightenment.
+    - cursed: Abuses wisdom.
+
+    Alchemy recipes:
+    - ! of confusion     + ! of gain level    = ! of enlightenment (3/10 chance)
+	- ! of confusion     + ! of gain energy   = ! of enlightenment (3/10 chance)
+	- ! of booze         + ! of enlightenment = ! of confusion
+	- ! of fruit juice   + ! of enlightenment = ! of booze
+	- ! of enlightenment + ! of levitation    = ! of gain level (6/10 chance)
+
+potion of esp
+    When quaffed, this potion temporarily grants intrinsic telepathy.
+    - blessed: 350-599 turns.
+    - uncursed: 100-149 turns
+    - cursed: Removes intrinsic telepathy.
+
+potion of fruit juice
+    When quaffed, this potion gives you nutrition.
+    - blessed:  30 nutrition (15 if diluted)
+    - uncursed: 20 nutrition (10 if diluted)
+    - cursed:   10 nutrition (5 if diluted)
+    
+	- Dipping an amethyst into booze turns it into fruit juice.
+	- Fruit Juice is unaffected by cancellation.
+
+    Alchemy recipes:
+	- ! of fruit juice + ! of gain level    = ! of see invisible
+	- ! of fruit juice + ! of gain energy   = ! of see invisible
+	- ! of fruit juice + ! of enlightenment = ! of booze
+	- ! of fruit juice + ! of speed         = ! of booze
+	- ! of fruit juice + ! of sickness      = ! of sickness
+    - ! of fruit juice + ! of blood         = ! of blood
+	- ! of fruit juice + ! of vampire blood = ! of vampire blood
+potion of gain energy
+    When quaffed, this potion affects your magical energy.
+    - blessed: Increases maximum energy by 3d6 (half if diluted)
+    - uncursed: Increases maximum energy by 2d6 (half if diluted)
+    - cursed: Decreases maximum energy by 1d6. 
+      Current energy is decreased by three times the change, to 
+      a minimum of 0.
+
+	- For non-cursed potions, your current energy is then increased
+	  by 3x the change, capped at your (new) max energy.
+	- All potions of gain energy exercise wisdom when quaffed.
+	
+    Alchemy recipes:
+    - ! of healing       + ! of gain energy = ! of extra healing
+	- ! of extra healing + ! of gain energy = ! of full healing
+	- ! of full healing  + ! of gain energy = ! of gain energy
+	- ! of fruit juice   + ! of gain energy = ! of see invisible
+	- ! of booze         + ! of gain energy = ! of hallucination
+	- ! of confusion     + ! of gain energy = ! of gain level (6/10 chance)
+                                               random alchemy result (3/10 chance)
+                                               alchemical blast (1/10 chance)
+
+potion of gain level
+    When quaffed, this potion has the following effects based 
+    on its beatitude.
+    - blessed: Increases your experience level by one and sets your 
+      experience points to a random value from the min to the max 
+      for your new level.
+    - uncursed: Increases your experience level by one and sets 
+      your experience points to the minimum for the new level.
+    - cursed: No experience gain, instead you rise up to the next
+      higher dungeon level (ie: from level 2 to level 1.) Does not 
+      function on all levels, exceptions apply.
+    
+	- Dipping an item into this will potentially upgrade and transform the item.
+	- (See "upgrading" or "upgrades" for a full list) 
+
+    Alchemy recipes:
+    - ! of enlightenment + ! of levitation = ! of gain level (6/10 chance)
+	- ! of healing       + ! of gain level = ! of extra healing
+	- ! of extra healing + ! of gain level = ! of full healing
+	- ! of full healing  + ! of gain level = ! of gain ability
+	- ! of fruit juice   + ! of gain level = ! of see invisible
+	- ! of booze         + ! of gain level = ! of hallucination
+	- ! of confusion     + ! of gain level = ! of booze (6/10 chance)
+                                               potion of enlightenment (3/10 chance)
+                                               alchemical blast (1/10 chance)
+potion of hallucination
+    When quaffed, this potion causes temporary hallucination.
+    - blessed: Causes you to hallucinate for 300-499 turns.
+    - uncursed: Causes you to hallucinate for 600-799 turns
+    - cursed: Causes you to hallucinate for  900-1099 turns.
+    
+	- Dipping a unicorn horn into this neutralizes it into uncursed water.
+potion of healing
+    When quaffed, this potion restores your health and exercises 
+    constitution.
+    - blessed: Restores 12d4 HP (6d4 if diluted). 
+      If fully restored this adds 1 max HP.
+    - uncursed: Restores 10d4 HP (5d4 if diluted). 
+      If fully restored this adds 1 max HP.
+    - cursed: Restores 8d4 HP (4d4 if diluted)
+    
+    - If not cursed, cures blindness and deafness.
+    - Dipping a poisoned weapon into a potion of healing will
+      neutralize the poison and use up the potion.
+potion of extra healing
+    When quaffed, this potion restores your health, exercises 
+    constitution and strength.
+    - blessed: Restores 12d8 HP (6d4 if diluted). 
+      If fully restored this adds 5 max HP.
+    - uncursed: Restores 10d8 HP (5d4 if diluted).
+      If fully restored this adds 2 max HP.
+    - cursed: Restores 8d8 HP (4d4 if diluted)
+    
+    - Cures blindness, hallucination, and deafness.
+    - If blessed, cures withering.
+    - If not cursed, cures sickness.
+    - Dipping a poisoned weapon into a potion of extra healing will
+      neutralize the poison and use up the potion.
+
+    Alchemy Recipes:
+    - potion of healing + potion of speed
+    - potion of healing + potion of gain level
+    - potion of healing + potion of gain energy
+potion of full healing
+    When quaffed, this potion restores your health, exercises 
+    constitution and strength.
+    - blessed: Restores 400 HP. 
+      If fully restored this adds 8 max HP.
+    - uncursed: Restores 10d8 HP (5d4 if diluted).
+      If fully restored this adds 4 max HP.
+    - cursed: Restores 8d8 HP (4d4 if diluted)
+    
+    - Cures blindness, hallucination, and deafness.
+    - If not cursed, cures sickness and withering.
+    - Dipping a poisoned weapon into a potion of full healing will
+      neutralize the poison and use up the potion.
+
+    Alchemy recipes:
+    - potion of extra healing + potion of gain level or
+    - potion of extra healing + potion of gain energy
+potion of invisibility
+    When quaffed, grants temporary intrinsic invisibility.
+    - blessed: 31-138 turns (31-130 if diluted)
+    - uncursed: 31-45 turns (31-37 if diluted)
+    - cursed: 31-45 turns (31-37 if diluted and you aggravate
+      monsters on the level.
+	
+    Alchemy recipes: None
+potion of invulnerability
+	When quaffed, causes you to become invulnerable for a few turns.
+    - blessed: 12-15 turns.
+    - uncursed: 8-11 turns.
+    - cursed: 4-7 turns.
+    
+	- Only protects from hit-point loss; you are still vulnerable
+	  to petrification, beheading, illness, and other methods of
+	  instadeath for its duration.
+	
+    Alchemy recipes: None
+potion of levitation
+    When quaffed, this potion grants temporary levitation.
+    - blessed: Makes you levitate for 250-299 more turns 
+                   (250-274 if diluted)
+    - uncursed: Makes you levitate for 10-149 more turns 
+                   (10-79 if diluted)
+    - cursed: You float up for 1 turn. 
+                  You also hit your head on the ceiling and suffer 
+                  d10 points of damage, unless you are on an upstair
+                  in which case you'll just float to the next level
+                  up. The damage can be reduced with helmets. If you
+                  had gained the ability to float down from a 
+                  blessed potion, you lose that by drinking a cursed
+                  one.
+                 
+	- (Blessed potions also let you end your levitation at will with the > key)
+    
+    Alchemy recipes:
+    - ! of levitation + ! of enlightenment = ! of gain level (6/10 chance)
+    
+milky potion
+	- milky is one of the randomized appearances that a potion can
+	  take each game. It is noteworthy because it has a chance of 
+	  summoning a ghost upon quaffing. If the monster appears, the
+	  potion does not have its normal effect.
+
+	- Milky potions have a chance of containing a hostile ghost; 
+	  unless you are blind when you quaff the milky potion, you 
+	  will be frightened and unable to move for 3 turns. The 
+	  probability of a milky potion generating a ghost is based
+	  on the number of ghosts already generated by any means: 
+	  1 in (13 + 2n), where n is the number of ghosts already 
+	  generated. Since there will always be a large number of 
+	  ghosts in the Valley of the Dead, the chance of getting a 
+	  ghost from a potion decreases significantly after that point.
+
+	- A monster quaffing a milky potion can also summon a ghost, 
+	paralyzing them for 3 turns.
+potion of monster detection
+    When quaffed, this potion shows all monsters on the current 
+    level for a period of time.
+    - blessed: Shows monsters for 21-60 (more) turns 
+      (21-40 if diluted)
+    - uncursed: Shows just the monsters against a black background 
+      (1 turn). Exercises Wisdom if any are found.
+    - cursed: Same as uncursed, but also wakes all sleeping and 
+      paralyzed monsters on the level.
+    
+	- Any BUC exercises Wisdom if any monsters are found.
+	- If you already have 300 or more turns of monster detection, 
+	  a blessed potion will only add one more.
+
+    Alchemy recipes: None
+potion of object detection
+    When quaffed, this potion shows the location of all objects on 
+    the current level, with specific information dependent on beatitude. 
+    
+    - blessed: You learn the appearance of every item on the ground 
+      on your level (and in your inventory), except those in the 
+      inventories of monsters.
+    - uncursed: Tells you the class of every item but not the 
+      specific appearance/identity (ie: You see "a scroll" but not 
+      "a scroll of identify")
+    - cursed: Same as uncursed, except that mimics are detected too,
+      but disguised as random items 
+    
+	- Any BUC exercises wisdom if at least one object is detected 
+	  this way.
+	- Items carried by monsters are also detected, but you will only
+	  see one item per monster.
+	
+    Alchemy recipes: None
+potion of oil
+	The potion of oil is primarily a source of fuel for lamps and
+	lanterns but has a number of other uses.
+	
+	Dipping:
+	- Dipping a unicorn horn into a potion of oil just identifies
+	  and uses up the potion, no further effects. 
+	- Dipping anything into a lit potion of oil consumes it and will
+	  burn the dipped item(s) if possible.
+	- Dipping a rusty or corroded weapon into a non-cursed potion of
+	  oil removes one degree of damage.
+	
+	To refuel: Dip the lamp into the potion of oil, which consumes
+	it. If the lamp is lit and the potion is not, the potion will
+	explode.
+	
+	- Doing anything with a cursed potion of oil may cause the oil 
+	  to spill and make your fingers slippery.
+	
+	Lighting:
+	- (a)pply the potion to light it or snuff it out; this also 
+	  auto-identifies the potion. 
+	- A lit potion of oil can be thrown as an explosive projectile,
+	  dealing 4d4 fire damage to anything caught in the explosion.
+	
+    Quaffing:
+	- When an unlit potion is quaffed, this abuses your Wisdom and
+	  identifies the potion.
+	- Quaffing a lit potion additionally deals 3d4 fire damage 
+	  (1d4 if fire resistant). However, if you are polymorphed into
+	  a monster that likes fire, you instead exercise wisdom and 
+	  take no damage.
+    
+	Untrapping:
+	- A potion of oil can be used to untrap a squeaky board, 
+	  similar to a can of grease.
+potion of paralysis
+    When quaffed, this potion will paralyze you.
+    - blessed: 13-22 turns (13-18 if diluted)
+    - uncursed: 25-34 turns (25-29 if diluted)
+    - cursed: 37-46 turns (37-41 if diluted)
+    
+	- If thrown at or smashed on monsters, this will paralyze them
+	  for 1-25 turns.
+	- Breathing it's vapors will paralyze you for 1-5 turns.
+potion of polymorph
+    When quaffed, this potion will polymorph you.
+	- BUC status has no effect; if you have a source of unchanging
+	  this will prevent you from polymorphing.
+	- Throwing this potion at a monster will cause it to polymorph, 
+	  as will wielding the potion and smashing it on them.
+	- Dipping an item into this potion may polymorph the item.
+
+    Alchemy recipes: None
+potion of reflection
+   When quaffed, this potion grants you temporary reflection.
+   - blessed: Grants reflection for 250-299 turns.
+   - uncursed: Grants reflection for 20-29 turns.
+   - cursed: No effect.
+   
+   Alchemy recipes: None
+potion of see invisible
+    When quaffed, this potion grants temporary see invisible.
+    - blessed: 1500-1599 turns (1500-1549 if diluted)
+    - uncursed: 750-849 turns (750-799 if diluted)
+    - cursed: 750-849 turns (750-799 if diluted)
+    
+	- Non-cursed potions also cure blindness.
+	- Cancelling a potion of see invisible converts it to fruit juice.
+
+    Alchemy recipes:
+    - ! of fruit juice + ! of gain level  = ! of see invisible
+	- ! of fruit juice + ! of gain energy = ! of see invisible
+potion of sickness
+    When quaffed, this potion causes mostly negative effects.
+    - blessed: Lose 1 HP
+    - uncursed: Lose 1-10 HP, a random attribute is reduced by 3-6, 
+      abuse constitution.
+    - cursed: Lose 1-15 HP, a random attribute is reduced by 3-6,
+      abuse constitution.
+    
+	- If you have poison resistance you lose 1 HP and abuse 
+	  constitution for non-blessed potions.
+	- Healers are completely protected from these effects;
+	- Any BUC also cures hallucination and larval infections.
+	
+	- Cancelled potions of sickness turn into fruit juice.
+	- Dipping a unicorn horn into sickness also converts it to 
+	  fruit juice.
+	- Dipping a stack of fruit juice into a sickness will
+	  'contaminate' the stack, turning them into potions of sickness.
+	- Dipping weapons into sickness will poison them
+
+    Alchemy recipes:
+    - Potions of sickness are created 22.5% of the time from 
+      alchemy with random potions.
+potion of sleeping
+    When quaffed, this potion causes you to fall asleep.
+    - blessed: 13-22 turns (13-17 if diluted)
+    - uncursed: 25-34 turns (25-29 if diluted)
+    - cursed: 37-46 turns (37-41 if diluted)
+    
+	- If you have sleep resistance or free action, "you yawn" and 
+	  the potion will have no effect.
+
+    Alchemy recipes: None
+smoky potion
+	- smoky is one of the randomized appearances that a potion can 
+	  take each game. It is noteworthy because it has a chance of 
+	  summoning a djinni upon quaffing. If the monster appears, the 
+	  potion does not have its normal effect.
+	
+	- Quaffing a smoky potion has a 1 in (13 + 2n) chance of 
+	  producing a djinni, where n is the number of djinn that have
+	  been created in this game. This djinni might grant you a wish,
+	  become tame, be peaceful, vanish instantly, or turn hostile; 
+	  the chances of each outcome depend on the beatitude of the 
+	  potion and are identical to the chances for magic lamps. 
+	  Blessed smoky potions are the most likely to give a wish.
+
+	- The effect of quaffing a smoky potion does not depend on 
+	  whether or not you have identified that type of potion. If you
+	  have identified smoky potions but have forgotten which ones 
+	  they are, you can use \ or ` to check your current discoveries.
+
+	- Djinn can also be summoned when a monster quaffs a smoky potion.
+	  The djinni will disappear 50% of the time; the other 50% it will
+	  be peaceful. In neither case will it grant wishes, though it
+	  does count toward the total number of djinn created.
+potion of speed
+    When quaffed, this potion temporarily grants very fast speed, 
+    heals wounded legs, and exercises dexterity.
+    - blessed: 160-169 turns
+    - uncursed: 100-109 turns
+    - cursed: 40-49 turns
+    
+    Alchemy recipes:
+    - ! of healing     + ! of speed = ! of extra healing
+	- ! of fruit juice + ! of speed = ! of booze
+potion of regeneration
+    When quaffed, this potion grants you temporary regeneration.
+    - blessed: Grants regeneration for 100-199 turns
+    - uncursed: Grants regeneration for 50-99 turns
+    - cursed: Inflicts withering for 20-29 turns.
+    
+    Alchemy recipes: None
+potion of restore ability
+    When quaffed, this potion restores lost attributes and experience levels, 
+    - blessed: Restores all lost attributes and experience levels.
+    - uncursed: Restores one random lost attribute to its former 
+      maximum and one lost experience level.
+    - cursed: No effect.
+    
+	- Monsters can also quaff these defensively to negate cancellation 
+	  (if they have been cancelled).
+
+    Alchemy recipes: None
+potion of vampire blood
+    When quaffed, this potion feeds vampires or polymorphs non-vampires.
+    - blessed: Player vampires gain 800 nutrition (400 if diluted).
+      Also increases your HP and max HP by the same amount as a level gain.
+    - uncursed: Player vampires gain 800 nutrition (400 if diluted)
+    - cursed: No nutrition (contents have congealed)
+	
+	- Drinking this potion also breaks vegetarian conduct.
+	
+    Non-vampire players that quaff the potion will instead be 
+    polymorphed into one of the following forms.
+	- blessed: Turns you into a vampire lord.
+	- uncursed: Turns you into a vampire.
+	- cursed: Turns you into a vampire bat.
+	 
+	- Dipping a unicorn horn into it converts it into water.
+
+    Alchemy recipes:
+    - Potions of vampire blood can be made via alchemy by dipping 
+      vampire blood into potions of fruit juice.
+potion of water
+    Potions of water act as water - a mostly neutral item, but
+    capable of powerful manipulations.
+	
+	- Quaffing an uncursed potion of water gives you d10 nutrition.
+	
+	Creating:
+	- Potions of water can be created by diluting any potion 
+	  (except acid) twice in a fountain or body of water such as a pool.
+	- Water produced this way will always be uncursed.
+	- Dipping unicorn horns into potions of confusion, hallucination, 
+	  blindness, or blood will convert the potion to water.
+
+	- Changing the BUC of an uncursed potion of water can create a 
+	  potion of holy water or unholy water. 
 pray*
 	Whatever a man prays for, he prays for a miracle.  Every
 	prayer reduces itself to this:  Great God, grant that twice
