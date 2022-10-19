@@ -5500,7 +5500,7 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     else 
         yt = ay;
 
-    if (MON_AT(xt, yt))
+    if (isok(x,y) && MON_AT(xt, yt))
         flanker = m_at(xt, yt);
     else
         return FALSE;
