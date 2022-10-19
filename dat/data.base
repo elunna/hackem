@@ -43,6 +43,8 @@ ac
 armor
 armour
 ~forging armor
+~scroll of enchant armor
+~scroll of destroy armor
 *armor
 suit or piece of armor
 ~*dragon*scale*
@@ -2388,6 +2390,7 @@ fog* cloud
 	and then moves on.
 	     [ Fog, by Carl Sandburg ]
 # includes "food detection" and "detect food", which might not be the best
+~scroll of food detection
 *food*
 	The little girl stood on tip-toe and picked one of the nicest
 	and biggest lunch-boxes, and then she sat down upon the ground
@@ -6676,26 +6679,627 @@ scorpius
 	on opposite sides of the sky so they would never fight again.
 	As Scorpius rises in the east, Orion sets in the west.
 		[ 365 Starry Nights, by Chet Raymo ]
-*scroll
-scroll *
-	And I was gazing on the surges prone,
-	With many a scalding tear and many a groan,
-	When at my feet emerg'd an old man's hand,
-	Grasping this scroll, and this same slender wand.
-	I knelt with pain--reached out my hand--had grasp'd
-	Those treasures--touch'd the knuckles--they unclasp'd--
-	I caught a finger: but the downward weight
-	O'erpowered me--it sank. Then 'gan abate
-	The storm, and through chill aguish gloom outburst
-	The comfortable sun. I was athirst
-	To search the book, and in the warming air
-	Parted its dripping leaves with eager care.
-	Strange matters did it treat of, and drew on
-	My soul page after page, till well-nigh won
-	Into forgetfulness; when, stupefied,
-	I read these words, and read again, and tried
-	My eyes against the heavens, and read again.
-		[ Endymion, by John Keats ]
+scroll of air
+    When read, this scroll creates a tornado around you.
+    - blessed: All monsters within a 4 square radius are hurtled,
+      angered and stunned.
+    - uncursed: All monsters within a 2 square radius are hurtled,
+      angered, and stunned. 
+    - cursed: You take 3d4 damage (unless you are a form that is 
+      breathless)
+
+	Confused effects: None, acts as above.
+scroll of amnesia
+    When read, this scroll causes you to forget things(*) and abuses
+    your wisdom.
+	
+	You forget:
+	- all traps on your current level (except any in which you are 
+	  stuck), and whether you are punished
+
+	- Unless the scroll is blessed, you forget between one and all
+	  of your known spells. 
+	- Being confused rolls this number twice and takes the worse 
+	  result. However, luck can decrease the number.
+	- The chance for decrease goes from about 1/11 at minimum luck 
+	  (-13) through 1/7 at zero luck to about 1/3 at maximum luck (+13). 
+	- If the amount is decreased, instead of forgetting n spells, you
+	  forget between 1 and n spells. 
+	
+	- Each spell lost that way abuses your wisdom in addition to the
+	  one time guaranteed by reading the scroll.
+
+	- Monsters will not read them.
+
+	(*) Note: object identities and maps are not forgotten. 
+scroll of charging
+    When read, this scroll can be used to charge wands, tools, or 
+    rings, or to increase your own magical energy.
+	
+	The scroll of charging, when read, prompts the player to choose
+	an item to which a number of uses (or "charges") will be 
+	recharged. Blessed scrolls have a higher probability than 
+	uncursed scrolls to restore more charges on the item (and thus a
+	higher chance to restore the maximum number of charges). 
+	
+	- blessed: In addition to charging the item, also reveals the 
+	  number of charges and the charge counter.
+    - cursed: Sets the number of charges on the item to zero and 
+      increments the charge counter by 1.
+
+	Confused effects:
+	- A noncursed scroll will instead increase your energy to the 
+	  maximum, unless your energy is already at maximum, in which 
+	  case your maximum energy will increase by 5-20 points.
+	- If cursed, it will instead reduce your current energy to 0.
+
+	Wands:
+	- Blessed scrolls will always restore maximum charges to a 
+	  previously uncharged wand of wishing, and will always 
+	  restore any given directional wand to at least 4 charges or
+	  any nondirectional wand other than wishing to 11 charges.
+	  Specifically, a target charge count is determined; this is a
+	  random number between the maximum charge count and 4 charges
+	  fewer than that (4 to 8 for directional wands; 11 to 15 
+	  for nondirection wands other than wishing). Uncursed scrolls
+	  do the same, but adjust the target charge count to a random 
+	  number from 1 to the original charge count. The wand then is 
+	  adjusted to that target charge count if it had fewer charges
+	  previously. Otherwise, one charge is added. Wands can only be
+	  recharged a certain number of times before the wand explodes, 
+	  dealing damage to you.
+	- A specific change kept from EvilHack is that Wands of Death 
+	  can only be recharged once.
+
+	Tools: 
+	- Except for a magic marker, which can only be recharged once, 
+	  all tools can be charged an unlimited number of times, with 
+	  varying amounts of charges recharged depending on the item.
+
+	Rings:
+	- All rings that have a numeric bonus on them (ie: ring of 
+	  adornment, can have their enchantment modified by the scroll 
+	  of charging. A blessed scroll adds between 1-3 points, an 
+	  uncursed scroll adds 1, and a cursed scroll decreases it by
+	  1-2 points. 
+	- Rings have a chance of being destroyed if the enchantment is
+	  too high or too low:
+
+	Current enchantment    <0  0   1   2   3   4   5   6  >=7
+	Chance of destruction  0%  0% 14% 29% 43% 57% 71% 86% 100%
+scroll of cloning
+ When read, this scroll clones an object in your inventory.
+	
+	Non-cursed scrolls copy the beatitude of the item to the clone.
+	
+    - blessed: Copies the enchantment level or charges, and beatitude.
+    - uncursed: Copies the item with the beatitude.
+    - cursed: The cloned item will be cursed and have less charges or
+      enchantment than the original.
+
+	Confused effects: Creates a clone of yourself.
+	- If you are polymorphed, your polymorphed form is cloned and
+	  tamed. Otherwise it clones your base form with the following
+	  effects based on beatitude.
+    - blessed: The clone is tame.
+    - uncursed: The clone is peaceful.
+    - cursed: The clone is hostile.
+	
+	- Unique items (Like the Amulet of Yendor or Bell of Opening) are
+	  not valid targets. 
+	- Artifacts will not be cloned directly but will produce a copy of
+	  the base item.
+	- Cloned wands of wishing will have their charges set to -1.
+	- Cloned magic markers with 16 or more charges will have charges 
+	  set to 15.
+	- If you attempt to clone a stack of items, it will only produce a
+	  single object.
+scroll of confuse monster
+    When read, this scroll grants you the ability to confuse monsters.
+    It causes your hands to glow red. The red glow signifies that your
+    next non-lethal hit will confuse the target monster unless you are
+    in a form that lacks hands; the intensity of the glow represents
+    how many uses of the ability you have. Upon hitting a monster 
+    using your hands or a wielded weapon, a use is consumed and the
+    monster must pass a check against its magic resistance, becoming
+    confused if they fail the check. This does not occur if the target
+    monster is already confused.
+	
+    - blessed: adds 2-9 (more) uses.
+    - uncursed: only grants one additional use.
+    - cursed: confuses you for d100 (more) turns.
+
+	- If you are polymorphed into any non-@ monster form, reading a
+	  scroll of any beatitude will also confuse you for d100 (more)
+	  turns.
+	
+	- While there is no upper limit on uses that can be added, once
+	  at least 40 uses are stored, reading a noncursed scroll will 
+	  only grant one additional use.
+	
+	Confused effects:
+	- The same occurs if you read a non-blessed scroll while already
+	  confused; 
+	- reading a blessed scroll while confused will instead cure your
+	  confusion. 
+scroll of create monster
+    When read, this scroll generates monsters adjacent to you.
+    - blessed: 1 monster created.
+    - uncursed: 72/73 chance of 1; 1/73 chance of 2 to 5
+    - cursed: 72/73 chance of 13; 1/73 chance of 14 to 17
+
+	Confused effects:
+	- 72/73 chance of 13 acid blobs; 1/73 chance of 14 to 17 acid blobs
+	
+	- Monsters can also read this scroll, with the same effects.
+scroll of destroy armor
+    When read, this scroll destroys one piece of worn armor.
+    - blessed/uncursed: Destroys a random piece of armor.
+    - cursed: If a cursed scroll targets cursed armor in this way, 
+      it stuns you for 10-19 turns and lowers that armor's enchantment
+      by one (unless it is at -7) instead of destroying it.
+
+	- If you read the scroll while you are not wearing armor, your
+	  strength and constitution are abused. If you are not a beginner,
+	  the scroll will be identified - otherwise, "you have a strange
+	  feeling for a moment, then it passes".
+
+	Confused effects:
+	- Reading a non-cursed scroll while confused removes 
+	  erodeproofing on a piece of armor.
+	- Reading a cursed scroll while confused instead applies
+	  erodeproofing a piece of armor, but does not repair it if 
+	  damaged the way reading a scroll of enchant armor while 
+	  confused does.
+scroll of earth
+    When read, this scroll creates boulders.
+    - blessed: Creates 8 boulders around the reader without dropping
+      one on them,
+    - uncursed: Creates 9 boulders - 8 around the reader and one on 
+      top of their head. 
+    - cursed: Creates a single boulder over the reader's head.
+
+	- If there is a wall or door where a boulder would normally fall, 
+	  that boulder will not be created. 
+	- A boulder that falls on a monster does 1d20 points of damage
+	  and can wake up nearby monsters with the noise.
+	- if they are wearing a hard helmet, it bounces off and deals
+	  just 2 points of damage. 
+	- A scroll of earth does no damage to amorphous, phasing, 
+	  noncorporeal, or unsolid monsters.
+
+	- The scroll has no effect on the Rogue level and the Elemental
+	  Planes, except for the Plane of Earth.
+	- Reading a scroll of earth on a Sokoban level before solving
+	  that floor will decrease your Luck by 1.
+	- The first level of Sokoban always has two guaranteed scrolls
+	  of earth. 
+
+	Confused effects:
+	- If read while confused, the scroll will create rocks instead of
+	  boulders, using the same pattern based on the beatitude of the 
+	  scroll.
+scroll of elementalism
+    When read, this scroll summons a variable quantity of elementals. 
+    Any elemental in the game is eligible
+    
+    - blessed: Quantity 1, with a 1/3 chance of being hostile, 
+      otherwise tame
+    - uncursed: Quantity 1, with a 1/2 chance of being hostile, 
+      otherwise peaceful
+    - cursed: Quantity 2-4, always hostile
+
+	Confused effects: If you read the scroll while confused, the
+	  scroll will create gas spores, flaming spheres, freezing 
+	  spheres or shocking spheres. The number and hostility of the 
+	  created monsters depend on the beatitude of the scroll:
+	- blessed: 3-12 tame
+	- uncursed: 3-12 hostile
+	- cursed: 1 hostile
+
+	- Monsters can read this scroll.
+scroll of enchant armor
+    This scroll alters the enchantment on armor worn by the reader.
+	
+	- If you have not identified this scroll, it chooses at random 
+	  which piece of armor will be affected. If any armor is worn on 
+	  the torso, only the outermost worn layer of cloak, body armor,
+	  or shirt is eligible.
+	- If you have already identified this scroll, you will be able to
+	  choose what is enchanted, including your steed's barding.
+	
+    - blessed: One worm piece of armor is enchanted and blessed. 
+        (Details on how the enchantment is calculated below)
+	- uncursed: One worn piece of armor is enchanted by +1, and, if 
+	  it is cursed, made uncursed:
+    - cursed: One worn item of armor is randomly selected, cursed, 
+      and loses one point of enchantment:
+
+	- Blessed enchantment calculation:
+	    Current enchantment  Additional possible
+		       -3 to −1             1 to 4
+		        0 to +2             1 to 3
+		       +3 to +5             1 to 2 
+		       +6 to +8             1
+		       +9 or more           0 or 1
+
+	  - The enchantment gain is determined as follows: If the current
+	    enchantment is +9 or higher, there is a 1 in (current enchantment) 
+	    chance of gaining one additional point of enchantment, as with 
+	    an uncursed scroll.
+
+	  - If the current enchantment is below +9, the armor gains 1 
+	    point of enchantment, plus a random number from:
+	        0 to 3 - (current enchantment / 3)
+	  - This means a +3 piece of armor has a 50% chance of being
+	    enchanted to +5 by a blessed scroll.
+	  
+	- If the enchantment of the armor is already above +3, the armor
+	  may be destroyed when a non-cursed scroll is read:
+	- The probability that the armor will survive is equal to 1 
+	  divided by the current enchantment.
+	- The armor may be safely enchanted with a current enchantment of
+	  +5 or lower if:
+	      it is elven or
+	      it is a cornuthaum and you are a Wizard.
+
+	- If the armor is successfully enchanted beyond the safe limit,
+	  it may vibrate.
+	- There is a chance of vaporizing negatively-enchanted armor with
+	  a cursed scroll, with exactly the same probability as using a
+	  noncursed scroll to vaporize a positively enchanted piece of armor.		
+	
+	Confused effects:
+	- Reading a noncursed scroll while confused will repair erosion on
+	  one piece of armor, and make the armor erodeproof.
+	- As this does not increase the enchantment of the armor, it also
+	  does not risk vaporization.
+	- Cursed scrolls will not repair damaged armor and will remove,
+	  instead of applying, erodeproofing:
+
+	- If the player reads the scroll with no armor worn, their strength
+	  and constitution are exercised if non-cursed, or abused if the 
+	  scroll is cursed:
+
+	- For info on enchanting dragon scales, see "dragon scales"
+scroll of enchant weapon
+    When read, this scroll alters the enchantment on a weapon wielded
+    by the reader.
+	- If you are wielding a stack of weapons, the scroll will affect 
+	  all of them at once. 
+	- Using a non-cursed scroll on a worm tooth will transform it
+	  into a crysknife, and using a cursed scroll on a crysknife will
+	  turn it back into a worm tooth.
+	  
+    - blessed: May enchant by more than 1 point depending on the
+        current enchantment.
+    - uncursed: Will always try to increase the weapon's enchantment
+        by 1 point.
+    - cursed: Will decrease the enchantment by 1. A weapon already at
+        -6 or below has a 2/3 chance of evaporating.
+
+	- A cursed weapon that is enchanted by reading this scroll will be
+	  made uncursed.
+	- If you read a scroll of enchant weapon without wielding a weapon
+	  or weapon-tool, you will exercise your dexterity instead (or abuse it if the scroll is cursed).
+
+	Enchantment    Points added by blessed scroll
+	   -5 to -3    up to 4
+	   -2 to +2    up to 3
+	   +3 to +5    up to 2
+	   +6 to +8    1 (if weapon does not evaporate)
+
+	- If the weapon's current enchantment is +5 or less and you read
+	  a blessed scroll, the scroll will add:
+	       1 to (3 - (current enchantment) / 3) points.
+	- If the current enchantment is +6 or more, the blessed scroll
+	  will behave the same as an uncursed scroll.
+	- Weapons whose present enchantment is +5 or less can be safely
+	  enchanted further; 
+	- weapons at +6 or above will have a 2/3 chance of evaporating
+	  instead when enchanted, and weapons at +9 and above have only
+	  a 1-in-(current enchantment) chance of gaining another point
+	  of enchantment.	
+
+	Confused effects:
+	- If read while confused, the scroll will instead affect that
+	  weapon's erosion status
+	- a non-cursed scroll will erodeproof your weapon and fixes any
+	  existing damage.
+	- A cursed scroll will remove the erodeproofing instead.
+scroll of fire
+    When read, this scroll causes an explosion of fire.
+    - uncursed: Creates an explosion of fire in a 3x3 square area
+      centered on the player. 
+	  This deals 2-3 fire damage to you and any monsters around you. 
+	  It also boils potions, damages worn armor, and burns scrolls
+	  and spellbooks in your inventory, monster inventories, and on
+	  the ground.
+    - cursed: Same effect as an uncursed scroll, but only deals 1-2
+      damage to each target.
+	
+    - blessed: Allows you to center the explosion on a nearby visible
+      square (with the same restrictions as a scroll of stinking 
+      cloud), and the explosion deals 15, 20, or 25 damage.
+
+	Confused effects:
+	- If not fire resistant, you instead lose 1 HP with no effect on
+	  your inventory or your gloves.
+
+	- The explosion of fire burns away any slime covering you. 
+	- This scroll will never be destroyed by fire damage that normally
+	  affects carried items.
+scroll of food detection
+    When read, this scroll reveals the location of all comestibles 
+    on the level.
+    - uncursed: detects and reveals the location of all comestibles
+      on the level, including those on the ground and in monster 
+      inventories
+    - blessed: you additionally acquire the food appraisal intrinsic.
+    - cursed/confused: you will detect potions instead.
+scroll of genocide
+   The effects  depend on the scroll's beatitude, including confused
+   readings:
+    - blessed: You may eliminate a single monster species from the
+      entire dungeon.
+    - uncursed: You may eliminate a single monster species from the
+      current level.
+    - cursed: 4-6 monsters of the chosen species are summoned.
+      Monsters generated this way do not carry any inventory
+
+	Confused effects:
+	- blessed: Same as a blessed non-confused scroll.
+	- uncursed: You genocide your own role, causing instadeath.
+	- cursed: 4-6 hostile player monsters of your role are summoned.
+	  Monsters generated this way do not carry any inventory
+	
+	- Monsters will not read this scroll. 
+scroll of gold detection
+    When read, this scroll finds all gold on the current level. It 
+    can also be used to find traps.
+    - uncursed: Reveals gold pieces, gold golems and any gold hidden
+      in containers, buried, or embedded in rock. 
+    - blessed: Also detects objects made of gold.
+    - cursed: See confused effect.
+
+	Confused effects:
+	- Detects traps. 
+	- If non-cursed, all traps on the level will be revealed to the
+	  player with the ^ or " symbols (of the appropriate color). 
+	- If the scroll was cursed, regardless if you are confused or
+	  not, all traps on the level will be marked with a $ as if the
+	  scroll was detecting gold.
+scroll of identify
+    When read, this scroll reveals the full identity of at least one 
+    unknown item in the player's inventory. 
+	
+	If the scroll is blessed or uncursed, it will identify 1, 2, 3,
+	4, or all items in the inventory, with the probability of each 
+	number given in the table below. If this is less than the number 
+	of unidentified items in the inventory, the player chooses which
+	items to identify first.
+
+	BUC              Number of items
+                 1     2     3     4   all
+	Blessed    1/5   1/5   1/5   1/5   1/5
+	Uncursed 21/25  1/25  1/25  1/25  1/25
+	Cursed       1     0     0     0     0
+	
+	- If your Luck is positive, a blessed scroll has a 2/5 chance of
+	identifying 2 items, and will never identify just one.
+
+	Confused effects: 
+	- The scroll's type is identified with no further effect. 
+	  ("You identify this as an identify scroll.")
+scroll of knowledge
+    When read, this scroll allows for identification of any named item.
+    - uncursed/cursed: You can specify one non-artifact item to learn
+      the identity of.
+    - blessed: Grants you 1 additional item to learn about.
+	
+	Confused effects:
+	- No effect (You know this to be a knowledge scroll.")
+scroll of light
+	Reading a noncursed scroll of light will created a radius of
+	permanent light around you.
+    - blessed: creates a 9-unit radius of light.
+    - uncursed: creates light in a 5-square radius
+    - cursed: instead darkens a 5-square area around you.
+
+	Confused effects:
+	- Creates a radius of darkness corresponding to the scroll's 
+	  beatitude around you. 
+	- However, they also have a 1/5 chance to instead summon a 
+	  light monster
+	- noncursed scrolls can summon a yellow light,
+	- cursed scrolls can summon a black light. 
+scroll of magic mapping
+    When read, this scroll maps the entire current level, providing
+    the scroll is not cursed, the level is mappable, and you are not
+    confused.
+    - blessed: The whole level is mapped, and secret doors revealed.
+    - uncursed: The whole level is mapped.
+    - cursed/confused: 1/7 of the level's squares are mapped.
+	- non-mappable level: You are confused for 1 to 30 (more) turns.
+scroll of magic detection
+    When read, this scroll detects magical objects on (and buried 
+    around) the current level, and in the players inventory. It also
+    detects monsters capable of magic on the level.
+	
+    - blessed: Identify fully those same items (but not their beatitude).
+    - uncursed: Label such items as 'magical'.
+    - cursed: Wakes up and unparalyzes magical monsters. Mimics 
+      imitating magical objects appear as their disguises.
+scroll of punishment
+    When read, this scroll punishes you by chaining a heavy iron ball
+    to you, which hinders your movements.
+    - blessed/confused: No effect ("You feel guilty".)
+	
+    - uncursed & unpunished: You are punished  
+    - cursed & unpunished: You are punished
+    
+	- uncursed & punished: The iron ball's weight increases by 160
+    - cursed & punished: The iron ball's weight increases by 320
+scroll of remove curse
+    When read, this scroll uncurses items in your inventory.
+    - blessed: Unpunishes, and uncurses all cursed items in open
+      inventory (and saddle if riding).
+    - uncursed: Unpunishes, and uncurses all cursed equipped items
+      and loadstones (and saddle if riding)
+    - cursed:  Unpunishes
+
+	- regardless of the scroll's beatitude, it will also end any 
+	  punishment by destroying the chain and leaving the iron ball
+	  behind.
+	
+	Confused effects:
+	- If read while confused, each of your affected uncursed items 
+	  have a 25% chance of becoming blessed and a 25% chance of 
+	  becoming cursed; 
+	
+	- blessed: Unpunishes, removes BUC identification on your entire
+	  open inventory, and randomly curses/blesses uncursed items in 
+	  open inventory (including ridden saddle)
+	- uncursed: Unpunishes, removes BUC identification on all equipped
+	  items and loadstones, and randomly curses/blesses uncursed
+	  equipped items (including ridden saddle)
+	- cursed: No effect
+scroll of scare monster
+    When read, this scroll 
+    - blessed/uncursed: causes monsters in your visual range to flee,
+      subject to each monsters magic resistance score.
+    - cursed/confused: monsters in visual range will wake up, become
+      unparalyzed, and unscared.
+
+	On the ground:
+	- When you stand on a square where a scroll of scare monster is
+	  on the ground, most monsters will become scared and flee instead
+	  of attacking you in melee. 
+	- Unlike Elbereth, this works on peaceful monsters, pets, blind
+	  monsters, and minotaurs; it also works in Gehennom and the End Game
+	
+	- Monsters scared by this scroll will avoid walking on it unless
+	  they are blind, human or a minotaur.
+	- Standing on this scroll will NOT scare any @ monsters, unique 
+	  monsters, angelic beings (A), the Riders, or the Wizard of Yendor.
+	
+	Beatitude, degradation and disintegration
+	- If you pick up a blessed scroll of scare monster, it will become
+	  uncursed.
+	- if you try to pick up a cursed one, it will disintegrate. 
+	- An uncursed one will set an internal flag the first time you
+	  pick it up, and disintegrate the next time unless you have
+	  blessed it - as this flag is not reset by blessing the scroll,
+	  any individual scroll can only be picked up while uncursed once.
+	  Scrolls that have been picked up once while uncursed will not
+	  stack with those that haven't. Removing a scroll from a 
+	  container on the ground or in your inventory has no ill effect
+	  on it.
+scroll of stinking cloud
+    When read, this scroll allows you to center a cloud of poison gas
+    around a point of your choice on the dungeon map. This point must
+    be visible and within a range of 5.6 tiles, but the actual cloud
+    need not. Blessed scrolls give a larger cloud and do more damage;
+    cursed scrolls give a smaller cloud and do less damage.
+	
+	The stinking cloud causes damage and angers monsters, save those
+	that are nonliving or unbreathing. Poison resistant monsters do
+	not take damage, but are still angered. Monsters with eyes are 
+	blinded.
+	
+	The lifespan of the cloud is dependent upon the BUC status of the
+	scroll; after 4-6 turns, a cloud created by a cursed scroll will
+	disappear, while a cloud created by a non-cursed scroll will
+	undergo a first dissipation, after which it will cause less damage.
+	Then, after two more turns, a cloud created by an uncursed scroll
+	will disappear, while a cloud created by a blessed scroll will
+	undergo a second dissipation, after which it will cause even less
+	damage. Then the cloud will disappear.
+	
+    - blessed: 4x4 cloud. 8-10 turn lifespan.
+    - uncursed: 3x3 cloud. 6-8 turn lifespan.
+    - cursed: 2x2 could. 4-6 turn lifespan.
+
+	Confused effects:
+	- cursed/uncursed: Creates a large number of gas spores throughout
+	  the level (30-99). 
+	- blessed: Creates 1, 2, or 3 fern spores.
+scroll of taming
+    - Reading a non-cursed scroll will tame monsters adjacent to you
+      if they do not succeed a check against monster magic resistance,
+      similar to the spell of charm monster; the standard restrictions
+      for pets apply. 
+    - cursed: Reading a cursed scroll will instead turn peaceful
+      monsters adjacent to you hostile.
+
+	- The taming effect will pacify any hostile monster that were
+	  formerly peaceful, such as shopkeepers and aligned priests. 
+
+	Confused effects:
+	- Reading the scroll while confused increases the range of the
+	  effects above to within 5 squares of your location (i.e. an
+	  11x11 area), including beyond walls. If the scroll is read and
+	  no monsters are affected, "nothing interesting" happens, and 
+	  you will be prompted to type-name the scroll afterward.
+	
+	- In all cases, if you are engulfed, the effects will only be
+	  applied to the engulfing monster, as opposed to any other 
+	  nearby monsters.
+scroll of teleportation
+    When read, this scroll teleports the player.
+    - blessed: You are asked whether you want to teleport.
+    - uncursed: You are randomly teleported to a location within 
+      the same level.
+    - cursed: You are teleported to another level. 
+
+	- If the player has teleport control, they will always be asked
+	  where they want to be teleported. 
+	- Otherwise, the teleport is uncontrolled and the new location
+	  will be chosen randomly. 
+	- All "safe" places on the current level are equally likely;
+	- see "level teleport" for uncontrolled levelporting.
+
+	Confused effects:
+	- If you have teleport control, always allows a player to level 
+	  teleport and pick the level; 
+	- however, there is still a chance dependent on Luck that the
+	  teleport may be random.
+	- Having at least +11 Luck will result in success about 98% of
+	  the time.
+
+	- When carrying Amulet of Yendor, there is a 1/3 chance that
+	  nothing happens, producing the message "You feel disoriented
+	  for a moment." This always happens if you attempt a levelport
+	  while carrying the Amulet. Trying to teleport on a no-teleport
+	  level such as Sokoban will instead produce the message "A 
+	  mysterious force prevents you from teleporting!" to indicate 
+	  that all teleport attempts will fail.
+scroll of time
+    When read, this scroll grants you a large number of movement points. 
+
+    - blessed: 75 movement points (effectively 6.25 more turns)
+    - uncursed: 50 movement points (effectively 4.2 more turns)
+    - cursed: Paralyze you for 15-19 turns.
+
+    - For reference a normal speed turn is 12 movement points.
+     
+	Confused effects:
+	- blessed: Paralyzes you for 5-9 turns.
+	- uncursed: Paralyzes you for 10-14 turns.
+	- cursed: Paralyzes you for 15-19 turns.
+scroll of transmogrify
+    When read, this scroll changes the material of your wielded weapon
+      or worn armor.
+    - blessed: Blesses and transforms the object to a random material.
+    - uncursed: Transforms the object to a random material
+    - cursed/confused: Curses the object chosen and removes any
+      erodeproofing. It also attempts to convert the object material
+      to plastic (if valid), and if not possible just chooses a random 
+      material.
+
+	- If you aren't wearing anything to change, you will feel strange. 
+	- If cursed, you'll abuse constitution and strength, otherwise you 
+	  exercise it.
 secespita
 	The secespita is a long iron sacrificial knife, made of brass
 	and copper from Cyprus, with a solid and rounded ivory handle,
