@@ -1134,22 +1134,34 @@ struct monst *mtmp;
         mbhit(mtmp, rn1(8, 6), mbhitm, bhito, otmp);
         m_using = FALSE;
         return 2;
-    case MUSE_BAG_OF_TRICKS: {
-        coord cc;
-        struct monst *mon;
-        /* pm: 0 => random, eel => aquatic, croc => amphibious */
-        struct permonst *pm = !is_pool(mtmp->mx, mtmp->my) ? 0
-                            : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
-
-        if (!enexto(&cc, mtmp->mx, mtmp->my, pm))
-            return 0;
-        mbagmsg(mtmp, otmp);
+    case MUSE_WAN_HEALING:
+        mzapwand(mtmp, otmp, TRUE);
         otmp->spe--;
-        mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
-        if (mon && canspotmon(mon) && oseen)
-            makeknown(BAG_OF_TRICKS);
+        i = d(5, 2) + 5 * !!bcsign(otmp);
+        mtmp->mhp += i;
+        if (mtmp->mhp > mtmp->mhpmax) 
+            mtmp->mhp = ++mtmp->mhpmax;
+        if (!otmp->cursed) 
+            mtmp->mcansee = 1;
+        if (vismon) 
+            pline("%s begins to look better.", Monnam(mtmp));
+        if (oseen) 
+            makeknown(WAN_HEALING);
         return 2;
-    }
+    case MUSE_WAN_EXTRA_HEALING:
+        mzapwand(mtmp, otmp, TRUE);
+        otmp->spe--;
+        i = d(5, 4) + 10 * !!bcsign(otmp);
+        mtmp->mhp += i;
+        if (mtmp->mhp > mtmp->mhpmax) 
+            mtmp->mhp = ++mtmp->mhpmax;
+        if (!otmp->cursed)
+            mtmp->mcansee = 1;
+        if (vismon) 
+            pline("%s begins to look better.", Monnam(mtmp));
+        if (oseen) 
+            makeknown(WAN_EXTRA_HEALING);
+        return 2;
     case MUSE_WAN_CREATE_MONSTER: {
         coord cc;
         struct monst *mon;
@@ -1163,6 +1175,27 @@ struct monst *mtmp;
         mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
         if (mon && canspotmon(mon) && oseen)
             makeknown(WAN_CREATE_MONSTER);
+        return 2;
+    }
+    case MUSE_WAN_CREATE_HORDE: {   
+        coord cc;
+        struct permonst *pm=rndmonst();
+        int cnt = 1;
+        if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
+            return 0;
+        mzapwand(mtmp, otmp, FALSE);
+        otmp->spe--;
+        if (oseen) 
+            makeknown(WAN_CREATE_HORDE);
+        cnt = rnd(4) + 10;
+        while (cnt--) {
+            struct monst *mon;
+            if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
+                continue;
+            mon = makemon(rndmonst(), cc.x, cc.y, NO_MM_FLAGS);
+            if (mon) 
+                newsym(mon->mx,mon->my);
+        }
         return 2;
     }
     case MUSE_SCR_CREATE_MONSTER: {
@@ -1203,78 +1236,78 @@ struct monst *mtmp;
         m_useup(mtmp, otmp);
         return 2;
     }
-    case MUSE_WAN_CREATE_HORDE: {   
+    case MUSE_BAG_OF_TRICKS: {
         coord cc;
-		struct permonst *pm=rndmonst();
-		int cnt = 1;
-		if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
+        struct monst *mon;
+        /* pm: 0 => random, eel => aquatic, croc => amphibious */
+        struct permonst *pm = !is_pool(mtmp->mx, mtmp->my) ? 0
+                                                           : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
+        
+        if (!enexto(&cc, mtmp->mx, mtmp->my, pm))
             return 0;
-		mzapwand(mtmp, otmp, FALSE);
-		otmp->spe--;
-		if (oseen) 
-            makeknown(WAN_CREATE_HORDE);
-		cnt = rnd(4) + 10;
-		while(cnt--) {
-			struct monst *mon;
-			if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
-                continue;
-			mon = makemon(rndmonst(), cc.x, cc.y, NO_MM_FLAGS);
-			if (mon) 
-                newsym(mon->mx,mon->my);
-		}
-		return 2;
-	}
+        mbagmsg(mtmp, otmp);
+        otmp->spe--;
+        mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
+        if (mon && canspotmon(mon) && oseen)
+            makeknown(BAG_OF_TRICKS);
+        return 2;
+    }
     case MUSE_SCR_ELEMENTALISM: {
         coord cc;
- 		struct permonst *pm = 0, *fish = 0;
- 		int cnt = 1;
- 		struct monst *mon;
- 		boolean known = FALSE;
+        struct permonst *pm = 0, *fish = 0;
+        int cnt = 1;
+        struct monst *mon;
+        boolean known = FALSE;
 
- 		if (!rn2(73)) cnt += rnd(4);
- 		if (mtmp->mconf || otmp->cursed) cnt += rn2(8);
- 		if (mtmp->mconf) pm = fish = &mons[PM_MANES];
- 		else if (is_pool(mtmp->mx, mtmp->my))
- 		    fish = &mons[PM_WATER_ELEMENTAL];
- 		mreadmsg(mtmp, otmp);
- 		/* Pick an elemental time... */
+        if (!rn2(73)) 
+            cnt += rnd(4);
+        if (mtmp->mconf || otmp->cursed) 
+            cnt += rn2(8);
+        if (mtmp->mconf) 
+            pm = fish = &mons[PM_MANES];
+        else if (is_pool(mtmp->mx, mtmp->my))
+            fish = &mons[PM_WATER_ELEMENTAL];
+        mreadmsg(mtmp, otmp);
+        /* Pick an elemental time... */
         if (mtmp->mconf) {
             switch(rn2(4)) {
-                case  0:			/* Air */
+                case  0: /* Air */
                     pm = &mons[PM_GAS_SPORE];
                     break;
-                case  1:			/* Fire */
+                case  1: /* Fire */
                     pm = &mons[PM_FLAMING_SPHERE];
                     break;
-                case  2:			/* Water */
+                case  2: /* Water */
                     pm = &mons[PM_FREEZING_SPHERE];
                     break;
-                case  3:			/* Earth */
+                case  3: /* Earth */
                     pm = &mons[PM_SHOCKING_SPHERE];
                     break;
             }
         } else {
             pm = &mons[rand_elemental()];
         }
- 		while(cnt--) {
- 		    /* `fish' potentially gives bias towards water locations;
- 		       `pm' is what to actually create (0 => random) */
- 		    if (!enexto(&cc, mtmp->mx, mtmp->my, fish)) break;
- 		    mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
- 		    if (mon && canspotmon(mon)) known = TRUE;
- 		}
- 		/* The only case where we don't use oseen.  For wands, you
- 		 * have to be able to see the monster zap the wand to know
- 		 * what type it is.  For teleport scrolls, you have to see
- 		 * the monster to know it teleported.
- 		 */
- 		if (known)
- 		    makeknown(SCR_ELEMENTALISM);
- 		else if (!objects[SCR_ELEMENTALISM].oc_name_known
- 			&& !objects[SCR_ELEMENTALISM].oc_uname)
- 		    docall(otmp);
- 		m_useup(mtmp, otmp);
- 		return 2;
+        while (cnt--) {
+            /* `fish' potentially gives bias towards water locations;
+               `pm' is what to actually create (0 => random) */
+            if (!enexto(&cc, mtmp->mx, mtmp->my, fish)) 
+                break;
+            mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            if (mon && canspotmon(mon)) 
+                known = TRUE;
+        }
+        /* The only case where we don't use oseen.  For wands, you
+         * have to be able to see the monster zap the wand to know
+         * what type it is.  For teleport scrolls, you have to see
+         * the monster to know it teleported.
+         */
+        if (known)
+            makeknown(SCR_ELEMENTALISM);
+        else if (!objects[SCR_ELEMENTALISM].oc_name_known
+                && !objects[SCR_ELEMENTALISM].oc_uname)
+            docall(otmp);
+        m_useup(mtmp, otmp);
+        return 2;
  	}
     case MUSE_TRAPDOOR:
         /* trap doors on "bottom" levels of dungeons are rock-drop
@@ -1384,35 +1417,6 @@ struct monst *mtmp;
         migrate_to_level(mtmp, ledger_no(&sstairs.tolev), MIGR_SSTAIRS,
                          (coord *) 0);
         return 2;
-    /* [Tom] */
-	case MUSE_WAN_HEALING:
-		mzapwand(mtmp, otmp, TRUE);
-		otmp->spe--;
-		i = d(5, 2) + 5 * !!bcsign(otmp);
-		mtmp->mhp += i;
-		if (mtmp->mhp > mtmp->mhpmax) 
-            mtmp->mhp = ++mtmp->mhpmax;
-		if (!otmp->cursed) 
-            mtmp->mcansee = 1;
-		if (vismon) 
-            pline("%s begins to look better.", Monnam(mtmp));
-		if (oseen) 
-            makeknown(WAN_HEALING);
-		return 2;
-    case MUSE_WAN_EXTRA_HEALING:
-		mzapwand(mtmp, otmp, TRUE);
-		otmp->spe--;
-		i = d(5, 4) + 10 * !!bcsign(otmp);
-		mtmp->mhp += i;
-		if (mtmp->mhp > mtmp->mhpmax) 
-            mtmp->mhp = ++mtmp->mhpmax;
-		if (!otmp->cursed) 
-            mtmp->mcansee = 1;
-		if (vismon) 
-            pline("%s begins to look better.", Monnam(mtmp));
-		if (oseen) 
-            makeknown(WAN_EXTRA_HEALING);
-		return 2;
     case MUSE_TELEPORT_TRAP:
         m_flee(mtmp);
         if (vis) {
@@ -1496,7 +1500,8 @@ struct monst *mtmp;
         }
         else if (vismon)
             pline("%s discards the congealed blood in disgust.", Monnam(mtmp));
-        if (oseen) makeknown(POT_VAMPIRE_BLOOD);
+        if (oseen) 
+            makeknown(POT_VAMPIRE_BLOOD);
         m_useup(mtmp, otmp);
         return 2;
     case MUSE_LIZARD_CORPSE:
