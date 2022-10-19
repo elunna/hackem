@@ -335,37 +335,39 @@ struct obj *otmp;
  * to use them is determined by the order of the code logic, not the
  * numerical order in which they are defined.
  */
-#define MUSE_SCR_TELEPORTATION 1
-#define MUSE_WAN_TELEPORTATION_SELF 2
-#define MUSE_POT_HEALING 3
-#define MUSE_POT_EXTRA_HEALING 4
-#define MUSE_WAN_DIGGING 5
-#define MUSE_TRAPDOOR 6
-#define MUSE_TELEPORT_TRAP 7
-#define MUSE_UPSTAIRS 8
-#define MUSE_DOWNSTAIRS 9
-#define MUSE_WAN_CREATE_MONSTER 10
-#define MUSE_SCR_CREATE_MONSTER 11
-#define MUSE_UP_LADDER 12
-#define MUSE_DN_LADDER 13
-#define MUSE_SSTAIRS 14
-#define MUSE_WAN_TELEPORTATION 15
-#define MUSE_BUGLE 16
-#define MUSE_UNICORN_HORN 17
-#define MUSE_POT_FULL_HEALING 18
-#define MUSE_LIZARD_CORPSE 19
-#define MUSE_ACID_BLOB_CORPSE 20
-#define MUSE_BAG_OF_TRICKS 21
-#define MUSE_EUCALYPTUS_LEAF 22
-#define MUSE_WAN_UNDEAD_TURNING 24 /* also an offensive item */
-#define MUSE_POT_RESTORE_ABILITY 25
-#define MUSE_WAN_HEALING 26
-#define MUSE_WAN_EXTRA_HEALING 27
-#define MUSE_WAN_DRAINING 28	/* KMH */
-#define MUSE_WAN_CREATE_HORDE 29
-#define MUSE_FIREBALL 30
-#define MUSE_POT_VAMPIRE_BLOOD 31
-#define MUSE_SCR_ELEMENTALISM 32
+#define MUSE_WAN_TELEPORTATION_SELF     1
+#define MUSE_WAN_DIGGING                2
+#define MUSE_WAN_CREATE_MONSTER         3
+#define MUSE_WAN_TELEPORTATION          4
+#define MUSE_WAN_UNDEAD_TURNING         5 /* also an offensive item */
+#define MUSE_WAN_HEALING                6
+#define MUSE_WAN_EXTRA_HEALING          7
+#define MUSE_WAN_DRAINING               8
+#define MUSE_WAN_CREATE_HORDE           9
+#define MUSE_FIREBALL                   10
+#define MUSE_SCR_TELEPORTATION          11
+#define MUSE_SCR_CREATE_MONSTER         12
+#define MUSE_SCR_ELEMENTALISM           13
+#define MUSE_POT_HEALING                14
+#define MUSE_POT_EXTRA_HEALING          15
+#define MUSE_POT_FULL_HEALING           16
+#define MUSE_POT_RESTORE_ABILITY        17
+#define MUSE_POT_VAMPIRE_BLOOD          18
+#define MUSE_LIZARD_CORPSE              19
+#define MUSE_ACID_BLOB_CORPSE           20
+#define MUSE_EUCALYPTUS_LEAF            21
+#define MUSE_BAG_OF_TRICKS              22
+#define MUSE_BUGLE                      23
+#define MUSE_UNICORN_HORN               24
+#define MUSE_TRAPDOOR                   25
+#define MUSE_TELEPORT_TRAP              26
+#define MUSE_UPSTAIRS                   27
+#define MUSE_DOWNSTAIRS                 28
+#define MUSE_UP_LADDER                  29
+#define MUSE_DN_LADDER                  30
+#define MUSE_SSTAIRS                    31
+
+
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -400,16 +402,7 @@ struct monst *mtmp;
         m.has_defense = MUSE_POT_VAMPIRE_BLOOD;
         return TRUE;
     }
-    if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0) {
-        m.defensive = obj;
-        m.has_defense = MUSE_WAN_EXTRA_HEALING;
-        return TRUE;
-    }
-    if ((obj = m_carrying(mtmp, WAN_HEALING)) != 0) {
-        m.defensive = obj;
-        m.has_defense = MUSE_WAN_HEALING;
-        return TRUE;
-    }
+
     if (mtmp->msick || mtmp->mdiseased) {
         if ((obj = m_carrying(mtmp, EUCALYPTUS_LEAF)) != 0) {
             m.defensive = obj;
@@ -765,12 +758,12 @@ struct monst *mtmp;
                 m.has_defense = MUSE_POT_HEALING;
             }
             nomore(MUSE_WAN_EXTRA_HEALING);
-            if(obj->otyp == WAN_EXTRA_HEALING && obj->spe > 0) {
+            if (obj->otyp == WAN_EXTRA_HEALING && obj->spe > 0) {
                 m.defensive = obj;
                 m.has_defense = MUSE_WAN_EXTRA_HEALING;
             }
             nomore(MUSE_WAN_HEALING);
-            if(obj->otyp == WAN_HEALING && obj->spe > 0) {
+            if (obj->otyp == WAN_HEALING && obj->spe > 0) {
                 m.defensive = obj;
                 m.has_defense = MUSE_WAN_HEALING;
             }
@@ -1580,32 +1573,38 @@ struct monst *mtmp;
     /*NOTREACHED*/
     return 0;
 }
+/* --hackem: Starting from 50 so we don't conflict with the defensive items */
 
-#define MUSE_WAN_DEATH 1
-#define MUSE_WAN_SLEEP 2
-#define MUSE_WAN_FIRE 3
-#define MUSE_WAN_COLD 4
-#define MUSE_WAN_LIGHTNING 5
-#define MUSE_WAN_MAGIC_MISSILE 6
-#define MUSE_WAN_STRIKING 7
-#define MUSE_SCR_FIRE 8
-#define MUSE_POT_PARALYSIS 9
-#define MUSE_POT_BLINDNESS 10
-#define MUSE_POT_CONFUSION 11
-#define MUSE_FROST_HORN 12
-#define MUSE_FIRE_HORN 13
-#define MUSE_POT_ACID 14
-#define MUSE_WAN_TELEPORTATION 15
-#define MUSE_POT_SLEEPING 16
-#define MUSE_SCR_EARTH 17
-#define MUSE_WAN_CANCELLATION 18
-#define MUSE_SCR_CHARGING 19
-#define MUSE_SCR_STINKING_CLOUD 20
-#define MUSE_POT_POLYMORPH_THROW 21
-#define MUSE_POT_HALLUCINATION 22
-#define MUSE_WAN_POLYMORPH 23
+#define MUSE_WAN_DEATH          50
+#define MUSE_WAN_SLEEP          51
+#define MUSE_WAN_FIRE           52
+#define MUSE_WAN_COLD           53
+#define MUSE_WAN_LIGHTNING      54
+#define MUSE_WAN_MAGIC_MISSILE  55
+/*#define MUSE_WAN_TELEPORTATION  15 also a defensive item so don't redefine */
+#define MUSE_WAN_STRIKING       57
+#define MUSE_WAN_CANCELLATION   58
+#define MUSE_WAN_POLYMORPH      59
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
                                         * redefine; nonconsecutive value is ok */
+#define MUSE_SCR_EARTH          60
+#define MUSE_SCR_FIRE           61
+#define MUSE_SCR_CHARGING       62
+#define MUSE_SCR_STINKING_CLOUD 63
+#define MUSE_POT_PARALYSIS      64
+#define MUSE_POT_BLINDNESS      65
+#define MUSE_POT_CONFUSION      66
+#define MUSE_POT_ACID           67
+#define MUSE_POT_SLEEPING       68
+#define MUSE_POT_HALLUCINATION  69
+#define MUSE_POT_POLYMORPH_THROW 70
+#define MUSE_FROST_HORN         71
+#define MUSE_FIRE_HORN          72
+
+
+
+
+
 #define MUSE_POT_OIL 25
 #define MUSE_POT_AMNESIA 26 /* Lethe */
 #define MUSE_WAN_FIREBALL 27
