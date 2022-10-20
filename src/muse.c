@@ -790,15 +790,15 @@ struct monst *mtmp;
             m.has_defense = MUSE_SCR_CREATE_MONSTER;
         }
         nomore(MUSE_WAN_CREATE_HORDE);
-		if(obj->otyp == WAN_CREATE_HORDE && obj->spe > 0) {
-			m.defensive = obj;
-			m.has_defense = MUSE_WAN_CREATE_HORDE;
-		}
+        if (obj->otyp == WAN_CREATE_HORDE && obj->spe > 0) {
+            m.defensive = obj;
+            m.has_defense = MUSE_WAN_CREATE_HORDE;
+        }
         nomore(MUSE_SCR_ELEMENTALISM);
- 		if (obj->otyp == SCR_ELEMENTALISM) {
- 		    m.defensive = obj;
- 	    	m.has_defense = MUSE_SCR_ELEMENTALISM;
-  		}
+        if (obj->otyp == SCR_ELEMENTALISM) {
+            m.defensive = obj;
+            m.has_defense = MUSE_SCR_ELEMENTALISM;
+        }
     }
 
     return find_defensive_recurse(mtmp, mtmp->minvent);
@@ -1180,7 +1180,7 @@ struct monst *mtmp;
         otmp->spe--;
         if (oseen) 
             makeknown(WAN_CREATE_HORDE);
-        cnt = rnd(4) + 10;
+        cnt = rnd(4) + 6;
         while (cnt--) {
             struct monst *mon;
             if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
