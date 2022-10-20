@@ -5331,7 +5331,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
     const char *fltxt;
     struct obj *otmp;
     int spell_type;
-    boolean is_wand = (type >= 0 && type <= 9);
+    boolean is_wand = (type >= 0 && type <= 10);
 
     /* LSZ/WWA The Wizard Patch July 96
        * If its a Hero Spell then get its SPE_TYPE
