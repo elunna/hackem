@@ -4919,6 +4919,9 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         tmp = 0; /* don't allow negative damage */
     debugpline3("zapped monster hp = %d (= %d - %d)", mon->mhp - tmp,
                 mon->mhp, tmp);
+    /* For debugging */
+    if (wizard)
+        showdmg(tmp);
     mon->mhp -= tmp;
     return tmp;
 }
