@@ -1280,16 +1280,9 @@ register struct obj *otmp;
             heal_legs(0);
             unkn++;
         }
-#if 0   /* --hackem: Reverted back to vanilla behavior */
-        speed_up(rn1(10, 15 + 10 * bcsign(otmp)));
-#endif
+        /* Only grants temporary speed */
         speed_up(rn1(10, 100 + 60 * bcsign(otmp)));
-        if (!otmp->cursed && !(HFast & INTRINSIC)) {
-            /* This message currently doubles the other speed msg and feels
-             * out of place */
-            /* Your("quickness feels very natural."); */
-            HFast |= FROMOUTSIDE;
-        }
+
         break;
     case POT_BLINDNESS:
         if (Blind)

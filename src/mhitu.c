@@ -343,7 +343,7 @@ u_slow_down()
         You("feel a strange lethargy overcome you.");
     else
 	Your("lethargy seems to be settling in for the long haul.");
-    incr_itimeout(&HSlow,rnd(11) + 12);
+    incr_itimeout(&HSlow, rnd(11) + 12);
     exercise(A_DEX, FALSE);
 }
 
