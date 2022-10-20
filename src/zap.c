@@ -155,6 +155,7 @@ struct obj *otmp;
     boolean visible = FALSE;
     boolean dbldam = Role_if(PM_KNIGHT) && u.uhave.questart;
     boolean skilled_spell, helpful_gesture = FALSE;
+    boolean curesick = FALSE;
     int dmg, otyp = otmp->otyp;
     const char *zap_type_text = "spell";
     struct obj *obj;
@@ -584,7 +585,9 @@ struct obj *otmp;
     case SPE_HEALING:
     case SPE_EXTRA_HEALING:
         reveal_invis = TRUE;
-        if (mtmp->data != &mons[PM_PESTILENCE]) {
+        if (is_zombie(mtmp->data))
+            curesick = TRUE;
+        else if (mtmp->data != &mons[PM_PESTILENCE]) {
             boolean already_max = (mtmp->mhp == mtmp->mhpmax);
             wake = FALSE; /* wakeup() makes the target angry */
             mtmp->mhp += 
@@ -598,19 +601,21 @@ struct obj *otmp;
             
             if (mtmp->mhp > mtmp->mhpmax) {
                 if (otmp->oclass == WAND_CLASS)
-			        mtmp->mhpmax++;
+                    mtmp->mhpmax++;
                 mtmp->mhp = mtmp->mhpmax;
             }
             /* plain healing must be blessed to cure blindness; extra
                healing only needs to not be cursed, so spell always cures
                [potions quaffed by monsters behave slightly differently;
                we use the rules for the hero here...] */
-            if (skilled_spell 
+            if (skilled_spell
                     || otyp == SPE_EXTRA_HEALING
                     || (otyp == WAN_HEALING && otmp->blessed)
-                    || (otyp == WAN_EXTRA_HEALING && !otmp->cursed))
+                    || (otyp == WAN_EXTRA_HEALING && !otmp->cursed)) {
+                curesick = TRUE;
                 mcureblindness(mtmp, canseemon(mtmp));
-
+            }
+            
             if (canseemon(mtmp)) {
                 if (disguised_mimic) {
                     if (is_obj_mappear(mtmp,STRANGE_OBJECT)) {
@@ -640,7 +645,9 @@ struct obj *otmp;
             (void) resist(mtmp, otmp->oclass,
                           d(3, otyp == SPE_EXTRA_HEALING ? 8 : 4), TELL);
         }
-        break;
+        if (!curesick)
+            break;
+        /* FALLTHRU */
     case SPE_CURE_SICKNESS:
         if (mtmp->msick) {
             wake = FALSE;
@@ -656,7 +663,12 @@ struct obj *otmp;
             mtmp->msick = 0;
         } else if (is_zombie(mtmp->data)) {
             if (!DEADMONSTER(mtmp)) {
-                dmg = d(1, 8);
+                /* Allow wands of healing to be nasty versus zombies */
+                dmg = otyp == WAN_HEALING 
+                          ? d(5, 2) + 5 * !!bcsign(otmp) 
+                          : otyp == WAN_EXTRA_HEALING 
+                          ? d(5, 4) + 10 * !!bcsign(otmp) : d(1, 8);
+   
                 damage_mon(mtmp, dmg, AD_PHYS);
                 if (canseemon(mtmp))
                     pline("%s shudders in agony!", Monnam(mtmp));
@@ -3099,14 +3111,23 @@ boolean ordinary;
         break;
     case WAN_HEALING:
         You("begin to feel better.");
-        healup(d(5, 6), 0, 0, 0);
+        healup(d(5, 6), 0, !!obj->blessed, !obj->cursed);
+        /* Cure blindness/deafness if not cursed,
+         * Cure sickness if blessed*/
+        if (obj->blessed) {
+            make_blinded(0L, !u.ucreamed);
+            make_deaf(0L, TRUE);
+        }
         exercise(A_STR, TRUE);
         makeknown(WAN_HEALING);
         break;
     case WAN_EXTRA_HEALING:
         You("feel much better.");
-        healup(d(6, 8), 0, 0, 0);
+        /* Always cure blindness/deafness, 
+         * Cure sickness if not cursed */
+        healup(d(6, 8), 0, !obj->cursed, TRUE);
         make_hallucinated(0L, TRUE, 0L);
+        
         exercise(A_STR, TRUE);
         exercise(A_CON, TRUE);
         makeknown(WAN_EXTRA_HEALING);
