@@ -204,43 +204,6 @@ struct obj *otmp;
             miss(zap_type_text, mtmp);
         learn_it = TRUE;
         break;
-    case WAN_WATER:
-        zap_type_text = "jet of water";
-        reveal_invis = TRUE;
-        if (u.uswallow && mtmp->data == &mons[PM_ICE_VORTEX]) {
-            u.uhp = 0;
-            losehp(1, "turning into a block of ice", KILLED_BY);
-        } else if (u.uswallow) {
-            pline("Ugh! Now it's slippery in here!");
-        } else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]) {
-            mtmp->mhp += d(6, 6);
-            if (mtmp->mhp > mtmp->mhpmax)
-                mtmp->mhp = mtmp->mhpmax;
-            if (canseemon(mtmp)) {
-                pline("%s looks a lot better.", Monnam(mtmp));
-            }
-        }
-        else if (mtmp->data == &mons[PM_EARTH_ELEMENTAL]) {
-            if (canseemon(mtmp))
-                pline("%s turns into a roiling pile of mud!", Monnam(mtmp));
-            (void) newcham(mtmp, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
-        }
-        else if (rnd(20) < 10 + find_mac(mtmp)) {
-            erode_armor(mtmp, ERODE_RUST);
-            dmg = d(likes_fire(mtmp->data) ? 12 : 1, 6);
-            hit(zap_type_text, mtmp, exclam(dmg));
-            mtmp->mhp -= dmg;
-            if (DEADMONSTER(mtmp)) {
-                if (m_using)
-                    monkilled(mtmp, "", AD_RBRE);
-                else
-                    killed(mtmp);
-            }
-        } else {
-            miss(zap_type_text, mtmp);
-        }
-        learn_it = TRUE;
-        break;
     case SPE_FIRE_BOLT:
         /* New special spell just for Flame Mages */
         
@@ -4933,11 +4896,6 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         break;
     case ZT_WATER:
         tmp = d(nd, 8);
-        if (amphibious(mon->data)) {
-            pline("%s doesn't mind the water.", Monnam(mon));
-            tmp = 0;
-            break;
-        }
         if (mon->data == &mons[PM_IRON_GOLEM]) {
             if (canseemon(mon))
                 pline("%s falls to pieces!", Monnam(mon));
@@ -4945,7 +4903,40 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 pline("May %s rust in peace.", mon_nam(mon));
             tmp = 500;
             break;
+        } else if (u.uswallow && mon->data == &mons[PM_ICE_VORTEX]) {
+            u.uhp = 0;
+            losehp(1, "turning into a block of ice", KILLED_BY);
         }
+
+        else if (u.uswallow) {
+            pline("Ugh! Now it's slippery in here!");
+        } else if (mon->data == &mons[PM_WATER_ELEMENTAL]) {
+            mon->mhp += d(6, 6);
+            if (mon->mhp > mon->mhpmax)
+                mon->mhp = mon->mhpmax;
+            if (canseemon(mon)) {
+                pline("%s looks a lot better.", Monnam(mon));
+            }
+            break;
+        }
+#if 0 
+    else if (mon->data == &mons[PM_EARTH_ELEMENTAL]) {
+            if (canseemon(mon))
+                pline("%s turns into a roiling pile of mud!", Monnam(mon));
+            (void) newcham(mon, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
+            break;
+        }
+#endif
+        if (likes_fire(mon->data)) {
+            /* Nasty bonus versus firey monsters */
+            pline("%s is being extinguished!", Monnam(mon));
+            tmp += d(6, 6);
+        } else if (amphibious(mon->data)) {
+            pline("%s doesn't mind the water.", Monnam(mon));
+            tmp = 0;
+            break;
+        }
+        
         if (!rn2(6))
             water_damage(MON_WEP(mon), 0, TRUE, mon->mx, mon->my);
         if (!rn2(6))
@@ -5421,7 +5412,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
         /* Using disintegration from the inside only makes a hole... */
         if (tmp == MAGIC_COOKIE)
             u.ustuck->mhp = 0;
-        if (DEADMONSTER(u.ustuck))
+        if (u.ustuck && DEADMONSTER(u.ustuck))
             killed(u.ustuck);
         return;
     }
