@@ -1603,8 +1603,6 @@ zap_dig()
             room->doormask = D_NODOOR;
             unblock_point(zx, zy); /* vision */
             digdepth -= 2;
-            if (maze_dig)
-                break;
         } else if (maze_dig) {
             if (IS_WALL(room->typ)) {
                 if (!(room->wall_info & W_NONDIGGABLE)) {
@@ -1614,16 +1612,22 @@ zap_dig()
                     }
                     room->typ = ROOM, room->flags = 0;
                     unblock_point(zx, zy); /* vision */
-                } else if (!Blind)
-                    pline_The("wall glows then fades.");
-                break;
+                    digdepth -= 2;
+                } else {
+                    if (!Blind) 
+                        pline_The("wall glows then fades.");
+                    digdepth = 0;
+                }
             } else if (IS_TREE(room->typ)) { /* check trees before stone */
                 if (!(room->wall_info & W_NONDIGGABLE)) {
                     room->typ = ROOM, room->flags = 0;
                     unblock_point(zx, zy); /* vision */
-                } else if (!Blind)
-                    pline_The("tree shudders but is unharmed.");
-                break;
+                    digdepth -= 2;
+                } else {
+                    if (!Blind) 
+                        pline_The("tree shudders but is unharmed.");
+                    digdepth = 0;
+                }
             } else if (IS_DEADTREE(room->typ)) { /* dead trees are special */
                 room->typ = ROOM, room->flags = 0;
                 unblock_point(zx, zy); /* vision */
@@ -1632,9 +1636,12 @@ zap_dig()
                 if (!(room->wall_info & W_NONDIGGABLE)) {
                     room->typ = CORR, room->flags = 0;
                     unblock_point(zx, zy); /* vision */
-                } else if (!Blind)
-                    pline_The("rock glows then fades.");
-                break;
+                    digdepth -= 2;
+                } else {
+                    if (!Blind) 
+                        pline_The("rock glows then fades.");
+                    digdepth = 0;
+                }
             }
         } else if (IS_ROCK(room->typ)) {
             if (!may_dig(zx, zy))
