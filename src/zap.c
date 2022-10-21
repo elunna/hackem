@@ -6071,6 +6071,18 @@ boolean moncast;
              * and we can't control if dryup actually dries up the fountain */
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
             dryup(x, y, type > 0);
+        } else if (IS_TOILET(lev->typ)) {
+            if (see_it)
+                pline("The toilet explodes in an alchemic blast!");
+            rangemod -= 1;
+            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            breaktoilet(x, y);
+        } else if (IS_SINK(lev->typ)) {
+            if (see_it)
+                pline("The sink explodes in an alchemic blast!");
+            rangemod -= 1;
+            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            breaksink(x, y);
         }
         break; /* ZT_ACID */
 
