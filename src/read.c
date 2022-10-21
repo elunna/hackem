@@ -1082,6 +1082,10 @@ int howmuch;
     if (Punished)
         u.bc_felt = 0; /* forget felt ball&chain */
 
+    /* Maybe forget Elbereth if we learned it */
+    if (u.uevent.ulearned_elbereth && rn2(3))
+        u.uevent.ulearned_elbereth = 0;
+    
     forget_traps();
 
     if (howmuch & ALL_SPELLS)
