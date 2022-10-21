@@ -4486,6 +4486,7 @@ struct obj *obj;
         dmg *= 4;
         goto wanexpl;
     case WAN_FIREBALL:
+        dmg *= 2;
         /* The magic 11 is ZT_SPELL(ZT_FIRE)*/
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
 
@@ -4518,9 +4519,11 @@ struct obj *obj;
             goto discard_broken_wand;
         break;
     case WAN_ACID:
+        expltype = EXPL_ACID;
+        dmg *= 3; 
+        break;
     case WAN_POISON_GAS:
-        if (expltype == EXPL_MAGICAL)
-            expltype = EXPL_NOXIOUS;
+        expltype = EXPL_NOXIOUS;
         break;
     case WAN_COLD:
         if (expltype == EXPL_MAGICAL)
@@ -4669,9 +4672,10 @@ struct obj *obj;
         }
         affects_objects = TRUE;
         break;
-    case WAN_UNDEAD_TURNING:
     case WAN_DRAINING:	/* KMH */
+        dmg *= 2;
         affects_objects = TRUE;
+    case WAN_UNDEAD_TURNING:
         break;
     case WAN_CREATE_HORDE: /* More damage than Create monster */
         dmg *= 2;
