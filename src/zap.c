@@ -4346,7 +4346,16 @@ struct obj **pobj; /* object tossed/used, set to NULL
             /* stop the bolt here; it takes a lot of energy to destroy bars */
             range = 0;
             break;
-        }
+        } else if (typ == TREE
+             && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_DRAIN_LIFE)
+                 || (weapon == ZAPPED_WAND && obj->otyp == WAN_DRAINING))) {
+            if (cansee(bhitpos.x, bhitpos.y))
+                pline_The("tree withers and dies!");
+            levl[bhitpos.x][bhitpos.y].typ = DEADTREE;
+            newsym(bhitpos.x, bhitpos.y);
+            range = 0;
+            break;
+        } 
 
         /* iron bars will block anything big enough and break some things */
         if (weapon == THROWN_WEAPON || weapon == KICKED_WEAPON) {
