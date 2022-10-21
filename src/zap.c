@@ -6033,7 +6033,7 @@ boolean moncast;
                 }
             }
         }
-        if (t && t->ttyp == WEB) {
+        else if (t && t->ttyp == WEB) {
             /* a web is too flimsy to notice if you can't see it */
             if (see_it)
                 Norep("A web dissolves into goo!");
@@ -6061,6 +6061,16 @@ boolean moncast;
                     unblock_point(x, y); /* vision:  can see through */
                 feel_newsym(x, y);
             }
+        }
+        else if (IS_FOUNTAIN(lev->typ)) {
+            if (see_it)
+                pline("The fountain explodes in an alchemic blast!");
+            rangemod -= 1;
+            /* Might make more sense to have this be an acidic blast, 
+             * but that results in problems with infinite explosions, 
+             * and we can't control if dryup actually dries up the fountain */
+            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            dryup(x, y, type > 0);
         }
         break; /* ZT_ACID */
 
