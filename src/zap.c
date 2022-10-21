@@ -6040,6 +6040,27 @@ boolean moncast;
             (void) delfloortrap(t);
             if (see_it)
                 newsym(x, y);
+        } else if (lev->typ == TREE) {
+            if (see_it)
+                pline("The acid contaminates the tree!");
+            lev->typ = DEADTREE;
+            if (lev->typ == DEADTREE)
+                newsym(x, y);
+        } else if (lev->typ == DEADTREE) {
+            if (!may_dig(x, y)) {
+                /* nothing happens - it's petrified */
+                ;
+            } else {
+                if (see_it)
+                    pline("The dead tree decomposes!");
+                rangemod -= 1000; /* stop */
+                lev->typ = ROOM, lev->flags = 0;
+                if (lev->typ == ROOM)
+                    newsym(x, y);
+                if (!does_block(x, y, &levl[x][y]))
+                    unblock_point(x, y); /* vision:  can see through */
+                feel_newsym(x, y);
+            }
         }
         break; /* ZT_ACID */
 
