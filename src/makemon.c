@@ -1692,6 +1692,10 @@ register struct monst *mtmp;
                         begin_burn(otmp, FALSE);
                     }
                 }
+                if (rn2(7)) {
+                    /* outside the mines, dwarves sometimes have booze */
+                    mongets(mtmp, POT_BOOZE);
+                }
             }
         } else if (mm == PM_MINER) {
             (void) mongets(mtmp, PICK_AXE);
