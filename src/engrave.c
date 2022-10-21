@@ -398,7 +398,10 @@ int x, y;
 void
 learn_elbereth()
 {
-    if (!u.uevent.ulearned_elbereth) {
+    if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC)))
+        pline("You will NEVER learn about dirty Elven tricks!");
+    
+    else if (!u.uevent.ulearned_elbereth) {
         debugpline0("You learn how to write Elbereth");
         u.uevent.ulearned_elbereth = 1;
     } else
