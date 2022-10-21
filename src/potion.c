@@ -958,7 +958,8 @@ register struct obj *otmp;
         /* the whiskey makes us feel better */
         if (!otmp->odiluted)
             healup(1, 0, FALSE, FALSE);
-        u.uhunger += 10 * (2 + bcsign(otmp));
+        /* u.uhunger += 10 * (2 + bcsign(otmp)); */
+        u.uhunger += 130 + 10 * (2 + bcsign(otmp));
         newuhs(FALSE);
         exercise(A_WIS, FALSE);
         if (otmp->cursed) {
