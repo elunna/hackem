@@ -5591,7 +5591,8 @@ boolean say; /* Announce out of sight hit/miss events if true */
             nomul(0);
         }
 
-        if (levl[sx][sy].typ == TREE && abstype == ZT_DEATH
+        if (levl[sx][sy].typ == TREE 
+            && (abstype == ZT_DEATH || abstype == ZT_POISON_GAS)
             && abs(type) != ZT_BREATH(ZT_DEATH)) {
             levl[sx][sy].typ = DEADTREE;
             if (cansee(sx, sy)) {
