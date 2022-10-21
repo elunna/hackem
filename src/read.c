@@ -1086,6 +1086,10 @@ int howmuch;
     if (u.uevent.ulearned_elbereth && rn2(3))
         u.uevent.ulearned_elbereth = 0;
     
+    /* Maybe forget Shambling Horrors if we learned about them. */
+    if (u.uevent.know_horror && rn2(3))
+        u.uevent.know_horror = 0;
+    
     forget_traps();
 
     if (howmuch & ALL_SPELLS)
