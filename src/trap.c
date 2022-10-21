@@ -38,6 +38,7 @@ STATIC_DCL boolean FDECL(adj_nonconjoined_pit, (struct trap *));
 STATIC_DCL int FDECL(try_lift, (struct monst *, struct trap *, int,
                                 BOOLEAN_P));
 STATIC_DCL int FDECL(help_monster_out, (struct monst *, struct trap *));
+STATIC_DCL int NDECL(randomray); 
 #if 0
 STATIC_DCL void FDECL(join_adjacent_pits, (struct trap *));
 #endif
@@ -472,20 +473,9 @@ int x, y, typ;
                 if (isok(lx, ly) && IS_STWALL(levl[lx][ly].typ)) {
                     ttmp->launch.x = lx;
                     ttmp->launch.y = ly;
-                    /* no AD_DISN, thanks */
-                    ttmp->launch_otyp = -10-(AD_MAGM - 1);
-                    if (!rn2(15))
-                        ttmp->launch_otyp = -20-(AD_ELEC - 1);
-                    else if (!rn2(10))
-                        ttmp->launch_otyp = -20-(AD_FIRE - 1);
-                    else if (!rn2(10))
-                        ttmp->launch_otyp = -10-(AD_COLD - 1);
-                    else if (!rn2(7))
-                        ttmp->launch_otyp = -20-(AD_DRST - 1);
-                    else if (!rn2(7))
-                        ttmp->launch_otyp = -20-(AD_ACID - 1);
-                    else if (!rn2(5))
-                        ttmp->launch_otyp = -10-(AD_SLEE - 1);
+                    /* --hackem: Moved ray generation to where the trap is
+                     * triggered so we can have a random beam type on every
+                     * triggering. */
                     ok = 1;
                 }
             }
@@ -1169,7 +1159,8 @@ unsigned trflags;
         seetrap(trap);
         if (isok(trap->launch.x, trap->launch.y)
             && IS_STWALL(levl[trap->launch.x][trap->launch.y].typ)) {
-            dobuzz(trap->launch_otyp, 8,
+            
+            dobuzz(randomray(), 8,
                    trap->launch.x, trap->launch.y,
                    sgn(trap->tx - trap->launch.x),
                    sgn(trap->ty - trap->launch.y), FALSE);
@@ -3201,7 +3192,7 @@ register struct monst *mtmp;
                 seetrap(trap);
             if (isok(trap->launch.x, trap->launch.y)
                 && IS_STWALL(levl[trap->launch.x][trap->launch.y].typ)) {
-                buzz(trap->launch_otyp, 8,
+                buzz(randomray(), 8,
                      trap->launch.x, trap->launch.y,
                      sgn(trap->tx - trap->launch.x), sgn(trap->ty - trap->launch.y));
                 trap->once = 1;
@@ -6688,4 +6679,30 @@ trap_ice_effects(xchar x, xchar y, boolean ice_is_melting)
     }
 }
 
+int
+randomray()
+{
+    /* Here we can randomize the beam type, so it isn't the same */
+    /* no AD_DISN, thanks */
+    switch (rn2(10)) {
+    case 0: 
+        return -20-(AD_FIRE - 1);
+    case 1:
+        return -10-(AD_COLD - 1);
+    case 2:
+        return -10-(AD_SLEE - 1);
+    case 3:
+        return -20-(AD_ELEC - 1);
+    case 4:
+        return -20-(AD_DRST - 1);
+    case 5:
+        return -20-(AD_ACID - 1);
+    case 6:
+        return -20-(AD_LOUD - 1);
+    case 7:
+        return -20-(AD_WATR - 1);
+    default:
+        return -10-(AD_MAGM - 1);
+    }
+}
 /*trap.c*/
