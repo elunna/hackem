@@ -895,6 +895,9 @@ register struct obj *otmp;
             newuhs(FALSE);
         } else
             exercise(A_WIS, FALSE);
+        
+        /* We also forget we were afraid! */
+        make_afraid(0L, TRUE);
         break;
     case POT_WATER:
         if (!otmp->blessed && !otmp->cursed) {
