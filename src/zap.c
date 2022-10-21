@@ -6007,6 +6007,7 @@ boolean moncast;
         break;
 
     case ZT_ACID:
+        t = t_at(x, y);
         if (lev->typ == IRONBARS) {
             if ((lev->wall_info & W_NONDIGGABLE) != 0) {
                 if (see_it)
@@ -6031,6 +6032,14 @@ boolean moncast;
                         newsym(x, y);
                 }
             }
+        }
+        if (t && t->ttyp == WEB) {
+            /* a web is too flimsy to notice if you can't see it */
+            if (see_it)
+                Norep("A web dissolves into goo!");
+            (void) delfloortrap(t);
+            if (see_it)
+                newsym(x, y);
         }
         break; /* ZT_ACID */
 
