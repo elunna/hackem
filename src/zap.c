@@ -5387,12 +5387,12 @@ boolean say; /* Announce out of sight hit/miss events if true */
        */
 
     /* horrible kludge for wands of fireball... */    
-    if (type == ZT_WAND(ZT_SONIC + 1)) 
+    if (type == ZT_WAND(ZT_WATER + 1)) 
         type = ZT_SPELL(ZT_FIRE);
     
     /* WAC kludge for monsters zapping wands of fireball */
     if ((type <= ZT_MONWAND(ZT_FIRST) && type >= ZT_MONWAND(ZT_LAST))
-	        && ((abs(type) % 10) == ZT_WAND(ZT_SONIC + 1)))
+	        && ((abs(type) % 10) == ZT_WAND(ZT_WATER + 1)))
 		type = -ZT_SPELL(ZT_FIRE);
 
     /*WAC bugfix - should show right color stream now (for wands of fireball) */

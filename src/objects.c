@@ -1221,7 +1221,7 @@ WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),      
 WAND("wind",            "green", 15, 300, 0, IMMEDIATE, PLASTIC,                    /* SpliceHack */
                                                             CLR_BRIGHT_GREEN),
 WAND("striking",        "ebony", 225, 150, 1, IMMEDIATE, WOOD, HI_WOOD),
-WAND("water",       "driftwood",  10, 175, 1, IMMEDIATE, WOOD, HI_WOOD),            /* SpliceHack */
+
 WAND("make invisible", "marble", 135, 150, 1, IMMEDIATE, MINERAL, HI_MINERAL),
 WAND("slow monster",      "tin", 150, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("speed monster",   "brass", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
@@ -1245,9 +1245,10 @@ WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("poison gas",  "octagonal",  20, 175, 1, RAY, IRON,  HI_METAL),
-WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD),                 /* SpliceHack */
-WAND("sonics",       "titanium",  20, 175, 1, RAY, IRON,  HI_METAL),                /* SpliceHack */
-WAND("fireball",    "octagonal",   5, 300, 1, RAY, IRON,  HI_METAL),                /* Slash'EM */
+WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
+WAND("sonics",       "titanium",  20, 175, 1, RAY, IRON,  HI_METAL),
+WAND("water",       "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
+WAND("fireball",    "octagonal",   5, 300, 1, RAY, IRON,  HI_METAL),/* Slash'EM */
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "forked",  0, 150, 1, 0, WOOD, HI_WOOD),
 WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
