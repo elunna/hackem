@@ -7485,12 +7485,6 @@ slasher
 	shall pay for this, and seven heads for the dog, who was a
 	better warrior than many a man."
 		[ Conan The Warrior, by Robert E Howard ]
-*sleep
-	Sleep is a death; oh, make me try
-	By sleeping, what it is to die,
-	And as gently lay my head
-	On my grave, as now my bed.
-		[ Religio Medici, by Sir Thomas Browne ]
 slime mold
 	Science fiction did not invent the slime molds, but it has
 	borrowed from them in using the idea of sheets of liquid, flowing
@@ -8500,20 +8494,770 @@ wakizashi
 	and especially during times of civil wars, a tanto was worn
 	in place of a wakizashi.
 		[ Wikipedia, the free encyclopedia ]
-# takes "wand or a wall" when specifying '/'
-~*sleep
-wand *
-*wand
-	'Saruman!' he cried, and his voice grew in power and authority.
-	'Behold, I am not Gandalf the Grey, whom you betrayed.  I am
-	Gandalf the White, who has returned from death.  You have no
-	colour now, and I cast you from the order and from the Council.'
-	He raised his hand, and spoke slowly in a clear cold voice.
-	'Saruman, your staff is broken.'  There was a crack, and the
-	staff split asunder in Saruman's hand, and the head of it
-	fell down at Gandalf's feet.  'Go!' said Gandalf.  With a cry
-	Saruman fell back and crawled away.
-		[ The Two Towers, by J.R.R. Tolkien ]
+wand of acid
+	Shoots an acidic ray, similar to a yellow dragon's breath attack.
+	- The acid ray deals 6d6 acid damage to monsters that don't 
+	  resist acid.
+	- Can corrode iron and copper weapons and armor. 
+	- Can also destroy doors and melt iron bars.
+	- Being hit by the acid ray will cure stoning.
+	
+	Zap self:
+	- You take 12d6 damage, unless you have acid resistance.
+	- Your items are also subject to acid damage.
+	
+	Breaking: 
+	- Causes an acid explosion which deals (12 x charges) damage.
+
+	Engraving: Burn.
+wand of cancellation
+	Emits a beam which cancels any monsters or objects it hits. 
+	Monsters are entitled to a resistance check against the effect.
+	
+	The wand of cancellation has a number of complicated effects. 
+	Among these effects, it will:
+	    - uncurse and unbless items
+	    - neutralize enchantments and charges of most items
+	    - change most potions into water; sickness and see invisible 
+	      into fruit juice; booze and oil just become uncursed
+	    - blank scrolls and spellbooks
+	    - neutralize the special attacks of many monsters
+	    - kill a clay golem instantly by erasing its writing
+
+	Putting a charged wand of cancellation (or a bag containing a 
+	wand of cancellation) into a bag of holding will cause a magical
+	explosion that will destroy the bag and scatter its contents in
+	a roughly 10 by 10 area. Breakable items are subject to breakage
+	from the force of the explosion.
+	
+	Zapping a bag of holding, however, will either unbless or uncurse
+	it, and will have no effect on the contents.
+	
+	Zapping self: You will cancel all items carried in your inventory
+	  (except wands of cancellation).
+	
+	Breaking:
+	- Cause an explosion that deals 1 to (4 x charges) damage and also 
+	  cancels all monsters and objects in a 3x3 square around you. 
+	  An Anti-Magic Trap may be created when this wand is broken.
+	  The more charges on the wand the higher the chance of creating the trap.
+	 
+	Engraving: Dust
+	- Engraving over a writing in the dust gives the message "The
+	  engraving on the <floor> vanishes!" This can be either a wand
+	  of cancellation, make invisible, or teleportation.
+wand of cold
+	Zapping the wand in a given direction emits a ray of ice.
+	- Deals 6d6 damage to non-cold resistant targets, with a +6d3 bonus
+	  if the monster has fire resistance.
+	- Monsters hit have a 1/3 chance of any potions in their 
+	  inventory freezing and shattering. 
+	
+	Effects:
+	- The ray bounces when it hits walls or targets with reflection; 
+	  it will also freeze any moat of water it travels over into ice, 
+	  and lava is cooled and solidified into normal rock.
+	- Destroys doors
+
+	Zapping self: 
+	- You take 12d6 damage, depending on how much cold resistance you
+	  have. Your items are also subject to cold damage.
+	
+	Breaking:
+	- Creates an explosion of cold dealing (8 x charges) damage. 
+	  An Ice Trap may be created when this wand is broken. The more 
+	  charges on the wand the higher the chance of creating the trap.
+
+	Engraving: Dust. 
+	- Engraving over a burned engraving will make it vanish.
+wand of create horde
+	Zapping or engraving with it creates 4-11 monsters. 
+
+	- When a monster zaps it, creates 6-10 monsters.
+
+	Breaking: 
+	- Creates an explosion dealing (8 x charges) damage and creates
+	  monsters around you.
+
+	Engraving: Dust.
+wand of create monster
+	Zapping or engraving with it creates:
+	- one monster (22/23 chance) 
+	- or 2-9 monsters (1/23 chance)
+	
+	- the monster level of each will be consistent with what is 
+	  normally created.
+	- Even in the former case, a group of monsters may be created
+	  if that monster often appears in large groups, such as hill orcs.
+	  
+	Breaking:
+	- Creates an explosion causing from 1 to (4 x charges) damage and
+	  surrounds the player with monsters.
+	
+	Engraving: Dust.
+wand of death
+	Zapping it in any direction fires a ray of death that instantly 
+	kills almost any monster it hits in its path, including the player. 
+	- As with all ray-type wands, it can rebound, and there is a 
+	  chance that it will miss.
+	
+	- Death, all major demons, all nonliving monsters, and monsters
+	  with player-type magic resistance are completely unaffected; 
+	  Death in particular will actually be healed and become stronger. 
+	- Conversely, Pestilence and Famine are still susceptible.
+	- Having reflection will prevent instant-death, but monsters/
+	players will still take damage from the ray.
+	
+	- Wands of death can be recharged only once.
+	
+	Zapping self: 
+	- Zapping a wand of death directly at yourself results in 
+	  instadeath, even if you have magic resistance or reflection
+	  — unless you are polymorphed into any of the unaffected 
+	  monsters mentioned above.
+	
+	Breaking:
+	- Creates a magical explosion that deals (16 x charges) damage; 
+	  although referred to as a "death field" in the associated 
+	  message, magic resistance is not necessary to survive this 
+	  explosion.
+	
+	Engraving: Dust.
+wand of digging
+	Zapping in a given direction produces a ray that can dig open a
+	corridor of several squares through solid rock and walls, 
+	destroying any doors in its path; the ray has no effect on 
+	boulders.
+
+	- Zapping upward causes a rock to fall from the ceiling and bonk
+	  you on the head unless you are underwater.
+	- Zapping downward creates a hole, and doing this on an
+	  undiggable floor creates a pit. Unless you are levitating, 
+	  flying, or else happen to escape, you will fall in. Doing so on
+	  a headstone always creates a pit on the square and unearths the
+	  contents of that grave.
+	- Zapping the wand in a maze level will limit the ray's effect to
+	  one square; 
+	- the ray has no effect on undiggable walls and rock.
+	
+	- Zapping the wand while being engulfed by a non-whirly monster 
+	  halves the monster's current HP and expels you.
+	- Razing the walls and/or doors of Minetown will anger the watch.
+
+	Breaking:
+	- Creates an explosion causing from 1 to (4 x charges) damage.
+	  Creates pits or holes on your square and the eight squares 
+	  around you, with the exception of undiggable floors and stairs,
+	  boulders or traps. This can also destroy altars and thrones.
+	  Any liquid will immediately flow in and fill the pits and holes.
+
+	Engraving: Engraving type.
+	- Any text engraved with a wand of digging is as durable as text
+	  engraved with a weapon or hard gem - this makes it as effective
+	  as an athame and slightly less effective than a wand of fire or
+	  lightning for engraving Elbereth.
+wand of draining
+	Casts an unreflectable beam which drains a level from its target
+	monster. Like the spellbook, it also drains enchantment (one point
+	at a time) from armor and weapons, and charges from rings, wands,
+	and chargeable tools.
+	
+	- The only protection against these wands is drain resistance.
+	
+	Zapping self: You lose a level unless you possess Drain Resistance.
+	
+	Breaking:
+	- Creates an explosion dealing (8 x charges) damage; anything
+	  caught in the explosion loses a level and objects are also 
+	  subject to draining.
+	
+	Engraving: Dust. 
+	- When engraved with, if there is a pre-existing message, it will
+	  erase part, or possibly all, of it. This generally produces the
+	  message "The engraving looks different now" which is shared with
+	  the wand of polymorph.  If the pre-existing engraving is
+      sufficiently short, the wand will instead give a message about
+      the engraving disappearing; to avoid this ambiguity with the
+      other wands that do that, dust-engrave moderately long messages
+      before engrave-testing unidentified wands.
+wand of enlightenment
+	Zapping this wand grants you enlightenment: you see your properties
+	and exercise wisdom.
+
+	Breaking: No effects.
+	
+	Engraving: Dust.
+wand of extra healing
+	Zapping yourself:
+	- Heals 6d8 HP, up to the maximum.
+	- Cures hallucination, blindness, and deafness.
+	- If not cursed, this also cures sickness.
+	- Exercises strength and constitution. 
+	
+	Zapping a monster:
+	- Heals 5d4 HP, +10 if the wand is blessed or cursed.
+	- This means that a cursed wand of extra healing is more potent
+	  than an uncursed wand.
+	- If not cursed, cures a monster's sickness.
+	- If zapped at a zombie, it instead inflicts damage equal. 
+	
+	Breaking: No effects.
+	
+	Engraving: Dust. Shares the same message as a wand of healing: 
+	  "The bugs on the floor look healthier!"
+wand of fear
+	When zapped or engraved with, this wand scares monsters around 
+	you in a similar fashion to reading a scroll of scare monster.
+	
+	Breaking:
+	- When broken, the explosion does no damage but instead scares
+	  you for 5-15 turns.
+	
+	Engraving: Dust.
+wand of fire
+	Zapping the wand in a given direction emits a ray of fire which
+	deals 6d6 damage to non-fire resistant targets, with a +7 bonus
+	if the monster has cold resistance.
+	
+	- Monsters/players hit with this ray may have their inventory set
+	  aflame: potions may boil, scrolls and spellbooks may burn, and
+	  organic armor may smoulder.
+	- The ray bounces when it hits walls or targets with reflection; 
+	- It can melt any squares of ice it travels over, destroy any
+	  doors it collides with and evaporates pools of water.
+
+	In an emergency where you are afflicted with sliming, zapping the
+	wand at yourself can save you.
+
+	Breaking: 
+	- Results in an explosion dealing from 1 to (4 x charges) damage.
+	- A Fire Trap may be created when this wand is broken. The more
+	  charges on the wand the higher the chance of creating the trap.
+	
+	Engraving: Burn.
+	- A popular means of engraving Elbereth - such engravings are
+	  permanent and can only be removed by magical means.
+wand of fireball
+	Replicates the effect of the fireball spell.
+	- When zapped, it generates a ray that stops on hit (even when
+	  hitting a wall), causing a single explosion.
+	- The explosion deals 12d6 fire damage to each affected monster,
+	  also setting flameable objects on fire in their inventories and
+	  burning armor.
+	
+	Zapping self: You take 6d6 fire damage.
+	
+	Breaking: 
+	- Creates an explosion of fire dealing (8 x charges) damage; anything
+      caught in the explosion is subject to fire damage.
+	- A Fire Trap may be created when this wand is broken. The more 
+	  charges on the wand the higher the chance of creating the trap.
+	
+	Engraving: Burn.
+wand of healing
+	- Zapping yourself will heal 5d6 HP, up to the maximum and will
+	  exercise strength.
+	- If not cursed, this cures blindness and deafness.
+	- If blessed, also cures sickness.
+	
+	- Zapping a monster will heal 5d2 HP, +5 if the wand is blessed
+	  or cursed(a cursed wand is more potent than an uncursed wand.)
+	- If not blessed, cures a monster's sickness.
+	- If zapped at a zombie, it instead inflicts damage.
+	
+	Breaking: No effects.
+	
+	Engraving: Dust.
+	- Shares the same message as a wand of extra healing: 
+	  "The bugs on the floor look healthier!"
+wand of light
+	- When zapped or engraved with, this wand lights an area with a
+	  radius of 5.
+	- If cursed however, the surrounding area will be darkened instead.
+	
+	Breaking:
+	- Results in an explosion dealing from 1 to (4 x charges) damage,
+	  with the hero being blinded for (n + 1)d25 turns, with n being the
+	  number of remaining charges. The same area is lit as when the
+	  wand is zapped; surrounding monsters may also be blinded, and
+	  gremlins take damage.
+	
+	Engraving: Dust.
+	
+	Note: Unlike in EvilHack, this wand does not blind or anger 
+	peaceful monsters when zapped while they are in the radius of light.
+wand of lightning
+	Zapping the wand in a given direction shoots a ray of lightning.
+	- Deals 6d6 damage to non-shock resistant targets; 
+	- also blinds targets in its line of fire for d50 (more) turns
+	  with a cap of 127,
+	- may also destroy any rings, wands or amulets in their inventory
+	  unless they have reflection.
+	- The ray bounces when it hits walls or targets with reflection;
+	  being hit by a rebound will blind you for (ulevel / 2 + 1)d50 
+	  (more) turns.
+
+	- Only the ring of shock resistance and the wand of lightning 
+	  itself are immune to destruction by shock damage (other sources
+	  of shock damage include chest traps, a returning Mjollnir, 
+	  energy vortices or electric eels.)
+	
+	Zapping self:
+	- You are blinded for 0-99 (more) turns in addition to the 
+	  normal shock damage.
+
+	Breaking: 
+	- Creates an explosion that deals (16 x charges) damage to
+	  yourself and all monsters on the surrounding squares. Your
+	  inventory is subject to the same effects as though you were 
+	  zapped with the wand, i.e. your rings and wands may explode.
+	
+	Engraving: Burn.
+	- Like a wand of fire, this burns text into the ground; however, 
+	  doing so will blind you for d50 (more) turns. You can avoid 
+	  this by cancelling the prompt when asked what to engrave.
+wand of locking
+	A wand of locking will close and lock chests and doors.
+	- If the door or the lock is broken, it will be repaired. 
+	- If the doorway has no door at all, a door will be created.
+	  (If there is something in the doorway, the spell will not work.)
+	- Drawbridges will be closed.
+
+	- The effects of a wand of locking are the same as those of the
+	  spellbook of wizard lock; see further information at wizard lock.
+	
+	Breaking: No effects.
+	
+	Engraving: Dust.
+wand of magic missile
+	Zapping the wand in a given direction will do a fixed 2d6 damage
+	to monsters in its path (unlike the spell of magic missile which 
+	will deal scaling damage with your skill and level). 
+	- the ray can rebound off walls and hit targets repeatedly. 
+	- Magic resistance negates this damage. Reflection partially 
+	  reduces this damage.
+	
+	Breaking:
+	- Results in an explosion of magic missiles dealing (4 x charges)
+	  damage. A Magic Trap may be created when this wand is broken.
+     The more charges on the wand the higher the chance of creating
+     the trap.
+	
+	Engraving: Dust.
+wand of make invisible
+	- Zapping this wand at a monster makes them invisible.
+	- Zapping this wand at a peaceful monster will anger it. 
+	
+	- If you zap yourself, you become invisible for:
+	        (charges)d250 (more) turns.
+	 
+	 - Zapping the wand downward will make any engraving on that
+	   square disappear, as does engraving with it.
+
+	Cursed wand of invisibility:
+	- makes its target visible if already invisible, 
+	- has a 50% chance of aggravating monsters if zapped at yourself
+	  while invisible. 
+	- If the target is visible, nothing happens.
+		
+	- Wearing a mummy wrapping protects against any effects from this 
+	  wand.
+	
+	Breaking:
+	- Affects you and surrounding monsters with the zap effect
+	  (dependent on beatitude).
+	  
+	Engraving: Dust.
+wand of nothing
+	True to its name, the wand does absolutely nothing when zapped,
+	engraved with, or broken by applying. Nevertheless, it has 
+	charges like any other wand.
+
+	- A wand of nothing can either be non-directional, giving no 
+	  feedback whatsoever when zapped, or prompt for a direction, 
+	  then do nothing with it; each variant is equally likely.
+	- The variant is randomly determined per-game, not per-item, so
+	  if you find a non-directional wand of nothing, all other wands
+	  of nothing in that game will also be non-directional. Whether
+	  the wand is directional or not determines how many starting 
+	  charges it has (4-8 if directional, 11-15 if non-directional).
+
+	- A wand of nothing is non-magical, and so doesn't lose its 
+	  charges to cancellation. As the only non-magical type of wand,
+	  it will usually turn into a magical wand when polymorphed.
+
+	- Note that the message "Nothing happens." isn't associated 
+	  specifically with the wand of nothing, but with any wand that's
+	  out of charges. A wand of nothing only produces this message 
+	  when it happens to be out of charges.
+	
+	Engraving: Dust
+wand of opening
+	Can be used to unlock doors and containers, escape engulfing
+	monsters, and remove punishment. 
+	- The effect is identical to that of the spell knock.
+	
+	On monsters:
+	- Monster regurgitates the player if engulfed.
+	- Removes monster's saddle, if worn, dropping it on the monster's
+	  square (including your steed's saddle if you zap downward while
+	  riding).
+	- Regardless, if the zap strikes any monster, the monster does
+	  not necessarily get an immediate chance to attack the player,
+	  as it would with most spell strikes.
+	
+	On movable objects:
+	- Striking a punished player's chain (but not the ball) will
+	  unpunish you.
+	- Unlocks large boxes, chests, and iron safes ("Klick!") and 
+	  fixes the lock if broken.
+	
+	On you:
+	- If you are punished, you will receive the message "Your chain
+	  quivers for a moment.", and the wand will be identified.
+
+	On immovable objects
+	- Reveals and unlocks hidden doors, and unlocks non-hidden doors.
+	  The door remains closed.
+	- Interrupts attempts to break down a door with a pickaxe or
+	  mattock, and repairs the door.
+	- If you zap up or down while on a closed portcullis (possible 
+	  with phasing), it will open.
+	- Opens drawbridges.
+	- Triggers trapdoors and falling rock traps (only if someone
+	  stands on the trap).
+	- Releases you or a monster from a bear trap or a web. The
+	  monster may be pacified if adjacent.
+	
+	Breaking:
+	- No explosion. A Trap Door may be created when this wand is 
+	  broken. The more charges on the wand the higher the chance of 
+	  creating the trap.
+	
+	Engraving: Dust.
+wand of poison gas
+	Similar to the poison breath attack of a green dragon, zapping
+	this wand shoots a ray of poison gas.
+	- Monsters hit by the initial ray take 6d6 poison damage.
+	- The ray leaves a trail of poison gas that lingers for a few 
+	  turns before dissapating.
+	- The acid ray can rebound off walls.
+	- Poison resistance negates this damage, as does unbreathing.	
+	- Doors hit by the ray will be rotted away.
+	
+	Breaking:
+	- Results in a 3x3 cloud of poison gas centered around the player.
+	
+	Engraving: Dust.
+	- Creates a single cloud of poison gas when engraving.
+wand of polymorph
+	- Zapping the wand in a direction will polymorph any monsters or 
+	  items in its path.
+	- Zapping the wand at yourself will polymorph you, ignoring magic
+	  resistance. 
+	- Monsters can zap this wand at themselves, but mercifully, this
+	  will not generate out-of-depth monsters.
+
+	- Wands of polymorph are immune to polymorphing from other sources,
+	  such as a potion of polymorph.
+	
+	Breaking: 
+	- Causes an explosion that deals 1 to (4 x charges) damage and 
+	  polymorphs monsters and items on affected squares; this 
+	  ignores magic resistance for the player.
+	-  A Polymorph Trap may be created when this wand is broken. The 
+	  more charges on the wand the higher the chance of creating the trap.
+	
+	Engraving: Dust
+	- If an engraving already exists on your square, this wand will 
+	  instead transform the writing into a random rumor.
+wand of probing
+	- A wand of probing can give you information about a monster, or
+	  the contents of a container.
+	- When zapped, it will probe all targets in the path of its beam
+	  It also has other uses.
+	
+	- In general, wands of probing act much like stethoscopes.
+	- Zapping one prompts the player for a direction, and if there is
+	  a suitable target, shows the name, alignment, level, HP, AC, 
+	  and status of the target. 
+	- Like a stethoscope, it does not anger peaceful targets.
+	- Unlike a stethoscope, it is a directional beam, allowing the
+	  remote assessment of the target, and it will also show the
+	  inventory of the target.
+	
+	Breaking: No effects.
+	
+	Engraving: Dust.
+wand of secret door detection
+	When zapped, the wand has the same effect as a spell of detect
+	unseen: it detects all undiscovered secret doors, mimics, and 
+	traps in a radius of 8 squares in line-of-sight upon 
+	zapping/engraving.
+	
+	- It will also show the location of submerged creatures in pools.
+	- On the Plane of Air only, the wand also penetrates clouds.
+
+	- Nearby monsters that you can't see due to invisibility will be
+	  revealed as I. 
+	- Marks on spaces without monsters are removed, and monsters that
+	  are hiding will be revealed.
+
+	Breaking: No effects.
+	
+	Engraving: Dust.
+	- Engraving with the wand will only auto-identify it if any of
+      these things are present; otherwise, it gives no message.
+wand of sleep
+	When zapped, it emits a sleep ray 
+	- puts monsters it hits to sleep for 6d25 turns, unless they resist. 
+	- Rays of sleep can bounce from walls and unrevealed secret doors,
+	  but are absorbed by non-secret or discovered secret doors.
+	- If you zap yourself, you are put to sleep for 1d50 turns (the
+	  amount of sleep resistance you have can reduce this) 
+	Breaking:
+	- A Sleeping Gas Trap may be created when this wand is broken. The
+	  more charges on the wand the higher the chance of creating the 
+	  trap.
+	
+	Engraving: Dust. 
+	- When engraving, this wand gives the same message as a wand of 
+	  death. If the wand was not generated in a monster's inventory,
+	  the odds are 6:1 for it being sleep.
+wand of slow monster
+	This wand inflicts slowness on monsters (makes them take more 
+	turns to move or attack).
+
+	Monsters have a chance to resist the wand's effect, given by 
+			MR / (112 - difficulty)
+
+	- If the monster does not resist, it becomes slow (2/3 of normal
+	  movement speed), or normal speed if it was previously fast. If
+	  you were engulfed by a whirly monster (vortex or air elemental), 
+	  you are expelled.
+
+	- If you zap yourself with a wand of slow monster, you will 
+	  become slow for 13-23 turns and abuse dexterity.
+
+	Breaking:
+	- Results in an explosion causing from 1 to (4 x charges) damage.
+	  You and surrounding monsters are slowed.
+	
+	Engraving: Dust.
+wand of sonics
+	When zapped, it emits a ray of sound.
+	- Deals 6d6 damage to monsters in its path.
+	- Sonic rays can bounce from walls and destroys doors.
+
+	- Monsters hit by sonic rays are subject to sonic damage, which
+	  can destroy glass and crystal items.
+	- All potions are glass, so they are always vulnerable to breaking.
+	  Rings, wands, and tools are all vulnerable to this damage if
+	  made of glass or crystal.
+	
+	Sonic Resistance is obtainable by wearing a ring of sonic
+	resistance.
+	
+	Zapping self: 
+	- Deals 6d6 sonic damage and subjects your inventory to sonic
+	  destruction. Also causes deafness for 100-399 turns.
+	
+	Breaking:
+	- Creates an explosion that deals (16 x charges) damage to
+	  yourself and all monsters on the surrounding squares. Your 
+	  inventory is subject to the same effects as though you were
+	  zapped with the wand.
+	
+	Engraving: Dust.
+	- The wand will issue some loud bands and wakeup nearby monsters.
+wand of speed monster
+	Zapping the wand at a monster gives the target(s) permanent 
+	intrinsic speed. Zapping the wand at yourself grants temporary 
+	intrinsic speed for 50-74 turns and also exercises dexterity.
+	
+	Monsters can zap the wand at themselves, and observing them doing
+	so will auto-identify it. Monsters that you zap with this wand are
+	capable of resisting its effect, dependent on a check against
+	their magic resistance value; zapping a peaceful monster will 
+	anger it.
+
+	Breaking: 
+	- There is an explosion causing from 1 to (4 x charges) damage.
+      You and surrounding monsters are sped up.
+
+	Engraving: Dust.
+wand of striking
+	Zapping this wand has the same effect as the force bolt spell
+	- deals 2d12 damage to any monsters in its path
+	- Destroys boulders, doors, statues, drawbridges, and fragile 
+	  items such as potions. 
+	- Its beam does not reflect
+	
+	Wands of striking have a fixed chance of hitting:
+	- if the roll of a d20 is lower than (10 + monster's AC), the
+	  strike hits.
+	- If the damage output is sufficiently high enough (16 hit points
+	  of damage or greater) the bolt will knock its target back one 
+	  tile space.
+
+	- A wand of striking will normally have no effect on items carried
+	  by monsters. However, if the zap kills a monster, it will also
+	  strike the items that the monster drops. This makes zapping
+	  nymphs dangerous, because they are weak enough to be killed by
+	  a single zap, and tend to carry mirrors that give a −2 luck 
+	  penalty when broken.
+
+	- Possessing Magic Resistance renders the striking damage
+	  harmless. ("Boing!")
+
+	Breaking:
+	- Causes an explosion causing from 1 to (charges+1)d6 damage. You
+	  and surrounding monsters are hit by a force bolt. Fragile 
+	  objects in your and adjacent squares may be destroyed.
+	
+	Engraving: Dust
+wand of teleportation
+	Zapping this wand in a direction will teleport all monsters and 
+	items in the path of the wand.
+	
+	- You can teleport other monsters away even on no-teleport levels.
+	- Zapping a peaceful monster with this wand will anger it.
+	- Zapping the wand at yourself will teleport you and all items on
+	  your square.
+
+	- When fleeing, monsters may zap themselves with this wand to 
+	  escape.
+	- On a no-teleport level, a monster will zap you with a wand of
+	  teleportation just once, wasting a charge, and will not try to
+	  teleport you again.
+
+	- Teleporting the Riders has a 12/13 chance of teleporting them 
+	  to a square as close as possible to you; attempting to teleport
+	  away the Riders' corpses will cause them to immediately revive,
+	  but will not teleport them.
+
+	Breaking: 
+	- Causes an explosion causing from 1 to (4 x charges) damage.
+	  Monsters and objects in the affected squares are teleported.
+	- A Teleport Trap may be created when this wand is broken. The 
+	  more charges on the wand the higher the chance of creating a trap.
+	
+	Engraving: Dust.
+	- Engraving with a wand of teleportation will make any previous 
+	  engraving vanish; unlike the wand of cancellation and make 
+	  invisible, however, you can find the engraving elsewhere on the
+	  level.
+wand of undead turning
+	A wand of undead turning has two functions: 
+	
+	1) Zapping an undead monster deals 1d8 points of damage and will
+	   cause the creature to flee from you. This damage is doubled if
+	   you are a Knight carrying the Magic Mirror of Merlin. 
+	
+	2) Alternatively, the wand can be used to unturn dead, reviving 
+	   corpses and rejuvenating eggs, though limitations apply. 
+	   Monsters will not use this wand.
+
+	Intelligent monsters with hands that have a wand of undead turning
+	will zap you with it if you are carrying any corpses, including
+	lizard corpses or wielded cockatrice corpses. When they do, one 
+	corpse from each stack you are carrying will be revived.
+
+	Breaking: 
+	- There is an explosion causing from 1 to (4 x charges) damage. 
+	  Monsters and objects in the affected squares are turned.
+	
+	Engraving: Dust
+wand of water
+    (TODO: FINISH AS RAY EFFECT!)
+	Similar to the breath of a sea dragon, this zaps a torrent of 
+	water that slams into its target, inflicting 1d6 physical damage. 
+	
+	Zapping yourself: Drenches you and your items in water.
+	
+	Zapping monsters:
+	- Monsters hit by this wand also have their armor subject to rusting.
+	- If you are engulfed by an Ice Vortex and you zap this wand, you 
+	will be instantly killed by turning into a block of ice.
+	- If you zap a water elemental, you will instead heal it for 6d6 HP.
+	- If you zap an earth elemental, it turns into a mud elemental.
+    - If you zap a monster that likes fire or lava (ex: fire vortex, 
+      fire vampire, or lava demon) they take 12d6 damage instead.
+    
+    - Monsters can use this wand and will attack you if you are a 
+      vulnerable firey form.
+    - Lamps or lit items that are in the path of the water beam will 
+      be snuffed.
+      
+    Zapping the floor wipes away any engravings.
+	Breaking: There is also chance of creating a Rust Trap when this
+	wand is broken. The more charges on the wand the higher the 
+	chance of creating the trap.
+	Engraving: 
+wand of wind
+	Can blow monsters away, or blow a hole in a whirly monster 
+	e ngulfing you.
+	
+	- If any items are hit by the blast of wind, they will be scattered.
+	
+	If you are polymorphed into a whirly monster and are zapped by 
+	this wand, you will be changed back to your base form and your 
+	constitution is abused. If you have unchanging on, you'll suffer 
+	5d6 damage.
+	
+	Breaking: 
+	- Stirs up an explosion of wind around you causing from 1 to 
+	  (4 x charges) damage. Sends all adjacent objects flying and
+	attempts to hurtle monsters.
+	
+	Engraving: Dust.
+	- Wipes out the current engraving and blows any objects on your
+	  square away. 
+wand of wishing
+	- When zapped or engraved with, if the player's Luck is non-
+	  negative, the wand will auto-identify and allow the player to
+	  make a guaranteed wish.
+	- Note that wishing will increase your prayer timeout.
+
+	- You cannot wish for a wand of wishing; this will give you a 
+	  pre-charged wand of wishing with -1 charges (i.e. cancelled)
+	  with a 90% chance. The remaining 10% will result in a precharged
+	  wand with zero charges.
+
+	- The wand is unusual because it can only be recharged once; it 
+	  always explodes if you try to recharge it a second time.
+	- Wands of wishing are always generated charged once (except the 
+	  Castle wand)
+
+	Breaking: No effects.
+	
+	Engraving: Dust.
+	- The wand will prompt you for a wish when you attempt to engrave
+	  with it.
+wand of wonder
+	When zapped, engraved, or broken, this wand chooses a random 
+	effect from the list of ALL wands every time it is used.
+	
+	- If you zap a monster or object(s), the result will be very
+	unpredictable due to the randomization of effects.
+	
+	- If a Wand of Wishing is chosen as the random effect, there is
+	  an additional 1 in 100 roll to pass in order to actually get a
+	  wish, otherwise the effect is changed to a Wand of Poison Gas.
+	- If a Wand of Nothing is chosen as the random effect, it is 
+	  instead changed to a Wand of Death.
+	- If another Wand of Wonder is chosen as the random effect, it is
+	  instead changed to a Wand of Polymorph.
+
+	Zapping self:
+	- Currently the wand of wonder is limited to these effects if you
+	  zap yourself: lightning, magic missile, polymorph, undead 
+	  turning, teleportation, and death, but it will still be random.
+	
+	Breaking: Breaking this wand also is subject to a random wand
+	  explosion.
+	
+	Engraving: The wand of wonder also uses a random wand effect on each engrave.
 warden arianna
 	I believe in two things: discipline and the Bible.  Here you'll
 	receive both.  Put your trust in the Lord; your ass belongs to me.
