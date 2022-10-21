@@ -4930,9 +4930,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         break;
     case ZT_WATER:
         tmp = d(nd, 8);
-        if (mon->data == &mons[PM_WATER_ELEMENTAL]
-            || mon->data == &mons[PM_BABY_SEA_DRAGON]
-            || mon->data == &mons[PM_SEA_DRAGON]) {
+        if (amphibious(mon->data)) {
+            pline("%s doesn't mind the water.", Monnam(mon));
             tmp = 0;
             break;
         }
