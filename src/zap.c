@@ -2859,7 +2859,10 @@ boolean ordinary;
             } else {
                 losehp(Maybe_Half_Phys(d(5,6)), "blast of wind", KILLED_BY_AN);
             }
-        }
+        } else
+            /* Hurtle in a random direction */
+            
+            hurtle(rn2(3) - 1, rn2(3) - 1, 5 + rn2(5), TRUE);
         break;
     case WAN_LIGHTNING:
     case SPE_LIGHTNING:

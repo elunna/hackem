@@ -837,7 +837,8 @@ int x, y;
         multi = 0; /* can move, so drown() allows crawling out of water */
         (void) drown();
         return FALSE;
-    } else if (!Is_waterlevel(&u.uz) && !stopping_short) {
+    } else if (is_pool(x, y) && !u.uinwater 
+               && !Is_waterlevel(&u.uz) && !stopping_short) {
         Norep("You move over %s.", an(is_moat(x, y) ? "moat" : "pool"));
     } else if (is_lava(x, y) && !stopping_short) {
         Norep("You move over some lava.");
