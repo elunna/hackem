@@ -46,6 +46,7 @@ STATIC_DCL boolean FDECL(is_valid_jump_pos, (int, int, int, BOOLEAN_P));
 STATIC_DCL boolean FDECL(get_valid_jump_position, (int, int));
 STATIC_DCL boolean FDECL(get_valid_polearm_position, (int, int));
 STATIC_DCL boolean FDECL(find_poleable_mon, (coord *, int, int));
+STATIC_DCL void FDECL(mk_wandtrap, (struct obj *));
 
 #ifdef AMIGA
 void FDECL(amii_speaker, (struct obj *, char *, int));
@@ -4458,27 +4459,11 @@ struct obj *obj;
     case WAN_LOCKING:
     case WAN_PROBING:
     case WAN_ENLIGHTENMENT:
-
     case WAN_SECRET_DOOR_DETECTION:
         pline(nothing_else_happens);
         goto discard_broken_wand;
     case WAN_OPENING:
-        /* make trap door if you broke a wand of opening */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) && !closed_door(u.ux, u.uy) &&
-                                       !t_at(u.ux, u.uy) && Can_dig_down(&u.uz))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, TRAPDOOR);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         goto discard_broken_wand;
     case WAN_DEATH:
     case WAN_LIGHTNING:
@@ -4489,34 +4474,18 @@ struct obj *obj;
         dmg *= 2;
         /* The magic 11 is ZT_SPELL(ZT_FIRE)*/
         explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
-
+        mk_wandtrap(obj);
+        
         if (obj->dknown 
           && !objects[obj->otyp].oc_name_known 
           && !objects[obj->otyp].oc_uname) {
             docall(obj);
         }
-        
-        /* FALLTHROUGH */
+        goto discard_broken_wand;
+
     case WAN_FIRE:
         expltype = EXPL_FIERY;
-        /* make fire trap if you broke a wand of fire */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, FIRE_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
-        if (obj->otyp == WAN_FIREBALL)
-            goto discard_broken_wand;
+        mk_wandtrap(obj);
         break;
     case WAN_ACID:
         expltype = EXPL_ACID;
@@ -4529,43 +4498,13 @@ struct obj *obj;
         if (expltype == EXPL_MAGICAL)
             expltype = EXPL_FROSTY;
         dmg *= 2;
-        /* make ice trap if you broke a wand of cold */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, ICE_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         break;
     case WAN_MAGIC_MISSILE:
     wanexpl:
         explode(u.ux, u.uy, -(obj->otyp), dmg, WAND_CLASS, expltype);
         makeknown(obj->otyp); /* explode describes the effect */
-        /* make magic trap if you broke a wand of magic missile */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, MAGIC_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         goto discard_broken_wand;
     case WAN_WIND:
         pline("A tornado surrounds you!");
@@ -4574,22 +4513,7 @@ struct obj *obj;
     case WAN_WATER:
         pline("KER-SPLOOSH!");
         affects_objects = TRUE;
-        /* make rust trap if you broke a wand of water */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, RUST_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         break;
     case WAN_STRIKING:
         /* we want this before the explosion instead of at the very end */
@@ -4597,79 +4521,18 @@ struct obj *obj;
         dmg = d(1 + obj->spe, 6); /* normally 2d12 */
         break;
     case WAN_TELEPORTATION:
-        /* WAC make tele trap if you broke a wand of teleport */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !level.flags.noteleport &&
-            !u.uswallow && !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                                      !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                                      !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, TELEP_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy); /* if our hero happens to be invisible */
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    /* shopkeeper will remove it */
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         affects_objects = TRUE;
         break;
     case WAN_POLYMORPH:
-        /* make poly trap if you broke a wand of polymorph */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, POLY_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         affects_objects = TRUE;
         break;
     case WAN_SLEEP:
-        /* make sleeping gas trap if you broke a wand of sleep */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, SLP_GAS_TRAP);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         break;
     case WAN_CANCELLATION:
-        /* make anti-magic trap if you broke a wand of cancellation */
-        if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-            !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                       !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                       !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
-            struct trap *ttmp;
-            ttmp = maketrap(u.ux, u.uy, ANTI_MAGIC);
-            if (ttmp) {
-                ttmp->madeby_u = 1;
-                ttmp->tseen = 1;
-                newsym(u.ux, u.uy);
-                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
-                    add_damage(u.ux, u.uy, 0L);             
-                }
-            }
-        }
+        mk_wandtrap(obj);
         affects_objects = TRUE;
         break;
     case WAN_DRAINING:	/* KMH */
@@ -5255,6 +5118,62 @@ boolean yourfault;
         obj->nomerge = 1;
         if (obj)
             obj->nomerge = 0;
+    }
+}
+
+void
+mk_wandtrap(obj)
+struct obj *obj;
+{
+    /* make fire trap if you broke a wand of fire */
+    if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
+        !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
+                                   !IS_ROCK(levl[u.ux][u.uy].typ) &&
+                                   !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
+        struct trap *ttmp;
+        int traptype;
+        
+        switch (obj->otyp){
+        case WAN_FIRE: 
+        case WAN_FIREBALL:
+            traptype = FIRE_TRAP;
+            break;
+        case WAN_COLD:
+            traptype = ICE_TRAP;
+            break;
+        case WAN_MAGIC_MISSILE:
+            traptype = MAGIC_TRAP;
+            break;
+        case WAN_WATER:
+            traptype = RUST_TRAP;
+            break;
+        case WAN_TELEPORTATION:
+            traptype = TELEP_TRAP;
+            break;
+        case WAN_POLYMORPH:
+            traptype = POLY_TRAP;
+            break;
+        case WAN_SLEEP:
+            traptype = SLP_GAS_TRAP;
+            break;
+        case WAN_CANCELLATION:
+            traptype = ANTI_MAGIC;
+            break;
+        case WAN_OPENING:
+            traptype = TRAPDOOR;
+            break;
+        default:
+            impossible("Weird wand type for making a trap! %d", obj->otyp);
+        }
+        ttmp = maketrap(u.ux, u.uy, traptype);
+        if (ttmp) {
+            ttmp->madeby_u = 1;
+            ttmp->tseen = 1;
+            newsym(u.ux, u.uy);
+            if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
+                add_damage(u.ux, u.uy, 0L);             
+            }
+        }
     }
 }
 /*apply.c*/
