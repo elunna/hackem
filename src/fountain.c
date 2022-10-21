@@ -1209,7 +1209,8 @@ breaktoilet(x,y)
 int x, y;
 {
     register int num = rn1(5, 2);
-
+    struct monst *mtmp;
+    
     if (cansee(x, y) || (x == u.ux && y == u.uy))
         pline_The("toilet suddenly shatters!");
     else
@@ -1221,7 +1222,7 @@ int x, y;
     newsym(x, y);
 
     if (!rn2(3)) {
-        if (create_critters(num, &mons[PM_BABY_CROCODILE], TRUE)) {
+        if (!(mvitals[PM_BABY_CROCODILE].mvflags & G_GONE)) {
             if (!Blind) {
                 if (!Hallucination) 
                     pline("Oh no! Crocodiles come out from the pipes!");
@@ -1229,6 +1230,13 @@ int x, y;
                     pline("Oh no! Tons of poopies!");
             } else
                 You("hear something scuttling around you!");
+            while (num-- > 0) {
+                /* Since toilet can be broken by ranged means, generate 
+                 * around the broken toilet */
+                if ((mtmp = makemon(&mons[PM_BABY_CROCODILE], x, y, NO_MM_FLAGS))
+                    && t_at(mtmp->mx, mtmp->my))
+                    (void) mintrap(mtmp);
+            }
         } else
             pline("The sewers seem strangely quiet.");
     }
