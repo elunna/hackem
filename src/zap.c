@@ -2701,6 +2701,9 @@ register struct obj *obj;
          * It might be possible to avoid code duplication by wiring it
          * differently, but it may be of benefit to have a separate
          * method here if we want to fine tune it. */
+        if (obj->cursed && rn2(5))
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+            
         for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
             if (DEADMONSTER(mtmp))
                 continue;
@@ -2718,6 +2721,7 @@ register struct obj *obj;
                 known = TRUE;
             }
         }
+        break;
     }
     if (wonder) {
         obj->otyp = WAN_WONDER;
