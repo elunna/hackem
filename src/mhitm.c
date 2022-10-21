@@ -1811,7 +1811,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     case AD_RUST:
         if (magr->mcan)
             break;
-        if (pd == &mons[PM_IRON_GOLEM]) {
+        if (pd == &mons[PM_IRON_GOLEM] || pd == &mons[PM_STEEL_GOLEM]) {
             if (vis && canseemon(mdef))
                 pline("%s falls to pieces!", Monnam(mdef));
             mondied(mdef);

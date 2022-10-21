@@ -2107,7 +2107,8 @@ int how;
             } else if (mon->data == &mons[PM_GREMLIN]) {
                 angermon = FALSE;
                 (void) split_mon(mon, (struct monst *) 0);
-            } else if (mon->data == &mons[PM_IRON_GOLEM]) {
+            } else if (mon->data == &mons[PM_IRON_GOLEM] 
+                       || mon->data == &mons[PM_STEEL_GOLEM]) {
                 if (canseemon(mon))
                     pline("%s rusts.", Monnam(mon));
                 damage_mon(mon, d(1, 6), AD_PHYS);
@@ -2125,18 +2126,15 @@ int how;
                     (void)split_mon(mon, (struct monst *)0);
                     break;
                 case PM_FLAMING_SPHERE:
+                    if (canseemon(mon))
+                        pline("%s flickers.", Monnam(mon));
+                    damage_mon(mon, d(1, 6), AD_PHYS);
+                    break;
                 case PM_IRON_GOLEM:
-                    if (canseemon(mon)) pline("%s %s.", Monnam(mon),
-                        monsndx(mon->data) == PM_IRON_GOLEM ?
-                        "rusts" : "flickers");
-                    mon->mhp -= d(1,6);
-                    if (mon->mhp < 1)
-                        if (your_fault)
-                            killed(mon);
-                        else
-                            monkilled(mon, "", AD_ACID);
-                    else
-                        mon->mtame = FALSE;	
+                case PM_STEEL_GOLEM:
+                    if (canseemon(mon))
+                        pline("%s rusts.", Monnam(mon));
+                    damage_mon(mon, d(1, 6), AD_PHYS);
                     break;
                 case PM_WIZARD_OF_YENDOR:
                     if (your_fault) {
@@ -2193,6 +2191,9 @@ int how;
                     }
                     break;
             }
+            /* should only be by you */
+            if (DEADMONSTER(mon))
+                killed(mon);
             break;
 
         case POT_OIL:
@@ -2455,7 +2456,7 @@ register struct obj *obj;
         else if (u.umonnum == PM_FLAMING_SPHERE) {
             You("flicker!");
             losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
-        } else if (u.umonnum == PM_IRON_GOLEM) {
+        } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
             You("rust!");
             losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
         }

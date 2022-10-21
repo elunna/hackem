@@ -604,6 +604,7 @@
 
 #define can_corrode(ptr) \
     ((ptr) == &mons[PM_IRON_GOLEM] \
+     || (ptr) == &mons[PM_STEEL_GOLEM] \
      || (ptr) == &mons[PM_IRON_PIERCER])
 
 /* various monsters move faster underwater vs on land */

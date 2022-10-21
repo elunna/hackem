@@ -1522,6 +1522,7 @@ enum on_fire_types attktype;
     case PM_GLASS_GOLEM:
     case PM_GOLD_GOLEM:
     case PM_IRON_GOLEM:
+    case PM_STEEL_GOLEM:
         /* Melts into a puddle. */
         switch (attktype) {
         case ON_FIRE_DEAD:
@@ -1639,6 +1640,7 @@ int mndx;
     case PM_GLASS_GOLEM:
         return GLASS;
     case PM_IRON_GOLEM:
+    case PM_STEEL_GOLEM:
         return IRON;
     default:
         return 0;

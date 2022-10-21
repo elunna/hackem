@@ -1010,7 +1010,7 @@ int spellnum;
             dmg = d(8, 6);
             if (Half_physical_damage)
                 dmg = (dmg + 1) / 2;
-            if (u.umonnum == PM_IRON_GOLEM) {
+            if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
                 You("rust!");
                 rehumanize();
                 break;

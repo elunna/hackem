@@ -4896,7 +4896,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         break;
     case ZT_WATER:
         tmp = d(nd, 8);
-        if (mon->data == &mons[PM_IRON_GOLEM]) {
+        if (mon->data == &mons[PM_IRON_GOLEM] 
+            || mon->data == &mons[PM_STEEL_GOLEM]) {
             if (canseemon(mon))
                 pline("%s falls to pieces!", Monnam(mon));
             if (mon->mtame)
@@ -4906,9 +4907,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         } else if (u.uswallow && mon->data == &mons[PM_ICE_VORTEX]) {
             u.uhp = 0;
             losehp(1, "turning into a block of ice", KILLED_BY);
-        }
-
-        else if (u.uswallow) {
+        } else if (u.uswallow) {
             pline("Ugh! Now it's slippery in here!");
         } else if (mon->data == &mons[PM_WATER_ELEMENTAL]) {
             mon->mhp += d(6, 6);
@@ -5189,7 +5188,7 @@ xchar sx, sy;
             dam = 0;
             break;
         }
-        if (u.umonnum == PM_IRON_GOLEM) {
+        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
             You("rust!");
             rehumanize();
             break;

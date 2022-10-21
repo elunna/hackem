@@ -2128,7 +2128,9 @@ int damtype, dam;
      * have a monster-specific slow/haste so there is no way to
      * restore the old velocity once they are back to human.
      */
-    if (u.umonnum != PM_FLESH_GOLEM && u.umonnum != PM_IRON_GOLEM)
+    if (u.umonnum != PM_FLESH_GOLEM 
+        && u.umonnum != PM_STEEL_GOLEM
+        && u.umonnum != PM_IRON_GOLEM)
         return;
     switch (damtype) {
     case AD_ELEC:
@@ -2136,7 +2138,7 @@ int damtype, dam;
             heal = (dam + 5) / 6; /* Approx 1 per die */
         break;
     case AD_FIRE:
-        if (u.umonnum == PM_IRON_GOLEM)
+        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM)
             heal = dam;
         break;
     }
