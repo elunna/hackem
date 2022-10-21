@@ -6040,7 +6040,14 @@ boolean moncast;
             (void) delfloortrap(t);
             if (see_it)
                 newsym(x, y);
-        } else if (lev->typ == TREE) {
+        } else if (t && t->ttyp == RUST_TRAP) {
+            if (see_it)
+                pline("The rust trap explodes in an alchemic blast!");
+            rangemod -= 1;
+            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            disarm_rust_trap(t, FALSE);
+        }
+        else if (lev->typ == TREE) {
             if (see_it)
                 pline("The acid contaminates the tree!");
             lev->typ = DEADTREE;
@@ -6083,7 +6090,7 @@ boolean moncast;
             rangemod -= 1;
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
             breaksink(x, y);
-        }
+        } 
         break; /* ZT_ACID */
 
     default:

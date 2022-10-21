@@ -2799,6 +2799,7 @@ E void FDECL(drain_en, (int));
 E int NDECL(dountrap);
 E void FDECL(cnv_trap_obj, (int, int, struct trap *, BOOLEAN_P));
 E int FDECL(untrap, (BOOLEAN_P));
+E int FDECL(disarm_rust_trap, (struct trap *, BOOLEAN_P));
 E boolean FDECL(openholdingtrap, (struct monst *, boolean *));
 E boolean FDECL(closeholdingtrap, (struct monst *, boolean *));
 E boolean FDECL(openfallingtrap, (struct monst *, BOOLEAN_P, boolean *));

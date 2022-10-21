@@ -27,7 +27,6 @@ STATIC_DCL void FDECL(move_into_trap, (struct trap *));
 STATIC_DCL int FDECL(try_disarm, (struct trap *, BOOLEAN_P));
 STATIC_DCL void FDECL(reward_untrap, (struct trap *, struct monst *));
 STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *));
-STATIC_DCL int FDECL(disarm_rust_trap, (struct trap *));
 STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *));
 STATIC_DCL int FDECL(disarm_landmine, (struct trap *));
 STATIC_DCL int FDECL(disarm_spear_trap, (struct trap *));
@@ -5031,16 +5030,18 @@ struct trap *ttmp;
     return 1;
 }
 
-STATIC_OVL int
-disarm_rust_trap(ttmp) /* Paul Sonier */
+int
+disarm_rust_trap(ttmp, disarming) /* Paul Sonier */
 struct trap *ttmp;
+boolean disarming;
 {
 	xchar trapx = ttmp->tx, trapy = ttmp->ty;
 	int fails = try_disarm(ttmp, FALSE);
 
 	if (fails < 2) 
         return fails;
-	You("disarm the water trap!");
+	if (disarming)
+            You("disarm the water trap!");
 	deltrap(ttmp);
 	levl[trapx][trapy].typ = FOUNTAIN;
 	newsym(trapx, trapy);
@@ -5372,7 +5373,7 @@ boolean force;
                 case SPEAR_TRAP:
                     return disarm_spear_trap(ttmp);
                 case RUST_TRAP:
-                    return disarm_rust_trap(ttmp);
+                    return disarm_rust_trap(ttmp, TRUE);
                 case FIRE_TRAP:
                     return disarm_fire_trap(ttmp);
                 case PIT:
