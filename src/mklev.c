@@ -1612,7 +1612,7 @@ coord *tm;
                     kind = NO_TRAP;
                 break;
             case MAGIC_BEAM_TRAP:
-                if (lvl < 12)
+                if (lvl < 16)
                     kind = NO_TRAP;
                 if (tm && (is_puddle(tm->x, tm->y)
                            || is_sewage(tm->x, tm->y)))
