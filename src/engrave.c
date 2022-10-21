@@ -778,6 +778,9 @@ doengrave()
                 if (!Blind) {
                     Sprintf(post_engr_text, "The bugs on the %s look healthier!",
                             surface(u.ux, u.uy));
+                    /* automatically use the process of elimination */
+                    if (objects[WAN_HEALING].oc_name_known || objects[WAN_EXTRA_HEALING].oc_name_known)
+                        postknown = TRUE;
                 }
                 break;
             case WAN_POLYMORPH:
