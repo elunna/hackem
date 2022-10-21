@@ -4334,6 +4334,18 @@ struct obj **pobj; /* object tossed/used, set to NULL
             wake_nearto(bhitpos.x, bhitpos.y, 8 * 8);
             range = 0;
             break;
+        }  else if (typ == TREE && 
+                   ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) 
+                       && obj->otyp == SPE_FIRE_BOLT))) {
+            if (cansee(bhitpos.x, bhitpos.y))
+                pline_The("tree burns to a crisp!");
+            else if (!Deaf)
+                You_hear("crackling and snapping.");
+            levl[bhitpos.x][bhitpos.y].typ = DEADTREE;
+            newsym(bhitpos.x, bhitpos.y);
+            /* stop the bolt here; it takes a lot of energy to destroy bars */
+            range = 0;
+            break;
         }
 
         /* iron bars will block anything big enough and break some things */
