@@ -153,7 +153,7 @@ struct obj *otmp;
     boolean wake = TRUE; /* Most 'zaps' should wake monster */
     boolean reveal_invis = FALSE, learn_it = FALSE;
     boolean visible = FALSE;
-    boolean dbldam = Role_if(PM_KNIGHT) && u.uhave.questart;
+    boolean dbldam = (Role_if(PM_KNIGHT) && u.uhave.questart) || dbl_dmg();
     boolean skilled_spell, helpful_gesture = FALSE;
     boolean curesick = FALSE;
     int dmg, otyp = otmp->otyp;
@@ -258,12 +258,12 @@ struct obj *otmp;
         dmg = d((u.ulevel / 5) + 1, 10);
         if (dmg > 45)
             dmg = 45;
-         
-        if (dbldam)
-            dmg *= 2;
+        
         if (otyp == SPE_FIRE_BOLT) {
             dmg = spell_damage_bonus(dmg);
         }
+        if (dbldam)
+            dmg *= 2;
         if (wizard)
             pline("Fire bolt %dd%d = (%d)", (u.ulevel / 4) + 1, 10, dmg);
 
@@ -669,6 +669,9 @@ struct obj *otmp;
                           : otyp == WAN_EXTRA_HEALING 
                           ? d(5, 4) + 10 * !!bcsign(otmp) : d(1, 8);
    
+                if (dbl_dmg())
+                    dmg *= 2;
+
                 damage_mon(mtmp, dmg, AD_PHYS);
                 if (canseemon(mtmp))
                     pline("%s shudders in agony!", Monnam(mtmp));
@@ -4957,6 +4960,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     if (sho_shieldeff)
         shieldeff(mon->mx, mon->my);
     if (is_hero_spell(type) && (Role_if(PM_KNIGHT) && u.uhave.questart))
+        tmp *= 2;
+    else if (dbl_dmg())
         tmp *= 2;
     if (tmp > 0 && type >= 0
         && resist(mon, type < ZT_SPELL(0) ? WAND_CLASS : '\0', 0, NOTELL))

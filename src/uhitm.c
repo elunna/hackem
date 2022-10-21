@@ -1644,13 +1644,8 @@ int dieroll;
         wtype = thrown ? weapon_type(wep) : uwep_skill_type();
         use_skill(wtype, 1);
     }
-
-    /* Eyes of death perception bonus applied here */
-    if (DeathVision) {
-        tmp *= 2;
-    }
-    /* If we wield the Staff of Rot and are withering, we get double damage. */
-    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)  {
+    
+    if (dbl_dmg()) {
         tmp *= 2;
     }
 
@@ -5284,4 +5279,16 @@ int dmg;
     }
 }
 
+boolean
+dbl_dmg()
+{
+    /* Mystic Eyes bonus applied here */
+    if (DeathVision) {
+        return TRUE;
+    }
+    /* If we wield the Staff of Rot and are withering, we get double damage. */
+    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)  {
+        return TRUE;
+    }
+}
 /*uhitm.c*/

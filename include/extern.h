@@ -2851,6 +2851,7 @@ E boolean FDECL(break_glass_obj, (struct obj *));
 E void FDECL(stumble_onto_mimic, (struct monst *));
 E int FDECL(flash_hits_mon, (struct monst *, struct obj *));
 E void FDECL(light_hits_gremlin, (struct monst *, int));
+E boolean NDECL(dbl_dmg);
 
 /* ### unixmain.c ### */
 
