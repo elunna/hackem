@@ -1252,9 +1252,9 @@ register struct obj *otmp;
         } else {
             pline("You are covered in a mirror-like sheen!");
             if (otmp->blessed) {
-                set_itimeout(&HReflecting, rn1(50, 250));
+                set_itimeout(&HReflecting, rn1(50, otmp->odiluted ? 100 : 250));
             } else {
-                set_itimeout(&HReflecting, rn1(10, 20));
+                set_itimeout(&HReflecting, rn1(10, otmp->odiluted ? 50 : 100));
             }
         }
         break;
@@ -1267,9 +1267,9 @@ register struct obj *otmp;
         } else {
             You("metabolism kicks into overdrive!");
             if (otmp->blessed) {
-                set_itimeout(&HRegeneration, rn1(100, 100));
+                set_itimeout(&HRegeneration, rn1(100,  otmp->odiluted ? 50 : 100));
             } else {
-                set_itimeout(&HRegeneration, rn1(50, 50));
+                set_itimeout(&HRegeneration, rn1(50,  otmp->odiluted ? 25 : 50));
             }
         }
         break;
