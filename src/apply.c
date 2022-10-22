@@ -4493,20 +4493,20 @@ struct obj *obj;
     case WAN_FIRE:
         expltype = EXPL_FIERY;
         mk_wandtrap(obj);
-        break;
+        goto wanexpl;
     case WAN_ACID:
         expltype = EXPL_ACID;
         dmg *= 3; 
-        break;
+        goto wanexpl;
     case WAN_POISON_GAS:
         expltype = EXPL_NOXIOUS;
-        break;
+        goto wanexpl;
     case WAN_COLD:
         if (expltype == EXPL_MAGICAL)
             expltype = EXPL_FROSTY;
         dmg *= 2;
         mk_wandtrap(obj);
-        break;
+        goto wanexpl;
     case WAN_MAGIC_MISSILE:
     wanexpl:
         explode(u.ux, u.uy, -(obj->otyp), dmg, WAND_CLASS, expltype);
