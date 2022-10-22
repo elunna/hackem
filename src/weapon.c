@@ -590,19 +590,18 @@ void
 searmsg(magr, mdef, obj, minimal)
 struct monst *magr;
 struct monst *mdef;
-const struct obj * obj; /* the offending item, or &zeroobj if magr's body */
+struct obj *obj; /* the offending item, or &zeroobj if magr's body */
 boolean minimal;        /* print a shorter message leaving out obj details */
 {
     char onamebuf[BUFSZ];
     char whose[BUFSZ];
-    int mat = obj->material;
+    int mat;
     char *whom;
-    const char *matname = materialnm[mat];
-    char* cxnameobj = cxname((struct obj *) obj);
+   
     boolean youattack = (magr == &youmonst);
     boolean youdefend = (mdef == &youmonst);
     boolean has_flesh = is_fleshy(mdef->data);
-
+    
     if (!obj) {
         impossible("searmsg: nothing searing?");
         return;
@@ -612,8 +611,6 @@ boolean minimal;        /* print a shorter message leaving out obj details */
         return;
 
     if (obj == &zeroobj) {
-        mat = monmaterial(monsndx(magr->data));
-        Sprintf(onamebuf, "%s touch", materialnm[mat]);
         if (youattack) {
             Strcpy(whose, "your ");
         } else if (!magr) {
@@ -623,9 +620,17 @@ boolean minimal;        /* print a shorter message leaving out obj details */
             Strcpy(whose, s_suffix(mon_nam(magr)));
             Strcat(whose, " ");
         }
+        mat = monmaterial(monsndx(magr->data));
+        Sprintf(onamebuf, "%s touch", materialnm[mat]);
     } else {
-        boolean alreadyin = (strstri(cxnameobj, matname) != NULL);
+        char* cxnameobj = cxname((struct obj *) obj);
+        const char *matname;
+        boolean alreadyin;
+
         mat = obj->material;
+        matname = materialnm[mat];
+        alreadyin = (strstri(cxnameobj, matname) != NULL);
+
         /* Make it explicit to the player that this effect is from the material,
          * by prepending the material, but only if the object's name doesn't
          * already contain the material string somewhere.  (e.g. "sword" should
