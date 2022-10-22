@@ -1664,15 +1664,21 @@ register struct attack *mattk;
         break;
     case AD_LOUD:
         hitmsg(mtmp, mattk);
-        if (Sonic_resistance) {
-            You("are unaffected by the noise.");
-            dmg = 0;
-        } else if (uncancelled) {
-            if (Deaf)
+
+        if (uncancelled) {
+            if (Deaf) {
+                pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
                 dmg = 1;
+            }  else if (Sonic_resistance) {
+                You("are unaffected by the noise.");
+                dmg = 0;
+            }
             else
                 Your("mind reels from the noise!");
-
+            
+            if (!Deaf && u.usleep && m_canseeu(mtmp))
+                unmul("You are frightened awake!");
+        
             if (!rn2(6))
                 erode_armor(&youmonst, ERODE_FRACTURE);
             if (!rn2(5))
@@ -1689,6 +1695,7 @@ register struct attack *mattk;
                 destroy_item(WAND_CLASS, AD_LOUD);
         } else
             dmg = 0;
+        
         if (dmg > 0 && u.umonnum == PM_GLASS_GOLEM) {
             You("shatter into a million pieces!");
             rehumanize();
@@ -4348,16 +4355,15 @@ int dmg;
     if (distu(mtmp->mx, mtmp->my) > 85
         || !m_canseeu(mtmp) || mtmp->mspec_used)
         return FALSE;
-
-    if (canseemon(mtmp)  && (Deaf || Sonic_resistance)) {
+    
+    /* if (m_canseeu(mtmp) && Deaf) { */
+    if (canseemon(mtmp) && Deaf) {
         pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
-    }
-    if (!cancelled 
-        && ((m_canseeu(mtmp) && Blind && Deaf) 
-        || Sonic_resistance)) {
+    } else if (!cancelled && m_canseeu(mtmp)
+               && Blind && Deaf) {
         You("sense a disturbing vibration in the air.");
     } else if (m_canseeu(mtmp) && canseemon(mtmp)
-               && !Deaf && cancelled) {
+             && !Deaf && cancelled) {
         pline("%s croaks hoarsely.", Monnam(mtmp));
     } else if (cancelled && !Deaf) {
         You_hear("a hoarse croak nearby.");
@@ -4366,29 +4372,25 @@ int dmg;
     /* Set mspec->mused */
     mtmp->mspec_used = mtmp->mspec_used + (dmg + rn2(6));
 
-    if (cancelled || Deaf || Sonic_resistance)
+    if (cancelled)
         return FALSE;
-
-
 
     /* scream attacks */
     switch (mattk->adtyp) {
     case AD_LOUD:
-        if (m_canseeu(mtmp))
-            pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
-        else if (u.usleep && m_canseeu(mtmp) && (!Deaf))
-                 unmul("You are frightened awake!");
-
-        if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
-            pline("Your %s protects your ears from the sonic onslaught.",
-                  helm_simple_name(uarmh));
-            break;
-        } else {
+        if (!Deaf) {
+            if (m_canseeu(mtmp))
+                pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
+            else if (u.usleep && m_canseeu(mtmp))
+                unmul("You are frightened awake!");
+        
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             Your("mind reels from the noise!");
             make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
             stop_occupation();
         }
-
+        
         /* being deaf won't protect objects in inventory,
            or being made of glass */
         if (!rn2(6))
@@ -4413,6 +4415,8 @@ int dmg;
         }
         break;
     case AD_FEAR:
+        if (Deaf)
+            break;
         if (m_canseeu(mtmp)) {
             pline("%s lets out a horrific wail!", Monnam(mtmp));
         } else {
@@ -4421,6 +4425,8 @@ int dmg;
         if (u.usleep && m_canseeu(mtmp)) {
             unmul("What a horrible nightmare! You wake up!");
         }
+        if (Sonic_resistance)
+            break; /* No inventory damage! */
         You("are struck with a sudden, terrible fear.");
         make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
         aggravate();
@@ -4428,72 +4434,64 @@ int dmg;
         break;
     case AD_PIER:
         /* Mobat's have a piercing scream */
+        if (Deaf)
+            break; /* No inventory effects */
         if (m_canseeu(mtmp))
             pline("%s lets out a piercing screech!", Monnam(mtmp));
-        else if (u.usleep && m_canseeu(mtmp) && (!Deaf))
+        else if (u.usleep && m_canseeu(mtmp))
             unmul("You are frightened awake!");
-
-        if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
-            pline("Your %s protects your ears from the %s's screech.",
-                  helm_simple_name(uarmh), Monnam(mtmp));
-            break;
-        } else {
-            mdamageu(mtmp, dmg);
-
-            Your("mind reels from the noise!");
-            make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
-            stop_occupation();
-        }
+               
+        if (Sonic_resistance)
+            break; /* No inventory damage! */
+        Your("mind reels from the noise!");
+        make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
+        stop_occupation();
         break;
     case AD_SONG:
         /* Harpies have an entracing song that paralyzes */
+        if (Deaf)
+            break; /* No inventory effects */
         if (m_canseeu(mtmp))
             pline("%s releases a hypnotic melody!", Monnam(mtmp));
-
-        if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
-            pline("Your %s protects your ears from %s's deadly melody.",
-                  helm_simple_name(uarmh), Monnam(mtmp));
-            break;
-        } else {
-            /* Copied from AD_PLYS code */
-            if (multi >= 0 && !rn2(3)) {
-                if (Free_action) {
-                    You("momentarily stiffen.");
-                } else {
-                    if (Blind)
-                        You("are frozen!");
-                    else
-                        You("are frozen by %s!", mon_nam(mtmp));
-                    nomovemsg = You_can_move_again;
-                    nomul(-rnd(10));
-                    multi_reason = "paralyzed by a monster";
-                    exercise(A_DEX, FALSE);
-                }
+                
+        if (Sonic_resistance)
+            break; /* No inventory damage! */
+        /* Copied from AD_PLYS code */
+        if (multi >= 0 && !rn2(3)) {
+            if (Free_action) {
+                You("momentarily stiffen.");
+            } else {
+                if (Blind)
+                    You("are frozen!");
+                else
+                    You("are frozen by %s!", mon_nam(mtmp));
+                nomovemsg = You_can_move_again;
+                nomul(-rnd(10));
+                multi_reason = "paralyzed by a monster";
+                exercise(A_DEX, FALSE);
             }
         }
         break;
     case AD_GIBB:
-        /* Gibberlings's emit a bunch of creepy sounds
-         *  gibber sound: uttering ghastly howls, clicks,
-         *  shrieks and insane chattering noises,
-         * */
+        /* Gibberlings's emit a bunch of creepy sounds, uttering ghastly howls,
+         * clicks, shrieks and insane chattering noises. */
+        if (Deaf)
+            break; /* No inventory effects */
+       
         fate = rnd(30);
         lcount = (long) rn1(90, 10);
         if (fate < 10) {
             break;
-
-        } else if (uarmh && uarmh->otyp == TOQUE && !Deaf) {
-            pline("Your %s protects you from the %s's cacophony.",
-                  helm_simple_name(uarmh), Monnam(mtmp));
-            break;
         }
-
+        
         switch (fate) {
         case 10:
         case 11:
         case 12: /* Cause confusion */
             if (m_canseeu(mtmp))
                 pline("%s utters a ghastly howl!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             if (!Confusion)
                 You("suddenly feel %s.", Hallucination ? "trippy" : "confused");
             make_confused((HConfusion & TIMEOUT) + lcount, TRUE);
@@ -4504,6 +4502,8 @@ int dmg;
         case 16: /* Cause Stunning */
             if (m_canseeu(mtmp))
                 pline("%s emits a series of clicks!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             make_stunned((HStun & TIMEOUT) + lcount, TRUE);
             break;
         case 17:
@@ -4512,6 +4512,8 @@ int dmg;
         case 20: /* Cause hallucination */
             if (m_canseeu(mtmp))
                 pline("%s bays insane chattering noises!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             (void) make_hallucinated((HHallucination & TIMEOUT) + lcount,
                                      TRUE, 0L);
             break;
@@ -4521,6 +4523,8 @@ int dmg;
         case 24: /* Cause fumbling for 4-16 turns*/
             if (m_canseeu(mtmp))
                 pline("%s ululates in your direction!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             HFumbling |= FROMOUTSIDE;
             HFumbling &= ~TIMEOUT;
             HFumbling += d(4, 4); /* slip on next move */
@@ -4531,11 +4535,15 @@ int dmg;
         case 28: /* Cause blinding */
             if (m_canseeu(mtmp))
                 pline("%s shrieks wildly!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
             break;
         case 29: /* Cause vomiting */
             if (m_canseeu(mtmp))
                 pline("%s shrills a resonant tone!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
             if (Vomiting)
                 vomit();
             else
@@ -4544,16 +4552,25 @@ int dmg;
         case 30: /* Cause deafness (rare) */
             if (m_canseeu(mtmp))
                 pline("%s beats it's chest and howls!", Monnam(mtmp));
-            if (Deaf) /* make_deaf() won't give feedback when already deaf */
-                pline("Nothing seems to happen.");
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
+
             make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
             break;
         }
-        /* We still get damage from the noise */
-        mdamageu(mtmp, dmg);
         break;
     default:
+        impossible("Bad scream type: %d", mattk->adtyp);
         break;
+    }
+    
+    if (Sonic_resistance && !Deaf) {
+        pline("The noise doesn't seem to bother you.");
+        monstseesu(M_SEEN_LOUD);
+        return FALSE;
+    } else if (!Deaf) {
+        /* We still get damage from the noise */
+        mdamageu(mtmp, dmg);
     }
     return TRUE;
 }
