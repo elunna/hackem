@@ -2433,6 +2433,23 @@ register struct obj *obj;
         incr_itimeout(&HFast, rnd(5));
         exercise(A_DEX, TRUE);
         break;
+    case POT_REFLECTION:
+        pline("You are covered in a mirror-like sheen!");
+        set_itimeout(&HReflecting, rn1(5, 15));
+        break;
+    case POT_ESP:
+        You_feel(Hallucination 
+                     ? "more in touch with the cosmos." 
+                     : "more mentally acute.");
+        incr_itimeout(&HTelepat, rn1(5, 15));
+        break;
+    case POT_INVULNERABILITY:
+        incr_itimeout(&Invulnerable, rn1(2, 4));
+        You_feel(Hallucination ? "like a super-duper hero!" : "invulnerable!");
+        break;
+    case POT_CLAIRVOYANCE:
+        incr_itimeout(&HClairvoyant,  rn1(5, 25));
+        break;
     case POT_BLINDNESS:
         if (!Blind && !Unaware) {
             kn++;
@@ -2459,7 +2476,7 @@ register struct obj *obj;
             (void) split_mon(&youmonst, (struct monst *)0);
         else if (u.umonnum == PM_FLAMING_SPHERE) {
             You("flicker!");
-            losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
+            losehp(d(1, 6),"potion of amnesia", KILLED_BY_AN);
         } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
             You("rust!");
             losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
