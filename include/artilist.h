@@ -139,6 +139,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
       NO_COLOR),
     
+    /* Staff of Circe. 1/20 chance of turning target into an animal. */
+    A("Circe's Witchstaff", STAFF_OF_MATTER,
+      (SPFX_RESTR | SPFX_WARN) , 0, 0,
+      PHYS(4, 4), NO_DFNS, NO_CARY, TAMING, A_NEUTRAL, NON_PM, NON_PM, 3500,
+      CLR_GREEN),
+    
     A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
       0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR),
 
@@ -217,12 +223,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
       SPFX_EXCLUDE, 0, STUN(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
       NON_PM, NON_PM, 4000L, NO_COLOR),
-
-    /* Staff of Circe. 1/20 chance of turning target into an animal. */
-    A("Circe's Witchstaff", STAFF_OF_MATTER,
-      (SPFX_RESTR | SPFX_WARN) , 0, 0,
-      PHYS(4, 4), NO_DFNS, NO_CARY, TAMING, A_NEUTRAL, NON_PM, NON_PM, 3500,
-      CLR_GREEN),
 
     A("Deathsword", TWO_HANDED_SWORD,
       (SPFX_RESTR | SPFX_DFLAGH), 0, MH_HUMAN,
@@ -326,9 +326,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Sword of Kas", TWO_HANDED_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DALIGN),
       SPFX_EXCLUDE, 0, DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       15000L, NO_COLOR),
-
-
-
+    
   /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
    * those it strikes with one blow. In the form of an ornate mace/rod, the Wand
    * of Orcus is 'a rod of obsidian topped by a skull. This instrument causes
@@ -363,9 +361,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       8000L, NO_COLOR),
 #endif
     
-    A("Wallet of Perseus", BAG_OF_HOLDING, SPFX_RESTR, SPFX_PROTECT, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
-      10000L, NO_COLOR),
     /* Warning vs demons; grants 25 charisma while wielded; special paralysis hit*/
     A("Chains of Malcanthet", SPIKED_CHAIN, 
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
@@ -462,6 +457,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 800L,
       NO_COLOR),
 
+    A("Wallet of Perseus", BAG_OF_HOLDING, SPFX_RESTR, SPFX_PROTECT, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
+      10000L, NO_COLOR),
+    
     A("Werebane", SABER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_WERE,
       PHYS(5, 0), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
       NO_COLOR),
@@ -482,7 +481,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_RESTR), SPFX_WARN, 0,
       NO_ATTK, DFNS(AD_MAGM), NO_CARY,
       INVIS, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR ),
-			
     
     /*
      *      The artifacts for the quest dungeon, all self-willed.
