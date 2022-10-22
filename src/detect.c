@@ -1160,8 +1160,9 @@ int how; /* 1 for misleading map feedback */
  * returns 0 if something was detected
  */
 int
-trap_detect(sobj)
+trap_detect(sobj, detect_portals)
 struct obj *sobj; /* null if crystal ball, *scroll if gold detection scroll */
+boolean detect_portals;
 {
     register struct trap *ttmp;
     struct monst *mon;
@@ -1242,8 +1243,8 @@ struct obj *sobj; /* null if crystal ball, *scroll if gold detection scroll */
     (void) detect_obj_traps(invent, TRUE, cursed_src);
 
     for (ttmp = ftrap; ttmp; ttmp = ttmp->ntrap) {
-        if (ttmp->ttyp == MAGIC_PORTAL)
-            continue; /* --hackem: Portals are NOT traps! */
+        if (ttmp->ttyp == MAGIC_PORTAL && !detect_portals)
+            continue; 
         sense_trap(ttmp, 0, 0, cursed_src);
     }
     for (door = 0; door < doorindex; door++) {
@@ -1447,7 +1448,7 @@ struct obj **optr;
         else
             switch (ch) {
             case '^':
-                ret = trap_detect((struct obj *) 0);
+                ret = trap_detect((struct obj *) 0, FALSE);
                 break;
             default:
                 i = rn2(SIZE(level_detects));
