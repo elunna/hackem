@@ -360,6 +360,10 @@ deletedwithboulder:
                 done(DIED);
             }
             res = FALSE;
+        }  else if (is_lightsaber(obj) && obj->lamplit) {
+            if (cansee(x, y)) 
+                You("see %s deactivate.", an(xname(obj)));
+            lightsaber_deactivate(obj, TRUE);
         } else {
             if (!Blind)
                 pline("%s away and %s.", it_falls, disappears);
@@ -369,11 +373,7 @@ deletedwithboulder:
         newsym(x, y);
     }
     
-    if (obj && is_lightsaber(obj) && obj->lamplit) {
-        if (cansee(x, y)) 
-            You("see %s deactivate.", an(xname(obj)));
-        lightsaber_deactivate(obj, TRUE);
-    }
+   
 
     bhitpos = save_bhitpos;
     return res;
