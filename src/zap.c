@@ -2612,9 +2612,6 @@ register struct obj *obj;
         wonder = TRUE;
     }
     
-    register int ct = 0;
-    register struct monst *mtmp;
-
     switch (obj->otyp) {
     case WAN_LIGHT:
     case SPE_LIGHT:
@@ -2663,30 +2660,8 @@ register struct obj *obj;
         break;
 
     case WAN_FEAR:
-        /* --hackem: Copied from read.c SPE_CAUSE_FEAR effect
-         * It might be possible to avoid code duplication by wiring it
-         * differently, but it may be of benefit to have a separate
-         * method here if we want to fine tune it. */
-        if (obj->cursed && rn2(5))
-            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
-            
-        for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-            if (DEADMONSTER(mtmp))
-                continue;
-            if (cansee(mtmp->mx, mtmp->my)) {
-                if (cursed(obj, TRUE)) {
-                    mtmp->mflee = mtmp->mfrozen = mtmp->msleeping = 0;
-                    if (!mtmp->mstone || mtmp->mstone > 2)
-                        mtmp->mcanmove = 1;
-                } else if (!resist(mtmp, obj->oclass, 0, NOTELL)) {
-                    monflee(mtmp, 0, FALSE, FALSE);
-                    pline("%s suddenly panics!", Monnam(mtmp));
-                }
-                if (!mtmp->mtame)
-                    ct++; /* pets don't laugh at you */
-                known = TRUE;
-            }
-        }
+        wandfear(obj);
+        known = TRUE;
         break;
     }
     if (wonder) {
@@ -7142,4 +7117,34 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     wake_nearto(x, y, 400);
 }
 
+void
+wandfear(obj)
+register struct obj *obj;
+{
+    struct monst *mtmp;
+    int ct = 0;
+    /* --hackem: Copied from read.c SPE_CAUSE_FEAR effect
+    * It might be possible to avoid code duplication by wiring it
+    * differently, but it may be of benefit to have a separate
+    * method here if we want to fine tune it. */
+    if (obj->cursed && rn2(5))
+        make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+            
+    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+        if (DEADMONSTER(mtmp))
+            continue;
+        if (cansee(mtmp->mx, mtmp->my)) {
+            if (cursed(obj, TRUE)) {
+                mtmp->mflee = mtmp->mfrozen = mtmp->msleeping = 0;
+                if (!mtmp->mstone || mtmp->mstone > 2)
+                    mtmp->mcanmove = 1;
+            } else if (!resist(mtmp, obj->oclass, 0, NOTELL)) {
+                monflee(mtmp, 0, FALSE, FALSE);
+                pline("%s suddenly panics!", Monnam(mtmp));
+            }
+            if (!mtmp->mtame)
+                ct++; /* pets don't laugh at you */
+        }
+    }
+}
 /*zap.c*/

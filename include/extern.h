@@ -3295,6 +3295,7 @@ E void NDECL(makewish);
 E void FDECL(monstseesu, (unsigned long));
 E void NDECL(blindingflash);
 E void bomb_explode(struct obj *, int, int, boolean);
+E void FDECL(wandfear, (struct obj *));
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 

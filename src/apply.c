@@ -4558,6 +4558,7 @@ struct obj *obj;
         /* --hackem: It would be nice to scare all surrounding monsters as well. */
         You("suddenly panic!");
         make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+        wandfear(obj);
         goto discard_broken_wand;
     default:
         break;
