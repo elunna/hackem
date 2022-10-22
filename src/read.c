@@ -1957,9 +1957,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         } else {
             /* could be scroll of create monster, don't set known ...*/
-            (void) create_critters(1, !scursed ? &mons[PM_YELLOW_LIGHT]
-                                               : &mons[PM_BLACK_LIGHT],
-                                   TRUE);
+            (void) create_critters(d(1,2), 
+                       !scursed ? &mons[PM_YELLOW_LIGHT] 
+                                : &mons[PM_BLACK_LIGHT], TRUE);
         }
         break;
     case SCR_CLONING:
@@ -2046,8 +2046,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_AIR: {
         int i;
-
-        if (scursed) {
+        if (confused) {
+            /* could be scroll of create monster, don't set known ...*/
+            (void) create_critters(1, !scursed ? &mons[PM_WHIRLING_SPHERE]
+                                               : &mons[PM_AIR_ELEMENTAL], TRUE);
+            break;
+        }
+        else if (scursed) {
             if (!Breathless && !breathless(youmonst.data)) {
                 known = TRUE;
                 pline("The air is sucked from your lungs!");
