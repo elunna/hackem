@@ -42,6 +42,7 @@ STATIC_DCL boolean FDECL(muse_unslime, (struct monst *, struct obj *,
 STATIC_DCL int FDECL(cures_sliming, (struct monst *, struct obj *));
 STATIC_DCL boolean FDECL(green_mon, (struct monst *));
 
+STATIC_DCL int FDECL(charge_precedence, (int));
 STATIC_DCL boolean FDECL(find_offensive_recurse, (struct monst *, struct obj *,
                                                   struct monst *, BOOLEAN_P));
 STATIC_DCL boolean FDECL(find_defensive_recurse, (struct monst *, struct obj *));
@@ -1711,6 +1712,80 @@ struct monst *mtmp;
                                   reflection_skip);
 }
 
+STATIC_OVL int
+charge_precedence(otyp)
+int otyp;
+{
+    int want = 0;
+    switch (otyp) {
+    /* in order of priority, highest being on top */
+    case WAN_DEATH:
+        want++;
+        /*FALLTHRU*/
+    case WAN_DRAINING:
+        want++;
+        /*FALLTHRU*/
+    case WAN_SLEEP:
+        want++;
+        /*FALLTHRU*/
+    case WAN_WATER:
+        want++;
+        /*FALLTHRU*/  
+    case WAN_SONICS:
+        want++;
+        /*FALLTHRU*/   
+    case HORN_OF_BLASTING:
+        want++;
+        /*FALLTHRU*/
+    case WAN_FIREBALL:
+        want++;
+        /*FALLTHRU*/
+    case WAN_ACID:
+        want++;
+        /*FALLTHRU*/
+    case WAN_FIRE:
+        want++;
+        /*FALLTHRU*/
+    case FIRE_HORN:
+        want++;
+        /*FALLTHRU*/
+    case WAN_COLD:
+        want++;
+        /*FALLTHRU*/
+    case FROST_HORN:
+        want++;
+        /*FALLTHRU*/
+    case WAN_LIGHTNING:
+        want++;
+        /*FALLTHRU*/
+    case WAN_POISON_GAS:
+        want++;
+        /*FALLTHRU*/
+    case WAN_MAGIC_MISSILE:
+        want++;
+        /*FALLTHRU*/
+    case WAN_CANCELLATION:
+        want++;
+        /*FALLTHRU*/
+    case WAN_POLYMORPH:
+        want++;
+        /*FALLTHRU*/
+    case WAN_WIND:
+        want++;
+        /*FALLTHRU*/
+    case WAN_STRIKING:
+        want++;
+        /*FALLTHRU*/
+    case WAN_TELEPORTATION:
+        want++;
+        /*FALLTHRU*/
+    case WAN_SLOW_MONSTER:
+        want++;
+    }
+
+    return want;
+}
+
 STATIC_OVL boolean
 find_offensive_recurse(mtmp, start, target, reflection_skip)
 struct monst *mtmp;
@@ -1723,6 +1798,9 @@ boolean reflection_skip;
     struct obj *charge_scroll = (struct obj *) 0;
 
 #define nomore(x)       if (m.has_offense == x) continue;
+#define pick_to_charge(o) \
+    (!m.tocharge \
+     || (charge_precedence((o)->otyp) > charge_precedence(m.tocharge->otyp)))
     /* this picks the last viable item rather than prioritizing choices */
     for (obj = start; obj; obj = obj->nobj) {
         if (Is_container(obj)) {
@@ -1740,19 +1818,72 @@ boolean reflection_skip;
                         || mtmp->data->msound == MS_LEADER)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_DEATH;
-                } else if (obj->spe < 1 && !m.tocharge) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
+                continue;
             }
-
+            nomore(MUSE_WAN_DRAINING);
+            if (obj->otyp == WAN_DRAINING) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_DRAIN)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_DRAINING;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+                continue;
+            }
             nomore(MUSE_WAN_SLEEP);
             if (obj->otyp == WAN_SLEEP && multi >= 0) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_SLEEP)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_SLEEP;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || m.tocharge->otyp != WAN_DEATH)) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+                continue;
+            }
+            nomore(MUSE_WAN_WATER);
+            if (obj->otyp == WAN_WATER) {
+                if (obj->spe > 0 && !amphibious(mtmp->data)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_WATER;
+                } /* Don't bother recharging */
+            }
+            nomore(MUSE_WAN_SONICS);
+            if (obj->otyp == WAN_SONICS) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_SONICS;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+            }
+            nomore(MUSE_HORN_OF_BLASTING);
+            if (obj->otyp == HORN_OF_BLASTING) {
+                if (obj->spe > 0 
+                    && can_blow(mtmp) && !m_seenres(mtmp, M_SEEN_LOUD)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_HORN_OF_BLASTING;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+            }
+            nomore(MUSE_WAN_FIREBALL);
+            if (obj->otyp == WAN_FIREBALL) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_FIREBALL;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+            }
+            nomore(MUSE_WAN_ACID);
+            if (obj->otyp == WAN_ACID) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_ACID)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_ACID;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
             }
@@ -1761,68 +1892,57 @@ boolean reflection_skip;
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_FIRE;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || (m.tocharge->otyp != WAN_DEATH
-                                   && m.tocharge->otyp != WAN_SLEEP))) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
+                continue;
             }
             nomore(MUSE_FIRE_HORN);
             if (obj->otyp == FIRE_HORN && can_blow(mtmp)) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_FIRE_HORN;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || (m.tocharge->otyp != WAN_DEATH
-                                   && m.tocharge->otyp != WAN_SLEEP
-                                   && m.tocharge->otyp != WAN_FIRE))) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
+                continue;
             }
             nomore(MUSE_WAN_COLD);
             if (obj->otyp == WAN_COLD) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_COLD)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_COLD;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || (m.tocharge->otyp != WAN_DEATH
-                                   && m.tocharge->otyp != WAN_SLEEP
-                                   && m.tocharge->otyp != WAN_FIRE
-                                   && m.tocharge->otyp != FIRE_HORN))) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
+                continue;
             }
             nomore(MUSE_FROST_HORN);
             if (obj->otyp == FROST_HORN && can_blow(mtmp)) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_COLD)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_FROST_HORN;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || (m.tocharge->otyp != WAN_DEATH
-                                   && m.tocharge->otyp != WAN_SLEEP
-                                   && m.tocharge->otyp != WAN_FIRE
-                                   && m.tocharge->otyp != FIRE_HORN
-                                   && m.tocharge->otyp != WAN_COLD))) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
+                continue;
             }
             nomore(MUSE_WAN_LIGHTNING);
             if (obj->otyp == WAN_LIGHTNING) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_ELEC)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_LIGHTNING;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || (m.tocharge->otyp != WAN_DEATH
-                                   && m.tocharge->otyp != WAN_SLEEP
-                                   && m.tocharge->otyp != WAN_FIRE
-                                   && m.tocharge->otyp != FIRE_HORN
-                                   && m.tocharge->otyp != WAN_COLD
-                                   && m.tocharge->otyp != FROST_HORN))) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+                continue;
+            }
+            nomore(MUSE_WAN_POISON_GAS);
+            if (obj->otyp == WAN_POISON_GAS) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_POISON)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_POISON_GAS;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
             }
@@ -1831,95 +1951,42 @@ boolean reflection_skip;
                 if (obj->spe > 0) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_MAGIC_MISSILE;
-                } else if (obj->spe < 1
-                           && (!m.tocharge
-                               || (m.tocharge->otyp != WAN_DEATH
-                                   && m.tocharge->otyp != WAN_SLEEP
-                                   && m.tocharge->otyp != WAN_FIRE
-                                   && m.tocharge->otyp != FIRE_HORN
-                                   && m.tocharge->otyp != WAN_COLD
-                                   && m.tocharge->otyp != FROST_HORN
-                                   && m.tocharge->otyp != WAN_LIGHTNING))) {
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
+                continue;
             }
         }
-
+        
         nomore(MUSE_WAN_UNDEAD_TURNING);
         m_use_undead_turning(mtmp, obj);
 
-        nomore(MUSE_WAN_DRAINING);
-        if (obj->otyp == WAN_DRAINING) {
-            if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_DRAIN)) {
-                m.offensive = obj;
-                m.has_offense = MUSE_WAN_DRAINING;
-            } else if (obj->spe < 1
-                       && (!m.tocharge
-                           || (m.tocharge->otyp != WAN_DEATH
-                               && m.tocharge->otyp != WAN_SLEEP
-                               && m.tocharge->otyp != WAN_FIRE
-                               && m.tocharge->otyp != FIRE_HORN
-                               && m.tocharge->otyp != WAN_COLD
-                               && m.tocharge->otyp != FROST_HORN
-                               && m.tocharge->otyp != WAN_LIGHTNING
-                               && m.tocharge->otyp != WAN_MAGIC_MISSILE))) {
-                m.tocharge = obj;
-            }
-        }
-        nomore(MUSE_WAN_FIREBALL);
-        if (obj->otyp == WAN_FIREBALL) {
-            if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
-                m.offensive = obj;
-                m.has_offense = MUSE_WAN_FIREBALL;
-            } else if (obj->spe < 1
-                        && (!m.tocharge
-                        || (m.tocharge->otyp != WAN_DEATH
-                           && m.tocharge->otyp != WAN_SLEEP
-                           && m.tocharge->otyp != WAN_FIRE
-                           && m.tocharge->otyp != FIRE_HORN
-                           && m.tocharge->otyp != WAN_COLD
-                           && m.tocharge->otyp != FROST_HORN
-                           && m.tocharge->otyp != WAN_LIGHTNING
-                           && m.tocharge->otyp != WAN_MAGIC_MISSILE
-                           && m.tocharge->otyp != WAN_DRAINING))) {
-                m.tocharge = obj;
-            }
-        }
         nomore(MUSE_WAN_CANCELLATION);
         if (obj->otyp == WAN_CANCELLATION) {
             if (obj->spe > 0) {
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_CANCELLATION;
-            } else if (!m.tocharge || obj->spe < 1
-                       || (m.tocharge->otyp != WAN_DEATH
-                           && m.tocharge->otyp != WAN_SLEEP
-                           && m.tocharge->otyp != WAN_FIRE
-                           && m.tocharge->otyp != FIRE_HORN
-                           && m.tocharge->otyp != WAN_COLD
-                           && m.tocharge->otyp != FROST_HORN
-                           && m.tocharge->otyp != WAN_LIGHTNING
-                           && m.tocharge->otyp != WAN_MAGIC_MISSILE
-                           && m.tocharge->otyp != WAN_DRAINING
-                           && m.tocharge->otyp != WAN_FIREBALL)) {
+            } else if (obj->spe < 1 && pick_to_charge(obj)) {
                 m.tocharge = obj;
             }
+            continue;
         }
         nomore(MUSE_WAN_POLYMORPH);
         if (obj->otyp == WAN_POLYMORPH) {
             if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_MAGR)) {
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_POLYMORPH;
-            } else if (obj->spe < 1
-                       && (!m.tocharge
-                           || (m.tocharge->otyp != WAN_DEATH
-                               && m.tocharge->otyp != WAN_SLEEP
-                               && m.tocharge->otyp != WAN_FIRE
-                               && m.tocharge->otyp != FIRE_HORN
-                               && m.tocharge->otyp != WAN_COLD
-                               && m.tocharge->otyp != FROST_HORN
-                               && m.tocharge->otyp != WAN_LIGHTNING
-                               && m.tocharge->otyp != WAN_MAGIC_MISSILE
-                               && m.tocharge->otyp != WAN_CANCELLATION))) {
+            } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                m.tocharge = obj;
+            }
+            continue;
+        }
+        nomore(MUSE_WAN_WIND);
+        if (obj->otyp == WAN_WIND) { 
+            if (obj->spe > 0 && !rn2(3)) {
+                m.offensive = obj;
+                m.has_offense = MUSE_WAN_WIND;
+            } else if (obj->spe < 1 && pick_to_charge(obj)) {
                 m.tocharge = obj;
             }
         }
@@ -1928,20 +1995,7 @@ boolean reflection_skip;
             if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_MAGR)) {
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_STRIKING;
-            } else if (obj->spe < 1
-                       && (!m.tocharge
-                           || (m.tocharge->otyp != WAN_DEATH
-                           && m.tocharge->otyp != WAN_SLEEP
-                           && m.tocharge->otyp != WAN_FIRE
-                           && m.tocharge->otyp != FIRE_HORN
-                           && m.tocharge->otyp != WAN_COLD
-                           && m.tocharge->otyp != FROST_HORN
-                           && m.tocharge->otyp != WAN_LIGHTNING
-                           && m.tocharge->otyp != WAN_MAGIC_MISSILE
-                           && m.tocharge->otyp != WAN_DRAINING
-                           && m.tocharge->otyp != WAN_FIREBALL
-                           && m.tocharge->otyp != WAN_CANCELLATION
-                           && m.tocharge->otyp != WAN_POLYMORPH))) {
+            } else if (obj->spe < 1 && pick_to_charge(obj)) {
                 m.tocharge = obj;
             }
         }
@@ -1962,21 +2016,10 @@ boolean reflection_skip;
                     || (u.ux == sstairs.sx && u.uy == sstairs.sy))) {
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_TELEPORTATION;
-            } else if (obj->spe < 1
-                       && (!m.tocharge
-                           || (m.tocharge->otyp != WAN_DEATH
-                               && m.tocharge->otyp != WAN_SLEEP
-                               && m.tocharge->otyp != WAN_FIRE
-                               && m.tocharge->otyp != FIRE_HORN
-                               && m.tocharge->otyp != WAN_COLD
-                               && m.tocharge->otyp != FROST_HORN
-                               && m.tocharge->otyp != WAN_LIGHTNING
-                               && m.tocharge->otyp != WAN_MAGIC_MISSILE
-                               && m.tocharge->otyp != WAN_CANCELLATION
-                               && m.tocharge->otyp != WAN_POLYMORPH
-                               && m.tocharge->otyp != WAN_STRIKING))) {
+            } else if (obj->spe < 1 && pick_to_charge(obj)) {
                 m.tocharge = obj;
             }
+            continue;
         }
         nomore(MUSE_WAN_SLOW_MONSTER);
         /* don't bother recharging this one */
@@ -1985,37 +2028,9 @@ boolean reflection_skip;
                 m.offensive = obj;
                 m.has_offense = MUSE_WAN_SLOW_MONSTER;
             }
+            continue;
         }
-        nomore(MUSE_HORN_OF_BLASTING);
-            if (obj->otyp == HORN_OF_BLASTING && obj->spe > 0 && can_blow(mtmp)) {
-                m.offensive = obj;
-                m.has_offense = MUSE_HORN_OF_BLASTING;
-            }
-        nomore(MUSE_WAN_WIND);
-        if (obj->otyp == WAN_WIND && obj->spe > 0 && !rn2(3)) {
-            m.offensive = obj;
-            m.has_offense = MUSE_WAN_WIND;
-        }
-        nomore(MUSE_WAN_WATER);
-        if (obj->otyp == WAN_WATER && obj->spe > 0) {
-            m.offensive = obj;
-            m.has_offense = MUSE_WAN_WATER;
-        }
-        nomore(MUSE_WAN_ACID);
-        if (obj->otyp == WAN_ACID && obj->spe > 0) {
-            m.offensive = obj;
-            m.has_offense = MUSE_WAN_ACID;
-        }
-        nomore(MUSE_WAN_POISON_GAS);
-        if (obj->otyp == WAN_POISON_GAS && obj->spe > 0) {
-            m.offensive = obj;
-            m.has_offense = MUSE_WAN_POISON_GAS;
-        }
-        nomore(MUSE_WAN_SONICS);
-            if (obj->otyp == WAN_SONICS && obj->spe > 0) {
-                m.offensive = obj;
-                m.has_offense = MUSE_WAN_SONICS;
-            }
+        
         if (m.has_offense == MUSE_SCR_CHARGING && m.tocharge)
             continue;
         if (obj->otyp == SCR_CHARGING) {
@@ -2025,6 +2040,7 @@ boolean reflection_skip;
             } else if (!charge_scroll) {
                 charge_scroll = obj;
             }
+            continue;
         }
         nomore(MUSE_SCR_STINKING_CLOUD)
         if (obj->otyp == SCR_STINKING_CLOUD && m_canseeu(mtmp)
@@ -2066,11 +2082,11 @@ boolean reflection_skip;
             m.has_offense = MUSE_POT_SLEEPING;
         }
         /* Mik's Lethe patch - monsters use !oAmnesia */
-		nomore(MUSE_POT_AMNESIA);
-		if (obj->otyp == POT_AMNESIA) {
-			m.offensive   = obj;
-			m.has_offense = MUSE_POT_AMNESIA;
-		}
+        nomore(MUSE_POT_AMNESIA);
+        if (obj->otyp == POT_AMNESIA) {
+            m.offensive = obj;
+            m.has_offense = MUSE_POT_AMNESIA;
+        }
         nomore(MUSE_POT_ACID);
         if (obj->otyp == POT_ACID
             && !m_seenres(mtmp, M_SEEN_ACID)) {
@@ -3202,6 +3218,7 @@ struct obj *start;
     }
     return(boolean) !!m.has_misc;
 #undef nomore
+#undef pick_to_charge
 }
 
 /* type of monster to polymorph into; defaults to one suitable for the
