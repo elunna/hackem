@@ -4379,11 +4379,11 @@ int dmg;
     switch (mattk->adtyp) {
     case AD_LOUD:
         if (!Deaf) {
-            if (m_canseeu(mtmp))
+            if (m_canseeu(mtmp)) {
                 pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
-            else if (u.usleep && m_canseeu(mtmp))
-                unmul("You are frightened awake!");
-        
+                if (u.usleep)
+                    unmul("You are frightened awake!");
+            }
             if (Sonic_resistance)
                 break; /* No inventory damage! */
             Your("mind reels from the noise!");
@@ -4436,11 +4436,11 @@ int dmg;
         /* Mobat's have a piercing scream */
         if (Deaf)
             break; /* No inventory effects */
-        if (m_canseeu(mtmp))
+        if (m_canseeu(mtmp)) {
             pline("%s lets out a piercing screech!", Monnam(mtmp));
-        else if (u.usleep && m_canseeu(mtmp))
-            unmul("You are frightened awake!");
-               
+            if (u.usleep)
+                unmul("You are frightened awake!");
+        }
         if (Sonic_resistance)
             break; /* No inventory damage! */
         Your("mind reels from the noise!");
@@ -4451,9 +4451,11 @@ int dmg;
         /* Harpies have an entracing song that paralyzes */
         if (Deaf)
             break; /* No inventory effects */
-        if (m_canseeu(mtmp))
+        if (m_canseeu(mtmp) && !u.usleep)
             pline("%s releases a hypnotic melody!", Monnam(mtmp));
-                
+        else
+            You("dream of singing angels...");
+                    
         if (Sonic_resistance)
             break; /* No inventory damage! */
         /* Copied from AD_PLYS code */
@@ -4485,13 +4487,14 @@ int dmg;
         }
         
         switch (fate) {
+            /* TODO: Reorganize, make sure this attack wakes up sleeping players */
         case 10:
         case 11:
         case 12: /* Cause confusion */
             if (m_canseeu(mtmp))
                 pline("%s utters a ghastly howl!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
             if (!Confusion)
                 You("suddenly feel %s.", Hallucination ? "trippy" : "confused");
             make_confused((HConfusion & TIMEOUT) + lcount, TRUE);
@@ -4503,7 +4506,7 @@ int dmg;
             if (m_canseeu(mtmp))
                 pline("%s emits a series of clicks!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
             make_stunned((HStun & TIMEOUT) + lcount, TRUE);
             break;
         case 17:
@@ -4513,7 +4516,7 @@ int dmg;
             if (m_canseeu(mtmp))
                 pline("%s bays insane chattering noises!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
             (void) make_hallucinated((HHallucination & TIMEOUT) + lcount,
                                      TRUE, 0L);
             break;
@@ -4524,7 +4527,7 @@ int dmg;
             if (m_canseeu(mtmp))
                 pline("%s ululates in your direction!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
             HFumbling |= FROMOUTSIDE;
             HFumbling &= ~TIMEOUT;
             HFumbling += d(4, 4); /* slip on next move */
@@ -4536,14 +4539,14 @@ int dmg;
             if (m_canseeu(mtmp))
                 pline("%s shrieks wildly!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
             make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
             break;
         case 29: /* Cause vomiting */
             if (m_canseeu(mtmp))
                 pline("%s shrills a resonant tone!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
             if (Vomiting)
                 vomit();
             else
@@ -4553,11 +4556,12 @@ int dmg;
             if (m_canseeu(mtmp))
                 pline("%s beats it's chest and howls!", Monnam(mtmp));
             if (Sonic_resistance)
-                break; /* No inventory damage! */
+                break;
 
             make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
             break;
         }
+        
         break;
     default:
         impossible("Bad scream type: %d", mattk->adtyp);
