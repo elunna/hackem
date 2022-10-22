@@ -962,7 +962,7 @@ register struct obj *otmp;
         if (!otmp->odiluted)
             healup(1, 0, FALSE, FALSE);
         /* u.uhunger += 10 * (2 + bcsign(otmp)); */
-        u.uhunger += 130 + 10 * (2 + bcsign(otmp));
+        u.uhunger += (otmp->odiluted ? 40 : 130) + 10 * (2 + bcsign(otmp));
         newuhs(FALSE);
         exercise(A_WIS, FALSE);
         if (otmp->cursed) {
@@ -1187,7 +1187,7 @@ register struct obj *otmp;
             do_vicinity_map(otmp);
         }
         if (otmp->blessed)
-            incr_itimeout(&HClairvoyant, rn1(50, 100));
+            incr_itimeout(&HClairvoyant, rn1(50, otmp->odiluted ? 100: 250));
         break;
     case POT_ESP:
         /* KMH -- handle cursed, blessed */
@@ -1215,7 +1215,8 @@ register struct obj *otmp;
         see_monsters();
         break;
     case POT_INVULNERABILITY:
-        incr_itimeout(&Invulnerable, rn1(4, 8 + 4 * bcsign(otmp)));
+        incr_itimeout(&Invulnerable, 
+                      rn1(4, (otmp->odiluted ? 4 : 8) + 4 * bcsign(otmp)));
         You_feel(Hallucination ?
                  "like a super-duper hero!" : "invulnerable!");
         break;
@@ -1275,7 +1276,7 @@ register struct obj *otmp;
     case POT_SPEED:
     case SPE_HASTE_SELF:
         if (otmp->otyp != POT_SPEED) { /* haste self */
-            speed_up(rn1(10, 100 + 60 * bcsign(otmp)));
+            speed_up(rn1(10, (otmp->odiluted ? 65 : 110) + 60 * bcsign(otmp)));
             break;
         }
 
