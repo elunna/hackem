@@ -2903,6 +2903,7 @@ boolean ordinary;
         if (Sonic_resistance) {
             shieldeff(u.ux, u.uy);
             pline("KABOOM! Well that was loud.");
+            monstseesu(M_SEEN_LOUD);
         }
         destroy_item(ARMOR_CLASS, AD_LOUD);
         destroy_item(RING_CLASS, AD_LOUD);
@@ -3034,7 +3035,9 @@ boolean ordinary;
         if (!Drain_resistance) {
             learn_it = TRUE; /* (no effect for spells...) */
             losexp("life drainage");
-        }
+        } else
+            monstseesu(M_SEEN_DRAIN);
+        
         damage = 0; /* No additional damage */
         break;
 
@@ -5162,6 +5165,7 @@ xchar sx, sy;
         if (Sonic_resistance) {
             shieldeff(sx, sy);
             pline("That was rather loud.");
+            monstseesu(M_SEEN_LOUD);
         } else {
             dam = d(nd, 6);
         }

@@ -1672,6 +1672,7 @@ register struct attack *mattk;
             }  else if (Sonic_resistance) {
                 You("are unaffected by the noise.");
                 dmg = 0;
+                monstseesu(M_SEEN_LOUD);
             }
             else
                 Your("mind reels from the noise!");
@@ -1879,42 +1880,47 @@ register struct attack *mattk;
         }
         break;
     case AD_TCKL:
-		hitmsg(mtmp, mattk);
-		if (uncancelled && multi >= 0 && !rn2(3)) {
-		    if (Free_action)
-			    You_feel("horrible tentacles probing your flesh!");
-		    else {
-			    if (Blind) 
+        hitmsg(mtmp, mattk);
+        if (uncancelled && multi >= 0 && !rn2(3)) {
+            if (Free_action)
+                You_feel("horrible tentacles probing your flesh!");
+            else {
+                if (Blind) 
                     You("are mercilessly tickled!");
-			else 
-                You("are mercilessly tickled by %s!", mon_nam(mtmp));
-			// nomovemsg = 0;	/* default: "you can move again" */
-			nomovemsg = You_can_move_again;
-                        nomul(-rnd(10));
-			exercise(A_DEX, FALSE);
-			exercise(A_CON, FALSE);
-		    }
-		}
-		break;
+                else 
+                    You("are mercilessly tickled by %s!", mon_nam(mtmp));
+                
+                // nomovemsg = 0;	/* default: "you can move again" */
+                nomovemsg = You_can_move_again;
+                nomul(-rnd(10));
+                exercise(A_DEX, FALSE);
+                exercise(A_CON, FALSE);
+            }
+        }
+        break;
     case AD_DRLI:
         hitmsg(mtmp, mattk);
-        if (uncancelled && !rn2(3) && !Drain_resistance) {
-            /* Shadow ogre has a life-drain touch attack */
-            if (mtmp->data == &mons[PM_SHADOW_OGRE]) {
-                Your("life-force is dwindling!");
-            }
-            /* if vampire biting (and also a pet) */
-            if (is_vampire(mtmp->data) && mattk->aatyp == AT_BITE &&
-                has_blood(youmonst.data)) {
-                Your("blood is being drained!");
-                /* Get 1/20th of full corpse value
+        if (uncancelled && !rn2(3)) {
+            if (!Drain_resistance) {
+                /* Shadow ogre has a life-drain touch attack */
+                if (mtmp->data == &mons[PM_SHADOW_OGRE]) {
+                    Your("life-force is dwindling!");
+                }
+                /* if vampire biting (and also a pet) */
+                if (is_vampire(mtmp->data) && mattk->aatyp == AT_BITE &&
+                    has_blood(youmonst.data)) {
+                    Your("blood is being drained!");
+                    /* Get 1/20th of full corpse value
                  * Therefore 4 bites == 1 drink
-                 */
-                if (mtmp->mtame && !mtmp->isminion)
-                    EDOG(mtmp)->hungrytime += 
-                        ((int)((youmonst.data)->cnutrit / 20) + 1);
+                     */
+                    if (mtmp->mtame && !mtmp->isminion)
+                        EDOG(mtmp)->hungrytime += 
+                            ((int)((youmonst.data)->cnutrit / 20) + 1);
+                }
+                losexp("life drainage");
+            } else {
+                monstseesu(M_SEEN_DRAIN);
             }
-            losexp("life drainage");
         }
         break;
     case AD_LEGS: {
@@ -3843,15 +3849,13 @@ struct attack *mattk;
         }
         break;
     case AD_DRLI:
-        if(!mtmp->mcan
-            && canseemon(mtmp)
-            && mtmp->mcansee
-            && !mtmp->mspec_used
-            && !rn2(3)
-            && !Drain_resistance) {
-            pline("%s stares into your eyes...", Monnam(mtmp));
-            You("suddenly feel weaker!");
-            losexp("life drainage");
+        if (!mtmp->mcan && canseemon(mtmp) && mtmp->mcansee && !mtmp->mspec_used && !rn2(3)) {
+            if (!Drain_resistance) {
+                pline("%s stares into your eyes...", Monnam(mtmp));
+                You("suddenly feel weaker!");
+                losexp("life drainage");
+            } else
+                monstseesu(M_SEEN_DRAIN);
         }
         break;
     case AD_SPOR:

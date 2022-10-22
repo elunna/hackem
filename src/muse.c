@@ -2326,35 +2326,36 @@ register struct obj *otmp;
         (void) cancel_monst(mtmp, otmp, FALSE, TRUE, FALSE);
         break;
     case WAN_DRAINING:	/* KMH */
-		tmp = d(2,6);
-		if (mtmp == &youmonst) {
-			if (Drain_resistance) {
-				shieldeff(u.ux, u.uy);
-				pline("Boing!");
-			} else
-				losexp("life drainage");
-			if (zap_oseen)
-				makeknown(WAN_DRAINING);
-			stop_occupation();
-			nomul(0);
-			break;
-		} else if (resists_drli(mtmp)) {
-			shieldeff(mtmp->mx, mtmp->my);
-			break;	/* skip makeknown */
-		} else if (!resist(mtmp, otmp->oclass, tmp, NOTELL) && mtmp->mhp > 0) {
-			mtmp->mhpmax -= tmp;
-			if (mtmp->mhpmax <= 0 || mtmp->m_lev <= 0)
-				monkilled(mtmp, "", AD_DRLI);
-			else {
-				mtmp->m_lev--;
-				if (canseemon(mtmp)) {
-					pline("%s suddenly seems weaker!", Monnam(mtmp));
-				}
-			}
-		}
-		if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
-			makeknown(WAN_DRAINING);
-		break;
+        tmp = d(2,6);
+        if (mtmp == &youmonst) {
+            if (Drain_resistance) {
+                shieldeff(u.ux, u.uy);
+                pline("Boing!");
+                monstseesu(M_SEEN_DRAIN);
+            } else
+                losexp("life drainage");
+            if (zap_oseen)
+                makeknown(WAN_DRAINING);
+            stop_occupation();
+            nomul(0);
+            break;
+        } else if (resists_drli(mtmp)) {
+            shieldeff(mtmp->mx, mtmp->my);
+            break;	/* skip makeknown */
+        } else if (!resist(mtmp, otmp->oclass, tmp, NOTELL) && mtmp->mhp > 0) {
+            mtmp->mhpmax -= tmp;
+            if (mtmp->mhpmax <= 0 || mtmp->m_lev <= 0)
+                monkilled(mtmp, "", AD_DRLI);
+            else {
+                mtmp->m_lev--;
+                if (canseemon(mtmp)) {
+                    pline("%s suddenly seems weaker!", Monnam(mtmp));
+                }
+            }
+        }
+        if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
+                makeknown(WAN_DRAINING);
+        break;
     case WAN_UNDEAD_TURNING: {
         boolean learnit = FALSE;
 
