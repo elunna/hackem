@@ -4483,9 +4483,9 @@ int dmg;
          * clicks, shrieks and insane chattering noises. */
         if (Deaf)
             break; /* No inventory effects */
-       
-        fate = rnd(30);
+        boolean wakeup = FALSE;
         lcount = (long) rn1(90, 10);
+        fate = rnd(30);
         if (fate < 10) {
             break;
         }
@@ -4497,6 +4497,7 @@ int dmg;
         case 12: /* Cause confusion */
             if (m_canseeu(mtmp))
                 pline("%s utters a ghastly howl!", Monnam(mtmp));
+            wakeup = TRUE;
             if (Sonic_resistance)
                 break;
             if (!Confusion)
@@ -4530,6 +4531,7 @@ int dmg;
         case 24: /* Cause fumbling for 4-16 turns*/
             if (m_canseeu(mtmp))
                 pline("%s ululates in your direction!", Monnam(mtmp));
+            wakeup = TRUE;
             if (Sonic_resistance)
                 break;
             HFumbling |= FROMOUTSIDE;
@@ -4542,6 +4544,7 @@ int dmg;
         case 28: /* Cause blinding */
             if (m_canseeu(mtmp))
                 pline("%s shrieks wildly!", Monnam(mtmp));
+            wakeup = TRUE;
             if (Sonic_resistance)
                 break;
             make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
@@ -4549,6 +4552,7 @@ int dmg;
         case 29: /* Cause vomiting */
             if (m_canseeu(mtmp))
                 pline("%s shrills a resonant tone!", Monnam(mtmp));
+            wakeup = TRUE;
             if (Sonic_resistance)
                 break;
             if (Vomiting)
@@ -4559,13 +4563,15 @@ int dmg;
         case 30: /* Cause deafness (rare) */
             if (m_canseeu(mtmp))
                 pline("%s beats it's chest and howls!", Monnam(mtmp));
+            wakeup = TRUE;
             if (Sonic_resistance)
                 break;
 
             make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
             break;
         }
-        
+        if (u.usleep && wakeup)
+            unmul("You are frightened awake!");
         break;
     default:
         impossible("Bad scream type: %d", mattk->adtyp);
