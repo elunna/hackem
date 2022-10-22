@@ -1441,6 +1441,9 @@ int spellnum;
         /* healing when already healed */
         if (u.mh == u.mhmax && spellnum == MGC_CURE_SELF)
             return TRUE;
+        /* Call Undead summons hostile undead - no good to us */
+        if (spellnum == MGC_CALL_UNDEAD)
+            return TRUE;
     } else if (adtyp == AD_CLRC) {
         /* healing when already healed */
         if (u.mh == u.mhmax && spellnum == CLC_CURE_SELF)
@@ -2310,6 +2313,23 @@ int spellnum;
             pline("%s %s%s", Monnam(mtmp),
                   can_flollop(mtmp->data) ? "flollops" : "winces",
                   (dmg <= 5) ? "." : "!");
+        break;
+    case MGC_CREATE_POOL:
+        if (!mtmp || mtmp->mhp < 1) {
+            impossible("create pool spell with no mtmp");
+            return;
+        }
+        if (levl[mtmp->mx][mtmp->my].typ == ROOM 
+            || levl[mtmp->mx][mtmp->my].typ == CORR) {
+            if (yours || canseemon(mtmp)) {
+                pline("A pool appears beneath %s!", mon_nam(mtmp));
+            }
+            levl[mtmp->mx][mtmp->my].typ = POOL;
+            del_engr_at(mtmp->mx, mtmp->my);
+            (void) mintrap(mtmp);
+            water_damage_chain(level.objects[mtmp->mx][mtmp->my], TRUE, 0, TRUE, mtmp->mx, mtmp->my);
+            spoteffects(FALSE);  /* possibly drown, notice objects */
+        }
         break;
     default:
         impossible("ucastm: invalid magic spell (%d)", spellnum);
