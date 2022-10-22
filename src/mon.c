@@ -276,6 +276,8 @@ struct permonst *pm;
             return PM_HOBBIT_ZOMBIE;
         if (is_giant(pm))
             return PM_GIANT_ZOMBIE;
+        if (is_centaur(pm))
+            return PM_CENTAUR_ZOMBIE;
         return PM_HUMAN_ZOMBIE;
     case S_HUMANOID:
         if (is_dwarf(pm))
@@ -288,6 +290,8 @@ struct permonst *pm;
             break;
     case S_GNOME:
         return PM_GNOME_ZOMBIE;
+    case S_CENTAUR:
+        return PM_CENTAUR_ZOMBIE;
     }
     return NON_PM;
 }
@@ -422,6 +426,10 @@ int mndx;
         break;
     case PM_ZOMBIE_DRAGON:
         mndx =  PM_RED_DRAGON;
+        break;
+    case PM_CENTAUR_ZOMBIE:
+    case PM_CENTAUR_MUMMY:
+        mndx = PM_CENTAUR;
         break;
     default:
         break;
@@ -632,6 +640,7 @@ unsigned corpseflags;
     case PM_GNOME_ZOMBIE:
     case PM_ORC_ZOMBIE:
     case PM_ELF_ZOMBIE:
+    case PM_CENTAUR_ZOMBIE:
     case PM_HOBBIT_ZOMBIE:
     case PM_HUMAN_ZOMBIE:
     case PM_GIANT_ZOMBIE:
@@ -646,6 +655,7 @@ unsigned corpseflags;
     case PM_GNOME_MUMMY:
     case PM_ORC_MUMMY:
     case PM_ELF_MUMMY:
+    case PM_CENTAUR_MUMMY:
     case PM_HOBBIT_MUMMY:
     case PM_HUMAN_MUMMY:
     case PM_GIANT_MUMMY:
