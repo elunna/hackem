@@ -2355,3 +2355,66 @@ Add these to Muse:
 [x] M_SEEN_DRAIN - make sure these are updated and used monstseesu(M_SEEN_DRAIN);
 [x] Implement M_SEEN_LOUD for muse horn of blasting; monstseesu(M_SEEN_LOUD);
 	
+[DEFERRED] Convert the screamer attack to a AT_SCRE? 
+	Doesn't really make sense as a scream attack.
+[x] You can break a wand of secret door detection to detect portals (trap creation odds)
+
+
+	[x] Potion of speed: diluted status.
+		speed_up(rn1(10, (otmp->odiluted ? 65 : 110) + 60 * bcsign(otmp)));
+		
+	[x] potion of invulnerability: Add diluted effect to soften dilution a bit
+		cursed: 0-3, uncursed: 4-7, blessed: 8-11
+		incr_itimeout(&Invulnerable, 
+                      rn1(4, (otmp->odiluted ? 4 : 8) + 4 * bcsign(otmp)));
+	[x] booze does have a diluted effect
+		    u.uhunger += (otmp->odiluted ? 40 : 130) + 10 * (2 + bcsign(otmp));
+			diluted: 30-50 nutrition based on BUC
+			
+	[x] Potions of clairvoyance increased normal behavior, added diluted.
+		Non-diluted: 250-299 turns
+		Diluted: 100-149
+
+[x] Give the healer  drowsing rod for sac gift.
+[x] Confused Scroll of air creates an air elemental if cursed, or a whirling sphere.
+
+
+Add diluted behavior for potion of reflection
+     set_itimeout(&HReflecting, rn1(50, otmp->odiluted ? 100 : 250));
+            } else {
+                set_itimeout(&HReflecting, rn1(10, otmp->odiluted ? 50 : 100));
+
+Add diluted behavior for potion of regeneration:
+if (otmp->blessed) {
+                set_itimeout(&HRegeneration, rn1(100,  otmp->odiluted ? 50 : 100));
+            } else {
+                set_itimeout(&HRegeneration, rn1(50,  otmp->odiluted ? 25 : 50));
+				
+				
+[DEFERRED] Scroll of air - - It needs to clear clouds and poison gas.
+
+[x] Update is_lawful_artifact, is_chaotic, etc. (Lots of new splicehack artifacts)s
+
+
+[x] Organize the gibberling attacks; could be cleaner
+[x] Check all new potions for vapor behavior
+	[x] Potion of reflection vapors for player
+	[x] Potion of regeneration vapors for player
+	
+	[x] Potion of ESP vapors for player
+	[x] clairvoyence vapors for player
+	[x] invulnerability vapors for player
+
+	[FIXED] centaur zombies are not leaving corpses
+
+[x] Make centaur zombies/mummies faster than usual?
+	[x] They should be a level higher/stronger than human mummies...
+[DEFERRED] What if we bring back traditional Vecna behavior; but the hand occasionally wriggles out of your inventory - depending on luck. And any pets you have become traitorous?
+[DEFERRED] Rays of fire that partially or completely evaporate pools or moats will generate clouds of steam.
+[DEFERRED] Undead slayer gets 1/20 chance to "head shot" zombies and put them down
+
+[x] Broken wand of fear scares everything within view?
+
+[FIXED] Wand of fire explosion looks purple (magical?)
+
+[FIXED?} When we cast make pool - a monster kind of hangs in mid air for a turn or two.
