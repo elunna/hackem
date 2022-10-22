@@ -1893,9 +1893,9 @@ int how;
                 dmg = d(obj->cursed ? 2 : 1, obj->blessed ? 4 : 8);
                 losehp(Maybe_Half_Phys(dmg), "potion of acid", KILLED_BY_AN);
             } else {
-            monstseesu(M_SEEN_ACID);
-                }
-                break;
+                monstseesu(M_SEEN_ACID);
+            }
+            break;
         case POT_AMNESIA:
             /* Uh-oh! */
             if (uarmh && is_helmet(uarmh) && 

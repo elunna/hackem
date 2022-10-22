@@ -2191,3 +2191,167 @@ Wand Breaking:
 [x] Poisonous cloak can be upgraded to alchemy smock
 [x]	Removed all droven items and drow (I don't plan on implementing the drow race for a while); changed Plague to an orcish bow.
 
+Extend the upgrading mechanic:
+	[x] balance upgrade/tinker paths with forges
+	[x] No upgrading weapons (except staves)
+	[x] Extend most upgrades logically from slashem
+	[x] Most upgrades should go both ways unless for a good reason.
+	[x] Make sure upgrading keeps item material, properties
+	[x] Add encyclopedia entry for upgrades...
+	[SKIPPED] Gnomish shopkeepers can offer this service 
+
+	[x] Update dog.c: dogfood with new food types
+
+
+	[FIXED] Ice mages: Freeze sphere creates a poison cloud.
+	[FIXED] Freeze sphere creates ferns?
+		I'm making freezing spheres, but they are exploding like fern spores...
+		
+		freezing sphere:
+			A(ATTK(AT_EXPL, AD_COLD, 4, 6), 
+			
+
+[x] bombs insta-explode when you throw them (they do for monsters)
+[x] Untrapping spear traps has a chance of dropping a spear or stake
+
+Removed M2_PEACEFUL from hedgehogs.
+
+Flame/Ice mages don't get opposite elemental spellbooks as gifts.
+[x] mplayer.c: Give undead slayer silver stuff
+[x] Double check undead slayer starting invs
+	Hobbits/elves override the silver daggers - this is OKAY.
+	Centaur, Giant, Tortle should be fine?
+[FIXED] Test getting intrinsics with vampires
+	Looks like it might be suspect - eat.c: 504
+
+Can giants wear slashem robes? Since they are body armor and loose?
+	NO.
+
+[x] Shopkeeper enchant armor for dragon scales
+	- Not allowed - you need a magical scroll, shopkeepers are using elbow grease.
+
+Wielding Vorpal Blade protects against decapitation attacks.
+Ludios appears on the first eligible level.
+
+
+New evil updates (shambling horror lookup, etc)
+
+Shambling horror lookup can be unlocked by probing it, 
+	Available by probing/stethoscoping/killing the horror
+	u.uevent.know_horror = TRUE;
+	
+	probe_monster
+	
+Vampire infidel starts with cloak of protection?  Opera cloak?
+	You look very impressive in it. o Turn 
+	
+	
+	
+	
+	
+	
+Speed and Slowness conflicts:
+	Tested with a non-fast character.
+	Wand of slow monster does not slow the player when zapped at self.
+	
+	[BUG] Wand of speed is granting permanent speed
+	[BUG] Wand of slow monster only slows player when the player already has speed.
+	
+[x] Make wand of fireball deal 2x damage on apply.
+
+[x] Wands of acid and poison: Seems weird that they would explode and have the same effects.
+	Wand of poison gas should basically emulate a scroll of stinking cloud.
+
+[x] Potions/wands of speed no longer grant permanent speed. 
+
+	[x] Start messing with memory leak detection
+	[x] Start fuzzing.
+	
+	
+	[x] Make a trap creation subroutine for applying broken wands
+
+[x] Shock,  poison,acid, and sonic wands can generate magic beam traps on break.
+	[ ] Add to database info
+[x] Cursed wands of fear zaps you with fear 80% of the time in addition to other negative effects.
+	If monsters are fleeing, they stop. If monsters are paralyzed or sleeping, they wake up and are able to move.
+
+[x] Make us able to wish for wand of poison
+[x] Olog Hai should have poison res likes orcs
+[x] What should create a magic beam trap? Any of the valid effects??
+	Changed magic beam traps to be evenly weighted for all traps; added sonic and water.
+[x] Maybe raise level magic beam traps can appear? Not below level 16.
+[x] Add sonic beam to magic beam trap (trap.c: 476)
+[x] Add water beam to magic beam trap (trap.c: 476)
+[x] Add auto-id for healing wands (when engraving) if the other has been identified
+[x] Double check that a TOQUE actually grants sonic resistance - it might be limited to the monster attacks right now.
+[x] Wand of wind should hurtle you in a random direction when zapped at self.
+
+[ALREADY IN] In UnNetHack, potions of acid dissolve iron bars when they hit them.
+	To do this, wield a potion of acid and use the fight (F) command. 
+	If done with more than one potion of acid wielded, only one of them is destroyed.
+[x] In UnNetHack, a blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
+
+[x] In UnNetHack, dwarves have a 6⁄7 chance to be generated with a potion of booze.Outside of the mines
+[x] From dnh: booze drinking it gives 130 points of nutrition if uncursed, 140 if blessed, and 120 if cursed.
+
+[x] 560096836	Patric Mueller	Vibrating square: messages when player is near
+
+[x] In UnNetHack, wands of digging are no longer restricted to digging a single square on maze levels. 
+[x] "99d6a4fd4"	Patric Mueller	Wands and spells of digging are no longer restricted on maze levels
+
+[x] Acid rays bounce off trees, petrified trees (should destroy them)
+[x] Acid rays should dissolve webs, 
+[x] Wands of poison should petrify trees.
+[ALREADY IN] Dipping a lichen into a potion of acid will identify it.
+[x] Acid rays should explode fountains, 
+[x] Acid rays should explode toilets, sinks, 
+[x] Acid rays should explode rust traps
+[x] Elves always start out knowing Elbereth.
+[x] Orcs can never use Elbereth
+	They say that `Elbereth' is often written about.
+
+[FIXED] Broken toilets center crocodiles around the player, not the toilet.
+[x] Wands/spells of draining should drain the life from trees, petrifying them.
+[x] Fire bolt burns trees
+[x] Amphibious monsters should be immune to water blasts.
+[x] Converted the wand of water to a ray type - does 6d8 vs non-amphibious monsters.
+	(consider suffocation part of the damage)
+
+[x] Ice Devil gets an additional slow attack.
+
+[x] Make sure Deathvision double damage is applied everywhere it should be (like or spells/wands/
+	Added dbl_dmg for firebolt
+	
+[SKIPPED] Zombies can be cancelled.
+[x] Maybe ice mages should start with a Frost Horn instead of a wand of cold? (Adds flavor, and horns can't explode)
+[x] Port over blessed scroll of teleport behavior - you can control it.
+
+[SKIPPED] In SLASH'EM, it's possible to safely overenchant any +7 weapon(s) to +8 by wielding it when crowned as the Hand of Elbereth, with the relevant disadvantages of crowning.
+
+[x] Remove WAN_WATER from bhitm - move effects to buzz
+[x] Wands of water are pretty strong, they obliterate firey monsters. 
+	But they have a severe weakness vs amphibious or unbreathing monsters.
+
+[x] Streams of water are dark colored - should be blue
+[x] Potion of amnesia cures afraid status (you forget what you were afraid of!)
+[x] Amnesia should make you lose Elbereth knowledge if you had it.
+[x] Amnesia makes you forget forget about shambling horrors.
+[x] Steel golems should be subject to the same vulnerability as iron golems (they are basically iron)
+[x] Scrolls of gold detection: confused reading shows only real traps, not magic portals.
+Add these to Muse:
+	[x] Horn of blasting
+	[x] Wand of sonics
+	[x] Wand of acid
+	[x] Wand of water (tinker with amphibious/is_fiery exceptions, targeting...)
+	
+	
+[SKIPPED] Add sonic blast to mcastu spells?
+
+[SKIPPED] If toques grant sonic res, we might want to make them magical.
+
+[FALSE] Deafness doesn't protect from concussive sphere explosion
+[x] Pills always cure larval infection.
+
+[x] M_SEEN_DRAIN - make sure these are updated and used monstseesu(M_SEEN_DRAIN);
+[x] Implement M_SEEN_LOUD for muse horn of blasting; monstseesu(M_SEEN_LOUD);
+	

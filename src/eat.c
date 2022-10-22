@@ -2655,6 +2655,12 @@ eatpill()
     default:
         break;
     }
+    
+    /* Pills always cure larval infections */
+    if (LarvaCarrier) {
+        You("feel as if your body is your own again.");
+        make_carrier(0L, FALSE);
+    }
 }
 
 
