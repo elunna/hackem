@@ -5367,8 +5367,7 @@ struct permonst _mons2[] = {
             | MR_PSYCHIC, 0,
         M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_LORD
-            | M2_MALE | M2_MAGIC | M2_SHAPESHIFTER | M2_FLANK
-            | M2_NOPOLY, /* For testing */
+            | M2_MALE | M2_MAGIC | M2_SHAPESHIFTER | M2_FLANK,
         M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_FIRE, 
         MH_UNDEAD | MH_VAMPIRE, 26, HI_ZAP),
     MON("star vampire", S_VAMPIRE,                              /* Slash'EM */
