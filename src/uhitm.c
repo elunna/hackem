@@ -5291,5 +5291,6 @@ dbl_dmg()
     if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)  {
         return TRUE;
     }
+    return FALSE;
 }
 /*uhitm.c*/
