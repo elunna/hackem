@@ -164,6 +164,9 @@ WEAPON("javelin", "throwing spear",
 /* Base weapon for the artifact weapon Xiuhcoatl */
 WEAPON("atlatl", None,                                         /* EvilHack */
        1, 0, 0, 0,  0,  30,  10,  8, 12, 2, P,   P_SPEAR, WOOD, CLR_BLACK),
+/* Base weapon for the artifact weapon Gungnir */
+WEAPON("atgeir", "bladed spear",                                /* dNethack */
+       1, 0, 0, 0,  5,  45,  15,  4, 12, 0, P,   P_SPEAR, IRON, HI_METAL),
 
 /* spearish; doesn't stack, not intended to be thrown */
 WEAPON("trident", None,

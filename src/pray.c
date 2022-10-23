@@ -1168,27 +1168,24 @@ aligntyp g_align;
        won't be in effect so special handling for it is superfluous.
        Cavepersons are sometimes ignored by their god */
     if (pat_on_head && (Role_if(PM_CAVEMAN) ? rn2(10) : 1))
-
         if (Role_if(PM_VALKYRIE)
-            && u.ualign.record >= PIOUS 
-			&& uwep 
-            && is_spear(uwep) 
-            && !uwep->oartifact 
-            && uwep->spe >= 5 
-			/*&& !artifact_exists(ART_GUNGNIR) */
-            /* These could come in handy
-            && !(uarmh && uarmh->otyp == HELM_OF_OPPOSITE_ALIGNMENT)
-            && obj->quan == 1L 
-            */
-            && !exist_artifact(SPEAR, artiname(ART_GUNGNIR))
-            && (u.ualign.type == A_LAWFUL 
-                || u.ualign.type == A_NEUTRAL)) {
-			pline("Secret runes are engraved on your %s.", xname(uwep));
-			/*oname(uwep, artilist[ART_GUNGNIR].name);*/
+              && u.ualign.record >= PIOUS 
+              && uwep 
+              && is_spear(uwep) 
+              && !uwep->oartifact 
+              && uwep->spe >= 5
+              /*&& !(uarmh && uarmh->otyp == HELM_OF_OPPOSITE_ALIGNMENT)*/
+              /* && uwep->quan == 1L */
+              && !exist_artifact(ATGEIR, artiname(ART_GUNGNIR))
+              && (u.ualign.type == A_LAWFUL || u.ualign.type == A_NEUTRAL)) {
+            pline("Secret runes are engraved on your %s.", xname(uwep));
             uwep->oprops = uwep->oprops_known = 0L;
+            /* Convert to an atgeir */
+            uwep->otyp = ATGEIR;
+            uwep->material = IRON;
             uwep = oname(uwep, artiname(ART_GUNGNIR));
             discover_artifact(ART_GUNGNIR);
-		}
+        }
 
     else switch (rn2((Luck + 6) >> 1)) {
         case 0:

@@ -1161,6 +1161,7 @@ short otyp;
         case RUNESWORD:
         case VOULGE:
         case SCYTHE:
+        case ATGEIR:
             sdambon = " + 1d4";
             break;
         }

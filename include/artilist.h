@@ -162,7 +162,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     /* Gungnir has an insane to-hit bonus. */
-    A("Gungnir", DWARVISH_SPEAR, (SPFX_RESTR), 0, 0, 
+    A("Gungnir", ATGEIR, (SPFX_RESTR), 0, 0, 
       PHYS(20, 12), NO_DFNS, NO_CARY, LIGHTNING_BOLT, A_NEUTRAL, 
       PM_VALKYRIE, NON_PM, 4000L, NO_COLOR),
       

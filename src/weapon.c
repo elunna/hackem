@@ -322,6 +322,7 @@ struct monst *mon;
         case SPETUM:
         case TRIDENT:
         case SPIKED_CHAIN:
+        case ATGEIR:
             tmp++;
             break;
 
