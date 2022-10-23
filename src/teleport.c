@@ -1308,11 +1308,11 @@ level_tele()
         escape_by_flying = "find yourself back on the surface";
         u.uz = lsav; /* restore u.uz so escape code works */
     }
-    
+#if 0
     /* Brought in from Lethe patch to support Lethe Gorge */
     int ulev = u.uz.dlevel + dungeons[u.uz.dnum].depth_start - 1;
     int vlev = valley_level.dlevel + dungeons[valley_level.dnum].depth_start - 1;
-    
+#endif
     /* calls done(ESCAPED) if newlevel==0 */
     if (escape_by_flying) {
         You("%s.", escape_by_flying);
@@ -1324,12 +1324,12 @@ level_tele()
     } else if (force_dest) {
         /* wizard mode menu; no further validation needed */
         ;
-#if 0
+
     } else if (u.uz.dnum == medusa_level.dnum
                && newlev >= dungeons[u.uz.dnum].depth_start
                                 + dunlevs_in_dungeon(&u.uz)) {
         find_hell(&newlevel);
-#else
+#if 0 /* This was used for Lethe Dungeon as 2nd dungeon, buggy though */
     } else if ((ulev < vlev && newlev >= vlev )
         || (ulev > vlev && newlev <= vlev)) { 
         /* This chunk prohibits teleporting past the valley of the dead... */
