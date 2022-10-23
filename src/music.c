@@ -841,8 +841,12 @@ struct obj *instr;
      *      uncursed = 10%
      *      blessed = 5%
      */
-    if (instr->oartifact)
-        ;  /* Artifact instruments don't break on apply */
+    
+    /* Artifact instruments don't break on apply 
+     * Elves have special skill with instruments and will never break them!
+     */
+    if (instr->oartifact || maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
+        ;  
     else if (Fumbling || Afraid || (instr->cursed && !rn2(4))) {
         instr_breaks = TRUE;
     }
