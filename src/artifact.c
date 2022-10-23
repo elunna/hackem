@@ -234,6 +234,7 @@ xchar m;
         break;
     case ART_SECESPITA:
     case ART_CIRCE_S_WITCHSTAFF:
+    case DROWSING_ROD:
         return COPPER;
         break;
     case ART_HAND_OF_VECNA:
