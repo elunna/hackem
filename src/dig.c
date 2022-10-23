@@ -1462,7 +1462,7 @@ zap_dig()
 {
     struct rm *room;
     struct monst *mtmp;
-    struct obj *otmp;
+    struct obj *otmp, *next_obj;
     struct trap *trap_with_u = (struct trap *) 0;
     int zx, zy, diridx = 8, digdepth, flow_x = -1, flow_y = -1;
     boolean shopdoor, shopwall, maze_dig, pitdig = FALSE, pitflow = FALSE;
@@ -1541,16 +1541,29 @@ zap_dig()
         tmp_at(zx, zy);
         delay_output(); /* wait a little bit */
 
-            /* WAC check for monster, boulder */
-            if ((mtmp = m_at(zx, zy)) != 0) {
-                if (made_of_rock(mtmp->data)) {
-                    You("gouge a hole in %s!", mon_nam(mtmp));
-                    mtmp->mhp /= 2;
-                    if (mtmp->mhp < 1) mtmp->mhp = 1;
-		    setmangry(mtmp, TRUE);
-                } else pline("%s is unaffected!", Monnam(mtmp));
+        /* WAC check for monster, boulder */
+        if ((mtmp = m_at(zx, zy)) != 0) {
+            if (made_of_rock(mtmp->data)) {
+                You("gouge a hole in %s!", mon_nam(mtmp));
+                mtmp->mhp /= 2;
+                if (mtmp->mhp < 1) mtmp->mhp = 1;
+                setmangry(mtmp, TRUE);
+            } else pline("%s is unaffected!", Monnam(mtmp));
+        }
+        for (otmp = level.objects[zx][zy]; otmp; otmp = next_obj) {
+            next_obj = otmp->nexthere;
+            /* vaporize boulders */
+            if (otmp->otyp == BOULDER) {
+                delobj(otmp);
+                /* A little Sokoban guilt... */
+                if (In_sokoban(&u.uz))
+                    change_luck(-1);
+                unblock_point(zx, zy);
+                newsym(zx, zy);
+                pline_The("boulder is vaporized!");
             }
-            
+            break;
+        }
         if (pitdig) { /* we are already in a pit if this is true */
             coord cc;
             struct trap *adjpit = t_at(zx, zy);
