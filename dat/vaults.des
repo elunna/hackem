@@ -1286,12 +1286,21 @@ ROOM:"rndvault", random, random, random, random {
   TERRAIN:floodfill(1,1), 'I'
 }
                        
+# lava room
+LEVEL:"vlt-0073"
+FLAGS:rndvault
+MINDEPTH:18
+ROOM:"rndvault", random, random, random, random {
+  [10%]: TRAP: "fire", random
+  TERRAIN:floodfill(1,1), 'L'
+}               
+                                              
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0073"
+LEVEL:"vlt-0074"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C' }
