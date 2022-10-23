@@ -1469,6 +1469,9 @@ u_init()
         knows_object(ELVEN_SHIELD);
         knows_object(ELVEN_BOOTS);
         knows_object(ELVEN_CLOAK);
+        
+        /* Hobbits know Elbereth! */
+        u.uevent.ulearned_elbereth = 1;
         break;
 
     case PM_CENTAUR:
