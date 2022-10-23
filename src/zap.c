@@ -4199,6 +4199,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
 {
     struct monst *mtmp, *result = (struct monst *) 0;
     struct obj *obj = *pobj;
+    struct trap *t;
     uchar typ;
     boolean shopdoor = FALSE, point_blank = TRUE;
     boolean in_skip = FALSE, allow_skip = FALSE;
@@ -4254,7 +4255,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
             result = mtmp;
             goto bhit_done;
         }
-
+        t = t_at(bhitpos.x, bhitpos.y);
         typ = levl[bhitpos.x][bhitpos.y].typ;
 
         if (typ == IRONBARS
@@ -4293,6 +4294,23 @@ struct obj **pobj; /* object tossed/used, set to NULL
             newsym(bhitpos.x, bhitpos.y);
             /* stop the bolt here; it takes a lot of energy to destroy bars */
             range = 0;
+            break;
+        } else if (typ == FOUNTAIN && 
+                   ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) 
+                     && obj->otyp == SPE_FIRE_BOLT))) {
+            if (cansee(bhitpos.x, bhitpos.y))
+                pline("Steam billows from the fountain.");
+            dryup(bhitpos.x, bhitpos.y, TRUE);
+            range -= 1;
+            break;
+        } else if (t && t->ttyp == WEB && 
+                   ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) 
+                     && obj->otyp == SPE_FIRE_BOLT))) {
+            if (cansee(bhitpos.x, bhitpos.y))
+                Norep("A web bursts into flames!");
+            (void) delfloortrap(t);
+            if (cansee(bhitpos.x, bhitpos.y))
+                newsym(bhitpos.x, bhitpos.y);
             break;
         } else if (typ == TREE
              && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_DRAIN_LIFE)
@@ -4529,7 +4547,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
         if (weapon == THROWN_WEAPON && range > 0
             && obj->otyp == HEAVY_IRON_BALL) {
             struct obj *bobj;
-            struct trap *t;
+            /*struct trap *t;*/
 
             if ((bobj = sobj_at(BOULDER, x, y)) != 0) {
                 if (cansee(x, y))
