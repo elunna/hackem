@@ -222,6 +222,9 @@ struct obj *otmp;
         if (dmg > 45)
             dmg = 45;
         
+        if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
+            dmg += d(1, 5); /* Small bonus for being skilled */
+        }
         if (otyp == SPE_FIRE_BOLT) {
             dmg = spell_damage_bonus(dmg);
         }
