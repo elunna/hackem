@@ -689,6 +689,8 @@
 #define made_of_rock(ptr) \
      ((passes_walls(ptr) && thick_skinned(ptr)) \
 	 || (ptr) == &mons[PM_STONE_GOLEM] \
+         || (ptr) == &mons[PM_GARGOYLE] \
+         || (ptr) == &mons[PM_WINGED_GARGOYLE] \
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
 
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
