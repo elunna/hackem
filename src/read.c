@@ -1943,7 +1943,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (!already_known)
             You("have found a scroll of genocide!");
         known = TRUE;
-        do_genocide(!sobj->cursed | (2 * !!Confusion),
+        do_genocide((!sobj->cursed) | (2 * !!Confusion),
                     !sobj->blessed);
         break;
     case SCR_LIGHT:
