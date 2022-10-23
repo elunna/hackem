@@ -1280,8 +1280,29 @@ IF [80%] {
 # ice room
 LEVEL:"vlt-0072"
 FLAGS:rndvault
-MINDEPTH:11
+MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
   [10%]: TRAP: "cold", random
   TERRAIN:floodfill(1,1), 'I'
+}
+                       
+# Default room
+# Because this is the last room this will show up regardless of MINLEVEL
+# (At least that's what some testing revealed.)
+# We'll make this room add some color to the dungeon but no dangerous 
+# lava or deep water pools.
+LEVEL:"vlt-0073"
+FLAGS:rndvault
+ROOM:"rndvault", random, random, random, (3,3) {
+$terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C' }
+SHUFFLE: $terr
+IF [10%] { TERRAIN:(0,0), $terr[0] }
+IF [10%] { TERRAIN:(1,0), $terr[0] }
+IF [10%] { TERRAIN:(2,0), $terr[0] }
+IF [10%] { TERRAIN:(0,1), $terr[0] }
+TERRAIN:(1,1),$terr[0]
+IF [10%] { TERRAIN:(2,1), $terr[0] }
+IF [10%] { TERRAIN:(0,2), $terr[0] }
+IF [10%] { TERRAIN:(1,2), $terr[0] }
+IF [10%] { TERRAIN:(2,2), $terr[0] }
 }
