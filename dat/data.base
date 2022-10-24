@@ -10446,14 +10446,13 @@ Angelslayer
     geared towards the destruction of all angelic beings */
 
 Chains of Malcanthet
-    /* TODO: Change Chains of Malcanthet to targets angels */
 	Alignment:       Unaligned
 	Flags:           Restricted
-	Targets:         Demons
-	Attack special:  +d6 to-hit, +d10 paralyze vs all
+	Targets:         Angels
+	Attack special:  +d6 to-hit, +d10 damage.
 	                 Has a 1/5 chance of paralyzing a monster for 1-4 turns on hit.
 	While wielded:   Boosts charisma to 25 when wielded.
-	                 Warns of demons
+	                 Warns of angels
 	While carried:   None
 	Invoke:          None
 	Affiliated role: None

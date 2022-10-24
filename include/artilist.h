@@ -361,9 +361,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       8000L, NO_COLOR),
 #endif
     
-    /* Warning vs demons; grants 25 charisma while wielded; special paralysis hit*/
+    /* Warning vs angels; grants 25 charisma while wielded; special paralysis hit*/
     A("Chains of Malcanthet", SPIKED_CHAIN, 
-      (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
+      (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_ANGEL,
       PLYS(6, 10), NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 800L, CLR_RED),
 
