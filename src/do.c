@@ -2487,9 +2487,12 @@ long timeout UNUSED;
     boolean munching = (body == context.victual.piece);
 
     if (already_fungus || bad_spot || no_eligible || munching) {
-        /* set to rot away normally */
-        start_timer(250L - (monstermoves - peek_at_iced_corpse_age(body)),
-                    TIMER_OBJECT, ROT_CORPSE, arg);
+        /* Double check it doesn't already have a rot timer */
+        if (!obj_has_timer(body, ROT_CORPSE)) {
+            /* set to rot away normally */
+            start_timer(250L - (monstermoves - peek_at_iced_corpse_age(body)),
+                        TIMER_OBJECT, ROT_CORPSE, arg);
+        }
         return;
     }
 
