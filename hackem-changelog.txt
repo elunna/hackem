@@ -2418,3 +2418,61 @@ if (otmp->blessed) {
 [FIXED] Wand of fire explosion looks purple (magical?)
 
 [FIXED?} When we cast make pool - a monster kind of hangs in mid air for a turn or two.
+[x] fix do_genocide
+[x] fix dbl_dmg 
+
+	[SKIP] Gnomish wiz casting ice explostion - top and bottom was weird
+
+	[FIXED] Cold room is only special room room early; not a vault...
+[DEFERRED] 3.7: Shock damage charging rings/wands randomly.
+[DEFERRED]  Extrinsic protection and item destruction.
+[DEFERRED] Illithids should offer a detect magic service?
+	[SKIPPED] Find replacement tile for bandit (used same tile as mugger)
+	[SKIPPED] Find replacement tile for Ragnaros (used Earth Mage tile)
+	
+		
+	[SKIPPED ] Import ghoul name?
+	
+[x] Elves can use musical instruments without risk of breaking them.
+[x] Hobbits start out knowing Elbereth"
+
+[x] In SLASH'EM and its variant, zapping a boulder with a wand of digging will vaporize it; doing this in Sokoban will incur a -1 Luck penalty. 
+[x] Rays from a wand of digging will also halve the current HP of "stony" monsters, including xorns, earth elementals, statue gargoyles and stone golems; strangely, this does not include regular gargoyles.[10]
+
+"Fire bolt gets +1d5 when you get to skilled in matter."
+[x] Fire bolt needs to destroy webs, dry up fountains.
+
+Gungnir - 
+	Make it unwishable. ARTG_NOGEN
+	ATGEIR - 2d4 and 1d12
+		[x] Add 1d4 in weapon damage
+		[x] Add to pager
+		[x[ Add tile
+		[x] Add to Gungnir creation.
+		Test making with opposite alignment
+		Test making while wielding a stack
+			We can always split one off...
+			
+
+
+[x] Changed sting and orcrist to Lawful (same alignment as elves)
+[x] Mystic Eyes - convert to gemstone?
+ /* FIXED: Change Chains of Malcanthet to targets angels */
+[DEFERRED] Fire bolt can be different from force bolt in that it stops at it's first target. Makes it a little more unique.
+[x] Change alignment of Sting/Ocrist to Lawful?
+
+[x] Chains of Malcanthet - should target Angels
+[x] Mortality Dial - remove the Trollsbane effect, just leave the no corpse effect.
+	[x] Fix message for wielding and killing zombies and trolls
+	
+[x] The Master Sword can't be wished for.
+[x] The Staff of rot, key of access, or xanathar's ring can't be wished for.
+	[x] And that they don't add to the artifact count
+[x] Demonbane: Invoke for Flying.
+[x] The Staff of Aesculapius: also cure afraid and larval infection.
+[x] Sword of Balance - hurtling resistance
+[x] Dagger of Glaurgnaa - should only confer MR when wielded.
+[x] Crown of St Edward - should only confer MR when worn.
+[x] Stake of Van Helsing - should only confer MR when wielded.
+[x] Fix Thunderstruck attack msg
+[x] Change Serpent's tongue to parazonium, gets +d5 tohit
