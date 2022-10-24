@@ -10561,10 +10561,9 @@ Mortality Dial
 	Alignment:       Unaligned
 	Flags:           Restricted, Not generated randomly
 	Attack special:  +d10 to-hit, +d10 damage
-	                 Incinerates Trolls
-	                 /* TODO: Remove troll specific attack */
 	While wielded:   Regeneration
 	                 Prevents monsters from regenerating.
+	                 Prevents trolls and zombies from reviving.
 	While carried:   None
 	Invoke:          None
 	Affiliated role: None

@@ -3666,7 +3666,8 @@ boolean was_swallowed; /* digestion */
     struct permonst *mdat = mon->data;
     struct obj *otmp;
     int i, tmp;
-
+    boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
+    
     if (mdat == &mons[PM_VLAD_THE_IMPALER]
         || mdat == &mons[PM_ALHOON] 
         || mdat == &mons[PM_KAS]
@@ -3705,19 +3706,19 @@ boolean was_swallowed; /* digestion */
 
     /* Trolls don't leave a corpse when the player is wielding Trollsbane */
     if (mdat->mlet == S_TROLL
-        && (wielding_artifact(ART_TROLLSBANE) || wielding_artifact(ART_MORTALITY_DIAL))) {
+        && (wielding_artifact(ART_TROLLSBANE) || artdial)) {
         if (cansee(mon->mx, mon->my))
-            pline("In the presence of Trollsbane, %s corpse flares brightly and burns to ashes.",
-                  s_suffix(mon_nam(mon)));
+            pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
+                  artdial ? "Mortality Dial" : "Trollsbane", s_suffix(mon_nam(mon)));
         return FALSE;
     }
 
     /* Zombies don't leave a corpse when the player is wielding Sunsword */
     if (is_zombie(mdat)
-        && (wielding_artifact(ART_SUNSWORD) || wielding_artifact(ART_MORTALITY_DIAL))) {
+        && (wielding_artifact(ART_SUNSWORD) || artdial)) {
         if (cansee(mon->mx, mon->my))
-            pline("In the presence of Sunsword, %s corpse dissolves into nothingness.",
-                  s_suffix(mon_nam(mon)));
+            pline("In the presence of %s, %s corpse dissolves into nothingness.",
+                  artdial ? "Mortality Dial" : "Trollsbane", s_suffix(mon_nam(mon)));
         return FALSE;
     }
 
