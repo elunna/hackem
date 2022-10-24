@@ -71,7 +71,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* From SporkHack. Now a silver mace with an extra property.
        First sacrifice gift for a priest. */
     A("Demonbane", HEAVY_MACE, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_PRIEST, NON_PM, 3000L,
+      PHYS(5, 0), NO_DFNS, NO_CARY, FLYING, A_LAWFUL, PM_PRIEST, NON_PM, 3000L,
       NO_COLOR),
 
     /* From LotR. Provides magic resistance and one level of MC when wielded.
@@ -467,18 +467,18 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /*** Alignment quest artifacts ***/
     A("The Key Of Access", SKELETON_KEY,
-      (SPFX_RESTR | SPFX_NOGEN), 
-      0, 0, NO_ATTK, NO_DFNS, NO_CARY,
+      (SPFX_RESTR | SPFX_NOGEN), SPFX_EXCLUDE, 0, 
+      NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR ),
     
     A("The Staff of Rot", STAFF_OF_HOLINESS,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), 
-      0, 0, WTHR(6, 6), NO_DFNS, NO_CARY,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), SPFX_EXCLUDE, 0,
+      WTHR(6, 6), NO_DFNS, NO_CARY,
       WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR ),
 
     /* Xanathar's eyestalk ring of proof against detection and location */
     A("Xanathar's Ring of Proof", RIN_SEE_INVISIBLE,
-      (SPFX_NOGEN | SPFX_RESTR), SPFX_WARN, 0,
+      (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_WARN), 0,
       NO_ATTK, DFNS(AD_MAGM), NO_CARY,
       INVIS, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR ),
     
