@@ -602,7 +602,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     */
     A("The Stake of Van Helsing", STAKE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 0, 0,
-      PHYS(5, 12), NO_DFNS, CARY(AD_MAGM), 0, A_LAWFUL, 
+      PHYS(5, 12), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL, 
       PM_UNDEAD_SLAYER, NON_PM, 5000L, NO_COLOR),
 
 #if 0 /* Replaced by Gjallar */
