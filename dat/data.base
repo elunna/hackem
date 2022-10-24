@@ -9743,6 +9743,7 @@ Hand Grenade of Antioch
 The Master Sword
 	Alignment:       Lawful
 	Flags:           Restricted, Not generated randomly
+	                 Cannot be wished for.
 	Targets:         None
 	Attack special:  +d3 to-hit, +d3 dmg
 	While wielded:   None
@@ -10735,6 +10736,8 @@ Werebane
 The Key Of Access
 	Alignment:       Unaligned
 	Flags:           Restricted, Not generated randomly
+	                 Excluded from total artifact count
+	                 Cannot be wished for.
 	While carried:   None
 	Invoke:          Branchport
 	Affiliated role: 
@@ -10743,6 +10746,8 @@ The Key Of Access
 The Staff of Rot
 	Alignment:       Chaotic
 	Flags:           Restricted, Not generated randomly
+	                 Excluded from total artifact count
+	                 Cannot be wished for.
 	Targets:         None
 	Attack special:  +d6 to-hit, +d6 withering damage
 	                 Doesn't affect nonliving monsters.
@@ -10756,6 +10761,8 @@ The Staff of Rot
 Xanathar's Ring of Proof
 	Alignment:       Neutral
 	Flags:           Restricted, Not generated randomly
+	                 Excluded from total artifact count
+	                 Cannot be wished for.
 	While worn:      Magic resistance
 	                 See invisible
 	While carried:   SPFX_WARN

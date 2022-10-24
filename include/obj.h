@@ -297,7 +297,11 @@ struct obj {
      || otmp->oartifact == ART_MAGIC___BALL \
      || otmp->oartifact == ART_SWORD_OF_KAS \
      || otmp->oartifact == ART_THIEFBANE \
-     || otmp->oartifact == ART_WAND_OF_ORCUS)
+     || otmp->oartifact == ART_WAND_OF_ORCUS\
+     || otmp->oartifact == ART_STAFF_OF_ROT \
+     || otmp->oartifact == ART_KEY_OF_ACCESS \
+     || otmp->oartifact == ART_XANATHAR_S_RING_OF_PROOF \
+     || otmp->oartifact == ART_MASTER_SWORD)
 
 #define is_magical_staff(otmp) \
     (   otmp->otyp == STAFF_OF_DIVINATION \
