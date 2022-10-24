@@ -223,7 +223,7 @@ xchar m;
     case ART_WALLET_OF_PERSEUS:
         return DRAGON_HIDE;
         break;
-    case ART_SPOON_OF_LIBERATION:
+    case ART_IRON_SPOON_OF_LIBERATION:
     case ART_ANGELSLAYER:
     case ART_ELFRIST:
         return IRON;
@@ -1115,7 +1115,7 @@ struct monst *mon;
         /* special monsters trying to take the Amulet, invocation tools or
            quest item can touch anything except `spec_applies' artifacts */
         if (mon->data == &mons[PM_WARDEN_ARIANNA] 
-            && obj->oartifact == ART_SPOON_OF_LIBERATION)
+            && obj->oartifact == ART_IRON_SPOON_OF_LIBERATION)
             badclass = badalign = TRUE;
         badclass = badalign = FALSE;
     }

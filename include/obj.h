@@ -282,7 +282,7 @@ struct obj {
      || otmp->oartifact == ART_RING_OF_P_HUL \
      || otmp->oartifact == ART_SECESPITA \
      || otmp->oartifact == ART_SERPENT_S_TONGUE \
-     || otmp->oartifact == ART_SPOON_OF_LIBERATION \
+     || otmp->oartifact == ART_IRON_SPOON_OF_LIBERATION \
      || otmp->oartifact == ART_STORMBRINGER \
      || otmp->oartifact == ART_SWORD_OF_KAS \
      || otmp->oartifact == ART_END \

@@ -3757,7 +3757,7 @@ struct obj *no_wish;
                 || !strncmpi(bp, "iron bars", l = 9)
                 || !strncmpi(bp, "crystal chest", l = 13)
                 || !strncmpi(bp, "crystal plate mail", l = 18)
-                || !strncmpi(bp, "iron ball of liberation", l = 23)) {
+                || !strncmpi(bp, "iron spoon of liberation", l = 23)) {
                 /* hack so that gold/silver dragon scales doesn't get
                  * interpreted as silver, or a wish for just "gold" doesn't get
                  * interpreted as gold */
@@ -4994,7 +4994,7 @@ struct obj *no_wish;
                 pm = PM_CAVEMAN;
                 break;
             case ART_LUCK_BLADE:
-            case ART_SPOON_OF_LIBERATION:
+            case ART_IRON_SPOON_OF_LIBERATION:
                 pm = PM_CONVICT;
                 break;
             case ART_MIRRORBRIGHT:
