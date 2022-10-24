@@ -301,8 +301,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       DREN(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_INFIDEL, NON_PM,
       1000L, NO_COLOR),
 
-    A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
-      PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_NECROMANCER, NON_PM, 400L, NO_COLOR),
+    A("Serpent's Tongue", PARAZONIUM, SPFX_RESTR, 0, 0,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_NECROMANCER, NON_PM, 400L, NO_COLOR),
         /* See artifact.c for special poison damage */
     
     /* Stormbringer only has a 2 because it can drain a level, providing 8 more. */
