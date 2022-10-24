@@ -9169,20 +9169,22 @@ wand of undead turning
 	
 	Engraving: Dust
 wand of water
-    (TODO: FINISH AS RAY EFFECT!)
 	Similar to the breath of a sea dragon, this zaps a torrent of 
-	water that slams into its target, inflicting 1d6 physical damage. 
-	
+	water that slams into its target, inflicting 6d8 physical damage. 
+    
 	Zapping yourself: Drenches you and your items in water.
 	
 	Zapping monsters:
 	- Monsters hit by this wand also have their armor subject to rusting.
+	- Iron or steel golems are instakilled (via rusting)
 	- If you are engulfed by an Ice Vortex and you zap this wand, you 
 	will be instantly killed by turning into a block of ice.
 	- If you zap a water elemental, you will instead heal it for 6d6 HP.
 	- If you zap an earth elemental, it turns into a mud elemental.
-    - If you zap a monster that likes fire or lava (ex: fire vortex, 
-      fire vampire, or lava demon) they take 12d6 damage instead.
+	- Amphibious and breathless monsters are not affected by water streams.
+    - Monsters that like fire or lava (ex: fire vortex, lava demon)
+      take an extra 6d6 damage. (If this monster is also amphibious 
+      or unbreathing, this vulnerability takes priority.
     
     - Monsters can use this wand and will attack you if you are a 
       vulnerable firey form.
