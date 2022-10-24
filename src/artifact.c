@@ -2890,7 +2890,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
     if (attacks(AD_LOUD, otmp)) {
         if (realizes_damage) {
-            pline_The("thunderous morningstar %s %s%c",
+            pline_The("thunderous morning star %s %s%c",
                       !spec_dbon_applies ? "hits" : "blasts", hittee,
                       !spec_dbon_applies ? '.' : '!');
             
