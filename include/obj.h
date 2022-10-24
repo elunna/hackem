@@ -246,14 +246,16 @@ struct obj {
      || otmp->oartifact == ART_HAND_GRENADE_OF_ANTIOCH \
      || otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN \
      || otmp->oartifact == ART_MASTER_SWORD \
-     || otmp->oartifact == ART_MITRE_OF_HOLINESS      \
+     || otmp->oartifact == ART_MITRE_OF_HOLINESS \
+     || otmp->oartifact == ART_ORCRIST \
      || otmp->oartifact == ART_PRIDWEN \
      || otmp->oartifact == ART_QUICK_BLADE \
      || otmp->oartifact == ART_REAPER \
      || otmp->oartifact == ART_SCEPTRE_OF_MIGHT \
      || otmp->oartifact == ART_SKULLCRUSHER \
      || otmp->oartifact == ART_SNICKERSNEE\
-     || otmp->oartifact == ART_SPEAR_OF_LIGHT \
+     || otmp->oartifact == ART_SPEAR_OF_LIGHT          \
+     || otmp->oartifact == ART_STING \
      || otmp->oartifact == ART_SUNSWORD  \
      || otmp->oartifact == ART_SWORD_OF_JUSTICE \
      || otmp->oartifact == ART_TSURUGI_OF_MURAMASA \
@@ -275,14 +277,12 @@ struct obj {
      || otmp->oartifact == ART_LUCK_BLADE \
      || otmp->oartifact == ART_LUCKLESS_FOLLY \
      || otmp->oartifact == ART_MASTER_KEY_OF_THIEVERY \
-     || otmp->oartifact == ART_ORCRIST \
      || otmp->oartifact == ART_PLAGUE \
      || otmp->oartifact == ART_POSEIDON_S_TRIDENT \
      || otmp->oartifact == ART_RING_OF_P_HUL \
      || otmp->oartifact == ART_SECESPITA \
      || otmp->oartifact == ART_SERPENT_S_TONGUE \
      || otmp->oartifact == ART_SPOON_OF_LIBERATION \
-     || otmp->oartifact == ART_STING \
      || otmp->oartifact == ART_STORMBRINGER \
      || otmp->oartifact == ART_SWORD_OF_KAS \
      || otmp->oartifact == ART_END \

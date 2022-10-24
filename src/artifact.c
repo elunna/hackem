@@ -2709,9 +2709,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 pline("%s plunges the Doomblade deeply into %s!",
                       Monnam(magr), hittee);
         }
-
-	    *dmgptr += rnd(4) * 5;
-	    return TRUE;
+        *dmgptr += rnd(4) * 5;
+        return TRUE;
        }
 
     if (otmp->oartifact == ART_SERPENT_S_TONGUE) {

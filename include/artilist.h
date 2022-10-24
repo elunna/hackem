@@ -101,6 +101,17 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Master Sword", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR), 0, 0,
       PHYS(3, 3), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
     
+    /*
+     *      Orcrist and Sting have same alignment as elves.
+     *
+     *      The combination of SPFX_WARN+SPFX_DFLAGH+MH_value will trigger
+     *      EWarn_of_mon for all monsters that have the MH_value flag.
+     *      Sting and Orcrist will warn of MH_ORC monsters.
+     */
+    A("Orcrist", ELVEN_BROADSWORD, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, PM_ELF, 2000L,
+      CLR_BRIGHT_BLUE), /* bright blue is actually light blue */
+                        
     /* Shield of King Arthur. */
     A("Pridwen", LARGE_SHIELD,
       (SPFX_RESTR | SPFX_HPHDAM), 0, 0,
@@ -119,6 +130,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Spear of Light", SPEAR, (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
       PHYS(5,10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, NON_PM, NON_PM, 4000L, NO_COLOR),
 
+    A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),
+      NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, PM_ELF, 800L, CLR_BRIGHT_BLUE),
+    
     /* Silver: Warns of undead. */
     A("Sunsword", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_UNDEAD,
       PHYS(5, 0), DFNS(AD_BLND), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 2500L,
@@ -275,18 +289,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Plague", ORCISH_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
       PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
         /* Auto-poison code in dothrow.c */
-
-    /*
-     *      Orcrist and Sting have same alignment as elves.
-     *
-     *      The combination of SPFX_WARN+SPFX_DFLAGH+MH_value will trigger
-     *      EWarn_of_mon for all monsters that have the MH_value flag.
-     *      Sting and Orcrist will warn of MH_ORC monsters.
-     */
-    A("Orcrist", ELVEN_BROADSWORD, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 2000L,
-      CLR_BRIGHT_BLUE), /* bright blue is actually light blue */
-
+    
     /* Grants waterbreathing.
           Invoke for water-walking and an earthquake. */
     A("Poseidon\'s Trident", TRIDENT, (SPFX_RESTR | SPFX_BREATHE), 0, 0, PHYS(3, 7),
@@ -301,10 +304,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
       PHYS(2, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_NECROMANCER, NON_PM, 400L, NO_COLOR),
         /* See artifact.c for special poison damage */
-
-    A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),
-      NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ELF, 800L, CLR_BRIGHT_BLUE),
-
+    
     /* Stormbringer only has a 2 because it can drain a level, providing 8 more. */
     A("Stormbringer", RUNESWORD,
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI),
