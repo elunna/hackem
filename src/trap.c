@@ -5020,7 +5020,7 @@ struct trap *ttmp;
             cnv_trap_obj(DWARVISH_SPEAR, 1, ttmp, FALSE);
             break;
         case 4:
-            cnv_trap_obj(STAKE, 1, ttmp, FALSE);
+            cnv_trap_obj(WOODEN_STAKE, 1, ttmp, FALSE);
         }
     } else {
         You("broke the spear during your efforts.");

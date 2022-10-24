@@ -3511,6 +3511,7 @@ struct obj* obj;
         case STAFF_OF_MATTER:
         case STAFF_OF_ESCAPE:
         case STAFF_OF_WAR:
+        case WOODEN_STAKE:
         case GRAPPLING_HOOK:
         case IRON_SAFE:
         case CRYSTAL_CHEST:

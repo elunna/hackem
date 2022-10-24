@@ -3225,7 +3225,6 @@ static const struct alt_spellings {
     { "whip", BULLWHIP },
     { "lash", FLAMING_LASH },
     { "sabre", SABER },
-    { "stake", STAKE },
     { "mattock", DWARVISH_MATTOCK },
     { "bearded axe", DWARVISH_BEARDED_AXE },
     { "bolt", CROSSBOW_BOLT },
@@ -3940,6 +3939,7 @@ struct obj *no_wish;
               && !strstri(bp, "potions ")
               && !strstri(bp, "finger ") 
               && !strstri(bp, "hand grenade ")
+              && !strstri(bp, "stake ")
               && !strstri(bp, "eye ")
               && !strstri(bp, "hand ")
               && !strstri(bp, "sword of kas")) {
