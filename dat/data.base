@@ -10539,7 +10539,7 @@ Mystic Eyes
 	Invoke:          None
 	Affiliated role: None
 	Price:           2000L
-	Material:        /* TODO: Change to gemstone */
+	Material:        GEMSTONE
 
 Magic 8-Ball
 	Alignment:       Unaligned

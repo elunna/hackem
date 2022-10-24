@@ -212,6 +212,7 @@ xchar m;
     case ART_SWORD_OF_KAS:
     case ART_RING_OF_P_HUL:
     case ART_WAND_OF_ORCUS:
+    case ART_MYSTIC_EYES:
         return GEMSTONE;
         break;
     case ART_YENDORIAN_EXPRESS_CARD:
