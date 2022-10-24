@@ -10868,12 +10868,12 @@ The Magic Mirror of Merlin
 	While carried:   Reflection
 	                 ESP
 	                 1/2 spell damage
-	Invoke:          
+	Invoke:          None
+	Apply:           Turns the mirror toward a monster (like using a
+	                 normal mirror) and whispers a rumor.
 	Affiliated role: PM_KNIGHT
 	Price:           1500L
-	
-	TODO: How to get rumor - SPFX_SPEAK
-  
+
 The Eyes of the Overworld
 	Alignment:       Neutral
 	Flags:           Restricted, Not generated randomly, Intelligent
