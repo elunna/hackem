@@ -597,13 +597,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_ESP | SPFX_HSPDAM), 0, NO_ATTK, NO_DFNS, CARY(AD_MAGM),
       CHARGE_OBJ, A_NEUTRAL, PM_TOURIST, NON_PM, 7000L, NO_COLOR),
 
-    /* KMH -- More effective against normal monsters
-    * Was +10 to-hit, +d20 damage only versus vampires
+    /* Provides warning vs vampires. Still does bonus damage vs all.
     */
     A("The Stake of Van Helsing", WOODEN_STAKE,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 0, 0,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_WARN | SPFX_DFLAGH), 
+      0, MH_VAMPIRE,
       PHYS(5, 12), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL, 
-      PM_UNDEAD_SLAYER, NON_PM, 5000L, NO_COLOR),
+      PM_UNDEAD_SLAYER, NON_PM, 5000L, CLR_RED),
 
 #if 0 /* Replaced by Gjallar */
     A("The Orb of Fate", CRYSTAL_BALL,

@@ -1370,6 +1370,7 @@ int tmp;
         spec_dbon_applies = FALSE;
     else if (otmp->oartifact == ART_GRIMTOOTH
              || otmp->oartifact == ART_VORPAL_BLADE
+             || otmp->oartifact == ART_STAKE_OF_VAN_HELSING
              || otmp->oartifact == ART_ANGELSLAYER)
         /* Grimtooth, Vorpal Blade, and Angelslayer have SPFX settings
            to warn against elves, jabberwocks, and angels respectively,
