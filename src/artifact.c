@@ -3078,6 +3078,11 @@ struct obj *obj;
                 set_itimeout(&HWithering, (long) 0);
             if (Blinded > creamed)
                 make_blinded(creamed, FALSE);
+            if (LarvaCarrier) {
+                make_carrier(0L, FALSE);
+            }
+            /* We also forget we were afraid! */
+            make_afraid(0L, TRUE);
             context.botl = TRUE;
             break;
         }
