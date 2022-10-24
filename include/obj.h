@@ -262,7 +262,6 @@ struct obj {
 #define is_chaotic_artifact(otmp) \
     (   otmp->oartifact == ART_BAT_FROM_HELL \
      || otmp->oartifact == ART_BUTCHER \
-     || otmp->oartifact == ART_CIRCE_S_WITCHSTAFF \
      || otmp->oartifact == ART_CROSSBOW_OF_CARL \
      || otmp->oartifact == ART_DEATHSWORD \
      || otmp->oartifact == ART_DEEP_FREEZE \
