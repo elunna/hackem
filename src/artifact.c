@@ -1370,6 +1370,7 @@ int tmp;
         spec_dbon_applies = FALSE;
     else if (otmp->oartifact == ART_GRIMTOOTH
              || otmp->oartifact == ART_VORPAL_BLADE
+             || otmp->oartifact == ART_MASTER_SWORD
              || otmp->oartifact == ART_STAKE_OF_VAN_HELSING
              || otmp->oartifact == ART_ANGELSLAYER)
         /* Grimtooth, Vorpal Blade, and Angelslayer have SPFX settings
@@ -1970,6 +1971,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         msgprinted = TRUE;
         return realizes_damage;
     }
+#if 0 /* The Master Sword is now the "imaginary widget!" */
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage)
             pline_The("imaginary widget hits%s %s%c",
@@ -1979,6 +1981,34 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                       hittee, !spec_dbon_applies ? '.' : '!');
         msgprinted = TRUE;
         return realizes_damage;
+    }
+#endif
+    /* if (attacks(AD_MAGM, otmp)) {*/
+    if (attacks(AD_MAGM, otmp)) {
+        if (realizes_damage) {
+            if (rn2(10)) {
+                pline_The("Master Sword hits%s %s%c",
+                          !spec_dbon_applies
+                              ? ""
+                              : "!  A hail of magic missiles strikes",
+                          hittee, !spec_dbon_applies ? '.' : '!');
+                *dmgptr += rnd(2) * 6;
+            }
+            
+            /* Occasionally shoot out a magic missile
+             * Must be at full health: 3/4 chance of ray.
+             * 2d6 - same as a wand. */
+            if (rn2(4)) {
+                if (youattack && (u.uhp == u.uhpmax)) {
+                    dobuzz((int) (20 + (AD_MAGM - 1)), 2, u.ux, u.uy, u.dx,
+                           u.dy, TRUE);
+                } else if (magr && magr->mhp == magr->mhpmax) {
+                    dobuzz((int) (-20 - (AD_MAGM - 1)), 2, magr->mx, magr->my,
+                           sgn(tbx), sgn(tby), TRUE);
+                }
+            }
+            return realizes_damage;
+        }
     }
     if (attacks(AD_DETH, otmp)) {
         if (realizes_damage) {
@@ -2923,7 +2953,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return realizes_damage;
         }
     }
-
+    
+    
     /* Staff of Rot */
     if (attacks(AD_WTHR, otmp) && !rn2(3)) {
         /* Duplicated from uhitm.c */

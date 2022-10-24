@@ -3942,6 +3942,7 @@ struct obj *no_wish;
               && !strstri(bp, "stake ")
               && !strstri(bp, "eye ")
               && !strstri(bp, "hand ")
+              /* && !strstri(bp, "master sword") */
               && !strstri(bp, "sword of kas")) {
             l = 0, of = 4;
             char *tmpp;
@@ -4075,6 +4076,7 @@ struct obj *no_wish;
         && strncmpi(bp, "wizard lock", 11)  /* not the "wizard" monster! */
         && strncmpi(bp, "ninja-to", 8)      /* not the "ninja" rank */
         && strncmpi(bp, "master key", 10)   /* not the "master" rank */
+        && strncmpi(bp, "master sword", 12)   /* not the "master" rank */
         && strncmpi(bp, "magenta", 7)       /* not the "mage" rank */
         && strncmpi(bp, "Bat from Hell", 13)
         && strncmpi(bp, "vampire blood", 13) /* not the "vampire" monster */

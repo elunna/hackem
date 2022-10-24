@@ -40,6 +40,7 @@ static const char *artifact_names[] = {
 #define     SLEE(a,b)   {0,AD_SLEE,a,b}         /* Sleep attack  */
 #define     LOUD(a,b)   {0,AD_LOUD,a,b}         /* Sonic attack  */
 #define     WTHR(a,b)   {0,AD_WTHR,a,b}         /* Withering attack  */
+#define     MAST(a,b)   {0,AD_MAGM,a,b}         /* magic missile attack  */
 /* clang-format on */
 
 STATIC_OVL NEARDATA struct artifact artilist[] = {
@@ -98,8 +99,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Hand Grenade of Antioch", FIRE_BOMB, (SPFX_RESTR), 0, 0, 
       PHYS(1, 1), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 300L, NO_COLOR),
 
-    A("The Master Sword", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR), 0, 0,
-      PHYS(3, 3), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
+    A("The Master Sword", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), 0, 0,
+      MAST(3, 3), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR),
     
     /*
      *      Orcrist and Sting have same alignment as elves.
