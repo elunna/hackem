@@ -1993,7 +1993,7 @@ int part;
                             "claw", "pedipalp", "palped", "cephalothorax",
                             "leg", "spun out", "cephalothorax", "abdomen",
                             "claw", "hair", "hemolymph", "book lung",
-                            "labrum", "digestive tract" },
+                            "labrum", "digestive tract", "cuticle" },
         *fish_parts[] = { "fin", "eye", "premaxillary", "pelvic axillary",
                           "pelvic fin", "anal fin", "pectoral fin", "finned",
                           "head", "peduncle", "played out", "gills",
