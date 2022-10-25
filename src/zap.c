@@ -4310,6 +4310,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
             (void) delfloortrap(t);
             if (cansee(bhitpos.x, bhitpos.y))
                 newsym(bhitpos.x, bhitpos.y);
+            range = 0;
             break;
         } else if (typ == TREE
              && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_DRAIN_LIFE)
@@ -4514,6 +4515,9 @@ struct obj **pobj; /* object tossed/used, set to NULL
                         && *in_rooms(bhitpos.x, bhitpos.y, SHOPBASE)) {
                         shopdoor = TRUE;
                         add_damage(bhitpos.x, bhitpos.y, SHOP_DOOR_COST);
+                        
+                        if (obj->otyp == SPE_FIRE_BOLT)
+                            range = 0;
                     }
                 }
                 break;
