@@ -1127,6 +1127,53 @@ struct obj *sobj;
     return 0;
 }
 
+STATIC_PTR void
+undo_iceflood(x, y, roomcnt)
+int x, y;
+genericptr_t roomcnt;
+{
+    if (levl[x][y].typ != ICE)
+        return;
+    
+    (*(int *)roomcnt)++;
+
+    /* Get rid of a lava pool at x, y */
+    levl[x][y].typ = ROOM;
+    newsym(x,y);
+}
+
+STATIC_PTR void
+do_iceflood(x, y, poolcnt)
+int x, y;
+genericptr_t poolcnt;
+{
+    register struct monst *mtmp;
+    register struct trap *ttmp;
+
+    if (nexttodoor(x, y) || (rn2(1 + distmin(u.ux, u.uy, x, y))) ||
+        (sobj_at(BOULDER, x, y)) || (levl[x][y].typ != ROOM && levl[x][y].typ != CORR))
+        return;
+
+    if ((ttmp = t_at(x, y)) != 0 && !delfloortrap(ttmp))
+        return;
+
+    (*(int *)poolcnt)++;
+
+    if (!((*(int *)poolcnt) && (x == u.ux) && (y == u.uy))) {
+        /* Put a pool at x, y */
+        levl[x][y].typ = ICE;
+        del_engr_at(x, y);
+
+        if ((mtmp = m_at(x, y)) != 0) {
+            (void) minliquid(mtmp);
+        } else {
+            newsym(x,y);
+        }
+    } else if ((x == u.ux) && (y == u.uy)) {
+        (*(int *)poolcnt)--;
+    }
+
+}
 STATIC_OVL boolean
 get_valid_stinking_cloud_pos(x,y)
 int x,y;
@@ -2337,6 +2384,46 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (magic_detect(sobj))
             return 1;
         known = TRUE;
+        break;
+    case SCR_ICE:
+        known = TRUE;
+        if (confused) {
+            /* remove lava from vicinity of player */
+            int maderoom = 0;
+            do_clear_areaX(u.ux, u.uy, 4+2*bcsign(sobj),
+                           undo_iceflood, (genericptr_t)&maderoom);
+            if (maderoom) {
+                known = TRUE;
+                You("stop feeling cold.");
+            }
+        } else {
+            int madepool = 0;
+            int stilldry = -1;
+            int x,y,safe_pos=0;
+            do_clear_areaX(u.ux, u.uy, 5-2*bcsign(sobj), do_iceflood,
+                           (genericptr_t)&madepool);
+            
+            /* check if there are safe tiles around the player */
+            for (x = u.ux-1; x <= u.ux+1; x++) {
+                for (y = u.uy - 1; y <= u.uy + 1; y++) {
+                    if (x != u.ux && y != u.uy &&
+                        goodpos(x, y, &youmonst, 0)) {
+                        safe_pos++;
+                    }
+                }
+            }
+
+            /* we do not put these on the player's position. */
+            if (!madepool && stilldry)
+                break;
+            if (madepool)
+                pline(Hallucination ?
+                                    "Damn, this is giving you the chills!" :
+                                    "The floor crackles with ice!" );
+            known = TRUE;
+            break;
+        }
+
         break;
     default:
         impossible("What weird effect is this? (%u)", otyp);

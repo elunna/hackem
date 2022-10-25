@@ -1064,6 +1064,7 @@ SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack 
             /* Fire burn and cauldron bubble. */
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
 SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
+SCROLL("ice",		           "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
     /* Extra descriptions, shuffled into use at start of new game.
      * Code in win/share/tilemap.c depends on SCR_STINKING_CLOUD preceding
      * these and on how many of them there are.  If a real scroll gets added

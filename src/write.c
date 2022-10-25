@@ -50,6 +50,7 @@ short otyp;
     case SCR_STINKING_CLOUD:
     case SCR_TAMING:
     case SCR_TELEPORTATION:
+    case SCR_ICE:
         return 20;
     case SCR_TIME:
     case SCR_GENOCIDE:
