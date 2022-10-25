@@ -1558,7 +1558,8 @@ dogaze()
     register struct monst *mtmp;
     int looked = 0;
     char qbuf[QBUFSZ];
-    int i;
+    int i, lev;
+    int dmg = 0;
     uchar adtyp = 0;
 
     for (i = 0; i < NATTK; i++) {
@@ -1571,7 +1572,20 @@ dogaze()
     if (adtyp == AD_HNGY || adtyp == AD_LUCK) 
         adtyp = AD_CONF;
     
-    if (adtyp != AD_CONF && adtyp != AD_FIRE && adtyp != AD_DRLI) {
+    if (adtyp == AD_DETH) 
+        adtyp = AD_DRLI;
+    
+    if (adtyp != AD_CONF 
+        && adtyp != AD_FIRE 
+        && adtyp != AD_SLEE
+        && adtyp != AD_FEAR
+        && adtyp != AD_STUN 
+        && adtyp != AD_TLPT 
+        && adtyp != AD_PLYS
+        && adtyp != AD_COLD
+        && adtyp != AD_DRLI
+        && adtyp != AD_DRST
+        && adtyp != AD_BLND) {
         impossible("gaze attack %d?", adtyp);
         return 0;
     }
@@ -1629,8 +1643,10 @@ dogaze()
                         pline("%s is getting more and more confused.",
                               Monnam(mtmp));
                     mtmp->mconf = 1;
+                } else if (adtyp == AD_FEAR) {
+                    monflee(mtmp, rnd(10), FALSE, TRUE);
                 } else if (adtyp == AD_FIRE) {
-                    int dmg = d(2, 6), lev = (int) u.ulevel;
+                    dmg = d(2, 6), lev = (int) u.ulevel;
 
                     You("attack %s with a fiery gaze!", mon_nam(mtmp));
                     if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) {
@@ -1647,6 +1663,21 @@ dogaze()
                         damage_mon(mtmp, dmg, AD_FIRE);
                     if (DEADMONSTER(mtmp))
                         killed(mtmp);
+                } else if (adtyp == AD_COLD) {
+                    dmg = d(2, 6);
+                    lev = (int) u.ulevel;
+                    
+                    You("attack %s with a chilling gaze!", mon_nam(mtmp));
+                    if (resists_cold(mtmp)) {
+                        pline_The("cold doesn't harm %s!", mon_nam(mtmp));
+                        dmg = 0;
+                    }
+                    if (lev > rn2(20))
+                        (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+                    if (dmg)
+                        mtmp->mhp -= dmg;
+                    if (DEADMONSTER(mtmp))
+                        killed(mtmp);
                 } else if (adtyp == AD_PLYS) {
                     You("fix %s with an aberrant glare...", mon_nam(mtmp));
                     if (mtmp->data == &mons[PM_NOSFERATU]) {
@@ -1658,16 +1689,28 @@ dogaze()
                         pline("%s reels in shock and horror!", Monnam(mtmp));
                         paralyze_monst(mtmp, rnd(10));
                     }
-                } else if (adtyp == AD_DRLI) {
-                    int dmg = d(2, 6);
-
+                } else if (adtyp == AD_STUN) {
+                    pline("%s %s for a moment.", Monnam(mtmp),
+                          makeplural(stagger(mtmp->data, "stagger")));
+                    mtmp->mstun = 1;
+                } else if (adtyp == AD_TLPT) {
+                    char nambuf[BUFSZ];
+                    /* record the name before losing sight of monster */
+                    Strcpy(nambuf, Monnam(mtmp));
+                    if (u_teleport_mon(mtmp, FALSE)
+                        && !(canseemon(mtmp)))
+                        pline("%s suddenly disappears!", nambuf);
+                } else if (adtyp == AD_SLEE) {
+                    pline("%s falls into a trance.", Monnam(mtmp));
+                    mtmp->msleeping = 1;
+                } else if (adtyp == AD_DRLI) { 
+                    dmg = d(2, 6);
                     You("attack %s with a deathly gaze!", mon_nam(mtmp));
                     
                     if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
                         pline_The("gaze doesn't affect %s!", mon_nam(mtmp));
                         dmg = 0;
-                    }
-                    else {
+                    } else {
                         if (mtmp->mhp < dmg) 
                             dmg = mtmp->mhp;
                         mtmp->mhpmax -= dmg;
@@ -1678,6 +1721,29 @@ dogaze()
                             xkilled(mtmp, XKILL_NOMSG);
                         } else
                             mtmp->m_lev--;
+                    }
+                } else if (adtyp == AD_DRST) {
+                    You("attack %s with a poison gaze!", mon_nam(mtmp));
+                    if (resists_poison(mtmp)) {
+                        pline_The("poison doesn't seem to affect %s.", mon_nam(mtmp));
+                    } else {
+                        if (!rn2(10)) {
+                            Your("gaze was deadly...");
+                            dmg = mtmp->mhp;
+                        } else
+                            dmg += rn1(10, 6);
+                        
+                        damage_mon(mtmp, dmg, AD_DRST);
+                        if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                            pline("%s dies!", Monnam(mtmp));
+                            xkilled(mtmp, XKILL_NOMSG);
+                        } 
+                    }
+                } else if (adtyp == AD_BLND) {
+                    if (mtmp && !resists_blnd(mtmp)) {
+                        pline("%s is blinded by your gaze!", Monnam(mtmp));
+                        mtmp->mblinded = min((int) mtmp->mblinded + dmg, 127);
+                        mtmp->mcansee = 0;
                     }
                 }
                 /* For consistency with passive() in uhitm.c, this only
