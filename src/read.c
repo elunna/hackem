@@ -3456,6 +3456,10 @@ struct obj **sobjp;
                 mtmp = makemon(&mons[mndx], u.ux, u.uy, NO_MINVENT | MM_REVIVE);
                 mtmp->mpeaceful = 1; 
             }
+            if (!mtmp) {
+                pline("Never mind.");
+                return;
+            }
             mtmp->mcloned = 1;
             mtmp = christen_monst(mtmp, plname);
             /* TODO: Match race */
