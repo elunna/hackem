@@ -1038,6 +1038,12 @@ const char *drop_fmt, *drop_arg, *hold_msg;
         /* in case touching this object turns out to be fatal */
         place_object(obj, u.ux, u.uy);
 
+        /* Make sure Eternal Flame gets lit */
+        if (artifact_light(obj) 
+            && !obj->lamplit
+            && obj->oartifact != ART_SUNSWORD)
+            begin_burn(obj, FALSE);
+        
         if (!touch_artifact(obj, &youmonst)) {
             obj_extract_self(obj); /* remove it from the floor */
             dropy(obj);            /* now put it back again :-) */

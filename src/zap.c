@@ -7037,20 +7037,24 @@ makewish()
                             : "Oops!  %s to the floor!");
 
 #ifdef WISH_TRACKER
-        /* write it out to our universal wishtracker file */
+         /* write it out to our universal wishtracker file */
         trackwish(bufcpy);
 #endif
         /* The(aobjnam()) is safe since otmp is unidentified -dlc */
-        (void) hold_another_object(otmp, oops_msg,
+        otmp = hold_another_object(otmp, oops_msg,
                                    The(aobjnam(otmp, verb)),
                                    (const char *) 0);
-
+#if 0
         /* Light up Candle of Eternal Flame and
 			 * Holy Spear of Light on creation.
+         * This might be taken care of in hold_another_object
          */
-        if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD)
+        if (otmp 
+            && artifact_light(otmp) 
+            && !otmp->lamplit 
+            && otmp->oartifact != ART_SUNSWORD)
             begin_burn(otmp, FALSE);
-
+#endif
         u.ublesscnt += rn1(100, 50); /* the gods take notice */
     }
 }
