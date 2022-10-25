@@ -1373,9 +1373,8 @@ struct obj *body;
         when = rn1(15, 5); /* 5..19 */
     }
 
-    if (action == ROT_CORPSE && !acidic(&mons[body->corpsenm])) {
-        /* Corpses get moldy.
-         * TODO: allow green molds to grow on acidic corpses. */
+    if (action == ROT_CORPSE) {
+        /* Corpses get moldy. */
         for (age = TAINT_AGE + 1; age <= ROT_AGE; age++) {
             if (!rn2(MOLDY_CHANCE)) {    /* "revives" as a random s_fungus */
                 action = MOLDY_CORPSE;
