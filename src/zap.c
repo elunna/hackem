@@ -210,24 +210,23 @@ struct obj *otmp;
         reveal_invis = TRUE;
         if (disguised_mimic)
             seemimic(mtmp);
-        /* Damage scales with level - every 5 levels we add a cumulative
-             * 1d10 to the total damage.
-             * Level 1 = 1d10 fire damage
-             * Level 5 = 2d10 fire
-             * Level 10 = 3d10 fire - and etc. 
-             * Level 15 = 4d10 fire 
-             * Level 20 = 5d10 fire (but damage is capped at 45 max */
-        
-        dmg = d((u.ulevel / 5) + 1, 10);
-        if (dmg > 45)
-            dmg = 45;
+        /* Damage scales with level */
+
+        dmg = d(1, 10);      /* Level 1 = 1d10 fire damage */
+        if (u.ulevel >= 4)
+            dmg += d(1, 8);  /* Level 4 = +1d8 */
+        if (u.ulevel >= 8)
+            dmg += d(1, 8);  /* Level 8 = +1d8 */
+        if (u.ulevel >= 12) 
+            dmg += d(1, 8);   /* Level 12 = +1d8 */
         
         if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
-            dmg += d(1, 5); /* Small bonus for being skilled */
+            dmg += d(1, 4); /* Skilled = +1d4 */
         }
-        if (otyp == SPE_FIRE_BOLT) {
-            dmg = spell_damage_bonus(dmg);
+        if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
+            dmg += d(1, 4); /* Expert = +1d4 */
         }
+
         if (dbldam)
             dmg *= 2;
         if (wizard)
