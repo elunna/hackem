@@ -725,6 +725,11 @@ register struct monst *magr, *mdef;
                 strike = 0;
                 break;
             }
+            if (is_fern_spore(mdef->data)) {
+                /* --hackem: Fix to prevent nasty placement bugs */
+                strike = 0;
+                break;
+            }
             if (u.usteed && mdef == u.usteed) {
                 strike = 0;
                 break;

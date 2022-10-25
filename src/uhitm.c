@@ -4058,6 +4058,8 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                 wakeup(mon, TRUE);
                 if (noncorporeal(mon->data))
                     Your("attempt to surround %s is harmless.", mon_nam(mon));
+                else if (is_fern_spore(mon->data))
+                    You("would rather not eat that %s.", mon_nam(mon));
                 else {
                     sum[i] = gulpum(mon, mattk);
                     if (sum[i] == 2 && (mon->data->mlet == S_ZOMBIE
