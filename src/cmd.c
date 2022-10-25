@@ -722,8 +722,7 @@ domonability(VOID_ARGS)
         return dovolley();
     else if (youmonst.data->mlet == S_NYMPH)
         return doremove();
-    else if (attacktype(youmonst.data, AT_GAZE) 
-             && u.umonnum != PM_BARGHEST)
+    else if (attacktype(youmonst.data, AT_GAZE))
         return dogaze();
     else if (is_were(youmonst.data))
         return dosummon();
