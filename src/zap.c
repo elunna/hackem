@@ -5618,6 +5618,12 @@ boolean say; /* Announce out of sight hit/miss events if true */
             range = 0;
             break;
         }
+        /* Water streams blows up forges */
+        if (levl[sx][sy].typ == FORGE && (abstype == ZT_WATER)) {
+            breakforge(sx, sy);
+            range = 0;
+            break;
+        }
 
         if (!ZAP_POS(levl[sx][sy].typ)
             || (closed_door(sx, sy) && range >= 0)) {
