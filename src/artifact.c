@@ -3093,6 +3093,14 @@ struct obj *obj;
     }
 
     if (oart->inv_prop > LAST_PROP) {
+        if (artinum == ART_FIREWALL && !Role_if(PM_FLAME_MAGE)) {
+            You("don't feel that kind of connection with Firewall.");
+            return 1;
+        }
+        if (artinum == ART_DEEP_FREEZE && !Role_if(PM_ICE_MAGE)) {
+            You("don't feel that kind of connection with Deep Freeze.");
+            return 1;
+        }
         /* It's a special power, not "just" a property */
         if (obj->age > monstermoves) {
             /* the artifact is tired :-) */
@@ -3102,6 +3110,8 @@ struct obj *obj;
             obj->age += (long) d(3, 10);
             return 1;
         }
+        
+        
         obj->age = monstermoves + rnz(100);
 
         switch (oart->inv_prop) {
@@ -3356,6 +3366,7 @@ struct obj *obj;
                 pseudo = mksobj(SCR_AIR, FALSE, FALSE);
                 break;
             case ART_DEEP_FREEZE:
+                
                 /* Virtually reads a scroll of ice */
                 pseudo = mksobj(SCR_ICE, FALSE, FALSE);
                 /* Also casts freeze sphere */
