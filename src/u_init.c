@@ -1148,7 +1148,6 @@ u_init()
         knows_object(POT_FULL_HEALING);
         knows_object(POT_BLOOD);
         knows_object(HEALTHSTONE);	/* KMH */
-        knows_object(HEALTHSTONE);	/* KMH */
         skill_init(Skill_H);
         break;
     case PM_INFIDEL:
