@@ -4231,10 +4231,12 @@ xchar x, y;
         return ER_NOTHING;
     } else if (obj->oclass == SCROLL_CLASS) {
         if (obj->otyp == SCR_BLANK_PAPER
+            || obj->otyp == SCR_FLOOD
 #ifdef MAIL
             || obj->otyp == SCR_MAIL
 #endif
-           ) return 0;
+           ) 
+            return 0;
         if (ucarried)
             pline("Your %s %s.", ostr, vtense(ostr, "fade"));
 
