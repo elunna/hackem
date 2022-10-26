@@ -2118,7 +2118,11 @@ register struct attack *mattk;
                       is disabled, it would be changed to another damage
                       type, but when defending, it remains as-is */
                    || dmgtype(youmonst.data, AD_SSEX)) {
-            pline("%s %s.", Monnam(mtmp),
+            
+            if (uwep && uwep->oartifact == ART_THIEFBANE) {
+                pline("Thiefbane distracts %s from their advances.", Monnam(mtmp));
+            } else 
+                pline("%s %s.", Monnam(mtmp),
                   Deaf ? "says something but you can't hear it"
                        : mtmp->minvent
                       ? "brags about the goods some dungeon explorer provided"
@@ -2126,7 +2130,8 @@ register struct attack *mattk;
             if (!tele_restrict(mtmp))
                 (void) rloc(mtmp, TRUE);
             return 3;
-        } else if (mtmp->mcan || Hidinshell) {
+        } else if (mtmp->mcan || Hidinshell 
+                   || (uwep && uwep->oartifact == ART_THIEFBANE)) {
             if (!Blind)
                 pline("%s tries to %s you, but you seem %s.",
                       Adjmonnam(mtmp, "plain"),
@@ -2138,6 +2143,10 @@ register struct attack *mattk;
                 return 3;
             }
             break;
+        }
+        if (uwep && uwep->oartifact == ART_THIEFBANE) {
+            pline("%s makes a move for your pack but Thiefbane blocks the theft!.", Monnam(mtmp));
+            return 1;
         }
         buf[0] = '\0';
         switch (steal(mtmp, buf)) {

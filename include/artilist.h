@@ -320,12 +320,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The End", SCYTHE, (SPFX_RESTR | SPFX_DEFN), 0, 0, COLD(3, 20),
       DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
 
-    A("Thiefbane", LONG_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_DCLAS | SPFX_DRLI | SPFX_WARN),
-      SPFX_EXCLUDE, S_HUMAN, DRLI(5, 1), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
-      1500L, NO_COLOR),
-
-
   /*
    * The Sword of Kas - the sword forged by Vecna and given to his top
    * lieutenant, Kas. */
@@ -452,6 +446,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 5), DFNS(AD_BLND), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 2000L,
       NO_COLOR),
 
+    A("Thiefbane", TWO_HANDED_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN), SPFX_EXCLUDE, 0, 
+      PHYS(5, 1), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L, NO_COLOR),
+    
     /* Resisted by very few monsters, but is a morning star and also
     *       happens to destroy tons of items. 
      *      (Previously known as Sonicboom in SpliceHack) */

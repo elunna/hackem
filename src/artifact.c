@@ -3022,11 +3022,19 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
+    int chance = 4;
+    /* Thiefbane gets a huge bonus for cancelling thiefs or covetous */
+    if (otmp->oartifact == ART_THIEFBANE && 
+        (is_covetous(mdef->data) 
+         || dmgtype(mdef->data, AD_SITM) 
+         || dmgtype(mdef->data, AD_SEDU)))
+        chance = 8;
+    
     /* WAC -- 1/6 chance of cancellation with foobane weapons */
     if (otmp->oartifact == ART_ORCRIST ||
         otmp->oartifact == ART_DEMONBANE ||
         otmp->oartifact == ART_THIEFBANE) {
-        if (!mdef->mcan && dieroll < 4) {
+        if (!mdef->mcan && dieroll < chance) {
             if (realizes_damage) {
                 pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
                       "roars deafeningly" : "shines brilliantly");
