@@ -819,6 +819,7 @@ static const struct def_skill Skill_T[] = {
 static const struct def_skill Skill_U[] = {
     { P_DAGGER, P_EXPERT },         /* Wooden stake and quest artifact */
     { P_LONG_SWORD, P_BASIC },      /* Buffy */
+    { P_SHORT_SWORD, P_BASIC },      /* Buffy */
     { P_BROAD_SWORD, P_SKILLED },    /* Buffy */
     { P_CLUB, P_SKILLED },
     { P_MACE, P_SKILLED },
