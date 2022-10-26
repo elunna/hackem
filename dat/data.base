@@ -1861,7 +1861,6 @@ weapon f*
     athame                  = dagger + stiletto
     parazonium              = dagger + knife
     great dagger            = parazonium + knife
-    stake                   = quarterstaff + knife
     knife                   = 2 arrows + 2 darts
     stiletto                = knife + 2 crossbow bolts
     scalpel                 = knife + stiletto
