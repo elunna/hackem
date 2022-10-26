@@ -971,7 +971,6 @@ boolean wiz_cast;
     boolean confused = (Confusion != 0);
     boolean physical_damage = FALSE;
     struct obj *pseudo, *otmp = (struct obj *) 0;
-    struct monst *mtmp;
     coord cc;
 
     /*
