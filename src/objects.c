@@ -1056,6 +1056,7 @@ SCROLL("transmogrify",              "TLON UQBAR",  1,  20, 200), /* SpliceHack *
                                 /* Tlon Uqbar */
 SCROLL("magic mapping",              "ELAM EBOW",  1,  45, 100),
 SCROLL("amnesia",                   "DUAM XNAHT",  1,  35, 200),
+SCROLL("flood",                     "AQUE BRAGH",  1,  35, 200),
 SCROLL("fire",                  "ANDOVA BEGARIN",  1,  30, 100),
 SCROLL("earth",                          "KIRJE",  1,  18, 200),
 SCROLL("punishment",            "VE FORBRYDERNE",  1,  15, 300),
