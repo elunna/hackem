@@ -5504,6 +5504,7 @@ potion of amnesia
 	- You can lose skills, forget about your ball and chain 
 	  (if punished), and forget traps.
 	
+	- Always cures Afraid status.
 	- blessed: Cures lycanthropy, sickness, and gives you 51-100 
 	  nutrition points.
 	- non-blessed: May also cause you to forget some spells. 
@@ -5576,9 +5577,9 @@ potion of sake
 potion of booze
     When quaffed, this potion provides nutrition, abuses wisdom, 
     and may confuse you.
-    - blessed:  30 nutrition
-    - uncursed: 20 nutrition, confusion for 3d8 (more) turns.
-    - cursed:   10 nutrition, confusion for 3d8 (more) turns, 
+    - blessed:  140 nutrition (50 if diluted)
+    - uncursed: 130 nutrition (40 if diluted), confusion for 3d8 (more) turns.
+    - cursed:   120 nutrition (30 if diluted), confusion for 3d8 (more) turns, 
       makes you pass out for 1-15 turns.
 
     - Non-diluted potions also heal 1 hit point.
@@ -5613,6 +5614,7 @@ potion of clairvoyance
     When quaffed
     - blessed: Grants 100-149 turns of intrinsic clairvoyance,
         occasionally mapping the surrounding 19x11 area.
+		(100-149 turns if diluted)
     - uncursed: Grants a single application of clairvoyance, 
       revealing all corridors, walls, and stairs in a 19x11 region
       around you.
@@ -5780,9 +5782,9 @@ potion of invisibility
     Alchemy recipes: None
 potion of invulnerability
 	When quaffed, causes you to become invulnerable for a few turns.
-    - blessed: 12-15 turns.
-    - uncursed: 8-11 turns.
-    - cursed: 4-7 turns.
+    - blessed: 12-15 turns (8-11 if diluted)
+    - uncursed: 8-11 turns (4-7 if diluted)
+    - cursed: 4-7 turns (0-3 if diluted)
     
 	- Only protects from hit-point loss; you are still vulnerable
 	  to petrification, beheading, illness, and other methods of
@@ -5917,8 +5919,8 @@ potion of polymorph
     Alchemy recipes: None
 potion of reflection
    When quaffed, this potion grants you temporary reflection.
-   - blessed: Grants reflection for 250-299 turns.
-   - uncursed: Grants reflection for 20-29 turns.
+   - blessed: 250-299 turns (100-149 if diluted)
+   - uncursed: 100-109 turns (50-59 if diluted)
    - cursed: No effect.
    
    Alchemy recipes: None
@@ -5993,17 +5995,17 @@ smoky potion
 potion of speed
     When quaffed, this potion temporarily grants very fast speed, 
     heals wounded legs, and exercises dexterity.
-    - blessed: 160-169 turns
-    - uncursed: 100-109 turns
-    - cursed: 40-49 turns
+    - blessed: 160-169 turns (125-134 if diluted)
+    - uncursed: 100-109 turns (65-74 if diluted)
+    - cursed: 40-49 turns (5-14 if diluted)
     
     Alchemy recipes:
     - ! of healing     + ! of speed = ! of extra healing
 	- ! of fruit juice + ! of speed = ! of booze
 potion of regeneration
     When quaffed, this potion grants you temporary regeneration.
-    - blessed: Grants regeneration for 100-199 turns
-    - uncursed: Grants regeneration for 50-99 turns
+    - blessed: 100-199 turns (50-149 if diluted)
+    - uncursed: 50-99 turns (25-74 if diluted)
     - cursed: Inflicts withering for 20-29 turns.
     
     Alchemy recipes: None
@@ -6682,7 +6684,9 @@ scroll of air
     - cursed: You take 3d4 damage (unless you are a form that is 
       breathless)
 
-	Confused effects: None, acts as above.
+	Confused effects:
+	- creates an air elemental if cursed, or a whirling sphere.
+
 scroll of amnesia
     When read, this scroll causes you to forget things(*) and abuses
     your wisdom.
@@ -7023,6 +7027,16 @@ scroll of fire
 	- The explosion of fire burns away any slime covering you. 
 	- This scroll will never be destroyed by fire damage that normally
 	  affects carried items.
+scroll of flood
+	Creates pools of water around the player.
+	
+	- non-blessed scrolls have a chance of putting a water tile on the
+	  player's posision. 
+	
+	Confused effects:
+	- Instead removes water from vicinity of player.
+
+	Scrolls of flood cannot be blanked in water.
 scroll of food detection
     When read, this scroll reveals the location of all comestibles 
     on the level.
@@ -7057,12 +7071,19 @@ scroll of gold detection
     - cursed: See confused effect.
 
 	Confused effects:
-	- Detects traps. 
+	- Detects traps.
+	- Confused reading shows only real traps, not magic portals.
 	- If non-cursed, all traps on the level will be revealed to the
 	  player with the ^ or " symbols (of the appropriate color). 
 	- If the scroll was cursed, regardless if you are confused or
 	  not, all traps on the level will be marked with a $ as if the
 	  scroll was detecting gold.
+scroll of ice
+	Transforms some floor tiles into ice tiles.
+
+	Confused effects:
+	- Removes any lava tiles in the vicinity of the player.
+
 scroll of identify
     When read, this scroll reveals the full identity of at least one 
     unknown item in the player's inventory. 
@@ -7241,7 +7262,7 @@ scroll of taming
 	  nearby monsters.
 scroll of teleportation
     When read, this scroll teleports the player.
-    - blessed: You are asked whether you want to teleport.
+    - blessed: You are asked where you want to teleport.
     - uncursed: You are randomly teleported to a location within 
       the same level.
     - cursed: You are teleported to another level. 
@@ -8503,6 +8524,8 @@ wand of acid
 	
 	Breaking: 
 	- Causes an acid explosion which deals (12 x charges) damage.
+	- A Magic Beam Trap may be created when this wand is broken. The 
+	  more charges on the wand the higher the chance of creating a trap.
 
 	Engraving: Burn.
 wand of cancellation
@@ -8631,12 +8654,16 @@ wand of digging
 	  flying, or else happen to escape, you will fall in. Doing so on
 	  a headstone always creates a pit on the square and unearths the
 	  contents of that grave.
-	- Zapping the wand in a maze level will limit the ray's effect to
-	  one square; 
+	- Zapping the wand in a maze level now works as it normally would
+	  (no longer restricted to 1 square)
+	- Zapping a boulder will vaporize it.
 	- the ray has no effect on undiggable walls and rock.
 	
 	- Zapping the wand while being engulfed by a non-whirly monster 
 	  halves the monster's current HP and expels you.
+	- Rays from a wand of digging will also halve the current HP of 
+	  "stony" monsters, including xorns, earth elementals, gargoyles
+	  and stone golems.
 	- Razing the walls and/or doors of Minetown will anger the watch.
 
 	Breaking:
@@ -8704,6 +8731,12 @@ wand of fear
 	When zapped or engraved with, this wand scares monsters around 
 	you in a similar fashion to reading a scroll of scare monster.
 	
+	cursed: 
+	-  If monsters are fleeing, they stop.
+	- If monsters are paralyzed or sleeping, they wake up and are 
+	able to move.
+	- 80% of the time a cursed wand zaps you with fear as well.
+
 	Breaking:
 	- When broken, the explosion does no damage but instead scares
 	  you for 5-15 turns.
@@ -8806,7 +8839,10 @@ wand of lightning
 	  yourself and all monsters on the surrounding squares. Your
 	  inventory is subject to the same effects as though you were 
 	  zapped with the wand, i.e. your rings and wands may explode.
+	- A Magic Beam Trap may be created when this wand is broken. The 
+	  more charges on the wand the higher the chance of creating a trap.
 	
+
 	Engraving: Burn.
 	- Like a wand of fire, this burns text into the ground; however, 
 	  doing so will blind you for d50 (more) turns. You can avoid 
@@ -8942,7 +8978,9 @@ wand of poison gas
 	
 	Breaking:
 	- Results in a 3x3 cloud of poison gas centered around the player.
-	
+	- A Magic Beam Trap may be created when this wand is broken. The 
+	  more charges on the wand the higher the chance of creating a trap.
+
 	Engraving: Dust.
 	- Creates a single cloud of poison gas when engraving.
 wand of polymorph
@@ -8998,7 +9036,10 @@ wand of secret door detection
 	- Marks on spaces without monsters are removed, and monsters that
 	  are hiding will be revealed.
 
-	Breaking: No effects.
+	Breaking:
+	- Chance of detecting traps and magic portals
+	- Requires at least 2 charges to be successful, the more charges
+	  the higher the chance of a successful detection.
 	
 	Engraving: Dust.
 	- Engraving with the wand will only auto-identify it if any of
@@ -9062,7 +9103,9 @@ wand of sonics
 	  yourself and all monsters on the surrounding squares. Your 
 	  inventory is subject to the same effects as though you were
 	  zapped with the wand.
-	
+	- A Magic Beam Trap may be created when this wand is broken. The 
+	  more charges on the wand the higher the chance of creating a trap.
+
 	Engraving: Dust.
 	- The wand will issue some loud bands and wakeup nearby monsters.
 wand of speed monster
@@ -9176,9 +9219,10 @@ wand of water
 	will be instantly killed by turning into a block of ice.
 	- If you zap a water elemental, you will instead heal it for 6d6 HP.
 	- If you zap an earth elemental, it turns into a mud elemental.
+
 	- Amphibious and breathless monsters are not affected by water streams.
     - Monsters that like fire or lava (ex: fire vortex, lava demon)
-      take an extra 6d6 damage. (If this monster is also amphibious 
+      take an extra 6d6 damage. (If the monster is also amphibious 
       or unbreathing, this vulnerability takes priority.
     
     - Monsters can use this wand and will attack you if you are a 
@@ -9186,10 +9230,15 @@ wand of water
     - Lamps or lit items that are in the path of the water beam will 
       be snuffed.
       
-    Zapping the floor wipes away any engravings.
-	Breaking: There is also chance of creating a Rust Trap when this
-	wand is broken. The more charges on the wand the higher the 
-	chance of creating the trap.
+    - Zapping the floor wipes away any engravings.
+	
+	- If a ray of water hits a forge, it will destroy it.
+
+	Breaking: 
+	- There is also chance of creating a Rust Trap when this wand is
+	  broken. The more charges on the wand the higher the chance of 
+	  creating the trap.
+
 	Engraving: 
 wand of wind
 	Can blow monsters away, or blow a hole in a whirly monster 
@@ -9197,6 +9246,8 @@ wand of wind
 	
 	- If any items are hit by the blast of wind, they will be scattered.
 	
+	- hurtles you in a random direction when zapped at self.
+
 	If you are polymorphed into a whirly monster and are zapped by 
 	this wand, you will be changed back to your base form and your 
 	constitution is abused. If you have unchanging on, you'll suffer 
