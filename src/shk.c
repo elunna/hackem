@@ -4513,7 +4513,7 @@ shk_rumor(slang, shkp)
 const char *slang;
 struct monst *shkp;
 {
-    int charge = 250;                     /* Rumor Cost */
+    int charge = 25;                     /* Rumor Cost */
                                     
     pline("I heard some juicy stuff the other day...");
     /* Go ahead? */
