@@ -1737,8 +1737,13 @@ register struct monst *mtmp;
            throw. As suggested by KAA.     [MRS] */
         if (!rn2(4))
             m_initthrow(mtmp, CREAM_PIE, 2);
-        if (!rn2(3))
+        if (rn2(3))
             (void) mongets(mtmp, (rn2(2)) ? CLUB : RUBBER_HOSE);
+        else if (!rn2(3)) {
+            m_initthrow(mtmp, BULLET, 15);
+            (void) mongets(mtmp, PISTOL);
+            (void) mongets(mtmp, (rn2(2)) ? DAGGER : KNIFE);
+        }
         break;
     case S_ORC:
         if (rn2(2))
