@@ -1223,6 +1223,19 @@ register struct obj *otmp;
     case POT_GAIN_ABILITY:
         if (otmp->cursed) {
             pline("Ulch!  That potion tasted foul!");
+            
+            /* [BarclayII] cursed potions randomly decrease your attribute */
+            boolean happened = FALSE;
+            if (!Fixed_abil) {
+                for (i = 0; i < A_MAX; ++i) {
+                    if (rn2(2)) {
+                        adjattrib(i, -1, 0);
+                        happened = TRUE;
+                    }
+                }
+            }
+            if (!happened)
+                nothing++;
             unkn++;
         } else if (Fixed_abil) {
             nothing++;
