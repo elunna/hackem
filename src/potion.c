@@ -2733,7 +2733,7 @@ boolean ourfault;
         used = TRUE;
         break;
     case SCROLL_CLASS:
-        if (obj->otyp != SCR_BLANK_PAPER) {
+        if (obj->otyp != SCR_BLANK_PAPER && obj->otyp != SCR_FLOOD) {
             if (!Blind) {
                 boolean oq1 = obj->quan == 1L;
                 pline_The("scroll%s %s.",
