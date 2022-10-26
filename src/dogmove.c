@@ -1035,7 +1035,7 @@ int after, udist, whappr;
             } else {
                 int fardist = FARAWAY * FARAWAY;
                 gx = gy = FARAWAY; /* random */
-                do_clear_area(omx, omy, 9, wantdoor, (genericptr_t) &fardist);
+                do_clear_area(omx, omy, 9, wantdoor, (genericptr_t) &fardist, FALSE);
 
                 /* here gx == FARAWAY e.g. when dog is in a vault */
                 if (gx == FARAWAY || (gx == omx && gy == omy)) {

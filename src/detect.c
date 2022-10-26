@@ -1825,7 +1825,7 @@ findit()
 
     if (u.uswallow)
         return 0;
-    do_clear_area(u.ux, u.uy, BOLT_LIM, findone, (genericptr_t) &num);
+    do_clear_area(u.ux, u.uy, BOLT_LIM, findone, (genericptr_t) &num, FALSE);
     return num;
 }
 
@@ -1846,7 +1846,7 @@ openit()
         return -1;
     }
 
-    do_clear_area(u.ux, u.uy, BOLT_LIM, openone, (genericptr_t) &num);
+    do_clear_area(u.ux, u.uy, BOLT_LIM, openone, (genericptr_t) &num, FALSE);
     return num;
 }
 

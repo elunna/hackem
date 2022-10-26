@@ -2447,7 +2447,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* remove water from vicinity of player */
             int maderoom = 0;
             do_clear_area(u.ux, u.uy, 4 + 2 * bcsign(sobj),
-                          undo_flood, (genericptr_t)&maderoom);
+                          undo_flood, (genericptr_t)&maderoom, FALSE);
             if (maderoom) {
                 known = TRUE;
                 You("are suddenly very dry!");
@@ -2458,7 +2458,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             int x, y, safe_pos = 0;
             if (!sobj->cursed)
                 do_clear_area(u.ux, u.uy, 5, do_flood,
-                              (genericptr_t)&madepool);
+                              (genericptr_t)&madepool, FALSE);
             /* check if there are safe tiles around the player */
             for (x = u.ux-1; x <= u.ux+1; x++) {
                 for (y = u.uy - 1; y <= u.uy + 1; y++) {
@@ -2490,8 +2490,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (confused) {
             /* remove lava from vicinity of player */
             int maderoom = 0;
-            do_clear_areaX(u.ux, u.uy, 4+2*bcsign(sobj),
-                           undo_iceflood, (genericptr_t)&maderoom);
+            do_clear_area(u.ux, u.uy, 4 + 2 *bcsign(sobj),
+                           undo_iceflood, (genericptr_t)&maderoom, TRUE);
             if (maderoom) {
                 known = TRUE;
                 You("stop feeling cold.");
@@ -2499,9 +2499,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         } else {
             int madepool = 0;
             int stilldry = -1;
-            int x,y,safe_pos=0;
-            do_clear_areaX(u.ux, u.uy, 5-2*bcsign(sobj), do_iceflood,
-                           (genericptr_t)&madepool);
+            int x, y, safe_pos = 0;
+            do_clear_area(u.ux, u.uy, 5 - 2 * bcsign(sobj), do_iceflood,
+                           (genericptr_t) &madepool, TRUE);
             
             /* check if there are safe tiles around the player */
             for (x = u.ux-1; x <= u.ux+1; x++) {
@@ -2934,11 +2934,11 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
     } else if (!obj) {
         /* --hackem: Real hack here to allow monsters to spread darkness. */
         do_clear_area(u.ux, u.uy, d(1, 3),
-                      set_lit, (genericptr_t) (on ? &is_lit : (char *) 0));
+                      set_lit, (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
     }
     else {
         do_clear_area(u.ux, u.uy, blessed_effect ? 9 : 5, set_lit,
-                      (genericptr_t) (on ? &is_lit : (char *) 0));
+                      (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
     }
 
         /*

@@ -2623,6 +2623,7 @@ E boolean FDECL(known_spell, (SHORT_P));
 E int FDECL(spell_idx, (SHORT_P));
 E boolean FDECL(force_learn_spell, (SHORT_P));
 E int NDECL (num_spells);
+E void FDECL(cast_sphere, (short otyp));
 
 /* ### steal.c ### */
 
@@ -2974,10 +2975,8 @@ E void FDECL(vision_recalc, (int));
 E void FDECL(block_point, (int, int));
 E void FDECL(unblock_point, (int, int));
 E boolean FDECL(clear_path, (int, int, int, int));
-E void FDECL(do_clear_area, (int, int, int,
-                             void (*)(int, int, genericptr), genericptr_t));
-E void FDECL(do_clear_areaX, (int, int, int,
-                             void (*)(int, int, genericptr_t), genericptr_t));
+E void FDECL(do_clear_area, (int, int, int, void (*)(int, int, genericptr), 
+                             genericptr_t, BOOLEAN_P));
 E unsigned FDECL(howmonseen, (struct monst *));
 
 #ifdef VMS

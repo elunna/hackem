@@ -3327,6 +3327,13 @@ struct obj *obj;
             case ART_IMHULLU:
                 pseudo = mksobj(SCR_AIR, FALSE, FALSE);
                 break;
+            case ART_DEEP_FREEZE:
+                /* Virtually reads a scroll of ice */
+                pseudo = mksobj(SCR_ICE, FALSE, FALSE);
+                /* Also casts freeze sphere */
+                /* spelleffects(spell_idx(FREEZE_SPHERE), FALSE, FALSE) */
+                cast_sphere(spell_idx(SPE_FREEZE_SPHERE));
+                break;
             default:
                 impossible("bad artifact invocation seffect?");
                 break;

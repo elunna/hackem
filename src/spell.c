@@ -1437,25 +1437,8 @@ boolean wiz_cast;
 	break;
     case SPE_FLAME_SPHERE:
     case SPE_FREEZE_SPHERE:
-        pline("You conjure elemental energy...");
-        for (n = 0; n < max(role_skill - 1, 1); n++) {
-            mtmp = make_helper((pseudo->otyp == SPE_FLAME_SPHERE) ?
-                               PM_FLAMING_SPHERE : PM_FREEZING_SPHERE, u.ux, u.uy);
-            if (!mtmp) {
-                pline("But it quickly fades away.");
-                break;
-            } else {
-                mtmp->mtame = 10;
-                mtmp->mhpmax = mtmp->mhp = 1;
-                if (role_skill >= P_SKILLED)
-                    mtmp->msummoned = rnd(100) + 100;
-                else
-                    mtmp->msummoned = rnd(50) + 50;
-                mtmp->uexp = 1;
-            }
-        }
+        cast_sphere(otyp);
         break;
-    
     case SPE_ENLIGHTEN: 
         You("feel self-knowledgeable...");
         display_nhwindow(WIN_MESSAGE, FALSE);
@@ -2363,4 +2346,29 @@ num_spells()
     return i;
 }
 
+void
+cast_sphere(otyp)
+short otyp;
+{
+    struct monst *mtmp;
+    int role_skill = P_SKILL(P_MATTER_SPELL);
+    pline("You conjure elemental energy...");
+    for (int n = 0; n < max(role_skill - 1, 1); n++) {
+        mtmp = make_helper((otyp == SPE_FLAME_SPHERE) 
+                               ? PM_FLAMING_SPHERE 
+                               : PM_FREEZING_SPHERE, u.ux, u.uy);
+        if (!mtmp) {
+            pline("But it quickly fades away.");
+            break;
+        } else {
+            mtmp->mtame = 10;
+            mtmp->mhpmax = mtmp->mhp = 1;
+            if (role_skill >= P_SKILLED)
+                mtmp->msummoned = rnd(100) + 100;
+            else
+                mtmp->msummoned = rnd(50) + 50;
+            mtmp->uexp = 1;
+        }
+    }
+}
 /*spell.c*/

@@ -2753,10 +2753,11 @@ genericptr_t arg;
  * vision matrix and reduce extra work.
  */
 void
-do_clear_area(scol, srow, range, func, arg)
+do_clear_area(scol, srow, range, func, arg, override_vision)
 int scol, srow, range;
 void FDECL((*func), (int, int, genericptr_t));
 genericptr_t arg;
+boolean override_vision;
 {
     /* If not centered on hero, do the hard work of figuring the area */
     if (scol != u.ux || srow != u.uy) {
@@ -2766,13 +2767,15 @@ genericptr_t arg;
         register int x;
         int y, min_x, max_x, max_y, offset;
         char *limits;
+#if 0 /* Added boolean to caller */
         boolean override_vision;
-
+#endif
         /* vision doesn't pass through water or clouds, detection should
            [this probably ought to be an arg supplied by our caller...] */
-        override_vision =
-            (Is_waterlevel(&u.uz) || Is_airlevel(&u.uz)) && detecting(func);
-
+        if (!override_vision) {
+            override_vision = (Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
+                              && detecting(func);
+        }
         if (range > MAX_RADIUS || range < 1)
             panic("do_clear_area:  illegal range %d", range);
         if (vision_full_recalc)
@@ -2791,41 +2794,6 @@ genericptr_t arg;
             for (x = min_x; x <= max_x; x++)
                 if (couldsee(x, y) || override_vision)
                     (*func)(x, y, arg);
-        }
-    }
-}
-
-
-
-void
-do_clear_areaX(scol,srow,range,func,arg) /* cloned function that does not use sight */
-int scol, srow, range;
-void FDECL((*func), (int,int,genericptr_t));
-genericptr_t arg;
-{
-    /* If not centered on hero, do the hard work of figuring the area */
-    if (scol != u.ux || srow != u.uy)
-        view_from(srow, scol, (char **)0, (char *)0, (char *)0,
-                  range, func, arg);
-    else {
-        register int x;
-        int y, min_x, max_x, max_y, offset;
-        char *limits;
-        
-        if (range > MAX_RADIUS || range < 1)
-            panic("do_clear_area:  illegal range %d", range);
-        if(vision_full_recalc)
-            vision_recalc(0);	/* recalc vision if dirty */
-        limits = circle_ptr(range);
-        if ((max_y = (srow + range)) >= ROWNO) max_y = ROWNO-1;
-        if ((y = (srow - range)) < 0) y = 0;
-        for (; y <= max_y; y++) {
-            offset = limits[v_abs(y-srow)];
-            if((min_x = (scol - offset)) < 0) min_x = 0;
-            if((max_x = (scol + offset)) >= COLNO) max_x = COLNO-1;
-            for (x = min_x; x <= max_x; x++)
-                /*if (couldsee(x, y))*/
-                (*func)(x, y, arg);
         }
     }
 }

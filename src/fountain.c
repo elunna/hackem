@@ -139,9 +139,9 @@ boolean sewage;
     int madepool = 0;
 
     if (sewage)
-        do_clear_area(u.ux, u.uy, 3, gush_sewage, (genericptr_t) &madepool);
+        do_clear_area(u.ux, u.uy, 3, gush_sewage, (genericptr_t) &madepool, FALSE);
     else
-        do_clear_area(u.ux, u.uy, 7, gush, (genericptr_t) &madepool);
+        do_clear_area(u.ux, u.uy, 7, gush, (genericptr_t) &madepool, FALSE);
 
     if (!madepool) {
         if (drinking)
