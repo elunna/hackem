@@ -28,7 +28,7 @@ static const struct innate {
                  { 10, &(HSearching), "perceptive", "unaware" },
                  { 0, 0, 0, 0 } },
 
-  bar_abil[] = { { 1, &(HPoison_resistance), "", "" },
+  bar_abil[] = { /*{ 1, &(HPoison_resistance), "", "" },*/
                  { 7, &(HFast), "quick", "slow" },
                  { 15, &(HStealth), "stealthy", "" },
                  { 0, 0, 0, 0 } },
