@@ -4785,7 +4785,7 @@ doapply()
      * applied only with feet, or something. If wearing gloves of any sort, you
      * are shielded from harmful material effects of that item, though only if
      * it's not an artifact. */
-    if (obj->oartifact || !uarmg) {
+    if (obj->oartifact || !uarmg || touches_body(obj)) {
         if (!retouch_object(&obj, FALSE))
             return 1; /* evading your grasp costs a turn; just be
                          grateful that you don't drop it as well */

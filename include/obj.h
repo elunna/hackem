@@ -226,6 +226,17 @@ struct obj {
     ((o)->oclass == TOOL_CLASS && objects[(o)->otyp].oc_skill != P_NONE)
         /* towel is not a weptool:  spe isn't an enchantment, cursed towel
            doesn't weld to hand, and twoweapon won't work with one */
+#define touches_body(otmp) \
+    (  otmp->otyp == PEA_WHISTLE \
+    || otmp->otyp == MAGIC_WHISTLE \
+    || otmp->otyp == FLUTE \
+    || otmp->otyp == MAGIC_FLUTE \
+    || otmp->otyp == TOOLED_HORN \
+    || otmp->otyp == FROST_HORN \
+    || otmp->otyp == FIRE_HORN \
+    || otmp->otyp == HORN_OF_BLASTING \
+    || otmp->otyp == BUGLE \
+    || otmp->otyp == STETHOSCOPE) /* Touches ears */
 #define is_barding(otmp) \
     (otmp->otyp == BARDING                                                   \
      || otmp->otyp == SPIKED_BARDING || otmp->otyp == BARDING_OF_REFLECTION)
