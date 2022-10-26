@@ -2744,6 +2744,26 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         return TRUE;
        }
 
+    if (otmp->oartifact == ART_DEATHSWORD && dieroll < 4) {
+        if (youdefend && !mindless(youmonst.data)) {
+            pline_The((!multi) ? "heavy blade strikes you and you give in to pain!" 
+                              : "heavy blade hurts you even more!"
+            );
+            nomovemsg = "You regain consciousness.";
+            nomul(multi - d(1, 5));
+            return TRUE;
+        } else if (!youdefend && !mindless(mdef->data)) {
+            int rnd_tmp = d(1, 5);
+            pline_The(mdef->mcanmove ? "heavy blade knocks %s unconscious!" 
+                                     : "heavy blade hurts %s even more!", 
+                      (canseemon(mdef)) ? mon_nam(mdef) : "it");
+            mdef->mcanmove = 0;
+            mdef->mfrozen = ((int)mdef->mfrozen + rnd_tmp > 127) 
+                                ? 127 : mdef->mfrozen + rnd_tmp;
+            return TRUE;
+        }
+   }
+       
     if (otmp->oartifact == ART_SERPENT_S_TONGUE) {
         otmp->dknown = TRUE;
         pline_The("twisted blade poisons %s!",
