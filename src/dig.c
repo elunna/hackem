@@ -954,6 +954,10 @@ coord *cc;
     } else if ((u.ualign.type == A_LAWFUL) && (u.ualign.record > -10)) {
         adjalign(-sgn(u.ualign.type));
         You("have violated the sanctity of this grave!");
+    } else if (Role_if(PM_NECROMANCER)) {
+        /* [BarclayII] Grave-digging is a proper job of Necromancers. */
+        adjalign(-sgn(u.ualign.type));
+        You_feel("like a proper gravedigger.");
     }
 
     if (!rn2(13)) {
@@ -967,6 +971,11 @@ coord *cc;
             You("unearth a corpse.");
             if ((otmp = mk_tt_object(CORPSE, dig_x, dig_y)) != 0)
                 otmp->age -= 100; /* this is an *OLD* corpse */
+            /* [BarclayII] Necromancers like old corpses. */
+            if (Role_if(PM_NECROMANCER)) {
+                You("find the result satisfying.");
+                exercise(A_WIS, TRUE);
+            }
             break;
         case 2:
             if (!Blind)
