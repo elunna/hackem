@@ -3553,7 +3553,9 @@ register struct obj *obj;
             case 5: obj->otyp = STAFF_OF_WAR; break;
             }
             break;
-
+        case BOOMERANG:
+            obj->otyp = CHAKRAM; 
+            break;
         /* robes */
         case ROBE:
             if (!rn2(2))

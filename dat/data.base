@@ -8261,6 +8261,7 @@ upgrade
     Dipping an item can possibly upgrade that item to something more useful.
     
     Quarterstaff              -> Magical staff
+    Boomerang                 -> Chakram
     Robe                      -> Robe of Protection (50%)
     Robe                      -> Robe of Power (50%)
     Robe of Protection        -> Robe
