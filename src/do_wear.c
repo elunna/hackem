@@ -1806,22 +1806,27 @@ void
 Blindf_off(otmp)
 struct obj *otmp;
 {
-    boolean was_blind = Blind, changed = FALSE;
+    boolean was_blind = Blind, changed = FALSE,
+            nooffmsg = !otmp;
 
+    if (!otmp)
+        otmp = ublindf;
     if (!otmp) {
-        impossible("Blindf_off without otmp");
+        impossible("Blindf_off without eyewear?");
         return;
     }
     context.takeoff.mask &= ~W_TOOL;
     setworn((struct obj *) 0, otmp->owornmask);
-    off_msg(otmp);
+    
+    if (!nooffmsg)
+        off_msg(otmp);
 
     if (Blind) {
         if (was_blind) {
             /* "still cannot see" makes no sense when removing lenses
                since they can't have been the cause of your blindness */
-            if (otmp->otyp != LENSES || otmp->otyp != GOGGLES
-                  || otmp->otyp != MASK)
+            if (otmp->otyp != LENSES && otmp->otyp != GOGGLES
+                  && otmp->otyp != MASK)
                 You("still cannot see.");
         } else {
             changed = TRUE; /* !was_blind */
@@ -1834,7 +1839,8 @@ struct obj *otmp;
     } else if (was_blind) {
         if (!gulp_blnd_check()) {
             changed = TRUE; /* !Blind */
-            You("can see again.");
+            if (!nooffmsg)
+                You("can see again.");
         }
     }
     if (changed) {
