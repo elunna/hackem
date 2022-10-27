@@ -28,7 +28,7 @@
 
 ## Monster changes
 
-### New Monsters (Imported or created):
+### New Monsters (imported and created)
 
 - (a) giant tick
     - Can appear in main dungeon; increased difficulty by 7.
@@ -632,55 +632,83 @@
     - leaves piles of coins
 - ($) huge pile of killer coins
     - leaves piles of coins
-	
-### Role related additions:
-
-- (@) flame mage, High Flame Mage, igniter, and Water Mage
-- (@) ice mage, High Ice Mage, froster, and Earth Mage (Replaced with Ragnaros from slashem-up)
-- (@) necromancer, Dark Lord, embalmer, Maugneshaagar
-- (@) undead slayer, Van Helsing, exterminator, Count Dracula 
-- (@) yeoman, Chief Yeoman Warder, Yeoman Warder, Colonel Blood
+- (@) flame mage
+- (@) necromancer
+- (@) ice mage
+- (@) undead slayer
+- (@) yeoman
+- (@) High Flame Mage
+- (@) High Ice Mage
+- (@) Dark Lord
+- (@) Van Helsing
+- (@) Chief Yeoman Warder
+- (@) Water Mage
+- (@) Ragnaros (Replaces the Earth Mage, slashem-up)
+- (@) Maugneshaagar
+- (@) Count Dracula
+- (@) Colonel Blood
+- (@) igniter
+- (@) froster
+- (@) embalmer
+- (@) exterminator
+- (@) Yeoman Warder
 
 ### Monster changes:
 
-- [x] Zombies – probably the most significant monster change (from EvilHack) and one of the key changes that makes this variant so difficult. Zombies now have two different attack types, one being a poisonous claw attack (effects and frequency are the same as a bite from a rabid rat), the other being a disease-inducing bite attack to the head. The latter is a very serious threat, as the ability to cure oneself from being terminally ill are almost non-existent in the early game. If the player becomes ill from a zombie bite, they only have a few turns to cure themselves, or they will die and turn into a zombie. This zombie can be encountered by other players if a bones file is generated. There is a very small chance that the player will be able to continue playing if they are turned into a zombie; however, they will be stuck in that form for the remainder of the game. A zombie's bite attack also has a chance of causing amnesia. Eating a zombie corpse will make the player ill and cause them to start turning into a zombie (tins of zombie meat 'cure' the meat and make it safe to eat). Attacking zombies at range and wearing a piece of armor that protects your head are highly recommended. Zombies can make other monsters terminally ill as well - the same methods used by the player to cure themselves of a terminal illness can be used/applied on monsters or pets also - intelligent monsters will seek out these items and use them if necessary.
-- [x] Stone golems: Now vulnerable to digging rays, halves their HP.
+- [x] Zombies 
+  - probably the most significant monster change (from EvilHack) and one of the key changes that makes this variant so difficult.
+  - Zombies now have two different attack types, one being a poisonous claw attack (effects and frequency are the same as a bite from a rabid rat), the other being a disease-inducing bite attack to the head. The latter is a very serious threat, as the ability to cure oneself from being terminally ill are almost non-existent in the early game. 
+  - If the player becomes ill from a zombie bite, they only have a few turns to cure themselves, or they will die and turn into a zombie. 
+  - This zombie can be encountered by other players if a bones file is generated. 
+  - There is a very small chance that the player will be able to continue playing if they are turned into a zombie;  however, they will be stuck in that form for the remainder of the game. 
+  - A zombie's bite attack also has a chance of causing amnesia. 
+  - Eating a zombie corpse will make the player ill and cause them to start turning into a zombie (tins of zombie meat 'cure' the meat and make it safe to eat). 
+  - Attacking zombies at range and wearing a piece of armor that protects your head are highly recommended. 
+  - Zombies can make other monsters terminally ill as well - the same methods used by the player to cure themselves of a terminal illness can be used/applied on monsters or pets also.
+- [x] Dragons:
+    - Significantly enhanced
+    - spawn with much more hit points (especially in the end game),
+    - can engulf creatures smaller than it and digest them
+    - can now bellow a frightful roar that causes Afraid status.
+- [x] Elementals:
+    - All elemental monsters can engulf creatures smaller than it
+    - can be zapped and transformed
+    - Ex: Zap water elemental with / of Cold to turn it into Ice Elemental
+- [x] Were-monsters: summon wider (and more dangerous) diversity of monsters
+- [x] Rabid monsters can no longer be tamed
+- [x] Elves are lawful instead of chaotic
+- [x] All orcs are immune to poison
+    - Wargs can now be ridden by player orcs, and subsequently can only be tamed by the same.
+- [x] Nymphs now hate iron.
+- [x] Imps now hate iron.
+- [x] All Fungi/migos: now hate copper and receive an extra d6 damage from copper.
+- [x] Copper does extra damage vs monsters with disease, decay, and pestilense attacks.
+- [x] All Zouthern animals now have a small chance of death-dropping boomerangs.
+- [x] Gnolls:
+    - Evil already had gnolls, so I disabled the Evil gnolls in favor of the slashem versions - and used the G symbol instead)
+    - Updated to match evil weight/size, poison res, infravisible, berzerk.
+- [x] Priests, soldiers, the watch, and player monsters can also be a variety of different races.
+- [x] Shopkeepers:
+    - usually spawn get a shotgun and shells
+    - Doubled their base level (compared to vanilla) (from SlashEM)
+- [x] Player monsters:
+    - can be encountered throughout the game.
+    - They covet the Amulet of Yendor, and attempt to steal it.
+    - Any monster, should it get a hold of the Amulet of Yendor, can and will sacrifice it on an endgame altar.
+- [x] Stone golems, gargoyles, winged gargoyles: Now vulnerable to digging rays, halves their HP.
 - [x] Rats: Can tamed with cheese
-- [x] Shopkeepers: usually get a shotgun and shells (50% chance)
-- [x] Shopkeepers: Doubled their base level (compared to vanilla) (from SlashEM) 
+- [x] gelatinous cube and green slime now have engulfing attacks
 - [x] Baby gray dragons: get MR20 (twice the other baby dragons)
 - [x] Gnome Kings: Raised to lvl 9, gnome warriors to 7.
 - [x] Dwarves have a 6/7 chance to be generated with a potion of booze (Outside of the mines)
 - [x] Ice Devil gets an additional slow attack.
-- [x] Made rock trolls stoning resistant (from xnh)
+- [x] Rock trolls are now stoning resistant (from xnh)
 - [x] Olog Hai are now poison resistant
-- [x] Were-monsters: summon wider (and more dangerous) diversity of monsters
-- [x] Mold/Fungus ressurection 
-    - (ported from Splicehack, which ported from xnh)
-- [x] Nymphs: now hate iron.
-- [x] Imps: now hate iron.
-- [x] All Fungi/migos: now hate copper and receive an extra d6 damage from copper.
-- [x] Copper does extra damage vs monsters with disease, decay, and pestilense attacks."
-- [x] All Zouthern animals now have a small chance of death-dropping boomerangs.
-- [x] Dragons: 
-    - Significantly enhanced – 
-    - spawn with much more hit points (especially in the end game), 
-    - can engulf creatures smaller than it and digest them
-    - can now bellow a frightful roar that causes Afraid status.
-- [x] Keystone Kops: can no longer be genocided. may generate with pistols, bullets and dagger/knife.
-- [x] Elementals: 
-    - All elemental monsters can engulf creatures smaller than it
-    - can be zapped and transformed 
-    - Ex: Zap water elemental with / of Cold to turn it into Ice Elemental
-- [x] gelatinous cube and green slime: now have engulfing attacks
-- [x] Priests, soldiers, the watch, and player monsters can also be a variety of different races.
-- [x] Intelligent monsters can use a whole new range of weapons and objects, either defensively or offensively.
+- [x] Keystone Kops:
+  - can no longer be genocided. 
+  - may generate with pistols, bullets and dagger/knife.
 - [x] Lichens: Got a weak slow touch attack.
 - [x] Leprechauns will steal anything made of gold
-- [x] Rabid monsters can no longer be tamed - added the M3_NOTAME tag to rabid dog, rabid wolf, rabid rabbit, rabid rat.
-- [x] Elves are lawful instead of chaotic
-- [x] All orcs are immune to poison
-    - Wargs can now be ridden by player orcs, and subsequently can only be tamed by the same.
 - [x] mind flayers/master mind flayers color changed to bright magenta.
 - [x] Tigers are now orange.
 - [x] Mumakil and mastodons/woolly mammoth:
@@ -690,21 +718,17 @@
 - [x] Ghosts: 
     - All incorporeal monsters can only be hit with blessed, silver, or bone objects
     - can also turn invisible and reappear - scaring (and paralyzing) the player time.
-- [x] Shape-changing monsters (except for vampires and were-creatures) 
-    - will revert back to their original form when their polymorphed form dies. 
-    - They cannot change form again once this happens.
-- [x] Player monsters:
-    - can be encountered throughout the game. 
-    - They covet the Amulet of Yendor, and attempt to steal it.
-    - Any monster, should it get a hold of the Amulet of Yendor, can and will sacrifice it on an endgame altar.
-- [x] Gnolls: 
-  - Evil already had gnolls, so I disabled the Evil gnolls in favor of the slashem versions - and used the G symbol instead)
-  - Updated to match evil weight/size, poison res, infravisible, berzerk.
 
 ### Monster Mechanic Changes:
-
-- [x] Updated nasties lists with slashem monsters. Added gugs, slaughter wights, devas, revenants 
-- [x] Some monsters ride other monsters as steeds, namely The Riders at the endgame.
+- [x] Mold/Fungus ressurection
+    - (ported from Splicehack, which ported from xnh)
+    - The ressurection rates have been tapered back a bit, so it's not as annoying as in Slash'EM - but there are more F monsters that can spawn (including moldiers at deeper levels)
+[x] Shape-changing monsters (except for vampires and were-creatures)
+    - will revert back to their original form when their polymorphed form dies.
+    - They cannot change form again once this happens.
+- [x] Updated nasties lists with slashem monsters. 
+  - Added gugs, slaughter wights, devas, revenants 
+- [x] Some monsters ride other monsters as steeds.
 - [x] Removed "Hits as +x weapon" property from slashem monsters
 - [x] Removed "Requires +x weapon to be hit" property from slashem monsters
 - [x] BERSERK behavior from evil:
@@ -715,13 +739,13 @@
     - In slashem this used to depend on the monsters HP being lower than yours, but removed that condition.
       - I also increased the chance of betraying significantly each turn.
       - Added the traitor property to all monsters that had it in SlashEM/THEM, and related new imported monsters.
-- [x] Implemented Flanking (M2_FLANK) 
+- [x] Implemented Flanking (M2_FLANK) from SpliceHack.
     - Monsters with flanking are "tactical"
     - Monsters gain a large bonus to hit when flanking the player (located on opposite sides of the player's position).
     - Flanking scales with monster level (used to be a flat +4 AC penalty):
         AC penalty = 4 + (mdiffulty - 4) / 2
     - I applied FLANKING from SpliceHack to many appropriate monsters in hackem:
-- [x] monster hit point generation is now determined by their size as well as what level they are.
+- [x] Monster hit point generation is now determined by their size as well as what level they are.
 - [x] They also have the same armor class damage reduction that players enjoy.
 - [x] Intelligent monsters
     - can use many more items against the player or for their own benefit, 
@@ -733,18 +757,25 @@
     - reading scrolls of remove curse to uncurse items in its inventory, 
     - scrolls of charging to recharge wands in its possession, 
     - and utilizing powerful wands against the player.
-- [x] Player monsters are now technically their own class of monster and are separate from how the actual player is defined in src/monst.c, and were purposely left out of the new monsters table as it would unnecessarily inflate that list. Player monsters differ here from vanilla NetHack in that they can spawn outside of the Astral Plane, are yellow in color, and are kitted out in player-like gear starting at level 10, and then can be kitted out with ascension-level gear starting at level 20 – their hit dice and difficulty level roughly matches that of the actual player (this is based off of what experience level the actual player is when the player monster spawns). Their abilities closely match their role as well (wizards and priests can cast spells, rogues can steal items from inventory, etc). Player monster Knights spawn riding either a horse or a warhorse. Player monsters in EvilHack covet the Amulet of Yendor and will attempt to steal it, and if they steal it while on the Astral Plane, will attempt to sacrifice it themselves. As you can imagine, if that happens, it is a game-ending event.
+- [x] Player monsters:
+  - now technically their own class of monster and are separate from how the actual player is defined in src/monst.c, 
+  - and were purposely left out of the new monsters table as it would unnecessarily inflate that list.
+  - Player monsters differ here from vanilla NetHack in that they can spawn outside of the Astral Plane, are yellow in color, and are kitted out in player-like gear starting at level 10, and then can be kitted out with ascension-level gear starting at level 20 
+  - their hit dice and difficulty level roughly matches that of the actual player (this is based off of what experience level the actual player is when the player monster spawns). 
+  - Their abilities closely match their role as well (wizards and priests can cast spells, rogues can steal items from inventory, etc). 
+  - Player monster Knights spawn riding either a horse or a warhorse. 
+  - Player monsters in EvilHack covet the Amulet of Yendor and will attempt to steal it, and if they steal it while on the Astral Plane, will attempt to sacrifice it themselves. As you can imagine, if that happens, it is a game-ending event.
 
 ### Monster spawn rates
 
 - increases as you reach various milestones within the game. 
-- 2× once you pass the castle, become crowned, or if you accept the quest before experience level 14.
-- 3× once you pass the first tier demon lord lair.
-- 4× of normal once you pass the first wizard's tower level.
-- 6× of normal once the Wizard of Yendor is killed.
-- 8x once you've performed the invocation. 
-    Plus all denizens of the dungeon are aware of what has happened, 
-    Plus Nasties will spawn on each levels upstairs
+  - 2× once you pass the castle, become crowned, or if you accept the quest before experience level 14.
+  - 3× once you pass the first tier demon lord lair.
+  - 4× of normal once you pass the first wizard's tower level.
+  - 6× of normal once the Wizard of Yendor is killed.
+  - 8x once you've performed the invocation, plus:
+    - all denizens of the dungeon are aware of what has happened, 
+    - Nasties will spawn on each levels upstairs
 
 ### Unique Monster Changes:
 
@@ -813,15 +844,14 @@ Dragons and Dragon Scales
 
 - [x] footbow/warped bow
 - [x] light arrow
-    Found only in archery shops
+    - Found only in archery shops
 - [x] great dagger	
 - [x] parazonium
 - [x] chakram (silver based boomerang)
     - Made chakram dmg 11 vs small, 10 vs lg, and +1 tohit. 
     - Decreased probability to half of boomerang.
 - [x] throwing axe
-    - Does 1 less damage (vs sm) than a regular axe, 
-      but counts as a throwing weapon so can be stacked.
+    - Does 1 less damage vs sm than a regular axe, but counts as a throwing weapon so can be stacked.
     - Lowered the weight of throwing axes to 20, +2 to-hit.
 - [X] gladius
 - [x] falchion (heavy sword)
@@ -847,9 +877,9 @@ Dragons and Dragon Scales
     - Give monsters 20% instakill rate for wooden stakes
     - Added to-hit bonus of +1
     - Design decision: I'm deviating from slashem here - vampires should not be vulnerable to stakes
-        while in different forms (like Vampire Bats). Makes ring of prot sc more valuable.
+        while in different forms (like Vampire Bats). Makes rings of protection from shapechangers more valuable.
 - [x] atgeir
-    - Base item for Gungnir
+    - Spear: Base item for Gungnir
 - [x] atlatl
     - Base item for Xiuhcoatl
 
@@ -1692,7 +1722,10 @@ any spell that is successfully cast every 500 turns will never be forgotten.
 - [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
 
 - [x] Upgrading mechanic (via potions of gain level from Slash'EM)
-    - [x] Instead of crystal balls <-> magic markers, go lenses <-> orbs.
+    - [x] Instead of crystal balls upgrading to magic markers, they upgrade to lenses (going to markers didn't make much sense, and it wasn't too useful since the marker would only have a handful of charges)
+    - I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves, boomerangs, and other wooden weapons.
+    - I also added upgrade paths for all special new armors
+    - The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
 
 - [x] Implemented "Afraid" status; 
     - The player can sometimes become too afraid to control their actions.
@@ -1707,8 +1740,11 @@ any spell that is successfully cast every 500 turns will never be forgotten.
 #### Scare Monster: 
 
 - Several more creatures are immune: 
-    Wizard of Yendor, lawful minions, Angels, the Riders, humans, shopkeepers inside their shops, priests inside their temples, and any unique monsters. 
-- EvilHack added Archangels, honey badgers, player monsters, and anything that is mindless. 
+  - any unique monsters including the Wizard of Yendor, quest nemeses, the Riders.
+  - lawful minions, Angels (A), Archangels
+  - humans (any @), player monsters
+  - honey badgers,
+  - anything that is mindless (EvilHack added)
 - Any monsters affected by conflict are also immune.
 
 #### Altar sacrificing
@@ -1725,13 +1761,13 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 #### Twoweaponing
 
-Twoweaponing has been changed so that the weight of your offhand weapon combined with your skill in twoweaponing has a significant bearing on how successful you'll be in landing a hit. As you increase your skill in twoweaponing, heavier weapons become a viable option to use in your offhand without penalty. That penalty is −30 to-hit, and you'll receive feedback stating that your offhand weapon is too heavy to wield successfully as you try to use it. Below is a listing of what weights and weapons are acceptable per your skill in twoweaponing:
+- Twoweaponing has been changed so that the weight of your offhand weapon combined with your skill in twoweaponing has a significant bearing on how successful you'll be in landing a hit. As you increase your skill in twoweaponing, heavier weapons become a viable option to use in your offhand without penalty. That penalty is −30 to-hit, and you'll receive feedback stating that your offhand weapon is too heavy to wield successfully as you try to use it. Below is a listing of what weights and weapons are acceptable per your skill in twoweaponing:
 
-Unskilled – maximum weight of offhand weapon is 20 aum (can use tridents, javelins, crysknives, daggers, unicorn horns, or anything lighter)
-Basic – maximum weight of offhand weapon is 30 aum (can use short swords, spears, or a mace)
-Skilled – maximum weight of offhand weapon is 40 aum (can use sabers or long swords)
-Expert – maximum weight of offhand weapon is 70 aum (can offhand any one-handed weapon)
-If playing as a giant, or if wearing gauntlets of power, the maximum weight of your offhand weapon can be 200 aum, meaning you can basically offhand any normal object. Bear in mind that object materials can alter an items base weight – at basic twoweaponing skill you could offhand a normal short sword without penalty, but not a silver short sword, as silver adds extra weight compared to iron (33 aum vs 30 aum). But at the same time, a mithril katana (15 aum) would be perfectly acceptable at the same skill level as mithril is much lighter than any other metal in the game.
+- Unskilled – maximum weight of offhand weapon is 20 aum (can use tridents, javelins, crysknives, daggers, unicorn horns, or anything lighter)
+- Basic – maximum weight of offhand weapon is 30 aum (can use short swords, spears, or a mace)
+- Skilled – maximum weight of offhand weapon is 40 aum (can use sabers or long swords)
+- Expert – maximum weight of offhand weapon is 70 aum (can offhand any one-handed weapon)
+- If playing as a giant, or if wearing gauntlets of power, the maximum weight of your offhand weapon can be 200 aum, meaning you can basically offhand any normal object. Bear in mind that object materials can alter an items base weight – at basic twoweaponing skill you could offhand a normal short sword without penalty, but not a silver short sword, as silver adds extra weight compared to iron (33 aum vs 30 aum). But at the same time, a mithril katana (15 aum) would be perfectly acceptable at the same skill level as mithril is much lighter than any other metal in the game.
 
 #### Conflict:
 
@@ -1773,9 +1809,7 @@ If playing as a giant, or if wearing gauntlets of power, the maximum weight of y
 - [x] Auto-ID loadstones upon discovering the inability to drop them.
 - [x] Auto-ID water walking boots
 - [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
-
 - [x] After a while of using a wielded weapon, you will identify it and it's enchantment
-
 - [x] The player's magic cancellation (MC) is shown in the status bar.
 - [x] Non-cursed charging identifies how many charges an item has (from AceHack).
 - [x] Only blessed scrolls of charging identify the charges of an item.
@@ -1914,17 +1948,18 @@ If playing as a giant, or if wearing gauntlets of power, the maximum weight of y
 
 ### New special rooms
 
-- [x] FUNGUSFARM
-- [x] MIGOHIVE
-- [x] DRAGONLAIR
-- [x] REALZOO
-- [x] BADFOODSHOP
+- [x] Fungus Farm (Slash'EM)
+- [x] Migo Hive (Slash'EM)
+- [x] Dragon Lair (Slash'EM)
+- [x] Real Zoo (Slash'EM)
+- [x] Bad Food Shop (Slash'EM)
     - Full of bad food and rotten eggs.
-- [x] GIANTCOURT
-- [x] LEMUREPIT
-- [x] MINIGUILD
+- [x] Giant Court (Slash'EM)
+- [x] Lemure Pit
+- [x] Mini Guild (Hack'EM)
     - These replace the Guild of Disgruntled Adventurers in Slash'EM. 
-    - Much smaller, less densely packed - other monsters include typical pets.
+    - Much smaller, less densely packed with player monsters
+    - other monsters include typical pets.
 
 ### Themed Rooms:
 
@@ -1936,7 +1971,16 @@ If playing as a giant, or if wearing gauntlets of power, the maximum weight of y
 
 ## Role Changes:
 
-New player roles: Convict, Infidel.
+### New player roles:
+
+#### Convict
+
+- [x] Replaced Iron Ball of Liberation with Iron Spoon of Liberation
+- [x] Convicts cannot buy services if banned from a shop.
+- [x] Added secret doors to some of the cells on the quest home level, 
+  and around the level, so it's easier to navigate.
+
+#### Infidel
 
 - The minimum experience level needed to start the quest has been changed from level 14 to level 10. However, there are consequences for starting too soon...
 - The Quest can be unlocked by killing the quest leader if you've made them angry.
@@ -1948,168 +1992,272 @@ New player roles: Convict, Infidel.
   but it's calculated with (int - 2)
 - Flame/Ice mages get the multishot penalty
 
-- [x] Flame Mage
-    - Remove gaining Cold res at level 13
-    - Flame mages now become vulnerable to cold at level 10.
-    - Cannot 2-weapon anymore
-    - Starts with 2 potions of oil, 1 frag grenades, scroll of fire 
-    - Starts with a fireproof quarterstaff and fireproof robe.
-    - Start with Fire Bolt instead of Flame Sphere 
-        (Fire Bolt is a Flame Mage exclusive spell)
-    - Can only specialize in Matter, Attack, and Divination spells.
-    - Flame Mage can only be Lawful/Neutral
-    - [x] Flame mages now cast spells using Wisdom
-    - Left out the dragon polyself ability.
+#### Flame Mage
 
-- [x] Ice Mage
-    - Can only be Chaotic/Neutral
-    - Removed gaining fire res at level 13
-    - Gains "Vulnerable to Fire" at level 10.
-    - Intrinsic Ice armor AC protection (Similar to Slash'EM Monk)
-    - Can now reach expert in riding (Elsa can ride!)
-    - Ice Mage: Replaced their starting quarterstaff with a +2 stilletto
-    - Starts with lenses or grappling hook. 
-    - Removed studded armor, replaced with robe.
-    - Removed starting potions (they might freeze in the cold.)
-    - Left out the dragon polyself ability.
-    - Ice Mages can walk on ice without slipping.
-    - Their multishot penalty doesn't apply to knives!
-    - Starts with a Frost Horn instead of a wand of cold
+- Remove gaining Cold res at level 13
+- Flame mages now become vulnerable to cold at level 10.
+- Cannot 2-weapon anymore
+- Starts with 2 potions of oil, 1 frag grenades, scroll of fire 
+- Starts with a fireproof quarterstaff and fireproof robe.
+- Start with Fire Bolt instead of Flame Sphere 
+    (Fire Bolt is a Flame Mage exclusive spell)
+- Can only specialize in Matter, Attack, and Divination spells.
+- Flame Mage can only be Lawful/Neutral
+- [x] Flame mages now cast spells using Wisdom
+- Left out the dragon polyself ability.
 
-Ice and Flame mages cannot use anything that is decidedly the opposite's domain:
-    - Flame Mages cannot use Frost Brand/Deep Freeze
-    - Flame mages cannot read cold based spellbooks.
-    - Ice mages cannot use Fire Brand/Firewall.
-    - Ice mages cannot read fire based spellbooks.
-    - Neither should receive opposite elemental based spellbooks or weapons either.
+#### Ice Mage
 
-- [x] Necromancer
-    - Make sure pickaxe is +1 (copy archaeologist logic)
-    - Removed starting quarterstaff
-    - Starts with a wand of undead turning
-    - Starts with a robe (special dark robe?)
-    - Removed starting scrolls
-    - only start with 1 ring.
-    - Enabled necromancer to reach expert in polearms (for access to scythes)
+- Can only be Chaotic/Neutral
+- Removed gaining fire res at level 13
+- Gains "Vulnerable to Fire" at level 10.
+- Intrinsic Ice armor AC protection (Similar to Slash'EM Monk)
+- Can now reach expert in riding (Elsa can ride!)
+- Ice Mage: Replaced their starting quarterstaff with a +2 stilletto
+- Starts with lenses or grappling hook. 
+- Removed studded armor, replaced with robe.
+- Removed starting potions (they might freeze in the cold.)
+- Left out the dragon polyself ability.
+- Ice Mages can walk on ice without slipping.
+- Their multishot penalty doesn't apply to knives!
+- Starts with a Frost Horn instead of a wand of cold
 
-    - Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
+#### Ice and Flame details
 
-- [x] Undead Slayer
-    - Starting jacket is always leather...
+- cannot use anything that is decidedly the opposite's domain:
+- Flame Mages cannot use Frost Brand/Deep Freeze
+- Flame mages cannot read cold based spellbooks.
+- Ice mages cannot use Fire Brand/Firewall.
+- Ice mages cannot read fire based spellbooks.
+- Neither should receive opposite elemental based spellbooks or weapons either.
 
-- [x] Yeoman
+#### Necromancer
 
-Archeologist:
-    Starts with 2 spellbooks; can start with torch or lamp
-Barbarians:
-    -  Barbarians are not immune to poison anymore (unless orcish)
-    Barbs start with 2 food rations
-    Twoweaponing – Barbarians go from basic to skilled
-Monks
-    - Can reach SKILLED in lightsabers
+- Make sure pickaxe is +1 (copy archaeologist logic)
+- Removed starting quarterstaff
+- Starts with a wand of undead turning
+- Starts with a robe (special dark robe?)
+- Removed starting scrolls
+- only start with 1 ring.
+- Enabled necromancer to reach expert in polearms (for access to scythes)
 
-Convict:
-    - [x] Replaced Iron Ball of Liberation with Iron Spoon of Liberation
-    - [x] Convicts cannot buy services if banned from a shop.
-    - [x] Added secret doors to some of the cells on the quest home level, 
-      and around the level, so it's easier to navigate.
-Caveman
-    - gets nightvision radius 2 (From SlashEM)
-Healer:
-    are familiar with more health based potions, they start the game knowing potions of sickness, regeneration, paralysis, sleeping.
-    - Now receives the Drowsing Rod as a first sacrifice gift
-Ranger: 
-     Ranger obtains twoweaponing, up to skilled.
-Rogues:
-    Rogues get scrolls of teleport and gold detection (2 each) and oilskin sack
-    Rogues also get darts; 30% that they are replaced with a pistol and bullets.
-Priest
-    - gets a +2 shield
-Tourist:
-    - Tourists get automatic type identification for shop items
-    Tourists get 2 extra magic maps, 2 extra food.	
-    [x] Tourists start with all of their optional equipment. The magic marker that a tourist starts with is always 0:0.
-    Twoweaponing: Tourists from skilled to basic.
+- Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
 
-, 
+#### Undead Slayer
 
-Archeologist – scimitar and club moved from skilled to basic. Spear skill added, can be trained to expert.
-Barbarian – riding skill from basic to skilled. Attack spell school removed. Special spell changed to cause fear.
-Caveman – all spell schools removed, has 20% chance of failing to read any spellbook, regardless of its BUC status. Can bang rocks together to make flint, can lash flint to arrows, making them more deadly. Staying illiterate can increase maximum hit point gain per level-up. Are the only role that can successfully tame and ride saber-toothed tigers.
-Healer – added clerical spell school, can train to skilled. Gets poison resistance intrinsic at experience level 3 instead of experience level 1. Trades warning intrinsic for sick resistance at experience level 15. Can sense how wounded a monster is when attacking it, can also sense the wounded status of its pets.
-Knight – numerous weapon skills adjusted (axe, broadsword, two-handed sword, polearms and spears from skilled to expert. Mace and morning star moved from skilled to basic). Attack and healing spell schools moved from skilled to basic. Knights can never tame dragons (they are natural enemies). Dwarven knights will start with a dwarvish bearded axe instead of a long sword.
-Monk – crossbow skill removed, added trident and broadsword; tweaked skill advancement for weapons. Gains an extra fist attack per round using martial arts skill at grand master level, and also gains an extra kick attack (random) using martial arts skill at master level and higher. Can break boulders and statues using martial arts skill at skilled level or higher (press shift + f and then a movement key in the desired direction). Because of the extra random kick attack at master/grand master level, players will need to be mindful of wearing boots of some sort, as kicking a footrice/basilisk barefoot equals instant petrification. Monks now receive extra intrinsics as they level up into the higher experience tiers (telepathy at 20, water walking at 23, stoning resistance at 25, disintegration resistance at 27, and sickness resistance at 30).
-Priest – all slash and pierce weapons removed; can only train with blunt-type weapons. Incurs a substantial to-hit penalty, abuses wisdom and can negatively impact alignment when trying to use an edged weapon (wielded or thrown). Their crowning gift is Mjollnir.
-Ranger – if playing as a gnome, their quest artifact becomes the Crossbow of Carl. Its properties mirror that of the Longbow of Diana, except that it is a crossbow instead of a bow.
-Rogue – new trainable skill known as 'thievery', which allows the rogue to pickpocket a target and steal items from their inventory (must be bare-handed to use, press shift + f and then a movement key in the direction of the target). If the target is peaceful, there is a chance the target will not notice depending on the players' skill in thievery. Critical strike from behind works while twoweaponing.
-Samurai – removed attack and clerical spell schools.
-Valkyrie – removed escape spell school. Special spell changed to repair armor. Dwarven valkyries will start with a dwarvish bearded axe instead of a long sword, and are automatically proficient with it when using it to disarm weapons/shields.
-Wizard – removed numerous weapons from being trained (axe, short sword, club, mace, polearms, spear, trident, shuriken). Enchantment spell skill raised from skilled to expert, clerical spell skill lowered from skilled to basic. New starting pet, the pseudodragon. Can sense if objects are magical in nature, much the same way a priest knows the beatitude of all objects.
+- Starting jacket is always leather...
+
+#### Yeoman
+
+
+
+### Existing role changes
+
+#### Archeologist:
+
+- Starts with 2 spellbooks; can start with torch or lamp
+- scimitar and club moved from skilled to basic. Spear skill added, can be trained to expert.
+
+#### Barbarians:
+
+- Barbarians are not immune to poison anymore (unless orcish)
+- Barbs start with 2 food rations
+- Twoweaponing – Barbarians go from basic to skilled
+- riding skill from basic to skilled. 
+- Attack spell school removed. Special spell changed to cause fear.
+
+#### Caveman
+
+- gets nightvision radius 2 (From SlashEM)
+– all spell schools removed, has 20% chance of failing to read any spellbook, regardless of its BUC status.
+- Can bang rocks together to make flint, can lash flint to arrows, making them more deadly.
+- Staying illiterate can increase maximum hit point gain per level-up. 
+- Are the only role that can successfully tame and ride saber-toothed tigers.
+
+#### Healer
+
+- are familiar with more health based potions
+- they start the game knowing potions of sickness, regeneration, paralysis, and sleeping.
+- Now receives the Drowsing Rod as a first sacrifice gift
+- added clerical spell school, can train to skilled. 
+- Gets poison resistance intrinsic at experience level 3 instead of experience level 1. 
+- Trades warning intrinsic for sick resistance at experience level 15. 
+- Can sense how wounded a monster is when attacking it, can also sense the wounded status of its pets.
+
+#### Knight
+
+- numerous weapon skills adjusted (axe, broadsword, two-handed sword, 
+- polearms and spears from skilled to expert. 
+- Mace and morning star moved from skilled to basic). 
+- Attack and healing spell schools moved from skilled to basic. 
+- Knights can never tame dragons (they are natural enemies). 
+- Dwarven knights will start with a dwarvish bearded axe instead of a long sword.
+
+#### Monks
+
+- Can reach SKILLED in lightsabers
+- crossbow skill removed, added trident and broadsword;
+- tweaked skill advancement for weapons.
+- Gains an extra fist attack per round using martial arts skill at grand master level,
+- and also gains an extra kick attack (random) using martial arts skill at master level and higher.
+- Can break boulders and statues using martial arts skill at skilled level or higher (press shift + f and then a movement key in the desired direction).
+- Because of the extra random kick attack at master/grand master level, players will need to be mindful of wearing boots of some sort, as kicking a footrice/basilisk barefoot equals instant petrification.
+- Monks now receive extra intrinsics as they level up into the higher experience tiers (telepathy at 20, water walking at 23, stoning resistance at 25, disintegration resistance at 27, and sickness resistance at 30).
+
+#### Priest
+    
+- gets a +2 shield
+- all slash and pierce weapons removed; can only train with blunt-type weapons. 
+- Incurs a substantial to-hit penalty, abuses wisdom and can negatively impact alignment when trying to use an edged weapon (wielded or thrown).
+- Their crowning gift is Mjollnir.
+
+
+#### Ranger
+
+- Ranger obtains twoweaponing, up to skilled.
+- if playing as a gnome, their quest artifact becomes the Crossbow of Carl. Its properties mirror that of the Longbow of Diana, except that it is a crossbow instead of a bow.
+
+#### Rogues
+
+- Rogues get scrolls of teleport and gold detection (2 each) and oilskin sack
+- Rogues also get darts; 30% that they are replaced with a pistol and bullets.
+- new trainable skill known as 'thievery', which allows the rogue to pickpocket a target and steal items from their inventory (must be bare-handed to use, press shift + f and then a movement key in the direction of the target).
+- If the target is peaceful, there is a chance the target will not notice depending on the players' skill in thievery.
+- Critical strike from behind works while twoweaponing.
+
+#### Samurai
+
+removed attack and clerical spell schools.
+
+
+#### Tourist:
+    
+- Tourists get automatic type identification for shop items
+- Tourists get 2 extra magic maps, 2 extra food.	
+- Tourists start with all of their optional equipment. 
+- The magic marker that a tourist starts with is always 0:0.
+- Twoweaponing: Tourists from skilled to basic.
+
+#### Valkyrie
+
+– removed escape spell school.
+- Special spell changed to repair armor.
+- Dwarven valkyries will start with a dwarvish bearded axe instead of a long sword, and are automatically proficient with it when using it to disarm weapons/shields.
+
+
+#### Wizard
+
+- removed numerous weapons from being trained (axe, short sword, club, mace, polearms, spear, trident, shuriken). 
+- Enchantment spell skill raised from skilled to expert, 
+- clerical spell skill lowered from skilled to basic. 
+- Can sense if objects are magical in nature, much the same way a priest knows the beatitude of all objects.
+- New starting pet, the pseudodragon. 
 
 
 ## Race changes:
 
-New player races: centaur, giant, hobbit, and illithid, replete with their own special abilities and restrictions.
+### New player races: 
+
+- replete with their own special abilities and restrictions.
 - Several role–race combos have been added or unlocked.
 
+#### centaur
+
+#### giant
+
+#### Hobbits
+
+- [x] Hobbit race (already in evil)
+- [x] Hobbits start out knowing Elbereth
+
+
+#### illithid
+
+
+#### Vampires:
+
+- extra attack – drain life bite
+- Can only drain corpses and drink blood.
+- restricted in the two-weapon skill.
+- Start with a small penalty to luck (-1) and alignment (-5)
+- Vampires who wear an Opera cloak get a +1 Charisma bonus
+- Vampires can wield and wear silver items, but it blocks their natural regeneration
+- Can only be chaotic.
+- As Vampires, they are vulnerable to silver (watch out!))
+- I tried to space out the intrinsics a bit, since it felt like vampires started out
+overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires
+usually enjoy.
+
+| Level | Ability |
+| ------|---------|
+| Level 1: | Flying |
+| Level 1: | Breathless |
+| Level 1: | Drain/Death res|
+| Level 1: | Vulnerable to fire|
+| Level 3: | Hunger |
+| Level 5: | Regeneration |
+| Level 7: | Poison resistance |
+| Level 9: | Flying |
+| Level 12: | Sickness resistance |
+| Level 16: | Sleep resistance |
+
+### Existing role changes
+
+#### Elves
 - [x] Elves always start out knowing Elbereth.
 - [x] Elves can use musical instruments without risk of breaking them.
 
+#### Orcs
 - [x] Orcs can never use Elbereth
-- [x] Hobbit race (already in evil)
-- [x] Hobbits start out knowing Elbereth"
-- [x] Vampires:	
-    - extra attack – drain life bite
-    - Can only drain corpses and drink blood.
-    - restricted in the two-weapon skill.
-    - start with a small penalty to luck (-1) and alignment (-5)
-    - Vampires who wear an Opera cloak get a +1 Charisma bonus:
-    - Vampires can wield and wear silver items, but it blocks their natural regeneration
-    - Can only be chaotic.
-    - I tried to space out the intrinsics a bit, since it felt like vampires started out
-    overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires
-    usually enjoy.
-
-    Level 1: Flying
-             Breathless
-             Drain/Death/Sickness resistance, 	
-             Vulnerable to fire & silver.
-    Level 3: Hunger
-    Level 5: Regeneration
-    Level 7: Poison resistance
-    Level 9: Flying
-    Level 12: Sickness resistance
-    Level 16: Sleep resistance
 
 ## The Quest
 
-Various changes have been made to each role's Quest to make the experience more varied and interesting for the player.
+- Various changes have been made to each role's Quest to make the experience more varied and interesting for the player.
 
-The minimum experience level needed to be accepted for the quest has been lowered to 10 (from the default 14). However, should you accept the quest too soon, the monster spawn rate immediately doubles.
-If you've made your quest leader angry for whatever reason, this no longer makes the game unwinnable. You can engage them in battle, and if you kill your quest leader, this unlocks the quest. You can then complete your quest as you normally would. Take heed, quest leaders are not weak and can prove formidable to a mid-level player. Also note that your deity isn't exactly thrilled with you killing off your quest leader. Your alignment record can still be in the positive, but if you try any helm of opposite alignment shenanigans when it comes time to sacrifice the Amulet of Yendor at the endgame... interesting (read: bad) things can happen.
-Abusing your alignment can have a direct effect on how your quest ends. Once you've defeated the quest nemesis and returned with your quest artifact and the Bell of Opening and speak with your quest leader, there's a chance they may ask you to actually return the quest artifact as they originally alluded to when you first accepted the quest. Alignment abuse is tracked throughout the game – having your alignment negatively adjusted by one point also counts as one abuse point (this can be checked at any time via #conduct, and compared to vanilla, more feedback when abusing alignment is given). Unlike your alignment record, which can be readjusted back into positive standing, your alignment abuse record is permanent.
-Getting one abuse point means there's a 1 in 50 chance your quest leader will ask you to give up the quest artifact. Racking up more abuse points increases those odds, to the point where if you've accumulated 50 or more abuse points, it's virtually guaranteed your quest leader will demand you return the quest artifact. You have two options at this point – either hand over the quest artifact peacefully, or decline. Declining will anger your quest leader, and they will attack. Handing over the quest artifact peacefully will flag the quest as complete. Declining to turn over the quest artifact does not complete the quest – at some point your quest leader will need to be defeated before the quest is flagged as complete. Also, attempting to evade your quest leader (whether they are peaceful or hostile) will do you no good in the long run, as the Bell of Opening has been 'cursed', and the only way to lift the curse is to complete the quest. The Bell will not function for the invocation until this is done.
-Alternative scenarios have been taken into account, such as if you angered your quest leader before even starting the quest and you killed them, you simply need to defeat your quest nemesis to flag the quest as complete. Conversely, if you've killed the quest nemesis and return, but somehow anger your quest leader before you speak to them, killing them also flags the quest as complete. Some peace of mind – if you've never abused your alignment, your quest leader will never ask you for the quest artifact.
+- The minimum experience level needed to be accepted for the quest has been lowered to 10 (from the default 14).
+- However, should you accept the quest too soon, the monster spawn rate immediately doubles.
+- If you've made your quest leader angry for whatever reason, this no longer makes the game unwinnable.
+- You can engage them in battle, and if you kill your quest leader, this unlocks the quest. 
+- You can then complete your quest as you normally would. 
+- Take heed, quest leaders are not weak and can prove formidable to a mid-level player. 
+- Also note that your deity isn't exactly thrilled with you killing off your quest leader. 
+- Your alignment record can still be in the positive, but if you try any helm of opposite alignment shenanigans when it comes time to sacrifice the Amulet of Yendor at the endgame... interesting (read: bad) things can happen.
 
+- Abusing your alignment can have a direct effect on how your quest ends. 
+- Once you've defeated the quest nemesis and returned with your quest artifact and the Bell of Opening and speak with your quest leader, there's a chance they may ask you to actually return the quest artifact as they originally alluded to when you first accepted the quest. 
+- Alignment abuse is tracked throughout the game – having your alignment negatively adjusted by one point also counts as one abuse point (this can be checked at any time via #conduct, and compared to vanilla, more feedback when abusing alignment is given). 
+- Unlike your alignment record, which can be readjusted back into positive standing, your alignment abuse record is PERMANENT.
+- Getting one abuse point means there's a 1 in 50 chance your quest leader will ask you to give up the quest artifact. 
+- Racking up more abuse points increases those odds, to the point where if you've accumulated 50 or more abuse points, it's virtually guaranteed your quest leader will demand you return the quest artifact. 
+- You have two options at this point – either hand over the quest artifact peacefully, or decline. 
+- Declining will anger your quest leader, and they will attack. Handing over the quest artifact peacefully will flag the quest as complete. 
+- Declining to turn over the quest artifact does not complete the quest – at some point your quest leader will need to be defeated before the quest is flagged as complete. 
+- Also, attempting to evade your quest leader (whether they are peaceful or hostile) will do you no good in the long run, as the Bell of Opening has been 'cursed', and the only way to lift the curse is to complete the quest. 
+- The Bell will not function for the invocation until this is done.
+
+- Alternative scenarios have been taken into account, such as if you angered your quest leader before even starting the quest and you killed them, you simply need to defeat your quest nemesis to flag the quest as complete. 
+- Conversely, if you've killed the quest nemesis and return, but somehow anger your quest leader before you speak to them, killing them also flags the quest as complete. 
+- Some peace of mind – if you've never abused your alignment, your quest leader will never ask you for the quest artifact.
 
 ## Shops
+
 - Shopkeepers can be a variety of different races; your race versus theirs directly affects pricing.
-- I removed the racial shopkeeper price adjustments (personally I love price identification so...)
+- I removed the racial shopkeeper price adjustments 
+- (personally I love price identification so I couldn't get into this particular Evil change, but I still like the new racial shopkeepers)
 
 ### Shopkeeper Services
 
-* Instead of every store offering a general Identify service - every
+- Instead of every store offering a general Identify service - every
   shop offers premier Identifies based on their shop type or the race of 
   the shopkeeper. For example, 
-* Streamlined the service menu interface, previously navigating the services
+- Streamlined the service menu interface, previously navigating the services
   was tedious. Now when you press 'p', you are immediately presented with
   a full menu of all the available services - no submenus within menus. 
-* Lighting stores and general tool shops can both charge all types of tools.
-* Only wand shops can offer premier charging
-* Rumors - Each shk has a 10% of offering them (Costs $250 right now)	
-* Removed shk stealing all your money when you charge WoW
-
-* Only Black Market can have the "identify any" service
+- Lighting stores and general tool shops can both charge all types of tools. 
+- Only wand shops can offer premier charging 
+- Rumors - Each shk has a 10% of offering them (Costs $250 right now)
+- Removed shk stealing all your money when you charge WoW 
+- Only Black Market can have the "identify any" service
 
 #### Identify service details
 
@@ -2125,13 +2273,13 @@ Alternative scenarios have been taken into account, such as if you angered your 
 
 #### Additional race specific services:
 
-- [x] Dwarf: gems, weapons/armor
+- [x] Dwarf: ID gems/weapons/armor
 - [x] Orc: poisoning
-- [x] Gnome: tools
-- [x] Giant: gems
-- [x] Nymphs rings/potions
-- [x] Hobbit: rings/food
-- [x] Illithid: spellbooks/scrolls
+- [x] Gnome: ID tools
+- [x] Giant: ID gems
+- [x] Nymphs ID rings/potions
+- [x] Hobbit: ID rings/food
+- [x] Illithid: ID spellbooks/scrolls
 
 
 #### New shop types:
