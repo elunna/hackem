@@ -20,8 +20,7 @@ HACKDIR=$(PREFIX)/games/$(GAME)dir
 SHELLDIR = $(PREFIX)/games
 INSTDIR = $(HACKDIR)
 VARDIR = $(HACKDIR)/var
-
-
+                     
 POSTINSTALL=cp -n sys/unix/sysconf $(INSTDIR)/sysconf; $(CHOWN) $(GAMEUID) $(INSTDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(INSTDIR)/sysconf; chmod $(VARFILEPERM) $(INSTDIR)/sysconf;
 
 CFLAGS=-g3 -O0 -I../include -DNOTPARMDECL -fno-common
@@ -41,12 +40,12 @@ CFLAGS+=-DDGAMELAUNCH
 CFLAGS+=-DLIVELOG_ENABLE
 CFLAGS+=-DDUMPLOG
 CFLAGS+=-DDUMPHTML
-CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
+#CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
 
 LINK=$(CC)
 # Only needed for GLIBC stack trace:
 LFLAGS=-rdynamic
-LFLAGS+=-fsanitize=address
+#LFLAGS+=-fsanitize=address
 
 WINSRC = $(WINTTYSRC) $(WINCURSESSRC)
 WINOBJ = $(WINTTYOBJ) $(WINCURSESOBJ)
