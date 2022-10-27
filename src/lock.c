@@ -639,10 +639,10 @@ struct obj *container; /* container, for autounlock */
                         nomul(0);
                         return PICKLOCK_DID_NOTHING;
                     }
-                    ch = ACURR(A_DEX) + 20*Role_if(PM_ROGUE);
+                    ch = ACURR(A_DEX) + 20 * Role_if(PM_ROGUE);
                     break;
                 case LOCK_PICK:
-                    if(!rn2(Role_if(PM_ROGUE) ? 40 : 30) &&
+                    if(!rn2(Role_if(PM_ROGUE) ? 60 : 20) &&
 			    		!pick->blessed && !pick->oartifact) {
                         You("break your pick!");
                         delobj(pick);
@@ -652,7 +652,7 @@ struct obj *container; /* container, for autounlock */
                     ch = 4 * ACURR(A_DEX) + 25 * Role_if(PM_ROGUE);
                     break;
                 case SKELETON_KEY:
-                    if(!rn2(15) && !pick->blessed && !pick->oartifact) {
+                    if(!rn2(20) && !pick->blessed && !pick->oartifact) {
                         Your("key didn't quite fit the lock and snapped!");
                         delobj(pick);
                         nomul(0);
@@ -757,7 +757,7 @@ struct obj *container; /* container, for autounlock */
 
             switch (picktyp) {
             case CREDIT_CARD:
-                if(!rn2(Role_if(PM_TOURIST) ? 30 : 20) &&
+                if (!rn2(Role_if(PM_TOURIST) ? 40 : 20) &&
                         !pick->blessed && !pick->oartifact) {
                     You("break your card off in the door!");
                     delobj(pick);
@@ -768,25 +768,25 @@ struct obj *container; /* container, for autounlock */
                 break;
 
             case LOCK_PICK:
-                if(!rn2(Role_if(PM_ROGUE) ? 40 : 30) &&
+                if (!rn2(Role_if(PM_ROGUE) ? 60 : 20) &&
 				    !pick->blessed && !pick->oartifact) {
                     You("break your pick!");
                     delobj(pick);
                     nomul(0);
                     return PICKLOCK_DID_NOTHING;
-			    }
-			    ch = 3 * ACURR(A_DEX) + 30 * Role_if(PM_ROGUE);
-			    break;
+                }
+                ch = 3 * ACURR(A_DEX) + 30 * Role_if(PM_ROGUE);
+                break;
 
             case SKELETON_KEY:
-                if(!rn2(15) && !pick->blessed && !pick->oartifact) {
+                if (!rn2(20) && !pick->blessed && !pick->oartifact) {
                     Your("key wasn't designed for this door and broke!");
                     delobj(pick);
                     nomul(0);
                     return PICKLOCK_DID_NOTHING;
-			    }
-			    ch = 70 + ACURR(A_DEX);
-			    break;
+                }
+                ch = 70 + ACURR(A_DEX);
+                break;
 
             default:
                 ch = 0;
