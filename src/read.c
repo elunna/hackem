@@ -2516,7 +2516,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 
         if (!already_known)
             (void) learnscrolltyp(SCR_ICE);
-
+        
+        if (Underwater) {
+            pline_The("%s around you freezes!", hliquid("water"));
+            u.uhp = 0;
+            losehp(1, "turning into a block of ice", KILLED_BY);
+        }
+        
         if (confused) {
             /* remove lava from vicinity of player */
             int maderoom = 0;
