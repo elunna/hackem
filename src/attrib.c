@@ -42,16 +42,16 @@ static const struct innate {
                  { 20, &(HSearching), "perceptive", "unaware" },
                  { 0, 0, 0, 0 } },
 
-  fla_abil[] = { {   1, &(HFire_resistance), "", "" },
-                 { 10, &(HVulnerable_cold), "sensitive to cold", "less sensitive to cold" },
-                 {   0, 0, 0, 0 } },
+  fla_abil[] = { { 1, &(HFire_resistance), "", "" },
+                 { 5, &(HVulnerable_cold), "sensitive to cold", "less sensitive to cold" },
+                 { 0, 0, 0, 0 } },
   
   hea_abil[] = { { 3, &(HPoison_resistance), "healthy", "" },
                  { 15, &(HSick_resistance), "hale", "" },
                  { 0, 0, 0, 0 } },
 
   ice_abil[] = { { 1, &(HCold_resistance), "", "" },
-                 { 10, &(HVulnerable_fire), "sensitive to heat", "less sensitive to heat" },
+                 { 5, &(HVulnerable_fire), "sensitive to heat", "less sensitive to heat" },
                  { 0, 0, 0, 0 } },
 
   inf_abil[] = { { 1, &(HFire_resistance), "", "" },
