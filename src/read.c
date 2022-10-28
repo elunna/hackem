@@ -1215,11 +1215,6 @@ genericptr_t poolcnt;
         ))
         return;
     
-#if 0
-    if (ttmp && ttmp->ttyp == FIRE_TRAP) {
-        deltrap(ttmp);
-    }
-#endif
     if (ttmp) {
         switch (ttmp->ttyp) {
         case FIRE_TRAP:
@@ -1257,17 +1252,6 @@ genericptr_t poolcnt;
             del_engr_at(x, y);
             newsym(x,y);
         }
-#if 0
-        /* Put a pool at x, y */
-        levl[x][y].typ = ICE;
-        del_engr_at(x, y);
-
-        if ((mtmp = m_at(x, y)) != 0) {
-            (void) minliquid(mtmp);
-        } else {
-            newsym(x,y);
-        }
-#endif
     } else if ((x == u.ux) && (y == u.uy)) {
         (*(int *)poolcnt)--;
     }
@@ -2527,31 +2511,45 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             break;
         }
         break;
-    case SCR_ICE:
-        known = TRUE;
+    case SCR_ICE: {
+        int dam = sblessed ? d(6, 6) : d(scursed ? 1 : 2, 3);
+
+        if (!already_known)
+            (void) learnscrolltyp(SCR_ICE);
+
         if (confused) {
             /* remove lava from vicinity of player */
             int maderoom = 0;
-            do_clear_area(u.ux, u.uy, 4 + 2 *bcsign(sobj),
-                           undo_iceflood, (genericptr_t)&maderoom, TRUE);
+            do_clear_area(u.ux, u.uy, 4 + 2 * bcsign(sobj), undo_iceflood,
+                          (genericptr_t) &maderoom, TRUE);
             if (maderoom) {
-                known = TRUE;
                 You("stop feeling cold.");
             }
         } else {
+            /* Ice random tiles around the player */
             int madepool = 0;
             int stilldry = -1;
             int x, y, safe_pos = 0;
             do_clear_area(u.ux, u.uy, 5 - 2 * bcsign(sobj), do_iceflood,
-                           (genericptr_t) &madepool, TRUE);
-            
+                          (genericptr_t) &madepool, TRUE);
+
             /* check if there are safe tiles around the player */
-            for (x = u.ux-1; x <= u.ux+1; x++) {
+            for (x = u.ux - 1; x <= u.ux + 1; x++) {
                 for (y = u.uy - 1; y <= u.uy + 1; y++) {
-                    if (x != u.ux && y != u.uy &&
-                        goodpos(x, y, &youmonst, 0)) {
+                    if (x != u.ux && y != u.uy
+                        && goodpos(x, y, &youmonst, 0)) {
                         safe_pos++;
                     }
+                }
+            }
+            if (!sblessed) { /* Deal damage to player */
+                if (how_resistant(COLD_RES) == 100) {
+                    shieldeff(u.ux, u.uy);
+                    monstseesu(M_SEEN_COLD);
+                } else {
+                    pline_The("scroll blasts your %s with freezing air!",
+                              makeplural(body_part(HEAD)));
+                    losehp(dam, "scroll of ice", KILLED_BY_AN);
                 }
             }
 
@@ -2559,14 +2557,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (!madepool && stilldry)
                 break;
             if (madepool)
-                pline(Hallucination ?
-                                    "Damn, this is giving you the chills!" :
-                                    "The floor crackles with ice!" );
-            known = TRUE;
+                pline(Hallucination ? "Damn, this is giving you the chills!"
+                                    : "The floor crackles with ice!");
             break;
         }
 
         break;
+    }
     default:
         impossible("What weird effect is this? (%u)", otyp);
     }
