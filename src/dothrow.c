@@ -2096,7 +2096,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                     return 1;
                 }
             }
-            (void) passive_obj(mon, obj, (struct attack *) 0);
+            if (passive_obj(mon, obj, (struct attack *) 0) == ER_DESTROYED)
+                return 1;
         } else {
             tmiss(obj, mon, TRUE);
             if (hmode == HMON_APPLIED)
