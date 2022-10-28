@@ -2163,7 +2163,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         int i;
         if (confused) {
             /* could be scroll of create monster, don't set known ...*/
-            (void) create_critters(1, !scursed ? &mons[PM_WHIRLING_SPHERE]
+            (void) create_critters(d(1, 3), !scursed ? &mons[PM_WHIRLING_SPHERE]
                                                : &mons[PM_AIR_ELEMENTAL], TRUE);
             break;
         }
