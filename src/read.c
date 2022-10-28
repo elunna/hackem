@@ -1185,21 +1185,6 @@ struct obj *sobj;
 }
 
 STATIC_PTR void
-undo_iceflood(x, y, roomcnt)
-int x, y;
-genericptr_t roomcnt;
-{
-    if (levl[x][y].typ != ICE)
-        return;
-    
-    (*(int *)roomcnt)++;
-
-    /* Get rid of a lava pool at x, y */
-    levl[x][y].typ = ROOM;
-    newsym(x,y);
-}
-
-STATIC_PTR void
 do_iceflood(x, y, poolcnt)
 int x, y;
 genericptr_t poolcnt;
@@ -2513,9 +2498,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_ICE: {
         int dam;
-
-        if (!already_known)
-            (void) learnscrolltyp(SCR_ICE);
         
         if (Underwater) {
             pline_The("%s around you freezes!", hliquid("water"));
@@ -2524,14 +2506,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         
         if (confused) {
-            /* remove lava from vicinity of player */
-            int maderoom = 0;
-            do_clear_area(u.ux, u.uy, 4 + 2 * bcsign(sobj), undo_iceflood,
-                          (genericptr_t) &maderoom, TRUE);
-            if (maderoom) {
-                You("stop feeling cold.");
-            }
+            /* could be scroll of create monster, don't set known ...*/
+            (void) create_critters(d(1, 3), 
+                                   !scursed ? &mons[PM_FREEZING_SPHERE] 
+                                            : &mons[PM_ICE_ELEMENTAL], TRUE);
+            break;
         } else {
+            if (!already_known)
+                (void) learnscrolltyp(SCR_ICE);
             /* Ice random tiles around the player */
             int madepool = 0;
             int stilldry = -1;
