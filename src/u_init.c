@@ -99,12 +99,14 @@ struct trobj Healer[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Ice_Mage[] = {
-#define I_BOOK          8
+#define I_BOOK          10
     /* for dealing with ghosts */
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { SCR_ICE, UNDEF_SPE, SCROLL_CLASS, 2, 0 },
+    { WAN_WATER, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { FROST_HORN, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
@@ -154,19 +156,18 @@ struct trobj Monk[] = {
 };
 static struct trobj Necromancer[] = {
 #define N_BOOK          9
-/* pretty much like Wizard, except with pick-axe instead of magic resist. */
-	{ GREAT_DAGGER, 0, WEAPON_CLASS, 1, 1 },
-        { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
-	{ UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
-	{ SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
-	{ SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
-	{ SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
-	{ WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
-        { WAN_UNDEAD_TURNING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
-	{ UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-	{ PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },
-	{ 0, 0, 0, 0, 0 }
+    { GREAT_DAGGER, 0, WEAPON_CLASS, 1, 1 },
+    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
+    { SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
+    { SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
+    { SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
+    { WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { WAN_UNDEAD_TURNING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
 };
 struct trobj Priest[] = {
     { MACE, 1, WEAPON_CLASS, 1, 1 },
@@ -267,16 +268,16 @@ struct trobj Wizard[] = {
 };
 
 static struct trobj Yeoman[] = {
-	{ SHORT_SWORD, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
-	{ PARTISAN, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
-	{ LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ APPLE, 0, FOOD_CLASS, 10, 0 },
-	{ CARROT, 0, FOOD_CLASS, 10, 0 },
-	{ POT_WATER, 0, POTION_CLASS, 3, 0 },
-	{ FISHING_POLE, 0, TOOL_CLASS, 1, 0 },
-	{ 0, 0, 0, 0, 0 }
+    { SHORT_SWORD, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { PARTISAN, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { APPLE, 0, FOOD_CLASS, 10, 0 },
+    { CARROT, 0, FOOD_CLASS, 10, 0 },
+    { POT_WATER, 0, POTION_CLASS, 3, 0 },
+    { FISHING_POLE, 0, TOOL_CLASS, 1, 0 },
+    { 0, 0, 0, 0, 0 }
 };
 
 /*
