@@ -4810,6 +4810,8 @@ doapply()
                                              ? "wearing a blindfold" : ublindf->otyp == GOGGLES
                                                    ? "wearing goggles" : "wearing lenses");
         }
+        return res; /* Mask might be destroyed, so this is a safeguard against 
+                     * the artispeak check below. */
         break;
     case CREAM_PIE:
         res = use_cream_pie(obj);
@@ -5036,7 +5038,7 @@ doapply()
         nomul(0);
         return 0;
     }
-    if (res && obj && obj->oartifact)
+    if (res && obj != &zeroobj && obj->oartifact)
         arti_speak(obj);
     nomul(0);
     return res;
