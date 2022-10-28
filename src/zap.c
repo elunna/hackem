@@ -5943,88 +5943,7 @@ boolean moncast;
         break; /* ZT_FIRE */
 
     case ZT_COLD:
-        if (is_damp_terrain(x, y) || is_lava(x, y)) {
-            boolean lava = is_lava(x, y),
-                    moat = is_moat(x, y);
-
-            if (lev->typ == WATER) {
-                /* For now, don't let WATER freeze. */
-                if (see_it)
-                    pline_The("%s freezes for a moment.", hliquid("water"));
-                else
-                    You_hear("a soft crackling.");
-                rangemod -= 1000; /* stop */
-            } else {
-                char buf[BUFSZ];
-
-                Strcpy(buf, waterbody_name(x, y)); /* for MOAT */
-                rangemod -= 3;
-                if (lev->typ == DRAWBRIDGE_UP) {
-                    lev->drawbridgemask &= ~DB_UNDER; /* clear lava */
-                    lev->drawbridgemask |= (lava ? DB_FLOOR : DB_ICE);
-                } else {
-                    lev->icedpool = lava ? 0
-                                         : (lev->typ == POOL) ? ICED_POOL
-                                                : (lev->typ == PUDDLE) ? ICED_PUDDLE
-                                                       : (lev->typ == SEWAGE) ? ICED_SEWAGE
-                                                                              : ICED_MOAT;
-                    lev->typ = lava ? ROOM : ICE;
-                }
-                if (!(lev->icedpool == ICED_PUDDLE
-                      || lev->icedpool == ICED_SEWAGE))
-                    bury_objs(x, y);
-                if (see_it) {
-                    if (lava)
-                        Norep("The %s cools and solidifies.", hliquid("lava"));
-                    else if (moat)
-                        Norep("The %s is bridged with ice!", buf);
-                    else
-                        Norep("The %s freezes.", hliquid("water"));
-                    newsym(x, y);
-                } else if (!lava)
-                    You_hear("a crackling sound.");
-
-                if (x == u.ux && y == u.uy) {
-                    if (u.uinwater) { /* not just `if (Underwater)' */
-                        /* leave the no longer existent water */
-                        u.uinwater = 0;
-                        u.uundetected = 0;
-                        docrt();
-                        vision_full_recalc = 1;
-                    } else if (u.utrap && u.utraptype == TT_LAVA) {
-                        if (Passes_walls) {
-                            You("pass through the now-solid rock.");
-                            reset_utrap(TRUE);
-                        } else {
-                            set_utrap(rn1(50, 20), TT_INFLOOR);
-                            You("are firmly stuck in the cooling rock.");
-                        }
-                    }
-                } else if ((mon = m_at(x, y)) != 0) {
-                    /* probably ought to do some hefty damage to any
-                       non-ice creature caught in freezing water;
-                       at a minimum, eels are forced out of hiding */
-                    if (is_swimmer(mon->data) && mon->mundetected) {
-                        mon->mundetected = 0;
-                        newsym(x, y);
-                    }
-                }
-                if (!lava) {
-                    start_melt_ice_timeout(x, y, 0L);
-                    obj_ice_effects(x, y, TRUE);
-                }
-            } /* ?WATER */
-
-        } else if (is_ice(x, y)) {
-            long melt_time;
-
-            /* Already ice here, so just firm it up. */
-            /* Now ensure that only ice that is already timed is affected */
-            if ((melt_time = spot_time_left(x, y, MELT_ICE_AWAY)) != 0L) {
-                spot_stop_timers(x, y, MELT_ICE_AWAY);
-                start_melt_ice_timeout(x, y, melt_time);
-            }
-        }
+        rangemod = freeze_tile(lev, x, y, rangemod);
         break; /* ZT_COLD */
 
     case ZT_POISON_GAS:
@@ -7177,5 +7096,99 @@ register struct obj *obj;
                 ct++; /* pets don't laugh at you */
         }
     }
+}
+
+/* Returns rangemod for the wands; 
+ * if a scroll of ice calls this we don't care about that */
+int
+freeze_tile(lev, x, y, rangemod)
+struct rm *lev;
+int x, y, rangemod;
+{
+    struct monst *mon;
+    boolean see_it = cansee(x, y);
+    
+    if (is_damp_terrain(x, y) || is_lava(x, y)) {
+        boolean lava = is_lava(x, y), moat = is_moat(x, y);
+
+        if (lev->typ == WATER) {
+            /* For now, don't let WATER freeze. */
+            if (see_it)
+                pline_The("%s freezes for a moment.", hliquid("water"));
+            else
+                You_hear("a soft crackling.");
+            rangemod -= 1000; /* stop */
+        } else {
+            char buf[BUFSZ];
+
+            Strcpy(buf, waterbody_name(x, y)); /* for MOAT */
+            rangemod -= 3;
+            if (lev->typ == DRAWBRIDGE_UP) {
+                lev->drawbridgemask &= ~DB_UNDER; /* clear lava */
+                lev->drawbridgemask |= (lava ? DB_FLOOR : DB_ICE);
+            } else {
+                lev->icedpool = lava                   ? 0
+                                : (lev->typ == POOL)   ? ICED_POOL
+                                : (lev->typ == PUDDLE) ? ICED_PUDDLE
+                                : (lev->typ == SEWAGE) ? ICED_SEWAGE
+                                                       : ICED_MOAT;
+                lev->typ = lava ? ROOM : ICE;
+            }
+            if (!(lev->icedpool == ICED_PUDDLE
+                  || lev->icedpool == ICED_SEWAGE))
+                bury_objs(x, y);
+            if (see_it) {
+                if (lava)
+                    Norep("The %s cools and solidifies.", hliquid("lava"));
+                else if (moat)
+                    Norep("The %s is bridged with ice!", buf);
+                else
+                    Norep("The %s freezes.", hliquid("water"));
+                newsym(x, y);
+            } else if (!lava)
+                You_hear("a crackling sound.");
+
+            if (x == u.ux && y == u.uy) {
+                if (u.uinwater) { /* not just `if (Underwater)' */
+                    /* leave the no longer existent water */
+                    u.uinwater = 0;
+                    u.uundetected = 0;
+                    docrt();
+                    vision_full_recalc = 1;
+                } else if (u.utrap && u.utraptype == TT_LAVA) {
+                    if (Passes_walls) {
+                        You("pass through the now-solid rock.");
+                        reset_utrap(TRUE);
+                    } else {
+                        set_utrap(rn1(50, 20), TT_INFLOOR);
+                        You("are firmly stuck in the cooling rock.");
+                    }
+                }
+            } else if ((mon = m_at(x, y)) != 0) {
+                /* probably ought to do some hefty damage to any
+                   non-ice creature caught in freezing water;
+                   at a minimum, eels are forced out of hiding */
+                if (is_swimmer(mon->data) && mon->mundetected) {
+                    mon->mundetected = 0;
+                    newsym(x, y);
+                }
+            }
+            if (!lava) {
+                start_melt_ice_timeout(x, y, 0L);
+                obj_ice_effects(x, y, TRUE);
+            }
+        } /* ?WATER */
+
+    } else if (is_ice(x, y)) {
+        long melt_time;
+
+        /* Already ice here, so just firm it up. */
+        /* Now ensure that only ice that is already timed is affected */
+        if ((melt_time = spot_time_left(x, y, MELT_ICE_AWAY)) != 0L) {
+            spot_stop_timers(x, y, MELT_ICE_AWAY);
+            start_melt_ice_timeout(x, y, melt_time);
+        }
+    }
+    return rangemod;
 }
 /*zap.c*/

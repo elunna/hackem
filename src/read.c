@@ -1204,11 +1204,17 @@ do_iceflood(x, y, poolcnt)
 int x, y;
 genericptr_t poolcnt;
 {
-    register struct monst *mtmp;
     register struct trap *ttmp;
-
-    if (nexttodoor(x, y) || (rn2(1 + distmin(u.ux, u.uy, x, y))) ||
-        (sobj_at(BOULDER, x, y)) || (levl[x][y].typ != ROOM && levl[x][y].typ != CORR))
+    struct rm *lev = &levl[x][y];
+    
+    if (nexttodoor(x, y) 
+        || (rn2(1 + distmin(u.ux, u.uy, x, y)))
+        /*|| (sobj_at(BOULDER, x, y)) */
+        || (levl[x][y].typ != ROOM 
+            && levl[x][y].typ != CORR
+            && levl[x][y].typ != POOL
+            && levl[x][y].typ != PUDDLE
+            && levl[x][y].typ != SEWAGE))
         return;
 
     if ((ttmp = t_at(x, y)) != 0 && !delfloortrap(ttmp))
@@ -1217,6 +1223,8 @@ genericptr_t poolcnt;
     (*(int *)poolcnt)++;
 
     if (!((*(int *)poolcnt) && (x == u.ux) && (y == u.uy))) {
+        freeze_tile(lev, x, y, 0);
+#if 0
         /* Put a pool at x, y */
         levl[x][y].typ = ICE;
         del_engr_at(x, y);
@@ -1226,6 +1234,7 @@ genericptr_t poolcnt;
         } else {
             newsym(x,y);
         }
+#endif
     } else if ((x == u.ux) && (y == u.uy)) {
         (*(int *)poolcnt)--;
     }
