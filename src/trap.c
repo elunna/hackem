@@ -2025,25 +2025,25 @@ STATIC_OVL void
 doicetrap(box)
 struct obj *box;	/* at the moment only for floor traps */
 {
-	int num = 0;
-	num = d(4, 4);
-	if (box) {
-		impossible("doicetrap() called with non-null box.");
-		return;
-	}
+    int num = 0;
+    num = d(4, 4);
+    if (box) {
+        impossible("doicetrap() called with non-null box.");
+        return;
+    }
 
-	pline("A freezing cloud shoots from %s!", surface(u.ux, u.uy));
-	if (Cold_resistance) {
-		shieldeff(u.ux, u.uy);
-		num = 0;
-	}
+    pline("A freezing cloud shoots from %s!", surface(u.ux, u.uy));
+    if (Cold_resistance) {
+        shieldeff(u.ux, u.uy);
+        num = 0;
+    }
 
-	if (!num)
-		You("are uninjured.");
-	else
-		losehp(num, "freezing cloud", KILLED_BY_AN);
+    if (!num)
+        You("are uninjured.");
+    else
+        losehp(num, "freezing cloud", KILLED_BY_AN);
 
-	destroy_item(POTION_CLASS, AD_COLD);
+    destroy_item(POTION_CLASS, AD_COLD);
 }
 
 STATIC_OVL void

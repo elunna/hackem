@@ -1204,27 +1204,59 @@ do_iceflood(x, y, poolcnt)
 int x, y;
 genericptr_t poolcnt;
 {
-    register struct trap *ttmp;
+    register struct trap *ttmp = t_at(x, y);
     struct rm *lev = &levl[x][y];
     
-    if (nexttodoor(x, y) 
-        || (rn2(1 + distmin(u.ux, u.uy, x, y)))
-        /*|| (sobj_at(BOULDER, x, y)) */
-        || (levl[x][y].typ != ROOM 
-            && levl[x][y].typ != CORR
-            && levl[x][y].typ != LAVAPOOL
-            && levl[x][y].typ != POOL
-            && levl[x][y].typ != PUDDLE
-            && levl[x][y].typ != SEWAGE))
+    if (rn2(1 + distmin(u.ux, u.uy, x, y))
+        && !On_stairs(u.ux, u.uy) 
+        && (!IS_FURNITURE(levl[u.ux][u.uy].typ) 
+            && !IS_ROCK(levl[u.ux][u.uy].typ) 
+            && !closed_door(u.ux, u.uy)
+        ))
         return;
-
-    if ((ttmp = t_at(x, y)) != 0 && !delfloortrap(ttmp))
+    
+#if 0
+    if (ttmp && ttmp->ttyp == FIRE_TRAP) {
+        deltrap(ttmp);
+    }
+#endif
+    if (ttmp) {
+        switch (ttmp->ttyp) {
+        case FIRE_TRAP:
+            deltrap(ttmp);
+            break;
+        case ANTI_MAGIC:
+        case RUST_TRAP: 
+        case SLP_GAS_TRAP: 
+        case POLY_TRAP: 
+        case TELEP_TRAP: 
+        case LEVEL_TELEP:
+        case MAGIC_BEAM_TRAP:
+            deltrap(ttmp);
+            ttmp = maketrap(u.ux, u.uy, ICE_TRAP);
+            if (ttmp) {
+                ttmp->madeby_u = 1;
+                ttmp->tseen = 1;
+                newsym(u.ux, u.uy);
+                if (*in_rooms(u.ux,u.uy,SHOPBASE)) {
+                    add_damage(u.ux, u.uy, 0L);             
+                }
+            }
+            return;
+        }
+    }
+    if (ttmp != 0 && !delfloortrap(ttmp))
         return;
 
     (*(int *)poolcnt)++;
 
     if (!((*(int *)poolcnt) && (x == u.ux) && (y == u.uy))) {
         freeze_tile(lev, x, y, 0);
+        if (levl[x][y].typ == ROOM || levl[x][y].typ == CORR) {
+            levl[x][y].typ = ICE;
+            del_engr_at(x, y);
+            newsym(x,y);
+        }
 #if 0
         /* Put a pool at x, y */
         levl[x][y].typ = ICE;

@@ -5133,7 +5133,7 @@ void
 mk_wandtrap(obj)
 struct obj *obj;
 {
-    /* make fire trap if you broke a wand of fire */
+    /* make appropriate trap if you broke a wand */
     if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
         !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
                                    !IS_ROCK(levl[u.ux][u.uy].typ) &&
