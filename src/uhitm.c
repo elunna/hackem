@@ -1424,10 +1424,12 @@ int dieroll;
                         You("%s catnip fly everywhere!", Blind ? "feel" : "see");
                         setmangry(mon, TRUE);
                     }
+                    
                     if (thrown)
                         obfree(obj, (struct obj *) 0);
                     else
                         useup(obj);
+                    hittxt = TRUE; get_dmg_bonus = FALSE;
                     break;
                 case CREAM_PIE:
                 case SNOWBALL:

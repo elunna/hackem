@@ -248,7 +248,10 @@ struct monst *mon;
 
     if (!ptr) ptr = &mons[NUMMONS];
 
-    if (otyp == CREAM_PIE || otyp == APPLE_PIE || otyp == PUMPKIN_PIE)
+    if (otyp == CREAM_PIE 
+        || otyp == APPLE_PIE 
+        || otyp == PUMPKIN_PIE
+        || otyp == PINCH_OF_CATNIP)
         return 0;
 
     if (r_bigmonst(mon)) {

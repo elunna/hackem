@@ -3264,8 +3264,9 @@ static const struct alt_spellings {
     { "cookie", FORTUNE_COOKIE },
     { "pie", CREAM_PIE },
     { "kiwifruit", APPLE },
-	{ "kiwi fruit", APPLE },
-	{ "kiwi", APPLE }, /* Actually refers to the bird */
+    { "kiwi fruit", APPLE },
+    { "kiwi", APPLE }, /* Actually refers to the bird */
+    { "catnip", PINCH_OF_CATNIP },
 
     /* jewelery */
     { "amulet of poison resistance", AMULET_VERSUS_POISON },
