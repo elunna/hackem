@@ -2512,7 +2512,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     case SCR_ICE: {
-        int dam = sblessed ? d(6, 6) : d(scursed ? 1 : 2, 3);
+        int dam;
 
         if (!already_known)
             (void) learnscrolltyp(SCR_ICE);
@@ -2555,7 +2555,35 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 } else {
                     pline_The("scroll blasts your %s with freezing air!",
                               makeplural(body_part(HEAD)));
-                    losehp(dam, "scroll of ice", KILLED_BY_AN);
+                    losehp(d(scursed ? 1 : 2, 3), "scroll of ice", KILLED_BY_AN);
+                }
+            }
+            
+            /* Deal cold damage to close monsters */
+            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp))
+                    continue;
+                int mx = mtmp->mx, my = mtmp->my;
+                int dist = distmin(u.ux, u.uy, mx, my);
+                    
+                if (cansee(mx, my) && dist <= (sblessed ? 5 : 3)) {
+                    if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
+                        /*sho_shieldeff = TRUE;*/
+                        continue;
+                    }
+                    dam = sblessed ? d(3, 6) : d(scursed ? 1 : 2, 3);
+                    pline("%s is covered in frost!", Monnam(mtmp));
+                    
+                    if (resists_fire(mtmp))
+                        dam += d(3, 3);
+                    if (!rn2(3))
+                        (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+                    /* mtmp->mhp -= dam;*/
+                    damage_mon(mtmp, dam, AD_COLD);
+            
+                    if (DEADMONSTER(mtmp)) {
+                        killed(mtmp);
+                    }
                 }
             }
 
