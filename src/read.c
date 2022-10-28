@@ -1212,6 +1212,7 @@ genericptr_t poolcnt;
         /*|| (sobj_at(BOULDER, x, y)) */
         || (levl[x][y].typ != ROOM 
             && levl[x][y].typ != CORR
+            && levl[x][y].typ != LAVAPOOL
             && levl[x][y].typ != POOL
             && levl[x][y].typ != PUDDLE
             && levl[x][y].typ != SEWAGE))
