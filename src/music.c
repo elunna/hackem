@@ -1013,7 +1013,8 @@ struct obj *instr;
  breakinstr:
     You("start playing %s.", yname(instr));
     pline("The %s suddenly breaks!", xname(instr));
-    delobj(instr);
+    useup(instr);
+    /*delobj(instr);*/
     nomul(0);
     return 0;
 }
