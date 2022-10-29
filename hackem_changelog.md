@@ -1090,9 +1090,15 @@ Dragons and Dragon Scales
     - Previously known as "scroll of change material"
 - [x] scroll of elementalism
 - [x] scroll of air
-    - Confused Scroll of air creates an air elemental if cursed, 
-      or a whirling sphere.
+    - Confused: Creates 1-3 air elemental(s) if cursed, 
+      or 1-3 whirling spheres if non-cursed.
 - [x] scroll of ice (them)
+    - Upgraded: Now in addition to freezing floor tiles, these can freeze pools, puddles, and sewage. They also destroy lava and fire traps.
+    - Most magical traps will be converted to ice traps.
+    - Inflicts cold damage to monsters within a 5 square radius if blessed, otherwise 3. 
+    - Blessed does 6d6 cold (doesn't target you), uncursed deals 2d3 to everything in the radius, and cursed deals 1d3.
+    - Confused: Instead of removing lava, this now creates 1-3 freezing spheres or ice elementals.
+    - Waterproof like the scroll of flood.
 - [x] scroll of cloning
     - Clones an item in your inventory
     - Confused cloning will clone yourself.
@@ -2008,7 +2014,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 - Flame Mage can only be Lawful/Neutral
 - Flame Mages no longer gain cold resistance at level 13. (Their quest artifact still provides it though)
-- Level 10: Gets "vulnerable to cold"
+- Level 5: Gets "vulnerable to cold"
 - Cannot 2-weapon anymore
 - Starts with more fire based inventory: 
   - potions of oil, fire bomb, scrolls of fire 
@@ -2023,7 +2029,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 - Can only be Chaotic/Neutral
 - Ice Mages no longer gain fire resistance at level 13. (Their quest artifact does NOT grant fire res anymore)
-- Level 10: Gains "Vulnerable to Fire"
+- Level 5: Gains "Vulnerable to Fire"
 - Intrinsic Ice armor AC protection (Similar to Slash'EM Monk)
   - This is quite powerful.
   - Calculation is: ACBONUS = -((YOURLEVEL / 2) + 2)
@@ -2308,3 +2314,6 @@ usually enjoy.
 
 ### Thanks: 
 - riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser
+
+
+==========================
