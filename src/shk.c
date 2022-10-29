@@ -1908,12 +1908,12 @@ shk_other_services()
     if (shk_class_match(ARMOR_CLASS, shkp) == SHK_MATCH) {
         if ((ESHK(shkp)->services & SHK_ARM_FIX)) {
             any.a_int = 19;
-            add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
+            add_menu(tmpwin, NO_GLYPH, &any , 'f', 0, ATR_NONE,
                      "Fix/Proof Armor", MENU_UNSELECTED);
         }
         if ((ESHK(shkp)->services & SHK_ARM_ENC)) {
             any.a_int = 20;
-            add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
+            add_menu(tmpwin, NO_GLYPH, &any , 'e', 0, ATR_NONE,
                      "Enchant Armor", MENU_UNSELECTED);
         }
     }
