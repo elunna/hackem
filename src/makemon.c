@@ -1477,11 +1477,13 @@ register struct monst *mtmp;
             otmp->oprops = (rn2(3) ? ITEM_FIRE : rn2(2) ? ITEM_FROST : ITEM_VENOM);
             otmp->spe = rnd(4) + 1;
             (void) mpickobj(mtmp, otmp);
-            (void) mongets(mtmp, ROBE_OF_POWER);
-            (void) mongets(mtmp, CORNUTHAUM);
             if (rn2(2))
-                (void) mongets(mtmp, rn2(2) ? AMULET_OF_GUARDING
-                                            : AMULET_OF_MAGIC_RESISTANCE);
+                (void) mongets(mtmp, ROBE_OF_POWER);
+            if (rn2(2))
+                (void) mongets(mtmp, CORNUTHAUM);
+            if (rn2(2))
+                (void) mongets(mtmp, rn2(13) ? AMULET_OF_GUARDING
+                                            : AMULET_OF_LIFE_SAVING);
         }
         break;
 
@@ -2868,7 +2870,7 @@ uchar m_lev; /* not just a struct mon because polyself code also uses this */
     } else if (is_rider(ptr)) {
         /* we want low HP, but a high mlevel so they can attack well
          * Riders are a bit too easy to take down. Let's buff them up a bit */
-        return 100 + d(10, 8);
+        return 40 + d(10, 8);
     } else if (ptr->mlevel > 49) {
         /* "special" fixed hp monster
          * the hit points are encoded in the mlevel in a somewhat strange
