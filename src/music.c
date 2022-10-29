@@ -1016,7 +1016,7 @@ struct obj *instr;
     useup(instr);
     /*delobj(instr);*/
     nomul(0);
-    return 0;
+    return 1;
 }
 
 

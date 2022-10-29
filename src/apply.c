@@ -4972,8 +4972,7 @@ doapply()
     case BAGPIPE:
     case LEATHER_DRUM:
     case DRUM_OF_EARTHQUAKE:
-        res = do_play_instrument(obj);
-        break;
+        return do_play_instrument(obj);
     case KEG:
         if (obj->spe > 0) {
             consume_obj_charge(obj, TRUE);
