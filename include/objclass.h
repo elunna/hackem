@@ -241,16 +241,15 @@ enum obj_class_types {
 #define SHK_ID_TOOL     0x00000400L /* ( */
 #define SHK_ID_GEM      0x00000800L /* * */
 #define SHK_ID_FOOD     0x00001000L /* % */
-#define SHK_APPRAISE    0x00002000L /* a */
-#define SHK_UNCURSE     0x00004000L /* u */
-#define SHK_WEP_FIX     0x00008000L /* f */
-#define SHK_WEP_ENC     0x00010000L /* e */
-#define SHK_WEP_POI     0x00020000L /* p */
-#define SHK_ARM_FIX     0x00040000L /* f */
-#define SHK_ARM_ENC     0x00080000L /* e */
-#define SHK_CHG_BAS     0x00100000L /* c */
-#define SHK_CHG_PRE     0x00200000L /* C */
-#define SHK_RUMOR       0x00400000L /* r */
+#define SHK_UNCURSE     0x00002000L /* u */
+#define SHK_WEP_FIX     0x00004000L /* f */
+#define SHK_WEP_ENC     0x00008000L /* e */
+#define SHK_WEP_POI     0x00010000L /* p */
+#define SHK_ARM_FIX     0x00020000L /* f */
+#define SHK_ARM_ENC     0x00040000L /* e */
+#define SHK_CHG_BAS     0x00080000L /* c */
+#define SHK_CHG_PRE     0x00100000L /* C */
+#define SHK_RUMOR       0x00200000L /* r */
 
 #if 0 /* moved to decl.h so that makedefs.c won't see them */
 extern const struct class_sym

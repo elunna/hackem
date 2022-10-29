@@ -1878,14 +1878,6 @@ shk_other_services()
                  "Identify Food", MENU_ITEMFLAGS_NONE);
     }
     
-    /* Weapon appraisals.  Weapon & general stores can do this. */
-    if ((ESHK(shkp)->services & SHK_UNCURSE) &&
-        (shk_class_match(WEAPON_CLASS, shkp))) {
-        any.a_int = 14;
-        add_menu(tmpwin, NO_GLYPH, &any , 'a', 0, ATR_NONE,
-                 "Appraise", MENU_ITEMFLAGS_NONE);
-    }
-    
     /* All shops can potentially uncurse */
     if (ESHK(shkp)->services & SHK_UNCURSE) {
         any.a_int = 15;

@@ -1139,7 +1139,7 @@ struct monst *shk;
      */
     if (Is_blackmarket(&u.uz)) {
         ESHK(shk)->services = 
-            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE | SHK_APPRAISE;
+            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE;
         return;
     }
 
@@ -1222,9 +1222,6 @@ struct monst *shk;
     
     /* Weapon shop services */
     if (shk_class_match(WEAPON_CLASS, shk)) {
-        /* Appraisal service */
-        if (!rn2(3))
-            ESHK(shk)->services |= SHK_APPRAISE;
         /* Weapon rust/erode-proofing */
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_WEP_FIX;
