@@ -6183,16 +6183,16 @@ Gehennom open before you.
 Abandon all hope, ye who enter here...
 %E [Cerberus is dead, allowing unrestricted passage into Gehennom.]
 #
-# Defeating the Goblin King
+# Defeating Grund the Orc King
 #
 %Cc - 00305
-The Goblin King's massive body lays sprawled out before you,
+The Orc King's fearsome body lays sprawled out before you,
 his blood slowly seeping out from under him, spreading across
-the cavern floor.  Around his neck, you notice a magical
+the bunker floor.  Around his neck, you notice a magical
 talisman with a familiar glyph etched into its surface.
 Before you have a chance to examine it further, it glows
 fiercely for a brief moment, and then turns to ash.
 
-This was the magic that blocked access to Mine Town and
-Mines' End, and now that magic has been removed, permanently.
-%E [The Goblin King is dead, opening passage to Mine Town and Mines' End.]
+This was the magic that blocked passage further into the dungeon, 
+and now that magic has been removed, permanently.
+%E [Grund the Orc King is dead, the rest of the dungeon awaits.]

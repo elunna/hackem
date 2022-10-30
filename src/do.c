@@ -1761,7 +1761,28 @@ boolean at_stairs, falling, portal;
         pline("A mysterious force prevents you from descending.");
         return;
     }
-
+    
+    /* Prevent the player from progressing beyond Grund's until Grund is 
+     * defeated. */
+    if (at_stairs || falling) {
+        /*if ((!up && (ledger_no(&u.uz) == ledger_no(&d_grunds_level))) ) {*/
+        if (Is_grunds_level(&u.uz) && (!up || (up && u.uhave.amulet))) {
+            if (!u.uevent.ugrund) {
+                if (at_stairs) {
+                    if (Blind) {
+                        pline("A mysterious force prevents you from accessing the stairs.");
+                    } else {
+                        You("see a magical glyph hovering in midair, preventing access to the stairs.");
+                        pline("It reads 'Access denied, by order of Grund.'.");
+                    }
+                } else if (falling) {
+                    pline("A mysterious force prevents you from falling.");
+                }
+                return;
+            }
+        }
+    }
+    
     if (on_level(newlevel, &u.uz))
         return; /* this can happen */
 
@@ -2090,6 +2111,16 @@ boolean at_stairs, falling, portal;
         u.uevent.vecnad_entered = 1;
         You("enter a desolate landscape, completely devoid of life.");
         pline("Every fiber of your being tells you to leave this evil place, now.");
+#ifdef MICRO
+        display_nhwindow(WIN_MESSAGE, FALSE);
+#endif
+    }
+    
+    if (Is_grunds_level(&u.uz)
+        && !u.uevent.grunds_entered) {
+        u.uevent.grunds_entered = 1;
+        You("enter into the territory of orcs...");
+        /*pline("Every fiber of your being tells you to leave this evil place, now.");*/
 #ifdef MICRO
         display_nhwindow(WIN_MESSAGE, FALSE);
 #endif

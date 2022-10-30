@@ -981,7 +981,8 @@ const char *in_str;
         Strcpy(term - 5, "king");
 #if 0
     else if (slen > 5 && (s = strstri(term - 5, " king")) != 0
-             && strncmpi(str, "rat ", 4))
+             && strncmpi(str, "rat ", 4) 
+            && && strncmpi(str, "grund the orc ", 14))
         Strcpy(term - 4, "royal");
 #endif
     /* be careful with "ies"; "priest", "zombies" */

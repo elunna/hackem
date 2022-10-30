@@ -1378,6 +1378,10 @@ wiz_map_levltyp(VOID_ARGS)
                 Strcat(dsc, " Ice Queen branch");
             if (slev->flags.vecnad)
                 Strcat(dsc, " Vecna's branch");
+#if 0
+            if (slev->flags.grundsl)
+                Strcat(dsc, " Grund's Stronghold");
+#endif
             if (slev->flags.town)
                 Strcat(dsc, " town");
             if (slev->flags.rogue_like)
@@ -3891,6 +3895,9 @@ int final;
     if (u.uachieve.killed_vecna)
         enl_msg(You_, "have ", "",
                 "defeated Vecna", ""), ++acnt;
+    if (u.uachieve.killed_grund)
+        enl_msg(You_, "have ", "",
+                "defeated Grund", ""), ++acnt;
     if (u.uachieve.defeat_icequeen)
         enl_msg(You_, "have ", "",
                 "defeated Kathryn the Ice Queen", ""), ++acnt;

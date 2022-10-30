@@ -702,6 +702,7 @@ struct level_map {
                   { "blkmar", &blackmarket_level },
                   { "medusa", &medusa_level },
                   { "oracle", &oracle_level },
+                  { "grund", &grunds_level },
                   { "orcus", &orcus_level },
                   { "rogue", &rogue_level },
                   { "sanctum", &sanctum_level },

@@ -54,9 +54,11 @@ struct u_event {
     Bitfield(hellc_entered, 1);     /* entered one of the demon prince lairs */
     Bitfield(iceq_entered, 1);      /* entered the Ice Queen's realm */
     Bitfield(vecnad_entered, 1);    /* entered Vecna's domain */
+    Bitfield(grunds_entered, 1);    /* entered Grund's Stronghold */
     Bitfield(uhand_of_elbereth, 3); /* became Hand of Elbereth */
     Bitfield(ucerberus, 1);         /* killed Cerberus */
     Bitfield(uvecna, 1);            /* killed Vecna */
+    Bitfield(ugrund, 1);            /* killed Grund */
     Bitfield(udemigod, 1);          /* killed the wiz */
     Bitfield(ascended, 1);          /* has offered the Amulet */
     Bitfield(ulearned_elbereth, 1); /* learned how to write Elbereth */
@@ -77,6 +79,7 @@ struct u_achieve {
     Bitfield(defeat_icequeen, 1);
     Bitfield(killed_cerberus, 1);
     Bitfield(killed_vecna, 1);
+    Bitfield(killed_grund, 1);
 
     Bitfield(vibrating_square, 1); /* stepped on "vibrating square" */
 };

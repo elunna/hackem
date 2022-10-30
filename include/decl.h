@@ -47,6 +47,7 @@ E NEARDATA int in_doagain;
 
 E struct dgn_topology { /* special dungeon levels for speed */
     d_level d_oracle_level;
+    d_level d_grunds_level;
     d_level d_bigroom_level; /* unused */
     d_level d_rogue_level;
     d_level d_medusa_level;
@@ -82,6 +83,7 @@ E struct dgn_topology { /* special dungeon levels for speed */
 /* macros for accessing the dungeon levels by their old names */
 /* clang-format off */
 #define oracle_level            (dungeon_topology.d_oracle_level)
+#define grunds_level            (dungeon_topology.d_grunds_level)
 #define bigroom_level           (dungeon_topology.d_bigroom_level)
 #define rogue_level             (dungeon_topology.d_rogue_level)
 #define medusa_level            (dungeon_topology.d_medusa_level)

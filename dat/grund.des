@@ -53,7 +53,8 @@ DOOR: locked, $places[0]
 # Prevent xorning through the center wall.
 NON_PASSWALL: (40,00,40,20)	
 
-STAIR: (00, 10), down
+#STAIR: (00, 10), down
+STAIR: (73, 10), down
 STAIR: (61,07,67,13), (00,00,00,00), up
 
 # Moat and drawbridge

@@ -157,7 +157,7 @@ struct monst *mtmp;
         || mtmp->data == &mons[PM_NEOTHELID] || mindless(mtmp->data)
         || is_mplayer(mtmp->data) || is_rider(mtmp->data) || mtmp->isvecna
         || mtmp->data->mlet == S_HUMAN || unique_corpstat(mtmp->data)
-        || (mtmp->isshk && inhishop(mtmp))
+        || (mtmp->isshk && inhishop(mtmp)) || mtmp->isgrund
         || (mtmp->ispriest && inhistemple(mtmp))
         || mtmp->mberserk)
         return FALSE;
