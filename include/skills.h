@@ -29,44 +29,43 @@ enum p_skills {
     P_BROAD_SWORD        =  6,
     P_LONG_SWORD         =  7,
     P_TWO_HANDED_SWORD   =  8,
-    P_SCIMITAR           =  9,
-    P_SABER              = 10,
-    P_CLUB               = 11, /* Heavy-shafted bludgeon */
-    P_MACE               = 12,
-    P_MORNING_STAR       = 13, /* Spiked bludgeon */
-    P_FLAIL              = 14, /* Two pieces hinged or chained together */
-    P_HAMMER             = 15, /* Heavy head on the end */
-    P_QUARTERSTAFF       = 16, /* Long-shafted bludgeon */
-    P_POLEARMS           = 17, /* attack two or three steps away */
-    P_SPEAR              = 18, /* includes javelin */
-    P_TRIDENT            = 19,
-    P_LIGHTSABER         = 20,
-    P_LANCE              = 21,
-    P_BOW                = 22, /* launchers */
-    P_SLING              = 23,
-    P_FIREARM            = 24, /* KMH */
-    P_CROSSBOW           = 25,
-    P_DART               = 26, /* hand-thrown missiles */
-    P_SHURIKEN           = 27,
-    P_BOOMERANG          = 28,
-    P_WHIP               = 29, /* flexible, one-handed */
-    P_UNICORN_HORN       = 30, /* last weapon */
+    P_SABER              =  9,
+    P_CLUB               = 10, /* Heavy-shafted bludgeon */
+    P_MACE               = 11,
+    P_MORNING_STAR       = 12, /* Spiked bludgeon */
+    P_FLAIL              = 13, /* Two pieces hinged or chained together */
+    P_HAMMER             = 14, /* Heavy head on the end */
+    P_QUARTERSTAFF       = 15, /* Long-shafted bludgeon */
+    P_POLEARMS           = 16, /* attack two or three steps away */
+    P_SPEAR              = 17, /* includes javelin */
+    P_TRIDENT            = 18,
+    P_LIGHTSABER         = 19,
+    P_LANCE              = 20,
+    P_BOW                = 21, /* launchers */
+    P_SLING              = 22,
+    P_FIREARM            = 23, /* KMH */
+    P_CROSSBOW           = 24,
+    P_DART               = 25, /* hand-thrown missiles */
+    P_SHURIKEN           = 26,
+    P_BOOMERANG          = 27,
+    P_WHIP               = 28, /* flexible, one-handed */
+    P_UNICORN_HORN       = 29, /* last weapon */
 
     /* Spell Skills added by Larry Stewart-Zerba */
-    P_ATTACK_SPELL       = 31,
-    P_HEALING_SPELL      = 32,
-    P_DIVINATION_SPELL   = 33,
-    P_ENCHANTMENT_SPELL  = 34,
-    P_CLERIC_SPELL       = 35,
-    P_ESCAPE_SPELL       = 36,
-    P_MATTER_SPELL       = 37,
+    P_ATTACK_SPELL       = 30,
+    P_HEALING_SPELL      = 31,
+    P_DIVINATION_SPELL   = 32,
+    P_ENCHANTMENT_SPELL  = 33,
+    P_CLERIC_SPELL       = 34,
+    P_ESCAPE_SPELL       = 35,
+    P_MATTER_SPELL       = 36,
 
     /* Other types of combat */
-    P_BARE_HANDED_COMBAT = 38, /* actually weaponless; gloves are ok */
-    P_TWO_WEAPON_COMBAT  = 39, /* pair of weapons, one in each hand */
-    P_RIDING             = 40, /* How well you control your steed */
+    P_BARE_HANDED_COMBAT = 37, /* actually weaponless; gloves are ok */
+    P_TWO_WEAPON_COMBAT  = 38, /* pair of weapons, one in each hand */
+    P_RIDING             = 39, /* How well you control your steed */
 
-    P_NUM_SKILLS         = 41
+    P_NUM_SKILLS         = 40
 };
 
 #define P_MARTIAL_ARTS P_BARE_HANDED_COMBAT /* Role distinguishes */

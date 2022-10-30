@@ -225,11 +225,11 @@ WEAPON("dwarvish short sword", "broad short sword",
 WEAPON("gladius", None,                                        /* SpliceHack */
        1, 0, 0, 0,  1,  30,  10, 10,  6, 2, S,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("scimitar", "curved sword",
-       0, 0, 0, 0, 15,  40,  15,  8,  8, 0, S,   P_SCIMITAR, IRON, HI_METAL),
+       0, 0, 0, 0, 15,  40,  15,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
 WEAPON("falchion", "heavy sword",                              /* SpliceHack */
-       0, 0, 0, 1, 10,  160, 55, 12, 16, 1, S,   P_SCIMITAR, IRON, HI_METAL),
+       0, 0, 0, 1, 10,  160, 55, 12, 16, 1, S,   P_SABER, IRON, HI_METAL),
 WEAPON("orcish scimitar", "crude curved sword",
-       0, 0, 0, 0, 15,  40,  15,  6,  8, 0, S,   P_SCIMITAR, IRON, CLR_BLACK),
+       0, 0, 0, 0, 15,  40,  15,  6,  8, 0, S,   P_SABER, IRON, CLR_BLACK),
 WEAPON("saber", None,
        1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
 WEAPON("rapier", None,                                           /* Slash'EM */
