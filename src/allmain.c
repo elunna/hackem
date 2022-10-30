@@ -886,20 +886,20 @@ int wtcap;
                             heal = efflev - 9;
                     }
                 }
-            } else if (efflev <= 9 && 
-                    !(moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1))) {
+            } else if (efflev <= 9 
+                       && !(moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1))) {
                 heal = 1;
-			}
+            }
 
             /* tortles gain some accelerated regeneration while
                inside their shell */
             if (Hidinshell && !Regeneration) {
                 if (!rn2(5))
-                    heal = 1;
+                    heal += 1;
             }
 
             if (Regeneration && !heal)
-                heal = 1;
+                heal += 1;
 
             if (heal && !(Withering && heal > 0)) {
                 context.botl = TRUE;
