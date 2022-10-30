@@ -695,6 +695,7 @@ int mm_flags;
             && (!revive_corpses
                 || !(otmp = sobj_at(CORPSE, cc.x, cc.y))
                 || !revive(otmp, FALSE)))
+            /* No chain summoners allowed */
             (void) makemon(mdat, cc.x, cc.y, mm_flags);
     }
     level.flags.graveyard = TRUE; /* reduced chance for undead corpse */

@@ -32,6 +32,7 @@ STATIC_DCL void FDECL(lifesaved_monster, (struct monst *));
 STATIC_DCL void FDECL(migrate_mon, (struct monst *, XCHAR_P, XCHAR_P));
 STATIC_DCL boolean FDECL(ok_to_obliterate, (struct monst *));
 STATIC_DCL void FDECL(icequeenrevive, (struct monst *));
+STATIC_DCL void FDECL(deathwail, (struct monst *));
 
 /* note: duplicated in dog.c */
 #define LEVEL_SPECIFIC_NOCORPSE(mdat) \
@@ -4049,6 +4050,7 @@ int how;
     /* no corpses if digested, disintegrated or withered */
     disintegested = (how == AD_DGST || how == -AD_RBRE
                      || how == AD_WTHR);
+    
     if (disintegested)
         mondead(mdef);
     else
@@ -4218,6 +4220,12 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     mdat = mtmp->data; /* note: mondead can change mtmp->data */
     mndx = monsndx(mdat);
     
+    /* Slaughter wights release a death wail on dying */
+    if (mtmp->data == &mons[PM_SLAUGHTER_WIGHT] &&
+                       !disintegested && m_canseeu(mtmp)) {
+        deathwail(mtmp);
+    }
+        
     if (is_fern_spore(mtmp->data)) {
         spore_dies(mtmp);
     }
@@ -6722,8 +6730,8 @@ short raceidx;
  * level.
  */
 void
-    kill_monster_on_level(mndx)
-        int mndx; /**< Monster index number */
+kill_monster_on_level(mndx)
+int mndx; /**< Monster index number */
 {
     struct monst *mtmp;
     struct monst *mtmp2;
@@ -6739,4 +6747,53 @@ void
     }
 }
 
+void
+deathwail(mtmp)
+struct monst *mtmp;
+{
+    int dmg = d(2, 18);
+    /* Mostly copied from mhitu.c */
+    if (Deaf) {
+        pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
+        dmg = 1;
+    } else
+        pline("%s releases a death wail!", Monnam(mtmp));
+    
+    if (Sonic_resistance) {
+        You("are unaffected by the noise.");
+        dmg = 0;
+        monstseesu(M_SEEN_LOUD);
+    } else {
+        Your("mind reels from the noise!");
+        make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
+        stop_occupation();
+    }
+    
+    if (!Deaf && u.usleep && m_canseeu(mtmp))
+        unmul("You are frightened awake!");
+        
+    if (!rn2(6))
+        erode_armor(&youmonst, ERODE_FRACTURE);
+    if (!rn2(5))
+        erode_obj(uwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
+    if (!rn2(6))
+        erode_obj(uswapwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
+    if (rn2(2))
+        destroy_item(POTION_CLASS, AD_LOUD);
+    if (!rn2(4))
+        destroy_item(RING_CLASS, AD_LOUD);
+    if (!rn2(4))
+        destroy_item(TOOL_CLASS, AD_LOUD);
+    if (!rn2(3))
+        destroy_item(WAND_CLASS, AD_LOUD);
+    
+    if (u.umonnum == PM_GLASS_GOLEM) {
+        You("shatter into a million pieces!");
+        rehumanize();
+    } else if (Sonic_resistance && !Deaf) {
+        monstseesu(M_SEEN_LOUD);
+    } else if (!Deaf) {
+        mdamageu(mtmp, dmg);
+    }
+}
 /*mon.c*/
