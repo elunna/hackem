@@ -121,6 +121,12 @@ int roomtype;
         case MINIGUILD:
             mkzoo(MINIGUILD); 
             break;
+        case CLINIC: 
+            mkzoo(CLINIC); 
+            break;
+        case TERRORHALL: 
+            mkzoo(TERRORHALL); 
+            break;
         default:
             impossible("Tried to make a room of type %d.", roomtype);
         }
@@ -396,6 +402,10 @@ struct mkroom *sroom;
     case LEPREHALL:
         goldlim = 500 * level_difficulty();
         break;
+    case CLINIC:
+    case TERRORHALL:
+        /*case GRUEROOM:*/
+        break;
     case DRAGONLAIR:
         goldlim = 1500 * level_difficulty();
         break;
@@ -421,11 +431,20 @@ struct mkroom *sroom;
                 continue;
             if (type == NURSERY && !On_stairs(sx, sy))
                 levl[sx][sy].typ = PUDDLE;
+            
             mon = ((struct monst *) 0);
-            if (type == ARMORY) {
+            if (type == ARMORY ) {
                 /* armories don't contain as many monsters */
                 if (!rn2(3))
                     mon = makemon(armorymon(), sx, sy, NO_MM_FLAGS);
+            } 
+            else if (type == CLINIC ) {
+                /* clinics don't contain as many monsters */
+                if (rn2(2))
+                    mon = makemon( (sx == tx && sy == ty 
+                                       ? &mons[PM_HEALER] 
+                                       : &mons[PM_NURSE]), sx, sy, NO_MM_FLAGS);
+                
             } else if (type == NURSERY) {
                 if (special_nursery) { /* rare event */
                     /* somehow a larvae nursery was left unattended,
@@ -447,6 +466,7 @@ struct mkroom *sroom;
                 mon = makemon(
                     (type == COURT) ? courtmon() : 
                     (type == BARRACKS) ? squadmon() : 
+                    (type == TERRORHALL) ? mkclass(S_UMBER, 0) :
                     (type == MORGUE) ? morguemon() : 
                     (type == FUNGUSFARM) ? fungus() :
                     (type == MINIGUILD) ? guildmon() :
@@ -550,6 +570,25 @@ struct mkroom *sroom;
                 if (!rn2(20)) /* the payroll and some loot */
                     (void) mksobj_at((rn2(3) || depth(&u.uz) < 16)
                         ? CHEST : IRON_SAFE, sx, sy, TRUE, FALSE);
+                break;
+            case CLINIC: /* 5lo: Rare rooms, lets give them a lot of healing objects. */
+                if (!rn2(5))
+                    (void) mksobj_at(POT_HEALING, sx, sy, TRUE, FALSE);
+                if (!rn2(10))
+                    (void) mksobj_at(POT_EXTRA_HEALING, sx, sy, TRUE, FALSE);
+                if (!rn2(20))
+                    (void) mksobj_at(POT_FULL_HEALING, sx, sy, TRUE, FALSE);
+                if (!rn2(30)) /* Instead of Recovery */
+                    (void) mksobj_at(POT_REGENERATION, sx, sy, TRUE, FALSE);
+                /* Now some wands... */
+                if (!rn2(10))
+                    (void) mksobj_at(WAN_HEALING, sx, sy, TRUE, FALSE);
+                if (!rn2(20))
+                    (void) mksobj_at(WAN_EXTRA_HEALING, sx, sy, TRUE, FALSE);
+                /* And for misc healing objects */
+                if (!rn2(10))
+                    (void) mksobj_at(PILL, sx, sy, TRUE, FALSE);
+                /* if (!rn2(40)) (void) mksobj_at(MEDICAL_KIT, sx, sy, TRUE, FALSE); */
                 break;
             case COCKNEST:
                 if (!rn2(3)) {
@@ -663,6 +702,12 @@ struct mkroom *sroom;
         break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = 1;
+        break;
+    case CLINIC:
+        level.flags.has_clinic = 1;
+        break;
+    case TERRORHALL:
+        level.flags.has_terrorhall = 1;
         break;
     case MINIGUILD:
         level.flags.has_guild = 1;

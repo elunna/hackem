@@ -2932,6 +2932,12 @@ register boolean newlev;
         case ANTHOLE:
             You("enter an anthole!");
             break;
+        case CLINIC:
+            You("enter a modern hospital.");
+            break;
+        case TERRORHALL:
+            You("enter a terrifying hall.");
+            break;
         case OWLBNEST:
             You("enter an owlbear nest!");
             break;
@@ -3020,6 +3026,12 @@ register boolean newlev;
                     break;
                 case MIGOHIVE:
                     level.flags.has_migohive = 0;
+                    break;
+                case CLINIC:
+                    level.flags.has_clinic = 0;
+                    break;
+                case TERRORHALL:
+                    level.flags.has_terrorhall = 0;
                     break;
                 }
             }

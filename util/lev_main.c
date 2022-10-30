@@ -209,6 +209,8 @@ static struct {
     { "lemurepit", LEMUREPIT },
     { "migohive", MIGOHIVE },
     { "fungusfarm",  FUNGUSFARM },
+    { "clinic",  CLINIC },
+    { "terrorhall",  TERRORHALL },
     { "shop", SHOPBASE },
     { "armor shop", ARMORSHOP },
     { "scroll shop", SCROLLSHOP },

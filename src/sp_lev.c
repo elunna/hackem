@@ -2600,6 +2600,8 @@ boolean prefilled;
         case LEPREHALL:
         case MORGUE:
         case BARRACKS:
+        case CLINIC:
+        case TERRORHALL:
         case OWLBNEST:
         case NURSERY:
         case LEMUREPIT:
@@ -2648,6 +2650,12 @@ boolean prefilled;
         break;
     case SWAMP:
         level.flags.has_swamp = TRUE;
+        break;
+    case CLINIC:
+        level.flags.has_clinic = TRUE;
+        break;
+    case TERRORHALL:
+        level.flags.has_terrorhall = TRUE;
         break;
     }
 }

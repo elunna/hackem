@@ -262,6 +262,26 @@ dosounds()
                 return;
             }
         }
+    }  
+    if (level.flags.has_clinic && !rn2(200)) {
+        static const char *hospital_msg[4] = {
+            "hear something about streptococus.",
+            "smell chloroform nearby.",
+            "hear someone cursing viruses.",
+            "seem to hear Doctor Frankenstein.",
+        };
+        You(hospital_msg[rn2(3) + hallu]);
+        return;
+    }
+    if (level.flags.has_terrorhall && !rn2(200)) {
+        static const char *terrorhall_msg[4] = {
+            "feel weirded out.",
+            "sense something strange about this place.",
+            "think you just saw something move.",
+            "think you're seeing white rabbits!",
+        };
+        You(terrorhall_msg[rn2(3) + hallu]);
+        return;
     }
     if (level.flags.has_zoo && !rn2(200)) {
         static const char *const zoo_msg[3] = {

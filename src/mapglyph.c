@@ -194,6 +194,22 @@ unsigned mgflags;
                 color = CLR_RED;
             else if (getroomtype(x, y) == MINIGUILD)
                 color = CLR_BROWN;
+            else if (getroomtype(x, y) == REALZOO)
+                color = CLR_BROWN;
+            else if (getroomtype(x, y) == GIANTCOURT)
+                color = CLR_RED;
+            else if (getroomtype(x, y) == DRAGONLAIR)
+                color = CLR_BRIGHT_MAGENTA;
+            else if (getroomtype(x, y) == BADFOODSHOP)
+                color = CLR_RED;
+            else if (getroomtype(x, y) == MIGOHIVE)
+                color = CLR_BRIGHT_GREEN;
+            else if (getroomtype(x, y) == FUNGUSFARM)
+                color = CLR_BRIGHT_GREEN;
+            else if (getroomtype(x, y) == CLINIC)
+                color = CLR_ORANGE;
+            else if (getroomtype(x, y) == TERRORHALL)
+                color = CLR_BRIGHT_CYAN;
             else
                 cmap_color(offset);
 

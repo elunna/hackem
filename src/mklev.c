@@ -973,6 +973,8 @@ makelevel()
             mkroom(BEEHIVE);
         else if (u_depth > 9 && !rn2(19)) 
             mkroom(REALZOO);
+        else if (depth(&u.uz) > 10 && !rn2(40)) 
+            mkroom(CLINIC); /* supposed to be very rare --Amy */
         else if (u_depth > 10 && !rn2(16)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
             mkroom(OWLBNEST);
@@ -999,9 +1001,11 @@ makelevel()
         else if (u_depth > 17 && !rn2(12)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))
             mkroom(NURSERY);
-         else if (u_depth > 18 && !rn2(20) 
+        else if (u_depth > 18 && !rn2(20) 
                  && !(mvitals[PM_MIGO_DRONE].mvflags & G_GONE))
             mkroom(MIGOHIVE);
+        else if (depth(&u.uz) > 15 && !rn2(20))
+            mkroom(TERRORHALL);
     }
 
  skip0:

@@ -71,7 +71,6 @@ enum roomtype_types {
     NURSERY    = 16, /* mind flayer larva nursery */
     GARDEN     = 17, /* nymphs, trees and fountains */
     LEMUREPIT  = 18, /* contains lemures and horned devils */
-  
     REALZOO    = 19, /* zoo-like monsters (monkeys, etc.) */
     GIANTCOURT = 20, /* a giant courtroom */
     DRAGONLAIR = 21, /* dragons and $$$ */
@@ -79,27 +78,29 @@ enum roomtype_types {
     MIGOHIVE   = 23, /* Mi-Go */
     FUNGUSFARM = 24, /* molds, puddings, and slime */
     MINIGUILD  = 25, /* Replacement for SlashEM guild of Disgruntled Adventurers. */
-    RNDVAULT   = 26, /* random vault, not to be confused with VAULT */
-    BLACKFOYER = 27, /* Foyer to the black market */
-    SHOPBASE   = 28, /* everything above this is a shop */
-    ARMORSHOP  = 29, /* specific shop defines for level compiler */
-    SCROLLSHOP = 30,
-    POTIONSHOP = 31,
-    WEAPONSHOP = 32,
-    FOODSHOP   = 33,
-    RINGSHOP   = 34,
-    WANDSHOP   = 35,
-    TOOLSHOP   = 36,
-    BOOKSHOP   = 37,
-    FODDERSHOP = 38, /* health food store */
-    TINSHOP    = 39,
-    INSTRUMENTSHOP = 40,
-    PETSHOP    = 41, /* Stephen White */
-    ARCHERYSHOP = 42,
-    MASKSHOP   = 43,
-    JUNKSHOP   = 44,
-    CANDLESHOP = 45, /*(UNIQUESHOP) */
-    BLACKSHOP  = 46  /*(UNIQUESHOP) */
+    CLINIC     = 26, /* nurses */
+    TERRORHALL = 27, /* hulks */
+    RNDVAULT   = 28, /* random vault, not to be confused with VAULT */
+    BLACKFOYER = 29, /* Foyer to the black market */
+    SHOPBASE   = 30, /* everything above this is a shop */
+    ARMORSHOP  = 31, /* specific shop defines for level compiler */
+    SCROLLSHOP = 32,
+    POTIONSHOP = 33,
+    WEAPONSHOP = 34,
+    FOODSHOP   = 35,
+    RINGSHOP   = 36,
+    WANDSHOP   = 37,
+    TOOLSHOP   = 38,
+    BOOKSHOP   = 39,
+    FODDERSHOP = 40, /* health food store */
+    TINSHOP    = 41,
+    INSTRUMENTSHOP = 42,
+    PETSHOP    = 43, /* Stephen White */
+    ARCHERYSHOP = 44,
+    MASKSHOP   = 45,
+    JUNKSHOP   = 46,
+    CANDLESHOP = 47, /*(UNIQUESHOP) */
+    BLACKSHOP  = 48  /*(UNIQUESHOP) */
 };
 
 #define MAXRTYPE (BLACKSHOP) /* maximum valid room type */
