@@ -4078,7 +4078,7 @@ boolean by_you;
 
         pseudo = mksobj(SPE_STONE_TO_FLESH, FALSE, FALSE);
         pseudo->blessed = pseudo->cursed = 0;
-        mon->mspec_used = mon->mspec_used + rn2(7);
+        mon->mspec_used = mon->mspec_used + d(2,7);
         if (canspotmon(mon))
             pline("%s casts a spell!", canspotmon(mon)
                   ? Monnam(mon) : Something);
