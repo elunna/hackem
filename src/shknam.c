@@ -1148,7 +1148,12 @@ struct monst *shk;
      * they can identify (at premier level). 
      */
     if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL) {
-        int num_svc = rnd(4) + 1;
+        /* General stores can start with 0-3 identify services 
+         * 10% chance of adding 1 extra. */
+        /*int num_svc = rnd(4) + 1;*/
+        int num_svc = rn2(3);
+        if (rn2(2))
+            num_svc += 1;
         while (num_svc > 0) {
             switch (rn2(11)) {
             case 0: ESHK(shk)->services |= SHK_ID_WEAPON; break; 
