@@ -111,7 +111,7 @@ const struct Role roles[] = {
       "Cav", "the Caves of the Ancestors", "Annam's Lair",
       PM_CAVEMAN,
       PM_CAVEWOMAN,
-      PM_LITTLE_DOG,
+      PM_WOLF,
       PM_SHAMAN_KARNOV,
       PM_NEANDERTHAL,
       PM_ANNAM,

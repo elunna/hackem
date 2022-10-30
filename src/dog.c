@@ -234,7 +234,8 @@ makedog()
     pettype = pet_type();
     if (pettype == PM_LITTLE_DOG
         || pettype == PM_HELL_HOUND_PUP
-        || pettype == PM_WINTER_WOLF_CUB)
+        || pettype == PM_WINTER_WOLF_CUB
+        || pettype == PM_WOLF)
         petname = dogname;
     else if (pettype == PM_PSEUDODRAGON)
         petname = pseudoname;
@@ -273,6 +274,9 @@ makedog()
     } else if (!*petname && pettype == PM_LESSER_HOMUNCULUS) {
         if (Role_if(PM_INFIDEL))
             petname = "Hecubus"; /* The Kids in the Hall */
+    } else if (!*petname && pettype == PM_WOLF) {
+        if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN))
+            petname = "Slasher"; /* The Warrior */
     }
 
     mtmp = makemon(&mons[pettype], u.ux, u.uy, MM_EDOG);
