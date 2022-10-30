@@ -82,7 +82,7 @@ static struct trobj Flame_Mage[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Healer[] = {
-    { SCALPEL, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { SCALPEL, 1, WEAPON_CLASS, 1, 1 },
     { GLOVES, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { STETHOSCOPE, 0, TOOL_CLASS, 1, 0 },
     /* Missing medical kit */
