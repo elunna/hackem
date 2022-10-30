@@ -201,6 +201,22 @@ static const char *shkmusic[] = {
     0
 };
 
+static const char * const shkguns[] = {
+    /* GTA 3 */
+    "Claude", "_Catalina", "8-Ball", "Salvatore",
+    /* Vice City */
+    "Tommy", "Ken", "Lance", "Sonny", "Ricardo",
+    /* San Andreas */
+    "Carl", "Sean", "Melvin", "Ryder",
+    /* 4 */
+    "Niko", "Dimitri", "Mikhail", "Vlad",
+    /* Chinatown Wars */
+    "Huang", "Wu",
+    /* GTAV */
+    "Michael", "Franklin", "Trevor", "Steve",
+    "Weston",
+    0
+};
 static const char *shkpet[] = {
     /* Albania */
     "Elbasan", "Vlore", "Shkoder", "Berat", "Kavaje", "Pogradec",
@@ -374,11 +390,30 @@ const struct shclass shtypes[] = {
         { 1, -LUMP_OF_ROYAL_JELLY } },
       shkhealthfoods },
     {"canned food factory", FOOD_CLASS, 1, D_SHOP,
-      { {10, -ICE_BOX},         {90, -TIN},
+      { {10, -ICE_BOX},         
+        {90, -TIN},
         /* shopkeeper will pay for corpses, but they aren't generated */
         /* on the shop floor */
-        {0, -CORPSE},           {0, 0} },
+        {0, -CORPSE},
+        {0, 0} },
       shktins },
+    {"gun store", WEAPON_CLASS, 4, D_SHOP,
+      { { 20, -PISTOL },
+        { 8, -SUBMACHINE_GUN }, 
+        { 5, -HEAVY_MACHINE_GUN }, 
+        { 4, -RIFLE },
+        /* { 3, -ASSAULT_RIFLE }, */
+        { 3, -SNIPER_RIFLE },
+        { 8, -SHOTGUN }, 
+        { 5, -AUTO_SHOTGUN },
+        /* ammo */
+        { 15, -BULLET },
+        { 8, -SHOTGUN_SHELL },
+        { 3, -FIRE_BOMB }, 
+        { 3, -GAS_BOMB },
+        { 3, -SONIC_BOMB },
+        { 0, 0} },
+      shkguns},
     {"rare instruments", TOOL_CLASS, 1, D_SHOP,
       { { 10, -PEA_WHISTLE  }, { 3, -MAGIC_WHISTLE },
         { 10, -FLUTE },        { 3, -MAGIC_FLUTE },

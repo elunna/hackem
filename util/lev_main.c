@@ -225,12 +225,13 @@ static struct {
     { "music shop", INSTRUMENTSHOP },
     { "pet shop", PETSHOP },	/* Stephen White */
     { "archery shop", ARCHERYSHOP },
+    { "gun shop", GUNSHOP },
     { "mask shop", MASKSHOP },
     { "junk shop", JUNKSHOP },
     { "health food shop", FODDERSHOP },
     { "candle shop", CANDLESHOP },
     { "black market", BLACKSHOP },
-	{ "black market foyer", BLACKFOYER },
+    { "black market foyer", BLACKFOYER },
     { 0, 0 }
 };
 
