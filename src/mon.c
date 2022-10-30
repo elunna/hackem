@@ -787,7 +787,7 @@ unsigned corpseflags;
     case PM_PLASTIC_GOLEM:
         num = d(2, 4);
         while (num--) {
-            switch (rnd(15)) {
+            switch (rnd(167)) {
                 case 1:
                     obj = mksobj_at(FLY_SWATTER, x, y, TRUE, FALSE);
                     break;
