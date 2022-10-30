@@ -2266,7 +2266,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     }
 
     /* Drowsing Rod */
-    if (attacks(AD_SLEE, otmp) && !rn2(4)) {
+    if (attacks(AD_SLEE, otmp) && rn2(20)) {
         if (realizes_damage) {
             pline_The("rod sprays a %s %s at %s!", rndcolor(),
             (rn2(2) ? "gas" : "mist"), hittee);
@@ -2280,7 +2280,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 You("are put to sleep!");
             else
                 You("are put to sleep by the Drowsing Rod!");
-        } else if (mdef->mcanmove && !breathless(mdef->data) && sleep_monst(mdef, rnd(10), -1)) {
+        } else if (mdef->mcanmove && !breathless(mdef->data) && sleep_monst(mdef, d(2, 4), -1)) {
              if (!Blind)
                 pline("%s is put to sleep by Drowsing Rod's vapors!", Monnam(mdef));
             slept_monst(mdef);
