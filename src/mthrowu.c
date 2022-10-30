@@ -1610,6 +1610,18 @@ unsigned breakflags; /* breakage control */
                                    : "a hissing noise.");
         if (!nodissolve)
             dissolve_bars(barsx, barsy);
+    } else if (is_lightsaber(otmp)) {
+        if (!otmp->lamplit) {
+            Your("lightsaber is deactivated!");
+            return;
+        }
+        if (cansee(barsx, barsy) && !nodissolve)
+            pline_The("lightsaber slices right through the iron bars!");
+        else
+            You_hear(Hallucination ? "a hot knife slice through butter!"
+                                   : "a hissing noise.");
+        if (!nodissolve)
+            dissolve_bars(barsx, barsy);
     } else {
         if (!Deaf)
             pline("%s!", (obj_type == BOULDER || obj_type == HEAVY_IRON_BALL)
