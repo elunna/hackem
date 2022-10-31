@@ -269,14 +269,17 @@ struct trobj Wizard[] = {
 
 static struct trobj Yeoman[] = {
     { SHORT_SWORD, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { PARTISAN, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { FOOTBOW, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { ARROW, 0, WEAPON_CLASS, 30, UNDEF_BLESS },
+    { GREEN_COAT, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { HIDE_SHIELD, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { APPLE, 0, FOOD_CLASS, 10, 0 },
     { CARROT, 0, FOOD_CLASS, 10, 0 },
     { POT_WATER, 0, POTION_CLASS, 3, 0 },
     { FISHING_POLE, 0, TOOL_CLASS, 1, 0 },
+    { TOOLED_HORN, 0, TOOL_CLASS, 1, 1 },
+    { TORCH, 0, TOOL_CLASS, 1, 0 },
+    { WHETSTONE, 0, TOOL_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
 
@@ -881,19 +884,14 @@ static const struct def_skill Skill_Y[] = {
     { P_BROAD_SWORD, P_BASIC },         
     { P_LONG_SWORD, P_SKILLED },
     { P_SABER, P_SKILLED },
-/*  { P_PADDLE, P_SKILLED },*/
-    { P_HAMMER, P_BASIC },              
-    { P_QUARTERSTAFF, P_SKILLED },
+    { P_HAMMER, P_BASIC },
     { P_POLEARMS, P_EXPERT },           
     { P_SPEAR, P_BASIC },
     { P_TRIDENT, P_SKILLED },
-    { P_LANCE, P_SKILLED },            
     { P_BOW, P_EXPERT },
     { P_SLING, P_BASIC },
     { P_FIREARM, P_SKILLED },
-    { P_CROSSBOW, P_SKILLED },          
-    { P_DART, P_BASIC },
-    { P_WHIP, P_BASIC },                
+    { P_CROSSBOW, P_SKILLED },           
     { P_UNICORN_HORN, P_BASIC },
 
     { P_ENCHANTMENT_SPELL, P_SKILLED }, 

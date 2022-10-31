@@ -563,6 +563,8 @@ CLOAK("oilskin cloak", "slippery cloak",
       0, 0,          0,  8, 0, 10, 50,  9, 2,  CLOTH, HI_CLOTH),
 CLOAK("alchemy smock", "apron",
       0, 1, POISON_RES,  9, 0, 10, 50,  9, 1,  CLOTH, CLR_WHITE),
+CLOAK("green coat", None, 
+      1, 0,          0,  0, 0, 45, 50,  9, 2,  LEATHER, CLR_BRIGHT_GREEN),
 CLOAK("plain cloak", None,
       1, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BROWN),
 /* with shuffled appearances... */
