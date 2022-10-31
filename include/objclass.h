@@ -193,8 +193,9 @@ enum obj_class_types {
     BALL_CLASS   = 15,
     CHAIN_CLASS  = 16,
     VENOM_CLASS  = 17,
+    SPIRIT_CLASS = 18,
 
-    MAXOCLASSES  = 18
+    MAXOCLASSES  = 19
 };
 
 #define ALLOW_COUNT (MAXOCLASSES + 1) /* Can be used in the object class    */
@@ -276,6 +277,7 @@ extern uchar oc_syms[MAXOCLASSES];      /* current class symbols */
 #define BALL_SYM '0'
 #define CHAIN_SYM '_'
 #define VENOM_SYM '*'
+#define SPIRIT_SYM '~'
 
 struct fruit {
     char fname[PL_FSIZ];

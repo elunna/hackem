@@ -691,6 +691,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
 
         /*FALLTHRU*/
     case VENOM_CLASS:
+    case SPIRIT_CLASS:
     case TOOL_CLASS:
         if (typ == LENSES)
             Strcat(buf, "pair of ");
@@ -739,7 +740,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             if (wizard)
                 Sprintf(eos(buf), " (%ld)", obj->age);
         }
-
         break;
     case ARMOR_CLASS:
         /* depends on order of the dragon scales objects */
@@ -4169,7 +4169,7 @@ struct obj *no_wish;
 
     /* check for single character object class code ("/" for wand, &c) */
     if (strlen(bp) == 1 && (i = def_char_to_objclass(*bp)) < MAXOCLASSES
-        && i > ILLOBJ_CLASS && (i != VENOM_CLASS || wizard)) {
+        && i > ILLOBJ_CLASS && ((i != VENOM_CLASS && i != SPIRIT_CLASS)|| wizard)) {
         oclass = i;
         goto any;
     }

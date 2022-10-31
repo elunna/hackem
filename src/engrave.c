@@ -1083,13 +1083,13 @@ doengrave()
             break;
         }
         break;
-
-    case VENOM_CLASS:
+    case SPIRIT_CLASS:
         if (wizard) {
             pline("Writing a poison pen letter??");
             break;
         }
         /*FALLTHRU*/
+    case VENOM_CLASS:
     case ILLOBJ_CLASS:
         impossible("You're engraving with an illegal object!");
         break;

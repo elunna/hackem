@@ -518,7 +518,7 @@ int what; /* should be a long */
        corpse for a pillow here... (also at initial faint/sleep)] */
     if (autopickup && multi < 0 && unconscious())
         return 0;
-
+    
     if (what < 0) /* pick N of something */
         count = -what;
     else /* pick anything */
@@ -1567,8 +1567,13 @@ boolean telekinesis; /* not picking it up directly by hand */
             Your("%s %s briefly.", xname(obj), otense(obj, "vibrate"));
             makeknown(obj->otyp);
         }
+    } else if (obj->otyp == SPIRIT) {
+        pline_The("spirit absorbs into your being.");
+        u.uspirits += obj->quan;
+        useupf(obj, obj->quan);
+        return 1; /* Similar to scroll of scare monster... */
     }
-
+    
     if ((res = lift_object(obj, (struct obj *) 0, &count, telekinesis)) <= 0)
         return res;
 

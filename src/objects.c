@@ -1374,6 +1374,13 @@ OBJECT(OBJ("snowball", None),                                  /* EvilHack */
        VENOM_CLASS, 500, 0, 1, 0, 6, 6, 0, 0, 0, HI_GLASS),
         /* +d6 small or large */
 
+OBJECT(OBJ("spirit", None),
+        /*  nmkn,mrg,uskn,ctnr,mgc,chrg,uniq,nwsh,big,tuf,dir,sub,   mtrl) \ */
+       BITS(1,   1,  0,   0,   0,  0,   0,   1,   0,  0,  0,  P_NONE,LIQUID), 
+       /* prp,sym,          prob,dly,wt,cost,sdam,ldam,oc1,oc2,nut,color */
+          0,  SPIRIT_CLASS, 500, 0,  1, 0,   0,   0,   0,  0,  0,  HI_GLASS),
+
+
 /* fencepost, the deadly Array Terminator -- name [1st arg] *must* be NULL */
 OBJECT(OBJ(None, None),
        BITS(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, P_NONE, 0), 0,

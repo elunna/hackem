@@ -3330,6 +3330,7 @@ register struct monst *mtmp;
     struct monst *rider;
     int tmp, i;
     coord cc;
+    struct obj *otmp;
     
     mtmp->mhp = 0; /* in case caller hasn't done this */
     lifesaved_monster(mtmp);
@@ -3507,7 +3508,16 @@ register struct monst *mtmp;
             return;
         }
     }
-
+    /* Anything killed while playing as a necromancer has a chance of leaving 
+     * behind a spirit. */
+    /* if (Role_if(PM_NECROMANCER) && rn2(2)) { */
+    if (Role_if(PM_NECROMANCER)) {
+        otmp = mksobj(SPIRIT, FALSE, FALSE);
+        /*otmp->corpsenm = monsndx(mtmp->data); */
+        place_object(otmp, mtmp->mx, mtmp->my);
+        newsym(mtmp->mx, mtmp->my);
+    }
+    
     /* dead vault guard is actually kept at coordinate <0,0> until
        his temporary corridor to/from the vault has been removed;
        need to do this after life-saving and before m_detach() */

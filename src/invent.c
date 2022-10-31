@@ -86,7 +86,7 @@ struct obj *obj;
     if (p)
         k = 1 + (int) (p - classorder);
     else
-        k = 1 + (int) strlen(classorder) + (oclass != VENOM_CLASS);
+        k = 1 + (int) strlen(classorder) + (oclass != VENOM_CLASS && oclass != SPIRIT_CLASS);
     sort_item->orderclass = (xchar) k;
     /* subclass designation; only a few classes have subclasses
        and the non-armor ones we use are fairly arbitrary */
@@ -2163,7 +2163,7 @@ unsigned *resultflags;
             m_seen = TRUE;
         } else if (oc_of_sym == MAXOCLASSES) {
             You("don't have any %c's.", sym);
-        } else if (oc_of_sym != VENOM_CLASS) { /* suppress venom */
+        } else if (oc_of_sym != VENOM_CLASS && oc_of_sym != SPIRIT_CLASS) { /* suppress venom and spirits */
             if (!index(olets, oc_of_sym)) {
                 add_valid_menu_class(oc_of_sym);
                 olets[oletct++] = oc_of_sym;

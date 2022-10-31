@@ -307,6 +307,7 @@ start: Blank
         S_vcdbridge: \032
         S_vcdoor: \032
         S_venom: \032
+        S_spirit: \032
         S_vibrating_square: \032
         S_vodbridge: \032
         S_vodoor: \032
@@ -512,10 +513,12 @@ start: RogueEpyx
 	S_ball: \x30
 	S_chain: \x5f
 	S_venom: \x2e
+	S_spirit: \x2e
 	S_rock: \x60
 	S_ball: \x30
 	S_chain: \x5f
 	S_venom: \x2e
+	S_spirit: \x2e
 	S_human: \x01
 finish
 

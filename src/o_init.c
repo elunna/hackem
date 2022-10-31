@@ -213,6 +213,7 @@ int *lo_p, *hi_p; /* output: range that item belongs among */
     case RING_CLASS:
     case WAND_CLASS:
     case VENOM_CLASS:
+    case SPIRIT_CLASS:
         /* entire class */
         *lo_p = bases[ocls];
         for (i = *lo_p; objects[i].oc_class == ocls; i++)
@@ -235,7 +236,7 @@ shuffle_all()
     /* entire classes; obj_shuffle_range() handles their exceptions */
     static char shuffle_classes[] = {
         AMULET_CLASS, POTION_CLASS, RING_CLASS,  SCROLL_CLASS,
-        SPBOOK_CLASS, WAND_CLASS,   VENOM_CLASS,
+        SPBOOK_CLASS, WAND_CLASS, VENOM_CLASS,
     };
     /* sub-class type ranges (one item from each group) */
     static short shuffle_types[] = {

@@ -5399,6 +5399,7 @@
           #  S_vcdbridge            (vertical raised drawbridge)
           +  S_vcdoor               (closed door in vertical wall)
           .  S_venom                (splash of venom)
+          ~  S_spirit               (monster spirit)
           ^  S_vibrating_square     (vibrating square)
           .  S_vodbridge            (vertical lowered drawbridge)
           -  S_vodoor               (open door in vertical wall)

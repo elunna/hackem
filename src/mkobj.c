@@ -1057,6 +1057,7 @@ boolean artif;
                 blessorcurse(otmp, 10);
             break;
         case VENOM_CLASS:
+        case SPIRIT_CLASS:
             break;
         case CHAIN_CLASS:
             if (Role_if(PM_CONVICT) && otmp->otyp == IRON_CHAIN

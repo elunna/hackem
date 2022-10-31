@@ -2255,6 +2255,7 @@ struct monst *mtmp;
             && obj->oclass != AMULET_CLASS 
             && obj->oclass != RING_CLASS
             && obj->oclass != VENOM_CLASS 
+            && obj->oclass != SPIRIT_CLASS 
             && typ != SACK
             && typ != BAG_OF_HOLDING 
             && typ != BAG_OF_TRICKS

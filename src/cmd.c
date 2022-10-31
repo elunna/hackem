@@ -3518,6 +3518,11 @@ int final;
         enl_msg("Your health bonus ", "is", "was", " zero");
     #endif
 
+    if (Role_if(PM_NECROMANCER)) { 
+        Sprintf(buf, "%d %s", u.uspirits, u.uspirits != 1 ? "spirits" : "spirit");
+        you_have(buf, "");
+    } 
+    
     if (u.ugangr) {
         Sprintf(buf, " %sangry with you",
                 u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");
