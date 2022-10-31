@@ -2317,3 +2317,46 @@ usually enjoy.
 
 
 ==========================
+
+[x] Vanilla Rodney - way less annoying.
+	Rodney Only gets the "oMR 1in 13 times.
+	Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8);
+	221cd15eb
+	
+[x] Check that our elves in monsters, are lawfully aligned.
+	
+[x] Reduce the chances of undead by scaling with level depth
+[x] General stores offer 0-3 identify. 10% chance of offering 1 more.
+[x] Add steel ring mail to exclude in auto-pickup
+[x] Put forges after level 2?  They would really help beefing up early weapons...
+[x] Make plastic orbs/etc a LOT more rare from plastic golems.
+	Lower plastic golem HP?
+[x] Drowsing rod: Make it more like drow attack: 2d4 for sleep time.
+	Almost always executes the special - but to-hit is only ~d2 or even 1
+[x] The squealer screams.	
+[x] Fix unstoning monster spell timeout. Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).
+[x] UnNethack UnNethack gives Cavepeople a bit of help at the beginning: their starting pet is a wolf.
+
+[x] Healers: get +1 blessed scalpel is a better starting weapon.
+- [x] Merge scimitar and saber skills.
+	
+- [x] Can lightsabers open iron safes
+- [x] Lightsabers can cut through iron bars?
+[x] Grund must be defeated to take the downstairs
+[x] Grund must be defeated to take the upstairs on Grunds Stronghold if you have the amulet. (Infidels beware!)
+	
+	- [x] slaughter wights release a death wail when slain. 2d18 sonic damage, Stuns
+
+[x] Imported clinic room
+[x] Imported terror hall
+[x] Import gun shops
+
+Added zoo bats to real zoo
+
+Yeoman:
+	[x] green coat and hood. 
+	[x] Starts with a horn.
+	[x] Starts with a torch.
+	[x] Starts with a bow & peacock arrows - can reach expert (footbow?)
+	[x] axe - can reach skilled
+	[x] can reach skilled in daggers
