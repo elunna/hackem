@@ -618,6 +618,12 @@ xchar x, y;
     if (kickedobj->oartifact == ART_MJOLLNIR)
         range = 1;
 
+    /* Spirits are incorporeal, but they'll budge a square or two.
+     * TODO: Kicking increases their age. */
+    if (kickedobj->oclass == SPIRIT_CLASS) {
+        range = 2;
+    }
+    
     /* see if the object has a place to move into */
     if (!ZAP_POS(levl[x + u.dx][y + u.dy].typ)
         || closed_door(x + u.dx, y + u.dy))
