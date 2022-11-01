@@ -400,7 +400,7 @@ const struct Role roles[] = {
       S_BAT, 
       S_IMP,
       ART_GREAT_DAGGER_OF_GLAURGNAA,
-      MH_HUMAN | MH_ORC | MH_VAMPIRE,
+      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
 	  /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
 	  {   7, 10,  7,  7,  7,  7 },
