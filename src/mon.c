@@ -3508,9 +3508,9 @@ register struct monst *mtmp;
             return;
         }
     }
-    /* Anything killed while playing as a necromancer has a chance of leaving 
-     * behind a spirit. */
-    if (Role_if(PM_NECROMANCER)) {
+    /* Any living monster killed while playing as a necromancer has a chance 
+     * of leaving behind a spirit. */
+    if (Role_if(PM_NECROMANCER) && !nonliving(mtmp->data)) {
         otmp = mksobj(SPIRIT, FALSE, FALSE);
         otmp->corpsenm = monsndx(mtmp->data);
         attach_spirit_fade_timeout(otmp, 0L);
