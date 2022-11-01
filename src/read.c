@@ -45,6 +45,8 @@ STATIC_PTR void FDECL(undo_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
 static void seffect_cloning(struct obj **);
+STATIC_PTR int FDECL(mon_to_zombie, (int));
+STATIC_PTR boolean FDECL(cant_create, (int *, boolean));
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
@@ -2054,6 +2056,50 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
+    case SPE_RAISE_ZOMBIES:
+        pline("You chant the ancient curse...");
+        struct obj *obj;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int corpsenm;
+
+                if (!isok(u.ux + i, u.uy + j))
+                    continue;
+                for (obj = level.objects[u.ux + i][u.uy + j]; obj;
+                     obj = otmp) {
+                    otmp = obj->nexthere;
+
+                    if (obj->otyp != CORPSE)
+                        continue;
+                    /* Only generate undead */
+                    corpsenm = mon_to_zombie(obj->corpsenm);
+                    if (corpsenm != -1 && !cant_create(&corpsenm, TRUE)
+                        /*&& (!obj->oxlth || obj->oattached != OATTACHED_MONST) */
+                        ) {
+                        /* Maintain approx. proportion of oeaten to cnutrit
+                         * so that the zombie's HP relate roughly to how
+                         * much of the original corpse was left.
+                         */
+                        if (obj->oeaten)
+                            obj->oeaten = eaten_stat(mons[corpsenm].cnutrit, obj);
+                        obj->corpsenm = corpsenm;
+                        mtmp = revive(obj, TRUE);
+                        if (mtmp) {
+                            if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
+                                tamedog(mtmp, NULL);
+                                pline("You dominate %s!", mon_nam(mtmp));
+                            } else {
+                                setmangry(mtmp, FALSE);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        nomul(-2); /* You need to recover */
+        nomovemsg = 0;
+        /* t_timeout = rn1(1000, 500); */
+        break;
     case SCR_GENOCIDE:
         if (!already_known)
             You("have found a scroll of genocide!");
@@ -3770,4 +3816,67 @@ struct obj **sobjp;
 }
 
 
+int mon_to_zombie(int monnum) {
+    if ((&mons[monnum])->mlet == S_ZOMBIE) 
+        return monnum; /* is already zombie */
+                       
+    if (is_human(&mons[monnum])) 
+        return PM_HUMAN_ZOMBIE;
+    
+    if ((&mons[monnum])->mlet == S_KOBOLD) 
+        return PM_KOBOLD_ZOMBIE;
+    
+    if (is_orc(&mons[monnum])) 
+        return PM_ORC_ZOMBIE;
+
+    if ((&mons[monnum])->mlet == S_GNOME) 
+        return PM_GNOME_ZOMBIE;
+    
+    if (is_dwarf(&mons[monnum])) 
+        return PM_DWARF_ZOMBIE;
+    
+    if (is_elf(&mons[monnum])) 
+        return PM_ELF_ZOMBIE;
+    
+    if (is_hobbit(&mons[monnum])) 
+        return PM_HOBBIT_ZOMBIE;
+    
+    if (is_centaur(&mons[monnum])) 
+        return PM_CENTAUR_ZOMBIE;
+    
+    if (monnum == PM_ETTIN) 
+        return PM_ETTIN_ZOMBIE;
+    
+    if (is_giant(&mons[monnum])) 
+        return PM_GIANT_ZOMBIE;
+    
+    /* Is it humanoid? */
+    if (!humanoid(&mons[monnum])) 
+        return -1;
+    
+    /* Otherwise,  return a ghoul or ghast */
+    if (!rn2(4))
+        return PM_GHAST;
+    else
+        return PM_GHOUL;
+}
+
+/* some creatures have special data structures that only make sense in their
+ * normal locations -- if the player tries to create one elsewhere, or to revive
+ * one, the disoriented creature becomes a zombie
+ */
+boolean cant_create(int *mtype, boolean revival) {
+    /* SHOPKEEPERS can be revived now */
+    if (*mtype == PM_GUARD 
+        || (*mtype == PM_SHOPKEEPER && !revival) 
+        || *mtype == PM_ALIGNED_PRIEST 
+        || *mtype == PM_ANGEL) {
+        *mtype = PM_HUMAN_ZOMBIE;
+        return TRUE;
+    } else if (*mtype == PM_LONG_WORM_TAIL) { /* for create_particular() */
+        *mtype = PM_LONG_WORM;
+        return TRUE;
+    }
+    return FALSE;
+}
 /*read.c*/

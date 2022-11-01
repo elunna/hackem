@@ -1146,6 +1146,8 @@ SPELL("force bolt",      "red",     P_ATTACK_SPELL,      35,  2, 1, 1, IMMEDIATE
 SPELL("drain life",      "velvet",        P_ATTACK_SPELL,      10,  2, 2, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("summon undead",   "black",         P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
 SPELL("command undead",  "dark",          P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
+SPELL("raise zombies",   "big",           P_ATTACK_SPELL,      10,  7, 2, 1, IMMEDIATE, CLR_BLACK),
+
 SPELL("knock",           "pink",          P_MATTER_SPELL,      35,  1, 1, 1, IMMEDIATE, CLR_BRIGHT_MAGENTA),
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),
 SPELL("polymorph",       "silver",        P_MATTER_SPELL,      10,  8, 6, 1, IMMEDIATE, HI_SILVER),
