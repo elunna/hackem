@@ -1568,7 +1568,7 @@ boolean telekinesis; /* not picking it up directly by hand */
             makeknown(obj->otyp);
         }
     } else if (obj->otyp == SPIRIT) {
-        pline_The("spirit absorbs into your being.");
+        You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
         u.uspirits += obj->quan;
         useupf(obj, obj->quan);
         return 1; /* Similar to scroll of scare monster... */
