@@ -6585,7 +6585,7 @@ aligntyp algn;
         break;
     case A_CHAOTIC:
         permitted |=
-            (MH_ILLITHID | MH_ORC | MH_GIANT | MH_CENTAUR);
+            (MH_ILLITHID | MH_ORC | MH_GIANT | MH_CENTAUR | MH_VAMPIRE);
         break;
     case A_LAWFUL:
         permitted |= (MH_DWARF | MH_GIANT | MH_TORTLE | MH_ELF);
