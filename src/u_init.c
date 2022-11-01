@@ -979,8 +979,13 @@ u_init()
     set_uasmon();
 
     u.ulevel = 0; /* set up some of the initial attributes */
+                  
     u.uhp = u.uhpmax = newhp();
-    u.uen = u.uenmax = newpw();
+    if (Role_if(PM_NECROMANCER)) {
+        u.uen = 0;
+        u.uenmax = 99;
+    } else
+        u.uen = u.uenmax = newpw();
     u.uspellprot = 0;
     adjabil(0, 1);
     u.ulevel = u.ulevelmax = 1;

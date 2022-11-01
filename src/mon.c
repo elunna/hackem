@@ -3510,10 +3510,9 @@ register struct monst *mtmp;
     }
     /* Anything killed while playing as a necromancer has a chance of leaving 
      * behind a spirit. */
-    /* if (Role_if(PM_NECROMANCER) && rn2(2)) { */
     if (Role_if(PM_NECROMANCER)) {
         otmp = mksobj(SPIRIT, FALSE, FALSE);
-        /*otmp->corpsenm = monsndx(mtmp->data); */
+        otmp->corpsenm = monsndx(mtmp->data);   
         place_object(otmp, mtmp->mx, mtmp->my);
         newsym(mtmp->mx, mtmp->my);
     }

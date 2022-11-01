@@ -1569,7 +1569,14 @@ boolean telekinesis; /* not picking it up directly by hand */
         }
     } else if (obj->otyp == SPIRIT) {
         You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
-        u.uspirits += obj->quan;
+        /* +1 in case it's a level 0 monster... */
+        int spiritlev = mons[obj->corpsenm].mlevel + 1;
+        u.uspirits += spiritlev;
+        
+        u.uen += spiritlev;
+        if (u.uen > u.uenmax)
+            u.uen = u.uenmax;
+        
         useupf(obj, obj->quan);
         return 1; /* Similar to scroll of scare monster... */
     }
