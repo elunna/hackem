@@ -56,7 +56,7 @@ enum p_skills {
     P_HEALING_SPELL      = 31,
     P_DIVINATION_SPELL   = 32,
     P_ENCHANTMENT_SPELL  = 33,
-    P_CLERIC_SPELL       = 34,
+    P_NECROMANCY_SPELL   = 34,
     P_ESCAPE_SPELL       = 35,
     P_MATTER_SPELL       = 36,
 

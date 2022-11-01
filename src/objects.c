@@ -1134,7 +1134,7 @@ SPELL("magic missile",   "vellum",        P_ATTACK_SPELL,      35,  2, 2, 1, RAY
 SPELL("fireball",        "ragged",        P_MATTER_SPELL,      20,  4, 4, 1, RAY, HI_PAPER),
 SPELL("cone of cold",    "dog eared",     P_MATTER_SPELL,      10,  7, 4, 1, RAY, HI_PAPER),
 SPELL("sleep",           "mottled",       P_ENCHANTMENT_SPELL, 30,  1, 2, 1, RAY, HI_PAPER),
-SPELL("finger of death", "stained",       P_ATTACK_SPELL,       5, 10, 7, 1, RAY, HI_PAPER),
+SPELL("finger of death", "stained",       P_NECROMANCY_SPELL,   5, 10, 7, 1, RAY, HI_PAPER),
 SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY, CLR_BRIGHT_BLUE),  /* Slash'EM */
 SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  9, 5, 1, RAY, CLR_GREEN),        /* Slash'EM */
 SPELL("acid blast",      "acid green",    P_ATTACK_SPELL,       5,  9, 6, 1, RAY, CLR_BRIGHT_GREEN), /* Slash'EM */
@@ -1142,11 +1142,11 @@ SPELL("sonicboom",       "ghostly",       P_MATTER_SPELL,       5,  7, 4, 1, RAY
 SPELL("psionic wave",    "worn",          P_ATTACK_SPELL,       0,  1, 1, 1, IMMEDIATE, CLR_MAGENTA), /* EvilHack */
     /* Don't disturb the order of the spells above. zap.c depends on it. */
 
-SPELL("force bolt",      "red",     P_ATTACK_SPELL,      35,  2, 1, 1, IMMEDIATE, CLR_RED),
-SPELL("drain life",      "velvet",        P_ATTACK_SPELL,      10,  2, 2, 1, IMMEDIATE, CLR_MAGENTA),
-SPELL("summon undead",   "black",         P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
-SPELL("command undead",  "dark",          P_ATTACK_SPELL,      10,  7, 4, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
-SPELL("raise zombies",   "big",           P_ATTACK_SPELL,      10,  7, 2, 1, IMMEDIATE, CLR_BLACK),
+SPELL("force bolt",      "red",           P_ATTACK_SPELL,      35,  2, 1, 1, IMMEDIATE, CLR_RED),
+SPELL("drain life",      "velvet",        P_NECROMANCY_SPELL,  10,  2, 2, 1, IMMEDIATE, CLR_MAGENTA),
+SPELL("summon undead",   "black",         P_NECROMANCY_SPELL,  10,  7, 4, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
+SPELL("command undead",  "dark",          P_NECROMANCY_SPELL,  10,  7, 4, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
+SPELL("raise zombies",   "big",           P_NECROMANCY_SPELL,  10,  7, 2, 1, IMMEDIATE, CLR_BLACK),
 
 SPELL("knock",           "pink",          P_MATTER_SPELL,      35,  1, 1, 1, IMMEDIATE, CLR_BRIGHT_MAGENTA),
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),
@@ -1162,7 +1162,7 @@ SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMM
 SPELL("snowball",        "dappled",       P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_GRAY),
 
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
-SPELL("cause fear",      "light blue",    P_ENCHANTMENT_SPELL, 25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
+SPELL("cause fear",      "light blue",    P_NECROMANCY_SPELL,  25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
 SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 5, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_ORANGE),
 
@@ -1190,11 +1190,11 @@ SPELL("restore ability", "light brown",   P_HEALING_SPELL,     25,  5, 2, 1, NOD
 SPELL("stone to flesh",  "thick",         P_HEALING_SPELL,     15,  1, 3, 1, IMMEDIATE, HI_PAPER),
 SPELL("cure sickness",   "indigo",        P_HEALING_SPELL,     30,  3, 3, 1, IMMEDIATE, CLR_BLUE),
 
-SPELL("create monster",  "turquoise",     P_CLERIC_SPELL,      30,  3, 2, 1, NODIR, CLR_BRIGHT_CYAN),
-SPELL("remove curse",    "wrinkled",      P_CLERIC_SPELL,      25,  5, 3, 1, NODIR, HI_PAPER),
-SPELL("turn undead",     "copper",        P_CLERIC_SPELL,      15,  8, 6, 1, IMMEDIATE, HI_COPPER),
-SPELL("create familiar", "glittering",    P_CLERIC_SPELL,      10,  7, 6, 1, NODIR, CLR_WHITE),
-SPELL("protection",      "dull",          P_CLERIC_SPELL,      15,  3, 1, 1, NODIR, HI_PAPER),
+SPELL("create monster",  "turquoise",     P_ENCHANTMENT_SPELL, 30,  3, 2, 1, NODIR, CLR_BRIGHT_CYAN),
+SPELL("remove curse",    "wrinkled",      P_ENCHANTMENT_SPELL, 25,  5, 3, 1, NODIR, HI_PAPER),
+SPELL("turn undead",     "copper",        P_NECROMANCY_SPELL,  15,  8, 6, 1, IMMEDIATE, HI_COPPER),
+SPELL("create familiar", "glittering",    P_ENCHANTMENT_SPELL, 10,  7, 6, 1, NODIR, CLR_WHITE),
+SPELL("protection",      "dull",          P_ENCHANTMENT_SPELL, 15,  3, 1, 1, NODIR, HI_PAPER),
 
 /* books with fixed descriptions
  */

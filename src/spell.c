@@ -784,8 +784,8 @@ int skill;
         return "divination";
     case P_ENCHANTMENT_SPELL:
         return "enchantment";
-    case P_CLERIC_SPELL:
-        return "clerical";
+    case P_NECROMANCY_SPELL:
+        return "necromancy";
     case P_ESCAPE_SPELL:
         return "escape";
     case P_MATTER_SPELL:
@@ -2022,8 +2022,8 @@ int spell;
     else if (ACURR(A_DEX) >= 24)
         dex_adjust += 20;
 
-    /* Knights don't get metal armor penalty for clerical spells */
-    paladin_bonus = Role_if(PM_KNIGHT) && spell_skilltype(spellid(spell)) == P_CLERIC_SPELL;
+    /* Knights don't get metal armor penalty for enchantment spells */
+    paladin_bonus = Role_if(PM_KNIGHT) && spell_skilltype(spellid(spell)) == P_ENCHANTMENT_SPELL;
 
     /* Casting roles */
     primary_casters = (Role_if(PM_HEALER) || Role_if(PM_PRIEST)
@@ -2157,7 +2157,7 @@ int spell;
      */
     if (uwep && uwep->otyp >= STAFF_OF_DIVINATION && uwep->otyp <= STAFF_OF_WAR) {
 #define STAFFBONUS 50
-        if (spell_skilltype(spellid(spell)) == P_CLERIC_SPELL
+        if (spell_skilltype(spellid(spell)) == P_ENCHANTMENT_SPELL
             && uwep->otyp == STAFF_OF_HOLINESS)
             chance += STAFFBONUS;
         if (spell_skilltype(spellid(spell)) == P_HEALING_SPELL

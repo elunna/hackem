@@ -514,7 +514,6 @@ static const struct def_skill Skill_F[] = {
 /*  { P_HEALING_SPELL, P_BASIC },*/
     { P_DIVINATION_SPELL, P_EXPERT },
 /*  { P_ENCHANTMENT_SPELL, P_BASIC },*/
-/*  { P_CLERIC_SPELL, P_BASIC },*/
 /*  { P_ESCAPE_SPELL, P_SKILLED },*/
     { P_MATTER_SPELL, P_EXPERT },
 /*  { P_RIDING, P_SKILLED },*/
@@ -539,7 +538,7 @@ static const struct def_skill Skill_H[] = {
     { P_SHURIKEN, P_SKILLED },
     { P_UNICORN_HORN, P_EXPERT },
     { P_HEALING_SPELL, P_EXPERT },
-    { P_CLERIC_SPELL, P_SKILLED },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_RIDING, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_BASIC },
     { P_NONE, 0 }
@@ -577,7 +576,6 @@ static const struct def_skill Skill_I[] = {
 /*  { P_HEALING_SPELL, P_SKILLED },*/
 /*  { P_DIVINATION_SPELL, P_BASIC },*/
     { P_ENCHANTMENT_SPELL, P_EXPERT },
-    { P_CLERIC_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_BASIC },
     { P_MATTER_SPELL, P_EXPERT },
 
@@ -603,8 +601,7 @@ static const struct def_skill Skill_Inf[] = {
     { P_WHIP, P_SKILLED },
     { P_ATTACK_SPELL, P_EXPERT },
     { P_DIVINATION_SPELL, P_SKILLED },
-    { P_ENCHANTMENT_SPELL, P_BASIC },
-    { P_CLERIC_SPELL, P_EXPERT },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_RIDING, P_SKILLED },
     { P_NONE, 0 }
@@ -632,7 +629,7 @@ static const struct def_skill Skill_K[] = {
     { P_CROSSBOW, P_SKILLED },
     { P_ATTACK_SPELL, P_BASIC },
     { P_HEALING_SPELL, P_BASIC },
-    { P_CLERIC_SPELL, P_SKILLED },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_RIDING, P_EXPERT },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_EXPERT },
@@ -648,8 +645,7 @@ static const struct def_skill Skill_Mon[] = {
     { P_ATTACK_SPELL, P_BASIC },
     { P_HEALING_SPELL, P_EXPERT },
     { P_DIVINATION_SPELL, P_BASIC },
-    { P_ENCHANTMENT_SPELL, P_BASIC },
-    { P_CLERIC_SPELL, P_SKILLED },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
     { P_RIDING, P_BASIC },
@@ -671,9 +667,9 @@ static const struct def_skill Skill_N[] = {
     { P_DART, P_SKILLED },
     { P_UNICORN_HORN, P_EXPERT },       /* Using a dead animals horn is dark */
 
-    { P_ATTACK_SPELL, P_EXPERT },
+    { P_ATTACK_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_SKILLED },
-    { P_CLERIC_SPELL, P_BASIC },        /* Some necro related spells here */
+    { P_NECROMANCY_SPELL, P_EXPERT },
     { P_BARE_HANDED_COMBAT, P_BASIC },
     { P_NONE, 0 }
 };
@@ -690,7 +686,7 @@ static const struct def_skill Skill_P[] = {
     { P_BOOMERANG, P_BASIC },
     { P_HEALING_SPELL, P_EXPERT },
     { P_DIVINATION_SPELL, P_EXPERT },
-    { P_CLERIC_SPELL, P_EXPERT },
+    { P_ENCHANTMENT_SPELL, P_EXPERT },
     { P_RIDING, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_BASIC },
     { P_NONE, 0 }
@@ -828,7 +824,7 @@ static const struct def_skill Skill_U[] = {
     { P_WHIP, P_EXPERT },           /* Castlevania */
     { P_UNICORN_HORN, P_SKILLED },
 
-    { P_CLERIC_SPELL, P_SKILLED },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_GRAND_MASTER }, /* Buffy the Vampire Slayer */
@@ -867,7 +863,7 @@ static const struct def_skill Skill_W[] = {
     { P_HEALING_SPELL, P_SKILLED },
     { P_DIVINATION_SPELL, P_EXPERT },
     { P_ENCHANTMENT_SPELL, P_EXPERT },
-    { P_CLERIC_SPELL, P_BASIC },
+    { P_NECROMANCY_SPELL, P_BASIC },
     { P_ESCAPE_SPELL, P_EXPERT },
     { P_MATTER_SPELL, P_EXPERT },
     { P_RIDING, P_BASIC },
@@ -893,8 +889,7 @@ static const struct def_skill Skill_Y[] = {
     { P_CROSSBOW, P_SKILLED },           
     { P_UNICORN_HORN, P_BASIC },
 
-    { P_ENCHANTMENT_SPELL, P_SKILLED }, 
-    { P_CLERIC_SPELL, P_SKILLED },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_BASIC },
 
     { P_RIDING, P_EXPERT },
