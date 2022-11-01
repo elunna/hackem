@@ -36,6 +36,7 @@ enum timeout_types {
     MELT_ICE_AWAY,
     MOLDY_CORPSE,
     BOMB_BLOW,
+    SPIRIT_FADE,
     NUM_TIME_FUNCS
 };
 

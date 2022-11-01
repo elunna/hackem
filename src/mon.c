@@ -3512,7 +3512,8 @@ register struct monst *mtmp;
      * behind a spirit. */
     if (Role_if(PM_NECROMANCER)) {
         otmp = mksobj(SPIRIT, FALSE, FALSE);
-        otmp->corpsenm = monsndx(mtmp->data);   
+        otmp->corpsenm = monsndx(mtmp->data);
+        attach_spirit_fade_timeout(otmp, 0L);
         place_object(otmp, mtmp->mx, mtmp->my);
         newsym(mtmp->mx, mtmp->my);
     }

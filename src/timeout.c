@@ -1006,33 +1006,55 @@ struct obj *bomb;
 int fuse;
 boolean yours;
 {
-	long expiretime;
+    long expiretime;
 
-	if (bomb->cursed && !rn2(2))
-            return; /* doesn't arm if not armed */
+    if (bomb->cursed && !rn2(2))
+        return; /* doesn't arm if not armed */
 
-	/* Now if you play with other people's property... */
-	if (yours && (!carried(bomb)
-                && costly_spot(bomb->ox, bomb->oy) 
-                && (!bomb->no_charge || bomb->unpaid))) {
-	    verbalize("You play with it, you pay for it!");
-	    bill_dummy_object(bomb);
-	}
+    /* Now if you play with other people's property... */
+    if (yours && (!carried(bomb)
+            && costly_spot(bomb->ox, bomb->oy) 
+            && (!bomb->no_charge || bomb->unpaid))) {
+        verbalize("You play with it, you pay for it!");
+        bill_dummy_object(bomb);
+    }
 
-	expiretime = stop_timer(BOMB_BLOW, obj_to_any(bomb));
-    
-	if (expiretime > 0L) 
-            fuse = fuse - (expiretime - monstermoves);
-	bomb->yours = yours;
-	bomb->oarmed = TRUE;
+    expiretime = stop_timer(BOMB_BLOW, obj_to_any(bomb));
 
-	(void) start_timer(
-            (long)fuse,
-            TIMER_OBJECT,
-            BOMB_BLOW,
-            obj_to_any(bomb)
-        );
+    if (expiretime > 0L) 
+        fuse = fuse - (expiretime - monstermoves);
+    bomb->yours = yours;
+    bomb->oarmed = TRUE;
+
+    (void) start_timer((long)fuse, TIMER_OBJECT, BOMB_BLOW, obj_to_any(bomb));
 }
+
+
+/* Attach an fade timeout to a given spirit */
+void
+attach_spirit_fade_timeout(spirit, when)
+struct obj *spirit;
+long when;
+{
+    int i;
+    
+    /* stop previous timer, if any */
+    (void) stop_timer(SPIRIT_FADE, obj_to_any(spirit));
+    
+    if (!when) {
+        for (i = (MAX_SPIRIT_FADE_TIME - 50) + 1; i <= MAX_SPIRIT_FADE_TIME; i++)
+            if (rnd(i) > 400) {
+                /* spirit will fade */
+                when = (long) i;
+                break;
+            }
+    }
+    
+    if (when) {
+        (void) start_timer(when, TIMER_OBJECT, SPIRIT_FADE, obj_to_any(spirit));
+    }
+}
+
 
 /* timer callback routine: detonate the explosives */
 void
@@ -1040,95 +1062,95 @@ bomb_blow(arg, timeout)
 anything *arg;
 long timeout;
 {
-	struct obj *bomb;
-	xchar x,y;
-	boolean silent, underwater;
-	struct monst *mtmp = (struct monst *)0;
+    struct obj *bomb;
+    xchar x,y;
+    boolean silent, underwater;
+    struct monst *mtmp = (struct monst *)0;
 
-	bomb = arg->a_obj;
+    bomb = arg->a_obj;
 
-	silent = (timeout != monstermoves);     /* exploded while away */
+    silent = (timeout != monstermoves);     /* exploded while away */
 
-	if (get_obj_location(bomb, &x, &y, BURIED_TOO | CONTAINED_TOO)) {
-		switch (bomb->where) {
-		case OBJ_MINVENT:
-		    mtmp = bomb->ocarry;
-			if (bomb == MON_WEP(mtmp)) {
-			    bomb->owornmask &= ~W_WEP;
-			    MON_NOWEP(mtmp);
-			}
-			if (!silent) {
-			    if (canseemon(mtmp))
-				    You("see %s engulfed in an explosion!", mon_nam(mtmp));
-			}
-		    mtmp->mhp -= d(2, 5);
-			if (mtmp->mhp < 1) {
-				if(!bomb->yours)
-					monkilled(mtmp, (silent ? "" : "explosion"), AD_PHYS);
-				else 
+    if (get_obj_location(bomb, &x, &y, BURIED_TOO | CONTAINED_TOO)) {
+        switch (bomb->where) {
+        case OBJ_MINVENT:
+            mtmp = bomb->ocarry;
+            if (bomb == MON_WEP(mtmp)) {
+                bomb->owornmask &= ~W_WEP;
+                MON_NOWEP(mtmp);
+            }
+            if (!silent) {
+                if (canseemon(mtmp))
+                    You("see %s engulfed in an explosion!", mon_nam(mtmp));
+            }
+            mtmp->mhp -= d(2, 5);
+            if (mtmp->mhp < 1) {
+                if (!bomb->yours)
+                    monkilled(mtmp, (silent ? "" : "explosion"), AD_PHYS);
+                else 
                     xkilled(mtmp, !silent);
-			}
-			break;
-		case OBJ_INVENT:
-		    /* This shouldn't be silent! */
-			pline("Something explodes inside your knapsack!");
+            }
+            break;
+        case OBJ_INVENT:
+            /* This shouldn't be silent! */
+            pline("Something explodes inside your knapsack!");
 
-			if (bomb == uwep) {
-			    uwepgone();
-			    stop_occupation();
-			} else if (bomb == uswapwep) {
-			    uswapwepgone();
-			    stop_occupation();
-			} else if (bomb == uquiver) {
-			    uqwepgone();
-			    stop_occupation();
-			}
+            if (bomb == uwep) {
+                uwepgone();
+                stop_occupation();
+            } else if (bomb == uswapwep) {
+                uswapwepgone();
+                stop_occupation();
+            } else if (bomb == uquiver) {
+                uqwepgone();
+                stop_occupation();
+            }
             losehp(d(2, 5), "carrying live explosives", KILLED_BY);
             break;
-		case OBJ_FLOOR:
-			underwater = is_pool(x, y);
-			if (!silent) {
-			    if (x == u.ux && y == u.uy) {
-                    if (underwater && (Flying || Levitation))
-                        pline_The("water boils beneath you.");
-                    else if (underwater && Wwalking)
-                        pline_The("water erupts around you.");
-                    else 
-                        pline("A bomb explodes under your %s!",
-                    makeplural(body_part(FOOT)));
-			    } else if (cansee(x, y)) {
+            case OBJ_FLOOR:
+                underwater = is_pool(x, y);
+                if (!silent) {
+                    if (x == u.ux && y == u.uy) {
+                        if (underwater && (Flying || Levitation))
+                            pline_The("water boils beneath you.");
+                        else if (underwater && Wwalking)
+                            pline_The("water erupts around you.");
+                        else 
+                            pline("A bomb explodes under your %s!",
+                                  makeplural(body_part(FOOT)));
+                    } else if (cansee(x, y)) {
                         You(underwater ?
                             "see a plume of water shoot up." :
                             "see a bomb explode.");
-                }
+                    }
 
-			}
-			if (underwater && (Flying || Levitation || Wwalking)) {
-			    if (Wwalking && x == u.ux && y == u.uy) {
-                    struct trap trap;
-                    trap.ntrap = NULL;
-                    trap.tx = x;
-                    trap.ty = y;
-                    trap.launch.x = -1;
-                    trap.launch.y = -1;
-                    trap.ttyp = RUST_TRAP;
-                    trap.tseen = 0;
-                    trap.once = 0;
-                    trap.madeby_u = 0;
-                    trap.dst.dnum = -1;
-                    trap.dst.dlevel = -1;
-                    dotrap(&trap, 0);
-			    }
-			    goto free_bomb;
-			}
-		    	break;
-		default:	/* Buried, contained, etc. */
-			if (!silent)
-			    You_hear("a muffled explosion.");
-			goto free_bomb;
-			break;
-		}
-                bomb_explode(bomb, x, y, bomb->yours);
+                }
+                if (underwater && (Flying || Levitation || Wwalking)) {
+                    if (Wwalking && x == u.ux && y == u.uy) {
+                        struct trap trap;
+                        trap.ntrap = NULL;
+                        trap.tx = x;
+                        trap.ty = y;
+                        trap.launch.x = -1;
+                        trap.launch.y = -1;
+                        trap.ttyp = RUST_TRAP;
+                        trap.tseen = 0;
+                        trap.once = 0;
+                        trap.madeby_u = 0;
+                        trap.dst.dnum = -1;
+                        trap.dst.dlevel = -1;
+                        dotrap(&trap, 0);
+                    }
+                    goto free_bomb;
+                }
+                break;
+            default:	/* Buried, contained, etc. */
+                if (!silent)
+                    You_hear("a muffled explosion.");
+                goto free_bomb;
+                break;
+            }
+            bomb_explode(bomb, x, y, bomb->yours);
 
 free_bomb:
         if (carried(bomb)) {
@@ -1138,8 +1160,34 @@ free_bomb:
             obfree(bomb, (struct obj *)0);
         }
         newsym(x, y);
-		return;
-	} /* Migrating bombs "blow up in midair" */
+        return;
+    } /* Migrating bombs "blow up in midair" */
+}
+
+
+/* timer callback routine: fade the spirit */
+void
+spirit_fade(arg, timeout)
+anything *arg;
+long timeout;
+{
+    struct obj *spirit;
+    xchar x, y;
+    boolean cansee_fadespot = FALSE;
+    spirit = arg->a_obj;
+    
+    if (get_obj_location(spirit, &x, &y, 0)){
+        cansee_fadespot = cansee(x, y);
+        
+        if (cansee_fadespot)
+            You_see("a spirit fade away!");
+    }
+
+/* free spirit here because we use it above */
+    obj_extract_self(spirit);
+    obfree(spirit, (struct obj *) 0);
+    
+    newsym(x, y);
 }
 
 
@@ -1868,16 +1916,16 @@ long timeout;
 /* assumes caller checks for correct conditions */
 void
 lightsaber_deactivate (obj, timer_attached)
-	struct obj *obj;
-	boolean timer_attached;
+struct obj *obj;
+boolean timer_attached;
 {
-	xchar x,y;
-	char whose[BUFSZ];
+    xchar x,y;
+    char whose[BUFSZ];
 
-	(void) Shk_Your(whose, obj);
-		
-	if (get_obj_location(obj, &x, &y, 0)) {
-	    if (cansee(x, y)) {
+    (void) Shk_Your(whose, obj);
+            
+    if (get_obj_location(obj, &x, &y, 0)) {
+        if (cansee(x, y)) {
             switch (obj->where) {
                 case OBJ_INVENT:
                 case OBJ_MINVENT:
@@ -1887,15 +1935,15 @@ lightsaber_deactivate (obj, timer_attached)
                     You("see %s deactivate.", an(xname(obj)));
                     break;
             }
-	    } else {
-		    You("hear a lightsaber deactivate.");
-	    }
-	}
+        } else {
+            You("hear a lightsaber deactivate.");
+        }
+    }
 
-	if ((obj == uwep) || (u.twoweap && obj != uswapwep)) 
+    if ((obj == uwep) || (u.twoweap && obj != uswapwep)) 
         unweapon = TRUE;
 
-	end_burn(obj, timer_attached);
+    end_burn(obj, timer_attached);
 }
 
 
@@ -2260,8 +2308,8 @@ static const ttable timeout_funcs[NUM_TIME_FUNCS] = {
     TTAB(fig_transform, (timeout_proc) 0, "fig_transform"),
     TTAB(melt_ice_away, (timeout_proc) 0, "melt_ice_away"),
     TTAB(moldy_corpse, (timeout_proc) 0, "moldy_corpse"),
-    
-    TTAB(bomb_blow, (timeout_proc) 0, "bomb_blow")
+    TTAB(bomb_blow, (timeout_proc) 0, "bomb_blow"),
+    TTAB(spirit_fade, (timeout_proc) 0, "spirit_fade")
 };
 #undef TTAB
 
