@@ -6558,7 +6558,7 @@ unsigned long permitted;
 
     const short mraces[] = { PM_HUMAN, PM_ELF, PM_DWARF, PM_GNOME,
                              PM_ORC, PM_GIANT, PM_HOBBIT, PM_CENTAUR,
-                             PM_ILLITHID, PM_TORTLE, 0 };
+                             PM_ILLITHID, PM_TORTLE, PM_VAMPIRE, 0 };
 
     for (i = 0; mraces[i]; i++) {
         if (permitted & mons[mraces[i]].mhflags
