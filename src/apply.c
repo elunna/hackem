@@ -5037,7 +5037,7 @@ doapply()
         nomul(0);
         return 0;
     }
-    if (res && obj != &zeroobj && obj->oartifact)
+    if (res && obj && obj != &zeroobj && obj->oartifact)
         arti_speak(obj);
     nomul(0);
     return res;
