@@ -3505,7 +3505,7 @@ struct obj* obj;
         case CRYSKNIFE:
         case STAFF_OF_DIVINATION:
         case STAFF_OF_HEALING:
-        case STAFF_OF_HOLINESS:
+        case STAFF_OF_NECROMANCY:
         case STAFF_OF_MATTER:
         case STAFF_OF_ESCAPE:
         case STAFF_OF_WAR:

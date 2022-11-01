@@ -340,7 +340,7 @@ WEAPON("staff of divination", "wormwood staff",                /* EvilHack */
        0, 0, 1, 1,  5,  40, 400,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("staff of healing", "twisted staff",                    /* EvilHack */
        0, 0, 1, 1,  5,  40, 400,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
-WEAPON("staff of holiness", "bone-carved staff",               /* EvilHack */
+WEAPON("staff of necromancy", "bone-carved staff",             
        0, 0, 1, 1,  5,  40, 400,  6,  6, 0, B,   P_QUARTERSTAFF, BONE, CLR_WHITE),
 WEAPON("staff of matter", "etched staff",                      /* EvilHack */
        0, 0, 1, 1,  5,  30, 450,  6,  6, 0, B,   P_QUARTERSTAFF, MITHRIL, HI_SILVER),

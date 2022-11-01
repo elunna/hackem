@@ -2157,8 +2157,8 @@ int spell;
      */
     if (uwep && uwep->otyp >= STAFF_OF_DIVINATION && uwep->otyp <= STAFF_OF_WAR) {
 #define STAFFBONUS 50
-        if (spell_skilltype(spellid(spell)) == P_ENCHANTMENT_SPELL
-            && uwep->otyp == STAFF_OF_HOLINESS)
+        if (spell_skilltype(spellid(spell)) == P_NECROMANCY_SPELL
+            && uwep->otyp == STAFF_OF_NECROMANCY)
             chance += STAFFBONUS;
         if (spell_skilltype(spellid(spell)) == P_HEALING_SPELL
             && uwep->otyp == STAFF_OF_HEALING)

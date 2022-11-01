@@ -318,7 +318,7 @@ struct obj {
     (   otmp->otyp == STAFF_OF_DIVINATION \
      || otmp->otyp == STAFF_OF_ESCAPE  \
      || otmp->otyp == STAFF_OF_HEALING \
-     || otmp->otyp == STAFF_OF_HOLINESS\
+     || otmp->otyp == STAFF_OF_NECROMANCY \
      || otmp->otyp == STAFF_OF_MATTER \
      || otmp->otyp == STAFF_OF_WAR)
 
@@ -391,6 +391,7 @@ struct obj {
 
 /* Eggs and other food */
 #define MAX_EGG_HATCH_TIME 200 /* longest an egg can remain unhatched */
+#define MAX_SPIRIT_FADE_TIME 555 /* longest a spirit hangs around */
 #define stale_egg(egg) \
     ((monstermoves - (egg)->age) > (2 * MAX_EGG_HATCH_TIME))
 #define ofood(o) ((o)->otyp == CORPSE || (o)->otyp == EGG || (o)->otyp == TIN)

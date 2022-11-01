@@ -475,7 +475,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR ),
     
-    A("The Staff of Rot", STAFF_OF_HOLINESS,
+    A("The Staff of Rot", STAFF_OF_NECROMANCY,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), SPFX_EXCLUDE, 0,
       WTHR(6, 6), NO_DFNS, NO_CARY,
       WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR ),

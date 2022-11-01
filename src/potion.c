@@ -3547,7 +3547,7 @@ register struct obj *obj;
             switch (rn2(6)) {
             case 0: obj->otyp = STAFF_OF_DIVINATION; break;
             case 1: obj->otyp = STAFF_OF_HEALING; break;
-            case 2: obj->otyp = STAFF_OF_HOLINESS; break;
+            case 2: obj->otyp = STAFF_OF_NECROMANCY; break;
             case 3: obj->otyp = STAFF_OF_MATTER; break;
             case 4: obj->otyp = STAFF_OF_ESCAPE; break;
             case 5: obj->otyp = STAFF_OF_WAR; break;
