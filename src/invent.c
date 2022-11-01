@@ -63,9 +63,10 @@ struct obj *obj;
        set; it is similar to sortpack's inv_order but items most
        likely to be picked up are moved to the front */
     static char def_srt_order[MAXOCLASSES] = {
-        COIN_CLASS, AMULET_CLASS, RING_CLASS, WAND_CLASS, POTION_CLASS,
-        SCROLL_CLASS, SPBOOK_CLASS, GEM_CLASS, FOOD_CLASS, TOOL_CLASS,
-        WEAPON_CLASS, ARMOR_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS, 0,
+        COIN_CLASS,     AMULET_CLASS,   RING_CLASS, WAND_CLASS, POTION_CLASS,
+        SCROLL_CLASS,   SPBOOK_CLASS,   GEM_CLASS,  FOOD_CLASS, TOOL_CLASS,
+        WEAPON_CLASS,   ARMOR_CLASS,    ROCK_CLASS, BALL_CLASS, CHAIN_CLASS, 
+        SPIRIT_CLASS, 0,
     };
     static char armcat[8];
     const char *classorder;
@@ -86,7 +87,7 @@ struct obj *obj;
     if (p)
         k = 1 + (int) (p - classorder);
     else
-        k = 1 + (int) strlen(classorder) + (oclass != VENOM_CLASS && oclass != SPIRIT_CLASS);
+        k = 1 + (int) strlen(classorder) + (oclass != VENOM_CLASS);
     sort_item->orderclass = (xchar) k;
     /* subclass designation; only a few classes have subclasses
        and the non-armor ones we use are fairly arbitrary */
@@ -3785,6 +3786,10 @@ register struct obj *otmp, *obj;
     /* coins of the same kind will always merge */
     if (obj->oclass == COIN_CLASS)
         return TRUE;
+        
+    /* spirits will always merge */
+    if (obj->oclass == SPIRIT_CLASS)
+        return TRUE;
 
     if (obj->bypass != otmp->bypass
         || obj->cursed != otmp->cursed || obj->blessed != otmp->blessed)
@@ -4073,7 +4078,7 @@ long numused;
 STATIC_VAR NEARDATA const char *names[] = {
     0, "Illegal objects", "Weapons", "Armor", "Rings", "Amulets", "Tools",
     "Comestibles", "Potions", "Scrolls", "Spellbooks", "Wands", "Coins",
-    "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms"
+    "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms", "Spirits"
 };
 STATIC_VAR NEARDATA const char oth_symbols[] = { CONTAINED_SYM, '\0' };
 STATIC_VAR NEARDATA const char *oth_names[] = { "Bagged/Boxed items" };
