@@ -1175,11 +1175,12 @@ long timeout;
     xchar x, y;
     boolean cansee_fadespot = FALSE;
     spirit = arg->a_obj;
+    boolean silent = (timeout != monstermoves);     /* exploded while away */
     
     if (get_obj_location(spirit, &x, &y, 0)){
         cansee_fadespot = cansee(x, y);
         
-        if (cansee_fadespot)
+        if (!silent && cansee_fadespot)
             You_see("a spirit fade away!");
     }
 
