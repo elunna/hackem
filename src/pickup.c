@@ -4038,6 +4038,8 @@ struct obj *obj;
         
         if (u.uen > u.uenmax)
             u.uen = u.uenmax;
+        
+        context.botl = 1;
     } 
     else {
         pline("%s consumes the spirit!", Monnam(mon));
