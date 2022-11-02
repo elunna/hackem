@@ -1884,43 +1884,43 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     }
     case SPE_SUMMON_UNDEAD: {
-		int cnt = 1, oldmulti = multi;
-		multi = 0;
-  
-		if(!rn2(73) && !sobj->blessed) 
+        int cnt = 1, oldmulti = multi;
+        multi = 0;
+
+        if (!rn2(73) && !sobj->blessed) 
             cnt += rnd(4);
-		if(confused || sobj->cursed) 
+        if (confused || sobj->cursed) 
             cnt += 12;
 		
-        while(cnt--) {
+        while (cnt--) {
         #ifdef WIZARD
-            if(!wizard || !(mtmp = create_particular()))
+            if (!wizard || !(mtmp = create_particular()))
         #endif
 
             switch (rn2(10)+1) {
-                case 1:
-                    mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                    break;
-                case 6:
-                case 7:
-                case 8:
-                    mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
-                    break;
-                case 9:
-                    mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
-                    break;
-                case 10:
-                    mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
-                    break;
-                default:
-                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                    break;
+            case 1:
+                mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                break;
+            case 6:
+            case 7:
+            case 8:
+                mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
+                break;
+            case 9:
+                mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
+                break;
+            case 10:
+                mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
+                break;
+            default:
+                mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                break;
             }
             /* WAC Give N a shot at controlling the beasties
              * (if not cursed <g>).  Check curse status in case
@@ -1959,6 +1959,38 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
             /* flush monsters before asking for identification */
             flush_screen(0);
+            break;
+        }
+        case SPE_CALL_UNDEAD:
+        {
+            register struct monst *nextmon;
+            int pet_cnt = 0, omx, omy;
+
+            for (mtmp = fmon; mtmp; mtmp = nextmon) {
+                nextmon = mtmp->nmon; /* trap might kill mon */
+                if (DEADMONSTER(mtmp) || !is_undead(mtmp->data))
+                    continue;
+                /* steed is already at your location, so not affected;
+                   this avoids trap issues if you're on a trap location */
+                if (mtmp == u.usteed)
+                    continue;
+                if (mtmp->mtame) {
+                    if (mtmp->mtrapped) {
+                        /* no longer in previous trap (affects mintrap) */
+                        mtmp->mtrapped = 0;
+                        fill_pit(mtmp->mx, mtmp->my);
+                    }
+                    omx = mtmp->mx, omy = mtmp->my;
+                    mnexto(mtmp);
+                    if (mtmp->mx != omx || mtmp->my != omy) {
+                        mtmp->mundetected = 0; /* reveal non-mimic hider */
+                        if (canspotmon(mtmp))
+                            ++pet_cnt;
+                        if (mintrap(mtmp) == 2)
+                            change_luck(-1);
+                    }
+                }
+            }
             break;
         }
     case SCR_ENCHANT_WEAPON:

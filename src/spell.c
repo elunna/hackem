@@ -1347,6 +1347,7 @@ boolean wiz_cast;
     case SPE_COMMAND_UNDEAD:
     case SPE_SUMMON_UNDEAD:
     case SPE_RAISE_ZOMBIES:
+    case SPE_CALL_UNDEAD:
         (void) seffects(pseudo);
         break;
 

@@ -1179,6 +1179,7 @@ u_init()
     case PM_NECROMANCER:
         ini_inv(Necromancer);
         knows_class(SPBOOK_CLASS);
+        force_learn_spell(SPE_CALL_UNDEAD);
         if (!rn2(5)) 
             ini_inv(Blindfold);
         skill_init(Skill_N);
