@@ -1568,16 +1568,7 @@ boolean telekinesis; /* not picking it up directly by hand */
             makeknown(obj->otyp);
         }
     } else if (obj->otyp == SPIRIT) {
-        You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
-        /* +1 in case it's a level 0 monster... */
-        int spiritlev = mons[obj->corpsenm].mlevel + 1;
-        u.uspirits += spiritlev;
-        
-        u.uen += spiritlev;
-        if (u.uen > u.uenmax)
-            u.uen = u.uenmax;
-        
-        useupf(obj, obj->quan);
+        collect_spirit(obj);
         return 1; /* Similar to scroll of scare monster... */
     }
     
@@ -4023,4 +4014,19 @@ del_soko_prizes()
     }
 }
 
+void
+collect_spirit(obj)
+struct obj *obj;
+{
+    You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
+    /* +1 in case it's a level 0 monster... */
+    int spiritlev = mons[obj->corpsenm].mlevel + 1;
+    u.uspirits += spiritlev;
+        
+    u.uen += spiritlev;
+    if (u.uen > u.uenmax)
+        u.uen = u.uenmax;
+        
+    useupf(obj, obj->quan);
+}
 /*pickup.c*/

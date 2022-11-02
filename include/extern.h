@@ -2097,6 +2097,7 @@ E int NDECL(dotip);
 E struct autopickup_exception *FDECL(check_autopickup_exceptions, (struct obj *));
 E boolean FDECL(autopick_testobj, (struct obj *, BOOLEAN_P));
 E int FDECL(m_stash_items, (struct monst *, BOOLEAN_P));
+E void FDECL(collect_spirit, (struct obj *));
 
 /* ### pline.c ### */
 
