@@ -1172,6 +1172,7 @@ anything *arg;
 long timeout;
 {
     struct obj *spirit;
+    struct monst *mon;
     xchar x, y;
     boolean cansee_fadespot = FALSE;
     spirit = arg->a_obj;
@@ -1184,10 +1185,12 @@ long timeout;
             You_see("a spirit fade away!");
     }
 
-/* free spirit here because we use it above */
+    /* free spirit here because we use it above */
     obj_extract_self(spirit);
     obfree(spirit, (struct obj *) 0);
-    
+    if ((mon = m_at(x, y)) && !hideunder(mon) && cansee(x, y)) {
+        ;
+    }
     newsym(x, y);
 }
 

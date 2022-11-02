@@ -5279,17 +5279,15 @@ struct monst *mtmp;
         undetected = (is_sewage(x, y));
     } else if (hides_under(mtmp->data) && OBJ_AT(x, y)) {
         struct obj *otmp = level.objects[x][y];
-
-        /* most monsters won't hide under cockatrice corpse */
-        if (otmp->nexthere || otmp->otyp != CORPSE
+        
+        if (otmp->nexthere
+            /* most monsters won't hide under cockatrice corpse */
+            || otmp->otyp != CORPSE
             || (mtmp == &youmonst ? Stone_resistance
                                   : (resists_ston(mtmp) || defended(mtmp, AD_STON)))
             || !touch_petrifies(&mons[otmp->corpsenm]))
             undetected = TRUE;
-        /* Spirits are not good for hiding under - they are transparent and
-         * fade quickly */
-        if (otmp->otyp == SPIRIT)
-            undetected = FALSE;
+
     }
 
     if (is_u)
