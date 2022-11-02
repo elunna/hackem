@@ -817,11 +817,11 @@
      || (ptr)->mlet == S_ANGEL \
      || (ptr)->mlet == S_DEMON  \
      || (ptr) == &mons[PM_VALKYRIE] \
-     || (ptr) == &mons[PM_NECROMANCER])
-    /* Maybe add these later
-     * || (ptr) == &mons[PM_SHADE] \
-        || (ptr) == &mons[PM_SPECTRE]
-    */
+     || (ptr) == &mons[PM_NECROMANCER] \
+     || (ptr) == &mons[PM_SPECTRE] \
+     || (ptr) == &mons[PM_SHADE] \
+     || (ptr) == &mons[PM_ALHOON] \
+     || (ptr) == &mons[PM_WEREDEMON])
 
 /* monkeys are tameable via bananas but not pacifiable via food,
    otherwise their theft attack could be nullified too easily;
