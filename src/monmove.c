@@ -1154,6 +1154,7 @@ register int after;
     boolean sawmon = canspotmon(mtmp); /* before it moved */
     struct permonst *ptr;
     struct monst *mtoo;
+    struct obj *spirit;
     schar mmoved = 0; /* not strictly nec.: chi >= 0 will do */
     long info[9];
     long flag;
@@ -1942,7 +1943,12 @@ register int after;
                 if (meatobj(mtmp) == 2)
                     return 2; /* it died */
             }
-		    
+            
+            /* Some competition for the Necromancer */
+            spirit = spirit_at(mtmp->mx, mtmp->my);
+            if (spirit && is_souleater(ptr))
+                collect_spirit(mtmp, spirit);
+            
             if (ptr == &mons[PM_GHOUL])
                 meatcorpse(mtmp);
 

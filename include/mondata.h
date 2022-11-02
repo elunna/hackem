@@ -810,6 +810,18 @@
      || (ptr) == &mons[PM_TASMANIAN_DEVIL] \
      || (ptr) == &mons[PM_LOCUST])
 
+/* instantly eats any organic object it comes into contact with */
+#define is_souleater(ptr) \
+    ((ptr)->mlet == S_LICH  \
+     || (ptr)->mlet == S_WRAITH \
+     || (ptr)->mlet == S_ANGEL \
+     || (ptr)->mlet == S_DEMON  \
+     || (ptr) == &mons[PM_VALKYRIE] \
+     || (ptr) == &mons[PM_NECROMANCER])
+    /* Maybe add these later
+     * || (ptr) == &mons[PM_SHADE] \
+        || (ptr) == &mons[PM_SPECTRE]
+    */
 
 /* monkeys are tameable via bananas but not pacifiable via food,
    otherwise their theft attack could be nullified too easily;

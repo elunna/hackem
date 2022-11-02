@@ -1111,6 +1111,7 @@ E boolean FDECL(obj_here, (struct obj *, int, int));
 E boolean NDECL(wearing_armor);
 E boolean FDECL(is_worn, (struct obj *));
 E struct obj *FDECL(g_at, (int, int));
+E struct obj *FDECL(spirit_at, (int, int));
 E boolean FDECL(splittable, (struct obj *));
 E struct obj *FDECL(getobj, (const char *, const char *));
 E int FDECL(ggetobj, (const char *, int (*)(OBJ_P), int,
@@ -2097,7 +2098,7 @@ E int NDECL(dotip);
 E struct autopickup_exception *FDECL(check_autopickup_exceptions, (struct obj *));
 E boolean FDECL(autopick_testobj, (struct obj *, BOOLEAN_P));
 E int FDECL(m_stash_items, (struct monst *, BOOLEAN_P));
-E void FDECL(collect_spirit, (struct obj *));
+E void FDECL(collect_spirit, (struct monst *, struct obj *));
 
 /* ### pline.c ### */
 

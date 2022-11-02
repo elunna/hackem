@@ -1429,6 +1429,20 @@ register int x, y;
     return (struct obj *) 0;
 }
 
+struct obj *
+spirit_at(x, y)
+register int x, y;
+{
+    register struct obj *obj = level.objects[x][y];
+    
+    while (obj) {
+        if (obj->oclass == SPIRIT_CLASS)
+            return obj;
+        obj = obj->nexthere;
+    }
+    return (struct obj *) 0;
+}
+
 /* compact a string of inventory letters by dashing runs of letters */
 STATIC_OVL void
 compactify(buf)

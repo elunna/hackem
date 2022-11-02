@@ -956,8 +956,6 @@ register struct obj *obj;
                        DOGFOOD : TABU;
         }
         
-        
-        
         switch (obj->otyp) {
         case TRIPE_RATION:
         case MEATBALL:
@@ -1059,7 +1057,7 @@ register struct obj *obj;
             return TABU;
         /* KMH -- Taz likes organics, too! */
         if (is_bigeater(mptr) && is_organic(obj))
-            return ACCFOOD;
+            return ACCFOOD;        
         if (metallivorous(mptr) && is_metallic(obj)
             && (is_rustprone(obj) || mptr != &mons[PM_RUST_MONSTER])) {
             /* Non-rustproofed ferrous based metals are preferred. */
