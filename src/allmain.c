@@ -507,6 +507,26 @@ boolean resuming;
                         }
                     }
 
+                    /* Autopickup spirits for Necromancer */
+                    if (Role_if(PM_NECROMANCER)) {
+                        struct obj *obj;
+                        /* Loop through the surrounding squares */
+                        for (int x = u.ux - 1; x <= u.ux + 1; x++) {
+                            for (int y = u.uy - 1; y <= u.uy + 1; y++) {
+                                if (!OBJ_AT(x, y))
+                                    continue;
+
+                                /* count the objects here */
+                                for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
+                                    if (obj->otyp == SPIRIT) {
+                                        pickup_object(obj, obj->quan, TRUE);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                     if (!u.uinvulnerable) {
                         if (Teleportation && !rn2(85)) {
                             xchar old_ux = u.ux, old_uy = u.uy;
