@@ -1940,7 +1940,6 @@ shk_other_services()
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
-    free((genericptr_t) selected);
 
     if (n > 0) {
         switch (selected[0].item.a_int) {
@@ -2021,6 +2020,7 @@ shk_other_services()
             break;
         }
     }
+    free((genericptr_t) selected);
     return result;
 }
 
