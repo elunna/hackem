@@ -5286,6 +5286,10 @@ struct monst *mtmp;
                                   : (resists_ston(mtmp) || defended(mtmp, AD_STON)))
             || !touch_petrifies(&mons[otmp->corpsenm]))
             undetected = TRUE;
+        /* Spirits are not good for hiding under - they are transparent and
+         * fade quickly */
+        if (otmp->otyp == SPIRIT)
+            undetected = FALSE;
     }
 
     if (is_u)
