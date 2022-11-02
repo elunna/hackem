@@ -4026,8 +4026,8 @@ struct obj *obj;
     
     if (is_you) {
         You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
-        u.uspirits += spiritlev;
-        u.uen += spiritlev;
+        u.uspirits += spiritlev * obj->quan;
+        u.uen += spiritlev * obj->quan;
         if (u.uen > u.uenmax)
             u.uen = u.uenmax;
     } 

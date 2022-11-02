@@ -1027,7 +1027,11 @@ struct obj *obj;
 const char *drop_fmt, *drop_arg, *hold_msg;
 {
     char buf[BUFSZ];
-
+    if (obj->otyp == SPIRIT) {
+        /* Spirits should never enter a player's inventory */
+        collect_spirit(&youmonst, obj);
+        return (struct obj *) 0; /* might be gone */
+    }
     if (!Blind)
         obj->dknown = 1; /* maximize mergibility */
     if (obj->oartifact) {
