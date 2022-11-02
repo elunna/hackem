@@ -4220,11 +4220,13 @@ struct obj **pobj; /* object tossed/used, set to NULL
         allow_skip = !rn2(3);
     }
 
+#if 0
     if (obj && obj->otyp == WAN_WATER) {
         You("fire off a powerful jet of water!");
         makeknown(obj->otyp);
     }
-
+#endif
+    
     if (weapon == FLASHED_LIGHT) {
         tmp_at(DISP_BEAM, cmap_to_glyph(S_flashbeam));
     } else if (weapon == THROWN_TETHERED_WEAPON && obj) {
