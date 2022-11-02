@@ -2675,6 +2675,11 @@ const char *mesg;
             case OBJ_INVENT:
             case OBJ_MINVENT:
                 sanity_check_worn(obj);
+                
+                /* No spirits should ever be in player or monster inventory */
+                if (obj->otyp == SPIRIT)
+                    impossible("spirit in %s inventory", 
+                               OBJ_INVENT ? "player" : "monster");
                 break;
             case OBJ_MIGRATING:
                 /* migrating objects overload the owornmask field
