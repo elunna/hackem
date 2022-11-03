@@ -2360,3 +2360,185 @@ Yeoman:
 	[x] Starts with a bow & peacock arrows - can reach expert (footbow?)
 	[x] axe - can reach skilled
 	[x] can reach skilled in daggers
+
+
+[FIXED] when I throw/kick a wand of water: "You fire off a powerful jet of water!" 
+	
+	
+Necromancer role (with suggestions from Aosdict)
+	1) Spirits
+	- [x] Only playing as a necro, dying monsters drop "spirit"/"soul" objects, which necros can collect. 
+	- [x] Killed monsters drop spirits
+	- [x] They drop 100% from monsters you personally kill 
+	- [skipped] They drop less for monsters that die otherwise. 
+	- [skipped] They never drop for monsters that kill themselves.
+	- [x] we can collect them by picking them up or autopickup
+	- [x] we can collect them by walking over or adjacent to them (sym=1)
+	- [x] If a monster drops a spirit adjacent to you, you autocollect it.
+	- [x] Spirits vanish after a while, so you can't sit back and let conflict mop up a room and then collect everything.
+	- [x] Spirits do not enter your inventory - they either take the place of energy, or have a new stat.
+	- [x] Create a necromancy spell class
+	- [x] Get rid of the CLERIC spell class, it seems useless and unfocused. (create new branch)
+	- [x] Rework the special staves to allow an undead one.
+	- [x] Necromancers auto-pickup adjacent spirits?
+	- [x] Gathering spirits adds to our power??
+
+
+		
+	SPIRIT_CLASS
+		- Spirits don't take up inventory space - when picked up they assimilate into the necromancer's power.
+			we should still be able to pickup with 52 items and gold.
+		- Should not be able to interact with it in inventory:
+			No wield, wear, eat, quaff, apply, #rub, etc.
+		- Maybe we *can* eat it however?
+		- def_char_to_objclass
+		- const struct class_sym def_oc_syms[MAXOCLASSES] = {
+				{ VENOM_SYM, "spirits", "spirit of a monster" }
+		
+		[x] objnam
+		[x] farlook
+		[x] pickup for starts.
+		[x] int uspirits; 
+		[x] Added ~ to possible mimic symbols
+		[FIXED] Shows up under "Things that are here:" but not "Pick up what?"
+		[x] Spirits should have different qty based on monster level...
+		[x] Spirits have a fadetimer... ~250-750 turns?
+			[x] TTAB(spirit_fade, (timeout_proc) 0, "spirit_fade")
+			[x] #define MAX_SPIRIT_FADE_TIME 1000 /* longest a spirit hangs around */
+			kill_egg(egg) ?
+			[x] attach_spirit_fade_timeout(spirit, when)
+			[x] spirit_fade(arg, timeout)
+		[x] Nonliving monsters do not leave spirits
+	
+	4) [x] Use these spirits to fuel the casting of necromancy spells, maybe a new school. 
+		[x] Necromancy spells consume some Pw but the spirits are the main fuel. Spell ideas:
+	
+	[x] summon undead
+		72 in 73 chance of creating one undead monster and a 1 in 73 chance of creating five undead. 
+		 Necromancer they will automatically attempt to dominate the resulting monster(s). 
+		 monster(s) may resist, based on their MR.
+	
+	[x] Charm undead: 
+		low cost, only works on undead.
+		We already have command undead
+	
+	[x] Raise zombies:
+		Technique in slashem...
+		- Attempts to revive all corpses in adjacent squares and turn them into an appropriate zombies. 
+		- Kobold, gnome, elven, human, ettin, and giant corpses will result in the corresponding zombie type. 
+		- Goblin corpses will result in orc zombies.
+		- Other humanoids will become a ghoul 3/4th of the time or a ghast the remaining 1/4th.
+		- There is no effect on non-humanoid corpses.
+
+		An attempt will be made to tame the resulting undead with the same chances as casting charm monster. 
+		The undead will always be hostile if not tamed. You will be unable to move for 2 turns even if there was no effect, and the technique will be usable again after 1000-1500 turns.
+
+
+	[DEFERRED] unnamed: Consume souls of one species; polymorph into that monster.
+	
+	[DEFERRED] unnamed:
+		Consume 5-10 spirits of one monster type and create a tame monster of that type without a corpse.
+		
+	- [skipped] Lvl 7: Animate Major Undead: 
+		raise any corpse that is Huge or smaller of a monstrosity, humanoid, or beast with challenge rating 3 or lower can be animated. It keeps its original abilities and attacks, multiattack, but loses any resistances, immunities, legendary actions, senses it had and gains the immunities and vulnerabilities of its type, skeleton or zombie. 
+	
+	[FIXED] Monsters can hide under spirits.
+	[s] Some monsters can eat/use up spirits: L/W/A/&, Valkyries, Necromancers
+		[x] Wishing for spirits results in them immediately collected.
+	[x] Added other soul eaters: shades, specters, weredemon, aloon
+		- [skipped] Should not be able to kick on floor. Or they dissapate...
+	
+		[x] In sanity check - add check to make sure no spirits are ever in inventory.
+	[x] Monsters cannot pick up spirits
+	
+	Consume souls/Soul Harvest: Regain HP or Pw.
+		[x] Level  1: You get the monsters level / 2 in power
+		[x] Level  7: You get the monster's level /2 in HP? 
+		[x] Level 11: You get the full monster's level in power
+		[x] Level 17: You get the full monster's level in HP? 
+
+		/* Needs consideration - 
+		[ ] Level  1: You get the monsters level in nutrition
+		[ ] Level 11: You get the full monster's level in nutrition
+	[ ] Can we choke on spirit?
+
+	[x] Start with a "Call Undead" spell - level 1, acts like a magic whistle for undead.
+		Makes your starting ghoul much better.
+		
+	[x] Necromancers cannot tame or pacify anything other than undead.
+		Like convicts. No cheese for rats, No catnip for cats, No bananas for monkeys, etc
+
+[x] Spirits fade time is ~10-50 turns
+
+	
+	[skipped] Life Tap 
+		- (level 1) Life drain touch attack. 
+		-  melee spell attack against a living creature, dealing necrotic damage equal to 1d8 + your Charisma modifier on a hit. 
+		You gain temporary hit points equal to the amount of necrotic damage dealt. 
+		If this feature kills the creature, you gain twice as many temporary hit points from using this feature. The damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8). You may use this feature a number of times equal to your Charisma modifier(minimum one) and you regain all uses of this feature at the end of a long rest.
+
+	[x] Spirits sometimes turn into willo's 
+
+	[x] Lvl 18: Macabre.  immune to poison damage, diseases,poisoned conditions.
+	[x] Level 11:  Necro is Immune to frightened condition?
+	[x] The Great Dagger of Glauragnaa: Grants double spirit bonuses?
+	[x] The Great Dagger of Glauragnaa: Triples the radius of spirit collection
+	[skipped] Create wight: works like reanimate creature, but the resulting creature gets level drain abilities.
+	[skipped] Do Spirits need to merge?
+
+	- [x] On graveyard levels, spirits last 2000 turns.
+	- [x] Spirits generate when graves are dug up.
+	- [x] Spirits generate in morgues (on the corpses of dead players)
+	- [x] By default, spirits are usually made off the range of player monster types.
+	- [x] Massacre rooms have lots of spirits.
+	- [x] Handle making spirits so that they are random player monster types.
+	- [x] Necromancers should not be afraid of ghosts either.
+	- [x] On swamp levels, will-o-wisps spawn much more commonly - 1 in 10?
+	- [x] Spirits generate in bones traps
+	- [x] Multiheaded monsters drop more spirits (hydras, ettins, 2-headed trolls)
+
+
+	[x] Reanimate creature/animate dead: 
+		- brings it back to life as a pet. (Flagged as undead?)
+		- Animate Dead is a third-level spell of the School of Necromancy and is the backbone of any Necromancer's arsonal.
+		 casting time of one minute
+		- When casting Animate Dead using a spell slot above third level, you can animate the remains of not one, but two additional creatures. This means that through the use of several higher-level spell slots, a single Necromancer can control a sizable swarm of undead with ease.
+		- https://nethackwiki.com/wiki/Revivification
+		
+		(mon)->data->mhflags)
+		
+			 
+	- [skipped] Spontaneous Unburial: 
+		You may cast the spell animate dead as an action and you do not require a corpse or pile of bones to do so; the skeleton or zombie will claw its way up from underground and acts on your next turn. In addition, you learn the spell animate dead.
+	
+	[FIXED] Necromancer starting with 0 Necromancy skill
+	
+	[x] We can force_learn_spells - to emulate techniques.
+		
+		
+	[x] Add traitor to all pirates
+[x] Remove lesser nightmare, nightmare from traitors
+
+
+	[x] If you have tame undead - make sure they don't eat your spirits (W/L)
+
+	
+	[x] Undead won't betray Necromancers
+		That can be the tradeoff for Charm Monster - All undead will betray.
+		
+		
+	[skipped] Soul blast:
+		consumes multiple spirits, produces an attack whose power is proportionate to the total monster difficulty of the expended spirits. (Copy monks spirit bomb)
+		https://nethackwiki.com/wiki/Spirit_bomb
+	
+	[skipped] Empower undead:
+		Buff all nearby undead pets.
+		Copy slashem barbarian technique?
+		https://nethackwiki.com/wiki/Primal_roar
+			Tricky - requires basically implementing a technique.
+		
+	[skipped] Haunted Implement: 
+		Infuse your weapon/armor/other gear with souls, making it more effective for a time.
+
+
+
