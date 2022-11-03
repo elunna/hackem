@@ -520,8 +520,11 @@ struct mkroom *sroom;
                 (void) mkgold((long) rn1(i, 10), sx, sy);
                 break;
             case MORGUE:
-                if (!rn2(5))
+                if (!rn2(5)) {
                     (void) mk_tt_object(CORPSE, sx, sy);
+                    drop_spirit(rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST), 
+                                sx, sy);
+                }
                 if (!rn2(10)) /* lots of treasure buried with dead */
                     (void) mksobj_at((rn2(3)) ? LARGE_BOX : CHEST, sx, sy,
                                      TRUE, FALSE);
