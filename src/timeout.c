@@ -1037,13 +1037,12 @@ struct obj *spirit;
 long when;
 {
     int i;
-    
     /* stop previous timer, if any */
     (void) stop_timer(SPIRIT_FADE, obj_to_any(spirit));
     
     if (!when) {
-        for (i = (MAX_SPIRIT_FADE_TIME - 50) + 1; i <= MAX_SPIRIT_FADE_TIME; i++)
-            if (rnd(i) > 400) {
+        for (i = (MIN_SPIRIT_FADE_TIME) + 1; i <= MAX_SPIRIT_FADE_TIME; i++)
+            if (rnd(i) > 15) {
                 /* spirit will fade */
                 when = (long) i;
                 break;
@@ -1172,7 +1171,7 @@ anything *arg;
 long timeout;
 {
     struct obj *spirit;
-    struct monst *mon;
+    struct monst *mon, *mon2;
     xchar x, y;
     boolean cansee_fadespot = FALSE;
     spirit = arg->a_obj;
@@ -1190,6 +1189,9 @@ long timeout;
     obfree(spirit, (struct obj *) 0);
     if ((mon = m_at(x, y)) && !hideunder(mon) && cansee(x, y)) {
         ;
+    } else if (!rn2(256)) {
+        /* Once in a while, a will-o'-the-wisp will emerge from a faded spirit */
+        makemon(&mons[PM_WILL_O__THE_WISP], x, y, NO_MM_FLAGS);
     }
     newsym(x, y);
 }
