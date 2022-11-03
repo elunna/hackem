@@ -1432,7 +1432,7 @@ int after; /* this is extra fast monster movement */
         return 0;
 
     /* Intelligent pets may rebel (apart from minions, spell beings) */
-    if (!rn2(527) && betrayed(mtmp)) 
+    if (!rn2(250) && betrayed(mtmp)) 
         return 1;
     
     nix = omx; /* set before newdogpos */
