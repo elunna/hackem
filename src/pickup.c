@@ -4019,7 +4019,7 @@ collect_spirit(mon, obj)
 struct monst *mon;
 struct obj *obj;
 {
-    int bonus;
+    int bonus, halfbonus;
     boolean is_you = (mon == &youmonst);
     
     /* +1 in case it's a level 0 monster... */
@@ -4029,13 +4029,22 @@ struct obj *obj;
         You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
         u.uspirits += obj->quan;
         bonus = spiritlev * obj->quan;
+        /* Minimum bonus is always 1 */
+        halfbonus = (bonus / 2) < 1 ? 1 : (bonus / 2);
+        
+        /* Spirits grant energy */
         if (u.ulevel < 11) {
-            /* Gain half the monster's level, minimum of 1 */
-            bonus /= 2;
-            u.uen += (bonus < 1) ? 1 : bonus;
+            u.uen += halfbonus;
         } else
             u.uen += bonus;
+        if (u.uen > u.uenmax)
+            u.uen = u.uenmax;
         
+        /* Spirits grant HP */
+        if (u.ulevel < 8) {
+            u.uen += halfbonus;
+        } else
+            u.uen += bonus;
         if (u.uen > u.uenmax)
             u.uen = u.uenmax;
         
