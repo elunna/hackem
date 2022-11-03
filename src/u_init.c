@@ -159,8 +159,8 @@ static struct trobj Necromancer[] = {
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
-    { SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
-    { SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
+    /*{ SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },*/
+    /*{ SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },*/
     { SPE_RAISE_ZOMBIES, 0, SPBOOK_CLASS, 1, 1 },
     { SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
     { WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
@@ -1179,7 +1179,6 @@ u_init()
     case PM_NECROMANCER:
         ini_inv(Necromancer);
         knows_class(SPBOOK_CLASS);
-        force_learn_spell(SPE_CALL_UNDEAD);
         if (!rn2(5)) 
             ini_inv(Blindfold);
         skill_init(Skill_N);

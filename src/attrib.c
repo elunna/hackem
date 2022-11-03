@@ -1177,6 +1177,33 @@ int oldlevel, newlevel;
         else
             lose_weapon_skill(oldlevel - newlevel);
     }
+    
+    /* Learn your special spells! */
+    if (Role_if(PM_NECROMANCER)) {
+        short spell;
+        switch (u.ulevel) {
+        case 2: spell = SPE_CALL_UNDEAD; break;
+        case 5: spell = SPE_COMMAND_UNDEAD; break;
+        case 7: spell = SPE_SUMMON_UNDEAD; break;
+        default: spell = 0;
+        }
+        if (!spell)
+            return;
+        
+        if (oldlevel < u.ulevel && newlevel >= u.ulevel
+            && u.ulevelmax == u.ulevel) {
+            int i;
+            for (i = 0; i < MAXSPELL; i++)
+                if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
+                    break;
+            if (spellid(i) == NO_SPELL)
+                You("learn how to cast %s!", OBJ_NAME(objects[spell]));
+            spl_book[i].sp_id = spell;
+            spl_book[i].sp_lev = objects[spell].oc_level;
+            spl_book[i].sp_know = 20000;
+        }
+    }
+
 }
 
 int
