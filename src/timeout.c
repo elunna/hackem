@@ -1189,8 +1189,9 @@ long timeout;
     obfree(spirit, (struct obj *) 0);
     if ((mon = m_at(x, y)) && !hideunder(mon) && cansee(x, y)) {
         ;
-    } else if (!rn2(256)) {
-        /* Once in a while, a will-o'-the-wisp will emerge from a faded spirit */
+    } else if (!rn2(level.flags.has_swamp ? 10 : 256)) {
+        /* Once in a while, a will-o'-the-wisp will emerge from a faded spirit 
+         * Much higher chance on swamp levels. */
         makemon(&mons[PM_WILL_O__THE_WISP], x, y, NO_MM_FLAGS);
     }
     newsym(x, y);
