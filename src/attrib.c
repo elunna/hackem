@@ -79,9 +79,11 @@ static const struct innate {
                  { 30, &(HSick_resistance), "hale", "" },
                  { 0, 0, 0, 0 } },
 
-  nec_abil[] = { { 1, &(HDrain_resistance), "", "" },
-                 { 1, &(HSick_resistance), "", "" },
+  nec_abil[] = { /* 1, Fear Resistance - hardcoded but  there */
+                 { 1, &(HDrain_resistance), "", "" },
                  { 3, &(HUndead_warning), "sensitive", "" },
+                 { 18, &(HSick_resistance), "hale", "" },
+                 { 18, &(HPoison_resistance), "healthy", "" },
                  { 0, 0, 0, 0 } },
 
   pri_abil[] = { { 15, &(HWarning), "sensitive", "" },
