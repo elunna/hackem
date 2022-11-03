@@ -510,10 +510,12 @@ boolean resuming;
                     /* Autopickup spirits for Necromancer */
                     if (Role_if(PM_NECROMANCER)) {
                         struct obj *obj;
+                        /* Carrying the necro quest arti triples the range */
+                        int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
                         /* Loop through the surrounding squares */
-                        for (int x = u.ux - 1; x <= u.ux + 1; x++) {
-                            for (int y = u.uy - 1; y <= u.uy + 1; y++) {
-                                if (!OBJ_AT(x, y))
+                        for (int x = u.ux - off; x <= u.ux + off; x++) {
+                            for (int y = u.uy - off; y <= u.uy + off; y++) {
+                                if (!isok(x, y) || !OBJ_AT(x, y))
                                     continue;
 
                                 /* count the objects here */
