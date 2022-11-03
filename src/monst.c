@@ -7651,14 +7651,6 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_FEMALE | M2_COLLECT,
         M3_INFRAVISIBLE, 0, MH_HUMAN, 12, CLR_YELLOW),
-    MON("wizard", S_HUMAN,
-        LVL(10, 12, 10, 3, 0), (1),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
-        M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_STRONG | M2_COLLECT | M2_MAGIC,
-        M3_INFRAVISIBLE, 0, MH_HUMAN, 12, CLR_YELLOW),
     MON("yeoman", S_HUMAN,                                      /* Slash'EM */
         LVL(10, 10, 10, 1, 3), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
@@ -7668,6 +7660,14 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_COLLECT, 
         M3_INFRAVISIBLE,0, MH_HUMAN, 12, HI_DOMESTIC),
+    MON("wizard", S_HUMAN,
+        LVL(10, 12, 10, 3, 0), (1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
+        M1_HUMANOID | M1_OMNIVORE,
+        M2_NOPOLY | M2_STRONG | M2_COLLECT | M2_MAGIC,
+        M3_INFRAVISIBLE, 0, MH_HUMAN, 12, CLR_YELLOW),
     /*
      * dummy monster needed for visual interface
      * (marking it unique prevents figurines)
