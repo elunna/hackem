@@ -3513,7 +3513,8 @@ register struct monst *mtmp;
     if (Role_if(PM_NECROMANCER) && !nonliving(mtmp->data)) {
         otmp = mksobj(SPIRIT, FALSE, FALSE);
         otmp->corpsenm = monsndx(mtmp->data);
-        attach_spirit_fade_timeout(otmp, 0L);
+        /* On graveyard levels, spirits have a really long fade time */
+        attach_spirit_fade_timeout(otmp, level.flags.graveyard ? 2000L : 0L);
         place_object(otmp, mtmp->mx, mtmp->my);
         newsym(mtmp->mx, mtmp->my);
     }
