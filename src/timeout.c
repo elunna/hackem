@@ -1171,7 +1171,7 @@ anything *arg;
 long timeout;
 {
     struct obj *spirit;
-    struct monst *mon, *mon2;
+    struct monst *mon;
     xchar x, y;
     boolean cansee_fadespot = FALSE;
     spirit = arg->a_obj;

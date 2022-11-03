@@ -391,7 +391,6 @@ struct obj {
 
 /* Eggs and other food */
 #define MAX_EGG_HATCH_TIME 200 /* longest an egg can remain unhatched */
-#define MAX_SPIRIT_FADE_TIME 555 /* longest a spirit hangs around */
 #define stale_egg(egg) \
     ((monstermoves - (egg)->age) > (2 * MAX_EGG_HATCH_TIME))
 #define ofood(o) ((o)->otyp == CORPSE || (o)->otyp == EGG || (o)->otyp == TIN)
@@ -410,6 +409,10 @@ struct obj {
      || o->otyp == GLOB_OF_GEL                                        \
      || o->otyp == GLOB_OF_MOLDY_PUDDING                              \
      || o->otyp == GLOB_OF_BLACK_PUDDING)
+
+/* Spirit stuff */
+#define MIN_SPIRIT_FADE_TIME 10 /* longest a spirit hangs around */
+#define MAX_SPIRIT_FADE_TIME 25 /* longest a spirit hangs around */
 
 /* Containers */
 #define carried(o) ((o)->where == OBJ_INVENT)
