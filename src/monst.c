@@ -2532,7 +2532,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1300, 250, MS_NEIGH, MZ_MEDIUM), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_WANDER | M2_STRONG | M2_DOMESTIC, 
-        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 5, CLR_GREEN),
+        M3_INFRAVISIBLE, 0, 0, 5, CLR_GREEN),
     MON("nightmare", S_UNICORN,                                 /* EvilHack */
         LVL(5, 20, 5, 0, -9), (G_GENO | 2),
         A(ATTK(AT_KICK, AD_PHYS, 1, 8),
@@ -2541,7 +2541,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1500, 300, MS_NEIGH, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_WANDER | M2_STRONG | M2_DOMESTIC,
-        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 8, CLR_GREEN),
+        M3_INFRAVISIBLE, 0, 0, 8, CLR_GREEN),
     MON("cauchemar", S_UNICORN,                                 /* EvilHack */
         LVL(7, 24, 4, 0, -9), (G_GENO | 2),
         A(ATTK(AT_KICK, AD_PHYS, 1, 10),
