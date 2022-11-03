@@ -1172,6 +1172,12 @@ register struct obj *obj;
         && mtmp->data->mlet == S_DOG)
         return FALSE;
 
+    /* Necromancers can only tame undead */
+    if (Role_if(PM_NECROMANCER) && !is_undead(mtmp->data)) {
+        pline("%s still looks wary of you.", Monnam(mtmp));
+        return FALSE;
+    }
+    
     if (Role_if(PM_CONVICT) && (is_domestic(mtmp->data) && obj)) {
         /* Domestic animals are wary of the Convict */
         pline("%s still looks wary of you.", Monnam(mtmp));
