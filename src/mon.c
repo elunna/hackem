@@ -6805,14 +6805,20 @@ struct monst *mtmp;
     }
 }
 
-
+/* If mindex is -1, spirits are made off the range of player monster types.
+ * Otherwise we can pass in the mnsindex of the desired monster type. */
 void
 drop_spirit(mindex, x, y)
 int mindex, x, y;
 {
     struct obj *otmp;
     otmp = mksobj(SPIRIT, FALSE, FALSE);
-    otmp->corpsenm = mindex;
+    
+    if (mindex < 0)
+        otmp->corpsenm = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
+    else
+        otmp->corpsenm = mindex;
+    
     /* On graveyard levels, spirits have a really long fade time */
     attach_spirit_fade_timeout(otmp, level.flags.graveyard ? 2000L : 0L);
     place_object(otmp, x, y);

@@ -960,8 +960,7 @@ coord *cc;
         You_feel("like a proper gravedigger.");
         
         /* We'll also release a spirit */        
-        drop_spirit(rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST), 
-                    u.ux, u.uy);
+        drop_spirit(-1, u.ux, u.uy);
     }
 
     if (!rn2(13)) {
