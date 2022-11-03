@@ -572,6 +572,10 @@ struct monst* ghost;
 {
     ghost->mpeaceful = 0;
     set_malign(ghost);
+    if (Role_if(PM_NECROMANCER)) {
+        You("see a ghost try to frighten you.");
+        return;
+    }
     if (multi >= 0) {
         if (flags.verbose)
             You("are frightened to death, and unable to move.");
