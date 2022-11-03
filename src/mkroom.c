@@ -537,9 +537,10 @@ struct mkroom *sroom;
                                      FALSE);
                 break;
             case FUNGUSFARM:
-                if (!rn2(3)) {}
+                if (!rn2(3))
                     (void) mksobj_at(SLIME_MOLD, sx, sy, TRUE, FALSE);
-                
+                if (!rn2(5))
+                    (void) mksobj_at(MUSHROOM, sx, sy, TRUE, FALSE);
                 break;
             case BADFOODSHOP:
                 /* Rotten eggs */
