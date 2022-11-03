@@ -964,7 +964,7 @@ ROOM:"ordinary", random, random, random, random {
 # massacre
 LEVEL:"vlt-0053"
 FLAGS:rndvault
-MINDEPTH:8
+MINDEPTH:5
 ROOM:"rndvault", random, random, random, random {
     $mon = MONSTER: { '@', "apprentice", "warrior", "ninja", "thug", "hunter", "acolyte", "abbot",
              "page", "attendant", "neanderthal", "chieftain", "student", "inmate", "cultist",
@@ -976,6 +976,8 @@ ROOM:"rndvault", random, random, random, random {
   LOOP [5d5] {
     IF [25%] { SHUFFLE: $mon }
     OBJECT:('%', "corpse"), random, montype: $mon[0]
+    OBJECT:('~', "spirit"), random, montype: $mon[0]
+    
   }
 }
 

@@ -1057,7 +1057,12 @@ boolean artif;
                 blessorcurse(otmp, 10);
             break;
         case VENOM_CLASS:
+            break;
         case SPIRIT_CLASS:
+            /* Assume a random player monster - for massacre rooms */
+            otmp->corpsenm = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
+            /* Give the player some time to find the room */
+            attach_spirit_fade_timeout(otmp, 1000L);
             break;
         case CHAIN_CLASS:
             if (Role_if(PM_CONVICT) && otmp->otyp == IRON_CHAIN
@@ -1988,6 +1993,7 @@ const char *nm;
     otmp = mkcorpstat(objtype, (struct monst *) 0, ptr, x, y, corpstatflags);
     if (nm)
         otmp = oname(otmp, nm);
+
     return otmp;
 }
 
