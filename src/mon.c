@@ -3330,7 +3330,6 @@ register struct monst *mtmp;
     struct monst *rider;
     int tmp, i;
     coord cc;
-    struct obj *otmp;
     
     mtmp->mhp = 0; /* in case caller hasn't done this */
     lifesaved_monster(mtmp);
@@ -3511,12 +3510,7 @@ register struct monst *mtmp;
     /* Any living monster killed while playing as a necromancer has a chance 
      * of leaving behind a spirit. */
     if (Role_if(PM_NECROMANCER) && !nonliving(mtmp->data)) {
-        otmp = mksobj(SPIRIT, FALSE, FALSE);
-        otmp->corpsenm = monsndx(mtmp->data);
-        /* On graveyard levels, spirits have a really long fade time */
-        attach_spirit_fade_timeout(otmp, level.flags.graveyard ? 2000L : 0L);
-        place_object(otmp, mtmp->mx, mtmp->my);
-        newsym(mtmp->mx, mtmp->my);
+        drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
     }
     
     /* dead vault guard is actually kept at coordinate <0,0> until
@@ -6810,4 +6804,19 @@ struct monst *mtmp;
         mdamageu(mtmp, dmg);
     }
 }
+
+
+void
+drop_spirit(mindex, x, y)
+int mindex, x, y;
+{
+    struct obj *otmp;
+    otmp = mksobj(SPIRIT, FALSE, FALSE);
+    otmp->corpsenm = mindex;
+    /* On graveyard levels, spirits have a really long fade time */
+    attach_spirit_fade_timeout(otmp, level.flags.graveyard ? 2000L : 0L);
+    place_object(otmp, x, y);
+    newsym(x, y);
+}
+
 /*mon.c*/

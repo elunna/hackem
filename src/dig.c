@@ -931,7 +931,6 @@ dig_up_grave(cc)
 coord *cc;
 {
     struct obj *otmp;
-    struct obj *stmp;
     xchar dig_x, dig_y;
 
     if (!cc) {
@@ -959,14 +958,10 @@ coord *cc;
         /* [BarclayII] Grave-digging is a proper job of Necromancers. */
         adjalign(-sgn(u.ualign.type));
         You_feel("like a proper gravedigger.");
-        /* We'll also release a spirit */
-        stmp = mksobj(SPIRIT, FALSE, FALSE);
-        /* Random player monster corpse type... This could be refined. */
-        stmp->corpsenm = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
-        /* On graveyard levels, spirits have a really long fade time */
-        attach_spirit_fade_timeout(stmp, level.flags.graveyard ? 2000L : 0L);
-        place_object(stmp, u.ux, u.uy);
-        /* newsym(mtmp->mx, mtmp->my); */
+        
+        /* We'll also release a spirit */        
+        drop_spirit(rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST), 
+                    u.ux, u.uy);
     }
 
     if (!rn2(13)) {
