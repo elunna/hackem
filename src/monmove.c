@@ -1944,9 +1944,10 @@ register int after;
                     return 2; /* it died */
             }
             
-            /* Some competition for the Necromancer */
+            /* Some competition for the Necromancer 
+             * Pets won't eat your spirits though.*/
             spirit = spirit_at(mtmp->mx, mtmp->my);
-            if (spirit && is_souleater(ptr))
+            if (spirit && is_souleater(ptr) && !mtmp->mtame)
                 collect_spirit(mtmp, spirit);
             
             if (ptr == &mons[PM_GHOUL])
