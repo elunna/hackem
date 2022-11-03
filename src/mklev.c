@@ -1821,6 +1821,9 @@ coord *tm;
             victim_mnum = PM_HUMAN;
             break;
         }
+        if (Role_if(PM_NECROMANCER)) {
+            drop_spirit(victim_mnum, m.x, m.y);
+        }
         otmp = mkcorpstat(CORPSE, NULL, &mons[victim_mnum], m.x, m.y,
                           CORPSTAT_INIT);
         if (otmp)
