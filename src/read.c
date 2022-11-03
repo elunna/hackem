@@ -3930,6 +3930,9 @@ int mon_to_zombie(int monnum) {
     if (is_giant(&mons[monnum])) 
         return PM_GIANT_ZOMBIE;
     
+    if (is_dragon(&mons[monnum])) 
+        return PM_ZOMBIE_DRAGON;
+    
     /* Is it humanoid? */
     if (!humanoid(&mons[monnum])) 
         return -1;

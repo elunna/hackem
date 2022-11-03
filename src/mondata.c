@@ -817,8 +817,12 @@ struct permonst *pm1, *pm2;
                 || pm2 == &mons[PM_CENTAUR_MUMMY]);
     if (is_unicorn(pm1))
         return is_unicorn(pm2);
+#if 0
     if (let1 == S_DRAGON)
         return (let2 == S_DRAGON);
+#endif
+    if (is_dragon(pm1))
+        return is_dragon(pm2);
     if (let1 == S_NAGA)
         return (let2 == S_NAGA);
     /* other critters get steadily messier */

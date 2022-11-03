@@ -293,6 +293,8 @@ struct permonst *pm;
         return PM_GNOME_ZOMBIE;
     case S_CENTAUR:
         return PM_CENTAUR_ZOMBIE;
+    case S_DRAGON:
+        return PM_ZOMBIE_DRAGON;
     }
     return NON_PM;
 }
@@ -426,7 +428,7 @@ int mndx;
         mndx = PM_TROLL;
         break;
     case PM_ZOMBIE_DRAGON:
-        mndx =  PM_RED_DRAGON;
+        mndx = PM_RED_DRAGON;
         break;
     case PM_CENTAUR_ZOMBIE:
     case PM_CENTAUR_MUMMY:

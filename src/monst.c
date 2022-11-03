@@ -5846,7 +5846,7 @@ struct permonst _mons2[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_BREATHLESS |
         M1_MINDLESS,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_MAGIC,
-        M3_INFRAVISIBLE, 0, MH_UNDEAD, 17, CLR_ORANGE),
+        M3_INFRAVISIBLE, 0, MH_DRAGON | MH_UNDEAD, 17, CLR_ORANGE),
 
     /*
      * golems
