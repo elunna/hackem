@@ -4847,7 +4847,8 @@ struct monst *mtmp;
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
         if (canseemon(mtmp) || !Deaf) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
-            if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
+            if (!Role_if(PM_NECROMANCER) 
+                    || (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i))) {
                 u.fearedmon = mtmp;
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
             } else {

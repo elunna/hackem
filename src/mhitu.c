@@ -3563,7 +3563,10 @@ struct attack *mattk;
                 && mtmp->mcansee && !rn2(3)
                 && !mtmp->mspec_used 
                 && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
-            
+            if (!Role_if(PM_NECROMANCER)) {
+                You("are not afraid of the %s!", mon_nam(mtmp));
+                break;
+            }
             You("are struck with a terrible fear of %s!", mon_nam(mtmp));
             make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
             u.fearedmon = mtmp;
@@ -4440,6 +4443,10 @@ int dmg;
         }
         if (Sonic_resistance)
             break; /* No inventory damage! */
+        if (!Role_if(PM_NECROMANCER)) {
+            You("are not afraid.");
+            break;
+        }
         You("are struck with a sudden, terrible fear.");
         make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
         aggravate();

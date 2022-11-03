@@ -4555,9 +4555,10 @@ struct obj *obj;
         dmg = 0;
         break;
     case WAN_FEAR:
-        /* --hackem: It would be nice to scare all surrounding monsters as well. */
-        You("suddenly panic!");
-        make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+        if (!Role_if(PM_NECROMANCER)) {
+            You("suddenly panic!");
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+        }
         wandfear(obj);
         goto discard_broken_wand;
     default:
