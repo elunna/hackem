@@ -3866,8 +3866,9 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     char qbuf[QBUFSZ];
     char c;
     /* TODO: Add verb for vampire drain? */
-    boolean feeding = !strcmp(verb, "eat"),    /* corpsecheck==0 */
-        offering = !strcmp(verb, "sacrifice"); /* corpsecheck==1 */
+    boolean feeding = !strcmp(verb, "eat");    /* corpsecheck==0 */
+    boolean offering = !strcmp(verb, "sacrifice") 
+                       || !strcmp(verb, "revive"); /* corpsecheck==1 */
 
     /* if we can't touch floor objects then use invent food only */
     if (iflags.menu_requested /* command was preceded by 'm' prefix */

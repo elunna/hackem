@@ -1172,8 +1172,13 @@ register struct obj *obj;
         && mtmp->data->mlet == S_DOG)
         return FALSE;
 
-    /* Necromancers can only tame undead */
-    if (Role_if(PM_NECROMANCER) && !is_undead(mtmp->data)) {
+    /* Necromancers can tame dead monsters - if we are here, it means
+     * we already passed the resistance check */
+    if (Role_if(PM_NECROMANCER) && obj && obj->otyp == SPE_ANIMATE_DEAD) {
+        return TRUE;
+    }
+    /* Necromancers can only tame undead by normal means. */
+    else if (Role_if(PM_NECROMANCER) && !is_undead(mtmp->data)) {
         pline("%s still looks wary of you.", Monnam(mtmp));
         return FALSE;
     }

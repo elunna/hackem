@@ -2132,6 +2132,54 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         nomovemsg = 0;
         /* t_timeout = rn1(1000, 500); */
         break;
+    case SPE_ANIMATE_DEAD:
+        if (u.uswallow) {
+            pline("You don't have enough elbow-room to maneuver.");
+            return 0;
+        }
+        int cost = 50 - u.ulevel; /* WAC make this depend on mon? */
+        /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
+                                   
+        if ((Upolyd && u.mh <= cost) || (!Upolyd && u.uhp <= cost)) {
+            pline("You don't have the strength to perform revivification!");
+            return 0;
+        }
+
+        /*obj = getobj((const char *) revivables, "revive");*/
+        if (!(obj = floorfood("revive", 0)))
+            return 0;
+        /*if (!obj) 
+            return 0;*/
+        
+        if (cost < 0)
+            cost = 0;
+#if 0
+        /* Copied from slashem polyself probability */
+        if ((rn2(5) + u.ulevel) < mons[obj->corpsenm].mlevel)
+            pline("Your attempt to animate the dead failed...");
+#endif   
+        mtmp = revive(obj, TRUE);
+        if (mtmp) {
+            if (Is_blackmarket(&u.uz))
+                setmangry(mtmp, FALSE);
+            else if (mtmp->isshk)
+                make_happy_shk(mtmp, FALSE);
+            else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
+                struct obj* pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);;
+                tamedog(mtmp, pseudo);
+                newedog(mtmp);
+                initedog(mtmp);
+                u.uconduct.pets++;
+                newsym(mtmp->mx, mtmp->my);
+                /* Add undead tag? */
+            }
+        }
+        if (Upolyd)
+            u.mh -= cost;
+        else
+            u.uhp -= cost;
+        /* t_timeout = rn1(1000, 500);*/
+        break;
     case SCR_GENOCIDE:
         if (!already_known)
             You("have found a scroll of genocide!");
