@@ -4025,8 +4025,9 @@ struct obj *obj;
     /* +1 in case it's a level 0 monster... */
     int spiritlev = mons[obj->corpsenm].mlevel + 1;
     
-
-    if (is_you) {
+    if (is_you && !Role_if(PM_NECROMANCER)) {
+        pline("As you touch the spirit, it fades away.");
+    } else if (is_you) {
         You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
         u.uspirits += obj->quan;
         bonus = spiritlev * obj->quan;
