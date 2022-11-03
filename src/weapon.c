@@ -55,7 +55,7 @@ STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
     "no skill", "bare hands", /* use barehands_or_martial[] instead */
     "two weapon combat", "riding", "polearms", "saber", "hammer", "firearms", 
     "whip", "attack spells", "healing spells", "divination spells",
-    "enchantment spells", "clerical spells", "escape spells", "matter spells", 
+    "enchantment spells", "necromancy spells", "escape spells", "matter spells", 
     "lightsaber", 
 };
 /* indexed vis Role_if(PM_ROGUE) ? 2 : is_martial() */
@@ -2290,6 +2290,8 @@ const struct def_skill *class_skill;
         P_SKILL(P_ATTACK_SPELL) = P_BASIC;
     } else if (Role_if(PM_PRIEST)) {
         P_SKILL(P_ENCHANTMENT_SPELL) = P_BASIC;
+    } else if (Role_if(PM_NECROMANCER)) {
+        P_SKILL(P_NECROMANCY_SPELL) = P_BASIC;
     } else if (Role_if(PM_WIZARD)) {
         P_SKILL(P_ATTACK_SPELL) = P_BASIC;
         P_SKILL(P_ENCHANTMENT_SPELL) = P_BASIC;
