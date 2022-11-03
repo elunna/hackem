@@ -3511,6 +3511,16 @@ register struct monst *mtmp;
      * of leaving behind a spirit. */
     if (Role_if(PM_NECROMANCER) && !nonliving(mtmp->data)) {
         drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
+        /* Each head gets a spirit */
+        if (mtmp->data == &mons[PM_TWO_HEADED_TROLL] 
+            || mtmp->data == &mons[PM_ETTIN]) {
+            drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
+        }
+        if (mtmp->data == &mons[PM_HYDRA]) {
+            for (int x = 0; x < (mtmp->m_lev - mtmp->data->mlevel + 2); x++) {
+                drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
+            }
+        }
     }
     
     /* dead vault guard is actually kept at coordinate <0,0> until
