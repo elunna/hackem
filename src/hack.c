@@ -2292,7 +2292,6 @@ invocation_message()
 {
     /* a special clue-msg when near the Invocation position */
     if (Invocation_lev(&u.uz)) {
-        char *strange_vibration;
         int dist_invocation_pos = distu(inv_pos.x, inv_pos.y);
 
         /* different message depending on the distance to the vibrating square
@@ -2302,13 +2301,6 @@ invocation_message()
            .www.
            ..f..
            */
-        if (dist_invocation_pos == 0) {
-            strange_vibration = "strange vibration";
-        } else if (dist_invocation_pos <= 2) {
-            strange_vibration = "weak trembling";
-        } else {
-            strange_vibration = "faint trembling";
-        }
 
         /* within close proximity of the vibrating square */
         if (dist_invocation_pos <= 4 && !On_stairs(inv_pos.x, inv_pos.y)) {
@@ -2324,7 +2316,14 @@ invocation_message()
             else
                 Sprintf(buf, "under your %s", makeplural(body_part(FOOT)));
 
-            You_feel("a %s %s.", strange_vibration, buf);
+            if (dist_invocation_pos == 0) {
+                You_feel("a %s %s.", "strange vibration", buf);
+            } else if (dist_invocation_pos <= 2) {
+                You_feel("a %s %s.", "weak trembling", buf);
+            } else {
+                You_feel("a %s %s.", "faint trembling", buf);
+            }
+            
             /* only report if on the vibrating square */
             if (invocation_pos(u.ux, u.uy) && otmp && otmp->spe == 7
                 && otmp->lamplit) {
