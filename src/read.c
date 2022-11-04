@@ -1993,7 +1993,61 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
             break;
         }
-    case SCR_ENCHANT_WEAPON:
+        case SPE_SPIRIT_BOMB: {
+            int num, i;
+            int sx = u.ux, sy = u.uy;
+#if 0
+            if (uwep || (u.twoweap && uswapwep)) {
+                pline("You can't do this while wielding a weapon!");
+                return 0;
+
+            } else if (uarms) {
+                pline("You can't do this while holding a shield!");
+                return 0;
+            }
+#endif
+            if (!getdir(NULL))
+                return 0;
+
+            pline("You gather your energy...");
+
+            if (u.uen < 10) {
+                pline("But it fizzles out.");
+                u.uen = 0;
+            }
+
+            /*num = 10 + (techlev(tech_no) / 5);*/
+            num = 10 + (u.ulevel / 5);
+            num = (u.uen < num ? u.uen : num);
+
+            u.uen -= num;
+            
+            /* At expert we could use throwspell? */
+            
+            /* Original Spirit Bomb went 2 tiles exactly (but went through
+             * monsters), this will go as far as a regular wand and stop
+             * on monsters. */
+            int range = rnd(8) + 1;
+            for (i = 0; i < range; i++) {
+                if (!isok(sx, sy) || !cansee(sx, sy)
+                    || IS_STWALL(levl[sx][sy].typ) || u.uswallow || m_at(sx, sy))
+                    break;
+                
+                /* Display the center of the explosion */
+                tmp_at(DISP_FLASH, explosion_to_glyph(EXPL_MAGICAL, S_explode5));
+                tmp_at(sx, sy);
+                delay_output();
+                tmp_at(DISP_END, 0);
+
+                sx += u.dx;
+                sy += u.dy;
+            }
+            num = spell_damage_bonus(u.ulevel / 2 + 1);
+            /* Magical Explosion */
+            explode(sx, sy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
+            break;
+        }
+        case SCR_ENCHANT_WEAPON:
         /* [What about twoweapon mode?  Proofing/repairing/enchanting both
            would be too powerful, but shouldn't we choose randomly between
            primary and secondary instead of always acting on primary?] */
