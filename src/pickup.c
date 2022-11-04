@@ -4048,12 +4048,15 @@ struct obj *obj;
             u.uen = u.uenmax;
         
         /* Spirits grant HP */
+        if (u.ulevel < 4) {
+            u.uhp += 1;
+        }
         if (u.ulevel < 8) {
-            u.uen += halfbonus;
+            u.uhp += halfbonus;
         } else
-            u.uen += bonus;
-        if (u.uen > u.uenmax)
-            u.uen = u.uenmax;
+            u.uhp += bonus;
+        if (u.uhp > u.uhpmax)
+            u.uhp = u.uhpmax;
         
         context.botl = 1;
     } 
