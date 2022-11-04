@@ -193,6 +193,12 @@ extern struct trobj Samurai[];
 extern struct trobj Tourist[];
 extern struct trobj Valkyrie[];
 extern struct trobj Wizard[];
+extern struct trobj Flame_Mage[];
+extern struct trobj Ice_Mage[];
+extern struct trobj Necromancer[];
+extern struct trobj UndeadSlayer[];
+extern struct trobj Yeoman[];
+
 extern struct trobj Tinopener[];
 extern struct trobj Lamp[];
 extern struct trobj Blindfold[];
@@ -287,7 +293,18 @@ struct trobj giantMonk[] = {
     { FORTUNE_COOKIE, 0, FOOD_CLASS, 3, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
-
+struct trobj giantNecromancer[] = {
+    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
+    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
+    { WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { WAN_UNDEAD_TURNING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 2, UNDEF_BLESS },
+    { PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
 struct trobj giantPriest[] = {
     { MACE, 1, WEAPON_CLASS, 1, 1 },
     { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -305,6 +322,18 @@ struct trobj giantSamurai[] = {
     { YUMI, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { YA, 0, WEAPON_CLASS, 25, UNDEF_BLESS }, /* variable quan */
     { LARGE_SPLINT_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
+
+struct trobj giantUndeadSlayer[] = {
+    { WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
+    { HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { HIGH_BOOTS, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
+    { SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 5, 1 },
+    { HOLY_WAFER, 0, FOOD_CLASS, 4, 0 },
+    { POT_WATER, 0, POTION_CLASS, 4, 1 },        /* holy water */
     { 0, 0, 0, 0, 0 }
 };
 
@@ -406,6 +435,17 @@ struct trobj tortleTourist[] = {
     { 0, 0, 0, 0, 0 }
 };
 
+struct trobj tortleUndeadSlayer[] = {
+    { WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
+    { TOQUE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { SMALL_SHIELD, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
+    { SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 5, 1 },
+    { HOLY_WAFER, 0, FOOD_CLASS, 4, 0 },
+    { POT_WATER, 0, POTION_CLASS, 4, 1 },        /* holy water */
+    { 0, 0, 0, 0, 0 }
+};
 struct trobj tortleWizard[] = {
     { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
     { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -837,7 +877,6 @@ register struct monst *mtmp;
             ini_mon_inv(mtmp, Lamp, 6);
             mongets(mtmp, SKELETON_KEY);
             break;
-
         case PM_BARD:
             (void) mongets(mtmp, PLAIN_CLOAK);
             mkmonmoney(mtmp, (long) rn1(mtmp->m_lev, 15));
@@ -862,16 +901,12 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, rnd_misc_item(mtmp));
             break;
         case PM_FLAME_MAGE:
-            (void) mongets(mtmp, QUARTERSTAFF);
-            (void) mongets(mtmp, STUDDED_ARMOR);
-            (void) mongets(mtmp, WAN_FIRE);
             mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+            ini_mon_inv(mtmp, Flame_Mage, 1);
             break;
         case PM_ICE_MAGE:
-            (void) mongets(mtmp, QUARTERSTAFF);
-            (void) mongets(mtmp, STUDDED_ARMOR);
-            (void) mongets(mtmp, WAN_COLD);
             mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+            ini_mon_inv(mtmp, Ice_Mage, 1);
             break;
         case PM_HEALER:
             mkmonmoney(mtmp, (long) rn1(1000, 1001));
@@ -888,8 +923,6 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, subInfidel, 1);
             mongets(mtmp, SKELETON_KEY);
             break;
-        /* --hackem: TODO: Give Yeomen their own gear . */ 
-        case PM_YEOMAN:
         case PM_KNIGHT:
             ini_mon_inv(mtmp, Knight, 1);
             mongets(mtmp, SKELETON_KEY);
@@ -913,12 +946,12 @@ register struct monst *mtmp;
             mongets(mtmp, SKELETON_KEY);
             break;
         case PM_NECROMANCER:
-            (void) mongets(mtmp, ATHAME);
-            if (!rn2(4))
-                (void) mongets(mtmp, PICK_AXE);
-            (void) mongets(mtmp, rnd_offensive_item(mtmp));
-            (void) mongets(mtmp, rnd_defensive_item(mtmp));
             mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+            if (racial_giant(mtmp))
+                ini_mon_inv(mtmp, giantNecromancer, 1);
+            else
+                ini_mon_inv(mtmp, Necromancer, 1);
+            mongets(mtmp, SKELETON_KEY);
             break;
         case PM_PRIEST:
         case PM_PRIESTESS:
@@ -968,12 +1001,13 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, Towel, 1);
             break;
         case PM_UNDEAD_SLAYER:
-            (void) mongets(mtmp, SPEAR);
-            received = m_carrying(mtmp, SPEAR);
-            if (received)
-                set_material(received, SILVER);
-            (void) mongets(mtmp, CHAIN_MAIL);
             mkmonmoney(mtmp, (long) d(mtmp->m_lev, 15));
+            if (racial_giant(mtmp))
+                ini_mon_inv(mtmp, giantUndeadSlayer, 1);
+            else if (racial_tortle(mtmp))
+                ini_mon_inv(mtmp, tortleUndeadSlayer, 1);
+            else
+                ini_mon_inv(mtmp, UndeadSlayer, 1);
             break;
         case PM_VALKYRIE:
             ini_mon_inv(mtmp, Valkyrie, 1);
@@ -989,6 +1023,9 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, Wizard, 1);
             ini_mon_inv(mtmp, Blindfold, 5);
             mongets(mtmp, SKELETON_KEY);
+            break;
+        case PM_YEOMAN:
+            ini_mon_inv(mtmp, Yeoman, 1);
             break;
         default: /* impossible */
             break;

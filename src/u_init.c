@@ -65,7 +65,7 @@ struct trobj Convict[] = {
     { STRIPED_SHIRT, 0, ARMOR_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
-static struct trobj Flame_Mage[] = {
+struct trobj Flame_Mage[] = {
 #define F_BOOK 9
     /* for dealing with ghosts */
     { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
@@ -98,7 +98,7 @@ struct trobj Healer[] = {
     { APPLE, 0, FOOD_CLASS, 5, 0 },
     { 0, 0, 0, 0, 0 }
 };
-static struct trobj Ice_Mage[] = {
+struct trobj Ice_Mage[] = {
 #define I_BOOK          10
     /* for dealing with ghosts */
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
@@ -154,7 +154,7 @@ struct trobj Monk[] = {
     { FORTUNE_COOKIE, 0, FOOD_CLASS, 3, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
-static struct trobj Necromancer[] = {
+struct trobj Necromancer[] = {
     { DAGGER, 0, WEAPON_CLASS, 2, 1 },
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
@@ -228,7 +228,7 @@ struct trobj Tourist[] = {
     { TOWEL, 0, TOOL_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
-static struct trobj UndeadSlayer[] = {
+struct trobj UndeadSlayer[] = {
 #define U_MINOR 1       /* silver spear or whip [Castlevania] 25/25% */
                         /* crossbow 50% [Buffy] */
 #define U_RANGE 2       /* silver daggers or crossbow bolts */
@@ -265,8 +265,7 @@ struct trobj Wizard[] = {
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
-
-static struct trobj Yeoman[] = {
+struct trobj Yeoman[] = {
     { SHORT_SWORD, 2, WEAPON_CLASS, 1, UNDEF_BLESS },
     { PARTISAN, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
     { GREEN_COAT, 0, ARMOR_CLASS, 1, UNDEF_BLESS },

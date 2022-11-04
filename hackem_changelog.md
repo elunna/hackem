@@ -2542,3 +2542,31 @@ Necromancer role (with suggestions from Aosdict)
 
 
 
+
+
+	[ ] Necro meta strat: Forcing a Worm that Walks to generate, then taming it or stealing it's executioner's mace.
+
+[x] Mushrooms can generate in fungus farms
+[x] Make sure zombie dragons are handled correctly
+	Dragons can raise as zombies...
+	[x] Update mkundead: Include mummies
+	
+	[x] Terror hall and clinic string formatting - in sounds.
+
+	[x] Comparison warning.
+
+	[x] Vibrating square warnings
+
+	[x] Switch footbow back to polearm. Yeoman really should be the polearm role...
+
+
+Need player monsters for Flame Mage, Ice Mage, Necromancer, Yeoman, Undead Slayer?
+
+new roles and races, just a reminder that you need to 
+handle the monster counterparts in 
+	[x] align_randrace(mon.c) and 
+	[x] m_randrace(mon.c). 
+	[x] init_mplayer_erac(mplayer.c)	(maybe)
+	[x] generate male and female vampire names now
+	[x] inventory stuff elsewhere in mplayer.c
+
