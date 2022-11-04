@@ -520,6 +520,11 @@ struct obj *obj;
             if (rn2(2))
                 weapon = FLAIL;
             break;
+        case PM_FLAME_MAGE:
+            cloak = ROBE;
+            if (!rn2(2))
+                weapon = rn2(2) ? QUARTERSTAFF : AXE;
+            break;
         case PM_HEALER:
             if (rn2(4))
                 weapon = QUARTERSTAFF;
@@ -529,6 +534,11 @@ struct obj *obj;
                 helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
             if (rn2(2))
                 shield = STRANGE_OBJECT;
+            break;
+        case PM_ICE_MAGE:
+            cloak = ROBE;
+            if (!rn2(2))
+                weapon = rn2(2) ? STILETTO : ATHAME;
             break;
         case PM_INFIDEL:
             if (!rn2(4))
@@ -540,9 +550,6 @@ struct obj *obj;
             if (rn2(2))
                 shield = STRANGE_OBJECT;
             break;
-         /* --hackem: This is a cheap copy for now, but exactly how it was in 
-            slashem. The Yeoman will get their own gear soon. */ 
-        case PM_YEOMAN:
         case PM_KNIGHT:
             if (rn2(4))
                 weapon = LONG_SWORD;
@@ -555,6 +562,14 @@ struct obj *obj;
             cloak = ROBE;
             if (rn2(2))
                 shield = STRANGE_OBJECT;
+            break;
+        case PM_NECROMANCER:
+            if (rn2(2))
+                weapon = DWARVISH_MATTOCK;
+            if (rn2(2))
+                armor = ROBE;
+            if (rn2(4))
+                cloak = CLOAK_OF_PROTECTION;
             break;
         case PM_PRIEST:
         case PM_PRIESTESS:
@@ -599,9 +614,6 @@ struct obj *obj;
             if (rn2(2))
                 armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
             break;
-        case PM_FLAME_MAGE:
-		case PM_ICE_MAGE:
-        case PM_NECROMANCER:
         case PM_WIZARD:
             if (rn2(4))
                 weapon = rn2(2) ? QUARTERSTAFF : ATHAME;
@@ -610,6 +622,16 @@ struct obj *obj;
             if (rn2(4))
                 helm = HELM_OF_BRILLIANCE;
             shield = STRANGE_OBJECT;
+            break;
+        case PM_YEOMAN:
+            if (rn2(2))
+                weapon = PARTISAN;
+            else
+                weapon = SHORT_SWORD;
+            if (rn2(2))
+                cloak = GREEN_COAT;
+            if (rn2(2))
+                armor = STUDDED_ARMOR;
             break;
         default:
             weapon = STRANGE_OBJECT;
@@ -651,7 +673,6 @@ struct obj *obj;
                 set_material(otmp, SILVER);
             
             (void) mpickobj(mtmp, otmp);
-            
         }
 
         if (ascending) {
@@ -684,6 +705,7 @@ struct obj *obj;
                               !rn2(6) ? RIN_COLD_RESISTANCE :
                               !rn2(5) ? RIN_SHOCK_RESISTANCE :
                               !rn2(4) ? RIN_POISON_RESISTANCE :
+                              !rn2(7) ? RIN_SONIC_RESISTANCE :
                               !rn2(3) ? RIN_INCREASE_ACCURACY :
                               !rn2(2) ? RIN_INCREASE_DAMAGE :
                                         RIN_PROTECTION;
