@@ -536,6 +536,7 @@
      || (ptr) == &mons[PM_DWARF] \
      || (ptr) == &mons[PM_GNOME] \
      || (ptr) == &mons[PM_ILLITHID] \
+     || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_NYMPH])
 
 /* Ice Queen branch defines */
