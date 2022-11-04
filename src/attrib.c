@@ -1202,7 +1202,7 @@ int oldlevel, newlevel;
                 You("learn how to cast %s!", OBJ_NAME(objects[spell]));
             spl_book[i].sp_id = spell;
             spl_book[i].sp_lev = objects[spell].oc_level;
-            spl_book[i].sp_know = 20000;
+            spl_book[i].sp_know = 100000;
         }
     }
 
