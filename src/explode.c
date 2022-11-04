@@ -75,7 +75,7 @@ int expltype;
         }
         switch (Role_switch) {
         /*WAC add Flame,  Ice mages,  Necromancer */
-		case PM_FLAME_MAGE:
+        case PM_FLAME_MAGE:
         case PM_ICE_MAGE:
         case PM_NECROMANCER:
         case PM_PRIEST:
@@ -148,14 +148,15 @@ int expltype;
         const char *adstr = NULL;
         switch (abs(type) % 10) {
         case 0:
-            adstr = "magical blast";
+            adstr = (olet == SPIRIT_CLASS) ? "soul blast" : "magical blast";
             adtyp = AD_MAGM;
             break;
         case 1:
             adstr = (olet == BURNING_OIL) ? "burning oil"
                        : (olet == SCROLL_CLASS) ? "tower of flame"
                             : (olet == TRAPPED_DOOR) ? "explosion"
-                                 : (olet == FORGE_EXPLODE) ? "exploding forge" : "fireball";
+                                 : (olet == FORGE_EXPLODE) ? "exploding forge" 
+                                      : "fireball";
             /* fire damage, not physical damage */
             adtyp = AD_FIRE;
             break;
@@ -370,6 +371,9 @@ int expltype;
                      * polyforms creatively */
                     if (!context.mon_moving && you_exploding) {
                         uhurt = 0;
+                    } else if (olet == SPIRIT_CLASS) {
+                        /* We should never be hurt by Spirit Bomb */
+                        uhurt = 0;
                     }
                 /* for inside_engulfer, only <u.ux,u.uy> is affected */
                 } else if (inside_engulfer)
@@ -482,8 +486,11 @@ int expltype;
                 idamnonres += destroy_mitem(mtmp, RING_CLASS, (int) adtyp);
                 idamnonres += destroy_mitem(mtmp, WAND_CLASS, (int) adtyp);
                 idamnonres += destroy_mitem(mtmp, WEAPON_CLASS, (int) adtyp);
-
-                if (explmask[i][j] == 1) {
+                
+                if (olet == SPIRIT_CLASS && mtmp->mtame) {
+                    /* Spirit Bomb should not harm pets. */
+                    explmask[i][j] = 0;
+                } else if (explmask[i][j] == 1) {
                     golemeffects(mtmp, (int) adtyp, dam + idamres);
                     damage_mon(mtmp, idamnonres, adtyp);
                 } else {

@@ -1149,6 +1149,7 @@ SPELL("command undead",  "dark",          P_NECROMANCY_SPELL,  10,  7, 4, 1, IMM
 SPELL("raise zombies",   "big",           P_NECROMANCY_SPELL,  10,  2, 2, 1, IMMEDIATE, CLR_BLACK),
 SPELL("call undead",     "fuzzy",         P_NECROMANCY_SPELL,   0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("animate dead",    "deep",          P_NECROMANCY_SPELL,   0,  3, 3, 1, IMMEDIATE, HI_SILVER),
+SPELL("spirit bomb",     "spotted",       P_NECROMANCY_SPELL,   0,  3, 5, 1, IMMEDIATE, CLR_WHITE),
 
 SPELL("knock",           "pink",          P_MATTER_SPELL,      35,  1, 1, 1, IMMEDIATE, CLR_BRIGHT_MAGENTA),
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),

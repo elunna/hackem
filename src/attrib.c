@@ -1194,6 +1194,7 @@ int oldlevel, newlevel;
         case 7: spell = SPE_COMMAND_UNDEAD; break;
         case 9: spell = SPE_SUMMON_UNDEAD; break;
         case 14: spell = SPE_ANIMATE_DEAD; break;
+        case 17: spell = SPE_SPIRIT_BOMB; break;
         default: spell = 0;
         }
         if (!spell)
