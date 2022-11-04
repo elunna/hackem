@@ -650,17 +650,17 @@ static const struct def_skill Skill_Mon[] = {
 };
 
 static const struct def_skill Skill_N[] = {
-    { P_DAGGER, P_EXPERT },
-    { P_KNIFE,  P_EXPERT },             /* For... making bodies */
+    { P_DAGGER, P_EXPERT },             /* Sac gift and generally good */
+    { P_KNIFE,  P_SKILLED },            /* For... making bodies */
     { P_AXE, P_SKILLED },               /* For choppin up bodies */
     { P_PICK_AXE, P_EXPERT },           /* For digging up graves */
     { P_CLUB, P_SKILLED },              /* So aklys is an option */
     { P_POLEARMS, P_EXPERT },           /* For scythes */
-    { P_MACE, P_BASIC },
+    { P_MACE, P_SKILLED },              /* Good choices here, see Worm that Walks */
     { P_SPEAR, P_BASIC },
-    { P_SABER, P_SKILLED},
+    { P_SABER, P_BASIC },
     { P_CROSSBOW, P_SKILLED },
-    { P_DART, P_SKILLED },
+    { P_DART, P_BASIC },
     { P_UNICORN_HORN, P_EXPERT },       /* Using a dead animals horn is dark */
 
     { P_ATTACK_SPELL, P_SKILLED },
