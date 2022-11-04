@@ -1233,6 +1233,11 @@ int pm;
         }
         break;
         case PM_WRAITH:
+            if (Role_if(PM_NECROMANCER)) {
+                /* Necros have the perk of vanilla wraith behavior! */
+                pluslvl(FALSE);
+                break;
+            }
             switch(rnd(10)) {
                 case 1:
                     You("feel that was a bad idea.");
