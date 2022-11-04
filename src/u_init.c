@@ -1943,11 +1943,13 @@ register struct trobj *origtrop;
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
 
-        if (urace.malenum != PM_HUMAN) {
+        if (urace.malenum != PM_HUMAN && !Role_if(PM_UNDEAD_SLAYER)) {
             /* substitute race-specific items; this used to be in
                the 'if (otyp != UNDEF_TYP) { }' block above, but then
                substitutions didn't occur for randomly generated items
                (particularly food) which have racial substitutes */
+            /* The check for Undead Slayer is important because they need
+             * regular daggers to become silver */
             for (i = 0; inv_subs[i].race_pm != NON_PM; ++i)
                 if (inv_subs[i].race_pm == urace.malenum
                     && otyp == inv_subs[i].item_otyp) {
@@ -2009,11 +2011,7 @@ register struct trobj *origtrop;
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
-                if (obj->otyp == SPEAR)
-#if 0 /* Deferred until we figure out invalid material errors */
-                    || obj->otyp == DAGGER
-                    || obj->otyp == BULLET)
-#endif
+                if (obj->otyp == SPEAR || obj->otyp == DAGGER || obj->otyp == BULLET)
                     set_material(obj, SILVER);
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
