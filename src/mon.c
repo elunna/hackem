@@ -6686,7 +6686,24 @@ short mndx;
     case PM_WIZARD:
         permitted |=
           (MH_DWARF | MH_ELF | MH_GIANT | MH_GNOME | MH_HOBBIT
-           | MH_ORC | MH_ILLITHID | MH_TORTLE);
+           | MH_ORC | MH_ILLITHID | MH_TORTLE | MH_VAMPIRE);
+        break;
+    case PM_FLAME_MAGE:
+        permitted |= (MH_GNOME | MH_HOBBIT | MH_GIANT | MH_DWARF | MH_ELF);
+        break;
+    case PM_ICE_MAGE: 
+        permitted |= (MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE 
+                      | MH_ILLITHID | MH_CENTAUR);
+        break;
+    case PM_NECROMANCER:
+        permitted |= (MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID);
+        break;
+    case PM_UNDEAD_SLAYER:
+        permitted |= (MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
+                      | MH_CENTAUR | MH_TORTLE);
+        break;
+    case PM_YEOMAN:
+        permitted |= (MH_ELF | MH_HOBBIT);
         break;
     default:
         break;

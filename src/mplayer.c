@@ -241,7 +241,6 @@ struct monst *mtmp;
     case PM_BARBARIAN:
         /* flags for all barbarians regardless of race */
         rptr->mflags3 |= M3_BERSERK;
-        mtmp->mintrinsics |= MR_POISON;
         if (race == PM_DWARF || race == PM_TORTLE)
             rptr->ralign = 0;
         break;
@@ -343,12 +342,55 @@ struct monst *mtmp;
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_SPEL;
-        if (race == PM_ORC || race == PM_ILLITHID)
+        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC)
             rptr->ralign = -3;
         if (race == PM_DWARF || race == PM_HOBBIT
             || race == PM_TORTLE)
             rptr->ralign = 0;
         break;
+    case PM_FLAME_MAGE:
+        /* flags for all mages regardless of race */
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].adtyp = AD_CLRC;
+        mtmp->mintrinsics |= MR_FIRE;
+        if (race == PM_DWARF || race == PM_HOBBIT || race == PM_GNOME)
+            rptr->ralign = 0;
+        if (race == PM_TORTLE || race == PM_ELF)
+            rptr->ralign = 3;
+        break;
+    case PM_ICE_MAGE: 
+        /* flags for all healers regardless of race */
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].aatyp = AT_MAGC;
+        mtmp->mintrinsics |= MR_COLD;
+        if (race == PM_HOBBIT || race == PM_GNOME || race == PM_CENTAUR)
+            rptr->ralign = 0;
+        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC)
+            rptr->ralign = -3;
+        break;
+    case PM_NECROMANCER:
+        /* flags for all necromancers regardless of race */
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].aatyp = AT_MAGC;
+        rptr->mattk[1].adtyp = AD_CLRC;
+        rptr->mflags1 |= (M1_TUNNEL | M1_NEEDPICK);
+        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC
+            || race == PM_CENTAUR)
+            rptr->ralign = -3;
+        break;
+        break;
+    case PM_UNDEAD_SLAYER:
+        if (race == PM_DWARF || race == PM_HOBBIT)
+            rptr->ralign = 0;
+        if (race == PM_ELF || race == PM_TORTLE || race == PM_CENTAUR)
+            rptr->ralign = 3;
+        break;
+    case PM_YEOMAN:
+        if (race == PM_ELF || race == PM_HOBBIT)
+            rptr->ralign = 3;
+        break;
+                
+                
     default:
         break;
     }
