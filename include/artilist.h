@@ -293,7 +293,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     A("Plague", ORCISH_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
-      PHYS(5,7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
+      PHYS(5,7), DFNS(AD_DRST), DFNS(AD_DISE), 0, A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR),
         /* Auto-poison code in dothrow.c */
     
     /* Grants waterbreathing.
