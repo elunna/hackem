@@ -3662,6 +3662,9 @@ When the program has been built to support multiple interfaces,
 select which one to use, such as \(lqtty\(rq or \(lqX11\(rq
 (default depends on build-time settings; use \(lq#version\(rq to check).
 Cannot be set with the \(oqO\(cq command.
+.lp wolfname
+Name your starting wolf (ex. ``wolfname:Beast'').
+Cannot be set with the `O' command.
 .lp ""
 When used, it should be the first option set since its value might
 enable or disable the availability of various other options.

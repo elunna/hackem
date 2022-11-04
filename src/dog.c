@@ -233,10 +233,10 @@ makedog()
 
     pettype = pet_type();
     if (pettype == PM_LITTLE_DOG
-        || pettype == PM_HELL_HOUND_PUP
-        || pettype == PM_WINTER_WOLF_CUB
-        || pettype == PM_WOLF)
+        || pettype == PM_HELL_HOUND_PUP)
         petname = dogname;
+    if (pettype == PM_WINTER_WOLF_CUB || pettype == PM_WOLF)
+		petname = wolfname;
     else if (pettype == PM_PSEUDODRAGON)
         petname = pseudoname;
     else if (pettype == PM_GHOUL)

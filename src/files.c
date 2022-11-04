@@ -2594,6 +2594,8 @@ char *origbuf;
         (void) strncpy(dogname, bufp, PL_PSIZ - 1);
     } else if (match_varname(buf, "CATNAME", 3)) {
         (void) strncpy(catname, bufp, PL_PSIZ - 1);
+    } else if (match_varname(buf, "WOLFNAME", 3)) {
+        (void) strncpy(wolfname, bufp, PL_PSIZ - 1);
     } else if (match_varname(buf, "RATNAME", 3)) {
         (void) strncpy(ratname, bufp, PL_PSIZ - 1);
     } else if (match_varname(buf, "GHOULNAME", 3)) {

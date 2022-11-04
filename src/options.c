@@ -461,6 +461,8 @@ static struct Comp_Opt {
     { "windowcolors", "the foreground/background colors of windows", /*WC*/
       80, DISP_IN_GAME },
     { "windowtype", "windowing system to use", WINTYPELEN, DISP_IN_GAME },
+    { "wolfname",  "the name of your (first) wolf (e.g., wolfname:Beast)",
+        PL_PSIZ, DISP_IN_GAME },
 #ifdef WINCHAIN
     { "windowchain", "window processor to use", WINTYPELEN, SET_IN_SYS },
 #endif
@@ -2327,7 +2329,22 @@ boolean tinitial, tfrom_file;
         sanitize_name(ghoulname);
         return retval;
     }
-
+        
+    fullname = "wolfname";
+    if (match_optname(opts, fullname, 3, TRUE)) {
+        if (duplicate)
+            complain_about_duplicate(opts, 1);
+        if (negated) {
+            bad_negation(fullname, FALSE);
+            return FALSE;
+        } else if ((op = string_for_env_opt(fullname, opts, FALSE))
+                                            != empty_optstr) {
+            nmcpy(wolfname, op, PL_PSIZ);
+        } else
+            return FALSE;
+        sanitize_name(wolfname);
+        return retval;
+    }
 
     fullname = "ratname";
     if (match_optname(opts, fullname, 3, TRUE)) {
@@ -6104,6 +6121,9 @@ char *buf;
             iflags.wc_backgrnd_status ? iflags.wc_backgrnd_status : defbrief,
             iflags.wc_foregrnd_text ? iflags.wc_foregrnd_text : defbrief,
             iflags.wc_backgrnd_text ? iflags.wc_backgrnd_text : defbrief);
+    }
+    else if (!strcmp(optname, "wolfname")) {
+        Sprintf(buf, "%s", wolfname[0] ? wolfname : none);
 #ifdef PREFIXES_IN_USE
     } else {
         for (i = 0; i < PREFIX_COUNT; ++i)

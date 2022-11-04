@@ -4207,6 +4207,10 @@
             Augment object descriptions with their objects' weight (default
             off).  Debug mode only.
 
+          wolfname
+               Name your starting wolf (ex. ``wolfname:Beast'').  Cannot be
+               set with the `O' command.
+               
           zerocomp
             When writing out a save file, perform zero-comp compression  of
             the  contents.  Not all ports support zero-comp compression. It
