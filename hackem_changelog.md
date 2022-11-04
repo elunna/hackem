@@ -2527,19 +2527,10 @@ Necromancer role (with suggestions from Aosdict)
 		That can be the tradeoff for Charm Monster - All undead will betray.
 		
 		
-	[skipped] Soul blast:
-		consumes multiple spirits, produces an attack whose power is proportionate to the total monster difficulty of the expended spirits. (Copy monks spirit bomb)
-		https://nethackwiki.com/wiki/Spirit_bomb
-	
-	[skipped] Empower undead:
-		Buff all nearby undead pets.
-		Copy slashem barbarian technique?
-		https://nethackwiki.com/wiki/Primal_roar
-			Tricky - requires basically implementing a technique.
-		
+
 	[skipped] Haunted Implement: 
 		Infuse your weapon/armor/other gear with souls, making it more effective for a time.
-
+		
 
 
 
@@ -2570,3 +2561,27 @@ handle the monster counterparts in
 	[x] generate male and female vampire names now
 	[x] inventory stuff elsewhere in mplayer.c
 
+
+
+- [x] make_mon - Complete slashem roles
+	- [x] Necromancers warning of undead doesn't work.
+	- [x] SPE_RAISE_ZOMBIES - needs to pass in spellbook to tamedog also.
+	
+	- [x] Get summon/command undead at 7 and 9.
+	- [x] When you learn a spell it's 100k turns.
+	- [x] Call Undead is lev 1.
+	- [x] Raise Zombies - Level 3
+	- [x] They should have crossbow skill ~skilled?
+	- [x] Saber -> basic
+	- [x] knife -> basic?
+	- [x] Give the necro a little food to start with...
+	- [x] Spirits always heal 1HP + any other bonuses.
+
+	
+		- [x] Lower shopkeeper identify odds for racial?  Instead of 50%, maybe 25%?
+		
+	- [x] Necromancers can eat wraiths with the vanilla success rate.
+	
+		[x] Plague now confers sickness res while carried.	
+	https://nethackwiki.com/wiki/DNetHack_artifacts#Plague
+	
