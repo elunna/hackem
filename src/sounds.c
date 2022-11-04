@@ -270,7 +270,7 @@ dosounds()
             "hear someone cursing viruses.",
             "seem to hear Doctor Frankenstein.",
         };
-        You(hospital_msg[rn2(3) + hallu]);
+        You_hear1(hospital_msg[rn2(3) + hallu]);
         return;
     }
     if (level.flags.has_terrorhall && !rn2(200)) {
@@ -280,7 +280,7 @@ dosounds()
             "think you just saw something move.",
             "think you're seeing white rabbits!",
         };
-        You(terrorhall_msg[rn2(3) + hallu]);
+        You_hear1(terrorhall_msg[rn2(3) + hallu]);
         return;
     }
     if (level.flags.has_zoo && !rn2(200)) {
