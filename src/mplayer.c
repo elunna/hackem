@@ -158,6 +158,17 @@ static const char *tortle_female_names[] = {
     0
 };
 
+static const char *vampiric_male_names[] = {
+    "Fortune",      "Ellena",       "Selene",   "Velorina",     "Rowena",
+    "Opal",         "Sapphire",     "Echo",     "Quintella",    "Thelma",
+    "Illythia",     "Ophelia",      "Petra",    "Bianca",       "Drusilla",
+};
+
+static const char *vampiric_female_names[] = {
+    "Zeidan",       "Lazarus",      "Sebastian", "Sliske",      "Angelus",
+    "Hunter",       "Damien",       "Deverell", "Mortas",       "Stelian",
+    "Maxwell",      "Valentine",    "Jairus",   "Saxon",        "Armand",
+};
 
 struct mfnames {
     const char **male;
@@ -175,7 +186,8 @@ static const struct mfnames namelists[] = {
     { hobbit_male_names, hobbit_female_names },
     { centaur_male_names, centaur_female_names },
     { illithid_male_names, illithid_female_names },
-    { tortle_male_names, tortle_female_names }
+    { tortle_male_names, tortle_female_names },
+    { vampiric_male_names, vampiric_female_names }
 };
 
 void
