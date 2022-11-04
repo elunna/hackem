@@ -16,6 +16,7 @@ OPTIONS=confirm,male,fixinv,noautopickup,safe_pet,sortpack,tombstone
 OPTIONS=verbose,news,fruit:pineapple
 OPTIONS=dogname:Dhairrhuwyth
 OPTIONS=catname:Ghisteslwchlohm
+OPTIONS=ghoulname:Igor
 #
 # The graphics symbols mappings below are for NetHack 3.4.  NetHack 3.6
 # uses a new scheme, but this file has not been updated.

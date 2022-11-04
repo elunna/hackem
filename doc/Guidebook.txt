@@ -3503,6 +3503,9 @@
             an appropriate gender.  If you prefix the  value  with  `!'  or
             "no",  you will exclude that gender from being picked randomly.
 
+          ghoulname
+            Name your starting ghoul (ex. ``ghoulname:Casper'').  Cannot be
+            set with the `O' command.
 
           NetHack 3.6                                    September 29, 2021
 

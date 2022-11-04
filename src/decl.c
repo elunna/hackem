@@ -221,6 +221,7 @@ NEARDATA const anything zeroany;
 NEARDATA char dogname[PL_PSIZ] = DUMMY;
 NEARDATA char catname[PL_PSIZ] = DUMMY;
 NEARDATA char horsename[PL_PSIZ] = DUMMY;
+NEARDATA char ghoulname[PL_PSIZ] = DUMMY;
 NEARDATA char pseudoname[PL_PSIZ] = DUMMY;
 NEARDATA char ratname[PL_PSIZ] = DUMMY;
 NEARDATA char homunname[PL_PSIZ] = DUMMY;

@@ -3100,6 +3100,9 @@ If you prefix the value with \(oq!\(cq or \(lqno\(rq, you will
 exclude that gender from being picked randomly.
 Cannot be set with the \(oqO\(cq command.
 Persistent.
+.lp ghoulname
+Name your starting ghoul (ex. ``ghoulname:Casper'').
+Cannot be set with the `O' command.
 .lp "goldX   "
 When filtering objects based on bless/curse state (BUCX), whether to
 treat gold pieces as X (unknown bless/curse state, when \(lqon\(rq)

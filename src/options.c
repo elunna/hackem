@@ -320,6 +320,8 @@ static struct Comp_Opt {
     { "gender", "your starting gender (male or female)", 8, DISP_IN_GAME },
     { "homunname", "the name of your (first) homunculus (e.g., homunname:Steve)",
       PL_PSIZ, DISP_IN_GAME },
+    { "ghoulname",  "the name of your (first) ghoul (e.g., ghoulname:Casper)",
+	  PL_PSIZ, DISP_IN_GAME },
     { "horsename", "the name of your (first) horse (e.g., horsename:Silver)",
       PL_PSIZ, DISP_IN_GAME },
     { "map_mode", "map display mode under Windows", 20, DISP_IN_GAME }, /*WC*/
@@ -2230,7 +2232,7 @@ boolean tinitial, tfrom_file;
             preferred_pet = 'n';
         return retval;
     }
-
+    
     fullname = "catname";
     if (match_optname(opts, fullname, 3, TRUE)) {
         if (duplicate)
@@ -2309,6 +2311,23 @@ boolean tinitial, tfrom_file;
         sanitize_name(pseudoname);
         return retval;
     }
+    
+    fullname = "ghoulname";
+    if (match_optname(opts, fullname, 3, TRUE)) {
+        if (duplicate)
+            complain_about_duplicate(opts, 1);
+        if (negated) {
+            bad_negation(fullname, FALSE);
+            return FALSE;
+        } else if ((op = string_for_env_opt(fullname, opts, FALSE))
+                                            != empty_optstr) {
+            nmcpy(ghoulname, op, PL_PSIZ);
+        } else
+            return FALSE;
+        sanitize_name(ghoulname);
+        return retval;
+    }
+
 
     fullname = "ratname";
     if (match_optname(opts, fullname, 3, TRUE)) {
@@ -5803,6 +5822,8 @@ char *buf;
         Sprintf(buf, "%s", rolestring(flags.initgend, genders, adj));
     else if (!strcmp(optname, "horsename"))
         Sprintf(buf, "%s", horsename[0] ? horsename : none);
+    else if (!strcmp(optname, "ghoulname")) 
+		Sprintf(buf, "%s", ghoulname[0] ? ghoulname : none);
     else if (!strcmp(optname, "homunname"))
         Sprintf(buf, "%s", homunname[0] ? horsename : none);
     else if (!strcmp(optname, "map_mode")) {

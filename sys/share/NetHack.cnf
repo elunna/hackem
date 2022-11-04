@@ -46,6 +46,7 @@ OPTIONS=rawio,BIOS,symset:IBMGraphics_2,roguesymset:RogueEpyx
 #OPTIONS=name:Janet,role:Valkyrie,race:Human,gender:female,align:lawful
 #OPTIONS=dogname:Fido,catname:Morris,fruit:guava
 #OPTIONS=horsename:Silver
+#OPTIONS=horsename:Igor
 #OPTIONS=autopickup,pickup_types:$"=/!?+
 #OPTIONS=packorder:")[%?+/=!(*0_`
 #OPTIONS=scores:10 top/2 around/own
