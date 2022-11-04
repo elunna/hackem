@@ -1183,9 +1183,10 @@ int oldlevel, newlevel;
         short spell;
         switch (u.ulevel) {
         case 2: spell = SPE_CALL_UNDEAD; break;
-        case 3: spell = SPE_ANIMATE_DEAD; break;
-        case 5: spell = SPE_COMMAND_UNDEAD; break;
-        case 7: spell = SPE_SUMMON_UNDEAD; break;
+        case 3: spell = SPE_RAISE_ZOMBIES; break;
+        case 7: spell = SPE_COMMAND_UNDEAD; break;
+        case 9: spell = SPE_SUMMON_UNDEAD; break;
+        case 14: spell = SPE_ANIMATE_DEAD; break;
         default: spell = 0;
         }
         if (!spell)
