@@ -2165,13 +2165,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else if (mtmp->isshk)
                 make_happy_shk(mtmp, FALSE);
             else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                struct obj* pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);;
+                struct obj* pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
                 tamedog(mtmp, pseudo);
                 newedog(mtmp);
                 initedog(mtmp);
                 u.uconduct.pets++;
                 newsym(mtmp->mx, mtmp->my);
                 /* Add undead tag? */
+                obfree(pseudo, NULL);
             }
         }
         if (Upolyd)
