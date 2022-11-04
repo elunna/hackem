@@ -620,7 +620,7 @@ const struct Role roles[] = {
 	ART_STAKE_OF_VAN_HELSING,
     /* --hackem: Disabled MH_WERE, MH_ORC */
 	MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT | MH_CENTAUR | MH_TORTLE,
-	ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+	ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
 	/* Str Int Wis Dex Con Cha */ /* Modified from Knight */
 	{  13,  7, 14,  8, 10, 10 },
 	{  20, 15, 15, 10, 20, 10 },
