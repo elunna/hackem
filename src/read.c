@@ -1300,7 +1300,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             new_erodeproof;
     struct obj *otmp = (struct obj *) 0;
     struct monst *mtmp, *mtmp2;
-
+    struct obj* pseudo;
     if (objects[otyp].oc_magic)
         exercise(A_WIS, TRUE);                       /* just for trying */
     already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
@@ -2091,6 +2091,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SPE_RAISE_ZOMBIES:
         pline("You chant the ancient curse...");
         struct obj *obj;
+        /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
+         * adding another case. */
+        pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int corpsenm;
@@ -2105,9 +2108,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         continue;
                     /* Only generate undead */
                     corpsenm = mon_to_zombie(obj->corpsenm);
-                    if (corpsenm != -1 && !cant_create(&corpsenm, TRUE)
-                        /*&& (!obj->oxlth || obj->oattached != OATTACHED_MONST) */
-                        ) {
+                    if (corpsenm != -1 && !cant_create(&corpsenm, TRUE)) {
                         /* Maintain approx. proportion of oeaten to cnutrit
                          * so that the zombie's HP relate roughly to how
                          * much of the original corpse was left.
@@ -2118,7 +2119,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         mtmp = revive(obj, TRUE);
                         if (mtmp) {
                             if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                                tamedog(mtmp, NULL);
+                                tamedog(mtmp, pseudo);
                                 pline("You dominate %s!", mon_nam(mtmp));
                             } else {
                                 setmangry(mtmp, FALSE);
@@ -2128,9 +2129,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 }
             }
         }
+        obfree(pseudo, NULL);
         nomul(-2); /* You need to recover */
         nomovemsg = 0;
-        /* t_timeout = rn1(1000, 500); */
         break;
     case SPE_ANIMATE_DEAD:
         if (u.uswallow) {
@@ -2148,9 +2149,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         /*obj = getobj((const char *) revivables, "revive");*/
         if (!(obj = floorfood("revive", 0)))
             return 0;
-        /*if (!obj) 
-            return 0;*/
-        
         if (cost < 0)
             cost = 0;
 #if 0
@@ -2165,7 +2163,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else if (mtmp->isshk)
                 make_happy_shk(mtmp, FALSE);
             else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                struct obj* pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
+                pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
                 tamedog(mtmp, pseudo);
                 newedog(mtmp);
                 initedog(mtmp);
@@ -2179,7 +2177,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             u.mh -= cost;
         else
             u.uhp -= cost;
-        /* t_timeout = rn1(1000, 500);*/
         break;
     case SCR_GENOCIDE:
         if (!already_known)
