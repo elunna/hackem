@@ -772,9 +772,11 @@ morguemon()
     if (In_vecna_branch(&u.uz) && hd > 8 && i > 80)
         return &mons[PM_SHADE];
 
+    /* added mummies, enabled all of S_wraith type monsters --Amy */
     return ((i < 20) ? &mons[PM_GHOST]
-                     : (i < v) ? &mons[PM_WRAITH]
-                               : mkclass(S_ZOMBIE, 0));
+            : (i < v) ? mkclass(S_WRAITH, 0) 
+            : (i < 70) ? mkclass(S_MUMMY, 0) 
+                       : mkclass(S_ZOMBIE, 0));
 }
 
 struct permonst *
