@@ -4443,7 +4443,7 @@ int dmg;
         }
         if (Sonic_resistance)
             break; /* No inventory damage! */
-        if (!Role_if(PM_NECROMANCER)) {
+        if (Role_if(PM_NECROMANCER)) {
             You("are not afraid.");
             break;
         }
