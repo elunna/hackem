@@ -847,6 +847,18 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         return obj;
+    case PM_MEDUSA: {
+        struct monst *mtmp2;
+        /* KMH -- the legend of Medusa and Pegasus */
+        /* Only when Medusa leaves a corpse */
+        mtmp2 = makemon(&mons[PM_PEGASUS], x, y, 0);
+        if (mtmp2) {
+            You("%s something spring forth from the corpse of %s.",
+                Blind ? "sense" : "see", mon_nam(mtmp));
+            mtmp2->mpeaceful = 1;
+            mtmp2->mtame = 0;
+        }
+    }
     default_1:
     default:
         if (mvitals[mndx].mvflags & G_NOCORPSE) {
