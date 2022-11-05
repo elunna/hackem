@@ -627,7 +627,7 @@ struct obj *instr;
         consume_obj_charge(instr, TRUE);
 
         You("%sproduce %s music.", !Deaf ? "" : "seem to ",
-            Hallucination ? "piped" : "soft");
+            Hallucination ? "elevator" : "soft");
         put_monsters_to_sleep(u.ulevel * 5);
         exercise(A_DEX, TRUE);
         makeknown_msg(MAGIC_FLUTE);

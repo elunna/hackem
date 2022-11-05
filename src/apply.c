@@ -540,8 +540,12 @@ struct obj *obj;
     } else if (!u_handsy()) {
         ;
     } else if (obj->cursed && !rn2(2)) {
-        You("produce a %shigh-%s.", Underwater ? "very " : "",
-            Deaf ? "frequency vibration" : "pitched humming noise");
+        if (Hallucination) {
+            You("play your vuvuzela.");
+        } else {
+            You("produce a %shigh-%s.", Underwater ? "very " : "",
+                Deaf ? "frequency vibration" : "pitched humming noise");
+        }
         wake_nearby();
     } else {
         int pet_cnt = 0, omx, omy;
@@ -3449,7 +3453,7 @@ struct obj *obj;
             /* Have a shot at snaring something on the floor */
             otmp = level.objects[u.ux][u.uy];
             if (otmp && otmp->otyp == CORPSE && otmp->corpsenm == PM_HORSE) {
-                pline("Why beat a dead horse?");
+                pline(Hallucination ? "Not while people are watching!" : "Why beat a dead horse?");
                 return 1;
             }
             if (otmp && proficient) {
@@ -3515,7 +3519,7 @@ struct obj *obj;
             You("wrap your bullwhip around %s.", wrapped_what);
             if (proficient && rn2(proficient + 2)) {
                 if (!mtmp || enexto(&cc, rx, ry, youmonst.data)) {
-                    You("yank yourself out of the pit!");
+                    You(Hallucination ? "pull yourself up by your own bootstraps." : "yank yourself out of the pit!");
                     teleds(cc.x, cc.y, TELEDS_ALLOW_DRAG);
                     reset_utrap(TRUE);
                     vision_full_recalc = 1;

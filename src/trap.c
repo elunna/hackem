@@ -1251,9 +1251,13 @@ unsigned trflags;
             }
         } else {
             seetrap(trap);
-            pline("A board beneath you %s%s%s.",
-                  Deaf ? "vibrates" : "squeaks ",
-                  Deaf ? "" : trapnote(trap, 0), Deaf ? "" : " loudly");
+            if (Hallucination)
+                You("accidentally step on a chew toy.");
+            else {
+                pline("A board beneath you %s%s%s.",
+                    Deaf ? "vibrates" : "squeaks ",
+                    Deaf ? "" : trapnote(trap, 0), Deaf ? "" : " loudly");
+            }
             wake_nearby();
         }
         break;

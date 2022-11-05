@@ -749,7 +749,11 @@ boolean allowmsg;
         if (allowmsg) {
             if (Upolyd && your_race(fptr))
                 You("have a bad feeling deep inside.");
-            You("cannibal!  You will regret this!");
+            if (Hallucination) {
+                You("feel unaccountably peckish.");      /* Fallen London */
+            } else {
+                You("cannibal!  You will regret this!");
+            }
         }
         HAggravate_monster |= FROMOUTSIDE;
         change_luck(-rn1(4, 2)); /* -5..-2 */
@@ -1423,7 +1427,13 @@ int pm;
         /* picks an intrinsic at random and removes it; there's
            no feedback if hero already lacks the chosen ability */
         debugpline0("using attrcurse to strip an intrinsic");
-        attrcurse();
+        /* hallucination decreases chance of removed intrinsic */
+        if ((Hallucination) ? rn2(5) : rn2(2))
+            attrcurse();
+        if ((Hallucination)) {
+            (void) make_hallucinated(0L, FALSE, 0L);
+            pline("The world seems less enchanting.");
+        }
         break;
     case PM_MAGICAL_EYE:
         You_feel("your fortune oscillate.");

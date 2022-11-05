@@ -975,14 +975,28 @@ struct monst *mtmp;
                 }
             } else if (is_blessed) {
                 obj->spe = 1;
-                obj->age = 1500;
+                obj->age = MAX_LAMP_FUEL;
                 p_glow2(obj, NH_BLUE);
             } else {
                 obj->spe = 1;
-                obj->age += 750;
-                if (obj->age > 1500)
-                    obj->age = 1500;
+                obj->age += MAX_LAMP_FUEL / 2;
+                if (obj->age > MAX_LAMP_FUEL)
+                    obj->age = MAX_LAMP_FUEL;
                 p_glow1(obj);
+            }
+             /* give some indication if obj is full */
+            if (obj->age == MAX_LAMP_FUEL) {
+                if (obj->otyp == LANTERN) {
+                    if (Blind) {
+                        You("smell %s.", Hallucination ? "unicorn farts" : "ozone");
+                    } else {
+                        You_see("%s from %s.",
+                                Hallucination ? "unicorn farts escape" : "sparks fly",
+                                yname(obj));
+                    }
+                } else if (obj->otyp == OIL_LAMP) {
+                    pline("%s is filled to the brim.", Yname2(obj));
+                }
             }
             break;
 
@@ -3431,8 +3445,14 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             /* accumulated 'cnt' doesn't take groups into account;
                assume bringing in new mon(s) didn't remove any old ones */
             cnt = monster_census(FALSE) - census;
-            pline("Sent in %s%s.", (cnt > 1) ? "some " : "",
-                  (cnt > 1) ? makeplural(buf) : an(buf));
+            if (!Hallucination && mons[mndx].mlet == S_TROLL) {
+                pline("S3n7 1n %s!!!",
+                      (cnt > 1) ? "s0m3 7r0llz" : "4 7r0ll");
+            } else {
+                pline("Sent in %s%s.",
+                      (cnt > 1) ? "some " : "",
+                      (cnt > 1) ? makeplural(buf) : an(buf));
+            }
         } else
             pline1(nothing_happens);
     }

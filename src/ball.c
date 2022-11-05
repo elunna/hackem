@@ -25,7 +25,9 @@ boolean showmsg;
 {
     if (carried(uball)) {
         if (showmsg)
-            pline("Startled, you drop the iron ball.");
+            pline(Hallucination ? "Wow, you really dropped the ball." 
+                : "Startled, you drop the iron ball.");
+
         if (uwep == uball)
             setuwep((struct obj *) 0);
         if (uswapwep == uball)

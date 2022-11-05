@@ -4055,7 +4055,8 @@ const char *fltxt;
 int how;
 {
     boolean be_sad = FALSE; /* true if unseen pet is killed */
-
+    boolean kenny = (!strcmp(m_monnam(mdef), "Kenny"));
+    
     if ((mdef->wormno ? worm_known(mdef) : cansee(mdef->mx, mdef->my))
         && fltxt)
         pline("%s is %s%s%s!", Monnam(mdef),
@@ -4077,8 +4078,15 @@ int how;
         spore_dies(mdef);
     }
     
-    if (be_sad && DEADMONSTER(mdef))
-        You("have a sad feeling for a moment, then it passes.");
+    if (be_sad && DEADMONSTER(mdef)) {
+        if (kenny || (Hallucination && !rn2(4))) {
+            verbalize("Oh my god, they killed Kenny!");
+            verbalize("You bastards!");
+        } else {
+            You("have a %s feeling for a moment, then it passes.",
+                (Hallucination ? "plaid" : "sad"));
+        }
+    }
 }
 
 /* another monster has killed the monster mdef,

@@ -685,7 +685,8 @@ register struct obj *obj;
         break;
     case MEAT_RING:
         /* Not the same as aggravate monster; besides, it's obvious. */
-        pline("Several flies buzz around the sink.");
+        pline("Several %s buzz around the sink.",
+              Hallucination ? makeplural(rndmonnam((char *) 0)) : "flies");
         break;
     case RIN_TELEPORTATION:
         nosink = teleport_sink();
@@ -2178,6 +2179,11 @@ boolean at_stairs, falling, portal;
     } else {
         if (new && Is_rogue_level(&u.uz))
             You("enter what seems to be an older, more primitive world.");
+        
+        if (new && Hallucination && Role_if(PM_ARCHEOLOGIST) &&
+            Is_juiblex_level(&u.uz))
+            pline("Ahh, Venice.");
+
         /* main dungeon message from your quest leader */
         if (!In_quest(&u.uz0) && at_dgn_entrance("The Quest")
             && !(u.uevent.qcompleted || u.uevent.qexpelled

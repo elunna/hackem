@@ -3451,7 +3451,8 @@ boolean youattack, allow_cancel_kill, self_cancel;
              otmp = otmp->nobj)
             cancel_item(otmp);
         if (youdefend) {
-            You_feel("magical energies being absorbed from your exact location.");
+            You(!Hallucination ? "are covered in sparkling lights!"
+            : "are enveloped by psychedelic fireworks!");
             context.botl = 1; /* potential AC change */
             find_ac();
         }
@@ -5963,7 +5964,9 @@ boolean moncast;
             } else {
                 rangemod -= 3;
                 if (see_it)
-                    Norep("The %s melt.", defsyms[S_bars].explanation);
+                    Norep("The %s are dissolved!", defsyms[S_bars].explanation);
+                 else
+                    You_hear(Hallucination ? "angry snakes!" : "a hissing noise.");
                 if (*in_rooms(x, y, SHOPBASE)) {
                     /* in case we ever have a shop bounded by bars */
                     lev->typ = ROOM, lev->flags = 0;

@@ -704,6 +704,7 @@ struct level_map {
                   { "oracle", &oracle_level },
                   { "grund", &grunds_level },
                   { "orcus", &orcus_level },
+                  { "juiblex", &juiblex_level },
                   { "rogue", &rogue_level },
                   { "sanctum", &sanctum_level },
                   { "valley", &valley_level },

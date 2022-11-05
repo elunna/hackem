@@ -115,6 +115,7 @@ typedef struct branch {
 #define Is_oracle_level(x)  (Lcheck(x, &oracle_level))
 #define Is_grunds_level(x)  (Lcheck(x, &grunds_level))
 #define Is_valley(x)        (Lcheck(x, &valley_level))
+#define Is_juiblex_level(x) (Lcheck(x, &juiblex_level))
 #define Is_hella_level(x)   (Lcheck(x, &hella_level))
 #define Is_hellb_level(x)   (Lcheck(x, &hellb_level))
 #define Is_hellc_level(x)   (Lcheck(x, &hellc_level))

@@ -1461,9 +1461,15 @@ int how;
      * On those rare occasions you get hosed immediately, go out
      * smiling... :-)  -3.
      */
-    if (moves <= 1 && how < PANICKED && !done_stopprint)
-        pline("Do not pass Go.  Do not collect 200 %s.", currency(200L));
-
+    if (moves <= 1 && (how < PANICKED) && !done_stopprint) {
+        if (Hallucination) {
+            pline("This is your game.");
+            display_nhwindow(WIN_MESSAGE, FALSE); /* --More-- */
+            pline("This is your game on drugs.");
+        } else {
+            pline("Do not pass Go.  Do not collect 200 %s.", currency(200L));
+        }
+    }
     if (have_windows)
         wait_synch(); /* flush screen output */
 #ifndef NO_SIGNAL
@@ -2249,10 +2255,10 @@ boolean ask;
                 Sprintf(buftoo, "%*s%s", pfx, "", buf);
                 putstr(klwin, 0, buftoo);
             }
-            /*
-             * if (Hallucination)
-             *     putstr(klwin, 0, "and a partridge in a pear tree");
-             */
+            
+            if (Hallucination)
+                putstr(klwin, 0, "and a partridge in a pear tree");
+            
             if (ntypes > 1) {
                 if (!dumping)
                     putstr(klwin, 0, "");

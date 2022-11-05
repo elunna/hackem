@@ -60,6 +60,7 @@ E struct dgn_topology { /* special dungeon levels for speed */
     d_level d_hellb_level;
     d_level d_hellc_level;
     d_level d_orcus_level;
+    d_level d_juiblex_level;
     d_level d_portal_level;    /* only in goto_level() [do.c] */
     d_level d_sanctum_level;
     d_level d_earth_level;
@@ -93,6 +94,7 @@ E struct dgn_topology { /* special dungeon levels for speed */
 #define wiz2_level              (dungeon_topology.d_wiz2_level)
 #define wiz3_level              (dungeon_topology.d_wiz3_level)
 #define orcus_level             (dungeon_topology.d_orcus_level)
+#define juiblex_level           (dungeon_topology.d_juiblex_level)
 #define hella_level             (dungeon_topology.d_hella_level)
 #define hellb_level             (dungeon_topology.d_hellb_level)
 #define hellc_level             (dungeon_topology.d_hellc_level)
