@@ -54,7 +54,7 @@ short otyp;
     case SCR_ICE:
         return 20;
     case SCR_TIME:
-    case SCR_GENOCIDE:
+    case SCR_ANNIHILATION:
     case SCR_CLONING:
         return 30;
     case SCR_BLANK_PAPER:

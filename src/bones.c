@@ -661,7 +661,7 @@ struct obj *corpse;
         in_mklev = TRUE; /* use <u.ux,u.uy> as-is */
         mtmp = makemon(&mons[u.ugrave_arise], u.ux, u.uy, NO_MINVENT);
         in_mklev = FALSE;
-        if (!mtmp) { /* arise-type might have been genocided */
+        if (!mtmp) { /* arise-type might have been annihilated */
             drop_upon_death((struct monst *) 0, (struct obj *) 0, u.ux, u.uy);
             u.ugrave_arise = NON_PM; /* in case caller cares */
             return;
@@ -858,7 +858,7 @@ getbones()
              * monsters such as demon lords, and tracks the
              * birth counts of all species just as makemon()
              * does.  If a bones monster is extinct or has been
-             * subject to genocide, their mhpmax will be
+             * subject to annihilation, their mhpmax will be
              * set to the magic DEFUNCT_MONSTER cookie value.
              */
             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {

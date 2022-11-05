@@ -3309,7 +3309,7 @@ boolean tinitial, tfrom_file;
     if (match_optname(opts, fullname, 7, TRUE)) {
         /*
          * The order that the end_disclose options are stored:
-         *      inventory, attribs, vanquished, genocided,
+         *      inventory, attribs, vanquished, annihilated,
          *      conduct, overview.
          * There is an array in flags:
          *      end_disclose[NUM_DISCLOSURE_OPT];
@@ -5007,7 +5007,7 @@ boolean setinitial, setfromfile;
            disclosure_options in decl.c */
         static const char *disclosure_names[] = {
             "inventory", "attributes", "vanquished",
-            "genocides", "conduct",    "overview",
+            "annihilations", "conduct",    "overview",
         };
         int disc_cat[NUM_DISCLOSURE_OPTIONS];
         int pick_cnt, pick_idx, opt_idx;

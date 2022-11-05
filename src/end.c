@@ -313,7 +313,7 @@ static NEARDATA const char *deaths[] = {
     /* the array of death */
     "died", "betrayed", "choked", "poisoned", "starvation", "drowning", "burning",
     "dissolving under the heat and pressure", "crushed", "turned to stone",
-    "turned into slime", "genocided", "panic", "trickery", "quit",
+    "turned into slime", "annihilated", "panic", "trickery", "quit",
     "escaped", "ascended"
 };
 
@@ -323,7 +323,7 @@ static NEARDATA const char *ends[] = {
     "starved", "drowned", "burned",
     "dissolved in the lava",
     "were crushed", "turned to stone",
-    "turned into slime", "were genocided",
+    "turned into slime", "were annihilated",
     "panicked", "were tricked", "quit",
     "escaped", "ascended"
 };
@@ -670,7 +670,7 @@ int how;
     else if (is_moldier(mptr))
         u.ugrave_arise = PM_BROWN_MOLDIER + rn2(3);
     /* this could happen if a high-end vampire kills the hero
-       when ordinary vampires are genocided; ditto for wraiths */
+       when ordinary vampires are annihilated; ditto for wraiths */
     if (u.ugrave_arise >= LOW_PM
         && (mvitals[u.ugrave_arise].mvflags & G_GENOD))
         u.ugrave_arise = NON_PM;
@@ -1375,7 +1375,7 @@ int how;
             (void) adjattrib(A_CON, -1, TRUE);
             savelife(how);
             if (how == GENOCIDED) {
-                pline("Unfortunately you are still genocided...");
+                pline("Unfortunately you are still annihilated...");
             } else if (is_open_air(x, y) && !Levitation
                        && !(Flying && !(Punished && !carried(uball)
                             && is_open_air(uball->ox, uball->oy)))) {
@@ -1490,9 +1490,9 @@ int how;
         u.ugrave_arise = urace.zombienum;
     else if (how == TURNED_SLIME
              /* it's possible to turn into slime even though green slimes
-                have been genocided:  genocide could occur after hero is
+                have been annihilated:  annihilation could occur after hero is
                 already infected or hero could eat a glob of one created
-                before genocide; don't try to arise as one if they're gone */
+                before annihilation; don't try to arise as one if they're gone */
              && !(mvitals[PM_GREEN_SLIME].mvflags & G_GENOD))
         u.ugrave_arise = PM_GREEN_SLIME;
 
@@ -1687,8 +1687,8 @@ int how;
         done_stopprint = 1; /* just avoid any more output */
 
 #if defined(DUMPLOG) || defined(DUMPHTML)
-    /* 'how' reasons beyond genocide shouldn't show tombstone;
-       for normal end of game, genocide doesn't either */
+    /* 'how' reasons beyond annihilation shouldn't show tombstone;
+       for normal end of game, annihilation doesn't either */
     if (how <= GENOCIDED) {
         dump_redirect(TRUE);
         if (iflags.in_dumplog)
@@ -2272,7 +2272,7 @@ boolean ask;
     }
 }
 
-/* number of monster species which have been genocided */
+/* number of monster species which have been annihilated */
 int
 num_genocides()
 {
@@ -2282,7 +2282,7 @@ num_genocides()
         if (mvitals[i].mvflags & G_GENOD) {
             ++n;
             if (UniqCritterIndx(i))
-                impossible("unique creature '%d: %s' genocided?",
+                impossible("unique creature '%d: %s' annihilated?",
                            i, mons[i].mname);
         }
     }
@@ -2322,11 +2322,11 @@ boolean ask;
     ngenocided = num_genocides();
     nextinct = num_extinct();
 
-    /* genocided or extinct species list */
+    /* annihilated or extinct species list */
     if (ngenocided != 0 || nextinct != 0) {
         Sprintf(buf, "Do you want a list of %sspecies%s%s?",
                 (nextinct && !ngenocided) ? "extinct " : "",
-                (ngenocided) ? " genocided" : "",
+                (ngenocided) ? " annihilated" : "",
                 (nextinct && ngenocided) ? " and extinct" : "");
         c = ask ? yn_function(buf, ynqchars, defquery) : defquery;
         if (c == 'q')
@@ -2334,14 +2334,14 @@ boolean ask;
         if (c == 'y') {
             klwin = create_nhwindow(NHW_MENU);
             Sprintf(buf, "%s%s species:",
-                    (ngenocided) ? "Genocided" : "Extinct",
+                    (ngenocided) ? "Annihilated" : "Extinct",
                     (nextinct && ngenocided) ? " or extinct" : "");
             putstr(klwin, ATR_SUBHEAD, buf);
             if (!dumping)
                 putstr(klwin, 0, "");
 
             for (i = LOW_PM; i < NUMMONS; i++) {
-                /* uniques can't be genocided but can become extinct;
+                /* uniques can't be annihilated but can become extinct;
                    however, they're never reported as extinct, so skip them */
                 if (UniqCritterIndx(i))
                     continue;
@@ -2361,7 +2361,7 @@ boolean ask;
             if (!dumping)
                 putstr(klwin, 0, "");
             if (ngenocided > 0) {
-                Sprintf(buf, "%d species genocided.", ngenocided);
+                Sprintf(buf, "%d species annihilated.", ngenocided);
                 putstr(klwin, ATR_PREFORM, buf);
             }
             if (nextinct > 0) {
@@ -2374,7 +2374,7 @@ boolean ask;
         }
 #if defined (DUMPLOG) || defined (DUMPHTML)
     } else if (dumping) {
-        putstr(0, 0, "No species were genocided or became extinct.");
+        putstr(0, 0, "No species were annihilated or became extinct.");
 #endif
     }
 }

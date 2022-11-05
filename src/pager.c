@@ -940,7 +940,7 @@ struct permonst * pm;
     }
 
     /* inherent characteristics: "Monster is X." */
-    APPENDC(!(gen & G_GENO), "ungenocideable");
+    APPENDC(!(gen & G_GENO), "unannihilable");
     APPENDC(breathless(pm), "breathless");
     if (!breathless(pm))
         APPENDC(amphibious(pm), "amphibious");

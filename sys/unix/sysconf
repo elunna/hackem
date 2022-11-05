@@ -187,5 +187,5 @@ OPTIONS=msg_window:reversed
 OPTIONS=number_pad:0
 OPTIONS=sortloot:full
 OPTIONS=time
-
+BIND=v:wizmakemap
 #eof

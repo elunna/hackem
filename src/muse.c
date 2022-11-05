@@ -3266,7 +3266,7 @@ struct monst *mtmp;
         if (!enexto(&cc, mtmp->mx, mtmp->my, &mons[mndx]))
             break;
         /* found an acceptable spot for the figurine to transform.
-         * make_familiar will take care of the various checks for genocide,
+         * make_familiar will take care of the various checks for annihilated,
          * extinction, etc, and print failure messages if appropriate. */
         if (vismon)
             pline("%s activates a figurine, and it transforms!", Monnam(mtmp));
@@ -3321,7 +3321,7 @@ struct monst *mtmp;
         m_useup(mtmp, otmp);
         if (!grow_up(mtmp, (struct monst *) 0))
             return 1;
-        /* grew into genocided monster */
+        /* grew into annihilated monster */
         return 2;
     case MUSE_WAN_MAKE_INVISIBLE:
     case MUSE_POT_INVISIBILITY:

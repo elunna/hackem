@@ -3091,7 +3091,7 @@ long mmflags;
     if (ptr) {
         mndx = monsndx(ptr);
         /* if you are to make a specific monster and it has
-           already been genocided, return */
+           already been annihilated, return */
         if (mvitals[mndx].mvflags & G_GENOD)
             return (struct monst *) 0;
         if (wizard && (mvitals[mndx].mvflags & G_EXTINCT)) {
@@ -3738,7 +3738,7 @@ rndmonst()
 }
 
 /* called when you change level (experience or dungeon depth) or when
-   monster species can no longer be created (genocide or extinction) */
+   monster species can no longer be created (annihilation or extinction) */
 void
 reset_rndmonst(mndx)
 int mndx; /* particular species that can no longer be created */
@@ -3872,7 +3872,7 @@ aligntyp atyp;
 
 /* like mkclass(), but excludes difficulty considerations; used when
    player with polycontrol picks a class instead of a specific type;
-   genocided types are avoided but extinct ones are acceptable; we don't
+   annihilated types are avoided but extinct ones are acceptable; we don't
    check polyok() here--caller accepts some choices !polyok() would reject */
 int
 mkclass_poly(class)

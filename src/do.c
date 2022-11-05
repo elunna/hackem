@@ -2520,7 +2520,7 @@ long timeout UNUSED;
                             || is_ice(body->ox, body->oy)
                             || MON_AT(body->ox, body->oy)
                             || sobj_at(BOULDER, body->ox, body->oy)));
-    /* maybe F are genocided? */
+    /* maybe F are annihilated? */
     boolean no_eligible = (newpm == NULL);
 
     /* Don't grow mold on the corpse the player is eating. */
