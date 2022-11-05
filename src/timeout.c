@@ -828,6 +828,7 @@ nh_timeout()
                 if (!Afraid) {
                     stop_occupation();
                     You("are no longer afraid.");
+                    remove_fearedmon();
                 }
                 break;
             case BLINDED:
