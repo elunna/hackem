@@ -1009,7 +1009,7 @@ Dragons and Dragon Scales
 - [x] apple pie
 - [x] pumpkin pie
 - [x] slice of cake
-- [x] pinch of catnip
+- [x] sprig of catnip (was pinch of catnip)
     - Can tame any f
 
 ### Amulets:
@@ -2313,7 +2313,7 @@ usually enjoy.
 - K2, amateurhour, qt
 
 ### Thanks: 
-- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser
+- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire
 
 
 ==========================
@@ -2585,3 +2585,26 @@ handle the monster counterparts in
 		[x] Plague now confers sickness res while carried.	
 	https://nethackwiki.com/wiki/DNetHack_artifacts#Plague
 	
+- [x] ghoulname for necromancers
+	- [x] Wolfname for caveman, icemages
+	
+		[x] Soul blast:
+		consumes multiple spirits, produces an attack whose power is proportionate to the total monster difficulty of the expended spirits. (Copy monks spirit bomb)
+		https://nethackwiki.com/wiki/Spirit_bomb
+	
+	
+
+[x] Raise zombies says we dominate it even if we don't tame it.
+
+	- [x] Rename scroll of genocide to scroll of anhillation
+
+	- [fixed] (q)uaff, brings up tools in the list
+	
+	
+
+[x] dungeon growth patch
+	[x] dec47ae - Merge Pasi Kallinen's dungeon growth patch
+	[x] 653f317 - Fix for the dungeon growth patch. (Pasi Kallinen)
+	[skipped - don't need?] 97ace62 - Don't grow petrified trees. (20 years ago) <prousu>
+	[x] Change pinch of catnip to sprig of catnip - add to herbs.
+
