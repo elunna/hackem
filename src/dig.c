@@ -186,12 +186,9 @@ boolean verbose;
 int x, y;
 {
     struct trap *ttmp = t_at(x, y);
-    const char *verb =
-        (madeby == BY_YOU 
-            && uwep 
-            && is_axe(uwep)) 
-              ? "dig in" : is_lightsaber(uwep) 
-              ? "cut" : "chop";
+    const char *verb = !uwep ? "" : (madeby == BY_YOU && is_axe(uwep)) 
+                                    ? "dig in" : is_lightsaber(uwep) 
+                                          ? "cut" : "chop";
 
     if (On_stairs(x, y)) {
         if (x == xdnladder || x == xupladder) {
