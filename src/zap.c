@@ -378,7 +378,7 @@ struct obj *otmp;
             if (otyp == SPE_TURN_UNDEAD)
                 dmg = spell_damage_bonus(dmg);
             context.bypasses = TRUE; /* for make_corpse() */
-            if (!resist(mtmp, otmp->oclass, dmg, NOTELL)) {
+            if (!resist(mtmp, otmp->oclass, dmg, TELL)) {
                 if (!DEADMONSTER(mtmp))
                     monflee(mtmp, 0, FALSE, TRUE);
             }
