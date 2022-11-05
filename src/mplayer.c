@@ -161,13 +161,13 @@ static const char *tortle_female_names[] = {
 static const char *vampiric_male_names[] = {
     "Fortune",      "Ellena",       "Selene",   "Velorina",     "Rowena",
     "Opal",         "Sapphire",     "Echo",     "Quintella",    "Thelma",
-    "Illythia",     "Ophelia",      "Petra",    "Bianca",       "Drusilla",
+    "Ophelia",      "Petra",    "Bianca",       0
 };
 
 static const char *vampiric_female_names[] = {
     "Zeidan",       "Lazarus",      "Sebastian", "Sliske",      "Angelus",
     "Hunter",       "Damien",       "Deverell", "Mortas",       "Stelian",
-    "Maxwell",      "Valentine",    "Jairus",   "Saxon",        "Armand",
+    "Valentine",    "Jairus",       "Armand",   0
 };
 
 struct mfnames {
