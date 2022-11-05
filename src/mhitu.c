@@ -4449,6 +4449,7 @@ int dmg;
         }
         You("are struck with a sudden, terrible fear.");
         make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
+        u.fearedmon = mtmp;
         aggravate();
         stop_occupation();
         break;

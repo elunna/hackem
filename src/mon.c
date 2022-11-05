@@ -4856,8 +4856,8 @@ struct monst *mtmp;
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             if (!Role_if(PM_NECROMANCER) 
                     || (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i))) {
-                u.fearedmon = mtmp;
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
+                u.fearedmon = mtmp;
             } else {
                 You("hold firm.");
             }
