@@ -976,8 +976,6 @@ ROOM:"rndvault", random, random, random, random {
   LOOP [5d5] {
     IF [25%] { SHUFFLE: $mon }
     OBJECT:('%', "corpse"), random, montype: $mon[0]
-    OBJECT:('~', "spirit"), random, montype: $mon[0]
-    
   }
 }
 
