@@ -1022,7 +1022,7 @@ register struct obj *obj;
             return herbi ? DOGFOOD : starving ? ACCFOOD : MANFOOD;
         case CARROT:
             return (herbi || mblind) ? DOGFOOD : starving ? ACCFOOD : MANFOOD;
-        case PINCH_OF_CATNIP:
+        case SPRIG_OF_CATNIP:
             return is_feline(mptr) ? DOGFOOD : MANFOOD;
         case BANANA:
             return (mptr->mlet == S_YETI && herbi)

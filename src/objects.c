@@ -950,7 +950,7 @@ FOOD("melon",                10,  1,  5, 0, VEGGY, 100, CLR_BRIGHT_GREEN),
 FOOD("pineapple",            10,  2,  5, 0, VEGGY,  85, CLR_YELLOW),         /* SpliceHack */
 FOOD("banana",               10,  1,  2, 0, VEGGY,  80, CLR_YELLOW),
 FOOD("carrot",               12,  1,  2, 0, VEGGY,  50, CLR_ORANGE),
-FOOD("pinch of catnip",       3,  1,  1, 0, VEGGY,  40, CLR_GREEN),          /* SpliceHack */
+FOOD("sprig of catnip",       3,  1,  1, 0, VEGGY,  40, CLR_GREEN),          /* SpliceHack */
 FOOD("sprig of wolfsbane",    7,  1,  1, 0, VEGGY,  40, CLR_GREEN),
 FOOD("clove of garlic",       7,  1,  1, 0, VEGGY,  40, CLR_WHITE),
 /* name of slime mold is changed based on player's OPTION=fruit:something

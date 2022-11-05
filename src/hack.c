@@ -3770,6 +3770,7 @@ static const struct herb_info {
     boolean in_water;
 } herb_info[] = { 
     { SPRIG_OF_WOLFSBANE, FALSE },
+    { SPRIG_OF_CATNIP,    FALSE },
     { CLOVE_OF_GARLIC,    FALSE }, 
     { CARROT,             FALSE },
     { KELP_FROND,         TRUE  }

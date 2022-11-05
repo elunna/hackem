@@ -2303,7 +2303,7 @@ struct obj *otmp;
     case HUGE_CHUNK_OF_MEAT:
     case MEAT_RING:
         goto give_feedback;
-    case PINCH_OF_CATNIP:
+    case SPRIG_OF_CATNIP:
         if (is_feline(youmonst.data)) {
             pline("Wow! That was excellent!");
             make_confused(HConfusion + d(2, 4), FALSE);

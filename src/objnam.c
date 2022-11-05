@@ -3266,7 +3266,7 @@ static const struct alt_spellings {
     { "kiwifruit", APPLE },
     { "kiwi fruit", APPLE },
     { "kiwi", APPLE }, /* Actually refers to the bird */
-    { "catnip", PINCH_OF_CATNIP },
+    { "catnip", SPRIG_OF_CATNIP },
 
     /* jewelery */
     { "amulet of poison resistance", AMULET_VERSUS_POISON },

@@ -253,7 +253,7 @@ struct monst *mon;
     if (otyp == CREAM_PIE 
         || otyp == APPLE_PIE 
         || otyp == PUMPKIN_PIE
-        || otyp == PINCH_OF_CATNIP)
+        || otyp == SPRIG_OF_CATNIP)
         return 0;
 
     if (r_bigmonst(mon)) {

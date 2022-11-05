@@ -2139,7 +2139,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         potionhit(mon, obj, POTHIT_HERO_THROW);
         return 1;
 
-    } else if (obj->otyp == PINCH_OF_CATNIP
+    } else if (obj->otyp == SPRIG_OF_CATNIP
              && is_feline(mon->data)) {
         if (!Blind)
             pline("%s chases %s tail!", Monnam(mon), mhis(mon));
@@ -2489,7 +2489,7 @@ struct obj *obj;
     case BULLET:
     case SHOTGUN_SHELL:
     case SNOWBALL:
-    case PINCH_OF_CATNIP:
+    case SPRIG_OF_CATNIP:
     /* In Splice the lash breaks upon throwing, not sure why but we'll leave it. */
     case FLAMING_LASH: 
         return 1;
@@ -2550,7 +2550,7 @@ boolean in_view;
         if (in_view)
             pline("Dirt cake!");
         break;
-    case PINCH_OF_CATNIP:
+    case SPRIG_OF_CATNIP:
         if (in_view)
             pline("Catnip flies everywhere!");
         break;

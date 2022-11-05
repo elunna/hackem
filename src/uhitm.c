@@ -1408,7 +1408,7 @@ int dieroll;
                     }
                     tmp = 1;
                     break;
-                case PINCH_OF_CATNIP:
+                case SPRIG_OF_CATNIP:
                     tmp = 0;
                     if (is_feline(mdat)) {
                         if (!Blind)
