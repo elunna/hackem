@@ -381,6 +381,8 @@ boolean resuming;
                     nh_timeout();
                     run_regions();
 
+                    dgn_growths(TRUE, TRUE);
+                    
                     if (u.ublesscnt)
                         u.ublesscnt--;
                     if (flags.time && !context.run)

@@ -1005,6 +1005,8 @@ E long FDECL(money_cnt, (struct obj *));
 E void FDECL(spot_checks, (xchar, xchar, schar));
 E boolean FDECL(mbag_explodes, (struct obj *, int));
 /* STATIC_DCL boolean FDECL(mbag_explodes, (struct obj *, int)); */
+E void FDECL(dgn_growths, (BOOLEAN_P, BOOLEAN_P));
+E void FDECL(catchup_dgn_growths, (int));
 
 /* ### hacklib.c ### */
 
