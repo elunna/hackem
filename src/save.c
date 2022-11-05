@@ -254,7 +254,8 @@ dosave0()
      */
     u.ustuck = (struct monst *) 0;
     u.usteed = (struct monst *) 0;
-
+    u.fearedmon = (struct monst *) 0;
+    
     for (ltmp = (xchar) 1; ltmp <= maxledgerno(); ltmp++) {
         if (ltmp == ledger_no(&uz_save))
             continue;
@@ -1260,6 +1261,7 @@ register struct monst *mtmp;
                 context.polearm.hitmon = NULL;
             }
             mtmp->nmon = NULL;  /* nmon saved into mtmp2 */
+            
             dealloc_monst(mtmp);
         }
         mtmp = mtmp2;
