@@ -881,6 +881,8 @@ wiz_makemap(VOID_ARGS)
         reset_utrap(FALSE);
         check_special_room(TRUE); /* room exit */
         u.ustuck = (struct monst *) 0;
+        make_afraid(0L, TRUE); /* Clear fear */
+        remove_fearedmon();
         u.uswallow = 0;
         u.uinwater = 0;
         u.uundetected = 0; /* not hidden, even if means are available */
