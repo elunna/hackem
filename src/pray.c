@@ -21,6 +21,7 @@ STATIC_DCL void FDECL(consume_offering, (struct obj *));
 STATIC_DCL boolean FDECL(water_prayer, (BOOLEAN_P));
 STATIC_DCL boolean FDECL(blocked_boulder, (int, int));
 STATIC_DCL void FDECL(god_gives_benefit, (ALIGNTYP_P));
+STATIC_DCL int NDECL(count_pets);
 
 /* simplify a few tests */
 #define Cursed_obj(obj, typ) ((obj) && (obj)->otyp == (typ) && cursed(obj, TRUE))
@@ -2605,7 +2606,7 @@ dosacrifice()
                 /*u.usacrifice = 0;*/
                 return 1;
             }
-            
+
             change_luck((value * LUCKMAX) / (MAXVALUE * 2));
 
             if ((int) u.uluck < 0)
@@ -3239,12 +3240,24 @@ aligntyp alignment;
     register struct obj *otmp;
     const char *what = (const char *)0;
     
-    if (!rnl(30 + u.ulevel)) {
+    /* New restrictions on minion gifts:
+     *      If over level 14, no more minions.
+     *      If completed or expelled from quest, no more minions.
+     *      If crowned, no more minions.
+     *      If you already have 1-2 pets on the level, no more minions.
+     */
+    int pet_cnt = rn2(3) ? 2 : 3;
+    if (!rnl(30 + u.ulevel) 
+          && u.ulevel < 15
+          && !u.uevent.qcompleted
+          && !u.uevent.qexpelled
+          && !u.uevent.uhand_of_elbereth 
+          && (count_pets() < pet_cnt)) {
         god_gives_pet(alignment);
         return;
     }
+    
     /* randomly bless items */
-
     /* weapon takes precedence if it interferes
        with taking off a ring or shield */
     if (uwep && !uwep->blessed) /* weapon */
@@ -3288,4 +3301,18 @@ aligntyp alignment;
                             (const char *)aobjnam (otmp, "softly glow"),
              hcolor(NH_AMBER));
 }
+
+STATIC_OVL int
+count_pets()
+{
+    int pet_cnt = 0;
+    register struct monst *mtmp, *nextmon;
+    for (mtmp = fmon; mtmp; mtmp = nextmon) {
+        nextmon = mtmp->nmon; /* trap might kill mon */
+        if (!DEADMONSTER(mtmp) && mtmp->mtame)
+            ++pet_cnt;
+    }
+    return pet_cnt;
+}
+
 /*pray.c*/

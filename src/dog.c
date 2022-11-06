@@ -1284,7 +1284,6 @@ make_pet_minion(mnum, alignment)
 int mnum;
 aligntyp alignment;
 {
-    pline("Creating minion!");
     register struct monst *mon;
     mon = makemon(&mons[mnum], u.ux, u.uy, MM_EDOG);
     initedog(mon);
