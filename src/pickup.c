@@ -2279,6 +2279,7 @@ boolean taking;
             }
         }
     }
+    free((genericptr_t) pick_list);
     if (transferred > 0) {
         /* They might have gained some gear they would want to wear, or lost
          * some and now have a different option. Reassess next turn and see. */
