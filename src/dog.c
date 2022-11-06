@@ -1277,6 +1277,52 @@ register struct obj *obj;
     return TRUE;
 }
 
+
+/* Creates a minion pet for the player. Returns 0 if failed, 1 if success.*/
+int 
+make_pet_minion(mnum,alignment)
+int mnum;
+aligntyp alignment;
+{
+    register struct monst *mon;
+    mon = makemon(&mons[mnum], u.ux, u.uy, MM_EDOG);
+    initedog(mon);
+    u.uconduct.pets++;
+    if (!mon) {
+        return 0;
+    }
+    newsym(mon->mx, mon ->my);
+    context.botl = 1;
+    return 1;
+    
+#if 0 /* Old slashem version */
+    register struct monst *mon;
+    register struct monst *mtmp2;
+    mon = makemon(&mons[mnum], u.ux, u.uy, NO_MM_FLAGS);
+    if (!mon) return 0;
+    /* now tame that puppy... */
+    mtmp2 = newmonst(sizeof(struct edog) + mon->mnamelth);
+    *mtmp2 = *mon;
+    mtmp2->mxlth = sizeof(struct edog);
+    if(mon->mnamelth) Strcpy(NAME(mtmp2), NAME(mon));
+    initedog(mtmp2);
+    replmon(mon,mtmp2);
+    newsym(mtmp2->mx, mtmp2->my);
+    mtmp2->mpeaceful = 1;
+    set_malign(mtmp2);
+    mtmp2->mtame = 10;
+    /* this section names the creature "of ______" */
+    if (mons[mnum].pxlth == 0) {
+        mtmp2->isminion = TRUE;
+        EMIN(mtmp2)->min_align = alignment;
+    } else if (mnum == PM_ANGEL) {
+        mtmp2->isminion = TRUE;
+        EPRI(mtmp2)->shralign = alignment;
+    }
+    return 1;
+#endif
+}
+
 /*
  * Called during pet revival or pet life-saving.
  * If you killed the pet, it revives wild.

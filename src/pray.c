@@ -20,7 +20,7 @@ STATIC_DCL void FDECL(gods_upset, (ALIGNTYP_P));
 STATIC_DCL void FDECL(consume_offering, (struct obj *));
 STATIC_DCL boolean FDECL(water_prayer, (BOOLEAN_P));
 STATIC_DCL boolean FDECL(blocked_boulder, (int, int));
-static void god_gives_benefit(void);
+STATIC_DCL void FDECL(god_gives_benefit, (ALIGNTYP_P));
 
 /* simplify a few tests */
 #define Cursed_obj(obj, typ) ((obj) && (obj)->otyp == (typ) && cursed(obj, TRUE))
@@ -1606,6 +1606,56 @@ register struct obj *otmp;
     exercise(A_WIS, TRUE);
 }
 
+
+void
+god_gives_pet(alignment)
+aligntyp alignment;
+{
+/*
+    register struct monst *mtmp2;
+    register struct permonst *pm;
+ */
+    int mnum;
+    int mon;
+
+    switch ((int)alignment) {
+	case A_LAWFUL:
+	    mnum = lawful_minion(u.ulevel);
+	    break;
+	case A_NEUTRAL:
+	    mnum = neutral_minion(u.ulevel);
+	    break;
+	case A_CHAOTIC:
+	case A_NONE:
+	    mnum = chaotic_minion(u.ulevel);
+	    break;
+	default:
+	    impossible("unaligned player?");
+	    mnum = ndemon(A_NONE);
+	    break;
+    }
+    mon = make_pet_minion(mnum, alignment);
+    if (mon) {
+	switch ((int)alignment) {
+	   case A_LAWFUL:
+		pline("%s", Blind ? "You feel the presence of goodness." :
+		 "There is a puff of white fog!");
+	   break;
+	   case A_NEUTRAL:
+		pline("%s", Blind ? "You hear the earth rumble..." :
+		 "A cloud of gray smoke gathers around you!");
+	   break;
+	   case A_CHAOTIC:
+	   case A_NONE:
+		pline("%s", Blind ? "You hear an evil chuckle!" :
+		 "A miasma of stinking vapors coalesces around you!");
+	   break;
+	}
+	godvoice(u.ualign.type, "My minion shall serve thee!");
+	return;
+    }
+}
+
 struct inv_sub { short race_pm, item_otyp, subs_otyp; };
 extern struct inv_sub inv_subs[];
 
@@ -2552,9 +2602,10 @@ dosacrifice()
                     return 1;
                 }
             } else if (!rnl(30 + u.ulevel)) {
-                /* no artifact, but maybe a random blessing */
-                god_gives_benefit();
-                /* u.usacrifice = 0; */
+                /* no artifact, but maybe a helpful pet? */
+                /* WAC is now some generic benefit (includes pets) */
+                god_gives_benefit(altaralign);
+                /*u.usacrifice = 0;*/
                 return 1;
             }
 
@@ -3185,11 +3236,16 @@ int dx, dy;
 
 /* Give away something */
 void
-god_gives_benefit()
+god_gives_benefit(alignment)
+aligntyp alignment;
 {
     register struct obj *otmp;
     const char *what = (const char *)0;
 
+    if (!rnl(30 + u.ulevel)) {
+        god_gives_pet(alignment);
+        return;
+    }
     /* randomly bless items */
 
     /* weapon takes precedence if it interferes
