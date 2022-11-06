@@ -3846,10 +3846,8 @@ xchar x, y;
 boolean showmsg, update;
 {
     struct obj *otmp;
-    struct rm *lev;
    
     rndmappos(&x, &y);
-    lev = &levl[x][y];
     otmp = sobj_at(herb, x, y);
     if (otmp && herb_can_grow_at(x, y, FALSE)) {
         if (otmp->quan <= rn2(HERB_GROWTH_LIMIT)) {
@@ -3866,7 +3864,6 @@ boolean showmsg, update;
                 pos.x += x;
                 pos.y += y;
                 if (isok(pos.x, pos.y) && herb_can_grow_at(pos.x, pos.y, FALSE)) {
-                    lev = &levl[pos.x][pos.y];
                     otmp = sobj_at(herb, pos.x, pos.y);
                     if (otmp) {
                         if (otmp->quan <= rn2(HERB_GROWTH_LIMIT)) {
