@@ -5016,6 +5016,22 @@ doapply()
     case ROCK:
         use_stone(&obj);
         break;
+    case ASSAULT_RIFLE:
+		/* Switch between WP_MODE_SINGLE, WP_MODE_BURST and WP_MODE_AUTO */
+
+		if (obj->altmode == WP_MODE_AUTO) {
+			obj->altmode = WP_MODE_BURST;
+		} else if (obj->altmode == WP_MODE_BURST) {
+			obj->altmode = WP_MODE_SINGLE;
+		} else {
+			obj->altmode = WP_MODE_AUTO;
+		}
+		
+		You("switch %s to %s mode.", yname(obj), 
+			((obj->altmode == WP_MODE_SINGLE) ? "single shot" : 
+			 ((obj->altmode == WP_MODE_BURST) ? "burst" :
+			  "full automatic")));
+		break;	
     case AUTO_SHOTGUN:
     case SUBMACHINE_GUN:		
         if (obj->altmode == WP_MODE_AUTO) 

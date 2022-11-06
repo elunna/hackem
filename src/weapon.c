@@ -948,6 +948,8 @@ register struct monst *mtmp;
                 if ((objects[rwep[i]].w_ammotyp) == WP_BULLET) {
                     propellor = (oselect(mtmp, HEAVY_MACHINE_GUN));
                     if (!propellor) 
+                        propellor = (oselect(mtmp, ASSAULT_RIFLE));
+                    if (!propellor) 
                         propellor = (oselect(mtmp, SUBMACHINE_GUN));
                     if (!propellor) 
                         propellor = (oselect(mtmp, SNIPER_RIFLE));

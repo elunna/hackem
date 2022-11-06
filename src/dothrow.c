@@ -2702,20 +2702,23 @@ firearm_range(otyp)
 int otyp;
 {
     switch(otyp) {
-    case SUBMACHINE_GUN:
-        return 10;
-    case HEAVY_MACHINE_GUN:
-        return 20;
-    case RIFLE:
-        return 22;
     case AUTO_SHOTGUN:
     case SHOTGUN:
         return 3;
-    case SNIPER_RIFLE:
-        return 25;
+    case SUBMACHINE_GUN:
+        return 10;
     case PISTOL:
         return 15;
+    case HEAVY_MACHINE_GUN:
+    case ASSAULT_RIFLE:
+        return 20;
+    case RIFLE:
+        return 22;    
+
+    case SNIPER_RIFLE:
+        return 25;
     default:
+        impossible("No firearm for firearm-range!");
         return BOLT_LIM;
     }
 }
@@ -2725,18 +2728,21 @@ firearm_rof(otyp)
 int otyp;
 {
     switch(otyp) {
-    case SUBMACHINE_GUN:
-        return 3;
-    case HEAVY_MACHINE_GUN:
-        return 8;
+    case SNIPER_RIFLE:
+        return -3;
     case RIFLE:
     case SHOTGUN:
         return -1;
     case AUTO_SHOTGUN:
         return 2;
-    case SNIPER_RIFLE:
-        return -3;
+    case SUBMACHINE_GUN:
+        return 3;
+    case ASSAULT_RIFLE:
+        return 5;    
+    case HEAVY_MACHINE_GUN:
+        return 8;
     default:
+        impossible("No firearm for rate-of-fire!");
         return 0;
     }
 }

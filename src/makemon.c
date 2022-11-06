@@ -1196,10 +1196,18 @@ register struct monst *mtmp;
                     w1 = rn2(2) ? HEAVY_WAR_HAMMER : BATTLE_AXE;
                     mongets(mtmp, BOULDER);
                 } else {
-                    w1 = rn2(2) ? FLAIL : MACE;
+                    if (rn2(2)) {
+                        w1 = AUTO_SHOTGUN;
+                        m_initthrow(mtmp, SHOTGUN_SHELL, 10);
+                        m_initthrow(mtmp, SHOTGUN_SHELL, 10);
+                    } else {
+                        w1 = ASSAULT_RIFLE;
+                        m_initthrow(mtmp, BULLET, 30);
+                        m_initthrow(mtmp, BULLET, 30);
+                    }
 	            if (Is_stronghold(&u.uz)) {
-		        w2 = BOW;
-		        m_initthrow(mtmp, ARROW, 30);
+                    w2 = BOW;
+                    m_initthrow(mtmp, ARROW, 30);
                     }
                 }
                 break;
@@ -1224,8 +1232,20 @@ register struct monst *mtmp;
                 } else {
                     w1 = rn2(2) ? BROADSWORD : ORCISH_LONG_SWORD;
                     if (Is_stronghold(&u.uz)) {
-                        w2 = CROSSBOW;
-                        m_initthrow(mtmp, CROSSBOW_BOLT, 30);
+                        if (rn2(2)) {
+                            w1 = AUTO_SHOTGUN;
+                            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                        } else if (rn2(2)) {
+                            w1 = HEAVY_MACHINE_GUN;
+                            m_initthrow(mtmp, BULLET, 60);
+                            m_initthrow(mtmp, BULLET, 60);
+                            m_initthrow(mtmp, BULLET, 60);
+                        } else {
+                            w1 = ASSAULT_RIFLE;
+                            m_initthrow(mtmp, BULLET, 60);
+                            m_initthrow(mtmp, BULLET, 60);
+                        }
                     }
 
                 do {
