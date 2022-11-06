@@ -3802,16 +3802,6 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_WALLWALK | M1_THICK_HIDE,
         M2_STRONG | M2_NEUTER, 0, M4_VULNERABLE_ACID, 0, 10, CLR_BROWN),
-    MON("water elemental", S_ELEMENTAL,
-        LVL(8, 6, 2, 30, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 5, 6), 
-          ATTK(AT_ENGL, AD_WRAP, 4, 4),
-          ATTK(AT_NONE, AD_RUST, 0, 0), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(2500, 0, MS_SILENT, MZ_HUGE), MR_POISON | MR_STONE, 0,
-        M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
-            | M1_UNSOLID | M1_AMPHIBIOUS | M1_SWIM,
-        M2_STRONG | M2_NEUTER, 0, M4_VULNERABLE_ELEC, 0, 10, CLR_BLUE),
     MON("mud elemental", S_ELEMENTAL,                         /* SpliceHack */
         LVL(8, 6, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 6), 
@@ -3855,6 +3845,17 @@ NEARDATA struct permonst mons[] = {
         M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
             | M1_THICK_HIDE | M1_NOTAKE,
         M2_STRONG | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 12, CLR_ORANGE),
+    MON("water elemental", S_ELEMENTAL,
+        LVL(8, 6, 2, 30, 0), (G_NOCORPSE | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 5, 6), 
+          ATTK(AT_ENGL, AD_WRAP, 4, 4),
+          ATTK(AT_NONE, AD_RUST, 0, 0), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(2500, 0, MS_SILENT, MZ_HUGE), MR_POISON | MR_STONE, 0,
+        M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_BREATHLESS
+            | M1_UNSOLID | M1_AMPHIBIOUS | M1_SWIM,
+        M2_STRONG | M2_NEUTER, 0, M4_VULNERABLE_ELEC, 0, 10, CLR_BLUE),
+   
     /*
      * Fungi
      */
