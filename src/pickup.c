@@ -3918,7 +3918,7 @@ boolean allowempty;    /* affects result when box is empty */
                    || box->otyp == BAG_OF_RATS 
                    || box->otyp == HORN_OF_PLENTY) {
         int res = TIPCHECK_OK;
-        boolean bag = box->otyp == BAG_OF_TRICKS || BAG_OF_RATS;
+        boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
         int old_spe = box->spe;
         boolean maybeshopgoods = !carried(box) && costly_spot(box->ox, box->oy);
         xchar ox = u.ux, oy = u.uy;
