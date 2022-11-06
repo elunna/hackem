@@ -1512,14 +1512,23 @@ struct obj *obj;
 
     if (obj->lamplit) {
         if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP
-            || obj->otyp == LANTERN)
+            || obj->otyp == LANTERN) {
             pline("%slamp is now off.", Shk_Your(buf, obj));
-        
-        else if (is_lightsaber(obj)) {
+        } else if (is_lightsaber(obj)) {
+            
+            if (obj->otyp == RED_DOUBLE_LIGHTSABER) {
+                /* Do we want to activate dual bladed mode? */
+                if (!obj->altmode && (!obj->cursed || rn2(4))) {
+                    You("ignite the second blade of %s.", yname(obj));
+                    obj->altmode = TRUE;
+                    return;
+                } else
+                    obj->altmode = FALSE;
+            }
+            
             lightsaber_deactivate(obj, TRUE);
             return;
-        } 
-        else if (obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
+        } else if (obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
             pline("The Candle of Eternal Flame will not stop burning!");
             return;
         } else
@@ -4925,10 +4934,11 @@ doapply()
     case GREEN_LIGHTSABER:
     case BLUE_LIGHTSABER:
     case RED_LIGHTSABER:
-        if (uwep != obj && !wield_tool(obj, (const char *)0))
+    case RED_DOUBLE_LIGHTSABER:
+        if (!(uswapwep == obj && u.twoweap))
+            if (uwep != obj && !wield_tool(obj, (const char *)0))
             break;
         /* Fall through - activate via use_lamp */
-        
     case OIL_LAMP:
     case MAGIC_LAMP:
     case LANTERN:

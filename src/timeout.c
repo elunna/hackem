@@ -1862,6 +1862,13 @@ long timeout;
             begin_burn(obj, TRUE);
         break; /* case [otyp ==] candelabrum|tallow_candle|wax_candle */
 
+    case RED_DOUBLE_LIGHTSABER:
+        if (obj->altmode && obj->cursed && !rn2(25)) {
+            obj->altmode = FALSE;
+            pline("%s %s reverts to single blade mode!",
+                whose, xname(obj));
+        }
+        /* FALLTHROUGH */
     case GREEN_LIGHTSABER:
     case BLUE_LIGHTSABER:
     case RED_LIGHTSABER:
@@ -1951,10 +1958,10 @@ boolean timer_attached;
             You("hear a lightsaber deactivate.");
         }
     }
-
+    if (obj->otyp == RED_DOUBLE_LIGHTSABER) 
+        obj->altmode = FALSE;
     if ((obj == uwep) || (u.twoweap && obj != uswapwep)) 
         unweapon = TRUE;
-
     end_burn(obj, timer_attached);
 }
 
@@ -2011,19 +2018,26 @@ boolean already_lit;
         if (obj->otyp == MAGIC_CANDLE) 
             obj->age = 300L;
         break;
+    case RED_DOUBLE_LIGHTSABER:
+        if (obj->altmode && obj->age > 1) {
+            obj->age--; /* Double power usage */
+            radius = 3; /* Gives off more light */
+        } else
+            radius = 2;
+        turns = 1;
+        break;
     case RED_LIGHTSABER:
     case BLUE_LIGHTSABER:
     case GREEN_LIGHTSABER:
         turns = 1;
         radius = 2;
-		break;
+        break;
     case POT_OIL:
         turns = obj->age;
         if (obj->odiluted)
             turns = (3L * turns + 2L) / 4L;
         radius = 1; /* very dim light */
         break;
-
     case LANTERN:
     case OIL_LAMP:
     case TORCH:
@@ -2039,7 +2053,6 @@ boolean already_lit;
         else
             turns = obj->age;
         break;
-
     case CANDELABRUM_OF_INVOCATION:
     case TALLOW_CANDLE:
     case WAX_CANDLE:

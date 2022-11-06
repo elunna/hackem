@@ -306,6 +306,10 @@ struct monst *mon;
         case BLUE_LIGHTSABER:   
             tmp += 12; 
             break;
+        case RED_DOUBLE_LIGHTSABER: 
+            if (otmp->altmode) 
+                tmp += rnd(11);
+            /* fallthrough */
         case RED_LIGHTSABER:    
             tmp += 10; 
             break;
@@ -353,6 +357,10 @@ struct monst *mon;
 		case BLUE_LIGHTSABER:   
             tmp +=8;
             break;
+        case RED_DOUBLE_LIGHTSABER:
+            if (otmp->altmode) 
+                tmp += rnd(9);
+            /* fallthrough */
 		case RED_LIGHTSABER:
             tmp +=6; 
             break;
@@ -1027,6 +1035,7 @@ static const NEARDATA short hwep[] = {
     LONG_SWORD,
     FLAMING_LASH,
     DWARVISH_MATTOCK,
+    RED_DOUBLE_LIGHTSABER,
     RED_LIGHTSABER,
     BLUE_LIGHTSABER,
     GREEN_LIGHTSABER,
@@ -1368,7 +1377,20 @@ struct monst * mon;
             }	    	
             begin_burn(obj, FALSE);
 	    }
-	} 
+	} else {
+		/* Double Lightsaber in single mode? Ignite second blade */
+		if (obj->otyp == RED_DOUBLE_LIGHTSABER && !obj->altmode) {
+		    /* Do we want to activate dual bladed mode? */
+		    if (!obj->altmode && (!obj->cursed || rn2(4))) {
+			if (canseemon(mon)) pline("%s ignites the second blade of %s.", 
+				Monnam(mon), an(xname(obj)));
+		    	obj->altmode = TRUE;
+		    	return;
+		    } else obj->altmode = FALSE;
+		    lightsaber_deactivate(obj, TRUE);
+		}
+		return;
+	}
 }
 
 

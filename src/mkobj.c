@@ -968,6 +968,9 @@ boolean artif;
                 otmp->lamplit = 0;
                 blessorcurse(otmp, 2);
                 break;
+            case RED_DOUBLE_LIGHTSABER:
+                otmp->altmode = FALSE;
+                /* FALLTHROUGH */
             case GREEN_LIGHTSABER:
             case BLUE_LIGHTSABER:
             case RED_LIGHTSABER:
