@@ -2703,8 +2703,9 @@ int otyp;
 {
     switch(otyp) {
     case AUTO_SHOTGUN:
+        return 4;
     case SHOTGUN:
-        return 3;
+        return 5;
     case SUBMACHINE_GUN:
         return 10;
     case PISTOL:
