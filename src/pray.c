@@ -1611,12 +1611,7 @@ void
 god_gives_pet(alignment)
 aligntyp alignment;
 {
-/*
-    register struct monst *mtmp2;
-    register struct permonst *pm;
- */
-    int mnum;
-    int mon;
+    int mnum, mon;
 
     switch ((int)alignment) {
 	case A_LAWFUL:
@@ -1637,26 +1632,28 @@ aligntyp alignment;
     mon = make_pet_minion(mnum, alignment);
     if (mon) {
 	switch ((int)alignment) {
-	   case A_LAWFUL:
-		pline("%s", Blind ? "You feel the presence of goodness." :
-		 "There is a puff of white fog!");
-	   break;
-	   case A_NEUTRAL:
-		pline("%s", Blind ? "You hear the earth rumble..." :
-		 "A cloud of gray smoke gathers around you!");
-	   break;
-	   case A_CHAOTIC:
-	   case A_NONE:
-		pline("%s", Blind ? "You hear an evil chuckle!" :
-		 "A miasma of stinking vapors coalesces around you!");
-	   break;
+        case A_LAWFUL:
+            pline("%s", Blind ? "You feel the presence of goodness." 
+                              : "There is a puff of white fog!");
+            break;
+        case A_NEUTRAL:
+            pline("%s", Blind ? "You hear the earth rumble..." 
+                              : "A cloud of gray smoke gathers around you!");
+            break;
+        case A_CHAOTIC:
+        case A_NONE:
+            pline("%s", Blind ? "You hear an evil chuckle!" 
+                              : "A miasma of stinking vapors coalesces around you!");
+            break;
 	}
 	godvoice(u.ualign.type, "My minion shall serve thee!");
 	return;
     }
 }
 
-struct inv_sub { short race_pm, item_otyp, subs_otyp; };
+struct inv_sub { 
+    short race_pm, item_otyp, subs_otyp; 
+};
 extern struct inv_sub inv_subs[];
 
 int
@@ -2608,7 +2605,7 @@ dosacrifice()
                 /*u.usacrifice = 0;*/
                 return 1;
             }
-
+            
             change_luck((value * LUCKMAX) / (MAXVALUE * 2));
 
             if ((int) u.uluck < 0)
@@ -3241,7 +3238,7 @@ aligntyp alignment;
 {
     register struct obj *otmp;
     const char *what = (const char *)0;
-
+    
     if (!rnl(30 + u.ulevel)) {
         god_gives_pet(alignment);
         return;

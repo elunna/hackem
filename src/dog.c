@@ -1280,13 +1280,16 @@ register struct obj *obj;
 
 /* Creates a minion pet for the player. Returns 0 if failed, 1 if success.*/
 int 
-make_pet_minion(mnum,alignment)
+make_pet_minion(mnum, alignment)
 int mnum;
 aligntyp alignment;
 {
+    pline("Creating minion!");
     register struct monst *mon;
     mon = makemon(&mons[mnum], u.ux, u.uy, MM_EDOG);
     initedog(mon);
+    /*mon->isminion = 1;*/
+    set_malign(mon);
     u.uconduct.pets++;
     if (!mon) {
         return 0;

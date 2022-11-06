@@ -342,9 +342,12 @@ int lawful_minion(int difficulty)
    given a difficulty rating from 1 to 30 */
 {
    difficulty = difficulty + rn2(5) - 2;
-   if (difficulty < 0) difficulty = 0;
-   if (difficulty > 30) difficulty = 30;
+   if (difficulty < 0) 
+       difficulty = 0;
+   if (difficulty > 30) 
+       difficulty = 30;
    difficulty /= 3;
+   
    switch (difficulty) {
       case 0: return PM_TENGU;
       case 1: return PM_COUATL;
@@ -367,10 +370,15 @@ int neutral_minion(int difficulty)
    given a difficulty rating from 1 to 30 */
 {
    difficulty = difficulty + rn2(9) - 4;
-   if (difficulty < 0) difficulty = 0;
-   if (difficulty > 30) difficulty = 30;
-   if (difficulty < 6) return PM_GRAY_UNICORN;
-   if (difficulty < 15) return (PM_AIR_ELEMENTAL+rn2(4));
+   if (difficulty < 0) 
+       difficulty = 0;
+   if (difficulty > 30) 
+       difficulty = 30;
+   if (difficulty < 6) 
+       return PM_GRAY_UNICORN;
+   if (difficulty < 15) 
+       return rand_elemental();
+   
    return (PM_DJINNI /* +rn2(4) */);
 }
 
@@ -381,7 +389,9 @@ int chaotic_minion(int difficulty)
    difficulty = difficulty + rn2(5) - 2;
    if (difficulty < 0) 
         difficulty = 0;
-   if (difficulty > 30) difficulty = 30;
+   if (difficulty > 30) 
+       difficulty = 30;
+   
    /* KMH, balance patch -- avoid using floating-point (not supported by all ports) */
 /*   difficulty = (int)((float)difficulty / 1.5);*/
    difficulty = (difficulty * 2) / 3;
