@@ -504,6 +504,7 @@
     - slaughter wights life and energy drain (1 level, DC 19) 
     - slaughter wights have AC 18: -8?
     - Made slaughter wights a red W.
+    - Releases a nasty death wail when slain. 2d18 sonic damage, Stuns
     - Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
 - (Y) zruty
     - Changed zruty from z to Y (to accomodate zouthern animals)
@@ -793,6 +794,7 @@ Medusa:
 - her own bite causes slow-stoning. 
 - Her gaze is still of the instant petrification type. 
 - Having reflection is no longer a guaranteed kill, she resists most of the time.
+- When defeated, a pegasus will arise from her body (From SlashEM)
 
 demon lords/princes encountered in Gehennom,
 - along with which lair they may appear in, has been completely randomized. 
@@ -807,9 +809,11 @@ Vlad the Impaler:
 The Wizard of Yendor:
 - can use any artifact weapons or armor that he steals against the player.
 - Color changed to bright magenta.
+- I reduced the chance Rodney gets an "oMR to 1 in 13 times (changed from Evil)
     
 The Riders:
 - have had their hit points increased significantly, and each Rider has its own steed which it rides, each with unique attacks and abilities.
+- Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8) (changed from Evil)
 
 Dragons and Dragon Scales
 
@@ -891,17 +895,33 @@ Dragons and Dragon Scales
     - Base item for Xiuhcoatl
     - 1d8 versus small; 1d12 versus large monsters.
 
+New magical staves: These were introduced in Evil and each one grants a large bonus to a specific spell school
+
+- All deal standard quarterstaff damage.
+- [x] staff of divination (DIVINATION school)
+- [x] staff of healing (HEALING school)
+- [x] staff of necromancy (NECROMANCY school)
+    - (Replaced the staff of holiness)
+- [x] staff of matter (MATTER school)
+- [x] staff of escape (ESCAPE school)
+- [x] staff of war (ATTACK school)
+
 ### Firearms:
 
 - [x] pistol
 - [x] submachine gun 
     - (apply for different firing modes)
 - [x] heavy machine gun
+    - Decreased weight of from 500 to 200.
 - [x] rifle
 - [x] sniper rifle
+- [x] assault rifle
 - [x] shotgun
+    - Increased range to 5 (from 3)
 - [x] auto shotgun
     - (apply for different firing modes)
+    - Increased range to 4 (from 3)
+    - Increased to-hit from 0 to 1.
 - [x] bullet 
     - (Silver bullets are covered by object materials)
 - [x] shotgun shell
@@ -1009,7 +1029,7 @@ Dragons and Dragon Scales
 - [x] apple pie
 - [x] pumpkin pie
 - [x] slice of cake
-- [x] sprig of catnip (was pinch of catnip)
+- [x] sprig of catnip (was "pinch of catnip")
     - Can tame any f
 
 ### Amulets:
@@ -1152,9 +1172,11 @@ Dragons and Dragon Scales
 - [x] green lightsaber
 - [x] blue lightsaber
 - [x] red lightsaber
+- [x] double-red-light-saber
 - Lightsabers count as weapon/tools
 - Lit lightsabers act as a light source.
 - We can force locks and break down doors with #force
+- We can also cut through iron bars and open iron safes.
 - Putting a lit lightsaber into a bag/container snuffs it.
 
 
@@ -1236,10 +1258,10 @@ Dragons and Dragon Scales
 
 #### Scrolls
 
-- [x] scroll of genocide
+- [x] scroll of genocide -> renamed to scroll of anhillation
     - Changed to UnNetHack behavior
     - Now kills a single monster species on level (uncursed) or globally (blessed)
-    - Genocides from thrones are dungeon-wide
+    - Anhillations from thrones are dungeon-wide
 - [x] blessed scroll of teleport
     - Let's you control your destination as if you had teleport control.
 - [x] Scrolls of gold detection: 
@@ -1368,6 +1390,7 @@ Dragons and Dragon Scales
 
 - [x] Got rid of the BODY spell class in SlashEM, moved to the Escape spells
 - [x] Got rid of the PROTECTION spell class in SlashEM, moved to the CLERIC spells
+- [x] Got rid of the CLERIC spell class and created a NECROMANCY spell class to support the new spin on the Necromancer role. The spells from the CLERIC school have been distributed among the other schools as appropriate.
 - [x] Increased available max spells by 10 (Added 0-9 for spell list letters)
 - [x] Spellbook weights are now based on their level
 - [x] Spellcasting while wearing body armor will negatively affect your spell success rate.
@@ -1441,6 +1464,8 @@ Dragons and Dragon Scales
     - It's target temporarily becomes vulnerable to either fire, cold, shock or acid-based attacks,
       dropping its resistance (if any exists) by 50%.
 
+[x] Fix unstoning monster spell timeout. Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).
+
 ## Artifacts:
 
 **Design decision #1:**
@@ -1489,8 +1514,9 @@ Dragons and Dragon Scales
     - Deals an extra d19 to make up for solid +10
     - Shows an appropriate message for tiny monsters.
 - [x] Drowsing Rod (Hack'EM)
-    - (Staff of Healing)
-    - Attacks with a 25% chance of sleep gas from the head of the staff - so breathless monsters are not affected.
+    - (Staff of Healing) +d5 to-hit, +d8 dmg
+    - This is meant to simulate the original drow attack from slashem, so 19 in 20 times the sleep attack triggers for 2d4 turns.
+    - It's a gas vapor attack so breathless monsters are not affected.
     - Grants sleep res
     - Healer's first sac gift.
 - [x] Elfrist
@@ -1532,6 +1558,7 @@ Dragons and Dragon Scales
 - [x] Origin
     - The spellboosting mechanic wasn't implemented in splice, so I just changed it to a STAFF_OF_ESCAPE.
 - [x] Plague
+    - confers sickness res while carried (from dnh)
 - [x] Poseidon's Trident
 - [x] Pridwen
     - Also grants STABLE.
@@ -1584,6 +1611,9 @@ Dragons and Dragon Scales
     - Can now #invoke for 1 of 10 random "storm" related pets:
 - [x] Great Dagger of Glaurgnaa (Necromancer)
     - Only confers MR when wielded.
+    - [x] Grants double spirit bonuses when carried
+	- [x] Also triples the radius of spirit auto-collection when carried.
+
 - [x] Crown of Saint Edward (Yeoman)
     - Only confers MR when worn.
 - [x] Stake of Van Helsing (Undead Slayer)
@@ -1594,12 +1624,14 @@ Dragons and Dragon Scales
     - Replaces the Iron Ball of Liberation
     - Carrying the spoon confers free action
 - [x] Staff of rot (Chaotic Quest, chaotic aligned)
+    - Base item: Staff of Necromancy
     - Wielded by Acererak. Very strong, but with a cost..
     - Has a special wither attack
     - While wielding, passive wither attack (and inflicts occasional fear)
     - If you are wielding and withering, you deal double damage.
     - #invoke for withering and aggravate monster
     - Cannot be wished for.
+    - 
 - [x] Xanathar's Ring of Proof (Neutral Quest, neutral aligned)
     - Base item: Ring of See Invisible
     - Guarded by Xanathar
@@ -1719,13 +1751,14 @@ Dragons and Dragon Scales
 
 - Forges are introduced, which have the same appearance as fountains but are orange in color. Just like fountains, dipping things into them can have desirable or adverse affects. They can be used to dispose of anything that is flammable, and can also be used to repair corrosion/rust damage to any metallic object (if your luck is greater than 0). There is a rare chance that a lava demon can be summoned via dipping, which will be hostile most times, but can sometimes spawn tame (same odds as getting a wish from a water demon/fountain). Having negative luck can cause a forge to explode when used, which can cause considerable fire damage. Players can also use a forge to remove an attached ball & chain, and can also combine two objects to forge something new using the #forge command.
 - [x] Added new recipes for various imported weapons
-- [x] Forges don't appear until after level 5.
+- [x] Forges don't appear until after level 2.
 
 ## Mechanics:
 
 - [x] If the player tries to hit a monster with a weapon they are restricted/unskilled in, or any non-weapon object, they'll never have better than a 75% chance of landing a hit (bare-handed is exempt).
 - [x] The player is unable to regenerate hit points while in the Valley of the Dead – healing via other methods (potions, healing spells) is still possible.
 - [x] Stoning – monsters being stoned is a slow-stoning process, just as it is for the player.
+- [x] Merged scimitar and saber skills.
 
 ### Elbereth
 - You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
@@ -1849,6 +1882,25 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     (This means the VoTD priest is always hostile now - no free donates kiddies!)
 - Sacrifice offerings can sometimes bless random objects (From SlashEM)
 
+#### Minions
+
+- Slashem had a mechanic for getting aligned minions as gifts from your god when you sacrifice or pray with low health. I ported most of this mechanic over but added some severe limitations because in my opinion, minions were broken in slashem and too easy to obtain (Lawfuls could get Solars and Planetars!).
+- Here are the new limitations; minions will no longer be granted when:
+    - You are over level 14.
+    - You have been crowned
+    - You have completed the quest
+    - You have been expelled from the quest
+    - You have pets on the current level. 
+- Currently, the pets you receive are not coded as "minions", so they don't have the limitations that they did in slashem. This is subject to change and playtesting.
+
+#### Dungeon growth patch
+
+- Another feature ported over from Slash'EM
+- This enables trees to slowly branch out in the dungeon and occasionally drop ripe fruits/leaves.
+- It also promotes the growth of herbs left on the ground or water.
+- Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles: these include garlic, wolfsbane, catnip, carrots, and kelp fronds. Herbs in the water will move with water currents.
+- One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
+
 ## Dungeon Changes:
 
 - [x] Extend main dungeon: Now 31-34 levels deep
@@ -1867,6 +1919,8 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - Removed river/sewage generation from Gnomish Mines
     - Gnomish mines monsters will usually be undead if you are dwarf/gnome/hobbit (from SlashEM)
       - This can make the mines a very dangerous place so beware!
+      - Update: Instead of making this dependant on your alignment, I have changed the chance a regular monster being undead to scale with the dungeon deptch. At the top of the mines, undead should be quite rare, but at mine's end beware.
+
     - Imported minetown variants: 
         - Mini-Castle (SlashTHEM)
         - Creek Town (SlashTHEM)
@@ -1920,7 +1974,8 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - Grunds downstairs are behind the throne.
     - Added a phase blocking line to middle of Grunds stronghold
     - Made moat 2 tiles wide; can be lava, water, or sewage.
-
+    - Grund must be defeated to take the downstairs
+    - Grund must be defeated to take the upstairs on Grunds Stronghold if you have the amulet. (Infidels take notice!)
 - [x] Extended Wyrm Caves branch (Appears level 21-22)
     - 9-13 levels deep
     - Has standard mines fill levels - but with the rivers mixed in.
@@ -1971,6 +2026,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Migo Hive (Slash'EM)
 - [x] Dragon Lair (Slash'EM)
 - [x] Real Zoo (Slash'EM)
+    - Added zoo bats
 - [x] Bad Food Shop (Slash'EM)
     - Full of bad food and rotten eggs.
 - [x] Giant Court (Slash'EM)
@@ -1979,7 +2035,9 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - These replace the Guild of Disgruntled Adventurers in Slash'EM. 
     - Much smaller, less densely packed with player monsters
     - other monsters include typical pets.
-
+- [x] Clinic room (SlashTHEM)
+- [x] Terror hall (SlashTHEM)
+    - Only appears after level 15.
 ### Themed Rooms:
 
 - Evilhack already had most of the themed rooms but I added more.
@@ -2063,12 +2121,94 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Only starts with 1 ring.
 - Enabled necromancer to reach expert in polearms (for access to scythes)
 - Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
+- The necromancer's starting ghoul has the ghoulname option available.
+
+With inspiration from Aosdict's ideas, the Necromancer role has been overhauled with a new approach.
+
+##### Spirits
+
+- When playing as a necro, monsters that die drop "spirits". These are auto-collected as you walk over or adjacent to them.
+- Spirits show up as a light-blue '~' symbol.
+- Nonliving monsters do not leave spirits
+- Spirits cannot be picked up by you or other monsters - they will disappear as soon as anything tries to pick them up. If wished for, they will be absorbed immediately into your being.
+- Spirits will fade away quickly, so don't let them sit around. On graveyard levels, they get a much higher timeout.
+- Very rarely, spirits will sometimes turn into will-o'-the-wisps when they fade. On swamp levels this is much more common. 
+- Spirits generate when graves are dug up.
+- Spirits generate in morgues (on the corpses of dead players)
+- Multiheaded monsters drop more spirits (hydras, ettins, 2-headed trolls)
+- Some classes and specific monsters will also want your spirits so try to collect them before they do!
+    - L/W/A/&
+    - Valkyries, Necromancers, shades, specters, weredemons, aloons
+- Tame undead will not try to eat your spirits.
+
+##### Benefits from harvesting spirits
+    
+    Heals HP:
+    - [x] Level 1: Spirits heal 1HP 
+    - [x] Level 4: Spirits heal (monster's level / 2) HP + 1 
+    - [x] Level 8: Spirits heal (monster's level) HP + 1 
+    
+    Renews magical power:
+    - Necromancers do not regenerate magical power as other roles do. To renew your MP, you will have to collect spirits or find some other means (potions of gain energy, scrolls of charging, etc)
+
+    - [x] Level 1: Spirits grant (monsters level / 2) MP (minimum of 1).
+    - [x] Level 11: You get the monster's full level value in MP.
+
+##### Necromancer intrinsics changes
+
+- [x] Level 1: Fear Resistance
+    - Not afraid of "fear attacks", ie: dragons, banshees, bodaks
+    - Not afraid of ghosts or temple ghosts.
+- [x] Level 1: Drain resistance
+- [x] Level 3: Undead warning
+- [x] Level 18: Sickness resistance
+- [x] Level 18: Poison resistance
+
+##### Necromancer gameplay changes
+
+- [x] Necromancers can eat wraiths with the vanilla success rate.
+- [x] Undead will never betray Necromancers (lots of undead are treacherous in HackEM, so charm monster isn't as reliable as it used to be...)
+- [x] Like convicts, Necromancers now cannot tame anything other than undead. Instead of taming, the best that occurs will be pacifying the target. 
+
+- Instead of starting with a pile of books or learning techniques, the Necromancer learns special Necromancy spells as they level up. As a holdover from Slash'EM, they still do start with the spell and spellbook of Drain Life.
+- When the following spells are learned - the Necromancer gets them for 100000 turns instead of the standard 20000. This is meant to simulate techniques, but also to encourage use of them throughout the entire game.
+
+- [x] XP 2: CALL_UNDEAD (Level 1 spell)
+    - When cast, acts like a magic whistle for undead.
+- [x] XP 3: RAISE_ZOMBIES (Level 2 spell)
+    - Adapted from the SlashEM Raise Zombies technique
+    - Attempts to revive all corpses in adjacent squares and turn them into an appropriate zombies. Other humanoids will become a ghoul 3/4th of the time or a ghast the remaining 1/4th.
+	- There is no effect on non-humanoid corpses.
+    - An attempt will be made to tame the resulting undead with the same chances as casting charm monster. The undead will always be hostile if not tamed. You will be unable to move for 2 turns even if there was no effect, and the technique will be usable again after 1000-1500 turns.
+
+- [x] XP 7: COMMAND_UNDEAD
+    - This spell is equivalent to charm monster, except that it only affects undead.
+- [x] XP 9: SUMMON_UNDEAD
+    - 72 in 73 chance of creating one undead monster and a 1 in 73 chance of creating five undead. 
+	- Necromancer they will automatically attempt to dominate the resulting monster(s). Monster(s) may resist, based on their MR.
+- [x] XP 14: ANIMATE_DEAD
+    - Adapted from the SlashEM Revivication technique
+    - brings a dead corpse back to life, possibily as a pet. (Flagged as undead?)
+    - https://nethackwiki.com/wiki/Revivification
+    
+		(mon)->data->mhflags)
+		
+
+- [x] XP 17: SPIRIT_BOMB (Level 5 spell)
+    - - Adapted from the SlashEM Spirit Bomb technique
 
 #### Undead Slayer
 
 - Starting jacket is always leather
 
 #### Yeoman
+	
+- green coat and hood. 
+- Starts with a horn.
+- Starts with a torch.
+- axe - can reach skilled
+- can reach skilled in daggers
+
 
 ### Existing role changes
 
@@ -2086,13 +2226,15 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - riding skill from basic to skilled. 
 - Attack spell school removed. Special spell changed to cause fear.
 
-#### Caveman
+#### Caveman/Cavewoman
 
 - gets nightvision radius 2 (From SlashEM)
 – all spell schools removed, has 20% chance of failing to read any spellbook, regardless of its BUC status.
 - Can bang rocks together to make flint, can lash flint to arrows, making them more deadly.
 - Staying illiterate can increase maximum hit point gain per level-up. 
 - Are the only role that can successfully tame and ride saber-toothed tigers.
+- Starting pet is a wolf (From UnNethack)
+- Brought over the wolfname option, so you can set it in your options file.
 
 #### Healer
 
@@ -2103,6 +2245,8 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Gets poison resistance intrinsic at experience level 3 instead of experience level 1. 
 - Trades warning intrinsic for sick resistance at experience level 15. 
 - Can sense how wounded a monster is when attacking it, can also sense the wounded status of its pets.
+[x] Healers get +1 blessed scalpel now.
+
 
 #### Knight
 
@@ -2295,17 +2439,19 @@ usually enjoy.
 - Nymphs ID rings/potions
 - Hobbit: ID rings/food
 - Illithid: ID spellbooks/scrolls
+- Racial services are offered 25% of the time.
 
 #### New shop types:
 
 - [x] Pet Shops (From unnethack)
 - [x] Instrument Shop (From unnethack)
 - [x] Tin Shop ("canned food factory") (From unnethack)
-- [x] junk shop
-    - Added fly swatter, rubber hoses, bag of rats, iron chain, tin opener, 
-- [x] archery shop
+- [x] junk shop (from SpliceHack)
+    - Added fly swatter, rubber hoses, bag of rats, iron chain, tin opener.
+- [x] archery shop (from SpliceHack)
     - Crossbows and bolts can now appear in archery shops.
-- [x] mask shop
+- [x] mask shop (from SpliceHack)
+- [x] Gun shops (from SlashTHEM)
 
 ## Credits
 
@@ -2317,294 +2463,3 @@ usually enjoy.
 
 
 ==========================
-
-[x] Vanilla Rodney - way less annoying.
-	Rodney Only gets the "oMR 1in 13 times.
-	Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8);
-	221cd15eb
-	
-[x] Check that our elves in monsters, are lawfully aligned.
-	
-[x] Reduce the chances of undead by scaling with level depth
-[x] General stores offer 0-3 identify. 10% chance of offering 1 more.
-[x] Add steel ring mail to exclude in auto-pickup
-[x] Put forges after level 2?  They would really help beefing up early weapons...
-[x] Make plastic orbs/etc a LOT more rare from plastic golems.
-	Lower plastic golem HP?
-[x] Drowsing rod: Make it more like drow attack: 2d4 for sleep time.
-	Almost always executes the special - but to-hit is only ~d2 or even 1
-[x] The squealer screams.	
-[x] Fix unstoning monster spell timeout. Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).
-[x] UnNethack UnNethack gives Cavepeople a bit of help at the beginning: their starting pet is a wolf.
-
-[x] Healers: get +1 blessed scalpel is a better starting weapon.
-- [x] Merge scimitar and saber skills.
-	
-- [x] Can lightsabers open iron safes
-- [x] Lightsabers can cut through iron bars?
-[x] Grund must be defeated to take the downstairs
-[x] Grund must be defeated to take the upstairs on Grunds Stronghold if you have the amulet. (Infidels beware!)
-	
-	- [x] slaughter wights release a death wail when slain. 2d18 sonic damage, Stuns
-
-[x] Imported clinic room
-[x] Imported terror hall
-[x] Import gun shops
-
-Added zoo bats to real zoo
-
-Yeoman:
-	[x] green coat and hood. 
-	[x] Starts with a horn.
-	[x] Starts with a torch.
-	[x] Starts with a bow & peacock arrows - can reach expert (footbow?)
-	[x] axe - can reach skilled
-	[x] can reach skilled in daggers
-
-
-[FIXED] when I throw/kick a wand of water: "You fire off a powerful jet of water!" 
-	
-	
-Necromancer role (with suggestions from Aosdict)
-	1) Spirits
-	- [x] Only playing as a necro, dying monsters drop "spirit"/"soul" objects, which necros can collect. 
-	- [x] Killed monsters drop spirits
-	- [x] They drop 100% from monsters you personally kill 
-	- [skipped] They drop less for monsters that die otherwise. 
-	- [skipped] They never drop for monsters that kill themselves.
-	- [x] we can collect them by picking them up or autopickup
-	- [x] we can collect them by walking over or adjacent to them (sym=1)
-	- [x] If a monster drops a spirit adjacent to you, you autocollect it.
-	- [x] Spirits vanish after a while, so you can't sit back and let conflict mop up a room and then collect everything.
-	- [x] Spirits do not enter your inventory - they either take the place of energy, or have a new stat.
-	- [x] Create a necromancy spell class
-	- [x] Get rid of the CLERIC spell class, it seems useless and unfocused. (create new branch)
-	- [x] Rework the special staves to allow an undead one.
-	- [x] Necromancers auto-pickup adjacent spirits?
-	- [x] Gathering spirits adds to our power??
-
-
-		
-	SPIRIT_CLASS
-		- Spirits don't take up inventory space - when picked up they assimilate into the necromancer's power.
-			we should still be able to pickup with 52 items and gold.
-		- Should not be able to interact with it in inventory:
-			No wield, wear, eat, quaff, apply, #rub, etc.
-		- Maybe we *can* eat it however?
-		- def_char_to_objclass
-		- const struct class_sym def_oc_syms[MAXOCLASSES] = {
-				{ VENOM_SYM, "spirits", "spirit of a monster" }
-		
-		[x] objnam
-		[x] farlook
-		[x] pickup for starts.
-		[x] int uspirits; 
-		[x] Added ~ to possible mimic symbols
-		[FIXED] Shows up under "Things that are here:" but not "Pick up what?"
-		[x] Spirits should have different qty based on monster level...
-		[x] Spirits have a fadetimer... ~250-750 turns?
-			[x] TTAB(spirit_fade, (timeout_proc) 0, "spirit_fade")
-			[x] #define MAX_SPIRIT_FADE_TIME 1000 /* longest a spirit hangs around */
-			kill_egg(egg) ?
-			[x] attach_spirit_fade_timeout(spirit, when)
-			[x] spirit_fade(arg, timeout)
-		[x] Nonliving monsters do not leave spirits
-	
-	4) [x] Use these spirits to fuel the casting of necromancy spells, maybe a new school. 
-		[x] Necromancy spells consume some Pw but the spirits are the main fuel. Spell ideas:
-	
-	[x] summon undead
-		72 in 73 chance of creating one undead monster and a 1 in 73 chance of creating five undead. 
-		 Necromancer they will automatically attempt to dominate the resulting monster(s). 
-		 monster(s) may resist, based on their MR.
-	
-	[x] Charm undead: 
-		low cost, only works on undead.
-		We already have command undead
-	
-	[x] Raise zombies:
-		Technique in slashem...
-		- Attempts to revive all corpses in adjacent squares and turn them into an appropriate zombies. 
-		- Kobold, gnome, elven, human, ettin, and giant corpses will result in the corresponding zombie type. 
-		- Goblin corpses will result in orc zombies.
-		- Other humanoids will become a ghoul 3/4th of the time or a ghast the remaining 1/4th.
-		- There is no effect on non-humanoid corpses.
-
-		An attempt will be made to tame the resulting undead with the same chances as casting charm monster. 
-		The undead will always be hostile if not tamed. You will be unable to move for 2 turns even if there was no effect, and the technique will be usable again after 1000-1500 turns.
-
-
-	[DEFERRED] unnamed: Consume souls of one species; polymorph into that monster.
-	
-	[DEFERRED] unnamed:
-		Consume 5-10 spirits of one monster type and create a tame monster of that type without a corpse.
-		
-	- [skipped] Lvl 7: Animate Major Undead: 
-		raise any corpse that is Huge or smaller of a monstrosity, humanoid, or beast with challenge rating 3 or lower can be animated. It keeps its original abilities and attacks, multiattack, but loses any resistances, immunities, legendary actions, senses it had and gains the immunities and vulnerabilities of its type, skeleton or zombie. 
-	
-	[FIXED] Monsters can hide under spirits.
-	[s] Some monsters can eat/use up spirits: L/W/A/&, Valkyries, Necromancers
-		[x] Wishing for spirits results in them immediately collected.
-	[x] Added other soul eaters: shades, specters, weredemon, aloon
-		- [skipped] Should not be able to kick on floor. Or they dissapate...
-	
-		[x] In sanity check - add check to make sure no spirits are ever in inventory.
-	[x] Monsters cannot pick up spirits
-	
-	Consume souls/Soul Harvest: Regain HP or Pw.
-		[x] Level  1: You get the monsters level / 2 in power
-		[x] Level  7: You get the monster's level /2 in HP? 
-		[x] Level 11: You get the full monster's level in power
-		[x] Level 17: You get the full monster's level in HP? 
-
-		/* Needs consideration - 
-		[ ] Level  1: You get the monsters level in nutrition
-		[ ] Level 11: You get the full monster's level in nutrition
-	[ ] Can we choke on spirit?
-
-	[x] Start with a "Call Undead" spell - level 1, acts like a magic whistle for undead.
-		Makes your starting ghoul much better.
-		
-	[x] Necromancers cannot tame or pacify anything other than undead.
-		Like convicts. No cheese for rats, No catnip for cats, No bananas for monkeys, etc
-
-[x] Spirits fade time is ~10-50 turns
-
-	
-	[skipped] Life Tap 
-		- (level 1) Life drain touch attack. 
-		-  melee spell attack against a living creature, dealing necrotic damage equal to 1d8 + your Charisma modifier on a hit. 
-		You gain temporary hit points equal to the amount of necrotic damage dealt. 
-		If this feature kills the creature, you gain twice as many temporary hit points from using this feature. The damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8). You may use this feature a number of times equal to your Charisma modifier(minimum one) and you regain all uses of this feature at the end of a long rest.
-
-	[x] Spirits sometimes turn into willo's 
-
-	[x] Lvl 18: Macabre.  immune to poison damage, diseases,poisoned conditions.
-	[x] Level 11:  Necro is Immune to frightened condition?
-	[x] The Great Dagger of Glauragnaa: Grants double spirit bonuses?
-	[x] The Great Dagger of Glauragnaa: Triples the radius of spirit collection
-	[skipped] Create wight: works like reanimate creature, but the resulting creature gets level drain abilities.
-	[skipped] Do Spirits need to merge?
-
-	- [x] On graveyard levels, spirits last 2000 turns.
-	- [x] Spirits generate when graves are dug up.
-	- [x] Spirits generate in morgues (on the corpses of dead players)
-	- [x] By default, spirits are usually made off the range of player monster types.
-	- [x] Massacre rooms have lots of spirits.
-	- [x] Handle making spirits so that they are random player monster types.
-	- [x] Necromancers should not be afraid of ghosts either.
-	- [x] On swamp levels, will-o-wisps spawn much more commonly - 1 in 10?
-	- [x] Spirits generate in bones traps
-	- [x] Multiheaded monsters drop more spirits (hydras, ettins, 2-headed trolls)
-
-
-	[x] Reanimate creature/animate dead: 
-		- brings it back to life as a pet. (Flagged as undead?)
-		- Animate Dead is a third-level spell of the School of Necromancy and is the backbone of any Necromancer's arsonal.
-		 casting time of one minute
-		- When casting Animate Dead using a spell slot above third level, you can animate the remains of not one, but two additional creatures. This means that through the use of several higher-level spell slots, a single Necromancer can control a sizable swarm of undead with ease.
-		- https://nethackwiki.com/wiki/Revivification
-		
-		(mon)->data->mhflags)
-		
-			 
-	- [skipped] Spontaneous Unburial: 
-		You may cast the spell animate dead as an action and you do not require a corpse or pile of bones to do so; the skeleton or zombie will claw its way up from underground and acts on your next turn. In addition, you learn the spell animate dead.
-	
-	[FIXED] Necromancer starting with 0 Necromancy skill
-	
-	[x] We can force_learn_spells - to emulate techniques.
-		
-		
-	[x] Add traitor to all pirates
-[x] Remove lesser nightmare, nightmare from traitors
-
-
-	[x] If you have tame undead - make sure they don't eat your spirits (W/L)
-
-	
-	[x] Undead won't betray Necromancers
-		That can be the tradeoff for Charm Monster - All undead will betray.
-		
-		
-
-	[skipped] Haunted Implement: 
-		Infuse your weapon/armor/other gear with souls, making it more effective for a time.
-		
-
-
-
-
-	[ ] Necro meta strat: Forcing a Worm that Walks to generate, then taming it or stealing it's executioner's mace.
-
-[x] Mushrooms can generate in fungus farms
-[x] Make sure zombie dragons are handled correctly
-	Dragons can raise as zombies...
-	[x] Update mkundead: Include mummies
-	
-	[x] Terror hall and clinic string formatting - in sounds.
-
-	[x] Comparison warning.
-
-	[x] Vibrating square warnings
-
-	[x] Switch footbow back to polearm. Yeoman really should be the polearm role...
-
-
-Need player monsters for Flame Mage, Ice Mage, Necromancer, Yeoman, Undead Slayer?
-
-new roles and races, just a reminder that you need to 
-handle the monster counterparts in 
-	[x] align_randrace(mon.c) and 
-	[x] m_randrace(mon.c). 
-	[x] init_mplayer_erac(mplayer.c)	(maybe)
-	[x] generate male and female vampire names now
-	[x] inventory stuff elsewhere in mplayer.c
-
-
-
-- [x] make_mon - Complete slashem roles
-	- [x] Necromancers warning of undead doesn't work.
-	- [x] SPE_RAISE_ZOMBIES - needs to pass in spellbook to tamedog also.
-	
-	- [x] Get summon/command undead at 7 and 9.
-	- [x] When you learn a spell it's 100k turns.
-	- [x] Call Undead is lev 1.
-	- [x] Raise Zombies - Level 3
-	- [x] They should have crossbow skill ~skilled?
-	- [x] Saber -> basic
-	- [x] knife -> basic?
-	- [x] Give the necro a little food to start with...
-	- [x] Spirits always heal 1HP + any other bonuses.
-
-	
-		- [x] Lower shopkeeper identify odds for racial?  Instead of 50%, maybe 25%?
-		
-	- [x] Necromancers can eat wraiths with the vanilla success rate.
-	
-		[x] Plague now confers sickness res while carried.	
-	https://nethackwiki.com/wiki/DNetHack_artifacts#Plague
-	
-- [x] ghoulname for necromancers
-	- [x] Wolfname for caveman, icemages
-	
-		[x] Soul blast:
-		consumes multiple spirits, produces an attack whose power is proportionate to the total monster difficulty of the expended spirits. (Copy monks spirit bomb)
-		https://nethackwiki.com/wiki/Spirit_bomb
-	
-	
-
-[x] Raise zombies says we dominate it even if we don't tame it.
-
-	- [x] Rename scroll of genocide to scroll of anhillation
-
-	- [fixed] (q)uaff, brings up tools in the list
-	
-	
-
-[x] dungeon growth patch
-	[x] dec47ae - Merge Pasi Kallinen's dungeon growth patch
-	[x] 653f317 - Fix for the dungeon growth patch. (Pasi Kallinen)
-	[skipped - don't need?] 97ace62 - Don't grow petrified trees. (20 years ago) <prousu>
-	[x] Change pinch of catnip to sprig of catnip - add to herbs.
-
