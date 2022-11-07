@@ -24,7 +24,6 @@
 - Role changes
 - Race changes
 - Shops/Shopkeeper Services
-- Nerfs
 
 ## Monster changes
 
@@ -246,10 +245,10 @@
 - (q) grizzly bear
     - Changed color to red to avoid clashing with manticore
 - (q) chimera
-    fire-breathing 3d6
+    - fire-breathing 3d6
 - (q) hippo
 - (q) hellbear
-- (q) Woolly mammoth
+- (q) woolly mammoth
 - (r) rabbit
     - Can be tamed with carrots (not rabid rabbits though.)
 - (r) black rat
@@ -258,7 +257,7 @@
     - Added berserk
 - (r) pack rat
     - Made a little tougher
-    - Now level 2; Added M2_COLLECT | M2_STRONG | M2_FLANK
+    - Now level 2; Added M2_COLLECT, M2_STRONG, M2_FLANK
 - (r) hellrat
 - (r) giant badger
     - Changed to rodent class to match honey badger, was 'q' in slashem
@@ -267,6 +266,7 @@
     - Made badgers immune to poison gas (immune their own stink)
     - Added Berserk
 - (r) honey badger
+  - Ignores Elbereth
 - (r) skunk
 - (r) hedgehog
     - Previously occupied the 'q' slot
@@ -349,7 +349,7 @@
 - (B) athol
     - Added "ahool!" sounds that aggravate monsters.
     - Alert to presence of athols, you hear a distant howl
-    - Increased difficulty of athols
+    - Increased their difficulty
 - (B) hellbat
 - (B) mongbat
 - (B) mobat
@@ -357,7 +357,7 @@
     - Added piercing screams that cause pain
 - (B) harpy
     - can start with jewelery.
-    - use primitive weapons, big bones/clubs, sometimes bows
+    - uses primitive weapons, big bones/clubs, sometimes bows
     - Added song attack that can paralyze from a distance.
     - Changed #chat voice to MS_SEDUCE (could be better...)
 - (B) byakhee
@@ -385,9 +385,9 @@
 - (D) pseudodragon
 - (D) elder pseudodragon
 - (D) ancient pseudodragon
-- [x] Father Dagon
+- (D) Father Dagon
     - Not used yet
-- [x] Mother Hydra
+- (D) Mother Hydra
     - Not used yet
 - (E) mud elemental
     - Added engulf attack (like water elemental)
@@ -410,7 +410,7 @@
 - (F) shrieker
     - Added sonic resistance
 - (F) screamer
-    - Has a touch attack, but removed the "touches you" msg.
+    - Has a sonic touch attack, but removed the "touches you" msg.
 - (F) dungeon fern/dungeon fern sprout
     - added acid res
     - Changed color to White
@@ -447,7 +447,7 @@
 - (L) eye of fear and flame
 - (L) worm that walks
 - (M) troll mummy 
-    - Added regen and stalk, revival works fine.
+    - Added regen and stalking
 - (M) adherer
 - (M) hobbit mummy
 - (M) centaur mummy
@@ -457,7 +457,7 @@
 - (O) shadow ogre
     - Gave a frequency of 2; let them appear in the main dungeon 
     - Made poison, drain & death resistant and vulnerable to fire. 
-    - can darken lit areas.
+    - darkens lit areas as they move.
 - (P) moldy pudding 
     - added vulnerability to fire
 - (P) shoggoth
@@ -485,7 +485,7 @@
     - Added vulnerability to shock
 - (U) umbral hulk
     - they have a darkness movement, litroom_mon
-- (U) hunger hulk"
+- (U) hunger hulk
 - (U) slumber hulk
 - (U) shambling horror
     - Traitorous
@@ -499,11 +499,9 @@
 - (W) banshee
 - (W) slaughter wight
     - A HackEM original!
-    - Renamed wight to slaughter wight. Added infravision, ACCURATE, BERSERK, and STRONG.
-    - slaughter wights have 2 Melee slams: (1d6+6 plus energy drain)
-    - slaughter wights life and energy drain (1 level, DC 19) 
-    - slaughter wights have AC 18: -8?
-    - Made slaughter wights a red W.
+    - Added infravision, ACCURATE, BERSERK, and STRONG. -8 AC
+    - Has 2 powerful melee slams: (2d18 drain energy/clobber)
+    - Also has drain life attacks.
     - Releases a nasty death wail when slain. 2d18 sonic damage, Stuns
     - Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
 - (Y) zruty
@@ -514,7 +512,7 @@
 - (Z) ghoul mage
 - (Z) ghast
     - Ghasts gain a level for every corpse they eat.
-    - Ghast's bite attack now scales with their level."
+    - Ghast's bite attack now scales with their level.
 - (Z) ghoul queen
 - (Z) revenant
 - (Z) gug
@@ -542,8 +540,7 @@
     - Changes color every turn
 - (@) gibberling
     - Hates light
-    - Carry crude weapons made from bone or dull short swords
-    - Gibberlings get a sonic attack: Stuns, confuses, etc. Similar to a cursed unihorn
+    - Gibberlings get a sonic attack: Stuns, confuses, etc (Similar to a cursed unihorn)
     - Can infect monsters/players with gibberslug larva.
 - (@) grimlock
     - Hates light and can stalk you.
@@ -556,7 +553,7 @@
 - (@) general
 - (@) bandit
 - (@) peasant
-    - Can start with scythes
+    - Can start with a scythe
 - (@) bards
 - (@) musicians
     - (for village; used apprentice tile)
@@ -584,10 +581,9 @@
     - Bar-Lgura are telepath, can jump, see inv
 - (&) chasme
     - Added telepathy, see invisible, resistance to acid, cold, and shock.
-    - Added high MR of 70?
+    - Raised MR to 70
 - (&) babau
-    - Babau have 1 horn.
-    - Babau have thick leathery hide.
+    - Babau have 1 horn and a thick leathery hide.
     - Added a passive corrosion attack (from their acidic greasy hide)
     - Babau usually use two-handed swords or spears.
 - (&) nabassu
@@ -596,7 +592,8 @@
     - Nabassu can cause victims(you) to rise as a ghast. 
     - Nabassu get a gaze life drain attack
     - Nabassu darken their environment when moving
-- (&) armanite - fast demon
+- (&) armanite
+  - fast demon from splicehack
 - (&) damned pirate
 - (&) spibrawulf
 - (&) Cthulhu
