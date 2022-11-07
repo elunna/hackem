@@ -1384,6 +1384,8 @@ struct monst *shk;
     /* Rumours: Each shk has a small chance of offering cheap rumors */
     if (!rn2(20))
         ESHK(shk)->services |= SHK_RUMOR;
+    
+    ESHK(shk)->services |= SHK_FIREARMS;
     return;
 }
 

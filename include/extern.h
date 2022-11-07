@@ -3090,6 +3090,7 @@ E void FDECL(wet_a_towel, (struct obj *, int, BOOLEAN_P));
 E void FDECL(dry_a_towel, (struct obj *, int, BOOLEAN_P));
 E char *FDECL(skill_level_name, (int, char *));
 E const char *FDECL(skill_name, (int));
+E int FDECL(slots_required, (int));
 E boolean FDECL(can_advance, (int, BOOLEAN_P));
 E int NDECL(enhance_weapon_skill);
 E void FDECL(unrestrict_weapon_skill, (int));

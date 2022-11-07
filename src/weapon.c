@@ -13,7 +13,6 @@
 STATIC_DCL void FDECL(give_may_advance_msg, (int));
 STATIC_DCL boolean FDECL(could_advance, (int));
 STATIC_DCL boolean FDECL(peaked_skill, (int));
-STATIC_DCL int FDECL(slots_required, (int));
 STATIC_DCL void FDECL(skill_advance, (int));
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 
@@ -1621,7 +1620,7 @@ int skill;
 }
 
 /* return the # of slots required to advance the skill */
-STATIC_OVL int
+int
 slots_required(skill)
 int skill;
 {

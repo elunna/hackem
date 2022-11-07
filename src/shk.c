@@ -14,6 +14,7 @@
 STATIC_DCL void FDECL(makekops, (coord *));
 STATIC_DCL void FDECL(call_kops, (struct monst *, BOOLEAN_P));
 STATIC_DCL void FDECL(kops_gone, (BOOLEAN_P));
+STATIC_DCL boolean FDECL(can_practice, (int)); /* WAC for Practicing */
 
 #define NOTANGRY(mon) ((mon)->mpeaceful)
 #define ANGRY(mon) (!NOTANGRY(mon))
@@ -95,6 +96,7 @@ static int FDECL(shk_weapon_works, (const char *, struct monst *, long svc_type)
 static int FDECL(shk_armor_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_charge, (const char *, struct monst *, char svc_type));
 static int FDECL(shk_rumor, (const char *, struct monst *));
+static int FDECL(shk_firearms, (const char *, struct monst *));
 static boolean FDECL(shk_offer_price, (const char *, long, struct monst *));
 static void FDECL(shk_smooth_charge, (int *, int, int));
 /*
@@ -1937,6 +1939,13 @@ shk_other_services()
     add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
              "Rumors", MENU_ITEMFLAGS_NONE);
     
+    /* Firearms training */
+    any.a_int = 24;
+    if (ESHK(shkp)->services & SHK_FIREARMS) {
+        add_menu(tmpwin, NO_GLYPH, &any, 't', 0, ATR_NONE, "Train firearms",
+                 MENU_ITEMFLAGS_NONE);
+    }
+    
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -2014,6 +2023,9 @@ shk_other_services()
             break;
         case 23:
             result = shk_rumor(slang, shkp);
+            break;
+        case 24:
+            result = shk_firearms(slang, shkp);
             break;
         default:
             pline("Unknown Service");
@@ -4522,6 +4534,111 @@ struct monst *shkp;
     return 1;
 }
 
+/* WAC return true if skill can be practiced */
+STATIC_OVL boolean
+can_practice(skill)
+int skill;
+{
+    return !P_RESTRICTED(skill) && P_SKILL(skill) < P_MAX_SKILL(skill) 
+                                && u.skills_advanced < P_SKILL_LIMIT;
+}
+
+
+static int
+shk_firearms(slang, shkp)
+const char *slang;
+struct monst *shkp;
+{
+    int charge;
+    int weptype = weapon_type(uwep) - 1;
+    int maxoffered;
+    int progress = P_ADVANCE(weptype);
+    int threshold = practice_needed_to_advance(P_SKILL(weptype));
+    int required = practice_needed_to_advance(P_SKILL(weptype)) - progress;
+    debug_pline("P_ADVANCE(weptype) = %d", progress);
+    
+    /* Max skill store can grant */
+    if (!strcmp(shtypes[ESHK(shkp)->shoptype-SHOPBASE].name, "gun store")) {
+        maxoffered = practice_needed_to_advance(P_SKILLED);
+    } else if (shk_class_match(RANDOM_CLASS, shkp) == SHK_GENERAL) {
+        maxoffered = practice_needed_to_advance(P_UNSKILLED);
+    } else if (shk_class_match(WEAPON_CLASS, shkp) 
+             || shk_class_match(ARMOR_CLASS, shkp)) {
+        maxoffered = practice_needed_to_advance(P_BASIC);
+    } else {
+        maxoffered = 0;
+    }
+    debug_pline("maxoffered = %d", maxoffered);
+    
+    if (can_advance(weptype, FALSE)) {
+        You("should advance your skill before training more.");
+        return 0;
+    }
+    if (!uwep || (weapon_type(uwep) == P_NONE)) {
+        You("are not wielding a weapon!");
+        return 0;
+    } else if (weapon_type(uwep) != P_FIREARM) {
+        You("are not wielding a firearm!");
+        return 0;
+    } else if (P_SKILL(weptype) >= P_MAX_SKILL(weptype)) {
+        You("cannot increase your skill in %s.", weapon_descr(uwep));
+        return 0;
+    } else if (!can_practice(weptype)) {
+        You("cannot learn much about %s right now.", weapon_descr(uwep));
+        return 0;
+    }
+#if 0
+    if (u.weapon_slots < slots_required(weptype)) {
+        You("don't have any skill slots open for the training!");
+        return 0;
+    }
+#endif
+    if (progress == threshold) {
+        You("are unable to learn more at this time!");
+        return 0;
+    }
+    if (progress >= maxoffered) {
+        pline("I have nothing to teach you!");
+        return 0;
+    }
+    
+    /* Determine skill level and charge:
+     * Unskilled -> Basic = $500    (General stores will offer this)
+     * Basic -> Skilled = $1000     (Weapon/Armor shops can offer this)
+     * Skilled -> Expert = $2000    (Only available at gun shops)
+     */
+    if (progress < practice_needed_to_advance(P_UNSKILLED))
+        charge = 500;
+    else if (progress < practice_needed_to_advance(P_BASIC))
+        charge = 1000; 
+    else if (progress < practice_needed_to_advance(P_SKILLED))
+        charge = 2000;
+    else
+        impossible("Weird firearms skill level!");
+        
+    /* Go ahead? */
+    if (shk_offer_price(slang, charge, shkp) == FALSE) 
+        return 0;
+
+    if (not_fully_identified(uwep)) {
+        pline("%s examines %s.", mon_nam(shkp), doname(uwep));
+        if (rnd(15) <= ACURR(A_INT)) {
+            makeknown(uwep->otyp);
+            uwep->known = TRUE;
+            pline("This is %s", doname(uwep));
+        } else
+            pline("Unfortunately, nothing new turns up.");
+    }
+    
+    You("start practicing intensely with %s", doname(uwep));
+    /*delay = -10;*/
+    /*set_occupation(practice, "practicing", 0);*/
+    You("finish your practice session.");
+   
+    use_skill(weptype, required);
+    
+    return 1;
+}
 
 /*
 ** Tell customer how much it'll cost, ask if he wants to pay,
