@@ -30,7 +30,7 @@ static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 #define PN_HEALING_SPELL (-10)
 #define PN_DIVINATION_SPELL (-11)
 #define PN_ENCHANTMENT_SPELL (-12)
-#define PN_CLERIC_SPELL (-13)
+#define PN_NECRO_SPELL (-13)
 #define PN_ESCAPE_SPELL (-14)
 #define PN_MATTER_SPELL (-15)
 #define PN_LIGHTSABER	(-16)
@@ -72,7 +72,7 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     PN_HEALING_SPELL, 
     PN_DIVINATION_SPELL,
     PN_ENCHANTMENT_SPELL, 
-    PN_CLERIC_SPELL, 
+    PN_NECRO_SPELL, 
     PN_ESCAPE_SPELL, 
     PN_MATTER_SPELL,
     /* Other */
