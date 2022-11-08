@@ -4573,8 +4573,7 @@ struct monst *shkp;
     if (can_advance(weptype, FALSE)) {
         You("should advance your skill before training more.");
         return 0;
-    }
-    if (!uwep || (weapon_type(uwep) == P_NONE)) {
+    } else if (!uwep || (weapon_type(uwep) == P_NONE)) {
         You("are not wielding a weapon!");
         return 0;
     } else if (weapon_type(uwep) != P_FIREARM) {
@@ -4586,18 +4585,10 @@ struct monst *shkp;
     } else if (!can_practice(weptype)) {
         You("cannot learn much about %s right now.", weapon_descr(uwep));
         return 0;
-    }
-#if 0
-    if (u.weapon_slots < slots_required(weptype)) {
-        You("don't have any skill slots open for the training!");
-        return 0;
-    }
-#endif
-    if (progress == threshold) {
+    } else if (progress == threshold) {
         You("are unable to learn more at this time!");
         return 0;
-    }
-    if (progress >= maxoffered) {
+    } else if (progress >= maxoffered) {
         pline("I have nothing to teach you!");
         return 0;
     }
@@ -4630,13 +4621,11 @@ struct monst *shkp;
             pline("Unfortunately, nothing new turns up.");
     }
     
-    You("start practicing intensely with %s", doname(uwep));
+    You("start training %s intensely with %s", doname(uwep), mon_nam(shkp));
     /*delay = -10;*/
     /*set_occupation(practice, "practicing", 0);*/
     You("finish your practice session.");
-   
     use_skill(weptype, required);
-    
     return 1;
 }
 
