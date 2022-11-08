@@ -281,6 +281,7 @@ E void FDECL(hangup, (int));
 E void NDECL(end_of_input);
 #endif
 E char NDECL(readchar);
+extern int do_stair_travel(char);
 E void NDECL(sanity_check);
 E char* FDECL(key2txt, (UCHAR_P, char *));
 E char FDECL(yn_function, (const char *, const char *, CHAR_P));

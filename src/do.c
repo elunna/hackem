@@ -1429,6 +1429,8 @@ dodown()
                    || !Can_fall_thru(&u.uz) || !trap->tseen) {
             if (flags.autodig && !context.nopick && uwep && is_pick(uwep)) {
                 return use_pick_axe2(uwep);
+            } else if (do_stair_travel('>')) {
+                return 0;
             } else {
                 You_cant("go down here.");
                 return 0;
@@ -1520,8 +1522,12 @@ doup()
         && (!xupladder || u.ux != xupladder || u.uy != yupladder)
         && (!sstairs.sx || u.ux != sstairs.sx || u.uy != sstairs.sy
             || !sstairs.up)) {
-        You_cant("go up here.");
-        return 0;
+        if (do_stair_travel('<')) {
+            return 0;
+        } else {
+            You_cant("go up here.");
+            return 0;
+        }
     }
     if (stucksteed(TRUE)) {
         return 0;
