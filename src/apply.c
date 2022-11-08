@@ -954,6 +954,8 @@ struct obj *obj;
                 You(look_str, "peaked");
             else if (u.uhs >= WEAK)
                 You(look_str, "undernourished");
+            else if (Afraid)
+                You(look_str, "scared");
             else
                 You("look as %s as ever.", uvisage);
         }
