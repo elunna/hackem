@@ -37,29 +37,75 @@ static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 
 STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     /* Weapon */
-    0, DAGGER, KNIFE, AXE, PICK_AXE, SHORT_SWORD, BROADSWORD, LONG_SWORD,
-    TWO_HANDED_SWORD, PN_SABER, CLUB, MACE, MORNING_STAR, FLAIL,
-    PN_HAMMER, QUARTERSTAFF, PN_POLEARMS, SPEAR, TRIDENT, LANCE, BOW, SLING,
-    PN_FIREARMS,
-    CROSSBOW, DART, SHURIKEN, BOOMERANG, PN_WHIP, UNICORN_HORN,
+    0, 
+    DAGGER, 
+    KNIFE, 
+    AXE, 
+    PICK_AXE, 
+    SHORT_SWORD, 
+    BROADSWORD, 
+    LONG_SWORD,
+    TWO_HANDED_SWORD, 
+    PN_SABER, 
+    CLUB, 
+    MACE, 
+    MORNING_STAR, 
+    FLAIL,
+    PN_HAMMER, 
+    QUARTERSTAFF, 
+    PN_POLEARMS, 
+    SPEAR, 
+    TRIDENT, 
     PN_LIGHTSABER,
-    PN_ATTACK_SPELL, PN_HEALING_SPELL, PN_DIVINATION_SPELL,
-    PN_ENCHANTMENT_SPELL, PN_CLERIC_SPELL, PN_ESCAPE_SPELL, PN_MATTER_SPELL,
+    LANCE, 
+    BOW, 
+    SLING,
+    PN_FIREARMS,
+    CROSSBOW, 
+    DART,
+    SHURIKEN, 
+    BOOMERANG, 
+    PN_WHIP, 
+    UNICORN_HORN,   /* last weapon */
+    
+    PN_ATTACK_SPELL, 
+    PN_HEALING_SPELL, 
+    PN_DIVINATION_SPELL,
+    PN_ENCHANTMENT_SPELL, 
+    PN_CLERIC_SPELL, 
+    PN_ESCAPE_SPELL, 
+    PN_MATTER_SPELL,
     /* Other */
-    PN_BARE_HANDED, PN_TWO_WEAPONS, PN_RIDING
+    PN_BARE_HANDED, 
+    PN_TWO_WEAPONS, 
+    PN_RIDING
 };
 
 /* note: entry [0] isn't used */
 STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
-    "no skill", "bare hands", /* use barehands_or_martial[] instead */
-    "two weapon combat", "riding", "polearms", "saber", "hammer", "firearms", 
-    "whip", "attack spells", "healing spells", "divination spells",
-    "enchantment spells", "necromancy spells", "escape spells", "matter spells", 
+    "no skill", 
+    "bare hands", /* use barehands_or_martial[] instead */
+    "two weapon combat", 
+    "riding", 
+    "polearms", 
+    "saber", 
+    "hammer", 
+    "firearms", 
+    "whip",
+    "attack spells", 
+    "healing spells", 
+    "divination spells",
+    "enchantment spells", 
+    "necromancy spells", 
+    "escape spells", 
+    "matter spells", 
     "lightsaber", 
 };
 /* indexed vis Role_if(PM_ROGUE) ? 2 : is_martial() */
 STATIC_VAR NEARDATA const char *const barehands_or_martial[] = {
-    "bare handed combat", "martial arts", "thievery"
+    "bare handed combat", 
+    "martial arts", 
+    "thievery"
 };
 
 #define P_NAME(type)                                                           \

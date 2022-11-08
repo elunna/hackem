@@ -4550,7 +4550,7 @@ const char *slang;
 struct monst *shkp;
 {
     int charge;
-    int weptype = weapon_type(uwep) - 1;
+    int weptype = weapon_type(uwep);
     int maxoffered;
     int progress = P_ADVANCE(weptype);
     int threshold = practice_needed_to_advance(P_SKILL(weptype));
