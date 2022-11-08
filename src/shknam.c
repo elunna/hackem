@@ -1205,8 +1205,12 @@ struct monst *shk;
             }
             num_svc--;
         }
+        /* 1 in 10 offer firearms training */
+        if (!rn2(10))
+            ESHK(shk)->services |= SHK_FIREARMS;
     }
 
+    
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_WEAPON;
@@ -1271,6 +1275,9 @@ struct monst *shk;
         /* Weapon poisoning */
         if (!rn2(4) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
             ESHK(shk)->services |= SHK_WEP_POI;
+        /* 1 in 5 offer firearms training */
+        if (!rn2(5))
+            ESHK(shk)->services |= SHK_FIREARMS;
     }
     
     /* Armor shop services */
@@ -1281,6 +1288,9 @@ struct monst *shk;
         /* Armor enchanting */
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_ARM_ENC;
+        /* 1 in 5 offer firearms training */
+        if (!rn2(5))
+            ESHK(shk)->services |= SHK_FIREARMS;
     }
     
     /* Charging services */
@@ -1308,6 +1318,10 @@ struct monst *shk;
         /* Light shops can sometimes offer potion ID: 25% */
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(4))
             ESHK(shk)->services |= SHK_ID_POTION;
+    }
+    if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "gun store")) {
+        /* Gun shops always offer firearms training */
+        ESHK(shk)->services |= SHK_FIREARMS;
     }
     
     /* Racial based services:
@@ -1366,7 +1380,6 @@ struct monst *shk;
     if (!rn2(20))
         ESHK(shk)->services |= SHK_RUMOR;
     
-    ESHK(shk)->services |= SHK_FIREARMS;
     return;
 }
 
