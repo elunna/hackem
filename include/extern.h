@@ -607,6 +607,7 @@ E void FDECL(kick_monster, (struct monst *, XCHAR_P, XCHAR_P));
 E boolean FDECL(ghitm, (struct monst *, struct obj *));
 E void FDECL(container_impact_dmg, (struct obj *, XCHAR_P, XCHAR_P));
 E int NDECL(dokick);
+E int FDECL(dokickdir, (BOOLEAN_P));
 E boolean FDECL(ship_object, (struct obj *, XCHAR_P, XCHAR_P, BOOLEAN_P));
 E void FDECL(obj_delivery, (BOOLEAN_P));
 E void FDECL(deliver_obj_to_mon, (struct monst *mtmp, int, unsigned long));

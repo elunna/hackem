@@ -4399,8 +4399,7 @@ dokeylist(VOID_ARGS)
           "Shift-<direction> will move in specified direction until you hit");
         putstr(datawin, 0, "        a wall or run into something.");
         putstr(datawin, 0,
-          "Ctrl-<direction> will run in specified direction until something");
-        putstr(datawin, 0, "        very interesting is seen.");
+          "Ctrl-<direction> will kick in a specified direction.");
     }
 
     putstr(datawin, 0, "");
@@ -5441,8 +5440,15 @@ register char *cmd;
             context.run = 1;
             domove_attempting |= DOMOVE_RUSH;
         } else if (movecmd(unctrl(*cmd))) {
+            /* Control + Movement key 
+             * Highjacking this to support kick shortcut commands
+             */
+#if 0
             context.run = 3;
             domove_attempting |= DOMOVE_RUSH;
+#endif  
+            dokickdir(FALSE);
+            return;
         }
         break;
     }

@@ -26,6 +26,7 @@ STATIC_DCL char *FDECL(kickstr, (char *, const char *));
 STATIC_DCL void FDECL(otransit_msg, (struct obj *, BOOLEAN_P, BOOLEAN_P, long));
 STATIC_DCL void FDECL(drop_to, (coord *, SCHAR_P));
 
+
 static const char kick_passes_thru[] = "kick passes harmlessly through";
 
 static const char *const martial_arts_kick[] = {
@@ -841,6 +842,13 @@ const char *kickobjnam;
 int
 dokick()
 {
+    return dokickdir(TRUE);
+}
+
+int
+dokickdir(need_dir)
+boolean need_dir;
+{
     int x, y;
     int avrg_attrib;
     int dmg = 0, glyph, oldglyph = -1;
@@ -920,7 +928,7 @@ dokick()
         return 0;
     }
 
-    if (!getdir((char *) 0))
+    if (need_dir && !getdir((char *) 0))
         return 0;
     if (!u.dx && !u.dy)
         return 0;
