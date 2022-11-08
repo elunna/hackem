@@ -368,7 +368,7 @@ struct obj *otmp;
 #define MUSE_UP_LADDER                  29
 #define MUSE_DN_LADDER                  30
 #define MUSE_SSTAIRS                    31
-#define MUSE_SCR_CLONING                32
+
 
 /*
 #define MUSE_INNATE_TPT 9999
@@ -1600,19 +1600,20 @@ struct monst *mtmp;
 #define MUSE_SCR_FIRE           69
 #define MUSE_SCR_CHARGING       70
 #define MUSE_SCR_STINKING_CLOUD 71
-#define MUSE_POT_PARALYSIS      72
-#define MUSE_POT_BLINDNESS      73
-#define MUSE_POT_CONFUSION      74
-#define MUSE_POT_ACID           75
-#define MUSE_POT_SLEEPING       76
-#define MUSE_POT_HALLUCINATION  77
-#define MUSE_POT_POLYMORPH_THROW 78
-#define MUSE_POT_OIL            79
-#define MUSE_POT_AMNESIA        80 /* Lethe */
-#define MUSE_FROST_HORN         81
-#define MUSE_FIRE_HORN          82
-#define MUSE_HORN_OF_BLASTING   83
-#define MUSE_CAMERA             84 /* Skipping so other values don't overlap */
+#define MUSE_SCR_CLONING        72
+#define MUSE_POT_PARALYSIS      73
+#define MUSE_POT_BLINDNESS      74
+#define MUSE_POT_CONFUSION      75
+#define MUSE_POT_ACID           76
+#define MUSE_POT_SLEEPING       77
+#define MUSE_POT_HALLUCINATION  78
+#define MUSE_POT_POLYMORPH_THROW 79
+#define MUSE_POT_OIL            80
+#define MUSE_POT_AMNESIA        81 /* Lethe */
+#define MUSE_FROST_HORN         82
+#define MUSE_FIRE_HORN          83
+#define MUSE_HORN_OF_BLASTING   84
+#define MUSE_CAMERA             85 /* Skipping so other values don't overlap */
 
 
 
@@ -2129,6 +2130,13 @@ boolean reflection_skip;
             && !m_seenres(mtmp, M_SEEN_FIRE)) {
             m.offensive = obj;
             m.has_offense = MUSE_SCR_FIRE;
+        }
+        nomore(MUSE_SCR_CLONING);
+        if (obj->otyp == SCR_CLONING
+            && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 2
+            && mtmp->mcansee && haseyes(mtmp->data)) {
+            m.offensive = obj;
+            m.has_offense = MUSE_SCR_CLONING;
         }
         nomore(MUSE_CAMERA);
         if (obj->otyp == EXPENSIVE_CAMERA
@@ -2717,6 +2725,15 @@ struct monst *mtmp;
         }
         return 2;
     } /* case MUSE_SCR_FIRE */
+    case MUSE_SCR_CLONING: {
+        /* We won't bother with confused - scrolls of cloning always clone 
+         * the monster iteself. */
+        boolean vis = cansee(mtmp->mx, mtmp->my);
+        mreadmsg(mtmp, otmp);
+        if (clone_mon(mtmp, 0, 0) && vis)
+            pline("%s multiplies!", Mon_nam(mtmp));
+        return 2;
+    } /* case MUSE_SCR_CLONING */
     case MUSE_CAMERA: {
         if (Hallucination)
             verbalize("Say cheese!");
