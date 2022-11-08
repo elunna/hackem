@@ -346,28 +346,29 @@ struct obj *otmp;
 #define MUSE_WAN_EXTRA_HEALING          7
 #define MUSE_WAN_DRAINING               8
 #define MUSE_WAN_CREATE_HORDE           9
-#define MUSE_FIREBALL                   10
-#define MUSE_SCR_TELEPORTATION          11
-#define MUSE_SCR_CREATE_MONSTER         12
-#define MUSE_SCR_ELEMENTALISM           13
-#define MUSE_POT_HEALING                14
-#define MUSE_POT_EXTRA_HEALING          15
-#define MUSE_POT_FULL_HEALING           16
-#define MUSE_POT_RESTORE_ABILITY        17
-#define MUSE_POT_VAMPIRE_BLOOD          18
-#define MUSE_LIZARD_CORPSE              19
-#define MUSE_ACID_BLOB_CORPSE           20
-#define MUSE_EUCALYPTUS_LEAF            21
-#define MUSE_BAG_OF_TRICKS              22
-#define MUSE_BUGLE                      23
-#define MUSE_UNICORN_HORN               24
-#define MUSE_TRAPDOOR                   25
-#define MUSE_TELEPORT_TRAP              26
-#define MUSE_UPSTAIRS                   27
-#define MUSE_DOWNSTAIRS                 28
-#define MUSE_UP_LADDER                  29
-#define MUSE_DN_LADDER                  30
-#define MUSE_SSTAIRS                    31
+#define MUSE_WAN_FEAR                   10
+#define MUSE_FIREBALL                   11
+#define MUSE_SCR_TELEPORTATION          12
+#define MUSE_SCR_CREATE_MONSTER         13
+#define MUSE_SCR_ELEMENTALISM           14
+#define MUSE_POT_HEALING                15
+#define MUSE_POT_EXTRA_HEALING          16
+#define MUSE_POT_FULL_HEALING           17
+#define MUSE_POT_RESTORE_ABILITY        18
+#define MUSE_POT_VAMPIRE_BLOOD          19
+#define MUSE_LIZARD_CORPSE              20
+#define MUSE_ACID_BLOB_CORPSE           21
+#define MUSE_EUCALYPTUS_LEAF            22
+#define MUSE_BAG_OF_TRICKS              23
+#define MUSE_BUGLE                      24
+#define MUSE_UNICORN_HORN               25
+#define MUSE_TRAPDOOR                   26
+#define MUSE_TELEPORT_TRAP              27
+#define MUSE_UPSTAIRS                   28
+#define MUSE_DOWNSTAIRS                 29
+#define MUSE_UP_LADDER                  30
+#define MUSE_DN_LADDER                  31
+#define MUSE_SSTAIRS                    32
 
 
 /*
@@ -769,6 +770,11 @@ struct monst *mtmp;
                 m.defensive = obj;
                 m.has_defense = MUSE_WAN_HEALING;
             }
+            nomore(MUSE_WAN_FEAR);
+            if (obj->otyp == WAN_FEAR && obj->spe > 0 && (!Afraid)) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_FEAR;
+            }
         } else { /* Pestilence */
             nomore(MUSE_POT_FULL_HEALING);
             if (obj->otyp == POT_SICKNESS) {
@@ -1156,6 +1162,15 @@ struct monst *mtmp;
             pline("%s begins to look better.", Monnam(mtmp));
         if (oseen) 
             makeknown(WAN_EXTRA_HEALING);
+        return 2;
+    case MUSE_WAN_FEAR:
+        zap_oseen = oseen;
+        mzapwand(mtmp, otmp, FALSE);
+        m_using = TRUE;
+        make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+        m_using = FALSE;
+        if (oseen) 
+            makeknown(WAN_FEAR);
         return 2;
     case MUSE_WAN_CREATE_MONSTER: {
         coord cc;
@@ -2731,7 +2746,7 @@ struct monst *mtmp;
         boolean vis = cansee(mtmp->mx, mtmp->my);
         mreadmsg(mtmp, otmp);
         if (clone_mon(mtmp, 0, 0) && vis)
-            pline("%s multiplies!", Mon_nam(mtmp));
+            pline("%s multiplies!", Monnam(mtmp));
         return 2;
     } /* case MUSE_SCR_CLONING */
     case MUSE_CAMERA: {
