@@ -1,4 +1,5 @@
 /* NetHack 3.6	muse.c	$NHDT-Date: 1561053256 2019/06/20 17:54:16 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.97 $ */
+/* NetHack 3.6	muse.c	$NHDT-Date: 1561053256 2019/06/20 17:54:16 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.97 $ */
 /*      Copyright (C) 1990 by Ken Arromdee                         */
 /* NetHack may be freely redistributed.  See license for details.  */
 
@@ -367,7 +368,7 @@ struct obj *otmp;
 #define MUSE_UP_LADDER                  29
 #define MUSE_DN_LADDER                  30
 #define MUSE_SSTAIRS                    31
-
+#define MUSE_SCR_CLONING                32
 
 /*
 #define MUSE_INNATE_TPT 9999
@@ -1584,39 +1585,36 @@ struct monst *mtmp;
 #define MUSE_WAN_MAGIC_MISSILE  55
 /*#define MUSE_WAN_TELEPORTATION  15 also a defensive item so don't redefine */
 #define MUSE_WAN_STRIKING       57
-#define MUSE_WAN_CANCELLATION   58
-#define MUSE_WAN_POLYMORPH      59
+#define MUSE_WAN_FIREBALL       58
+#define MUSE_WAN_CANCELLATION   59
+#define MUSE_WAN_POLYMORPH      60
+#define MUSE_WAN_SLOW_MONSTER   61
+#define MUSE_WAN_WIND           62
+#define MUSE_WAN_WATER          63
+#define MUSE_WAN_ACID           64
+#define MUSE_WAN_POISON_GAS     65
+#define MUSE_WAN_SONICS         66
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
                                         * redefine; nonconsecutive value is ok */
-#define MUSE_SCR_EARTH          60
-#define MUSE_SCR_FIRE           61
-#define MUSE_SCR_CHARGING       62
-#define MUSE_SCR_STINKING_CLOUD 63
-#define MUSE_POT_PARALYSIS      64
-#define MUSE_POT_BLINDNESS      65
-#define MUSE_POT_CONFUSION      66
-#define MUSE_POT_ACID           67
-#define MUSE_POT_SLEEPING       68
-#define MUSE_POT_HALLUCINATION  69
-#define MUSE_POT_POLYMORPH_THROW 70
-#define MUSE_FROST_HORN         71
-#define MUSE_FIRE_HORN          72
+#define MUSE_SCR_EARTH          68
+#define MUSE_SCR_FIRE           69
+#define MUSE_SCR_CHARGING       70
+#define MUSE_SCR_STINKING_CLOUD 71
+#define MUSE_POT_PARALYSIS      72
+#define MUSE_POT_BLINDNESS      73
+#define MUSE_POT_CONFUSION      74
+#define MUSE_POT_ACID           75
+#define MUSE_POT_SLEEPING       76
+#define MUSE_POT_HALLUCINATION  77
+#define MUSE_POT_POLYMORPH_THROW 78
+#define MUSE_POT_OIL            79
+#define MUSE_POT_AMNESIA        80 /* Lethe */
+#define MUSE_FROST_HORN         81
+#define MUSE_FIRE_HORN          82
+#define MUSE_HORN_OF_BLASTING   83
+#define MUSE_CAMERA             84 /* Skipping so other values don't overlap */
 
 
-
-
-
-#define MUSE_POT_OIL 25
-#define MUSE_POT_AMNESIA 26 /* Lethe */
-#define MUSE_WAN_FIREBALL 27
-#define MUSE_CAMERA 31 /* Skipping so other values don't overlap */
-#define MUSE_WAN_SLOW_MONSTER 32
-#define MUSE_WAN_WIND 33
-#define MUSE_WAN_WATER 34
-#define MUSE_WAN_ACID 35
-#define MUSE_WAN_POISON_GAS 36
-#define MUSE_WAN_SONICS 37
-#define MUSE_HORN_OF_BLASTING 38
 
 static boolean
 linedup_chk_corpse(x, y)
