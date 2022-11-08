@@ -4570,6 +4570,7 @@ struct monst *shkp;
     }
     debug_pline("maxoffered = %d", maxoffered);
     
+
     if (can_advance(weptype, FALSE)) {
         You("should advance your skill before training more.");
         return 0;
@@ -4578,6 +4579,9 @@ struct monst *shkp;
         return 0;
     } else if (weapon_type(uwep) != P_FIREARM) {
         You("are not wielding a firearm!");
+        return 0;
+    } else if  (Confusion || Stunned || Hallucination || Afraid) {
+        You("should not be wielding a firearm right now!");
         return 0;
     } else if (P_SKILL(weptype) >= P_MAX_SKILL(weptype)) {
         You("cannot increase your skill in %s.", weapon_descr(uwep));
