@@ -2833,7 +2833,9 @@ doturn()
     const char *Gname;
     int once, range, xlev;
 
-    if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT)) {
+    if (!Role_if(PM_PRIEST) 
+        && !Role_if(PM_KNIGHT) 
+        && !Role_if(PM_UNDEAD_SLAYER)) {
         /* Try to use the "turn undead" spell. */
         if (known_spell(SPE_TURN_UNDEAD))
             return spelleffects(spell_idx(SPE_TURN_UNDEAD), FALSE, FALSE);
