@@ -4520,7 +4520,7 @@ shk_rumor(slang, shkp)
 const char *slang;
 struct monst *shkp;
 {
-    int charge = 25;                     /* Rumor Cost */
+    long charge = 25;                     /* Rumor Cost */
                                     
     pline("I heard some juicy stuff the other day...");
     /* Go ahead? */
@@ -4668,9 +4668,10 @@ struct monst *shkp;
     }
 
     /* Charge the customer */
-    charge = check_credit (charge, shkp); /* Deduct the credit first */
+    charge = check_credit(charge, shkp); /* Deduct the credit first */
 
-    money2mon(shkp, charge);
+    if (charge > 0)
+        money2mon(shkp, charge);
     bot();
 
     return TRUE;
