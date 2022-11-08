@@ -1784,16 +1784,18 @@ shk_other_services()
     int n;
     int result = 0;
     
+    /* Init the shopkeeper */
+    shkp = shop_keeper(/* roomno= */*u.ushops);
+    struct permonst *shkdat = &mons[ERAC(shkp)->rmnum];
+    if (!ESHK(shkp)->services) 
+        return result;
+
     /* Init your name */
-    if (!is_human(youmonst.data))
+    if (!same_race(youmonst.data, shkdat))
         slang = "ugly";
     else
         slang = flags.female ? "lady" : "buddy";
 
-    /* Init the shopkeeper */
-    shkp = shop_keeper(/* roomno= */*u.ushops);
-    if (!ESHK(shkp)->services) 
-        return result;
 
     /* Figure out what services he/she offers */
     /*WAC - did this using the windowing system...*/
