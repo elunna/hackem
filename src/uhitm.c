@@ -1253,9 +1253,9 @@ int dieroll;
                  * this at the end so that other stuff doesn't have to check obj
                  * && obj->whatever all the time */
                 if (hand_to_hand) {
-                    break_glass_obj(some_armor(mon));
                     if (break_glass_obj(obj))
-                        return FALSE; /* Prevents accessig bad reference */
+                        obj = (struct obj *) 0;
+                    break_glass_obj(some_armor(mon));
                 }
             }
         } else if (obj->oclass == POTION_CLASS) {
