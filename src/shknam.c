@@ -190,7 +190,7 @@ static const char *const shkhealthfoods[] = {
 };
 
 
-static const char *shkmusic[] = {
+static const char *const shkmusic[] = {
     "John", "Paul", "George", "Ringo",
     "Elvis", "Mick", "Keith", "Ron", "Charlie",
     "Joseph", "Franz", "Richard", "Ludwig", "Wolfgang Amadeus",
@@ -201,7 +201,7 @@ static const char *shkmusic[] = {
     0
 };
 
-static const char * const shkguns[] = {
+static const char *const shkguns[] = {
     /* GTA 3 */
     "Claude", "_Catalina", "8-Ball", "Salvatore",
     /* Vice City */
@@ -217,7 +217,7 @@ static const char * const shkguns[] = {
     "Weston",
     0
 };
-static const char *shkpet[] = {
+static const char *const shkpet[] = {
     /* Albania */
     "Elbasan", "Vlore", "Shkoder", "Berat", "Kavaje", "Pogradec",
     "Sarande", "Peshkopi", "Shijak", "Librazhd", "Tepelene",
@@ -225,7 +225,7 @@ static const char *shkpet[] = {
     0
 };
 
-static const char *shktins[] = {
+static const char *const shktins[] = {
     /* Sweden */
     "Trosa", "Torshalla", "Morgongava", "Uppsala", "Norrkoping",
     "Nybro", "Alingsas", "Vadstena", "Fagersta", "Skelleftea",
