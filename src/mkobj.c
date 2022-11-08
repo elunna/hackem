@@ -3781,11 +3781,16 @@ boolean by_you;
             break;
         j++;
     }
-    if (!Hate_material(newmat))
+    
+    /* Does the hero hate the material? */
+    /* Also we need to check if valid again if the above loop went through 
+     * all tries. */
+    if (!Hate_material(newmat) && valid_obj_material(obj, newmat))
         obj->material = newmat;
     else
         /* can use a 0 in the list to default to the base material */
         obj->material = objects[obj->otyp].oc_material;
+    
     obj->owt = weight(obj);
     if (origmat != obj->material) {
         /* Charge for the cost of the object */
