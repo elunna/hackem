@@ -469,7 +469,7 @@
 - (P) gel
 - (Q) genetic engineer (already in evil)
 - (Q) alchemist
-    - Added skittich behavior
+    - Added skittish behavior
 - (S) king cobra
 - (S) asphynx
 - (S) cerastes
@@ -1079,6 +1079,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Cursed wands of fear zaps you with fear 80% of the time in addition 
       to other negative effects. If monsters are fleeing, they stop. If 
       monsters are paralyzed or sleeping, they wake up and are able to move.
+    - Monsters are able to zap you with wands of fear (as a defensive action).
 - [x] wand of create horde 
     - generates with WAY less charges (1-3) and very rare
     - Players zapping this create 7-11 instead of 7-13 monsters.
@@ -1123,6 +1124,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Confused cursed = hostile clone
     - Confused uncursed = peaceful clone
     - Confused blessed = tame clone
+    - Monsters can read scrolls of cloning, but it always clones them - not objects.
 - [x] scroll of magic detection
     - detects magical objects on the current level and in your inventory. 
     - An uncursed scroll will label such items as 'magical'
@@ -1367,9 +1369,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Works as a foil to the new monster spell 'destroy armor'
 - [x] spellbook of sonicboom
 - [x] spellbook of summon undead
-    - lowered summon undead spell difficulty to 4
 
--[x] spellbook of fire bolt (new Hack'EM special!)
+- [x] spellbook of fire bolt (new Hack'EM special!)
   - Fire Bolt is only available to the Flame Mage and will not generate randomly.
   - 1d10 fire damage (avg 5.5).
   - A fire attack (similar to force bolt) that doesn't reflect.
@@ -1872,7 +1873,9 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Only blessed scrolls of charging identify the charges of an item.
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Regeneration only causes additional hunger when injured.
-
+- [x] /> < to auto-travel to stairs (from Unnethack)
+- [x] Control+Direction now kicks in that direction.
+- 
 #### Religion/Prayer/Alters:
 
 - Make temple priests hostile if made on an unaligned altar.
@@ -2197,6 +2200,7 @@ With inspiration from Aosdict's ideas, the Necromancer role has been overhauled 
 #### Undead Slayer
 
 - Starting jacket is always leather
+- Can now #turn undead
 
 #### Yeoman
 	
@@ -2426,6 +2430,15 @@ usually enjoy.
 - Pet shops:		offer tool/food id 50% of the time
 - Light shops:		offer potion ID: 25%
 - General stores will have 1-5 identify services
+
+Firearms training service:
+- Instead of the weapon practice technique, this is now a shk service.
+- Gun shops always offer this up to expert skill.
+- Weapon shops, armor shops offer 20% of the time, up to max skilled.
+- General stores offer it 10% of the time, up to max Basic.
+- $500 for Basic skill 
+- $1000 for Skilled 
+- $2000 for expert?
 
 #### Additional race specific services:
 
