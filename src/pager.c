@@ -679,7 +679,7 @@ static const char * attacktypes[] = {
     "bearhug",
     "spit",
     "engulf",
-    "breath",
+    "breathe",
     "explode",
     "explode on death",
     "gaze",
