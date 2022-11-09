@@ -886,7 +886,7 @@ static const struct def_skill Skill_Y[] = {
     { P_BOW, P_EXPERT },
     { P_SLING, P_BASIC },
     { P_FIREARM, P_SKILLED },
-    { P_CROSSBOW, P_SKILLED },           
+    /*{ P_CROSSBOW, P_SKILLED },     */      
     { P_UNICORN_HORN, P_BASIC },
 
     { P_ENCHANTMENT_SPELL, P_SKILLED },
