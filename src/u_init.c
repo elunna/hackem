@@ -383,9 +383,11 @@ struct inv_sub {
     { PM_TORTLE, JACKET, GLOVES },
     { PM_TORTLE, RING_MAIL, TOQUE },
     { PM_TORTLE, BATTLE_AXE, TRIDENT },
-    { PM_TORTLE, TWO_HANDED_SWORD, TRIDENT },
     { PM_TORTLE, ROBE, TOQUE },
     { PM_TORTLE, HAWAIIAN_SHIRT, TOQUE },
+    { PM_TORTLE, SPEAR, TRIDENT }, /* Undead Slayer */
+    { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
+    { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
 };
@@ -1400,7 +1402,7 @@ u_init()
     case PM_TORTLE:
         /* if their role lists trident as a trainable skill,
            raise the max proficiency level by one */
-        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK))
+        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK) || Role_if(PM_UNDEAD_SLAYER))
             P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
         if (Role_if(PM_HEALER) || Role_if(PM_TOURIST))
             P_MAX_SKILL(P_TRIDENT) = P_SKILLED;
@@ -2009,7 +2011,10 @@ register struct trobj *origtrop;
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
-                if (obj->otyp == SPEAR || obj->otyp == DAGGER || obj->otyp == BULLET)
+                if (obj->otyp == SPEAR 
+                    || obj->otyp == DAGGER 
+                    || obj->otyp == TRIDENT 
+                    || obj->otyp == BULLET)
                     set_material(obj, SILVER);
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
