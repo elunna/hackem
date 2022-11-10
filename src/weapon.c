@@ -212,10 +212,13 @@ struct monst *mon;
     /* Put weapon vs. monster type "to hit" bonuses in below: */
 
     /* Blessed weapons used against undead or demons */
-    if (Is_weapon && otmp->blessed
-        && (is_demon(ptr) || is_undead(ptr) || is_vampshifter(mon)))
-        tmp += 2;
-
+    if (is_demon(ptr) || is_undead(ptr) || is_vampshifter(mon)) {
+        if (Is_weapon && otmp->blessed)
+            tmp += 2;
+        /* Undead slayers also are better at targeting them */
+        if (Role_if(PM_UNDEAD_SLAYER))
+            tmp += 2;
+    }
     /* Cursed weapons used against angelic beings */
     if (Is_weapon && otmp->cursed && is_angel(ptr))
         tmp += 2;
@@ -487,9 +490,13 @@ struct monst *mon;
     {
         int bonus = 0;
 
-        if (otmp->blessed
-            && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
-            bonus += rnd(4);
+        if (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)){
+            if (otmp->blessed)
+                bonus += rnd(4);
+            if (Role_if(PM_UNDEAD_SLAYER))
+                bonus += rnd(4);
+        }
+        
         if (otmp->cursed && is_angel(ptr))
             bonus += rnd(4);
         if (otmp->cursed && Role_if(PM_INFIDEL)
