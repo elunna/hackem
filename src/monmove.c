@@ -876,7 +876,12 @@ toofar:
         /* litroom should be passed a "light spell" object like a scroll/wand
          * of light, but we are hacking it so it takes the monster which
          * spreads darkness instead. */
-        litroom(FALSE, NULL);
+        /* TODO: Refactor this - it's too clunky */
+        struct obj* pseudo = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
+        pseudo->ox = mtmp->mx;
+        pseudo->oy = mtmp->my;
+        litroom(FALSE, pseudo);
+        obfree(pseudo, NULL);
     }
 
     if (!nearby || mtmp->mflee || scared || mtmp->mconf || mtmp->mstun

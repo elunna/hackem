@@ -3072,12 +3072,13 @@ litroom(on, obj)
 register boolean on; /* True: make nearby area lit; False: cursed scroll */
 struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
 {
-    /* To allow passing monster effects (ex: Shadow Wolf, Shadow Ogre) we
-     * will handle obj being NULL as the monster effect */
+
     struct obj *otmp = 0;
     boolean blessed_effect = (obj && obj->oclass == SCROLL_CLASS
                               && obj->blessed);
-
+    /* To allow passing monster effects (ex: Shadow Wolf, Shadow Ogre) we
+     * will handle obj being SCR_CREATE_MONSTER as the monster effect */
+    boolean mon_effect = obj && obj->otyp == SCR_CREATE_MONSTER;
 
     char is_lit = 0; /* value is irrelevant but assign something anyway; its
                       * address is used as a 'not null' flag for set_lit() */
@@ -3120,10 +3121,11 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
                 pline_The("ambient light seems dimmer.");
             else if (u.uswallow)
                 pline("It seems even darker in here than before.");
-#if 0 /* Disabling this because we get messages for out-of-sight enemies */
-            else if (obj == NULL)
-                pline("It seems darker in here.");
-#endif
+            else if (mon_effect)
+                if (cansee(obj->ox, obj->oy))
+                    pline("It seems darker in here.");
+                else
+                    return;
             else if (obj)
                 You("are surrounded by darkness!");
         }
@@ -3178,9 +3180,8 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
             rooms[rnum].rlit = on;
         }
         /* hallways remain dark on the rogue level */
-    } else if (!obj) {
-        /* --hackem: Real hack here to allow monsters to spread darkness. */
-        do_clear_area(u.ux, u.uy, d(1, 3),
+    } else if (mon_effect) {
+        do_clear_area(obj->ox, obj->oy, rn1(1, 2),
                       set_lit, (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
     }
     else {
@@ -3188,7 +3189,7 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
                       (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
     }
 
-        /*
+    /*
      *  If we are not blind, then force a redraw on all positions in sight
      *  by temporarily blinding the hero.  The vision recalculation will
      *  correctly update all previously seen positions *and* correctly
