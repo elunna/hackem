@@ -2388,8 +2388,7 @@ boolean noisy;
         /* same exception for cloaks as used in m_dowear() */
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && (racial_exception(&youmonst, otmp) < 1)
-        && !(Race_if(PM_GIANT) && Role_if(PM_SAMURAI)
-             && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
+        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
         && !(Race_if(PM_GIANT) && otmp
              && otmp->otyp == CHROMATIC_DRAGON_SCALES)) {
         if (noisy)
