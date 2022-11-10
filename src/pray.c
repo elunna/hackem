@@ -20,7 +20,7 @@ STATIC_DCL void FDECL(gods_upset, (ALIGNTYP_P));
 STATIC_DCL void FDECL(consume_offering, (struct obj *));
 STATIC_DCL boolean FDECL(water_prayer, (BOOLEAN_P));
 STATIC_DCL boolean FDECL(blocked_boulder, (int, int));
-STATIC_DCL void FDECL(god_gives_benefit, (ALIGNTYP_P));
+STATIC_DCL void NDECL(god_gives_benefit);
 STATIC_DCL int NDECL(count_pets);
 
 /* simplify a few tests */
@@ -1612,8 +1612,9 @@ void
 god_gives_pet(alignment)
 aligntyp alignment;
 {
-    int mnum, mon;
-
+    int mnum;
+    struct monst *mon;
+    
     switch ((int)alignment) {
 	case A_LAWFUL:
 	    mnum = lawful_minion(u.ulevel);
@@ -1630,8 +1631,25 @@ aligntyp alignment;
 	    mnum = ndemon(A_NONE);
 	    break;
     }
-    mon = make_pet_minion(mnum, alignment);
+    /*mon = make_pet_minion(mnum, alignment);*/
+    mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN /*| MM_NOERID */| MM_NOGRP);
     if (mon) {
+        livelog_printf (LL_DIVINEGIFT,
+                       "was sent %s by %s",
+                       an(m_monnam(mon)),
+                       align_gname(u.ualign.type));
+        newedog(mon);
+        initedog(mon);
+        mon->isminion = 1;
+        EMIN(mon)->min_align = u.ualign.type;
+        EMIN(mon)->renegade = FALSE;
+        newsym(mon->mx, mon->my);
+        if (attacktype(mon->data, AT_WEAP)) {
+            mon->weapon_check = NEED_HTH_WEAPON;
+            (void) mon_wield_item(mon);
+        }
+        u.ugifts++;
+
 	switch ((int)alignment) {
         case A_LAWFUL:
             pline("%s", Blind ? "You feel the presence of goodness." 
@@ -1648,7 +1666,6 @@ aligntyp alignment;
             break;
 	}
 	godvoice(u.ualign.type, "My minion shall serve thee!");
-	return;
     }
 }
 
@@ -2565,7 +2582,7 @@ dosacrifice()
                     godvoice(u.ualign.type, "Use my gift wisely!");
 
                     /* Light up Candle of Eternal Flame and
-		     * Holy Spear of Light on creation.
+		            * Holy Spear of Light on creation.
                      */
                     if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD)
                         begin_burn(otmp, FALSE);
@@ -2589,14 +2606,37 @@ dosacrifice()
                                    uhim(), align_gname(u.ualign.type));
                     return 1;
                 }
-            } else if (!rnl(30 + u.ulevel)) {
-                /* no artifact, but maybe a helpful pet? */
-                /* WAC is now some generic benefit (includes pets) */
-                god_gives_benefit(altaralign);
-                /*u.usacrifice = 0;*/
+            } 
+            
+            if (!rnl(30 + u.ulevel)) {
+                /* Random item blessed */
+                god_gives_benefit();
                 return 1;
             }
-
+            
+            
+            /* A particularly faithful player may receive a minion
+             * New restrictions on minion gifts:
+             *      Must be level 5 or greater
+             *      Must have positive luck
+             *      If completed or expelled from quest, no more minions.
+             *      If crowned, no more minions.
+             *      If you already have 1-2 pets on the level, no more minions.
+             *      I'm now using the calculation from SpliceHack that considers
+             *      the quantity of gifts given .
+             */
+            int pet_cnt = rn2(3) ? 2 : 3;
+            if (u.ulevel > 4 
+                && u.uluck >= 0
+                && !u.uevent.qcompleted
+                && !u.uevent.qexpelled
+                && !u.uevent.uhand_of_elbereth 
+                && (count_pets() < pet_cnt)
+                && !rn2(10 + (4 * u.ugifts))) {
+                god_gives_pet(altaralign);
+                return 1;
+            }
+            
             change_luck((value * LUCKMAX) / (MAXVALUE * 2));
 
             if ((int) u.uluck < 0)
@@ -3226,28 +3266,10 @@ int dx, dy;
 
 /* Give away something */
 void
-god_gives_benefit(alignment)
-aligntyp alignment;
+god_gives_benefit()
 {
     register struct obj *otmp;
     const char *what = (const char *)0;
-    
-    /* New restrictions on minion gifts:
-     *      If over level 14, no more minions.
-     *      If completed or expelled from quest, no more minions.
-     *      If crowned, no more minions.
-     *      If you already have 1-2 pets on the level, no more minions.
-     */
-    int pet_cnt = rn2(3) ? 2 : 3;
-    if (!rnl(30 + u.ulevel) 
-          && u.ulevel < 15
-          && !u.uevent.qcompleted
-          && !u.uevent.qexpelled
-          && !u.uevent.uhand_of_elbereth 
-          && (count_pets() < pet_cnt)) {
-        god_gives_pet(alignment);
-        return;
-    }
     
     /* randomly bless items */
     /* weapon takes precedence if it interferes
