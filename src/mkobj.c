@@ -3604,6 +3604,8 @@ struct obj* obj;
         case ROD:
             return rod_materials;
         case SLING_BULLET:
+        case BULLET:
+        case SHOTGUN_SHELL:
             return sling_bullet_materials;
         case HELM_OF_SPEED:
             return helm_speed_materials;
