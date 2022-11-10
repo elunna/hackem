@@ -119,6 +119,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, DFNS(AD_CLOB), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1500L,
       CLR_MAGENTA),
 
+    /* Made of copper so that Elven Yeoman are guaranteed to get it. */
     A("Reaper", HALBERD, SPFX_RESTR, 0, 0,
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, NO_COLOR ),
 
