@@ -3563,7 +3563,7 @@ struct attack *mattk;
                 && mtmp->mcansee && !rn2(3)
                 && !mtmp->mspec_used 
                 && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
-            if (!Role_if(PM_NECROMANCER)) {
+            if (Role_if(PM_NECROMANCER) || Role_if(PM_UNDEAD_SLAYER)) {
                 You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             }
@@ -4443,7 +4443,7 @@ int dmg;
         }
         if (Sonic_resistance)
             break; /* No inventory damage! */
-        if (Role_if(PM_NECROMANCER)) {
+        if (Role_if(PM_NECROMANCER) || Role_if(PM_UNDEAD_SLAYER)) {
             You("are not afraid.");
             break;
         }
