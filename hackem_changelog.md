@@ -2115,7 +2115,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 #### Necromancer
 
 - Removed starting quarterstaff
-- Starts with a wand of undead turning
+- Starts with a wand of fear
 - Starts with a robe
 - Removed starting scrolls
 - Only starts with 1 ring.
