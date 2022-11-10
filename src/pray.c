@@ -1631,7 +1631,6 @@ aligntyp alignment;
 	    mnum = ndemon(A_NONE);
 	    break;
     }
-    /*mon = make_pet_minion(mnum, alignment);*/
     mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN /*| MM_NOERID */| MM_NOGRP);
     if (mon) {
         livelog_printf (LL_DIVINEGIFT,
