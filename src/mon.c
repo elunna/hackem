@@ -3764,6 +3764,16 @@ boolean was_swallowed; /* digestion */
                   artdial ? "Mortality Dial" : "Sunsword", s_suffix(mon_nam(mon)));
         return FALSE;
     }
+    
+    /* Undead Slayers have a chance to totally destroy zombie corpses */
+    if (is_zombie(mdat) && Role_if(PM_UNDEAD_SLAYER) && rn2(3)) {
+        if (cansee(mon->mx, mon->my)) {
+            pline("%s!", rn2(2) ? "Squish" : 
+                  rn2(2) ? "Squash" : "Smash");
+        }
+           
+        return FALSE;
+    }
 
     /* Corpses don't hover in midair in the presence of gravity */
     if (is_open_air(mon->mx, mon->my)) {
