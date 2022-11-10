@@ -2384,9 +2384,12 @@ boolean noisy;
                     : is_suit(otmp)
                         ? c_suit
                         : 0;
+    
+
     if (which && cantweararm(&youmonst)
         /* same exception for cloaks as used in m_dowear() */
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
+        && otmp->otyp != MUMMY_WRAPPING /* Exception for giants */
         && (racial_exception(&youmonst, otmp) < 1)
         && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
         && !(Race_if(PM_GIANT) && otmp
@@ -2562,8 +2565,7 @@ boolean noisy;
             err++;
         } else
             *mask = W_ARM;
-        if (!Upolyd && Race_if(PM_GIANT) && Role_if(PM_SAMURAI)
-            && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
+        if (!Upolyd && Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
             *mask = W_ARM;
     } else {
         /* getobj can't do this after setting its allow_all flag; that
