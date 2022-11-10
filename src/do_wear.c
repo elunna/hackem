@@ -2385,7 +2385,6 @@ boolean noisy;
                         ? c_suit
                         : 0;
     
-
     if (which && cantweararm(&youmonst)
         /* same exception for cloaks as used in m_dowear() */
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)

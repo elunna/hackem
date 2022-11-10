@@ -1259,28 +1259,41 @@ u_init()
 
     case PM_UNDEAD_SLAYER:
         switch (rn2(100) / 25) {
-        case 0:	/* Pistol and silver bullets */
+        case 0:	
+            /* Pistol and silver bullets */
             UndeadSlayer[U_MINOR].trotyp = PISTOL;
             UndeadSlayer[U_RANGE].trotyp = BULLET;
             UndeadSlayer[U_RANGE].trquan = rn1(10, 30);
             break;
-        case 1:	/* Crossbow and bolts */
+        case 1:	
+            /* Crossbow and bolts */
             UndeadSlayer[U_MINOR].trotyp = CROSSBOW;
             UndeadSlayer[U_RANGE].trotyp = CROSSBOW_BOLT;
             UndeadSlayer[U_RANGE].trquan = rn1(10, 30);
-            /* UndeadSlayer[U_MISC].trotyp = LOW_BOOTS; */
             UndeadSlayer[U_MISC].trspe = 1;
             UndeadSlayer[U_ARMOR].trotyp = JACKET;
             UndeadSlayer[U_ARMOR].trspe = 1;
             break;
-        case 2:	/* Whip and daggers */
+        case 2:	
+            /* Whip and daggers */
             UndeadSlayer[U_MINOR].trotyp = BULLWHIP;
             UndeadSlayer[U_MINOR].trspe = 2;
             break;
-        case 3:	/* Silver spear and daggers */
+        case 3:	
+            /* Silver spear and daggers */
             break;
         }
         ini_inv(UndeadSlayer);
+        if (Race_if(PM_GIANT)) {
+            struct trobj RandomGem = Gem[0];
+            while (!rn2(3)) {
+                int gem = rnd_class(TOPAZ, JADE);
+                Gem[0] = RandomGem;
+                Gem[0].trotyp = gem;
+                ini_inv(Gem);
+                knows_object(gem);
+            }
+        }
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
         if (!rn2(6)) 
@@ -1943,13 +1956,11 @@ register struct trobj *origtrop;
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
 
-        if (urace.malenum != PM_HUMAN && !Role_if(PM_UNDEAD_SLAYER)) {
+        if (urace.malenum != PM_HUMAN) {
             /* substitute race-specific items; this used to be in
                the 'if (otyp != UNDEF_TYP) { }' block above, but then
                substitutions didn't occur for randomly generated items
                (particularly food) which have racial substitutes */
-            /* The check for Undead Slayer is important because they need
-             * regular daggers to become silver */
             for (i = 0; inv_subs[i].race_pm != NON_PM; ++i)
                 if (inv_subs[i].race_pm == urace.malenum
                     && otyp == inv_subs[i].item_otyp) {
@@ -2013,9 +2024,11 @@ register struct trobj *origtrop;
             if (Role_if(PM_UNDEAD_SLAYER)) { 
                 if (obj->otyp == SPEAR 
                     || obj->otyp == DAGGER 
+                    || obj->otyp == ELVEN_DAGGER 
                     || obj->otyp == TRIDENT 
                     || obj->otyp == BULLET)
                     set_material(obj, SILVER);
+                
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
             }
@@ -2037,6 +2050,8 @@ register struct trobj *origtrop;
             discover_object(POT_OIL, TRUE, FALSE);
 
         if (obj->oclass == ARMOR_CLASS) {
+            /* Validity check here */
+            
             if (is_shield(obj) && !uarms && !(uwep && bimanual(uwep))) {
                 setworn(obj, W_ARMS);
                 /* Prior to 3.6.2 this used to unset uswapwep if it was set, but
