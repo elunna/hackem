@@ -2315,6 +2315,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
+        /* TODO: Should this return 1 since it is used up here? */
     }
     case SCR_IDENTIFY:
         /* known = TRUE; -- handled inline here */
@@ -2643,20 +2644,24 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         known = TRUE;
         break;
     case SCR_FLOOD:
+        cval = bcsign(sobj);
+        useup(sobj);
+        sobj = 0; /* it's gone */
+        if (!already_known)
+            (void) learnscrolltyp(SCR_FLOOD);
         if (confused) {
             /* remove water from vicinity of player */
             int maderoom = 0;
-            do_clear_area(u.ux, u.uy, 4 + 2 * bcsign(sobj),
+            do_clear_area(u.ux, u.uy, 4 + 2 * cval,
                           undo_flood, (genericptr_t)&maderoom, FALSE);
             if (maderoom) {
-                known = TRUE;
                 You("are suddenly very dry!");
             }
         } else {
             int madepool = 0;
             int stilldry = -1;
             int x, y, safe_pos = 0;
-            if (!sobj->cursed)
+            if (!scursed)
                 do_clear_area(u.ux, u.uy, 5, do_flood,
                               (genericptr_t)&madepool, FALSE);
             /* check if there are safe tiles around the player */
@@ -2670,8 +2675,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
             
             /* cursed and uncursed might put a water tile on
-			 * player's position */
-            if (!sobj->blessed && safe_pos > 0)
+             * player's position */
+            if (!sblessed && safe_pos > 0)
                 do_flood(u.ux, u.uy, (genericptr_t)&stilldry);
             if (!madepool && stilldry)
                 break;
@@ -2681,8 +2686,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                     "A flood surges through the area!" );
             if (!stilldry && !Wwalking && !Flying && !Levitation)
                 drown();
-            known = TRUE;
-            break;
         }
         break;
     case SCR_ICE: {
