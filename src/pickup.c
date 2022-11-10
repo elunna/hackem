@@ -4041,10 +4041,13 @@ struct obj *obj;
         halfbonus = (bonus / 2) < 1 ? 1 : (bonus / 2);
         
         /* Spirits grant energy */
-        if (u.ulevel < 11) {
+        if (u.ulevel < 7) {
             u.uen += halfbonus;
-        } else
+        } else if (u.ulevel < 13) {
             u.uen += bonus;
+        } else 
+            u.uen += bonus + halfbonus;
+        
         if (u.uen > u.uenmax)
             u.uen = u.uenmax;
         

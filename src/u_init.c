@@ -155,7 +155,7 @@ struct trobj Monk[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Necromancer[] = {
-    { DAGGER, 0, WEAPON_CLASS, 2, 1 },
+    { DAGGER, 0, WEAPON_CLASS, 2, UNDEF_BLESS },
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, FOOD_CLASS, 2, 0 },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },

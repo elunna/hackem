@@ -2114,7 +2114,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 #### Necromancer
 
-- Removed starting quarterstaff
+- Removed starting quarterstaff, starts with 2 daggers.
 - Starts with a wand of fear
 - Starts with a robe
 - Removed starting scrolls
@@ -2143,16 +2143,17 @@ With inspiration from Aosdict's ideas, the Necromancer role has been overhauled 
 
 ##### Benefits from harvesting spirits
     
-    Heals HP:
-    - [x] Level 1: Spirits heal 1HP 
-    - [x] Level 4: Spirits heal (monster's level / 2) HP + 1 
-    - [x] Level 8: Spirits heal (monster's level) HP + 1 
-    
-    Renews magical power:
-    - Necromancers do not regenerate magical power as other roles do. To renew your MP, you will have to collect spirits or find some other means (potions of gain energy, scrolls of charging, etc)
+Heals HP:
+- Level 1: Spirits heal 1HP 
+- Level 4: Spirits heal (monster's level / 2) HP + 1 
+- Level 8: Spirits heal (monster's level) HP + 1 
 
-    - [x] Level 1: Spirits grant (monsters level / 2) MP (minimum of 1).
-    - [x] Level 11: You get the monster's full level value in MP.
+Renews magical power:
+- Necromancers do not regenerate magical power as other roles do. To renew your MP, you will have to collect spirits or find some other means (potions of gain energy, scrolls of charging, etc)
+
+- [x] Level 1: Spirits grant (monsters level / 2) MP (minimum of 1).
+- [x] Level 7: You get the monster's full level value in MP.
+- [x] Level 13: You get the 1.5x monster's level value in MP.
 
 ##### Necromancer intrinsics changes
 
