@@ -1293,6 +1293,12 @@ int pm;
                 default:
                     break;
             }
+            if (Role_if(PM_UNDEAD_SLAYER)) {
+                /* Unbecoming of Undead Slayers  */
+                You("have disgraced your profession.");
+                adjalign(-3);
+                break;
+            }
             break;
     case PM_HUMAN_WERERAT:
         catch_lycanthropy = PM_WERERAT;
