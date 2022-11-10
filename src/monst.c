@@ -1613,7 +1613,7 @@ NEARDATA struct permonst mons[] = {
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, 0, 11, HI_LORD),
     MON("killer mimic", S_MIMIC,                              /* SpliceHack */
-        LVL(10, 12, 7, 20, 0), (G_GENO | 2),
+        LVL(10, 6, 7, 20, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_STCK, 3, 4), 
           ATTK(AT_BITE, AD_STCK, 3, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),

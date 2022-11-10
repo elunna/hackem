@@ -534,7 +534,8 @@ int type;
             if (level_difficulty() >= 9 && !rn2(5)
                 && !((mvitals[PM_SMALL_MIMIC].mvflags & G_GONE)
                      && (mvitals[PM_LARGE_MIMIC].mvflags & G_GONE)
-                     && (mvitals[PM_GIANT_MIMIC].mvflags & G_GONE))) {
+                     && (mvitals[PM_GIANT_MIMIC].mvflags & G_GONE)
+                     && (mvitals[PM_KILLER_MIMIC].mvflags & G_GONE))) {
                 /* make a mimic instead */
                 levl[x][y].doormask = D_NODOOR;
                 mtmp = makemon(mkclass(S_MIMIC, 0), x, y, NO_MM_FLAGS);
