@@ -1102,6 +1102,8 @@ u_init()
             break;
         }
         ini_inv(Ice_Mage);
+        if (Race_if(PM_ILLITHID))
+            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(2)) 
             ini_inv(Lenses);
         else
@@ -1178,6 +1180,8 @@ u_init()
     }
     case PM_NECROMANCER:
         ini_inv(Necromancer);
+        if (Race_if(PM_ILLITHID))
+            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_class(SPBOOK_CLASS);
         if (!rn2(5)) 
             ini_inv(Blindfold);
