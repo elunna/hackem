@@ -4568,7 +4568,7 @@ struct obj *obj;
     case WAN_HEALING:
     case WAN_EXTRA_HEALING:
         dmg = 0;
-        break;
+        goto discard_broken_wand;
     case WAN_FEAR:
         if (!Role_if(PM_NECROMANCER)) {
             You("suddenly panic!");
