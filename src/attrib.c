@@ -113,6 +113,8 @@ static const struct innate {
                  { 1, &(HUndead_warning), "", "" },
                  { 7, &(HFast), "quick", "slow" },
                  { 9, &(HPoison_resistance), "hardy", "less healthy" },
+                 { 15, &(HWarning), "sensitive", "" },
+                 { 21, &(HClairvoyant), "prophetic", "" },
                  { 0, 0, 0, 0 } },
 
   val_abil[] = { { 1, &(HCold_resistance), "", "" },
