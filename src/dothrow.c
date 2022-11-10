@@ -138,7 +138,6 @@ int shotlimit;
                          || Role_if(PM_PRIEST)
                          || (Role_if(PM_HEALER) && skill != P_KNIFE)
                          || (Role_if(PM_NECROMANCER))
-                         || (Role_if(PM_UNDEAD_SLAYER))
                          || (Role_if(PM_ICE_MAGE) && skill != P_KNIFE)
                          || (Role_if(PM_INFIDEL) && skill != P_DAGGER)
                          || (Role_if(PM_TOURIST) && skill != -P_DART)
