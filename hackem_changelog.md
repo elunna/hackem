@@ -775,12 +775,8 @@
 
 ### Monster spawn rates
 
-- increases as you reach various milestones within the game. 
-  - 2× once you pass the castle, become crowned, or if you accept the quest before experience level 14.
-  - 3× once you pass the first tier demon lord lair.
-  - 4× of normal once you pass the first wizard's tower level.
-  - 6× of normal once the Wizard of Yendor is killed.
-  - 8x once you've performed the invocation, plus:
+- Simplified a bit from EvilHack:
+    - Monster spawn rates increase to 4x normal once you've performed the invocation, plus:
     - all denizens of the dungeon are aware of what has happened, 
     - Nasties will spawn on each levels upstairs
 
