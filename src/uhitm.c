@@ -3275,8 +3275,6 @@ register struct monst *mdef;
 register struct attack *mattk;
 {
     register int tmp = d((int) mattk->damn, (int) mattk->damd);
-    if (!mdef)
-        return 0;
     
     switch (mattk->adtyp) {
     case AD_BLND:
@@ -3294,8 +3292,10 @@ register struct attack *mattk;
         }
         break;
     case AD_WIND:
-        pline("%s is blasted by wind!", Monnam(mdef));
-        mhurtle(mdef, mdef->mx - u.ux, mdef->my - u.uy, tmp);
+        if (mdef) {
+            pline("%s is blasted by wind!", Monnam(mdef));
+            mhurtle(mdef, mdef->mx - u.ux, mdef->my - u.uy, tmp);
+        }
         tmp = 0;
         break;
     case AD_COLD:
