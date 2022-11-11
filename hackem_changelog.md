@@ -1873,6 +1873,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Only blessed scrolls of charging identify the charges of an item.
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Regeneration only causes additional hunger when injured.
+- 
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
 - 
@@ -2172,7 +2173,8 @@ Renews magical power:
 - [x] Like convicts, Necromancers now cannot tame anything other than undead. Instead of taming, the best that occurs will be pacifying the target. 
 
 - Instead of starting with a pile of books or learning techniques, the Necromancer learns special Necromancy spells as they level up. As a holdover from Slash'EM, they still do start with the spell and spellbook of Drain Life.
-- When the following spells are learned - the Necromancer gets them for 100000 turns instead of the standard 20000. This is meant to simulate techniques, but also to encourage use of them throughout the entire game.
+- When the following spells are learned - the Necromancer gets them forever. This is meant to simulate techniques, but also to encourage use of them throughout the entire game. 
+- Necromancers are also protected from forgetting Necromancy spells due to amnesia or brain eating attacks.
 
 - [x] XP 2: CALL_UNDEAD (Level 1 spell)
     - When cast, acts like a magic whistle for undead.
@@ -2191,12 +2193,8 @@ Renews magical power:
     - Adapted from the SlashEM Revivication technique
     - brings a dead corpse back to life, possibily as a pet. (Flagged as undead?)
     - https://nethackwiki.com/wiki/Revivification
-    
-		(mon)->data->mhflags)
-		
-
 - [x] XP 17: SPIRIT_BOMB (Level 5 spell)
-    - - Adapted from the SlashEM Spirit Bomb technique
+    - Adapted from the SlashEM Spirit Bomb technique
 
 #### Undead Slayer
 
@@ -2205,17 +2203,16 @@ Renews magical power:
 - Immune to undead fear attacks or ghosts.
 - Slayers get an alignment penalty for eating wraith corpses.
 - Undead slayers get +2 to-hit bonus against undead/demons and +d4 damage (like hitting as a blessed weapon - this also stacks with the blessed weapon bonus.)
--Undead slayers obliterate zombies to the point that they don't leave corpses. 66% chance of this happening everytime you kill a zombie.
+- Undead slayers obliterate zombies to the point that they don't leave corpses. 66% chance of this happening everytime you kill a zombie.
 - Level 15: Slayers now get Warning
 - Level 21: Slayers now get Clairvoyence
 
 #### Yeoman
 	
-- green coat and hood. 
-- Starts with a horn.
-- Starts with a torch.
+- Starts with a green coat that grants MC2. 
+- Starts with a horn, a torch, and a blessed whetstone.
 - axe - can reach skilled
-- can reach skilled in daggers
+- Can reach skilled in daggers
 
 
 ### Existing role changes
@@ -2223,7 +2220,7 @@ Renews magical power:
 #### Archeologist:
 
 - Starts with 2 spellbooks; can start with torch or lamp
-- Scimitar and club moved from skilled to basic. 
+- Club moved from skilled to basic. 
 - Spear skill added, can be trained to expert.
 
 #### Barbarians:
