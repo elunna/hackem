@@ -3376,14 +3376,25 @@ struct attack *mattk;
         }
         break;
     case AD_HNGY:
-        if(!mtmp->mcan && canseemon(mtmp) && !cancelled
-            && couldsee(mtmp->mx, mtmp->my) && !is_fainted()
-            && mtmp->mcansee && !mtmp->mspec_used && rn2(5)) {
-            int hunger = 20 + d(3,4);
+        if(!mtmp->mcan 
+            && canseemon(mtmp) 
+            && !cancelled
+            && couldsee(mtmp->mx, mtmp->my) 
+            && !is_fainted()
+            && mtmp->mcansee 
+            && !mtmp->mspec_used && rn2(5)) {
+            
+            int hunger = 20 + d(3, 4);
 
+            if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                pline( "%s partially protect you from %s blightful gaze!",
+                    An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
+                hunger = d(2, 4);
+            } else
+                pline("%s gaze reminds you of delicious %s.",
+                      s_suffix(Monnam(mtmp)), fruitname(FALSE));
+            
             mtmp->mspec_used = mtmp->mspec_used + (hunger + rn2(6));
-            pline("%s gaze reminds you of delicious %s.",
-                s_suffix(Monnam(mtmp)), fruitname(FALSE));
             morehungry(hunger);
         }
         break;
@@ -3438,6 +3449,11 @@ struct attack *mattk;
         if (mtmp->data == &mons[PM_UMBRAL_HULK]){
             if (!mtmp->mspec_used && !Blind && couldsee(mtmp->mx, mtmp->my) &&
                     can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj*)0)) {
+                if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD && rn2(2)) {
+                    pline("%s protect you from %s blinding gaze.",
+                          An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
+                    break;
+                }
                 pline("You meet %s gaze! The shadows merge into utter darkness!",
                       s_suffix(mon_nam(mtmp)) );
                 make_blinded(Blinded + d((int)mattk->damn, (int)mattk->damd), FALSE);
@@ -3565,6 +3581,10 @@ struct attack *mattk;
                 && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
             if (Role_if(PM_NECROMANCER) || Role_if(PM_UNDEAD_SLAYER)) {
                 You("are not afraid of the %s!", mon_nam(mtmp));
+                break;
+            } else if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD && rn2(3)) {
+                pline("The %s doesn't look so bad through %s.",
+                      s_suffix(Monnam(mtmp)), An(bare_artifactname(ublindf)));
                 break;
             }
             You("are struck with a terrible fear of %s!", mon_nam(mtmp));
@@ -3814,6 +3834,12 @@ struct attack *mattk;
             && !((is_undead(youmonst.data)
                 || is_demon(youmonst.data)) && is_undead(mtmp->data))) {
             
+            if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                if (!rn2(4))
+                    pline("%s protect you from %s frightening gaze.",
+                          An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
+                break;
+            } 
             pline("%s aberrant stare frightens you to the core!",
                 s_suffix(Monnam(mtmp)));
             if (Free_action){
@@ -3857,12 +3883,24 @@ struct attack *mattk;
               && !mtmp->mspec_used
               && rn2(5)) {
             pline("%s stares into your eyes...", Monnam(mtmp));
+            if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                if (!rn2(4))
+                    pline("%s protect you from %s poison gaze.",
+                          An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
+                break;
+            } 
             poisoned("The gaze", A_STR, mtmp->data->mname, 30, FALSE);
         }
         break;
     case AD_DRLI:
         if (!mtmp->mcan && canseemon(mtmp) && mtmp->mcansee && !mtmp->mspec_used && !rn2(3)) {
             if (!Drain_resistance) {
+                if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                    if (!rn2(4))
+                        pline("%s protect you from %s draining gaze.",
+                              An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
+                    break;
+                } 
                 pline("%s stares into your eyes...", Monnam(mtmp));
                 You("suddenly feel weaker!");
                 losexp("life drainage");
