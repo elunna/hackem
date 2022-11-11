@@ -3839,7 +3839,10 @@ struct attack *mattk;
                     pline("%s protect you from %s frightening gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                 break;
-            } 
+            } else if (Role_if(PM_NECROMANCER) || Role_if(PM_UNDEAD_SLAYER)) {
+                You("are not afraid of the %s!", mon_nam(mtmp));
+                break;
+            }
             pline("%s aberrant stare frightens you to the core!",
                 s_suffix(Monnam(mtmp)));
             if (Free_action){
