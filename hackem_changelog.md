@@ -89,6 +89,7 @@
 - (d) shadow wolf
     - Made drain & death resistant.
     - Can darken lit areas when moving
+    - Added infravision
 - (d) mist wolf
     - Made cold resistant
     - Each mist wolf can exhale clouds of thick mist - purely defensive
@@ -182,6 +183,8 @@
 - (k) Kroo the Kobold King
 - (l) leprechaun wizard
 - (m) killer mimic
+    - Reduced speed by half, now speed 6. 
+    - These are really mean, so watch out for these in minetown!
 - (n) pixie
 - (n) brownie
     - made brownies vegetarian.
@@ -1562,6 +1565,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Also grants STABLE.
 - [x] Quick Blade
 - [x] Reaper (Yeoman)
+    - Converted to Copper so that elven Yeoman can receive it as a gift.
 - [x] Serpent's Tongue (Necro)
     - Change to a parazonium, gets +d5 tohit
 - [x] Skullcrusher
@@ -2202,6 +2206,12 @@ Renews magical power:
 
 - Starting jacket is always leather
 - Can now #turn undead
+- Immune to undead fear attacks or ghosts.
+- Slayers get an alignment penalty for eating wraith corpses.
+- Undead slayers get +2 to-hit bonus against undead/demons and +d4 damage (like hitting as a blessed weapon - this also stacks with the blessed weapon bonus.)
+-Undead slayers obliterate zombies to the point that they don't leave corpses. 66% chance of this happening everytime you kill a zombie.
+- Level 15: Slayers now get Warning
+- Level 21: Slayers now get Clairvoyence
 
 #### Yeoman
 	
@@ -2248,7 +2258,6 @@ Renews magical power:
 - Trades warning intrinsic for sick resistance at experience level 15. 
 - Can sense how wounded a monster is when attacking it, can also sense the wounded status of its pets.
 [x] Healers get +1 blessed scalpel now.
-
 
 #### Knight
 
@@ -2327,6 +2336,9 @@ Renews magical power:
 
 #### giant
 
+- Giants can wear mummy wrappings.
+- Any giant can wear large splint mail - not just Samurai.
+
 #### Hobbits
 
 - [x] Hobbit race (already in evil)
@@ -2352,15 +2364,15 @@ usually enjoy.
 | Level | Ability            |
 | ------|--------------------|
 | Level 1: | Flying             |
-| Level 1: | Breathless         |
 | Level 1: | Drain/Death res    |
 | Level 1: | Vulnerable to fire |
-| Level 3: | Hunger             |
+| Level 3: | Breathless         |
+| Level 5: | Hunger             |
 | Level 5: | Regeneration       |
 | Level 7: | Poison resistance  |
 | Level 9: | Flying             |
-| Level 12: | Sickness resistance |
 | Level 16: | Sleep resistance   |
+| Level 21: | Sickness resistance |
 
 ### Existing role changes
 
