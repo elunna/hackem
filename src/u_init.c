@@ -668,7 +668,7 @@ static const struct def_skill Skill_N[] = {
     { P_UNICORN_HORN, P_EXPERT },       /* Using a dead animals horn is dark */
 
     { P_ATTACK_SPELL, P_SKILLED },
-    { P_MATTER_SPELL, P_SKILLED },
+    { P_MATTER_SPELL, P_BASIC },
     { P_NECROMANCY_SPELL, P_EXPERT },
     { P_BARE_HANDED_COMBAT, P_BASIC },
     { P_NONE, 0 }
