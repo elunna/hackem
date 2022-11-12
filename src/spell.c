@@ -1665,12 +1665,6 @@ losespells()
            remaining candidates shrinks, the chance per candidate
            gets bigger; overall, exactly nzap entries are affected */
         if (rn2(n - i) < nzap) {
-            /* Necromancers are protected from forgetting Necromancy spells */
-            if (Role_if(PM_NECROMANCER) 
-                && spell_skilltype(spellid(i)) == P_NECROMANCY_SPELL) {
-                --nzap;
-                continue;
-            }
 
             /* lose access to spell [i] */
             spellknow(i) = 0;
