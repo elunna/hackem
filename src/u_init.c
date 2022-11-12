@@ -1307,7 +1307,7 @@ u_init()
     case PM_VALKYRIE:
         ini_inv(Valkyrie);
         if (!rn2(6))
-            (rn2(100) > 50 ? ini_inv(Lamp) : ini_inv(Torch));
+            ini_inv(Lamp);
         if (Race_if(PM_GIANT)) {
             struct trobj RandomGem = Gem[0];
             while (!rn2(3)) {
