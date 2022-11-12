@@ -6326,13 +6326,15 @@ const char *name;
             goto give_up;
         }
 
-    lvl = (sp_lev *) alloc(sizeof(sp_lev));
-    if (!lvl) panic("alloc sp_lev");
+        lvl = (sp_lev *) alloc(sizeof(sp_lev));
+        if (!lvl) 
+            panic("alloc sp_lev");
         result = sp_level_loader(fd, lvl);
-    (void) dlb_fclose(fd);
-    if (in_mk_rndvault)
-        sp_lev_savecache(name, lvl);
-    if (result) result = sp_level_coder(lvl);
+        (void) dlb_fclose(fd);
+        if (in_mk_rndvault)
+            sp_lev_savecache(name, lvl);
+        if (result) 
+            result = sp_level_coder(lvl);
         if (!in_mk_rndvault) {
             sp_level_free(lvl);
             Free(lvl);
