@@ -2673,12 +2673,14 @@ register struct monst *shkp; /* if angry, impose a surcharge */
     if (obj->oartifact)
         tmp *= 4L;
 
+#if 0 /* This exploit has been fixed by other means */
     /* if the player tries to game the system and buy an item
        for less than what they can sell it for, adjust the price
        so the best they can do is break even */
     if (tmp < (objects[obj->otyp].oc_cost / 2))
         tmp = (objects[obj->otyp].oc_cost / 2);
-
+#endif
+    
     /* anger surcharge should match rile_shk's, so we do it separately
        from the multiplier/divisor calculation */
     if (shkp && ESHK(shkp)->surcharge)
