@@ -1355,10 +1355,11 @@ register struct monst *mtmp;
     /* if (udist < 4 && has_edog && !mtmp->isspell && !rn2(3) */
     if (udist < 4 && has_edog && !rn2(3)
     	    && can_betray(mtmp->data)
-		    && !mindless(mtmp->data)
-		    /*&& mtmp->mhp >= u.uhp */	/* Pet is buff enough */
-		    && rn2(22) > mtmp->mtame	/* Roll against tameness */
-		    && rn2(edog->abuse + 2)) {
+            && !mindless(mtmp->data)
+            && !mtmp->isminion
+            /*&& mtmp->mhp >= u.uhp */	/* Pet is buff enough */
+            && rn2(22) > mtmp->mtame	/* Roll against tameness */
+            && rn2(edog->abuse + 2)) {
 	/* Treason */
 	if (canseemon(mtmp))
 	    pline("%s turns on you!", Monnam(mtmp));
