@@ -190,6 +190,8 @@ const char *verb;
 
     if (obj->otyp == BOULDER && boulder_hits_pool(obj, x, y, FALSE)) {
         res = TRUE;
+    } else if (obj->otyp == SPIKE) {
+        res = TRUE;
     } else if (obj->otyp == BOULDER && (t = t_at(x, y)) != 0
                && (is_pit(t->ttyp) || is_hole(t->ttyp))) {
         ttyp = t->ttyp;

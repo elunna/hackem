@@ -1063,8 +1063,11 @@ int dieroll;
             Strcpy(saved_oname, cxname(obj));
         else
             Strcpy(saved_oname, bare_artifactname(obj));
-        if (obj->oclass == WEAPON_CLASS || is_weptool(obj)
-            || obj->oclass == GEM_CLASS || obj->otyp == HEAVY_IRON_BALL) {
+        if (obj->oclass == WEAPON_CLASS 
+            || is_weptool(obj)
+            || obj->oclass == GEM_CLASS 
+            || obj->otyp == SPIKE
+            || obj->otyp == HEAVY_IRON_BALL) {
             /* is it not a melee weapon? */
             if (/* if you strike with a bow... */
                 is_launcher(obj)

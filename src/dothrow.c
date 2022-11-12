@@ -1270,6 +1270,7 @@ struct obj *obj;
                       /* special cases [might want to add AXE] */
                       || obj->otyp == HEAVY_WAR_HAMMER 
                       || obj->otyp == AKLYS
+                      || obj->otyp == SPIKE
                       || obj->otyp == THROWING_AXE);
 }
 
@@ -1896,6 +1897,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) 
             tmp += 2;
     }
+    if (obj->otyp == SPIKE)
+        tmp += 5;  /* For when we are poly'd into a manticore */
     
     tmp += omon_adj(mon, obj, TRUE);
     if (racial_orc(mon)
@@ -1975,8 +1978,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
            return 1;
        }
        miss(xname(obj), mon);
-   } else if (obj->oclass == WEAPON_CLASS || is_weptool(obj)
-        || obj->oclass == GEM_CLASS) {
+   } else if (obj->oclass == WEAPON_CLASS 
+               || is_weptool(obj)
+               || obj->otyp == SPIKE
+               || obj->oclass == GEM_CLASS) {
         if (hmode == HMON_KICKED) {
             /* throwing adjustments and weapon skill bonus don't apply */
             tmp -= (is_ammo(obj) ? 5 : 3);
@@ -2076,7 +2081,9 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                     broken = 0;
                 if (objects[otyp].oc_skill == -P_FIREARM)
                     broken = 1;
-                    
+                if (obj->otyp == SPIKE)
+                    broken = 1;
+                
                 /* Flint, sling bullets, and hard gems get an additional chance
                  * because they don't break easily. */
                 if (((obj->oclass == GEM_CLASS && objects[otyp].oc_tough)

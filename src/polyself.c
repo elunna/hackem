@@ -1337,6 +1337,7 @@ dovolley()
     struct attack *mattk;
     int i;
     int numattacks;
+    int otyp;
 
     if (!getdir((char *) 0))
         return 0;
@@ -1346,16 +1347,20 @@ dovolley()
     } else {
         switch (mattk->adtyp) {
         case AD_QUIL:
-            otmp = mksobj(SPIKE, TRUE, FALSE);
+            otyp = SPIKE;
             break;
         default:
             impossible("bad attack type in dovolley");
-            otmp = mksobj(SPIKE, TRUE, FALSE);
+            otyp = SPIKE;
         }
-        otmp->spe = 1; /* to indicate it's yours */
         numattacks = d(mattk->damn, mattk->damd);
-        for (i = 0; i < numattacks; i++)
+        for (i = 0; i < numattacks; i++) {
+            otmp = mksobj(otyp, TRUE, FALSE);
+            otmp->spe = 1; /* to indicate it's yours */
             throwit(otmp, 0L, FALSE);
+            obfree(otmp, (struct obj *) 0);
+            otmp = (struct obj *) 0;
+        }
     }
     return 1;
 }

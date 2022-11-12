@@ -860,7 +860,7 @@ WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHAC
 WEPTOOL("unicorn horn", None,          1, 1, 0, 0,  0,  20, 100,  8, 10, 1, PIERCE, P_UNICORN_HORN, BONE, CLR_WHITE),
         /* 3.4.1: unicorn horn left classified as "magic" */
 
-/* manticore spikes */
+/* manticore spikes - counts as WEPTOOL? */
 OBJECT(OBJ("spike", None),  /* SpliceHack */
       BITS(1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, P_NONE, BONE), 0,
       TOOL_CLASS, 0, 0, 1, 0, 6, 6, 0, 0, 0, HI_ORGANIC),
