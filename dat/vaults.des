@@ -767,7 +767,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 }
 
 # With a corner room (bottom left)
-LEVEL:"vlt-0022"
+LEVEL:"vlt-0038"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, (6,6) {
@@ -777,7 +777,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 }
 
 # Three rooms (right side)
-LEVEL:"vlt-0038"
+LEVEL:"vlt-0039"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, (6,6) {
@@ -790,7 +790,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 }
 
 # Three rooms (left side)
-LEVEL:"vlt-0039"
+LEVEL:"vlt-0040"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, (6,6) {
@@ -803,7 +803,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 }
 
 # room with a subroom
-LEVEL:"vlt-0040"
+LEVEL:"vlt-0041"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -813,14 +813,14 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # big room, 1, random type
-LEVEL:"vlt-0041"
+LEVEL:"vlt-0042"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:random, random, random, random, (17,10) {
 }
 
 # big room, 1
-LEVEL:"vlt-0042"
+LEVEL:"vlt-0043"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:"rndvault", random, random, random, (30,10) {
@@ -833,7 +833,7 @@ ROOM:"rndvault", random, random, random, (30,10) {
 }
 
 # big room, 2 (max. vertical height)
-LEVEL:"vlt-0043"
+LEVEL:"vlt-0044"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:"rndvault", random, random, random, (10,17) {
@@ -843,7 +843,7 @@ ROOM:"rndvault", random, random, random, (10,17) {
 }
 
 # thin, long, horizontal room
-LEVEL:"vlt-0044"
+LEVEL:"vlt-0045"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:"rndvault", random, random, random, (17,3) {
@@ -853,7 +853,7 @@ ROOM:"rndvault", random, random, random, (17,3) {
 }
 
 # thin, long, vertical room
-LEVEL:"vlt-0045"
+LEVEL:"vlt-0046"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:"rndvault", random, random, random, (3,17) {
@@ -863,7 +863,7 @@ ROOM:"rndvault", random, random, random, (3,17) {
 }
 
 # very thin, long, horizontal room
-LEVEL:"vlt-0046"
+LEVEL:"vlt-0047"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:"rndvault", random, random, random, (50,5) {
@@ -873,7 +873,7 @@ ROOM:"rndvault", random, random, random, (50,5) {
 }
 
 # very very thin, long, horizontal room
-LEVEL:"vlt-0047"
+LEVEL:"vlt-0048"
 FLAGS:rndvault
 MINDEPTH:20
 ROOM:"rndvault", random, random, random, (70,3) {
@@ -889,7 +889,7 @@ ROOM:"rndvault", random, random, random, (70,3) {
 
 
 # lava/ice/pool/tree/sewage/fountain room
-LEVEL:"vlt-0048"
+LEVEL:"vlt-0049"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, (3,3) {
@@ -907,7 +907,7 @@ ROOM:"rndvault", random, random, random, (3,3) {
 }
 
 # tiny cage, big monster
-LEVEL:"vlt-0049"
+LEVEL:"vlt-0050"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, (5,5) {
@@ -924,7 +924,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 }
 
 # boulder room
-LEVEL:"vlt-0050"
+LEVEL:"vlt-0051"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -937,7 +937,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # random cloud/lava/ice/pool/tree room
-LEVEL:"vlt-0051"
+LEVEL:"vlt-0052"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -948,7 +948,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # buried treasure
-LEVEL:"vlt-0052"
+LEVEL:"vlt-0053"
 FLAGS:rndvault
 MINDEPTH:5
 # note: intentionally ordinary.
@@ -961,7 +961,7 @@ ROOM:"ordinary", random, random, random, random {
 }
 
 # massacre
-LEVEL:"vlt-0053"
+LEVEL:"vlt-0054"
 FLAGS:rndvault
 MINDEPTH:5
 ROOM:"rndvault", random, random, random, random {
@@ -979,7 +979,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # statuary
-LEVEL:"vlt-0054"
+LEVEL:"vlt-0055"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -992,7 +992,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # Blocked center
-LEVEL:"vlt-0055"
+LEVEL:"vlt-0056"
 FLAGS:rndvault
 MINDEPTH:20
 GEOMETRY:random
@@ -1017,7 +1017,7 @@ IF [75%] {
 REGION:(1,1,1,1),random,"ordinary",irregular { }
 
 # spider nest
-LEVEL:"vlt-0056"
+LEVEL:"vlt-0057"
 FLAGS:rndvault
 MINDEPTH:5
 ROOM:"rndvault", unlit, random, random, random {
@@ -1027,7 +1027,7 @@ ROOM:"rndvault", unlit, random, random, random {
 }
 
 # house of spears
-LEVEL:"vlt-0057"
+LEVEL:"vlt-0058"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
@@ -1037,7 +1037,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # house of horrors
-LEVEL:"vlt-0058"
+LEVEL:"vlt-0059"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", random, random, random, (6,6) {
@@ -1054,7 +1054,7 @@ ROOM:"rndvault", random, random, random, (6,6) {
 }
 
 # room with dangerous monster and loot
-LEVEL:"vlt-0059"
+LEVEL:"vlt-0060"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", random, random, random, random {
@@ -1070,7 +1070,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # mausoleum
-LEVEL:"vlt-0060"
+LEVEL:"vlt-0061"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", random, random, random, (5,5) {
@@ -1093,7 +1093,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 }
 
 # beam me up scotty
-LEVEL:"vlt-0061"
+LEVEL:"vlt-0062"
 FLAGS:rndvault
 MINDEPTH:15
 ROOM:"rndvault", random, random, random, random {
@@ -1103,7 +1103,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # Fake Delphi
-LEVEL:"vlt-0062"
+LEVEL:"vlt-0063"
 FLAGS:rndvault
 MINDEPTH:5
 ROOM: "rndvault", lit, random, random, (11,9) {
@@ -1114,7 +1114,7 @@ ROOM: "rndvault", lit, random, random, (11,9) {
 }
 
 # light source
-LEVEL:"vlt-0063"
+LEVEL:"vlt-0064"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"ordinary", unlit, random, random, random {
@@ -1122,7 +1122,7 @@ ROOM:"ordinary", unlit, random, random, random {
 }
 
 # potentially spooky
-LEVEL:"vlt-0064"
+LEVEL:"vlt-0065"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"ordinary", unlit, random, random, random {
@@ -1132,7 +1132,7 @@ MONSTER: '&', random
 }
 
 # watcher in the water
-LEVEL:"vlt-0065"
+LEVEL:"vlt-0066"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", unlit, random, random, random {
@@ -1145,7 +1145,7 @@ ROOM:"rndvault", unlit, random, random, random {
 }
                        
 # room with sessile growths
-LEVEL:"vlt-0066"
+LEVEL:"vlt-0067"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -1157,7 +1157,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # Trapped rust monster, disenchanter
-LEVEL:"vlt-0067"
+LEVEL:"vlt-0068"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:"rndvault", random, random, random, (5,5) {
@@ -1169,7 +1169,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 }
                        
 # Ozymandias' Tomb
-LEVEL:"vlt-0068"
+LEVEL:"vlt-0069"
 FLAGS:rndvault
 MINDEPTH:20
 GEOMETRY:random
@@ -1201,7 +1201,7 @@ OBJECT:('`',"statue"),(7,3),montype:('d', "werejackal")
 OBJECT:('`',"statue"),(7,7),montype:('@', "elvenking")
 
 # Pacman
-LEVEL:"vlt-0069"
+LEVEL:"vlt-0070"
 FLAGS:rndvault
 MINDEPTH:20
 GEOMETRY:random
@@ -1230,7 +1230,7 @@ MONSTER:"ghost",random,"Pinky"
 MONSTER:"ghost",random,"Clyde"
                                                                                                                   
 # Fern nursery
-LEVEL:"vlt-0070"
+LEVEL:"vlt-0071"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -1241,7 +1241,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # Center stage toilet
-LEVEL:"vlt-0071"
+LEVEL:"vlt-0072"
 FLAGS:rndvault
 MINDEPTH:20
 GEOMETRY:random
@@ -1269,7 +1269,7 @@ REGION:(1,1,1,1),random,"rndvault",irregular { }
 
 
 # ice room
-LEVEL:"vlt-0072"
+LEVEL:"vlt-0073"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
@@ -1278,7 +1278,7 @@ ROOM:"rndvault", random, random, random, random {
 }
                        
 # lava room
-LEVEL:"vlt-0073"
+LEVEL:"vlt-0074"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -1291,7 +1291,7 @@ ROOM:"rndvault", random, random, random, random {
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0074"
+LEVEL:"vlt-0075"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C' }
