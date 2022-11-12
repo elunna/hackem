@@ -1079,6 +1079,7 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
 {
     struct obj *otmp = (struct obj*) 0;
     int i;
+    int otyp;
     int numattacks = d(mattk->damn, mattk->damd);
 
     if (mtmp->mcan) {
@@ -1088,11 +1089,12 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
         return 0;
     }
 
-    if (mlined_up(mtarg, mtmp, FALSE) && !rn2(BOLT_LIM-distmin(mtmp->mx,mtmp->my,mtarg->mx,mtarg->my))) {
+    if (mlined_up(mtarg, mtmp, FALSE) 
+        && !rn2(BOLT_LIM-distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
         for (i = 0; i < numattacks; i++) {
             switch (mattk->adtyp) {
             case AD_QUIL:
-                otmp = mksobj(SPIKE, TRUE, FALSE);
+                otyp = SPIKE;
                 break;
             default:
                 impossible("bad attack type in volleymm");
@@ -1106,9 +1108,13 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
                 }
             }
             target = mtarg;
+            otmp = mksobj(otyp, TRUE, FALSE);
             m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
                     distmin(mtmp->mx,mtmp->my,mtarg->mx,mtarg->my), otmp, TRUE);
             target = (struct monst *)0;
+            obfree(otmp, (struct obj *) 0);
+            otmp = (struct obj *) 0;
+            
         }
         nomul(0);
         return 1;
@@ -1283,6 +1289,7 @@ volleymu(struct monst *mtmp, struct attack *mattk)
 {
     struct obj *otmp = (struct obj*) 0;
     int i;
+    int otyp;
     int numattacks = d(mattk->damn, mattk->damd);
 
     if (mtmp->mcan) {
@@ -1299,13 +1306,16 @@ volleymu(struct monst *mtmp, struct attack *mattk)
             for (i = 0; i < numattacks; i++) {
                 switch (mattk->adtyp) {
                 case AD_QUIL:
-                    otmp = mksobj(SPIKE, TRUE, FALSE);
+                    otyp = SPIKE;
                     break;
                 default:
                     impossible("bad attack type in volleymu");
                 }
+                otmp = mksobj(otyp, TRUE, FALSE);
                 m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
                         distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp, TRUE);
+                obfree(otmp, (struct obj *) 0);
+                otmp = (struct obj *) 0;
             }
             nomul(0);
             return 0;
