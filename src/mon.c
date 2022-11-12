@@ -5321,6 +5321,7 @@ struct monst *mtmp;
         if (otmp->nexthere
             /* most monsters won't hide under cockatrice corpse */
             || otmp->otyp != CORPSE
+            || otmp->otyp != SPIRIT
             || (mtmp == &youmonst ? Stone_resistance
                                   : (resists_ston(mtmp) || defended(mtmp, AD_STON)))
             || !touch_petrifies(&mons[otmp->corpsenm]))
