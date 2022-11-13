@@ -215,15 +215,12 @@ IF [50%] {
 STAIR: $places[1], up
 STAIR: $places[2], down
 
-$mon_names = MONSTER: { 'F', 'i', ':', 'N', 'S', 'B', 'w' }
+$mon_names = MONSTER: { 'c', ':', 'S', 'B', 'w' }
 SHUFFLE: $mon_names
 
 # Generate monsters of the type in the middle of the level, they'll spread out...
 
-LOOP [7] { MONSTER: $mon_names[0], (30,09) }
-LOOP [7] { MONSTER: $mon_names[0], (35,09) }
-LOOP [8] { [50%]: MONSTER: $mon_names[0], (40,09) }
-
+LOOP [16] { [50%]: MONSTER: $mon_names[0], (35,09) }
 
 # Debris
 LOOP [5] { OBJECT: ('`', "boulder"), random }
@@ -241,17 +238,16 @@ LOOP [4] { [50%]: OBJECT: ('%', "egg"), (34,10), montype:$mon_names[0] }
 LOOP [4] { [50%]: OBJECT: ('%', "egg"), (35,10), montype:$mon_names[0] }
 LOOP [4] { [50%]: OBJECT: ('%', "egg"), (36,10), montype:$mon_names[0] }
 
-
 # They misplaced some!
 
-LOOP [8] { [50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0] }
+LOOP [5] { [50%]: OBJECT: ('%', "egg"), random, montype:$mon_names[0] }
 
 OBJECT: ('(', "chest"), (34,08)
 [50%]: OBJECT: ('(', "chest"), (33,08)
 LOOP [4] { OBJECT: random, random }
 
 # Some traps to protect the stash!
-LOOP [8] { TRAP: random, random }
+LOOP [4] { TRAP: random, random }
 
 
 #
