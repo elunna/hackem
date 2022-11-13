@@ -2093,7 +2093,7 @@ weapon_hit_bonus(weapon)
 struct obj *weapon;
 {
     int type, wep_type, skill, bonus = 0;
-    size_t maxweight = 0;
+    /*size_t maxweight = 0;*/
     static const char bad_skill[] = "weapon_hit_bonus: bad skill %d";
 
     wep_type = weapon_type(weapon);
@@ -2143,6 +2143,9 @@ struct obj *weapon;
             bonus = 0; /* if you're an expert, there shouldn't be a penalty */
             break;
         }
+        
+#if 0 /* This was introduced in EvilHack - we are disabling it to allow more 
+       * freedom with two-weaponing */
         /* Heavy things are hard to use in your offhand unless you're
            very good at what you're doing, or are very strong (see below) */
         switch (P_SKILL(P_TWO_WEAPON_COMBAT)) {
@@ -2174,6 +2177,7 @@ struct obj *weapon;
             /* feedback handled in attack() */
             bonus = -30;
         }
+#endif
     } else if (type == P_BARE_HANDED_COMBAT) {
         /*
          *        b.h. m.a. giant b.h. m.a.
