@@ -4131,7 +4131,7 @@ struct ext_func_tab extcmdlist[] = {
             wiz_intrinsic, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { '\0', "wizkill", "slay a monster",
             wiz_kill, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
-    { C('v'), "wizlevelport", "teleport to another level",
+    { C('z'), "wizlevelport", "teleport to another level",
             wiz_level_tele, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { '\0', "wizmakemap", "recreate the current level",
             wiz_makemap, IFBURIED | WIZMODECMD },
@@ -5448,7 +5448,6 @@ register char *cmd;
             domove_attempting |= DOMOVE_RUSH;
 #endif  
             dokickdir(FALSE);
-            return;
         }
         break;
     }
