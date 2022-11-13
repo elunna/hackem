@@ -834,12 +834,11 @@ struct obj *instr;
     }
 
     /* --hackem: Musical instruments require skill to handle gracefully.
-     * They have a respectable chance of breaking.
+     * They have a smallish chance of breaking.
      * This is partly to nerf the abuse on the planes, and partly to
      * nerf the infinite re-chargability.
-     *      fumbling or cursed = 25% of breaking
-     *      uncursed = 10%
-     *      blessed = 5%
+     *      fumbling, afraid, or cursed = 12.5% of breaking
+     *      uncursed = 2%
      */
     
     /* Artifact instruments don't break on apply 
@@ -847,13 +846,11 @@ struct obj *instr;
      */
     if (instr->oartifact || maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
         ;  
-    else if (Fumbling || Afraid || (instr->cursed && !rn2(4))) {
+    else if ((Fumbling || Afraid || instr->cursed) && !rn2(8)) {
         instr_breaks = TRUE;
     }
-    else if (instr->blessed && !rn2(25)) {
-        instr_breaks = TRUE;
-    }
-    else if (!rn2(10)) {  /* Uncursed case */
+    
+    else if (!rn2(50)) {  /* Uncursed case */
         instr_breaks = TRUE;
     }
 
