@@ -201,18 +201,16 @@ ALIGNMENT:	unaligned
 RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 
 ### The Wyrm Caves ###
-DUNGEON:        "The Wyrm Caves" "D" (9, 3)
+DUNGEON:        "The Wyrm Caves" "D" (5, 3)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
+LEVEL:          "cavepass" "D" @ (2, 0)
 LEVEL:          "cavenest" "D" @ (2, 4)
-LEVEL:          "jermlain" "D" @ (2, 10) 66
-LEVEL:          "cavepass" "D" @ (2, 3) 50
-BRANCH:		    "The Spider Caves" @ (4, 2)
-RNDLEVEL:       "cavevar" "D" @ (5, 7) 5
-LEVEL:          "cavepass" "D" @ (5, 3)
-LEVEL:          "cavepass" "D" @ (7, 3)
-
+LEVEL:          "jermlain" "D" @ (3, 3) 66
+BRANCH:		    "The Spider Caves" @ (2, 6)
+# RNDLEVEL:       "cavevar" "D" @ (5, 7) 5
+LEVEL:          "cavepass" "D" @ (-2, 0)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###
