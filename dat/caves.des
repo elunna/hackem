@@ -333,7 +333,6 @@ LOOP [6] { MONSTER: ('g', "jermlaine"), (60, 11), hostile }
 # Jermlaine love their traps!
 LOOP [11] { TRAP: random, random }
 
-
 GEOMETRY:center,center
 #0         1         2         3         4         5         6         7
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
@@ -376,417 +375,100 @@ LOOP [22] { MONSTER: ('g', "jermlaine"), (30,03), hostile }
 
 LOOP [6] { MONSTER: 'g', random, hostile }
 
-
 # Rat zoo #1 (67,05)
 LOOP [14] { MONSTER: 'r', (67,05), hostile }
 
 # Rat zoo #2 (57,16)
 LOOP [15] { MONSTER: 'r', (57,16), hostile }
 
-#
-# Cavern variant 1: Based on the dnh Grue level
-#
-MAZE:"cavevar-1",' '
-FLAGS: noteleport,shortsighted
-GEOMETRY:center,center
-#          1         2         3         4         5         6         7
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-MAP
-0
-1                                |--------|      |---|
-2                             |---........--------...-----|
-3                            |-....}}}}}}.................---------|
-4                           |-....}}}}}}}}.........................-|
-5     |-----|              |-......}}}}}}...........................-|
-6   |--.....--|           |-....-.............---------..............|
-7  |-.........--|        |-....-|-.........---|       |-.............|
-8  |............----------....-| |..-------|           |............-|
-9  |........................--|  |..|                  |-..........-|
-0  |........................|  |--..|     |-----|   |---....-----.-|
-1  |-.........--............----....|  |---.....-||--.....--|   |.|
-2   |-.......-||---.................-||-.........--.....--|     |.---|
-3    |----.--     |-.................--................-|      |-....-|
-4       |.-|      |-.................................--|       |......|
-5     |--.---------...----.........................--|         |......|
-6    |-...............-| |---..........--........--|           |......|
-7    |.................|    |-.....----||-.-...--|             |-....-|
-8    |.................|     |-----|     |-|---|                |----|
-9    |-...............-|
-0     |---------------|
-ENDMAP
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-#          1         2         3         4         5         6         7
-
-$places = { (31,11),(45,11),(50,02) }
-REGION: (00,00,75,20), unlit, "ordinary"
-
-# Teleport
-TELEPORT_REGION: (03,04,18,19), (0,0,0,0), down
-
-# Stairs
-STAIR: (13,18), up
-STAIR: (66,15), down
-
-# Non diggable walls
-NON_DIGGABLE: (00,00,75,20)
-
-# unlit light sources in the walls, waiting to be lit and/or looted
-LOOP [14] { OBJECT: ('(', "tallow candle"), random }
-LOOP [4] { [50%]: OBJECT: ('(', "wax candle"), random }
-
-# Objects
-OBJECT: ('%', "egg"), random, montype:"rot worm",0
-[50%]: OBJECT: ('%',"egg"), random, montype:"rot worm",0
-[50%]: OBJECT: ('%',"egg"), random, montype:"rot worm",0
-OBJECT: ('?', "light"), random, blessed,0
-OBJECT: ('?', "light"), random, cursed, 0
-
-OBJECT: ('!', "gain level"), random
-OBJECT: '+', random
-OBJECT: (')', "arrow"), random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-
-# Warning
-ENGRAVING: (13,18), dust, "BEWARE OF GRUE"
-
-# An unlucky adventurer
-OBJECT: ('%', "corpse"), $places[0], montype:"Elvenking", 0
-OBJECT: ('/', "light"), $places[0]
-OBJECT: (')', "elven broadsword"), $places[0], uncursed, 4
-OBJECT: ('[', "cloak of invisibility"), $places[0], cursed, -1
-ENGRAVING: $places[0], engrave, "Elbere-"
-
-# Traps
-TRAP: random, random
-TRAP: random, random
-TRAP: "rust", random
-TRAP: "rust", random
-LOOP [4] { TRAP: "board", random }
-TRAP: "board", (64,11)
-
-# Monsters
-#MONSTER: 'U',"Grue", (66,15), asleep
-LOOP [4] { MONSTER: ('w',"rot worm"), (67,15) }
-MONSTER: ('w',"tunnel worm"), random
-[50%]: MONSTER: ('w',"tunnel worm"), random
-
-LOOP [9] { MONSTER: 'w', random }
-
-MONSTER: (';', "kraken"), (36,04)
-MONSTER: ('L', "lich"), $places[1]
-MONSTER: ('W', "barrow wight"), (41,15)
-MONSTER: ('d', "warg"), (48,04)
-MONSTER: ('d', "warg"), (49,04)
-MONSTER: ('d', "warg"), (50,04)
-MONSTER: ('d', "warg"), (51,04)
-
-
-#
-# Cavern variant 2: Based on the dnh drow quest level
-# Cockatrice/basilisk nest!
-#
-MAZE:"cavevar-2", ' '
-FLAGS: hardfloor, shortsighted
-GEOMETRY: center, center
-#0         1         2         3         4         5         6         7
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-MAP
-0
-1 ..       ....            ......            ...        .......         ..
-2  ..     ......H...     ..........         .....       ........       ....
-3   ..    .. ...   .    ......... ..          .           .....       ....
-4    ..  ..        .      .....    ..         .             ..       .....
-5     ....         .         ..     ..        H               ..        ..
-6    ....          H        ..       ..      ....               ..      ..
-7    .....        ...      ..         ..    ........              ..    ..
-8   ......      ......   ...           ..  ............           ...  ...
-9    ....      .. ....   ....       ........................H....H......
-0       ..    ..   ..     ...     ........................         ..
-1        ..  ..          ..       ........................          ..
-2  ....   ....          ..         ........................         ..
-3 ......   ..          ..    ...    ....................           ..
-4  ....   ....        ..    .....    ............                 ..
-5   ..   ..  ..      ..       ...  .H    ............          ....     ...
-6   .. ..     ..............    ....      ............      ....  ..   .....
-7    ...                   ..            ..     ....    .....      ..   ....
-8                           ..............         ......           .....
-9
-ENDMAP
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-#0         1         2         3         4         5         6         7
-# Dungeon Description
-REGION: (00,00,75,19), unlit, "ordinary"
-
-# Stairs
-STAIR: (01,13), up
-STAIR: (73,02), down
-
-OBJECT: ('(',"chest"), random
-
-# 12 random objects
-LOOP [12] { OBJECT: random, random }
-
-LOOP [5] { GOLD: 1d200, random }
-
-LOOP [8] { MONSTER: ('c', "cockatrice"), (45,11), hostile, asleep }
-LOOP [8] { MONSTER: ('c', "chickatrice"), (45,11), hostile, asleep }
-LOOP [6] { MONSTER: ('c', "basilisk"), (45,11), hostile, asleep }
-LOOP [6] { MONSTER: ('S', "asphynx"), (45,11), hostile, asleep }
-
-
-$places = {
-    (44,10), (45,10), (46,10),
-    (44,11), (45,11), (46,11),
-    (44,12), (45,12), (46,12)
-}
-SHUFFLE: $places
-
-# Nest eggs
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[0], montype:"cockatrice", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[1], montype:"cockatrice", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[2], montype:"cockatrice", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[3], montype:"chickatrice", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[4], montype:"chickatrice", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[5], montype:"chickatrice", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[6], montype:"basilisk", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[7], montype:"basilisk", 0 }
-LOOP [3] { [50%]: OBJECT: ('%', "egg"), $places[8], montype:"basilisk", 0 }
-LOOP [6] { [50%]: OBJECT: ('%', "egg"), random, montype:"asphynx", 0 }
-
-# Some spiders
-MONSTER: 's', random, hostile
-MONSTER: 's', random, hostile
-
-TRAP: "web", random
-TRAP: "web", random
-LOOP [10] { TRAP: "board", random }
-LOOP [6] { TRAP: random, random }
-
-#
-# Cavern variant 3: Based on the dnh drow noble quest level (Ndr-loca")
-#
-MAZE: "cavevar-3", ' '
-FLAGS: noteleport, shortsighted
-GEOMETRY: center,center
-#0         1         2         3         4         5         6         7
-#01234567890123456789012345678901234567890123456789012345678901234567890123
-MAP
-0                        --------------------------
-1                    -----###|.+...|....|...+.|###-----
-2                -----###|###|.|...+....+...|.|###|###-----
-3        ---------###|###|###|.|-+-|....|-+-|.|###|###|###---------
-4    -----###|###|###|###|-+-|.|...|....|...|.|-+-|###|###|###|###-----
-5    |###|###|###|###|-+--...|.|...|....|...|.|...--+-|###|###|###|###|
-6    |###|###|###|-+--.......|.|...|.\..|...|.|.......--+-|###|###|###|
-7----|###|-+---+--....-----..|.--------------.|..-----....--+---+-|###|----
-8|###|-+--............|###|..|................|..|###|............--+-|###|
-9|###+................+###|..--------++--------..|###+................+###|
-0|###|-+--............|###|......................|###|............--+-|###|
-1----|###|-+---+--....-----......................-----....--+---+-|###|----
-2    |###|###|###|-+--.............------.............--+-|###|###|###|
-3    |###|###|###|###|-+--.........|....|.........--+-|###|###|###|###|
-4    -----###|###|###|###|-+--.....|....|.....--+-|###|###|###|###-----
-5        ---------###|###|###|-+-|.|....|.|-+-|###|###|###---------
-6                -----###|###|###|.|-++-|.|###|###|###-----
-7                    -----###|###|........|###|###-----
-8                        ----|###|--------|###|----
-9                            -----        -----
-ENDMAP
-#01234567890123456789012345678901234567890123456789012345678901234567890123
-#0         1         2         3         4         5         6         7
-
-STAIR: (36,14), up
-STAIR: (00,00,73,19), (34,12,39,16), down
-
-LOOP [3] {
-    OBJECT: ('(', "chest"), random
-}
-
-LOOP [13] { OBJECT: random, random }
-
-LOOP [12] { MONSTER: ('F', "lichen"), random }
-LOOP [12] { MONSTER: ('F', "violet fungus"), random }
-LOOP [4] { MONSTER: ('F', "brown mold"), random }
-LOOP [4] { MONSTER: ('F', "red mold"), random }
-LOOP [5] { MONSTER: ('F', "shrieker"), random }
-
-MONSTER: ('U', "umber hulk"), random
-MONSTER: ('U', "umber hulk"), random
-MONSTER: ('w', "long worm"), random
-MONSTER: ('w', "long worm"), random
-MONSTER: ('w', "long worm"), random
-LOOP [5] { MONSTER: ('w', "baby long worm"), random }
-MONSTER: ('w', "purple worm"), random
-MONSTER: ('w', "purple worm"), random
-MONSTER: ('w', "purple worm"), random
-
-
-#
-# Cavern variant 4: Based on the dnh drow noble quest level (Ndr-loca")
-#
-MAZE: "cavevar-4", ' '
-FLAGS: noteleport,hardfloor
-GEOMETRY:center,center
-#0         1         2         3         4         5         6         7
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-MAP
-0      ---------------       ------------------       ---------------
-1      |..|...|......|--------................--------|......|...|..|
-2      |..|...|---F---.............------.............---F---|...|..|
-3      |..--F---.........---------.------.---------.........---F--..|
-4      -F--........-------||.....|........|.....||-------........--F-
-5    ---......------......||.....|........|.....||......------......---
-6  ---.....----....|......|---+---.... ...---+---|......|....----.....---
-7---.....------....---+-----........ ... .......-----+---....------.....---
-8|.......|....--+---..................}.................--+---....|.......|
-9|.......|....+................... ..}}}.. ..................+....|.......|
-0|.......|....--+---..................}.................--+---....|.......|
-1---.....------....---+-----........ ... .......-----+---....------.....---
-2  ---.....----....|......|---+---.... ...---+---|......|....----.....---
-3    ---......------......||.....|........|.....||......------......---
-4      -F--........-------||.....|........|.....||-------........--F-
-5      |..--F---.........---------.------.---------.........---F--..|
-6      |..|...|---F---.............------.............---F---|...|..|
-7      |..|...|......|--------................--------|......|...|..|
-8      ---------------       ------------------       ---------------
-ENDMAP
-#01234567890123456789012345678901234567890123456789012345678901234567890123
-#0         1         2         3         4         5         6         7
-
-NON_DIGGABLE:(00,00,73,18)
-
-# Stairs
-STAIR: (00,00,73,18), (08,03,65,15), up
-STAIR: (00,00,73,18), (08,03,65,15), down
-
-# Monsters
-MONSTER: ('h', "alhoon"), (37,09), hostile
-
-# Some lil babies
-MONSTER: (';', "mind flayer larva"), (36,09)
-MONSTER: (';', "mind flayer larva"), (38,09)
-MONSTER: (';', "mind flayer larva"), (37,08)
-MONSTER: (';', "mind flayer larva"), (37,10)
-
-LOOP [4] { MONSTER: ('h', "mind flayer"), random }
-
-MONSTER: ('h', "master mind flayer"), random
-MONSTER: ('h', "master mind flayer"), random
-
-LOOP [6] { MONSTER: ('U', "umber hulk"), random }
-LOOP [3] { MONSTER: ('w', "long worm"), random }
-LOOP [3] { MONSTER: ('Z', "gug"), random }
-LOOP [9] { MONSTER: ('@', "grimlock"), random }
-
-LOOP [16] { OBJECT: random, random }
-
-#
-# Cavern variant 5:
-#
-MAZE: "cavevar-5", ' '
-FLAGS: hardfloor, shortsighted
-GEOMETRY:center,center
-#0         1         2         3         4         5         6         7
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-MAP
-0          ...........             .......
-1      .................         ...........
-2   .... .............        ..............
-3  ....   .........         .................
-4 ...... ....           ............ ........
-5..........................    ....  ........
-6........................    ........  ........
-7.....   ...............   ...........    .....
-8....     .........   .    ..   ......... .......
-9...       .........     ...   .........  ........      ....
-0....   ........ .....      ............ ...........  ... ...         .....
-1.....    .......  ..........  ......... ...............    .....   ....  .
-2...     .......    ..........  ........   .........            .....
-3 ...   ........ .. .............  ...... . .......
-4  .............. ....   .....    ...............
-5  .................       .....   .............
-6   ..................   ....................
-7      .........................   .........
-8         .....  ..............   ..........
-9           ...  ............   ..........
-ENDMAP
-#0123456789012345678901234567890123456789012345678901234567890123456789012345
-#0         1         2         3         4         5         6         7
-
-STAIR: random, up
-STAIR: random, down
-
-LOOP [ 5 ] {
-    MONSTER: ('F', "violet fungus"), random
-    MONSTER: ('F', "shrieker"), random
-    MONSTER: ('F', "lichen"), random
-}
-
-LOOP [ 10 ] { OBJECT: random, random }
-
-LOOP [ 10 ] { TRAP: random, random }
-
 
 #
 # The dragon pit at the bottom of the Wyrm Caves
 #
-MAZE: "caveend" , ' '
-INIT_MAP: mines, '.' , ' ' , true , true , random , true
-NOMAP
-# RANDOM_MONSTERS: 'D','w'
-#
-STAIR: random, up
-STAIR: random, down
-LOOP [28] { OBJECT: '*', random }
+LEVEL: "caveend"
+FLAGS: noteleport, hardfloor
 
-OBJECT: '(', random
-OBJECT: '(', random
-OBJECT: '(', random
+GEOMETRY: center, center
+MAP
+         -ttttt.......TTTtttTTtt--     -T}}}}}}}}}s----TTTTttttTTTTT--      
+-------  |TT.T..........TTTTT....----  |}}}}}}}}sss||.TTTTTTttTTTTT..---    
+|.TttT-- --................TT.......-----}}}}}}ss.---....TTTTTT........---  
+|..TT..| --..........TT...............---}}}}}}s..||.......T.............---
+-..T...|--.....T........................}}}}}}ss..--.................T.....|
+T.TT...--TT...TTT.........---...........}}}}}}ss..............s............|
+...Tt..................TTT|--..........}}}}}}}ss......--......ss....T......|
+T...t...............-------|..........}}}}}}}}s......-------...ss..........-
+....T...TT---.....---      -----.....}}}}}}}}......--- -----...PPPs.....TT..
+T.......T----.....------  -------...}}}}}}}}.......-----.........PPP.....T..
+-T.......|--T........TT----...---...}}}}}}}}......................ss.....TT.
+|TT....---|..T.......TTTTT.......s.}}}}}}}}..----TT................s........
+--------  --........TTT..........s}}}}}}}}}-------........TTTT..............
+-------    --.......T.P.........ss}}}}}}}}}----T----.....TTTT...............
+-T....---------.....PPPs.......ss}}}s}}}}}}.......|--....TT......--T......--
+T.......--.TT--...sPPPPs......ss}}}}s}}}}}}......----...........--|T......--
+T................ss..sPP.....sss}}}}..}}}}}......---............|--TT......-
+.....--...............PPPTTTsss}}}}}s.}}}}.....................--|.T........
+.....--...T............TTTTTss}}}}}ss.}}}}...........T........-- |..........
+-.........TT..........TttTTsss}}}}ss.}}}}}..........TT.......--  --.........
+---.....TTTTTT...TTTTTttTTsss}}}}ss.}}}}}}......tttTtTTTTT.---    ----......
+ENDMAP
 
-OBJECT: ')', random
-OBJECT: ')', random
-OBJECT: ')', random
-OBJECT: ')', random
 
-OBJECT: '!', random
-OBJECT: '!', random
-OBJECT: '!', random
-OBJECT: '!', random
+STAIR: (73,18),up
 
-OBJECT: '!', random
-OBJECT: '?', random
-OBJECT: '?', random
-OBJECT: '?', random
-OBJECT: '?', random
+# dragon hoard
+OBJECT:       '*', (01,02)
+GOLD: 600 + 12d100,(01,02)
+
+[60%]: OBJECT:  ('!', "gain ability"), (01,03)
+[80%]: OBJECT:   '=', (01,03)
+[40%]: OBJECT:   '"', (01,03)
+OBJECT:       '*', (01,03)
+GOLD: 600 + 10d100,(01,03)
+
+[60%]: OBJECT:  ('!',"gain level"), (02,03)
+[80%]: OBJECT:   '=', (02,03)
+[40%]: OBJECT:   '"', (02,03)
+OBJECT:       '*', (02,03)
+GOLD: 600 + 10d100,(02,03)
+
+[60%]: OBJECT:  ('!',"full healing"), (01,04)
+[80%]: OBJECT:   '=', (01,04)
+[40%]: OBJECT:   '"', (01,04)
+OBJECT:       '*', (01,04)
+GOLD: 600 + 10d100,(01,04)
+
+[60%]: OBJECT:  ('!', "enlightenment"), (02,04)
+[80%]: OBJECT:   '=', (02,04)
+[40%]: OBJECT:   '"', (02,04)
+OBJECT:       '*',  (02,04)
+GOLD: 600 + 10d100, (02,04)
+GOLD: 400 + 10d100, (01,05)
+GOLD: 200 +  5d100, (00,06)
+GOLD: 200 +  5d100, (01,06)
+GOLD: 200 +  5d100, (02,06)
+GOLD: 100 +  5d100, (02,07)
+
+LOOP [ 2d10 ] { GOLD:1d100, random }
+
+OBJECT: ('`',"boulder"),(01,05)
+
+LOOP [12] { OBJECT: '*', random }
+LOOP [3] {
+  OBJECT: '(', random
+  OBJECT: ')', random
+  OBJECT: '!', random
+  OBJECT: '?', random
+}
 LOOP [5] { OBJECT: random, random }
 
-# 20 random dragon eggs
-LOOP [20] { OBJECT: ('%', "egg"), random, montype:'D' }
+LOOP [22] { MONSTER: 'D', random, hostile }
 
-$mon_names = MONSTER: {
-    ('D', "baby red dragon"),           ('D', "baby white dragon"),
-    ('D', "baby yellow dragon"),        ('D', "baby blue dragon"),
-    ('D', "baby green dragon"),         ('D', "baby shimmering dragon"),
-    ('D', "baby sea dragon"),           ('D', "baby gold dragon"),
-    ('D', "baby deep dragon"),          ('D', "baby gray dragon"),
-    ('D', "baby silver dragon"),        ('D', "baby orange dragon"),
-    ('D', "baby black dragon")
-}
+MONSTER: ('D', "black dragon"), random, hostile
+MONSTER: ('D', "wyvern"), random, hostile
+MONSTER: ('D', "hydra"), random, hostile
+#MONSTER: ('D', "Crassus the Young Ancient Dragon"),(01,06)
 
-# 15 baby dragons
-# 1d13 covers the above list (don't need to worry about 0 index)
-
-LOOP [15] { MONSTER: $mon_names[1d13], random, hostile }
-
-# 10 random dragons (very likely adult dragons)
-LOOP [10] { MONSTER: 'D', random, hostile }
-
-# Worms for the wyrm caves
-LOOP [4] { MONSTER: 'w', random, hostile }
-
-# Mean worms for the wyrm caves
-LOOP [5] { MONSTER: ('w', "rot worm"), random, hostile }
+LOOP [6] { MONSTER: 'w', random, hostile }
 
 LOOP [4] { TRAP: random, random }
