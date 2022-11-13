@@ -26,7 +26,7 @@ CHAINBRANCH:	"Town" "oracle" + (2, 2) up
 LEVEL:		    "nymph" "N" @ (8, 22) 45
 BRANCH:		    "Fort Ludios" @ (10, 20) portal
 LEVEL:		    "rats" "R" @ (10, 2) 25
-RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 13
+RNDLEVEL:	    "bigrm" "B" @ (10, 6) 40 13
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
@@ -36,6 +36,7 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 BRANCH: 	    "The Wyrm Caves" @ (22, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
+RNDLEVEL:	    "bigrm" "B" @ (25, 5) 40 13
 BRANCH: 	    "The Lost Tomb" @ (25, 4)
 LEVEL:	        "stor" "S" @ (22, 8) 66
 BRANCH: 	    "The Temple of Moloch" @ (26, 4)
