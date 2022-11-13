@@ -39,6 +39,7 @@ BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
 BRANCH: 	    "The Lost Tomb" @ (25, 4)
 LEVEL:	        "stor" "S" @ (22, 8) 66
 BRANCH: 	    "The Temple of Moloch" @ (26, 4)
+BRANCH:		    "The Sunless Sea" @ (28, 4)
 RNDLEVEL:	    "medusa" "none" @ (-16, 3) 4
 
 #CHAINBRANCH:	"The Ice Queen's Realm" "medusa" + (-1, 0) portal
@@ -211,7 +212,7 @@ BRANCH:		    "The Spider Caves" @ (4, 2)
 RNDLEVEL:       "cavevar" "D" @ (5, 7) 5
 LEVEL:          "cavepass" "D" @ (5, 3)
 LEVEL:          "cavepass" "D" @ (7, 3)
-BRANCH:		    "The Sunless Sea" @ (8, 2)
+
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###
