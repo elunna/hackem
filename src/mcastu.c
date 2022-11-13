@@ -1482,7 +1482,9 @@ int spellnum;
             return TRUE;
         /* don't summon monsters if it doesn't think you're around */
         if (!mcouldseeu 
-            && ((spellnum == MGC_CLONE_WIZ || spellnum == MGC_CALL_UNDEAD)
+            && ((spellnum == MGC_CLONE_WIZ 
+                 || spellnum == MGC_SUMMON_MONS
+                 || spellnum == MGC_CALL_UNDEAD)
             || (!mtmp->iswiz && spellnum == MGC_CLONE_WIZ)))
             return TRUE;
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
