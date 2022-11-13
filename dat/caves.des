@@ -218,11 +218,11 @@ STAIR: $places[2], down
 $mon_names = MONSTER: { 'F', 'i', ':', 'N', 'S', 'B', 'w' }
 SHUFFLE: $mon_names
 
-# Generate 45 monsters of the type in the middle of the level, they'll spread out...
+# Generate monsters of the type in the middle of the level, they'll spread out...
 
-LOOP [15] { MONSTER: $mon_names[0], (30,09) }
-LOOP [15] { MONSTER: $mon_names[0], (35,09) }
-LOOP [15] { MONSTER: $mon_names[0], (40,09) }
+LOOP [7] { MONSTER: $mon_names[0], (30,09) }
+LOOP [7] { MONSTER: $mon_names[0], (35,09) }
+LOOP [8] { [50%]: MONSTER: $mon_names[0], (40,09) }
 
 
 # Debris
