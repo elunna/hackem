@@ -62,6 +62,7 @@ STATIC_DCL boolean FDECL(spell_would_be_useless, (struct monst *, unsigned int, 
 STATIC_DCL boolean FDECL(uspell_would_be_useless,(unsigned int,int));
 STATIC_DCL void FDECL(ucast_wizard_spell, (struct monst *, struct monst *, int, int));
 STATIC_DCL void FDECL(ucast_cleric_spell, (struct monst *, struct monst *, int, int));
+STATIC_DCL int FDECL(mcastrange, (int));
 
 boolean
 is_spellcaster(mtmp)
@@ -740,7 +741,8 @@ int spellnum;
         dmg = 0;
         break;
     case MGC_ACID_BLAST:
-        if (m_canseeu(mtmp) && distu(mtmp->mx, mtmp->my) <= 192) {
+        if (m_canseeu(mtmp) 
+              && distu(mtmp->mx, mtmp->my) <= (ml < mcastrange(ml))) {
             pline("%s douses you in a torrent of acid!", Monnam(mtmp));
             explode(u.ux, u.uy, AD_ACID - 1, d((ml / 2) + 4, 8),
                     MON_CASTBALL, EXPL_ACID);
@@ -874,7 +876,7 @@ int spellnum;
     case MGC_ICE_BOLT:
         /* hotwire these to only go off if the critter can see you
          * to avoid bugs WRT the Eyes and detect monsters */
-        if (m_canseeu(mtmp) && distu(mtmp->mx, mtmp->my) <= 192) {
+        if (m_canseeu(mtmp) && distu(mtmp->mx, mtmp->my) <= mcastrange(ml)) {
             pline("%s blasts you with %s!", Monnam(mtmp),
                   (spellnum == MGC_FIRE_BOLT) ? "fire" : "ice");
             explode(u.ux, u.uy, (spellnum == MGC_FIRE_BOLT) ? AD_FIRE - 1
@@ -2649,4 +2651,20 @@ int spellnum;
     }
 }
 
+/* Figure out how far a spellcaster can reach with a spell based on their level */
+STATIC_OVL
+int
+mcastrange(ml) 
+int ml;
+{
+    if (ml < 5) 
+        return 9;   /* ~3 spaces */
+    if (ml < 7)
+        return 16;  /* ~4 spaces */
+    if (ml < 9)
+        return 25;  /* ~5 spaces */
+    if (ml < 11)
+        return 49;  /* ~7 spaces */
+    return 192;     /* ~13 spaces */
+}
 /*mcastu.c*/
