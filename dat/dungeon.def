@@ -26,7 +26,7 @@ CHAINBRANCH:	"Town" "oracle" + (2, 2) up
 LEVEL:		    "nymph" "N" @ (8, 22) 45
 BRANCH:		    "Fort Ludios" @ (10, 20) portal
 LEVEL:		    "rats" "R" @ (10, 2) 25
-RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 10
+RNDLEVEL:	    "bigrm" "B" @ (13, 3) 40 13
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal

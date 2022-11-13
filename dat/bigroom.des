@@ -29,7 +29,9 @@ MAP
 ---------------------------------------------------------------------------
 ENDMAP
 
-$terrains = TERRAIN:{'-', 'F', 'L', 'T', 'C'}
+# Very diverse terrain available.
+$terrains = TERRAIN: {'-', 'F',  'L', 'T', 'C', 'x', 'w', 's' }
+
 SHUFFLE:$terrains
 
 [50%]: SWITCH [ 4 ] {
@@ -62,57 +64,18 @@ STAIR:random,down
 # Non diggable walls
 NON_DIGGABLE:(00,00,74,17)
 # Objects
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
+LOOP [15] {
+  OBJECT:random,random
+}
 # Random traps
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
+LOOP [6] {
+  TRAP:random,random
+}
 # Random monsters.
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
+[50%]: MONSTER: (':',"giant turtle"),random
+LOOP [28] {
+  MONSTER:random,random
+}
 
 #	Here, just play with the lighting...
 
@@ -161,57 +124,19 @@ STAIR:random,down
 # Non diggable walls
 NON_DIGGABLE:(00,00,74,17)
 # Objects
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
+LOOP [15] {
+  OBJECT:random,random
+}
+OBJECT:('(',"tallow candle"),random,quantity:2
 # Random traps
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
+LOOP [6] {
+  TRAP:random,random
+}
 # Random monsters.
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
+[50%]: MONSTER: (':',"giant turtle"),random
+LOOP [28] {
+  MONSTER:random,random
+}
 
 #	Now, let's get fancy...
 
@@ -237,6 +162,20 @@ MAP
 |.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|
 ---------------------------------------------------------------------------
 ENDMAP
+IF [30%] {
+   $outside = terrain:{ 'L', 'T', '}', 'C' }
+   SHUFFLE: $outside
+   REPLACE_TERRAIN:(6,5, 68,11),'-',$outside[0],100%
+   REPLACE_TERRAIN:(6,5, 68,11),'|',$outside[0],100%
+   REPLACE_TERRAIN:(6,5, 68,11),' ',$outside[0],100%
+}
+
+IF [50%] {
+   REPLACE_TERRAIN:(1, 1, 73, 1),'|','F',100%
+   REPLACE_TERRAIN:(1,16, 73,16),'|','F',100%
+}
+
+
 # Dungeon Description
 REGION:(01,01,73,16),lit,"ordinary"
 # Stairs
@@ -245,28 +184,14 @@ STAIR:random,down
 # Non diggable walls
 NON_DIGGABLE:(00,00,74,17)
 # Objects
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
+LOOP [15] {
+  OBJECT:random,random
+}
+OBJECT:('(',"wax candle"),random,quantity:2
 # Random traps
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
+LOOP [6] {
+  TRAP:random,random
+}
 # Random monsters.
 MONSTER:random,(01,01)
 MONSTER:random,(13,01)
@@ -318,6 +243,19 @@ MAP
 |.........|                                                     |.........|
 -----------                                                     -----------
 ENDMAP
+$corners = selection: (05,02) & (05,15) & (69,02) & (69,15)
+$terrain = terrain:{ 'L', 'T', '{', '.' }
+SHUFFLE:$terrain
+TERRAIN:$corners, $terrain[0]
+
+IF [30%] {
+   $outside = terrain:{ 'L', 'T', '}' }
+   SHUFFLE: $outside
+   REPLACE_TERRAIN:(0,0, 74,17),'-',$outside[0],100%
+   REPLACE_TERRAIN:(0,0, 74,17),'|',$outside[0],100%
+   REPLACE_TERRAIN:(0,0, 74,17),' ',$outside[0],100%
+}
+
 # Dungeon Description
 REGION:(01,01,73,16),lit,"ordinary"
 # Stairs
@@ -331,57 +269,19 @@ FOUNTAIN:(05,15)
 FOUNTAIN:(69,02)
 FOUNTAIN:(69,15)
 # Objects
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
+LOOP [15] {
+  OBJECT:random,random
+}
+OBJECT:('(',"tallow candle"),random,quantity:2
 # Random traps
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
+LOOP [6] {
+  TRAP:random,random
+}
 # Random monsters.
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
+[50%]: MONSTER: (':',"giant turtle"),random
+LOOP [28] {
+  MONSTER:random,random
+}
 
 #	Try an oval room...
 
@@ -416,57 +316,19 @@ STAIR:random,down
 # Non diggable walls
 NON_DIGGABLE:(00,00,72,18)
 # Objects
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
-OBJECT:random,random
+LOOP [15] {
+  OBJECT:random,random
+}
+OBJECT:('(',"wax candle"),random,quantity:2
 # Random traps
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
-TRAP:random,random
+LOOP [6] {
+  TRAP:random,random
+}
 # Random monsters.
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
-MONSTER:random,random
+[50%]: MONSTER: (':',"giant turtle"),random
+LOOP [28] {
+  MONSTER:random,random
+}
 
 
 # The Four Circles
@@ -506,13 +368,14 @@ NON_DIGGABLE:(00,00,72,18)
 LOOP [15] {
   OBJECT:random,random
 }
+OBJECT:('(',"tallow candle"),random,quantity:2
 LOOP [6] {
   TRAP:random,random
 }
+[50%]: MONSTER: (':',"giant turtle"),random
 LOOP [28] {
   MONSTER:random,random
 }
-
 
 
 # Let's tilt it a bit
@@ -543,7 +406,7 @@ MAP
               -----                                                        
 ENDMAP
 
-$terrain = terrain:{ 'L', 'T', '{', '.' }
+$terrain = terrain:{ 'L', 'T', '{', '.', 'U' }
 SHUFFLE:$terrain
 REPLACE_TERRAIN:(00,00,74,18),'L',$terrain[0],100%
 
@@ -557,9 +420,11 @@ NON_DIGGABLE:(00,00,74,18)
 LOOP [15] {
   OBJECT:random,random
 }
+OBJECT:('(',"wax candle"),random,quantity:2
 LOOP [6] {
   TRAP:random,random
 }
+[50%]: MONSTER: (':',"giant turtle"),random
 LOOP [28] {
   MONSTER:random,random
 }
@@ -608,13 +473,14 @@ NON_DIGGABLE:(00,00,74,17)
 LOOP [15] {
   OBJECT:random,random
 }
+OBJECT:('(',"wax candle"),random,quantity:2
 LOOP [6] {
   TRAP:random,random
 }
+[50%]: MONSTER: (':',"giant turtle"),random
 LOOP [28] {
   MONSTER:random,random
 }
-
 
 
 # The Eye
@@ -656,6 +522,7 @@ STAIR:random,down
 LOOP [15] {
   OBJECT:random,random
 }
+OBJECT:('(',"tallow candle"),random,quantity:2
 LOOP [6] {
   TRAP:random,random
 }
@@ -708,6 +575,7 @@ TELEPORT_REGION:(00,00,70,18),(02,03,68,15),down
 LOOP [15] {
   OBJECT:random,random
 }
+OBJECT:('(',"wax candle"),random,quantity:2
 LOOP [6] {
   TRAP:random,random
 }
@@ -721,3 +589,133 @@ MAZEWALK:(4, 2), south, false
 STAIR:(00,00,70,18),(02,03,68,15),up
 STAIR:random,down
 
+
+# Two streams
+
+LEVEL:"bigrm-11"
+FLAGS:mazelevel
+INIT_MAP:solidfill,' '
+GEOMETRY:center,center
+MAP
+        |------------------------       -------------------------        
+        |.......................|       |.......................|        
+        |.......................|       |................}}.....|        
+|-------|......}}}}.............|--------.....}}.}.....}}}}.....--------|
+|}}}......}}..}}}}}}..........}}}..........}}}..}.....}....}.}}..}}}}}}}|
+|}}}....}}.}}}.....}....}}...}...}}}....}.}...........}.....}}.}}....}}}|
+|}}}}}}}............}}}}..}}}.......}}}}}}}............}..............}}|
+|}}}}}...............}}...............}}...}............}...........}}}}|
+|-------|.......................|--------...}.........}}}.......--------|
+        |.......................|       |...}}......}}.}........|        
+|--------........LLLL....LL.....--------|....}}...}}............|-------|
+|LLL..........LLL.........LLL......LLL........}.}}}}.......LLL.........L|
+|LLLL........LLL.............L...LL..LLLLLL....}}.}.....LLL...LLL....LLL|
+|LLLLLLLL..LLL.LLLLLL.........LLL......LLLLL.........LLLL........LLLLLLL|
+|LLLLLL..LLL........LLL...LLLL............LLLLL..LLLL.LLLLL........LLLLL|
+|--------..............LLL......--------|.....LLL....LLLLLL.....|-------|
+        |.......................|       |...............LL......|        
+        |.......................|       |.......................|        
+        -------------------------       -------------------------        
+ENDMAP
+# Dungeon Description
+REGION:(01,01,72,17),lit,"ordinary"
+# Stairs
+STAIR:random,up
+STAIR:random,down
+#
+# Non diggable walls
+NON_DIGGABLE:(00,00,72,18)
+
+LOOP [15] {
+  OBJECT:random,random
+}
+OBJECT:('(',"tallow candle"),random,quantity:2
+
+LOOP [6] {
+  TRAP:random,random
+}
+
+LOOP [28] {
+  MONSTER:random,random
+}
+
+
+# The Mandelbrot
+
+LEVEL:"bigrm-12"
+FLAGS:mazelevel
+GEOMETRY:center,center
+MAP
+                      LLLLLLLLLLLLPPPPPLLPPPssssPPLPPPPLLLLLL            
+                     LLLLLLLLLLLLPPPPLLLLPPs........PLLPPPPPLLLL           
+                  LLLLLLLLLLPPPPPPLPPPPPPPPs.......sPPPLLLLLPPLLLL         
+              LLLLLLLLLPPPPPPPPLLPP....................PPPs.PLPLLLL        
+          LLLLLLLLPPPPPPPPPPLLLLPPPs........................PLPPLLLL       
+      LLLLLLLLLPPLPLLLLLLLLLPPPPP..........................sPPLPPLLLL      
+   LLLLLLLLLPPPPLPssPPPP.sPPPPPP..............................PPPLLLL      
+ LLLLLLLLPPPPPLLPPPs.........ss..............................PPLPLLLLL     
+LLLLLLPPPPPLLLPPPP...........................................PLPPLLLLL     
+LPPPPLLLLLPPPPP.............................................PPLPPLLLLL     
+P.........................................................sPPLLPPLLLLL     
+LPPPPLLLLLPPPPP.............................................PPLPPLLLLL     
+LLLLLLPPPPPLLLPPPP...........................................PLPPLLLLL     
+ LLLLLLLLPPPPPLLPPPs.........ss..............................PPLPLLLLL     
+   LLLLLLLLLPPPPLPssPPPP.sPPPPPP..............................PPPLLLL      
+      LLLLLLLLLPPLPLLLLLLLLLPPPPP..........................sPPLPPLLLL      
+          LLLLLLLLPPPPPPPPPPLLLLPPPs........................PLPPLLLL       
+              LLLLLLLLLPPPPPPPPLLPP....................PPPs.PLPLLLL        
+                  LLLLLLLLLLPPPPPPLPPPPPPPPs.......sPPPLLLLLPPLLLL         
+                     LLLLLLLLLLLLPPPPLLLLPPs........PLLPPPPPLLLL           
+                        LLLLLLLLLLLLPPPPPLLPPPssssPPLPPPPLLLLLL            
+ENDMAP
+
+REGION:(00,00,74,21),lit,"ordinary"
+
+# Stairs
+STAIR:random,up
+STAIR:random,down
+# Objects
+LOOP [10] {
+  OBJECT:random,random
+}
+OBJECT:('(',"wax candle"),random,quantity:2
+# Random traps
+LOOP [6] {
+  TRAP:random,random
+}
+# Random monsters
+LOOP [28] {
+  MONSTER:random,random
+}
+
+
+LEVEL:"bigrm-13"
+FLAGS:mazelevel
+INIT_MAP:rogue
+$corr = selection: grow(grow(filter('#', fillrect(0,0, 76,21))))
+TERRAIN:$corr, ('.', lit)
+$border = selection: rect(0,0, 76,21)
+TERRAIN:$border, ' '
+REGION:(00,00,76,21),lit,"ordinary"
+WALLIFY
+
+# Stairs
+STAIR:random,up
+STAIR:random,down
+# Non diggable walls
+NON_DIGGABLE:(00,00,76,21)
+# Objects
+LOOP [15] {
+  OBJECT:random,random
+}
+OBJECT:('(',"wax candle"),random,quantity:2
+
+# Random traps
+LOOP [6] {
+  TRAP:random,random
+}
+# Random monsters.
+[50%]: MONSTER: (':',"giant turtle"),random
+LOOP [28] {
+  MONSTER:random,random
+}
