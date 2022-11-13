@@ -6126,17 +6126,6 @@ you %p, but only for a few moments.  Leave this place
 while you are still able to do so.
 %E [You have freed Kathryn the Enchantress from a terrible curse.]
 #
-# Entering Vlad's tower (cavern level)
-#
-%Cc - 00300
-You enter an enormous rock cavern, the bottom of which you
-cannot see.  Off in the distance, you can barely make out
-what appears to be a ladder dangling from a hole in the
-cavern ceiling.  You catch yourself and regain your balance
-as you step precariously close to the cliff's edge, careful
-not to fall into the abyss.
-%E [You have just entered an rock cavern, which appears bottomless.]
-#
 # Putting on the Hand of Vecna
 #
 %Cc - 00301
