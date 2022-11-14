@@ -5945,6 +5945,17 @@ boolean moncast;
         }
         break; /* ZT_FIRE */
 
+    case ZT_SONIC: {
+        int xx = x, yy = y;
+        if (find_drawbridge(&xx, &yy)) {
+            if (lev->typ != DRAWBRIDGE_UP) {
+                pline_The("drawbridge trembles and suddenly implodes from the head-splitting noise!");
+                destroy_drawbridge(xx, yy);
+            }
+            rangemod -= 3;
+        }
+        break;
+    }
     case ZT_COLD:
         rangemod = freeze_tile(lev, x, y, rangemod);
         break; /* ZT_COLD */
