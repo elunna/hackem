@@ -17,7 +17,7 @@ STATIC_DCL void FDECL(look_at_monster, (char *, char *,
 STATIC_DCL struct permonst *FDECL(lookat, (int, int, char *, char *));
 STATIC_DCL char *FDECL(hallucinatory_armor, (char *));
 STATIC_DCL void FDECL(add_mon_info, (winid, struct permonst *));
-STATIC_DCL void FDECL(add_obj_info, (winid, SHORT_P));
+STATIC_DCL void FDECL(add_obj_info, (winid, struct obj *, SHORT_P));
 STATIC_DCL void FDECL(look_all, (BOOLEAN_P,BOOLEAN_P));
 STATIC_DCL void FDECL(do_supplemental_info, (char *, struct permonst *,
                                              BOOLEAN_P));
@@ -1070,8 +1070,9 @@ extern const struct propname {
 /* Add some information to an encyclopedia window which is printing information
  * about an object. */
 STATIC_OVL void
-add_obj_info(datawin, otyp)
+add_obj_info(datawin, obj, otyp)
 winid datawin;
+struct obj *obj;
 short otyp;
 {
     struct objclass oc = objects[otyp];
@@ -1082,7 +1083,12 @@ short otyp;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional"
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
-
+    boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
+    
+    if (obj && otyp == STRANGE_OBJECT) {
+        oc = objects[obj->otyp];
+        olet = oc.oc_class;
+    }
 #define OBJPUTSTR(str) putstr(datawin, ATR_NONE, str)
 #define ADDCLASSPROP(cond, str)          \
     if (cond) {                          \
@@ -1090,7 +1096,11 @@ short otyp;
         Strcat(buf, str);                \
     }
 
-    Sprintf(buf, "Object lookup for \"%s\":", safe_typename(otyp));
+    if (obj && otyp == STRANGE_OBJECT) {
+        Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
+    } else {
+        Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
+    }
     putstr(datawin, ATR_BOLD, buf);
     OBJPUTSTR("");
 
@@ -1220,17 +1230,35 @@ short otyp;
                 armorslots[oc.oc_armcat]);
 
         OBJPUTSTR(buf);
-        Sprintf(buf, "Base AC %d, magic cancellation %d.",
-                oc.a_ac, oc.a_can);
+        if (identified) {
+            Sprintf(buf, "Base AC %d, magic cancellation %d.", oc.a_ac, oc.a_can);
+        } else {
+            Sprintf(buf, "Base AC %d.", oc.a_ac);
+        }
         OBJPUTSTR(buf);
         Sprintf(buf, "Takes %d turn%s to put on or remove.",
                 oc.oc_delay, (oc.oc_delay == 1 ? "" : "s"));
     }
     if (olet == FOOD_CLASS) {
         if (otyp == TIN || otyp == CORPSE) {
-            OBJPUTSTR("Comestible providing varied nutrition.");
+            if (obj && (obj->otyp == CORPSE)) {
+                Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
+                OBJPUTSTR(buf);
+            } else {
+                OBJPUTSTR("Comestible providing varied nutrition.");
+            }
             OBJPUTSTR("Takes various amounts of turns to eat.");
-            OBJPUTSTR("May or may not be vegetarian.");
+            if (obj) {
+                if (vegan(&mons[obj->corpsenm])) {
+                    OBJPUTSTR("Is vegan.");
+                } else if (vegetarian(&mons[obj->corpsenm])) {
+                    OBJPUTSTR("Is vegetarian but not vegan.");
+                } else {
+                    OBJPUTSTR("Is not vegetarian.");
+                }
+            } else {
+                OBJPUTSTR("May or may not be vegetarian.");
+            }
         } else {
             Sprintf(buf, "Comestible providing %d nutrition.", oc.oc_nutrition);
             OBJPUTSTR(buf);
@@ -1270,11 +1298,14 @@ short otyp;
         /* nothing special (ink is covered below) */
         OBJPUTSTR("Scroll.");
     }
+
     if (olet == SPBOOK_CLASS) {
         if (otyp == SPE_BLANK_PAPER) {
             OBJPUTSTR("Spellbook.");
         } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD) {
             OBJPUTSTR("Book.");
+        } else if (otyp == STRANGE_OBJECT) {
+            OBJPUTSTR("Spellbook.");
         } else {
             Sprintf(buf, "Level %d spellbook, in the %s school. %s spell.",
                     oc.oc_level, spelltypemnemonic(oc.oc_skill), dir);
@@ -1284,18 +1315,24 @@ short otyp;
         }
     }
     if (olet == WAND_CLASS) {
-        Sprintf(buf, "%s wand.", dir);
+        if (otyp == STRANGE_OBJECT) {
+            Strcpy(buf, "Wand.");
+        } else {
+            Sprintf(buf, "%s wand.", dir);
+        }
         OBJPUTSTR(buf);
     }
+
     if (olet == RING_CLASS) {
-        OBJPUTSTR(oc.oc_charged ? "Chargeable ring." : "Ring.");
+        OBJPUTSTR(identified && oc.oc_charged ? "Chargeable ring." : "Ring.");
         /* see material comment below; only show toughness status if this
          * particular ring is already identified... */
         if (oc.oc_tough && oc.oc_name_known) {
             OBJPUTSTR("Is made of a hard material.");
         }
     }
-    if (olet == GEM_CLASS) {
+
+    if (identified && olet == GEM_CLASS) {
         if (oc.oc_material == MINERAL) {
             OBJPUTSTR("Type of stone.");
         } else if (oc.oc_material == GLASS) {
@@ -1361,27 +1398,51 @@ short otyp;
             subclass = "theoretically tonal instrument";
             break;
         }
-        Sprintf(buf, "%s%s.", (oc.oc_charged ? "chargeable " : ""), subclass);
+        Sprintf(buf, "%s%s.", (identified && oc.oc_charged ? "chargeable " : ""), subclass);
         /* capitalize first letter of buf */
         buf[0] -= ('a' - 'A');
         OBJPUTSTR(buf);
     }
 
     /* cost, wt should go next */
-    Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
+    buf[0] = '\0';
+    int obj_weight = obj ? weight(obj) : oc.oc_weight;
+    if (otyp != STRANGE_OBJECT) {
+        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
+    } else {
+        int i, base_cost = oc.oc_cost;
+        for (i = 0; i < NUM_OBJECTS; i++) {
+            if (objects[i].oc_class == olet) {
+                if (olet == SPBOOK_CLASS && i == SPE_BOOK_OF_THE_DEAD) {
+                    continue;
+                }
+                if (objects[i].oc_cost != base_cost) {
+                    base_cost = -1;
+                }
+            }
+        }
+
+        if (base_cost > 0) {
+            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
+        } else {
+            Sprintf(buf, "Weighs %d aum.", obj_weight);
+        }
+    }
     OBJPUTSTR(buf);
 
     /* Scrolls or spellbooks: ink cost */
-    if (olet == SCROLL_CLASS || olet == SPBOOK_CLASS) {
-        if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
-            OBJPUTSTR("Can be written on.");
-        } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD
-                   || otyp == SCR_KNOWLEDGE) {
-            OBJPUTSTR("Cannot be written.");
-        } else {
-            Sprintf(buf, "Takes %d to %d ink to write.",
-                    ink_cost(otyp)/2, ink_cost(otyp)-1);
-            OBJPUTSTR(buf);
+    if (otyp != STRANGE_OBJECT) {
+        if (olet == SCROLL_CLASS || olet == SPBOOK_CLASS) {
+            if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
+                OBJPUTSTR("Can be written on.");
+            } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD
+                       || otyp == SCR_KNOWLEDGE) {
+                OBJPUTSTR("Cannot be written.");
+            } else {
+                Sprintf(buf, "Takes %d to %d ink to write.",
+                        ink_cost(otyp) / 2, ink_cost(otyp) - 1);
+                OBJPUTSTR(buf);
+            }
         }
     }
 
@@ -1448,8 +1509,10 @@ short otyp;
     }
 
     buf[0] = '\0';
-    ADDCLASSPROP(oc.oc_magic, "inherently magical");
-    ADDCLASSPROP(oc.oc_nowish, "not wishable");
+    if (otyp != STRANGE_OBJECT) {
+        ADDCLASSPROP(oc.oc_magic, "inherently magical");
+        ADDCLASSPROP(oc.oc_nowish, "not wishable");
+    }
     if (*buf) {
         Sprintf(buf2, "Is %s.", buf);
         OBJPUTSTR(buf2);
@@ -1506,7 +1569,8 @@ short otyp;
  *       Therefore, we create a copy of inp _just_ for data.base lookup.
  */
 void
-checkfile(inp, pm, user_typed_name, without_asking, supplemental_name)
+checkfile(obj, inp, pm, user_typed_name, without_asking, supplemental_name)
+struct obj *obj;
 char *inp;
 struct permonst *pm; /* only set if looking at a monster with / */
 boolean user_typed_name, without_asking;
@@ -1809,8 +1873,7 @@ char *supplemental_name;
 
             /* finally, put the appropriate information into a window */
             if (user_typed_name || without_asking || yes_to_moreinfo) {
-                if (!found_in_file &&
-                    ((!pm && otyp == STRANGE_OBJECT) || !flags.lookup_data)) {
+                if (!found_in_file && ((!pm && (obj == NULL && otyp == STRANGE_OBJECT)) || !flags.lookup_data)) {
                     if ((user_typed_name && pass == 0 && !pass1found_in_file)
                         || yes_to_moreinfo)
                         pline("I don't have any information on those things.");
@@ -1842,8 +1905,12 @@ char *supplemental_name;
                         ; /* do nothing, 'pokedex' is disabled */
                     }
                     /* object lookup info */
-                    else if (do_obj_lookup) {
-                        add_obj_info(datawin, otyp);
+                    do_obj_lookup = TRUE;
+                    if (do_obj_lookup) {
+                        add_obj_info(datawin, obj, otyp);
+                        putstr(datawin, 0, "");
+                    } else if (obj) {
+                        add_obj_info(datawin, obj, otyp);
                         putstr(datawin, 0, "");
                     }
                     /* monster lookup info */
@@ -2365,8 +2432,8 @@ coord *click_cc;
                     break;
                 }
             if (*out_str)
-                checkfile(out_str, (struct permonst *) 0, TRUE, TRUE,
-                          (char *) 0);
+                /*checkfile(out_str, (struct permonst *) 0, TRUE, TRUE, (char *) 0);*/
+                checkfile(NULL, out_str, pm, TRUE, TRUE, (char *) 0);
             return 0;
           }
         case '?':
@@ -2380,7 +2447,7 @@ coord *click_cc;
                 return 0;
 
             if (out_str[1]) { /* user typed in a complete string */
-                checkfile(out_str, pm, TRUE, TRUE, (char *) 0);
+                checkfile(NULL, out_str, pm, TRUE, TRUE, (char *) 0);
                 return 0;
             }
             sym = out_str[0];
@@ -2463,8 +2530,9 @@ coord *click_cc;
 
                 supplemental_name[0] = '\0';
                 Strcpy(temp_buf, firstmatch);
-                checkfile(temp_buf, supplemental_pm, FALSE,
-                          (boolean) (ans == LOOK_VERBOSE), supplemental_name);
+                /*checkfile(temp_buf, supplemental_pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);*/
+                checkfile(NULL, temp_buf, pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);
+                
                 if (supplemental_pm)
                     do_supplemental_info(supplemental_name, supplemental_pm,
                                          (boolean) (ans == LOOK_VERBOSE));

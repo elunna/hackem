@@ -2638,7 +2638,8 @@ ddoinv()
     if (invobj == NULL)
         return 0;
 
-    checkfile(out_str, NULL, TRUE, TRUE, NULL);
+    /*checkfile(out_str, NULL, TRUE, TRUE, NULL);*/
+    checkfile(invobj, out_str, 0, TRUE, TRUE, NULL);
     return 0;
 }
 
