@@ -1263,9 +1263,8 @@ WAND("poison gas",  "octagonal",  20, 175, 1, RAY, IRON,  HI_METAL),
 WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 WAND("sonics",       "titanium",  20, 175, 1, RAY, IRON,  HI_METAL),
 WAND("water",       "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
-WAND("fireball",    "octagonal",   5, 300, 1, RAY, IRON,  HI_METAL),/* Slash'EM */
+WAND("fireball",    "forked",   5, 300, 1, RAY, WOOD,  HI_WOOD),/* Slash'EM */
 /* extra descriptions, shuffled into use at start of new game */
-WAND(None,             "forked",  0, 150, 1, 0, WOOD, HI_WOOD),
 WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
 WAND(None,            "jeweled",  0, 150, 1, 0, IRON, HI_MINERAL),
 #undef WAND
