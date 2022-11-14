@@ -1368,8 +1368,11 @@ coord *mp;
 
             do
                 croom = &rooms[rn2(nroom)];
-            while ((croom == dnstairs_room || croom == upstairs_room
-                   || croom->rtype != OROOM) && (++tryct < 500));
+            while ((croom == dnstairs_room 
+                    || croom == upstairs_room
+                    || croom->rtype != OROOM 
+                    || croom->rtype != VAULT) 
+                   && (++tryct < 500));
         } else
             croom = &rooms[rn2(nroom)];
 
