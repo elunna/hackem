@@ -482,15 +482,16 @@ AUTOPICKUP_EXCEPTION="<horn"
 AUTOPICKUP_EXCEPTION="<drum"
 AUTOPICKUP_EXCEPTION="<flute"
 AUTOPICKUP_EXCEPTION="<harp"
-
-# # General tools that are rare/good enough for autopickup
 #AUTOPICKUP_EXCEPTION="<*expensive camera"
 #AUTOPICKUP_EXCEPTION="<*lenses"
 #AUTOPICKUP_EXCEPTION="<*stethoscope"
-# AUTOPICKUP_EXCEPTION="<*crystal ball"
+#AUTOPICKUP_EXCEPTION="<*crystal ball"
 #AUTOPICKUP_EXCEPTION="<*glass orb"
 AUTOPICKUP_EXCEPTION="<.*can of grease"
 AUTOPICKUP_EXCEPTION="<.*magic whistle"
+
+AUTOPICKUP_EXCEPTION="<healthstone"
+AUTOPICKUP_EXCEPTION="<whetstone"
 
 # Autopickup of potions and scrolls - I assume that people like to either pickup
 # ALL of these or none of them.
