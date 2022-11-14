@@ -5946,6 +5946,7 @@ boolean moncast;
         break; /* ZT_FIRE */
 
     case ZT_SONIC: {
+        t = t_at(x, y);
         int xx = x, yy = y;
         if (find_drawbridge(&xx, &yy)) {
             if (lev->typ != DRAWBRIDGE_UP) {
@@ -5953,6 +5954,33 @@ boolean moncast;
                 destroy_drawbridge(xx, yy);
             }
             rangemod -= 3;
+        }
+        else if (lev->typ == IRONBARS) {
+            if ((lev->wall_info & W_NONDIGGABLE) != 0) {
+                if (see_it)
+                    Norep("The %s vibrate somewhat but remain intact.",
+                          defsyms[S_bars].explanation);
+                /* but nothing actually happens... */
+            } else {
+                rangemod -= 2;
+                if (see_it)
+                    Norep("The %s are shattered!", defsyms[S_bars].explanation);
+                else
+                    You_hear(Hallucination ? "special snowflakes!" : "metal cracking.");
+                if (*in_rooms(x, y, SHOPBASE)) {
+                    /* in case we ever have a shop bounded by bars */
+                    lev->typ = ROOM, lev->flags = 0;
+                    if (see_it)
+                        newsym(x, y);
+                    add_damage(x, y, (type >= 0) ? SHOP_BARS_COST : 0L);
+                    if (type >= 0)
+                        *shopdamage = TRUE;
+                } else {
+                    lev->typ = DOOR, lev->doormask = D_NODOOR;
+                    if (see_it)
+                        newsym(x, y);
+                }
+            }
         }
         break;
     }
