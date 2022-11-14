@@ -5948,6 +5948,7 @@ boolean moncast;
     case ZT_SONIC: {
         t = t_at(x, y);
         int xx = x, yy = y;
+        struct obj *otmp;
         if (find_drawbridge(&xx, &yy)) {
             if (lev->typ != DRAWBRIDGE_UP) {
                 pline_The("drawbridge trembles and suddenly implodes from the head-splitting noise!");
@@ -5979,6 +5980,15 @@ boolean moncast;
                     lev->typ = DOOR, lev->doormask = D_NODOOR;
                     if (see_it)
                         newsym(x, y);
+                }
+                /* scatter some debris (not as much as a drawbridge! */
+                for (int i = rn2(3); i > 0; --i) {
+                    otmp = mksobj_at(IRON_CHAIN, 
+                                     rn2(2) ? x : xx, 
+                                     rn2(2) ? y : yy, TRUE, FALSE);
+                    /* a force of 5 here would yield a radius of 2 for
+                       iron chain; anything less produces a radius of 1 */
+                    (void) scatter(otmp->ox, otmp->oy, 1, MAY_HIT, otmp);
                 }
             }
         }
