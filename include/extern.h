@@ -3078,6 +3078,7 @@ E int FDECL(hitval, (struct obj *, struct monst *));
 E int FDECL(dmgval, (struct obj *, struct monst *));
 E int FDECL(special_dmgval, (struct monst *, struct monst *, long,
                              struct obj **));
+E struct damage_info_t dmgval_info(struct obj*);
 E void FDECL(searmsg, (struct monst *, struct monst *, struct obj *,
                        BOOLEAN_P));
 E struct obj *FDECL(select_rwep, (struct monst *));

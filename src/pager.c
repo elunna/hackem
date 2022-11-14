@@ -1083,6 +1083,9 @@ short otyp;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional"
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
+    struct obj dummy = { 0 };
+    dummy.otyp = otyp;
+    dummy.oclass = oc.oc_class;
     boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
     
     if (obj && otyp == STRANGE_OBJECT) {
@@ -1108,8 +1111,8 @@ short otyp;
     if (olet == WEAPON_CLASS || weptool) {
         const int skill = oc.oc_skill;
         const char* dmgtyp = "blunt";
-        const char* sdambon = "";
-        const char* ldambon = "";
+       /* const char* sdambon = "";
+        const char* ldambon = "";*/
 
         if (skill >= 0) {
             Sprintf(buf, "%s-handed weapon%s using the %s skill.",
@@ -1143,80 +1146,25 @@ short otyp;
 
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
-        switch (otyp) {
-        case IRON_CHAIN:
-        case CROSSBOW_BOLT:
-        case MACE:
-        case HEAVY_MACE:
-        case ROD:
-        case WAR_HAMMER:
-        case HEAVY_WAR_HAMMER:
-        case FLAIL:
-        case TRIPLE_HEADED_FLAIL:
-        case SPETUM:
-        case TRIDENT:
-        case SPIKED_CHAIN:
-            sdambon = " + 1";
-            break;
-        case BATTLE_AXE:
-        case BARDICHE:
-        case BILL_GUISARME:
-        case GUISARME:
-        case LUCERN_HAMMER:
-        case MORNING_STAR:
-        case ORCISH_MORNING_STAR:
-        case RANSEUR:
-        case BROADSWORD:
-        case ELVEN_BROADSWORD:
-        case RUNESWORD:
-        case VOULGE:
-        case SCYTHE:
-        case ATGEIR:
-            sdambon = " + 1d4";
-            break;
-        }
-        /* and again, because /large/ damage is entirely separate. Bleah. */
-        switch (otyp) {
-        case CROSSBOW_BOLT:
-        case MORNING_STAR:
-        case ORCISH_MORNING_STAR:
-        case PARTISAN:
-        case RUNESWORD:
-        case ELVEN_BROADSWORD:
-        case BROADSWORD:
-            ldambon = " + 1";
-            break;
-        case FLAIL:
-        case RANSEUR:
-        case VOULGE:
-        case SCYTHE:
-            ldambon = " + 1d4";
-            break;
-        case HALBERD:
-        case SPETUM:
-            ldambon = " + 1d6";
-            break;
-        case BATTLE_AXE:
-        case BARDICHE:
-        case TRIDENT:
-        case SPIKED_CHAIN:
-            ldambon = " + 2d4";
-            break;
-        case TSURUGI:
-        case DWARVISH_MATTOCK:
-        case TWO_HANDED_SWORD:
-            ldambon = " + 2d6";
-            break;
-        case TRIPLE_HEADED_FLAIL:
-            ldambon = " + 3d6";
-            break;
-        }
+        struct damage_info_t damage_info = dmgval_info(&dummy);
         Sprintf(buf,
-               "Damage: 1d%d%s versus small and 1d%d%s versus large monsters.",
-                oc.oc_wsdam, sdambon, oc.oc_wldam, ldambon);
+                "Damage: 1d%d%s versus small and 1d%d%s versus large monsters.",
+                damage_info.damage_small, damage_info.bonus_small,
+                damage_info.damage_large, damage_info.bonus_large);
         OBJPUTSTR(buf);
-        Sprintf(buf, "Has a %s%d %s to hit.", (oc.oc_hitbon >= 0 ? "+" : ""),
-                oc.oc_hitbon, (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
+        
+        if (damage_info.blessed_damage) { OBJPUTSTR(damage_info.blessed_damage); }
+        if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
+        if (damage_info.silver_damage)  { OBJPUTSTR(damage_info.silver_damage); }
+        if (damage_info.iron_damage)  { OBJPUTSTR(damage_info.iron_damage); }
+        if (damage_info.mithril_damage)  { OBJPUTSTR(damage_info.mithril_damage); }
+        if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
+        
+        
+        Sprintf(buf, "Has a %s%d %s to hit.", 
+                (oc.oc_hitbon >= 0 ? "+" : ""),
+                oc.oc_hitbon, 
+                (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
         OBJPUTSTR(buf);
     }
     if (olet == ARMOR_CLASS) {

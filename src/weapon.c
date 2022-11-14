@@ -14,6 +14,7 @@ STATIC_DCL void FDECL(give_may_advance_msg, (int));
 STATIC_DCL boolean FDECL(could_advance, (int));
 STATIC_DCL boolean FDECL(peaked_skill, (int));
 STATIC_DCL void FDECL(skill_advance, (int));
+static int dmgval_core(struct obj*, struct monst*, struct damage_info_t*);
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 
 /* Categories whose names don't come from OBJ_NAME(objects[type])
@@ -292,11 +293,32 @@ dmgval(otmp, mon)
 struct obj *otmp;
 struct monst *mon;
 {
+    struct damage_info_t ignored = {0};
+    return dmgval_core(otmp, mon, &ignored);
+}
+
+struct damage_info_t
+dmgval_info(struct obj *otmp)
+{
+    struct damage_info_t damage_info = {0};
+    damage_info.bonus_small = "";
+    damage_info.bonus_large = "";
+    (void)dmgval_core(otmp, NULL, &damage_info);
+    return damage_info;
+}
+
+static int
+dmgval_core(
+struct obj *otmp,
+struct monst *mon,
+struct damage_info_t *damage_info)
+{
     int tmp = 0, otyp = otmp->otyp;
-    struct permonst *ptr = mon->data;
+    struct permonst *ptr = mon ? mon->data : NULL;
     boolean Is_weapon = (otmp->oclass == WEAPON_CLASS || is_weptool(otmp));
 
-    if (!ptr) ptr = &mons[NUMMONS];
+    /*if (!ptr) 
+        ptr = &mons[NUMMONS];*/
 
     if (otyp == CREAM_PIE 
         || otyp == APPLE_PIE 
@@ -304,9 +326,11 @@ struct monst *mon;
         || otyp == SPRIG_OF_CATNIP)
         return 0;
 
-    if (r_bigmonst(mon)) {
-        if (objects[otyp].oc_wldam)
+    if (ptr == NULL || bigmonst(ptr)) {
+        if (objects[otyp].oc_wldam) {
             tmp = rnd(objects[otyp].oc_wldam);
+            damage_info->damage_large = objects[otyp].oc_wldam;
+        }
         switch (otyp) {
         case IRON_CHAIN:
         case CROSSBOW_BOLT:
@@ -317,55 +341,70 @@ struct monst *mon;
         case ELVEN_BROADSWORD:
         case BROADSWORD:
             tmp++;
+            damage_info->bonus_large = "+1";
             break;
 
         case FLAIL:
         case RANSEUR:
-        case VOULGE:
         case SCYTHE:
+        case VOULGE:
             tmp += rnd(4);
+            damage_info->bonus_large = "+1d4";
             break;
 
         case ACID_VENOM:
         case HALBERD:
         case SPETUM:
             tmp += rnd(6);
+            damage_info->bonus_large = "+1d6";
             break;
 
         case BATTLE_AXE:
         case BARDICHE:
-        case TRIDENT:
         case SPIKED_CHAIN:
+        case TRIDENT:
             tmp += d(2, 4);
+            damage_info->bonus_large = "+2d4";
             break;
 
         case TSURUGI:
         case DWARVISH_MATTOCK:
         case TWO_HANDED_SWORD:
             tmp += d(2, 6);
+            damage_info->bonus_large = "+2d6";
             break;
             
         case TRIPLE_HEADED_FLAIL:
             tmp += d(3, 6);
+            damage_info->bonus_large = "+3d6";
             break;
         case GREEN_LIGHTSABER:  
             tmp += 13; 
+            damage_info->bonus_large = "+13";
             break;
         case BLUE_LIGHTSABER:   
             tmp += 12; 
+            damage_info->bonus_large = "+12";
             break;
         case RED_DOUBLE_LIGHTSABER: 
-            if (otmp->altmode) 
-                tmp += rnd(11);
-            /* fallthrough */
+            if (otmp->altmode) {
+                tmp += rnd(11) + 10;
+                damage_info->bonus_large = "1d11 + 10";
+                break;
+            } 
+            /* FALLTHROUGH */
         case RED_LIGHTSABER:    
             tmp += 10; 
+            damage_info->bonus_large = "+10";
             break;
         }
+    }
 
-    } else {
-        if (objects[otyp].oc_wsdam)
+    if (ptr == NULL || !bigmonst(ptr)) {
+        if (objects[otyp].oc_wsdam) {
             tmp = rnd(objects[otyp].oc_wsdam);
+            damage_info->damage_small = objects[otyp].oc_wsdam;
+        }
         switch (otyp) {
         case IRON_CHAIN:
         case CROSSBOW_BOLT:
@@ -377,10 +416,11 @@ struct monst *mon;
         case FLAIL:
         case TRIPLE_HEADED_FLAIL:
         case SPETUM:
-        case TRIDENT:
         case SPIKED_CHAIN:
         case ATGEIR:
+        case TRIDENT:
             tmp++;
+            damage_info->bonus_small = "+1";
             break;
 
         case BATTLE_AXE:
@@ -394,27 +434,36 @@ struct monst *mon;
         case BROADSWORD:
         case ELVEN_BROADSWORD:
         case RUNESWORD:
-        case VOULGE:
         case SCYTHE:
+        case VOULGE:
             tmp += rnd(4);
+            damage_info->bonus_small = "+1d4";
             break;
 
-		case GREEN_LIGHTSABER:  
-            tmp +=9; 
+        case GREEN_LIGHTSABER:  
+            tmp += 9; 
+            damage_info->bonus_small = "+9";
             break;
-		case BLUE_LIGHTSABER:   
-            tmp +=8;
+        case BLUE_LIGHTSABER:   
+            tmp += 8;
+            damage_info->bonus_small = "+8";
             break;
         case RED_DOUBLE_LIGHTSABER:
-            if (otmp->altmode) 
+            if (otmp->altmode) {
                 tmp += rnd(9);
-            /* fallthrough */
-		case RED_LIGHTSABER:
-            tmp +=6; 
+                tmp += 6; 
+                damage_info->bonus_small = "+1d9 + 6";
+                break;
+            } 
+           /* FALLTHROUGH */
+        case RED_LIGHTSABER:
+            tmp += 6; 
+            damage_info->bonus_small = "+6";
             break;
 
         case ACID_VENOM:
             tmp += rnd(6);
+            damage_info->bonus_small = "+1d6";
             break;
         }
     }
@@ -424,6 +473,7 @@ struct monst *mon;
         /* adjust for various materials */
 #define is_odd_material(obj, mat) \
     ((obj)->material == (mat) && !(objects[(obj)->otyp].oc_material == (mat)))
+        
         if ((is_odd_material(otmp, GLASS) || is_odd_material(otmp, GEMSTONE))
             && (objects[otmp->otyp].oc_dir & (PIERCE | SLASH))) {
             /* glass and gemstone are extremely sharp */
@@ -468,10 +518,11 @@ struct monst *mon;
     if (tmp < 0)
         tmp = 0;
 
-    if (otmp->material <= LEATHER && thick_skinned(ptr))
+    if (otmp->material <= LEATHER && ptr && thick_skinned(ptr))
         /* thick skinned/scaled creatures don't feel it */
         tmp = 0;
-    if (noncorporeal(ptr) && !shade_glare(otmp))
+    
+    if (ptr && noncorporeal(ptr) && !shade_glare(otmp))
         tmp = 0;
 
     /* "very heavy iron ball"; weight increase is in increments */
@@ -490,24 +541,57 @@ struct monst *mon;
     {
         int bonus = 0;
 
-        if (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)){
-            if (otmp->blessed)
+        /* Undead Slayers are naturally gifted at dispatching undead. */
+        if (Role_if(PM_UNDEAD_SLAYER) && ptr 
+            && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
+            bonus += rnd(4);
+        
+        if (otmp->blessed) {
+            if (ptr && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
                 bonus += rnd(4);
-            if (Role_if(PM_UNDEAD_SLAYER))
-                bonus += rnd(4);
+            if (otmp->bknown) {
+                damage_info->blessed_damage = "Additional 1d4 against undead, demons, or vampires.";
+            }
         }
         
-        if (otmp->cursed && is_angel(ptr))
+        if (otmp->cursed && is_angel(ptr)) {
             bonus += rnd(4);
-        if (otmp->cursed && Role_if(PM_INFIDEL)
+            if (otmp->bknown) {
+                damage_info->blessed_damage = "Additional 1d4 against angels.";
+            }
+        }
+        if (otmp->cursed && Role_if(PM_INFIDEL) && ptr
             && (mon_aligntyp(mon) == A_LAWFUL || mon_aligntyp(mon) == A_NEUTRAL))
             bonus += rnd(2);
-        if (is_axe(otmp) && is_wooden(ptr))
-            bonus += rnd(4);
-        if (mon_hates_material(mon, otmp->material))
+        
+        if (is_axe(otmp)) {
+            damage_info->axe_damage = "Additional 1d4 against wood golems.";
+            if (ptr && is_wooden(ptr)) {
+                bonus += rnd(4);
+            }
+        }
+        
+        if (ptr && mon_hates_material(mon, otmp->material))
             bonus += rnd(sear_damage(otmp->material));
-        if (artifact_light(otmp) && otmp->lamplit && hates_light(ptr))
-            bonus += rnd(8);
+        
+        /* Describe the materials that inflict sear damage */
+        if (objects[otyp].oc_material == SILVER) {
+            damage_info->silver_damage = "Additional 1d20 against silver hating monsters.";
+        }
+        if (objects[otyp].oc_material == IRON) {
+            damage_info->iron_damage = "Additional 1d3 + 3 against iron hating monsters.";
+        }
+        if (objects[otyp].oc_material == MITHRIL) {
+            damage_info->mithril_damage = "Additional 1d3 + 3 against mithril hating monsters.";
+        }
+        
+        if (artifact_light(otmp)) {
+            damage_info->light_damage =
+                "Additional 1d8 against light hating monsters.";
+            if (otmp->lamplit && ptr && hates_light(ptr)) {
+                bonus += rnd(8);
+            }
+        }
 
         /* if the weapon is going to get a double damage bonus, adjust
            this bonus so that effectively it's added after the doubling */
