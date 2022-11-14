@@ -1101,7 +1101,7 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
                 break;
             }
             if (canseemon(mtmp)) {
-                if (otmp->otyp == SPIKE) {
+                if (otyp == SPIKE) {
                     pline("%s fires a volley of spikes!", Monnam(mtmp));
                 } else {
                     pline("%s fires a volley!", Monnam(mtmp));
