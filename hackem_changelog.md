@@ -2475,7 +2475,7 @@ Firearms training service:
 - K2, amateurhour, qt
 
 ### Thanks: 
-- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire
+- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, cbus, Guest2465
 
 
 ==========================
