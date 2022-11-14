@@ -624,8 +624,8 @@ GLOVES("rogues gloves", "fingerless gloves",                   /* SpliceHack */
        0, 1,  SEARCHING,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("boxing gloves", "boiled gloves",                       /* SpliceHack */
        0, 1,          0,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
-GLOVES("gauntlets of protection", "boxing gloves",             /* EvilHack */
-       0, 1, PROTECTION,  4, 1, 10,  60, 8, 3,  CLOTH, CLR_BROWN),
+GLOVES("gauntlets of protection", "latex gloves",             /* EvilHack */
+       0, 1, PROTECTION,  4, 1, 10,  60, 8, 3,  PLASTIC, CLR_BROWN),
 GLOVES("gauntlets of fumbling", "padded gloves",
        0, 1,   FUMBLING,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of swimming", "black gloves",                 /* Slash'EM */
