@@ -2906,7 +2906,6 @@ struct monst *mtmp;
 #define MUSE_BULLWHIP 8
 #define MUSE_POT_POLYMORPH 9
 #define MUSE_SCR_REMOVE_CURSE 10
-#define MUSE_WAN_WISHING 11
 #define MUSE_FIGURINE 12
 #define MUSE_DWARVISH_BEARDED_AXE_WEAPON 13
 #define MUSE_DWARVISH_BEARDED_AXE_SHIELD 14
@@ -2985,11 +2984,6 @@ struct monst *mtmp;
         if (obj->otyp == FIGURINE && !mtmp->mpeaceful) {
             m.misc = obj;
             m.has_misc = MUSE_FIGURINE;
-        }
-        nomore(MUSE_WAN_WISHING);
-        if (obj->otyp == WAN_WISHING && obj->spe > 0) {
-            m.misc = obj;
-            m.has_misc = MUSE_WAN_WISHING;
         }
         nomore(MUSE_BULLWHIP);
         if ((obj->otyp == BULLWHIP || obj->otyp == FLAMING_LASH) && !mtmp->mpeaceful
@@ -3130,15 +3124,6 @@ struct obj *start;
         if (obj->otyp == FIGURINE && !mtmp->mpeaceful) {
             m.misc = obj;
             m.has_misc = MUSE_FIGURINE;
-        }
-        nomore(MUSE_WAN_WISHING);
-        if (obj->otyp == WAN_WISHING) {
-            if (obj->spe > 0) {
-                m.misc = obj;
-                m.has_misc = MUSE_WAN_WISHING;
-            } else if (!m.tocharge) {
-                m.tocharge = obj;
-            }
         }
         nomore(MUSE_BULLWHIP);
         if (obj->otyp == BULLWHIP && !mtmp->mpeaceful
@@ -3408,18 +3393,6 @@ struct monst *mtmp;
         (void) newcham(mtmp, muse_newcham_mon(mtmp), TRUE, FALSE);
         if (oseen)
             makeknown(WAN_POLYMORPH);
-        return 2;
-    case MUSE_WAN_WISHING:
-        /* wear any armor items previously wished for before
-         * using another wish */
-        m_dowear(mtmp, FALSE);
-
-        mzapwand(mtmp, otmp, FALSE);
-        if (!vismon && !Deaf)
-            You_hear("something making a wish!");
-        if (oseen)
-            makeknown(WAN_WISHING);
-        mmake_wish(mtmp);
         return 2;
     case MUSE_POT_POLYMORPH:
         mquaffmsg(mtmp, otmp);
@@ -3807,8 +3780,7 @@ struct obj *obj;
             || typ == WAN_DRAINING
             || typ == WAN_HEALING
             || typ == WAN_EXTRA_HEALING
-            || typ == WAN_CANCELLATION 
-            || typ == WAN_WISHING
+            || typ == WAN_CANCELLATION
             || typ == WAN_POLYMORPH 
             || typ == WAN_UNDEAD_TURNING
             || typ == WAN_SLOW_MONSTER)
