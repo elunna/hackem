@@ -913,8 +913,12 @@ int wtcap;
                             heal = efflev - 9;
                     }
                 }
-            } else if (efflev <= 9 
-                       && !(moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1))) {
+            }  
+            /* Many cursed healthstones might bring our efflev below 0. */
+            else if (efflev < 0 && !(moves % (long) (22 + (abs(efflev) * 4)))) {
+                heal = 1;
+            }
+            else if (efflev <= 9 && !(moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1))) {
                 heal = 1;
             }
 
