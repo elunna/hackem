@@ -9,6 +9,7 @@
 #include "hack.h"
 #include "dlb.h"
 
+
 STATIC_DCL boolean FDECL(is_swallow_sym, (int));
 STATIC_DCL int FDECL(append_str, (char *, const char *));
 STATIC_DCL void FDECL(look_at_object, (char *, int, int, int));
@@ -1516,6 +1517,33 @@ short otyp;
     if (oc.oc_unique) {
         OBJPUTSTR("Unique item.");
     }
+    
+    if (obj && obj->oartifact) {
+        struct art_info_t a_info = artifact_info(obj->oartifact);
+        OBJPUTSTR("");
+        Sprintf(buf, "Artifact Name: %s ", a_info.name);
+        OBJPUTSTR(buf);
+        Sprintf(buf, "Alignment: %s ", a_info.alignment);
+        OBJPUTSTR(buf);
+        Sprintf(buf, "Cost: %d ", a_info.cost);
+        OBJPUTSTR(buf);
+        Sprintf(buf, "Material: %s ", a_info.material);
+        OBJPUTSTR(buf);
+        if (a_info.role) {
+            Sprintf(buf, "Associated class: %s ", a_info.role);
+            OBJPUTSTR(buf);
+        }
+        if (a_info.race) {
+            Sprintf(buf, "Associated race: %s ", a_info.race);
+            OBJPUTSTR(buf);
+        }
+        
+        /* While wielded */
+        /* While carried */
+    }
+    
+    
+    
 }
 
 /*

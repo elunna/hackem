@@ -4395,4 +4395,21 @@ awaiting_guaranteed_gift()
     return FALSE;
 }
 
+struct art_info_t
+artifact_info(int anum)
+{
+    struct art_info_t art_info = { 0 };
+    art_info.name = artiname(anum);
+    art_info.alignment = align_str(artilist[anum].alignment);
+    art_info.cost = artilist[anum].cost;
+    art_info.material = materialnm[artifact_material(anum)];
+    art_info.role = (artilist[anum].role == NON_PM) 
+                        ? "None" : mons[artilist[anum].role].mname;
+    art_info.race = (artilist[anum].race == NON_PM) 
+                        ? "None" : mons[artilist[anum].race].mname;
+    return art_info;
+}
+
+
+
 /*artifact.c*/

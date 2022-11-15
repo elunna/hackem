@@ -700,4 +700,16 @@ struct damage_info_t {
     const char* light_damage;
 };
 
+/* This struct holds detailed stats about an artifact .
+ * Filled in artifact_info() and used in the pokedex.
+ */
+struct art_info_t {
+    const char* name;
+    const char* alignment;
+    int cost;
+    const char* material;
+    const char* role;
+    const char* race;
+};
+
 #endif /* OBJ_H */
