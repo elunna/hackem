@@ -1110,7 +1110,7 @@ short otyp;
     }
     putstr(datawin, ATR_BOLD, buf);
     OBJPUTSTR("");
-
+    
     /* Object classes currently with no special messages here: amulets. */
     if (olet == WEAPON_CLASS || weptool) {
         const int skill = oc.oc_skill;
@@ -1151,10 +1151,13 @@ short otyp;
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
         struct damage_info_t damage_info = dmgval_info(&dummy);
-        Sprintf(buf,
+        if (identified)
+            Sprintf(buf,
                 "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
                 damage_info.damage_small, damage_info.bonus_small,
                 damage_info.damage_large, damage_info.bonus_large);
+        else
+            Sprintf(buf, "Damage:  Unknown (identification required)");
         OBJPUTSTR(buf);
         
         if (damage_info.buc_damage) { OBJPUTSTR(damage_info.buc_damage); }
@@ -1164,12 +1167,12 @@ short otyp;
         if (damage_info.mithril_damage)  { OBJPUTSTR(damage_info.mithril_damage); }
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
         
-        
-        Sprintf(buf, "Has a %s%d %s to hit.", 
-                (oc.oc_hitbon >= 0 ? "+" : ""),
-                oc.oc_hitbon, 
-                (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
-        OBJPUTSTR(buf);
+        if (identified) {
+            Sprintf(buf, "Has a %s%d %s to hit.",
+                    (oc.oc_hitbon >= 0 ? "+" : ""), oc.oc_hitbon,
+                    (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
+            OBJPUTSTR(buf);
+        }
     }
     if (olet == ARMOR_CLASS) {
         /* Indexes here correspond to ARM_SHIELD, etc; not the W_* masks.
