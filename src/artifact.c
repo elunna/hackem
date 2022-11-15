@@ -54,6 +54,8 @@ STATIC_OVL xchar artidisco[NROFARTIFACTS];
 STATIC_DCL void NDECL(hack_artifacts);
 STATIC_DCL void FDECL(fix_artifact, (struct obj *));
 
+STATIC_DCL const char *FDECL(adtyp_str, (uchar));
+
 boolean
 exclude_nartifact_exist(i)
 int i;
@@ -4410,9 +4412,61 @@ artifact_info(int anum)
     
     art_info.intelligent = (artilist[anum].spfx & SPFX_INTEL) != 0;
     
+    /* Figure out what intrinsics are granted */
+    if (artilist[anum].defn.adtyp) {
+        art_info.wield = adtyp_str(artilist[anum].defn.adtyp);
+    } else
+        art_info.wield = "None";
+    
+    if (artilist[anum].defn.adtyp) {
+       art_info.carry = adtyp_str(artilist[anum].cary.adtyp);
+    } else
+        art_info.carry = "None";
+    
     return art_info;
 }
 
 
+
+const char *
+adtyp_str(uchar adtyp)
+{
+    switch (adtyp) {
+    case AD_FIRE:
+        return "fire resistance";
+    case AD_COLD:
+        return "cold resistance";
+    case AD_ELEC:
+        return "shock resistance";
+    case AD_DRST:
+        return "poison resistance";
+    case AD_MAGM:
+        return "magic resistance";
+    case AD_DRLI:
+        return "drain resistance";
+    case AD_CLOB:
+        return "extreme stability";
+    case AD_DISE:
+        return "disease resistance";
+    case AD_SLEE:
+        return "sleep resistance";
+    case AD_DISN:
+        return "disintegration resistance";
+    case AD_SLOW:
+        return "slow resistance";
+    case AD_ACID:
+        return "acid resistance";
+    case AD_STON:
+        return "petrification resistance";
+    case AD_PLYS:
+        return "free action";
+    case AD_LOUD:
+        return "sonic resistance";
+    default:
+        return "none";
+        /*impossible("Bad ADTYPE!");*/
+    }
+    return "unknown";
+}
 
 /*artifact.c*/

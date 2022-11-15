@@ -1541,8 +1541,15 @@ short otyp;
             OBJPUTSTR(buf);
         }
         
-        /* While wielded */
-        /* While carried */
+        OBJPUTSTR("While wielded/worn:");
+        
+        Sprintf(buf, "\t%s", a_info.wield);
+        OBJPUTSTR(buf);
+        
+        OBJPUTSTR("While carried:");
+        
+        Sprintf(buf, "\t%s", a_info.carry);
+        OBJPUTSTR(buf);
     }
     
     

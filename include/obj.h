@@ -706,11 +706,13 @@ struct damage_info_t {
 struct art_info_t {
     const char* name;
     const char* alignment;
+    boolean intelligent;
     int cost;
     const char* material;
     const char* role;
     const char* race;
-    boolean intelligent;
+    const char* wield;
+    const char* carry; 
 };
 
 #endif /* OBJ_H */
