@@ -1087,6 +1087,9 @@ short otyp;
     dummy.otyp = otyp;
     dummy.oclass = oc.oc_class;
     dummy.material = obj ? obj->material : oc.oc_material;
+    dummy.bknown = obj ? obj->bknown : 0;
+    dummy.blessed = obj ? obj->blessed : 0;
+    dummy.cursed = obj ? obj->cursed : 0;
     boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
     
     if (obj && otyp == STRANGE_OBJECT) {
@@ -1154,7 +1157,7 @@ short otyp;
                 damage_info.damage_large, damage_info.bonus_large);
         OBJPUTSTR(buf);
         
-        if (damage_info.blessed_damage) { OBJPUTSTR(damage_info.blessed_damage); }
+        if (damage_info.buc_damage) { OBJPUTSTR(damage_info.buc_damage); }
         if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
         if (damage_info.silver_damage)  { OBJPUTSTR(damage_info.silver_damage); }
         if (damage_info.iron_damage)  { OBJPUTSTR(damage_info.iron_damage); }

@@ -690,7 +690,7 @@ struct damage_info_t {
     const char* bonus_large;
 
     /* various bonus damage conditions */
-    const char* blessed_damage;
+    const char* buc_damage;
     const char* axe_damage;
     const char* silver_damage;
     const char* iron_damage;

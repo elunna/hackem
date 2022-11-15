@@ -550,14 +550,15 @@ struct damage_info_t *damage_info)
             if (ptr && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
                 bonus += rnd(4);
             if (otmp->bknown) {
-                damage_info->blessed_damage = "Additional 1d4 against undead, demons, or vampires.";
+                damage_info->buc_damage = "\t+1d4 against undead, demons, or vampires.";
             }
         }
         
-        if (otmp->cursed && is_angel(ptr)) {
-            bonus += rnd(4);
+        if (otmp->cursed) {
+            if (ptr && is_angel(ptr))
+                bonus += rnd(4);
             if (otmp->bknown) {
-                damage_info->blessed_damage = "Additional 1d4 against angels.";
+                damage_info->buc_damage = "\t+1d4 against angels.";
             }
         }
         if (otmp->cursed && Role_if(PM_INFIDEL) && ptr
@@ -565,7 +566,7 @@ struct damage_info_t *damage_info)
             bonus += rnd(2);
         
         if (is_axe(otmp)) {
-            damage_info->axe_damage = "Additional 1d4 against wood golems.";
+            damage_info->axe_damage = "\t+1d4 against wood golems.";
             if (ptr && is_wooden(ptr)) {
                 bonus += rnd(4);
             }
