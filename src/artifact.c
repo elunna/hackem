@@ -4401,6 +4401,7 @@ struct art_info_t
 artifact_info(int anum)
 {
     struct art_info_t art_info = { 0 };
+    char buf[BUFSZ];
     art_info.name = artiname(anum);
     art_info.alignment = align_str(artilist[anum].alignment);
     art_info.cost = artilist[anum].cost;
@@ -4450,7 +4451,22 @@ artifact_info(int anum)
         art_info.wielded[13] = "protection";
     if ((artilist[anum].spfx & SPFX_BREATHE) != 0)
         art_info.wielded[14] = "magical breathing";
-
+    
+    if ((artilist[anum].spfx & SPFX_WARN) != 0) {
+        if ((artilist[anum].spfx & SPFX_DFLAGH) != 0) {
+            
+            for (int i = 0; i < 32; i++) {
+                /* Artifacts let you know they are responsible even in non-Wizard mode. */
+                if (artilist[anum].mtype & (1 << i)) {
+                    Sprintf(buf, "warning against %s ",
+                            makeplural(mon_race_name(i)));
+                }
+            }
+            art_info.wielded[15] = buf;
+        } else {
+            art_info.wielded[15] = "warning";
+        }
+    }
     /* Granted while carried. */
     if (artilist[anum].defn.adtyp) {
         art_info.carried[0] = adtyp_str(artilist[anum].cary.adtyp);
@@ -4483,7 +4499,8 @@ artifact_info(int anum)
         art_info.carried[13] = "protection";
     if ((artilist[anum].cspfx & SPFX_BREATHE) != 0)
         art_info.carried[14] = "magical breathing";
-    
+    if ((artilist[anum].cspfx & SPFX_WARN) != 0)
+        art_info.carried[15] = "warning";
 
     return art_info;
 }
