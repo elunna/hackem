@@ -1528,6 +1528,15 @@ short otyp;
         if (a_info.intelligent) {
             OBJPUTSTR("Intelligent");
         }
+        if (a_info.restricted) {
+            OBJPUTSTR("Restricted (cannot be #named)");
+        }
+        if (a_info.nogen) {
+            OBJPUTSTR("Does not generate randomly.");
+        }
+        if (a_info.exclude) {
+            OBJPUTSTR("Excluded from total artifact count.");
+        }
         Sprintf(buf, "Cost: %d ", a_info.cost);
         OBJPUTSTR(buf);
         Sprintf(buf, "Material: %s ", a_info.material);

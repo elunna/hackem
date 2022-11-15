@@ -4411,17 +4411,20 @@ artifact_info(int anum)
                         ? "None" : mons[artilist[anum].race].mname;
     
     art_info.intelligent = (artilist[anum].spfx & SPFX_INTEL) != 0;
+    art_info.restricted = (artilist[anum].spfx & SPFX_RESTR) != 0;
+    art_info.nogen = (artilist[anum].spfx & SPFX_NOGEN) != 0;
+    art_info.exclude = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     
     /* Figure out what intrinsics are granted */
     if (artilist[anum].defn.adtyp) {
         art_info.wield = adtyp_str(artilist[anum].defn.adtyp);
     } else
-        art_info.wield = "None";
+        art_info.wield = "none";
     
     if (artilist[anum].defn.adtyp) {
        art_info.carry = adtyp_str(artilist[anum].cary.adtyp);
     } else
-        art_info.carry = "None";
+        art_info.carry = "none";
     
     return art_info;
 }

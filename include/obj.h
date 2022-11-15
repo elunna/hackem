@@ -707,12 +707,16 @@ struct art_info_t {
     const char* name;
     const char* alignment;
     boolean intelligent;
+    boolean restricted;
+    boolean nogen;
+    boolean exclude;
     int cost;
     const char* material;
     const char* role;
     const char* race;
     const char* wield;
     const char* carry; 
+    const char *intrinsics[5];
 };
 
 #endif /* OBJ_H */
