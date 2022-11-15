@@ -4415,17 +4415,74 @@ artifact_info(int anum)
     art_info.nogen = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     art_info.exclude = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     
-    /* Figure out what intrinsics are granted */
+    /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
-        art_info.wield = adtyp_str(artilist[anum].defn.adtyp);
-    } else
-        art_info.wield = "none";
+        art_info.wielded[0] = adtyp_str(artilist[anum].defn.adtyp);
+    }
     
+    if ((artilist[anum].spfx & SPFX_SEARCH) != 0)
+        art_info.wielded[1] = "searching";
+    if ((artilist[anum].spfx & SPFX_HALRES) != 0)
+        art_info.wielded[2] = "hallucination resistance";
+    if ((artilist[anum].spfx & SPFX_ESP) != 0)
+        art_info.wielded[3] = "telepathy";
+    if ((artilist[anum].spfx & SPFX_STLTH) != 0)
+        art_info.wielded[4] = "stealth";
+    if ((artilist[anum].spfx & SPFX_REGEN) != 0)
+        art_info.wielded[5] = "regeneration";
+    if ((artilist[anum].spfx & SPFX_EREGEN) != 0)
+        art_info.wielded[6] = "energy regeneration";
+    if ((artilist[anum].spfx & SPFX_HSPDAM) != 0)
+        art_info.wielded[7] = "half spell damage";
+    if ((artilist[anum].spfx & SPFX_HPHDAM) != 0)
+        art_info.wielded[8] = "half physical damage";
+    if ((artilist[anum].spfx & SPFX_TCTRL) != 0)
+        art_info.wielded[9] = "teleport control";
+    if ((artilist[anum].spfx & SPFX_LUCK) != 0)
+        art_info.wielded[10] = "luck";
+    if ((artilist[anum].spfx & SPFX_XRAY) != 0)
+        art_info.wielded[11] = "astral vision";
+    if ((artilist[anum].spfx & SPFX_REFLECT) != 0)
+        art_info.wielded[12] = "reflection";
+    if ((artilist[anum].spfx & SPFX_PROTECT) != 0)
+        art_info.wielded[13] = "protection";
+    if ((artilist[anum].spfx & SPFX_BREATHE) != 0)
+        art_info.wielded[14] = "magical breathing";
+
+    /* Granted while carried. */
     if (artilist[anum].defn.adtyp) {
-       art_info.carry = adtyp_str(artilist[anum].cary.adtyp);
-    } else
-        art_info.carry = "none";
+        art_info.carried[0] = adtyp_str(artilist[anum].cary.adtyp);
+    } 
+    if ((artilist[anum].cspfx & SPFX_SEARCH) != 0)
+        art_info.carried[1] = "searching";
+    if ((artilist[anum].cspfx & SPFX_HALRES) != 0)
+        art_info.carried[2] = "hallucination resistance";
+    if ((artilist[anum].cspfx & SPFX_ESP) != 0)
+        art_info.carried[3] = "telepathy";
+    if ((artilist[anum].cspfx & SPFX_STLTH) != 0)
+        art_info.carried[4] = "stealth";
+    if ((artilist[anum].cspfx & SPFX_REGEN) != 0)
+        art_info.carried[5] = "regeneration";
+    if ((artilist[anum].cspfx & SPFX_EREGEN) != 0)
+        art_info.carried[6] = "energy regeneration";
+    if ((artilist[anum].cspfx & SPFX_HSPDAM) != 0)
+        art_info.carried[7] = "half spell damage";
+    if ((artilist[anum].cspfx & SPFX_HPHDAM) != 0)
+        art_info.carried[8] = "half physical damage";
+    if ((artilist[anum].cspfx & SPFX_TCTRL) != 0)
+        art_info.carried[9] = "teleport control";
+    if ((artilist[anum].cspfx & SPFX_LUCK) != 0)
+        art_info.carried[10] = "luck";
+    if ((artilist[anum].cspfx & SPFX_XRAY) != 0)
+        art_info.carried[11] = "astral vision";
+    if ((artilist[anum].cspfx & SPFX_REFLECT) != 0)
+        art_info.carried[12] = "reflection";
+    if ((artilist[anum].cspfx & SPFX_PROTECT) != 0)
+        art_info.carried[13] = "protection";
+    if ((artilist[anum].cspfx & SPFX_BREATHE) != 0)
+        art_info.carried[14] = "magical breathing";
     
+
     return art_info;
 }
 

@@ -1550,19 +1550,30 @@ short otyp;
             OBJPUTSTR(buf);
         }
         
+        boolean wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
+        for (int i = 0; i < INTRINSICS; i++) {
+            if (a_info.wielded[i]) {
+                Sprintf(buf, "\t%s", a_info.wielded[i]);
+                OBJPUTSTR(buf);
+                wielded = TRUE;
+            }
+        }
+        if (!wielded)
+            OBJPUTSTR("\tNone");
         
-        Sprintf(buf, "\t%s", a_info.wield);
-        OBJPUTSTR(buf);
-        
+        boolean carried = FALSE;
         OBJPUTSTR("While carried:");
-        
-        Sprintf(buf, "\t%s", a_info.carry);
-        OBJPUTSTR(buf);
+        for (int i = 0; i < INTRINSICS; i++) {
+            if (a_info.carried[i]) {
+                Sprintf(buf, "\t%s", a_info.carried[i]);
+                OBJPUTSTR(buf);
+                carried = TRUE;
+            }
+        }
+        if (!carried)
+            OBJPUTSTR("\tNone");
     }
-    
-    
-    
 }
 
 /*
