@@ -1086,7 +1086,7 @@ short otyp;
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
     dummy.oclass = oc.oc_class;
-    dummy.material = obj->material;
+    dummy.material = obj ? obj->material : oc.oc_material;
     boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
     
     if (obj && otyp == STRANGE_OBJECT) {
@@ -1490,8 +1490,11 @@ short otyp;
         } else if (oc.oc_material == VEGGY) {
             mat_str = "vegetable matter";
         }
-
-        Sprintf(buf, "Normally made of %s.", mat_str);
+        const char* alt_mat = obj ? materialnm[obj->material] : mat_str;
+        if (obj && obj->material != oc.oc_material)
+            Sprintf(buf, "Material: %s (normally made of %s)", alt_mat, mat_str);
+        else
+            Sprintf(buf, "Material: %s ", mat_str);
         OBJPUTSTR(buf);
     }
 
