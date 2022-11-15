@@ -1160,13 +1160,14 @@ short otyp;
             Sprintf(buf, "Damage:  Unknown (identification required)");
         OBJPUTSTR(buf);
         
-        if (damage_info.buc_damage) { OBJPUTSTR(damage_info.buc_damage); }
+        if (damage_info.buc_damage)     { OBJPUTSTR(damage_info.buc_damage); }
         if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
         if (damage_info.silver_damage)  { OBJPUTSTR(damage_info.silver_damage); }
-        if (damage_info.iron_damage)  { OBJPUTSTR(damage_info.iron_damage); }
-        if (damage_info.mithril_damage)  { OBJPUTSTR(damage_info.mithril_damage); }
+        if (damage_info.iron_damage)    { OBJPUTSTR(damage_info.iron_damage); }
+        if (damage_info.mithril_damage) { OBJPUTSTR(damage_info.mithril_damage); }
         if (damage_info.copper_damage)  { OBJPUTSTR(damage_info.copper_damage); }
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
+        if (damage_info.mat_damage)     { OBJPUTSTR(damage_info.mat_damage); }
         
         if (identified) {
             Sprintf(buf, "Has a %s%d %s to hit.",

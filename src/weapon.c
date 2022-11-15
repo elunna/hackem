@@ -478,34 +478,41 @@ struct damage_info_t *damage_info)
             && (objects[otmp->otyp].oc_dir & (PIERCE | SLASH))) {
             /* glass and gemstone are extremely sharp */
             tmp += 3;
+            damage_info->mat_damage = "\t+3 (gemstone/glass bonus).";
         } else if (is_odd_material(otmp, GOLD) || is_odd_material(otmp, PLATINUM)) {
             /* heavy metals, but softer than stone */
             if (objects[otmp->otyp].oc_dir & WHACK) {
                 tmp += 1;
+                damage_info->mat_damage = "\t+1 (gold/platinum bonus).";
             }
         } else if (is_odd_material(otmp, MITHRIL)) {
             /* light and sharp */
             if (objects[otmp->otyp].oc_dir & (PIERCE | SLASH)) {
                 tmp += 2;
+                damage_info->mat_damage = "\t+2 (mithril bonus).";
             }
         } else if (is_odd_material(otmp, MINERAL)) {
             /* stone is heavy */
             if (objects[otmp->otyp].oc_dir & (SLASH | WHACK)) {
                 tmp += 2;
+                damage_info->mat_damage = "\t+2 (mineral bonus).";
             }
         } else if (is_odd_material(otmp, PLASTIC) || is_odd_material(otmp, PAPER)) {
             /* just terrible weapons all around */
             tmp -= 2;
+            damage_info->mat_damage = "\t-2 (plastic/paper penalty).";
         } else if (is_odd_material(otmp, WOOD) && !is_elven_weapon(otmp)) {
             /* poor at holding an edge */
             if (is_blade(otmp)) {
                 tmp -= 1;
+                damage_info->mat_damage = "\t-1 (wood penalty).";
             }
         } else if (is_odd_material(otmp, METAL)) {
             /* steel has roughly the same density as iron,
                but is stronger and makes for a finer edge
                on bladed weapons */
             tmp += 1;
+            damage_info->mat_damage = "\t+1 (metal bonus).";
         }
 #undef is_odd_material
     } 
@@ -550,7 +557,7 @@ struct damage_info_t *damage_info)
             if (ptr && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
                 bonus += rnd(4);
             if (otmp->bknown) {
-                damage_info->buc_damage = "\t+1d4 against undead, demons, or vampires (blessed weapon).";
+                damage_info->buc_damage = "\t+1d4 against undead, demons, or vampires (blessed bonus).";
             }
         }
         
@@ -558,7 +565,7 @@ struct damage_info_t *damage_info)
             if (ptr && is_angel(ptr))
                 bonus += rnd(4);
             if (otmp->bknown) {
-                damage_info->buc_damage = "\t+1d4 against angels (cursed weapon).";
+                damage_info->buc_damage = "\t+1d4 against angels (cursed bonus).";
             }
         }
         if (otmp->cursed && Role_if(PM_INFIDEL) && ptr

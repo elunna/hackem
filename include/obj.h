@@ -694,6 +694,7 @@ struct damage_info_t {
     const char* axe_damage;
     const char* silver_damage;
     const char* iron_damage;
+    const char* mat_damage;
     const char* mithril_damage;
     const char* copper_damage;
     const char* light_damage;
