@@ -1086,6 +1086,7 @@ short otyp;
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
     dummy.oclass = oc.oc_class;
+    dummy.material = obj->material;
     boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
     
     if (obj && otyp == STRANGE_OBJECT) {
@@ -1148,7 +1149,7 @@ short otyp;
          * the object class? */
         struct damage_info_t damage_info = dmgval_info(&dummy);
         Sprintf(buf,
-                "Damage: 1d%d%s versus small and 1d%d%s versus large monsters.",
+                "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
                 damage_info.damage_small, damage_info.bonus_small,
                 damage_info.damage_large, damage_info.bonus_large);
         OBJPUTSTR(buf);

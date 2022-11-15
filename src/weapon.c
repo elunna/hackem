@@ -575,14 +575,14 @@ struct damage_info_t *damage_info)
             bonus += rnd(sear_damage(otmp->material));
         
         /* Describe the materials that inflict sear damage */
-        if (objects[otyp].oc_material == SILVER) {
-            damage_info->silver_damage = "Additional 1d20 against silver hating monsters.";
+        if (otmp->material == SILVER) {
+            damage_info->silver_damage = "\t+1d20 against silver hating monsters.";
         }
-        if (objects[otyp].oc_material == IRON) {
-            damage_info->iron_damage = "Additional 1d3 + 3 against iron hating monsters.";
+        if (otmp->material == IRON) {
+            damage_info->iron_damage = "\t+1d3 + 3 against iron hating monsters.";
         }
-        if (objects[otyp].oc_material == MITHRIL) {
-            damage_info->mithril_damage = "Additional 1d3 + 3 against mithril hating monsters.";
+        if (otmp->material == MITHRIL) {
+            damage_info->mithril_damage = "\t+1d3 + 3 against mithril hating monsters.";
         }
         
         if (artifact_light(otmp)) {
