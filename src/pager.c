@@ -1552,6 +1552,9 @@ short otyp;
             Sprintf(buf, "Associated race: %s ", a_info.race);
             OBJPUTSTR(buf);
         }
+        if (artifact_light(obj)) {
+            OBJPUTSTR("Artifact light source");
+        }
         
         boolean wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
