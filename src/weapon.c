@@ -550,7 +550,7 @@ struct damage_info_t *damage_info)
             if (ptr && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
                 bonus += rnd(4);
             if (otmp->bknown) {
-                damage_info->buc_damage = "\t+1d4 against undead, demons, or vampires.";
+                damage_info->buc_damage = "\t+1d4 against undead, demons, or vampires (blessed weapon).";
             }
         }
         
@@ -558,7 +558,7 @@ struct damage_info_t *damage_info)
             if (ptr && is_angel(ptr))
                 bonus += rnd(4);
             if (otmp->bknown) {
-                damage_info->buc_damage = "\t+1d4 against angels.";
+                damage_info->buc_damage = "\t+1d4 against angels (cursed weapon).";
             }
         }
         if (otmp->cursed && Role_if(PM_INFIDEL) && ptr
