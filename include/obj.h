@@ -710,6 +710,7 @@ struct art_info_t {
     const char* material;
     const char* role;
     const char* race;
+    boolean intelligent;
 };
 
 #endif /* OBJ_H */

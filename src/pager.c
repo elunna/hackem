@@ -1525,6 +1525,9 @@ short otyp;
         OBJPUTSTR(buf);
         Sprintf(buf, "Alignment: %s ", a_info.alignment);
         OBJPUTSTR(buf);
+        if (a_info.intelligent) {
+            OBJPUTSTR("Intelligent");
+        }
         Sprintf(buf, "Cost: %d ", a_info.cost);
         OBJPUTSTR(buf);
         Sprintf(buf, "Material: %s ", a_info.material);

@@ -4407,6 +4407,9 @@ artifact_info(int anum)
                         ? "None" : mons[artilist[anum].role].mname;
     art_info.race = (artilist[anum].race == NON_PM) 
                         ? "None" : mons[artilist[anum].race].mname;
+    
+    art_info.intelligent = (artilist[anum].spfx & SPFX_INTEL) != 0;
+    
     return art_info;
 }
 
