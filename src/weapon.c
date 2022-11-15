@@ -580,10 +580,13 @@ struct damage_info_t *damage_info)
             damage_info->silver_damage = "\t+1d20 against silver hating monsters.";
         }
         if (otmp->material == IRON) {
-            damage_info->iron_damage = "\t+1d3 + 3 against iron hating monsters.";
+            damage_info->iron_damage = "\t+1d6 against iron hating monsters.";
         }
         if (otmp->material == MITHRIL) {
-            damage_info->mithril_damage = "\t+1d3 + 3 against mithril hating monsters.";
+            damage_info->mithril_damage = "\t+1d6 against mithril hating monsters.";
+        }
+        if (otmp->material == COPPER) {
+            damage_info->copper_damage = "\t+1d6 against copper hating monsters.";
         }
         
         if (artifact_light(otmp)) {
