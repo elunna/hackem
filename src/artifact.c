@@ -4418,6 +4418,7 @@ artifact_info(int anum)
     art_info.speaks = (artilist[anum].spfx & SPFX_SPEAK) != 0;
 
     
+    
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
         art_info.wielded[0] = adtyp_str(artilist[anum].defn.adtyp);
@@ -4502,6 +4503,40 @@ artifact_info(int anum)
     if ((artilist[anum].cspfx & SPFX_WARN) != 0)
         art_info.carried[15] = "warning";
 
+    switch (artilist[anum].inv_prop) {
+    case TAMING: art_info.invoke = "Taming"; break;
+    case HEALING: art_info.invoke = "Healing"; break;
+    case ENERGY_BOOST: art_info.invoke = "Energy Boost"; break;
+    case UNTRAP: art_info.invoke = "Untrap"; break;
+    case CHARGE_OBJ: art_info.invoke = "Charge Object"; break;
+    case LEV_TELE: art_info.invoke = "Level Teleport"; break;
+    case LIGHT_AREA: art_info.invoke = "Light Area"; break;
+    case CREATE_PORTAL: art_info.invoke = "Branchport"; break;
+    case ENLIGHTENING: art_info.invoke = "Enlightenment"; break;
+    case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
+    case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
+    case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
+    case WITHER: art_info.invoke = "Wither"; break;
+    case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
+    case PHASING: art_info.invoke = "Phasing"; break;
+    case CHANNEL: art_info.invoke = "Channel"; break;
+    case DEATH_MAGIC: art_info.invoke = "Death Magic"; break;
+    case CONFLICT: art_info.invoke = "Conflict"; break;
+    case LEVITATION: art_info.invoke = "Levitation"; break;
+    case INVIS: art_info.invoke = "Invisibility"; break;
+    case WWALKING: art_info.invoke = "Water Walking"; break;
+        
+    case SEFFECT: 
+        switch (anum) {
+        case ART_IMHULLU:
+            art_info.invoke = "Scroll of Air"; break;
+        case ART_DEEP_FREEZE:
+            art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
+        }
+        break;
+    default:
+        art_info.invoke = "None"; break;
+    }
     return art_info;
 }
 

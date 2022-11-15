@@ -720,6 +720,7 @@ struct art_info_t {
     const char* race;
     const char *wielded[INTRINSICS];
     const char *carried[INTRINSICS];
+    const char* invoke;
     
 };
 

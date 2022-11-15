@@ -1579,6 +1579,9 @@ short otyp;
         }
         if (!carried)
             OBJPUTSTR("\tNone");
+        
+        Sprintf(buf, "When #invoked: %s ", a_info.invoke);
+        OBJPUTSTR(buf);
     }
 }
 
