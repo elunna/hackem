@@ -4414,6 +4414,7 @@ artifact_info(int anum)
     art_info.restricted = (artilist[anum].spfx & SPFX_RESTR) != 0;
     art_info.nogen = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     art_info.exclude = (artilist[anum].spfx & SPFX_NOGEN) != 0;
+    art_info.speaks = (artilist[anum].spfx & SPFX_SPEAK) != 0;
     
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {

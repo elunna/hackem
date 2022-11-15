@@ -1528,6 +1528,9 @@ short otyp;
         if (a_info.intelligent) {
             OBJPUTSTR("Intelligent");
         }
+        if (a_info.speaks) {
+            OBJPUTSTR("Capable of speaking");
+        }
         if (a_info.restricted) {
             OBJPUTSTR("Restricted (cannot be #named)");
         }
