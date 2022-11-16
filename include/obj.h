@@ -715,6 +715,7 @@ struct art_info_t {
     boolean exclude;
     boolean speaks;
     boolean beheads;
+    boolean vscross;
     int cost;
     const char* material;
     const char* role;

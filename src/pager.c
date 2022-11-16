@@ -1560,7 +1560,9 @@ short otyp;
             Sprintf(buf, "Special attack: %s ", a_info.attack);
             OBJPUTSTR(buf);
             if (a_info.beheads)
-                OBJPUTSTR("                Beheads");
+                OBJPUTSTR("\t\tbeheads");
+            if (a_info.vscross)
+                OBJPUTSTR("\t\tbonus vs cross-aligned monsters");        
         }
         
         if (a_info.hates) {
