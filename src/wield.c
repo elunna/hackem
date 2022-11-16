@@ -400,7 +400,7 @@ int
 doswapweapon()
 {
     register struct obj *oldwep, *oldswap;
-    int result = 0;
+    /*int result = 0;*/
 
     /* May we attempt this? */
     multi = 0;
@@ -419,7 +419,8 @@ doswapweapon()
     setuswapwep((struct obj *) 0);
 
     /* Set your new primary weapon */
-    result = ready_weapon(oldswap);
+    /*result = ready_weapon(oldswap);*/
+    ready_weapon(oldswap);
 
     /* Set your new secondary weapon */
     if (uwep == oldwep) {
@@ -436,7 +437,8 @@ doswapweapon()
     if (u.twoweap && !can_twoweapon())
         untwoweapon();
 
-    return result;
+    /* Never use a turn when swapping */
+    return 0;
 }
 
 int
