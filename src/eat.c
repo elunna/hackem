@@ -2377,7 +2377,17 @@ struct obj *otmp;
                 make_vomiting((Vomiting & TIMEOUT) + (long) d(10, 4), TRUE);
         } else {
  give_feedback:
-            pline("This %s is %s", singular(otmp, xname),
+            if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
+                switch (rnd(6)) {
+                case 1: pline("Yes, fresh blood!"); break;
+                case 2: You("really sank your fangs into that one."); break;
+                case 3: You("drink to your health."); break;
+                case 4: You("get a bite to drink."); break;
+                case 5: The("blood is the life!"); break;
+                case 6: Your("insatiable hunger subsides a bit."); break;
+                }
+            } else
+                pline("This %s is %s", singular(otmp, xname),
                   (otmp->cursed || otmp->otyp == FRUITCAKE)
                      ? (Hallucination ? "grody!" : "terrible!")
                      : (otmp->otyp == CRAM_RATION
