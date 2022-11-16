@@ -442,9 +442,25 @@ Cloak_on(VOID_ARGS)
         makeknown(uarmc->otyp);
         break;
     case CLOAK_OF_FLIGHT:
-        pline("%s you up into the air!",
-              Tobjnam(uarmc, "hoists"));
-        makeknown(uarmc->otyp);
+        /* Copied from Amulet of Flying */
+        float_vs_flight(); /* block flying if levitating */
+        check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+                           
+        if (Flying) {
+            boolean already_flying;
+
+            /* to determine whether this flight is new we have to muck
+               about in the Flying intrinsic (actually extrinsic) */
+            EFlying &= ~W_ARMC;
+            already_flying = !!Flying;
+            EFlying |= W_ARMC;
+
+            if (!already_flying) {
+                makeknown(uarmc->otyp);
+                context.botl = TRUE; /* status: 'Fly' On */
+                pline("%s you up into the air!", Tobjnam(uarmc, "hoists"));
+            }
+        }
         break;
     case ELVEN_CLOAK:
         toggle_stealth(uarmc, oldprop, TRUE);
@@ -1220,6 +1236,8 @@ boolean silent; /* we assume a wardrobe change if false */
             Your("%s seems to have holes for wings.", simpleonames(uarm));
     } else {
         if (!(uamul && uamul->otyp == AMULET_OF_FLYING))
+            BFlying |= W_ARM;
+        else if (!(uarmc && uarmc->otyp == CLOAK_OF_FLIGHT))
             BFlying |= W_ARM;
         if (!silent)
             You("fold your wings under your suit.");
