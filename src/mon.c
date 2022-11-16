@@ -4893,6 +4893,10 @@ struct monst *mtmp;
             && !(uarms && uarms->oartifact == ART_PRIDWEN)) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             
+            if (u.usleep) {
+                unmul("What a awful nightmare! You wake up!");
+            }
+            
             if (Psychic_resistance) {
                 You("don't seem affected by it.");
             } else if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
