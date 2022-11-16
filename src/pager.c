@@ -1561,6 +1561,11 @@ short otyp;
             OBJPUTSTR(buf);
         }
         
+        if (a_info.hates) {
+            Sprintf(buf, "Bane vs: %s ", a_info.hates);
+            OBJPUTSTR(buf);
+        }
+        
         boolean wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
         for (int i = 0; i < INTRINSICS; i++) {

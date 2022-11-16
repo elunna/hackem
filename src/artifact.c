@@ -4429,6 +4429,15 @@ artifact_info(int anum)
     } else
         art_info.attack = NULL;
     
+    /* Hated/Targeted Monster */
+    if ((artilist[anum].mtype)) {
+        for (int i = 0; i < 32; i++) {
+            if (artilist[anum].mtype & (1 << i)) {
+                art_info.hates = makeplural(mon_race_name(i));
+                break;
+            }
+        }
+    }
     
     
     /* Granted while wielded. */
@@ -4468,14 +4477,7 @@ artifact_info(int anum)
     
     if ((artilist[anum].spfx & SPFX_WARN) != 0) {
         if ((artilist[anum].spfx & SPFX_DFLAGH) != 0) {
-            for (int i = 0; i < 32; i++) {
-                /* Artifacts let you know they are responsible even in non-Wizard mode. */
-                if (artilist[anum].mtype & (1 << i)) {
-                    Sprintf(buf3, "warning against %s ",
-                            makeplural(mon_race_name(i)));
-                    break;
-                }
-            }
+            Sprintf(buf3, "warning against %s ", art_info.hates);
             art_info.wielded[15] = buf3;
         } else {
             art_info.wielded[15] = "warning";

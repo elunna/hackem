@@ -722,6 +722,8 @@ struct art_info_t {
     const char *carried[INTRINSICS];
     const char* invoke;
     const char* attack;
+    const char* hates;
+    
     
 };
 
