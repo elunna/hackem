@@ -4871,8 +4871,12 @@ struct monst *mtmp;
             }
     }
     /* Frightful presence! */
-    if (mtmp->data->msound == MS_ROAR && !mtmp->mpeaceful
-        && is_dragon(mtmp->data) && monsndx(mtmp->data) >= PM_GRAY_DRAGON) {
+    /* --hackem: I cut the number of eligible roaring dragons by half.*/
+    if (mtmp->data->msound == MS_ROAR 
+        && !mtmp->mpeaceful
+        && is_dragon(mtmp->data) 
+        && monsndx(mtmp->data) >= PM_GRAY_DRAGON
+        && monsndx(mtmp->data) % 2 == 0) {
         if (!Deaf && canseemon(mtmp)) {
             pline("%s lets out a thunderous roar!", Monnam(mtmp));
             stop_occupation();
@@ -4886,7 +4890,7 @@ struct monst *mtmp;
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             
             if (Sonic_resistance) {
-                You("don't seem affected by the bellowing.");
+                You("don't seem affected by it.");
                 monstseesu(M_SEEN_LOUD);
             } else if (!Role_if(PM_NECROMANCER
                     || (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)))) {
