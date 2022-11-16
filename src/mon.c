@@ -4884,8 +4884,12 @@ struct monst *mtmp;
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
         if (canseemon(mtmp) || !Deaf) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
-            if (!Role_if(PM_NECROMANCER) 
-                    || (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i))) {
+            
+            if (Sonic_resistance) {
+                You("don't seem affected by the bellowing.");
+                monstseesu(M_SEEN_LOUD);
+            } else if (!Role_if(PM_NECROMANCER
+                    || (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)))) {
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
                 u.fearedmon = mtmp;
             } else {
