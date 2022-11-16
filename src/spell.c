@@ -995,7 +995,11 @@ boolean wiz_cast;
      *  and strength requirements; it any of these change, update it too.
      */
     energy = wiz_cast ? 0 : (spellev(spell) * 5); /* 5 <= energy <= 35 */
-
+    
+    /* Origin gives us a discount on spellcasting. */
+    if (uwep && uwep->oartifact == ART_ORIGIN && energy >= 10)
+        energy -= 5;
+        
     /*
      * Spell casting no longer affects knowledge of the spell. A
      * decrement of spell knowledge is done every turn.
@@ -2092,6 +2096,8 @@ int spell;
         splcaster += special;
 
     if (uarm && uarm->otyp == ROBE_OF_POWER) 
+        splcaster -= 3;
+    if (uwep && uwep->oartifact == ART_ORIGIN)
         splcaster -= 3;
     
     if (splcaster > 20)
