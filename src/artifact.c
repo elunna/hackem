@@ -4781,6 +4781,8 @@ boolean defend;
         return "physical";
     case AD_WERE:
         return "lycanthropy";
+    case AD_BLND:
+        return "blinding";
     default:
         impossible("Bad AD_TYPE!");
     }
