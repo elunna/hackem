@@ -4886,14 +4886,16 @@ struct monst *mtmp;
             pline("%s bellows soundlessly!", Monnam(mtmp));
         }
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
-        if (canseemon(mtmp) || !Deaf) {
+        if ((canseemon(mtmp) || (!Deaf && !Sonic_resistance))
+            && !Confusion
+            && !Role_if(PM_KNIGHT)
+            && !(uarmg && uarmg->oartifact == ART_DRAGONBANE)
+            && !(uarms && uarms->oartifact == ART_PRIDWEN)) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             
-            if (Sonic_resistance) {
+            if (Psychic_resistance) {
                 You("don't seem affected by it.");
-                monstseesu(M_SEEN_LOUD);
-            } else if (!Role_if(PM_NECROMANCER
-                    || (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)))) {
+            } else if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
                 u.fearedmon = mtmp;
             } else {
