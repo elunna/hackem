@@ -824,7 +824,7 @@ ROOM:random, random, random, random, (17,10) {
 LEVEL:"vlt-0043"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"rndvault", random, random, random, (30,10) {
+ROOM:"ordinary", random, random, random, (30,10) {
    IF [75%] {
       SUBROOM:random,random,random,random {
          ROOMDOOR:random,random,random,random
@@ -837,7 +837,7 @@ ROOM:"rndvault", random, random, random, (30,10) {
 LEVEL:"vlt-0044"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"rndvault", random, random, random, (10,17) {
+ROOM:"ordinary", random, random, random, (10,17) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -847,7 +847,7 @@ ROOM:"rndvault", random, random, random, (10,17) {
 LEVEL:"vlt-0045"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"rndvault", random, random, random, (17,3) {
+ROOM:"ordinary", random, random, random, (17,3) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -857,7 +857,7 @@ ROOM:"rndvault", random, random, random, (17,3) {
 LEVEL:"vlt-0046"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"rndvault", random, random, random, (3,17) {
+ROOM:"ordinary", random, random, random, (3,17) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -867,7 +867,7 @@ ROOM:"rndvault", random, random, random, (3,17) {
 LEVEL:"vlt-0047"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"rndvault", random, random, random, (50,5) {
+ROOM:"ordinary", random, random, random, (50,5) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -877,7 +877,7 @@ ROOM:"rndvault", random, random, random, (50,5) {
 LEVEL:"vlt-0048"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"rndvault", random, random, random, (70,3) {
+ROOM:"ordinary", random, random, random, (70,3) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
