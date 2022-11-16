@@ -874,6 +874,7 @@ static const struct def_skill Skill_W[] = {
 
 static const struct def_skill Skill_Y[] = {
     { P_DAGGER, P_SKILLED },            
+    { P_CLUB, P_BASIC },
     { P_KNIFE, P_BASIC },
     { P_AXE, P_SKILLED },               
     { P_SHORT_SWORD, P_EXPERT },
