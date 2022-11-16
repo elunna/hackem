@@ -1542,8 +1542,10 @@ short otyp;
         }
         Sprintf(buf, "Cost: %d ", a_info.cost);
         OBJPUTSTR(buf);
+#if 0
         Sprintf(buf, "Material: %s ", a_info.material);
         OBJPUTSTR(buf);
+#endif
         if (a_info.role) {
             Sprintf(buf, "Associated class: %s ", a_info.role);
             OBJPUTSTR(buf);
@@ -1562,7 +1564,9 @@ short otyp;
             if (a_info.beheads)
                 OBJPUTSTR("\t\tbeheads");
             if (a_info.vscross)
-                OBJPUTSTR("\t\tbonus vs cross-aligned monsters");        
+                OBJPUTSTR("\t\tbonus vs cross-aligned monsters");     
+            if (a_info.xattack)
+                OBJPUTSTR(a_info.xattack);  
         }
         
         if (a_info.hates) {
@@ -1596,6 +1600,10 @@ short otyp;
         
         Sprintf(buf, "When #invoked: %s ", a_info.invoke);
         OBJPUTSTR(buf);
+        
+        if (a_info.xinfo) {
+            OBJPUTSTR(a_info.xinfo);
+        }
     }
 }
 
