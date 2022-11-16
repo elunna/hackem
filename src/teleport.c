@@ -243,9 +243,8 @@ int start_range; /**< Distance of checked tiles to begin with. Should be >=1. */
 
     entflags &= ~GP_ALLOW_XY;
     if (!mdat) {
-#ifdef DEBUG
-        pline("enexto() called with mdat==0");
-#endif
+        debug_pline("enexto() called with mdat==0");
+
         /* default to player's original monster type */
         mdat = &mons[u.umonster];
     }
