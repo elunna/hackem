@@ -368,10 +368,10 @@ STAIR: (01,09), up
 STAIR: $places[0], down
 
 # Welcoming party
-LOOP [15] { MONSTER: ('g', "jermlaine"), (35,15), hostile }
+LOOP [10] { MONSTER: ('g', "jermlaine"), (35,15), hostile }
 
 # Reinforcements
-LOOP [22] { MONSTER: ('g', "jermlaine"), (30,03), hostile }
+LOOP [13] { MONSTER: ('g', "jermlaine"), (30,03), hostile }
 
 LOOP [6] { MONSTER: 'g', random, hostile }
 
@@ -380,7 +380,6 @@ LOOP [14] { MONSTER: 'r', (67,05), hostile }
 
 # Rat zoo #2 (57,16)
 LOOP [15] { MONSTER: 'r', (57,16), hostile }
-
 
 #
 # The dragon pit at the bottom of the Wyrm Caves
@@ -462,13 +461,42 @@ LOOP [3] {
 }
 LOOP [5] { OBJECT: random, random }
 
-LOOP [22] { MONSTER: 'D', random, hostile }
+[45%]: MONSTER: ('D', "gray dragon"), random, hostile
+[45%]: MONSTER: ('D', "silver dragon"), random, hostile
+[45%]: MONSTER: ('D', "shimmering dragon"), random, hostile
+[45%]: MONSTER: ('D', "deep dragon"), random, hostile
+[45%]: MONSTER: ('D', "red dragon"), random, hostile
+[45%]: MONSTER: ('D', "white dragon"), random, hostile
+[45%]: MONSTER: ('D', "orange dragon"), random, hostile
+[45%]: MONSTER: ('D', "black dragon"), random, hostile
+[45%]: MONSTER: ('D', "blue dragon"), random, hostile
+[45%]: MONSTER: ('D', "green dragon"), random, hostile
+[45%]: MONSTER: ('D', "gold dragon"), random, hostile
+[45%]: MONSTER: ('D', "sea dragon"), random, hostile
+[45%]: MONSTER: ('D', "yellow dragon"), random, hostile
+[45%]: MONSTER: ('D', "wyvern"), random, hostile
+[45%]: MONSTER: ('D', "hydra"), random, hostile
 
-MONSTER: ('D', "black dragon"), random, hostile
-MONSTER: ('D', "wyvern"), random, hostile
-MONSTER: ('D', "hydra"), random, hostile
 #MONSTER: ('D', "Crassus the Young Ancient Dragon"),(01,06)
 
-LOOP [6] { MONSTER: 'w', random, hostile }
+$mon_names = MONSTER: {
+    ('D', "baby red dragon"),           ('D', "baby white dragon"),
+    ('D', "baby yellow dragon"),        ('D', "baby blue dragon"),
+    ('D', "baby green dragon"),         ('D', "baby shimmering dragon"),
+    ('D', "baby sea dragon"),           ('D', "baby gold dragon"),
+    ('D', "baby deep dragon"),          ('D', "baby gray dragon"),
+    ('D', "baby silver dragon"),        ('D', "baby orange dragon"),
+    ('D', "baby black dragon")
+}
+
+
+# 15 baby dragons
+# 1d13 covers the above list (don't need to worry about 0 index)
+LOOP [15] { MONSTER: $mon_names[1d13], random, hostile }
+
+# 20 random dragon eggs
+LOOP [20] { OBJECT: ('%', "egg"), random, montype:'D' }
+
+LOOP [6] { [40%]: MONSTER: 'w', random, hostile }
 
 LOOP [4] { TRAP: random, random }
