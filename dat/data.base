@@ -1750,6 +1750,20 @@ doppelganger
 	count upon his doing the former, and not doing the latter, why
 	then you're a dragonlord."
 		[ The Tombs of Atuan, by Ursula K. Le Guin ]
+		
+	Dragons occasionally roar at the player. This can inflict the 
+	afraid status effect, making the player flee from the dragon.
+    If you can see or hear the dragon, it will frighten you, so 
+    you'll need to be both blind and deaf in order to prevent this 
+    effect.
+    Drinking liquid courage dispels the Afraid condition. While 
+    confused, you'll be immune to further strikes of fear.
+    
+    There are a few ways to prevent the afraid status:
+    - Be a knight. Knights have been trained to tame their fear.
+    - Wear Pridwen, the shield of King Arthur.
+    - Wear Dragonbane.
+    - Have a source of psychic resistance.
 *dragon*scale*
 	Stephen had argued, and the expert armorer had grudgingly
 	admitted, that dragonscale shield or armor, provided it proved
@@ -1760,6 +1774,7 @@ doppelganger
 	make of steel.
 		[ The Last Book of Swords: Shieldbreaker's Story,
 			by Fred Saberhagen ]
+
 draugr
 draugar
 	Draugar live in their graves, often guarding treasure buried with
