@@ -2929,7 +2929,7 @@ struct obj *stone, *obj;
             } else
                 pline("That isn't water!");
 	    } else
-		    You("need some water when you use that.");
+                You("need some water when you use that.");
 	} else if (Levitation && !Lev_at_will && !u.uinwater) {
 	    You("can't reach the water.");
 	} else
@@ -3093,8 +3093,11 @@ struct obj **optr;
     switch (oclass) {
     case WEAPON_CLASS:
     case TOOL_CLASS:
-	    use_whetstone(tstone, obj);
-        return;
+        if (tstone->otyp == WHETSTONE) {
+            use_whetstone(tstone, obj);
+            return;
+        }
+        break;
     case GEM_CLASS: /* these have class-specific handling below */
     case RING_CLASS:
         if (tstone->otyp != TOUCHSTONE) {
