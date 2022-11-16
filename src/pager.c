@@ -1559,6 +1559,8 @@ short otyp;
         if (a_info.attack) {
             Sprintf(buf, "Special attack: %s ", a_info.attack);
             OBJPUTSTR(buf);
+            if (a_info.beheads)
+                OBJPUTSTR("                Beheads");
         }
         
         if (a_info.hates) {

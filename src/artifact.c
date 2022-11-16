@@ -4417,6 +4417,7 @@ artifact_info(int anum)
     art_info.nogen = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     art_info.exclude = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     art_info.speaks = (artilist[anum].spfx & SPFX_SPEAK) != 0;
+    art_info.beheads = (artilist[anum].spfx & SPFX_BEHEAD) != 0;
 
     /* Special attacks */
     if (artilist[anum].attk.adtyp 
