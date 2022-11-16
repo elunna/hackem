@@ -727,6 +727,7 @@ struct art_info_t {
     const char* hates;
     const char* xattack;
     const char* xinfo;
+    const char* dbldmg;
     
     
 };

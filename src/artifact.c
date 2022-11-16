@@ -4420,16 +4420,6 @@ artifact_info(int anum)
     art_info.beheads = (artilist[anum].spfx & SPFX_BEHEAD) != 0;
     art_info.vscross = (artilist[anum].spfx & SPFX_DALIGN) != 0;
 
-    /* Special attacks */
-    if (artilist[anum].attk.adtyp 
-        || artilist[anum].attk.damn
-        || artilist[anum].attk.damd) {
-        Sprintf(buf, "%s, +1d%d to-hit +1d%d damage",
-                adtyp_str(artilist[anum].attk.adtyp, FALSE),
-                artilist[anum].attk.damn, artilist[anum].attk.damd);
-        art_info.attack = buf;
-    } else
-        art_info.attack = NULL;
     
     /* Hated/Targeted Monster */
     if ((artilist[anum].mtype)) {
@@ -4441,6 +4431,26 @@ artifact_info(int anum)
         }
     }
     
+    /* Special attacks */
+    if (artilist[anum].attk.adtyp
+        || artilist[anum].attk.damn
+        || artilist[anum].attk.damd) {
+        Sprintf(buf, "%s, +1d%d to-hit +1d%d damage",
+                adtyp_str(artilist[anum].attk.adtyp, FALSE),
+                artilist[anum].attk.damn, artilist[anum].attk.damd);
+        art_info.attack = buf;
+        
+        /* Does this deal double damage? */
+        if (artilist[anum].attk.damd == 0) {
+            char dd[50];
+            if (art_info.hates) {
+                Sprintf(dd, "\t\tdouble damage vs %s", art_info.hates);
+                art_info.dbldmg = dd;
+            } else
+                art_info.dbldmg = "\t\tdeals double damage";
+        }
+    } else
+        art_info.attack = NULL;
     
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
@@ -4645,11 +4655,11 @@ monster then the grenade will instantly explode.  */
         /* The energy drain only works if the artifact kills its victim. */
         break;
     case ART_SERPENT_S_TONGUE: 
-        art_info.xattack = "\t\tVs non-poison-resistant enemies:\n"
-                         "\t\t- 40% chance of 2 + d6 damage\n"
-                         "\t\t- 30% chance of 4 + 2d6 damage\n"
-                         "\t\t- 20% chance of 6 + 3d6 damage\n"
-                         "\t\t- 10% chance of poison instadeath";
+        art_info.xattack = "\t\tVs non-poison-resistant enemies: "
+                         "40% chance of 2 + d6 damage;"
+                         "30% chance of 4 + 2d6 damage;"
+                         "20% chance of 6 + 3d6 damage;"
+                         "10% chance of poison instadeath";
         break;
     case ART_STING:
         art_info.xattack = "\t\t10% chance of instakill vs orcs";

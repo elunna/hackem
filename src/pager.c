@@ -1520,8 +1520,8 @@ short otyp;
     
     if (obj && obj->oartifact) {
         struct art_info_t a_info = artifact_info(obj->oartifact);
-        OBJPUTSTR("");
-        Sprintf(buf, "Artifact Name: %s ", a_info.name);
+        OBJPUTSTR("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        Sprintf(buf, "Artifact: %s ", a_info.name);
         OBJPUTSTR(buf);
         Sprintf(buf, "Alignment: %s ", a_info.alignment);
         OBJPUTSTR(buf);
@@ -1564,9 +1564,11 @@ short otyp;
             if (a_info.beheads)
                 OBJPUTSTR("\t\tbeheads");
             if (a_info.vscross)
-                OBJPUTSTR("\t\tbonus vs cross-aligned monsters");     
+                OBJPUTSTR("\t\tbonus vs cross-aligned monsters");
+            if (a_info.dbldmg)
+                OBJPUTSTR(a_info.dbldmg);     
             if (a_info.xattack)
-                OBJPUTSTR(a_info.xattack);  
+                OBJPUTSTR(a_info.xattack);
         }
         
         if (a_info.hates) {
