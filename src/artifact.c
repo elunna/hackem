@@ -54,7 +54,7 @@ STATIC_OVL xchar artidisco[NROFARTIFACTS];
 STATIC_DCL void NDECL(hack_artifacts);
 STATIC_DCL void FDECL(fix_artifact, (struct obj *));
 
-STATIC_DCL const char *FDECL(adtyp_str, (uchar));
+STATIC_DCL const char *FDECL(adtyp_str, (uchar, BOOLEAN_P));
 
 boolean
 exclude_nartifact_exist(i)
@@ -4401,7 +4401,8 @@ struct art_info_t
 artifact_info(int anum)
 {
     struct art_info_t art_info = { 0 };
-    char buf[BUFSZ];
+    char buf[BUFSZ], buf2[BUFSZ], buf3[BUFSZ];
+    
     art_info.name = artiname(anum);
     art_info.alignment = align_str(artilist[anum].alignment);
     art_info.cost = artilist[anum].cost;
@@ -4417,11 +4418,23 @@ artifact_info(int anum)
     art_info.exclude = (artilist[anum].spfx & SPFX_NOGEN) != 0;
     art_info.speaks = (artilist[anum].spfx & SPFX_SPEAK) != 0;
 
+    /* Special attacks */
+    if (artilist[anum].attk.adtyp 
+        || artilist[anum].attk.damn
+        || artilist[anum].attk.damd) {
+        Sprintf(buf, "%s, +1d%d to-hit +1d%d damage",
+                adtyp_str(artilist[anum].attk.adtyp, FALSE),
+                artilist[anum].attk.damn, artilist[anum].attk.damd);
+        art_info.attack = buf;
+    } else
+        art_info.attack = NULL;
+    
     
     
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
-        art_info.wielded[0] = adtyp_str(artilist[anum].defn.adtyp);
+        Sprintf(buf2, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
+        art_info.wielded[0] = buf2;
     }
     
     if ((artilist[anum].spfx & SPFX_SEARCH) != 0)
@@ -4455,22 +4468,23 @@ artifact_info(int anum)
     
     if ((artilist[anum].spfx & SPFX_WARN) != 0) {
         if ((artilist[anum].spfx & SPFX_DFLAGH) != 0) {
-            
             for (int i = 0; i < 32; i++) {
                 /* Artifacts let you know they are responsible even in non-Wizard mode. */
                 if (artilist[anum].mtype & (1 << i)) {
-                    Sprintf(buf, "warning against %s ",
+                    Sprintf(buf3, "warning against %s ",
                             makeplural(mon_race_name(i)));
+                    break;
                 }
             }
-            art_info.wielded[15] = buf;
+            art_info.wielded[15] = buf3;
         } else {
             art_info.wielded[15] = "warning";
         }
     }
     /* Granted while carried. */
-    if (artilist[anum].defn.adtyp) {
-        art_info.carried[0] = adtyp_str(artilist[anum].cary.adtyp);
+    if (artilist[anum].cary.adtyp) {
+        Sprintf(buf2, "%s resistance", adtyp_str(artilist[anum].cary.adtyp, TRUE));
+        art_info.carried[0] = buf2;
     } 
     if ((artilist[anum].cspfx & SPFX_SEARCH) != 0)
         art_info.carried[1] = "searching";
@@ -4537,50 +4551,55 @@ artifact_info(int anum)
     default:
         art_info.invoke = "None"; break;
     }
+    
     return art_info;
 }
 
 
 
 const char *
-adtyp_str(uchar adtyp)
+adtyp_str(adtyp, defend)
+uchar adtyp;
+boolean defend;
 {
     switch (adtyp) {
     case AD_FIRE:
-        return "fire resistance";
+        return "fire";
     case AD_COLD:
-        return "cold resistance";
+        return "cold";
     case AD_ELEC:
-        return "shock resistance";
+        return "shock";
     case AD_DRST:
-        return "poison resistance";
+        return "poison";
     case AD_MAGM:
-        return "magic resistance";
+        return defend ? "magic missile" : "magic";
     case AD_DRLI:
-        return "drain resistance";
+        return "drain";
     case AD_CLOB:
-        return "extreme stability";
+        return defend ? "clobber" : "extreme stability";
     case AD_DISE:
-        return "disease resistance";
+        return "disease";
     case AD_SLEE:
-        return "sleep resistance";
+        return "sleep";
     case AD_DISN:
-        return "disintegration resistance";
+        return "disintegration";
     case AD_SLOW:
-        return "slow resistance";
+        return "slow";
     case AD_ACID:
-        return "acid resistance";
+        return "acid";
     case AD_STON:
-        return "petrification resistance";
+        return "petrification";
     case AD_PLYS:
-        return "free action";
+        return defend ? "paralyze" : "free action";
     case AD_LOUD:
-        return "sonic resistance";
+        return "sonic";
+    case AD_PHYS:
+        return "physical";
     default:
         return "none";
-        /*impossible("Bad ADTYPE!");*/
+        
     }
-    return "unknown";
+    impossible("Bad AD_TYPE!");
 }
 
 /*artifact.c*/

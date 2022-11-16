@@ -1556,6 +1556,11 @@ short otyp;
             OBJPUTSTR("Artifact light source");
         }
         
+        if (a_info.attack) {
+            Sprintf(buf, "Special attack: %s ", a_info.attack);
+            OBJPUTSTR(buf);
+        }
+        
         boolean wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
         for (int i = 0; i < INTRINSICS; i++) {
