@@ -145,7 +145,7 @@ WEAPON("shuriken", "throwing star",
 WEAPON("boomerang", None,
        1, 1, 0, 0, 15,   5,  20,  9,  9, 0, B,   -P_BOOMERANG, WOOD, HI_WOOD),
 WEAPON("chakram", "circular blade",                            /* SpliceHack */
-       0, 1, 0, 0, 8,    5,  20, 11, 10, 1, S,   -P_BOOMERANG, SILVER, HI_SILVER),
+       0, 1, 0, 0, 25,    5,  20, 10, 9, 1, S,   -P_BOOMERANG, IRON, HI_SILVER),
 
 /* spears [note: javelin used to have a separate skill from spears,
    because the latter are primarily stabbing weapons rather than
