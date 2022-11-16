@@ -1105,6 +1105,10 @@ int dieroll;
                     hittxt = TRUE;
                     if (!noncorporeal(mdat))
                         tmp++;
+                } else if (!thrown && obj == uwep && obj->otyp == CHAKRAM) {
+                    if (!rn2(4))
+                        Your("chakram is quite awkward to fight with.");
+                    tmp = rnd(2);
                 }
             } else {
                 tmp = dmgval(obj, mon);
