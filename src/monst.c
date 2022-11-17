@@ -3437,8 +3437,9 @@ NEARDATA struct permonst mons[] = {
         LVL(12, 9, 2, 10, 0), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
-          ATTK(AT_CLAW, AD_PHYS, 2, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_CLAW, AD_PHYS, 2, 4),
+          ATTK(AT_NONE, AD_STUN, 2, 6),
+          NO_ATTK, NO_ATTK),
         SIZ(1500, 500, MS_ROAR, MZ_HUGE), 0, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 
@@ -3582,11 +3583,12 @@ NEARDATA struct permonst mons[] = {
         0, 0, MH_DRAGON, 24, DRAGON_SILVER),
     MON("shimmering dragon", S_DRAGON,                 /* Evilhack/Slash'EM */
         LVL(17, 9, -1, 20, 4), (G_GENO | 1),
-        A(ATTK(AT_BREA, AD_MAGM, 4, 6), 
+        A(ATTK(AT_BREA, AD_MAGM, 4, 6),
           ATTK(AT_BITE, AD_PHYS, 4, 8),
-          ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          NO_ATTK/*ATTK(AT_ENGL, AD_DGST, 2, 10)*/, 
+          ATTK(AT_CLAW, AD_PHYS, 4, 4),
+          ATTK(AT_NONE, AD_STUN, 2, 6),
+          /*ATTK(AT_ENGL, AD_DGST, 2, 10)*/
           NO_ATTK),
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), 0, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
@@ -3595,13 +3597,13 @@ NEARDATA struct permonst mons[] = {
         0, 0, MH_DRAGON, 24, CLR_CYAN),
     MON("deep dragon", S_DRAGON,                                /* Slash'EM */
         LVL(20, 9, -4, 20, -6), (G_GENO | 3),
-        A(ATTK(AT_BREA, AD_DRST, 4, 6), 
+        A(ATTK(AT_BREA, AD_DRST, 4, 6),
           ATTK(AT_BITE, AD_DRLI, 4, 8),
-          ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          /*ATTK(AT_ENGL, AD_DGST, 2, 10), */
+          ATTK(AT_CLAW, AD_PHYS, 4, 4),
           ATTK(AT_NONE, AD_DRLI, 0, 1),
           NO_ATTK),
+        /*ATTK(AT_ENGL, AD_DGST, 2, 10), */
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_POISON, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE | M1_POIS,
