@@ -3307,6 +3307,7 @@ static const struct alt_spellings {
     { "PoEH",  POT_EXTRA_HEALING},
     { "PoGL",  POT_GAIN_LEVEL},
     { "PoW",  POT_WATER},
+    { "pmd",  POT_MONSTER_DETECTION},
     
     /* Wands */
     { "WoW",  WAN_WISHING},
