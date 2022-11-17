@@ -6348,6 +6348,15 @@ int osym, dmgtyp;
     const char *mult;
     boolean physical_damage;
 
+    /* special effect of extrinsic resistances: they protect all items from
+     * their respective damage types */
+    if ((dmgtyp == AD_FIRE && EFire_resistance) ||
+        (dmgtyp == AD_COLD && ECold_resistance) ||
+        (dmgtyp == AD_ACID && EAcid_resistance) ||
+        (dmgtyp == AD_LOUD && ESonic_resistance) ||
+        (dmgtyp == AD_ELEC && EShock_resistance))
+        return;
+    
     physical_damage = FALSE;
     xresist = skip = 0;
     /* lint suppression */

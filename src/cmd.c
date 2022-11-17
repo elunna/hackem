@@ -3115,9 +3115,15 @@ int final;
     Sprintf(buf, "%d%% fire resistant", how_resistant(FIRE_RES));
     if (Fire_resistance)
         you_are(buf, "");
+    if (EFire_resistance)
+        enl_msg("Your items ", "are", "were", " protected from fire",
+                from_what(AD_FIRE));
     Sprintf(buf, "%d%% cold resistant", how_resistant(COLD_RES));
     if (Cold_resistance)
         you_are(buf, "");
+    if (ECold_resistance)
+        enl_msg("Your items ", "are", "were", " protected from cold",
+                from_what(AD_COLD));
     Sprintf(buf, "%d%% sleep resistant", how_resistant(SLEEP_RES));
     if (Sleep_resistance)
         you_are(buf, "");
@@ -3127,6 +3133,9 @@ int final;
     Sprintf(buf, "%d%% shock resistant", how_resistant(SHOCK_RES));
     if (Shock_resistance)
         you_are(buf, "");
+    if (EShock_resistance)
+        enl_msg("Your items ", "are", "were", " protected from shock",
+                from_what(AD_ELEC));
     Sprintf(buf, "%d%% poison resistant", how_resistant(POISON_RES));
     if (Poison_resistance)
         you_are(buf, "");
@@ -3136,10 +3145,16 @@ int final;
         you_are("stable", from_what(STABLE));
     if (Acid_resistance)
         you_are("acid resistant", from_what(ACID_RES));
+    if (EAcid_resistance)
+        enl_msg("Your items ", "are", "were", " protected from acid",
+                from_what(AD_ACID));
     if (Psychic_resistance)
         you_are("psionic resistant", from_what(PSYCHIC_RES));
     if (Sonic_resistance)
         you_are("sonic resistant", from_what(SONIC_RES));
+    if (ESonic_resistance)
+        enl_msg("Your items ", "are", "were", " protected from sonics",
+                from_what(AD_LOUD));
     if (Drain_resistance)
         you_are("level-drain resistant", from_what(DRAIN_RES));
     if (Sick_resistance)
