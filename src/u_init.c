@@ -61,6 +61,7 @@ struct trobj Cave_man[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Convict[] = {
+    { SPOON, 0, TOOL_CLASS, 1, 0 },
     { ROCK, 0, GEM_CLASS, 1, 0 },
     { STRIPED_SHIRT, 0, ARMOR_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
