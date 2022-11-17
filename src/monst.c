@@ -3586,7 +3586,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_ENGL, AD_DGST, 2, 10), 
+          NO_ATTK/*ATTK(AT_ENGL, AD_DGST, 2, 10)*/, 
           NO_ATTK),
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), 0, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
@@ -3599,8 +3599,9 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_DRLI, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_ENGL, AD_DGST, 2, 10), 
-          ATTK(AT_NONE, AD_DRLI, 0, 1)),
+          /*ATTK(AT_ENGL, AD_DGST, 2, 10), */
+          ATTK(AT_NONE, AD_DRLI, 0, 1),
+          NO_ATTK),
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_POISON, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE | M1_POIS,
@@ -3638,8 +3639,9 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_ENGL, AD_DGST, 2, 10), 
-          ATTK(AT_NONE, AD_SLOW, 0, 2)),
+          /*ATTK(AT_ENGL, AD_DGST, 2, 10), */
+          ATTK(AT_NONE, AD_SLOW, 0, 2),
+          NO_ATTK),
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_SLEEP, MR_SLEEP,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
@@ -3651,8 +3653,9 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_ENGL, AD_DGST, 2, 10), 
-          ATTK(AT_NONE, AD_DISN, 0, 0)),
+          /*ATTK(AT_ENGL, AD_DGST, 2, 10), */
+          ATTK(AT_NONE, AD_DISN, 0, 0),
+          NO_ATTK),
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_DISINT, MR_DISINT,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
@@ -3689,7 +3692,8 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_ENGL, AD_DGST, 2, 10), 
+          /*ATTK(AT_ENGL, AD_DGST, 2, 10), */
+          NO_ATTK,
           NO_ATTK),
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_FIRE, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
