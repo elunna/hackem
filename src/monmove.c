@@ -519,6 +519,18 @@ register struct monst *mtmp;
         return 0;
     }
     
+    /* Dragons periodically fall asleep and wake up */
+    if (is_dragon(mtmp->data) && !mtmp->mtame && !Conflict) {
+        if (!mtmp->msleeping 
+            && mtmp->data != &mons[PM_ORANGE_DRAGON] /* Sleep Resistant */
+                && !rn2(10) 
+                && (!m_canseeu(mtmp) || mtmp->mpeaceful)) {
+            mtmp->msleeping = 1;
+            if (canseemon(mtmp)) 
+                pline("%s curls up and goes to sleep.", Monnam(mtmp));
+        }
+    }
+    
     if (mtmp->data == &mons[PM_SLUMBER_HULK] && !mtmp->msleeping && !rn2(10)) {
         if (canseemon(mtmp)) pline("%s falls asleep and begins to snore.", Monnam(mtmp));
         mtmp->msleeping = 1;
