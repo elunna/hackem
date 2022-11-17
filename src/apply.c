@@ -3088,14 +3088,13 @@ struct obj **optr;
         && objects[obj->otyp].oc_material != MINERAL)
         oclass = RANDOM_CLASS; /* something that's neither gem nor ring */
 
+    if (tstone->otyp == WHETSTONE 
+        && (oclass == WEAPON_CLASS || is_weptool(obj))) {
+        use_whetstone(tstone, obj);
+        return;
+    }
+    
     switch (oclass) {
-    case WEAPON_CLASS:
-    case TOOL_CLASS:
-        if (tstone->otyp == WHETSTONE) {
-            use_whetstone(tstone, obj);
-            return;
-        }
-        break;
     case GEM_CLASS: /* these have class-specific handling below */
     case RING_CLASS:
         if (tstone->otyp != TOUCHSTONE) {
