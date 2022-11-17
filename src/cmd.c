@@ -3235,6 +3235,7 @@ int final;
                 makeplural(mons[context.warntype.speciesidx].mname));
         you_are(buf, from_what(WARN_OF_MON));
     }
+    
     if (Undead_warning)
         you_are("warned of the undead", from_what(WARN_UNDEAD));
     if (Searching)

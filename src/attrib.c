@@ -1183,10 +1183,10 @@ int oldlevel, newlevel;
     /* ALI -- update Warn_of_mon */
     HWarn_of_mon = HUndead_warning;
     if (HUndead_warning)
-        context.warntype.polyd |= MH_UNDEAD;
+        context.warntype.intrins |= MH_UNDEAD;
     else
-        context.warntype.polyd &= ~MH_UNDEAD;
-    
+        context.warntype.intrins &= ~MH_UNDEAD;
+
     /* Learn your special spells! */
     if (Role_if(PM_NECROMANCER)) {
         short spell;

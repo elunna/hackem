@@ -1294,6 +1294,10 @@ u_init()
         if (!rn2(6)) 
             ini_inv(Lamp);
         skill_init(Skill_U);
+
+        /* Kludge here to trigger Undead Warning */
+        HWarn_of_mon = HUndead_warning;
+        context.warntype.intrins |= MH_UNDEAD;
         break;
     case PM_VALKYRIE:
         ini_inv(Valkyrie);

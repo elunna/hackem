@@ -214,15 +214,18 @@ struct sortloot_item {
 };
 typedef struct sortloot_item Loot;
 
-#define MATCH_WARN_OF_MON(mon)                                               \
-    (Warn_of_mon && ((context.warntype.obj                                   \
-                      && ((!has_erac(mon) && (context.warntype.obj & (mon)->data->mhflags)) \
-                          || (has_erac(mon) && (context.warntype.obj & ERAC(mon)->mrace))))      \
-                     || (context.warntype.polyd                              \
-                        && ((!has_erac(mon) && (context.warntype.polyd & (mon)->data->mhflags)) \
-                            || (has_erac(mon) && (context.warntype.polyd & ERAC(mon)->mrace))))      \
-                     || (context.warntype.species                            \
-                         && (context.warntype.species == (mon)->data))))
+#define MATCH_WARN_OF_MON(mon) \
+    (Warn_of_mon \
+     && ((context.warntype.obj \
+          && ((!has_erac(mon) && (context.warntype.obj & (mon)->data->mhflags)) \
+              || (has_erac(mon) && (context.warntype.obj & ERAC(mon)->mrace)))) || \
+         (context.warntype.polyd \
+          && ((!has_erac(mon) && (context.warntype.polyd & (mon)->data->mhflags)) \
+              || (has_erac(mon) && (context.warntype.polyd & ERAC(mon)->mrace)))) || \
+         (context.warntype.species \
+          && (context.warntype.species == (mon)->data)) || \
+         (context.warntype.intrins & (mon)->data->mhflags) \
+ )) \
 
 #include "trap.h"
 #include "flag.h"
