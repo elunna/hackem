@@ -2738,18 +2738,18 @@ STATIC_PTR
 int
 set_whetstone()
 {
-	struct obj *otmp = whetstoneinfo.tobj, *ows = whetstoneinfo.wsobj;
-	int chance;
+    struct obj *otmp = whetstoneinfo.tobj, *ows = whetstoneinfo.wsobj;
+    int chance;
 
-	if (!otmp || !ows) {
-	    reset_whetstone();
-	    return 0;
-	} else if (!carried(otmp) || !carried(ows)) {
-	    You("seem to have mislaid %s.",
-		  !carried(otmp) ? yname(otmp) : yname(ows));
-	    reset_whetstone();
-	    return 0;
-	}
+    if (!otmp || !ows) {
+        reset_whetstone();
+        return 0;
+    } else if (!carried(otmp) || !carried(ows)) {
+        You("seem to have mislaid %s.",
+              !carried(otmp) ? yname(otmp) : yname(ows));
+        reset_whetstone();
+        return 0;
+    }
 
     if (ows->cursed) {
         /* Cursed whetstones will inflict a random bad effect on the applied weapon.
@@ -2759,54 +2759,54 @@ set_whetstone()
             will be instantaneous.
         */
         switch (rn2(5)) {
-            case 0: /* Negative Enchantment */
-                pline("%s with %s aura.",
-                        Yobjnam2(otmp, "glow"), an(hcolor(NH_BLACK)));
-                otmp->spe--;
-                break;
-            case 1: /* Rust damage */
-                erode_obj(otmp, NULL, ERODE_RUST, EF_GREASE | EF_DESTROY);
-                break;
-            case 2: /* Corrosion damage */
-                erode_obj(otmp, NULL, ERODE_CORRODE, EF_GREASE | EF_DESTROY);
-                break;
-            default:
-                pline("Nothing happens.");
-                break;
+        case 0: /* Negative Enchantment */
+            pline("%s with %s aura.",
+                  Yobjnam2(otmp, "glow"), an(hcolor(NH_BLACK)));
+            otmp->spe--;
+            break;
+        case 1: /* Rust damage */
+            erode_obj(otmp, NULL, ERODE_RUST, EF_GREASE | EF_DESTROY);
+            break;
+        case 2: /* Corrosion damage */
+            erode_obj(otmp, NULL, ERODE_CORRODE, EF_GREASE | EF_DESTROY);
+            break;
+        default:
+            pline("Nothing happens.");
+            break;
         }
         reset_whetstone();
         return 0;
     }
 
-	if (--whetstoneinfo.time_needed > 0) {
-	    int adj = 2;
-	    if (Blind)
+    if (--whetstoneinfo.time_needed > 0) {
+        int adj = 2;
+        if (Blind)
             adj--;
-	    if (Fumbling)
+        if (Fumbling)
             adj--;
-	    if (Confusion)
+        if (Confusion)
             adj--;
-	    if (Stunned) 
+        if (Stunned) 
             adj--;
-	    if (Hallucination) 
+        if (Hallucination) 
             adj--;
-            
-	    if (adj > 0)
-		    whetstoneinfo.time_needed -= adj;
-	    return 1;
-	}
+        
+        if (adj > 0)
+            whetstoneinfo.time_needed -= adj;
+        return 1;
+    }
 
     /* --hackem: Removed artifact "resist" penalty 
         (Most artifacts are fixed anyway)
     */
     chance = 4 - (ows->blessed) + (ows->cursed*2);
 
-	if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
+    if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
 
 	    /* Remove erosion first, then sharpen dull edges */
         int erosion = (int) greatest_erosion(otmp);
 
-	    if (erosion > 0) {
+        if (erosion > 0) {
             if (otmp->oeroded)
                 otmp->oeroded--;    /* Remove rust */
             else if (otmp->oeroded2)
@@ -2822,21 +2822,20 @@ set_whetstone()
                     pline("%s %s starting to feel better.", Yname2(otmp), (otmp->quan > 1 ? "are": "is"));
                 else
                     pline("%s %s starting to look better.", Yname2(otmp), (otmp->quan > 1 ? "are": "is"));
-            }
-            else {
+            } else {
                 pline("%s %s%s now.", Yname2(otmp),
                     (Blind ? "probably " : (erosion ? "almost " : "")),
                     otense(otmp, "shine"));
             }
 
-	    } else if (otmp->spe < 0) {
+        } else if (otmp->spe < 0) {
             otmp->spe++;
             pline("%s %s %ssharper now.%s", Yname2(otmp),
                 otense(otmp, Blind ? "feel" : "look"),
                 (otmp->spe >= 0 ? "much " : ""),
                 Blind ? "  (Ow!)" : "");
 
-	    } else if (ows->blessed && otmp->cursed) {
+        } else if (ows->blessed && otmp->cursed) {
             /* If our whetstone is blessed, we can remove a curse */
             if (Blind)
                 pline("%s %s for a moment.", Yname2(ows), otense(ows, "warm"));
@@ -2847,7 +2846,6 @@ set_whetstone()
         } else if (ows->blessed && otmp->spe == 0) {
             /* --hackem: If the weapon is otherwise fine and our whetstone is blessed, 
                 I'll boost it up to +1... But they have to pass another coin flip.
-
                 Leo Tolstoy: “The two most powerful warriors are patience and time.”
             */
             if (!rn2(1)) {
@@ -2858,21 +2856,21 @@ set_whetstone()
         }
 
 
-	    makeknown(WHETSTONE);
-	    reset_whetstone();
+        makeknown(WHETSTONE);
+        reset_whetstone();
 
-	} else {
-	    if (Hallucination) {
-            pline("%s %s must be faulty!",
-                is_plural(ows) ? "These" : "This", xname(ows));
+    } else {
+        if (Hallucination) {
+        pline("%s %s must be faulty!",
+            is_plural(ows) ? "These" : "This", xname(ows));
         } else {
             pline("%s", Blind ? "Pheww!  This is hard work!" :
-		        "There are no visible effects despite your efforts.");
+                        "There are no visible effects despite your efforts.");
         }
         reset_whetstone();
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 
@@ -2915,7 +2913,7 @@ struct obj *stone, *obj;
         /* --hackem: We test if we are NOT on a water source above.
              A player can use a potion of water if on hand. */
         if (carrying(POT_WATER)) {
-            potion = getobj(beverages, "apply to the stone");
+            potion = getobj(beverages, "wet the whetstone with");
             if (!potion)
                 fail_use = TRUE;
             else if (potion->otyp == POT_WATER) {
@@ -3071,7 +3069,7 @@ struct obj **optr;
         return;
     }
 
-    if (Blind && tstone->otyp != WHETSTONE) {
+    if (Blind && tstone->otyp == TOUCHSTONE) {
         pline(scritch);
         return;
     } else if (Hallucination) {
@@ -3229,7 +3227,7 @@ struct obj **optr;
         }
     } else if (streak_color)
         You_see("%s streaks on the %s.", streak_color, stonebuf);
-    else
+    else if (tstone->otyp == TOUCHSTONE)
         pline(scritch);
     return;
 }
