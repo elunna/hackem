@@ -1728,7 +1728,8 @@ minfestcorpse(struct monst *mtmp)
     register struct obj *otmp;
     coord cc;
     /* If a pet, eating is handled separately, in dog.c */
-    if (mtmp->mtame) return;
+    if (mtmp->mtame) 
+        return;
 
     /* Infest topmost corpse if it is there */
     for (otmp = level.objects[mtmp->mx][mtmp->my];
@@ -1753,9 +1754,14 @@ minfestcorpse(struct monst *mtmp)
             dog_givit(mtmp, &mons[otmp->corpsenm]);
             
             if (mtmp->data == &mons[PM_MAGGOT]) {
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_GIANT_FLY]))
+                    makemon(&mons[PM_GIANT_FLY ], cc.x, cc.y, NO_MINVENT);
+            } 
+            else if (mtmp->data == &mons[PM_HELLMINTH]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
-                    makemon(&mons[rn2(3) ? PM_GIANT_FLY : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
-            } else if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum])) {
+                    makemon(&mons[!rn2(4) ? PM_GIBBERSLUG : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
+            }
+            else if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum])) {
                 if (mtmp->data == &mons[PM_LARVA])
                     makemon(&mons[PM_MAGGOT], cc.x, cc.y, NO_MINVENT);
                 else
@@ -3356,10 +3362,10 @@ register struct monst *mtmp;
         } else {
             You_hear("the slithering of many bodies.");
         }
-        for (i = 0; i < (mtmp->data == &mons[PM_WORM_THAT_WALKS] ? rnd(10) : rnd(20)); i++) {
+        for (i = 0; i < rnd(10); i++) {
             if (!enexto(&cc, mtmp->mx, mtmp->my, 0))
                 break;
-            makemon(&mons[PM_MAGGOT], cc.x, cc.y, NO_MINVENT);
+            makemon(&mons[PM_HELLMINTH], cc.x, cc.y, NO_MINVENT);
         }
     }
     /* someone or something decided to mess with Izchak. oops... */

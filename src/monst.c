@@ -2751,9 +2751,13 @@ NEARDATA struct permonst mons[] = {
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE | M1_NOTAKE | M1_POIS,
         M2_HOSTILE, 0, 0, 0, 4, CLR_BLACK),
-    /* Changed color from gray to bright green - will this make things better
-     * or worse since acid worms are also green?
-     */
+    MON("hellminth", S_WORM,                                       /* Slash'EM */
+        LVL(3, 16, -1, 0, 0), (G_NOGEN),
+        A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
+        M1_ANIMAL | M1_CONCEAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE | M1_NOTAKE,
+        M2_HOSTILE, 0, 0, 0, 3, CLR_GREEN),
     MON("rot worm", S_WORM,                                     /* Slash'EM */
         LVL(1, 9, 5, 0, 0), (G_NOGEN | G_GENO),
         A(ATTK(AT_BITE, AD_DISE, 1, 2),
