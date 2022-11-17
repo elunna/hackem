@@ -711,9 +711,10 @@ clonewiz()
 
 /* also used by newcham() */
 int
-pick_nasty()
+pick_nasty(difcap)
+int difcap; /* if non-zero, try to make difficulty be lower than this */
 {
-    int res = nasties[rn2(SIZE(nasties))];
+    int alt, res = nasties[rn2(SIZE(nasties))];
 
     /* To do?  Possibly should filter for appropriate forms when
      * in the elemental planes or surrounded by water or lava.
@@ -724,6 +725,33 @@ pick_nasty()
     if (Is_rogue_level(&u.uz)
         && !('A' <= mons[res].mlet && mons[res].mlet <= 'Z'))
         res = nasties[rn2(SIZE(nasties))];
+
+    /* if genocided or too difficult or out of place, try a substitute
+       when a suitable one exists
+           arch-lich -> master lich,
+           master mind flayer -> mind flayer,
+       but the substitutes are likely to be genocided too */
+    alt = res;
+    if ((mvitals[res].mvflags & G_GENOD) != 0
+        || (difcap > 0 && mons[res].difficulty >= difcap)
+         /* note: nasty() -> makemon() ignores G_HELL|G_NOHELL;
+            arch-lich and master lich are both flagged as hell-only;
+            this filtering demotes arch-lich to master lich when
+            outside of Gehennom (unless the latter has been genocided) */
+        || (mons[res].geno & (Inhell ? G_NOHELL : G_HELL)) != 0)
+        alt = big_to_little(res);
+    if (alt != res && (mvitals[alt].mvflags & G_GENOD) == 0) {
+        const char *mname = mons[alt].mname,
+                   *lastspace = rindex(mname, ' ');
+
+        /* only non-juveniles can become alternate choice */
+        if (strncmp(mname, "baby ", 5)
+            && (!lastspace
+                || (strcmp(lastspace, " hatchling")
+                    && strcmp(lastspace, " pup")
+                    && strcmp(lastspace, " cub"))))
+            res = alt;
+    }
 
     return res;
 }
@@ -756,11 +784,10 @@ nasty(summoner, centered_on_stairs)
 struct monst *summoner;
 BOOLEAN_P centered_on_stairs;
 {
-    register struct monst *mtmp;
-    register int i, j, tmp;
-    int castalign = (summoner ? sgn(mon_aligntyp(summoner)) : 0);
+    struct monst *mtmp;
     coord bypos;
-    int count, census, s_cls, m_cls;
+    int i, j, count, census, tmp, makeindex,
+        s_cls, m_cls, difcap, trylimit, castalign;
 
 #define MAXNASTIES 10 /* more than this can be created */
 
@@ -774,6 +801,8 @@ BOOLEAN_P centered_on_stairs;
     } else {
         count = 0;
         s_cls = summoner ? summoner->data->mlet : 0;
+        difcap = summoner ? summoner->data->difficulty : 0; /* spellcasters */
+        castalign = summoner ? sgn(summoner->data->maligntyp) : 0;
         tmp = (u.ulevel > 3) ? u.ulevel / 3 : 1;
         /* if we don't have a casting monster, nasties appear around hero,
          * ...unless we're being called with the 'stairs' flag to block the
@@ -785,7 +814,7 @@ BOOLEAN_P centered_on_stairs;
             bypos.x = u.ux;
             bypos.y = u.uy;
         }
-        for (i = rnd(tmp); i > 0 && count < MAXNASTIES; --i)
+        for (i = rnd(tmp); i > 0 && count < MAXNASTIES; --i) {
             /* Of the 54 nasties[], 13 are lawful, 19 are chaotic,
              * and 22 are neutral.
              *
@@ -804,44 +833,80 @@ BOOLEAN_P centered_on_stairs;
              * randomized so it won't always do so.
              */
             for (j = 0; j < 20; j++) {
-                int makeindex;
+                /*int makeindex;*/
                 /* Don't create more spellcasters of the monsters' level or
                  * higher--avoids chain summoners filling up the level.
                  */
+                trylimit = 10 + 1; /* 10 tries */
                 do {
-                    makeindex = ((summoner && summoner->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-                                 ? pick_nasty_ice() : (summoner && summoner->data == &mons[PM_VECNA])
-                                                    ? pick_nasty_vecna() : pick_nasty());
+                    if (!--trylimit)
+                        goto nextj; /* break this loop, continue outer one */
+                    /*makeindex = pick_nasty(difcap);*/
+
+                    makeindex =
+                        ((summoner
+                          && summoner->data
+                                 == &mons[PM_KATHRYN_THE_ICE_QUEEN])
+                             ? pick_nasty_ice()
+                         : (summoner && summoner->data == &mons[PM_VECNA])
+                             ? pick_nasty_vecna()
+                             : pick_nasty(difcap));
                     m_cls = mons[makeindex].mlet;
-                } while (summoner
-                         && ((attacktype(&mons[makeindex], AT_MAGC)
-                             && mons[makeindex].difficulty
-                             >= mons[summoner->mnum].difficulty)
-                             || (s_cls == S_DEMON && m_cls == S_ANGEL)
-                             || (s_cls == S_ANGEL && m_cls == S_DEMON)));
+                } while ((difcap > 0 && mons[makeindex].difficulty >= difcap
+                          && attacktype(&mons[makeindex], AT_MAGC))
+                         || (s_cls == S_DEMON && m_cls == S_ANGEL)
+                         || (s_cls == S_ANGEL && m_cls == S_DEMON));
                 /* do this after picking the monster to place */
-                if (summoner && !enexto(&bypos, summoner->mux, summoner->muy,
-                                        &mons[makeindex]))
+                if (summoner
+                    && !enexto(&bypos, summoner->mux, summoner->muy,
+                               &mons[makeindex]))
                     continue;
-                /* this honors annihilation but overrides extinction; it ignores
-                   inside-hell-only (G_HELL) & outside-hell-only (G_NOHELL) */
+                /* this honors annihilation but overrides extinction; it
+                   ignores inside-hell-only (G_HELL) & outside-hell-only
+                   (G_NOHELL) */
                 if ((mtmp = makemon(&mons[makeindex], bypos.x, bypos.y,
-                                    MM_ADJACENTOK)) != 0) {
+                                    MM_ADJACENTOK))
+                    != 0) {
                     mtmp->msleeping = mtmp->mpeaceful = mtmp->mtame = 0;
                     set_malign(mtmp);
-                } else /* random monster to substitute for geno'd selection */
-                    mtmp = makemon((struct permonst *) 0, bypos.x, bypos.y,
-                                   MM_ADJACENTOK);
+                } else {
+                    /* random monster to substitute for geno'd selection;
+                       unlike direct choice, not forced to be hostile [why?];
+                       limit spellcasters to inhibit chain summoning */
+                    if ((mtmp = makemon((struct permonst *) 0, bypos.x,
+                                        bypos.y, MM_ADJACENTOK))
+                        != 0) {
+                        m_cls = mtmp->data->mlet;
+                        if ((difcap > 0 && mtmp->data->difficulty >= difcap
+                             && attacktype(mtmp->data, AT_MAGC))
+                            || (s_cls == S_DEMON && m_cls == S_ANGEL)
+                            || (s_cls == S_ANGEL && m_cls == S_DEMON))
+                            mtmp = unmakemon(mtmp, NO_MM_FLAGS); /* Null */
+                    }
+                }
+
                 if (mtmp) {
+                    /* create at most one arch-lich or Archon regardless
+                       of who is doing the summoning (note: Archon is
+                       not in nasties[] but could be chosen as random
+                       replacement for a genocided selection) */
+                    if (mtmp->data == &mons[PM_ARCH_LICH]
+                        || mtmp->data == &mons[PM_ARCHON]) {
+                        tmp = min(mons[PM_ARCHON].difficulty,     /* A:26 */
+                                  mons[PM_ARCH_LICH].difficulty); /* L:31 */
+                        if (!difcap || difcap > tmp)
+                            difcap = tmp; /* rest must be lower difficulty */
+                    }
                     /* delay first use of spell or breath attack */
                     mtmp->mspec_used = rnd(4);
-                    if (++count >= MAXNASTIES
-                        || mon_aligntyp(mtmp) == 0
+                    if (++count >= MAXNASTIES || mon_aligntyp(mtmp) == 0
                         || sgn(mon_aligntyp(mtmp)) == castalign)
                         break;
                 }
-            }
-        }
+            nextj:; /* empty; label must be followed by a statement */
+            }       /* for j */
+        }           /* for i */
+    }
     if (count)
         count = monster_census(FALSE) - census;
     return count;

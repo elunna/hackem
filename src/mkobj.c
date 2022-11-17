@@ -1031,7 +1031,7 @@ boolean artif;
                 tryct = 0;
                 /* Splice has a difficulty cap for pick_nasty */
                 /*otmp->corpsenm = pick_nasty(50); */
-                otmp->corpsenm = pick_nasty();
+                otmp->corpsenm = pick_nasty(50);
                 blessorcurse(otmp, 4);
                 break;
             case BELL_OF_OPENING:
@@ -2236,14 +2236,18 @@ register struct obj *otmp;
 
 /* throw away all of a monster's inventory */
 void
-discard_minvent(mtmp)
+discard_minvent(mtmp, uncreate_artifacts)
 struct monst *mtmp;
+boolean uncreate_artifacts;
 {
     struct obj *otmp;
-
+    /*boolean keeping_mon = !DEADMONSTER(mtmp);*/
+    
     while ((otmp = mtmp->minvent) != 0) {
         /* this has now become very similar to m_useupall()... */
         extract_from_minvent(mtmp, otmp, TRUE, TRUE);
+        if (uncreate_artifacts && otmp->oartifact)
+            artifact_exists(otmp, safe_oname(otmp), FALSE);
         obfree(otmp, (struct obj *) 0); /* dealloc_obj() isn't sufficient */
     }
 }
