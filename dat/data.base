@@ -729,6 +729,34 @@ rancid jelly
 	inexpressibly dear and forlorn for a bit of blue jelly, would
 	force open the outer door until I returned and rejoined it.
 		[ Beholder's Eye, by Julie E. Czerneda ]
+
+*bomb
+    Bombs are a new type of weapon in HackEM. There are three specific 
+    types, the fire bomb, the gas bomb, and the sonic bomb. All are 
+    found on soldiers of various ranks.
+    
+    Frag bombs do 3d6 fire damage that can degrade organic armor and 
+    destroy scrolls and potions, while gas bombs do 3d6 poison damage 
+    to any monsters that are not poison resistant. The explosion of a 
+    bomb on its own will create a blast radius, a 3 x 3 square (the 
+    same form as a fireball) centered on the bomb's landing point. 
+    Multiple bombs exploding on the same square may produce a larger 
+    blast radius. Also note that exploding bombs will destroy bullets 
+    lying on the ground. If an armed bomb explodes in your inventory, 
+    you'll take damage despite any resistances you may have.
+    
+    
+    Bombs will become armed when they are thrown or applied. Note that
+    applying a stack of bombs in your inventory will only arm a single 
+    bomb. A bomb will explode 1-6 turns after having being armed, 
+    depending on its BUC status:
+    
+    Blessed: 4 turns
+    Uncursed: d2+2 turns
+    Cursed: d5+1 turns
+    
+    Cursed bombs additionally have a chance of not arming at all. The first turn in the above counts includes the turn taken arming the bomb. Note that the better the BUC status of the bomb, the more reliable its fuse length. Armed bombs can be kicked or picked up and thrown at other targets. Bombs will explode on impact. The impact of a bomb always does 1-2 points of damage before the explosion.
+    
 bone devil
 	Bone devils attack with weapons and with a great hooked tail
 	which causes a loss of strength to those they sting.
