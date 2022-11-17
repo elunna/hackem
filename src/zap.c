@@ -7111,8 +7111,7 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
         ztype = ZT_SPELL(ZT_SONIC) * yours;         /* 18 */
         expltype = EXPL_DARK  * isyou * -1;         /*  0 */
     }
-    if (wizard)
-        pline("yours=%d ztype=%d expltype=%d", yours, ztype, expltype);
+    /*if (wizard) pline("yours=%d ztype=%d expltype=%d", yours, ztype, expltype);*/
     
     /* --hackem: WEAPON_CLASS does not have any special handling in explode(). */
     explode(x, y, ztype, d(d1, d2), WEAPON_CLASS, expltype);
