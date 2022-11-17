@@ -97,7 +97,7 @@ enum prop_types {
     VULN_ELEC         = 77,
     VULN_ACID         = 78,
     BREATHLESS        = 79,
-    STABLE            = 80,
+    STABLE            = 80
 };
 #define LAST_PROP (STABLE)
 
