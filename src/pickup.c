@@ -1830,20 +1830,18 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
         return 1;
     } else if (cobj->otyp == BAG_OF_RATS) {
         You("carefully open %s...", the(xname(cobj)));
-        if (cobj->spe && create_critters(1 + rn2(7), &mons[PM_RABID_RAT], TRUE)) {
-            pline("A torrent of rats spews out!");
-            makeknown(BAG_OF_RATS);
-            cobj->spe = 0;
-            check_unpaid(cobj);
+        if (!rn2(3)) {
+            pline("A whiskered critter bites you!");
+            losehp(Maybe_Half_Phys(d(2, 4)), "rat in a bag", KILLED_BY_AN);
         } else {
             pline("%s emits a petulant squeaking noise and snaps shut.",
                   The(xname(cobj)));
         }
+        makeknown(BAG_OF_RATS);
         abort_looting = TRUE;
         return 1;
     }
     
-
     return use_container(cobjp, FALSE, (boolean) (cindex < ccount));
 }
 
