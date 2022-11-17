@@ -4964,16 +4964,14 @@ struct attack *mattk;
             erode_armor(mtmp, ERODE_RUST);
             break;
         case ORANGE_DRAGON_SCALES:
-            if (resists_sleep(mtmp) || defended(mtmp, AD_SLEE))
+            if (resists_sleep(mtmp) || defended(mtmp, AD_SLOW))
                 break;
-            if (!rn2(3)
-                    && !mtmp->msleeping
-                    && sleep_monst(mtmp, rnd(10), -1)) {
-                if (!Blind)
-                    pline("%s is put to sleep by you!", Monnam(mtmp));
-                mtmp->mstrategy &= ~STRAT_WAITFORU;
-                slept_monst(mtmp);
-                return 3;
+            if (!rn2(3) && mtmp->mspeed != MSLOW) {
+                unsigned int oldspeed = mtmp->mspeed;
+                
+                mon_adjust_speed(mtmp, -1, (struct obj *) 0);
+                if (mtmp->mspeed != oldspeed && canseemon(mtmp))
+                    pline("%s slows down.", Monnam(mtmp));
             }
             break;
         case GOLD_DRAGON_SCALES:

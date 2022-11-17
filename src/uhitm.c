@@ -4902,14 +4902,10 @@ boolean wep_was_destroyed;
                 break;
             case ORANGE_DRAGON_SCALES:
                 if (how_resistant(SLEEP_RES) == 100) {
-                    monstseesu(M_SEEN_SLEEP);
                     break;
-                } else if (!rn2(3)) {
-                    fall_asleep(-resist_reduce(rnd(10), SLEEP_RES), TRUE);
-                    if (Blind)
-                        You("are put to sleep!");
-                    else
-                        You("are put to sleep by %s's orange scaled armor!", mon_nam(mon));
+                } else {
+                    if (!Slow)
+                        u_slow_down();
                 }
                 break;
             case GOLD_DRAGON_SCALES:
