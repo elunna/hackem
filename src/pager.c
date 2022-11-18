@@ -1081,7 +1081,7 @@ short otyp;
     char buf[BUFSZ];
     char buf2[BUFSZ];
     boolean weptool = (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
-    const char* dir = (oc.oc_dir == NODIR ? "Non-directional"
+    const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
     struct obj dummy = { 0 };
@@ -1956,7 +1956,6 @@ char *supplemental_name;
                         ; /* do nothing, 'pokedex' is disabled */
                     }
                     /* object lookup info */
-                    do_obj_lookup = TRUE;
                     if (do_obj_lookup) {
                         add_obj_info(datawin, obj, otyp);
                         putstr(datawin, 0, "");
