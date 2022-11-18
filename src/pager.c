@@ -1405,7 +1405,7 @@ short otyp;
     }
 
     /* power conferred */
-    if (oc.oc_oprop) {
+    if (identified && oc.oc_oprop) {
         int i;
         for (i = 0; propertynames[i].prop_name; ++i) {
             /* hack for alchemy smocks because everything about alchemy smocks
