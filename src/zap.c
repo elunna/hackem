@@ -6477,11 +6477,24 @@ int osym, dmgtyp;
                 dindx = 7;
                 break;
             case RING_CLASS:
+                if (obj->otyp == RIN_SONIC_RESISTANCE) {
+                    skip++;
+                    break;
+                }
+                /* FALLTHROUGH */
             case TOOL_CLASS:
+                if (obj->otyp == HORN_OF_BLASTING) {
+                    skip++;
+                    break;
+                }
                 dmg = 1;
                 dindx = 8;
                 break;
             case WAND_CLASS:
+                if (obj->otyp == WAN_SONICS) {
+                    skip++;
+                    break;
+                }
                 dmg = rnd(6);
                 dindx = 9;
                 break;
