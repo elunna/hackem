@@ -6,6 +6,7 @@
 #include "hack.h"
 
 /* KMH -- Copied from pray.c; this really belongs in a header file */
+#define PIOUS 20
 #define DEVOUT 14
 #define STRIDENT 4
 
@@ -387,11 +388,13 @@ doread()
             not be cursed, and you must not be blind or hallucinating. 
             When read, the ring will glow a different color depending 
             on your alignment: */
-            if (u.ualign.record >= DEVOUT)
+            if (u.ualign.record >= PIOUS)
+                clr = "bright green";	/* well-pleased */
+            else if (u.ualign.record >= DEVOUT)
                 clr = "green";	/* well-pleased */
             else if (u.ualign.record >= STRIDENT)
                 clr = "yellow";	/* pleased */
-            else if (u.ualign.record > 0)
+            else if (u.ualign.record >= 0)
                 clr = "orange";	/* satisfied */
             else
                 clr = "red";	/* you've been naughty */
