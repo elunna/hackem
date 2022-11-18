@@ -1077,6 +1077,7 @@ struct obj *obj;
 short otyp;
 {
     struct objclass oc = objects[otyp];
+    struct damage_info_t damage_info;
     char olet = oc.oc_class;
     char buf[BUFSZ];
     char buf2[BUFSZ];
@@ -1084,6 +1085,9 @@ short otyp;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
+    boolean wielded, carried;
+    boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
+    int i;
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
     dummy.oclass = oc.oc_class;
@@ -1091,7 +1095,7 @@ short otyp;
     dummy.bknown = obj ? obj->bknown : 0;
     dummy.blessed = obj ? obj->blessed : 0;
     dummy.cursed = obj ? obj->cursed : 0;
-    boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
+    
     
     if (obj && otyp == STRANGE_OBJECT) {
         oc = objects[obj->otyp];
@@ -1151,7 +1155,7 @@ short otyp;
 
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
-        struct damage_info_t damage_info = dmgval_info(&dummy);
+        damage_info = dmgval_info(&dummy);
         if (identified)
             Sprintf(buf,
                 "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
@@ -1368,7 +1372,7 @@ short otyp;
     if (otyp != STRANGE_OBJECT) {
         Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
     } else {
-        int i, base_cost = oc.oc_cost;
+        int base_cost = oc.oc_cost;
         for (i = 0; i < NUM_OBJECTS; i++) {
             if (objects[i].oc_class == olet) {
                 if (olet == SPBOOK_CLASS && i == SPE_BOOK_OF_THE_DEAD) {
@@ -1406,7 +1410,6 @@ short otyp;
 
     /* power conferred */
     if (identified && oc.oc_oprop) {
-        int i;
         for (i = 0; propertynames[i].prop_name; ++i) {
             /* hack for alchemy smocks because everything about alchemy smocks
              * is a hack */
@@ -1576,9 +1579,9 @@ short otyp;
             OBJPUTSTR(buf);
         }
         
-        boolean wielded = FALSE;
+        wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
-        for (int i = 0; i < INTRINSICS; i++) {
+        for (i = 0; i < INTRINSICS; i++) {
             if (a_info.wielded[i]) {
                 Sprintf(buf, "\t%s", a_info.wielded[i]);
                 OBJPUTSTR(buf);
@@ -1588,9 +1591,9 @@ short otyp;
         if (!wielded)
             OBJPUTSTR("\tNone");
         
-        boolean carried = FALSE;
+        carried = FALSE;
         OBJPUTSTR("While carried:");
-        for (int i = 0; i < INTRINSICS; i++) {
+        for (i = 0; i < INTRINSICS; i++) {
             if (a_info.carried[i]) {
                 Sprintf(buf, "\t%s", a_info.carried[i]);
                 OBJPUTSTR(buf);

@@ -510,14 +510,15 @@ boolean resuming;
                             }
                         }
                     }
-
+                    
                     /* Autopickup spirits for Necromancer */
                     if (Role_if(PM_NECROMANCER)) {
                         struct obj *obj;
                         /* Carrying the necro quest arti triples the range */
                         int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
                         /* Loop through the surrounding squares */
-                        for (int x = u.ux - off; x <= u.ux + off; x++) {
+                        int x;
+                        for (x = u.ux - off; x <= u.ux + off; x++) {
                             for (int y = u.uy - off; y <= u.uy + off; y++) {
                                 if (!isok(x, y) || !OBJ_AT(x, y))
                                     continue;
@@ -1003,7 +1004,7 @@ newgame()
 {
     int i;
     /* Add this flag here to activate rr fuzzing */
-    // iflags.debug_fuzzer = 1; 
+    /*iflags.debug_fuzzer = 1; */
     
 #ifdef MFLOPPY
     gameDiskPrompt();

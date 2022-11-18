@@ -5173,7 +5173,7 @@ struct obj *obj;
                                    !IS_ROCK(levl[u.ux][u.uy].typ) &&
                                    !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
         struct trap *ttmp;
-        int traptype;
+        int traptype = MAGIC_TRAP; /* Default in case of impossible */
         
         switch (obj->otyp){
         case WAN_FIRE: 

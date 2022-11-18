@@ -1700,7 +1700,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     static const char you[] = "you";
     char hittee[BUFSZ];
     struct artifact* atmp;
-    int j, k, permdmg;
+    int j, k, permdmg, chance;
 
     Strcpy(hittee, youdefend ? you : mon_nam(mdef));
 
@@ -3025,7 +3025,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
-    int chance = 4;
+    chance = 4;
     /* Thiefbane gets a huge bonus for cancelling thiefs or covetous */
     if (otmp->oartifact == ART_THIEFBANE && 
         (is_covetous(mdef->data) 
@@ -4423,7 +4423,8 @@ artifact_info(int anum)
     
     /* Hated/Targeted Monster */
     if ((artilist[anum].mtype)) {
-        for (int i = 0; i < 32; i++) {
+        int i;
+        for (i = 0; i < 32; i++) {
             if (artilist[anum].mtype & (1 << i)) {
                 art_info.hates = makeplural(mon_race_name(i));
                 break;
