@@ -395,7 +395,7 @@ dosounds()
         };
         pline("%s", blkmar_msg[rn2(2)+hallu]);
     }
-
+#if 0
     if (ledger_no(&u.uz) == ledger_no(&medusa_level) - 1
         && !rn2(200)) {
         static const char* const icequeenbranch_msg[] = {
@@ -406,6 +406,7 @@ dosounds()
         You_hear1(icequeenbranch_msg[rn2(2 + hallu)]);
         return;
     }
+#endif
     if (ledger_no(&u.uz) == ledger_no(&valley_level) + 1
         && !rn2(200)) {
         static const char* const vecnabranch_msg[] = {
