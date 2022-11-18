@@ -995,7 +995,7 @@ ROOM:"rndvault", random, random, random, random {
 # Blocked center
 LEVEL:"vlt-0056"
 FLAGS:rndvault
-MINDEPTH:11
+MINDEPTH:8
 GEOMETRY:random
 MAP
 -----------
@@ -1020,6 +1020,7 @@ IF [80%] {
 } ELSE {
   REGION:(1,1,1,1),random,"ordinary",irregular { }
 }
+
 # spider nest
 LEVEL:"vlt-0057"
 FLAGS:rndvault
@@ -1244,36 +1245,8 @@ ROOM:"rndvault", random, random, random, random {
   IF [50%] { MONSTER: ('F', "swamp fern"), random, hostile }
 }
 
-# Center stage toilet
-LEVEL:"vlt-0072"
-FLAGS:rndvault
-MINDEPTH:11
-GEOMETRY:random
-MAP
-#01234567890
-0-----------
-1|.........|
-2|.........|
-3|.........|
-4|...LLL...|
-5|...LLL...|
-6|...LLL...|
-7|.........|
-8|.........|
-9|.........|
-0-----------
-ENDMAP
-IF [75%] {
-  $terr = TERRAIN:{ '-', 'P', 's', 'C', 'F'}
-  SHUFFLE: $terr
-  REPLACE_TERRAIN:(1,1,9,9),'L', $terr[0],100%
-}
-REPLACE_TERRAIN:(5,5,5,5),'L', 'Z',100%                                 
-REGION:(1,1,1,1),random,"rndvault",irregular { }
-
-
 # ice room
-LEVEL:"vlt-0073"
+LEVEL:"vlt-0072"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
@@ -1282,7 +1255,7 @@ ROOM:"rndvault", random, random, random, random {
 }
                        
 # lava room
-LEVEL:"vlt-0074"
+LEVEL:"vlt-0073"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -1295,7 +1268,7 @@ ROOM:"rndvault", random, random, random, random {
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0075"
+LEVEL:"vlt-0074"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C' }
