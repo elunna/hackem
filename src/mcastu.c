@@ -2113,7 +2113,7 @@ int spellnum;
             for (i = rnd(tmp); i > 0; --i) {
                 for (j = 0; j < 20; j++) {
                     do {
-                        makeindex = pick_nasty();
+                        makeindex = pick_nasty(mons[u.umonnum].difficulty - 1);
                     } while (attacktype(&mons[makeindex], AT_MAGC)
                              && mons[makeindex].difficulty >= mons[u.umonnum].difficulty);
                         if (yours

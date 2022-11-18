@@ -1224,16 +1224,15 @@ register int after;
         || mtmp->data == &mons[PM_LARVA])
         minfestcorpse(mtmp);
         
-    set_apparxy(mtmp);
-    /* where does mtmp think you are? */
-    /* Not necessary if m_move called from this file, but necessary in
-     * other calls of m_move (ex. leprechauns dodging)
-     */
+    /* Where does 'mtmp' think you are?  Not necessary if m_move() called
+       from this file, but needed for other calls of m_move(). */
+    set_apparxy(mtmp); /* set mtmp->mux, mtmp->muy */
+
     if (!Is_rogue_level(&u.uz))
         can_tunnel = racial_tunnels(mtmp);
     can_open = !(nohands(ptr) || r_verysmall(mtmp));
-    can_unlock =
-        ((can_open && monhaskey(mtmp, TRUE)) || mtmp->iswiz || is_rider(ptr));
+    can_unlock = ((can_open && monhaskey(mtmp, TRUE))
+                  || mtmp->iswiz || is_rider(ptr));
     doorbuster = racial_giant(mtmp);
     if (mtmp->wormno)
         goto not_special;

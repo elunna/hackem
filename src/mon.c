@@ -3987,7 +3987,7 @@ struct monst *mdef;
        can't remove them from the game */
     mdrop_special_objs(mdef);
     /* release rest of monster's inventory--it is removed from game */
-    discard_minvent(mdef);
+    discard_minvent(mdef, FALSE);
     m_detach(mdef, mdef->data);
 }
 
@@ -5639,11 +5639,11 @@ struct monst *mon;
     switch (mon->cham) {
     case PM_SANDESTIN:
         if (rn2(7))
-            mndx = pick_nasty();
+            mndx = pick_nasty(mons[PM_ARCHON].difficulty - 1);
         break;
     case PM_DOPPELGANGER:
         if (!rn2(7)) {
-            mndx = pick_nasty();
+            mndx = pick_nasty(mons[PM_JABBERWOCK].difficulty - 1);
         } else if (rn2(3)) { /* role monsters */
             mndx = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
         } else if (!rn2(3)) { /* quest guardians */

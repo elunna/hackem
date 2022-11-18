@@ -269,7 +269,7 @@ boolean sanctum; /* is it the seat of the high priest? */
         set_malign(priest); /* mpeaceful may have changed */
 
         apply_race(priest, align_randrace(mon_aligntyp(priest)));
-        discard_minvent(priest);
+        discard_minvent(priest, TRUE);
         setup_mon_inventory(priest);
 
         /* now his/her goodies... */
@@ -771,7 +771,7 @@ boolean peaceful;
         /* because alignment (and therefore race) can change here after
          * initial initialization of inventory in makemon, reset monster
          * inventory in case mon changed from or to a giant. */
-        discard_minvent(roamer);
+        discard_minvent(roamer, TRUE);
         setup_mon_inventory(roamer);
     }
 

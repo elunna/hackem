@@ -2840,20 +2840,19 @@ int mndx;
 boolean tally;
 boolean ghostly;
 {
-    boolean result;
-    uchar lim = mbirth_limit(mndx);
-    boolean gone = (mvitals[mndx].mvflags & G_GONE) != 0; /* geno'd|extinct */
-
-    result = (((int) mvitals[mndx].born < lim) && !gone) ? TRUE : FALSE;
+    boolean gone, result;
+    int lim = mbirth_limit(mndx);
+    gone = (mvitals[mndx].mvflags & G_GONE) != 0; /* geno'd|extinct */
+    result = ((int) mvitals[mndx].born < lim && !gone) ? TRUE : FALSE;
 
     /* if it's unique, don't ever make it again */
-    if ((mons[mndx].geno & G_UNIQ) && mndx != PM_HIGH_PRIEST)
+    if ((mons[mndx].geno & G_UNIQ) != 0 && mndx != PM_HIGH_PRIEST)
         mvitals[mndx].mvflags |= G_EXTINCT;
 
-    if (mvitals[mndx].born < 255 && tally
-        && (!ghostly || (ghostly && result)))
+    if (mvitals[mndx].born < 255 && tally && (!ghostly || result))
         mvitals[mndx].born++;
-    if ((int) mvitals[mndx].born >= lim && !(mons[mndx].geno & G_NOGEN)
+    if ((int) mvitals[mndx].born >= lim
+        && !(mons[mndx].geno & G_NOGEN)
         && !(mvitals[mndx].mvflags & G_EXTINCT)) {
         if (wizard) {
             debugpline1("Automatically extinguished %s.",
@@ -3535,7 +3534,7 @@ long mmflags;
     } else {
         /* no initial inventory is allowed */
         if (mtmp->minvent)
-            discard_minvent(mtmp);
+            discard_minvent(mtmp, TRUE);
         mtmp->minvent = (struct obj *) 0; /* caller expects this */
     }
     if (ptr->mflags3 && !(mmflags & MM_NOWAIT)) {
@@ -3554,6 +3553,33 @@ long mmflags;
         newsym(mtmp->mx, mtmp->my); /* make sure the mon shows up */
 
     return mtmp;
+}
+/* caller rejects makemon()'s result; always returns Null */
+struct monst *
+unmakemon(mon, mmflags)
+struct monst *mon;
+int mmflags;
+{
+    boolean countbirth = ((mmflags & MM_NOCOUNTBIRTH) == 0);
+    int mndx = monsndx(mon->data);
+    
+    /* if count has reached the limit of 255, we don't know whether
+       that just happened when creating this monster or the threshold
+       had already been reached and further incrments were suppressed;
+       assume the latter */
+    if (countbirth && mvitals[mndx].born > 0 && mvitals[mndx].born < 255)
+        mvitals[mndx].born -= 1;
+    if ((mon->data->geno & G_UNIQ) != 0)
+        mvitals[mndx].mvflags &= ~G_EXTINCT;
+
+    mon->mhp = 0; /* let discard_minvent() know that mon isn't being kept */
+    /* uncreate any artifact that the monster was provided with; unlike
+       mongone(), this doesn't protect special items like the Amulet
+       by dropping them so caller should handle them when applicable */
+    discard_minvent(mon, TRUE);
+
+    mongone(mon);
+    return (struct monst *) 0;
 }
 
 int
