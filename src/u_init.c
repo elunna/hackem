@@ -241,6 +241,7 @@ struct trobj UndeadSlayer[] = {
 	{ SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 5, 1 },
 	{ HOLY_WAFER, 0, FOOD_CLASS, 4, 0 },
 	{ POT_WATER, 0, POTION_CLASS, 4, 1 },        /* holy water */
+        { TORCH, 0, TOOL_CLASS, 1, 0 },
 	{ 0, 0, 0, 0, 0 }
 };
 struct trobj Valkyrie[] = {
@@ -1291,8 +1292,6 @@ u_init()
         }
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
-        if (!rn2(6)) 
-            ini_inv(Lamp);
         skill_init(Skill_U);
 
         /* Kludge here to trigger Undead Warning */
