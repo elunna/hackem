@@ -7099,9 +7099,9 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     int d1 = 3, d2 = 6;
     int otyp = obj->otyp;
     int yours = isyou ? 1 : -1;
+    /* Major kludge to preserve the blame for the bomb */
     boolean save_mon_moving = context.mon_moving;
-
-    context.mon_moving = yours ? FALSE : TRUE;
+    context.mon_moving = (yours > 0) ? FALSE : TRUE;
     
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
         ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
@@ -7120,7 +7120,8 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
         ztype = ZT_SPELL(ZT_SONIC) * yours;         /* 18 */
         expltype = EXPL_DARK  * isyou * -1;         /*  0 */
     }
-    /*if (wizard) pline("yours=%d ztype=%d expltype=%d", yours, ztype, expltype);*/
+    if (wizard) 
+        pline("yours=%d ztype=%d expltype=%d", yours, ztype, expltype);
     
     /* --hackem: WEAPON_CLASS does not have any special handling in explode(). */
     explode(x, y, ztype, d(d1, d2), WEAPON_CLASS, expltype);
