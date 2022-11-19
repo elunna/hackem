@@ -2812,7 +2812,7 @@ STAIR:(48,12),up
 
 # Non diggable / non phase walls
 NON_DIGGABLE:(00,00,74,17)
-NON_PASSWALL:(00,00,74,17)
+# NON_PASSWALL:(00,00,74,17)
 # Niches
 # Note: $place[2] empty
 OBJECT:('*',"luckstone"),$place[0]
