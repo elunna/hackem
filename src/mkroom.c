@@ -1462,6 +1462,9 @@ int sym;
     case S_sink:
         typ = SINK;
         break;
+    case S_toilet:
+        typ = TOILET;
+        break;
     case S_forge:
         typ = FORGE;
         break;
