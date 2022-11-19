@@ -1341,14 +1341,19 @@ register int after;
 
     /* if smart enough, then attempt to outflank the player.
        We do this by modifying the gx and gy coords.  */
-    if (!mtmp->mpeaceful && is_outflanker(ptr)
+    if (!mtmp->mpeaceful 
+        && is_outflanker(ptr)
         && monnear(mtmp, u.ux, u.uy)) {
+        
         if (!calculate_flankers(mtmp, &youmonst)) {
             for (i = u.ux - 1; i <= u.ux + 1; i++) {
                 for (j = u.uy - 1; j <= u.uy + 1; j++) {
-                    if (i == u.ux && j == u.uy) continue;
-                    if (i == mtmp->mx && j == mtmp->my) continue;
-                    if (!MON_AT(i, j)) continue;
+                    if (i == u.ux && j == u.uy) 
+                        continue;
+                    if (i == mtmp->mx && j == mtmp->my) 
+                        continue;
+                    if (isok(i, j) && !MON_AT(i, j)) 
+                        continue;
                     /* Set our goal position */
                     gx = i + (2 * (u.ux - i));
                     gy = j + (2 * (u.uy - j));
