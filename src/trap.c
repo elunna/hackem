@@ -66,6 +66,8 @@ struct monst *victim;
 
     if (!victim)
         return 0;
+    if (victim == &youmonst && EFire_resistance)
+        return 0;
     hitting_u = (victim == &youmonst);
 
     /* burning damage may dry wet towel */
@@ -4111,6 +4113,9 @@ struct obj *obj;
     victim = carried(obj) ? &youmonst : mcarried(obj) ? obj->ocarry : NULL;
     vismon = victim && (victim != &youmonst) && canseemon(victim);
 
+    if (victim == &youmonst && EAcid_resistance)
+        return;
+    
     if (obj->greased) {
         grease_protect(obj, (char *) 0, victim);
     } else if (obj->oclass == SCROLL_CLASS && obj->otyp != SCR_BLANK_PAPER) {

@@ -585,8 +585,8 @@ int expltype;
         } else if (adtyp == AD_PHYS || physical_dmg)
             damu = Maybe_Half_Phys(damu);
         if (adtyp == AD_FIRE)
-            (void) burnarmor(&youmonst);
-        if (adtyp == AD_ACID) {
+            burnarmor(&youmonst);
+        if (adtyp == AD_ACID && !EAcid_resistance) {
             if (rn2(u.twoweap ? 2 : 3))
                 acid_damage(uwep);
             if (u.twoweap && rn2(2))
