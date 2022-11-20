@@ -163,10 +163,8 @@ amber*
 	biting insects that have sucked blood from larger animals."
 		[ Jurassic Park, by Michael Crichton ]
 ~amulet of yendor
-~amulet of restful sleep
-*amulet
-amulet of *
-amulet versus *
+~amulet of *
+amulet
 	"The complete Amulet can keep off all the things that make
 	people unhappy -- jealousy, bad temper, pride, disagreeableness,
 	greediness, selfishness, laziness.  Evil spirits, people called
@@ -188,6 +186,152 @@ amulet of yendor
 	immortality to the adventurer who can deliver it from the
 	depths of Moloch's Sanctum and offer it on the appropriate high
 	altar on the Astral Plane.
+amulet of drain resistance
+	The amulet of drain resistance provides drain resistance. 
+	Prevents drain life attacks from monsters like wraiths 
+	and vampires, as well as zaps from wands of draining.
+	
+	Can not be eaten for permanent drain resistance.
+amulet of esp
+	An amulet of ESP grants extrinsic telepathy when worn, which will 
+	show all monsters with minds within a 10x10 grid, and all such 
+	monsters on the level when blind.
+
+	If you polymorph into a metallivore and eat the amulet, it will 
+	instead grant intrinsic telepathy. This takes effect only when you 
+	are blind, and shows all monsters with minds on the whole level.
+
+	ESP is an abbreviation for Extra-Sensory Perception; that is, 
+	perception not gained through the five traditionally-attested 
+	senses: hearing, feeling, sight, taste and smell.
+amulet of life saving
+	The amulet of life saving is a valuable amulet in NetHack. If you
+	are wearing one and you die, the amulet literally saves your life 
+	and restores you to full hit points. It cannot be eaten for 
+	intrinsics.
+	
+	If you die while wearing the amulet, it will save your life. The 
+	amulet disintegrates and becomes identified, and the following 
+	things (mostly good) happen to you:[
+
+	- You lose 1 constitution point.
+	- Your hit point maximum is increased to either 10 or twice your 
+	  experience level, whichever is higher, if it is less than this.
+	- Your hit points are restored to the maximum.
+	- Your nutrition is restored to 500, if it is less than this.
+	- If you died from choking over your food, your nutrition becomes 900.
+	- If you are sick and going to die immediately, you become cured.
+	- If you are trapped in lava, you become untrapped.
+
+	Amulets of life saving do not work if cursed or worn by a non-
+	living creature. This applies to monsters as well as the player.
+amulet of strangulation
+	Wearing an amulet of strangulation quickly strangles you to death,
+	unless you are headless or both breathless and mindless, in six 
+	turns. Removing it nullifies the effect; however, most of these 
+	amulets are generated cursed.
+	
+	Eating this amulet has a 19 in 20 chance of choking you to death 
+	immediately, unless you are breathless. If you do manage to get 
+	the amulet off, your strength is still abused.
+amulet of nausea
+	Causes the wearer to become sick and vomit occasionally. 
+	Usually cursed.
+amulet of restful sleep
+	While wearing the amulet, or randomly after having eaten one, you
+	will consistently fall asleep within the next 100 turns. After 
+	falling asleep, you awaken within 1 to 20 turns or when disturbed.
+	The cycle continues as long as you have the restful sleep 
+	property. Sleep resistance will not cure the condition, but 
+	prevents you from actually falling asleep.
+amulet versus poison
+	An amulet versus poison grants poison resistance as an extrinsic.
+amulet of danger
+	Provides infravision and greatly increases dungeon difficulty. 
+	Usually cursed.
+amulet versus stone
+	Provides extrinsic petrification resistance.
+amulet of change
+	Putting on an amulet of change of any beatitude will change the 
+	gender of the wearer, Auto-identifying the amulet - the amulet 
+	always disintegrates afterward. If you are polymorphed into a 
+	single-sex monster, your base gender will be altered, but not 
+	your current one. There is a small exception to this regarding 
+	foocubi - i.e., a player shapeshifted into an incubus will change
+	into a succubus and vice versa.
+
+	Putting on this amulet does not break polyselfless conduct. 
+	Eating the amulet will have a 1 in 5 chance of changing your gender.
+amulet of unchanging
+	The amulet prevents polymorphing and other means of changing form,
+	and also protects the wearer from sliming; if you put one on while
+	suffering from sliming, it is aborted. It does not prevent being
+	turned to stone. If you eat the amulet, you are "un-changed" and
+	revert to your normal form.
+
+	In most cases, if you die while polymorphed and wearing an amulet
+	of unchanging, you will not revert to your normal form, and will 
+	instead die. However, if you are polymorphed into a wood or 
+	leather golem and get rotted away by a brown pudding, or else 
+	polymorphed into an iron golem and rusted, you will resume your 
+	normal form. If you are polymorphed and decline to die in explore
+	or wizard mode, you will also resume your normal form.
+
+	A lawful player who prays while in undead form will return to
+	their normal form, even while wearing the amulet.
+amulet of reflection
+	When worn, the amulet conveys extrinsic reflection - reflecting a
+	ray or passive gaze while wearing the amulet without any other 
+	source of reflection will auto-identify it. Some monsters can 
+	also wear this amulet, and it is the only other amulet they will
+	actively wear besides an amulet of life saving.
+
+	This amulet no longer fully protects you from the effects of rays
+	while reflecting them, but still significantly reduces their impact.
+
+	Eating an amulet of reflection will have no effect.
+amulet of magical breathing
+	Grants extrinsic breathlessness to its wearer. Allows you to 
+	travel underwater safely, although your items will still become 
+	wet. You cannot choke over your food, and you are immune to the 
+	effects of poison clouds from a green dragon's breath, scroll of 
+	stinking cloud, or the lava on the Plane of Fire.
+
+	Wearing this amulet protects from drowning attacks. Relatedly, 
+	you won't get the bonus 1000 experience points for killing sea 
+	monsters with this attack while wearing it.
+
+	Less helpfully, when you are unbreathing, water is considered a 
+	safe teleport location. This means that while wearing this amulet, 
+	uncontrolled teleportation can land you in water, making all your 
+	stuff wet.
+amulet of magic resistance
+	Grants magic resistance while worn, and its default material is 
+	iron, like all amulets.
+amulet of guarding
+	Wearing an amulet of guarding provides 2 AC and augments magic 
+	cancellation by 2, similar to a ring of protection. Eating an 
+	amulet of guarding has a chance to increase intrinsic protection 
+	by 2, but does not affect magic cancellation.
+
+	Monsters can wear an amulet of guarding.
+amulet of flying
+	Grants the flying intrinsic, which is similar to levitation but 
+	far more useful. Flight is a property possessed by some monsters, 
+	which is superficially similar to levitation but has generally more
+	controlled effects, covered on the page about flying. Of its 
+	effects, the only one which is negative is being unable to reach
+	items in pits. This is of course easily solved by taking off the
+	amulet on the rare occasions that a valuable item falls into one. 
+	Note however that you can descend into holes with the > command 
+	("You jump through the trap door."). You don't need to remove it then.
+	
+	Flight is superior to levitation in almost all manners. Basically,
+	it allows the player to not need to worry about terrain much at 
+	all, since it allows one to usefully cross and interact with any 
+	sort of terrain. In addition, the amulet cannot be destroyed by 
+	an electric eel or removed by an incubus, making flight over water
+	considerably safer than levitation over water with a ring. 
 amphisbaena
 	A snake with a head on either end, as opposed to a head and a
 	tail.
