@@ -47,7 +47,7 @@ RNDLEVEL:	    "medusa" "none" @ (-16, 3) 4
 
 # RNDLEVEL:	    "leth-a"  "A" @ (1,0) 2
 
-BRANCH:	        "The Lethe Head" @ (-13, 0) up
+BRANCH:	        "The Lethe Head" @ (-12, 0) up
 LEVEL:		    "leth-b" "B" @ (-12,0)
 RNDLEVEL:		"castle" "none" @ (-11, 0) 3
 CHAINBRANCH:	"Castle Dungeon" "castle" + (0, 0) 
