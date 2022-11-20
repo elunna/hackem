@@ -4904,7 +4904,7 @@ struct monst *mtmp;
             }
             
             if (Psychic_resistance) {
-                You("don't seem affected by it.");
+                You("are not intimidated.");
             } else if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
                 u.fearedmon = mtmp;

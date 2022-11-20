@@ -873,11 +873,15 @@ register struct obj *otmp;
     case POT_AMNESIA:
         pline(Hallucination? "This tastes like champagne!" :
                 "This liquid bubbles and fizzes as you drink it.");
+        
+        u.uhunger += 50 + rnd(50); /* You feel refreshed */
+        newuhs(FALSE);
+        
         forget((!otmp->blessed? ALL_SPELLS : 0) | ALL_MAP);
-		
+        
         if (Hallucination)
             pline("Hakuna matata!");
-        else
+        else if (!Psychic_resistance)
             You_feel("your memories dissolve.");
 
         /* Blessed amnesia makes you forget lycanthropy, sickness */
@@ -890,9 +894,6 @@ register struct obj *otmp;
                 u.ulycn = NON_PM;	/* cure lycanthropy */
             }
             make_sick(0L, (char *) 0, TRUE, SICK_ALL);
-
-            u.uhunger += 50 + rnd(50); /* You feel refreshed */
-            newuhs(FALSE);
         } else
             exercise(A_WIS, FALSE);
         

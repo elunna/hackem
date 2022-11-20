@@ -1156,6 +1156,10 @@ void
 forget(howmuch)
 int howmuch;
 {
+    if (Psychic_resistance) {
+        You("feel something tugging at your thoughts, but it quickly subsides.");
+        return;
+    }
     if (Punished)
         u.bc_felt = 0; /* forget felt ball&chain */
 
