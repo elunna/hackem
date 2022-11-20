@@ -2720,8 +2720,7 @@ int otyp;
     case ASSAULT_RIFLE:
         return 20;
     case RIFLE:
-        return 22;    
-
+        return 22;
     case SNIPER_RIFLE:
         return 25;
     default:
@@ -2740,6 +2739,8 @@ int otyp;
     case RIFLE:
     case SHOTGUN:
         return -1;
+    case PISTOL:
+        return 0;
     case AUTO_SHOTGUN:
         return 2;
     case SUBMACHINE_GUN:
