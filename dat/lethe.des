@@ -37,11 +37,7 @@ MAP
 ENDMAP
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
 #0         1         2         3         4         5         6         7     
-#The altar of the unknown god
-#MONSTER: '&', "priest of an unknown god", (38,10)
-
 #Altar to Nodens
-#ALTAR: (35,10), noalign, altar, "Nodens"
 ALTAR: (35,10), noalign, altar
 
 # Dungeon Description
@@ -139,8 +135,6 @@ OBJECT: ('(', "magic marker"), random
 [50%]: OBJECT: ('+',"blank paper"), (37,10)
 [50%]: OBJECT: ('?',"blank paper"), (41,11)
 [50%]: OBJECT: ('+',"blank paper"), (41,11)
-#MONSTER:'\'',"living lectern",(41,10)
-#MONSTER[25%]:'\'',"living lectern",(38,10)
 
 # A few random flapping things
 MONSTER: ('B', "vampire bat"), random
@@ -190,26 +184,6 @@ OBJECT: ('?', "enchant weapon"), (52,16)
 MONSTER: ('t', "trapper"), (62,03)
 MONSTER: ('t', "lurker above"), (43,01)
 
-#Lurking Ones
-#[80%]: MONSTER: ('H', "lurking one"), (07,13)
-#[80%]: MONSTER: ('H', "lurking one"), (09,17)
-#[80%]: MONSTER: ('H', "lurking one"), (24,15)
-#[80%]: MONSTER: ('H', "lurking one"), (26,02)
-#[80%]: MONSTER: ('H', "lurking one"), (36,02)
-#[80%]: MONSTER: ('H', "lurking one"), (47,04)
-#[80%]: MONSTER: ('H', "lurking one"), (50,06)
-#[80%]: MONSTER: ('H', "lurking one"), (64,02)
-#[80%]: MONSTER: ('H', "lurking one"), (64,02)
-#[80%]: MONSTER: ('H', "lurking one"), (74,02)
-#[80%]: MONSTER: ('H', "lurking one"), (69,12)
-#[80%]: MONSTER: ('H', "lurking one"), (69,18)
-#[80%]: MONSTER: ('H', "lurking one"), (51,17)
-#[80%]: MONSTER: ('H', "lurking one"), (52,13)
-#[80%]: MONSTER: ('H', "lurking one"), (44,16)
-
-#Kukeri
-#MONSTER[7%]:'A',"kuker", random
-#MONSTER[7%]:'A',"kuker", random
 
 #
 # Alternate river head - Vampires and Byakhee
@@ -255,6 +229,9 @@ REGION: (51,16,56,18), unlit, "ordinary"
 # Stairs
 STAIR:(72,02),down
 
+#Altar to Nodens
+ALTAR: (35,10), noalign, altar
+
 # Doors
 DOOR:locked,(09,03)
 DOOR:locked,(06,05)
@@ -290,8 +267,6 @@ OBJECT: ('(', "magic marker"), random
 [50%]: OBJECT: ('+', "blank paper"), (37,10)
 [50%]: OBJECT: ('?', "blank paper"), (41,11)
 [50%]: OBJECT: ('+', "blank paper"), (41,11)
-#MONSTER:'\'',"living lectern", (41,10)
-#MONSTER[25%]:'\'',"living lectern", (38,10)
 
 # And some (empty) decorations
 OBJECT: ('`', "statue"), (33,10)
@@ -412,29 +387,11 @@ TRAP: random, random
 TRAP: random, random
 TRAP: random, random
 
-#Lurking Ones
-#[80%]: MONSTER: ('H', "lurking one"), (07,13)
-#[80%]: MONSTER: ('H', "lurking one"), (09,17)
-#[80%]: MONSTER: ('H', "lurking one"), (24,15)
-#[80%]: MONSTER: ('H', "lurking one"), (26,02)
-#[80%]: MONSTER: ('H', "lurking one"), (36,02)
-#[80%]: MONSTER: ('H', "lurking one"), (47,04)
-#[80%]: MONSTER: ('H', "lurking one"), (50,06)
-#[80%]: MONSTER: ('H', "lurking one"), (64,02)
-###[80%]: MONSTER: ('H', "lurking one"), (64,02)
-#[80%]: MONSTER: ('H', "lurking one"), (74,02)
-#[80%]: MONSTER: ('H', "lurking one"), (69,12)
-#[80%]: MONSTER: ('H', "lurking one"), (69,18)
-#[80%]: MONSTER: ('H', "lurking one"), (51,17)
-#[80%]: MONSTER: ('H', "lurking one"), (52,13)
-#[80%]: MONSTER: ('H', "lurking one"), (44,16)
-
 #
 #	The entry level for the Lethe branch.
 #
 #	Upstream to the dragons lair, downstream to the castle.
 #
-
 MAZE: "leth-b",' '
 FLAGS: hardfloor
 GEOMETRY:center,center
@@ -561,23 +518,6 @@ OBJECT: ('!', "gain ability"), (49,08)
 MONSTER: ('p', "iron piercer"), (47,03)
 MONSTER: 'p', (52,08)
 
-#Lurking Ones
-#[80%]: MONSTER: ('H', "lurking one"), (02,02)
-#[80%]: MONSTER: ('H', "lurking one"), (27,01)
-#[80%]: MONSTER: ('H', "lurking one"), (44,02)
-#[80%]: MONSTER: ('H', "lurking one"), (64,04)
-#[80%]: MONSTER: ('H', "lurking one"), (73,03)
-#[80%]: MONSTER: ('H', "lurking one"), (63,08)
-#[80%]: MONSTER: ('H', "lurking one"), (59,10)
-#[80%]: MONSTER: ('H', "lurking one"), (66,15)
-#[80%]: MONSTER: ('H', "lurking one"), (54,15)
-#[80%]: MONSTER: ('H', "lurking one"), (44,14)
-#[80%]: MONSTER: ('H', "lurking one"), (29,06)
-#[80%]: MONSTER: ('H', "lurking one"), (28,11)
-#[80%]: MONSTER: ('H', "lurking one"), (31,18)
-#[80%]: MONSTER: ('H', "lurking one"), (16,18)
-#[80%]: MONSTER: ('H', "lurking one"), (07,17)
-
 #
 #	The Ogre Stockade for the Lethe branch.
 #
@@ -614,7 +554,6 @@ ENDMAP
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
 #0         1         2   	  3	      4	    5		  6	      7
 # Initialize random monsters
-#RANDOM_MONSTERS:'D','H','q','c','T','R'
 $monster = MONSTER: { 'D', 'H', 'q', 'c', 'T', 'R' }
 SHUFFLE: $monster
 
@@ -633,22 +572,6 @@ REGION: (59,17,62,18), unlit, "ordinary"
 # Stairs
 STAIR: (59,18), down
 STAIR: (02,06), up  
-
-# Doors
-#DOOR: locked, (46,03)
-#DOOR: locked, (46,04)
-#DOOR: locked, (60,03)
-#DOOR: locked, (60,04)
-#DOOR: locked, (54,11)
-#DOOR: closed, (48,09)
-#DOOR: closed, (40,13)
-#DOOR: closed, (45,17)
-#DOOR: closed, (47,17)
-#DOOR: closed, (49,17)
-#DOOR: closed, (51,17)
-#DOOR: closed, (53,17)
-#DOOR: closed, (55,17)
-#DOOR: closed, (59,12)
 
 # The drawbridge
 DRAWBRIDGE: (27,03), east, open
@@ -784,7 +707,6 @@ OBJECT: random, random
 #
 #	Upstream to the entry level, downstream to the castle.
 #
-
 MAZE: "leth-c-2",' '
 FLAGS: hardfloor
 GEOMETRY: center, center
@@ -1194,12 +1116,8 @@ REGION:(02,01,35,07),lit,"ordinary"
 REGION: (02,01,35,07), lit, "swamp"
 
 REGION: (03,02,10,06), lit, "fungusfarm"
-#REGION: (13,01,20,03), lit, "fungusfarm"
 REGION: (13,05,20,07), lit, "fungusfarm"
-#REGION: (23,02,26,06), lit, "fungusfarm"
 REGION: (29,01,32,02), lit, "fungusfarm"
-#REGION: (29,04,32,04), lit, "fungusfarm"
-#REGION: (29,06,32,07), lit, "fungusfarm"
 
 REGION: (02,08,11,18), lit, "ordinary"
 REGION: (37,01,48,08), lit, "ordinary"
@@ -1304,7 +1222,6 @@ OBJECT: ('/', "lightning"), (45,11)
 OBJECT: ('(', "chest"), (48,12)
 MONSTER: ('h', "alhoon"), (46,14)
 OBJECT: ('/', "cancellation"), (46,14)
-#OBJECT: ('+', "secrets"), (46,14)
 [75%]: TRAP: "magic", (47,14)
 OBJECT: ('(', "chest"), (48,14)
 MONSTER: ('&', "succubus"), (46,13), asleep
