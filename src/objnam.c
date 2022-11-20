@@ -5107,7 +5107,7 @@ struct obj *no_wish;
             case ART_REAPER:
                 pm = PM_YEOMAN;
                 break;
-            case ART_DISRUPTER:
+            case ART_SPEAR_OF_LIGHT:
                 pm = PM_UNDEAD_SLAYER;
                 break;
 
