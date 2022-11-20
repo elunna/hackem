@@ -617,7 +617,10 @@ unsigned corpseflags;
         }
         goto default_1;
     case PM_LONG_WORM:
-        (void) mksobj_at(WORM_TOOTH, x, y, TRUE, FALSE);
+        /* Crysknives remain the same, just much smaller chance of getting 
+         * a worm tooth from a long worm. */
+        if (!rn2(20 - Luck))
+            (void) mksobj_at(WORM_TOOTH, x, y, TRUE, FALSE);
         goto default_1;
     case PM_KILLER_TRIPE_RATION:
 		obj = mksobj_at(TRIPE_RATION, x, y, TRUE, FALSE);
