@@ -2148,7 +2148,33 @@ struct obj *otmp;
 
         if (!strncmpi(pmxnam, "the ", 4))
             pmxnam += 4;
-        pline("%s%s %s %s%c",
+        
+        if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
+            switch (rnd(20)) {
+            case 1: pline("Nice!"); break;
+            case 2: pline("Sweet!"); break;
+            case 3: pline("Tasty!"); break;
+            case 4: pline("Juicy!"); break;
+            case 5: pline("Delicious!"); break;
+            case 6: pline("Divine!"); break;
+            case 7: pline("Fangtastic!"); break;
+            case 8: pline("Bloody good!"); break;
+            case 9: pline("Tastes ironic."); break;
+            case 10: You("drink to your health."); break;
+            case 11: You("get a bite to drink."); break;
+            case 12: You("always welcome new blood."); break;
+            case 13: The("blood is the life!"); break;
+            case 14: pline("Fang you very much!"); break;
+            case 15: pline("Just my blood type!"); break;
+            case 16: pline("The final count down!"); break;
+            case 17: pline("Sucks to be you!"); break;
+            case 18: pline("Withdrawing from the blood bank!"); break;
+            case 19: pline("A meal you can sink your teeth into!"); break;
+            case 20: pline("You pain in the neck!"); break;
+            /*case 21: pline("Better luck necks time."); break;*/
+            }
+        } else
+            pline("%s%s %s %s%c",
               type_is_pname(&mons[mnum])
                  ? "" : the_unique_pm(&mons[mnum]) ? "The " : "This ",
               pmxnam,
@@ -2377,24 +2403,14 @@ struct obj *otmp;
                 make_vomiting((Vomiting & TIMEOUT) + (long) d(10, 4), TRUE);
         } else {
  give_feedback:
-            if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
-                switch (rnd(6)) {
-                case 1: pline("Yes, fresh blood!"); break;
-                case 2: You("really sank your fangs into that one."); break;
-                case 3: You("drink to your health."); break;
-                case 4: You("get a bite to drink."); break;
-                case 5: The("blood is the life!"); break;
-                case 6: Your("insatiable hunger subsides a bit."); break;
-                }
-            } else
-                pline("This %s is %s", singular(otmp, xname),
-                  (otmp->cursed || otmp->otyp == FRUITCAKE)
-                     ? (Hallucination ? "grody!" : "terrible!")
-                     : (otmp->otyp == CRAM_RATION
-                        || otmp->otyp == K_RATION
-                        || otmp->otyp == C_RATION)
-                        ? "bland."
-                        : Hallucination ? "gnarly!" : "delicious!");
+            pline("This %s is %s", singular(otmp, xname),
+              (otmp->cursed || otmp->otyp == FRUITCAKE)
+                 ? (Hallucination ? "grody!" : "terrible!")
+                 : (otmp->otyp == CRAM_RATION
+                    || otmp->otyp == K_RATION
+                    || otmp->otyp == C_RATION)
+                    ? "bland."
+                    : Hallucination ? "gnarly!" : "delicious!");
         }
         break; /* default */
     } /* switch */
