@@ -915,12 +915,13 @@ int wtcap;
                     }
                 }
             }  
-            /* Many cursed healthstones might bring our efflev below 0. */
-            else if (efflev < 0 && !(moves % (long) (22 + (abs(efflev) * 4)))) {
-                heal = 1;
-            }
-            else if (efflev <= 9 && !(moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1))) {
-                heal = 1;
+            /* Cursed healthstones might bring our efflev below 0. */
+            else if (efflev < 0) {
+                if (moves % (long) (22 + (abs(efflev) * 4)) == 0)
+                    heal = 1;
+            } else if (efflev <= 9) {
+                if (moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1) == 0)
+                    heal = 1;
             }
 
             /* tortles gain some accelerated regeneration while
