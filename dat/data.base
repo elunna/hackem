@@ -6190,7 +6190,6 @@ revenant
 	then tightened around his throat.  They were gloved in the finest
 	moleskin and sticky with blood, yet the touch was icy cold.
 		[ A Game of Thrones, by George R. R. Martin ]
-
 rings
 	Three Rings for the Elven-kings under the sky,
 	Seven for the Dwarf-lords in their halls of stone,
@@ -6201,40 +6200,34 @@ rings
 	One Ring to bring them all and in the darkness bind them
 	In the Land of Mordor where the Shadows lie.
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
-
 ring of adornment
-	Wearing a ring of adornment modifies charisma. The change in 
-	charisma is equal to the ring's enchantment; the enchantment can 
-	be altered by charging. Succubi will steal or ask for rings of adornment
-	
+	Modifies your charisma. The change in charisma is equal to the 
+	ring's enchantment; the enchantment can be altered by charging. 
+	Succubi will steal or ask for rings of adornment.
 ring of gain constitution
-	When worn, it increases your constitution by its enchantment. The
-	enchantment can be altered by charging, and the boost to 
-	constitution exceeds racial limitations up to a maximum of 25.
-
+	Modifies your constitution. The change in constituion is equal
+	to the ring's enchantment; the enchantment can be altered by 
+	charging. The boost to constitution exceeds racial limitations 
+	up to a maximum of 25.
 ring of gain dexterity
-	 It increases your dexterity by its enchantment, which can be 
-	 altered by charging.
-	 
+	 Modifies your dexterity. The change in dexterity is equal to the 
+	 ring's enchantment; the enchantment can be altered by charging.
 ring of gain intelligence
-	A ring of gain intelligence increases your intelligence by its 
-	enchantment, which can be altered by charging.
-	
+	 Modifies your intelligence. The change in intelligence is equal
+	 to the ring's enchantment; the enchantment can be altered by 
+	 charging.
 ring of gain strength
 	A ring of gain strength increases your strength by its enchantment, 
 	which can be altered by charging. At 18 strength, the ring will 
 	instead increase percentile dice by its enchantment.
-	
 ring of gain wisdom
 	A ring of gain wisdom increases your wisdom by its enchantment, 
 	which can be altered by charging.
-	
 ring of increase accuracy
 	A ring of increase accuracy adds its enchantment to your to-hit 
 	rolls. The enchantment can be altered by charging. Like the ring 
 	of increase damage, it can be eaten for a chance at obtaining an 
 	intrinsic accuracy bonus provided it is of an edible material.
-	
 ring of increase damage
 	A ring of increase damage adds its enchantment to your damage 
 	rolls. The enchantment can be altered by charging. This does not 
@@ -6242,7 +6235,6 @@ ring of increase damage
 	two of them.
 	If the ring is of an edible material, it may be possible to eat it
 	to permanently gain a damage bonus.
-	
 ring of protection
 	A ring of protection also increases your magic cancellation by 1,
 	to a maximum of 3. This does not depend on its enchantment, and 
@@ -6251,35 +6243,30 @@ ring of protection
 
 	Eating a ring of protection with non-zero enchantment has a chance
 	of conferring intrinsic protection.
-	
 ring of regeneration
 	While wearing it, you heal more quickly. While you are healing you 
 	will burn more nutrition, but when at full health the ring will 
-	stop eating up nutrition.
+	stop using up nutrition.
 	Regeneration causes you to heal one HP on any turn you would 
 	otherwise heal none. Regeneration is not cumulative, so wearing 
 	two such rings, or a ring along with another regeneration source, 
 	grants no further benefit.
-	
 ring of searching
-	 gives you the automatic searching extrinsic, which automatically 
-	 searches the squares around you at the end of each turn.
+	Grants you the automatic searching extrinsic, which automatically 
+	searches the squares around you at the end of each turn.
 
 	Eating a ring of searching can give the automatic searching 
 	intrinsic.
-
 ring of stealth
 	Wearing a ring of stealth gives you extrinsic stealth.
 
 	Polymorphing and eating the ring may grant you stealth as an 
 	intrinsic.
-
 ring of sustain ability
 	When worn, it prevents the wearer's base attributes from being 
 	changed in any way, except by polymorphing into your own race. 
 	This includes stat increase through exercise, as well as stat 
 	loss from abuse.
-	
 ring of levitation
 	Wearing a ring of levitation causes you to levitate.
 	While you are levitating, you will float over some otherwise 
@@ -6290,21 +6277,16 @@ ring of levitation
 	causes you to crash to the ground; this can be useful in removing
 	a cursed ring of levitation, or a ring of levitation under cursed
 	gloves.
-
 ring of hunger
 	Wearing a ring of hunger conveys the hunger extrinsic, which 
 	causes you to burn nutrition very quickly; every even-numbered 
 	turn your nutrition is decremented. It is usually generated 
 	cursed.
-	
 ring of aggravate monster
 	Dropping a ring of hunger into a sink produces the message, 
 	"Suddenly, <item> vanishes from the sink!" but only if there's 
 	another item on the sink. This auto-identifies the ring. 
 	Otherwise, "You hear the ring bouncing down the drain pipe."
-
-
-
 ring of conflict
 	Wearing the ring will generate conflict, causing all monsters
 	within line of sight and a radius of eight squares to attack the
@@ -6321,54 +6303,49 @@ ring of conflict
 	xp level maxed out, there's still a 5% chance of conflict not
 	working. Also, the monsters affected have to see you for conflict
 	to work.
-	
 ring of warning
-	Wearing a ring of warning gives you the warning property.
-	The warning will cause them to be displayed as numbers (or 
-	colored question marks, if playing with tiles).
-	Warning is a valuable property to have; while it does not 
-	explicitly reveal the identity of the creatures a la telepathy, 
-	it has a larger range than telepathy, and works while unblind 
-	unlike intrinsic telepathy. Telepathy also does not sense mindless
-	creatures like undead, whereas warning works on all but monsters 
-	of level 3 or lower. However, several roles get warning
-	intrinsically as they increase in level; for them, a ring of 
-	warning is obviously useless once they reach that point.
+	Wearing a ring of warning gives you the warning property. The 
+	warning will cause monsters to be displayed as numbers (or 
+	colored question marks, if playing with tiles). Warning is a 
+	valuable property to have; while it does not explicitly reveal 
+	the identity of the creatures a la telepathy, it has a larger 
+	range than telepathy, and works while unblind unlike intrinsic 
+	telepathy. Telepathy also does not sense mindless creatures like 
+	undead, whereas warning works on all but monsters of level 3 or 
+	lower. However, several roles get warning intrinsically as they 
+	increase in level; for them, a ring of warning is obviously 
+	useless once they reach that point.
 
 	Wooden or metal rings of warning can be eaten to acquire warning
 	intrinsically.
-
 ring of poison resistance
-	Wearing a ring of poison resistance gives you poison resistance 
-	as an extrinsic.
-	
+	Wearing a ring of poison resistance conveys extrinsic poison 
+	resistance.
 ring of fire resistance
-	Wearing a ring of fire resistance gives you fire resistance as an
-	extrinsic.
-	This will also protect your scrolls and potions from fire 
-	destruction; armor is still susceptible to burning however.
-	
+	Wearing a ring of fire resistance conveys extrinsic fire 
+	resistance. This will also protect your items from fire 
+	destruction.
 ring of cold resistance
-	Wearing a ring of cold resistance conveys the cold resistance 
-	extrinsic. This will also protect your potions from cold damage.
-	
+	Wearing a ring of cold resistance conveys extrinsic cold 
+	resistance. This will also protect your items from cold damage.
 ring of psychic resistance
-	Wearing a ring of psychic resistance gives you psychic resistance
-	as an extrinsic.
+	Wearing a ring of psychic resistance conveys extrinsic psychic 
+	resistance, which protects you from mental and fear attacks.
 	
 	This protect you from:
+	- the negative effects of scrolls and potions of amnesia
+	- Fear attacks (banshees, eye of fear and flame)
+	- Being "paralyzed" by fear when an enormous ghost appears in a 
+	  deserted temple.
 	- Dragon roars
-	- Zaps of psionic wave
-	
+	- Spell of psionic wave
 ring of sonic resistance
-	Wearing a ring of sonic resistance gives you sonic resistance as
-	an extrinsic.
-	This will also protect your items from sonic destruction.
-	
+	Wearing a ring of sonic resistance conveys extrinsic sonic 
+	resistance. This will also protect your items from sonic 
+	destruction. It is also immune to sonic damage.
 ring of shock resistance
-	Wearing a ring of shock resistance gives you shock resistance. 
-	Unlike other rings, it is immune to electric damage
-	
+	Wearing a ring of shock resistance conveys extrinsic shock 
+	resistance. Unlike other rings, it is immune to electric damage
 ring of free action
 	Wearing a ring of free action gives you the free action extrinsic,
 	which protects you from paralysis.
@@ -6405,8 +6382,6 @@ ring of free action
 	including those of both drowning monsters and mind flayers, with
 	a chance dependent on your Luck - 50% at 0 Luck, 90% when luck is
 	maxed out.
-
-
 ring of slow digestion
 	When worn, the ring nullifies the ordinary consumption of one 
 	nutrition per turn. Nutrition consumption from all other sources, 
@@ -6420,7 +6395,6 @@ ring of slow digestion
 	ring slows your digestion).
 
 	A cursed ring still has its effect.
-
 ring of teleportation
 	Wearing a ring of teleportation gives you teleportitis. These 
 	rings are often generated cursed.
@@ -6437,14 +6411,12 @@ ring of teleportation
 	
 	Dropping this ring down a sink will teleport the sink to a random
 	location.
-	
 ring of teleport control
 	Wearing a ring of teleport control conveys the teleport control 
 	extrinsic. This is an incredibly useful property, especially when
 	combined with teleportitis or a means of level teleportation. 
 	Eating a ring of teleport control grants the property as an 
 	intrinsic.
-	
 ring of polymorph
 	Wearing a ring of polymorph gives you polymorphitis, which has a 
 	1% chance of polymorphing you each turn. This ring is usually 
@@ -6462,15 +6434,12 @@ ring of polymorph
 
 	Dropping the ring into a sink will polymorph the sink into one of 
 	altar, fountain, sink, grave, throne, or forge. 
-
-
 ring of polymorph control
-	grants polymorph control when worn. 
-	allows you to choose what form you want to take when you polymorph. 
+	Grants polymorph control when worn. This allows you to choose what form you want to take when you polymorph. 
 	You will be asked "Become what type of monster? [type the name]".
 	You can then choose to polymorph into a monster. Polymorph control 
 	will also allow you to decline a change in form brought upon by 
-	lycanthropy ("Would you like to become a <wolf/jackal/rat>?")
+	lycanthropy.
 
 	Polymorphing into your own species will cause you to "feel like a
 	new <species>!" and cause random change to your scores. There is a 
@@ -6488,13 +6457,8 @@ ring of polymorph control
 	also regenerate HP at the same rate as your species, so having 
 	regeneration or healing magic is useful.
 
-	Be careful when using a form that has a contact attack. Attacking 
-	a footrice will cause stoning and biting a green slime causes 
-	sliming. Forms with many such attacks, such as mind flayers, may 
-	also suffer multiple splashes of acid when attacking jellies.
-
 	When polymorphed into certain species, you can use their abilities
-	 with the #monster command:
+	with the #monster command:
 	
 	Females who polymorph into oviparous monsters can #sit to lay eggs, 
 	which hatch into pets of the same species. 
@@ -6504,7 +6468,6 @@ ring of polymorph control
 	example, if you eat poisonous corpses that damage your strength, 
 	you may gain poison resistance and still keep your original 
 	strength when you change back.
-
 ring of invisibility
 	Wearing a ring of invisibility makes you invisible.
 	Nazgul will always leave a cursed ring of invisibility.
@@ -6527,7 +6490,6 @@ ring of invisibility
 	he laid a hand on the king, murdered him and took hold of the
 	leadership."
 		[ The Republic, by Plato, translated by James Adam ]
-		
 ring of see invisible
 	Wearing a ring of see invisible gives you see invisible, which lets 
 	you see creatures that are invisible.
@@ -6536,7 +6498,6 @@ ring of see invisible
 	this ring can be useful since permanent see invisible is no longer 
 	obtainable from potions of see invisible, fountain quaffing, or 
 	eating stalker corpses. 
-
 ring of protection from shape changers
 	The ring of protection from shape changers can stop monsters from
 	shapeshifting in certain situations.
@@ -6557,41 +6518,26 @@ ring of protection from shape changers
 	  monsters from polymorphing.
 	- Wooden or metal rings of protection from shape changers can be 
 	  eaten to acquire protection from shape changers intrinsically.
-
-
-
-
-
 mood ring
 	 It has no effect when worn or eaten, but can be read for a clue
 	 about your alignment. 
 	 To read a mood ring, you must be wearing it, it must not be 
-	 cursed, and you must not be blind or hallucinating. When read, 
+	 cursed, and you must not be blind. When read, 
 	 the ring will glow a different color depending on your alignment:
 
 	Alignment	Color
-	14 or more  Green
+	20+         Bright Green
+	14-19       Green
 	4-13        Yellow
-	1-3         Orange
-	0 or less   Red
+	0-3         Orange
+	negative    Red
 
 	If cursed, the ring will only appear dark.
-
+	If you are hallucinating, the ring will appear as random colors. 
 ring of sleeping
 	 When worn, it causes you to randomly fall asleep for 1-20 turns 
 	 every 1-100 turns. This effect is permanent if the ring is eaten,
-	  and negated if you have sleep resistance. 
-
-
-
-
-
-
-
-
-
-
-		
+	 and negated if you have sleep resistance. 
 ring of p'hul
 	Shandiph rose again; his knees were growing tired. "That's all
 	right.  Yes, we already possess one; it was the Ring of P'hul
