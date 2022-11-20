@@ -761,7 +761,10 @@ domonability(VOID_ARGS)
             pline("Unfortunately sound does not carry well through rock.");
         else
             aggravate();
-    } else if (youmonst.data->mlet == S_VAMPIRE)
+    } 
+    /* For now I'm disabling the vampire race from being able to shapeshift at 
+     * will. Perhaps in the future we'll figure out how to enable this */
+    else if (youmonst.data->mlet == S_VAMPIRE && !Race_if(PM_VAMPIRIC))
         return dopoly();
     else if (Upolyd)
         pline("Any special ability you may have is purely reflexive.");
