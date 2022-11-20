@@ -3888,6 +3888,10 @@ struct obj **sobjp;
         else {
             int mndx = monsndx(youmonst.data);
             
+            if (mvitals[mndx].mvflags & G_EXTINCT) {
+                You("momentarily feel like your kind has no future.");
+                return;
+            }
             if (sblessed) {
                 mtmp = makemon(&mons[mndx], u.ux, u.uy,
                                NO_MINVENT | MM_REVIVE | MM_EDOG);
