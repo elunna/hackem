@@ -839,6 +839,7 @@ struct obj *instr;
      * nerf the infinite re-chargability.
      *      fumbling, afraid, or cursed = 12.5% of breaking
      *      uncursed = 2%
+     *      blessed instruments won't break.
      */
     
     /* Artifact instruments don't break on apply 
@@ -846,7 +847,7 @@ struct obj *instr;
      */
     if (instr->oartifact || maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
         ;  
-    else if ((Fumbling || Afraid || instr->cursed) && !rn2(8)) {
+    else if ((Fumbling || Afraid || instr->cursed) && !instr->blessed && !rn2(8)) {
         instr_breaks = TRUE;
     }
     
