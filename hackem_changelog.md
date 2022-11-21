@@ -1012,7 +1012,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Made vegetarian, not vegan.
 - [x] cheese
 - [x] pill
-    - Make case 4 for pills a gain ability (like fountains, blessed if high luck)
+    - Make case 4 ("tastes like vitamins") only give 80 nutrition, but also grants gain ability (like fountains, blessed if high luck)
     - Pills always cure larval infection.
 - [x] holy wafer
 - [x] pineapple
