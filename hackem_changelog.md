@@ -111,7 +111,7 @@
 - (e) concussive sphere
 - (e) whirling sphere
 - (e) beholder
-    - Removed M1_NOHEAD | M1_MINDLESS
+    - Removed M1_NOHEAD | M1_MINDLESS (viewable with telepathy now)
     - Cannot tame
 - (e) magical eye
     - Cannot tame
@@ -243,7 +243,7 @@
 - (q) feral hog
 - (q) llama
 - (q) black bear
-    - Raised level to 7. Added Berserk.
+    - Raised level to 7. Added berserk.
 - (q/@) werebear
 - (q) grizzly bear
     - Changed color to red to avoid clashing with manticore
@@ -267,7 +267,7 @@
     - added M1_SWIM to all badgers.
     - Badgers leave occasional poison gas clouds (they are stinky...)
     - Made badgers immune to poison gas (immune their own stink)
-    - Added Berserk
+    - Added berserk
 - (r) honey badger
   - Ignores Elbereth
 - (r) skunk
@@ -302,9 +302,9 @@
 - (u) Red horse
 - (w) giant leech
 - (w) larva
-    - Larva's can infest corpses and create maggots
+    - Larvas can infest corpses and create maggots
 - (w) maggot
-    - Can infest corpses and create further maggots.
+    - Can infest corpses and create further maggots or giant flies.
     - Can also create a Worm That Walks by infesting another maggot corpse. 
 - (w) dung worm
     - Made poisonous to eat
@@ -315,6 +315,10 @@
     - Eating a rot worm causes food poisoning
 - (w) neothelid
     - Traitorous
+- (w) hellminth
+    - Type of maggot that does not generate randomly - only dropped by a dying Worm that Walks.
+    - Can infest corpses to create a gibberslug (75% change) or a new Worm that Walks (25% chance.)
+    - Cannot be genocided.
 - (x) spark bug
 - (x) arc bug
 - (x) lightning bug
@@ -375,7 +379,9 @@
     - Added AD_DRLI to passive attacks (AT_NONE)
     - Baby/adult deep dragons resist poison and drain magic
 - (D) baby shimmering dragon (already in EvilHack)
+    - Gets a passive stun attack
 - (D) shimmering dragon 	 (already in EvilHack)
+    - Gets a passive stun attack
 - (D) gold dragon
 - (D) baby gold dragon
 - (D) sea dragon
@@ -383,7 +389,7 @@
 - (D) wyvern
 - (D) hydra
     - Added poisonous breath, passive poison 
-    - Imported Multiple heads mechanic from splicehack.
+    - Imported multiple heads mechanic from splicehack.
 - (D) fell beast
 - (D) pseudodragon
 - (D) elder pseudodragon
@@ -395,7 +401,7 @@
 - (E) mud elemental
     - Added engulf attack (like water elemental)
 - (E) acid elemental
-    - Added acid engulf (like shoggoth?)
+    - Added acid engulf (like shoggoth)
 - (E) ice elemental
     - Spits snowballs
 - (E) magma elemental
@@ -449,6 +455,7 @@
 - (J) boojum
 - (L) eye of fear and flame
 - (L) worm that walks
+    - When destroyed, generates up to 10 hellminth maggots. These maggots can infest other corpses to create more worms that walk.
 - (M) troll mummy 
     - Added regen and stalking
 - (M) adherer
@@ -666,11 +673,19 @@
   - Eating a zombie corpse will make the player ill and cause them to start turning into a zombie (tins of zombie meat 'cure' the meat and make it safe to eat). 
   - Attacking zombies at range and wearing a piece of armor that protects your head are highly recommended. 
   - Zombies can make other monsters terminally ill as well - the same methods used by the player to cure themselves of a terminal illness can be used/applied on monsters or pets also.
+
 - [x] Dragons:
     - Significantly enhanced
     - spawn with much more hit points (especially in the end game),
     - can engulf creatures smaller than it and digest them
     - can now bellow a frightful roar that causes Afraid status.
+    - To balance out engulf and roaring mechanics - only half of dragons are capable of roaring, and I removed the engulf attack from about half of the dragons.
+    - Also, in order to offset their powerful abilities, dragons periodically slumber. Running from a dragon and hoping it decides to rest is a valid strategy. (From Splice)
+    - A couple of things will now protect you from dragon roars:
+        - Being a knight
+        - Wearing Dragonbane or Pridwen
+        - Being confused
+
 - [x] Elementals:
     - All elemental monsters can engulf creatures smaller than it
     - can be zapped and transformed
@@ -757,7 +772,6 @@
 - [x] Intelligent monsters
     - can use many more items against the player or for their own benefit, 
     - including stashing objects into bags and taking them back out, 
-    - making wishes, 
     - activating any figurines it may have, 
     - unlocking and looting locked containers,
     - wearing most rings,
@@ -829,7 +843,7 @@ Dragons and Dragon Scales
 | Gold		 | Light 			  | Automatic searching	 | Blinding            |
 | Gray		 | Magic res			 | Cancel protection		 | Cancellation (!!)   |
 | Green		 | Poison res		 | Sickness res		 | Poison              |
-| Orange		 | Sleep res			 | Free action			 | Sleep               |
+| Orange		 | Sleep res			 | Free action			 | Slow               |
 | Red			 | Fire res			 | +1d6 melee damage 	 | Fire (!!)           |
 | Shimmering | Displacement		 | Stealth, warn, see inv | Confuse/Stun/slow    |
 | Silver	| Reflection		 | Blinding resistance	 | Scaring             |
@@ -853,9 +867,12 @@ Dragons and Dragon Scales
     - Found only in archery shops
 - [x] great dagger	
 - [x] parazonium
-- [x] chakram (silver based boomerang)
-    - Made chakram dmg 11 vs small, 10 vs lg, and +1 tohit. 
+- [x] chakram (metal based boomerang)
+    - Made chakram dmg 10 vs small, 9 vs lg, and +1 tohit. 
+    - Weight 25
     - Decreased probability to half of boomerang.
+    - Splice had chakram's base material as silver - this seemed a bit too powerful - changed base material to IRON, but can be any shiny material so still a 20% chance of being silver.
+    - Chakrams only deal 1-2 damage if used as a melee weapon.
 - [x] throwing axe
     - Does 1 less damage vs sm than a regular axe, but counts as a throwing weapon so can be stacked.
     - Lowered the weight of throwing axes to 20, +2 to-hit.
@@ -950,13 +967,13 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 
 ### Helms:
 
-- [x] Toque: Grants sonic resistance
+- [x] toque
+    - Grants sonic resistance
 - [x] tinfoil hat
-    - protects against psychic attacks, brain eating.
+    - Grants Psychic Resistance, protection against brain eating.
 - [x] helm of speed
-    - Grants very fast speed like speed boots.
-- [x] Helm Of Madness (HackEM)
-    - Random appearance added - "top hat"
+    - Grants very fast speed.
+- [x] helm Of madness (HackEM)
     - Causes hallucination, grants +3 charisma while worn. 
     - Auto-curses on wear. Usually generated cursed.
 
@@ -1006,7 +1023,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] asian pear
     - Added asian pear to possible tree fruits
 - [x] mushroom
-    - Upp'ed mushroom strength bonus to 3 (to make up for negative side-effects)
+    - Mushrooms can now propogate if left on the dungeon floor. 
 - [x] sandwich
 - [x] tortilla
     - Made vegetarian, not vegan.
@@ -1045,11 +1062,14 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 ### Rings:
 
 - [x] mood ring
+    - Now this also glows bright green if your alignment is pious 
+    - It glows red only if your alignment is negative.
 - [x] ring of sleeping
 - [x] ring of gain dexterity
 - [x] ring of gain intelligence
 - [x] ring of gain wisdom
 - [x] ring of sonic resistances
+    - Immune to sonic damage
 - [x] ring of psychic resistance
 
 ### Potions:
@@ -1098,6 +1118,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] wand of poison gas
 - [x] wand of wonder (splice implementation)
 - [x] wand of sonics
+    - Immune to sonic damage
+    - Can be used to destroy iron bars or drawbridges. If you destroy iron bars, they send 1-3 iron chains flying.
 
 ### Scrolls:
 
@@ -1141,6 +1163,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
   - When played, will aggravate monsters unless you have high dexterity and experience level.
 - [x] horn of blasting 
   - Deals sonic damage when applied, similar to the Fire and frost horn.
+  - Immune to sonic damage
 - [x] fishing pole
   - Can be used on water sources to fish for stuff.
   - Can also grab small objects out of water.
@@ -1165,7 +1188,10 @@ New magical staves: These were introduced in Evil and each one grants a large bo
   - Dwarves in mines frequently get lit torches now.
   - Putting lit torches into containers auto-snuffs.
   - Clubs can be dipped into oil and turned into torches (from dnh)
-
+- [x] Spoons
+    - Convicts starting weapon (uses knife skill)
+    - Base item for Iron Spoon Of Liberation.
+    - Spoons don't generate randomly.
 [x] Lightsabers:
 - [x] green lightsaber
 - [x] blue lightsaber
@@ -1307,7 +1333,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Pick-axe: 
     - Changed weight to 75 aum (From Slash'EM)
     - Digging down doors with pickaxe is not quiet anymore.
-- [x] crysknife: Changed sm/lg damage to d20/d30 damage (From SlashEM)
+- [x] crysknife: 
+    - Changed sm/lg damage to d20/d30 damage (From SlashEM)
+    - Long worms only drop a worm tooth 1 in 20 times.
 - [x] fedora
     - Now acts as luckstone and grants +1 charisma
 - [x] iron shoes were renamed to 'dwarvish boots'.
@@ -1338,20 +1366,21 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 
 - [x] All musical instruments can now break 
     - Artifact instruments are safe from breaking on apply.
-    - Cursed instruments break 25%, uncursed 10%, blessed 4%. 
-    - Higher chance if fumbling (Fumbling % = cursed %)
+    - If you are fumbling, afraid, or the instrument is cursed, there is a 1 in 8 chance it will break when you attempt to play it.
+    - Uncursed instruments have a 1 in 50 chance of breaking.
+    - Blessed instruments won't break
     - If you are an elf, you will never break an instrument this way.
 
 ## Spells/Spellcasting
 
 ### Spellbooks:
 
-- [x] spellbook of acid stream (evil has acid blast)
+- [x] spellbook of acid blast
 - [x] spellbook of command undead
     - Lowered command undead spell difficulty to 4
 - [x] spellbook of enlighten
 - [x] spellbook of flame sphere
-    - Evil made this a Level 2 spell
+    - Evil made this a level 2 spell
 - [x] spellbook of freeze sphere
     - Made a level 1 spell (as in slashem) - levels out early game a bit more for ice mages.
 - [x] spellbook of lightning 
@@ -1359,6 +1388,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Moved to ESCAPE category
     - Lowered spell level slightly to 5
 - [x] spellbook of poison blast
+    - Reduced to level 2 so the infidel has a decent starting spell at an affordable price.
 - [x] spellbook of reflection
     - Creates a temporary reflective bubble around the caster, 
     - acts exactly the same as an amulet of reflection (or the like)
@@ -1400,7 +1430,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] spellbook of cure sickness
     - is now directional 
     - can be cast at other monsters as well as yourself.
-- [x] spellbook of Charm monster – level 3 → 5
+- [x] spellbook of charm monster – level 3 → 5
 - [x] spellbook of cone of cold
     - changed from an attack spell to a Matter spell.
 - [x] spellbook of Detect food – level 2 → 1
@@ -1448,6 +1478,13 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Create Pool (from SlashEM)
     - Affected by displacement and invisibility now.
 - [x] Call Undead (from SlashEM)
+- [x] Summon Monsters/Nasties 
+    - Enemies have to see you in order to cast this spell now.
+    - Implemented fix #K669 - 'nasty' monster summoning. 
+    - chain summoning nerf. tldr: "If a replacement creature is a spellcaster it now has to have lower difficulty than the summoner."
+
+[x] Spellcasters now have their spell range limited by their level (gnomish mages are level 3 and can only cast fire bolt in a radius of 2-3 tiles instead of 13)
+
 
 ### Monster Clerical spells:
 
@@ -1538,7 +1575,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Was a "named" silver long sword in the village level,
     - shoots magic missiles when you are at full health?
     - 10% chance of melee magic missile attack
-    - Cannot be wished for.
+    - Cannot be wished for. The master sword now has a 75% chance of appearing in the middle of the Town branch.
 - [x] Mirrorbright
     - Mirrorbright no longer hinders spell-casting.
     - Healers no longer receive Mirrorbright as a sacrifice gift, they get the Drowsing Rod instead.
@@ -1553,7 +1590,10 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Grants searching.
     - Deathvision's double damage is applied everywhere it should be (including spells/wands/
 - [x] Origin
-    - The spellboosting mechanic wasn't implemented in splice, so I just changed it to a STAFF_OF_ESCAPE.
+    - STAFF_OF_ESCAPE
+    - While wielded, offers great bonuses for spellcasters.
+    - Increases spellcasting ability as a robe would
+    - Gives a discount of 5 energy for spells that costs 10 or more.
 - [x] Plague
     - confers sickness res while carried (from dnh)
 - [x] Poseidon's Trident
@@ -1568,6 +1608,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Replaced Keolewa with Skullcrusher.
 - [x] Spear of Light (Renamed from the Holy Spear of Light)
     - Spear of Light causes hostility from undead
+    - First sac gift for Undead Slayers
 - [x] Sword of Balance
     - Conveys "extreme stability" (hurtling resistance)
 - [x] Sunspot
@@ -1598,20 +1639,20 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 ### Quest Artifacts:
 
 - [x] The Candle of Eternal Flame (Flame Mage)
+    - Changed to Lawful alignment
     - Fixed so it's always lit
     - Removed the #invoke for Fire Elemental ability and moved to Firewall.
     - Confers cold res, teleport control, and warning
     - Also confers faster energy regeneration (like Encanto!)
     - Grants a passive 2d7 fire attack
-
 - [x] The Storm Whistle (Ice Mage)
+    - Changed to Neutral alignment
     - No longer grants fire resistance, instead it grants shock resistance.
     - Can now #invoke for 1 of 10 random "storm" related pets:
 - [x] Great Dagger of Glaurgnaa (Necromancer)
     - Only confers MR when wielded.
     - [x] Grants double spirit bonuses when carried
 	- [x] Also triples the radius of spirit auto-collection when carried.
-
 - [x] Crown of Saint Edward (Yeoman)
     - Only confers MR when worn.
 - [x] Stake of Van Helsing (Undead Slayer)
@@ -1625,7 +1666,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Base item: Staff of Necromancy
     - Wielded by Acererak. Very strong, but with a cost..
     - Has a special wither attack
-    - While wielding, passive wither attack (and inflicts occasional fear)
+    - While wielding, inflicts a passive wither attack (and occasional fear)
     - If you are wielding and withering, you deal double damage.
     - #invoke for withering and aggravate monster
     - Cannot be wished for.
@@ -1777,6 +1818,24 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
 - [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil)
 - [x] Telepathy from floating eyes is now temporary.
+- [x] Extrinsic resistances protect items from elemental damage. For example, wearing a ring of fire resistance will protect your scrolls and potions from fire damage.
+
+- [x] Implemented "Afraid" status; 
+    - The player can sometimes become too afraid to control their actions.
+    - similar to the effects of being stunned or confused. 
+    - Caused by dragon roars and some monster attacks.
+    - 
+- [x] Add "Stable" property
+    - Protects you(or monsters) from clobber and hurtle attacks.
+- [x] Added Sonic Resistance property (from Splice)
+    - Protects you(or monsters) from sonic attacks.
+    - protects you from dragon roars
+- [x] Added Psychic Resistance property (from Splice)
+    - Protects you from forgetting skills, spells, and other things from potions and scrolls of amnesia, as well as mind flayer and zombie attacks.
+    - Protects you from an illithids psionic wave and tentacle attacks.
+    - Protects from most fear attacks, including dragon roars.
+
+- [x] Added LarvaCarrier property - some monsters can infect you with eggs!
 
 ### Upgrading/Tinker
 - [x] Upgrading mechanic (via potions of gain level from Slash'EM)
@@ -1784,16 +1843,6 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves, boomerangs, and other wooden weapons.
     - I also added upgrade paths for all special new armors
     - The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
-
-- [x] Implemented "Afraid" status; 
-    - The player can sometimes become too afraid to control their actions.
-    - similar to the effects of being stunned or confused. 
-    - Caused by dragon roars and some monster attacks.
-- [x] Add "Stable" property
-    - Protects you(or monsters) from clobber and hurtle attacks.
-- [x] Added Sonic Resistance property
-    - Protects you(or monsters) from sonic attacks.
-- [x] Added LarvaCarrier property - some monsters can infect you with eggs!
 
 #### Scare Monster: 
 
@@ -1865,6 +1914,8 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Audo-ID magic flutes and harps on use
 - [x] Auto-ID magic lamps and oil lamps when rubbing
 - [x] Auto-ID loadstones upon discovering the inability to drop them.
+- [ ] Auto-ID flintstones when rubbed on iron weapons.
+
 - [x] Auto-ID water walking boots
 - [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
 - [x] After a while of using a wielded weapon, you will identify it and it's enchantment
@@ -1873,10 +1924,20 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Only blessed scrolls of charging identify the charges of an item.
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Regeneration only causes additional hunger when injured.
-- 
+- [x] Removed two-weaponing restrictions imposed in EvilHack.
+- [x] Monsters cannot use wands of wishing.
+- [x] Switching between your main and alternative weapon should not take any turns (from dnh)
+
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
 - 
+
+Object lookup has been fleshed out:
+- [x] Potions, scrolls, rings, amulets, wands will display lookup info.
+- [x] Artifacts will show their info (must have the artifact in possession)
+- Weapons show bonus damage and effects resulting from materials.
+
+
 #### Religion/Prayer/Alters:
 
 - Make temple priests hostile if made on an unaligned altar.
@@ -1886,20 +1947,25 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 #### Minions
 
 - Slashem had a mechanic for getting aligned minions as gifts from your god when you sacrifice or pray with low health. I ported most of this mechanic over but added some severe limitations because in my opinion, minions were broken in slashem and too easy to obtain (Lawfuls could get Solars and Planetars!).
-- Here are the new limitations; minions will no longer be granted when:
-    - You are over level 14.
+- Here are the new limitations; minions are not granted when:
+    - You are under level 5.
+    - You have negative luck.
     - You have been crowned
     - You have completed the quest
     - You have been expelled from the quest
-    - You have pets on the current level. 
-- Currently, the pets you receive are not coded as "minions", so they don't have the limitations that they did in slashem. This is subject to change and playtesting.
+    - You have pets on the current level.
+
+- The player will also have to hit a 1 on this roll: 
+    - 1 in 10 + (4 * number of gifts granted)
+
+- Minion pets cannot betray you.
 
 #### Dungeon growth patch
 
 - Another feature ported over from Slash'EM
 - This enables trees to slowly branch out in the dungeon and occasionally drop ripe fruits/leaves.
 - It also promotes the growth of herbs left on the ground or water.
-- Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles: these include garlic, wolfsbane, catnip, carrots, and kelp fronds. Herbs in the water will move with water currents.
+- Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles: these include garlic, wolfsbane, catnip, carrots, kelp fronds, and mushrooms (technically not herbs but they do spread prolifically). Herbs in the water will move with water currents.
 - One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
 
 ## Dungeon Changes:
@@ -1918,9 +1984,9 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - Include new different types of gnomes, dwarves, and thieves.
     - Added dwarf/gnome thieves to most town/minetown variants
     - Removed river/sewage generation from Gnomish Mines
-    - Gnomish mines monsters will usually be undead if you are dwarf/gnome/hobbit (from SlashEM)
+    - Gnomish mines monsters will usually be undead if you are a dwarf, gnome, or hobbit (from SlashEM)
       - This can make the mines a very dangerous place so beware!
-      - Update: Instead of making this dependant on your alignment, I have changed the chance a regular monster being undead to scale with the dungeon deptch. At the top of the mines, undead should be quite rare, but at mine's end beware.
+      - Update: Instead of making undead mine denizens dependant on your alignment, the chance scales with the dungeon deptch. At the top of the mines, undead should be quite rare, but at mine's end beware.
 
     - Imported minetown variants: 
         - Mini-Castle (SlashTHEM)
@@ -1977,17 +2043,16 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - Made moat 2 tiles wide; can be lava, water, or sewage.
     - Grund must be defeated to take the downstairs
     - Grund must be defeated to take the upstairs on Grunds Stronghold if you have the amulet. (Infidels take notice!)
+
 - [x] Extended Wyrm Caves branch (Appears level 21-22)
-    - 9-13 levels deep
+    - 8-9 levels deep
     - Has standard mines fill levels - but with the rivers mixed in.
     - Created dynamic narrow passage filler levels that are always random.
     - Created an entrance level (from dnh Erebor.des)
     - Imported the Spider Caves and move here as an optional branch.
-    - Imported the Sunless Sea and moved here as an optional branch.
-    - You'll encounter one "nest" level: Random chance of 'F', 'i', ':', 'N', 'S', 'B', 'w' monsters and eggs
-    - You'll encounter another much more difficult nest variant deeper.
+    - You'll encounter one "nest" level
     - 66% chance of encountering the Jermlaine village
-    - Bottom is a dragon nest with baby and adult dragons, as well as eggs and a treasure horde.
+    - Bottom is a dragon nest (from UnNetHack) with baby and adult dragons, as well as eggs and a treasure horde.
     
 - [x] Imported Black Market (appears 23-24):
     - Reduce Black Market prices a bit.
@@ -1998,6 +2063,8 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - Added the 4 variations from dnh
 
 - [x] Imported The Lost Tomb (appears 25-29)
+
+- [x] Imported the Sunless Sea
 
 - [x] Imported The Temple of Moloch (appears 26-29)
     
@@ -2011,7 +2078,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
     - no longer a series of mazes, but are mines-style levels with lava. 
     - Areas such as the Sanctum and the entrance to the Wizard's Tower have also been adjusted.
     - Cerberus now guards the entrance to Gehennom.
-    - Vlad the Impaler's tower has undergone a complete revamp.
+    - Vlad the Impaler's tower is the vanilla version
     - Vibrating square: messages when player is near
 
 - [x] Vecna's Domain
@@ -2039,6 +2106,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Clinic room (SlashTHEM)
 - [x] Terror hall (SlashTHEM)
     - Only appears after level 15.
+
 ### Themed Rooms:
 
 - Evilhack already had most of the themed rooms but I added more.
@@ -2051,23 +2119,21 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 ### New player roles:
 
-#### Convict
+- Rebalanced all SlashEM role skills.
+- No slashem roles can start with magic markers anymore (to stay in line with Evil)
 
+#### Convict
+resistance
 - [x] Replaced Iron Ball of Liberation with Iron Spoon of Liberation
 - [x] Convicts cannot buy services if banned from a shop.
 - [x] Added secret doors to some of the cells on the quest home level, and around the level, so it's easier to navigate.
+- [x] Convicts start with a spoon.
 
 #### Infidel
 
-- The minimum experience level needed to start the quest has been changed from level 14 to level 10. However, there are consequences for starting too soon...
-- The Quest can be unlocked by killing the quest leader if you've made them angry.
-- Abusing your alignment can cause your quest leader to ask you to return the quest artifact.
+- Infidels no longer start with drain life (Necromancers have the monopoly on that). In it's place, the spell of poison blast has been lowered to a level 2 spell so Infidels can start with that.
 
-- Rebalanced all SlashEM role skills.
-- No slashem roles can start with magic markers anymore (to stay in line with Evil)
-- Both Ice and Fire mages now get spell-hunger reduction (similar to wizards
-  but it's calculated with (int - 2)
-- Flame/Ice mages get the multishot penalty
+
 
 #### Flame Mage
 
@@ -2083,6 +2149,8 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 - Adjusted to cast spells using Wisdom, get spellcasting bonuses are calculated using wisdom.
 - Left out the dragon polyself ability.
+- Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
+- Flame mages get the multishot penalty
 
 #### Ice Mage
 
@@ -2100,8 +2168,12 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
   - Removed studded armor, replaced with robe.
   - Removed starting potions (they might freeze in the cold.)
   - Starts with a Frost Horn instead of a wand of cold
+  - Ice Mages no longer start with confuse monster (not useful
+l for vampires/illithids etc), they always start with slow monster instead.
 - Left out the dragon polyself ability.
 - Ice Mages can walk on ice without slipping.
+- Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
+- Ice mages get the multishot penalty
 - Their multishot penalty doesn't apply to knives!
 
 #### Ice and Flame details
@@ -2115,6 +2187,9 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 #### Necromancer
 
+
+With inspiration from aosdict, the Necromancer role has been overhauled with a new approach.
+
 - Removed starting quarterstaff, starts with 2 daggers.
 - Starts with a wand of fear
 - Starts with a robe
@@ -2124,7 +2199,6 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
 - The necromancer's starting ghoul has the ghoulname option available.
 
-With inspiration from Aosdict's ideas, the Necromancer role has been overhauled with a new approach.
 
 ##### Spirits
 
@@ -2160,6 +2234,7 @@ Renews magical power:
 
 - [x] Level 1: Fear Resistance
     - Not afraid of "fear attacks", ie: dragons, banshees, bodaks
+    - Not afraid of Noferatu gaze
     - Not afraid of ghosts or temple ghosts.
 - [x] Level 1: Drain resistance
 - [x] Level 3: Undead warning
@@ -2174,19 +2249,22 @@ Renews magical power:
 
 - Instead of starting with a pile of books or learning techniques, the Necromancer learns special Necromancy spells as they level up. As a holdover from Slash'EM, they still do start with the spell and spellbook of Drain Life.
 - When the following spells are learned - the Necromancer gets them forever. This is meant to simulate techniques, but also to encourage use of them throughout the entire game. 
-- Necromancers are also protected from forgetting Necromancy spells due to amnesia or brain eating attacks.
 
-- [x] XP 2: CALL_UNDEAD (Level 1 spell)
+- [x] XP 2: CALL_UNDEAD 
+    - (Level 1 spell)
     - When cast, acts like a magic whistle for undead.
-- [x] XP 3: RAISE_ZOMBIES (Level 2 spell)
+- [x] XP 3: RAISE_ZOMBIES 
+    - (Level 2 spell)
     - Adapted from the SlashEM Raise Zombies technique
     - Attempts to revive all corpses in adjacent squares and turn them into an appropriate zombies. Other humanoids will become a ghoul 3/4th of the time or a ghast the remaining 1/4th.
 	- There is no effect on non-humanoid corpses.
     - An attempt will be made to tame the resulting undead with the same chances as casting charm monster. The undead will always be hostile if not tamed. You will be unable to move for 2 turns even if there was no effect, and the technique will be usable again after 1000-1500 turns.
 
 - [x] XP 7: COMMAND_UNDEAD
+    - (Level 4 spell)
     - This spell is equivalent to charm monster, except that it only affects undead.
 - [x] XP 9: SUMMON_UNDEAD
+    - (Level 5 spell)
     - 72 in 73 chance of creating one undead monster and a 1 in 73 chance of creating five undead. 
 	- Necromancer they will automatically attempt to dominate the resulting monster(s). Monster(s) may resist, based on their MR.
 - [x] XP 14: ANIMATE_DEAD
@@ -2340,19 +2418,23 @@ Renews magical power:
 
 #### illithid
 
+Starts with the Psionic Wave spell:
+    - Does 2d6 psychic damage
+    - Level 26, this increases to 4d6 psychic damage.
+
 #### Vampires:
 
 - extra attack – drain life bite
 - Can only drain corpses and drink blood.
+- Added amusing custom messages for draining corpses.
 - restricted in the two-weapon skill.
 - Start with a small penalty to luck (-1) and alignment (-5)
 - Vampires who wear an Opera cloak get a +1 Charisma bonus
 - Vampires can wield and wear silver items, but it blocks their natural regeneration
 - Can only be chaotic.
 - As Vampires, they are vulnerable to silver (watch out!))
-- I tried to space out the intrinsics a bit, since it felt like vampires started out
-overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires
-usually enjoy.
+- I tried to space out the intrinsics a bit, since it felt like vampires started out overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires usually enjoy.
+- Disabled #monster polymorph for the vampiric race. 
 
 | Level | Ability            |
 | ------|--------------------|
@@ -2360,7 +2442,6 @@ usually enjoy.
 | Level 1: | Drain/Death res    |
 | Level 1: | Vulnerable to fire |
 | Level 3: | Breathless         |
-| Level 5: | Hunger             |
 | Level 5: | Regeneration       |
 | Level 7: | Poison resistance  |
 | Level 9: | Flying             |
@@ -2381,12 +2462,9 @@ usually enjoy.
 - Various changes have been made to each role's Quest to make the experience more varied and interesting for the player.
 
 - The minimum experience level needed to be accepted for the quest has been lowered to 10 (from the default 14).
-- However, should you accept the quest too soon, the monster spawn rate immediately doubles.
 - If you've made your quest leader angry for whatever reason, this no longer makes the game unwinnable.
-- You can engage them in battle, and if you kill your quest leader, this unlocks the quest. 
-- You can then complete your quest as you normally would. 
-- Take heed, quest leaders are not weak and can prove formidable to a mid-level player. 
-- Also note that your deity isn't exactly thrilled with you killing off your quest leader. 
+- You can engage them in battle, and if you kill your quest leader, this unlocks the quest. You can then complete your quest as you normally would. 
+- Take heed, quest leaders are not weak and can prove formidable to a mid-level player. Also note that your deity isn't exactly thrilled with you killing off your quest leader. 
 - Your alignment record can still be in the positive, but if you try any helm of opposite alignment shenanigans when it comes time to sacrifice the Amulet of Yendor at the endgame... interesting (read: bad) things can happen.
 
 - Abusing your alignment can have a direct effect on how your quest ends. 
@@ -2405,6 +2483,7 @@ usually enjoy.
 - Conversely, if you've killed the quest nemesis and return, but somehow anger your quest leader before you speak to them, killing them also flags the quest as complete. 
 - Some peace of mind – if you've never abused your alignment, your quest leader will never ask you for the quest artifact.
 
+
 ## Shops
 
 - Shopkeepers can be a variety of different races; your race versus theirs directly affects pricing.
@@ -2414,28 +2493,55 @@ usually enjoy.
 ### Shopkeeper Services
 
 - Instead of every store offering a general Identify service - every
-  shop offers premier Identifies based on their shop type or the race of 
-  the shopkeeper. For example, 
-- Streamlined the service menu interface, previously navigating the services
+  shop offers premier identify servies based on their shop type or the race of 
+  the shopkeeper.
+- Streamlined the service menu interface. Previously navigating the services
   was tedious. Now when you press 'p', you are immediately presented with
   a full menu of all the available services - no submenus within menus. 
-- Lighting stores and general tool shops can both charge all types of tools. 
-- Only wand shops can offer premier charging 
-- Rumors - Each shk has a 10% of offering them (Costs $250 right now)
 - Removed shk stealing all your money when you charge WoW 
 - Only Black Market can have the "identify any" service
 
 #### Identify service details
+- All shops:        1 in 3 offer uncursing services.
+                    1 in 20 offer rumors
 
-- Scroll stores:	offer book ID 50% of the time
-- Spellbook stores:	offer scroll ID 50% of the time
-- Wand shops:		offer armor id 25% of the time
-- Weapon shops:		offer armor id 50% of the time
-- Armor shops:		offer weapon id 50% of the time
-- Deli/food shops:	offer potion id 50% of the time.
-- Pet shops:		offer tool/food id 50% of the time
-- Light shops:		offer potion ID: 25%
-- General stores will have 1-5 identify services
+- General stores:   0-2 random identify services,
+                    10% chance of having 1 extra identify service.
+                    20% offer firearms training
+                    25% offer basic charging
+
+- Weapon shops:		75% offer weapon ID
+                    20% offer armor ID
+                    25% offer weapon fixing
+                    25% offer weapon enchanting
+                    25% offer weapon poisoning
+                    20% offer firearms training
+- Armor shops:		75% offer armor ID
+                    20% offer weapon ID
+                    25% offer armor fixing
+                    25% offer armor enchanting
+                    20% offer firearms training
+- Scroll stores:	75% offer scroll ID
+                    20% offer book ID
+- Spellbook stores:	75% offer book ID
+                    20% offer scroll ID
+- Potion stores     50% offer potion ID
+- Ring stores       20% offer ring ID
+                    20% offer amulet ID
+                    20% offer gem ID
+                    25% offer basic charging
+- Wand shops:		50% offer wand ID
+                    20% offer armor ID
+                    25% offer basic charging
+                    25% offer premium charging
+- Tool shops:       50% offer tool ID
+                    25% offer basic charging
+- Deli/food shops:	100% offer food ID
+                    10% offer potion ID
+- Pet shops:		50% offer food ID
+                    25% offer tool ID
+- Lighting shops:	10% offer potion ID
+
 
 Firearms training service:
 - Instead of the weapon practice technique, this is now a shk service.
@@ -2448,13 +2554,19 @@ Firearms training service:
 
 #### Additional race specific services:
 
-- Dwarf: ID gems/weapons/armor
-- Orc: poisoning
-- Gnome: ID tools
-- Giant: ID gems
-- Nymphs ID rings/potions
-- Hobbit: ID rings/food
-- Illithid: ID spellbooks/scrolls
+- Dwarves:          20% offer weapon ID
+                    20% offer armor ID
+                    20% offer gem ID
+- Orcs:             25% offer weapon poisoning
+- Gnomes:           25% offer tool ID
+- Giants:           20% offer gem ID
+- Nymphs:           10% offer ring ID
+                    20% offer potion ID
+- Hobbit:           50% offer food ID
+                    10% offer ring ID
+
+- Illithid:         25% offer scroll ID
+                    25% offer spellbook ID
 - Racial services are offered 25% of the time.
 
 #### New shop types:
@@ -2475,7 +2587,10 @@ Firearms training service:
 - K2, amateurhour, qt
 
 ### Thanks: 
-- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, cbus, Guest2465
+- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire
+
+### Playtesters: 
+- nh2465, cbus
 
 
 ==========================
