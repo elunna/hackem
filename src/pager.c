@@ -1092,6 +1092,7 @@ short otyp;
     dummy.otyp = otyp;
     dummy.oclass = oc.oc_class;
     dummy.material = obj ? obj->material : oc.oc_material;
+    dummy.oprops_known = obj ? obj->oprops_known : 0;
     dummy.bknown = obj ? obj->bknown : 0;
     dummy.blessed = obj ? obj->blessed : 0;
     dummy.cursed = obj ? obj->cursed : 0;
@@ -1110,6 +1111,8 @@ short otyp;
 
     if (obj && otyp == STRANGE_OBJECT) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
+    } else if (dummy.oprops_known) {
+        Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
     } else {
         Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
     }
@@ -1173,6 +1176,14 @@ short otyp;
         if (damage_info.copper_damage)  { OBJPUTSTR(damage_info.copper_damage); }
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
         if (damage_info.mat_damage)     { OBJPUTSTR(damage_info.mat_damage); }
+
+        /* Properties */
+        if (dummy.oprops_known) {
+            if (obj->oprops & ITEM_FIRE) OBJPUTSTR("\t+1d5 + 3 fire damage");
+            if (obj->oprops & ITEM_FROST) OBJPUTSTR("\t+1d5 + 3 cold damage");
+            if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("\t+1d5 + 3 shock damage");
+            if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
+        }
         
         if (identified) {
             Sprintf(buf, "Has a %s%d %s to hit.",
@@ -1206,6 +1217,25 @@ short otyp;
         
         Sprintf(buf, "Takes %d turn%s to put on or remove.",
                 oc.oc_delay, (oc.oc_delay == 1 ? "" : "s"));
+        OBJPUTSTR(buf);
+        
+        if (dummy.oprops_known) {
+            if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
+            if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
+            if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
+            if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
+            if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
+            if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
+            if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
+        }
+    }
+    if (dummy.oprops_known 
+        && (olet == WEAPON_CLASS || olet == ARMOR_CLASS)) {
+        if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
+        if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
+        if (obj->oprops & ITEM_WARNING) OBJPUTSTR("Grants warning");
+        if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
+        if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
     }
     if (olet == FOOD_CLASS) {
         if (otyp == TIN || otyp == CORPSE) {
