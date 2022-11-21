@@ -673,13 +673,17 @@ age_spells()
      * The hero's speed, rest status, conscious status etc.
      * does not alter the loss of memory.
      */
-    for (i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++)
-        if (spellknow(i) && 
-            (spellid(i) != SPE_PSIONIC_WAVE 
+    for (i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++) {
+        if (spellknow(i)) {
+            if (spellid(i) == SPE_PSIONIC_WAVE)
+                continue;
              /* Necromancers don't lose memory of their necromancy spells */
-             && (spell_skilltype(spellid(i)) == P_NECROMANCY_SPELL 
-                 && !Role_if(PM_NECROMANCER))))
+            if (spell_skilltype(spellid(i)) == P_NECROMANCY_SPELL 
+                 && Role_if(PM_NECROMANCER))
+                continue;
             decrnknow(i);
+        }
+    }
     return;
 }
 
