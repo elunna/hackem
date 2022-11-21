@@ -76,10 +76,8 @@ REGION: (69,04,70,05), lit, "ordinary"
 REGION: (58,15,59,16), lit, "ordinary"
 REGION: (69,15,70,16), lit, "ordinary"
 
-NON_DIGGABLE: (43,00,50,20)
-NON_DIGGABLE: (68,00,75,20)
-NON_DIGGABLE: (61,00,67,06)
-NON_DIGGABLE: (61,14,67,20)
+# Non diggable 
+NON_DIGGABLE:(00,00,75,19)
 
 # monsters (Fussvolk)
 MONSTER: ('o', "orc-captain"), random, hostile
