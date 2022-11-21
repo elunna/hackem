@@ -1198,6 +1198,12 @@ short otyp;
             Sprintf(buf, "Base AC %d.", oc.a_ac);
         }
         OBJPUTSTR(buf);
+        int mat_bon = material_bonus(obj);
+        if (mat_bon) {
+            Sprintf(buf, "Effective AC %d (from material)", oc.a_ac + mat_bon);
+            OBJPUTSTR(buf);
+        }
+        
         Sprintf(buf, "Takes %d turn%s to put on or remove.",
                 oc.oc_delay, (oc.oc_delay == 1 ? "" : "s"));
     }
