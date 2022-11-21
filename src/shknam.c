@@ -1212,50 +1212,63 @@ struct monst *shk;
     
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_WEAPON;
+        if (rnd(100) < 75)
+            ESHK(shk)->services |= SHK_ID_WEAPON;
         /* Weapon shops offer armor id 50% of the time */
-        if (!rn2(2))
+        if (!rn2(5))
             ESHK(shk)->services |= SHK_ID_ARMOR;
     } 
     else if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_ARMOR;
+        if (rnd(100) < 75)
+            ESHK(shk)->services |= SHK_ID_ARMOR;
         /* Armor shops offer weapon id 50% of the time */
-        if (!rn2(2))
+        if (!rn2(5))
             ESHK(shk)->services |= SHK_ID_WEAPON;
     } 
     else if (shk_class_match(SCROLL_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_SCROLL;
+        if (rnd(100) < 75)
+            ESHK(shk)->services |= SHK_ID_SCROLL;
         /* Scroll stores offer book ID 50% of the time. */
-        if (!rn2(2))
+        if (!rn2(5))
             ESHK(shk)->services |= SHK_ID_BOOK;
     } 
     else if (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_BOOK;
+        if (rnd(100) < 75)
+            ESHK(shk)->services |= SHK_ID_BOOK;
         /* Book stores offer scroll ID 50% of the time. */
         if (!rn2(2))
             ESHK(shk)->services |= SHK_ID_SCROLL;
     } 
     else if (shk_class_match(POTION_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_POTION;
+        if (rnd(100) < 50)
+            ESHK(shk)->services |= SHK_ID_POTION;
     } 
     else if (shk_class_match(RING_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_RING;
-        ESHK(shk)->services |= SHK_ID_AMULET;
-        ESHK(shk)->services |= SHK_ID_GEM;
+        if (!rn2(5))
+            ESHK(shk)->services |= SHK_ID_RING;
+        if (!rn2(5))
+            ESHK(shk)->services |= SHK_ID_AMULET;
+        if (!rn2(5))
+            ESHK(shk)->services |= SHK_ID_GEM;
     }
     else if (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_TOOL;
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_TOOL;
     } 
     else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
-        ESHK(shk)->services |= SHK_ID_WAND;
+        if (!rn2(2))
+            ESHK(shk)->services |= SHK_ID_WAND;
         /* Wand shops offer armor id 25% of the time */
-        if (!rn2(4))
+        if (!rn2(5))
             ESHK(shk)->services |= SHK_ID_ARMOR;
+        /* Only wand shops offer premium charging */
+        if (!rn2(4) && (shk_class_match(WAND_CLASS, shk) == SHK_MATCH)) 
+            ESHK(shk)->services |= SHK_CHG_PRE;
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
         ESHK(shk)->services |= SHK_ID_FOOD;
         /* Deli shops offer potion id 50% of the time. */
-        if (!rn2(2))
+        if (!rn2(10))
             ESHK(shk)->services |= SHK_ID_POTION;
     }
     
@@ -1272,7 +1285,7 @@ struct monst *shk;
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_WEP_ENC;
         /* Weapon poisoning */
-        if (!rn2(4) && (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH))
+        if (!rn2(4))
             ESHK(shk)->services |= SHK_WEP_POI;
         /* 1 in 5 offer firearms training */
         if (!rn2(5))
@@ -1299,9 +1312,6 @@ struct monst *shk;
           || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_CHG_BAS;
-        /* Only wand shops offer premium charging */
-        if (!rn2(4) && (shk_class_match(WAND_CLASS, shk) == SHK_MATCH)) 
-            ESHK(shk)->services |= SHK_CHG_PRE;
     }
     /* --hackem: Some misc shop details here - using really gross syntax... */
     
@@ -1309,13 +1319,13 @@ struct monst *shk;
         /* Pet shops offer tool/food id 50% of the time */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             ESHK(shk)->services |= SHK_ID_FOOD;
-        if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(2))
+        if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(4))
             ESHK(shk)->services |= SHK_ID_TOOL;
     }
     
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "lighting store")) {
         /* Light shops can sometimes offer potion ID: 25% */
-        if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(10))
             ESHK(shk)->services |= SHK_ID_POTION;
     }
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "gun store")) {
@@ -1329,12 +1339,12 @@ struct monst *shk;
      */
     if (is_dwarf(shkdat)) {
         /* Dwarves have some familiarity with weapons/armor */
-        if (!(ESHK(shk)->services & SHK_ID_ARMOR) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_ARMOR) && !rn2(5))
             ESHK(shk)->services |= SHK_ID_ARMOR;
-        if (!(ESHK(shk)->services & SHK_ID_WEAPON) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_WEAPON) && !rn2(5))
             ESHK(shk)->services |= SHK_ID_WEAPON;
         /* Dwarves are also quite familiar with gems! */
-        if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(5))
             ESHK(shk)->services |= SHK_ID_GEM;
     }
     else if (is_orc(shkdat)) {
@@ -1349,23 +1359,23 @@ struct monst *shk;
     }
     else if (is_giant(shkdat)) {
         /* Giants are familiar with gems. */
-        if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(5))
             ESHK(shk)->services |= SHK_ID_GEM;
     }
     else if (shkdat == &mons[PM_NYMPH]) {
-        if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(10))
             ESHK(shk)->services |= SHK_ID_RING;
         /* Nymphs always have potions so this makes sense. */
 
-        if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(5))
             ESHK(shk)->services |= SHK_ID_POTION;
     }
     else if (shkdat == &mons[PM_HOBBIT]) {
         /* Cheesy LOTR reference */
-        if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(10))
             ESHK(shk)->services |= SHK_ID_RING;
         /* Hobbits are food obsessed */
-        if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(4))
+        if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             ESHK(shk)->services |= SHK_ID_FOOD;
     }
     else if (is_illithid(shkdat)) {
