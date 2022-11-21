@@ -1762,7 +1762,7 @@ minfestcorpse(struct monst *mtmp)
             } 
             else if (mtmp->data == &mons[PM_HELLMINTH]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
-                    makemon(&mons[!rn2(4) ? PM_GIBBERSLUG : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
+                    makemon(&mons[rn2(4) ? PM_GIBBERSLUG : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
             }
             else if (enexto(&cc, mtmp->mx, mtmp->my, &mons[mtmp->mnum])) {
                 if (mtmp->data == &mons[PM_LARVA])
