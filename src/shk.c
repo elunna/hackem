@@ -4684,15 +4684,8 @@ struct monst *shkp;
         return 0;
     }
     
-    /* Test if this object yields anything 
-     * This is obviously a klunky way to do it - the upgrade code should be 
-     * rewritten */
-    struct obj* pseudo = mksobj(obj->otyp, FALSE, FALSE);
-    int upgradable = upgrade_obj(pseudo);
-    obfree(pseudo, (struct obj *) 0);
-    pseudo = (struct obj *) 0;
-    
-    if (upgradable != 1) {
+    /* Test if this object yields anything */
+    if (!obj2upgrade(obj->otyp)) {
         pline("I can't upgrade that object.");
         return 0;
     }
