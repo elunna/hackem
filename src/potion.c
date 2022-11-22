@@ -3836,7 +3836,9 @@ obj2upgrade(int otyp)
     case FUMBLE_BOOTS: return DWARVISH_BOOTS;
 
     /* rings,  amulets */
-    case SACK: return rn2(5) ? OILSKIN_SACK : BAG_OF_HOLDING;
+    case SACK:
+    case BAG_OF_RATS:
+        return rn2(5) ? OILSKIN_SACK : BAG_OF_HOLDING;
         
     case OILSKIN_SACK: return BAG_OF_HOLDING;
     case BAG_OF_HOLDING: return OILSKIN_SACK;
