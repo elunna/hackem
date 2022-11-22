@@ -1209,7 +1209,7 @@ short otyp;
             Sprintf(buf, "Base AC %d.", oc.a_ac);
         }
         OBJPUTSTR(buf);
-        int mat_bon = material_bonus(obj);
+        int mat_bon = obj ? material_bonus(obj) : 0;
         if (mat_bon) {
             Sprintf(buf, "Effective AC %d (from material)", oc.a_ac + mat_bon);
             OBJPUTSTR(buf);
