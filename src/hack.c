@@ -3774,6 +3774,7 @@ static const struct herb_info {
     { CLOVE_OF_GARLIC,    FALSE }, 
     { CARROT,             FALSE },
     { MUSHROOM,           FALSE },
+    { PINEAPPLE,          FALSE },
     { KELP_FROND,         TRUE  }
 };
 
