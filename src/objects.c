@@ -1137,7 +1137,7 @@ SPELL("magic missile",   "vellum",        P_ATTACK_SPELL,      35,  2, 2, 1, RAY
 SPELL("fireball",        "ragged",        P_MATTER_SPELL,      20,  4, 4, 1, RAY, HI_PAPER),
 SPELL("cone of cold",    "dog eared",     P_MATTER_SPELL,      10,  7, 4, 1, RAY, HI_PAPER),
 SPELL("sleep",           "mottled",       P_ENCHANTMENT_SPELL, 30,  1, 2, 1, RAY, HI_PAPER),
-SPELL("finger of death", "stained",       P_NECROMANCY_SPELL,   5, 10, 7, 1, RAY, HI_PAPER),
+SPELL("finger of death", "stained",       P_ATTACK_SPELL,       5, 10, 7, 1, RAY, HI_PAPER),
 SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY, CLR_BRIGHT_BLUE),  /* Slash'EM */
 SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 2, 1, RAY, CLR_GREEN),        /* Slash'EM */
 SPELL("acid blast",      "acid green",    P_ATTACK_SPELL,       5,  9, 6, 1, RAY, CLR_BRIGHT_GREEN), /* Slash'EM */
