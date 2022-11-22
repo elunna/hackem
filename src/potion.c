@@ -3530,7 +3530,6 @@ register struct obj *obj;
     xchar ox, oy;
     long owornmask;
     struct obj *otmp;
-    int chg;
     boolean explodes;
     boolean split1off;
 
@@ -3571,9 +3570,8 @@ register struct obj *obj;
         obj->known = 0;
         break;
     case CRYSTAL_BALL:
-        chg = rn1(10,3);
-        if (obj->spe > chg)
-            obj->spe = chg;
+        obj->spe = rn1(10, 3);
+        /*if (obj->spe > chg) obj->spe = chg;*/
         obj->known = 0;
         break;
     }
