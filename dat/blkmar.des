@@ -8,19 +8,19 @@ GEOMETRY: center, center
 #123456789012345678901234567890123456789012345678901234567890123456789012345
 #0   i    1    i    2    i    3    i    4    i    5    i    6    i    7    i
 MAP
-----------------------------------------------------------------------------
-|.....||...................................................................|
-||...|||...................................................................|
-|||.|| |...................................................................|
-||...|||...................................................................|
-|.....||...................................................................|
-||...|||...................................................................|
-|||.|| |...................................................................|
-||...|||...................................................................|
-|.....||...................................................................|
-|......+...................................................................|
-|.....||...................................................................|
- ---------------------------------------------------------------------------
+0----------------------------------------------------------------------------
+1|.....||...................................................................|
+2||...|||...................................................................|
+3|||.|| |...................................................................|
+4||...|||...................................................................|
+5|.....||...................................................................|
+6||...|||...................................................................|
+7|||.|| |...................................................................|
+8||...|||...................................................................|
+9|.....||...................................................................|
+0|......+...................................................................|
+1|.....||...................................................................|
+2 ---------------------------------------------------------------------------
 ENDMAP
 NON_DIGGABLE: (00,00,75,17)
 NON_PASSWALL: (00,00,75,17)
@@ -42,21 +42,21 @@ ENGRAVING: (03,10), engrave, "Sorry about the mess. Remember, ask if you need he
 
 # Add your favorite monsters here.  Make them peaceful and named,
 # otherwise they will not behave like assistants.
-MONSTER:('T', "rock troll"),   (08,02), "William",      asleep, peaceful
-MONSTER:('T', "rock troll"),   (08,03), "Thomas",       asleep, peaceful
-MONSTER:('T', "rock troll"),   (08,03), "Travis",       asleep, peaceful
-MONSTER:('T', "black troll"),  (08,04), "Boris",       asleep, peaceful
-MONSTER:('T', "black troll"),  (08,05), "Vladimir",         asleep, peaceful
-MONSTER:('T', "black troll"),  (08,05), "Dmitry ",         asleep, peaceful
-MONSTER:('c', "cockatrice"),   (08,06), "Simon",        asleep, peaceful
+# from The Hobbit (Tolkien)
+MONSTER: ('T', "rock troll"),  (09,01), "William", asleep, peaceful
+MONSTER: ('T', "rock troll"),  (09,02), "Thomas", asleep, peaceful
+# from the Bible
+MONSTER: ('H', "frost giant"), (09,03), "Goliath", asleep, peaceful
+# from Greek mythology & high-energy physics
+MONSTER: ('n', "wood nymph"),  (09,04), "Daphne",  asleep, peaceful
+# Add your favorite monsters here.  Make them peaceful and named,
+# otherwise they will not behave like assistants.
+MONSTER: ('&', "balrog"),  (09,05), "Njalnohaar",  asleep, peaceful
+MONSTER: ('&', "pit fiend"),  (09,06), "Hilvuuloth",  asleep, peaceful
+MONSTER: ('c', "cockatrice"),  (09,07), "Wilbur",  asleep, peaceful
+MONSTER: ('c', "cockatrice"),  (09,08), "Simon",  asleep, peaceful
+MONSTER: (':', "rhaumbusun"),  (09,10), "Izzy",  asleep, peaceful
 
-MONSTER:('c', "cockatrice"),   (09,12), "Simone",        asleep, peaceful
-MONSTER:('H', "frost giant"),  (10,12), "Goliath",      asleep, peaceful
-MONSTER:('H', "frost giant"),  (11,12), "Giga",      asleep, peaceful
-MONSTER:('H', "frost giant"),  (12,12), "Gorgon",      asleep, peaceful
-MONSTER:('H', "storm giant"),  (13,12), "Gordon",      asleep, peaceful
-MONSTER:('H', "storm giant"),  (14,12), "Grimmace",      asleep, peaceful
-MONSTER:('H', "storm giant"),  (15,12), "Grifter",      asleep, peaceful
 
 LEVEL: "blkmar-2"
 FLAGS: noteleport, hardfloor, nommap
