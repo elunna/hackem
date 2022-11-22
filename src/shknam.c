@@ -1356,6 +1356,9 @@ struct monst *shk;
         /* Gnomes are very familiar with tools */
         if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(4))
             ESHK(shk)->services |= SHK_ID_TOOL;
+        
+        if (!rn2(4))
+            ESHK(shk)->services |= SHK_TINKER;
     }
     else if (is_giant(shkdat)) {
         /* Giants are familiar with gems. */

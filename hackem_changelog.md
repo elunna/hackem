@@ -2501,6 +2501,25 @@ Starts with the Psionic Wave spell:
 - Removed shk stealing all your money when you charge WoW 
 - Only Black Market can have the "identify any" service
 
+Firearms training service:
+- Instead of the weapon practice technique, this is now a shk service.
+- Gun shops always offer this up to expert skill.
+- Weapon shops, armor shops offer 20% of the time, up to max skilled.
+- General stores offer it 10% of the time, up to max Basic.
+- $500 for Basic skill
+- $1000 for Skilled
+- $2000 for expert?
+
+Tinker service:
+- Only gnomes offer this service
+- Allows you to upgrade an object to (usually) a better form, works the same as dipping an item into a potion of gain level.
+- In Slash'EM this was implemented as a technique, but here the service only takes 1 turn (we'll assume the shopkeepers are very good at tinkering or just cheating and using a hidden potion of gain level behind the counter)
+- Base charge is $500
+- Non-gnomes are charged double
+- Low intelligence (under 13 INT) players are subject to $250 price gouge
+- Lower intelligence (under 18 INT) players are subject to $100 price gouge
+- See the database on "upgrade" for a full list of eligible upgrades.
+
 #### Identify service details
 - All shops:        1 in 3 offer uncursing services.
                     1 in 20 offer rumors
@@ -2542,16 +2561,6 @@ Starts with the Psionic Wave spell:
                     25% offer tool ID
 - Lighting shops:	10% offer potion ID
 
-
-Firearms training service:
-- Instead of the weapon practice technique, this is now a shk service.
-- Gun shops always offer this up to expert skill.
-- Weapon shops, armor shops offer 20% of the time, up to max skilled.
-- General stores offer it 10% of the time, up to max Basic.
-- $500 for Basic skill 
-- $1000 for Skilled 
-- $2000 for expert?
-
 #### Additional race specific services:
 
 - Dwarves:          20% offer weapon ID
@@ -2559,6 +2568,7 @@ Firearms training service:
                     20% offer gem ID
 - Orcs:             25% offer weapon poisoning
 - Gnomes:           25% offer tool ID
+                    25% offer tinker
 - Giants:           20% offer gem ID
 - Nymphs:           10% offer ring ID
                     20% offer potion ID

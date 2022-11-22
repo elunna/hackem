@@ -97,6 +97,7 @@ static int FDECL(shk_armor_works, (const char *, struct monst *, long svc_type))
 static int FDECL(shk_charge, (const char *, struct monst *, char svc_type));
 static int FDECL(shk_rumor, (const char *, struct monst *));
 static int FDECL(shk_firearms, (const char *, struct monst *));
+static int FDECL(shk_tinker, (const char *, struct monst *));
 static boolean FDECL(shk_offer_price, (const char *, long, struct monst *));
 static void FDECL(shk_smooth_charge, (int *, int, int));
 /*
@@ -1948,6 +1949,14 @@ shk_other_services()
                  MENU_ITEMFLAGS_NONE);
     }
     
+    
+    /* Tinker*/
+    any.a_int = 25;
+    if (ESHK(shkp)->services & SHK_TINKER) {
+        add_menu(tmpwin, NO_GLYPH, &any, 'T', 0, ATR_NONE, "Tinker",
+                 MENU_ITEMFLAGS_NONE);
+    }
+
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -2028,6 +2037,9 @@ shk_other_services()
             break;
         case 24:
             result = shk_firearms(slang, shkp);
+            break;
+        case 25:
+            result = shk_tinker(slang, shkp);
             break;
         default:
             pline("Unknown Service");
@@ -4636,6 +4648,102 @@ struct monst *shkp;
     use_skill(weptype, required);
     return 1;
 }
+
+
+
+/*
+**
+** Pay the shopkeeper to tinker an item.
+*/
+
+static int
+shk_tinker(slang, shkp)
+const char *slang;
+struct monst *shkp;
+{
+    register struct obj *obj;       /* The object to identify       */
+    int charge = 500;                     /* Cost to identify             */
+
+    /* Pick object */
+    if (!(obj = getobj(identify_types, "have tinkered")))
+        return 0;
+    
+    if (ACURR(A_INT) < 13) {
+       charge += 250;
+    } 
+    if (ACURR(A_INT) < 18) {
+        charge += 100;
+    }
+    if (!Race_if(PM_GNOME))
+        charge *= 2;
+    
+    /* Artifacts cost more to deal with */
+
+    if (obj->oartifact) {
+        pline("That item is as good as it'll get!");
+        return 0;
+    }
+    
+    /* Test if this object yields anything 
+     * This is obviously a klunky way to do it - the upgrade code should be 
+     * rewritten */
+    struct obj* pseudo = mksobj(obj->otyp, FALSE, FALSE);
+    int upgradable = upgrade_obj(pseudo);
+    obfree(pseudo, (struct obj *) 0);
+    pseudo = (struct obj *) 0;
+    
+    if (upgradable != 1) {
+        pline("I can't upgrade that object.");
+        return 0;
+    }
+    /* Smooth out the charge a bit (lower bound only) */
+    shk_smooth_charge(&charge, 25, 1500);
+    
+    /* Go ahead? */
+    if (shk_offer_price(slang, charge, shkp) == FALSE) 
+        return 0;
+
+    /* Shopkeeper deviousness */
+    if (Hallucination) {
+        pline("You hear %s tell you it's Very Special now.", mon_nam(shkp));
+        return 1;
+    } else if (Confusion) {
+        pline("%s dunks the thing in some water and hands it back to you.", mon_nam(shkp));
+        return 1;
+    }
+    
+    int res = upgrade_obj(obj);
+    if (res != 0) {
+        if (res == 1) {
+            /* The object was upgraded */
+            pline("Hmm!");
+            prinv((char *)0, obj, 0L);
+        } else
+            pline("Huh.");
+          
+        update_inventory();
+    }
+    return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 ** Tell customer how much it'll cost, ask if he wants to pay,

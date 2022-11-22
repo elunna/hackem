@@ -4757,7 +4757,7 @@ boolean defend;
     case AD_DRST:
         return "poison";
     case AD_MAGM:
-        return defend ? "magic missile" : "magic";
+        return defend ? "magic" : "magic missile";
     case AD_DRLI:
         return "drain";
     case AD_CLOB:

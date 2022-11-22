@@ -3526,398 +3526,400 @@ register struct obj *obj;
  * returns -1 if object exploded (potion should be used up) 
  */
 {
-	short otyp = obj->otyp, otyp2;
-	xchar ox, oy;
-	long owornmask;
-	struct obj *otmp;
-	boolean explodes;
-        boolean split1off;
+    short otyp = obj->otyp, otyp2;
+    xchar ox, oy;
+    long owornmask;
+    struct obj *otmp;
+    boolean explodes;
+    boolean split1off;
 
-	/* Check to see if object is valid */
-	if (!obj)
-            return 0;
-	(void) snuff_lit(obj);
-	if (obj->oartifact)
-            /* WAC -- Could have some funky fx */
-            return 0;
+    /* Check to see if object is valid */
+    if (!obj)
+        return 0;
+    (void) snuff_lit(obj);
+    if (obj->oartifact)
+        /* WAC -- Could have some funky fx */
+        return 0;
 
-	switch (obj->otyp) {
-        /* no upgradable weapons (except quarterstaves - use forges instead! */
-        case QUARTERSTAFF:
-            /* Staves are usually wood and magical in nature so we'll allow it */
-            switch (rn2(6)) {
-            case 0: obj->otyp = STAFF_OF_DIVINATION; break;
-            case 1: obj->otyp = STAFF_OF_HEALING; break;
-            case 2: obj->otyp = STAFF_OF_NECROMANCY; break;
-            case 3: obj->otyp = STAFF_OF_MATTER; break;
-            case 4: obj->otyp = STAFF_OF_ESCAPE; break;
-            case 5: obj->otyp = STAFF_OF_WAR; break;
-            }
-            break;
-        case BOOMERANG:
-            obj->otyp = CHAKRAM; 
-            break;
-        /* robes */
-        case ROBE:
-            if (!rn2(2))
-                obj->otyp = ROBE_OF_PROTECTION;
-            else
-                obj->otyp = ROBE_OF_POWER;
-            break;
-        case ROBE_OF_PROTECTION:
-        case ROBE_OF_POWER:
-            obj->otyp = ROBE;
-            break;
-            
-        /* Add value to junk */
-        case ROBE_OF_WEAKNESS: obj->otyp = ROBE; break;
-            
-        /* cloaks */
-        case DWARVISH_CLOAK:
-        case CLOAK_OF_PROTECTION:
-        case CLOAK_OF_INVISIBILITY:
-        case CLOAK_OF_MAGIC_RESISTANCE:
-        case CLOAK_OF_DISPLACEMENT:
-        case CLOAK_OF_FLIGHT:
-            if (!rn2(2)) 
-                obj->otyp = OILSKIN_CLOAK;
-            else 
-                obj->otyp = ELVEN_CLOAK;
-            break;
-            
-        case OILSKIN_CLOAK:
-        case ELVEN_CLOAK:
-            switch (rn2(5)) {
-            case 0: obj->otyp = CLOAK_OF_PROTECTION; break;
-            case 1: obj->otyp = CLOAK_OF_INVISIBILITY; break;
-            case 2: obj->otyp = CLOAK_OF_MAGIC_RESISTANCE; break;
-            case 3: obj->otyp = CLOAK_OF_DISPLACEMENT; break;
-            case 4: obj->otyp = CLOAK_OF_FLIGHT; break;
-            }
-            break;
-
-        /* For completeness */
-        case MUMMY_WRAPPING: obj->otyp = PLAIN_CLOAK; break;
-        case PLAIN_CLOAK: obj->otyp = ORCISH_CLOAK; break;
-        case ORCISH_CLOAK: obj->otyp = DWARVISH_CLOAK; break;
-
-        /* Add value to junk */
-        case POISONOUS_CLOAK: obj->otyp = ALCHEMY_SMOCK; break;
-            
-        /* Shirts */
-        /* Add value to junk */
-        case STRIPED_SHIRT: obj->otyp = T_SHIRT; break;
-            
-        /* helms */
-        case TOQUE:
-        case HELM_OF_BRILLIANCE:
-        case HELM_OF_SPEED:
-        case HELM_OF_TELEPATHY:
-            if (!rn2(2)) 
-                obj->otyp = DWARVISH_HELM;
-            else 
-                obj->otyp = TINFOIL_HAT;
-            break;
-            
-        case DWARVISH_HELM:
-        case TINFOIL_HAT:
-            switch (rn2(4)) {
-            case 0: obj->otyp = TOQUE; break;
-            case 1: obj->otyp = HELM_OF_BRILLIANCE; break;
-            case 2: obj->otyp = HELM_OF_SPEED; break;
-            case 3: obj->otyp = HELM_OF_TELEPATHY; break;
-            }
-            break;
-            
-        /* Add value to junk */
-        case HELM_OF_MADNESS: obj->otyp = TINFOIL_HAT; break;
-            
-        case FEDORA: obj->otyp = ELVEN_HELM; break;
-        case ELVEN_HELM: obj->otyp = FEDORA; break;
-            
-        case CORNUTHAUM: obj->otyp = DUNCE_CAP; break;
-        /* Add value to junk */
-        case DUNCE_CAP: obj->otyp = CORNUTHAUM; break;
-
-        /* gloves */
-        case GLOVES:
-            switch (rn2(3)) {
-            case 0: obj->otyp = ROGUES_GLOVES; break;
-            case 1: obj->otyp = BOXING_GLOVES; break;
-            case 2: obj->otyp = GAUNTLETS; break;
-            }
-            break;
-                
-        case ROGUES_GLOVES:
-        case BOXING_GLOVES:
-            obj->otyp = GLOVES; 
-            break;
-            
-        case GAUNTLETS:
-            switch (rn2(4)) {
-            case 0: obj->otyp = GAUNTLETS_OF_SWIMMING; break;
-            case 1: obj->otyp = GAUNTLETS_OF_DEXTERITY; break;
-            case 2: obj->otyp = GAUNTLETS_OF_PROTECTION; break;
-            case 3: obj->otyp = GAUNTLETS_OF_POWER; break;
-            }
-            break;
+    switch (obj->otyp) {
+    /* no upgradable weapons (except quarterstaves - use forges instead! */
+    case QUARTERSTAFF:
+        /* Staves are usually wood and magical in nature so we'll allow it */
+        switch (rn2(6)) {
+        case 0: obj->otyp = STAFF_OF_DIVINATION; break;
+        case 1: obj->otyp = STAFF_OF_HEALING; break;
+        case 2: obj->otyp = STAFF_OF_NECROMANCY; break;
+        case 3: obj->otyp = STAFF_OF_MATTER; break;
+        case 4: obj->otyp = STAFF_OF_ESCAPE; break;
+        case 5: obj->otyp = STAFF_OF_WAR; break;
+        }
+        break;
+    case BOOMERANG:
+        obj->otyp = CHAKRAM; 
+        break;
+    /* robes */
+    case ROBE:
+        if (!rn2(2))
+            obj->otyp = ROBE_OF_PROTECTION;
+        else
+            obj->otyp = ROBE_OF_POWER;
+        break;
+    case ROBE_OF_PROTECTION:
+    case ROBE_OF_POWER:
+        obj->otyp = ROBE;
+        break;
         
-        case GAUNTLETS_OF_SWIMMING:
-        case GAUNTLETS_OF_DEXTERITY:
-        case GAUNTLETS_OF_PROTECTION:
-        case GAUNTLETS_OF_POWER:
-            obj->otyp = GAUNTLETS; 
-            break;
+    /* Add value to junk */
+    case ROBE_OF_WEAKNESS: obj->otyp = ROBE; break;
+        
+    /* cloaks */
+    case DWARVISH_CLOAK:
+    case CLOAK_OF_PROTECTION:
+    case CLOAK_OF_INVISIBILITY:
+    case CLOAK_OF_MAGIC_RESISTANCE:
+    case CLOAK_OF_DISPLACEMENT:
+    case CLOAK_OF_FLIGHT:
+        if (!rn2(2)) 
+            obj->otyp = OILSKIN_CLOAK;
+        else 
+            obj->otyp = ELVEN_CLOAK;
+        break;
+        
+    case OILSKIN_CLOAK:
+    case ELVEN_CLOAK:
+        switch (rn2(5)) {
+        case 0: obj->otyp = CLOAK_OF_PROTECTION; break;
+        case 1: obj->otyp = CLOAK_OF_INVISIBILITY; break;
+        case 2: obj->otyp = CLOAK_OF_MAGIC_RESISTANCE; break;
+        case 3: obj->otyp = CLOAK_OF_DISPLACEMENT; break;
+        case 4: obj->otyp = CLOAK_OF_FLIGHT; break;
+        }
+        break;
 
-        /* Add value to junk */
-        case GAUNTLETS_OF_FUMBLING: obj->otyp = GAUNTLETS; break;
-            
-        /* shields */
-        case DWARVISH_ROUNDSHIELD:
-            switch (rn2(4)) {
-            case 0: obj->otyp = SHIELD_OF_REFLECTION; break;
-            case 1: obj->otyp = SHIELD_OF_LIGHT; break;
-            case 2: obj->otyp = SHIELD_OF_MOBILITY; break;
-            case 3: obj->otyp = RESONANT_SHIELD; break;
-            }
-            break;
-            
-        case SHIELD_OF_REFLECTION:
-        case SHIELD_OF_LIGHT:
-        case SHIELD_OF_MOBILITY:
-        case RESONANT_SHIELD:
-            obj->otyp = DWARVISH_ROUNDSHIELD; break;
-            
-        /* boots */
-        case DWARVISH_BOOTS:
-        case ELVEN_BOOTS:
-            switch (rn2(5)) {
-            case 0: obj->otyp = SPEED_BOOTS; break;
-            case 1: obj->otyp = WATER_WALKING_BOOTS; break;
-            case 2: obj->otyp = JUMPING_BOOTS; break;
-            case 3: obj->otyp = STOMPING_BOOTS; break;
-            case 4: obj->otyp = KICKING_BOOTS; break;
-            }
-            break;
+    /* For completeness */
+    case MUMMY_WRAPPING: obj->otyp = PLAIN_CLOAK; break;
+    case PLAIN_CLOAK: obj->otyp = ORCISH_CLOAK; break;
+    case ORCISH_CLOAK: obj->otyp = DWARVISH_CLOAK; break;
 
-        case SPEED_BOOTS:
-        case WATER_WALKING_BOOTS:
-        case JUMPING_BOOTS:
-        case STOMPING_BOOTS:
-        case KICKING_BOOTS:
-            if (!rn2(2)) 
-                obj->otyp = DWARVISH_BOOTS;
-            else
-                obj->otyp = ELVEN_BOOTS; 
-            break;
-            
-        case LOW_BOOTS: obj->otyp = HIGH_BOOTS; break;
-        case HIGH_BOOTS: obj->otyp = DWARVISH_BOOTS; break;
+    /* Add value to junk */
+    case POISONOUS_CLOAK: obj->otyp = ALCHEMY_SMOCK; break;
+        
+    /* Shirts */
+    /* Add value to junk */
+    case STRIPED_SHIRT: obj->otyp = T_SHIRT; break;
+        
+    /* helms */
+    case TOQUE:
+    case HELM_OF_BRILLIANCE:
+    case HELM_OF_SPEED:
+    case HELM_OF_TELEPATHY:
+        if (!rn2(2)) 
+            obj->otyp = DWARVISH_HELM;
+        else 
+            obj->otyp = TINFOIL_HAT;
+        break;
+        
+    case DWARVISH_HELM:
+    case TINFOIL_HAT:
+        switch (rn2(4)) {
+        case 0: obj->otyp = TOQUE; break;
+        case 1: obj->otyp = HELM_OF_BRILLIANCE; break;
+        case 2: obj->otyp = HELM_OF_SPEED; break;
+        case 3: obj->otyp = HELM_OF_TELEPATHY; break;
+        }
+        break;
+        
+    /* Add value to junk */
+    case HELM_OF_MADNESS: obj->otyp = TINFOIL_HAT; break;
+        
+    case FEDORA: obj->otyp = ELVEN_HELM; break;
+    case ELVEN_HELM: obj->otyp = FEDORA; break;
+        
+    case CORNUTHAUM: obj->otyp = DUNCE_CAP; break;
+    /* Add value to junk */
+    case DUNCE_CAP: obj->otyp = CORNUTHAUM; break;
 
-        /* Add value to junk */
-        case FUMBLE_BOOTS: obj->otyp = DWARVISH_BOOTS; break;
+    /* gloves */
+    case GLOVES:
+        switch (rn2(3)) {
+        case 0: obj->otyp = ROGUES_GLOVES; break;
+        case 1: obj->otyp = BOXING_GLOVES; break;
+        case 2: obj->otyp = GAUNTLETS; break;
+        }
+        break;
+            
+    case ROGUES_GLOVES:
+    case BOXING_GLOVES:
+        obj->otyp = GLOVES; 
+        break;
+        
+    case GAUNTLETS:
+        switch (rn2(4)) {
+        case 0: obj->otyp = GAUNTLETS_OF_SWIMMING; break;
+        case 1: obj->otyp = GAUNTLETS_OF_DEXTERITY; break;
+        case 2: obj->otyp = GAUNTLETS_OF_PROTECTION; break;
+        case 3: obj->otyp = GAUNTLETS_OF_POWER; break;
+        }
+        break;
+    
+    case GAUNTLETS_OF_SWIMMING:
+    case GAUNTLETS_OF_DEXTERITY:
+    case GAUNTLETS_OF_PROTECTION:
+    case GAUNTLETS_OF_POWER:
+        obj->otyp = GAUNTLETS; 
+        break;
 
-        /* rings,  amulets */
-        case SACK:
-            obj->otyp = rn2(5) ? OILSKIN_SACK : BAG_OF_HOLDING;
-            break;
-            
-        case OILSKIN_SACK: obj->otyp = BAG_OF_HOLDING; break;
-        case BAG_OF_HOLDING: obj->otyp = OILSKIN_SACK; break;
-            
-        case TOWEL: obj->otyp = BLINDFOLD; break;
-        case BLINDFOLD: obj->otyp = TOWEL; break;
-            
-        case LOCK_PICK: obj->otyp = SKELETON_KEY; break;
-        case SKELETON_KEY: obj->otyp = LOCK_PICK; break;
-            
-        case PEA_WHISTLE: obj->otyp = MAGIC_WHISTLE; break;
-        case MAGIC_WHISTLE: obj->otyp = PEA_WHISTLE; break;
-            
-        case FLUTE:
-            obj->otyp = MAGIC_FLUTE;
-            obj->spe = rn1(5,10);
-            break;
-        case MAGIC_FLUTE:
-            obj->otyp = FLUTE;
-            break;
-            
-        case TOOLED_HORN:
-            obj->otyp = rn1(HORN_OF_PLENTY - TOOLED_HORN, FROST_HORN);
-            obj->spe = rn1(5,10);
-            obj->known = 0;
-            break;
-        case HORN_OF_PLENTY:
-        case HORN_OF_BLASTING:
-        case FIRE_HORN:
-        case FROST_HORN:
-            obj->otyp = TOOLED_HORN;
-            break;
-            
-        case HARP:
-            obj->otyp = MAGIC_HARP;
-            obj->spe = rn1(5,10);
-            obj->known = 0;
-            break;
-        case MAGIC_HARP: obj->otyp = HARP; break;
-            
-        case LEASH: obj->otyp = SADDLE; break;
-        case SADDLE: obj->otyp = LEASH; break;
-            
-        case TIN_OPENER:
-            obj->otyp = TINNING_KIT;
-            obj->spe = rn1(30,70);
-            obj->known = 0;
-            break;
-        case TINNING_KIT: obj->otyp = TIN_OPENER; break;
-            
-        case LENSES:
-            obj->otyp = CRYSTAL_BALL;
-            obj->known = 0;
-            break;
-        case CRYSTAL_BALL: obj->otyp = LENSES; break;
-            
-        case LAND_MINE:
-        case PINEAPPLE:
-            switch (rnd(3)) {
-            case 1: obj->otyp = FIRE_BOMB; break;
-            case 2: obj->otyp = GAS_BOMB; break;
-            case 3: obj->otyp = SONIC_BOMB; break;
-            }
-            break;
-            
-        case FLINT:
-            split1off = (obj->quan > 1L);
-            if (split1off)
-                obj = splitobj(obj, 1L);
+    /* Add value to junk */
+    case GAUNTLETS_OF_FUMBLING: obj->otyp = GAUNTLETS; break;
+        
+    /* shields */
+    case DWARVISH_ROUNDSHIELD:
+        switch (rn2(4)) {
+        case 0: obj->otyp = SHIELD_OF_REFLECTION; break;
+        case 1: obj->otyp = SHIELD_OF_LIGHT; break;
+        case 2: obj->otyp = SHIELD_OF_MOBILITY; break;
+        case 3: obj->otyp = RESONANT_SHIELD; break;
+        }
+        break;
+        
+    case SHIELD_OF_REFLECTION:
+    case SHIELD_OF_LIGHT:
+    case SHIELD_OF_MOBILITY:
+    case RESONANT_SHIELD:
+        obj->otyp = DWARVISH_ROUNDSHIELD; break;
+        
+    /* boots */
+    case DWARVISH_BOOTS:
+    case ELVEN_BOOTS:
+        switch (rn2(5)) {
+        case 0: obj->otyp = SPEED_BOOTS; break;
+        case 1: obj->otyp = WATER_WALKING_BOOTS; break;
+        case 2: obj->otyp = JUMPING_BOOTS; break;
+        case 3: obj->otyp = STOMPING_BOOTS; break;
+        case 4: obj->otyp = KICKING_BOOTS; break;
+        }
+        break;
 
-            if (!rn2(2))
-                obj->otyp = LUCKSTONE;
-            else
-                obj->otyp = WHETSTONE;
-            break;
-        case LUCKSTONE:
-            obj->otyp = HEALTHSTONE;
-            break;
-        case WHETSTONE:
-            obj->otyp = HEALTHSTONE;
-            break;
-        case HEALTHSTONE:
-            if (!rn2(2))
-                obj->otyp = LUCKSTONE;
-            else
-                obj->otyp = WHETSTONE;
-            break;
-        case LOADSTONE:
+    case SPEED_BOOTS:
+    case WATER_WALKING_BOOTS:
+    case JUMPING_BOOTS:
+    case STOMPING_BOOTS:
+    case KICKING_BOOTS:
+        if (!rn2(2)) 
+            obj->otyp = DWARVISH_BOOTS;
+        else
+            obj->otyp = ELVEN_BOOTS; 
+        break;
+        
+    case LOW_BOOTS: obj->otyp = HIGH_BOOTS; break;
+    case HIGH_BOOTS: obj->otyp = DWARVISH_BOOTS; break;
+
+    /* Add value to junk */
+    case FUMBLE_BOOTS: obj->otyp = DWARVISH_BOOTS; break;
+
+    /* rings,  amulets */
+    case SACK:
+        obj->otyp = rn2(5) ? OILSKIN_SACK : BAG_OF_HOLDING;
+        break;
+        
+    case OILSKIN_SACK: obj->otyp = BAG_OF_HOLDING; break;
+    case BAG_OF_HOLDING: obj->otyp = OILSKIN_SACK; break;
+        
+    case TOWEL: obj->otyp = BLINDFOLD; break;
+    case BLINDFOLD: obj->otyp = TOWEL; break;
+        
+    case LOCK_PICK: obj->otyp = SKELETON_KEY; break;
+    case SKELETON_KEY: obj->otyp = LOCK_PICK; break;
+        
+    case PEA_WHISTLE: obj->otyp = MAGIC_WHISTLE; break;
+    case MAGIC_WHISTLE: obj->otyp = PEA_WHISTLE; break;
+        
+    case FLUTE:
+        obj->otyp = MAGIC_FLUTE;
+        obj->spe = rn1(5,10);
+        break;
+    case MAGIC_FLUTE:
+        obj->otyp = FLUTE;
+        break;
+        
+    case TOOLED_HORN:
+        obj->otyp = rn1(HORN_OF_PLENTY - TOOLED_HORN, FROST_HORN);
+        obj->spe = rn1(5,10);
+        obj->known = 0;
+        break;
+    case HORN_OF_PLENTY:
+    case HORN_OF_BLASTING:
+    case FIRE_HORN:
+    case FROST_HORN:
+        obj->otyp = TOOLED_HORN;
+        break;
+        
+    case HARP:
+        obj->otyp = MAGIC_HARP;
+        obj->spe = rn1(5,10);
+        obj->known = 0;
+        break;
+    case MAGIC_HARP: obj->otyp = HARP; break;
+        
+    case LEASH: obj->otyp = SADDLE; break;
+    case SADDLE: obj->otyp = LEASH; break;
+        
+    case TIN_OPENER:
+        obj->otyp = TINNING_KIT;
+        obj->spe = rn1(30,70);
+        obj->known = 0;
+        break;
+    case TINNING_KIT: obj->otyp = TIN_OPENER; break;
+        
+    case LENSES:
+        obj->otyp = CRYSTAL_BALL;
+        obj->known = 0;
+        break;
+    case CRYSTAL_BALL: obj->otyp = LENSES; break;
+        
+    case LAND_MINE:
+    case PINEAPPLE:
+        switch (rnd(3)) {
+        case 1: obj->otyp = FIRE_BOMB; break;
+        case 2: obj->otyp = GAS_BOMB; break;
+        case 3: obj->otyp = SONIC_BOMB; break;
+        }
+        break;
+        
+    case FLINT:
+        split1off = (obj->quan > 1L);
+        if (split1off)
+            obj = splitobj(obj, 1L);
+
+        if (!rn2(2))
+            obj->otyp = LUCKSTONE;
+        else
             obj->otyp = WHETSTONE;
-            break;
-        default:
-            /* This object is not upgradable */
-            return 0;
-	}
-        
-	if ((!carried(obj) || obj->unpaid) &&
-		get_obj_location(obj, &ox, &oy, BURIED_TOO | CONTAINED_TOO) &&
-		costly_spot(ox, oy)) {
-	    char objroom = *in_rooms(ox, oy, SHOPBASE);
-	    register struct monst *shkp = shop_keeper(objroom);
+        break;
+    case LUCKSTONE:
+        obj->otyp = HEALTHSTONE;
+        break;
+    case WHETSTONE:
+        obj->otyp = HEALTHSTONE;
+        break;
+    case HEALTHSTONE:
+        if (!rn2(2))
+            obj->otyp = LUCKSTONE;
+        else
+            obj->otyp = WHETSTONE;
+        break;
+    case LOADSTONE:
+        obj->otyp = WHETSTONE;
+        break;
+    default:
+        /* This object is not upgradable */
+        return 0;
+    }
+    
+    if ((!carried(obj) || obj->unpaid) &&
+            get_obj_location(obj, &ox, &oy, BURIED_TOO | CONTAINED_TOO) &&
+            costly_spot(ox, oy)) {
+        char objroom = *in_rooms(ox, oy, SHOPBASE);
+        register struct monst *shkp = shop_keeper(objroom);
 
-	    if ((!obj->no_charge
-                     || (Has_contents(obj)
-                     && (contained_cost(obj, shkp, 0L, FALSE, FALSE) != 0L)))
-                     && inhishop(shkp)) {
+        if ((!obj->no_charge
+                 || (Has_contents(obj)
+                 && (contained_cost(obj, shkp, 0L, FALSE, FALSE) != 0L)))
+                 && inhishop(shkp)) {
 
-		if(shkp->mpeaceful) {
-		    if(*u.ushops
-                            && *in_rooms(u.ux, u.uy, 0)
-                            == *in_rooms(shkp->mx, shkp->my, 0)
-                            && !costly_spot(u.ux, u.uy)) {
-                        make_angry_shk(shkp, ox, oy);
-                    } else {
-			pline("%s gets angry!", Monnam(shkp));
-			hot_pursuit(shkp);
-		    }
-		} else Norep("%s is furious!", Monnam(shkp));
-		otyp2 = obj->otyp;
-		obj->otyp = otyp;
-		/*
-		 * [ALI] When unpaid containers are upgraded, the
-		 * old container is billed as a dummy object, but
-		 * it's contents are unaffected and will remain
-		 * either unpaid or not as appropriate.
-		 */
-		otmp = obj->cobj;
-		obj->cobj = NULL;
-		if (costly_spot(u.ux, u.uy) && objroom == *u.ushops)
-		    bill_dummy_object(obj);
-		else
-		    (void) stolen_value(obj, ox, oy, FALSE, FALSE);
-		obj->otyp = otyp2;
-		obj->cobj = otmp;
-	    }
-	}
-
-	/* The object was transformed */
-	obj->owt = weight(obj);
-	obj->oclass = objects[obj->otyp].oc_class;
-	if (!objects[obj->otyp].oc_uses_known)
-	    obj->known = 1;
-
-	if (carried(obj)) {
-	    if (obj == uskin) rehumanize();
-	    /* Quietly remove worn item if no longer compatible --ALI */
-	    owornmask = obj->owornmask;
-	    if (owornmask & W_ARM && !is_suit(obj))
-		owornmask &= ~W_ARM;
-	    if (owornmask & W_ARMC && !is_cloak(obj))
-		owornmask &= ~W_ARMC;
-	    if (owornmask & W_ARMH && !is_helmet(obj))
-		owornmask &= ~W_ARMH;
-	    if (owornmask & W_ARMS && !is_shield(obj))
-		owornmask &= ~W_ARMS;
-	    if (owornmask & W_ARMG && !is_gloves(obj))
-		owornmask &= ~W_ARMG;
-	    if (owornmask & W_ARMF && !is_boots(obj))
-		owornmask &= ~W_ARMF;
-	    if (owornmask & W_ARMU && !is_shirt(obj))
-		owornmask &= ~W_ARMU;
-	    if (owornmask & W_TOOL && obj->otyp != BLINDFOLD &&
-	      obj->otyp != TOWEL && obj->otyp != LENSES)
-		owornmask &= ~W_TOOL;
-	    otyp2 = obj->otyp;
-	    obj->otyp = otyp;
-	    if (obj->otyp == LEASH && obj->leashmon)
-                o_unleash(obj);
-	    remove_worn_item(obj, TRUE);
-	    obj->otyp = otyp2;
-	    obj->owornmask = owornmask;
-	    setworn(obj, obj->owornmask);
-            set_wear(obj);
-	    /* puton_worn_item(obj); */
-	}
-
-	/* if (obj->otyp == BAG_OF_HOLDING && Has_contents(obj)) { */
-        if (Is_mbag(obj) && Has_contents(obj)) {
-                explodes = FALSE;
-
-	    for (otmp = obj->cobj; otmp; otmp = otmp->nobj) {
-                if (mbag_explodes(otmp, 0)) {
-                    explodes = TRUE;
-                    break;
+            if (shkp->mpeaceful) {
+                if(*u.ushops
+                        && *in_rooms(u.ux, u.uy, 0)
+                        == *in_rooms(shkp->mx, shkp->my, 0)
+                        && !costly_spot(u.ux, u.uy)) {
+                    make_angry_shk(shkp, ox, oy);
+                } else {
+                    pline("%s gets angry!", Monnam(shkp));
+                    hot_pursuit(shkp);
                 }
+            } else 
+                Norep("%s is furious!", Monnam(shkp));
+            otyp2 = obj->otyp;
+            obj->otyp = otyp;
+            /*
+             * [ALI] When unpaid containers are upgraded, the
+             * old container is billed as a dummy object, but
+             * it's contents are unaffected and will remain
+             * either unpaid or not as appropriate.
+             */
+            otmp = obj->cobj;
+            obj->cobj = NULL;
+            if (costly_spot(u.ux, u.uy) && objroom == *u.ushops)
+                bill_dummy_object(obj);
+            else
+                (void) stolen_value(obj, ox, oy, FALSE, FALSE);
+            obj->otyp = otyp2;
+            obj->cobj = otmp;
+        }
+    }
+
+    /* The object was transformed */
+    obj->owt = weight(obj);
+    obj->oclass = objects[obj->otyp].oc_class;
+    if (!objects[obj->otyp].oc_uses_known)
+        obj->known = 1;
+
+    if (carried(obj)) {
+        if (obj == uskin) 
+            rehumanize();
+        /* Quietly remove worn item if no longer compatible --ALI */
+        owornmask = obj->owornmask;
+        if (owornmask & W_ARM && !is_suit(obj))
+            owornmask &= ~W_ARM;
+        if (owornmask & W_ARMC && !is_cloak(obj))
+            owornmask &= ~W_ARMC;
+        if (owornmask & W_ARMH && !is_helmet(obj))
+            owornmask &= ~W_ARMH;
+        if (owornmask & W_ARMS && !is_shield(obj))
+            owornmask &= ~W_ARMS;
+        if (owornmask & W_ARMG && !is_gloves(obj))
+            owornmask &= ~W_ARMG;
+        if (owornmask & W_ARMF && !is_boots(obj))
+            owornmask &= ~W_ARMF;
+        if (owornmask & W_ARMU && !is_shirt(obj))
+            owornmask &= ~W_ARMU;
+        if (owornmask & W_TOOL && obj->otyp != BLINDFOLD &&
+          obj->otyp != TOWEL && obj->otyp != LENSES)
+            owornmask &= ~W_TOOL;
+        otyp2 = obj->otyp;
+        obj->otyp = otyp;
+        if (obj->otyp == LEASH && obj->leashmon)
+            o_unleash(obj);
+        remove_worn_item(obj, TRUE);
+        obj->otyp = otyp2;
+        obj->owornmask = owornmask;
+        setworn(obj, obj->owornmask);
+        set_wear(obj);
+        /* puton_worn_item(obj); */
+    }
+
+    /* if (obj->otyp == BAG_OF_HOLDING && Has_contents(obj)) { */
+    if (Is_mbag(obj) && Has_contents(obj)) {
+            explodes = FALSE;
+
+        for (otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+            if (mbag_explodes(otmp, 0)) {
+                explodes = TRUE;
+                break;
             }
-            if (explodes) {
-		pline("As you upgrade your bag, you are blasted by a magical explosion!");
-		delete_contents(obj);
-		if (carried(obj))
-		    useup(obj);
-		else
-		    useupf(obj, obj->quan);
-		losehp(d(6,6), "magical explosion", KILLED_BY_AN);
-		return -1;
-	    }
-	}
-	return 1;
+        }
+        if (explodes) {
+            pline("As you upgrade your bag, you are blasted by a magical explosion!");
+            delete_contents(obj);
+            if (carried(obj))
+                useup(obj);
+            else
+                useupf(obj, obj->quan);
+            losehp(d(6,6), "magical explosion", KILLED_BY_AN);
+            return -1;
+        }
+    }
+    return 1;
 }
 
 /* Character becomes very fast temporarily. */
