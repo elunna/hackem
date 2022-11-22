@@ -447,6 +447,15 @@ aphrodite
 	  [ Homeric Hymn VI, to Aphrodite,
 		translated by Hugh G. Evelyn-White ]
 apple
+	An apple is a fruit that is suitable for vegans and vegetarians.
+	Pets that are herbivorous will consider it a treat, and it can be 
+	used to tame horses; domestic cats and dogs are rendered peaceful.
+
+	Eating a cursed apple will cause you to fall asleep for 20-30 
+	turns if you lack sleep resistance.
+	
+	Trees will sometimes drop these either randomly or from kicking.
+
 	NEWTONIAN, adj.  Pertaining to a philosophy of the universe
 	invented by Newton, who discovered that an apple will fall
 	to the ground, but was unable to say why.  His successors
@@ -634,6 +643,12 @@ titanothere
 	of the Oligocene being 8 feet high at the shoulder.
 		[ Prehistoric Animals, by Barry Cox ]
 banana
+	Apes and monkeys can be tamed by bananas; these two monsters, 
+	along with the sasquatch, regard bananas as treats, so you can 
+	train their apport with one.
+	
+	Trees will sometimes drop these either randomly or from kicking.
+	
 	He took another step and she cocked her right wrist in
 	viciously.  She heard the spring click.  Weight slapped into
 	her hand.
@@ -1047,6 +1062,9 @@ byakhee
 		[ Melusine, by Sarah Monette ]
 cake
 slice of cake
+	Very filling. Cursed cake abuses dexterity; non-cursed cake 
+	functions as a blessed potion of restore ability
+	
 	The cake is a lie.
 		[ Portal ]
 *camaxtli
@@ -1089,6 +1107,13 @@ candy bar
 	of birthday chocolate last him for more than a month.
 		[ Charlie and the Chocolate Factory, by Roald Dahl ]
 carrot
+    When eaten, they cure blindness unless it is caused by a cream pie.
+    Carrots are considered treats for herbivores; blinded pets also 
+    consider carrots a 'treat', and will eat them to cure their own 
+    blindness regardless of diet.
+    
+    This herb will slowly propogate itself if left alone on the ground.
+
 	In World War II, Britain's air ministry spread the word that
 	a diet of these vegetables helped pilots see Nazi bombers
 	attacking at night.  That was a lie intended to cover the real
@@ -1133,7 +1158,11 @@ kitten
 	yellow and white, none was missing.  Very sleek and fat did
 	the cats appear, and sonorous with purring content.
 		[ The Cats of Ulthar, by H.P. Lovecraft ]
-catnip
+*catnip
+	Using this on a feline will tame it, but also confuse it.
+	
+	This herb will slowly propogate itself if left alone on the ground.
+	
 	Mrowr?
 # this one doesn't work very well for dwarven and gnomish cavemen
 cave*man
@@ -1237,6 +1266,12 @@ charo*n
 	man, advanced in age, was called Charon.  The deceased's next-
 	of-kin would place a coin under his tongue, to pay the ferry-
 	man.
+cheese
+	Cheese can be used to tame sewer rats, black rats, giant rats and 
+	pack rats. Even though its material is listed as fleshy (presumably 
+	so that carnivorous monsters would eat it), eating cheese does not 
+	violate the vegetarian conduct. Cheese has an excellent nutrition/
+	weight ratio (250/2 = 125).
 *chest
 large box
 	Dantes rapidly cleared away the earth around the chest.  Soon
@@ -1455,6 +1490,11 @@ coyote
 	This carnivore is known for its voracious appetite and
 	inflated view of its own intelligence.
 cram*
+	Dwarves gain an additional 100 nutrition from cram rations.
+	Non-cursed cram rations are never rotten, which makes them a safer
+	option than most other comestibles if you must eat while hostile 
+	monsters are nearby.
+	
 	If you want to know what cram is, I can only say that I don't
 	know the recipe; but it is biscuitish, keeps good indefinitely,
 	is supposed to be sustaining, and is certainly not entertaining,
@@ -1462,6 +1502,25 @@ cram*
 	exercise.  It was made by the Lake-men for long journeys.
 		[ The Hobbit, by J.R.R. Tolkien ]
 cream pie
+	Keystone Kops frequently generate with cream pies.
+	
+	Throwing a cream pie at a monster will blind them; monsters can 
+	throw cream pies at you for the same effect, which blinds you for
+	up to 25 (more) turns. Applying a cream pie will smash it onto 
+	your face, blinding yourself for the same amount of turns. 
+	Wielding a cream pie and attacking with it will splatter the pie 
+	in the target monster's face.
+
+	Attacking with thrown and/or wielded cream pies do no damage, and 
+	thus does not break pacifist conduct.
+
+	If you are hit by a cream pie, you can #wipe your face or apply a 
+	towel to regain sight faster; applying a cursed towel may cause 
+	cream pie gunk to cover your face.
+
+	Any cream pie in the path of a bolt from a force bolt spell or a 
+	zapped wand of striking is destroyed.
+		
 		Gregor stared at the pastry tray, and sighed.  "I suppose
 	it would disturb the guards if I tried to shove a cream torte up
 	your nose."
@@ -2198,6 +2257,63 @@ giant eel
 	carrion.
 	    [ Freshwater Fishes of Canada, by Scott and Crossman ]
 egg
+	An egg is a comestible which may also hatch into a monster if 
+	left uneaten. If an egg hatches, the hatched monster may become
+	your pet. One in three generated eggs is from a non-unique, 
+	non-aquatic and oviparous species, picked according to the normal
+	random monster generation for the current level. The species of 
+	monster eggs can be identified by any magical method; monster eggs
+	can also be identified by seeing one hatch. If the post-
+	identification type is still just "egg", it is not a monster egg 
+	(presumably just an ordinary unfertilized hen egg); if it is a 
+	monster egg, you will be able to recognize the type in the future.
+
+	Polymorphing into the adult form of an oviparous monster 
+	(regardless of gender) will also identify all future eggs of that
+	type; polymorphing into any type of adult dragon will identify 
+	all types of dragon eggs as well.
+
+	Winged gargoyles are oviparous, but lay very few winged gargoyle 
+	eggs; 76/77 (approx. 98.7%) of the time, the egg will hatch into
+	a normal gargoyle.
+
+	Eggs don't provide any intrinsics that the corresponding corpse 
+	would provide. An egg becomes stale after 400 turns; the spell or 
+	wand of undead turning can rejuvenate stale eggs. A stale egg 
+	makes you nauseated for 10d4 (more) turns, eventually causing you
+	to vomit unless cured.
+
+	If the egg is a cockatrice egg, you will suffer delayed 
+	petrification unless resistant. Unless you identified the egg, 
+	you will not know whether it's a cockatrice egg until you eat it.
+	Pets which aren't petrification-resistant will avoid eating 
+	cockatrice eggs, which is one way to informally identify them.
+
+	If you polymorph into a female oviparous monster, you can lay an
+	egg with the #sit command, and when it hatches it will become your
+	pet. Laying an egg will reduce your nutrition by 80. Breaking your 
+	own eggs carries a -1 Luck penalty each, to a maximum of -5 for a 
+	single stack; eating them does not, but grants no net nutrition gain.
+	A randomly generated dragon egg will also become your pet if you 
+	are carrying it when it hatches. If you are male, there is a 50% 
+	chance that any egg which hatches while you are carrying it will 
+	become your pet.
+
+	A fresh monster egg will hatch with about 99.954% chance, unless 
+	the relevant monster (either baby or adult form) is genocided. If 
+	an egg will hatch, it will do so after 151–200 turns.
+
+	Eggs will only hatch if in your inventory or on the floor; if kept 
+	in a container on the turn it's supposed to hatch, the egg will 
+	turn infertile. Zapping an egg with a spell or wand of undead 
+	turning will re-fertilize it and reset the hatch timeout. 
+	Strangely enough, re-fertilizing eggs will not affect their age 
+	(so they may still be stale or rotten).
+
+	Eggs kept in an ice box will not age and become rotten; however, 
+	this does not suspend their hatching timer, so leaving an egg in
+	an ice box for too long will prevent it from ever hatching.
+
 	But I asked why not keep it and let the hen sit on it till it
 	hatched, and then we could see what would come out of it.
 	"Nothing good, I'm certain of that," Mom said.  "It would
@@ -2334,6 +2450,13 @@ erinyes
 ettin
 	The two-headed giant, or ettin, is a vicious and unpredictable
 	hunter that stalks by night and eats any meat it can catch.
+eucalyptus leaf
+	Eating a non-cursed one will cure sickness and nausea. It can also 
+	be applied as a whistle, and acts as a magic whistle if blessed 
+	and a tin whistle otherwise. There is a 2% chance that a blessed 
+	eucalyptus leaf will become unblessed after being used as a whistle.
+	
+	Trees will sometimes drop these either randomly or from kicking.
 excalibur
 	At first only its tip was visible, but then it rose, straight,
 	proud, all that was noble and great and wondrous.  The tip of
@@ -2523,6 +2646,8 @@ floating eye
 	tales of those who struck a floating eye, were paralysed by
 	its mystic powers, and then nibbled to death by some other
 	creature that lurked around nearby.
+fruitcake
+	Provides high nutrition. Does 18 damage when thrown.
 *flute
 	With this thou canst do mighty deeds
 	And change men's passions for thy needs:
@@ -2561,6 +2686,26 @@ forge
 	which the Gods cannot vndoe in heauen.
 	Venus: Gramercie sweete Vulcan: to your worke!
 		[ Sapho and Phao, by John Lyly ]
+
+fortune cookie
+	A fortune cookie is a comestible that has a scrap of paper inside 
+	with a random rumor. Unless you are blind, the fortune inside will
+	automatically be read. 
+	
+	Blessed fortune cookies always contain true rumors, cursed fortune
+	cookies always contain false rumors, and uncursed fortune cookies
+	may contain either. They will never be rotten when eaten, 
+	regardless of their beatitude. The fortune cookie can also be read
+	normally, breaking and throwing away the cookie and reading the 
+	fortune inside.
+
+	Reading the fortune breaks illiterate conduct.
+
+	You can preserve vegan or foodless conduct by reading the cookie 
+	instead of eating it, which makes you break and throw away the 
+	actual cookie to read its paper. Illiterate conduct can be 
+	preserved by using it to tame pets as above; if they cannot be 
+	avoided entirely, you can blind yourself before eating the cookie.
 fountain
 	Rest! This little Fountain runs
 	Thus for aye: -- It never stays
@@ -2638,6 +2783,25 @@ potion of gain ability
 		[ Excerpt from the opening narration to the movie
 		    _Gargoyles_, written by Stephen and Elinor Karpf ]
 *garlic
+	A clove of garlic is a comestible with a few unusual uses. Garlic 
+	is an acceptable food for pets; you can use it to tame horses and 
+	feed herbivores.
+	All undead dislike garlic, not only vampires(V). 
+	
+	Garlic has the following effects:
+	- If you polymorph into an undead monster, then eating garlic will
+	  make you "feel incredibly sick" and cause you to vomit.
+	- If you wield a clove of garlic, and use it to attack undead, it 
+	  will cause them to flee for 2d4 turns. The same should happen if 
+	  you throw garlic at them, but it must hit.
+	- No undead except ghosts and shades will enter a square with a 
+	  clove of garlic on it. However, placing garlic on a stairway 
+	  does not prevent covetous undead, such as master liches, arch-
+	  liches, or Vlad the Impaler, from warping to it.
+	- Undead pets will not eat garlic. 
+	
+	This herb will slowly propogate itself if left alone on the ground.
+
 	1 November - All day long we have travelled, and at a good
 	speed.  The horses seem to know that they are being kindly
 	treated, for they go willingly their full stage at best
@@ -3221,6 +3385,20 @@ hobgoblin
 	The ninety-nine years is nearly up, so trouble may soon be
 	heard of on the road between Hurworth and Neasham.
 		[ A Dictionary of Fairies, by Katharine Briggs ]
+holy wafer
+	Any player can eat a holy wafer to cure their sickness and 
+	lycanthropy. 
+	Lawful players will also heal by 20 to 39 HP; 
+	Chaotic players will lose 10 to 19 HP, but will not go below 1 HP. 
+
+	Holy wafers can be considered a better version of wolfsbane, since:
+		- They weigh the same.
+		- They can be eaten in the same time.
+		- They are both vegan.
+		- Holy wafers also cure sickness.
+		- Holy wafers provide nearly quadruple the nutrition.
+		- Holy wafers heal Lawful players.
+		- Only Chaotic players lose health.
 holy water
 	"We want a word with you," said Ligur (in a tone of voice
 	intended to imply that "word" was synonymous with "horrifically
@@ -3730,6 +3908,13 @@ sword of kas
 	to Kas, convincing him to slay his master and usurp his power.
 kelp*
 *frond
+    It is only generated under water: 1/10 chance of being generated 
+    in each pool square and 1/30 chance of being generated in each 
+    moat square.
+    Can be fed to herbivorous pets, though it counts only as food 
+    and not as a treat like apples.
+    This herb will slowly propogate itself if left alone in the water.
+    	
 	I noticed that all the plants were attached to the soil by
 	an almost imperceptible bond.  Devoid of roots, they seemed
 	not to require any nourishment from sand, soil, or pebble.
@@ -4022,6 +4207,11 @@ leash
 	scattered outpost all along the course of his legs.
 		[ Plagues and Pleasures of Life in Bengal, by David D. Cunningham ]
 lembas*
+	Has the highest nutrition/weight ratio of all the comestibles at 
+	800 nutrition to 5 units - lembas wafers provide 1000 nutrition 
+	for elves, and only 600 nutrition for orcs. Lembas wafers can also
+	tame cats and dogs.
+	
 	In the morning, as they were beginning to pack their slender
 	goods, Elves that could speak their tongue came to them and
 	brought them many gifts of food and clothing for their
@@ -4499,8 +4689,31 @@ mastodon
 	Ages of Europe, the mattock served as an improvised shafted
 	weapon for the poorer classes.
 		[ Wikipedia, the free encyclopedia ]
-meat*
+meatball
+	Meatballs have very little nutritional value, but carnivorous 
+	creatures consider them treats similar to tripe rations. Throwing 
+	one at a cat or dog will tame it, and they can be fed to
+	carnivorous pets to increase their tameness and apport.
+	
+	Meatballs are created by zapping a spell of stone to flesh at 
+	rocks, valuable gems, gray stones, and statues of Tiny-sized or 
+	non-fleshy monsters. (Pieces of glass are not affected and do not 
+	turn into meatballs.)
+meat stick
+	Meat sticks are only created by zapping a spell of stone to flesh
+	at a wand with the marble randomized appearance.
+	
+	Meat sticks function similarly to tripe rations - carnivorous pets
+	consider it a treat, and keeping one in open inventory will cause
+	them to try and stay close to you.
 huge chunk of meat
+	It is as massive as its name suggests, and provides the highest 
+	nutrition value of any comestible in the game at 2000 nutrition, 
+	but also weighs the most of any non-corpse comestible at 400 aum.
+	
+	The huge chunk of meat is only created by zapping a boulder with a
+	spell of stone to flesh.
+	
 	Some hae meat and canna eat,
 	And some would eat that want it;
 	But we hae meat, and we can eat,
@@ -4815,6 +5028,17 @@ mummy wrapping
 	bandages, project in curious tails and horns, giving him
 	the strangest appearance conceivable.
 		[ The Invisible Man, by H.G. Wells ]
+mushroom
+	When eaten, it will have one of the following effects:
+
+	Chance	Effect	Message
+	2/10	Unless poison-resistant, you lose 1-4 strength, and 1-15 health.
+	1/10	Stunned for 30 (more) turns.
+	1/10	Hallucinate for 150 (more) turns.
+	1/10	Gain 1 strength.
+	5/10	Nothing special happens.
+
+	Mushrooms will slowly propogate themselves if left alone on the ground.
 *naga*
 *naja*
 	The naga is a mystical creature with the body of a snake and
@@ -5086,6 +5310,9 @@ p*thia
 		[ Mythology, by Edith Hamilton ]
 orange
 pear
+asian pear
+    Trees will sometimes drop these either randomly or from kicking.
+
 	What was the fruit like?  Unfortunately, no one can describe
 	a taste.  All I can say is that, compared with those fruits,
 	the freshest grapefruit you've ever eaten was dull, and the
@@ -5298,6 +5525,20 @@ broad pick
 	it to kill and devour it, though in any other way they move
 	but exceeding slow.
 		[ the Bestiary of Xygag ]
+pill
+	When a pink pill is eaten, it will have one of 7 equally likely 
+	effects:
+
+	Effect	Message
+	- You get a wish.	
+	- You gain 80 nutrition and gain ability dependant on luck (like a fountain).
+	- You become very fast for 200–209 turns.
+	- You are poisoned; you lose 1–4 points of strength and 1–15 hit points.
+	- You fall asleep for up to 49 turns.
+	- You hallucinate for 150 (more) turns.
+	- You are stunned for 30 (more) turns.
+
+	Pills always cure larval infection.
 piranha
 	They live in "schools." Many times they will wait for prey
 	to come to the shallow water of the river. Then the large
@@ -6114,6 +6355,12 @@ paddle cactus
 	nopalli for the pads, or nostle, from the Nahuatl word nochtli
 	for the fruit; or paddle cactus.
 		[ Wikipedia, the free encyclopedia ]
+pineapple
+	Gains a damage bonus of +2 when used as a thrown weapon.
+	Can be upgraded (via tinker or dipping in a potion of gain level) 
+	to a random bomb type.
+	
+	This herb will slowly propogate itself if left alone on the ground.
 inmate
 prisoner
 	Where am I?
@@ -6795,6 +7042,18 @@ rothe
 	an aversion to light.  It prefers to live underground near
 	lichen and moss.
 *royal jelly
+	A lump of royal jelly is a special comestible that is usually only 
+	found in beehives (it can also be created by a horn of plenty). 
+	Eating a blessed or uncursed lump of royal jelly will increase 
+	your strength (if not already maximized) by +1. If cursed, it will
+	decrease your strength by one.
+
+	If your legs are injured, they will be healed.
+
+	Your hit points are increased by 0-20 (or decreased if the jelly 
+	is cursed). If this would raise your HP above your max HP, there 
+	is a 6.25% chance (1 in 16) to increase your max HP by one.
+
 	"'Royal Jelly,'" he read aloud, "'must be a substance of
 	tremendous nourishing power, for on this diet alone, the
 	honey-bee larva increases in weight fifteen hundred times in
@@ -8262,6 +8521,111 @@ tiger
 		[ The Tyger, by William Blake ]
 tin
 tin of *
+	A tin is a type of permafood that does not rot as time passes, 
+	although it may take some time to eat unless you have a way to 
+	quickly open it.
+	
+	Randomly generated tins have a 1 in 6 (16.7%) chance of containing 
+	spinach, and the rest will contain the meat of a monster that can 
+	randomly appear on the current level, with standard probabilities 
+	and the exception of corpseless monsters and wraiths. Tins can 
+	also be made by applying a tinning kit to a corpse; tins of spinach
+	cannot be created this way. Tins containing the meat of genocided 
+	monsters are not randomly generated, and any tins made or wished 
+	for will be empty instead; tins of unique monsters cannot be 
+	wished for.
+
+	If the tin is generated as part of a health food store, it will 
+	always contain either spinach or a vegetarian monster; if the 
+	initial random tin contents are not vegetarian, it will be 
+	converted to spinach, making the odds of finding spinach in health
+	food stores much higher than normal.
+
+	Random tins are normally generated 90% uncursed, 5% cursed and 5% 
+	blessed.
+	
+	Opening
+	When you attempt to eat a tin, you first try to open it.
+
+	If you are polymorphed into a metallivore, you open it immediately.
+	Otherwise, if you are a monster with no limbs, or a very small 
+	monster, eating a tin is impossible. Otherwise, if the tin is 
+	blessed, it takes 0-1 turns to open it (always 0 turns if you also
+	wield a blessed tin opener). 
+	
+	Otherwise, the time depends on what you wield:
+	A tin opener opens it quickly depending on its BUC status: 
+		- 0 turns if blessed,
+		- 0-1 turns if uncursed, 
+		- 0-2 turns if cursed.
+		
+	A wielded knife, crysknife, stiletto, athame, or any kind of 
+	dagger will open it in 3 turns. A pick-axe or an axe (but not a 
+	battle-axe or dwarvish mattock) will open it in 6 turns. If you are
+	wielding none of the above and have slippery fingers, the tin 
+	slips from your fingers.
+	
+	Otherwise, you will take between 10 and 10 + 500/(Str+Dex) turns 
+	to open it. If it takes 50 or more turns, you "give up your attempt 
+	to open the tin." Because this can take so long, and because many 
+	tins end up containing less than 100 nutrition, you may not 
+	actually gain any net nutrition from eating tins if you cannot open 
+	them quickly. 
+
+	Randomly generated tins may explode 1/8 of the time if they are 
+	cursed when they are being opened. The explosion has the same 
+	effects as an exploding door, and it destroys the tin.
+
+	Once you have opened the tin, its preparation method is determined
+	(unless it is spinach, which doesn't have a preparation method). 
+	The possible preparation methods are "deep fried", "pickled", "soup
+	made from", "pureed", "rotten", "homemade", "stir fried", "candied", 
+	"boiled", "dried", "szechuan", "french fried", "sauteed", "broiled", 
+	and "smoked". This determines the amount of nutrition the tin provides.
+
+	If you made the tin with a tinning kit, tins of lizard and lichen
+	are always homemade, while blessed/uncursed/cursed tins of other 
+	monsters have a chance of 0, 1/7 and 1 of being rotten, otherwise 
+	they are homemade.
+
+	For randomly generated tins:
+	- cursed tins of lizard and lichen are always homemade
+	- other cursed tins are always rotten
+	- noncursed tins of lizard and lichen are never rotten; they have 
+	  a 2/15 chance of being homemade and a 1/15 chance of each other method
+	- other uncursed tins have 1/15 chance of being each method except
+	  rotten or homemade, 6/105 chance of being homemade, and 8/105 
+	  chance of being rotten
+	
+	Since the type of preparation is determined only after you open 
+	the tin, there is no way to know it in advance, and tins that 
+	stack may end up being of different styles.
+
+	Eating:
+	If the tin is empty (because its monster type is genocided or 
+	extinct), it is discarded. Non-cursed tins of spinach will 
+	increase your strength, while cursed ones decrease your strength.
+
+	Most non-spinach tins have low nutritional value (see below), but 
+	tins of pureed monster have nutritional value 500, which is more 
+	than half that of a food ration.
+
+	Eating a deep fried, french fried, or stir fried tin will give you
+	slippery fingers and cause you to drop your weapon. It is therefore
+	unwise to eat tins in a shop without first unwielding your weapon.
+
+	Rotten tins provide no nutrition points (eating them makes you 
+	neither more nor less hungry), and make you nauseated. Unless you 
+	cure the nausea, you vomit, losing 20 nutritional points.
+
+	Eating the tin, after it is opened, takes one turn.
+
+	Corpses that convey intrinsics will have the same probability of 
+	conferring that intrinsic when they have been tinned. Tinning makes
+	poisonous and rotten corpses safe, however, as your character picks
+	out the good bits for the tin that they can fit inside. It is 
+	popular to tin dragons and giants, as you will still get the 
+	intrinsic / strength increase, but without the enormous meal.
 tinning kit
 	"You know salmon, Sarge," said Nobby.
 	"It is a fish of which I am aware, yes."
@@ -8398,6 +8762,21 @@ tree
 		[ Trees, by Joyce Kilmer ]
 tripe
 tripe ration
+	Has a 50% chance of giving you nausea unless you are a Caveman,
+	an orc or a non-humanoid carnivorous monster (e.g. a canine 
+	through lycanthropy); in those forms, you can eat it as a normal
+	food.
+
+	A tripe ration is considered a treat for carnivorous pets (like 
+	dogs and cats), and increases the pet's apport when fed to them. 
+	Throwing tripe to a hostile or peaceful cat or dog will tame it,
+	as will other forms of meat save for corpses; carrying a tripe 
+	ration in your main inventory will make a carnivorous pet stick 
+	around closer to you. 
+	
+	If you throw a tripe ration at a hostile horse, it will remain 
+	hostile.
+	
 	If you start from scratch, cooking tripe is a long-drawn-out
 	affair.  Fresh whole tripe calls for a minimum of 12 hours of
 	cooking, some time-honored recipes demanding as much as 24.
@@ -8408,6 +8787,10 @@ tripe ration
 	often, alas, because the heat has not been kept low enough,
 	it has the consistency of wet shoe leather.
 		[ Joy of Cooking, by I Rombauer and M Becker ]
+food ration
+	A food ration is the most basic form of comestible that appears in
+	NetHack. Samurai know them as gunyoki, which is likely to not be 
+	real-life Japanese.
 ~water troll
 *troll
 	The troll shambled closer.  He was perhaps eight feet tall,
@@ -9758,6 +10141,14 @@ mist wolf
 	filling, at least compared to human flesh.
 	[ The New Bestiary, Wizard Endlebrook ]
 *wolfsbane
+	Eating a sprig of wolfsbane will cure lycanthropy.
+
+	Wielding wolfsbane has no effect on lycanthropes or wolves (as 
+	opposed to garlic or other banes). You can't use wolfsbane to 
+	poison weapons, and it will not poison you if you eat it.
+
+	This herb will slowly propogate itself if left alone on the ground.
+	
 	1.  Any of various, usually poisonous perennial herbs of the
 	genus Aconitum, having tuberous roots, palmately lobed leaves,
 	blue or white flowers with large hoodlike upper sepals, and an
