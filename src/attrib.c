@@ -52,6 +52,7 @@ static const struct innate {
 
   ice_abil[] = { { 1, &(ECold_resistance), "", "" },
                  { 5, &(HVulnerable_fire), "sensitive to heat", "less sensitive to heat" },
+                 { 15, &(HWwalking), "unsinkable", "like you might sink" },
                  { 0, 0, 0, 0 } },
 
   inf_abil[] = { { 1, &(HFire_resistance), "", "" },
