@@ -941,11 +941,6 @@ int x, y;
     if (!IS_DRAWBRIDGE(lev1->typ))
         return;
 
-    if (IS_DRAWBRIDGE(lev1->typ) && Is_valley(&u.uz)) {
-        pline("This drawbridge cannot be destroyed.");
-        return;
-    }
-
     x2 = x;
     y2 = y;
     get_wall_for_db(&x2, &y2);
