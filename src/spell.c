@@ -2072,15 +2072,17 @@ int spell;
                    || Role_if(PM_UNDEAD_SLAYER) 
                    || Role_if(PM_YEOMAN)
                    || Role_if(PM_VALKYRIE));
-
-	/* Calculate armor penalties */
-	if (uarm && (!is_robe(uarm))) 
-	    splcaster += 5;
+    
+    /* Calculate armor penalties */
     
     /* Robes are body armour in SLASH'EM */
     if (uarm && is_metallic(uarm) && !paladin_bonus) 
-	    splcaster += urole.spelarmr;
-
+        splcaster += urole.spelarmr;
+    else if (uarm && !is_robe(uarm) && uarm->otyp != CRYSTAL_PLATE_MAIL) 
+        splcaster += 5;
+    else if (uarm && uarm->otyp == ROBE_OF_POWER)
+        splcaster -= urole.spelarmr;
+    
     if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
 
@@ -2122,8 +2124,6 @@ int spell;
         || spellid(spell) == SPE_REMOVE_CURSE)
         splcaster += special;
 
-    if (uarm && uarm->otyp == ROBE_OF_POWER) 
-        splcaster -= 3;
     if (uwep && uwep->oartifact == ART_ORIGIN)
         splcaster -= 3;
     
@@ -2175,7 +2175,8 @@ int spell;
      * player's role-specific spell.  Metallic shields still adversely
      * affect spellcasting, no matter how light they are.
      */
-    if (uarms && (is_metallic(uarms) || (weight(uarms) > (int) objects[SMALL_SHIELD].oc_weight))
+    if (uarms && (is_metallic(uarms) 
+                  || (weight(uarms) > (int) objects[SMALL_SHIELD].oc_weight))
                   && uarms->oartifact != ART_MIRRORBRIGHT) {
         if (spellid(spell) == urole.spelspec) {
             chance /= 2;
@@ -2229,7 +2230,9 @@ int spell;
      * to this calculation. Obtaining skilled or expert in
      * various spell schools can offset this penalty.
      */
-    if (uarm && (uarm->otyp != CRYSTAL_PLATE_MAIL && !is_robe(uarm))) {
+    if (uarm 
+        && uarm->otyp != CRYSTAL_PLATE_MAIL 
+        && !is_robe(uarm)) {
 #define PENALTY_NON_CASTER (spellev(spell) * 10)
 #define PENALTY_PRI_CASTER (spellev(spell) * 10) - 30
         if (primary_casters && spellev(spell) >= 4)
