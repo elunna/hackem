@@ -1924,6 +1924,7 @@ char *supplemental_name;
              * "iron" from "iron golem" or something. */
             if (!lookat_mon) {
                 pm = (struct permonst *) 0; /* just to be safe */
+                                            
                 if (!object_not_monster(dbase_str_with_material)) {
                     int mndx = name_to_mon(dbase_str_with_material);
                     if (mndx != NON_PM) {
@@ -2516,7 +2517,7 @@ coord *click_cc;
                 }
             if (*out_str)
                 /*checkfile(out_str, (struct permonst *) 0, TRUE, TRUE, (char *) 0);*/
-                checkfile(NULL, out_str, pm, TRUE, TRUE, (char *) 0);
+                checkfile(NULL, out_str, (struct permonst *) 0, TRUE, TRUE, (char *) 0);
             return 0;
           }
         case '?':
@@ -2614,7 +2615,7 @@ coord *click_cc;
                 supplemental_name[0] = '\0';
                 Strcpy(temp_buf, firstmatch);
                 /*checkfile(temp_buf, supplemental_pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);*/
-                checkfile(NULL, temp_buf, pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);
+                checkfile(NULL, temp_buf, supplemental_pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);
                 
                 if (supplemental_pm)
                     do_supplemental_info(supplemental_name, supplemental_pm,
