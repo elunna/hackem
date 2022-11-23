@@ -1938,13 +1938,7 @@ char *supplemental_name;
             if (otyp == STRANGE_OBJECT) {
                 otyp = name_to_otyp(dbase_str);
             }
-            /* Try to get artifact info, if this finds an artifact
-             * otyp will become the item type of the artifact.  */
-#if 0
-            if (otyp == STRANGE_OBJECT) {
-                artifact_name(dbase_str, &otyp);
-            }
-#endif
+
             /* prompt for more info (if using whatis to navigate the map) */
             yes_to_moreinfo = FALSE;
             if (!user_typed_name && !without_asking) {
