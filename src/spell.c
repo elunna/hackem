@@ -74,6 +74,8 @@ static const char clothes[] = { ARMOR_CLASS, 0 };
  *      Wiz are trained mages
  *      Fla are trained in fire magic
  *      Ice are trained in ice/cold magic
+ *      Nec are trained in dark necromancy
+ *      Yeo prefer to use their knowledge of nature and fighting.
  *
  *      The arms penalty is lessened for trained fighters Bar, Kni, Ran,
  *      Sam, Val -- the penalty is its metal interference, not encumbrance.
@@ -83,17 +85,24 @@ static const char clothes[] = { ARMOR_CLASS, 0 };
  *  spelspec, spelsbon:
  *      Arc map masters (SPE_MAGIC_MAPPING)
  *      Bar to see their enemies driven before them (SPE_CAUSE_FEAR)
+ *      Cav - None
+ *      Con to escape (SPE_TELEPORT_AWAY)
+ *      Fla to burn (SPE_FIRE_BOLT)
  *      Hea to heal (SPE_CURE_SICKNESS)
+ *      Ice to ice (SPE_CONE_OF_COLD)
  *      Inf to channel hellfire (SPE_FIREBALL)
  *      Kni to turn back evil (SPE_TURN_UNDEAD)
  *      Mon to preserve their abilities (SPE_RESTORE_ABILITY)
+ *      Nec to spread undead (SPE_SUMMON_UNDEAD)
  *      Pri to bless (SPE_REMOVE_CURSE)
  *      Ran to hide (SPE_INVISIBILITY)
  *      Rog to find loot (SPE_DETECT_TREASURE)
  *      Sam to be At One (SPE_CLAIRVOYANCE)
  *      Tou to smile (SPE_CHARM_MONSTER)
+ *      Und to protect (SPE_PROTECTION)
  *      Val to maintain their armor (SPE_REPAIR_ARMOR)
  *      Wiz all really, but SPE_MAGIC_MISSILE is their party trick
+ *      Yeo to respect (SPE_KNOCK)
  *
  *      See percent_success() below for more comments.
  *
