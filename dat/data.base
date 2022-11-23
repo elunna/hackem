@@ -9416,23 +9416,6 @@ wand of fire
 	Engraving: Burn.
 	- A popular means of engraving Elbereth - such engravings are
 	  permanent and can only be removed by magical means.
-wand of fireball
-	Replicates the effect of the fireball spell.
-	- When zapped, it generates a ray that stops on hit (even when
-	  hitting a wall), causing a single explosion.
-	- The explosion deals 12d6 fire damage to each affected monster,
-	  also setting flameable objects on fire in their inventories and
-	  burning armor.
-	
-	Zapping self: You take 6d6 fire damage.
-	
-	Breaking: 
-	- Creates an explosion of fire dealing (8 x charges) damage; anything
-      caught in the explosion is subject to fire damage.
-	- A Fire Trap may be created when this wand is broken. The more 
-	  charges on the wand the higher the chance of creating the trap.
-	
-	Engraving: Burn.
 wand of healing
 	- Zapping yourself will heal 5d6 HP, up to the maximum and will
 	  exercise strength.

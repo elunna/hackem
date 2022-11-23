@@ -1103,7 +1103,6 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - generates with WAY less charges (1-3) and very rare
     - Players zapping this create 7-11 instead of 7-13 monsters.
     - Monsters zapping this create 6-10 instead of 10-14 monsters.
-- [x] wand of fireball
 - [x] wand of wind
     - Renamed wand of windstorm to Wand of Wind
     - hurtles you in a random direction when zapped at self.
@@ -1746,7 +1745,6 @@ New magical staves: These were introduced in Evil and each one grants a large bo
   - wand of cold 		-> ice trap
   - wand of opening 	-> trap door
   - wand of fire 		-> fire trap
-  - wand of fireball 	-> fire trap
   - wand of magic missile -> magic trap
   - wand of teleportation -> teleport trap
   - wand of polymorph 	-> poly trap

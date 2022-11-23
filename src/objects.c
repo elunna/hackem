@@ -1142,6 +1142,7 @@ SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY
 SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 2, 1, RAY, CLR_GREEN),        /* Slash'EM */
 SPELL("acid blast",      "acid green",    P_ATTACK_SPELL,       5,  9, 6, 1, RAY, CLR_BRIGHT_GREEN), /* Slash'EM */
 SPELL("sonicboom",       "ghostly",       P_MATTER_SPELL,       5,  7, 4, 1, RAY, CLR_BLACK),        /* SpliceHack */
+/* Water spell here? */
 SPELL("psionic wave",    "worn",          P_ATTACK_SPELL,       0,  1, 1, 1, IMMEDIATE, CLR_MAGENTA), /* EvilHack */
     /* Don't disturb the order of the spells above. zap.c depends on it. */
 
@@ -1263,7 +1264,6 @@ WAND("poison gas",  "octagonal",  20, 175, 1, RAY, IRON,  HI_METAL),
 WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 WAND("sonics",       "titanium",  20, 175, 1, RAY, IRON,  HI_METAL),
 WAND("water",       "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
-WAND("fireball",    "forked",   5, 300, 1, RAY, WOOD,  HI_WOOD),/* Slash'EM */
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
 WAND(None,            "jeweled",  0, 150, 1, 0, IRON, HI_MINERAL),

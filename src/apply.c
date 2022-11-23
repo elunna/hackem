@@ -4492,19 +4492,6 @@ struct obj *obj;
     case WAN_SONICS:
         dmg *= 4;
         goto wanexpl;
-    case WAN_FIREBALL:
-        dmg *= 2;
-        /* The magic 11 is ZT_SPELL(ZT_FIRE)*/
-        explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
-        mk_wandtrap(obj);
-        
-        if (obj->dknown 
-          && !objects[obj->otyp].oc_name_known 
-          && !objects[obj->otyp].oc_uname) {
-            docall(obj);
-        }
-        goto discard_broken_wand;
-
     case WAN_FIRE:
         expltype = EXPL_FIERY;
         mk_wandtrap(obj);
@@ -5176,8 +5163,7 @@ struct obj *obj;
         int traptype = MAGIC_TRAP; /* Default in case of impossible */
         
         switch (obj->otyp){
-        case WAN_FIRE: 
-        case WAN_FIREBALL:
+        case WAN_FIRE:
             traptype = FIRE_TRAP;
             break;
         case WAN_COLD:

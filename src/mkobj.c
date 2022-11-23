@@ -366,9 +366,7 @@ struct obj *box;
                     otmp->owt = weight(otmp);
                 } else
                     while (otmp->otyp == WAN_CANCELLATION)
-                        /* --hackem: Slashem replaces this wand of lightning with a 
-                        wand of fireball. */
-                        otmp->otyp = rnd_class(WAN_LIGHT, WAN_FIREBALL);
+                        otmp->otyp = rnd_class(WAN_LIGHT, WAN_WATER);
             }
             /* material may have become invalid with a new otyp -- rerandomize
              * it to something valid */

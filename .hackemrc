@@ -535,7 +535,6 @@ AUTOPICKUP_EXCEPTION="<.*wand of poison gas"
 AUTOPICKUP_EXCEPTION="<.*wand of acid"
 AUTOPICKUP_EXCEPTION="<.*wand of sonics"
 AUTOPICKUP_EXCEPTION="<.*wand of water"
-AUTOPICKUP_EXCEPTION="<.*wand of fireball"
 
 
 
