@@ -2150,31 +2150,69 @@ struct obj *otmp;
             pmxnam += 4;
         
         if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
-            switch (rnd(20)) {
-            case 1: pline("Nice!"); break;
-            case 2: pline("Sweet!"); break;
-            case 3: pline("Tasty!"); break;
-            case 4: pline("Juicy!"); break;
-            case 5: pline("Delicious!"); break;
-            case 6: pline("Divine!"); break;
-            case 7: pline("Fangtastic!"); break;
-            case 8: pline("Bloody good!"); break;
-            case 9: pline("Tastes ironic."); break;
-            case 10: You("drink to your health."); break;
-            case 11: You("get a bite to drink."); break;
-            case 12: You("always welcome new blood."); break;
-            case 13: The("blood is the life!"); break;
-            case 14: pline("Fang you very much!"); break;
-            case 15: pline("Just my blood type!"); break;
-            case 16: pline("The final count down!"); break;
-            case 17: pline("Sucks to be you!"); break;
-            case 18: pline("Withdrawing from the blood bank!"); break;
-            case 19: pline("A meal you can sink your teeth into!"); break;
-            case 20: pline("You pain in the neck!"); break;
-            /*case 21: pline("Better luck necks time."); break;*/
+            if (Hallucination) {
+                switch (rnd(10)) {
+                case 1:
+                    pline("Bloody good!");
+                    break;
+                case 2:
+                    pline("Tastes ironic.");
+                    break;
+                case 3:
+                    You("drink to your health.");
+                    break;
+                case 4:
+                    You("get a bite to drink.");
+                    break;
+                case 5:
+                    You("always welcome new blood.");
+                    break;
+                case 6:
+                    The("blood is the life!");
+                    break;
+                case 7:
+                    pline("Fang you very much!");
+                    break;
+                case 8:
+                    pline("Just my blood type!");
+                    break;
+                case 9:
+                    pline("Sucks to be you!");
+                    break;
+                case 10:
+                    pline("You pain in the neck!");
+                    break;
+                }
+                return retcode;
             }
-        } else
-            pline("%s%s %s %s%c",
+            else {
+                switch (rnd(128)) {
+                case 1:
+                    pline("Fangtastic!");
+                    return retcode;
+                case 2:
+                    pline("Sweet!");
+                    return retcode;
+                case 3:
+                    pline("Tasty!");
+                    return retcode;
+                case 4:
+                    pline("Juicy!");
+                    return retcode;
+                case 5:
+                    pline("Delicious!");
+                    return retcode;
+                case 6:
+                    pline("Divine!");
+                    return retcode;
+                default:
+                    yummy = TRUE;
+                    ; /* Drop down to normal message */
+                    break;
+                }
+            }
+        } 
+        pline("%s%s %s %s%c",
               type_is_pname(&mons[mnum])
                  ? "" : the_unique_pm(&mons[mnum]) ? "The " : "This ",
               pmxnam,
