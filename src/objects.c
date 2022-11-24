@@ -1136,7 +1136,7 @@ SPELL("magic missile",   "vellum",        P_ATTACK_SPELL,      35,  2, 2, 1, RAY
 #undef PAPER /* revert to normal material */
 SPELL("fireball",        "ragged",        P_MATTER_SPELL,      20,  4, 4, 1, RAY, HI_PAPER),
 SPELL("cone of cold",    "dog eared",     P_MATTER_SPELL,      10,  7, 4, 1, RAY, HI_PAPER),
-SPELL("sleep",           "mottled",       P_ENCHANTMENT_SPELL, 30,  1, 2, 1, RAY, HI_PAPER),
+SPELL("sleep",           "mottled",       P_ENCHANTMENT_SPELL, 30,  1, 1, 1, RAY, HI_PAPER),
 SPELL("finger of death", "stained",       P_ATTACK_SPELL,       5, 10, 7, 1, RAY, HI_PAPER),
 SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY, CLR_BRIGHT_BLUE),  /* Slash'EM */
 SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 2, 1, RAY, CLR_GREEN),        /* Slash'EM */
@@ -1171,7 +1171,7 @@ SPELL("snowball",        "dappled",       P_MATTER_SPELL,       0,  2, 1, 1, IMM
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
 SPELL("cause fear",      "light blue",    P_NECROMANCY_SPELL,  25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
 SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 5, 1, IMMEDIATE, CLR_MAGENTA),
-SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_ORANGE),
+SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_ORANGE),
 
 SPELL("haste self",      "purple",        P_ESCAPE_SPELL,      30,  4, 3, 1, NODIR, CLR_MAGENTA),
 SPELL("levitation",      "tan",           P_ESCAPE_SPELL,      20,  4, 4, 1, NODIR, CLR_BROWN),
