@@ -98,6 +98,7 @@
 #define M1_NOEYES       0x00001000L /* no eyes to gaze into or blind */
 #define M1_NOHANDS      0x00002000L /* no hands to handle things */
 #define M1_NOLIMBS      0x00006000L /* no arms/legs to kick/wear on */
+                                    /* includes no hands */
 #define M1_NOHEAD       0x00008000L /* no head to behead */
 #define M1_MINDLESS     0x00010000L /* has no mind--golem, zombie, mold */
 #define M1_HUMANOID     0x00020000L /* has humanoid head/arms/torso */
