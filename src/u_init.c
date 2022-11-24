@@ -1587,7 +1587,7 @@ int attk_melee_types [] =
 
 int attk_spec_types [] =
     { AT_HUGS, AT_SPIT, AT_ENGL, AT_BREA, AT_GAZE,
-      AT_MAGC, AT_KICK, AT_BUTT, AT_TENT
+      AT_MAGC, AT_KICK, AT_BUTT, AT_TENT, AT_SCRE
     };
 
 int damg_melee_types [] =
@@ -1597,12 +1597,13 @@ int damg_melee_types [] =
       AD_SGLD, AD_SITM, AD_SEDU, AD_TLPT, AD_RUST,
       AD_CONF, AD_DRDX, AD_DRCO, AD_DRIN, AD_DISE,
       AD_DCAY, AD_HALU, AD_ENCH, AD_CORR, AD_BHED,
-      AD_POLY, AD_WTHR, AD_PITS, AD_WEBS
+      AD_POLY, AD_WTHR, AD_PITS, AD_WEBS, AD_LOUD,
+      AD_CALM, AD_TCKL, AD_LARV
     };
 
 int damg_breath_types [] =
     { AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, AD_ELEC,
-      AD_DRST, AD_WATR, AD_ACID
+      AD_DRST, AD_WATR, AD_ACID, AD_LOUD
     };
 
 int damg_spit_types [] =
@@ -1610,11 +1611,15 @@ int damg_spit_types [] =
 
 int damg_gaze_types [] =
     { AD_FIRE, AD_COLD, AD_SLEE, AD_STUN, AD_SLOW,
-      AD_CNCL
+      AD_CNCL, AD_DRST, AD_CONF, AD_PLYS, AD_DISN,
+      AD_DRLI, AD_LUCK, AD_BLND, AD_TLPT, AD_FEAR,
+      AD_SPOR, AD_HNGY
     };
 
 int damg_engulf_types [] =
-    { AD_PLYS, AD_DGST, AD_WRAP, AD_POTN };
+    { AD_PLYS, AD_DGST, AD_WRAP, AD_POTN, AD_DCAY,
+      AD_ACID, AD_DISE, AD_PHYS, AD_BLND, AD_COLD,
+      AD_ELEC, AD_DREN, AD_FIRE, AD_DISN, AD_SLIM};
 
 int damg_magic_types [] =
     { AD_SPEL, AD_CLRC, AD_MAGM, AD_FIRE, AD_COLD,
@@ -1632,6 +1637,9 @@ int damg_tent_types [] =
       AD_DRLI, AD_DREN, AD_CONF, AD_DRIN, AD_DISE,
       AD_HALU
     };
+
+int damg_scream_types [] =
+    { AD_FEAR, AD_SONG, AD_PIER, AD_LOUD, AD_GIBB };
 
 void
 shambler_init()
@@ -1687,6 +1695,9 @@ shambler_init()
             break;
         case AT_TENT:
             attkptr->adtyp = damg_tent_types[rn2(SIZE(damg_tent_types))];
+            break;
+        case AT_SCRE:
+            attkptr->adtyp = damg_scream_types[rn2(SIZE(damg_scream_types))];
             break;
         case AT_HUGS:
             attkptr->adtyp = AD_PHYS;

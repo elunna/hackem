@@ -1338,6 +1338,7 @@ static const short grownups[][2] = {
     { PM_DUNGEON_FERN_SPROUT, PM_DUNGEON_FERN },
     { PM_SWAMP_FERN_SPROUT, PM_SWAMP_FERN },
     { PM_GIBBERSLUG, PM_GIBBERLING },
+    { PM_SHAMBLING_HORROR, PM_SHAMBLING_HORROR }, /* To enable AD_LARV attack */
     
     /* hackem -- growing up, slashem additions */
     { PM_DINGO_PUPPY, PM_DINGO}, 
