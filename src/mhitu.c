@@ -475,7 +475,7 @@ boolean message;
     newsym(u.ux, u.uy);
     spoteffects(TRUE);
     /* to cover for a case where mtmp is not in a next square */
-    if (um_dist(mtmp->mx, mtmp->my, 1))
+    if (mtmp && um_dist(mtmp->mx, mtmp->my, 1))
         pline("Brrooaa...  You land hard at some distance.");
 }
 
