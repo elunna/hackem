@@ -1578,6 +1578,7 @@ u_init()
     if (num_spells() && (u.uenmax < 5))
         u.uen = u.uenmax = u.ueninc[u.ulevel] = 5;
 
+    knows_object(POT_WATER);
     return;
 }
 
