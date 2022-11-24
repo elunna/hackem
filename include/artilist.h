@@ -535,7 +535,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Candle of Eternal Flame", MAGIC_CANDLE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 
       (SPFX_WARN | SPFX_TCTRL | SPFX_EREGEN), 
-      0, NO_ATTK, NO_DFNS, CARY(AD_COLD), 0, A_LAWFUL, 
+      0, NO_ATTK, NO_DFNS, CARY(AD_FIRE), 0, A_LAWFUL, 
       PM_FLAME_MAGE, NON_PM, 5000L, NO_COLOR),
     
     A("The Staff of Aesculapius", QUARTERSTAFF,
