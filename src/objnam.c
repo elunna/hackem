@@ -1262,8 +1262,6 @@ unsigned doname_flags;
     char tmpbuf[PREFIX + 1]; /* for when we have to add something at
                                 the start of prefix instead of the
                                 end (Strcat is used on the end) */
-    register char *bp = xname(obj);
-
     /* tourists get a special identification service for shop items */
     if (Role_if(PM_TOURIST)) {
         int nochrg = 0;
@@ -1272,6 +1270,9 @@ unsigned doname_flags;
             discover_object(obj->otyp,TRUE,FALSE);
         }
     }
+    
+    register char *bp = xname(obj);
+    
     if (iflags.override_ID) {
         known = dknown = cknown = bknown = lknown = TRUE;
         obj->oprops_known = ITEM_PROP_MASK;
