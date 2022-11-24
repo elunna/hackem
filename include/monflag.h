@@ -123,6 +123,7 @@
 #endif
 
 #define M2_NOPOLY       0x00000001L /* players mayn't poly into one */
+#define M2_JUMPER       0x00000002L /* can jump around */
 #define M2_LORD         0x00000400L /* is an overlord to its kind */
 #define M2_PRINCE       0x00000800L /* is an overlord to its kind */
 #define M2_MINION       0x00001000L /* is a minion of a deity */

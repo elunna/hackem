@@ -904,7 +904,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(175, 175, MS_GROWL, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
-        M2_WANDER /*| M2_JUMPER*/,
+        M2_WANDER | M2_JUMPER,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 1, CLR_GRAY),
     MON("kitten", S_FELINE,
         LVL(2, 18, 6, 0, 0), (G_GENO | 3),
@@ -2037,7 +2037,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(500, 350, MS_ROAR, MZ_LARGE), 0, 0,
         M1_WALLWALK | M1_ANIMAL | M1_NOHANDS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_THICK_HIDE | M1_NOTAKE,
-        M2_HOSTILE | M2_STRONG /*| M2_JUMPER*/, 
+        M2_HOSTILE | M2_STRONG | M2_JUMPER, 
         0, 0, 0, 9, CLR_GRAY),
     MON("wumpus", S_QUADRUPED,
         LVL(8, 3, 2, 10, 0), (G_GENO | 1),
@@ -2359,7 +2359,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(75, 75, MS_SILENT, MZ_SMALL), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE, 0, 0, 0, 5, CLR_CYAN),
+        M2_HOSTILE | M2_JUMPER, 0, 0, 0, 5, CLR_CYAN),
     MON("barking spider", S_SPIDER,                             /* Slash'EM */
         LVL(5, 15, 3, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2),
@@ -2464,7 +2464,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE
             | M1_THICK_HIDE,
-        M2_HOSTILE | M2_STRONG | M2_NASTY, M3_ACCURATE,
+        M2_HOSTILE | M2_STRONG | M2_NASTY | M2_JUMPER, M3_ACCURATE,
         0, 0, 20, CLR_ORANGE),
     MON("carrion crawler", S_SPIDER,                            /* Slash'EM */
         LVL(3, 12, 3, 0, 0), (G_NOHELL | G_GENO | 1),
@@ -2961,7 +2961,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(400, 150, MS_SILENT, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
-        0, M3_INFRAVISIBLE, 0, 0, 6, CLR_BROWN),
+        M2_JUMPER, M3_INFRAVISIBLE, 0, 0, 6, CLR_BROWN),
     /* Koalas can only eat eucalyptus leaves. */
     MON("koala", S_ZOUTHERN,                                    /* Slash'EM */
         LVL(7, 4, 9, 10, 0), (G_NOHELL | G_GENO | 2),
@@ -2977,7 +2977,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SILENT, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
-        0, M3_INFRAVISIBLE, 0, 0, 8, CLR_RED),
+        M2_JUMPER, M3_INFRAVISIBLE, 0, 0, 8, CLR_RED),
     /* ...also eats organics (like gelatinous cube) */
     MON("Tasmanian devil", S_ZOUTHERN,                          /* Slash'EM */
         LVL(9, 12, 8, 0, 0), (G_NOHELL | G_GENO | 1),
@@ -2996,7 +2996,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1000, 500, MS_SILENT, MZ_MEDIUM), 0, 0,
         M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
-        M2_NASTY, M3_INFRAVISIBLE, 0, 0, 15, CLR_GRAY),
+        M2_NASTY | M2_JUMPER, M3_INFRAVISIBLE, 0, 0, 15, CLR_GRAY),
     /*
      * Angels and other lawful minions
      */
@@ -5615,7 +5615,7 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1800, 1000, MS_GROWL, MZ_HUGE), 0, 0,
         M1_ANIMAL | M1_HUMANOID | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
-            | M2_NASTY,
+            | M2_NASTY | M2_JUMPER,
         M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BROWN),
     MON("Abominable Snowman", S_YETI,                           /* EvilHack */
         LVL(25, 12, 0, 50, 0), (G_UNIQ | G_NOGEN),
@@ -6706,7 +6706,7 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_LARGE),
         MR_FIRE | MR_ELEC | MR_POISON, 0, M1_SEE_INVIS | M1_POIS,
-        M2_STALK | M2_HOSTILE | M2_NASTY | M2_FLANK,
+        M2_STALK | M2_HOSTILE | M2_NASTY | M2_FLANK | M2_JUMPER,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_DEMON, 13, CLR_ORANGE),
     MON("bone devil", S_DEMON,
@@ -7573,7 +7573,7 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
         M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_STRONG | M2_COLLECT, M3_INFRAVISIBLE, 0,
+        M2_NOPOLY | M2_STRONG | M2_COLLECT | M2_JUMPER, M3_INFRAVISIBLE, 0,
         MH_HUMAN, 12, CLR_YELLOW),
     MON("monk", S_HUMAN,
         LVL(10, 12, 10, 2, 0), (1),

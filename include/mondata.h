@@ -121,17 +121,7 @@
 
 #define is_lminion(mon) \
     (is_minion((mon)->data) && mon_aligntyp(mon) == A_LAWFUL)
-#define is_jumper(ptr) \
-    ((ptr) == &mons[PM_GIANT_CENTIPEDE] \
-     || (ptr) == &mons[PM_BAR_LGURA] \
-     || (ptr) == &mons[PM_JUMPING_SPIDER] \
-     || (ptr) == &mons[PM_KNIGHT] \
-     || (ptr) == &mons[PM_ZRUTY]  \
-     || (ptr) == &mons[PM_LANDSHARK]  \
-     || (ptr) == &mons[PM_WALLABY]  \
-     || (ptr) == &mons[PM_WALLAROO]  \
-     || (ptr) == &mons[PM_KANGAROO]  \
-     || (ptr) == &mons[PM_SERVAL])
+#define is_jumper(ptr) (((ptr)->mflags2 & M2_JUMPER) != 0L)
 #define is_flyer(ptr) (((ptr)->mflags1 & M1_FLY) != 0L)
 /* humanoid shape with big wings (flight blocked by most body armor) */
 #define big_wings(ptr) \
