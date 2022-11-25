@@ -15,6 +15,7 @@ STATIC_DCL void FDECL(tmiss, (struct obj *, struct monst *, BOOLEAN_P));
 STATIC_DCL int FDECL(throw_gold, (struct obj *));
 STATIC_DCL void FDECL(check_shop_obj, (struct obj *, XCHAR_P, XCHAR_P,
                                        BOOLEAN_P));
+static boolean harmless_missile(struct obj *);
 STATIC_DCL boolean FDECL(toss_up, (struct obj *, BOOLEAN_P));
 STATIC_DCL void FDECL(sho_obj_return_to_u, (struct obj * obj));
 STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
@@ -1096,6 +1097,39 @@ boolean broken;
     }
 }
 
+/* Will 'obj' cause damage if it falls on hero's head when thrown upward?
+   Not used to handle things which break when they hit. */
+static boolean
+harmless_missile(struct obj *obj)
+{
+    int otyp = obj->otyp;
+
+    /* this list is fairly arbitrary */
+    switch (otyp) {
+    case SLING:
+    case EUCALYPTUS_LEAF:
+    case KELP_FROND:
+    case SPRIG_OF_WOLFSBANE:
+    case FORTUNE_COOKIE:
+    case PANCAKE:
+        return TRUE;
+    case RUBBER_HOSE:
+    case BAG_OF_TRICKS:
+        return (obj->spe < 1);
+    case SACK:
+    case OILSKIN_SACK:
+    case BAG_OF_HOLDING:
+        return !Has_contents(obj);
+    default:
+        if (obj->oclass == SCROLL_CLASS) /* scrolls but not all paper objs */
+            return TRUE;
+        if (objects[otyp].oc_material == CLOTH)
+            return TRUE;
+        break;
+    }
+    return FALSE;
+}
+
 /*
  * Hero tosses an object upwards with appropriate consequences.
  *
@@ -1177,6 +1211,10 @@ boolean hitsroof;
             break;
         }
         return FALSE;
+    } else if (harmless_missile(obj)) {
+        pline("It doesn't hurt.");
+        hitfloor(obj, FALSE);
+        thrownobj = 0;
     } else { /* neither potion nor other breaking object */
         boolean less_damage = uarmh && (is_hard(uarmh)), artimsg = FALSE;
         int dmg = dmgval(obj, &youmonst);
@@ -1221,8 +1259,8 @@ boolean hitsroof;
                     else
                         pline("Fortunately, you are wearing a hard helmet.");
                 }
-                /* helmet definitely protects you when it blocks petrification
-                 */
+
+            /* helmet definitely protects you when it blocks petrification */
             } else if (!petrifier) {
                 if (flags.verbose)
                     Your("%s does not protect you.", helm_simple_name(uarmh));
