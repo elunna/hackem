@@ -3489,7 +3489,9 @@ register struct attack *mattk;
                     if (corpse_chance(mdef, &youmonst, TRUE)
                         && !(mvitals[monsndx(pd)].mvflags & G_NOCORPSE)) {
                         /* nutrition only if there can be a corpse */
-                        u.uhunger += (pd->cnutrit + 1) / 2;
+                        int nutr = (pd->cnutrit + 1) / 2;
+                        u.uhunger += (Hunger ? (nutr + 1) / 2 : nutr);
+                        
                     } else
                         tmp = 0;
                     Sprintf(msgbuf, "You totally digest %s.", mon_nam(mdef));
