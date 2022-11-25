@@ -641,7 +641,11 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                           * we mustn't call update_inventory() now because
                           * it would call xname() (via doname()) recursively
                           * and could end up clobbering all the obufs... */
-
+    /* rangers of a certain level/skill auto-know ammo enchantments */
+    if (Role_if(PM_RANGER) && u.ulevel >= 10
+        && obj->oclass == WEAPON_CLASS && is_ammo(obj)
+        && P_SKILL(-objects[obj->otyp].oc_skill) >= P_BASIC)
+        obj->known = 1;
     if (iflags.override_ID) {
         known = dknown = bknown = TRUE;
         obj->oprops_known = ITEM_PROP_MASK;
