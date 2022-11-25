@@ -2499,7 +2499,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(800, 350, MS_SILENT, MZ_HUGE), 0, 0,
         M1_HIDE | M1_FLY | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
-            | M1_CARNIVORE,
+            | M1_CARNIVORE | M1_MINDLESS,
         M2_HOSTILE | M2_STALK | M2_STRONG, 0, 0, 0, 12, CLR_GRAY),
     MON("trapper", S_TRAPPER,
         LVL(12, 3, 3, 0, 0), (G_GENO | 2),
@@ -2507,7 +2507,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(800, 350, MS_SILENT, MZ_HUGE), 0, 0,
         M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
-            | M1_CARNIVORE,
+            | M1_CARNIVORE | M1_MINDLESS,
         M2_HOSTILE | M2_STALK | M2_STRONG, 0, 0, 0, 14, CLR_GREEN),
     /*
      * unicorns and horses
