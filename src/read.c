@@ -2330,9 +2330,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
            perm_invent update; also simplifies empty invent check */
         useup(sobj);
         sobj = 0; /* it's gone */
-        if (confused)
+        if (confused) {
+            You("identify yourself...");
+            display_nhwindow(WIN_MESSAGE, FALSE);
+            enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
             You("identify this as an identify scroll.");
-        else if (!already_known || !invent)
+        } else if (!already_known || !invent)
             /* force feedback now if invent became
                empty after using up this scroll */
             pline("This is an identify scroll.");
