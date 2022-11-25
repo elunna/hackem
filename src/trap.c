@@ -4326,7 +4326,7 @@ xchar x, y;
             if (ucarried)
                 update_inventory();
             return ER_DAMAGED;
-        } else if (obj->otyp != POT_WATER) {
+        } else if (obj->otyp != POT_WATER && obj->otyp != POT_OIL) {
             if (ucarried)
                 pline("Your %s %s.", ostr, vtense(ostr, "dilute"));
 
