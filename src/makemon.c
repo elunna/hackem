@@ -2589,6 +2589,13 @@ register struct monst *mtmp;
             if (!mpickobj(mtmp, otmp) && !levl[mtmp->mx][mtmp->my].lit)
                 begin_burn(otmp, FALSE);
         }
+        if (!In_mines(&u.uz)) {
+            int ngems = rn2(1 + min(level_difficulty() / 5, 2));
+            while (ngems > 0) {
+                (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1));
+                ngems--;
+            }
+        }
         break;
     case S_SPIDER:
         if (ptr == &mons[PM_SCORPIUS]) {
