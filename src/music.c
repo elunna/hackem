@@ -930,8 +930,8 @@ struct obj *instr;
             exercise(A_WIS, TRUE); /* just for trying */
             if (!strcmp(buf, tune)) {
                 /* Search for the drawbridge */
-                for (y = u.uy - 1; y <= u.uy + 1; y++)
-                    for (x = u.ux - 1; x <= u.ux + 1; x++)
+                for (y = u.uy - 2; y <= u.uy + 2; y++)
+                    for (x = u.ux - 2; x <= u.ux + 2; x++)
                         if (isok(x, y))
                             if (find_drawbridge(&x, &y)) {
                                 /* tune now fully known */
@@ -949,8 +949,8 @@ struct obj *instr;
                  * we can give the player some hints like in the
                  * Mastermind game */
                 ok = FALSE;
-                for (y = u.uy - 1; y <= u.uy + 1 && !ok; y++)
-                    for (x = u.ux - 1; x <= u.ux + 1 && !ok; x++)
+                for (y = u.uy - 2; y <= u.uy + 2 && !ok; y++)
+                    for (x = u.ux - 2; x <= u.ux + 2 && !ok; x++)
                         if (isok(x, y))
                             if (IS_DRAWBRIDGE(levl[x][y].typ)
                                 || is_drawbridge_wall(x, y) >= 0)
