@@ -3059,6 +3059,14 @@ int final;
         else
             you_are("not wearing any armor", "");
     }
+    if (!final) {
+        if (u.ulastprayed < 0)
+            you_have_never("prayed");
+        else {
+            Sprintf(buf, " on turn %ld (%ld turns ago)", u.ulastprayed, (moves - u.ulastprayed));
+            enlght_line(You_, "prayed", buf, "");
+        }
+    }
 }
 
 /* attributes: intrinsics and the like, other non-obvious capabilities */

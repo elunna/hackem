@@ -2755,6 +2755,8 @@ dopray()
     if (!can_pray(TRUE))
         return 0;
 
+    u.ulastprayed = moves;
+
     if (wizard && p_type >= 0) {
         if (yn("Force the gods to be pleased?") == 'y') {
             u.ublesscnt = 0;
