@@ -2211,12 +2211,21 @@ roguename()
 
 static NEARDATA const char *const hcolors[] = {
     "ultraviolet", "infrared", "bluish-orange", "reddish-green", "dark white",
-    "light black", "sky blue-pink", "salty", "sweet", "sour", "bitter",
+    "light black", "sky blue-pink", "pinkish-cyan", "indigo-chartreuse",
+    "salty", "sweet", "sour", "bitter", "umami", /* basic tastes */
     "striped", "spiral", "swirly", "plaid", "checkered", "argyle", "paisley",
     "blotchy", "guernsey-spotted", "polka-dotted", "square", "round",
     "triangular", "cabernet", "sangria", "fuchsia", "wisteria", "lemon-lime",
     "strawberry-banana", "peppermint", "romantic", "incandescent",
     "octarine", /* Discworld: the Colour of Magic */
+    "excitingly dull", "mauve", "electric",
+    "neon", "fluorescent", "phosphorescent", "translucent", "opaque",
+    "psychedelic", "iridescent", "rainbow-colored", "polychromatic",
+    "colorless", "colorless green",
+    "dancing", "singing", "loving", "loudy", "noisy", "clattery", "silent",
+    "apocyan", "infra-pink", "opalescent", "violant", "tuneless",
+    "viridian", "aureolin", "cinnabar", "purpurin", "gamboge", "madder",
+    "bistre", "ecru", "fulvous", "tekhelet", "selective yellow",
 };
 
 const char *
@@ -2247,6 +2256,7 @@ static NEARDATA const char *const hliquids[] = {
     "caramel sauce", "ink", "aqueous humour", "milk substitute",
     "fruit juice", "glowing lava", "gastric acid", "mineral water",
     "cough syrup", "quicksilver", "sweet vitriol", "grey goo", "pink slime",
+    "cosmic latte",
 };
 
 const char *
