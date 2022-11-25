@@ -2196,6 +2196,7 @@ E void FDECL(potionhit, (struct monst *, struct obj *, int));
 E void FDECL(potionbreathe, (struct obj *));
 E boolean FDECL(get_wet, (struct obj *, BOOLEAN_P, BOOLEAN_P));
 E int NDECL(dodip);
+E void FDECL(ferment, (ANY_P *, long));
 E void FDECL(mongrantswish, (struct monst **));
 E void FDECL(djinni_from_bottle, (struct obj *));
 E struct monst *FDECL(split_mon, (struct monst *, struct monst *));
