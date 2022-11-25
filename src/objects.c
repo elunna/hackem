@@ -1177,7 +1177,7 @@ SPELL("haste self",      "purple",        P_ESCAPE_SPELL,      30,  4, 3, 1, NOD
 SPELL("levitation",      "tan",           P_ESCAPE_SPELL,      20,  4, 4, 1, NODIR, CLR_BROWN),
 SPELL("teleport away",   "gold",          P_ESCAPE_SPELL,      15,  6, 5, 1, IMMEDIATE, HI_GOLD),
 SPELL("passwall",        "ochre",         P_ESCAPE_SPELL,       5,  7, 5, 1, NODIR, CLR_YELLOW),   /* Slash'EM */
-SPELL("invisibility",    "dark brown",    P_ESCAPE_SPELL,      25,  5, 3, 1, NODIR, CLR_BROWN),
+SPELL("invisibility",    "dark brown",    P_ESCAPE_SPELL,      25,  5, 2, 1, NODIR, CLR_BROWN),
 SPELL("jumping",         "thin",          P_ESCAPE_SPELL,      20,  3, 2, 1, IMMEDIATE, HI_PAPER),
 
 SPELL("light",           "cloth",         P_DIVINATION_SPELL,  35,  1, 1, 1, NODIR, HI_CLOTH),
