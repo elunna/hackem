@@ -1090,9 +1090,12 @@ boolean need_dir;
                 if (maploc->doormask == D_ISOPEN
                     || maploc->doormask == D_NODOOR)
                     unblock_point(x, y); /* vision */
-                return 1;
-            } else
-                goto ouch;
+            } else {
+                /* Don't reveal whether secret door or secret corridor. */
+                pline(Deaf ? "The wall gives way a little."
+                           : "The wall responds with a hollow thump.");
+            }
+            return 1;
         }
         if (maploc->typ == SCORR) {
             if (!Levitation && rn2(30) < avrg_attrib) {
@@ -1101,9 +1104,12 @@ boolean need_dir;
                 maploc->typ = CORR;
                 feel_newsym(x, y); /* we know it's gone */
                 unblock_point(x, y); /* vision */
-                return 1;
-            } else
-                goto ouch;
+            } else {
+                /* Don't reveal whether secret door or secret corridor. */
+                pline(Deaf ? "The wall gives way a little."
+                           : "The wall responds with a hollow thump.");
+            }
+            return 1;
         }
         if (IS_THRONE(maploc->typ)) {
             register int i;
