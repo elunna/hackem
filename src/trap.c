@@ -3767,8 +3767,7 @@ domagictrap()
     } else
         switch (fate) {
         case 10:
-        case 11:
-            /* toggle any intrinsic invisibility */
+        case 11: /* temporary intrinsic invisibility, or remove it if it's there */
             if (!Deaf)
                 You_hear("a low hum.");
             if (!Invis) {
@@ -3787,8 +3786,8 @@ domagictrap()
                 You_feel("a little more %s now.",
                          (HInvis & ~TIMEOUT) ? "obvious" : "hidden");
             }
-            HInvis = (HInvis & ~TIMEOUT) ? (HInvis & TIMEOUT)
-                                         : (HInvis | FROMOUTSIDE);
+            /*HInvis = (HInvis & ~TIMEOUT) ? (HInvis & TIMEOUT) : (HInvis | FROMOUTSIDE);*/
+            set_itimeout(&HInvis, HInvis ? 0 : rnd(200) + 200);
             newsym(u.ux, u.uy);
             break;
         case 12: /* a flash of fire */
