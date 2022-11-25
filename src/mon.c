@@ -768,6 +768,13 @@ unsigned corpseflags;
         }
         free_mname(mtmp);
         break;
+    case PM_ROPE_GOLEM:
+        num = rn2(3);
+        while (num-- > 0) {
+            obj = mksobj_at(rn2(2) ? LEASH : BULLWHIP, x, y, TRUE, FALSE);
+        }
+        free_mname(mtmp);
+        break;
     case PM_LEATHER_GOLEM:
         num = d(2, 4);
         while (num--) {
