@@ -2574,7 +2574,7 @@ register struct monst *mtmp;
            Recognizing who made the trap isn't completely
            unreasonable; everybody has their own style. */
         if (trap->madeby_u && rnl(5))
-            setmangry(mtmp, TRUE);
+            setmangry(mtmp, FALSE);
 
         in_sight = canseemon(mtmp);
         see_it = cansee(mtmp->mx, mtmp->my);
