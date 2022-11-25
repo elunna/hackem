@@ -966,7 +966,7 @@ FOOD("cream pie",            25,  1, 10, 0, VEGGY, 100, CLR_WHITE),
 FOOD("apple pie",             1,  1, 10, 0, VEGGY, 200, CLR_RED),            /* SpliceHack */
 FOOD("pumpkin pie",           1,  1, 10, 0, VEGGY, 300, CLR_ORANGE),         /* SpliceHack */
 FOOD("sandwich",             10,  1, 10, 0, FLESH, 100, CLR_WHITE),          /* Slash'EM */
-FOOD("candy bar",            13,  1,  2, 0, VEGGY, 100, CLR_BROWN),          /* Slash'EM */
+FOOD("candy bar",            13,  1,  2, 0, VEGGY, 100, CLR_BRIGHT_BLUE),
 FOOD("slice of cake",         6, 10,  2, 0, VEGGY, 900, CLR_RED),            /* SpliceHack */
 FOOD("fruitcake",             1, 20, 20, 0, VEGGY, 1000, CLR_BROWN),         /* SpliceHack */
 FOOD("fortune cookie",       55,  1,  1, 0, VEGGY,  40, CLR_YELLOW),
