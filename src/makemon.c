@@ -2443,6 +2443,8 @@ register struct monst *mtmp;
             (void) mongets(mtmp, rn2(11) 
                 ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE) 
                 : CLOAK_OF_MAGIC_RESISTANCE);
+        } else if (ptr == &mons[PM_ORACLE] && rn2(3)) {
+            mongets(mtmp, POT_HALLUCINATION);
         } else if (ptr == &mons[PM_ARCHBISHOP_OF_MOLOCH]) {
             (void) mongets(mtmp, QUARTERSTAFF);
             (void) mongets(mtmp, rn2(3) 
