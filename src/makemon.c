@@ -1578,6 +1578,9 @@ register struct monst *mtmp;
                 (void) mpickobj(mtmp, otmp);
                 m_dowear(mtmp, FALSE);
             }
+            /* non-archons might have a stereotypical harp */
+            if (!rn2(20) && !is_lord(ptr))
+                (void) mongets(mtmp, rn2(5) ? HARP : MAGIC_HARP);
         }
         break;
 
