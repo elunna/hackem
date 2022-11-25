@@ -1725,8 +1725,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SCR_BLANK_PAPER:
         if (Blind)
             You("don't remember there being any magic words on this scroll.");
-        else
+        else {
             pline("This scroll seems to be blank.");
+            if (Confusion && !rn2(2))
+                pline("Being confused, you mispronounce the lack of words...");
+        }
         known = TRUE;
         break;
     case SCR_REMOVE_CURSE:
