@@ -802,7 +802,7 @@ TOOL("eight ball", "plastic orb", 0, 0, 0, 0,   0,  20,  30, PLASTIC, CLR_BLACK)
 TOOL("lenses",              None, 1, 0, 0, 0,   4,   3,  80, GLASS, HI_GLASS),
 TOOL("goggles",             None, 1, 0, 0, 0,   1,   3,  50, PLASTIC, CLR_BLACK),   /* EvilHack */
 TOOL("blindfold",           None, 1, 0, 0, 0,  50,   2,  20, CLOTH, CLR_BLACK),
-TOOL("towel",               None, 1, 0, 0, 0,  50,   2,  50, CLOTH, CLR_MAGENTA),
+TOOL("towel",               None, 1, 0, 0, 0,  50,  10,  50, CLOTH, CLR_MAGENTA),
 TOOL("saddle",              None, 1, 0, 0, 0,   5, 200, 150, LEATHER, HI_LEATHER),
 OBJECT(OBJ("barding", None),                                                        /* EvilHack */
         BITS(1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, P_NONE, IRON),
