@@ -657,7 +657,7 @@ int teleds_flags;
         /* when teleporting by scroll, we need to handle discovery
            now before getting feedback about any objects at our
            destination since we might land on another such scroll */
-        if (distu(u.ux0, u.uy0) >= 16 || !couldsee(u.ux0, u.uy0))
+        if (distu(u.ux0, u.uy0) >= 1 || !couldsee(u.ux0, u.uy0))
             learnscroll(telescroll);
         else
             telescroll = 0; /* no discovery by scrolltele()'s caller */
