@@ -425,6 +425,8 @@ dig(VOID_ARGS)
                 lev->typ = ROOM, lev->flags = 0;
                 if (!rn2(5) && !IS_DEADTREE(lev->typ))
                     (void) rnd_treefruit_at(dpx, dpy);
+                else if (Race_if(PM_DWARF))
+                    adjalign(1);
             } else {
                 digtxt = "You succeed in cutting away some rock.";
                 lev->typ = CORR, lev->flags = 0;
