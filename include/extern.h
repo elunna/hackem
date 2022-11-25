@@ -1837,6 +1837,7 @@ E void FDECL(mmake_wish, (struct monst *));
 
 E void FDECL(awaken_monsters, (int));
 E void FDECL(do_earthquake, (int));
+E void FDECL(put_monsters_to_sleep, (struct monst *, int));
 E void FDECL(awaken_soldiers, (struct monst *));
 E int FDECL(do_play_instrument, (struct obj *));
 

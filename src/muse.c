@@ -361,14 +361,15 @@ struct obj *otmp;
 #define MUSE_EUCALYPTUS_LEAF            22
 #define MUSE_BAG_OF_TRICKS              23
 #define MUSE_BUGLE                      24
-#define MUSE_UNICORN_HORN               25
-#define MUSE_TRAPDOOR                   26
-#define MUSE_TELEPORT_TRAP              27
-#define MUSE_UPSTAIRS                   28
-#define MUSE_DOWNSTAIRS                 29
-#define MUSE_UP_LADDER                  30
-#define MUSE_DN_LADDER                  31
-#define MUSE_SSTAIRS                    32
+#define MUSE_MAGIC_FLUTE                25
+#define MUSE_UNICORN_HORN               26
+#define MUSE_TRAPDOOR                   27
+#define MUSE_TELEPORT_TRAP              28
+#define MUSE_UPSTAIRS                   29
+#define MUSE_DOWNSTAIRS                 30
+#define MUSE_UP_LADDER                  31
+#define MUSE_DN_LADDER                  32
+#define MUSE_SSTAIRS                    33
 
 
 /*
@@ -2106,6 +2107,15 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_POT_OIL;
         }
+        nomore(MUSE_MAGIC_FLUTE);
+        if (obj->otyp == MAGIC_FLUTE && !u.usleep && !rn2(3)
+            && obj->spe > 0 && multi >= 0) {
+            int dist = dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy);
+            if (dist <= mtmp->m_lev * 5) {
+                m.offensive = obj;
+                m.has_offense = MUSE_MAGIC_FLUTE;
+            }
+        }
         /* we can safely put this scroll here since the locations that
          * are in a 1 square radius are a subset of the locations that
          * are in wand range
@@ -2614,6 +2624,34 @@ struct monst *mtmp;
              sgn(tby));
         m_using = FALSE;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
+    case MUSE_MAGIC_FLUTE: {
+        const char* music = Hallucination ? "piping" : "soft";
+        if (oseen) {
+            makeknown(otmp->otyp);
+            pline("%s plays a %s!", Monnam(mtmp), xname(otmp));
+            if (!Deaf)
+                pline("%s produces %s music.", Monnam(mtmp), music);
+        }
+        else {
+            You_hear("%s music being played.", music);
+        }
+        m_using = TRUE;
+        put_monsters_to_sleep(mtmp, mtmp->m_lev * 5);
+        if (!Deaf) {
+            /* No effects on you if you can't hear the music, but the monster
+             * doesn't know that so it won't be prevented from trying. */
+            if (Sleep_resistance)
+                You("yawn.");
+            else {
+                You("fall asleep.");
+                /* sleep time is same as put_monsters_to_sleep */
+                fall_asleep(-d(10, 10), TRUE);
+            }
+        }
+        otmp->spe--;
+        m_using = FALSE;
+        return 2;
+    }
     case MUSE_WAN_DRAINING:	/* KMH */
     case MUSE_WAN_CANCELLATION:
     case MUSE_WAN_TELEPORTATION:
@@ -3820,7 +3858,10 @@ struct obj *obj;
             return (boolean) (!obj->cursed && !is_unicorn(mon->data)
                               && mon->data != &mons[PM_KI_RIN]
                               && mon->data != &mons[PM_ELDRITCH_KI_RIN]);
-        if (typ == FROST_HORN || typ == FIRE_HORN || typ == HORN_OF_BLASTING)
+        if (typ == FROST_HORN 
+            || typ == FIRE_HORN 
+            || typ == HORN_OF_BLASTING 
+            || typ == MAGIC_FLUTE)
             return (obj->spe > 0 && can_blow(mon));
         if (typ == SKELETON_KEY || typ == LOCK_PICK || typ == CREDIT_CARD)
             return TRUE;
