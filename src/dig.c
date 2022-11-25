@@ -425,6 +425,8 @@ dig(VOID_ARGS)
                 lev->typ = ROOM, lev->flags = 0;
                 if (!rn2(5) && !IS_DEADTREE(lev->typ))
                     (void) rnd_treefruit_at(dpx, dpy);
+                if (Race_if(PM_ELF) || Role_if(PM_RANGER))
+                    adjalign(-1);
                 else if (Race_if(PM_DWARF))
                     adjalign(1);
             } else {
