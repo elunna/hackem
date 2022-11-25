@@ -828,23 +828,23 @@ TOOL("land mine",           None, 1, 0, 0, 0,   0, 300, 180, IRON, CLR_RED),
 TOOL("beartrap",            None, 1, 0, 0, 0,   0, 200,  60, IRON, HI_METAL),
 /* instruments */
 TOOL("pea whistle",    "whistle", 0, 0, 0, 0, 100,   3,  10, METAL, HI_METAL),
-TOOL("magic whistle",  "whistle", 0, 0, 1, 0,  30,   3,  10, METAL, HI_METAL),
+TOOL("magic whistle",  "whistle", 0, 0, 1, 0,  30,   3,  100, METAL, HI_METAL),
 TOOL("flute",            "flute", 0, 0, 0, 0,   4,   5,  12, WOOD, HI_WOOD),
-TOOL("magic flute",      "flute", 0, 0, 1, 1,   2,   5,  36, WOOD, HI_WOOD),
+TOOL("magic flute",      "flute", 0, 0, 1, 1,   2,   5,  144, WOOD, HI_WOOD),
 TOOL("tooled horn",       "horn", 0, 0, 0, 0,   5,  18,  15, BONE, CLR_WHITE),
-TOOL("frost horn",        "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
-TOOL("fire horn",         "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
-TOOL("horn of blasting",  "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),      /* SpliceHack */
-TOOL("horn of plenty",    "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
+TOOL("frost horn",        "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),
+TOOL("fire horn",         "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),
+TOOL("horn of blasting",  "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),      /* SpliceHack */
+TOOL("horn of plenty",    "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),
         /* horn, but not an instrument */
 TOOL("harp",              "harp", 0, 0, 0, 0,   4,  30,  50, WOOD, HI_WOOD),
-TOOL("magic harp",        "harp", 0, 0, 1, 1,   2,  30,  50, WOOD, HI_WOOD),
+TOOL("magic harp",        "harp", 0, 0, 1, 1,   2,  30,  200, WOOD, HI_WOOD),
 TOOL("bell",                None, 1, 0, 0, 0,   2,  30,  50, COPPER, HI_COPPER),
 TOOL("bugle",               None, 1, 0, 0, 0,   4,  10,  15, COPPER, HI_COPPER),
 TOOL("lute",                None, 1, 0, 0, 0,  4, 25, 40, WOOD, HI_WOOD),            /* SpliceHack */
 TOOL("bagpipe",             None, 1, 0, 0, 0,  2, 35, 75, LEATHER, CLR_GREEN),      /* SpliceHack */
 TOOL("leather drum",      "drum", 0, 0, 0, 0,   4,  25,  25, LEATHER, HI_LEATHER),
-TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  25, LEATHER, HI_LEATHER),
+TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  100, LEATHER, HI_LEATHER),
 
 
 #define WEPTOOL(name,desc,kn,mgc,chg, bi,prob,wt,cost,sdam,ldam,hitbon,typ,sub,mat,clr) \
