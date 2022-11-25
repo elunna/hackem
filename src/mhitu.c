@@ -2095,10 +2095,12 @@ register struct attack *mattk;
 
     case AD_SSEX:
         if (SYSOPT_SEDUCE) {
-            if (could_seduce(mtmp, &youmonst, mattk) == 1
-                && !(mtmp->mcan || Hidinshell))
+            if (could_seduce(mtmp, &youmonst, mattk) == 1 
+                && !(mtmp->mcan || Hidinshell)) {
+                mintroduce(mtmp);
                 if (doseduce(mtmp))
                     return 3;
+            }
             break;
         }
         /*FALLTHRU*/
@@ -2127,19 +2129,21 @@ register struct attack *mattk;
             if (!tele_restrict(mtmp))
                 (void) rloc(mtmp, TRUE);
             return 3;
-        } else if (mtmp->mcan || Hidinshell 
-                   || (uwep && uwep->oartifact == ART_THIEFBANE)) {
-            if (!Blind)
-                pline("%s tries to %s you, but you seem %s.",
-                      Adjmonnam(mtmp, "plain"),
-                      flags.female ? "charm" : "seduce",
-                      flags.female ? "unaffected" : "uninterested");
-            if (rn2(3)) {
-                if (!tele_restrict(mtmp))
-                    (void) rloc(mtmp, TRUE);
-                return 3;
+        } else {
+            mintroduce(mtmp);
+            if (mtmp->mcan || Hidinshell || (uwep && uwep->oartifact == ART_THIEFBANE)) {
+                if (!Blind)
+                    pline("%s tries to %s you, but you seem %s.",
+                          Adjmonnam(mtmp, "plain"),
+                          flags.female ? "charm" : "seduce",
+                          flags.female ? "unaffected" : "uninterested");
+                if (rn2(3)) {
+                    if (!tele_restrict(mtmp))
+                        (void) rloc(mtmp, TRUE);
+                    return 3;
+                }
+                break;
             }
-            break;
         }
         if (uwep && uwep->oartifact == ART_THIEFBANE) {
             pline("%s makes a move for your pack but Thiefbane blocks the theft!.", Monnam(mtmp));

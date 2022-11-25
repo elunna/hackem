@@ -506,6 +506,7 @@ E const char *FDECL(noveltitle, (int *));
 E const char *FDECL(lookup_novel, (const char *, int *));
 E char *FDECL(mon_wounds, (struct monst *));
 E void FDECL(print_mon_wounded, (struct monst *, int));
+E void FDECL(mintroduce, (struct monst *));
 
 /* ### do_wear.c ### */
 
