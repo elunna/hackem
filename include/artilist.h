@@ -73,7 +73,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
        First sacrifice gift for a priest. */
     A("Demonbane", HEAVY_MACE, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
       PHYS(5, 0), NO_DFNS, NO_CARY, FLYING, A_LAWFUL, PM_PRIEST, NON_PM, 3000L,
-      NO_COLOR),
+      CLR_WHITE),
 
     /* From LotR. Provides magic resistance and one level of MC when wielded.
      * Can destroy any balrog in one hit. Warns of any demons nearby.*/
@@ -174,7 +174,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, INVIS, A_NEUTRAL, PM_MONK, NON_PM, 5000L, NO_COLOR),
 
     A("Giantslayer", LONG_SWORD, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_GIANT,
-      PHYS(5, 0), DFNS(AD_CLOB), NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 500L,
+      PHYS(5, 0), DFNS(AD_CLOB), NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 1200L,
       NO_COLOR),
 
     /* Gungnir has an insane to-hit bonus. */
@@ -417,7 +417,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     A("Ogresmasher", HEAVY_WAR_HAMMER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 500L,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1200L,
       NO_COLOR),
 
     /* Quarterstaff that grants teleport control, and also greatly increases
@@ -459,7 +459,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     A("Trollsbane", MORNING_STAR, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REGEN), 0, MH_TROLL,
-      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 800L,
+      PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1000L,
       NO_COLOR),
 
     A("Wallet of Perseus", BAG_OF_HOLDING, SPFX_RESTR, SPFX_PROTECT, 0,
@@ -467,7 +467,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       10000L, NO_COLOR),
     
     A("Werebane", SABER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_WERE,
-      PHYS(5, 0), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
+      PHYS(5, 10), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
       NO_COLOR),
 
     /*** Alignment quest artifacts ***/
