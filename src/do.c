@@ -2495,8 +2495,8 @@ long timeout UNUSED;
     struct permonst* newpm = mkclass(S_FUNGUS, 0);
     int count = 0;
     
-    /* Acidic corpses only grow acidic fungi. */
-    if (acidic(&mons[oldtyp])) {
+    /* Acidic corpses and petrifying corpses only grow acidic fungi. */
+    if (acidic(&mons[oldtyp]) || touch_petrifies(&mons[oldtyp])) {
         if (mvitals[PM_GREEN_MOLD].mvflags & G_GONE)
             newpm = NULL;
         else
