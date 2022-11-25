@@ -407,10 +407,7 @@ learn(VOID_ARGS)
             set_material(book, PAPER);
             /* reset spestudied as if polymorph had taken place */
             book->spestudied = rn2(book->spestudied);
-        } else if (spellknow(i) > KEEN / 10) {
-            You("know %s quite well already.", splname);
-            costly = FALSE;
-        } else { /* spellknow(i) <= KEEN/10 */
+        } else {
             Your("knowledge of %s is %s.", splname,
                  spellknow(i) ? "keener" : "restored");
             incrnknow(i, 1);
@@ -458,7 +455,7 @@ int
 study_book(spellbook)
 register struct obj *spellbook;
 {
-    int booktype = spellbook->otyp;
+    int booktype = spellbook->otyp, i;
     boolean confused = (Confusion != 0);
     boolean too_hard = FALSE;
 
@@ -569,6 +566,16 @@ register struct obj *spellbook;
             impossible("Unknown spellbook level %d, book %d;",
                        objects[booktype].oc_level, booktype);
             return 0;
+        }
+
+        /* check to see if we already know it and want to refresh our memory */
+        for (i = 0; i < MAXSPELL; i++)
+            if (spellid(i) == booktype || spellid(i) == NO_SPELL)
+                break;
+        if (spellid(i) == booktype && spellknow(i) > KEEN / 10) {
+            You("know \"%s\" quite well already.", OBJ_NAME(objects[booktype]));
+            if (yn("Refresh your memory anyway?") == 'n')
+                return 0;
         }
 
         /* Books are often wiser than their readers (Rus.) */
