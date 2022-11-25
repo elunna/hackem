@@ -1131,7 +1131,25 @@ int dieroll;
                        let it also hit from behind or shatter foes' weapons */
                     || (hand_to_hand && obj->oartifact == ART_CLEAVER)) {
                     ; /* no special bonuses */
-                } else if (mon->mflee && Role_if(PM_ROGUE) && !Upolyd
+                } 
+                else if (mdat->mlet == S_GIANT && uslinging()
+                         && thrown == HMON_THROWN
+                         && ammo_and_launcher(obj, uwep)
+                         && P_SKILL(P_SLING) >= P_SKILLED && dieroll > 1
+                         && !rn2(P_SKILL(P_SLING) == P_SKILLED ? 2 : 1)) {
+                    /* With a critical hit, a skilled slinger can bring down
+                     * even the mightiest of giants. */
+                    tmp = mon->mhp + 100;
+                    pline("%s crushes %s forehead!", The(mshot_xname(obj)),
+                          s_suffix(mon_nam(mon)));
+                    hittxt = TRUE;
+                    /* Same as above; account for negative udaminc and skill
+                     * damage penalties. (In the really odd situation where for
+                     * some reason being Skilled+ gives a penalty?) */
+                    get_dmg_bonus = FALSE;
+                    tmp -= weapon_dam_bonus(uwep);
+                }
+                else if (mon->mflee && Role_if(PM_ROGUE) && !Upolyd
                            /* multi-shot throwing is too powerful here */
                            && hand_to_hand) {
                     You("strike %s from behind!", mon_nam(mon));
@@ -1589,7 +1607,7 @@ int dieroll;
          * bonus but you do get an increase-damage bonus.
          */
         if (thrown != HMON_THROWN || !obj || !uwep
-            || !ammo_and_launcher(obj, uwep))
+            || !ammo_and_launcher(obj, uwep) || uslinging())
             tmp += dbon();
     }
 
