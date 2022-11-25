@@ -595,6 +595,12 @@ unsigned corpseflags;
             obj->cursed = obj->blessed = FALSE;
         }
         goto default_1;
+    case PM_SKELETON:
+        if (!rn2(50)) {
+            otmp = mksobj_at(SKELETON_KEY, x, y, TRUE, FALSE);
+            set_material(otmp, BONE);
+        }
+        break;
     case PM_TIAMAT:
         /* Make chromatic dragon scales */
         if (!rn2(3)) { /* Tiamat cannot be revived, no corpse */
