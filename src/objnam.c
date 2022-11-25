@@ -3761,6 +3761,7 @@ struct obj *no_wish;
                 || !strncmpi(bp, "gold dragon", l = 11)
                 || !strcmp(bp, "gold")
                 || !strncmpi(bp, "gold piece", l = 10)
+                || !strncmpi(bp, "wax candle", l = 10)
                 || !strncmpi(bp, "platinum yendorian express card", l = 31)
                 || !strncmpi(bp, "iron bars", l = 9)
                 || !strncmpi(bp, "crystal chest", l = 13)
