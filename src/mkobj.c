@@ -842,6 +842,8 @@ boolean artif;
 
             if (artif && !rn2(30 + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
+            else if (!rn2(40))
+                otmp->oerodeproof = 1;
             else if (rn2(175) < (level_difficulty() / 2))
                 otmp = create_oprop(otmp, TRUE);
 
