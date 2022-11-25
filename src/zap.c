@@ -6326,6 +6326,7 @@ int osym, dmgtyp;
     int dmg, xresist, skip, dindx;
     const char *mult;
     boolean physical_damage;
+    boolean chargeit = FALSE;
 
     /* special effect of extrinsic resistances: they protect all items from
      * their respective damage types */
@@ -6412,6 +6413,11 @@ int osym, dmgtyp;
                 || obj->otyp == RIN_SHOCK_RESISTANCE) {
                 skip++;
                 break;
+            } 
+            /* Shock damage may charge chargable rings */
+            if (objects[obj->otyp].oc_charged && rn2(3)) {
+                chargeit = TRUE;
+                break;
             }
             if ((obj->oerodeproof || is_supermaterial(obj))
                 && rn2(3)) {
@@ -6491,7 +6497,9 @@ int osym, dmgtyp;
         break;
     }
 
-    if (!skip) {
+    if (chargeit)
+        recharge(obj, 0,  &youmonst);
+    else if (!skip) {
         if (obj->in_use)
             --quan; /* one will be used up elsewhere */
         for (i = cnt = 0L; i < quan; i++)
