@@ -245,6 +245,14 @@ xchar x, y;
     i = -inv_weight();
     j = weight_cap();
 
+    /* What the following confusing if statements mean:
+     * If you are over 70% of carrying capacity, you go through a "deal no
+     * damage" check, and if that fails, a "clumsy kick" check.
+     * At this % of carrycap | Chance of no damage | Chance of clumsiness
+     *             [70%-80%) |                 1/4 |                  1/3
+     *             [80%-90%) |                 1/3 |                  1/2
+     *            [90%-100%) |                 1/2 |                   1
+     */
     if (i < (j * 3) / 10) {
         if (!rn2((i < j / 10) ? 2 : (i < j / 5) ? 3 : 4)) {
             if (martial())   /* if you're a martial artist, you're not a clumsy kicker */
