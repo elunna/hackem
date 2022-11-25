@@ -4139,6 +4139,8 @@ int otyp;
             otmp->cursed = FALSE;
             if (otmp->spe < 0)
                 otmp->spe = 0;
+            otmp->oeroded = 0;
+            otmp->oeroded2 = 0;
             otmp->oerodeproof = TRUE;
         } else if (is_mplayer(mtmp->data) && is_sword(otmp)) {
             otmp->spe = (3 + rn2(4));
@@ -4163,12 +4165,16 @@ int otyp;
                 otmp->spe = rn2(3) + 1;
             else if (otmp->oclass == ARMOR_CLASS && otmp->spe < 1)
                 otmp->spe = mtmp->iswiz ? rn2(2) : rn2(4) + 1;
+            otmp->oeroded = 0;
+            otmp->oeroded2 = 0;
         }
         if (is_lord(mtmp->data)) {
             if (otmp->oclass == WEAPON_CLASS && otmp->spe < 1)
                 otmp->spe = rn2(2) + 1;
             else if (otmp->oclass == ARMOR_CLASS && otmp->spe < 1)
                 otmp->spe = rn2(2) + 1;
+            otmp->oeroded = 0;
+            otmp->oeroded2 = 0;
         }
 
         /* Medusa's bow and arrows are also high quality */
