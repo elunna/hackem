@@ -5925,6 +5925,12 @@ boolean moncast;
                     unblock_point(x, y); /* vision:  can see through */
                 feel_newsym(x, y);
             }
+        } else if (IS_GRASS(lev->typ)) {
+            lev->typ = ROOM;
+            if (see_it) {
+                pline("The grass is scorched away!");
+                newsym(x, y);
+            }
         }
         break; /* ZT_FIRE */
 
