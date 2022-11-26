@@ -4598,6 +4598,11 @@ struct obj *no_wish;
             pline("A tree.");
             block_point(x, y);
             madeterrain = TRUE;
+        } else if (!BSTRCMPI(bp, p - 5, "grass")) {
+            lev->typ = GRASS;
+            lev->flags = 0;
+            pline("Some grass.");
+            madeterrain = TRUE;
         } else if (!BSTRCMPI(bp, p - 4, "bars")) {
             lev->typ = IRONBARS;
             pline("Iron bars.");
