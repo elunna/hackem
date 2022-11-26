@@ -2069,8 +2069,11 @@ const char *str;
     if (!str[1]) {
         /* single letter; might be used for named fruit */
         Strcpy(outbuf, index("aefhilmnosx", c0) ? "an " : "a ");
-    } else if (!strncmpi(str, "the ", 4) || !strcmpi(str, "molten lava")
-               || !strcmpi(str, "iron bars") || !strcmpi(str, "ice")) {
+    } else if (!strncmpi(str, "the ", 4) 
+               || !strcmpi(str, "molten lava")
+               || !strcmpi(str, "iron bars") 
+               || !strcmpi(str, "ice") 
+               || !strcmpi(str, "grass")) {
         ; /* no article */
     } else {
         /* normal case is "an <vowel>" or "a <consonant>" */
