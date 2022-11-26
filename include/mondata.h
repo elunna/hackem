@@ -660,6 +660,7 @@
 #define likes_fire(ptr) \
     ((ptr) == &mons[PM_FIRE_VORTEX] \
      || (ptr) == &mons[PM_FIRE_VAMPIRE] \
+     || (ptr) == &mons[PM_FLAME_MAGE] \
      || (ptr) == &mons[PM_FLAMING_SPHERE] \
      || likes_lava(ptr))
 
