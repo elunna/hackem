@@ -290,8 +290,10 @@ void
 u_wipe_engr(cnt)
 int cnt;
 {
-    if (can_reach_floor(TRUE))
+    if (can_reach_floor(TRUE)) {
         wipe_engr_at(u.ux, u.uy, cnt, FALSE);
+        wipe_blood(u.ux, u.uy);
+    }
 }
 
 void

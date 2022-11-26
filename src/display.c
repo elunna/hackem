@@ -2892,4 +2892,24 @@ struct rm *lev;
     return idx;
 }
 
+void
+add_blood(int x, int y, int pm) {
+    levl[x][y].splatpm = pm;
+    newsym(x, y);
+}
+
+int
+blood_color(int pm) {
+    return CLR_RED;
+}
+
+void
+wipe_blood(int x, int y) {
+    if (levl[x][y].splatpm) {
+        levl[x][y].splatpm = 0;
+        newsym(x, y);
+    }
+    return;
+}
+
 /*display.c*/

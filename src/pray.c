@@ -1787,6 +1787,7 @@ dosacrifice()
                 pline_The("altar is stained with %s blood.", urace.adj);
                 levl[u.ux][u.uy].altarmask = (u.ualign.type == A_NONE)
                                               ? AM_NONE : AM_CHAOTIC;
+                add_blood(u.ux, u.uy, urace.malenum);
                 newsym(u.ux, u.uy); /* in case Invisible to self */
                 angry_priest();
                 if (!canspotself())

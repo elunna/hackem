@@ -3717,7 +3717,7 @@ boolean was_swallowed; /* digestion */
 {
     struct permonst *mdat = mon->data;
     struct obj *otmp;
-    int i, tmp;
+    int i, tmp, x, y;
     boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
     
     if (mdat == &mons[PM_VLAD_THE_IMPALER]
@@ -3825,6 +3825,14 @@ boolean was_swallowed; /* digestion */
             mon_explodes(mon, &mdat->mattk[i]);
             return FALSE;
         }
+    }
+    
+    /* Create a blood splatter. */
+    if (has_blood(mdat)) {
+        x = mon->mx - 1 + rn2(3);
+        y = mon->my - 1 + rn2(3);
+        if (isok(x, y))
+            add_blood(x, y, mon->mnum);
     }
 
     /* must duplicate this below check in xkilled() since it results in

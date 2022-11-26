@@ -85,6 +85,7 @@ unsigned mgflags;
     int color = NO_COLOR;
     nhsym ch;
     unsigned special = 0;
+    boolean drawblood = TRUE;
     /* condense multiple tests in macro version down to single */
     boolean has_rogue_ibm_graphics = HAS_ROGUE_IBM_GRAPHICS,
             is_you = (x == u.ux && y == u.uy),
@@ -274,6 +275,25 @@ unsigned mgflags;
             }
         } else {
             cmap_color(offset);
+        }
+
+        /* blood overrides other colors */
+        switch (glyph_to_cmap(glyph)){
+        case S_cloud:
+        case S_poisoncloud:
+        case S_fountain:
+        case S_water:
+        case S_pool:
+            drawblood = FALSE;
+            break;
+        default:
+            break;
+        }
+        if (glyph_is_trap(glyph))
+            drawblood = FALSE;
+        
+        if (levl[x][y].splatpm && cansee(x, y) && drawblood /*&& !(iflags.bloodless)*/) {
+            color = blood_color(levl[x][y].splatpm);
         }
     } else if ((offset = (glyph - GLYPH_OBJ_OFF)) >= 0) { /* object */
         struct obj* otmp = vobj_at(x, y);
