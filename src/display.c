@@ -1883,6 +1883,146 @@ xchar x, y;
     return cmap_to_glyph(idx);
 }
 
+int
+back_to_defsym(xchar x, xchar y, boolean show_engravings)
+{
+    int idx;
+    struct rm *ptr = &(levl[x][y]);
+    /*struct stairway *sway;*/
+    
+    switch (ptr->typ) {
+    case SCORR:
+    case STONE:
+        idx = level.flags.arboreal ? S_tree : S_stone;
+        break;
+    case ROOM:
+        idx = S_room;
+        break;
+    case CORR:
+        idx = (ptr->waslit || flags.lit_corridor) ? S_litcorr : S_corr;
+        break;
+    case HWALL:
+    case VWALL:
+    case TLCORNER:
+    case TRCORNER:
+    case BLCORNER:
+    case BRCORNER:
+    case CROSSWALL:
+    case TUWALL:
+    case TDWALL:
+    case TLWALL:
+    case TRWALL:
+    case SDOOR:
+        idx = ptr->seenv ? wall_angle(ptr) : S_stone;
+        break;
+#if 0
+    case DOOR:
+        switch(doorstate(ptr)) {
+        case D_CLOSED:
+            idx = (ptr->horizontal) ? S_hcdoor : S_vcdoor;
+            break;
+        case D_ISOPEN:
+            idx = (ptr->horizontal) ? S_hodoor : S_vodoor;
+            break;
+        case D_NODOOR:
+        case D_BROKEN:
+            idx = S_ndoor;
+            break;
+        default:
+            impossible("back_to_glyph: bad door state %d", ptr->doormask);
+            idx = S_ndoor;
+        }
+        break;
+#endif
+    case IRONBARS:
+        idx = S_bars;
+        break;
+    case TREE:
+        idx = S_tree;
+        break;
+    case POOL:
+    case MOAT:
+        idx = S_pool;
+        break;
+#if 0
+    case STAIRS:
+        sway = stairway_at(x, y);
+        idx = (ptr->ladder & LA_DOWN) ? S_dnstair : S_upstair;
+        break;
+    case LADDER:
+        sway = stairway_at(x, y);
+        idx = (ptr->ladder & LA_DOWN) ? S_dnladder : S_upladder;
+        break;
+#endif
+    case FOUNTAIN:
+        idx = S_fountain;
+        break;
+    case SINK:
+        idx = S_sink;
+        break;
+    case ALTAR:
+        idx = S_altar; /* triggers special behavior in back_to_defsym() */
+        break;
+    case GRAVE:
+        idx = S_grave;
+        break;
+    case THRONE:
+        idx = S_throne;
+        break;
+    case LAVAPOOL:
+        idx = S_lava;
+        break;
+    case ICE:
+        idx = S_ice;
+        break;
+    case GRASS:
+        idx = S_grass;
+        break;
+    case AIR:
+        idx = S_air;
+        break;
+    case CLOUD:
+        idx = S_cloud;
+        break;
+    case WATER:
+        idx = S_water;
+        break;
+    case DBWALL:
+        idx = (ptr->horizontal) ? S_hcdbridge : S_vcdbridge;
+        break;
+    case DRAWBRIDGE_UP:
+        switch (ptr->drawbridgemask & DB_UNDER) {
+        case DB_MOAT:
+            idx = S_pool;
+            break;
+        case DB_LAVA:
+            idx = S_lava;
+            break;
+        case DB_ICE:
+            idx = S_ice;
+            break;
+        case DB_FLOOR:
+            idx = S_room;
+            break;
+        default:
+            impossible("Strange db-under: %d",
+                       ptr->drawbridgemask & DB_UNDER);
+            idx = S_room; /* something is better than nothing */
+            break;
+        }
+        break;
+    case DRAWBRIDGE_DOWN:
+        idx = (ptr->horizontal) ? S_hodbridge : S_vodbridge;
+        break;
+    default:
+        impossible("back_to_glyph:  unknown level type [ = %d ]", ptr->typ);
+        idx = S_room;
+        break;
+    }
+
+    return idx;
+}
+
 /*
  * swallow_to_glyph()
  *
