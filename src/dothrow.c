@@ -1892,6 +1892,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     else if (ACURR(A_DEX) >= 14)
         tmp += (ACURR(A_DEX) - 14);
 
+    /* combat boots give +1 to-hit for thrown */
+    if (uarmf && uarmf->otyp == find_cboots()) 
+        tmp += 1;
+    
     /* Modify to-hit depending on distance; but keep it sane.
      * Polearms get a distance penalty even when wielded; it's
      * hard to hit at a distance.

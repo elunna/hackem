@@ -1251,7 +1251,7 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     struct obj *obj = (uarmc ? uarmc : uarm);
-
+    
     if (!obj)
         obj = uarmu;
     if (mattk->adtyp == AD_DRIN)
@@ -1283,13 +1283,23 @@ struct attack *mattk;
         }
         return TRUE;
     /* 50% chance (with a luck bonus) of slipping free with free action */
-	} else if (Free_action && (rnl(10) < 5)) {
+    } else if (Free_action && (rnl(10) < 5)) {
         pline("%s %s you, but you quickly free yourself!",
-                Monnam(mtmp),
-                (mattk->adtyp == AD_WRAP) ?
-                "swings itself around of" : "grabs");
+            Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
+            "swings itself around of" : "grabs");
         return TRUE;
-	}
+    }
+    /* 50% chance (with a luck bonus) of slipping free with mud boots. 
+     * Doesn't apply to brain attacks. */
+    else if (mattk->adtyp != AD_DRIN 
+             && uarmf 
+             && uarmf->otyp == find_mboots() 
+             && (rnl(10) < 5)) {
+        pline("%s %s you, but you quickly free yourself!",
+              Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
+              "swings itself around of" : "grabs");
+        return TRUE;
+    }
     return FALSE;
 }
 
@@ -1942,7 +1952,8 @@ register struct attack *mattk;
                                || uarmf->otyp == DWARVISH_BOOTS)) {
                     pline("%s pricks the exposed part of your %s %s!",
                           Monst_name, sidestr, leg);
-                } else if (!rn2(5)) {
+                } else if (uarmf->otyp != find_jboots() && !rn2(5)) {
+                    /* Jungle boots protect from this wounding */
                     pline("%s pricks through your %s boot!", Monst_name,
                           sidestr);
                 } else {

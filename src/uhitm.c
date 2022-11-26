@@ -39,7 +39,7 @@ struct monst *mdef;
 int hurt;
 {
     struct obj *target;
-
+     
     /* What the following code does: it keeps looping until it
      * finds a target for the rust monster.
      * Head, feet, etc... not covered by metal, or covered by
@@ -80,6 +80,9 @@ int hurt;
             break;
         case 3:
             target = which_armor(mdef, W_ARMG);
+            if (target && target->otyp == find_ogloves())
+                /* Old gloves are already as damaged as they're going to get */
+                break;
             if (!target
                 || erode_obj(target, xname(target), hurt, EF_GREASE | EF_DESTROY)
                              == ER_NOTHING)
@@ -360,6 +363,16 @@ int *attk_count, *role_roll_penalty;
         tmp += weapon_hit_bonus((struct obj *) 0);
     }
 
+    /* combat boots give +1 to-hit */
+    if (uarmf && uarmf->otyp == find_cboots()) 
+        tmp += 1;
+    
+    /* fencing gloves increase weapon accuracy when you have a free off-hand */
+    if (weapon && !bimanual(weapon) && !which_armor(mtmp, W_ARMS)) {
+        struct obj * otmp = which_armor(mtmp, W_ARMG);
+        if (otmp && otmp->otyp == find_fgloves())
+            tmp += 2;
+    }
     /* if unskilled with a weapon/object type (bare-handed is exempt),
      * you'll never have a chance greater than 75% to land a hit.
      */

@@ -212,7 +212,15 @@ int ef_flags;
     /* 'visobj' messages insert "the"; probably ought to switch to the() */
     if (visobj && !(uvictim || vismon) && !strncmpi(ostr, "the ", 4))
         ostr += 4;
-
+    
+    /* Old gloves are already as damaged as they're going to get */
+    if (otmp && otmp->otyp == find_ogloves()) {
+        if (flags.verbose && print && (uvictim || vismon))
+            pline("%s %s %s not affected by %s.",
+                  uvictim ? "Your" : s_suffix(Monnam(victim)), ostr,
+                  vtense(ostr, "are"), bythe[type]);
+        return ER_NOTHING;
+    }
     if (check_grease && otmp->greased) {
         grease_protect(otmp, ostr, victim);
         return ER_GREASED;
@@ -1290,10 +1298,15 @@ unsigned trflags;
         } else {
             pline("%s bear trap closes on your %s!", A_Your[trap->madeby_u],
                   body_part(FOOT));
-            set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
-            if (u.umonnum == PM_OWLBEAR || u.umonnum == PM_BUGBEAR)
-                You("howl in anger!");
-            losehp(Maybe_Half_Phys(dmg), "bear trap", KILLED_BY_AN);
+            /* Jungle boots protect us from getting wounded. */
+            if (!(uarmf && uarmf->otyp == find_jboots())) {
+                set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
+                if (u.umonnum == PM_OWLBEAR || u.umonnum == PM_BUGBEAR)
+                    You("howl in anger!");
+                losehp(Maybe_Half_Phys(dmg), "bear trap", KILLED_BY_AN);
+            } else
+                Your("jungle boots protect you!");
+            
         }
         exercise(A_DEX, FALSE);
         break;

@@ -3613,7 +3613,8 @@ weight_cap()
 {
     long carrcap, save_ELev = ELevitation, save_BLev = BLevitation;
     long maxcarrcap = MAX_CARR_CAP;
-
+    struct obj *boots = uarmf;
+    
     /* boots take multiple turns to wear but any properties they
        confer are enabled at the start rather than the end; that
        causes message sequencing issues for boots of levitation
@@ -3669,6 +3670,10 @@ weight_cap()
                 carrcap -= 100;
             if (EWounded_legs & RIGHT_SIDE)
                 carrcap -= 100;
+            
+            /* these carrcap modifiers only make sense if you have feet on the ground */
+            if (boots && boots->otyp == find_hboots()) 
+                carrcap += 100;
         }
         if (carrcap < 0)
             carrcap = 0;

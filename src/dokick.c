@@ -1506,7 +1506,7 @@ boolean need_dir;
                     maploc = &levl[x][y];
                 }
             }
-            if (!rn2(3))
+            if (!(uarmf && uarmf->otyp == find_jboots()) && !rn2(3))
                 set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
             dmg = rnd(ACURR(A_CON) > 15 ? 3 : 5);
             losehp(Maybe_Half_Phys(dmg), kickstr(buf, kickobjnam), KILLED_BY);
