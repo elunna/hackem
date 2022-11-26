@@ -6924,7 +6924,7 @@ struct permonst _mons2[] = {
         SIZ(1500, 500, MS_BRIBE, MZ_HUGE), MR_FIRE | MR_POISON, 0,
         M1_FLY | M1_SEE_INVIS | M1_POIS,
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY
-            | M2_STRONG | M2_LORD | M2_MALE,
+            | M2_STRONG | M2_PRINCE | M2_MALE,
         M3_WAITFORU | M3_WANTSAMUL | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_DEMON, 36, HI_LORD),
     MON("Dispater", S_DEMON,
@@ -6936,7 +6936,7 @@ struct permonst _mons2[] = {
         SIZ(900, 500, MS_BRIBE, MZ_HUMAN), MR_FIRE | MR_POISON, 0,
         M1_FLY | M1_SEE_INVIS | M1_POIS | M1_HUMANOID,
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY
-            | M2_STRONG | M2_LORD | M2_MALE | M2_COLLECT,
+            | M2_STRONG | M2_PRINCE | M2_MALE | M2_COLLECT,
         M3_WAITFORU | M3_WANTSAMUL | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_DEMON, 40, HI_LORD),
     MON("Baalzebub", S_DEMON,
@@ -6948,7 +6948,7 @@ struct permonst _mons2[] = {
         SIZ(1000, 500, MS_BRIBE, MZ_LARGE), MR_FIRE | MR_POISON, 0,
         M1_FLY | M1_SEE_INVIS | M1_POIS,
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY
-            | M2_LORD | M2_MALE,
+            | M2_PRINCE | M2_MALE,
         M3_WANTSAMUL | M3_WAITFORU | M3_INFRAVISIBLE | M3_INFRAVISION, 0,
         MH_DEMON, 45, HI_LORD),
     MON("Mephistopheles", S_DEMON,                              /* EvilHack */
