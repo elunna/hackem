@@ -4769,6 +4769,9 @@ struct monst *mon;
         otmp->corpsenm = PM_COCKATRICE;
         otmp->quan = cnt;
         break;
+    default: 
+        otmp = mksobj(POT_GAIN_LEVEL, FALSE, FALSE);
+        curse(otmp);
     }
     
     if (otmp == NULL) {
