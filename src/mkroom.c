@@ -1176,8 +1176,11 @@ int xy_flags;
         if ((xy_flags & 1) && (IS_POOL(levl[pos->x][pos->y].typ)
             || IS_FURNITURE(levl[pos->x][pos->y].typ)))
             isok = FALSE;
-        if (((xy_flags & 2) && (levl[pos->x][pos->y].typ != CORR))
-            || (levl[pos->x][pos->y].typ != ROOM))
+        if (((xy_flags & 2) 
+             && (levl[pos->x][pos->y].typ != CORR))
+            || (levl[pos->x][pos->y].typ != ROOM)
+            || (levl[pos->x][pos->y].typ != ICE)
+            || (levl[pos->x][pos->y].typ != GRASS))
             isok = FALSE;
         if ((xy_flags & 4) && (sobj_at(BOULDER, pos->x, pos->y)))
             isok = FALSE;
