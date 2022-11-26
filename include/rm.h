@@ -76,8 +76,8 @@ enum levl_typ_types {
     AIR       = 37,
     CLOUD     = 38,
     PUDDLE    = 39,
-    SEWAGE    = 40,
-    GRASS     = 41,
+    GRASS     = 40,
+    SEWAGE    = 41,
 
     MAX_TYPE  = 42,
     INVALID_TYPE = 127
