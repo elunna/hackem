@@ -17,6 +17,7 @@ STATIC_DCL void FDECL(mktoilet,(struct mkroom *));
 STATIC_DCL void FDECL(mkaltar, (struct mkroom *));
 STATIC_DCL void FDECL(mkgrave, (struct mkroom *));
 STATIC_DCL void NDECL(makevtele);
+STATIC_DCL void mkgrass(void);
 STATIC_DCL void NDECL(clear_level_structures);
 STATIC_DCL void NDECL(makelevel);
 STATIC_DCL struct mkroom *FDECL(find_branch_room, (coord *));
@@ -713,6 +714,67 @@ makevtele()
     makeniche(TELEP_TRAP);
 }
 
+void
+cellular(int chance, int maxpasses)
+{
+    int x, y, x2, y2;
+    boolean cells[COLNO][ROWNO];
+    int passes, wallcnt;
+    
+    /* Initial pass; randomly fill level. */
+    for (x = 0; x < COLNO; x++) {
+        for (y = 0; y < ROWNO; y++) {
+            if (rn2(100) < chance) { levl[x][y].bk = 1; }
+            else levl[x][y].bk = 0;
+            cells[x][y] = 0;
+        }
+    }
+
+    /* Cellular automata */
+    for (passes = 0; passes < maxpasses; passes++) {
+        for (x = 2; x < COLNO - 2; x++) {
+            for (y = 2; y < ROWNO - 2; y++) {
+                wallcnt = 0;
+                for (x2 = x - 1; x2 <= x + 1; x2++) {
+                    for (y2 = y - 1; y2 <= y + 1; y2++) {
+                        if (levl[x2][y2].bk) wallcnt += 1;
+                    }
+                }
+                if (wallcnt >= 5) cells[x][y] = 1;
+                else cells[x][y] = 0;
+            }
+        }
+        /* Transfer array */
+        for (x = 0; x < COLNO; x++) {
+            for (y = 0; y < ROWNO; y++) {
+                levl[x][y].bk = cells[x][y];
+            }
+        }
+    }
+}
+
+static void
+mkgrass(void)
+{
+    int x, y;
+    int freq = max(30, 60 - (3 * depth(&u.uz)));    
+    int passes = max(2, 8 - depth(&u.uz));
+    cellular(freq, passes);
+
+    for (x = 0; x < COLNO; x++) {
+        for (y = 0; y < ROWNO; y++) {
+            if (levl[x][y].bk) {
+                if (levl[x][y].typ == ROOM) {
+                    levl[x][y].typ = GRASS;
+                }
+            }
+            levl[x][y].bk = 0;
+        }
+    }
+
+}
+
+
 /* clear out various globals that keep information on the current level.
  * some of this is only necessary for some types of levels (maze, normal,
  * special) but it's easier to put it all in one place than make sure
@@ -915,6 +977,10 @@ makelevel()
     makecorridors();
     make_niches();
 
+    /* make grass */
+    if (depth(&u.uz) <= 10 || !rn2(5))
+        mkgrass();
+    
     if (!rn2(5))
         make_ironbarwalls(rn2(20) ? rn2(20) : rn2(50));
 

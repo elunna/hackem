@@ -1267,7 +1267,7 @@ ROOM:"rndvault", random, random, random, random {
 LEVEL:"vlt-0074"
 FLAGS:rndvault
 MINDEPTH:8
-$terr = TERRAIN:{ 'P', 's', 'C', 'I', 'T', 'w'}
+$terr = TERRAIN:{ 'P', 's', 'C', 'I', 'T', 'w', ','}
 # No lava - at least a player can jump into a pool and come out the other side.
 SHUFFLE: $terr
 ROOM:"rndvault", random, random, random, (5,5) { 
