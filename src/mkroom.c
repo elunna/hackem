@@ -1178,9 +1178,9 @@ int xy_flags;
             isok = FALSE;
         if (((xy_flags & 2) 
              && (levl[pos->x][pos->y].typ != CORR))
-            || (levl[pos->x][pos->y].typ != ROOM)
-            || (levl[pos->x][pos->y].typ != ICE)
-            || (levl[pos->x][pos->y].typ != GRASS))
+            || ((levl[pos->x][pos->y].typ != ROOM)
+              && (levl[pos->x][pos->y].typ != ICE)
+              && (levl[pos->x][pos->y].typ != GRASS)))
             isok = FALSE;
         if ((xy_flags & 4) && (sobj_at(BOULDER, pos->x, pos->y)))
             isok = FALSE;
