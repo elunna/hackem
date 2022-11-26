@@ -695,6 +695,7 @@
 - [x] Elves are lawful instead of chaotic
 - [x] All orcs are immune to poison
     - Wargs can now be ridden by player orcs, and subsequently can only be tamed by the same.
+- [x] Nymphs and mermaids will introduce themselves when seducing you (splice)
 - [x] Nymphs now hate iron.
 - [x] Imps now hate iron.
 - [x] All Fungi/migos: now hate copper and receive an extra d6 damage from copper.
@@ -716,7 +717,9 @@
 - [x] gelatinous cube and green slime now have engulfing attacks
 - [x] Baby gray dragons: get MR20 (twice the other baby dragons)
 - [x] Gnome Kings: Raised to lvl 9, gnome warriors to 7.
+- [x] Gnomes outside the Mines have a chance of generating with a few gems
 - [x] Dwarves have a 6/7 chance to be generated with a potion of booze (Outside of the mines)
+- [x] Hobbits may carry some healthy snacks
 - [x] Ice Devil gets an additional slow attack.
 - [x] Rock trolls are now stoning resistant (from xnh)
 - [x] Olog Hai are now poison resistant
@@ -726,7 +729,9 @@
 - [x] Lichens: Got a weak slow touch attack.
 - [x] Leprechauns will steal anything made of gold
 - [x] mind flayers/master mind flayers color changed to bright magenta.
-- [x] Tigers are now orange.
+- [x] Decay attacks instakill paper golems
+- [x] Tigers are now orange. 
+    - Tigers rarely drop a tiger eye ring when killed (xnh)
 - [x] Mumakil and mastodons/woolly mammoth:
     - can attack with their trunks, grabbing onto and crushing their target. 
     - difficultly level increased 
@@ -734,11 +739,15 @@
 - [x] Ghosts: 
     - All incorporeal monsters can only be hit with blessed, silver, or bone objects
     - can also turn invisible and reappear - scaring (and paralyzing) the player time.
+    - Prevent ghosts from being renamed (xnh)
+- [x] Skeletons rarely drop skeleton keys (xnh)
 - [x] Wraith corpses 
   - nerfed (from slashem) - New effects:
     - 10% lose exp; 10% max HP/Pw decreases;
     - 10% max HP/Pw increases.
     - 50% Gain xp; 20% nothing happens.
+- [x] trappers and lurkers above mindless (now they cannot be detected with ESP)
+- [x] The Oracle sometimes gets a potion of hallucination (xnh)
 
 ### Monster Mechanic Changes:
 
@@ -751,11 +760,14 @@
 - [x] Updated nasties lists with slashem monsters. 
   - Added gugs, slaughter wights, devas, revenants 
 - [x] Some monsters ride other monsters as steeds.
+- [x] Imps and others cussing the hero wake up nearby monsters
 - [x] Removed "Hits as +x weapon" property from slashem monsters
 - [x] Removed "Requires +x weapon to be hit" property from slashem monsters
 - [x] BERSERK behavior from evil:
     - Added to many of the imported monsters as felt appropriate
 - [x] Many new monster attacks
+- [x] Oily Corpses patch
+    - There is a 20% chance upon starting to eat a corpse of certain slippery monsters (e.g. most slithy, non-snakelike monsters and most blobby monsters) that your fingers get slippery. Tins of them are not slippery unless the tin preparation method is slippery.
 - [x] Monster traitor property (M3_TRAITOR): 
     - If tame, these monsters have a chance to betray you.
     - In slashem this used to depend on the monsters HP being lower than yours, but removed that condition.
@@ -809,6 +821,8 @@ Medusa:
 demon lords/princes encountered in Gehennom,
 - along with which lair they may appear in, has been completely randomized. 
 - Your experience in Gehennom can be a very different experience per game.
+- Baalzebub, Geryon, Dispater are back to being a princes (demoted from lords).
+
 
 Juiblex:
 - enhanced, and has many more acid-based attacks at its disposal.
@@ -1118,7 +1132,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] wand of wonder (splice implementation)
 - [x] wand of sonics
     - Immune to sonic damage
-    - Can be used to destroy iron bars or drawbridges. If you destroy iron bars, they send 1-3 iron chains flying.
+    - Can be used to destroy iron bars or drawbridges. 
+    If you destroy iron bars, they send 1-3 iron chains flying.
 
 ### Scrolls:
 
@@ -1188,6 +1203,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
   - Putting lit torches into containers auto-snuffs.
   - Clubs can be dipped into oil and turned into torches (from dnh)
 - [x] Spoons
+    - 1d2 vs small, 1d1 vs large.
     - Convicts starting weapon (uses knife skill)
     - Base item for Iron Spoon Of Liberation.
     - Spoons don't generate randomly.
@@ -1278,6 +1294,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - are no longer restricted to digging a single square on maze levels. (includes spells of digging)
     - zapping a boulder with a wand of digging will vaporize it; doing this in Sokoban will incur a -1 Luck penalty. 
     - Rays from a wand of digging will also halve the current HP of "stony" monsters, including xorns, earth elementals, statue gargoyles and stone golems; strangely, this does not include regular gargoyles.
+- [x] Most golems now drop more items related to their material (ie: rope golems drop leashes, etc)
+- [x] Angels and Aleaxes can generate with harps.
 
 #### Scrolls
 
@@ -1289,6 +1307,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Let's you control your destination as if you had teleport control.
 - [x] Scrolls of gold detection: 
     - confused reading shows only real traps, not magic portals.
+- [x] Confused scroll of identify gives enlightenment
 
 #### Other magic items
 
@@ -1296,6 +1315,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Evil added diluted effects for many existing potions, I have tried to fill out these effects with the new potions (and some of the old ones) to keep dilution behavior consistent among all the potions.
 - [x] booze:
     - drinking it gives 130 points of nutrition if uncursed, 140 if blessed, and 120 if cursed.From dnh
+- [x] Acid potions are immune to being destroyed by freezing (xnh)
+- [x] Oil is undilutable (xnh)
+- [x] Potions of hallucination can give enlightenment (xnh)
 - [x] ring of free action
     - 50% chance (with a luck bonus) of slipping free with free action
 - [x] Amulets of life saving
@@ -1304,8 +1326,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Magic markers
     - now never generate randomly, nor will they appear in a player's starting inventory (except the tourist who gets a 0:0 one)
     - Also cannot be polypiled. 
-    - Can wish for, find one in a bones pile, looting the High Priest's crystal chest in the Sanctum,
-      or choosing the 'tool' as the Sokoban prize. 
+    - Can wish for, find one in a bones pile, looting the High Priest's crystal chest in the Sanctum, or choosing the 'tool' as the Sokoban prize.
+    - Increased price to 200 (xnh)
 - [x] Magic lamps
     - Changed price to 1000
     - can be wished for. 
@@ -1326,6 +1348,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] luckstones:
     -  will slow down your luck timeout based on its beatitude;
     - a blessed luckstone no longer halts the timeout entirely.
+- [x] Most magical tools have had their prices increased (xnh)
 
 #### non-magic items
 
@@ -1340,6 +1363,11 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] iron shoes were renamed to 'dwarvish boots'.
 - [x] Robes occupy the body armor slot instead of the robe slot (SlashEM)
   - This means that dragon scaled robes are possible in HackEM!
+- [x] Towels weigh more than blindfolds
+- [x] readable conical hats: For a Tourist, 1⁄3 of conical hats can be read; a dunce cap will be labeled "DUNCE". Reading a dunce cap autoidentifies it. For a Tourist, 1⁄3 of conical hats can be read. A cornuthaum will be labeled "WIZZARD". (3.7)
+- [x] Free Fortune Cookie Patch; there is a 50% chance for a szechuan tin to contain a free fortune cookie (UnNetHack)
+- [x] Adjust flint stone weight from 4 to 1
+- [x] Sling buffs: strength bonus, potential to instakill H
 
 ### General item changes
 
@@ -1356,6 +1384,14 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Removed cursed weapons reverse hitting (was in EvilHack)
     - Cursed weapons will miss 25% of the time now instead of 20% to compensate.
 - [x] Launchers now contribute to damage.
+
+
+[x] 1/40 of random non-artifact weapons will be generated erodeproof (xnh)
+[x] 1/40 of random non-artifact items will be generated as pre-eroded (xnh)
+[x] Grease will generate on an erodable object every once in a great while (xnh)
+
+
+
 - [x] breakable locking tools (keys/lockpicks/credit cards) 
   - non-blessed have a 5% chance of breaking with each use, whether locking or unlocking.
   - Rogues have only have a 1 in 60 chance of breaking a non-blessed lock pick.
@@ -1369,6 +1405,16 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Uncursed instruments have a 1 in 50 chance of breaking.
     - Blessed instruments won't break
     - If you are an elf, you will never break an instrument this way.
+
+Imported some appearance effects from dNetHack:
+
+- [x] Combat boots grant +1 AC and attack
+- [x] Mud boots make you more resistant to wrap attacks (dnh)
+- [x] Hiking boots grant +100 to carrying capacity
+- [x] Jungle boots prevent many types of leg injury
+- [x] padded gloves +1 AC 
+- [x] old gloves can't be eroded
+- [x] fencing gloves +2 attack with one handed weapon and no shield
 
 ## Spells/Spellcasting
 
@@ -1397,6 +1443,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Works as a foil to the new monster spell 'destroy armor'
 - [x] spellbook of sonicboom
 - [x] spellbook of summon undead
+- [x] spellbook of invisiblity - now a level 1 spell (to compensate for the lack of permament intrinsic invisibility)
 
 - [x] spellbook of fire bolt (new Hack'EM special!)
   - Fire Bolt is only available to the Flame Mage and will not generate randomly.
@@ -1641,12 +1688,13 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Changed to Lawful alignment
     - Fixed so it's always lit
     - Removed the #invoke for Fire Elemental ability and moved to Firewall.
-    - Confers cold res, teleport control, and warning
+    - No longer grants cold resistance, instead grants extrinsic fire resistance.
+    - Confers teleport control and warning
     - Also confers faster energy regeneration (like Encanto!)
     - Grants a passive 2d7 fire attack
 - [x] The Storm Whistle (Ice Mage)
     - Changed to Neutral alignment
-    - No longer grants fire resistance, instead it grants shock resistance.
+    - No longer grants fire resistance, instead grants extrinsic cold resistance.
     - Can now #invoke for 1 of 10 random "storm" related pets:
 - [x] Great Dagger of Glaurgnaa (Necromancer)
     - Only confers MR when wielded.
@@ -1698,6 +1746,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - greatly reducing the need for the player to have to remove them to blind themselves with a blindfold or towel.
     - Take note, Medusa's petrifying gaze attack is too powerful and will overcome the EotO's protection.
 - [x] Fire Brand and Frost Brand are now steel short swords.
+    - Engraving with Fire Brand burns the text on the floor
 - [x] Grimtooth
     - now has a sickness-inducing attack
     - has a 1 in 6 chance of making its target terminally ill.
@@ -1739,6 +1788,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Can #untrap rust traps (they turn into fountains)
 - [x] Can #untrap fire traps (requires water)
 - [x] Untrapping a spear trap has a chance of yielding a spear or stake
+- [x] Allow forcefighting of webs with a bladed weapon to destroy them
+- [x] The Castle drawbridge does not always close with the passtune
+- [x] Invisibility from magic traps is temporary.
 
 #### Breaking wands:
 - Breaking wands will usually create related traps (unnethack)
@@ -1796,6 +1848,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] The player is unable to regenerate hit points while in the Valley of the Dead – healing via other methods (potions, healing spells) is still possible.
 - [x] Stoning – monsters being stoned is a slow-stoning process, just as it is for the player.
 - [x] Merged scimitar and saber skills.
+- [x] Add celibate conduct (slashem)
 
 ### Elbereth
 - You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
@@ -1816,6 +1869,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
 - [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil)
 - [x] Telepathy from floating eyes is now temporary.
+- [x] Restful sleep regenerates hp (we can get restful sleep property from the Amulet of Restful Sleep or a Ring of Sleeping)
+- [x] The hunger property halves nutrition from food (so you could potentially eat more giant corpses.) (xnh)
 - [x] Extrinsic resistances protect items from elemental damage. For example, wearing a ring of fire resistance will protect your scrolls and potions from fire damage.
 
 - [x] Implemented "Afraid" status; 
@@ -1893,16 +1948,23 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Potions of amnesia can also inflict this effect.
 - Can make you lose Elbereth knowledge if you had it.
 - Can make you forget forget about shambling horrors.
+- Psychic resistance protects from amnesia forgetting. Sources include rings of psychic resistance and being an illithid.
 
 #### Quality-of-Life/Auto-ID:
 
+- [x] Object lookups show more information, including object properties and special effects from materials.
+- [x] Artifacts can be looked up in the item database (currently only works if accessed through the inventory, requiring you to have possession of the artifact)
+
+- [x] All roles start out knowing potions of water and scrolls of identify
 - [x] Auto-ID dunce cap upon wearing
 - [x] Auto-ID jumping boots (from AceHack)
 - [x] Auto-ID some potions when inhaling their vapors
 - [x] Auto-ID scrolls of scare monster during pickup
+- [x] Auto-ID scrolls of teleportation when teleporting any distance after reading one
 - [x] Auto-ID wand of teleportation on seeing the successful effect on a monster.
 - [x] Auto-ID wands with unambiguous effects and messages
 - [x] Auto-ID wand of undead turning if engraving produces a message
+- [x] Auto-ID wands of probing and secret door detection when engraved with
 - [x] Auto-ID vanishing wands if the other 2 have been identified.
 - [x] Auto-ID wands of sleep or death if their counterpart has been identified.
 - [x] Auto-ID wands of healing or extra healing if their counterpart has been identified.
@@ -1913,19 +1975,27 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - [x] Auto-ID magic lamps and oil lamps when rubbing
 - [x] Auto-ID loadstones upon discovering the inability to drop them.
 - [ ] Auto-ID flintstones when rubbed on iron weapons.
-
 - [x] Auto-ID water walking boots
 - [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
-- [x] After a while of using a wielded weapon, you will identify it and it's enchantment
-- [x] The player's magic cancellation (MC) is shown in the status bar.
 - [x] Non-cursed charging identifies how many charges an item has (from AceHack).
+- [x] You can reread a spellbook to refresh your memory at any time
+- [x] After a while of using a wielded weapon, you will identify it and it's enchantment
+- [x] Blessed stethoscopes can identify eggs (on the floor)
+- [x] The player's magic cancellation (MC) is shown in the status bar.
+- [x] Show the last turn the player prayed in the ^X screen
 - [x] Only blessed scrolls of charging identify the charges of an item.
 - [x] Remove "Auto-select every item" when putting into containers
+- [x] Default shk sell prompt to N (xnh)
 - [x] Regeneration only causes additional hunger when injured.
 - [x] Removed two-weaponing restrictions imposed in EvilHack.
+- [x] Monks eventually stop receiving the "You feel guilty	message	(xnh)
 - [x] Monsters cannot use wands of wishing.
+- [x] Chargeable rings may get charged when hit with electricity (3.7)
+- [x] Useless +0 rings are generate very rarely (xnh)
+- [x] The Astral Plane is always lit. (xnh)
+- [x] The passtune range has been extended by 1. (xnh)
 - [x] Switching between your main and alternative weapon should not take any turns (from dnh)
-
+- [x] Deliberate level teleporter activation ignores magic resistance (3.7)
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
 - 
@@ -1966,7 +2036,26 @@ Object lookup has been fleshed out:
 - Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles: these include garlic, wolfsbane, catnip, carrots, kelp fronds, and mushrooms (technically not herbs but they do spread prolifically). Herbs in the water will move with water currents.
 - One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
 
+#### alchemy
+
+- Alchemic blast damage is double, but acid resistance halves it (xnh)
+- Incorporate Malcolm Ryan's Brewing Patch
+    - enables the player to dip mold corpses in potions of fruit juice to start a fermentation timer that will eventually turn the potion into something else dependent on the mold.
+    - Dipping green mold into fruit juice produces acid. 
+    - Dipping red mold into fruit juice produces booze
+    - Dipping brown mold into fruit juice produces sleeping 
+    - lichens and shriekers and non-F corpses do not ferment.
+    - Dipping cursed molds into fruit juice produces sickness.
+    - This also makes the shopkeeper charge you for shop-owned fruit juice
+that you begin fermenting. Allows you to buy the new, possibly more
+expensive potion at the cost of the fruit juice.
+
 ## Dungeon Changes:
+
+- [x] Adjust secret passage frequency and exclude them from DL 1-4 (xnh)
+- [x] Random doors are secret less of the time (xnh)
+- [x] Kicking a "wall" that is actually a secret of some sort will never injure the player and will always produce an unambiguous message that there's something there. This makes it a valid strategy to kick every wall suspected of hiding something, because a single kick will give a yes/no on whether it's a regular wall or not. It's still not a *great* strategy, because the real walls will still hurt and wound legs like normal. (xnh)
+
 
 - [x] Extend main dungeon: Now 31-34 levels deep
   - (Slashem was 42-47, but this went over the max)
@@ -2137,7 +2226,9 @@ resistance
 
 - Flame Mage can only be Lawful/Neutral
 - Flame Mages no longer gain cold resistance at level 13. (Their quest artifact still provides it though)
+- Level 1: Intrinsic fire resistance
 - Level 5: Gets "vulnerable to cold"
+- Flame Mages also "like fire", so fire usually doesn't have an adverse affect on them.
 - Cannot 2-weapon anymore
 - Starts with more fire based inventory: 
   - potions of oil, fire bomb, scrolls of fire 
@@ -2149,22 +2240,29 @@ resistance
 - Left out the dragon polyself ability.
 - Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
 - Flame mages get the multishot penalty
+- Their special spell is fire bolt.
+
+One major drawback to playing Flame Mages is that they can never attain 100% cold resistance. When they get Vulnerability to Cold - this caps their max cold resistance to 50%.
 
 #### Ice Mage
 
 - Can only be Chaotic/Neutral
 - Ice Mages no longer gain fire resistance at level 13. (Their quest artifact does NOT grant fire res anymore)
+- Level 1: Intrinsic Cold Resistance
 - Level 5: Gains "Vulnerable to Fire"
+- Level 15: Gains Water Walking
+
 - Intrinsic Ice armor AC protection (Similar to Slash'EM Monk)
   - This is quite powerful.
   - Calculation is: ACBONUS = -((YOURLEVEL / 2) + 2)
   - Like SlashEM, this bonus caps at -11
+
 - Can now reach expert in riding (Elsa can ride!)
 - Starts with more cold based inventory:
   - Replaced their starting quarterstaff with a +2 stilletto
   - Starts with lenses or grappling hook. 
   - Removed studded armor, replaced with robe.
-  - Removed starting potions (they might freeze in the cold.)
+  - Removed starting potions (they might freeze from the cold)
   - Starts with a Frost Horn instead of a wand of cold
   - Ice Mages no longer start with confuse monster (not useful
 l for vampires/illithids etc), they always start with slow monster instead.
@@ -2173,6 +2271,9 @@ l for vampires/illithids etc), they always start with slow monster instead.
 - Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
 - Ice mages get the multishot penalty
 - Their multishot penalty doesn't apply to knives!
+- Their special spell is cone of cold.
+
+One major drawback to playing Ice Mages is that they can never attain 100% fire resistance. When they get Vulnerability to Fire - this caps their max fire resistance to 50%.
 
 #### Ice and Flame details
 
@@ -2196,7 +2297,7 @@ With inspiration from aosdict, the Necromancer role has been overhauled with a n
 - Enabled necromancer to reach expert in polearms (for access to scythes)
 - Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
 - The necromancer's starting ghoul has the ghoulname option available.
-
+- Their special spell is summon undead.
 
 ##### Spirits
 
@@ -2282,6 +2383,7 @@ Renews magical power:
 - Undead slayers obliterate zombies to the point that they don't leave corpses. 66% chance of this happening everytime you kill a zombie.
 - Level 15: Slayers now get Warning
 - Level 21: Slayers now get Clairvoyence
+- Their special spell is protection
 
 #### Yeoman
 	
@@ -2289,7 +2391,7 @@ Renews magical power:
 - Starts with a horn, a torch, and a blessed whetstone.
 - axe - can reach skilled
 - Can reach skilled in daggers
-
+- Their special spell is knock.
 
 ### Existing role changes
 
@@ -2298,6 +2400,7 @@ Renews magical power:
 - Starts with 2 spellbooks; can start with torch or lamp
 - Club moved from skilled to basic. 
 - Spear skill added, can be trained to expert.
+- Archeologists can highly enchant fedoras (xnh)
 
 #### Barbarians:
 
@@ -2347,6 +2450,7 @@ Renews magical power:
 - Can break boulders and statues using martial arts skill at skilled level or higher (press shift + f and then a movement key in the desired direction).
 - Because of the extra random kick attack at master/grand master level, players will need to be mindful of wearing boots of some sort, as kicking a footrice/basilisk barefoot equals instant petrification.
 - Monks now receive extra intrinsics as they level up into the higher experience tiers (telepathy at 20, water walking at 23, stoning resistance at 25, disintegration resistance at 27, and sickness resistance at 30).
+- Reverted the starting spell of confuse monster; Monks can again start with the spell of sleep.
 
 #### Priest
     
@@ -2359,6 +2463,7 @@ Renews magical power:
 
 - Ranger obtains twoweaponing, up to skilled.
 - if playing as a gnome, their quest artifact becomes the Crossbow of Carl. Its properties mirror that of the Longbow of Diana, except that it is a crossbow instead of a bow.
+- XL10+ Rangers automatically see ammo enchantments
 
 #### Rogues
 
@@ -2451,6 +2556,11 @@ Starts with the Psionic Wave spell:
 #### Elves
 - Elves always start out knowing Elbereth.
 - Elves can use musical instruments without risk of breaking them.
+- Elves can always squeeze between two trees
+- Elves and rangers get alignment penalty for cutting down trees
+
+#### Dwarves
+- Dwarves get an alignment bonus for cutting down trees
 
 #### Orcs
 - Orcs can never use Elbereth
@@ -2514,8 +2624,8 @@ Tinker service:
 - In Slash'EM this was implemented as a technique, but here the service only takes 1 turn (we'll assume the shopkeepers are very good at tinkering or just cheating and using a hidden potion of gain level behind the counter)
 - Base charge is $500
 - Non-gnomes are charged double
-- Low intelligence (under 13 INT) players are subject to $250 price gouge
-- Lower intelligence (under 18 INT) players are subject to $100 price gouge
+- Low intelligence (under 18 INT) players are subject to $100 price gouge
+- Lower intelligence (under 13 INT) players are subject to $250 price gouge
 - See the database on "upgrade" for a full list of eligible upgrades.
 
 #### Identify service details
