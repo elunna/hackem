@@ -116,7 +116,7 @@ const char *msg;
         if (mtmp == u.ustuck)
             impossible("hiding monster stuck to you (%s)", msg);
         if (m_at(mtmp->mx, mtmp->my) == mtmp
-            && hides_under(mtmp->data) && !OBJ_AT(mtmp->mx, mtmp->my))
+            && hides_under(mtmp->data) && !concealed_spot(mtmp->mx, mtmp->my))
             impossible("mon hiding under nonexistent obj (%s)", msg);
         if (mtmp->data->mlet == S_EEL
             && !is_damp_terrain(mtmp->mx, mtmp->my) && !Is_waterlevel(&u.uz))
