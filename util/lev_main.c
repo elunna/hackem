@@ -1363,6 +1363,9 @@ char c;
         return (LAVAPOOL);
     case 'I':
         return (ICE);
+    case ',':
+    case 'g':  /* if , is determined too hard to see in des files */
+        return (GRASS);
     case 'W':
         return (WATER);
     case 'T':
