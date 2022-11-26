@@ -3864,9 +3864,12 @@ int final;
 
     if (!u.uconduct.pets)
        you_have_never("owned a pet");
-
+    
+    if (!u.uconduct.uncelibate)
+        you_have_X("been celibate");
+    
     show_achievements(final);
-
+    
     /* Pop up the window and wait for a key */
     display_nhwindow(en_win, TRUE);
     destroy_nhwindow(en_win);

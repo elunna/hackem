@@ -511,6 +511,7 @@ encode_extended_conducts()
     add_achieveX(buf, "deaf",                       u.uroleplay.deaf);
     add_achieveX(buf, "bonesless",                 !u.uroleplay.numbones);
     add_achieveX(buf, "never_died",                 u.umortality == 0);
+    add_achieveX(buf, "celibate",                   u.uconduct.uncelibate == 0);
     add_achieveX(buf, "never_abused_alignment",     u.ualign.abuse == 0);
 
     return buf;
