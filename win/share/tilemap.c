@@ -556,6 +556,7 @@ struct {
 {S_fountain, "fountain", "fountain"},
 {S_pool,     "pool", "water"},
 {S_ice,      "ice", "ice"},
+{S_grass,    "grass", "grass"},
 {S_lava,     "lava", "molten lava"},
 {S_vodbridge, "vertical open drawbridge", "lowered drawbridge"},
 {S_hodbridge, "horizontal open drawbridge", "lowered drawbridge"},

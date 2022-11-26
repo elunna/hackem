@@ -218,6 +218,7 @@ start: Blank
         S_humanoid: \032
         S_hwall: \032
         S_ice: \032
+        S_grass: \032
         S_imp: \032
         S_invisible: \032
         S_jabberwock: \032
@@ -579,7 +580,7 @@ start: curses
 	S_room: \xfe			# meta-z, centered dot
 	S_corr: \xe1			# meta-a, solid block
 	S_litcorr: \xe1			# meta-a, solid block
-	S_ice: \xfe			# meta-z, centered dot
+	S_ice: \xfe			    # meta-z, centered dot
 	S_vodbridge: \xfe		# meta-z, centered dot
 	S_hodbridge: \xfe		# meta-z, centered dot
 	S_vbeam: \xf8			# meta-3, vertical rule
