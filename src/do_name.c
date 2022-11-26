@@ -2511,6 +2511,14 @@ const char* nymphnames[] = {
     "Daphnis", "Daphnae", "Melinoe", "Othreis", "Polychrome"
 };
 
+const char* mermaidnames[] = {
+    "Hurley", "Kai", "Kailani", "Mar" , "Marin", "Marina", "Oceane", "Pasha" ,
+    "Adella", "Alana", "Amaris", "Anahita", "Andrina", "Aqua", "Aquarius",
+    "Ariel", "Asia", "Avalon", "Breena", "Calissa", "Calypso", "Caspian", 
+    "Coralia", "Coralina", "Delphine", "Deema", "Echo", "Gil", "Lanthe", 
+    "Jewel", "Kaia", "Kaito", "Kiki", "Marcelline", "Melody", "Moana"
+};
+
 const char* maldemonnames[] = {
     "Agiel", "Kali", "Amon", "Foras", "Armaros", "Orias", "Malthus", "Asag",
     "Raum", "Iblis", "Vanth", "Bael", "Leonard", "Barbas", "Charun", "Ishmael",
@@ -2534,7 +2542,10 @@ struct monst *mtmp;
         const char* name;
         if (mtmp->data->mlet == S_NYMPH) {
             name = rnd_name(nymphnames);
-        }
+        } 
+        else if (mtmp->data->mlet == S_EEL) {
+            name = rnd_name(mermaidnames);
+        } 
         else if (is_demon(mtmp->data)) {
             if (mtmp->female)
                 name = rnd_name(femdemonnames);

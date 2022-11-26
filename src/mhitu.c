@@ -2141,7 +2141,10 @@ register struct attack *mattk;
                 (void) rloc(mtmp, TRUE);
             return 3;
         } else {
-            mintroduce(mtmp);
+            /* Only nymphs/mermaids introduce - other thieves won't introduce 
+             * themselves (like gnome thiefs or muggers) */
+            if (is_nymph(mtmp->data) || mtmp->data == &mons[PM_MERMAID]) 
+                mintroduce(mtmp);
             if (mtmp->mcan || Hidinshell || (uwep && uwep->oartifact == ART_THIEFBANE)) {
                 if (!Blind)
                     pline("%s tries to %s you, but you seem %s.",
