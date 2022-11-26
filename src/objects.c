@@ -853,7 +853,7 @@ TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  100, LEATHER, HI_LEATHE
            0, TOOL_CLASS, prob, 0, wt, cost, sdam, ldam, hitbon, 0, wt, clr)
 /* tools useful as weapons */
 WEPTOOL("pick-axe", None,              1, 0, 0, 0, 20,  75,  50,  6,  3, 0, WHACK,  P_PICK_AXE, IRON, HI_METAL),
-WEPTOOL("spoon", None,                 1, 0, 0, 0,  0,   1,  1,   1,  1, 0, PIERCE, P_KNIFE, IRON, HI_METAL), /* Slash'EM */
+WEPTOOL("spoon", None,                 1, 0, 0, 0,  0,   1,  1,   2,  1, 0, PIERCE, P_KNIFE, IRON, HI_METAL), /* Slash'EM */
 WEPTOOL("fishing pole", None,          1, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_POLEARMS, METAL, HI_METAL), /* Slash'EM */
 WEPTOOL("grappling hook", "iron hook", 0, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_FLAIL,    IRON, HI_METAL),
 WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHACK,  P_CLUB, WOOD, HI_WOOD), /* Slash'EM */
