@@ -589,7 +589,7 @@ boolean resuming;
                             u.udg_cnt--;
                         if (!u.udg_cnt) {
                             intervene();
-                            u.udg_cnt = rn1(100, 50);
+                            u.udg_cnt = rn1(200, (42 + Luck));
                         }
                     }
                     restore_attrib();
