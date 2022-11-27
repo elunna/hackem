@@ -821,6 +821,8 @@ boolean artif;
         otmp->dknown = 0;
     if (!objects[otmp->otyp].oc_uses_known)
         otmp->known = 1;
+    if (is_rustprone(otmp) || is_corrodeable(otmp) || is_flammable(otmp))
+        otmp->rknown = 1; 
     otmp->lknown = 0;
     otmp->cknown = 0;
     otmp->corpsenm = NON_PM;
