@@ -276,7 +276,7 @@ NEARDATA struct permonst mons[] = {
         LVL(5, 6, 4, 0, 0), (G_GENO | 3),
         A(ATTK(AT_BITE, AD_PHYS, 3, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(10, 10, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
+        SIZ(200, 50, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE, M2_HOSTILE, 0, 0, 0,
         6, CLR_BLACK),
     MON("spitting beetle", S_ANT,                               /* Slash'EM */
@@ -2387,7 +2387,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_DRST, 2, 4), 
           ATTK(AT_TUCH, AD_WEBS, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(100, 100, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
+        SIZ(200, 100, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, 0, 8, CLR_MAGENTA),
     MON("phase spider", S_SPIDER,                               /* Slash'EM */
