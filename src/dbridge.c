@@ -70,6 +70,15 @@ int x, y;
 }
 
 boolean
+is_grass(x, y)
+int x, y;
+{
+    if (!isok(x, y))
+        return FALSE;
+    return (levl[x][y].typ == GRASS);
+}
+
+boolean
 is_pool(x, y)
 int x, y;
 {

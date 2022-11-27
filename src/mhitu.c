@@ -734,11 +734,9 @@ register struct monst *mtmp;
                  */
                 struct obj *obj = level.objects[u.ux][u.uy];
 
-                if (obj || u.umonnum == PM_TRAPPER
-                    || (youmonst.data->mlet == S_EEL
+                if (obj || u.umonnum == PM_TRAPPER || (youmonst.data->mlet == S_EEL
                         && (is_pool(u.ux, u.uy) || is_puddle(u.ux, u.uy)))
-                    || (u.umonnum == PM_GIANT_LEECH
-                        && is_sewage(u.ux, u.uy))) {
+                    || (u.umonnum == PM_GIANT_LEECH && is_sewage(u.ux, u.uy))) {
                     int save_spe = 0; /* suppress warning */
 
                     if (obj) {
@@ -749,7 +747,8 @@ register struct monst *mtmp;
                     /* note that m_monnam() overrides hallucination, which is
                        what we want when message is from mtmp's perspective */
                     if (youmonst.data->mlet == S_EEL
-                        || u.umonnum == PM_TRAPPER || u.umonnum == PM_GIANT_LEECH)
+                        || u.umonnum == PM_TRAPPER 
+                        || u.umonnum == PM_GIANT_LEECH)
                         pline(
                              "Wait, %s!  There's a hidden %s named %s there!",
                               m_monnam(mtmp), youmonst.data->mname, plname);
