@@ -117,7 +117,7 @@ const char *msg;
             impossible("hiding monster stuck to you (%s)", msg);
         if (m_at(mtmp->mx, mtmp->my) == mtmp
             && hides_under(mtmp->data) && !concealed_spot(mtmp->mx, mtmp->my))
-            impossible("mon hiding under nonexistent obj (%s)", msg);
+            impossible("mon hiding under nonexistent obj or terrain (%s)", msg);
         if (mtmp->data->mlet == S_EEL
             && !is_damp_terrain(mtmp->mx, mtmp->my) && !Is_waterlevel(&u.uz))
             impossible("eel hiding out of water (%s)", msg);
@@ -5354,7 +5354,7 @@ xchar x, y;
 {
     struct monst *mtmp;
 
-    if (!OBJ_AT(x, y) && (mtmp = m_at(x, y)) != 0
+    if (!concealed_spot(x, y) && (mtmp = m_at(x, y)) != 0
         && mtmp->mundetected && hides_under(mtmp->data))
         (void) hideunder(mtmp);
 }
