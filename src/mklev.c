@@ -774,6 +774,46 @@ mkgrass(void)
 
 }
 
+static void
+place_axe()
+{
+    /* add a random axe to a level with trees */
+    int trees = 0, x, y;
+
+    for (x = 0; x < COLNO; x++) {
+        for (y = 0; y < ROWNO; y++) {
+            if (!isok(x,y)) {
+                continue;
+            }
+            if (IS_TREES(levl[x][y].typ)) {
+                trees++;
+            }
+        }
+    }
+
+    if (trees > 0) {
+        if (!rnf(ilog2(trees), trees)) {
+            int trycount = 0;
+            do {
+                /* random placement anywhere */
+                x = rn2(COLNO);
+                y = rn2(ROWNO);
+            } while (!SPACE_POS(levl[x][y].typ) && (++trycount < 100));
+
+            if (trycount < 100) {
+                struct obj *otmp = mksobj(AXE, TRUE, FALSE);
+                place_object(otmp, x, y);
+            }
+        }
+    }
+}
+
+static void
+post_process_level()
+{
+    /*place_random_engravings();*/
+    place_axe();
+}
 
 /* clear out various globals that keep information on the current level.
  * some of this is only necessary for some types of levels (maze, normal,
@@ -1322,6 +1362,7 @@ mklev()
     makelevel();
     bound_digging();
     mineralize(-1, -1, -1, -1, FALSE);
+    post_process_level();
     in_mklev = FALSE;
     /* has_morgue gets cleared once morgue is entered; graveyard stays
        set (graveyard might already be set even when has_morgue is clear
