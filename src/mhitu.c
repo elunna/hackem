@@ -734,7 +734,7 @@ register struct monst *mtmp;
                  */
                 struct obj *obj = level.objects[u.ux][u.uy];
 
-                if (obj || u.umonnum == PM_TRAPPER || (youmonst.data->mlet == S_EEL
+                if (concealed_spot(u.ux, u.uy) || u.umonnum == PM_TRAPPER || (youmonst.data->mlet == S_EEL
                         && (is_pool(u.ux, u.uy) || is_puddle(u.ux, u.uy)))
                     || (u.umonnum == PM_GIANT_LEECH && is_sewage(u.ux, u.uy))) {
                     int save_spe = 0; /* suppress warning */
