@@ -1066,6 +1066,11 @@ register struct obj *obj;
             return (is_rustprone(obj) && !obj->oerodeproof) ? DOGFOOD
                                                             : ACCFOOD;
         }
+        if (is_gem_eater(mon->data) 
+            && (obj->oclass == GEM_CLASS && objects[obj->otyp].oc_tough)) {
+            return DOGFOOD;
+        }
+        
         if (!obj->cursed
             && obj->oclass != BALL_CLASS
             && obj->oclass != CHAIN_CLASS)
