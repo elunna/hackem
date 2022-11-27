@@ -2241,7 +2241,8 @@ struct obj *otmp;
          || mons[mnum].mlet == S_BLOB)
         && mons[mnum].mlet != S_SNAKE && mons[mnum].mlet != S_NAGA
         && mons[mnum].mlet != S_MIMIC && !rn2(5)) {
-        pline("This slimy corpse makes your %s %s slippery.",
+        pline("Eating this %s corpse makes your %s %s slippery.",
+              amorphous(&mons[mnum]) ? "glibbery" : "slimy",
               makeplural(body_part(FINGER)),
               Glib ? "even more" : "very");
         make_glib(rn1(11, 5));
