@@ -889,7 +889,7 @@ blinking eye
 	The eyes are the windows to your soul.
 		[ William Shakespeare ]
 blue jelly
-ochre jelly
+~ochre jelly
 spotted jelly
 clear jelly
 yellow jelly
@@ -2284,6 +2284,24 @@ armor f*
     spiked barding          = barding + morning star 
     barding of reflection   = barding + shield of reflection
 
+dungeon*
+	At once as far as Angels kenn he views 
+	The dismal Situation waste and wilde, 
+	A Dungeon horrible, on all sides round 
+	As one great Furnace flam'd, yet from those flames 
+	No light, but rather darkness visible 
+	Serv'd only to discover sights of woe, 
+	Regions of sorrow, doleful shades, where peace 
+	And rest can never dwell, hope never comes 
+	That comes to all; but torture without end 
+	Still urges, and a fiery Deluge, fed 
+	With ever-burning Sulphur unconsum'd: 
+	Such place Eternal Justice had prepar'd 
+	For those rebellious, here their Prison ordain'd 
+	In utter darkness, and their portion set 
+	As far remov'd from God and light of Heav'n 
+	As from the Center thrice to th' utmost Pole. 
+		[ Paradise Lost, by John Milton ]
 dust devil
 	Sometimes the sands hide things we do not wish to see.
 ~dwarf ??m*
@@ -2961,6 +2979,10 @@ genetic engineer
 	elaborate laboratory to accomplish such abominations, a mere
 	touch seems to be all that is necessary.
 geryon
+    Geryon is an arch-devil sometimes called the Wild Beast,
+    attacking with his claws and poison sting.  His ranking in
+    Hell is rumored to be quite low.
+    	
 	Forthwith that image vile of fraud appear'd,
 	His head and upper part expos'd on land,
 	But laid not on the shore his bestial train.
@@ -4346,6 +4368,17 @@ lava
 	already hellish scene.  A dark, forboding passage exits to the
 	south.
 		[ Adventure, by Will Crowther and Don Woods. ]
+law*
+	Then a lawyer said, But what of our Laws, master?
+	  And he answered:
+	  You delight in laying down laws.
+	  Yet you delight more in breaking them.
+	  Like children playing by the ocean who build sand-towers
+	with constancy and then destroy them with laughter.
+	  But while you build your sand-towers the ocean brings more sand
+	to the shore, And when you destroy them the ocean laughs with you.
+	  Verily the ocean laughs with the innocent.
+		[ The Prophet, by Kahlil Gibran ]
 leash
 	They had splendid heads, fine shoulders, strong legs, and
 	straight tails.  The spots on their bodies were jet-black and
@@ -5405,6 +5438,15 @@ obsidian*
 	favored by primitive peoples for knives, arrowheads, spearheads,
 	and other weapons and tools.
 		[ The Columbia Encyclopedia, Sixth Edition ]
+ochre jelly
+	This monster resembles a giant amoeba, seeping through darkened
+	corridors, through cracks and under doors, searching for flesh or
+	cellulose to devour. ... Voraciously dissolving all types of carrion
+	and trash, this monster is sometimes tolerated in inhabited subterranean
+	areas for its janitorial services, but this activity is difficult to
+	organize and is usually not appreciated by the inhabitants because of
+	its danger. 
+		[ Monstrous Manual, by TSR inc. ]
 odin
 	Also called Sigtyr (god of Victory), Val-father (father of
 	the slain), One-Eyed, Hanga-god (god of the hanged), Farma-
@@ -6721,6 +6763,7 @@ ranseur
 ~rat king
 packrat
 * rat
+* unusual size
 	Rats are long-tailed rodents.  They are aggressive,
 	omnivorous, and adaptable, often carrying diseases.
 		[]
@@ -6735,6 +6778,10 @@ packrat
 	dying people.  They show astonishing intelligence in knowing
 	when a human being is helpless."
 		[ 1984, by George Orwell ]
+		
+	
+	"Rodents Of Unusual Size? I don't think they exist."
+		[The Princess Bride, by William Goldman ]
 rat king
 	At this moment two of the enemies' tirailleurs seized him by
 	his wooden mantle, and the Mouse-King, squeaking from his seven
@@ -7267,6 +7314,17 @@ sapphire
 	adamantine luster. ... The chief corundum gems are the ruby
 	(red) and the sapphire (blue).
 		[ The Columbia Encyclopedia, Sixth Edition ]
+~stormbringer
+~orcrist
+rune*sword
+	Runes are an intensely magical form of writing. Anything
+	written in Runes is going to be a Spell.
+	[...]
+	6.  Written on Rings and Swords. These Runes always
+	make words and nearly always mean trouble. Avoid any
+	artifact with Runes on it, even if the Runes prove only to
+	spell the maker's name.
+	[ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
 Ruggo
 ?nome king
 	The Nome King declared, "Cruelty is a thing I can't abide. So, 
@@ -7796,6 +7854,8 @@ scroll of food detection
     - blessed: you additionally acquire the food appraisal intrinsic.
     - cursed/confused: you will detect potions instead.
 scroll of genocide
+scroll of annihilation
+scroll of ann*
    The effects  depend on the scroll's beatitude, including confused
    readings:
     - blessed: You may eliminate a single monster species from the
@@ -10326,6 +10386,32 @@ flail
 	A weapon is a device for making your enemy change his mind.
 		[ The Vor Game, by Lois McMaster Bujold ]
 web
+	I watch her in the corner there, 
+	As, restless, bold, and unafraid, 
+	She slips and floats along the air 
+	Till all her subtile house is made
+
+	Her home, her bed, her daily food 
+	All from that hidden store she draws; 
+	She fashions it and knows it good, 
+	By instinct's strong and sacred laws. 
+
+	No tenuous threads to weave her nest, 
+	She seeks and gathers there or here; 
+	But spins it from her faithful breast, 
+	Renewing still, till leaves are sere. 
+
+	Then, worn with toil, and tired of life, 
+	In vain her shining traps are set. 
+	Her frost hath hushed the insect strife 
+	And gilded flies her charm forget. 
+
+	But swinging in the snares she spun, 
+	She sways to every winter wind: 
+	Her joy, her toil, her errand done, 
+	Her corse the sport of storms unkind.
+		[ Arachne, by Rose Terry Cooke ]
+		
 	Oh what a tangled web we weave,
 	When first we practise to deceive!
 		[ Marmion, by Sir Walter Scott ]
