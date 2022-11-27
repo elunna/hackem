@@ -752,11 +752,16 @@ register struct monst *mtmp;
                         pline(
                              "Wait, %s!  There's a hidden %s named %s there!",
                               m_monnam(mtmp), youmonst.data->mname, plname);
-                    else
+                    else if (concealed_spot(u.ux, u.uy) == 2)
                         pline(
                           "Wait, %s!  There's a %s named %s hiding under %s!",
-                              m_monnam(mtmp), youmonst.data->mname, plname,
-                              doname(level.objects[u.ux][u.uy]));
+                              m_monnam(mtmp), youmonst.data->mname,
+                              plname, doname(level.objects[u.ux][u.uy]));
+                    else
+                        pline(
+                            "Wait, %s!  There's a %s named %s hiding under %s!",
+                            m_monnam(mtmp), youmonst.data->mname,
+                            plname, explain_terrain(u.ux, u.uy));
                     if (obj)
                         obj->spe = save_spe;
                 } else
