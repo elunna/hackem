@@ -5931,6 +5931,7 @@ boolean moncast;
                 pline("The grass is scorched away!");
                 newsym(x, y);
             }
+            maybe_unhide_at(x, y);
         }
         break; /* ZT_FIRE */
 

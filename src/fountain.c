@@ -281,6 +281,7 @@ boolean isyou;
         level.flags.nfountains--;
         if (isyou && in_town(x, y) && !MON_CASTBALL)
             (void) angry_guards(FALSE);
+        maybe_unhide_at(x, y);
     }
 }
 
@@ -1140,6 +1141,7 @@ int x, y;
     level.flags.nforges--;
     explode(u.ux, u.uy, AD_FIRE - 1, resist_reduce(rnd(30), FIRE_RES),
             FORGE_EXPLODE, EXPL_FIERY);
+    maybe_unhide_at(x, y);
 }
 
 void
@@ -1152,6 +1154,7 @@ int x, y;
     levl[x][y].doormask = 0;
     newsym(x, y);
     level.flags.nforges--;
+    maybe_unhide_at(x, y);
 }
 
 void
@@ -1201,6 +1204,7 @@ int x, y;
     SET_FOUNTAIN_LOOTED(x, y);
     level.flags.nfountains++;
     newsym(x, y);
+    maybe_unhide_at(x, y);
 }
 
 void
@@ -1219,7 +1223,8 @@ int x, y;
     levl[x][y].typ = FOUNTAIN;
     level.flags.nfountains++;
     newsym(x, y);
-
+    maybe_unhide_at(x, y);
+    
     if (!rn2(3)) {
         if (!(mvitals[PM_BABY_CROCODILE].mvflags & G_GONE)) {
             if (!Blind) {
