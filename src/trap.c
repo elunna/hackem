@@ -4341,6 +4341,13 @@ xchar x, y;
             }
             setnotworn(obj);
             delobj(obj);
+            
+            /* Deals damage similar to an alchemy blast */
+            int dmg = (6 + rnd(10)) * (Acid_resistance ? 1 : 2);
+            exercise(A_STR, FALSE);
+            losehp(dmg, /* not physical damage */
+                   "alchemic blast", KILLED_BY_AN);
+            
             if (update)
                 update_inventory();
             return ER_DESTROYED;
