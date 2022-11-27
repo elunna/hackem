@@ -3044,7 +3044,7 @@ find_ac()
     }
     /* Drunken boxing */
     if (Role_if(PM_MONK) && Confusion && !uarm) {
-        uac += 1;
+        uac -= 1;
     }
     
     /* Dexterity affects your base AC */
