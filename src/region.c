@@ -986,7 +986,7 @@ genericptr_t p2;
             return FALSE;
         } else {
             monstseesu(M_SEEN_POISON);
-            You("cough!");
+            /*You("cough!");*/
             return FALSE;
         }
     } else { /* A monster is inside the cloud */
