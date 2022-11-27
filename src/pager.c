@@ -959,6 +959,9 @@ struct permonst * pm;
         } else if (bigmonst(pm)) {
             APPENDC(TRUE, "big");
         }
+        if (has_blood(pm)) {
+            MONPUTSTR("May be drunk by vampiric monsters.");
+        }
     }
 
     /* inherent characteristics: "Monster is X." */
