@@ -2115,8 +2115,10 @@ register int x, y;
 {
     if (OBJ_AT(x, y))
         return 2;
+    
     switch (levl[x][y].typ) {
     case GRASS:
+    case FOUNTAIN:
     case SINK:
     case TOILET:
     case FORGE:
