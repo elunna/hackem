@@ -682,7 +682,7 @@ RING("gain constitution", "opal",                0,                        150, 
 RING("gain dexterity",  "obsidian",              0,                        150, 1, 1, 7, GEMSTONE, CLR_BLACK),  /* Slash'EM */
 RING("gain intelligence", "plain",               0,                        150, 1, 1, 7, MINERAL,  HI_MINERAL), /* Slash'EM */
 RING("gain strength", "granite",                 0,                        150, 1, 1, 7, MINERAL, HI_MINERAL),  
-RING("gain wisdom", "glass",                     0,                        150, 1, 1, 7, MINERAL,  CLR_CYAN),   /* Slash'EM */
+RING("gain wisdom", "glass",                     0,                        150, 1, 1, 7, GLASS,  CLR_CYAN),   /* Slash'EM */
 RING("increase accuracy", "clay",                0,                        150, 1, 1, 4, MINERAL, CLR_RED),
 RING("increase damage", "coral",                 0,                        150, 1, 1, 4, MINERAL, CLR_ORANGE),
 RING("protection", "black onyx",                 PROTECTION,               100, 1, 1, 7, MINERAL, CLR_BLACK),
