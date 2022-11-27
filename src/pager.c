@@ -1258,6 +1258,21 @@ short otyp;
         if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
     }
+    
+    /* Effects based on the base description of the item -- only one will apply, so an if-else chain is appropriate */
+    /* randomized appearance items */
+   
+    if (otyp == find_skates())		        OBJPUTSTR("Prevents slipping on ice.");
+    else if (otyp == find_cboots())		OBJPUTSTR("+1AC, +1 to-hit for thrown.");
+    else if (otyp == find_mboots())		OBJPUTSTR("Protects against drowning attacks.");
+    else if (otyp == find_hboots())   	        OBJPUTSTR("Increases carrying capacity.");
+    else if (otyp == find_jboots())		OBJPUTSTR("Reduces the severity of leg wounds.");
+    /*else if (otyp == find_vhelm())	        OBJPUTSTR("Protects from blinding claws and venom.");*/
+    else if (otyp == find_ogloves())            OBJPUTSTR("Erosion resistant.");				
+    else if (otyp == find_pgloves())	        OBJPUTSTR("Slightly increased defense.");
+    else if (otyp == find_fgloves())		OBJPUTSTR("Increases to-hit when fighting with a free off-hand.");
+    
+    
     if (olet == FOOD_CLASS) {
         if (otyp == TIN || otyp == CORPSE) {
             if (obj && (obj->otyp == CORPSE)) {

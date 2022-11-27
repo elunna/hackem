@@ -1505,7 +1505,9 @@ violated_vegetarian()
 {
     u.uconduct.unvegetarian++;
     if (Role_if(PM_MONK)) {
-        You_feel("guilty.");
+        if (u.uconduct.unvegetarian <= 10) {
+            You_feel("guilty.");
+        }
         adjalign(-1);
     }
     return;
@@ -1729,6 +1731,13 @@ const char *mesg;
                   tintxts[r].txt, fingers_or_gloves(TRUE));
         }
 
+        if (!strcmp(tintxts[r].txt, "szechuan") && rn2(2)) {
+            struct obj* cookie = mksobj(FORTUNE_COOKIE, FALSE, FALSE);
+            cookie->blessed = tin->blessed;
+            cookie->cursed = tin->cursed;
+            pline("There is a free fortune cookie inside!");
+            hold_another_object(cookie, "It falls to the floor.", NULL, NULL);
+        }
     } else { /* spinach... */
         if (tin->cursed) {
             pline("It contains some decaying%s%s substance.",
@@ -2224,6 +2233,18 @@ struct obj *otmp;
                           : palatable ? "copacetic" : "grody")
                  : (yummy ? "delicious" : palatable ? "okay" : "terrible"),
               (yummy || !palatable) ? '!' : '.');
+    }
+
+    /* Eating slimy or oily corpses makes your fingers slippery.
+     * Note: Snakes are neither of these. */
+    if ((amorphous(&mons[mnum]) || slithy(&mons[mnum])
+         || mons[mnum].mlet == S_BLOB)
+        && mons[mnum].mlet != S_SNAKE && mons[mnum].mlet != S_NAGA
+        && mons[mnum].mlet != S_MIMIC && !rn2(5)) {
+        pline("This slimy corpse makes your %s %s slippery.",
+              makeplural(body_part(FINGER)),
+              Glib ? "even more" : "very");
+        make_glib(rn1(11, 5));
     }
 
     return retcode;
@@ -3710,7 +3731,7 @@ int num;
     boolean iseating = (occupation == eatfood) || force_save_hs;
 
     debugpline1("lesshungry(%d)", num);
-    u.uhunger += num;
+    u.uhunger += (Hunger ? (num + 1) / 2 : num);
     if (u.uhunger >= (Race_if(PM_HOBBIT) ? 4000 : 2000)) {
         if (!iseating || context.victual.canchoke) {
             if (iseating) {

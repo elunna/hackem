@@ -641,7 +641,11 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                           * we mustn't call update_inventory() now because
                           * it would call xname() (via doname()) recursively
                           * and could end up clobbering all the obufs... */
-
+    /* rangers of a certain level/skill auto-know ammo enchantments */
+    if (Role_if(PM_RANGER) && u.ulevel >= 10
+        && obj->oclass == WEAPON_CLASS && is_ammo(obj)
+        && P_SKILL(-objects[obj->otyp].oc_skill) >= P_BASIC)
+        obj->known = 1;
     if (iflags.override_ID) {
         known = dknown = bknown = TRUE;
         obj->oprops_known = ITEM_PROP_MASK;
@@ -1491,6 +1495,8 @@ unsigned doname_flags;
     case POTION_CLASS:
         if (obj->otyp == POT_OIL && obj->lamplit)
             Strcat(bp, " (lit)");
+        if (obj->otyp == POT_FRUIT_JUICE && obj->corpsenm)
+            Strcat(bp, " (fermenting)");
         break;
     case RING_CLASS:
         add_erosion_words(obj, prefix);
@@ -3760,6 +3766,7 @@ struct obj *no_wish;
                 || !strncmpi(bp, "gold dragon", l = 11)
                 || !strcmp(bp, "gold")
                 || !strncmpi(bp, "gold piece", l = 10)
+                || !strncmpi(bp, "wax candle", l = 10)
                 || !strncmpi(bp, "platinum yendorian express card", l = 31)
                 || !strncmpi(bp, "iron bars", l = 9)
                 || !strncmpi(bp, "crystal chest", l = 13)
@@ -4905,7 +4912,10 @@ struct obj *no_wish;
     if (isgreased)
         otmp->greased = 1;
 
-    if (isdiluted && otmp->oclass == POTION_CLASS && otmp->otyp != POT_WATER)
+    if (isdiluted 
+        && otmp->oclass == POTION_CLASS 
+        && otmp->otyp != POT_WATER
+        && otmp->otyp != POT_OIL)
         otmp->odiluted = 1;
 
     /* set tin variety */

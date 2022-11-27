@@ -245,6 +245,14 @@ xchar x, y;
     i = -inv_weight();
     j = weight_cap();
 
+    /* What the following confusing if statements mean:
+     * If you are over 70% of carrying capacity, you go through a "deal no
+     * damage" check, and if that fails, a "clumsy kick" check.
+     * At this % of carrycap | Chance of no damage | Chance of clumsiness
+     *             [70%-80%) |                 1/4 |                  1/3
+     *             [80%-90%) |                 1/3 |                  1/2
+     *            [90%-100%) |                 1/2 |                   1
+     */
     if (i < (j * 3) / 10) {
         if (!rn2((i < j / 10) ? 2 : (i < j / 5) ? 3 : 4)) {
             if (martial())   /* if you're a martial artist, you're not a clumsy kicker */
@@ -1090,9 +1098,12 @@ boolean need_dir;
                 if (maploc->doormask == D_ISOPEN
                     || maploc->doormask == D_NODOOR)
                     unblock_point(x, y); /* vision */
-                return 1;
-            } else
-                goto ouch;
+            } else {
+                /* Don't reveal whether secret door or secret corridor. */
+                pline(Deaf ? "The wall gives way a little."
+                           : "The wall responds with a hollow thump.");
+            }
+            return 1;
         }
         if (maploc->typ == SCORR) {
             if (!Levitation && rn2(30) < avrg_attrib) {
@@ -1101,9 +1112,12 @@ boolean need_dir;
                 maploc->typ = CORR;
                 feel_newsym(x, y); /* we know it's gone */
                 unblock_point(x, y); /* vision */
-                return 1;
-            } else
-                goto ouch;
+            } else {
+                /* Don't reveal whether secret door or secret corridor. */
+                pline(Deaf ? "The wall gives way a little."
+                           : "The wall responds with a hollow thump.");
+            }
+            return 1;
         }
         if (IS_THRONE(maploc->typ)) {
             register int i;
@@ -1492,7 +1506,7 @@ boolean need_dir;
                     maploc = &levl[x][y];
                 }
             }
-            if (!rn2(3))
+            if (!(uarmf && uarmf->otyp == find_jboots()) && !rn2(3))
                 set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
             dmg = rnd(ACURR(A_CON) > 15 ? 3 : 5);
             losehp(Maybe_Half_Phys(dmg), kickstr(buf, kickobjnam), KILLED_BY);

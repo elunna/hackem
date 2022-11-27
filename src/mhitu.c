@@ -1250,7 +1250,7 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     struct obj *obj = (uarmc ? uarmc : uarm);
-
+    
     if (!obj)
         obj = uarmu;
     if (mattk->adtyp == AD_DRIN)
@@ -1282,13 +1282,23 @@ struct attack *mattk;
         }
         return TRUE;
     /* 50% chance (with a luck bonus) of slipping free with free action */
-	} else if (Free_action && (rnl(10) < 5)) {
+    } else if (Free_action && (rnl(10) < 5)) {
         pline("%s %s you, but you quickly free yourself!",
-                Monnam(mtmp),
-                (mattk->adtyp == AD_WRAP) ?
-                "swings itself around of" : "grabs");
+            Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
+            "swings itself around of" : "grabs");
         return TRUE;
-	}
+    }
+    /* 50% chance (with a luck bonus) of slipping free with mud boots. 
+     * Doesn't apply to brain attacks. */
+    else if (mattk->adtyp != AD_DRIN 
+             && uarmf 
+             && uarmf->otyp == find_mboots() 
+             && (rnl(10) < 5)) {
+        pline("%s %s you, but you quickly free yourself!",
+              Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
+              "swings itself around of" : "grabs");
+        return TRUE;
+    }
     return FALSE;
 }
 
@@ -1941,7 +1951,8 @@ register struct attack *mattk;
                                || uarmf->otyp == DWARVISH_BOOTS)) {
                     pline("%s pricks the exposed part of your %s %s!",
                           Monst_name, sidestr, leg);
-                } else if (!rn2(5)) {
+                } else if (uarmf->otyp != find_jboots() && !rn2(5)) {
+                    /* Jungle boots protect from this wounding */
                     pline("%s pricks through your %s boot!", Monst_name,
                           sidestr);
                 } else {
@@ -2094,10 +2105,12 @@ register struct attack *mattk;
 
     case AD_SSEX:
         if (SYSOPT_SEDUCE) {
-            if (could_seduce(mtmp, &youmonst, mattk) == 1
-                && !(mtmp->mcan || Hidinshell))
+            if (could_seduce(mtmp, &youmonst, mattk) == 1 
+                && !(mtmp->mcan || Hidinshell)) {
+                mintroduce(mtmp);
                 if (doseduce(mtmp))
                     return 3;
+            }
             break;
         }
         /*FALLTHRU*/
@@ -2126,19 +2139,24 @@ register struct attack *mattk;
             if (!tele_restrict(mtmp))
                 (void) rloc(mtmp, TRUE);
             return 3;
-        } else if (mtmp->mcan || Hidinshell 
-                   || (uwep && uwep->oartifact == ART_THIEFBANE)) {
-            if (!Blind)
-                pline("%s tries to %s you, but you seem %s.",
-                      Adjmonnam(mtmp, "plain"),
-                      flags.female ? "charm" : "seduce",
-                      flags.female ? "unaffected" : "uninterested");
-            if (rn2(3)) {
-                if (!tele_restrict(mtmp))
-                    (void) rloc(mtmp, TRUE);
-                return 3;
+        } else {
+            /* Only nymphs/mermaids introduce - other thieves won't introduce 
+             * themselves (like gnome thiefs or muggers) */
+            if (is_nymph(mtmp->data) || mtmp->data == &mons[PM_MERMAID]) 
+                mintroduce(mtmp);
+            if (mtmp->mcan || Hidinshell || (uwep && uwep->oartifact == ART_THIEFBANE)) {
+                if (!Blind)
+                    pline("%s tries to %s you, but you seem %s.",
+                          Adjmonnam(mtmp, "plain"),
+                          flags.female ? "charm" : "seduce",
+                          flags.female ? "unaffected" : "uninterested");
+                if (rn2(3)) {
+                    if (!tele_restrict(mtmp))
+                        (void) rloc(mtmp, TRUE);
+                    return 3;
+                }
+                break;
             }
-            break;
         }
         if (uwep && uwep->oartifact == ART_THIEFBANE) {
             pline("%s makes a move for your pack but Thiefbane blocks the theft!.", Monnam(mtmp));
@@ -2257,7 +2275,8 @@ do_rust:
         hitmsg(mtmp, mattk);
         if (mtmp->mcan)
             break;
-        if (u.umonnum == PM_WOOD_GOLEM || u.umonnum == PM_LEATHER_GOLEM) {
+        if (u.umonnum == PM_PAPER_GOLEM || u.umonnum == PM_WOOD_GOLEM
+            || u.umonnum == PM_LEATHER_GOLEM) {
             You("rot!");
             /* KMH -- this is okay with unchanging */
             rehumanize();
@@ -4212,6 +4231,7 @@ struct monst *mon;
     /* by this point you have discovered mon's identity, blind or not... */
     pline("Time stands still while you and %s lie in each other's arms...",
           noit_mon_nam(mon));
+    u.uconduct.uncelibate++;
     /* 3.6.1: a combined total for charisma plus intelligence of 35-1
        used to guarantee successful outcome; now total maxes out at 32
        as far as deciding what will happen; chance for bad outcome when

@@ -28,7 +28,6 @@
 
 #include "hack.h"
 
-STATIC_DCL void FDECL(put_monsters_to_sleep, (int));
 STATIC_DCL void FDECL(charm_snakes, (int));
 STATIC_DCL void FDECL(calm_nymphs, (int));
 STATIC_DCL void FDECL(charm_monsters, (int));
@@ -87,8 +86,9 @@ int distance;
  * Make monsters fall asleep.  Note that they may resist the spell.
  */
 
-STATIC_OVL void
-put_monsters_to_sleep(distance)
+void
+put_monsters_to_sleep(caster, distance)
+struct monst * caster;
 int distance;
 {
     register struct monst *mtmp;
@@ -96,7 +96,12 @@ int distance;
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
             continue;
-        if (distu(mtmp->mx, mtmp->my) < distance
+        if (mtmp == caster) /* immune to own effects */
+            continue;
+        xchar cx = (caster == &youmonst) ? u.ux : caster->mx;
+        xchar cy = (caster == &youmonst) ? u.uy : caster->my;
+
+        if (dist2(cx, cy, mtmp->mx, mtmp->my) < distance
             && sleep_monst(mtmp, d(10, 10), TOOL_CLASS)) {
             mtmp->msleeping = 1; /* 10d10 turns + wake_nearby to rouse */
             if (mtmp->data == &mons[PM_CERBERUS])
@@ -628,7 +633,7 @@ struct obj *instr;
 
         You("%sproduce %s music.", !Deaf ? "" : "seem to ",
             Hallucination ? "elevator" : "soft");
-        put_monsters_to_sleep(u.ulevel * 5);
+        put_monsters_to_sleep(&youmonst, u.ulevel * 5);
         exercise(A_DEX, TRUE);
         makeknown_msg(MAGIC_FLUTE);
         break;
@@ -930,14 +935,25 @@ struct obj *instr;
             exercise(A_WIS, TRUE); /* just for trying */
             if (!strcmp(buf, tune)) {
                 /* Search for the drawbridge */
-                for (y = u.uy - 1; y <= u.uy + 1; y++)
-                    for (x = u.ux - 1; x <= u.ux + 1; x++)
+                for (y = u.uy - 2; y <= u.uy + 2; y++)
+                    for (x = u.ux - 2; x <= u.ux + 2; x++)
                         if (isok(x, y))
                             if (find_drawbridge(&x, &y)) {
                                 /* tune now fully known */
                                 u.uevent.uheard_tune = 2;
-                                if (levl[x][y].typ == DRAWBRIDGE_DOWN)
+                                if (levl[x][y].typ == DRAWBRIDGE_DOWN) {
+                                    if (!rn2(5)) {
+                                        /* Future improvement: if flags is ever
+                                         * expanded beyond 5 bits, could set a
+                                         * bit here to make the mechanism
+                                         * continue to be stuck until some
+                                         * condition is met, such as
+                                         * opening/closing magic used on it */
+                                        pline("The mechanism seems to get jammed.");
+                                        pline("It won't close.");
+                                    }
                                     close_drawbridge(x, y);
+                                }
                                 else
                                     open_drawbridge(x, y);
                                 return 1;
@@ -949,8 +965,8 @@ struct obj *instr;
                  * we can give the player some hints like in the
                  * Mastermind game */
                 ok = FALSE;
-                for (y = u.uy - 1; y <= u.uy + 1 && !ok; y++)
-                    for (x = u.ux - 1; x <= u.ux + 1 && !ok; x++)
+                for (y = u.uy - 2; y <= u.uy + 2 && !ok; y++)
+                    for (x = u.ux - 2; x <= u.ux + 2 && !ok; x++)
                         if (isok(x, y))
                             if (IS_DRAWBRIDGE(levl[x][y].typ)
                                 || is_drawbridge_wall(x, y) >= 0)

@@ -844,6 +844,8 @@ boolean resuming;
     }
 }
 
+#define U_CAN_REGEN() (Regeneration || (Sleepy && u.usleep))
+
 /* maybe recover some lost health (or lose some when an eel out of water) */
 STATIC_OVL void
 regen_hp(wtcap)
@@ -873,7 +875,7 @@ int wtcap;
                 heal = -1;
         } else if (u.mh < u.mhmax) {
             if ((!Is_valley(&u.uz) || is_undead(youmonst.data))
-                && (Regeneration || (encumbrance_ok && !(moves % 20L))))
+                && (U_CAN_REGEN() || (encumbrance_ok && !(moves % 20L))))
                 heal = 1;
         }
         if (heal && !(Withering && heal > 0)) {
@@ -889,7 +891,7 @@ int wtcap;
            once u.mh reached u.mhmax; that may have been convenient
            for the player, but it didn't make sense for gameplay...] */
         if (u.uhp < u.uhpmax && elf_can_regen() && orc_can_regen() && vamp_can_regen()
-            && (encumbrance_ok || Regeneration) && !Is_valley(&u.uz)
+            && (encumbrance_ok || U_CAN_REGEN()) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
             
             /*
@@ -926,14 +928,16 @@ int wtcap;
 
             /* tortles gain some accelerated regeneration while
                inside their shell */
-            if (Hidinshell && !Regeneration) {
+            if (Hidinshell && !U_CAN_REGEN()) {
                 if (!rn2(5))
                     heal += 1;
             }
 
-            if (Regeneration && !heal)
+            if (U_CAN_REGEN() && !heal)
                 heal += 1;
-
+            if (Sleepy && u.usleep)
+                heal++;
+            
             if (heal && !(Withering && heal > 0)) {
                 context.botl = TRUE;
                 u.uhp += heal;
@@ -948,6 +952,8 @@ int wtcap;
     if (reached_full)
         interrupt_multi("You are in full health.");
 }
+
+#undef U_CAN_REGEN
 
 void
 stop_occupation()

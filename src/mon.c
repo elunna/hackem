@@ -595,12 +595,35 @@ unsigned corpseflags;
             obj->cursed = obj->blessed = FALSE;
         }
         goto default_1;
+    case PM_SKELETON:
+        if (!rn2(50)) {
+            otmp = mksobj_at(SKELETON_KEY, x, y, TRUE, FALSE);
+            set_material(otmp, BONE);
+        }
+        break;
     case PM_TIAMAT:
         /* Make chromatic dragon scales */
         if (!rn2(3)) { /* Tiamat cannot be revived, no corpse */
             obj = mksobj_at(CHROMATIC_DRAGON_SCALES, x, y, FALSE, FALSE);
             obj->spe = 0;
             obj->cursed = obj->blessed = FALSE;
+        }
+        goto default_1;
+    case PM_TIGER:
+        if (!mtmp->mrevived && !rn2(100)) {
+            int otyp;
+            for (otyp = bases[RING_CLASS]; otyp < bases[RING_CLASS+1];
+                 ++otyp) {
+                const char *s;
+                if ((s = OBJ_DESCR(objects[otyp])) != 0
+                    && !strcmp(s, "tiger eye"))
+                    break;
+            }
+            if (otyp >= bases[RING_CLASS + 1])
+                impossible("No tiger eye ring?");
+            else {
+                obj = mksobj_at(otyp, x, y, FALSE, FALSE);
+            }
         }
         goto default_1;
     case PM_WHITE_UNICORN:
@@ -765,6 +788,13 @@ unsigned corpseflags;
                 obj = mksobj_at(QUARTERSTAFF, x, y, TRUE, FALSE);
             }
             set_material(obj, WOOD);
+        }
+        free_mname(mtmp);
+        break;
+    case PM_ROPE_GOLEM:
+        num = rn2(3);
+        while (num-- > 0) {
+            obj = mksobj_at(rn2(2) ? LEASH : BULLWHIP, x, y, TRUE, FALSE);
         }
         free_mname(mtmp);
         break;
@@ -2643,7 +2673,9 @@ long flag;
                 }
                 /* check for diagonal tight squeeze */
                 if (nx != x && ny != y && bad_rock(mon, x, ny)
-                    && bad_rock(mon, nx, y) && cant_squeeze_thru(mon))
+                    && bad_rock(mon, nx, y) && cant_squeeze_thru(mon)
+                    && !(is_elf(mdat) && IS_TREE(levl[x][ny].typ)
+                         && IS_TREE(levl[nx][y].typ)))
                     continue;
                 /* The monster avoids a particular type of trap if it's
                  * familiar with the trap type.  Pets get ALLOW_TRAPS

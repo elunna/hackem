@@ -1578,6 +1578,9 @@ register struct monst *mtmp;
                 (void) mpickobj(mtmp, otmp);
                 m_dowear(mtmp, FALSE);
             }
+            /* non-archons might have a stereotypical harp */
+            if (!rn2(20) && !is_lord(ptr))
+                (void) mongets(mtmp, rn2(5) ? HARP : MAGIC_HARP);
         }
         break;
 
@@ -1702,6 +1705,8 @@ register struct monst *mtmp;
             }
             if (!rn2(10))
                 (void) mongets(mtmp, DWARVISH_CLOAK);
+            while (!rn2(3))
+                (void) mongets(mtmp, APPLE + rn2(CARROT - APPLE));
             if (mm == PM_HOBBIT_PICKPOCKET) {
                 mkmonmoney(mtmp, (long) rn1(100, 20));
                 if (!rn2(6))
@@ -1811,7 +1816,7 @@ register struct monst *mtmp;
                 : rn2(2) ? PM_MORDOR_ORC : PM_URUK_HAI) {
         case PM_MORDOR_ORC:
             if (!rn2(3))
-                (void) mongets(mtmp, ORCISH_SCIMITAR);
+                (void) mongets(mtmp, rn2(3) ? ORCISH_SCIMITAR : ORCISH_SPEAR);
             if (!rn2(3))
                 (void) mongets(mtmp, ORCISH_SHIELD);
             if (!rn2(3))
@@ -1823,7 +1828,7 @@ register struct monst *mtmp;
             if (!rn2(3))
                 (void) mongets(mtmp, ORCISH_CLOAK);
             if (!rn2(3))
-                (void) mongets(mtmp, ORCISH_SHORT_SWORD);
+                (void) mongets(mtmp, rn2(3) ? ORCISH_SHORT_SWORD : ORCISH_SPEAR);
             if (!rn2(3))
                 (void) mongets(mtmp, ORCISH_BOOTS);
             if (!rn2(3)) {
@@ -2441,6 +2446,8 @@ register struct monst *mtmp;
             (void) mongets(mtmp, rn2(11) 
                 ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE) 
                 : CLOAK_OF_MAGIC_RESISTANCE);
+        } else if (ptr == &mons[PM_ORACLE] && rn2(3)) {
+            mongets(mtmp, POT_HALLUCINATION);
         } else if (ptr == &mons[PM_ARCHBISHOP_OF_MOLOCH]) {
             (void) mongets(mtmp, QUARTERSTAFF);
             (void) mongets(mtmp, rn2(3) 
@@ -2588,6 +2595,13 @@ register struct monst *mtmp;
             otmp->owt = weight(otmp);
             if (!mpickobj(mtmp, otmp) && !levl[mtmp->mx][mtmp->my].lit)
                 begin_burn(otmp, FALSE);
+        }
+        if (!In_mines(&u.uz)) {
+            int ngems = rn2(1 + min(level_difficulty() / 5, 2));
+            while (ngems > 0) {
+                (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1));
+                ngems--;
+            }
         }
         break;
     case S_SPIDER:
@@ -4139,6 +4153,8 @@ int otyp;
             otmp->cursed = FALSE;
             if (otmp->spe < 0)
                 otmp->spe = 0;
+            otmp->oeroded = 0;
+            otmp->oeroded2 = 0;
             otmp->oerodeproof = TRUE;
         } else if (is_mplayer(mtmp->data) && is_sword(otmp)) {
             otmp->spe = (3 + rn2(4));
@@ -4163,12 +4179,16 @@ int otyp;
                 otmp->spe = rn2(3) + 1;
             else if (otmp->oclass == ARMOR_CLASS && otmp->spe < 1)
                 otmp->spe = mtmp->iswiz ? rn2(2) : rn2(4) + 1;
+            otmp->oeroded = 0;
+            otmp->oeroded2 = 0;
         }
         if (is_lord(mtmp->data)) {
             if (otmp->oclass == WEAPON_CLASS && otmp->spe < 1)
                 otmp->spe = rn2(2) + 1;
             else if (otmp->oclass == ARMOR_CLASS && otmp->spe < 1)
                 otmp->spe = rn2(2) + 1;
+            otmp->oeroded = 0;
+            otmp->oeroded2 = 0;
         }
 
         /* Medusa's bow and arrows are also high quality */
@@ -4209,6 +4229,11 @@ int otyp;
             }
         }
 
+        /* Any monster that gets a spear may get a stack of them. */
+        if (is_spear(otmp)) {
+            otmp->quan = rne(2);
+            otmp->owt = weight(otmp);
+        }
         spe = otmp->spe;
         if (mpickobj(mtmp, otmp)) {
             /* otmp was freed via merging with something else */

@@ -713,9 +713,9 @@ RING("polymorph", "ivory",                       POLYMORPH,                300, 
 RING("polymorph control", "emerald",             POLYMORPH_CONTROL,        300, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
 RING("invisibility", "wire",                     INVIS,                    150, 1, 0,  5, METAL, HI_METAL),
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 0,  5, GOLD, HI_METAL),
-RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
 RING("mood", "ridged",                           0,                        100, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
 RING("sleeping", "wedding",                      SLEEPY,                 100, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
+RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
 
 #undef RING
 
@@ -724,8 +724,8 @@ RING("sleeping", "wedding",                      SLEEPY,                 100, 1,
     OBJECT(OBJ(name, desc),                                            \
            BITS(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, P_NONE, METAL),        \
            power, AMULET_CLASS, prob, 0, 20, 150, 0, 0, 0, 0, 20, HI_METAL)
-AMULET("amulet of drain resistance",     "warped", DRAIN_RES, 60),    /* Slash'EM */
 AMULET("amulet of ESP",                "circular", TELEPAT, 120),
+AMULET("amulet of drain resistance",     "warped", DRAIN_RES, 60),    /* Slash'EM */
 AMULET("amulet of life saving",       "spherical", LIFESAVED, 75),
 AMULET("amulet of strangulation",          "oval", STRANGLED, 115),
 AMULET("amulet of nausea",           "pentagonal", 0, 100),           /* SpliceHack */
@@ -802,7 +802,7 @@ TOOL("eight ball", "plastic orb", 0, 0, 0, 0,   0,  20,  30, PLASTIC, CLR_BLACK)
 TOOL("lenses",              None, 1, 0, 0, 0,   4,   3,  80, GLASS, HI_GLASS),
 TOOL("goggles",             None, 1, 0, 0, 0,   1,   3,  50, PLASTIC, CLR_BLACK),   /* EvilHack */
 TOOL("blindfold",           None, 1, 0, 0, 0,  50,   2,  20, CLOTH, CLR_BLACK),
-TOOL("towel",               None, 1, 0, 0, 0,  50,   2,  50, CLOTH, CLR_MAGENTA),
+TOOL("towel",               None, 1, 0, 0, 0,  50,  10,  50, CLOTH, CLR_MAGENTA),
 TOOL("saddle",              None, 1, 0, 0, 0,   5, 200, 150, LEATHER, HI_LEATHER),
 OBJECT(OBJ("barding", None),                                                        /* EvilHack */
         BITS(1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, P_NONE, IRON),
@@ -822,29 +822,29 @@ TOOL("figurine",            None, 1, 0, 1, 0,  25,  50,  80, MINERAL, HI_MINERAL
         /* monster type specified by obj->corpsenm */
 TOOL("mask",                None, 1, 0, 1, 0,  10,  20, 150, WOOD, HI_WOOD),        /* SpliceHack */
         /* monster type specified by obj->corpsenm */
-TOOL("magic marker",    "marker", 0, 0, 1, 1,   0,   2,  50, PLASTIC, CLR_RED),
+TOOL("magic marker",    "marker", 0, 0, 1, 1,   0,   2,  200, PLASTIC, CLR_RED),
 /* traps */
 TOOL("land mine",           None, 1, 0, 0, 0,   0, 300, 180, IRON, CLR_RED),
 TOOL("beartrap",            None, 1, 0, 0, 0,   0, 200,  60, IRON, HI_METAL),
 /* instruments */
 TOOL("pea whistle",    "whistle", 0, 0, 0, 0, 100,   3,  10, METAL, HI_METAL),
-TOOL("magic whistle",  "whistle", 0, 0, 1, 0,  30,   3,  10, METAL, HI_METAL),
+TOOL("magic whistle",  "whistle", 0, 0, 1, 0,  30,   3,  100, METAL, HI_METAL),
 TOOL("flute",            "flute", 0, 0, 0, 0,   4,   5,  12, WOOD, HI_WOOD),
-TOOL("magic flute",      "flute", 0, 0, 1, 1,   2,   5,  36, WOOD, HI_WOOD),
+TOOL("magic flute",      "flute", 0, 0, 1, 1,   2,   5,  144, WOOD, HI_WOOD),
 TOOL("tooled horn",       "horn", 0, 0, 0, 0,   5,  18,  15, BONE, CLR_WHITE),
-TOOL("frost horn",        "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
-TOOL("fire horn",         "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
-TOOL("horn of blasting",  "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),      /* SpliceHack */
-TOOL("horn of plenty",    "horn", 0, 0, 1, 1,   2,  18,  50, BONE, CLR_WHITE),
+TOOL("frost horn",        "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),
+TOOL("fire horn",         "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),
+TOOL("horn of blasting",  "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),      /* SpliceHack */
+TOOL("horn of plenty",    "horn", 0, 0, 1, 1,   2,  18,  200, BONE, CLR_WHITE),
         /* horn, but not an instrument */
 TOOL("harp",              "harp", 0, 0, 0, 0,   4,  30,  50, WOOD, HI_WOOD),
-TOOL("magic harp",        "harp", 0, 0, 1, 1,   2,  30,  50, WOOD, HI_WOOD),
+TOOL("magic harp",        "harp", 0, 0, 1, 1,   2,  30,  200, WOOD, HI_WOOD),
 TOOL("bell",                None, 1, 0, 0, 0,   2,  30,  50, COPPER, HI_COPPER),
 TOOL("bugle",               None, 1, 0, 0, 0,   4,  10,  15, COPPER, HI_COPPER),
 TOOL("lute",                None, 1, 0, 0, 0,  4, 25, 40, WOOD, HI_WOOD),            /* SpliceHack */
 TOOL("bagpipe",             None, 1, 0, 0, 0,  2, 35, 75, LEATHER, CLR_GREEN),      /* SpliceHack */
 TOOL("leather drum",      "drum", 0, 0, 0, 0,   4,  25,  25, LEATHER, HI_LEATHER),
-TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  25, LEATHER, HI_LEATHER),
+TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  100, LEATHER, HI_LEATHER),
 
 
 #define WEPTOOL(name,desc,kn,mgc,chg, bi,prob,wt,cost,sdam,ldam,hitbon,typ,sub,mat,clr) \
@@ -852,8 +852,8 @@ TOOL("drum of earthquake","drum", 0, 0, 1, 1,   2,  25,  25, LEATHER, HI_LEATHER
            BITS(kn, 0, 1,chg, mgc, 1, 0, 0, bi, 0, hitbon, sub, mat),    \
            0, TOOL_CLASS, prob, 0, wt, cost, sdam, ldam, hitbon, 0, wt, clr)
 /* tools useful as weapons */
-WEPTOOL("spoon", None,                 1, 0, 0, 0,  0,   1,  1,   1,  1, 0, PIERCE, P_KNIFE, IRON, HI_METAL), /* Slash'EM */
 WEPTOOL("pick-axe", None,              1, 0, 0, 0, 20,  75,  50,  6,  3, 0, WHACK,  P_PICK_AXE, IRON, HI_METAL),
+WEPTOOL("spoon", None,                 1, 0, 0, 0,  0,   1,  1,   2,  1, 0, PIERCE, P_KNIFE, IRON, HI_METAL), /* Slash'EM */
 WEPTOOL("fishing pole", None,          1, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_POLEARMS, METAL, HI_METAL), /* Slash'EM */
 WEPTOOL("grappling hook", "iron hook", 0, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_FLAIL,    IRON, HI_METAL),
 WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHACK,  P_CLUB, WOOD, HI_WOOD), /* Slash'EM */
@@ -966,7 +966,7 @@ FOOD("cream pie",            25,  1, 10, 0, VEGGY, 100, CLR_WHITE),
 FOOD("apple pie",             1,  1, 10, 0, VEGGY, 200, CLR_RED),            /* SpliceHack */
 FOOD("pumpkin pie",           1,  1, 10, 0, VEGGY, 300, CLR_ORANGE),         /* SpliceHack */
 FOOD("sandwich",             10,  1, 10, 0, FLESH, 100, CLR_WHITE),          /* Slash'EM */
-FOOD("candy bar",            13,  1,  2, 0, VEGGY, 100, CLR_BROWN),          /* Slash'EM */
+FOOD("candy bar",            13,  1,  2, 0, VEGGY, 100, CLR_BRIGHT_BLUE),
 FOOD("slice of cake",         6, 10,  2, 0, VEGGY, 900, CLR_RED),            /* SpliceHack */
 FOOD("fruitcake",             1, 20, 20, 0, VEGGY, 1000, CLR_BROWN),         /* SpliceHack */
 FOOD("fortune cookie",       55,  1,  1, 0, VEGGY,  40, CLR_YELLOW),
@@ -1168,16 +1168,16 @@ SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMM
 /* Snowball is the Ice Mage's special spell - not randomly generated. */
 SPELL("snowball",        "dappled",       P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_GRAY),
 
-SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
+SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
 SPELL("cause fear",      "light blue",    P_NECROMANCY_SPELL,  25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
 SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 5, 1, IMMEDIATE, CLR_MAGENTA),
-SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 2, 1, IMMEDIATE, CLR_ORANGE),
+SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_ORANGE),
 
 SPELL("haste self",      "purple",        P_ESCAPE_SPELL,      30,  4, 3, 1, NODIR, CLR_MAGENTA),
 SPELL("levitation",      "tan",           P_ESCAPE_SPELL,      20,  4, 4, 1, NODIR, CLR_BROWN),
 SPELL("teleport away",   "gold",          P_ESCAPE_SPELL,      15,  6, 5, 1, IMMEDIATE, HI_GOLD),
 SPELL("passwall",        "ochre",         P_ESCAPE_SPELL,       5,  7, 5, 1, NODIR, CLR_YELLOW),   /* Slash'EM */
-SPELL("invisibility",    "dark brown",    P_ESCAPE_SPELL,      25,  5, 3, 1, NODIR, CLR_BROWN),
+SPELL("invisibility",    "dark brown",    P_ESCAPE_SPELL,      25,  5, 2, 1, NODIR, CLR_BROWN),
 SPELL("jumping",         "thin",          P_ESCAPE_SPELL,      20,  3, 2, 1, IMMEDIATE, HI_PAPER),
 
 SPELL("light",           "cloth",         P_DIVINATION_SPELL,  35,  1, 1, 1, NODIR, HI_CLOTH),
@@ -1334,14 +1334,14 @@ GEM("worthless piece of violet glass", "violet",
  * that is currently everything between luckstones and flint
  * (inclusive).
  */
-ROCK("luckstone", "gray",     0,  10,  10, 60, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),
-ROCK("healthstone", "gray",	  0,   8,  10, 60, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),  /* Slash'EM */
-ROCK("loadstone", "gray",     0,  10, 500,  1, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
-ROCK("touchstone", "gray",    0,   8,  10, 45, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
-ROCK("whetstone", "gray",	  0,   3,  10, 45, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),  /* Slash'EM */
-ROCK("flint", "gray",         0,  10,   2,  1, 6, 6, 0, 10, 7, MINERAL, CLR_GRAY),
-ROCK("sling bullet", "shiny", 0,  30,   6, 10, 6, 8, 0, 10, 7, IRON, HI_METAL),
-ROCK("rock", None,            1, 100,  10,  0, 3, 3, 0, 10, 7, MINERAL, CLR_GRAY),
+ROCK("luckstone", "gray",       0,  10,  10, 60, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),
+ROCK("healthstone", "gray",     0,   8,  10, 60, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),  /* Slash'EM */
+ROCK("loadstone", "gray",       0,  10, 500,  1, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
+ROCK("touchstone", "gray",      0,   8,  10, 45, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
+ROCK("whetstone", "gray",       0,   3,  10, 45, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),  /* Slash'EM */
+ROCK("flint", "gray",           0,  10,   1,  1, 6, 6, 0, 10, 7, MINERAL, CLR_GRAY),
+ROCK("sling bullet", "shiny",   0,  30,   6, 10, 6, 8, 0, 10, 7, IRON, HI_METAL),
+ROCK("rock", None,              1, 100,  10,  0, 3, 3, 0, 10, 7, MINERAL, CLR_GRAY),
 #undef GEM
 #undef ROCK
 

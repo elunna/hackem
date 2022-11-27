@@ -1194,7 +1194,8 @@ do_mname()
                     || mtmp->data->msound <= MS_ANIMAL)) {
         if (!alreadynamed(mtmp, monnambuf, buf))
             verbalize("I'm %s, not %s.", shkname(mtmp), buf);
-    } else if (mtmp->ispriest || mtmp->isminion || mtmp->isshk) {
+    } else if (mtmp->ispriest || mtmp->isminion || mtmp->isshk
+               || mtmp->data == &mons[PM_GHOST]) {
         if (!alreadynamed(mtmp, monnambuf, buf))
             pline("%s will not accept the name %s.", upstart(monnambuf), buf);
     } else
@@ -2210,12 +2211,21 @@ roguename()
 
 static NEARDATA const char *const hcolors[] = {
     "ultraviolet", "infrared", "bluish-orange", "reddish-green", "dark white",
-    "light black", "sky blue-pink", "salty", "sweet", "sour", "bitter",
+    "light black", "sky blue-pink", "pinkish-cyan", "indigo-chartreuse",
+    "salty", "sweet", "sour", "bitter", "umami", /* basic tastes */
     "striped", "spiral", "swirly", "plaid", "checkered", "argyle", "paisley",
     "blotchy", "guernsey-spotted", "polka-dotted", "square", "round",
     "triangular", "cabernet", "sangria", "fuchsia", "wisteria", "lemon-lime",
     "strawberry-banana", "peppermint", "romantic", "incandescent",
     "octarine", /* Discworld: the Colour of Magic */
+    "excitingly dull", "mauve", "electric",
+    "neon", "fluorescent", "phosphorescent", "translucent", "opaque",
+    "psychedelic", "iridescent", "rainbow-colored", "polychromatic",
+    "colorless", "colorless green",
+    "dancing", "singing", "loving", "loudy", "noisy", "clattery", "silent",
+    "apocyan", "infra-pink", "opalescent", "violant", "tuneless",
+    "viridian", "aureolin", "cinnabar", "purpurin", "gamboge", "madder",
+    "bistre", "ecru", "fulvous", "tekhelet", "selective yellow",
 };
 
 const char *
@@ -2246,6 +2256,7 @@ static NEARDATA const char *const hliquids[] = {
     "caramel sauce", "ink", "aqueous humour", "milk substitute",
     "fruit juice", "glowing lava", "gastric acid", "mineral water",
     "cough syrup", "quicksilver", "sweet vitriol", "grey goo", "pink slime",
+    "cosmic latte",
 };
 
 const char *
@@ -2489,6 +2500,75 @@ int pre_wound_hp;
             || strcmp(m_old_wounds, m_curr_wounds))) {
         pline("%s is %s.", Monnam(mon), m_curr_wounds);
     }
+}
+
+/* Most of these are actual names of nymphs from mythology. */
+const char* nymphnames[] = {
+    "Erythea", "Hesperia", "Arethusa", "Pasithea", "Thaleia", "Halimede",
+    "Actaea", "Electra", "Maia", "Nesaea", "Alcyone", "Asterope",
+    "Callianeira", "Nausithoe", "Dione", "Thetis", "Ephyra", "Eulimene",
+    "Nerea", "Laomedeia", "Echo", "Maera", "Eurydice", "Lysianassa", "Phoebe",
+    "Daphnis", "Daphnae", "Melinoe", "Othreis", "Polychrome"
+};
+
+const char* mermaidnames[] = {
+    "Hurley", "Kai", "Kailani", "Mar" , "Marin", "Marina", "Oceane", "Pasha" ,
+    "Adella", "Alana", "Amaris", "Anahita", "Andrina", "Aqua", "Aquarius",
+    "Ariel", "Asia", "Avalon", "Breena", "Calissa", "Calypso", "Caspian", 
+    "Coralia", "Coralina", "Delphine", "Deema", "Echo", "Gil", "Lanthe", 
+    "Jewel", "Kaia", "Kaito", "Kiki", "Marcelline", "Melody", "Moana"
+};
+
+const char* maldemonnames[] = {
+    "Agiel", "Kali", "Amon", "Foras", "Armaros", "Orias", "Malthus", "Asag",
+    "Raum", "Iblis", "Vanth", "Bael", "Leonard", "Barbas", "Charun", "Ishmael",
+    "Balthamel", "Rahvin"
+};
+
+const char* femdemonnames[] = {
+    "Mara", "Lamia", "Meraxes", "Daeva", "Amy", "Lilith", "Aliss", "Berith",
+    "Euryale", "Zorya", "Rhaenyra", "Bellatrix", "Rusalka", "Messaana",
+    "Jadis", "Anzu", "Eve", "Bilquis", "Cyndane", "Vanessa", "Graendal"
+};
+#define rnd_name(list) list[rn2(SIZE(list))]
+
+/* Monster introduces themselves. If they're not currently named, give them a
+ * random name from the specified list. */
+void
+mintroduce(mtmp)
+struct monst *mtmp;
+{
+    if (!has_mname(mtmp)) {
+        const char* name;
+        if (mtmp->data->mlet == S_NYMPH) {
+            name = rnd_name(nymphnames);
+        } 
+        else if (mtmp->data->mlet == S_EEL) {
+            name = rnd_name(mermaidnames);
+        } 
+        else if (is_demon(mtmp->data)) {
+            if (mtmp->female)
+                name = rnd_name(femdemonnames);
+            else
+                name = rnd_name(maldemonnames);
+        }
+        else {
+            impossible("mintroduce: monster type %s has no defined names!",
+                       mtmp->data->mname);
+            return;
+        }
+        const char* pronoun =
+            genders[is_neuter(mtmp->data) ? 2 : mtmp->female].him;
+        if (!Deaf) {
+            pline("%s introduces %sself to you as %s.", Monnam(mtmp), pronoun,
+                  name);
+            christen_monst(mtmp, name);
+        } else {
+            pline("%s seems to be introducing %sself, but you can't hear %s.",
+                  Monnam(mtmp), pronoun, pronoun);
+        }
+    }
+    return;
 }
 
 /*do_name.c*/

@@ -511,6 +511,7 @@ E const char *FDECL(noveltitle, (int *));
 E const char *FDECL(lookup_novel, (const char *, int *));
 E char *FDECL(mon_wounds, (struct monst *));
 E void FDECL(print_mon_wounded, (struct monst *, int));
+E void FDECL(mintroduce, (struct monst *));
 
 /* ### do_wear.c ### */
 
@@ -1843,6 +1844,7 @@ E void FDECL(mmake_wish, (struct monst *));
 
 E void FDECL(awaken_monsters, (int));
 E void FDECL(do_earthquake, (int));
+E void FDECL(put_monsters_to_sleep, (struct monst *, int));
 E void FDECL(awaken_soldiers, (struct monst *));
 E int FDECL(do_play_instrument, (struct obj *));
 
@@ -1879,6 +1881,15 @@ E void NDECL(nttty_exit);
 E void NDECL(init_objects);
 E void FDECL(obj_shuffle_range, (int, int *, int *));
 E int NDECL(find_skates);
+E int NDECL(find_cboots);
+E int NDECL(find_mboots);
+E int NDECL(find_hboots);
+E int NDECL(find_bboots);
+E int NDECL(find_jboots);
+E int NDECL(find_rboots);
+E int NDECL(find_ogloves);
+E int NDECL(find_pgloves);
+E int NDECL(find_fgloves);
 E void NDECL(oinit);
 E void FDECL(savenames, (int, int));
 E void FDECL(restnames, (int));
@@ -2201,6 +2212,7 @@ E void FDECL(potionhit, (struct monst *, struct obj *, int));
 E void FDECL(potionbreathe, (struct obj *));
 E boolean FDECL(get_wet, (struct obj *, BOOLEAN_P, BOOLEAN_P));
 E int NDECL(dodip);
+E void FDECL(ferment, (ANY_P *, long));
 E void FDECL(mongrantswish, (struct monst **));
 E void FDECL(djinni_from_bottle, (struct obj *));
 E struct monst *FDECL(split_mon, (struct monst *, struct monst *));

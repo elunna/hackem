@@ -1002,7 +1002,9 @@ int mode;
         }
     }
     if (dx && dy && bad_rock(&youmonst, ux, y)
-        && bad_rock(&youmonst, x, uy)) {
+        && bad_rock(&youmonst, x, uy)
+        && !(is_elf(youmonst.data) && IS_TREE(levl[ux][y].typ)
+             && IS_TREE(levl[x][uy].typ))) {
         /* Move at a diagonal. */
         switch (cant_squeeze_thru(&youmonst)) {
         case 3:
@@ -1406,10 +1408,19 @@ struct trap *desttrap; /* nonnull if another trap at <x,y> */
         break;
     case TT_WEB:
         if (wielding_artifact(ART_STING)) {
+            /* FIXME: since trap_move is called before other checks for whether
+             * the hero is actually going to move, this can be exploited to
+             * remove a web in 0 turns if there is something (such as a wall)
+             * in the direction of movement.
+             * Ideally, this trap removal should come in its own piece of code
+             * after we decide that the hero is in fact moving. */
+            
             /* escape trap but don't move and don't destroy it */
             u.utrap = 0; /* caller will call reset_utrap() */
             pline("Sting cuts through the web!");
-            break;
+            deltrap(t_at(u.ux, u.uy));
+            newsym(u.ux, u.uy);
+            return TRUE; /* escape trap and also move */
         }
         if (--u.utrap) {
             if (flags.verbose) {
@@ -1848,7 +1859,41 @@ domove_core()
         return;
     }
 
-    /* specifying 'F' with no monster wastes a turn */
+    /* intentional cutting through a spider web */
+    trap = t_at(x, y);
+    if (context.forcefight && trap && trap->ttyp == WEB
+        && trap->tseen && uwep) {
+        if (uwep->oartifact == ART_STING) {
+            /* guaranteed success */
+            pline("Sting cuts through the web!");
+        }
+        else if (!is_blade(uwep)) {
+            You_cant("cut a web with a %s!", xname(uwep));
+            return;
+        }
+        /* TODO: if failing to cut the web is going to be a thing, it should
+         * really be an occupation... */
+        else if (rn2(20) > ACURR(A_DEX)) {
+            You("hack ineffectually at some of the strands.");
+            return;
+        }
+        else {
+            You("cut through the web.");
+        }
+        deltrap(trap);
+        newsym(x, y);
+        return;
+    }
+
+    /* specifying 'F' with no monster wastes a turn
+     * FIXME: This logic really ought to be evaluated in two different
+     * locations: one above the iron bar logic above this, and using the
+     * attacking-invisible-monster condition; one where it is now, and using
+     * the forcefight condition. The reason being if we think we're attacking
+     * an invisible monster, that should be processed before trying to
+     * forcefight the terrain. But if we know there isn't a monster there, then
+     * the above terrain-fighting checks should come before the
+     * fighting-nothing check. */
     if (context.forcefight
         /* remembered an 'I' && didn't use a move command */
         || (glyph_is_invisible(levl[x][y].glyph) && !context.nopick)) {
@@ -3571,7 +3616,8 @@ weight_cap()
 {
     long carrcap, save_ELev = ELevitation, save_BLev = BLevitation;
     long maxcarrcap = MAX_CARR_CAP;
-
+    struct obj *boots = uarmf;
+    
     /* boots take multiple turns to wear but any properties they
        confer are enabled at the start rather than the end; that
        causes message sequencing issues for boots of levitation
@@ -3627,6 +3673,10 @@ weight_cap()
                 carrcap -= 100;
             if (EWounded_legs & RIGHT_SIDE)
                 carrcap -= 100;
+            
+            /* these carrcap modifiers only make sense if you have feet on the ground */
+            if (boots && boots->otyp == find_hboots()) 
+                carrcap += 100;
         }
         if (carrcap < 0)
             carrcap = 0;

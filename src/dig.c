@@ -293,7 +293,9 @@ dig(VOID_ARGS)
                 else
                     pline("Ouch!  %s and %s you!", Yobjnam2(uwep, "bounce"),
                           otense(uwep, "hit"));
-                set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
+                /* Jungle boots protect from this wounding */
+                if (!(uarmf && uarmf->otyp == find_jboots()))
+                    set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
             }
             break;
         case 1:
@@ -425,6 +427,10 @@ dig(VOID_ARGS)
                 lev->typ = ROOM, lev->flags = 0;
                 if (!rn2(5) && !IS_DEADTREE(lev->typ))
                     (void) rnd_treefruit_at(dpx, dpy);
+                if (Race_if(PM_ELF) || Role_if(PM_RANGER))
+                    adjalign(-1);
+                else if (Race_if(PM_DWARF))
+                    adjalign(1);
             } else {
                 digtxt = "You succeed in cutting away some rock.";
                 lev->typ = CORR, lev->flags = 0;

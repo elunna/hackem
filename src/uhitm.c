@@ -39,7 +39,7 @@ struct monst *mdef;
 int hurt;
 {
     struct obj *target;
-
+     
     /* What the following code does: it keeps looping until it
      * finds a target for the rust monster.
      * Head, feet, etc... not covered by metal, or covered by
@@ -80,6 +80,9 @@ int hurt;
             break;
         case 3:
             target = which_armor(mdef, W_ARMG);
+            if (target && target->otyp == find_ogloves())
+                /* Old gloves are already as damaged as they're going to get */
+                break;
             if (!target
                 || erode_obj(target, xname(target), hurt, EF_GREASE | EF_DESTROY)
                              == ER_NOTHING)
@@ -364,6 +367,16 @@ int *attk_count, *role_roll_penalty;
         tmp += weapon_hit_bonus((struct obj *) 0);
     }
 
+    /* combat boots give +1 to-hit */
+    if (uarmf && uarmf->otyp == find_cboots()) 
+        tmp += 1;
+    
+    /* fencing gloves increase weapon accuracy when you have a free off-hand */
+    if (weapon && !bimanual(weapon) && !which_armor(mtmp, W_ARMS)) {
+        struct obj * otmp = which_armor(mtmp, W_ARMG);
+        if (otmp && otmp->otyp == find_fgloves())
+            tmp += 2;
+    }
     /* if unskilled with a weapon/object type (bare-handed is exempt),
      * you'll never have a chance greater than 75% to land a hit.
      */
@@ -1135,7 +1148,25 @@ int dieroll;
                        let it also hit from behind or shatter foes' weapons */
                     || (hand_to_hand && obj->oartifact == ART_CLEAVER)) {
                     ; /* no special bonuses */
-                } else if (mon->mflee && Role_if(PM_ROGUE) && !Upolyd
+                } 
+                else if (mdat->mlet == S_GIANT && uslinging()
+                         && thrown == HMON_THROWN
+                         && ammo_and_launcher(obj, uwep)
+                         && P_SKILL(P_SLING) >= P_SKILLED && dieroll > 1
+                         && !rn2(P_SKILL(P_SLING) == P_SKILLED ? 2 : 1)) {
+                    /* With a critical hit, a skilled slinger can bring down
+                     * even the mightiest of giants. */
+                    tmp = mon->mhp + 100;
+                    pline("%s crushes %s forehead!", The(mshot_xname(obj)),
+                          s_suffix(mon_nam(mon)));
+                    hittxt = TRUE;
+                    /* Same as above; account for negative udaminc and skill
+                     * damage penalties. (In the really odd situation where for
+                     * some reason being Skilled+ gives a penalty?) */
+                    get_dmg_bonus = FALSE;
+                    tmp -= weapon_dam_bonus(uwep);
+                }
+                else if (mon->mflee && Role_if(PM_ROGUE) && !Upolyd
                            /* multi-shot throwing is too powerful here */
                            && hand_to_hand) {
                     You("strike %s from behind!", mon_nam(mon));
@@ -1593,7 +1624,7 @@ int dieroll;
          * bonus but you do get an increase-damage bonus.
          */
         if (thrown != HMON_THROWN || !obj || !uwep
-            || !ammo_and_launcher(obj, uwep))
+            || !ammo_and_launcher(obj, uwep) || uslinging())
             tmp += dbon();
     }
 
@@ -2954,7 +2985,8 @@ do_rust:
         tmp = 0;
         break;
     case AD_DCAY:
-        if (pd == &mons[PM_WOOD_GOLEM] || pd == &mons[PM_LEATHER_GOLEM]) {
+        if (pd == &mons[PM_PAPER_GOLEM]
+            || pd == &mons[PM_WOOD_GOLEM] || pd == &mons[PM_LEATHER_GOLEM]) {
             if (canseemon(mdef))
                 pline("%s falls to pieces!", Monnam(mdef));
             xkilled(mdef, XKILL_NOMSG);
@@ -3474,7 +3506,9 @@ register struct attack *mattk;
                     if (corpse_chance(mdef, &youmonst, TRUE)
                         && !(mvitals[monsndx(pd)].mvflags & G_NOCORPSE)) {
                         /* nutrition only if there can be a corpse */
-                        u.uhunger += (pd->cnutrit + 1) / 2;
+                        int nutr = (pd->cnutrit + 1) / 2;
+                        u.uhunger += (Hunger ? (nutr + 1) / 2 : nutr);
+                        
                     } else
                         tmp = 0;
                     Sprintf(msgbuf, "You totally digest %s.", mon_nam(mdef));

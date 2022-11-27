@@ -37,6 +37,7 @@ enum timeout_types {
     MOLDY_CORPSE,
     BOMB_BLOW,
     SPIRIT_FADE,
+    FERMENT,
     NUM_TIME_FUNCS
 };
 

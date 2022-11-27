@@ -111,6 +111,7 @@ struct u_conduct {     /* number of times... */
     long elbereth;     /* engraved Elbereth */
     long artitouch;    /* touched an artifact */
     long pets;         /* obtained a pet */
+    long uncelibate;   /* interacted with a foocubus */
     /* genocides already listed at end of game */
 };
 
@@ -406,6 +407,7 @@ struct you {
     int ugangr;              /* if the gods are angry at you */
     int ugifts;              /* number of artifacts bestowed */
     int ublessed, ublesscnt; /* blessing/duration from #pray */
+    long ulastprayed;        /* the turn you last prayed */
     long umoney0;
     long uspare1;
     long uexp, urexp;

@@ -6016,7 +6016,7 @@ Go now!  You are banished from this place.
 %E [You are banished from %H for betraying your allegiance to %d.]
 # Charon
 %Cp - 00070
-"The Gates of Hell are nigh-impenetrable."
+"The Gates of Hell are nigh!"
 %E
 %Cp - 00071
 "Abandon all hope, ye who enter here."

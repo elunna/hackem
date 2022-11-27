@@ -212,7 +212,15 @@ int ef_flags;
     /* 'visobj' messages insert "the"; probably ought to switch to the() */
     if (visobj && !(uvictim || vismon) && !strncmpi(ostr, "the ", 4))
         ostr += 4;
-
+    
+    /* Old gloves are already as damaged as they're going to get */
+    if (otmp && otmp->otyp == find_ogloves()) {
+        if (flags.verbose && print && (uvictim || vismon))
+            pline("%s %s %s not affected by %s.",
+                  uvictim ? "Your" : s_suffix(Monnam(victim)), ostr,
+                  vtense(ostr, "are"), bythe[type]);
+        return ER_NOTHING;
+    }
     if (check_grease && otmp->greased) {
         grease_protect(otmp, ostr, victim);
         return ER_GREASED;
@@ -1290,10 +1298,15 @@ unsigned trflags;
         } else {
             pline("%s bear trap closes on your %s!", A_Your[trap->madeby_u],
                   body_part(FOOT));
-            set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
-            if (u.umonnum == PM_OWLBEAR || u.umonnum == PM_BUGBEAR)
-                You("howl in anger!");
-            losehp(Maybe_Half_Phys(dmg), "bear trap", KILLED_BY_AN);
+            /* Jungle boots protect us from getting wounded. */
+            if (!(uarmf && uarmf->otyp == find_jboots())) {
+                set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
+                if (u.umonnum == PM_OWLBEAR || u.umonnum == PM_BUGBEAR)
+                    You("howl in anger!");
+                losehp(Maybe_Half_Phys(dmg), "bear trap", KILLED_BY_AN);
+            } else
+                Your("jungle boots protect you!");
+            
         }
         exercise(A_DEX, FALSE);
         break;
@@ -2437,6 +2450,23 @@ long ocount;
         cc.x = bcc.x = x;
         cc.y = bcc.y = y;
     } else {
+        if (!rn2(20) && ttmp->ttyp == ROLLING_BOULDER_TRAP && otyp == BOULDER
+            && !In_quest(&u.uz)) {
+            /* somebody had a little accident */
+            otmp = mkcorpstat(CORPSE, (struct monst *) 0,
+                              &mons[PM_ARCHEOLOGIST], cc.x, cc.y,
+                              CORPSTAT_INIT); /* places it */
+            otmp = mksobj(FEDORA, TRUE, FALSE);
+            if (otmp->spe < 2)
+                otmp->spe = 2;
+            place_object(otmp, cc.x, cc.y);
+            if (!rn2(3)) {
+                otmp = mksobj(BULLWHIP, TRUE, FALSE);
+                if (otmp->spe < 2)
+                    otmp->spe = 2;
+                place_object(otmp, cc.x, cc.y);
+            }
+        }
         otmp = mksobj(otyp, TRUE, FALSE);
         otmp->quan = ocount;
         otmp->owt = weight(otmp);
@@ -2557,7 +2587,7 @@ register struct monst *mtmp;
            Recognizing who made the trap isn't completely
            unreasonable; everybody has their own style. */
         if (trap->madeby_u && rnl(5))
-            setmangry(mtmp, TRUE);
+            setmangry(mtmp, FALSE);
 
         in_sight = canseemon(mtmp);
         see_it = cansee(mtmp->mx, mtmp->my);
@@ -3767,8 +3797,7 @@ domagictrap()
     } else
         switch (fate) {
         case 10:
-        case 11:
-            /* toggle any intrinsic invisibility */
+        case 11: /* temporary intrinsic invisibility, or remove it if it's there */
             if (!Deaf)
                 You_hear("a low hum.");
             if (!Invis) {
@@ -3787,8 +3816,8 @@ domagictrap()
                 You_feel("a little more %s now.",
                          (HInvis & ~TIMEOUT) ? "obvious" : "hidden");
             }
-            HInvis = (HInvis & ~TIMEOUT) ? (HInvis & TIMEOUT)
-                                         : (HInvis | FROMOUTSIDE);
+            /*HInvis = (HInvis & ~TIMEOUT) ? (HInvis & TIMEOUT) : (HInvis | FROMOUTSIDE);*/
+            set_itimeout(&HInvis, HInvis ? 0 : rnd(200) + 200);
             newsym(u.ux, u.uy);
             break;
         case 12: /* a flash of fire */
@@ -4326,7 +4355,7 @@ xchar x, y;
             if (ucarried)
                 update_inventory();
             return ER_DAMAGED;
-        } else if (obj->otyp != POT_WATER) {
+        } else if (obj->otyp != POT_WATER && obj->otyp != POT_OIL) {
             if (ucarried)
                 pline("Your %s %s.", ostr, vtense(ostr, "dilute"));
 

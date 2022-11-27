@@ -1128,6 +1128,7 @@ register struct monst *mtmp;
         else
             com_pager(rn2(QTN_DEMONIC) + QT_DEMONIC);
     }
+    wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
 }
 
 /*wizard.c*/

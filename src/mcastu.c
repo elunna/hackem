@@ -999,7 +999,10 @@ int spellnum;
                 dmg = (dmg + 1) / 2;
             if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
                 You("rust!");
+                Strcpy(killer.name, "rusted away");
+                killer.format = NO_KILLER_PREFIX;
                 rehumanize();
+                dmg = 0; /* prevent further damage after rehumanization */
                 break;
             }
             (void) erode_armor(&youmonst, ERODE_RUST);

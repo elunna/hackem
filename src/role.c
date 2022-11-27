@@ -57,7 +57,7 @@ const struct Role roles[] = {
       { 20, 20, 20, 10, 20, 10 },
       /* Init   Lower  Higher */
       { 11, 0, 0, 8, 1, 0 }, /* Hit points */
-      { 1, 0, 0, 1, 0, 1 },
+      { 3, 0, 0, 1, 0, 1 },
       14, /* Energy */
       10, 5, 0, 2, 10, A_INT, SPE_MAGIC_MAPPING,
       -4 },
@@ -226,7 +226,7 @@ const struct Role roles[] = {
           | MH_CENTAUR | MH_TORTLE,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
-      { 7, 7, 13, 7, 11, 16 },
+      { 7, 11, 11, 7, 11, 11 },
       { 15, 20, 20, 15, 25, 5 },
       /* Init   Lower  Higher */
       { 11, 0, 0, 8, 1, 0 }, /* Hit points */
@@ -334,7 +334,7 @@ const struct Role roles[] = {
       { 30, 15, 15, 10, 20, 10 },
       /* Init   Lower  Higher */
       { 14, 0, 0, 8, 2, 0 }, /* Hit points */
-      { 1, 4, 0, 1, 0, 2 },
+      { 2, 4, 0, 1, 0, 2 },
       10, /* Energy */
       10, 8, -2, 0, 9, A_WIS, SPE_TURN_UNDEAD, -4 },
     { { "Monk", 0 },
@@ -367,11 +367,11 @@ const struct Role roles[] = {
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
-      { 10, 7, 8, 8, 7, 7 },
+      { 10, 7, 14, 8, 7, 7 },
       { 25, 10, 20, 20, 15, 10 },
       /* Init   Lower  Higher */
       { 12, 0, 0, 8, 1, 0 }, /* Hit points */
-      { 2, 2, 0, 2, 0, 2 },
+      { 7, 2, 0, 2, 0, 2 },
       10, /* Energy */
       10, 8, -2, 2, 20, A_WIS, SPE_RESTORE_ABILITY, -4 },
     { { "Necromancer", 0 }, 
@@ -438,11 +438,11 @@ const struct Role roles[] = {
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
-      { 7, 7, 10, 7, 7, 7 },
-      { 15, 10, 30, 15, 20, 10 },
+      { 7, 10, 10, 7, 7, 7 },
+      { 15, 20, 20, 15, 20, 10 },
       /* Init   Lower  Higher */
       { 12, 0, 0, 8, 1, 0 }, /* Hit points */
-      { 4, 3, 0, 2, 0, 2 },
+      { 5, 3, 0, 2, 0, 2 },
       10, /* Energy */
       0, 3, -2, 2, 10, A_WIS, SPE_REMOVE_CURSE, -4 },
     /* Note:  Rogue precedes Ranger so that use of `-R' on the command line
@@ -660,7 +660,7 @@ const struct Role roles[] = {
       { 30, 6, 7, 20, 30, 7 },
       /* Init   Lower  Higher */
       { 14, 0, 0, 8, 2, 0 }, /* Hit points */
-      { 1, 0, 0, 1, 0, 1 },
+      { 2, 0, 0, 1, 0, 1 },
       10, /* Energy */
       0, 10, -2, 0, 9, A_WIS, SPE_REPAIR_ARMOR, -4 },
     { { "Wizard", 0 },
@@ -697,7 +697,7 @@ const struct Role roles[] = {
       { 10, 30, 10, 20, 20, 10 },
       /* Init   Lower  Higher */
       { 10, 0, 0, 8, 1, 0 }, /* Hit points */
-      { 4, 3, 0, 2, 0, 3 },
+      { 6, 3, 0, 2, 0, 3 },
       12, /* Energy */
       0, 1, 0, 3, 10, A_INT, SPE_MAGIC_MISSILE, -4 },
     { { "Yeoman", 0 },

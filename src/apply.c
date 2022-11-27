@@ -2025,11 +2025,22 @@ int magic; /* 0=Physical, otherwise skill level */
             switch (u.utraptype) {
             case TT_BEARTRAP: {
                 long side = rn2(3) ? LEFT_SIDE : RIGHT_SIDE;
-
                 You("rip yourself free of the bear trap!  Ouch!");
-                losehp(Maybe_Half_Phys(rnd(10)), "jumping out of a bear trap",
-                       KILLED_BY);
-                set_wounded_legs(side, rn1(1000, 500));
+                
+                /* Jungle boots protect us from wounding, but also take the 
+                 * brunt of the damage. */ 
+                if (uarmf && uarmf->otyp == find_jboots()) {
+                    losehp(rnd(10), "jumping out of a bear trap", KILLED_BY);
+                    set_wounded_legs(side, rn1(100, 50));
+                    for (int bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {
+                        drain_item(uarmf, TRUE);
+                    Your("boots are damaged!");
+                    }
+                } else {
+                        losehp(Maybe_Half_Phys(d(5, 6)),
+                               "jumping out of a bear trap", KILLED_BY);
+                        set_wounded_legs(side, rn1(1000, 500));
+                    }
                 break;
             }
             case TT_PIT:

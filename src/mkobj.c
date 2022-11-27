@@ -709,7 +709,8 @@ register struct obj *otmp;
 static const char *const alteration_verbs[] = {
     "cancel", "drain", "uncharge", "unbless", "uncurse", "disenchant",
     "degrade", "dilute", "erase", "burn", "neutralize", "destroy", "splatter",
-    "bite", "open", "break the lock on", "rust", "rot", "tarnish", "fracture", "deteriorate"
+    "bite", "open", "break the lock on", "rust", "rot", "tarnish", "fracture", 
+    "deteriorate", "ferment"
 };
 
 /* possibly bill for an object which the player has just modified */
@@ -842,6 +843,31 @@ boolean artif;
 
             if (artif && !rn2(30 + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
+            else if (is_damageable(otmp) && erosion_matters(otmp)) {
+                /* A small fraction of non-artifact items will generate eroded
+                 * or possibly erodeproof. An item that generates eroded will
+                 * never be erodeproof, and vice versa. */
+                if (!rn2(40)) {
+                    otmp->oerodeproof = 1;
+                }
+                else if (!rn2(40)) {
+                    if (is_flammable(otmp) || is_rustprone(otmp)) {
+                        do {
+                            otmp->oeroded++;
+                        } while (otmp->oeroded < 3 && !rn2(9));
+                    }
+                    if (is_rottable(otmp) || is_corrodeable(otmp)) {
+                        do {
+                            otmp->oeroded2++;
+                        } while (otmp->oeroded2 < 3 && !rn2(9));
+                    }
+                }
+                /* and an extremely small fraction of the time, erodable items
+                 * will generate greased */
+                if (!rn2(23263)) {
+                    otmp->greased = 1;
+                }
+            }
             else if (rn2(175) < (level_difficulty() / 2))
                 otmp = create_oprop(otmp, TRUE);
 
@@ -1146,19 +1172,33 @@ boolean artif;
             break;
         case RING_CLASS:
             if (objects[otmp->otyp].oc_charged) {
+                schar multiplier = 1;
                 blessorcurse(otmp, 3);
+                /* This multiplier formula is from FIQHack:
+                 * Beatitude |    +1 |  0 |    -1
+                 * Blessed:      94%   2%      4%
+                 * Uncursed:     67%   2%     31%
+                 * Cursed:       13%   2%     85%
+                 */
                 if (rn2(10)) {
-                    if (rn2(10) && bcsign(otmp))
-                        otmp->spe = bcsign(otmp) * rne(3);
-                    else
-                        otmp->spe = rn2(2) ? rne(3) : -rne(3);
+                    /* For 81% of rings that were already cursed, and for 40.5%
+                     * of rings that were uncursed, make enchantment negative.
+                     */
+                    if (rn2(10) && (otmp->cursed || (!bcsign(otmp) && !rn2(3))))
+                        multiplier = -1;
                 }
-                /* make useless +0 rings much less common */
-                if (otmp->spe == 0)
-                    otmp->spe = rn2(4) - rn2(3);
-                /* negative rings are usually cursed */
-                if (otmp->spe < 0 && rn2(5))
-                    curse(otmp);
+                else if (!rn2(5)) {
+                    /* 2% of all charged rings are +0 */
+                    multiplier = 0;
+                }
+                else if (!rn2(2)) {
+                    /* 4% of all charged rings are made negative, even blessed
+                     * ones */
+                    multiplier = -1;
+                }
+                /* use rne(2) to get higher values; nobody really likes
+                 * low-enchanted rings that much. */
+                otmp->spe = rne(2) * multiplier;
             } else if (rn2(10) && (otmp->otyp == RIN_TELEPORTATION
                                    || otmp->otyp == RIN_POLYMORPH
                                    || otmp->otyp == RIN_AGGRAVATE_MONSTER
@@ -3534,6 +3574,7 @@ struct obj* obj;
         case LAND_MINE:
         case BEARTRAP:
         case TOWEL:
+        case MUMMY_WRAPPING:
         case BLINDFOLD:
         case LEASH:
         case SADDLE:

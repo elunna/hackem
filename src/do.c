@@ -2351,9 +2351,9 @@ boolean moldy;
         case OBJ_INVENT:
             if (is_uwep) {
                 if (moldy) {
-                    pline_The("moldy corpse in your %s grows into %s!",
-                        body_part(HAND), canspotmon(mtmp) ? a_monnam(mtmp)
-                                                          : "a monster");
+                    pline_The("moldy %s in your %s grows into a %s!", cname,
+                              body_part(HAND), canspotmon(mtmp) ? a_monnam(mtmp)
+                                                                : "a monster");
                 }
                 else
                     pline_The("%s writhes out of your grasp!", cname);
@@ -2495,8 +2495,8 @@ long timeout UNUSED;
     struct permonst* newpm = mkclass(S_FUNGUS, 0);
     int count = 0;
     
-    /* Acidic corpses only grow acidic fungi. */
-    if (acidic(&mons[oldtyp])) {
+    /* Acidic corpses and petrifying corpses only grow acidic fungi. */
+    if (acidic(&mons[oldtyp]) || touch_petrifies(&mons[oldtyp])) {
         if (mvitals[PM_GREEN_MOLD].mvflags & G_GONE)
             newpm = NULL;
         else
