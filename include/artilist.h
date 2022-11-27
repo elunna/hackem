@@ -268,7 +268,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
    *      (handled as special case in spec_dbon()). */
     A("Grimtooth", ORCISH_DAGGER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH),
       0, MH_ELF, DISE(5, 6), NO_DFNS,
-      NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 1500L, CLR_RED),
+      NO_CARY, 0, A_CHAOTIC, PM_ROGUE, PM_ORC, 1500L, CLR_RED),
 
    /* from SporkHack - many of the same properties as Stormbringer
     *      Meant to be wielded by Vlad. */
