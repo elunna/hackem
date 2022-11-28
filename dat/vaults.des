@@ -818,6 +818,8 @@ LEVEL:"vlt-0042"
 FLAGS:rndvault
 MINDEPTH:17
 ROOM:random, random, random, random, (17,10) {
+  REPLACE_TERRAIN:(0, 0, 16, 9),'.', ',', 15%
+  REPLACE_TERRAIN:(0, 0, 16, 9),'.', 'T', 3%
 }
 
 # big room, 1
@@ -841,6 +843,8 @@ ROOM:"ordinary", random, random, random, (10,17) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
+  REPLACE_TERRAIN:(0, 0, 9, 16),'.', ',', 15%
+  REPLACE_TERRAIN:(0, 0, 9, 16),'.', 'T', 3%
 }
 
 # thin, long, horizontal room
@@ -851,6 +855,8 @@ ROOM:"ordinary", random, random, random, (17,3) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
+  REPLACE_TERRAIN:(0, 0, 2, 16),'.', ',', 15%
+  REPLACE_TERRAIN:(0, 0, 2, 16),'.', 'T', 3%
 }
 
 # thin, long, vertical room
@@ -861,6 +867,8 @@ ROOM:"ordinary", random, random, random, (3,17) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
+  REPLACE_TERRAIN:(0, 0, 2, 16),'.', ',', 15%
+  REPLACE_TERRAIN:(0, 0, 2, 16),'.', 'T', 3%
 }
 
 # very thin, long, horizontal room
@@ -871,6 +879,8 @@ ROOM:"ordinary", random, random, random, (50,5) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
+  REPLACE_TERRAIN:(0, 0, 49, 4),'.', ',', 15%
+  REPLACE_TERRAIN:(0, 0, 49, 4),'.', 'T', 3%
 }
 
 # very very thin, long, horizontal room
@@ -881,6 +891,8 @@ ROOM:"ordinary", random, random, random, (70,3) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
+  REPLACE_TERRAIN:(0, 0, 69, 2),'.', ',', 15%
+  REPLACE_TERRAIN:(0, 0, 69, 2),'.', 'T', 3%
 }
 
 
@@ -894,7 +906,7 @@ LEVEL:"vlt-0049"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, (3,3) {
-  $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{', 's' }
+  $terr = TERRAIN: { 'L', 'I', 'P', 'T', 't', '{', 's', ',' }
   SHUFFLE: $terr
    IF [10%] { TERRAIN:(0,0), $terr[0] }
    IF [10%] { TERRAIN:(1,0), $terr[0] }
@@ -1285,7 +1297,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 LEVEL:"vlt-0075"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
-$terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C' }
+$terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }
 SHUFFLE: $terr
 IF [10%] { TERRAIN:(0,0), $terr[0] }
 IF [10%] { TERRAIN:(1,0), $terr[0] }
