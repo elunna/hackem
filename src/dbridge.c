@@ -75,7 +75,7 @@ int x, y;
 {
     if (!isok(x, y))
         return FALSE;
-    return (levl[x][y].typ == GRASS);
+    return levl[x][y].typ == GRASS;
 }
 
 boolean
