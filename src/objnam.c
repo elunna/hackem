@@ -3237,6 +3237,7 @@ static const struct alt_spellings {
     { "sabre", SABER },
     { "mattock", DWARVISH_MATTOCK },
     { "bearded axe", DWARVISH_BEARDED_AXE },
+    { "unihorn", UNICORN_HORN },
     { "bolt", CROSSBOW_BOLT },
     { "handgun", PISTOL },
 	{ "hand gun", PISTOL },
