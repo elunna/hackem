@@ -2355,7 +2355,6 @@ dosacrifice()
                                 } 
                                 else if (Role_if(PM_FLAME_MAGE) &&
                                     (otmp->otyp == SPE_CONE_OF_COLD
-                                    || otmp->otyp == SPE_SNOWBALL
                                     || otmp->otyp == SPE_FREEZE_SPHERE)) {
                                     ; /* Flame mages shouldn't get ice magic */
                                 } 

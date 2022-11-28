@@ -2494,7 +2494,6 @@ struct obj *obj, *otmp;
         case WAN_SLEEP:
         case WAN_HEALING:
         case WAN_EXTRA_HEALING:
-        case SPE_SNOWBALL:
         case SPE_CURE_SICKNESS:
         case SPE_PSIONIC_WAVE:
         case WAN_WONDER:

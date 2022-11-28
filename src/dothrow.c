@@ -1546,10 +1546,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             } else if (obj->oclass != GEM_CLASS)
                 range /= 2;
         }
-
-        if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
-            range += 2; /* Small bonus for snowball spell */
-        }
+        
         if (Is_airlevel(&u.uz) || Levitation) {
             /* action, reaction... */
             urange -= range;

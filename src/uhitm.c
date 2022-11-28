@@ -1516,51 +1516,6 @@ int dieroll;
                         setmangry(mon, TRUE);
                     }
                     
-                    /* Handle Ice Mage's SNOWBALL spell here */
-                    int snow = 1;
-                    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
-                        if (u.ulevel > 3) snow += 1;
-                        if (u.ulevel > 7) snow += 1;
-                        
-                        if (resists_cold(mon) || defended(mon, AD_COLD)) {
-                            /* If they resist cold, they won't take damage from 
-                             * the "snowball" part. Everything else is a hard
-                             * and sharp icy shell that deals physical dmg. 
-                             * We just reset the snow multiplier here. */
-                            /* golemeffects(mon, AD_COLD, dmg); */
-                            shieldeff(mon->mx, mon->my);
-                            pline("%s resists the snowball!", Monnam(mon));
-                            snow = 0;
-                        }
-                        /* Iceball */
-                        if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
-                            snow += 1;
-                            /* Bonus: 10% chance of another 1d6 & stunning */
-                            if (!rn2(10)) {
-                                snow += 1;
-                                if (!Blind)
-                                    pline("%s %s for a moment.", Monnam(mon),
-                                          makeplural(stagger(mon->data, "stagger")));
-                                mon->mstun = 1;
-                            }
-                        }
-                        /* Super Iceballs! */
-                        if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
-                            snow += 1;
-                            /* Bonus: 10% chance of another 2d6! */
-                            if (!rn2(10)) {
-                                pline("Headshot!");
-                                snow += 2;
-                            }
-                            /* Item Destruction */
-                            if (!rn2(3))
-                                destroy_mitem(mon, POTION_CLASS, AD_COLD);
-                        }
-                        tmp = d(snow, 6);
-                        /* pline("snowball dmg %dd%d (%d)", snow, 6, tmp);*/
-                    } else
-                        tmp = 0;
-                    
                     if (thrown)
                         obfree(obj, (struct obj *) 0);
                     else

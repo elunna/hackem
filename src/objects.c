@@ -1193,9 +1193,6 @@ SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NOD
 SPELL("cancellation",    "shining",       P_MATTER_SPELL,      15,  8, 7, 1, IMMEDIATE, CLR_WHITE),
 /* Fire Bolt is the Flame Mage's special spell - not randomly generated. */
 SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
-/* Snowball is the Ice Mage's special spell - not randomly generated. */
-SPELL("snowball",        "dappled",       P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_GRAY),
-
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
 SPELL("cause fear",      "light blue",    P_NECROMANCY_SPELL,  25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
 SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 5, 1, IMMEDIATE, CLR_MAGENTA),
