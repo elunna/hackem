@@ -125,7 +125,7 @@ MONSTER:('E',"earth elemental"),(04,17),hostile
 MONSTER:('E',"earth elemental"),(04,18),hostile
 
 OBJECT:('`',"boulder"),random
-
+OBJECT: ('?', "earth"), random
 
 MAZE:"air",' '
 FLAGS: noteleport,hardfloor,shortsighted
@@ -188,6 +188,7 @@ MONSTER:('e',"floating eye"),random,hostile
 MONSTER:('y',"yellow light"),random,hostile
 MONSTER:('y',"yellow light"),random,hostile
 MONSTER:('y',"yellow light"),random,hostile
+[25%]: MONSTER:('y',"black light"),random,hostile
 
 MONSTER:('A',"couatl"),random
 
@@ -226,7 +227,7 @@ MONSTER:('v',"steam vortex"),random,hostile
 MONSTER:('v',"steam vortex"),random,hostile
 MONSTER:('v',"steam vortex"),random,hostile
 MONSTER:('v',"steam vortex"),random,hostile
-
+OBJECT: ('?', "air"), random
 
 MAZE:"fire",' '
 FLAGS: noteleport,hardfloor,shortsighted
@@ -383,7 +384,7 @@ OBJECT:('`',"boulder"),random
 OBJECT:('`',"boulder"),random
 OBJECT:('`',"boulder"),random
 OBJECT:('`',"boulder"),random
-
+OBJECT:('?', "fire"), random
 
 MAZE:"water",' '
 FLAGS: noteleport,hardfloor,shortsighted
@@ -462,6 +463,7 @@ MONSTER:';',random
 MONSTER:';',random
 MONSTER:';',random
 MONSTER:';',random
+OBJECT:('?', "flood"), random
 # These guys feel like home here
 MONSTER:('E',"water elemental"),random,hostile
 MONSTER:('E',"water elemental"),random,hostile
