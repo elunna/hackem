@@ -757,8 +757,9 @@ static void
 mkgrass(void)
 {
     int x, y;
-    int freq = max(30, 60 - (3 * depth(&u.uz)));    
-    int passes = max(2, 8 - depth(&u.uz));
+    int offset = (depth(&u.uz)) < 15 ? -10 : 15;
+    int freq = max(30, 60 - (3 * (depth(&u.uz) - offset)));    
+    int passes = max(2, 8 - (depth(&u.uz) - offset));
     cellular(freq, passes);
 
     for (x = 0; x < COLNO; x++) {
@@ -1018,7 +1019,7 @@ makelevel()
     make_niches();
 
     /* make grass */
-    if (depth(&u.uz) <= 10 || !rn2(5))
+    if ((depth(&u.uz) >= 15 && depth(&u.uz) < 30) || !rn2(5))
         mkgrass();
     
     if (!rn2(5))
