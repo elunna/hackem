@@ -38,6 +38,12 @@ ENDMAP
 REPLACE_TERRAIN:(37,0,59,19),'.','T', 5%
 REPLACE_TERRAIN:(60,0,64,19),'.','T', 10%
 REPLACE_TERRAIN:(65,0,75,19),'.','T', 20%
+
+REPLACE_TERRAIN:(20,0,26,19),'.',',', 5%
+REPLACE_TERRAIN:(27,0,59,19),'.',',', 15%
+REPLACE_TERRAIN:(60,0,64,19),'.',',', 27%
+REPLACE_TERRAIN:(65,0,75,19),'.',',', 35%
+
 # guarantee a path and free spot for the portal
 TERRAIN:(randline (37,7),(62,02),7), '.'
 TERRAIN:(62,02),'.'
@@ -57,6 +63,7 @@ REGION:(22,14,24,15),lit,"ordinary"
 STAIR:(09,09),down
 # Portal arrival point
 BRANCH:(62,02,62,02),(0,0,0,0)
+
 # Doors
 DOOR:locked,(12,05)
 DOOR:locked,(12,09)
