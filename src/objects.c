@@ -703,7 +703,7 @@ RING("poison resistance", "pearl",               POISON_RES,               150, 
 RING("fire resistance", "iron",                  FIRE_RES,                 200, 1, 0,  5, IRON, HI_METAL),
 RING("cold resistance", "brass",                 COLD_RES,                 150, 1, 0,  4, COPPER, HI_COPPER),
 RING("psychic resistance", "crystal",            PSYCHIC_RES,              150, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
-RING("sonic resistance",   "embossed",              SONIC_RES,                150, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
+RING("sonic resistance",   "embossed",           SONIC_RES,                150, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
 RING("shock resistance", "copper",               SHOCK_RES,                150, 1, 0,  3, COPPER, HI_COPPER),
 RING("free action", "twisted",                   FREE_ACTION,              200, 1, 0,  6, METAL, HI_METAL),
 RING("slow digestion", "steel",                  SLOW_DIGESTION,           200, 1, 0,  8, METAL, HI_METAL),
@@ -714,9 +714,22 @@ RING("polymorph control", "emerald",             POLYMORPH_CONTROL,        300, 
 RING("invisibility", "wire",                     INVIS,                    150, 1, 0,  5, METAL, HI_METAL),
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 0,  5, GOLD, HI_METAL),
 RING("mood", "ridged",                           0,                        100, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
-RING("sleeping", "wedding",                      SLEEPY,                 100, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
+RING("sleeping", "wedding",                      SLEEPY,                   100, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
 RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
-
+#if 0 /* These currently don't work */
+/* Extra descriptions */
+RING(None, "quartz",                             0,                        150, 0, 0, 7, GLASS, HI_GLASS),
+RING(None, "porcelain",                          0,                        150, 0, 0, 8, GLASS, HI_MINERAL),
+RING(None, "ceramic",                            0,                        150, 0, 0, 8, GLASS, HI_MINERAL),
+RING(None, "mithril",                            0,                        150, 0, 0, 5, MITHRIL, HI_SILVER),
+RING(None, "platinum",                           0,                        150, 0, 0, 3, PLATINUM, HI_METAL),
+RING(None, "jacinth",                            0,                        150, 0, 0, 9, GEMSTONE, CLR_ORANGE),
+RING(None, "citrine",                            0,                        150, 0, 0, 6, GEMSTONE, CLR_ORANGE),
+RING(None, "amber",                              0,                        150, 0, 0, 2, GEMSTONE, CLR_BROWN),
+RING(None, "jet",                                0,                        150, 0, 0, 7, GEMSTONE, CLR_BLACK),
+RING(None, "chrysoberyl",                        0,                        150, 0, 0, 5, GEMSTONE, CLR_YELLOW),
+RING(None, "plastic",                            0,                        150, 0, 0, 1, PLASTIC, CLR_WHITE),
+#endif
 #undef RING
 
 /* amulets ... - THE Amulet comes last because it is special */
@@ -743,6 +756,12 @@ AMULET("amulet of guarding",         "perforated", PROTECTION, 75),
         /* cubical: some descriptions are already three dimensional and
            parallelogrammatical (real word!) would be way over the top */
 AMULET("amulet of flying",              "cubical", FLYING, 60),       /* Slash'EM */
+
+/* Extra descriptions */
+AMULET(None,                 "convex",     0, 0),
+AMULET(None,                 "spiked",     0, 0),
+AMULET(None,                 "rectangular", 0, 0),
+AMULET(None,                 "elliptic",   0, 0),
 /* fixed descriptions; description duplication is deliberate;
  * fake one must come before real one because selection for
  * description shuffling stops when a non-magic amulet is encountered
@@ -1098,6 +1117,8 @@ SCROLL(None,  "VAS CORP BET MANI",  1,   0, 100), /* Ultima */
 SCROLL(None,            "XOR OTA",  1,   0, 100), /* Aarne Haapakoski */
 SCROLL(None, "STRC PRST SKRZ KRK",  1,   0, 100), /* Czech and Slovak
                                                         tongue-twister */
+SCROLL(None, "HZLRC KSTSBD MPFNG",  1,   0, 100),
+
     /* These must come last because they have special fixed descriptions.
      */
 #ifdef MAIL
@@ -1202,7 +1223,22 @@ SPELL("remove curse",    "wrinkled",      P_ENCHANTMENT_SPELL, 25,  5, 3, 1, NOD
 SPELL("turn undead",     "copper",        P_NECROMANCY_SPELL,  15,  8, 6, 1, IMMEDIATE, HI_COPPER),
 SPELL("create familiar", "glittering",    P_ENCHANTMENT_SPELL, 10,  7, 6, 1, NODIR, CLR_WHITE),
 SPELL("protection",      "dull",          P_ENCHANTMENT_SPELL, 15,  3, 1, 1, NODIR, HI_PAPER),
+SPELL(None,         "colorful",    P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 
+SPELL(None,         "long",        P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "rainbow",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "tattered",    P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "wide",        P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "left-handed", P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "psychedelic", P_NONE, 0, 0, 0, 1, 0, CLR_BRIGHT_MAGENTA),
+SPELL(None,         "spiral-bound", P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "stapled",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "stylish",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+SPELL(None,         "tartan",      P_NONE, 0, 0, 0, 1, 0, CLR_RED),
+SPELL(None,         "chartreuse",  P_NONE, 0, 0, 0, 1, 0, CLR_GREEN),
+SPELL(None,         "decrepit",    P_NONE, 0, 0, 0, 1, 0, CLR_BROWN),
+SPELL(None,         "crimson",     P_NONE, 0, 0, 0, 1, 0, CLR_RED),
+SPELL(None,         "charcoal",    P_NONE, 0, 0, 0, 1, 0, CLR_BLACK),
 /* books with fixed descriptions
  */
 SPELL("blank paper", "plain", P_NONE, 15, 0, 0, 0, 0, HI_PAPER),
@@ -1242,7 +1278,7 @@ WAND("make invisible", "marble", 135, 150, 1, IMMEDIATE, MINERAL, HI_MINERAL),
 WAND("slow monster",      "tin", 150, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("speed monster",   "brass", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
 WAND("undead turning", "copper", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
-WAND("draining",       "ceramic",  15, 175, 1, IMMEDIATE, MINERAL,  HI_MINERAL),    /* Slash'EM */
+WAND("draining",       "ceramic",  15, 175, 1, IMMEDIATE, GLASS,  HI_MINERAL),    /* Slash'EM */
 WAND("polymorph",      "silver", 135, 200, 1, IMMEDIATE, SILVER, HI_SILVER),
 WAND("cancellation", "platinum", 135, 200, 1, IMMEDIATE, PLATINUM, CLR_WHITE),
 WAND("teleportation", "iridium", 135, 200, 1, IMMEDIATE, METAL, CLR_BRIGHT_CYAN),
@@ -1255,18 +1291,33 @@ WAND("probing",       "uranium",  90, 150, 1, IMMEDIATE, METAL, HI_METAL),
 /* This is extremely kludgy, but that's what zap.c expects. */
 WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
 WAND("magic missile",   "steel", 150, 150, 1, RAY, METAL, HI_METAL),
-WAND("fire",        "hexagonal", 120, 175, 1, RAY, IRON,  HI_METAL),
+WAND("fire",        "hexagonal", 120, 175, 1, RAY, GLASS,  HI_METAL),
 WAND("cold",            "short", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
-WAND("poison gas",  "octagonal",  20, 175, 1, RAY, IRON,  HI_METAL),
+WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS,  HI_METAL),
 WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
-WAND("sonics",       "titanium",  20, 175, 1, RAY, IRON,  HI_METAL),
+WAND("sonics",       "titanium",  20, 175, 1, RAY, METAL,  HI_METAL),
 WAND("water",       "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
 WAND(None,            "jeweled",  0, 150, 1, 0, IRON, HI_MINERAL),
+WAND(None,        "forked",    0, 150, 1, 0,         WOOD,     HI_WOOD),
+WAND(None,        "quartz",    0, 150, 1, 0,         GLASS,    HI_GLASS),
+WAND(None,        "walnut",    0, 150, 1, 0,         WOOD,     HI_WOOD),
+WAND(None,        "mahogany",  0, 150, 1, 0,         WOOD,     HI_WOOD),
+WAND(None,        "cedar",     0, 150, 1, 0,         WOOD,     HI_WOOD),
+WAND(None,        "chrome",    0, 150, 1, 0,         METAL,    HI_SILVER),
+WAND(None,        "nickel",    0, 150, 1, 0,         METAL,    HI_METAL),
+WAND(None,        "mithril",   0, 150, 1, 0,         MITHRIL,  HI_SILVER),
+WAND(None,        "grooved",   0, 150, 1, 0,         WOOD,     HI_WOOD),
+WAND(None,        "bent",      0, 150, 1, 0,         IRON,     HI_METAL),
+WAND(None,        "bone",      0, 150, 1, 0,         BONE,     CLR_WHITE),
+WAND(None,        "alabaster", 0, 150, 1, 0,         MINERAL,  CLR_BROWN),
+WAND(None,        "orichalcum", 0, 150, 1, 0,         METAL,    HI_METAL),
+WAND(None,        "electrum",  0, 150, 1, 0,         METAL,    HI_GOLD),
+
 #undef WAND
 
 /* coins ... - so far, gold is all there is */
