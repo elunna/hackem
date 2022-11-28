@@ -2196,7 +2196,8 @@ boolean silently; /* maybe avoid messages */
         which has been shut inside a statue] */
 
     /* suppress message spam from lots of angry black marketeers */
-    if (Is_blackmarket(&u.uz)) return FALSE;
+    if (Is_blackmarket(&u.uz)) 
+        return FALSE;
 
     /* this is where inventory will end up if any shk takes it */
     repo.location.x = repo.location.y = 0;
@@ -2701,11 +2702,15 @@ register struct monst *shkp; /* if angry, impose a surcharge */
     /* KMH, balance patch -- healthstone replaces rotting/health */
     /* Used UnNetHack pricing instead of slashem's - more fair. */
     if (Is_blackmarket(&u.uz)) {
-        if (obj->oclass==RING_CLASS    || obj->oclass==AMULET_CLASS   ||
-            obj->oclass==POTION_CLASS  || obj->oclass==SCROLL_CLASS   ||
-            obj->oclass==SPBOOK_CLASS  || obj->oclass==WAND_CLASS     ||
-            obj->otyp==LUCKSTONE       || obj->otyp==LOADSTONE        ||
-            objects[obj->otyp].oc_magic) {
+        if (obj->oclass == RING_CLASS    
+            || obj->oclass == AMULET_CLASS   
+            || obj->oclass == POTION_CLASS  
+            || obj->oclass == SCROLL_CLASS   
+            || obj->oclass == SPBOOK_CLASS  
+            || obj->oclass == WAND_CLASS     
+            || obj->otyp == LUCKSTONE       
+            || obj->otyp == LOADSTONE          
+            || objects[obj->otyp].oc_magic) {
             tmp *= Role_if(PM_CONVICT) ? 20 : 25;
         } else {
             tmp *= Role_if(PM_CONVICT) ? 12 : 15;

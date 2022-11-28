@@ -601,7 +601,8 @@ boolean mkspecl;
     } 
     /* black market shops should be a little messy */
     if (Is_blackmarket(&u.uz)) {
-        if (!rn2(20)) return; /* leave an empty square */
+        if (!rn2(20)) 
+            return; /* leave an empty square */
         if (!rn2(10)) {
             (void) mkobj_at(rn2(5) ? GEM_CLASS : TOOL_CLASS, sx, sy, TRUE);
             return;
@@ -723,7 +724,8 @@ const char *const *nlp;
                     continue;
                 break;
             }
-            if (!mtmp) break; /* found an unused prefix */
+            if (!mtmp) 
+                break; /* found an unused prefix */
         }
         snprintf(ESHK(shk)->shknam, PL_NSIZ, "%s %s", prefix, shname);
     } else {
@@ -837,8 +839,8 @@ int shp_indx;
         }
     }
     if (!shk) {
-        if(!(shk = makemon(&mons[PM_SHOPKEEPER], sx, sy, MM_ESHK))) {
-            return(-1);
+        if (!(shk = makemon(&mons[PM_SHOPKEEPER], sx, sy, MM_ESHK))) {
+            return -1;
         }
     }
 
@@ -966,7 +968,8 @@ int shp_indx;
     nameshk(shk, shp->shknms);
 
     if (Is_blackmarket(&u.uz))
-        shkmoney = 7*shkmoney + rn2(3*shkmoney);
+        shkmoney = 7 * shkmoney + rn2(3 * shkmoney);
+    
     mkmonmoney(shk, shkmoney);
 
     if (!strcmp(shkname(shk), "Izchak")) {
@@ -1056,6 +1059,7 @@ int shp_indx;
         m_dowear(shk, TRUE);
         otmp = mksobj(SKELETON_KEY, FALSE, FALSE);
         mpickobj(shk, otmp);
+        
     }
     return sh;
 }
