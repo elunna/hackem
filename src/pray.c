@@ -2811,7 +2811,10 @@ prayer_done() /* M. Stephenson (1.0.3b) */
             Strcpy(killer.name, residual);
             killer.format = KILLED_BY_AN;
         }
-        rehumanize();
+        
+        if (!Race_if(PM_VAMPIRIC))
+            rehumanize();
+        
         /* no Half_physical_damage adjustment here */
         if (!HUnchanging) {
             losehp(rnd(20), "residual undead turning effect", KILLED_BY_AN);
