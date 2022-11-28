@@ -2842,6 +2842,7 @@ register struct monst *mtmp;
                     if (in_sight)
                         pline_The("water evaporates!");
                     levl[mtmp->mx][mtmp->my].typ = ROOM;
+                    maybe_unhide_at(mtmp->mx, mtmp->my);
                 }
                 if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) {
                     if (in_sight) {
@@ -3702,6 +3703,7 @@ struct obj *box; /* null for floor trap */
             && rn2(2)) {
             pline_The("water evaporates!");
             levl[u.ux][u.uy].typ = ROOM;
+            maybe_unhide_at(u.ux, u.uy);
         }
         return;
     }

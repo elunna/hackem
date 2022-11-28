@@ -308,6 +308,7 @@ deletedwithboulder:
             /* shallow water isn't an endless resource like a pool/moat */
             levl[x][y].typ = ROOM;
             newsym(x, y);
+            maybe_unhide_at(x, y);
             if (cansee(x, y))
                 pline_The("puddle dries up.");
         }

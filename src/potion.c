@@ -3004,6 +3004,7 @@ dodip()
                     /* shallow water isn't an endless resource like a pool/moat */
                     levl[u.ux][u.uy].typ = ROOM;
                     newsym(u.ux, u.uy);
+                    maybe_unhide_at(u.ux, u.uy);
                     if (cansee(u.ux, u.uy))
                         pline_The("puddle dries up.");
                 }
