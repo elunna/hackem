@@ -2634,7 +2634,97 @@ register struct obj *o1, *o2;
         }
         break;
     }
+    
+    /* MRKR: Extra alchemical effects. */
+    if (o2->otyp == POT_ACID && o1->oclass == GEM_CLASS) {
+        char *potion_descr = NULL;
+        /* Note: you can't create smoky, milky or clear potions */
+        
+        switch (o1->otyp) {
+        /* white */
+        case DILITHIUM_CRYSTAL:
+            /* explodes - special treatment in dodip */
+            /* here we just want to return something non-zero */
+            return POT_WATER;
+            break;
+        case DIAMOND: /* won't dissolve */
+        default:
+            break;
+        case OPAL:
+            potion_descr = "cloudy";
+            break;
+        case RUBY:
+            potion_descr = "ruby"; /* red */
+            break;
+        case GARNET:
+            potion_descr = "pink";
+            break;
+        case JASPER:
+            potion_descr = "purple-red";
+            break;
+        case JACINTH:
+            potion_descr = "orange"; /* orange */
+            break;
+        case AGATE:
+            potion_descr = "swirly";
+            break;
+        case CITRINE:
+            potion_descr = "yellow"; /* yellow */
+            break;
+        case CHRYSOBERYL:
+            potion_descr = "golden";
+            break;
+        case AMBER:
+            potion_descr = "brown";  /* yellowish brown */
+            break;
+        case TOPAZ:
+            potion_descr = "murky";
+            break;
+        case EMERALD:
+            potion_descr = "emerald"; /* green */
+            break;
+        case TURQUOISE:
+            potion_descr = "sky blue";
+            break;
+        case AQUAMARINE:
+            potion_descr = "cyan";
+            break;
+        case JADE:
+            potion_descr = "dark green";
+            break;
+        case SAPPHIRE:
+            potion_descr = "brilliant blue"; /* blue */
+            break;
+        case AMETHYST:
+            potion_descr = "magenta"; /* violet */
+            break;
+        case FLUORITE:
+            potion_descr = "white";
+            break;
+        case BLACK_OPAL:
+            potion_descr = "black"; /* black */
+            break;
+        case JET:
+            potion_descr = "dark";
+            break;
+        case OBSIDIAN:
+            potion_descr = "effervescent";
+            break;
+        }
 
+        if (potion_descr) {
+            int typ;
+
+            /* find a potion that matches the description */
+            for (typ = bases[POTION_CLASS]; 
+                 objects[typ].oc_class == POTION_CLASS; 
+                 typ++) {
+                if (strcmp(potion_descr, OBJ_DESCR(objects[typ])) == 0) {
+                    return typ;
+                }
+            }
+        }
+    }
     return STRANGE_OBJECT;
 }
 
@@ -3329,7 +3419,7 @@ dodip()
     }
 
     potion->in_use = FALSE; /* didn't go poof */
-    if ((obj->otyp == UNICORN_HORN || obj->otyp == AMETHYST)
+    if ((obj->otyp == UNICORN_HORN || obj->oclass == GEM_CLASS)
         && (mixture = mixtype(obj, potion)) != STRANGE_OBJECT) {
         char oldbuf[BUFSZ], newbuf[BUFSZ];
         short old_otyp = potion->otyp;
@@ -3348,13 +3438,43 @@ dodip()
         } else
             singlepotion = potion;
 
+        /* MRKR: Gems dissolve in acid to produce new potions */
+        if (obj->oclass == GEM_CLASS && potion->otyp == POT_ACID) {
+            struct obj *singlegem = (obj->quan > 1L ?  splitobj(obj, 1L) : obj);
+            
+            if (potion->otyp == POT_ACID &&
+                (obj->otyp == DILITHIUM_CRYSTAL || potion->cursed || !rn2(10))) {
+                /* Just to keep them on their toes */
+
+                if (Hallucination && obj->otyp == DILITHIUM_CRYSTAL) {
+                    /* Thanks to Robin Johnson */
+                    pline("Warning, Captain!  The warp core has been breached!");
+                }
+                pline("BOOM! %s explodes!", The(xname(singlegem)));
+                if (obj->otyp == DILITHIUM_CRYSTAL) {
+                    tele();
+                }
+                exercise(A_STR, FALSE);
+                if (!breathless(youmonst.data) || haseyes(youmonst.data)) {
+                    potionbreathe(singlepotion);
+                }
+                useup(singlegem);
+                useup(singlepotion);
+                /* MRKR: an alchemy smock ought to be */
+                /* some protection against this: */
+                losehp(Acid_resistance ? rnd(5) : rnd(10), "alchemic blast", KILLED_BY_AN);
+                return 1;
+            }
+
+            pline("%s dissolves in %s.", The(xname(singlegem)), the(xname(singlepotion)));
+            makeknown(POT_ACID);
+            useup(singlegem);
+        }
+        
         costly_alteration(singlepotion, COST_NUTRLZ);
         singlepotion->otyp = mixture;
-        singlepotion->blessed = 0;
-        if (mixture == POT_WATER)
-            singlepotion->cursed = singlepotion->odiluted = 0;
-        else
-            singlepotion->cursed = obj->cursed; /* odiluted left as-is */
+        singlepotion->blessed = singlepotion->cursed = 0;
+        singlepotion->odiluted = 0;
         singlepotion->bknown = FALSE;
         if (Blind) {
             singlepotion->dknown = FALSE;
