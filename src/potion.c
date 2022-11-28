@@ -15,7 +15,6 @@ STATIC_DCL long FDECL(itimeout_incr, (long, int));
 STATIC_DCL void NDECL(ghost_from_bottle);
 STATIC_DCL boolean
 FDECL(H2Opotion_dip, (struct obj *, struct obj *, BOOLEAN_P, const char *));
-STATIC_DCL short FDECL(mixtype, (struct obj *, struct obj *));
 
 /* force `val' to be within valid range for intrinsic timeout value */
 STATIC_OVL long
@@ -2543,7 +2542,7 @@ register struct obj *obj;
 }
 
 /* returns the potion type when o1 is dipped in o2 */
-STATIC_OVL short
+short
 mixtype(o1, o2)
 register struct obj *o1, *o2;
 {
