@@ -769,7 +769,8 @@ mkgrass(void)
                     levl[x][y].typ = GRASS;
                 }
             }
-            levl[x][y].bk = 0;
+            if (!inside_shop(x, y))
+                levl[x][y].bk = 0;
         }
     }
 
