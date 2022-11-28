@@ -3571,13 +3571,16 @@ boolean youattack, allow_cancel_kill, self_cancel;
         }
 
         for (otmp = (youdefend ? invent : mdef->minvent);
-             otmp; otmp = otmp->nobj) {
+                     otmp; otmp = otmp->nobj) {
             /* gold isn't subject to being cursed or blessed */
             if (otmp->oclass == COIN_CLASS)
                 continue;
             onum++;
         }
-
+        /* Magicbane doesn't cancel inventory items */
+        if (!(obj && (obj->oartifact == ART_MAGICBANE)))
+            onum = 0;
+        
         if (onum) {
             for (cnt = rnd(6 / ((!!Antimagic) + (!!Half_spell_damage) + 1));
                  cnt > 0; cnt--) {
