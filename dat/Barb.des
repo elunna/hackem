@@ -11,6 +11,8 @@
 MAZE: "Bar-strt",' '
 FLAGS: noteleport,hardfloor
 GEOMETRY:center,center
+#         1         2         3         4         5         6         7
+#12345678901234567890123456789012345678901234567890123456789012345678901234
 MAP
 .................................wPPw.......................................
 ..................................wPPw......................................
@@ -37,12 +39,13 @@ ENDMAP
 # the forest beyond the river
 REPLACE_TERRAIN:(37,0,59,19),'.','T', 5%
 REPLACE_TERRAIN:(60,0,64,19),'.','T', 10%
-REPLACE_TERRAIN:(65,0,75,19),'.','T', 20%
+REPLACE_TERRAIN:(65,0,74,19),'.','T', 20%
 
-REPLACE_TERRAIN:(20,0,26,19),'.',',', 5%
-REPLACE_TERRAIN:(27,0,59,19),'.',',', 15%
+REPLACE_TERRAIN:(0,0,33,03),'.',',', 5%
+REPLACE_TERRAIN:(0,16,33,19),'.',',', 5%
+REPLACE_TERRAIN:(33,0,59,19),'.',',', 15%
 REPLACE_TERRAIN:(60,0,64,19),'.',',', 27%
-REPLACE_TERRAIN:(65,0,75,19),'.',',', 35%
+REPLACE_TERRAIN:(65,0,74,19),'.',',', 35%
 
 # guarantee a path and free spot for the portal
 TERRAIN:(randline (37,7),(62,02),7), '.'
@@ -120,6 +123,8 @@ MONSTER:('O',"ogre"),(42,10),hostile
 MAZE: "Bar-loca",' '
 FLAGS: hardfloor
 GEOMETRY:center,center
+#         1         2         3         4         5         6         7
+#12345678901234567890123456789012345678901234567890123456789012345678901234
 MAP
 .........wPPPw........................................                      
 ..........wPPw.........................................        .......      
@@ -150,6 +155,10 @@ REGION:(35,14,37,15),unlit,"ordinary"
 REGION:(39,03,54,08),lit,"ordinary"
 REGION:(56,00,75,08),unlit,"ordinary"
 REGION:(64,09,75,16),unlit,"ordinary"
+
+REPLACE_TERRAIN:(0,0,22,19),'.',',', 15%
+REPLACE_TERRAIN:(22,11,63,19),'.',',', 15%
+
 # Doors
 DOOR:open,(23,03)
 DOOR:open,(30,08)
