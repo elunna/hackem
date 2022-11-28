@@ -3443,7 +3443,7 @@ dodip()
             struct obj *singlegem = (obj->quan > 1L ?  splitobj(obj, 1L) : obj);
             
             if (potion->otyp == POT_ACID &&
-                (obj->otyp == DILITHIUM_CRYSTAL || potion->cursed || !rn2(10))) {
+                (obj->otyp == DILITHIUM_CRYSTAL || potion->cursed || !rn2(30))) {
                 /* Just to keep them on their toes */
 
                 if (Hallucination && obj->otyp == DILITHIUM_CRYSTAL) {
