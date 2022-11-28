@@ -312,7 +312,15 @@ boolean incr; /* true iff via incremental experience growth */
     u.uhp += hpinc;
 
     /* increase spell power/energy points */
+    
     eninc = newpw();
+    
+    /* Tourists have no innate magic abilities,
+     * so severely reduce their magical power gain */
+    if (Role_if(PM_TOURIST) && eninc > 1) {
+        eninc = 1;
+    }
+    
     u.uenmax += eninc;
     u.uen += eninc;
 
