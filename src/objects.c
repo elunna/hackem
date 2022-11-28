@@ -672,64 +672,64 @@ BOOTS("levitation boots", "snow boots",
 /* rings ... */
 /* note that prob = 1 for all rings and currently can't be specified
  * per ring without changing the RING definition */
-#define RING(name,stone,power,cost,mgc,spec,mohs,metal,color) \
+#define RING(name,stone,power,cost,prob,mgc,spec,mohs,metal,color) \
     OBJECT(OBJ(name, stone),                                          \
            BITS(0, 0, spec, 0, mgc, spec, 0, 0, 0,                    \
                 HARDGEM(mohs), 0, P_NONE, metal),                     \
-           power, RING_CLASS, 1, 0, 3, cost, 0, 0, 0, 0, 15, color)
-RING("adornment", "wooden",                      ADORNED,                  100, 1, 1, 2, WOOD, HI_WOOD),
-RING("gain constitution", "opal",                0,                        150, 1, 1, 7, MINERAL, HI_MINERAL),
-RING("gain dexterity",  "obsidian",              0,                        150, 1, 1, 7, GEMSTONE, CLR_BLACK),  /* Slash'EM */
-RING("gain intelligence", "plain",               0,                        150, 1, 1, 7, MINERAL,  HI_MINERAL), /* Slash'EM */
-RING("gain strength", "granite",                 0,                        150, 1, 1, 7, MINERAL, HI_MINERAL),  
-RING("gain wisdom", "glass",                     0,                        150, 1, 1, 7, GLASS,  CLR_CYAN),   /* Slash'EM */
-RING("increase accuracy", "clay",                0,                        150, 1, 1, 4, MINERAL, CLR_RED),
-RING("increase damage", "coral",                 0,                        150, 1, 1, 4, MINERAL, CLR_ORANGE),
-RING("protection", "black onyx",                 PROTECTION,               100, 1, 1, 7, MINERAL, CLR_BLACK),
+           power, RING_CLASS, prob, 0, 3, cost, 0, 0, 0, 0, 15, color)
+RING("adornment", "wooden",                      ADORNED,                  100, 1, 1, 1, 2, WOOD, HI_WOOD),
+RING("gain constitution", "opal",                0,                        150, 1, 1, 1, 7, MINERAL, HI_MINERAL),
+RING("gain dexterity",  "obsidian",              0,                        150, 1, 1, 1, 7, GEMSTONE, CLR_BLACK),  /* Slash'EM */
+RING("gain intelligence", "plain",               0,                        150, 1, 1, 1, 7, MINERAL,  HI_MINERAL), /* Slash'EM */
+RING("gain strength", "granite",                 0,                        150, 1, 1, 1, 7, MINERAL, HI_MINERAL),  
+RING("gain wisdom", "glass",                     0,                        150, 1, 1, 1, 7, GLASS,  CLR_CYAN),   /* Slash'EM */
+RING("increase accuracy", "clay",                0,                        150, 1, 1, 1, 4, MINERAL, CLR_RED),
+RING("increase damage", "coral",                 0,                        150, 1, 1, 1, 4, MINERAL, CLR_ORANGE),
+RING("protection", "black onyx",                 PROTECTION,               100, 1, 1, 1, 7, MINERAL, CLR_BLACK),
         /* 'PROTECTION' intrinsic enhances MC from worn armor by +1,
            regardless of ring's enchantment; wearing a second ring of
            protection (or even one ring of protection combined with
            cloak of protection) doesn't give a second MC boost */
-RING("regeneration", "moonstone",                REGENERATION,             200, 1, 0,  6, MINERAL, HI_MINERAL),
-RING("searching", "tiger eye",                   SEARCHING,                200, 1, 0,  6, GEMSTONE, CLR_BROWN),
-RING("stealth", "jade",                          STEALTH,                  100, 1, 0,  6, GEMSTONE, CLR_GREEN),
-RING("sustain ability", "bronze",                FIXED_ABIL,               100, 1, 0,  4, COPPER, HI_COPPER),
-RING("levitation", "agate",                      LEVITATION,               200, 1, 0,  7, GEMSTONE, CLR_RED),
-RING("hunger", "topaz",                          HUNGER,                   100, 1, 0,  8, GEMSTONE, CLR_CYAN),
-RING("aggravate monster", "sapphire",            AGGRAVATE_MONSTER,        150, 1, 0,  9, GEMSTONE, CLR_BLUE),
-RING("conflict", "ruby",                         CONFLICT,                 300, 1, 0,  9, GEMSTONE, CLR_RED),
-RING("warning", "diamond",                       WARNING,                  100, 1, 0, 10, GEMSTONE, CLR_WHITE),
-RING("poison resistance", "pearl",               POISON_RES,               150, 1, 0,  4, BONE, CLR_WHITE),
-RING("fire resistance", "iron",                  FIRE_RES,                 200, 1, 0,  5, IRON, HI_METAL),
-RING("cold resistance", "brass",                 COLD_RES,                 150, 1, 0,  4, COPPER, HI_COPPER),
-RING("psychic resistance", "crystal",            PSYCHIC_RES,              150, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
-RING("sonic resistance",   "embossed",           SONIC_RES,                150, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
-RING("shock resistance", "copper",               SHOCK_RES,                150, 1, 0,  3, COPPER, HI_COPPER),
-RING("free action", "twisted",                   FREE_ACTION,              200, 1, 0,  6, METAL, HI_METAL),
-RING("slow digestion", "steel",                  SLOW_DIGESTION,           200, 1, 0,  8, METAL, HI_METAL),
-RING("teleportation", "silver",                  TELEPORT,                 200, 1, 0,  3, SILVER, HI_SILVER),
-RING("teleport control", "gold",                 TELEPORT_CONTROL,         300, 1, 0,  3, GOLD, HI_GOLD),
-RING("polymorph", "ivory",                       POLYMORPH,                300, 1, 0,  4, BONE, CLR_WHITE),
-RING("polymorph control", "emerald",             POLYMORPH_CONTROL,        300, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
-RING("invisibility", "wire",                     INVIS,                    150, 1, 0,  5, METAL, HI_METAL),
-RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 0,  5, GOLD, HI_METAL),
-RING("mood", "ridged",                           0,                        100, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
-RING("sleeping", "wedding",                      SLEEPY,                   100, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
-RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
-#if 0 /* These currently don't work */
+RING("regeneration", "moonstone",                REGENERATION,             200, 1, 1, 0,  6, MINERAL, HI_MINERAL),
+RING("searching", "tiger eye",                   SEARCHING,                200, 1, 1, 0,  6, GEMSTONE, CLR_BROWN),
+RING("stealth", "jade",                          STEALTH,                  100, 1, 1, 0,  6, GEMSTONE, CLR_GREEN),
+RING("sustain ability", "bronze",                FIXED_ABIL,               100, 1, 1, 0,  4, COPPER, HI_COPPER),
+RING("levitation", "agate",                      LEVITATION,               200, 1, 1, 0,  7, GEMSTONE, CLR_RED),
+RING("hunger", "topaz",                          HUNGER,                   100, 1, 1, 0,  8, GEMSTONE, CLR_CYAN),
+RING("aggravate monster", "sapphire",            AGGRAVATE_MONSTER,        150, 1, 1, 0,  9, GEMSTONE, CLR_BLUE),
+RING("conflict", "ruby",                         CONFLICT,                 300, 1, 1, 0,  9, GEMSTONE, CLR_RED),
+RING("warning", "diamond",                       WARNING,                  100, 1, 1, 0, 10, GEMSTONE, CLR_WHITE),
+RING("poison resistance", "pearl",               POISON_RES,               150, 1, 1, 0,  4, BONE, CLR_WHITE),
+RING("fire resistance", "iron",                  FIRE_RES,                 200, 1, 1, 0,  5, IRON, HI_METAL),
+RING("cold resistance", "brass",                 COLD_RES,                 150, 1, 1, 0,  4, COPPER, HI_COPPER),
+RING("psychic resistance", "crystal",            PSYCHIC_RES,              150, 1, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
+RING("sonic resistance",   "embossed",           SONIC_RES,                150, 1, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
+RING("shock resistance", "copper",               SHOCK_RES,                150, 1, 1, 0,  3, COPPER, HI_COPPER),
+RING("free action", "twisted",                   FREE_ACTION,              200, 1, 1, 0,  6, METAL, HI_METAL),
+RING("slow digestion", "steel",                  SLOW_DIGESTION,           200, 1, 1, 0,  8, METAL, HI_METAL),
+RING("teleportation", "silver",                  TELEPORT,                 200, 1, 1, 0,  3, SILVER, HI_SILVER),
+RING("teleport control", "gold",                 TELEPORT_CONTROL,         300, 1, 1, 0,  3, GOLD, HI_GOLD),
+RING("polymorph", "ivory",                       POLYMORPH,                300, 1, 1, 0,  4, BONE, CLR_WHITE),
+RING("polymorph control", "emerald",             POLYMORPH_CONTROL,        300, 1, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
+RING("invisibility", "wire",                     INVIS,                    150, 1, 1, 0,  5, METAL, HI_METAL),
+RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 1, 0,  5, GOLD, HI_METAL),
+RING("mood", "ridged",                           0,                        100, 1, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
+RING("sleeping", "wedding",                      SLEEPY,                   100, 1, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
+RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
+
 /* Extra descriptions */
-RING(None, "quartz",                             0,                        150, 0, 0, 7, GLASS, HI_GLASS),
-RING(None, "porcelain",                          0,                        150, 0, 0, 8, GLASS, HI_MINERAL),
-RING(None, "ceramic",                            0,                        150, 0, 0, 8, GLASS, HI_MINERAL),
-RING(None, "mithril",                            0,                        150, 0, 0, 5, MITHRIL, HI_SILVER),
-RING(None, "platinum",                           0,                        150, 0, 0, 3, PLATINUM, HI_METAL),
-RING(None, "jacinth",                            0,                        150, 0, 0, 9, GEMSTONE, CLR_ORANGE),
-RING(None, "citrine",                            0,                        150, 0, 0, 6, GEMSTONE, CLR_ORANGE),
-RING(None, "amber",                              0,                        150, 0, 0, 2, GEMSTONE, CLR_BROWN),
-RING(None, "jet",                                0,                        150, 0, 0, 7, GEMSTONE, CLR_BLACK),
-RING(None, "chrysoberyl",                        0,                        150, 0, 0, 5, GEMSTONE, CLR_YELLOW),
-RING(None, "plastic",                            0,                        150, 0, 0, 1, PLASTIC, CLR_WHITE),
-#endif
+RING(None, "quartz",                             0,                        150, 0, 0, 0, 7, GLASS, HI_GLASS),
+RING(None, "porcelain",                          0,                        150, 0, 0, 0, 8, GLASS, HI_MINERAL),
+RING(None, "ceramic",                            0,                        150, 0, 0, 0, 8, GLASS, HI_MINERAL),
+RING(None, "mithril",                            0,                        150, 0, 0, 0, 5, MITHRIL, HI_SILVER),
+RING(None, "platinum",                           0,                        150, 0, 0, 0, 3, PLATINUM, HI_METAL),
+RING(None, "jacinth",                            0,                        150, 0, 0, 0, 9, GEMSTONE, CLR_ORANGE),
+RING(None, "citrine",                            0,                        150, 0, 0, 0, 6, GEMSTONE, CLR_ORANGE),
+RING(None, "amber",                              0,                        150, 0, 0, 0, 2, GEMSTONE, CLR_BROWN),
+RING(None, "jet",                                0,                        150, 0, 0, 0, 7, GEMSTONE, CLR_BLACK),
+RING(None, "chrysoberyl",                        0,                        150, 0, 0, 0, 5, GEMSTONE, CLR_YELLOW),
+RING(None, "plastic",                            0,                        150, 0, 0, 0, 1, PLASTIC, CLR_WHITE),
+
 #undef RING
 
 /* amulets ... - THE Amulet comes last because it is special */
