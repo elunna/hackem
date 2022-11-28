@@ -243,7 +243,7 @@
 
 /* Get a string describing the terrain at (x, y). */
 #define explain_terrain(x, y) \
-    (defsyms[back_to_defsym((x), (y), FALSE)].explanation)
+    (defsyms[back_to_defsym((x), (y))].explanation)
 
 /*
  * A glyph is an abstraction that represents a _unique_ monster, object,

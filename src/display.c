@@ -1884,7 +1884,7 @@ xchar x, y;
 }
 
 int
-back_to_defsym(xchar x, xchar y, boolean show_engravings)
+back_to_defsym(xchar x, xchar y)
 {
     int idx;
     struct rm *ptr = &(levl[x][y]);
