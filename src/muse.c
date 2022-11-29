@@ -4753,15 +4753,12 @@ struct monst *mon;
         break;
     case 20:
         otmp = mksobj(WAN_CANCELLATION, FALSE, FALSE);
-        (void) mpickobj(mon, otmp);
         break;
     case 21:
         otmp = mksobj(WAN_POLYMORPH, FALSE, FALSE);
-        (void) mpickobj(mon, otmp);
         break;
     case 22:
         otmp = mksobj(WAN_DEATH, FALSE, FALSE);
-        (void) mpickobj(mon, otmp);
         break;
     case 23:
         cnt = 1 + rn2(3);
@@ -4782,6 +4779,7 @@ struct monst *mon;
     }
     
     oname = an(xname(otmp));
+    
     if (mpickobj(mon, otmp))
         otmp = NULL;
     
