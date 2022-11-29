@@ -1573,6 +1573,12 @@ cope
 	by a clasp.
 		[ Wikipedia, the free encyclopedia ]
 cornuthaum
+     When worn, a cornuthaum provides MC1. Wizards wearing a cornuthaum
+     gain 1 point of charisma and extrinsic clairvoyance; non-Wizards 
+     lose 1 point of charisma and have all instances of clairvoyance 
+     blocked (whether by intrinsic or by spell). Wizards can enchant 
+     cornuthaums to +7, but others can only enchant them to +5.
+    	 
 	He was dressed in a flowing gown with fur tippets which had
 	the signs of the zodiac embroidered over it, with various
 	cabalistic signs, such as triangles with eyes in them, queer
@@ -2179,6 +2185,19 @@ dramborleg
 	of the Dum-Dum.
 		[ Tarzan of the Apes, by Edgar Rice Burroughs ]
 dunce*
+    When worn, the dunce cap sets your intelligence and wisdom to 6 
+    each and autocurses, even if originally blessed; this will auto-
+    identify the dunce cap. Dunce caps also prevent any change to 
+    your intelligence or wisdom while worn, akin to a ring of sustain
+    ability. Removing the cap will restore your intelligence and 
+    wisdom to their original values.
+    
+    Shopping while wearing a dunce cap will cause the shopkeeper to 
+    add an additional 1/3 markup to the price of each item when buying,
+    and only give you 1/3 of the base price when selling items. This
+    is also the penalty for being a low-level Tourist or having a 
+    visible shirt; these penalties are not cumulative.
+
 	A dunce cap, also variously known as a dunce hat, dunce's
 	cap, or dunce's hat, is a tall conical hat.  In popular
 	culture, it is typically made of paper and often marked with
@@ -11502,6 +11521,9 @@ explorer
 adventurer
     Weak multishot (doesn't get a volley bonus until becoming expert)
         Note: Doesn't apply to darts.
+    
+    For a Tourist, 1⁄3 of conical hats can be read; a dunce cap will 
+    be labeled "DUNCE". A cornuthaum will be labeled "WIZZARD".
     
 	Tourist ranks
 	  title            level
