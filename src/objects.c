@@ -579,7 +579,7 @@ CLOAK("cloak of magic resistance", "ornamental cope",
       0, 1,  ANTIMAGIC,  1, 0, 10, 60,  9, 1,  CLOTH, CLR_WHITE),
         /*  'cope' is not a spelling mistake... leave it be */
 CLOAK("poisonous cloak", "dirty rag",                           /* Slash'EM */
-      0, 1,          0,  5, 0, 10, 60, 10, 2, CLOTH, CLR_BLACK),
+      0, 1,          0,  5, 0, 10, 60, 10, 3, CLOTH, CLR_BLACK),
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
 

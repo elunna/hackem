@@ -890,7 +890,11 @@ int wtcap;
            no !Upolyd check here, so poly'd hero recovered lost u.uhp
            once u.mh reached u.mhmax; that may have been convenient
            for the player, but it didn't make sense for gameplay...] */
-        if (u.uhp < u.uhpmax && elf_can_regen() && orc_can_regen() && vamp_can_regen()
+        if (u.uhp < u.uhpmax 
+            && elf_can_regen() 
+            && orc_can_regen() 
+            && vamp_can_regen()
+            && (!uarmc || (uarmc && uarmc->otyp != POISONOUS_CLOAK))
             && (encumbrance_ok || U_CAN_REGEN()) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
             

@@ -3392,9 +3392,14 @@ int final;
     /*** Physical attributes ***/
     if (Regeneration && elf_can_regen() && orc_can_regen() && vamp_can_regen())
         enl_msg("You regenerate", "", "d", "", from_what(REGENERATION));
-    if (!elf_can_regen()) you_are("in direct contact with cold iron", "");
-    if (!orc_can_regen()) you_are("in direct contact with mithril", "");
-    if (!vamp_can_regen()) you_are("in direct contact with silver", "");
+    if (!elf_can_regen()) 
+        you_are("in direct contact with cold iron", "");
+    if (!orc_can_regen()) 
+        you_are("in direct contact with mithril", "");
+    if (!vamp_can_regen()) 
+        you_are("in direct contact with silver", "");
+    if (uarmc && uarmc->otyp == POISONOUS_CLOAK)
+        you_are("in direct contact with poison", "");
     if (Slow_digestion)
         you_have("slower digestion", from_what(SLOW_DIGESTION));
     if (inediate(raceptr(&youmonst)) && !is_vampiric(raceptr(&youmonst)))
