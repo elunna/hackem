@@ -37,7 +37,6 @@ abbot
 	probable that the asker went on worrying out answers for himself.
 		[ The Runaway Abbot, by G. K. Chesterton ]
 # takes "suit or piece of armor" when specifying '['
-# FIXME: "dragon scales, dragon scale mail" needs its own entry
 # FIXME too: "ac, armor class" also merits its own distinct entry
 ac
 armor
@@ -138,6 +137,17 @@ agent of *
 	it happened.  Regret was unprofessional -- worse, it was
 	death-watch beetle in the soul.
 		[ Goldfinger, by Ian Fleming ]
+alchemy smock
+    When worn, an alchemy smock provides 1 point of AC along with acid
+    resistance, poison resistance and MC1 - despite the name, it has 
+    no actual effects on alchemy. Reading an alchemy smock will 
+    generate one of many YAFMs similarly to T-shirts, most of which are
+    cooking-related.
+    
+    Due to limitations in how object extrinsics are defined, acid 
+    resistance from the alchemy smock is handled specially internally.
+    As a result, it only applies to you: monsters wearing an alchemy 
+    smock will obtain poison resistance, but not acid resistance.
 alchemist
 	Humankind cannot gain anything without first giving something in
 	return. To obtain, something of equal value must be lost. That is
@@ -740,7 +750,6 @@ baphomet
 		  James Jacobs, and Erik Mona ]
 #champion
 #champion of *
-
 barding
 	Barding (also spelled bard or barb) is body armour for war horses.
 	The practice of armoring horses was first extensively developed in
@@ -930,7 +939,6 @@ rancid jelly
 	inexpressibly dear and forlorn for a bit of blue jelly, would
 	force open the outer door until I returned and rejoined it.
 		[ Beholder's Eye, by Julie E. Czerneda ]
-
 *bomb
     Bombs are a new type of weapon in HackEM. There are three specific 
     types, the fire bomb, the gas bomb, and the sonic bomb. All are 
@@ -962,7 +970,6 @@ rancid jelly
     and thrown at other targets. Bombs will explode on impact. The 
     impact of a bomb always does 1-2 points of damage before the 
     explosion.
-    
 bone devil
 	Bone devils attack with weapons and with a great hooked tail
 	which causes a loss of strength to those they sting.
@@ -1068,6 +1075,12 @@ bow
 	"It would not be amiss," said Hordle John, "if under his
 	girdle he had four farthings'-worth of wine."
 		[ The White Company, by Sir Arthur Conan Doyle ]
+boxing gloves
+    Wearing these increases the chance of stunning a creature with
+    a bare-handed attack. The chances of stunning are 1 in 25 for 
+    each hit.
+     
+    Incurs a -2 to-hit penalty for using bows.
 bridge
 rope bridge
 	See, there were these two guys in a lunatic asylum... and one night,
@@ -1352,7 +1365,6 @@ chakram
     dexterous with them.
         [ Duarte Barbosa (1970). A Description of the Coasts of East 
         Africa and Malabar. ]
-    
 chameleon
 	A small lizard perched on a brown stone.  Feeling threatened by
 	the approach of human beings along the path, it metamorphosed
@@ -2079,6 +2091,7 @@ doppelganger
 ~chromatic dragon
 ~*pseudodragon
 ~komodo*
+~*dragon scales
 *dragon
 *xoth
 	In the West the dragon was the natural enemy of man.  Although
@@ -2113,7 +2126,78 @@ doppelganger
     - Wear Pridwen, the shield of King Arthur.
     - Wear Dragonbane.
     - Have a source of psychic resistance.
-*dragon*scale*
+	
+	For information on dragon scales - see "dragon scales".
+dragon scales
+*dtsund*
+    Dragon scales and dtsund dragon-scaled armor
+	
+    dtsund dragon-scaled armor is named after the person who originally 
+	came up with the idea for removing dragon scale mail, and having 
+	dragon scales fuse with existing worn body armor instead. This 
+	system of dragon-scaled armor was first introduced in NetHack 
+	Fourk, then xNetHack, and then EvilHack. This system of dragon 
+	scales is in effect in Hack'EM, using EvilHack's implementation.
+
+	- Dragon scales are now worn in the cloak slot, providing their 
+	  dragon's primary extrinsic, AC 3, and MC 0.
+	
+	- Reading enchant armor while wearing body armor under scales 
+	  hardens the scales and fuses them together, causing that armor 
+	  to gain +5 AC and confer the matching primary extrinsic.
+	- Secondary extrinsics are not realized by wearing dragon scales 
+	  on their own. They must be crafted into dragon-scaled armor for 
+	  the secondary characteristics to function.
+	  
+	- The armor is not made erodeproof, but if the scroll was blessed, 
+	  its erosion is repaired and it becomes blessed.
+	- If the scroll was cursed, the armor still fuses together, but 
+	  becomes cursed and loses a point of enchantment. Otherwise, the 
+	  armor's enchantment does not change, and any enchantment on the
+	  scales is discarded.
+
+	- If you are confused, the scales meld into the armor and then the
+	  armor melds into you, polymorphing you into the corresponding 
+	  dragon.
+	- Reading enchant armor with scales but without body armor will 
+	  polymorph you into the corresponding dragon. Wearing a shirt 
+	  doesn't affect this.
+	- If you have polymorph control, you can decline to become a dragon.
+	
+	A blessed scroll gives you additional time as a dragon and a cursed 
+	  scroll gives you less time.
+	- Scaled armor is never destroyed or separated into its components 
+	  when you become a dragon; it reverts back to your body armor when
+	  you revert.
+	
+	- You can change the color of the scales on body armor by wearing 
+	  a new set of scales and reading enchant armor. The old scale 
+	  color goes away.
+	
+	- There are no limitations on what body armor can be used.
+	
+	- "<Foo> dragon scale mail" no longer exists as an object, so it 
+	  can't be wished for. If the player wishes for '<foo> dragon scale 
+	  mail', they'll receive 'a set of <foo> dragon scales' instead.
+	  
+	- Dragon-scaled body armor cannot be wished for. It must be crafted.
+	
+	- Player monsters that used to receive dragon scale mail now 
+	  receive a standard random suit, dragon-scaled with a random color 
+	  of dragon scales.
+	  
+	- Shopkeepers charge a much higher price for a dragon-scaled piece 
+	  of armor than they would for the same armor piece without scales.
+	
+	- Dragon scales having secondary extrinsics was taken from 
+	  SporkHack, and then heavily modified – all dragon scales have a 
+	  secondary extrinsic effect when fused with regular body armor and 
+	  turned into dragon-scaled armor. Dragon scales worn on their own 
+	  only exhibit their primary extrinsic, with one exception – gold 
+	  dragon/chromatic dragon scales will give off light, regardless 
+	  of whether it's just scales or dragon-scaled armor.
+
+
 	Stephen had argued, and the expert armorer had grudgingly
 	admitted, that dragonscale shield or armor, provided it proved
 	feasible to make at all, ought to offer some real, practical
@@ -2123,7 +2207,84 @@ doppelganger
 	make of steel.
 		[ The Last Book of Swords: Shieldbreaker's Story,
 			by Fred Saberhagen ]
-
+black dragon scales
+	Primary Extrinsic: disintegration resistance
+	Secondary Extrinsic: slow digestion
+	Passive Attack: disintegrates (may destroy items)
+	
+	For information on usage - see "dragon scales".
+blue dragon scales
+	Primary Extrinsic: shock resistance
+	Secondary Extrinsic: speed 
+	Passive Attack: shock damage (may destroy items)
+	
+	For information on usage - see "dragon scales".
+deep dragon scales
+	Primary Extrinsic: drain resistance
+	Secondary Extrinsic: extreme stability (hurtling resistance)
+	Passive Attack: drain life
+	
+	For information on usage - see "dragon scales".
+gold dragon scales
+	Primary Extrinsic: light source
+	Secondary Extrinsic: automatic searching
+	Passive Attack: blinds monsters
+	
+	For information on usage - see "dragon scales".
+gray dragon scales
+	Primary Extrinsic: magic resistance
+	Secondary Extrinsic: cancel protection
+	Passive Attack: cancellation (may cancel items)
+	
+	For information on usage - see "dragon scales".
+green dragon scales
+	Primary Extrinsic: poison resistance
+	Secondary Extrinsic: sickness resistance
+	Passive Attack: poison damage
+	
+	For information on usage - see "dragon scales".
+orange dragon scales
+	Primary Extrinsic: sleep resistance
+	Secondary Extrinsic: free action
+	Passive Attack: slows monsters
+	
+	For information on usage - see "dragon scales".
+red dragon scales
+	Primary Extrinsic: fire resistance
+	Secondary Extrinsic: +1d6 melee damage
+	Passive Attack: fire damage (may destroy items)
+	
+	For information on usage - see "dragon scales".
+shimmering dragon scales
+	Primary Extrinsic: displacement
+	Secondary Extrinsics: stealth, warning, and see invisible
+	Passive Attack: confuses, stuns, and slows monsters
+	
+	For information on usage - see "dragon scales".
+silver dragon scales
+	Primary Extrinsic: reflection
+	Secondary Extrinsic: blinding resistance
+	Passive Attack: scares monsters
+	
+	For information on usage - see "dragon scales".
+sea dragon scales
+	Primary Extrinsic: bagical breathing
+	Secondary Extrinsic: swimming
+	Passive Attack: water/rust effects (may destroy items)
+	
+	For information on usage - see "dragon scales".
+white dragon scales
+	Primary Extrinsic: cold resistance
+	Secondary Extrinsic: water/Lava walking
+	Passive Attack: cold damage (may destroy items)
+	
+	For information on usage - see "dragon scales".
+yellow dragon scales
+	Primary Extrinsic: acid resistance
+	Secondary Extrinsic: stoning resistance
+	Passive Attack: acid damage (may destroy items)
+	
+	For information on usage - see "dragon scales".
 draugr
 draugar
 	Draugar live in their graves, often guarding treasure buried with
@@ -2227,7 +2388,6 @@ fusions
     Don't try to forge things you know you shouldn't.
     Also see: "forging weapons", "forging armor"
       [The Blacksmith's Cookbook]
-
 # forging weapons, weapon recipes, weapon fusions
 forging w*
 weapon r*
@@ -2316,7 +2476,6 @@ weapon f*
     sniper rifle            = rifle + iron chain
     shotgun                 = pistol + broadsword
     auto shotgun            = shotgun + iron chain
-
 # forging armor, armor recipes, armor fusions
 forging a*
 armor r*
@@ -2355,7 +2514,6 @@ armor f*
     barding                 = saddle + plate mail
     spiked barding          = barding + morning star 
     barding of reflection   = barding + shield of reflection
-
 dungeon*
 	At once as far as Angels kenn he views 
 	The dismal Situation waste and wilde, 
@@ -2563,6 +2721,14 @@ elven*
 	the singing that went to my heart, if you know what I mean."
 	   [ The Fellowship of the Ring, by J.R.R. Tolkien ]
 elven cloak
+elven helm
+elven boots
+elven chain mail
+elven shield
+    Elven equipment is among the lightest and most common of magical 
+    armor, and can be safely enchanted past +5 to +7 like all elven 
+    items.
+    
 	The Elves next unwrapped and gave to each of the Company the
 	clothes they had brought.  For each they had provided a hood
 	and cloak, made according to his size, of the light but warm
@@ -2717,6 +2883,10 @@ fauchard
 	for dismounting opponents, though it is quite useful for crippling 
 	their mounts.
 fedora
+    Increases charisma by +1 when worn.
+    Archeologists get a luck bonus for wearing a fedora.
+    Archeologists can also safely enchant fedoras from a maximum of +5.
+	
 	Some hats can only be worn if you're willing to be jaunty, to set
 	them at an angle and to walk beneath them with a spring in your
 	stride as if you're only a step away from dancing.  They demand a
@@ -2949,7 +3119,6 @@ potion of gain ability
     Alchemy recipes:
     - potion of full healing + potion of gain energy
     - potion of full healing + potion of gain level
-
 *gargoyle
 	And so it came to pass that while Man ruled on Earth, the
 	gargoyles waited, lurking, hidden from the light.  Reborn
@@ -3005,10 +3174,37 @@ potion of gain ability
 	taken care not to take off my hat or veil, and so have
 	escaped their suspicions.
 		[ Dracula, by Bram Stoker ]
-gauntlet*
+gauntlets
 	A type of armored glove designed to protect the wrist and hand,
 	usually made of metal or hardened leather and intended to be
-	worn as part of a full suit of armor.
+	worn as part of a full suit of armor. 
+	
+    Applies a -2 to-hit penalty when shooting from a bow.
+gauntlets of dexterity
+    Modifies the wearer's dexterity based on its enchantment, up to a 
+    maximum of 25. Wearing gauntlets of dexterity of any non-zero 
+    enchantment auto-identifies them.
+    
+    Applies a +1 to-hit bonus for using bows.
+gauntlets of fumbling
+    Causes fumbling when worn and are usually generated cursed. 
+    Wearing cursed gauntlets of fumbling is a minor trouble. 
+    They incur a −9 to-hit penalty with bows.
+    
+gauntlets of power
+    Wearing gauntlets of power grants 1 AC and sets your strength to
+    25 regardless of beatitude, auto-identifying them. They apply a 
+    -2 to-hit penalty when shooting from a bow. Strength cannot be 
+    exercised while wearing gauntlets of power, although actual 
+    strength increases will still occur as normal.
+    
+    Mjollnir can only be thrown by a character with 25 strength, 
+    which for all practical purposes requires gauntlets of power.
+    As iron gloves, they interfere with spellcasting.
+    
+    Monsters wearing gauntlets of power add 3-6 damage to their
+    weapon attacks, with no effect on monsters that cannot wield weapons.
+
 # gas spore -- see *spore
 gehenn*
 *h?nnom
@@ -3459,6 +3655,16 @@ halberd
 	for penetration of heavy plate armor, with a secondary function as a 
 	hook for dismounting opponents. 
 hawaiian*shirt
+    A shirt is a piece of armor worn underneath body armor.
+    All Tourists start with a +0 Hawaiian shirt.
+    
+    If you go shopping when wearing a Hawaiian shirt and the 
+    shopkeeper sees it (i.e., there is no body armor or cloak over 
+    it), he will charge an extra 1/3 markup and buy things for 
+    1/3 of the base price.
+    
+    Hawaiian shirts can be (r)ead to observe the design on the apparel.
+    
 	'One of the things he can't do, he can't ride a horse,' he
 	said.  Then he stiffened as if sandbagged by a sudden
 	recollection, gave a small yelp of terror and dashed into
@@ -3468,6 +3674,18 @@ hawaiian*shirt
 	a shirt in such a violent and vivid conflict of colours that
 	the Weasel's fastidious eye was offended even in the half-light.
 		[ The Colour of Magic, by Terry Pratchett ]
+t?shirt
+    A shirt is a piece of armor worn underneath body armor.
+    
+    If you go shopping when wearing a T-shirt and the shopkeeper sees 
+    it (i.e., there is no body armor or cloak over it), he will charge
+    an extra 1/3 markup and buy things for 1/3 of the base price.
+    
+    Reading a T-shirt will display a message. The message is dependent
+    on the item's object ID, so it will remain consistent for any one 
+    T-shirt. If the shirt is eroded, some of the text might be altered, 
+    just as an engraving would be. Reading a T-shirt breaks the 
+    illiterate conduct.
 hecubus
 	Sir Simon Milligan:
 	  Hecubus, have you seen the movie "Presumed Innocent?"
@@ -3531,6 +3749,60 @@ hell hound*
 	dark form and savage face which broke upon us out of the wall
 	of fog.
 	  [ The Hound of the Baskervilles, by Sir Arthur Conan Doyle. ]
+helm of brilliance
+     Modifies the wearer's Intelligence and Wisdom by its amount of
+     enchantment, in addition to its normal AC bonus. Wearing an 
+     enchanted helm of brilliance will auto-identify it, as will 
+     enchanting the helm at +0. Even though the helm of brilliance is
+     iron, it does not hinder spellcasting.
+helm of opposite alignment
+    Switch you to the alignment opposite your current one when worn - 
+    this will autocurse the helm, remove any divine protection you 
+    have acquired and set your alignment record to zero (even if it 
+    was previously negative).
+    
+    Removing the helm will restore your original alignment and remove
+    any protection obtained under your temporary alignment; wearing
+    or removing the helm will never restore any lost points of 
+    protection or alignment record. Attempting to put one on while in
+    the Quest branch will always fail and give a specific message - 
+    this will still remove any divine protection, but does not affect 
+    your alignment record.
+    
+    A lawful character donning the helm will become chaotic, and a 
+    chaotic character donning the helm will become lawful. For 
+    neutral characters, there is a a 50/50 chance of the helm 
+    switching them to lawful or chaotic, and each individual helm 
+    will always switch to the same alignment. While the helm does 
+    not change the alignment of monsters, aligned priests and minions
+    (whose alignment is linked to their god) will refuse to put it on.
+    
+    If your god was angry with you prior to wearing the helm, your 
+    "new" god will retain the previous god's anger status. Ascending 
+    while wearing a helm of opposite alignment will cut your score by
+    2⁄3.
+    
+    Gods will not consider a worn cursed helm of opposite alignment 
+    as trouble, and will not uncurse a worn helm of opposite alignment
+    as a favor, to prevent you from switching allegiance to a 
+    different god.
+    
+    Usually generated cursed.
+helm of speed
+    Allows the wearer to become very fast when worn.
+tinfoil hat
+    When worn, provides extrinsic psychic resistance.
+    
+    The tin foil hat protects the wearer from damage from a (master) 
+    mind flayer's psychic blast, with the downside that it also 
+    prevents the wearer from sensing monsters by telepathy. 
+helm of madness
+    Autocurses and causes hallucination when worn. Grants +3 charisma. 
+    Usually generated cursed.
+helm of telepathy
+    When worn, the helm grants 1 AC and extrinsic telepathy, but does
+    not auto-identify. Despite being a mind-enhancing helmet, it has
+    the same adverse effects on spellcasting as most other metal helms.
 hermes
 	Messenger and herald of the Olympians.  Being required to do
 	a great deal of travelling and speaking in public, he became
@@ -4171,6 +4443,12 @@ kelp*
 	vitamin and mineral content. Kelps are especially abundant in Japan,
 	and various foods known as kombu are made from them.
 		[ The Columbia Encyclopedia, Sixth Edition ]
+kicking boots
+    When worn, kicking boots add a +5 damage bonus to kick attacks
+    (unless the target is thick-skinned) and give them a chance to 
+    make an enemy "reel", knocking them backwards. Kicking boots also
+    increase the distance that kicked objects travel, and will 
+    guarantee success when kicking down doors.
 *ki-rin
 	The ki-rin is a strange-looking wingless flying creature.
 	It has scales, a mane like a lion, a tail, four legs with
@@ -5297,6 +5575,12 @@ mumak*
 	for the tomb.
 		[ Egyptian Magic, by E.A. Wallis Budge ]
 mummy wrapping
+    When worn, the mummy wrapping negates invisibility. It will
+    also block the effects of the spell of invisibility and wand of
+    make invisible.
+
+    This is the only type of cloak a giant can wear.
+    
 	He held a white cloth -- it was a serviette he had brought
 	with him -- over the lower part of his face, so that his
 	mouth and jaws were completely hidden, and that was the
@@ -5560,6 +5844,15 @@ ogre*
 	meal.
 		[ het Boek van de Regels; Het Oog des Meesters ]
 oilskin cloak
+    Can readily be identified by its unique appearance, a 
+    "slippery cloak", or the message given when you wear it 
+    (though this does not auto-identify it).
+
+    When wearing a non-cursed oilskin cloak, it functions as a 
+    permanently greased cloak. granting immunity to the drowning 
+    attack of eels; a non-cursed oilskin cloak will also protect 
+    metal body armor worn under it if you step into a moat.
+     
 	During our watches below we overhauled our clothes, and made
 	and mended everything for bad weather.  Each of us had made
 	for himself a suit of oil-cloth or tarpaulin, and these we
@@ -6054,6 +6347,22 @@ trident
     Has a special +4 to-hit bonus against swimming monsters that are 
     in water, and a secondary +2 to-hit bonus against any snake(S) or
     sea monster(;) that is not in water.
+poisonous cloak
+    The poisonous cloak is dangerous, as it can poison you, possibly 
+    fatally. The cloak has a randomized appearance, the dirty rag 
+    being the new random appearance added to accommodate it.
+
+    When worn, if you lack poison resistance, the cloak delivers a
+    poisoned attack with a 1 in 3 chance of being fatal, otherwise 
+    doing normal strength/hp damage and identifying the cloak. If you 
+    have poison resistance, the cloak has no effect, but gives the 
+    message "This cloak feels a little itchy." Although this 
+    unambiguously identifies the cloak, it does not actually self-
+    identify in this case.
+    
+    While worn, you will be prevented from regenerating.
+    
+    Usually generates cursed. 
 poseido*n
 	Poseido(o)n, lord of the seas and father of rivers and
 	fountains, was the son of Chronos and Rhea, brother of Zeus,
@@ -7256,6 +7565,15 @@ ring of p'hul
 	what both sides fought for."
 		[ The Sword of Bheleu, by Lawrence Watt-Evans ]
 robe
+    Robes in Hack'EM are not like robes in vanilla NetHack. They are 
+    worn in the body armor slot, but do not interfere with, nor 
+    enhance (excepting the robe of power) spellcasting or a Monk's 
+    martial arts. They also provide MC 0 and AC 1, instead of MC 2 
+    and AC 2 in vanilla (The robe of protection is an exception in 
+    that it provides AC 5 and MC 1.)
+
+    Robes can be grafted with dragon scales.
+    
 	Robes are the only garments, apart from Shirts, ever to have
 	sleeves.  They have three uses:
 	1.  As the official uniform of Priests, Priestesses, Monks,
@@ -7267,6 +7585,14 @@ robe
 	2.  For Kings.  The OMT here is _falling in stately folds_.
 	3.  As the garb of Desert Nomads.  [...]
 	    [ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
+robe of power
+    Enhances your spellcasting ability (its enchantment makes no 
+    difference).
+robe of weakness
+    Not a desirable item to wear: it sets your strength to 3. 
+    Its effect will cancel if combined with gauntlets of power.
+    
+    Usually generated cursed
 robert the lifer
 	They send you here for life, that’s exactly what they take.
 	The part that counts, anyways.
@@ -8728,6 +9054,11 @@ sting
 	"I will give you a name," he said to it, "and I shall call
 	you Sting."
 		[ The Hobbit, by J.R.R. Tolkien ]
+stomping boots
+    While wearing stomping boots, you will insta-kill any very small
+    monsters you attack. This will also wake nearby monsters 
+    regardless of stealth.
+    	
 stormbringer
 	There were sounds in the distance, incongruent with the
 	sounds of even this nameless, timeless sea: thin sounds,
@@ -8765,6 +9096,31 @@ straw golem
 	pole stuck up its back.
 		[ The Wonderful Wizard of Oz, by L. Frank Baum ]
 striped shirt
+    A type of shirt added in the Convict Patch, and found in all 
+    variants that include the Convict role. Convicts begin the game
+    wearing a cursed striped shirt as a prison uniform.
+    
+    The striped shirt is equivalent to the existing shirts, the T-shirt
+    and Hawaiian shirt. It can be worn under regular torso armor.
+    
+    What makes this shirt different from the others is that if a 
+    shopkeeper sees you wearing an uncovered striped shirt, (s)he 
+    will conclude that you are a fugitive from the law and will not 
+    merely hike up prices, as with the other shirts, but will actually
+    stand in the doorway of the establishment, blocking entry: 
+        "I don't serve your kind here."
+    
+    This will only happen if there is a worn, uncovered striped shirt.
+    Shopkeepers will not notice shirts under torso armor or a cloak,
+    and they will not object if a scruffy visitor tries to sell 
+    them something that looks suspiciously like a discarded prison 
+    uniform. However, shopkeepers who have seen a customer in stripes 
+    even once will remember the sight and continue to refuse access,
+     even after the customer removes the shirt or covers it up.
+    
+    In UnNetHack, black marketeer One-eyed Sam is an exception: if she
+    sees a customer wearing a striped shirt, she will reduce her prices.
+    
 	After about one hour's ride, we arrived at the so-called
 	penitentiary.  [...] Here I was put into a suit of "stripes"
 	--no underwear or socks-- just a two-piece suit of cotton
@@ -9082,6 +9438,9 @@ sea tortle
 	winter approaches.
 		[ The Tortle Package (Wizards of the Coast),
 			by Christopher Perkins and Jeremy Crawford ]
+toque
+    Provides extrinsic sonic resistance when worn.
+    
 touch*stone
 	"Gold is tried by a touchstone, men by gold."
 		[ Chilon (c. 560 BC) ]
@@ -10776,31 +11135,29 @@ zruty
 	
 ##
 # Artifact lookup info
-
 Spear of Light
-	Invoke:          Permanently lights a section of the dungeon
-	                 with a radius of 12 squares and also damages 
-	                 undead and demons caught in thelight. Note that
-	                 the spear is intelligent and will therefore 
-	                 blast you if you are not Lawful.
-                    
-                     Within this radius, undead and demons take 
-                     damage. This damage will never actually kill 
-                     these monsters; A minimum of 1 remaining hit 
-                     point is ensured. This will also not anger any
-                     peaceful undead it affects or decrease tameness
-                     of tame undead.
-                    
-                     Note that if you are playing as a vampire or are 
-                     polymorphed into an undead or demon, your hit 
-                     points will be divided by 100, with no minimum 
-                     cutoff of one hit point. Death from this hit 
-                     point loss will not revert you to your normal 
-                     form, and will instead kill you outright. Also
-                     note that high-level or high-MR monsters may 
-                     resist this damage altogether.
-
-   
+	Invoke:
+	Permanently lights a section of the dungeon
+    with a radius of 12 squares and also damages 
+    undead and demons caught in thelight. Note that
+    the spear is intelligent and will therefore 
+    blast you if you are not Lawful.
+    
+    Within this radius, undead and demons take 
+    damage. This damage will never actually kill 
+    these monsters; A minimum of 1 remaining hit 
+    point is ensured. This will also not anger any
+    peaceful undead it affects or decrease tameness
+    of tame undead.
+    
+    Note that if you are playing as a vampire or are 
+    polymorphed into an undead or demon, your hit 
+    points will be divided by 100, with no minimum 
+    cutoff of one hit point. Death from this hit 
+    point loss will not revert you to your normal 
+    form, and will instead kill you outright. Also
+    note that high-level or high-MR monsters may 
+    resist this damage altogether.
 Cleaver
 	Attacks in a wide arc and can hit multiple monsters in an arc 
 	with one swing: each attack will first strike the monster 45 
@@ -10810,7 +11167,6 @@ Cleaver
 	discriminate between hostile monsters and pets or peaceful 
 	monsters. If attacking while held or engulfed, you can only hit 
 	the monster holding or engulfing you.
-
 Magicbane
     A highly enchanted athame said to hold the power to channel
 	and direct magical energy.
@@ -10854,8 +11210,6 @@ Magicbane
     - absorbs energy and increases current and maximum energy by 1.
     - Odds drop significantly once enchanted past +2
     - Absorption occurs regardless of if the target is already canceled
-
-    
 Mjollnir
     Mjollnir can be thrown when wielded if hero has 25 Strength
     (usually via gauntlets of power but possible with rings of
@@ -10867,7 +11221,6 @@ Mjollnir
     
     Monsters don't throw Mjollnir regardless of strength (not even
     fake-player valkyries).
-
 Dirge
     - From SporkHack, but with a twist. 
     - This is the anti-Excalibur, the "Dark Knight's sword"
@@ -10878,15 +11231,12 @@ Dirge
       become a 'long sword' regardless). Must have positive alignment.
     - You can throw Dirge at iron bars to dissolve them.
     - If it has not yet been generated, Graz'zt gets Dirge.
-
 Dragonbane
     Dragonbane is no longer a weapon, but a pair of magical gloves made from
     the scales of a long dead ancient dragon. The gloves afford much of the
     same special abilities as the weapon did, but swaps fire resistance for acid
     resistance. Other dragons will be able to sense the power of these gloves
     and will be affected accordingly.
-
-
 The Eye of Vecna
 	Invoke:          DEATH_MAGIC: When invoked, it causes the Eye to
 	                 death gaze at all monsters within visual range,
@@ -10906,7 +11256,6 @@ The Eye of Vecna
    	destroyed via stoning, his Eye will not appear. The Eye of Vecna 
    	can be eaten, but doing so is strongly discouraged. It can also be 
    	sacrificed on an altar for maximum value. 
-      
 The Hand of Vecna
 	Invoke:          DEATH_MAGIC: It can be invoked for its death
 	                 magic just like the Eye, killing or hurting any
@@ -10938,7 +11287,6 @@ The Hand of Vecna
     of Vecna is cursed, as it's not treated as worn armor. Objects 
     like a cockatrice corpse can also be handled without concern. The 
     Hand must be 'worn' for any of these abilities to function. 
- 
 Xiuhcoatl
     A dark wooden spear-thrower that does fire damage much like
     Mjollnir does electrical damage. From Aztec lore, Xiuhcoatl is 
@@ -10948,8 +11296,6 @@ Xiuhcoatl
     Can be thrown, and it will return to the thowers hand just like
     Mjollnir, but a dexterity of 18 or greater is required for this
     to happen (or dexterity of 21 or greater if not an Archeologist).
-
-    
 The Ring of P\'hul
     Based loosely off of the Ring of P'hul - from 'The Lords of Dus' series
     by Lawrence Watt-Evans. This is another one of those artifacts that would
@@ -10961,8 +11307,6 @@ The Ring of P\'hul
     hero is in a form that can't wear body armor or cloaks. So, we make the
     Barbarian artifact chaotic (why it was neutral before is a bit confusing
     to me as most vanilla Barbarian race/role combinations are chaotic).
-
-
 
 ##
 # Rank titles for the various roles.  Some of these keys won't reach here
@@ -10982,6 +11326,9 @@ spelunker
 speleologist
 collector
 curator
+    Archeologists get a luck bonus for wearing a fedora.
+    Archeologists can also safely enchant fedoras from a maximum of +5.
+        
 	Archelogist ranks
 	  title            level
 	Digger            1 to 2
@@ -11248,7 +11595,6 @@ paladin
 	But had the fortune in his age
 	To live a fool and die a sage.
 	  [ Don Quixote of La Mancha, by Miquel de Cervantes Saavedra ]
-	  
 dark kni* ranks
 dark knight
 sniveler
