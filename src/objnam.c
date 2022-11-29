@@ -528,7 +528,7 @@ boolean has_of;
         if ((props_known & ITEM_ESP)
             || dump_prop_flag) {
             Strcat(buf, of),
-            Strcat(buf, " telepathy"),
+            Strcat(buf, " perception"),
             Strcpy(of, " and");
         }
     }
@@ -4027,8 +4027,7 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_VENOM;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "telepathy", l = 9)
-                           || !strncmpi((p + 4), "ESP", l = 3)) {
+                } else if (!strncmpi((p + of), "perception", l = 9)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_ESP;
                     objpropcount++;
