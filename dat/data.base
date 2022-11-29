@@ -513,7 +513,13 @@ arioch
 	the Swords, Lord of the Seven Darks, Lord of the Higher Hell
 	and many more names besides.
 		[ Elric of Melnibone, by Michael Moorcock ]
-*arrow
+elven arrow
+elven bow
+    Elven roles shooting elven arrows from elven bows receive a multishot bonus.
+orcish arrow
+orcish bow
+    Orcish roles shooting orcish arrows from orcish bows receive a multishot bonus.
+arrow
 	I shot an arrow into the air,
 	It fell to earth, I knew not where;
 	For, so swiftly it flew, the sight
@@ -529,6 +535,18 @@ arioch
 	And the song, from beginning to end,
 	I found again in the heart of a friend.
 	  [ The Arrow and the Song, by Henry Wadsworth Longfellow ]
+ya
+    Samurai receive a multishot bonus when shooting ya from yumi.
+    
+	The arrow of choice of the samurai, ya are made of very
+	straight bamboo, and are tipped with hardened steel.
+yumi
+    Samurai receive a multishot bonus when shooting ya from yumi.
+    
+	The samurai is highly trained with a special type of bow,
+	the yumi.  Like the ya, the yumi is made of bamboo.  With
+	the yumi-ya, the bow and arrow, the samurai is an extremely
+	accurate and deadly warrior.
 ashikaga takauji
 	Ashikaga Takauji was a daimyo of the Minamoto clan who
 	joined forces with the Go-Daigo to defeat the Hojo armies.
@@ -585,6 +603,16 @@ asmodeus
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
 assassin bug
 	Even lowly vermin are capable of feats of deceit.
+assault rifle
+    The assault rifle has three modes of fire: automatic mode (which 
+    is default), burst mode (1/3 rate of fire), or single-shot mode. 
+    You can apply an assault rifle to switch between modes.
+auto shotgun
+    An auto shotgun is set on fully automatic mode by default, but
+    can be set to single-shot mode by applying it.
+submachine gun
+    A submachine gun is set on fully automatic mode by default, but
+    can be set to single-shot mode by applying it.
 athame
 	The consecrated ritual knife of a Wiccan initiate (one of
 	four basic tools, together with the wand, chalice and
@@ -918,7 +946,6 @@ rancid jelly
     lying on the ground. If an armed bomb explodes in your inventory, 
     you'll take damage despite any resistances you may have.
     
-    
     Bombs will become armed when they are thrown or applied. Note that
     applying a stack of bombs in your inventory will only arm a single 
     bomb. A bomb will explode 1-6 turns after having being armed, 
@@ -959,6 +986,9 @@ boomerang
 #	can get the morning paper and come back with it."
 #		[ Raising Steam, by Terry Pratchett ]
 #
+    When used as a melee weapon rather than thrown, a boomerang has a 
+    luck-dependent chance of breaking into splinters.
+    
 	Rincewind pulled himself up and thought about reaching for his
 	stick.  And then he thought again.  The man had a couple of spears
 	stuck in the ground, and people here were good at spears, because
@@ -1304,6 +1334,25 @@ kerberos
 	playing bewitching music on his lyre, and the other time when
 	Hercules confronted him and took him to the world of the
 	living (as his twelfth and last labor).
+chakram
+    Damage output is reduced to 1-2 point when used in melee combat.
+
+    The people of the kingdom ... are very good fighting men and good
+    knights, armed with many kinds of weapons; they are great bowmen, 
+    and very strong men; they have very good lances, swords, daggers,
+    steel maces, and battle-axes, with which they fight; and they have
+    some steel wheels, which they call chakarani, two fingers broad, 
+    sharp outside like knives, and without edge inside; and the 
+    surface of these is of the size of a small plate. And they carry 
+    seven or eight of these each, put on the left arm; and they take 
+    one and put it on the finger of the right hand, and make it spin 
+    round many times, and so they hurl it at their enemies, and if 
+    they hit anyone on the arm or leg or neck, it cuts through all. 
+    And with these they carry on much fighting, and are very 
+    dexterous with them.
+        [ Duarte Barbosa (1970). A Description of the Coasts of East 
+        Africa and Malabar. ]
+    
 chameleon
 	A small lizard perched on a brown stone.  Feeling threatened by
 	the approach of human beings along the path, it metamorphosed
@@ -1650,6 +1699,8 @@ crom*
 		[ The Tower of the Elephant, by Robert E. Howard ]
 ~*crossbow of carl
 crossbow*
+    Gnomes receive a multishot bonus when using crossbows.
+    
 	"God save thee, ancient Mariner!
 	From the fiends, that plague thee thus! -
 	Why look'st thou so?" - With my cross-bow
@@ -1747,6 +1798,8 @@ cyclops
 ~crude dagger
 ~runed dagger
 *dagger
+    Rogues receive a multishot bonus when throwing daggers.
+    
 	Is this a dagger which I see before me,
 	The handle toward my hand? Come, let me clutch thee.
 	I have thee not, and yet I see thee still.
@@ -5979,6 +6032,9 @@ hedgehog
 	of their working is a Management secret.
 	  [ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
 trident
+    Has a special +4 to-hit bonus against swimming monsters that are 
+    in water, and a secondary +2 to-hit bonus against any snake(S) or
+    sea monster(;) that is not in water.
 poseido*n
 	Poseido(o)n, lord of the seas and father of rivers and
 	fountains, was the son of Chronos and Rhea, brother of Zeus,
@@ -8273,6 +8329,8 @@ spibrawulf
 		[Virginia Woolf]
 throwing star
 shuriken
+    Monks receive a multishot bonus when throwing shuriken.
+    
 	You know, that's what I hate most about fighting against magic:
 	you never know what they're trying to do to you until it hits.
 	The sorceress knew what hit her, however.  Two of the shuriken
@@ -8449,6 +8507,11 @@ general
 	so is considered a wise thing.
 *spear
 javelin
+    Weapons in the spear class have a +2 to-hit bonus when hitting 
+    kebabable monster classes (X, D, J, N, H).
+    
+    Cavemen/Cavewomen receive a multishot bonus when throwing spears.
+    
 	- they come together with great random, and a spear is brast,
 	and one party brake his shield and the other one goes down,
 	horse and man, over his horse-tail and brake his neck, and
@@ -8540,8 +8603,7 @@ squeaky board
 	and this time so fairly that he fell heels over head into the
 	water, as the queen pin falls in a game of bowls.
 		[ The Merry Adventures of Robin Hood, by Howard Pyle ]
-~*staff of aesculapius
-staff of *
+		
 	Ged stooped and plucked a blade of wild grass that poked up
 	dry and frail out of the snow where the otak had lain dead.
 	This blade he held up, and as he spoke aloud to it in the
@@ -8552,6 +8614,26 @@ staff of *
 	their wings with it: it blazed only with the white magefire that
 	does not burn but drives away the dark.
 		[ A Wizard of Earthsea, by Ursula K. LeGuin ]
+
+staff of divination
+     Confers a 50% boost to spellcasting any divination-based spells
+     when wielded.
+staff of healing
+    Confers a 50% boost to spellcasting any healing-based spells when 
+    wielded.
+staff of necromancy
+    Confers a 50% boost to spellcasting any necromancy-based spells
+    when wielded.
+staff of matter
+    Confers a 50% boost to spellcasting any matter-based spells when
+    wielded. It is also slightly lighter than its counterparts.
+staff of escape
+    Confers a 50% boost to spellcasting any escape-based spells when
+    wielded.
+staff of war
+    Confers a 50% boost to spellcasting any attack-based spells when
+    wielded. It is heavier than its counterparts, but also has an 
+    extra d2 to-hit bonus.
 staff of aesculapius
 	This staff is considered sacred to all healers, as it truly
 	holds the powers of life and death.  When wielded, it
@@ -10520,6 +10602,14 @@ wood golem
 	Brimming full he fills!
 	  [ The Sorcerer's Apprentice, by Johann Wolfgang von Goethe,
 	      translation by Edwin Zeydel ]
+wooden stake
+    Gives a +1 to-hit bonus vs vampires, also has a chance of insta-
+    killing them. The chance is higher if you are:
+        - skilled or expert in daggers.
+        - An Undead Slayer
+        - Wielding the Stake of Van Helsing
+    Deals an extra 1d6 vs vampires. Also deals extra damage for the 
+    skill points listed above. 
 carl
 woodchuck
 	The Usenet Oracle requires an answer to this question!
@@ -10623,9 +10713,6 @@ xorn
 	that it becomes porous to inert material.  This gives it the
 	ability to pass through any obstacle that might be between it
 	and its next meal.
-ya
-	The arrow of choice of the samurai, ya are made of very
-	straight bamboo, and are tipped with hardened steel.
 yeenoghu
 	Yeenoghu, the demon lord of gnolls.  He casts magic projectiles
 	at those close to him, and a mere gaze into his piercing eyes
@@ -10654,11 +10741,6 @@ yuki-onna
 	Japanese leather archery gloves.  Gloves made for use while
 	practicing had thumbs reinforced with horn.  Those worn into
 	battle had thumbs reinforced with a double layer of leather.
-yumi
-	The samurai is highly trained with a special type of bow,
-	the yumi.  Like the ya, the yumi is made of bamboo.  With
-	the yumi-ya, the bow and arrow, the samurai is an extremely
-	accurate and deadly warrior.
 *zombi*
 * witherling
 	The zombi... is a soulless human corpse, still dead, but
@@ -10966,6 +11048,9 @@ nomad
 rover
 pioneer
 neanderthal*
+    Cavemen/Cavewomen receive a multishot bonus when throwing spears
+    or shooting missiles from a sling.
+    
 	Caveman/Cavewoman ranks
 	  title            level
 	Troglodyte        1 to 2
@@ -11025,6 +11110,9 @@ magister
 magistra
 physician
 chirurgeon
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+        Note: Doesn't apply to knives
+    
 	Healer ranks
 	  title            level
 	Rhizotomist       1 to 2
@@ -11072,6 +11160,9 @@ splanchomancer
 malefic*
 demonologist
 heresiarch
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+        Note: Doesn't apply to daggers.
+    
 	Infidel ranks
 	  title            level
 	Apostate          1 to 2
@@ -11178,6 +11269,8 @@ student of metals
 student of winds
 student of fire
 master
+    Monks receive a multishot bonus when throwing shuriken.
+    
 	Monk ranks
 	  title            level
 	Candidate         1 to 2
@@ -11242,6 +11335,8 @@ canon*
 lama
 ?atriarch
 high priest*
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+    
 	Priest/Priestess/Cleric ranks
 	  title            level
 	Aspirant          1 to 2
@@ -11286,6 +11381,8 @@ arbalester
 archer
 sharpshooter
 marks*man
+    Rangers receive a multishot bonus in all thrown weapons, except daggers.
+
 	Ranger ranks
 	  title            level
 	Tenderfoot        1 to 2
@@ -11325,6 +11422,8 @@ burglar
 filcher
 mags*man
 thief
+    Rogues receive a multishot bonus when throwing daggers.
+
 	Rogue ranks
 	  title            level
 	Footpad           1 to 2
@@ -11362,6 +11461,8 @@ kokushu
 daimyo
 kuge
 shogun
+    Samurai receive a multishot bonus when shooting ya from yumi.
+    
 	Samurai ranks
 	  title            level
 	Hatamoto          1 to 2
@@ -11399,6 +11500,9 @@ journeyer
 voyager
 explorer
 adventurer
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+        Note: Doesn't apply to darts.
+    
 	Tourist ranks
 	  title            level
 	Rambler           1 to 2
@@ -11487,6 +11591,8 @@ sorceress
 warlock
 witch
 mage
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+    
 	Wizard ranks
 	  title            level
 	Evoker            1 to 2
@@ -11545,6 +11651,9 @@ icer
 freezer
 sublimer
 ice-master
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+        Note: Doesn't apply to knives
+        
 	Ice Mage ranks
 	  title            level
 	Cooler            1 to 2
@@ -11575,6 +11684,8 @@ ghoul master
 necromancer
 undead master
 lich lord
+    Weak multishot (doesn't get a volley bonus until becoming expert)
+    
 	Necromancer ranks
 	  title            level
 	Gravedigger       1 to 2
