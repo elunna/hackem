@@ -471,10 +471,6 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
             else if (parameter)
                 bonchance += otmp->quan;
         }
-
-    /* STEPHEN WHITE'S NEW CODE */
-    if (uarmh && uarmh->otyp == FEDORA && !uarmh->cursed) 
-        bonchance += 2;
 	
     return sgn((int) bonchance);
 }
