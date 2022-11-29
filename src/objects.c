@@ -1121,11 +1121,12 @@ SCROLL(None, "HZLRC KSTSBD MPFNG",  1,   0, 100),
 SCROLL(None,            "NYEHEHE",  1,   0, 100), /* laughing noise */
 SCROLL(None,      "ELPHE MONATER",  1,   0, 100), /* famous mistranslation */
 SCROLL(None,               "ABAJ",  1,   0, 100), /* famous mistranslation */
-SCROLL(None,     "CONGLATURATION",  1,   0, 100), /* famous mistranslation */
+SCROLL(None,  "CONG LAT URAT ION",  1,   0, 100), /* famous mistranslation */
 SCROLL(None,       "DESUM TETRAL",  1,   0, 100), /* dal aos */
 SCROLL(None,            "NHINRL",   1,   0, 100), /* meta */
 SCROLL(None,          "ISAY INAY",  1,   0, 100), /* meta */
 SCROLL(None,        "PEBCAK RTFM",  1,   0, 100), /* Slang */
+SCROLL(None,        "KA TET",  1,   0, 100), /* Dark Tower */
     /* These must come last because they have special fixed descriptions.
      */
 #ifdef MAIL
@@ -1322,11 +1323,11 @@ WAND(None,        "alabaster", 0, 150, 1, 0,         MINERAL,  CLR_BROWN),
 WAND(None,        "orichalcum",0, 150, 1, 0,         METAL,    HI_METAL),
 WAND(None,        "electrum",  0, 150, 1, 0,         METAL,    HI_GOLD),
 WAND(None,          "holly",   0, 150, 1, 0, WOOD, HI_WOOD),
-WAND(None,          "pliable", 0, 150, 1, 0, WOOD, HI_WOOD),
-WAND(None,          "bone",    0, 150, 1, 0, BONE, CLR_WHITE),
+WAND(None,          "pliable", 0, 150, 1, 0, PLASTIC, HI_WOOD),
 WAND(None,     "dragon-bone",  0, 150, 1, 0, BONE, CLR_WHITE),
 WAND(None,          "golden",  0, 150, 1, 0, GOLD, HI_GOLD),
 WAND(None,            "thin",  0, 150, 1, 0, IRON, HI_METAL),
+WAND(None,        "porcelain", 0, 150, 1, 0,         GLASS,    CLR_WHITE),
 #undef WAND
 
 /* coins ... - so far, gold is all there is */
