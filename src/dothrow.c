@@ -1927,15 +1927,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             break;
         }
     }
-    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
-        /* This is needed because otherwise we miss way too much */
-        if (P_SKILL(P_MATTER_SPELL) >= P_BASIC) 
-            tmp += 14;
-        if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) 
-            tmp += 2;
-        if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) 
-            tmp += 2;
-    }
+
     if (obj->otyp == SPIKE)
         tmp += 5;  /* For when we are poly'd into a manticore */
     
