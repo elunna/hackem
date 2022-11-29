@@ -6389,7 +6389,8 @@ potion of acid
     - cursed: 2d8 damage 
     
 	- A potion of acid may not be diluted to water. 
-	- If #dipped in water, acid will explode and cause you 1-10 
+	- Acid potions are immune to being destroyed by freezing
+	- If #dipped in water, acid will explode and cause you 6 + 1d10 
 	  points of damage (except in containers)
 	- Dipping items vulnerable to corrosion such as iron erodes
 	  the dipped item.
@@ -6623,8 +6624,10 @@ potion of gain level
                                                alchemical blast (1/10 chance)
 potion of hallucination
     When quaffed, this potion causes temporary hallucination.
-    - blessed: Causes you to hallucinate for 300-499 turns.
-    - uncursed: Causes you to hallucinate for 600-799 turns
+    - blessed: Causes you to hallucinate for 300-499 turns. 
+      Has a 1 in 3 chance of granting enlightenment.
+    - uncursed: Causes you to hallucinate for 600-799 turns. 
+      Has a 1 in 6 chance of granting enlightenment.
     - cursed: Causes you to hallucinate for  900-1099 turns.
     
 	- Dipping a unicorn horn into this neutralizes it into uncursed water.
@@ -6778,6 +6781,7 @@ potion of oil
 	  burn the dipped item(s) if possible.
 	- Dipping a rusty or corroded weapon into a non-cursed potion of
 	  oil removes one degree of damage.
+	- Oil is undilutable.
 	
 	To refuel: Dip the lamp into the potion of oil, which consumes
 	it. If the lamp is lit and the potion is not, the potion will
@@ -8315,8 +8319,11 @@ scroll of identify
 	identifying 2 items, and will never identify just one.
 
 	Confused effects: 
-	- The scroll's type is identified with no further effect. 
-	  ("You identify this as an identify scroll.")
+	- The scroll's type is identified:  ("You identify this as an 
+	  identify scroll.")
+	- You also get the enlightenment effect: "You identify yourself..."
+	 
+	  
 scroll of knowledge
     When read, this scroll allows for identification of any named item.
     - uncursed/cursed: You can specify one non-artifact item to learn
@@ -10497,7 +10504,8 @@ wand of slow monster
 wand of sonics
 	When zapped, it emits a ray of sound.
 	- Deals 6d6 damage to monsters in its path.
-	- Sonic rays can bounce from walls and destroys doors.
+	- Sonic rays can bounce from walls and will destroy doors, iron 
+	  bars, and drawbridges.
 
 	- Monsters hit by sonic rays are subject to sonic damage, which
 	  can destroy glass and crystal items.

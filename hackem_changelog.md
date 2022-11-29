@@ -11,6 +11,7 @@
 
 ## Table of Contents:
 
+- Quality-of-Life Features
 - New Monsters
 - Monster changes
 - Dragons and Dragon Scales
@@ -19,11 +20,76 @@
 - Spellbooks and spells
 - New Artifacts
 - Dungeon Features
-- Mechanics and Quality of Life Features
+- Mechanics Changes
 - Dungeon Changes/Special Rooms
 - Role changes
 - Race changes
 - Shops/Shopkeeper Services
+
+
+### Quality-of-Life Features
+
+- [x] Object lookups show more information, including object properties and special effects from materials.
+- [x] Artifacts can be looked up in the item database (currently only works if accessed through the inventory, requiring you to have possession of the artifact)
+
+- [x] All roles start out knowing potions of water and scrolls of identify
+- [x] Auto-ID dunce cap upon wearing
+- [x] Auto-ID jumping boots (from AceHack)
+- [x] Auto-ID some potions when inhaling their vapors
+- [x] Auto-ID scrolls of scare monster during pickup
+- [x] Auto-ID scrolls of teleportation when teleporting any distance after reading one
+- [x] Auto-ID scrolls of remove curse when items' curses are removed
+- [x] Auto-ID wand of teleportation on seeing the successful effect on a monster.
+- [x] Auto-ID wands with unambiguous effects and messages
+- [x] Auto-ID wand of undead turning if engraving produces a message
+- [x] Auto-ID wands of probing and secret door detection when engraved with
+- [x] Auto-ID vanishing wands if the other 2 have been identified.
+- [x] Auto-ID wands of sleep or death if their counterpart has been identified.
+- [x] Auto-ID wands of healing or extra healing if their counterpart has been identified.
+- [x] Auto-ID rings dropped into a sink when message is shown
+- [x] Auto-ID for ring of regeneration
+- [x] Auto-ID whistles on use
+- [x] Audo-ID magic flutes and harps on use
+- [x] Auto-ID magic lamps and oil lamps when rubbing
+- [x] Auto-ID loadstones upon discovering the inability to drop them.
+- [x] Auto-ID flintstones when rubbed on iron weapons.
+- [x] Auto-ID water walking boots
+- [x] Auto-ID BUC of products from BUC identified item generator (from UnNetHackPlus).
+- [x] Rustproof/erodeproof/fixed status is known by default for all items (from DynaHack).
+- [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
+- [x] Non-cursed charging identifies how many charges an item has (from AceHack).
+- [x] You can reread a spellbook to refresh your memory at any time
+- [x] After a while of using a wielded weapon, you will identify it and it's enchantment
+- [x] Blessed stethoscopes can identify eggs (on the floor)
+- [x] The player's magic cancellation (MC) is shown in the status bar.
+- [x] Show the last turn the player prayed in the ^X screen
+- [x] Only blessed scrolls of charging identify the charges of an item.
+- [x] Remove "Auto-select every item" when putting into containers
+- [x] Default shk sell prompt to N (xnh)
+- [x] Regeneration only causes additional hunger when injured.
+- [x] Removed two-weaponing restrictions imposed in EvilHack.
+- [x] 1-damage hits still train weapon/unarmed skills (from DynaHack).
+- [x] Monks eventually stop receiving the "You feel guilty	message	(xnh)
+- [x] Monsters cannot use wands of wishing.
+- [x] Chargeable rings may get charged when hit with electricity (3.7)
+- [x] Useless +0 rings are generate very rarely (xnh)
+- [x] Monsters are prevented from picking up gold in shops.
+- [x] The Astral Plane is always lit. (xnh)
+- [x] The passtune range has been extended by 1. (xnh)
+- [x] Switching between your main and alternative weapon should not take any turns (from dnh)
+- [x] Removed repeated coughing of player when poison resistance renders stinking clouds harmless.
+- [x] Removed all random secret corridors.
+- [x] Removed the Quest turn limit
+- [x] Deliberate level teleporter activation ignores magic resistance (3.7)
+- [x] /> < to auto-travel to stairs (from Unnethack)
+- [x] Control+Direction now kicks in that direction.
+- 
+
+Object lookup has been fleshed out:
+- [x] Potions, scrolls, rings, amulets, wands will display lookup info.
+- [x] Artifacts will show their info (must have the artifact in possession)
+- Weapons show bonus damage and effects resulting from materials.
+
 
 ## Monster changes
 
@@ -33,6 +99,7 @@
     - Can appear in main dungeon; increased difficulty by 7.
 - (a) giant flea
     - Can appear in main dungeon; increased difficulty by 7.
+    - Added jumping ability.
 - (a) giant louse
     - Can appear in main dungeon; increased difficulty by 7.
 - (a) giant fly
@@ -222,6 +289,7 @@
 - (q) sheep
     - Removed "always peaceful" flag
 - (q) goat
+    - Added jumping ability.
 - (q) cow
     - Removed "always peaceful" flag
 - (q) bull
@@ -716,6 +784,7 @@
 - [x] Rats: Can tamed with cheese
 - [x] gelatinous cube and green slime now have engulfing attacks
 - [x] Baby gray dragons: get MR20 (twice the other baby dragons)
+- [x] Dragons and Xorns eat hard gems
 - [x] Gnome Kings: Raised to lvl 9, gnome warriors to 7.
 - [x] Gnomes outside the Mines have a chance of generating with a few gems
 - [x] Dwarves have a 6/7 chance to be generated with a potion of booze (Outside of the mines)
@@ -727,11 +796,13 @@
   - can no longer be genocided. 
   - may generate with pistols, bullets and dagger/knife.
 - [x] Lichens: Got a weak slow touch attack.
+- [x] Giant beetles and giant spiders had their weight increased.
 - [x] Leprechauns will steal anything made of gold
 - [x] mind flayers/master mind flayers color changed to bright magenta.
 - [x] Decay attacks instakill paper golems
 - [x] Tigers are now orange. 
     - Tigers rarely drop a tiger eye ring when killed (xnh)
+- [x] Lynx, panthers, and jaguars can now jump.
 - [x] Mumakil and mastodons/woolly mammoth:
     - can attack with their trunks, grabbing onto and crushing their target. 
     - difficultly level increased 
@@ -834,7 +905,8 @@ The Wizard of Yendor:
 - can use any artifact weapons or armor that he steals against the player.
 - Color changed to bright magenta.
 - I reduced the chance Rodney gets an "oMR to 1 in 13 times (changed from Evil)
-    
+- The frequency of Rodney's harassment of the player now slightly depends on luck.
+
 The Riders:
 - have had their hit points increased significantly, and each Rider has its own steed which it rides, each with unique attacks and abilities.
 - Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8) (changed from Evil)
@@ -976,6 +1048,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] plain cloak
     - Replaces the leather cloak as part of the object materials system.
 - [x] poisonous cloak
+    - Now these are usually generated cursed.
+    - If worn, these also prevent regeneration (regardless of poison resistance)
 - [x] cloak of flight
 - [SKIPPED] lab coat (Evil/vanilla has alchemy smock)
 
@@ -1342,6 +1416,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - When the BoT has 0 charges, it is safe to put in a Bag of Holding.
     - Adjusted BoT #tip behavior - it stops when it reaches a non-monster effect.
       (This is a compromize between BoT behavior between UnNethack and Evil.)
+    - Putting blessed and uncursed scrolls of charging into a bag of tricks charges it.
 - [x] Unicorn horns:
     - no longer cure attribute loss;
     - they can now be wielded in one hand.
@@ -1754,6 +1829,7 @@ Imported some appearance effects from dNetHack:
     - no longer an athame, switched to a quarterstaff. 
     - None of its special abilities or functions have otherwise been changed.
     - Putting Magicbane into a bag of holding can explode the bag (and even destroy itself).
+    -  Magicbane no longer cancels inventory items
 - [x] Magic Mirror of Merlin
     - has had magic resistance removed. 
     - In its place is reflection and half spell damage when carried.
@@ -1810,6 +1886,19 @@ Imported some appearance effects from dNetHack:
 
 - wand of secret door detection: Detects traps and portals.
 
+### Grass
+
+    - Pulled from SpliceHack/xNetHack, we now have lush grass in the dungeon!
+    - Grass appears sparsely in the early levels, peaks around level 15, and then tapers off after level 22. 
+    - Hidey monsters can use grass as concealment.
+    - Fire scorches away grass and reverts it to normal floor
+
+### Blood
+
+    - Also pulled from Splice.
+    - When monsters are killed, they have a chance to spray blood in a random direction and color a tile red. No real effect on gameplay, purely aesthetic.
+    - Spraying bloody tiles with a ray of water (ie: from a wand of water) will clear the tile of it's blood.
+
 ### Toilets:
 
 	- I know toilets are a bit silly, but I have enhanced them so they are more
@@ -1842,13 +1931,16 @@ Imported some appearance effects from dNetHack:
 - [x] Added new recipes for various imported weapons
 - [x] Forges don't appear until after level 2.
 
-## Mechanics:
+## Mechanics Changes
 
 - [x] If the player tries to hit a monster with a weapon they are restricted/unskilled in, or any non-weapon object, they'll never have better than a 75% chance of landing a hit (bare-handed is exempt).
+- [x] Strength bonus for two-handed weaponry is x1.5 (EvilHack)
+    - The standard damage bonus for strength is multiplied 1.5 times when wielding a weapon using two hands, or if you're a giant one-handing a two-handed weapon (they're heavy)
 - [x] The player is unable to regenerate hit points while in the Valley of the Dead – healing via other methods (potions, healing spells) is still possible.
 - [x] Stoning – monsters being stoned is a slow-stoning process, just as it is for the player.
 - [x] Merged scimitar and saber skills.
 - [x] Add celibate conduct (slashem)
+- [x] Galloping duration depends on riding skills (idea by Beolach, code by Pasi Kallinen)
 
 ### Elbereth
 - You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
@@ -1896,6 +1988,14 @@ Imported some appearance effects from dNetHack:
     - I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves, boomerangs, and other wooden weapons.
     - I also added upgrade paths for all special new armors
     - The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
+
+### Gem Alchemy
+
+    - [x] Acid is no longer a useless endgame potion!
+    - [x] Gems dissolve in acid to produce new potions.
+    - [x] If the acid is cursed there will be an alchemical explosion, otherwise there is always a 1 in 30 chance of an explosion.
+    - [x] Use the object lookup (on a gem) to see what potion is created from a particular gem.
+
 
 #### Scare Monster: 
 
@@ -1950,62 +2050,6 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Can make you forget forget about shambling horrors.
 - Psychic resistance protects from amnesia forgetting. Sources include rings of psychic resistance and being an illithid.
 
-#### Quality-of-Life/Auto-ID:
-
-- [x] Object lookups show more information, including object properties and special effects from materials.
-- [x] Artifacts can be looked up in the item database (currently only works if accessed through the inventory, requiring you to have possession of the artifact)
-
-- [x] All roles start out knowing potions of water and scrolls of identify
-- [x] Auto-ID dunce cap upon wearing
-- [x] Auto-ID jumping boots (from AceHack)
-- [x] Auto-ID some potions when inhaling their vapors
-- [x] Auto-ID scrolls of scare monster during pickup
-- [x] Auto-ID scrolls of teleportation when teleporting any distance after reading one
-- [x] Auto-ID wand of teleportation on seeing the successful effect on a monster.
-- [x] Auto-ID wands with unambiguous effects and messages
-- [x] Auto-ID wand of undead turning if engraving produces a message
-- [x] Auto-ID wands of probing and secret door detection when engraved with
-- [x] Auto-ID vanishing wands if the other 2 have been identified.
-- [x] Auto-ID wands of sleep or death if their counterpart has been identified.
-- [x] Auto-ID wands of healing or extra healing if their counterpart has been identified.
-- [x] Auto-ID rings dropped into a sink when message is shown
-- [x] Auto-ID for ring of regeneration
-- [x] Auto-ID whistles on use.
-- [x] Audo-ID magic flutes and harps on use
-- [x] Auto-ID magic lamps and oil lamps when rubbing
-- [x] Auto-ID loadstones upon discovering the inability to drop them.
-- [ ] Auto-ID flintstones when rubbed on iron weapons.
-- [x] Auto-ID water walking boots
-- [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
-- [x] Non-cursed charging identifies how many charges an item has (from AceHack).
-- [x] You can reread a spellbook to refresh your memory at any time
-- [x] After a while of using a wielded weapon, you will identify it and it's enchantment
-- [x] Blessed stethoscopes can identify eggs (on the floor)
-- [x] The player's magic cancellation (MC) is shown in the status bar.
-- [x] Show the last turn the player prayed in the ^X screen
-- [x] Only blessed scrolls of charging identify the charges of an item.
-- [x] Remove "Auto-select every item" when putting into containers
-- [x] Default shk sell prompt to N (xnh)
-- [x] Regeneration only causes additional hunger when injured.
-- [x] Removed two-weaponing restrictions imposed in EvilHack.
-- [x] Monks eventually stop receiving the "You feel guilty	message	(xnh)
-- [x] Monsters cannot use wands of wishing.
-- [x] Chargeable rings may get charged when hit with electricity (3.7)
-- [x] Useless +0 rings are generate very rarely (xnh)
-- [x] The Astral Plane is always lit. (xnh)
-- [x] The passtune range has been extended by 1. (xnh)
-- [x] Switching between your main and alternative weapon should not take any turns (from dnh)
-- [x] Deliberate level teleporter activation ignores magic resistance (3.7)
-- [x] /> < to auto-travel to stairs (from Unnethack)
-- [x] Control+Direction now kicks in that direction.
-- 
-
-Object lookup has been fleshed out:
-- [x] Potions, scrolls, rings, amulets, wands will display lookup info.
-- [x] Artifacts will show their info (must have the artifact in possession)
-- Weapons show bonus damage and effects resulting from materials.
-
-
 #### Religion/Prayer/Alters:
 
 - Make temple priests hostile if made on an unaligned altar.
@@ -2035,6 +2079,7 @@ Object lookup has been fleshed out:
 - It also promotes the growth of herbs left on the ground or water.
 - Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles: these include garlic, wolfsbane, catnip, carrots, kelp fronds, and mushrooms (technically not herbs but they do spread prolifically). Herbs in the water will move with water currents.
 - One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
+- Level with trees have a chance of an additional axe (to aid with potential overgrowth)
 
 #### alchemy
 
@@ -2401,6 +2446,7 @@ Renews magical power:
 - Club moved from skilled to basic. 
 - Spear skill added, can be trained to expert.
 - Archeologists can highly enchant fedoras (xnh)
+- Only archeologists get a luck bonus from wearing fedoras.
 
 #### Barbarians:
 
@@ -2451,6 +2497,7 @@ Renews magical power:
 - Because of the extra random kick attack at master/grand master level, players will need to be mindful of wearing boots of some sort, as kicking a footrice/basilisk barefoot equals instant petrification.
 - Monks now receive extra intrinsics as they level up into the higher experience tiers (telepathy at 20, water walking at 23, stoning resistance at 25, disintegration resistance at 27, and sickness resistance at 30).
 - Reverted the starting spell of confuse monster; Monks can again start with the spell of sleep.
+- Monks get a 1AC bonus for being drunk (confused).
 
 #### Priest
     
@@ -2468,10 +2515,11 @@ Renews magical power:
 #### Rogues
 
 - Rogues get scrolls of teleport and gold detection (2 each) and oilskin sack
-- Rogues also get darts; 30% that they are replaced with a pistol and bullets.
+- Rogues also get darts; 30% chance that they are replaced with a pistol and bullets.
 - new trainable skill known as 'thievery', which allows the rogue to pickpocket a target and steal items from their inventory (must be bare-handed to use, press shift + f and then a movement key in the direction of the target).
 - If the target is peaceful, there is a chance the target will not notice depending on the players' skill in thievery.
 - Critical strike from behind works while twoweaponing.
+- Grimtooth is the first sacrifice gift for Rogues.
 
 #### Samurai
 
@@ -2484,6 +2532,7 @@ Renews magical power:
 - Tourists start with all of their optional equipment. 
 - The magic marker that a tourist starts with is always 0:0.
 - Twoweaponing: Tourists from skilled to basic.
+- Tourists receive at most 1 PW per level up (they do not have any innate magic ability.)
 
 #### Valkyrie
 
@@ -2699,6 +2748,11 @@ Tinker service:
 - [x] mask shop (from SpliceHack)
 - [x] Gun shops (from SlashTHEM)
 
+#### Misc shop changes
+
+- [x] Lighting shops can carry wands of light/lightning.
+- [x] Delis can carry meat sticks and huge chunks of meat.
+
 ## Credits
 
 ### Special thanks to: 
@@ -2712,3 +2766,4 @@ Tinker service:
 
 
 ==========================
+
