@@ -1275,6 +1275,8 @@ short otyp;
     
     
     if (olet == FOOD_CLASS) {
+        int cnum = obj ? obj->corpsenm : 0;
+        
         if (otyp == TIN || otyp == CORPSE) {
             if (obj && (obj->otyp == CORPSE)) {
                 Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
@@ -1284,9 +1286,9 @@ short otyp;
             }
             OBJPUTSTR("Takes various amounts of turns to eat.");
             if (obj) {
-                if (vegan(&mons[obj->corpsenm])) {
+                if (vegan(&mons[cnum])) {
                     OBJPUTSTR("Is vegan.");
-                } else if (vegetarian(&mons[obj->corpsenm])) {
+                } else if (vegetarian(&mons[cnum])) {
                     OBJPUTSTR("Is vegetarian but not vegan.");
                 } else {
                     OBJPUTSTR("Is not vegetarian.");
@@ -1294,6 +1296,17 @@ short otyp;
             } else {
                 OBJPUTSTR("May or may not be vegetarian.");
             }
+            
+            if ((amorphous(&mons[cnum]) 
+                 || slithy(&mons[cnum])
+                 || mons[cnum].mlet == S_BLOB)
+                && mons[cnum].mlet != S_SNAKE 
+                && mons[cnum].mlet != S_NAGA
+                && mons[cnum].mlet != S_MIMIC) {
+                
+                OBJPUTSTR("Consuming this can cause slippery fingers.");
+            }
+            
         } else {
             Sprintf(buf, "Comestible providing %d nutrition.", oc.oc_nutrition);
             OBJPUTSTR(buf);
@@ -1322,6 +1335,9 @@ short otyp;
                 default:
                     OBJPUTSTR("Is vegan.");
                 }
+            }
+            if (obj && Is_pudding(obj)) {
+                OBJPUTSTR("Consuming this can cause slippery fingers.");
             }
         }
     }
