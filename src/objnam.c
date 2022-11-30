@@ -4002,7 +4002,8 @@ struct obj *no_wish;
                 if ((mntmp = name_to_mon(p + of)) >= LOW_PM) {
                     *p = 0;
                     p = 0;
-                } else if (!strncmpi((p + of), "fire", l = 4) && strncmpi(bp, "scroll", l = 5)) {
+                } else if (!strncmpi((p + of), "fire", l = 4)
+                           && strncmpi(bp, "scroll", l = 5)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FIRE;
                     objpropcount++;
@@ -4026,7 +4027,8 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_VENOM;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "telepathy", l = 9)
+                } else if ((!strncmpi((p + of), "telepathy", l = 9)
+                            && strncmpi(bp, "helm", l = 4))
                            || !strncmpi((p + 4), "ESP", l = 3)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_ESP;
@@ -4039,7 +4041,11 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WARNING;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "fumbling", l = 8)) {
+                } else if (!strncmpi((p + of), "fumbling", l = 8)
+                           && strncmpi(bp, "gauntlets", l = 9)) {
+                    /* do not need to account for 'boots' here,
+                       as they don't exist, you'd wish for 'fumble
+                       boots' instead */
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FUMBLING;
                     objpropcount++;
