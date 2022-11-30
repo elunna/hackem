@@ -1261,7 +1261,7 @@ genericptr_t poolcnt;
         switch (ttmp->ttyp) {
         case FIRE_TRAP:
             deltrap(ttmp);
-            break;
+            return;
         case ANTI_MAGIC:
         case RUST_TRAP: 
         case SLP_GAS_TRAP: 
