@@ -3861,10 +3861,21 @@ boolean was_swallowed; /* digestion */
     
     /* Create a blood splatter. */
     if (has_blood(mdat)) {
-        x = mon->mx - 1 + rn2(3);
-        y = mon->my - 1 + rn2(3);
-        if (isok(x, y))
-            add_blood(x, y, mon->mnum);
+        int spatters = 1;
+        /* Vary blood by size */
+        if (verysmall(mdat))
+            /* No (or very little) blood for super tiny */
+            spatters = !rn2(20) ? 1 : 0;
+        else if (bigmonst(mdat))
+            /* More spatter for biggies */
+            spatters = !rn2(10) ? 2 : 3;
+        
+        for (; spatters > 0; spatters--) {
+            x = mon->mx - 1 + rn2(3);
+            y = mon->my - 1 + rn2(3);
+            if (isok(x, y))
+                add_blood(x, y, mon->mnum);
+        }
     }
 
     /* must duplicate this below check in xkilled() since it results in
