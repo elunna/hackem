@@ -3285,8 +3285,9 @@ lookaround()
 
             if (IS_ROCK(levl[x][y].typ) 
                 || levl[x][y].typ == ROOM
-                || levl[x][y].typ == GRASS
-                || (IS_AIR(levl[x][y].typ) && !In_V_tower(&u.uz))) {
+                || levl[x][y].typ == ICE
+                || IS_GRASS(levl[x][y].typ)
+                || IS_AIR(levl[x][y].typ)) {
                 continue;
             } else if (closed_door(x, y) || (mtmp && is_door_mappear(mtmp))) {
                 if (x != u.ux && y != u.uy)
