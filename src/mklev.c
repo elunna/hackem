@@ -764,13 +764,12 @@ mkgrass(void)
 
     for (x = 0; x < COLNO; x++) {
         for (y = 0; y < ROWNO; y++) {
-            if (levl[x][y].bk) {
-                if (levl[x][y].typ == ROOM) {
+            if (!inside_shop(x, y)) {
+                if (levl[x][y].bk && levl[x][y].typ == ROOM) {
                     levl[x][y].typ = GRASS;
                 }
             }
-            if (!inside_shop(x, y))
-                levl[x][y].bk = 0;
+            levl[x][y].bk = 0;
         }
     }
 
@@ -1018,10 +1017,6 @@ makelevel()
         goto skip0;
     makecorridors();
     make_niches();
-
-    /* make grass */
-    if ((depth(&u.uz) >= 15 && depth(&u.uz) < 30) || !rn2(5))
-        mkgrass();
     
     if (!rn2(5))
         make_ironbarwalls(rn2(20) ? rn2(20) : rn2(50));
@@ -1118,6 +1113,10 @@ makelevel()
     }
 
  skip0:
+     /* make grass */
+     if ((depth(&u.uz) >= 15 && depth(&u.uz) < 30) || !rn2(5))
+         mkgrass();
+     
     /* Place multi-dungeon branch. */
     place_branch(branchp, 0, 0);
 
@@ -1174,7 +1173,7 @@ makelevel()
             mktoilet(croom);
         }
 
-        /* Forges only start appearing below level 5 */
+        /* Forges only start appearing below level 2 */
         if (!rn2(40) && depth(&u.uz) > 2)
             mkforge(0, croom);
         if (!rn2(60))
