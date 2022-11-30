@@ -535,6 +535,7 @@ int x, y, typ;
         if (Sokoban)
             maybe_finish_sokoban();
     }
+    maybe_unhide_at(x, y);
     return ttmp;
 }
 
