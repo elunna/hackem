@@ -1788,16 +1788,18 @@ shk_other_services()
     /* Init the shopkeeper */
     shkp = shop_keeper(/* roomno= */*u.ushops);
     struct permonst *shkdat = &mons[ERAC(shkp)->rmnum];
-    if (!ESHK(shkp)->services) 
-        return result;
-
+    
     /* Init your name */
     if (!same_race(youmonst.data, shkdat))
         slang = "ugly";
     else
         slang = flags.female ? "lady" : "buddy";
-
-
+    
+    if (!ESHK(shkp)->services) {
+        pline("Sorry %s, I have no services to offer you.", slang);
+        return result;
+    }
+    
     /* Figure out what services he/she offers */
     /*WAC - did this using the windowing system...*/
     any.a_void = 0;         /* zero out all bits */
@@ -1938,29 +1940,28 @@ shk_other_services()
     }
     
     /* Rumors */
-    any.a_int = 23;
-    add_menu(tmpwin, NO_GLYPH, &any , 'r', 0, ATR_NONE,
-             "Rumors", MENU_ITEMFLAGS_NONE);
-    
+    if (ESHK(shkp)->services & SHK_RUMOR) {
+        any.a_int = 23;
+        add_menu(tmpwin, NO_GLYPH, &any, 'r', 0, ATR_NONE, "Rumors",
+                 MENU_ITEMFLAGS_NONE);
+    }
     /* Firearms training */
-    any.a_int = 24;
     if (ESHK(shkp)->services & SHK_FIREARMS) {
+        any.a_int = 24;
         add_menu(tmpwin, NO_GLYPH, &any, 't', 0, ATR_NONE, "Train firearms",
                  MENU_ITEMFLAGS_NONE);
     }
     
-    
     /* Tinker*/
-    any.a_int = 25;
     if (ESHK(shkp)->services & SHK_TINKER) {
+        any.a_int = 25;
         add_menu(tmpwin, NO_GLYPH, &any, 'T', 0, ATR_NONE, "Tinker",
                  MENU_ITEMFLAGS_NONE);
     }
-
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
-
+    
     if (n > 0) {
         switch (selected[0].item.a_int) {
         /* Identification services */
@@ -2003,8 +2004,6 @@ shk_other_services()
         case 13:
             result = shk_identify(slang, shkp, SHK_ID_FOOD);
             break;
-            
-        /* Other service types */
         case 14:
             result = shk_appraisal(slang, shkp);
             break;
