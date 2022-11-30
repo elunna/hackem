@@ -2322,7 +2322,7 @@ int x1, y1, x2, y2;
                 && (ep = engr_at(x2, y2)) && ep->engr_type != HEADSTONE)
             wipe_engr_at(x2, y2, rnd(5), FALSE);
         /* Wipe away any blood on the floor */
-        if (levl[x1][y1].splatpm && !rn2(5))
+        if (levl[x1][y1].splatpm && !rn2(20))
             wipe_blood(x1, y1);
     }
 }
