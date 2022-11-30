@@ -4542,49 +4542,52 @@ struct monst *mon;
    ever get to use will most likely never be greater than three, that may not
    be necessary */
 void
-mmake_wish(mon)
-struct monst *mon;
+    mmake_wish(mon)
+        struct monst *mon;
 {
-    register int cnt;
-    register boolean wearable = FALSE;
-    register struct obj *otmp;
+    struct obj *otmp;
     char *oname;
+    boolean wearable = FALSE;
     otmp = NULL;
-
-    switch (rnd(23)) {
+    
+    switch (rnd(18)) {
     case 1:
         otmp = mksobj(POT_GAIN_LEVEL, FALSE, FALSE);
         bless(otmp);
-        cnt = 1 + rn2(3);
-        otmp->quan = cnt;
+        otmp->quan = rnd(3);
+        otmp->owt = weight(otmp);
         break;
     case 2:
-        otmp = mksobj(FIGURINE, FALSE, FALSE);
-        otmp->corpsenm = PM_ARCHON;
-        bless(otmp);
+        switch (rnd(4)) {
+        case 1:
+            otmp = mksobj(FIGURINE, FALSE, FALSE);
+            otmp->corpsenm = PM_ARCHON;
+            bless(otmp);
+            break;
+        case 2:
+            otmp = mksobj(FIGURINE, FALSE, FALSE);
+            otmp->corpsenm = PM_BALROG;
+            bless(otmp);
+            break;
+        case 3:
+            otmp = mksobj(FIGURINE, FALSE, FALSE);
+            otmp->corpsenm = PM_VORPAL_JABBERWOCK;
+            bless(otmp);
+            break;
+        case 4:
+            otmp = mksobj(FIGURINE, FALSE, FALSE);
+            otmp->corpsenm = PM_WOODCHUCK;
+            bless(otmp);
+            break;
+        }
         break;
     case 3:
-        otmp = mksobj(FIGURINE, FALSE, FALSE);
-        otmp->corpsenm = PM_BALROG;
-        bless(otmp);
-        break;
-    case 4:
-        otmp = mksobj(FIGURINE, FALSE, FALSE);
-        otmp->corpsenm = PM_VORPAL_JABBERWOCK;
-        bless(otmp);
-        break;
-    case 5:
-        otmp = mksobj(FIGURINE, FALSE, FALSE);
-        otmp->corpsenm = PM_WOODCHUCK;
-        bless(otmp);
-        break;
-    case 6:
         otmp = mksobj(AMULET_OF_LIFE_SAVING, FALSE, FALSE);
         bless(otmp);
         otmp->oerodeproof = 1;
         wearable = TRUE;
         break;
-    case 7:
+    case 4:
         if (!has_displacement(mon) && !cantweararm(mon)) {
             otmp = mksobj(CLOAK_OF_DISPLACEMENT, FALSE, FALSE);
             bless(otmp);
@@ -4592,16 +4595,12 @@ struct monst *mon;
             otmp->spe = rn2(3) + 1;
             wearable = TRUE;
         } else {
-            otmp = mksobj(POT_FULL_HEALING, FALSE, FALSE);
-            bless(otmp);
+            otmp = mksobj(WAN_DIGGING, TRUE, FALSE);
         }
         break;
-    case 8:
-        if (!(resists_magm(mon) || defended(mon, AD_MAGM))) {
-            if (!cantweararm(mon))
-                otmp = mksobj(GRAY_DRAGON_SCALES, FALSE, FALSE);
-            else
-                otmp = mksobj(AMULET_OF_MAGIC_RESISTANCE, FALSE, FALSE);
+    case 5:
+        if (!nohands(mon->data)) {
+            otmp = mksobj(GAUNTLETS_OF_DEXTERITY, FALSE, FALSE);
             bless(otmp);
             otmp->oerodeproof = 1;
             otmp->spe = rn2(3) + 1;
@@ -4611,7 +4610,7 @@ struct monst *mon;
             bless(otmp);
         }
         break;
-    case 9:
+    case 6:
         if (!(resists_magm(mon) || defended(mon, AD_MAGM))) {
             if (!cantweararm(mon))
                 otmp = mksobj(CLOAK_OF_MAGIC_RESISTANCE, FALSE, FALSE);
@@ -4622,15 +4621,12 @@ struct monst *mon;
             otmp->spe = rn2(3) + 1;
             wearable = TRUE;
         } else {
-            otmp = mksobj(WAN_CREATE_HORDE, FALSE, FALSE);
+            otmp = mksobj(WAN_CREATE_HORDE, TRUE, FALSE);
         }
         break;
-    case 10:
-        if (!mon_reflects(mon, (char *) 0)) {
-            if (!cantweararm(mon))
-                otmp = mksobj(SILVER_DRAGON_SCALES, FALSE, FALSE);
-            else
-                otmp = mksobj(AMULET_OF_REFLECTION, FALSE, FALSE);
+    case 7:
+        if (!cantweararm(mon)) {
+            otmp = mksobj(CRYSTAL_PLATE_MAIL, FALSE, FALSE);
             bless(otmp);
             otmp->oerodeproof = 1;
             otmp->spe = rn2(3) + 1;
@@ -4641,7 +4637,7 @@ struct monst *mon;
             otmp->oerodeproof = 1;
         }
         break;
-    case 11:
+    case 8:
         if (!is_flyer(mon->data)) {
             otmp = mksobj(AMULET_OF_FLYING, FALSE, FALSE);
             bless(otmp);
@@ -4652,7 +4648,7 @@ struct monst *mon;
             bless(otmp);
         }
         break;
-    case 12:
+    case 9:
         if (!can_wwalk(mon) && !sliparm(mon)) {
             otmp = mksobj(WATER_WALKING_BOOTS, FALSE, FALSE);
             bless(otmp);
@@ -4664,7 +4660,7 @@ struct monst *mon;
             bless(otmp);
         }
         break;
-    case 13:
+    case 10:
         if (!mon_reflects(mon, (char *) 0)) {
             if (humanoid(mon->data))
                 otmp = mksobj(SHIELD_OF_REFLECTION, FALSE, FALSE);
@@ -4675,11 +4671,11 @@ struct monst *mon;
             otmp->spe = rn2(3) + 1;
             wearable = TRUE;
         } else {
-            otmp = mksobj(POT_INVULNERABILITY, FALSE, FALSE);
+            otmp = mksobj(POT_REGENERATION, FALSE, FALSE);
             bless(otmp);
         }
         break;
-    case 14:
+    case 11:
         if (!nohands(mon->data) && !strongmonst(mon->data)) {
             otmp = mksobj(GAUNTLETS_OF_POWER, FALSE, FALSE);
             bless(otmp);
@@ -4691,7 +4687,7 @@ struct monst *mon;
             curse(otmp);
         }
         break;
-    case 15:
+    case 12:
         if (mon->mspeed != MFAST && !sliparm(mon)) {
             otmp = mksobj(SPEED_BOOTS, FALSE, FALSE);
             bless(otmp);
@@ -4699,11 +4695,11 @@ struct monst *mon;
             otmp->spe = rn2(3) + 1;
             wearable = TRUE;
         } else {
-            otmp = mksobj(POT_REGENERATION, FALSE, FALSE);
+            otmp = mksobj(POT_FULL_HEALING, FALSE, FALSE);
             bless(otmp);
         }
         break;
-    case 16:
+    case 13:
         if (!has_telepathy(mon)
             && !sliparm(mon) && !has_horns(mon->data)) {
             otmp = mksobj(HELM_OF_TELEPATHY, FALSE, FALSE);
@@ -4716,7 +4712,7 @@ struct monst *mon;
             bless(otmp);
         }
         break;
-    case 17:
+    case 14:
         if (!sliparm(mon) && !has_horns(mon->data)) {
             otmp = mksobj(HELM_OF_BRILLIANCE, FALSE, FALSE);
             bless(otmp);
@@ -4724,11 +4720,13 @@ struct monst *mon;
             otmp->spe = rn2(3) + 1;
             wearable = TRUE;
         } else {
-            otmp = mksobj(POT_GAIN_ENERGY, FALSE, FALSE);
+            otmp = mksobj(UNICORN_HORN, FALSE, FALSE);
             bless(otmp);
+            otmp->oerodeproof = 1;
+            otmp->spe = rn2(3) + 1;
         }
         break;
-    case 18:
+    case 15:
         if (!cantweararm(mon)) {
             otmp = mksobj(CLOAK_OF_PROTECTION, FALSE, FALSE);
             bless(otmp);
@@ -4741,51 +4739,54 @@ struct monst *mon;
             otmp->spe = rn2(3) + 1;
         }
         break;
-    case 19: /* Monsters can wish for certain artifacts */
+    case 16: /* Monsters can wish for certain artifacts */
         otmp = mk_artifact((struct obj *) 0, mon->malign);
         if (otmp) {
             bless(otmp);
             otmp->oerodeproof = 1;
             otmp->spe = rn2(3) + 1;
             wearable = TRUE;
+        }
+        break;
+    case 17:
+        switch (rnd(3)) {
+        case 1:
+            otmp = mksobj(WAN_CANCELLATION, TRUE, FALSE);
+            break;
+        case 2:
+            otmp = mksobj(WAN_POLYMORPH, TRUE, FALSE);
+            break;
+        case 3:
+            otmp = mksobj(WAN_DEATH, TRUE, FALSE);
             break;
         }
         break;
-    case 20:
-        otmp = mksobj(WAN_CANCELLATION, FALSE, FALSE);
-        break;
-    case 21:
-        otmp = mksobj(WAN_POLYMORPH, FALSE, FALSE);
-        break;
-    case 22:
-        otmp = mksobj(WAN_DEATH, FALSE, FALSE);
-        break;
-    case 23:
-        cnt = 1 + rn2(3);
+    case 18:
         otmp = mksobj(EGG, FALSE, FALSE);
         otmp->corpsenm = PM_COCKATRICE;
-        otmp->quan = cnt;
+        otmp->quan = rnd(3);
+        otmp->owt = weight(otmp);
         break;
-    default: 
+    default:
         otmp = mksobj(POT_GAIN_LEVEL, FALSE, FALSE);
         curse(otmp);
     }
-    
+
     if (otmp == NULL) {
         if (canseemon(mon))
             pline("For a moment, %s had %s in its %s, but it disappears.",
                   mon_nam(mon), something, makeplural(mbodypart(mon, HAND)));
         return;
     }
-    
-    oname = an(xname(otmp));
-    
+
+    oname = ansimpleoname(otmp);
+    if (canseemon(mon))
+        pline("%s makes a wish for%s %s!",
+              Monnam(mon), (otmp->quan > 1) ? " some" : "", oname);
+
     if (mpickobj(mon, otmp))
         otmp = NULL;
-    
-    if (canseemon(mon)) {
-        pline("%s makes a wish for %s!", Monnam(mon), oname);
-    }
+
     if (wearable)
         check_gear_next_turn(mon);
 }
