@@ -2165,7 +2165,7 @@ expensive potion at the cost of the fruit juice.
 
     - Chaotic Quest: 
         - has a new boss because Vecna gets his own branch in Gehennom.
-        - Acererak now guards the Staff of Withering
+        - Acererak now guards the Staff of Rot
 
 - [x] Imported Grund's Stronghold (appears 20-21)
     - Add a couple rows of spear traps to Grunds.
