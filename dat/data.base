@@ -3502,6 +3502,173 @@ grave
 	Much I talk, more I walk;
 	Time I were buried," said the old, old man.
 		[ Three Songs to the Same Tune, by W.B. Yeats ]
+
+# gray stones
+luckstone
+luck stone
+    Appears as a gray stone when unidentified. 
+    
+    A magical item that modifies a player's base Luck and Luck timeout
+    while carried, and appears as a gray stone when unidentified.
+    
+    Always generated uncursed with the exception of bones files. There 
+    is a guaranteed luckstone in each of the three variants of Mines' 
+    End.
+
+    A noncursed luckstone adds 3 Luck, and can exceed the ordinary 
+    maximum of 10 in this way; and a cursed luckstone subtracts 3 Luck.
+    Luckstones carried in containers (e.g. bags) have no effect on 
+    Luck. 
+    
+    A cursed luckstone heavily slows the timeout of negative Luck, 
+    blessed ones heavily slow the timeout of positive Luck and 
+    uncursed ones slow both. For example, if you have a blessed 
+    luckstone and jump a lot in Sokoban, your total Luck will 
+    eventually time out to three. While carrying the Amulet of Yendor, 
+    Luck times out more rapidly unless it is prevented from timing 
+    out by a luckstone.
+    
+    A handful of other objects in the game, typically artifacts, can 
+    also function as luckstones (e.g. The Tsurugi of Muramasa and the
+    The Orb of Fate). Multiple luckstones and/or luck items have no
+    cumulative effect: you will get the blessed luckstone effect if
+    you have strictly more blessed than cursed luck items in your 
+    open inventory, you get the cursed effect if you have more cursed
+    luck items, and you get the uncursed effect if you have an equal
+    amount of blessed and cursed luck items or all of them are 
+    uncursed.
+    
+    In EvilHack, a luckstone no longer prevents Luck from timing out, 
+    but instead heavily slows Luck timeout dependent on its beatitude; 
+    which beatitude affects the timeout of good and/or bad Luck is
+    unchanged from vanilla NetHack.
+    
+    Items with the "excellence" object property act as luckstones when
+    worn or wielded.
+touchstone
+touch stone
+    Appears as a gray stone when unidentified.
+    
+    A touchstone is used to identify gems by applying the touchstone
+    or rubbing a gem on it. A blessed touchstone will immediately
+    identify the gem, as will an uncursed one in the hands of an 
+    archeologist or gnome; this includes both worthless glass and 
+    other gray stones, and will also auto-identify the touchstone. A
+    non-blessed touchstone will merely distinguish glass from gems; 
+    valuable gems will leave streaks of the gem's color, while glass 
+    will leave scratch marks. A cursed touchstone has a 1⁄5 chance of
+    shattering gems that are rubbed on it.
+    
+    Archaeologists always start with an uncursed touchstone, and one
+    is always generated in the inventory of a jewelery shop's 
+    shopkeeper.
+loadstone
+load stone
+lodestone
+load stone
+    Appears as a gray stone when unidentified.
+    
+    Normally-generated loadstones on the dungeon's floor are always 
+    generated cursed. 10⁄11 of loadstones inside containers are
+    generated cursed; the other 1⁄11 of those are generated non-cursed.
+
+    A loadstone weighs slightly more than an iron ball, and ultimately 
+    serves as a "gotcha" item for the unwary: if you pick a cursed one 
+    up, you cannot drop it or place it into a container. Any setting 
+    of the pickup_burden option will be ignored if the character
+    attempts to pick up a loadstone, and other inventory restrictions
+    may be ignored as well—if a character's inventory has already 
+    reached the 52-item limit, the loadstone will still be picked up 
+    and assigned # as the inventory position. A loadstone will 
+    autocurse once it is dropped or leaves your main inventory in any
+    other way.
+    
+    Despite its weight, a loadstone does not do any more damage than
+    a flint stone when thrown.
+    
+    Loadstones severely hinder your movement and often render you 
+    stressed or worse, which will prevent you from using up stairs; 
+    to get rid of a loadstone, you must typically uncurse it first.
+    
+    Infidels can freely drop or remove cursed items, including loadstones.
+flint stone
+flintstone
+    Appears as a gray stone when unidentified, and is the only gray
+    stone to be a non-magical item.
+    
+    All cavefolk start with a stack of flint stones and a sling to 
+    fire them with.
+    
+    Cavemen can also bang rocks together to make flint, and lash 
+    flint to arrows, making them more deadly. 
+    
+sling bullet
+    Appears as shiny stones when unidentified. 
+    Cavepeople of all types can start with sling bullets.
+    
+    Hobbits and hobbit pickpockets generated with a sling have a 1⁄3 
+    chance to carry 5-10 sling bullets, while caveperson player 
+    monsters will also generate with sling bullets.
+whetstone
+whet stone
+    A whetstone is a gray stone from SlashEM that can remove rust
+    (including corrosion) and negative enchantments (up to +0) from 
+    an edged weapon or a pick- axe. This action requires a source of 
+    water. Stand at some water and apply the whetstone.
+    
+    In HackEM whetstone have been overhauled to be more useful.
+    
+    The water sources that are available include puddles, pools, 
+    moats, sewage, rust traps, sinks, and toilets.
+    
+    If you are carrying water and no dungeon water is available, you
+    will be prompted for a potion to use. If you use your bottled
+    water, there is a 1d7 chance of using it up on each attempt.
+    
+    The whetstone's beatitude determines the chance of success.
+    (Same for artifacts and non-artifacts)
+    stone               chance of success
+    blessed whestone    1/3
+    uncursed whetstone  1/4
+    cursed whestone     0
+    other gray stone    0
+    
+    Blessed whetstones can also enchant non-corroded, uncursed, 
+    +0 weapons up to +1. (This might take a little longer because you 
+    need to pass a coin flip after your sharpening roll succeeds)
+
+    Cursed whetstones instead have a chance of inflicting rust damage
+    to your weapon. They will never sharpen.
+    
+    If you fail, you can try again. If you always fail, your gray
+    stone is not a whetstone. If you succeed, you remove one level
+    of rust; or if there was no rust, you remove one point of 
+    negative enchantment.
+    
+    When rubbed on an iron weapon with no water available, the 
+    whetstone will give the message "You need some water when you use 
+    that."
+
+    If your gray stone is not a whetstone, then you will try to 
+    sharpen the edge, but your attempt will always fail.
+healthstone
+health stone
+    A healthstone is a gray stone that modifies a player's heal rate.
+    Blessed or uncursed healthstones increase it, cursed healthstones 
+    decrease it.
+    
+    Healthstones are always generated cursed.
+     
+    Unlike luckstones, healthstones are cumulative - two blessed 
+    healthstones are better than one. To be precise, you have a health
+    recovery bonus which is 2 for each blessed healthstone in your main
+    inventory, plus 1 for each uncursed healthstone, minus 2 for each 
+    cursed healthstone. This bonus is added to your level and 
+    constitution when calculating how fast or how much you heal, i.e. 
+    if you carry 2 blessed healthstones at level 1 you will regenerate 
+    every 7th turn (as at level 5) instead of every 15th, and at level
+    29 you will regenerate 1d24 HP instead of 1d20 (provided your 
+    constitution is 20).
 grayswandir
 	Why had I been wearing Grayswandir?  Would another weapon have
 	affected a Logrus-ghost as strongly?  Had it really been my
@@ -5010,7 +5177,6 @@ lord surt*
 	world with fire.
 			[ The Prose Edda, by Snorri Sturluson ]
 # if a quote for good luck gets added, make this one exclusively bad luck
-luck *
 bad luck
 	"[...]  We'll succeed and you'll get all the fortune you came
 	seeking."
