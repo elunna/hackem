@@ -1288,12 +1288,18 @@ genericptr_t poolcnt;
     (*(int *)poolcnt)++;
 
     if (!((*(int *)poolcnt) && (x == u.ux) && (y == u.uy))) {
-        freeze_tile(lev, x, y, 0);
+        
         if (levl[x][y].typ == ROOM || levl[x][y].typ == CORR) {
             levl[x][y].typ = ICE;
             del_engr_at(x, y);
             newsym(x,y);
-        }
+            /*start_melt_ice_timeout(x, y, 0L);*/
+            /* do_buried could possibly need to be TRUE, but since the ice is
+             * supposed to be surface level here, we'll pass FALSE. */
+            obj_ice_effects(x, y, FALSE);
+        } else
+            freeze_tile(lev, x, y, 0);
+        
     } else if ((x == u.ux) && (y == u.uy)) {
         (*(int *)poolcnt)--;
     }
