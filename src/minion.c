@@ -401,9 +401,8 @@ int chaotic_minion(int difficulty)
       case 2: return (PM_DRETCH + rn2(5));
       case 3: return PM_BLACK_UNICORN;
       case 4: return PM_BLOOD_IMP;
-      case 5: return PM_SPINED_DEVIL;
-      case 6: return PM_SHADOW_WOLF;
-      case 7: return PM_HELL_HOUND;
+      case 5: return PM_HELL_HOUND_PUP;
+      case 6: return PM_SPINED_DEVIL;
       case 8: return PM_HORNED_DEVIL;
       case 9: return PM_BEARDED_DEVIL;
       case 10: return PM_BAR_LGURA;
@@ -413,7 +412,6 @@ int chaotic_minion(int difficulty)
       case 14: return PM_BABAU;
       case 15: return PM_NALFESHNEE;
       case 16: return PM_MARILITH;
-      case 17: return PM_NABASSU;
       case 18: return PM_BONE_DEVIL;
       case 19: return PM_ICE_DEVIL;
       case 20: return PM_PIT_FIEND;
