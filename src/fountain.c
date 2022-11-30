@@ -983,10 +983,8 @@ dip_end:
     } else {
         int er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
 
-        if (er == ER_DESTROYED) { /* Acid and water don't mix */
-            return;
-        } else if (er != ER_NOTHING && !rn2(2)) { /* no further effect */
-            return;
+        if (er == ER_DESTROYED || (er != ER_NOTHING && !rn2(2))) {
+            return; /* no further effect */
         }
     }
 
