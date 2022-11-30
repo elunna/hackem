@@ -4344,14 +4344,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 show_transient_light(obj, bhitpos.x, bhitpos.y);
             }
         }
-
-#if 0 /* Pending blood squares from SpliceHack */
-         /* Clean up blood with water. */
-        if (obj && obj->otyp == WAN_WATER && levl[g.bhitpos.x][g.bhitpos.y].splatpm) {
-            levl[g.bhitpos.x][g.bhitpos.y].splatpm = 0;
-            wipe_engr_at(x, y, d(2, 4), TRUE);
-        }
-#endif
+        
         if (weapon == ZAPPED_WAND && find_drawbridge(&x, &y)) {
             boolean learn_it = FALSE;
 
@@ -5989,6 +5982,13 @@ boolean moncast;
         }
         break;
     }
+    case ZT_WATER:
+         /* Clean up blood with water. */
+        if (levl[x][y].splatpm) {
+            levl[x][y].splatpm = 0;
+            wipe_engr_at(x, y, d(2, 4), TRUE);
+        }
+        break; /* ZT_WATER */
     case ZT_COLD:
         rangemod = freeze_tile(lev, x, y, rangemod);
         break; /* ZT_COLD */
