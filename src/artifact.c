@@ -347,6 +347,8 @@ aligntyp alignment; /* target alignment, or A_NONE */
             otmp = mksobj((int) a->otyp, TRUE, FALSE);
 
         if (otmp) {
+            /* prevent erosion from generating */
+            otmp->oeroded = otmp->oeroded2 = 0;
             otmp = oname(otmp, a->name);
             otmp->oartifact = m;
             artiexist[m] = TRUE;
