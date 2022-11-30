@@ -598,7 +598,7 @@ struct damage_info_t *damage_info)
         
         if (artifact_light(otmp)) {
             damage_info->light_damage =
-                "Additional 1d8 against light hating monsters.";
+                "\tAdditional 1d8 against light hating monsters.";
             if (otmp->lamplit && ptr && hates_light(ptr)) {
                 bonus += rnd(8);
             }
