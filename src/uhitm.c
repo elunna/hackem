@@ -2570,6 +2570,9 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         return 0;
     }
 
+    if (!mdef)
+        return 0;
+
     switch (mattk->adtyp) {
     case AD_LARV: {
         struct monst* mtmp;
