@@ -2741,6 +2741,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline_The("%s around you freezes!", hliquid("water"));
             u.uhp = 0;
             losehp(1, "turning into a block of ice", KILLED_BY);
+            break;
         }
         
         if (confused) {
