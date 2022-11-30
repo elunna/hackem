@@ -5210,6 +5210,9 @@ struct obj *no_wish;
 
     /* set eroded and erodeproof */
     if (erosion_matters(otmp)) {
+        /* no wished-for item should be eroded if the wisher didn't specify it
+         * to be */
+        otmp->oeroded = otmp->oeroded2 = 0;
         if (eroded && (is_flammable(otmp) || is_rustprone(otmp)))
             otmp->oeroded = eroded;
         if (eroded2 && (is_corrodeable(otmp) || is_rottable(otmp)
