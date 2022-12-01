@@ -663,6 +663,7 @@
      || (ptr) == &mons[PM_FIRE_VAMPIRE] \
      || (ptr) == &mons[PM_FLAME_MAGE] \
      || (ptr) == &mons[PM_FLAMING_SPHERE] \
+     || (ptr) == &mons[PM_WAX_GOLEM] \
      || likes_lava(ptr))
 
 #define likes_ice(ptr) \

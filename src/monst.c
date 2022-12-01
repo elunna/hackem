@@ -5835,7 +5835,7 @@ struct permonst _mons2[] = {
         SIZ(400, 0, MS_SILENT, MZ_LARGE), MR_SLEEP | MR_POISON, 0,
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID,
         M2_HOSTILE | M2_NEUTER, 
-        M3_INFRAVISIBLE, 0, 0, 5, CLR_GRAY),
+        M3_INFRAVISIBLE, M4_VULNERABLE_COLD, 0, 5, CLR_GRAY),
     MON("plastic golem", S_GOLEM,                               /* Slash'EM */
         LVL(4, 12, 9, 0, 0), (G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 3), 
