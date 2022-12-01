@@ -2944,7 +2944,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 1, 2),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 40, MS_GROWL, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_MARSUPIAL,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 6, CLR_BROWN),
     /* wallabies, wallaroos, and kangaroos can all jump */
     MON("wallaby", S_ZOUTHERN,                                  /* Slash'EM */
@@ -2953,7 +2953,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 1, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(400, 150, MS_SILENT, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
+        M1_ANIMAL | M1_HERBIVORE,
         M2_JUMPER, M3_INFRAVISIBLE, 0, 0, 6, CLR_BROWN),
     /* Koalas can only eat eucalyptus leaves. */
     MON("koala", S_ZOUTHERN,                                    /* Slash'EM */
@@ -2961,7 +2961,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_TUCH, AD_CALM, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(150, 50, MS_SQEEK, MZ_SMALL), MR_POISON, 0,
-        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL | M1_SEE_INVIS,
+        M1_ANIMAL | M1_HERBIVORE | M1_SEE_INVIS,
         M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 8, CLR_GRAY),
     MON("wallaroo", S_ZOUTHERN,                                 /* Slash'EM */
         LVL(6, 20, 8, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
@@ -2969,7 +2969,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 1, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SILENT, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
+        M1_ANIMAL | M1_HERBIVORE,
         M2_JUMPER, M3_INFRAVISIBLE, 0, 0, 8, CLR_RED),
     /* ...also eats organics (like gelatinous cube) */
     MON("Tasmanian devil", S_ZOUTHERN,                          /* Slash'EM */
@@ -2979,7 +2979,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 3, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(500, 250, MS_GROWL, MZ_SMALL), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_MARSUPIAL,
+        M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 11, CLR_BLACK),
     MON("kangaroo", S_ZOUTHERN,                                 /* Slash'EM */
         LVL(10, 24, 6, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 2),
@@ -2988,7 +2988,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 1, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1000, 500, MS_SILENT, MZ_MEDIUM), 0, 0,
-        M1_ANIMAL | M1_HERBIVORE | M1_MARSUPIAL,
+        M1_ANIMAL | M1_HERBIVORE,
         M2_NASTY | M2_JUMPER, M3_INFRAVISIBLE, 0, 0, 15, CLR_GRAY),
     /*
      * Angels and other lawful minions
