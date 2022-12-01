@@ -372,7 +372,7 @@ def main():
     with open("monsters.htm", "w") as file1:
         # Writing data to a file
         file1.write("{{otheruses|||monster (disambiguation)}}\n")
-        file1.write("This page lists all the new [[monster]]s that are added in [[Hack'EM]].\n")
+        file1.write("This page lists all of the [[monster]]s that are in [[Hack'EM]].\n")
         file1.write("\n")
         file1.write('{|class="wikitable sortable" \n')
         file1.write("|-\n")
