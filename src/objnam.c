@@ -1237,7 +1237,7 @@ struct obj *obj;
     case AMULET_CLASS:
     case RING_CLASS:
     case WAND_CLASS:
-    case FOOD_CLASS:
+   /* case FOOD_CLASS:*/
         return TRUE;
     case GEM_CLASS:
         return (obj->otyp == SLING_BULLET);
