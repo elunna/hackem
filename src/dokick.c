@@ -1466,6 +1466,8 @@ boolean need_dir;
                             break;
                         You_hear("a loud %s in the plumbing.",
                             !rn2(2) ? "clank" : "clunk");
+                        obfree(otmp, (struct obj *) 0);
+                        otmp = (struct obj *) 0;
                     }
                     if (otmp->owt > 15) {
                         pline_The("toilet groans... And fractures as an object bursts out!");
