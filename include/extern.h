@@ -3335,6 +3335,7 @@ E void NDECL(blindingflash);
 E void bomb_explode(struct obj *, int, int, boolean);
 E void FDECL(wandfear, (struct obj *));
 E int FDECL(freeze_tile, (struct rm *, int, int, int));
+E boolean destroyable_oclass(char);
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 

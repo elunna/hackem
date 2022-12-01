@@ -7272,4 +7272,24 @@ int x, y, rangemod;
     }
     return rangemod;
 }
+
+/* Return true if this object class can be damaged or destroyed by an external
+ * effect that doesn't have to do with erosion.
+ * Generally these items would not be expected to have erosion_matters() return
+ * true for them. */
+boolean
+destroyable_oclass(char oclass)
+{
+    /* can be blanked by water and also burnt up by fire effects */
+    if (oclass == SCROLL_CLASS || oclass == SPBOOK_CLASS)
+        return TRUE;
+    /* can be frozen by ice effects */
+    if (oclass == POTION_CLASS)
+        return TRUE;
+    /* can be blown up by shock effects */
+    if (oclass == RING_CLASS || oclass == WAND_CLASS)
+        return TRUE;
+    return FALSE;
+}
+
 /*zap.c*/
