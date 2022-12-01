@@ -43,18 +43,27 @@ def extract_data(text):
     mondat = {}
     # Initial cleanup
     text = text.strip()
+    
+    if not text.startswith("MON("):
+        return mondat
+    
     text = text.lstrip("MON(")
     text = text.rstrip(',')
     text = text.rstrip(')')
     text = text.replace("A(ATTK", "ATTK")
     text = text.replace("NO_ATTK)", "NO_ATTK")
+    text = text.replace("))", ")")
     
     parens = extract_allparens((text))
     text = purge_parens(text)
-
+    print("text = {}".format(text))
+    print("")
     splitup = split_by_commas(text)
-    
+    print("splitup = {}".format(splitup))
+    print("splitup[0] = {}".format(splitup[0]))
+    print("")
     # Name
+    
     mondat['name'] = splitup[0].strip("\"")
     
     # Symbol
@@ -91,7 +100,9 @@ def extract_data(text):
     # Misc Flags
     # M1, M2, M3, M4, flg3, flg4, mflg, 
     flags = []
+    #print(splitup)
     for i in range(-9, -2):
+        # print(i)
         for f in splitup[i].split('|'):
             f = f.strip()
             if f != '0':
@@ -110,9 +121,26 @@ def main():
     with open("src/monst.c", "r") as a_file:
         monsters = []
         newmon = ""
-
+        skipping = False;
         for line in a_file:
-            stripped_line = line.rstrip()
+            stripped_line = line.strip()
+            
+            # Skip junk
+            if stripped_line.startswith(
+                    ("#ifdef", "#enddef", "#ifndef", 
+                     "#define", "#endif", "#if 0",
+                     "void", "struct", "NEARDATA",
+                    "/*", "*", "*/", "};",
+                     )):
+                continue
+            if "/* parser skip*/" in stripped_line:
+                continue
+            # if stripped_line.endswith(r" \\"):
+            #     continue
+                
+            if not stripped_line:
+                continue
+                
             if "MON(" in stripped_line:
                 # Save current and Start a new listing
 
@@ -129,16 +157,45 @@ def main():
         #     print("")
 
     # remove some of the early chafe
-    monsters.pop(0)
-    monsters.pop(0)
-    monsters.pop(0)
-    monsters.pop(0)
-    
-    for m in range(50):
-        for key, val in extract_data(monsters[m]).items():
-            print("{:15} {}".format(key, val))
-        print("--------------------------")
+    # monsters.pop(0)
+    # monsters.pop(0)
+    # monsters.pop(0)
+    # monsters.pop(0)
 
+    # Writing to file
+    with open("monsters.htm", "w") as file1:
+        # Writing data to a file
+        file1.write("{{otheruses|||monster (disambiguation)}}\n")
+        file1.write("This page lists all the new [[monster]]s that are added in [[Hack'EM]].\n")
+        file1.write("\n")
+        file1.write('{|class="wikitable sortable" \n')
+        file1.write("|-\n")
+        file1.write('!scope="col" | Monster\n')
+        file1.write("|-\n")
+        file1.write("\n")
+
+        for i, m in enumerate(monsters):
+            print("Monster #{}".format(i))
+            print(m)
+            print("")
+            mdict =  extract_data(m)
+            if not mdict:
+                continue
+                
+            for key, val in mdict.items():
+                print("{:15} {}".format(key, val))
+            print("--------------------------")
+            file1.write("{}\n".format(mdict['name']))
+            file1.write("|-\n")
+        
+        file1.write("|}\n")
+        file1.write("\n")
+        file1.write("==See also==\n")
+        file1.write("*[[Item (Hack'EM)]]\n")
+        file1.write("\n")
+        file1.write("{{hackem-008}}\n")
+        file1.write("[[Category:Hack'EM monsters| ]]\n")
+    
 
 
 if __name__ == "__main__":

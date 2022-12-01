@@ -717,18 +717,6 @@ NEARDATA struct permonst mons[] = {
         M1_NOHANDS | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG,
         M3_INFRAVISIBLE, M4_VULNERABLE_COLD, MH_WERE, 16, CLR_RED),
-    
-#if 0 /* Rest in peace Koa... */
-    MON("Koa", S_DOG, LVL(20, 20, 2, 40, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_BITE, AD_PHYS, 4, 6), 
-          ATTK(AT_CLAW, AD_PHYS, 3, 4),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(500, 250, MS_BARK, MZ_MEDIUM),
-        MR_STONE | MR_SLEEP | MR_COLD, MR_COLD,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
-            | M2_NOPOLY | M2_NASTY | M2_PNAME | M2_FEMALE,
-        M3_INFRAVISION | M3_CLOSE | M3_BERSERK, 0, 0, 22, CLR_BROWN),
-#endif
     MON("Bourbon", S_DOG,                                       /* EvilHack */
         LVL(20, 20, 2, 40, 0), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_BITE, AD_PHYS, 4, 6), 
@@ -867,7 +855,8 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 10, CLR_YELLOW),
-    MON("magical eye", S_EYE, LVL(8, 6, 0, 90, -10), (2),       /* EvilHack */
+    MON("magical eye", S_EYE,                                    /* EvilHack */
+        LVL(8, 6, 0, 90, -10), (2),      
         A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
           ATTK(AT_GAZE, AD_SLEE, 2, 6),
           ATTK(AT_GAZE, AD_STUN, 0, 0), 
@@ -878,11 +867,8 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD,
         M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
         M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0, 0, 12, HI_LORD),
-    /* One of my favorite creatures from GruntHack. I'm not going to make it
-     * identical to how it is now in that variant, but it is going to get some
-     * changes here from the original template.
-     */
-    MON("beholder", S_EYE, LVL(8, 3, -8, 50, -10), (1),         /* EvilHack */
+    MON("beholder", S_EYE,                                      /* EvilHack */
+        LVL(8, 3, -8, 50, -10), (1),         
         A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
           ATTK(AT_GAZE, AD_SLEE, 2, 25),
           ATTK(AT_GAZE, AD_DISN, 0, 0), 
@@ -2211,9 +2197,7 @@ NEARDATA struct permonst mons[] = {
     /*
      * rodents
      */
-      /* Hedgehog was 'q' class in SpliceHack, but it is small and 
-      fits a little better with the rodents and stands out as yellow.
-      */
+    /* Hedgehog was 'q' class in SpliceHack */
       MON("hedgehog", S_RODENT,                               /* SpliceHack */
         LVL(0, 12, 0, 0, 0), (G_GENO | 3),
         A(ATTK(AT_BITE, AD_PHYS, 1, 1), 
@@ -2928,10 +2912,6 @@ NEARDATA struct permonst mons[] = {
     * Zouthern animals
     * (the zruty has been moved to Yeti)
     */
-
-/* --hackem: Does nothing, but kept for future use. */
-#define M1_MARSUPIAL 0
-
     MON("echidna", S_ZOUTHERN,                                  /* Slash'EM */
         LVL(2, 6, 9, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2), 
@@ -3047,9 +3027,9 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STALK | M2_NASTY | M2_STRONG | M2_MINION,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 16, CLR_BROWN),
     /* Angels start with the emin extension attached, and usually have
-       the isminion flag set; however, non-minion Angels can be tamed
-       and will switch to edog (guardian Angel is handled specially and
-       always sticks with emin) */
+     * the isminion flag set; however, non-minion Angels can be tamed
+     * and will switch to edog (guardian Angel is handled specially and
+     * always sticks with emin) */
     MON("Angel", S_ANGEL,
         LVL(14, 10, -4, 55, 12), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
@@ -3427,8 +3407,8 @@ NEARDATA struct permonst mons[] = {
      * Sure, it's a baby... but it's still a dragon.
      */
 
-    /* <Umbire> The reflection comes from its scales, \
-        and they only fully grow in upon reaching adulthood. */
+    /* <Umbire> The reflection comes from its scales,
+     * and they only fully grow in upon reaching adulthood. */
     MON("baby gray dragon", S_DRAGON,
         LVL(12, 9, 2, 20, 0), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
@@ -3975,7 +3955,6 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD 
             | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 7, CLR_CYAN),
-#if 0 /* Disabled to make room for swamp ferns */
     MON("black mold", S_FUNGUS,                                 /* Slash'EM */
         LVL(6, 0, 7, 0, 0), (G_HELL | G_GENO | 1),
         /* --hackem: Only the first passive procs */
@@ -3986,9 +3965,6 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
             | M1_MINDLESS | M1_OMNIVORE | M1_NOTAKE, 
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 8, CLR_BLACK),
-        
-#endif
-
     MON("brown moldier", S_FUNGUS,                            /* SpliceHack */
         LVL(5, 12, 8, 0, 0), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 4), 
@@ -4214,20 +4190,6 @@ NEARDATA struct permonst mons[] = {
         M2_PNAME | M2_PRINCE | M2_MALE | M2_COLLECT | M2_GREEDY |
         M2_STALK | M2_HOSTILE | M2_NASTY | M2_NOPOLY | M2_JEWELS | M2_MAGIC,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, MH_GNOME, 19, HI_LORD),
-    
-
-#if 0 /* Evilhack version */
-    MON("gnoll", S_HUMANOID, LVL(4, 8, 7, 0, -10), (G_GENO | G_LGROUP | 2),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          ATTK(AT_BITE, AD_PHYS, 1, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1200, 300, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
-        M1_HUMANOID | M1_OMNIVORE, M2_STRONG | M2_GREEDY | M2_COLLECT
-            | M2_HOSTILE,
-        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION,
-        0, MH_GNOLL, 6, CLR_BROWN),
-#endif
-
     /* [Lethe] Gnolls are no longer S_HUMANOID */
 
     MON("gnoll", S_GNOME,                                       /* Slash'EM */
@@ -4274,29 +4236,6 @@ NEARDATA struct permonst mons[] = {
           | M2_FLANK,
         M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_GNOLL, 22, CLR_YELLOW),
-
-    #if 0 /* Evilhack version */
-    MON("gnoll hunter", S_GNOME, LVL(7, 12, 6, 0, -10), (G_GENO | G_SGROUP | 2),
-        A(ATTK(AT_WEAP, AD_PHYS, 2, 4), 
-          ATTK(AT_WEAP, AD_PHYS, 2, 4),
-          ATTK(AT_BITE, AD_PHYS, 1, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1300, 350, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
-        M1_HUMANOID | M1_OMNIVORE, M2_STRONG | M2_GREEDY | M2_COLLECT
-            | M2_HOSTILE,
-        M3_BERSERK | M3_INFRAVISIBLE | M3_INFRAVISION,
-        0, MH_GNOLL, 9, CLR_ORANGE),
-
-    MON("gnoll cleric", S_GNOME, LVL(8, 9, 6, 30, -10), (G_GENO | 2),
-        A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
-          ATTK(AT_MAGC, AD_CLRC, 0, 0), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1200, 300, MS_LAUGH, MZ_MEDIUM), MR_POISON, 0,
-        M1_HUMANOID | M1_OMNIVORE, M2_STRONG | M2_GREEDY | M2_COLLECT
-            | M2_HOSTILE,
-        M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_GNOLL, 10, HI_ZAP),
-    #endif
-    
     MON("flind", S_GNOME,                                       /* EvilHack */
          LVL(10, 12, 4, 20, -10), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 6), 
@@ -5556,8 +5495,6 @@ struct permonst _mons2[] = {
         SIZ(100, 50, MS_GROWL, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_HUMANOID | M1_HERBIVORE, 0,
         M3_INFRAVISIBLE, 0, 0, 2, CLR_GRAY),
-    /* tameable via banana; does not grow up into ape...
-       not flagged as domestic, so no guilt penalty for eating non-pet one */
     MON("monkey", S_YETI,
         LVL(2, 12, 6, 0, 0), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
@@ -6350,9 +6287,9 @@ struct permonst _mons2[] = {
             | MR_STONE, 0, M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_PEACEFUL | M2_FEMALE, M3_INFRAVISIBLE, 0,
         MH_HUMAN, 16, HI_ZAP),
-    /* aligned priests always have the epri extension attached;
-       individual instantiations should always have either ispriest
-       or isminion set */
+    /* aligned priests always have the epri extension attached
+     * individual instantiations should always have either ispriest
+     * or isminion set */
     MON("aligned priest", S_HUMAN,
         LVL(12, 12, 10, 50, 0), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 4, 10), 
@@ -6609,18 +6546,17 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_NASTY | M2_COLLECT | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION, M4_VULNERABLE_COLD,
         MH_DEMON, 15, CLR_ORANGE),
-    /* standard demons & devils
-     */
+    /* standard demons & devils */
 #define SEDUCTION_ATTACKS_YES       \
-    A(ATTK(AT_BITE, AD_SSEX, 0, 0), \
-      ATTK(AT_CLAW, AD_PHYS, 1, 3), \
-      ATTK(AT_CLAW, AD_PHYS, 1, 3), \
-      NO_ATTK, NO_ATTK, NO_ATTK)
-#define SEDUCTION_ATTACKS_NO        \
-    A(ATTK(AT_CLAW, AD_PHYS, 1, 3), \
-      ATTK(AT_CLAW, AD_PHYS, 1, 3), \
-      ATTK(AT_BITE, AD_DRLI, 2, 6), \
-      NO_ATTK, NO_ATTK, NO_ATTK)
+    A(ATTK(AT_BITE, AD_SSEX, 0, 0), /* parser skip*/ \
+      ATTK(AT_CLAW, AD_PHYS, 1, 3), /* parser skip*/ \
+      ATTK(AT_CLAW, AD_PHYS, 1, 3), /* parser skip*/ \
+      NO_ATTK, NO_ATTK, NO_ATTK)    /* parser skip*/
+#define SEDUCTION_ATTACKS_NO        /* parser skip*/ \
+    A(ATTK(AT_CLAW, AD_PHYS, 1, 3), /* parser skip*/ \
+      ATTK(AT_CLAW, AD_PHYS, 1, 3), /* parser skip*/ \
+      ATTK(AT_BITE, AD_DRLI, 2, 6), /* parser skip*/ \
+      NO_ATTK, NO_ATTK, NO_ATTK)      /* parser skip*/
     MON("succubus", S_DEMON,
         LVL(6, 12, 0, 70, -9), (G_NOCORPSE | 1),
         SEDUCTION_ATTACKS_YES, SIZ(WT_HUMAN, 400, MS_SEDUCE, MZ_HUMAN),
@@ -6644,7 +6580,7 @@ struct permonst _mons2[] = {
         M1_FLY | M1_POIS | M1_THICK_HIDE, M2_STALK | M2_HOSTILE | M2_NASTY | M2_FLANK ,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_DEMON, 9, CLR_BROWN),
     /* Used by AD&D for a type of demon, originally one of the Furies
-       and spelled this way */
+     * and spelled this way */
     MON("erinys", S_DEMON,
         LVL(7, 12, 2, 30, 10), (G_HELL | G_NOCORPSE | G_SGROUP | 2),
         A(ATTK(AT_WEAP, AD_DRST, 2, 4), 
@@ -7041,7 +6977,7 @@ struct permonst _mons2[] = {
         M3_WAITFORU | M3_WANTSAMUL | M3_INFRAVISIBLE | M3_INFRAVISION,
         0, MH_DEMON, 57, HI_LORD),
     /* Cthulhu MUST be placed after Demogorgon so he will not be summoned as a 
-      random demon lord or demon prince.  See minion.c */
+     * random demon lord or demon prince.  See minion.c */
 
     /* Original Slash'EM/SlashTHEM Cthulu. */
     /* --hackem: Matched Un's -8AC, 
@@ -7063,27 +6999,7 @@ struct permonst _mons2[] = {
             | M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,
         M3_WAITFORU | M3_INFRAVISION | M3_NOTAME, 0, 
         MH_DEMON, 61, CLR_BRIGHT_GREEN),
-      
-      /* UnNetHack version: */
-      #if 0
-        MON("Cthulhu", S_HUMANOID,
-        LVL(106, 15, -8, 95, 0), (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
-        A(ATTK(AT_MAGC, AD_SPEL, 4, 6), 
-          ATTK(AT_CLAW, AD_PHYS, 6, 8),
-          ATTK(AT_BITE, AD_PHYS, 4, 10), 
-          ATTK(AT_HUGS, AD_PHYS, 6, 6),
-          ATTK(AT_TENT, AD_DRIN, 2, 1), 
-          ATTK(AT_GAZE, AD_CONF, 0, 0)),
-        SIZ(3000, 500, 0, MS_ROAR, MZ_GIGANTIC),
-        MR_POISON | MR_STONE | MR_DISINT | MR_SLEEP | MR_ACID, 0,
-        M1_SWIM | M1_AMPHIBIOUS | M1_BREATHLESS | M1_THICK_HIDE 
-            | M1_SEE_INVIS | M1_POIS | M1_REGEN | M1_SEE_INVIS | M1_TPORT 
-            | M1_TPORT_CNTRL | M1_OMNIVORE,
-        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_STRONG 
-            | M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,
-        M3_WANTSAMUL | M3_WAITFORU | M3_INFRAVISION, CLR_BRIGHT_GREEN), /* M3_NOTAME */
-    #endif
-
+    
     /* Riders -- the Four Horsemen of the Apocalypse ("War" == player);
      * depicted with '&' but do not have MH_DEMON set.
      */
@@ -7787,8 +7703,7 @@ struct permonst _mons2[] = {
             | M2_COLLECT | M2_MAGIC,
         M3_CLOSE | M3_INFRAVISIBLE, 0, MH_HUMAN, 22, HI_LORD),
 #if 0 /* OBSOLETE */
-    /* Two for elves - one of each sex.
-     */
+    /* Two for elves - one of each sex. */
     MON("Earendil", S_HUMAN,
         LVL(20, 12, 0, 50, 20), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8),
