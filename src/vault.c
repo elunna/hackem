@@ -424,7 +424,10 @@ invault()
             mongone(guard);
             return;
         }
-        if (Role_if(PM_CONVICT) && !Upolyd) {
+        if (Role_if(PM_CONVICT) && (!Upolyd 
+                                    || (ublindf 
+                                        && (ublindf->otyp != TOWEL 
+                                            && ublindf->otyp != BLINDFOLD)))) {
             setmangry(guard, FALSE);
             verbalize("I saw your picture on the wanted poster!");
 	    if (!MON_WEP(guard)) {
