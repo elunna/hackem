@@ -171,6 +171,12 @@ def main():
         file1.write('{|class="wikitable sortable" \n')
         file1.write("|-\n")
         file1.write('!scope="col" | Monster\n')
+        file1.write('!scope="col" | Symbol\n')
+        file1.write('!scope="col" | Level\n')
+        file1.write('!scope="col" class="unsortable"| Attacks\n')
+        file1.write('!scope="col" class="sortable"| Notes\n')
+        file1.write("\n")
+        
         file1.write("|-\n")
         file1.write("\n")
 
@@ -185,7 +191,11 @@ def main():
             for key, val in mdict.items():
                 print("{:15} {}".format(key, val))
             print("--------------------------")
-            file1.write("{}\n".format(mdict['name']))
+            file1.write("|[[{}]]\n".format(mdict['name']))
+            file1.write("|{}\n".format(mdict['sym']))
+            file1.write("|{}\n".format(mdict['base level']))
+            file1.write("|{}\n".format("|".join(mdict['attacks'])))
+            file1.write("| Notes\n")
             file1.write("|-\n")
         
         file1.write("|}\n")
