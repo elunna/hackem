@@ -100,70 +100,82 @@ ad_types = {
     "AD_SAMU": "steal amulet",
 }
 symbols = {
-"S_ANT": "a",
-"S_BLOB": "b",
-"S_COCKATRICE": "c",
-"S_DOG": "d",
-"S_EYE": "e",
-"S_FELINE": "f",
-"S_GREMLIN": "g",
-"S_HUMANOID": "h",
-"S_IMP": "i",
-"S_JELLY": "j",
-"S_KOBOLD": "k",
-"S_LEPRECHAUN": "l",
-"S_MIMIC": "m",
-"S_NYMPH": "n",
-"S_ORC": "o",
-"S_PIERCER": "p",
-"S_QUADRUPED": "q",
-"S_RODENT": "r",
-"S_SPIDER": "s",
-"S_TRAPPER": "t",
-"S_UNICORN": "u",
-"S_VORTEX": "v",
-"S_WORM": "w",
-"S_XAN": "x",
-"S_LIGHT": "y",
-"S_ZOUTHERN": "z",
-"S_ANGEL": "A",
-"S_BAT": "B",
-"S_CENTAUR": "C",
-"S_DRAGON": "D",
-"S_ELEMENTAL": "E",
-"S_FUNGUS": "F",
-"S_GNOME": "G",
-"S_GIANT": "H",
-"S_invisible": "I",
-"S_JABBERWOCK": "J",
-"S_KOP": "K",
-"S_LICH": "L",
-"S_MUMMY": "M",
-"S_NAGA": "N",
-"S_OGRE": "O",
-"S_PUDDING": "P",
-"S_QUANTMECH": "Q",
-"S_RUSTMONST": "R",
-"S_SNAKE": "S",
-"S_TROLL": "T",
-"S_UMBER": "U",
-"S_VAMPIRE": "V",
-"S_WRAITH": "W",
-"S_XORN": "X",
-"S_YETI": "Y",
-"S_ZOMBIE": "Z",
-"S_HUMAN": "@",
-"S_GHOST": " ",
-"S_GOLEM": "`",
-"S_DEMON": "&",
-"S_EEL": ";",
-"S_LIZARD": ":",
-"S_BAD_FOOD": "%",
-"S_BAD_COINS": "$",
-"S_WORM_TAIL": "~",
-"S_MIMIC_DEF": "]",
-
+    "S_ANT": "a",
+    "S_BLOB": "b",
+    "S_COCKATRICE": "c",
+    "S_DOG": "d",
+    "S_EYE": "e",
+    "S_FELINE": "f",
+    "S_GREMLIN": "g",
+    "S_HUMANOID": "h",
+    "S_IMP": "i",
+    "S_JELLY": "j",
+    "S_KOBOLD": "k",
+    "S_LEPRECHAUN": "l",
+    "S_MIMIC": "m",
+    "S_NYMPH": "n",
+    "S_ORC": "o",
+    "S_PIERCER": "p",
+    "S_QUADRUPED": "q",
+    "S_RODENT": "r",
+    "S_SPIDER": "s",
+    "S_TRAPPER": "t",
+    "S_UNICORN": "u",
+    "S_VORTEX": "v",
+    "S_WORM": "w",
+    "S_XAN": "x",
+    "S_LIGHT": "y",
+    "S_ZOUTHERN": "z",
+    "S_ANGEL": "A",
+    "S_BAT": "B",
+    "S_CENTAUR": "C",
+    "S_DRAGON": "D",
+    "S_ELEMENTAL": "E",
+    "S_FUNGUS": "F",
+    "S_GNOME": "G",
+    "S_GIANT": "H",
+    "S_invisible": "I",
+    "S_JABBERWOCK": "J",
+    "S_KOP": "K",
+    "S_LICH": "L",
+    "S_MUMMY": "M",
+    "S_NAGA": "N",
+    "S_OGRE": "O",
+    "S_PUDDING": "P",
+    "S_QUANTMECH": "Q",
+    "S_RUSTMONST": "R",
+    "S_SNAKE": "S",
+    "S_TROLL": "T",
+    "S_UMBER": "U",
+    "S_VAMPIRE": "V",
+    "S_WRAITH": "W",
+    "S_XORN": "X",
+    "S_YETI": "Y",
+    "S_ZOMBIE": "Z",
+    "S_HUMAN": "@",
+    "S_GHOST": " ",
+    "S_GOLEM": "`",
+    "S_DEMON": "&",
+    "S_EEL": ";",
+    "S_LIZARD": ":",
+    "S_BAD_FOOD": "%",
+    "S_BAD_COINS": "$",
+    "S_WORM_TAIL": "~",
+    "S_MIMIC_DEF": "]",
 }
+
+genflags = {
+    "G_NOCORPSE": "does not leave a corpse",
+    "G_GENO": "can be annihilated",
+    "G_LGROUP": "appears in large groups",
+    "G_SGROUP": "appears in small groups",
+    "G_NOGEN": "generated only specially",
+    "G_HELL": "only appears in Gehennom",
+    "G_NOHELL": "never generated in Gehennom",
+    "G_UNIQ": "unique",
+    "G_VLGROUP": "appears in very large groups"
+}
+
 def process_attacks(attks):
     new_attacks = []
     for atk in attks:
@@ -201,6 +213,15 @@ def split_by_commas(text):
 # Remove any parentheses(with content)
 def purge_parens(text):
     return re.sub(r'\(.*?\)', '', text)
+
+def is_integer(num):
+    """ Returns True if the num argument is an integer, and False if it is not. """
+    try:
+        num = float(num)
+    except ValueError:
+        return False
+
+    return num.is_integer()
 
 def extract_allparens(text):
     """ Looks through a string and extracts all text contained in parentheses,
@@ -258,10 +279,17 @@ def extract_data(text):
 
     # GEN FLAGS - sometimes has ()
     # gen = extract_parens(splitup[3]).split(',')[0]
-    gen = parens.pop(0)
-    mondat['gen'] = strip_list(gen.split('|'))
-
-
+    gen = strip_list(parens.pop(0).split('|'))
+    mondat['gen'] = []
+    for i in gen:
+        if is_integer(i):
+            mondat['frequency'] = int(i)
+        elif i in genflags and i != "G_GENO":
+            mondat['gen'].append(genflags[i])
+            
+    if "G_GENO" not in gen:
+        mondat['gen'].append("can not be annihilated")
+            
     # Size - Always has ()
     # Fields: weight, nut, sound, size
     siz = strip_list(parens.pop(-1).split(','))
@@ -349,8 +377,10 @@ def main():
         file1.write('{|class="wikitable sortable" \n')
         file1.write("|-\n")
         file1.write('!scope="col" | Monster\n')
-        file1.write('!scope="col" | Symbol\n')
-        file1.write('!scope="col" | Level\n')
+        file1.write('!scope="col" | Sym\n')
+        file1.write('!scope="col" | Lvl\n')
+        file1.write('!scope="col" | Freq\n')
+        file1.write('!scope="col" | Diff\n')
         file1.write('!scope="col" class="unsortable"| Attacks\n')
         file1.write('!scope="col" class="sortable"| Notes\n')
         file1.write("\n")
@@ -372,8 +402,11 @@ def main():
             file1.write("|[[{}]]\n".format(mdict['name']))
             file1.write("|{}\n".format(symbols[mdict['sym']]))
             file1.write("|{}\n".format(mdict['base level']))
-            file1.write("|{}\n".format("\n".join(process_attacks(mdict['attacks']))))
-            file1.write("| Notes\n")
+            file1.write("|{}\n".format(mdict.get('frequency', 'n/a')))
+            file1.write("|{}\n".format(mdict.get('difficulty', 'n/a')))
+            file1.write("|{}\n".format("<br>".join(process_attacks(mdict['attacks']))))
+            #file1.write("| Notes\n")
+            file1.write("|{}\n".format("<br>".join(mdict['gen'])))
             file1.write("|-\n")
         
         file1.write("|}\n")
