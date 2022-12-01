@@ -4196,7 +4196,7 @@ xchar x, y;
 {
     struct obj *otmp, *ncobj;
     int in_sight = !Blind && couldsee(x, y); /* Don't care if it's lit */
-    boolean ucarried;
+    boolean ucarried = obj && carried(obj);
 
     if (!obj)
         return ER_NOTHING;
@@ -4207,7 +4207,6 @@ xchar x, y;
     if (!ostr)
         ostr = cxname(obj);
 
-    ucarried = carried(obj);
     if (obj->otyp == CAN_OF_GREASE && obj->spe > 0) {
         return ER_NOTHING;
     } else if (obj->otyp == TOWEL && obj->spe < 7) {
@@ -4219,7 +4218,7 @@ xchar x, y;
     } else if (obj->greased) {
         if (!rn2(2)) {
             obj->greased = 0;
-            if (carried(obj)) {
+            if (ucarried) {
                 pline_The("grease on %s washes off.", yname(obj));
                 update_inventory();
             }
@@ -4233,7 +4232,7 @@ xchar x, y;
         water_damage_chain(obj->cobj, FALSE, 0, TRUE, x, y);
         return ER_DAMAGED; /* contents were damaged */
     } else if (Waterproof_container(obj)) {
-        if (carried(obj)) {
+        if (ucarried) {
             pline_The("water slides right off your %s.", ostr);
             makeknown(obj->otyp);
         }
@@ -4281,8 +4280,7 @@ xchar x, y;
 #ifdef MAIL
             || obj->otyp == SCR_MAIL
 #endif
-           ) 
-            return 0;
+           ) return 0;
         if (ucarried)
             pline("Your %s %s.", ostr, vtense(ostr, "fade"));
 
@@ -4316,8 +4314,7 @@ xchar x, y;
     } else if (obj->oclass == POTION_CLASS) {
         if (obj->otyp == POT_ACID) {
             char *bufp;
-            boolean one = (obj->quan == 1L), update = carried(obj),
-                    exploded = FALSE;
+            boolean one = (obj->quan == 1L), exploded = FALSE;
 
             if (Blind && !ucarried)
                 obj->dknown = 0;
@@ -4356,7 +4353,7 @@ xchar x, y;
             losehp(dmg, /* not physical damage */
                    "alchemic blast", KILLED_BY_AN);
             
-            if (update)
+            if (ucarried)
                 update_inventory();
             return ER_DESTROYED;
         } else if (obj->odiluted) {
