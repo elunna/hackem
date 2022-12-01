@@ -5484,8 +5484,8 @@ register char *cmd;
             context.run = 3;
             domove_attempting |= DOMOVE_RUSH;
 #endif  
-            if (dokickdir(FALSE))
-                return;
+            dokickdir(FALSE);
+            return;
         }
         break;
     }
