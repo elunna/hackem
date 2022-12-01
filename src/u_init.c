@@ -1141,7 +1141,10 @@ u_init()
         knows_object(SKELETON_KEY);
         knows_object(GRAPPLING_HOOK);
         skill_init(Skill_Con);
-        u.uhunger = 200;  /* On the verge of hungry */
+        if (Race_if(PM_VAMPIRIC))
+            u.uhunger = 1819;  /* On the verge of hungry */
+        else
+            u.uhunger = 200;  /* On the verge of hungry */
         u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL]
             = u.ualign.type = A_CHAOTIC; /* Override racial alignment */
         break;
