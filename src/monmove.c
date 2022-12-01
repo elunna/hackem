@@ -881,7 +881,7 @@ toofar:
     }
 
     /* shadow monsters leave trail of darkness */
-    if (!rn2(3)
+    if (!rn2(20)
         && (mtmp->data == &mons[PM_SHADOW_WOLF]
          || mtmp->data == &mons[PM_SHADOW_OGRE]
          || mtmp->data == &mons[PM_NABASSU])) {
