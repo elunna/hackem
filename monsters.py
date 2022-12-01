@@ -26,6 +26,7 @@ at_types = {
 }
 
 ad_types = {
+    "0": 0,
     "AD_PHYS": "physical",
     "AD_MAGM": "magic missile",
     "AD_FIRE": "fire",
@@ -33,7 +34,7 @@ ad_types = {
     "AD_SLEE": "sleep",
     "AD_DISN": "disintegrate",
     "AD_ELEC": "shock",
-    "AD_DRST": "poison",
+    "AD_DRST": "poison-str",
     "AD_ACID": "acid",
     "AD_LOUD": "sonic",
     "AD_WATR": "water",
@@ -57,8 +58,8 @@ ad_types = {
     "AD_HEAL": "heal",
     "AD_WRAP": "wrap",
     "AD_WERE": "lycanthropy",
-    "AD_DRDX": "poison (dex)",
-    "AD_DRCO": "poison (con)",
+    "AD_DRDX": "poison-dex",
+    "AD_DRCO": "poison-con",
     "AD_DRIN": "drain intelligence",
     "AD_DISE": "disease",
     "AD_DCAY": "decay",
@@ -98,6 +99,90 @@ ad_types = {
     "AD_LARV": "infect larva",
     "AD_SAMU": "steal amulet",
 }
+symbols = {
+"S_ANT": "a",
+"S_BLOB": "b",
+"S_COCKATRICE": "c",
+"S_DOG": "d",
+"S_EYE": "e",
+"S_FELINE": "f",
+"S_GREMLIN": "g",
+"S_HUMANOID": "h",
+"S_IMP": "i",
+"S_JELLY": "j",
+"S_KOBOLD": "k",
+"S_LEPRECHAUN": "l",
+"S_MIMIC": "m",
+"S_NYMPH": "n",
+"S_ORC": "o",
+"S_PIERCER": "p",
+"S_QUADRUPED": "q",
+"S_RODENT": "r",
+"S_SPIDER": "s",
+"S_TRAPPER": "t",
+"S_UNICORN": "u",
+"S_VORTEX": "v",
+"S_WORM": "w",
+"S_XAN": "x",
+"S_LIGHT": "y",
+"S_ZOUTHERN": "z",
+"S_ANGEL": "A",
+"S_BAT": "B",
+"S_CENTAUR": "C",
+"S_DRAGON": "D",
+"S_ELEMENTAL": "E",
+"S_FUNGUS": "F",
+"S_GNOME": "G",
+"S_GIANT": "H",
+"S_invisible": "I",
+"S_JABBERWOCK": "J",
+"S_KOP": "K",
+"S_LICH": "L",
+"S_MUMMY": "M",
+"S_NAGA": "N",
+"S_OGRE": "O",
+"S_PUDDING": "P",
+"S_QUANTMECH": "Q",
+"S_RUSTMONST": "R",
+"S_SNAKE": "S",
+"S_TROLL": "T",
+"S_UMBER": "U",
+"S_VAMPIRE": "V",
+"S_WRAITH": "W",
+"S_XORN": "X",
+"S_YETI": "Y",
+"S_ZOMBIE": "Z",
+"S_HUMAN": "@",
+"S_GHOST": " ",
+"S_GOLEM": "`",
+"S_DEMON": "&",
+"S_EEL": ";",
+"S_LIZARD": ":",
+"S_BAD_FOOD": "%",
+"S_BAD_COINS": "$",
+"S_WORM_TAIL": "~",
+"S_MIMIC_DEF": "]",
+
+}
+def process_attacks(attks):
+    new_attacks = []
+    for atk in attks:
+        atk = strip_list(atk.split(","))
+        if atk[1] and atk[1] != "AD_PHYS":
+            new_attacks.append("{} {}d{} ({})".format(
+                at_types[atk[0]],
+                atk[2],
+                atk[3],
+                ad_types[atk[1]],
+            ))
+        else:
+            new_attacks.append("{} {}d{}".format(
+                at_types[atk[0]],
+                atk[2],
+                atk[3],
+                ad_types[atk[1]],
+            ))
+    return new_attacks
 
 def stripcomments(text):
     return re.sub('//.*?\n|/\*.*?\*/', '', text, flags=re.S)
@@ -129,6 +214,7 @@ def extract_allparens(text):
     parens = re.findall(r'\((.*?)\)+', text)  # Discard the parentheses
     return parens
 
+
 def extract_data(text):
     mondat = {}
     # Initial cleanup
@@ -143,15 +229,16 @@ def extract_data(text):
     text = text.replace("A(ATTK", "ATTK")
     text = text.replace("NO_ATTK)", "NO_ATTK")
     text = text.replace("))", ")")
+    text = text.replace("ATTK", "")
     
     parens = extract_allparens((text))
     text = purge_parens(text)
-    print("text = {}".format(text))
-    print("")
+    #print("text = {}".format(text))
+    #print("")
     splitup = split_by_commas(text)
-    print("splitup = {}".format(splitup))
-    print("splitup[0] = {}".format(splitup[0]))
-    print("")
+    #print("splitup = {}".format(splitup))
+    #print("splitup[0] = {}".format(splitup[0]))
+    #print("")
     # Name
     
     mondat['name'] = splitup[0].strip("\"")
@@ -185,8 +272,9 @@ def extract_data(text):
 
     # Attacks - always has nested ()
     # Anything left over is attacks.
-    mondat['attacks'] = parens 
-
+    mondat['attacks'] = parens
+    print(parens)
+    
     # Misc Flags
     # M1, M2, M3, M4, flg3, flg4, mflg, 
     flags = []
@@ -206,7 +294,7 @@ def extract_data(text):
     mondat['color'] = splitup[-1].strip()
 
     return mondat
-        
+
 def main():
     with open("src/monst.c", "r") as a_file:
         monsters = []
@@ -282,9 +370,9 @@ def main():
                 print("{:15} {}".format(key, val))
             print("--------------------------")
             file1.write("|[[{}]]\n".format(mdict['name']))
-            file1.write("|{}\n".format(mdict['sym']))
+            file1.write("|{}\n".format(symbols[mdict['sym']]))
             file1.write("|{}\n".format(mdict['base level']))
-            file1.write("|{}\n".format("|".join(mdict['attacks'])))
+            file1.write("|{}\n".format("\n".join(process_attacks(mdict['attacks']))))
             file1.write("| Notes\n")
             file1.write("|-\n")
         

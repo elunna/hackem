@@ -3289,7 +3289,7 @@ NEARDATA struct permonst mons[] = {
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 15, CLR_BROWN),
     MON("nightgaunt", S_BAT,                                    /* Slash'EM */
         LVL(15, 20, -2, 50, -6), (G_GENO | 2 | G_SGROUP),
-        A( ATTK(AT_WEAP, AD_PHYS, 1, 8),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 8),
           ATTK(AT_CLAW, AD_TCKL, 1, 6), 
           ATTK(AT_CLAW, AD_TCKL, 1, 6),
           ATTK(AT_STNG, AD_PHYS, 1, 10), 
