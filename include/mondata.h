@@ -664,6 +664,13 @@
      || (ptr) == &mons[PM_FLAME_MAGE] \
      || (ptr) == &mons[PM_FLAMING_SPHERE] \
      || (ptr) == &mons[PM_WAX_GOLEM] \
+     || (ptr) == &mons[PM_FIRE_ANT] \
+     || (ptr) == &mons[PM_LAVA_BLOB] \
+     || (ptr) == &mons[PM_NOVA_FOX] \
+     || (ptr) == &mons[PM_PHOENIX] \
+     || (ptr) == &mons[PM_BLAZING_FERN] \
+     || (ptr) == &mons[PM_BLAZING_FERN_SPROUT] \
+     || (ptr) == &mons[PM_BLAZING_FERN_SPORE] \
      || likes_lava(ptr))
 
 #define likes_ice(ptr) \
