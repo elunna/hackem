@@ -1746,7 +1746,7 @@ register struct monst *mtmp;
 
             /* MRKR: Dwarves in the Mines frequently carry torches */
             if (In_mines(&u.uz)) {
-                if (!rn2(2)) {
+                if (!rn2(9)) {
                     otmp = mksobj(TORCH, TRUE, FALSE);
                     otmp->quan = 1;
                     (void) mpickobj(mtmp, otmp);
@@ -2488,7 +2488,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, SHORT_SWORD);
         }
         if (ptr == &mons[PM_LAMPAD]) {
-            if (!rn2(2))
+            if (!rn2(3))
                 (void) mongets(mtmp, TORCH);
         }
         break;
