@@ -977,7 +977,7 @@ mkswamp() /* Michiel Huisjes & Fred de Wilde */
                             if (!rn2(50))
                                 (void) makemon(&mons[PM_SEA_DRAGON],
                                                sx, sy, NO_MM_FLAGS);
-                            if (!rn2(19))
+                            else if (!rn2(19))
                                 (void) makemon(&mons[PM_WILL_O__THE_WISP],
                                                sx, sy, NO_MM_FLAGS);
                             eelct++;
@@ -989,7 +989,10 @@ mkswamp() /* Michiel Huisjes & Fred de Wilde */
                                               ? mkclass(S_FUNGUS, 0)
                                               : &mons[PM_GIANT_MOSQUITO],
                                            sx, sy, NO_MM_FLAGS);
-                        else if (!rn2(2)) /* swamp ferns like swamps */
+                        else if (!rn2(7))
+                            (void) makemon(&mons[PM_SWAMP_KOBOLD],
+                                           sx, sy, NO_MM_FLAGS);
+                        else if (!rn2(4)) /* swamp ferns like swamps */
                             (void) makemon(&mons[PM_SWAMP_FERN],
                                            sx, sy, NO_MM_FLAGS);
                     }

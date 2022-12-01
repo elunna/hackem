@@ -1525,7 +1525,7 @@ NEARDATA struct permonst mons[] = {
         M1_HUMANOID | M1_POIS | M1_OMNIVORE, M2_HOSTILE | M2_MAGIC,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 4, HI_ZAP),
     MON("swamp kobold", S_KOBOLD,                               /* Slash'EM */
-        LVL(3, 9, 10, 0, -3), (G_NOHELL | G_GENO | 1),
+        LVL(3, 9, 10, 0, -3), (G_NOHELL | G_GENO | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(450, 150, MS_ORC, MZ_SMALL), MR_POISON, 0,
