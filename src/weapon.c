@@ -1211,13 +1211,14 @@ static const NEARDATA short hwep[] = {
     ELVEN_SPEAR, 
     SPEAR, 
     ORCISH_SPEAR, 
+    TORCH,
     FLAIL,
     WOODEN_STAKE,
     QUARTERSTAFF, 
     JAVELIN,
     AKLYS, 
     CLUB,
-    PICK_AXE, 
+    PICK_AXE,
     FLY_SWATTER, 
     RUBBER_HOSE, 
     WAR_HAMMER,
@@ -1227,7 +1228,6 @@ static const NEARDATA short hwep[] = {
     ATHAME, 
     SCALPEL, 
     KNIFE,
-    TORCH,
     WORM_TOOTH,
 
     /* Low priority unless you have ammo */

@@ -2682,7 +2682,6 @@ do_rust:
 
         /* Torch flame is not hot enough to guarantee */
         /* burning away slime */
-
         if (!rn2(2) && burnarmor(&youmonst)) {
             if (!rn2(4)) 
                 burn_away_slime();
@@ -2693,9 +2692,8 @@ do_rust:
             if (!rn2(5))
                 destroy_item(SPBOOK_CLASS, AD_FIRE);
             }
-        if (rn2(3)) 
-            destroy_item(WEAPON_CLASS, AD_FIRE);
-        if (mon_currwep->otyp == TORCH)
+
+        if (mon_currwep && mon_currwep->otyp == TORCH)
             burn_faster(mon_currwep);
     }
 
