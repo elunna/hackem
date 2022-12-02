@@ -1,6 +1,7 @@
 
 import re
 import math
+from datetime import date
 
 at_types = {
     "AT_NONE": "passive",
@@ -420,6 +421,8 @@ def main():
         file1.write("==See also==\n")
         file1.write("*[[Item (Hack'EM)]]\n")
         file1.write("\n")
+        today = date.today()
+        file1.write("Last updated: {}<br>".format(today))
         file1.write("{{hackem-008}}\n")
         file1.write("[[Category:Hack'EM monsters| ]]\n")
     
