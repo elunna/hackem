@@ -4800,7 +4800,7 @@ legions of undead that befoul the land.
 
 "Go with %d as your guide, %p."
 %E [Enter %i and recover %o from %n.]
-%Cp Tou 00024
+%Cp Und 00024
 "Remember, you must return with %o so
 that we may lift the curse from the silver bell."
 %E
