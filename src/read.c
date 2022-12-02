@@ -2058,7 +2058,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             break;
         }
         case SPE_SPIRIT_BOMB: {
-            int num, i;
+            int num, i, range;
             int sx = u.ux, sy = u.uy;
 #if 0
             if (uwep || (u.twoweap && uswapwep)) {
@@ -2091,7 +2091,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* Original Spirit Bomb went 2 tiles exactly (but went through
              * monsters), this will go as far as a regular wand and stop
              * on monsters. */
-            int range = rnd(8) + 1;
+            range = rnd(8) + 1;
             for (i = 0; i < range; i++) {
                 if (!isok(sx, sy) || !cansee(sx, sy)
                     || IS_STWALL(levl[sx][sy].typ) || u.uswallow || m_at(sx, sy))
@@ -2206,14 +2206,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
-    case SPE_RAISE_ZOMBIES:
-        pline("You chant the ancient curse...");
+    case SPE_RAISE_ZOMBIES: {
         struct obj *obj;
+        int i, j;
+        pline("You chant the ancient curse...");
         /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
          * adding another case. */
         pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
+        for (i = -1; i <= 1; i++) {
+            for (j = -1; j <= 1; j++) {
                 int corpsenm;
 
                 if (!isok(u.ux + i, u.uy + j))
@@ -2232,7 +2233,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                          * much of the original corpse was left.
                          */
                         if (obj->oeaten)
-                            obj->oeaten = eaten_stat(mons[corpsenm].cnutrit, obj);
+                            obj->oeaten =
+                                eaten_stat(mons[corpsenm].cnutrit, obj);
                         obj->corpsenm = corpsenm;
                         mtmp = revive(obj, TRUE);
                         if (mtmp) {
@@ -2251,14 +2253,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         nomul(-2); /* You need to recover */
         nomovemsg = 0;
         break;
-    case SPE_ANIMATE_DEAD:
+    }
+    case SPE_ANIMATE_DEAD: {
+        struct obj *obj;
         if (u.uswallow) {
             pline("You don't have enough elbow-room to maneuver.");
             return 0;
         }
         int cost = 50 - u.ulevel; /* WAC make this depend on mon? */
         /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
-                                   
+
         if ((Upolyd && u.mh <= cost) || (!Upolyd && u.uhp <= cost)) {
             pline("You don't have the strength to perform revivification!");
             return 0;
@@ -2273,7 +2277,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         /* Copied from slashem polyself probability */
         if ((rn2(5) + u.ulevel) < mons[obj->corpsenm].mlevel)
             pline("Your attempt to animate the dead failed...");
-#endif   
+#endif
         mtmp = revive(obj, TRUE);
         if (mtmp) {
             if (Is_blackmarket(&u.uz))
@@ -2292,6 +2296,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         else
             u.uhp -= cost;
         break;
+    }
     case SCR_ANNIHILATION:
         if (!already_known)
             You("have found a scroll of annihilation!");

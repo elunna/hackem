@@ -2624,13 +2624,12 @@ dosacrifice()
              *      I'm now using the calculation from SpliceHack that considers
              *      the quantity of gifts given .
              */
-            int pet_cnt = rn2(3) ? 2 : 3;
             if (u.ulevel > 4 
                 && u.uluck >= 0
                 && !u.uevent.qcompleted
                 && !u.uevent.qexpelled
                 && !u.uevent.uhand_of_elbereth 
-                && (count_pets() < pet_cnt)
+                && (count_pets() < (rn2(3) ? 2 : 3))
                 && !rn2(10 + (4 * u.ugifts))) {
                 god_gives_pet(altaralign);
                 return 1;

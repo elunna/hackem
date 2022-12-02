@@ -5934,9 +5934,10 @@ boolean moncast;
         break; /* ZT_FIRE */
 
     case ZT_SONIC: {
-        t = t_at(x, y);
-        int xx = x, yy = y;
+        int i, xx = x, yy = y;
         struct obj *otmp;
+        t = t_at(x, y);
+        
         if (find_drawbridge(&xx, &yy)) {
             if (lev->typ != DRAWBRIDGE_UP) {
                 pline_The("drawbridge trembles and suddenly implodes from the head-splitting noise!");
@@ -5970,7 +5971,7 @@ boolean moncast;
                         newsym(x, y);
                 }
                 /* scatter some debris (not as much as a drawbridge! */
-                for (int i = rn2(3); i > 0; --i) {
+                for (i = rn2(3); i > 0; --i) {
                     otmp = mksobj_at(IRON_CHAIN, 
                                      rn2(2) ? x : xx, 
                                      rn2(2) ? y : yy, TRUE, FALSE);
@@ -7113,10 +7114,11 @@ blindingflash()
 void
 bomb_explode(struct obj *obj, int x, int y, boolean isyou)
 {
-    int ztype, expltype;
     int d1 = 3, d2 = 6;
     int otyp = obj->otyp;
     int yours = isyou ? 1 : -1;
+    int ztype = ZT_SPELL(ZT_FIRE) * yours; /* Default is fire */
+    int expltype = EXPL_FIERY * isyou * -1;
     /* Major kludge to preserve the blame for the bomb */
     boolean save_mon_moving = context.mon_moving;
     context.mon_moving = !isyou;
@@ -7125,19 +7127,18 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
         ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
         expltype = EXPL_FIERY * isyou * -1;
         d1 = 50, d2 = 6;
-    }
-    else if (otyp == FIRE_BOMB) {
+    } else if (otyp == FIRE_BOMB) {
         ztype = ZT_SPELL(ZT_FIRE) * yours;          /* 11 */
         expltype = EXPL_FIERY * isyou * -1;        /*  5 */
-    } 
-    else if (otyp == GAS_BOMB) {
+    } else if (otyp == GAS_BOMB) {
         ztype = ZT_SPELL(ZT_POISON_GAS) * yours;    /* 16 */
         expltype = EXPL_NOXIOUS * isyou * -1;      /*  1 */
-    } 
-    else if (otyp == SONIC_BOMB) {
+    } else if (otyp == SONIC_BOMB) {
         ztype = ZT_SPELL(ZT_SONIC) * yours;         /* 18 */
         expltype = EXPL_DARK * isyou * -1;         /*  0 */
-    }
+    } else
+        impossible("Invalid bomb otyp for bomb_explode!");
+    
     if (wizard) 
         pline("yours=%d ztype=%d expltype=%d", yours, ztype, expltype);
     

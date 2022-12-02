@@ -3768,6 +3768,7 @@ register struct obj *obj;
     xchar ox, oy;
     long owornmask;
     struct obj *otmp;
+    int newtyp;
     boolean explodes;
     boolean split1off;
 
@@ -3779,7 +3780,7 @@ register struct obj *obj;
         /* WAC -- Could have some funky fx */
         return 0;
 
-    int newtyp = obj2upgrade(obj->otyp);
+    newtyp = obj2upgrade(obj->otyp);
     if (!newtyp)
         return 0;
     
