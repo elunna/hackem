@@ -2342,7 +2342,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     case SCR_GOLD_DETECTION:
-        if ((confused || scursed) ? trap_detect(sobj, FALSE) : gold_detect(sobj))
+        if ((confused || scursed) ? trap_detect(sobj, TRUE) : gold_detect(sobj))
             sobj = 0; /* failure: strange_feeling() -> useup() */
         break;
     case SCR_FOOD_DETECTION:
