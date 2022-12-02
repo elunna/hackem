@@ -1110,7 +1110,7 @@ short otyp;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
-    boolean wielded, carried;
+    boolean wielded, carried, identified_potion;
     boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
     int i, mat_bon, obj_weight;
     struct obj dummy = { 0 };
@@ -1412,7 +1412,7 @@ short otyp;
                 Sprintf(buf, "Dipping into a potion of acid creates %s potion.",
                         an(OBJ_DESCR(objects[mixture])));
                 identified_potion_name = OBJ_NAME(objects[mixture]);
-                boolean identified_potion = objects[mixture].oc_name_known;
+                identified_potion = objects[mixture].oc_name_known;
                 if (identified_potion && identified_potion_name) {
                     Sprintf(eos(buf)-1, " (%s).", identified_potion_name);
                 }

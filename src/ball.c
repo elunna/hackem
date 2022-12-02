@@ -909,6 +909,7 @@ void
 drop_ball(x, y)
 xchar x, y;
 {
+    int bootdamage;
     if (Blind) {
         /* get the order */
         u.bc_order = bc_order();
@@ -944,7 +945,6 @@ xchar x, y;
                 if (uarmf && uarmf->otyp == find_jboots()) {
                     losehp(rnd(10), "leg damage from being pulled out of a bear trap", KILLED_BY);
                     set_wounded_legs(side, rn1(100, 50));
-                    int bootdamage;
                     for (bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {
                         drain_item(uarmf, TRUE);
                         Your("boots are damaged!");

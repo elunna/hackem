@@ -2495,7 +2495,7 @@ long timeout UNUSED;
     int oldtyp = body->corpsenm;
     int oldquan = body->quan;
     int count = 0;
-    boolean already_fungus;
+    boolean already_fungus, bad_spot;
         
     /* Acidic corpses and petrifying corpses only grow acidic fungi. */
     if (acidic(&mons[oldtyp]) || touch_petrifies(&mons[oldtyp])) {
@@ -2518,7 +2518,7 @@ long timeout UNUSED;
      * appear on top and look weird, so prevent that.
      */
      
-    boolean bad_spot = ((body->where == OBJ_FLOOR || body->where==OBJ_BURIED)
+    bad_spot = ((body->where == OBJ_FLOOR || body->where==OBJ_BURIED)
                         && (is_pool(body->ox, body->oy)
                             || is_lava(body->ox, body->oy)
                             || is_ice(body->ox, body->oy)

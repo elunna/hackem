@@ -1926,6 +1926,7 @@ jump(magic)
 int magic; /* 0=Physical, otherwise skill level */
 {
     coord cc;
+    int bootdamage;
 
     /* attempt "jumping" spell if hero has no innate jumping ability */
     if (!magic && !Jumping && known_spell(SPE_JUMPING))
@@ -2032,7 +2033,6 @@ int magic; /* 0=Physical, otherwise skill level */
                 if (uarmf && uarmf->otyp == find_jboots()) {
                     losehp(rnd(10), "jumping out of a bear trap", KILLED_BY);
                     set_wounded_legs(side, rn1(100, 50));
-                    int bootdamage;
                     for (bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {
                         drain_item(uarmf, TRUE);
                     Your("boots are damaged!");

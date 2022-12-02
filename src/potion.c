@@ -821,6 +821,7 @@ register struct obj *otmp;
     register int i, ii, lim;
     struct monst *mtmp;
     const char *mod;
+    boolean happened;
 
     switch (otmp->otyp) {
     case POT_RESTORE_ABILITY:
@@ -1237,7 +1238,7 @@ register struct obj *otmp;
             pline("Ulch!  That potion tasted foul!");
             
             /* [BarclayII] cursed potions randomly decrease your attribute */
-            boolean happened = FALSE;
+            happened = FALSE;
             if (!Fixed_abil) {
                 for (i = 0; i < A_MAX; ++i) {
                     if (rn2(2)) {
@@ -2307,6 +2308,7 @@ register struct obj *obj;
 {
     int i, ii, isdone, kn = 0;
     boolean cureblind = FALSE;
+    boolean not_affected;
 
     /* potion of unholy water might be wielded; prevent
        you_were() -> drop_weapon() from dropping it so that it
@@ -2401,7 +2403,7 @@ register struct obj *obj;
         break;
     case POT_HALLUCINATION: {
         kn++;
-        boolean not_affected = Blind || (u.umonnum == PM_BLACK_LIGHT
+        not_affected = Blind || (u.umonnum == PM_BLACK_LIGHT
                                   || u.umonnum == PM_VIOLET_FUNGUS
                                   || dmgtype(youmonst.data, AD_STUN));
         if (!not_affected) {
@@ -2550,12 +2552,15 @@ mixtype(o1, o2)
 register struct obj *o1, *o2;
 {
     int o1typ = o1->otyp, o2typ = o2->otyp;
-
+    const char *potion_descr;
     /* cut down on the number of cases below */
     if (o1->oclass == POTION_CLASS
-        && (o2typ == POT_GAIN_LEVEL || o2typ == POT_GAIN_ENERGY
-            || o2typ == POT_HEALING || o2typ == POT_EXTRA_HEALING
-            || o2typ == POT_FULL_HEALING || o2typ == POT_ENLIGHTENMENT
+        && (o2typ == POT_GAIN_LEVEL 
+            || o2typ == POT_GAIN_ENERGY
+            || o2typ == POT_HEALING 
+            || o2typ == POT_EXTRA_HEALING
+            || o2typ == POT_FULL_HEALING 
+            || o2typ == POT_ENLIGHTENMENT
             || o2typ == POT_FRUIT_JUICE)) {
         /* swap o1 and o2 */
         o1typ = o2->otyp;
@@ -2644,7 +2649,7 @@ register struct obj *o1, *o2;
             /* here we just want to return something non-zero */
             return POT_WATER;
         }
-        const char *potion_descr = gem_to_potion(o1->otyp);
+        potion_descr = gem_to_potion(o1->otyp);
 
         if (potion_descr) {
             int typ;
