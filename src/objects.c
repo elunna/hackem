@@ -117,7 +117,7 @@ OBJECT(OBJ("strange object", None),
        wt, cost, 2, 2, hitbon, ammotyp, wt, color )
 
 /* Note: for weapons that don't do an even die of damage (ex. 2-7 or 3-18)
-   the extra damage is added on in weapon.c, not here! */
+   * the extra damage is added on in weapon.c, not here! */
 
 #define P PIERCE
 #define S SLASH
@@ -148,9 +148,9 @@ WEAPON("chakram", "circular blade",                            /* SpliceHack */
        0, 1, 0, 0, 25,    5,  20, 10, 9, 1, S,   -P_BOOMERANG, IRON, HI_SILVER),
 
 /* spears [note: javelin used to have a separate skill from spears,
-   because the latter are primarily stabbing weapons rather than
-   throwing ones; but for playability, they've been merged together
-   under spear skill and spears can now be thrown like javelins] */
+ * because the latter are primarily stabbing weapons rather than
+ * throwing ones; but for playability, they've been merged together
+ * under spear skill and spears can now be thrown like javelins] */
 WEAPON("spear", None,
        1, 1, 0, 0, 52,  30,   3,  6,  8, 0, P,   P_SPEAR, IRON, HI_METAL),
 WEAPON("elven spear", "runed spear",
@@ -196,8 +196,8 @@ WEAPON("knife", None,
 WEAPON("stiletto", None,
        1, 1, 0, 0,  5,   5,   4,  3,  2, 0, P, P_KNIFE, IRON, HI_METAL),
 /* 3.6: worm teeth and crysknives now stack;
-   when a stack of teeth is enchanted at once, they fuse into one crysknife;
-   when a stack of crysknives drops, the whole stack reverts to teeth */
+ * when a stack of teeth is enchanted at once, they fuse into one crysknife;
+ * when a stack of crysknives drops, the whole stack reverts to teeth */
 WEAPON("worm tooth", None,
        1, 1, 0, 0,  0,  20,   2,  2,  2, 0, P,   P_KNIFE, BONE, CLR_WHITE),
 WEAPON("crysknife", None,
@@ -483,7 +483,7 @@ HELM("helm of telepathy", "visored helmet",
           cost, 7, 0, ARM_CLOAK, DRAGON_HIDE, color)
 /* For now, only dragons leave these. */
 /* 3.4.1: dragon scales left classified as "non-magic"; they confer magical
-   properties but are produced "naturally"; affects use as polypile fodder */
+ * properties but are produced "naturally"; affects use as polypile fodder */
 DRGN_SCALES("gray dragon scales",       0, ANTIMAGIC,         700, CLR_GRAY),
 DRGN_SCALES("silver dragon scales",     0, REFLECTING,        700, DRAGON_SILVER),
 DRGN_SCALES("shimmering dragon scales", 0, DISPLACED,         700, CLR_CYAN),
@@ -754,7 +754,7 @@ AMULET("amulet of magic resistance",     "oblong", ANTIMAGIC, 30),
         /* +2 AC and +2 MC; +2 takes naked hero past 'warded' to 'guarded' */
 AMULET("amulet of guarding",         "perforated", PROTECTION, 75),
         /* cubical: some descriptions are already three dimensional and
-           parallelogrammatical (real word!) would be way over the top */
+         * parallelogrammatical (real word!) would be way over the top */
 AMULET("amulet of flying",              "cubical", FLYING, 60),       /* Slash'EM */
 
 /* Extra descriptions */
@@ -951,7 +951,7 @@ OBJECT(OBJ("meat ring", None),
        BITS(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, FLESH),
        0, FOOD_CLASS, 0, 1, 5, 1, 0, 0, 0, 0, 5, CLR_BROWN),
 /* pudding 'corpses' will turn into these and combine;
-   must be in same order as the pudding monsters */
+ * must be in same order as the pudding monsters */
 FOOD("glob of gray ooze",     0,  2, 20, 0, FLESH,  20, CLR_GRAY),
 FOOD("glob of brown pudding", 0,  2, 20, 0, FLESH,  20, CLR_BROWN),
 FOOD("glob of green slime",   0,  2, 20, 0, FLESH,  20, CLR_GREEN),
@@ -976,7 +976,7 @@ FOOD("sprig of catnip",       3,  1,  1, 0, VEGGY,  40, CLR_GREEN),          /* 
 FOOD("sprig of wolfsbane",    7,  1,  1, 0, VEGGY,  40, CLR_GREEN),
 FOOD("clove of garlic",       7,  1,  1, 0, VEGGY,  40, CLR_WHITE),
 /* name of slime mold is changed based on player's OPTION=fruit:something
-   and bones data might have differently named ones from prior games */
+ * and bones data might have differently named ones from prior games */
 FOOD("slime mold",           75,  1,  5, 0, VEGGY, 250, HI_ORGANIC),
 
 /* people food */
@@ -1000,8 +1000,8 @@ FOOD("food ration",         380,  5, 20, 0, VEGGY, 800, HI_ORGANIC),
 FOOD("K-ration",              0,  1, 10, 0, VEGGY, 400, HI_ORGANIC),
 FOOD("C-ration",              0,  1, 10, 0, VEGGY, 300, HI_ORGANIC),
 /* tins have type specified by obj->spe (+1 for spinach, other implies
-   flesh; negative specifies preparation method {homemade,boiled,&c})
-   and by obj->corpsenm (type of monster flesh) */
+ * flesh; negative specifies preparation method {homemade,boiled,&c})
+ * and by obj->corpsenm (type of monster flesh) */
 FOOD("tin",                  75,  0, 10, 1, METAL,   0, HI_METAL),
 #undef FOOD
 
@@ -1042,8 +1042,7 @@ POTION("acid",                  "white",  0, 0, 10, 250, CLR_WHITE),
 POTION("oil",                   "murky",  0, 0, 30, 250, CLR_BROWN),
 /* Amnesia potions can now be anything - since amnesia was nerfed. */
 POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),          /* Slash'EM */
-/* fixed description
- */
+/* fixed description */
 POTION("water",                 "clear",  0, 0, 92, 100, CLR_CYAN),
 POTION("blood",             "blood-red",  0, 0,  0,  50, CLR_RED),           /* Slash'EM */
 POTION("vampire blood",     "blood-red",  1, 0,  0, 350, CLR_RED),           /* Slash'EM */
@@ -1150,15 +1149,15 @@ SCROLL("blank paper", "unlabeled",  0,  28,  60),
            0, SPBOOK_CLASS, prob, delay, level * 5 + 30,                \
            level * 100, 0, 0, 0, level, 20, color)
 /* Spellbook description normally refers to book covers (primarily color).
-   Parchment and vellum would never be used for such, but rather than
-   eliminate those, finagle their definitions to refer to the pages
-   rather than the cover.  They are made from animal skin (typically of
-   a goat or sheep) and books using them for pages generally need heavy
-   covers with straps or clamps to tightly close the book in order to
-   keep the pages flat.  (However, a wooden cover might itself be covered
-   by a sheet of parchment, making this become less of an exception.  Also,
-   changing the internal composition from paper to leather makes eating a
-   parchment or vellum spellbook break vegetarian conduct, as it should.) */
+ * Parchment and vellum would never be used for such, but rather than
+ * eliminate those, finagle their definitions to refer to the pages
+ * rather than the cover.  They are made from animal skin (typically of
+ * a goat or sheep) and books using them for pages generally need heavy
+ * covers with straps or clamps to tightly close the book in order to
+ * keep the pages flat.  (However, a wooden cover might itself be covered
+ * by a sheet of parchment, making this become less of an exception.  Also,
+ * changing the internal composition from paper to leather makes eating a
+ * parchment or vellum spellbook break vegetarian conduct, as it should.) */
 #define PAPER LEATHER /* override enum for use in SPELL() expansion */
 SPELL("dig",             "parchment",     P_MATTER_SPELL,      20,  6, 3, 1, RAY, HI_LEATHER),
 SPELL("magic missile",   "vellum",        P_ATTACK_SPELL,      35,  2, 2, 1, RAY, HI_LEATHER),
@@ -1243,8 +1242,7 @@ SPELL(None,         "chartreuse",  P_NONE, 0, 0, 0, 1, 0, CLR_GREEN),
 SPELL(None,         "decrepit",    P_NONE, 0, 0, 0, 1, 0, CLR_BROWN),
 SPELL(None,         "crimson",     P_NONE, 0, 0, 0, 1, 0, CLR_RED),
 SPELL(None,         "charcoal",    P_NONE, 0, 0, 0, 1, 0, CLR_BLACK),
-/* books with fixed descriptions
- */
+/* books with fixed descriptions */
 SPELL("blank paper", "plain", P_NONE, 15, 0, 0, 0, 0, HI_PAPER),
 /* tribute book for 3.6 */
 OBJECT(OBJ("novel", "paperback"),
@@ -1258,8 +1256,8 @@ OBJECT(OBJ("Book of the Dead", "papyrus"),
 
 /* wands ... */
 /* sum of all probabilty values equals 3000 - wands
-   of wishing are 3 times less likely to randomly spawn
-   versus all other kinds */
+ * of wishing are 3 times less likely to randomly spawn
+ * versus all other kinds */
 #define WAND(name,typ,prob,cost,mgc,dir,metal,color) \
     OBJECT(OBJ(name, typ),                                              \
            BITS(0, 0, 1, 0, mgc, 1, 0, 0, 0, 0, dir, P_NONE, metal),    \

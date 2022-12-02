@@ -67,3 +67,4 @@ log
 log.txt
 monsters.htm
 .idea
+__pycache__
