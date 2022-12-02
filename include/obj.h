@@ -399,7 +399,7 @@ struct obj {
                     || dmgtype(&mons[(obj)->corpsenm], AD_POLY)))
 #define mlevelgain(obj) (ofood(obj) && (obj)->corpsenm == PM_WRAITH)
 #define mhealup(obj) (ofood(obj) && (obj)->corpsenm == PM_NURSE)
-#define drainlevel(corpse) (mons[(corpse)->corpsenm].cnutrit*4/5)
+#define drainlevel(corpse) (mons[(corpse)->corpsenm].cnutrit * 4 / 5 )
 #define is_royaljelly(o) (o->otyp == LUMP_OF_ROYAL_JELLY)
 #define Is_pudding(o)                                                 \
     (o->otyp == GLOB_OF_GRAY_OOZE                                     \

@@ -122,7 +122,7 @@ register struct obj *obj;
     if (is_vampiric(youmonst.data))
         return (boolean)(obj->otyp == CORPSE 
               && has_blood(&mons[obj->corpsenm]) 
-              && (!obj->odrained || obj->oeaten > drainlevel(obj)));
+              && (!obj->odrained || obj->oeaten > (unsigned) drainlevel(obj)));
     
     if (is_gem_eater(youmonst.data) &&
         (obj->oclass == GEM_CLASS && objects[obj->otyp].oc_tough)) {
@@ -2004,7 +2004,7 @@ struct obj *otmp;
      */
     if (is_vampiric(youmonst.data)) {
         /* oeaten is set up by touchfood */
-        if (otmp->odrained ? otmp->oeaten <= drainlevel(otmp) :
+        if (otmp->odrained ? otmp->oeaten <= (unsigned) drainlevel(otmp) :
                            otmp->oeaten < mons[otmp->corpsenm].cnutrit) {
             pline("There is no blood left in this corpse!");
             return 3;

@@ -1517,11 +1517,11 @@ unsigned doname_flags;
         break;
     case FOOD_CLASS:
         if (obj->otyp == CORPSE && obj->odrained) {
-            if (wizard && obj->oeaten < drainlevel(obj))
+            if (wizard && obj->oeaten < (unsigned) drainlevel(obj))
                 Strcpy(tmpbuf, "over-drained ");
             else
                 Sprintf(tmpbuf, "%sdrained ",
-                        (obj->oeaten > drainlevel(obj)) ? "partly " : "");
+                        (obj->oeaten > (unsigned) drainlevel(obj)) ? "partly " : "");
         } else if (obj->oeaten)
             Strcpy(tmpbuf, "partly eaten ");
         else
