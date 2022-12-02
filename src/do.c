@@ -2492,7 +2492,7 @@ long timeout UNUSED;
     int oldtyp = body->corpsenm;
     int oldquan = body->quan;
     int count = 0;
-    boolean already_fungus, bad_spot, munching;
+    boolean already_fungus, bad_spot, munching, no_eligible;
         
     /* Acidic corpses and petrifying corpses only grow acidic fungi. */
     if (acidic(&mons[oldtyp]) || touch_petrifies(&mons[oldtyp])) {
@@ -2522,7 +2522,7 @@ long timeout UNUSED;
                             || MON_AT(body->ox, body->oy)
                             || sobj_at(BOULDER, body->ox, body->oy)));
     /* maybe F are annihilated? */
-    boolean no_eligible = (newpm == NULL);
+    no_eligible = (newpm == NULL);
 
     /* Don't grow mold on the corpse the player is eating. */
     munching = (body == context.victual.piece);

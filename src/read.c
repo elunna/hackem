@@ -2747,7 +2747,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     case SCR_ICE: {
-        int dam;
+        int dam, dist;
         int madepool = 0;
         int stilldry = -1;
         int x, y, mx, my, safe_pos = 0;
@@ -2797,7 +2797,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 if (DEADMONSTER(mtmp))
                     continue;
                 mx = mtmp->mx, my = mtmp->my;
-                int dist = distmin(u.ux, u.uy, mx, my);
+                dist = distmin(u.ux, u.uy, mx, my);
                     
                 if (cansee(mx, my) && dist <= (sblessed ? 5 : 3)) {
                     if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
