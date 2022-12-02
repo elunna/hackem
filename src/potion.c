@@ -15,6 +15,7 @@ STATIC_DCL long FDECL(itimeout_incr, (long, int));
 STATIC_DCL void NDECL(ghost_from_bottle);
 STATIC_DCL boolean
 FDECL(H2Opotion_dip, (struct obj *, struct obj *, BOOLEAN_P, const char *));
+STATIC_DCL const char *FDECL(gem_to_potion, (int));
 
 /* force `val' to be within valid range for intrinsic timeout value */
 STATIC_OVL long
@@ -2638,80 +2639,12 @@ register struct obj *o1, *o2;
     
     /* MRKR: Extra alchemical effects. */
     if (o2->otyp == POT_ACID && o1->oclass == GEM_CLASS) {
-        char *potion_descr = NULL;
-        /* Note: you can't create smoky, milky or clear potions */
-        
-        switch (o1->otyp) {
-        /* white */
-        case DILITHIUM_CRYSTAL:
+        if (o1->otyp == DILITHIUM_CRYSTAL) {     /* white */
             /* explodes - special treatment in dodip */
             /* here we just want to return something non-zero */
             return POT_WATER;
-            break;
-        case DIAMOND: /* won't dissolve */
-        default:
-            break;
-        case OPAL:
-            potion_descr = "cloudy";
-            break;
-        case RUBY:
-            potion_descr = "ruby"; /* red */
-            break;
-        case GARNET:
-            potion_descr = "pink";
-            break;
-        case JASPER:
-            potion_descr = "puce";
-            break;
-        case JACINTH:
-            potion_descr = "orange"; /* orange */
-            break;
-        case AGATE:
-            potion_descr = "swirly";
-            break;
-        case CITRINE:
-            potion_descr = "yellow"; /* yellow */
-            break;
-        case CHRYSOBERYL:
-            potion_descr = "golden";
-            break;
-        case AMBER:
-            potion_descr = "amber";  /* yellowish brown */
-            break;
-        case TOPAZ:
-            potion_descr = "brown";
-            break;
-        case EMERALD:
-            potion_descr = "emerald"; /* green */
-            break;
-        case TURQUOISE:
-            potion_descr = "sky blue";
-            break;
-        case AQUAMARINE:
-            potion_descr = "cyan";
-            break;
-        case JADE:
-            potion_descr = "dark green";
-            break;
-        case SAPPHIRE:
-            potion_descr = "indigo"; /* blue */
-            break;
-        case AMETHYST:
-            potion_descr = "magenta"; /* violet */
-            break;
-        case FLUORITE:
-            potion_descr = "white";
-            break;
-        case BLACK_OPAL:
-            potion_descr = "black"; /* black */
-            break;
-        case JET:
-            potion_descr = "dark";
-            break;
-        case OBSIDIAN:
-            potion_descr = "effervescent";
-            break;
         }
+        const char *potion_descr = gem_to_potion(o1->otyp);
 
         if (potion_descr) {
             int typ;
@@ -2729,7 +2662,57 @@ register struct obj *o1, *o2;
     return STRANGE_OBJECT;
 }
 
-
+STATIC_OVL const char *
+gem_to_potion(otyp)
+int otyp;
+{
+    /* Note: you can't create smoky, milky or clear potions */
+    switch (otyp) {
+    case OPAL:
+        return "cloudy";
+    case RUBY:
+        return "ruby"; /* red */
+    case GARNET:
+        return "pink";
+    case JASPER:
+        return "puce";
+    case JACINTH:
+        return "orange"; /* orange */
+    case AGATE:
+        return "swirly";
+    case CITRINE:
+        return "yellow"; /* yellow */
+    case CHRYSOBERYL:
+        return "golden";
+    case AMBER:
+        return "amber";  /* yellowish brown */
+    case TOPAZ:
+        return "brown";
+    case EMERALD:
+        return "emerald"; /* green */
+    case TURQUOISE:
+        return "sky blue";
+    case AQUAMARINE:
+        return "cyan";
+    case JADE:
+        return "dark green";
+    case SAPPHIRE:
+        return "indigo"; /* blue */
+    case AMETHYST:
+        return "magenta"; /* violet */
+    case FLUORITE:
+        return "white";
+    case BLACK_OPAL:
+        return "black"; /* black */
+    case JET:
+        return "dark";
+    case OBSIDIAN:
+        return "effervescent";
+    case DIAMOND: /* won't dissolve */
+    default:
+        return NULL;
+    }
+}
 
 /* Bills an object that's about to be downgraded, assuming that's not already
  * been done */
