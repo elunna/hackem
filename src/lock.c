@@ -276,83 +276,82 @@ forcelock(VOID_ARGS)
 }
 
 /* try to break/pry open a door */
-STATIC_PTR
-int
-forcedoor()
+STATIC_PTR int
+forcedoor(VOID_ARGS)
 {
-	if(xlock.door != &(levl[u.ux+u.dx][u.uy+u.dy])) {
-	    return((xlock.usedtime = 0)); /* you moved */
-	} 
+    if (xlock.door != &(levl[u.ux + u.dx][u.uy + u.dy])) {
+        return ((xlock.usedtime = 0)); /* you moved */
+    } 
 
-	switch (xlock.door->doormask) {
-	    case D_NODOOR:
-                pline("This doorway has no door.");
-                return ((xlock.usedtime = 0));
-	    case D_ISOPEN:
-                You("cannot lock an open door.");
-                return ((xlock.usedtime = 0));
-	    case D_BROKEN:
-                pline("This door is broken.");
-                return((xlock.usedtime = 0));
-	}
-	
-	if (xlock.usedtime++ >= 50 || nohands(youmonst.data)) {
-	    You("give up your attempt at %s the door.",
-	    	(xlock.picktyp == 2 ? "melting" :
-                 xlock.picktyp == 1 ? "prying open" : "breaking down"));
-	    exercise(A_STR, TRUE);      /* even if you don't succeed */
-	    return ((xlock.usedtime = 0));
-	}
-
-	if (rn2(100) > xlock.chance)
-        return 1;          /* still busy */
-
-	You("succeed in %s the door.",
-	    (xlock.picktyp == 2 ? "melting" :
+    switch (xlock.door->doormask) {
+    case D_NODOOR:
+        pline("This doorway has no door.");
+        return ((xlock.usedtime = 0));
+    case D_ISOPEN:
+        You("cannot lock an open door.");
+        return ((xlock.usedtime = 0));
+    case D_BROKEN:
+        pline("This door is broken.");
+        return ((xlock.usedtime = 0));
+    }
+    
+    if (xlock.usedtime++ >= 50 || nohands(youmonst.data)) {
+        You("give up your attempt at %s the door.",
+            (xlock.picktyp == 2 ? "melting" :
              xlock.picktyp == 1 ? "prying open" : "breaking down"));
+        exercise(A_STR, TRUE);      /* even if you don't succeed */
+        return ((xlock.usedtime = 0));
+    }
 
-	if(xlock.door->doormask & D_TRAPPED) {
-	    b_trapped("door", 0);
-	    xlock.door->doormask = D_NODOOR;
-	} else if (xlock.picktyp == 1)
-	    xlock.door->doormask = D_BROKEN;
-	else 
-            xlock.door->doormask = D_NODOOR;
+    if (rn2(100) > xlock.chance)
+        return 1; /* still busy */
 
-	unblock_point(u.ux + u.dx, u.uy + u.dy);
+    You("succeed in %s the door.",
+        (xlock.picktyp == 2 ? "melting" :
+         xlock.picktyp == 1 ? "prying open" : "breaking down"));
 
-	if (*in_rooms(u.ux + u.dx, u.uy + u.dy, SHOPBASE)) {
-	    add_damage(u.ux + u.dx, u.uy + u.dy, 400L);
-	    pay_for_damage("break", FALSE);
+    if (xlock.door->doormask & D_TRAPPED) {
+        b_trapped("door", 0);
+        xlock.door->doormask = D_NODOOR;
+    } else if (xlock.picktyp == 1)
+        xlock.door->doormask = D_BROKEN;
+    else 
+        xlock.door->doormask = D_NODOOR;
 
-	    if (in_town(u.ux+u.dx, u.uy+u.dy)) {
-                struct monst *mtmp;
+    unblock_point(u.ux + u.dx, u.uy + u.dy);
 
-                for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                    if (DEADMONSTER(mtmp))
-                        continue;
-                    if ((mtmp->data == &mons[PM_WATCHMAN]
-                          || mtmp->data == &mons[PM_WATCH_CAPTAIN])
-                          && couldsee(mtmp->mx, mtmp->my)
-                          && mtmp->mpeaceful) {
-                        if (canspotmon(mtmp))
-                            pline("%s yells:", Amonnam(mtmp));
-                        else
-                            You_hear("someone yell:");
-                        verbalize("Halt, thief!  You're under arrest!");
-                        (void) angry_guards(FALSE);
-                        break;
-                    }
+    if (*in_rooms(u.ux + u.dx, u.uy + u.dy, SHOPBASE)) {
+        add_damage(u.ux + u.dx, u.uy + u.dy, 400L);
+        pay_for_damage("break", FALSE);
+
+        if (in_town(u.ux + u.dx, u.uy + u.dy)) {
+            struct monst *mtmp;
+
+            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp))
+                    continue;
+                if ((mtmp->data == &mons[PM_WATCHMAN]
+                      || mtmp->data == &mons[PM_WATCH_CAPTAIN])
+                      && couldsee(mtmp->mx, mtmp->my)
+                      && mtmp->mpeaceful) {
+                    if (canspotmon(mtmp))
+                        pline("%s yells:", Amonnam(mtmp));
+                    else
+                        You_hear("someone yell:");
+                    verbalize("Halt, thief!  You're under arrest!");
+                    (void) angry_guards(FALSE);
+                    break;
                 }
-	    }
-	}
-	if (Blind)
-	    feel_location(u.ux + u.dx, u.uy  +u.dy);    /* we know we broke it */
-	else
-	    newsym(u.ux + u.dx, u.uy + u.dy);
-	
-	exercise(A_STR, TRUE);
-	return((xlock.usedtime = 0));
+            }
+        }
+    }
+    if (Blind)
+        feel_location(u.ux + u.dx, u.uy  +u.dy);    /* we know we broke it */
+    else
+        newsym(u.ux + u.dx, u.uy + u.dy);
+    
+    exercise(A_STR, TRUE);
+    return ((xlock.usedtime = 0));
 }
 
 void

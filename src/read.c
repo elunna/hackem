@@ -323,35 +323,35 @@ do_flood(x, y, poolcnt)
 int x, y;
 genericptr_t poolcnt;
 {
-	register struct monst *mtmp;
-	register struct trap *ttmp;
+    register struct monst *mtmp;
+    register struct trap *ttmp;
 
-	if (nexttodoor(x, y) 
-            || (rn2(1 + distmin(u.ux, u.uy, x, y))) 
-            || (sobj_at(BOULDER, x, y)) 
-            || (levl[x][y].typ != ROOM))
-		return;
+    if (nexttodoor(x, y) 
+        || (rn2(1 + distmin(u.ux, u.uy, x, y))) 
+        || (sobj_at(BOULDER, x, y)) 
+        || (levl[x][y].typ != ROOM))
+        return;
 
-	if ((ttmp = t_at(x, y)) != 0 && !delfloortrap(ttmp))
-		return;
+    if ((ttmp = t_at(x, y)) != 0 && !delfloortrap(ttmp))
+        return;
 
-	(*(int *)poolcnt)++;
+    (*(int *)poolcnt)++;
 
-	if (!((*(int *)poolcnt) && (x == u.ux) && (y == u.uy))) {
-            /* Put a pool at x, y */
-            levl[x][y].typ = POOL;
-            del_engr_at(x, y);
-            water_damage_chain(level.objects[x][y], TRUE, 0, TRUE, x, y);
+    if (!((*(int *)poolcnt) && (x == u.ux) && (y == u.uy))) {
+        /* Put a pool at x, y */
+        levl[x][y].typ = POOL;
+        del_engr_at(x, y);
+        water_damage_chain(level.objects[x][y], TRUE, 0, TRUE, x, y);
 
-            if ((mtmp = m_at(x, y)) != 0) {
-                (void) minliquid(mtmp);
-            } else {
-                newsym(x, y);
-            }
-	}
-	else if ((x == u.ux) && (y == u.uy)) {
-            (*(int *) poolcnt)--;
-	}
+        if ((mtmp = m_at(x, y)) != 0) {
+            (void) minliquid(mtmp);
+        } else {
+            newsym(x, y);
+        }
+    }
+    else if ((x == u.ux) && (y == u.uy)) {
+        (*(int *) poolcnt)--;
+    }
 }
  
 int
@@ -2769,7 +2769,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             int stilldry = -1;
             int x, y, safe_pos = 0;
             do_clear_area(u.ux, u.uy, 5 - 2 * bcsign(sobj), do_iceflood,
-                          (genericptr_t) &madepool, TRUE);
+                          (genericptr_t)&madepool, TRUE);
 
             /* check if there are safe tiles around the player */
             for (x = u.ux - 1; x <= u.ux + 1; x++) {

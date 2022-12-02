@@ -1012,8 +1012,8 @@ wiz_detect(VOID_ARGS)
 
 /* the #wizkill command - pick targets and reduce them to 0HP;
    by default, the hero is credited/blamed */
-static int
-wiz_kill()
+STATIC_PTR int
+wiz_kill(VOID_ARGS)
 {
     struct monst *mtmp;
     coord cc;
