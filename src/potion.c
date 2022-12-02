@@ -3563,6 +3563,7 @@ dodip()
     return 1;
 }
 
+#define UNUSED_PARAM(x) (void)(x)
 
 void
 ferment(arg, timeout)
@@ -3574,7 +3575,8 @@ long timeout;
     boolean need_newsym = FALSE;
     xchar x, y;
     short new_otyp;
-    
+    UNUSED_PARAM(timeout); /* Silence compiler warning */
+                     
     if (!potion) {
         impossible("null potion fermenting?");
         return;
