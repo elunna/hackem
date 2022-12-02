@@ -1299,7 +1299,7 @@ defeat him."
 If you attempt to overcome %n in this state, he will surely
 enslave your soul.  Your only hope, and ours, lies in your purification.
 Go forth, and return when you feel ready."
-%E ["Go. come back when you are worthy of %d."]
+%E [Go; come back when you are worthy of %d.]
 %Cc Fla 00021
 "The world is in great need of your assistance, %p.
 
@@ -1381,7 +1381,7 @@ I have slain many before you.  You shall give me little sport.
 %E ["Your destruction should make for little sport."]
 %Cp Fla 00051
 "I have wasted too much time on you already.  Now, you shall die."
-
+%E ["Now, you shall die."]
 %Cp Fla 00052
 "You return yet again, %c!  Are you prepared for death now?"
 %E
@@ -1434,7 +1434,7 @@ at once, even though you are holding it.
 body fades slowly, seemingly dispersing into the air around you.  You
 slowly become aware that the overpowering aura of magic in the air has
 begun to fade.
-
+%E [%nC curses you as %nh dies.]
 %Cc Fla 00081
 When %l sees %o, he smiles, and says:
 
@@ -1878,7 +1878,7 @@ defeat him."
 If you attempt to overcome %n in this state, he will surely
 enslave your soul.  Your only hope, and ours, lies in your purification.
 Go forth, and return when you are ready."
-
+%E [You have deviated from the path.  Return when you have purified yourself.]
 %Cc Ice 00021
 "The world is in great need of your assistance, %p.
 
@@ -2014,7 +2014,7 @@ it from %H, for with it, %ca of %d could easily defeat his plans.
 body fades slowly, seemingly dispersing into the air around you.  You
 slowly become aware that the overpowering aura of magic in the air has
 begun to fade.
-
+%E [%nC dies.]
 %Cc Ice 00081
 When %l sees %o, he smiles, and says:
 
@@ -3160,7 +3160,7 @@ destroy %n."
 %E
 %Cp Nec 00035
 Wisps of dark mist swirl nearby.  You feel that %ns lair is close.
-
+%E [You have found %i.  The trail to %n lies ahead.]
 %Cp Nec 00036
 You believe that you may once again invade %i.
 %E
@@ -4800,7 +4800,7 @@ legions of undead that befoul the land.
 
 "Go with %d as your guide, %p."
 %E [Enter %i and recover %o from %n.]
-%Cp Und 00024
+%Cp Tou 00024
 "Remember, you must return with %o so
 that we may lift the curse from the silver bell."
 %E
@@ -4867,9 +4867,8 @@ after all.  Prepare to die, %r!  You shall never regain
 "So, %r.  Again you challenge me."
 %E
 %Cp Und 00052
-"Die now, %r.  %d has no power here to aid you.
-
-Run away or you will suffer severely."
+"Die now, %r.  %d has no power here to aid you."
+%E [Run away or you will suffer severely.]
 %Cp Und 00053
 "You shall die, %r, and I will have %o back."
 %E ["Return %o to me and you might live."]
