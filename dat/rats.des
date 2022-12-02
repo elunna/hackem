@@ -7,6 +7,8 @@ LEVEL: "rats"
 # NAME: "central"
 
 ROOM: "ordinary" , unlit, random, random, (16,8) {
+    REPLACE_TERRAIN:(0,0,16,8),'.',',', 30%
+                       
     OBJECT: random, random
     OBJECT: random, random
     OBJECT: random, random
