@@ -3842,9 +3842,10 @@ warp_material(obj,by_you)
 struct obj* obj;
 boolean by_you;
 {
+    int origmat;
     if (obj->oartifact && rn2(20))
         return FALSE;
-    int origmat = obj->material;
+    origmat = obj->material;
     
     int j = 0;
     int newmat;

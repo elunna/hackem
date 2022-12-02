@@ -2490,12 +2490,13 @@ anything* arg;
 long timeout UNUSED;
 {
     struct obj* body = arg->a_obj;
+    struct permonst* newpm = mkclass(S_FUNGUS, 0);
     char* old_oname = (has_oname(body) ? ONAME(body) : NULL);
     int oldtyp = body->corpsenm;
     int oldquan = body->quan;
-    struct permonst* newpm = mkclass(S_FUNGUS, 0);
     int count = 0;
-    
+    boolean already_fungus;
+        
     /* Acidic corpses and petrifying corpses only grow acidic fungi. */
     if (acidic(&mons[oldtyp]) || touch_petrifies(&mons[oldtyp])) {
         if (mvitals[PM_GREEN_MOLD].mvflags & G_GONE)
@@ -2505,7 +2506,7 @@ long timeout UNUSED;
     }
     
     /* Don't allow arbitrarily long chains of mold growing on mold. */
-    boolean already_fungus = (mons[oldtyp].mlet == S_FUNGUS);
+    already_fungus = (mons[oldtyp].mlet == S_FUNGUS);
 
 
     /* [ALI] Molds don't grow in adverse conditions.  If it ever

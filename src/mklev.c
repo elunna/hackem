@@ -1613,6 +1613,9 @@ dodoor(x, y, aroom)
 int x, y;
 struct mkroom *aroom;
 {
+    xchar doortyp = DOOR;
+    schar u_depth = depth(&u.uz);
+    
     if (doorindex >= DOORMAX) {
         impossible("DOORMAX exceeded?");
         return;
@@ -1621,8 +1624,6 @@ struct mkroom *aroom;
     /* Probability of a random door being a secret door:
      * sqrt(depth-3) / 35, or depth-3 / 1225.
      * If depth <= 3, probability is 0. */
-    xchar doortyp = DOOR;
-    schar u_depth = depth(&u.uz);
     if (u_depth > 3 && rn2(1225) < u_depth - 3) {
         doortyp = SDOOR;
     }
@@ -2044,15 +2045,12 @@ static void
 mktoilet(croom)
 register struct mkroom *croom;
 {
-	coord m;
-	
+    coord m;
     if (!somexyspace(croom, &m, 8))
         return;
-
-	/* Put a toilet at m.x, m.y */
-	levl[m.x][m.y].typ = TOILET;
-
-	level.flags.ntoilets++;
+    
+    levl[m.x][m.y].typ = TOILET; /* Put a toilet at m.x, m.y */
+    level.flags.ntoilets++;
 }
 
 STATIC_OVL void

@@ -6664,6 +6664,7 @@ find_remembered_stairs(boolean upstairs, coord *cc)
 {
     xchar x, y;
     int stair, sladder, sbranch;
+    int found_stairs = 0;
     if (upstairs) {
         stair = S_upstair;
         sladder = S_upladder;
@@ -6688,7 +6689,6 @@ find_remembered_stairs(boolean upstairs, coord *cc)
 
     /* We can't reference the stairs directly because mimics can mimic fake
        ones. */
-    int found_stairs = 0;
     for (x = 0; x < COLNO; x++) {
         for (y = 0; y < ROWNO; y++) {
             if (glyph_to_cmap(level.locations[x][y].glyph) == stair ||

@@ -2335,6 +2335,7 @@ STATIC_OVL void
 fprefx(otmp)
 struct obj *otmp;
 {
+    int ii;
     switch (otmp->otyp) {
     case FOOD_RATION: /* nutrition 800 */
         /* 200+800 remains below 1000+1, the satiation threshold */
@@ -2383,7 +2384,6 @@ struct obj *otmp;
         } else {
             pline("This cake is fantastic! You feel amazing.");
             /* blessed restore ability */
-            int ii;
             for (ii = 0; ii < A_MAX; ii++)
                 if (ABASE(ii) < AMAX(ii)) {
                     ABASE(ii) = AMAX(ii);

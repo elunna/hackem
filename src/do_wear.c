@@ -419,6 +419,7 @@ Boots_off(VOID_ARGS)
 STATIC_PTR int
 Cloak_on(VOID_ARGS)
 {
+    const char* cloak_desc;
     int otyp = uarmc->otyp;
     long oldprop =
         u.uprops[objects[uarmc->otyp].oc_oprop].extrinsic & ~WORN_CLOAK;
@@ -506,7 +507,7 @@ Cloak_on(VOID_ARGS)
         impossible(unknown_type, c_cloak, uarmc->otyp);
     }
     /* vampires get a charisma bonus when wearing an opera cloak */
-    const char* cloak_desc = OBJ_DESCR(objects[uarmc->otyp]);
+    cloak_desc = OBJ_DESCR(objects[uarmc->otyp]);
     if (cloak_desc != (char *)0 &&
           !strcmp(cloak_desc, "opera cloak") &&
           maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
@@ -528,6 +529,7 @@ int
 Cloak_off(VOID_ARGS)
 {
     struct obj *otmp = uarmc;
+    const char* cloak_desc;
     int otyp = otmp->otyp;
     long oldprop = u.uprops[objects[otyp].oc_oprop].extrinsic & ~WORN_CLOAK;
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
@@ -586,7 +588,7 @@ Cloak_off(VOID_ARGS)
         impossible(unknown_type, c_cloak, otyp);
     }
     /* vampires get a charisma bonus when wearing an opera cloak */
-    const char* cloak_desc = OBJ_DESCR(objects[otyp]);
+    cloak_desc = OBJ_DESCR(objects[otyp]);
     if (cloak_desc != (char *)0 &&
         !strcmp(cloak_desc, "opera cloak") &&
         maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {

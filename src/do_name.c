@@ -2538,6 +2538,7 @@ void
 mintroduce(mtmp)
 struct monst *mtmp;
 {
+    const char* pronoun;
     if (!has_mname(mtmp)) {
         const char* name;
         if (mtmp->data->mlet == S_NYMPH) {
@@ -2557,8 +2558,7 @@ struct monst *mtmp;
                        mtmp->data->mname);
             return;
         }
-        const char* pronoun =
-            genders[is_neuter(mtmp->data) ? 2 : mtmp->female].him;
+        pronoun = genders[is_neuter(mtmp->data) ? 2 : mtmp->female].him;
         if (!Deaf) {
             pline("%s introduces %sself to you as %s.", Monnam(mtmp), pronoun,
                   name);

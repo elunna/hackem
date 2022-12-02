@@ -2032,7 +2032,8 @@ int magic; /* 0=Physical, otherwise skill level */
                 if (uarmf && uarmf->otyp == find_jboots()) {
                     losehp(rnd(10), "jumping out of a bear trap", KILLED_BY);
                     set_wounded_legs(side, rn1(100, 50));
-                    for (int bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {
+                    int bootdamage;
+                    for (bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {
                         drain_item(uarmf, TRUE);
                     Your("boots are damaged!");
                     }

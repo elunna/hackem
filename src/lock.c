@@ -811,6 +811,7 @@ doforce()
     register struct obj *otmp;
     register int c, picktyp;
     struct rm *door;
+    struct monst *mtmp;
     char qbuf[QBUFSZ];
     int x, y;  /* Used for force door */
 
@@ -923,7 +924,6 @@ doforce()
 
         x = u.ux + u.dx;
         y = u.uy + u.dy;
-        struct monst *mtmp;
 
         door = &levl[x][y];
         if ((mtmp = m_at(x, y)) && canseemon(mtmp)

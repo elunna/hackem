@@ -40,9 +40,10 @@ STATIC_VAR int sex_change_ok = 0;
 void
 set_uasmon()
 {
-    upermonst = mons[u.umonster];
     struct permonst *mdat = &mons[u.umonnum];
     struct permonst *racedat; /* for infravision, flying */
+    upermonst = mons[u.umonster];
+    
 #if 0 /* For debugging vampires */
     debug_pline("u.umonster = %d", u.umonster);
     debug_pline("urace.malenum = %d", urace.malenum);

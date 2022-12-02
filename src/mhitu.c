@@ -1900,7 +1900,6 @@ register struct attack *mattk;
                 else 
                     You("are mercilessly tickled by %s!", mon_nam(mtmp));
                 
-                // nomovemsg = 0;	/* default: "you can move again" */
                 nomovemsg = You_can_move_again;
                 nomul(-rnd(10));
                 exercise(A_DEX, FALSE);
@@ -4421,6 +4420,7 @@ struct attack *mattk;
 int dmg;
 {
     boolean cancelled = (mtmp->mcan != 0);
+    boolean wakeup; 
     int fate;
     long lcount;
 
@@ -4565,7 +4565,7 @@ int dmg;
          * clicks, shrieks and insane chattering noises. */
         if (Deaf)
             break; /* No inventory effects */
-        boolean wakeup = FALSE;
+        wakeup = FALSE;
         lcount = (long) rn1(90, 10);
         fate = rnd(30);
         if (fate < 10) {

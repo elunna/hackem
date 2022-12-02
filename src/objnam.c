@@ -1262,6 +1262,7 @@ unsigned doname_flags;
     boolean known, dknown, cknown, bknown, lknown;
     long orig_opknwn = obj->oprops_known;
     int omndx = obj->corpsenm;
+    register char *bp;
     char prefix[PREFIX], globbuf[QBUFSZ];
     char tmpbuf[PREFIX + 1]; /* for when we have to add something at
                                 the start of prefix instead of the
@@ -1275,7 +1276,7 @@ unsigned doname_flags;
         }
     }
     
-    register char *bp = xname(obj);
+    bp = xname(obj);
     
     if (iflags.override_ID) {
         known = dknown = cknown = bknown = lknown = TRUE;
@@ -3586,7 +3587,7 @@ struct obj *no_wish;
      * automatically sticks 'candied' in front of such names.
      */
     char oclass;
-    char *un, *dn, *actualn, *origbp = bp;
+    char *un, *dn, *actualn, *tmpp, *origbp = bp;
     const char *name = 0;
 
     long objprops = 0;
@@ -3959,7 +3960,6 @@ struct obj *no_wish;
               /* && !strstri(bp, "master sword") */
               && !strstri(bp, "sword of kas")) {
             l = 0, of = 4;
-            char *tmpp;
 
             if ((p = strstri(bp, "tin of ")) != 0) {
                 if (!strcmpi(p + 7, "spinach")) {

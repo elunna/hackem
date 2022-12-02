@@ -1288,11 +1288,12 @@ static struct {
 STATIC_OVL struct permonst *
 squadmon()
 {
-    /* They occasionally keep guard dogs around. */
-    if (!rn2(20))
-        return (&mons[PM_GUARD_DOG]);
-    
     int sel_prob, i, cpro, mndx;
+    
+    /* They occasionally keep guard dogs around. */
+    if (!rn2(20)) {
+        return (&mons[PM_GUARD_DOG]);
+    }
 
     sel_prob = rnd(80 + level_difficulty());
 

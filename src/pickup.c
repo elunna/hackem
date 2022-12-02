@@ -2926,7 +2926,8 @@ boolean more_containers; /* True iff #loot multiple and this isn't last one */
                          
         used = 1;
     } else if (obj->spe == 4) {
-        open_coffin(obj, FALSE); //FALSE: the box was not destroyed. Use present tense.
+        /*FALSE: the box was not destroyed. Use present tense.*/
+        open_coffin(obj, FALSE); 
         used = 1;
         return used;
     }

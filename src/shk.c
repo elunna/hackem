@@ -1808,11 +1808,11 @@ shk_other_services()
     start_menu(tmpwin);
     
     /* All shops can identify (some better than others) */
-    if (ESHK(shkp)->services & SHK_ID_BASIC)
+    if (ESHK(shkp)->services & SHK_ID_BASIC) {
         any.a_int = 1;
-        add_menu(tmpwin, NO_GLYPH, &any , 'i', 0, ATR_NONE,
+        add_menu(tmpwin, NO_GLYPH, &any, 'i', 0, ATR_NONE, 
                  "Basic Identify", MENU_ITEMFLAGS_NONE);
-        
+    }
     if (ESHK(shkp)->services & SHK_ID_PREMIUM) {
         any.a_int = 2;
         add_menu(tmpwin, NO_GLYPH, &any , 'I', 0, ATR_NONE,
@@ -1958,6 +1958,7 @@ shk_other_services()
         add_menu(tmpwin, NO_GLYPH, &any, 'T', 0, ATR_NONE, "Tinker",
                  MENU_ITEMFLAGS_NONE);
     }
+    
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);

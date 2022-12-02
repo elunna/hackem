@@ -653,11 +653,11 @@ int
 ilog2(value)
 int value;
 {
+    int ret = 0;
     if (value <= 0) {
         return -1;
     }
-
-    int ret = 0;
+    
     while (value >>= 1) {
         ret++;
     }

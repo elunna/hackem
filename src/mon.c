@@ -891,6 +891,7 @@ unsigned corpseflags;
             mtmp2->mpeaceful = 1;
             mtmp2->mtame = 0;
         }
+        break;
     }
     default_1:
     default:
@@ -3572,7 +3573,8 @@ register struct monst *mtmp;
             drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
         }
         if (mtmp->data == &mons[PM_HYDRA]) {
-            for (int x = 0; x < (mtmp->m_lev - mtmp->data->mlevel + 2); x++) {
+            int x;
+            for (x = 0; x < (mtmp->m_lev - mtmp->data->mlevel + 2); x++) {
                 drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
             }
         }

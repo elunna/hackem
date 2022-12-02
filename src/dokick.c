@@ -1474,8 +1474,7 @@ boolean need_dir;
                         breaktoilet(x, y);
                     } else if (!Blind)
                         You_see("something floating in the bowl.");
-
-                    // (void) mkobj_at(TOOL_CLASS, x, y, TRUE);
+                    
                     place_object(otmp, x, y);
                     newsym(x, y);
                     exercise(A_DEX, TRUE);

@@ -92,14 +92,14 @@ struct monst * caster;
 int distance;
 {
     register struct monst *mtmp;
-
+    xchar cx, cy;
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
             continue;
         if (mtmp == caster) /* immune to own effects */
             continue;
-        xchar cx = (caster == &youmonst) ? u.ux : caster->mx;
-        xchar cy = (caster == &youmonst) ? u.uy : caster->my;
+        cx = (caster == &youmonst) ? u.ux : caster->mx;
+        cy = (caster == &youmonst) ? u.uy : caster->my;
 
         if (dist2(cx, cy, mtmp->mx, mtmp->my) < distance
             && sleep_monst(mtmp, d(10, 10), TOOL_CLASS)) {

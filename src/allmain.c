@@ -517,9 +517,9 @@ boolean resuming;
                         /* Carrying the necro quest arti triples the range */
                         int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
                         /* Loop through the surrounding squares */
-                        int x;
+                        int x, y;
                         for (x = u.ux - off; x <= u.ux + off; x++) {
-                            for (int y = u.uy - off; y <= u.uy + off; y++) {
+                            for (y = u.uy - off; y <= u.uy + off; y++) {
                                 if (!isok(x, y) || !OBJ_AT(x, y))
                                     continue;
 

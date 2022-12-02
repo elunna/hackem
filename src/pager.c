@@ -116,8 +116,9 @@ char *outbuf;
     int x = isyou ? u.ux : mon->mx, y = isyou ? u.uy : mon->my,
         glyph = (level.flags.hero_memory && !isyou) ? levl[x][y].glyph
                                                     : glyph_at(x, y);
-
+    int hidetyp;
     *outbuf = '\0';
+    
     if (M_AP_TYPE(mon) == M_AP_FURNITURE
         || M_AP_TYPE(mon) == M_AP_OBJECT) {
         Strcpy(outbuf, ", mimicking ");
@@ -147,7 +148,7 @@ char *outbuf;
         Strcpy(outbuf, ", hiding");
         if (hides_under(mon->data)) {
             Strcat(outbuf, " under ");
-            int hidetyp = concealed_spot(x, y);
+            hidetyp = concealed_spot(x, y);
             if (hidetyp == 1) { /* hiding with terrain */
                 Strcat(outbuf, explain_terrain(x, y));
             }
@@ -597,7 +598,7 @@ char *buf, *monbuf;
             break;
         case S_pool:
             Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody " : "");
-            Sprintf(eos(buf), waterbody_name(x, y));
+            Sprintf(eos(buf), "%s", waterbody_name(x, y));
             printed_blood = TRUE;
             break;
         case S_stone:
@@ -1104,12 +1105,14 @@ short otyp;
     char buf[BUFSZ];
     char buf2[BUFSZ];
     boolean weptool = (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
+    const char* identified_potion_name;
+    const char* alt_mat;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
     boolean wielded, carried;
     boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
-    int i;
+    int i, mat_bon, obj_weight;
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
     dummy.oclass = oc.oc_class;
@@ -1231,7 +1234,7 @@ short otyp;
             Sprintf(buf, "Base AC %d.", oc.a_ac);
         }
         OBJPUTSTR(buf);
-        int mat_bon = obj ? material_bonus(obj) : 0;
+        mat_bon = obj ? material_bonus(obj) : 0;
         if (mat_bon) {
             Sprintf(buf, "Effective AC %d (from material)", oc.a_ac + mat_bon);
             OBJPUTSTR(buf);
@@ -1408,7 +1411,7 @@ short otyp;
             } else if (mixture > 0) {
                 Sprintf(buf, "Dipping into a potion of acid creates %s potion.",
                         an(OBJ_DESCR(objects[mixture])));
-                const char* identified_potion_name = OBJ_NAME(objects[mixture]);
+                identified_potion_name = OBJ_NAME(objects[mixture]);
                 boolean identified_potion = objects[mixture].oc_name_known;
                 if (identified_potion && identified_potion_name) {
                     Sprintf(eos(buf)-1, " (%s).", identified_potion_name);
@@ -1478,7 +1481,7 @@ short otyp;
 
     /* cost, wt should go next */
     buf[0] = '\0';
-    int obj_weight = obj ? weight(obj) : oc.oc_weight;
+    obj_weight = obj ? weight(obj) : oc.oc_weight;
     if (otyp != STRANGE_OBJECT) {
         Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
     } else {
@@ -1612,7 +1615,7 @@ short otyp;
         } else if (oc.oc_material == VEGGY) {
             mat_str = "vegetable matter";
         }
-        const char* alt_mat = obj ? materialnm[obj->material] : mat_str;
+        alt_mat = obj ? materialnm[obj->material] : mat_str;
         if (obj && obj->material != oc.oc_material)
             Sprintf(buf, "Material: %s (normally made of %s)", alt_mat, mat_str);
         else
