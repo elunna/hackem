@@ -731,7 +731,7 @@ const char *const *nlp;
     } else {
         (void) strncpy(ESHK(shk)->shknam, shname, PL_NSIZ);
     }
-    //(void) strncpy(ESHK(shk)->shknam, shname, PL_NSIZ);
+    /*(void) strncpy(ESHK(shk)->shknam, shname, PL_NSIZ);*/
     ESHK(shk)->shknam[PL_NSIZ - 1] = 0;
 }
 
@@ -1172,8 +1172,8 @@ static void
 init_shk_services(shk)
 struct monst *shk;
 {
-    ESHK(shk)->services = 0L;
     const struct permonst *shkdat = &mons[ERAC(shk)->rmnum];
+    ESHK(shk)->services = 0L;
     
     /* KMH, balance patch 2 -- Increase probability of shopkeeper services.
      * Requested by Dave <mitch45678@aol.com>
@@ -1554,7 +1554,7 @@ register int sh;
      * door get objects).
      */
     /* [max] removed register int cl,  char buf[bufsz] */
-    int sx, sy, first = 0, next = 0, total, partial;
+    int sx, sy, first = 0, next = 0, total, partial, blkmar_size;
     /* int blkmar_gen[NUM_OBJECTS+2]; */
     int *clp, *lastclp = NULL;
     int goodcl[12];
@@ -1592,7 +1592,7 @@ register int sh;
     clp = goodcl - 1;
     partial = 0;
 
-    int blkmar_size = (sroom->hx-sroom->lx+1) * (sroom->hy-sroom->ly+1);
+    blkmar_size = (sroom->hx-sroom->lx+1) * (sroom->hy-sroom->ly+1);
     for (sx = sroom->lx+1; sx <= sroom->hx; sx++) {
         if (sx == sroom->lx + 1 ||
             ((sx - sroom->lx - 2) * total) / (sroom->hx - sroom->lx - 1) > partial) {

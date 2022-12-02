@@ -3838,9 +3838,7 @@ int material;
 
 /* Based on init_obj_material by aosdict. */
 boolean
-warp_material(obj,by_you)
-struct obj* obj;
-boolean by_you;
+warp_material(struct obj* obj, boolean by_you)
 {
     int origmat, newmat;
     int j = 0;

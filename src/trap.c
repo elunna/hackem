@@ -4314,6 +4314,7 @@ xchar x, y;
     } else if (obj->oclass == POTION_CLASS) {
         if (obj->otyp == POT_ACID) {
             char *bufp;
+            int dmg;
             boolean one = (obj->quan == 1L), exploded = FALSE;
 
             if (Blind && !ucarried)
@@ -4348,7 +4349,7 @@ xchar x, y;
             delobj(obj);
             
             /* Deals damage similar to an alchemy blast */
-            int dmg = (6 + rnd(10)) * (Acid_resistance ? 1 : 2);
+            dmg = (6 + rnd(10)) * (Acid_resistance ? 1 : 2);
             exercise(A_STR, FALSE);
             losehp(dmg, /* not physical damage */
                    "alchemic blast", KILLED_BY_AN);

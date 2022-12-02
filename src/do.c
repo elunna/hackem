@@ -2307,10 +2307,7 @@ deferred_goto()
  * corpse is gone.
  */
 boolean
-revive_corpse(corpse, moldy)
-struct obj *corpse;
-boolean moldy;
-
+revive_corpse(struct obj *corpse, boolean moldy)
 {
     struct monst *mtmp, *mcarry;
     boolean is_uwep, chewed;
@@ -2495,7 +2492,7 @@ long timeout UNUSED;
     int oldtyp = body->corpsenm;
     int oldquan = body->quan;
     int count = 0;
-    boolean already_fungus, bad_spot;
+    boolean already_fungus, bad_spot, munching;
         
     /* Acidic corpses and petrifying corpses only grow acidic fungi. */
     if (acidic(&mons[oldtyp]) || touch_petrifies(&mons[oldtyp])) {
@@ -2528,7 +2525,7 @@ long timeout UNUSED;
     boolean no_eligible = (newpm == NULL);
 
     /* Don't grow mold on the corpse the player is eating. */
-    boolean munching = (body == context.victual.piece);
+    munching = (body == context.victual.piece);
 
     if (already_fungus || bad_spot || no_eligible || munching) {
         /* Double check it doesn't already have a rot timer */

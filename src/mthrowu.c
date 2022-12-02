@@ -1575,9 +1575,7 @@ int type;
 /* Check if a monster is carrying a particular artifact.
  */
 struct obj *
-m_carrying_arti(mtmp, arti)
-struct monst *mtmp;
-char arti;
+m_carrying_arti(struct monst *mtmp, char arti)
 {
 	register struct obj *otmp;
 

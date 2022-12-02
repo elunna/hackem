@@ -1176,8 +1176,8 @@ long timeout;
     struct monst *mon;
     xchar x, y;
     boolean cansee_fadespot = FALSE;
-    spirit = arg->a_obj;
     boolean silent = (timeout != monstermoves);     /* exploded while away */
+    spirit = arg->a_obj;
     
     if (get_obj_location(spirit, &x, &y, 0)){
         cansee_fadespot = cansee(x, y);
@@ -2163,11 +2163,13 @@ long expire_time;
  */
 
 void burn_faster(struct obj *obj) {
+    int turns = rnd(6);
+    
     if (!obj->lamplit) {
         impossible("burn_faster: obj %s not lit", xname(obj));
         return;
     }
-    int turns = rnd(6);
+    
     if (turns > 4)
         pline("The torch sparks and flares!");
     else

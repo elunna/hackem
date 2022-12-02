@@ -1316,8 +1316,7 @@ register int type;
 }
 
 struct obj *
-carrying_arti(arti)
-register char arti;
+carrying_arti(register char arti)
 {
     register struct obj *otmp;
     

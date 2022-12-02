@@ -2378,13 +2378,13 @@ num_spells()
 }
 
 void
-cast_sphere(otyp)
-short otyp;
+cast_sphere(short otyp)
 {
     struct monst *mtmp;
     int role_skill = P_SKILL(P_MATTER_SPELL);
+    int n;
     pline("You conjure elemental energy...");
-    for (int n = 0; n < max(role_skill - 1, 1); n++) {
+    for (n = 0; n < max(role_skill - 1, 1); n++) {
         mtmp = make_helper((otyp == SPE_FLAME_SPHERE) 
                                ? PM_FLAMING_SPHERE 
                                : PM_FREEZING_SPHERE, u.ux, u.uy);

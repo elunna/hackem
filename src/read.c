@@ -2256,13 +2256,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     }
     case SPE_ANIMATE_DEAD: {
         struct obj *obj;
+        /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
+        int cost = 50 - u.ulevel; /* WAC make this depend on mon? */
+                                  
         if (u.uswallow) {
             pline("You don't have enough elbow-room to maneuver.");
             return 0;
         }
-        int cost = 50 - u.ulevel; /* WAC make this depend on mon? */
-        /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
-
+        
         if ((Upolyd && u.mh <= cost) || (!Upolyd && u.uhp <= cost)) {
             pline("You don't have the strength to perform revivification!");
             return 0;
@@ -2747,6 +2748,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_ICE: {
         int dam;
+        int madepool = 0;
+        int stilldry = -1;
+        int x, y, mx, my, safe_pos = 0;
         
         if (Underwater) {
             pline_The("%s around you freezes!", hliquid("water"));
@@ -2765,9 +2769,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (!already_known)
                 (void) learnscrolltyp(SCR_ICE);
             /* Ice random tiles around the player */
-            int madepool = 0;
-            int stilldry = -1;
-            int x, y, safe_pos = 0;
             do_clear_area(u.ux, u.uy, 5 - 2 * bcsign(sobj), do_iceflood,
                           (genericptr_t)&madepool, TRUE);
 
@@ -2795,7 +2796,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
                 if (DEADMONSTER(mtmp))
                     continue;
-                int mx = mtmp->mx, my = mtmp->my;
+                mx = mtmp->mx, my = mtmp->my;
                 int dist = distmin(u.ux, u.uy, mx, my);
                     
                 if (cansee(mx, my) && dist <= (sblessed ? 5 : 3)) {

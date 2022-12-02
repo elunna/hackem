@@ -2782,9 +2782,7 @@ boolean makecat, givemsg;
 }
 
 void
-open_coffin(box, past)
-struct obj *box;
-boolean past;
+open_coffin(struct obj *box, boolean past)
 {
     /* static NEARDATA const char sc[] = "Schroedinger's Cat"; */
     /* Would be nice to name the vampire and put the name on the coffin. But not today. */

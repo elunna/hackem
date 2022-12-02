@@ -1778,6 +1778,7 @@ shk_other_services()
 {
     const char *slang;		/* What shk calls you		*/
     struct monst *shkp;		/* The shopkeeper		*/
+    struct permonst *shkdat;
     /*WAC - Windowstuff*/
     winid tmpwin;
     anything any;
@@ -1787,7 +1788,7 @@ shk_other_services()
     
     /* Init the shopkeeper */
     shkp = shop_keeper(/* roomno= */*u.ushops);
-    struct permonst *shkdat = &mons[ERAC(shkp)->rmnum];
+    shkdat = &mons[ERAC(shkp)->rmnum];
     
     /* Init your name */
     if (!same_race(youmonst.data, shkdat))
@@ -4406,10 +4407,7 @@ static const char spbook_types[] = { SPBOOK_CLASS, 0 };
 static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
 
 static int
-shk_charge(slang, shkp, svc_type)
-const char *slang;
-struct monst *shkp;
-char svc_type;
+shk_charge(const char *slang, struct monst *shkp, char svc_type)
 {
     struct obj *obj = NULL; /* The object picked            */
     struct obj *tobj;       /* Temp obj                     */
@@ -4570,7 +4568,7 @@ shk_firearms(slang, shkp)
 const char *slang;
 struct monst *shkp;
 {
-    int charge;
+    int charge = 9999;
     int weptype = weapon_type(uwep);
     int maxoffered;
     int progress = P_ADVANCE(weptype);
@@ -4629,9 +4627,9 @@ struct monst *shkp;
         charge = 1000; 
     else if (progress < practice_needed_to_advance(P_SKILLED))
         charge = 2000;
-    else
+    else {
         impossible("Weird firearms skill level!");
-        
+    }
     /* Go ahead? */
     if (shk_offer_price(slang, charge, shkp) == FALSE) 
         return 0;
@@ -4668,7 +4666,7 @@ struct monst *shkp;
 {
     register struct obj *obj;       /* The object to identify       */
     int charge = 500;                     /* Cost to identify             */
-
+    int res;
     /* Pick object */
     if (!(obj = getobj(identify_types, "have tinkered")))
         return 0;
@@ -4710,7 +4708,7 @@ struct monst *shkp;
         return 1;
     }
     
-    int res = upgrade_obj(obj);
+    res = upgrade_obj(obj);
     if (res != 0) {
         if (res == 1) {
             /* The object was upgraded */

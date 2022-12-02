@@ -54,7 +54,7 @@ STATIC_OVL xchar artidisco[NROFARTIFACTS];
 STATIC_DCL void NDECL(hack_artifacts);
 STATIC_DCL void FDECL(fix_artifact, (struct obj *));
 
-STATIC_DCL const char *FDECL(adtyp_str, (uchar, BOOLEAN_P));
+STATIC_DCL const char *FDECL(adtyp_str, (int, BOOLEAN_P));
 
 boolean
 exclude_nartifact_exist(i)
@@ -4748,7 +4748,7 @@ monster then the grenade will instantly explode.  */
 
 const char *
 adtyp_str(adtyp, defend)
-uchar adtyp;
+int adtyp;
 boolean defend;
 {
     switch (adtyp) {

@@ -1511,6 +1511,7 @@ int dieroll;
                         else
                             mon->mblinded += tmp;
                     } else {
+                        tmp = 0;
                         pline(obj->otyp == CREAM_PIE ? "Splat!"
                               : obj->otyp == SNOWBALL ? "Thwap!" : "Splash!");
                         setmangry(mon, TRUE);
@@ -4174,8 +4175,8 @@ boolean wep_was_destroyed;
     register struct obj *m_armor;
     register int i, t, tmp;
     register struct attack *mattk;
-    mattk = has_erac(mon) ? ERAC(mon)->mattk : ptr->mattk;
     struct obj *otmp;
+    mattk = has_erac(mon) ? ERAC(mon)->mattk : ptr->mattk;
 
     /* If carrying the Candle of Eternal Flame, deal passive fire damage */
     if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
@@ -4963,7 +4964,6 @@ boolean wep_was_destroyed;
                     You("are severely burned!");
                     t = resist_reduce(t, ACID_RES);
                     /* Same damage a spotted jelly would do */
-                    // (int) mon->m_lev
                     mdamageu(mon, d((int) mon->m_lev, 6) + t);
                 }
 
@@ -5004,25 +5004,20 @@ boolean wep_was_destroyed;
                     ugolemeffects(AD_ELEC, tmp);
                     break;
                 }
-                boolean zapped = FALSE;
+
                 if (rn2(20)) {
                     You("get zapped!");
                     t = resist_reduce(t, SHOCK_RES);
                     mdamageu(mon, t);
-                    zapped = TRUE;
                 } else {
                     You("are jolted with electricity!");
                     t = resist_reduce(t, SHOCK_RES);
                     mdamageu(mon, d(2, 24) + t);
-                    zapped = TRUE;
                 }
-
-                if (zapped) {
-                    if ((int) mon->m_lev > rn2(20))
-                        destroy_item(WAND_CLASS, AD_ELEC);
-                    if ((int) mon->m_lev > rn2(20))
-                        destroy_item(RING_CLASS, AD_ELEC);
-                }
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(WAND_CLASS, AD_ELEC);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(RING_CLASS, AD_ELEC);
                 break;
 
             case GRAY_DRAGON_SCALES:
