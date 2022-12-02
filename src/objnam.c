@@ -2610,7 +2610,7 @@ static struct sing_plur one_off[] = {
 static const char *const as_is[] = {
     /* makesingular() leaves these plural due to how they're used */
     "boots",   "shoes",     "gloves",    "lenses",   "scales",
-    "eyes",    "gauntlets", "iron bars", "goggles",
+    "eyes",    "gauntlets", "iron bars", "goggles", "chains",
     /* both singular and plural are spelled the same */
     "bison",   "deer",      "elk",       "fish",      "fowl",
     "tuna",    "yaki",      "-hai",      "krill",     "manes",
@@ -3464,7 +3464,6 @@ const char * in_str;
         && strncmpi(in_str, "tooled horn", 11)
         && strncmpi(in_str, "ring of p'", 10)
         && strncmpi(in_str, "wand of orcus", 13)
-        && strncmpi(in_str, "chains of malcanthet", 20)
         && strncmpi(in_str, "food ration", 11)
         && strncmpi(in_str, "meat ring", 9)) {
         for (i = 0; i < (int) (sizeof wrpsym); i++) {
