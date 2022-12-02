@@ -2736,23 +2736,22 @@ struct obj **optr;
 
 
 static struct whetstoneinfo {
-	struct obj *tobj, *wsobj;
-	int time_needed;
+    struct obj *tobj, *wsobj;
+    int time_needed;
 } whetstoneinfo;
 
 
 void
 reset_whetstone()
 {
-	whetstoneinfo.tobj = 0;
-	whetstoneinfo.wsobj = 0;
+    whetstoneinfo.tobj = 0;
+    whetstoneinfo.wsobj = 0;
 }
 
 
 /* occupation callback */
-STATIC_PTR
-int
-set_whetstone()
+STATIC_PTR int
+set_whetstone(VOID_ARGS)
 {
     struct obj *otmp = whetstoneinfo.tobj, *ows = whetstoneinfo.wsobj;
     int chance;
