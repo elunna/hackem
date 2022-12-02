@@ -1294,7 +1294,7 @@ me and destroy all who once called you %s.  Now begone!"
 %n.  Only %Ra with the help of %d could ever hope to
 defeat him."
 %E [Go; return when you are %Ra.]
-%Cp Fla 00020
+%Cc Fla 00020
 "%p!  You have wandered from the path of the %a!
 If you attempt to overcome %n in this state, he will surely
 enslave your soul.  Your only hope, and ours, lies in your purification.
@@ -1379,7 +1379,7 @@ I have slain many before you.  You shall give me little sport.
 
 "Prepare to die, %c."
 %E ["Your destruction should make for little sport."]
-%Cp Fla 00051
+%Cc Fla 00051
 "I have wasted too much time on you already.  Now, you shall die."
 %E ["Now, you shall die."]
 %Cp Fla 00052
@@ -1429,7 +1429,7 @@ As you pick up %o, you feel the power of it
 flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it.
 %E [You feel %os power.]
-%Cp Fla 00080
+%Cc Fla 00080
 %n falls to the ground, and utters a last curse at you.  Then his
 body fades slowly, seemingly dispersing into the air around you.  You
 slowly become aware that the overpowering aura of magic in the air has
@@ -1873,7 +1873,7 @@ me and destroy all who once called you %s.  Now begone!"
 %n.  Only %Ra with the help of %d could ever hope to
 defeat him."
 %E [%rA cannot withstand %n.  Come back when you are %Ra.]
-%Cp Ice 00020
+%Cc Ice 00020
 "%p!  You have wandered from the path of the %a!
 If you attempt to overcome %n in this state, he will surely
 enslave your soul.  Your only hope, and ours, lies in your purification.
@@ -2009,7 +2009,7 @@ flowing through your hands.  It seems to be in two or more places
 at once, even though you are holding it. You know now why %n stole 
 it from %H, for with it, %ca of %d could easily defeat his plans.
 %E [You feel %d as you pick up %o.]
-%Cp Ice 00080
+%Cc Ice 00080
 %nC falls to the ground, and utters a last curse at you.  Then his
 body fades slowly, seemingly dispersing into the air around you.  You
 slowly become aware that the overpowering aura of magic in the air has
@@ -3158,7 +3158,7 @@ destroy %n."
 %Cp Nec 00034
 "You will know when %o is near.  Proceed with care!"
 %E
-%Cp Nec 00035
+%Cc Nec 00035
 Wisps of dark mist swirl nearby.  You feel that %ns lair is close.
 %E [You have found %i.  The trail to %n lies ahead.]
 %Cp Nec 00036
@@ -4315,7 +4315,7 @@ will not be able to take %o back to
 %Cp Sam 00062
 "You know that I cannot resash my swords until they have killed."
 %E
-%Cp Sam 00063
+%Cc Sam 00063
 "Your presence only compounds the dishonor of %l in not coming %liself."
 %E
 %Cp Sam 00064
@@ -4866,10 +4866,10 @@ after all.  Prepare to die, %r!  You shall never regain
 %Cp Und 00051
 "So, %r.  Again you challenge me."
 %E
-%Cp Und 00052
+%Cc Und 00052
 "Die now, %r.  %d has no power here to aid you."
 %E [Run away or you will suffer severely.]
-%Cp Und 00053
+%Cc Und 00053
 "You shall die, %r, and I will have %o back."
 %E ["Return %o to me and you might live."]
 %Cp Und 00060
@@ -5313,7 +5313,7 @@ your duty to %d?"
 "Time is growing short, %p.  Are you finally prepared to
 serve %d?"
 %E
-%Cp Yeo 00018
+%Cc Yeo 00018
 "%pC, you disgrace the good name of %d.  I must now
 seek another to serve in your place.  Leave %H in shame, and
 never return!"
