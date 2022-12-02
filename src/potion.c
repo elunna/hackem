@@ -2202,6 +2202,8 @@ int how;
                         if (canseemon(mon))
                             pline("%s looks at you curiously!", Monnam(mon));
                         make_happy_shk(mon, FALSE);
+                        /* Forget you were banned. */
+                        ESHK(mon)->pbanned = FALSE;
                     } else if (!is_covetous(mon->data) && !rn2(4) &&
                             !resist(mon, POTION_CLASS, 0, 0)) {
                         angermon = FALSE;
