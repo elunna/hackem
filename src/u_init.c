@@ -1142,7 +1142,7 @@ u_init()
         knows_object(GRAPPLING_HOOK);
         skill_init(Skill_Con);
         if (Race_if(PM_VAMPIRIC))
-            u.uhunger = 1819;  /* On the verge of hungry */
+            u.uhunger = 999;  /* On the verge of satiated */
         else
             u.uhunger = 200;  /* On the verge of hungry */
         u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL]
