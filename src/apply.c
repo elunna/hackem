@@ -2958,7 +2958,7 @@ struct obj *stone, *obj;
      && obj == whetstoneinfo.tobj 
      && carried(obj) && carried(stone)) {
 	    You("resume %s %s.", occutext, yname(obj));
-	    set_occupation(set_whetstone, occutext, 0);
+	    set_occupation(set_whetstone, "sharpening", 0);
 	    return;
 	}
 
@@ -2993,7 +2993,7 @@ struct obj *stone, *obj;
             whetstoneinfo.tobj = obj;
             whetstoneinfo.wsobj = stone;
             You("start %s %s.", occutext, yname(obj));
-            set_occupation(set_whetstone, occutext, 0);
+            set_occupation(set_whetstone, "sharpening", 0);
 	    }
 	} else 
         You("wave %s in the %s.", the(xname(stone)),
