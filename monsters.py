@@ -375,6 +375,12 @@ def main():
         file1.write("{{otheruses|||monster (disambiguation)}}\n")
         file1.write("This page lists all of the [[monster]]s that are in [[Hack'EM]].\n")
         file1.write("\n")
+        file1.write("Some of these monsters might vary from their representations in vanilla NetHack or in other variants.\n")
+        file1.write("Note that most of the information presented here can be obtained about any creature in Hack'EM by "
+                    "using the far look command. The information displayed by this command is considered the single "
+                    "source of truth about monsters.\n")
+        file1.write("\n")
+        file1.write("\n")
         file1.write('{|class="wikitable sortable" \n')
         file1.write("|-\n")
         file1.write('!scope="col" | Monster\n')
