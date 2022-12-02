@@ -1868,7 +1868,7 @@ int dieroll;
         else {
             tmp += rnd(6); /* +1 damage vs non-fire resistant. */
             if (resists_cold(mon))
-                tmp *= 1.5; /* +d3 damage vs non-fire res. */
+                tmp *= rnd(3); /* +d3 damage vs non-fire res. */
 
             /* A chance of setting monster's stuff on fire */
             tmp += destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);

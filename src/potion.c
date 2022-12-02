@@ -143,7 +143,7 @@ int
 resist_reduce(amount, which)
 int amount, which;
 {
-    float tmp = 100.0 - (float) how_resistant(which);
+    float tmp = 100.0f - (float) how_resistant(which);
 
     tmp /= 100;
     /* debug line */
