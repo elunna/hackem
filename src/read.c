@@ -3248,12 +3248,30 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
     } else if (mon_effect) {
         do_clear_area(obj->ox, obj->oy, rn1(1, 2),
                       set_lit, (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
+    } else {
+        int radius;
+        if (obj && obj->oclass == SCROLL_CLASS) {
+            /* blessed scroll lights up entire level */
+            if (obj->blessed) {
+                int x, y;
+                radius = -1;
+                for (x = 0; x < COLNO; x++) {
+                    for (y = 0; y < ROWNO; y++) {
+                        set_lit(x, y, (on ? &is_lit : NULL));
+                    }
+                }
+            } else { /* uncursed gets a much larger area than previously */
+                radius = 11;
+            }
+        } else {
+            radius = 5;
+        }
+        
+        if (radius > 0) {
+            do_clear_area(u.ux, u.uy, radius, set_lit,
+                          (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
+        }
     }
-    else {
-        do_clear_area(u.ux, u.uy, blessed_effect ? 9 : 5, set_lit,
-                      (genericptr_t) (on ? &is_lit : (char *) 0), TRUE);
-    }
-
     /*
      *  If we are not blind, then force a redraw on all positions in sight
      *  by temporarily blinding the hero.  The vision recalculation will
