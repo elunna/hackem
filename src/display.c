@@ -2866,7 +2866,7 @@ add_blood(int x, int y, int pm) {
 }
 
 int
-blood_color() {
+blood_color(int pm) {
     return CLR_RED;
 }
 

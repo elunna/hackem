@@ -425,7 +425,7 @@ E void NDECL(set_wall_state);
 E void FDECL(unset_seenv, (struct rm *, int, int, int, int));
 E int FDECL(warning_of, (struct monst *));
 E void add_blood(int, int, int);
-E int blood_color();
+E int blood_color(int);
 E void wipe_blood(int, int);
 
 /* ### do.c ### */
