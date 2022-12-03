@@ -2930,7 +2930,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     if (otmp->oartifact == ART_BALMUNG) {
         register struct obj *obj = some_armor(mdef);
         if (youdefend) {
-            destroy_arm(some_armor(&youmonst));
+            destroy_arm(some_armor(&youmonst), FALSE);
         } else if (obj) {
             obj_extract_self(obj);
             if (obj->owornmask) {

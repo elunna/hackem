@@ -4456,7 +4456,7 @@ boolean wep_was_destroyed;
                         pline("%s being disintegrated!",
                               Yobjnam2(uarmf, "resist"));
                     else
-                        (void) destroy_arm(uarmf);
+                        (void) destroy_arm(uarmf, FALSE);
                 }
             } else if (aatyp == AT_WEAP || aatyp == AT_CLAW
                        || aatyp == AT_MAGC || aatyp == AT_TUCH) {
@@ -4793,7 +4793,7 @@ boolean wep_was_destroyed;
                                 pline("%s being disintegrated!",
                                       Yobjnam2(uarmg, "resist"));
                             else
-                                (void) destroy_arm(uarmg);
+                                (void) destroy_arm(uarmg, FALSE);
                         }
                     }
                     break;
@@ -4807,7 +4807,7 @@ boolean wep_was_destroyed;
                                 pline("%s being disintegrated!",
                                       Yobjnam2(uarmf, "resist"));
                             else
-                                (void) destroy_arm(uarmf);
+                                (void) destroy_arm(uarmf, FALSE);
                         }
                         break;
                     } else if (aatyp == AT_WEAP || aatyp == AT_CLAW

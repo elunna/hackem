@@ -3114,13 +3114,13 @@ struct attack *mattk;
                     mdamageu(mtmp, tmp);
                 if (uarms) {
                     /* destroy shield; other possessions are safe */
-                    (void) destroy_arm(uarms);
+                    (void) destroy_arm(uarms, FALSE);
                     break;
                 } else if (uarm) {
                     /* destroy suit; if present, cloak goes too */
                     if (uarmc)
-                        (void) destroy_arm(uarmc);
-                    (void) destroy_arm(uarm);
+                        (void) destroy_arm(uarmc, FALSE);
+                    (void) destroy_arm(uarm, FALSE);
                     break;
                 }
                 /* fall through. not having enough disintegration
@@ -3129,9 +3129,9 @@ struct attack *mattk;
             /* no shield or suit, you're dead; wipe out cloak
                and/or shirt in case of life-saving or bones */
             if (uarmc)
-                (void) destroy_arm(uarmc);
+                (void) destroy_arm(uarmc, FALSE);
             if (uarmu)
-                (void) destroy_arm(uarmu);
+                (void) destroy_arm(uarmu, FALSE);
 
             You("are disintegrated!");
             /* when killed by disintegration, don't leave a corpse */
@@ -3697,21 +3697,21 @@ struct attack *mattk;
                 break;
             } else if (uarms) {
                 /* destroy shield; other possessions are safe */
-                (void) destroy_arm(uarms);
+                (void) destroy_arm(uarms, FALSE);
                 break;
             } else if (uarm) {
                 /* destroy suit; if present, cloak goes too */
                 if (uarmc)
-                    (void) destroy_arm(uarmc);
-                (void) destroy_arm(uarm);
+                    (void) destroy_arm(uarmc, FALSE);
+                (void) destroy_arm(uarm, FALSE);
                 break;
             } else {
                 /* no shield or suit, you're dead; wipe out cloak
                  * and/or shirt in case of life-saving or bones */
                 if (uarmc)
-                    (void) destroy_arm(uarmc);
+                    (void) destroy_arm(uarmc, FALSE);
                 if (uarmu)
-                    (void) destroy_arm(uarmu);
+                    (void) destroy_arm(uarmu, FALSE);
                 /* when killed by a disintegration beam, don't leave a corpse */
                 u.ugrave_arise = -3;
                 killer.format = NO_KILLER_PREFIX;
