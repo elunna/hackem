@@ -661,9 +661,8 @@ double?headed?axe
 		[ Malcolm's Katie, by Isabella Valancey Crawford ]
 axolotl
 	A mundane salamander, harmless.
+~bag of*
 bag
-bag of *
-sack
 	"Now, this third handkerchief," Mein Herr proceeded, "has also
 	four edges, which you can trace continuously round and round:
 	all you need do is to join its four edges to the four edges of
@@ -680,6 +679,79 @@ sack
 	is outside it; and whatever is outside it, is inside it.  So
 	you have all the wealth of the world in that leetle Purse!"
 		[ Sylvie and Bruno Concluded, by Lewis Carroll ]
+bag of holding
+    Placing items into a noncursed bag of holding reduces their weight, 
+    making it one of the most coveted objects for general use.
+    Generally speaking: bags of holding halve the weight of its 
+    contents, blessed bags divide it by four, and cursed bags double
+    it.
+    
+    Tipping or looking into a cursed bag of holding may make items 
+    vanish, with a separate 1/13 chance for each item.
+    
+    Some items should not be put in a bag of holding, or they will 
+    make the bag explode – scattering all of its contents, destroying
+    the bag and damaging the player. These items are as follows:
+    
+    - Other bags of holding
+    - Bags of tricks with charges remaining
+    - Wands of cancellation with charges remaining
+    - MagicBane
+    - Other bags containing any of the above items
+    
+    These have a chance of not exploding if you nest them".
+    
+bag of rats
+bag of tricks
+    Bags of tricks are generated uncursed, with 3 to 20 charges.
+    Attempting to #loot a bag of tricks will cause it to bite you 
+    for d10 damage, which auto-identifies it.
+    
+    Applying a charged bag of tricks will use up one charge and 
+    cause a random effect; the bag also is auto-identified.
+    Chance	Effect
+    31/40	Creates a monster.
+    2/40	Spits out a random item.
+    1/40	Bag "wriggles away from you", causing it to drop.
+    1/40	Tries to pull you in, paralyzing for d4 turns.
+    1/40	Spits out a stinking cloud.
+    1/40	Causes hallucination for 10+d35 turns.
+    1/40	Yells "Boo!", scaring nearby monsters and possibly the player.
+    1/40	Grows teeth and bites, as if looted.
+    1/40	Licks your wielded weapon from your hand, causing it to drop.
+    
+    The created item will be an iron chain if the bag is cursed or has
+    been recharged. Otherwise, the game will make three attempts to 
+    create an item that weighs less than 100 aum and is small enough 
+    to fit in a container. If all three attempts generate invalid 
+    items, the bag "coughs nervously" and produces nothing.
+
+    A bag of tricks with no charges can hold items like a regular sack;
+    charging it again will destroy any items inside. Since the bag of 
+    tricks is a "magical bag", it will also protect its fragile 
+    contents from shattering like a bag of holding; this also means 
+    that a cursed bag of tricks with no charges is subject to item loss 
+    like a cursed bag of holding.
+    
+    Using #tip with a bag of tricks will attempt to expend all the 
+    charges. If a monster is created, it will use up another charge. 
+    If a non-monster effect is encountered the tipping process is 
+    arrested.
+    
+    placing a bag of tricks with charges into a bag of holding 
+    will cause a magical explosion.
+    
+~oilskin sack
+sack
+    The sack is the most basic form of container in NetHack. A sack 
+    stores items beyond the 52-character limit, and protects its 
+    contents from fire, cold, and many other forms of damage; it is 
+    also among the lightest of the containers in the game. However, 
+    throwing a sack may break or damage some of its contents; if a 
+    sack gets wet (e.g. from falling into a pool), it contents may 
+    become wet as well.
+    
+    Can be greased to offer some protection against water damage.
 b*lzebub
 	The "lord of the flies" is a translation of the Hebrew
 	Ba'alzevuv (Beelzebub in Greek).  It has been suggested that
@@ -1392,7 +1464,7 @@ cheese
 	so that carnivorous monsters would eat it), eating cheese does not 
 	violate the vegetarian conduct. Cheese has an excellent nutrition/
 	weight ratio (250/2 = 125).
-*chest
+chest
 large box
 	Dantes rapidly cleared away the earth around the chest.  Soon
 	the center lock appeared, then the handles at each end, all
@@ -1413,6 +1485,19 @@ large box
 	glittering cascade, they gave forth the sound of hail beating
 	against the windowpanes.
 		[ The Count of Monte Cristo, by Alexandre Dumas ]
+crystal chest
+    A rare and magical type of container that cannot be locked, 
+    unlocked or forced open by any physical means (this includes the
+    Master Key of Thievery). The only way to open or lock this 
+    container is by magical means – a wand of opening or the spell 
+    'knock' to unlock, or a wand of locking or the spell 'wizard lock' 
+    to secure. Otherwise, a crystal chest is immune to all other 
+    forms of magic, meaning it cannot be probed, cancelled, or 
+    polymorphed. This makes it the ideal container for the player to 
+    use to stash useful gear, as intelligent monsters will unlock and
+    loot regular containers if given the chance, nor do monsters 
+    currently know how to use locking/unlocking magic. Crystal chests
+    do not generate as trapped, and they can appear randomly.
 chicken
 	C - That's the way it begins
 	H - Is the next letter in
@@ -4270,6 +4355,19 @@ hydra
 	story add a regeneration feature to the monster: for every head
 	chopped off, the Hydra would regrow two heads.
 		[ Wikipedia, the Free Encyclopedia ]
+ice box
+    Corpses in an ice box will not age and will remain fit to eat or 
+    sacrifice indefinitely. They will continue decaying where they 
+    left off when removed from the box, and will be tainted if they
+     were before being placed in the box.
+    
+    Ice boxes are waterproof. They have no locks. Potions do not 
+    freeze or shatter in an ice box. Since they're made of plastic, 
+    gelatinous cubes cannot eat ice boxes, which makes them good for
+    stashes.
+    
+    If a container is polymorphed, all items that were in it, 
+    including heavy corpses, will be destroyed.
 ice devil
 	Ice devils are large semi-insectoid creatures, who are
 	equally at home in the fires of Hell and the cold of Limbo,
@@ -4366,6 +4464,12 @@ iron bars
 	  Enjoy such liberty.
 		[ To Althea from Prison, by Richard Lovelace ]
 iron safe
+    This is a container added to SporkHack (and later to UnNetHack 
+    and then EvilHack). It is possible to open it using a wand of 
+    opening, knock spell, or stethoscope. The only way to lock an 
+    iron safe after it's been opened is to use either a wand of 
+    locking or the wizard lock spell on it.
+	
 	Chief: Larabee, you're wasting your time. That door is a
 	foot thick and it's constructed of iron and laminated steel.
 	You'll never open it with a quarter.
@@ -4610,6 +4714,9 @@ kelp*
 	vitamin and mineral content. Kelps are especially abundant in Japan,
 	and various foods known as kombu are made from them.
 		[ The Columbia Encyclopedia, Sixth Edition ]
+key
+skeleton key
+    Allows you to lock and unlock doors and containers. 
 kicking boots
     When worn, kicking boots add a +5 damage bonus to kick attacks
     (unless the target is thick-skinned) and give them a chance to 
@@ -6029,6 +6136,16 @@ oilskin cloak
 	Pacific to prepare for its other face.
 		[ Two Years Before the Mast, by Richard Henry Dana ]
 oilskin sack
+    The oilskin sack can hold items beyond the 52-character limit, 
+    much like the regular sack, with the exception that a noncursed
+    oilskin sack will also protect its contents from becoming wet. A 
+    cursed oilskin sack only protects its contents two-thirds of the
+    time.
+    
+    Oilskin sacks can be identified from the other types of bag by 
+    dipping them into a water source; this will produce the message 
+    "Some water slides right off the bag."
+    
 	Summer passed all too quickly.  On the last day of camp, Mr.
 	Brickle called his counselors together and paid them what he
 	owed them.  Louis received one hundred dollars - the first
