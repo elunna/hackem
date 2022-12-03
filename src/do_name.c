@@ -2017,6 +2017,14 @@ struct monst *mtmp;
     return x_monnam(mtmp, prefix, (char *) 0, suppression_flag, FALSE);
 }
 
+
+char *
+adj_monnam(struct monst *mtmp, const char *adj)
+{
+    return x_monnam(mtmp, ARTICLE_THE, adj,
+                    has_mname(mtmp) ? SUPPRESS_SADDLE : 0, FALSE);
+}
+
 char *
 Adjmonnam(mtmp, adj)
 struct monst *mtmp;

@@ -1141,14 +1141,12 @@ int dieroll;
                         tmp = tmp2;
                     tmp++;
                 }
-                /* a minimal hit doesn't exercise proficiency */
-                valid_weapon_attack = (tmp > 0);
                 if (tmp <= 1 || mon == u.ustuck
                     /* Cleaver can hit up to three targets at once so don't
                        let it also hit from behind or shatter foes' weapons */
                     || (hand_to_hand && obj->oartifact == ART_CLEAVER)) {
                     ; /* no special bonuses */
-                } 
+                }
                 else if (mdat->mlet == S_GIANT && uslinging()
                          && thrown == HMON_THROWN
                          && ammo_and_launcher(obj, uwep)
@@ -1166,9 +1164,16 @@ int dieroll;
                     get_dmg_bonus = FALSE;
                     tmp -= weapon_dam_bonus(uwep);
                 }
-                else if (mon->mflee && Role_if(PM_ROGUE) && !Upolyd
-                           /* multi-shot throwing is too powerful here */
-                           && hand_to_hand) {
+                else if (Role_if(PM_ROGUE) && !Upolyd && hand_to_hand
+                         /* multi-shot throwing is too powerful here */
+                         && (mon->mflee
+                             || !mon->mcanmove
+                             || mon->mtrapped
+                             || mon->mfrozen
+                             || mon->msleeping
+                             || mon->mstun
+                             || mon->mconf
+                             || mon->mblinded)) {
                     /* Cap the contribution of ulevel based on skill level.
                      * Restricted (or no associated skill) - d2 maximum
                      * Unskilled                           - d4 maximum
@@ -1179,6 +1184,29 @@ int dieroll;
                      * tied to ulevel.
                      */
                     int cap = 2, bonus = 0;
+                    const char *adjective, *adverb1, *adverb2;
+                    adjective = NULL; /* not "" because it goes to adj_monnam */
+                    adverb1 = "deftly ";
+                    adverb2 = "";
+                    /* "You [adverb1] strike the [adjective] foo [adverb2]!" */
+                    if (mon->msleeping) {
+                        adjective = "sleeping";
+                    }
+                    else if (mon->mblinded) {
+                        adjective = "blinded";
+                    }
+                    else if (mon->mconf || mon->mstun) {
+                        adjective = "off-balance";
+                    }
+                    else if (mon->mtrapped || mon->mfrozen || !mon->mcanmove) {
+                        adjective = "helpless";
+                    }
+                    else if (mon->mflee) {
+                        adverb1 = "";
+                        adverb2 = " from behind";
+                    }
+                    You("%sstrike %s%s!", adverb1, adj_monnam(mon, adjective),
+                        adverb2);
                     if ((wtype = uwep_skill_type()) != P_NONE) {
                         if (P_SKILL(wtype) == P_UNSKILLED) {
                             cap = 4;
@@ -1191,25 +1219,24 @@ int dieroll;
                     if (u.ulevel < cap) {
                         cap = u.ulevel; /* e.g. Expert but only XL 10 */
                     }
-                    You("strike %s from behind!", mon_nam(mon));
                     tmp += rnd(cap) + bonus;
                     hittxt = TRUE;
                 } else if (obj == uwep && obj->oclass == WEAPON_CLASS
                            && ((dieroll == 2 && (bimanual(obj) || (Race_if(PM_GIANT))
-                               || (Role_if(PM_SAMURAI) && obj->otyp == KATANA && !uarms))
-                                   && ((wtype = uwep_skill_type()) != P_NONE
-                                   && P_SKILL(wtype) >= P_SKILLED))
+                                                 || (Role_if(PM_SAMURAI) && obj->otyp == KATANA && !uarms))
+                                && ((wtype = uwep_skill_type()) != P_NONE
+                                    && P_SKILL(wtype) >= P_SKILLED))
                                || (dieroll == 3 && (Race_if(PM_GIANT)) && (((wtype = uwep_skill_type()) != P_NONE)
-                                   && P_SKILL(wtype) >= P_BASIC))
+                                                                           && P_SKILL(wtype) >= P_BASIC))
                                || (dieroll == 4 && (!rn2(2)) && (Race_if(PM_GIANT))
                                    && (((wtype = uwep_skill_type()) != P_NONE)
-                                   && P_SKILL(wtype) >= P_EXPERT)))
+                                       && P_SKILL(wtype) >= P_EXPERT)))
                            && ((monwep = MON_WEP(mon)) != 0
                                && !is_flimsy(monwep)
                                && !is_mithril(monwep) /* mithril is super-strong */
                                && !is_crystal(monwep) /* so are weapons made of gemstone */
                                && !obj_resists(monwep,
-                                       50 + 15 * (greatest_erosion(obj) - greatest_erosion(monwep)), 100))) {
+                                               50 + 15 * (greatest_erosion(obj) - greatest_erosion(monwep)), 100))) {
                     /*
                      * 2.5% chance of shattering defender's weapon when
                      * using a two-handed weapon; less if uwep is rusted.
@@ -1235,15 +1262,17 @@ int dieroll;
                     mon->weapon_check = NEED_WEAPON;
                     pline("%s from the force of your blow!",
                           Yobjnam2(monwep, (monwep->material == WOOD || monwep->material == BONE)
-                                   ? "splinter" : (monwep->material == PLATINUM || monwep->material == GOLD
-                                                   || monwep->material == SILVER || monwep->material == COPPER)
-                                   ? "break" : "shatter"));
+                                           ? "splinter" : (monwep->material == PLATINUM || monwep->material == GOLD
+                                                           || monwep->material == SILVER || monwep->material == COPPER)
+                                                          ? "break" : "shatter"));
                     m_useupall(mon, monwep);
                     /* If someone just shattered MY weapon, I'd flee! */
                     if (!rn2(4))
                         monflee(mon, d(2, 3), TRUE, TRUE);
                     hittxt = TRUE;
                 }
+                /* a minimal hit doesn't exercise proficiency */
+                valid_weapon_attack = (tmp > 0);
                 if (((obj->oclass == WEAPON_CLASS && obj->oprops) || obj->oartifact)
                     && artifact_hit(&youmonst, mon, obj, &tmp, dieroll)) {
                     if (DEADMONSTER(mon)) /* artifact killed monster */
