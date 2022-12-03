@@ -4389,7 +4389,19 @@ struct obj **pobj; /* object tossed/used, set to NULL
             maybe_explode_trap(t_at(bhitpos.x, bhitpos.y), obj);
 
         mtmp = m_at(bhitpos.x, bhitpos.y);
-
+        t = t_at(bhitpos.x, bhitpos.y);
+        
+        if (!mtmp && t && (t->ttyp == WEB)
+            && (weapon == THROWN_WEAPON || weapon == KICKED_WEAPON)
+            && !rn2(3)) {
+            if (cansee(bhitpos.x, bhitpos.y)) {
+                pline("%s gets stuck in a web!", Yname2(obj));
+                t->tseen = TRUE;
+                newsym(bhitpos.x, bhitpos.y);
+            }
+            break;
+        }
+        
         /*
          * skipping rocks
          *
