@@ -3791,7 +3791,7 @@ boolean was_swallowed; /* digestion */
     }
 
     /* Trolls don't leave a corpse when the player is wielding Trollsbane */
-    if (mdat->mlet == S_TROLL
+    if (mdat->mlet == S_TROLL && distu(mon->mx, mon->my) < 3
         && (wielding_artifact(ART_TROLLSBANE) || artdial)) {
         if (cansee(mon->mx, mon->my))
             pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
@@ -3800,7 +3800,7 @@ boolean was_swallowed; /* digestion */
     }
 
     /* Zombies don't leave a corpse when the player is wielding Sunsword */
-    if (is_zombie(mdat)
+    if (is_zombie(mdat) && distu(mon->mx, mon->my) < 3
         && (wielding_artifact(ART_SUNSWORD) || artdial)) {
         if (cansee(mon->mx, mon->my))
             pline("In the presence of %s, %s corpse dissolves into nothingness.",
@@ -3809,12 +3809,12 @@ boolean was_swallowed; /* digestion */
     }
     
     /* Undead Slayers have a chance to totally destroy zombie corpses */
-    if (is_zombie(mdat) && Role_if(PM_UNDEAD_SLAYER) && rn2(3)) {
+    if (is_zombie(mdat) && Role_if(PM_UNDEAD_SLAYER) 
+        && distu(mon->mx, mon->my) < 2 && rn2(3)) {
         if (cansee(mon->mx, mon->my)) {
             pline("%s!", rn2(2) ? "Squish" : 
                   rn2(2) ? "Squash" : "Smash");
         }
-           
         return FALSE;
     }
 
