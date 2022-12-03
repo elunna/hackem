@@ -568,7 +568,7 @@ struct monst *mattk, *mdef;
                 || obj_resists(oatmp, 0, 90))
                 return 0;
             if (udefend) {
-                destroy_arm(oatmp);
+                destroy_arm(oatmp, FALSE);
             } else {
                 if (canseemon(mdef)) {
                     const char *action;
