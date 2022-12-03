@@ -1150,7 +1150,7 @@ int dieroll;
                 else if (mdat->mlet == S_GIANT && uslinging()
                          && thrown == HMON_THROWN
                          && ammo_and_launcher(obj, uwep)
-                         && P_SKILL(P_SLING) >= P_SKILLED && dieroll > 1
+                         && P_SKILL(P_SLING) >= P_SKILLED && dieroll == 1
                          && !rn2(P_SKILL(P_SLING) == P_SKILLED ? 2 : 1)) {
                     /* With a critical hit, a skilled slinger can bring down
                      * even the mightiest of giants. */
