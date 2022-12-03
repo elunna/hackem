@@ -17,6 +17,7 @@ STATIC_DCL struct monst *FDECL(monstinroom, (struct permonst *, int));
 STATIC_DCL boolean FDECL(doorless_door, (int, int));
 STATIC_DCL void FDECL(move_update, (BOOLEAN_P));
 STATIC_DCL void FDECL(maybe_smudge_engr, (int, int, int, int));
+STATIC_DCL void check_buried_zombies(xchar, xchar);
 STATIC_DCL void NDECL(domove_core);
 
 #define IS_SHOP(x) (rooms[x].rtype >= SHOPBASE)
@@ -1532,6 +1533,25 @@ u_rooted()
     return FALSE;
 }
 
+/* reduce zombification timeout of buried zombies around px, py */
+static void
+check_buried_zombies(xchar x, xchar y)
+{
+    struct obj *otmp;
+    long t;
+
+    for (otmp = level.buriedobjlist; otmp; otmp = otmp->nobj) {
+        if (otmp->otyp == CORPSE && otmp->timed
+            && otmp->ox >= x - 1 && otmp->ox <= x + 1
+            && otmp->oy >= y - 1 && otmp->oy <= y + 1
+            && (t = peek_timer(ZOMBIFY_MON, obj_to_any(otmp))) > 0) {
+            t = stop_timer(ZOMBIFY_MON, obj_to_any(otmp));
+            (void) start_timer(max(1, t - rn2(10)), TIMER_OBJECT,
+                               ZOMBIFY_MON, obj_to_any(otmp));
+        }
+    }
+}
+
 void
 domove()
 {
@@ -2249,6 +2269,9 @@ domove_core()
                 nomul(0);
     }
 
+    if (!Levitation && !Flying && !Stealth)
+        check_buried_zombies(u.ux, u.uy);
+    
     if (hides_under(youmonst.data) || youmonst.data->mlet == S_EEL
         || youmonst.data == &mons[PM_GIANT_LEECH] || u.dx || u.dy)
         (void) hideunder(&youmonst);
