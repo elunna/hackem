@@ -2868,7 +2868,7 @@ add_blood(int x, int y, int pm) {
 int
 blood_color(int pm) {
     /* Orcs have black blood */
-    if (pm >= PM_ORC || pm <= PM_GRUND_THE_ORC_KING)
+    if (pm >= PM_ORC && pm <= PM_GRUND_THE_ORC_KING)
         return CLR_BLACK;
     return CLR_RED;
 }
