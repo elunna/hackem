@@ -2572,12 +2572,15 @@ do_rust:
             (nonliving(youmonst.data) /* This could use is_fleshy(), but that would
                                          make a large set of monsters immune like
                                          fungus, blobs, and jellies. */
-             || is_vampshifter(&youmonst) || !uncancelled);
+             || is_vampshifter(&youmonst) 
+             || Race_if(PM_VAMPIRIC)
+             || !uncancelled);
         boolean lose_maxhp = (withertime >= 8); /* if already withering */
-        dmg = 0; /* doesn't deal immediate damage */
-
         hitmsg(mtmp, mattk);
+        
         if (!no_effect) {
+            dmg = 0; /* doesn't deal immediate damage. If we are resistant
+                      * to withering, this attack deads physical damage instead. */
             if (Withering)
                 Your("withering speeds up!");
             else
