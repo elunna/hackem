@@ -7005,6 +7005,14 @@ makewish()
      */
     strcpy(bufcpy, buf);
     otmp = readobjnam(buf, &nothing);
+    
+    
+    /* allow wishing for monsters in wizmode */
+    if (wizard && !otmp) {
+        if (create_particular_from_buffer(buf)) {
+            return;
+        }
+    }
     if (!otmp && iflags.debug_fuzzer) {
         /* allow the fuzzer, and only the fuzzer, to get a random object from a
          * random input string that corresponds to nothing. */
