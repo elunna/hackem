@@ -2720,11 +2720,15 @@ eatpill()
 {
     int i, ii, littleluck = (u.uluck < 4); /* For pills */
     You("swallow the little pink pill.");
-    switch(rn2(7)) {
+    switch (rn2(7)) {
     case 0:
-        /* [Tom] wishing pills are from the Land of Oz */
-        pline ("The pink sugar coating hid a silver wishing pill!");
-        makewish();
+        /* Chances of wish have been nerfed */
+        if (!rn2(25 - u.uluck)) {
+            /* [Tom] wishing pills are from the Land of Oz */
+            pline("The pink sugar coating hid a silver wishing pill!");
+            makewish();
+        } else
+            pline1(nothing_happens);
         break;
     case 1:
         if(!Poison_resistance) {
