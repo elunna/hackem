@@ -2963,7 +2963,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                    eating conducts. The draining of life is
                    considered to be primarily a non-physical
                    effect */
-                lesshungry(xtmp * 6);
+                lesshungry(xtmp * 10);
             }
             
             if (canseemon(mdef))

@@ -4731,7 +4731,7 @@ crawl:
         u.uinwater = 0;
         /* should be unnecessary as spoteffects() should get called */
         /* You("fly up out of the water!"); */
-        return (TRUE);
+        return TRUE;
     }
     
     for (i = 0; i < 5; i++) { /* arbitrary number of loops */

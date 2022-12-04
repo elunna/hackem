@@ -1543,6 +1543,8 @@ u_init()
         /* Vampires start off with gods not as pleased, luck penalty */
         adjalign(-5); 
         change_luck(-1);
+        knows_object(POT_VAMPIRE_BLOOD);
+        knows_object(POT_BLOOD);
         break;
 
     default: /* impossible */

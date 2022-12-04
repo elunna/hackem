@@ -1033,7 +1033,7 @@ const struct Race races[] = {
         0,          /* always peaceful */
         MH_ELF | MH_GNOME | MH_DWARF | MH_ORC, /* always hostile */
         /*    Str    Int Wis Dex Con Cha */
-        {      3,     3,  3,  3,  3,  3 }, /* min allowable */
+        {      4,     0,  0,  4,  3,  4 }, /* min allowable */
         { STR19(19), 18, 18, 20, 20, 20 }, /* max allowable */
         /* Init   Lower  Higher */
         {  3, 0,  0, 3,  2, 0 },	/* Hit points */
