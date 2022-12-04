@@ -13,6 +13,7 @@
 STATIC_DCL void FDECL(mkfount, (int, struct mkroom *));
 STATIC_DCL void FDECL(mkforge, (int, struct mkroom *));
 STATIC_DCL void FDECL(mksink, (struct mkroom *));
+STATIC_DCL void FDECL(mktree, (struct mkroom *));
 STATIC_DCL void FDECL(mktoilet,(struct mkroom *));
 STATIC_DCL void FDECL(mkaltar, (struct mkroom *));
 STATIC_DCL void FDECL(mkgrave, (struct mkroom *));
@@ -1163,6 +1164,11 @@ makelevel()
         /* greater chance of puddles if a water source is nearby */
         if (!rn2(10))
             mkfount(0, croom);
+        if (!rn2(10 + 4 * depth(&u.uz))) {
+            /* Trees become less common, and at some point they are
+               just dead. */
+            mktree(croom);
+        }
         if (!rn2(60)) {
             mksink(croom);
             /* Sinks are frequently paired with toilets. */
@@ -2039,6 +2045,18 @@ struct mkroom *croom;
     levl[m.x][m.y].typ = SINK;
 
     level.flags.nsinks++;
+}
+
+static void
+mktree(struct mkroom *croom)
+{
+    coord m;
+
+    if (!somexyspace(croom, &m, 8))
+        return;
+
+    /* Put a tree at m.x, m.y */
+    levl[m.x][m.y].typ = depth(&u.uz) > 7 ? DEADTREE : TREE;
 }
 
 static void
