@@ -5944,6 +5944,17 @@ boolean moncast;
             maybe_unhide_at(x, y);
         }
         break; /* ZT_FIRE */
+    
+    case ZT_DEATH:
+        /* Trees handled elsewhere */
+        if (IS_GRASS(lev->typ)) {
+            lev->typ = ROOM;
+            if (see_it) {
+                pline("The grass dies!");
+                newsym(x, y);
+            }
+        }
+        break;
 
     case ZT_SONIC: {
         int i, xx = x, yy = y;
