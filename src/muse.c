@@ -2779,7 +2779,7 @@ struct monst *mtmp;
             pline("%s takes a picture of you with %s!",
                   Monnam(mtmp), an(xname(otmp)));
         m_using = TRUE;
-        if (!Blind) {
+        if (!Blind && !ublindf) {
             You("are blinded by the flash of light!");
             make_blinded(Blinded + (long) rnd(1 + 50), FALSE);
         }
