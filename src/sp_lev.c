@@ -4524,6 +4524,9 @@ struct sp_coder *coder;
     case SPO_FOUNTAIN:
         typ = FOUNTAIN;
         break;
+    case SPO_VENT:
+        typ = VENT;
+        break;
     case SPO_FORGE:
         typ = FORGE;
         break;
@@ -5714,6 +5717,7 @@ sp_lev *lvl;
         case SPO_POOL:
         case SPO_FORGE:
         case SPO_FOUNTAIN:
+        case SPO_VENT:
         case SPO_PUDDLE:
         case SPO_SEWAGE:
             spo_feature(coder);

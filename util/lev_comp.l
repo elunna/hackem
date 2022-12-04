@@ -117,7 +117,7 @@ FILE *orig_yyin = NULL;
 		  map_cnt = 0;
 		  return MAP_ID;
 		}
-<MAPC>[-|}{+stwxABCISHUKZPLWTF\\#., 0123456789]*\r?\n	{
+<MAPC>[-|}{+stwxABCISHUKZPLWTVF\\#., 0123456789]*\r?\n	{
 		  int len = yyleng;
 		  savetoken(yytext);
 		  /* convert \r\n to \n */
@@ -162,6 +162,7 @@ TELEPORT_REGION	ST_RET(TELEPRT_ID);
 BRANCH		ST_RET(BRANCH_ID);
 FORGE		ST_RET(FORGE_ID);
 FOUNTAIN	ST_RET(FOUNTAIN_ID);
+VENT	    ST_RET(VENT_ID);
 SINK		ST_RET(SINK_ID);
 TOILET		ST_RET(TOILET_ID);
 PUDDLE		ST_RET(PUDDLE_ID);

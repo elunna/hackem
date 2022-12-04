@@ -4535,6 +4535,14 @@ struct obj *no_wish;
                 lev->blessedftn = 1;
             pline("A %sfountain.", lev->blessedftn ? "magic " : "");
             madeterrain = TRUE;
+        } else if (!BSTRCMPI(bp, p - 4, "vent")) {
+            lev->typ = VENT;
+            lev->poisonvnt = !strncmpi(bp, "poison ", 7);
+            pline("A %svent.", lev->poisonvnt ? "poison " : "");
+            level.flags.nvents++;
+            (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
+                               long_to_any(((long) x << 16) | (long) y));
+            madeterrain = TRUE;
         } else if (!BSTRCMPI(bp, p - 6, "throne")) {
             lev->typ = THRONE;
             pline("A throne.");
@@ -4543,14 +4551,6 @@ struct obj *no_wish;
             lev->typ = SINK;
             level.flags.nsinks++;
             pline("A sink.");
-            madeterrain = TRUE;
-        } else if (!BSTRCMPI(bp, p - 4, "vent")) {
-            lev->typ = VENT;
-            lev->poisonvnt = !strncmpi(bp, "poison ", 7);
-            pline("A %svent.", lev->poisonvnt ? "poison " : "");
-            level.flags.nvents++;
-            (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
-                               long_to_any(((long) x << 16) | (long) y));
             madeterrain = TRUE;
         } else if(!BSTRCMPI(bp, p - 6, "toilet")) {
             lev->typ = TOILET;

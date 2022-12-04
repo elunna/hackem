@@ -1530,585 +1530,589 @@ ST_RET(FOUNTAIN_ID);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
+ST_RET(VENT_ID);
+        YY_BREAK
+case 36:
+YY_RULE_SETUP
 ST_RET(SINK_ID);
 	YY_BREAK
-case 36:
+case 37:
 YY_RULE_SETUP
 ST_RET(TOILET_ID);
         YY_BREAK
-case 37:
+case 38:
 YY_RULE_SETUP
 ST_RET(POOL_ID);
 	YY_BREAK
-case 38:
+case 39:
 YY_RULE_SETUP
 ST_RET(NON_DIGGABLE_ID);
 	YY_BREAK
-case 39:
+case 40:
 YY_RULE_SETUP
 ST_RET(NON_PASSWALL_ID);
 	YY_BREAK
-case 40:
+case 41:
 YY_RULE_SETUP
 ST_RET(IF_ID);
 	YY_BREAK
-case 41:
+case 42:
 YY_RULE_SETUP
 ST_RET(ELSE_ID);
 	YY_BREAK
-case 42:
+case 43:
 YY_RULE_SETUP
 ST_RET(EXIT_ID);
 	YY_BREAK
-case 43:
+case 44:
 YY_RULE_SETUP
 ST_RET(ROOM_ID);
 	YY_BREAK
-case 44:
+case 45:
 YY_RULE_SETUP
 ST_RET(SUBROOM_ID);
 	YY_BREAK
-case 45:
+case 46:
 YY_RULE_SETUP
 ST_RET(RAND_CORRIDOR_ID);
 	YY_BREAK
-case 46:
+case 47:
 YY_RULE_SETUP
 ST_RET(CORRIDOR_ID);
 	YY_BREAK
-case 47:
+case 48:
 YY_RULE_SETUP
 ST_RET(TERRAIN_ID);
 	YY_BREAK
-case 48:
+case 49:
 YY_RULE_SETUP
 ST_RET(terrain_ID);
 	YY_BREAK
-case 49:
+case 50:
 YY_RULE_SETUP
 ST_RET(REPLACE_TERRAIN_ID);
 	YY_BREAK
-case 50:
+case 51:
 YY_RULE_SETUP
 ST_RET(GOLD_ID);
 	YY_BREAK
-case 51:
+case 52:
 YY_RULE_SETUP
 ST_RET(GRAVE_ID);
 	YY_BREAK
-case 52:
+case 53:
 YY_RULE_SETUP
 ST_RET(ENGRAVING_ID);
 	YY_BREAK
-case 53:
+case 54:
 YY_RULE_SETUP
 ST_RET(MINERALIZE_ID);
 	YY_BREAK
-case 54:
+case 55:
 YY_RULE_SETUP
 ST_RET(NAME_ID);
 	YY_BREAK
-case 55:
+case 56:
 YY_RULE_SETUP
 ST_RET(FOR_ID);
 	YY_BREAK
-case 56:
+case 57:
 YY_RULE_SETUP
 ST_RET(TO_ID);
 	YY_BREAK
-case 57:
+case 58:
 YY_RULE_SETUP
 ST_RET(LOOP_ID);
 	YY_BREAK
-case 58:
+case 59:
 YY_RULE_SETUP
 ST_RET(SWITCH_ID);
 	YY_BREAK
-case 59:
+case 60:
 YY_RULE_SETUP
 ST_RET(CASE_ID);
 	YY_BREAK
-case 60:
+case 61:
 YY_RULE_SETUP
 ST_RET(BREAK_ID);
 	YY_BREAK
-case 61:
+case 62:
 YY_RULE_SETUP
 ST_RET(DEFAULT_ID);
 	YY_BREAK
-case 62:
+case 63:
 YY_RULE_SETUP
 ST_RET(FUNCTION_ID);
 	YY_BREAK
-case 63:
+case 64:
 YY_RULE_SETUP
 ST_RET(SHUFFLE_ID);
 	YY_BREAK
-case 64:
+case 65:
 YY_RULE_SETUP
 ST_RET(MONTYPE_ID);
 	YY_BREAK
-case 65:
+case 66:
 YY_RULE_SETUP
 ST_RET(selection_ID);
 	YY_BREAK
-case 66:
+case 67:
 YY_RULE_SETUP
 ST_RET(rect_ID);
 	YY_BREAK
-case 67:
+case 68:
 YY_RULE_SETUP
 ST_RET(fillrect_ID);
 	YY_BREAK
-case 68:
+case 69:
 YY_RULE_SETUP
 ST_RET(line_ID);
 	YY_BREAK
-case 69:
+case 70:
 YY_RULE_SETUP
 ST_RET(randline_ID);
 	YY_BREAK
-case 70:
+case 71:
 YY_RULE_SETUP
 ST_RET(grow_ID);
 	YY_BREAK
-case 71:
+case 72:
 YY_RULE_SETUP
 ST_RET(flood_ID);
 	YY_BREAK
-case 72:
+case 73:
 YY_RULE_SETUP
 ST_RET(rndcoord_ID);
 	YY_BREAK
-case 73:
+case 74:
 YY_RULE_SETUP
 ST_RET(circle_ID);
 	YY_BREAK
-case 74:
+case 75:
 YY_RULE_SETUP
 ST_RET(ellipse_ID);
 	YY_BREAK
-case 75:
+case 76:
 YY_RULE_SETUP
 ST_RET(filter_ID);
 	YY_BREAK
-case 76:
+case 77:
 YY_RULE_SETUP
 ST_RET(gradient_ID);
 	YY_BREAK
-case 77:
+case 78:
 YY_RULE_SETUP
 ST_RET(complement_ID);
 	YY_BREAK
-case 78:
+case 79:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=SEL_GRADIENT_RADIAL;  return GRADIENT_TYPE; }
 	YY_BREAK
-case 79:
+case 80:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=SEL_GRADIENT_SQUARE;  return GRADIENT_TYPE; }
 	YY_BREAK
-case 80:
+case 81:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=DRY;  return HUMIDITY_TYPE; }
 	YY_BREAK
-case 81:
+case 82:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=WET;  return HUMIDITY_TYPE; }
 	YY_BREAK
-case 82:
+case 83:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=HOT;  return HUMIDITY_TYPE; }
 	YY_BREAK
-case 83:
+case 84:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=SOLID;  return HUMIDITY_TYPE; }
 	YY_BREAK
-case 84:
+case 85:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=ANY_LOC;  return HUMIDITY_TYPE; }
 	YY_BREAK
-case 85:
+case 86:
 YY_RULE_SETUP
 ST_RET(LEV);
 	YY_BREAK
-case 86:
+case 87:
 YY_RULE_SETUP
 ST_RET(QUANTITY_ID);
 	YY_BREAK
-case 87:
+case 88:
 YY_RULE_SETUP
 ST_RET(BURIED_ID);
 	YY_BREAK
-case 88:
+case 89:
 YY_RULE_SETUP
 ST_RET(ERODED_ID);
 	YY_BREAK
-case 89:
+case 90:
 YY_RULE_SETUP
 ST_RET(ERODEPROOF_ID);
 	YY_BREAK
-case 90:
+case 91:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return TRAPPED_STATE; }
 	YY_BREAK
-case 91:
+case 92:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return TRAPPED_STATE; }
 	YY_BREAK
-case 92:
+case 93:
 YY_RULE_SETUP
 ST_RET(RECHARGED_ID);
 	YY_BREAK
-case 93:
+case 94:
 YY_RULE_SETUP
 ST_RET(INVIS_ID);
 	YY_BREAK
-case 94:
+case 95:
 YY_RULE_SETUP
 ST_RET(GREASED_ID);
 	YY_BREAK
-case 95:
+case 96:
 YY_RULE_SETUP
 ST_RET(FEMALE_ID);
 	YY_BREAK
-case 96:
+case 97:
 YY_RULE_SETUP
 ST_RET(CANCELLED_ID);
 	YY_BREAK
-case 97:
+case 98:
 YY_RULE_SETUP
 ST_RET(REVIVED_ID);
 	YY_BREAK
-case 98:
+case 99:
 YY_RULE_SETUP
 ST_RET(AVENGE_ID);
 	YY_BREAK
-case 99:
+case 100:
 YY_RULE_SETUP
 ST_RET(FLEEING_ID);
 	YY_BREAK
-case 100:
+case 101:
 YY_RULE_SETUP
 ST_RET(BLINDED_ID);
 	YY_BREAK
-case 101:
+case 102:
 YY_RULE_SETUP
 ST_RET(PARALYZED_ID);
 	YY_BREAK
-case 102:
+case 103:
 YY_RULE_SETUP
 ST_RET(STUNNED_ID);
 	YY_BREAK
-case 103:
+case 104:
 YY_RULE_SETUP
 ST_RET(CONFUSED_ID);
 	YY_BREAK
-case 104:
+case 105:
 YY_RULE_SETUP
 ST_RET(SEENTRAPS_ID);
 	YY_BREAK
-case 105:
+case 106:
 YY_RULE_SETUP
 ST_RET(ALL_ID);
 	YY_BREAK
-case 106:
+case 107:
 YY_RULE_SETUP
 ST_RETF((yylval.i=1), HORIZ_OR_VERT);
 	YY_BREAK
-case 107:
+case 108:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=2; return HORIZ_OR_VERT; }
 	YY_BREAK
-case 108:
+case 109:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=D_ISOPEN; return DOOR_STATE; }
 	YY_BREAK
-case 109:
+case 110:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=D_CLOSED; return DOOR_STATE; }
 	YY_BREAK
-case 110:
+case 111:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=D_LOCKED; return DOOR_STATE; }
 	YY_BREAK
-case 111:
+case 112:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=D_NODOOR; return DOOR_STATE; }
 	YY_BREAK
-case 112:
+case 113:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=D_BROKEN; return DOOR_STATE; }
 	YY_BREAK
-case 113:
+case 114:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=D_SECRET; return DOOR_STATE; }
 	YY_BREAK
-case 114:
+case 115:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=W_NORTH; return DIRECTION; }
 	YY_BREAK
-case 115:
+case 116:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=W_EAST; return DIRECTION; }
 	YY_BREAK
-case 116:
+case 117:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=W_SOUTH; return DIRECTION; }
 	YY_BREAK
-case 117:
+case 118:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=W_WEST; return DIRECTION; }
 	YY_BREAK
-case 118:
+case 119:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = -1; return RANDOM_TYPE; }
 	YY_BREAK
-case 119:
+case 120:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = -1; return RANDOM_TYPE_BRACKET; }
 	YY_BREAK
-case 120:
+case 121:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = -2; return NONE; }
 	YY_BREAK
-case 121:
+case 122:
 YY_RULE_SETUP
 ST_RET(A_REGISTER);
 	YY_BREAK
-case 122:
+case 123:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return LEFT_OR_RIGHT; }
 	YY_BREAK
-case 123:
+case 124:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=2; return LEFT_OR_RIGHT; }
 	YY_BREAK
-case 124:
+case 125:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=3; return CENTER; }
 	YY_BREAK
-case 125:
+case 126:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=4; return LEFT_OR_RIGHT; }
 	YY_BREAK
-case 126:
+case 127:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=5; return LEFT_OR_RIGHT; }
 	YY_BREAK
-case 127:
+case 128:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return TOP_OR_BOT; }
 	YY_BREAK
-case 128:
+case 129:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=5; return TOP_OR_BOT; }
 	YY_BREAK
-case 129:
+case 130:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return LIGHT_STATE; }
 	YY_BREAK
-case 130:
+case 131:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return LIGHT_STATE; }
 	YY_BREAK
-case 131:
+case 132:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return FILLING; }
 	YY_BREAK
-case 132:
+case 133:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return FILLING; }
 	YY_BREAK
-case 133:
+case 134:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return IRREGULAR; }
 	YY_BREAK
-case 134:
+case 135:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return IRREGULAR; }
 	YY_BREAK
-case 135:
+case 136:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return JOINED; }
 	YY_BREAK
-case 136:
+case 137:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return JOINED; }
 	YY_BREAK
-case 137:
+case 138:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return LIMITED; }
 	YY_BREAK
-case 138:
+case 139:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return LIMITED; }
 	YY_BREAK
-case 139:
+case 140:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= AM_NONE; return ALIGNMENT; }
 	YY_BREAK
-case 140:
+case 141:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= AM_LAWFUL; return ALIGNMENT; }
 	YY_BREAK
-case 141:
+case 142:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= AM_NEUTRAL; return ALIGNMENT; }
 	YY_BREAK
-case 142:
+case 143:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= AM_CHAOTIC; return ALIGNMENT; }
 	YY_BREAK
-case 143:
+case 144:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= AM_SPLEV_CO; return ALIGNMENT; }
 	YY_BREAK
-case 144:
+case 145:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= AM_SPLEV_NONCO; return ALIGNMENT; }
 	YY_BREAK
-case 145:
+case 146:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return MON_ATTITUDE; }
 	YY_BREAK
-case 146:
+case 147:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return MON_ATTITUDE; }
 	YY_BREAK
-case 147:
+case 148:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return MON_ALERTNESS; }
 	YY_BREAK
-case 148:
+case 149:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return MON_ALERTNESS; }
 	YY_BREAK
-case 149:
+case 150:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= M_AP_FURNITURE; return MON_APPEARANCE; }
 	YY_BREAK
-case 150:
+case 151:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= M_AP_MONSTER;   return MON_APPEARANCE; }
 	YY_BREAK
-case 151:
+case 152:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i= M_AP_OBJECT;    return MON_APPEARANCE; }
 	YY_BREAK
-case 152:
+case 153:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=2; return ALTAR_TYPE; }
 	YY_BREAK
-case 153:
+case 154:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return ALTAR_TYPE; }
 	YY_BREAK
-case 154:
+case 155:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return ALTAR_TYPE; }
 	YY_BREAK
-case 155:
+case 156:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return UP_OR_DOWN; }
 	YY_BREAK
-case 156:
+case 157:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return UP_OR_DOWN; }
 	YY_BREAK
-case 157:
+case 158:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=0; return BOOLEAN; }
 	YY_BREAK
-case 158:
+case 159:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return BOOLEAN; }
 	YY_BREAK
-case 159:
+case 160:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=DUST; return ENGRAVING_TYPE; }
 	YY_BREAK
-case 160:
+case 161:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=ENGRAVE; return ENGRAVING_TYPE; }
 	YY_BREAK
-case 161:
+case 162:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=BURN; return ENGRAVING_TYPE; }
 	YY_BREAK
-case 162:
+case 163:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=MARK; return ENGRAVING_TYPE; }
 	YY_BREAK
-case 163:
+case 164:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=ENGR_BLOOD; return ENGRAVING_TYPE; }
 	YY_BREAK
-case 164:
+case 165:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=1; return CURSE_TYPE; }
 	YY_BREAK
-case 165:
+case 166:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=2; return CURSE_TYPE; }
 	YY_BREAK
-case 166:
+case 167:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=3; return CURSE_TYPE; }
 	YY_BREAK
-case 167:
+case 168:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=NOTELEPORT; return FLAG_TYPE; }
 	YY_BREAK
-case 168:
+case 169:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=HARDFLOOR; return FLAG_TYPE; }
 	YY_BREAK
-case 169:
+case 170:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=NOMMAP; return FLAG_TYPE; }
 	YY_BREAK
-case 170:
+case 171:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=ARBOREAL; return FLAG_TYPE; } /* KMH */
 	YY_BREAK
-case 171:
+case 172:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=SHORTSIGHTED; return FLAG_TYPE; }
 	YY_BREAK
-case 172:
+case 173:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=MAZELEVEL; return FLAG_TYPE; }
 	YY_BREAK
-case 173:
+case 174:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=PREMAPPED; return FLAG_TYPE; }
 	YY_BREAK
-case 174:
+case 175:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=SHROUD; return FLAG_TYPE; }
 	YY_BREAK
-case 175:
+case 176:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=GRAVEYARD; return FLAG_TYPE; }
 	YY_BREAK
-case 176:
+case 177:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=ICEDPOOLS; return FLAG_TYPE; }
 	YY_BREAK
-case 177:
+case 178:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=SOLIDIFY; return FLAG_TYPE; }
 	YY_BREAK
-case 178:
+case 179:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=CORRMAZE; return FLAG_TYPE; }
 	YY_BREAK
-case 179:
+case 180:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=CHECK_INACCESSIBLES; return FLAG_TYPE; }
 	YY_BREAK
-case 180:
+case 181:
 YY_RULE_SETUP
 { char *p = index(yytext, 'd');
 		  savetoken(yytext);
@@ -2122,51 +2126,47 @@ YY_RULE_SETUP
 		  return DICE;
 		}
 	YY_BREAK
-case 181:
+case 182:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = atoi(yytext + 1);
 		     if (yylval.i < 0 || yylval.i > 100)
 			lc_error("Unexpected percentile '%li%%'", yylval.i);
 		     return PERCENT; }
 	YY_BREAK
-case 182:
+case 183:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=atoi(yytext); return MINUS_INTEGER; }
 	YY_BREAK
-case 183:
+case 184:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=atoi(yytext); return PLUS_INTEGER; }
 	YY_BREAK
-case 184:
+case 185:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = atoi(yytext);
 		  if (yylval.i < 0 || yylval.i > 100)
 		     lc_error("Unexpected percentile '%li%%'", yylval.i);
 		  return SPERCENT; }
 	YY_BREAK
-case 185:
+case 186:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i=atoi(yytext); return INTEGER; }
 	YY_BREAK
-case 186:
-/* rule 186 can match eol */
+case 187:
+/* rule 187 can match eol */
 YY_RULE_SETUP
 { savetoken(yytext);
 		  yytext[yyleng - 1] = '\0'; /* discard the trailing \" */
 		  yylval.map = dupstr(yytext + 1); /* skip the first \" */
 		  return STRING; }
 	YY_BREAK
-case 187:
+case 188:
 YY_RULE_SETUP
 { savetoken(yytext); return handle_varstring_check(); }
 	YY_BREAK
-case 188:
-YY_RULE_SETUP
-{ savetoken(yytext); yylval.i = SPO_JE; return COMPARE_TYPE; }
-	YY_BREAK
 case 189:
 YY_RULE_SETUP
-{ savetoken(yytext); yylval.i = SPO_JNE; return COMPARE_TYPE; }
+{ savetoken(yytext); yylval.i = SPO_JE; return COMPARE_TYPE; }
 	YY_BREAK
 case 190:
 YY_RULE_SETUP
@@ -2174,46 +2174,50 @@ YY_RULE_SETUP
 	YY_BREAK
 case 191:
 YY_RULE_SETUP
-{ savetoken(yytext); yylval.i = SPO_JLE; return COMPARE_TYPE; }
+{ savetoken(yytext); yylval.i = SPO_JNE; return COMPARE_TYPE; }
 	YY_BREAK
 case 192:
 YY_RULE_SETUP
-{ savetoken(yytext); yylval.i = SPO_JGE; return COMPARE_TYPE; }
+{ savetoken(yytext); yylval.i = SPO_JLE; return COMPARE_TYPE; }
 	YY_BREAK
 case 193:
 YY_RULE_SETUP
-{ savetoken(yytext); yylval.i = SPO_JL; return COMPARE_TYPE; }
+{ savetoken(yytext); yylval.i = SPO_JGE; return COMPARE_TYPE; }
 	YY_BREAK
 case 194:
 YY_RULE_SETUP
-{ savetoken(yytext); yylval.i = SPO_JG; return COMPARE_TYPE; }
+{ savetoken(yytext); yylval.i = SPO_JL; return COMPARE_TYPE; }
 	YY_BREAK
 case 195:
-/* rule 195 can match eol */
+YY_RULE_SETUP
+{ savetoken(yytext); yylval.i = SPO_JG; return COMPARE_TYPE; }
+	YY_BREAK
+case 196:
+/* rule 196 can match eol */
 YY_RULE_SETUP
 { newline(); }
 	YY_BREAK
-case 196:
+case 197:
 YY_RULE_SETUP
 { advancepos(yytext); }
 	YY_BREAK
-case 197:
+case 198:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = yytext[2]; return CHAR; }
 	YY_BREAK
-case 198:
+case 199:
 YY_RULE_SETUP
 { savetoken(yytext); yylval.i = yytext[1]; return CHAR; }
 	YY_BREAK
-case 199:
+case 200:
 YY_RULE_SETUP
 ST_RET(UNKNOWN_TYPE);
 	YY_BREAK
-case 200:
+case 201:
 YY_RULE_SETUP
 { savetoken(yytext); return yytext[0]; }
 	YY_BREAK
-case 201:
+case 202:
 YY_RULE_SETUP
 ECHO;
 	YY_BREAK

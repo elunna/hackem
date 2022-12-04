@@ -72,6 +72,7 @@ enum opcode_defs {
     SPO_ALTAR,
     SPO_FORGE,
     SPO_FOUNTAIN,
+    SPO_VENT,
     SPO_SINK,
     SPO_TOILET,
     SPO_PUDDLE,

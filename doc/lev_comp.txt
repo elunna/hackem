@@ -346,7 +346,10 @@ GRAMMAR
 
        fountain_detail : FOUNTAIN_ID ':' coordinate
                        ;
-
+       
+       vent_detail : VENT_ID ':' coordinate
+                       ;
+       
        forge_detail : FORGE_ID ':' coordinate
                        ;
 

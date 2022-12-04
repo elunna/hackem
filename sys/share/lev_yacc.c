@@ -241,134 +241,135 @@ typedef union
 #define GOLD_ID 301
 #define ENGRAVING_ID 302
 #define FOUNTAIN_ID 303
-#define POOL_ID 304
-#define SINK_ID 305
-#define TOILET_ID 306
-#define NONE 307
-#define RAND_CORRIDOR_ID 308
-#define DOOR_STATE 309
-#define LIGHT_STATE 310
-#define CURSE_TYPE 311
-#define ENGRAVING_TYPE 312
-#define DIRECTION 313
-#define RANDOM_TYPE 314
-#define RANDOM_TYPE_BRACKET 315
-#define A_REGISTER 316
-#define ALIGNMENT 317
-#define LEFT_OR_RIGHT 318
-#define CENTER 319
-#define TOP_OR_BOT 320
-#define ALTAR_TYPE 321
-#define UP_OR_DOWN 322
-#define SUBROOM_ID 323
-#define NAME_ID 324
-#define FLAGS_ID 325
-#define FLAG_TYPE 326
-#define MON_ATTITUDE 327
-#define MON_ALERTNESS 328
-#define MON_APPEARANCE 329
-#define ROOMDOOR_ID 330
-#define IF_ID 331
-#define ELSE_ID 332
-#define TERRAIN_ID 333
-#define HORIZ_OR_VERT 334
-#define REPLACE_TERRAIN_ID 335
-#define EXIT_ID 336
-#define SHUFFLE_ID 337
-#define QUANTITY_ID 338
-#define BURIED_ID 339
-#define LOOP_ID 340
-#define FOR_ID 341
-#define TO_ID 342
-#define SWITCH_ID 343
-#define CASE_ID 344
-#define BREAK_ID 345
-#define DEFAULT_ID 346
-#define ERODED_ID 347
-#define TRAPPED_STATE 348
-#define RECHARGED_ID 349
-#define INVIS_ID 350
-#define GREASED_ID 351
-#define FEMALE_ID 352
-#define CANCELLED_ID 353
-#define REVIVED_ID 354
-#define AVENGE_ID 355
-#define FLEEING_ID 356
-#define BLINDED_ID 357
-#define PARALYZED_ID 358
-#define STUNNED_ID 359
-#define CONFUSED_ID 360
-#define SEENTRAPS_ID 361
-#define ALL_ID 362
-#define MONTYPE_ID 363
-#define GRAVE_ID 364
-#define ERODEPROOF_ID 365
-#define FUNCTION_ID 366
-#define MSG_OUTPUT_TYPE 367
-#define COMPARE_TYPE 368
-#define UNKNOWN_TYPE 369
-#define rect_ID 370
-#define fillrect_ID 371
-#define line_ID 372
-#define randline_ID 373
-#define grow_ID 374
-#define selection_ID 375
-#define flood_ID 376
-#define rndcoord_ID 377
-#define circle_ID 378
-#define ellipse_ID 379
-#define filter_ID 380
-#define complement_ID 381
-#define gradient_ID 382
-#define GRADIENT_TYPE 383
-#define LIMITED 384
-#define HUMIDITY_TYPE 385
-#define STRING 386
-#define MAP_ID 387
-#define NQSTRING 388
-#define VARSTRING 389
-#define CFUNC 390
-#define CFUNC_INT 391
-#define CFUNC_STR 392
-#define CFUNC_COORD 393
-#define CFUNC_REGION 394
-#define VARSTRING_INT 395
-#define VARSTRING_INT_ARRAY 396
-#define VARSTRING_STRING 397
-#define VARSTRING_STRING_ARRAY 398
-#define VARSTRING_VAR 399
-#define VARSTRING_VAR_ARRAY 400
-#define VARSTRING_COORD 401
-#define VARSTRING_COORD_ARRAY 402
-#define VARSTRING_REGION 403
-#define VARSTRING_REGION_ARRAY 404
-#define VARSTRING_MAPCHAR 405
-#define VARSTRING_MAPCHAR_ARRAY 406
-#define VARSTRING_MONST 407
-#define VARSTRING_MONST_ARRAY 408
-#define VARSTRING_OBJ 409
-#define VARSTRING_OBJ_ARRAY 410
-#define VARSTRING_SEL 411
-#define VARSTRING_SEL_ARRAY 412
-#define METHOD_INT 413
-#define METHOD_INT_ARRAY 414
-#define METHOD_STRING 415
-#define METHOD_STRING_ARRAY 416
-#define METHOD_VAR 417
-#define METHOD_VAR_ARRAY 418
-#define METHOD_COORD 419
-#define METHOD_COORD_ARRAY 420
-#define METHOD_REGION 421
-#define METHOD_REGION_ARRAY 422
-#define METHOD_MAPCHAR 423
-#define METHOD_MAPCHAR_ARRAY 424
-#define METHOD_MONST 425
-#define METHOD_MONST_ARRAY 426
-#define METHOD_OBJ 427
-#define METHOD_OBJ_ARRAY 428
-#define METHOD_SEL 429
-#define METHOD_SEL_ARRAY 430
-#define DICE 431
+#define VENT_ID 304
+#define POOL_ID 305
+#define SINK_ID 306
+#define TOILET_ID 307
+#define NONE 308
+#define RAND_CORRIDOR_ID 309
+#define DOOR_STATE 310
+#define LIGHT_STATE 311
+#define CURSE_TYPE 312
+#define ENGRAVING_TYPE 313
+#define DIRECTION 314
+#define RANDOM_TYPE 315
+#define RANDOM_TYPE_BRACKET 316
+#define A_REGISTER 317
+#define ALIGNMENT 318
+#define LEFT_OR_RIGHT 319
+#define CENTER 320
+#define TOP_OR_BOT 321
+#define ALTAR_TYPE 322
+#define UP_OR_DOWN 323
+#define SUBROOM_ID 324
+#define NAME_ID 325
+#define FLAGS_ID 326
+#define FLAG_TYPE 327
+#define MON_ATTITUDE 328
+#define MON_ALERTNESS 329
+#define MON_APPEARANCE 330
+#define ROOMDOOR_ID 331
+#define IF_ID 332
+#define ELSE_ID 333
+#define TERRAIN_ID 334
+#define HORIZ_OR_VERT 335
+#define REPLACE_TERRAIN_ID 336
+#define EXIT_ID 337
+#define SHUFFLE_ID 338
+#define QUANTITY_ID 339
+#define BURIED_ID 340
+#define LOOP_ID 341
+#define FOR_ID 342
+#define TO_ID 343
+#define SWITCH_ID 344
+#define CASE_ID 345
+#define BREAK_ID 346
+#define DEFAULT_ID 347
+#define ERODED_ID 348
+#define TRAPPED_STATE 349
+#define RECHARGED_ID 350
+#define INVIS_ID 351
+#define GREASED_ID 352
+#define FEMALE_ID 353
+#define CANCELLED_ID 354
+#define REVIVED_ID 355
+#define AVENGE_ID 356
+#define FLEEING_ID 357
+#define BLINDED_ID 358
+#define PARALYZED_ID 359
+#define STUNNED_ID 360
+#define CONFUSED_ID 361
+#define SEENTRAPS_ID 362
+#define ALL_ID 363
+#define MONTYPE_ID 364
+#define GRAVE_ID 365
+#define ERODEPROOF_ID 366
+#define FUNCTION_ID 367
+#define MSG_OUTPUT_TYPE 368
+#define COMPARE_TYPE 369
+#define UNKNOWN_TYPE 370
+#define rect_ID 371
+#define fillrect_ID 372
+#define line_ID 373
+#define randline_ID 374
+#define grow_ID 375
+#define selection_ID 376
+#define flood_ID 377
+#define rndcoord_ID 378
+#define circle_ID 379
+#define ellipse_ID 380
+#define filter_ID 381
+#define complement_ID 382
+#define gradient_ID 383
+#define GRADIENT_TYPE 384
+#define LIMITED 385
+#define HUMIDITY_TYPE 386
+#define STRING 387
+#define MAP_ID 388
+#define NQSTRING 389
+#define VARSTRING 390
+#define CFUNC 391
+#define CFUNC_INT 392
+#define CFUNC_STR 393
+#define CFUNC_COORD 394
+#define CFUNC_REGION 395
+#define VARSTRING_INT 396
+#define VARSTRING_INT_ARRAY 397
+#define VARSTRING_STRING 398
+#define VARSTRING_STRING_ARRAY 399
+#define VARSTRING_VAR 400
+#define VARSTRING_VAR_ARRAY 401
+#define VARSTRING_COORD 402
+#define VARSTRING_COORD_ARRAY 403
+#define VARSTRING_REGION 404
+#define VARSTRING_REGION_ARRAY 405
+#define VARSTRING_MAPCHAR 406
+#define VARSTRING_MAPCHAR_ARRAY 407
+#define VARSTRING_MONST 408
+#define VARSTRING_MONST_ARRAY 409
+#define VARSTRING_OBJ 410
+#define VARSTRING_OBJ_ARRAY 411
+#define VARSTRING_SEL 412
+#define VARSTRING_SEL_ARRAY 413
+#define METHOD_INT 414
+#define METHOD_INT_ARRAY 415
+#define METHOD_STRING 416
+#define METHOD_STRING_ARRAY 417
+#define METHOD_VAR 418
+#define METHOD_VAR_ARRAY 419
+#define METHOD_COORD 420
+#define METHOD_COORD_ARRAY 421
+#define METHOD_REGION 422
+#define METHOD_REGION_ARRAY 423
+#define METHOD_MAPCHAR 424
+#define METHOD_MAPCHAR_ARRAY 425
+#define METHOD_MONST 426
+#define METHOD_MONST_ARRAY 427
+#define METHOD_OBJ 428
+#define METHOD_OBJ_ARRAY 429
+#define METHOD_SEL 430
+#define METHOD_SEL_ARRAY 431
+#define DICE 432
 #define YYERRCODE 256
 short yylhs[] = {                                        -1,
     0,    0,   73,   73,   74,   57,   57,   56,   56,   76,
@@ -2006,7 +2007,7 @@ char *yyname[] = {
 "WALLIFY_ID","REGION_ID","FILLING","IRREGULAR","JOINED","ALTAR_ID","LADDER_ID",
 "STAIR_ID","NON_DIGGABLE_ID","NON_PASSWALL_ID","ROOM_ID","PORTAL_ID",
 "TELEPRT_ID","BRANCH_ID","LEV","MINERALIZE_ID","CORRIDOR_ID","GOLD_ID",
-"ENGRAVING_ID","FOUNTAIN_ID","POOL_ID","SINK_ID","TOILET_ID",
+"ENGRAVING_ID","FOUNTAIN_ID","VENT_ID","POOL_ID","SINK_ID","TOILET_ID",
 "NONE","RAND_CORRIDOR_ID",
 "DOOR_STATE","LIGHT_STATE","CURSE_TYPE","ENGRAVING_TYPE","DIRECTION",
 "RANDOM_TYPE","RANDOM_TYPE_BRACKET","A_REGISTER","ALIGNMENT","LEFT_OR_RIGHT",
@@ -2297,6 +2298,7 @@ char *yyrule[] = {
 "teleprt_detail :",
 "teleprt_detail : ',' UP_OR_DOWN",
 "fountain_detail : FOUNTAIN_ID ':' ter_selection",
+"vent_detail : VENT_ID ':' ter_selection",
 "sink_detail : SINK_ID ':' ter_selection",
 "toilet_detail : TOILET_ID ':' ter_selection",
 "pool_detail : POOL_ID ':' ter_selection",
@@ -4102,53 +4104,58 @@ case 259:
 break;
 case 260:
 {
-		      add_opvars(splev, "o", VA_PASS1(SPO_SINK));
+		      add_opvars(splev, "o", VA_PASS1(SPO_VENT));
 		  }
 break;
 case 261:
 {
-		      add_opvars(splev, "o", VA_PASS1(SPO_TOILET));
+		      add_opvars(splev, "o", VA_PASS1(SPO_SINK));
 		  }
 break;
 case 262:
 {
-		      add_opvars(splev, "o", VA_PASS1(SPO_POOL));
+		      add_opvars(splev, "o", VA_PASS1(SPO_TOILET));
 		  }
 break;
 case 263:
+{
+		      add_opvars(splev, "o", VA_PASS1(SPO_POOL));
+		  }
+break;
+case 264:
 {
 		      yyval.terr.lit = -2;
 		      yyval.terr.ter = what_map_char((char) yyvsp[0].i);
 		  }
 break;
-case 264:
+case 265:
 {
 		      yyval.terr.lit = yyvsp[-1].i;
 		      yyval.terr.ter = what_map_char((char) yyvsp[-3].i);
 		  }
 break;
-case 265:
+case 266:
 {
 		      add_opvars(splev, "io",
 				 VA_PASS2(yyvsp[0].i, SPO_REPLACETERRAIN));
 		  }
 break;
-case 266:
+case 267:
 {
 		     add_opvars(splev, "o", VA_PASS1(SPO_TERRAIN));
 		 }
 break;
-case 267:
+case 268:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_NON_DIGGABLE));
 		  }
 break;
-case 268:
+case 269:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_NON_PASSWALL));
 		  }
 break;
-case 269:
+case 270:
 {
 		      long irr;
 		      long rt = yyvsp[-1].i;
@@ -4163,7 +4170,7 @@ case 269:
 		      break_stmt_start();
 		  }
 break;
-case 270:
+case 271:
 {
 		      break_stmt_end(splev);
 		      if ( yyvsp[-1].i ) {
@@ -4172,62 +4179,62 @@ case 270:
 			  lc_error("Cannot use lev statements in non-permanent REGION");
 		  }
 break;
-case 271:
+case 272:
 {
 		      yyval.i = 0;
 		  }
 break;
-case 272:
+case 273:
 {
 		      yyval.i = yyvsp[0].i;
 		  }
 break;
-case 273:
+case 274:
 {
 		      add_opvars(splev, "iio",
 				 VA_PASS3((long)yyvsp[0].i, (long)yyvsp[-2].i, SPO_ALTAR));
 		  }
 break;
-case 274:
-{
-		      add_opvars(splev, "io", VA_PASS2(2, SPO_GRAVE));
-		  }
-break;
 case 275:
 {
-		      add_opvars(splev, "sio",
-				 VA_PASS3((char *)0, 1, SPO_GRAVE));
+		      add_opvars(splev, "io", VA_PASS2(2, SPO_GRAVE));
 		  }
 break;
 case 276:
 {
 		      add_opvars(splev, "sio",
-				 VA_PASS3((char *)0, 0, SPO_GRAVE));
+				 VA_PASS3((char *)0, 1, SPO_GRAVE));
 		  }
 break;
 case 277:
 {
-		      add_opvars(splev, "o", VA_PASS1(SPO_GOLD));
+		      add_opvars(splev, "sio",
+				 VA_PASS3((char *)0, 0, SPO_GRAVE));
 		  }
 break;
 case 278:
+{
+		      add_opvars(splev, "o", VA_PASS1(SPO_GOLD));
+		  }
+break;
+case 279:
 {
 		      add_opvars(splev, "io",
 				 VA_PASS2((long)yyvsp[-2].i, SPO_ENGRAVING));
 		  }
 break;
-case 279:
+case 280:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MINERALIZE));
 		  }
 break;
-case 280:
+case 281:
 {
 		      add_opvars(splev, "iiiio",
 				 VA_PASS5(-1L, -1L, -1L, -1L, SPO_MINERALIZE));
 		  }
 break;
-case 281:
+case 282:
 {
 			int token = get_trap_type(yyvsp[0].map);
 			if (token == ERR)
@@ -4236,7 +4243,7 @@ case 281:
 			Free(yyvsp[0].map);
 		  }
 break;
-case 283:
+case 284:
 {
 			int token = get_room_type(yyvsp[0].map);
 			if (token == ERR) {
@@ -4247,14 +4254,9 @@ case 283:
 			Free(yyvsp[0].map);
 		  }
 break;
-case 285:
-{
-			yyval.i = -1;
-		  }
-break;
 case 286:
 {
-			yyval.i = yyvsp[0].i;
+			yyval.i = -1;
 		  }
 break;
 case 287:
@@ -4264,35 +4266,40 @@ case 287:
 break;
 case 288:
 {
-			yyval.i = yyvsp[-2].i | yyvsp[0].i;
+			yyval.i = yyvsp[0].i;
 		  }
 break;
 case 289:
 {
-		      yyval.i = (yyvsp[0].i << 0);
+			yyval.i = yyvsp[-2].i | yyvsp[0].i;
 		  }
 break;
 case 290:
 {
-		      yyval.i = (yyvsp[0].i << 1);
+		      yyval.i = (yyvsp[0].i << 0);
 		  }
 break;
 case 291:
 {
+		      yyval.i = (yyvsp[0].i << 1);
+		  }
+break;
+case 292:
+{
 		      yyval.i = (yyvsp[0].i << 2);
 		  }
 break;
-case 298:
+case 299:
 {
 			yyval.i = - MAX_REGISTERS - 1;
 		  }
 break;
-case 301:
+case 302:
 {
 			yyval.i = - MAX_REGISTERS - 1;
 		  }
 break;
-case 304:
+case 305:
 {
 			if ( yyvsp[-1].i >= 3 )
 				lc_error("Register Index overflow!");
@@ -4300,13 +4307,13 @@ case 304:
 				yyval.i = - yyvsp[-1].i - 1;
 		  }
 break;
-case 305:
+case 306:
 {
 		      add_opvars(splev, "s", VA_PASS1(yyvsp[0].map));
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 306:
+case 307:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_STRING);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4314,7 +4321,7 @@ case 306:
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 307:
+case 308:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
                                         SPOVAR_STRING | SPOVAR_ARRAY);
@@ -4323,22 +4330,22 @@ case 307:
 		      Free(yyvsp[-3].map);
 		  }
 break;
-case 308:
+case 309:
 {
 		      /* nothing */
 		  }
 break;
-case 309:
+case 310:
 {
 		      add_opvars(splev, "c", VA_PASS1(yyvsp[0].i));
 		  }
 break;
-case 310:
+case 311:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_RNDCOORD));
 		  }
 break;
-case 311:
+case 312:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_COORD);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4346,7 +4353,7 @@ case 311:
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 312:
+case 313:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
                                         SPOVAR_COORD | SPOVAR_ARRAY);
@@ -4355,7 +4362,7 @@ case 312:
 		      Free(yyvsp[-3].map);
 		  }
 break;
-case 313:
+case 314:
 {
 		      if (yyvsp[-3].i < 0 || yyvsp[-1].i < 0 || yyvsp[-3].i >= COLNO || yyvsp[-1].i >= ROWNO)
                           lc_error("Coordinates (%li,%li) out of map range!",
@@ -4363,34 +4370,34 @@ case 313:
 		      yyval.i = SP_COORD_PACK(yyvsp[-3].i, yyvsp[-1].i);
 		  }
 break;
-case 314:
+case 315:
 {
 		      yyval.i = SP_COORD_PACK_RANDOM(0);
 		  }
 break;
-case 315:
+case 316:
 {
 		      yyval.i = SP_COORD_PACK_RANDOM(yyvsp[-1].i);
 		  }
 break;
-case 316:
+case 317:
 {
 		      yyval.i = yyvsp[0].i;
 		  }
 break;
-case 317:
+case 318:
 {
 		      if ((yyvsp[-2].i & yyvsp[0].i))
 			  lc_warning("Humidity flag used twice.");
 		      yyval.i = (yyvsp[-2].i | yyvsp[0].i);
 		  }
 break;
-case 318:
+case 319:
 {
 		      /* nothing */
 		  }
 break;
-case 319:
+case 320:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_REGION);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4398,7 +4405,7 @@ case 319:
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 320:
+case 321:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
                                         SPOVAR_REGION | SPOVAR_ARRAY);
@@ -4407,7 +4414,7 @@ case 320:
 		      Free(yyvsp[-3].map);
 		  }
 break;
-case 321:
+case 322:
 {
 		      long r = SP_REGION_PACK(yyvsp[-7].i, yyvsp[-5].i, yyvsp[-3].i, yyvsp[-1].i);
 
@@ -4419,12 +4426,12 @@ case 321:
 		      yyval.i = r;
 		  }
 break;
-case 322:
+case 323:
 {
 		      add_opvars(splev, "m", VA_PASS1(yyvsp[0].i));
 		  }
 break;
-case 323:
+case 324:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_MAPCHAR);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4432,7 +4439,7 @@ case 323:
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 324:
+case 325:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
                                         SPOVAR_MAPCHAR | SPOVAR_ARRAY);
@@ -4441,7 +4448,7 @@ case 324:
 		      Free(yyvsp[-3].map);
 		  }
 break;
-case 325:
+case 326:
 {
 		      if (what_map_char((char) yyvsp[0].i) != INVALID_TYPE)
 			  yyval.i = SP_MAPCHAR_PACK(what_map_char((char) yyvsp[0].i), -2);
@@ -4451,7 +4458,7 @@ case 325:
 		      }
 		  }
 break;
-case 326:
+case 327:
 {
 		      if (what_map_char((char) yyvsp[-3].i) != INVALID_TYPE)
 			  yyval.i = SP_MAPCHAR_PACK(what_map_char((char) yyvsp[-3].i), yyvsp[-1].i);
@@ -4461,12 +4468,12 @@ case 326:
 		      }
 		  }
 break;
-case 327:
+case 328:
 {
 		      add_opvars(splev, "M", VA_PASS1(yyvsp[0].i));
 		  }
 break;
-case 328:
+case 329:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_MONST);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4474,7 +4481,7 @@ case 328:
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 329:
+case 330:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
                                         SPOVAR_MONST | SPOVAR_ARRAY);
@@ -4483,7 +4490,7 @@ case 329:
 		      Free(yyvsp[-3].map);
 		  }
 break;
-case 330:
+case 331:
 {
                       long m = get_monster_id(yyvsp[0].map, (char)0);
                       if (m == ERR) {
@@ -4495,7 +4502,7 @@ case 330:
                       Free(yyvsp[0].map);
                   }
 break;
-case 331:
+case 332:
 {
                         if (check_monster_char((char) yyvsp[0].i))
                             yyval.i = SP_MONST_PACK(-1, yyvsp[0].i);
@@ -4505,7 +4512,7 @@ case 331:
                         }
                   }
 break;
-case 332:
+case 333:
 {
                       long m = get_monster_id(yyvsp[-1].map, (char) yyvsp[-3].i);
                       if (m == ERR) {
@@ -4516,17 +4523,17 @@ case 332:
                       Free(yyvsp[-1].map);
                   }
 break;
-case 333:
+case 334:
 {
                       yyval.i = -1;
                   }
 break;
-case 334:
+case 335:
 {
 		      add_opvars(splev, "O", VA_PASS1(yyvsp[0].i));
 		  }
 break;
-case 335:
+case 336:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_OBJ);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4534,7 +4541,7 @@ case 335:
 		      Free(yyvsp[0].map);
 		  }
 break;
-case 336:
+case 337:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
                                         SPOVAR_OBJ | SPOVAR_ARRAY);
@@ -4543,7 +4550,7 @@ case 336:
 		      Free(yyvsp[-3].map);
 		  }
 break;
-case 337:
+case 338:
 {
 		      long m = get_object_id(yyvsp[0].map, (char)0);
 		      if (m == ERR) {
@@ -4555,7 +4562,7 @@ case 337:
                       Free(yyvsp[0].map);
 		  }
 break;
-case 338:
+case 339:
 {
 			if (check_object_char((char) yyvsp[0].i))
 			    yyval.i = SP_OBJ_PACK(-1, yyvsp[0].i);
@@ -4565,7 +4572,7 @@ case 338:
 			}
 		  }
 break;
-case 339:
+case 340:
 {
 		      long m = get_object_id(yyvsp[-1].map, (char) yyvsp[-3].i);
 		      if (m == ERR) {
@@ -4576,35 +4583,35 @@ case 339:
                       Free(yyvsp[-1].map);
 		  }
 break;
-case 340:
+case 341:
 {
 		      yyval.i = -1;
 		  }
 break;
-case 341:
+case 342:
 { }
 break;
-case 342:
+case 343:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MATH_ADD));
 		  }
 break;
-case 343:
+case 344:
 {
 		      add_opvars(splev, "i", VA_PASS1(yyvsp[0].i));
 		  }
 break;
-case 344:
+case 345:
 {
 		      is_inconstant_number = 1;
 		  }
 break;
-case 345:
+case 346:
 {
 		      add_opvars(splev, "i", VA_PASS1(yyvsp[-1].i));
 		  }
 break;
-case 346:
+case 347:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_INT);
 		      vardef_used(vardefs, yyvsp[0].map);
@@ -4613,7 +4620,7 @@ case 346:
 		      is_inconstant_number = 1;
 		  }
 break;
-case 347:
+case 348:
 {
 		      check_vardef_type(vardefs, yyvsp[-3].map,
 					SPOVAR_INT | SPOVAR_ARRAY);
@@ -4623,35 +4630,35 @@ case 347:
 		      is_inconstant_number = 1;
 		  }
 break;
-case 348:
+case 349:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MATH_ADD));
 		  }
 break;
-case 349:
+case 350:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MATH_SUB));
 		  }
 break;
-case 350:
+case 351:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MATH_MUL));
 		  }
 break;
-case 351:
+case 352:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MATH_DIV));
 		  }
 break;
-case 352:
+case 353:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_MATH_MOD));
 		  }
 break;
-case 353:
+case 354:
 { }
 break;
-case 354:
+case 355:
 {
 		      if (!strcmp("int", yyvsp[0].map) || !strcmp("integer", yyvsp[0].map)) {
 			  yyval.i = (int)'i';
@@ -4659,7 +4666,7 @@ case 354:
 			  lc_error("Unknown function parameter type '%s'", yyvsp[0].map);
 		  }
 break;
-case 355:
+case 356:
 {
 		      if (!strcmp("str", yyvsp[0].map) || !strcmp("string", yyvsp[0].map)) {
 			  yyval.i = (int)'s';
@@ -4667,7 +4674,7 @@ case 355:
 			  lc_error("Unknown function parameter type '%s'", yyvsp[0].map);
 		  }
 break;
-case 356:
+case 357:
 {
 		      struct lc_funcdefs_parm *tmp = New(struct lc_funcdefs_parm);
 
@@ -4699,17 +4706,17 @@ case 356:
 		      Free(yyvsp[-2].map);
 		  }
 break;
-case 361:
+case 362:
 {
 			      yyval.i = (int)'i';
 			  }
 break;
-case 362:
+case 363:
 {
 			      yyval.i = (int)'s';
 			  }
 break;
-case 363:
+case 364:
 {
 			      char tmpbuf[2];
 			      tmpbuf[0] = (char) yyvsp[0].i;
@@ -4717,7 +4724,7 @@ case 363:
 			      yyval.map = strdup(tmpbuf);
 			  }
 break;
-case 364:
+case 365:
 {
 			      long len = strlen( yyvsp[-2].map );
 			      char *tmp = (char *) alloc(len + 2);
@@ -4726,121 +4733,116 @@ case 364:
 			      yyval.map = tmp;
 			  }
 break;
-case 365:
+case 366:
 {
 			      yyval.map = strdup("");
 			  }
 break;
-case 366:
+case 367:
 {
 			      char *tmp = strdup( yyvsp[0].map );
 			      Free( yyvsp[0].map );
 			      yyval.map = tmp;
 			  }
 break;
-case 367:
+case 368:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_POINT));
 		  }
 break;
-case 368:
+case 369:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_RECT));
 		  }
 break;
-case 369:
+case 370:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_FILLRECT));
 		  }
 break;
-case 370:
+case 371:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_LINE));
 		  }
 break;
-case 371:
+case 372:
 {
 		      /* randline (x1,y1),(x2,y2), roughness */
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_RNDLINE));
 		  }
 break;
-case 372:
+case 373:
 {
 		      add_opvars(splev, "io", VA_PASS2(W_ANY, SPO_SEL_GROW));
 		  }
 break;
-case 373:
+case 374:
 {
 		      add_opvars(splev, "io", VA_PASS2(yyvsp[-3].i, SPO_SEL_GROW));
 		  }
 break;
-case 374:
+case 375:
 {
 		      add_opvars(splev, "iio",
 			     VA_PASS3(yyvsp[-3].i, SPOFILTER_PERCENT, SPO_SEL_FILTER));
 		  }
 break;
-case 375:
+case 376:
 {
 		      add_opvars(splev, "io",
 			       VA_PASS2(SPOFILTER_SELECTION, SPO_SEL_FILTER));
 		  }
 break;
-case 376:
+case 377:
 {
 		      add_opvars(splev, "io",
 				 VA_PASS2(SPOFILTER_MAPCHAR, SPO_SEL_FILTER));
 		  }
 break;
-case 377:
-{
-		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_FLOOD));
-		  }
-break;
 case 378:
 {
-		      add_opvars(splev, "oio",
-				 VA_PASS3(SPO_COPY, 1, SPO_SEL_ELLIPSE));
+		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_FLOOD));
 		  }
 break;
 case 379:
 {
 		      add_opvars(splev, "oio",
-				 VA_PASS3(SPO_COPY, yyvsp[-1].i, SPO_SEL_ELLIPSE));
+				 VA_PASS3(SPO_COPY, 1, SPO_SEL_ELLIPSE));
 		  }
 break;
 case 380:
 {
-		      add_opvars(splev, "io", VA_PASS2(1, SPO_SEL_ELLIPSE));
+		      add_opvars(splev, "oio",
+				 VA_PASS3(SPO_COPY, yyvsp[-1].i, SPO_SEL_ELLIPSE));
 		  }
 break;
 case 381:
 {
-		      add_opvars(splev, "io", VA_PASS2(yyvsp[-1].i, SPO_SEL_ELLIPSE));
+		      add_opvars(splev, "io", VA_PASS2(1, SPO_SEL_ELLIPSE));
 		  }
 break;
 case 382:
+{
+		      add_opvars(splev, "io", VA_PASS2(yyvsp[-1].i, SPO_SEL_ELLIPSE));
+		  }
+break;
+case 383:
 {
 		      add_opvars(splev, "iio",
 				 VA_PASS3(yyvsp[-5].i, yyvsp[-11].i, SPO_SEL_GRADIENT));
 		  }
 break;
-case 383:
+case 384:
 {
 		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_COMPLEMENT));
 		  }
 break;
-case 384:
+case 385:
 {
 		      check_vardef_type(vardefs, yyvsp[0].map, SPOVAR_SEL);
 		      vardef_used(vardefs, yyvsp[0].map);
 		      add_opvars(splev, "v", VA_PASS1(yyvsp[0].map));
 		      Free(yyvsp[0].map);
-		  }
-break;
-case 385:
-{
-		      /* nothing */
 		  }
 break;
 case 386:
@@ -4850,18 +4852,18 @@ case 386:
 break;
 case 387:
 {
-		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_ADD));
+		      /* nothing */
 		  }
 break;
 case 388:
 {
-		      add_opvars(splev, "iio",
-				 VA_PASS3(yyvsp[0].dice.num, yyvsp[0].dice.die, SPO_DICE));
+		      add_opvars(splev, "o", VA_PASS1(SPO_SEL_ADD));
 		  }
 break;
-case 392:
+case 389:
 {
-		      add_opvars(splev, "i", VA_PASS1(yyvsp[0].i));
+		      add_opvars(splev, "iio",
+				 VA_PASS3(yyvsp[0].dice.num, yyvsp[0].dice.die, SPO_DICE));
 		  }
 break;
 case 393:
@@ -4876,30 +4878,35 @@ case 394:
 break;
 case 395:
 {
-		      /* nothing */
+		      add_opvars(splev, "i", VA_PASS1(yyvsp[0].i));
 		  }
 break;
-case 404:
+case 396:
 {
-			yyval.lregn = yyvsp[0].lregn;
+		      /* nothing */
 		  }
 break;
 case 405:
 {
-                      add_opvars(splev, "o", VA_PASS1(SPO_FORGE));
-                  }
+			yyval.lregn = yyvsp[0].lregn;
+		  }
 break;
 case 406:
 {
-                      add_opvars(splev, "o", VA_PASS1(SPO_PUDDLE));
+                      add_opvars(splev, "o", VA_PASS1(SPO_FORGE));
                   }
 break;
 case 407:
 {
-                      add_opvars(splev, "o", VA_PASS1(SPO_SEWAGE));
+                      add_opvars(splev, "o", VA_PASS1(SPO_PUDDLE));
                   }
 break;
 case 408:
+{
+                      add_opvars(splev, "o", VA_PASS1(SPO_SEWAGE));
+                  }
+break;
+case 409:
 {
 			if (yyvsp[-7].i <= 0 || yyvsp[-7].i >= COLNO)
 			    lc_error(
@@ -4924,7 +4931,8 @@ case 408:
 			yyval.lregn.area = 1;
 		  }
 break;
-case 409:
+case 410:
+
 {
 /* This series of if statements is a hack for MSC 5.1.  It seems that its
    tiny little brain cannot compile if these are all one big if statement. */

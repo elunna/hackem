@@ -178,7 +178,7 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '#', "toilet", C(CLR_WHITE) },               /* toilet */
        { '{', "forge", C(CLR_ORANGE) },              /* forge */
        { '{', "fountain", C(CLR_BRIGHT_BLUE) },      /* fountain */
-       { '#', "vent",     C(CLR_BLACK) },            /* vent */
+       { '#', "vent", C(CLR_BRIGHT_BLUE) },          /* vent */
        { '}', "water", C(CLR_BLUE) },                /* pool */
        { '.', "ice", C(CLR_CYAN) },                  /* ice */
        { ',', "grass", C(CLR_GREEN) },               /* grass */
@@ -690,6 +690,7 @@ struct symparse loadsyms[] = {
     { SYM_PCHAR, S_toilet, "S_toilet" },
     { SYM_PCHAR, S_forge, "S_forge" },
     { SYM_PCHAR, S_fountain, "S_fountain" },
+    { SYM_PCHAR, S_vent, "S_vent" },
     { SYM_PCHAR, S_pool, "S_pool" },
     { SYM_PCHAR, S_ice, "S_ice" },
     { SYM_PCHAR, S_grass, "S_grass" },

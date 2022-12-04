@@ -165,21 +165,21 @@ enum screen_symbols {
     S_toilet    = 32,
     S_forge     = 33,
     S_fountain  = 34,
-    S_pool      = 35,
-    S_ice       = 36,
-    S_grass     = 37,
-    S_lava      = 38,
-    S_vodbridge = 39, /* open drawbridge, vertical wall */
-    S_hodbridge = 40, /* open drawbridge, horizontal wall */
-    S_vcdbridge = 41, /* closed drawbridge, vertical wall */
-    S_hcdbridge = 42, /* closed drawbridge, horizontal wall */
-    S_air       = 43,
-    S_cloud     = 44,
-    S_puddle    = 45,
-    S_sewage    = 46,
-    S_water     = 47,
-    S_vent      = 48,
-
+    S_vent      = 35,
+    S_pool      = 36,
+    S_ice       = 37,
+    S_grass     = 38,
+    S_lava      = 39,
+    S_vodbridge = 40, /* open drawbridge, vertical wall */
+    S_hodbridge = 41, /* open drawbridge, horizontal wall */
+    S_vcdbridge = 42, /* closed drawbridge, vertical wall */
+    S_hcdbridge = 43, /* closed drawbridge, horizontal wall */
+    S_air       = 44,
+    S_cloud     = 45,
+    S_puddle    = 46,
+    S_sewage    = 47,
+    S_water     = 48,
+    
 /* end dungeon characters, begin traps */
 
     S_arrow_trap           = 49,
