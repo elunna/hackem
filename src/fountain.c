@@ -811,9 +811,15 @@ drinkfountain()
             pline_The("feeling subsides.");
             break;
         case 20: /* Foul water */
-            pline_The("water is foul!  You gag and vomit.");
-            morehungry(rn1(20, 11));
-            vomit();
+            if (Is_oracle_level(&u.uz)) {
+                pline("Oh wow!  Great stuff!");
+                (void) make_hallucinated((HHallucination & TIMEOUT) +
+                        rnd(100), FALSE, 0L);
+            } else {
+                pline_The("water is foul!  You gag and vomit.");
+                morehungry(rn1(20, 11));
+                vomit();
+            }
             break;
         case 21: /* Poisonous */
             pline_The("water is contaminated!");
