@@ -38,6 +38,8 @@ enum timeout_types {
     BOMB_BLOW,
     SPIRIT_FADE,
     FERMENT,
+    FIXTURE_ACTIVATE,
+    
     NUM_TIME_FUNCS
 };
 

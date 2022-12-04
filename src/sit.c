@@ -162,6 +162,8 @@ dosit()
         You(sit_message, "stairs");
     } else if (typ == LADDER) {
         You(sit_message, "ladder");
+    } else if (typ == VENT) {
+        You(sit_message, "grate");
     } else if (IS_FORGE(typ)) {
         You(sit_message, defsyms[S_forge].explanation);
         burn_away_slime();

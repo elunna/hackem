@@ -1807,6 +1807,9 @@ xchar x, y;
     case FOUNTAIN:
         idx = S_fountain;
         break;
+    case VENT:
+        idx = S_vent;
+        break;
     case SINK:
         idx = S_sink;
         break;
@@ -1949,6 +1952,7 @@ back_to_defsym(xchar x, xchar y)
         break;
 #endif
     case FOUNTAIN: idx = S_fountain; break;
+    case VENT: idx = S_vent; break;
     case FORGE: idx = S_forge; break;
     case SINK: idx = S_sink; break;
     case TOILET: idx = S_toilet; break;
@@ -2171,6 +2175,7 @@ static const char *type_names[MAX_TYPE] = {
     "LADDER",
     "FORGE",
     "FOUNTAIN",
+    "VENT",
     "THRONE",
     "SINK",
     "TOILET",

@@ -77,6 +77,7 @@ start: NHAccess
 	S_toilet: \126
 	S_forge: \126
 	S_fountain: \126
+	S_vent: \126
 	S_puddle: \042
 	S_sewage: \042 
 	S_pool: \042
@@ -199,6 +200,7 @@ start: Blank
         S_food: \032
         S_forge: \032
         S_fountain: \032
+        S_vent: \032
         S_fungus: \032
         S_gem: \032
         S_ghost: \032

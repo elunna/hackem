@@ -44,6 +44,13 @@ dosounds()
         };
         You_hear1(fountain_msg[rn2(3) + hallu]);
     }
+    if (level.flags.nvents && !rn2(400)) {
+        static const char *const vent_msg[4] = {
+            "gentle hissing.", "a soft whoosh.",
+            "regular hissing.", "a carbon monoxide detector!",
+        };
+        You_hear1(vent_msg[rn2(3) + hallu]);
+    }
     if (level.flags.nsinks && !rn2(300)) {
         static const char *const sink_msg[3] = {
             "a slow drip.", "a gurgling noise.", "dishes being washed!",

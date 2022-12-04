@@ -2337,7 +2337,8 @@ static const ttable timeout_funcs[NUM_TIME_FUNCS] = {
     TTAB(moldy_corpse, (timeout_proc) 0, "moldy_corpse"),
     TTAB(bomb_blow, (timeout_proc) 0, "bomb_blow"),
     TTAB(spirit_fade, (timeout_proc) 0, "spirit_fade"),
-    TTAB(ferment, (timeout_proc) 0, "ferment")
+    TTAB(ferment, (timeout_proc) 0, "ferment"),
+    TTAB(fixture_activate, (timeout_proc) 0, "fixture_activate")
 };
 #undef TTAB
 

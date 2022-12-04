@@ -1776,6 +1776,9 @@ char *msg;
     } else if (IS_SINK(ltyp)) {
         Strcpy(msg, "A tangled mass of plumbing remains below the sink.");
         return FALSE;
+    } else if (IS_VENT(ltyp)) {
+        Strcpy(msg, "The vent remains intact.");
+        return FALSE;
     } else if (IS_TOILET(ltyp)) {
         Strcpy(msg, "A tangled mass of plumbing remains below the toilet.");
         return FALSE;

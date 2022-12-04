@@ -315,6 +315,10 @@ int force;
                 if (cansee(x, y))
                     pline_The("fountain falls into a chasm.");
                 goto do_pit;
+            case VENT:
+                if (cansee(x, y))
+                    pline_The("vent is torn apart.");
+                goto do_pit;
             case SINK:
                 if (cansee(x, y))
                     pline_The("kitchen sink falls into a chasm.");

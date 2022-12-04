@@ -554,6 +554,7 @@ struct {
 {S_toilet,   "toilet", "toilet"},
 {S_forge,    "forge", "forge"},
 {S_fountain, "fountain", "fountain"},
+{S_vent,     "vent",     "vent"},
 {S_pool,     "pool", "water"},
 {S_ice,      "ice", "ice"},
 {S_grass,    "grass", "grass"},

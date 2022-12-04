@@ -5817,6 +5817,41 @@ long timeout UNUSED;
     context.mon_moving = save_mon_moving;
 }
 
+/*
+ *  Called when a timed dungeon fixture activates.
+ */
+void
+fixture_activate(anything *arg, long timeout UNUSED)
+{
+    xchar x, y;
+    long where = arg->a_long;
+    boolean save_mon_moving = context.mon_moving;
+    y = (xchar) (where & 0xFFFF);
+    x = (xchar) ((where >> 16) & 0xFFFF);
+
+    if (!IS_VENT(levl[x][y].typ))
+        return;
+    context.mon_moving = TRUE; /* hero doesn't get blamed. */
+    spec_fixture_activate(x, y);
+    context.mon_moving = save_mon_moving;
+}
+
+void
+spec_fixture_activate(xchar x, xchar y)
+{
+    switch (levl[x][y].typ) {
+    case VENT:
+        create_gas_cloud(x, y, 3, levl[x][y].poisonvnt ? depth(&u.uz) : 0);
+        (void) start_timer((long) 10L, TIMER_LEVEL, FIXTURE_ACTIVATE,
+                           long_to_any(((long) x << 16) | (long) y));
+        break;
+    default:
+        /*impossible("weird fixture activation %s?", levl[x][y].typ);*/
+        impossible("weird fixture activation %s?", explain_terrain(x, y));
+        break;
+    }
+}
+
 /* Burn floor scrolls, evaporate pools, etc... in a single square.
  * Used both for normal bolts of fire, cold, etc... and for fireballs.
  * Sets shopdamage to TRUE if a shop door is destroyed, and returns the

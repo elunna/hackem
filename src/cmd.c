@@ -1421,6 +1421,9 @@ wiz_map_levltyp(VOID_ARGS)
         if (level.flags.nsinks)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_sink].sym,
                     (int) level.flags.nsinks);
+         if (level.flags.nvents)
+            Sprintf(eos(dsc), " %c:%d", defsyms[S_vent].sym,
+                    (int) level.flags.nvents); 
         if (level.flags.ntoilets)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_toilet].sym,
                     (int) level.flags.ntoilets);
@@ -1523,8 +1526,9 @@ static const char *levltyp[] = {
     "tee-left wall", "tee-right wall", "drawbridge wall", "tree",
     "secret door", "secret corridor", "pool", "moat", "water",
     "drawbridge up", "lava pool", "iron bars", "door", "corridor", "room",
-    "stairs", "ladder", "forge", "fountain", "throne", "sink", "grave", "altar", "ice",
-    "drawbridge down", "air", "cloud", "puddle", "sewage",
+    "stairs", "ladder", "forge", "fountain", "vent", "throne", "sink", 
+    "grave", "altar", "ice", "drawbridge down", "air", "cloud", "puddle", 
+    "sewage",
     /* not a real terrain type, but used for undiggable stone
        by wiz_map_levltyp() */
     "unreachable/undiggable",

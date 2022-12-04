@@ -11,6 +11,7 @@
 /* conversion of result to int is reasonable */
 
 STATIC_DCL void FDECL(mkfount, (int, struct mkroom *));
+STATIC_DCL void mkvent(int, struct mkroom *);
 STATIC_DCL void FDECL(mkforge, (int, struct mkroom *));
 STATIC_DCL void FDECL(mksink, (struct mkroom *));
 STATIC_DCL void FDECL(mktree, (struct mkroom *));
@@ -857,6 +858,7 @@ clear_level_structures()
 
     level.flags.nforges = 0;
     level.flags.nfountains = 0;
+    level.flags.nvents = 0;
     level.flags.nsinks = 0;
     level.flags.ntoilets = 0;
     level.flags.has_shop = 0;
@@ -1164,11 +1166,17 @@ makelevel()
         /* greater chance of puddles if a water source is nearby */
         if (!rn2(10))
             mkfount(0, croom);
+        
         if (!rn2(10 + 4 * depth(&u.uz))) {
             /* Trees become less common, and at some point they are
                just dead. */
             mktree(croom);
         }
+        if (!rn2(80) && depth(&u.uz) > 3)
+            /* We could make vents at any level, but generating them
+               on level one could lead to cheap instadeaths. */
+            mkvent(0, croom);
+        
         if (!rn2(60)) {
             mksink(croom);
             /* Sinks are frequently paired with toilets. */
@@ -2012,6 +2020,29 @@ struct mkroom *croom;
         levl[m.x][m.y].blessedftn = 1;
 
     level.flags.nfountains++;
+}
+
+static void
+mkvent(int mazeflag, struct mkroom *croom)
+{
+    coord m;
+    register int tryct = 0;
+    
+    do {
+        if (++tryct > 200)
+            return;
+        if (mazeflag)
+            mazexy(&m);
+        else if (!somexy(croom, &m))
+            return;
+    } while (occupied(m.x, m.y) || bydoor(m.x, m.y));
+
+    levl[m.x][m.y].typ = VENT;
+    level.flags.nvents++;
+    if (depth(&u.uz) > 6 && rn2(depth(&u.uz - 4)))
+        levl[m.x][m.y].poisonvnt = 1;
+    (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
+                       long_to_any(((long) m.x << 16) | (long) m.y));
 }
 
 STATIC_OVL void

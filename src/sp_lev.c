@@ -682,14 +682,17 @@ count_features()
 
     level.flags.nfountains 
       = level.flags.nsinks 
-        = level.flags.nforges 
-           = level.flags.ntoilets = 0;
+        = level.flags.nvents 
+          = level.flags.nforges 
+            = level.flags.ntoilets = 0;
     
     for (y = 0; y < ROWNO; y++)
         for (x = 0; x < COLNO; x++) {
             int typ = levl[x][y].typ;
             if (typ == FOUNTAIN)
                 level.flags.nfountains++;
+            else if (typ == VENT)
+                level.flags.nvents++;
             else if (typ == SINK)
                 level.flags.nsinks++;
             else if (typ == FORGE)

@@ -3205,6 +3205,8 @@ pickup_checks()
             You("don't need a gravestone.  Yet.");
         else if (IS_FOUNTAIN(lev->typ))
             You("could drink the %s...", hliquid("water"));
+        else if (IS_VENT(lev->typ))
+            pline("Moving the vent is like trying to move the floor.");
         else if (IS_DOOR(lev->typ) && (lev->doormask & D_ISOPEN))
             pline("It won't come off the hinges.");
         else if (IS_ALTAR(lev->typ))
