@@ -848,18 +848,30 @@ doengrave()
                 postknown = TRUE;
                 break;
             case WAN_NOTHING:
+                if (Hallucination) {
+                    Strcpy(post_engr_text,
+                           "This wand is ever so much fun!");
+                    postknown = TRUE;
+                }
             case WAN_OPENING:
             case WAN_LOCKING:
                 break;
             /* RAY wands */
             case WAN_MAGIC_MISSILE:
                 ptext = TRUE;
-                if (!Blind) {
+                if (Hallucination) {
+                    Sprintf(post_engr_text,
+                            "Oh no! You've got magic measles!");
+                } else if (!Blind) {
                     Sprintf(post_engr_text,
                             "The %s is riddled by bullet holes!",
                             surface(u.ux, u.uy));
-                postknown = TRUE;
+                } else if (!Deaf) {
+                    Sprintf(post_engr_text,
+                            "You think you can hear magic narrowly missing you!");
                 }
+                if (!Blind || Hallucination || !Deaf) 
+                    postknown = TRUE;
                 break;
             case WAN_WIND:
                 if (!Blind)
@@ -877,10 +889,12 @@ doengrave()
             case WAN_SLEEP:
             case WAN_DEATH:
                 if (!Blind) {
-                    Sprintf(post_engr_text, "The bugs on the %s stop moving!",
-                            surface(u.ux, u.uy));
+                    Sprintf(post_engr_text, "%sThe bugs on the %s stop moving!",
+                            Hallucination ? "Oh no! " : "", surface(u.ux, u.uy));
                     /* automatically use the process of elimination */
-                    if (objects[WAN_SLEEP].oc_name_known || objects[WAN_DEATH].oc_name_known)
+                    if (!Hallucination && (
+                        objects[WAN_SLEEP].oc_name_known
+                        || objects[WAN_DEATH].oc_name_known))
                         postknown = TRUE;
                 }
                 break;
