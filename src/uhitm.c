@@ -1164,7 +1164,12 @@ int dieroll;
                     get_dmg_bonus = FALSE;
                     tmp -= weapon_dam_bonus(uwep);
                 }
-                else if (Role_if(PM_ROGUE) && !Upolyd && hand_to_hand
+                
+                else if ((Role_if(PM_ROGUE)
+                                  /* Convict gets backstab with spoons */
+                                  || (Role_if(PM_CONVICT) && uwep && uwep->otyp == SPOON))
+                         && !Upolyd 
+                         && hand_to_hand
                          /* multi-shot throwing is too powerful here */
                          && (mon->mflee
                              || !mon->mcanmove
