@@ -1323,6 +1323,8 @@ WAND(None,          "holly",   0, 150, 1, 0, WOOD, HI_WOOD),
 WAND(None,          "pliable", 0, 150, 1, 0, PLASTIC, HI_WOOD),
 WAND(None,     "dragon-bone",  0, 150, 1, 0, BONE, CLR_WHITE),
 WAND(None,          "golden",  0, 150, 1, 0, GOLD, HI_GOLD),
+WAND(None,          "gilded",  0, 150, 1, 0, GOLD, HI_GOLD),
+
 WAND(None,            "thin",  0, 150, 1, 0, IRON, HI_METAL),
 WAND(None,        "porcelain", 0, 150, 1, 0,         GLASS,    CLR_WHITE),
 #undef WAND
