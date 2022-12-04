@@ -3196,6 +3196,8 @@ struct o_range {
 
 /* wishable subranges of objects */
 STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
+    { "anything", RANDOM_CLASS, ARROW, IRON_CHAIN },
+    { "surprise me", RANDOM_CLASS, ARROW, IRON_CHAIN },
     { "bag", TOOL_CLASS, SACK, BAG_OF_TRICKS },
     { "lamp", TOOL_CLASS, OIL_LAMP, MAGIC_LAMP },
     { "candle", TOOL_CLASS, TALLOW_CANDLE, MAGIC_CANDLE },
@@ -3306,6 +3308,7 @@ static const struct alt_spellings {
 
     /* Scrolls */
     { "SoC", SCR_CHARGING },
+    { "scroll of recharging", SCR_CHARGING },
     { "SoEA", SCR_ENCHANT_ARMOR },
     { "SoEW", SCR_ENCHANT_WEAPON },
     { "SoG", SCR_ANNIHILATION },
@@ -3647,6 +3650,12 @@ struct obj *no_wish;
         } else if (!strncmpi(bp, "blessed ", l = 8)
                 || !strncmpi(bp, "holy ", l=5)) {
             blessed = 1;
+        } else if (!strncmpi(bp, "bgf ", l = 4) 
+                   || !strncmpi(bp, "bfg ", l = 4)) {
+            /* common wish abbreviation */
+            blessed = 1;
+            erodeproof = 1;
+            isgreased = 1;
         } else if (!strncmpi(bp, "moist ", l = 6)
                    || !strncmpi(bp, "wet ", l = 4)) {
             if (!strncmpi(bp, "wet ", 4))
