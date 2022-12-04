@@ -3176,6 +3176,8 @@ register struct monst *mtmp;
                 if (in_sight) {
                     seetrap(trap);
                 }
+                if (!rn2(7))
+                    deltrap(trap);
             }
             break;
         case ROLLING_BOULDER_TRAP:
