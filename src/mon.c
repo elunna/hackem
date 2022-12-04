@@ -115,11 +115,11 @@ const char *msg;
             mx = my = 0;
         if (mtmp == u.ustuck)
             impossible("hiding monster stuck to you (%s)", msg);
-        if (m_at(mtmp->mx, mtmp->my) == mtmp
-            && hides_under(mtmp->data) && !concealed_spot(mtmp->mx, mtmp->my))
+        if (m_at(mx, my) == mtmp && hides_under(mtmp->data) 
+            && !concealed_spot(mx, my))
             impossible("mon hiding under nonexistent obj or terrain (%s)", msg);
         if (mtmp->data->mlet == S_EEL
-            && !is_damp_terrain(mtmp->mx, mtmp->my) && !Is_waterlevel(&u.uz))
+            && !is_damp_terrain(mx, my) && !Is_waterlevel(&u.uz))
             impossible("eel hiding out of water (%s)", msg);
         if (ceiling_hider(mptr)
             /* normally !accessible would be overridable with passes_walls,
@@ -129,7 +129,7 @@ const char *msg;
                        !has_ceiling(&u.uz) ? "without ceiling"
                                            : "in solid stone",
                        msg);
-        if (mtmp->mtrapped && (t = t_at(mtmp->mx, mtmp->my)) != 0
+        if (mtmp->mtrapped && (t = t_at(mx, my)) != 0
             && !(t->ttyp == PIT || t->ttyp == SPIKED_PIT))
             impossible("hiding while trapped in a non-pit (%s)", msg);
     }

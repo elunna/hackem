@@ -162,7 +162,8 @@
 #define racial_needspick(mon) \
     ((has_erac(mon) && (ERAC(mon)->mflags1 & M1_NEEDPICK)) \
      || needspick((mon)->data))
-/* hides_under() requires an object at the location in order to hide */
+/* hides_under() requires an object or appropriate terrain at the location in
+ * order to hide */
 #define hides_under(ptr) (((ptr)->mflags1 & M1_CONCEAL) != 0L)
 /* is_hider() is True for mimics but when hiding they appear as something
    else rather than become mon->mundetected, so use is_hider() with care */
