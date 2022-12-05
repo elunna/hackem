@@ -1256,7 +1256,13 @@ candelabrum*
 	Because it is Saint Peter's holy day.
 	(Enter all the Friars to sing the dirge)
 		[ Doctor Faustus and Other Plays, by Christopher Marlowe ]
-*candle
+tallow candle
+	Radius 2, Duration: 200
+wax candle
+	Radius 2, Duration: 400
+magic candle
+	Radius 3, Duration: infinite
+	
 	My candle burns at both ends
 	It will not last the night;
 	But ah, my foes, and oh, my friends -
@@ -2906,6 +2912,35 @@ excalibur
 	blue-green color of the ocean.
 		[ Knight Life, by Peter David ]
 expensive camera
+   	Always randomly generated uncursed with 30 to 99 charges.
+   	
+   	When applied in the direction of a monster that has eyes, the flash
+   	of an expensive camera (whose beam is represented by !) will blind
+   	that monster, as well as typically scaring it - applying a cursed 
+   	camera has a 50% chance of blinding you for 1d25 turns instead 
+   	when applied. Applying a camera at a sleeping monster will wake it
+   	up with no further effects. Gremlins will take d4 damage from
+   	the flash, which cannot kill them this way.
+   
+   	Affected monsters that are adjacent are blinded permanently, while
+   	others that are farther away are blinded for up to 13 turns, 
+   	depending on the distance. Monsters hit by the flash will also 
+   	flee with a 3⁄4 chance, provided they are no more than 2 squares
+   	away from you - shopkeepers cannot be scared by the flash of an 
+   	expensive camera.
+   
+   	If wielded and used to attack, the expensive camera will break 
+   	and do no damage; it shares this property with the cream pie. 
+   	Breaking a camera in any way has a 1⁄3 chance of releasing a 
+   	"picture-painting demon", which will be a homunculus 2⁄3 of the
+   	time and an imp the remaining 1⁄3 - the resulting demon will be 
+   	peaceful unless the camera was cursed.
+   
+   	Like most other tools, a camera has no limit on charging. Applying
+   	an unpaid expensive camera induces a 10% usage fee.
+
+
+
 	There was a time when Rincewind had quite liked the iconoscope.
 	He believed, against all experience, that the world was
 	fundamentally understandable, and that if he could only equip
@@ -4926,22 +4961,28 @@ offler
 		[ The Colour of Magic, by Terry Pratchett ]
 lamassu
 	Honorable winged lions possessed of mystical powers.
-*lamp
-	When he came to himself he told his mother what had passed,
-	and showed her the lamp and the fruits he had gathered in the
-	garden, which were in reality precious stones.  He then asked
-	for some food.
+lantern
+	Radius 3, Duration 1000 to 1499
+oil lamp
+	Radius 3, Duration: 1000 to 1499
+magic lamp
+	Radius 3, Duration: infinite
 
-	"Alas! child," she said, "I have nothing in the house, but I
-	have spun a little cotton and will go and sell it."
+    When he came to himself he told his mother what had passed,
+    and showed her the lamp and the fruits he had gathered in the
+    garden, which were in reality precious stones.  He then asked
+    for some food.
 
-	Aladdin bade her keep her cotton, for he would sell the lamp
-	instead.  As it was very dirty she began to rub it, that it
-	might fetch a higher price.  Instantly a hideous genie
-	appeared, and asked what she would have.  She fainted away,
-	but Aladdin, snatching the lamp, said boldly:
-	"Fetch me something to eat!"
-		[ Aladdin, from The Arabian Nights, by Andrew Lang ]
+    "Alas! child," she said, "I have nothing in the house, but I
+    have spun a little cotton and will go and sell it."
+
+    Aladdin bade her keep her cotton, for he would sell the lamp
+    instead.  As it was very dirty she began to rub it, that it
+    might fetch a higher price.  Instantly a hideous genie
+    appeared, and asked what she would have.  She fainted away,
+    but Aladdin, snatching the lamp, said boldly:
+    "Fetch me something to eat!"
+    	[ Aladdin, from The Arabian Nights, by Andrew Lang ]
 lance
 	With this the wind increased, and the mill sails began to turn
 	about; which Don Quixote espying, said, 'Although thou movest
