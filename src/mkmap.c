@@ -622,9 +622,9 @@ lev_init *init_lev;
     if (join)
         join_map(bg_typ, fg_typ);
 
-    if (In_caves(&u.uz) && !In_hell(&u.uz)) {
+    if (In_mines(&u.uz) && !In_hell(&u.uz)) {
         if (!Is_branchlev(&u.uz)) {
-            if (rn2(u.uz.dlevel + 1))
+            if ((ledger_no(&u.uz) > ledger_no(&minetn_level)) && rn2(u.uz.dlevel + 1))
                 mkrivers();
         }
     }
