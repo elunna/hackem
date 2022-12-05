@@ -23,9 +23,12 @@ RNDLEVEL:	    "oracle" "O" @ (5, 4) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
 CHAINBRANCH:	"Town" "oracle" + (2, 2) up
-LEVEL:		    "nymph" "N" @ (8, 22) 45
+
+
+RNDLEVEL:		 "rats" "R" @ (10, 5) 3
+
 BRANCH:		    "Fort Ludios" @ (10, 20) portal
-LEVEL:		    "rats" "R" @ (10, 2) 25
+
 RNDLEVEL:	    "bigrm" "B" @ (10, 25) 40 13
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
@@ -39,6 +42,9 @@ BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
 BRANCH: 	    "The Lost Tomb" @ (25, 4)
 LEVEL:	        "stor" "S" @ (22, 8) 66
 BRANCH: 	    "The Temple of Moloch" @ (26, 4)
+
+BRANCH:		 "The Spider Caves" @ (26, 5)
+
 BRANCH:		    "The Sunless Sea" @ (28, 4)
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
 LEVALIGN:	    chaotic
@@ -144,8 +150,6 @@ RNDLEVEL:		"soko2" "none" @ (2, 0) 6
 RNDLEVEL:		"soko3" "none" @ (3, 0) 6
 RNDLEVEL:		"soko4" "none" @ (4, 0) 6
 
-
-
 #   The city of Angband
 #
 DUNGEON:	    "Town" "A" (3, 0)
@@ -177,8 +181,6 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
 #LEVEL:          "cavepass" "D" @ (2, 6) 50
-#LEVEL:          "jermlain" "D" @ (3, 4) 44
-#BRANCH:		 "The Spider Caves" @ (2, 8)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###

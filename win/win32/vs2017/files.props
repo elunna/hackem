@@ -50,7 +50,6 @@
     <Desfiles Include = "mines.des"/>
     <Desfiles Include = "monk.des"/>
     <Desfiles Include = "necro.des"/>
-    <Desfiles Include = "nymph.des"/>
     <Desfiles Include = "oracle.des"/>
     <Desfiles Include = "priest.des"/>
     <Desfiles Include = "ranger.des"/>
@@ -124,7 +123,6 @@
     <Levfiles Include = "medusa-2.lev"/>
     <Levfiles Include = "medusa-3.lev"/>
     <Levfiles Include = "medusa-4.lev"/>
-    <Levfiles Include = "nymph.lev"/>
     <Levfiles Include = "oracle-1.lev"/>
     <Levfiles Include = "oracle-2.lev"/>
     <Levfiles Include = "oracle-3.lev"/>

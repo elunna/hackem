@@ -38,7 +38,7 @@ bigroom.des     bogusmon.txt  castle.des    cmdhelp       data.base
 dungeon.def     endgame.des   engrave.txt   epitaph.txt   gehennom.des
 help            hh            history       icequeen.des
 keyhelp         knox.des      license       medusa.des    mines.des
-nymph.des       opthelp       oracle.des    oracles.txt   quest.txt
+opthelp       oracle.des    oracles.txt   quest.txt
 rumors.fal      rumors.tru    sokoban.des   symbols       tower.des
 tribute         vaults.des    vecna.des     wizhelp       yendor.des
 
@@ -501,7 +501,7 @@ knox-2.lev     knox-3.lev     medusa-1.lev   medusa-2.lev   medusa-3.lev
 medusa-4.lev   minefill.lev   minend-1.lev   minend-2.lev   minend-3.lev
 minend-4.lev   minend-5.lev   minetn-1.lev   minetn-2.lev   minetn-3.lev
 minetn-4.lev   minetn-5.lev   minetn-6.lev   minetn-7.lev   minetn-8.lev
-oracle-1.lev   oracle-2.lev   oracle-3.lev   orcus.lev      nymph.lev
+oracle-1.lev   oracle-2.lev   oracle-3.lev   orcus.lev      
 sanctum.lev    soko1-1.lev    soko1-2.lev    soko1-3.lev    soko1-4.lev
 soko1-5.lev    soko1-6.lev    soko2-1.lev    soko2-2.lev    soko2-3.lev
 soko2-4.lev    soko2-5.lev    soko2-6.lev    soko3-1.lev    soko3-2.lev
