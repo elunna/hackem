@@ -2446,7 +2446,8 @@ struct monst *mon;
         const char *wound_adjectives[] = {
             "bloodied", "bruised", "crushed", "marred", "blemished",
             "dinged up", "totaled", "wrecked", "beaten up", "defaced",
-            "pulverized", "battered", "tarnished", "ruined", "mangled"
+            "pulverized", "battered", "tarnished", "ruined", "mangled",
+            "trashed", "smashed up", "crumpled", "scratched", "scraped"
         };
         adverb = wound_adverbs[rn2(SIZE(wound_adverbs))];
         adjective = wound_adjectives[rn2(SIZE(wound_adjectives))];
