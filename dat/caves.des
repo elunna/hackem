@@ -58,6 +58,9 @@ LOOP [3] { OBJECT: ('*', "rock"), random }
 [50%]: OBJECT: ('`', "boulder"), (49,19)
 LOOP [3] { [50%]: OBJECT: random, random }
 MONSTER: random, random
+[45%]: MONSTER: ('w', "long worm"), random, hostile
+[45%]: MONSTER: ('w', "long worm"), random, hostile
+[45%]: MONSTER: ('w', "tunnel worm"), random, hostile
 [50%]: MONSTER: random, random
 
 
