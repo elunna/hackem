@@ -1166,12 +1166,14 @@ makelevel()
         /* greater chance of puddles if a water source is nearby */
         if (!rn2(10))
             mkfount(0, croom);
-        
+
+#if 0 /* TODO: Implement prevention of objects in trees from xnh */
         if (!rn2(10 + 4 * depth(&u.uz))) {
             /* Trees become less common, and at some point they are
                just dead. */
             mktree(croom);
         }
+#endif
         if (!rn2(80) && depth(&u.uz) > 3)
             /* We could make vents at any level, but generating them
                on level one could lead to cheap instadeaths. */
