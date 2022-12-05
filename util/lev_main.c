@@ -288,7 +288,7 @@ char **argv;
         ":dat:tower.des",    ":dat:vecna.des",      ":dat:yendor.des",
         ":dat:town.des",       ":dat:village.des",
         ":dat:caves.des",   ":dat:longhall.des",
-        ":dat:tomb.des",     ":dat:stor.des",       ":dat:spiders.des",  
+        ":dat:tomb.des",     ":dat:stor.des", 
         ":dat:mtemple.des",  ":dat:grund.des",      ":dat:blkmar.des"
     };
 

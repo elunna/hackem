@@ -712,7 +712,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\vaults.des   $(DAT)\vecna.des    $(DAT)\yendor.des \
     $(DAT)\nkai.des     $(DAT)\ucastle.des \
 	$(DAT)\rats.des 	$(DAT)\stor.des 	$(DAT)\caves.des \
-	$(DAT)\tomb.des 	$(DAT)\spiders.des 	$(DAT)\mtemple.des \
+	$(DAT)\tomb.des 	$(DAT)\mtemple.des \
 	$(DAT)\grund.des 	$(DAT)\longhall.des   $(DAT)\blkmar.des    \
 	$(DAT)\arch.des     $(DAT)\barb.des     $(DAT)\caveman.des \
 	$(DAT)\convict.des  $(DAT)\healer.des   $(DAT)\infidel.des \
@@ -742,7 +742,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp stor.des
 	$(U)levcomp caves.des
 	$(U)levcomp tomb.des
-	$(U)levcomp spiders.des
 	$(U)levcomp mtemple.des
 	$(U)levcomp grund.des
 	$(U)levcomp longhall.des

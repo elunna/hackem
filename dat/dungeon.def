@@ -34,18 +34,18 @@ BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
+
+# Grunds act's as a mini-castle for the player to overcome. 
+# Grund must be defeated to proceed down the stairs
 LEVEL:          "grund" "Z" @ (20, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 BRANCH: 	    "The Wyrm Caves" @ (22, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
-BRANCH: 	    "The Lost Tomb" @ (25, 4)
-LEVEL:	        "stor" "S" @ (22, 8) 66
-BRANCH: 	    "The Temple of Moloch" @ (26, 4)
+BRANCH: 	    "The Lost Levels" @ (25, 6)
+LEVEL:	        "stor" "S" @ (22, 9) 66
+BRANCH: 	    "The Temple of Moloch" @ (31, 4)
 
-BRANCH:		 "The Spider Caves" @ (26, 5)
-
-BRANCH:		    "The Sunless Sea" @ (28, 4)
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
 LEVALIGN:	    chaotic
 CHAINBRANCH:	"The Ice Queen's Realm" "medusa" + (-1, 0) portal
@@ -190,22 +190,11 @@ DESCRIPTION:    mazelike
 RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
 ### The Lost Tomb ###
-DUNGEON:        "The Lost Tomb" "L" (1, 0)
+# Includes The Lost Tomb, The Spider Caves, and The Sunless Sea.
+DUNGEON:        "The Lost Levels" "L" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-LEVEL:          "tomb" "L" @ (1, 0)
-
-### The Spider Caves ###
-DUNGEON:        "The Spider Caves" "S" (1, 0)
-ALIGNMENT:      chaotic
-DESCRIPTION:    mazelike
-LEVEL:          "spiders" "S" @ (1, 0)
-
-### The Sunless Sea ###
-DUNGEON:        "The Sunless Sea" "none" (1, 0)
-ALIGNMENT:      chaotic
-DESCRIPTION:    mazelike
-LEVEL:          "sea" "none" @ (1, 0)
+RNDLEVEL:       "tomb" "L" @ (1, 0) 3
 
 ### The Temple of Moloch ###
 DUNGEON:        "The Temple of Moloch" "none" (1, 0)
