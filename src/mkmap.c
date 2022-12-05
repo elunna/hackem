@@ -624,7 +624,7 @@ lev_init *init_lev;
 
     if (In_mines(&u.uz) && !In_hell(&u.uz)) {
         if (!Is_branchlev(&u.uz)) {
-            if ((ledger_no(&u.uz) > ledger_no(&minetn_level)) && rn2(u.uz.dlevel + 1))
+            if (depth(&u.uz) > depth(&minetn_level) && rn2(u.uz.dlevel + 1))
                 mkrivers();
         }
     }
