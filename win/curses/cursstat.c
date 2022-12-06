@@ -89,8 +89,8 @@ curses_status_finish()
  *      -- fldindex could be any one of the following from botl.h:
  *         BL_TITLE, BL_STR, BL_DX, BL_CO, BL_IN, BL_WI, BL_CH,
  *         BL_ALIGN, BL_SCORE, BL_CAP, BL_GOLD, BL_ENE, BL_ENEMAX,
- *         BL_XP, BL_AC, BL_MC, BL_HD, BL_TIME, BL_HUNGER, BL_HP, BL_HPMAX,
- *         BL_LEVELDESC, BL_EXP, BL_CONDITION
+ *         BL_XP, BL_AC, BL_MC, BL_HD, BL_TIME, BL_REALTIME,
+ *         BL_HUNGER, BL_HP, BL_HPMAX, BL_LEVELDESC, BL_EXP, BL_CONDITION
  *      -- fldindex could also be BL_FLUSH (-1), which is not really
  *         a field index, but is a special trigger to tell the
  *         windowport that it should redisplay all its status fields,
@@ -254,12 +254,12 @@ boolean border;
     /* almost all fields already come with a leading space;
        "xspace" indicates places where we'll generate an extra one */
     static const enum statusfields
-    twolineorder[3][16] = {
+    twolineorder[3][17] = {
         { BL_TITLE,
           /*xspace*/ BL_STR, BL_DX, BL_CO, BL_IN, BL_WI, BL_CH,
           /*xspace*/ BL_ALIGN,
           /*xspace*/ BL_SCORE,
-          BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD },
+          BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD },
         { BL_LEVELDESC,
           /*xspace*/ BL_GOLD,
           /*xspace*/ BL_HP, BL_HPMAX,
@@ -268,16 +268,17 @@ boolean border;
           /*xspace*/ BL_MC,
           /*xspace*/ BL_XP, BL_EXP, BL_HD,
           /*xspace*/ BL_TIME,
+          /*xspace*/ BL_REALTIME,
           /*xspace*/ BL_HUNGER, BL_CAP, BL_CONDITION,
           BL_FLUSH },
         { BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD,
-          blPAD, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD }
+          blPAD, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD }
     },
-    threelineorder[3][16] = { /* moves align to line 2, leveldesc+ to 3 */
+    threelineorder[3][17] = { /* moves align to line 2, leveldesc+ to 3 */
         { BL_TITLE,
           /*xspace*/ BL_STR, BL_DX, BL_CO, BL_IN, BL_WI, BL_CH,
           /*xspace*/ BL_SCORE,
-          BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD },
+          BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD },
         { BL_ALIGN,
           /*xspace*/ BL_GOLD,
           /*xspace*/ BL_HP, BL_HPMAX,
@@ -286,14 +287,15 @@ boolean border;
           /*xspace*/ BL_MC,
           /*xspace*/ BL_XP, BL_EXP, BL_HD,
           /*xspace*/ BL_HUNGER, BL_CAP,
-          BL_FLUSH, blPAD, blPAD },
+          BL_FLUSH, blPAD, blPAD, blPAD },
         { BL_LEVELDESC,
           /*xspace*/ BL_TIME,
+          /*xspace*/ BL_REALTIME,
           /*xspecial*/ BL_CONDITION,
-          BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD,
-          blPAD, blPAD, blPAD, blPAD }
+          BL_FLUSH, blPAD, blPAD, blPAD, blPAD, blPAD, blPAD,
+          blPAD, blPAD, blPAD, blPAD, blPAD }
     };
-    const enum statusfields (*fieldorder)[16];
+    const enum statusfields (*fieldorder)[17];
     xchar spacing[MAXBLSTATS], valline[MAXBLSTATS];
     enum statusfields fld, prev_fld;
     char *text, *p, cbuf[BUFSZ], ebuf[STATVAL_WIDTH];
@@ -430,6 +432,7 @@ boolean border;
             case BL_XP:
             case BL_HD:
             case BL_TIME:
+            case BL_REALTIME:
                 spacing[fld] = status_activefields[fld] ? 1 : 0;
                 break;
             case BL_SCORE:
@@ -1888,6 +1891,11 @@ draw_horizontal(int x, int y, int hp, int hpmax)
     if (flags.time)
         print_statdiff(" T:", &prevtime, moves, STAT_TIME);
 
+#ifdef REALTIME_ON_BOTL
+    if (iflags.show_realtime)
+        printw(win, " %s", botl_realtime());
+#endif
+
     curses_add_statuses(win, FALSE, FALSE, NULL, NULL);
 }
 
@@ -1968,6 +1976,11 @@ draw_horizontal_new(int x, int y, int hp, int hpmax)
 
     if (flags.time)
         print_statdiff(" T:", &prevtime, moves, STAT_TIME);
+
+#ifdef REALTIME_ON_BOTL
+    if (iflags.show_realtime)
+        printw(win, " %s", botl_realtime());
+#endif
 
     curses_add_statuses(win, TRUE, FALSE, &x, &y);
 
@@ -2122,6 +2135,11 @@ draw_vertical(int x, int y, int hp, int hpmax)
         print_statdiff("Time:          ", &prevtime, moves, STAT_TIME);
         wmove(win, y++, x);
     }
+
+#ifdef REALTIME_ON_BOTL
+    if (iflags.show_realtime)
+        printw(win,   "Realtime:       %s", botl_realtime());
+#endif
 
 #ifdef SCORE_ON_BOTL
     if (flags.showscore) {
