@@ -530,6 +530,10 @@ struct mkroom *sroom;
                                      TRUE, FALSE);
                 if (!rn2(5))
                     make_grave(sx, sy, (char *) 0);
+                /* Open graves rarely generate in graveyards */
+                else if (!rn2(80)) {
+                    maketrap(sx, sy, PIT);
+                }
                 break;
             case BEEHIVE:
                 if (!rn2(3))
