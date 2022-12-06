@@ -4,7 +4,7 @@
 /* NetHack may be freely redistributed.  See license for details. */
 
 #include "hack.h"
-
+    
 extern const char *const destroy_strings[][3]; /* from zap.c */
 
 STATIC_DCL boolean FDECL(keep_saddle_with_steedcorpse, (unsigned, struct obj *,
@@ -6557,18 +6557,15 @@ lava_effects()
 
     if (how_resistant(FIRE_RES) < 100) {
         if (Wwalking) {
-            /* Assume three things:
-             * 1. The hero is wearing water walking boots (they are the only
-             *    source of the water walking property).
-             * 2. Water walking boots are always burnable.
-             * 3. To be walking on lava, they must be fireproof.
-             */
-            if (!objects[WATER_WALKING_BOOTS].oc_name_known) {
-                Your("boots don't sink into the lava!");
+            /* Don't assume we have water walking boots anymore */
+            if (uarmf && uarmf->otyp == WATER_WALKING_BOOTS) {
+                if (!objects[WATER_WALKING_BOOTS].oc_name_known) {
+                    Your("boots don't sink into the lava!");
+                }
+                makeknown(WATER_WALKING_BOOTS);
+                uarmf->rknown = 1;
             }
-            makeknown(WATER_WALKING_BOOTS);
-            uarmf->rknown = 1;
-            
+
             pline_The("%s here burns you!", hliquid("lava"));
             if (usurvive) {
                 losehp(dmg, lava_killer, KILLED_BY); /* lava damage */
