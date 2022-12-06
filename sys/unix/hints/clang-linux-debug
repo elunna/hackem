@@ -10,12 +10,12 @@
 
 
 # Typical install path for normal user (non-root)
-#PREFIX=$(wildcard ~)
-#HACKDIR=$(PREFIX)/games/$(GAME)dir
+PREFIX=$(wildcard ~)
+HACKDIR=$(PREFIX)/games/$(GAME)dir
 
 # Default install path (assumes running at root)
-PREFIX=/usr
-HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
+#PREFIX=/usr
+#HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
 
 SHELLDIR = $(PREFIX)/games
 INSTDIR = $(HACKDIR)
@@ -31,6 +31,8 @@ CFLAGS+=-DCOMPRESS=\"/bin/gzip\" -DCOMPRESS_EXTENSION=\".gz\"
 CFLAGS+=-DGCC_WARN -Wall -Wextra -Wno-missing-field-initializers
 CFLAGS+=-Wimplicit -Wreturn-type -Wunused -Wformat -Wswitch
 CFLAGS+=-Wshadow -Wwrite-strings -ansi -pedantic -Wno-long-long
+# Uncomment this is you plan on fuzzing with ASAN enabled
+#CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
 CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
 CFLAGS+=-DTIMED_DELAY
 CFLAGS+=-DHACKDIR=\"$(HACKDIR)\"
@@ -40,6 +42,8 @@ CFLAGS+=-DCURSES_GRAPHICS
 CFLAGS+=-DPANICLOG_FMT2
 CFLAGS+=-DFCMASK=0644
 CFLAGS+=-DTTY_TILES_ESCCODES
+CFLAGS+=-DSCORE_ON_BOTL
+CFLAGS+=-DREALTIME_ON_BOTL
 CFLAGS+=-DDGAMELAUNCH
 CFLAGS+=-DLIVELOG_ENABLE
 CFLAGS+=-DDUMPLOG
@@ -48,6 +52,8 @@ CFLAGS+=-DDUMPHTML
 LINK=$(CC)
 # Only needed for GLIBC stack trace:
 LFLAGS=-rdynamic
+# Uncomment this is you plan on fuzzing with ASAN enabled
+#LFLAGS+=-fsanitize=address
 
 WINSRC = $(WINTTYSRC) $(WINCURSESSRC)
 WINOBJ = $(WINTTYOBJ) $(WINCURSESOBJ)

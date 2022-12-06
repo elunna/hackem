@@ -34,6 +34,8 @@ CFLAGS+=-Wno-format-nonliteral -Wno-unused-result
 CFLAGS+=-Wno-stringop-truncation
 CFLAGS+=-Wno-missing-field-initializers
 CFLAGS+=-Wno-format-overflow -Wno-stringop-overflow
+# Uncomment this is you plan on fuzzing with ASAN enabled                                                           
+CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
 CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
 CFLAGS+=-DTIMED_DELAY
 CFLAGS+=-DHACKDIR=\"$(HACKDIR)\"
@@ -49,11 +51,12 @@ CFLAGS+=-DDGAMELAUNCH
 CFLAGS+=-DLIVELOG_ENABLE
 CFLAGS+=-DDUMPLOG
 CFLAGS+=-DDUMPHTML
-CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
+
 LINK=$(CC)
     
 # Only needed for GLIBC stack trace:
 LFLAGS=-rdynamic
+# Uncomment this is you plan on fuzzing with ASAN enabled
 LFLAGS+=-fsanitize=address
             
 WINSRC = $(WINTTYSRC) $(WINCURSESSRC)
