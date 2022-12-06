@@ -1028,7 +1028,8 @@ const struct Race races[] = {
         NON_PM,     /* ...or as a female (NON_PM == same) */
         PM_HUMAN_MUMMY, /* PM_ as a mummy */
         PM_HUMAN_ZOMBIE, /* PM_ as a zombie */
-        MH_VAMPIRE | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC, /* allowed variations */
+        MH_VAMPIRE | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC 
+            | ROLE_NEUTRAL, /* allowed variations */
         MH_VAMPIRE, /* your own race's bit mask */
         0,          /* always peaceful */
         MH_ELF | MH_GNOME | MH_DWARF | MH_ORC, /* always hostile */
