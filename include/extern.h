@@ -465,6 +465,7 @@ E int NDECL(donull);
 E int NDECL(dowipe);
 E void FDECL(set_wounded_legs, (long, int));
 E void FDECL(heal_legs, (int));
+E void NDECL(polymorph_sink);
 
 /* ### do_name.c ### */
 
