@@ -446,7 +446,9 @@ const struct shclass shtypes[] = {
         { 3, -MAGIC_LAMP },
         { 5, -MAGIC_CANDLE },
         { 5, -POT_OIL },
-        { 1, -WAN_LIGHT }, 
+        { 1, -SCR_LIGHT },
+        { 1, -SPE_LIGHT },
+        { 2, -WAN_LIGHT }, 
         { 1, -WAN_LIGHTNING }
       },
       shklight },
