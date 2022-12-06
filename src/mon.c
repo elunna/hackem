@@ -6728,7 +6728,7 @@ aligntyp algn;
         break;
     case A_CHAOTIC:
         permitted |=
-            (MH_ILLITHID | MH_ORC | MH_GIANT | MH_CENTAUR | MH_VAMPIRE);
+            (MH_ILLITHID | MH_ORC | MH_GIANT | MH_CENTAUR);
         break;
     case A_LAWFUL:
         permitted |= (MH_DWARF | MH_GIANT | MH_TORTLE | MH_ELF);
@@ -6819,17 +6819,16 @@ short mndx;
     case PM_WIZARD:
         permitted |=
           (MH_DWARF | MH_ELF | MH_GIANT | MH_GNOME | MH_HOBBIT
-           | MH_ORC | MH_ILLITHID | MH_TORTLE | MH_VAMPIRE);
+           | MH_ORC | MH_ILLITHID | MH_TORTLE);
         break;
     case PM_FLAME_MAGE:
         permitted |= (MH_GNOME | MH_HOBBIT | MH_GIANT | MH_DWARF | MH_ELF);
         break;
     case PM_ICE_MAGE: 
-        permitted |= (MH_GNOME | MH_ORC | MH_HOBBIT | MH_VAMPIRE 
-                      | MH_ILLITHID | MH_CENTAUR);
+        permitted |= (MH_GNOME | MH_ORC | MH_HOBBIT | MH_ILLITHID | MH_CENTAUR);
         break;
     case PM_NECROMANCER:
-        permitted |= (MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID);
+        permitted |= (MH_ORC | MH_GIANT | MH_CENTAUR | MH_ILLITHID);
         break;
     case PM_UNDEAD_SLAYER:
         permitted |= (MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
