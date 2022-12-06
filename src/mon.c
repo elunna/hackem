@@ -279,6 +279,8 @@ struct permonst *pm;
             return PM_GIANT_ZOMBIE;
         if (is_centaur(pm))
             return PM_CENTAUR_ZOMBIE;
+        if (is_illithid(pm))
+            return NON_PM;
         return PM_HUMAN_ZOMBIE;
     case S_HUMANOID:
         if (is_dwarf(pm))
