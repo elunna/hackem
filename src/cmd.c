@@ -812,7 +812,9 @@ enter_explore_mode(VOID_ARGS)
 static int
 wiz_clear(void)
 {
-    if (wizard) {
+    /* Can't let the fuzzer use this otherwise vault guards might die on 
+     * (0, 0) and weird things happen */
+    if (wizard && !iflags.debug_fuzzer) {
         register struct monst *mtmp, *mtmp2;
 
         int gonecnt = 0;
