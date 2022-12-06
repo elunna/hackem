@@ -60,7 +60,9 @@ anything *id;
 {
     light_source *ls;
 
-    if (range > MAX_RADIUS || range < 0
+    if (range > MAX_RADIUS)
+        range = MAX_RADIUS;
+    else if (range < 0
         /* camera flash uses radius 0 and passes Null object */
         || (range == 0 && (type != LS_OBJECT || id->a_obj != 0))) {
         impossible("new_light_source:  illegal range %d", range);
