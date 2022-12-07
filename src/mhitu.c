@@ -2677,7 +2677,7 @@ do_rust:
             You("are on fire!");
             dmg += rnd(6);
             if (Cold_resistance)
-                dmg = (int) (dmg * 1.5);
+                dmg *= 2;
 
             dmg = resist_reduce(dmg, FIRE_RES);
         }

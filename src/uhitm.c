@@ -1923,9 +1923,9 @@ int dieroll;
             /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
         }
         else {
-            tmp += rnd(6); /* +1 damage vs non-fire resistant. */
+            tmp += rnd(6);
             if (resists_cold(mon))
-                tmp *= rnd(3); /* +d3 damage vs non-fire res. */
+                tmp *= 2;
 
             /* A chance of setting monster's stuff on fire */
             tmp += destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);

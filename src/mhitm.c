@@ -1557,9 +1557,9 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                     /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
                 }
                 else {
-                    tmp += rnd(6); /* +1 damage vs non-fire resistant. */
+                    tmp += rnd(6);
                     if (resists_cold(mdef))
-                        tmp = (int) (tmp * 1.5); /* +d3 damage vs non-fire res. */
+                        tmp *= 2; 
 
                     if (!rn2(2) && burnarmor(mdef)) {
                         if (!rn2(3))
