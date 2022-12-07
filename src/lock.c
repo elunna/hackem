@@ -632,31 +632,12 @@ struct obj *container; /* container, for autounlock */
 
                 switch (picktyp) {
                 case CREDIT_CARD:
-                    if(!rn2(20) && !pick->blessed && !pick->oartifact) {
-                        Your("credit card breaks in half!");
-                        delobj(pick);
-                        nomul(0);
-                        return PICKLOCK_DID_NOTHING;
-                    }
                     ch = ACURR(A_DEX) + 20 * Role_if(PM_ROGUE);
                     break;
                 case LOCK_PICK:
-                    if(!rn2(Role_if(PM_ROGUE) ? 60 : 20) &&
-			    		!pick->blessed && !pick->oartifact) {
-                        You("break your pick!");
-                        delobj(pick);
-                        nomul(0);
-                        return PICKLOCK_DID_NOTHING;
-                    }
                     ch = 4 * ACURR(A_DEX) + 25 * Role_if(PM_ROGUE);
                     break;
                 case SKELETON_KEY:
-                    if(!rn2(20) && !pick->blessed && !pick->oartifact) {
-                        Your("key didn't quite fit the lock and snapped!");
-                        delobj(pick);
-                        nomul(0);
-                        return PICKLOCK_DID_NOTHING;
-                    }
                     ch = 75 + ACURR(A_DEX);
                     break;
 
@@ -669,11 +650,10 @@ struct obj *container; /* container, for autounlock */
                 if (otmp->cursed)
                     ch /= 2;
 
-                /* small chance a cursed locking tool will break on use */
-                if (pick->cursed && !rn2(5)
+                /* Chance of breaking on use. */
+                if (!rn2(breakability(pick))
                     && picktyp != STETHOSCOPE
-                    && pick->oartifact != ART_MASTER_KEY_OF_THIEVERY
-                    && pick->oartifact != ART_YENDORIAN_EXPRESS_CARD) {
+                    && !pick->oartifact) {
                     pline("As you start to %s the %s, your %s breaks!",
                           (otmp->olocked ? "unlock" : "lock"),
                           xname(otmp), xname(pick));
@@ -1525,5 +1505,4 @@ struct obj *otmp;
     }
     pline("%s %s!", An(thing), disposition);
 }
-
 /*lock.c*/

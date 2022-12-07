@@ -3872,4 +3872,29 @@ warp_material(struct obj* obj, boolean by_you)
     }
     return FALSE;
 }
+
+
+/* Calculates the probability that an item should break taking into account
+ * it's material and eroded state */
+int 
+breakability(struct obj *otmp)
+{
+    /* base value is the object's density */
+    int val = matdensities[otmp->material];
+    
+    /* Double this if blessed, half it if cursed. */
+    if (otmp->blessed)
+        val *= 2;
+    if (otmp->cursed)
+        val /= 2;
+    
+    /* Halved for each level of erosion */
+    if (otmp->oeroded)
+        val /= (2 * otmp->oeroded);
+    if (otmp->oeroded2)
+        val /= (2 * otmp->oeroded2);
+    /* If the value is 0 or less, return 1. */
+    debug_pline("breakability val = %d", val);
+    return ((val < 1) ? 1 : val);
+}
 /*mkobj.c*/
