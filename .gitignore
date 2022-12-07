@@ -66,5 +66,6 @@ Makefile.gcc-orig
 log
 log.txt
 monsters.htm
+items.htm
 .idea
 __pycache__
