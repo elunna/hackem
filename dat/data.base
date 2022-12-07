@@ -699,9 +699,19 @@ bag of holding
     - MagicBane
     - Other bags containing any of the above items
     
-    These have a chance of not exploding if you nest them".
-    
+    These have a chance of not exploding if you nest them.
 bag of rats
+    The bag of rats is very similar to a bag of tricks, but when 
+    applied it will only create random rats. If #tipped, it will
+    expend every charge at once.
+    
+    If #looted, there is a chance of being bitten by a rat for 2d4 
+    damage, otherwise the bag is identified.
+    
+    When a bag of rats has no charges left, it acts as a normal sack.
+    
+    Unlike a bag of tricks, a charged bag of rats is not a threat to 
+    store in a bag of holding - there is no risk of a magical explosion.
 bag of tricks
     Bags of tricks are generated uncursed, with 3 to 20 charges.
     Attempting to #loot a bag of tricks will cause it to bite you 
@@ -1961,6 +1971,42 @@ crossbow*
 	of crossbow bolts. It is also about half the weight of a regular
 	crossbow when wielded by one deemed worthy of Carl.
 crystal ball
+	A randomly generated crystal ball is normally generated with 1-5 
+	charges and has a 25% chance of being blessed, a 50% chance of 
+	being uncursed, and a 25% chance of being cursed.
+
+	Elvenkings have a 2% chance of being generated with a crystal ball.
+	Applying or #invoking a charged crystal ball while not blind will 
+	initiate an Intelligence check - if the result of a d20 is less 
+	than or equal to your Intelligence, the check succeeds and can 
+	then search for a symbol on the current level, consuming a charge. 
+	A cursed crystal ball will always fail the check when used, and a 
+	failed check will produce on of the following effects:
+
+	No further effect.
+	You are confused for d100 turns.
+	You are blinded for d100 turns.
+	You hallucinate for d100 turns.
+	The ball explodes, destroying it and dealing d30 damage. This is 
+	affected by half physical damage, and artifact crystal balls will 
+	not break this way.
+	
+	Applying a crystal ball will always put you into a helpless trance
+	for 1 to 10 turns - a ring of free action will not prevent this. 
+	Applying a crystal ball with no charges will always reveal nothing,
+	but does not risk negative effects.
+
+	On a successful check, you can specify any symbol representing a 
+	monster, object or trap. If you try to search for anything else, 
+	such as stairs or other dungeon features, you will instead receive
+	a random message hinting at the location of a special level: Delphi,
+	Medusa's lair, the Castle, or the Tower of the Wizard of Yendor. 
+	The message you receive depends on whether you are in the same 
+	dungeon branch as the target level and its dungeon level relative
+	to yours: "You see <foo>, <where>." The exact message and location
+	<where> is determined based on the information in the following 
+	table:
+
 	You look into one of these and see _vapours swirling like
 	clouds_.  These shortly clear away to show a sort of video
 	without sound of something that is going to happen to you
@@ -5242,7 +5288,15 @@ kelp*
 		[ The Columbia Encyclopedia, Sixth Edition ]
 key
 skeleton key
-    Allows you to lock and unlock doors and containers. 
+    Allows you to lock and unlock doors and containers.
+    
+    Subject to breaking. The chance depends on the material, the 
+    beatitude, and erosion.
+credit card
+    Allows you to unlock doors and containers. 
+    
+    Subject to breaking. The chance depends on the material, the 
+        beatitude, and erosion.
 kicking boots
     When worn, kicking boots add a +5 damage bonus to kick attacks
     (unless the target is thick-skinned) and give them a chance to 
@@ -6012,8 +6066,6 @@ sceptre
 	about in armour, and sovereigns needed champions to vindicate
 	their rights.
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
-magic 8-ball
-	Reply hazy, try again.
 magic marker
 	A magic marker is a magical tool in NetHack that can be used to 
 	write magic scrolls and spellbooks. It is a highly sought-after 
@@ -10446,6 +10498,8 @@ tin of *
 	popular to tin dragons and giants, as you will still get the 
 	intrinsic / strength increase, but without the enormous meal.
 tinning kit
+    See also 'tin'
+    
 	"You know salmon, Sarge," said Nobby.
 	"It is a fish of which I am aware, yes."
 	"You know they sell kind of slices of it in tins..."
