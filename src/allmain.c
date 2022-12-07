@@ -909,11 +909,10 @@ int wtcap;
             int effcon = ACURR(A_CON) + u.uhealbonus;
             heal = 0;
             
-            if (u.ulevel > 9) {
+            if (efflev > 9) {
                 if (!(moves % 3L)) {
                     if (effcon <= 12) {
                         heal = 1;
-                        
                     } else {
                         heal = rnd(effcon);
                         if (heal > efflev - 9)
@@ -925,7 +924,7 @@ int wtcap;
             else if (efflev < 0) {
                 if (moves % (long) (22 + (abs(efflev) * 4)) == 0)
                     heal = 1;
-            } else if (efflev <= 9) {
+            } else {
                 if (moves % (long) ((MAXULEV + 12) / (efflev + 2) + 1) == 0)
                     heal = 1;
             }
