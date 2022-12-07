@@ -376,9 +376,6 @@ struct obj *obj;
         return FALSE;
 
     switch (obj->oartifact) {
-    case ART_MAGIC___BALL:
-        lair = &oracle_level;
-        break;
     case ART_BUTCHER:
         lair = &hellb_level;
         break;
@@ -407,9 +404,6 @@ struct obj *obj;
         return (struct monst *) 0;
 
     switch (obj->oartifact) {
-    case ART_MAGIC___BALL:
-        owner = PM_ORACLE;
-        break;
     case ART_BUTCHER:
         owner = PM_YEENOGHU;
         break;

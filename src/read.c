@@ -581,7 +581,8 @@ doread()
             livelog_write_string(LL_CONDUCT,
                     "became literate by reading the divine signature of Heimdallr");
         return 1;
-    } else if (scroll->oartifact == ART_MAGIC___BALL) {
+    /*} else if (scroll->oartifact == ART_MAGIC___BALL) {*/
+    } else if (scroll->otyp == EIGHT_BALL) {
         static const char *eightball_msgs[] = {
             /* Positive */
             "Yes", "Signs point to yes", "As I see it, yes",

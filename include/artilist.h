@@ -400,16 +400,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     *      This effect is only active while the user can see. */
     A("Mystic Eyes", LENSES, (SPFX_RESTR | SPFX_SEARCH), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR),
-
-  /* Thought the Oracle just knew everything on her own? Guess again. Should
-   * anyone ever be foolhardy enough to take on the Oracle and succeed,
-   * they might discover the true source of her knowledge.
-   */
-    A("Magic 8-Ball", EIGHT_BALL,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_SPEAK), (SPFX_WARN | SPFX_EXCLUDE),
-      0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 5000L,
-      NO_COLOR),
-
+    
     /* Created by fusing werebane and trollsbane. Original idea by Spicy. 
             Prevents all monster regen. */
     A("Mortality Dial", EXECUTIONER_S_MACE, (SPFX_RESTR | SPFX_REGEN | SPFX_NOGEN | SPFX_RESTR), 

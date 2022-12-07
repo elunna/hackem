@@ -3810,9 +3810,6 @@ struct obj *obj;
     if (!oart || !(oart->spfx & SPFX_SPEAK))
         return;
 
-    if ((HStun || Underwater) && obj->oartifact == ART_MAGIC___BALL)
-        return;
-
     line = getrumor(bcsign(obj), buf, TRUE);
     if (!*line)
         line = "NetHack rumors file closed for renovation.";
