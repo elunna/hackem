@@ -833,9 +833,12 @@ struct obj *instr;
     } else if (Underwater) {
         You_cant("play music underwater!");
         return 0;
-    } else if ((instr->otyp == FLUTE || instr->otyp == MAGIC_FLUTE
-                || instr->otyp == TOOLED_HORN || instr->otyp == FROST_HORN
-                || instr->otyp == FIRE_HORN || instr->otyp == HORN_OF_BLASTING 
+    } else if ((instr->otyp == FLUTE 
+                || instr->otyp == MAGIC_FLUTE
+                || instr->otyp == TOOLED_HORN 
+                || instr->otyp == FROST_HORN
+                || instr->otyp == FIRE_HORN 
+                || instr->otyp == HORN_OF_BLASTING 
                 || instr->otyp == BUGLE)
                && !can_blow(&youmonst)) {
         You("are incapable of playing %s.", the(distant_name(instr, xname)));
@@ -843,12 +846,11 @@ struct obj *instr;
     }
 
     /* --hackem: Musical instruments require skill to handle gracefully.
-     * They have a smallish chance of breaking.
+     * They are also breakable - subject to the same odds as unlocking tools
      * This is partly to nerf the abuse on the planes, and partly to
      * nerf the infinite re-chargability.
-     *      fumbling, afraid, or cursed = 12.5% of breaking
-     *      uncursed = 2%
-     *      blessed instruments won't break.
+     * 
+     * Gold instruments will be rare (but desireable since they are very durable)
      */
     
     /* Artifact instruments don't break on apply 
@@ -856,11 +858,8 @@ struct obj *instr;
      */
     if (instr->oartifact || maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
         ;  
-    else if ((Fumbling || Afraid || instr->cursed) && !instr->blessed && !rn2(8)) {
-        instr_breaks = TRUE;
-    }
-    
-    else if (!rn2(50)) {  /* Uncursed case */
+    /* fumbling guarantees breaking (unless an elf) */
+    else if (Fumbling || !rn2(breakability(instr))) {
         instr_breaks = TRUE;
     }
 
