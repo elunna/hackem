@@ -752,6 +752,9 @@ sack
     become wet as well.
     
     Can be greased to offer some protection against water damage.
+bagpipe
+	When played, will aggravate monsters unless you have high dexterity 
+	and experience level.
 b*lzebub
 	The "lord of the flies" is a translation of the Hebrew
 	Ba'alzevuv (Beelzebub in Greek).  It has been suggested that
@@ -823,6 +826,32 @@ baphomet
 #champion
 #champion of *
 barding
+spiked barding
+barding of reflection
+	Barding is armor for steeds. Throughout history, barding came in 
+	several shapes and sizes. In this setting, imagine barding 
+	protecting your steed's head/neck and flank all the way back to 
+	the start of where the saddle would be. It is applied to your 
+	steed just as you apply a saddle, and just like saddles, it's 'one 
+	size fits all'. The material the barding is made from determines 
+	how much extra AC protection it gives your steed (iron, the softer
+	/more dense metals – 3 AC, steel or stone – 4 AC, mithril – 5 AC). 
+	
+	It also affords some protection to your steeds head against any 
+	attacks that target it (zombie bite attack, mind flayer tentacle 
+	attack, etc). Barding can be enchanted just like any other piece 
+	of armor, and follows the same rules/behavior. To enchant barding,
+	the player must have their steed wear it, and be mounted on their
+	steed. When reading a scroll of enchant armor, they'll be given 
+	the option to enchant the barding.
+	
+	Spiked barding: Just like regular barding, but is covered with tiny
+	sharp spikes that protrude outward. If your steed is engulfed 
+	while it's wearing spiked barding, the monster engulfing it will
+	spit it back out.
+	
+	Barding of reflection: Just like regular barding, but it's fully
+	reflective just like a shield of reflection.
 	Barding (also spelled bard or barb) is body armour for war horses.
 	The practice of armoring horses was first extensively developed in
 	antiquity in the eastern kingdoms of Parthia and Pahlava, and
@@ -860,6 +889,73 @@ bat or bird
 	These creatures bare their teeth and claws in combat. Their
 	strength is unbearable. Please bear with me.
 bear*trap
+	A beartrap is a tool object that can be used to create a bear trap 
+	on the ground. This is a trap that will clamp onto any monster or
+	adventurer unlucky enough to stumble onto it, dealing 2d4 damage.
+
+	The beartrap item is usually obtained by untrapping a live bear 
+	trap. These can be applied on the ground to create a trap to clamp
+	onto monsters unlucky enough to not avoid the trap, rendering them
+	immobile until they escape. Monsters that are too small, amorphous,
+	whirly, unsolid or flying won't be trapped, and metallivores can
+	eat the trap. Be careful, as you can still get caught in your own
+	bear trap if you step on it or fail to disarm it.
+
+	You will escape a bear trap under the following circumstances:
+
+	- If you are levitating or flying, you will avoid the trap. If the 
+	  trap is hidden, it will not be revealed.
+	- If you are polymorphed into a form that is amorphous, whirly or 
+	  unsolid, you will avoid the trap.
+	- If you are polymorphed into a form that is tiny or small, and 
+	  you are not riding a steed, you will avoid the trap.
+	- If none of these apply, you have a 4/5 chance of avoiding the 
+	  bear trap if you are already aware of it and are not fumbling. 
+	  Otherwise, you are caught.
+
+	Being caught in a bear trap renders you unable to move, in addition
+	to the damage it deals. When caught in a bear trap, you are unable
+	to kick. During this time, you still can attack and be attacked.
+
+	If you trigger the trap when riding, it affects your steed instead
+	of you. Monsters can be trapped too.
+
+	Escaping
+	The ordinary way to escape a bear trap is to try to move out of it. 
+	For some reason, trying to move diagonally is most effective, 
+	allowing you to escape in 4–7 moves; this will move you 
+	diagonally out of the trap even if a wall is in the way. Attempting 
+	to move orthogonally requires about five times as many moves to 
+	escape.
+
+	Another way to escape from a bear trap is to use teleport, level 
+	teleport, or branchport to move yourself away from it. You can also 
+	polymorph yourself into a form that cannot be held by a bear trap, 
+	due to size or body composition.
+
+	Zapping a wand of opening or casting knock downward will instantly 
+	release you.
+
+	Finally, it is possible to jump out of a bear trap. This carries a 
+	penalty, however: you will take d10 damage and suffer wounded legs
+	for 500–1499 turns.
+
+	Oddly, beartraps reset themselves after someone escapes from them.
+
+	Disarming
+	Once you know the location of a bear trap, you can attempt to
+	#untrap it. You cannot disarm a bear trap that is holding you, so 
+	you must escape the trap first. When you attempt to disarm the 
+	trap, there is a chance that you will be accidentally caught in it
+	instead. If you successfully disarm the trap, it will be replaced 
+	by a beartrap item on the ground.
+
+	It is also possible to remove a bear trap by eating it, if you are
+	polymorphed into a metallivore. Unlike untrapping, you can eat a 
+	bear trap that is holding you, and there is no chance of 
+	accidentally triggering the trap. However, eating the trap will 
+	obviously not produce a beartrap item.
+
 	Probably most commonly associated with trapping, the leghold
 	trap is a rather simple mechanical trap.  It is made up of two
 	jaws, a spring of some sort, and a trigger in the middle.  When
@@ -908,6 +1004,23 @@ beholder
 		[ Monstrous Manual, AD&D 2nd edition ]
 ~bell of opening
 *bell
+	A bell is a musical instrument. It does not play notes; its function 
+	is to ring. Bells are often found on graves reading "Saved by the 
+	bell!" All bells are generated uncursed.
+
+	Unlike horns, harps, and flutes, there are no randomly-generated 
+	magical bells. The only magical bell in the game is the Bell of 
+	Opening, which has the distinct appearance of "silver bell".
+
+	Ringing a blessed or uncursed bell makes noise (waking nearby 
+	monsters) and calls pets. A cursed bell, however, has a 1/4 chance
+	of summoning a nymph (she won't be carrying any items), assuming
+	none of the nymphs are genocided or extinct. If a nymph is summoned,
+	the bell has a 7% chance of breaking (the Bell of Opening never
+	breaks). If the bell doesn't break, then with equal probability:
+	- there may be no effect;
+	- the summoned nymph may be fast; or
+	- the player may be paralyzed for 2 turns.
 	No man is an island, entire of itself; every man is a piece 
 	of the continent, a part of the main. If a clod be washed away by 
 	the sea, Europe is the less, as well as if a promontory were, as 
@@ -940,6 +1053,15 @@ bell*book*candle
 	is removed from the sight of God as the candle from the sight of man.
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
 blindfold
+	A blindfold is a tool that can be used to achieve blindness.
+	After gaining intrinsic telepathy by eating a floating eye corpse, 
+	applying a blindfold is good for detecting monsters. (Note: 
+	Intrinsic telepathy from floating eyes is now temporary.)
+
+	A blindfold is also useful if you are about to encounter a monster
+	that can do you harm with its gaze (floating eye, pyrolisk, Medusa)
+	or that can blind you (yellow light).
+	
 	The blindfolding was performed by binding a piece of the
 	yellowish linen whereof those of the Amahagger who condescended
 	to wear anything in particular made their dresses tightly round
@@ -1194,6 +1316,24 @@ bugbear
 	sometimes kill just for the treasure their victims may be
 	carrying.
 bugle
+	The bugle is a tonal musical instrument, and the only non-magical 
+	instrument that lacks a magical  equivalent.
+	
+	Sergeants, lieutenants, and captains in the Yendorian Army have a
+	1/3 chance of being generated with a bugle.
+
+	Applying a bugle will allow you to play it. Improvising can awaken
+	or scare nearby monsters, as with a tooled horn - however, it will
+	also awaken, anger, and unparalyze all soldiers and watchmen on 
+	the level. Improvising abuses your wisdom.
+
+	Soldiers themselves are capable of using bugles to the same effect
+	- a soldier will only play it if there is another sleeping soldier
+	in a 7×7 square around them.
+
+	Note: Bugles now work against fewer monsters, and some are 
+	completely immune. Priests and Angels are no longer scared by 
+	bugles.
 	'I read you by your bugle horn
 	And by your palfrey good,
 	I read you for a Ranger sworn
@@ -2428,7 +2568,20 @@ dramborleg
 	stunned and its edge clove all armour.
 		[ The Book of Lost Tales: Part Two,
 			by J.R.R. Tolkien ]
-*drum*
+*drum
+~drum of earthquake
+	A leather drum is an atonal musical instrument, so it cannot be 
+	used to play the passtune. It is one of the two drums.
+	
+	Applying a leather drum (or a depleted drum of earthquake) will 
+	"beat a deafening row!"; this will awaken and scare nearby monsters
+	- including pets - and abuse your wisdom. You will also become deaf 
+	for 30-49 (more) turns. Monsters are awakened if their distance to 
+	you is at most 6.3 * sqrt(XL), and are scared (if not resisted) if 
+	their distance to you is at most 3.65 * sqrt(XL), where XL is your 
+	experience level, with the usual check against monster magic 
+	resistance against the scare effect.
+
 	Many travelers have seen the drums of the great apes, and
 	some have heard the sounds of their beating and the noise of
 	the wild, weird revelry of these first lords of the jungle,
@@ -2436,6 +2589,33 @@ dramborleg
 	being who ever joined in the fierce, mad, intoxicating revel
 	of the Dum-Dum.
 		[ Tarzan of the Apes, by Edgar Rice Burroughs ]
+drum of earthquake
+	The drum of earthquake is a magical drum and is generated with 
+	4-8 charges.
+
+	Applying a charged drum of earthquake will will "produce a heavy, 
+	thunderous rolling!" This will create several pits around and 
+	possibly under you; it will wake up all monsters on the level, 
+	unfreezing them as well. Monsters hidden on the ceiling will be 
+	shaken off.
+
+	Monsters within 23.7 Euclidean distance will flee if they don't 
+	resist, and peaceful monsters within a 4*((u.ulevel - 1) / 3 + 1)+1 
+	wide square centered on you will become hostile. The Wizard of 
+	Yendor and other "meditating" monsters will only be awakened in 
+	that square area.
+
+	A drum with no charges behaves like a leather drum, except that it
+	doesn't cause deafness.
+
+	The power of this item increases massively as you level up; at
+	XL 30 it will create large fields of pits, as opposed to just a few
+	around you.
+
+	The pits created by a drum of earthquake can destroy altars similar
+	to applying a wand of digging, and works even on undiggable dungeon 
+	levels. The high altars in Moloch's Sanctum and the Astral Plane
+	will be unaffected.
 dunce*
     When worn, the dunce cap sets your intelligence and wisdom to 6 
     each and autocurses, even if originally blessed; this will auto-
@@ -3032,6 +3212,60 @@ fell beast
 
     More than one variety of this plant is known to exist.
 figurine*
+	A figurine is a type of magical tool that appears in NetHack. It 
+	is vaguely similar to a miniature statue, and is made of mineral.
+
+	You can apply one or cast stone to flesh on it to generate the 
+	depicted monster on a square next to you. Figurines weigh a fair 
+	amount, but are much easier to carry and animate than statues; 
+	they cannot be created by petrification, and cannot be destroyed 
+	with a pick-axe or wand of striking.
+	
+	Figurines are generated as a random monster, based upon a 
+	combination of your level at the time of its creation and the 
+	dungeon level; they are severely biased towards non-human monsters.
+	Figurines are generated 75% uncursed, 12.5% blessed, and 12.5% 
+	cursed.
+
+	Monsters brought to life from figurines will not have their 
+	starting inventory. You can bring a figurine to life by applying 
+	it or using the stoneto flesh spell. Applying a figurine will 
+	prompt the player for a direction and generate it on the square 
+	closest to them in that direction, while the latter method will 
+	cause it to animate on its current square (or next to the player 
+	if in their inventory).
+
+	If a figurine is applied to a square with a monster on it, the 
+	figurine will be lost and nothing will be generate. Attempting to 
+	apply a figurine onto solid rock or a square containing a boulder 
+	will fail without using up the figure, but will generate the 
+	monster as normal if it has phasing. Applying a figurine > or < will 
+	always succeed even if you are surrounded by monsters, unless the
+	entire level is filled. Applying a figurine respects genocide but 
+	does not respect extinction, except for monsters with special 
+	limits such as erinyes and Nazgul.
+
+	A monster created from a figurine is most likely to be tame if the
+	figurine was blessed, peaceful if it was uncursed, and hostile if
+	it was cursed; however, even a blessed figurine may create a 
+	hostile monster, or a cursed figurine a tame monster. The odds are
+	as follows:
+
+	         tame     peaceful hostile
+	blessed	 80%      10%      10%
+	uncursed 10%      80%      10%
+	cursed   10%      10%      80%
+	
+	A cursed figurine will automatically transform anywhere between 
+	200 to 9200 turns after it is cursed or placed into an inventory -
+	this timer starts whenever a cursed figurine is picked up or an 
+	existing figurine is cursed; dropping or uncursing the figurine 
+	will stop the timer. A figurine that transforms is treated 
+	as if you applied the figurine yourself, i.e. there is a 4/5 chance
+	the monster will be hostile; if this transformation fails for any 
+	reason, the timer is set again for anywhere between one and 5000 
+	turns.
+
 	Then it appeared in Paris at just about the time that Paris
 	was full of Carlists who had to get out of Spain.  One of
 	them must have brought it with him, but, whoever he was, it's
@@ -3071,6 +3305,36 @@ f* brand
 	Is also great
 	And would suffice.
 		[ Fire and Ice, by Robert Frost ]
+
+fishing pole
+	A fishing pole is a weapon-tool, which can be used as a polearm 
+	weapon. Its main use is to fish. Applying a fishing pole will 
+	prompt you for a location. The range of a fishing pole is the same
+	as pounding with a regular polearm, but without a minimum range.
+	
+	Applying a fishing pole on a water square may have the following 
+	effects :
+	- You hook yourself, dealing yourself 10-19 points of damage.
+	- You hook an item on the target square, retrieving it.
+	- You may "snag some garbage from the water", which gives you an 
+	  uncursed +0 pair of low boots. This can only occur once.
+	- You catch tonight's dinner, a cram ration.
+
+	Dry Land
+	Note that you may still apply a fishing pole to a square when that
+	square is on dry land. Usually, there is no need to do this, as 
+	most items may simply be picked up. However, if the item is at the 
+	bottom of a spiked pit, it might be safer to fish for the item than 
+	to try your luck with poisonous spikes. Also, for vampire players 
+	with their intrinsic flight, this is one of the few ways available
+	to them to pick up items in the bottom of a pit.
+
+	You may use a fishing pole on sinks and toilets, although this has 
+	no special use:
+
+	- You hook yourself, dealing yourself 10-19 points of damage.
+	- You hook an item on the target square, retrieving it.
+	- You pull a sewer rat out of the sink.
 *flail
 	When you are swinging a spiky ball on a chain, the only
 	realistic option is to keep moving.  Standing still is an
@@ -3120,12 +3384,52 @@ floating eye
 	creature that lurked around nearby.
 fruitcake
 	Provides high nutrition. Does 18 damage when thrown.
-*flute
+flute
+	The flute is a tonal instrument that shares the same appearance 
+	with another flute, the magic flute.
+	
+	Applying the flute will prompt you to "improvise"; improvising 
+	with it will exercise your dexterity, while choosing not to 
+	improvise will let you play a specific set of notes. If the
+	player has enough experience and dexterity, improvising may make 
+	nearby snakes peaceful. The snake-charming effect will occur if 
+	(1dDex + Xlvl) is 27 or greater.
+
+	When played, it will either "trill" (which pacifies snakes) or 
+	"toot".
 	With this thou canst do mighty deeds
 	And change men's passions for thy needs:
 	A man's despair with joy allay,
 	Turn bachelors old to lovers gay.
 		[ The Magic Flute, by Wolfgang Amadeus Mozart ]
+magic flute
+	A magic flute is a magical tonal instrument, and it can be used
+	to play the passtune. Improvising with a charged magic flute will 
+	produce "soft music" ("piped" if hallucinating) and will put nearby 
+	monsters (including pets) to sleep unless they resist. It also exercises dexterity and consumes a charge.
+
+	An uncharged magic flute behaves as a wooden flute.
+
+	The usage fee for a charged magic flute is one quarter of the full 
+	price.
+
+
+	Sleep resistance prevents this attack from succeeding. Monsters 
+	may also prevent the attack using their innate magic resistance.
+	There is no message given if a monster falls asleep; the only 
+	indication without a stethoscope or similar tool is the lack of 
+	movement.
+
+	Monsters are affected for 10d10 turns, after which they may be 
+	roused.
+
+	The radius of the effect is SquareRt(XPlevel * 5) squares. 
+	At various levels this calculates to:
+	Level Radius
+	1       2
+	5       5
+	14      8
+	30      12
 # also takes fog/vapor cloud
 fog* cloud
 	The fog comes
@@ -3789,6 +4093,12 @@ health stone
     every 7th turn (as at level 5) instead of every 15th, and at level
     29 you will regenerate 1d24 HP instead of 1d20 (provided your 
     constitution is 20).
+goggles
+	Goggles are worn in the same slot as lenses or a blindfold, and 
+	allow the wearer to see at a distance whilst underwater. They can 
+	protect your eyes under certain circumstance just as regular 
+	lenses can. Goggles are	made of plastic and are black in color. 
+	They are non-magical, but are more rare than lenses.
 grayswandir
 	Why had I been wearing Grayswandir?  Would another weapon have
 	affected a Logrus-ghost as strongly?  Had it really been my
@@ -3804,6 +4114,42 @@ graz'zt
 		[ Hordes of the Abyss, by Ed Stark,
 		  James Jacobs, and Erik Mona ]
 *grease
+can of grease
+	A can of grease is used to grease items for various purposes. The 
+	oilskin cloak and oilskin sack act as "permanently greased" objects.
+	
+	Applying a can of grease can be used to slather any item (except 
+	zorkmids) in a thick layer of grease, and you can also select - to
+	grease your hands - doing either will use up one charge. Greased 
+	cans can hold a maximum of 50 charges; uncursed charging adds 1-5 
+	charges, while blessed charging adds 5-10 charges, or 6-15 if 
+	there are fewer than 10 charges left.
+
+	Greased objects are protected from erosion and water damage; 
+	greased containers protect their contents from water damage, and 
+	greased spellbooks, potions and scrolls are protected from blanking
+	or dilution. Greased armor on the outermost layer (e.g. usually a 
+	cloak or helm) can also protect against attacks that target body 
+	parts covered by that object; if the greased piece of armor is 
+	cursed, there is only a 2/3 chance that it will protect you.
+
+	Grease has a 50% chance to wear off after each successful 
+	protection. Greased items may slip when you attempt to throw them,
+	similar to cursed projectiles, and will slide further along the 
+	floor than normal when kicked. A greased weapon has no additional
+	protection from a bullwhip's disarm attack, nor does the grease 
+	unweld cursed weapons; greasing quest artifacts or the Amulet of
+	Yendor will not prevent covetous monsters from stealing them from 
+	your inventory.
+
+	Applying a cursed can of grease has only a 50% chance of being 
+	successful and will give you slippery fingers; the other 50% of the
+	time, the can will slip from your grasp and drop to the ground, 
+	using up a charge. Applying a non-cursed can while fumbling also 
+	only works 50% of the time, though it does not spill grease on your
+	hands.
+
+	A can of grease can be used to untrap squeaky boards.
 	ANOINT, v.t.  To grease a king or other great functionary
 	already sufficiently slippery.
 		[ The Devil's Dictionary, by Ambrose Bierce ]
@@ -3905,7 +4251,19 @@ hachi
 	every afternoon to wait for his master.  When Hachi died a
 	statue was erected on the station platform in his honor.  It
 	is said to bring you luck if you touch his statue.
-*harp
+harp
+	A harp is a type of tonal musical instrument; it appears as just a
+	harp when unidentified.
+
+	For Samurai, the wooden harp is called a koto.
+
+	Applying a harp will play it; improvising will typically cause it 
+	to "twang", while trying to play specific notes producesa "strange 
+	sound", and both have no effect beyond exercising dexterity. If 
+	you are not confused, there is a chance that it will instead play 
+	"a lilting melody" that pacifies any nymphs nearby; for this to 
+	occur, the sum of your experience level and a randomly rolled 
+	number between 0 and your current dexterity stat must exceed 25.
 	A triangular stringed instrument, often Magic.  Even when not
 	Magic, a Harp is surprisingly portable and tough and can be
 	carried everywhere on the back of the Bard or Harper in all
@@ -3928,6 +4286,21 @@ hachi
 	time to see Jack running off with his harp.
 		[ Jack and the Beanstalk, from English Fairy Tales,
 		  by Joseph Jacobs ]
+magic harp
+	A magic harp is a tonal musical instrument, and one of the two harps.
+
+	Magic harps are created with 1–8 charges.
+	
+	If it has any charges left when applied, then it produces "very 
+	attractive music" which tames monsters around you and exercises 
+	your dexterity. A magic harp with no charges left behaves as a 
+	normal wooden harp.
+
+	The magic harp can be charged an unlimited number of times; it 
+	gains 1d4 charges with an uncursed scroll of charging, or 2d4 with
+	a blessed scroll, and can hold a maximum of 20 charges.
+
+	The radius of effect depends on your experience level.
 halberd
 	This form of a pole axe is seen as a convex-headed broad axe 
 	in early examples, but the head is set at a convenient angle, 
@@ -4238,6 +4611,59 @@ ratel
 	but no direct evidence exists to support this behaviour.
 # also gets 'pruning hook' aka guisarme
 *hook
+grappling hook
+	A grappling hook is also a weapon that uses the flail skill.
+	
+	You can apply a grappling hook to a location up to a distance 
+	determined by your skill in the use of flails:
+
+	.......
+	.ESUSE.  U = Unskilled/Basic
+	.SUUUS.  S = Skilled
+	.UU@UU.  E = Expert
+	.SUUUS.
+	.ESUSE.
+	.......
+	
+	You can only apply the hook at a space you can see without astral
+	vision.
+
+	Possible Outcomes
+	You can attempt to grab an item on that square, drag yourself 
+	towards a spot on the ground, attack a monster, drag a tiny monster 
+	to you, or you may end up accidentally hitting yourself (doing 10-
+	19 points of damage). You cannot hit yourself if you are Skilled 
+	or Expert.
+
+	If you are Unskilled or Basic, there are equal chances of nothing 
+	happening, hitting an item, hitting a monster, hitting the ground, 
+	or hooking yourself. If you are at least Skilled, you can select 
+	which target you are aiming for. If Skilled, you have a 50% chance
+	of achieving what you try to, and a 95% chance at Expert; otherwise, 
+	there are equal chances of each outcome other than hooking yourself. 
+	If you can't decide which to choose, you may type enter to trigger
+	a random effect.
+
+	If you select or get an item or monster as a target, and there is 
+	no such thing present on the target space, nothing happens.
+
+	Grabbing Items
+	When grabbing an item, you will always snag the item that was last 
+	dropped on that square. Only one item from the stack at a time can 
+	be snagged this way. This can be used to snag items from the 
+	ground while levitating.
+
+	Dragging Yourself
+	When dragging yourself towards the ground, you will only be dragged
+	one square. If you are trapped, you instead remain trapped and may
+	take further damage from the trap.
+
+	Monsters
+	A tiny monster may be dragged with a 25% probability; otherwise, 
+	it is simply hit. Larger monsters are always hit. When grappling a
+	monster that is at least of large size and/or strong, there is a 
+	25% chance that you will be pulled toward the ground instead, 
+	unless the space has water or air, in which case there is no effect.
 	But as for Queequeg -- why, Queequeg sat there among them --
 	at the head of the table, too, it so chanced; as cool as an
 	icicle.  To be sure I cannot say much for his breeding.  His
@@ -4248,7 +4674,20 @@ ratel
 	beefsteaks towards him.
 		[ Moby Dick, by Herman Melville ]
 ~unicorn horn
-*horn
+tooled horn
+	A tooled horn is a tonal musical instrument, and the only non-
+	magical horn.
+	
+	Improvising with it will awaken (and possibly scare) nearby 
+	monsters – including pets – and will abuse your wisdom. Monsters
+	are awakened if their distance to you is at most 5.48 times the 
+	root of your level, and are scared (if not resisted) if their 
+	distance to you is at most 3.16 times the root of your level. They
+	have the usual resistance roll against the scare effect. BUC status
+	has no effect.
+
+	It can be used to play the passtune to enter the castle.
+	
 	Roland hath set the Olifant to his mouth,
 	He grasps it well, and with great virtue sounds.
 	High are those peaks, afar it rings and loud,
@@ -4258,8 +4697,53 @@ ratel
 	And Guenelun answered, contrarious:
 	"That were a lie, in any other mouth."
 		[ The Song of Roland ]
+frost horn
+fire horn
+	The fire horn and frost horn are rare musical instruments that can 
+	deal elemental damage. They both start with 4 to 8 charges.
+	
+	Applying a fire or frost horn with charges left will prompt you to
+	improvise; if you answer yes, the game will ask the player for a 
+	direction, and the horn will emit a ray of fire or cold 
+	respectively. This will auto-identify the horn.
+
+	For each application of the horn, a number X is chosen between 6 
+	and 11 inclusive. Each monster hit with the ray will then be 
+	dealt Xd6 damage, unless it resists the respective element. 
+	(Contrast this with the respective wands, for which the X always 
+	equals 6.) Frost horns also deal Xd3 additional damage to monsters
+	resistant to fire but not to cold, and fire horns deal 7 extra 
+	damage to monsters resistant to cold but not to fire.
+
+	An uncharged fire or frost horn behaves the same as a tooled horn;
+	answering no to the "Improvise?" prompt also lets you play the horn
+	as a musical instrument without using up any charges.
+
+	The horn can be recharged an unlimited number of times, but can 
+	only hold up to 20 charges at once. Each recharge adds 1d4 charges, 
+	or 2d4 if the scroll is blessed.
+horn of blasting
+	Deals sonic damage when applied, similar to the Fire and frost horn.
+	
 horn of plenty
 cornucopia
+	A horn of plenty is one of the magical horns, but unlike the other
+	horns, it cannot be used as a musical instrument. It is created 
+	with 1 to 20 charges and it may contain up to 50 charges. When 
+	applied, it produces food (including royal jelly) or a potion of 
+	water, fruit juice, booze, acid, sickness, or oil. The BUC of the 
+	item produced is the same as that of the horn.
+
+	12/13 of the time, a horn of plenty produces a comestible. 
+	Multiples may be created if the food code permits. The remaining 
+	1/13 of the time, the horn produces a potion.
+	
+	There is a very small chance (about 1/250) that the potion generated
+	will be a blood-red potion. This potion has an 80% chance of being
+	a potion of blood, and a 20% chance of being a potion of vampire 
+	blood. Other than the starting inventories of vampires, this is 
+	the only time blood-red potions are generated anywhere in the game.
+
 	The infant Zeus was fed with goat's milk by Amalthea,
 	daughter of Melisseus, King of Crete.  Zeus, in gratitude,
 	broke off one of the goat's horns, and gave it to Amalthea,
@@ -4712,6 +5196,13 @@ sword of kas
 	After many years of loyal service to Vecna, Kas eventually
 	betrayed his master.  It is said that the sword itself whispered
 	to Kas, convincing him to slay his master and usurp his power.
+keg
+	Contains a very large number of potions of booze. Quaffing from 
+	the keg will consume a single potion; applying the keg will 
+	consume all the potions, potentially killing the player via 
+	alcohol poisoning.
+	
+	
 kelp*
 *frond
     It is only generated under water: 1/10 chance of being generated 
@@ -4998,6 +5489,42 @@ lance
 	evil plight.
 	  [ Don Quixote of La Mancha, by Miquel de Cervantes Saavedra ]
 land mine
+	A land mine is a tool that can be carried around, and then applied
+	to produce a land mine trap.
+	
+	If you #untrap an activated land mine trap, it will turn (back) 
+	into the land mine item.
+
+	Activated land mines are only randomly generated at dungeon level 
+	6 or lower. There are also many in the treasure room in Fort 
+	Ludios.
+
+	Trying to set a land mine while fumbling, or setting a cursed 
+	landmine has a chance of detonating it instead. The chance is 
+	modified by Luck; if your Luck is maxed, the chances are very slim.
+	Setting a land mine while riding a steed with Unskilled in Riding
+	has the same chance of failure, and an even worse chance if also 
+	fumbling or using a cursed landmine, also causing it to detonate.
+
+	Land mines explode when triggered, which will do 1-16 damage, wound
+	your legs and leave behind a pit. You may untrap a land mine from
+	an adjacent square, and then pick it up and install it elsewhere,
+	similar to a bear trap.
+
+	Monsters have only a 1 in 3 chance of setting off a land mine when
+	they step on one. Flying creatures are even less likely to set 
+	one off (and won't ever fall in the resulting pit), although there
+	is still a slim chance that air currents will activate the mine. 
+	Land mines can also be set off by rolling boulders.
+
+	Any items on the same square as an active land mine will be 
+	blasted around the room (or destroyed, if fragile) when it goes 
+	off.
+
+	A land mine that is triggered adjacent to a body of water like a
+	pool or moat will create a pit that immediately fills with water, 
+	likely immersing you in the process.
+
 	Your heart is intact, your brain is not badly damaged, but the rest
 	of your injuries are comparable to stepping on a land mine.  You'd
 	never walk again, and you'd be in great pain.  You would come to
@@ -5045,6 +5572,59 @@ law*
 	  Verily the ocean laughs with the innocent.
 		[ The Prophet, by Kahlil Gibran ]
 leash
+	A leash is a tool for keeping your pets close to you, especially 
+	when using stairs or portals.
+
+	To attach a leash to a pet, apply the leash to a pet that is 
+	adjacent to you. You can have up to two pets leashed at the same 
+	time, using two separate leashes. As of NetHack 3.6.3, the pet in 
+	question cannot be unsolid and must have an extremity that the 
+	leash can actually be put on.
+
+	To remove a leash from a pet, simply apply the leash to the pet 
+	that the leash is connected to. A cursed leash cannot be removed 
+	from the pet.
+
+	Putting a leash on a pet will affect the way the pet moves and 
+	attacks, most of the time keeping it closer to you and acting more
+	passively.
+
+	If you move too far away from your leashed pet, it may "yowl" or 
+	make some other angry noise. While this will not hurt your pet 
+	(when using a non-cursed leash), the yowling can wake up other 
+	nearby monsters. With a cursed leash, this can choke your pet, 
+	dealing d2 damage to it and has a chance of reducing its tameness.
+	If your pet is low on hit points, this can kill it.
+
+	If you get even further away from your pet, a non-cursed leash will
+	harmlessly snap loose from your pet, but a cursed leash will 
+	strangle your pet and kill it. You can get too far away by simply 
+	walking faster than your pet or moving while it is stuck around a 
+	corner or behind a door.
+
+	Teleporting when your leashed pet is not adjacent will cause the 
+	pet to jump to your location before you teleport, and the now-
+	adjacent pet will follow you through the teleport; this will 
+	happen even if your pet is eating. However, if you are riding one
+	pet while leashed to another, your leashed pet must be adjacent to
+	teleport with you.
+
+	When changing levels (traps, stairs, portals) when your pet is not
+	adjacent or can't follow you, the leash will be harmlessly removed, 
+	even if it is cursed.
+
+	A leashed pet will not want to move more than two squares away 
+	from you. Be aware that leashed pets will also not attack monsters
+	that are not adjacent to you, unless that monster is exactly two
+	cells above, below, or to the side of you.
+
+	A pet that becomes unleashed by a trap (level teleport, trap door,
+	hole, etc.) loses 1 point of tameness.
+
+	A pet choked by a cursed leash may lose 1 point of tameness. This
+	will never reduce tameness below 1.  The chance of this -1 loss 
+	being waived is 1 in tameness.
+
 	They had splendid heads, fine shoulders, strong legs, and
 	straight tails.  The spots on their bodies were jet-black and
 	mostly the size of a two-shilling piece; they had smaller
@@ -5097,6 +5677,17 @@ lembas*
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
 lemure
     The lowliest of the inhabitants of hell.
+lenses
+	Lenses are used by applying or putting them on; while worn, they 
+	protect your eyes from the raven's blinding attack and spat venom,
+	but not from thrown cream pies or other sources of blindness. 
+	Wearing lenses when searching improves your chances of finding 
+	secret doors and corridors, but not traps. Worn lenses also 
+	increase your chances of successfully reading a spellbook by 10%,
+	while reducing the time taken reading by 1⁄3.
+
+	Lenses cannot be worn at the same time as a blindfold or a towel. 
+	They also cannot be worn if you are a headless form.
 larvae
 	The Larvae (Lemures) are Roman spirits of deceased family
 	members.  These malignant spirits dwell throughout the house
@@ -5288,6 +5879,28 @@ lolth
 # long worm -- see "worm"
 looking glass
 mirror
+	Nymphs are often seen with mirrors, and have a 50% chance of being
+	generated with one.
+	
+	Applying a mirror to a monster can scare it; this only works if 
+	they can see it, i.e. they are not eyeless or blind, and you must 
+	not be invisible (unless the monster can also see invisible). 
+	There is an 80% chance of the foe fleeing for 2d4 turns, unless
+	one of the special cases below occurs. Humanoid foes and 
+	unicorns are not fooled by a mirror and won't be frightened. A 
+	cursed mirror only works half the time; the rest of the time it 
+	will "fog up" instead.
+
+	Applying a mirror to a nymph or a foocubus (a succubus in 3.4.3) 
+	will not scare them; instead, the monster will steal the mirror 
+	and teleport away.
+
+	Breaking a mirror gives a −2 penalty to Luck. Hitting a monster 
+	with a wielded mirror will cause it to break and deal one point
+	of damage; this damage also applies to shades, though this is not
+	particularly useful.
+
+
 	But as Snow White grew, she became more and more beautiful,
 	and by the time she was seven years old she was as beautiful
 	as the day and more beautiful than the queen herself.  One
@@ -5343,6 +5956,10 @@ bad luck
 #		 book's title in all lower case; however, its sequel,
 #		 "the toyminator", refers to it using conventional
 #		 capitalization in a couple of early footnotes]
+
+lute
+	When played, the lute has a small chance of ending confusion 
+	effects.
 lug*
 	Lugh, or Lug, was the sun god of the Irish Celts.  One of his
 	weapons was a rod-sling which worshippers sometimes saw in
@@ -5398,6 +6015,16 @@ sceptre
 magic 8-ball
 	Reply hazy, try again.
 magic marker
+	A magic marker is a magical tool in NetHack that can be used to 
+	write magic scrolls and spellbooks. It is a highly sought-after 
+	item for this reason alone, especially for Wizards; with Luck, you 
+	have a good chance of writing scrolls and spellbooks that you have 
+	not even identified yet.
+	
+	In Hack'EM: magic markers will never spawn randomly in-game, and 
+	you cannot polypile for one. Tourists start with a 0:0 magic 
+	marker.
+	
 	The pen is mightier than the sword.
 		[ Richelieu, by Edward Bulwer-Lytton ]
 magic mirror of merlin
@@ -5426,6 +6053,15 @@ magical eye
 	kite its target, making the magical eye somewhat difficult to
 	kill.  Eating its corpse will randomly increase or decrease the
 	player's luck by two points.
+magic whistle
+	A magic whistle appears as a whistle when unidentified.
+	
+	Applying a magic whistle will warp any pets on the level next to 
+	you, even if teleporting is otherwise not possible; this includes 
+	sessile pets. This will auto-identify the whistle. Applying a 
+	cursed magic whistle has a 50% chance to instead awaken monsters 
+	on the same floor.
+	
 bodak
 thin man
     He who fights monsters should be careful lest he thereby become a
@@ -5509,6 +6145,10 @@ bare*handed combat
 	good dependable unarmed combat."
 		[ Parable of the Sower, by Octavia Butler ]
 mask
+	Can be worn on the face like a blindfold. When worn, you turn into
+	the type of creature the mask is of. A mask's BUC status degrades
+	when taken off. Cursed masks will break and damage you when used.
+	
 	"No man, for any considerable period, can wear one face to himself
 	and another to the multitude, without finally getting bewildered as
 	to which may be the true."
@@ -5557,14 +6197,6 @@ mastodon
 	conical projections on the molar teeth.
 		[ Webster's Encyclopedic Unabridged Dictionary
 			of the English Language ]
-*mattock
-	A mattock is an agricultural tool similar to a mining pick.
-	It is distinguished by the head terminating in a broader blade
-	rather than a narrow spike, which makes it particularly suitable
-	for breaking up moderately hard ground. ... During the Middle
-	Ages of Europe, the mattock served as an improvised shafted
-	weapon for the poorer classes.
-		[ Wikipedia, the free encyclopedia ]
 meatball
 	Meatballs have very little nutritional value, but carnivorous 
 	creatures consider them treats similar to tripe rations. Throwing 
@@ -6432,11 +7064,60 @@ phoenix
 		[ The Garden of Sinners ]
 pick*ax*
 broad pick
+dwarvish mattock
+	While classified as a tool and designed for digging, it can also 
+	be used as a weapon - the dwarvish mattock is a similar weapon-
+	tool primarily classified as a weapon.
+
+	The pick-axe and the dwarvish mattock use the pick-axe skill.
+	You can apply a pick-axe to tunnel through walls or the floor, dig 
+	through doors and smash boulders and statues. If you apply it 
+	upward, a rock will fall from the ceiling and bonk you on the head.
+	If you have the autodig option enabled and are currently wielding 
+	a pick-axe, you can dig into walls or the ground by simply walking
+	into them (or pressing >); this does not work for boulders, statues,
+	or doors. You can dig faster by enchanting the pick-axe, playing 
+	as a dwarf and/or using other available methods - somewhat 
+	unusually,your skill level in pick-axe has no bearing on your 
+	digging speed.
+
+	Attacking with a pick-axe gives a +2 to-hit bonus against xorns.
+
+	Shopkeepers will attempt to block off the entrance of their shops 
+	if you have a pick-axe in your inventory. You can drop it at the 
+	entrance to the shop (not counting the doorway), place it into a 
+	container, or try to force your way in by moving behind another 
+	monster. Trying to throw a pick-axe in diagonally will cause the 
+	shopkeeper to swiftly catch it; pulling out a pick-axe from a 
+	container you are carrying while already in the shop will cause the
+	shopkeeper to yell at you - there is no other effect, however, and
+	you can continue to shop as normal. Digging a pit in the floor will
+	have them warn you about falling through; the real danger is that
+	if you make the pit into a hole, objects on that square and adjacent
+	squares can fall through the hole - this counts as theft and will
+	anger the shopkeeper.
+
+
+	Watchmen do not appreciate you digging up the level on their watch,
+	and will warn you if they see you trying to dig through doors or 
+	walls with a pick-axe. Continuing immediately after being warned 
+	will cause those watchmen to become hostile.
+
+	Note: Pickaxes are now quite loud when used to chop down doors.
+	
 	The mine is full of holes;
 	With the wound of pickaxes.
 	But look at the goldsmith's store.
 	There, there is gold everywhere.
 		[ Divan-i Kebir Meter 2, by Mevlana Celaleddin Rumi ]
+		
+	A mattock is an agricultural tool similar to a mining pick.
+	It is distinguished by the head terminating in a broader blade
+	rather than a narrow spike, which makes it particularly suitable
+	for breaking up moderately hard ground. ... During the Middle
+	Ages of Europe, the mattock served as an improvised shafted
+	weapon for the poorer classes.
+		[ Wikipedia, the free encyclopedia ]
 *piercer
 	Ye Piercer doth look like unto a stalactyte, and hangeth
 	from the roofs of caves and caverns.  Unto the height of a
@@ -8102,6 +8783,34 @@ sacrificial knife
 	catch the attention of the Gods when used. Whether the Gods
 	will be pleased, however, is another matter.
 saddle
+	A saddle is a tool that is used to ride a monster, and is made of
+	leather.
+	
+	Applying the saddle to a pet that is eligible as a steed allows 
+	you to ride it. Doing so requires at least one free hand, and the 
+	saddle will become part of the pet's inventory. It is possible to 
+	saddle a non-tame monster, but this is more difficult than
+	saddling a pet, and you will not be permitted to ride the monster 
+	until it is tamed. Riding boots give a bonus to successfully 
+	saddling a monster while worn.
+
+	To remove a saddle from a monster while not riding it, use the 
+	#loot command, a knock spell, or a wand of opening; the saddle 
+	will also be removed if the saddled monster is polymorphed into a 
+	form ineligible to be a steed. Cursed saddles cannot be removed 
+	via looting, and you cannot mount a monster equipped with a cursed
+	saddle; if the saddle is cursed while you are riding, it will 
+	prevent you from dismounting as well.
+
+	Attempting to saddle a foocubus will produce a unique message and 
+	abuse wisdom.
+
+	While riding, the saddle is considered part of your inventory as
+	well; therefore, the spell and scroll of remove curse can now 
+	uncurse a cursed saddle that the character is stuck on. Also, 
+	removing a saddle via the spell of knock or wand of opening while 
+	riding will force the player off.
+
 	The horseman serves the horse,
 	The neat-herd serves the neat,
 	The merchant serves the purse,
@@ -9259,6 +9968,15 @@ squeaky board
 	satisfaction the faint indrawing of breath behind him.  "Good
 	of you to come.  Shut the door, will you?"
 		[ The Light Fantastic, by Terry Pratchett ]
+spoon
+	 Classified as a weapon-tool that uses the knife skill. It is the 
+	 starting "weapon" of the Convict, and acts as the base item for 
+	 the Convict's new quest artifact, the Iron Spoon of Liberation. 
+	 Spoons are not randomly generated.
+	 
+	 Convicts get special backstab bonuses (the same as rogues) when 
+	 attacking with a spoon while their opponent is fleeing or in an 
+	 impaired state
 ~*aesculapius
 *staff
 	So they stood, each in his place, neither moving a finger's
@@ -9372,6 +10090,33 @@ star vampire
 	life energy and blood into itself.  It is said that they
 	become briefly visible just after they have eaten and that
 	this is such a terrible sight it can drive a mortal insane.
+stethoscope
+	The stethoscope is a tool that appears in NetHack, and is used to 
+	determine the status of a monster and listen to dungeon acoustics.
+	
+	The stethoscope can be applied in any direction, including up, 
+	down, or at yourself; stethoscopes require a free hand to use, and
+	will not function while you are deaf. Applying it to a monster 
+	will show you their name, alignment, experience level, hit points, 
+	armor class, and miscellaneous attributes of the target.
+	
+	When applied to yourself, it displays your experience level, HP, 
+	and AC, an accurate appraisal of your alignment record, and many 
+	different properties.
+	
+	The stethoscope's use is free once per action, meaning that it 
+	doesn't count as your action for that turn; applying one twice in 
+	a row will increment the turn counter, and this does not stack with 
+	multiple stethoscopes. A cursed stethoscope has a 50% chance of 
+	just sounding your own heartbeat.
+
+	Applying a stethoscope to a tile with a secret door reveals it; 
+	this does not exercise wisdom. Applying a stethoscope in certain
+	other scenarios may produce YAFM.
+
+	A stethoscope can be used to open an iron safe and may also be 
+	used to identify an egg.
+
 sting
 	There was the usual dim grey light of the forest-day about
 	him when he came to his senses.  The spider lay dead beside
@@ -9710,6 +10455,19 @@ tinning kit
 	"Interesting point, Nobby.  I think-"
 		[ Soul Music, by Terry Pratchett ]
 tin opener
+	You can only apply a tin opener if you have at least one tin in 
+	your inventory - doing so will prompt you to choose which tin you 
+	then want to open and eat. You can also wield it before manually 
+	opening the tin via e. Wielding a tin opener by applying it will 
+	not take up an additional turn if you immediately open a tin when 
+	prompted. Though a tin opener is not a weapon or weapon-tool, a 
+	cursed one will weld to the player's hand when wielded.
+
+	Opening a tin with this tool will do so quickly regardless of the 
+	tin's BUC status. The exact number of turns required to open a tin 
+	depends on the BUC status of the tin opener: 0-2 turns if cursed, 
+	0 or 1 turns if uncursed, and 0 turns if blessed.
+	
 	Less than thirty Cat tribes now survived, roaming the cargo
 	decks on their hind legs in a desperate search for food.
 	But the food had gone.
@@ -9771,13 +10529,68 @@ sea tortle
 			by Christopher Perkins and Jeremy Crawford ]
 toque
     Provides extrinsic sonic resistance when worn.
-    
+torch
+	A lit torch does fire damage to monsters. A new torch can stay lit
+	for 600 to 899 turns before it burns out.
+
+	When a lit torch hits a monster without fire resistance, it deals 
+	1d6 extra damage, and doubles the damage if the monster resists 
+	cold. It also has a chance of destroying potions, scrolls or spell-
+	books in the monster's inventory.
+
+	To light a torch, apply it with a. (Unlike in SlashEM, torches do
+	not require wielding to light.) To extinguish a wielded lit torch, 
+	either apply it again, or wield something else. You can't keep a 
+	lit torch in your pack; you will automatically extinguish the torch. 
+	However, you can drop or throw a lit torch, and it will stay lit. 
+	By dropping a lit torch, you can enjoy its light while you wield a 
+	better weapon.
+
+	Clubs can be dipped into oil to create torches.
 touch*stone
 	"Gold is tried by a touchstone, men by gold."
 		[ Chilon (c. 560 BC) ]
 towel
 wet towel
 moist towel
+	The towel is a multipurpose tool. You can put on a towel using P 
+	and blind yourself, then R to remove it and see again.
+
+	You can also apply the towel for multiple purposes:
+
+	If your fingers are slippery, you can apply a noncursed towel to 
+	wipe them off so you can wield a weapon again.
+	
+	If you are blind because of a cream pie or blinding venom, you can
+	apply a noncursed towel to clean your face and unblind yourself. 
+	(If you remain blind for another reason, "Your face feels clean 
+	now.") Unlike the #wipe command, a towel cleans your face in one 
+	turn.
+	
+	Applying a cursed towel will instead make your fingers slippery or
+	else blind you by gunking up your face.
+	
+	You can also engrave with a towel; you will not actually write 
+	anything, but you will erase anything written with dust, blood, or
+	even magic marker.
+
+	You can no longer wear a towel in a form with no head. 
+	
+	You can also wet a towel through various methods. The wetness 
+	level is an integer between 0 and 7. The appearance of the towel 
+	gives an indication of the wetness level of the towel; the exact 
+	wetness is only shown in wizard mode. A towel can be made wet by 
+	any source of water, including an uncursed potion of water or a 
+	rust trap. This will add 1–7 levels of wetness, to the maximum of
+	7.
+
+	When wielded as a weapon, a wet towel will deal between 1 and 
+	(wetness) damage, capped at 6 damage. There is additionally a 
+	(wetness) in (wetness+1) chance of drying out, losing 1 point of 
+	wetness. Applying the towel, wiping out an engraving in the dust 
+	with the towel, or throwing the towel removes 1 point of wetness.
+
+
 	The Hitchhiker's Guide to the Galaxy has a few things to say
 	on the subject of towels.
 	A towel, it says, is about the most massively useful thing
@@ -10000,7 +10813,7 @@ tyr
 	beneath their thick, scaly hides and their powerful arms and
 	legs all end in great claws.
 *unicorn
-unicorn horn
+~unicorn horn
 	Men have always sought the elusive unicorn, for the single
 	twisted horn which projected from its forehead was thought to
 	be a powerful talisman.  It was said that the unicorn had
@@ -10027,6 +10840,51 @@ unicorn horn
 	warm glow stage, then I use my horn to burn off any excess and
 	keep me right there."
 		[ Unicorn Variations, by Roger Zelazny ]
+unicorn horn
+	The unicorn horn, sometimes called a unihorn, is a weapon-tool.
+	
+	Unicorn horns are not randomly generated and can only be obtained 
+	by killing a unicorn, which leaves an uncursed +0 unicorn horn 
+	behind if killed in a way that leaves a corpse. Horns obtained 
+	from normal unicorns are considered magical items. Revived or 
+	polymorphed unicorns only have a 50% chance of leaving one upon 
+	death; the rest of the time, its horn will crumble to dust.
+
+	As a weapon, the unicorn horn has a dedicated weapon skill which 
+	only it uses.
+		
+	As a tool, applying a noncursed unicorn horn can cure multiple 
+	negative status properties:	Blindness (non-physical),Deafness, 
+	Confusion, Hallucination, Stunning, Sickness, Nausea
+	
+	A unicorn horn cannot cure: Stoning, Sliming, Lycanthropy, Wounded
+	legs, Amnesia, Fear
+	
+	Applying an uncursed unicorn horn will fix (d(2d2) - 1) ailments, 
+	whilst a blessed one can heal (d(2d4) - 1) ailments. A cursed 
+	unicorn horn will instead cause one or more of the applicable 
+	ailments listed above. If you are wearing a ring of sustain 
+	ability, a unicorn horn will not affect your attributes. When used
+	by an intelligent monster with hands, noncursed unicorn horns are
+	guaranteed to work on the first try; monsters will not use cursed 
+	unicorn horns.
+
+	Dipping a noncursed unicorn horn into certain potions can "cure" 
+	them as well: dipping one into a potion of sickness changes it to
+	a potion of fruit juice, and dipping one into a potion of
+	blindness, confusion, or hallucination will turn it into a potion 
+	of water.
+
+	Unicorns can use their own horn, as can a player polymorphed into 
+	a unicorn via the #monster; these produce the same effect as 
+	applying an uncursed unicorn horn.
+
+	Note: Unicorn horns can no longer restore reduced attributes.
+	Alternatives include potions of restore ability, the restore 
+	ability spell, prayer, or gain ability.
+
+	Cursed unicorn horns also no longer reduce attributes. Instead, 
+	they can induce nausea; currently, this gives no message.
 unreconnoitered
 	Area of map which is beyond limited perception range when
 	underwater or engulfed by a monster.
@@ -11213,7 +12071,25 @@ weeping eye
 	They are generally content to float around the dungeon crying,
 	and attacking one will unleash a deluge of tears.
 # magic whistle deserves its own entry
-*whistle
+pea whistle
+tin whistle
+	A pea whistle is a simple nonmagical and non-tonal instrument and 
+	appears as a whistle when unidentified.
+	
+	Applying a pea whistle of any beatitude can wake nearby monsters 
+	from sleep; if your pet is close enough to hear the noise, then 
+	for the next five turns it will try to approach you more closely.
+	Additionally, using a cursed pea whistle in a vault will 
+	immediately summon a guard.
+
+	The range of a pea whistle is sqrt(xlvl*20), which in practice is 
+	half the range of a leather drum. This results in a radius of 
+	about 4 squares at XL 1, 16 squares at XL 14, and a maximum of 24 
+	squares at XL 30.
+
+	You can upgrade pea whistles into magic whistles, making them far 
+	more useful in general.
+	
 	There were legends both on the front and on the back of the
 	whistle. The one read thus:
 
