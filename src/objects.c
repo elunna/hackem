@@ -876,7 +876,7 @@ WEPTOOL("spoon", None,                 1, 0, 0, 0,  0,   1,  1,   2,  2, 0, PIER
 WEPTOOL("fishing pole", None,          1, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_POLEARMS, METAL, HI_METAL), /* Slash'EM */
 WEPTOOL("grappling hook", "iron hook", 0, 0, 0, 0,  5,  30,  50,  2,  6, 0, WHACK,  P_FLAIL,    IRON, HI_METAL),
 WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHACK,  P_CLUB, WOOD, HI_WOOD), /* Slash'EM */
-WEPTOOL("unicorn horn", None,          1, 1, 0, 0,  0,  20, 100,  8, 10, 1, PIERCE, P_UNICORN_HORN, BONE, CLR_WHITE),
+WEPTOOL("unicorn horn", None,          1, 1, 0, 1,  0,  20, 100,  12, 12, 1, PIERCE, P_UNICORN_HORN, BONE, CLR_WHITE),
         /* 3.4.1: unicorn horn left classified as "magic" */
 
 /* manticore spikes - counts as WEPTOOL? */
