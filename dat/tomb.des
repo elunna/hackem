@@ -49,6 +49,8 @@ OBJECT: ('(', "chest"), (47,9)
 GOLD: 10d200,(47,9)
 LOOP [4] { OBJECT: '?', (47,9) }
 LOOP [3] { OBJECT: '!', (47,9) }
+OBJECT: ('!', "water"), (47,9), cursed, 0
+OBJECT: ('!', "water"), (47,9), cursed, 0
 OBJECT: random, (47,9)
 OBJECT: random, (47,9)
 OBJECT: random, random
@@ -67,7 +69,8 @@ GOLD: 10d200, (47,10)
 LOOP [4] { OBJECT: '?', (47,10) } 
 LOOP [4] { OBJECT: '+', (47,10) } 
 LOOP [5] { OBJECT: random, (47,10) } 
-
+OBJECT: ('!', "water"), (47,10), cursed, 0
+OBJECT: ('!', "water"), (47,10), cursed, 0
 MONSTER: ('L', "lich"), (47,9)
 
 LOOP [14] { MONSTER: (' ', "shadow"), random }
