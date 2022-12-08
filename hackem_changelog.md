@@ -60,13 +60,11 @@
 - [x] Auto-ID BUC of products from BUC identified item generator (from UnNetHackPlus).
 - [x] Rustproof/erodeproof/fixed status is known by default for all items (from DynaHack).
 - [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
-- [x] Non-cursed charging identifies how many charges an item has (from AceHack).
 - [x] You can reread a spellbook to refresh your memory at any time
 - [x] After a while of using a wielded weapon, you will identify it and it's enchantment
 - [x] Blessed stethoscopes can identify eggs (on the floor)
 - [x] The player's magic cancellation (MC) is shown in the status bar.
 - [x] Show the last turn the player prayed in the ^X screen
-- [x] Only blessed scrolls of charging identify the charges of an item.
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Default shk sell prompt to N (xnh)
 - [x] Regeneration only causes additional hunger when injured.
@@ -84,15 +82,59 @@
 - [x] Removed all random secret corridors.
 - [x] Removed the Quest turn limit
 - [x] Deliberate level teleporter activation ignores magic resistance (3.7)
+- [x] Attempting to open "." acts as an alias for #loot
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
-- 
+- [x] Realtime display option is now available (thanks K2!)
 
+Wishing shortcuts:
+    { "BoL",  LEVITATION_BOOTS},
+    { "BoS",  SPEED_BOOTS},
+    { "SB",  SPEED_BOOTS},
+    { "BoWW",  WATER_WALKING_BOOTS},
+    { "WWB",  WATER_WALKING_BOOTS},
+    { "CoD",  CLOAK_OF_DISPLACEMENT},
+    { "CoI",  CLOAK_OF_INVISIBILITY},
+    { "CoMR",  CLOAK_OF_MAGIC_RESISTANCE},
+    { "GoD",  GAUNTLETS_OF_DEXTERITY},
+    { "GoP",  GAUNTLETS_OF_POWER},
+    { "HoB",  HELM_OF_BRILLIANCE},
+    { "HoOA",  HELM_OF_OPPOSITE_ALIGNMENT},
+    { "HoT",  HELM_OF_TELEPATHY},
+    { "SoR",  SHIELD_OF_REFLECTION},
+    { "AoESP",  AMULET_OF_ESP},
+    { "AoLS",  AMULET_OF_LIFE_SAVING},
+    { "RoC", RIN_CONFLICT },
+    { "RoPC", RIN_POLYMORPH_CONTROL },
+    { "RoTC", RIN_TELEPORT_CONTROL },
+    { "SoC", SCR_CHARGING },
+    { "SoEA", SCR_ENCHANT_ARMOR },
+    { "SoEW", SCR_ENCHANT_WEAPON },
+    { "SoG", SCR_ANNIHILATION },
+    { "genocide", SCR_ANNIHILATION },
+    { "SoI", SCR_IDENTIFY },
+    { "SoRC", SCR_REMOVE_CURSE },
+    { "PoEH",  POT_EXTRA_HEALING},
+    { "PoGL",  POT_GAIN_LEVEL},
+    { "PoW",  POT_WATER},
+    { "pmd",  POT_MONSTER_DETECTION},
+    { "WoCM",  WAN_CREATE_MONSTER},
+    { "WoT",  WAN_TELEPORTATION},
+    { "WoUT",  WAN_UNDEAD_TURNING},
+    { "BoH", BAG_OF_HOLDING },
+    { "ML", MAGIC_LAMP },
+    { "MM", MAGIC_MARKER },
+    { "UH", UNICORN_HORN },
+    
 Object lookup has been fleshed out:
 - [x] Potions, scrolls, rings, amulets, wands will display lookup info.
 - [x] Artifacts will show their info (must have the artifact in possession)
 - Weapons show bonus damage and effects resulting from materials.
 
+
+Wiz-Mode updates:
+- [x] #wizclear (^c), clears all monsters on level (splice)
+- [x] Can also wish for monsters with ^w (Un)
 
 ## Monster changes
 
@@ -246,7 +288,8 @@ Object lookup has been fleshed out:
 - (j) rancid jelly
     - added vulnerable to fire (matches existing j)
 - (k) swamp kobold
-    - Added swimming 
+    - Added swimming
+    - Only generates in swamps.
 - (k) rock kobold
     - sometimes start with a sling and some rocks.
 - (k) kobold warrior
@@ -342,6 +385,7 @@ Object lookup has been fleshed out:
 - (r) hedgehog
     - Previously occupied the 'q' slot
     - Removed the "always peaceful" flag.
+    - can be tamed by zapping them with speed monster.
 - (r) enormous rat
 - (r) rodent of unusual size
 - (s) jumping spider
@@ -604,6 +648,7 @@ Object lookup has been fleshed out:
 - (`) wax golem
     - can be created from wax poly.
     - Wax golems have a small chance of death dropping a magic candle
+    - Vulnerable to cold
 - (`) plastic golem
     - Can drop credit cards and fake amulets.
 - (`) snow golem
@@ -789,6 +834,7 @@ Object lookup has been fleshed out:
 - [x] Gnomes outside the Mines have a chance of generating with a few gems
 - [x] Dwarves have a 6/7 chance to be generated with a potion of booze (Outside of the mines)
 - [x] Hobbits may carry some healthy snacks
+- [x] Orc captains now are lords and have speed 9 (xnh)
 - [x] Ice Devil gets an additional slow attack.
 - [x] Rock trolls are now stoning resistant (from xnh)
 - [x] Olog Hai are now poison resistant
@@ -1040,6 +1086,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Replaces leather armor as part of the object materials system.
 - [x] shimmering dragon scales (already in evil)
 - [x] robe of protection
+    -  Provides MC1.
 - [x] robe of power
 - [x] robe of weakness
 
@@ -1048,6 +1095,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] plain cloak
     - Replaces the leather cloak as part of the object materials system.
 - [x] poisonous cloak
+    - Grants MC3
     - Now these are usually generated cursed.
     - If worn, these also prevent regeneration (regardless of poison resistance)
 - [x] cloak of flight
@@ -1059,6 +1107,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Grants sonic resistance
 - [x] tinfoil hat
     - Grants Psychic Resistance, protection against brain eating.
+    - Weighs 0, made out of METAL.
 - [x] helm of speed
     - Grants very fast speed.
 - [x] helm Of madness (HackEM)
@@ -1119,6 +1168,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] pill
     - Make case 4 ("tastes like vitamins") only give 80 nutrition, but also grants gain ability (like fountains, blessed if high luck)
     - Pills always cure larval infection.
+    - If the 1 in 7 chance for a wish is hit, there is a further roll of 1 in (25 - luck) required to attain the wish.
 - [x] holy wafer
 - [x] pineapple
     - Gains bonuses when used as a thrown weapon. 
@@ -1267,17 +1317,20 @@ New magical staves: These were introduced in Evil and each one grants a large bo
   - A mask's BUC status degrades when taken off. 
   - Cursed masks will break and damage you when used.
 - [x] Eight ball (plastic Orb)
-  - base item for the artifact Magic 8-Ball. Does not appear randomly.
+  - The Magic 8-Ball has been removed; 
+  - Ordinary eight balls can be shaken (when applied) and read for fortunes.
+  - Not generated randomly.
 - [x] torch
-  - (The slashem implementation of torches was a bit cumbersome for the player, you could only have a lit torch by wielding it. I have tried to address that.)
-  - Removed requirement for torches to be wielded -(lamps don't need to be wielded, so why would torches?)
-  - Unwielding does not snuff the torch.
+  - (The slashem implementation of torches was a bit cumbersome for the player, you could only have a lit torch by wielding it and applying a torch would auto-wield it)
+  - Removed requirement for torches to be wielded.
   - Applying does not auto-wield the torch
+  - Unwielding does not snuff the torch.
   - Dwarves in mines frequently get lit torches now.
   - Putting lit torches into containers auto-snuffs.
   - Clubs can be dipped into oil and turned into torches (from dnh)
+  - Torches do an extra 1d6 vs non-fire resistant, and double damage vs cold resistant.
 - [x] Spoons
-    - 1d2 vs small, 1d1 vs large.
+    - Raised damage to 1d2 vs small and large.
     - Convicts starting weapon (uses knife skill)
     - Base item for Iron Spoon Of Liberation.
     - Spoons don't generate randomly.
@@ -1379,9 +1432,11 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Anhillations from thrones are dungeon-wide
 - [x] blessed scroll of teleport
     - Let's you control your destination as if you had teleport control.
-- [x] Scrolls of gold detection: 
-    - confused reading shows only real traps, not magic portals.
 - [x] Confused scroll of identify gives enlightenment
+- [x] Buffed the effects of the scroll of light (xnh)
+    - Uncursed light now gives radius 11 light 
+    - blessed light now illuminates the entire level.
+- [x] Blessed scroll of destroy armor asks which armor to destroy (xnh)
 
 #### Other magic items
 
@@ -1419,7 +1474,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Putting blessed and uncursed scrolls of charging into a bag of tricks charges it.
 - [x] Unicorn horns:
     - no longer cure attribute loss;
-    - they can now be wielded in one hand.
+    - 2-handed d12 weapon
+- [x] lenses
+    - lenses now grant automatic searching when worn (fiq)
 - [x] luckstones:
     -  will slow down your luck timeout based on its beatitude;
     - a blessed luckstone no longer halts the timeout entirely.
@@ -1434,7 +1491,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Changed sm/lg damage to d20/d30 damage (From SlashEM)
     - Long worms only drop a worm tooth 1 in 20 times.
 - [x] fedora
-    - Now acts as luckstone and grants +1 charisma
+    - grants +1 charisma
+    - archeologists get a luck bonus from wearing fedoras.
 - [x] iron shoes were renamed to 'dwarvish boots'.
 - [x] Robes occupy the body armor slot instead of the robe slot (SlashEM)
   - This means that dragon scaled robes are possible in HackEM!
@@ -1459,27 +1517,36 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Removed cursed weapons reverse hitting (was in EvilHack)
     - Cursed weapons will miss 25% of the time now instead of 20% to compensate.
 - [x] Launchers now contribute to damage.
+- [x] Gloves' enchantment is now added to unarmed damage
 
 
-[x] 1/40 of random non-artifact weapons will be generated erodeproof (xnh)
-[x] 1/40 of random non-artifact items will be generated as pre-eroded (xnh)
-[x] Grease will generate on an erodable object every once in a great while (xnh)
+- [x] 1/40 of random non-artifact weapons will be generated erodeproof (xnh)
+- [x] 1/40 of random non-artifact items will be generated as pre-eroded (xnh)
+- [x] Grease will generate on an erodable object every once in a great while (xnh)
 
+- [x] breakable locking tools and musical instruments
+  - There is now an method for deciding the breakability of these classes of items.
+  - The base probability is 1 in n, where n is the density of the item's material:
+  - If blessed, n is doubled
+  - If cursed, n is halved.
+  - If eroded, n is divided by 2 for each level of erosion (this included multiple types of erosion, so a rusted, corroded key would have n divided by 4)
 
+  - Currently these materials are ignored: paper, veggy, Flesh, Cloth, wax, leather, dragonhide
+  - Relevant material densities:
+    - 20: plastic
+    - 25: bone
+    - 30: wood, mithril
+    - 55: gemstone
+    - 60: glass
+    - 70: mineral
+    - 75: metal
+    - 80: iron
+    - 85: copper
+    - 90: silver
+    - 120: gold/platinum
 
-- [x] breakable locking tools (keys/lockpicks/credit cards) 
-  - non-blessed have a 5% chance of breaking with each use, whether locking or unlocking.
-  - Rogues have only have a 1 in 60 chance of breaking a non-blessed lock pick.
-  - Tourist have only have a 1 in 40 chance of breaking a non-blessed credit card.
-  - cursed have a 20% chance of breaking each use.
-  - Artifact locking tools are not affected.
-
-- [x] All musical instruments can now break 
-    - Artifact instruments are safe from breaking on apply.
-    - If you are fumbling, afraid, or the instrument is cursed, there is a 1 in 8 chance it will break when you attempt to play it.
-    - Uncursed instruments have a 1 in 50 chance of breaking.
-    - Blessed instruments won't break
-    - If you are an elf, you will never break an instrument this way.
+  - Artifacts will never be subject to breaking
+  - If you are fumbling with a musical instrument - it will always break (unless you are an elf)
 
 Imported some appearance effects from dNetHack:
 
@@ -1487,9 +1554,9 @@ Imported some appearance effects from dNetHack:
 - [x] Mud boots make you more resistant to wrap attacks (dnh)
 - [x] Hiking boots grant +100 to carrying capacity
 - [x] Jungle boots prevent many types of leg injury
-- [x] padded gloves +1 AC 
-- [x] old gloves can't be eroded
-- [x] fencing gloves +2 attack with one handed weapon and no shield
+- [x] Padded gloves +1 AC 
+- [x] Old gloves can't be eroded
+- [x] Fencing gloves +2 attack with one handed weapon and no shield
 
 ## Spells/Spellcasting
 
@@ -1867,6 +1934,8 @@ Imported some appearance effects from dNetHack:
 - [x] Allow forcefighting of webs with a bladed weapon to destroy them
 - [x] The Castle drawbridge does not always close with the passtune
 - [x] Invisibility from magic traps is temporary.
+- [x] 1/7 chance a polytrap disappears after polymorphing a monster. (splice)
+- [x] Thrown items can get stuck in webs (3.7)
 
 #### Breaking wands:
 - Breaking wands will usually create related traps (unnethack)
@@ -1891,13 +1960,22 @@ Imported some appearance effects from dNetHack:
     - Pulled from SpliceHack/xNetHack, we now have lush grass in the dungeon!
     - Grass appears sparsely in the early levels, peaks around level 15, and then tapers off after level 22. 
     - Hidey monsters can use grass as concealment.
-    - Fire scorches away grass and reverts it to normal floor
+    - Fire and death rays scorch away grass and revert it to normal floor
 
 ### Blood
 
     - Also pulled from Splice.
     - When monsters are killed, they have a chance to spray blood in a random direction and color a tile red. No real effect on gameplay, purely aesthetic.
+    - The amount of blood depends on monster size.
     - Spraying bloody tiles with a ray of water (ie: from a wand of water) will clear the tile of it's blood.
+    - When bloody tile is walked over, there is a 1 in 20 chance it will erode away.
+    - Orc blood is black.
+
+### Vents
+
+    - From Splice
+    - Vents appear after level 3. 
+    - After level 6, 66% of vents will emit poison gas instead of harmless mist.
 
 ### Toilets:
 
@@ -1983,9 +2061,10 @@ Imported some appearance effects from dNetHack:
 - [x] Added LarvaCarrier property - some monsters can infect you with eggs!
 
 ### Upgrading/Tinker
+
 - [x] Upgrading mechanic (via potions of gain level from Slash'EM)
     - [x] Instead of crystal balls upgrading to magic markers, they upgrade to lenses (going to markers didn't make much sense, and it wasn't too useful since the marker would only have a handful of charges)
-    - I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves, boomerangs, and other wooden weapons.
+    - I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves and boomerangs
     - I also added upgrade paths for all special new armors
     - The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
 
@@ -2081,7 +2160,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
 - Level with trees have a chance of an additional axe (to aid with potential overgrowth)
 
-#### alchemy
+#### Alchemy
 
 - Alchemic blast damage is double, but acid resistance halves it (xnh)
 - Incorporate Malcolm Ryan's Brewing Patch
@@ -2095,45 +2174,33 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 that you begin fermenting. Allows you to buy the new, possibly more
 expensive potion at the cost of the fruit juice.
 
+- Potions can now be poured down into sinks (xnh). Allows for safer identification of potions by dumping them down the drain, leaving the hero to suffer only vapor effects. This is done by selecting a potion to #dip while
+standing on top of a sink. If a potion of polymorph is poured down a sink, it polymorphs it.
+
 ## Dungeon Changes:
 
 - [x] Adjust secret passage frequency and exclude them from DL 1-4 (xnh)
 - [x] Random doors are secret less of the time (xnh)
 - [x] Kicking a "wall" that is actually a secret of some sort will never injure the player and will always produce an unambiguous message that there's something there. This makes it a valid strategy to kick every wall suspected of hiding something, because a single kick will give a yes/no on whether it's a regular wall or not. It's still not a *great* strategy, because the real walls will still hurt and wound legs like normal. (xnh)
 
-
-- [x] Extend main dungeon: Now 31-34 levels deep
-  - (Slashem was 42-47, but this went over the max)
-- [x] Adjusted ludios (appears levels 10-30)
-    - Ludios appears on the first eligible level.
+- [x] Extended the main dungeon: Now 35-39 levels deep
+- [x] Ludios appears on the first eligible level.
 - [x] Adjusted oracle (appears levels 5-9)
-- [x] Adjusted Nymph level (appears levels 8-30)
+    - The fountains in Delphi can sometimes cause hallucination (splice)
+
 
 - [x] Removed Goblin Town and requirement to defeat Goblin King (Evil)
-      Commit: https://github.com/k21971/EvilHack/commit/7829e667eec8aa393821ada29c38b5160845c3e7
 
 - [x] Gnomish Mines:
-    - Include new different types of gnomes, dwarves, and thieves.
-    - Added dwarf/gnome thieves to most town/minetown variants
-    - Removed river/sewage generation from Gnomish Mines
-    - Gnomish mines monsters will usually be undead if you are a dwarf, gnome, or hobbit (from SlashEM)
-      - This can make the mines a very dangerous place so beware!
-      - Update: Instead of making undead mine denizens dependant on your alignment, the chance scales with the dungeon deptch. At the top of the mines, undead should be quite rare, but at mine's end beware.
-
-    - Imported minetown variants: 
-        - Mini-Castle (SlashTHEM)
-        - Creek Town (SlashTHEM)
-        - Ruined & Dangerous Town (SlashTHEM)
-        - Lavender Town (SpliceHack)
-    - Mine's End levels, added:
-        - Gnome King's Apiary (slashthem)
-        - Boulder Bonanza (slashthem)
-    - Added Gnome King endings:
-        - Ruggo the Gnome King's level from slashem
-        - Ruggo the Gnome King's level from slashthem
-        - Moved The Sewers of Waterdeep into the Gnome King's ending instead, 
-            replaced rat king with Ruggo.
-        - Create a variant of the dnh drow noble quest level (Ndr-loca")
+    - Lengthened Gnomish Mines depth by 2 levels.
+    - Added new different types of gnomes, dwarves, and thieves.
+    - Added dwarf/gnome thieves to most town/minetown variants. Evil added
+    - The river/sewage generation from Evil only occurs on level deeper than minetone.
+    - Monsters will usually be undead if you are a dwarf, gnome, or hobbit (from SlashEM) Instead of making undead dependant on your alignment, the chance scales with the dungeon depth. At the top of the mines, undead should be quite rare, but at mine's end beware.
+    
+    - Imported minetown variants from SlashTHEM and SpliceHack: 
+    - Imported Mine's End levels from SlashTHEM
+    - Imported Gnome King ending frmo SlashEM, SlashTHEM:
 
 - [x] Sokoban
     - The last room of Sokoban has more prize variety, with a catch.
@@ -2145,11 +2212,14 @@ expensive potion at the cost of the fruit juice.
     - Created a Kobold "mall" level that is peaceful and has a lot of shops.
     - Created a "Raided Angband" level that is been ransacked by bandits and thieves.
     
-- [x] The Rogue level has been removed.
+- [x] Randomized "Themed Denizen" room (appears 10-14)
+    - picked from:
+    - The Rat Level (Slash'EM)
+    - The Rat Level (SlashTHEM)
+    - The Nymph Level
+    - The Jermlaine Village (new in Hack'EM)
 
-- [x] Imported the Rat level (levels 10-11)
-    - generates in 25% of games, rather than 50%.
-    - Contains a guaranteed bag of rats.
+- [x] The Rogue level has been removed.
 
 - [x] Imported Alignment Quests (appears 15-19, From SlashEM)
     - The alignment quests are now totally optional 
@@ -2168,43 +2238,35 @@ expensive potion at the cost of the fruit juice.
         - Acererak now guards the Staff of Rot
 
 - [x] Imported Grund's Stronghold (appears 20-21)
-    - Add a couple rows of spear traps to Grunds.
-    - Convert Grunds to a mandatory level at 19/20/21 
-    - Grunds downstairs are behind the throne.
-    - Added a phase blocking line to middle of Grunds stronghold
-    - Made moat 2 tiles wide; can be lava, water, or sewage.
-    - Grund must be defeated to take the downstairs
-    - Grund must be defeated to take the upstairs on Grunds Stronghold if you have the amulet. (Infidels take notice!)
+    - Added more traps and moat, the stronghold wall is phaseproof.
+    - Grund must be defeated to take the downstairs. 
+    - If you have the amulet, he also must be defeated to take the upstairs (Infidels take notice!)
 
 - [x] Extended Wyrm Caves branch (Appears level 21-22)
-    - 8-9 levels deep
-    - Has standard mines fill levels - but with the rivers mixed in.
-    - Created dynamic narrow passage filler levels that are always random.
+    - 5-6 levels deep
     - Created an entrance level (from dnh Erebor.des)
-    - Imported the Spider Caves and move here as an optional branch.
-    - You'll encounter one "nest" level
-    - 66% chance of encountering the Jermlaine village
-    - Bottom is a dragon nest (from UnNetHack) with baby and adult dragons, as well as eggs and a treasure horde.
+    - Created dynamic narrow passage filler levels that are always random.
+    - At the bottom is a dangerous dragon nest a massive treasure horde.(from UnNetHack)
     
 - [x] Imported Black Market (appears 23-24):
     - Reduce Black Market prices a bit.
     - Black Market Layout 1: Thinner normal shop.
     - Now undiggable and phaseproof.
 
-- [x] Imported the Storage room (appears 22-30)
-    - Added the 4 variations from dnh
+- [x] Imported the Storage Room (appears 22-30)
+    - Added 4 variations from dnh
 
-- [x] Imported The Lost Tomb (appears 25-29)
 
-- [x] Imported the Sunless Sea
+
+
+- [x] Randomized "Lost SLASH'EM Levels Branch" (appears 25-30)
+    - Instead of cluttering the dungeon with all the one-level branches from Slash'EM, a single one will be picked from these.
+        - The Lost Tomb
+        - Spider Caves
+        - The Sunless Sea
+        - The Giant Caves
 
 - [x] Imported The Temple of Moloch (appears 26-29)
-    
-- [x] Lethe Gorge/Gulf of N'Kai:
-    - Implemented from the Lethe Patch (without the lethe water)
-    - I added this branch just after Medusa's Island.
-    - Gulf of nkai levels at combined at the bottom of lethe gorge.
-    - Import the lower castle dungeon as a separate mini branch
 
 - [x] Gehennom
     - no longer a series of mazes, but are mines-style levels with lava. 
@@ -2214,10 +2276,11 @@ expensive potion at the cost of the fruit juice.
     - Vibrating square: messages when player is near
 
 - [x] Vecna's Domain
-    - completely new and optional side branch has been added, known as  - Vecna is an uber-powerful Lich that is the source of power for all other liches. Because of this, all types of liches (including alhoons) cannot be genocided until Vecna is destroyed.
+    - completely new and optional side branch has been added. Vecna is an uber-powerful Lich that is the source of power for all other liches. Because of this, all types of liches (including alhoons) cannot be genocided until Vecna is destroyed.
 
 - [x] Elemental Planes:
     - The first four Planes levels are randomized and appear in a different order every game.
+
 - [x] Additional variants of the Castle, Fort Ludios, Sokoban, Mine Town and Mines End have been added.
 
 ### New special rooms
@@ -2259,7 +2322,9 @@ resistance
 - [x] Replaced Iron Ball of Liberation with Iron Spoon of Liberation
 - [x] Convicts cannot buy services if banned from a shop.
 - [x] Added secret doors to some of the cells on the quest home level, and around the level, so it's easier to navigate.
-- [x] Convicts start with a spoon.
+- [x] Convicts start with a spoon (which uses knife skill). Convicts get backstab bonuses (similar to Rogue) when wielding a spoon.
+- [x] Town watchguards will get angry if they witness a convict on the loose - however, now you can wear a blindfold or towel (or be polymorphed) to disguise yourself.
+- [x] For balance, vampiric convicts do not start on the edge of hunger - they get a little head start and start on the verge of satiated instead.
 
 #### Infidel
 
@@ -2520,6 +2585,8 @@ Renews magical power:
 - If the target is peaceful, there is a chance the target will not notice depending on the players' skill in thievery.
 - Critical strike from behind works while twoweaponing.
 - Grimtooth is the first sacrifice gift for Rogues.
+- Give Rogues backstab bonus on a whole bunch of other monster statuses (xnh)
+- The backstab formula has been adjusted: Bonus based on skill with a cap.(xnh)
 
 #### Samurai
 
@@ -2576,29 +2643,33 @@ Starts with the Psionic Wave spell:
 
 #### Vampires:
 
-- extra attack – drain life bite
+- Vampirics get an extra attack – a drain life bite
 - Can only drain corpses and drink blood.
+- From Splice: Vampirics get almost double the nutrition from feeding on life blood, they start with both blood potions known.
 - Added amusing custom messages for draining corpses.
-- restricted in the two-weapon skill.
-- Start with a small penalty to luck (-1) and alignment (-5)
 - Vampires who wear an Opera cloak get a +1 Charisma bonus
-- Vampires can wield and wear silver items, but it blocks their natural regeneration
-- Can only be chaotic.
-- As Vampires, they are vulnerable to silver (watch out!))
-- I tried to space out the intrinsics a bit, since it felt like vampires started out overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires usually enjoy.
-- Disabled #monster polymorph for the vampiric race. 
+- Can be chaotic or neutral.
 
-| Level | Ability            |
-| ------|--------------------|
-| Level 1: | Flying             |
-| Level 1: | Drain/Death res    |
-| Level 1: | Vulnerable to fire |
-| Level 3: | Breathless         |
-| Level 5: | Regeneration       |
-| Level 7: | Poison resistance  |
-| Level 9: | Flying             |
-| Level 16: | Sleep resistance   |
+- I tried to space out the intrinsics a bit, since it felt like vampires started out overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires usually enjoy.
+| Level | Ability             |
+| ------|---------------------|
+| Level 1: | Drain resistance    |
+| Level 1: | Wither resistance(*)    |
+| Level 1: | Vulnerable to fire  |
+| Level 3: | Breathless          |
+| Level 5: | Regeneration        |
+| Level 7: | Poison resistance   |
+| Level 9: | Flying              |
+| Level 16: | Sleep resistance    |
 | Level 21: | Sickness resistance |
+
+(*) mummies instead inflict regular physical damage to withering resistant monsters.
+Weaknesses:
+- As Vampires, they are vulnerable to silver (watch out!))
+- Vampires can wield and wear silver items, but it blocks their natural regeneration
+- Restricted in two-weapon skill.
+- Start with a small penalty to luck (-1) and alignment (-5)
+- Disabled #monster polymorph for the vampiric race.
 
 ### Existing role changes
 
@@ -2750,8 +2821,9 @@ Tinker service:
 
 #### Misc shop changes
 
-- [x] Lighting shops can carry wands of light/lightning.
+- [x] Lighting shops can now carry wands/scrolls/spellbooks of light, as well as the rare wand of lightning.
 - [x] Delis can carry meat sticks and huge chunks of meat.
+- [x] Hardware stores stock potions of oil, and rarely touchstones (xnh)
 
 ## Credits
 
@@ -2766,4 +2838,3 @@ Tinker service:
 
 
 ==========================
-
