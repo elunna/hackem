@@ -1626,11 +1626,8 @@ domove_core()
         /* check slippery ice */
         on_ice = !Levitation && is_ice(u.ux, u.uy);
         if (on_ice) {
-            static int skates = 0;
 
-            if (!skates)
-                skates = find_skates();
-            if ((uarmf && uarmf->otyp == skates) 
+            if ((uarmf && objdescr_is(uarmf, "snow boots"))
                 || Role_if(PM_ICE_MAGE)
                 || resists_cold(&youmonst)
                 || Flying 
@@ -3703,7 +3700,7 @@ weight_cap()
                 carrcap -= 100;
             
             /* these carrcap modifiers only make sense if you have feet on the ground */
-            if (boots && boots->otyp == find_hboots()) 
+            if (boots && objdescr_is(boots, "hiking boots")) 
                 carrcap += 100;
         }
         if (carrcap < 0)

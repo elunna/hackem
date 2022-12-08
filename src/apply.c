@@ -2030,7 +2030,7 @@ int magic; /* 0=Physical, otherwise skill level */
                 
                 /* Jungle boots protect us from wounding, but also take the 
                  * brunt of the damage. */ 
-                if (uarmf && uarmf->otyp == find_jboots()) {
+                if (uarmf && objdescr_is(uarmf, "jungle boots")) {
                     losehp(rnd(10), "jumping out of a bear trap", KILLED_BY);
                     set_wounded_legs(side, rn1(100, 50));
                     for (bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {
@@ -2038,10 +2038,10 @@ int magic; /* 0=Physical, otherwise skill level */
                     Your("boots are damaged!");
                     }
                 } else {
-                        losehp(Maybe_Half_Phys(d(5, 6)),
-                               "jumping out of a bear trap", KILLED_BY);
-                        set_wounded_legs(side, rn1(1000, 500));
-                    }
+                    losehp(Maybe_Half_Phys(d(5, 6)),
+                           "jumping out of a bear trap", KILLED_BY);
+                    set_wounded_legs(side, rn1(1000, 500));
+                }
                 break;
             }
             case TT_PIT:
@@ -4430,7 +4430,7 @@ struct obj *obj;
     boolean fillmsg = FALSE;
     int expltype = EXPL_MAGICAL;
     char confirm[QBUFSZ], buf[BUFSZ];
-    boolean is_fragile = (!strcmp(OBJ_DESCR(objects[obj->otyp]), "balsa"));
+    boolean is_fragile = objdescr_is(obj, "balsa");
 
     if (!paranoid_query(ParanoidBreakwand,
                        safe_qbuf(confirm,

@@ -1296,7 +1296,7 @@ struct attack *mattk;
      * Doesn't apply to brain attacks. */
     else if (mattk->adtyp != AD_DRIN 
              && uarmf 
-             && uarmf->otyp == find_mboots() 
+             && objdescr_is(uarmf, "mud boots")
              && (rnl(10) < 5)) {
         pline("%s %s you, but you quickly free yourself!",
               Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
@@ -1954,7 +1954,7 @@ register struct attack *mattk;
                                || uarmf->otyp == DWARVISH_BOOTS)) {
                     pline("%s pricks the exposed part of your %s %s!",
                           Monst_name, sidestr, leg);
-                } else if (uarmf->otyp != find_jboots() && !rn2(5)) {
+                } else if (!objdescr_is(uarmf, "jungle boots") && !rn2(5)) {
                     /* Jungle boots protect from this wounding */
                     pline("%s pricks through your %s boot!", Monst_name,
                           sidestr);

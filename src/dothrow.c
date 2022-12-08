@@ -1890,7 +1890,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         tmp += (ACURR(A_DEX) - 14);
 
     /* combat boots give +1 to-hit for thrown */
-    if (uarmf && uarmf->otyp == find_cboots()) 
+    if (uarmf && objdescr_is(uarmf, "combat boots")) 
         tmp += 1;
     
     /* Modify to-hit depending on distance; but keep it sane.

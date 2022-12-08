@@ -257,140 +257,26 @@ shuffle_all()
     return;
 }
 
-/* find the object index for snow boots; used [once] by slippery ice code */
-int
-find_skates()
+/* Return TRUE if the provided string matches the unidentified description of
+ * the provided object. */
+boolean
+objdescr_is(obj, descr)
+struct obj * obj;
+const char * descr;
 {
-    register int i;
-    register const char *s;
+    if (obj == NULL) {
+        impossible("objdescr_is: passed null object");
+        return FALSE;
+    }
 
-    for (i = SPEED_BOOTS; i <= LEVITATION_BOOTS; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "snow boots"))
-            return i;
-
-    impossible("snow boots not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for combat boots */
-int
-find_cboots()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = SPEED_BOOTS; i <= LEVITATION_BOOTS; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "combat boots"))
-            return i;
-
-    impossible("combat boots not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-
-/* find the object index for mud boots */
-int
-find_mboots()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = SPEED_BOOTS; i <= LEVITATION_BOOTS; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "mud boots"))
-            return i;
-
-    impossible("mud boots not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for hiking boots */
-int
-find_hboots()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = SPEED_BOOTS; i <= LEVITATION_BOOTS; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "hiking boots"))
-            return i;
-
-    impossible("hiking boots not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for jungle boots */
-int
-find_jboots()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = SPEED_BOOTS; i <= LEVITATION_BOOTS; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "jungle boots"))
-            return i;
-
-    impossible("jungle boots not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for riding boots */
-int
-find_rboots()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = SPEED_BOOTS; i <= LEVITATION_BOOTS; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "riding boots"))
-            return i;
-
-    impossible("riding boots not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for old gloves */
-int
-find_ogloves()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = GLOVES; i <= GAUNTLETS_OF_DEXTERITY; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "old gloves"))
-            return i;
-    
-    impossible("old gloves not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for padded gloves */
-int
-find_pgloves()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = GLOVES; i <= GAUNTLETS_OF_DEXTERITY; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "padded gloves"))
-            return i;
-    
-    impossible("padded gloves not found?");
-    return -1; /* not 0, or caller would try again each move */
-}
-
-/* find the object index for fencing gloves */
-int
-find_fgloves()
-{
-    register int i;
-    register const char *s;
-    
-    for (i = GLOVES; i <= GAUNTLETS_OF_DEXTERITY; i++)
-        if ((s = OBJ_DESCR(objects[i])) != 0 && !strcmp(s, "fencing gloves"))
-            return i;
-    
-    impossible("fencing gloves not found?");
-    return -1; /* not 0, or caller would try again each move */
+    const char * objdescr = OBJ_DESCR(objects[obj->otyp]);
+    if (objdescr == NULL) {
+        /* possible if called on something like uarmh and the hero is wearing a
+         * dented pot which has no unidentified description; in any case, it
+         * definitely doesn't match. */
+        return FALSE;
+    }
+    return !strcmp(objdescr, descr);
 }
 
 /* level dependent initialization */

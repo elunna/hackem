@@ -942,7 +942,7 @@ xchar x, y;
                 
                 /* Jungle boots protect us from wounding, but also take the 
                  * brunt of the damage. */ 
-                if (uarmf && uarmf->otyp == find_jboots()) {
+                if (uarmf && objdescr_is(uarmf, "jungle boots")) {
                     losehp(rnd(10), "leg damage from being pulled out of a bear trap", KILLED_BY);
                     set_wounded_legs(side, rn1(100, 50));
                     for (bootdamage = d(1, 5); bootdamage >= 0; bootdamage--)  {

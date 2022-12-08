@@ -80,7 +80,7 @@ int hurt;
             break;
         case 3:
             target = which_armor(mdef, W_ARMG);
-            if (target && target->otyp == find_ogloves())
+            if (target && objdescr_is(target, "old gloves"))
                 /* Old gloves are already as damaged as they're going to get */
                 break;
             if (!target
@@ -368,13 +368,13 @@ int *attk_count, *role_roll_penalty;
     }
 
     /* combat boots give +1 to-hit */
-    if (uarmf && uarmf->otyp == find_cboots()) 
+    if (uarmf && objdescr_is(uarmf, "combat boots")) 
         tmp += 1;
     
     /* fencing gloves increase weapon accuracy when you have a free off-hand */
     if (weapon && !bimanual(weapon) && !which_armor(mtmp, W_ARMS)) {
         struct obj * otmp = which_armor(mtmp, W_ARMG);
-        if (otmp && otmp->otyp == find_fgloves())
+        if (otmp && objdescr_is(otmp, "fencing gloves"))
             tmp += 2;
     }
     /* if unskilled with a weapon/object type (bare-handed is exempt),

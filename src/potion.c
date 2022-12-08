@@ -628,7 +628,6 @@ int
 dodrink()
 {
     register struct obj *otmp;
-    const char *potion_descr;
 
     if (Hidinshell) {
         You_cant("drink anything while hiding in your shell.");
@@ -769,21 +768,18 @@ dodrink()
         return 0;
     }
 
-    potion_descr = OBJ_DESCR(objects[otmp->otyp]);
-    if (potion_descr) {
-        if (!strcmp(potion_descr, "milky")
-            && !(mvitals[PM_GHOST].mvflags & G_GONE)
-            && !rn2(POTION_OCCUPANT_CHANCE(mvitals[PM_GHOST].born))) {
-            ghost_from_bottle();
-            useup(otmp);
-            return 1;
-        } else if (!strcmp(potion_descr, "smoky")
-                   && !(mvitals[PM_DJINNI].mvflags & G_GONE)
-                   && !rn2(POTION_OCCUPANT_CHANCE(mvitals[PM_DJINNI].born))) {
-            djinni_from_bottle(otmp);
-            useup(otmp);
-            return 1;
-        }
+    if (objdescr_is(otmp, "milky")
+        && !(mvitals[PM_GHOST].mvflags & G_GONE)
+        && !rn2(POTION_OCCUPANT_CHANCE(mvitals[PM_GHOST].born))) {
+        ghost_from_bottle();
+        useup(otmp);
+        return 1;
+    } else if (objdescr_is(otmp, "smoky")
+               && !(mvitals[PM_DJINNI].mvflags & G_GONE)
+               && !rn2(POTION_OCCUPANT_CHANCE(mvitals[PM_DJINNI].born))) {
+        djinni_from_bottle(otmp);
+        useup(otmp);
+        return 1;
     }
     return dopotion(otmp);
 }

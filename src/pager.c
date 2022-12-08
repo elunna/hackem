@@ -18,7 +18,7 @@ STATIC_DCL void FDECL(look_at_monster, (char *, char *,
 STATIC_DCL struct permonst *FDECL(lookat, (int, int, char *, char *));
 STATIC_DCL char *FDECL(hallucinatory_armor, (char *));
 STATIC_DCL void FDECL(add_mon_info, (winid, struct permonst *));
-STATIC_DCL void FDECL(add_obj_info, (winid, struct obj *, SHORT_P));
+STATIC_DCL void FDECL(add_obj_info, (winid, struct obj *, SHORT_P, char *));
 STATIC_DCL void FDECL(look_all, (BOOLEAN_P,BOOLEAN_P));
 STATIC_DCL void FDECL(do_supplemental_info, (char *, struct permonst *,
                                              BOOLEAN_P));
@@ -1094,10 +1094,11 @@ extern const struct propname {
 /* Add some information to an encyclopedia window which is printing information
  * about an object. */
 STATIC_OVL void
-add_obj_info(datawin, obj, otyp)
+add_obj_info(datawin, obj, otyp, usr_text)
 winid datawin;
 struct obj *obj;
 short otyp;
+char *usr_text;
 {
     struct objclass oc = objects[otyp];
     struct damage_info_t damage_info;
@@ -1138,9 +1139,10 @@ short otyp;
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
     } else if (dummy.oprops_known) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
-    } else {
+    } else if (identified) {
         Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
-    }
+    } else 
+        Sprintf(buf, "Object lookup for \"%s\":", usr_text);
     putstr(datawin, ATR_BOLD, buf);
     OBJPUTSTR("");
     
@@ -1265,17 +1267,16 @@ short otyp;
     
     /* Effects based on the base description of the item -- only one will apply, so an if-else chain is appropriate */
     /* randomized appearance items */
-   
-    if (otyp == find_skates())		        OBJPUTSTR("Prevents slipping on ice.");
-    else if (otyp == find_cboots())		OBJPUTSTR("+1AC, +1 to-hit for thrown.");
-    else if (otyp == find_mboots())		OBJPUTSTR("Protects against drowning attacks.");
-    else if (otyp == find_hboots())   	        OBJPUTSTR("Increases carrying capacity.");
-    else if (otyp == find_jboots())		OBJPUTSTR("Reduces the severity of leg wounds.");
-    /*else if (otyp == find_vhelm())	        OBJPUTSTR("Protects from blinding claws and venom.");*/
-    else if (otyp == find_ogloves())            OBJPUTSTR("Erosion resistant.");				
-    else if (otyp == find_pgloves())	        OBJPUTSTR("Slightly increased defense.");
-    else if (otyp == find_fgloves())		OBJPUTSTR("Increases to-hit when fighting with a free off-hand.");
-    
+    if (objdescr_is(&dummy, "snow boots"))		        OBJPUTSTR("Prevents slipping on ice.");
+    else if (objdescr_is(&dummy, "combat boots"))		OBJPUTSTR("+1AC, +1 to-hit for thrown.");
+    else if (objdescr_is(&dummy, "mud boots"))		OBJPUTSTR("Protects against drowning attacks.");
+    else if (objdescr_is(&dummy, "hiking boots"))          OBJPUTSTR("Increases carrying capacity.");
+    else if (objdescr_is(&dummy, "jungle boots"))		OBJPUTSTR("Reduces the severity of leg wounds.");
+    /* TODO: Add buckled boots */
+    else if (objdescr_is(&dummy, "old gloves"))            OBJPUTSTR("Erosion resistant.");				
+    else if (objdescr_is(&dummy, "padded gloves"))	        OBJPUTSTR("Slightly increased defense.");
+    else if (objdescr_is(&dummy, "fencing gloves"))	OBJPUTSTR("Increases to-hit when fighting with a free off-hand.");
+    else if (objdescr_is(&dummy, "visored helm"))	        OBJPUTSTR("Protects from blinding claws and venom.");
     
     if (olet == FOOD_CLASS) {
         int cnum = obj ? obj->corpsenm : 0;
@@ -2068,10 +2069,10 @@ char *supplemental_name;
                     }
                     /* object lookup info */
                     if (do_obj_lookup) {
-                        add_obj_info(datawin, obj, otyp);
+                        add_obj_info(datawin, obj, otyp, encycl_matched);
                         putstr(datawin, 0, "");
                     } else if (obj) {
-                        add_obj_info(datawin, obj, otyp);
+                        add_obj_info(datawin, obj, otyp, encycl_matched);
                         putstr(datawin, 0, "");
                     }
                     /* monster lookup info */

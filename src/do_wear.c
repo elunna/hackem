@@ -2984,10 +2984,10 @@ find_ac()
         uac -= 2; /* fixed amount; main benefit is to MC */
 
     /* combat boots give +1 AC */
-    if (uarmf && uarmf->otyp == find_cboots()) 
+    if (uarmf && objdescr_is(uarmf, "combat boots")) 
         uac -= 1;
     /* padded gloves give +1 AC */
-    if (uarmg && uarmg->otyp == find_pgloves()) 
+    if (uarmg && objdescr_is(uarmg, "padded gloves")) 
         uac -= 1;
     
     /* armor class from other sources */
