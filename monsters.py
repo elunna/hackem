@@ -175,7 +175,140 @@ genflags = {
     "G_UNIQ": "unique",
     "G_VLGROUP": "appears in very large groups"
 }
-
+CONFERS = {
+    "MR_FIRE": "confers fire res",
+    "MR_COLD": "confers cold res",
+    "MR_SLEEP": "confers sleep res",
+    "MR_DISINT": "confers disintegration res",
+    "MR_ELEC": "confers shock res",
+    "MR_POISON": "confers poison res",
+    "MR_ACID": "confers acid res",
+    "MR_STONE": '0',
+}
+FLAG_TO = {
+    "MR_FIRE": "resists fire",
+    "MR_COLD": "resists cold",
+    "MR_SLEEP": "resists sleep",
+    "MR_DISINT": "resists disintegration",
+    "MR_ELEC": "resist shock",
+    "MR_POISON": "resists poison",
+    "MR_ACID": "resists acid",
+    "MR_STONE": "resists petrification",
+    "MR_PSYCHIC": "resists psychic",
+    "MR_CLOB": "resists clobber",
+    "MR_SONIC": "resists sonic",
+    "MR2_SEE_INVIS": "sees invisible",
+    "MR2_LEVITATE": "levitates",
+    "MR2_WATERWALK": "walks on water",
+    "MR2_MAGBREATH": "magical breathing",
+    "MR2_DISPLACED": "displaced",
+    "MR2_STRENGTH": "strong",
+    "MR2_FUMBLING": "fumbles",
+    "MR2_TELEPATHY": "telepathic",
+    "MR2_JUMPING": "jumps",
+    "MR2_REFLECTION": "reflective",
+    "M1_FLY": "flies",
+    "M1_SWIM": "swims",
+    "M1_AMORPHOUS": "amorphous",
+    "M1_WALLWALK": "phases",
+    "M1_CLING": "clings",
+    "M1_TUNNEL": "tunnels",
+    "M1_NEEDPICK": "needs a pickaxe",
+    "M1_CONCEAL": "conceals",
+    "M1_HIDE": "hides",
+    "M1_AMPHIBIOUS": "amphibious",
+    "M1_BREATHLESS": "breathless",
+    "M1_NOTAKE": "doesn't pick up items",
+    "M1_NOEYES": "eyeless",
+    "M1_NOHANDS": "handless",
+    "M1_NOLIMBS": "limbless",
+    "M1_NOHEAD": "headless",
+    "M1_MINDLESS": "mindless",
+    "M1_HUMANOID": "humanoid",
+    "M1_ANIMAL": "animal",
+    "M1_SLITHY": "slithy",
+    "M1_UNSOLID": "unsolid",
+    "M1_THICK_HIDE": "thick hide",
+    "M1_OVIPAROUS": "oviparous",
+    "M1_REGEN": "regenerates",
+    "M1_SEE_INVIS": "sees invisible",
+    "M1_TPORT": "teleports",
+    "M1_TPORT_CNTRL": "teleport control",
+    "M1_ACID": "acidic",
+    "M1_POIS": "poisonous",
+    "M1_CARNIVORE": "carnivore",
+    "M1_HERBIVORE": "herbivore",
+    "M1_OMNIVORE": "omnivore",
+    "M1_METALLIVORE": "eats metal",
+    "M2_NOPOLY": "cannot be polymorphed into",
+    "M2_JUMPER": "jumps",
+    "M2_LORD": "lord",
+    "M2_PRINCE": "prince",
+    "M2_MINION": "minion",
+    "M2_MERC": "mercenary",
+    "M2_SHAPESHIFTER": "shapeshifts",
+    "M2_MALE": "male",
+    "M2_FEMALE": "female",
+    "M2_NEUTER": "neuter",
+    "M2_PNAME": "named",
+    "M2_HOSTILE": "hostile",
+    "M2_PEACEFUL": "peaceful",
+    "M2_DOMESTIC": "domestic",
+    "M2_WANDER": "wanders",
+    "M2_STALK": "stalks you",
+    "M2_NASTY": "nasty",
+    "M2_STRONG": "strong",
+    "M2_ROCKTHROW": "throws rocks",
+    "M2_GREEDY": "greedy",
+    "M2_JEWELS": "collects jewels",
+    "M2_COLLECT": "collects",
+    "M2_FLANK": "outflanks",
+    "M2_MAGIC": "magical",
+    "M3_WANTSAMUL": "wants the amulet",
+    "M3_WANTSBELL": "wants the bell",
+    "M3_WANTSBOOK": "wants the book",
+    "M3_WANTSCAND": "wants the candelabrum",
+    "M3_WANTSARTI": "wants the quest artifact",
+    "M3_WANTSALL": "wants all",
+    "M3_WAITFORU": "waits for you",
+    "M3_CLOSE": "keeps close",
+    "M3_COVETOUS": "covetous",
+    "M3_WAITMASK": "waits",
+    "M3_INFRAVISION": "has infravision",
+    "M3_INFRAVISIBLE": "is infravisible",
+    "M3_DISPLACES": "displaces",
+    "M3_SKITTISH": "skittish",
+    "M3_ACCURATE": "accurate",
+    "M3_BERSERK": "berserks",
+    "M3_TRAITOR": "can betray",
+    "M3_NOTAME": "untameable",
+    "M4_VULNERABLE_FIRE": "vulnerable to fire",
+    "M4_VULNERABLE_COLD": "vulnerable to cold",
+    "M4_VULNERABLE_ELEC": "vulnerable to shock",
+    "M4_VULNERABLE_ACID": "vulnerable to acid",
+    "M4_STATIONARY": "doesn't move",
+    "MH_HUMAN": "human",
+    "MH_ELF": "elvish",
+    "MH_DWARF": "dwarvish",
+    "MH_GNOME": "gnomish",
+    "MH_ORC": "orcish",
+    "MH_GIANT": "giant",
+    "MH_HOBBIT": "hobbitish",
+    "MH_CENTAUR": "centaur",
+    "MH_ILLITHID": "illithid",
+    "MH_TORTLE": "tortle",
+    "MH_VAMPIRE": "vampire",
+    "MH_UNDEAD": "undead",
+    "MH_WERE": "lycanthrope",
+    "MH_DEMON": "demon",
+    "MH_DRAGON": "dragon",
+    "MH_ANGEL": "angelic",
+    "MH_OGRE": "ogre",
+    "MH_TROLL": "troll",
+    "MH_GNOLL": "gnoll",
+    "MH_JABBERWOCK": "jabberwock",
+    "0L": "0",
+}
 def process_attacks(attks):
     new_attacks = []
     for atk in attks:
@@ -311,8 +444,15 @@ def extract_data(text):
         # print(i)
         for f in splitup[i].split('|'):
             f = f.strip()
+            result = 0
             if f != '0':
-                flags.append(f)
+                if i == -8:
+                    result = CONFERS[f]
+                else:
+                    result = (FLAG_TO[f])
+                if result != "0":
+                    flags.append(result)
+            
     mondat['flags'] = flags
     
     # difficulty
@@ -391,7 +531,8 @@ def main():
         file1.write('!scope="col" | MC\n')
         file1.write('!scope="col" | Diff\n')
         file1.write('!scope="col" class="unsortable"| Attacks\n')
-        file1.write('!scope="col" class="sortable"| Notes\n')
+        file1.write('!scope="col" class="unsortable"| Properties\n')
+        file1.write('!scope="col" class="unsortable"| Notes\n')
         file1.write("\n")
         
         file1.write("|-\n")
@@ -417,7 +558,7 @@ def main():
             file1.write("| {}\n".format(mdict.get('MR', 'n/a')))
             file1.write("|{}\n".format(mdict.get('difficulty', 'n/a')))
             file1.write("|{}\n".format("<br>".join(process_attacks(mdict['attacks']))))
-            #file1.write("| Notes\n")
+            file1.write("|{}\n".format("<br>".join(mdict['flags'])))
             file1.write("|{}\n".format("<br>".join(mdict['gen'])))
             file1.write("|-\n")
         
