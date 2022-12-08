@@ -1302,7 +1302,7 @@ unsigned trflags;
             /* Jungle boots protect us from getting wounded. */
             if (!(uarmf && objdescr_is(uarmf, "jungle boots"))) {
                 set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
-                if (u.umonnum == PM_OWLBEAR || u.umonnum == PM_BUGBEAR)
+                if (is_bear(&youmonst.data))
                     You("howl in anger!");
                 losehp(Maybe_Half_Phys(dmg), "bear trap", KILLED_BY_AN);
             } else
@@ -2707,8 +2707,7 @@ register struct monst *mtmp;
                           a_your[trap->madeby_u]);
                     seetrap(trap);
                 } else {
-                    if (mptr == &mons[PM_OWLBEAR]
-                        || mptr == &mons[PM_BUGBEAR]) {
+                    if (is_bear(mptr)) {
                         if (!Deaf)
                             You_hear("the roaring of an angry bear!");
                     }
