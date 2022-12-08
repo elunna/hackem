@@ -252,9 +252,6 @@ Object lookup has been fleshed out:
 - (k) kobold warrior
 - (k) Kroo the Kobold King
 - (l) leprechaun wizard
-- (m) killer mimic
-    - Reduced speed by half, now speed 6. 
-    - These are really mean, so watch out for these in minetown!
 - (n) pixie
 - (n) brownie
     - made brownies vegetarian.
