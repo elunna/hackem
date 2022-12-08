@@ -64,7 +64,6 @@
 - [x] After a while of using a wielded weapon, you will identify it and it's enchantment
 - [x] Blessed stethoscopes can identify eggs (on the floor)
 - [x] The player's magic cancellation (MC) is shown in the status bar.
-- [x] Show the last turn the player prayed in the ^X screen
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Default shk sell prompt to N (xnh)
 - [x] Regeneration only causes additional hunger when injured.
@@ -83,6 +82,7 @@
 - [x] Removed the Quest turn limit
 - [x] Deliberate level teleporter activation ignores magic resistance (3.7)
 - [x] Attempting to open "." acts as an alias for #loot
+- [x] Show the last turn the player prayed in the ^X screen
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
 - [x] Realtime display option is now available (thanks K2!)
@@ -1614,7 +1614,8 @@ Imported some appearance effects from dNetHack:
 
 ### Spell changess:
 
-- [x] spellbook of Confuse monster – level 2 → 1
+- [x] spellbook of confuse monster – level 2 → 1
+- [x] spellbook of slow monster 
 - [x] spellbook of cure sickness
     - is now directional 
     - can be cast at other monsters as well as yourself.
@@ -2162,7 +2163,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 #### Alchemy
 
-- Alchemic blast damage is double, but acid resistance halves it (xnh)
+- Alchemic blast damage is doubled, but acid resistance halves it (xnh)
 - Incorporate Malcolm Ryan's Brewing Patch
     - enables the player to dip mold corpses in potions of fruit juice to start a fermentation timer that will eventually turn the potion into something else dependent on the mold.
     - Dipping green mold into fruit juice produces acid. 
@@ -2822,7 +2823,7 @@ Tinker service:
 #### Misc shop changes
 
 - [x] Lighting shops can now carry wands/scrolls/spellbooks of light, as well as the rare wand of lightning.
-- [x] Delis can carry meat sticks and huge chunks of meat.
+- [x] Delis can carry meat sticks, royal jelly, and huge chunks of meat.
 - [x] Hardware stores stock potions of oil, and rarely touchstones (xnh)
 
 ## Credits

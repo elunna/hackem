@@ -209,68 +209,67 @@ struct obj *otmp;
         break;
     case SPE_FIRE_BOLT:
         /* New special spell just for Flame Mages */
-        
+        zap_type_text = "fire bolt";
+        dmg = 0;
         reveal_invis = TRUE;
         if (disguised_mimic)
             seemimic(mtmp);
-        /* Damage scales with level */
-
-        dmg = d(1, 10);      /* Level 1 = 1d10 fire damage */
-        if (u.ulevel >= 4)
-            dmg += d(1, 8);  /* Level 4 = +1d8 */
-        if (u.ulevel >= 8)
-            dmg += d(1, 8);  /* Level 8 = +1d8 */
-        if (u.ulevel >= 12) 
-            dmg += d(1, 8);   /* Level 12 = +1d8 */
-        
-        if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
-            dmg += d(1, 4); /* Skilled = +1d4 */
-        }
-        if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
-            dmg += d(1, 4); /* Expert = +1d4 */
-        }
-
-        if (dbldam)
-            dmg *= 2;
-        if (wizard)
-            pline("Fire bolt %dd%d = (%d)", (u.ulevel / 4) + 1, 10, dmg);
-
-        /* A chance of setting monster's stuff on fire */
-        if (!rn2(3)) 
-            erode_armor(mtmp, ERODE_BURN);
-        if (!rn2(3)) 
-            dmg += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
-        if (!rn2(3)) 
-            dmg += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
-        if (!rn2(3)) 
-            dmg += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
-        if (rn2(3)) 
-            dmg += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
-        
         if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) { /* match effect on player */
             golemeffects(mtmp, AD_FIRE, dmg);
             shieldeff(mtmp->mx, mtmp->my);
             pline("Swoosh!");
             break; /* skip makeknown */
-        } else if (completelyburns(mdat)) { /* paper golem or straw golem */
-            if (!Blind)
-                pline("%s burns completely!", Monnam(mtmp));
-            else
-                You("smell burning%s.", (mdat == &mons[PM_PAPER_GOLEM]) 
-                        ? " paper" : (   mdat == &mons[PM_STRAW_GOLEM]) 
-                        ? " straw" : "");
-            xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
-        }
-        else if (!resist(mtmp, otmp->oclass, dmg, NOTELL)
-                   && !DEADMONSTER(mtmp)) {
+        } else if (u.uswallow || rnd(20) < 10 + find_mac(mtmp)) {
+            /* A chance of setting monster's stuff on fire */
+            if (!rn2(3)) 
+                erode_armor(mtmp, ERODE_BURN);
+            if (!rn2(3)) 
+                dmg += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
+            if (!rn2(3)) 
+                dmg += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
+            if (!rn2(3)) 
+                dmg += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+            if (rn2(3)) 
+                dmg += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
             
-            hit(zap_type_text, mtmp, exclam(dmg));
-            damage_mon(mtmp, dmg, AD_FIRE);
+            if (completelyburns(mdat)) { /* paper golem or straw golem */
+                if (!Blind)
+                    pline("%s burns completely!", Monnam(mtmp));
+                else
+                    You("smell burning%s.", (mdat == &mons[PM_PAPER_GOLEM]) 
+                                                ? " paper" : (   mdat == &mons[PM_STRAW_GOLEM]) 
+                                                      ? " straw" : "");
+                xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
+            } else if (!resist(mtmp, otmp->oclass, dmg, NOTELL)
+                     && !DEADMONSTER(mtmp)) {
+                /* Damage scales with level */
+                dmg = d(1, 10);      /* Level 1 = 1d10 fire damage */
+                if (u.ulevel >= 4)
+                    dmg += d(1, 8);  /* Level 4 = +1d8 */
+                if (u.ulevel >= 8)
+                    dmg += d(1, 8);  /* Level 8 = +1d8 */
+                if (u.ulevel >= 12) 
+                    dmg += d(1, 8);   /* Level 12 = +1d8 */
+                if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
+                    dmg += d(1, 4); /* Skilled = +1d4 */
+                }
+                if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
+                    dmg += d(1, 4); /* Expert = +1d4 */
+                }
+                if (dbldam)
+                    dmg *= 2;
+   
+                hit(zap_type_text, mtmp, exclam(dmg));
+                damage_mon(mtmp, dmg, AD_FIRE);
+                
             
-            if (DEADMONSTER(mtmp)) {
-                killed(mtmp);
-            } 
-        }
+                if (DEADMONSTER(mtmp)) {
+                    killed(mtmp);
+                } 
+            }
+        } else
+            miss(zap_type_text, mtmp);
+        
         learn_it = TRUE;
         break;
     case SPE_PSIONIC_WAVE:
