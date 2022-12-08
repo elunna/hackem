@@ -1265,19 +1265,31 @@ char *usr_text;
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
     }
     
-    /* Effects based on the base description of the item -- only one will apply, so an if-else chain is appropriate */
-    /* randomized appearance items */
-    if (objdescr_is(&dummy, "snow boots"))		        OBJPUTSTR("Prevents slipping on ice.");
-    else if (objdescr_is(&dummy, "combat boots"))		OBJPUTSTR("+1AC, +1 to-hit for thrown.");
-    else if (objdescr_is(&dummy, "mud boots"))		OBJPUTSTR("Protects against drowning attacks.");
-    else if (objdescr_is(&dummy, "hiking boots"))          OBJPUTSTR("Increases carrying capacity.");
-    else if (objdescr_is(&dummy, "jungle boots"))		OBJPUTSTR("Reduces the severity of leg wounds.");
-    /* TODO: Add buckled boots */
-    else if (objdescr_is(&dummy, "old gloves"))            OBJPUTSTR("Erosion resistant.");				
-    else if (objdescr_is(&dummy, "padded gloves"))	        OBJPUTSTR("Slightly increased defense.");
-    else if (objdescr_is(&dummy, "fencing gloves"))	OBJPUTSTR("Increases to-hit when fighting with a free off-hand.");
-    else if (objdescr_is(&dummy, "visored helm"))	        OBJPUTSTR("Protects from blinding claws and venom.");
-    
+    if (identified) { 
+        /* Effects based on the base description of the item --
+        only one will apply, so an if-else chain is
+        appropriate */
+        /* randomized appearance items */
+        if (objdescr_is(&dummy, "snow boots"))
+            OBJPUTSTR("Prevents slipping on ice (snow boots)");
+        else if (objdescr_is(&dummy, "combat boots"))
+            OBJPUTSTR("+1AC, +1 to-hit for thrown (combat boots)");
+        else if (objdescr_is(&dummy, "mud boots"))
+            OBJPUTSTR("Protects against drowning attacks (mud boots)");
+        else if (objdescr_is(&dummy, "hiking boots"))
+            OBJPUTSTR("Increases carrying capacity (hiking boots");
+        else if (objdescr_is(&dummy, "jungle boots"))
+            OBJPUTSTR("Reduces the severity of leg wounds (jungle boots)");
+        /* TODO: Add buckled boots */
+        else if (objdescr_is(&dummy, "old gloves"))
+            OBJPUTSTR("Erosion resistant (old gloves)");
+        else if (objdescr_is(&dummy, "padded gloves"))
+            OBJPUTSTR("Slightly increased defense (padded gloves)");
+        else if (objdescr_is(&dummy, "fencing gloves"))
+            OBJPUTSTR("Increases to-hit when fighting with a free off-hand (fencing gloves)");
+        else if (objdescr_is(&dummy, "visored helm"))
+            OBJPUTSTR("Protects from blinding claws and venom (visored helm)");
+    }
     if (olet == FOOD_CLASS) {
         int cnum = obj ? obj->corpsenm : 0;
         
