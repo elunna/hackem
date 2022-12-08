@@ -115,6 +115,8 @@ def parse_data(items):
     item_dict = defaultdict(list)
     
     for i in items:
+        # Get rid of quotes
+        i = i.replace('"', '')
         split = [x.strip() for x in i.split(',')]
         #print(split)
         cat = split[0]
@@ -210,17 +212,25 @@ def write_html(item_dict):
         file1.write('!scope="col" | Item\n')
         file1.write('!scope="col" | Sym\n')
 
-        for k in item_dict.keys():
+        for k, items in item_dict.items():
             file1.write("\n")
             file1.write("=={}==\n".format(k))
             file1.write('{|class="prettytable sortable"\n')
-            file1.write("!Item\n")
+            for property in CATEGORIES[k]:
+                file1.write("!{}\n".format(property))
+            
             file1.write("|-\n")
-            for prop in item_dict[k]:
-                name = prop[0].strip('"')
-                if name == "None":
-                    continue
-                file1.write("|[[{}]]\n".format(name))
+            
+            for item in items:           
+                for i, prop in enumerate(item):
+                    # if name == "None":
+                    #     continue
+                    
+                    # Name needs to be in [[ ]] brackets to be linked
+                    if i == 0:
+                        file1.write("|[[{}]]\n".format(prop))
+                    else:
+                        file1.write("| {}\n".format(prop))
                 file1.write("|-\n")
 
             
