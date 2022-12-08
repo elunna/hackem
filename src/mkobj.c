@@ -3881,6 +3881,7 @@ breakability(struct obj *otmp)
 {
     /* base value is the object's density */
     int val = matdensities[otmp->material];
+    int i;
     
     /* Double this if blessed, half it if cursed. */
     if (otmp->blessed)
@@ -3889,10 +3890,9 @@ breakability(struct obj *otmp)
         val /= 2;
     
     /* Halved for each level of erosion */
-    if (otmp->oeroded)
-        val /= (2 * otmp->oeroded);
-    if (otmp->oeroded2)
-        val /= (2 * otmp->oeroded2);
+    for (i = otmp->oeroded + otmp->oeroded2; i > 0; i--)
+        val /= 2;
+
     /* If the value is 0 or less, return 1. */
     debug_pline("breakability val = %d", val);
     return ((val < 1) ? 1 : val);
