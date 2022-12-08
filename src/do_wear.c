@@ -1822,6 +1822,9 @@ struct obj *otmp;
     if (ublindf && ublindf->otyp == MASK)
         if (use_mask(&ublindf)) 
             return; 
+    
+    if (ublindf && ublindf->otyp == LENSES)
+        ESearching |= W_TOOL;
 }
 
 void
@@ -1878,6 +1881,8 @@ struct obj *otmp;
         }
         /* rehumanize(); */
     }
+    if (ublindf && ublindf->otyp == LENSES)
+        ESearching &= ~W_TOOL;
 }
 
 /* called in moveloop()'s prologue to set side-effects of worn start-up items;
