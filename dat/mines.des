@@ -2815,8 +2815,8 @@ NON_DIGGABLE:(00,00,74,17)
 # NON_PASSWALL:(00,00,74,17)
 # Niches
 # Note: $place[2] empty
-OBJECT:('*',"luckstone"),$place[0]
-OBJECT:('*',"loadstone"),$place[1]
+OBJECT:('*',"healthstone"),$place[0]
+OBJECT:('*',"healthstone"),$place[1]
 # Traps
 TRAP:"teleport",(05,04)
 TRAP:"teleport",(12,08)
