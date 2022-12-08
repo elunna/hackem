@@ -906,7 +906,7 @@ makelevel()
 {
     register struct mkroom *croom, *troom;
     register int tryct;
-    register int i;
+    register int i, x, y;
     struct monst *tmonst; /* always put a web with a spider */
     branch *branchp;
     int room_threshold, boxtype;
@@ -1129,15 +1129,56 @@ makelevel()
             continue;
 	if (!croom->needfill)
             continue;
-
-        /* put a sleeping monster inside */
+        if (Is_rogue_level(&u.uz))
+            goto skip_nonrogue;
+        
+        /* maybe place some dungeon features inside
+         * This should go first because it's capable of creating non-ACCESSIBLE
+         * terrain types; we don't want to embed any monsters, objects, or traps
+         * in a tree. */
+        
+        /* greater chance of puddles if a water source is nearby */
+        if (!rn2(10))
+            mkfount(0, croom);
+        if (!rn2(60)) {
+            mksink(croom);
+            /* Sinks are frequently paired with toilets. */
+            if (!rn2(3))
+                mktoilet(croom);
+        } else if (!rn2(125)) {
+            /* But sometimes we'll see a lone toilet. */
+            mktoilet(croom);
+        }
+        if (!rn2(40) && depth(&u.uz) > 2)
+            mkforge(0, croom);
+        if (!rn2(80) && depth(&u.uz) > 3)
+            mkvent(0, croom);
+        if (!rn2(60))
+            mkaltar(croom);
+        if (!rn2(20 + (depth(&u.uz) * 5)))
+            mktree(croom);
+    
+        i = 80 - (depth(&u.uz) * 2);
+        if (i < 2)
+            i = 2;
+        if (!rn2(i))
+            mkgrave(croom);
+        
+        /* put traps and mimics inside */
+        i = 8 - (level_difficulty() / 6);
+        if (i < 2)
+            /* maxes out at level_difficulty() == 36 */
+            i = 2;
+        while (!rn2(i))
+            mktrap(0, 0, croom, (coord *) 0);
+        
+        /* maybe put a monster inside */
         /* Note: monster may be on the stairs. This cannot be
            avoided: maybe the player fell through a trap door
            while a monster was on the stairs. Conclusion:
            we have to check for monsters on the stairs anyway. */
-
         if (u.uhave.amulet || !rn2(3)) {
-	    if (somexyspace(croom, &pos, 0)) {
+            if (somexyspace(croom, &pos, 0)) {
                 tmonst = makemon((struct permonst *) 0, pos.x, pos.y,
                                  MM_NOGRP | MM_MPLAYEROK);
                 if (tmonst && tmonst->data == &mons[PM_GIANT_SPIDER]
@@ -1145,61 +1186,21 @@ makelevel()
                     (void) maketrap(pos.x, pos.y, WEB);
             }
         }
-
+        /* Honey badgers love honey */
         if (level.flags.has_beehive == 1) {
             if (!occupied(pos.x, pos.y) && rn2(5))
                 (void) makemon(&mons[PM_HONEY_BADGER], pos.x, pos.y, NO_MM_FLAGS);
         }
-
-        /* put traps and mimics inside */
-        i = 8 - (level_difficulty() / 6);
-        if (i <= 1)
-            i = 2;
-        while (!rn2(i))
-            mktrap(0, 0, croom, (coord *) 0);
-	if (!rn2(3)) {
-	    if (somexyspace(croom, &pos, 0))
-		(void) mkgold(0L, pos.x, pos.y);
-	}
-        if (Is_rogue_level(&u.uz))
-            goto skip_nonrogue;
-        /* greater chance of puddles if a water source is nearby */
-        if (!rn2(10))
-            mkfount(0, croom);
-
-#if 0 /* TODO: Implement prevention of objects in trees from xnh */
-        if (!rn2(10 + 4 * depth(&u.uz))) {
-            /* Trees become less common, and at some point they are
-               just dead. */
-            mktree(croom);
-        }
-#endif
-        if (!rn2(80) && depth(&u.uz) > 3)
-            /* We could make vents at any level, but generating them
-               on level one could lead to cheap instadeaths. */
-            mkvent(0, croom);
         
-        if (!rn2(60)) {
-            mksink(croom);
-            /* Sinks are frequently paired with toilets. */
-            if(!rn2(3))
-                mktoilet(croom);
-        } else if (!rn2(125)) {
-            /* But sometimes we'll see a lone toilet. */
-            mktoilet(croom);
+        /* maybe put some gold inside */
+        if (!rn2(3)) {
+            x = somex(croom);
+            y = somey(croom);
+            /* not occupied(); various walkable types of furniture are fine */
+            if (ACCESSIBLE(levl[x][y].typ)) {
+                (void) mkgold(0L, x, y);
+            }
         }
-
-        /* Forges only start appearing below level 2 */
-        if (!rn2(40) && depth(&u.uz) > 2)
-            mkforge(0, croom);
-        if (!rn2(60))
-            mkaltar(croom);
-        i = 80 - (depth(&u.uz) * 2);
-        if (i < 2)
-            i = 2;
-        if (!rn2(i))
-            mkgrave(croom);
-
         /* put statues inside */
 	if (!rn2(20)) {
 	    if (somexyspace(croom, &pos, 0))
@@ -1646,12 +1647,18 @@ struct mkroom *aroom;
     dosdoor(x, y, aroom, doortyp);
 }
 
+/* Return TRUE if the given location contains a trap, dungeon furniture,
+ * inaccessible terrain, or the vibrating square.
+ * Generally used for determining if a space is unsuitable for placing
+ * something.
+ */
 boolean
 occupied(x, y)
 register xchar x, y;
 {
-    return (boolean) (t_at(x, y) || IS_FURNITURE(levl[x][y].typ)
-                      || is_lava(x, y) || is_pool(x, y)
+    return (boolean) (t_at(x, y) 
+                      || IS_FURNITURE(levl[x][y].typ)
+                      || !ACCESSIBLE(levl[x][y].typ) /* covers lava and water */
                       || invocation_pos(x, y));
 }
 
