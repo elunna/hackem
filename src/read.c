@@ -1201,6 +1201,13 @@ int howmuch;
     if (u.uevent.ulearned_elbereth && rn2(3))
         u.uevent.ulearned_elbereth = 0;
     
+    /* Can lose telepathy to amnesia attacks */
+    if (HTelepat & INTRINSIC && !rn2(5)) {
+        HTelepat &= ~INTRINSIC;
+        if (Blind && !Blind_telepat)
+            see_monsters(); /* Can't sense mons anymore! */
+        Your("senses fail!");
+    }
     /* Maybe forget Shambling Horrors if we learned about them. */
     if (u.uevent.know_horror && rn2(3))
         u.uevent.know_horror = 0;
