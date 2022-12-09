@@ -1648,6 +1648,7 @@ aligntyp alignment;
             (void) mon_wield_item(mon);
         }
         u.ugifts++;
+        u.uconduct.pets++;
 
 	switch ((int)alignment) {
         case A_LAWFUL:
