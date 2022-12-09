@@ -1259,7 +1259,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Fiery monsters take extra damage
     - The ray can destroy forges.
 - [x] wand of acid
-    - Acid rays can destroy webs, trees
+    - Acid rays can destroy webs, trees, grass
 - [x] wand of poison gas
     - Poison rays destroy and wither trees
 - [x] wand of wonder (splice implementation)

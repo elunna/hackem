@@ -6087,8 +6087,7 @@ boolean moncast;
                         newsym(x, y);
                 }
             }
-        }
-        else if (t && t->ttyp == WEB) {
+        } else if (t && t->ttyp == WEB) {
             /* a web is too flimsy to notice if you can't see it */
             if (see_it)
                 Norep("A web dissolves into goo!");
@@ -6123,8 +6122,7 @@ boolean moncast;
                     unblock_point(x, y); /* vision:  can see through */
                 feel_newsym(x, y);
             }
-        }
-        else if (IS_FOUNTAIN(lev->typ)) {
+        } else if (IS_FOUNTAIN(lev->typ)) {
             if (see_it)
                 pline("The fountain explodes in an alchemic blast!");
             rangemod -= 1;
@@ -6145,7 +6143,14 @@ boolean moncast;
             rangemod -= 1;
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
             breaksink(x, y);
-        } 
+        } else if (IS_GRASS(lev->typ)) {
+            lev->typ = ROOM;
+            if (see_it) {
+                pline("The grass is dissolved!");
+                newsym(x, y);
+            }
+            maybe_unhide_at(x, y);
+        }
         break; /* ZT_ACID */
 
     default:
