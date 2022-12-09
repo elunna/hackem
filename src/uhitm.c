@@ -590,7 +590,10 @@ register struct monst *mtmp;
         return FALSE;
     }
 
-    if (Upolyd || Race_if(PM_VAMPIRIC))
+    /* We don't need to check for vampirics here, hitum does this already for
+     * races like illithid and centaur. */
+    /*if (Upolyd || Race_if(PM_VAMPIRIC))*/
+    if (Upolyd)
         (void) hmonas(mtmp, NON_PM, TRUE);
     else
         (void) hitum(mtmp, youmonst.data->mattk);
