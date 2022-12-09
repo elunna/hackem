@@ -1373,7 +1373,12 @@ u_init()
                 knows_object(gem);
             }
         }
+        knows_object(MAGIC_WHISTLE);
+        knows_object(MAGIC_HARP);
+        knows_object(MAGIC_FLUTE);
+        knows_object(DRUM_OF_EARTHQUAKE);
         skill_init(Skill_W);
+        
         break;
     case PM_YEOMAN:
         ini_inv(Yeoman);

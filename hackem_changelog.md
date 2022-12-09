@@ -2640,6 +2640,7 @@ Renews magical power:
 - Enchantment spell skill raised from skilled to expert, 
 - clerical spell skill lowered from skilled to basic. 
 - Can sense if objects are magical in nature, much the same way a priest knows the beatitude of all objects.
+- Wizards start with magic whistles, harps, flutes, and drums identified. Wizards can see the magical nature of tools, so by process of elimination a wizard should know these objects. Otherwise we get an awkward situation of seeing a magical whistle, then it auto-identifies when used to a magic whistle.
 - New starting pet, the pseudodragon. 
 
 ## Race changes:
