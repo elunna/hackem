@@ -192,6 +192,7 @@ Wiz-Mode updates:
 - (c) parrot
 - (d) pit bull
 - (d) guard dog
+    - Shows up sometimes in barracks
 - (d) dingo puppy
 - (d) large dingo
 - (d) barghest
@@ -232,7 +233,7 @@ Wiz-Mode updates:
 - (e) magical eye
     - Cannot tame
 - (f) kamadan
-    - raised difficulty to 13
+    - raised difficulty to 13 (almost doubled)
 - (f) displacer beast (already present in evil)
 - (f) caterwaul
 - (f) saber-toothed cat
@@ -406,6 +407,7 @@ Wiz-Mode updates:
 - (s) Girtab
 - (s) Shelob
 - (s) monstrous spider
+    - Added scream attack that causes fear
 - (s/@) werespider 	
 - (u) selkie
 - (u) lesser nightmare
@@ -440,6 +442,7 @@ Wiz-Mode updates:
 - (x) lightning bug
 - (y) will-o'-the-wisp
     - Spawns in swamp rooms and Juiblex's level.
+    - Frequency 4(uncommon) -> 3(rare)
 - (z) echidna
     - Added M3_INFRAVISIBLE
 - (z) platypus
@@ -654,14 +657,14 @@ Wiz-Mode updates:
     - Wax golems have a small chance of death dropping a magic candle
     - Vulnerable to cold
 - (`) plastic golem
-    - Can drop credit cards and fake amulets.
+    - Can drop random plastic items.
 - (`) snow golem
 - (`) ruby golem
 - (`) diamond golem
 - (`) sapphire golem
 - (`) steel golem 
     - Added vulnerability to acid
-    - Subject to the same rust vulnerability as iron golems (they are basically iron)
+    - Subject to the same rust vulnerability as iron golems
 - (`) crystal golem
     - Added reflection to the higher level golems.
     - Changes color every turn
@@ -1048,7 +1051,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] staff of divination (DIVINATION school)
 - [x] staff of healing (HEALING school)
 - [x] staff of necromancy (NECROMANCY school)
-    - (Replaced the staff of holiness)
+    - (Replaces the staff of holiness)
 - [x] staff of matter (MATTER school)
 - [x] staff of escape (ESCAPE school)
 - [x] staff of war (ATTACK school)
@@ -1079,8 +1082,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - [x] sonic bomb (Hack'EM!
     - All bombs can be ignited by sources of fire (fire rays, explosions, etc). This will start their normal timer. 
     - (In SlashEM, grenade explosions would be calculated and happen instantaneously)
-    - Bombs now insta-explode when you throw them (as they do for monsters)
+    - Bombs now explode on hitting a monster (when thrown) - mirroring the SlashEM behavior for monsters throwing.
     - Now weigh only 10.
+    - Mercenaries and watch guards can spawn with bombs.
 	
 ### Armor:
 
@@ -1230,6 +1234,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 
 - [x] wand of healing
 - [x] wand of extra healing
+    - Wands of healing and extra healing cure sickness when zapped at monsters. If zapped at zombies, they will instead inflict damage equal to what they would normally heal.
 - [x] wand of draining
 - [x] wand of fear
     - Changed to an omni wand that behaves as the cause fear spell, 
@@ -1254,7 +1259,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Fiery monsters take extra damage
     - The ray can destroy forges.
 - [x] wand of acid
+    - Acid rays can destroy webs, trees
 - [x] wand of poison gas
+    - Poison rays destroy and wither trees
 - [x] wand of wonder (splice implementation)
 - [x] wand of sonics
     - Immune to sonic damage
@@ -1277,6 +1284,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Inflicts cold damage to monsters within a 5 square radius if blessed, otherwise 3. 
     - Blessed does 6d6 cold (doesn't target you), uncursed deals 2d3 to everything in the radius, and cursed deals 1d3.
     - Confused: Instead of removing lava, this now creates 1-3 freezing spheres or ice elementals.
+    - If you read a scroll of ice underwater, you die instantly.
     - Waterproof like the scroll of flood.
 - [x] scroll of cloning
     - Clones an item in your inventory
@@ -1412,7 +1420,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - knocks its target back one space with 16+ damage).
 - [x] cursed wands of light
     - Cursed WoL cast darkness instead of light.
-    - In Evil, zapping around peaceful monsters could anger them. I have removed this mechanic except for when you break a WoL.
+    - In Evil, zapping around peaceful monsters could anger them. I have removed this mechanic except for when you break one.
 - [x] wands of nothing
     - have a base price of 500
 - [x] wands of make invisible
@@ -1446,10 +1454,11 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Diluted Potions
     - Evil added diluted effects for many existing potions, I have tried to fill out these effects with the new potions (and some of the old ones) to keep dilution behavior consistent among all the potions.
 - [x] potion of booze:
-    - drinking it gives 130 points of nutrition if uncursed, 140 if blessed, and 120 if cursed.From dnh
+    - drinking it gives 130 points of nutrition if uncursed, 140 if blessed, and 120 if cursed (dnh)
 - [x] potions of acid are immune to being destroyed by freezing (xnh)
 - [x] potions of oil are undilutable (xnh)
 - [x] potions of hallucination can give enlightenment (xnh)
+- [x] Cursed potion of gain ability can decrease one's attributes.
 - [x] ring of free action
     - 50% chance (with a luck bonus) of slipping free with free action
 - [x] Amulets of life saving
@@ -1592,7 +1601,7 @@ Imported some appearance effects from dNetHack:
 
 - [x] spellbook of fire bolt (new Hack'EM special!)
   - Fire Bolt is only available to the Flame Mage and will not generate randomly.
-  - 1d10 fire damage (avg 5.5).
+  - 1d10 fire damage (avg 5.5)
   - A fire attack (similar to force bolt) that doesn't reflect.
   - Can hit multiple targets, destroys doors, trees, webs, fountains
   - Destroys straw/paper golems
@@ -1718,7 +1727,6 @@ Imported some appearance effects from dNetHack:
 - [x] Bradamante's Fury
 - [x] Carnwennan
 - [x] Chains of Malcanthet
-    - Currently cannot wish for.
     - Changed to target Angels instead of demons
 - [x] Circe's Witchstaff
     - Changed to a STAFF_OF_MATTER;
@@ -1726,7 +1734,7 @@ Imported some appearance effects from dNetHack:
 - [x] Deathsword
     - Barbs no longer receive this as a guaranteed sacrifice gift.
     - Deathsword causes hostility from humans
-    - Deathsword occasionally knocks the opponents unconscious.
+    - Capable of inflicting a paralyzing hit 1 in 4 attacks.
     - Changed from targeting vs Human to vs cross-aligned.
 - [x] Deluder
     - Wizards no longer receive this as a guaranteed sacrifice gift.
@@ -1740,7 +1748,7 @@ Imported some appearance effects from dNetHack:
     - Deals an extra d19 to make up for solid +10
     - Shows an appropriate message for tiny monsters.
 - [x] Drowsing Rod (Hack'EM)
-    - (Staff of Healing) +d5 to-hit, +d8 dmg
+    - (Copper Staff of Healing) +d5 to-hit, +d8 dmg
     - This is meant to simulate the original drow attack from slashem, so 19 in 20 times the sleep attack triggers for 2d4 turns.
     - It's a gas vapor attack so breathless monsters are not affected.
     - Grants sleep res
@@ -1756,7 +1764,7 @@ Imported some appearance effects from dNetHack:
 - [x] Gleipnir
 - [x] Gungnir
     - Upped to +20 tohit, +1d12 from dnh.
-    - When a player creates Gungnir, it now converts to an atgeir (type of spear)
+    - When a player creates Gungnir, it now converts the spear held to an atgeir (type of spear)
 - [x] Hand Grenade of Antioch
     - This will not be lit accidentally by sources of fire!
 - [x] Imhullu
@@ -1778,9 +1786,9 @@ Imported some appearance effects from dNetHack:
     - a rapier which gives +5 to-hit bonus and +1 to-damage. Since rapiers are not randomly generated, one can only find a naturally generated Mouser's Scalpel in Grund's Stronghold.
 - [x] Mystic Eyes (Previously known as Lenses of Death Perception)
     - Grants DeathVision
-    - As long as the wearer is not blind, they deal double damage, but constantly hallucinate.
+    - As long as the wearer is not blind, they deal double damage, but constantly hallucinate. Deathvision's double damage is applied everywhere it should be (including spells/wands)
     - Grants searching.
-    - Deathvision's double damage is applied everywhere it should be (including spells/wands/
+    - Made out of gemstone
 - [x] Origin
     - STAFF_OF_ESCAPE
     - While wielded, confers teleport control and great bonuses for spellcasters.
@@ -1811,12 +1819,10 @@ Imported some appearance effects from dNetHack:
     - Changed to Chaotic.
 - [x] Thiefbane (One-eye sam)
     - Revamped thiefbane: No longer targets humans, so now the player can wield it if lucky enough to get if off of Sam.
-    - Now a two-handed sword (from Un), +d5 to-hit, +1 dmg
+    - Now a non-aligned two-handed sword (from Un), +d5 to-hit, +1 dmg
     - Changed Thiefbane to platinum so elves can wield it.
-    - Raised to 10% beheading, will be
-    - Cancels thiefs and covetous
-    - Protects from thievery and seduction.
-    - Moved from chaotic to non-aligned.
+    - Raised to 10% beheading
+    - Cancels thiefs and covetous; protects from thievery and seduction.
 - [x] Thunderstruck (previously known as Sonicboom)
     - Increased attack to AD_LOUD(5, 20) - gotta make up for the item loss.
     - Destroys glass, ruby, sapphire, crystal, diamond golems?
@@ -1914,7 +1920,7 @@ Imported some appearance effects from dNetHack:
 - [x] Sceptre of Might:
     - base type changed from a mace to a rod, deals slightly more damage per hit.
 - [x] Sting/Orcrist changed to Lawful (same alignment as elves)
-- [x] Staff of Aesculapius: also cure afraid and larval infection.
+- [x] Staff of Aesculapius: also cures afraid and larval infection.
 - [x] Sunsword
     - made of gemstone (crystal)
 - [x] Tsurugi of Muramasa
@@ -1922,6 +1928,7 @@ Imported some appearance effects from dNetHack:
     - now confers half physical damage when wielded.
 - [x] Vorpal Blade
     - Raised beheading chance to 10%.
+    - Wielding Vorpal Blade protects against decapitation attacks.
 
 - Various artifacts that have a nemesis monster warn against those monsters.
 - Almost all of the stock weapon artifacts have had their to-hit and damage modifiers adjusted in the players favor.
@@ -1933,6 +1940,9 @@ Imported some appearance effects from dNetHack:
 
 - [x] Added ice traps (Un)
   - Ice traps only generate after level 8
+- [x] Added magic beam traps (evil)
+    - Magic beam traps cannot generate above level 16 (SlashTHEM)
+    - Magic beam traps now generate a random beam type on every trigger; before they were hardcoded to a single beam when created on the level.
 - [x] Can #untrap rust traps (they turn into fountains)
 - [x] Can #untrap fire traps (requires water)
 - [x] Untrapping a spear trap has a chance of yielding a spear or stake
@@ -2013,6 +2023,7 @@ Imported some appearance effects from dNetHack:
 - Forges are introduced, which have the same appearance as fountains but are orange in color. Just like fountains, dipping things into them can have desirable or adverse affects. They can be used to dispose of anything that is flammable, and can also be used to repair corrosion/rust damage to any metallic object (if your luck is greater than 0). There is a rare chance that a lava demon can be summoned via dipping, which will be hostile most times, but can sometimes spawn tame (same odds as getting a wish from a water demon/fountain). Having negative luck can cause a forge to explode when used, which can cause considerable fire damage. Players can also use a forge to remove an attached ball & chain, and can also combine two objects to forge something new using the #forge command.
 - [x] Added new recipes for various imported weapons
 - [x] Forges don't appear until after level 2.
+- [x] Forges can be blown up by rays of water.
 
 ## Mechanics Changes
 
@@ -2111,13 +2122,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 
 #### Twoweaponing
 
-- Twoweaponing has been changed so that the weight of your offhand weapon combined with your skill in twoweaponing has a significant bearing on how successful you'll be in landing a hit. As you increase your skill in twoweaponing, heavier weapons become a viable option to use in your offhand without penalty. That penalty is −30 to-hit, and you'll receive feedback stating that your offhand weapon is too heavy to wield successfully as you try to use it. Below is a listing of what weights and weapons are acceptable per your skill in twoweaponing:
-
-- Unskilled – maximum weight of offhand weapon is 20 aum (can use tridents, javelins, crysknives, daggers, unicorn horns, or anything lighter)
-- Basic – maximum weight of offhand weapon is 30 aum (can use short swords, spears, or a mace)
-- Skilled – maximum weight of offhand weapon is 40 aum (can use sabers or long swords)
-- Expert – maximum weight of offhand weapon is 70 aum (can offhand any one-handed weapon)
-- If playing as a giant, or if wearing gauntlets of power, the maximum weight of your offhand weapon can be 200 aum, meaning you can basically offhand any normal object. Bear in mind that object materials can alter an items base weight – at basic twoweaponing skill you could offhand a normal short sword without penalty, but not a silver short sword, as silver adds extra weight compared to iron (33 aum vs 30 aum). But at the same time, a mithril katana (15 aum) would be perfectly acceptable at the same skill level as mithril is much lighter than any other metal in the game.
+- Twoweaponing changes have been reverted from Evil - twoweaponing behavior should be the same as vanilla.
 
 #### Conflict:
 
@@ -2138,6 +2143,7 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Potions of amnesia can also inflict this effect.
 - Can make you lose Elbereth knowledge if you had it.
 - Can make you forget forget about shambling horrors.
+- Can make you lose intrinsic telepathy.
 - Psychic resistance protects from amnesia forgetting. Sources include rings of psychic resistance and being an illithid.
 
 #### Religion/Prayer/Alters:
@@ -2361,16 +2367,13 @@ resistance
 - Level 5: Gets "vulnerable to cold"
 - Flame Mages also "like fire", so fire usually doesn't have an adverse affect on them.
 - Cannot 2-weapon anymore
-- Starts with more fire based inventory: 
-  - potions of oil, fire bomb, scrolls of fire 
-  -  fireproof quarterstaff and fireproof robe.
+- Starts with more fire based inventory: potions of oil, fire bomb, scrolls of fire, fireproof quarterstaff and fireproof robe.
 - Start with Fire Bolt instead of Flame Sphere (Fire Bolt is a Flame Mage exclusive spell)
 - Can only specialize in Matter, Attack, and Divination spells.
-
-- Adjusted to cast spells using Wisdom, get spellcasting bonuses are calculated using wisdom.
+- Casts spells using Wisdom; spellcasting bonuses are also calculated using wisdom.
 - Left out the dragon polyself ability.
 - Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
-- Flame mages get the multishot penalty
+- Flame mages have multishot penalty.
 - Their special spell is fire bolt.
 
 One major drawback to playing Flame Mages is that they can never attain 100% cold resistance. When they get Vulnerability to Cold - this caps their max cold resistance to 50%.
@@ -2453,6 +2456,7 @@ Heals HP:
 
 Renews magical power:
 - Necromancers do not regenerate magical power as other roles do. To renew your MP, you will have to collect spirits or find some other means (potions of gain energy, scrolls of charging, etc)
+- A new necromancer starts with 0 energy, but a high max of 99, so you can stock up on spirits first.
 
 - [x] Level 1: Spirits grant (monsters level / 2) MP (minimum of 1).
 - [x] Level 7: You get the monster's full level value in MP.
@@ -2527,7 +2531,7 @@ Renews magical power:
 
 ### Existing role changes
 
-#### Archeologist:
+#### Archeologist
 
 - Starts with 2 spellbooks; can start with torch or lamp
 - Club moved from skilled to basic. 
@@ -2535,7 +2539,7 @@ Renews magical power:
 - Archeologists can highly enchant fedoras (xnh)
 - Only archeologists get a luck bonus from wearing fedoras.
 
-#### Barbarians:
+#### Barbarian
 
 - Barbarians are not immune to poison anymore (unless orcish)
 - Barbs start with 2 food rations
@@ -2556,7 +2560,7 @@ Renews magical power:
 #### Healer
 
 - are familiar with more health based potions
-- they start the game knowing potions of sickness, regeneration, paralysis, and sleeping.
+- they start the game knowing potions related to healing: sickness, regeneration, paralysis, sleeping, restore ability, blood, and all healing potions. They also recognize healthstones.
 - Now receives the Drowsing Rod as a first sacrifice gift
 - added clerical spell school, can train to skilled. 
 - Gets poison resistance intrinsic at experience level 3 instead of experience level 1. 
@@ -2600,7 +2604,7 @@ Renews magical power:
 - if playing as a gnome, their quest artifact becomes the Crossbow of Carl. Its properties mirror that of the Longbow of Diana, except that it is a crossbow instead of a bow.
 - XL10+ Rangers automatically see ammo enchantments
 
-#### Rogues
+#### Rogue
 
 - Rogues get scrolls of teleport and gold detection (2 each) and oilskin sack
 - Rogues also get darts; 30% chance that they are replaced with a pistol and bullets.
@@ -2615,7 +2619,7 @@ Renews magical power:
 
 - removed attack and clerical spell schools.
 
-#### Tourist:
+#### Tourist
     
 - Tourists get automatic type identification for shop items
 - Tourists get 2 extra magic maps, 2 extra food.	
@@ -2645,9 +2649,9 @@ Renews magical power:
 - replete with their own special abilities and restrictions.
 - Several role–race combos have been added or unlocked.
 
-#### centaur
+#### Centaurs
 
-#### giant
+#### Giants
 
 - Giants can wear mummy wrappings.
 - Any giant can wear large splint mail - not just Samurai.
@@ -2658,13 +2662,13 @@ Renews magical power:
 - [x] Hobbits start out knowing Elbereth
 
 
-#### illithid
+#### Illithids
 
 Starts with the Psionic Wave spell:
     - Does 2d6 psychic damage
     - Level 26, this increases to 4d6 psychic damage.
 
-#### Vampires:
+#### Vampires
 
 - Vampirics get an extra attack – a drain life bite
 - Can only drain corpses and drink blood.
@@ -2697,10 +2701,12 @@ Weaknesses:
 ### Existing role changes
 
 #### Elves
+
 - Elves always start out knowing Elbereth.
 - Elves can use musical instruments without risk of breaking them.
 - Elves can always squeeze between two trees
 - Elves and rangers get alignment penalty for cutting down trees
+- Elves can only be lawful.
 
 #### Dwarves
 - Dwarves get an alignment bonus for cutting down trees
@@ -2790,6 +2796,7 @@ Tinker service:
                     20% offer weapon ID
                     25% offer armor fixing
                     25% offer armor enchanting
+                    (Note: Armor shops will refuse to work on dragon scales.)
                     20% offer firearms training
 - Scroll stores:	75% offer scroll ID
                     20% offer book ID
