@@ -53,7 +53,6 @@ LOOP [5] { TRAP: "teleport", random }
 LOOP [3] { TRAP: random, random }
 LOOP [3] { TRAP: "magic", random }
 
-
 # Loot
 OBJECT: ('(', "chest"), (19,4)
 LOOP [7]  { OBJECT: random, random }
@@ -63,12 +62,13 @@ LOOP [9]  { GOLD: 1d200, (19,4) }
 MONSTER: ('e', "Xanathar"), (21,04)
 
 # A LOT of gas spores
-LOOP [37] 	{ MONSTER: ('e', "gas spore"), random }
-LOOP [4]  	{ MONSTER: random, random }
+LOOP [15] 	{ MONSTER: ('e', "gas spore"), random }
+LOOP [3]  	{ MONSTER: random, random }
 
 # --hackem: Added a huge gas spore chamber ala Doom
-LOOP [100]  { MONSTER: ('e', "gas spore"), (01,07) }
-LOOP [4] 	{ MONSTER: ('e', "beholder"), (01,07) }
-LOOP [2] 	{ MONSTER: ('e', "flaming sphere"), (01,07) }
-LOOP [2] 	{ MONSTER: ('e', "freezing sphere"), (01,07) }
-LOOP [2] 	{ MONSTER: ('e', "shocking sphere"), (01,07) }
+LOOP [50]  { MONSTER: ('e', "gas spore"), (01,07) }
+[50%]: MONSTER: ('e', "beholder"), (01,07)
+[50%]: MONSTER: ('e', "magical eye"), (01,07)
+LOOP [2] 	{ [50%]: MONSTER: ('e', "flaming sphere"), (01,07) }
+LOOP [2] 	{ [50%]: MONSTER: ('e', "freezing sphere"), (01,07) }
+LOOP [2] 	{ [50%]: MONSTER: ('e', "shocking sphere"), (01,07) }
