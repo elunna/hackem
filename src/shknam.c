@@ -373,7 +373,7 @@ const struct shclass shtypes[] = {
       { { 45, RANDOM_CLASS },
         /* {  2, -DECK_OF_FATE },*/
         { 10, -BASEBALL_BAT },
-        { 10,  -WAN_WONDER },
+        { 10, -WAN_WONDER },
         { 8, -FOOTBOW },
         { 5, -WAN_NOTHING },
         { 5, -FLY_SWATTER },
@@ -382,6 +382,7 @@ const struct shclass shtypes[] = {
         { 5, -IRON_CHAIN },
         { 5, -TIN_OPENER },
         { 5, -FISHING_POLE },
+        { 5, -EIGHT_BALL },
         { 5, -SPOON } },
       shkjunk },
     { "health food store", FOOD_CLASS, 2, D_SHOP,
