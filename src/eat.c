@@ -1135,9 +1135,7 @@ register struct permonst *ptr;
         if (!(HTelepat & FROMOUTSIDE)) {
             You_feel(Hallucination ? "in touch with the cosmos."
                                    : "a strange mental acuity.");
-            /* --hackem: No longer grants permanent telepathy. */
-            /* HTelepat |= FROMOUTSIDE; */
-            incr_itimeout(&HTelepat, rn1(250, 250));
+            HTelepat |= FROMOUTSIDE;
             /* If blind, make sure monsters show up. */
             if (Blind)
                 see_monsters();

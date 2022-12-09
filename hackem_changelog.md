@@ -39,8 +39,8 @@
 - [x] Auto-ID dunce cap upon wearing
 - [x] Auto-ID jumping boots (from AceHack)
 - [x] Auto-ID some potions when inhaling their vapors
-- [x] Auto-ID scrolls of scare monster during pickup
-- [x] Auto-ID scrolls of teleportation when teleporting any distance after reading one
+- [x] Auto-ID scroll of scare monster on pickup if it turns to dust.
+- [x] Auto-ID scroll of teleportation when teleporting any distance after reading one
 - [x] Auto-ID scrolls of remove curse when items' curses are removed
 - [x] Auto-ID wand of teleportation on seeing the successful effect on a monster.
 - [x] Auto-ID wands with unambiguous effects and messages
@@ -76,6 +76,7 @@
 - [x] Monsters are prevented from picking up gold in shops.
 - [x] The Astral Plane is always lit. (xnh)
 - [x] The passtune range has been extended by 1. (xnh)
+- [x] Monsters can no longer use wands of wishing to get wishes - if they get a wish from a smoky potion they will still attempt to get something powerful.
 - [x] Switching between your main and alternative weapon should not take any turns (from dnh)
 - [x] Removed repeated coughing of player when poison resistance renders stinking clouds harmless.
 - [x] Removed all random secret corridors.
@@ -83,10 +84,13 @@
 - [x] Deliberate level teleporter activation ignores magic resistance (3.7)
 - [x] Attempting to open "." acts as an alias for #loot
 - [x] Show the last turn the player prayed in the ^X screen
+- [x] Swapping weapons take 0 turns now (dnh)
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
 - [x] Realtime display option is now available (thanks K2!)
 
+- [x] Potions have been made more useful from these patches:
+    -  Malcolm Ryan's Brewing Patch let's you ferment mold corpses in certain potions.
 Wishing shortcuts:
     { "BoL",  LEVITATION_BOOTS},
     { "BoS",  SPEED_BOOTS},
@@ -868,9 +872,6 @@ Wiz-Mode updates:
 
 ### Monster Mechanic Changes:
 
-- [x] Mold/Fungus ressurection
-    - (ported from Splicehack, which ported from xnh)
-    - The ressurection rates have been tapered back a bit, so it's not as annoying as in Slash'EM - but there are more F monsters that can spawn (including moldiers at deeper levels)
 - [x] Shape-changing monsters (except for vampires and were-creatures)
     - will revert back to their original form when their polymorphed form dies.
     - They cannot change form again once this happens.
@@ -1001,10 +1002,11 @@ Dragons and Dragon Scales
 - [x] parazonium
 - [x] chakram (metal based boomerang)
     - Made chakram dmg 10 vs small, 9 vs lg, and +1 tohit. 
+    - Chakrams only deal 1-2 damage if used as a melee weapon.
     - Weight 25
     - Decreased probability to half of boomerang.
     - Splice had chakram's base material as silver - this seemed a bit too powerful - changed base material to IRON, but can be any shiny material so still a 20% chance of being silver.
-    - Chakrams only deal 1-2 damage if used as a melee weapon.
+    
 - [x] throwing axe
     - Does 1 less damage vs sm than a regular axe, but counts as a throwing weapon so can be stacked.
     - Lowered the weight of throwing axes to 20, +2 to-hit.
@@ -1374,6 +1376,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 ### Containers:
 - [x] bag of rats
     - Similar to a bag of tricks, but produces large amounts of rats instead.
+    - Can be looted if on the ground - similar effect to bag of tricks. A rat might bite you from the bag for 2d4 damage, the bag is identified regardless.
 - [x] Iron safe
     - A secure container that can only be 'cracked' using a stethoscope. 
     - Cannot be physically locked again once it's been unlocked. 
@@ -1442,11 +1445,11 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 
 - [x] Diluted Potions
     - Evil added diluted effects for many existing potions, I have tried to fill out these effects with the new potions (and some of the old ones) to keep dilution behavior consistent among all the potions.
-- [x] booze:
+- [x] potion of booze:
     - drinking it gives 130 points of nutrition if uncursed, 140 if blessed, and 120 if cursed.From dnh
-- [x] Acid potions are immune to being destroyed by freezing (xnh)
-- [x] Oil is undilutable (xnh)
-- [x] Potions of hallucination can give enlightenment (xnh)
+- [x] potions of acid are immune to being destroyed by freezing (xnh)
+- [x] potions of oil are undilutable (xnh)
+- [x] potions of hallucination can give enlightenment (xnh)
 - [x] ring of free action
     - 50% chance (with a luck bonus) of slipping free with free action
 - [x] Amulets of life saving
@@ -1522,7 +1525,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 
 - [x] 1/40 of random non-artifact weapons will be generated erodeproof (xnh)
 - [x] 1/40 of random non-artifact items will be generated as pre-eroded (xnh)
-- [x] Grease will generate on an erodable object every once in a great while (xnh)
+- [x] Grease will generate on an erodable object every once in a great while - 1 in 23263 chance (xnh)
 
 - [x] breakable locking tools and musical instruments
   - There is now an method for deciding the breakability of these classes of items.
@@ -1575,7 +1578,7 @@ Imported some appearance effects from dNetHack:
     - Moved to ESCAPE category
     - Lowered spell level slightly to 5
 - [x] spellbook of poison blast
-    - Reduced to level 2 so the infidel has a decent starting spell at an affordable price.
+    - Reduced to level 2.
 - [x] spellbook of reflection
     - Creates a temporary reflective bubble around the caster, 
     - acts exactly the same as an amulet of reflection (or the like)
@@ -1697,7 +1700,7 @@ Imported some appearance effects from dNetHack:
 
 **Design decision #2:** 
 
-    Any roles that had 2 guaranteed altar sacrifice gifts have been reduced to just 1. Having 2 just seems excessive, and most of the time, the second gift was just a barrier to overcome to get to better stuff (example: Deathsword for Barbarian, or even Deluder for Wizards)
+    Any roles that had 2 guaranteed altar sacrifice gifts have been reduced to just 1. Having 2 just seems excessive, and most of the time, the second gift was just a barrier to overcome to get to better stuff (example: Deathsword for Barbarian, or Deluder for Wizards)
     
 - [x] Players can twoweapon with an artifact in each hand, if those artifacts happen to get along with each other.
 - [x] When sacrificing, your deity may gift you a regular piece of gear instead of an artifact.
@@ -1764,7 +1767,7 @@ Imported some appearance effects from dNetHack:
     - Was a "named" silver long sword in the village level,
     - shoots magic missiles when you are at full health?
     - 10% chance of melee magic missile attack
-    - Cannot be wished for. The master sword now has a 75% chance of appearing in the middle of the Town branch.
+    - Cannot be wished for. Now has a 75% chance of appearing in the Town branch.
 - [x] Mirrorbright
     - Mirrorbright no longer hinders spell-casting.
     - Healers no longer receive Mirrorbright as a sacrifice gift, they get the Drowsing Rod instead.
@@ -1780,8 +1783,8 @@ Imported some appearance effects from dNetHack:
     - Deathvision's double damage is applied everywhere it should be (including spells/wands/
 - [x] Origin
     - STAFF_OF_ESCAPE
-    - While wielded, offers great bonuses for spellcasters.
-    - Increases spellcasting ability as a robe would
+    - While wielded, confers teleport control and great bonuses for spellcasters.
+    - Increases spellcasting ability as a robe would, plus it makes escape spells cost less.
     - Gives a discount of 5 energy for spells that costs 10 or more.
 - [x] Plague
     - confers sickness res while carried (from dnh)
@@ -1874,6 +1877,7 @@ Imported some appearance effects from dNetHack:
     - Cannot be wished for.
 
 ### Changes to existing artifacts:
+
 - [x] Demonbane
     - switched from a long sword to a silver heavy mace,
     - first sacrifice artifact gift for Priests.
@@ -2021,6 +2025,13 @@ Imported some appearance effects from dNetHack:
 - [x] Add celibate conduct (slashem)
 - [x] Galloping duration depends on riding skills (idea by Beolach, code by Pasi Kallinen)
 
+### Mold/Fungus ressurection
+- (ported from Splicehack, which ported from xnh)
+- Corpses have a chance to mold and grow a random F.
+- Petrifying monster corpses only grow green mold.
+- The ressurection rates have been tapered back a bit, so it's not as annoying as in Slash'EM - but there are more F monsters that can spawn (including moldiers at deeper levels)
+- Moldy corpses can be used with different potions (see the brewing patch details)
+
 ### Elbereth
 - You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
 - Conflict negates Elbereth.
@@ -2039,7 +2050,6 @@ Imported some appearance effects from dNetHack:
 - [x] Reflection is not 100%; it can lessen the effects of an attack it reflects, but will never negate it.
 - [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
 - [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil)
-- [x] Telepathy from floating eyes is now temporary.
 - [x] Restful sleep regenerates hp (we can get restful sleep property from the Amulet of Restful Sleep or a Ring of Sleeping)
 - [x] The hunger property halves nutrition from food (so you could potentially eat more giant corpses.) (xnh)
 - [x] Extrinsic resistances protect items from elemental damage. For example, wearing a ring of fire resistance will protect your scrolls and potions from fire damage.
@@ -2157,13 +2167,25 @@ The gift received will always be blessed, enchanted, fixed, and there is a 1 in 
 - Another feature ported over from Slash'EM
 - This enables trees to slowly branch out in the dungeon and occasionally drop ripe fruits/leaves.
 - It also promotes the growth of herbs left on the ground or water.
-- Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles: these include garlic, wolfsbane, catnip, carrots, kelp fronds, and mushrooms (technically not herbs but they do spread prolifically). Herbs in the water will move with water currents.
+- Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles.
+- These include:
+    - garlic, 
+    - wolfsbane, 
+    - catnip, 
+    - carrots, 
+    - mushrooms 
+    - pineapples
+    - kelp fronds,
+    
+- Some of these are not herbs but they still do spread prolifically. 
+- Herbs in the water will move with water currents.
 - One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
 - Level with trees have a chance of an additional axe (to aid with potential overgrowth)
 
 #### Alchemy
 
 - Alchemic blast damage is doubled, but acid resistance halves it (xnh)
+
 - Incorporate Malcolm Ryan's Brewing Patch
     - enables the player to dip mold corpses in potions of fruit juice to start a fermentation timer that will eventually turn the potion into something else dependent on the mold.
     - Dipping green mold into fruit juice produces acid. 
@@ -2331,8 +2353,6 @@ resistance
 
 - Infidels no longer start with drain life (Necromancers have the monopoly on that). In it's place, the spell of poison blast has been lowered to a level 2 spell so Infidels can start with that.
 
-
-
 #### Flame Mage
 
 - Flame Mage can only be Lawful/Neutral
@@ -2375,8 +2395,7 @@ One major drawback to playing Flame Mages is that they can never attain 100% col
   - Removed studded armor, replaced with robe.
   - Removed starting potions (they might freeze from the cold)
   - Starts with a Frost Horn instead of a wand of cold
-  - Ice Mages no longer start with confuse monster (not useful
-l for vampires/illithids etc), they always start with slow monster instead.
+  - Ice Mages no longer start with confuse monster, they always start with slow monster instead.
 - Left out the dragon polyself ability.
 - Ice Mages can walk on ice without slipping.
 - Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
@@ -2396,7 +2415,6 @@ One major drawback to playing Ice Mages is that they can never attain 100% fire 
 - Neither should receive opposite elemental based spellbooks or weapons either.
 
 #### Necromancer
-
 
 With inspiration from aosdict, the Necromancer role has been overhauled with a new approach.
 
@@ -2443,9 +2461,10 @@ Renews magical power:
 ##### Necromancer intrinsics changes
 
 - [x] Level 1: Fear Resistance
-    - Not afraid of "fear attacks", ie: dragons, banshees, bodaks
+    - Not afraid of "fear attacks", ie: banshees, bodaks
     - Not afraid of Noferatu gaze
     - Not afraid of ghosts or temple ghosts.
+    - Note: They still can be afraid of dragon roars though.
 - [x] Level 1: Drain resistance
 - [x] Level 3: Undead warning
 - [x] Level 18: Sickness resistance
@@ -2457,7 +2476,7 @@ Renews magical power:
 - [x] Undead will never betray Necromancers (lots of undead are treacherous in HackEM, so charm monster isn't as reliable as it used to be...)
 - [x] Like convicts, Necromancers now cannot tame anything other than undead. Instead of taming, the best that occurs will be pacifying the target. 
 
-- Instead of starting with a pile of books or learning techniques, the Necromancer learns special Necromancy spells as they level up. As a holdover from Slash'EM, they still do start with the spell and spellbook of Drain Life.
+- Instead of starting with a pile of books or learning techniques, the Necromancer learns special Necromancy spells as they level up. As a holdover from Slash'EM, they still start with the spell and spellbook of Drain Life.
 - When the following spells are learned - the Necromancer gets them forever. This is meant to simulate techniques, but also to encourage use of them throughout the entire game. 
 
 - [x] XP 2: CALL_UNDEAD 
@@ -2469,7 +2488,6 @@ Renews magical power:
     - Attempts to revive all corpses in adjacent squares and turn them into an appropriate zombies. Other humanoids will become a ghoul 3/4th of the time or a ghast the remaining 1/4th.
 	- There is no effect on non-humanoid corpses.
     - An attempt will be made to tame the resulting undead with the same chances as casting charm monster. The undead will always be hostile if not tamed. You will be unable to move for 2 turns even if there was no effect, and the technique will be usable again after 1000-1500 turns.
-
 - [x] XP 7: COMMAND_UNDEAD
     - (Level 4 spell)
     - This spell is equivalent to charm monster, except that it only affects undead.
@@ -2495,6 +2513,9 @@ Renews magical power:
 - Level 15: Slayers now get Warning
 - Level 21: Slayers now get Clairvoyence
 - Their special spell is protection
+- Their guaranteed sacrifice gift is the Spear of Light.
+- Elven slayers can start with silver elven daggers.
+- Undead slayers do NOT have a multishot penalty.
 
 #### Yeoman
 	
@@ -2564,6 +2585,7 @@ Renews magical power:
 - Monks now receive extra intrinsics as they level up into the higher experience tiers (telepathy at 20, water walking at 23, stoning resistance at 25, disintegration resistance at 27, and sickness resistance at 30).
 - Reverted the starting spell of confuse monster; Monks can again start with the spell of sleep.
 - Monks get a 1AC bonus for being drunk (confused).
+- Reverted vanilla changes to starting spells. Monks start with sleep instead of confuse monster.
 
 #### Priest
     
