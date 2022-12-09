@@ -2616,6 +2616,7 @@ dosacrifice()
             
             /* A particularly faithful player may receive a minion
              * New restrictions on minion gifts:
+             *      Must have had 1+ pets this game (to respect petless conduct)
              *      Must be level 5 or greater
              *      Must have positive luck
              *      If completed or expelled from quest, no more minions.
@@ -2624,7 +2625,8 @@ dosacrifice()
              *      I'm now using the calculation from SpliceHack that considers
              *      the quantity of gifts given .
              */
-            if (u.ulevel > 4 
+            if (u.uconduct.pets > 0 
+                && u.ulevel > 4 
                 && u.uluck >= 0
                 && !u.uevent.qcompleted
                 && !u.uevent.qexpelled
