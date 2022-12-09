@@ -3894,7 +3894,6 @@ breakability(struct obj *otmp)
         val /= 2;
 
     /* If the value is 0 or less, return 1. */
-    debug_pline("breakability val = %d", val);
     return ((val < 1) ? 1 : val);
 }
 /*mkobj.c*/
