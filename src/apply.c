@@ -4573,7 +4573,6 @@ struct obj *obj;
         goto discard_broken_wand;
     case WAN_FEAR:
         if (!Role_if(PM_NECROMANCER)) {
-            You("suddenly panic!");
             make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
         }
         wandfear(obj);
