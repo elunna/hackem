@@ -190,8 +190,4 @@ OPTIONS=number_pad:0
 OPTIONS=sortloot:full
 OPTIONS=time
 BIND=v:wizmakemap
-OPTIONS=windowtype:curses
-OPTIONS=align_message:top
-OPTIONS=align_status:bottom
-OPTIONS=perm_invent
 #eof
