@@ -622,6 +622,10 @@ Helmet_on(VOID_ARGS)
         break;
     case TINFOIL_HAT:
         pline("Your thoughts feel much more secure.");
+        if (Afraid) {
+            make_afraid(0L, TRUE);
+            context.botl = TRUE;
+        }
         break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
@@ -1524,7 +1528,6 @@ register struct obj *obj;
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
-    case RIN_PSYCHIC_RESISTANCE:
     case RIN_SONIC_RESISTANCE:
         break;
     case RIN_REGENERATION:
@@ -1636,6 +1639,11 @@ register struct obj *obj;
         if (obj->spe)
             find_ac(); /* updates botl */
         break;
+    case RIN_PSYCHIC_RESISTANCE:
+        if (Afraid) {
+            make_afraid(0L, TRUE);
+            context.botl = TRUE;
+        }
     }
 }
 

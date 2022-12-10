@@ -4508,7 +4508,7 @@ int dmg;
             unmul("What a horrible nightmare! You wake up!");
         }
         if (Sonic_resistance)
-            break; /* No inventory damage! */
+            break;
         if (Psychic_resistance 
             || Role_if(PM_NECROMANCER) 
             || Role_if(PM_UNDEAD_SLAYER)) {
