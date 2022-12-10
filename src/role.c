@@ -213,7 +213,7 @@ const struct Role roles[] = {
       "the Temple of Coeus",
       PM_HEALER,
       NON_PM,
-      NON_PM,
+      PM_KITTEN,
       PM_HIPPOCRATES,
       PM_ATTENDANT,
       PM_CYCLOPS,
