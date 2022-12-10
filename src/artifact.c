@@ -4767,7 +4767,7 @@ boolean defend;
     case AD_MAGM:
         return defend ? "magic" : "magic missile";
     case AD_DRLI:
-        return "drain";
+        return "drain life";
     case AD_CLOB:
         return defend ? "clobber" : "extreme stability";
     case AD_DISE:
@@ -4794,6 +4794,8 @@ boolean defend;
         return "blinding";
     case AD_STUN:
         return "stuns/magic";
+    case AD_DREN:
+        return "drain energy";
     default:
         impossible("Bad AD_TYPE!");
     }
