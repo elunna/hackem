@@ -1234,16 +1234,16 @@ boolean artif;
             /* A small fraction of non-artifact items will generate eroded or
              * possibly erodeproof. An item that generates eroded will never be
              * erodeproof, and vice versa. */
-            if (!rn2(40)) {
+            if (!rn2(75)) {
                 otmp->oerodeproof = 1;
             }
             else {
-                if (!rn2(40) && (is_flammable(otmp) || is_rustprone(otmp))) {
+                if (!rn2(75) && (is_flammable(otmp) || is_rustprone(otmp))) {
                     do {
                         otmp->oeroded++;
                     } while (otmp->oeroded < 3 && !rn2(9));
                 }
-                if (!rn2(40) && (is_rottable(otmp) || is_corrodeable(otmp))) {
+                if (!rn2(75) && (is_rottable(otmp) || is_corrodeable(otmp))) {
                     do {
                         otmp->oeroded2++;
                     } while (otmp->oeroded2 < 3 && !rn2(9));
@@ -1251,7 +1251,7 @@ boolean artif;
             }
             /* and an extremely small fraction of the time, erodable items
              * will generate greased */
-            if (!rn2(23263)) {
+            if (!rn2(3263)) {
                 otmp->greased = 1;
             }
         }
