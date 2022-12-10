@@ -57,13 +57,13 @@ STATIC_OVL int
 pet_type()
 {
     if (urole.petnum != NON_PM)
-        return  urole.petnum;
+        return urole.petnum;
     else if (preferred_pet == 'c')
-        return  PM_KITTEN;
+        return PM_KITTEN;
     else if (preferred_pet == 'd')
-        return  PM_LITTLE_DOG;
+        return PM_LITTLE_DOG;
     else
-        return  rn2(2) ? PM_KITTEN : PM_LITTLE_DOG;
+        return rn2(2) ? PM_KITTEN : PM_LITTLE_DOG;
 }
 
 struct monst *
@@ -235,8 +235,8 @@ makedog()
     if (pettype == PM_LITTLE_DOG
         || pettype == PM_HELL_HOUND_PUP)
         petname = dogname;
-    if (pettype == PM_WINTER_WOLF_CUB || pettype == PM_WOLF)
-		petname = wolfname;
+    else if (pettype == PM_WINTER_WOLF_CUB || pettype == PM_WOLF)
+        petname = wolfname;
     else if (pettype == PM_PSEUDODRAGON)
         petname = pseudoname;
     else if (pettype == PM_GHOUL)
