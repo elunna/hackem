@@ -3806,8 +3806,11 @@ register struct obj *otmp, *obj;
 
     /* fail if already the same object, if different types, if either is
        explicitly marked to prevent merge, or if not mergable in general */
-    if (obj == otmp || obj->otyp != otmp->otyp
-        || obj->nomerge || otmp->nomerge || !objects[obj->otyp].oc_merge)
+    if (obj == otmp 
+        || obj->otyp != otmp->otyp
+        || obj->nomerge 
+        || otmp->nomerge 
+        || !objects[obj->otyp].oc_merge)
         return FALSE;
 
     /* coins of the same kind will always merge */
@@ -3819,7 +3822,8 @@ register struct obj *otmp, *obj;
         return TRUE;
 
     if (obj->bypass != otmp->bypass
-        || obj->cursed != otmp->cursed || obj->blessed != otmp->blessed)
+        || obj->cursed != otmp->cursed 
+        || obj->blessed != otmp->blessed)
         return FALSE;
 
     if (obj->globby)
@@ -3828,25 +3832,30 @@ register struct obj *otmp, *obj;
      * or don't inhibit their merger.
      */
 
-    if (obj->unpaid != otmp->unpaid || obj->spe != otmp->spe
-        || obj->no_charge != otmp->no_charge || obj->obroken != otmp->obroken
-        || obj->otrapped != otmp->otrapped || obj->lamplit != otmp->lamplit)
+    if (obj->unpaid != otmp->unpaid 
+        || obj->spe != otmp->spe
+        || obj->no_charge != otmp->no_charge 
+        || obj->obroken != otmp->obroken
+        || obj->otrapped != otmp->otrapped 
+        || obj->lamplit != otmp->lamplit)
         return FALSE;
 
-    if (obj->oclass == FOOD_CLASS && (obj->oeaten != otmp->oeaten || 
-                                      obj->odrained != otmp->odrained || 
-                                      obj->orotten != otmp->orotten))
+    if (obj->oclass == FOOD_CLASS && (obj->oeaten != otmp->oeaten 
+                                      || obj->odrained != otmp->odrained 
+                                      || obj->orotten != otmp->orotten))
         return FALSE;
 
     if (obj->dknown != otmp->dknown
         || (obj->bknown != otmp->bknown && !Role_if(PM_PRIEST))
-        || obj->oeroded != otmp->oeroded || obj->oeroded2 != otmp->oeroded2
-        || obj->material != otmp->material || obj->greased != otmp->greased)
+        || obj->oeroded != otmp->oeroded 
+        || obj->oeroded2 != otmp->oeroded2
+        || obj->material != otmp->material 
+        || obj->greased != otmp->greased)
         return FALSE;
 
-    if ((erosion_matters(obj) || destroyable_oclass(obj->oclass))
-        && (obj->oerodeproof != otmp->oerodeproof
-            || obj->rknown != otmp->rknown))
+    /*if ((erosion_matters(obj) || destroyable_oclass(obj->oclass))*/
+    if (erosion_matters(obj) && 
+        (obj->oerodeproof != otmp->oerodeproof || obj->rknown != otmp->rknown))
         return FALSE;
 
     if (obj->otyp == CORPSE || obj->otyp == EGG || obj->otyp == TIN) {
