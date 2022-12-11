@@ -5744,10 +5744,12 @@ lenses
 	Lenses are used by applying or putting them on; while worn, they 
 	protect your eyes from the raven's blinding attack and spat venom,
 	but not from thrown cream pies or other sources of blindness. 
-	Wearing lenses when searching improves your chances of finding 
-	secret doors and corridors, but not traps. Worn lenses also 
-	increase your chances of successfully reading a spellbook by 10%,
-	while reducing the time taken reading by 1⁄3.
+	
+	Wearing lenses also confers automatic searching, which helps detect
+	hidden doors, corridors, and traps.
+	
+	Worn lenses also increase your chances of successfully reading a
+	spellbook by 10%, while reducing the time taken reading by 1⁄3.
 
 	Lenses cannot be worn at the same time as a blindfold or a towel. 
 	They also cannot be worn if you are a headless form.
