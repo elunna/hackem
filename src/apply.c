@@ -4822,10 +4822,13 @@ doapply()
         } else if (!ublindf) {
             Blindf_on(obj);
         } else {
-            You("are already %s.", ublindf->otyp == TOWEL
-                                       ? "covered by a towel" : ublindf->otyp == BLINDFOLD
-                                             ? "wearing a blindfold" : ublindf->otyp == GOGGLES
-                                                   ? "wearing goggles" : "wearing lenses");
+            You("are already %s.", 
+                ublindf->otyp == TOWEL ? "covered by a towel" : 
+                ublindf->otyp == BLINDFOLD ? "wearing a blindfold" : 
+                ublindf->otyp == GOGGLES ? "wearing goggles" :
+                ublindf->otyp == LENSES ? "wearing lenses" : 
+                ublindf->otyp == MASK ? "wearing a mask" : 
+                "wearing something");
         }
         return res; /* Mask might be destroyed, so this is a safeguard against 
                      * the artispeak check below. */
