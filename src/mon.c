@@ -5380,9 +5380,11 @@ xchar x, y;
 
     if (!mtmp)
         return;
-    if (!concealed_spot(x, y)
-        && mtmp->mundetected 
-        && hides_under(mtmp->data))
+    if (concealed_spot(x, y))
+        return;
+    if (u_at(x, y))
+        mtmp = &youmonst;
+    if (mtmp->mundetected && hides_under(mtmp->data))
         (void) hideunder(mtmp);
     
     if (is_swimmer(mtmp->data) && mtmp->mundetected) {

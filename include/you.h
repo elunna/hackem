@@ -433,5 +433,7 @@ struct you {
 }; /* end of `struct you' */
 
 #define Upolyd (u.umonnum != u.umonster)
+/* hero at (x,y)? */
+#define u_at(x,y) ((x) == u.ux && (y) == u.uy)
 
 #endif /* YOU_H */
