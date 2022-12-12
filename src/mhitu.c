@@ -846,7 +846,7 @@ register struct monst *mtmp;
         tmp -= 12;
     if (tmp <= 0)
         tmp = 1;
-    if (calculate_flankers(mtmp, &youmonst) && !Blind) {
+    if (!u.uswallow && calculate_flankers(mtmp, &youmonst) && !Blind) {
         You("are being flanked!");
         tmp += 4;
         /* Scale with monster difficulty */
