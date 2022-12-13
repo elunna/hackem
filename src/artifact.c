@@ -2927,13 +2927,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             if (!rn2(10))
                 make_stunned((HStun & TIMEOUT) + 10L, FALSE);
         } else {
-            if (has_erid(mdef)) {
-                separate_steed_and_rider(mdef);
-                mdef->mstun = 1;
-                if (vis)
-                    pline_The("powerful lance unseats %s!", mon_nam(mdef));
-                return TRUE;
-            }
             if (!rn2(10))
                 mdef->mstun = 1;
         }

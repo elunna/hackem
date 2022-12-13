@@ -723,8 +723,6 @@ boolean pets_only; /* true for ascension or final escape */
         mtmp2 = mtmp->nmon;
         if (DEADMONSTER(mtmp))
             continue;
-        if (has_erid(mtmp) || mtmp->rider_id)
-            continue;
         if (pets_only) {
             if (!mtmp->mtame)
                 continue; /* reject non-pets */
@@ -840,11 +838,6 @@ coord *cc;   /* optional destination coordinates */
     d_level new_lev;
     xchar xyflags;
     int num_segs = 0; /* count of worm segments */
-
-    /* Recursive call to levelport monster steeds. */
-    if (mtmp->mextra && ERID(mtmp) && ERID(mtmp)->m1) {
-        migrate_to_level(ERID(mtmp)->m1, tolev, xyloc, cc);
-    }
 
     if (mtmp->isshk)
         set_residency(mtmp, TRUE);
@@ -1117,7 +1110,6 @@ register struct obj *obj;
 #if 0 /* This section has been replaced by using M3_NOTAME and M3_TRAITOR tags instead */
     /* These monsters should never be able to be tamed. Ever. Just no */
     if (mtmp->data == &mons[PM_BEHOLDER]
-        || mtmp->data == &mons[PM_FELL_BEAST]
         || mtmp->data == &mons[PM_MAGICAL_EYE]
         || mtmp->data == &mons[PM_ELDER_MINOTAUR]
         || mtmp->data == &mons[PM_PALE_HORSE]
@@ -1395,54 +1387,6 @@ struct monst *mtmp;
 
         if (!mtmp->mtame)
             newsym(mtmp->mx, mtmp->my);
-    }
-}
-
-/* just entered the Astral Plane; receive tame mount if worthy */
-void
-gain_guardian_steed()
-{
-    struct monst *mtmp;
-    struct obj *otmp;
-    coord mm;
-
-    Hear_again(); /* attempt to cure any deafness now (divine
-                     message will be heard even if that fails) */
-    if (u.ualign.record > 8) { /* fervent */
-        pline("A voice whispers:");
-        /* Neither Centaurs, Giants, nor Tortles can ride horses. Awww... */
-        verbalize(
-  "Worthy vassal, know now thy true identity!  Behold thy %s, the Red Horse!",
-                  (Race_if(PM_CENTAUR)
-                   || Race_if(PM_GIANT) || Race_if(PM_TORTLE)) ? "companion"
-                                                               : "steed");
-        mm.x = u.ux;
-        mm.y = u.uy;
-        if (enexto(&mm, mm.x, mm.y, &mons[PM_RED_HORSE])
-            && (mtmp = makemon(&mons[PM_RED_HORSE], mm.x, mm.y, MM_EDOG)) != 0) {
-            /* Too nasty for the game to unexpectedly break petless conduct on
-             * the final level of the game. The Red Horse will still appear, but
-             * won't be tamed. Toss some carrots at it if you want to tame it */
-            if (u.uconduct.pets) {
-                mtmp->mtame = 20;
-                u.uconduct.pets++;
-            }
-            EDOG(mtmp)->apport = ACURR(A_CHA);
-            /* make sure our steed isn't starving to death when we arrive */
-            EDOG(mtmp)->hungrytime = 1000 + monstermoves;
-            mtmp->mstrategy &= ~STRAT_APPEARMSG;
-            if (!Blind)
-                pline("The Red Horse appears near you.");
-            else
-                You_feel("the presence of the Red Horse near you.");
-            /* make it strong enough vs. endgame foes */
-            mtmp->mhp = mtmp->mhpmax =
-                d((int) mtmp->m_lev, 10) + 30 + rnd(30);
-            otmp = mksobj(SADDLE, TRUE, FALSE);
-            put_saddle_on_mon(otmp, mtmp);
-            bless(otmp);
-            otmp->dknown = otmp->bknown = otmp->rknown = 1;
-        }
     }
 }
 

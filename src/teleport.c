@@ -1571,7 +1571,6 @@ register int x, y;
     memset(mtmp->mtrack, 0, sizeof mtmp->mtrack);
     place_monster(mtmp, x, y); /* put monster down */
     update_monster_region(mtmp);
-    update_monsteed(mtmp);
 
     if (mtmp->wormno) /* now put down tail */
         place_worm_tail_randomly(mtmp, x, y);
@@ -1612,12 +1611,6 @@ boolean suppress_impossible;
     if (mtmp == u.usteed) {
         tele();
         return TRUE;
-    }
-
-    if (mtmp->rider_id) {
-        /* teleport rider along with steed */
-        struct monst *rider = get_mon_rider(mtmp);
-        return rloc(rider, suppress_impossible);
     }
 
     if (mtmp->iswiz && mtmp->mx) { /* Wizard, not just arriving */

@@ -2234,9 +2234,8 @@ final_level()
     /* create some player-monsters */
     create_mplayers(rn1(5, 4), TRUE);
 
-    /* create a guardian steed next to player, if worthy */
-    if (u.ualign.type != A_NONE)
-        gain_guardian_steed();
+    /* create a guardian angel next to player, if worthy */
+    gain_guardian_angel();
 }
 
 static char *dfr_pre_msg = 0,  /* pline() before level change */

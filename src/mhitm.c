@@ -336,7 +336,7 @@ boolean quietly;
     int tx, ty, fx, fy;
 
     /* sanity checks; could matter if we unexpectedly get a long worm */
-    if (!magr || !mdef || magr == mdef || has_erid(mdef))
+    if (!magr || !mdef || magr == mdef)
         return MM_MISS;
     pa = magr->data, pd = mdef->data;
     tx = mdef->mx, ty = mdef->my; /* destination */
@@ -1072,7 +1072,7 @@ struct monst *magr, *mdef;
         return FALSE;
 
     /* can't swallow something if riding / being ridden */
-    if (magr->rider_id || mdef->rider_id || has_erid(magr))
+    if (magr->rider_id || mdef->rider_id)
         return FALSE;
 
     /* (hypothetical) engulfers who can pass through walls aren't
@@ -1105,16 +1105,9 @@ register struct attack *mattk;
     int status;
     char buf[BUFSZ];
     struct obj *obj, *otmp;
-    struct monst *msteed = NULL;
 
     if (!engulf_target(magr, mdef))
         return MM_MISS;
-
-    if (has_erid(mdef)) {
-        if (vis)
-            pline("%s plucks %s right off %s mount!", Monnam(magr), mon_nam(mdef), mhis(mdef));
-        separate_steed_and_rider(mdef);
-    }
 
     if (vis) {
         /* [this two-part formatting dates back to when only one x_monnam
@@ -1161,10 +1154,7 @@ register struct attack *mattk;
         newsym(ax, ay); /* erase old position */
     }
     newsym(dx, dy); /* update new position */
-
-    if (msteed != NULL)
-        place_monster(msteed, ax, ay);
-
+    
     status = mdamagem(magr, mdef, mattk, (struct obj *) 0, 0, &otmp);
 
     if ((status & (MM_AGR_DIED | MM_DEF_DIED))
@@ -2668,12 +2658,6 @@ msickness:
             struct trap *web = maketrap(mdef->mx, mdef->my, WEB);
             if (web) {
                 mintrap(mdef);
-                if (has_erid(mdef) && mdef->mtrapped) {
-                    if (canseemon(mdef))
-                        pline("%s falls off %s %s!",
-                              Monnam(mdef), mhis(mdef), l_monnam(ERID(mdef)->m1));
-                    separate_steed_and_rider(mdef);
-                }
             }
         }
         break;

@@ -432,14 +432,6 @@ struct obj *otmp;
                 if (give_msg && (canspotmon(mtmp)
                                  || (u.uswallow && mtmp == u.ustuck)))
                     learn_it = TRUE;
-                /* Is the monster riding another monster? */
-                if (has_erid(mtmp)
-                    && (!humanoid(mtmp->data) || r_bigmonst(mtmp))) {
-                    if (canseemon(mtmp))
-                        pline("%s falls off %s %s!",
-                              Monnam(mtmp), mhis(mtmp), l_monnam(ERID(mtmp)->m1));
-                    separate_steed_and_rider(mtmp);
-                }
             }
 
             /* do this even if polymorphed failed (otherwise using
@@ -4484,14 +4476,6 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 /* ZAPPED_WAND */
                 (*fhitm)(mtmp, obj);
                 range -= 3;
-                /* While this code works for all wands,
-                   it causes massive problems if the
-                   mount dies before the rider... */
-
-                if (obj->otyp == WAN_PROBING && has_erid(mtmp)) {
-                    (*fhitm)(ERID(mtmp)->m1, obj);
-                    range -= 1;
-                }
             }
         } else {
             if (weapon == ZAPPED_WAND && obj->otyp == WAN_PROBING

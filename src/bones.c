@@ -477,13 +477,12 @@ struct obj *corpse;
 {
     int fd, x, y;
     struct trap *ttmp;
-    struct monst *mtmp, *msteed;
+    struct monst *mtmp;
     struct permonst *mptr;
     struct fruit *f;
     struct cemetery *newbones;
     char c, *bonesid;
     char whynot[BUFSZ];
-    coord cc;
 
     /* caller has already checked `can_make_bones()' */
 
@@ -540,22 +539,7 @@ struct obj *corpse;
             if (mtmp == ukiller)
                 ukiller = (struct monst *) 0;
         }
-
-        /* monster steeds tend to wander off */
-        if (has_erid(mtmp)) {
-            msteed = ERID(mtmp)->m1;
-            cc.x = msteed->mx;
-            cc.y = msteed->my;
-            enexto(&cc, u.ux, u.uy, msteed->data);
-            if (!m_at(cc.x, cc.y)) {
-                place_monster(msteed, cc.x, cc.y);
-            } else {
-                mongone(msteed);
-                if (msteed == ukiller)
-                    ukiller = (struct monst *) 0;
-            }
-        }
-        free_erid(mtmp);
+        
     }
     dmonsfree(); /* discard dead or gone monsters */
 

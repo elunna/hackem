@@ -2993,7 +2993,6 @@ newmextra()
     mextra->eshk = 0;
     mextra->emin = 0;
     mextra->edog = 0;
-    mextra->erid = 0;
     mextra->erac = 0;
     mextra->mcorpsenm = NON_PM;
     return mextra;
@@ -3169,8 +3168,6 @@ long mmflags;
         newedog(mtmp);
     if (mmflags & MM_ASLEEP)
         mtmp->msleeping = 1;
-    if (mmflags & MM_ERID)
-        newerid(mtmp);
     mtmp->nmon = fmon;
     fmon = mtmp;
     mtmp->m_id = context.ident++;
@@ -3238,58 +3235,6 @@ long mmflags;
     /* Vecna also gets a bit of a boost */
     if (ptr == &mons[PM_VECNA])
         mtmp->mhp = mtmp->mhpmax = 350 + rnd(50);
-
-    /* Here is where we match riding monsters with their mounts */
-    if (!(mmflags & MM_REVIVE)) {
-        switch (mndx) {
-        case PM_DEATH:
-            mount_monster(mtmp, PM_PALE_HORSE);
-            break;
-        case PM_FAMINE:
-            mount_monster(mtmp, PM_BLACK_HORSE);
-            break;
-        case PM_PESTILENCE:
-            mount_monster(mtmp, PM_WHITE_HORSE);
-            break;
-        case PM_NAZGUL:
-            mount_monster(mtmp, PM_FELL_BEAST);
-            break;
-        case PM_GOBLIN_OUTRIDER:
-            mount_monster(mtmp, PM_WOLF);
-            break;
-        case PM_GOBLIN_CAPTAIN:
-            mount_monster(mtmp, PM_WARG);
-            break;
-        case PM_URUK_HAI:
-            if (!rn2(7))
-                mount_monster(mtmp, PM_WARG);
-            break;
-        case PM_ORC_CAPTAIN:
-            if (!rn2(4))
-                mount_monster(mtmp, PM_WARG);
-            break;
-        case PM_JERMLAINE:
-            if (!rn2(4))
-                mount_monster(mtmp, PM_ENORMOUS_RAT);
-            else if (!rn2(4))
-                mount_monster(mtmp, PM_PACK_RAT);
-            break;
-        case PM_KNIGHT:
-            if (racial_centaur(mtmp))
-                break;
-            if (mon_aligntyp(mtmp) == A_CHAOTIC)
-                rn2(3) ? mount_monster(mtmp, PM_NIGHTMARE)
-                       : mount_monster(mtmp, PM_CAUCHEMAR);
-            else
-                rn2(3) ? mount_monster(mtmp, PM_HORSE)
-                       : mount_monster(mtmp, PM_WARHORSE);
-            break;
-        case PM_FROST_GIANT:
-            if (Iniceq && !rn2(5))
-                mount_monster(mtmp, PM_WOOLLY_MAMMOTH);
-            break;
-        }
-    }
 
     switch (ptr->mlet) {
     case S_MIMIC:

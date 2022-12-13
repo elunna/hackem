@@ -1402,7 +1402,8 @@ E int FDECL(dlord, (ALIGNTYP_P));
 E int NDECL(llord);
 E int FDECL(ndemon, (ALIGNTYP_P));
 E int NDECL(lminion);
-E void NDECL(gain_guardian_steed);
+E void FDECL(lose_guardian_angel, (struct monst *));
+E void NDECL(gain_guardian_angel);
 
 /* ### mklev.c ### */
 
@@ -2674,13 +2675,8 @@ E struct obj *FDECL(findgold, (struct obj *, BOOLEAN_P));
 
 /* ### steed.c ### */
 
-E void FDECL(mount_monster, (struct monst *, int));
 E boolean FDECL(mount_up, (struct monst *));
-E void FDECL(update_monsteed, (struct monst *));
-E void FDECL(newerid, (struct monst *));
-E void FDECL(free_erid, (struct monst *));
 E void FDECL(separate_steed_and_rider, (struct monst *));
-E struct monst * FDECL(get_mon_rider, (struct monst *));
 E void NDECL(rider_cant_reach);
 E boolean FDECL(can_saddle, (struct monst *));
 E boolean FDECL(can_wear_barding, (struct monst *));

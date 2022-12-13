@@ -295,10 +295,7 @@ int x, y;
     char *name, monnambuf[BUFSZ];
     boolean accurate = !Hallucination;
     char *mwounds;
-
-    if (!canspotmon(mtmp) && has_erid(mtmp) && canspotmon(ERID(mtmp)->m1))
-        mtmp = ERID(mtmp)->m1;
-
+    
     name = (mtmp->data == &mons[PM_COYOTE] && accurate)
               ? coyotename(mtmp, monnambuf)
               : distant_monnam(mtmp, ARTICLE_NONE, monnambuf);
@@ -312,10 +309,6 @@ int x, y;
                     ? "peaceful "
                     : "",
             name);
-    if (mtmp->mextra && ERID(mtmp) && ERID(mtmp)->m1)
-        Sprintf(eos(buf), ", riding %s", a_monnam(ERID(mtmp)->m1));
-    if (mtmp->rider_id)
-        Sprintf(eos(buf), ", being ridden");
     mwounds = mon_wounds(mtmp);
     if (mwounds) {
         Strcat(buf, ", ");
@@ -531,9 +524,6 @@ char *buf, *monbuf;
         bhitpos.y = y;
         if ((mtmp = m_at(x, y)) != 0) {
             look_at_monster(buf, monbuf, mtmp, x, y);
-            if (!canspotmon(mtmp) && has_erid(mtmp)
-                && canspotmon(ERID(mtmp)->m1))
-                mtmp = ERID(mtmp)->m1;
             pm = mtmp->data;
         } else if (Hallucination) {
             /* 'monster' must actually be a statue */

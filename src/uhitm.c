@@ -145,8 +145,7 @@ struct obj *wep; /* uwep for attack(), null for kick_monster() */
      */
     if (!canspotmon(mtmp)
         && !glyph_is_warning(glyph) && !glyph_is_invisible(glyph)
-        && !(!Blind && mtmp->mundetected && hides_under(mtmp->data))
-        && (!has_erid(mtmp) || !canspotmon(ERID(mtmp)->m1))) {
+        && !(!Blind && mtmp->mundetected && hides_under(mtmp->data))) {
         pline("Wait!  There's %s there you can't see!", something);
         map_invisible(bhitpos.x, bhitpos.y);
         /* if it was an invisible mimic, treat it as if we stumbled
@@ -3285,12 +3284,6 @@ do_rust:
             struct trap *web = maketrap(mdef->mx, mdef->my, WEB);
             if (web) {
                 mintrap(mdef);
-                if (has_erid(mdef) && mdef->mtrapped) {
-                    if (canseemon(mdef))
-                        pline("%s falls off %s %s!",
-                              Monnam(mdef), mhis(mdef), l_monnam(ERID(mdef)->m1));
-                    separate_steed_and_rider(mdef);
-                }
             }
         }
         break;

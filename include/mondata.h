@@ -345,7 +345,6 @@
 #define has_beak(ptr) \
     (is_bird(ptr) \
      || (ptr) == &mons[PM_BABY_OWLBEAR] \
-     || (ptr) == &mons[PM_FELL_BEAST] \
      || (ptr) == &mons[PM_OWLBEAR] \
      || (ptr) == &mons[PM_TENGU] \
      || (ptr) == &mons[PM_PHOENIX] \

@@ -1631,7 +1631,7 @@ aligntyp alignment;
 	    mnum = ndemon(A_NONE);
 	    break;
     }
-    mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN /*| MM_NOERID */| MM_NOGRP);
+    mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN | MM_NOGRP);
     if (mon) {
         livelog_printf (LL_DIVINEGIFT,
                        "was sent %s by %s",

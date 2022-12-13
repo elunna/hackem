@@ -1208,13 +1208,6 @@ struct monst *mtmp;
         bwrite(fd, (genericptr_t) &buflen, sizeof(int));
         if (buflen > 0)
             bwrite(fd, (genericptr_t) EDOG(mtmp), buflen);
-        if (ERID(mtmp))
-            buflen = sizeof(struct erid);
-        else
-            buflen = 0;
-        bwrite(fd, (genericptr_t) &buflen, sizeof(int));
-        if (buflen > 0)
-            bwrite(fd, (genericptr_t) ERID(mtmp), buflen);
         buflen = ERAC(mtmp) ? (int) sizeof (struct erac) : 0;
         bwrite(fd, (genericptr_t) &buflen, sizeof(int));
         if (buflen > 0)
@@ -1241,12 +1234,6 @@ register struct monst *mtmp;
 
     while (mtmp) {
         mtmp2 = mtmp->nmon;
-        #if 0
-        /* this simply eliminates the mount entirely */
-        if (mtmp->mextra && ERID(mtmp) && ERID(mtmp)->m1) {
-            ERID(mtmp)->m1 = (struct monst *) 0;
-        }
-        #endif
         if (perform_bwrite(mode)) {
             mtmp->mnum = monsndx(mtmp->data);
             if (mtmp->ispriest)

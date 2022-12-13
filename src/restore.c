@@ -36,7 +36,6 @@ STATIC_DCL struct fruit *FDECL(loadfruitchn, (int));
 STATIC_DCL void FDECL(freefruitchn, (struct fruit *));
 STATIC_DCL void FDECL(ghostfruit, (struct obj *));
 STATIC_DCL boolean FDECL(restgamestate, (int, unsigned int *, unsigned int *, unsigned int *));
-STATIC_DCL void FDECL(restmonsteeds, (BOOLEAN_P));
 STATIC_DCL void FDECL(restlevelstate, (unsigned int, unsigned int, unsigned int));
 STATIC_DCL int FDECL(restlevelfile, (int, XCHAR_P));
 STATIC_OVL void FDECL(restore_msghistory, (int));
@@ -399,13 +398,7 @@ struct monst *mtmp;
             newedog(mtmp);
             mread(fd, (genericptr_t) EDOG(mtmp), sizeof(struct edog));
         }
-        /* erid - steed */
-        mread(fd, (genericptr_t) &buflen, sizeof(buflen));
-        if (buflen > 0) {
-            newerid(mtmp);
-            mread(fd, (genericptr_t) ERID(mtmp), sizeof(struct erid));
-        }
-        /* edog - pet */
+        /* erac */
         mread(fd, (genericptr_t) &buflen, sizeof(buflen));
         if (buflen > 0) {
             newerac(mtmp);
@@ -678,7 +671,6 @@ unsigned int *stuckid, *steedid, *fearedmonid;
 
     migrating_objs = restobjchn(fd, FALSE, FALSE);
     migrating_mons = restmonchn(fd, FALSE);
-    restmonsteeds(FALSE);
     mread(fd, (genericptr_t) mvitals, sizeof mvitals);
 
     /*
@@ -740,49 +732,6 @@ unsigned int *stuckid, *steedid, *fearedmonid;
     /* inventory display is now viable */
     iflags.perm_invent = defer_perm_invent;
     return TRUE;
-}
-
-STATIC_OVL void
-restmonsteeds(ghostly)
-boolean ghostly;
-{
-    register struct monst *mtmp;
-    register struct monst *mon;
-    unsigned int steed_id;
-
-    for (mon = fmon; mon; mon = mon->nmon) {
-        if (mon->mextra && ERID(mon)) {
-            /* The steed id will change on loading a bones file */
-            if (ghostly) {
-                lookup_id_mapping(ERID(mon)->mid, &steed_id);
-            } else {
-                steed_id = ERID(mon)->mid;
-            }
-
-            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                if (mtmp->m_id == steed_id)
-                    break;
-            }
-
-            if (!mtmp) {
-                free_erid(mon);
-            } else {
-                ERID(mon)->m1 = mtmp;
-            }
-        }
-    }
-
-    for (mon = migrating_mons; mon; mon = mon->nmon) {
-        if (mon->mextra && ERID(mon)) {
-            for (mtmp = migrating_mons; mtmp; mtmp = mtmp->nmon) {
-                if (mtmp->m_id == ERID(mon)->mid)
-                    break;
-            }
-            if (!mtmp)
-                panic("Cannot find monster steed.");
-            ERID(mon)->m1 = mtmp;
-        }
-    }
 }
 
  /* update game state pointers to those valid for the current level (so we
@@ -1179,7 +1128,6 @@ boolean ghostly;
     restore_timers(fd, RANGE_LEVEL, ghostly, elapsed);
     restore_light_sources(fd);
     fmon = restmonchn(fd, ghostly);
-    restmonsteeds(ghostly);
 
     rest_worm(fd); /* restore worm information */
     ftrap = 0;

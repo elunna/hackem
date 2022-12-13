@@ -1539,14 +1539,6 @@ movemon()
                 continue;
         }
 
-
-        if ((mtmp->data == &mons[PM_WIZARD_OF_YENDOR] && !rn2(5))
-            || (is_mplayer(mtmp->data) && !rn2(16))
-            || !rn2(300)) {
-            if (mount_up(mtmp))
-                continue;
-        }
-
         /* continue if the monster died fighting */
         if (Conflict && !mtmp->iswiz && m_canseeu(mtmp)) {
             /* Note:
@@ -2993,7 +2985,7 @@ int x, y;
 void
 dmonsfree()
 {
-    struct monst **mtmp, *freetmp, *ridertmp;
+    struct monst **mtmp, *freetmp;
     int count = 0;
     char buf[QBUFSZ];
 
@@ -3008,8 +3000,6 @@ dmonsfree()
         if (DEADMONSTER(freetmp) && !freetmp->isgd) {
             *mtmp = freetmp->nmon;
             freetmp->nmon = NULL;
-            if (!!(ridertmp = get_mon_rider(freetmp)))
-                separate_steed_and_rider(ridertmp);
             dealloc_monst(freetmp);
             count++;
         } else {
@@ -3165,11 +3155,6 @@ struct monst *mtmp2, *mtmp1;
             newedog(mtmp2);
         *EDOG(mtmp2) = *EDOG(mtmp1);
     }
-    if (ERID(mtmp1)) {
-        if (!ERID(mtmp2))
-            newerid(mtmp2);
-        *ERID(mtmp2) = *ERID(mtmp1);
-    }
     if (ERAC(mtmp1)) {
         if (!ERAC(mtmp2))
             newerac(mtmp2);
@@ -3198,8 +3183,6 @@ struct monst *m;
             free((genericptr_t) x->emin);
         if (x->edog)
             free((genericptr_t) x->edog);
-        if (x->erid)
-            free((genericptr_t) x->erid);
         if (x->erac)
             free((genericptr_t) x->erac);
         /* [no action needed for x->mcorpsenm] */
@@ -3251,13 +3234,6 @@ struct permonst *mptr; /* reflects mtmp->data _prior_ to mtmp's death */
         del_light_source(LS_MONSTER, monst_to_any(mtmp));
     if (M_AP_TYPE(mtmp))
         seemimic(mtmp);
-    if (has_erid(mtmp))
-        separate_steed_and_rider(mtmp);
-    if (mtmp->rider_id) {
-        struct monst *mtmp2 = get_mon_rider(mtmp);
-        if (mtmp2) free_erid(mtmp2);
-        newsym(mtmp->mx, mtmp->my);
-    }
     if (onmap)
         newsym(mtmp->mx, mtmp->my);
     unstuck(mtmp);
@@ -3385,7 +3361,6 @@ mondead(mtmp)
 register struct monst *mtmp;
 {
     struct permonst *mptr;
-    struct monst *rider;
     int tmp, i;
     coord cc;
     
@@ -3594,10 +3569,6 @@ register struct monst *mtmp;
     /* Clear feared monster */
     if (mtmp == u.fearedmon)
         remove_fearedmon();
-    /* The same is true for monsters riding steeds */
-    rider = get_mon_rider(mtmp);
-    if (rider)
-        separate_steed_and_rider(rider);
 
     mptr = mtmp->data; /* save this for m_detach() */
     /* restore chameleon, lycanthropes to true form at death */
@@ -3714,14 +3685,10 @@ register struct monst *mtmp;
         case 1:
             /* don't livelog your unique pet being killed
              * by something else, it gives the impression you did it */
-            if (mtmp->data == &mons[PM_RED_HORSE] && mtmp->mtame) {
-                break;
-            } else {
-                livelog_printf(LL_UMONST, "%s %s",
-                               nonliving(mtmp->data) ? "destroyed" : "killed",
-                               livelog_mon_nam(mtmp));
-                break;
-            }
+            livelog_printf(LL_UMONST, "%s %s",
+                           nonliving(mtmp->data) ? "destroyed" : "killed",
+                           livelog_mon_nam(mtmp));
+            break;
         case 5:
         case 10:
         case 50:
@@ -4021,7 +3988,6 @@ void
 mongone(mdef)
 struct monst *mdef;
 {
-    struct monst *rider;
     mdef->mhp = 0; /* can skip some inventory bookkeeping */
 
     /* dead vault guard is actually kept at coordinate <0,0> until
@@ -4031,10 +3997,6 @@ struct monst *mdef;
     /* hero is thrown from his steed when it disappears */
     if (mdef == u.usteed)
         dismount_steed(DISMOUNT_GENERIC);
-    /* The same is true for monsters riding steeds */
-    rider = get_mon_rider(mdef);
-    if (rider)
-        separate_steed_and_rider(rider);
 
     /* feared monster cleared */
     if (mdef == u.fearedmon)
@@ -4782,7 +4744,6 @@ struct monst *mtmp;
             pline("%s suddenly %s!", Amonnam(mtmp),
                   !Blind ? "appears" : "arrives");
     }
-    update_monsteed(mtmp);
     return;
 }
 
@@ -6029,22 +5990,6 @@ boolean msg;      /* "The oldmon turns into a newmon!" */
     if (!mtmp->perminvis || pm_invisible(olddata))
         mtmp->perminvis = pm_invisible(mdat);
     mtmp->minvis = mtmp->invis_blkd ? 0 : mtmp->perminvis;
-
-    if (has_erid(mtmp) && !mon_can_ride(mtmp)) {
-        if (canseemon(mtmp)) {
-            pline("Transforming, %s falls from %s!", l_oldname,
-                  mon_nam(ERID(mtmp)->m1));
-        }
-        separate_steed_and_rider(mtmp);
-    }
-    if (mtmp->rider_id && !mon_can_be_ridden(mtmp) && mtmp != u.usteed) {
-        struct monst *rider = get_mon_rider(mtmp);
-        if (canseemon(rider)) {
-            pline("%s falls from %s mount as %s transforms!", Monnam(rider),
-                  mhis(rider), oldmhe);
-        }
-        separate_steed_and_rider(rider);
-    }
 
     if (mtmp->mundetected)
         (void) hideunder(mtmp);

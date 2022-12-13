@@ -2595,53 +2595,6 @@ NEARDATA struct permonst mons[] = {
         M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_STRONG | M2_JEWELS,
         M3_INFRAVISIBLE, 0, 0, 6, CLR_BLACK),
     /*
-     * The Horses of the Riders - these have been tweaked and buffed up
-     * a bit from their original template. It's the end game, and the Riders
-     * deserve a truly horrific steed that compliments them.
-     *
-     * There's something special here for our hero as well...
-     */
-    MON("Pale Horse", S_UNICORN,                              /* SpliceHack */
-        LVL(18, 24, 0, 70, 0), (G_NOGEN | G_NOCORPSE | G_UNIQ),
-        A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
-          ATTK(AT_KICK, AD_PHYS, 2, 8),
-          ATTK(AT_BITE, AD_DRLI, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_COLD | MR_POISON, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS,
-        M2_NOPOLY | M2_NASTY | M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE | M3_NOTAME, 0, MH_UNDEAD, 21, CLR_GRAY),
-    MON("White Horse", S_UNICORN,                             /* SpliceHack */
-        LVL(18, 24, 0, 70, 0), (G_NOGEN | G_NOCORPSE | G_UNIQ),
-        A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
-          ATTK(AT_KICK, AD_PHYS, 2, 8),
-          ATTK(AT_BITE, AD_ENCH, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_COLD | MR_POISON, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS,
-        M2_NOPOLY | M2_NASTY | M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 21, CLR_WHITE),
-    MON("Black Horse", S_UNICORN,                             /* SpliceHack */
-        LVL(18, 24, 0, 70, 0), (G_NOGEN | G_NOCORPSE | G_UNIQ),
-        A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
-          ATTK(AT_KICK, AD_PHYS, 2, 8),
-          ATTK(AT_BITE, AD_SLOW, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_COLD | MR_POISON, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS,
-        M2_NOPOLY | M2_NASTY | M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 21, CLR_BLACK),
-    MON("Red Horse", S_UNICORN,                               /* SpliceHack */
-        LVL(30, 24, -10, 70, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_KICK, AD_PHYS, 2, 8), 
-          ATTK(AT_KICK, AD_PHYS, 2, 8),
-          ATTK(AT_BITE, AD_FIRE, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1800, 350, MS_NEIGH, MZ_LARGE), MR_FIRE | MR_POISON, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_FLY | M1_REGEN | M1_SEE_INVIS | M1_HERBIVORE,
-        M2_NOPOLY | M2_NASTY | M2_DOMESTIC | M2_PEACEFUL | M2_STRONG,
-        M3_INFRAVISION | M3_INFRAVISIBLE, 0, 0, 32, CLR_RED),
-    /*
      * vortices
      */
     MON("fog cloud", S_VORTEX,
@@ -3360,21 +3313,6 @@ NEARDATA struct permonst mons[] = {
         M2_DOMESTIC | M2_STRONG,
         M3_INFRAVISIBLE | M3_ACCURATE | M3_INFRAVISION, 0,
         0, 8, CLR_BROWN),
-    /* From J.R.R. Tolkien, the nine Nazgul had steeds known as 'fell beasts'
-     * which they rode/flew into battle. Fearsome in their own right.
-     * Not exactly dragons, but dragon-like.
-     */
-    MON("fell beast", S_DRAGON,                                 /* EvilHack */
-        LVL(14, 12, -2, 20, -17), G_NOGEN,
-        A(ATTK(AT_CLAW, AD_PHYS, 4, 5), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 5),
-          ATTK(AT_BITE, AD_PHYS, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1200, 800, MS_SHRIEK, MZ_LARGE), MR_COLD | MR_SLEEP | MR_POISON, 0,
-        M1_FLY | M1_POIS | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
-                      | M1_CARNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY,
-        M3_ACCURATE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 16, HI_LORD),
     /*
      * Dragons
      */

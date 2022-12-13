@@ -529,11 +529,6 @@ aligntyp atyp; /* A_NONE is used for 'any alignment' */
     return (ptr && is_ndemon(ptr)) ? monsndx(ptr) : NON_PM;
 }
 
-/* lose_guardian_angel() and gain_guardian_angel() commented out here
- * due to addition of the hero obtaining The Red Horse (player == War)
- */
-
-#if 0
 /* guardian angel has been affected by conflict so is abandoning hero */
 void
 lose_guardian_angel(mon)
@@ -621,7 +616,7 @@ gain_guardian_angel()
             mtmp->mhp = mtmp->mhpmax =
                 d((int) mtmp->m_lev, 10) + 30 + rnd(30);
             if ((otmp = select_hwep(mtmp)) == 0) {
-                otmp = mksobj(SILVER_SABER, FALSE, FALSE);
+                otmp = mksobj(SABER, FALSE, FALSE);
                 if (mpickobj(mtmp, otmp))
                     panic("merged weapon?");
             }
@@ -636,6 +631,5 @@ gain_guardian_angel()
         }
     }
 }
-#endif
 
 /*minion.c*/
