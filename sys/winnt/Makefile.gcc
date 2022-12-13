@@ -795,7 +795,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
 	 $(DAT)/wizard.des	 \
 	 $(DAT)/kobold-1.des $(DAT)/kobold-2.des $(DAT)/rats.des \
-     $(DAT)/stor.des $(DAT)/longhall.des \
+     $(DAT)/stor.des \
      $(DAT)/caves.des  $(DAT)/tomb.des \
      $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
 
@@ -844,7 +844,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
     $(subst /,\,$(U)levcomp $(DAT)/ tomb.des
     $(subst /,\,$(U)levcomp $(DAT)/ mtemple.des
     $(subst /,\,$(U)levcomp $(DAT)/ grund.des
-    $(subst /,\,$(U)levcomp $(DAT)/ longhall.des
     $(subst /,\,$(U)levcomp $(DAT)/ blkmar.des
 	$(subst /,\,copy *.lev $(DAT))
 	$(subst /,\,del *.lev)

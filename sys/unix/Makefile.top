@@ -92,7 +92,6 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
         town-?.lev townfill.lev village.lev \
 		rats-?.lev stor.lev cavepass.lev \
         cavenest.lev cavefill.lev cavebegn.lev caveend.lev \
-        longhall.lev \
         tomb-?.lev mtemple.lev grund.lev blkmar-?.lev \
         qlawful.lev qneutral.lev qchaos.lev \
         leth-*.lev nkai-*.lev ucastle.lev
