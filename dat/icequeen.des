@@ -67,9 +67,9 @@ MONSTER:(':',"frost salamander"),(51,04)
 MONSTER:(':',"frost salamander"),(67,13)
 
 # Goblin outrider patrol
-MONSTER:('o',"goblin outrider"),(09,04),hostile
-MONSTER:('o',"goblin outrider"),(10,03),hostile
-MONSTER:('o',"goblin outrider"),(10,04),hostile
+MONSTER:('d',"wolf"),(09,04),hostile
+MONSTER:('d',"wolf"),(10,03),hostile
+MONSTER:('d',"wolf"),(10,04),hostile
 MONSTER:('o',"goblin-captain"),(09,03),hostile
 
 # Guards the stairs

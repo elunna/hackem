@@ -328,7 +328,6 @@ Wiz-Mode updates:
     - can throw snowballs like snow golems
 - (o) demon orc
 - (o) goblin shaman
-- (o) goblin outrider
 - (o) goblin-captain
 - (p) diamond piercer
 - (p) god piercer

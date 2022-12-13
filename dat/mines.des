@@ -219,7 +219,7 @@ LOOP [9 + 2d5] {
         IF [80%] {
             MONSTER: ('o', "goblin"), random, hostile
         } ELSE {
-            MONSTER: ('o', "goblin outrider"), random, hostile
+            MONSTER: ('d', "wolf"), random, hostile
         }
     }
 }
@@ -1862,9 +1862,9 @@ STAIR:(73,18),down
 
 #SOME ORCS (The religious kind)
 # Hostile to anyone, regardless of race,  who disturbs their sacred temple
-MONSTER:('o',"goblin outrider"),random,hostile
+MONSTER:('d',"wolf"),random,hostile
 MONSTER:('o',"goblin-captain"),random,hostile
-MONSTER:('o',"goblin outrider"),random,hostile
+MONSTER:('d',"wolf"),random,hostile
 MONSTER:('o',"hobgoblin"),random,hostile
 MONSTER:('o',"hill orc"),random,hostile
 MONSTER:('o',"hill orc"),random,hostile

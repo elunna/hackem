@@ -1838,18 +1838,6 @@ register struct monst *mtmp;
             if (!rn2(3))
                 (void) mongets(mtmp, URUK_HAI_SHIELD);
             break;
-        case PM_GOBLIN_OUTRIDER:
-            if (!rn2(3))
-                (void) mongets(mtmp, ORCISH_CLOAK);
-            if (!rn2(3))
-                (void) mongets(mtmp, ORCISH_SPEAR);
-            if (!rn2(3))
-                (void) mongets(mtmp, ORCISH_SHIELD);
-            if (!rn2(3)) {
-                (void) mongets(mtmp, ORCISH_BOW);
-                m_initthrow(mtmp, ORCISH_ARROW, 12);
-            }
-            break;
         case PM_GOBLIN_CAPTAIN:
             if (!rn2(3))
                 (void) mongets(mtmp, ORCISH_CLOAK);

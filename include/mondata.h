@@ -553,7 +553,6 @@
      || (ptr) == &mons[PM_FREEZING_SPHERE] \
      || (ptr) == &mons[PM_LYNX] \
      || (ptr) == &mons[PM_BLUE_JELLY] \
-     || (ptr) == &mons[PM_GOBLIN_OUTRIDER] \
      || (ptr) == &mons[PM_GOBLIN_CAPTAIN] \
      || (ptr) == &mons[PM_MASTODON] \
      || (ptr) == &mons[PM_WOOLLY_MAMMOTH] \
