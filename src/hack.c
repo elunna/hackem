@@ -3703,8 +3703,8 @@ weight_cap()
             if (boots && objdescr_is(boots, "hiking boots")) 
                 carrcap += 100;
         }
-        if (carrcap < 0)
-            carrcap = 0;
+        if (carrcap < 1)
+            carrcap = 1; /* Positive int to prevent rnd(0) in litter() */
     }
 
     if (ELevitation != save_ELev || BLevitation != save_BLev) {
