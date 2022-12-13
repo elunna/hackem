@@ -1726,6 +1726,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* the four basic attacks: fire, cold, shock and missiles */
     if (attacks(AD_FIRE, otmp)) {
         if (realizes_damage) {
+            
             if (otmp->oartifact == ART_FIRE_BRAND
             || otmp->oartifact == ART_FIREWALL) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
@@ -1733,15 +1734,19 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         if (!youdefend)
                             ;
                         else
-                            pline_The("fiery blade hits %s.", hittee);
+                            pline_The("fiery %s hits %s.", 
+                                      otmp->oartifact == ART_FIRE_BRAND 
+                                          ? "blade" : "staff", hittee);
                     } else {
-                        pline_The("fiery blade %s %s%c",
+                        pline_The("fiery %s %s %s%c", 
+                                  otmp->oartifact == ART_FIRE_BRAND ? "blade" : "staff",
                                   can_vaporize(mdef->data)
                                       ? "vaporizes part of" : "burns",
                                   hittee, !spec_dbon_applies ? '.' : '!');
                     }
                 } else {
-                    pline_The("fiery blade %s %s%c",
+                    pline_The("fiery %s %s %s%c",
+                              otmp->oartifact == ART_FIRE_BRAND ? "blade" : "staff",
                               !spec_dbon_applies
                                   ? "hits"
                                   : can_vaporize(mdef->data)
