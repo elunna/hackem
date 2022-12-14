@@ -252,19 +252,6 @@ struct obj {
 #define is_chaotic_artifact(otmp) \
     (otmp->oartifact && arti_align(otmp->oartifact) == A_CHAOTIC)
 
-#define non_wishable_artifact(otmp) \
-    (otmp->oartifact == ART_BUTCHER \
-     || otmp->oartifact == ART_EYE_OF_VECNA \
-     || otmp->oartifact == ART_HAND_OF_VECNA \
-     || otmp->oartifact == ART_LIFESTEALER \
-     || otmp->oartifact == ART_SWORD_OF_KAS \
-     || otmp->oartifact == ART_THIEFBANE \
-     || otmp->oartifact == ART_WAND_OF_ORCUS\
-     || otmp->oartifact == ART_STAFF_OF_ROT \
-     || otmp->oartifact == ART_KEY_OF_ACCESS \
-     || otmp->oartifact == ART_XANATHAR_S_RING_OF_PROOF \
-     || otmp->oartifact == ART_MASTER_SWORD)
-
 #define is_magical_staff(otmp) \
     (   otmp->otyp == STAFF_OF_DIVINATION \
      || otmp->otyp == STAFF_OF_ESCAPE  \
