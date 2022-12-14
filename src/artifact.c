@@ -4793,4 +4793,11 @@ boolean defend;
     return "";
 }
 
+int
+arti_align(oartifact)
+int oartifact;
+{
+    return artilist[oartifact].alignment;
+}
+
 /*artifact.c*/
