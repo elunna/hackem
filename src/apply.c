@@ -2536,13 +2536,28 @@ use_mask(optr)
 struct obj **optr;
 {
     register struct obj *obj = *optr;
+    int old_light, new_light;
+    
     if (!polyok(&mons[obj->corpsenm])) {
         pline("%s violently, then splits in two!", Tobjnam(obj, "shudder"));
         useup(obj);
         return TRUE;
     }
     if (!Unchanging) {
-        polymon(obj->corpsenm);
+        old_light = emits_light(youmonst.data);
+        if (!polymon(obj->corpsenm))
+            return FALSE;
+        /* Handle light emitters */
+        new_light = emits_light(youmonst.data);
+        if (old_light != new_light) {
+            if (old_light)
+                del_light_source(LS_MONSTER, monst_to_any(&youmonst));
+            if (new_light == 1)
+                ++new_light; /* otherwise it's undetectable */
+            if (new_light)
+                new_light_source(u.ux, u.uy, new_light, LS_MONSTER,
+                                 monst_to_any(&youmonst));
+        }
         if (obj->cursed) {
             You1(shudder_for_moment);
             losehp(rnd(30), "system shock", KILLED_BY_AN);

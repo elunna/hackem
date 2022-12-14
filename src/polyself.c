@@ -691,7 +691,7 @@ int mntmp;
         exercise(A_WIS, TRUE);
         return 0;
     }
-
+    
     if (Hidinshell)
         toggleshell();
 
