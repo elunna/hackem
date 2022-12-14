@@ -4853,7 +4853,8 @@ struct attack *mattk;
                     } else {
                         if (canseemon(mtmp))
                             pline("%s is disintegrated completely!", Monnam(mtmp));
-                        passive_disint_mon(mtmp);
+                        disint_mon_invent(mtmp);
+                        xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                         if (!DEADMONSTER(mtmp))
                             return 1;
                         return 2;
@@ -5291,7 +5292,8 @@ struct attack *mattk;
                         Your("deadly %s disintegrates %s!",
                              youmonst.data == &mons[PM_ANTIMATTER_VORTEX]
                                  ? "form" : "hide", mon_nam(mtmp));
-                        passive_disint_mon(mtmp);
+                        disint_mon_invent(mtmp);
+                        xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                         if (!DEADMONSTER(mtmp))
                             return 1;
                         return 2;
