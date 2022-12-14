@@ -171,79 +171,16 @@ int prop;
      return 0L;
 }
 
-int
-artifact_material(m)
-xchar m;
+/* return the material of a given artifact */
+short
+artifact_material(artinum)
+int artinum;
 {
-    switch (m) {
-    case ART_WEREBANE:
-    case ART_DEMONBANE:
-    case ART_GRAYSWANDIR:
-    case ART_MASTER_SWORD:
-    case ART_SPEAR_OF_LIGHT:
-    case ART_SWORD_OF_BALANCE:
-    case ART_MORTALITY_DIAL:
-        return SILVER;
-        break;
-    case ART_DIRGE:
-    case ART_DRAMBORLEG:
-    case ART_ORCRIST:
-    case ART_STING:
-        return MITHRIL;
-        break;
-    case ART_FIRE_BRAND:
-    case ART_FROST_BRAND:
-    case ART_FIREWALL:
-    case ART_DEEP_FREEZE:
-    case ART_STORMBRINGER:
-    case ART_LUCK_BLADE:
-    case ART_VORPAL_BLADE:
-    case ART_SCEPTRE_OF_MIGHT:
-    case ART_MITRE_OF_HOLINESS:
-    case ART_SNICKERSNEE:
-        return METAL;
-        break;
-    case ART_SUNSWORD:
-    case ART_SWORD_OF_KAS:
-    case ART_RING_OF_P_HUL:
-    case ART_WAND_OF_ORCUS:
-    case ART_MYSTIC_EYES:
-        return GEMSTONE;
-        break;
-    case ART_YENDORIAN_EXPRESS_CARD:
-    case ART_THIEFBANE:
-        return PLATINUM;
-        break;
-    case ART_DRAGONBANE:
-    case ART_WALLET_OF_PERSEUS:
-        return DRAGON_HIDE;
-        break;
-    case ART_IRON_SPOON_OF_LIBERATION:
-    case ART_ANGELSLAYER:
-    case ART_ELFRIST:
-        return IRON;
-        break;
-    case ART_GJALLAR:
-    case ART_BUTCHER:
-    case ART_STAFF_OF_ROT:
-        return BONE;
-        break;
-    case ART_SECESPITA:
-    case ART_CIRCE_S_WITCHSTAFF:
-    case ART_DROWSING_ROD:
-    case ART_REAPER:
-        return COPPER;
-        break;
-    case ART_HAND_OF_VECNA:
-        return FLESH;
-        break;
-    case ART_STAKE_OF_VAN_HELSING:
-        return WOOD;
-        break;
-    default:
-        /* default material for that item */
-        return objects[artilist[m].otyp].oc_material;
+    if (artinum <= 0 || artinum > NROFARTIFACTS) {
+        impossible("invalid artifact number %d to artifact_material", artinum);
+        return 0;
     }
+    return artilist[artinum].material;
 }
 
 /*
