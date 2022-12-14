@@ -240,7 +240,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      * from the thighbone and torn flesh of an ancient god he slew. An extremely lethal artifact */
     A("Butcher", TRIPLE_HEADED_FLAIL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
-      SPFX_EXCLUDE, 0, STUN(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
+      0, 0, STUN(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
       NON_PM, NON_PM, 4000L, NO_COLOR),
 
     /* Instead of targeting humans - Deathsword now targets cross-aligned and
@@ -274,7 +274,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     *      Meant to be wielded by Vlad. */
     A("Lifestealer", TWO_HANDED_SWORD,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI),
-      SPFX_EXCLUDE, 0, DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM,
+      0, 0, DRLI(5, 2), DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM,
       NON_PM, 10000L, NO_COLOR),
 
     /* Convict first artifact weapon. Acts like a luckstone. */
@@ -324,8 +324,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
   /*
    * The Sword of Kas - the sword forged by Vecna and given to his top
    * lieutenant, Kas. */
-    A("The Sword of Kas", TWO_HANDED_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DALIGN),
-      SPFX_EXCLUDE, 0, DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+    A("The Sword of Kas", TWO_HANDED_SWORD, 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DALIGN),
+      0, 0, DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       15000L, NO_COLOR),
     
   /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
@@ -336,7 +337,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
    * of his ilk */
     A("Wand of Orcus", ROD,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
-      SPFX_EXCLUDE, 0, DETH(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
+      0, 0, DETH(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
       NON_PM, NON_PM, 10000L, CLR_BLACK),
 
 
@@ -357,7 +358,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
    * with the captive pegasus.
    */
     A("Bag of the Hesperides", BAG_OF_HOLDING,
-      (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_PROTECT), 0,
+      (SPFX_NOGEN | SPFX_RESTR), SPFX_PROTECT, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       8000L, NO_COLOR),
 #endif
@@ -422,7 +423,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
        before the rest of his body crumbles to dust */
     A("The Eye of Vecna", EYEBALL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
-      (SPFX_XRAY | SPFX_ESP | SPFX_HSPDAM | SPFX_EXCLUDE),
+      (SPFX_XRAY | SPFX_ESP | SPFX_HSPDAM),
       0, NO_ATTK, NO_DFNS, CARY(AD_COLD), DEATH_MAGIC, A_NONE,
       NON_PM, NON_PM, 50000L, NO_COLOR),
 
@@ -430,7 +431,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
        might drop once destroyed */
     A("The Hand of Vecna", MUMMIFIED_HAND,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_REGEN | SPFX_HPHDAM),
-      SPFX_EXCLUDE, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
+      0, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
       NON_PM, NON_PM, 50000L, CLR_BLACK),
 
     /* Blinding mace. */
@@ -439,7 +440,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR),
 
     A("Thiefbane", TWO_HANDED_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN), SPFX_EXCLUDE, 0, 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN), 0, 0, 
       PHYS(5, 1), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L, NO_COLOR),
     
     /* Resisted by very few monsters, but is a morning star and also
@@ -463,18 +464,18 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /*** Alignment quest artifacts ***/
     A("The Key Of Access", SKELETON_KEY,
-      (SPFX_RESTR | SPFX_NOGEN), SPFX_EXCLUDE, 0, 
+      (SPFX_RESTR | SPFX_NOGEN), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR ),
     
     A("The Staff of Rot", STAFF_OF_NECROMANCY,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), SPFX_EXCLUDE, 0,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK), 0, 0,
       WTHR(6, 6), NO_DFNS, NO_CARY,
       WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR ),
 
     /* Xanathar's eyestalk ring of proof against detection and location */
     A("Xanathar's Ring of Proof", RIN_SEE_INVISIBLE,
-      (SPFX_NOGEN | SPFX_RESTR), (SPFX_EXCLUDE | SPFX_WARN), 0,
+      (SPFX_NOGEN | SPFX_RESTR), SPFX_WARN, 0,
       NO_ATTK, DFNS(AD_MAGM), NO_CARY,
       INVIS, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR ),
     

@@ -38,7 +38,6 @@
 #define SPFX_PROTECT    0x08000000L /* Protection */
 #define SPFX_BREATHE    0x10000000L /* Magical breathing */
 #define SPFX_BLIND      0x20000000L /* Weapon blinds on hit */
-#define SPFX_EXCLUDE    0x40000000L /* exclude from total artifact count */
 
 struct artifact {
     short otyp;
