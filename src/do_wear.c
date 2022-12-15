@@ -419,7 +419,6 @@ Boots_off(VOID_ARGS)
 STATIC_PTR int
 Cloak_on(VOID_ARGS)
 {
-    const char* cloak_desc;
     int otyp = uarmc->otyp;
     long oldprop =
         u.uprops[objects[uarmc->otyp].oc_oprop].extrinsic & ~WORN_CLOAK;
@@ -489,13 +488,13 @@ Cloak_on(VOID_ARGS)
         }
         break;
     case POISONOUS_CLOAK:
-		if (how_resistant(POISON_RES) == 100)
-			pline("This cloak feels a little itchy.");
-		else {
-		    makeknown(uarmc->otyp);
-		    poisoned("cloak", A_STR, "poisonous cloak", 3, FALSE);
-		}
-		break;
+        if (how_resistant(POISON_RES) == 100)
+                pline("This cloak feels a little itchy.");
+        else {
+            makeknown(uarmc->otyp);
+            poisoned("cloak", A_STR, "poisonous cloak", 3, FALSE);
+        }
+        break;
     case OILSKIN_CLOAK:
         pline("%s very tightly.", Tobjnam(uarmc, "fit"));
         break;
@@ -507,9 +506,7 @@ Cloak_on(VOID_ARGS)
         impossible(unknown_type, c_cloak, uarmc->otyp);
     }
     /* vampires get a charisma bonus when wearing an opera cloak */
-    cloak_desc = OBJ_DESCR(objects[uarmc->otyp]);
-    if (cloak_desc != (char *)0 &&
-          !strcmp(cloak_desc, "opera cloak") &&
+    if (uarmc && objdescr_is(uarmc, "opera cloak") &&
           maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         You("%s very impressive in your %s.", 
             Blind || (Invis && !See_invisible) ? "feel" : "look",
@@ -529,11 +526,10 @@ int
 Cloak_off(VOID_ARGS)
 {
     struct obj *otmp = uarmc;
-    const char* cloak_desc;
     int otyp = otmp->otyp;
     long oldprop = u.uprops[objects[otyp].oc_oprop].extrinsic & ~WORN_CLOAK;
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
-
+    boolean was_opera = (otmp && objdescr_is(otmp, "opera cloak"));
     if (Is_dragon_scales(uarmc)
         && otyp != SHIMMERING_DRAGON_SCALES) {
         /* most scales are handled the same in this function */
@@ -588,9 +584,7 @@ Cloak_off(VOID_ARGS)
         impossible(unknown_type, c_cloak, otyp);
     }
     /* vampires get a charisma bonus when wearing an opera cloak */
-    cloak_desc = OBJ_DESCR(objects[otyp]);
-    if (cloak_desc != (char *)0 &&
-        !strcmp(cloak_desc, "opera cloak") &&
+    if (was_opera &&
         maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         ABON(A_CHA) -= 1;
         context.botl = 1;

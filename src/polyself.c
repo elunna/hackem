@@ -756,8 +756,7 @@ int mntmp;
         make_stoned(0L, "You turn to stone!", 0, (char *) 0);
     }
     
-    if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
-        !strcmp(s, "opera cloak") &&
+    if (uarmc && objdescr_is(uarmc, "opera cloak") &&
         maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         ABON(A_CHA) -= 1;
         context.botl = 1;
@@ -777,8 +776,7 @@ int mntmp;
     if (mntmp == PM_NOSFERATU)
         ABASE(A_CHA) = AMAX(A_CHA) = 3;
 
-    if (uarmc && (s = OBJ_DESCR(objects[uarmc->otyp])) != (char *)0 &&
-        !strcmp(s, "opera cloak") &&
+    if (uarmc && objdescr_is(uarmc, "opera cloak") &&
         maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
         You("%s very impressive in your %s.", Blind ||
             (Invis && !See_invisible) ? "feel" : "look",
