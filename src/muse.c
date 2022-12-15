@@ -2141,6 +2141,7 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_SCR_FIRE;
         }
+#if 0 /* Disabled until a non-buggy implementation is found */
         nomore(MUSE_SCR_CLONING);
         if (obj->otyp == SCR_CLONING
             && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 2
@@ -2148,6 +2149,7 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_SCR_CLONING;
         }
+#endif
         nomore(MUSE_CAMERA);
         if (obj->otyp == EXPENSIVE_CAMERA
             && (!Blind || hates_light(youmonst.data))
@@ -2761,6 +2763,7 @@ struct monst *mtmp;
         }
         return 2;
     } /* case MUSE_SCR_FIRE */
+#if 0 /* Disabled for now*/
     case MUSE_SCR_CLONING: {
         /* We won't bother with confused - scrolls of cloning always clone 
          * the monster iteself. */
@@ -2770,6 +2773,7 @@ struct monst *mtmp;
             pline("%s multiplies!", Monnam(mtmp));
         return 2;
     } /* case MUSE_SCR_CLONING */
+#endif
     case MUSE_CAMERA: {
         if (Hallucination)
             verbalize("Say cheese!");
