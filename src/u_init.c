@@ -1376,6 +1376,8 @@ u_init()
         knows_object(MAGIC_WHISTLE);
         knows_object(MAGIC_HARP);
         knows_object(MAGIC_FLUTE);
+        knows_object(MAGIC_CANDLE);
+        knows_object(MAGIC_LAMP);
         knows_object(DRUM_OF_EARTHQUAKE);
         skill_init(Skill_W);
         
