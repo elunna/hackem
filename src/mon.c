@@ -5351,6 +5351,10 @@ xchar x, y;
 
     if (!mtmp)
         return;
+    if (is_swimmer(mtmp->data) && mtmp->mundetected) {
+        mtmp->mundetected = 0;
+        newsym(x, y);
+    }
     if (concealed_spot(x, y))
         return;
     if (u_at(x, y))
@@ -5358,10 +5362,7 @@ xchar x, y;
     if (mtmp->mundetected && hides_under(mtmp->data))
         (void) hideunder(mtmp);
     
-    if (is_swimmer(mtmp->data) && mtmp->mundetected) {
-        mtmp->mundetected = 0;
-        newsym(x, y);
-    }
+
 }
 
 /* monster/hero tries to hide under something at the current location.
