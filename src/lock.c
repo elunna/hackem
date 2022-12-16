@@ -657,6 +657,7 @@ struct obj *container; /* container, for autounlock */
                     pline("As you start to %s the %s, your %s breaks!",
                           (otmp->olocked ? "unlock" : "lock"),
                           xname(otmp), xname(pick));
+                    remove_worn_item(pick, FALSE);
                     delobj(pick);
                     nomul(0);
                     return PICKLOCK_DID_NOTHING;
