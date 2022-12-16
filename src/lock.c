@@ -640,7 +640,6 @@ struct obj *container; /* container, for autounlock */
                 case SKELETON_KEY:
                     ch = 75 + ACURR(A_DEX);
                     break;
-
 		case STETHOSCOPE:
 	            ch = 5 + 2 * ACURR(A_DEX) * Role_if(PM_ROGUE);
 		    break;
@@ -651,14 +650,15 @@ struct obj *container; /* container, for autounlock */
                     ch /= 2;
 
                 /* Chance of breaking on use. */
-                if (!rn2(breakability(pick))
-                    && picktyp != STETHOSCOPE
-                    && !pick->oartifact) {
+                if (!rn2(breakability(pick)) && picktyp != STETHOSCOPE && !pick->oartifact) {
                     pline("As you start to %s the %s, your %s breaks!",
                           (otmp->olocked ? "unlock" : "lock"),
                           xname(otmp), xname(pick));
                     remove_worn_item(pick, FALSE);
-                    delobj(pick);
+                    if (carried(pick))
+                        useup(pick);
+                    else
+                        delobj(pick);
                     nomul(0);
                     return PICKLOCK_DID_NOTHING;
                 }
@@ -737,44 +737,36 @@ struct obj *container; /* container, for autounlock */
 
             switch (picktyp) {
             case CREDIT_CARD:
-                if (!rn2(Role_if(PM_TOURIST) ? 40 : 20) &&
-                        !pick->blessed && !pick->oartifact) {
-                    You("break your card off in the door!");
-                    delobj(pick);
-                    nomul(0);
-                    return PICKLOCK_DID_NOTHING;
-                }
                 ch = 2 * ACURR(A_DEX) + 20 * Role_if(PM_ROGUE);
                 break;
-
             case LOCK_PICK:
-                if (!rn2(Role_if(PM_ROGUE) ? 60 : 20) &&
-				    !pick->blessed && !pick->oartifact) {
-                    You("break your pick!");
-                    delobj(pick);
-                    nomul(0);
-                    return PICKLOCK_DID_NOTHING;
-                }
                 ch = 3 * ACURR(A_DEX) + 30 * Role_if(PM_ROGUE);
                 break;
-
             case SKELETON_KEY:
-                if (!rn2(20) && !pick->blessed && !pick->oartifact) {
-                    Your("key wasn't designed for this door and broke!");
-                    delobj(pick);
-                    nomul(0);
-                    return PICKLOCK_DID_NOTHING;
-                }
                 ch = 70 + ACURR(A_DEX);
                 break;
-
             default:
                 ch = 0;
             }
+
+            /* small chance a cursed locking tool will break on use */
+            if (!rn2(breakability(pick)) && picktyp != STETHOSCOPE && !pick->oartifact) {
+                pline("As you start to %s the door, your %s breaks!",
+                      ((door->doormask & D_LOCKED) ? "unlock" : "lock"),
+                      xname(pick));
+                if (carried(pick))
+                    useup(pick);
+                else
+                    delobj(pick);
+                nomul(0);
+                return PICKLOCK_DID_NOTHING;
+            }
+
             xlock.door = door;
             xlock.box = 0;
         }
     }
+
     context.move = 0;
     xlock.chance = ch;
     xlock.picktyp = picktyp;
