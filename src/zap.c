@@ -7112,17 +7112,6 @@ makewish()
         otmp = hold_another_object(otmp, oops_msg,
                                    The(aobjnam(otmp, verb)),
                                    (const char *) 0);
-#if 0
-        /* Light up Candle of Eternal Flame and
-			 * Holy Spear of Light on creation.
-         * This might be taken care of in hold_another_object
-         */
-        if (otmp 
-            && artifact_light(otmp) 
-            && !otmp->lamplit 
-            && otmp->oartifact != ART_SUNSWORD)
-            begin_burn(otmp, FALSE);
-#endif
         u.ublesscnt += rn1(100, 50); /* the gods take notice */
     }
 }

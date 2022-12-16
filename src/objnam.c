@@ -1605,7 +1605,7 @@ unsigned doname_flags;
                     arti_light_description(obj));
         }
 
-    } else if (!Blind && obj->oartifact == ART_SPEAR_OF_LIGHT && obj->lamplit) {
+    } else if (!Blind && obj->oartifact == ART_HOLY_SPEAR_OF_LIGHT && obj->lamplit) {
         Sprintf(eos(bp), " (%s lit)", arti_light_description(obj));
     }
 
@@ -3241,17 +3241,18 @@ static const struct alt_spellings {
     { "unihorn", UNICORN_HORN },
     { "bolt", CROSSBOW_BOLT },
     { "handgun", PISTOL },
-	{ "hand gun", PISTOL },
-	{ "revolver", PISTOL },
+    { "hand gun", PISTOL },
+    { "revolver", PISTOL },
     { "shell", SHOTGUN_SHELL },
     { "hand grenade", FIRE_BOMB },
     { "frag grenade", FIRE_BOMB },
     { "gas grenade", GAS_BOMB },
+    { "spear of light", ART_HOLY_SPEAR_OF_LIGHT },
     /* armor */
     { "smooth shield", SHIELD_OF_REFLECTION },
     { "grey dragon scales", GRAY_DRAGON_SCALES },
     { "T shirt", T_SHIRT },
-	{ "tee shirt", T_SHIRT },
+    { "tee shirt", T_SHIRT },
     { "BoL",  LEVITATION_BOOTS},
     { "BoS",  SPEED_BOOTS},
     { "SB",  SPEED_BOOTS},
@@ -3645,8 +3646,10 @@ struct obj *no_wish;
             while (*bp == ' ')
                 bp++;
             l = 0;
-        } else if (!strncmpi(bp, "blessed ", l = 8)
-                || !strncmpi(bp, "holy ", l=5)) {
+        } else if (!strncmpi(bp, "blessed ", l = 8)) {
+                   /*WAC removed this.  Holy is in some artifact weapon names
+                                        || !strncmpi(bp, "holy ", l=5)
+                        */
             blessed = 1;
         } else if (!strncmpi(bp, "bgf ", l = 4) 
                    || !strncmpi(bp, "bfg ", l = 4)) {
@@ -4159,6 +4162,7 @@ struct obj *no_wish;
             blessed = 1;
         goto typfnd;
     }
+
     if (unlabeled && !BSTRCMPI(bp, p - 6, "scroll")) {
         typ = SCR_BLANK_PAPER;
         goto typfnd;
@@ -5146,7 +5150,7 @@ struct obj *no_wish;
             case ART_REAPER:
                 pm = PM_YEOMAN;
                 break;
-            case ART_SPEAR_OF_LIGHT:
+            case ART_HOLY_SPEAR_OF_LIGHT:
                 pm = PM_UNDEAD_SLAYER;
                 break;
 

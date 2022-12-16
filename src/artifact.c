@@ -3728,7 +3728,7 @@ struct obj *obj;
 
     return (boolean) (get_artifact(obj) && 
         (obj->oartifact == ART_SUNSWORD
-        || obj->oartifact == ART_SPEAR_OF_LIGHT
+        || obj->oartifact == ART_HOLY_SPEAR_OF_LIGHT
         || obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME));
 }
 

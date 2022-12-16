@@ -1805,8 +1805,8 @@ Imported some appearance effects from dNetHack:
     - Change to a parazonium, gets +d5 tohit
 - [x] Skullcrusher
     - Replaced Keolewa with Skullcrusher.
-- [x] Spear of Light (Renamed from the Holy Spear of Light)
-    - Spear of Light causes hostility from undead
+- [x] Holy Spear of Light
+    - Holy Spear of Light causes hostility from undead
     - First sac gift for Undead Slayers
 - [x] Sword of Balance
     - Conveys "extreme stability" (hurtling resistance)
@@ -2516,7 +2516,7 @@ Renews magical power:
 - Level 15: Slayers now get Warning
 - Level 21: Slayers now get Clairvoyence
 - Their special spell is protection
-- Their guaranteed sacrifice gift is the Spear of Light.
+- Their guaranteed sacrifice gift is the Holy Spear of Light.
 - Elven slayers can start with silver elven daggers.
 - Undead slayers do NOT have a multishot penalty.
 
