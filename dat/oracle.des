@@ -31,7 +31,7 @@ ROOM: "delphi" , lit, (3,3), (center,center), (11,9) {
     FOUNTAIN: (1, 2)
     FOUNTAIN: (2, 1)
     MONSTER: ('@', "Oracle"), (1,1) {
-        OBJECT: ('(', "eight ball"), uncursed, name:"Magic 8-Ball"
+        OBJECT: ('(', "eight ball"), uncursed
     }
     ROOMDOOR: false , nodoor , random, random
   }
@@ -116,7 +116,7 @@ ROOM: "delphi" , lit, (3,3), (center,center), (11,9) {
   OBJECT:('`',"statue"),$statuelocs[3],montype:"air elemental",1
 
   MONSTER: ('@', "Oracle"), (5,4) {
-        OBJECT: ('(', "eight ball"), uncursed, name:"Magic 8-Ball"
+        OBJECT: ('(', "eight ball"), uncursed
   }
 
   MONSTER: random, random
@@ -207,7 +207,7 @@ ROOM: "delphi" , lit, (3,3), (center,center), (11,9) {
   OBJECT:('`',"statue"),$statuelocs[3],montype:"water nymph",1
 
   MONSTER: ('@', "Oracle"), (5,4) {
-        OBJECT: ('(', "eight ball"), uncursed, name:"Magic 8-Ball"
+        OBJECT: ('(', "eight ball"), uncursed
   }
 
   MONSTER: random, random

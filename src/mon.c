@@ -115,11 +115,11 @@ const char *msg;
             mx = my = 0;
         if (mtmp == u.ustuck)
             impossible("hiding monster stuck to you (%s)", msg);
-        if (m_at(mx, my) == mtmp && hides_under(mtmp->data) 
+        if (m_at(mtmp->mx, mtmp->my) == mtmp && hides_under(mtmp->data) 
             && !concealed_spot(mx, my))
             impossible("mon hiding under nonexistent obj or terrain (%s)", msg);
         if (mtmp->data->mlet == S_EEL
-            && !is_damp_terrain(mx, my) && !Is_waterlevel(&u.uz))
+            && !is_damp_terrain(mtmp->mx, mtmp->my) && !Is_waterlevel(&u.uz))
             impossible("eel hiding out of water (%s)", msg);
         if (ceiling_hider(mptr)
             /* normally !accessible would be overridable with passes_walls,
@@ -129,7 +129,7 @@ const char *msg;
                        !has_ceiling(&u.uz) ? "without ceiling"
                                            : "in solid stone",
                        msg);
-        if (mtmp->mtrapped && (t = t_at(mx, my)) != 0
+        if (mtmp->mtrapped && (t = t_at(mtmp->mx, mtmp->my)) != 0
             && !(t->ttyp == PIT || t->ttyp == SPIKED_PIT))
             impossible("hiding while trapped in a non-pit (%s)", msg);
     }
@@ -5347,24 +5347,15 @@ void
 maybe_unhide_at(x, y)
 xchar x, y;
 {
-    struct monst *mtmp = m_at(x, y);
-
-    if (!mtmp)
-        return;
-    if (is_swimmer(mtmp->data) && mtmp->mundetected) {
-        mtmp->mundetected = 0;
-        newsym(x, y);
-    }
+    struct monst *mtmp;
+    
     if (concealed_spot(x, y))
         return;
-    if (u_at(x, y))
+    if ((mtmp = m_at(x, y)) == 0 && u_at(x, y))
         mtmp = &youmonst;
-    if (mtmp->mundetected && hides_under(mtmp->data))
+    if (mtmp && mtmp->mundetected && hides_under(mtmp->data))
         (void) hideunder(mtmp);
-    
-
 }
-
 /* monster/hero tries to hide under something at the current location.
  * Only applies to hides_under monsters, *not* is_hider monsters. */
 boolean
