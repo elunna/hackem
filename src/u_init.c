@@ -1953,6 +1953,10 @@ register struct trobj *origtrop;
                        && (objects[otyp].oc_level > (got_sp1 ? 3 : 1)
                            || restricted_spell_discipline(otyp)))
                    || otyp == SPE_NOVEL
+                   /* items that will be silver for vampirics (rings/wands perhaps)
+                    * that can't become iron */
+                   || (Race_if(PM_VAMPIRIC) && objects[otyp].oc_material == SILVER
+                       && !valid_obj_material(obj, IRON))
                    /* items that will be iron for elves (rings/wands perhaps)
                     * that can't become copper */
                    || (Race_if(PM_ELF) && objects[otyp].oc_material == IRON
