@@ -608,7 +608,7 @@ doread()
         pline("\"%s\".", eightball_msgs[rn2(SIZE(eightball_msgs))]);
         if (!u.uconduct.literate++) {
             livelog_write_string(LL_CONDUCT,
-                    "became literate by reading the Magic 8-Ball");
+                    "became literate by reading an eight-ball");
         }
         return 1;
     } else if (otyp == CANDY_BAR) {
