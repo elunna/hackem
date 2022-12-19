@@ -5975,6 +5975,7 @@ boolean moncast;
                 pline("The grass dies!");
                 newsym(x, y);
             }
+            maybe_unhide_at(x, y);
         }
         break;
 
