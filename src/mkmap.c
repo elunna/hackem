@@ -467,6 +467,8 @@ boolean notpool;
       	chance = 0;
         if (rnum >= 0 && rooms[rnum].rtype != OROOM)
             chance = 0;
+        else if (levl[cx][cy].typ == STAIRS)
+            chance = 0;
         else if (levl[cx][cy].typ == CORR)
             chance = 15;
         else if (levl[cx][cy].typ == ROOM)
