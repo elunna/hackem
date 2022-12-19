@@ -471,4 +471,8 @@
     (hates_material(raceptr(&youmonst), material) \
      || mon_hates_material(&youmonst, material))
 
+/* _Hitchhikers_Guide_to_the_Galaxy_ on uses for 'towel': "wrap it round
+   your head to ward off noxious fumes" [we require it to be damp or wet] */
+#define Half_gas_damage (ublindf && ublindf->otyp == TOWEL && ublindf->spe > 0)
+
 #endif /* YOUPROP_H */
