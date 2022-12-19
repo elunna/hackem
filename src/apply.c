@@ -5222,13 +5222,16 @@ struct obj *obj;
         case WAN_OPENING:
             traptype = TRAPDOOR;
             break;
-            /* Shock, poison,acid, and sonic wands can make magic beam traps.*/
+            /* Shock, poison, acid, and sonic wands can make magic beam traps.*/
         case WAN_POISON_GAS:
         case WAN_ACID:
         case WAN_SONICS:
         case WAN_LIGHTNING:
             traptype = MAGIC_BEAM_TRAP;
             break;
+        /* No traps for these */
+        case WAN_DEATH:
+            return;
         default:
             impossible("Weird wand type for making a trap! %d", obj->otyp);
         }
