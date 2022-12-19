@@ -699,12 +699,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* --hackem: I added stealth to the carry effects, since we don't have
      * some of these extra fields in dnh. */
     A("The Iron Spoon of Liberation", SPOON,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_LUCK | SPFX_INTEL), 
-      (SPFX_STLTH | SPFX_SEARCH | SPFX_SEEK), 0,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH), 
+      (SPFX_SEARCH | SPFX_SEEK | SPFX_LUCK), 0,
       PHYS(5,0), NO_DFNS, CARY(AD_PLYS), PHASING, 
       A_CHAOTIC, PM_CONVICT, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
-    /*Note: it had caried stealth before*/
-      /*SPFX2_STLTH | SPFX2_DIG, SPFX3_ENGRV, 0), */
     
     /* Infidel role quest artifact. Confers energy regeneration,
      * but only to those in good standing with Moloch. */
