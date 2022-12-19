@@ -156,12 +156,21 @@ struct monst *mtmp;
      * is mindless, priests inside their own temple, the quest leaders
      * and nemesis, neothelids
      */
-    if (mtmp->iswiz || is_lminion(mtmp) || mtmp->data == &mons[PM_ANGEL]
-        || mtmp->data == &mons[PM_ARCHANGEL] || mtmp->data == &mons[PM_HONEY_BADGER]
-        || mtmp->data == &mons[PM_NEOTHELID] || mindless(mtmp->data)
-        || is_mplayer(mtmp->data) || is_rider(mtmp->data) || mtmp->isvecna
-        || mtmp->data->mlet == S_HUMAN || unique_corpstat(mtmp->data)
-        || (mtmp->isshk && inhishop(mtmp)) || mtmp->isgrund
+    if (mtmp->iswiz
+        || is_lminion(mtmp)
+        || mtmp->data == &mons[PM_ANGEL]
+        || mtmp->data == &mons[PM_ARCHANGEL]
+        || mtmp->data == &mons[PM_HONEY_BADGER]
+        || mtmp->data == &mons[PM_NEOTHELID]
+        || mtmp->data == &mons[PM_CTHULHU]
+        || mindless(mtmp->data)
+        || is_mplayer(mtmp->data)
+        || is_rider(mtmp->data)
+        || mtmp->isvecna
+        || mtmp->data->mlet == S_HUMAN
+        || unique_corpstat(mtmp->data)
+        || (mtmp->isshk && inhishop(mtmp))
+        || mtmp->isgrund
         || (mtmp->ispriest && inhistemple(mtmp))
         || mtmp->mberserk)
         return FALSE;
@@ -721,7 +730,9 @@ register struct monst *mtmp;
     if (is_watch(mdat)) {
         watch_on_duty(mtmp);
 
+    /* [DS] Cthulhu also uses psychic blasts */
     } else if ((is_mind_flayer(mdat) 
+                || mdat == &mons[PM_CTHULHU]
                 || mdat == &mons[PM_NEOTHELID])
                && !rn2(20)) {
         struct monst *m2, *nmon = (struct monst *) 0;
@@ -747,7 +758,10 @@ register struct monst *mtmp;
                 pline("It locks on to your %s!",
                       m_sen ? "telepathy" : Blind_telepat ? "latent telepathy"
                                                           : "mind");
-                dmg = rnd(15);
+                /*dmg = rnd(15);*/
+                dmg = (mdat == &mons[PM_CTHULHU]) ?
+                      rn1(10, 10) :
+                      rn1(4, 4);
                 if (Half_spell_damage)
                     dmg = (dmg + 1) / 2;
                 losehp(dmg, "psychic blast", KILLED_BY_AN);

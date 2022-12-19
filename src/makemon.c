@@ -1793,6 +1793,9 @@ register struct monst *mtmp;
                 (void) mpickobj(mtmp, otmp);
             }
             break;
+        case PM_CTHULHU:
+            (void) mongets(mtmp, POT_FULL_HEALING);
+            break;
         }
         break;
         

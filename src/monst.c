@@ -6901,7 +6901,7 @@ struct permonst _mons2[] = {
     /* Original Slash'EM/SlashTHEM Cthulu. */
     /* --hackem: Matched Un's -8AC, 
      * added regen, omnivore, rockthrow, M2_MAGIC*/
-    MON("Cthulhu", S_DEMON,
+    MON("Cthulhu", S_HUMANOID,
         LVL(106, 18, -8, 95, 0), 
         (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
         A(ATTK(AT_MAGC, AD_CLRC, 4, 6), 

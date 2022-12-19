@@ -1162,9 +1162,26 @@ struct monst *mtmp;
     Strcpy(monnambuf, x_monnam(mtmp, ARTICLE_THE, (char *) 0,
                                (SUPPRESS_IT | SUPPRESS_INVISIBLE), FALSE));
 
-    pline("Status of %s (%s, %s):  Level %d  HP %d(%d)  AC %d%s.", monnambuf,
-          genders[gender(mtmp)].adj, align_str(alignment),
-          mtmp->m_lev, mtmp->mhp, mtmp->mhpmax, find_mac(mtmp), info);
+    pline("Status of %s (%s, %s):  Level %d  HP %d(%d)  AC %d%s.",
+          monnambuf,
+          genders[gender(mtmp)].adj, 
+          align_str(alignment),
+          mtmp->m_lev, 
+          mtmp->mhp, 
+          mtmp->mhpmax, 
+          find_mac(mtmp), 
+          info);
+          
+    /* Heisenberg's code */
+    if (mtmp->data == &mons[PM_QUANTUM_MECHANIC]) {
+        if (canspotmon(mtmp))
+            pline("Having determined %s's speed, you are unable to know its location.",
+                  mon_nam(mtmp));
+        (void) rloc(mtmp, FALSE);
+    } else if (mtmp->data == &mons[PM_CTHULHU]) {
+        pline("There are some things incapable of being understood!");
+        make_confused(HConfusion + rnd(20), FALSE);
+    }
 }
 
 /* stethoscope or probing applied to hero -- one-line feedback */

@@ -532,6 +532,7 @@ struct obj *corpse;
             || (mptr == &mons[PM_CHARON] && !Is_valley(&u.uz))
             || mptr == &mons[PM_KAS]
             || mptr == &mons[PM_RAT_KING]
+            || mptr == &mons[PM_CTHULHU]
             || mptr == &mons[PM_ABOMINABLE_SNOWMAN]
             || mptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
             || mptr == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {

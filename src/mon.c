@@ -3873,6 +3873,32 @@ boolean was_swallowed; /* digestion */
     return (boolean) !rn2(tmp);
 }
 
+/** Creates Cthulhu's death message and death cloud. */
+void
+cthulhu_dies(struct monst *mon) /**< Cthulhu's struct */
+{
+    /* really dead? */
+    if (mon->mhp <= 0) {
+        /* Cthulhu Deliquesces... */
+        if (cansee(mon->mx, mon->my)) {
+            pline("%s body deliquesces into a cloud of noxious gas!",
+                  s_suffix(Monnam(mon)));
+        } else {
+            You_hear("hissing and bubbling!");
+        }
+        /* ...into a stinking cloud... */
+        if (mvitals[PM_CTHULHU].died == 1 &&
+            distu(mon->mx, mon->my) > 2) {
+            /* Cthulhu got killed while meditating and the player
+             * was not next to him.
+             * You can't get rid of the True Final Boss so easily! */
+            (void) create_cthulhu_death_cloud(mon->mx, mon->my, 2, 4);
+        } else {
+            (void) create_cthulhu_death_cloud(mon->mx, mon->my, 3, 8);
+        }
+    }
+}
+
 void
 spore_dies(mon)
 struct monst *mon;
@@ -4132,6 +4158,10 @@ int how;
     else
         mondied(mdef);
 
+    if (mdef->data == &mons[PM_CTHULHU]) {
+        cthulhu_dies(mdef);
+    }
+
     if (is_fern_spore(mdef->data)) {
         spore_dies(mdef);
     }
@@ -4309,7 +4339,11 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
                        !disintegested && m_canseeu(mtmp)) {
         deathwail(mtmp);
     }
-        
+    
+    if (mdat == &mons[PM_CTHULHU]) {
+        cthulhu_dies(mtmp);
+    }
+    
     if (is_fern_spore(mtmp->data)) {
         spore_dies(mtmp);
     }

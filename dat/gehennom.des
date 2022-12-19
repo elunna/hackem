@@ -2137,7 +2137,7 @@ MONSTER:('&',"lava demon"),(60,03),hostile
 MONSTER:('&',"lava demon"),(30,17),hostile
 
 # Cthulu is placed right in the middle
-MONSTER:('&', "Cthulhu"), (45,14), hostile
+MONSTER:('h', "Cthulhu"), (45,14), hostile
 
 # Exit
 STAIR:(63,15),up
