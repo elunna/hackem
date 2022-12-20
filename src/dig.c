@@ -637,7 +637,6 @@ int ttyp;
     if (!ttmp)
         return;
     newobjs = level.objects[x][y];
-    ttmp->madeby_u = madeby_u;
     ttmp->tseen = 0;
     if (cansee(x, y))
         seetrap(ttmp);
@@ -645,6 +644,7 @@ int ttyp;
         feeltrap(ttmp);
 
     if (ttyp == PIT) {
+        ttmp->madeby_u = madeby_u;
         if (madeby_u) {
             if (x != u.ux || y != u.uy)
                 You("dig an adjacent pit.");
