@@ -4150,7 +4150,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                  || youmonst.data->mlet == S_GNOME) && !weapon_used)
                 goto use_weapon;
             sum[i] = castum(mon, mattk);
-             		continue;
+            continue;
             /*FALLTHRU*/
 
         case AT_NONE:
@@ -4166,10 +4166,10 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             dhit = 0;
             break;
         case AT_MULTIPLY:
-			/* Not a #monster ability -- this is something that the
-			 * player must figure out -RJ */
-			cloneu();
-			break;
+            /* Not a #monster ability -- this is something that the
+             * player must figure out -RJ */
+            cloneu();
+            break;
 
         default: /* Strange... */
             impossible("strange attack of yours (%d)", mattk->aatyp);

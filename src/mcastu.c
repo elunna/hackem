@@ -1821,6 +1821,12 @@ register struct attack *mattk;
     int spellnum = 0;
     boolean directed = FALSE;
 
+    /* Safety check to prevent casting a spell at a dead monster. For example,
+     * the ghoul queen has two AT_MAGC attacks. If the first one kills, the 
+     * second one may follow on a dead mon. */
+    if (mtmp->mhp <= 0)
+        return 0;
+    
     if ((mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) && ml) {
         int cnt = 40;
 
