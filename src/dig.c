@@ -1999,7 +1999,7 @@ boolean *dealloced;
         end_burn(otmp, TRUE);
 
     obj_extract_self(otmp);
-
+        
     under_ice = is_ice(otmp->ox, otmp->oy);
     if (otmp->otyp == ROCK && !under_ice) {
         /* merges into burying material */
@@ -2028,7 +2028,7 @@ boolean *dealloced;
 #endif
     }
     add_to_buried(otmp);
-    return  otmp2;
+    return otmp2;
 }
 
 void

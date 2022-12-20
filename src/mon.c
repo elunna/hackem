@@ -5385,9 +5385,13 @@ xchar x, y;
     
     if (concealed_spot(x, y))
         return;
-    if ((mtmp = m_at(x, y)) == 0 && u_at(x, y))
+    if ((mtmp = m_at(x, y)) == 0 && u_at(x, y)) {
         mtmp = &youmonst;
-    if (mtmp && mtmp->mundetected && hides_under(mtmp->data))
+        /* mtmp->mundetected here isn't synchronized with u.uundetected, 
+         * we have to use u.uundetected for the hero. */
+        if (u.uundetected && hides_under(mtmp->data))
+            (void) hideunder(mtmp);
+    } else if (mtmp && mtmp->mundetected && hides_under(mtmp->data))
         (void) hideunder(mtmp);
 }
 /* monster/hero tries to hide under something at the current location.
