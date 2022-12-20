@@ -2636,13 +2636,15 @@ register struct obj *obj;
     case POT_MONSTER_DETECTION:
         /* force uncursed monster detection if blessed */
         obj->blessed = 0;
-        peffects(obj);
+        if (!monster_detect(obj, 0))
+            exercise(A_WIS, TRUE);
         unambiguous = TRUE;
         break;
     case POT_OBJECT_DETECTION:
         /* force uncursed object detection if blessed */
         obj->blessed = 0;
-        peffects(obj);
+        if (!object_detect(obj, 0))
+            exercise(A_WIS, TRUE);
         unambiguous = TRUE;
         break;
     case POT_ENLIGHTENMENT:
@@ -2650,7 +2652,7 @@ register struct obj *obj;
         unambiguous = TRUE;
         break;
     }
-
+    
     if (!already_in_use)
         obj->in_use = 0;
     /* note: no obfree() -- that's our caller's responsibility */
