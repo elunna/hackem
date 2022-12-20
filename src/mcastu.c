@@ -1606,20 +1606,21 @@ register struct attack *mattk;
     return 1;
 }
 
-/* return values:
-* 2: target died
-* 1: successful spell
-* 0: unsuccessful spell
-*/
 int
 castmm(mtmp, mdef, mattk)
-register struct monst *mtmp;
-register struct monst *mdef;
-register struct attack *mattk;
+struct monst *mtmp;
+struct monst *mdef;
+struct attack *mattk;
 {
     int dmg, ml = min(mtmp->m_lev, 50);
     int ret;
     int spellnum = 0;
+
+    /* guard against casting another spell attack
+       at an already dead monster; some monsters
+       have multiple AT_MAGC attacks */
+    if (mdef->mhp <= 0)
+        return 0;
 
     if ((mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) && ml) {
         int cnt = 40;
@@ -1796,30 +1797,30 @@ register struct attack *mattk;
         }
     }
 
-    if (dmg > 0 && mdef->mhp > 0) {
+    if (dmg) {
         mdef->mhp -= dmg;
-        if (mdef->mhp < 1)
+        if (DEADMONSTER(mdef))
             monkilled(mdef, "", mattk->adtyp);
     }
-    if (mdef && mdef->mhp < 1)
-        return 2;
+
     return (ret);
 }
 
-/* return values:
-* 2: target died
-* 1: successful spell
-* 0: unsuccessful spell
-*/
 int
 castum(mtmp, mattk)
-register struct monst *mtmp;
-register struct attack *mattk;
+struct monst *mtmp;
+struct attack *mattk;
 {
     int dmg, ml = mons[u.umonnum].mlevel;
     int ret;
     int spellnum = 0;
     boolean directed = FALSE;
+
+    /* guard against casting another spell attack
+       at an already dead monster; some monsters
+       have multiple AT_MAGC attacks */
+    if (mtmp->mhp <= 0)
+        return 0;
 
     if ((mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) && ml) {
         int cnt = 40;
@@ -1965,13 +1966,12 @@ register struct attack *mattk;
         }
     }
 
-    if (mtmp && dmg > 0 && mtmp->mhp > 0) {
+    if (dmg) {
         mtmp->mhp -= dmg;
-        if (mtmp->mhp < 1)
+        if (DEADMONSTER(mtmp))
             killed(mtmp);
     }
-    if (mtmp && mtmp->mhp < 1)
-        return 2;
+
     return (ret);
 }
 
@@ -2249,10 +2249,11 @@ int spellnum;
         dmg = 0;
         break;
     case MGC_CURE_SELF:
-        if (!yours)
+        if (!yours) {
             impossible("ucast healing but not yours?");
-        else if (u.mh < u.mhmax) {
+        } else if (u.mh < u.mhmax) {
             You("feel better.");
+            u.mh += dmg;
             if ((u.mh += d(3, 6)) > u.mhmax)
                 u.mh = u.mhmax;
             context.botl = 1;
@@ -2329,9 +2330,9 @@ int spellnum;
         break;
     }
 
-    if (dmg > 0 && mtmp && mtmp->mhp > 0) {
+    if (dmg) {
         mtmp->mhp -= dmg;
-        if (mtmp->mhp < 1) {
+        if (DEADMONSTER(mtmp)) {
             if (yours)
                 killed(mtmp);
             else
@@ -2561,8 +2562,11 @@ int spellnum;
         dmg = 0;
         break;
     case CLC_CURE_SELF:
-        if (u.mh < u.mhmax) {
+        if (!yours) {
+            impossible("ucast healing but not yours?");
+        } else if (u.mh < u.mhmax) {
             You("feel better.");
+            u.mh += dmg;
             /* note: player healing does 6d4; this used to do 1d8 */
             if ((u.mh += d(3, 6)) > u.mhmax)
                 u.mh = u.mhmax;
@@ -2650,9 +2654,9 @@ int spellnum;
         break;
     }
 
-    if (dmg > 0 && mtmp->mhp > 0) {
+    if (dmg) {
         mtmp->mhp -= dmg;
-        if (mtmp->mhp < 1) {
+        if (DEADMONSTER(mtmp)) {
             if (yours)
                 killed(mtmp);
             else
