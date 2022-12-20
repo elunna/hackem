@@ -4724,6 +4724,8 @@ boolean defend;
         return "stuns/magic";
     case AD_DREN:
         return "drain energy";
+    case AD_WTHR:
+        return "withering";
     default:
         impossible("Bad AD_TYPE!");
     }
