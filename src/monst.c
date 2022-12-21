@@ -2065,7 +2065,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(700, 300, MS_ROAR, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_STRONG | M2_HOSTILE, M3_INFRAVISIBLE | M3_BERSERK, 0, 0,
-        5, CLR_RED),
+        8, CLR_RED),
     MON("hippo", S_QUADRUPED,                                 /* SpliceHack */
         LVL(10, 3, 2, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 8, 4), 
