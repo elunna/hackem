@@ -8,13 +8,14 @@
   | |   | |  | | (_| | (__|   <| |____| |  | |      || 
   | |   |_|  |_|\__,_|\___|_|\_\______|_|  |_|      || 
   \ /                                               ()
- .
+   .
 ```                                    
 # Hack'EM
 
 ## Table of Contents:
 
 - Quality-of-Life Features
+- Changes from EvilHack
 - New Monsters
 - Monster changes
 - Dragons and Dragon Scales
@@ -32,77 +33,72 @@
 
 ### Quality-of-Life Features
 
+Object lookup has been fleshed out:
 - [x] Object lookups show more information, including object properties and special effects from materials.
 - [x] Artifacts can be looked up in the item database (currently only works if accessed through the inventory, requiring you to have possession of the artifact)
+- [x] Weapons show bonus damage and effects resulting from materials.
 
+#### Auto-identification
 - [x] All roles start out knowing potions of water and scrolls of identify
 - [x] Auto-ID dunce cap upon wearing
-- [x] Auto-ID jumping boots (from AceHack)
+- [x] Auto-ID jumping boots (AceHack)
 - [x] Auto-ID some potions when inhaling their vapors
-- [x] Auto-ID scroll of scare monster on pickup if it turns to dust.
+- [x] Auto-ID scroll of scare monster on pickup if it turns to dust
 - [x] Auto-ID scroll of teleportation when teleporting any distance after reading one
 - [x] Auto-ID scrolls of remove curse when items' curses are removed
-- [x] Auto-ID wand of teleportation on seeing the successful effect on a monster.
+- [x] Auto-ID wand of teleportation on seeing the successful effect on a monster
 - [x] Auto-ID wands with unambiguous effects and messages
-- [x] Auto-ID wand of undead turning if engraving produces a message
-- [x] Auto-ID wands of probing and secret door detection when engraved with
-- [x] Auto-ID vanishing wands if the other 2 have been identified.
-- [x] Auto-ID wands of sleep or death if their counterpart has been identified.
-- [x] Auto-ID wands of healing or extra healing if their counterpart has been identified.
-- [x] Auto-ID rings dropped into a sink when message is shown
-- [x] Auto-ID for ring of regeneration
-- [x] Auto-ID whistles on use
-- [x] Audo-ID magic flutes and harps on use
-- [x] Auto-ID magic lamps and oil lamps when rubbing
-- [x] Auto-ID loadstones upon discovering the inability to drop them.
-- [x] Auto-ID flintstones when rubbed on iron weapons.
-- [x] Auto-ID water walking boots
-- [x] Auto-ID BUC of products from BUC identified item generator (from UnNetHackPlus).
-- [x] Rustproof/erodeproof/fixed status is known by default for all items (from DynaHack).
-- [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter.
+- [x] Auto-ID wand of undead turning if engraving produces a message (un)
+- [x] Auto-ID wands of probing and secret door detection when engraved with (un)
+- [x] Auto-ID vanishing wands if the other 2 have been identified (un)
+- [x] Auto-ID wands of sleep or death if their counterpart has been identified (un)
+- [x] Auto-ID wands of healing or extra healing if their counterpart has been identified
+- [x] Auto-ID rings dropped into a sink when message is shown (un)
+- [x] Auto-ID for ring of regeneration (un)
+- [x] Auto-ID whistles on use (un)
+- [x] Audo-ID magic flutes and harps on use (un)
+- [x] Auto-ID magic lamps and oil lamps when rubbing (un)
+- [x] Auto-ID loadstones upon discovering the inability to drop them (un)
+- [x] Auto-ID flintstones when rubbed on iron weapons
+- [x] Auto-ID water walking boots (xnh)
+- [x] Auto-ID BUC of products from BUC identified item generator (UnNetHackPlus)
+- [x] Rustproof/erodeproof/fixed status is known by default for all items (DynaHack)
+- [x] A blessed scroll of charging will (in addition to charging the item) also reveal the number of charges and the charge counter
+- [x] After a while of using a wielded weapon, you will identify it and it's enchantment (evil)
+- 
+#### Other QoL
+
+- [x] The player's magic cancellation (MC) is shown in the status bar
+- [x] Realtime display option is now available (Evil)
+- [x] Show the last turn the player prayed in the ^X screen
+- [x] Attempting to open "." acts as an alias for #loot
+- [x] /> < to auto-travel to stairs (from Unnethack)
+- [x] Control+Direction now kicks in that direction
 - [x] You can reread a spellbook to refresh your memory at any time
-- [x] After a while of using a wielded weapon, you will identify it and it's enchantment
 - [x] Blessed stethoscopes can identify eggs (on the floor)
-- [x] The player's magic cancellation (MC) is shown in the status bar.
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Default shk sell prompt to N (xnh)
 - [x] Regeneration only causes additional hunger when injured.
-- [x] 1-damage hits still train weapon/unarmed skills (from DynaHack).
+- [x] 1-damage hits still train weapon/unarmed skills (from DynaHack)
 - [x] Monks eventually stop receiving the "You feel guilty	message	(xnh)
 - [x] Chargeable rings may get charged when hit with electricity (3.7)
 - [x] Useless +0 rings are generate very rarely (xnh)
-- [x] Monsters are prevented from picking up gold in shops.
-- [x] Monsters don't blame the player for falling down holes the player dug. Pit traps still count.
-- [x] The Astral Plane is always lit. (xnh)
-- [x] The passtune range has been extended by 1. (xnh)
+- [x] Monsters are prevented from picking up gold in shops
+- [x] Monsters don't blame the player for falling down holes the player dug. Pit traps still count
+- [x] The Astral Plane is always lit (xnh)
+- [x] The passtune range has been extended by 1 (xnh)
 - [x] Switching between your main and alternative weapon does not take any turns (from dnh)
 - [x] Removed repeated coughing of player when poison resistance renders stinking clouds harmless.
-- [x] Removed all random secret corridors.
+- [x] Removed all random secret corridors
 - [x] Removed the Quest turn limit
 - [x] Deliberate level teleporter activation ignores magic resistance (3.7)
-- [x] Attempting to open "." acts as an alias for #loot
-- [x] Show the last turn the player prayed in the ^X screen
-- [x] Swapping weapons take 0 turns now (dnh)
-- [x] /> < to auto-travel to stairs (from Unnethack)
-- [x] Control+Direction now kicks in that direction.
-- [x] Realtime display option is now available (Evil)
-
-- [x] Potions have been made more useful from these patches:
-    -  Malcolm Ryan's Brewing Patch let's you ferment mold corpses in certain potions.
-    - Potions can be poured down sinks, via #dip (xnh)
-    - Gem alchemy
-
-    
-Object lookup has been fleshed out:
-- [x] Potions, scrolls, rings, amulets, wands will display lookup info.
-- [x] Artifacts will show their info (must have the artifact in possession)
-- Weapons show bonus damage and effects resulting from materials.
+- [x] Potions have been made more useful from a small collection of patches (see the Alchemy Mechanics section)
 
 Wiz-Mode updates:
 - [x] #wizclear (^c), clears all monsters on level (splice)
 - [x] Can wish for monsters with ^w (Un)
 
-Wishing shortcuts:
+#### Wishing shortcuts:
     "BoL":      LEVITATION_BOOTS
     "BoS/SB":   SPEED_BOOTS
     "BoWW/WWB": WATER_WALKING_BOOTS
@@ -145,28 +141,26 @@ Wishing shortcuts:
 - [x] The first level of Sokobon is guaranteed 2 scrolls of earth.
 - [x] Removed the monster riding monster mechanic.
 - [x] Monster spawn rates are simplified a bit from EvilHack:
-    - Monster spawn rates increase to 4x normal once you've performed the invocation. 
-    Post-invocation, all denizens of the dungeon are aware of what has happened and nasties will spawn on each levels upstairs
+    - Monster spawn rates increase to 4x normal once you've performed the invocation. After that, all denizens of the dungeon are aware of what has happened and nasties will spawn on each level's upstairs.
 - [x] Baalzebub, Geryon, Dispater are back to being a princes (demoted from lords). They should be bribable again.
 - [x] Graz'zt no longer has an item stealing attack - replaced with physical attack instead.
-- [x] Reduced the chance Rodney gets an amulet of magic resistance to 1 in 13 times (changed from Evil where it was 50%)
-- [x] The Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8)
+- [x] Reduced the chance Rodney gets an amulet of magic resistance to 1 in 13 times (changed from Evil where it was 50%).
+- [x] The Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8).
 - [x] Some of the dragon scales have had buffs or different secondary effects added. All scales grant passive effects now. See the section on Dragon Scales for details.
-- [x] Removed The Magic 8-Ball; The Oracle gets a regular eight ball.'
-- [x] Removed Keowla (Cavemen get Skullcrusher as a gift instead)
+- [x] Removed The Magic 8-Ball (The Oracle gets a regular eight ball).
+- [x] Removed Keolewa (Cavemen get Skullcrusher as a gift instead).
 - [x] Removed the "indestructible" drawbridge from the VotD - it can be destroyed like a regular drawbridge now.
 - [x] Removed the Wand of Orcus. Orcus gets his standard wand of death now.
-- [x] In Evil, zapping around peaceful monsters could anger them. I have removed this mechanic except for when you break one.
+- [x] Zapping a wand of light around peaceful monsters could anger them. I have removed this mechanic except for when you break one.
 - [x] Removed the Goblin Town branch and requirement to defeat Goblin King, Minetown can be accessed normally.
-- [x] Mines river/sewage generation only occurs on levels deeper than minetone.
-- [x] Unicorn Horns have been reverted back to a 2-handed d12 weapon, they are a single handed weapon in Evil.
+- [x] Mines river/sewage generation only occurs on levels deeper than minetown.
+- [x] Unicorn Horns have been reverted back to a 2-handed d12 weapon.
 - [x] Giants can wear mummy wrappings.
-- [x] Changed chances of item randomly spawning with two properties to 1 in 666
-    - (In Evil the chances are 1 in 100000! K2 what?!)
+- [x] Improved chances of item randomly spawning with two properties to 1 in 3141.
 - [x] Spellcasting monster have to see you in order to cast summon nasties.
 - [x] Spellcasting monsters have had their spell range limited by their level (gnomish mages are level 3 and can only cast fire bolt in a radius of 2-3 tiles instead of 13). 
 - [x] Fixed the unstoning monster spell timeout. Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).
-- [x] Removed engulfing attack from gelatinous cube, water elemental, earth elemental, and fire elemental. The splice elementals (magma, mud, ice) still can engulf. I
+- [x] Removed engulfing attack from gelatinous cube, water elemental, earth elemental, and fire elemental. The splice elementals (magma, mud, ice, acid) still can engulf.
 
 ## Monster changes
 
@@ -659,7 +653,6 @@ Wishing shortcuts:
     - Has 2 powerful melee slams: (2d18 drain energy/clobber)
     - Also has drain life attacks.
     - Releases a nasty death wail when slain. 2d18 sonic damage, Stuns
-    - Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.
 - (Y) zruty
     - Changed zruty from z to Y (to accomodate zouthern animals)
 - (Y) lemur
