@@ -3259,7 +3259,14 @@ struct permonst *mptr; /* reflects mtmp->data _prior_ to mtmp's death */
 
     mtmp->mstate |= MON_DETACH;
     iflags.purge_monsters++;
+
+    /* hero is thrown from his steed when it dies or gets genocided */
+    if (mtmp == u.usteed)
+        dismount_steed(DISMOUNT_GENERIC);
+    return;
 }
+
+
 
 /* find the worn amulet of life saving which will save a monster */
 struct obj *
@@ -3576,6 +3583,7 @@ register struct monst *mtmp;
     /* Player is thrown from his steed when it dies */
     if (mtmp == u.usteed)
         dismount_steed(DISMOUNT_GENERIC);
+    
     /* Clear feared monster */
     if (mtmp == u.fearedmon)
         remove_fearedmon();
@@ -3718,6 +3726,7 @@ register struct monst *mtmp;
 
     if (glyph_is_invisible(levl[mtmp->mx][mtmp->my].glyph))
         unmap_object(mtmp->mx, mtmp->my);
+
     m_detach(mtmp, mptr);
 }
 
