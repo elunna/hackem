@@ -67,17 +67,15 @@
 - [x] Remove "Auto-select every item" when putting into containers
 - [x] Default shk sell prompt to N (xnh)
 - [x] Regeneration only causes additional hunger when injured.
-- [x] Removed two-weaponing restrictions imposed in EvilHack.
 - [x] 1-damage hits still train weapon/unarmed skills (from DynaHack).
 - [x] Monks eventually stop receiving the "You feel guilty	message	(xnh)
-- [x] Monsters cannot use wands of wishing.
 - [x] Chargeable rings may get charged when hit with electricity (3.7)
 - [x] Useless +0 rings are generate very rarely (xnh)
 - [x] Monsters are prevented from picking up gold in shops.
+- [x] Monsters don't blame the player for falling down holes the player dug. Pit traps still count.
 - [x] The Astral Plane is always lit. (xnh)
 - [x] The passtune range has been extended by 1. (xnh)
-- [x] Monsters can no longer use wands of wishing to get wishes - if they get a wish from a smoky potion they will still attempt to get something powerful.
-- [x] Switching between your main and alternative weapon should not take any turns (from dnh)
+- [x] Switching between your main and alternative weapon does not take any turns (from dnh)
 - [x] Removed repeated coughing of player when poison resistance renders stinking clouds harmless.
 - [x] Removed all random secret corridors.
 - [x] Removed the Quest turn limit
@@ -87,58 +85,88 @@
 - [x] Swapping weapons take 0 turns now (dnh)
 - [x] /> < to auto-travel to stairs (from Unnethack)
 - [x] Control+Direction now kicks in that direction.
-- [x] Realtime display option is now available (thanks K2!)
+- [x] Realtime display option is now available (Evil)
 
 - [x] Potions have been made more useful from these patches:
     -  Malcolm Ryan's Brewing Patch let's you ferment mold corpses in certain potions.
-Wishing shortcuts:
-    { "BoL",  LEVITATION_BOOTS},
-    { "BoS",  SPEED_BOOTS},
-    { "SB",  SPEED_BOOTS},
-    { "BoWW",  WATER_WALKING_BOOTS},
-    { "WWB",  WATER_WALKING_BOOTS},
-    { "CoD",  CLOAK_OF_DISPLACEMENT},
-    { "CoI",  CLOAK_OF_INVISIBILITY},
-    { "CoMR",  CLOAK_OF_MAGIC_RESISTANCE},
-    { "GoD",  GAUNTLETS_OF_DEXTERITY},
-    { "GoP",  GAUNTLETS_OF_POWER},
-    { "HoB",  HELM_OF_BRILLIANCE},
-    { "HoOA",  HELM_OF_OPPOSITE_ALIGNMENT},
-    { "HoT",  HELM_OF_TELEPATHY},
-    { "SoR",  SHIELD_OF_REFLECTION},
-    { "AoESP",  AMULET_OF_ESP},
-    { "AoLS",  AMULET_OF_LIFE_SAVING},
-    { "RoC", RIN_CONFLICT },
-    { "RoPC", RIN_POLYMORPH_CONTROL },
-    { "RoTC", RIN_TELEPORT_CONTROL },
-    { "SoC", SCR_CHARGING },
-    { "SoEA", SCR_ENCHANT_ARMOR },
-    { "SoEW", SCR_ENCHANT_WEAPON },
-    { "SoG", SCR_ANNIHILATION },
-    { "genocide", SCR_ANNIHILATION },
-    { "SoI", SCR_IDENTIFY },
-    { "SoRC", SCR_REMOVE_CURSE },
-    { "PoEH",  POT_EXTRA_HEALING},
-    { "PoGL",  POT_GAIN_LEVEL},
-    { "PoW",  POT_WATER},
-    { "pmd",  POT_MONSTER_DETECTION},
-    { "WoCM",  WAN_CREATE_MONSTER},
-    { "WoT",  WAN_TELEPORTATION},
-    { "WoUT",  WAN_UNDEAD_TURNING},
-    { "BoH", BAG_OF_HOLDING },
-    { "ML", MAGIC_LAMP },
-    { "MM", MAGIC_MARKER },
-    { "UH", UNICORN_HORN },
+    - Potions can be poured down sinks, via #dip (xnh)
+    - Gem alchemy
+
     
 Object lookup has been fleshed out:
 - [x] Potions, scrolls, rings, amulets, wands will display lookup info.
 - [x] Artifacts will show their info (must have the artifact in possession)
 - Weapons show bonus damage and effects resulting from materials.
 
-
 Wiz-Mode updates:
 - [x] #wizclear (^c), clears all monsters on level (splice)
-- [x] Can also wish for monsters with ^w (Un)
+- [x] Can wish for monsters with ^w (Un)
+
+Wishing shortcuts:
+    "BoL":      LEVITATION_BOOTS
+    "BoS/SB":   SPEED_BOOTS
+    "BoWW/WWB": WATER_WALKING_BOOTS
+    "CoD":      CLOAK_OF_DISPLACEMENT
+    "CoI":      CLOAK_OF_INVISIBILITY
+    "CoMR":     CLOAK_OF_MAGIC_RESISTANCE
+    "GoD":      GAUNTLETS_OF_DEXTERITY
+    "GoP":      GAUNTLETS_OF_POWER
+    "HoB":      HELM_OF_BRILLIANCE
+    "HoOA":     HELM_OF_OPPOSITE_ALIGNMENT
+    "HoT":      HELM_OF_TELEPATHY
+    "SoR":      SHIELD_OF_REFLECTION
+    "AoESP":    AMULET_OF_ESP
+    "AoLS":     AMULET_OF_LIFE_SAVING
+    "RoC":      RIN_CONFLICT
+    "RoPC":     RIN_POLYMORPH_CONTROL
+    "RoTC":     RIN_TELEPORT_CONTROL
+    "SoC":      SCR_CHARGING
+    "SoEA":     SCR_ENCHANT_ARMOR
+    "SoEW":     SCR_ENCHANT_WEAPON
+    "SoG":      SCR_ANNIHILATION
+    "genocide": SCR_ANNIHILATION
+    "SoI":      SCR_IDENTIFY
+    "SoRC":     SCR_REMOVE_CURSE
+    "PoEH":     POT_EXTRA_HEALING
+    "PoGL":     POT_GAIN_LEVEL
+    "PoW":      POT_WATER
+    "pmd":      POT_MONSTER_DETECTION
+    "WoCM":     WAN_CREATE_MONSTER
+    "WoT":      WAN_TELEPORTATION
+    "WoUT":     WAN_UNDEAD_TURNING
+    "BoH":      BAG_OF_HOLDING
+    "ML":       MAGIC_LAMP
+    "MM":       MAGIC_MARKER
+    "UH":       UNICORN_HORN
+
+## Changes from EvilHack
+- [x] Removed two-weaponing restrictions imposed in EvilHack. Twoweaponing behavior should be the same as vanilla.
+- [x] Monsters can no longer use wands of wishing to get wishes - if they get a wish from a smoky potion they will still attempt to get something powerful.
+- [x] The first level of Sokobon is guaranteed 2 scrolls of earth.
+- [x] Removed the monster riding monster mechanic.
+- [x] Monster spawn rates are simplified a bit from EvilHack:
+    - Monster spawn rates increase to 4x normal once you've performed the invocation. 
+    Post-invocation, all denizens of the dungeon are aware of what has happened and nasties will spawn on each levels upstairs
+- [x] Baalzebub, Geryon, Dispater are back to being a princes (demoted from lords). They should be bribable again.
+- [x] Graz'zt no longer has an item stealing attack - replaced with physical attack instead.
+- [x] Reduced the chance Rodney gets an amulet of magic resistance to 1 in 13 times (changed from Evil where it was 50%)
+- [x] The Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8)
+- [x] Some of the dragon scales have had buffs or different secondary effects added. All scales grant passive effects now. See the section on Dragon Scales for details.
+- [x] Removed The Magic 8-Ball; The Oracle gets a regular eight ball.'
+- [x] Removed Keowla (Cavemen get Skullcrusher as a gift instead)
+- [x] Removed the "indestructible" drawbridge from the VotD - it can be destroyed like a regular drawbridge now.
+- [x] Removed the Wand of Orcus. Orcus gets his standard wand of death now.
+- [x] In Evil, zapping around peaceful monsters could anger them. I have removed this mechanic except for when you break one.
+- [x] Removed the Goblin Town branch and requirement to defeat Goblin King, Minetown can be accessed normally.
+- [x] Mines river/sewage generation only occurs on levels deeper than minetone.
+- [x] Unicorn Horns have been reverted back to a 2-handed d12 weapon, they are a single handed weapon in Evil.
+- [x] Giants can wear mummy wrappings.
+- [x] Changed chances of item randomly spawning with two properties to 1 in 666
+    - (In Evil the chances are 1 in 100000! K2 what?!)
+- [x] Spellcasting monster have to see you in order to cast summon nasties.
+- [x] Spellcasting monsters have had their spell range limited by their level (gnomish mages are level 3 and can only cast fire bolt in a radius of 2-3 tiles instead of 13). 
+- [x] Fixed the unstoning monster spell timeout. Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).
+- [x] Removed engulfing attack from gelatinous cube, water elemental, earth elemental, and fire elemental. The splice elementals (magma, mud, ice) still can engulf. I
 
 ## Monster changes
 
@@ -345,8 +373,8 @@ Wiz-Mode updates:
 - (q) mangler
 - (q) Jumbo the Elephant
 - (q) juggernaut
-    - Buffed significantly: Now is NASTY
-    - Removed G_NOHELL tag from juggernaut so they can appear anywhere.
+    - Buffed significantly from SlashEM
+    - Removed G_NOHELL tag from juggernaut so they can appear in main dungeon.
     - Added fire/poison/shock/sleep/acid/stone/death/drain/sickness resistances
     - Added infravision, regeneration, M1_MINDLESS
     - Changed juggernaut MR to 70, AC to -4,  speed to 15
@@ -813,12 +841,12 @@ Wiz-Mode updates:
 - [x] Rabid monsters can no longer be tamed
 - [x] Elves are lawful instead of chaotic
 - [x] All orcs are immune to poison
-    - Wargs can now be ridden by player orcs, and subsequently can only be tamed by the same.
 - [x] Nymphs and mermaids will introduce themselves when seducing you (splice)
 - [x] Nymphs now hate iron.
 - [x] Imps now hate iron.
+- [x] Almost all of team a is now vulnerable to acid (bug spray)
 - [x] All Fungi/migos: now hate copper and receive an extra d6 damage from copper.
-- [x] Copper does extra damage vs monsters with disease, decay, and pestilense attacks.
+- [x] Copper does extra damage vs monsters with disease, decay, and pestilence attacks.
 - [x] All Zouthern animals now have a small chance of death-dropping boomerangs.
 - [x] Gnolls:
     - Evil already had gnolls, so I disabled the Evil gnolls in favor of the slashem versions - and used the G symbol instead)
@@ -871,6 +899,8 @@ Wiz-Mode updates:
     - 50% Gain xp; 20% nothing happens.
 - [x] trappers and lurkers above mindless (now they cannot be detected with ESP)
 - [x] The Oracle sometimes gets a potion of hallucination (xnh)
+- [x] Most golems now drop more items related to their material (ie: rope golems drop leashes, etc)
+- [x] Angels and Aleaxes can generate with harps.
 
 ### Monster Mechanic Changes:
 
@@ -879,7 +909,6 @@ Wiz-Mode updates:
     - They cannot change form again once this happens.
 - [x] Updated nasties lists with slashem monsters. 
   - Added gugs, slaughter wights, devas, revenants 
-- [x] Some monsters ride other monsters as steeds.
 - [x] Imps and others cussing the hero wake up nearby monsters
 - [x] Removed "Hits as +x weapon" property from slashem monsters
 - [x] Removed "Requires +x weapon to be hit" property from slashem monsters
@@ -911,20 +940,13 @@ Wiz-Mode updates:
     - scrolls of charging to recharge wands in its possession, 
     - and utilizing powerful wands against the player.
 - [x] Player monsters:
-  - now technically their own class of monster and are separate from how the actual player is defined in src/monst.c, 
-  - and were purposely left out of the new monsters table as it would unnecessarily inflate that list.
-  - Player monsters differ here from vanilla NetHack in that they can spawn outside of the Astral Plane, are yellow in color, and are kitted out in player-like gear starting at level 10, and then can be kitted out with ascension-level gear starting at level 20 
-  - their hit dice and difficulty level roughly matches that of the actual player (this is based off of what experience level the actual player is when the player monster spawns). 
-  - Their abilities closely match their role as well (wizards and priests can cast spells, rogues can steal items from inventory, etc). 
-  - Player monster Knights spawn riding either a horse or a warhorse. 
-  - Player monsters in EvilHack covet the Amulet of Yendor and will attempt to steal it, and if they steal it while on the Astral Plane, will attempt to sacrifice it themselves. As you can imagine, if that happens, it is a game-ending event.
-
-### Monster spawn rates
-
-- Simplified a bit from EvilHack:
-    - Monster spawn rates increase to 4x normal once you've performed the invocation, plus:
-    - all denizens of the dungeon are aware of what has happened, 
-    - Nasties will spawn on each levels upstairs
+    - now technically their own class of monster and are separate from how the actual player is defined in src/monst.c, 
+    - and were purposely left out of the new monsters table as it would unnecessarily inflate that list.
+    - Player monsters differ here from vanilla NetHack in that they can spawn outside of the Astral Plane, are yellow in color, and are kitted out in player-like gear starting at level 10, and then can be kitted out with ascension-level gear starting at level 20 
+    - their hit dice and difficulty level roughly matches that of the actual player (this is based off of what experience level the actual player is when the player monster spawns). 
+    - Their abilities closely match their role as well (wizards and priests can cast spells, rogues can steal items from inventory, etc). 
+    - Player monster Knights spawn riding either a horse or a warhorse. 
+    - Player monsters in EvilHack covet the Amulet of Yendor and will attempt to steal it, and if they steal it while on the Astral Plane, will attempt to sacrifice it themselves. As you can imagine, if that happens, it is a game-ending event.
 
 ### Unique Monster Changes:
 
@@ -938,10 +960,9 @@ Medusa:
 - Having reflection is no longer a guaranteed kill, she resists most of the time.
 - When defeated, a pegasus will arise from her body (From SlashEM)
 
-demon lords/princes encountered in Gehennom,
+Demon lords/princes encountered in Gehennom,
 - along with which lair they may appear in, has been completely randomized. 
 - Your experience in Gehennom can be a very different experience per game.
-- Baalzebub, Geryon, Dispater are back to being a princes (demoted from lords).
 
 
 Juiblex:
@@ -953,12 +974,7 @@ Vlad the Impaler:
 The Wizard of Yendor:
 - can use any artifact weapons or armor that he steals against the player.
 - Color changed to bright magenta.
-- I reduced the chance Rodney gets an "oMR to 1 in 13 times (changed from Evil)
 - The frequency of Rodney's harassment of the player now slightly depends on luck.
-
-The Riders:
-- have had their hit points increased significantly, and each Rider has its own steed which it rides, each with unique attacks and abilities.
-- Riders only get 40 + d(10, 8) HP instead of 100 + d(10, 8) (changed from Evil)
 
 Dragons and Dragon Scales
 
@@ -1127,6 +1143,7 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - base item cloth, provides MC3.
 - [x] gauntlets of swimming
 - [x] rogues gloves (splice)
+    - Grants searching
 - [x] boxing gloves (splice)
     - Increased chance of stunning from 1 in 50 to 1 in 25.
 
@@ -1218,7 +1235,8 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 ### Potions:
 
 - [x] potion of ESP
-    - Made blessed potion of ESP temporary (250-350 turns)
+    - Made blessed potion of ESP temporary 
+    - (Grants 500-1000 turns of telepathy if you don't have it; adds 250-500 turns if you do.)
 - [x] potion of invulnerability
 - [x] potion of clairvoyance
 - [x] potion of amnesia
@@ -1298,61 +1316,60 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - An uncursed scroll will label such items as 'magical'
     - a blessed scroll will identify fully those same items (except beatitude).
 - [x] scroll of flood (un)
-    - Remove possibility of instadeath
+    - Removed possibility of instadeath
     - Scrolls of Flood resist blanking
     - In addition to the "Saved by the bell!" grave with a bell on top, include a "Apres moi, le deluge." grave with a scroll of flood on top. Idea by tedav.
 
 ### Tools/Weapon Tools:
 
 - [x] lute
-  - When played, has a small chance of ending confusion effects.
+    - When played, has a small chance of ending confusion effects.
 - [x] bagpipe
-  - When played, will aggravate monsters unless you have high dexterity and experience level.
+    - When played, will aggravate monsters unless you have high dexterity and experience level.
 - [x] horn of blasting 
-  - Deals sonic damage when applied, similar to the Fire and frost horn.
-  - Immune to sonic damage
+    - Deals sonic damage when applied, similar to the Fire and frost horn.
+    - Immune to sonic damage
 - [x] fishing pole
-  - Can be used on water sources to fish for stuff.
-  - Can also grab small objects out of water.
+    - Can be used on water sources to fish for stuff.
+    - Can also grab small objects out of water.
 - [x] magic candle
-  - Similar to a magic lamp, but not capable to granting wishes
+    - Similar to a magic lamp, but not capable to granting wishes
 - [x] keg
-  - Contains a very large number of potions of booze. 
-  - Quaffing from the keg will consume a single potion; 
-  - applying the keg will consume all the potions, potentially killing the player via alcohol poisoning.
+    - Contains a very large number of potions of booze. 
+    - Quaffing from the keg will consume a single potion; 
+    - applying the keg will consume all the potions, potentially killing the player via alcohol poisoning.
 - [x] masks
-  - Can be worn on the face like a blindfold. 
-  - When worn, you turn into the type of creature the mask is of. 
-  - A mask's BUC status degrades when taken off. 
-  - Cursed masks will break and damage you when used.
+    - Can be worn on the face like a blindfold. 
+    - When worn, you turn into the type of creature the mask is of. 
+    - A mask's BUC status degrades when taken off. 
+    - Cursed masks will break and damage you when used.
 - [x] Eight ball (plastic Orb)
-  - The Magic 8-Ball has been removed; 
-  - Ordinary eight balls can be shaken (when applied) and read for fortunes.
-  - Not generated randomly.
+    - Ordinary eight balls can be shaken (when applied) and read for fortunes.
+    - Not generated randomly.
 - [x] torch
-  - (The slashem implementation of torches was a bit cumbersome for the player, you could only have a lit torch by wielding it and applying a torch would auto-wield it)
-  - Removed requirement for torches to be wielded.
-  - Applying does not auto-wield the torch
-  - Unwielding does not snuff the torch.
-  - Dwarves in mines frequently get lit torches now.
-  - Putting lit torches into containers auto-snuffs.
-  - Clubs can be dipped into oil and turned into torches (from dnh)
-  - Torches do an extra 1d6 vs non-fire resistant, and double damage vs cold resistant.
+    - (The slashem implementation of torches was a bit cumbersome for the player, you could only have a lit torch by wielding it and applying a torch would auto-wield it)
+    - Removed requirement for torches to be wielded.
+    - Applying does not auto-wield the torch
+    - Unwielding does not snuff the torch.
+    - Dwarves in mines frequently get lit torches now.
+    - Putting lit torches into containers auto-snuffs.
+    - Clubs can be dipped into oil and turned into torches (from dnh)
+    - Torches do an extra 1d6 vs non-fire resistant, and double damage vs cold resistant.
 - [x] Spoons
     - Raised damage to 1d2 vs small and large.
     - Convicts starting weapon (uses knife skill)
     - Base item for Iron Spoon Of Liberation.
     - Spoons don't generate randomly.
 [x] Lightsabers:
-- [x] green lightsaber
-- [x] blue lightsaber
-- [x] red lightsaber
-- [x] double-red-light-saber
-- Lightsabers count as weapon/tools
-- Lit lightsabers act as a light source.
-- We can force locks and break down doors with #force
-- We can also cut through iron bars and open iron safes.
-- Putting a lit lightsaber into a bag/container snuffs it.
+    - [x] green lightsaber
+    - [x] blue lightsaber
+    - [x] red lightsaber
+    - [x] double-red-light-saber
+    - Lightsabers count as weapon/tools
+    - Lit lightsabers act as a light source.
+    - We can force locks and break down doors with #force
+    - We can also cut through iron bars and open iron safes.
+    - Putting a lit lightsaber into a bag/container snuffs it.
 
 
 ### Gems:
@@ -1374,7 +1391,6 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Cavemen get mega bonus for whetstones
     - Updated usage and repair messages
     - Removed the side effects of fountains, sinks, toilets. In SlashEM, using a whetstone on one of these would also activate the quaffing effects of those features. This duplicates code and also adds too much complexity - after all, we're just using a tiny amount of water to wet the whetstone, would a bunch of Water Moccasins pop out because of that? 
-
 
 - Added more upgrade paths for gray stones. 
 - luckstones and whetstones can be upgraded into healthstones and vice versa. 
@@ -1416,10 +1432,9 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Now only grants temporary speed(xnh)
     - Same for potions, they don't grant permanant "fast" intrinsic either.
 - [x] wands of striking/force bolt spell:
-    - knocks its target back one space with 16+ damage).
+    - knocks its target back one space with 16+ damage.
 - [x] cursed wands of light
     - Cursed WoL cast darkness instead of light.
-    - In Evil, zapping around peaceful monsters could anger them. I have removed this mechanic except for when you break one.
 - [x] wands of nothing
     - have a base price of 500
 - [x] wands of make invisible
@@ -1431,8 +1446,6 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - are no longer restricted to digging a single square on maze levels. (includes spells of digging)
     - zapping a boulder with a wand of digging will vaporize it; doing this in Sokoban will incur a -1 Luck penalty. 
     - Rays from a wand of digging will also halve the current HP of "stony" monsters, including xorns, earth elementals, statue gargoyles and stone golems; strangely, this does not include regular gargoyles.
-- [x] Most golems now drop more items related to their material (ie: rope golems drop leashes, etc)
-- [x] Angels and Aleaxes can generate with harps.
 
 #### Scrolls
 
@@ -1483,9 +1496,11 @@ New magical staves: These were introduced in Evil and each one grants a large bo
     - Adjusted BoT #tip behavior - it stops when it reaches a non-monster effect.
       (This is a compromize between BoT behavior between UnNethack and Evil.)
     - Putting blessed and uncursed scrolls of charging into a bag of tricks charges it.
+    - If a bag of tricks is lootable or has no effects, then its charges are identified.(un)
 - [x] Unicorn horns:
     - no longer cure attribute loss;
-    - 2-handed d12 weapon
+- [x] Fire/Frost horns
+    - fire and frost horns deal (experience level * d6) damage. This generally makes these horns less dangerous in the early game (fiq)
 - [x] lenses
     - lenses now grant automatic searching when worn (fiq)
 - [x] luckstones:
@@ -1522,18 +1537,15 @@ New magical staves: These were introduced in Evil and each one grants a large bo
 - [x] Monsters can drink restore ability to cure cancellation, or you can hit a monster with a potion of restore ability to forcibly uncancel them.
 - [x] Object materials – many objects and items can spawn made from something other than its base material.
 - [x] Object properties – various weapons and armor are sometimes created with magical properties.
-- [x] Changed chances of item randomly spawning with two properties to 1 in 666
-    - (In Evil the chances are 1 in 100000! K2 what?!)
 - [x] All edged weapons can be poisoned (ex: daggers, swords)
 - [x] Removed cursed weapons reverse hitting (was in EvilHack)
     - Cursed weapons will miss 25% of the time now instead of 20% to compensate.
 - [x] Launchers now contribute to damage.
 - [x] Gloves' enchantment is now added to unarmed damage
 
-
-- [x] 1/40 of random non-artifact weapons will be generated erodeproof (xnh)
-- [x] 1/40 of random non-artifact items will be generated as pre-eroded (xnh)
-- [x] Grease will generate on an erodable object every once in a great while - 1 in 23263 chance (xnh)
+- [x] 1/75 of random non-artifact weapons will be generated erodeproof (xnh)
+- [x] 1/75 of random non-artifact items will be generated as pre-eroded (xnh)
+- [x] Grease will generate on an erodable object every once in a great while - 1 in 3263 chance (xnh)
 
 - [x] breakable locking tools and musical instruments
   - There is now an method for deciding the breakability of these classes of items.
@@ -1683,8 +1695,6 @@ Imported some appearance effects from dNetHack:
     - Implemented fix #K669 - 'nasty' monster summoning. 
     - chain summoning nerf. tldr: "If a replacement creature is a spellcaster it now has to have lower difficulty than the summoner."
 
-[x] Spellcasters now have their spell range limited by their level (gnomish mages are level 3 and can only cast fire bolt in a radius of 2-3 tiles instead of 13)
-
 
 ### Monster Clerical spells:
 
@@ -1695,10 +1705,8 @@ Imported some appearance effects from dNetHack:
     - A powerful spell that causes a large geyser of water to slam into its target, causing physical damage (8d6).
     - What's new: can now rust any unprotected worn armor.
 - [x] Vulnerability	 (new)
-    - It's target temporarily becomes vulnerable to either fire, cold, shock or acid-based attacks,
-      dropping its resistance (if any exists) by 50%.
+    - It's target temporarily becomes vulnerable to either fire, cold, shock or acid-based attacks, dropping its resistance (if any exists) by 50%.
 
-[x] Fix unstoning monster spell timeout. Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).
 
 ## Artifacts:
 
@@ -1720,7 +1728,7 @@ Imported some appearance effects from dNetHack:
 
 ### New artifacts
 - [x] Balmung
-    - (destruction proof, but destroys armor like a boss
+    - Now gold. Destruction proof, but destroys armor like a boss
 - [x] Bat from Hell
     - Rogues no longer receive this as a guaranteed sacrifice gift.
 - [x] Bradamante's Fury
@@ -1779,13 +1787,14 @@ Imported some appearance effects from dNetHack:
     - Mirrorbright no longer hinders spell-casting.
     - Healers no longer receive Mirrorbright as a sacrifice gift, they get the Drowsing Rod instead.
 - [x] Mortality Dial
-    - Was COLD_IRON in splice, but made it silver.
-    - Cancels trolls and zombies from reviving.
+    - Was COLD_IRON in splice, made it IRON.
+    - Prevents trolls and zombies from reviving.
 - [x] Mouser's Scalpel (slashem-up)
-    - a rapier which gives +5 to-hit bonus and +1 to-damage. Since rapiers are not randomly generated, one can only find a naturally generated Mouser's Scalpel in Grund's Stronghold.
-- [x] Mystic Eyes (Previously known as Lenses of Death Perception)
+    - a rapier which gives +5 to-hit bonus and +1 to-damage.
+- [x] Mystic Eyes (splice)
+    - (Previously known as Lenses of Death Perception)
     - Grants DeathVision
-    - As long as the wearer is not blind, they deal double damage, but constantly hallucinate. Deathvision's double damage is applied everywhere it should be (including spells/wands)
+    - As long as the wearer is not blind, they deal double damage, but constantly hallucinate. Deathvision's double damage is applied everywhere  (including spells/wands)
     - Grants searching.
     - Made out of gemstone
 - [x] Origin
@@ -1802,9 +1811,10 @@ Imported some appearance effects from dNetHack:
 - [x] Reaper (Yeoman)
     - Converted to Copper so that elven Yeoman can receive it as a gift.
 - [x] Serpent's Tongue (Necro)
-    - Change to a parazonium, gets +d5 tohit
+    - Upgraded to a parazonium, gets +d5 tohit
 - [x] Skullcrusher
     - Replaced Keolewa with Skullcrusher.
+    - Upgraded to +1d12
 - [x] Holy Spear of Light
     - Holy Spear of Light causes hostility from undead
     - First sac gift for Undead Slayers
@@ -1821,10 +1831,11 @@ Imported some appearance effects from dNetHack:
     - Now a non-aligned two-handed sword (from Un), +d5 to-hit, +1 dmg
     - Changed Thiefbane to platinum so elves can wield it.
     - Raised to 10% beheading
-    - Cancels thiefs and covetous; protects from thievery and seduction.
+    - Cancels thieves and covetous monsters.
+    - Protects from thievery and seduction.
 - [x] Thunderstruck (previously known as Sonicboom)
-    - Increased attack to AD_LOUD(5, 20) - gotta make up for the item loss.
-    - Destroys glass, ruby, sapphire, crystal, diamond golems?
+    - Increased attack to AD_LOUD(5, 20).
+    - Destroys glass golems
     - Added 25% chance of sonic beam shooting out.
 - [x] Wallet of Perseus
     - Replaces the Bag of the Hesperides (from Evil)
@@ -1846,11 +1857,11 @@ Imported some appearance effects from dNetHack:
 - [x] The Storm Whistle (Ice Mage)
     - Changed to Neutral alignment
     - No longer grants fire resistance, instead grants extrinsic cold resistance.
-    - Can now #invoke for 1 of 10 random "storm" related pets:
+    - Can now #invoke for 1 of 10 random "storm" related pets.
 - [x] Great Dagger of Glaurgnaa (Necromancer)
     - Only confers MR when wielded.
-    - [x] Grants double spirit bonuses when carried
-	- [x] Also triples the radius of spirit auto-collection when carried.
+    - Grants double spirit bonuses when carried
+	- Also triples the radius of spirit auto-collection when carried.
 - [x] Crown of Saint Edward (Yeoman)
     - Only confers MR when worn.
 - [x] Stake of Van Helsing (Undead Slayer)
@@ -1868,7 +1879,6 @@ Imported some appearance effects from dNetHack:
     - If you are wielding and withering, you deal double damage.
     - #invoke for withering and aggravate monster
     - Cannot be wished for.
-    - 
 - [x] Xanathar's Ring of Proof (Neutral Quest, neutral aligned)
     - Base item: Ring of See Invisible
     - Guarded by Xanathar
@@ -1967,7 +1977,7 @@ Imported some appearance effects from dNetHack:
   - wand of acid		-> magic beam trap
   - wand of Sonic		-> magic beam trap
 
-- wand of secret door detection: Detects traps and portals.
+  - wand of secret door detection: Detects traps and portals.
 
 ### Grass
 
@@ -1976,31 +1986,29 @@ Imported some appearance effects from dNetHack:
     - Hidey monsters can use grass as concealment.
     - Fire and death rays scorch away grass and revert it to normal floor
 
-### Blood
+### Blood (splice)
 
-    - Also pulled from Splice.
     - When monsters are killed, they have a chance to spray blood in a random direction and color a tile red. No real effect on gameplay, purely aesthetic.
     - The amount of blood depends on monster size.
     - Spraying bloody tiles with a ray of water (ie: from a wand of water) will clear the tile of it's blood.
     - When bloody tile is walked over, there is a 1 in 20 chance it will erode away.
     - Orc blood is black.
 
-### Vents
+### Vents (splice)
 
-    - From Splice
     - Vents appear after level 3. 
     - After level 6, 66% of vents will emit poison gas instead of harmless mist.
 
-### Toilets:
+### Toilets (SlashEM)
 
 	- I know toilets are a bit silly, but I have enhanced them so they are more
 	interesting and useful!
 
-- Toilets can appear separate from sinks, in slashem they only appeared in pairs with sinks.
-- Enabled fishing in toilets
-- Dropping a ring of poly into a sink can poly into a toilet.
-- Prevented toilet prayer while levitating.
-- Toilet prayer can now stop the vomiting process (before it could not and you could vomit and still be in the vomiting process)
+    - Toilets can appear separate from sinks, in slashem they only appeared in pairs with sinks.
+    - Enabled fishing in toilets
+    - Dropping a ring of poly into a sink can poly into a toilet.
+    - Prevented toilet prayer while levitating.
+    - Toilet prayer can now stop the vomiting process (before it could not and you could vomit and still be in the vomiting process)
 
 #### Toilet #kicking:
 
@@ -2010,14 +2018,14 @@ Imported some appearance effects from dNetHack:
 - Kicking can generate a random tool, normally this tool will weigh under 15aum, but sometimes you'll get a large tool that bonks against the piping.
   - If a large tool bonks 3x - you'll get that tool no matter now big it is and the toilet is destroyed in the process.		
 
-#### Amulet identification in toilets (From Slex)
+#### Amulet identification in toilets (slex)
 
 - Amulets can be dropped down toilets and possibly identified (similar to sinks and rings)
 - Updated amulet feedback messages, blind effects, and hallucination effects.
 - Amulets of Flying are always regurgitated from toilets.
 - Amulets of Change will polymorph the toilet into a sink
 
-### Forges:
+### Forges (evil)
 
 - Forges are introduced, which have the same appearance as fountains but are orange in color. Just like fountains, dipping things into them can have desirable or adverse affects. They can be used to dispose of anything that is flammable, and can also be used to repair corrosion/rust damage to any metallic object (if your luck is greater than 0). There is a rare chance that a lava demon can be summoned via dipping, which will be hostile most times, but can sometimes spawn tame (same odds as getting a wish from a water demon/fountain). Having negative luck can cause a forge to explode when used, which can cause considerable fire damage. Players can also use a forge to remove an attached ball & chain, and can also combine two objects to forge something new using the #forge command.
 - [x] Added new recipes for various imported weapons
@@ -2059,7 +2067,7 @@ Imported some appearance effects from dNetHack:
 - [x] Intrinsic resistances are no longer binary, but are percentages instead. The spread is 5% to 50% resistance gained from eating per corpse. Damage reduction from various attacks is determined by how much partial resistance the player has to it.
 - [x] Reflection is not 100%; it can lessen the effects of an attack it reflects, but will never negate it.
 - [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
-- [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil)
+- [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil). 
 - [x] Restful sleep regenerates hp (we can get restful sleep property from the Amulet of Restful Sleep or a Ring of Sleeping)
 - [x] The hunger property halves nutrition from food (so you could potentially eat more giant corpses.) (xnh)
 - [x] Extrinsic resistances protect items from elemental damage. For example, wearing a ring of fire resistance will protect your scrolls and potions from fire damage.
@@ -2073,21 +2081,21 @@ Imported some appearance effects from dNetHack:
     - Protects you(or monsters) from clobber and hurtle attacks.
 - [x] Added Sonic Resistance property (from Splice)
     - Protects you(or monsters) from sonic attacks.
-    - protects you from dragon roars
 - [x] Added Psychic Resistance property (from Splice)
+    - Illithids start with psychic res.
     - Protects you from forgetting skills, spells, and other things from potions and scrolls of amnesia, as well as mind flayer and zombie attacks.
     - Protects you from an illithids psionic wave and tentacle attacks.
     - Protects from most fear attacks, including dragon roars.
-
+    - Wearing items that give psychic resistance stop you from being afraid.
 - [x] Added LarvaCarrier property - some monsters can infect you with eggs!
 
 ### Upgrading/Tinker
 
-- [x] Upgrading mechanic (via potions of gain level from Slash'EM)
-    - [x] Instead of crystal balls upgrading to magic markers, they upgrade to lenses (going to markers didn't make much sense, and it wasn't too useful since the marker would only have a handful of charges)
-    - I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves and boomerangs
-    - I also added upgrade paths for all special new armors
-    - The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
+- Upgrading mechanic (via potions of gain level from Slash'EM)
+- Instead of crystal balls upgrading to magic markers, they upgrade to lenses (going to markers didn't make much sense, and it wasn't too useful since the marker would only have a handful of charges)
+- I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves and boomerangs
+- I also added upgrade paths for all special new armors
+- The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
 
 ### Gem Alchemy
 
@@ -2096,16 +2104,15 @@ Imported some appearance effects from dNetHack:
     - [x] If the acid is cursed there will be an alchemical explosion, otherwise there is always a 1 in 30 chance of an explosion.
     - [x] Use the object lookup (on a gem) to see what potion is created from a particular gem.
 
-
 #### Scare Monster: 
 
 - Several more creatures are immune: 
   - any unique monsters including the Wizard of Yendor, quest nemeses, the Riders.
   - lawful minions, Angels (A), Archangels
   - humans (any @), player monsters
-  - honey badgers,
+  - honey badgers
   - anything that is mindless (EvilHack added)
-- Any monsters affected by conflict are also immune.
+  - Any monsters affected by conflict or in berserk mode are also immune.
 
 #### Altar sacrificing
 
@@ -2118,10 +2125,6 @@ At XP 4, there's a 10% chance for an artifact gift, and the chances increment ex
 The gift received will always be blessed, enchanted, fixed, and there is a 1 in 8 chance that a desirable object property will be added to that object.
 
 - Prayer timeout and the chances of receiving another gift are affected in the same way as if you had received an actual artifact.
-
-#### Twoweaponing
-
-- Twoweaponing changes have been reverted from Evil - twoweaponing behavior should be the same as vanilla.
 
 #### Conflict:
 
@@ -2216,14 +2219,10 @@ standing on top of a sink. If a potion of polymorph is poured down a sink, it po
 - [x] Adjusted oracle (appears levels 5-9)
     - The fountains in Delphi can sometimes cause hallucination (splice)
 
-
-- [x] Removed Goblin Town and requirement to defeat Goblin King (Evil)
-
 - [x] Gnomish Mines:
     - Lengthened Gnomish Mines depth by 2 levels.
     - Added new different types of gnomes, dwarves, and thieves.
     - Added dwarf/gnome thieves to most town/minetown variants. Evil added
-    - The river/sewage generation from Evil only occurs on level deeper than minetone.
     - Monsters will usually be undead if you are a dwarf, gnome, or hobbit (from SlashEM) Instead of making undead dependant on your alignment, the chance scales with the dungeon depth. At the top of the mines, undead should be quite rare, but at mine's end beware.
     
     - Imported minetown variants from SlashTHEM and SpliceHack: 
@@ -2283,9 +2282,6 @@ standing on top of a sink. If a potion of polymorph is poured down a sink, it po
 
 - [x] Imported the Storage Room (appears 22-30)
     - Added 4 variations from dnh
-
-
-
 
 - [x] Randomized "Lost SLASH'EM Levels Branch" (appears 25-30)
     - Instead of cluttering the dungeon with all the one-level branches from Slash'EM, a single one will be picked from these.
@@ -2421,10 +2417,8 @@ One major drawback to playing Ice Mages is that they can never attain 100% fire 
 With inspiration from aosdict, the Necromancer role has been overhauled with a new approach.
 
 - Removed starting quarterstaff, starts with 2 daggers.
-- Starts with a wand of fear
-- Starts with a robe
-- Removed starting scrolls
-- Only starts with 1 ring.
+- Starts with a robe and wand of fear
+- Removed starting scrolls; only starts with 1 ring.
 - Enabled necromancer to reach expert in polearms (for access to scythes)
 - Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
 - The necromancer's starting ghoul has the ghoulname option available.
@@ -2540,7 +2534,6 @@ Renews magical power:
 
 #### Barbarian
 
-- Barbarians are not immune to poison anymore (unless orcish)
 - Barbs start with 2 food rations
 - Twoweaponing – Barbarians go from basic to skilled
 - riding skill from basic to skilled. 
@@ -2565,7 +2558,7 @@ Renews magical power:
 - Gets poison resistance intrinsic at experience level 3 instead of experience level 1. 
 - Trades warning intrinsic for sick resistance at experience level 15. 
 - Can sense how wounded a monster is when attacking it, can also sense the wounded status of its pets.
-[x] Healers get +1 blessed scalpel now.
+- Healers get +1 blessed scalpel now.
 
 #### Knight
 
@@ -2632,6 +2625,7 @@ Renews magical power:
 – removed escape spell school.
 - Special spell changed to repair armor.
 - Dwarven valkyries will start with a dwarvish bearded axe instead of a long sword, and are automatically proficient with it when using it to disarm weapons/shields.
+- Since Valkyries don't have access to Excalibur - they are able to get the powerful Gungnir as compensation. Simply get a spear, enchant it up to +5, then pray while you have "pious" alignment. Your god will turn the spear into Gungnir for you.
 
 #### Wizard
 
@@ -2645,9 +2639,6 @@ Renews magical power:
 ## Race changes:
 
 ### New player races: 
-
-- replete with their own special abilities and restrictions.
-- Several role–race combos have been added or unlocked.
 
 #### Centaurs
 
@@ -2691,9 +2682,10 @@ Starts with the Psionic Wave spell:
 | Level 21: | Sickness resistance |
 
 (*) mummies instead inflict regular physical damage to withering resistant monsters.
+
 Weaknesses:
-- As Vampires, they are vulnerable to silver (watch out!))
-- Vampires can wield and wear silver items, but it blocks their natural regeneration
+- Vulnerable to silver.
+- Vampires can wield and wear silver items, but it damages them and blocks their natural regeneration
 - Restricted in two-weapon skill.
 - Start with a small penalty to luck (-1) and alignment (-5)
 - Disabled #monster polymorph for the vampiric race.
@@ -2855,9 +2847,11 @@ Tinker service:
 - [x] Delis can carry meat sticks, royal jelly, and huge chunks of meat.
 - [x] Hardware stores stock potions of oil, and rarely touchstones (xnh)
 
+
 ## Credits
 
-### Special thanks to: 
+### Special thanks to:
+- My wife - for being endlessly patient with this time-consuming endeavor!
 - K2, amateurhour, qt
 
 ### Thanks: 
@@ -2868,3 +2862,4 @@ Tinker service:
 
 
 ==========================
+
