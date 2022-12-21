@@ -1061,8 +1061,7 @@ struct monst *mon;
         badalign = bane_applies(oart, mon);
 
     if (((badclass || badalign) && self_willed)
-        || (badalign && (!yours || !rn2(4)))
-        || (!is_demon(mon->data) && obj->oartifact == ART_WAND_OF_ORCUS)) {
+        || (badalign && (!yours || !rn2(4)))) {
         int dmg;
         char buf[BUFSZ];
 
@@ -1083,7 +1082,6 @@ struct monst *mon;
     /* can pick it up unless you're totally non-synch'd with the artifact */
     /* --hackem: Elemental mages have special restrictions */
     if ((badclass && badalign && self_willed)
-        || (!is_demon(mon->data) && obj->oartifact == ART_WAND_OF_ORCUS)
         || (yours && obj->oartifact == ART_FROST_BRAND && Role_if(PM_FLAME_MAGE))
         || (yours && obj->oartifact == ART_DEEP_FREEZE && Role_if(PM_FLAME_MAGE))
         || (yours && obj->oartifact == ART_FIRE_BRAND && Role_if(PM_ICE_MAGE))
@@ -4600,10 +4598,6 @@ monster then the grenade will instantly explode.  */
         break;
     case ART_STING:
         art_info.xattack = "\t\t10% chance of instakill vs orcs";
-        break;
-    case ART_WAND_OF_ORCUS:
-        art_info.xattack = "\t\t3/20 chance of instant death (if not magic resistant)\n"
-                             "Otherwise drains life and max HP.";
         break;
     case ART_ANGELSLAYER:
         art_info.xattack = "\t\tFire damage applies to all monsters.";

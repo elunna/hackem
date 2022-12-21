@@ -5157,7 +5157,6 @@ struct obj *no_wish;
             /* non-wishable artifacts (wizmode only) */
             case ART_LIFESTEALER:
             case ART_BUTCHER:
-            case ART_WAND_OF_ORCUS:
             case ART_EYE_OF_VECNA:
             case ART_HAND_OF_VECNA:
             case ART_SWORD_OF_KAS:

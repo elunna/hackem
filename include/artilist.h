@@ -359,18 +359,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
        | SPFX_INTEL | SPFX_DALIGN),
       0, 0, DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       15000L, NO_COLOR, GEMSTONE),
-    
-  /* Orcus' true 'Wand of Death', a truly terrifying weapon that can kill
-   * those it strikes with one blow. In the form of an ornate mace/rod, the Wand
-   * of Orcus is 'a rod of obsidian topped by a skull. This instrument causes
-   * death (or annihilation) to any creature, save those of like status
-   * merely by touching their flesh'. Can only be wielded by Orcus or others
-   * of his ilk */
-    A("Wand of Orcus", ROD,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL),
-      0, 0, DETH(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC,
-      NON_PM, NON_PM, 10000L, CLR_BLACK, GEMSTONE),
-
 
       /*** Unaligned artifacts ***/
 

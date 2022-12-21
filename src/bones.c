@@ -379,9 +379,6 @@ struct obj *obj;
     case ART_BUTCHER:
         lair = &hellb_level;
         break;
-    case ART_WAND_OF_ORCUS:
-        lair = &orcus_level;
-        break;
     case ART_LIFESTEALER:
     case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:
@@ -409,9 +406,6 @@ struct obj *obj;
         break;
     case ART_LIFESTEALER:
         owner = PM_VLAD_THE_IMPALER;
-        break;
-    case ART_WAND_OF_ORCUS:
-        owner = PM_ORCUS;
         break;
     case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:
