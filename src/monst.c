@@ -2811,7 +2811,7 @@ NEARDATA struct permonst mons[] = {
      * lights
      */
     MON("will-o'-the-wisp", S_LIGHT,                          /* SpliceHack */
-        LVL(2, 9, 2, 0, 0), (G_NOCORPSE | G_SGROUP | G_GENO | 3),
+        LVL(2, 9, 2, 0, 0), (G_NOCORPSE | G_SGROUP | G_GENO | 2),
         A(ATTK(AT_TUCH, AD_BLND, 1, 2), 
           ATTK(AT_TUCH, AD_ELEC, 1, 1),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -2821,7 +2821,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS
                | M1_NOHEAD | M1_MINDLESS | M1_UNSOLID | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER | M2_WANDER, 
-        M3_INFRAVISIBLE, 0, 0, 4, CLR_WHITE),
+        M3_INFRAVISIBLE, 0, 0, 7, CLR_WHITE),
     MON("yellow light", S_LIGHT,
         LVL(3, 15, 0, 0, 0), (G_NOCORPSE | G_GENO | 4),
         A(ATTK(AT_EXPL, AD_BLND, 10, 20), 
