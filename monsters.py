@@ -309,6 +309,41 @@ FLAG_TO = {
     "MH_JABBERWOCK": "jabberwock",
     "0L": "0",
 }
+
+IGNORE_LIST = [
+    "needs a pickaxe",
+    "doesn't pick up items",
+    "eyeless",
+    "handless",
+    "limbless",
+    "headless",
+    "mindless",
+    "humanoid",
+    "animal",
+    "slithy",
+    "carnivore",
+    "herbivore",
+    "omnivore",
+    "eats metal",
+    "male",
+    "female",
+    "neuter",
+    "named",
+    "hostile",
+    "peaceful",
+    "strong",
+    "accurate",
+    "greedy",
+    "collects jewels",
+    "collects",
+    "oviparous",
+    "magical",
+    "has infravision",
+    "is infravisible",
+    "wanders",
+    "skittish",
+    "thick hide",
+]
 def process_attacks(attks):
     new_attacks = []
     for atk in attks:
@@ -450,7 +485,7 @@ def extract_data(text):
                     result = CONFERS[f]
                 else:
                     result = (FLAG_TO[f])
-                if result != "0":
+                if result != "0" and result not in IGNORE_LIST:
                     flags.append(result)
             
     mondat['flags'] = flags
