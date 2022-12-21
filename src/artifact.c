@@ -4720,6 +4720,8 @@ boolean defend;
         return "drain energy";
     case AD_WTHR:
         return "withering";
+    case AD_WIND:
+        return "wind";
     default:
         impossible("Bad AD_TYPE!");
     }
