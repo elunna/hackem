@@ -194,7 +194,7 @@ Wiz-Mode updates:
 - (a) migo queen
     - Added claw attack
 - (a) assassin bug
-    - Added BERSERK
+    - Added berserk
 - (a) killer beetle
 - (a) gibberslug
 - (a) ichneumon larva
@@ -204,11 +204,11 @@ Wiz-Mode updates:
 - (b) lava blob
 - (b) static blob
 - (b) burbling blob
-- (c) basilisk (already in evil and stronger.)
+- (c) basilisk (already in evil and stronger)
     - Previously occupied the ':' slot
     - higher level, has more attacks than SlashEM
     - Added sleep res
-    - Added M1_OVIPAROUS to basilisk.
+    - Added oviparous
 - (c) chicken
 - (c) cockatoo
 - (c) parrot
@@ -218,27 +218,26 @@ Wiz-Mode updates:
 - (d) dingo puppy
 - (d) large dingo
 - (d) barghest
-    - Made amphibious; Added Berserk
+    - Made amphibious; added berserk
 - (d) death dog
 - (d) rabid dog
 - (d) rabid wolf
-    - Added Berserk
+    - Added berserk
 - (d) wolverine
-    - Added Berserk
+    - Added berserk
 - (d) shadow wolf
-    - Made drain & death resistant.
+    - Made drain & death resistant. Added infravision.
     - Can darken lit areas when moving
-    - Added infravision
 - (d) mist wolf
     - Made cold resistant
     - Each mist wolf can exhale clouds of thick mist - purely defensive
 - (d) nova fox
     - Renamed from vulpenferno in splicehack
     - Bumped lvl up to 16, diff to 19. 
-    - Added resistance to fire/shock, and grants fire/shk res.
+    - Added resistances to fire and shock, confers both.
 - (d) Cerberus
-    - guards the gates to Gehennom.
-    - Can regrow heads while fighting
+    - Guards the gates to Gehennom.
+    - Can regrow heads while fighting.
 - (e) glowing eye
     - Added skittish behavior
 - (e) bloodshot eye
@@ -250,12 +249,12 @@ Wiz-Mode updates:
 - (e) concussive sphere
 - (e) whirling sphere
 - (e) beholder
-    - Removed M1_NOHEAD | M1_MINDLESS (viewable with telepathy now)
+    - Removed Headless and Mindless attributes (viewable with telepathy now)
     - Cannot tame
 - (e) magical eye
     - Cannot tame
 - (f) kamadan
-    - raised difficulty to 13 (almost doubled)
+    - raised difficulty to 13
 - (f) displacer beast (already present in evil)
 - (f) caterwaul
 - (f) saber-toothed cat
@@ -277,22 +276,22 @@ Wiz-Mode updates:
     - Using ratman squeaker tile from SpliceHack.
 - (g) jermlaine
     - Gets infravision and are skittish.
-    - Start with potions of acid, oil, or others.
+    - Start with offensive potions (acid, oil, etc)
     - Jermlaine can start with bullwhips or grappling hooks.
     - Sometimes generated riding rats.
     - Using ratman tile from SpliceHack.
 - (g) telamon(caryatid, loadbearer)
 - (h) hobbit pickpocket
 - (h) dwarf thief
-    - Added Berserk 
+    - Added berserk 
 - (h) duergar
-    - Added Berserk
+    - Added berserk
 - (h) deep one
 - (h) deeper one
 - (h) deepest one
 - (h) planar pirate
 - (h) alhoon
-    - Traitorous
+    - Added traitor
 - (i) dretch
 - (i) rutterkin
 - (i) nupperibo
@@ -303,34 +302,33 @@ Wiz-Mode updates:
     - Added berserk, traitor property
 - (i) dust devil
 - (j) clear jelly
-    - added vulnerable to fire (matches existing j)
+    - added vulnerable to fire
     - Added passive acid attack
 - (j) yellow jelly
-    - added vulnerable to fire (matches existing j)
+    - added vulnerable to fire
     - Added stun touch
 - (j) orange jelly 
-    - added vulnerable to fire (matches existing j)
+    - added vulnerable to fire
     - Added passive sleep attack
     - Added touch sleep attack
 - (j) rancid jelly
-    - added vulnerable to fire (matches existing j)
+    - added vulnerable to fire
 - (k) swamp kobold
     - Added swimming
     - Only generates in swamps.
 - (k) rock kobold
-    - sometimes start with a sling and some rocks.
+    - sometimes starts with a sling and some rocks.
 - (k) kobold warrior
 - (k) Kroo the Kobold King
 - (l) leprechaun wizard
 - (n) pixie
 - (n) brownie
-    - made brownies vegetarian.
+    - Made vegetarian. Increased difficulty to 18
     - Brownies sometimes get short swords.
-    - increased difficulty to 18
 - (n) quickling
 - (n) lampad
     - Doubled difficulty to 22
-    - Usually bears torches 
+    - Usually carries a torch 
 - (n) thriae
     - changed from 'a' to yellow 'n' (they are bee nymphs)
     - Upped level to 14, difficulty to 27.
@@ -368,10 +366,10 @@ Wiz-Mode updates:
 - (q) Jumbo the Elephant
 - (q) juggernaut
     - Buffed significantly from SlashEM
-    - Removed G_NOHELL tag from juggernaut so they can appear in main dungeon.
+    - Can appear in main dungeon now.
     - Added fire/poison/shock/sleep/acid/stone/death/drain/sickness resistances
-    - Added infravision, regeneration, M1_MINDLESS
-    - Changed juggernaut MR to 70, AC to -4,  speed to 15
+    - Added infravision, regeneration, and mindless attributes.
+    - Changed juggernaut MR to 70, AC to -4, speed to 15
 - (q) catoblepas
     - Specified they have 2 tusks/horns
 - (q) manticore
@@ -390,23 +388,23 @@ Wiz-Mode updates:
 - (q) hellbear
 - (q) woolly mammoth
 - (r) rabbit
-    - Can be tamed with carrots (not rabid rabbits though.)
+    - Can be tamed with carrots (not rabid rabbits though)
 - (r) black rat
     - cannot be genocided.
 - (r) rabid rabbit
     - Added berserk
 - (r) pack rat
-    - Made a little tougher
-    - Now level 2; Added M2_COLLECT, M2_STRONG, M2_FLANK
+    - Made a little tougher, now level 2
+    - Added collector, strong, and flanking attributes
 - (r) hellrat
 - (r) giant badger
     - Changed to rodent class to match honey badger, was 'q' in slashem
-    - added M1_SWIM to all badgers.
+    - added swimming attribute to all badgers.
     - Badgers leave occasional poison gas clouds (they are stinky...)
     - Made badgers immune to poison gas (immune their own stink)
     - Added berserk
 - (r) honey badger
-  - Ignores Elbereth
+    -  Ignores Elbereth
 - (r) skunk
 - (r) hedgehog
     - Previously occupied the 'q' slot
@@ -419,12 +417,12 @@ Wiz-Mode updates:
 - (s) barking spider
 - (s) carrion crawler
 - (s) nickelpede
-    - centipedes grow into nickelpede
+    - centipedes grow into nickelpedes
     - nickelpedes grow into giant centipedes
 - (s) giant centipede
 - (s) giant scorpion
 - (s) phase spider
-    - Made skittish and teleport more like tengus.
+    - Made skittish; teleports more like tengus.
 - (s) Girtab
 - (s) Shelob
 - (s) monstrous spider
@@ -444,7 +442,6 @@ Wiz-Mode updates:
     - Larvas can infest corpses and create maggots
 - (w) maggot
     - Can infest corpses and create further maggots or giant flies.
-    - Can also create a Worm That Walks by infesting another maggot corpse. 
 - (w) dung worm
     - Made poisonous to eat
 - (w) acid worm
@@ -463,14 +460,15 @@ Wiz-Mode updates:
 - (x) lightning bug
 - (y) will-o'-the-wisp
     - Spawns in swamp rooms and Juiblex's level.
-    - Frequency 4(uncommon) -> 3(rare)
+    - Frequency 4(uncommon) -> 2(quite rare)
+    - Changed difficulty from 4 to 7.
 - (z) echidna
-    - Added M3_INFRAVISIBLE
+    - Added infravisible
 - (z) platypus
 - (z) koala
 - (z) wombat
 - (z) Tasmanian devil
-    - Added Berserk
+    - Added berserk
 - (z) wallaby
     - Can jump
 - (z) wallaroo
@@ -506,7 +504,7 @@ Wiz-Mode updates:
     - can start with jewelery.
     - uses primitive weapons, big bones/clubs, sometimes bows
     - Added song attack that can paralyze from a distance.
-    - Changed #chat voice to MS_SEDUCE (could be better...)
+    - Changed #chat voice to MS_SEDUCE.
 - (B) byakhee
 - (B) nightgaunt
     - Sometimes get tridents, spears or javelins
@@ -605,15 +603,15 @@ Wiz-Mode updates:
 - (N) ha-naga
 - (O) ogre mage
 - (O) shadow ogre
-    - Gave a frequency of 2; let them appear in the main dungeon 
+    - Gave a frequency of 2; can now appear in the main dungeon 
     - Made poison, drain & death resistant and vulnerable to fire. 
     - darkens lit areas as they move.
 - (P) moldy pudding 
     - added vulnerability to fire
 - (P) shoggoth
-    - Limited to one corrosion attack.
+    - Limited to one corrosion attack
 - (P) giant shoggoth
-    - Limited to one corrosion attack.
+    - Limited to one corrosion attack
 - (P) blood pudding
     - specified not vegetarian
 - (P) gel
@@ -634,7 +632,7 @@ Wiz-Mode updates:
 - (U) water hulk
     - Added vulnerability to shock
 - (U) umbral hulk
-    - they have a darkness movement, litroom_mon
+    - they have a movement that darkens rooms.
 - (U) hunger hulk
 - (U) slumber hulk
 - (U) shambling horror
@@ -643,16 +641,15 @@ Wiz-Mode updates:
 - (V) star vampire
 - (V) vampire mage (already in evil with minor changes)
 - (V) nosferatu
-    - Instead of were_summoning rats, summons wolves
+    - Instead of were_summoning rats, summons wolves instead.
 - (W) wight
 - (W) bodak
 - (W) banshee
 - (W) slaughter wight
     - A HackEM original!
     - Added infravision, ACCURATE, BERSERK, and STRONG. -8 AC
-    - Has 2 powerful melee slams: (2d18 drain energy/clobber)
-    - Also has drain life attacks.
-    - Releases a nasty death wail when slain. 2d18 sonic damage, Stuns
+    - Has 2 powerful melee slams: (2d18 drain energy/clobber) and drain life attacks.
+    - Releases a nasty death wail when slain. 2d18 sonic damage that stuns
 - (Y) zruty
     - Changed zruty from z to Y (to accomodate zouthern animals)
 - (Y) lemur
@@ -694,7 +691,7 @@ Wiz-Mode updates:
     - Can infect monsters/players with gibberslug larva.
 - (@) grimlock
     - Hates light and can stalk you.
-    - can start with Bone Clubs, bone aklys, axes or orcish spears.
+    - can start with bone clubs, bone aklys, axes or orcish spears.
     - added a claw attack
 - (@) elven wizard
 - (@) mugger
@@ -713,7 +710,7 @@ Wiz-Mode updates:
 - (@) black marketeer 
 - (@) Charon
 - ( ) shadow 
-    - Added M3_INFRAVISION
+    - Added infravision
 - ( ) spectre
 - (&) lava demon
 - (&/d) weredemon
@@ -723,7 +720,7 @@ Wiz-Mode updates:
     - can get tridents, halberds.
     - Added a weapon attack
 - (&) bearded devil
-    - Added BERSERK and resists cold
+    - Added berserk and resists cold
     - Bearded devils get glaives.
     - Bearded devils gets a poisonous beard attack  (1d13 weapon)
 - (&) bar-lgura
@@ -738,7 +735,7 @@ Wiz-Mode updates:
     - Babau usually use two-handed swords or spears.
 - (&) nabassu
     - Nabassu have a thick hide and a pair of forehead horns
-    - Added M3_DISPLACES
+    - Added displacing behavior
     - Nabassu can cause victims(you) to rise as a ghast. 
     - Nabassu get a gaze life drain attack
     - Nabassu darken their environment when moving
@@ -746,9 +743,11 @@ Wiz-Mode updates:
   - fast demon from splicehack
 - (&) damned pirate
 - (&) spibrawulf
-- (&) Cthulhu
+- (h) Cthulhu
     - Put Cthulhu in the middle of sanctum
-    - Cthulhu cannot teleport (as in UnNethack)
+    - Cthulhu cannot teleport
+    - Added flying
+    - Mostly used the Unnethack implementation - however, Cthulhu is not covetous and he does not start with the Aulet of Yendor. He is vulnerable to death magic.
 - (;) mind flayer larva
 - (;) giant crab
 - (;) merfolk
@@ -791,9 +790,9 @@ Wiz-Mode updates:
 - (@) Van Helsing
 - (@) Chief Yeoman Warder
 - (@) Water Mage
-- (@) Ragnaros (Replaces the Earth Mage, slashem-up)
-- (@) Maugneshaagar
-- (@) Count Dracula
+- (E) Ragnaros (Replaces the Earth Mage, slashem-up)
+- (&) Maugneshaagar
+- (V) Count Dracula
 - (@) Colonel Blood
 - (@) igniter
 - (@) froster
@@ -827,34 +826,26 @@ Wiz-Mode updates:
         - Being confused
 
 - [x] Elementals:
-    - All elemental monsters can engulf creatures smaller than it
-    - can be zapped and transformed
-    - Ex: Zap water elemental with / of Cold to turn it into Ice Elemental
-- [x] Were-monsters: summon wider (and more dangerous) diversity of monsters
+    - The new elemental monsters can engulf creatures smaller than them. 
+    - Some elementals can be zapped and transformed depending on the ray type (splice)
+    - Ex: Zap a water elemental with wand of cold to turn it into Ice Elemental
+- [x] Were-monsters summon wider (and more dangerous) diversity of monsters
 - [x] Rabid monsters can no longer be tamed
 - [x] Elves are lawful instead of chaotic
 - [x] All orcs are immune to poison
 - [x] Nymphs and mermaids will introduce themselves when seducing you (splice)
-- [x] Nymphs now hate iron.
-- [x] Imps now hate iron.
-- [x] Almost all of team a is now vulnerable to acid (bug spray)
-- [x] All Fungi/migos: now hate copper and receive an extra d6 damage from copper.
+- [x] Nymphs now hate iron (slice)
+- [x] Imps now hate iron (slice)
+- [x] All fungi/migos: now hate copper and receive an extra d6 damage from copper.
 - [x] Copper does extra damage vs monsters with disease, decay, and pestilence attacks.
+- [x] Almost all of team a is now vulnerable to acid (bug spray)
 - [x] All Zouthern animals now have a small chance of death-dropping boomerangs.
 - [x] Gnolls:
-    - Evil already had gnolls, so I disabled the Evil gnolls in favor of the slashem versions - and used the G symbol instead)
+    - Evil already had gnolls, so I disabled the Evil gnolls(h) in favor of the SLASH'EM versions - and used the G symbol instead)
     - Updated to match evil weight/size, poison res, infravisible, berzerk.
-- [x] Priests, soldiers, the watch, and player monsters can also be a variety of different races.
-- [x] Shopkeepers:
-    - usually spawn get a shotgun and shells
-    - Doubled their base level (compared to vanilla) (from SlashEM)
-- [x] Player monsters:
-    - can be encountered throughout the game.
-    - They covet the Amulet of Yendor, and attempt to steal it.
-    - Any monster, should it get a hold of the Amulet of Yendor, can and will sacrifice it on an endgame altar.
 - [x] Stone golems, gargoyles, winged gargoyles: Now vulnerable to digging rays, halves their HP.
 - [x] Rats: Can tamed with cheese
-- [x] gelatinous cube and green slime now have engulfing attacks
+- [x] Green slime now have engulfing attacks
 - [x] Baby gray dragons: get MR20 (twice the other baby dragons)
 - [x] Dragons and Xorns eat hard gems
 - [x] Gnome Kings: Raised to lvl 9, gnome warriors to 7.
@@ -891,17 +882,24 @@ Wiz-Mode updates:
     - 10% max HP/Pw increases.
     - 50% Gain xp; 20% nothing happens.
 - [x] trappers and lurkers above mindless (now they cannot be detected with ESP)
-- [x] The Oracle sometimes gets a potion of hallucination (xnh)
 - [x] Most golems now drop more items related to their material (ie: rope golems drop leashes, etc)
 - [x] Angels and Aleaxes can generate with harps.
+- 
+- [x] The Oracle sometimes gets a potion of hallucination (xnh)
+- [x] Priests, soldiers, the watch, and player monsters can also be a variety of different races.
+- [x] Shopkeepers:
+    - usually spawn get a shotgun and shells
+    - Doubled their base level (compared to vanilla) (from SlashEM)
+- [x] Player monsters:
+    - can be encountered throughout the game.
+    - They covet the Amulet of Yendor, and attempt to steal it.
+    - Any monster, should it get a hold of the Amulet of Yendor, can and will sacrifice it on an endgame altar.
 
 ### Monster Mechanic Changes:
 
 - [x] Shape-changing monsters (except for vampires and were-creatures)
     - will revert back to their original form when their polymorphed form dies.
     - They cannot change form again once this happens.
-- [x] Updated nasties lists with slashem monsters. 
-  - Added gugs, slaughter wights, devas, revenants 
 - [x] Imps and others cussing the hero wake up nearby monsters
 - [x] Removed "Hits as +x weapon" property from slashem monsters
 - [x] Removed "Requires +x weapon to be hit" property from slashem monsters
@@ -1688,7 +1686,9 @@ Imported some appearance effects from dNetHack:
     - Implemented fix #K669 - 'nasty' monster summoning. 
     - chain summoning nerf. tldr: "If a replacement creature is a spellcaster it now has to have lower difficulty than the summoner."
 
-
+- [x] Updated nasties lists with slashem monsters.
+    - Added gugs, slaughter wights, devas, revenants
+    - 
 ### Monster Clerical spells:
 
 - [x] Summon minion	(new)
