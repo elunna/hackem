@@ -1212,10 +1212,10 @@ register struct obj *otmp;
         } else if (otmp->blessed) {
             /* --hackem: Granting full telepathy is too good, nerfed from SlashEM */
             mod = "more ";
-            incr_itimeout(&HTelepat, rn1(250, 350));
+            incr_itimeout(&HTelepat, rn1(500, 500));
         } else {
             mod = "more ";
-            incr_itimeout(&HTelepat, rn1(50, 100));
+            incr_itimeout(&HTelepat, rn1(250, 250));
         }
         if (mod) {
             You_feel(Hallucination ?
