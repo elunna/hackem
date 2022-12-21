@@ -361,8 +361,8 @@ boolean allow_detrimental;
 
     /* it is rare to have an object spawn with more
      * than one object property, but much better odds
-     * than EvilHack lol! */
-    while (!otmp->oprops || !rn2(666)) {
+     * than EvilHack! */
+    while (!otmp->oprops || !rn2(3141)) {
         i = rn2(MAX_ITEM_PROPS);
         j = 1 << i; /* pick an object property */
 
