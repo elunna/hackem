@@ -1065,7 +1065,7 @@ makelevel()
             mkroom(LEPREHALL);
         else if (u_depth > 6 && !rn2(12))
             mkroom(ZOO);
-        else if (u_depth > 7 && !rn2(11))
+        else if (u_depth > 7 && !rn2(18))
             mkroom(GARDEN);
         else if (u_depth > 7 && !rn2(12)
                  && !(mvitals[PM_RUST_MONSTER].mvflags & G_GONE))
