@@ -1599,7 +1599,7 @@ Imported some appearance effects from dNetHack:
     - Works as a foil to the new monster spell 'destroy armor'
 - [x] spellbook of sonicboom
 - [x] spellbook of summon undead
-- [x] spellbook of invisiblity - now a level 1 spell (to compensate for the lack of permament intrinsic invisibility)
+- [x] spellbook of invisiblity - now a level 2 spell
 
 - [x] spellbook of fire bolt (new Hack'EM special!)
   - Fire Bolt is only available to the Flame Mage and will not generate randomly.
@@ -1626,7 +1626,7 @@ Imported some appearance effects from dNetHack:
   - The exception to this is crystal plate mail, which does not adversely affect spellcasting in any way.
 - [x] Casting any spell successfully adds +500 turns to your memory of it (from slashem)
 
-### Spell changess:
+### Spell changes:
 
 - [x] spellbook of confuse monster – level 2 → 1
 - [x] spellbook of slow monster 
@@ -1643,7 +1643,7 @@ Imported some appearance effects from dNetHack:
 - [x] spellbook of fireball 
     - changed from an attack spell to a Matter spell
 - [x] spellbooks of flame sphere, firebolt are immune to fire.
-- [x] spellbook of Invisibility – level 4 → 3
+- [x] spellbook of Invisibility – level 4 → 2
 - [x] spellbook of Jumping – level 1 → 2
 - [x] spellbook of Restore ability – level 4 → 2
 - [x] spellbook of Sleep – level 1 → 2
