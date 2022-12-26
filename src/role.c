@@ -190,9 +190,9 @@ const struct Role roles[] = {
         ART_CANDLE_OF_ETERNAL_FLAME,
         MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME,
         ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
-        {   7, 10,  7,  7,  7,  7 },
-        {  10, 30, 10, 20, 20, 10 },
+        /* Str Int Wis Dex Con Cha */
+        {   7, 9,  11,  7,  7,  7 },
+        {  12, 15, 20, 20, 20, 10 },
         /* Init   Lower  Higher */
         { 10, 0,  0, 8,  1, 0 },	/* Hit points */
         {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
@@ -438,8 +438,8 @@ const struct Role roles[] = {
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
-      { 7, 10, 10, 7, 7, 7 },
-      { 15, 20, 20, 15, 20, 10 },
+      {   7, 10, 10,  7,  7,  7 },
+      {  15, 20, 20, 15, 20, 10 },
       /* Init   Lower  Higher */
       { 12, 0, 0, 8, 1, 0 }, /* Hit points */
       { 5, 3, 0, 2, 0, 2 },
