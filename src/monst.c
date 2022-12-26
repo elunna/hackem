@@ -7915,7 +7915,7 @@ struct permonst _mons2[] = {
         M1_NOEYES | M1_NOLIMBS| M1_NOHEAD | M1_UNSOLID | M1_FLY,
         M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE | M2_NASTY 
           | M2_COLLECT | M2_MAGIC | M2_MALE | M2_PNAME | M2_LORD, 
-        M3_WANTSARTI | M3_WAITFORU, 0, MH_GIANT, 34, CLR_YELLOW),
+        M3_WANTSARTI | M3_WAITFORU, M4_VULNERABLE_COLD, MH_GIANT, 34, CLR_YELLOW),
     /* Has emin, so always appears as the "Paladin of [deity]". */
     MON("Paladin", S_HUMAN,                                     /* EvilHack */
         LVL(24, 12, 0, 50, 20), (G_NOGEN | G_UNIQ | G_NOCORPSE),
