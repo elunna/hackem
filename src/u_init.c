@@ -653,7 +653,6 @@ static const struct def_skill Skill_Mon[] = {
     { P_MARTIAL_ARTS, P_GRAND_MASTER },
     { P_NONE, 0 }
 };
-
 static const struct def_skill Skill_N[] = {
     { P_DAGGER, P_EXPERT },             /* Sac gift and generally good */
     { P_KNIFE,  P_SKILLED },            /* For... making bodies */
@@ -805,7 +804,6 @@ static const struct def_skill Skill_T[] = {
     { P_FIREARM, P_BASIC },
     { P_NONE, 0 }
 };
-
 static const struct def_skill Skill_U[] = {
     { P_DAGGER, P_EXPERT },         /* Wooden stake and quest artifact */
     { P_LONG_SWORD, P_BASIC },      /* Buffy */
@@ -828,10 +826,9 @@ static const struct def_skill Skill_U[] = {
     { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
-    { P_BARE_HANDED_COMBAT, P_GRAND_MASTER }, /* Buffy the Vampire Slayer */
+    { P_MARTIAL_ARTS, P_MASTER }, /* Buffy the Vampire Slayer */
     { P_NONE, 0 }
 };
-
 static const struct def_skill Skill_V[] = {
     { P_DAGGER, P_EXPERT },
     { P_AXE, P_EXPERT },
