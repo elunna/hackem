@@ -14,8 +14,7 @@
 # line flag or OPTIONS=playmode:debug in the runtime options config file).
 # A value of * allows anyone to enter debugging mode.
 
-WIZARDS=*
-#WIZARDS=root games
+WIZARDS=root games
 
 # Which users can use explore mode (aka discover mode; accessed via '-X'
 # command line flag or OPTIONS=playmode:explore in runtime options file or
@@ -92,7 +91,7 @@ ENTRYMAX=2000
 #PERS_IS_UID=1
 
 # Maximum number of score file entries to use for random statue names
-#MAX_STATUENAME_RANK=10
+MAX_STATUENAME_RANK=50
 
 # Use "Live logging" for in-game progress (achievements, wishes, etc)
 # Bitmask for kinds of things you want to log - combine the following values
@@ -189,5 +188,5 @@ OPTIONS=msg_window:reversed
 OPTIONS=number_pad:0
 OPTIONS=sortloot:full
 OPTIONS=time
-BIND=v:wizmakemap
+
 #eof
