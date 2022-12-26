@@ -948,7 +948,7 @@ paintGlyph(PNHMapWindow data, int i, int j, RECT * rect)
         } else {
             OldFg = SetTextColor(data->backBufferDC, nhcolor_to_RGB(color));
         }
-    #endif
+
         if (data->bUnicodeFont) {
             wch = winos_ascii_to_wide(ch);
             if (wch == 0x2591 || wch == 0x2592) {
