@@ -923,11 +923,7 @@ paintGlyph(PNHMapWindow data, int i, int j, RECT * rect)
         HBRUSH blackBrush = CreateSolidBrush(RGB(0, 0, 0));
         FillRect(data->backBufferDC, rect, blackBrush);
         DeleteObject(blackBrush);
-
-    #if (VERSION_MAJOR < 4) && (VERSION_MINOR < 4) && (PATCHLEVEL < 2)
-        nhglyph2charcolor(data->map[i][j], &ch, &color);
-        OldFg = SetTextColor(hDC, nhcolor_to_RGB(color));
-    #else
+        
         /* rely on NetHack core helper routine */
         (void) mapglyph(data->map[i][j], &mgch, &color,
                         &special, i, j, 0);
