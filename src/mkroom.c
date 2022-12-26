@@ -265,8 +265,16 @@ gottype:
          * - so make them general stores
          */
         if (isbig(sroom) && (shtypes[i].symb == WAND_CLASS
-                             || shtypes[i].symb == SPBOOK_CLASS))
+                             || shtypes[i].symb == SPBOOK_CLASS)) {
             i = 0;
+        } 
+        /* Prevent archery emporiums or gun shops if our player doesn't have
+         * any proficiency in those skills. */
+        else if (!strcmp(shtypes[i].name, "archery emporium") && P_MAX_SKILL(P_BOW) == 0) {
+            i = 0;
+        } else if (!strcmp(shtypes[i].name, "gun store") && P_MAX_SKILL(P_FIREARM) == 0) {
+            i = 0;
+        }
     }
     sroom->rtype = SHOPBASE + i;
 
