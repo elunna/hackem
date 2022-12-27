@@ -3003,36 +3003,36 @@ boolean ourfault;
         /* Artifacts aren't downgraded by amnesia */
         if (amnesia && !obj->oartifact) {
             switch (obj->otyp) {
-                case MAGIC_LAMP:
-                    downgrade_obj(obj, OIL_LAMP, &used);
-                    break;
-                case MAGIC_CANDLE:
-                    downgrade_obj(obj, rn2(2)? WAX_CANDLE : TALLOW_CANDLE, &used);
-                    break;
-                case DRUM_OF_EARTHQUAKE:
-                    downgrade_obj(obj, LEATHER_DRUM, &used);
-                    break;
-                case MAGIC_WHISTLE:
-                    downgrade_obj(obj, PEA_WHISTLE, &used);
-                    break;
-                case MAGIC_FLUTE:
-                    downgrade_obj(obj, FLUTE, &used);
-                    break;
-                case MAGIC_HARP:
-                    downgrade_obj(obj, HARP, &used);
-                    break;
-                case FIRE_HORN:
-                case FROST_HORN:
-                case HORN_OF_PLENTY:
-                    downgrade_obj(obj, TOOLED_HORN, &used);
-                    break;
-                case MAGIC_MARKER:
-                    if (obj->spe > 0) {
-                        pre_downgrade_obj(obj, &used);
-                        if ((obj->spe -= (3 + rn2(10))) < 0)
-                            obj->spe = 0;
-                    }
-                    break;
+            case MAGIC_LAMP:
+                downgrade_obj(obj, OIL_LAMP, &used);
+                break;
+            case MAGIC_CANDLE:
+                downgrade_obj(obj, rn2(2)? WAX_CANDLE : TALLOW_CANDLE, &used);
+                break;
+            case DRUM_OF_EARTHQUAKE:
+                downgrade_obj(obj, LEATHER_DRUM, &used);
+                break;
+            case MAGIC_WHISTLE:
+                downgrade_obj(obj, PEA_WHISTLE, &used);
+                break;
+            case MAGIC_FLUTE:
+                downgrade_obj(obj, FLUTE, &used);
+                break;
+            case MAGIC_HARP:
+                downgrade_obj(obj, HARP, &used);
+                break;
+            case FIRE_HORN:
+            case FROST_HORN:
+            case HORN_OF_PLENTY:
+                downgrade_obj(obj, TOOLED_HORN, &used);
+                break;
+            case MAGIC_MARKER:
+                if (obj->spe > 0) {
+                    pre_downgrade_obj(obj, &used);
+                    if ((obj->spe -= (3 + rn2(10))) < 0)
+                        obj->spe = 0;
+                }
+                break;
             }
         }
 
@@ -3046,14 +3046,15 @@ boolean ourfault;
     case WEAPON_CLASS:
     case WAND_CLASS:
     case RING_CLASS:
+        
     /* Just "fall through" to generic rustprone check for now. */
     /* fall through */
     default:
         switch (artifact_wet(obj, FALSE)) {
-            case -1:
-                break;
-            default:
-                return TRUE;
+        case -1:
+            break;
+        default:
+            return TRUE;
         }
         /* !ofAmnesia acts as a disenchanter... */
         if (amnesia && obj->spe > 0) {
@@ -3063,7 +3064,7 @@ boolean ourfault;
 
         if (!obj->oerodeproof && is_rustprone(obj) &&
               (obj->oeroded < MAX_ERODE) && !rn2(2)) {
-            pline("%s %s some%s.", Your_buf, aobjnam(obj, "rust"),
+            pline("%s%s some%s.", Your_buf, aobjnam(obj, "rust"),
                   obj->oeroded ? " more" : "what");
             obj->oeroded++;
             if (obj->unpaid && costly_spot(u.ux, u.uy) && !used) {

@@ -1106,6 +1106,7 @@ struct monst *mtmp;
         /* fall through */
         case HORN_OF_PLENTY:
         case CAN_OF_GREASE:
+        case KEG:
             if (is_cursed) {
                 stripspe(obj);
             } else if (is_blessed) {
