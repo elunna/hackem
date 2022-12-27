@@ -670,20 +670,6 @@ int spellnum;
         }
         dmg = 0;
         break;
-#if 0 /* Original slashem version - disabled because buggy */
-    case MGC_CREATE_POOL:
-        if (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR) {
-            pline("A pool appears beneath you!");
-            levl[u.ux][u.uy].typ = POOL;
-            del_engr_at(u.ux, u.uy);
-            water_damage_chain(level.objects[u.ux][u.uy], TRUE, 0, TRUE, u.ux, u.uy);
-            spoteffects(FALSE);  /* possibly drown, notice objects */
-        }
-        else
-            impossible("bad pool creation?");
-        dmg = 0;
-        break;
-#endif
     /* Imported from slashem-up 
      * Create pool spell can be affected by invisibility and/or
      * displacement.
@@ -1368,10 +1354,13 @@ int spellnum;
             return TRUE;
         /* pools can only be created in certain locations and then only
         * rarely unless you're carrying the amulet.
+        * Monsters won't cast at you if you are flying or levitating.
         */
         if (spellnum == MGC_CREATE_POOL
              && ((levl[u.ux][u.uy].typ != ROOM && levl[u.ux][u.uy].typ != CORR)
-             || (!u.uhave.amulet && rn2(10))))
+            || Flying
+            || Levitation
+            || (!u.uhave.amulet && rn2(20))))
             return TRUE;
         /* Don't try to destroy armor if none is being worn */
         if (!(mdef->misc_worn_check & W_ARMOR)
@@ -1461,8 +1450,10 @@ int spellnum;
     if (adtyp == AD_SPEL) {
         /* aggravate monsters, etc. won't be cast by peaceful monsters */
         if (mtmp->mpeaceful
-            && (spellnum == MGC_AGGRAVATION || spellnum == MGC_SUMMON_MONS
-                || spellnum == MGC_CLONE_WIZ || spellnum == MGC_CALL_UNDEAD))
+            && (spellnum == MGC_AGGRAVATION 
+                || spellnum == MGC_SUMMON_MONS
+                || spellnum == MGC_CLONE_WIZ 
+                || spellnum == MGC_CALL_UNDEAD))
             return TRUE;
         /* haste self when already fast */
         if (mtmp->permspeed == MFAST && spellnum == MGC_HASTE_SELF)
@@ -1521,8 +1512,10 @@ int spellnum;
             && spellnum == MGC_ACID_BLAST) {
             return TRUE;
         }
-        if ((spellnum == MGC_ICE_BOLT || spellnum == MGC_FIRE_BOLT
-            || spellnum == MGC_ACID_BLAST || spellnum == MGC_CANCELLATION)
+        if ((spellnum == MGC_ICE_BOLT 
+             || spellnum == MGC_FIRE_BOLT
+             || spellnum == MGC_ACID_BLAST 
+             || spellnum == MGC_CANCELLATION) 
             && (mtmp->mpeaceful || u.uinvulnerable)) {
             return TRUE;
         }
@@ -1833,6 +1826,12 @@ struct attack *mattk;
                 spellnum = choose_clerical_spell(mtmp, spellnum);
             /* not trying to attack?  don't allow directed spells */
             if (!mtmp || mtmp->mhp < 1) {
+                /* Kludge here because uspell_would_be_useless doesn't take 
+                 * the targeted monster as a parameter */
+                if (spellnum == MGC_CREATE_POOL 
+                    && (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR)
+                    && (!is_flyer(mtmp->data) && !is_floater(mtmp->data) && !amphibious(mtmp->data)))
+                    break;
                 if (is_undirected_spell(mattk->adtyp, spellnum)
                     && !uspell_would_be_useless(mattk->adtyp, spellnum)) {
                 break;
