@@ -2440,7 +2440,7 @@ register struct obj *obj;
               Icebox ? "refrigerate" : "stash", something);
         return 0;
     } else if ((obj->otyp == LOADSTONE) && cursed(obj, TRUE)) {
-        obj->bknown = 1;	/* unambiguously cursed */
+        set_bknown(obj, 1);	/* unambiguously cursed */
         makeknown(obj->otyp);	/* unambiguously a loadstone */
         pline_The("stone%s won't leave your person.", plur(obj->quan));
         return 0;
@@ -2500,7 +2500,7 @@ register struct obj *obj;
         return 0;
     }
 
-
+    freeinv(obj);
 
     if (obj_is_burning(obj)) { /* this used to be part of freeinv() */
         if (is_lightsaber(obj))
@@ -2508,8 +2508,7 @@ register struct obj *obj;
         else
             (void) snuff_lit(obj);
     }
-    freeinv(obj);
-
+    
     if (floor_container && costly_spot(u.ux, u.uy)) {
         /* defer gold until after put-in message */
         if (obj->oclass != COIN_CLASS) {
@@ -2560,43 +2559,45 @@ register struct obj *obj;
         }
         do_boh_explosion(current_container, floor_container);
 
+        if (BotH)
+            losehp(Maybe_Half_Phys(d(12, 12)), "exploding magical artifact bag", KILLED_BY_AN);
+        else
+            losehp(Maybe_Half_Phys(d(8, 10)), "exploding magical bag", KILLED_BY_AN);
+        
         if (!floor_container)
             useup(current_container);
         else if (obj_here(current_container, u.ux, u.uy))
             useupf(current_container, current_container->quan);
         else
             panic("in_container:  bag not found.");
-
-        if (BotH)
-            losehp(Maybe_Half_Phys(d(12, 12)), "exploding magical artifact bag", KILLED_BY_AN);
-        else
-            losehp(Maybe_Half_Phys(d(8, 10)), "exploding magical bag", KILLED_BY_AN);
-
+        
         current_container = 0; /* baggone = TRUE; */
     }
 
     if (current_container) {
-        Strcpy(buf, the(xname(current_container)));
-        You("put %s into %s.", doname(obj), buf);
+        /* blessed or uncursed scrolls of charging charge bag of tricks */
+        if ((current_container->otyp == BAG_OF_TRICKS) &&
+            obj->otyp == SCR_CHARGING && !obj->cursed) {
+            makeknown(obj->otyp);
+            makeknown(current_container->otyp);
+            pline("The %s digests the magic of the %s!", xname(current_container), xname(obj));
+            recharge(current_container, (obj->blessed ? 1 : 0), &youmonst);
+            if (current_container->spe > 0) {
+                current_container = NULL;
+            }
+        } else {
+            Strcpy(buf, the(xname(current_container)));
+            You("put %s into %s.", doname(obj), buf);
 
-        /* gold in container always needs to be added to credit */
-        if (floor_container && obj->oclass == COIN_CLASS)
-            sellobj(obj, current_container->ox, current_container->oy);
-        (void) add_to_container(current_container, obj);
-        current_container->owt = weight(current_container);
-    }
-    
-    /* blessed or uncursed scrolls of charging charge bag of tricks */
-    if ((current_container->otyp == BAG_OF_TRICKS) &&
-        obj->otyp == SCR_CHARGING && !obj->cursed) {
-        makeknown(obj->otyp);
-        makeknown(current_container->otyp);
-        pline("The %s digests the magic of the %s!", xname(current_container), xname(obj));
-        recharge(current_container, (obj->blessed ? 1 : 0), &youmonst);
-        if (current_container->spe > 0) {
-            current_container = NULL;
+            /* gold in container always needs to be added to credit */
+            if (floor_container && obj->oclass == COIN_CLASS)
+                sellobj(obj, current_container->ox, current_container->oy);
+            (void) add_to_container(current_container, obj);
+            current_container->owt = weight(current_container);
         }
     }
+    
+
     /* gold needs this, and freeinv() many lines above may cause
      * the encumbrance to disappear from the status, so just always
      * update status immediately.
