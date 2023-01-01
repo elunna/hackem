@@ -2350,10 +2350,12 @@ do_rust:
         break;
     case AD_CURS:
         hitmsg(mtmp, mattk);
+#if 0
         if (!night() && mdat == &mons[PM_GREMLIN])
             break;
         if (night() && mdat == &mons[PM_LAVA_GREMLIN])
             break;
+#endif
         if (!mtmp->mcan && !rn2(10)) {
             if (!Deaf) {
                 if (Blind)

@@ -14,11 +14,11 @@
 ### Playtesters: 
 - nh2465, cbus, shadowrider
 
-
 ==========================
 
 Version 1.1 (unreleased)
 
+2023-01-01: Gremlins always gremlin. Midnight is irrelevant.
 2023-01-01: Reverted wraith corpse eating changes from SLASH'EM.
 2023-01-01: Necromancers can get basic in divination.
 2023-01-01: Reverted extra damage from slashem artifact blasts.

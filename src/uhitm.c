@@ -2945,8 +2945,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                           s_suffix(mon_nam(mdef)));
                 xkilled(mdef, XKILL_NOMSG);
                 /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
-            } else if ((youmonst.data == &mons[PM_GREMLIN] && night())
-                       || (youmonst.data == &mons[PM_LAVA_GREMLIN] && !night())) {
+            } else if (youmonst.data == &mons[PM_GREMLIN]
+                       || youmonst.data == &mons[PM_LAVA_GREMLIN]) {
                 mdef->mcan = 1;
                 You("chuckle.");
             }
