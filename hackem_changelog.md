@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Rebalanced other shop item probabilities to add up to 100.
 2023-01-01: Fix: gun store item probabilities not adding up to 100.
 2023-01-01: Expanded the types of axes that are generated when trees are present on a level.
 2023-01-01: Robe are now excluded from armor that hinders monk's bonus kick attacks.
