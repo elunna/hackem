@@ -3050,7 +3050,6 @@ struct obj *obj;
             return 1;
         }
         
-        
         obj->age = monstermoves + rnz(100);
 
         switch (oart->inv_prop) {
@@ -3305,12 +3304,12 @@ struct obj *obj;
                 pseudo = mksobj(SCR_AIR, FALSE, FALSE);
                 break;
             case ART_DEEP_FREEZE:
-                
+                cast_sphere(SPE_FREEZE_SPHERE); /* Casts freeze sphere */
                 /* Virtually reads a scroll of ice */
                 pseudo = mksobj(SCR_ICE, FALSE, FALSE);
-                /* Also casts freeze sphere */
-                /* spelleffects(spell_idx(FREEZE_SPHERE), FALSE, FALSE) */
-                cast_sphere(spell_idx(SPE_FREEZE_SPHERE));
+                break;
+            case ART_FIREWALL:
+                cast_sphere(SPE_FLAME_SPHERE); /* Casts flame sphere */
                 break;
             default:
                 impossible("bad artifact invocation seffect?");
