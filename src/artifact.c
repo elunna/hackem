@@ -1069,7 +1069,7 @@ struct monst *mon;
             return 0;
         You("are blasted by %s power!", s_suffix(the(xname(obj))));
         touch_blasted = TRUE;
-        dmg = d((Antimagic ? 6 : 8), (self_willed ? 10 : 6));
+        dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
         /* add half of the usual material damage bonus */
         if (Hate_material(obj->material)) {
             dmg += (rnd(sear_damage(obj->material)) / 2) + 1;
