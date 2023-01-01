@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Reverted Infidels starting with Spellbook of Poison Blast, they start with Drain Life again.
 2023-01-01: Increased spellbook of poison blast to level 4 spell.
 2023-01-01: Change The Key Of Access to GEMSTONE.
 2023-01-01: Increase Candle of Eternal Flame passive fire damage to 2d10.
