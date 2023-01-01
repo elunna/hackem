@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Tourist can get expert in boomerang skill.
 2023-01-01: Reduced weight of sling bullet to 1.
 2023-01-01: Added Necromancer to primary_spellcasters for altar gifts.
 2023-01-01: Don't offer train firearms service if the player can't get firearms skills.
