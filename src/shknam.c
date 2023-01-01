@@ -442,7 +442,10 @@ const struct shclass shtypes[] = {
         { 5, -LEASH },
         { 10, -TRIPE_RATION },    
         { 5, -SADDLE },
-        { 10, -PEA_WHISTLE },
+        { 3, -BARDING },
+        { 1, -BARDING_OF_REFLECTION },
+        { 1, -SPIKED_BARDING },
+        { 5, -PEA_WHISTLE },
         { 3, -MAGIC_WHISTLE } },
       shkpet },
     /* Shops below this point are "unique".  That is they must all have a
