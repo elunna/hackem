@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Reverted wraith corpse eating changes from SLASH'EM.
 2023-01-01: Necromancers can get basic in divination.
 2023-01-01: Reverted extra damage from slashem artifact blasts.
 2023-01-01: Reverted strength gain nerf from eating giants.
