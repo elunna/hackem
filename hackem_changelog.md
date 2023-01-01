@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Don't offer train firearms service if the player can't get firearms skills.
 2023-01-01: Increased chances of god blessing something when offering.
 2023-01-01: You don't get a minion gift from an altar if you have any pets on the level.
 2023-01-01: Revert potion of amnesia random appearance - it should always be sparkling.

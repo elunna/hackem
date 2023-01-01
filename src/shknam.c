@@ -1221,10 +1221,9 @@ struct monst *shk;
             num_svc--;
         }
         /* 1 in 10 offer firearms training */
-        if (!rn2(10))
+        if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
             ESHK(shk)->services |= SHK_FIREARMS;
     }
-
     
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
@@ -1304,7 +1303,7 @@ struct monst *shk;
         if (!rn2(4))
             ESHK(shk)->services |= SHK_WEP_POI;
         /* 1 in 5 offer firearms training */
-        if (!rn2(5))
+        if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             ESHK(shk)->services |= SHK_FIREARMS;
     }
     
@@ -1317,7 +1316,7 @@ struct monst *shk;
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_ARM_ENC;
         /* 1 in 5 offer firearms training */
-        if (!rn2(5))
+        if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             ESHK(shk)->services |= SHK_FIREARMS;
     }
     
