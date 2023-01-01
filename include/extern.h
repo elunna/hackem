@@ -1535,7 +1535,6 @@ E boolean FDECL(valid_obj_material, (struct obj *, int));
 E void FDECL(set_material, (struct obj *, int));
 E boolean warp_material(struct obj *, boolean);
 E struct obj *FDECL(init_dummyobj, (struct obj *, SHORT_P, long));
-E int FDECL(breakability, (struct obj *));
 
 /* ### mkroom.c ### */
 

@@ -649,12 +649,13 @@ struct obj *container; /* container, for autounlock */
                 if (otmp->cursed)
                     ch /= 2;
 
-                /* Chance of breaking on use. */
-                if (!rn2(breakability(pick)) && picktyp != STETHOSCOPE && !pick->oartifact) {
+                /* small chance a cursed locking tool will break on use */
+                if (pick->cursed && !rn2(5)
+                    && picktyp != STETHOSCOPE 
+                    && !pick->oartifact) {
                     pline("As you start to %s the %s, your %s breaks!",
                           (otmp->olocked ? "unlock" : "lock"),
                           xname(otmp), xname(pick));
-                    remove_worn_item(pick, FALSE);
                     if (carried(pick))
                         useup(pick);
                     else
@@ -750,7 +751,9 @@ struct obj *container; /* container, for autounlock */
             }
 
             /* small chance a cursed locking tool will break on use */
-            if (!rn2(breakability(pick)) && picktyp != STETHOSCOPE && !pick->oartifact) {
+            if (pick->cursed && !rn2(5)
+                && picktyp != STETHOSCOPE 
+                && !pick->oartifact) {
                 pline("As you start to %s the door, your %s breaks!",
                       ((door->doormask & D_LOCKED) ? "unlock" : "lock"),
                       xname(pick));

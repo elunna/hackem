@@ -824,7 +824,6 @@ struct obj *instr;
     char *s;
     int x, y;
     boolean ok;
-    boolean instr_breaks = FALSE;
 
     if (Hidinshell) {
         You("are incapable of playing %s while hiding in your shell.",
@@ -843,24 +842,6 @@ struct obj *instr;
                && !can_blow(&youmonst)) {
         You("are incapable of playing %s.", the(distant_name(instr, xname)));
         return 0;
-    }
-
-    /* --hackem: Musical instruments require skill to handle gracefully.
-     * They are also breakable - subject to the same odds as unlocking tools
-     * This is partly to nerf the abuse on the planes, and partly to
-     * nerf the infinite re-chargability.
-     * 
-     * Gold instruments will be rare (but desireable since they are very durable)
-     */
-    
-    /* Artifact instruments don't break on apply 
-     * Elves have special skill with instruments and will never break them!
-     */
-    if (instr->oartifact || maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
-        ;  
-    /* fumbling guarantees breaking (unless an elf) */
-    else if (Fumbling || !rn2(breakability(instr))) {
-        instr_breaks = TRUE;
     }
 
     if (instr->otyp != LEATHER_DRUM && instr->otyp != DRUM_OF_EARTHQUAKE
@@ -896,10 +877,7 @@ struct obj *instr;
                     *s = 'B';
             }
         }
-
-        if (instr_breaks)
-            goto breakinstr;
-
+        
         You(!Deaf ? "extract a strange sound from %s!"
                   : "can feel %s emitting vibrations.", the(xname(instr)));
 
@@ -1017,23 +995,13 @@ struct obj *instr;
             }
         }
         return 1;
-    } 
-    if (instr_breaks)
-        goto breakinstr;
+    }
     
     return do_improvisation(instr);
 
  nevermind:
     pline1(Never_mind);
     return 0;
-
- breakinstr:
-    You("start playing %s.", yname(instr));
-    pline("The %s suddenly breaks!", xname(instr));
-    useup(instr);
-    /*delobj(instr);*/
-    nomul(0);
-    return 1;
 }
 
 
