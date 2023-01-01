@@ -803,7 +803,8 @@ place_axe()
             } while (!SPACE_POS(levl[x][y].typ) && (++trycount < 100));
 
             if (trycount < 100) {
-                struct obj *otmp = mksobj(AXE, TRUE, FALSE);
+                /* Any type of axe can generate */
+                struct obj *otmp = mksobj(AXE + rn2(4), TRUE, FALSE);
                 place_object(otmp, x, y);
             }
         }

@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Expanded the types of axes that are generated when trees are present on a level.
 2023-01-01: Robe are now excluded from armor that hinders monk's bonus kick attacks.
 2023-01-01: Fire and Ice Elementals should be peaceful for flame mages and ice mages, respectively.
 2023-01-01: Wands of fear work even when you can't see the monsters affected.
