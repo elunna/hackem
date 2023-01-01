@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Necromancers can get basic in divination.
 2023-01-01: Reverted extra damage from slashem artifact blasts.
 2023-01-01: Reverted strength gain nerf from eating giants.
 2023-01-01: Cloak book quote in encyclopedia entry had underscores.
