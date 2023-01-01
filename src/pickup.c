@@ -2348,8 +2348,8 @@ int depthin;
         return FALSE;
 
     /* odds: 1/1 (just scattered though, not gone) */
-    if (Is_mbag(obj) || obj->otyp == WAN_CANCELLATION
-        || (!rn2(3) && obj->oartifact == ART_MAGICBANE)) {
+    if (Is_mbag(obj) || obj->otyp == WAN_CANCELLATION 
+        || obj->oartifact == ART_MAGICBANE) {
         return TRUE;
     } else if (Has_contents(obj)) {
         struct obj *otmp;

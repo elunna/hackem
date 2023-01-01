@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Magicbane ALWAYS blows up Bags of Holding when inserted into one.
 2023-01-01: Changed Sword of Justice material to METAL.
 2023-01-01: Increased chance of boomerangs from z. They can also generate blessed, cursed, or with enchantments.
 2023-01-01: Spellbook of Raise zombies should not generate randomly.
