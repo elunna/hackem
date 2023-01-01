@@ -1056,7 +1056,14 @@ boolean artif;
                 tryct = 0;
                 /* Splice has a difficulty cap for pick_nasty */
                 /*otmp->corpsenm = pick_nasty(50); */
-                otmp->corpsenm = pick_nasty(50);
+                int ncount = 0;
+                do {
+                    /* If possible, we don't want masks to generate that are
+                     * NOPOLY monsters - like Devas. */
+                    otmp->corpsenm = pick_nasty(50);
+                    if (polyok(&mons[otmp->corpsenm]))
+                        break;
+                } while (ncount++ < 1000);
                 blessorcurse(otmp, 4);
                 break;
             case BELL_OF_OPENING:
