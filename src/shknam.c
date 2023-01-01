@@ -409,8 +409,8 @@ const struct shclass shtypes[] = {
         { 8, -SHOTGUN }, 
         { 5, -AUTO_SHOTGUN },
         /* ammo */
-        { 15, -BULLET },
-        { 8, -SHOTGUN_SHELL },
+        { 25, -BULLET },
+        { 13, -SHOTGUN_SHELL },
         { 3, -FIRE_BOMB }, 
         { 3, -GAS_BOMB },
         { 3, -SONIC_BOMB },
