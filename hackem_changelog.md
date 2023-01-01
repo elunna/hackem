@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Change The Key Of Access to GEMSTONE.
 2023-01-01: Increase Candle of Eternal Flame passive fire damage to 2d10.
 2023-01-01: Mines rivers now only have a 1 in 3 change of generating past minetown.
 2023-01-01: Lowered price of vampire blood to 300.
