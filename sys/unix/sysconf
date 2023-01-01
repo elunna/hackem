@@ -189,5 +189,7 @@ OPTIONS=msg_window:reversed
 OPTIONS=number_pad:0
 OPTIONS=sortloot:full
 OPTIONS=time
+OPTIONS=paranoid_confirmation:attack pray quit Remove swim wand-break
+
 BIND=v:wizmakemap
 #eof
