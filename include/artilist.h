@@ -132,7 +132,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, 
       NO_COLOR, COPPER),
 
-    A("Skullcrusher", CLUB, (SPFX_RESTR | SPFX_DEFN), 0, 0,
+    A("Skullcrusher", CLUB, (SPFX_RESTR), 0, 0,
       PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 
       2000L, NO_COLOR, DEFAULT_MAT),
 
