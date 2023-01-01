@@ -2255,6 +2255,7 @@ dosacrifice()
             primary_casters = Role_if(PM_HEALER) 
                               || Role_if(PM_FLAME_MAGE) 
                               || Role_if(PM_ICE_MAGE) 
+                              || Role_if(PM_NECROMANCER) 
                               || Role_if(PM_WIZARD) 
                               || Role_if(PM_INFIDEL);
             primary_casters_priest = Role_if(PM_PRIEST);
