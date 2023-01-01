@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Reverted strength gain nerf from eating giants.
 2023-01-01: Cloak book quote in encyclopedia entry had underscores.
 2023-01-01: Replace fingerless gloves appearance with fine.
 2023-01-01: Move charm monster to level 4 (less effective with traitorous and untameable monsters)

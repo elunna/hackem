@@ -1201,10 +1201,8 @@ struct permonst * ptr;
         }
     }
 
-    /* if strength is the only candidate, give it 25% chance 
-        --hackem: This was 50% in Evil, but I lowered it to 25%
-        to match Slash'EM */
-    if (conveys_STR && count == 1 && !rn2(4))
+    /* if strength is the only candidate, give it 50% chance */
+    if (conveys_STR && count == 1 && !rn2(2))
         prop = 0;
 
     return prop;
