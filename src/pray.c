@@ -2606,14 +2606,7 @@ dosacrifice()
                                    uhim(), align_gname(u.ualign.type));
                     return 1;
                 }
-            } 
-            
-            if (!rnl(30 + u.ulevel)) {
-                /* Random item blessed */
-                god_gives_benefit();
-                return 1;
             }
-            
             
             /* A particularly faithful player may receive a minion
              * New restrictions on minion gifts:
@@ -2635,6 +2628,10 @@ dosacrifice()
                 && (count_pets() < 2)
                 && !rn2(10 + (4 * u.ugifts))) {
                 god_gives_pet(altaralign);
+                return 1;
+            } else if (!rnl(20 + u.ulevel)) {
+                /* Random item blessed */
+                god_gives_benefit();
                 return 1;
             }
             
