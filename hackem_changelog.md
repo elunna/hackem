@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: You don't get a minion gift from an altar if you have any pets on the level.
 2023-01-01: Revert potion of amnesia random appearance - it should always be sparkling.
 2023-01-01: When masks are generated, make sure NO_POLY monsters are prevented from being the mask type.
 2023-01-01: Removed all passive attacks from baby dragons.

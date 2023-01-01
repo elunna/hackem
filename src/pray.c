@@ -2622,7 +2622,7 @@ dosacrifice()
              *      Must have positive luck
              *      If completed or expelled from quest, no more minions.
              *      If crowned, no more minions.
-             *      If you already have 1-2 pets on the level, no more minions.
+             *      If you have any pets on the level, no minions are generated to prevent overcrowding.
              *      I'm now using the calculation from SpliceHack that considers
              *      the quantity of gifts given .
              */
@@ -2632,7 +2632,7 @@ dosacrifice()
                 && !u.uevent.qcompleted
                 && !u.uevent.qexpelled
                 && !u.uevent.uhand_of_elbereth 
-                && (count_pets() < (rn2(3) ? 2 : 3))
+                && (count_pets() < 2)
                 && !rn2(10 + (4 * u.ugifts))) {
                 god_gives_pet(altaralign);
                 return 1;
