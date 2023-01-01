@@ -487,15 +487,15 @@ static const struct def_skill Skill_F[] = {
 /*  { P_DAGGER, P_BASIC },*/
 /*  { P_KNIFE,  P_SKILLED },*/
     { P_AXE, P_SKILLED },               /* for chopping wood. */
-    { P_PICK_AXE, P_BASIC },            /* for digging up coal */
+    { P_PICK_AXE, P_SKILLED },            /* for digging up coal */
     { P_SHORT_SWORD, P_SKILLED },       /* For access to fire-brand */
 /*  { P_BROAD_SWORD, P_BASIC },*/
 /*  { P_LONG_SWORD, P_SKILLED },*/
 /*  { P_TWO_HANDED_SWORD, P_BASIC },*/
 /*  { P_SABER, P_SKILLED },*/
-    { P_MACE, P_SKILLED },              /*  No good reason, just variety.*/
+    { P_MACE, P_BASIC },              /*  No good reason, just variety.*/
 /*  { P_MORNING_STAR, P_BASIC },*/
-    { P_CLUB, P_SKILLED },              /* because clubs/torches can be lit.*/
+    { P_CLUB, P_EXPERT },              /* because clubs/torches can be lit.*/
     { P_HAMMER, P_SKILLED },
     { P_QUARTERSTAFF, P_EXPERT },   /* sac gift is Firewall, a quarterstaff */
 /*  { P_POLEARMS, P_BASIC },*/
@@ -508,8 +508,8 @@ static const struct def_skill Skill_F[] = {
     { P_DART, P_EXPERT },
     { P_SHURIKEN, P_BASIC },
     { P_BOOMERANG, P_BASIC }, */
-    { P_WHIP, P_EXPERT },               /* Potentially for flaming whips */
-    { P_UNICORN_HORN, P_BASIC },
+    { P_WHIP, P_SKILLED },               /* Potentially for flaming whips */
+    { P_UNICORN_HORN, P_SKILLED },
     { P_ATTACK_SPELL, P_SKILLED },
 /*  { P_HEALING_SPELL, P_BASIC },*/
     { P_DIVINATION_SPELL, P_EXPERT },
