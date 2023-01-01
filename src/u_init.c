@@ -484,40 +484,22 @@ static const struct def_skill Skill_Con[] = {
 
 static const struct def_skill Skill_F[] = {
 /*Style: small-med edged weapons, blunt weapons*/
-/*  { P_DAGGER, P_BASIC },*/
-/*  { P_KNIFE,  P_SKILLED },*/
     { P_AXE, P_SKILLED },               /* for chopping wood. */
     { P_PICK_AXE, P_SKILLED },            /* for digging up coal */
     { P_SHORT_SWORD, P_SKILLED },       /* For access to fire-brand */
-/*  { P_BROAD_SWORD, P_BASIC },*/
-/*  { P_LONG_SWORD, P_SKILLED },*/
-/*  { P_TWO_HANDED_SWORD, P_BASIC },*/
-/*  { P_SABER, P_SKILLED },*/
     { P_MACE, P_BASIC },              /*  No good reason, just variety.*/
 /*  { P_MORNING_STAR, P_BASIC },*/
     { P_CLUB, P_EXPERT },              /* because clubs/torches can be lit.*/
     { P_HAMMER, P_SKILLED },
     { P_QUARTERSTAFF, P_EXPERT },   /* sac gift is Firewall, a quarterstaff */
-/*  { P_POLEARMS, P_BASIC },*/
-/*  { P_SPEAR, P_BASIC },
-    { P_TRIDENT, P_BASIC },
-    { P_LANCE, P_BASIC },
-    { P_BOW, P_BASIC }, */
-    { P_SLING, P_SKILLED },               /* Familiar with flint stones */  
-/*  { P_CROSSBOW, P_BASIC },
-    { P_DART, P_EXPERT },
-    { P_SHURIKEN, P_BASIC },
-    { P_BOOMERANG, P_BASIC }, */
+    { P_BOW, P_BASIC },
+    { P_SLING, P_SKILLED },               /* Familiar with flint stones */
     { P_WHIP, P_SKILLED },               /* Potentially for flaming whips */
     { P_UNICORN_HORN, P_SKILLED },
     { P_ATTACK_SPELL, P_SKILLED },
 /*  { P_HEALING_SPELL, P_BASIC },*/
     { P_DIVINATION_SPELL, P_EXPERT },
-/*  { P_ENCHANTMENT_SPELL, P_BASIC },*/
-/*  { P_ESCAPE_SPELL, P_SKILLED },*/
     { P_MATTER_SPELL, P_EXPERT },
-/*  { P_RIDING, P_SKILLED },*/
-/*  { P_TWO_WEAPON_COMBAT, P_SKILLED },*/
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
@@ -552,29 +534,17 @@ static const struct def_skill Skill_I[] = {
     { P_SHORT_SWORD, P_EXPERT },
     { P_BROAD_SWORD, P_BASIC },
     { P_LONG_SWORD, P_BASIC },
-/*  { P_TWO_HANDED_SWORD, P_BASIC },
-    { P_SABER, P_SKILLED },
-    { P_MACE, P_BASIC },
-    { P_MORNING_STAR, P_BASIC },*/
     { P_FLAIL, P_SKILLED },
-/*  { P_HAMMER, P_BASIC },*/
     { P_QUARTERSTAFF, P_BASIC },
-/*  { P_POLEARMS, P_BASIC },*/
     { P_SPEAR, P_SKILLED },
     { P_TRIDENT, P_EXPERT },
-/*  { P_LANCE, P_BASIC },*/
 /*  { P_BOW, P_BASIC },*/
     { P_SLING, P_BASIC },
 /*  { P_CROSSBOW, P_BASIC },
-    { P_DART, P_EXPERT },
-    { P_SHURIKEN, P_BASIC },
-    { P_BOOMERANG, P_BASIC },*/
-/*  { P_WHIP, P_BASIC },*/
+    { P_DART, P_EXPERT },*/
     { P_UNICORN_HORN, P_SKILLED },
 
     { P_ATTACK_SPELL, P_BASIC },
-/*  { P_HEALING_SPELL, P_SKILLED },*/
-/*  { P_DIVINATION_SPELL, P_BASIC },*/
     { P_ENCHANTMENT_SPELL, P_EXPERT },
     { P_ESCAPE_SPELL, P_BASIC },
     { P_MATTER_SPELL, P_EXPERT },
@@ -885,7 +855,6 @@ static const struct def_skill Skill_Y[] = {
     { P_BOW, P_EXPERT },
     { P_SLING, P_BASIC },
     { P_FIREARM, P_SKILLED },
-    /*{ P_CROSSBOW, P_SKILLED },     */      
     { P_UNICORN_HORN, P_BASIC },
 
     { P_ENCHANTMENT_SPELL, P_SKILLED },
