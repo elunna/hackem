@@ -484,22 +484,25 @@ static const struct def_skill Skill_Con[] = {
 
 static const struct def_skill Skill_F[] = {
 /*Style: small-med edged weapons, blunt weapons*/
-    { P_AXE, P_SKILLED },               /* for chopping wood. */
-    { P_PICK_AXE, P_SKILLED },            /* for digging up coal */
-    { P_SHORT_SWORD, P_SKILLED },       /* For access to fire-brand */
-    { P_MACE, P_BASIC },              /*  No good reason, just variety.*/
+    { P_AXE, P_SKILLED },                   /* for chopping wood. */
+    { P_PICK_AXE, P_SKILLED },              /* for digging up coal */
+    { P_SHORT_SWORD, P_SKILLED },           /* For access to fire-brand */
+    { P_MACE, P_BASIC },                    /* No good reason, just variety.*/
 /*  { P_MORNING_STAR, P_BASIC },*/
     { P_CLUB, P_EXPERT },              /* because clubs/torches can be lit.*/
     { P_HAMMER, P_SKILLED },
     { P_QUARTERSTAFF, P_EXPERT },   /* sac gift is Firewall, a quarterstaff */
     { P_BOW, P_BASIC },
-    { P_SLING, P_SKILLED },               /* Familiar with flint stones */
-    { P_WHIP, P_SKILLED },               /* Potentially for flaming whips */
+    { P_SLING, P_SKILLED },                 /* Familiar with flint stones */
+    { P_WHIP, P_SKILLED },                  /* Potentially for flaming whips */
     { P_UNICORN_HORN, P_SKILLED },
+    { P_FIREARM, P_SKILLED },               /* Related to fire */
+    
     { P_ATTACK_SPELL, P_SKILLED },
 /*  { P_HEALING_SPELL, P_BASIC },*/
     { P_DIVINATION_SPELL, P_EXPERT },
     { P_MATTER_SPELL, P_EXPERT },
+    
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
