@@ -706,10 +706,8 @@ unsigned corpseflags;
     case PM_TASMANIAN_DEVIL:
     case PM_KANGAROO:
         /* Zouthern animals have a small chance of dropping boomerangs. */
-        if (!rn2(13)) {
+        if (!rn2(10)) {
             obj = mksobj_at(BOOMERANG, x, y, TRUE, FALSE);
-            obj->spe = 0;
-            obj->cursed = obj->blessed = FALSE;
         }
         goto default_1;
     case PM_IRON_GOLEM:

@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Increased chance of boomerangs from z. They can also generate blessed, cursed, or with enchantments.
 2023-01-01: Spellbook of Raise zombies should not generate randomly.
 2023-01-01: Tourist can get expert in boomerang skill.
 2023-01-01: Reduced weight of sling bullet to 1.
