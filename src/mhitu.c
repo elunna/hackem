@@ -4694,7 +4694,7 @@ struct attack *mattk;
     boolean vis, monable;
 
     if (carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)) {
-        tmp = d(2, 7);
+        tmp = d(2, 10);
         pline("%s is suddenly on fire!", Monnam(mtmp));
         tmp += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
         tmp += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);

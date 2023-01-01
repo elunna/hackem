@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Increase Candle of Eternal Flame passive fire damage to 2d10.
 2023-01-01: Mines rivers now only have a 1 in 3 change of generating past minetown.
 2023-01-01: Lowered price of vampire blood to 300.
 2023-01-01: Reverted breakable musical instruments and locking tools. Locking tools now only break if cursed and 1/5 change (as in EvilHack)
