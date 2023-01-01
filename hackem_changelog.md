@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Replace fingerless gloves appearance with fine.
 2023-01-01: Move charm monster to level 4 (less effective with traitorous and untameable monsters)
 2023-01-01: Adjusted Flame Mage skills: axe->skilled, mace->basic, club->expert, mace->basic, whip->skilled, unicorn horn->skilled.
 2023-01-01: Move Spellbook of Freeze Sphere back to level 2.
