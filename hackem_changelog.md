@@ -1,1298 +1,2723 @@
-```
-   O                                             ,  /\  .  
-   8                                            //`-||-'\\
-,--8--,  _    _            _    ______ __  __  (| -=||=- |)
-  |:|   | |  | |          | |  |  ____|  \/  |  \\,-||-.//
-  |˙|   | |__| | __ _  ___| | _| |__  | \  / |   `  ||  '  
-  |˙|   |  __  |/ _` |/ __| |/ /  __| | |\/| |      || 
-  | |   | |  | | (_| | (__|   <| |____| |  | |      || 
-  | |   |_|  |_|\__,_|\___|_|\_\______|_|  |_|      || 
-  \ /                                               ()
-   .
-```                                    
-# Hack'EM
-
-## Spells/Spellcasting
-
-### Spellbooks:
-
-- [x] spellbook of acid blast
-- [x] spellbook of command undead
-    - Lowered command undead spell difficulty to 4
-- [x] spellbook of enlighten
-- [x] spellbook of flame sphere
-    - Evil made this a level 2 spell
-- [x] spellbook of freeze sphere
-    - Made a level 1 spell (as in slashem) - levels out early game a bit more for ice mages.
-- [x] spellbook of lightning 
-- [x] spellbook of passwall 
-    - Moved to ESCAPE category
-    - Lowered spell level slightly to 5
-- [x] spellbook of poison blast
-    - Reduced to level 2.
-- [x] spellbook of reflection
-    - Creates a temporary reflective bubble around the caster, 
-    - acts exactly the same as an amulet of reflection (or the like)
-- [x] spellbook of repair armor
-    - repairs one level of damage to any worn piece of armor. 
-    - Will not make armor items fixed. 
-    - Works as a foil to the new monster spell 'destroy armor'
-- [x] spellbook of sonicboom
-- [x] spellbook of summon undead
-- [x] spellbook of invisiblity - now a level 2 spell
-
-- [x] spellbook of fire bolt (new Hack'EM special!)
-  - Fire Bolt is only available to the Flame Mage and will not generate randomly.
-  - 1d10 fire damage (avg 5.5)
-  - A fire attack (similar to force bolt) that doesn't reflect.
-  - Can hit multiple targets, destroys doors, trees, webs, fountains
-  - Destroys straw/paper golems
-  - Damage scales with level:
-    - Level 1 = 1d10 fire damage
-    - Level 4 = 1d10 + 1d8
-    - Level 8 = 1d10 + 2d8
-    - Level 12 = 1d10 + 3d8
-    - Matter at Skilled adds +1d4
-    - Matter at Expert adds +1d4
-
-### Spellcasting:
-
-- [x] Got rid of the BODY spell class in SlashEM, moved to the Escape spells
-- [x] Got rid of the PROTECTION spell class in SlashEM, moved to the CLERIC spells
-- [x] Got rid of the CLERIC spell class and created a NECROMANCY spell class to support the new spin on the Necromancer role. The spells from the CLERIC school have been distributed among the other schools as appropriate.
-- [x] Increased available max spells by 10 (Added 0-9 for spell list letters)
-- [x] Spellbook weights are now based on their level
-- [x] Spellcasting while wearing body armor will negatively affect your spell success rate.
-  - The exception to this is crystal plate mail, which does not adversely affect spellcasting in any way.
-- [x] Casting any spell successfully adds +500 turns to your memory of it (from slashem)
-
-### Spell changes:
-
-- [x] spellbook of confuse monster – level 2 → 1
-- [x] spellbook of slow monster 
-- [x] spellbook of cure sickness
-    - is now directional 
-    - can be cast at other monsters as well as yourself.
-- [x] spellbook of charm monster – level 3 → 5
-- [x] spellbook of cone of cold
-    - changed from an attack spell to a Matter spell.
-- [x] spellbook of Detect food – level 2 → 1
-- [x] spellbook of Detect monsters – level 1 → 3
-- [x] spellbook of Detect unseen – level 3 → 2
-- [x] spellbook of Dig – level 5 → 3
-- [x] spellbook of fireball 
-    - changed from an attack spell to a Matter spell
-- [x] spellbooks of flame sphere, firebolt are immune to fire.
-- [x] spellbook of Invisibility – level 4 → 2
-- [x] spellbook of Jumping – level 1 → 2
-- [x] spellbook of Restore ability – level 4 → 2
-- [x] spellbook of Sleep – level 1 → 2
-- [x] spellbook of teleport away:
-    - Lowered to level 5
-
-### Monster Mage spells
-
-- [x] Touch of death
-    - if you have MR you'll take damage (8d6) and your maximum hit point level can be reduced slightly.
-    - Having MR and half spell damage together can reduce those effects even more.
-- [x] Cancellation (new)
-    - Acts just like having a wand of cancellation zapped at the player.
-    - The spellcasting monster must be lined up with the player before it can cast this spell.
-- [x] Acid blast (new)
-    - A powerful area of effect spell, does acid damage to its target.
-    - The damage output is dependent on the level of the monster casting it.
-    - The acid from this spell also has a chance of eroding any unprotected weapons or armor in open inventory.
-- [x] Destroy armor
-    - Vanilla behavior – if the player didn't have magic resistance, one piece of armor would be completely destroyed.
-    - In HackEM, any piece of worn armor can have its fixed status removed, and then deteriorated.
-    - Even armor that is normally erodeproof is affected.
-    - Having MR keeps the erosion level at one per cast, otherwise 1-3 levels per cast.
-    - Armor-based quest artifacts are immune to this spell, as is crystal plate mail.
-- [x] Fire bolt	(new)
-    - A small area of effect spell, this spell explodes a small fireball upon its target.
-    - Any flammable objects in open inventory are subject to being burned.
-    - low-level spell, any spellcaster has access to it.
-- [x] Ice bolt (new)
-    - A small area of effect spell, this spell explodes a small ice storm upon its target.
-    - Any non-protected objects in open inventory are subject to being frozen.
-    - low-level spell, any spellcaster has access to it.
-- [x] Reflection (new)
-    - Creates a shimmering globe around the caster, granting them reflection for several turns.
-- [x] Create Pool (from SlashEM)
-    - Affected by displacement and invisibility now.
-- [x] Call Undead (from SlashEM)
-- [x] Summon Monsters/Nasties 
-    - Enemies have to see you in order to cast this spell now.
-    - Implemented fix #K669 - 'nasty' monster summoning. 
-    - chain summoning nerf. tldr: "If a replacement creature is a spellcaster it now has to have lower difficulty than the summoner."
-
-- [x] Updated nasties lists with slashem monsters.
-    - Added gugs, slaughter wights, devas, revenants
-    - 
-### Monster Clerical spells:
-
-- [x] Summon minion	(new)
-    - Summon a type of minion based on its alignment.
-    - Demons that can cast clerical spells are not given access to this spell (they can already demon-gate).
-- [x] Geyser
-    - A powerful spell that causes a large geyser of water to slam into its target, causing physical damage (8d6).
-    - What's new: can now rust any unprotected worn armor.
-- [x] Vulnerability	 (new)
-    - It's target temporarily becomes vulnerable to either fire, cold, shock or acid-based attacks, dropping its resistance (if any exists) by 50%.
-
-
-## Artifacts:
-
-**Design decision #1:**
-
-    In SlashEM, artifacts grant a base damage bonus - should we adjust so that they deal closer to that on average? Currently, we'll say no and see how things play out. (Except for Doomblade which I specifically want close to slashem levels.)
-
-**Design decision #2:** 
-
-    Any roles that had 2 guaranteed altar sacrifice gifts have been reduced to just 1. Having 2 just seems excessive, and most of the time, the second gift was just a barrier to overcome to get to better stuff (example: Deathsword for Barbarian, or Deluder for Wizards)
-    
-- [x] Players can twoweapon with an artifact in each hand, if those artifacts happen to get along with each other.
-- [x] When sacrificing, your deity may gift you a regular piece of gear instead of an artifact.
-- [x] Added much stronger artifact blasting (6d6 to 8d10) (from Slashem)
-- [x] If wielding/wearing any of the 'banes, taming becomes impossible */
-- [x] Wishing for artifacts: 
-    - Instead of being based off of how many artifacts exist in the game total (vanilla NetHack method), success is based off of how many artifacts the player has wished for (successful or not). 
-    - ALSO - the odds are high that it comes with its owner...
-
-### New artifacts
-- [x] Balmung
-    - Now gold. Destruction proof, but destroys armor like a boss
-- [x] Bat from Hell
-    - Rogues no longer receive this as a guaranteed sacrifice gift.
-- [x] Bradamante's Fury
-- [x] Carnwennan
-- [x] Chains of Malcanthet
-    - Changed to target Angels instead of demons
-- [x] Circe's Witchstaff
-    - Changed to a STAFF_OF_MATTER;
-    - poly attack upped to 10%; can change enemies into pigs or feral hogs.
-- [x] Deathsword
-    - Barbs no longer receive this as a guaranteed sacrifice gift.
-    - Deathsword causes hostility from humans
-    - Capable of inflicting a paralyzing hit 1 in 4 attacks.
-    - Changed from targeting vs Human to vs cross-aligned.
-- [x] Deluder
-    - Wizards no longer receive this as a guaranteed sacrifice gift.
-- [x] Deep Freeze
-    - freezes the ground and summons freeze spheres.
-    - Only Ice Mages can invoke this.
-- [x] Disrupter
-    - Switched Disrupter from being a priest sac gift to being Undead Slayer sac gift.
-    - Disrupter causes hostility to undead.
-- [x] Doomblade
-    - Deals an extra d19 to make up for solid +10
-    - Shows an appropriate message for tiny monsters.
-- [x] Drowsing Rod (Hack'EM)
-    - (Copper Staff of Healing) +d5 to-hit, +d8 dmg
-    - This is meant to simulate the original drow attack from slashem, so 19 in 20 times the sleep attack triggers for 2d4 turns.
-    - It's a gas vapor attack so breathless monsters are not affected.
-    - Grants sleep res
-    - Healer's first sac gift.
-- [x] Elfrist
-    - Warns against elves.
-    - Elfrist causes hostility to elves
-- [x] Firewall
-    - Changed into a Staff of Divination
-    - Firewall can generate Fire elementals (moved from Candle)
-    - Only Flame Mages can invoke this.
-- [x] Gauntlets of Defense (Monk sac gift)
-- [x] Gleipnir
-- [x] Gungnir
-    - Upped to +20 tohit, +1d12 from dnh.
-    - When a player creates Gungnir, it now converts the spear held to an atgeir (type of spear)
-- [x] Hand Grenade of Antioch
-    - This will not be lit accidentally by sources of fire!
-- [x] Imhullu
-- [x] Luckblade (already in evil)
-- [x] Luckless Folly
-- [x] Master Sword, The
-    - +3 to-hit and +1d3 dmg)
-    - Was a "named" silver long sword in the village level,
-    - shoots magic missiles when you are at full health?
-    - 10% chance of melee magic missile attack
-    - Cannot be wished for. Now has a 75% chance of appearing in the Town branch.
-- [x] Mirrorbright
-    - Mirrorbright no longer hinders spell-casting.
-    - Healers no longer receive Mirrorbright as a sacrifice gift, they get the Drowsing Rod instead.
-- [x] Mortality Dial
-    - Was COLD_IRON in splice, made it IRON.
-    - Prevents trolls and zombies from reviving.
-- [x] Mouser's Scalpel (slashem-up)
-    - a rapier which gives +5 to-hit bonus and +1 to-damage.
-- [x] Mystic Eyes (splice)
-    - (Previously known as Lenses of Death Perception)
-    - Grants DeathVision
-    - As long as the wearer is not blind, they deal double damage, but constantly hallucinate. Deathvision's double damage is applied everywhere  (including spells/wands)
-    - Grants searching.
-    - Made out of gemstone
-- [x] Origin
-    - STAFF_OF_ESCAPE
-    - While wielded, confers teleport control and great bonuses for spellcasters.
-    - Increases spellcasting ability as a robe would, plus it makes escape spells cost less.
-    - Gives a discount of 5 energy for spells that costs 10 or more.
-- [x] Plague
-    - confers sickness res while carried (from dnh)
-- [x] Poseidon's Trident
-- [x] Pridwen
-    - Also grants STABLE.
-- [x] Quick Blade
-- [x] Reaper (Yeoman)
-    - Converted to Copper so that elven Yeoman can receive it as a gift.
-- [x] Serpent's Tongue (Necro)
-    - Upgraded to a parazonium, gets +d5 tohit
-- [x] Skullcrusher
-    - Replaced Keolewa with Skullcrusher.
-    - Upgraded to +1d12
-- [x] Holy Spear of Light
-    - Holy Spear of Light causes hostility from undead
-    - First sac gift for Undead Slayers
-- [x] Sword of Balance
-    - Conveys "extreme stability" (hurtling resistance)
-- [x] Sunspot
-- [x] Sword of Justice
-    - Yeoman no longer receive this as a guaranteed sacrifice gift.
-    - changed to broadsword
-- [x] The End
-    - Changed to Chaotic.
-- [x] Thiefbane (One-eye sam)
-    - Revamped thiefbane: No longer targets humans, so now the player can wield it if lucky enough to get if off of Sam.
-    - Now a non-aligned two-handed sword (from Un), +d5 to-hit, +1 dmg
-    - Changed Thiefbane to platinum so elves can wield it.
-    - Raised to 10% beheading
-    - Cancels thieves and covetous monsters.
-    - Protects from thievery and seduction.
-- [x] Thunderstruck (previously known as Sonicboom)
-    - Increased attack to AD_LOUD(5, 20).
-    - Destroys glass golems
-    - Added 25% chance of sonic beam shooting out.
-- [x] Wallet of Perseus
-    - Replaces the Bag of the Hesperides (from Evil)
-    - Keeps MC1 and oilskin properties, can wish for.
-- [x] Werebane (already in evil)
-- [x] Whisperfeet (Tourist sac gift)
-
-
-### Quest Artifacts:
-
-- [x] The Candle of Eternal Flame (Flame Mage)
-    - Changed to Lawful alignment
-    - Fixed so it's always lit
-    - Removed the #invoke for Fire Elemental ability and moved to Firewall.
-    - No longer grants cold resistance, instead grants extrinsic fire resistance.
-    - Confers teleport control and warning
-    - Also confers faster energy regeneration (like Encanto!)
-    - Grants a passive 2d7 fire attack
-- [x] The Storm Whistle (Ice Mage)
-    - Changed to Neutral alignment
-    - No longer grants fire resistance, instead grants extrinsic cold resistance.
-    - Can now #invoke for 1 of 10 random "storm" related pets.
-- [x] Great Dagger of Glaurgnaa (Necromancer)
-    - Only confers MR when wielded.
-    - Grants double spirit bonuses when carried
-	- Also triples the radius of spirit auto-collection when carried.
-- [x] Crown of Saint Edward (Yeoman)
-    - Only confers MR when worn.
-- [x] Stake of Van Helsing (Undead Slayer)
-    - Only confers MR when wielded.
-    - Now warns of vampires.
-- [x] Iron Spoon of Liberation (Convict)
-    - Adapted from dNetHack
-    - Replaces the Iron Ball of Liberation
-    - Carrying the spoon confers free action
-- [x] Staff of rot (Chaotic Quest, chaotic aligned)
-    - Base item: Staff of Necromancy
-    - Wielded by Acererak. Very strong, but with a cost..
-    - Has a special wither attack
-    - While wielding, inflicts a passive wither attack (and occasional fear)
-    - If you are wielding and withering, you deal double damage.
-    - #invoke for withering and aggravate monster
-    - Cannot be wished for.
-- [x] Xanathar's Ring of Proof (Neutral Quest, neutral aligned)
-    - Base item: Ring of See Invisible
-    - Guarded by Xanathar
-    - Grants see invisible, warning while carried.
-    - Grants magic resistance while worn.
-    - Invoke for invisibility
-    - Cannot be wished for.
-- [x] The Key Of Access (Lawful Quest, Lawful aligned)
-    - Guarded by Nebuchadnezzar.
-    - Invoke for branchport
-    - Cannot be wished for.
-
-### Changes to existing artifacts:
-
-- [x] Demonbane
-    - switched from a long sword to a silver heavy mace,
-    - first sacrifice artifact gift for Priests.
-    - Can be invoked for Flying.
-- [x] Dragonbane
-    - switched to a pair of dragonhide gloves
-    - Now provides reflection, acid resistance, and warns against dragons.
-- [x] Excalibur:
-    - Only lawful Knights can dip for Excalibur,
-    - and there's a danger that the sword will rust away completely when you do (if not fixed).
-- [x] Eyes of the Overworld
-    - now protect the wearer against many forms of gaze attacks,
-    - greatly reducing the need for the player to have to remove them to blind themselves with a blindfold or towel.
-    - Take note, Medusa's petrifying gaze attack is too powerful and will overcome the EotO's protection.
-- [x] Fire Brand and Frost Brand are now steel short swords.
-    - Engraving with Fire Brand burns the text on the floor
-- [x] Grimtooth
-    - now has a sickness-inducing attack
-    - has a 1 in 6 chance of making its target terminally ill.
-- [x] Magicbane	
-    - no longer an athame, switched to a quarterstaff. 
-    - None of its special abilities or functions have otherwise been changed.
-    - Putting Magicbane into a bag of holding can explode the bag (and even destroy itself).
-    -  Magicbane no longer cancels inventory items
-- [x] Magic Mirror of Merlin
-    - has had magic resistance removed. 
-    - In its place is reflection and half spell damage when carried.
-- [x] Mitre of Holiness 
-    - allows #pray and #turn to function in Gehennom when worn.
-- [x] Mjollnir
-    - base type is now heavy war hammer
-- [x] Ogresmasher
-    - base type is now heavy war hammer
-- [x] Sceptre of Might:
-    - base type changed from a mace to a rod, deals slightly more damage per hit.
-- [x] Sting/Orcrist changed to Lawful (same alignment as elves)
-- [x] Staff of Aesculapius: also cures afraid and larval infection.
-- [x] Sunsword
-    - made of gemstone (crystal)
-- [x] Tsurugi of Muramasa
-    - Raised bisection chance to 15%
-    - now confers half physical damage when wielded.
-- [x] Vorpal Blade
-    - Raised beheading chance to 10%.
-    - Wielding Vorpal Blade protects against decapitation attacks.
-
-- Various artifacts that have a nemesis monster warn against those monsters.
-- Almost all of the stock weapon artifacts have had their to-hit and damage modifiers adjusted in the players favor.
-- Certain artifacts can either deliver extra damage to their nemesis monsters, or have a small percentage chance of delivering a fatal blow – this applies to the player as well!
-
-## Dungeon Features
-
-### Trap Mechanics:
-
-- [x] Added ice traps (Un)
-  - Ice traps only generate after level 8
-- [x] Added magic beam traps (evil)
-    - Magic beam traps cannot generate above level 16 (SlashTHEM)
-    - Magic beam traps now generate a random beam type on every trigger; before they were hardcoded to a single beam when created on the level.
-- [x] Can #untrap rust traps (they turn into fountains)
-- [x] Can #untrap fire traps (requires water)
-- [x] Untrapping a spear trap has a chance of yielding a spear or stake
-- [x] Allow forcefighting of webs with a bladed weapon to destroy them
-- [x] The Castle drawbridge does not always close with the passtune
-- [x] Invisibility from magic traps is temporary.
-- [x] 1/7 chance a polytrap disappears after polymorphing a monster. (splice)
-- [x] Thrown items can get stuck in webs (3.7)
-
-#### Breaking wands:
-- Breaking wands will usually create related traps (unnethack)
-  - wand of cold 		-> ice trap
-  - wand of opening 	-> trap door
-  - wand of fire 		-> fire trap
-  - wand of magic missile -> magic trap
-  - wand of teleportation -> teleport trap
-  - wand of polymorph 	-> poly trap
-  - wand of sleep 		-> sleeping gas trap
-  - wand of cancel 		-> antimagic trap
-  - wand of water		-> rust trap
-  - wand of shock		-> magic beam trap
-  - wand of poison		-> magic beam trap
-  - wand of acid		-> magic beam trap
-  - wand of Sonic		-> magic beam trap
-
-  - wand of secret door detection: Detects traps and portals.
-
-### Grass
-
-    - Pulled from SpliceHack/xNetHack, we now have lush grass in the dungeon!
-    - Grass appears sparsely in the early levels, peaks around level 15, and then tapers off after level 22. 
-    - Hidey monsters can use grass as concealment.
-    - Fire and death rays scorch away grass and revert it to normal floor
-
-### Blood (splice)
-
-    - When monsters are killed, they have a chance to spray blood in a random direction and color a tile red. No real effect on gameplay, purely aesthetic.
-    - The amount of blood depends on monster size.
-    - Spraying bloody tiles with a ray of water (ie: from a wand of water) will clear the tile of it's blood.
-    - When bloody tile is walked over, there is a 1 in 20 chance it will erode away.
-    - Orc blood is black.
-
-### Vents (splice)
-
-    - Vents appear after level 3. 
-    - After level 6, 66% of vents will emit poison gas instead of harmless mist.
-
-### Toilets (SlashEM)
-
-	- I know toilets are a bit silly, but I have enhanced them so they are more
-	interesting and useful!
-
-    - Toilets can appear separate from sinks, in slashem they only appeared in pairs with sinks.
-    - Enabled fishing in toilets
-    - Dropping a ring of poly into a sink can poly into a toilet.
-    - Prevented toilet prayer while levitating.
-    - Toilet prayer can now stop the vomiting process (before it could not and you could vomit and still be in the vomiting process)
-
-#### Toilet #kicking:
-
-- Kicking now only breaks the toilet 1/7 chance (was 1/4 in slashem)
-- Kicking can generate cockroaches and sewage from kicking (1 in 17 chance)
-- Kicking can generate brown puddings (only once per toilet)
-- Kicking can generate a random tool, normally this tool will weigh under 15aum, but sometimes you'll get a large tool that bonks against the piping.
-  - If a large tool bonks 3x - you'll get that tool no matter now big it is and the toilet is destroyed in the process.		
-
-#### Amulet identification in toilets (slex)
-
-- Amulets can be dropped down toilets and possibly identified (similar to sinks and rings)
-- Updated amulet feedback messages, blind effects, and hallucination effects.
-- Amulets of Flying are always regurgitated from toilets.
-- Amulets of Change will polymorph the toilet into a sink
-
-### Forges (evil)
-
-- Forges are introduced, which have the same appearance as fountains but are orange in color. Just like fountains, dipping things into them can have desirable or adverse affects. They can be used to dispose of anything that is flammable, and can also be used to repair corrosion/rust damage to any metallic object (if your luck is greater than 0). There is a rare chance that a lava demon can be summoned via dipping, which will be hostile most times, but can sometimes spawn tame (same odds as getting a wish from a water demon/fountain). Having negative luck can cause a forge to explode when used, which can cause considerable fire damage. Players can also use a forge to remove an attached ball & chain, and can also combine two objects to forge something new using the #forge command.
-- [x] Added new recipes for various imported weapons
-- [x] Forges don't appear until after level 2.
-- [x] Forges can be blown up by rays of water.
-
-## Mechanics Changes
-
-- [x] If the player tries to hit a monster with a weapon they are restricted/unskilled in, or any non-weapon object, they'll never have better than a 75% chance of landing a hit (bare-handed is exempt).
-- [x] Strength bonus for two-handed weaponry is x1.5 (EvilHack)
-    - The standard damage bonus for strength is multiplied 1.5 times when wielding a weapon using two hands, or if you're a giant one-handing a two-handed weapon (they're heavy)
-- [x] The player is unable to regenerate hit points while in the Valley of the Dead – healing via other methods (potions, healing spells) is still possible.
-- [x] Stoning – monsters being stoned is a slow-stoning process, just as it is for the player.
-- [x] Merged scimitar and saber skills.
-- [x] Add celibate conduct (slashem)
-- [x] Galloping duration depends on riding skills (idea by Beolach, code by Pasi Kallinen)
-
-### Mold/Fungus ressurection
-- (ported from Splicehack, which ported from xnh)
-- Corpses have a chance to mold and grow a random F.
-- Petrifying monster corpses only grow green mold.
-- The ressurection rates have been tapered back a bit, so it's not as annoying as in Slash'EM - but there are more F monsters that can spawn (including moldiers at deeper levels)
-- Moldy corpses can be used with different potions (see the brewing patch details)
-
-### Elbereth
-- You cannot use Elbereth until you've learned it in-game (via rumor, reading it, etc).
-- Conflict negates Elbereth.
-- Elves & hobbits start out knowing Elbereth; Orcs can never learn it.
-
-### Extended Commands
-- [x] #force can also be used on doors
-- [x] #loot can be used at your pet to both give and take away items from its inventory.
-- [x] #borrow command (Evil has the "Thievery" skill for Rogues)
-- [x] #naming glitches have been nerfed - Players can no longer #name items for identification clues.
-- [x] The mysterious force has been removed.
-
-### Resistances/Intrinsics
-
-- [x] Intrinsic resistances are no longer binary, but are percentages instead. The spread is 5% to 50% resistance gained from eating per corpse. Damage reduction from various attacks is determined by how much partial resistance the player has to it.
-- [x] Reflection is not 100%; it can lessen the effects of an attack it reflects, but will never negate it.
-- [x] The "shower of missiles" monster attack is not completely negated by magic resistance.
-- [x] See Invisible is now just temporary from potions, eating stalkers, and fountains (Evil). 
-- [x] Restful sleep regenerates hp (we can get restful sleep property from the Amulet of Restful Sleep or a Ring of Sleeping)
-- [x] The hunger property halves nutrition from food (so you could potentially eat more giant corpses.) (xnh)
-- [x] Extrinsic resistances protect items from elemental damage. For example, wearing a ring of fire resistance will protect your scrolls and potions from fire damage.
-
-- [x] Implemented "Afraid" status; 
-    - The player can sometimes become too afraid to control their actions.
-    - similar to the effects of being stunned or confused. 
-    - Caused by dragon roars and some monster attacks.
-    - 
-- [x] Add "Stable" property
-    - Protects you(or monsters) from clobber and hurtle attacks.
-- [x] Added Sonic Resistance property (from Splice)
-    - Protects you(or monsters) from sonic attacks.
-- [x] Added Psychic Resistance property (from Splice)
-    - Illithids start with psychic res.
-    - Protects you from forgetting skills, spells, and other things from potions and scrolls of amnesia, as well as mind flayer and zombie attacks.
-    - Protects you from an illithids psionic wave and tentacle attacks.
-    - Protects from most fear attacks, including dragon roars.
-    - Wearing items that give psychic resistance stop you from being afraid.
-- [x] Added LarvaCarrier property - some monsters can infect you with eggs!
-
-### Upgrading/Tinker
-
-- Upgrading mechanic (via potions of gain level from Slash'EM)
-- Instead of crystal balls upgrading to magic markers, they upgrade to lenses (going to markers didn't make much sense, and it wasn't too useful since the marker would only have a handful of charges)
-- I removed a lot of the weapon upgrades, since now a lot of those are covered by forge recipes. A few still remain for quarterstaves and boomerangs
-- I also added upgrade paths for all special new armors
-- The flintstone to healthstone exploit has been fixed; flintstones only upgrade one at a time.
-
-### Gem Alchemy
-
-    - [x] Acid is no longer a useless endgame potion!
-    - [x] Gems dissolve in acid to produce new potions.
-    - [x] If the acid is cursed there will be an alchemical explosion, otherwise there is always a 1 in 30 chance of an explosion.
-    - [x] Use the object lookup (on a gem) to see what potion is created from a particular gem.
-
-#### Scare Monster: 
-
-- Several more creatures are immune: 
-  - any unique monsters including the Wizard of Yendor, quest nemeses, the Riders.
-  - lawful minions, Angels (A), Archangels
-  - humans (any @), player monsters
-  - honey badgers
-  - anything that is mindless (EvilHack added)
-  - Any monsters affected by conflict or in berserk mode are also immune.
-
-#### Altar sacrificing
-
-- Sacrificing for artifacts has been significantly changed in EvilHack/HackEM – there is a chance that your deity will gift you a regular item instead of an artifact. 
-- The odds of being gifted an artifact go up as you increase in experience level. 
-At XP 4, there's a 10% chance for an artifact gift, and the chances increment exponentially from there. 
-
-- Regular object gifts are either be a weapon or a piece of armor
-- For primary spellcasting roles (priest/wizard/etc), there's a chance of receiving a spellbook also. 
-The gift received will always be blessed, enchanted, fixed, and there is a 1 in 8 chance that a desirable object property will be added to that object.
-
-- Prayer timeout and the chances of receiving another gift are affected in the same way as if you had received an actual artifact.
-
-#### Conflict:
-
-- When causing conflict, it now takes the player's charisma score into account. 
-- The formula is 'charisma - monster level + player level' 
-- if that value is greater than 19, clamps it to be 19. 
-- There's then a percentage chance (rnd(20)) against the value generated on whether conflict kicks in or not. 
-- So even with charisma and your xp level maxed out, there's still a 5% chance of conflict not working. 
-- Also, the monsters affected have to see you for conflict to work.
-
-#### Dexterity:
-
-- Dexterity can directly affect the player's AC, for better or worse. 
-  - being encumbered, or wearing any kind of heavy metallic body armor (read: not mithril) or other rigid material (bone, stone, wood) will negate any favorable armor class bonuses from Dexterity.
-
-#### Amnesia/Forgetting:
-
-- Potions of amnesia can also inflict this effect.
-- Can make you lose Elbereth knowledge if you had it.
-- Can make you forget forget about shambling horrors.
-- Can make you lose intrinsic telepathy.
-- Psychic resistance protects from amnesia forgetting. Sources include rings of psychic resistance and being an illithid.
-
-#### Religion/Prayer/Alters:
-
-- Make temple priests hostile if made on an unaligned altar.
-    (This means the VoTD priest is always hostile now - no free donates kiddies!)
-- Sacrifice offerings can sometimes bless random objects (From SlashEM)
-
-#### Minions
-
-- Slashem had a mechanic for getting aligned minions as gifts from your god when you sacrifice or pray with low health. I ported most of this mechanic over but added some severe limitations because in my opinion, minions were broken in slashem and too easy to obtain (Lawfuls could get Solars and Planetars!).
-- Here are the new limitations; minions are not granted when:
-    - You are under level 5.
-    - You have negative luck.
-    - You have been crowned
-    - You have completed the quest
-    - You have been expelled from the quest
-    - You have pets on the current level.
-
-- The player will also have to hit a 1 on this roll: 
-    - 1 in 10 + (4 * number of gifts granted)
-
-- Minion pets cannot betray you.
-
-#### Dungeon growth patch
-
-- Another feature ported over from Slash'EM
-- This enables trees to slowly branch out in the dungeon and occasionally drop ripe fruits/leaves.
-- It also promotes the growth of herbs left on the ground or water.
-- Herbs that are left unattended will occasionally sprout more of the same kind around surrounding tiles.
-- These include:
-    - garlic, 
-    - wolfsbane, 
-    - catnip, 
-    - carrots, 
-    - mushrooms 
-    - pineapples
-    - kelp fronds,
-    
-- Some of these are not herbs but they still do spread prolifically. 
-- Herbs in the water will move with water currents.
-- One strategy to try is leaving these items on the ground early in the game and then coming back after a few thousand turns to see what you have "farmed."
-- Level with trees have a chance of an additional axe (to aid with potential overgrowth)
-
-#### Alchemy
-
-- Alchemic blast damage is doubled, but acid resistance halves it (xnh)
-
-- Incorporate Malcolm Ryan's Brewing Patch
-    - enables the player to dip mold corpses in potions of fruit juice to start a fermentation timer that will eventually turn the potion into something else dependent on the mold.
-    - Dipping green mold into fruit juice produces acid. 
-    - Dipping red mold into fruit juice produces booze
-    - Dipping brown mold into fruit juice produces sleeping 
-    - lichens and shriekers and non-F corpses do not ferment.
-    - Dipping cursed molds into fruit juice produces sickness.
-    - This also makes the shopkeeper charge you for shop-owned fruit juice
-that you begin fermenting. Allows you to buy the new, possibly more
-expensive potion at the cost of the fruit juice.
-
-- Potions can now be poured down into sinks (xnh). Allows for safer identification of potions by dumping them down the drain, leaving the hero to suffer only vapor effects. This is done by selecting a potion to #dip while
-standing on top of a sink. If a potion of polymorph is poured down a sink, it polymorphs it.
-
-## Dungeon Changes:
-
-- [x] Adjust secret passage frequency and exclude them from DL 1-4 (xnh)
-- [x] Random doors are secret less of the time (xnh)
-- [x] Kicking a "wall" that is actually a secret of some sort will never injure the player and will always produce an unambiguous message that there's something there. This makes it a valid strategy to kick every wall suspected of hiding something, because a single kick will give a yes/no on whether it's a regular wall or not. It's still not a *great* strategy, because the real walls will still hurt and wound legs like normal. (xnh)
-
-- [x] Extended the main dungeon: Now 35-39 levels deep
-- [x] Ludios appears on the first eligible level.
-- [x] Adjusted oracle (appears levels 5-9)
-    - The fountains in Delphi can sometimes cause hallucination (splice)
-
-- [x] Gnomish Mines:
-    - Lengthened Gnomish Mines depth by 2 levels.
-    - Added new different types of gnomes, dwarves, and thieves.
-    - Added dwarf/gnome thieves to most town/minetown variants. Evil added
-    - Monsters will usually be undead if you are a dwarf, gnome, or hobbit (from SlashEM) Instead of making undead dependant on your alignment, the chance scales with the dungeon depth. At the top of the mines, undead should be quite rare, but at mine's end beware.
-    
-    - Imported minetown variants from SlashTHEM and SpliceHack: 
-    - Imported Mine's End levels from SlashTHEM
-    - Imported Gnome King ending frmo SlashEM, SlashTHEM:
-
-- [x] Sokoban
-    - The last room of Sokoban has more prize variety, with a catch.
-
-- [x] Imported the town branch from SlashTHEM/UnNethack
-    - Appears 2-3 levels below the Oracle.
-    - Imported Mall levels from SlashEM and added to town variants.
-    - Imported Kobold level from SlashEM and added to town variants.
-    - Created a Kobold "mall" level that is peaceful and has a lot of shops.
-    - Created a "Raided Angband" level that is been ransacked by bandits and thieves.
-    
-- [x] Randomized "Themed Denizen" room (appears 10-14)
-    - picked from:
-    - The Rat Level (Slash'EM)
-    - The Rat Level (SlashTHEM)
-    - The Nymph Level
-    - The Jermlaine Village (new in Hack'EM)
-
-- [x] The Rogue level has been removed.
-
-- [x] Imported Alignment Quests (appears 15-19, From SlashEM)
-    - The alignment quests are now totally optional 
-    - no artifact keys, no artifact doors in Vlad'S
-
-    - Lawful Quest
-        - has a new boss because we already have nightmares (from Evil)
-        - Nebuchadnezzar now guards the 
-
-    - Neutral Quest
-        - has a new boss because we already have beholders (from Evil) 
-        - Xanathar now guards Xanathar's Ring of Proof
-
-    - Chaotic Quest: 
-        - has a new boss because Vecna gets his own branch in Gehennom.
-        - Acererak now guards the Staff of Rot
-
-- [x] Imported Grund's Stronghold (appears 20-21)
-    - Added more traps and moat, the stronghold wall is phaseproof.
-    - Grund must be defeated to take the downstairs. 
-    - If you have the amulet, he also must be defeated to take the upstairs (Infidels take notice!)
-
-- [x] Extended Wyrm Caves branch (Appears level 21-22)
-    - 5-6 levels deep
-    - Created an entrance level (from dnh Erebor.des)
-    - Created dynamic narrow passage filler levels that are always random.
-    - At the bottom is a dangerous dragon nest a massive treasure horde.(from UnNetHack)
-    
-- [x] Imported Black Market (appears 23-24):
-    - Reduce Black Market prices a bit.
-    - Black Market Layout 1: Thinner normal shop.
-    - Now undiggable and phaseproof.
-
-- [x] Imported the Storage Room (appears 22-30)
-    - Added 4 variations from dnh
-
-- [x] Randomized "Lost SLASH'EM Levels Branch" (appears 25-30)
-    - Instead of cluttering the dungeon with all the one-level branches from Slash'EM, a single one will be picked from these.
-        - The Lost Tomb
-        - Spider Caves
-        - The Sunless Sea
-        - The Giant Caves
-
-- [x] Imported The Temple of Moloch (appears 26-29)
-
-- [x] Gehennom
-    - no longer a series of mazes, but are mines-style levels with lava. 
-    - Areas such as the Sanctum and the entrance to the Wizard's Tower have also been adjusted.
-    - Cerberus now guards the entrance to Gehennom.
-    - Vlad the Impaler's tower is the vanilla version
-    - Vibrating square: messages when player is near
-
-- [x] Vecna's Domain
-    - completely new and optional side branch has been added. Vecna is an uber-powerful Lich that is the source of power for all other liches. Because of this, all types of liches (including alhoons) cannot be genocided until Vecna is destroyed.
-
-- [x] Elemental Planes:
-    - The first four Planes levels are randomized and appear in a different order every game.
-
-- [x] Additional variants of the Castle, Fort Ludios, Sokoban, Mine Town and Mines End have been added.
-
-### New special rooms
-
-- [x] Fungus Farm (Slash'EM)
-- [x] Migo Hive (Slash'EM)
-- [x] Dragon Lair (Slash'EM)
-- [x] Real Zoo (Slash'EM)
-    - Added zoo bats
-- [x] Bad Food Shop (Slash'EM)
-    - Full of bad food and rotten eggs.
-- [x] Giant Court (Slash'EM)
-- [x] Lemure Pit
-- [x] Mini Guild (Hack'EM)
-    - These replace the Guild of Disgruntled Adventurers in Slash'EM. 
-    - Much smaller, less densely packed with player monsters
-    - other monsters include typical pets.
-- [x] Clinic room (SlashTHEM)
-- [x] Terror hall (SlashTHEM)
-    - Only appears after level 15.
-
-### Themed Rooms:
-
-- Evilhack already had most of the themed rooms but I added more.
-- Add any missing flipped versions of rooms (from UnNetHack) for completeness
-- Added minimum levels to all themed Rooms
-  - The dungeon is pretty clean of themed rooms until level 8. 
-  - At levels 8, 11, and 17 we introduce more variety.
-
-## Role Changes:
-
-### New player roles:
-
-- Rebalanced all SlashEM role skills.
-- No slashem roles can start with magic markers anymore (to stay in line with Evil)
-
-#### Convict
-resistance
-- [x] Replaced Iron Ball of Liberation with Iron Spoon of Liberation
-- [x] Convicts cannot buy services if banned from a shop.
-- [x] Added secret doors to some of the cells on the quest home level, and around the level, so it's easier to navigate.
-- [x] Convicts start with a spoon (which uses knife skill). Convicts get backstab bonuses (similar to Rogue) when wielding a spoon.
-- [x] Town watchguards will get angry if they witness a convict on the loose - however, now you can wear a blindfold or towel (or be polymorphed) to disguise yourself.
-- [x] For balance, vampiric convicts do not start on the edge of hunger - they get a little head start and start on the verge of satiated instead.
-
-#### Infidel
-
-- Infidels no longer start with drain life (Necromancers have the monopoly on that). In it's place, the spell of poison blast has been lowered to a level 2 spell so Infidels can start with that.
-
-#### Flame Mage
-
-- Flame Mage can only be Lawful/Neutral
-- Flame Mages no longer gain cold resistance at level 13. (Their quest artifact still provides it though)
-- Level 1: Intrinsic fire resistance
-- Level 5: Gets "vulnerable to cold"
-- Flame Mages also "like fire", so fire usually doesn't have an adverse affect on them.
-- Cannot 2-weapon anymore
-- Starts with more fire based inventory: potions of oil, fire bomb, scrolls of fire, fireproof quarterstaff and fireproof robe.
-- Start with Fire Bolt instead of Flame Sphere (Fire Bolt is a Flame Mage exclusive spell)
-- Can only specialize in Matter, Attack, and Divination spells.
-- Casts spells using Wisdom; spellcasting bonuses are also calculated using wisdom.
-- Left out the dragon polyself ability.
-- Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
-- Flame mages have multishot penalty.
-- Their special spell is fire bolt.
-
-One major drawback to playing Flame Mages is that they can never attain 100% cold resistance. When they get Vulnerability to Cold - this caps their max cold resistance to 50%.
-
-#### Ice Mage
-
-- Can only be Chaotic/Neutral
-- Ice Mages no longer gain fire resistance at level 13. (Their quest artifact does NOT grant fire res anymore)
-- Level 1: Intrinsic Cold Resistance
-- Level 5: Gains "Vulnerable to Fire"
-- Level 15: Gains Water Walking
-
-- Intrinsic Ice armor AC protection (Similar to Slash'EM Monk)
-  - This is quite powerful.
-  - Calculation is: ACBONUS = -((YOURLEVEL / 2) + 2)
-  - Like SlashEM, this bonus caps at -11
-
-- Can now reach expert in riding (Elsa can ride!)
-- Starts with more cold based inventory:
-  - Replaced their starting quarterstaff with a +2 stilletto
-  - Starts with lenses or grappling hook. 
-  - Removed studded armor, replaced with robe.
-  - Removed starting potions (they might freeze from the cold)
-  - Starts with a Frost Horn instead of a wand of cold
-  - Ice Mages no longer start with confuse monster, they always start with slow monster instead.
-- Left out the dragon polyself ability.
-- Ice Mages can walk on ice without slipping.
-- Gets spell-hunger reduction (similar to wizards but it's calculated with (int - 2)
-- Ice mages get the multishot penalty
-- Their multishot penalty doesn't apply to knives!
-- Their special spell is cone of cold.
-
-One major drawback to playing Ice Mages is that they can never attain 100% fire resistance. When they get Vulnerability to Fire - this caps their max fire resistance to 50%.
-
-#### Ice and Flame details
-
-- Each cannot use anything that is decidedly the opposite's domain:
-- Flame Mages cannot use Frost Brand/Deep Freeze
-- Flame mages cannot read cold based spellbooks.
-- Ice mages cannot use Fire Brand/Firewall.
-- Ice mages cannot read fire based spellbooks.
-- Neither should receive opposite elemental based spellbooks or weapons either.
-
-#### Necromancer
-
-With inspiration from aosdict, the Necromancer role has been overhauled with a new approach.
-
-- Removed starting quarterstaff, starts with 2 daggers.
-- Starts with a robe and wand of fear
-- Removed starting scrolls; only starts with 1 ring.
-- Enabled necromancer to reach expert in polearms (for access to scythes)
-- Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.
-- The necromancer's starting ghoul has the ghoulname option available.
-- Their special spell is summon undead.
-
-##### Spirits
-
-- When playing as a necro, monsters that die drop "spirits". These are auto-collected as you walk over or adjacent to them.
-- Spirits show up as a light-blue '~' symbol.
-- Nonliving monsters do not leave spirits
-- Spirits cannot be picked up by you or other monsters - they will disappear as soon as anything tries to pick them up. If wished for, they will be absorbed immediately into your being.
-- Spirits will fade away quickly, so don't let them sit around. On graveyard levels, they get a much higher timeout.
-- Very rarely, spirits will sometimes turn into will-o'-the-wisps when they fade. On swamp levels this is much more common. 
-- Spirits generate when graves are dug up.
-- Spirits generate in morgues (on the corpses of dead players)
-- Multiheaded monsters drop more spirits (hydras, ettins, 2-headed trolls)
-- Some classes and specific monsters will also want your spirits so try to collect them before they do!
-    - L/W/A/&
-    - Valkyries, Necromancers, shades, specters, weredemons, aloons
-- Tame undead will not try to eat your spirits.
-
-##### Benefits from harvesting spirits
-    
-Heals HP:
-- Level 1: Spirits heal 1HP 
-- Level 4: Spirits heal (monster's level / 2) HP + 1 
-- Level 8: Spirits heal (monster's level) HP + 1 
-
-Renews magical power:
-- Necromancers do not regenerate magical power as other roles do. To renew your MP, you will have to collect spirits or find some other means (potions of gain energy, scrolls of charging, etc)
-- A new necromancer starts with 0 energy, but a high max of 99, so you can stock up on spirits first.
-
-- [x] Level 1: Spirits grant (monsters level / 2) MP (minimum of 1).
-- [x] Level 7: You get the monster's full level value in MP.
-- [x] Level 13: You get the 1.5x monster's level value in MP.
-
-##### Necromancer intrinsics changes
-
-- [x] Level 1: Fear Resistance
-    - Not afraid of "fear attacks", ie: banshees, bodaks
-    - Not afraid of Noferatu gaze
-    - Not afraid of ghosts or temple ghosts.
-    - Note: They still can be afraid of dragon roars though.
-- [x] Level 1: Drain resistance
-- [x] Level 3: Undead warning
-- [x] Level 18: Sickness resistance
-- [x] Level 18: Poison resistance
-
-##### Necromancer gameplay changes
-
-- [x] Necromancers can eat wraiths with the vanilla success rate.
-- [x] Undead will never betray Necromancers (lots of undead are treacherous in HackEM, so charm monster isn't as reliable as it used to be...)
-- [x] Like convicts, Necromancers now cannot tame anything other than undead. Instead of taming, the best that occurs will be pacifying the target. 
-
-- Instead of starting with a pile of books or learning techniques, the Necromancer learns special Necromancy spells as they level up. As a holdover from Slash'EM, they still start with the spell and spellbook of Drain Life.
-- When the following spells are learned - the Necromancer gets them forever. This is meant to simulate techniques, but also to encourage use of them throughout the entire game. 
-
-- [x] XP 2: CALL_UNDEAD 
-    - (Level 1 spell)
-    - When cast, acts like a magic whistle for undead.
-- [x] XP 3: RAISE_ZOMBIES 
-    - (Level 2 spell)
-    - Adapted from the SlashEM Raise Zombies technique
-    - Attempts to revive all corpses in adjacent squares and turn them into an appropriate zombies. Other humanoids will become a ghoul 3/4th of the time or a ghast the remaining 1/4th.
-	- There is no effect on non-humanoid corpses.
-    - An attempt will be made to tame the resulting undead with the same chances as casting charm monster. The undead will always be hostile if not tamed. You will be unable to move for 2 turns even if there was no effect, and the technique will be usable again after 1000-1500 turns.
-- [x] XP 7: COMMAND_UNDEAD
-    - (Level 4 spell)
-    - This spell is equivalent to charm monster, except that it only affects undead.
-- [x] XP 9: SUMMON_UNDEAD
-    - (Level 5 spell)
-    - 72 in 73 chance of creating one undead monster and a 1 in 73 chance of creating five undead. 
-	- Necromancer they will automatically attempt to dominate the resulting monster(s). Monster(s) may resist, based on their MR.
-- [x] XP 14: ANIMATE_DEAD
-    - Adapted from the SlashEM Revivication technique
-    - brings a dead corpse back to life, possibily as a pet. (Flagged as undead?)
-    - https://nethackwiki.com/wiki/Revivification
-- [x] XP 17: SPIRIT_BOMB (Level 5 spell)
-    - Adapted from the SlashEM Spirit Bomb technique
-
-#### Undead Slayer
-
-- Starting jacket is always leather
-- Can now #turn undead
-- Immune to undead fear attacks or ghosts.
-- Slayers get an alignment penalty for eating wraith corpses.
-- Undead slayers get +2 to-hit bonus against undead/demons and +d4 damage (like hitting as a blessed weapon - this also stacks with the blessed weapon bonus.)
-- Undead slayers obliterate zombies to the point that they don't leave corpses. 66% chance of this happening everytime you kill a zombie.
-- Level 15: Slayers now get Warning
-- Level 21: Slayers now get Clairvoyence
-- Their special spell is protection
-- Their guaranteed sacrifice gift is the Holy Spear of Light.
-- Elven slayers can start with silver elven daggers.
-- Undead slayers do NOT have a multishot penalty.
-
-#### Yeoman
-	
-- Starts with a green coat that grants MC2. 
-- Starts with a horn, a torch, and a blessed whetstone.
-- axe - can reach skilled
-- Can reach skilled in daggers
-- Their special spell is knock.
-
-### Existing role changes
-
-#### Archeologist
-
-- Starts with 2 spellbooks; can start with torch or lamp
-- Club moved from skilled to basic. 
-- Spear skill added, can be trained to expert.
-- Archeologists can highly enchant fedoras (xnh)
-- Only archeologists get a luck bonus from wearing fedoras.
-
-#### Barbarian
-
-- Barbs start with 2 food rations
-- Twoweaponing – Barbarians go from basic to skilled
-- riding skill from basic to skilled. 
-- Attack spell school removed. Special spell changed to cause fear.
-
-#### Caveman/Cavewoman
-
-- gets nightvision radius 2 (From SlashEM)
-– all spell schools removed, has 20% chance of failing to read any spellbook, regardless of its BUC status.
-- Can bang rocks together to make flint, can lash flint to arrows, making them more deadly.
-- Staying illiterate can increase maximum hit point gain per level-up. 
-- Are the only role that can successfully tame and ride saber-toothed tigers.
-- Starting pet is a wolf (From UnNethack)
-- Brought over the wolfname option, so you can set it in your options file.
-
-#### Healer
-
-- are familiar with more health based potions
-- they start the game knowing potions related to healing: sickness, regeneration, paralysis, sleeping, restore ability, blood, and all healing potions. They also recognize healthstones.
-- Now receives the Drowsing Rod as a first sacrifice gift
-- added clerical spell school, can train to skilled. 
-- Gets poison resistance intrinsic at experience level 3 instead of experience level 1. 
-- Trades warning intrinsic for sick resistance at experience level 15. 
-- Can sense how wounded a monster is when attacking it, can also sense the wounded status of its pets.
-- Healers get +1 blessed scalpel now.
-
-#### Knight
-
-- numerous weapon skills adjusted (axe, broadsword, two-handed sword, 
-- polearms and spears from skilled to expert. 
-- Mace and morning star moved from skilled to basic). 
-- Attack and healing spell schools moved from skilled to basic. 
-- Knights can never tame dragons (they are natural enemies). 
-- Dwarven knights will start with a dwarvish bearded axe instead of a long sword.
-
-#### Monks
-
-- Can reach SKILLED in lightsabers
-- crossbow skill removed, added trident and broadsword;
-- tweaked skill advancement for weapons.
-- Gains an extra fist attack per round using martial arts skill at grand master level,
-- and also gains an extra kick attack (random) using martial arts skill at master level and higher.
-- Can break boulders and statues using martial arts skill at skilled level or higher (press shift + f and then a movement key in the desired direction).
-- Because of the extra random kick attack at master/grand master level, players will need to be mindful of wearing boots of some sort, as kicking a footrice/basilisk barefoot equals instant petrification.
-- Monks now receive extra intrinsics as they level up into the higher experience tiers (telepathy at 20, water walking at 23, stoning resistance at 25, disintegration resistance at 27, and sickness resistance at 30).
-- Reverted the starting spell of confuse monster; Monks can again start with the spell of sleep.
-- Monks get a 1AC bonus for being drunk (confused).
-- Reverted vanilla changes to starting spells. Monks start with sleep instead of confuse monster.
-
-#### Priest
-    
-- gets a +2 shield
-- all slash and pierce weapons removed; can only train with blunt-type weapons. 
-- Incurs a substantial to-hit penalty, abuses wisdom and can negatively impact alignment when trying to use an edged weapon (wielded or thrown).
-- Their crowning gift is Mjollnir.
-
-#### Ranger
-
-- Ranger obtains twoweaponing, up to skilled.
-- if playing as a gnome, their quest artifact becomes the Crossbow of Carl. Its properties mirror that of the Longbow of Diana, except that it is a crossbow instead of a bow.
-- XL10+ Rangers automatically see ammo enchantments
-
-#### Rogue
-
-- Rogues get scrolls of teleport and gold detection (2 each) and oilskin sack
-- Rogues also get darts; 30% chance that they are replaced with a pistol and bullets.
-- new trainable skill known as 'thievery', which allows the rogue to pickpocket a target and steal items from their inventory (must be bare-handed to use, press shift + f and then a movement key in the direction of the target).
-- If the target is peaceful, there is a chance the target will not notice depending on the players' skill in thievery.
-- Critical strike from behind works while twoweaponing.
-- Grimtooth is the first sacrifice gift for Rogues.
-- Give Rogues backstab bonus on a whole bunch of other monster statuses (xnh)
-- The backstab formula has been adjusted: Bonus based on skill with a cap.(xnh)
-
-#### Samurai
-
-- removed attack and clerical spell schools.
-
-#### Tourist
-    
-- Tourists get automatic type identification for shop items
-- Tourists get 2 extra magic maps, 2 extra food.	
-- Tourists start with all of their optional equipment. 
-- The magic marker that a tourist starts with is always 0:0.
-- Twoweaponing: Tourists from skilled to basic.
-- Tourists receive at most 1 PW per level up (they do not have any innate magic ability.)
-
-#### Valkyrie
-
-– removed escape spell school.
-- Special spell changed to repair armor.
-- Dwarven valkyries will start with a dwarvish bearded axe instead of a long sword, and are automatically proficient with it when using it to disarm weapons/shields.
-- Since Valkyries don't have access to Excalibur - they are able to get the powerful Gungnir as compensation. Simply get a spear, enchant it up to +5, then pray while you have "pious" alignment. Your god will turn the spear into Gungnir for you.
-
-#### Wizard
-
-- removed numerous weapons from being trained (axe, short sword, club, mace, polearms, spear, trident, shuriken). 
-- Enchantment spell skill raised from skilled to expert, 
-- clerical spell skill lowered from skilled to basic. 
-- Can sense if objects are magical in nature, much the same way a priest knows the beatitude of all objects.
-- Wizards start with magic whistles, harps, flutes, and drums identified. Wizards can see the magical nature of tools, so by process of elimination a wizard should know these objects. Otherwise we get an awkward situation of seeing a magical whistle, then it auto-identifies when used to a magic whistle.
-- New starting pet, the pseudodragon. 
-
-## Race changes:
-
-### New player races: 
-
-#### Centaurs
-
-#### Giants
-
-- Giants can wear mummy wrappings.
-- Any giant can wear large splint mail - not just Samurai.
-
-#### Hobbits
-
-- [x] Hobbit race (already in evil)
-- [x] Hobbits start out knowing Elbereth
-
-
-#### Illithids
-
-Starts with the Psionic Wave spell:
-    - Does 2d6 psychic damage
-    - Level 26, this increases to 4d6 psychic damage.
-
-#### Vampires
-
-- Vampirics get an extra attack – a drain life bite
-- Can only drain corpses and drink blood.
-- From Splice: Vampirics get almost double the nutrition from feeding on life blood, they start with both blood potions known.
-- Added amusing custom messages for draining corpses.
-- Vampires who wear an Opera cloak get a +1 Charisma bonus
-- Can be chaotic or neutral.
-
-- I tried to space out the intrinsics a bit, since it felt like vampires started out overpowered in Slash'EM - but also didn't benefit from Poison or Sleep that vampires usually enjoy.
-| Level | Ability             |
-| ------|---------------------|
-| Level 1: | Drain resistance    |
-| Level 1: | Wither resistance(*)    |
-| Level 1: | Vulnerable to fire  |
-| Level 3: | Breathless          |
-| Level 5: | Regeneration        |
-| Level 7: | Poison resistance   |
-| Level 9: | Flying              |
-| Level 16: | Sleep resistance    |
-| Level 21: | Sickness resistance |
-
-(*) mummies instead inflict regular physical damage to withering resistant monsters.
-
-Weaknesses:
-- Vulnerable to silver.
-- Vampires can wield and wear silver items, but it damages them and blocks their natural regeneration
-- Restricted in two-weapon skill.
-- Start with a small penalty to luck (-1) and alignment (-5)
-- Disabled #monster polymorph for the vampiric race.
-
-### Existing role changes
-
-#### Elves
-
-- Elves always start out knowing Elbereth.
-- Elves can use musical instruments without risk of breaking them.
-- Elves can always squeeze between two trees
-- Elves and rangers get alignment penalty for cutting down trees
-- Elves can only be lawful.
-
-#### Dwarves
-- Dwarves get an alignment bonus for cutting down trees
-
-#### Orcs
-- Orcs can never use Elbereth
-
-## The Quest
-
-- Various changes have been made to each role's Quest to make the experience more varied and interesting for the player.
-
-- The minimum experience level needed to be accepted for the quest has been lowered to 10 (from the default 14).
-- If you've made your quest leader angry for whatever reason, this no longer makes the game unwinnable.
-- You can engage them in battle, and if you kill your quest leader, this unlocks the quest. You can then complete your quest as you normally would. 
-- Take heed, quest leaders are not weak and can prove formidable to a mid-level player. Also note that your deity isn't exactly thrilled with you killing off your quest leader. 
-- Your alignment record can still be in the positive, but if you try any helm of opposite alignment shenanigans when it comes time to sacrifice the Amulet of Yendor at the endgame... interesting (read: bad) things can happen.
-
-- Abusing your alignment can have a direct effect on how your quest ends. 
-- Once you've defeated the quest nemesis and returned with your quest artifact and the Bell of Opening and speak with your quest leader, there's a chance they may ask you to actually return the quest artifact as they originally alluded to when you first accepted the quest. 
-- Alignment abuse is tracked throughout the game – having your alignment negatively adjusted by one point also counts as one abuse point (this can be checked at any time via #conduct, and compared to vanilla, more feedback when abusing alignment is given). 
-- Unlike your alignment record, which can be readjusted back into positive standing, your alignment abuse record is PERMANENT.
-- Getting one abuse point means there's a 1 in 50 chance your quest leader will ask you to give up the quest artifact. 
-- Racking up more abuse points increases those odds, to the point where if you've accumulated 50 or more abuse points, it's virtually guaranteed your quest leader will demand you return the quest artifact. 
-- You have two options at this point – either hand over the quest artifact peacefully, or decline. 
-- Declining will anger your quest leader, and they will attack. Handing over the quest artifact peacefully will flag the quest as complete. 
-- Declining to turn over the quest artifact does not complete the quest – at some point your quest leader will need to be defeated before the quest is flagged as complete. 
-- Also, attempting to evade your quest leader (whether they are peaceful or hostile) will do you no good in the long run, as the Bell of Opening has been 'cursed', and the only way to lift the curse is to complete the quest. 
-- The Bell will not function for the invocation until this is done.
-
-- Alternative scenarios have been taken into account, such as if you angered your quest leader before even starting the quest and you killed them, you simply need to defeat your quest nemesis to flag the quest as complete. 
-- Conversely, if you've killed the quest nemesis and return, but somehow anger your quest leader before you speak to them, killing them also flags the quest as complete. 
-- Some peace of mind – if you've never abused your alignment, your quest leader will never ask you for the quest artifact.
-
-
-## Shops
-
-- Shopkeepers can be a variety of different races; your race versus theirs directly affects pricing.
-- I removed the racial shopkeeper price adjustments 
-- (personally I love price identification so I couldn't get into this particular Evil change, but I still like the new racial shopkeepers)
-
-### Shopkeeper Services
-
-- Instead of every store offering a general Identify service - every
-  shop offers premier identify servies based on their shop type or the race of 
-  the shopkeeper.
-- Streamlined the service menu interface. Previously navigating the services
-  was tedious. Now when you press 'p', you are immediately presented with
-  a full menu of all the available services - no submenus within menus. 
-- Removed shk stealing all your money when you charge WoW 
-- Only Black Market can have the "identify any" service
-
-Firearms training service:
-- Instead of the weapon practice technique, this is now a shk service.
-- Gun shops always offer this up to expert skill.
-- Weapon shops, armor shops offer 20% of the time, up to max skilled.
-- General stores offer it 10% of the time, up to max Basic.
-- $500 for Basic skill
-- $1000 for Skilled
-- $2000 for expert?
-
-Tinker service:
-- Only gnomes offer this service
-- Allows you to upgrade an object to (usually) a better form, works the same as dipping an item into a potion of gain level.
-- In Slash'EM this was implemented as a technique, but here the service only takes 1 turn (we'll assume the shopkeepers are very good at tinkering or just cheating and using a hidden potion of gain level behind the counter)
-- Base charge is $500
-- Non-gnomes are charged double
-- Low intelligence (under 18 INT) players are subject to $100 price gouge
-- Lower intelligence (under 13 INT) players are subject to $250 price gouge
-- See the database on "upgrade" for a full list of eligible upgrades.
-
-#### Identify service details
-- All shops:        1 in 3 offer uncursing services.
-                    1 in 20 offer rumors
-
-- General stores:   0-2 random identify services,
-                    10% chance of having 1 extra identify service.
-                    20% offer firearms training
-                    25% offer basic charging
-
-- Weapon shops:		75% offer weapon ID
-                    20% offer armor ID
-                    25% offer weapon fixing
-                    25% offer weapon enchanting
-                    25% offer weapon poisoning
-                    20% offer firearms training
-- Armor shops:		75% offer armor ID
-                    20% offer weapon ID
-                    25% offer armor fixing
-                    25% offer armor enchanting
-                    (Note: Armor shops will refuse to work on dragon scales.)
-                    20% offer firearms training
-- Scroll stores:	75% offer scroll ID
-                    20% offer book ID
-- Spellbook stores:	75% offer book ID
-                    20% offer scroll ID
-- Potion stores     50% offer potion ID
-- Ring stores       20% offer ring ID
-                    20% offer amulet ID
-                    20% offer gem ID
-                    25% offer basic charging
-- Wand shops:		50% offer wand ID
-                    20% offer armor ID
-                    25% offer basic charging
-                    25% offer premium charging
-- Tool shops:       50% offer tool ID
-                    25% offer basic charging
-- Deli/food shops:	100% offer food ID
-                    10% offer potion ID
-- Pet shops:		50% offer food ID
-                    25% offer tool ID
-- Lighting shops:	10% offer potion ID
-
-#### Additional race specific services:
-
-- Dwarves:          20% offer weapon ID
-                    20% offer armor ID
-                    20% offer gem ID
-- Orcs:             25% offer weapon poisoning
-- Gnomes:           25% offer tool ID
-                    25% offer tinker
-- Giants:           20% offer gem ID
-- Nymphs:           10% offer ring ID
-                    20% offer potion ID
-- Hobbit:           50% offer food ID
-                    10% offer ring ID
-
-- Illithid:         25% offer scroll ID
-                    25% offer spellbook ID
-- Racial services are offered 25% of the time.
-
-#### New shop types:
-
-- [x] Pet Shops (From unnethack)
-- [x] Instrument Shop (From unnethack)
-- [x] Tin Shop ("canned food factory") (From unnethack)
-- [x] junk shop (from SpliceHack)
-    - Added fly swatter, rubber hoses, bag of rats, iron chain, tin opener.
-- [x] archery shop (from SpliceHack)
-    - Crossbows and bolts can now appear in archery shops.
-- [x] mask shop (from SpliceHack)
-- [x] Gun shops (from SlashTHEM)
-
-#### Misc shop changes
-
-- [x] Lighting shops can now carry wands/scrolls/spellbooks of light, as well as the rare wand of lightning.
-- [x] Delis can carry meat sticks, royal jelly, and huge chunks of meat.
-- [x] Hardware stores stock potions of oil, and rarely touchstones (xnh)
-
+                           
+# Hack'EM Changelog
 
 ## Credits
 
 ### Special thanks to:
 - My wife - for being endlessly patient with this time-consuming endeavor!
-- K2, amateurhour, qt
+- K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
+- amateurhour and qt for their endless debugging advice.
 
 ### Thanks: 
 - riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire
 
 ### Playtesters: 
-- nh2465, cbus
+- nh2465, cbus, shadowrider
 
 
 ==========================
 
+Version 1.1 (unreleased)
+
+
+Version 1.0 (released Dec 27, 2022)
+
+d4e2aced2 2023-01-01: "Updated included rcfile with new item appearances and misc fixes; sysconf now includes paranoid options.",
+6a980c4a4 2022-12-30: "Fix: Exploding bags of holding would crash. Fixes issue #141.",
+7b44316a7 2022-12-27: "Added wands to autopickup for default config.",
+c2a7a1219 2022-12-26: "Fix: create pool was instantly killing flying monsters.",
+b0c442546 2022-12-26: "Rebalanced the probabilities for shops; fixed so they all add up to 100.",
+23a52450d 2022-12-26: "Prevent archery or gun shops from generating if the player can't attain proficiency in those skills.",
+04e26380b 2022-12-26: "Added bagpipes and lutes to instruments shops.",
+cfc876314 2022-12-26: "Kegs can be recharged now.",
+3d071eb53 2022-12-26: "Fixed typo when dipping rustable item into potion of amnesia.",
+b58080cfd 2022-12-26: "Fixed placement of 2nd scrolls of earth in Soko.",
+81aa97b98 2022-12-26: "Made Ragnaros vulnerable to cold.",
+061c78a9e 2022-12-26: "Flame Mages get more Wisdom since that's their spellcasting stat.",
+5e68656d1 2022-12-26: "Undead Slayers can reach Master in Martial Arts instead of grand master in bare-handed combat.",
+1a38605fc 2022-12-26: "Removed Lavender Town from the minetown variants. It's just too difficult with the changes to undead and ghosts.",
+cb398cfda 2022-12-26: "Fixed a few more 1.0's to 1.0.0",
+adf064444 2022-12-26: "Changed some of the 1.0 to 1.0.0 to fix windows build.",
+b9e0a36fb 2022-12-26: "Fixed NETHACK_VERSION in a couple places.",
+736574196 2022-12-26: "Missed removing an #endif from mhmap.c",
+bcf07506a 2022-12-26: "Fix: mhmap.c not working for HackEM release version 1.0",
+6cbb57388 2022-12-26: "Updated CONTRIBUTING doc, removed some splicehack references.",
+a58d56101 2022-12-26: "Initial preparation for first release (1.0).",
+04ab75b74 2022-12-26: "Removed poison resistance at lev 18, moved sickness res back to lev 1.",
+6c1c13334 2022-12-22: "Moved the python scripts to util folder.",
+2071c7751 2022-12-22: "Reduced chances of nymph gardens slightly.",
+fdaafb93a 2022-12-21: "Fix: impossible (dmonsfree) when monster is killed by monster spells that call explode(). (evil)",
+3603d0e12 2022-12-21: "Updates to monsters wiki script, less attributes on the html page so it appears more condensed.",
+a81d7064d 2022-12-21: "Reduced will-o-the-wisp frequency further and increased difficulty to 7.",
+1b2fd5514 2022-12-21: "Bumped grizzly bear difficulty up to 8.",
+c2b3eabdc 2022-12-21: "Allow pokedex for shambling horrors in wizmode. (evil)",
+94a65d3e3 2022-12-21: "Fix: sequencing issue: dismounting from dying steed. (evil)",
+f72112f0e 2022-12-21: "Added AD_WIND handling to adtyp_str.",
+41a6ed9dd 2022-12-21: "Changed odds of item spawning with 2 properties to 1 in 3141.",
+17bdc5d65 2022-12-21: "Almost all of team a is now vulnerable to acid (bug spray)",
+4305b2b2d 2022-12-21: "Removed the Wand of Orcus. Orcus gets his standard wand of death now.",
+e53d2d4f4 2022-12-21: "Graz'zt no longer has an item stealing attack - replaced with physical attack instead.",
+164e23cd8 2022-12-21: "Increase potion of ESP to give telepathy for 500-1000 turns. If you already have telepathy, grants 250-500 more turns.",
+0ca03146a 2022-12-21: "Removed engulfing attack from gelatinous cube, water elemental, earth elemental, and fire elemental. The splice elementals (magma, mud, ice) still can engulf. I think this is more of a fair proposition because new players will be more likely to treat the unfamiliar elementals with caution and check their stats first.",
+013f7a622 2022-12-21: "Reverted the barbarian poison res change. Barbs start with poison res again.",
+5f007c8d9 2022-12-20: "Added a few quotes for flame mage, necromancer, and undead slayer.",
+081c22aac 2022-12-20: "Updated handling of youmonst for maybe_unhide_at. Fixes #132.",
+74e04524d 2022-12-20: "Fix: guard against monster casting a spell at an already dead monster. (Evil)",
+2ab9d13d0 2022-12-20: "Revert "Fix: Before casting a spell (in a polyd form) we check if the monster is still alive. Fixes #9."",
+7e7de8bca 2022-12-20: "Fix: hilite_pile shenanigans with ball & chain. (evil)",
+098d620b8 2022-12-20: "Fix: learning wielded weapon familiarity from unrelated thrown weapons. (evil)",
+7717055d1 2022-12-20: "Fix: some minor issues with spear traps. (evil)",
+f36cdd57d 2022-12-20: "Fix: wishing for an object with an invalid material in wizmode while fuzzing. Fixes #129.",
+3a46159cb 2022-12-20: "Fix: Before casting a spell (in a polyd form) we check if the monster is still alive. Fixes #9.",
+7c01cb526 2022-12-20: "Removed unused variable in polymon.",
+74af09cc8 2022-12-20: "Cthulhu is flying.",
+f5b86ffbc 2022-12-20: "Monsters won't get angry for falling into holes you made (they will still get angry for any other traps though.",
+bdbdae9d0 2022-12-20: "Fixed database lookup for Staff of Rot.",
+317220f74 2022-12-20: "Fix for breathing vapors of a potion of monster detection when there are no monsters on level. Fixes #130.",
+325935bcc 2022-12-20: "Fix for adding potions of mon/obj detection to potion breathe effects.",
+edee5fcc9 2022-12-20: "Updated potion breathing effects with xnh changes.",
+9a06a957f 2022-12-19: "Added maybe_unhide_at when grass is destroyed by death rays.",
+495e91663 2022-12-19: "Fix: Breaking a wand of death wasn't handled in mk_wandtrap.",
+4aa9077da 2022-12-19: "Iron Spoon of Liberation grants luck when carried, and stealth when wielded.",
+f94890ef7 2022-12-19: "Another fix for eel hiding in invalid square.",
+8de1b8b83 2022-12-19: "Removed demon attribute from Cthulhu so he can be killed by death rays.",
+24384f320 2022-12-19: "Finished importing the rest of the Cthulhu mechanics from un.",
+aaf02ec69 2022-12-19: "Another possible fix for eel hiding - reenabled mines rivers.",
+0cf20625b 2022-12-19: "Disabled mine rivers for troubleshooting.",
+7a8361d79 2022-12-19: "Potential fix for hiding eels issue (#106)",
+e032958d1 2022-12-18: "Vampirics should not get silver items on start.",
+7b1b1b4b8 2022-12-18: "Removed named 8-balls from Oracle, she still gets an eight-ball though.",
+3a625abf4 2022-12-16: "Couple small reversions to monster hiding code.",
+d08dbe9d8 2022-12-16: "Fix for wielding unlocking tool that breaks while unlocking a door.",
+43c772ecc 2022-12-16: "Renamed the Spear of Light back to Holy Spear of Light. This required disabling wishing for Holy x items. But players can still wish for holy water. Fixes #112.",
+c35a87651 2022-12-16: "Breaking a wielded unlocking tool resulted in obfree error. Fixes #128.",
+d28209ff8 2022-12-15: "Cleaned up the code with opera cloaks and vampirics.",
+500fbd653 2022-12-15: "Updated Bradamante's Fury - little more damage since it doesn't unseat monster riders anymore.",
+9385df253 2022-12-15: "Removed shock resistance from skullcrusher, gave it a small damage boost in compensation.",
+64be50072 2022-12-15: "Disabled monsters using scrolls of cloning - fixes #75.",
+e7069a727 2022-12-15: "Update to maybe_unhide_at to make sure eels get unhidden.",
+56bdc3a34 2022-12-15: "Wizards also start knowing magic lamps and magic candles. Wizards already see 'magical' when encountering these objects, and by process of elimination it is obvious these are the only options.",
+e1ab4e6a7 2022-12-14: "Fix: proper credit for passive disintegration. (evil)",
+2ba23b029 2022-12-14: "Fix: elemental vulnerability effects against monsters. (evil):",
+cb7f576cb 2022-12-14: "Refactor: encode artifact material in artilist. (evil)",
+8a9ab602f 2022-12-14: "Refactor non_wishable_artifact() (evil)",
+f2e01404e 2022-12-14: "Refactor a couple artifact functions (lawful/chaotic). (evil)",
+73d12ea71 2022-12-14: "Code formatting cleanup in allmain.c",
+c99522b7e 2022-12-14: "Remove SPFX_EXCLUDE. (evil)",
+1902f5771 2022-12-14: "Fix: paranoid_swim to use yes/no vs y/n. (evil)",
+bb7221331 2022-12-14: "Masks were not handling the creating of light sources for light emitting monsters. I handled that in apply_mask. Fixes #19.",
+a1ed8be92 2022-12-13: "Removed goblin outriders.",
+d8a8468ab 2022-12-13: "Fuzzer found a case where weight_cap returned 0 - causing a rnd(0) in litter. I adjustd weight_cap to return 1 at the minimum to prevent this. Fixes #125.",
+67e4f7518 2022-12-13: "Removed all traces of the longhall level (previously removed from the dungeon.)",
+da87ef141 2022-12-13: "Removed monsters riding steeds mechanic. Removed fell beasts, rider steeds, and red horse.",
+24d969bf7 2022-12-13: "Fixed description with Firewall when special attack triggers.",
+75859f0b3 2022-12-12: "Fixed is_bear when called with youmonst",
+99a162e9b 2022-12-12: "Removed unused variable in use_saddle",
+72b26dfd6 2022-12-12: "Removed unused variable in can_blnd.",
+ac61190a9 2022-12-12: "Potential fix for hiding issues.",
+53f0f9300 2022-12-12: "Being engulfed no longer auto-triggers being flanked.",
+606e1f2ce 2022-12-12: "Removed jermlaine village (might be causing bugs, or annoying, or both)",
+c94a45f40 2022-12-12: "Removed hardfloor from jermlaine level.",
+a7f31834a 2022-12-12: "Masks now show up in the (P)ut on menu.",
+54eacf645 2022-12-11: "Updated lenses database entry.",
+4b990612c 2022-12-11: "Fixed message when wearing a mask and attempting to wear other eyewear.",
+06fc11d46 2022-12-11: "Don't grant tame djinni from lamps/potions if player is petless. (evil)",
+9c12efbef 2022-12-10: "Fix: a few small mold-fermentation bugs (xnh)",
+6260f2536 2022-12-10: "Added AD_DREN to adtyp_str.",
+ec04501f1 2022-12-10: "Fire/frost horns deal (XL)d6 damage (fiq)",
+8c9a1d782 2022-12-10: "Decreased odds of eroded/erodeproof items to 1 in 75 instead of 1 in 40. Raised odds of greased items from 1 in 23263 to 1 in 3263.",
+e43db8291 2022-12-10: "If a bag of tricks is lootable or has no effects, then its charges are identified.(un)",
+6319e3059 2022-12-10: "Fix: empty bag of tricks were considered magical bags (un)",
+f5be842c2 2022-12-10: "Wearing items that give psychic resistance stop you from being afraid.",
+12917ba90 2022-12-10: "Removed debugging line for explosion.",
+900f0fc81 2022-12-10: "Removed initial breaking message for wand of fear - it doubled the actual fear message.",
+53a784aad 2022-12-10: "Revert "Added curses setup to sysconf."",
+94ba317f5 2022-12-10: "Poisoned daggers becoming unpoisoned will update in curses.",
+7c49d906f 2022-12-10: "Added curses setup to sysconf.",
+a043f2c29 2022-12-10: "Fixed dogname for starting dog.",
+67acc42ce 2022-12-10: "Healers are guaranteed a kitten as a starting pet. Before EvilHack, wizards started with kittens, but now they start with a pseudodragon.",
+f3bbb988e 2022-12-10: "Removed extra check for merging destroyable_oclass items - we just check if the erosion_matters. Fixes #123.",
+682e18d05 2022-12-09: "Wizards start with magic whistles, harps, flutes, and drums identified. Wizards can see the magical nature of tools, so by process of elimination a wizard should know these objects. Otherwise we get an awkward situation of seeing a magical whistle, then it auto-identifies when used to a magic whistle.",
+b8609ee93 2022-12-09: "Rays of acid dissolve grass.",
+77179e6f1 2022-12-09: "Eight balls can show up in junk shops.",
+fc70e1053 2022-12-09: "Fixed handling of vampiric attacks - fixes #121.",
+7b737611a 2022-12-09: "Adjusted the monsters on the neutral quest to more sane numbers.",
+ae59369be 2022-12-09: "Minions count as pets.",
+68ec31114 2022-12-09: "Your god will not grant a minion if you have maintained petless conduct. If you pet count ever changes to 1 or more, than minions are unlocked from sacrificing.",
+7ac2fedb7 2022-12-09: "The first level of sokobon always has 2 scrolls of earth.",
+70e3045a4 2022-12-09: "Fix: if poly form was killed from being hit by the Wand of Orcus, max hitpoints were not restored when reverting to original form. (evil)",
+0dc0fd08c 2022-12-09: "Secespita tweaks. (evil)",
+a4fc64517 2022-12-09: "Brain eating/amnesia can remove intrinsic telepathy.",
+53f16bfcb 2022-12-09: "Revert "Can not get permanent ESP from eating corpses anymore - added message for telepathy wearing off."",
+6b3e61e08 2022-12-09: "Removed debugging line for breakability.",
+f02c7a7b0 2022-12-09: "Fire bolt now prints correct message for hitting and missing.",
+9b84837b7 2022-12-08: "Remove random secret corridors (xnh)",
+802649a37 2022-12-08: "The sewers of waterdeep has healthstones instead of luckstones.",
+585e1e84a 2022-12-08: "breakability function correctly halves probability of breaking for each level of erosion.",
+fecad75bf 2022-12-08: "Removed killer mimics.",
+bfd712299 2022-12-08: "Fixed bad database listing for eight balls.",
+52ca5e322 2022-12-08: "Lenses now grant searching (fiq)",
+f133ef977 2022-12-08: "Updated monsters scraper to include all monster attributes in wiki page.",
+5ce8edcd3 2022-12-08: "Reverted unicorn to a dual-handed d12 weapon.",
+5097205ef 2022-12-08: "Fixed is_bear and refactored bear trap checks to use it.",
+2d94dfd9d 2022-12-08: "Fix: prevent impossible lighting a massive stack of candles. (evil)",
+762343a89 2022-12-08: "Suicide by wand. (evil)",
+0a9728e65 2022-12-08: "Enable -DEDIT_GETLIN for public server play. (evil)",
+8cfb13dd5 2022-12-08: "Edit macosx10.14 hints file for github workflow. (evil)",
+3edf417b0 2022-12-08: "Added 4 potions of unholy water to the lost tomb (dnh)",
+d87e3352d 2022-12-08: "Reduced the chances of toilets pairing with sinks.",
+81c7d0055 2022-12-08: "Fix: prevent things from generating inside trees on dungeon levels (xnh)",
+72cadcdcf 2022-12-08: "Fixed database listing for eight balls.",
+d0858dffe 2022-12-08: "Fixed some data leakage with item appearances when looking up an item via the database lookup.",
+023932f1b 2022-12-08: "Refactor: simplify testing for whether obj has specific description (xnh)",
+e5f679fa9 2022-12-08: "Second draft of items parser. Now generates a full wiki listing for all items. Some bugs remain.",
+1d76b97cb 2022-12-07: "Updated the item parser, it now is able to collect all data into a dictionary and display a basic wiki listing of the item types.",
+7fe212346 2022-12-07: "Fixed bug with healthstones. Not functioning correctly when effective level was above 9 while real level was below 9.",
+417d847ac 2022-12-07: "Added database entry for eight ball.",
+800adcf95 2022-12-07: "Removed the Magic 8-Ball, ordinary eight balls can be read like the artifact. Eight balls don't generate randomly, but are dropped rarely from plastic golems.",
+29cc0275b 2022-12-07: "Added more tool database lookups.",
+db30da2e0 2022-12-07: "Adjusted musical instruments to be break dependant on their material/buc/erosion (like unlocking tools)",
+dd306406e 2022-12-07: "Created a breakability function to calculate the odds of breaking items based on material, BUC, and erosion. Applied this to unlocking tools. Also fixed a bug where breaking unlocking tools was checked twice.",
+4cd7f32e6 2022-12-07: "Added most tools to the lookup database.",
+0e72abd38 2022-12-07: "Torches deal double damage vs monsters that resist cold.",
+eb537106f 2022-12-06: "Vampirics start with drain resistance.",
+7f384c2a3 2022-12-06: "Izchak occasionally stocks wand/scroll/spellbook of light(xnh)",
+85449a2f4 2022-12-06: "Vampirics can be neutral now.",
+9052f3d3a 2022-12-06: "Implement pouring potions down sinks (xnh)",
+29abcf12c 2022-12-06: "Open graves rarely generate in graveyards (xnh)",
+3a9878e93 2022-12-06: "Fixed disguises for convicts again.",
+7aed83fd3 2022-12-06: "Removed MH_VAMPIRE from player monsters (for now) - might be causing issues when mplayers get silver items.",
+f8953971a 2022-12-06: "If a player tries to light enough candles so that the max light radius is breached, we set the range to the max radius. Fixes #115.",
+5fd91bde4 2022-12-06: "Wiz genesis can create ghoul queens now. Fixes #119.",
+93f2f31d7 2022-12-06: "Fixed segfault when a toilet tries the third time to eject a large tool. Fixes #118.",
+43e298918 2022-12-06: "Adjusted auto-id of water walking boots when walking on lava. Fixes #116.",
+6881a6d94 2022-12-06: "Enable -Wimplicit-function-declaration and -Wimplicit-int.",
+e1ddfe665 2022-12-06: "Fix: enable -pedantic and -Wunreachable-code, correct warnings revealed.",
+cc02f522d 2022-12-06: "Fix: enable -Wstringop-truncation and -Wunused-result, correct warnings revealed.",
+14566dede 2022-12-06: "Fix: 'Your body rises from the dead as a human zombie...' as an illithid.",
+93a9bfddb 2022-12-06: "Update various hints files (clang, hints for github workflow).",
+ced0ef687 2022-12-06: "Fix: add some missing 'ifdef REALTIME_ON_BOTL' statements.",
+5375d2472 2022-12-06: "Add realtime display option.",
+38020fad4 2022-12-06: "Fix: 'dmonsfree: 1 removed doesn't match 2 pending' when knocking back a monster into a pool/lava via force bolt/wand of striking.",
+d2fdd3570 2022-12-06: "Added eel handling to maybe_unhide_at.",
+0815dd938 2022-12-06: "Fuzzer can't use wiz_clear; can result in vault guards dying on (0,0). Fixes #117.",
+cecf6436f 2022-12-05: "Added lookups for candles, camera, and lamps.",
+d25dd2cb3 2022-12-05: "Extra hallucinatory adjectives for monster wounds (xnh)",
+8e4f8774e 2022-12-05: "Disabled random generation of trees.",
+4926c0492 2022-12-05: "Added The Giant Caves from slashem to the Lost Levels branch.",
+9e7dc25c0 2022-12-05: "Imported rats level from SlashTHEM.",
+caf46f4ce 2022-12-05: "Cleaned up rats.des and tomb.des",
+1582fd38f 2022-12-05: "Consolidated sunless sea and spider caves into the lost tomb levels - now appears as the The Lost Levels branch.",
+decf394a8 2022-12-05: "Fixed incorrect depth generation in mines river generation.",
+2a3f81bf8 2022-12-05: "Consolidated nymph and jermlaine levels into the rats levels.",
+15073fc58 2022-12-05: "Removed second bigroom - the bigroom can appear from 10-35.",
+89af7ae6f 2022-12-05: "Simplified the wyrm caves. Now it consists of just the passageway levels, an entry and ends with dragon nest. Also now 5-6 levels deep.",
+b94e7eca7 2022-12-05: "Removed rivers from the wyrm caves, moved them back to the gnomish mines - but they only appear after minetown.",
+d6957af32 2022-12-05: "Removed lethe branch",
+c9d802e55 2022-12-04: "Convicts can get backstab bonuses while wielding spoons. Bumped spoon up to 1d2 vs all so there is a chance to trigger the bonus vs large.",
+43e82380f 2022-12-04: "Ported some tweaks to the vampiric race from Splice. Vampirics get almost double the nutrition from feeding on life blood, they start with both blood potions known, and have some stat changes.",
+91e52b474 2022-12-04: "Fixed order of tilemap.c to accomodate vents.",
+14f7146a8 2022-12-04: "Fixed out of bounds with mkvent. Fixes #114.",
+4b54db641 2022-12-04: "Second part of importing vents - grass is correct tile again, vents are enabled in the level compiler.",
+63ff25aac 2022-12-04: "Initial import of vents - unstable.",
+ce95c4f4c 2022-12-04: "Reduce eucalyptus leaf nutrition to 1 (xnh)",
+1aee5d1dc 2022-12-04: "Fix: concealed_spot() wasn't used extensively enough for hiders (xnh)",
+897dbf1e7 2022-12-04: "Add gilded random wand appearance (xnh)",
+c5f34c7ae 2022-12-04: "New cmd: #wizclear (^c), clears all monsters on level (splice)",
+53ec9521d 2022-12-04: "Block camera muse if player wears lenses/blindfold (splice)",
+70ca64f31 2022-12-04: "Add hallu to the effects of fountains in Delphi (splice)",
+6a2136885 2022-12-04: "Wish parser easter eggs. (splice)",
+80a069fa2 2022-12-04: "Add more wand-engraving cases for Hallu and Blind (splice)",
+813c103f0 2022-12-04: "Death rays kill grass (splice)",
+47755b835 2022-12-04: "Generate trees throughout the dungeon. (splice)",
+21667daf9 2022-12-04: "Add 1/7 chance for polytraps to disappear after polymorphing a monster. (splice)",
+9a2fcc3e0 2022-12-04: "Fix: Sunsword and Trollsbane destroying corpses from a distance.",
+58cd9ff1c 2022-12-04: "Removed M2_SHAPESHIFTER from vampiric.",
+79e900077 2022-12-03: "Fix: Updated rest of destroy_arm calls.",
+db1246750 2022-12-03: "Orc captains now are lords and have speed 9 (xnh)",
+7e5f28226 2022-12-03: "Small fix for scroll of light: iterate map starting at 1 (xnh)",
+1f3bcd26b 2022-12-03: "Buff the effects of the scroll of light (xnh)",
+e8b930a95 2022-12-03: "Blessed scroll of destroy armor asks which armor to destroy (xnh)",
+25a4519f4 2022-12-03: "Hardware stores stock potions of oil, and fewer touchstones (xnh)",
+4157e346b 2022-12-03: "Tool shops now stock touchstones with a 7% chance (xnh)",
+cd608d634 2022-12-03: "Fix: sling stone instakill triggered on non-critical hits(xnh)",
+c3a604481 2022-12-03: "Reduced the chances of getting a wish from a pill to 1 in (25 - luck) if you get the wish effect.",
+13cfe6e42 2022-12-03: "Fixed convict disguises with towels and blindfolds.",
+c5d8fe968 2022-12-03: "Fix: use-after-free with engulfer in xkilled().",
+44f4440b7 2022-12-03: "Walking near buried zombifying corpses wakes them up (xnh)",
+f4c45c47f 2022-12-03: "Fixed missing cap adjustment in rogue backstab (xnh)",
+addc890c2 2022-12-03: "Give Rogues backstab bonus on a whole bunch of other monster statuses (xnh)",
+b61d17ac6 2022-12-03: "Adjust backstab formula: apply a cap and give a bonus based  on skill(xnh)",
+44c505303 2022-12-03: "Thrown items can get stuck in webs (3.7)",
+01297a9c9 2022-12-03: "Allow wishing for monsters in wizmode (un)",
+626ee203f 2022-12-03: "Vampiric players are now immune to withering attacks; mummies instead inflict regular physical damage to withering resistant monsters.",
+693236e22 2022-12-03: "Fixed blood colors for orcs.",
+d3991c141 2022-12-03: "Added lookup info for containers.",
+3dd55e167 2022-12-03: "Orcs have black blood.",
+37160599d 2022-12-03: "Revert "Removed unused parameter from blood_color"",
+b010f3daf 2022-12-02: "Silenced a couple more easy compiler warnings.",
+aa961f0d3 2022-12-02: "Silenced another round of compiler warnings.",
+385db3d28 2022-12-02: "First draft of an objects scraper.",
+f13fe382f 2022-12-02: "Fixed some int/float conversion issues.",
+4c299e3fb 2022-12-02: "Fixed some signed/unsigned int comparison mismatches.",
+ec15358b1 2022-12-02: "Silenced more C4113 warnings.",
+cd2c8050a 2022-12-02: "Another attempt to silence warning C4113 for set_whetstone.",
+c518b4307 2022-12-02: "Revert "Attempt at silencing compiler warning C4113"",
+0b53fb3d3 2022-12-02: "Attempt at silencing compiler warning C4113",
+29488286c 2022-12-02: "Fixed several quest text messages errors.",
+ce90df95a 2022-12-02: "Fixed duplicate msg error in quest.txt",
+faf10156b 2022-12-02: "Reverted quest text changes.",
+a91febf45 2022-12-02: "Even more compiler warnings silenced. Some quest data fixed.",
+b9f9eafb8 2022-12-02: "Added note about monster info to top of monster scraper output.",
+8f61f76ed 2022-12-02: "More silencing compiler warnings.",
+6fab9bc1c 2022-12-02: "Silenced a bunch of compiler warnings.",
+d800b970a 2022-12-02: "Silence warning for timeout parameter in ferment()",
+558d9d0ed 2022-12-02: "Refactored gem alchemy to silence compiler warnings.",
+8e1de6491 2022-12-02: "More fixes for splice tiles.",
+c5c1c1ca1 2022-12-02: "Fixed some tiles imported from splice that had weird grayscale issues.",
+ce6694674 2022-12-02: "Reverted change to scrolls of gold detection - they can again detect magic portals.",
+b5d29d60b 2022-12-02: "Added grass to town branch entry and pleasant valley.",
+0547944c9 2022-12-02: "Added grass to rats and nymph levels.",
+f417c6160 2022-12-02: "Added grass to oracle room.",
+a6d40eaa6 2022-12-02: "Fixed wishing for Chains of Malcanthet. However this breaks wishing for multiple iron chains - but who would wish for that? Fixes #111.",
+5af0de66d 2022-12-02: "Fixed wishing for Whisperfeet. Fixes #110.",
+9650c2aab 2022-12-02: "Added last updated field to monster scraper.",
+70dd55246 2022-12-02: "When hit with amnesia, a shopkeeper will forget banned status. However, they might still be angry from a thrown potion.",
+11de60efd 2022-12-02: "Reset vampire convicts nutrition to 999 at start of game, any higher and the satiated status appears on turn 2 which feels awkward.",
+2e273618a 2022-12-02: "Added speed, AC, and MR fields to monster scraper output.",
+797a0f15d 2022-12-02: "Convicts can wear blindfolds or towels to disguise themselves from watchguards.",
+ec6cfb991 2022-12-02: "Fix: potion merging ignored different oerodeproof (xnh)",
+e6d1af475 2022-12-02: "Reduced frequency of darkening monsters.",
+dfbc97b07 2022-12-02: "Fixed failed kicks (or kicks while wounded) triggering other commands.",
+a773fa402 2022-12-02: "Fixed memory leak in dokick for toilets. Fixes #108.",
+048fa801d 2022-12-01: "Fix for monster attacking us with torch and it erodes away. Fixes #109.",
+7baeb2f79 2022-12-01: "Swamp kobolds only generate randomly in swamps.",
+189b10bc1 2022-12-01: "Added some firey monsters to likes_fire.",
+c3a987f5b 2022-12-01: "Wax golems are vulnerable to cold and like fire.",
+ea6e69e24 2022-12-01: "Reduced the chances of dwarves carrying torches.",
+589289f74 2022-12-01: "Corrected line in monster scraper listing new monsters.",
+bf7de27c9 2022-12-01: "Vampire convicts start out satiated.",
+9d32fac50 2022-12-01: "Monster scraper now shows mon symbol; better formatting of attacks, and parsed generation options.",
+ba0fc4037 2022-12-01: "Fix: avoid segfault when null obj passed to water_damage() (evil/3.7)",
+e58bb4f44 2022-12-01: "Fix: minor feedback issues with Nazgul's scream attack. (evil)",
+3976deb5d 2022-12-01: "Nazgul shouldn't wear the rings of invisibility they carry. (evil)",
+f965196e7 2022-12-01: "Added monster symbols to monster scraper.",
+5e5f1ec8c 2022-12-01: "Added AT_TYPES and AD_TYPES to monster scraper.",
+736ab255f 2022-12-01: "Monster scraper can now generate basic info for wiki in a table.",
+152d36b1b 2022-12-01: "Readded black mold tile.",
+d56eb42c2 2022-12-01: "Removed the M1_MARSUPIAL tag.",
+423f86306 2022-12-01: "Monster scraper can scrape more info and get through all monsters now. Cleaned up monst.c to be more friendly with parsing.",
+aed6f77a7 2022-12-01: "Revision of monster scraper - all monster info is now extracted.",
+186fc6a05 2022-12-01: "Fix: Monsters leaving eroded/erodeproof corpses.",
+bc8a5a72c 2022-11-30: "Fix: wishing for a helm of telepathy / gauntlets of fumbling. (from evil)",
+5f99dd584 2022-11-30: "Revert "Quick fix for wishing for helms of telepathy - changed telepathy property to perception property."",
+93a13c47d 2022-11-30: "Fix: Grass no longer generates in shops. Previous fix didn't work.",
+9bb892234 2022-11-30: "Fix: Shopkeeper was not showing a msg for no services.",
+21f6490ac 2022-11-30: "Fix for m_initthrow change that didn't port well from xnh.",
+9203a8b58 2022-11-30: "Fix: a couple more cases where objects shouldn't generate eroded (xnh)",
+b3c1fd09c 2022-11-30: "Fix: artifact gift was eroded (xnh)",
+d716874e6 2022-11-30: "Fix: wished-for items with unspecified erosion shouldn't be eroded (xnh)",
+cea35cae4 2022-11-30: "Refine rules for generating eroded/fixed items (xnh)",
+344cb5e56 2022-11-30: "Fix: worm teeth generating eroded or erodeproof (xnh)",
+6abd44ac2 2022-11-30: "First draft of monster scraping tool.",
+56f1e7cbc 2022-11-30: "Missing tab in light damage description.",
+f4c6474d1 2022-11-30: "Removed the staff of withering from objnam.",
+a96d0396e 2022-11-30: "Fixed running on grass and added the ability to run over ice without stopping (still stop when slipping though).",
+e00aef4f8 2022-11-30: "Walking over blood has less chance of wiping it away.",
+37d61c50e 2022-11-30: "Ice mages can get basic skill in quarterstaff.",
+2da3f9c4d 2022-11-30: "Rays of water (from wands of water/sea dragon) clean up blood stained tiles.",
+f4456300b 2022-11-30: "Removed shadow monsters from chaotic minions.",
+7544f69f9 2022-11-30: "The amount of blood depends on monster size.",
+e243cac8f 2022-11-30: "Removed fountains and forges from concealable spots.",
+4f3fa426e 2022-11-30: "Iced floors and corridors from scrolls of ice are permanent - but previous ice is temporary. Fixes #104.",
+0aaf78445 2022-11-30: "Added missing return to do_iceflood",
+029bea5d8 2022-11-30: "Added missing break to scroll of ice.",
+f9e3d0ba6 2022-11-30: "Added lookup info for gray stones.",
+db29770aa 2022-11-30: "Fix: various issues with monster wishing. (from evil)",
+e94b83bc0 2022-11-30: "Fix: add null check for mdef in explum(). (from evil)",
+9db85da52 2022-11-30: "Fix: use-after-free when fountain dipping. (Evil)",
+d70889865 2022-11-29: "Quick fix for wishing for helms of telepathy - changed telepathy property to perception property.",
+59187e4d4 2022-11-29: "Removed some erroneous mpickobj remaining in mmake_wish. Fixes #103.",
+2a32ed7e2 2022-11-29: "Updated database with armor entries.",
+cb8bbb7d3 2022-11-29: "Removed some remaining snowball spell code.",
+241f26b7f 2022-11-29: "Poisonous cloaks now give MC3, usually generate cursed, and prevent regenerating while wearing (even with poison resistance).",
+7976d7a42 2022-11-29: "Robe of protection explicitly provides MC1.",
+c7b5d9eab 2022-11-29: "Updated tinfoil hat to match closer with Un: Weighs 0, made out of METAL. Top hat also weighs less. Kept both prices at 50 for more challenging price id.",
+e2518da70 2022-11-29: "Only archeologists get a luck bonus from wearing fedoras.",
+ecbf3685e 2022-11-29: "Fixed spellbook tiles.",
+db9bc4abc 2022-11-29: "Added conical hat info to db.",
+35112079d 2022-11-29: "Removed spell of snowball spellbook from tiles.",
+1498d4413 2022-11-29: "Added more database info for weapon specifics.",
+de97ee4ac 2022-11-29: "Another fix for regeneration potion tile.",
+5fa6deac6 2022-11-29: "Fixed pot of regeneration tile.",
+99a27954f 2022-11-29: "Added lookup info for foods that cause slippery fingers.",
+984738984 2022-11-29: "Added tiles for new appearances. Added new scroll description reference for Dark Tower (there had to be at least one right??)",
+3d27f0dea 2022-11-29: "Fixed tiles for potions of regen and healing.",
+67092daaf 2022-11-29: "Formatted some black market related code.",
+e0ce80233 2022-11-29: "Wand of light can (rarely) show up in a lighting store. Wand of lightning can also show up in a lighting store, in honor of the lightning typo. (un)",
+bc885f9c9 2022-11-29: "Removed the snowball spell.",
+3558336c0 2022-11-28: "Object lookup: gem alchemy info on gems (un)",
+4ee8a0589 2022-11-28: "Smaller chance of gem alchemy failing randomly (un)",
+44ef0999c 2022-11-28: "Some minor changes to gem alchemy colors.",
+fcf6798c6 2022-11-28: "Gem alchemy (from Un, from dNetHack)",
+048475068 2022-11-28: "Enabled prob field for rings again - enables more random ring appearances.",
+3947e43a6 2022-11-28: "Added maybe_unhide_at to a few more places where puddles were being dried up.",
+204da870f 2022-11-28: "Refined fix for dipping acid into fountains.",
+eac2e0939 2022-11-28: "Can wish for unihorn now.",
+75e0aadb3 2022-11-28: "Added more wand and scroll appearances from splice",
+b12c847b3 2022-11-28: "Added a bunch of item appearances from Unnethack",
+ebd86c2f4 2022-11-28: "Removed unused parameter in back_to_defsym",
+845dc04c9 2022-11-28: "Removed unused parameter from blood_color",
+223afa7da 2022-11-28: "Automatically identify acid in water explosions (xnh)",
+6ff5e1aae 2022-11-28: "Grass should not appear in shops.",
+303dbd6e2 2022-11-28: "Adjusted grass frequency.",
+9195c4027 2022-11-28: "Lynx, panther, jaguar, goat, giant flea can now jump.",
+0c2a64b1e 2022-11-28: "Added some nature to the monk quest; refined grass on barb quest home.",
+c764d9e24 2022-11-28: "Added trees and grass to some of the large themed rooms.",
+2cd2b1a0d 2022-11-28: "Added grass to the barbarian level",
+390d7ea35 2022-11-28: "Fixed running on grass and most tiles (not grass) show that it's bloody when looked at.",
+cfada6e88 2022-11-28: "Give tourist at most 1 PW per level up (un)",
+47255de22 2022-11-28: "Fixed grunds maze not generating properly.",
+3c722b52c 2022-11-28: "Fix: Magicbane should not cancel inventory items (un)",
+7c7746966 2022-11-28: "Improve branch location placement (un)",
+0ed001537 2022-11-28: "A lawful vampiric player no longer reverts to vampiric form after prayer. (un)",
+b1fd0afa9 2022-11-28: "Elemental Planes each have one thematically relevant scroll somewhere on the level. (un)",
+69691c97b 2022-11-28: "Galloping duration depends on riding skills (idea by Beolach, code by Pasi Kallinen)",
+10f2e5fd9 2022-11-28: "Prevent Cthulhu's inventory from being shown when probed (un)",
+936f5c9b1 2022-11-28: "Additional encyclopedia entries (mostly from UnNetHackPlus).",
+9b648c38f 2022-11-28: "Flame Mages can be gnomes.",
+af8ef2f7a 2022-11-27: "Dragons and Xorns eat hard gems (un)",
+1f2676307 2022-11-27: "Removed the Quest turn limit (un)",
+6d25d3e1f 2022-11-27: "Autoidentify BUC of products from BUC identified item generator (from UnNetHackPlus).",
+3c0edb3bc 2022-11-27: "Grimtooth is the first sacrifice gift for Rogues",
+188f3dec8 2022-11-27: "Updated database entry for ki-rin",
+a85fa9eca 2022-11-27: "Fix: glass ring wasn't GLASS material.",
+c65d3c873 2022-11-27: "Fix drunken boxing to improve AC, not increase it. (bug found by Guest_41) (un)",
+f0f2fb5c9 2022-11-27: "Monks get a 1AC bonus for being drunk (confused). Also adds an associated rumor. (un)",
+eab1a1b68 2022-11-27: "The frequency of Rodney's harassment of the player now slightly depends on luck. (un)",
+1a8ede60f 2022-11-27: "Make rustproof/erodeproof/fixed known by default (from DynaHack).",
+39c5483a9 2022-11-27: "Remove repeated coughing of player when poison resistance renders stinking clouds harmless. (un)",
+45fb7004b 2022-11-27: "Make 1-damage hits still train weapon/unarmed skills (from DynaHack).",
+d7c67bf66 2022-11-27: "Putting blessed and uncursed scrolls of charging into a bag of tricks charges it (un)",
+ee0a1461b 2022-11-27: "Level with trees have a chance of an additional axe (un)",
+01dbdb519 2022-11-27: "Monster lookup: add info about vampiric feeding (un)",
+22553037e 2022-11-27: "Increase weight of giant beetle and giant spider (un)",
+33f55dd3f 2022-11-27: "Prevent monsters from picking up gold in shops (un)",
+8b06ab5fc 2022-11-27: "Remove random secret corridors (un/xnh)",
+6aefd663e 2022-11-27: "Improved wording for slippery corpses (Un)",
+1bb60dff2 2022-11-27: "Encyclopedia entry for iron safe. (Un)",
+a2b1a3d8e 2022-11-27: "Encyclopedia entry for giant turtles. (Un)",
+482491f2a 2022-11-27: "Additional encyclopedia entries (by L). (Un)",
+cbd60f51f 2022-11-27: "Dipping a potion of acid into a fountain causes 6 + d10 damage. Halved by acid resistance.",
+dcf3b4f8b 2022-11-27: "Fixed heap-use-after-free when dipping acid into fountains. Fixes #102.",
+277e69cbc 2022-11-27: "Updated tilemap to adjust for adding grass.",
+cf5eba86d 2022-11-27: "Added tile for grass.",
+027da5fb0 2022-11-27: "Since hiders can hide under different furniture/grass now, added checks for maybe_unhide_at when those things are destroyed.",
+aaf97d19d 2022-11-27: "Added fountains to furniture hiders can hide under.",
+7d4f04bc0 2022-11-27: "Another fix in mattacku for hidden player.",
+37289ae2c 2022-11-27: "Cleaned up the unhiding code in mhitu when the player is hidden.",
+85b93287d 2022-11-27: "back_to_defsym now handles toilets and forges.",
+8e7b3fd2f 2022-11-27: "maybe_unhide_at is now using concealed_spot instead of OBJ_AT",
+107d39803 2022-11-27: "Added FORGE and TOILET to concealed_spot",
+c19379dc4 2022-11-27: "Added is_grass",
+8d7383e86 2022-11-27: "Monsters should not hide under spirits (fix for previous fix, I was referencing otyp when I should have been using oclass for SPIRIT_CLASS",
+fbde01676 2022-11-27: "Fix funky display of 'covered in blood' for some terrain",
+bdd8009de 2022-11-27: "Fixed issues with teleporting onto grass and monsters generating on grass.",
+0d0c09010 2022-11-27: "Ascii blood splatters.",
+dd3be5e71 2022-11-26: "Allow wizard mode wishing for grass",
+ceb0c2862 2022-11-26: "Dying on a corridor or grass leaves a grave in bones",
+80f13fb75 2022-11-26: "Sanity check for hiding monsters now uses concealed_spot instead of just checking for an object.",
+7d3caf177 2022-11-26: "Grass will appear randomly in the dungeon (splice). I plan on changing this so the first levels are so covered.",
+d9070418e 2022-11-26: "Fix for previous update to somexyspace.",
+1abe8bab7 2022-11-26: "Added S_grass to a few more places.",
+6035a5c6e 2022-11-26: "Add grass (and ice) to the list of valid targets for somexyspace()",
+153b84f6f 2022-11-26: "Fix: grass was described as 'a grass'",
+d5950f7db 2022-11-26: "Fire scorches away grass and reverts it to normal floor",
+5226ef4c1 2022-11-26: "Monsters can now hide under grass and some other features",
+6198b82c5 2022-11-26: "Don't treat grass as a bad_position",
+a667305c3 2022-11-26: "Fix: 'There is a grass here.'",
+26247075e 2022-11-26: "Toilets are now correctly parsed by the level compiler.",
+5ae9421bf 2022-11-26: "Enable grass to be specified in the level compiler (xnh)",
+c392c7449 2022-11-26: "New terrain type: grass (xnh)",
+13274dec1 2022-11-26: "Deli's can now sell meat sticks, royal jelly, and huge chunks of meat.",
+c576dd858 2022-11-26: "make the spoon 1d2 vs small, just so it has *some* functionality for a convict",
+b9a1e8a63 2022-11-26: "Moved pickaxe back to start of weptools (trying to avoid any potential order issues)",
+6d57fa593 2022-11-26: "Flame Mages like fire.",
+d1923ec9b 2022-11-26: "Updated Charon's message about gate.",
+26e5e4f5f 2022-11-26: "Baalzebub, Geryon, Dispater are back to being a princes (demoted from lords).",
+a9b510785 2022-11-26: "Add celibate conduct (xnh/slashem)",
+41a96c644 2022-11-26: "Dissolving cursed mold in juice will turn it into sickness (xnh)",
+4281623f3 2022-11-26: "Only nymphs and mermaids introduce themselves when seducing. Re-enabled seduce attack for shambling horrors.",
+ca157ddb2 2022-11-26: "Added a default case for mmake_wish to prevent null otmp.",
+9ad047664 2022-11-26: "Imported dnh appearance effects for mud boots, jungle boots, combat boots, hiking boots, old gloves, padded gloves, and fencing gloves.",
+afe34a17b 2022-11-26: "Fix problem with mintroduce and shambling horror (removed seduce attack from horror for now)",
+607e44b87 2022-11-26: "Moved amulet of ESP back to first in amulets - fixes order problems.",
+4303df3a0 2022-11-26: "Moved ring of protection from shapechangers back to end of list of rings to avoid potential order problems.",
+12cf80880 2022-11-25: "Implement monster introducing from SpliceHack (xnh)",
+30c0ff991 2022-11-25: "Incorporate Malcolm Ryan's Brewing Patch (xnh)",
+298710446 2022-11-25: "Allow forcefighting of webs with a bladed weapon to destroy them (xnh)",
+4d5968bbd 2022-11-25: "Default shk sell prompt to N (xnh)",
+510e93e9b 2022-11-25: "Add few hallu colors (I also copied all hcolors from xnh)",
+49bb65d40 2022-11-25: "Port FIQHack's ring initial enchantment rules (xnh)",
+fe5294d5b 2022-11-25: "Fix: wishing for wax candle could randomly give tallow candle (xnh)",
+f0ff2acfd 2022-11-25: "You can reread a spellbook to refresh your memory at any time (xnh)",
+14c3f208d 2022-11-25: "Replace awful You feel cold msg when a door is destroyed out of vision by cold damage. (xnh)",
+fd118c97b 2022-11-25: "Make the hunger property halve nutrition from food (xnh)",
+5cc97c324 2022-11-25: "Monsters can use magic flutes (xnh)",
+531d2f807 2022-11-25: "Double alchemic blast damage, but make acid resistance halve it (xnh)",
+68561d1f7 2022-11-25: "Imps and others cussing the hero wake up nearby monsters (3.7)",
+4379009ae 2022-11-25: "Lowered spell of slow monster to lvl 1 (xnh)",
+7bd1e97a2 2022-11-25: "Rebalance some roles' starting attributes (xnh)",
+ef37b0b54 2022-11-25: "Don't erase Elbereth when monster steps into a pit or hole  dug by you",
+74db2cfaa 2022-11-25: "tweaks to role-specific prediscovered objects (3.7)",
+bf85323ce 2022-11-25: "Prevent ghosts from being renamed (xnh)",
+a12cf4000 2022-11-25: "Make the Castle drawbridge not always close with the passtune (xnh)",
+0bf972915 2022-11-25: "Sling buffs: strength bonus, potential to instakill H (xnh)",
+f4e5ed84c 2022-11-25: "Comment clarifying martial arts clumsy kick replacement code. (xnh)",
+9acc836a1 2022-11-25: "Update to geyser/iron golem interaction.",
+bcb704c72 2022-11-25: "Make trappers and lurkers above mindless (xnh)",
+f6e4f133a 2022-11-25: "Elves can always squeeze between two trees (xnh)",
+6bc47af22 2022-11-25: "Fix: message formatting of moldy corpse (xnh)",
+8eb30f3a5 2022-11-25: "Port the Oily Corpses Patch (xnh)",
+bb9ec8fed 2022-11-25: "Make it easier on the player when kicking unknown secret doors/corridors (xnh)",
+fccf18ef4 2022-11-25: "Restful sleep regenerates hp (3.7)",
+8f16ad651 2022-11-25: "Show the last turn the player prayed in the ^X screen (xnh) AND how many turns ago that was.",
+d7e87cb99 2022-11-25: "Flag some additional monsters as herbivorous and carnivorous (xnh)",
+9371903b2 2022-11-25: "Skeletons rarely drop skeleton keys (xnh)",
+0a6bc7807 2022-11-25: "Teleporting any distance will identify the scroll of teleportation (xnh)",
+2a9f59c6f 2022-11-25: "Towels should weigh more than blindfolds (xnh - but I bumped up to 10)",
+6454174a1 2022-11-25: "Potions of hallucination can give enlightenment (xnh)",
+05b7fd080 2022-11-25: "Tigers rarely drop a tiger eye ring when killed (xnh)",
+63dbe5cfb 2022-11-25: "Random doors are secret less of the time (xnh)",
+a947647ad 2022-11-25: "Generate random harps for Angels and Aleax (xnh)",
+4c1d2a196 2022-11-25: "Make rope golem have some death drops (xnh)",
+7f68ad630 2022-11-25: "Deliberate level teleporter activation ignores magic resistance (xnh)",
+8de45e3a2 2022-11-25: "Give the Oracle a potion of hallucination sometimes (xnh)",
+e1c639f4f 2022-11-25: "Stop giving Monks You feel guilty message eventually (xnh)",
+49a0e2e34 2022-11-25: "YAFM when confused reading a blank scroll (xnh)",
+6e21e4ff2 2022-11-25: "Confuse monster spell is again level 1.",
+0f7c75180 2022-11-25: "Hobbits may carry some healthy snacks (xnh)",
+1bd1b610f 2022-11-25: "Identify wands of probing and secret door detection when engraved with (xnh)",
+accf4793b 2022-11-25: "fix #K586 - eucalyptus leaf falling on hero's head (3.7)",
+046e304fe 2022-11-25: "Engraving with Fire Brand burns the text on the floor (xnh)",
+72885cb0d 2022-11-25: "Exclude mummy wrappings from object materials (xnh)",
+61f3902de 2022-11-25: "Make petrifying monster corpses only grow green mold (xnh)",
+43fac9e67 2022-11-25: "readable conical hats (xnh)",
+a26075876 2022-11-25: "Expand the passtune range by 1 (xnh)",
+6b23aab41 2022-11-25: "Make Astral fully lit",
+2c51c24d8 2022-11-25: "Seed some boulder traps with a dead archeologist under the boulder (xnh)",
+4f1566273 2022-11-25: "Gnomes outside the Mines have a chance of generating with a few gems (xnh)",
+56f287621 2022-11-25: "Increase roles' starting Pw (xnh)",
+d563d596f 2022-11-25: "XL10+ Rangers automatically see ammo enchantments (xnh)",
+baa418d0e 2022-11-25: "Make useless +0 rings impossible to generate (xnh)",
+3bd2c493b 2022-11-25: "Increase the prices of many magical tools (xnh)",
+4b4f9833f 2022-11-25: "Generate grease on an erodable object every once in a great while (xnh)",
+c6ba0e0f7 2022-11-25: "Elves and rangers get alignment penalty for cutting down trees (xnh)",
+30c4af6ed 2022-11-25: "Drop invisibility spell level to 2 (xnh - but it was dropped to 1 in xnh)",
+7aca8e547 2022-11-25: "Dwarves get an alignment bonus for cutting down trees (xnh)",
+4a8e17cc2 2022-11-25: "Fix: magic traps conferred permanent intrinsic invisibility (xnh)",
+427205d43 2022-11-25: "Generate 1/40 of non-artifact random items as pre-eroded (xnh)",
+97b54d355 2022-11-25: "Confused scroll of identify gives enlightenment (xnh)",
+847224544 2022-11-25: "Decay attacks instakill paper golems (xnh)",
+3401f14cc 2022-11-25: "Chargeable rings may get charged when hit with electricity (3.7)",
+4251c9fe7 2022-11-25: "Candy bars are bright blue in text mode (xnh)",
+8f69102ac 2022-11-25: "Buff several more artifacts (xnh)",
+ef33f4b9f 2022-11-25: "Bump magic marker base price to 200 (xnh)",
+04fd0a038 2022-11-25: "Allow Archeologists to highly enchant fedoras (xnh)",
+fb126d58f 2022-11-25: "Adjust secret passage frequency and exclude them from DL 1-4 (xnh)",
+054cbfd07 2022-11-25: "Adjust flint stone weight from 4 to 1 (xnh)",
+6b197c72b 2022-11-25: "Add more spears in monster starting inventory (xnh)",
+3ee0614fa 2022-11-25: "Add the Free Fortune Cookie Patch, by Nephi (xnh)",
+8ce3f6b9e 2022-11-25: "Make oil undilutable (xnh)",
+e12a8c523 2022-11-25: "1/40 of random non-artifact weapons will be generated erodeproof (xnh)",
+19a260a4f 2022-11-25: "Acid potions are immune to being destroyed by freezing (xnh)",
+ffe34e341 2022-11-24: "Reverted changes to monk starting spells: They start with sleep (lvl 1) and confuse monster is back to lvl 2.",
+17e9e1e0b 2022-11-24: "All roles know water from the start of the game.",
+170fe7402 2022-11-24: "Removed extra expel message, another fix for #94.",
+b67f859b3 2022-11-24: "Fix for heap-use-after-free when monster expels us onto a lev teleport trap. Fixes #94.",
+afa9a8688 2022-11-24: "The Storm Whistle now provides extrinsic cold resistance, not shock.",
+19c589167 2022-11-24: "The Candle of Eternal Flame now provides extrinsic fire resistance, not cold.",
+3d194066b 2022-11-24: "Ice and Flame mages start with intrinsic resistance, not extrinsic.",
+dd879c74c 2022-11-24: "Updated shambling horror with new attacks.",
+279fc4554 2022-11-24: "Added M2_JUMPER flag for jumping monsters.",
+9304ba8f8 2022-11-24: "Comment clarifying M1_NOLIMBS",
+ef177f6d8 2022-11-24: "Reformatted info in monflag.h",
+66496cdc0 2022-11-24: "Fixed tourist auto-id of shop items. Fixes #98.",
+65d800483 2022-11-23: "The drawbridge in the valley can now be destroyed.",
+d5fc03c46 2022-11-23: "Corrected some errors in the spellcasting fail calculations; crystal plate mail was affecting success. Fixes #99.",
+7bf9b6dd3 2022-11-23: "Added flame mage, ice mage, necro to primary spellcasters list. Yeoman and slayer to non_casters.",
+689bbc765 2022-11-23: "Updated role special spells.",
+80c278ba0 2022-11-23: "Completed removed wands of fireball - fixes #100.",
+5df293400 2022-11-23: "Split up vampire drain messages into hallucination and regular types. Made regular drain messages much less frequent.",
+e26ff7725 2022-11-23: "Rewrote mmake_wish; flattened out cases; another fix for #95.",
+4814af63c 2022-11-23: "Revert "mmake_wish heap-use-after-free if wished item merged. Factored out duplicated mpickobj calls. Fixes issue #95."",
+0eb9fd68a 2022-11-23: "mmake_wish heap-use-after-free if wished item merged. Factored out duplicated mpickobj calls. Fixes issue #95.",
+078333caf 2022-11-23: "When importing the Unnethack object lookup updates I broke some monster lookups. Fixes #93.",
+19f6749fe 2022-11-23: "Removed old artifact lookup from pager.",
+bbc37f2db 2022-11-23: "Upgrading boomerangs results in a chakram of random material.",
+7e0479686 2022-11-22: "Reverted Finger of Death to the attack school.",
+9907fc0a8 2022-11-22: "Replaced regular black market monsters with the classic ones from slashem",
+8bd5041b7 2022-11-22: "Fixed shopkeeper naming in black market.",
+80e2c70b7 2022-11-22: "Added database entries for most foods.",
+94f6f7361 2022-11-22: "Pineapples can propagate through the dungeon if left on the ground.",
+a7db3c1c8 2022-11-22: "Ice mages get water walking at level 15.",
+2aeb0ba6b 2022-11-22: "Bag of rats can be upgraded now.",
+aa7c8ef58 2022-11-22: "Upgrading lenses to crystal balls lets them get a random charge amount now.",
+7c328571d 2022-11-22: "add_obj_info crash when trying to access material_bonus with non-item lookup.",
+df5af2823 2022-11-22: "Refactored upgrade_obj.",
+d29477e34 2022-11-22: "Gnomish shopkeepers sometimes offer the tinker service.",
+f8cae1ae1 2022-11-22: "adtyp_str was missing Magicbane's AD_STUN.",
+dd6baff88 2022-11-21: "Spell timeouts messed up by my previous necromancy fix. Rewrote the age_spells checks.",
+7a414969b 2022-11-21: "All of Grund's Stronghold is non-diggable.",
+66efca619 2022-11-21: "Weapons and armor now show object properties in lookup.",
+fe14ea117 2022-11-21: "blessed instruments won't break.",
+3e4095d26 2022-11-21: "Changed the odds of hellminth infestation to create gibberslugs more often than Worms that Walk.",
+7b72a9c45 2022-11-21: "Adjusted probabilities for shopkeeper services (mostly making services more rare)",
+9d68b068d 2022-11-21: "If an armor is made of an alternate material and the AC is affected, this is now noted in the object lookup.",
+6cdaef286 2022-11-21: "Reduced strength gain from mushrooms back to 1. They can now propagate like floor herbs.",
+54836bc18 2022-11-21: "SPE_SUMMON_UNDEAD is supposed to cast command undead after the loop for creating undead finishes (it's an area effect). Also removed the reference to mtmp since not just one monster is being targeted and this could be null.",
+45d37d1b8 2022-11-20: "Disabled vampire race for infidels. Infidels start with fire resistance, vampires start with vulnerability to fire - so it's an awkward mix.",
+28c15434f 2022-11-20: "Imported amulet lookup info to database.",
+bf8a2a457 2022-11-20: "Cleaned up the rings info in the database.",
+374acaf10 2022-11-20: "Extrinsic fire/acid resistance wasn't protecting armor from those elemental explosions or monster attacks.",
+ef6c87b08 2022-11-20: "Switched Undead Slayer's first sac gift to Spear of Light.",
+312dc5305 2022-11-20: "Vampires draining messages were in wrong spot.",
+81e3462e6 2022-11-20: "Pistol missing from firearm_rof.",
+1faa9ee43 2022-11-20: "Disabled the #monster ability for vampire race.",
+a8f144071 2022-11-20: "Long worms only drop a worm tooth 5% of the time now when killed.",
+d48933bdc 2022-11-20: "Having psychic resistance now protects from forgetting things (from amnesia) and fear attacks (dragons, ghosts included)",
+c3f435d48 2022-11-20: "Most role lookups had 2 entries in database. Merged all duplicates.",
+f619d5196 2022-11-20: "Fixed order of scrolls of ice and magic detection.",
+ea12f3685 2022-11-20: "Moved the stairs head of the lethe branch to show up on the entry level to lethe.",
+7be09dc46 2022-11-20: "Cleaned up lethe.des, removed unused commented out stuff.",
+f56a9a700 2022-11-20: "Necromancer spells were timing out when they should stay at 100%.",
+4f1810c02 2022-11-20: "Prevented banshees from generating in Lavender Town.",
+d69522086 2022-11-20: "Added a check in the scroll of cloning to make sure our confused cloning doesn't try to clone when our role is extinct. Fixes #88.",
+ac3d1e8e4 2022-11-20: "Found another arithmetic error in healthstone regen_hp.",
+b9224bd47 2022-11-20: "While adding scrolls I didn't realize the last scroll affects how scroll appearances are generated. Moved scroll of magic detection back to end of list. Fixes #67.",
+0b327f7e5 2022-11-19: "Fixes #54, but healthfoodshop still isn't generating for monk.",
+62d89699c 2022-11-19: "Removed the object freeing when manticores throw spikes - it appears m_throw takes care of this already. Fixes #77.",
+8ee2b9737 2022-11-19: "Sewers of waterdeep had non-passwall for entire level. Removed this (playtester got stuck by being polyd into a mud elemental and teleport trapped off the main part of the level)",
+ec3cbd7f1 2022-11-19: "Bag of rats weighed less than other bags, matched it's weight.",
+3ae0448e7 2022-11-19: "Another fix for #85, player being blamed for other monster's bombs.",
+08ab32589 2022-11-19: "Calculate flankers had another MON_AT check that could be out of bounds - added an is_ok() check like before with issue #3. Fixes #86.",
+52ba8895f 2022-11-18: "Updated lev_yacc (the easy part) with toilets.",
+5bccbe793 2022-11-18: "Updated most of the easy lex/yacc files with toilet info.",
+f31a81c77 2022-11-18: "Added python script to aid in adding dungeon feature.",
+2bef0fef6 2022-11-18: "Mood ring now is bright green if your alignment is pious and red only if your alignment is negative.",
+94cdf37c7 2022-11-18: "Wand of sonics, ring of sonic resistance, and horn of blasting cannot be destroyed by sonic blasts.",
+74b5944f6 2022-11-18: "Disabled sounds for Ice Queen branch.",
+11030734c 2022-11-18: "Removed vampiric race getting hunger at level 5 (too harsh).",
+5966c08f8 2022-11-18: "Updated message for twoweaponing denial if you are a vampire race - says because of your current form, not because of your role.",
+b69eabafb 2022-11-18: "Fixed bomb blame for now. Fixes #85.",
+7a74cbf0f 2022-11-18: "Removed line that debugged enexto() called with mdat==0",
+67315e4d5 2022-11-18: "Added a themed room which features a perimeter of a certain dungeon feature: pools, puddles, sewage, clouds, trees, or ice.",
+c4917a6c7 2022-11-18: "Removed the center stage toilet room - was causing issues with door/stair placement. Fixes #73.",
+f93b06d7d 2022-11-18: "Undead slayers start with a torch.",
+802b191e6 2022-11-18: "Silenced a bunch of compiler warnings from the mac build.",
+b5c94fdf8 2022-11-18: "Object lookup was leaking info about power conferred. Fixed so players don't get free identify for rings, amulets, etc.",
+f450c1a73 2022-11-18: "First draft of ring info added to database. Also fixed the entry for bombs - a single long line was not broken into shorter segments causing database problems.",
+803ef640c 2022-11-18: "Fixed strange object being displayed on object lookup.",
+ef7219aec 2022-11-18: "Dragons now can fall asleep randomly if they are not tame, not orange, they can't see you, and you are not causing conflict.",
+88cd8423c 2022-11-18: "Flame and Ice mages start with extrinsic resistances so they can work with their elements without worrying about their items.",
+e91f3e742 2022-11-17: "From xnh:  Extrinsic elemental resistances protect inventory items from destruction",
+b3f8cb54b 2022-11-17: "Imported the slashem9 fix for intrinsic undead warning. They introduced a new field context.warntype.intrins. Currently undead warning is the only warntype used here but it fixes #65. Warning for undead slayer and necromancer how functions as intended.",
+6d8579341 2022-11-17: "Updated worm that walks behavior. Introduced a new worm (hellminth) to replace maggots as the monster the worm that walks dissembles into. This worm can infest corpses with a chance of creating WtW, but is not randomly generated.",
+95792ac0f 2022-11-17: "Maggot was listed twice in grownups list; now it only grows up into a giant fly.",
+189c4b946 2022-11-17: "Fixed whetstones hi-jacking rubbing effects of other stones.",
+8d762a6c9 2022-11-17: "Removed extraneous comma at the end of prop_types.",
+ec965f1c2 2022-11-17: "Changed bag of rats looting behavior. Before the bag would be emptied and a random number of rabid rats would pour out, and we would not be charged correctly for shop usage. Changed to be similar to bag of tricks - rat may bite you or YAFM.",
+372f17600 2022-11-17: "Added shortcut for wishing up potions of monster detection (pmd)",
+d39dd8a5c 2022-11-17: "Fixed gray stone scratching behavior and reformatted whetstones. Also clarified the prompt for whetstones when asking what potion to use to wet the whetstone.",
+6a262761e 2022-11-17: "Orange dragon scales now have passive slowing (to match the orange dragon passive.",
+2d2e318e4 2022-11-17: "Shimmering dragons get a passive stun attack.",
+99746fae4 2022-11-17: "Updated logo for curses.",
+fba2bb80a 2022-11-17: "Disabled engulf attack on 5 dragons.",
+72f3b9378 2022-11-17: "Disabled bomb debugging info",
+0d8facfcc 2022-11-17: "Added database entry for bombs.",
+616be587b 2022-11-17: "Ice Mages no longer start with confuse monster (not useful for vampires/illithids etc), they always start with slow monster instead.",
+4c4b9422b 2022-11-17: "Updated entry for pit bull; removed underscores.",
+41ccb76b5 2022-11-17: "Convicts start with a spoon. Spoons don't generate randomly.",
+6864cdab3 2022-11-17: "Imported fix #K669 - 'nasty' monster summoning patch from vanilla. Monsters can't summon higher level monsters than them.",
+a15c10859 2022-11-16: "Fixed the off-water square for the drawbridge on Grunds.",
+d3e8f3041 2022-11-16: "Swapping weapons take 0 turns now.",
+0dbaa5578 2022-11-16: "Fixed whetstone apply/rub behavior - it was overriding all gray stones so any gray stone would ask for water when rubbing on a weapon. Fixes #82.",
+8eae08540 2022-11-16: "Added some info about dragon roars to the database.",
+06d63410d 2022-11-16: "Yeoman can get basic skill in club (they start with a torch so this is mostly a fix to prevent skill_init bugs.",
+f0d65f9e9 2022-11-16: "Changed the infidels starting attack spell from drain life to poison blast. Also lowered poison blast to a level 2 spell (necromancer's already have the monopoly on drain life)",
+63fa5b255 2022-11-16: "Bumped up dragon base levels and difficulties a couple levels each to compensate for dragon roars.",
+2f96dd6b1 2022-11-16: "Wyrm cave ending has adult dragons balanced out with baby dragons and eggs.",
+95d5dc064 2022-11-16: "Dragon roars will wake you up if sleeping.",
+55dda249b 2022-11-16: "Adjustments to fear mechanics. Instead of Necromancers being immune to dragon roars, changed to Knights (they should be more conditioned for that). Being confused, wearing Dragonbane gloves, or wearing Pridwen also protects from dragon fear. Having a source of psychic resistance also protects you.",
+46ba7d7ed 2022-11-16: "Cut the number of dragons that roar by half (determined by the order of dragons so subject to change)",
+969bf5b50 2022-11-16: "Fixed issues with kick shortcuts and moved wizlevelport back to ^V. Fixed #80.",
+d044cfff3 2022-11-16: "Another fix for #63 - my original fix allowed branch stairs to generate in regular vaults. Went back the original restriction of branch placement. Changed the largest rndvault rooms to ordinary to prevent possible blocking of branch/portal placement.",
+df0b39136 2022-11-16: "Silenced enexto() warning unless in wizmode. Fixes #84.",
+101eb5f8c 2022-11-16: "If chakrams are used as melee weapons, they only deal 1-2 damage.",
+342ec50ae 2022-11-16: "Sonic resistance protects you from dragon roars now.",
+324004fd0 2022-11-16: "Origin the artifact staff now correctly gives a spellcasting bonus (stacks with robe of power) and gives a discount of 5 energy for spells that cost 10 or more energy.",
+141e13462 2022-11-16: "Changed Storm Whistle to neutral alignment and Candle of eternal flame to lawful.",
+75f2a1117 2022-11-16: "Ice Mages can reach basic in attack spells.",
+cdffefb30 2022-11-16: "Adjusted chakrams to be IRON. Lowered dmg vs small to 10 and vs lg to 11. Can be shiny materials. Increased weight to 25.",
+939b00378 2022-11-16: "Vampires get custom messages for draining corpses.",
+6d61b7078 2022-11-16: "The Master Sword now appears in the village level 75% of the time.",
+352e4e71f 2022-11-16: "Wearing a cloak of flight now handles flight correctly, checks for wings, and doesn't show a msg if you are already flying. Fixes #83.",
+534fd63c5 2022-11-16: "Added AD_BLND to be handled in adtyp_str",
+35d900708 2022-11-16: "Object lookup for artifacts now shows double damage for artifact weapons.",
+6fca748ab 2022-11-16: "Object lookup for artifacts now shows extra info for special attacks, wielded abilities, and misc effects that are hard coded. Removed database entries that duplicated info.",
+83c3bc1a0 2022-11-16: "Object lookup for artifacts now shows if it grants bonus vs cross aligned.",
+703628e06 2022-11-16: "Object lookup for artifacts now shows beheading attacks.",
+1c084e1ba 2022-11-16: "Object lookup for artifacts now shows monster banes.",
+acc574d68 2022-11-16: "Object lookup for artifacts now shows the attack type, to-hit and damage.",
+e60c76b74 2022-11-15: "Object lookup for artifacts now shows invoke abilities.",
+ce29bdf42 2022-11-15: "Object lookup for artifacts now shows if an artifact grants warning.",
+476f79a7f 2022-11-15: "Object lookup for artifact will now show artifact light source.",
+8423b9f33 2022-11-15: "Object lookup for artifact will now show if it speaks.",
+de9eed39c 2022-11-15: "Added the rest of the wielded/worn and carried intrinsics granted by artifacts to the object lookup.",
+fd2d837e3 2022-11-15: "Added restricted, nogen, and exclude attributes to artifact lookup info.",
+60cbc1c9a 2022-11-15: "Resistances for wielding/wearing and carrying artifacts is now displayed. Only the direct AD_TYPE resistances for carrying are included.",
+4dc38b201 2022-11-15: "Object lookup shows if an artifact is intelligent.",
+0cdd619cf 2022-11-15: "Added basic artifact info to object lookup: name, material, alignment, cost, associated role/race.",
+3ce23854d 2022-11-15: "Added bonus info for odd materials to the object lookup.",
+4a52e2a3d 2022-11-15: "Clarified blessed and cursed weapon damage.",
+bc68fa095 2022-11-15: "Added copper damage to the weapon lookup. Also changed IRON, MITHRIL, and COPPER to a straight 1d6 sear damage. Before it was a confusing 3+d3, which was passed anyway into a rnd.",
+1e4915286 2022-11-15: "Unidentified weapons don't show damage or to-hit info.",
+8a5b8a507 2022-11-15: "Blessed and cursed weapons are now correctly handled in the object lookup.",
+4d26019bf 2022-11-15: "pager correctly handles material in the dummy field - would crash if database was called instead of inventory lookup using an actual object. The material info also adds if an object is not it's usual material.",
+90f2ab513 2022-11-15: "Fixed material lookup in weapons - now it will use the actual weapon material.",
+03bbbf83c 2022-11-14: "From Un: Object lookup: populate damage value info from dmgval()",
+d8340af63 2022-11-14: "Ported this over from Unnethack to aid in lookups for arifacts. Object lookup: use actual object if called from inventory",
+eccc0e513 2022-11-14: "When sonic beams destroy iron bars, they also send some iron chains flying as schrapnel.",
+d85267eb8 2022-11-14: "sonic beams destroy iron bars",
+1c48ce9b0 2022-11-14: "Sonic wands can destroy drawbridges.",
+f98ca3db3 2022-11-14: "Monsters can no longer use wands of wishing to get wishes. I left in the code for monsters making wishes in case they get a fluke one from a smoky potion.",
+254e3d7be 2022-11-14: "Updated some remaining references to evilhack files and dumplogs.",
+5a593b271 2022-11-14: "Typo in volleymm when setting otyp = SPIKE. Fixes #78.",
+6a9d32136 2022-11-14: "Removed extra forked tile from objects.txt",
+a41d822f2 2022-11-14: "My fix for #63 was incorrect - it was checking if a room was not a vault or a ordinary room separately where it should have been checking if both were truesimultaneously.",
+ad2391687 2022-11-14: "Handled the case where carrying many cursed healthstones could lower the players effective level to below 0. Fixes #76.",
+e2ae911b7 2022-11-14: "Removed references to cavevar - this has been removed from the wyrm caves.",
+b8b545f1e 2022-11-14: "Updated gauntlets of protection tile to be latex gloves.",
+87fe074d1 2022-11-14: "Reverted some of the themed room changes - just changing ordinary rooms back to rndvault, and lowering some of the minlevels.",
+19baf321c 2022-11-14: "Portals can now appear in themed rooms(vaults). Fixes #63.",
+8caedb029 2022-11-14: "Added healthstones and whetstones to autopickup.",
+2d4b0ce87 2022-11-14: "Added my hackemrc file to the repo for players to use or reference.",
+edc3dfb78 2022-11-14: "Wand of fireball had octagonal appearance, which was already taken. Switched to forked appearance.",
+a9c6414bc 2022-11-14: "Gloves had the randomized appearence of boxing - which conflicts with actual boxing gloves. Changed this appearance to vinyl, and changed the material to plastic.",
+1ccc22b64 2022-11-14: "Sonic ring had glass appearance, which was already taken by another ring. Changed appearance to embossed.",
+b5d60d24d 2022-11-13: "Imported the last dragon level of the Unnethack dragon caves to the Wyrm Caves.",
+e37f25acf 2022-11-13: "Spellcasters must see you in order to cast MGC_SUMMON_MONS. Fixes #72.",
+460462c4e 2022-11-13: "Spellcasting monsters have their ranges limited with acid blast and fire/ice bolt - range scales with level so gnomish wizards can't shoot you from 13 squares away, more like 3-4 now.",
+5ad9c3114 2022-11-13: "Made some more adjustments to the wyrm cave nest level. Less monsters, and changed which monsters can show up.",
+707a1e5f0 2022-11-13: "Reduced the chances of musical instruments breaking - blessed instruments don't break.",
+5afa00597 2022-11-13: "Removed trailing whitespace from some unix files.",
+1c2466eb2 2022-11-13: "Updated SUPPORT info to reference hackemslashem instead of K2.",
+b0a49d765 2022-11-13: "Reverted Vlad's tower back to the standard vanilla format. No cavern, just 3 levels; but Vlad still has Lifestealer...",
+6ec4aa63b 2022-11-13: "Remapped wizlevelport to ctrl-z",
+4364ebce5 2022-11-13: "Couple small tweaks to bigroom, and added another possible bigroom later in the dungeon (from splice)",
+f6eee4f6a 2022-11-13: "Infidels were missing necromancy spell skill. Infidels can now reach Skilled in Necromancy (reported by Guest2546)",
+0c12fb6c3 2022-11-13: "Imported big room variants from UnNethack and some of the small tweaks (adding giant turtles and wax candles to most big room versions.",
+076201d4b 2022-11-13: "Reduced the amount of monsters generated in the wyrm cave nest level.",
+960c838f6 2022-11-13: "Changed the filler levels for the wyrm caves to the narrow passage levels.",
+3afbcd7a8 2022-11-13: "Shortened the wyrm caves; removed the second mean nest level.",
+e6d89195c 2022-11-13: "Moved the sunless sea out of the wyrm caves and down around medusa's level.",
+bf03492f7 2022-11-13: "Removed two-weaponing restrictions imposed in EvilHack.",
+18d2a6415 2022-11-12: "Cleaned up sp_lev.c:load_special()",
+8bd4f0a8d 2022-11-12: "Minion pets cannot betray you.",
+54c6eb52a 2022-11-12: "One of the rndvault numbers was duplicated, renumbered.",
+9118eee59 2022-11-12: "Fixed memory leaks when a manticore shoots spikes are other monsters or the player.",
+524d9d594 2022-11-12: "Player polyd into Manticore wasn't handling spikes correctly. Now spikes are generated one-by-one and freed after use. They also are handled in the to-hit and damage calculations (before they only dealt 1 dmg compared to the correct d6 per spike). Fixes #68.",
+7491fea26 2022-11-12: "Removed torches from valkyrie's possible starting items - otherwise they need to have at least basic skill in club.",
+382df2dda 2022-11-12: "Added fuzz debugging flag to newgame.",
+7767008ea 2022-11-12: "Revert "Necromancers are protected from forgetting Necromancy spells"",
+5ad5b6069 2022-11-12: "get_cost had a fix for an exploit that no longer exists (getting more for selling than you do buying an item) - this caused uncursed water to cost at minimum 50. Fixes #71.",
+9ed7a35c6 2022-11-12: "Another attempt to fix #29. Where we check to make sure hiders don't try to hide under cockatrice corpses, I added spirits.",
+62a786d51 2022-11-11: "Moved the mdef null check in explum to the AD_WIND case.",
+86c2e23bf 2022-11-11: "In explum, added null check for mdef. Fixes #40.",
+29a619a27 2022-11-11: "In explum, added null check for mdef. Fixes #40.",
+f1f78ef21 2022-11-11: "Fixed bug in aafda4714, spells not forgotten caused rn2 bug.",
+c64b72832 2022-11-11: "Lowered Necromancer's skill in MATTER from skilled to basic.",
+aafda4714 2022-11-11: "Necromancers are protected from forgetting Necromancy spells",
+5b306d875 2022-11-11: "Necromancy spells don't time out for Necromancers.",
+ce239e3d5 2022-11-11: "Undead slayers and necros are not afraid of the Nosferatu paralyzing gaze.",
+f7af7ce58 2022-11-11: "The Eyes of the Overworld sometimes offer protection against the new gaze attacks.",
+2f3ab85c7 2022-11-11: "Monster generation rates will only change when you perform the invocation - then it goes to quadruple normal. This is simplified from Evil. (Thanks to comicalUser)",
+7c46dc7a0 2022-11-10: "Shadow wolves get infravision.",
+2d6c3cea1 2022-11-10: "Refactored the shadow monster code so that we pass in a pseudo scroll. The darkening was also using the hero's coordinates, not the shadow monster. They will also not cast shadows when we can't see them, and when in view we'll get a msg.",
+8002d86a7 2022-11-10: "Fixed the setup for illithid ice mages and necromancers so they start with psionic wave.",
+968121c30 2022-11-10: "Fixed some racial issues with undead slayers. Elven slayers can start with silver elven daggers. Giants will have the right equipment - they were starting with worn armors.",
+d7e516fde 2022-11-10: "Giants can wear mummy wrappings (seems fair since giant mummies drop them - they also shouldn't be constrained by size.). Also finished the bit where all giants can wear large splint mails - not just giant samurai.",
+214559fdf 2022-11-10: "Rearranged vampire intrinsics; breathless is granted at level 3, hunger/regen at level 5. Moved sickness res to level 21.",
+998a5602b 2022-11-10: "Removed make_pet_minion(), it has been replaced by a better Splicehack version.",
+79a811074 2022-11-10: "Wands of healing and extra healing were setting damage to 0 when (a)pplied and broken - causing a call to rnd(0). Instead we bypass the explosion. Fixed issue #55.",
+2e4afdef4 2022-11-10: "All giants can wear large splint mail.",
+1296548ec 2022-11-10: "Made Reaper out of copper so that Elven Yeoman are guaranteed to get it though sacrifice.",
+69bb82adb 2022-11-10: "Made some adjustments to the minion gifts - I integrated the way Splicehack granted minions and the way they created them - but left the other slashem versions(the selection of minions is still the same, except that you can't get one until level 5.",
+5dacd1381 2022-11-10: "Undead slayers will usually obliterate zombies to the point that they don't leave corpses 2 in 3 times!",
+2ac617e16 2022-11-10: "Undead slayers get a base +2 to-hit bonus against undead/demons and +d4 damage (like hitting as a blessed weapon)",
+7d1a56bd8 2022-11-10: "Undead slayers get an alignment penalty for eating wraith corpses.",
+a62889e67 2022-11-10: "Undead slayers get warning at level 15 and clairvoyance at level 21.",
+ec914845f 2022-11-10: "Undead slayers are not afraid of undead fear attacks.",
+2c7475c90 2022-11-10: "Removed multishot penalty for undead slayer.",
+b8bee7d0a 2022-11-10: "Reduced killer mimic speed to 6, this way it's still double all the other mimics, so an early player at least has a chance.",
+80147c7aa 2022-11-10: "Necros starting daggers are uncursed. Went a little more generous with the spirit energy. At level 7 they start granting full monster level's value in MP (to help cast command undead, etc). At level 13, they'll grant 1.5x energy as well.",
+fbeb33ef3 2022-11-10: "Necro starts with wand of fear instead of undead turning.",
+f8b55c38e 2022-11-10: "Added bullets and shotgun shells to sling_bullet_materials. Fixes issue #13.",
+53d121573 2022-11-10: "Scroll of flood now gets used up in seffects (like the scroll of fire). Fixes #64.",
+9cdbb1898 2022-11-09: "breath attack looked weird in pokedex - changed to breathe. (reported by Nat Hall)",
+00d98cb94 2022-11-09: "Made some adjustments to the themed rooms. Moved some of the longer and bigger rooms to minlevel 20 - to prevent issues generating portals in the quest levels. Also converted more of the generic type rooms to ordinary.",
+f111c7cb4 2022-11-09: "Yeoman cannot gain skill in crossbow - only regular bow.",
+816730f10 2022-11-09: "Ice Mage starts with a blessed frost horn.",
+ff4fac0ff 2022-11-09: "Fixed tortle Undead Slayer's starting inventory.",
+977504a8b 2022-11-09: "Some of the shopkeeper name arrays were not matching const defines.",
+1ab17a8d3 2022-11-08: "Monsters can use wands of fear defensively.",
+4e492f58b 2022-11-08: "Monsters can read scrolls of cloning offensively.",
+8dc701a80 2022-11-08: "Fixed more overlapping defines in muse.",
+69e434ada 2022-11-08: "Fixed probability of firearms training service showing up in shops.",
+e9390a278 2022-11-08: "Removed all debug lines for shopkeeper services.",
+e3b4470c6 2022-11-08: "Redo of the fix for issue #53. If the obj breaks in hmon_hitmon (being glass), we set it to (struct obj *) 0;",
+419d0188c 2022-11-08: "Fix for issue #50. really_steal was returning a boolean, but it really should have been returning the obj reference in case the item changed or merged. Credit to qt for the solution.",
+e2da4d2f3 2022-11-08: "Fix for issue #53.",
+68353c691 2022-11-08: "Fix for issue #44. stolen_booty was not checking for the new globs of pudding before giving it to the orcish raiders in orctown.",
+6ebf38621 2022-11-08: "Fix for issue #43. warp_material would set a random material if a valid one wasn't found after 200 tries. After 200 tries we now use the base material.",
+3722142ea 2022-11-08: "Mirror msg for being Afraid.",
+96e858217 2022-11-08: "Fix for issue #51. When establishing credit at a shop and paying off a shopkeeper service would cover the charge, money2mon was getting 0 for charge.",
+01e4a77b8 2022-11-08: "Implemented kick shortcuts. Control + a direction will now kick in that direction instead of running.",
+079c676a0 2022-11-08: "From UnNethack: e9310a340 Patric Mueller Autotraveling to stairs when pressinv > or <.",
+ac3c1684e 2022-11-08: "Added tiles for slaughter wight and red double lightsaber.",
+ea07fa79f 2022-11-08: "Shopkeeper service slang now depends on the races.",
+e11ea2fa8 2022-11-08: "Undead slayers can #turn undead.",
+eb82d46b2 2022-11-08: "You can't train firearms with a shk if impaired.",
+6fc717cd2 2022-11-08: "Cleaned up some of the firearms training stuff.",
+411c7e43d 2022-11-08: "Replaced PN_CLERIC_SPELL with PN_NECRO_SPELL.",
+039c4964b 2022-11-08: "Fixed the order of the skill slots - were not in sync due to moving lightsabers around.",
+c86f04dea 2022-11-07: "Firearms training service. Gun shops, armor and weapon shops and general stores will offer this (offering varying levels of skill advancement). Ported over from the slashem Weapon Practice technique.",
+62ec0934a 2022-11-07: "Changed Summon Undead from level 4 to level 5",
+c51d4cfb3 2022-11-07: "The pet shop and lightning stores were missing the ! operator to check if strcmp was equal; this was causing a lot of extra random services to show up in all shops.",
+b60f41b58 2022-11-06: "Imported red lightsabers (from slashem).",
+7c715675e 2022-11-06: "Decreased weight of heavy machine gun to 200 (from 500).",
+d599a2938 2022-11-06: "Increased to-hit of autoshotgun to 1",
+548a16632 2022-11-06: "Increased the range of shotguns to 5 and auto-shotguns to 4.",
+acb336d34 2022-11-06: "Imported assault rifles (from slashem)",
+705a5c554 2022-11-06: "Fix for issue #48. In uhitm, a weapon was being checked for poison after potentially being broken (if glass). Moved the glass check to the end of the block so no null weapon would be checked.",
+07112ef3b 2022-11-06: "Fix for issue #46.",
+815ca37c9 2022-11-06: "Fix for issue #42. dotip had an incorrect check for bag of tricks or rats.",
+8a77d77b1 2022-11-06: "Removed lev variable from grow_herbs, not being used.",
+98595601d 2022-11-06: "In pray.c:dosacrifice, there were some critical spots where otmp was not being freed correctly and causing memory leaks.",
+871253e29 2022-11-06: "Added restrictions on minion gifts.",
+8f6629750 2022-11-06: "Cleaned up some of the minion code.",
+86e2cb51a 2022-11-06: "First draft of minion pets from slashem.",
+3d9b4a3b9 2022-11-06: "Reordered objects tiles.",
+7723b20e4 2022-11-06: "Rearranged new elementals so they are inbetween water and air - makes code dependant on their order work.",
+f1c5e2632 2022-11-06: "Fix for issue #34. Removed spirits from massacre rooms.",
+09f26a187 2022-11-06: "When killed, Medusa will leave behind pegasus.",
+dfbfd4cf1 2022-11-06: "Undead will show a resist message when zapped by wands/spells of undead turning.",
+e19179d75 2022-11-06: "Fix for issue #39. dig_check needed to guard against no weapon being wielded when breaking a wand of digging.",
+0372e02ca 2022-11-05: "Ported over all new halluciation messages from Unnethack, plus a few minor refactors.",
+c950d6d3f 2022-11-05: "Renamed pinch of catnip to sprig of catnip, and added to herbs that can populate via dungeon growth.",
+ca4c345d5 2022-11-05: "Ported over dungeon growth patch from slashem.",
+4dd0a35e8 2022-11-05: "Fixed getobj call for quaffing - was returning all tools, but we only kegs are drinkable.",
+f7e289b12 2022-11-05: "Changed all text instances of genocide with annihilation. Since I changed the behavior of genocide, I think this signals to players that something will be different. The behavior is the same as UnNetHack, but this should help if people switch back and forth between variants (I hope).",
+22cf88a66 2022-11-05: "The new vampiric male and female names were not correctly terminated with a 0, removed a few names and fixed.",
+7b3f2a0a4 2022-11-05: "Fix for issue #37. The problem with fearedmon seemed isloated to when makewizmap was called. I cleared the fear status and feared monster whenever a new map is generated.",
+9125f5e67 2022-11-05: "In one place where make_afraid was called, it was missing setting the monster to u.fearedmon.",
+99c29d58a 2022-11-05: "When make_afraid is called to clear fear, I added a call to remove_fearedmon.",
+962065e3a 2022-11-05: "Fixed an error where necromancers were supposed to resist being hit by a sonic fear attack.",
+d7a34cd94 2022-11-05: "Raise zombies wasn't able to taming the undead it raised - fixed by moving the taming code into tamedog where the necro check is.",
+5970ea059 2022-11-05: "Fix for issue #37: Fixed missing free for fearedmon_id while saving.",
+74dc083c0 2022-11-04: "Ported over the Spirit Bomb technique from slashem, but reformed it into a spell for the Necromancer. Instead of going just 2 squares, it goes d8+1 and stops at the first monster hit. Explosion doesn't hurt you or tame pets. Original tech has 2 restrictions - couldn't wear a shield or wield a weapon. Lifted those restrictions.",
+5bbf3c3df 2022-11-04: "Imported the wolfname option.",
+1423e212f 2022-11-04: "Added ghoulname to support the necromancer's starting pet.",
+c7bdeb9d0 2022-11-04: "Plague now confers sickness res while carried.",
+4c0bc5bc0 2022-11-04: "Necromancers can eat wraith corpses and get experience as like in vanilla.",
+50f3b27e4 2022-11-04: "Decreased odds of racial shopkeeper identify services to 25% per service.",
+2f91a7ed8 2022-11-04: "Warning of Undead wasn't working correctly for necros or slayers. Fixed.",
+192add4de 2022-11-04: "Fixed Raise Zombies spell - now corpses that were ressurected can be tamed in tamedog.",
+881f19e5c 2022-11-04: "Fixed bug in spirit collect - they were granting energy bonus twice instead of granting hp bonus. Also, spirits always grant a minimum of 1 HP.",
+4c6f50423 2022-11-04: "Give the necro a little food to start with",
+a4a56eed7 2022-11-04: "Adjusted some of the necromancer skill levels.",
+0db1c06d0 2022-11-04: "When necromancers learn a spell by leveling up, it's for 100000 turns.",
+69967c709 2022-11-04: "Adjusted the necromancers spells. They always start with a spellbook of drain life. All the undead spells come with experience. Call undead @ lvl 2. Raise zombies @ 3. Command undead @ 7, summon undead @ 9, animate dead @ 14.",
+c834d2bd6 2022-11-04: "Finished the slashem roles for makemon; with giant/tortle adjustments for necros, undead slayers.",
+16e79b3c5 2022-11-04: "Adjusted some role/race combos: Flame mages can't be gnomes, hobbits, or giants. Ice mages can't be hobbits or gnomes.",
+cf5afef15 2022-11-04: "Added fix to setup undead slayers with silver daggers/bullets regardless of race.",
+e2c21f87f 2022-11-04: "Fixed PM_VAMPIRE that should be PM_VAMPIRIC",
+83af9bf36 2022-11-04: "Added PM_VAMPIRIC to list of placeholder monsters.",
+57f62c04d 2022-11-04: "Filled out more details for slashem roles ported over for mplayer.c",
+3befce4d1 2022-11-04: "Applied fix for mac build breaking (thanks Bhaak)",
+9e9b89ecb 2022-11-04: "Added vampiric player monster names.",
+779098272 2022-11-04: "Added slashem roles to init_mplayer_erac.",
+fc3b330a9 2022-11-04: "Undead slayers cannot be chaotic.",
+a9fad4604 2022-11-04: "Changed some of the Yeoman equipment back to regular slashem style. They still get a nice green coat, but instead of the hide shield, they get gloves and high boots. I also went back to the partisan instead of footbow - I figured that on horseback a footbow wouldn't make much sense, and you can't use a shield and a polearm at the same time.",
+a628fc4bf 2022-11-04: "The animate dead spell required creating a pseudo spellbook object. This was not being correctly freed when done with.",
+5be2baaba 2022-11-04: "Added tile for spellbook of animate dead.",
+36e2746a3 2022-11-04: "Silenced compiler warning for vibrating square messages.",
+73d13d2b4 2022-11-04: "Fixed order of Yeoman in objects.c",
+9a108e5b6 2022-11-04: "Set MAXDUNGEON and MAXLEVEL to 64 to silence a compiler warning.",
+19100180d 2022-11-04: "Fixed warnings in sounds.c for clinics and terrorhalls.",
+952c1e2e8 2022-11-04: "Enabled mummies in makeundead spell. (From SlashTHEM)",
+6d55be8e5 2022-11-03: "Finished handling of dragon zombies, filled out sections where zombies types are converted from monster to zombie type and vice versa.",
+dd64ee8fd 2022-11-03: "Added MH_CENTAUR tag to centaur zombie and centaur mummy.",
+0de8fd3a4 2022-11-03: "Mushrooms can generate in fungus farms",
+a9c3b5c7f 2022-11-03: "Removed M3_TRAITOR from lesser nightmare and nightmare - these are the standard pets for dark knights.",
+51000caec 2022-11-03: "All pirates are traitorous now.",
+a0cedb820 2022-11-03: "Lowered the chances of pet betrayal to 1 in 250 per turn.",
+dd69ccf7a 2022-11-03: "Tame undead won't betray necromancers.",
+605f35004 2022-11-03: "Tame monsters won't eat spirits.",
+6787ddebb 2022-11-03: "Added animate dead spell to necromancer's selection. You can animate a corpse on the ground, and it just needs to pass a resistance check to tame it.",
+29a3aa882 2022-11-03: "Necromancers now start with basic skill in necromancy spells.",
+21fe9d692 2022-11-03: "The Necromancer now learns certain spells when reaching certain levels (this is a way to port over some techniques and get the rewards of techniques without the entire tech mechanic. It also makes Necros a bit different from wizards.",
+40cf15377 2022-11-03: "Multiheaded monsters drop more spirits.",
+11027d73e 2022-11-03: "Spirits generate in bones traps",
+16fdbcce2 2022-11-03: "Will-o'-the-wisps appear more frequently on swamp levels when spirits fade.",
+5c1ef959c 2022-11-03: "Necromancers are not afraid of ghosts.",
+eda67efc3 2022-11-03: "Collecting spirits only shows msg with verbose on.",
+53f8e1abe 2022-11-03: "Spirits are generated in massacre rooms with all the dead corpses. Fadeout timer is 1000 turns to let the player have a chance to find them.",
+e8935153a 2022-11-03: "drop_spirit can take -1 to generate a player monster spirit.",
+445c940c9 2022-11-03: "Spirits generate in morgues (on the corpses of dead players)",
+e5c520602 2022-11-03: "Created a helper function for dropping spirits.",
+6c83a5f41 2022-11-03: "Spirits generate when graves are dug up.",
+3c1aa806f 2022-11-03: "When non-necromancers try to pickup spirits, they just fade away. This shouldn't normally happen, but put in just in case spirits get generated in graveyards or morgues.",
+2ce42a1a9 2022-11-03: "On graveyard levels, spirits last up to 2000 turns.",
+eba01e2ba 2022-11-03: "When carrying the great dagger of glaurgnaa, your spirit collection radius is tripled as a necro.",
+1641f75be 2022-11-03: "If the necro is carrying their quest artifact, they get double bonuses from collecting spirits.",
+acfcfabb0 2022-11-03: "Necromancers are usually immune to afraid status (from level 1). Exception is zapping a cursed wand of fear.",
+bcd1e3d12 2022-11-03: "Necromancers gain sickness and poison resistances at level 18 (sickness moved from level 1)",
+8fd3446f3 2022-11-03: "Spirits also grant a health bonus when collected by necros.",
+2c697d849 2022-11-03: "A will-o'-the-wisp will sometimes emerge from a fading spirit.",
+91ba81952 2022-11-03: "Spirits timeout from 10-25 turns.",
+bb5946679 2022-11-03: "Necromancers cannot tame domestic animals or other regular monsters with food - only undead.",
+47d1dc42e 2022-11-03: "Added call undead spell for necromancers so they can summon undead (like magic whistles).",
+d46732d45 2022-11-02: "Necromancers start with 2 daggers instead of a great dagger.",
+c5cd2270d 2022-11-02: "Collecting spirits immediately updates the status bar now.",
+0620aac72 2022-11-02: "Changed the calculation of spirit energy to 1/2 the monsters base level if under level 10. Full if 11+",
+8cf2105d2 2022-11-02: "Added a sanity check to make sure spirits never end up in player or monster inventories.",
+8caabbfaa 2022-11-02: "Added other soul eaters: shades, specters, weredemon, aloon",
+7a0f94230 2022-11-02: "Wishing for spirits immediately collects the spirits for the player. If spirits are merged, the quantities are handled properly now.",
+d011372a7 2022-11-02: "Certain classes of monsters can now also collect/consume spirits to compete with necromancers (L/W/A/&, Valkyries and other Necromancers.",
+c666d6db1 2022-11-02: "Extracted spirit assimilation into it's own function collect_spirit()",
+a24664a7c 2022-11-02: "Another fix for issue 29: Monsters were still able to hide under spirits. I have allowed this, and handled when spirits fade now.",
+6c530670e 2022-11-02: "When I fixed the pointer freeing for shopkeeper services, I freed it before it was used. Yikes. Fixed.",
+5631d0fa6 2022-11-02: "Fix for issue #29: Monsters cannot hide under spirits.",
+1d787bd13 2022-11-02: "Necromancers now autopickup adjacent spirits, but only 1 at a time.",
+ee9655e12 2022-11-02: "Disabled hit message for wand of water - when kicking/throwing.",
+ca37c79ad 2022-11-02: "Added ~ to autopickup in sysconf.",
+932ea3cda 2022-11-02: "Used timeout arg in spirit_fade",
+76acd0848 2022-11-01: "Added MH_VAMPIRE to m_chooserace listing.",
+04c27396c 2022-11-01: "Added MH_VAMPIRE to chaotic listing in align_randrace()",
+be3a570b0 2022-11-01: "Moved elf from chaotic to lawful in align_randrace()",
+3ab939c03 2022-11-01: "Added centaurs, illithids, and giants to available necromancer races.",
+3d1eb8090 2022-11-01: "Non-living monsters are not capable of leaving spirits for Necromancers.",
+ddd9edd2a 2022-11-01: "Spirits now have a fadeout timer ~500 turns.",
+0e2b16819 2022-11-01: "Changed the staff of holiness to staff of necromancy. Instead of boosting clerical spells, it now boosts necromancy spells.",
+372aa5863 2022-11-01: "Removed the clerical spell category - merged most into the enchantment school. Created a new school of spells called Necromancy (mostly for necromancers). I tried to rebalance out the spells among the schools, but it will take time to get it right.",
+914c931f7 2022-11-01: "Ported the raise zombies technique over as a Necromancer spell.",
+922d554f4 2022-11-01: "Necromancers no longer regenerate energy as normal (they have to kill for spirits.)",
+d0154f074 2022-11-01: "Necromancers now start with 0 energy and 99 max. Spirits work to refill your energy levels.",
+672663eb8 2022-11-01: "Kicking spirits only makes them go 2 squares.",
+62f77dfeb 2022-11-01: "Fixed crash when applying figurine of a genocided monster. Added extra obj null check back to the end of doapply.",
+78a85b8d2 2022-11-01: "[FIXED] Shows up under Things that are here: but not Pick up what?",
+f62922334 2022-11-01: "Fixed msg for pickup of multiple/single spirits.",
+49852aa3c 2022-10-31: "Added spirits to sysconf autopickup.",
+1bd2fcc8e 2022-10-31: "Spirits for Necromancers. When necromancers kill a monster, it leaves behind a spirit. Spirits are a new class of object. When picked up, they disappear and are added to the necromancer's spirit count.",
+a737ba86a 2022-10-31: "Updated yeoman. Starts with a Green Coat (new cloak that gives AC1/MC2). Replaced Partisan with Footbow and arrows. Removed light armor, boots, and gloves, instead they start with a hide shield (footbow is 1-handed so you can use both). Added torch and blessed whetstone to inv.",
+06563d0ca 2022-10-31: "General stores offering too many identify services, lowered it to 0-2, the chance for an extra one was off, correct to 1 in 10.",
+89f411739 2022-10-31: "Added zoo bats to real zoo",
+343888f1e 2022-10-31: "Imported gun shops",
+b0cd687a5 2022-10-30: "Imported clinics and terror halls from SlashTHEM.",
+da801b357 2022-10-30: "In the shopkeeper services menu, the selection pointer was not being freed - leading to a memory leak. Fixed.",
+5e31caaa6 2022-10-30: "Slaughter wights now release a death wail on perishing. Does 2d18, sonic damage, and stuns.",
+271121b51 2022-10-30: "Fixed error in Sunsword msg when killing zombies.",
+1e51ff2cc 2022-10-30: "Grund now must be defeated to descend the stairs on his level.",
+599c46cfa 2022-10-30: "Lightsabers can cut through iron bars now.",
+122237d0a 2022-10-30: "We can force iron safes with lightsabers.",
+be18aa497 2022-10-30: "Merge scimitar and saber skills.",
+e542162cd 2022-10-30: "Healers start with a +1 blessed scalpel now (they needed a little help and I couldn't justify the xnh change of a d5/d7 scalpel, so this is a compromise.)",
+9a8543c6c 2022-10-30: "Cavemen now start with a wolf instead of a little dog.",
+d6cf274bd 2022-10-30: "Changed timeout for monster spell of stone to flesh to timeout 2d7 instead of rn2(7).",
+efa2efbcd 2022-10-30: "Fixed regen code so healthstone regen can stack with other regeneration.",
+c356a13eb 2022-10-30: "Can get info on elven daggers now.",
+4753edd1b 2022-10-30: "Mines undead now appear based on level depth.",
+23606c0d4 2022-10-30: "Squealers now squeal instead of scream.",
+1df822d36 2022-10-30: "Buffed drowsing rod a bit. Almost always does the sleep attack. Bumped to-hit to d5.",
+7475f9b63 2022-10-30: "Adjusted plastic golems drops so that non-credit cards are much more rare.",
+86a8df6e7 2022-10-30: "Forges appear after level 2 (turns out they are very handy for certain things - like disposing of zombies, and getting access to better weapons.",
+5c8db9ff7 2022-10-30: "General stores get 0-3 identify services, 10% of 1 extra.",
+a8e06a9a4 2022-10-29: "Elves listed in the monst.c were not actually lawful - fixed that so all elves are lawful now.",
+58586a801 2022-10-29: "Nerfed the wizard buffs and riders a little bit.",
+4b7e69a76 2022-10-29: "Breaking instruments would not use a turn. Fixed.",
+bb68fbd12 2022-10-29: "Fixed armor shopkeeper services; now has the same letters as weapon services (they should not overlap since we shouldn't ever see armor and weapon services mixed.",
+a1c30a966 2022-10-29: "Removed the appraisal service; obsolete with the object lookups.",
+42841e516 2022-10-28: "Fix for issue #22. When masks broke, obj was being checked later in doapply to see if it could speak. Since it was deallocated, this caused a heap-use-after-free. Now when masks are applied, they return 1 immediately and skip the check at the end.",
+57ec498dd 2022-10-28: "Fix for issue 21. When projectiles were being destroyed by passive attack (ie: antimatter vortex), thitmonst wasn't returning 1 to signal the object was destroyed.",
+e271184c8 2022-10-28: "Fixed issue #25: When an instrument broke while wielding it, it was incorrectly calling delobj when it should have been calling useup - since useup handles unwielding an object in the player's inventory before freeing it.",
+1c965fe4d 2022-10-28: "Applied fix for issue #20. When wielded catnip was being freed and then dropping into other weapon handling. This patch fixes that.",
+403fe7757 2022-10-28: "Confused scrolls of air create 1-3 critters now.",
+1f5fabacc 2022-10-28: "Flame/Ice mages become vulnerable to their opposite element at level 5 instead of 10.",
+e5b553268 2022-10-28: "Scrolls of ice are also water proof, like scrolls of flood",
+a1b270eb1 2022-10-28: "Ice mages now start with some scrolls of ice and a wand of water.",
+e9d516e8a 2022-10-28: "Confused scrolls of ice create freezing spheres or ice elementals; removed the undo_iceflood effect (this removed lava, but the regular scroll effect now removes lava so it's rendered defunct.",
+7700dea53 2022-10-28: "Scrolls of ice now deal cold damage to monsters within a certain radius.",
+80b2e9022 2022-10-28: "If you read a scroll of ice underwater, you die instantly.",
+3a4223ed2 2022-10-28: "Unblessed scrolls of ice do cold damage to the player, blessed scrolls do not.",
+63cb1b5dc 2022-10-28: "Scrolls of ice also turn most magical traps into ice traps and destroy fire.",
+0091f6b82 2022-10-28: "Fixed scrolls of ice so they neutralize lava.",
+454313de7 2022-10-28: "Scrolls of ice now use the same routine for freezing tiles that wands of cold do. Pools, puddles, and sewage are frozen (with melting timers) and handled more properly. Lava still is not being destroyed for some reason.",
+24a26823d 2022-10-27: "Fix for issue #24. While importing masks from splice, there was a piece in polyself that handled eyewear/masks falling off from the player when polymorphing into a form without a head. I brought in the missing pieces in do_wear.",
+f888fabf4 2022-10-27: "Adjusted some of the breakable unlocking tools stuff.",
+f262b0605 2022-10-27: "Updated regular linux hints to not include fuzzer.",
+9bc4f4990 2022-10-26: "HEALTHSTONE was listed twice in objects Healers know, fixed.",
+b5e8afffb 2022-10-26: "Master Sword was listed twice in village.des, fixed.",
+4dd2ae206 2022-10-26: "Removed stake fusion recipe for forge",
+450b6a700 2022-10-26: "Boomerangs can be upgraded to chakrams by dipping into potions of gain level. (Difficult to forge boomerangs since they are usually made of wood.)",
+f1f4b019c 2022-10-26: "lowered price of shopkeeper rumors to 5.",
+cb7e1933e 2022-10-26: "Removed unused mtmp in spell.c",
+048129b32 2022-10-26: "Revert "Reduce the amount of gold laying on the floor"",
+d6f6f85b5 2022-10-26: "Applying certain objects that touch your mouth or ears will now inflict hated material damage.",
+90a46b8e1 2022-10-26: "Only ice mages can invoke deep freeze and flame mages can invoke firewall",
+a270a2ccd 2022-10-26: "Revamped Thiefbane; now a two-handed sword, unaligned. Removed the hostility toward S_HUMAN so players could wield it. It now has the beheading attack, +d5 to-hit, +1 dmg, and has a high probability of cancelling covetous or thieving monsters. It also protects from regular seduction and stealing attacks - the covetous stealing still applies though.",
+7e530fdc5 2022-10-26: "Remove unnecessary mspec code from mcastu.c",
+bacec45ea 2022-10-26: "Necromancers now receive a +1 alignment bonus when digging graves, and will exercise wisdom if found a corpse.",
+345465916 2022-10-26: "Cursed potion of gain ability can decrease one's attributes. (From slashem-up)",
+d3d91ca3b 2022-10-26: "Deathsword no longer targets humans (makes it unusable) - it gets a bonus vs cross-aligned, and now is capable of inflicting a paralyzing hit 1 in 4 attacks.",
+1feaf0a88 2022-10-26: "Keystone Kops may generate with pistols, bullets and dagger/knife.",
+db32025bb 2022-10-26: "Shotgun shells and bombs weigh much less.",
+1aa17ba31 2022-10-26: "Undead slayers can reach basic in short sword skills.",
+e75f568bc 2022-10-26: " Undead slayers can be dwarves.",
+fda9bfb04 2022-10-26: "Barbarians are not immune to poison.",
+2d8db42dc 2022-10-26: "Imported Mousers Scalpel (from slashem-up)",
+e8af5e463 2022-10-26: "Rapiers can be generated randomly. (From slashem-up)",
+794d72697 2022-10-26: "Refactored out do_clear_areaX and added a boolean to do_clear_area for bypassing vision. Added a fun invoke ability to Deep Freeze. When invoked it freezes the surrounding area and performs a free spell of freeze sphere.",
+b7963c6df 2022-10-26: "From Un: Rust traps can't blank scrolls of flood either.",
+bb65a20ac 2022-10-26: "From Un: Scrolls of Flood resist blanking. (fix suggested by Chris_ANG)",
+9f5e497de 2022-10-26: "Imported scroll of flood (from Un)",
+94e5efe25 2022-10-26: "Imported scrolls of ice (From SlashTHEM)",
+546fa3799 2022-10-25: "Reverted the Ice mage to start with the freeze sphere spell instead of my new snowball spell. Since the flame mage is not starting with flaming sphere anymore, it makes sense to let the ice mage have the sphere spell as a good starting spell. In addition it is level 1 and allows the ice mage some decent defense/offense until they can cast cone of cold.",
+04a169bf6 2022-10-25: "Increased the to-hit bonus for Ice Mage's snowball so it actually hits more.",
+0f12dc347 2022-10-25: "The Ice Mage's stilleto is only +2 now.",
+621d01b86 2022-10-25: "Flame Mages start with Fireball instead of flame sphere, ice mages start with cone of cold instead of freeze sphere.",
+b492f99d3 2022-10-25: "Fire bolt stops after hitting a web, tree, or door.",
+aa1e4f231 2022-10-25: "Changed the damage calculation for fire bolt. Now starts at 1d10, +d8 at levels 4, 8, 12, with +d4 for reaching skilled and expert in matter. No spellcasting bonus for this.",
+263cd0adc 2022-10-25: "Rays of water will blow up forges.",
+6c4803073 2022-10-25: "Removing the artifact_name bit in pager until we get a working draft.",
+649484f8f 2022-10-25: "Fixed apostraphes in baseball bat db entry.",
+13241d52d 2022-10-25: "Tried to fill out all the missing gaze attacks while the player is polymorphed. A lot of this was unfinished during my initial import of slashem, so I was able to complete most of it using splice. All the gaze attacks should be covered now. The Catoblepas death gaze was converted to a drain life for now (felt overpowered)",
+e28fa2220 2022-10-25: "Revert "Players cannot use the barghest #monster ability - it only affects player's luck."",
+b878917eb 2022-10-25: "Players cannot use the barghest #monster ability - it only affects player's luck.",
+e7e635b44 2022-10-25: "Spiders did not have a body part for skin; this seemed to be causing an issue with the vulnerability spell monsters have. Added cuticle for the spider skin.",
+0de365585 2022-10-25: "Added paranoid check to scroll of cloning in case cloning the player wasn't successful.",
+5dadb4547 2022-10-25: "Added fix for issue #10. Engulfers can no longer engulf fern spores. This is to prevent generation of fern sprouts mid-engulf.",
+0c38f4053 2022-10-25: "Prevent mold from growing beneath boulders",
+5f29b61b3 2022-10-25: "From xnh: Green mold grows on acidic corpses",
+14f1f4a26 2022-10-25: "Reverted 1d24532 (fix for artifact lights), but moved the begin_burn in hold_another_object after place_object so the light has a location.",
+c3e7a6c83 2022-10-25: "Before moldy_corpse starts a rot timer, I added a check to see if one already exists to address issue #6.",
+de27c049b 2022-10-25: "Fixed tile listing for wooden stake - mislabeled.",
+d33688edf 2022-10-25: "Revert "Handled artilights being lit and wished for in hold_another_obj. Hopefully solves the problem of wishing for Eternal Candle when our inventory is full and it falls to the floor dereferencing the pointer."",
+54f0eeed2 2022-10-25: "The Master Sword now has special magic missile attacks, similar to the Zelda mechanic where you shoot a protectile when at full health.",
+5ef77aaba 2022-10-24: "The stake of Van Helsing now warns against vampires; still does bonus damage vs all monsters.",
+51598a668 2022-10-24: "Replaced the Iron Ball in the convict quest with the Iron Spoon.",
+3bff2886e 2022-10-24: "Renamed stakes to wooden stakes (feels more in theme), and fixed Stake of Van Helsing so we can wish for it.",
+6d081aee0 2022-10-24: "Renamed the spoon of liberation back to the Iron Spoon of Liberation. Wishing for it is successful; added a fix in objnam.",
+788c849f8 2022-10-24: "Serpent's Tongue is now a parazonium and gets a +d5 to-hit bonus - was +d2 before, felt like it needed a little boost.",
+9887ea664 2022-10-24: "Fix Thunderstruck attack msg",
+5ef61a83e 2022-10-24: "The Great Dagger of Glaurgnaa must be wielded to get magic resistance.",
+1e19bb17f 2022-10-24: "The Stake of Van Helsing must be wielded now to get magic resistance.",
+a189e91a0 2022-10-24: "The Crown of Saint Edward now only grants MR when worn.",
+79c44dc7f 2022-10-24: "The Sword of Balance now protects from hurtle attacks while wielded.",
+65ca9f19b 2022-10-24: "The Staff of Aesculapius also cures larval infection and afraid status when invoked.",
+d6a402f66 2022-10-24: "Demonbane can now be invoked for flying.",
+850871dae 2022-10-24: "Cannot with for the Staff of Rot, Xanathar's Ring, Key of Access or Master Sword. The alignment artifacts also don't count toward wishing count.",
+1b56a1d3b 2022-10-24: "Updated db entry for magic mirror of merlin.",
+a846899fe 2022-10-24: "Mortality dial doesn't aggravate trolls or instakill trolls (that's trollsbanes job), but does prevent trolls and zombies from leaving corpses.",
+4fef941f0 2022-10-24: "Mystic Eyes are now made of gemstone.",
+19605f3d0 2022-10-24: "Changed Chains of Malcanthet to target angels instead of demons.",
+def915818 2022-10-24: "Updated db entry for wand of water.",
+56f88c8ba 2022-10-24: "Imported first draft of artifact info for the database lookups.",
+f0f84d9c1 2022-10-24: "Changed Sting and Orcrist to Lawful artifacts to match the lawful change of elves.",
+abbb2ba9b 2022-10-24: "Removed Circe's witchstaff from is_chaotic_artifact, it is neutral.",
+712db5eab 2022-10-24: "Cleaned up some formatting in artifact.c",
+9e1c50b72 2022-10-24: "Gungnir is an atgeir in dnh, so I imported the atgeir and fixed the ritual so any spear you pray with is transformed into a atgeir.",
+76807bfa3 2022-10-23: "Fixed typo in drowsing rod in artifact materials.",
+e0d31fa0c 2022-10-23: "Fixed incorrect undead tags in Disrupter listing.",
+063ee7224 2022-10-23: "Drowsing Rod is now copper.",
+07395413e 2022-10-23: "Fixed price for Circe's Witchstaff",
+6494f99b1 2022-10-23: "Looking up artifacts in the database will now return the base item info.",
+01fd5383b 2022-10-23: "Spell of firebolt now can burn webs and fountains up.",
+893ed62fb 2022-10-23: "Fire bolt gets +1d5 when you get to skilled in matter.",
+ea4942377 2022-10-23: "Flame mages get spellcasting bonus based on wisdom.",
+df0d3f8c9 2022-10-23: "Gargoyles and winged gargoyles now count as made of stone.",
+8583bf364 2022-10-23: "Digging rays (from wands of digging) will now vaporize boulders.",
+628592977 2022-10-23: "Elves can use musical instruments without risk of breaking them.",
+7ff505b9a 2022-10-23: "Hobbits start out knowing Elbereth",
+7dc71d195 2022-10-23: "Lava rooms can appear after level 17",
+a2e40216d 2022-10-23: "Fixed issue of the cold themed room showing up even when MINLEVEL is set. I created an extra random room at the end of the list of vaults so the cold room wouldn't show up.",
+073917eac 2022-10-23: "Fixed compiler warning for dbl_dmg",
+42cee400e 2022-10-23: "Fixed compiler warning in do_genocide",
+bea81e22e 2022-10-23: "Fix for issue 15: I integrated the Lethe Branch into the main dungeon. Gehennom is meant to be the second dungeon defined so this change brings that back.",
+a3d71a583 2022-10-23: "Disabled Call Undead for polymorphed player-spellcasters, and enabled make pool.",
+c67cb0ee3 2022-10-23: "Reenabled vampire mage as a valid polyform.",
+8833b209f 2022-10-23: "Fix for issue #8: Fix some misc issues in searmsg  Description: Some definitions and derefs were mistakenly moved before null pointer guards and similar out of an attempt to untangle declarations and code in 7d56bbd134.",
+525c7fa25 2022-10-22: "Fix for issue 4: Moved check for lightsabers deactivating to the end of the block in flooreffects to avoid checking a dead reference after a boulder has been cleared from memory.",
+004c5847c 2022-10-22: "Disabled silver bullets and daggers for undead slayers until we find a fix.",
+7f0f79b8b 2022-10-22: "Adjusted some of the wand explosion colors.",
+d5177add3 2022-10-22: "Factored out wand of fear logic; breaking one now makes surrounding monsters afraid in addition to yourself.",
+9a036eab3 2022-10-22: "Increased difficulty of centaur undead a smidge.",
+a5fe6df3a 2022-10-22: "Filled in some missing details for centaur mummies and zombies.",
+d4159adef 2022-10-22: "Implemented potion vapors for reflection, regeneration, ESP, clairvoyance, and invulnerability.",
+c3219cf3a 2022-10-22: "Some of the gibberling sonic attacks can wake you up.",
+2cf8a17d2 2022-10-22: "Added in missing artifacts to is_lawful_artifact and is_chaotic_artifact, sorted those lists, and organized artilist a bit.",
+0da8f1218 2022-10-22: "Added diluted behavior for potions of reflection and regeneration.",
+db31ea9c8 2022-10-22: " Confused Scroll of air creates an air elemental if cursed, or a whirling sphere.",
+de73862b9 2022-10-22: "The Healer now gets the Drowsing Rod as a guaranteed first sacrifice gift.",
+b6c90839e 2022-10-22: "Added diluted effects for speed, booze, invulnerability, and clairvoyance.",
+f8f764864 2022-10-22: "Breaking wands of secret door detection has a chance of detecting traps and portals - dependant on charges.",
+46d4979cf 2022-10-22: "Added M_SEEN_DRAIN and M_SEEN_LOUD where appropriate.",
+d48ac346b 2022-10-22: "Pills always cure larval infection.",
+ba47f32ad 2022-10-22: "Fixed some scream attacks not waking up sleeping players. Harpies have a funny message if player is sleeping and don't wake them.",
+85343fafc 2022-10-22: "Cleaned up and fixed some behavior in the sonic attack section for monsters in mhitu.",
+4dae23713 2022-10-22: "Refactor intelligent monster recharging code.",
+5bd4a0939 2022-10-22: "Added define for M_SEEN_LOUD",
+c8df797e4 2022-10-22: "Corrected error in M_SEEN_DRAIN define.",
+aabe9a078 2022-10-22: "This addresses how an intelligent monster would determine which wand/horn it should recharge if it had the means to do so, and in which order. This also fixes a bug discovered that would cause a monster to change a wand/horn a second time while it still had charges left to use. (from EvilHack)",
+3f2da471b 2022-10-22: "Fixed order of wand of water in tiles.",
+7215824cf 2022-10-21: "Confused scrolls of gold detection no longer detect magic portals.",
+0f539c206 2022-10-21: "Added steel golems to the effects that happen to iron golems, they are both technically iron so they both rust in many of the same spots.",
+aa4fd5e09 2022-10-21: "Getting inflicted by amnesia can also make us forget knowledge of shamblign horrors.",
+b4f27b895 2022-10-21: "Getting inflicted with amnesia has a 1 in 3 chance of making us forget Elbereth if we learned it.",
+2cd41b292 2022-10-21: "Fixed colors of wand of sonics and water; made cyan and blue.",
+abc78c278 2022-10-21: "Moved the old wand of water beam code from the ray section so it targets certain monsters (iron/fiery), and doesn't affect amphibious or breathless.",
+c4d5be0c3 2022-10-21: "Blessed scrolls of teleport let you choose where you want to teleport as if you had teleport control.",
+bc688d3d1 2022-10-21: "Ice Mages start with a Frost Horn instead of a wand of cold.",
+e40d40b38 2022-10-21: "Added a function to check for double damage if we have it from Deathvision, or from Staff of Rot. Also added double dmg for these sources where the knight usually gets it.",
+f307eed3f 2022-10-21: "Ice Devil gets an additional slow attack.",
+8ead8b597 2022-10-21: "Converted the wand of water to a ray type - does 6d8 vs non-amphibious monsters. This ray doesn't bounce.",
+2892b2b7e 2022-10-21: "Rays of water don't do any damage to amphibious monsters.",
+f36d6836d 2022-10-21: "The spell of drain life and wand of draining now can kill trees.",
+6af221538 2022-10-21: "Zapping fire bolt at trees now burns them to a crisp.",
+92e30a59e 2022-10-21: "Fixed toilet breaking so baby crocs only generate around the toilet - in case a player destroys it with acid.",
+e26dbc13f 2022-10-21: "Orcs can never learn how to use Elbereth.",
+ec7019082 2022-10-21: "All elves start out knowing Elbereth.",
+0ccc0b3a5 2022-10-21: "Wands of acid can destroy rust traps in alchemic blasts.",
+4f3c95337 2022-10-21: "Wands of acid can explode toilets and sinks.",
+c78b1be03 2022-10-21: "Wands of acid can be zapped at fountains to create alchemic blasts. This has a chance of drying up the fountain.",
+667c69869 2022-10-21: "From Un: Wands and spells of digging are no longer restricted on maze levels",
+9a206fa3b 2022-10-21: "From Un: Vibrating square: messages when player is near",
+53e3f89ba 2022-10-21: "From dnh: booze drinking it gives 130 points of nutrition if uncursed, 140 if blessed, and 120 if cursed.",
+ecd73a36d 2022-10-21: "From UnNetHack, dwarves have a 6⁄7 chance to be generated with a potion of booze (outside of the mines).",
+81ffe22d4 2022-10-21: "Wands of acid can now kill and destroy trees.",
+4d8ad39f5 2022-10-21: "Wands of acid can dissolve webs.",
+746ee0354 2022-10-21: "Wands of poison gas will kill wither trees into dead trees when they hit.",
+75e3a2d2d 2022-10-21: "Cursed wands of fear zaps you with fear 80% of the time in addition to other negative effects.",
+db6df8efe 2022-10-21: "Zapping yourself with a wand of wind hurtles you in a random direction.",
+1fd14dde7 2022-10-21: "Toques actually grant sonic resistance when worn now.",
+9510e8871 2022-10-21: "Add auto-id for healing wands (when engraving) if the other has been identified",
+fa4b47200 2022-10-21: "Breaking wands of acid, poison gas, lightning, or sonics can generate a magic beam trap.",
+c43ce670e 2022-10-21: "Refactored and cleaned up the code for creating traps from breaking wands.",
+00f86db9a 2022-10-21: "Magic beam traps cannot generate below level 16 (from slashthem)",
+583aa7e95 2022-10-21: "Magic beam traps now generate a random beam type on every trigger; before they were hardcoded to a single beam when created on the level.",
+ae4b16990 2022-10-21: "Olog Hai now get poison resistance - they seem to be descended from orcs so makes sense they would inherit this.",
+da02015c1 2022-10-21: "Wishing for wand of poison grants wand of poison gas.",
+5caaf356c 2022-10-21: "Wands of undead turning do double damage on breaking, wands of acid do triple, wands of fireball do 4x, and wands of acid and poison get different explosion types.",
+d674c4ef2 2022-10-21: "Imported database entries for all wands.",
+965f76059 2022-10-20: "Potions were granting intrinsic speed; removed this since that's the direction we are going. We recently buffed the potion BACK to vanilla levels. There are also a lot of sources of very fast speed in this game...",
+7dd7aecab 2022-10-20: "Wands of slow monster were not causing slowness when zapping one's self, unless the player already had fast speed intrinsically or on a timeout. I removed the condition that speed is needed to slow down.",
+91c5614b7 2022-10-20: "Wands of healing and extra healing now cure sickness on monsters. If zapped at zombies, they will instead inflict damage equal to what they would normally heal.",
+260a66488 2022-10-20: "Imported the wand of create horde nerf from splicehack - now when monsters zap this wand it only creates from 6-10 monsters instead of 10-14. Missed that on the initial import.",
+e3f6ce243 2022-10-20: "Added debugging line for showing spell/wand damage.",
+68181b88e 2022-10-20: "In dobuzz, is_wand was only checking the range from 1-9, extended to 1-10 to include wand of water.",
+c52d3b69e 2022-10-19: "Imported database entries for all scrolls.",
+e80e5e97f 2022-10-19: "Imported info for potions to the database; you can now access info for any potion by going to your inventory and selecting the potion.",
+a4f038d44 2022-10-19: "Fixed typo in flanking bug.",
+1f6dbebb1 2022-10-19: "[Issue 3] Added fix to check is_ok for MON(x,y) to avoid potentially invalid space check.",
+13b558c58 2022-10-19: "In muse the offensive and defensive defines seem to overlap or conflict - I separated them by 50.",
+2d2c4f240 2022-10-19: "Fixed formatting in muse.c",
+5ab3f221e 2022-10-18: "Added safeguard for checking lightsabers turning off on the ground.",
+a791bc6e5 2022-10-18: "Cleaned up slashem code for amnesia in potion.c",
+ed7054621 2022-10-18: "Reverted potion of speed back to vanilla behavior - it was nerfed heavily in evil.",
+767e8df3c 2022-10-18: "Added potion of gain ability to database. Updated healing potion info to include info about curing withering.",
+e7015b982 2022-10-18: "Added all healing potions to the database.",
+0fe0d7a8b 2022-10-18: "Enabled the nabassu #monster ability while polyd into one.",
+1d24532e4 2022-10-18: "Handled artilights being lit and wished for in hold_another_obj. Hopefully solves the problem of wishing for Eternal Candle when our inventory is full and it falls to the floor dereferencing the pointer.",
+df0e12d1c 2022-10-18: "Fixed msg for vampires wearing opera cloaks (from un)",
+b9b816171 2022-10-18: "Added another guard for throwing bombs that don't hit monsters.",
+c43c795b2 2022-10-18: "Renamed a formatting define for BULLET to avoid conflict with the gun BULLET.",
+7d20af0a1 2022-10-18: "Enabled water breath attack to be used in random breath attacks. Found via fuzzing.",
+d8291673e 2022-10-18: "Removed typo line in mhitu.c",
+709bb6fdc 2022-10-18: "Added guard in dothrow to check if grenade exists before arming.",
+11ab70d57 2022-10-18: "Added asan debugging to linux hints files.",
+91bd55d34 2022-10-18: "Added a couple guards to check if torches or stakes were valid before attacking in mhitu.",
+c0e3578e2 2022-10-18: "Some splicehack scrolls were missing from write costs.",
+0b8fe0ecc 2022-10-17: "Moved lightsaber just above lance in the p_skills list to fix a problem with looking through #forcing weapons/tools for unlocking containers.",
+6e9bacf66 2022-10-17: "Shambling horror pokedex lookup is unlocked if you probe it with a wand of probing or apply a stethoscope to it.",
+49b3852a4 2022-10-17: "Wielding Vorpal Blade protects against decapitation attacks.",
+05ca18bba 2022-10-17: "Place Fort Ludios portal in the first eligible vault  generated.",
+723885fe6 2022-10-17: "Infidels can be centaurs or vampires.",
+095e94c34 2022-10-17: "Fix: shambling horror pokedex lookup.",
+a7590a25d 2022-10-17: "Armor shops will refuse to work on dragon scales; the player will have to use scrolls of enchant armor to fuse them.",
+6893400ef 2022-10-17: "Fixed vampire intrinsic gains from corpses; placed the check in cpostfx so they only get intrinsics 20% of the time.",
+f5b2788f3 2022-10-17: "Tweaked the vampiric race a bit for playability; removed the MH_UNDEAD tag so it doesn't get so many resistances. Removed flying at level 1 and added it at level 9. Sickness resistance kicks in at level 12. Moved some of the other trinsics around.",
+e0a4951cc 2022-10-17: "Removed intrinsic sickness resistance from vampire (while the player is polyd into one) for the purposes of making the vampire race a little more difficult.",
+a0a24a307 2022-10-17: "Cleaned up a bunch of my comments around the codebase.",
+22647a716 2022-10-17: "Enabled giant, centaur, and tortle races for undead slayer.",
+ac3d4f617 2022-10-17: "Undead Slayer player monsters now generate with silver spears.",
+f08a2fb4b 2022-10-17: "Enabled the selective spellbook gifts for flame and ice mages - neither gets their opposite elemental for spellbook gifts.",
+0f05333d0 2022-10-17: "Cleaned up more old comments from the initial imports.",
+135e15be9 2022-10-17: "Re-enabled a robe of weakness in the lawful quest.",
+e3c995505 2022-10-17: "Cleaned up a bunch of #if 0 commented out stuff. Used is_robe in a few spots in spell.",
+e6cc32da5 2022-10-17: "Compiler warning cleanup pt 8",
+0c59588aa 2022-10-17: "Compiler warning cleanup pt 7",
+efbf800fd 2022-10-17: "Compiler warning cleanup pt 6",
+862826776 2022-10-17: "More warning cleanup pt 5",
+a0a0d8d09 2022-10-17: "mkroom initialized otmp pointer fix.",
+d3dad9a1d 2022-10-17: "More compiler warning cleanup pt 4.",
+36bfb5c83 2022-10-17: "Fixed more compiler warnings pt 3.",
+1a83ac656 2022-10-17: "Fixed a LOT of problems that the linux compiler warned about.",
+2a88dbc02 2022-10-17: "Fixed some compiler warnings pt 1.",
+e14b8da6d 2022-10-17: "Removed M2_PEACEFUL from hedgehogs to prevent murder for killing them.",
+6dda56e46 2022-10-17: "Fixed order of stake, great dagger in tiles.",
+e548384ab 2022-10-17: "Spear traps can now be untrapped; success may sometimes yield a random spear or stake.",
+7d001d5ce 2022-10-17: "Bombs now explode instantly if they hit a monster when thrown by a player. This mirrors the monster throw behavior - it didn't seem fair that monsters get an instant explosion and the player didn't.",
+9d1681c60 2022-10-17: "Fixed bug in spore explosions that was calling spore_dies twice and letting all spheres act as spores.",
+26e3f79cf 2022-10-17: "Added some of the new vegan foods to acceptable vegan dogfood.",
+19b564ce1 2022-10-17: "Added all upgrade paths (from gain level) to a database entry so players can easily look it up.",
+a0824c04a 2022-10-17: "Extended the set of upgrade paths for upgrades via potion of gain level (or tinkering).",
+56bb6947b 2022-10-16: "Poisonous cloak can be upgraded to alchemy smock",
+9ce77ce20 2022-10-16: "Tweaked throwing axe so it's more rare, but can compete with daggers powerwise; also weighs less.",
+800608fdc 2022-10-16: "Fixed errors in executioner's mace; doesn't generate randomly; damage corrected; base price is now 40",
+8af03e634 2022-10-16: "Make the Wooden Stake into a plain stake (for object materials). Stake of Van Helsing will always be wooden.",
+0d4e89395 2022-10-16: "Made chakram dmg 11 vs small, 10 vs lg, and +1 tohit. Decreased probability to half of boomerang.",
+00209b0fb 2022-10-16: "Removed all droven items and drow (I don't plan on implementing the drow race for a while); changed Plague to an orcish bow.",
+3664ddd99 2022-10-16: "Cleaned up formatting in objects.c",
+014ad9eaa 2022-10-16: "Added some new recipes for the forge for new items from slashem and splice.",
+64b2d1f11 2022-10-16: "Migrated the Blacksmith's Cookbook to the main database. When I removed the goblin branch, I also removed where the cookbook is usually generated - but I also want the forging info to be easily accessible since it adds a lot of depth and fun to the game. Reorganized the forge listings to be more readable.",
+f8a1f5409 2022-10-16: "Updated the database with rank info for the new slashem roles; updated wizard ranks that were Necromancer",
+b659634f0 2022-10-16: "Breaking wands of water can create rust traps.",
+0b53d38a8 2022-10-16: "Wands of fireball can also create fire traps on breaking.",
+308ee8be7 2022-10-16: "Torches no longer auto-wield on apply/lighting.",
+947bed706 2022-10-16: "Migo hives can appear after level 18",
+f50a750b7 2022-10-16: "Fixed huge bug in is_vampire that was always returning true. Caused players to not be able to eat - now should be good to go.",
+466753b58 2022-10-16: "Used is_ghoul and is_bigeater in is_edible for the player.",
+2f9ad45c3 2022-10-16: "Wands of cold can create ice traps.",
+50d2be0df 2022-10-16: "Fixed misplaced } in dogfood inbetween isghoul and isvampiric and placement of the vampiric pet food check.",
+657be8caf 2022-10-16: "Updated PM_VAMPIRE references to PM_VAMPIRIC where appropriate.",
+1c0029c1f 2022-10-16: "Removed init_uasmon from polyself; fixed the vampire magic attacks by adding an exception for PM_VAMPIRIC in set_uasmon.",
+529f4c7d5 2022-10-16: "Updated all references of Race_if(PM_VAMPIRE) to Race_if(PM_VAMPIRIC)",
+d5d10b3ae 2022-10-16: "Potions of vampire blood were able to poly vampiric into vampire - fixed the race check so this cannot happen.",
+185f81bcb 2022-10-16: "I added M2_NOPOLY to Vampiric monst so that it cannot be polymorphed into (it's just a placeholder)",
+657406daa 2022-10-16: "Fixed is_vampire - was using urace.selfmask, but this would always return true if the player was a vampire - changed to use mhflags & MH_VAMPIRE.",
+7b85b1985 2022-10-16: "Fixed where I placed in is_bigeater() into movemon.c",
+8e3c3eb19 2022-10-15: "Change massacre themed room minlevel to 8; so players can experience corpse mechanics a little more.",
+afcb08ebe 2022-10-15: "Reordered artilist slightly.",
+e70227218 2022-10-15: "Added missing break above S_KOP in makemon - causing h monsters to generate with Kop stuff",
+bd7ed236d 2022-10-15: "The tourist always starts with all their optional equipment and the magic marker is 0:0 (from FIQ)",
+9668549e9 2022-10-15: "Brought over a bunch of small changes to roles starting equipment from Slash'EM. arc starts with a spell, lamps can be torches, priest gets +2 shield, rogues get ?o tele/gold detect, rogues can start with pistol and ammo instead, healers know more health-based potions.",
+a34ad2870 2022-10-15: "Changed wresting chances to 1 in 7 (for blessed wands), 1 in 23 for uncursed, and 1 in 121 for cursed. I didn't like the immediate wresting behavior because it just burned up wands. This is less fun because you can't sell your empty wands and you can't recharge them (and there is more recharging with shopkeeper services.) - also a big issue is that many people aren't aware of this behavior and just waste their WoW without intending to.",
+99c79cea7 2022-10-15: "Fixed starting food for vampire race and startig luck and alignment penalty.",
+9685b6df2 2022-10-15: "Removed the Bag of the Hesperides and replaced it with SlashEMs Wallet of Perseus. Can wish for it. Kept the MC1 and Oilskin properties.",
+6cf9e9086 2022-10-15: "Vampiric race gets hunger AND regeneration at level 5",
+c66c309b4 2022-10-15: "Black rats cannot be genocided (helps with the bag of rats so it can function.",
+b9245fd27 2022-10-15: "The rat level only appears 25% of the time, and always has a guaranteed bag of rats (from splice)",
+59cd8dc0d 2022-10-15: "Fixed order of spoon and torch in tiles.",
+e9c25f452 2022-10-15: "Removed the 1 in 100000 chance of a wish from the Magic 8-Ball. I would prefer the 8-ball be readable in it's ordinary form, but I have not been able to implement that. But for now, the wish chances seem too astronomical to even offer to the player.",
+9954cdbbf 2022-10-15: "Fixed typo from previous commit.",
+f1a81953b 2022-10-15: "Added missing vampiric tile and glob tiles; added new puddings to is_pudding.",
+e5b0fcac1 2022-10-15: "Rolled back the TOHIT display in the status bar; displays MC in it's place.",
+5bbb8c425 2022-10-15: "Rebalanced the undead slayer skills a bit to make more sense.",
+7d176b6df 2022-10-15: "Removed shopkeeper price adjustments based on race (racist shk) - and also the role based discrimination that doubles or triples prices for sam/barb/rog. Now we can price id like normal again!",
+f943d171c 2022-10-15: "Added some missing globs of pudding/mold to objects.c to match the pudding monsters.",
+d4de6396b 2022-10-15: "Removed gnomish psykers - just don't seem to fit in with the mind flayer attack. Not sure what to do with them.",
+d68df0af8 2022-10-15: "Increased frequency of unicorns slightly.",
+ee2a7957b 2022-10-15: "Matched gray fungus a bit more to slashTHEM - added movement speed of 1 so they can at least move. Otherwise they can build up and become a nasty wall of disease. Added the physical touch attack.",
+720d4998e 2022-10-15: "Reduced probability of executioner's mace a a lot; when I imported it the field for weight got used as the probability (which is 0 in splicehack)",
+73233b903 2022-10-15: "Removed possibility of shopkeepers failing identify service - they only get the service if they are qualified!",
+34e0e2b02 2022-10-15: "Increased all frequency of all pet domestics to 3; in slashem they were over-boosted to 7, but it feels like the player needs some help with all the extra monsters added.",
+dfbe35c79 2022-10-14: "Fungus Farms appearing too early - set back to appearing after lvl 7.",
+4b7465831 2022-10-14: "Plastic golems drop some of the other plastic items in the game now.",
+4c81bfb1d 2022-10-14: "Flanking bonus for monsters scales with their difficulty.",
+b616d2c95 2022-10-14: "from xnh: Fix: jumping over water didn't work",
+f40c93a9a 2022-10-14: "From xnh: Print message when water walking boots become identified",
+f8379d85c 2022-10-14: "From xnh: copperwaterWater walking boots self-identify when they prevent you entering water",
+f034067d9 2022-10-14: "Phoenix eggs now hatch when thrown into lava or dipped into forges.",
+5c77f9331 2022-10-14: "Phoenix eggs will now be revived by sources of fire.",
+7046537bb 2022-10-14: "Made rock trolls stoning resistant (from xnh)",
+4e9a6f0c5 2022-10-14: "Added SONIC_RES to the PROPSET in set_uasmon",
+18ed8f57c 2022-10-14: "Lowered probability of gaining strength from giants to 25% instead of 50%",
+42d337bb9 2022-10-14: "Fixed hell hound pups and winter wolf cubs not getting dogname from user's rc file.",
+1ffabd70b 2022-10-14: "Fixed missing braces in do_wear for water walking boots.",
+11e046db5 2022-10-14: "Reordered some gloves so the randomized appearances works correctly.",
+cc6c12935 2022-10-14: "Mercenaries can get any random bomb now.",
+c2c9776f4 2022-10-14: "Boomerangs can be upgraded to chakrams",
+708d45890 2022-10-14: "Added some forge recipes for chakrams",
+b40a96e59 2022-10-14: "Reordered some gnolls in makemon to prevent bugs.",
+dceb11512 2022-10-14: "Fixed order of puddings where globs drop - I missed updating this when adding new puddings.",
+1a2b357e9 2022-10-14: "peasants can now get scythes.",
+74211fc98 2022-10-14: "Fixed missing MAX_KNOW when I added the spellcasting boost.",
+ec4151771 2022-10-14: "Reduced frequency of Will-o-the-wisps slightly from 4(uncommon) to 3(rare)",
+6438439c6 2022-10-14: "Brought in spellcasting boost from slashem; whenever you successfully cast a spell it extends your knowledge of it by 500 turns.",
+91587b499 2022-10-14: "Changed Xanathar's ring base to see invisible.",
+67cf34639 2022-10-14: "Town branch now appears 2-3 levels below Oracle.",
+ccb2219c3 2022-10-14: "Flame mage only starts with 1 bomb.",
+18f973022 2022-10-13: "Flame mages can get skilled in sling now.",
+92acaebec 2022-10-13: "Fixed vampire race and role issues; spellcasting roles like ice mage and necromancer would seem to inherit the vampire mages spell attack. I created a Vampiric placeholder monster for the vampire player race to use instead.",
+c5635d072 2022-10-13: "Renamed vampire sorcerer back to vampire mage.",
+156722120 2022-10-13: "Fixed another bug in zombie bite handling because of tinfoil hats - occurred in mhitm where it checks if the defender is wearing a tinfoil hat, fixed the check.",
+bbce9f445 2022-10-13: "Flame mages can be elven now.",
+56cc96f3e 2022-10-13: "Refactored bomb_explode for easier debugging.",
+8db5e2354 2022-10-13: "Refactored bomb_explode to use only one call to explode.",
+993a37c34 2022-10-13: "Peaceful and pet liches will no longer cast call undead.",
+61b8c1c94 2022-10-13: "tamedog() had a bunch of exceptions for monsters that could not be tamed - I used the M3_NOTAME and M3_TRAITOR tags in the monster listings instead. Instead of outright banning some interesting monsters from being tamed (elder minotaurs, alhoons, etc) I made them traitorous.",
+76ba5f7b9 2022-10-13: "Fixed error in mcastu for code that says only liches and necros can cast call undead.",
+4c8bd7753 2022-10-13: "Scrolls of cloning will now reliably create clones of your role. Blessed confused creates a tame version, uncursed confused creates a peaceful version, cursed confused creates a hostile version. Was not able to factor in race matching yet.",
+75215c380 2022-10-12: "Replaced bomb tiles with more bomblike pics",
+fad4073aa 2022-10-12: "Added tile for sonic bomb.",
+d6b1deed4 2022-10-12: "Fixed compiler warning for howl variable in were.c",
+d6e7115b1 2022-10-12: "Added tile for gibberslug.",
+fa976f9f9 2022-10-12: "Added tile for helm of madness.",
+d71c9ccdd 2022-10-12: "Added a Helm of Madness. Causes hallucinatino when worn and autocurses. Also grants +3 charisma. Usually generated cursed.",
+826c975df 2022-10-12: "Removed  M1_NOHEAD | M1_MINDLESS from beholders.",
+cb704bad5 2022-10-12: "Digging down doors with a pickaxe now makes noise and wakes nearby monsters.",
+d83f873a3 2022-10-12: "Removed the blinding flash effect from wands of light or other light spells - now that effect only occurs when breaking a wand of light. I found this effect to be quite annoying for the mines where lots of peacefuls frequent and it breaks my rule of Dissapointing Surprising Things.",
+df8a2629a 2022-10-12: "Fixed some of the fireball kludges with proper ZT_SPELL(ZT_FIRE) uses.",
+cb8754af9 2022-10-11: "Cleaned up bomb_explode.",
+db829a508 2022-10-11: "Removed PM_ALHOON from a case statement in pray.c:doturn, it's value was outside of the bounds of the switch statement.",
+ed34c135a 2022-10-11: "Changed Xanathar's ring to require wearing for magic resistance.",
+17f36e110 2022-10-11: "Revamped the Staff of Withering. Had to rename to the Staff of Rot because it was unwishable (some conflict with ring wishing). The new staff is a Staff of Healing (bone), has a withering attack (+d6 tohit, +d6 dmg). While wielding it deals passive withering to attackers. While wielding and withering, we deal double damage. #invoke to start withering for 20-60 turns (also aggravates monsters on invoke)",
+6c431e209 2022-10-11: "Ghasts bite attack now scales with their level.",
+d6cb23ef7 2022-10-11: "Updated pager.c to correctly show all the new monster attributes that have been imported.",
+0f0046728 2022-10-11: "Gibberlings now have an injection attack which puts gibberling larvas inside you. When they hatch you have a few gibberslugs emerge from you. This does more damage than the ichneumon larvas!",
+ec40d1579 2022-10-11: "Removed ghoul mages/queens and vampire mages from mk_undead results.",
+c43e8aa0d 2022-10-11: "Imported the Lenses of Death Perception, but renamed them to simply Mystic Eyes because of problems with the original name. (From splice)",
+2e1798743 2022-10-11: "Imported the Hand Grenade of Antioch (from splice)",
+e5b1aa69f 2022-10-11: "Added an Engulf attack to magma elemental",
+46a7c0ee9 2022-10-11: "Larvas can now infest corpses and create maggots.",
+d48b99ad9 2022-10-11: "Rename dark elven equipment to droven",
+ad1f7f822 2022-10-11: "Monstrous spiders now have a scream that causes fear.",
+8e10690d3 2022-10-11: "Updates werecreature messages (using splice flavor)",
+40eb85e77 2022-10-11: "Rabid monsters can no longer be tamed - added the M3_NOTAME tag to rabid dog, rabid wolf, rabid rabbit, rabid rat.",
+0f1f75e14 2022-10-11: "Added a couple more amusing messages for kicking toilets.",
+3ccd5cdc0 2022-10-11: "Added random rotten eggs to bad food shops.",
+4824a1545 2022-10-11: "Added guard dogs to barracks",
+190fb4f4d 2022-10-11: "Added moldy puddings to dilapitated armories.",
+210d090e3 2022-10-11: "Reduce chances of toilets from 1 in 86 to 1 in 125.",
+9e050e095 2022-10-11: "Raised kamadan difficulty to 13 (almost doubled.",
+c5c5bcc09 2022-10-11: "Added bullet ants to antholemon() so they can be generated in antholes.",
+f7605e0e0 2022-10-11: "Upgrading pineapples results in random bombs.",
+095b3be06 2022-10-11: "Fixed explosion color for sonicboom.",
+5465a0241 2022-10-11: "Copper does extra damage vs migos (they are fungal based?). Added is_migo helper function.",
+bac6e96e7 2022-10-11: "Fixed the barghest comment.",
+712cf207f 2022-10-11: "Reduced the levels needed to upgrade spell of Snowball - now at levels 4 and 8 it gets better.",
+3bde466e0 2022-10-11: "Added barghest comment.",
+b820479d6 2022-10-10: "Changed the color of the grizzly bear to red (so as not to clash with manticores.)",
+1a8760749 2022-10-10: "Adjusted Fort Ludios to appear from lvl 10-30.",
+a48ac4d0b 2022-10-10: "Randomize colors for drowsing rod gasses.",
+c1c17c225 2022-10-10: "launchers contribute to damage (from splicehack)",
+1ab943079 2022-10-10: "Enabled necromancer to reach expert in polearms (for access to scythes)",
+cee620ffd 2022-10-10: "Created sonic bombs, like the other bombs but does sonic explosions (which also count as physical)",
+6e3b98178 2022-10-10: "Imported Mortality Dial (from splice). Since we don't have COLD_IRON, I made it silver; it also prevents trolls and zombies from reviving.",
+aec113627 2022-10-10: "Sword of Justice changed to broadsword",
+ff87b57bb 2022-10-10: "Imported Sunspot (from splice)",
+21288ed6f 2022-10-10: "Imported sonicboom (a morningstar that does sonic dmg and grants sonic res); renamed to Thunderstruck so it doesn't conflict with spellbook of sonicboom. Added the random ray attack from Squall. Increased damage bonus dramatically to compensate for the item destruction. (from splice)",
+7e3449502 2022-10-10: "Removed a call to generic_lvl_description in the WWALKING special artifact invoke.",
+b724e31c3 2022-10-10: "Created a new artifact: Drowsing Rod. Base item is a staff of healing. Has a sleep attack (25% each attack) and grants sleep resistance.Unaligned.",
+40c3c456d 2022-10-10: "Imported Poseidon's Trident (from splice)",
+8cb566ccf 2022-10-10: "Imported Pridwen (from splice) - also now grants Stable when worn.",
+fe33f47ad 2022-10-10: "Imported Origin - changed to a STAFF_OF_ESCAPE. (From splice)",
+ee155beba 2022-10-10: "Imported Luckless Folly (from splice)",
+d1b47130d 2022-10-10: "Added the Stable property for the player and monster; protects against clobber and hurtle attacks. (From splice)",
+015b40734 2022-10-10: "imported Imhullu (from splice)",
+9f4151ca7 2022-10-09: "Imported Gungnir (from splice but used the tohit and dmg bonus from dnh)",
+e6943d5d6 2022-10-09: "Imported Gleipnir (from Splice)",
+8ea86126c 2022-10-09: "imported The End scythe (from Splice) - changed its alignment to chaotic.",
+e21917333 2022-10-09: "Imported Circe's Witchstaff (from splice). Changed the base type to a STAFF_OF_MATTER. Raised chance of poly to 10% and it can transform enemies into pigs or feral hogs.",
+9a14e8c17 2022-10-09: "Imported Chains of Malcanthet (from splice). Currently this cannot be wished for, probably due to a wish parsing bug.",
+afc090210 2022-10-09: "Imported Carnwennan (from splice)",
+dae18a1d5 2022-10-09: "Imported Bradamante's Fury (from splice)",
+7fa5c7b5a 2022-10-09: "Imported the broadsword Balmung (from splicehack)",
+4a6c430cd 2022-10-09: "Reordered tiles for undead centaurs.",
+5440d3564 2022-10-09: "Created centaur zombies and centaur mummies.",
+8e73b0495 2022-10-09: "In the spirit of Slashem, elves are now on the lawful side instead of the chaotic side. Updates all roles that had chaotic elves.",
+72c2ef20b 2022-10-09: "Changed all references to grenades and helper functions to reference bombs instead of grenades.",
+9fd8a5a39 2022-10-09: "Renamed frag grenades to fire bombs and gas grenades to gas bombs.",
+21f8abaa5 2022-10-09: "Fixed ray color for wands of fireball",
+3a26cccff 2022-10-09: "Grenades can now be ignited by any fire effect. Added a new arm_grenade function to help with this and manage the grenade status.",
+eb311cf2a 2022-10-09: "Some firey spellbooks were still catching fire when the player exploded themselves. Fixed this for player and monster inventories.",
+4b820081d 2022-10-09: "The Rogue no longer gets the Bat from Hell as a sacrifice gift.",
+e974121ad 2022-10-09: "Added tile for scroll of cloning.",
+99119afa0 2022-10-09: "Finished implementing kegs, so we can quaff from them now.",
+76807b1c6 2022-10-08: "Mirrorbright no longer hinders spell-casting.",
+9c6201627 2022-10-08: "Mirrorbright no longer hinders spell-casting. (From slashem-up)",
+a9f2ec209 2022-10-08: "Made a few adjustments to Cthulu and added it to the middle of Moloch's Sanctum.",
+623aedfbf 2022-10-08: "Ice mages can be centaurs.",
+216cdf7a2 2022-10-08: "Flame mages can now be giants or dwarves.",
+762cf2dc4 2022-10-08: "Ice Mages can be illithids.",
+4f8406ad9 2022-10-08: "Added more upgrade paths for gray stones. Luckstones and whetstones can be upgraded into healthstones and vice versa. Flintstones upgrade into luck/whetstones.",
+8dda957a2 2022-10-08: "glowing eye/bloodshot eye/blinking eye: added M3_SKITTISH.",
+29ea73090 2022-10-08: "Added M3_TRAITOR to a bunch of monsters (from SlashTHEM)",
+74d4df3be 2022-10-08: "Added a poison breath attack to the hydra and a passive poison attack so it's a little closer to mythology.",
+a5889c9d9 2022-10-08: "Buffed some of the cave trolls attacks.",
+99a97d189 2022-10-08: "Cerastes now have 2 horns.",
+31349d4ce 2022-10-08: "Added berserk to marrashi (high level gnoll)",
+e9d6c3c62 2022-10-08: "Lamassu get 2 horns and replaced one of their bite attacks with a butt attack.",
+b63c0ee2e 2022-10-08: "Added a fire breath attack to chimeras; this is definitely something rooted in mythology. Made it about half as strong as a red dragons.",
+a1a57b921 2022-10-08: "Lampads usually generate with torches.",
+d6b3484f3 2022-10-08: "Added berserk to redcaps (they seem homicidal..)",
+a9a07ad26 2022-10-08: "Made the barghest amphibious (due to East Anglia legends), and has berserk.",
+c9ede4d3b 2022-10-08: "Added gibberlings and grimlocks to monsters that hate light.",
+f9b8ea936 2022-10-08: "Wands of create horde create 7-11 monsters instead of 7-13.",
+7e294e447 2022-10-08: "Fixed wand of sonics engrave identification.",
+3e3095a12 2022-10-08: "Fixed wand of acid engrave identification.",
+b4a5cfb5d 2022-10-08: "Removed cursed weapons reverse hitting. Cursed weapons will miss 25% of the time now instead of 20% to compensate.",
+2d7467d91 2022-10-08: "Free Action grants 50% chance (with a luck bonus) of slipping free (from slashem)",
+a441959d6 2022-10-08: "Added tile for hecatoncheire",
+4475ac84e 2022-10-08: "Ice Mages can walk on ice without slipping.",
+d23cc7971 2022-10-08: "Cleaned up rats.des, added a couple guaranteed mean rats.",
+20ac39904 2022-10-08: "Ice traps cannot generate below level 8.",
+9941a044f 2022-10-08: "Renamed vampire mage to vampire sorcerer; there is a bug with vampiric ice mages where they start as vampire mages instead of regular vampires. Until we figure out the root cause, we'll just settle with a rename.",
+2085ad982 2022-10-08: "Reduced the size of the main dungeon and the wyrm caves slightly to stay within allowable limits.",
+29d31ca32 2022-10-08: "Updated wooden stake, great dagger listings to use None for appearance.",
+0564a69e0 2022-10-08: "Fixed cursed scroll of air damaging vampires.",
+37b2ec881 2022-10-08: "Reformatted and commented the racial listings of role.c for my own understanding.",
+277d306f4 2022-10-08: "Vampires can only be chaotic!",
+787b823fb 2022-10-08: "Wands of draining now auto-id when zapped at a monster with visible results.",
+fab5939c8 2022-10-08: "Shopkeepers would still offer services to convicts who were banned. This has been fixed.",
+dbfa75928 2022-10-08: "Changed pack rats and jermlaine to NOGEN, increased level of jermlaine slightly.",
+a0c5b86dd 2022-10-08: "Increased the difficulty of new nymphs (yuki onna, brownie, lampad, dream thief, thriae) so they appear a bit later. Changed the yuki-onna's stun attack to a fear gaze attack.",
+f23e6571a 2022-10-08: "Removed the flame mage's starting studded leather armor, replaced with a robe so they can enjoy higher spellcasting rates.",
+3659e230d 2022-10-08: "Yuki-onna now have cold res (they are snow spirits)",
+bd9ed57e7 2022-10-08: "Fixed wand of wind engrave message, should have been postknown so you see the bugs get blown away AFTER engraving.",
+090b28c0f 2022-10-07: "Fixed bug with zombie bites. I had sloppily copied the tinfoil hat checks in the DRIN attack section.",
+3ce894774 2022-10-07: "Imported is_bigeater define from splice to help consolidate monsters that eat organics.",
+11639f272 2022-10-07: "Dragons occasionally let out roars that scare the player (from splice)",
+0057d903d 2022-10-07: "Imported scrolls of cloning (from splice) - the cloning self feature does not seem to currently work.",
+ff3c83491 2022-10-07: "Increased the chances of traitorous pets betraying you and removed the requirement that they have higher HP than you.",
+e3a69ce74 2022-10-07: "Breaking a wand of fear causes you to panic in fear.",
+e9074fbec 2022-10-07: "Forges only start appearing below level 5.",
+272f41391 2022-10-07: "Imported the hecatoncheire (from splice)",
+90279ccdf 2022-10-07: "Crossbows and bolts can now appear in archery shops.",
+25b88de7c 2022-10-07: "Lowered the weight of throwing axes to 40 and added +1 to-hit.",
+2413d37e2 2022-10-07: "Shriekers now have sonic resistance.",
+a2c2a9002 2022-10-07: "Added will-o'-the-wisps to swamps and juiblex's level.",
+5a3351563 2022-10-07: "Added M3_BERSERK to black bear, werebear, grizzly bear, hellbear.",
+ca0444973 2022-10-07: "Added some new forge recipes for some of the weapons from splice.",
+c791e7e63 2022-10-07: "Added zap tiles for zap type 9. (sonic)",
+f19991928 2022-10-07: "Fixed M2_FLANK placement in hobbit listing.",
+a31b7bdc3 2022-10-07: "Updated database with entries from Splicehack",
+99ea7207f 2022-10-07: "Fixed tile listing for scroll of time.",
+be2860183 2022-10-07: "Fixed tile listing for keg.",
+452eafc87 2022-10-07: "Fixed tile listing for tinfoil hat.",
+cf25ff14a 2022-10-07: "Fixed duplicate tile for scythe in objects.txt",
+3783bb22c 2022-10-07: "Cleaned up some objects.c clutter, fixed error in parazonium tile listing.",
+868bdfff8 2022-10-07: "Added tiles for all new splice objects and monsters.",
+28758eb40 2022-10-06: "Added notes to objects.c on where items were imported from.",
+20acef82a 2022-10-06: "Added credits for all monsters imported from SpliceHack in monst.c",
+cdf5d2b39 2022-10-06: "Applied FLANKING from SpliceHack to monsters in hackem",
+1ad7d1111 2022-10-06: "Updated pager.c with new weapons from splice.",
+68651e9e3 2022-10-06: "Updated can of grease and crystal ball to generate with more charges (from splice)",
+0ebc81733 2022-10-06: "Added mask shops and archery shops (from splice)",
+0c42ad0ea 2022-10-06: "Added junk shops, and added a bunch more standard junk that is generated in them. (From splice)",
+2b0a4ff70 2022-10-06: "Changed the AD_LOST attack for the Yuki-onna to a AD_STUN instead. The AD_LOST attack makes the player forget maps, and this has been shown to be negated with clever interface techniques.",
+f24b322bd 2022-10-06: "Imported masks (from splice)",
+2dcf19836 2022-10-06: "imported horns of blasting annd enabled ZT_SONIC rays in zap.c (from splice)",
+9dacc2103 2022-10-06: "Renamed Scroll of Change Materials to Scroll of Transmogrify",
+6c7ac42fb 2022-10-06: "Added MS_ANT sound for ants.",
+f5945b2d3 2022-10-06: "Added DRIN bite to draugr, and made them vulnerable to fire like zombies.",
+088ed35d3 2022-10-06: "Added a snowball spit attack to ice elemental.",
+4637f78c1 2022-10-06: "Added acid engulf attack to acid elemental.",
+f11ea0aa3 2022-10-06: "Moved the hedgehog to the rodent 'r' symbol.",
+ecd4df98c 2022-10-06: "Enabled the fear gaze for the Eye of Fear and Flame.",
+21279067e 2022-10-06: "Renamed Wand of Windstorm to just Wand of Wind.",
+8cd26a70c 2022-10-06: "Added fire attack to the flaming lash (similar to the torch)",
+f717e3b58 2022-10-06: "Removed AD_PSYC attack from dream thief, replaced with cleric spells for the time being.",
+f3daa9bd3 2022-10-06: "Imported spibrawulf (from splice) - also has a nasty infection attack.",
+881d17f3d 2022-10-06: "Imported ichneumon larva and giant ichneumon (from splice). Enabled larva injection attack and LarvaCarrier status.",
+11abab29c 2022-10-06: "Imported phoenix (from splice)",
+67823f479 2022-10-06: "Imported rings of psychic resistance (from splice)",
+33f744199 2022-10-06: "Imported spiked chain (from splice)",
+918e28782 2022-10-06: "Imported executioner's mace (only the worm that walks gets this) (from splice)",
+edc4c42c0 2022-10-06: "Imported the worm that walks (from splice)",
+2c2bb794f 2022-10-05: "Imported manticores (from splice) and ebrought in their spikes, spike volley attack, and passive spike attack. Enabled the passive spikes for hedgehogs too.",
+3816169ce 2022-10-05: "Ported over the hydra behavior from splice. Hydras start out 1-headed, but grow heads if you cut them off with bladed weapons. They get an attack for each head.",
+4be370608 2022-10-05: "Fixed some issues with random breath attacks.",
+6aed7bee3 2022-10-05: "Crystal golems now change color every turn (from splice)",
+9e97d479a 2022-10-05: "wallabys, wallaroos, kangas can now jump; echidnas are now infravisible.",
+7782ec1dd 2022-10-05: "Updated pack rats; used most of the info from splice to make them slightly more difficult. Can also now appear randomly, they were NOGEN before.",
+dd5b42411 2022-10-05: "Iron does extra damage vs nymphs and imps, copper also does extra damage against monsters with disease, decay, and pestilense attacks.",
+255529d5b 2022-10-05: "Copper now does extra damage to all F monsters (from splice)",
+34849314f 2022-10-05: "Moldiers and maggots can now infest corpses and create more of themselves.",
+6d209019d 2022-10-05: "Added is_moldier helper function.",
+a150800f3 2022-10-05: "imported planar pirate (from splice)",
+e7a77fd3c 2022-10-05: "Imported mermaid. This is a combination of the merfolk from splice and the mermaid from slashthem - I wanted these to be closer to the difficulty of the THEM version with the stealing attack so I leaned more to that version.",
+1579b2763 2022-10-05: "Imported will-o'-the-wisp (from splice) - there is also a version in slashthem, but the splice version is a bit more true to D&D style so I went with that.",
+991650d44 2022-10-05: "Imported landsharks (from splice)",
+f32d31b36 2022-10-05: "Added gnomish psyker (from splice). We didn't have the slot available for the AD_PSYC magic attack, so I made them use the mind flayer attack while moving. Might have to tone it down a bit...",
+03716373d 2022-10-05: "Imported spellbook of sonicboom (from splice) - also fixed issues with the spells not working (my fault for trying to organize them in objects.c)",
+94e9fec9d 2022-10-05: "Imported wand of sonics. (from splice)",
+9d40a4cb2 2022-10-05: "Imported ring of sonic resistance (from splice)",
+558cb9196 2022-10-05: "Fixed screamer's attack not being cancelled from Sonic Resistance.",
+b96bc6328 2022-10-05: "Imported resonant shield (from splice)",
+deb9af62c 2022-10-05: "Added concussive sphere and enabled the AD_LOUD explode attack. Enabled the sonic attack for screamers. Added sonic resistance for player and monsters. Changed messages for screamers to be in line with their name. (from splice)",
+72971df39 2022-10-05: "Imported whirling spheres and their AD_WIND attack. Also added an optional AD_WIND attack in the monster casting section for later use. (From splice)",
+023b023e1 2022-10-05: "Imported velociraptors and t-rex'es, cavemen are the only roles that will encounter them (from splice)",
+a6bcba18a 2022-10-04: "Imported Thing From Below - and renamed to Giant Squid. (From splice)",
+2ce7aebd3 2022-10-04: "Imported sea horse (from splice)",
+4f0431d33 2022-10-04: "Imported swordfish (from splice)",
+d9277912b 2022-10-04: "Imported damned pirates (from splice)",
+68ded0bdc 2022-10-04: "Imported armanite (from splice)",
+a3edf981b 2022-10-04: "Imported generals (from splice/slashthem)",
+2c4eb387a 2022-10-04: "Imported zombie dragons (From splice)",
+486a91b01 2022-10-04: "Imported skeletal pirates (from splice)",
+d7fb0a051 2022-10-04: "Added an is_ghoul helper function for all the new ghouls (from splice)",
+2031f17e5 2022-10-04: "Imported vomitous ghoul (from splice)",
+425d0e8b9 2022-10-04: "Imported draugr; attempted to make it have same reviving characteristics of evil zombies. (from splice)",
+29d951c58 2022-10-04: "Imported Lemur (from splice)",
+0418b93ef 2022-10-04: "Imported banshee (from splice)",
+2d8eeacdb 2022-10-04: "Imported bodaks and AD_FEAR attack type. (from splice)",
+ea6e23794 2022-10-04: "Imported Nosferatu (from splice/slashthem)",
+e0dc74041 2022-10-04: "Imported umbral hulk, hunger hulk, and slumber hulk (from splice and slashthem)",
+a6bb7a1f0 2022-10-04: "Imported cave troll and grave trolls; upped levels quite a bit (from splice)",
+717d131f8 2022-10-04: "Imported amphisbaena (from splice)",
+e4585e4be 2022-10-04: "imported cerastes (from splice)",
+40092a8a9 2022-10-04: "Imported alchemists (from splice)",
+715dd9bdd 2022-10-04: "Imported gel and the random potion attack (from splice)",
+1163117d1 2022-10-04: "Imported blood pudding (from splice)",
+bb0ff4e38 2022-10-04: "Imported ha-naga (from splice)",
+bbf6070e7 2022-10-04: "Imported adherer (from splice)",
+2ef8bd5ca 2022-10-04: "Imported Eye of Fear and Flame (from Splice)",
+993b3da2e 2022-10-04: "Imported marrashi (gnoll) and footbow (from splice)",
+659712455 2022-10-04: "Imported red, green, yellow, brown moldiers (from splice)",
+15212d782 2022-10-04: "Imported screamers (from splice)",
+3004669d8 2022-10-04: "Imported elemental shifting mechanic that lets elementals change into other forms from zaps (from splice)",
+84478e3f1 2022-10-04: "Imported volatile mushroom (from splice)",
+b65a215c2 2022-10-04: "Imported ice and magma elementals (from splice)",
+c1e6746eb 2022-10-04: "Imported acid elemental (from splice)",
+a55bf7c73 2022-10-04: "Imported mud elementals (from splice)",
+477bcc9d3 2022-10-04: "Imported gaol bats (from splice)",
+7d0f28d01 2022-10-04: "Imported zoo bats (from splice)",
+361c920ac 2022-10-04: "Imported lamassu (from splice)",
+91a8fa362 2022-10-04: "Imported drop bears (from splice)",
+208bae0b6 2022-10-04: "Imported selkie (from splice)",
+ac172f799 2022-10-04: "Imported monstrous spiders (from splice)",
+0e0406a5c 2022-10-04: "Imported skunks (from splice)",
+8c2d310e8 2022-10-04: "Imported hellbear (from splice)",
+9c5851382 2022-10-04: "Imported hippo (from splice)",
+dea3220d8 2022-10-04: "Imported chimera (from splice)",
+bf12f51fc 2022-10-04: "Imported black bears, grizzly bears, and werebears (from splice)",
+baaf85b2f 2022-10-04: "Imported black bear (from splice). Raised level a bit to 7.",
+772c4cb82 2022-10-04: "Imported llama (from splice)",
+36bdbde9b 2022-10-04: "Imported pigs and feral hogs (from splice)",
+a8ea0571d 2022-10-04: "Imported hedgehogs (from splice)",
+051f45828 2022-10-04: "Imported diamond piercer and god piercer (from splice)",
+084208f1a 2022-10-04: "Imported some new nymph-likes from splice: yuki-onna, lampad, dream thief. Not all of their attacks are functional yet.",
+c73043e3b 2022-10-04: "Imported killer mimic (from splice)",
+22e62210f 2022-10-04: "imported redcap (aka powrie) (from splice)",
+710a6ba85 2022-10-04: "Imported telamon and dust devil (from splice)",
+f34e91219 2022-10-04: "Imported fat cats (from splice). Large cats can grow into fat cats.",
+3d26dfd55 2022-10-04: "Imported lions (from splice)",
+ef1c7241c 2022-10-04: "Imported serpopard, a weird cat snake beast. (From splice). I dramatically increased it's level and attack power so it's more of a late game menace.",
+3a55499af 2022-10-04: "Imported servals (from splice)",
+898a3ea3d 2022-10-03: "Imported corrosive sphere (from splice)",
+2da1a168d 2022-10-03: "Imported thriae (from splice). I changed the symbol to a yellow 'n', since they fit a little better with the nymphs with their stealing and seducing. Upped lvl and difficulty so they appear later.",
+85e1449eb 2022-10-03: "Imported weeping eye. (from splice)",
+f300e5fb8 2022-10-03: "Renamed vulpenferno to nova fox. Both were in splice at one point, but I think nova fox is a bit more intuitive to players.",
+e6b5de3f5 2022-10-03: "Imported the vulpenferno (from splice). Upped the level and difficulty, added fire/shock resistance.",
+996c47835 2022-10-03: "Imported guard dogs (from splice)",
+8f1476f20 2022-10-03: "Imported barghest (from splice)",
+41f3d8eca 2022-10-03: "Imported giant praying mantis (from splice)",
+13ef1dbf1 2022-10-03: "Imported bullet ant (from splice)",
+0c179e2fe 2022-10-03: "Imported giant fly (from splice).",
+53af1aeac 2022-10-03: "Finished muse section for scroll of elementalism.",
+560c6ae99 2022-10-03: "Added muse abilities for potion of reflection.",
+3525dd254 2022-10-03: "Imported wands of acid and poison gas (from splice).",
+a8ebc3b9b 2022-10-03: "Imported wand of water (from splice)",
+86ce9a905 2022-10-03: "Imported wand of windstorm (from splice)",
+c9e6817f7 2022-10-03: "From Un: There is now a 1/13 chance for finding a coffin (vampire included) when digging up a grave.",
+2b4d8e543 2022-10-03: "From Un: allow vampires in coffins to be generated with inventory.",
+3caf1e401 2022-10-03: "Any kind of vampire can appear in a coffin, not just a regular ones.",
+632b72552 2022-10-03: "From Un: Vlad's tower has Vampires in 'coffins'",
+2ffdd5122 2022-10-03: "Significantly reduced the chances of wishesfrom wands of wonder.",
+650309e75 2022-10-03: "Cleaned up some wand of wonder code, added missing wands to zapself.",
+8895d5d3f 2022-10-03: "Imported the Wand of Wonder (from splice)",
+e98d1bc7e 2022-10-03: "Imported scroll of change material (from splice)",
+67dac1f1e 2022-10-03: "Imported scroll of air (from splice)",
+bd5d8873c 2022-10-03: "Imported scroll of knowledge (from splice)",
+d90208579 2022-10-03: "Imported scroll of time (from splice)",
+c14094103 2022-10-03: "Imported scroll of elementalism (from splice).",
+e886a4619 2022-10-03: "Check genocided zombies before raising the zombified corpse (from Un)",
+c15e1bd8a 2022-10-03: "Keystone Kops can no longer be genocided",
+b3bde8b5d 2022-10-03: "Scrolls of genocide kill monster on level (uncursed) or globally (blessed) (From Un)",
+eef2efa37 2022-10-02: "Imported potion of regeneration (from splice)",
+70c0f3c9b 2022-10-02: "Imported potion of reflection. Still need to implement muse parts. Removed do_drink for now (used in keg)",
+8cad26512 2022-10-02: "Imported keg from splice. Applying works, but not other behaviors. Still need to implement quaffing/tipping.",
+687d52434 2022-10-02: "Imported pineapple, fruitcake, apple pie, pumpkin pie, slice of cake, and pinch of catnip (from splice)",
+30f9f72b5 2022-10-02: "Imported bagpipe (from splice)",
+a68365b6b 2022-10-02: "Imported lute (from Splice)",
+ccf6f2e9f 2022-10-02: "Imported bag of rats (from splice)",
+a5da6b51e 2022-10-02: "Imported the amulet of danger (from splice)",
+5e5c8696e 2022-10-02: "Imported amulet of nausea (from splice).",
+80e3623db 2022-10-02: "Changed Cloak name to Plain Cloak. From splicehack.",
+e7f297c8d 2022-10-02: "Imported stomping boots (from splice)",
+6cceb23df 2022-10-02: "Increased the chance of boxing gloves stunning from 1 in 50 to 1 in 25.",
+0c1b6cfee 2022-10-02: "Imported boxing gloves (from splice)",
+36eee0530 2022-10-02: "Imported Rogues Gloves (from splice)",
+cb3a365cb 2022-10-02: "Imported hide shield. (from splice)",
+cf26e332f 2022-10-02: "Imported tower shield (from splice).",
+bdde46d79 2022-10-02: "Changed the message for wearing cloak of flight.",
+04d14daad 2022-10-02: "Imported cloak of flight (from splice)",
+f3f35976b 2022-10-02: "Changed ARMOR to LIGHT_ARMOR (from Splice). Armor was origially leather armor, but with the object materials system, it was changed to just armor to make way for other materials. I like the Light Armor name because it is more descriptive and intuitive during gameplay.",
+985d8a433 2022-10-02: "Imported tin foil hats (from splice)",
+800eb5cc3 2022-10-02: "Imported chakram from splice.",
+743b30a83 2022-10-02: "Imported gladius and flaming lash. (From splice)",
+5ed20cbe8 2022-10-02: "Imported parazonium from splice. Power dagger, gnoll shamans and skeletons sometimes get them. Very low chance of generating randomly.",
+0237467f7 2022-10-02: "Imported falchion (powerful scimitar), barbarians sometimes start with one. (From Splice)",
+9821294c9 2022-10-02: "Fixed incorrect stats in scythe from import.",
+b80a391af 2022-10-02: "Imported throwing axe. One less dmg than regular axe, counts as a throwing weapon. (From splice)",
+3f361778a 2022-10-02: "Imported light arrows. Not generated randomly. (From splice)",
+a04d51017 2022-10-02: "Imported scythes, Death gets one. (from splice).",
+22e1617b0 2022-10-02: "Fixed tilemap.c to accomodate ice trap.",
+b26019c13 2022-10-02: "Added tile for ice traps.",
+89d26847c 2022-10-02: "Updated order.sh to reorder all 3 object files: monsters.txt, objects.txt, and other.txt.",
+0f80de0b7 2022-10-01: "Added tile for goggles and reordered monster and object tiles.",
+d5862d513 2022-10-01: "Fixed order of role tiles.",
+39fa5d37f 2022-10-01: "Added missing fern spore tile.",
+f95bfe44b 2022-10-01: "Added tiles for all the new ferns (got the dungeon and swamp ferns from dnh, recolored for the arctic and blazing.)",
+9f1911a9a 2022-10-01: "Added minlevels to all themed rooms that didn't have them; tweaked a couple small things in themed rooms.",
+751a3c2cc 2022-10-01: "Fixed level teleport bugs from adding lethe gorge between main dungeon and gehennom.",
+8ebc39924 2022-10-01: "Added fixes for CREATE_POOL monster spell from slashem-up, it is affected by displacement and inv, and pools can't be created on stairs, etc.",
+ab212bbc2 2022-10-01: "Under the castle level will now generate a toilet.",
+0990125cc 2022-10-01: "The themed toilet room will now correctly generate a toilet in the middle. REPLACE_TERRAIN statement was incorrect.",
+83cffc577 2022-10-01: "Removed M2_PEACEFUL from lambs, sheep, and cows, otherwise due to a change in evil, if we kill them it counts as murder.",
+f06acc311 2022-09-30: "Fixed vampire race and worked out intrisincs. Removed unnethack code in polyself, and we'll rely on attrib.c to set racial intrinsics since that's how it seems to work for all other races. Vampires get a ton of stuff off the bat, so I added vulnerability to fire and hunger to help balance things out a bit.",
+929ec8ddb 2022-09-30: "Fixed broken vampire polyself code, had to add a manual check for vampires in polyself.c:setuasmon, otherwise vampire player race wouldn't get their intrinsics and other forms wouldn't be able to wear armor.",
+100ebea35 2022-09-30: "Changed back set_mon_data to original version, the Unnethack version broke armor wearing for all roles.",
+bb04e0016 2022-09-30: "Implemented the castle dungeon level. Added a sink, forge, and fountain; added a tiny bathroom for the guards. Added some swampy features in the big swamp room.",
+12b3eaf2e 2022-09-30: "Moved the gulf of nkai just above the valley - but out of hell so it makes more sense. Added a stair down from the end of the lethe gorge to nkai.",
+bc20b1ca8 2022-09-30: "Implemented the gulf of nkai to the end of the dungeon. Works for now, will probably move it. Disabled ice-queen branch and shortened the dungeon to 31+5 to make room. Wiz tower entrance is still in same place. Vibrating square does not work on gulf level.",
+61df40a95 2022-09-30: "Imported gulf of nkai levels from the lethe patch to nkai.des (not implemented yet.)",
+1287156a3 2022-09-29: "Disabled the long haul level; this is duplicated in the lethe gorge.",
+a3c12155a 2022-09-29: "Integrated the lethe gorge into the dungeon. It starts a couple of levels after Medusa, then the castle shows up on level 3.",
+89fc8e685 2022-09-29: "Copied over the lethe levels from dnh to lethe.des, copied most of the ideas from the original lethe-patch. Deleted the goat level.",
+e17818e3a 2022-09-29: "Tried to enable picking up the Wand of Orcus.",
+b1c5829ae 2022-09-29: "Added map numbers to gehennom levels.",
+43ff72e65 2022-09-29: "Increased max dungeon levels and max dungeons to 200 to accomodate more content (potentially...)",
+6666e2c59 2022-09-28: "Added ice room themed room (from Un)",
+cee51cc6c 2022-09-28: "From Un: Ok, *NOW* the problem with the ice traps should be fixed. (thanks again to paxed)",
+ecbedd5ec 2022-09-28: "From Un: Made cold traps visible to the level compiler. Hopefully this fixed the problem with the previous commit. (fix suggested by paxed)",
+4f7cb8351 2022-09-28: "From Un: Add ice traps.",
+4bae9586e 2022-09-27: "Added a toilet room to the themed rooms.",
+134258adf 2022-09-27: "Added some monsters to the special rooms (lep wizards to leprechaun halls, some misc fungi to the fungus farms.",
+1a73d4b79 2022-09-27: "Added a couple swamp ferns to the Sewers of Waterdeep level.",
+147417dfe 2022-09-27: "Added swamp ferns to mine/cave river generation (if there is sewage)",
+5e452aa61 2022-09-27: "Every time a fern sprout releases a spore, it gains a level. Now sprouts can grow up into adult ferns.",
+631398f6c 2022-09-27: "Changed swamp fern spores to 4d8 explodes, with acid boom. Changed dungeon ferns back to physical damage. I considered implementing the disease attack that swamp ferns have in dnh, but that seemed a bit harsh.",
+52c3b9576 2022-09-27: "Changed dungeon fern spores to 2d6 explode, and their boom is now an acid attack (from dnh).",
+c72c57bce 2022-09-27: "From Un: dungeon ferns do not regenerate; lessen the distance required to disturb dungeon ferns.",
+c5498cac8 2022-09-27: "From dnh: Changed fern difficulties to 14, sprouts to 8, spores to 3. Added acid res to dungeon ferns.",
+9e6c9d1d0 2022-09-27: "Disabled the black mold to make room for the swamp ferns (both occupy a black F)",
+a0833e2e0 2022-09-27: "Changed some of the colors of ferns to work better with existing fungi. Switched dungeon ferns to White(spores still green), arctic ferns are blue(spores are bright blue as to not be confused with floating eyes), swamp ferns are black(spores are cyan), blazing ferns are staying orange with red spores.",
+8ed834848 2022-09-27: "Added poison resistance to any fern types that were missing it.",
+1a3c8de43 2022-09-27: "Added puddles to swamp fern generation.",
+e2118e89c 2022-09-27: "Reformatted some fern stuff.",
+cb2890d3b 2022-09-27: "From Un: Vegetation cannot flee.",
+17023e0c0 2022-09-27: "From Un: Occasional blazing ferns on PoFire",
+64862413f 2022-09-27: "From Un: Fix fern spore bug (thanks to Chris_ANG).",
+9a2de6d44 2022-09-27: "Fern nurseries can only appear after level 10.",
+67500da9d 2022-09-27: "From Un: Fern sprouts grow up into ferns. Currently this is impossible, but added for consistency and future compatibility.",
+9ab8bb362 2022-09-27: "From Un: Add fern nursery vault, give swamp ferns a chance of being generated in swamps.",
+a636a36db 2022-09-27: "From Un: All fern spores give no experience.",
+ed86bd4e7 2022-09-27: "From Un: Generic fern spores are guaranteed to leave behind a fern appropriate for the terrain. Generic fern spores are only generated by reading a blessed scroll of stinking cloud while confused.",
+dd69dfb22 2022-09-27: "Imported swamp ferns anyway - we can sub sewage for swamps for now.",
+3b4fe8a18 2022-09-27: "From Un: Add arctic and blazing ferns, each with their own preference in terrain. I left out the swamp ferns because Evil already has sewage instead of swamps.",
+a4d8eab9d 2022-09-27: "From Un: Add arctic and blazing ferns, each with their own preference in terrain. I left out the swamp ferns because Evil already has sewage, and the regular ferns seem to fit with that. I also didn't want to have too many fern types, the regular fern and the swamp fern seem similar enough...",
+0d903e218 2022-09-27: "From Un: Dungeon ferns cannot produce viable offspring on ice, lava",
+b6329a540 2022-09-27: "Dungeon fern spores create dungeon fern sprouts more often than full grown dungeon ferns.",
+b6601ae2e 2022-09-27: "From Un: Dungeon ferns and dungeon fern spores are not valid polymorph forms.",
+a5e3c9c69 2022-09-27: "Imported dungeon ferns and fern spores (from Unnethack). Increased the damage of spore explosions from 2d4 to 3d6 to get a little closer to gas spores.",
+967531556 2022-09-27: "Imported more rotated versions of themed rooms from Unnethack and organized the vaults.des file a bit from simplest to most complicated.",
+589697ec1 2022-09-27: "Changed frequency of mini guild rooms to 1 in 17 below lvl 16.",
+e58c64a54 2022-09-27: "Imported a bunch of themed rooms from UnNethack.",
+9530cc5e3 2022-09-27: "Bumped a lot of the new themed rooms to only generate starting at level 11. One of my aims with this variant is to have the first part of the dungeon be a bit more traditional, then introduce new features as the player progresses.",
+e49c293f2 2022-09-27: "Added slashem roles to themed slaughter room.",
+3faf1db04 2022-09-26: "Adjusted guild monster ratio; added toilet to the guild.",
+0b572852e 2022-09-26: "Added typical pets to the mini guild rooms, also generating player monsters more efficiently.",
+e046a295e 2022-09-26: "Created a Mini Guild special room to replace the Guild of Disgruntled Adventurers from Slashem.",
+0dbe5c108 2022-09-26: "Fixed missing rooms (and stairs) in storage room levels.",
+bf1a9668c 2022-09-26: "Added a long hall level (from dnh neutral quest) to the late main dungeon.",
+1a8b40845 2022-09-26: "Added Call Undead to monster spells (from slashem).",
+26e6b9077 2022-09-26: "Added the make pool spell for monsters (from slashem).",
+8eab96296 2022-09-26: "Better way of handling livelogging of destroying a player's ghost.",
+355b9fa49 2022-09-26: "Fix: unique monster doppelganger and bones bug.",
+c423dfad4 2022-09-25: "Fix: exploiting artifact name rejection.",
+d44aed414 2022-09-25: "Mold/Fungus ressurection (ported from Splicehack, which ported from xnh)",
+5e7a42d74 2022-09-23: "From 3.7: fix-again-exploiting-artifact-name-rejection",
+8e65e35db 2022-09-23: "From Un: Magical traps can be disarmed with a wand of cancellation.",
+b0e06532f 2022-09-23: "From Un: Fix breaking wands making inappropriate traps (reported by Christian Stegen)",
+e2c24b838 2022-09-23: "From Un: Applying certain wands has a chance of creating a related trap (idea by tedav).",
+9a1eb9de0 2022-09-23: "From Un: Only blessed scrolls of charging identify the charges of an item.",
+0c4053982 2022-09-23: "From un: non-cursed charging identifies how many charges an item has (from AceHack).",
+b9653d2f4 2022-09-23: "From Un: Seeing the successful effect of a wand of teleportation on a monster IDs the wand.",
+471310ef1 2022-09-23: "Added makeknown_msg to fire/frost horns, drum of earthquake, lamps.",
+881655286 2022-09-23: "Fixed auto-id of magic harp",
+18e286f11 2022-09-23: "From Un: Show message when formally identifying whistles on use.",
+85a6c834f 2022-09-23: "From Un: Formally identify magic flutes and harps on use.",
+79e85d3c9 2022-09-23: "From Un: Regeneration only causes additional hunger when injured (HP<0)",
+873025aa6 2022-09-23: "From Un: Autoidentify water walking boots (when putting them on in water,etc)",
+28c58ce0b 2022-09-22: "From Un: Tourists get automatic typ identification for shop items. As it currently works, you have to pick up or chat over the object to get identify, simply walking over an item doesn't seem to trigger the id.",
+d460db23c 2022-09-22: "From Un: Remove Auto-select every item when putting into containers.",
+63929be19 2022-09-22: "Autoidentify magic lamps and oil lamps when rubbing",
+3e4338817 2022-09-22: "From Un: Autoidentify dunce cap upon wearing",
+f123a165f 2022-09-22: "From Un: Autoidentify wand of undead turning if engraving produces a message.",
+999a4df3e 2022-09-22: "From Un: Wands with unambiguous effects and messages are automatically identified.",
+047eb1039 2022-09-22: "From Un: Automatically identify scrolls of scare monster during pickup.",
+5fd1f455e 2022-09-22: "From Un: Automatically identify some potions when inhaling their vapors.",
+ecf93a5b1 2022-09-22: "From Un: Automatically identify rings dropped into a sink when message is shown.",
+d8d4e6e6e 2022-09-22: "From Un: Auto-ID loadstones upon discovering the inability to drop them.",
+eca8ebbce 2022-09-22: "From Un: Auto-ID jumping boots (from AceHack)",
+92ebb7f42 2022-09-22: "From Un: Auto-ID for ring of regeneration.",
+ba6157564 2022-09-22: "The Catoblepas now has 2 horns (might be tusks depending on the legend you read).",
+1ee69c1c9 2022-09-22: "Added tiles for blood potions.",
+da68cd8c2 2022-09-22: "Fixed vampire draining; is_vampiric now checks the player race to see if they are MH_VAMPIRE. Corpses are draining and the corpses stay drained on the ground.",
+ccc03598d 2022-09-22: "Added a couple of tweaks to init_asmon from Un, and also enabled the mflags4 fields.",
+3a8f29889 2022-09-22: "In polyself.c:set_uasmon, I enabled the Un version of set_mon_data, this worked to enable unbreathing for vampires.",
+4efe87b80 2022-09-22: "Imported PM_PLAYERMON define from Unnethack to see if it would help out the vampire intrinsics. It did not but we'll leave it in anyway.",
+7681b8e64 2022-09-22: "Added tile for spoon.",
+a8e281319 2022-09-21: "Added missed draining description for vamp eating.",
+3c5236862 2022-09-21: "From Un: Quick workaround for player in vampiric form not being able to use any silver items",
+53f5e8c43 2022-09-21: "From Un: Fix class of starting vampire blood potions for player vampires (reported by K2)",
+9f144ecef 2022-09-21: "Allow player vampires to be neutral",
+69c413aea 2022-09-21: "From Un: Fix bug where drinking a potion of vampire blood as a starting vampire...",
+c53e4d8fb 2022-09-21: "From un: Simplify vampire blood and blood potion generation by horn of plenty",
+31291e381 2022-09-21: "From Un: If I did this correctly, the horn of plenty has a small chance of producing blood or vampire blood.",
+2cd57f356 2022-09-21: "The hallucinatory version of the elf/vampire regeneration message is different for elves and vampires. Also added vamp_can_regen code alongside the elf and orc variants to check for silver material.",
+af7b5a5fc 2022-09-21: "From Un: Random potion effects from quaffing from a sink can include vampire blood....",
+5c2d2a9d2 2022-09-21: "From Un: Vampires don't use their bite attack on shades...",
+18f6d7fc6 2022-09-21: "From Un: Vampires do not eat food, they drink blood.",
+f3ae33a59 2022-09-21: "Player vampires are smart enough not to feed while biting if they might have trouble getting it down...",
+450b2f804 2022-09-21: "From Un/slash: Some monster vampires get an opera cloak (from Slash'Em)",
+a2e44912e 2022-09-21: "From Un: Player vampire gets a charisma bonus when wearing an opera cloak (by L)",
+cfa722beb 2022-09-21: "From Un: Allow vampires as playable race for convicts.",
+84a0f6325 2022-09-21: "From Un: Fix vampires as player race scrawling messages by default.",
+e3ad30249 2022-09-21: "Small fix for previous ticket:70.",
+611b53f6e 2022-09-21: "From Un: Flesh golem corpses edible for vampires (fixed ticket:59)",
+560deb097 2022-09-21: "From Un: Prevent player vampire from rising as other monster (fixes ticket:70)",
+4b916e30a 2022-09-21: "From Un: Set vampire's minimum attribute values to 3 like all other races",
+0f667469b 2022-09-21: "From Un: Prevent weaponless vampires from biting dangerous monsters",
+216a26799 2022-09-21: "From Un: Enable bite attack for vampire race",
+bc2c3842f 2022-09-21: "From Un: Vampires can hunger again",
+8923c9fdd 2022-09-21: "New race: Vampire (from Slash'Em)",
+8a9bcdf17 2022-09-21: "Effects when drinking a potion of vampire blood (from Slash'Em).",
+e72aa0c41 2022-09-21: "From Un: Canceling vampire blood turns it into blood.",
+ba2ee64c2 2022-09-21: "From Un: Adding potions of blood and vampire blood (from Slash'Em)",
+96888e91c 2022-09-21: "From Un: Patric Mueller Differentiate between real vampires and monsters with vampiric diet.",
+7b54a9b4b 2022-09-21: "From Unnethack: Patric MuellerBlood-sucking and biting Vampire patch (from Slash'Em).",
+1f736596a 2022-09-20: "Added some secret doors to the Convict home level to make navigating a little less tedious.",
+f63dfd860 2022-09-20: "Changed wizard level Necromancer to Warlock/Witch to not conflict with Necromancers titles.",
+e79ea9d63 2022-09-20: "The Spoon of Liberation now correctly grants Free Action while carried.",
+fcebfa1d5 2022-09-20: "Replaced the Iron Ball of Liberation with the Spoon of Liberation for the Convict quest artifact.",
+86516d4c0 2022-09-20: "Randomized the moat on Grunds - sometimes it is lava or sewage. The moat in front of the drawbridge stubbornly remains water though.",
+3c2d21a85 2022-09-20: "Added a phaseproof wall to the center of grunds.",
+c92821cb8 2022-09-20: "Ice Mage gets intrinsic AC bonus that scales with XP level - similar to the slashem Monk. This is to emulate an ice armor. Replaced the starting Studded Armor with a robe, and removed their starting gloves.",
+e45295b48 2022-09-20: "Disabled silver spear for undead slayer mplayers.",
+b631e35b2 2022-09-20: "Cleaned up a bunch of unused variables from compiler warnings.",
+20a955ffa 2022-09-20: "Fixed order of objects.txt to match, some boots were off.",
+c69971add 2022-09-20: "Created a script to reorder the objects.txt",
+76cce207e 2022-09-20: "Fixes and cleanup for shk service code.",
+d0408ac3c 2022-09-20: "Fixes and cleanup for shk service code.",
+4e6b15c18 2022-09-20: "Added tiles for Xanathar, Nebuchadnezzar, Acererak.",
+9af533a74 2022-09-20: "Changed traps in kobold mall from random to set traps in set places.",
+49f8a642d 2022-09-20: "Removed some of the annoying doors in the kobold mall.",
+4d7dd85e6 2022-09-20: "Fixed shops in lavender town.",
+5b276ae3b 2022-09-20: "Fixed some of the shops in Ruined & Dangerous Town.",
+f52dd431a 2022-09-20: "Necromancers start with a robe.",
+f47dd3604 2022-09-19: "Better way to suppress weapon enchantment on to-hit display, include rings of increase accuracy.",
+a0e258c9f 2022-09-19: "Weapon familiarity.",
+abc664006 2022-09-18: "Physical knockback attack doesn't affect unsolid monsters.",
+eb9f64eff 2022-09-18: "Fix: impossible from splitting named stack on bill.",
+a03a37cbf 2022-09-18: "Fix: to-hit display revealing weapon enchantment, other tweaks.",
+bc6af89ca 2022-09-18: "Correction to last commit (to-hit weirdness and feedback).",
+bc6b64f96 2022-09-18: "Fix: to-hit display weirdness under certain conditions.",
+38d394593 2022-09-16: "Fix: force-fight 'unknown obstacle' descriptions.",
+f67241eb7 2022-09-16: "Resurrecting named pets will show their name once resurrected.",
+3e3717df8 2022-09-16: "Fix: tipping into containers.",
+a2871cab0 2022-09-16: "Revamp monsters eating containers.",
+51703d2c4 2022-09-15: "Corrected wand shops, they should offer armor id only 25% of the time.",
+1f1dad557 2022-09-15: "Added price multipliers for barbs, sam, and rogues from slashem.",
+a0498d621 2022-09-15: "Added rumors to shk services; any shk has a 10% chance of offering rumors.",
+7a5efac4d 2022-09-15: "Added some racially based identify services.",
+9c1aa15b5 2022-09-15: "Add feedback for services proofing/enchanting armor, poisoning weapons.",
+ed2cc19ee 2022-09-15: "Fixed issue where exiting out of shopkeeper services without selecting a service cost a turn.",
+7e46272a9 2022-09-15: "Moved all weapon and armor works services to main service menu.",
+e05ca0232 2022-09-14: "General stores no longer offer basic or premier identify - instead, they get 2-5 random classes of identify.",
+2f0c42c35 2022-09-14: "Added some extra random identify services that may appear in related shops.",
+cecdcdb58 2022-09-14: "--amend",
+79505ad98 2022-09-14: "Fix: quirk with underwater vision.",
+88e39a1a7 2022-09-14: "New object: goggles.",
+93fa996cd 2022-09-14: "Allow looting of containers that are in water.",
+238e9a98c 2022-09-14: "Added an identify service for each class of item, each shop will only offer identification in items it specializes in (except general stores and black market.) Each identify service is shown on the services menu.",
+a0cb1c487 2022-09-14: "Decreased odds of shk identifying things out of their knowledge to 1 in 4 for basic id and 1 in 6 for premium.",
+4794fcf5e 2022-09-14: "Disabled spellbook shops from offering charging service.",
+f7ce0a742 2022-09-14: "Separated the charging service to show basic and premier options in shk services menu. Fixed some of the validation for shop specific charging.",
+c6d573440 2022-09-14: "Reformatted some shk service code for readability.",
+8a6d15628 2022-09-13: "Separated basic and premium identify and put both services on the services menu.",
+cfdf41a43 2022-09-11: "Fix: MC and to-hit status not appearing in dumplog.",
+19a1e9f52 2022-09-09: "Removed first (y/n) prompt for shopkeeper services. Go directly to service menu.",
+da35c1b63 2022-09-09: "Reformatted the shopkeeper services code; corrected indentation, etc.",
+5191fc9df 2022-09-09: "Imported shopkeeper services from Splicehack.",
+6bd64b388 2022-09-09: "Fixed armor light sources appearing lit twice in inv.",
+d6b780ad2 2022-09-09: "Magic negation (MC) value on the bottom line.",
+bb8f7c4eb 2022-09-08: "Moved robes from the cloak slot to the body armor slot - adjust any cloaks I had updated.",
+b0746b5d3 2022-09-08: "Moved Grunds, Wyrm Caves, and Black Market down 1 level each to accomodate algn quests.",
+f803b01cb 2022-09-08: "Changed the color of killer food and coins to red.",
+2d63551ec 2022-09-08: "Made Xanathar and Nebuchadnezzar proper names.",
+36e2f8dec 2022-09-08: "Added a few more e monsters to the neutral quest, including 4 beholders.",
+680d6df0a 2022-09-08: "Added death and drain resistance to Nebuchadnezzar.",
+3d38f2f31 2022-09-08: "Added a huge separate chamber to the neutral quest to supply more gas spores to the fray.",
+02b23349a 2022-09-08: "Added the alignment bosses to the alignment quests, fixed some layout issues, and made all bosses yellow for easier recognizability.",
+774b51ce1 2022-09-08: "Added the alignment quests to the dungeon levels 15-19, along with the role quest.",
+f6ac95ca2 2022-09-08: "Created 3 new artifacts for the alignment quests: Xanathar's Ring of Proof, Staff of Withering (SlashTHEM), and Key of Access (SlashTHEM).",
+14f898ce7 2022-09-08: "Revert "Add 3 alignment keys..."",
+0e0ddd0ed 2022-09-08: "Added the 3 alignment keys and added them to the quest guardian inventories.",
+8ab7815dc 2022-09-08: "Added Nebuchadnezzar, a powerful spellcaster, as a replacement for the Lawful quest guardian Nightmare.",
+ba49e6b49 2022-09-08: "Created a unique beholder: Xanathar, that now lives in the neutral quest. Like an evil beholder but stronger.",
+75887c6ce 2022-09-08: "Imported Acererak from dnh as a replacement for Vecna in the Chaotic quest.",
+72ae3fd31 2022-09-08: "Imported alignment quest des files from slashem and formatted for evil.",
+f0a2ae07a 2022-09-07: "Changed VENOM_CLASS symbol to *, so snowballs have something interesting to watch.",
+987e9b803 2022-09-07: "Enabled shooting a snowball at yourself with snowball spell.",
+10e9e507c 2022-09-07: "To-hit calculation on the bottom line.",
+fb566b4ca 2022-09-07: "Fixed snowball spell, moved out of beam type spells and to it's own section.",
+60763e977 2022-09-07: "Added M3_BERSERK to Grund the Orc King.",
+8570ce297 2022-09-07: "Cleaned up some bad formatting in misc files.",
+18e8856e6 2022-09-07: "Reordered objects.txt",
+97ec49173 2022-09-07: "Reordered objects.txt so spellbooks match up with objects.c",
+8f39a646a 2022-09-07: "Monsters can use rings/boots of levitation.",
+0a5379329 2022-09-06: "Added notes to flame mage skills.",
+6877d2129 2022-09-06: "Restricted multishot for necromancer, undead slayer, and ice mage (except knives).",
+6fa1bfcea 2022-09-06: "Caveman now gets radius 2 for nightvision (from Slashem)",
+e3b2ef11b 2022-09-06: "The Fedora now confers luck and +1 charisma.",
+3404b227d 2022-09-06: "Undead slayers can reach expert in morning star.",
+d0f26bb56 2022-09-06: "Necromancers start with a great dagger instead of a quarterstaff, and can reach expert in daggers. The don't start with any scrolls, and only 1 ring. Their pickaxe is now +1. They also start with a wand of undead turning.",
+cd05ee31e 2022-09-06: "Cleaned up some stuff in makemon.c",
+a139dbc7c 2022-09-06: "Refactored mushroom eating logic to it's own function.",
+411954ca3 2022-09-06: "Refactored pill eating logic to it's own function.",
+f27ee2d63 2022-09-06: "Monks can get skilled in lightsabers.",
+bccb9e615 2022-09-06: "Valkyries start with a spear instead of long sword, they can also reach expert in spear.",
+021db5e1c 2022-09-06: "Merged latest changes from roles branch.",
+6e843d712 2022-09-05: "Fix: could not blind self with an expensive camera.",
+7d093dbab 2022-09-05: "Added (probable) missing sub caves tiles to other.",
+f7cf58002 2022-09-05: "Removed Goblin king stuff yet again.",
+44c6b5a8c 2022-09-05: "Reenabled the dumb goblin king.",
+cb9149a7d 2022-09-05: "Last fix try for goblin king.",
+26656e298 2022-09-05: "Commented out goblin king in monst.c, readded the thing in tilemap.c",
+260745ad0 2022-09-05: "Removed Earth Mage from monst.c and deleted Goblin King from tilemap.c",
+d95cb3271 2022-09-05: "Revert "Commented out goblin king in monst.c"",
+75358f80f 2022-09-05: "Revert "Removed goblin king tile."",
+eaba0b9a7 2022-09-05: "Removed goblin king tile.",
+2afcc2339 2022-09-05: "Commented out goblin king in monst.c",
+2949d9733 2022-09-05: "Reordered monsters.txt",
+c74b75085 2022-09-05: "Revert "Removed Goblin King."",
+3a9e817db 2022-09-05: "Revert "Totally removed Goblin King to avoid windows build errors."",
+74d705826 2022-09-05: "Revert "Disabled spells of cure blindness and enlighten to make room for new spells."",
+4a47490fa 2022-09-05: "Disabled spells of cure blindness and enlighten to make room for new spells.",
+52f668d13 2022-09-05: "Fixed unused variable in polymorph_toilet.",
+1cfaf5578 2022-09-05: "Raised the to-hit chance of Ice Mage's snowballs hitting.",
+4e6d153d4 2022-09-05: "Added possible prevention of ice/fire mages getting opposite spell gifts in pray.c - commented out for now.",
+0dd7eeb4f 2022-09-05: "Updated spell.c:spellet to accomodate 10 more spells in the numerical slots 0-9.",
+ebe2254ec 2022-09-05: "Added tiles for spellbooks of fire bolt and snowball.",
+fb662f8c0 2022-09-05: "Changed the name of the Earth Mage tile to Ragnaros.",
+da7ce6036 2022-09-05: "Added spellbooks of fire bolt and flame sphere to non-flammable books.",
+1f318da2f 2022-09-05: "Totally removed Goblin King to avoid windows build errors.",
+514494255 2022-09-05: "Added The Master Sword as an actual artifact. Silver long sword that gets +d3 to-hit and +d3 dmg.",
+28497f553 2022-09-05: "Fixed some errors in artifact.c and apply.c",
+9a15cd4f5 2022-09-05: "Removed Goblin King.",
+e91ba2a84 2022-09-04: "Added a special spell for Ice Mages: Snowball. Starts at 1d6 dmg, +1d6 at lvl 5, +1d6 at lvl 11, also +1d6 at Skilled and Expert in MATTER spells. Some special effects and bonus damage can occur at Skilled and Expert also.",
+18c86a2be 2022-09-04: "Capped fire bolt damage to 45 (5d10 - 5)",
+773c14d11 2022-09-04: "Changed the Fire Bolt spell to increase 1d10  every 5 levels instead of 4 (a bit closer to the D&D spell.)",
+4d411c812 2022-09-03: "Added a new special spell for the flame mage: Fire Bolt. Deals 1d10 fire damage + an additional 1d10 at level 4, 8, etc. This spellbook does not generate randomly. Initialized flame/ice mages Matter spells to Basic at game start.",
+f17116fa7 2022-09-03: "Ice and Flame mages cannot use their opposite Brand or sac gifts.",
+2c0970436 2022-09-03: "Flame mages become vulnerable to cold at level 10. Made the transition msg a little clearer.",
+fd5aee4cc 2022-09-03: "Ice mage can get skilled in flail (they might start with a grappling hook.)",
+5f39154b6 2022-09-02: "Ice Mages become vulnerable to fire at level 10.",
+4fb44e749 2022-09-02: "Ice mages no longer get a random potion at start.",
+5cdf35d9b 2022-09-02: "Ice Mages start with either lenses or a grappling hook.",
+6fb974189 2022-09-02: "Changed color of poisonous cloak to black.",
+6bf5808f1 2022-09-02: "Ice Mages no longer have random chance of starting with blindfold or lamp.",
+4d26f2033 2022-09-02: "Ice Mage: Replaced their starting quarterstaff with a +3 stilletto.",
+3cf7fce2e 2022-09-02: "Updated the Ice Mage quest with more monsters from slashem-up, and changed the quest Nemesis to Ragnaros.",
+76e1d5a6e 2022-09-02: "Changed the #invoke of the Storm Whistle to summon 1 of 10 random storm related monsters as pets.",
+b727ee1b6 2022-09-02: "Ice Mages can only be Neutral or Chaotic.",
+8ad5c2ddc 2022-09-02: "The Storm Whistle no longer grants fire resistance, instead it grants shock resistance.",
+dc5fd4a32 2022-09-02: "Lowered Freeze Sphere to a level 1 spell; gives Ice Mages a bit of an advantage over fire mages.",
+24dfeff7d 2022-09-02: "Rebalanced out the Ice Mage skills.",
+5646a2381 2022-09-02: "Flame and Ice Mages now get a reduced hunger spellcasting penalty (close to wizards but a little less strong.)",
+3036b392c 2022-09-02: "Added updates to the Flame Mage quest from slashem-up.",
+b3ed84376 2022-09-02: "Fixed a couple places where the Eternal Candle could be snuffed out.",
+5dc208487 2022-09-02: "Moved SUMMON_FIRE_ELEMENTAL from the Eternal Candle to Firewall - fixed a bug in the pet generation.",
+77641237f 2022-09-02: "Flame Mages can only be neutral or lawful, removed elves from available races.",
+e7e1c0d99 2022-09-02: "Changed Flame mages spellcasting attribute from Int to Wis.",
+ff0f7f30b 2022-09-02: "Changed Eternal Candle's passive damage from 1d10 to 2d7",
+0680c401d 2022-09-02: "Re-added cold resistance to the Candle of Eternal Flame (makes logical sense since it's generating heat.)",
+448b79835 2022-09-02: "The Candle of Eternal Flame now grants a passive fire attack.",
+25a9e0a08 2022-09-02: "The Candle of Eternal flame now grants faster energy regeneration (like the EotA).",
+414af4f60 2022-09-02: "Candle of eternal light no longer grants cold resistance.",
+09f51a177 2022-09-02: "Flame mages start with fireproof armor and quarterstaff.",
+4e762a074 2022-09-02: "Flame mages start with 2 frag grenades.",
+348c7ca19 2022-09-02: "Flame mages start with a scroll of fire instead of a random scroll.",
+f18acca02 2022-09-02: "Flame mages can only specialize in Matter, Attack, and Divination spells.",
+c19cf81a8 2022-09-02: "Flame mages have Unicorn Horn skill reduced to Basic.",
+d5a8f4bec 2022-09-02: "Flame mages can reach Skilled in Club",
+223bcf181 2022-09-02: "Flame mages can reach Basic in Pick-Axe",
+9e14150f5 2022-09-02: "Flame mage: Increase Axe, Flail, and Mace skills to SKILLED max.",
+452188812 2022-09-02: "Flame Mage: Removed dagger and knife skills",
+9079eeeec 2022-09-02: "Flame mage: Removed scimitar skill",
+f77f500e7 2022-09-02: "Flame mage starts with 2 potions of Oil",
+e47923e5b 2022-09-02: "Flame mages have Short Sword max skill reduced to Skilled.",
+57f904645 2022-09-02: "Flame mages can reach expert in Quarterstaff (Potentially for flaming whips, but also a bit of a callback to balrogs)",
+e645e56c4 2022-09-02: "Flame mages have Dagger max skill reduced to Basic.",
+31d071682 2022-09-02: "Flame mages can reach expert in Quarterstaff.",
+136f68449 2022-09-02: "Flame mage: Removed 2-weapon skill",
+4e83c5a98 2022-09-02: "Flame mage: Removed long sword and saber skills.",
+debdcdf14 2022-09-01: "Imported Yeoman role from slashem.",
+84b042044 2022-09-01: "Undead slayers now start with silver spears/daggers/bullets and leather jackets (as originally in slashem.)",
+7e2ac1a8e 2022-09-01: "Imported Undead Slayer from slashem.",
+3e7c65df6 2022-09-01: "Increased qtext:N_HDR to 21 to accomodate 2 more roles.",
+e72e3b8d6 2022-09-01: "Updated ice/fla/nec quest data with new required messages for evilhack. Increased qtext.h: N_HDR to accomodate new roles.",
+ee9f43784 2022-09-01: "Imported Necromancer role from slashem (except for quests.txt)",
+6579d04ca 2022-09-01: "Fix: lit status of worn light sources appearing twice in inventory.",
+c5475bf60 2022-08-31: "Fix: move check for starting L1 spellbook to include non-random spellbooks.",
+5adf9cf96 2022-08-31: "Changed Fireball and Cone of Cold spells to MATTER class (to help flame and ice mages out).",
+c63edb5ef 2022-08-31: "Fix: corrections to last commit (silencing compile warnings w/ clang).",
+0d3c9db7e 2022-08-31: "Flame and Ice mages no longer get their opposite resistance at level 13.",
+4164d95cd 2022-08-31: "Imported Ice Mage from slashem.",
+88cfb7c46 2022-08-31: "Imported Flame Mage from slashem.",
+85dc83387 2022-08-31: "Imported Necromancer quest.",
+9b3e003db 2022-08-31: "Imported Yeoman quest.",
+a48730372 2022-08-31: "Imported the Undead Slayer quest.",
+f2e03f9c8 2022-08-31: "Imported Ice Mage quest.",
+4d154034c 2022-08-31: "Imported Flame Mage quest.",
+7d56bbd13 2022-08-31: "Fix: silence several compile warnings (clang).",
+df73c45ec 2022-08-31: "Imported The Crown of Saint Edward.",
+429403605 2022-08-31: "Imported The Great Dagger of Glaurgnaa, reduced price to 5000L.",
+1766c8862 2022-08-31: "Reduce price of eternal candle to 5000L.",
+ab0b5e08e 2022-08-31: "imported the Storm Whistle.",
+2743aa362 2022-08-30: "Imported the Candle of Eternal Flame.",
+3a9b4d05c 2022-08-30: "Firearms were causing a negative random number call, fixed in dothrow.c",
+5d9a77544 2022-08-30: "Enabled more items in light shops.",
+600d97163 2022-08-30: "Some of the lock forcing prompts were broken: Fixed and changed ynq prompt to just yn.",
+1cd198b77 2022-08-30: "Removed key unlocking debug line.",
+d76932051 2022-08-30: "Added an Anband town that has been raided by bandits.",
+166387905 2022-08-30: "Added a variant of the kobold level that is a bazaar for another town level.",
+9d6181699 2022-08-30: "Made kobold-2 into a Town level variant, deleted kobold-1 and the kobold level in main dungeon.",
+18469fa07 2022-08-30: "Fixed statue trap on grunds by placing at the end of the des file.",
+48accb559 2022-08-30: "Completely removed the goblintown branch and requirement to kill goblin king to access minetown.",
+f383ed47c 2022-08-30: "Fixed rhaumbusun gaze attack.",
+b8710bf00 2022-08-30: "Updated lit_room to stop extra messages from darkening monsters.",
+f36b2b85d 2022-08-29: "Combined the two halves of Grunds and fixed some issues with misplaced items and traps.",
+1eed5eb28 2022-08-29: "Added a phase-blocking wall to the middle of Grunds.",
+ea5a22542 2022-08-29: "Cleaned up grunds.des",
+5add14eb3 2022-08-29: "Moved Oracle back to vanilla (5-9) and town branch 3-5 levels after oracle.",
+5bbb19591 2022-08-29: "Reduced wyrm caves from 13-17 to 9-13 levels, and moved sea to 8-10.",
+e04767818 2022-08-29: "Reduced size of dungeon to accomodate max size limits. Adjusted where nymph, ludios, and moloch temple levels appear.",
+382b240d1 2022-08-29: "Removed a few more references to mall.des.",
+d6b520bed 2022-08-29: "Assigned the town branch a unique letter.",
+3ddd30a9a 2022-08-29: "Minor monst.c spacing fix.",
+dca791df4 2022-08-29: "Reordered monster.txt to account for new monsters.",
+481e697f9 2022-08-29: "Moved mall levels and combined into the town.",
+29530af16 2022-08-29: "Added an engraving to the caves entrance.",
+2a1121a05 2022-08-29: "Imported the townfill level from Unnethack for a river before the village.",
+b5648f83d 2022-08-29: "Changed the stairs in the village level.",
+30947182f 2022-08-29: "Added town and village branch from SlashTHEM/Unnethack.",
+c56d4d139 2022-08-29: "Added street thug and street thug leader.",
+673ad2d23 2022-08-29: "Imported musician player monster from SlashTHEM.",
+10ca3cea7 2022-08-29: "Added bard player monster (from SlashTHEM.)",
+9f6facadb 2022-08-29: "Imported peasant from SlashTHEM.",
+d6de5263a 2022-08-29: " Replaced slaughter wight tile with ratman squeaker tile from SpliceHack.",
+3cf657364 2022-08-29: "Replaced slaughter wight tile with ratman tile from SpliceHack.",
+232fd62c3 2022-08-29: "Replaced slaughter wight tile with vomitous ghoul tile from SpliceHack.",
+348b05671 2022-08-29: "Imported town levels from Splicehack/Un.",
+bc21f243e 2022-08-29: "Added pet shop, tin shop, and music shop from Unnethack.",
+0c73755e6 2022-08-29: "Added bandit from SlashTHEM.",
+7a72a7192 2022-08-28: "Moved Grunds Stronghold from level 12 to 19-20, and it is now in the main dungeon instead of being a branch.",
+ae2a62ec9 2022-08-28: "Rearranged some of the dungeon level mapping.",
+e45bdea2c 2022-08-28: "Cleaned up caves.des and used LOOP to cut down repetition.",
+93ee2e30a 2022-08-28: "Imported 4 more storage room variations from dnh, put into a cleaner SWITCH block.",
+a113346db 2022-08-28: "Reduced chances of Jermlaine getting oil, added confusion to possible starting potions.",
+8b0ac813c 2022-08-28: "Moved the stairs on the kobold level so players are forced to traverse more of the level.",
+3ed565a59 2022-08-28: "Move Kobold level chest off of throne for convenience.",
+97f4cfa23 2022-08-28: "Added nasty cave variant levels to the wyrm caves for some random surprise challenges.",
+3801bd09c 2022-08-28: "Converted the Jermlaine village to a single level, that generates 66% of the time in the wyrm caves.",
+8c51dd40d 2022-08-28: "Created a Jermlaine village level for the wyrm caves.",
+9be52eee5 2022-08-28: "Added another varient to the Mine King's endings.",
+ee4535694 2022-08-28: "Added random items, traps, and eggs to the cavenest level - adjusted the potion of monster generation to be more clustered in the middle.",
+7ed1484ae 2022-08-27: "Added 3 cave passage levels throughout the wyrm caves.",
+ed979dcee 2022-08-27: "Made the cave passages unlit and shortsighted.",
+5e2c924fe 2022-08-27: "Added more thorough path generation for cave passages.",
+061b2f28b 2022-08-27: "Removed cavevar levels for now, implemented a random passageway generator for the caves.",
+9a7f20759 2022-08-27: "Fixed Spear of Light showing lit status in inventory or elsewhere.",
+116f14957 2022-08-27: "Imported  gebulmer's fix for artifact light. Fixes Spear of light and Candle of eternal flame not always being lit.",
+8a9bbc5b0 2022-08-27: "Added some random rocks, boulders, items,and monsters to the cave passageways.",
+13c70f94c 2022-08-27: "Added 4 more passage levels to caves.des",
+63f752450 2022-08-27: "Created some narrow cave passage levels to use randomly in the wyrm caves.",
+18b6bd808 2022-08-27: "Imported a bunch of dnh lethe levels to lethe.des for possible later use.",
+644324d36 2022-08-26: "imported a cave level from dnh HedrowNoble.des.",
+0fe28ef47 2022-08-26: "Imported HalfDragonFemaleNoble locate level from dnh for wyrm caves.",
+ae91b86dd 2022-08-26: "Imported Elf-goal level from dnh for the wyrm caves.",
+8bf63f974 2022-08-26: "Fix: ammo damage from the Longbow of Diana/Crossbow of Carl.",
+c44bf71e1 2022-08-26: "Imported nasty Ndr-goal level from ndh, has a lot of flayers.",
+bb7d6975e 2022-08-26: "Imported the dnh Ndr-loca level for the wyrm caves.",
+93fc66187 2022-08-26: "Imported 2 cave levels from dnh to the wyrm caves.",
+eb9a535b8 2022-08-26: "Added an entrance level for the wyrm caves.",
+4cde10119 2022-08-26: "Added sunless sea to the wyrm cave dungeon.",
+b813e9a76 2022-08-26: "Minor README update.",
+fa5daa7dc 2022-08-26: "Fix: better way to handle hidden monsters underwater; new hints file.",
+473638d36 2022-08-25: "Finished cleaning up extra files and references from storage room consolidation.",
+1a0d2d439 2022-08-25: "Moved the spider cave to the middle of the wyrm caves.",
+8cdd61352 2022-08-25: "Added some variety to the wyrm cave monsters: duergars, drow, and randomized chances of all types.",
+5d4128f72 2022-08-25: "Added dragon eggs to cave end and worms to cave filler.",
+ed7b63423 2022-08-25: "Changed rot worm color back to gray - it was green which conflicted with acid worm and evil's giant leech.",
+c318e9b00 2022-08-25: "Adjusted monster gen on caveend so that 15 baby dragons are created and 10 random D are created.",
+62e1db0b4 2022-08-25: "Fix: See_underwater as a tortle when saving/reloading, hidden monsters underwater.",
+bdd36fdb0 2022-08-25: "Changed dragons.des to caves.des, dragons to caveend, and dragfill to cavefill.",
+e4b426686 2022-08-25: "Added some helper functions for the wyrm caves (caves_dnum, etc)",
+e43d63083 2022-08-25: "Enabled river generation in dragon caves.",
+2e2ef4cd3 2022-08-25: "Extended the Wyrm Caves and added filler cave levels.",
+da03fc274 2022-08-25: "Fix: paranoid swim and wearing white dragon-scaled armor.",
+1e88df005 2022-08-25: "Grenades do magical explosions when thrown from monsters instead of intended effects.",
+7ef047e6a 2022-08-25: "Allow normal sight whilst underwater given the right conditions.",
+aca72a810 2022-08-24: "Updated toilet kicking so the tools generated are usually weigh under 15. There are 3 tries if a tool weighing 15+ is generated. If 3 are generated in a row, the toilet shatters and we get to keep the big tool.",
+03f832a69 2022-08-24: "Shopkeepers were not getting any starting money - fixed that.",
+ed28d0aaf 2022-08-24: "Adjusted tip behavior of Bag of Tricks so it stops when a non-monster effect is encountered.",
+70ebd581b 2022-08-24: "Imported Bag of Tricks patch from UnNetHack.",
+78a909035 2022-08-24: "Reorganized monst.c, grouped similar monsters together.",
+be98a9de9 2022-08-24: "Fixed error in unix makefile for accessing minetn lev files",
+3ab156f1d 2022-08-24: "Monsters will use wands of slow monster offensively.",
+8c6419484 2022-08-24: "Monsters can blind you with a camera.",
+72b49acce 2022-08-23: "Cleaned up lavender town lua code.",
+fd01121dc 2022-08-23: "Fixed mines.des in Makefile.top so it includes double-digit entries.",
+1746112b9 2022-08-23: "Added exception for giving elves grenades because they don't like iron items.",
+7965b83b5 2022-08-23: "Imported Lavender Town from SpliceHack.",
+84101cf90 2022-08-23: "Adjust random item artifact chances again.",
+71eb56117 2022-08-23: "Change kitchen sink glyph and color.",
+d4e1144fb 2022-08-23: "Reduced the vertical size of Black Market #1 and changed the assistants to mostly trolls and giants.",
+aa17b91aa 2022-08-23: "Monsters will use teleportation wands offensively.",
+c80a1f4e4 2022-08-23: "Consolidated storage room .des files.",
+5385094d0 2022-08-23: "Adjust random item artifact chances.",
+e2579cb77 2022-08-23: "Consolidated mall-*.des files.",
+cfffcd04a 2022-08-23: "Fix: engulfing mounted hero.",
+1b751d51e 2022-08-23: "Consolidated kobold-* des files.",
+549a3659e 2022-08-23: "Make hitting with a wielded potion hit you far less.",
+f03795b46 2022-08-23: "Multiple healthstones can no longer be created from upgrading flint stones, only singles.",
+2e11ed6f9 2022-08-23: "Captains, Watch captains, prison guards, and orc captains get grenades. One-eyed Sam gets 3 gas grenades. All Mercernaries: 1/6 chance of a random grenade.",
+aaacb4b55 2022-08-23: "Fixed issues with arming grenades and stacks.",
+f841b87a4 2022-08-23: "Fixed out-of-side shadow monsters generating darkening messages.",
+d32e2db4b 2022-08-23: "Fix: warnings during compile using gcc version 11.",
+294c903a3 2022-08-23: "Cleaned up amnesia get_wet code a bit.",
+e2633c4f5 2022-08-23: "Cleaned up grenade code.",
+3030a29c6 2022-08-23: "Added asian pears to treefruits array.",
+129552069 2022-08-23: "Shopkeepers have their base level raised from 13->24 and ac 0->-6 (from slashem).",
+b1f0b88b9 2022-08-22: "Offering sacrifices will sometimes bless random objects (from slashem).",
+66d6d82dc 2022-08-22: "Priests of Moloch are always hostile.",
+ec5e9f908 2022-08-22: "Replaced the slashem Rat King with the Evilhack one on the slashem rats level.",
+77c21a19a 2022-08-22: "Touched up spiders.des.",
+e63d1ba08 2022-08-22: "Moved Sewers of Waterdeep level to the bottom of mines and replaced rat king with Ruggo.",
+a6760d7ac 2022-08-22: "Fixed all GOLD placements in new .des files/levels.",
+04e0b323a 2022-08-22: "Added Mine King's level from SlashTHEM.",
+13afcba9b 2022-08-22: "Added Ruggos mine ending level from slashem.",
+09fbde9ff 2022-08-22: "Fixed dungeon.def listings of new mines levels.",
+f09b3f827 2022-08-22: "Gnomish mines monsters will usually be undead if you are dwarf/gnome/hobbit (from SlashEM).",
+ef9298881 2022-08-22: "Removed water from Gnomish Mines.",
+42298bd21 2022-08-22: "Imported mine's end variants from slashthem: Boulder Bonanza and Gnome King Apiary",
+b82300053 2022-08-22: "Imported minetown variants from SlashTHEM.",
+6718e2b50 2022-08-22: "Added gnome thieves and dwarves to minetown variations.",
+b3d60d440 2022-08-22: "Can not get permanent ESP from eating corpses anymore - added message for telepathy wearing off.",
+616edefef 2022-08-22: "Copied over changes to potion of speed and effects (from Xnethack).",
+78c58a2b4 2022-08-22: "Wand of speed monster is now only temporary (25-50 turns) for zap self and very fast.",
+bb066d49a 2022-08-22: "Made blessed potion of ESP temporary (250-350 turns)",
+6a5c9f0d5 2022-08-22: "Increased artifact blasts to slashem levels.",
+59d6377ec 2022-08-22: "Removed magic marker from upgrade pathes. Lenses upgrade into crystal orbs and vice versa.",
+8fab5962c 2022-08-21: "Adjusted cmap numbers in tilemap.c",
+83e5a5f4e 2022-08-21: "Indented last tiles in tilemap.c",
+0ce6d101f 2022-08-21: "Reverted S_pool in tilemap.c",
+57d1388b1 2022-08-21: "Fix attempt for pool tile.",
+10352499c 2022-08-21: "tilemap.c fix to S_pool that was pointing to water.",
+0ef4bdc59 2022-08-21: "Fixed a bunch of missing toilet references (parallel to sinks)",
+8cc7e896c 2022-08-21: "Re-formatted tile listings in rm.h and display.c for readability, and adjusted a couple so they both match.",
+ebedc4b45 2022-08-21: "Fixed toilet tile in other.txt",
+50142b9b9 2022-08-21: "Fixed typo in monsters.txt: Elvenking",
+27e200944 2022-08-21: "Fixed some warnings in shknam.c.",
+7985bf6c1 2022-08-21: "Fixed typo in monsters.txt: saber-toothed cat",
+b06efd4ef 2022-08-21: "Fixed some warnings in shknam.c.",
+72dc52dfa 2022-08-21: "Cleaned up some of the forcedoor code.",
+10b932677 2022-08-21: "Tided up the rusting section of dotoiletamulet.",
+edea8fc7f 2022-08-20: "Kathryn grudges all things that can sting.",
+9efb6b10c 2022-08-20: "Amulet of Change polymorphs toilet into a sink.",
+528a0147c 2022-08-20: "Added effects of being blind while dropping amulets in toilets.",
+b26a34a7e 2022-08-20: "Amulets of Flying are always regurgitated from toilets.",
+78b80d88d 2022-08-20: "Updated comments for toilet amulet id.",
+19a316478 2022-08-20: "Fixed extra space in msg from get_wet.",
+62776939c 2022-08-20: "Updated messages for toilet amulet id.",
+6a37b1123 2022-08-20: "Added a bunch of alt wish spellings from slashem to objnam.c",
+ee39db296 2022-08-20: "Updated nasties list with some stuff from slashem.",
+a6d5a4573 2022-08-20: "Missed some stuff with spiders_dnum, d_spiders_dnum.",
+3bd5990ae 2022-08-20: "Updated history file.",
+34b33fe68 2022-08-20: "tribute: typo fix",
+1e1dac34c 2022-08-19: "Fixed uninitialized mtmp in read.c for SPE_SUMMON_UNDEAD.",
+2a635f42c 2022-08-19: "Fixed order of tiles in monster/objects/other.txt",
+a489bcfef 2022-08-19: "Copied tile-renumberer.awk from xnethack.",
+a2023d6a2 2022-08-19: "Fixed warning about potential uninitialized mtmp in read.c",
+e7a6953d4 2022-08-19: "Small fixes for windows build warnings.",
+cc78845bf 2022-08-19: "Renamed evilhack.yml to hackem.yml",
+928d163f6 2022-08-19: "Fixed bad data reference in mhitu (stunning from SDSM.)",
+974b88ab9 2022-08-19: "Fixed the way shadow monsters darken rooms so it doesn't pass a monst pointer.",
+63bdcbf31 2022-08-19: "Fixed more compiler warnings.",
+ac6ac6eec 2022-08-19: "Fixed lots of compiler warnings and incorrect syntax.",
+dde9b249c 2022-08-18: "Fixed missing init of knowwhetstone.",
+ed405699a 2022-08-18: "Updated the other winnt makefiles.",
+905e92c38 2022-08-18: "Fixed some references to Evilhack to HackEM.",
+480e6ab1a 2022-08-18: "README updates.",
+9ffa86c1e 2022-08-18: "Copied toilet tile from slashem.",
+bd7b63e1e 2022-08-18: "Copied object tiles over from slashem.",
+d76667712 2022-08-18: "Copied over new monster tiles from slashem.",
+cb19fe0af 2022-08-18: "Fixed upgraded objects being reworn and effects being applied after transformation.",
+0217832e5 2022-08-18: "Fixed some outdated function calls in the upgrade code.",
+67ac2c178 2022-08-18: "Fixed call to stolen_value in upgrade code.",
+0b16a87b8 2022-08-18: "Adjusted upgrade item names to be compatible with evilhack changes.",
+3f94f1f0d 2022-08-18: "Imported potion of gain level upgrading via dipping from slashem.",
+ec1967dbe 2022-08-17: "Add a couple rows of spear traps to Grunds.",
+c1c1308f3 2022-08-17: "Jermlaine are sometimes generated riding rats.",
+ccba85da3 2022-08-17: "Moved instrument break code after player commits to action.",
+890000c30 2022-08-17: "Cursed instruments break 25%, uncursed 10%, blessed 4%. Fumbling % = cursed.",
+4cea92b5c 2022-08-17: "Added chance of breaking to musical instruments.",
+df55f9d01 2022-08-17: "Breaking a wand of fear confuses you.",
+448fc5857 2022-08-17: "Changed wand of fear to behave as cause fear spell (omni), removed engrave msg, added cursed effect.",
+1334b7f65 2022-08-17: "Added ability to #untrap fire traps with water (and explode oil) from slashem.",
+78c52fdc4 2022-08-17: "We can now #untrap rust traps into fountains.",
+123a01003 2022-08-17: "Imported giant court rooms from slashem.",
+4d620690d 2022-08-17: "Imported bad food rooms from slashem.",
+1ddb338c0 2022-08-17: "Imported real zoo rooms from slashem.",
+28c357ab3 2022-08-17: "Imported dragon lair rooms from slashem.",
+a1d8f5884 2022-08-17: "Imported migo hive rooms from slashem.",
+34608c63d 2022-08-17: "Imported fungus farm rooms from slashem.",
+eb0898e8e 2022-08-17: "Added new room types to mkroom.h",
+002e1189e 2022-08-16: "Added breakable credit cards, keys, and lock picks (from Slashem).",
+ddbb644d4 2022-08-16: "toilets: Used create_critters instead for making crocs and cockroaches. Fixed odds of cockroaches to 1 in 17 when kicking.",
+c8f5956e8 2022-08-16: "Wands of healing now identify when zapped. Blessed healing and uncursed extra healing cure blindness.",
+25d28d7c6 2022-08-16: "Changed Thiefbane material to platinum so elves can wield it.",
+71eadedc8 2022-08-16: "updated is_lawful_artifact() and is_chaotic_artifact() with new slashem artifacts.",
+8ede78fd4 2022-08-16: "Upped Tsurugi of Muramasa from 5% bisection to 15% chance.",
+8ff0c103a 2022-08-16: "Spear of Light causes hostility from undead.",
+a5a75a067 2022-08-16: "Deathsword causes hostility from humans.",
+72cb6f353 2022-08-16: "Adjusted Doomblade to D19 so it's comparable to the slashem flat +10.",
+e95a0f201 2022-08-16: "Disrupter always makes undead hostile.",
+b183b2bc1 2022-08-16: "allmain.c: Elfrist causes hostility to elves.",
+4709d4d98 2022-08-16: "Replaced Keolewa with Skullcrusher (and added shk res from Keolewa to Skullcrusher.)",
+e15d39611 2022-08-16: "Fixed some artifact typos.",
+41f5b3588 2022-08-16: "Switched Disrupter from being a priest sac gift to being Undead Slayer sac gift.",
+27b50da50 2022-08-16: "Removed Deluder from being a Wizard sac gift.",
+461b2a162 2022-08-16: "Removed Sword of Justice from being a Yeoman sac gift.",
+1ce275a49 2022-08-16: "Removed Deathsword from being 2nd barbarian sac gift.",
+577b26243 2022-08-16: "Added objnam info for slashem artifacts we are keeping.",
+496051c57 2022-08-16: "Added Firewall and Deep Freeze to objname and associated with Flame Mage and Ice Mage.",
+acb321326 2022-08-16: "Changed Deep Freeze from Athame to Staff of Escape.",
+8ba4e0892 2022-08-16: "Changed Firewall from Athame to Staff of Divination.",
+2ba1ab654 2022-08-16: "Ghasts gain a level for every corpse they eat.",
+81a876f40 2022-08-16: "We can hear athools howl in the distance.",
+4d7859e29 2022-08-16: "Nabassu will also darken areas considerably on movement.",
+33425dccb 2022-08-16: "shadow wolves and ogres can darken lit areas.",
+6ce0f7844 2022-08-16: "Mist wolves can now generate mist clouds. Edited the create_gas_cloud function to handle 0 damage clouds.",
+017bfb1ec 2022-08-16: "Badgers leave occasional poison gas clouds.",
+b199ee50a 2022-08-15: "Added a sonic gibberling attack that has a variety of bad effects.",
+a74aa7ed8 2022-08-15: "Changed harpy chat from MS_SQEEK to MS_SEDUCE.",
+6e8484d7f 2022-08-15: "Added harpy AD_SONG to mhitm.c",
+967142104 2022-08-15: "Added a paralyzing singing attack to harpy (mhitu).",
+544d2bbc1 2022-08-15: "Mobat piercing attack added to uhitm (doesn't work with #monster yet.)",
+adaca4609 2022-08-15: "Added mobat piercing attack to mhitm.",
+953c799aa 2022-08-15: "Mobat's now have a stunning screech attack. Implemented in mhitu.",
+29c9d097a 2022-08-15: "Fixed some indenting.",
+4e0994c47 2022-08-14: "Decreased chances of breaking a toilet from dropping amulet to 1 in 27.",
+ace6b82f1 2022-08-14: "Imported amulet id via toilets from Slashem'Extended",
+5dc444a9f 2022-08-14: "Kicking toilets can generate sewage with the cockroaches. Moved toilet breaking to end of effects to reduce the chance.",
+67c2fc8e5 2022-08-14: "Reduced the radius of sewage gushing to 3.",
+e6b16f217 2022-08-14: "Kicking toilets can now spray sewage around the room.",
+49790a212 2022-08-14: "Kicking toilets can generate giant cockroaches.",
+db9c567c8 2022-08-14: "Toilets can be kicked for brown puddings or tools, and funny msg about toilet seat.",
+6ff971ab6 2022-08-14: "Kicking toilets exercises dexterity.",
+a7f4061bf 2022-08-14: "Decreased odds of breaking toilet on #kick to 1 in 7.",
+c0d2d0d93 2022-08-14: "Cavemen can use whetstones twice as fast as other roles.",
+b5f77ae19 2022-08-14: "Reduced the amount of time needed to use a whetstone.",
+53c1d61dd 2022-08-14: "Fixed bug: Gold dragon scales showed lit status twice in inventory.",
+4d0b923b9 2022-08-13: "The EotO can protect from shimmering dragon effects.",
+b6a9f3d32 2022-08-13: "uhitm: Added passive rust/water to sea dragon scales.",
+7db2be8f1 2022-08-12: "uhitm: Added passive shimmering dragon armor effects: confuse, stun, slow.",
+80a5ecb38 2022-08-12: "uhitm: Added passive blind to gold DSM.",
+c366f1679 2022-08-12: "uhitm: Added passive acid attack to yellow DSM.",
+9dcfcd59b 2022-08-12: "uhitm: Changed passive orange DSM from slowing to sleep.",
+a8112ed50 2022-08-12: "uhitm: Added passive shock for blue DSM.",
+d3e94c684 2022-08-12: "Sea DSM deals severe halving damage to firey monsters like fire vortex, fire elementals, etc.",
+d403bc4cd 2022-08-12: "Blue DS: Changed passive shock to 1d6 and critical hit to 2d24.",
+a2a780a2e 2022-08-12: "Passive red/white dragon scales can destroy items.",
+d8a932175 2022-08-11: "Added passive mirror reflection to silver dragon scaled armor.",
+d47cd68a6 2022-08-11: "Added a passive acid attack to yellow dragon scale armor.",
+8b2d70b8d 2022-08-11: "Added a passive blinding attack to gold dragon scale armor.",
+17a661faa 2022-08-11: "Blue dragon scale armor gets a passive shock attack.",
+6d779fc73 2022-08-11: "Added passive sleep attack to orange dragon scaled armor.",
+d6c06cb29 2022-08-11: "Added confusion and stunning to shimmering dragon scale armor passives.",
+aa7c2dab4 2022-08-11: "Shimmering dragon scale armor gets a passive slow attack, removed this from orange scales.",
+bc7641083 2022-08-11: "Added a passive rust attack to sea dragon scaled armor.",
+d05a949c6 2022-08-10: "Silver dragon scaled armor now reflects most blinding attacks inflicted by light.",
+bc209f730 2022-08-10: "Black dragon scaled armor now grants slow digestion.",
+b57c88c4b 2022-08-10: "Gold dragon scaled armor now grants automatic searching.",
+e0ee1db7c 2022-08-10: "Orange dragon scaled armor now grant free action.",
+dbc58c45f 2022-08-10: "Green dragon scales now grant sickness resistance; removed from gold dragon scales.",
+1962553b4 2022-08-10: "Removed sickness resistance from gold dragons, granted to green dragons.",
+5bcdeccd5 2022-08-10: "Gold dragon scales no longer block disease attacks, moved to green dragon scales.",
+53f413daa 2022-08-10: "Implemented gaze drain life attack to mhitm.c",
+ecc4aa3ca 2022-08-10: "Nabassu get a gaze life drain attack.",
+ea64c9170 2022-08-10: "Fixed babau poison gaze attack.",
+7d95cc278 2022-08-09: "Made Thiefbane warn of @.",
+1a491069a 2022-08-09: "Raised vorpal blade and thiefbane beheading chance to 10%.",
+188d9f266 2022-08-09: "Fixed bug preventing One eyed Sam from receiving Thiefbane.",
+204e96d43 2022-08-09: "Added thiefbane to list of chaotic and unwishable artifacts. Reformatted those lists.",
+8f7f4d2df 2022-08-09: "Fixed THIEFBANE in makemon to be long sword.",
+79d93d684 2022-08-09: "Mimics and dead trees.",
+1802d902d 2022-08-09: "Changed Thiefbane to a long sword.",
+3e7470c8b 2022-08-09: "Fixed error with generating black market version 1.",
+d0d756fcb 2022-08-09: "Updated artifact.c special bonus section for thiefbane.",
+77aab57df 2022-08-09: "Outfitted One eye sam with strong equipment.",
+836131827 2022-08-08: "Updated makefiles and black market is now functional.",
+491da1930 2022-08-08: "Imported badpos function to teleport.c from UnNethack.",
+9ff631a3c 2022-08-08: "Imported debug_pline from UnNetHack.",
+3ec90a2f5 2022-08-08: "Imported enexto_core_range and epathto functions into teleport.c from UnNetHack.",
+ce729e937 2022-08-08: "Imported rnf function to rnd.c",
+a9995654f 2022-08-08: "Changed has_mgivenname to has_mname",
+83c0097a3 2022-08-08: "Changed MGIVENNAME to MNAME.",
+f401484fb 2022-08-08: "shkinit() was missing shkmoney initialization.",
+0319054d2 2022-08-08: "Fixed missing ) in shk.c",
+46c5cacd7 2022-08-08: "Updated Thiefbane listing, changed SPDF_NONE to SPFX_NONE.",
+f869ee3e2 2022-08-08: "Fixed black marketeer listings in monst.c",
+64fbfc142 2022-08-08: "Imported all content tagged with BLACKMARKET from UnNetHack.",
+5062cb038 2022-08-08: "Pyrolisk, fire damage changes.",
+b453b7d83 2022-08-08: "Grid bugs don't have hands.",
+7e292fe31 2022-08-08: "Imported blkmar.des from UnNetHack.",
+0cda3347f 2022-08-08: "Valkyries start with a spear instead of a long sword; Giantslayer changes.",
+65ed594dd 2022-08-08: "Sickness countdown.",
+301117c8f 2022-08-08: "Fixed Grund's split map, organized file a little more.",
+629a2209d 2022-08-08: "Consolidated grund code down to 1 des.",
+21e03ee7d 2022-08-07: "Cleaned up grunds.des, got tins of spinach working, used an iron safe for the big stash.",
+43a6e4db7 2022-08-07: "Imported Grunds Stronghold from slashem.",
+35728a26f 2022-08-07: "Imported the Temple to Moloch branch from slashem.",
+5ed9822c4 2022-08-07: "Imported the spider cave from slashem.",
+b09ea64e8 2022-08-07: "Imported the lost tomb branch from slashem.",
+72f534286 2022-08-06: "Imported the Wyrm Caves branch from slashem.",
+e9bd10eee 2022-08-06: "Imported the storage room from slashem.",
+5ae34dd64 2022-08-06: "Imported the rat level from slashem.",
+8a42de71e 2022-08-06: "Imported the kobold levels from slashem.",
+5213b59f6 2022-08-06: "Adjusted Aphrodite's level to appear 23-25",
+01249f1f0 2022-08-06: "Adjusted Fort Ludios level.",
+dd8eedc3f 2022-08-06: "Oracle level can appear from levels 7-12 now.",
+1cc0054d6 2022-08-06: "Lengthened the main dungeon to slashem size (42-45 levels).",
+dcd50e0c8 2022-08-06: "Fixed issues with mall, now generates with all shops and no placement bugs.",
+4e0dfaf2c 2022-08-06: "Fixed sparse rooms in mall - now all rooms appear.",
+b9bd210f2 2022-08-05: "Added working draft of mall special level from slashem.",
+b2b9c816d 2022-08-05: "Changed chances of item randomly spawning with two properties to 1 in 666.",
+cd0931b85 2022-08-05: "Lightsabers auto-extinguish when put into containers.",
+b3bd82dae 2022-08-05: "Made badgers immune_poisongas (they are stinky...)",
+ee6445bc4 2022-08-05: "Zouthern animals have a small chance of dropping boomerangs.",
+46f27004a 2022-08-05: "Removed thiefbane cancel effect - was already being bypassed when beheading.",
+94dd909b9 2022-08-05: "Elfrist now warns of elves.",
+caa4336bb 2022-08-05: "Doomblade shows an appropriate message for tiny monsters.",
+ad06cf36b 2022-08-04: "Fix: triggering knockback feedback on an already dead monster.",
+c208108f4 2022-08-04: "Correction to recent 'section of wall being visible' commit.",
+584d34941 2022-08-04: "Correction to recent 'very fast' commit.",
+afed6410d 2022-08-04: "Fix: sections of wall being visible when they shouldn't yet.",
+c84a92877 2022-08-04: "Fix: You are very fast from something.",
+ad0da82a5 2022-08-04: "Adapted CONTRIBUTING.md from SpliceHack.",
+cde4015c5 2022-08-04: "Base price of magic lamp is now 1000z.",
+d91f96428 2022-08-04: "Sorted the artifacts into alignments; cleaned up the list a bit.",
+9de040e77 2022-08-04: "Fix: tortles and breathing underwater.",
+76ddd2c0a 2022-08-04: "Tortles, various monsters can move fast whilst underwater.",
+6f9cecde2 2022-08-04: "Clubs can be dipped into oil and turned into torches",
+f88c6d7cf 2022-08-04: "Dwarves in mines frequently get lit torches now.",
+4b83e1eca 2022-08-04: "Copy missing slashem alt_spl names[] from mondata.h",
+f554743fa 2022-08-04: "Unlock trident skill for tortles playing a role that normally wouldn't have it.",
+6e3cafd5f 2022-08-04: "Fixed issue with wiz-generating and reverse genociding lords/kings",
+a43b704fb 2022-08-04: "Fix: a couple minor issues with character creation.",
+1730c531b 2022-08-04: "Applied wraith eating changes from slashem. (nerfs wraith eating a bit.)",
+a611dcfeb 2022-08-04: "Renamed Holy Spear of Light to Spear of Light. Avoids holy/blessed wishing issues.",
+2f6fd1cbc 2022-08-04: "Moved gnome warriors up to lvl 7 and gnome kings up to lvl 9.",
+eabcea1a6 2022-08-04: "Wooden stakes get +1 tohit against vampires.",
+849f787d5 2022-08-04: "Wishing for stake gives wooden stakes.",
+f8f739e0a 2022-08-04: "Added vampire vaporize kill msg for wooden stakes.",
+6c14e1dc9 2022-08-04: "Raised instakill to 20% for monsters using wooden stakes.",
+463b91564 2022-08-04: "Stakes work for mhitm now.",
+034d32cbc 2022-08-04: "Wooden stakes work for uhitm.h, added scaling damage bonuses.",
+4815751fa 2022-08-03: "Remove Dr. Frankenstein and Frankenstein's monster.",
+e06996ae5 2022-08-03: "Reordered monsters by difficulty level.",
+622a50faf 2022-08-03: "Removed gypsies.",
+90043b595 2022-08-03: "Noted which monsters original from which fork in monst.c",
+663d0cd17 2022-08-03: "Added missing wizard mode commands to guidebook.",
+d6c325da8 2022-08-02: "Added new command to help.",
+693651e92 2022-08-02: "Added .idea to gitignore.",
+834594b8c 2022-08-02: "New ^S wizard mode spell casting.",
+603f8d48e 2022-08-02: "Fix: compatability checking for development.",
+c8ae047e2 2022-08-02: "Initial preparation for new version (0.8.1).",
+c45e07dc8 2022-08-01: "Make berserkers more willing to fight hand-to-hand",
+5f8c36620 2022-07-25: "Retool berserkers",
+6507d67b4 2022-08-01: "Fixed bad array initializer in shknam for lighting shops.",
+479fbda3d 2022-08-01: "Fixed an incorrect string format error for long int.",
+e09c46403 2022-08-01: "Added declaration of attach_bomb_blow_timeout to extern.h",
+40d3561e0 2022-08-01: "Changed pick-axe weight to 75 (matches slashem)",
+d77bd58bf 2022-08-01: "Lowered summon and command undead spells to level 4.",
+a40bd054d 2022-08-01: "Lowered teleport away spellbook to level 5.",
+618fa4de2 2022-08-01: "Lowered Passwall spellbook to level 5.",
+86126fb58 2022-08-01: "Wishing for bolt(s) will now grant crossbow bolts.",
+3f78de56d 2022-08-01: "Fixed bad food and bad coins symbols.",
+b02a7c0cc 2022-08-01: "Baby gray dragons get MR20 (twice the other baby dragons).",
+edbd659f7 2022-08-01: "Amnesia potions can now be anything - since amnesia was nerfed.",
+da21eea16 2022-07-31: "Upp'ed crysknives to d20/d30 damage.",
+06f31085a 2022-07-31: "Imported Disrupter.",
+7143708d0 2022-07-31: "imported Gauntlets of Defense.",
+60ad4b9ff 2022-07-31: "Imported Whisperfeet.",
+3f7ffaf5d 2022-07-31: "Imported Deluder.",
+2d7cc06c4 2022-07-31: "Imported Mirrorbright.",
+0d5e655c0 2022-07-31: "Imported Thiefbane.",
+46539b95f 2022-07-31: "Imported Serpent's Tongue.",
+d37b981ed 2022-07-31: "Imported Plague (artifact bow)",
+29873ac76 2022-07-31: "Imported Sword Of Balance.",
+5efd5f2fa 2022-07-31: "Imported Sword of Justice.",
+81a89005e 2022-07-31: "Imported the Holy Spear of Light.",
+e024098eb 2022-07-31: "Imported Reaper.",
+dc4745290 2022-07-31: "Imported Skullcrusher.",
+7b954e254 2022-07-31: "Imported Quick Blade.",
+b343dcbb9 2022-07-31: "Imported Elfrist.",
+c7d78912e 2022-07-31: "Imported Doomblade.",
+de29c7753 2022-07-31: "Imported Firewall.",
+d75b34e42 2022-07-31: "Imported deep freeze.",
+944af6ded 2022-07-31: "imported Deathsword.",
+e5256a9b0 2022-07-31: "Imported baseball bats and Bat from Hell.",
+7f63ea2f5 2022-07-30: "imported dark elven chain mail.",
+888607af8 2022-07-30: "Fixed bug with deep dragon armor drain life deaths.",
+754b8400d 2022-07-30: "Added AD_DRLI to defends for DDSM.",
+95486580a 2022-07-30: "Wearing deep dragon armor grants resistance to AD_CLOB attacks.",
+ef7a5298c 2022-07-30: "Added MR_CLOB resistance to knockback and resists_clob function.",
+8522458c4 2022-07-30: "Added M_SEEN_DRAIN for players attacking mon with DDSM.",
+2f83c13c7 2022-07-30: "Added M_SEEN_DRAIN check to monsters zapping wands of draining.",
+ce99e6eac 2022-07-30: "Added M_SEEN_DRAIN to monstseeu types.",
+8ca3c8b72 2022-07-29: "Implemented a passive drain attack for deep dragon scale.",
+0ca471bf6 2022-07-29: "Baby deep dragons can grow up into adult deep dragons.",
+268298035 2022-07-29: "Implemented deep dragon scales, they grant drain level resistance.",
+9a1f49746 2022-07-29: "Also regularize engulfing fire attacks.",
+3d13a001b 2022-07-29: "Deep dragons get drain resistance.",
+baa88199c 2022-07-29: "Removed death resist from baby deep dragons.",
+ac6e95dd5 2022-07-29: "Imported deep dragons and adjusted to match evil's dragon stats.",
+0e4658090 2022-07-29: "Baby deep dragons resist poison and death/drain magic.",
+a0c727be2 2022-07-29: "Implemented passive drain life for baby deep dragons.",
+7ff5db81e 2022-07-29: "Small fix to fire damage messaging.",
+c8c887291 2022-07-29: "Imported baby deep dragon and matched most stats to existing baby dragons.",
+c51259684 2022-07-29: "Imported gauntlets of swimming.",
+6618dd4af 2022-07-29: "Imported cloaks of weakness (formerly robes)",
+b4785504f 2022-07-29: "Imported poisonous cloaks.",
+21d2c5ab1 2022-07-29: "Phase spiders are skittish and teleport more like tengus.",
+8105be2a5 2022-07-29: "Mist wolves are lawful.",
+62d1c72be 2022-07-29: "Mist wolves are cold resistant.",
+2359d9651 2022-07-29: "Shadow ogres and wolves are drain & death resistant.",
+94fcab65f 2022-07-29: "Shadow wolves have a thick hide & don't breath.",
+3f0da5450 2022-07-29: "Shadow ogres and wolves are poison resistant and vulnerable to fire.",
+d807c161b 2022-07-29: "Jermlaine can start with bullwhips.",
+a90335623 2022-07-29: "Pills now have the gain ability effect when they taste like vitamins.",
+5d8a3e6fa 2022-07-29: "Players killed by slaughter/barrow wights can now revive as wights.",
+58e69c422 2022-07-29: "Made slaughter wights a red W.",
+d33acf1dc 2022-07-29: "Re-added wights back in so that slaughter wight revivals.",
+f0a0674d6 2022-07-29: "Consolidated the 6 hydra attacks to 3  and added a fire breath attack.",
+fafddfacd 2022-07-29: "Slaughter wights are scary now: lvl 18, spd18, -8AC, 18MR, they have 2 powerful slam attacks (2d18 CLOB) and drain life and drain energy attacks.",
+e86b207fd 2022-07-28: "Renamed wight to slaughter wight. Added infravision, ACCURATE, BERSERK, and STRONG.",
+416ab6972 2022-07-28: "Killer coins can now leave gold on death drop.",
+7ccf28dbb 2022-07-28: "Formatted the nasties lists in wizard.c",
+ef8ea8802 2022-07-28: "Monadic devas are breathless.",
+3ac1c83eb 2022-07-28: "All devas have big wings.",
+f7a75a8e1 2022-07-28: "Give all Devas fire, shock, and death magic resistance.",
+77e4f83a5 2022-07-28: "Nabassu can cause victim(you) to rise as a ghast.",
+df0c25faa 2022-07-28: "Add ghast to list is_not_zombie.",
+035b6d63b 2022-07-28: "Nabassu get M3_DISPLACES",
+1a7837f79 2022-07-28: "Nabassu have a pair of forehead horns.",
+87a174736 2022-07-28: "Nabassu have a thick hide.",
+56d05130d 2022-07-28: "Babau usually use two-handed swords or spears.",
+2329218ae 2022-07-28: "Babau have a passive corrosion attack (from their acidic greasy hide)",
+c2dbb6056 2022-07-28: "Fixed typo in mondata.c when babau horns.",
+d33ca089a 2022-07-28: "Babau have thick leathery hide.",
+5027f11f3 2022-07-28: "Babau have 1 horn.",
+dbc486386 2022-07-28: "Raised chasme MR to 70.",
+1985e5f76 2022-07-28: "Chasmes are also resistant to acid, cold, and shock.",
+fe9ef8cce 2022-07-28: "Chasmes now have telepathy and see invisible.",
+997685a01 2022-07-28: "bar-lgura can now see invisible.",
+6b68acd8e 2022-07-28: "Bar-lguras can now jump.",
+6b5d7e75e 2022-07-28: "Bar-lgura get shock resistance and telepathy.",
+6995da3a5 2022-07-28: "Bearded devils get a poisonous beard sting attack for 1d13.",
+9010c6fd3 2022-07-28: "Bearded devils get berserk and cold resistance.",
+b76dbae50 2022-07-28: "Bearded devils get glaives.",
+1c8f4fa39 2022-07-28: "Spined devils can get tridents, halberds.",
+232f3c4f2 2022-07-28: "Gibberlines can get same weapons that grimlocks can.",
+9fcc29e48 2022-07-28: "Cleaned up code for grimlock items.",
+60c3a5d74 2022-07-28: "Grimlocks can stalk you.",
+6e7fb1ada 2022-07-28: "Grimlocks get a claw attack.",
+a4b2fd010 2022-07-28: "Grimlocks can start with bone weapons.",
+c31c714a9 2022-07-28: "Grimlocks can start with Bone Clubs.",
+e55f11661 2022-07-28: "Wax golems have a small chance of death dropping a magic candle?",
+480ee404e 2022-07-28: "Nightgaunts sometimes get tridents, spears or javelins.",
+30fe62451 2022-07-28: "Harpies can start with jewelery and other items.",
+c2609fcb4 2022-07-28: "Mobats collect treasure",
+c7fa2dd1b 2022-07-28: "Brownies sometimes get short swords.",
+d968a1903 2022-07-28: "Fixed bug with jermlaine item population.",
+90efe134d 2022-07-28: "Jermlaine start with potions of acid, oil, or grappling hooks.",
+3c6f3b435 2022-07-28: "Fixed typo bug in monst.c",
+9ee7c21ac 2022-07-28: "Jermlaine get infravision and are skittish.",
+8e4e35aec 2022-07-28: "Komodo dragon gets MR20 (~MC1 of chain mail)",
+8ac8c221b 2022-07-28: "Komodo dragons can hiss",
+eb600d701 2022-07-28: "Komodo dragons can swim",
+1decb3921 2022-07-28: "komodo dragon/gila monster are vulnerable to cold",
+79604845a 2022-07-28: "removed vulnerability to fire bonus for torches.",
+ebd5fa23d 2022-07-28: "Implement fire/physical damage for mhitm.c",
+b22234831 2022-07-27: "Implemented torch fire damage for uhitm and mhitu.",
+a01e2d03c 2022-07-27: "Adjust feedback when hit by an artifact or weapon that deals poison damage.",
+e7b551511 2022-07-27: "Code format cleanup from 'artifact glow warn' PR, inclusion to changelog.",
+fb5399a34 2022-07-27: "Fixed a glyph offset error from importing toilets.",
+5e18148b2 2022-07-27: "Torches no longer auto-snuff when picked up (by player, pets, or monsters)",
+f10187e73 2022-07-27: "Removed unwield, we don't require torches to be wielded while lit, or auto snuff on unwield.",
+c13b6750e 2022-07-27: "Torches now display (lit) when lit.",
+d358aa397 2022-07-26: "Dwards extinct, substituting dwarves.",
+65104a0af 2022-07-26: "Torches can be lit like lamps.",
+588cf7a9f 2022-07-26: "Imported object listing for torch.",
+051a3f329 2022-07-26: "Lightsabers now light up a radius of 2.",
+151878016 2022-07-26: "Lightsabers now display (lit) when activated, and age in wizmode.",
+a447338aa 2022-07-26: "Enabled #force down doors and using lightsabers to cut down doors.",
+8a32ef25b 2022-07-26: "Fix occasional wizard mode warning source misattribution.",
+22daf4ca7 2022-07-26: "Imported all lightsabers and basic functionality.",
+70e8ae331 2022-07-26: "Fixed enlightenment reporting of glow warning.",
+44f9b9c67 2022-07-26: "Fixed frag grenade explosions, they were lightning. Changes to firey.",
+7214e5b5d 2022-07-26: "Removed unnecessary weapon checks in setapplyclasses and put firearm checks in getobj instead.",
+a5411f05a 2022-07-26: "Fixed issue of armed grenades turning into sokobon prize tools, created new bitfield for armed bombs.",
+498597942 2022-07-25: "Implemented frag grenades and gas grenades.",
+f903d00f0 2022-07-25: "Apply modes for automatic firearms are now functional.",
+bf2177830 2022-07-25: "Shopkeepers can get shotguns and ammo.",
+f630d6154 2022-07-25: "Moved lastwarncnt to avoid corpsenum -1 initialization issue.",
+fa91fbd45 2022-07-25: "Update doname_base for artifact glowing.",
+59b1652fd 2022-07-25: "Autoquiver with firearms, enabled What do you want to fire? Not throw.",
+30adbf1ee 2022-07-25: "Fixed Bullet inv info flub: Ammunition meant to be fired from a firearms.",
+41fb00835 2022-07-25: "Implemented functionality of firearms, able to fire ammo.",
+28493061a 2022-07-25: "Imported non-funcational pistol and bullets.",
+6e969e34e 2022-07-25: "Added toilets to the dungeon overview info.",
+4be55b30e 2022-07-25: "Fixed over-generation of toilets; they can now appear independantly of sinks.",
+f4c14f5a6 2022-07-25: "Toilet prayer can now stop the vomiting process.",
+24140d480 2022-07-25: "Added blind message for shattering a toilet.",
+41585e72e 2022-07-25: "Dropping polyrings into sinks can transform them into toilets.",
+9074ede0d 2022-07-25: "Fishing poles can now catch rats in toilets.",
+9cc5111ac 2022-07-25: "Whetstones can be used with toilets now.",
+7ff6208a4 2022-07-25: "Praying while levitating above a toilet now skips straight to normal prayer instead of the Porcelain God.",
+4d3c9bc86 2022-07-25: "Fixed prompt for drinking from toilets, was prompting for sink.",
+827e0eb4f 2022-07-25: "Imported toilet dungeon feature.",
+f3c3c1fa3 2022-07-24: "Allow using potions of water with whetstones, roll 1d7 to see if it's used up.",
+d9fd53878 2022-07-24: "Fixed bug where non-formally id'd weapons could not get sharpened by whetstone.",
+e8375bcfe 2022-07-24: "You can use whetstones on rust traps.",
+c97ec6198 2022-07-24: "Whetstones can now be used in puddles and sewage.",
+804b98c54 2022-07-23: "Enabled whetstones to be used while blind.",
+6b9640e9a 2022-07-23: "Changed the whetstone denial messages to be more appropriate.",
+96a080b47 2022-07-23: "Changed message for whetstone uncursing effect.",
+7320af800 2022-07-23: "Added quick negative effects for cursed whatstones.",
+f6ce066f5 2022-07-23: "Blessed whetstones can now enchant weapons up to a max of +1.",
+4f4ee1e04 2022-07-23: "Added more descriptive whetstone messages on successful erosion removal.",
+9addd323e 2022-07-23: "Fixed issue of whetstones not being able to be (a)pplied consistently.",
+506e51304 2022-07-23: "Blessed whetstones can remove curses on weapons.",
+cd193d835 2022-07-23: "Enabled whetstones to also remove corrosion.",
+495e7c41f 2022-07-23: "Artifacts no longer resist being sharpened by a whetstone.",
+1052a8d41 2022-07-23: "Removed stack restrictions on whetstones. We can now apply a stack of whetstones to a stack of weapons.",
+99e0cb472 2022-07-22: "Imported whetstones.",
+d0acce682 2022-07-22: "Imported healthstones, fixed a bug in the original code for regen under lvl 10.",
+a6aafdcc1 2022-07-22: "Formatting changes, removed test artifacts.",
+34d007ac4 2022-07-22: "Imported wands of fireball.",
+378f6b446 2022-07-22: "Imported wands of create horde.",
+f647a138b 2022-07-22: "Imported wand of fear.",
+819557eab 2022-07-22: "Imported wands of draining.",
+59ee789a0 2022-07-21: "Extend artifact warning glows to any useable artifact.",
+633fc6b89 2022-07-21: "Imported wands of healing and extra healing.",
+d13589b5e 2022-07-21: "Imported summon undead spellbook, changed command undead back to ATTACK spell.",
+f78d60e84 2022-07-21: "Imported command undead spellbook.",
+91f6ad0c6 2022-07-21: "Imported spellbook of enlighten, changed category to DIVINATION.",
+545823130 2022-07-21: "Imported spellbook of passwall and changed to ESCAPE spell.",
+0905cafb6 2022-07-21: "Reformatted spellbooks.",
+8440f78a1 2022-07-21: "imported fishing poles.",
+1276b52f1 2022-07-20: "Imported magic lamps.",
+02fe99c3f 2022-07-20: "Imported potion of invulnerability; works against death, disintegration, and beheading attacks.",
+5261c62e0 2022-07-20: "Imported potion of ESP.",
+8842429f3 2022-07-20: "Fixed a typo bug when dipping certain artifacts into fountains.",
+0e5978120 2022-07-20: "Imported potion of amnesia.",
+5da54b93e 2022-07-20: "Imported amulet versus stone.",
+78d9c8eb0 2022-07-20: "Imported amulet of drain resistance.",
+3a3f58014 2022-07-20: "Imported rings of gain dexterity, gain intelligence, and gain wisdom.",
+36849c243 2022-07-20: "Imported ring of sleeping.",
+4a82293c1 2022-07-19: "Imported mood ring.",
+d11db752d 2022-07-19: "Reformatted list of rings in objects.c",
+8cae70435 2022-07-19: "Made tortilla vegetarian, not vegan.",
+43759bfc2 2022-07-19: "Upp'ed mushroom strength bonus to 3 (to make up for negative side-effects)",
+ff34b138e 2022-07-19: "Imported mushroom.",
+a21326739 2022-07-19: "Imported pills.",
+d23ba52c9 2022-07-19: "Imported holy wafer.",
+cf6e85877 2022-07-19: "Imported cheese, and ability to tame rats with cheese.",
+9288f650a 2022-07-19: "Imported tortilla.",
+bacbc7dc4 2022-07-19: "Imported sandwich.",
+fab58208b 2022-07-19: "imported asian pear.",
+9c4ab431a 2022-07-19: "Wax golems create piles of candles on death.",
+5c17737dc 2022-07-19: "Added dark elven weapons to mkobj.c material_list",
+c48a8a34c 2022-07-19: "Added a few recipes to the forge to make dark elven weapons.",
+1b0f8caec 2022-07-19: "Added dark elven equipment to is_elven_weapon list.",
+dd808eb6e 2022-07-19: "Imported fly swatter and changed it's skill type to WHIP.",
+e5c6d4640 2022-07-19: "Imported the rapier.",
+039a635c4 2022-07-19: "Imported great dagger.",
+0f1102371 2022-07-19: "Imported wooden stake (V insta kill not working yet.",
+eee4d4eb5 2022-07-19: "Formatted a list in weapon.c",
+9082a01df 2022-07-19: "Imported dark elven arrow.",
+47b68377a 2022-07-19: "Imported dark elven bow.",
+05b4750ef 2022-07-19: "Imported dark elven short sword",
+1e5d88267 2022-07-19: "Imported dark elven dagger.",
+afc78c92f 2022-07-19: "Fixed missing brace in mhitu.c.",
+d2a21a7c3 2022-07-18: "Added killer coins to grownups.",
+adc9e13a7 2022-07-18: "Chasmes and spined devils now have big wings.",
+0c1dd82eb 2022-07-18: "Killer food and tripe rations now leave appropriate corpses.",
+e25456529 2022-07-18: "Added reflection to the higher level golems.",
+0423bf1e3 2022-07-18: "Added death drops for ruby, diamond, saphhire, steel, and crystal golems.",
+a5fdadf1f 2022-07-18: "Plastic golems can be created by polying plastic.",
+ac103d234 2022-07-18: "Plastic golems can drop credit cards and fake amulets.",
+753a04df8 2022-07-18: "Wax golems can be made from poly wax.",
+a522242e2 2022-07-18: "Added wax golem to completelyburns.",
+58bd12d82 2022-07-18: "Gave ghasts (and ghouls) the ability to eat old corpses.",
+b1414a5b3 2022-07-18: "Allowed vampire kings to growup into vampire mages.",
+8ade3973a 2022-07-17: "Star vampires are invisible until they feed.",
+36613492b 2022-07-17: "Added star vampire to pm_invisible list.",
+0ff82f182 2022-07-17: "Added vampire death code (commented out) and V item generation.",
+9c6a1c2b7 2022-07-17: "Added fire vampire to likes_fire list.",
+937572360 2022-07-17: "Added fire vampire and wax golem to emits light.",
+588d12237 2022-07-17: "Re-added passive corrosion to shoggoths.",
+095034596 2022-07-17: "Added corrosion to shoggoth's engulf attack.",
+2a29b4f89 2022-07-17: "Added corrosion to shoggoth's engulf attack.",
+4a3f8ce04 2022-07-17: "Shoggoths can grow up into giant shoggoths.",
+31d1e6736 2022-07-17: "Shoggoths can now eat organics.",
+66952c1b6 2022-07-17: "Fixed error in mon.c TROLL_MUMMY placement in make_corpse.",
+129c40c7a 2022-07-17: "Added gnoll shamans to list of telepathics.",
+834ce0e60 2022-07-17: "Added original item generation for gnollkind.",
+72b3d83cb 2022-07-17: "Gnome lords now growup into Gnome Warriors, and Gnome Warriors into Gnome Kings.",
+f50d1e4a9 2022-07-17: "Added reason for baby silver dragons not having reflection.",
+f10ae3ab1 2022-07-17: "Added a sting attack to nightgaunts (for their barbed tails.)",
+5e0196df8 2022-07-17: "Specified nightgaunt has 2 horns.",
+01b9c6a71 2022-07-17: "Removed M1_NOHANDS from harpy, since they have clawed hands.",
+a9bd40944 2022-07-17: "Added 2 claw attacks to the harpy (for claws and feet.)",
+8a0aaa723 2022-07-17: "Added skittish and accurate to mongbats.",
+68a85fc88 2022-07-17: "Added athool sound that aggravates monsters.",
+2b9d9077a 2022-07-17: "Athol: Bumped difficulty to 10, lvl to 7, bit is 1d10, added 2d8 claw. Can appear anywhere now.",
+ef0d2abea 2022-07-16: "Koalas can only eat eucalyptus leaves.",
+cb609e00b 2022-07-16: "Allowed rabbits to be tamed with carrots (not rabid rabbits though.)",
+edd493530 2022-07-16: "Added sickness resistance to juggernaut.",
+1cb6540f0 2022-07-16: "Raised juggernaut speed to 15.",
+91bd31fd6 2022-07-16: "Added death and drain resistance to juggernaut.",
+8087b4f67 2022-07-16: "Added M1_MINDLESS to juggernaut.",
+1e013234c 2022-07-16: "Changed juggernaut MR to 70, and AC to -4.",
+1cbbfb971 2022-07-16: "Added regeneration to juggernaut.",
+24cc1372d 2022-07-16: "Removed G_NOHELL tag from juggernaut so they can appear anywhere.",
+01907b50a 2022-07-16: "Added fire/poison/shock/sleep/acid/stone resistance to juggernaut.",
+c206860ac 2022-07-16: "Added infravision and NASTY to juggernaut.",
+3337c41e4 2022-07-16: "Added traitor property to nightmares and lesser nightmares. (Seems more fitting.)",
+44d4fc97d 2022-07-16: "Added berserk to giant badgers and honey badgers.",
+704d82117 2022-07-16: "Added berserk to war orcs, great orcs, snow orcs, and demon orcs.",
+e901e0908 2022-07-16: "Added berserk to all dwarves (that did not already have it.)",
+2fbec0d17 2022-07-16: "Added berserk to wolverine.",
+1e64f9bbb 2022-07-16: "Added berserk to assassin bug.",
+a3b75a365 2022-07-16: "Fix: remove unnecessary feedback when a monster goes berserk.",
+c19be766e 2022-07-16: "Added berserk to all rabid monsters.",
+47e60b3e8 2022-07-16: "Specified lambs, sheep, goats, cows, and bulls have 2 horns.",
+3b8530d7d 2022-07-16: "Fix: poisonous corpse can give conflicting message (issue #95).",
+44361cadd 2022-07-16: "Brownies are vegetarian.",
+d94e8b578 2022-07-16: "Made pixies always generate invisible.",
+f8daf8c39 2022-07-16: "Added leprechaun wizard to telepathic list.",
+6e392bb2f 2022-07-16: "Made rock kobolds have a thick-hide.",
+642b960c1 2022-07-16: "Made rock kobolds always start with sling and rocks.",
+6637842fd 2022-07-16: "Swamp kobolds can now swim.",
+c7b047822 2022-07-16: "Changed rot worms to bright green.",
+4abe95b67 2022-07-16: "Rot worms always cause illness when eaten.",
+33bd40979 2022-07-16: "Added blood worm and blood-worm as alt spellings.",
+2d10beaac 2022-07-16: "Made dung worm corpses poisonous.",
+dfc53f4df 2022-07-16: "Made stone golems and statue gargoyles vulnerable to digging rays.",
+51bc899ea 2022-07-16: "Statue gargoyle is made of mineral.",
+dfb4d4f7c 2022-07-16: "Migrated over the slashem golemhp values.",
+71d5ab6c1 2022-07-16: "Lowered statue gargoyle AC to 1 to make up for +1-to-hit removal.",
+5b896139b 2022-07-16: "Added hellbat and hellcat to flaming list.",
+5916cf79d 2022-07-16: "Specified glowing/blinking/bloodshot eyes to have 1 eye in eyecount.",
+e36ae4b37 2022-07-16: "Added mist wolf and shadow wolf to vampire nightchild sounds.",
+09336caa7 2022-07-16: "Added slashem rats to is_rat list.",
+7fb4b3b92 2022-07-16: "Added touch sleep attack to orange jelly.",
+c72469af3 2022-07-16: "Added stun touch to yellow jelly.",
+29482972d 2022-07-16: "Added passive acid attack to clear jelly.",
+628cba850 2022-07-16: "Add drain life attack to blood imps, nupperibos.",
+9dc77f5f0 2022-07-16: "Galltrits only generate in Hell.",
+3e23cdd0b 2022-07-16: "Added more variety to were-summons.",
+0f1ee9267 2022-07-15: "Were-panthers and tigers now howl when changing.",
+f8b14dedb 2022-07-15: "Added flying to cockatoo and parrot.",
+589be18d9 2022-07-15: "Made lava blob emit light.",
+8fe63f1e9 2022-07-15: "Added lava blob to likes_lava and added vulnerability to cold.",
+d2709203a 2022-07-15: "Added claw attacks to the migos.",
+930573a6b 2022-07-15: "Updated REAME, removed todo lists.",
+636444d20 2022-07-15: "Updated REAME, removed todo lists.",
+f81f2a11d 2022-07-15: "Reformatted some of mondata.c.",
+a74dc5afa 2022-07-15: "Fix: very small monsters (and players) vs shallow water/sewage.",
+57804545f 2022-07-15: "Reformatted the rest of mondata.h for easier reading.",
+fc6582956 2022-07-15: "Reformatted mondata.h has_trunk list.",
+e3e3ef674 2022-07-15: "Reformatted mondata.h is_rat list.",
+d62dc0a78 2022-07-15: "Reformatted mondata.h has_claws_undead list.",
+7ccef53c7 2022-07-15: "Reformatted mondata.h is_jumper list.",
+dbc3f1a7e 2022-07-15: "Reformatted mondata.h has_beak list.",
+8ed274b25 2022-07-15: "Reformatted mondata.h is_bat list.",
+0be5dfc87 2022-07-15: "Reformatted mondata.h has_claws list.",
+6af4b61b8 2022-07-15: "Reformatted mondata.h telepathic list.",
+dbb20c5f5 2022-07-15: "Reformatted mondata.h flaming list.",
+522851da4 2022-07-15: "Reformatted mondata.h big_wings list.",
+5fc24373e 2022-07-15: "Reformatted mondata.h resists_mgc list",
+ac9b9f621 2022-07-15: "Reformatted mondata.h resists_sick list.",
+eb999a512 2022-07-15: "Add snow ants so they can occupy antholes.",
+992aaba73 2022-07-15: "Added snow ants to vs_cantflyorswim.",
+05e49813a 2022-07-15: "Added giant ticks/fleas/louse to vs_cantflyorswim list.",
+c62a3b5c2 2022-07-15: "Reformatted vs_cantflyorswim list.",
+58a63e04e 2022-07-15: "Todo list updates.",
+c64598812 2022-07-15: "Reverted all noble and royal monsters to male lord and kings, respectively.",
+51ba99e1f 2022-07-15: "README organization.",
+9de7c0771 2022-07-15: "Fix: don't use 'zombified' as a death reason for player races that can't turn into zombies.",
+fa126e534 2022-07-14: "Made the new jellies also vulnerable to fire.",
+0a2e93b6d 2022-07-14: "Add grownup transitions to gnolls/warriors/chieftains.",
+884a63b3c 2022-07-14: "Fix: memory corruption issues caught with address sanitizer.",
+dd47dce83 2022-07-14: "Gave Shadow Ogres a frequency of 2 and let them appear in the main dungeon.",
+2080f6fdc 2022-07-14: "Added traitor property to all kobolds",
+5342116eb 2022-07-14: "Allowed ticks, fleas, and louses to appear in main dungeon - increased difficulty by 7 for each.",
+5fad807e4 2022-07-14: "Removed ticks growing into fleas, and fleas into louses - does not make sense.",
+242b14322 2022-07-14: "Reformatted monst.c attacks for easy reading.",
+a24688645 2022-07-14: "Update gnolls to match evil weight, MZ_MEDIUM size, use MS_LAUGH, have poison res, infravisible and berzerk.",
+7076c9c92 2022-07-14: "Added rhumbat, athol, hellbat, mobat, mongbat to isbat list.",
+3421a1af9 2022-07-14: "Put statue gargoyle in immune_death_magic, remove from nonliving list.",
+eb4be2e09 2022-07-14: "Made centipedes growup into nickelpedes, and nickelpedes into giant centipedes.",
+22d63bc15 2022-07-14: "Fixed error in shoggoth attacks.",
+e51a92bf0 2022-07-14: "Water hulks: Added vulnerability to shock.",
+83dd1a991 2022-07-14: "Made all badgers able to swim.",
+60f7c3b09 2022-07-14: "Limit all shoggoths to one corrosion attack.",
+e66ddb966 2022-07-14: "Made all killer food vulnerable to fire (cooking).",
+a76caa769 2022-07-14: "Made sabertooth cat a little weaker and the tiger a little stronger.",
+813b51b45 2022-07-14: "Enabled saber-toothed cats to grow up into saber-toothed tigers.",
+e2346ebc7 2022-07-14: "Updated data.base with entries from slashem.",
+3400cfab1 2022-07-14: "Adjust shambling horror attack/damage type combinations.",
+70f669363 2022-07-14: "Fix: foo, poisoned by a cursed amulet of life saving.",
+f63bcacaa 2022-07-13: "Monsters that gain resistance to a type of damage also lose any vulnerability to the same damage type.",
+f47d7cce6 2022-07-13: "Fix: filename buffer overflow.",
+917a4bdf9 2022-07-13: "Todo list updates.",
+fbefd6cdb 2022-07-13: "Todo list updates.",
+65f7ed9eb 2022-07-13: "Imported in the alignment quest leaders (currently disabled until integrated.",
+4e22ad674 2022-07-13: "Imported Cthulu (and the UnNetHack version for comparison.)",
+abd19d6e5 2022-07-13: "Added M1_OVIPAROUS to basilisk.",
+70814d19b 2022-07-13: "Added traitor property to vampire mage.",
+6a026ff28 2022-07-13: "Fixed gnoll references in gehennom.des.",
+845133491 2022-07-13: "Moved gnolls (and flind) back to G",
+8d37cf7b1 2022-07-13: "Imported gnolls: gnoll, gnoll warrior, gnoll chieftain, gnoll shaman. Disabled evilhack gnolls.",
+333ccc42f 2022-07-13: "Imported galltrit and jermlaine.",
+8d54e6aab 2022-07-13: "README updates.",
+fd59f31ad 2022-07-13: "Fixed difficulty numbers for most imported monsters.",
+411c6e3a5 2022-07-13: "Fix: spawning giant <monster> in wizmode.",
+0cbc6324c 2022-07-13: "More updates and ideas for README todo.",
+1acf0031f 2022-07-13: "Added quest guardians: igniter, froster, embalmer, exterminator, Yeoman Warder.",
+ac6d9f0be 2022-07-13: "Added new quest nemesis': Water Mage, Earth Mage, Maugneshaagar, Dracula, Colonel Blood.",
+61efbf1f4 2022-07-12: "Readme todo list formatting.",
+bf942bb99 2022-07-12: "Readme todo list formatting.",
+b7111ff1a 2022-07-12: "Readme organization, todo list work.",
+ac16f180a 2022-07-12: "Readme organization, todo list work.",
+0cfbc6b02 2022-07-12: "Updates to readme.",
+db5447f12 2022-07-12: "Updated all relevant evilhack references to hackem.",
+fdba4c4d1 2022-07-12: "Added a README for hackem.",
+8dc9baad4 2022-07-12: "Added new quest leaders: High Flame Mage, High Ice Mage, Dark Lord, Van Helsing, Chief Yeoman Warder.",
+c2699da59 2022-07-12: "Imported player monsters for flame mage, ice mage, necromancer, undead slayer, yeoman.",
+9b5a8b4b0 2022-07-12: "Added bad coins: pile/large pile/huge pile of killer coins.",
+3334469d2 2022-07-12: "Imported bad egg, killer tripe ration, and killer food ration.",
+e3e0d38bc 2022-07-12: "Imported gila monster, rhaumbusun, and komodo dragon.",
+aa9860a45 2022-07-12: "Imported giant crab.",
+4865dd586 2022-07-12: "Added spined devil, bearded devil, bar-lgura, chasme, babau, nabassu.",
+578be7aeb 2022-07-12: "Imported shadow.",
+7b4f1a866 2022-07-12: "Imported black marketeer.",
+ee7ff8bbc 2022-07-12: "Imported gypsy - gypsy_chat not yet implemented.",
+33a983bd2 2022-07-12: "Imported mugger.",
+8040200a5 2022-07-12: "Imported drow.",
+edf5e22bf 2022-07-12: "Imported gibberling and grimlock. Implemented very large group creation.",
+b62dfa043 2022-07-12: "Fixed duplicate bitfield usage with M3_TRAITOR and M3_NOTAME.",
+1853db80d 2022-07-11: "Imported ruby, diamond, sapphire, steel, and crystal golems.",
+105e2b1a8 2022-07-11: "Imported Frankensteins Monster.",
+2d278649e 2022-07-11: "Imported wax golem, plastic golem.",
+d5aca2912 2022-07-11: "Imported ghoul mage, ghast, ghoul queens, gug.",
+449192607 2022-07-11: "Imported wight.",
+04decfa25 2022-07-11: "Imported fire vampire, star vampire.",
+f765a1f07 2022-07-11: "Imported water hulk.",
+cf5f9d563 2022-07-11: "Imported two-headed troll and black troll.",
+7bc926ad6 2022-07-11: "Commented out a part of create_particular_parse to fix symbol errors with some giant monsters.",
+259ecd298 2022-07-11: "Imported king cobra and asphynx.",
+9edc22249 2022-07-11: "Imported Dr. Frankenstein.",
+8ea567741 2022-07-11: "Imported shoggoth and giant shoggoth.",
+201b811d1 2022-07-11: "Imported moldy pudding.",
+23a72cd17 2022-07-11: "Imported orge mage and shadow ogre.",
+f0fec5648 2022-07-11: "Imported troll mummy.",
+7b84d0e1d 2022-07-11: "Imported The Largest Giant, Father Dagon, Mother Hydra.",
+a8c6d4f52 2022-07-11: "Imported gnome thief, deep gnome, gnome warrior, Ruggo the Gnome King.",
+8373fafb6 2022-07-11: "Imported black mold and disgusting mold.",
+1b2d29178 2022-07-11: "Imported wyvern and hydra.",
+f4efe063e 2022-07-11: "Imported byakhee and nightgaunt.",
+6a1e87ead 2022-07-11: "Imported rhumbat, athol, hellbat, mongbat, mobat, harpy.",
+48b7c5e22 2022-07-11: "Imported movanic deva, monadic deva, astral deva, Solar, Planetar.",
+9cec970d9 2022-07-11: "Imported zouthern animals: echidna, platypus, koala, Taz, wallaby, wallaroo, kangaroo.",
+a8b00a2c6 2022-07-10: "Changed Zruty from z to Y. Zouthern now occupies z.",
+b7e72dbfc 2022-07-10: "Imported arc bug, spark bug, lightning bug. (Removed MR_HITASONE from all)",
+ac15d14d1 2022-07-10: "Imported larva, maggot, dung worm, acid worm, tunnel worm, rot worm.",
+183702e51 2022-07-10: "Imported Girtab, Shelob.",
+508962885 2022-07-10: "Imported barking spider, carrion crawler, nickelpede, giant scorpion, phase spider.",
+30a54a466 2022-07-10: "Imported rabbit, black rat, rabid rabbit, pack rat, hellrat, the Rat King.",
+54d6dff58 2022-07-10: "Imported Jumbo, juggernaut, and catoblepas (Removed MR_HITASTWO).",
+d97e57434 2022-07-10: "Imported giant badger, switch symbol to r.",
+ddecbaad7 2022-07-10: "Imported scramper, squealer, mangler.",
+bb8972b3f 2022-07-10: "Imported lamb, sheep, goat, cow, and bull.",
+86e4627ef 2022-07-10: "Imported war orc, great orc, snow orc, demon orc, and Grund the Orc King.",
+33d56930e 2022-07-10: "Imported pixie, brownie, quickling; removed MR_HITASONE from all.",
+fdb353c40 2022-07-10: "Imported leprechaun wizard. Removed MR_HITASONE.",
+6cc63223d 2022-07-10: "Added swamp kobold, rock kobold, kobold warrior, and Kroo the Kobold King.",
+be08ce12f 2022-07-10: "Added clear jelly, orange jelly, yellow jelly, and rancid jelly.",
+d7f546b3d 2022-07-09: "Added growing up for dingo puppy, dingo, giant tick, giant flea, deep one, deeper one, migo drone.",
+8019d270f 2022-07-09: "Imported dretch, rutterkin, nupperibo, and blood imp.",
+92ba24f78 2022-07-09: "Imported deep one, deeper one, deepest one.",
+08097c518 2022-07-09: "Imported duergar.",
+93e5f046c 2022-07-09: "Imported dwarf thief.",
+3e9f82be2 2022-07-09: "Imported statue gargoyle. (Removed MR_PLUSONE and added to nonliving)",
+aa5decbf0 2022-07-09: "Imported hellcat.",
+32f1219b9 2022-07-09: "Imported sabre-toothed cat.",
+62ef62897 2022-07-09: "Imported caterwaul.",
+9baf94b5e 2022-07-09: "Imported kamadan.",
+2d2782414 2022-07-09: "Imported were-panthers/tigers/spiders/snakes and recluse spider.",
+a647979e5 2022-07-08: "Imported blinking eye and gaze teleport attack.",
+db298a5cd 2022-07-08: "Imported glowing eye and bloodshot eye.",
+6a07eb2bc 2022-07-08: "Don't allow fuzzer mode to use #wizkill.",
+977be137b 2022-07-08: "Imported shadow wolf and mist wolf. (Removed MR_PLUSONE | MR_HITASTWO)",
+d3f1f62cb 2022-07-08: "Add new #wizkill command.",
+9b9d73fa9 2022-07-08: "Imported pit bull, dingo puppy, large dingo, death dog, rabid wolf, and wolverine.",
+f4ff1caa8 2022-07-08: "Imported parrots.",
+f1a88bd8b 2022-07-08: "Imported cockatoos and parrot sounds.",
+38d46c726 2022-07-08: "Imported chickens and chicken sound.",
+5ccabe699 2022-07-08: "Imported jiggling, lava, static, and burbling blobs.",
+a2e934851 2022-07-08: "Make looting less tedious.",
+120fbc234 2022-07-08: "Imported assassin bug and killer beetle.",
+bfd1d6181 2022-07-08: "Fix: passive green slime attack not active.",
+48e5fbdd0 2022-07-08: "Fix: cross-aligned player priests blasted by crowning gift weapon (Mjollnir).",
+1b70ae13e 2022-07-08: "Imported migo grones/warriors/queens and M3_TRAITOR and M3_NOTAME.",
+c46ad0d57 2022-07-07: "Imported spitting beetles.",
+3b1d7f03a 2022-07-07: "Imported yellow jackets, black wasps, and giant wasps.",
+a6be6a7a4 2022-07-07: "Imported tsetse flies.",
+669152c10 2022-07-07: "Imported giant louses.",
+8244f861b 2022-07-07: "Added snow ants",
+9fe2e17ce 2022-07-07: "Added giant fleas.",
+2d7f6c890 2022-07-07: "Imported giant ticks and AT_MULTIPLY.",
+6be785fde 2022-07-07: "Added .vscode/ to gitignore.",
+badac3bd7 2022-07-06: "One more minor README.md tweak.",
+216352cee 2022-07-06: "README.md formatting tweak.",
+1b4eea232 2022-07-06: "Update README file (install instructions), tweak a couple hints files.",
