@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Removed all passive attacks from baby dragons.
 2023-01-01: Invoking Firewall casts flaming sphere.
 2023-01-01: Moved the SUMMON_FIRE_ELEMENTAL invoke ability from Firewall back to the Eternal Candle.
 2023-01-01: Doubled the damage bonus of Firewall to d8 fire.
