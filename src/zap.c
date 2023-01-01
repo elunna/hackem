@@ -4284,7 +4284,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
             wake_nearto(bhitpos.x, bhitpos.y, 8 * 8);
             range = 0;
             break;
-        }  else if (typ == TREE && 
+        } else if (typ == TREE && 
                    ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) 
                        && obj->otyp == SPE_FIRE_BOLT))) {
             if (cansee(bhitpos.x, bhitpos.y))
@@ -4293,9 +4293,19 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 You_hear("crackling and snapping.");
             levl[bhitpos.x][bhitpos.y].typ = DEADTREE;
             newsym(bhitpos.x, bhitpos.y);
-            /* stop the bolt here; it takes a lot of energy to destroy bars */
+            /* stop the bolt here; it takes a lot of energy to destroy trees */
             range = 0;
             break;
+        } else if (typ == GRASS && 
+                 ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) 
+                   && obj->otyp == SPE_FIRE_BOLT))) {
+            if (cansee(bhitpos.x, bhitpos.y))
+                pline_The("grass burns up!");
+            else if (!Deaf)
+                You_hear("whooshing and crackling.");
+            levl[bhitpos.x][bhitpos.y].typ = ROOM;
+            newsym(bhitpos.x, bhitpos.y);
+            maybe_unhide_at(bhitpos.x, bhitpos.y);
         } else if (typ == FOUNTAIN && 
                    ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) 
                      && obj->otyp == SPE_FIRE_BOLT))) {

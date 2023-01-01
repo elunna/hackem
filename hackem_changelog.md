@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Fire Bolt burns grass up as it zaps over.
 2023-01-01: Removed some trees in Pleasant Valley.
 2023-01-01: Orc mines end: fountain is now surrounded by puddles instead of pools.
 2023-01-01: Gremlins always gremlin. Midnight is irrelevant.
