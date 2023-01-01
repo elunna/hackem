@@ -7220,14 +7220,15 @@ register struct obj *obj;
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
             continue;
-        if (cansee(mtmp->mx, mtmp->my)) {
+        if (distu(mtmp->mx, mtmp->my) < 25) {  /* ~5 spaces */
             if (cursed(obj, TRUE)) {
                 mtmp->mflee = mtmp->mfrozen = mtmp->msleeping = 0;
                 if (!mtmp->mstone || mtmp->mstone > 2)
                     mtmp->mcanmove = 1;
             } else if (!resist(mtmp, obj->oclass, 0, NOTELL)) {
                 monflee(mtmp, 0, FALSE, FALSE);
-                pline("%s suddenly panics!", Monnam(mtmp));
+                if (canseemon(mtmp))
+                    pline("%s suddenly panics!", Monnam(mtmp));
             }
             if (!mtmp->mtame)
                 ct++; /* pets don't laugh at you */
