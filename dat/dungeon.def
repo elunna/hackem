@@ -23,14 +23,14 @@ RNDLEVEL:	    "oracle" "O" @ (5, 4) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
 CHAINBRANCH:	"Town" "oracle" + (2, 2) up
-RNDLEVEL:		"rats" "R" @ (10, 5) 3
 BRANCH:		    "Fort Ludios" @ (10, 20) portal
 RNDLEVEL:	    "bigrm" "B" @ (10, 25) 40 13
+RNDLEVEL:		"rats" "R" @ (10, 5) 3
+BRANCH: 	    "Grund's Stronghold" @ (12, 2)
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
-LEVEL:          "grund" "Z" @ (20, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 #               Grunds act's as a mini-castle for the player to overcome. 
@@ -156,10 +156,10 @@ LEVEL:          "townfill" "none" @ (3, 0)
 LEVELDESC:      town
 
 ### Grund's Stronghold ###
-#DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
-#ALIGNMENT:      chaotic
-#DESCRIPTION:    mazelike
-#LEVEL:          "grund" "Z" @ (1, 0)
+DUNGEON:        "Grund's Stronghold" "Z" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "grund" "Z" @ (1, 0)
 
 #
 #	The Central Vault of Croesus.

@@ -19,6 +19,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Reverted Mandatory grunds requirement. Grunds now appears as a branch on level 12 as in SLASH'EM.
 
 Version 1.0 (released Dec 27, 2022)
 
