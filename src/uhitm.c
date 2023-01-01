@@ -865,7 +865,7 @@ struct attack *uattk;
         && !(u.usteed || u.uswallow || multi < 0
              || u.umortality > oldumort
              || !malive || m_at(x, y) != mon)) {
-        if (weararmor) {
+        if (weararmor && !is_robe(uarm)) {
             if (!rn2(8))
                 pline("Your extra kick attack is ineffective while wearing %s.",
                       xname(weararmor));

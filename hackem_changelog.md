@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-01: Robe are now excluded from armor that hinders monk's bonus kick attacks.
 2023-01-01: Fire and Ice Elementals should be peaceful for flame mages and ice mages, respectively.
 2023-01-01: Wands of fear work even when you can't see the monsters affected.
 2023-01-01: Magicbane ALWAYS blows up Bags of Holding when inserted into one.
