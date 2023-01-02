@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-02: Fix: Object lookups for certain objects showing (null) in object type. Fixes #140.
 2023-01-02: When a player kills a shambling horror, they gain access to it's pokedex.
 2023-01-02: Greatly increase odds of sewage vs water rivers forming in the Gnomish Mines.
 2023-01-02: Fix: dead trees dropping fruit/petrified status, icequeen 2nd map tweaks.
