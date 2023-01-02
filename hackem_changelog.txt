@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-02: Fix: unable to dig if wielding a cursed pick-axe/mattock
 2023-01-02: Correct 'too many hooves' feedback
 2023-01-02: Fix: crash when wearing white dragon-scaled armor and no boots while 100% fire resistant
 2023-01-02: Fix: AT_MAGC / AD_FIRE attack in regards to demons.
