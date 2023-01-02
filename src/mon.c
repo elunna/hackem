@@ -4277,6 +4277,10 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
         && u.uachieve.defeat_icequeen)
         return;
 
+    if (mtmp->data == &mons[PM_SHAMBLING_HORROR])
+        u.uevent.know_horror = TRUE;
+    
+    return;
     if (!nomsg) {
         boolean namedpet = has_mname(mtmp) && !Hallucination;
 
