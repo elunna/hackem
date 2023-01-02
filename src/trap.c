@@ -4080,7 +4080,8 @@ lava_damage(obj, x, y)
 struct obj *obj;
 xchar x, y;
 {
-    int otyp = obj->otyp, ocls = obj->oclass;
+    int otyp = obj->otyp, ocls = obj->oclass,
+        oart = obj->oartifact;
 
     if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
         pline("The egg starts to hatch!");
@@ -4090,6 +4091,10 @@ xchar x, y;
     /* the Amulet, invocation items, and Rider corpses are never destroyed
        (let Book of the Dead fall through to fire_damage() to get feedback) */
     if (obj_resists(obj, 0, 0) && otyp != SPE_BOOK_OF_THE_DEAD)
+        return FALSE;
+    /* the artifacts that generate when Vecna is destroyed are never
+       destroyed by lava */
+    if (oart == ART_EYE_OF_VECNA || oart == ART_HAND_OF_VECNA)
         return FALSE;
     /* destroy liquid (venom), wax, veggy, flesh, paper (except for scrolls
        and books--let fire damage deal with them), cloth, leather, wood, bone
