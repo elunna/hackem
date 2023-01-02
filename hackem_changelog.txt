@@ -17,6 +17,8 @@
 ==========================
 
 Version 1.1 (unreleased)
+
+2023-01-02: Fix: AT_MAGC / AD_FIRE attack in regards to demons.
 2023-01-02: Reverted Gnomish Mines back to standard depth (8-9 levels instead of 10-11)
 2023-01-02: Cursed wand backfire is dependant on luck. 0 luck is same as before, but positive or negative luck highly impacts the chances of backfire.
 2023-01-02: Fix: Order of potion of amnesia in objects.txt
