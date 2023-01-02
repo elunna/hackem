@@ -1125,14 +1125,14 @@ char *usr_text;
         Strcat(buf, str);                \
     }
 
-    if (obj && otyp == STRANGE_OBJECT) {
+    if ((obj && otyp == STRANGE_OBJECT)) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
     } else if (dummy.oprops_known) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
     } else if (identified) {
         Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
-    } else 
-        Sprintf(buf, "Object lookup for \"%s\":", usr_text);
+    } else
+        Sprintf(buf, "Object lookup for \"%s\":", usr_text ? usr_text : simple_typename(otyp));
     putstr(datawin, ATR_BOLD, buf);
     OBJPUTSTR("");
     
