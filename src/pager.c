@@ -587,6 +587,8 @@ char *buf, *monbuf;
             printed_blood = TRUE;
             break;
         case S_pool:
+        case S_puddle:
+        case S_sewage:
             Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody " : "");
             Sprintf(eos(buf), "%s", waterbody_name(x, y));
             printed_blood = TRUE;
