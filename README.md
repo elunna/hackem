@@ -53,6 +53,12 @@ Originally, I intended this variant to be a modern port of Slash'EM. However, on
   - Pirate role, Cartomancer role
   - Grass, blood tiles. Vents, new traps. 
 
+## How to play
+
+Hack'EM is now being hosted on the HardFought server!  Visit https://www.hardfought.org/ for details.
+
+To install locally, follow the instructions below.
+
 ## Installation
 
 Each OS type found under the `sys` folder has an installation guide for that
@@ -81,5 +87,5 @@ For Linux (TL;DR version):
   rc config file - `touch .hackemrc` and then edit as necessary
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
