@@ -4525,8 +4525,8 @@ artifact_info(int anum)
 monster then the grenade will instantly explode.  */
         break;
     case ART_MASTER_SWORD: 
-        art_info.xattack = "\t\t10% of bonus magic attack on each successful hit.\n"
-                           "\t\tIf at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
+        art_info.xattack = "\t\t10% of bonus magic attack on each successful hit.\n";
+        art_info.xinfo = "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
         break;
     case ART_BRADAMANTE_S_FURY: 
         art_info.xattack = "\t\tAutomatically unseats any mounted rider it hits. Also stuns monsters.";
