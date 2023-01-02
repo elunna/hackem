@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-02: Cursed wand backfire is dependant on luck. 0 luck is same as before, but positive or negative luck highly impacts the chances of backfire.
 2023-01-02: Fix: Order of potion of amnesia in objects.txt
 2023-01-01: Added bardings to pet shops.
 2023-01-01: Flame mages can get skilled in firearms.
