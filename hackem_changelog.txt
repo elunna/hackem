@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-02: Reverted f056c292c, potion of amnesia back to randomized appearance to preserve saves.
 2023-01-02: Fix: Puddles and sewage turning red from blood; fixed description.
 2023-01-02: Fix: Impossible when trying to write scroll of knowledge. Fixes #149.
 2023-01-02: Noted HackEM being hosted on hardfought in readme.
