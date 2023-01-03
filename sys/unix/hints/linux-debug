@@ -10,12 +10,12 @@
 
 
 # Typical install path for normal user (non-root)
-PREFIX=$(wildcard ~)
-HACKDIR=$(PREFIX)/games/$(GAME)dir
+#PREFIX=$(wildcard ~)
+#HACKDIR=$(PREFIX)/games/$(GAME)dir
 
 # Default install path (assumes running at root)
-#PREFIX=/usr
-#HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
+PREFIX=/usr
+HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
 
 SHELLDIR = $(PREFIX)/games
 INSTDIR = $(HACKDIR)
@@ -34,8 +34,8 @@ CFLAGS+=-pedantic -Wstringop-truncation -Wunused-result -Wunreachable-code
 CFLAGS+=-Wimplicit-function-declaration -Wimplicit-int
 CFLAGS+=-Wno-format-nonliteral -Wno-missing-field-initializers
 CFLAGS+=-Wno-format-overflow -Wno-stringop-overflow
-# Uncomment this is you plan on fuzzing with ASAN enabled                                                           
-CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
+# Uncomment this is you plan on fuzzing with ASAN enabled
+#CFLAGS+=-fsanitize=address -fno-omit-frame-pointer
 CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
 CFLAGS+=-DTIMED_DELAY
 CFLAGS+=-DHACKDIR=\"$(HACKDIR)\"
@@ -53,12 +53,12 @@ CFLAGS+=-DDUMPLOG
 CFLAGS+=-DDUMPHTML
 
 LINK=$(CC)
-    
+
 # Only needed for GLIBC stack trace:
 LFLAGS=-rdynamic
 # Uncomment this is you plan on fuzzing with ASAN enabled
-LFLAGS+=-fsanitize=address
-            
+#LFLAGS+=-fsanitize=address
+
 WINSRC = $(WINTTYSRC) $(WINCURSESSRC)
 WINOBJ = $(WINTTYOBJ) $(WINCURSESOBJ)
 WINLIB = $(WINTTYLIB) $(WINCURSESLIB)
