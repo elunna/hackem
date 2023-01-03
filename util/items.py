@@ -135,7 +135,7 @@ def import_data():
     items = []
     newitem = ""
 
-    with open("src/objects.c", "r") as a_file:
+    with open("../src/objects.c", "r") as a_file:
         otyp = None
         for i, line in enumerate(a_file):
             # if i < LINE_START or i > LINE_END:
