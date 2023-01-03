@@ -3474,7 +3474,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, CLR_GRAY),
+        0, 0, MH_DRAGON, 30, CLR_GRAY),
     MON("silver dragon", S_DRAGON,
         LVL(17, 9, -1, 20, 4), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_COLD, 4, 6), 
@@ -3487,7 +3487,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, DRAGON_SILVER),
+        0, 0, MH_DRAGON, 30, DRAGON_SILVER),
     MON("shimmering dragon", S_DRAGON,                 /* Evilhack/Slash'EM */
         LVL(17, 9, -1, 20, 4), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_MAGM, 4, 6),
@@ -3501,7 +3501,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
           | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, CLR_CYAN),
+        0, 0, MH_DRAGON, 30, CLR_CYAN),
     MON("deep dragon", S_DRAGON,                                /* Slash'EM */
         LVL(20, 9, -4, 20, -6), (G_GENO | 3),
         A(ATTK(AT_BREA, AD_DRST, 4, 6),
@@ -3515,7 +3515,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE | M1_POIS,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        M3_TRAITOR, 0, MH_DRAGON, 27, CLR_MAGENTA),
+        M3_TRAITOR, 0, MH_DRAGON, 35, CLR_MAGENTA),
     MON("red dragon", S_DRAGON,
         LVL(17, 9, -1, 20, -4), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_FIRE, 7, 6), 
@@ -3528,7 +3528,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_COLD, MH_DRAGON, 24, CLR_RED),
+        M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_COLD, MH_DRAGON, 30, CLR_RED),
     MON("white dragon", S_DRAGON,
         LVL(17, 9, -1, 20, -5), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BREA, AD_COLD, 4, 6), 
@@ -3541,7 +3541,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, M4_VULNERABLE_FIRE, MH_DRAGON, 24, CLR_WHITE),
+        0, M4_VULNERABLE_FIRE, MH_DRAGON, 30, CLR_WHITE),
     MON("orange dragon", S_DRAGON,
         LVL(17, 9, -1, 20, -5), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_SLEE, 4, 25), 
@@ -3554,7 +3554,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_SLEEP, MR_SLEEP,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, CLR_ORANGE),
+        0, 0, MH_DRAGON, 30, CLR_ORANGE),
     /* disintegration breath is actually all or nothing, not 1d255 */
     MON("black dragon", S_DRAGON,
         LVL(18, 9, -1, 20, -6), (G_GENO | 1),
@@ -3569,7 +3569,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 25, CLR_BLACK),
+        0, 0, MH_DRAGON, 30, CLR_BLACK),
     MON("blue dragon", S_DRAGON,
         LVL(17, 14, -1, 20, -7), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_ELEC, 4, 6), 
@@ -3581,7 +3581,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC), MR_ELEC, MR_ELEC,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, CLR_BLUE),
+        0, 0, MH_DRAGON, 30, CLR_BLUE),
     MON("green dragon", S_DRAGON,
         LVL(17, 9, -1, 20, -6), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_DRST, 4, 6), 
@@ -3594,7 +3594,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE | M1_POIS,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, CLR_GREEN),
+        0, 0, MH_DRAGON, 30, CLR_GREEN),
     MON("gold dragon", S_DRAGON,                               /* SporkHack */
         LVL(17, 9, -1, 20, 4), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_FIRE, 6, 6), 
@@ -3608,7 +3608,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        M3_INFRAVISIBLE, M4_VULNERABLE_COLD, MH_DRAGON, 24, HI_GOLD),
+        M3_INFRAVISIBLE, M4_VULNERABLE_COLD, MH_DRAGON, 30, HI_GOLD),
     MON("sea dragon", S_DRAGON,                                 /* EvilHack */
         LVL(17, 9, -1, 20, 0), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_WATR, 6, 8), 
@@ -3621,7 +3621,7 @@ NEARDATA struct permonst mons[] = {
         M1_SWIM | M1_AMPHIBIOUS | M1_NOHANDS | M1_SEE_INVIS
             | M1_OVIPAROUS | M1_CARNIVORE | M1_UNSOLID,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, M4_VULNERABLE_ELEC, MH_DRAGON, 24, HI_ZAP),
+        0, M4_VULNERABLE_ELEC, MH_DRAGON, 30, HI_ZAP),
     MON("yellow dragon", S_DRAGON,
         LVL(17, 9, -1, 20, -7), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_ACID, 4, 6), 
@@ -3634,7 +3634,7 @@ NEARDATA struct permonst mons[] = {
         MR_STONE, M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
             | M1_OVIPAROUS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 24, CLR_YELLOW),
+        0, 0, MH_DRAGON, 30, CLR_YELLOW),
     /* strictly a placeholder for chromatic dragon scales */
     MON("chromatic dragon", S_DRAGON,
         LVL(0, 9, -1, 20, -7), G_NOGEN,
