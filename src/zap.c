@@ -4931,14 +4931,12 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             }
             break;
         }
-#if 0 
-    else if (mon->data == &mons[PM_EARTH_ELEMENTAL]) {
+        else if (mon->data == &mons[PM_EARTH_ELEMENTAL]) {
             if (canseemon(mon))
                 pline("%s turns into a roiling pile of mud!", Monnam(mon));
             (void) newcham(mon, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
             break;
         }
-#endif
         if (likes_fire(mon->data)) {
             /* Nasty bonus versus firey monsters */
             pline("%s is being extinguished!", Monnam(mon));
