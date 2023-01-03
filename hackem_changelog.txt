@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-03: Adjustments of many monsters sizes to make sense and work with stomping boots.
 2023-01-03: Ice Mages can start with confuse monster again; vampirics can cast it without being confused.
 2023-01-03: Necromancers can pacify or tame zombies by chatting with them.
 2023-01-03: Extrinsic psychic resistance protects you from the amnesia attack of zombies.
