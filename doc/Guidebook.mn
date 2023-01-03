@@ -2963,6 +2963,9 @@ Persistent.
 .lp blind
 Start the character permanently blind (default false).
 Persistent.
+.lp bloodless
+Don't draw bloody tiles; they will only be described (default false).
+Persistent.
 .lp bones
 Allow saving and loading bones files (default true).
 Persistent.

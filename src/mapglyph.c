@@ -294,7 +294,7 @@ unsigned mgflags;
         if (glyph_is_trap(glyph))
             drawblood = FALSE;
         
-        if (levl[x][y].splatpm && cansee(x, y) && drawblood /*&& !(iflags.bloodless)*/) {
+        if (levl[x][y].splatpm && cansee(x, y) && drawblood && !(iflags.bloodless)) {
             color = blood_color(levl[x][y].splatpm);
         }
     } else if ((offset = (glyph - GLYPH_OBJ_OFF)) >= 0) { /* object */
