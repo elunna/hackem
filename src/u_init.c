@@ -100,6 +100,7 @@ struct trobj Healer[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Ice_Mage[] = {
+#define I_BOOK          10
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
@@ -110,7 +111,7 @@ struct trobj Ice_Mage[] = {
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-    { SPE_SLOW_MONSTER, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
@@ -1095,6 +1096,16 @@ u_init()
         skill_init(Skill_F);
         break;
     case PM_ICE_MAGE:
+        switch (rnd(2)) {                
+        case 1: 
+            Ice_Mage[I_BOOK].trotyp = SPE_CONFUSE_MONSTER; 
+            break;
+        case 2: 
+            Ice_Mage[I_BOOK].trotyp = SPE_SLOW_MONSTER; 
+            break;
+        default: 
+            break;
+        }
         ini_inv(Ice_Mage);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
@@ -1903,7 +1914,7 @@ register struct trobj *origtrop;
                            || otyp == RIN_COLD_RESISTANCE))
 
                    /* Necromancers start with drain res */
-				    || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
+                   || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
                    /* orcs start with poison resistance */
                    || (otyp == RIN_POISON_RESISTANCE && Race_if(PM_ORC))
                    /* Monks don't use weapons */

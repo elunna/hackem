@@ -1680,7 +1680,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     } break;
     case SCR_CONFUSE_MONSTER:
     case SPE_CONFUSE_MONSTER:
-        if (youmonst.data->mlet != S_HUMAN || scursed) {
+        /* Unfortunate kludge for vampiric race here
+         * TODO: Find the root cause of this */
+        if ((youmonst.data->mlet != S_HUMAN && !Race_if(PM_VAMPIRIC)) || scursed) {
             if (!HConfusion)
                 You_feel("confused.");
             make_confused(HConfusion + rnd(100), FALSE);
