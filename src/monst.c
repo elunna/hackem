@@ -306,7 +306,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
         M2_NEUTER | M2_WANDER | M2_STRONG | M2_COLLECT | M2_MAGIC
             | M2_GREEDY | M2_JEWELS | M2_HOSTILE,
-        M3_INFRAVISION | M3_TRAITOR, 0, 0, 10, CLR_GREEN),
+        M3_INFRAVISION | M3_TRAITOR, 0, 0, 15, CLR_GREEN),
     MON("migo warrior", S_ANT,                                  /* Slash'EM */
         LVL(10, 18, -3, 30, -7), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_STNG, AD_DRST, 1, 3),
@@ -316,7 +316,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 50, MS_BUZZ, MZ_MEDIUM), MR_POISON, MR_POISON,
         M1_FLY | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
         M2_MALE | M2_STRONG | M2_COLLECT | M2_MAGIC | M2_HOSTILE,
-        M3_INFRAVISION | M3_TRAITOR, 0, 0, 14, CLR_YELLOW),
+        M3_INFRAVISION | M3_TRAITOR, 0, 0, 20, CLR_YELLOW),
     MON("migo queen", S_ANT,                                    /* Slash'EM */
         LVL(15, 15, -3, 50, -9), (G_GENO | G_NOGEN),
         A(ATTK(AT_STNG, AD_DRIN, 1, 3),

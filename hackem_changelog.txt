@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-02: Increased difficulty of migo drones and migo warriors.
 2023-01-02: Increased difficulty of all dragons to 30, deep dragon to 35.
 2023-01-02: Nurses have a chance of dropping pills on death.
 2023-01-02: Reverted f056c292c, potion of amnesia back to randomized appearance to preserve saves.
