@@ -1139,7 +1139,9 @@ char *usr_text;
     OBJPUTSTR("");
     
     /* Object classes currently with no special messages here: amulets. */
-    if (olet == WEAPON_CLASS || weptool) {
+    if (olet == WEAPON_CLASS 
+        || weptool 
+        || otyp == FLINT || otyp == ROCK || otyp == SLING_BULLET) {
         const int skill = oc.oc_skill;
         const char* dmgtyp = "blunt";
        /* const char* sdambon = "";

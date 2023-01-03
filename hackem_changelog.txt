@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-03: Fix: Lookup info for rocks, flint, and sling bullets.
 2023-01-03: Reverted flame and freeze sphere spells back to level 1 spells.
 2023-01-03: If zapped with a ray of water, earth elementals will transform into mud elementals.
 2023-01-03: Fix: Partly eaten food pieces not displaying correctly in inventory. Fixes #146.
