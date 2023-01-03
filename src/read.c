@@ -2769,6 +2769,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         struct rm *lev = &levl[u.ux][u.uy];
         
         if (Underwater) {
+            The("water is quickly turning to ice!");
             freeze_tile(lev, u.ux, u.uy, 0);
             losehp(Maybe_Half_Phys(d(8, 8)), "turning into a block of ice", KILLED_BY);
             You("are ejected violently out of the freezing %s!", hliquid("water"));

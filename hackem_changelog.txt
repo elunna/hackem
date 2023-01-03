@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-03: Better handling of zapping wand of water while engulfed by ice vortex.
 2023-01-03: Fix: Reading scroll of ice underwater while poly'd. Fixes #152.
 2023-01-02: Changed Skullcrusher material to MINERAL so it gets an extra +2 damage bonus.
 2023-01-02: Increased difficulty of migo drones and migo warriors.
