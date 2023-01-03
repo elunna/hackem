@@ -2766,11 +2766,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         int madepool = 0;
         int stilldry = -1;
         int x, y, mx, my, safe_pos = 0;
+        struct rm *lev = &levl[u.ux][u.uy];
         
         if (Underwater) {
-            pline_The("%s around you freezes!", hliquid("water"));
-            u.uhp = 0;
-            losehp(1, "turning into a block of ice", KILLED_BY);
+            freeze_tile(lev, u.ux, u.uy, 0);
+            losehp(Maybe_Half_Phys(d(8, 8)), "turning into a block of ice", KILLED_BY);
+            You("are ejected violently out of the freezing %s!", hliquid("water"));
             break;
         }
         
