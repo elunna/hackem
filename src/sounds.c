@@ -1362,24 +1362,30 @@ dochat()
         return 0;
     }
 
-    if (Role_if(PM_CONVICT) && is_rat(mtmp->data)
-        && !mtmp->mpeaceful && !mtmp->mtame) {
-        You("attempt to soothe the %s with chittering sounds.",
-            l_monnam(mtmp));
-        if (rnl(10) < 2) {
-            (void) tamedog(mtmp, (struct obj *) 0);
-        } else {
-            if (rnl(10) > 8) {
-                pline("%s unfortunately ignores your overtures.",
-                      Monnam(mtmp));
-                return 0;
+    /* Like convicts, Necromancers can pacify/tame zombies */
+    if ((Role_if(PM_CONVICT) && is_rat(mtmp->data)) ||
+        (Role_if(PM_NECROMANCER) && is_zombie(mtmp->data))) {
+        if (!mtmp->mpeaceful && !mtmp->mtame) {
+            if (Role_if(PM_CONVICT))
+                You("attempt to soothe the %s with chittering sounds.", l_monnam(mtmp));
+            else
+                You("attempt an ancient chant directed at the %s.", l_monnam(mtmp));
+            
+            if (rnl(10) < 2) {
+                (void) tamedog(mtmp, (struct obj *) 0);
+            } else {
+                if (rnl(10) > 8) {
+                    pline("%s unfortunately ignores your overtures.",
+                          Monnam(mtmp));
+                    return 0;
+                }
+                mtmp->mpeaceful = 1;
+                set_malign(mtmp);
             }
-            mtmp->mpeaceful = 1;
-            set_malign(mtmp);
+            return 0;
         }
-        return 0;
     }
-
+    
     return domonnoise(mtmp);
 }
 
