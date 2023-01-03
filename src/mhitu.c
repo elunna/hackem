@@ -817,7 +817,7 @@ register struct monst *mtmp;
     }
 
     if (!range2 && marmf && marmf->otyp == STOMPING_BOOTS 
-        && verysmall(youmonst.data)) {
+        && youmonst.data->msize <= MZ_SMALL) {
         pline("%s stomps on you!", Monnam(mtmp));
         makeknown(marmf->otyp);
         if (Upolyd && !Unchanging) {

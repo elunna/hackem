@@ -190,7 +190,7 @@ NEARDATA struct permonst mons[] = {
         LVL(8, 15, 2, 0, 0), (G_NOHELL | G_GENO | G_LGROUP | 1),
         A(ATTK(AT_STNG, AD_DRST, 1, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(30, 10, MS_BUZZ, MZ_SMALL), MR_POISON, MR_POISON,
+        SIZ(30, 10, MS_BUZZ, MZ_MEDIUM), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_POIS, M2_HOSTILE | M2_FEMALE,
         0, M4_VULNERABLE_ACID, 0, 11, CLR_YELLOW),
     MON("black wasp", S_ANT,                                    /* Slash'EM */

@@ -467,14 +467,16 @@ register struct monst *mtmp;
                 return FALSE;
         }
     }
-
-    if (uarmf && uarmf->otyp == STOMPING_BOOTS
-        && !Levitation && verysmall(mtmp->data)) {
-        You("stomp on %s!", mon_nam(mtmp));
-        xkilled(mtmp, XKILL_GIVEMSG);
-        wake_nearby();
-        makeknown(uarmf->otyp);
-        return TRUE;
+    
+    if (uarmf && uarmf->otyp == STOMPING_BOOTS && !Levitation 
+        && mtmp->data->msize <= MZ_SMALL) {
+        if (verysmall(mtmp->data) || !rn2(4)) {
+            You("stomp on %s!", mon_nam(mtmp));
+            xkilled(mtmp, XKILL_GIVEMSG);
+            wake_nearby();
+            makeknown(uarmf->otyp);
+            return TRUE;
+        }
     }
 
     /* possibly set in attack_checks;

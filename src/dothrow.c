@@ -755,7 +755,8 @@ int x, y;
         ) {
         const char *mnam, *pronoun;
         int glyph = glyph_at(x, y);
-        boolean stomping = (uarmf && uarmf->otyp == STOMPING_BOOTS && verysmall(mon->data));
+        boolean stomping = (uarmf && uarmf->otyp == STOMPING_BOOTS 
+                            && mon->data->msize <= MZ_SMALL);
 
 
         mon->mundetected = 0; /* wakeup() will handle mimic */
@@ -782,7 +783,7 @@ int x, y;
             && !which_armor(mon, W_ARMU | W_ARM | W_ARMC)) {
             minstapetrify(mon, TRUE);
         }
-        if (stomping && verysmall(mon->data)) {
+        if (stomping && (verysmall(mon->data) || !rn2(4))) {
             xkilled(mon, XKILL_GIVEMSG);
             makeknown(uarmf->otyp);
             if (Hallucination) 
