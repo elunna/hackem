@@ -185,13 +185,11 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
   
 
-  vam_abil[] =   { { 1, &(HDrain_resistance), "", "" },
-                   { 3, &(HBreathless), "breathless", "full of air" },
-                   { 5, &(HRegeneration), "resilient", "less resilient" },
-                   { 7, &(HPoison_resistance), "durable", "vulnerable" },
-                   { 9, &(HFlying), "lighter than air", "gravity's pull" },
-                   { 16, &(HSleep_resistance), "awake", "tired" },
-                   { 21, &(HSick_resistance), "hale", "" },
+  vam_abil[] =   { { 1, &(HInfravision), "", "" },
+                   { 1, &(HDrain_resistance), "", "" },
+                   { 1, &(HBreathless), "breathless", "full of air" },
+                   { 1, &(HRegeneration), "resilient", "less resilient" },
+                   { 1, &(HFlying), "lighter than air", "gravity's pull" },
                    { 0, 0, 0, 0 } },
   
   
