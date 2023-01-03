@@ -3239,6 +3239,10 @@ long mmflags;
             mtmp->perminvis = TRUE;
             mtmp->minvis = TRUE;
         }
+        else if (mndx == PM_FIRE_ELEMENTAL && Role_if(PM_FLAME_MAGE)) 
+            mtmp->mpeaceful = TRUE;
+        else if (mndx == PM_ICE_ELEMENTAL && Role_if(PM_ICE_MAGE)) 
+            mtmp->mpeaceful = TRUE;
         break;
     case S_GHOST:
         if (mndx == PM_GHOST && rn2(2)) {

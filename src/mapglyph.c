@@ -284,6 +284,8 @@ unsigned mgflags;
         case S_fountain:
         case S_water:
         case S_pool:
+        case S_puddle:
+        case S_sewage:
             drawblood = FALSE;
             break;
         default:

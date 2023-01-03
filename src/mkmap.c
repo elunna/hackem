@@ -593,7 +593,7 @@ STATIC_OVL void
 mkrivers()
 {
     int nriv = rn2(3) + 1;
-    boolean notpool = rn2(100) < depth(&u.uz);
+    boolean notpool = rn2(20) < depth(&u.uz);
 
     while (nriv--) {
         if (rn2(2))
@@ -635,7 +635,7 @@ lev_init *init_lev;
     
     if (In_mines(&u.uz) && !In_hell(&u.uz)) {
         if (!Is_branchlev(&u.uz)) {
-            if (depth(&u.uz) > depth(&minetn_level) && rn2(u.uz.dlevel + 1))
+            if (depth(&u.uz) > depth(&minetn_level) && !rn2(3))
                 mkrivers();
         }
     }

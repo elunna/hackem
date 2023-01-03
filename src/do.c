@@ -1770,7 +1770,8 @@ boolean at_stairs, falling, portal;
         pline("A mysterious force prevents you from descending.");
         return;
     }
-    
+
+#if 0
     /* Prevent the player from progressing beyond Grund's until Grund is 
      * defeated. */
     if (at_stairs || falling) {
@@ -1791,6 +1792,7 @@ boolean at_stairs, falling, portal;
             }
         }
     }
+#endif
     
     if (on_level(newlevel, &u.uz))
         return; /* this can happen */

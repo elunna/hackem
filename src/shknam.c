@@ -310,14 +310,14 @@ const struct shclass shtypes[] = {
         { 0, 0 } },
       shkweapons },
     { "delicatessen", FOOD_CLASS, 3, D_SHOP,
-      { { 83, FOOD_CLASS },
-        { 5, -POT_FRUIT_JUICE },
+      { { 80, FOOD_CLASS },
+        { 4, -POT_FRUIT_JUICE },
         { 4, -POT_BOOZE },
-        { 5, -POT_WATER },
-        { 3, -ICE_BOX },
-        { 3, -KEG },
-        { 3, -LUMP_OF_ROYAL_JELLY },
-        { 5, -MEAT_STICK },
+        { 4, -POT_WATER },
+        { 2, -ICE_BOX },
+        { 2, -KEG },
+        { 2, -LUMP_OF_ROYAL_JELLY },
+        { 1, -MEAT_STICK },
         { 1, -HUGE_CHUNK_OF_MEAT },
         { 0, 0 } },
       shkfoods },
@@ -352,44 +352,43 @@ const struct shclass shtypes[] = {
         { 0, 0 } },
       shkbooks },
     { "archery emporium", WEAPON_CLASS, 3, D_SHOP,
-      { { 30, -BOW },
-        { 35, -ELVEN_ARROW },
-        { 20, -ELVEN_BOW },
-        { 10, -LIGHT_ARROW },
-        { 10, -CROSSBOW },
-        { 20, -CROSSBOW_BOLT },
+      { { 15, -BOW },
+        { 30, -ELVEN_ARROW },
+        { 15, -ELVEN_BOW },
+        { 15, -LIGHT_ARROW },
+        { 5, -CROSSBOW },
+        { 15, -CROSSBOW_BOLT },
         { 5, WEAPON_CLASS } },
       shkarchery },
     { "mask shop", RANDOM_CLASS, 3, D_SHOP,
-      { { 90, -MASK },
-        { 5, -LENSES },
-        { 5, -BLINDFOLD },
-        { 5, -GOGGLES },
+      { { 95, -MASK },
+        { 2, -LENSES },
+        { 1, -BLINDFOLD },
+        { 2, -GOGGLES },
         { 0, 0} },
       shkmasks },
     { "junk shop", RANDOM_CLASS, 5, D_SHOP,
-      { { 45, RANDOM_CLASS },
-        /* {  2, -DECK_OF_FATE },*/
+      { { 27, RANDOM_CLASS },
         { 10, -BASEBALL_BAT },
-        { 10, -WAN_WONDER },
-        { 8, -FOOTBOW },
-        { 5, -WAN_NOTHING },
-        { 5, -FLY_SWATTER },
-        { 5, -RUBBER_HOSE },
-        { 5, -BAG_OF_RATS },
-        { 5, -IRON_CHAIN },
-        { 5, -TIN_OPENER },
-        { 5, -FISHING_POLE },
-        { 5, -EIGHT_BALL },
-        { 5, -SPOON } },
-      shkjunk },
+          { 10, -WAN_WONDER },
+          { 8, -FOOTBOW },
+          { 5, -WAN_NOTHING },
+          { 5, -FLY_SWATTER },
+          { 5, -RUBBER_HOSE },
+          { 5, -BAG_OF_RATS },
+          { 5, -IRON_CHAIN },
+          { 5, -TIN_OPENER },
+          { 5, -FISHING_POLE },
+          { 5, -EIGHT_BALL },
+          { 5, -SPOON } },
+        shkjunk },
     { "health food store", FOOD_CLASS, 1, D_SHOP,
-      { { 70, VEGETARIAN_CLASS },
-        { 20, -POT_FRUIT_JUICE },
-        { 4, -POT_HEALING },
-        { 3, -POT_FULL_HEALING },
-        { 2, -SCR_FOOD_DETECTION },
-        { 1, -LUMP_OF_ROYAL_JELLY } },
+        { { 70, VEGETARIAN_CLASS },
+          { 20, -POT_FRUIT_JUICE },
+          { 4, -POT_HEALING },
+          { 3, -POT_FULL_HEALING },
+          { 2, -SCR_FOOD_DETECTION },
+          { 1, -LUMP_OF_ROYAL_JELLY } },
       shkhealthfoods },
     {"canned food factory", FOOD_CLASS, 1, D_SHOP,
       { {10, -ICE_BOX},         
@@ -409,38 +408,53 @@ const struct shclass shtypes[] = {
         { 8, -SHOTGUN }, 
         { 5, -AUTO_SHOTGUN },
         /* ammo */
-        { 15, -BULLET },
-        { 8, -SHOTGUN_SHELL },
+        { 25, -BULLET },
+        { 13, -SHOTGUN_SHELL },
         { 3, -FIRE_BOMB }, 
         { 3, -GAS_BOMB },
         { 3, -SONIC_BOMB },
         { 0, 0} },
       shkguns},
     {"rare instruments", TOOL_CLASS, 2, D_SHOP,
-      { { 10, -PEA_WHISTLE  }, { 3, -MAGIC_WHISTLE },
-        { 10, -FLUTE },        { 3, -MAGIC_FLUTE },
-        { 10, -TOOLED_HORN  }, { 3, -FROST_HORN },
-        {  3, -FIRE_HORN    }, { 3, -HORN_OF_PLENTY },
-        { 10, -HARP  },        { 3, -MAGIC_HARP },
-        { 10, -BELL },         {10, -BUGLE },
-        { 10, -LEATHER_DRUM }, { 2, -DRUM_OF_EARTHQUAKE },
-        { 5, -T_SHIRT },       { 5, -LOCK_PICK },
-        { 5, -LUTE },          { 5, -BAGPIPE },
+      { { 8, -PEA_WHISTLE },
+        { 8, -FLUTE },
+        { 8, -TOOLED_HORN },
+        { 8, -HARP },
+        { 8, -BELL },         
+        { 8, -BUGLE },
+        { 8, -LEATHER_DRUM },
+        { 5, -LOCK_PICK },
+        { 5, -LUTE },          
+        { 5, -BAGPIPE },
         { 5, -HORN_OF_BLASTING },
+        { 4, -T_SHIRT },
+        { 3, -MAGIC_WHISTLE },
+        { 3, -MAGIC_FLUTE },
+        { 3, -FROST_HORN },
+        { 3, -FIRE_HORN }, 
+        { 3, -HORN_OF_PLENTY },
+        { 3, -MAGIC_HARP },
+        { 2, -DRUM_OF_EARTHQUAKE },
         { 0, 0} },
       shkmusic },
     {"pet store", FOOD_CLASS, 2, D_SHOP,
-      { {67, -FIGURINE},        {5, -LEASH},
-        {10, -TRIPE_RATION},    {5, -SADDLE},
-        {10, -PEA_WHISTLE},     {3, -MAGIC_WHISTLE} },
+      { { 67, -FIGURINE },        
+        { 5, -LEASH },
+        { 10, -TRIPE_RATION },    
+        { 5, -SADDLE },
+        { 3, -BARDING },
+        { 1, -BARDING_OF_REFLECTION },
+        { 1, -SPIKED_BARDING },
+        { 5, -PEA_WHISTLE },
+        { 3, -MAGIC_WHISTLE } },
       shkpet },
     /* Shops below this point are "unique".  That is they must all have a
      * probability of zero.  They are only created via the special level
      * loader.
      */
     { "lighting store", TOOL_CLASS, 0, D_SHOP,
-      { { 30, -WAX_CANDLE },
-        { 50, -TALLOW_CANDLE },
+      { { 27, -WAX_CANDLE },
+        { 35, -TALLOW_CANDLE },
         { 5, -TORCH },
         { 5, -LANTERN },
         { 10, -OIL_LAMP },
@@ -1221,10 +1235,9 @@ struct monst *shk;
             num_svc--;
         }
         /* 1 in 10 offer firearms training */
-        if (!rn2(10))
+        if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
             ESHK(shk)->services |= SHK_FIREARMS;
     }
-
     
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
@@ -1304,7 +1317,7 @@ struct monst *shk;
         if (!rn2(4))
             ESHK(shk)->services |= SHK_WEP_POI;
         /* 1 in 5 offer firearms training */
-        if (!rn2(5))
+        if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             ESHK(shk)->services |= SHK_FIREARMS;
     }
     
@@ -1317,7 +1330,7 @@ struct monst *shk;
         if (!rn2(4)) 
             ESHK(shk)->services |= SHK_ARM_ENC;
         /* 1 in 5 offer firearms training */
-        if (!rn2(5))
+        if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             ESHK(shk)->services |= SHK_FIREARMS;
     }
     

@@ -1069,7 +1069,7 @@ struct monst *mon;
             return 0;
         You("are blasted by %s power!", s_suffix(the(xname(obj))));
         touch_blasted = TRUE;
-        dmg = d((Antimagic ? 6 : 8), (self_willed ? 10 : 6));
+        dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
         /* add half of the usual material damage bonus */
         if (Hate_material(obj->material)) {
             dmg += (rnd(sear_damage(obj->material)) / 2) + 1;
@@ -1306,11 +1306,12 @@ int tmp;
              || otmp->oartifact == ART_VORPAL_BLADE
              || otmp->oartifact == ART_MASTER_SWORD
              || otmp->oartifact == ART_STAKE_OF_VAN_HELSING
-             || otmp->oartifact == ART_ANGELSLAYER)
-        /* Grimtooth, Vorpal Blade, and Angelslayer have SPFX settings
-           to warn against elves, jabberwocks, and angels respectively,
-           but we want its damage bonus to apply to all targets, so
-           bypass spec_applies() */
+             || otmp->oartifact == ART_ANGELSLAYER
+             || otmp->oartifact == ART_DRAMBORLEG)
+        /* Grimtooth, Vorpal Blade, Angelslayer, and Dramborleg have
+           SPFX settings to warn against elves, jabberwocks, angels,
+           and demons respectively, but we want its damage bonus to
+           apply to all targets, so bypass spec_applies() */
         spec_dbon_applies = TRUE;
     else
         spec_dbon_applies = spec_applies(weap, mon);
@@ -3050,7 +3051,6 @@ struct obj *obj;
             return 1;
         }
         
-        
         obj->age = monstermoves + rnz(100);
 
         switch (oart->inv_prop) {
@@ -3305,12 +3305,12 @@ struct obj *obj;
                 pseudo = mksobj(SCR_AIR, FALSE, FALSE);
                 break;
             case ART_DEEP_FREEZE:
-                
+                cast_sphere(SPE_FREEZE_SPHERE); /* Casts freeze sphere */
                 /* Virtually reads a scroll of ice */
                 pseudo = mksobj(SCR_ICE, FALSE, FALSE);
-                /* Also casts freeze sphere */
-                /* spelleffects(spell_idx(FREEZE_SPHERE), FALSE, FALSE) */
-                cast_sphere(spell_idx(SPE_FREEZE_SPHERE));
+                break;
+            case ART_FIREWALL:
+                cast_sphere(SPE_FLAME_SPHERE); /* Casts flame sphere */
                 break;
             default:
                 impossible("bad artifact invocation seffect?");
@@ -4525,8 +4525,8 @@ artifact_info(int anum)
 monster then the grenade will instantly explode.  */
         break;
     case ART_MASTER_SWORD: 
-        art_info.xattack = "\t\t10% of bonus magic attack on each successful hit.\n"
-                           "\t\tIf at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
+        art_info.xattack = "\t\t10% of bonus magic attack on each successful hit.\n";
+        art_info.xinfo = "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
         break;
     case ART_BRADAMANTE_S_FURY: 
         art_info.xattack = "\t\tAutomatically unseats any mounted rider it hits. Also stuns monsters.";

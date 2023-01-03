@@ -865,7 +865,7 @@ struct attack *uattk;
         && !(u.usteed || u.uswallow || multi < 0
              || u.umortality > oldumort
              || !malive || m_at(x, y) != mon)) {
-        if (weararmor) {
+        if (weararmor && !is_robe(uarm)) {
             if (!rn2(8))
                 pline("Your extra kick attack is ineffective while wearing %s.",
                       xname(weararmor));
@@ -2945,8 +2945,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                           s_suffix(mon_nam(mdef)));
                 xkilled(mdef, XKILL_NOMSG);
                 /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
-            } else if ((youmonst.data == &mons[PM_GREMLIN] && night())
-                       || (youmonst.data == &mons[PM_LAVA_GREMLIN] && !night())) {
+            } else if (youmonst.data == &mons[PM_GREMLIN]
+                       || youmonst.data == &mons[PM_LAVA_GREMLIN]) {
                 mdef->mcan = 1;
                 You("chuckle.");
             }

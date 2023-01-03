@@ -93,7 +93,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       4000L, NO_COLOR, DEFAULT_MAT),
 
     A("Firewall", STAFF_OF_DIVINATION, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      FIRE(4,4), DFNS(AD_FIRE), NO_CARY, SUMMON_FIRE_ELEMENTAL, A_LAWFUL, 
+      FIRE(4, 8), DFNS(AD_FIRE), NO_CARY, SEFFECT, A_LAWFUL, 
       PM_FLAME_MAGE, NON_PM, 400L, CLR_RED, DEFAULT_MAT),
 
     A("Grayswandir", SABER, (SPFX_RESTR | SPFX_HALRES), 0, 0,
@@ -132,7 +132,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, 
       NO_COLOR, COPPER),
 
-    A("Skullcrusher", CLUB, (SPFX_RESTR | SPFX_DEFN), 0, 0,
+    A("Skullcrusher", CLUB, (SPFX_RESTR), 0, 0,
       PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 
       2000L, NO_COLOR, DEFAULT_MAT),
 
@@ -156,7 +156,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("Sword of Justice", BROADSWORD, (SPFX_RESTR | SPFX_DALIGN), 0, 0,
       PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1500L, 
-      NO_COLOR, DEFAULT_MAT),
+      NO_COLOR, METAL),
 
     A("Quick Blade", ELVEN_SHORT_SWORD,
       SPFX_RESTR, 0, 0, PHYS(9,2), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
@@ -489,7 +489,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Key Of Access", SKELETON_KEY,
       (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY,
-      CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR, DEFAULT_MAT),
+      CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
     
     A("The Staff of Rot", STAFF_OF_NECROMANCY,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK), 0, 0,
@@ -550,7 +550,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Candle of Eternal Flame", MAGIC_CANDLE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 
       (SPFX_WARN | SPFX_TCTRL | SPFX_EREGEN), 
-      0, NO_ATTK, NO_DFNS, CARY(AD_FIRE), 0, A_LAWFUL, 
+      0, NO_ATTK, NO_DFNS, CARY(AD_FIRE), SUMMON_FIRE_ELEMENTAL, A_LAWFUL, 
       PM_FLAME_MAGE, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Staff of Aesculapius", QUARTERSTAFF,

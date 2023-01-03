@@ -36,6 +36,7 @@ short otyp;
     case SCR_CONFUSE_MONSTER:
         return 12;
     case SCR_IDENTIFY:
+    case SCR_KNOWLEDGE:
         return 14;
     case SCR_ENCHANT_ARMOR:
     case SCR_REMOVE_CURSE:

@@ -115,6 +115,7 @@ OPTIONS=wolfname:Apache
 # If you change this, update the MENUCOLOR below so it matches.
 OPTIONS=fruit:kiwi
 MENUCOLOR=" kiwi"=lightgreen
+MENUCOLOR=" slime mold"=lightgreen
 
 # Number pad options
 # 0 = Move by keys (move by letters; 'yuhjklbn')
@@ -275,7 +276,7 @@ AUTOPICKUP_EXCEPTION="<.*polished silver shield"
 # # blind
 
 AUTOPICKUP_EXCEPTION="<.*conical hat"
-AUTOPICKUP_EXCEPTION="<.*hat"
+#AUTOPICKUP_EXCEPTION="<.*hat"
 #AUTOPICKUP_EXCEPTION="<.*skull cap"
 #AUTOPICKUP_EXCEPTION="<.*hard hat"
 AUTOPICKUP_EXCEPTION="<.*plumed helmet"
@@ -310,11 +311,11 @@ AUTOPICKUP_EXCEPTION="<.*slippery shield"
 AUTOPICKUP_EXCEPTION="<.*old gloves"
 AUTOPICKUP_EXCEPTION="<.*falconry gloves"
 AUTOPICKUP_EXCEPTION="<.*riding gloves"
-AUTOPICKUP_EXCEPTION="<.*fingerless gloves"
+AUTOPICKUP_EXCEPTION="<.*fine gloves"
 AUTOPICKUP_EXCEPTION="<.*boiled gloves"
-AUTOPICKUP_EXCEPTION="<.*boxing gloves"
+AUTOPICKUP_EXCEPTION="<.*latex gloves"
 AUTOPICKUP_EXCEPTION="<.*padded gloves"
-AUTOPICKUP_EXCEPTION="<.*black gloves" #SLASH'EM
+AUTOPICKUP_EXCEPTION="<.*black gloves"
 AUTOPICKUP_EXCEPTION="<.*fencing gloves"
 
 AUTOPICKUP_EXCEPTION="<.*combat boots"
@@ -351,18 +352,31 @@ AUTOPICKUP_EXCEPTION="<.*iron ring"
 AUTOPICKUP_EXCEPTION="<.*brass ring"
 AUTOPICKUP_EXCEPTION="<.*crystal ring"
 AUTOPICKUP_EXCEPTION="<.*embossed ring"
+
 AUTOPICKUP_EXCEPTION="<.*copper ring"
 AUTOPICKUP_EXCEPTION="<.*twisted ring"
-AUTOPICKUP_EXCEPTION="<.*steel ring"
-AUTOPICKUP_EXCEPTION="<.*silver ring"
-AUTOPICKUP_EXCEPTION="<.*gold ring"
+AUTOPICKUP_EXCEPTION="<.*steel ring$"
+AUTOPICKUP_EXCEPTION="<.*silver ring$"
+AUTOPICKUP_EXCEPTION="<.*gold ring$"
 AUTOPICKUP_EXCEPTION="<.*ivory ring"
 AUTOPICKUP_EXCEPTION="<.*emerald ring"
 AUTOPICKUP_EXCEPTION="<.*wire ring"
 AUTOPICKUP_EXCEPTION="<.*engagement ring"
-AUTOPICKUP_EXCEPTION="<.*shiny ring"
 AUTOPICKUP_EXCEPTION="<.*ridged ring"
 AUTOPICKUP_EXCEPTION="<.*wedding ring"
+AUTOPICKUP_EXCEPTION="<.*shiny ring"
+
+AUTOPICKUP_EXCEPTION="<.*quartz ring"
+AUTOPICKUP_EXCEPTION="<.*porcelain ring"
+AUTOPICKUP_EXCEPTION="<.*ceramic ring"
+AUTOPICKUP_EXCEPTION="<.*mithril ring"
+AUTOPICKUP_EXCEPTION="<.*platinum ring"
+AUTOPICKUP_EXCEPTION="<.*jacinth ring"
+AUTOPICKUP_EXCEPTION="<.*citrine ring"
+AUTOPICKUP_EXCEPTION="<.*amber ring"
+AUTOPICKUP_EXCEPTION="<.*jet ring"
+AUTOPICKUP_EXCEPTION="<.*chrysoberyl ring"
+AUTOPICKUP_EXCEPTION="<.*plastic ring"
 
 # Identified rings
 AUTOPICKUP_EXCEPTION=">.*meat ring"
@@ -473,7 +487,7 @@ AUTOPICKUP_EXCEPTION="<.*amulet called life"
 AUTOPICKUP_EXCEPTION="<.*bag"
 AUTOPICKUP_EXCEPTION=">.*bag of holding"
 AUTOPICKUP_EXCEPTION=">.*bag called hold"
-AUTOPICKUP_EXCEPTION=">.*leather bag"
+AUTOPICKUP_EXCEPTION=">.*sack"
 
 # # General tools that are rare/good enough for autopickup
 AUTOPICKUP_EXCEPTION="<magic lamp"
@@ -482,16 +496,17 @@ AUTOPICKUP_EXCEPTION="<horn"
 AUTOPICKUP_EXCEPTION="<drum"
 AUTOPICKUP_EXCEPTION="<flute"
 AUTOPICKUP_EXCEPTION="<harp"
-#AUTOPICKUP_EXCEPTION="<*expensive camera"
-#AUTOPICKUP_EXCEPTION="<*lenses"
-#AUTOPICKUP_EXCEPTION="<*stethoscope"
-#AUTOPICKUP_EXCEPTION="<*crystal ball"
-#AUTOPICKUP_EXCEPTION="<*glass orb"
-AUTOPICKUP_EXCEPTION="<.*can of grease"
-AUTOPICKUP_EXCEPTION="<.*magic whistle"
 
 AUTOPICKUP_EXCEPTION="<healthstone"
 AUTOPICKUP_EXCEPTION="<whetstone"
+
+#AUTOPICKUP_EXCEPTION="<*expensive camera"
+#AUTOPICKUP_EXCEPTION="<*lenses"
+#AUTOPICKUP_EXCEPTION="<*stethoscope"
+# AUTOPICKUP_EXCEPTION="<*crystal ball"
+#AUTOPICKUP_EXCEPTION="<*glass orb"
+AUTOPICKUP_EXCEPTION="<.*can of grease"
+AUTOPICKUP_EXCEPTION="<.*magic whistle"
 
 # Autopickup of potions and scrolls - I assume that people like to either pickup
 # ALL of these or none of them.
@@ -535,6 +550,7 @@ AUTOPICKUP_EXCEPTION="<.*wand of poison gas"
 AUTOPICKUP_EXCEPTION="<.*wand of acid"
 AUTOPICKUP_EXCEPTION="<.*wand of sonics"
 AUTOPICKUP_EXCEPTION="<.*wand of water"
+AUTOPICKUP_EXCEPTION="<.*wand of fireball"
 
 
 
@@ -569,7 +585,7 @@ AUTOPICKUP_EXCEPTION="<.*wand of water"
 #AUTOPICKUP_EXCEPTION="<.*jet stone"
 #AUTOPICKUP_EXCEPTION="<.*obsidian stone"
 #AUTOPICKUP_EXCEPTION="<.*opal"
-#AUTOPICKUP_EXCEPTION="<.*ruby"
+#AUTOPICKUP_EXCEPTION="<.*ruby$"
 #AUTOPICKUP_EXCEPTION="<.*sapphire"
 #AUTOPICKUP_EXCEPTION="<.*topaz stone"
 #AUTOPICKUP_EXCEPTION="<.*turquoise stone"
@@ -581,14 +597,13 @@ AUTOPICKUP_EXCEPTION=">.*zorkmids"
 AUTOPICKUP_EXCEPTION=">.*unpaid.*"
 
 
-# Don't pick these up either
-AUTOPICKUP_EXCEPTION=">.*steel ring mail"
 
 # -----------------------------------------------------------------------------
 # E) Keybindings
 
 # Instead of #untrap, use 'v'
 BIND=v:untrap
+#BIND=v:wizmakemap
 # Instead of #rub, use '~'
 BIND=~:rub
 # Instead of #dip, use '!'
@@ -617,6 +632,9 @@ OPTIONS=hilite_pile
 
 # When far-looking, show what's under the cursor as we move it.
 OPTIONS=autodescribe
+
+# Realtime display
+OPTIONS=realtime:disabled
 
 # Sparkle is an annoying animation used with magical effects.
 OPTIONS=!sparkle
@@ -914,9 +932,28 @@ MENUCOLOR="octagonal wand"=orange&underline
 MENUCOLOR="twisted wand"=orange&underline
 MENUCOLOR="titanium wand"=orange&underline
 MENUCOLOR="driftwood wand"=orange&underline
-MENUCOLOR="forked wand"=orange&underline
 MENUCOLOR="spiked wand"=orange&underline
 MENUCOLOR="jeweled wand"=orange&underline
+MENUCOLOR="forked wand"=orange&underline
+MENUCOLOR="quartz wand"=orange&underline
+MENUCOLOR="walnut wand"=orange&underline
+MENUCOLOR="mahogany wand"=orange&underline
+MENUCOLOR="cedar wand"=orange&underline
+MENUCOLOR="chrome wand"=orange&underline
+MENUCOLOR="nickel wand"=orange&underline
+MENUCOLOR="mithril wand"=orange&underline
+MENUCOLOR="grooved wand"=orange&underline
+MENUCOLOR="bent wand"=orange&underline
+MENUCOLOR="bone wand"=orange&underline
+MENUCOLOR="alabaster wand"=orange&underline
+MENUCOLOR="orichalcum wand"=orange&underline
+MENUCOLOR="electrum wand"=orange&underline
+MENUCOLOR="holly wand"=orange&underline
+MENUCOLOR="pliable wand"=orange&underline
+MENUCOLOR="dragon-bone wand"=orange&underline
+MENUCOLOR="golden wand"=orange&underline
+MENUCOLOR="gilded wand"=orange&underline
+
 
 # Mark wands that "vanish" test as potentially dangerous
 MENUCOLOR=" van(.*)"=orange&bold
@@ -954,12 +991,12 @@ MENUCOLOR=" amber stone"=brown&bold
 MENUCOLOR=" amethyst stones?"=magenta&bold
 MENUCOLOR=" aquamarine stone"=cyan&bold
 MENUCOLOR=" citrine stone"=yellow&bold
-MENUCOLOR=" chrysoberyl"=yellow&bold
+MENUCOLOR=" chrysoberyl stone"=yellow&bold
 MENUCOLOR=" dilithium"=magenta&bold
 MENUCOLOR=" diamonds?$"=white&bold
 MENUCOLOR=" emeralds?$"=green&bold
 MENUCOLOR=" fluorite stones?"=magenta&bold
-MENUCOLOR=" garnet"=red
+MENUCOLOR=" garnet stone"=red
 MENUCOLOR=" jacinth stones?"=orange&bold
 MENUCOLOR=" jasper stone"=red&bold
 MENUCOLOR=" jade stone"=green
@@ -1102,10 +1139,10 @@ MSGTYPE=hide "You bought .*"
 MSGTYPE=hide "Thank you for shopping in .*"
 
 # Altar spam
-MSGTYPE=hide ".* land on the altar."
-MSGTYPE=hide ".* lands on the altar."
-MSGTYPE=hide "There is a black flash as .*"
-MSGTYPE=hide "There is an amber flash as .*"
+#MSGTYPE=hide ".* land on the altar."
+#MSGTYPE=hide ".* lands on the altar."
+#MSGTYPE=hide "There is a black flash as .*"
+#MSGTYPE=hide "There is an amber flash as .*"
 MSGTYPE=hide "Something is engraved here on the headstone."
 
 # Nursedancing
@@ -1141,7 +1178,7 @@ MSGTYPE=hide ".* is fooled by water reflections and misses!"
 #MSGTYPE=hide ".*sears the.*"
 MSGTYPE=hide "The .* touches the .*"
 MSGTYPE=hide "The .* (butts|squeezes|stings|swallows) (the|it)"
-MSGTYPE=hide "The .* is regurgitated!"
+# MSGTYPE=hide "The .* is regurgitated!" # This blocks =oSD msg in sinks
 MSGTYPE=hide "The .* is jolted with electricity!"
 MSGTYPE=hide "The .* is covered in frost!"
 MSGTYPE=hide "The .* points at you, then curses."
@@ -1316,10 +1353,15 @@ OPTIONS=use_darkgray
 # default values in parentheses
 OPTIONS=windowtype:tty
 #OPTIONS=IBMgraphics
-OPTIONS=DECgraphics
+#OPTIONS=DECgraphics
+
 
 # Enable curses windowport (false)
 #OPTIONS=windowtype:curses
+#OPTIONS=align_message:top
+#OPTIONS=align_status:bottom
+#OPTIONS=perm_invent
+
 
 # To use new NH4-style status window (true)
 # set !classic_status

@@ -180,7 +180,7 @@ OPTIONS=autoopen
 OPTIONS=disclose:yi ya yv yg yc yo
 OPTIONS=boulder:0
 OPTIONS=autopickup
-OPTIONS=pickup_types:$!?"=~
+OPTIONS=pickup_types:$!?"=/~
 OPTIONS=pickup_burden:unencumbered
 OPTIONS=hilite_pet
 OPTIONS=hilite_pile

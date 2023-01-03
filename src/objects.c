@@ -620,7 +620,7 @@ GLOVES("gauntlets", "falconry gloves",                         /* EvilHack */
        0, 0,          0, 12, 1, 30,  50, 9, 0,  IRON, CLR_BROWN),
 GLOVES("gauntlets of power", "riding gloves",
        0, 1,          0,  8, 1, 30,  50, 9, 0,  IRON, CLR_BROWN),
-GLOVES("rogues gloves", "fingerless gloves",                   /* SpliceHack */
+GLOVES("rogues gloves", "fine gloves",                   /* SpliceHack */
        0, 1,  SEARCHING,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("boxing gloves", "boiled gloves",                       /* SpliceHack */
        0, 1,          0,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
@@ -1045,7 +1045,7 @@ POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),          /* 
 /* fixed description */
 POTION("water",                 "clear",  0, 0, 92, 100, CLR_CYAN),
 POTION("blood",             "blood-red",  0, 0,  0,  50, CLR_RED),           /* Slash'EM */
-POTION("vampire blood",     "blood-red",  1, 0,  0, 350, CLR_RED),           /* Slash'EM */
+POTION("vampire blood",     "blood-red",  1, 0,  0, 300, CLR_RED),           /* Slash'EM */
 #undef POTION
 
 /* scrolls ... */
@@ -1167,7 +1167,7 @@ SPELL("cone of cold",    "dog eared",     P_MATTER_SPELL,      10,  7, 4, 1, RAY
 SPELL("sleep",           "mottled",       P_ENCHANTMENT_SPELL, 30,  1, 1, 1, RAY, HI_PAPER),
 SPELL("finger of death", "stained",       P_ATTACK_SPELL,       5, 10, 7, 1, RAY, HI_PAPER),
 SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY, CLR_BRIGHT_BLUE),  /* Slash'EM */
-SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 2, 1, RAY, CLR_GREEN),        /* Slash'EM */
+SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 4, 1, RAY, CLR_GREEN),        /* Slash'EM */
 SPELL("acid blast",      "acid green",    P_ATTACK_SPELL,       5,  9, 6, 1, RAY, CLR_BRIGHT_GREEN), /* Slash'EM */
 SPELL("sonicboom",       "ghostly",       P_MATTER_SPELL,       5,  7, 4, 1, RAY, CLR_BLACK),        /* SpliceHack */
 /* Water spell here? */
@@ -1178,7 +1178,7 @@ SPELL("force bolt",      "red",           P_ATTACK_SPELL,      35,  2, 1, 1, IMM
 SPELL("drain life",      "velvet",        P_NECROMANCY_SPELL,  10,  2, 2, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("summon undead",   "black",         P_NECROMANCY_SPELL,  10,  7, 5, 1, IMMEDIATE, CLR_BLACK),  /* Slash'EM */
 SPELL("command undead",  "dark",          P_NECROMANCY_SPELL,  10,  7, 4, 1, IMMEDIATE, CLR_BRIGHT_GREEN),  /* Slash'EM */
-SPELL("raise zombies",   "big",           P_NECROMANCY_SPELL,  10,  2, 2, 1, IMMEDIATE, CLR_BLACK),
+SPELL("raise zombies",   "big",           P_NECROMANCY_SPELL,   0,  2, 2, 1, IMMEDIATE, CLR_BLACK),
 SPELL("call undead",     "fuzzy",         P_NECROMANCY_SPELL,   0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("animate dead",    "deep",          P_NECROMANCY_SPELL,   0,  3, 3, 1, IMMEDIATE, HI_SILVER),
 SPELL("spirit bomb",     "spotted",       P_NECROMANCY_SPELL,   0,  3, 5, 1, IMMEDIATE, CLR_WHITE),
@@ -1189,13 +1189,13 @@ SPELL("polymorph",       "silver",        P_MATTER_SPELL,      10,  8, 6, 1, IMM
 SPELL("repair armor",    "platinum",      P_MATTER_SPELL,      20,  6, 3, 1, IMMEDIATE, HI_PAPER), /* EvilHack */
 SPELL("reflection",	 "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),  /* EvilHack */
 SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),   /* Slash'EM */
-SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
+SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),   /* Slash'EM */
 SPELL("cancellation",    "shining",       P_MATTER_SPELL,      15,  8, 7, 1, IMMEDIATE, CLR_WHITE),
 /* Fire Bolt is the Flame Mage's special spell - not randomly generated. */
 SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
 SPELL("cause fear",      "light blue",    P_NECROMANCY_SPELL,  25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
-SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 5, 1, IMMEDIATE, CLR_MAGENTA),
+SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 4, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_ORANGE),
 
 SPELL("haste self",      "purple",        P_ESCAPE_SPELL,      30,  4, 3, 1, NODIR, CLR_MAGENTA),
@@ -1400,7 +1400,7 @@ ROCK("loadstone", "gray",       0,  10, 500,  1, 3, 3, 1, 10, 6, MINERAL, CLR_GR
 ROCK("touchstone", "gray",      0,   8,  10, 45, 3, 3, 1, 10, 6, MINERAL, CLR_GRAY),
 ROCK("whetstone", "gray",       0,   3,  10, 45, 3, 3, 1, 10, 7, MINERAL, CLR_GRAY),  /* Slash'EM */
 ROCK("flint", "gray",           0,  10,   1,  1, 6, 6, 0, 10, 7, MINERAL, CLR_GRAY),
-ROCK("sling bullet", "shiny",   0,  30,   6, 10, 6, 8, 0, 10, 7, IRON, HI_METAL),
+ROCK("sling bullet", "shiny",   0,  30,   1, 10, 6, 8, 0, 10, 7, IRON, HI_METAL),
 ROCK("rock", None,              1, 100,  10,  0, 3, 3, 0, 10, 7, MINERAL, CLR_GRAY),
 #undef GEM
 #undef ROCK
