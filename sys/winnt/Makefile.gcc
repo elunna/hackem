@@ -790,7 +790,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/stor.des     $(DAT)/caves.des    $(DAT)/tomb.des \
 	 $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
 	 $(DAT)/qlawful.des  $(DAT)/qneutral.des $(DAT)/qchaos.des \
-	 
 	 $(DAT)/arch.des     $(DAT)/barb.des     $(DAT)/caveman.des \
 	 $(DAT)/convict.des  $(DAT)/healer.des   $(DAT)/infidel.des \
 	 $(DAT)/flame.des    $(DAT)/ice.des      $(DAT)/necro.des \
@@ -828,7 +827,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
     $(subst /,\,$(U)levcomp $(DAT)/qlawful.des)
     $(subst /,\,$(U)levcomp $(DAT)/qneutral.des)
     $(subst /,\,$(U)levcomp $(DAT)/qchaos.des)
-    
 	$(subst /,\,$(U)levcomp $(DAT)/arch.des)
 	$(subst /,\,$(U)levcomp $(DAT)/barb.des)
 	$(subst /,\,$(U)levcomp $(DAT)/caveman.des)
@@ -1244,9 +1242,11 @@ $(U)gif2tx32.exe: $(GIFREADERS32) $(TEXT_IO32)
 	@echo Linking $@...
 	$(link) $(LFLAGSU) -o$@ $(GIFREADERS32) $(TEXT_IO32)
 
+
 $(U)txt2ppm.exe: $(PPMWRITERS) $(TEXT_IO)
 	@echo Linking $@...
 	$(link) $(LFLAGSU) -o$@ $(PPMWRITERS) $(TEXT_IO)
+
 
 $(TILEBMP16): $(TILEUTIL16) $(TILEFILES)
 	@echo Creating 16x16 binary tile files which may take some time
@@ -1369,7 +1369,7 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\nkai-*.lev	   del $(W_DAT)\nkai-*.lev
 	if exist $(W_DAT)\ucastle.lev	   del $(W_DAT)\ucastle.lev
 	if exist $(W_DAT)\dlb.lst          del $(W_DAT)\dlb.lst
-	if exist $(W_DAT)\porthelp	       del $(W_DAT)\porthelp
+	if exist $(W_DAT)\porthelp	   del $(W_DAT)\porthelp
 endif
 ifneq "$(W_OBJ)" ""
 	if exist $(W_OBJ)\sp_lev.tag	   del $(W_OBJ)\sp_lev.tag
@@ -1500,6 +1500,7 @@ $(O)winnt.o: $(HACK_H) $(MSWSYS)/win32api.h $(MSWSYS)/winnt.c
 	$(cc) $(CFLAGS) -o$@  $(MSWSYS)/winnt.c
 $(O)ntsound.o: $(HACK_H) $(MSWSYS)/ntsound.c
 	$(cc) $(CFLAGS)  -o$@ $(MSWSYS)/ntsound.c
+
 
 #if you aren't linking in the full gui then
 #include the following stub for proper linkage.
