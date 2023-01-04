@@ -938,19 +938,9 @@ register struct obj *obj;
                                                     : POISON;
             if (obj->otyp == EGG)
                 return stale_egg(obj) ? CADAVER : starving ? ACCFOOD : POISON;
-        
             return TABU;
         }
-        /* vampires only "eat" very fresh corpses ...
-         * Assume meat -> blood
-         */
-        if (is_vampiric(mon->data)) {
-            return (obj->otyp == CORPSE &&
-                    has_blood(&mons[obj->corpsenm]) && !obj->oeaten &&
-                    peek_at_iced_corpse_age(obj) + 5 >= monstermoves) ?
-                       DOGFOOD : TABU;
-        }
-        
+
         switch (obj->otyp) {
         case TRIPE_RATION:
         case MEATBALL:
@@ -1106,21 +1096,6 @@ register struct obj *obj;
     if (Role_if(PM_KNIGHT) && u.ualign.type == A_CHAOTIC
         && mtmp->data == &mons[PM_KI_RIN])
         return FALSE;
-
-#if 0 /* This section has been replaced by using M3_NOTAME and M3_TRAITOR tags instead */
-    /* These monsters should never be able to be tamed. Ever. Just no */
-    if (mtmp->data == &mons[PM_BEHOLDER]
-        || mtmp->data == &mons[PM_MAGICAL_EYE]
-        || mtmp->data == &mons[PM_ELDER_MINOTAUR]
-        || mtmp->data == &mons[PM_PALE_HORSE]
-        || mtmp->data == &mons[PM_WHITE_HORSE]
-        || mtmp->data == &mons[PM_BLACK_HORSE]
-        || mtmp->data == &mons[PM_SNOW_GOLEM]
-        || mtmp->data == &mons[PM_ALHOON]
-        || mtmp->data == &mons[PM_NEOTHELID]
-        || mtmp->data == &mons[PM_SHAMBLING_HORROR])
-        return FALSE;
-#endif
     
     /* If wielding/wearing any of the 'banes, taming becomes
        impossible */
@@ -1273,7 +1248,6 @@ register struct obj *obj;
     }
     return TRUE;
 }
-
 
 /*
  * Called during pet revival or pet life-saving.

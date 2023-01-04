@@ -116,7 +116,6 @@ struct obj {
     Bitfield(greased, 1);    /* covered with grease */
     Bitfield(nomerge, 1);    /* set temporarily to prevent merging */
     Bitfield(was_thrown, 1); /* thrown by hero since last picked up */
-    Bitfield(odrained,1);	/* drained corpse */
                                 
     Bitfield(material, 5); /* material this obj is made of */
     Bitfield(in_use, 1);   /* for magic items before useup items */
@@ -125,7 +124,7 @@ struct obj {
 
     Bitfield(lknown, 1);   /* locked/unlocked status is known */
     Bitfield(yours, 1);	/* obj is yours (eg. thrown by you) */
-    /* 5 free bits */
+    /* 6 free bits */
 
     int corpsenm;         /* type of corpse is mons[corpsenm] */
 #define leashmon corpsenm /* gets m_id of attached pet */
@@ -337,7 +336,6 @@ struct obj {
                     || dmgtype(&mons[(obj)->corpsenm], AD_POLY)))
 #define mlevelgain(obj) (ofood(obj) && (obj)->corpsenm == PM_WRAITH)
 #define mhealup(obj) (ofood(obj) && (obj)->corpsenm == PM_NURSE)
-#define drainlevel(corpse) (mons[(corpse)->corpsenm].cnutrit * 4 / 5 )
 #define is_royaljelly(o) (o->otyp == LUMP_OF_ROYAL_JELLY)
 #define Is_pudding(o)                                                 \
     (o->otyp == GLOB_OF_GRAY_OOZE                                     \

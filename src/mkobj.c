@@ -880,7 +880,6 @@ boolean artif;
             break;
         case FOOD_CLASS:
             otmp->oeaten = 0;
-            otmp->odrained = 0;
             switch (otmp->otyp) {
             case CORPSE:
                 /* possibly overridden by mkcorpstat() */

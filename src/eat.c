@@ -1225,20 +1225,20 @@ int pm;
         catch_lycanthropy = PM_WEREWOLF;
         break;
     case PM_HUMAN_WEREPANTHER:            
-		catch_lycanthropy = PM_WEREPANTHER;
-		break;
+        catch_lycanthropy = PM_WEREPANTHER;
+        break;
     case PM_HUMAN_WERETIGER:
-            catch_lycanthropy = PM_WERETIGER;
-            break;
+        catch_lycanthropy = PM_WERETIGER;
+        break;
     case PM_HUMAN_WEREBEAR:
         catch_lycanthropy = PM_WEREBEAR;
         break;
     case PM_HUMAN_WERESNAKE:
-            catch_lycanthropy = PM_WERESNAKE;
-            break;
+        catch_lycanthropy = PM_WERESNAKE;
+        break;
     case PM_HUMAN_WERESPIDER:
-            catch_lycanthropy = PM_WERESPIDER;
-            break;
+        catch_lycanthropy = PM_WERESPIDER;
+        break;
     case PM_NURSE:
         if (Upolyd)
             u.mh = u.mhmax;
