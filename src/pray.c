@@ -1623,7 +1623,7 @@ aligntyp alignment;
     
     switch ((int)alignment) {
 	case A_LAWFUL:
-	    mnum = lawful_minion(u.ulevel);
+            mnum = lminion();
 	    break;
 	case A_NEUTRAL:
 	    mnum = neutral_minion(u.ulevel);

@@ -18,7 +18,8 @@
 
 Version 1.1 (unreleased)
 
-2023-01-04: Chaotic minions are grants using ndemon (like Splice does) instead of the hardcoded list from SLASH'EM. 
+2023-01-04: Lawful minions are granted using lminion (like Splice does) instead of the hardcoded list from SLASH'EM. 
+2023-01-04: Chaotic minions are granted using ndemon (like Splice does) instead of the hardcoded list from SLASH'EM. 
 2023-01-04: Grunds moat can sometimes be lava, but not sewage. Prevents odd moat tile.
 2023-01-04: Fix: Silenced warning related to vents in lev_comp.y
 2023-01-04: Fixed gas spore room in neutral quest.
