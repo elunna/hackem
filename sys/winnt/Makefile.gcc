@@ -1310,14 +1310,17 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\???-strt.lev	   del $(W_DAT)\???-strt.lev
 	if exist $(W_DAT)\air.lev          del $(W_DAT)\air.lev
 	if exist $(W_DAT)\astral.lev	   del $(W_DAT)\astral.lev
+	if exist $(W_DAT)\blkmar-?.lev	   del $(W_DAT)\blkmar-?.lev
 	if exist $(W_DAT)\bigrm-*.lev	   del $(W_DAT)\bigrm-*.lev
 	if exist $(W_DAT)\castle-?.lev	   del $(W_DAT)\castle-?.lev
+	if exist $(W_DAT)\cave*.lev	   del $(W_DAT)\cave*.lev
 	if exist $(W_DAT)\data		   del $(W_DAT)\data
 	if exist $(W_DAT)\dungeon          del $(W_DAT)\dungeon
 	if exist $(W_DAT)\dungeon.pdf	   del $(W_DAT)\dungeon.pdf
 	if exist $(W_DAT)\earth.lev	   del $(W_DAT)\earth.lev
 	if exist $(W_DAT)\fakewiz?.lev	   del $(W_DAT)\fakewiz?.lev
 	if exist $(W_DAT)\fire.lev	   del $(W_DAT)\fire.lev
+	if exist $(W_DAT)\grund.lev	   del $(W_DAT)\grund.lev
 	if exist $(W_DAT)\hella-?.lev	   del $(W_DAT)\hella-?.lev
 	if exist $(W_DAT)\hellb-?.lev	   del $(W_DAT)\hellb-?.lev
 	if exist $(W_DAT)\hellc-?.lev	   del $(W_DAT)\hellc-?.lev
@@ -1326,6 +1329,7 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\knox-?.lev	   del $(W_DAT)\knox-?.lev
 	if exist $(W_DAT)\medusa-?.lev	   del $(W_DAT)\medusa-?.lev
 	if exist $(W_DAT)\mine*.lev	   del $(W_DAT)\mine*.lev
+	if exist $(W_DAT)\mtemple.lev	   del $(W_DAT)\mtemple.lev
 	if exist $(W_DAT)\options          del $(W_DAT)\options
 	if exist $(W_DAT)\ttyoptions	   del $(W_DAT)\ttyoptions
 	if exist $(W_DAT)\guioptions       del $(W_DAT)\guioptions
@@ -1336,9 +1340,18 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\orcus.lev	   del $(W_DAT)\orcus.lev
 	if exist $(W_DAT)\rumors           del $(W_DAT)\rumors
 	if exist $(W_DAT)\quest.dat	   del $(W_DAT)\quest.dat
+	if exist $(W_DAT)\qlawful.lev	   del $(W_DAT)\qlawful.lev
+	if exist $(W_DAT)\qneutral.lev	   del $(W_DAT)\qneutral.lev
+	if exist $(W_DAT)\qchaos.lev	   del $(W_DAT)\qchaos.lev
+	if exist $(W_DAT)\rats.lev	   del $(W_DAT)\rats.lev
 	if exist $(W_DAT)\sanctum.lev	   del $(W_DAT)\sanctum.lev
 	if exist $(W_DAT)\soko?-?.lev	   del $(W_DAT)\soko?-?.lev
+	if exist $(W_DAT)\stor-?.lev	   del $(W_DAT)\stor-?.lev
+	if exist $(W_DAT)\tomb-?.lev	   del $(W_DAT)\tomb-?.lev
 	if exist $(W_DAT)\tower?.lev	   del $(W_DAT)\tower?.lev
+	if exist $(W_DAT)\townfill.lev	   del $(W_DAT)\townfill.lev
+	if exist $(W_DAT)\town-?.lev	   del $(W_DAT)\town-?.lev
+	if exist $(W_DAT)\village.lev	   del $(W_DAT)\village.lev
 	if exist $(W_DAT)\valley.lev	   del $(W_DAT)\valley.lev
 	if exist $(W_DAT)\vaults.dat       del $(W_DAT)\vaults.dat
 	if exist $(W_DAT)\vecna-?.lev      del $(W_DAT)\vecna-?.lev
