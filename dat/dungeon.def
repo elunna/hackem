@@ -30,7 +30,8 @@ BRANCH: 	    "Grund's Stronghold" @ (12, 2)
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
-BRANCH:         "Chaotic Quest" @ (15, 5) portal
+#BRANCH:        "Chaotic Quest" @ (15, 5) portal
+BRANCH:         "Vecna's Domain" @ (15, 5) portal
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 #               Grunds act's as a mini-castle for the player to overcome. 
@@ -81,7 +82,6 @@ CHAINLEVEL:	    "wizard2" "X" "wizard1" + (1, 0)
 CHAINLEVEL:	    "wizard3" "Y" "wizard1" + (2, 0)
 LEVEL:		    "fakewiz1" "F" @ (-6, 3)
 LEVEL:		    "fakewiz2" "G" @ (-6, 3)
-CHAINBRANCH:    "Vecna's Domain" "valley" + (1, 0) portal
 LEVEL:		    "sanctum" "none" @ (-1, 0)
 
 
@@ -127,10 +127,10 @@ ALIGNMENT:		neutral
 DESCRIPTION:	mazelike
 LEVEL:			"qneutral" "none" @ (1, 0)
 
-DUNGEON:		"Chaotic Quest" "none" (1, 0)
-ALIGNMENT:		chaotic
-DESCRIPTION:	mazelike
-LEVEL:			"qchaos" "none" @ (1, 0)
+#DUNGEON:		"Chaotic Quest" "none" (1, 0)
+#ALIGNMENT:		chaotic
+#DESCRIPTION:	mazelike
+#LEVEL:			"qchaos" "none" @ (1, 0)
 
 #
 # Sokoban
