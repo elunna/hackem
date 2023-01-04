@@ -3341,18 +3341,7 @@ long mmflags;
             otmp->blessed = otmp->cursed = 0;
             mpickobj(mtmp, otmp);
         }
-    } else if (mndx == PM_ACERERAK) {
-        struct obj *otmp;
-        otmp = oname(mksobj(STAFF_OF_WAR, TRUE, FALSE),
-                     artiname(ART_STAFF_OF_ROT));
-        if (otmp) {
-            otmp->blessed = otmp->cursed = 0;
-            mpickobj(mtmp, otmp);
-        }
-    }
-    
-    
-    else if (mndx == PM_CERBERUS) {
+    } else if (mndx == PM_CERBERUS) {
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;

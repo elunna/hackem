@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-04: The Staff of Rot is no longer the chaotic quest reward. It is now a regular artifact and can generate randomly or from altar gifts.
 2023-01-04: Reduced the difficulty of Vecna back to SLASH'EM levels; still has an extra clerical attack from Evil though.
 2023-01-04: Reduced the difficulty of the rest of Vecna's lair; less nasties.
 2023-01-04: Removed the two huge graveyards from the first level of Vecna's quest.
