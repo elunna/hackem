@@ -84,53 +84,53 @@ CSS = NHdump.css
 DATHELP = help hh cmdhelp keyhelp history opthelp wizhelp
 
 SPEC_LEVS = air.lev \
-        astral.lev \
-        bigrm-*.lev \
-        castle-?.lev \
-        earth.lev \
-        fakewiz?.lev \
-        fire.lev \
-        hella-?.lev \
-        hellb-?.lev \
-        hellc-?.lev \
-        hellfill.lev \
-        icequeen-?.lev \
-        knox-?.lev \
-        medusa-?.lev \
-        minefill.lev \
-        minetn-*.lev \
-        minend-?.lev \
-        mineking-*.lev \
-        oracle-?.lev \
-        orcus.lev \
-        sanctum.lev \
-        soko?-?.lev \
-        tower?.lev \
-        valley.lev \
-        vecna-?.lev  
-        vlt-*.lev \
-        water.lev \
-        wizard?.lev \
-        town-?.lev \
-        townfill.lev \ 
-        village.lev \
-		rats-?.lev \
-		stor.lev \
-		cavebegn.lev \
-		caveend.lev \
-		cavepass.lev \
-        cavenest.lev \
-        cavefill.lev \
-        qlawful.lev \
-        qneutral.lev \
-        qchaos.lev \
-        tomb-?.lev \
-        mtemple.lev \
-        grund.lev \
-        blkmar-?.lev \
-        leth-*.lev \
-        nkai-*.lev \
-        ucastle.lev
+    astral.lev \
+    bigrm-*.lev \
+    castle-?.lev \
+    earth.lev \
+    fakewiz?.lev \
+    fire.lev \
+    hella-?.lev \
+    hellb-?.lev \
+    hellc-?.lev \
+    hellfill.lev \
+    icequeen-?.lev \
+    knox-?.lev \
+    medusa-?.lev \
+    minefill.lev \
+    minetn-*.lev \
+    minend-?.lev \
+    mineking-*.lev \
+    oracle-?.lev \
+    orcus.lev \
+    sanctum.lev \
+    soko?-?.lev \
+    tower?.lev \
+    valley.lev \
+    vecna-?.lev  
+    vlt-*.lev \
+    water.lev \
+    wizard?.lev \
+    town-?.lev \
+    townfill.lev \ 
+    village.lev \
+    rats-?.lev \
+    stor.lev \
+    cavebegn.lev \
+    caveend.lev \
+    cavepass.lev \
+    cavenest.lev \
+    cavefill.lev \
+    qlawful.lev \
+    qneutral.lev \
+    qchaos.lev \
+    tomb-?.lev \
+    mtemple.lev \
+    grund.lev \
+    blkmar-?.lev \
+    leth-*.lev \
+    nkai-*.lev \
+    ucastle.lev
         
 QUEST_LEVS = ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev
 
