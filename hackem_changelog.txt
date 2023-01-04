@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-04: Removed the two huge graveyards from the first level of Vecna's quest.
 2023-01-04: Replaced the chaotic quest with Vecna's branch. Added entrance light.
 2023-01-04: Cave trolls can clobber you.
 2023-01-04: bite_monster uses the flaming macro for better coverage vs green slimes.

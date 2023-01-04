@@ -9,15 +9,15 @@ MAZE: "vecna-1",' '
 FLAGS: noteleport,hardfloor,shortsighted,nommap,graveyard
 GEOMETRY:left,center
 #         1         2         3         4         5         6         7    7
-#123456789012345678901234567890123456789012345678901234567890123456789012345
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
 MAP
 0tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 1t.................ttttt......ttttttt....tttttttt......ttttttttt............t
 2t.--------..........tt.........ttttt.....ttt.....tt......ttt..t...--------.t
 3t.|......S.ttt.....t.....tt.....................................t.S......|.t
 4t.|......|..tt.......t.t.......ttt..ttt...........tt......tt....tt|......|.t
-5t.|...----.......tt.............tt.................ttt............----...|.t
-6t.|...|...t........t....t.......tttttt.tttttt..............t...tt....|...|.t
+5t.|......-.......tt.............tt.................ttt............-......|.t
+6t.|...----t........t....t.......tttttt.tttttt..............t...tt.----...|.t
 7t.|...|....t...tt.....t........tt...........tt............t..........|...|.t
 8t.-----......t....tt.......tt.tt.............tt.ttt..........t......t-----.t
 9...t..................tttt..ttt...............t.............t..ttt..........
@@ -25,26 +25,32 @@ MAP
 1t.............................t...............t.............t...ttttt......t
 2t.-----.....................tttt.............tt....t............tt...-----.t
 3t.|...|..tt.....tttt...........tt...........ttttt....................|...|..
-4t.|...|......t.................ttttttt.tttttt......tt....t....tt.....|...|..
-5t.|...----...........t......................t.....................----...|..
+4t.|...----...t.................ttttttt.tttttt......tt....t....tt..----...|..
+5t.|......-...........t......................t.....................-......|..
 6t.|......|tt.....tt.....ttttt.........ttt....tt.......ttttt.......|......|.t
 7t.|......S...t...tt......ttttt................ttt.....ttt.........S......|.t
 8t.--------t.........................ttt...........................--------.t
 9t...............ttt........ttttt..tt.....tttt....ttttt....ttt..............t
 0tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 ENDMAP
+#         1         2         3         4         5         6         7    7
+#0123456789012345678901234567890123456789012345678901234567890123456789012345
 $stairs = { (04,06),(04,14),(71,06),(71,14) }
 $liches = { (03,07),(03,13),(72,07),(72,13) }
 SHUFFLE: $stairs
 SHUFFLE: $liches
 TELEPORT_REGION:(33,07,43,13),(00,00,00,00)
 REGION:(00,00,75,20),unlit,"ordinary"
-REGION:(13,03,27,17),unlit,"morgue",filled
-REGION:(49,03,62,17),unlit,"morgue",filled
-REGION:(03,03,05,05),unlit,"morgue",filled
-REGION:(03,15,05,17),unlit,"morgue",filled
-REGION:(70,03,72,05),unlit,"morgue",filled
-REGION:(70,15,72,17),unlit,"morgue",filled
+
+# Two re-dic-u-lous-ly huge morgues from EvilHack
+#REGION:(13,03,27,17),unlit,"morgue",filled
+#REGION:(49,03,62,17),unlit,"morgue",filled
+
+# The mausoleums
+REGION:(03,03,07,08),unlit,"morgue",filled
+REGION:(03,13,07,17),unlit,"morgue",filled
+REGION:(67,03,72,07),unlit,"morgue",filled
+REGION:(67,13,72,17),unlit,"morgue",filled
 
 # Start the player in a bit of light for orientation.
 REGION:(38,08,39,12),lit,"ordinary"
@@ -74,44 +80,14 @@ DOOR:locked,(66,03)
 DOOR:locked,(66,17)
 
 # Random monsters
-MONSTER:'V',random
-MONSTER:'V',random
-MONSTER:'V',random
-MONSTER:'V',random
-MONSTER:'V',random
-MONSTER:'V',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'Z',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:'M',random
-MONSTER:' ',random
-MONSTER:' ',random
-MONSTER:' ',random
-MONSTER:' ',random
+LOOP [6] { MONSTER:'V',random }
+
+LOOP [8] { MONSTER:'Z',random }
+LOOP [6] { MONSTER:'M',random }
+LOOP [4] { MONSTER:' ',random }
 
 # Random traps
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
-TRAP:random, random
+LOOP [10] { TRAP:random, random }
 
 # None shall pass
 NON_DIGGABLE:(02,02,09,08)
