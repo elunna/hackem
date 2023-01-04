@@ -1910,12 +1910,6 @@ fountain_detail : FOUNTAIN_ID ':' ter_selection
 		      add_opvars(splev, "o", VA_PASS1(SPO_FOUNTAIN));
 		  }
 		;
-		
-vent_detail : VENT_ID ':' ter_selection
-		  {
-		      add_opvars(splev, "o", VA_PASS1(SPO_VENT));
-		  }
-		;
 
 sink_detail : SINK_ID ':' ter_selection
 		  {
