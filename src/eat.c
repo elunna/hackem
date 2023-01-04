@@ -848,9 +848,7 @@ struct monst *mon;
 	    return TRUE;		/* lifesaved */
 
 	case PM_GREEN_SLIME:
-	    if (!Unchanging && youmonst.data != &mons[PM_FIRE_VORTEX] &&
-			    youmonst.data != &mons[PM_FIRE_ELEMENTAL] &&
-			    youmonst.data != &mons[PM_GREEN_SLIME]) {
+	    if (!Unchanging && !flaming(youmonst.data)) {
 		You("don't feel very well.");
 		Slimed = 10L;
 	    }
