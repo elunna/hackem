@@ -273,11 +273,13 @@ dosounds()
     if (level.flags.has_clinic && !rn2(200)) {
         static const char *hospital_msg[4] = {
             "hear something about streptococus.",
-            "smell chloroform nearby.",
             "hear someone cursing viruses.",
             "seem to hear Doctor Frankenstein.",
         };
-        You_hear1(hospital_msg[rn2(3) + hallu]);
+        if (!rn2(5))
+            You("smell chloroform nearby.");
+        else
+            You_hear1(hospital_msg[rn2(2) + hallu]);
         return;
     }
     if (level.flags.has_terrorhall && !rn2(200)) {
