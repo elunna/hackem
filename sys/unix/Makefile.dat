@@ -129,27 +129,29 @@ options:	../util/makedefs
 
 
 spec_levs: ../util/lev_comp \
-	bigroom.des castle.des endgame.des gehennom.des icequeen.des \
-	knox.des medusa.des mines.des oracle.des sokoban.des \
-	tower.des vecna.des yendor.des vaults.des qlawful.des \
-	qneutral.des qchaos.des town.des village.des rats.des \
-	stor.des caves.des tomb.des mtemple.des grund.des \
-	blkmar.des lethe.des nkai.des ucastle.des
+	bigroom.des castle.des endgame.des gehennom.des \
+	icequeen.des knox.des medusa.des mines.des oracle.des \
+	sokoban.des tower.des vecna.des yendor.des vaults.des \
+	qlawful.des qneutral.des qchaos.des \
+	town.des village.des rats.des \
+	stor.des caves.des tomb.des \
+	mtemple.des grund.des blkmar.des \
+	lethe.des nkai.des ucastle.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
 	../util/lev_comp castle.des
 	../util/lev_comp endgame.des
 	../util/lev_comp gehennom.des
 	../util/lev_comp lethe.des
+	../util/lev_comp ucastle.des
+	../util/lev_comp nkai.des
 	../util/lev_comp icequeen.des
 	../util/lev_comp knox.des
 	../util/lev_comp medusa.des
-	../util/lev_comp oracle.des
-	../util/lev_comp tower.des
-	../util/lev_comp ucastle.des
-	../util/lev_comp nkai.des
 	../util/lev_comp mines.des
+	../util/lev_comp oracle.des
 	../util/lev_comp sokoban.des
+	../util/lev_comp tower.des
 	../util/lev_comp vecna.des
 	../util/lev_comp yendor.des
 	../util/lev_comp vaults.des
@@ -168,10 +170,10 @@ spec_levs: ../util/lev_comp \
 	touch spec_levs
 
 quest_levs: ../util/lev_comp \
-	Arch.des Barb.des Caveman.des Convict.des Healer.des \
-	Infidel.des Flame.des Ice.des Necro.des Slayer.des \
-	Yeoman.des Knight.des Monk.des Priest.des Ranger.des \
-	Rogue.des Samurai.des Tourist.des Valkyrie.des Wizard.des
+	Arch.des Barb.des Caveman.des Convict.des Healer.des Infidel.des \
+	Flame.des Ice.des Necro.des Slayer.des Yeoman.des \
+	Knight.des Monk.des Priest.des Ranger.des Rogue.des Samurai.des \
+	Tourist.des Valkyrie.des Wizard.des
 	../util/lev_comp Arch.des
 	../util/lev_comp Barb.des
 	../util/lev_comp Caveman.des

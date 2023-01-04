@@ -783,52 +783,39 @@ recover: $(U)recover.exe
 $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/endgame.des  $(DAT)/gehennom.des $(DAT)/lethe.des \
 	 $(DAT)/icequeen.des $(DAT)/knox.des     $(DAT)/medusa.des \
-	 $(DAT)/oracle.des   $(DAT)/tower.des    $(DAT)/ucastle.des \
-	 $(DAT)/nkai.des     $(DAT)/mines.des    $(DAT)/sokoban.des \
-	 $(DAT)/vecna.des    $(DAT)/yendor.des   $(DAT)/vaults.des \
-	 $(DAT)/town.des     $(DAT)/village.des  $(DAT)/rats.des \
-	 $(DAT)/stor.des     $(DAT)/caves.des    $(DAT)/tomb.des \
-	 $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
-	 $(DAT)/qlawful.des  $(DAT)/qneutral.des $(DAT)/qchaos.des \
-	 
+	 $(DAT)/oracle.des   $(DAT)/tower.des \
+	 $(DAT)/vaults.des   $(DAT)/vecna.des    $(DAT)/yendor.des \
+	 $(DAT)/nkai.des     $(DAT)/ucastle.des \
 	 $(DAT)/arch.des     $(DAT)/barb.des     $(DAT)/caveman.des \
 	 $(DAT)/convict.des  $(DAT)/healer.des   $(DAT)/infidel.des \
 	 $(DAT)/flame.des    $(DAT)/ice.des      $(DAT)/necro.des \
-	 $(DAT)/slayer.des   $(DAT)/yeoman.des   $(DAT)/knight.des \
-	 $(DAT)/monk.des     $(DAT)/priest.des   $(DAT)/ranger.des \
-	 $(DAT)/rogue.des    $(DAT)/samurai.des  $(DAT)/tourist.des \
-	 $(DAT)/valkyrie.des $(DAT)/wizard.des
-	
+	 $(DAT)/knight.des   $(DAT)/monk.des     $(DAT)/priest.des \
+	 $(DAT)/ranger.des   $(DAT)/rogue.des    $(DAT)/samurai.des \
+	 $(DAT)/slayer.des   $(DAT)/yeoman.des \
+	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
+	 $(DAT)/wizard.des	 \
+	 $(DAT)/kobold-1.des $(DAT)/kobold-2.des $(DAT)/rats.des \
+     $(DAT)/stor.des \
+     $(DAT)/caves.des  $(DAT)/tomb.des \
+     $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
+
 	$(subst /,\,$(U)levcomp $(DAT)/bigroom.des)
 	$(subst /,\,$(U)levcomp $(DAT)/castle.des)
 	$(subst /,\,$(U)levcomp $(DAT)/endgame.des)
 	$(subst /,\,$(U)levcomp $(DAT)/gehennom.des)
 	$(subst /,\,$(U)levcomp $(DAT)/lethe.des)
-	$(subst /,\,$(U)levcomp $(DAT)/icequeen.des)
-	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
-	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
-	$(subst /,\,$(U)levcomp $(DAT)/oracle.des)
-	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
 	$(subst /,\,$(U)levcomp $(DAT)/ucastle.des)
 	$(subst /,\,$(U)levcomp $(DAT)/nkai.des)
+	$(subst /,\,$(U)levcomp $(DAT)/icequeen.des)
+	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
 	$(subst /,\,$(U)levcomp $(DAT)/mines.des)
+	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
+	$(subst /,\,$(U)levcomp $(DAT)/oracle.des)
 	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
+	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
+	$(subst /,\,$(U)levcomp $(DAT)/vaults.des)
 	$(subst /,\,$(U)levcomp $(DAT)/vecna.des)
 	$(subst /,\,$(U)levcomp $(DAT)/yendor.des)
-	$(subst /,\,$(U)levcomp $(DAT)/vaults.des)
-    $(subst /,\,$(U)levcomp $(DAT)/town.des)
-    $(subst /,\,$(U)levcomp $(DAT)/village.des)
-    $(subst /,\,$(U)levcomp $(DAT)/rats.des)
-    $(subst /,\,$(U)levcomp $(DAT)/stor.des)
-    $(subst /,\,$(U)levcomp $(DAT)/caves.des)
-    $(subst /,\,$(U)levcomp $(DAT)/tomb.des)
-    $(subst /,\,$(U)levcomp $(DAT)/mtemple.des)
-    $(subst /,\,$(U)levcomp $(DAT)/grund.des)
-    $(subst /,\,$(U)levcomp $(DAT)/blkmar.des)
-    $(subst /,\,$(U)levcomp $(DAT)/qlawful.des)
-    $(subst /,\,$(U)levcomp $(DAT)/qneutral.des)
-    $(subst /,\,$(U)levcomp $(DAT)/qchaos.des)
-    
 	$(subst /,\,$(U)levcomp $(DAT)/arch.des)
 	$(subst /,\,$(U)levcomp $(DAT)/barb.des)
 	$(subst /,\,$(U)levcomp $(DAT)/caveman.des)
@@ -849,6 +836,15 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/valkyrie.des)
 	$(subst /,\,$(U)levcomp $(DAT)/wizard.des)
 	$(subst /,\,$(U)levcomp $(DAT)/yeoman.des)
+	$(subst /,\,$(U)levcomp $(DAT)/ kobold-1.des
+    $(subst /,\,$(U)levcomp $(DAT)/ kobold-2.des
+    $(subst /,\,$(U)levcomp $(DAT)/ rats.des
+    $(subst /,\,$(U)levcomp $(DAT)/ stor.des
+    $(subst /,\,$(U)levcomp $(DAT)/ caves.des
+    $(subst /,\,$(U)levcomp $(DAT)/ tomb.des
+    $(subst /,\,$(U)levcomp $(DAT)/ mtemple.des
+    $(subst /,\,$(U)levcomp $(DAT)/ grund.des
+    $(subst /,\,$(U)levcomp $(DAT)/ blkmar.des
 	$(subst /,\,copy *.lev $(DAT))
 	$(subst /,\,del *.lev)
 	$(subst /,\,echo sp_levs done > $(O)sp_lev.tag)
@@ -1244,9 +1240,11 @@ $(U)gif2tx32.exe: $(GIFREADERS32) $(TEXT_IO32)
 	@echo Linking $@...
 	$(link) $(LFLAGSU) -o$@ $(GIFREADERS32) $(TEXT_IO32)
 
+
 $(U)txt2ppm.exe: $(PPMWRITERS) $(TEXT_IO)
 	@echo Linking $@...
 	$(link) $(LFLAGSU) -o$@ $(PPMWRITERS) $(TEXT_IO)
+
 
 $(TILEBMP16): $(TILEUTIL16) $(TILEFILES)
 	@echo Creating 16x16 binary tile files which may take some time
@@ -1346,30 +1344,10 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\vaults.dat       del $(W_DAT)\vaults.dat
 	if exist $(W_DAT)\vecna-?.lev      del $(W_DAT)\vecna-?.lev
 	if exist $(W_DAT)\vlt-????.lev     del $(W_DAT)\vlt-????.lev
-	if exist $(W_DAT)\water.lev	       del $(W_DAT)\water.lev
+	if exist $(W_DAT)\water.lev	   del $(W_DAT)\water.lev
 	if exist $(W_DAT)\wizard?.lev	   del $(W_DAT)\wizard?.lev
-	if exist $(W_DAT)\town-?.lev	   del $(W_DAT)\town-?.lev
-	if exist $(W_DAT)\townfill.lev	   del $(W_DAT)\townfill.lev
-	if exist $(W_DAT)\village.lev	   del $(W_DAT)\village.lev
-	if exist $(W_DAT)\rats-?.lev	   del $(W_DAT)\rats-?.lev
-	if exist $(W_DAT)\stor.lev	       del $(W_DAT)\stor.lev
-	if exist $(W_DAT)\cavebegn.lev	   del $(W_DAT)\cavebegn.lev
-	if exist $(W_DAT)\caveend.lev	   del $(W_DAT)\caveend.lev
-	if exist $(W_DAT)\cavepass.lev	   del $(W_DAT)\cavepass.lev
-	if exist $(W_DAT)\cavenest.lev	   del $(W_DAT)\cavenest.lev
-	if exist $(W_DAT)\cavefill.lev	   del $(W_DAT)\cavefill.lev
-	if exist $(W_DAT)\qlawful.lev	   del $(W_DAT)\qlawful.lev
-	if exist $(W_DAT)\qneutral.lev	   del $(W_DAT)\qneutral.lev
-	if exist $(W_DAT)\qchaos.lev	   del $(W_DAT)\qchaos.lev
-	if exist $(W_DAT)\tomb-?.lev	   del $(W_DAT)\tomb-?.lev
-	if exist $(W_DAT)\mtemple.lev	   del $(W_DAT)\mtemple.lev
-	if exist $(W_DAT)\grund.lev	       del $(W_DAT)\grund.lev
-	if exist $(W_DAT)\blkmar-?.lev	   del $(W_DAT)\blkmar-?.lev
-	if exist $(W_DAT)\leth-*.lev	   del $(W_DAT)\leth-*.lev
-	if exist $(W_DAT)\nkai-*.lev	   del $(W_DAT)\nkai-*.lev
-	if exist $(W_DAT)\ucastle.lev	   del $(W_DAT)\ucastle.lev
 	if exist $(W_DAT)\dlb.lst          del $(W_DAT)\dlb.lst
-	if exist $(W_DAT)\porthelp	       del $(W_DAT)\porthelp
+	if exist $(W_DAT)\porthelp	   del $(W_DAT)\porthelp
 endif
 ifneq "$(W_OBJ)" ""
 	if exist $(W_OBJ)\sp_lev.tag	   del $(W_OBJ)\sp_lev.tag
@@ -1500,6 +1478,7 @@ $(O)winnt.o: $(HACK_H) $(MSWSYS)/win32api.h $(MSWSYS)/winnt.c
 	$(cc) $(CFLAGS) -o$@  $(MSWSYS)/winnt.c
 $(O)ntsound.o: $(HACK_H) $(MSWSYS)/ntsound.c
 	$(cc) $(CFLAGS)  -o$@ $(MSWSYS)/ntsound.c
+
 
 #if you aren't linking in the full gui then
 #include the following stub for proper linkage.
