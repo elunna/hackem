@@ -710,7 +710,8 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\icequeen.des $(DAT)\knox.des     $(DAT)\medusa.des \
 	$(DAT)\oracle.des   $(DAT)\tower.des \
 	$(DAT)\vaults.des   $(DAT)\vecna.des    $(DAT)\yendor.des \
-    $(DAT)\nkai.des     $(DAT)\ucastle.des \
+    $(DAT)\nkai.des     $(DAT)\ucastle.des  $(DAT)\town.des \
+    $(DAT)\village.des \
 	$(DAT)\rats.des 	$(DAT)\stor.des 	$(DAT)\caves.des \
 	$(DAT)\tomb.des 	$(DAT)\mtemple.des \
 	$(DAT)\grund.des 	$(DAT)\blkmar.des    \
@@ -738,6 +739,8 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp sokoban.des
 	$(U)levcomp tower.des
 	$(U)levcomp vaults.des
+	$(U)levcomp town.des
+	$(U)levcomp village.des
 	$(U)levcomp rats.des
 	$(U)levcomp stor.des
 	$(U)levcomp caves.des

@@ -793,9 +793,8 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/ranger.des   $(DAT)/rogue.des    $(DAT)/samurai.des \
 	 $(DAT)/slayer.des   $(DAT)/yeoman.des \
 	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
-	 $(DAT)/wizard.des	 \
-	 $(DAT)/kobold-1.des $(DAT)/kobold-2.des $(DAT)/rats.des \
-     $(DAT)/stor.des \
+	 $(DAT)/wizard.des	 $(DAT)/town.des     $(DAT)/village.des \
+	 $(DAT)/rats.des     $(DAT)/stor.des \
      $(DAT)/caves.des  $(DAT)/tomb.des \
      $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
 
