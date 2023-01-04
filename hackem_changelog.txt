@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-04: Cave trolls can clobber you.
 2023-01-04: bite_monster uses the flaming macro for better coverage vs green slimes.
 2023-01-04: Removed remaining corpse draining mechanics leftover from vampirics. Fixes #153.
 2023-01-04: Fix: Second prompt for dip listed tools.

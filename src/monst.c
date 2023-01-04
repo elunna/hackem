@@ -5073,7 +5073,7 @@ struct permonst _mons2[] = {
      MON("cave troll", S_TROLL,                               /* SpliceHack */
         LVL(16, 12, 4, 0, -3), (G_GENO | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 7), 
-          ATTK(AT_CLAW, AD_PHYS, 2, 8),
+          ATTK(AT_CLAW, AD_CLOB, 2, 8),
           ATTK(AT_BITE, AD_PHYS, 3, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(800, 350, MS_GRUNT, MZ_LARGE), 0, 0,
