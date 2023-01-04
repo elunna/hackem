@@ -18,7 +18,6 @@
 
 Version 1.1 (unreleased)
 
-2023-01-04: Attempt to fix linux makefiles
 2023-01-04: Updated makefiles for windows and mac.
 2023-01-04: Removed file Files.
 2023-01-04: Lawful minions are granted using lminion (like Splice does) instead of the hardcoded list from SLASH'EM. 
