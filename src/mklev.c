@@ -2014,6 +2014,9 @@ struct mkroom *croom;
         dnstairs_room = croom;
     }
 
+    if (levl[x][y].typ == ICE)
+        spot_stop_timers(x, y, MELT_ICE_AWAY);
+
     levl[x][y].typ = STAIRS;
     levl[x][y].ladder = up ? LA_UP : LA_DOWN;
 
