@@ -4604,8 +4604,13 @@ struct obj *bag;
                                        "It slips away from you.", (char*)0, (char*)0);
             break;
         case 2:
-            pline_The("bag wriggles away from you!");
-            dropx(bag);
+            if (carried(bag)) {
+                pline_The("bag wriggles away from you!");
+                dropx(bag);
+            } else {
+                pline_The("bag shrieks and disappears!");
+                (void) rloco(bag);
+            }
             break;
         case 3:
             /* nomul(-1*(rnd(4)), "sucked by a bag"); */
