@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-05: Fix: Pills had nutrition 0, possibily causing problems when partly eaten.
 2023-01-05: Fix: Crash when dipping empty lamp into oil.
 2023-01-05: Fix: Priests of Moloch are peaceful to infidels.
 2023-01-05: Fix: Necromancer's added multiple duplicate spells to their spellbook. Fixes #120.

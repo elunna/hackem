@@ -992,7 +992,7 @@ FOOD("fortune cookie",       55,  1,  1, 0, VEGGY,  40, CLR_YELLOW),
 FOOD("pancake",              25,  2,  2, 0, VEGGY, 200, CLR_YELLOW),         /* Slash'EM */
 FOOD("tortilla",             1,   2,  2, 0, VEGGY,  80, CLR_WHITE),          /* Slash'EM */
 FOOD("cheese",               10,  2,  2, 0, FLESH, 250, CLR_YELLOW),         /* Slash'EM */
-FOOD("pill",                  1,  1,  1, 0, VEGGY,   0, CLR_BRIGHT_MAGENTA), /* Slash'EM */
+FOOD("pill",                  1,  1,  1, 0, VEGGY,   1, CLR_BRIGHT_MAGENTA), /* Slash'EM */
 FOOD("holy wafer",            7,  1,  1, 0, VEGGY, 150, CLR_WHITE),          
 FOOD("lembas wafer",         20,  2,  5, 0, VEGGY, 800, CLR_WHITE),
 FOOD("cram ration",          20,  3, 15, 0, VEGGY, 600, HI_ORGANIC),
