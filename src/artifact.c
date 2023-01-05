@@ -1926,12 +1926,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* if (attacks(AD_MAGM, otmp)) {*/
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage) {
-            if (!rn2(10)) {
-                pline_The("Master Sword hits%s %s%c",
-                          !spec_dbon_applies
-                              ? ""
-                              : "!  A hail of magic missiles strikes",
-                          hittee, !spec_dbon_applies ? '.' : '!');
+            pline_The("Master Sword hits %s.", hittee);
+            
+            if (!rn2(10) && spec_dbon_applies) {
+                pline("A hail of magic missiles strikes!");
                 *dmgptr += rnd(2) * 6;
             }
             
@@ -1947,6 +1945,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            sgn(tbx), sgn(tby), TRUE);
                 }
             }
+            msgprinted = TRUE;
             return realizes_damage;
         }
     }
