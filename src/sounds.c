@@ -274,12 +274,10 @@ dosounds()
         static const char *hospital_msg[4] = {
             "hear something about streptococus.",
             "hear someone cursing viruses.",
+            "smell chloroform nearby.",
             "seem to hear Doctor Frankenstein.",
         };
-        if (!rn2(5))
-            You("smell chloroform nearby.");
-        else
-            You_hear1(hospital_msg[rn2(2) + hallu]);
+        You("%s", hospital_msg[rn2(3) + hallu]);
         return;
     }
     if (level.flags.has_terrorhall && !rn2(200)) {
@@ -289,7 +287,7 @@ dosounds()
             "think you just saw something move.",
             "think you're seeing white rabbits!",
         };
-        You_hear1(terrorhall_msg[rn2(3) + hallu]);
+        You("%s", terrorhall_msg[rn2(3) + hallu]);
         return;
     }
     if (level.flags.has_zoo && !rn2(200)) {
