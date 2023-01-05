@@ -1198,9 +1198,12 @@ int oldlevel, newlevel;
         if (oldlevel < u.ulevel && newlevel >= u.ulevel
             && u.ulevelmax == u.ulevel) {
             int i;
-            for (i = 0; i < MAXSPELL; i++)
+            for (i = 0; i < MAXSPELL; i++) {
+                if (spellid(i) == spell)
+                    return; /* We already know it */
                 if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
                     break;
+            }
             if (spellid(i) == NO_SPELL)
                 You("learn how to cast %s!", OBJ_NAME(objects[spell]));
             spl_book[i].sp_id = spell;
