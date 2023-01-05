@@ -409,6 +409,11 @@ int x, y, typ;
     ttmp->tseen = (typ == HOLE); /* hide non-holes */
     ttmp->ttyp = typ;
 
+    /* make sure there's no MELT_ICE_AWAY timer */
+    if (spot_time_left(x, y, MELT_ICE_AWAY)) {
+        spot_stop_timers(x, y, MELT_ICE_AWAY);
+    }
+    
     switch (typ) {
     case SQKY_BOARD: {
         int tavail[12], tpick[12], tcnt = 0, k;
