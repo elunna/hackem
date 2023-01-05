@@ -3501,7 +3501,7 @@ dodip()
 	    /* no return here, go for Interesting... message */
 	}
  more_dips:
-
+        
     /* Allow filling of MAGIC_LAMPs to prevent identification by player */
     if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP)
         && (potion->otyp == POT_OIL)) {
@@ -3532,8 +3532,7 @@ dodip()
             useup(potion);
             exercise(A_WIS, TRUE);
         }
-        if (potion->dknown)
-            makeknown(POT_OIL);
+        makeknown(POT_OIL);
         obj->spe = 1;
         update_inventory();
         return 1;

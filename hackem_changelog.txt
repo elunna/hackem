@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-05: Fix: Crash when dipping empty lamp into oil.
 2023-01-05: Fix: Priests of Moloch are peaceful to infidels.
 2023-01-05: Fix: Necromancer's added multiple duplicate spells to their spellbook. Fixes #120.
 2023-01-05: Reduce Sokoban branch by one level (UnNetHack).
