@@ -1005,7 +1005,8 @@ nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\oracles $(DAT)\options \
 	echo MINEND-5.LEV  >>dlb.lst
 	echo MINEND-6.LEV  >>dlb.lst
 	echo MINEND-7.LEV  >>dlb.lst
-	echo MINEKING.LEV  >>dlb.lst
+	echo MINEKING-1.LEV  >>dlb.lst
+	echo MINEKING-2.LEV  >>dlb.lst
 	echo MINETN-1.LEV  >>dlb.lst
 	echo MINETN-2.LEV  >>dlb.lst
 	echo MINETN-3.LEV  >>dlb.lst

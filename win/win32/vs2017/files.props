@@ -113,7 +113,8 @@
     <Levfiles Include = "minend-5.lev"/>
     <Levfiles Include = "minend-6.lev"/>
     <Levfiles Include = "minend-7.lev"/>
-    <Levfiles Include = "mineking.lev"/>
+    <Levfiles Include = "mineking-1.lev"/>
+    <Levfiles Include = "mineking-2.lev"/>
     <Levfiles Include = "minetn-1.lev"/>
     <Levfiles Include = "minetn-2.lev"/>
     <Levfiles Include = "minetn-3.lev"/>
