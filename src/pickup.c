@@ -3885,6 +3885,8 @@ struct obj *box;       /* container player wants to tip */
 struct obj *targetbox; /* destination (used here for horn of plenty) */
 boolean allowempty;    /* affects result when box is empty */
 {
+    boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
+    
     /* undiscovered bag of tricks is acceptable as a container-to-container
        destination but it can't receive items; it has to be opened in
        preparation so apply it once before even trying to tip source box */
@@ -3921,11 +3923,9 @@ boolean allowempty;    /* affects result when box is empty */
         }
         return TIPCHECK_TRAPPED;
 
-    } else if (box->otyp == BAG_OF_TRICKS 
-                   || box->otyp == BAG_OF_RATS 
-                   || box->otyp == HORN_OF_PLENTY) {
+    } else if ((bag || box->otyp == HORN_OF_PLENTY) && box->spe > 0) {
         int res = TIPCHECK_OK;
-        boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
+        
         int old_spe = box->spe;
         boolean maybeshopgoods = !carried(box) && costly_spot(box->ox, box->oy);
         xchar ox = u.ux, oy = u.uy;
@@ -3940,17 +3940,16 @@ boolean allowempty;    /* affects result when box is empty */
 
         if (maybeshopgoods && !box->no_charge)
             addtobill(box, FALSE, FALSE, TRUE);
+        
         /* apply this bag/horn until empty or monster/object creation fails
            (if the latter occurs, force the former...) */
-        /* --hackem: Ignore above, Apply the bag/horn only once - 
-            exhausting them will have to come later. */ 
-
         do {
             if (!(bag ? bagotricks(box)
                       : hornoplenty(box, TRUE, targetbox)))
                 break;
         } while (box->spe > 0);
-
+        
+        
         if (box->spe < old_spe) {
             int tmp_spe = box->spe;  /* We'll return to the current spe in a sec */
             /* check_unpaid wants to see a non-zero charge count */
@@ -3980,7 +3979,6 @@ boolean allowempty;    /* affects result when box is empty */
         box->cknown = 1;
         pline("%s is empty.", upstart(thesimpleoname(box)));
         return TIPCHECK_EMPTY;
-
     }
 
     return TIPCHECK_OK;

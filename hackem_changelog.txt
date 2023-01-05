@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-05: Fix: Could not tip bag of rats or tricks when filled with items.
 2023-01-05: Fix: Creating a hole (or any trap) on ice would leave the ice meltout timer remaining. Fixes #104. 
 2023-01-05: Fix: Tipping a bag of tricks on the ground tried to free the bag from the player's inventory. Fixes #155.
 2023-01-05: Fix: Pills had nutrition 0, possibily causing problems when partly eaten.
