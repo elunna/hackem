@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-05: Iron bars now block spears from passing through.
 2023-01-05: The Master Sword is now unaligned so anyone can use it.
 2023-01-05: Flame mages and ice mages start with extrinisic protection instead of intrinsic protection.
 2023-01-05: Fix for soko .lev files
