@@ -33,8 +33,8 @@
 
 ### Bottom (first) level of Sokoban ###
 MAZE:"soko4-1",' '
-FLAGS:noteleport,hardfloor,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, hardfloor, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
 ------  ----- 
@@ -51,53 +51,51 @@ MAP
  |..|---------
  ----         
 ENDMAP
-BRANCH:(06,04,06,04),(0,0,0,0)
-STAIR:(06,06),up
-REGION:(00,00,13,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,13,12)
-NON_PASSWALL:(00,00,13,12)
+BRANCH: (06,04,06,04), (0,0,0,0)
+STAIR: (06,06),up
+REGION: (00,00,13,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,13,12)
+NON_PASSWALL: (00,00,13,12)
 
 # Boulders
-OBJECT:('`',"boulder"),(02,02)
-OBJECT:('`',"boulder"),(02,03)
-#
-OBJECT:('`',"boulder"),(10,02)
-OBJECT:('`',"boulder"),(09,03)
-OBJECT:('`',"boulder"),(10,04)
-#
-OBJECT:('`',"boulder"),(08,07)
-OBJECT:('`',"boulder"),(09,08)
-OBJECT:('`',"boulder"),(09,09)
-OBJECT:('`',"boulder"),(08,10)
-OBJECT:('`',"boulder"),(10,10)
+OBJECT: ('`', "boulder"), (02,02)
+OBJECT: ('`', "boulder"), (02,03)
+OBJECT: ('`', "boulder"), (10,02)
+OBJECT: ('`', "boulder"), (09,03)
+OBJECT: ('`', "boulder"), (10,04)
+OBJECT: ('`', "boulder"), (08,07)
+OBJECT: ('`', "boulder"), (09,08)
+OBJECT: ('`', "boulder"), (09,09)
+OBJECT: ('`', "boulder"), (08,10)
+OBJECT: ('`', "boulder"), (10,10)
 
 # Traps
-TRAP:"pit",(03,06)
-TRAP:"pit",(04,06)
-TRAP:"pit",(05,06)
-TRAP:"pit",(02,08)
-TRAP:"pit",(02,09)
-TRAP:"pit",(04,10)
-TRAP:"pit",(05,10)
-TRAP:"pit",(06,10)
-TRAP:"pit",(07,10)
+TRAP: "pit", (03,06)
+TRAP: "pit", (04,06)
+TRAP: "pit", (05,06)
+TRAP: "pit", (02,08)
+TRAP: "pit", (02,09)
+TRAP: "pit", (04,10)
+TRAP: "pit", (05,10)
+TRAP: "pit", (06,10)
+TRAP: "pit", (07,10)
 
 # A little help
-OBJECT:('?',"earth"),(02,11)
-OBJECT:('?',"earth"),(03,11)
+OBJECT: ('?', "earth"), (02,11)
+OBJECT: ('?', "earth"), (03,11)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 
 MAZE:"soko4-2",' '
-FLAGS:noteleport,hardfloor,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, hardfloor, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
 -------- ------
@@ -112,60 +110,58 @@ MAP
 |..|---|......|
 ----   --------
 ENDMAP
-BRANCH:(03,01,03,01),(0,0,0,0)
-STAIR:(01,01),up
-REGION:(00,00,14,10),lit,"ordinary"
-NON_DIGGABLE:(00,00,14,10)
-NON_PASSWALL:(00,00,14,10)
+BRANCH: (03,01,03,01),(0,0,0,0)
+STAIR: (01,01),up
+REGION: (00,00,14,10), lit, "ordinary"
+NON_DIGGABLE: (00,00,14,10)
+NON_PASSWALL: (00,00,14,10)
 
 # Boulders
-OBJECT:('`',"boulder"),(05,02)
-OBJECT:('`',"boulder"),(06,02)
-OBJECT:('`',"boulder"),(06,03)
-OBJECT:('`',"boulder"),(07,03)
-#
-OBJECT:('`',"boulder"),(09,05)
-OBJECT:('`',"boulder"),(10,03)
-OBJECT:('`',"boulder"),(11,02)
-OBJECT:('`',"boulder"),(12,03)
-#
-OBJECT:('`',"boulder"),(07,08)
-OBJECT:('`',"boulder"),(08,08)
-OBJECT:('`',"boulder"),(09,08)
-OBJECT:('`',"boulder"),(10,08)
+OBJECT: ('`', "boulder"), (05,02)
+OBJECT: ('`', "boulder"), (06,02)
+OBJECT: ('`', "boulder"), (06,03)
+OBJECT: ('`', "boulder"), (07,03)
+OBJECT: ('`', "boulder"), (09,05)
+OBJECT: ('`', "boulder"), (10,03)
+OBJECT: ('`', "boulder"), (11,02)
+OBJECT: ('`', "boulder"), (12,03)
+OBJECT: ('`', "boulder"), (07,08)
+OBJECT: ('`', "boulder"), (08,08)
+OBJECT: ('`', "boulder"), (09,08)
+OBJECT: ('`', "boulder"), (10,08)
 
 # Traps
-TRAP:"pit",(01,02)
-TRAP:"pit",(01,03)
-TRAP:"pit",(01,04)
-TRAP:"pit",(01,05)
-TRAP:"pit",(01,06)
-TRAP:"pit",(01,07)
-TRAP:"pit",(03,08)
-TRAP:"pit",(04,08)
-TRAP:"pit",(05,08)
-TRAP:"pit",(06,08)
+TRAP: "pit", (01,02)
+TRAP: "pit", (01,03)
+TRAP: "pit", (01,04)
+TRAP: "pit", (01,05)
+TRAP: "pit", (01,06)
+TRAP: "pit", (01,07)
+TRAP: "pit", (03,08)
+TRAP: "pit", (04,08)
+TRAP: "pit", (05,08)
+TRAP: "pit", (06,08)
 
 # A little help
-OBJECT:('?',"earth"),(01,09)
-OBJECT:('?',"earth"),(02,09)
+OBJECT: ('?', "earth"), (01,09)
+OBJECT: ('?', "earth"), (02,09)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Following Sokoban levels (4-3 through 4-6)
 # heavily modified for NetHack by Pasi Kallinen
 # The original authors are listed just before the maps
 #
 LEVEL:"soko4-3"
-FLAGS:noteleport,hardfloor,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, hardfloor, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "J Franklin Mentzer <wryter@aol.com>"
 MAP
      -------
@@ -182,45 +178,45 @@ MAP
      |..|..|     --------
      -------
 ENDMAP
-BRANCH:(13,06,13,06),(0,0,0,0)
-STAIR:(26,06), up
-REGION:(00,00,28,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,28,12)
-NON_PASSWALL:(00,00,28,12)
-OBJECT:('?',"earth"),(16,03)
-OBJECT:('?',"earth"),(16,09)
-OBJECT:('`',"boulder"),(08,02)
-OBJECT:('`',"boulder"),(08,04)
-OBJECT:('`',"boulder"),(03,05)
-OBJECT:('`',"boulder"),(06,06)
-OBJECT:('`',"boulder"),(07,06)
-OBJECT:('`',"boulder"),(09,06)
-OBJECT:('`',"boulder"),(10,06)
-OBJECT:('`',"boulder"),(03,07)
-OBJECT:('`',"boulder"),(08,08)
-OBJECT:('`',"boulder"),(08,10)
-TRAP:"pit",(15,06)
-TRAP:"pit",(16,06)
-TRAP:"pit",(17,06)
-TRAP:"pit",(18,06)
-TRAP:"pit",(19,06)
-TRAP:"pit",(20,06)
-TRAP:"pit",(21,06)
-TRAP:"pit",(22,06)
-TRAP:"pit",(23,06)
+BRANCH: (13,06,13,06), (0,0,0,0)
+STAIR: (26,06), up
+REGION: (00,00,28,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,28,12)
+NON_PASSWALL: (00,00,28,12)
+OBJECT: ('?', "earth"), (16,03)
+OBJECT: ('?', "earth"), (16,09)
+OBJECT: ('`', "boulder"), (08,02)
+OBJECT: ('`', "boulder"), (08,04)
+OBJECT: ('`', "boulder"), (03,05)
+OBJECT: ('`', "boulder"), (06,06)
+OBJECT: ('`', "boulder"), (07,06)
+OBJECT: ('`', "boulder"), (09,06)
+OBJECT: ('`', "boulder"), (10,06)
+OBJECT: ('`', "boulder"), (03,07)
+OBJECT: ('`', "boulder"), (08,08)
+OBJECT: ('`', "boulder"), (08,10)
+TRAP: "pit", (15,06)
+TRAP: "pit", (16,06)
+TRAP: "pit", (17,06)
+TRAP: "pit", (18,06)
+TRAP: "pit", (19,06)
+TRAP: "pit", (20,06)
+TRAP: "pit", (21,06)
+TRAP: "pit", (22,06)
+TRAP: "pit", (23,06)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko4-4"
-FLAGS:noteleport,hardfloor,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, hardfloor, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Joseph L Traub"
 MAP
   -------------
@@ -240,50 +236,50 @@ MAP
 ---- ------.--
           ---
 ENDMAP
-BRANCH:(11,14,11,14),(0,0,0,0)
-STAIR:(12,02), up
-REGION:(00,00,18,15),lit,"ordinary"
-NON_DIGGABLE:(00,00,18,15)
-NON_PASSWALL:(00,00,18,15)
-DOOR:locked,(02,02)
-OBJECT:('?',"earth"),(01,13)
-OBJECT:('?',"earth"),(02,13)
-OBJECT:('`',"boulder"),(08,06)
-OBJECT:('`',"boulder"),(10,06)
-OBJECT:('`',"boulder"),(15,06)
-OBJECT:('`',"boulder"),(16,06)
-OBJECT:('`',"boulder"),(16,07)
-OBJECT:('`',"boulder"),(06,08)
-OBJECT:('`',"boulder"),(07,08)
-OBJECT:('`',"boulder"),(12,08)
-OBJECT:('`',"boulder"),(16,08)
-OBJECT:('`',"boulder"),(15,09)
-OBJECT:('`',"boulder"),(11,10)
-OBJECT:('`',"boulder"),(13,10)
-TRAP:"pit",(01,03)
-TRAP:"pit",(01,04)
-TRAP:"pit",(01,05)
-TRAP:"pit",(01,06)
-TRAP:"pit",(01,07)
-TRAP:"pit",(01,08)
-TRAP:"pit",(01,09)
-TRAP:"pit",(01,10)
-TRAP:"pit",(03,12)
-TRAP:"pit",(04,12)
-TRAP:"pit",(05,12)
+BRANCH: (11,14,11,14), (0,0,0,0)
+STAIR: (12,02), up
+REGION: (00,00,18,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,18,15)
+NON_PASSWALL: (00,00,18,15)
+DOOR: locked,  (02,02)
+OBJECT: ('?', "earth"), (01,13)
+OBJECT: ('?', "earth"), (02,13)
+OBJECT: ('`', "boulder"), (08,06)
+OBJECT: ('`', "boulder"), (10,06)
+OBJECT: ('`', "boulder"), (15,06)
+OBJECT: ('`', "boulder"), (16,06)
+OBJECT: ('`', "boulder"), (16,07)
+OBJECT: ('`', "boulder"), (06,08)
+OBJECT: ('`', "boulder"), (07,08)
+OBJECT: ('`', "boulder"), (12,08)
+OBJECT: ('`', "boulder"), (16,08)
+OBJECT: ('`', "boulder"), (15,09)
+OBJECT: ('`', "boulder"), (11,10)
+OBJECT: ('`', "boulder"), (13,10)
+TRAP: "pit", (01,03)
+TRAP: "pit", (01,04)
+TRAP: "pit", (01,05)
+TRAP: "pit", (01,06)
+TRAP: "pit", (01,07)
+TRAP: "pit", (01,08)
+TRAP: "pit", (01,09)
+TRAP: "pit", (01,10)
+TRAP: "pit", (03,12)
+TRAP: "pit", (04,12)
+TRAP: "pit", (05,12)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko4-5"
-FLAGS:noteleport,hardfloor,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, hardfloor, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Thinking Rabbit"
 MAP
 ----
@@ -303,50 +299,50 @@ MAP
   ----...|
      -----
 ENDMAP
-BRANCH:(08,13,08,13),(0,0,0,0)
-STAIR:(13,10), up
-REGION:(00,00,15,15),lit,"ordinary"
-NON_DIGGABLE:(00,00,15,15)
-NON_PASSWALL:(00,00,15,15)
-DOOR:locked,(14,04)
-OBJECT:('?',"earth"),(01,01)
-OBJECT:('?',"earth"),(02,01)
-OBJECT:('`',"boulder"),(02,04)
-OBJECT:('`',"boulder"),(02,05)
-OBJECT:('`',"boulder"),(04,05)
-OBJECT:('`',"boulder"),(06,07)
-OBJECT:('`',"boulder"),(07,07)
-OBJECT:('`',"boulder"),(09,07)
-OBJECT:('`',"boulder"),(09,08)
-OBJECT:('`',"boulder"),(06,09)
-OBJECT:('`',"boulder"),(07,09)
-OBJECT:('`',"boulder"),(08,10)
-OBJECT:('`',"boulder"),(09,10)
-OBJECT:('`',"boulder"),(07,11)
-TRAP:"pit",(03,03)
-TRAP:"pit",(04,03)
-TRAP:"pit",(05,03)
-TRAP:"pit",(06,03)
-TRAP:"pit",(07,03)
-TRAP:"pit",(08,03)
-TRAP:"pit",(09,03)
-TRAP:"pit",(10,03)
-TRAP:"pit",(11,03)
-TRAP:"pit",(12,03)
-TRAP:"pit",(13,03)
+BRANCH: (08,13,08,13), (0,0,0,0)
+STAIR: (13,10), up
+REGION: (00,00,15,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,15,15)
+NON_PASSWALL: (00,00,15,15)
+DOOR: locked, (14,04)
+OBJECT: ('?', "earth"), (01,01)
+OBJECT: ('?', "earth"), (02,01)
+OBJECT: ('`', "boulder"), (02,04)
+OBJECT: ('`', "boulder"), (02,05)
+OBJECT: ('`', "boulder"), (04,05)
+OBJECT: ('`', "boulder"), (06,07)
+OBJECT: ('`', "boulder"), (07,07)
+OBJECT: ('`', "boulder"), (09,07)
+OBJECT: ('`', "boulder"), (09,08)
+OBJECT: ('`', "boulder"), (06,09)
+OBJECT: ('`', "boulder"), (07,09)
+OBJECT: ('`', "boulder"), (08,10)
+OBJECT: ('`', "boulder"), (09,10)
+OBJECT: ('`', "boulder"), (07,11)
+TRAP: "pit", (03,03)
+TRAP: "pit", (04,03)
+TRAP: "pit", (05,03)
+TRAP: "pit", (06,03)
+TRAP: "pit", (07,03)
+TRAP: "pit", (08,03)
+TRAP: "pit", (09,03)
+TRAP: "pit", (10,03)
+TRAP: "pit", (11,03)
+TRAP: "pit", (12,03)
+TRAP: "pit", (13,03)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko4-6"
-FLAGS:noteleport,hardfloor,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, hardfloor, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Joseph L Traub"
 MAP
 -----------------
@@ -363,47 +359,219 @@ MAP
 |.....|     |...|
 -------     -----
 ENDMAP
-BRANCH:(01,05,01,05),(0,0,0,0)
-STAIR:(11,07), up
-REGION:(00,00,16,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,16,12)
-NON_PASSWALL:(00,00,16,12)
-OBJECT:('?',"earth"),(14,01)
-OBJECT:('?',"earth"),(15,01)
-OBJECT:('`',"boulder"),(12,02)
-OBJECT:('`',"boulder"),(06,03)
-OBJECT:('`',"boulder"),(12,03)
-OBJECT:('`',"boulder"),(06,04)
-OBJECT:('`',"boulder"),(07,04)
-OBJECT:('`',"boulder"),(14,04)
-OBJECT:('`',"boulder"),(14,07)
-OBJECT:('`',"boulder"),(12,09)
-OBJECT:('`',"boulder"),(13,09)
-OBJECT:('`',"boulder"),(14,10)
-TRAP:"pit",(06,07)
-TRAP:"pit",(07,07)
-TRAP:"pit",(08,07)
-TRAP:"pit",(09,07)
-TRAP:"pit",(10,07)
-TRAP:"pit",(06,09)
-TRAP:"pit",(07,09)
-TRAP:"pit",(08,09)
-TRAP:"pit",(09,09)
-TRAP:"pit",(10,09)
+BRANCH: (01,05,01,05), (0,0,0,0)
+STAIR: (11,07), up
+REGION: (00,00,16,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,16,12)
+NON_PASSWALL: (00,00,16,12)
+OBJECT: ('?', "earth"), (14,01)
+OBJECT: ('?', "earth"), (15,01)
+OBJECT: ('`', "boulder"), (12,02)
+OBJECT: ('`', "boulder"), (06,03)
+OBJECT: ('`', "boulder"), (12,03)
+OBJECT: ('`', "boulder"), (06,04)
+OBJECT: ('`', "boulder"), (07,04)
+OBJECT: ('`', "boulder"), (14,04)
+OBJECT: ('`', "boulder"), (14,07)
+OBJECT: ('`', "boulder"), (12,09)
+OBJECT: ('`', "boulder"), (13,09)
+OBJECT: ('`', "boulder"), (14,10)
+TRAP: "pit", (06,07)
+TRAP: "pit", (07,07)
+TRAP: "pit", (08,07)
+TRAP: "pit", (09,07)
+TRAP: "pit", (10,07)
+TRAP: "pit", (06,09)
+TRAP: "pit", (07,09)
+TRAP: "pit", (08,09)
+TRAP: "pit", (09,09)
+TRAP: "pit", (10,09)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+
+MAZE:"soko4-7",' '
+FLAGS: noteleport, hardfloor, solidify, premapped
+GEOMETRY: center, center
+# "Joseph L Traub"
+MAP
+       -----------
+       |.........|
+       |.........|
+------ |...-----.|
+|....-----....--.|
+|................|
+|-.|.......--.--.|
+|-.|---.----|.||.|
+|..------...|.--.--
+|...........F.....|
+---------...|.....|
+        -----------
+ENDMAP
+BRANCH: (7,7,7,7), (0,0,0,0)
+STAIR: (10,9), up
+REGION: (00,00,18,11), lit, "ordinary"
+NON_DIGGABLE: (00,00,18,11)
+NON_PASSWALL: (00,00,18,11)
+OBJECT: ('?', "earth"), (1,8)
+OBJECT: ('?', "earth"), (1,9)
+OBJECT: ('`', "boulder"), (12,2)
+OBJECT: ('`', "boulder"), (14,2)
+OBJECT: ('`', "boulder"), (9,3)
+OBJECT: ('`', "boulder"), (11,4)
+OBJECT: ('`', "boulder"), (16,4)
+OBJECT: ('`', "boulder"), (8,5)
+OBJECT: ('`', "boulder"), (10,5)
+OBJECT: ('`', "boulder"), (14,9)
+TRAP: "pit", (2,6)
+TRAP: "pit", (2,7)
+TRAP: "pit", (4,9)
+TRAP: "pit", (5,9)
+TRAP: "pit", (6,9)
+TRAP: "pit", (7,9)
+TRAP: "pit", (8,9)
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+
+MAZE:"soko4-8",' '
+FLAGS: noteleport, hardfloor, solidify, premapped
+GEOMETRY: center, center
+# Steve Melenchuk <smelenchuk@gmail.com>
+MAP
+        --- 
+----   --.--
+|..-----...|
+|..........|
+|.----.-...|
+|.----.|...|
+|.||...|...|
+|.||...-...|
+|.||.......|
+|.||..--...|
+------------
+ENDMAP
+BRANCH: (09,01,09,01), (0,0,0,0)
+STAIR: (01,09),up
+REGION: (00,00,11,10), lit, "ordinary"
+NON_DIGGABLE: (00,00,11,10)
+NON_PASSWALL: (00,00,11,10)
+
+# Boulders
+OBJECT: ('`', "boulder"), (08,03)
+OBJECT: ('`', "boulder"), (09,03)
+OBJECT: ('`', "boulder"), (09,04)
+OBJECT: ('`', "boulder"), (09,05)
+OBJECT: ('`', "boulder"), (05,06)
+OBJECT: ('`', "boulder"), (08,06)
+OBJECT: ('`', "boulder"), (06,07)
+OBJECT: ('`', "boulder"), (09,07)
+OBJECT: ('`', "boulder"), (05,08)
+OBJECT: ('`', "boulder"), (08,08)
+
+# Traps
+TRAP: "pit", (05,03)
+TRAP: "pit", (04,03)
+TRAP: "pit", (03,03)
+TRAP: "pit", (01,04)
+TRAP: "pit", (01,05)
+TRAP: "pit", (01,06)
+TRAP: "pit", (01,07)
+TRAP: "pit", (01,08)
+
+# A little help
+OBJECT: ('?', "earth"), (01,02)
+OBJECT: ('?', "earth"), (02,02)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+MAZE:"soko4-9",' '
+FLAGS: noteleport, hardfloor, solidify, premapped
+GEOMETRY: center, center
+# Steve Melenchuk <smelenchuk@gmail.com>
+MAP
+------------- 
+|.|.....|..-- 
+|.|.....|...| 
+|.|-.......-- 
+|.||....-...| 
+|.|---.--...| 
+|.|  |.---.-- 
+|.|  |.---.---
+|.----.--....|
+|............|
+|..------....|
+----    |...--
+        ----- 
+ENDMAP
+BRANCH: (11,05,11,05), (0,0,0,0)
+STAIR: (01,01), up
+REGION: (00,00,13,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,13,12)
+NON_PASSWALL: (00,00,13,12)
+
+# Boulders
+OBJECT: ('`', "boulder"), (04,02)
+OBJECT: ('`', "boulder"), (06,02)
+OBJECT: ('`', "boulder"), (07,02)
+OBJECT: ('`', "boulder"), (04,03)
+OBJECT: ('`', "boulder"), (09,03)
+OBJECT: ('`', "boulder"), (06,04)
+OBJECT: ('`', "boulder"), (10,05)
+OBJECT: ('`', "boulder"), (06,06)
+OBJECT: ('`', "boulder"), (08,09)
+OBJECT: ('`', "boulder"), (11,09)
+OBJECT: ('`', "boulder"), (11,10)
+
+# Traps
+TRAP: "pit", (05,09)
+TRAP: "pit", (04,09)
+TRAP: "pit", (03,09)
+TRAP: "pit", (01,08)
+TRAP: "pit", (01,07)
+TRAP: "pit", (01,06)
+TRAP: "pit", (01,05)
+TRAP: "pit", (01,04)
+TRAP: "pit", (01,03)
+TRAP: "pit", (01,02)
+
+# A little help
+OBJECT: ('?', "earth"), (01,10)
+OBJECT: ('?', "earth"), (02,10)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
 
 
 ### Second level ###
 MAZE:"soko3-1",' '
-FLAGS:noteleport,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
 -----------       -----------
@@ -419,67 +587,64 @@ MAP
 |....|......................|
 -----------------------------
 ENDMAP
-STAIR:(11,02),down
-STAIR:(23,04),up
-DOOR:locked,(27,09)
-REGION:(00,00,28,11),lit,"ordinary"
-NON_DIGGABLE:(00,00,28,11)
-NON_PASSWALL:(00,00,28,11)
+STAIR: (11,02), down
+STAIR: (23,04), up
+DOOR: locked, (27,09)
+REGION: (00,00,28,11), lit, "ordinary"
+NON_DIGGABLE: (00,00,28,11)
+NON_PASSWALL: (00,00,28,11)
 
 # Boulders
-OBJECT:('`',"boulder"),(03,02)
-OBJECT:('`',"boulder"),(04,02)
-#
-OBJECT:('`',"boulder"),(06,02)
-OBJECT:('`',"boulder"),(06,03)
-OBJECT:('`',"boulder"),(07,02)
-#
-OBJECT:('`',"boulder"),(03,06)
-OBJECT:('`',"boulder"),(02,07)
-OBJECT:('`',"boulder"),(03,07)
-OBJECT:('`',"boulder"),(03,08)
-OBJECT:('`',"boulder"),(02,09)
-OBJECT:('`',"boulder"),(03,09)
-OBJECT:('`',"boulder"),(04,09)
-#
-OBJECT:('`',"boulder"),(06,07)
-OBJECT:('`',"boulder"),(06,09)
-OBJECT:('`',"boulder"),(08,07)
-OBJECT:('`',"boulder"),(08,10)
-OBJECT:('`',"boulder"),(09,08)
-OBJECT:('`',"boulder"),(09,09)
-OBJECT:('`',"boulder"),(10,07)
-OBJECT:('`',"boulder"),(10,10)
+OBJECT: ('`', "boulder"), (03,02)
+OBJECT: ('`', "boulder"), (04,02)
+OBJECT: ('`', "boulder"), (06,02)
+OBJECT: ('`', "boulder"), (06,03)
+OBJECT: ('`', "boulder"), (07,02)
+OBJECT: ('`', "boulder"), (03,06)
+OBJECT: ('`', "boulder"), (02,07)
+OBJECT: ('`', "boulder"), (03,07)
+OBJECT: ('`', "boulder"), (03,08)
+OBJECT: ('`', "boulder"), (02,09)
+OBJECT: ('`', "boulder"), (03,09)
+OBJECT: ('`', "boulder"), (04,09)
+OBJECT: ('`', "boulder"), (06,07)
+OBJECT: ('`', "boulder"), (06,09)
+OBJECT: ('`', "boulder"), (08,07)
+OBJECT: ('`', "boulder"), (08,10)
+OBJECT: ('`', "boulder"), (09,08)
+OBJECT: ('`', "boulder"), (09,09)
+OBJECT: ('`', "boulder"), (10,07)
+OBJECT: ('`', "boulder"), (10,10)
 
 # Traps
-TRAP:"hole",(12,10)
-TRAP:"hole",(13,10)
-TRAP:"hole",(14,10)
-TRAP:"hole",(15,10)
-TRAP:"hole",(16,10)
-TRAP:"hole",(17,10)
-TRAP:"hole",(18,10)
-TRAP:"hole",(19,10)
-TRAP:"hole",(20,10)
-TRAP:"hole",(21,10)
-TRAP:"hole",(22,10)
-TRAP:"hole",(23,10)
-TRAP:"hole",(24,10)
-TRAP:"hole",(25,10)
-TRAP:"hole",(26,10)
+TRAP: "hole", (12,10)
+TRAP: "hole", (13,10)
+TRAP: "hole", (14,10)
+TRAP: "hole", (15,10)
+TRAP: "hole", (16,10)
+TRAP: "hole", (17,10)
+TRAP: "hole", (18,10)
+TRAP: "hole", (19,10)
+TRAP: "hole", (20,10)
+TRAP: "hole", (21,10)
+TRAP: "hole", (22,10)
+TRAP: "hole", (23,10)
+TRAP: "hole", (24,10)
+TRAP: "hole", (25,10)
+TRAP: "hole", (26,10)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 
 MAZE:"soko3-2",' '
-FLAGS:noteleport,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
  ----          -----------
@@ -497,61 +662,61 @@ MAP
 ----|..|..|               
     -------               
 ENDMAP
-STAIR:(03,01),down
-STAIR:(20,04),up
-DOOR:locked,(24,09)
-REGION:(00,00,25,13),lit,"ordinary"
-NON_DIGGABLE:(00,00,25,13)
-NON_PASSWALL:(00,00,25,13)
+STAIR: (03,01),down
+STAIR: (20,04),up
+DOOR: locked, (24,09)
+REGION: (00,00,25,13), lit, "ordinary"
+NON_DIGGABLE: (00,00,25,13)
+NON_PASSWALL: (00,00,25,13)
 
 # Boulders
-OBJECT:('`',"boulder"),(02,03)
-OBJECT:('`',"boulder"),(08,03)
-OBJECT:('`',"boulder"),(09,04)
-OBJECT:('`',"boulder"),(02,05)
-OBJECT:('`',"boulder"),(04,05)
-OBJECT:('`',"boulder"),(09,05)
-OBJECT:('`',"boulder"),(02,06)
-OBJECT:('`',"boulder"),(05,06)
-OBJECT:('`',"boulder"),(06,07)
-OBJECT:('`',"boulder"),(03,08)
-OBJECT:('`',"boulder"),(07,08)
-OBJECT:('`',"boulder"),(05,09)
-OBJECT:('`',"boulder"),(10,09)
-OBJECT:('`',"boulder"),(07,10)
-OBJECT:('`',"boulder"),(10,10)
-OBJECT:('`',"boulder"),(03,11)
+OBJECT: ('`', "boulder"), (02,03)
+OBJECT: ('`', "boulder"), (08,03)
+OBJECT: ('`', "boulder"), (09,04)
+OBJECT: ('`', "boulder"), (02,05)
+OBJECT: ('`', "boulder"), (04,05)
+OBJECT: ('`', "boulder"), (09,05)
+OBJECT: ('`', "boulder"), (02,06)
+OBJECT: ('`', "boulder"), (05,06)
+OBJECT: ('`', "boulder"), (06,07)
+OBJECT: ('`', "boulder"), (03,08)
+OBJECT: ('`', "boulder"), (07,08)
+OBJECT: ('`', "boulder"), (05,09)
+OBJECT: ('`', "boulder"), (10,09)
+OBJECT: ('`', "boulder"), (07,10)
+OBJECT: ('`', "boulder"), (10,10)
+OBJECT: ('`', "boulder"), (03,11)
 
 # Traps
-TRAP:"hole",(12,10)
-TRAP:"hole",(13,10)
-TRAP:"hole",(14,10)
-TRAP:"hole",(15,10)
-TRAP:"hole",(16,10)
-TRAP:"hole",(17,10)
-TRAP:"hole",(18,10)
-TRAP:"hole",(19,10)
-TRAP:"hole",(20,10)
-TRAP:"hole",(21,10)
-TRAP:"hole",(22,10)
-TRAP:"hole",(23,10)
+TRAP: "hole", (12,10)
+TRAP: "hole", (13,10)
+TRAP: "hole", (14,10)
+TRAP: "hole", (15,10)
+TRAP: "hole", (16,10)
+TRAP: "hole", (17,10)
+TRAP: "hole", (18,10)
+TRAP: "hole", (19,10)
+TRAP: "hole", (20,10)
+TRAP: "hole", (21,10)
+TRAP: "hole", (22,10)
+TRAP: "hole", (23,10)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Following Sokoban levels (3-3 through 3-6)
 # heavily modified for NetHack by Pasi Kallinen
 # The original authors are listed just before the maps
 #
 LEVEL:"soko3-3"
-FLAGS:noteleport,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Thinking Rabbit" 
 MAP
 -----------------
@@ -568,44 +733,44 @@ MAP
        --...|
         -----
 ENDMAP
-STAIR:(16,07), down
-STAIR:(04,03), up
-REGION:(00,00,17,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,17,12)
-NON_PASSWALL:(00,00,17,12)
-OBJECT:('`',"boulder"),(12,02)
-OBJECT:('`',"boulder"),(14,02)
-OBJECT:('`',"boulder"),(11,03)
-OBJECT:('`',"boulder"),(13,03)
-OBJECT:('`',"boulder"),(11,06)
-OBJECT:('`',"boulder"),(12,06)
-OBJECT:('`',"boulder"),(11,07)
-OBJECT:('`',"boulder"),(09,09)
-OBJECT:('`',"boulder"),(11,09)
-OBJECT:('`',"boulder"),(10,10)
-TRAP:"hole",(03,01)
-TRAP:"hole",(04,01)
-TRAP:"hole",(02,03)
-TRAP:"hole",(02,04)
-TRAP:"hole",(04,05)
-TRAP:"hole",(05,05)
-TRAP:"hole",(06,05)
-TRAP:"hole",(07,05)
-TRAP:"hole",(08,05)
-TRAP:"hole",(09,05)
+STAIR: (16,07), down
+STAIR: (04,03), up
+REGION: (00,00,17,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,17,12)
+NON_PASSWALL: (00,00,17,12)
+OBJECT: ('`', "boulder"), (12,02)
+OBJECT: ('`', "boulder"), (14,02)
+OBJECT: ('`', "boulder"), (11,03)
+OBJECT: ('`', "boulder"), (13,03)
+OBJECT: ('`', "boulder"), (11,06)
+OBJECT: ('`', "boulder"), (12,06)
+OBJECT: ('`', "boulder"), (11,07)
+OBJECT: ('`', "boulder"), (09,09)
+OBJECT: ('`', "boulder"), (11,09)
+OBJECT: ('`', "boulder"), (10,10)
+TRAP: "hole", (03,01)
+TRAP: "hole", (04,01)
+TRAP: "hole", (02,03)
+TRAP: "hole", (02,04)
+TRAP: "hole", (04,05)
+TRAP: "hole", (05,05)
+TRAP: "hole", (06,05)
+TRAP: "hole", (07,05)
+TRAP: "hole", (08,05)
+TRAP: "hole", (09,05)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko3-4"
-FLAGS:noteleport,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Thinking Rabbit" 
 MAP
           ----
@@ -622,52 +787,52 @@ MAP
 |.........|...|
 ---------------
 ENDMAP
-STAIR:(12,09), down
-STAIR:(09,11), up
-REGION:(00,00,19,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,19,12)
-NON_PASSWALL:(00,00,19,12)
-DOOR:locked,(07,08)
-OBJECT:('`',"boulder"),(14,02)
-OBJECT:('`',"boulder"),(12,03)
-OBJECT:('`',"boulder"),(14,03)
-OBJECT:('`',"boulder"),(17,04)
-OBJECT:('`',"boulder"),(16,05)
-OBJECT:('`',"boulder"),(12,06)
-OBJECT:('`',"boulder"),(16,06)
-OBJECT:('`',"boulder"),(09,07)
-OBJECT:('`',"boulder"),(13,07)
-OBJECT:('`',"boulder"),(14,07)
-OBJECT:('`',"boulder"),(16,08)
-OBJECT:('`',"boulder"),(09,09)
-OBJECT:('`',"boulder"),(13,09)
-OBJECT:('`',"boulder"),(11,10)
-TRAP:"hole",(05,05)
-TRAP:"hole",(06,05)
-TRAP:"hole",(07,05)
-TRAP:"hole",(02,06)
-TRAP:"hole",(02,07)
-TRAP:"hole",(02,08)
-TRAP:"hole",(02,09)
-TRAP:"hole",(03,11)
-TRAP:"hole",(04,11)
-TRAP:"hole",(05,11)
-TRAP:"hole",(06,11)
-TRAP:"hole",(07,11)
-TRAP:"hole",(08,11)
+STAIR: (12,09), down
+STAIR: (09,11), up
+REGION: (00,00,19,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,19,12)
+NON_PASSWALL: (00,00,19,12)
+DOOR: locked, (07,08)
+OBJECT: ('`', "boulder"), (14,02)
+OBJECT: ('`', "boulder"), (12,03)
+OBJECT: ('`', "boulder"), (14,03)
+OBJECT: ('`', "boulder"), (17,04)
+OBJECT: ('`', "boulder"), (16,05)
+OBJECT: ('`', "boulder"), (12,06)
+OBJECT: ('`', "boulder"), (16,06)
+OBJECT: ('`', "boulder"), (09,07)
+OBJECT: ('`', "boulder"), (13,07)
+OBJECT: ('`', "boulder"), (14,07)
+OBJECT: ('`', "boulder"), (16,08)
+OBJECT: ('`', "boulder"), (09,09)
+OBJECT: ('`', "boulder"), (13,09)
+OBJECT: ('`', "boulder"), (11,10)
+TRAP: "hole", (05,05)
+TRAP: "hole", (06,05)
+TRAP: "hole", (07,05)
+TRAP: "hole", (02,06)
+TRAP: "hole", (02,07)
+TRAP: "hole", (02,08)
+TRAP: "hole", (02,09)
+TRAP: "hole", (03,11)
+TRAP: "hole", (04,11)
+TRAP: "hole", (05,11)
+TRAP: "hole", (06,11)
+TRAP: "hole", (07,11)
+TRAP: "hole", (08,11)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko3-5"
-FLAGS:noteleport,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Joseph L Traub"
 MAP
 -------       --------
@@ -683,49 +848,49 @@ MAP
 |.....--.|.....---..|
 ---------------- ----
 ENDMAP
-STAIR:(08,10), down
-STAIR:(15,01), up
-REGION:(00,00,21,11),lit,"ordinary"
-NON_DIGGABLE:(00,00,21,11)
-NON_PASSWALL:(00,00,21,11)
-DOOR:locked,(15,05)
-OBJECT:('`',"boulder"),(02,03)
-OBJECT:('`',"boulder"),(10,03)
-OBJECT:('`',"boulder"),(12,03)
-OBJECT:('`',"boulder"),(03,04)
-OBJECT:('`',"boulder"),(09,04)
-OBJECT:('`',"boulder"),(02,05)
-OBJECT:('`',"boulder"),(03,05)
-OBJECT:('`',"boulder"),(08,05)
-OBJECT:('`',"boulder"),(10,05)
-OBJECT:('`',"boulder"),(04,08)
-OBJECT:('`',"boulder"),(04,09)
-OBJECT:('`',"boulder"),(05,09)
-TRAP:"hole",(16,01)
-TRAP:"hole",(17,01)
-TRAP:"hole",(18,01)
-TRAP:"hole",(19,03)
-TRAP:"hole",(19,04)
-TRAP:"hole",(19,05)
-TRAP:"hole",(19,06)
-TRAP:"hole",(19,07)
-TRAP:"hole",(19,08)
-TRAP:"hole",(15,09)
-TRAP:"hole",(16,09)
-TRAP:"hole",(17,09)
+STAIR: (08,10), down
+STAIR: (15,01), up
+REGION: (00,00,21,11), lit, "ordinary"
+NON_DIGGABLE: (00,00,21,11)
+NON_PASSWALL: (00,00,21,11)
+DOOR: locked, (15,05)
+OBJECT: ('`', "boulder"), (02,03)
+OBJECT: ('`', "boulder"), (10,03)
+OBJECT: ('`', "boulder"), (12,03)
+OBJECT: ('`', "boulder"), (03,04)
+OBJECT: ('`', "boulder"), (09,04)
+OBJECT: ('`', "boulder"), (02,05)
+OBJECT: ('`', "boulder"), (03,05)
+OBJECT: ('`', "boulder"), (08,05)
+OBJECT: ('`', "boulder"), (10,05)
+OBJECT: ('`', "boulder"), (04,08)
+OBJECT: ('`', "boulder"), (04,09)
+OBJECT: ('`', "boulder"), (05,09)
+TRAP: "hole", (16,01)
+TRAP: "hole", (17,01)
+TRAP: "hole", (18,01)
+TRAP: "hole", (19,03)
+TRAP: "hole", (19,04)
+TRAP: "hole", (19,05)
+TRAP: "hole", (19,06)
+TRAP: "hole", (19,07)
+TRAP: "hole", (19,08)
+TRAP: "hole", (15,09)
+TRAP: "hole", (16,09)
+TRAP: "hole", (17,09)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko3-6"
-FLAGS:noteleport,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Joseph L Traub"
 MAP
 ----------------
@@ -745,56 +910,285 @@ MAP
     |.|....|..|...--
     ---------------
 ENDMAP
-STAIR:(08,01), down
-STAIR:(08,04), up
-REGION:(00,00,19,15),lit,"ordinary"
-NON_DIGGABLE:(00,00,19,15)
-NON_PASSWALL:(00,00,19,15)
-OBJECT:('`',"boulder"),(07,02)
-OBJECT:('`',"boulder"),(12,02)
-OBJECT:('`',"boulder"),(14,03)
-OBJECT:('`',"boulder"),(15,04)
-OBJECT:('`',"boulder"),(16,04)
-OBJECT:('`',"boulder"),(02,05)
-OBJECT:('`',"boulder"),(05,05)
-OBJECT:('`',"boulder"),(14,10)
-OBJECT:('`',"boulder"),(17,10)
-OBJECT:('`',"boulder"),(03,11)
-OBJECT:('`',"boulder"),(04,11)
-OBJECT:('`',"boulder"),(02,12)
-OBJECT:('`',"boulder"),(05,12)
-OBJECT:('`',"boulder"),(07,13)
-OBJECT:('`',"boulder"),(11,13)
-OBJECT:('`',"boulder"),(16,13)
-TRAP:"hole",(11,05)
-TRAP:"hole",(09,06)
-TRAP:"hole",(10,06)
-TRAP:"hole",(11,06)
-TRAP:"hole",(09,07)
-TRAP:"hole",(10,07)
-TRAP:"hole",(11,07)
-TRAP:"hole",(09,08)
-TRAP:"hole",(10,08)
-TRAP:"hole",(09,09)
-TRAP:"hole",(10,09)
-TRAP:"hole",(09,10)
-TRAP:"hole",(10,10)
-TRAP:"hole",(09,11)
-TRAP:"hole",(10,11)
+STAIR: (08,01), down
+STAIR: (08,04), up
+REGION: (00,00,19,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,19,15)
+NON_PASSWALL: (00,00,19,15)
+OBJECT: ('`', "boulder"), (07,02)
+OBJECT: ('`', "boulder"), (12,02)
+OBJECT: ('`', "boulder"), (14,03)
+OBJECT: ('`', "boulder"), (15,04)
+OBJECT: ('`', "boulder"), (16,04)
+OBJECT: ('`', "boulder"), (02,05)
+OBJECT: ('`', "boulder"), (05,05)
+OBJECT: ('`', "boulder"), (14,10)
+OBJECT: ('`', "boulder"), (17,10)
+OBJECT: ('`', "boulder"), (03,11)
+OBJECT: ('`', "boulder"), (04,11)
+OBJECT: ('`', "boulder"), (02,12)
+OBJECT: ('`', "boulder"), (05,12)
+OBJECT: ('`', "boulder"), (07,13)
+OBJECT: ('`', "boulder"), (11,13)
+OBJECT: ('`', "boulder"), (16,13)
+TRAP: "hole", (11,05)
+TRAP: "hole", (09,06)
+TRAP: "hole", (10,06)
+TRAP: "hole", (11,06)
+TRAP: "hole", (09,07)
+TRAP: "hole", (10,07)
+TRAP: "hole", (11,07)
+TRAP: "hole", (09,08)
+TRAP: "hole", (10,08)
+TRAP: "hole", (09,09)
+TRAP: "hole", (10,09)
+TRAP: "hole", (09,10)
+TRAP: "hole", (10,10)
+TRAP: "hole", (09,11)
+TRAP: "hole", (10,11)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
+
+
+MAZE:"soko3-7",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# "Thinking Rabbit" 
+MAP
+ --------
+ |......|
+ |......-----
+ |---.......|
+ |..--.|....|
+ |.....|.|.-----
+ |.--..........|
+--.||..|...|...|
+|..-------------
+|.........|
+-----------
+ENDMAP
+STAIR: (6,5), down
+STAIR: (9,9), up
+REGION: (00,00,15,10), lit, "ordinary"
+NON_DIGGABLE: (00,00,15,10)
+NON_PASSWALL: (00,00,15,10)
+OBJECT: ('`', "boulder"), (4,2)
+OBJECT: ('`', "boulder"), (8,3)
+OBJECT: ('`', "boulder"), (6,4)
+OBJECT: ('`', "boulder"), (9,4)
+OBJECT: ('`', "boulder"), (6,6)
+OBJECT: ('`', "boulder"), (8,6)
+OBJECT: ('`', "boulder"), (10,6)
+OBJECT: ('`', "boulder"), (11,6)
+TRAP: "hole", (2,6)
+TRAP: "hole", (2,7)
+TRAP: "hole", (4,9)
+TRAP: "hole", (5,9)
+TRAP: "hole", (6,9)
+TRAP: "hole", (7,9)
+TRAP: "hole", (8,9)
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+
+MAZE:"soko3-8",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# "Joseph L Traub" 
+MAP
+            ---------
+------------|.....+.|
+|...........|.....|.|
+|.---.......|.....|.|
+|...|.......|.....|.|
+|...|---.---|.....|.|
+|...--......|.....|.|
+|...........-------.|
+---.--...|..........|
+  |.--...|--------..|
+  |......|       ----
+  ---.----
+    ---
+ENDMAP
+STAIR: (5,11), down
+STAIR: (15,5), up
+REGION: (00,00,20,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,20,12)
+NON_PASSWALL: (00,00,20,12)
+DOOR: locked, (18,1)
+
+OBJECT: ('`', "boulder"), (6,3)
+OBJECT: ('`', "boulder"), (7,3)
+OBJECT: ('`', "boulder"), (6,4)
+OBJECT: ('`', "boulder"), (9,4)
+OBJECT: ('`', "boulder"), (3,5)
+OBJECT: ('`', "boulder"), (8,5)
+OBJECT: ('`', "boulder"), (2,6)
+OBJECT: ('`', "boulder"), (3,7)
+OBJECT: ('`', "boulder"), (4,7)
+OBJECT: ('`', "boulder"), (6,7)
+OBJECT: ('`', "boulder"), (7,8)
+OBJECT: ('`', "boulder"), (8,8)
+
+TRAP: "hole", (19,2)
+TRAP: "hole", (19,3)
+TRAP: "hole", (19,4)
+TRAP: "hole", (19,5)
+TRAP: "hole", (19,6)
+TRAP: "hole", (19,7)
+TRAP: "hole", (12,8)
+TRAP: "hole", (13,8)
+TRAP: "hole", (14,8)
+TRAP: "hole", (15,8)
+TRAP: "hole", (16,8)
+TRAP: "hole", (17,8)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+MAZE:"soko3-9",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# Steve Melenchuk <smelenchuk@gmail.com>
+MAP
+ ---------     
+ |...|...|     
+--.......|     
+|..--....-------
+|..--....|.....|
+|..|..-..|.....|
+|..|.--..|.....|
+|........|.....|
+----.--..|.....|
+   |.--..|.....|
+  --.--..|.....|
+  |..------+---|
+  |.........|
+  -----------
+ENDMAP
+STAIR: (04,06),down
+STAIR: (12,07),up
+DOOR: locked, (11,11)
+REGION: (00,00,15,13), lit, "ordinary"
+NON_DIGGABLE: (00,00,15,13)
+NON_PASSWALL: (00,00,15,13)
+
+# Boulders
+OBJECT: ('`', "boulder"), (06,02)
+OBJECT: ('`', "boulder"), (07,02)
+OBJECT: ('`', "boulder"), (02,03)
+OBJECT: ('`', "boulder"), (05,03)
+OBJECT: ('`', "boulder"), (06,04)
+OBJECT: ('`', "boulder"), (07,04)
+OBJECT: ('`', "boulder"), (02,06)
+OBJECT: ('`', "boulder"), (07,06)
+OBJECT: ('`', "boulder"), (03,07)
+OBJECT: ('`', "boulder"), (07,09)
+
+# Traps
+TRAP: "hole", (04,08)
+TRAP: "hole", (04,09)
+TRAP: "hole", (04,10)
+TRAP: "hole", (05,12)
+TRAP: "hole", (06,12)
+TRAP: "hole", (07,12)
+TRAP: "hole", (08,12)
+TRAP: "hole", (09,12)
+TRAP: "hole", (10,12)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+
+MAZE:"soko3-10",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# Steve Melenchuk <smelenchuk@gmail.com>
+MAP
+ ----           
+ |..|  ---------
+ |..----.|.....|
+ |.......|.....|
+ |..-....|.....|
+ |.....-.|.....|
+ |.......|.....|
+ |...-...|.....|
+--.-------.....|
+|..----------+--
+|.............| 
+--------------- 
+ENDMAP
+STAIR: (08,02),down
+STAIR: (12,05),up
+REGION: (00,00,15,11), lit, "ordinary"
+NON_DIGGABLE: (00,00,15,11)
+NON_PASSWALL: (00,00,15,11)
+
+DOOR: locked, (13,09)
+
+# Boulders
+OBJECT: ('`', "boulder"), (03,03)
+OBJECT: ('`', "boulder"), (06,03)
+OBJECT: ('`', "boulder"), (02,04)
+OBJECT: ('`', "boulder"), (05,04)
+OBJECT: ('`', "boulder"), (07,04)
+OBJECT: ('`', "boulder"), (03,06)
+OBJECT: ('`', "boulder"), (04,06)
+OBJECT: ('`', "boulder"), (05,06)
+OBJECT: ('`', "boulder"), (06,06)
+OBJECT: ('`', "boulder"), (07,06)
+OBJECT: ('`', "boulder"), (02,07)
+
+# Traps
+TRAP: "hole", (03,10)
+TRAP: "hole", (04,10)
+TRAP: "hole", (05,10)
+TRAP: "hole", (06,10)
+TRAP: "hole", (07,10)
+TRAP: "hole", (08,10)
+TRAP: "hole", (09,10)
+TRAP: "hole", (10,10)
+TRAP: "hole", (11,10)
+TRAP: "hole", (12,10)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
 
 ### Third level ###
 MAZE:"soko2-1",' '
-FLAGS:noteleport,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
 --------------------
@@ -810,56 +1204,52 @@ MAP
 |...|..|------------
 --------            
 ENDMAP
-STAIR:(06,10),down
-STAIR:(16,04),up
-DOOR:locked,(18,08)
-REGION:(00,00,19,11),lit,"ordinary"
-NON_DIGGABLE:(00,00,19,11)
-NON_PASSWALL:(00,00,19,11)
+STAIR: (06,10),down
+STAIR: (16,04),up
+DOOR: locked, (18,08)
+REGION: (00,00,19,11), lit, "ordinary"
+NON_DIGGABLE: (00,00,19,11)
+NON_PASSWALL: (00,00,19,11)
 
 # Boulders
-OBJECT:('`',"boulder"),(02,02)
-OBJECT:('`',"boulder"),(03,02)
-#
-OBJECT:('`',"boulder"),(05,03)
-OBJECT:('`',"boulder"),(07,03)
-OBJECT:('`',"boulder"),(07,02)
-OBJECT:('`',"boulder"),(08,02)
-#
-OBJECT:('`',"boulder"),(10,03)
-OBJECT:('`',"boulder"),(11,03)
-#
-OBJECT:('`',"boulder"),(02,07)
-OBJECT:('`',"boulder"),(02,08)
-OBJECT:('`',"boulder"),(03,09)
-#
-OBJECT:('`',"boulder"),(05,07)
-OBJECT:('`',"boulder"),(06,06)
+OBJECT: ('`', "boulder"), (02,02)
+OBJECT: ('`', "boulder"), (03,02)
+OBJECT: ('`', "boulder"), (05,03)
+OBJECT: ('`', "boulder"), (07,03)
+OBJECT: ('`', "boulder"), (07,02)
+OBJECT: ('`', "boulder"), (08,02)
+OBJECT: ('`', "boulder"), (10,03)
+OBJECT: ('`', "boulder"), (11,03)
+OBJECT: ('`', "boulder"), (02,07)
+OBJECT: ('`', "boulder"), (02,08)
+OBJECT: ('`', "boulder"), (03,09)
+OBJECT: ('`', "boulder"), (05,07)
+OBJECT: ('`', "boulder"), (06,06)
 
 # Traps
-TRAP:"hole",(08,09)
-TRAP:"hole",(09,09)
-TRAP:"hole",(10,09)
-TRAP:"hole",(11,09)
-TRAP:"hole",(12,09)
-TRAP:"hole",(13,09)
-TRAP:"hole",(14,09)
-TRAP:"hole",(15,09)
-TRAP:"hole",(16,09)
-TRAP:"hole",(17,09)
+TRAP: "hole", (08,09)
+TRAP: "hole", (09,09)
+TRAP: "hole", (10,09)
+TRAP: "hole", (11,09)
+TRAP: "hole", (12,09)
+TRAP: "hole", (13,09)
+TRAP: "hole", (14,09)
+TRAP: "hole", (15,09)
+TRAP: "hole", (16,09)
+TRAP: "hole", (17,09)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 
 MAZE:"soko2-2",' '
-FLAGS:noteleport,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
   --------          
@@ -876,60 +1266,60 @@ MAP
   |................|
   ------------------
 ENDMAP
-STAIR:(06,11),down
-STAIR:(15,06),up
-DOOR:locked,(18,10)
-REGION:(00,00,19,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,19,12)
-NON_PASSWALL:(00,00,19,12)
+STAIR: (06,11), down
+STAIR: (15,06), up
+DOOR: locked, (18,10)
+REGION: (00,00,19,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,19,12)
+NON_PASSWALL: (00,00,19,12)
 
 # Boulders
-OBJECT:('`',"boulder"),(04,02)
-OBJECT:('`',"boulder"),(04,03)
-OBJECT:('`',"boulder"),(05,03)
-OBJECT:('`',"boulder"),(07,03)
-OBJECT:('`',"boulder"),(08,03)
-OBJECT:('`',"boulder"),(02,04)
-OBJECT:('`',"boulder"),(03,04)
-OBJECT:('`',"boulder"),(05,05)
-OBJECT:('`',"boulder"),(06,06)
-OBJECT:('`',"boulder"),(09,06)
-OBJECT:('`',"boulder"),(03,07)
-OBJECT:('`',"boulder"),(04,07)
-OBJECT:('`',"boulder"),(07,07)
-OBJECT:('`',"boulder"),(06,09)
-OBJECT:('`',"boulder"),(05,10)
-OBJECT:('`',"boulder"),(05,11)
+OBJECT: ('`', "boulder"), (04,02)
+OBJECT: ('`', "boulder"), (04,03)
+OBJECT: ('`', "boulder"), (05,03)
+OBJECT: ('`', "boulder"), (07,03)
+OBJECT: ('`', "boulder"), (08,03)
+OBJECT: ('`', "boulder"), (02,04)
+OBJECT: ('`', "boulder"), (03,04)
+OBJECT: ('`', "boulder"), (05,05)
+OBJECT: ('`', "boulder"), (06,06)
+OBJECT: ('`', "boulder"), (09,06)
+OBJECT: ('`', "boulder"), (03,07)
+OBJECT: ('`', "boulder"), (04,07)
+OBJECT: ('`', "boulder"), (07,07)
+OBJECT: ('`', "boulder"), (06,09)
+OBJECT: ('`', "boulder"), (05,10)
+OBJECT: ('`', "boulder"), (05,11)
 
 # Traps
-TRAP:"hole",(07,11)
-TRAP:"hole",(08,11)
-TRAP:"hole",(09,11)
-TRAP:"hole",(10,11)
-TRAP:"hole",(11,11)
-TRAP:"hole",(12,11)
-TRAP:"hole",(13,11)
-TRAP:"hole",(14,11)
-TRAP:"hole",(15,11)
-TRAP:"hole",(16,11)
-TRAP:"hole",(17,11)
+TRAP: "hole", (07,11)
+TRAP: "hole", (08,11)
+TRAP: "hole", (09,11)
+TRAP: "hole", (10,11)
+TRAP: "hole", (11,11)
+TRAP: "hole", (12,11)
+TRAP: "hole", (13,11)
+TRAP: "hole", (14,11)
+TRAP: "hole", (15,11)
+TRAP: "hole", (16,11)
+TRAP: "hole", (17,11)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Following Sokoban levels (2-3 through 2-6)
 # heavily modified for NetHack by Pasi Kallinen
 # The original authors are listed just before the maps
 #
 LEVEL:"soko2-3"
-FLAGS:noteleport,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Joseph L Traub"
 MAP
     ------------------
@@ -946,53 +1336,55 @@ MAP
  |....|..|...........|
  ---------------------
 ENDMAP
-STAIR:(02,08), down
-STAIR:(11,03), up
-REGION:(00,00,21,12),lit,"ordinary"
-NON_DIGGABLE:(00,00,21,12)
-NON_PASSWALL:(00,00,21,12)
-DOOR:locked,(19,01)
-OBJECT:('`',"boulder"),(03,03)
-OBJECT:('`',"boulder"),(03,05)
-OBJECT:('`',"boulder"),(07,05)
-OBJECT:('`',"boulder"),(04,06)
-OBJECT:('`',"boulder"),(05,06)
-OBJECT:('`',"boulder"),(07,06)
-OBJECT:('`',"boulder"),(08,06)
-OBJECT:('`',"boulder"),(05,07)
-OBJECT:('`',"boulder"),(08,07)
-OBJECT:('`',"boulder"),(06,09)
-OBJECT:('`',"boulder"),(15,09)
-OBJECT:('`',"boulder"),(16,09)
-OBJECT:('`',"boulder"),(05,10)
-OBJECT:('`',"boulder"),(06,10)
-TRAP:"hole",(20,02)
-TRAP:"hole",(20,03)
-TRAP:"hole",(20,04)
-TRAP:"hole",(20,05)
-TRAP:"hole",(09,06)
-TRAP:"hole",(10,06)
-TRAP:"hole",(11,06)
-TRAP:"hole",(12,06)
-TRAP:"hole",(13,06)
-TRAP:"hole",(14,06)
-TRAP:"hole",(15,06)
-TRAP:"hole",(16,06)
-TRAP:"hole",(17,06)
-TRAP:"hole",(18,06)
+STAIR: (02,08), down
+STAIR: (11,03), up
+REGION: (00,00,21,12), lit, "ordinary"
+NON_DIGGABLE: (00,00,21,12)
+NON_PASSWALL: (00,00,21,12)
+DOOR: locked, (19,01)
+
+OBJECT: ('`', "boulder"), (03,03)
+OBJECT: ('`', "boulder"), (03,05)
+OBJECT: ('`', "boulder"), (07,05)
+OBJECT: ('`', "boulder"), (04,06)
+OBJECT: ('`', "boulder"), (05,06)
+OBJECT: ('`', "boulder"), (07,06)
+OBJECT: ('`', "boulder"), (08,06)
+OBJECT: ('`', "boulder"), (05,07)
+OBJECT: ('`', "boulder"), (08,07)
+OBJECT: ('`', "boulder"), (06,09)
+OBJECT: ('`', "boulder"), (15,09)
+OBJECT: ('`', "boulder"), (16,09)
+OBJECT: ('`', "boulder"), (05,10)
+OBJECT: ('`', "boulder"), (06,10)
+
+TRAP: "hole", (20,02)
+TRAP: "hole", (20,03)
+TRAP: "hole", (20,04)
+TRAP: "hole", (20,05)
+TRAP: "hole", (09,06)
+TRAP: "hole", (10,06)
+TRAP: "hole", (11,06)
+TRAP: "hole", (12,06)
+TRAP: "hole", (13,06)
+TRAP: "hole", (14,06)
+TRAP: "hole", (15,06)
+TRAP: "hole", (16,06)
+TRAP: "hole", (17,06)
+TRAP: "hole", (18,06)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko2-4"
-FLAGS:noteleport,mazelevel,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "Thinking Rabbit"
 MAP
            ----
@@ -1013,42 +1405,44 @@ MAP
             |..----
             ----
 ENDMAP
-STAIR:(12,01), down
-STAIR:(13,07), up
-REGION:(00,00,21,16),lit,"ordinary"
-NON_DIGGABLE:(00,00,21,16)
-NON_PASSWALL:(00,00,21,16)
-OBJECT:('`',"boulder"),(12,02)
-OBJECT:('`',"boulder"),(03,03)
-OBJECT:('`',"boulder"),(04,03)
-OBJECT:('`',"boulder"),(12,03)
-OBJECT:('`',"boulder"),(12,04)
-OBJECT:('`',"boulder"),(08,05)
-OBJECT:('`',"boulder"),(09,05)
-OBJECT:('`',"boulder"),(03,07)
-OBJECT:('`',"boulder"),(06,09)
-TRAP:"hole",(14,04)
-TRAP:"hole",(16,05)
-TRAP:"hole",(16,06)
-TRAP:"hole",(17,08)
-TRAP:"hole",(19,09)
-TRAP:"hole",(18,11)
-TRAP:"hole",(16,12)
-TRAP:"hole",(13,13)
-TRAP:"hole",(15,14)
+STAIR: (12,01), down
+STAIR: (13,07), up
+REGION: (00,00,21,16), lit, "ordinary"
+NON_DIGGABLE: (00,00,21,16)
+NON_PASSWALL: (00,00,21,16)
+
+OBJECT: ('`', "boulder"), (12,02)
+OBJECT: ('`', "boulder"), (03,03)
+OBJECT: ('`', "boulder"), (04,03)
+OBJECT: ('`', "boulder"), (12,03)
+OBJECT: ('`', "boulder"), (12,04)
+OBJECT: ('`', "boulder"), (08,05)
+OBJECT: ('`', "boulder"), (09,05)
+OBJECT: ('`', "boulder"), (03,07)
+OBJECT: ('`', "boulder"), (06,09)
+
+TRAP: "hole", (14,04)
+TRAP: "hole", (16,05)
+TRAP: "hole", (16,06)
+TRAP: "hole", (17,08)
+TRAP: "hole", (19,09)
+TRAP: "hole", (18,11)
+TRAP: "hole", (16,12)
+TRAP: "hole", (13,13)
+TRAP: "hole", (15,14)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko2-5"
-FLAGS:noteleport,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # Steve Melenchuk <smelenchuk@gmail.com>
 MAP
   --------------------
@@ -1068,55 +1462,55 @@ MAP
                |.....|
                -------
 ENDMAP
-STAIR:(07,11),down
-STAIR:(18,11),up
-DOOR:locked,(20,07)
-REGION:(00,00,21,15),lit,"ordinary"
-NON_DIGGABLE:(00,00,21,15)
-NON_PASSWALL:(00,00,21,15)
+STAIR: (07,11),down
+STAIR: (18,11),up
+DOOR: locked, (20,07)
+REGION: (00,00,21,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,21,15)
+NON_PASSWALL: (00,00,21,15)
 
 # Boulders
-OBJECT:('`',"boulder"),(08,04)
-OBJECT:('`',"boulder"),(11,05)
-OBJECT:('`',"boulder"),(12,05)
-OBJECT:('`',"boulder"),(05,06)
-OBJECT:('`',"boulder"),(12,06)
-OBJECT:('`',"boulder"),(05,07)
-OBJECT:('`',"boulder"),(07,07)
-OBJECT:('`',"boulder"),(08,07)
-OBJECT:('`',"boulder"),(05,08)
-OBJECT:('`',"boulder"),(05,09)
-OBJECT:('`',"boulder"),(07,09)
-OBJECT:('`',"boulder"),(08,09)
-OBJECT:('`',"boulder"),(10,10)
-OBJECT:('`',"boulder"),(11,11)
+OBJECT: ('`', "boulder"), (08,04)
+OBJECT: ('`', "boulder"), (11,05)
+OBJECT: ('`', "boulder"), (12,05)
+OBJECT: ('`', "boulder"), (05,06)
+OBJECT: ('`', "boulder"), (12,06)
+OBJECT: ('`', "boulder"), (05,07)
+OBJECT: ('`', "boulder"), (07,07)
+OBJECT: ('`', "boulder"), (08,07)
+OBJECT: ('`', "boulder"), (05,08)
+OBJECT: ('`', "boulder"), (05,09)
+OBJECT: ('`', "boulder"), (07,09)
+OBJECT: ('`', "boulder"), (08,09)
+OBJECT: ('`', "boulder"), (10,10)
+OBJECT: ('`', "boulder"), (11,11)
 
 # Traps
-TRAP:"hole",(08,01)
-TRAP:"hole",(09,01)
-TRAP:"hole",(10,01)
-TRAP:"hole",(11,01)
-TRAP:"hole",(12,01)
-TRAP:"hole",(13,01)
-TRAP:"hole",(14,01)
-TRAP:"hole",(15,01)
-TRAP:"hole",(16,01)
-TRAP:"hole",(17,01)
-TRAP:"hole",(18,01)
-TRAP:"hole",(19,01)
+TRAP: "hole", (08,01)
+TRAP: "hole", (09,01)
+TRAP: "hole", (10,01)
+TRAP: "hole", (11,01)
+TRAP: "hole", (12,01)
+TRAP: "hole", (13,01)
+TRAP: "hole", (14,01)
+TRAP: "hole", (15,01)
+TRAP: "hole", (16,01)
+TRAP: "hole", (17,01)
+TRAP: "hole", (18,01)
+TRAP: "hole", (19,01)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 LEVEL:"soko2-6"
-FLAGS:noteleport,premapped
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, premapped
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 # Steve Melenchuk <smelenchuk@gmail.com>
 MAP
@@ -1138,61 +1532,360 @@ MAP
    ----                  
 ENDMAP
 
-STAIR:(04,05),down
-STAIR:(21,09),up
-DOOR:locked,(23,05)
-REGION:(00,00,24,15),lit,"ordinary"
-NON_DIGGABLE:(00,00,24,15)
-NON_PASSWALL:(00,00,24,15)
+STAIR: (04,05), down
+STAIR: (21,09), up
+DOOR: locked, (23,05)
+REGION: (00,00,24,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,24,15)
+NON_PASSWALL: (00,00,24,15)
 
 # Boulders
-OBJECT:('`',"boulder"),(05,02)
-OBJECT:('`',"boulder"),(04,03)
-OBJECT:('`',"boulder"),(03,06)
-OBJECT:('`',"boulder"),(04,07)
-OBJECT:('`',"boulder"),(05,07)
-OBJECT:('`',"boulder"),(03,08)
-OBJECT:('`',"boulder"),(10,08)
-OBJECT:('`',"boulder"),(03,09)
-OBJECT:('`',"boulder"),(11,09)
-OBJECT:('`',"boulder"),(05,10)
-OBJECT:('`',"boulder"),(08,10)
-OBJECT:('`',"boulder"),(03,11)
-OBJECT:('`',"boulder"),(07,11)
-OBJECT:('`',"boulder"),(09,11)
-OBJECT:('`',"boulder"),(10,11)
-OBJECT:('`',"boulder"),(04,12)
-OBJECT:('`',"boulder"),(08,12)
+OBJECT: ('`', "boulder"), (05,02)
+OBJECT: ('`', "boulder"), (04,03)
+OBJECT: ('`', "boulder"), (03,06)
+OBJECT: ('`', "boulder"), (04,07)
+OBJECT: ('`', "boulder"), (05,07)
+OBJECT: ('`', "boulder"), (03,08)
+OBJECT: ('`', "boulder"), (10,08)
+OBJECT: ('`', "boulder"), (03,09)
+OBJECT: ('`', "boulder"), (11,09)
+OBJECT: ('`', "boulder"), (05,10)
+OBJECT: ('`', "boulder"), (08,10)
+OBJECT: ('`', "boulder"), (03,11)
+OBJECT: ('`', "boulder"), (07,11)
+OBJECT: ('`', "boulder"), (09,11)
+OBJECT: ('`', "boulder"), (10,11)
+OBJECT: ('`', "boulder"), (04,12)
+OBJECT: ('`', "boulder"), (08,12)
 
 # Traps
-TRAP:"hole",(09,04)
-TRAP:"hole",(10,04)
-TRAP:"hole",(11,04)
-TRAP:"hole",(12,04)
-TRAP:"hole",(13,04)
-TRAP:"hole",(14,04)
-TRAP:"hole",(15,04)
-TRAP:"hole",(16,04)
-TRAP:"hole",(17,04)
-TRAP:"hole",(18,04)
-TRAP:"hole",(19,04)
-TRAP:"hole",(20,04)
-TRAP:"hole",(21,04)
-TRAP:"hole",(22,04)
+TRAP: "hole", (09,04)
+TRAP: "hole", (10,04)
+TRAP: "hole", (11,04)
+TRAP: "hole", (12,04)
+TRAP: "hole", (13,04)
+TRAP: "hole", (14,04)
+TRAP: "hole", (15,04)
+TRAP: "hole", (16,04)
+TRAP: "hole", (17,04)
+TRAP: "hole", (18,04)
+TRAP: "hole", (19,04)
+TRAP: "hole", (20,04)
+TRAP: "hole", (21,04)
+TRAP: "hole", (22,04)
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
+
+MAZE:"soko2-7",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# "Thinking Rabbit"
+MAP
+       ------------
+-------|..........|
+|...|..|--------..|
+|......|..|    |.--
+--.--..|..-----|.|
+ |.....--...|..|.|
+ |.|....|......|.|
+ |...|.....---.|.|
+ |.....--..---.|.|
+ ---...|.......|.|
+   ---.|...--..|.|
+    |......||....|
+    |.....-----..|
+    -------   ----
+ENDMAP
+STAIR: (8,4), down
+STAIR: (8,1), up
+REGION: (00,00,18,13), lit, "ordinary"
+NON_DIGGABLE: (00,00,18,13)
+NON_PASSWALL: (00,00,18,13)
+
+OBJECT: ('`', "boulder"), (2,3)
+OBJECT: ('`', "boulder"), (5,4)
+OBJECT: ('`', "boulder"), (4,5)
+OBJECT: ('`', "boulder"), (6,5)
+OBJECT: ('`', "boulder"), (9,5)
+OBJECT: ('`', "boulder"), (6,6)
+OBJECT: ('`', "boulder"), (10,6)
+OBJECT: ('`', "boulder"), (3,7)
+OBJECT: ('`', "boulder"), (6,7)
+OBJECT: ('`', "boulder"), (10,8)
+OBJECT: ('`', "boulder"), (5,9)
+OBJECT: ('`', "boulder"), (10,9)
+OBJECT: ('`', "boulder"), (10,10)
+OBJECT: ('`', "boulder"), (7,11)
+OBJECT: ('`', "boulder"), (8,11)
+
+TRAP: "hole", (9,1)
+TRAP: "hole", (10,1)
+TRAP: "hole", (11,1)
+TRAP: "hole", (12,1)
+TRAP: "hole", (13,1)
+TRAP: "hole", (14,1)
+TRAP: "hole", (15,1)
+TRAP: "hole", (16,3)
+TRAP: "hole", (16,4)
+TRAP: "hole", (16,5)
+TRAP: "hole", (16,6)
+TRAP: "hole", (16,7)
+TRAP: "hole", (16,8)
+TRAP: "hole", (16,9)
+TRAP: "hole", (16,10)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+MAZE:"soko2-8",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# "Joseph L Traub"
+MAP
+         ----------
+    -----|........|
+ ----...-|.-----..|
+ |.......---...|.--
+ |.............|.|
+ |.|.--------.-|.|
+ |.|.....|.....|.|
+ |.|.....|.|...|.|
+--.|...|.|.----|.|
+|..--....|.....|.|
+|......|.|.......|
+-----.--.........|
+   |.............|
+   |...---.......|
+   ----- ---------
+ENDMAP
+STAIR: (4,4), down
+STAIR: (10,2), up
+REGION: (00,00,18,14), lit, "ordinary"
+NON_DIGGABLE: (00,00,18,14)
+NON_PASSWALL: (00,00,18,14)
+
+OBJECT: ('`', "boulder"), (4,3)
+OBJECT: ('`', "boulder"), (3,4)
+OBJECT: ('`', "boulder"), (5,4)
+OBJECT: ('`', "boulder"), (7,4)
+OBJECT: ('`', "boulder"), (12,4)
+OBJECT: ('`', "boulder"), (4,5)
+OBJECT: ('`', "boulder"), (6,6)
+OBJECT: ('`', "boulder"), (5,7)
+OBJECT: ('`', "boulder"), (7,7)
+OBJECT: ('`', "boulder"), (6,8)
+OBJECT: ('`', "boulder"), (5,10)
+OBJECT: ('`', "boulder"), (5,12)
+
+TRAP: "hole", (11,1)
+TRAP: "hole", (12,1)
+TRAP: "hole", (13,1)
+TRAP: "hole", (14,1)
+TRAP: "hole", (15,1)
+TRAP: "hole", (16,3)
+TRAP: "hole", (16,4)
+TRAP: "hole", (16,5)
+TRAP: "hole", (16,6)
+TRAP: "hole", (16,7)
+TRAP: "hole", (16,8)
+TRAP: "hole", (16,9)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+MAZE:"soko2-9",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# "Thinking Rabbit"
+MAP
+        ---------
+        |...|...----
+        |...+......|
+        |...|.|..|.|
+  -----------....|.|
+  |................|
+  |.|.|..--.|.|..|.|
+  |...|.....|....|.|
+ --.|...-------+-|.|
+--......|....|...|.|
+|....|..F....F...|.|
+|......-|....|...|.--
+|..-----|....|----..|
+|..|....+....+......|
+---------------------
+ENDMAP
+STAIR: (1,13), down
+STAIR: (4,13), up
+REGION: (00,00,20,14), lit, "ordinary"
+NON_DIGGABLE: (00,00,20,14)
+NON_PASSWALL: (00,00,20,14)
+
+DOOR: locked, (12,2)
+DOOR: locked, (15,8)
+DOOR: locked, (8,13)
+DOOR: locked, (13,13)
+
+OBJECT: ('`', "boulder"), (10,2)
+OBJECT: ('`', "boulder"), (13,3)
+OBJECT: ('`', "boulder"), (18,4)
+OBJECT: ('`', "boulder"), (9,5)
+OBJECT: ('`', "boulder"), (8,6)
+OBJECT: ('`', "boulder"), (7,7)
+OBJECT: ('`', "boulder"), (3,8)
+OBJECT: ('`', "boulder"), (6,8)
+OBJECT: ('`', "boulder"), (5,9)
+OBJECT: ('`', "boulder"), (4,10)
+OBJECT: ('`', "boulder"), (15,10)
+OBJECT: ('`', "boulder"), (3,11)
+OBJECT: ('`', "boulder"), (2,12)
+
+TRAP: "hole", (18,6)
+TRAP: "hole", (18,7)
+TRAP: "hole", (18,8)
+TRAP: "hole", (18,9)
+TRAP: "hole", (18,10)
+TRAP: "hole", (18,11)
+TRAP: "hole", (5,13)
+TRAP: "hole", (6,13)
+TRAP: "hole", (7,13)
+TRAP: "hole", (14,13)
+TRAP: "hole", (15,13)
+TRAP: "hole", (16,13)
+TRAP: "hole", (17,13)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
+
+MAZE:"soko2-10",' '
+FLAGS: noteleport, solidify, premapped
+GEOMETRY: center, center
+# "J Franklin Mentzer <wryter@aol.com>"
+MAP
+-----------------------------
+|.............|.............|
+|....|...|....F.............|
+|...|..|..|...F.............|
+|..|..........F.............|
+|.......|..|..F.............|
+|.|....|....|.F.............|
+|..|..|.......F.............|
+|..........|..F.............|
+|...|..|..|...F.............|
+|....|...|....F.............|
+|.............|.............|
+|-.-FFFFFFFFF---FFFFFFFFF-+-|
+|...........................|
+|...........................|
+-----------------------------
+ENDMAP
+STAIR: (13,11), down
+STAIR: (15,11), up
+REGION: (00,00,28,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,28,15)
+NON_PASSWALL: (00,00,28,15)
+
+DOOR: locked, (26,12)
+
+OBJECT: ('`', "boulder"), (2,2)
+OBJECT: ('`', "boulder"), (7,2)
+OBJECT: ('`', "boulder"), (2,3)
+OBJECT: ('`', "boulder"), (6,3)
+OBJECT: ('`', "boulder"), (8,3)
+OBJECT: ('`', "boulder"), (2,4)
+OBJECT: ('`', "boulder"), (5,4)
+OBJECT: ('`', "boulder"), (9,4)
+OBJECT: ('`', "boulder"), (4,5)
+OBJECT: ('`', "boulder"), (10,5)
+OBJECT: ('`', "boulder"), (1,6)
+OBJECT: ('`', "boulder"), (4,6)
+OBJECT: ('`', "boulder"), (10,6)
+OBJECT: ('`', "boulder"), (13,6)
+OBJECT: ('`', "boulder"), (4,7)
+OBJECT: ('`', "boulder"), (10,7)
+OBJECT: ('`', "boulder"), (5,8)
+OBJECT: ('`', "boulder"), (9,8)
+OBJECT: ('`', "boulder"), (12,8)
+OBJECT: ('`', "boulder"), (6,9)
+OBJECT: ('`', "boulder"), (8,9)
+OBJECT: ('`', "boulder"), (12,9)
+OBJECT: ('`', "boulder"), (7,10)
+OBJECT: ('`', "boulder"), (12,10)
+
+TRAP: "hole", (3,13)
+TRAP: "hole", (4,13)
+TRAP: "hole", (5,13)
+TRAP: "hole", (6,13)
+TRAP: "hole", (7,13)
+TRAP: "hole", (8,13)
+TRAP: "hole", (9,13)
+TRAP: "hole", (10,13)
+TRAP: "hole", (11,13)
+TRAP: "hole", (12,13)
+TRAP: "hole", (16,13)
+TRAP: "hole", (17,13)
+TRAP: "hole", (18,13)
+TRAP: "hole", (19,13)
+TRAP: "hole", (20,13)
+TRAP: "hole", (21,13)
+TRAP: "hole", (22,13)
+TRAP: "hole", (23,13)
+TRAP: "hole", (24,13)
+TRAP: "hole", (25,13)
+TRAP: "hole", (3,14)
+TRAP: "hole", (4,14)
+TRAP: "hole", (5,14)
+TRAP: "hole", (6,14)
+TRAP: "hole", (7,14)
+TRAP: "hole", (8,14)
+TRAP: "hole", (9,14)
+TRAP: "hole", (10,14)
+TRAP: "hole", (18,14)
+TRAP: "hole", (19,14)
+TRAP: "hole", (20,14)
+TRAP: "hole", (21,14)
+TRAP: "hole", (22,14)
+TRAP: "hole", (23,14)
+TRAP: "hole", (24,14)
+TRAP: "hole", (25,14)
+
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
+
+MONSTER: 'm', random
 
 ### Top (last) level of Sokoban ###
 MAZE:"soko1-1",' '
-FLAGS:noteleport,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
 --------------------------
@@ -1217,98 +1910,95 @@ ENDMAP
 $place = { (16,11),(16,13),(16,15) }
 SHUFFLE: $place
 
-STAIR:(01,01),down
-REGION:(00,00,25,17),lit,"ordinary"
-NON_DIGGABLE:(00,00,25,17)
-NON_PASSWALL:(00,00,25,17)
+STAIR: (01,01),down
+REGION: (00,00,25,17), lit, "ordinary"
+NON_DIGGABLE: (00,00,25,17)
+NON_PASSWALL: (00,00,25,17)
 
 # Boulders
-OBJECT:('`',"boulder"),(03,05)
-OBJECT:('`',"boulder"),(05,05)
-OBJECT:('`',"boulder"),(07,05)
-OBJECT:('`',"boulder"),(09,05)
-OBJECT:('`',"boulder"),(11,05)
-#
-OBJECT:('`',"boulder"),(04,07)
-OBJECT:('`',"boulder"),(04,08)
-OBJECT:('`',"boulder"),(06,07)
-OBJECT:('`',"boulder"),(09,07)
-OBJECT:('`',"boulder"),(11,07)
-#
-OBJECT:('`',"boulder"),(03,12)
-OBJECT:('`',"boulder"),(04,10)
-OBJECT:('`',"boulder"),(05,12)
-OBJECT:('`',"boulder"),(06,10)
-OBJECT:('`',"boulder"),(07,11)
-OBJECT:('`',"boulder"),(08,10)
-OBJECT:('`',"boulder"),(09,12)
-#
-OBJECT:('`',"boulder"),(03,14)
+OBJECT: ('`', "boulder"), (03,05)
+OBJECT: ('`', "boulder"), (05,05)
+OBJECT: ('`', "boulder"), (07,05)
+OBJECT: ('`', "boulder"), (09,05)
+OBJECT: ('`', "boulder"), (11,05)
+OBJECT: ('`', "boulder"), (04,07)
+OBJECT: ('`', "boulder"), (04,08)
+OBJECT: ('`', "boulder"), (06,07)
+OBJECT: ('`', "boulder"), (09,07)
+OBJECT: ('`', "boulder"), (11,07)
+OBJECT: ('`', "boulder"), (03,12)
+OBJECT: ('`', "boulder"), (04,10)
+OBJECT: ('`', "boulder"), (05,12)
+OBJECT: ('`', "boulder"), (06,10)
+OBJECT: ('`', "boulder"), (07,11)
+OBJECT: ('`', "boulder"), (08,10)
+OBJECT: ('`', "boulder"), (09,12)
+OBJECT: ('`', "boulder"), (03,14)
 
 # Traps
-TRAP:"hole",(08,01)
-TRAP:"hole",(09,01)
-TRAP:"hole",(10,01)
-TRAP:"hole",(11,01)
-TRAP:"hole",(12,01)
-TRAP:"hole",(13,01)
-TRAP:"hole",(14,01)
-TRAP:"hole",(15,01)
-TRAP:"hole",(16,01)
-TRAP:"hole",(17,01)
-TRAP:"hole",(18,01)
-TRAP:"hole",(19,01)
-TRAP:"hole",(20,01)
-TRAP:"hole",(21,01)
-TRAP:"hole",(22,01)
-TRAP:"hole",(23,01)
+TRAP: "hole", (08,01)
+TRAP: "hole", (09,01)
+TRAP: "hole", (10,01)
+TRAP: "hole", (11,01)
+TRAP: "hole", (12,01)
+TRAP: "hole", (13,01)
+TRAP: "hole", (14,01)
+TRAP: "hole", (15,01)
+TRAP: "hole", (16,01)
+TRAP: "hole", (17,01)
+TRAP: "hole", (18,01)
+TRAP: "hole", (19,01)
+TRAP: "hole", (20,01)
+TRAP: "hole", (21,01)
+TRAP: "hole", (22,01)
+TRAP: "hole", (23,01)
 
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m', "giant mimic"), random, m_object "boulder"
+MONSTER: ('m', "giant mimic"), random, m_object "boulder"
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Rewards
-DOOR:locked,(23,13)
-DOOR:closed,(17,11)
-DOOR:closed,(17,13)
-DOOR:closed,(17,15)
-REGION:(18,10,22,16),lit,"zoo",filled,irregular
+DOOR: locked, (23,13)
+DOOR: closed,(17,11)
+DOOR: closed,(17,13)
+DOOR: closed,(17,15)
+REGION: (18,10,22,16), lit, "zoo", filled, irregular
 
-OBJECT:('?', "scare monster"),$place[0],cursed
+OBJECT: ('?', "scare monster"), $place[0], cursed
 IF [50%] {
-  OBJECT:('(', "bag of holding"),$place[0]
+  OBJECT: ('(', "bag of holding"), $place[0]
 } ELSE {
-  OBJECT:('(', "magic marker"),$place[0]
+  OBJECT: ('(', "magic marker"), $place[0]
 }
-ENGRAVING:$place[0],burn,"Elbereth"
+ENGRAVING: $place[0], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[1],cursed
+OBJECT: ('?', "scare monster"), $place[1], cursed
 IF [50%] {
-  OBJECT:('"', "amulet of reflection"),$place[1]
+  OBJECT: ('"', "amulet of reflection"), $place[1]
 } ELSE {
-  OBJECT:('"', "amulet of magic resistance"),$place[1]
+  OBJECT: ('"', "amulet of magic resistance"), $place[1]
 }
-ENGRAVING:$place[1],burn,"Elbereth"
+ENGRAVING:$place[1], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[2],cursed
+OBJECT: ('?', "scare monster"), $place[2], cursed
 IF [50%] {
-  OBJECT:('[', "helm of speed"),$place[2]
+  OBJECT: ('[', "helm of speed"), $place[2]
 } ELSE {
-  OBJECT:('[', "gauntlets of protection"),$place[2]
+  OBJECT: ('[', "gauntlets of protection"), $place[2]
 }
-ENGRAVING:$place[2],burn,"Elbereth"
+ENGRAVING: $place[2], burn, "Elbereth"
 
 
 MAZE:"soko1-2",' '
-FLAGS:noteleport,premapped,solidify
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
   ------------------------
@@ -1332,96 +2022,94 @@ ENDMAP
 $place = { (16,10),(16,12),(16,14) }
 SHUFFLE: $place
 
-STAIR:(06,15),down
-REGION:(00,00,25,16),lit,"ordinary"
-NON_DIGGABLE:(00,00,25,16)
-NON_PASSWALL:(00,00,25,16)
+STAIR: (06,15),down
+REGION: (00,00,25,16), lit, "ordinary"
+NON_DIGGABLE: (00,00,25,16)
+NON_PASSWALL: (00,00,25,16)
 
 # Boulders
-OBJECT:('`',"boulder"),(04,04)
-OBJECT:('`',"boulder"),(02,06)
-OBJECT:('`',"boulder"),(03,06)
-OBJECT:('`',"boulder"),(04,07)
-OBJECT:('`',"boulder"),(05,07)
-OBJECT:('`',"boulder"),(02,08)
-OBJECT:('`',"boulder"),(05,08)
-OBJECT:('`',"boulder"),(03,09)
-OBJECT:('`',"boulder"),(04,09)
-OBJECT:('`',"boulder"),(03,10)
-OBJECT:('`',"boulder"),(05,10)
-OBJECT:('`',"boulder"),(06,12)
-#
-OBJECT:('`',"boulder"),(07,14)
-#
-OBJECT:('`',"boulder"),(11,05)
-OBJECT:('`',"boulder"),(12,06)
-OBJECT:('`',"boulder"),(10,07)
-OBJECT:('`',"boulder"),(11,07)
-OBJECT:('`',"boulder"),(10,08)
-OBJECT:('`',"boulder"),(12,09)
-OBJECT:('`',"boulder"),(11,10)
+OBJECT: ('`', "boulder"), (04,04)
+OBJECT: ('`', "boulder"), (02,06)
+OBJECT: ('`', "boulder"), (03,06)
+OBJECT: ('`', "boulder"), (04,07)
+OBJECT: ('`', "boulder"), (05,07)
+OBJECT: ('`', "boulder"), (02,08)
+OBJECT: ('`', "boulder"), (05,08)
+OBJECT: ('`', "boulder"), (03,09)
+OBJECT: ('`', "boulder"), (04,09)
+OBJECT: ('`', "boulder"), (03,10)
+OBJECT: ('`', "boulder"), (05,10)
+OBJECT: ('`', "boulder"), (06,12)
+OBJECT: ('`', "boulder"), (07,14)
+OBJECT: ('`', "boulder"), (11,05)
+OBJECT: ('`', "boulder"), (12,06)
+OBJECT: ('`', "boulder"), (10,07)
+OBJECT: ('`', "boulder"), (11,07)
+OBJECT: ('`', "boulder"), (10,08)
+OBJECT: ('`', "boulder"), (12,09)
+OBJECT: ('`', "boulder"), (11,10)
 
 # Traps
-TRAP:"hole",(05,01)
-TRAP:"hole",(06,01)
-TRAP:"hole",(07,01)
-TRAP:"hole",(08,01)
-TRAP:"hole",(09,01)
-TRAP:"hole",(10,01)
-TRAP:"hole",(11,01)
-TRAP:"hole",(12,01)
-TRAP:"hole",(13,01)
-TRAP:"hole",(14,01)
-TRAP:"hole",(15,01)
-TRAP:"hole",(16,01)
-TRAP:"hole",(17,01)
-TRAP:"hole",(18,01)
-TRAP:"hole",(19,01)
-TRAP:"hole",(20,01)
-TRAP:"hole",(21,01)
-TRAP:"hole",(22,01)
+TRAP: "hole", (05,01)
+TRAP: "hole", (06,01)
+TRAP: "hole", (07,01)
+TRAP: "hole", (08,01)
+TRAP: "hole", (09,01)
+TRAP: "hole", (10,01)
+TRAP: "hole", (11,01)
+TRAP: "hole", (12,01)
+TRAP: "hole", (13,01)
+TRAP: "hole", (14,01)
+TRAP: "hole", (15,01)
+TRAP: "hole", (16,01)
+TRAP: "hole", (17,01)
+TRAP: "hole", (18,01)
+TRAP: "hole", (19,01)
+TRAP: "hole", (20,01)
+TRAP: "hole", (21,01)
+TRAP: "hole", (22,01)
 
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Rewards
-DOOR:locked,(23,12)
-DOOR:closed,(17,10)
-DOOR:closed,(17,12)
-DOOR:closed,(17,14)
-REGION:(18,09,22,15),lit,"zoo",filled,irregular
+DOOR: locked, (23,12)
+DOOR: closed,(17,10)
+DOOR: closed,(17,12)
+DOOR: closed,(17,14)
+REGION: (18,09,22,15), lit, "zoo", filled, irregular
 
-OBJECT:('?', "scare monster"),$place[0],cursed
+OBJECT: ('?', "scare monster"), $place[0], cursed
 IF [50%] {
-  OBJECT:('"', "amulet of reflection"),$place[0]
+  OBJECT: ('"', "amulet of reflection"), $place[0]
 } ELSE {
-  OBJECT:('"', "amulet of magic resistance"),$place[0]
+  OBJECT: ('"', "amulet of magic resistance"), $place[0]
 }
-ENGRAVING:$place[0],burn,"Elbereth"
+ENGRAVING:$place[0], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[1],cursed
+OBJECT: ('?', "scare monster"), $place[1], cursed
 IF [50%] {
-  OBJECT:('(', "bag of holding"),$place[1]
+  OBJECT: ('(', "bag of holding"), $place[1]
 } ELSE {
-  OBJECT:('(', "magic marker"),$place[1]
+  OBJECT: ('(', "magic marker"), $place[1]
 }
-ENGRAVING:$place[1],burn,"Elbereth"
+ENGRAVING:$place[1], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[2],cursed
+OBJECT: ('?', "scare monster"), $place[2], cursed
 IF [50%] {
-  OBJECT:('[', "helm of speed"),$place[2]
+  OBJECT: ('[', "helm of speed"), $place[2]
 } ELSE {
-  OBJECT:('[', "gauntlets of protection"),$place[2]
+  OBJECT: ('[', "gauntlets of protection"), $place[2]
 }
-ENGRAVING:$place[2],burn,"Elbereth"
+ENGRAVING:$place[2], burn, "Elbereth"
 
 
 # Following Sokoban levels (1-3 through 1-6)
@@ -1429,9 +2117,9 @@ ENGRAVING:$place[2],burn,"Elbereth"
 # The original authors are listed just before the maps
 #
 LEVEL:"soko1-3"
-FLAGS:noteleport,mazelevel,premapped,solidify
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped, solidify
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "J Franklin Mentzer <wryter@aol.com>"
 MAP
             ---------
@@ -1455,89 +2143,92 @@ MAP
 ENDMAP
 $place = { (20,09),(20,11),(20,13) }
 SHUFFLE: $place
-STAIR:(02,03), down
-REGION:(00,00,21,17),lit,"ordinary"
-NON_DIGGABLE:(00,00,21,17)
-NON_PASSWALL:(00,00,21,17)
-OBJECT:('`',"boulder"),(06,04)
-OBJECT:('`',"boulder"),(02,06)
-OBJECT:('`',"boulder"),(02,07)
-OBJECT:('`',"boulder"),(03,08)
-OBJECT:('`',"boulder"),(06,08)
-OBJECT:('`',"boulder"),(03,09)
-OBJECT:('`',"boulder"),(05,09)
-OBJECT:('`',"boulder"),(06,10)
-OBJECT:('`',"boulder"),(06,11)
-OBJECT:('`',"boulder"),(03,13)
-OBJECT:('`',"boulder"),(05,14)
-OBJECT:('`',"boulder"),(10,14)
-OBJECT:('`',"boulder"),(04,15)
-OBJECT:('`',"boulder"),(07,15)
-OBJECT:('`',"boulder"),(10,15)
-TRAP:"hole",(15,01)
-TRAP:"hole",(16,01)
-TRAP:"hole",(17,01)
-TRAP:"hole",(18,01)
-TRAP:"hole",(14,03)
-TRAP:"hole",(14,04)
-TRAP:"hole",(14,05)
-TRAP:"hole",(14,06)
-TRAP:"hole",(14,07)
-TRAP:"hole",(14,08)
-TRAP:"hole",(14,09)
-TRAP:"hole",(14,10)
-TRAP:"hole",(14,11)
-TRAP:"hole",(14,12)
-TRAP:"hole",(14,13)
+STAIR: (02,03), down
+REGION: (00,00,21,17), lit, "ordinary"
+NON_DIGGABLE: (00,00,21,17)
+NON_PASSWALL: (00,00,21,17)
 
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
+OBJECT: ('`', "boulder"), (06,04)
+OBJECT: ('`', "boulder"), (02,06)
+OBJECT: ('`', "boulder"), (02,07)
+OBJECT: ('`', "boulder"), (03,08)
+OBJECT: ('`', "boulder"), (06,08)
+OBJECT: ('`', "boulder"), (03,09)
+OBJECT: ('`', "boulder"), (05,09)
+OBJECT: ('`', "boulder"), (06,10)
+OBJECT: ('`', "boulder"), (06,11)
+OBJECT: ('`', "boulder"), (03,13)
+OBJECT: ('`', "boulder"), (05,14)
+OBJECT: ('`', "boulder"), (10,14)
+OBJECT: ('`', "boulder"), (04,15)
+OBJECT: ('`', "boulder"), (07,15)
+OBJECT: ('`', "boulder"), (10,15)
+
+TRAP: "hole", (15,01)
+TRAP: "hole", (16,01)
+TRAP: "hole", (17,01)
+TRAP: "hole", (18,01)
+TRAP: "hole", (14,03)
+TRAP: "hole", (14,04)
+TRAP: "hole", (14,05)
+TRAP: "hole", (14,06)
+TRAP: "hole", (14,07)
+TRAP: "hole", (14,08)
+TRAP: "hole", (14,09)
+TRAP: "hole", (14,10)
+TRAP: "hole", (14,11)
+TRAP: "hole", (14,12)
+TRAP: "hole", (14,13)
+
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Rewards
-DOOR:locked,(19,02)
-DOOR:locked,(16,08)
-DOOR:closed,(19,09)
-DOOR:closed,(19,11)
-DOOR:closed,(19,13)
-REGION:(16,03,19,07),lit,"zoo",filled,irregular
+DOOR: locked, (19,02)
+DOOR: locked, (16,08)
+DOOR: closed,(19,09)
+DOOR: closed,(19,11)
+DOOR: closed,(19,13)
 
-OBJECT:('?', "scare monster"),$place[0],cursed
-IF [50%] {
-  OBJECT:('"', "amulet of reflection"),$place[0]
-} ELSE {
-  OBJECT:('"', "amulet of magic resistance"),$place[0]
-}
-ENGRAVING:$place[0],burn,"Elbereth"
+REGION: (16,03,19,07), lit, "zoo", filled, irregular
 
-OBJECT:('?', "scare monster"),$place[1],cursed
+OBJECT: ('?', "scare monster"), $place[0], cursed
 IF [50%] {
-  OBJECT:('(', "bag of holding"),$place[1]
+  OBJECT: ('"', "amulet of reflection"), $place[0]
 } ELSE {
-  OBJECT:('(', "magic marker"),$place[1]
+  OBJECT: ('"', "amulet of magic resistance"), $place[0]
 }
-ENGRAVING:$place[1],burn,"Elbereth"
+ENGRAVING:$place[0], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[2],cursed
+OBJECT: ('?', "scare monster"), $place[1], cursed
 IF [50%] {
-  OBJECT:('[', "helm of speed"),$place[2]
+  OBJECT: ('(', "bag of holding"), $place[1]
 } ELSE {
-  OBJECT:('[', "gauntlets of protection"),$place[2]
+  OBJECT: ('(', "magic marker"), $place[1]
 }
-ENGRAVING:$place[2],burn,"Elbereth"
+ENGRAVING:$place[1], burn, "Elbereth"
+
+OBJECT: ('?', "scare monster"), $place[2], cursed
+IF [50%] {
+  OBJECT: ('[', "helm of speed"), $place[2]
+} ELSE {
+  OBJECT: ('[', "gauntlets of protection"), $place[2]
+}
+ENGRAVING:$place[2], burn, "Elbereth"
 
 
 LEVEL:"soko1-4"
-FLAGS:noteleport,mazelevel,premapped,solidify
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, mazelevel, premapped, solidify
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # "J Franklin Mentzer <wryter@aol.com>"
 MAP
 ------------
@@ -1562,93 +2253,96 @@ MAP
 ENDMAP
 $place = { (01,01),(01,03),(01,05) }
 SHUFFLE: $place
-STAIR:(06,10), down
-REGION:(00,00,17,18),lit,"ordinary"
-NON_DIGGABLE:(00,00,17,18)
-NON_PASSWALL:(00,00,17,18)
-OBJECT:('`',"boulder"),(02,08)
-OBJECT:('`',"boulder"),(03,08)
-OBJECT:('`',"boulder"),(06,08)
-OBJECT:('`',"boulder"),(10,08)
-OBJECT:('`',"boulder"),(12,08)
-OBJECT:('`',"boulder"),(03,09)
-OBJECT:('`',"boulder"),(02,10)
-OBJECT:('`',"boulder"),(03,10)
-OBJECT:('`',"boulder"),(12,10)
-OBJECT:('`',"boulder"),(08,11)
-OBJECT:('`',"boulder"),(06,12)
-OBJECT:('`',"boulder"),(07,13)
-OBJECT:('`',"boulder"),(06,14)
-OBJECT:('`',"boulder"),(04,16)
-OBJECT:('`',"boulder"),(08,16)
-OBJECT:('`',"boulder"),(09,16)
-TRAP:"hole",(10,03)
-TRAP:"hole",(11,03)
-TRAP:"hole",(12,03)
-TRAP:"hole",(13,03)
-TRAP:"hole",(14,03)
-TRAP:"hole",(15,05)
-TRAP:"hole",(15,06)
-TRAP:"hole",(15,07)
-TRAP:"hole",(15,08)
-TRAP:"hole",(15,09)
-TRAP:"hole",(15,10)
-TRAP:"hole",(15,11)
-TRAP:"hole",(15,12)
-TRAP:"hole",(15,13)
-TRAP:"hole",(15,14)
-TRAP:"hole",(15,15)
+STAIR: (06,10), down
+REGION: (00,00,17,18), lit, "ordinary"
+NON_DIGGABLE: (00,00,17,18)
+NON_PASSWALL: (00,00,17,18)
 
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
+OBJECT: ('`', "boulder"), (02,08)
+OBJECT: ('`', "boulder"), (03,08)
+OBJECT: ('`', "boulder"), (06,08)
+OBJECT: ('`', "boulder"), (10,08)
+OBJECT: ('`', "boulder"), (12,08)
+OBJECT: ('`', "boulder"), (03,09)
+OBJECT: ('`', "boulder"), (02,10)
+OBJECT: ('`', "boulder"), (03,10)
+OBJECT: ('`', "boulder"), (12,10)
+OBJECT: ('`', "boulder"), (08,11)
+OBJECT: ('`', "boulder"), (06,12)
+OBJECT: ('`', "boulder"), (07,13)
+OBJECT: ('`', "boulder"), (06,14)
+OBJECT: ('`', "boulder"), (04,16)
+OBJECT: ('`', "boulder"), (08,16)
+OBJECT: ('`', "boulder"), (09,16)
+
+TRAP: "hole", (10,03)
+TRAP: "hole", (11,03)
+TRAP: "hole", (12,03)
+TRAP: "hole", (13,03)
+TRAP: "hole", (14,03)
+TRAP: "hole", (15,05)
+TRAP: "hole", (15,06)
+TRAP: "hole", (15,07)
+TRAP: "hole", (15,08)
+TRAP: "hole", (15,09)
+TRAP: "hole", (15,10)
+TRAP: "hole", (15,11)
+TRAP: "hole", (15,12)
+TRAP: "hole", (15,13)
+TRAP: "hole", (15,14)
+TRAP: "hole", (15,15)
+
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Rewards
-DOOR:closed,(02,01)
-DOOR:locked,(09,01)
-DOOR:closed,(02,03)
-DOOR:locked,(09,03)
-DOOR:closed,(02,05)
-DOOR:locked,(09,05)
-DOOR:locked,(11,13)
-REGION:(03,01,08,05),lit,"zoo",filled,irregular
+DOOR: closed,(02,01)
+DOOR: locked, (09,01)
+DOOR: closed,(02,03)
+DOOR: locked, (09,03)
+DOOR: closed,(02,05)
+DOOR: locked, (09,05)
+DOOR: locked, (11,13)
 
-OBJECT:('?', "scare monster"),$place[0],cursed
-IF [50%] {
-  OBJECT:('"', "amulet of reflection"),$place[0]
-} ELSE {
-  OBJECT:('"', "amulet of magic resistance"),$place[0]
-}
-ENGRAVING:$place[0],burn,"Elbereth"
+REGION: (03,01,08,05), lit, "zoo", filled, irregular
 
-OBJECT:('?', "scare monster"),$place[1],cursed
+OBJECT: ('?', "scare monster"), $place[0], cursed
 IF [50%] {
-  OBJECT:('(', "bag of holding"),$place[1]
+  OBJECT: ('"', "amulet of reflection"), $place[0]
 } ELSE {
-  OBJECT:('(', "magic marker"),$place[1]
+  OBJECT: ('"', "amulet of magic resistance"), $place[0]
 }
-ENGRAVING:$place[1],burn,"Elbereth"
+ENGRAVING:$place[0], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[2],cursed
+OBJECT: ('?', "scare monster"), $place[1], cursed
 IF [50%] {
-  OBJECT:('[', "helm of speed"),$place[2]
+  OBJECT: ('(', "bag of holding"), $place[1]
 } ELSE {
-  OBJECT:('[', "gauntlets of protection"),$place[2]
+  OBJECT: ('(', "magic marker"), $place[1]
 }
-ENGRAVING:$place[2],burn,"Elbereth"
+ENGRAVING:$place[1], burn, "Elbereth"
+
+OBJECT: ('?', "scare monster"), $place[2], cursed
+IF [50%] {
+  OBJECT: ('[', "helm of speed"), $place[2]
+} ELSE {
+  OBJECT: ('[', "gauntlets of protection"), $place[2]
+}
+ENGRAVING: $place[2], burn, "Elbereth"
 
 
 LEVEL:"soko1-5"
-FLAGS:noteleport,premapped,solidify
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # Steve Melenchuk <smelenchuk@gmail.com>
 MAP
     ----
@@ -1672,102 +2366,103 @@ ENDMAP
 
 $place = { (19,08),(19,10),(19,12) }
 SHUFFLE: $place
-STAIR:(15,15),down
-REGION:(00,00,28,16),lit,"ordinary"
-NON_DIGGABLE:(00,00,28,16)
-NON_PASSWALL:(00,00,28,16)
+STAIR: (15,15),down
+REGION: (00,00,28,16), lit, "ordinary"
+NON_DIGGABLE: (00,00,28,16)
+NON_PASSWALL: (00,00,28,16)
 
 # Boulders
-OBJECT:('`',"boulder"),(06,03)
-OBJECT:('`',"boulder"),(07,03)
-OBJECT:('`',"boulder"),(07,04)
-OBJECT:('`',"boulder"),(02,05)
-OBJECT:('`',"boulder"),(08,05)
-OBJECT:('`',"boulder"),(11,05)
-OBJECT:('`',"boulder"),(05,06)
-OBJECT:('`',"boulder"),(15,08)
-OBJECT:('`',"boulder"),(13,09)
-OBJECT:('`',"boulder"),(16,09)
-OBJECT:('`',"boulder"),(13,10)
-OBJECT:('`',"boulder"),(11,11)
-OBJECT:('`',"boulder"),(04,12)
-OBJECT:('`',"boulder"),(06,12)
-OBJECT:('`',"boulder"),(09,12)
-OBJECT:('`',"boulder"),(15,12)
-OBJECT:('`',"boulder"),(07,13)
-OBJECT:('`',"boulder"),(08,13)
-OBJECT:('`',"boulder"),(09,13)
-OBJECT:('`',"boulder"),(11,13)
-OBJECT:('`',"boulder"),(14,13)
-OBJECT:('`',"boulder"),(11,14)
+OBJECT: ('`', "boulder"), (06,03)
+OBJECT: ('`', "boulder"), (07,03)
+OBJECT: ('`', "boulder"), (07,04)
+OBJECT: ('`', "boulder"), (02,05)
+OBJECT: ('`', "boulder"), (08,05)
+OBJECT: ('`', "boulder"), (11,05)
+OBJECT: ('`', "boulder"), (05,06)
+OBJECT: ('`', "boulder"), (15,08)
+OBJECT: ('`', "boulder"), (13,09)
+OBJECT: ('`', "boulder"), (16,09)
+OBJECT: ('`', "boulder"), (13,10)
+OBJECT: ('`', "boulder"), (11,11)
+OBJECT: ('`', "boulder"), (04,12)
+OBJECT: ('`', "boulder"), (06,12)
+OBJECT: ('`', "boulder"), (09,12)
+OBJECT: ('`', "boulder"), (15,12)
+OBJECT: ('`', "boulder"), (07,13)
+OBJECT: ('`', "boulder"), (08,13)
+OBJECT: ('`', "boulder"), (09,13)
+OBJECT: ('`', "boulder"), (11,13)
+OBJECT: ('`', "boulder"), (14,13)
+OBJECT: ('`', "boulder"), (11,14)
 
 # Traps
-TRAP:"hole",(08,03)
-TRAP:"hole",(09,03)
-TRAP:"hole",(10,03)
-TRAP:"hole",(11,03)
-TRAP:"hole",(12,03)
-TRAP:"hole",(13,03)
-TRAP:"hole",(14,03)
-TRAP:"hole",(15,03)
-TRAP:"hole",(16,03)
-TRAP:"hole",(17,03)
-TRAP:"hole",(18,03)
-TRAP:"hole",(19,03)
-TRAP:"hole",(20,03)
-TRAP:"hole",(21,03)
-TRAP:"hole",(22,03)
-TRAP:"hole",(23,03)
-TRAP:"hole",(24,03)
-TRAP:"hole",(25,03)
+TRAP: "hole", (08,03)
+TRAP: "hole", (09,03)
+TRAP: "hole", (10,03)
+TRAP: "hole", (11,03)
+TRAP: "hole", (12,03)
+TRAP: "hole", (13,03)
+TRAP: "hole", (14,03)
+TRAP: "hole", (15,03)
+TRAP: "hole", (16,03)
+TRAP: "hole", (17,03)
+TRAP: "hole", (18,03)
+TRAP: "hole", (19,03)
+TRAP: "hole", (20,03)
+TRAP: "hole", (21,03)
+TRAP: "hole", (22,03)
+TRAP: "hole", (23,03)
+TRAP: "hole", (24,03)
+TRAP: "hole", (25,03)
 
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Rewards
-DOOR:locked,(26,10)
-DOOR:closed,(20,08)
-DOOR:closed,(20,10)
-DOOR:closed,(20,12)
-REGION:(21,07,25,13),lit,"zoo",filled,irregular
+DOOR: locked, (26,10)
+DOOR: closed,(20,08)
+DOOR: closed,(20,10)
+DOOR: closed,(20,12)
 
-OBJECT:('?', "scare monster"),$place[0],cursed
-IF [50%] {
-  OBJECT:('"', "amulet of reflection"),$place[0]
-} ELSE {
-  OBJECT:('"', "amulet of magic resistance"),$place[0]
-}
-ENGRAVING:$place[0],burn,"Elbereth"
+REGION: (21,07,25,13), lit, "zoo", filled, irregular
 
-OBJECT:('?', "scare monster"),$place[1],cursed
+OBJECT: ('?', "scare monster"), $place[0], cursed
 IF [50%] {
-  OBJECT:('(', "bag of holding"),$place[1]
+  OBJECT: ('"', "amulet of reflection"), $place[0]
 } ELSE {
-  OBJECT:('(', "magic marker"),$place[1]
+  OBJECT: ('"', "amulet of magic resistance"), $place[0]
 }
-ENGRAVING:$place[1],burn,"Elbereth"
+ENGRAVING:$place[0], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[2],cursed
+OBJECT: ('?', "scare monster"), $place[1], cursed
 IF [50%] {
-  OBJECT:('[', "helm of speed"),$place[2]
+  OBJECT: ('(', "bag of holding"), $place[1]
 } ELSE {
-  OBJECT:('[', "gauntlets of protection"),$place[2]
+  OBJECT: ('(', "magic marker"), $place[1]
 }
-ENGRAVING:$place[2],burn,"Elbereth"
+ENGRAVING:$place[1], burn, "Elbereth"
+
+OBJECT: ('?', "scare monster"), $place[2], cursed
+IF [50%] {
+  OBJECT: ('[', "helm of speed"), $place[2]
+} ELSE {
+  OBJECT: ('[', "gauntlets of protection"), $place[2]
+}
+ENGRAVING:$place[2], burn, "Elbereth"
 
 
 LEVEL:"soko1-6"
-FLAGS:noteleport,premapped,solidify
-INIT_MAP:solidfill,' '
-GEOMETRY:center,center
+FLAGS: noteleport, premapped, solidify
+INIT_MAP: solidfill, ' '
+GEOMETRY: center, center
 # Steve Melenchuk <smelenchuk@gmail.com>
 MAP
   -----                        
@@ -1790,93 +2485,93 @@ ENDMAP
 
 $place = { (21,03),(21,05),(21,07) }
 SHUFFLE: $place
-STAIR:(08,07),down
-REGION:(00,00,30,15),lit,"ordinary"
-NON_DIGGABLE:(00,00,30,15)
-NON_PASSWALL:(00,00,30,15)
+STAIR: (08,07),down
+REGION: (00,00,30,15), lit, "ordinary"
+NON_DIGGABLE: (00,00,30,15)
+NON_PASSWALL: (00,00,30,15)
 
 # Boulders
-OBJECT:('`',"boulder"),(04,02)
-OBJECT:('`',"boulder"),(06,02)
-OBJECT:('`',"boulder"),(08,02)
-OBJECT:('`',"boulder"),(16,03)
-OBJECT:('`',"boulder"),(03,04)
-OBJECT:('`',"boulder"),(06,04)
-OBJECT:('`',"boulder"),(12,04)
-OBJECT:('`',"boulder"),(14,04)
-OBJECT:('`',"boulder"),(14,05)
-OBJECT:('`',"boulder"),(02,06)
-OBJECT:('`',"boulder"),(03,06)
-OBJECT:('`',"boulder"),(15,07)
-OBJECT:('`',"boulder"),(04,08)
-OBJECT:('`',"boulder"),(09,08)
-OBJECT:('`',"boulder"),(15,08)
-OBJECT:('`',"boulder"),(15,09)
-OBJECT:('`',"boulder"),(05,10)
-OBJECT:('`',"boulder"),(06,10)
-OBJECT:('`',"boulder"),(12,10)
-OBJECT:('`',"boulder"),(14,10)
-OBJECT:('`',"boulder"),(15,10)
+OBJECT: ('`', "boulder"), (04,02)
+OBJECT: ('`', "boulder"), (06,02)
+OBJECT: ('`', "boulder"), (08,02)
+OBJECT: ('`', "boulder"), (16,03)
+OBJECT: ('`', "boulder"), (03,04)
+OBJECT: ('`', "boulder"), (06,04)
+OBJECT: ('`', "boulder"), (12,04)
+OBJECT: ('`', "boulder"), (14,04)
+OBJECT: ('`', "boulder"), (14,05)
+OBJECT: ('`', "boulder"), (02,06)
+OBJECT: ('`', "boulder"), (03,06)
+OBJECT: ('`', "boulder"), (15,07)
+OBJECT: ('`', "boulder"), (04,08)
+OBJECT: ('`', "boulder"), (09,08)
+OBJECT: ('`', "boulder"), (15,08)
+OBJECT: ('`', "boulder"), (15,09)
+OBJECT: ('`', "boulder"), (05,10)
+OBJECT: ('`', "boulder"), (06,10)
+OBJECT: ('`', "boulder"), (12,10)
+OBJECT: ('`', "boulder"), (14,10)
+OBJECT: ('`', "boulder"), (15,10)
 
 # Traps
-TRAP:"hole",(11,13)
-TRAP:"hole",(12,13)
-TRAP:"hole",(13,13)
-TRAP:"hole",(14,13)
-TRAP:"hole",(15,13)
-TRAP:"hole",(16,13)
-TRAP:"hole",(17,13)
-TRAP:"hole",(18,13)
-TRAP:"hole",(19,13)
-TRAP:"hole",(20,13)
-TRAP:"hole",(21,13)
-TRAP:"hole",(22,13)
-TRAP:"hole",(23,13)
-TRAP:"hole",(24,13)
-TRAP:"hole",(25,13)
-TRAP:"hole",(26,13)
-TRAP:"hole",(27,13)
-TRAP:"hole",(28,13)
+TRAP: "hole", (11,13)
+TRAP: "hole", (12,13)
+TRAP: "hole", (13,13)
+TRAP: "hole", (14,13)
+TRAP: "hole", (15,13)
+TRAP: "hole", (16,13)
+TRAP: "hole", (17,13)
+TRAP: "hole", (18,13)
+TRAP: "hole", (19,13)
+TRAP: "hole", (20,13)
+TRAP: "hole", (21,13)
+TRAP: "hole", (22,13)
+TRAP: "hole", (23,13)
+TRAP: "hole", (24,13)
+TRAP: "hole", (25,13)
+TRAP: "hole", (26,13)
+TRAP: "hole", (27,13)
+TRAP: "hole", (28,13)
 
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
-MONSTER:('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
+MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
 # Random objects
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'%',random
-OBJECT:'=',random
-OBJECT:'/',random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '%', random
+OBJECT: '=', random
+OBJECT: '/', random
 
 # Rewards
-DOOR:locked,(28,05)
-DOOR:closed,(22,03)
-DOOR:closed,(22,05)
-DOOR:closed,(22,07)
-REGION:(23,02,27,08),lit,"zoo",filled,irregular
+DOOR: locked, (28,05)
+DOOR: closed,(22,03)
+DOOR: closed,(22,05)
+DOOR: closed,(22,07)
+REGION: (23,02,27,08), lit, "zoo", filled, irregular
 
-OBJECT:('?', "scare monster"),$place[0],cursed
+OBJECT: ('?', "scare monster"), $place[0], cursed
 IF [50%] {
-  OBJECT:('"', "amulet of reflection"),$place[0]
+  OBJECT: ('"', "amulet of reflection"), $place[0]
 } ELSE {
-  OBJECT:('"', "amulet of magic resistance"),$place[0]
+  OBJECT: ('"', "amulet of magic resistance"), $place[0]
 }
-ENGRAVING:$place[0],burn,"Elbereth"
+ENGRAVING:$place[0], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[1],cursed
+OBJECT: ('?', "scare monster"), $place[1], cursed
 IF [50%] {
-  OBJECT:('(', "bag of holding"),$place[1]
+  OBJECT: ('(', "bag of holding"), $place[1]
 } ELSE {
-  OBJECT:('(', "magic marker"),$place[1]
+  OBJECT: ('(', "magic marker"), $place[1]
 }
-ENGRAVING:$place[1],burn,"Elbereth"
+ENGRAVING:$place[1], burn, "Elbereth"
 
-OBJECT:('?', "scare monster"),$place[2],cursed
+OBJECT: ('?', "scare monster"), $place[2], cursed
 IF [50%] {
-  OBJECT:('[', "helm of speed"),$place[2]
+  OBJECT: ('[', "helm of speed"), $place[2]
 } ELSE {
-  OBJECT:('[', "gauntlets of protection"),$place[2]
+  OBJECT: ('[', "gauntlets of protection"), $place[2]
 }
-ENGRAVING:$place[2],burn,"Elbereth"
+ENGRAVING:$place[2], burn, "Elbereth"
 
