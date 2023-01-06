@@ -1633,6 +1633,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     char hittee[BUFSZ];
     struct artifact* atmp;
     int j, k, permdmg, chance;
+    int time = 1; /* For Mouser's Scalpel */
 
     Strcpy(hittee, youdefend ? you : mon_nam(mdef));
 
@@ -2694,7 +2695,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     if (otmp->oartifact == ART_MOUSER_S_SCALPEL && dieroll < 10) { 
         /* faster than a speeding bullet is the Gray Mouser... */
         pline("There is a flurry of blows!");
-        int time = 1;
         /* I suppose this could theoretically continue forever... */
         do {
             *dmgptr += rnd(8) + 1 + otmp->spe;

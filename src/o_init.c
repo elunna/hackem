@@ -264,12 +264,13 @@ objdescr_is(obj, descr)
 struct obj * obj;
 const char * descr;
 {
+    const char * objdescr;
     if (obj == NULL) {
         impossible("objdescr_is: passed null object");
         return FALSE;
     }
 
-    const char * objdescr = OBJ_DESCR(objects[obj->otyp]);
+    objdescr = OBJ_DESCR(objects[obj->otyp]);
     if (objdescr == NULL) {
         /* possible if called on something like uarmh and the hero is wearing a
          * dented pot which has no unidentified description; in any case, it

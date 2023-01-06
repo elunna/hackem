@@ -823,6 +823,7 @@ boolean init;
 boolean artif;
 {
     int mndx, tryct;
+    int ncount = 0; /* For masks */
     struct obj *otmp;
     char let = objects[otyp].oc_class;
 
@@ -1055,7 +1056,6 @@ boolean artif;
                 tryct = 0;
                 /* Splice has a difficulty cap for pick_nasty */
                 /*otmp->corpsenm = pick_nasty(50); */
-                int ncount = 0;
                 do {
                     /* If possible, we don't want masks to generate that are
                      * NOPOLY monsters - like Devas. */

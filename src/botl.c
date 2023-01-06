@@ -466,7 +466,8 @@ const char *
 botl_realtime(void)
 {
     time_t currenttime;
-
+    static char buf[BUFSZ] = { 0 };
+    
     if (iflags.show_realtime == 'p') {
         /* play time */
         currenttime = urealtime.realtime + (getnow() - urealtime.start_timing);
@@ -476,8 +477,7 @@ botl_realtime(void)
     } else {
         return "";
     }
-
-    static char buf[BUFSZ] = { 0 };
+   
     switch (iflags.realtime_format) {
     case 's':
         Sprintf(buf, "%ld", currenttime);
