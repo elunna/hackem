@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-05: Spirits are no longer auto-picked up by Necromancers in shops.
 2023-01-05: Refactored the pager logic for material damage bonuses.
 2023-01-05: Big rooms cannot be mask shops.
 2023-01-05: Iron bars now block spears from passing through.
