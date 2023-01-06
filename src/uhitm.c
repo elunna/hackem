@@ -4729,14 +4729,16 @@ boolean wep_was_destroyed;
                 }
                 break;
             case DEEP_DRAGON_SCALES:
-                if (how_resistant(DRAIN_RES) == 100) {
-                    You("are immune to %s wicked armor.",
-                        s_suffix(mon_nam(mon)));
-                    monstseesu(M_SEEN_DRAIN);
-                    break;
-                } else {
-                    You_feel("weaker!");
-                    losexp("life drainage");
+                if (!rn2(3)) {
+                    if (how_resistant(DRAIN_RES) == 100) {
+                        You("are immune to %s wicked armor.",
+                            s_suffix(mon_nam(mon)));
+                        monstseesu(M_SEEN_DRAIN);
+                        break;
+                    } else {
+                        You_feel("weaker!");
+                        losexp("life drainage");
+                    }
                 }
                 break;
             case BLACK_DRAGON_SCALES: {

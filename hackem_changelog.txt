@@ -18,6 +18,8 @@
 
 Version 1.1 (unreleased)
 
+2023-01-05: Attacking a monster wearing deep dragon scales will only drain levels 1 in 3 times (to mirror mhitu)
+2023-01-05: Imported 11 sokobon levels from slashTHEM.
 2023-01-05: Added more variety to the nasties list.
 2023-01-05: Fix: Hit message for The Master Sword.
 2023-01-05: Imported special attack for Mouser's Scalpel from slashTHEM.
