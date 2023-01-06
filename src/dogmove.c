@@ -1282,6 +1282,10 @@ boolean ranged;
     int balk = mtmp->m_lev + ((5 * mtmp->mhp) / mtmp->mhpmax) - 2;
     boolean grudge = FALSE;
 
+    /* Pets spheres will attack anything */
+    if (attacktype(mtmp->data, AT_EXPL))
+        return TRUE;
+    
     /* Grudges override level checks. */
     if ((mm_aggression(mtmp, mtmp2) & ALLOW_M)
         || mtmp->msummoned) {
