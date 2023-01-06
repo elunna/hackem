@@ -635,11 +635,8 @@ struct damage_info_t {
     /* various bonus damage conditions */
     const char* buc_damage;
     const char* axe_damage;
-    const char* silver_damage;
-    const char* iron_damage;
     const char* mat_damage;
-    const char* mithril_damage;
-    const char* copper_damage;
+    const char* hate_damage;
     const char* light_damage;
 };
 
