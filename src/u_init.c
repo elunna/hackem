@@ -326,6 +326,7 @@ struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
 struct inv_sub {
     short race_pm, item_otyp, subs_otyp;
 } inv_subs[] = {
+    /* Elves */
     { PM_ELF, DAGGER, ELVEN_DAGGER },
     { PM_ELF, SPEAR, ELVEN_SPEAR },
     { PM_ELF, SHORT_SWORD, ELVEN_SHORT_SWORD },
@@ -338,6 +339,7 @@ struct inv_sub {
     /* { PM_ELF, SMALL_SHIELD, ELVEN_SHIELD }, */
     { PM_ELF, CLOAK_OF_DISPLACEMENT, ELVEN_CLOAK },
     { PM_ELF, CRAM_RATION, LEMBAS_WAFER },
+    /* Orcs */
     { PM_ORC, DAGGER, ORCISH_DAGGER },
     { PM_ORC, SPEAR, ORCISH_SPEAR },
     { PM_ORC, SHORT_SWORD, ORCISH_SHORT_SWORD },
@@ -350,6 +352,7 @@ struct inv_sub {
     { PM_ORC, CRAM_RATION, TRIPE_RATION },
     { PM_ORC, LEMBAS_WAFER, TRIPE_RATION },
     { PM_ORC, LONG_SWORD, ORCISH_LONG_SWORD },
+    /* Dwarves */
     { PM_DWARF, SPEAR, DWARVISH_SPEAR },
     { PM_DWARF, SHORT_SWORD, DWARVISH_SHORT_SWORD },
     { PM_DWARF, HELMET, DWARVISH_HELM },
@@ -390,6 +393,8 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
+    /* Centaurs */
+    { PM_CENTAUR, HIGH_BOOTS, HELMET },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
 };
 

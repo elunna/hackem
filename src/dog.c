@@ -247,13 +247,15 @@ makedog()
         petname = homunname;
     else if (pettype == PM_PONY) {
         petname = horsename;
+        /* centaurs don't get saddled ponies */
+        if (Race_if(PM_CENTAUR)) {
+            petname = dogname;
+            pettype = PM_LITTLE_DOG;
+        }
         /* hijack creation for chaotic knights */
-        if (u.ualign.type == A_CHAOTIC && Role_if(PM_KNIGHT)) {
+        else if (u.ualign.type == A_CHAOTIC && Role_if(PM_KNIGHT)) {
             if (!Race_if(PM_CENTAUR)) {
                 pettype = PM_LESSER_NIGHTMARE;
-            } else {
-                petname = dogname;
-                pettype = PM_LITTLE_DOG;
             }
         }
     } else

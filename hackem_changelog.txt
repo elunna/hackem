@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-07: Enabled neutral alignment and centaur race for yeomen.
 2023-01-07: Monsters that darken rooms need to be hostile and within 10 squares to darken.
 2023-01-05: Silenced more compiler warnings.
 2023-01-05: Fixed missed hit proc for Mouser's Scalpel.
