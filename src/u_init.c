@@ -141,7 +141,7 @@ struct trobj Knight[] = {
 struct trobj Monk[] = {
 #define M_BOOK 2
     { GLOVES, 2, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { ROBE_OF_POWER, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
     { POT_HEALING, 0, POTION_CLASS, 3, UNDEF_BLESS },
