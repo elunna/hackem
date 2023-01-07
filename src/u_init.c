@@ -1498,11 +1498,13 @@ u_init()
         knows_object(ELVEN_ARROW);
         knows_object(ELVEN_BOW);
         knows_object(ORCISH_ARROW);
+        knows_object(LIGHT_ARROW);
         knows_object(ORCISH_BOW);
         knows_object(ARROW);
         knows_object(BOW);
         knows_object(YA);
         knows_object(YUMI);
+        knows_object(FOOTBOW);
         knows_object(CROSSBOW_BOLT);
         knows_object(CROSSBOW);
         break;
