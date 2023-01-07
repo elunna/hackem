@@ -586,6 +586,10 @@ char *buf, *monbuf;
         case S_poisoncloud:
             printed_blood = TRUE;
             break;
+        case S_grass:
+            Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody grass" : "grass");
+            printed_blood = TRUE;
+            break;
         case S_pool:
         case S_puddle:
         case S_sewage:

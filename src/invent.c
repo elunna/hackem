@@ -3577,7 +3577,8 @@ boolean picked_some;
     char fbuf[BUFSZ], fbuf2[BUFSZ];
     winid tmpwin;
     boolean skip_objects, felt_cockatrice = FALSE;
-
+    boolean bloody = levl[u.ux][u.uy].splatpm;
+    
     /* default pile_limit is 5; a value of 0 means "never skip"
        (and 1 effectively forces "always skip") */
     skip_objects = (flags.pile_limit > 0 && obj_cnt >= flags.pile_limit);
@@ -3656,15 +3657,21 @@ boolean picked_some;
     }
 
     if (dfeature)
-        Sprintf(fbuf, "There is %s here.", an(dfeature));
+        Sprintf(fbuf, "There is %s%s here.", bloody ? "bloody " : "", an(dfeature));
 
     if (!otmp || is_lava(u.ux, u.uy)
         || (is_pool(u.ux, u.uy) && !Underwater)) {
         if (dfeature)
             pline1(fbuf);
         read_engr_at(u.ux, u.uy); /* Eric Backus */
-        if (!skip_objects && (Blind || !dfeature))
-            You("%s no objects here.", verb);
+        if (!skip_objects && (Blind || !dfeature)) {
+            if (bloody) 
+                pline("There is %s blood splattered on the floor.", 
+                      mons[levl[u.ux][u.uy].splatpm].mname);
+            else
+                You("%s no objects here.", verb);
+        }
+           
         return !!Blind;
     }
     /* we know there is something here */
