@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-07: Bloody tiles not being updated when monsters are killed.
 2023-01-07: Fix: Spirits dropped and auto-collected by necromancers cause highlighted piles on non-piles.
 2023-01-07: Centaurs also start knowing light arrows and footbows.
 2023-01-07: Monks start with a robe of power.

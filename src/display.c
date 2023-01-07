@@ -2861,7 +2861,7 @@ struct rm *lev;
 void
 add_blood(int x, int y, int pm) {
     levl[x][y].splatpm = pm;
-    newsym(x, y);
+    newsym_force(x, y);
 }
 
 int
