@@ -527,6 +527,7 @@ boolean resuming;
                                 for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
                                     if (obj->otyp == SPIRIT && !inside_shop(x, y)) {
                                         pickup_object(obj, obj->quan, TRUE);
+                                        newsym_force(x, y);
                                         break;
                                     }
                                 }
