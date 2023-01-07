@@ -3501,6 +3501,19 @@ static const struct icp horn_materials[] = {
     { 2, GOLD}
 };
 
+/* for baseball bats, currently. */
+static const struct icp bat_materials[] = {
+    {40, WOOD},
+    {25, IRON},
+    {10, PLASTIC},
+    { 5, METAL},
+    { 5, BONE},
+    { 5, COPPER},
+    { 5, MITHRIL},
+    { 3, SILVER},
+    { 2, GOLD}
+};
+
 /* hacks for specific objects... not great because it's a lot of data, but it's
  * a relatively clean solution */
 static const struct icp elven_helm_boots_materials[] = {
@@ -3679,6 +3692,8 @@ struct obj* obj;
         case FROST_HORN:
         case HORN_OF_PLENTY:
             return horn_materials;
+        case BASEBALL_BAT:
+            return bat_materials;
         case SACK:
         case OILSKIN_SACK:
         case BAG_OF_HOLDING:
