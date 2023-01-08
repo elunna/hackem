@@ -126,10 +126,9 @@ static const struct innate {
                  { 17, &(HTeleport_control), "controlled", "uncontrolled" },
                  { 0, 0, 0, 0 } },
 
-  yeo_abil[] = {
-		         { 7, &(HFast), "quick", "slow" },
-		         { 15, &(HSwimming), "ready to swim", "afraid of the water" },
-		         {  0, 0, 0, 0 } },
+  yeo_abil[] = { { 7, &(HFast), "quick", "slow" },
+                 { 15, &(HSwimming), "ready to swim", "afraid of the water" },
+                 {  0, 0, 0, 0 } },
 
   /* Intrinsics conferred by race */
   dwa_abil[] = { { 1, &(HInfravision), "", "" },
