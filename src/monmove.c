@@ -750,6 +750,8 @@ register struct monst *mtmp;
             pline("It feels quite soothing.");
         } else if (is_illithid(youmonst.data)) {
             Your("psionic abilities shield your brain.");
+        } else if (Psychic_resistance) {
+            You("are unaffected.");
         } else if (!u.uinvulnerable) {
             register boolean m_sen = sensemon(mtmp);
 
