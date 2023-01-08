@@ -2431,6 +2431,13 @@ register struct obj *obj;
     } else if (obj == current_container) {
         pline("That would be an interesting topological exercise.");
         return 0;
+    } else if ((Is_mbag(obj) || obj->otyp == WAN_CANCELLATION)
+             && objects[obj->otyp].oc_name_known 
+               && obj->dknown 
+               && current_container->otyp == BAG_OF_HOLDING
+    ) {
+        pline("That combination is a little too explosive.");
+        return 0;
     } else if (obj->owornmask & (W_ARMOR | W_ACCESSORY)) {
         Norep("You cannot %s %s you are wearing.",
               Icebox ? "refrigerate" : "stash", something);
