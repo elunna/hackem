@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-08: Fix: stairtravel was not working when known stairs were covered up by objects. Fixes #145.
 2023-01-07: Skunks also leave occasional poison gas clouds.
 2023-01-07: Bumped chakram dmg vs large to 10.
 2023-01-07: Throne insight now recursively identifies all items in your possession and in your containers (fiq)
