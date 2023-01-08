@@ -57,7 +57,13 @@ Originally, I intended this variant to be a modern port of Slash'EM. However, on
 
 Hack'EM is now being hosted on the HardFought server!  Visit https://www.hardfought.org/ for details.
 
-To install locally, follow the instructions below.
+To install locally, follow the instructions below
+
+If you on Windows, download the latest binary here: https://github.com/elunna/hackem/releases 
+
+* Hack'EM Wiki: https://nethackwiki.com/wiki/Hack%27EM
+* Hack'EM Frequently Asked Questions: https://nethackwiki.com/wiki/Hack%27EM_Frequently_Asked_Questions
+* Click here to join #hackem on IRC: https://web.libera.chat/#hackem
 
 ## Installation
 
