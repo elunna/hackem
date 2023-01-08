@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-07: If a bag of rats or tricks with contents is charged, it now explodes.
 2023-01-07: Bags of rats are considered magical bags.
 2023-01-07: Players cannot put known wands of cancellation or magical bags into bags of holding anymore (dnh).
 2023-01-07: Reduced cost of baseball bat to 20.

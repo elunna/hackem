@@ -2090,6 +2090,7 @@ E void NDECL(getlock);
 #endif /* MICRO */
 
 /* ### pickup.c ### */
+
 E int FDECL(collect_obj_classes, (char *, struct obj *, BOOLEAN_P,
                                   boolean FDECL((*), (OBJ_P)), int *));
 E boolean FDECL(rider_corpse_revival, (struct obj *, BOOLEAN_P));
@@ -2148,6 +2149,7 @@ E void VDECL(verbalize, (const char *, ...)) PRINTF_F(1, 2);
 E void VDECL(raw_printf, (const char *, ...)) PRINTF_F(1, 2);
 E void VDECL(impossible, (const char *, ...)) PRINTF_F(1, 2);
 E void VDECL(config_error_add, (const char *, ...)) PRINTF_F(1, 2);
+E void FDECL(do_boh_explosion, (struct obj *, BOOLEAN_P));
 
 /* ### polyself.c ### */
 

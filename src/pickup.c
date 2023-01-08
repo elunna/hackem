@@ -31,7 +31,6 @@ STATIC_DCL int FDECL(lift_object, (struct obj *, struct obj *, long *,
                                    BOOLEAN_P));
 /*STATIC_DCL boolean FDECL(mbag_explodes, (struct obj *, int)); */
 STATIC_DCL boolean NDECL(is_boh_item_gone);
-STATIC_DCL void FDECL(do_boh_explosion, (struct obj *, BOOLEAN_P));
 STATIC_DCL long FDECL(boh_loss, (struct obj *container, BOOLEAN_P));
 STATIC_PTR int FDECL(in_container, (struct obj *));
 STATIC_PTR int FDECL(out_container, (struct obj *));
@@ -2366,7 +2365,7 @@ is_boh_item_gone()
 
 /* Scatter most of Bag of holding contents around.  Some items will be
    destroyed with the same chance as looting a cursed bag. */
-STATIC_OVL void
+void
 do_boh_explosion(boh, on_floor)
 struct obj *boh;
 boolean on_floor;

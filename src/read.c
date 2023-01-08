@@ -1076,32 +1076,17 @@ struct monst *mtmp;
             break;
         case BAG_OF_TRICKS:
         case BAG_OF_RATS:
-            /* if there are any objects inside the bag, devour them */
+            /* if there are any objects inside the bag, go boom. */
             if (!is_cursed) {
-                struct obj *curr, *otmp;
-                struct monst *shkp;
-                int lcnt = 0;
-                long loss = 0L;
-
-                makeknown(BAG_OF_TRICKS);
-                for (curr = obj->cobj; curr; curr = otmp) {
-                    otmp = curr->nobj;
-                    obj_extract_self(curr);
-                    lcnt++;
-                    if (*u.ushops && (shkp = shop_keeper(*u.ushops)) != 0) {
-                        if (curr->unpaid)
-                            loss += stolen_value(curr, u.ux, u.uy,
-                                                 (boolean)shkp->mpeaceful, TRUE);
-                    }
-                    /* obfree() will free all contained objects */
-                    obfree(curr, (struct obj *) 0);
+                if (Has_contents(obj)) {
+                    pline("As you charge the bag, you are blasted by a magical explosion!");
+                    do_boh_explosion(obj, carried(obj));
+                    if (carried(obj))
+                        useup(obj);
+                    else
+                        useupf(obj, obj->quan);
+                    break;
                 }
-
-                if (lcnt)
-                    You_hear("loud crunching sounds from inside %s.", yname(obj));
-                if (lcnt && loss)
-                    You("owe %ld %s for lost item%s.",
-                        loss, currency(loss), lcnt > 1 ? "s" : "");
             }
         /* fall through */
         case HORN_OF_PLENTY:
