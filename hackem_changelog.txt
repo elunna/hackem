@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-08: Fix: Puddles dried up when splashed by a falling object, and hiding swimmers stayed hidden. Fixes #158.
 2023-01-08: Updated README with info for new players.
 2023-01-08: Fix: Zapping a wand of speed monster or quaffing potion of speed cures intrinsic slowness.
 2023-01-08: Fix: stairtravel was not working when known stairs were covered up by objects. Fixes #145.
