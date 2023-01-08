@@ -4309,6 +4309,12 @@ obj2upgrade(int otyp)
 void
 speed_up(long duration)
 {
+    if (Slow) {
+        /* Cure slowness */
+        HSlow = 0;
+        if (!ESlow)
+            You("no longer feel sluggish.");
+    }
     if (!Very_fast) {
         You("are suddenly moving %sfaster.", Fast ? "" : "much ");
     } else {
