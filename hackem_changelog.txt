@@ -9,10 +9,7 @@
 - amateurhour and qt for their endless debugging advice.
 
 ### Thanks: 
-- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire
-
-### Playtesters: 
-- nh2465, cbus, shadowrider
+- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico
 
 ==========================
 
