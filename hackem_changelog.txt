@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-07: Bumped chakram dmg vs large to 10.
 2023-01-07: Throne insight now recursively identifies all items in your possession and in your containers (fiq)
 2023-01-07: If a bag of rats or tricks with contents is charged, it now explodes.
 2023-01-07: Bags of rats are considered magical bags.
