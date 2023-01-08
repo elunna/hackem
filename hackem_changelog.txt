@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-07: Changed footbow cost to 60.
 2023-01-07: Increased price of chakrams to 10.
 2023-01-07: Updated message for killing Grund.
 2023-01-07: Selflook describes blood on the floor.

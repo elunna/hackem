@@ -377,7 +377,7 @@ WEAPON("fly swatter", None,                                /* Slash'EM */
 /* launchers */
 BOW("bow", None,               1, 1, 24, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("elven bow", "runed bow",  0, 1, 12, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
-BOW("footbow", "warped bow",   0, 0, 30, 60, 0,  0, BONE, P_BOW, CLR_WHITE), /* SpliceHack */
+BOW("footbow", "warped bow",   0, 0, 30, 60, 60, 0, BONE, P_BOW, CLR_WHITE), /* SpliceHack */
 BOW("orcish bow", "crude bow", 0, 1, 12, 30, 60, 0, WOOD, P_BOW, CLR_BLACK),
 BOW("yumi", "long bow",        0, 1,  0, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER),
