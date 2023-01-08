@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-08: Fix: mon hiding under nonexistent bomb after it exploded. Fixes #133.
 2023-01-08: Mermaids, sea horses, and giant squids are vulnerable to shock damage.
 2023-01-08: Fix: Puddles dried up when splashed by a falling object, and hiding swimmers stayed hidden. Fixes #158.
 2023-01-08: Updated README with info for new players.
