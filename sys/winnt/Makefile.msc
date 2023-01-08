@@ -1374,7 +1374,7 @@ spotless: clean
 	if exist $(DAT)\qchaos.lev	 del $(DAT)\qchaos.lev
 	if exist $(DAT)\rats-?.lev	 del $(DAT)\rats-?.lev
 	if exist $(DAT)\sanctum.lev	 del $(DAT)\sanctum.lev
-	if exist $(DAT)\soko?-*.lev	 del $(DAT)\soko?-*.lev
+	if exist $(DAT)\soko?-?.lev	 del $(DAT)\soko?-?.lev
 	if exist $(DAT)\stor-?.lev	 del $(DAT)\stor-?.lev
 	if exist $(DAT)\tomb-?.lev	 del $(DAT)\tomb-?.lev
 	if exist $(DAT)\tower?.lev	 del $(DAT)\tower?.lev

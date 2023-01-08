@@ -1142,7 +1142,7 @@ dlb_yup : dlb
 	-$(RM) $(GAMEDIR)\quest.dat
 	-$(RM) $(GAMEDIR)\rumors
 	-$(RM) $(GAMEDIR)\dungeon
-	-$(RM) $(GAMEDIR)\soko?-?.lev
+	-$(RM) $(GAMEDIR)\soko?-*.lev
 #	-$(RM) $(GAMEDIR)\pet_mark.xbm
 #	-$(RM) $(GAMEDIR)\rip.xpm
 
