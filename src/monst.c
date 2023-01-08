@@ -7033,7 +7033,7 @@ struct permonst _mons2[] = {
         SIZ(1500, 300, MS_NEIGH, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_SWIM | M1_AMPHIBIOUS |
         M1_SLITHY, M2_WANDER | M2_STRONG | M2_DOMESTIC, 
-        M3_INFRAVISIBLE, 0, 0, 8, HI_DOMESTIC),
+        M3_INFRAVISIBLE, M4_VULNERABLE_ELEC, 0, 8, HI_DOMESTIC),
     MON("shark", S_EEL,
         LVL(7, 12, 2, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 5, 6), 
@@ -7068,7 +7068,7 @@ struct permonst _mons2[] = {
         SIZ(WT_ELF, 350, MS_HUMANOID, MZ_HUMAN), MR_SLEEP, 0,
         M1_HUMANOID | M1_OMNIVORE | M1_SWIM | M1_AMPHIBIOUS | M1_OVIPAROUS,
         M2_COLLECT | M2_HOSTILE | M2_FEMALE, 
-        M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 12, CLR_MAGENTA),
+        M3_INFRAVISIBLE | M3_INFRAVISION, M4_VULNERABLE_ELEC, 0, 12, CLR_MAGENTA),
     MON("kraken", S_EEL,
         LVL(20, 3, 6, 0, -3), (G_GENO | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
@@ -7091,7 +7091,7 @@ struct permonst _mons2[] = {
         SIZ(1800, 1000, MS_SILENT, MZ_GIGANTIC), 0, 0,
         M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG, 
-        M3_INFRAVISIBLE, 0, 0, 34, HI_LORD),
+        M3_INFRAVISIBLE, M4_VULNERABLE_ELEC, 0, 34, HI_LORD),
     /*
      * lizards, &c
      */
