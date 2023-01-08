@@ -1377,8 +1377,8 @@ $(GAMEDIR)\wizard1.lev : $(DAT)\yendor.des $(TEMP)\lev_comp.exe
 
 $(GAMEDIR)\soko1-1.lev : $(DAT)\sokoban.des $(TEMP)\lev_comp.exe
 	$(TEMP)\lev_comp $(DAT)\sokoban.des
-	$(CP) soko?-?.lev $(GAMEDIR)
-	$(RM) soko?-?.lev
+	$(CP) soko?-*.lev $(GAMEDIR)
+	$(RM) soko?-*.lev
 
 
 #	Quest dungeons
