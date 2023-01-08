@@ -2459,6 +2459,17 @@ struct obj *objchn;
     return unid_cnt;
 }
 
+static void
+chain_identify(struct obj *chain)
+{
+    struct obj *obj;
+    for (obj = chain; obj; obj = obj->nobj) {
+        (void) identify(obj);
+        if (Has_contents(obj))
+            chain_identify(obj->cobj);
+    }
+}
+
 /* dialog with user to identify a given number of items; 0 means all */
 void
 identify_pack(id_limit, learning_id)
@@ -2468,7 +2479,9 @@ boolean learning_id; /* true if we just read unknown identify scroll */
     struct obj *obj;
     int n, unid_cnt = count_unidentified(invent);
 
-    if (!unid_cnt) {
+    if (id_limit < 0)
+        chain_identify(invent);
+    else if (!unid_cnt) {
         You("have already identified all %sof your possessions.",
             learning_id ? "the rest " : "");
     } else if (!id_limit || id_limit >= unid_cnt) {
