@@ -18,6 +18,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-07: Bags of rats are considered magical bags.
 2023-01-07: Players cannot put known wands of cancellation or magical bags into bags of holding anymore (dnh).
 2023-01-07: Reduced cost of baseball bat to 20.
 2023-01-07: Changed footbow cost to 60.
