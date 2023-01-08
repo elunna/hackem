@@ -1184,14 +1184,15 @@ char *usr_text;
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
         damage_info = dmgval_info(&dummy);
-        if (identified)
+        if (identified) {
             Sprintf(buf,
-                "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
-                damage_info.damage_small, damage_info.bonus_small,
-                damage_info.damage_large, damage_info.bonus_large);
-        else
+                    "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
+                    damage_info.damage_small, damage_info.bonus_small,
+                    damage_info.damage_large, damage_info.bonus_large);
+        } else {
             Sprintf(buf, "Damage:  Unknown (identification required)");
-        OBJPUTSTR(buf);
+            OBJPUTSTR(buf);
+        }
         
         if (damage_info.buc_damage)     { OBJPUTSTR(damage_info.buc_damage); }
         if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
@@ -1213,6 +1214,13 @@ char *usr_text;
                     (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
             OBJPUTSTR(buf);
         }
+        if (skill == P_FIREARM && identified) {
+            Sprintf(buf, "Rate-of-fire: %d", firearm_rof(otyp));
+            OBJPUTSTR(buf);
+            Sprintf(buf, "Range: %d", firearm_range(otyp));
+            OBJPUTSTR(buf);
+        }
+        
     }
     if (olet == ARMOR_CLASS) {
         /* Indexes here correspond to ARM_SHIELD, etc; not the W_* masks.
