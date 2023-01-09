@@ -4163,11 +4163,15 @@ int how;
     disintegested = (how == AD_DGST || how == -AD_RBRE
                      || how == AD_WTHR);
     
-    if (disintegested)
+    if (disintegested) {
+        /* Pre-cancel a changling so it doesn't get a chance to reconstitute
+         */
+        if (is_changeling(mdef))
+            mdef->cham = -1;
         mondead(mdef);
-    else
+    } else {
         mondied(mdef);
-
+    }
     if (mdef->data == &mons[PM_CTHULHU]) {
         cthulhu_dies(mdef);
     }
