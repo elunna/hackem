@@ -1394,7 +1394,7 @@ STATIC_VAR const struct paranoia_opts {
     { PARANOID_TRAP, "trap", 1, 0, 0,
       "yes to walk into a trap" },
     { PARANOID_SWIM, "swim", 1, 0, 0,
-      "yes to walk into a water or lava space" },
+      "avoid walking into lava or water" },
     /* for config file parsing; interactive menu skips these */
     { 0, "none", 4, 0, 0, 0 }, /* require full word match */
     { ~0, "all", 3, 0, 0, 0 }, /* ditto */
