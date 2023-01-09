@@ -158,19 +158,12 @@ struct monst *mtmp;
      */
     if (mtmp->iswiz
         || is_lminion(mtmp)
-        || mtmp->data == &mons[PM_ANGEL]
-        || mtmp->data == &mons[PM_ARCHANGEL]
-        || mtmp->data == &mons[PM_HONEY_BADGER]
-        || mtmp->data == &mons[PM_NEOTHELID]
-        || mtmp->data == &mons[PM_CTHULHU]
-        || mindless(mtmp->data)
         || is_mplayer(mtmp->data)
         || is_rider(mtmp->data)
-        || mtmp->isvecna
         || mtmp->data->mlet == S_HUMAN
+        || mtmp->data->mlet == S_ANGEL
         || unique_corpstat(mtmp->data)
         || (mtmp->isshk && inhishop(mtmp))
-        || mtmp->isgrund
         || (mtmp->ispriest && inhistemple(mtmp))
         || mtmp->mberserk)
         return FALSE;
