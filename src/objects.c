@@ -1070,7 +1070,7 @@ SCROLL("time",                   "TEMP USF UGIT",  1,  20, 100), /* SpliceHack *
 SCROLL("teleportation",        "VENZAR BORGAVVE",  1,  55, 100),
 SCROLL("gold detection",                 "THARR",  1,  34, 100),
 SCROLL("food detection",               "YUM YUM",  1,  25, 100),
-SCROLL("knowledge",                   "POTESTAS",  1,  20,  20), /* SpliceHack */
+SCROLL("knowledge",                   "POTESTAS",  1,  20,  50), /* SpliceHack */
                                      /* power */
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
 SCROLL("air",                        "TRATS ARL",  1,  35, 200), /* SpliceHack */

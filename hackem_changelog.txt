@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-09: Scroll of knowledge costs 50 so it isn't an obvious identify from the start.
 2023-01-09: Added Sokobon levels from Fourk. All soko levls are named now.
 2023-01-08: Adjusted infidel spellcasting a bit: can reach skilled in matter (for fireball), removed enchantment school, reduced attack max to skilled.
 2023-01-08: Undead slayers and the yeoman now start with speed 12.
