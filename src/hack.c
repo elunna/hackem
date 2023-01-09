@@ -2083,13 +2083,18 @@ do_nothing:
                            && uarmf->oerodeproof && uarmf->rknown)
                           || (uarm && Is_dragon_scaled_armor(uarm)
                                && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES));
+        
         if (!Levitation && !Flying && grounded(youmonst.data)
             && !Stunned && !Confusion && levl[x][y].seenv
             && ((is_pool(x, y) && !is_pool(u.ux, u.uy))
                 || (is_lava(x, y) && !is_lava(u.ux, u.uy)))) {
             if (is_pool(x, y) && !known_wwalking) {
-                if (ParanoidSwim
-                    && !paranoid_query(ParanoidSwim, "Really enter the water?")) {
+                
+                if (context.nopick) {
+                    /* moving with m-prefix */
+                    context.swim_tip = TRUE;
+                    /*return FALSE;*/
+                } else if (ParanoidSwim) {
                     context.move = 0;
                     nomul(0);
                     You("narrowly avoid %s into the %s.",
@@ -2099,11 +2104,22 @@ do_nothing:
                         if (water_damage(uarmf, "metal boots", TRUE, u.ux, u.uy) == ER_NOTHING)
                             Your("boots get wet.");
                     }
+                    if (!context.swim_tip) {
+# if 0
+                        pline("(Use '%s' prefix to step in if you really want to.)",
+                              visctrl(cmd_from_func(do_reqmenu)));
+#endif
+                        pline("(Use 'move' prefix to step in if you really want to.)");
+                        context.swim_tip = TRUE;
+                    }
                     return;
                 }
             } else if (is_lava(x, y) && !known_lwalking) {
-                if (ParanoidSwim
-                    && !paranoid_query(ParanoidSwim, "Really enter the lava?")) {
+                if (context.nopick) {
+                    /* moving with m-prefix */
+                    context.swim_tip = TRUE;
+                    /*return;*/
+                } else if (ParanoidSwim) {
                     context.move = 0;
                     nomul(0);
                     You("narrowly avoid %s into the lava.",
@@ -2118,6 +2134,14 @@ do_nothing:
                             losehp(resist_reduce(d(1, 4), FIRE_RES),
                                    "touching molten lava", KILLED_BY);
                         }
+                    }
+                    if (!context.swim_tip) {
+# if 0
+                        pline("(Use '%s' prefix to step in if you really want to.)",
+                              visctrl(cmd_from_func(do_reqmenu)));
+#endif
+                        pline("(Use 'move' prefix to step in if you really want to.)");
+                        context.swim_tip = TRUE;
                     }
                     return;
                 }
