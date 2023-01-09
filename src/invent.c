@@ -2459,6 +2459,17 @@ struct obj *objchn;
     return unid_cnt;
 }
 
+static void
+chain_identify(struct obj *chain)
+{
+    struct obj *obj;
+    for (obj = chain; obj; obj = obj->nobj) {
+        (void) identify(obj);
+        if (Has_contents(obj))
+            chain_identify(obj->cobj);
+    }
+}
+
 /* dialog with user to identify a given number of items; 0 means all */
 void
 identify_pack(id_limit, learning_id)
@@ -2468,7 +2479,9 @@ boolean learning_id; /* true if we just read unknown identify scroll */
     struct obj *obj;
     int n, unid_cnt = count_unidentified(invent);
 
-    if (!unid_cnt) {
+    if (id_limit < 0)
+        chain_identify(invent);
+    else if (!unid_cnt) {
         You("have already identified all %sof your possessions.",
             learning_id ? "the rest " : "");
     } else if (!id_limit || id_limit >= unid_cnt) {
@@ -3577,7 +3590,8 @@ boolean picked_some;
     char fbuf[BUFSZ], fbuf2[BUFSZ];
     winid tmpwin;
     boolean skip_objects, felt_cockatrice = FALSE;
-
+    boolean bloody = levl[u.ux][u.uy].splatpm;
+    
     /* default pile_limit is 5; a value of 0 means "never skip"
        (and 1 effectively forces "always skip") */
     skip_objects = (flags.pile_limit > 0 && obj_cnt >= flags.pile_limit);
@@ -3656,15 +3670,21 @@ boolean picked_some;
     }
 
     if (dfeature)
-        Sprintf(fbuf, "There is %s here.", an(dfeature));
+        Sprintf(fbuf, "There is %s%s here.", bloody ? "bloody " : "", an(dfeature));
 
     if (!otmp || is_lava(u.ux, u.uy)
         || (is_pool(u.ux, u.uy) && !Underwater)) {
         if (dfeature)
             pline1(fbuf);
         read_engr_at(u.ux, u.uy); /* Eric Backus */
-        if (!skip_objects && (Blind || !dfeature))
-            You("%s no objects here.", verb);
+        if (!skip_objects && (Blind || !dfeature)) {
+            if (bloody) 
+                pline("There is %s blood splattered on the floor.", 
+                      mons[levl[u.ux][u.uy].splatpm].mname);
+            else
+                You("%s no objects here.", verb);
+        }
+           
         return !!Blind;
     }
     /* we know there is something here */
@@ -3843,9 +3863,8 @@ register struct obj *otmp, *obj;
         || obj->lamplit != otmp->lamplit)
         return FALSE;
 
-    if (obj->oclass == FOOD_CLASS && (obj->oeaten != otmp->oeaten 
-                                      || obj->odrained != otmp->odrained 
-                                      || obj->orotten != otmp->orotten))
+    if (obj->oclass == FOOD_CLASS
+        && (obj->oeaten != otmp->oeaten || obj->orotten != otmp->orotten))
         return FALSE;
 
     if (obj->dknown != otmp->dknown

@@ -472,8 +472,8 @@ register struct monst *magr, *mdef;
         && magr->my != mdef->my)
         return MM_MISS;
     
-    if (marmf && marmf->otyp == STOMPING_BOOTS && verysmall(mdef->data)
-        && distmin(magr->mx,magr->my,mdef->mx,mdef->my) <= 1) {
+    if (marmf && marmf->otyp == STOMPING_BOOTS && mdef->data->msize <= MZ_SMALL
+        && distmin(magr->mx, magr->my, mdef->mx, mdef->my) <= 1) {
         if (canseemon(magr)) {
             pline("%s stomps on %s!", Monnam(magr), mon_nam(mdef));
             makeknown(marmf->otyp);

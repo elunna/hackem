@@ -46,10 +46,10 @@ OPTIONS=symset:IBMGraphics,roguesymset:RogueEpyx
 #OPTIONS=ghoulname:Igor
 
 # Disable autopickup
-OPTIONS=!autopickup
+OPTIONS=autopickup
 
 # When autopickup is on, automatically pick up these types of objects
-#OPTIONS=pickup_types:$"=/!?+
+OPTIONS=pickup_types:$"=/!?+
 
 #OPTIONS=packorder:")[%?+/=!(*0_`
 #OPTIONS=scores:10 top/2 around/own
@@ -84,7 +84,7 @@ MENUCOLOR=" cursed .* (being worn)" = orange&underline
 #
 # number_pad option can have an optional value of 0 (off), 1 (on), 
 # or 2(on,legacy-mode) which causes 5='g', alt-5='G', alt-0='I'
-OPTIONS=time,noshowexp,number_pad:1,lit_corridor,mouse_support:1
+OPTIONS=time,noshowexp,number_pad:0,lit_corridor,mouse_support:1
 
 # Make commands that ask for an inventory item pop up a menu
 OPTIONS=force_invmenu
@@ -145,22 +145,22 @@ OPTIONS=vary_msgcount:4
 # point at must exist.  NetHack will not create them for you.
 #
 # The location that documentation and helps files are placed
-#HACKDIR=c:\User\USERNAME\NetHack\3.6
+#HACKDIR=c:\User\USERNAME\HackEM\1.0
 #
 # The location that level files in progress are stored (writeable)
-#LEVELDIR=c:\User\USERNAME\AppData\Local\NetHack\3.6
+#LEVELDIR=c:\User\USERNAME\AppData\Local\HackEM\1.0
 #
 # The location where saved games are kept (writeable)
-#SAVEDIR=c:\User\USERNAME\AppData\Local\NetHack\3.6
+#SAVEDIR=c:\User\USERNAME\AppData\Local\HackEM\1.0
 #
 # The location that bones files are kept (writeable)
-#BONESDIR=c:\ProgramData\NetHack\3.6
+#BONESDIR=c:\ProgramData\HackEM\1.0
 #
 # The location that score files are kept (writeable)
-#SCOREDIR=c:\ProgramData\NetHack\3.6
+#SCOREDIR=c:\ProgramData\HackEM\1.0
 #
 # The location that file synchronization locks are stored (writeable)
-#LOCKDIR=c:\ProgramData\NetHack\3.6
+#LOCKDIR=c:\ProgramData\HackEM\1.0
 #
 
 # Finnish keyboards might need these modifications uncommented. 

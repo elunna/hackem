@@ -145,7 +145,7 @@ WEAPON("shuriken", "throwing star",
 WEAPON("boomerang", None,
        1, 1, 0, 0, 15,   5,  20,  9,  9, 0, B,   -P_BOOMERANG, WOOD, HI_WOOD),
 WEAPON("chakram", "circular blade",                            /* SpliceHack */
-       0, 1, 0, 0, 25,    5,  20, 10, 9, 1, S,   -P_BOOMERANG, IRON, HI_SILVER),
+       0, 1, 0, 0, 25,  10,  20, 10, 10, 1, S,   -P_BOOMERANG, IRON, HI_SILVER),
 
 /* spears [note: javelin used to have a separate skill from spears,
  * because the latter are primarily stabbing weapons rather than
@@ -185,9 +185,9 @@ WEAPON("athame", None,
 WEAPON("parazonium", "triangular dagger",                      /* SpliceHack */
        0, 1, 0, 0,  1,  12,  15,  6,  4, 1, S,   P_DAGGER, METAL, HI_METAL),
 WEAPON("wooden stake", None,                               /* Slash'EM */
-       1, 0, 0, 0,  5,  20,  50,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
+       1, 0, 0, 0,  5,  20,  20,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
 WEAPON("great dagger", None,                               /* Slash'EM */
-       1, 0, 0, 0,  0,  20, 500,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
+       1, 0, 0, 0,  0,  20,  30,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
 
 WEAPON("scalpel", None,
        1, 1, 0, 0,  0,   5,   6,  3,  3, 2, S,   P_KNIFE, METAL, HI_METAL),
@@ -353,7 +353,7 @@ WEAPON("aklys", "thonged club",
        0, 0, 0, 0,  8,  15,   4,  6,  3, 0, B,   P_CLUB, IRON, HI_METAL),
 /* Base for artifact */
 WEAPON("baseball bat", None,                                    /* Slash'EM */
-	1, 0, 0, 0,  0,  40,  50,  8,  6, 0, B,   P_CLUB, WOOD, HI_WOOD),
+	1, 0, 0, 0,  0,  40,  20,  8,  6, 0, B,   P_CLUB, WOOD, HI_WOOD),
 WEAPON("flail", None,
        1, 0, 0, 0, 40,  15,   4,  6,  4, 0, B,   P_FLAIL, IRON, HI_METAL),
         /* +1 small, +1d4 large */
@@ -377,7 +377,7 @@ WEAPON("fly swatter", None,                                /* Slash'EM */
 /* launchers */
 BOW("bow", None,               1, 1, 24, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("elven bow", "runed bow",  0, 1, 12, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
-BOW("footbow", "warped bow",   0, 0, 30, 60, 0,  0, BONE, P_BOW, CLR_WHITE), /* SpliceHack */
+BOW("footbow", "warped bow",   0, 0, 30, 60, 60, 0, BONE, P_BOW, CLR_WHITE), /* SpliceHack */
 BOW("orcish bow", "crude bow", 0, 1, 12, 30, 60, 0, WOOD, P_BOW, CLR_BLACK),
 BOW("yumi", "long bow",        0, 1,  0, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER),
@@ -992,7 +992,7 @@ FOOD("fortune cookie",       55,  1,  1, 0, VEGGY,  40, CLR_YELLOW),
 FOOD("pancake",              25,  2,  2, 0, VEGGY, 200, CLR_YELLOW),         /* Slash'EM */
 FOOD("tortilla",             1,   2,  2, 0, VEGGY,  80, CLR_WHITE),          /* Slash'EM */
 FOOD("cheese",               10,  2,  2, 0, FLESH, 250, CLR_YELLOW),         /* Slash'EM */
-FOOD("pill",                  1,  1,  1, 0, VEGGY,   0, CLR_BRIGHT_MAGENTA), /* Slash'EM */
+FOOD("pill",                  1,  1,  1, 0, VEGGY,   1, CLR_BRIGHT_MAGENTA), /* Slash'EM */
 FOOD("holy wafer",            7,  1,  1, 0, VEGGY, 150, CLR_WHITE),          
 FOOD("lembas wafer",         20,  2,  5, 0, VEGGY, 800, CLR_WHITE),
 FOOD("cram ration",          20,  3, 15, 0, VEGGY, 600, HI_ORGANIC),
@@ -1070,7 +1070,7 @@ SCROLL("time",                   "TEMP USF UGIT",  1,  20, 100), /* SpliceHack *
 SCROLL("teleportation",        "VENZAR BORGAVVE",  1,  55, 100),
 SCROLL("gold detection",                 "THARR",  1,  34, 100),
 SCROLL("food detection",               "YUM YUM",  1,  25, 100),
-SCROLL("knowledge",                   "POTESTAS",  1,  20,  20), /* SpliceHack */
+SCROLL("knowledge",                   "POTESTAS",  1,  20,  50), /* SpliceHack */
                                      /* power */
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
 SCROLL("air",                        "TRATS ARL",  1,  35, 200), /* SpliceHack */
@@ -1188,8 +1188,8 @@ SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMM
 SPELL("polymorph",       "silver",        P_MATTER_SPELL,      10,  8, 6, 1, IMMEDIATE, HI_SILVER),
 SPELL("repair armor",    "platinum",      P_MATTER_SPELL,      20,  6, 3, 1, IMMEDIATE, HI_PAPER), /* EvilHack */
 SPELL("reflection",	 "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),  /* EvilHack */
-SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),   /* Slash'EM */
-SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 2, 1, NODIR, CLR_BROWN),   /* Slash'EM */
+SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
+SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
 SPELL("cancellation",    "shining",       P_MATTER_SPELL,      15,  8, 7, 1, IMMEDIATE, CLR_WHITE),
 /* Fire Bolt is the Flame Mage's special spell - not randomly generated. */
 SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),

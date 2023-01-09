@@ -586,6 +586,10 @@ char *buf, *monbuf;
         case S_poisoncloud:
             printed_blood = TRUE;
             break;
+        case S_grass:
+            Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody grass" : "grass");
+            printed_blood = TRUE;
+            break;
         case S_pool:
         case S_puddle:
         case S_sewage:
@@ -1139,7 +1143,9 @@ char *usr_text;
     OBJPUTSTR("");
     
     /* Object classes currently with no special messages here: amulets. */
-    if (olet == WEAPON_CLASS || weptool) {
+    if (olet == WEAPON_CLASS 
+        || weptool 
+        || otyp == FLINT || otyp == ROCK || otyp == SLING_BULLET) {
         const int skill = oc.oc_skill;
         const char* dmgtyp = "blunt";
        /* const char* sdambon = "";
@@ -1178,23 +1184,21 @@ char *usr_text;
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
         damage_info = dmgval_info(&dummy);
-        if (identified)
+        if (identified) {
             Sprintf(buf,
-                "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
-                damage_info.damage_small, damage_info.bonus_small,
-                damage_info.damage_large, damage_info.bonus_large);
-        else
+                    "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
+                    damage_info.damage_small, damage_info.bonus_small,
+                    damage_info.damage_large, damage_info.bonus_large);
+        } else {
             Sprintf(buf, "Damage:  Unknown (identification required)");
-        OBJPUTSTR(buf);
+            OBJPUTSTR(buf);
+        }
         
         if (damage_info.buc_damage)     { OBJPUTSTR(damage_info.buc_damage); }
         if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
-        if (damage_info.silver_damage)  { OBJPUTSTR(damage_info.silver_damage); }
-        if (damage_info.iron_damage)    { OBJPUTSTR(damage_info.iron_damage); }
-        if (damage_info.mithril_damage) { OBJPUTSTR(damage_info.mithril_damage); }
-        if (damage_info.copper_damage)  { OBJPUTSTR(damage_info.copper_damage); }
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
         if (damage_info.mat_damage)     { OBJPUTSTR(damage_info.mat_damage); }
+        if (damage_info.hate_damage)     { OBJPUTSTR(damage_info.hate_damage); }
 
         /* Properties */
         if (dummy.oprops_known) {
@@ -1210,6 +1214,13 @@ char *usr_text;
                     (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
             OBJPUTSTR(buf);
         }
+        if (skill == P_FIREARM && identified) {
+            Sprintf(buf, "Rate-of-fire: %d", firearm_rof(otyp));
+            OBJPUTSTR(buf);
+            Sprintf(buf, "Range: %d", firearm_range(otyp));
+            OBJPUTSTR(buf);
+        }
+        
     }
     if (olet == ARMOR_CLASS) {
         /* Indexes here correspond to ARM_SHIELD, etc; not the W_* masks.

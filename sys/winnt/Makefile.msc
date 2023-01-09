@@ -710,7 +710,8 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\icequeen.des $(DAT)\knox.des     $(DAT)\medusa.des \
 	$(DAT)\oracle.des   $(DAT)\tower.des \
 	$(DAT)\vaults.des   $(DAT)\vecna.des    $(DAT)\yendor.des \
-    $(DAT)\nkai.des     $(DAT)\ucastle.des \
+    $(DAT)\nkai.des     $(DAT)\ucastle.des  $(DAT)\town.des \
+    $(DAT)\village.des \
 	$(DAT)\rats.des 	$(DAT)\stor.des 	$(DAT)\caves.des \
 	$(DAT)\tomb.des 	$(DAT)\mtemple.des \
 	$(DAT)\grund.des 	$(DAT)\blkmar.des    \
@@ -738,6 +739,8 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp sokoban.des
 	$(U)levcomp tower.des
 	$(U)levcomp vaults.des
+	$(U)levcomp town.des
+	$(U)levcomp village.des
 	$(U)levcomp rats.des
 	$(U)levcomp stor.des
 	$(U)levcomp caves.des
@@ -1338,14 +1341,17 @@ spotless: clean
 	if exist $(DAT)\???-strt.lev	 del $(DAT)\???-strt.lev
 	if exist $(DAT)\air.lev		 del $(DAT)\air.lev
 	if exist $(DAT)\astral.lev	 del $(DAT)\astral.lev
+	if exist $(DAT)\blkmar-?.lev	 del $(DAT)\blkmar-?.lev
 	if exist $(DAT)\bigrm-*.lev	 del $(DAT)\bigrm-*.lev
 	if exist $(DAT)\castle-?.lev	 del $(DAT)\castle-?.lev
+	if exist $(DAT)\cave*.lev	 del $(DAT)\cave*.lev
 	if exist $(DAT)\data		 del $(DAT)\data
 	if exist $(DAT)\dungeon		 del $(DAT)\dungeon
 	if exist $(DAT)\dungeon.pdf	 del $(DAT)\dungeon.pdf
 	if exist $(DAT)\earth.lev	 del $(DAT)\earth.lev
 	if exist $(DAT)\fakewiz?.lev	 del $(DAT)\fakewiz?.lev
 	if exist $(DAT)\fire.lev	 del $(DAT)\fire.lev
+	if exist $(DAT)\grund.lev	 del $(DAT)\grund.lev
 	if exist $(DAT)\hella-?.lev	 del $(DAT)\hella-?.lev
 	if exist $(DAT)\hellb-?.lev	 del $(DAT)\hellb-?.lev
 	if exist $(DAT)\hellc-?.lev	 del $(DAT)\hellc-?.lev
@@ -1354,19 +1360,27 @@ spotless: clean
 	if exist $(DAT)\knox-?.lev	 del $(DAT)\knox-?.lev
 	if exist $(DAT)\medusa-?.lev	 del $(DAT)\medusa-?.lev
 	if exist $(DAT)\mine*.lev	 del $(DAT)\mine*.lev
+	if exist $(DAT)\mtemple.lev	 del $(DAT)\mtemple.lev
 	if exist $(DAT)\options		 del $(DAT)\options
 	if exist $(DAT)\ttyoptions	 del $(DAT)\ttyoptions
 	if exist $(DAT)\guioptions	 del $(DAT)\guioptions
-	if exist $(DAT)\oracle-1.lev	 del $(DAT)\oracle-1.lev
-	if exist $(DAT)\oracle-2.lev	 del $(DAT)\oracle-2.lev
-	if exist $(DAT)\oracle-3.lev	 del $(DAT)\oracle-3.lev
+	if exist $(DAT)\oracle-?.lev	 del $(DAT)\oracle-?.lev
 	if exist $(DAT)\oracles		 del $(DAT)\oracles
 	if exist $(DAT)\orcus.lev	 del $(DAT)\orcus.lev
 	if exist $(DAT)\rumors		 del $(DAT)\rumors
 	if exist $(DAT)\quest.dat	 del $(DAT)\quest.dat
+	if exist $(DAT)\qlawful.lev	 del $(DAT)\qlawful.lev
+	if exist $(DAT)\qneutral.lev del $(DAT)\qneutral.lev
+	if exist $(DAT)\qchaos.lev	 del $(DAT)\qchaos.lev
+	if exist $(DAT)\rats-?.lev	 del $(DAT)\rats-?.lev
 	if exist $(DAT)\sanctum.lev	 del $(DAT)\sanctum.lev
-	if exist $(DAT)\soko?-?.lev	 del $(DAT)\soko?-?.lev
+	if exist $(DAT)\soko?-*.lev	 del $(DAT)\soko?-*.lev
+	if exist $(DAT)\stor-?.lev	 del $(DAT)\stor-?.lev
+	if exist $(DAT)\tomb-?.lev	 del $(DAT)\tomb-?.lev
 	if exist $(DAT)\tower?.lev	 del $(DAT)\tower?.lev
+	if exist $(DAT)\townfill.lev del $(DAT)\townfill.lev
+	if exist $(DAT)\town-?.lev del $(DAT)\town-?.lev
+	if exist $(DAT)\village.lev	 del $(DAT)\village.lev
 	if exist $(DAT)\valley.lev	 del $(DAT)\valley.lev
 	if exist $(DAT)\vaults.dat       del $(DAT)\vaults.dat
 	if exist $(DAT)\vecna-?.lev	 del $(DAT)\vecna-?.lev

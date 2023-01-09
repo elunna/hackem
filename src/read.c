@@ -1076,32 +1076,17 @@ struct monst *mtmp;
             break;
         case BAG_OF_TRICKS:
         case BAG_OF_RATS:
-            /* if there are any objects inside the bag, devour them */
+            /* if there are any objects inside the bag, go boom. */
             if (!is_cursed) {
-                struct obj *curr, *otmp;
-                struct monst *shkp;
-                int lcnt = 0;
-                long loss = 0L;
-
-                makeknown(BAG_OF_TRICKS);
-                for (curr = obj->cobj; curr; curr = otmp) {
-                    otmp = curr->nobj;
-                    obj_extract_self(curr);
-                    lcnt++;
-                    if (*u.ushops && (shkp = shop_keeper(*u.ushops)) != 0) {
-                        if (curr->unpaid)
-                            loss += stolen_value(curr, u.ux, u.uy,
-                                                 (boolean)shkp->mpeaceful, TRUE);
-                    }
-                    /* obfree() will free all contained objects */
-                    obfree(curr, (struct obj *) 0);
+                if (Has_contents(obj)) {
+                    pline("As you charge the bag, you are blasted by a magical explosion!");
+                    do_boh_explosion(obj, carried(obj));
+                    if (carried(obj))
+                        useup(obj);
+                    else
+                        useupf(obj, obj->quan);
+                    break;
                 }
-
-                if (lcnt)
-                    You_hear("loud crunching sounds from inside %s.", yname(obj));
-                if (lcnt && loss)
-                    You("owe %ld %s for lost item%s.",
-                        loss, currency(loss), lcnt > 1 ? "s" : "");
             }
         /* fall through */
         case HORN_OF_PLENTY:
@@ -1680,7 +1665,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     } break;
     case SCR_CONFUSE_MONSTER:
     case SPE_CONFUSE_MONSTER:
-        if (youmonst.data->mlet != S_HUMAN || scursed) {
+        /* Unfortunate kludge for vampiric race here
+         * TODO: Find the root cause of this */
+        if ((youmonst.data->mlet != S_HUMAN && !Race_if(PM_VAMPIRIC)) || scursed) {
             if (!HConfusion)
                 You_feel("confused.");
             make_confused(HConfusion + rnd(100), FALSE);
@@ -2766,11 +2753,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         int madepool = 0;
         int stilldry = -1;
         int x, y, mx, my, safe_pos = 0;
+        struct rm *lev = &levl[u.ux][u.uy];
         
         if (Underwater) {
-            pline_The("%s around you freezes!", hliquid("water"));
-            u.uhp = 0;
-            losehp(1, "turning into a block of ice", KILLED_BY);
+            The("water is quickly turning to ice!");
+            freeze_tile(lev, u.ux, u.uy, 0);
+            losehp(Maybe_Half_Phys(d(8, 8)), "turning into a block of ice", KILLED_BY);
+            You("are ejected violently out of the freezing %s!", hliquid("water"));
             break;
         }
         

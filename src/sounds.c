@@ -273,11 +273,11 @@ dosounds()
     if (level.flags.has_clinic && !rn2(200)) {
         static const char *hospital_msg[4] = {
             "hear something about streptococus.",
-            "smell chloroform nearby.",
             "hear someone cursing viruses.",
+            "smell chloroform nearby.",
             "seem to hear Doctor Frankenstein.",
         };
-        You_hear1(hospital_msg[rn2(3) + hallu]);
+        You("%s", hospital_msg[rn2(3) + hallu]);
         return;
     }
     if (level.flags.has_terrorhall && !rn2(200)) {
@@ -287,7 +287,7 @@ dosounds()
             "think you just saw something move.",
             "think you're seeing white rabbits!",
         };
-        You_hear1(terrorhall_msg[rn2(3) + hallu]);
+        You("%s", terrorhall_msg[rn2(3) + hallu]);
         return;
     }
     if (level.flags.has_zoo && !rn2(200)) {
@@ -1362,24 +1362,30 @@ dochat()
         return 0;
     }
 
-    if (Role_if(PM_CONVICT) && is_rat(mtmp->data)
-        && !mtmp->mpeaceful && !mtmp->mtame) {
-        You("attempt to soothe the %s with chittering sounds.",
-            l_monnam(mtmp));
-        if (rnl(10) < 2) {
-            (void) tamedog(mtmp, (struct obj *) 0);
-        } else {
-            if (rnl(10) > 8) {
-                pline("%s unfortunately ignores your overtures.",
-                      Monnam(mtmp));
-                return 0;
+    /* Like convicts, Necromancers can pacify/tame zombies */
+    if ((Role_if(PM_CONVICT) && is_rat(mtmp->data)) ||
+        (Role_if(PM_NECROMANCER) && is_zombie(mtmp->data))) {
+        if (!mtmp->mpeaceful && !mtmp->mtame) {
+            if (Role_if(PM_CONVICT))
+                You("attempt to soothe the %s with chittering sounds.", l_monnam(mtmp));
+            else
+                You("attempt an ancient chant directed at the %s.", l_monnam(mtmp));
+            
+            if (rnl(10) < 2) {
+                (void) tamedog(mtmp, (struct obj *) 0);
+            } else {
+                if (rnl(10) > 8) {
+                    pline("%s unfortunately ignores your overtures.",
+                          Monnam(mtmp));
+                    return 0;
+                }
+                mtmp->mpeaceful = 1;
+                set_malign(mtmp);
             }
-            mtmp->mpeaceful = 1;
-            set_malign(mtmp);
+            return 0;
         }
-        return 0;
     }
-
+    
     return domonnoise(mtmp);
 }
 

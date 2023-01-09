@@ -823,6 +823,7 @@ boolean init;
 boolean artif;
 {
     int mndx, tryct;
+    int ncount = 0; /* For masks */
     struct obj *otmp;
     char let = objects[otyp].oc_class;
 
@@ -880,7 +881,6 @@ boolean artif;
             break;
         case FOOD_CLASS:
             otmp->oeaten = 0;
-            otmp->odrained = 0;
             switch (otmp->otyp) {
             case CORPSE:
                 /* possibly overridden by mkcorpstat() */
@@ -1056,7 +1056,6 @@ boolean artif;
                 tryct = 0;
                 /* Splice has a difficulty cap for pick_nasty */
                 /*otmp->corpsenm = pick_nasty(50); */
-                int ncount = 0;
                 do {
                     /* If possible, we don't want masks to generate that are
                      * NOPOLY monsters - like Devas. */
@@ -3502,6 +3501,19 @@ static const struct icp horn_materials[] = {
     { 2, GOLD}
 };
 
+/* for baseball bats, currently. */
+static const struct icp bat_materials[] = {
+    {40, WOOD},
+    {25, IRON},
+    {10, PLASTIC},
+    { 5, METAL},
+    { 5, BONE},
+    { 5, COPPER},
+    { 5, MITHRIL},
+    { 3, SILVER},
+    { 2, GOLD}
+};
+
 /* hacks for specific objects... not great because it's a lot of data, but it's
  * a relatively clean solution */
 static const struct icp elven_helm_boots_materials[] = {
@@ -3680,6 +3692,8 @@ struct obj* obj;
         case FROST_HORN:
         case HORN_OF_PLENTY:
             return horn_materials;
+        case BASEBALL_BAT:
+            return bat_materials;
         case SACK:
         case OILSKIN_SACK:
         case BAG_OF_HOLDING:

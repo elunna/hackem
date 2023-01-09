@@ -13,6 +13,7 @@ autounlock     when opening a locked door or looting a locked     [TRUE]
                container while carrying a key, offer to use it
 BIOS           allow the use of IBM ROM BIOS calls                [FALSE]
 blind          your character is permanently blind                [FALSE]
+bloodless      bloody tiles are not drawn but still described     [TRUE]
 bones          allow loading bones files                          [TRUE]
 clicklook      look at map by clicking right mouse button         [FALSE]
 cmdassist      give help for errors on direction & other commands [TRUE]

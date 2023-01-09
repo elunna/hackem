@@ -111,6 +111,10 @@
     <Levfiles Include = "minend-3.lev"/>
     <Levfiles Include = "minend-4.lev"/>
     <Levfiles Include = "minend-5.lev"/>
+    <Levfiles Include = "minend-6.lev"/>
+    <Levfiles Include = "minend-7.lev"/>
+    <Levfiles Include = "mineking-1.lev"/>
+    <Levfiles Include = "mineking-2.lev"/>
     <Levfiles Include = "minetn-1.lev"/>
     <Levfiles Include = "minetn-2.lev"/>
     <Levfiles Include = "minetn-3.lev"/>
@@ -119,6 +123,9 @@
     <Levfiles Include = "minetn-6.lev"/>
     <Levfiles Include = "minetn-7.lev"/>
     <Levfiles Include = "minetn-8.lev"/>
+    <Levfiles Include = "minetn-9.lev"/>
+    <Levfiles Include = "minetn-10.lev"/>
+    <Levfiles Include = "minetn-11.lev"/>
     <Levfiles Include = "medusa-1.lev"/>
     <Levfiles Include = "medusa-2.lev"/>
     <Levfiles Include = "medusa-3.lev"/>

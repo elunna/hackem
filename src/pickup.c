@@ -31,7 +31,6 @@ STATIC_DCL int FDECL(lift_object, (struct obj *, struct obj *, long *,
                                    BOOLEAN_P));
 /*STATIC_DCL boolean FDECL(mbag_explodes, (struct obj *, int)); */
 STATIC_DCL boolean NDECL(is_boh_item_gone);
-STATIC_DCL void FDECL(do_boh_explosion, (struct obj *, BOOLEAN_P));
 STATIC_DCL long FDECL(boh_loss, (struct obj *container, BOOLEAN_P));
 STATIC_PTR int FDECL(in_container, (struct obj *));
 STATIC_PTR int FDECL(out_container, (struct obj *));
@@ -2340,16 +2339,12 @@ struct obj *obj;
 int depthin;
 {
     /* these won't cause an explosion when they're empty/no enchantment */
-    if ((obj->otyp == WAN_CANCELLATION 
-         || obj->otyp == BAG_OF_TRICKS 
-         || obj->otyp == BAG_OF_RATS
-         || obj->oartifact == ART_MAGICBANE)
+    if ((obj->otyp == WAN_CANCELLATION || obj->otyp == BAG_OF_TRICKS)
         && obj->spe <= 0)
         return FALSE;
 
     /* odds: 1/1 (just scattered though, not gone) */
-    if (Is_mbag(obj) || obj->otyp == WAN_CANCELLATION 
-        || obj->oartifact == ART_MAGICBANE) {
+    if (Is_mbag(obj) || obj->otyp == WAN_CANCELLATION) {
         return TRUE;
     } else if (Has_contents(obj)) {
         struct obj *otmp;
@@ -2370,7 +2365,7 @@ is_boh_item_gone()
 
 /* Scatter most of Bag of holding contents around.  Some items will be
    destroyed with the same chance as looting a cursed bag. */
-STATIC_OVL void
+void
 do_boh_explosion(boh, on_floor)
 struct obj *boh;
 boolean on_floor;
@@ -2434,6 +2429,13 @@ register struct obj *obj;
         return 0;
     } else if (obj == current_container) {
         pline("That would be an interesting topological exercise.");
+        return 0;
+    } else if ((Is_mbag(obj) || obj->otyp == WAN_CANCELLATION)
+             && objects[obj->otyp].oc_name_known 
+               && obj->dknown 
+               && current_container->otyp == BAG_OF_HOLDING
+    ) {
+        pline("That combination is a little too explosive.");
         return 0;
     } else if (obj->owornmask & (W_ARMOR | W_ACCESSORY)) {
         Norep("You cannot %s %s you are wearing.",
@@ -3889,6 +3891,8 @@ struct obj *box;       /* container player wants to tip */
 struct obj *targetbox; /* destination (used here for horn of plenty) */
 boolean allowempty;    /* affects result when box is empty */
 {
+    boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
+    
     /* undiscovered bag of tricks is acceptable as a container-to-container
        destination but it can't receive items; it has to be opened in
        preparation so apply it once before even trying to tip source box */
@@ -3925,11 +3929,9 @@ boolean allowempty;    /* affects result when box is empty */
         }
         return TIPCHECK_TRAPPED;
 
-    } else if (box->otyp == BAG_OF_TRICKS 
-                   || box->otyp == BAG_OF_RATS 
-                   || box->otyp == HORN_OF_PLENTY) {
+    } else if ((bag || box->otyp == HORN_OF_PLENTY) && box->spe > 0) {
         int res = TIPCHECK_OK;
-        boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
+        
         int old_spe = box->spe;
         boolean maybeshopgoods = !carried(box) && costly_spot(box->ox, box->oy);
         xchar ox = u.ux, oy = u.uy;
@@ -3944,17 +3946,16 @@ boolean allowempty;    /* affects result when box is empty */
 
         if (maybeshopgoods && !box->no_charge)
             addtobill(box, FALSE, FALSE, TRUE);
+        
         /* apply this bag/horn until empty or monster/object creation fails
            (if the latter occurs, force the former...) */
-        /* --hackem: Ignore above, Apply the bag/horn only once - 
-            exhausting them will have to come later. */ 
-
         do {
             if (!(bag ? bagotricks(box)
                       : hornoplenty(box, TRUE, targetbox)))
                 break;
         } while (box->spe > 0);
-
+        
+        
         if (box->spe < old_spe) {
             int tmp_spe = box->spe;  /* We'll return to the current spe in a sec */
             /* check_unpaid wants to see a non-zero charge count */
@@ -3984,7 +3985,6 @@ boolean allowempty;    /* affects result when box is empty */
         box->cknown = 1;
         pline("%s is empty.", upstart(thesimpleoname(box)));
         return TIPCHECK_EMPTY;
-
     }
 
     return TIPCHECK_OK;

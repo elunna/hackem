@@ -116,8 +116,7 @@ struct obj {
     Bitfield(greased, 1);    /* covered with grease */
     Bitfield(nomerge, 1);    /* set temporarily to prevent merging */
     Bitfield(was_thrown, 1); /* thrown by hero since last picked up */
-    Bitfield(odrained,1);	/* drained corpse */
-                                
+    Bitfield(odrained,1);      /* drained corpse */       
     Bitfield(material, 5); /* material this obj is made of */
     Bitfield(in_use, 1);   /* for magic items before useup items */
     Bitfield(bypass, 1);   /* mark this as an object to be skipped by bhito() */
@@ -337,7 +336,6 @@ struct obj {
                     || dmgtype(&mons[(obj)->corpsenm], AD_POLY)))
 #define mlevelgain(obj) (ofood(obj) && (obj)->corpsenm == PM_WRAITH)
 #define mhealup(obj) (ofood(obj) && (obj)->corpsenm == PM_NURSE)
-#define drainlevel(corpse) (mons[(corpse)->corpsenm].cnutrit * 4 / 5 )
 #define is_royaljelly(o) (o->otyp == LUMP_OF_ROYAL_JELLY)
 #define Is_pudding(o)                                                 \
     (o->otyp == GLOB_OF_GRAY_OOZE                                     \
@@ -363,7 +361,8 @@ struct obj {
 #define Is_box(o) ((o)->otyp == LARGE_BOX || (o)->otyp == CHEST \
                    || (o)->otyp == IRON_SAFE || (o)->otyp == CRYSTAL_CHEST)
 #define Is_mbag(o) ((o)->otyp == BAG_OF_HOLDING \
-                    || ((o)->otyp == BAG_OF_TRICKS  && (o)->spe > 0))
+                    || ((o)->otyp == BAG_OF_TRICKS  && (o)->spe > 0) \
+                    || ((o)->otyp == BAG_OF_RATS  && (o)->spe > 0))
 #define Is_allbag(o) ((o)->otyp >= SACK && (o)->otyp <= BAG_OF_TRICKS)
 #define SchroedingersBox(o) ((o)->otyp == LARGE_BOX && (o)->spe == 1)
 /* usually waterproof; random chance to be subjected to leakage if cursed;
@@ -637,11 +636,8 @@ struct damage_info_t {
     /* various bonus damage conditions */
     const char* buc_damage;
     const char* axe_damage;
-    const char* silver_damage;
-    const char* iron_damage;
     const char* mat_damage;
-    const char* mithril_damage;
-    const char* copper_damage;
+    const char* hate_damage;
     const char* light_damage;
 };
 

@@ -319,7 +319,7 @@ dosit()
                 You("are granted an insight!");
                 if (invent) {
                     /* rn2(5) agrees w/seffects() */
-                    identify_pack(rn2(5), FALSE);
+                    identify_pack(-1, FALSE);
                 }
                 break;
             case 13:

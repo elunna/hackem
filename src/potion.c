@@ -9,6 +9,7 @@ boolean notonhead = FALSE;
 
 static NEARDATA int nothing, unkn;
 static NEARDATA const char beverages[] = { POTION_CLASS, TOOL_CLASS, 0 };
+static NEARDATA const char dippables[] = { POTION_CLASS, 0 };
 
 STATIC_DCL long FDECL(itimeout, (long));
 STATIC_DCL long FDECL(itimeout_incr, (long, int));
@@ -3225,7 +3226,7 @@ dodip()
 
     /* "What do you want to dip <the object> into? [xyz or ?*] " */
     Sprintf(qbuf, "dip %s into", flags.verbose ? obuf : shortestname);
-    potion = getobj(beverages, qbuf);
+    potion = getobj(dippables, qbuf);
     if (!potion)
         return 0;
     if (potion == obj && potion->quan == 1L) {
@@ -3500,7 +3501,7 @@ dodip()
 	    /* no return here, go for Interesting... message */
 	}
  more_dips:
-
+        
     /* Allow filling of MAGIC_LAMPs to prevent identification by player */
     if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP)
         && (potion->otyp == POT_OIL)) {
@@ -3531,8 +3532,7 @@ dodip()
             useup(potion);
             exercise(A_WIS, TRUE);
         }
-        if (potion->dknown)
-            makeknown(POT_OIL);
+        makeknown(POT_OIL);
         obj->spe = 1;
         update_inventory();
         return 1;
@@ -4309,6 +4309,12 @@ obj2upgrade(int otyp)
 void
 speed_up(long duration)
 {
+    if (Slow) {
+        /* Cure slowness */
+        HSlow = 0;
+        if (!ESlow)
+            You("no longer feel sluggish.");
+    }
     if (!Very_fast) {
         You("are suddenly moving %sfaster.", Fast ? "" : "much ");
     } else {

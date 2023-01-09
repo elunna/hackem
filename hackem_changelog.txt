@@ -9,15 +9,107 @@
 - amateurhour and qt for their endless debugging advice.
 
 ### Thanks: 
-- riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire
-
-### Playtesters: 
-- nh2465, cbus, shadowrider
+- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico
 
 ==========================
 
 Version 1.1 (unreleased)
 
+2023-01-09: Eased magical scaring restrictions a bit from EvilHack to be closer to 3.7.
+2023-01-09: Scroll of knowledge costs 50 so it isn't an obvious identify from the start.
+2023-01-09: Added Sokobon levels from Fourk. All soko levls are named now.
+2023-01-08: Adjusted infidel spellcasting a bit: can reach skilled in matter (for fireball), removed enchantment school, reduced attack max to skilled.
+2023-01-08: Undead slayers and the yeoman now start with speed 12.
+2023-01-08: Object lookup shows range and rate-of-fire for firearms now.
+2023-01-08: Fix: Psychic resistance was not protecting player from mind flayer psychic blasts.
+2023-01-08: Fix: Neutral quest artifact not generating correctly.
+2023-01-08: Fix: mon hiding under nonexistent bomb after it exploded. Fixes #133.
+2023-01-08: Mermaids, sea horses, and giant squids are vulnerable to shock damage.
+2023-01-08: Fix: Puddles dried up when splashed by a falling object, and hiding swimmers stayed hidden. Fixes #158.
+2023-01-08: Updated README with info for new players.
+2023-01-08: Fix: Zapping a wand of speed monster or quaffing potion of speed cures intrinsic slowness.
+2023-01-08: Fix: stairtravel was not working when known stairs were covered up by objects. Fixes #145.
+2023-01-07: Skunks also leave occasional poison gas clouds.
+2023-01-07: Bumped chakram dmg vs large to 10.
+2023-01-07: Throne insight now recursively identifies all items in your possession and in your containers (fiq)
+2023-01-07: If a bag of rats or tricks with contents is charged, it now explodes.
+2023-01-07: Bags of rats are considered magical bags.
+2023-01-07: Players cannot put known wands of cancellation or magical bags into bags of holding anymore (dnh).
+2023-01-07: Reduced cost of baseball bat to 20.
+2023-01-07: Changed footbow cost to 60.
+2023-01-07: Increased price of chakrams to 10.
+2023-01-07: Updated message for killing Grund.
+2023-01-07: Selflook describes blood on the floor.
+2023-01-07: Bloody tiles not being updated when monsters are killed.
+2023-01-07: Fix: Spirits dropped and auto-collected by necromancers cause highlighted piles on non-piles.
+2023-01-07: Centaurs also start knowing light arrows and footbows.
+2023-01-07: Monks start with a robe of power.
+2023-01-07: Baseball bats can be generated in different materials.
+2023-01-07: Reduced the prices of wooden stakes and great daggers.
+2023-01-07: Enabled neutral alignment and centaur race for yeomen.
+2023-01-07: Monsters that darken rooms need to be hostile and within 10 squares to darken.
+2023-01-05: Silenced more compiler warnings.
+2023-01-05: Fixed missed hit proc for Mouser's Scalpel.
+2023-01-05: Pets that explode will attack anything.
+2023-01-05: Spirits are no longer auto-picked up by Necromancers in shops.
+2023-01-05: Refactored the pager logic for material damage bonuses.
+2023-01-05: Big rooms cannot be mask shops.
+2023-01-05: Iron bars now block spears from passing through.
+2023-01-05: The Master Sword is now unaligned so anyone can use it.
+2023-01-05: Flame mages and ice mages start with extrinisic protection instead of intrinsic protection.
+2023-01-05: Fix for soko .lev files
+2023-01-05: Re-added odrained to obj structure to preserve saves (will be removed in next release.)
+2023-01-05: Attacking a monster wearing deep dragon scales will only drain levels 1 in 3 times (to mirror mhitu)
+2023-01-05: Imported 11 sokobon levels from slashTHEM.
+2023-01-05: Added more variety to the nasties list.
+2023-01-05: Fix: Hit message for The Master Sword.
+2023-01-05: Imported special attack for Mouser's Scalpel from slashTHEM.
+2023-01-05: Fix: Could not tip bag of rats or tricks when filled with items.
+2023-01-05: Fix: Creating a hole (or any trap) on ice would leave the ice meltout timer remaining. Fixes #104. 
+2023-01-05: Fix: Tipping a bag of tricks on the ground tried to free the bag from the player's inventory. Fixes #155.
+2023-01-05: Fix: Pills had nutrition 0, possibily causing problems when partly eaten.
+2023-01-05: Fix: Crash when dipping empty lamp into oil.
+2023-01-05: Fix: Priests of Moloch are peaceful to infidels.
+2023-01-05: Fix: Necromancer's added multiple duplicate spells to their spellbook. Fixes #120.
+2023-01-05: Poison vents can't show up until after level 13.
+2023-01-05: Fix: Malformed clinic and terror hall messages.
+2023-01-04: Cleaned up mine's end levels.
+2023-01-04: Fix: hear smell message for clinic rooms.
+2023-01-04: Added tile for spirits.
+2023-01-04: Removed file Files.
+2023-01-04: Lawful minions are granted using lminion (like Splice does) instead of the hardcoded list from SLASH'EM. 
+2023-01-04: Chaotic minions are granted using ndemon (like Splice does) instead of the hardcoded list from SLASH'EM. 
+2023-01-04: Grunds moat can sometimes be lava, but not sewage. Prevents odd moat tile.
+2023-01-04: Fix: Silenced warning related to vents in lev_comp.y
+2023-01-04: Fixed gas spore room in neutral quest.
+2023-01-04: The Staff of Rot is no longer the chaotic quest reward. It is now a regular artifact and can generate randomly or from altar gifts.
+2023-01-04: Reduced the difficulty of Vecna back to SLASH'EM levels; still has an extra clerical attack from Evil though.
+2023-01-04: Reduced the difficulty of the rest of Vecna's lair; less nasties.
+2023-01-04: Removed the two huge graveyards from the first level of Vecna's quest.
+2023-01-04: Replaced the chaotic quest with Vecna's branch. Added entrance light.
+2023-01-04: Cave trolls can clobber you.
+2023-01-04: bite_monster uses the flaming macro for better coverage vs green slimes.
+2023-01-04: Removed remaining corpse draining mechanics leftover from vampirics. Fixes #153.
+2023-01-04: Fix: Second prompt for dip listed tools.
+2023-01-03: Add bloodless option. (splice)
+2023-01-03: Stomping boots also crush small monsters 1/4 of the time.
+2023-01-03: Adjustments of many monsters sizes to make sense and work with stomping boots.
+2023-01-03: Ice Mages can start with confuse monster again; vampirics can cast it without being confused.
+2023-01-03: Necromancers can pacify or tame zombies by chatting with them.
+2023-01-03: Extrinsic psychic resistance protects you from the amnesia attack of zombies.
+2023-01-03: Fix: Lookup info for rocks, flint, and sling bullets.
+2023-01-03: Reverted flame and freeze sphere spells back to level 1 spells.
+2023-01-03: If zapped with a ray of water, earth elementals will transform into mud elementals.
+2023-01-03: Fix: Partly eaten food pieces not displaying correctly in inventory. Fixes #146.
+2023-01-03: Vampirics now start with all their intrinsics at level 1. Also rebalanced their intrinsics.
+2023-01-03: Reverted the draining mechanic of the vampiric race.
+2023-01-03: Revert: Magicbane will never cause a Bag of Holding explosion. 
+2023-01-03: Better handling of zapping wand of water while engulfed by ice vortex.
+2023-01-03: Fix: Reading scroll of ice underwater while poly'd. Fixes #152.
+2023-01-02: Changed Skullcrusher material to MINERAL so it gets an extra +2 damage bonus.
+2023-01-02: Increased difficulty of migo drones and migo warriors.
+2023-01-02: Increased difficulty of all dragons to 30, deep dragon to 35.
+2023-01-02: Nurses have a chance of dropping pills on death.
 2023-01-02: Reverted f056c292c, potion of amnesia back to randomized appearance to preserve saves.
 2023-01-02: Fix: Puddles and sewage turning red from blood; fixed description.
 2023-01-02: Fix: Impossible when trying to write scroll of knowledge. Fixes #149.

@@ -3335,24 +3335,13 @@ long mmflags;
         }
     } else if (mndx == PM_XANATHAR) {
         struct obj *otmp;
-        otmp = oname(mksobj(RIN_STEALTH, TRUE, FALSE),
+        otmp = oname(mksobj(RIN_SEE_INVISIBLE, TRUE, FALSE),
                      artiname(ART_XANATHAR_S_RING_OF_PROOF));
         if (otmp) {
             otmp->blessed = otmp->cursed = 0;
             mpickobj(mtmp, otmp);
         }
-    } else if (mndx == PM_ACERERAK) {
-        struct obj *otmp;
-        otmp = oname(mksobj(STAFF_OF_WAR, TRUE, FALSE),
-                     artiname(ART_STAFF_OF_ROT));
-        if (otmp) {
-            otmp->blessed = otmp->cursed = 0;
-            mpickobj(mtmp, otmp);
-        }
-    }
-    
-    
-    else if (mndx == PM_CERBERUS) {
+    } else if (mndx == PM_CERBERUS) {
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;
@@ -4304,8 +4293,9 @@ struct monst *mtmp;
         /* (see align.h for valid aligntyp values)     */
         if (mal != A_NONE)
             mal *= 5;
-        /* make priests of Moloch hostile */
-		if (mal == A_NONE) mtmp->mpeaceful = 0;
+        /* Priests of Moloch are always hostile to non-Moloch worshippers */
+        if (mal == A_NONE && u.ualign.type != A_NONE) 
+            mtmp->mpeaceful = 0;
     }
 
     coaligned = (sgn(mal) == u.ualign.type);
@@ -4614,8 +4604,13 @@ struct obj *bag;
                                        "It slips away from you.", (char*)0, (char*)0);
             break;
         case 2:
-            pline_The("bag wriggles away from you!");
-            dropx(bag);
+            if (carried(bag)) {
+                pline_The("bag wriggles away from you!");
+                dropx(bag);
+            } else {
+                pline_The("bag shrieks and disappears!");
+                (void) rloco(bag);
+            }
             break;
         case 3:
             /* nomul(-1*(rnd(4)), "sucked by a bag"); */

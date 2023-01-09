@@ -158,19 +158,12 @@ struct monst *mtmp;
      */
     if (mtmp->iswiz
         || is_lminion(mtmp)
-        || mtmp->data == &mons[PM_ANGEL]
-        || mtmp->data == &mons[PM_ARCHANGEL]
-        || mtmp->data == &mons[PM_HONEY_BADGER]
-        || mtmp->data == &mons[PM_NEOTHELID]
-        || mtmp->data == &mons[PM_CTHULHU]
-        || mindless(mtmp->data)
         || is_mplayer(mtmp->data)
         || is_rider(mtmp->data)
-        || mtmp->isvecna
         || mtmp->data->mlet == S_HUMAN
+        || mtmp->data->mlet == S_ANGEL
         || unique_corpstat(mtmp->data)
         || (mtmp->isshk && inhishop(mtmp))
-        || mtmp->isgrund
         || (mtmp->ispriest && inhistemple(mtmp))
         || mtmp->mberserk)
         return FALSE;
@@ -750,6 +743,8 @@ register struct monst *mtmp;
             pline("It feels quite soothing.");
         } else if (is_illithid(youmonst.data)) {
             Your("psionic abilities shield your brain.");
+        } else if (Psychic_resistance) {
+            You("are unaffected.");
         } else if (!u.uinvulnerable) {
             register boolean m_sen = sensemon(mtmp);
 
@@ -885,9 +880,11 @@ toofar:
 
     /* --hackem: I don't want an exact copy of Hezrous, but badgers are known
          * for being stinky. So they will frequently leave trails of gas...
+         * Same for skunks
      */
     if ((mtmp->data == &mons[PM_GIANT_BADGER]
-        || mtmp->data == &mons[PM_HONEY_BADGER]) && !rn2(3)) /* badger stink */
+        || mtmp->data == &mons[PM_HONEY_BADGER]
+         || mtmp->data == &mons[PM_SKUNK]) && !rn2(3)) /* badger stink */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
     /* Mist wolves make misty cloud floods */
@@ -899,7 +896,7 @@ toofar:
     }
 
     /* shadow monsters leave trail of darkness */
-    if (!rn2(20)
+    if (!rn2(20) && !mtmp->mpeaceful && distu(mtmp->mx, mtmp->my) < 10
         && (mtmp->data == &mons[PM_SHADOW_WOLF]
          || mtmp->data == &mons[PM_SHADOW_OGRE]
          || mtmp->data == &mons[PM_NABASSU])) {

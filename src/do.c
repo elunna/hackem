@@ -306,8 +306,17 @@ deletedwithboulder:
         if (is_puddle(x, y) && !rn2(3)) {
             /* shallow water isn't an endless resource like a pool/moat */
             levl[x][y].typ = ROOM;
+            
+            /*maybe_unhide_at(x, y);*/
+            if ((mtmp = m_at(x, y)) != 0) {
+                /* probably ought to do some hefty damage to any
+                   non-ice creature caught in freezing water;
+                   at a minimum, eels are forced out of hiding */
+                if (is_swimmer(mtmp->data) && mtmp->mundetected) {
+                    mtmp->mundetected = 0;
+                }
+            }
             newsym(x, y);
-            maybe_unhide_at(x, y);
             if (cansee(x, y))
                 pline_The("puddle dries up.");
         }
@@ -375,8 +384,6 @@ deletedwithboulder:
         newsym(x, y);
     }
     
-   
-
     bhitpos = save_bhitpos;
     return res;
 }

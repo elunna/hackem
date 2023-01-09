@@ -467,14 +467,16 @@ register struct monst *mtmp;
                 return FALSE;
         }
     }
-
-    if (uarmf && uarmf->otyp == STOMPING_BOOTS
-        && !Levitation && verysmall(mtmp->data)) {
-        You("stomp on %s!", mon_nam(mtmp));
-        xkilled(mtmp, XKILL_GIVEMSG);
-        wake_nearby();
-        makeknown(uarmf->otyp);
-        return TRUE;
+    
+    if (uarmf && uarmf->otyp == STOMPING_BOOTS && !Levitation 
+        && mtmp->data->msize <= MZ_SMALL) {
+        if (verysmall(mtmp->data) || !rn2(4)) {
+            You("stomp on %s!", mon_nam(mtmp));
+            xkilled(mtmp, XKILL_GIVEMSG);
+            wake_nearby();
+            makeknown(uarmf->otyp);
+            return TRUE;
+        }
     }
 
     /* possibly set in attack_checks;
@@ -4727,14 +4729,16 @@ boolean wep_was_destroyed;
                 }
                 break;
             case DEEP_DRAGON_SCALES:
-                if (how_resistant(DRAIN_RES) == 100) {
-                    You("are immune to %s wicked armor.",
-                        s_suffix(mon_nam(mon)));
-                    monstseesu(M_SEEN_DRAIN);
-                    break;
-                } else {
-                    You_feel("weaker!");
-                    losexp("life drainage");
+                if (!rn2(3)) {
+                    if (how_resistant(DRAIN_RES) == 100) {
+                        You("are immune to %s wicked armor.",
+                            s_suffix(mon_nam(mon)));
+                        monstseesu(M_SEEN_DRAIN);
+                        break;
+                    } else {
+                        You_feel("weaker!");
+                        losexp("life drainage");
+                    }
                 }
                 break;
             case BLACK_DRAGON_SCALES: {

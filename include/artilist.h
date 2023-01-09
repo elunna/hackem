@@ -104,11 +104,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Hand Grenade of Antioch", FIRE_BOMB, (SPFX_RESTR), 0, 0, 
       PHYS(1, 1), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 300L, 
       NO_COLOR, DEFAULT_MAT),
-
-    A("The Master Sword", LONG_SWORD, 
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK), 0, 0, 
-      MAST(3, 3), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 1000L, 
-      NO_COLOR, GEMSTONE),
     
     /*
      *      Orcrist and Sting have same alignment as elves.
@@ -132,9 +127,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5,20), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_YEOMAN, NON_PM, 1000L, 
       NO_COLOR, COPPER),
 
-    A("Skullcrusher", CLUB, (SPFX_RESTR), 0, 0,
+    A("Skullcrusher", CLUB, SPFX_RESTR, 0, 0,
       PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 
-      2000L, NO_COLOR, DEFAULT_MAT),
+      2000L, NO_COLOR, MINERAL),
 
     A("Snickersnee", KATANA, SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
       0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR, DEFAULT_MAT),
@@ -416,7 +411,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Gleipnir", GRAPPLING_HOOK, (SPFX_RESTR), 0, 0, PHYS(5, 8),
       NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       1700L, NO_COLOR, DEFAULT_MAT),
-
+    
+    A("The Master Sword", LONG_SWORD, 
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK), 0, 0, 
+      MAST(3, 3), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1000L, 
+      NO_COLOR, GEMSTONE),
+    
     /* Attacks deal double damage, but at the cost of hallucination.
     *      This effect is only active while the user can see. */
     A("Mystic Eyes", LENSES, (SPFX_RESTR | SPFX_SEARCH), 0, 0, 
@@ -492,7 +492,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
     
     A("The Staff of Rot", STAFF_OF_NECROMANCY,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK), 0, 0,
+      (SPFX_RESTR | SPFX_ATTK), 0, 0,
       WTHR(6, 6), NO_DFNS, NO_CARY,
       WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR, BONE),
 

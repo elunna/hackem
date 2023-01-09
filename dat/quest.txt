@@ -6177,11 +6177,7 @@ Abandon all hope, ye who enter here...
 %Cc - 00305
 The Orc King's fearsome body lays sprawled out before you,
 his blood slowly seeping out from under him, spreading across
-the bunker floor.  Around his neck, you notice a magical
-talisman with a familiar glyph etched into its surface.
-Before you have a chance to examine it further, it glows
-fiercely for a brief moment, and then turns to ash.
+the bunker floor.  You hear him cough one last insult.
 
-This was the magic that blocked passage further into the dungeon, 
-and now that magic has been removed, permanently.
-%E [Grund the Orc King is dead, the rest of the dungeon awaits.]
+"You scum. You think you have a chance at beating this dungeon? *cough*
+*cough*  I'll see you in Gehennom! Haa..aa....ahrhhg..."

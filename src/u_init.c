@@ -100,6 +100,7 @@ struct trobj Healer[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Ice_Mage[] = {
+#define I_BOOK          10
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
@@ -110,7 +111,7 @@ struct trobj Ice_Mage[] = {
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-    { SPE_SLOW_MONSTER, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
@@ -140,7 +141,7 @@ struct trobj Knight[] = {
 struct trobj Monk[] = {
 #define M_BOOK 2
     { GLOVES, 2, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { ROBE_OF_POWER, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
     { POT_HEALING, 0, POTION_CLASS, 3, UNDEF_BLESS },
@@ -325,6 +326,7 @@ struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
 struct inv_sub {
     short race_pm, item_otyp, subs_otyp;
 } inv_subs[] = {
+    /* Elves */
     { PM_ELF, DAGGER, ELVEN_DAGGER },
     { PM_ELF, SPEAR, ELVEN_SPEAR },
     { PM_ELF, SHORT_SWORD, ELVEN_SHORT_SWORD },
@@ -337,6 +339,7 @@ struct inv_sub {
     /* { PM_ELF, SMALL_SHIELD, ELVEN_SHIELD }, */
     { PM_ELF, CLOAK_OF_DISPLACEMENT, ELVEN_CLOAK },
     { PM_ELF, CRAM_RATION, LEMBAS_WAFER },
+    /* Orcs */
     { PM_ORC, DAGGER, ORCISH_DAGGER },
     { PM_ORC, SPEAR, ORCISH_SPEAR },
     { PM_ORC, SHORT_SWORD, ORCISH_SHORT_SWORD },
@@ -349,6 +352,7 @@ struct inv_sub {
     { PM_ORC, CRAM_RATION, TRIPE_RATION },
     { PM_ORC, LEMBAS_WAFER, TRIPE_RATION },
     { PM_ORC, LONG_SWORD, ORCISH_LONG_SWORD },
+    /* Dwarves */
     { PM_DWARF, SPEAR, DWARVISH_SPEAR },
     { PM_DWARF, SHORT_SWORD, DWARVISH_SHORT_SWORD },
     { PM_DWARF, HELMET, DWARVISH_HELM },
@@ -389,6 +393,8 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
+    /* Centaurs */
+    { PM_CENTAUR, HIGH_BOOTS, HELMET },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
 };
 
@@ -572,10 +578,10 @@ static const struct def_skill Skill_Inf[] = {
     { P_CROSSBOW, P_SKILLED },
     { P_DART, P_BASIC },
     { P_WHIP, P_SKILLED },
-    { P_ATTACK_SPELL, P_EXPERT },
+    { P_ATTACK_SPELL, P_SKILLED },
+    { P_MATTER_SPELL, P_SKILLED },
     { P_NECROMANCY_SPELL, P_SKILLED },
     { P_DIVINATION_SPELL, P_SKILLED },
-    { P_ENCHANTMENT_SPELL, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_RIDING, P_SKILLED },
     { P_NONE, 0 }
@@ -1095,6 +1101,16 @@ u_init()
         skill_init(Skill_F);
         break;
     case PM_ICE_MAGE:
+        switch (rnd(2)) {                
+        case 1: 
+            Ice_Mage[I_BOOK].trotyp = SPE_CONFUSE_MONSTER; 
+            break;
+        case 2: 
+            Ice_Mage[I_BOOK].trotyp = SPE_SLOW_MONSTER; 
+            break;
+        default: 
+            break;
+        }
         ini_inv(Ice_Mage);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
@@ -1482,11 +1498,13 @@ u_init()
         knows_object(ELVEN_ARROW);
         knows_object(ELVEN_BOW);
         knows_object(ORCISH_ARROW);
+        knows_object(LIGHT_ARROW);
         knows_object(ORCISH_BOW);
         knows_object(ARROW);
         knows_object(BOW);
         knows_object(YA);
         knows_object(YUMI);
+        knows_object(FOOTBOW);
         knows_object(CROSSBOW_BOLT);
         knows_object(CROSSBOW);
         break;
@@ -1903,7 +1921,7 @@ register struct trobj *origtrop;
                            || otyp == RIN_COLD_RESISTANCE))
 
                    /* Necromancers start with drain res */
-				    || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
+                   || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
                    /* orcs start with poison resistance */
                    || (otyp == RIN_POISON_RESISTANCE && Race_if(PM_ORC))
                    /* Monks don't use weapons */

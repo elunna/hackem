@@ -42,7 +42,7 @@ static const struct innate {
                  { 20, &(HSearching), "perceptive", "unaware" },
                  { 0, 0, 0, 0 } },
 
-  fla_abil[] = { { 1, &(HFire_resistance), "", "" },
+  fla_abil[] = { { 1, &(EFire_resistance), "", "" },
                  { 5, &(HVulnerable_cold), "sensitive to cold", "less sensitive to cold" },
                  { 0, 0, 0, 0 } },
   
@@ -50,7 +50,7 @@ static const struct innate {
                  { 15, &(HSick_resistance), "hale", "" },
                  { 0, 0, 0, 0 } },
 
-  ice_abil[] = { { 1, &(HCold_resistance), "", "" },
+  ice_abil[] = { { 1, &(ECold_resistance), "", "" },
                  { 5, &(HVulnerable_fire), "sensitive to heat", "less sensitive to heat" },
                  { 15, &(HWwalking), "unsinkable", "like you might sink" },
                  { 0, 0, 0, 0 } },
@@ -126,10 +126,9 @@ static const struct innate {
                  { 17, &(HTeleport_control), "controlled", "uncontrolled" },
                  { 0, 0, 0, 0 } },
 
-  yeo_abil[] = {
-		         { 7, &(HFast), "quick", "slow" },
-		         { 15, &(HSwimming), "ready to swim", "afraid of the water" },
-		         {  0, 0, 0, 0 } },
+  yeo_abil[] = { { 7, &(HFast), "quick", "slow" },
+                 { 15, &(HSwimming), "ready to swim", "afraid of the water" },
+                 {  0, 0, 0, 0 } },
 
   /* Intrinsics conferred by race */
   dwa_abil[] = { { 1, &(HInfravision), "", "" },
@@ -185,13 +184,11 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
   
 
-  vam_abil[] =   { { 1, &(HDrain_resistance), "", "" },
-                   { 3, &(HBreathless), "breathless", "full of air" },
-                   { 5, &(HRegeneration), "resilient", "less resilient" },
-                   { 7, &(HPoison_resistance), "durable", "vulnerable" },
-                   { 9, &(HFlying), "lighter than air", "gravity's pull" },
-                   { 16, &(HSleep_resistance), "awake", "tired" },
-                   { 21, &(HSick_resistance), "hale", "" },
+  vam_abil[] =   { { 1, &(HInfravision), "", "" },
+                   { 1, &(HDrain_resistance), "", "" },
+                   { 1, &(HBreathless), "breathless", "full of air" },
+                   { 1, &(HRegeneration), "resilient", "less resilient" },
+                   { 1, &(HFlying), "lighter than air", "gravity's pull" },
                    { 0, 0, 0, 0 } },
   
   
@@ -1200,9 +1197,12 @@ int oldlevel, newlevel;
         if (oldlevel < u.ulevel && newlevel >= u.ulevel
             && u.ulevelmax == u.ulevel) {
             int i;
-            for (i = 0; i < MAXSPELL; i++)
+            for (i = 0; i < MAXSPELL; i++) {
+                if (spellid(i) == spell)
+                    return; /* We already know it */
                 if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
                     break;
+            }
             if (spellid(i) == NO_SPELL)
                 You("learn how to cast %s!", OBJ_NAME(objects[spell]));
             spl_book[i].sp_id = spell;

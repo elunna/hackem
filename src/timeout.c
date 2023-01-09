@@ -1158,6 +1158,7 @@ free_bomb:
             obj_extract_self(bomb);
             obfree(bomb, (struct obj *)0);
         }
+        maybe_unhide_at(x, y);
         newsym(x, y);
         return;
     } /* Migrating bombs "blow up in midair" */

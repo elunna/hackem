@@ -1,366 +1,26 @@
 import re
 import math
+from collections import defaultdict
+import data
 from datetime import date
 
-at_types = {
-    "AT_NONE": "passive",
-    "AT_CLAW": "claw",
-    "AT_BITE": "bite",
-    "AT_KICK": "kick",
-    "AT_BUTT": "butt",
-    "AT_TUCH": "touch",
-    "AT_STNG": "sting",
-    "AT_HUGS": "crushing bearhug",
-    "AT_SPIT": "spit",
-    "AT_ENGL": "engulf",
-    "AT_BREA": "breath",
-    "AT_EXPL": "explode",
-    "AT_BOOM": "explode on death",
-    "AT_GAZE": "gaze",
-    "AT_TENT": "tentacle",
-    "AT_SCRE": "sonic",
-    "AT_VOLY": "volley",
-    "AT_MULTIPLY": "multiply",
-    "AT_WEAP": "weapon",
-    "AT_MAGC": "magic",
-}
-
-ad_types = {
-    "0": 0,
-    "AD_PHYS": "physical",
-    "AD_MAGM": "magic missile",
-    "AD_FIRE": "fire",
-    "AD_COLD": "cold",
-    "AD_SLEE": "sleep",
-    "AD_DISN": "disintegrate",
-    "AD_ELEC": "shock",
-    "AD_DRST": "poison-str",
-    "AD_ACID": "acid",
-    "AD_LOUD": "sonic",
-    "AD_WATR": "water",
-    "AD_PSYC": "psychic",
-    "AD_BLND": "blind",
-    "AD_STUN": "stun",
-    "AD_SLOW": "slow",
-    "AD_PLYS": "paralyze",
-    "AD_DRLI": "drain life",
-    "AD_DREN": "drain energy",
-    "AD_LEGS": "wound legs",
-    "AD_STON": "petrify",
-    "AD_STCK": "sticks",
-    "AD_SGLD": "steals gold",
-    "AD_SITM": "steals item",
-    "AD_SEDU": "seduces",
-    "AD_TLPT": "teleport",
-    "AD_RUST": "rust",
-    "AD_CONF": "confuse",
-    "AD_DGST": "digest",
-    "AD_HEAL": "heal",
-    "AD_WRAP": "wrap",
-    "AD_WERE": "lycanthropy",
-    "AD_DRDX": "poison-dex",
-    "AD_DRCO": "poison-con",
-    "AD_DRIN": "drain intelligence",
-    "AD_DISE": "disease",
-    "AD_DCAY": "decay",
-    "AD_SSEX": "seduce",
-    "AD_HALU": "hallucination",
-    "AD_DETH": "death",
-    "AD_PEST": "pestilence",
-    "AD_FAMN": "famine",
-    "AD_SLIM": "slime",
-    "AD_ENCH": "disenchant",
-    "AD_CORR": "corrode",
-    "AD_CNCL": "cancel",
-    "AD_BHED": "behead",
-    "AD_LUCK": "drain luck",
-    "AD_CLOB": "clobber",
-    "AD_POLY": "polymorph",
-    "AD_WTHR": "wither",
-    "AD_PITS": "create pit",
-    "AD_WEBS": "entangle",
-    "AD_CURS": "random curse",
-    "AD_CLRC": "clerical spell",
-    "AD_SPEL": "magic spell",
-    "AD_RBRE": "random breath",
-    "AD_CALM": "calm",
-    "AD_TCKL": "tickle",
-    "AD_PIER": "piercing scream",
-    "AD_SONG": "paralyzing song",
-    "AD_GIBB": "gibberish",
-    "AD_SPOR": "spore",
-    "AD_DSRM": "disarm",
-    "AD_POTN": "random potion",
-    "AD_HNGY": "hunger",
-    "AD_FEAR": "fear",
-    "AD_WIND": "wind",
-    "AD_HYDR": "grow heads",
-    "AD_QUIL": "quills",
-    "AD_LARV": "infect larva",
-    "AD_SAMU": "steal amulet",
-}
-symbols = {
-    "S_ANT": "a",
-    "S_BLOB": "b",
-    "S_COCKATRICE": "c",
-    "S_DOG": "d",
-    "S_EYE": "e",
-    "S_FELINE": "f",
-    "S_GREMLIN": "g",
-    "S_HUMANOID": "h",
-    "S_IMP": "i",
-    "S_JELLY": "j",
-    "S_KOBOLD": "k",
-    "S_LEPRECHAUN": "l",
-    "S_MIMIC": "m",
-    "S_NYMPH": "n",
-    "S_ORC": "o",
-    "S_PIERCER": "p",
-    "S_QUADRUPED": "q",
-    "S_RODENT": "r",
-    "S_SPIDER": "s",
-    "S_TRAPPER": "t",
-    "S_UNICORN": "u",
-    "S_VORTEX": "v",
-    "S_WORM": "w",
-    "S_XAN": "x",
-    "S_LIGHT": "y",
-    "S_ZOUTHERN": "z",
-    "S_ANGEL": "A",
-    "S_BAT": "B",
-    "S_CENTAUR": "C",
-    "S_DRAGON": "D",
-    "S_ELEMENTAL": "E",
-    "S_FUNGUS": "F",
-    "S_GNOME": "G",
-    "S_GIANT": "H",
-    "S_invisible": "I",
-    "S_JABBERWOCK": "J",
-    "S_KOP": "K",
-    "S_LICH": "L",
-    "S_MUMMY": "M",
-    "S_NAGA": "N",
-    "S_OGRE": "O",
-    "S_PUDDING": "P",
-    "S_QUANTMECH": "Q",
-    "S_RUSTMONST": "R",
-    "S_SNAKE": "S",
-    "S_TROLL": "T",
-    "S_UMBER": "U",
-    "S_VAMPIRE": "V",
-    "S_WRAITH": "W",
-    "S_XORN": "X",
-    "S_YETI": "Y",
-    "S_ZOMBIE": "Z",
-    "S_HUMAN": "@",
-    "S_GHOST": " ",
-    "S_GOLEM": "`",
-    "S_DEMON": "&",
-    "S_EEL": ";",
-    "S_LIZARD": ":",
-    "S_BAD_FOOD": "%",
-    "S_BAD_COINS": "$",
-    "S_WORM_TAIL": "~",
-    "S_MIMIC_DEF": "]",
-}
-
-genflags = {
-    "G_NOCORPSE": "does not leave a corpse",
-    "G_GENO": "can be annihilated",
-    "G_LGROUP": "appears in large groups",
-    "G_SGROUP": "appears in small groups",
-    "G_NOGEN": "generated only specially",
-    "G_HELL": "only appears in Gehennom",
-    "G_NOHELL": "never generated in Gehennom",
-    "G_UNIQ": "unique",
-    "G_VLGROUP": "appears in very large groups"
-}
-CONFERS = {
-    "MR_FIRE": "confers fire res",
-    "MR_COLD": "confers cold res",
-    "MR_SLEEP": "confers sleep res",
-    "MR_DISINT": "confers disintegration res",
-    "MR_ELEC": "confers shock res",
-    "MR_POISON": "confers poison res",
-    "MR_ACID": "confers acid res",
-    "MR_STONE": '0',
-}
-FLAG_TO = {
-    "MR_FIRE": "resists fire",
-    "MR_COLD": "resists cold",
-    "MR_SLEEP": "resists sleep",
-    "MR_DISINT": "resists disintegration",
-    "MR_ELEC": "resist shock",
-    "MR_POISON": "resists poison",
-    "MR_ACID": "resists acid",
-    "MR_STONE": "resists petrification",
-    "MR_PSYCHIC": "resists psychic",
-    "MR_CLOB": "resists clobber",
-    "MR_SONIC": "resists sonic",
-    "MR2_SEE_INVIS": "sees invisible",
-    "MR2_LEVITATE": "levitates",
-    "MR2_WATERWALK": "walks on water",
-    "MR2_MAGBREATH": "magical breathing",
-    "MR2_DISPLACED": "displaced",
-    "MR2_STRENGTH": "strong",
-    "MR2_FUMBLING": "fumbles",
-    "MR2_TELEPATHY": "telepathic",
-    "MR2_JUMPING": "jumps",
-    "MR2_REFLECTION": "reflective",
-    "M1_FLY": "flies",
-    "M1_SWIM": "swims",
-    "M1_AMORPHOUS": "amorphous",
-    "M1_WALLWALK": "phases",
-    "M1_CLING": "clings",
-    "M1_TUNNEL": "tunnels",
-    "M1_NEEDPICK": "needs a pickaxe",
-    "M1_CONCEAL": "conceals",
-    "M1_HIDE": "hides",
-    "M1_AMPHIBIOUS": "amphibious",
-    "M1_BREATHLESS": "breathless",
-    "M1_NOTAKE": "doesn't pick up items",
-    "M1_NOEYES": "eyeless",
-    "M1_NOHANDS": "handless",
-    "M1_NOLIMBS": "limbless",
-    "M1_NOHEAD": "headless",
-    "M1_MINDLESS": "mindless",
-    "M1_HUMANOID": "humanoid",
-    "M1_ANIMAL": "animal",
-    "M1_SLITHY": "slithy",
-    "M1_UNSOLID": "unsolid",
-    "M1_THICK_HIDE": "thick hide",
-    "M1_OVIPAROUS": "oviparous",
-    "M1_REGEN": "regenerates",
-    "M1_SEE_INVIS": "sees invisible",
-    "M1_TPORT": "teleports",
-    "M1_TPORT_CNTRL": "teleport control",
-    "M1_ACID": "acidic",
-    "M1_POIS": "poisonous",
-    "M1_CARNIVORE": "carnivore",
-    "M1_HERBIVORE": "herbivore",
-    "M1_OMNIVORE": "omnivore",
-    "M1_METALLIVORE": "eats metal",
-    "M2_NOPOLY": "cannot be polymorphed into",
-    "M2_JUMPER": "jumps",
-    "M2_LORD": "lord",
-    "M2_PRINCE": "prince",
-    "M2_MINION": "minion",
-    "M2_MERC": "mercenary",
-    "M2_SHAPESHIFTER": "shapeshifts",
-    "M2_MALE": "male",
-    "M2_FEMALE": "female",
-    "M2_NEUTER": "neuter",
-    "M2_PNAME": "named",
-    "M2_HOSTILE": "hostile",
-    "M2_PEACEFUL": "peaceful",
-    "M2_DOMESTIC": "domestic",
-    "M2_WANDER": "wanders",
-    "M2_STALK": "stalks you",
-    "M2_NASTY": "nasty",
-    "M2_STRONG": "strong",
-    "M2_ROCKTHROW": "throws rocks",
-    "M2_GREEDY": "greedy",
-    "M2_JEWELS": "collects jewels",
-    "M2_COLLECT": "collects",
-    "M2_FLANK": "outflanks",
-    "M2_MAGIC": "magical",
-    "M3_WANTSAMUL": "wants the amulet",
-    "M3_WANTSBELL": "wants the bell",
-    "M3_WANTSBOOK": "wants the book",
-    "M3_WANTSCAND": "wants the candelabrum",
-    "M3_WANTSARTI": "wants the quest artifact",
-    "M3_WANTSALL": "wants all",
-    "M3_WAITFORU": "waits for you",
-    "M3_CLOSE": "keeps close",
-    "M3_COVETOUS": "covetous",
-    "M3_WAITMASK": "waits",
-    "M3_INFRAVISION": "has infravision",
-    "M3_INFRAVISIBLE": "is infravisible",
-    "M3_DISPLACES": "displaces",
-    "M3_SKITTISH": "skittish",
-    "M3_ACCURATE": "accurate",
-    "M3_BERSERK": "berserks",
-    "M3_TRAITOR": "can betray",
-    "M3_NOTAME": "untameable",
-    "M4_VULNERABLE_FIRE": "vulnerable to fire",
-    "M4_VULNERABLE_COLD": "vulnerable to cold",
-    "M4_VULNERABLE_ELEC": "vulnerable to shock",
-    "M4_VULNERABLE_ACID": "vulnerable to acid",
-    "M4_STATIONARY": "doesn't move",
-    "MH_HUMAN": "human",
-    "MH_ELF": "elvish",
-    "MH_DWARF": "dwarvish",
-    "MH_GNOME": "gnomish",
-    "MH_ORC": "orcish",
-    "MH_GIANT": "giant",
-    "MH_HOBBIT": "hobbitish",
-    "MH_CENTAUR": "centaur",
-    "MH_ILLITHID": "illithid",
-    "MH_TORTLE": "tortle",
-    "MH_VAMPIRE": "vampire",
-    "MH_UNDEAD": "undead",
-    "MH_WERE": "lycanthrope",
-    "MH_DEMON": "demon",
-    "MH_DRAGON": "dragon",
-    "MH_ANGEL": "angelic",
-    "MH_OGRE": "ogre",
-    "MH_TROLL": "troll",
-    "MH_GNOLL": "gnoll",
-    "MH_JABBERWOCK": "jabberwock",
-    "0L": "0",
-}
-
-IGNORE_LIST = [
-    "needs a pickaxe",
-    "doesn't pick up items",
-    "eyeless",
-    "handless",
-    "limbless",
-    "headless",
-    "mindless",
-    "humanoid",
-    "animal",
-    "slithy",
-    "carnivore",
-    "herbivore",
-    "omnivore",
-    "eats metal",
-    "male",
-    "female",
-    "neuter",
-    "named",
-    "hostile",
-    "peaceful",
-    "strong",
-    "accurate",
-    "greedy",
-    "collects jewels",
-    "collects",
-    "oviparous",
-    "magical",
-    "has infravision",
-    "is infravisible",
-    "wanders",
-    "skittish",
-    "thick hide",
-]
 def process_attacks(attks):
     new_attacks = []
     for atk in attks:
         atk = strip_list(atk.split(","))
         if atk[1] and atk[1] != "AD_PHYS":
             new_attacks.append("{} {}d{} ({})".format(
-                at_types[atk[0]],
+                data.at_types[atk[0]],
                 atk[2],
                 atk[3],
-                ad_types[atk[1]],
+                data.ad_types[atk[1]],
             ))
         else:
             new_attacks.append("{} {}d{}".format(
-                at_types[atk[0]],
+                data.at_types[atk[0]],
                 atk[2],
                 atk[3],
-                ad_types[atk[1]],
+                data.ad_types[atk[1]],
             ))
     return new_attacks
 
@@ -452,8 +112,8 @@ def extract_data(text):
     for i in gen:
         if is_integer(i):
             mondat['frequency'] = int(i)
-        elif i in genflags and i != "G_GENO":
-            mondat['gen'].append(genflags[i])
+        elif i in data.genflags and i != "G_GENO":
+            mondat['gen'].append(data.genflags[i])
             
     if "G_GENO" not in gen:
         mondat['gen'].append("can not be annihilated")
@@ -482,10 +142,10 @@ def extract_data(text):
             result = 0
             if f != '0':
                 if i == -8:
-                    result = CONFERS[f]
+                    result = data.CONFERS[f]
                 else:
-                    result = (FLAG_TO[f])
-                if result != "0" and result not in IGNORE_LIST:
+                    result = (data.FLAG_TO[f])
+                if result != "0":
                     flags.append(result)
             
     mondat['flags'] = flags
@@ -498,8 +158,155 @@ def extract_data(text):
 
     return mondat
 
+def write_html(monsters):
+    # Writing to file
+    with open("monsters.htm", "w") as file1:
+        # Writing data to a file
+        file1.write("{{otheruses|||monster (disambiguation)}}\n")
+        file1.write("This page lists all of the [[monster]]s that are in [[Hack'EM]].\n")
+        file1.write("\n")
+        file1.write("Some of these monsters might vary from their representations in vanilla NetHack or in other variants.\n")
+        file1.write("Note that most of the information presented here can be obtained about any creature in Hack'EM by "
+                    "using the far look command. The information displayed by this command is considered the single "
+                    "source of truth about monsters.\n")
+        file1.write("\n")
+        file1.write("== Hack'EM Monsters\n")
+        file1.write("\n")
+        file1.write('{|class="wikitable sortable" \n')
+        file1.write("|-\n")
+        file1.write('!scope="col" | Monster\n')
+        file1.write('!scope="col" | Sym\n')
+        file1.write('!scope="col" | Lvl\n')
+        file1.write('!scope="col" | Freq\n')
+        file1.write('!scope="col" | Speed\n')
+        file1.write('!scope="col" | AC\n')
+        file1.write('!scope="col" | MC\n')
+        file1.write('!scope="col" | Diff\n')
+        file1.write('!scope="col" class="unsortable"| Attacks\n')
+        file1.write('!scope="col" class="unsortable"| Properties\n')
+        file1.write('!scope="col" class="unsortable"| Notes\n')
+        file1.write("\n")
+
+        file1.write("|-\n")
+        file1.write("\n")
+
+        for i, m in enumerate(monsters):
+            for key, val in m.items():
+                print("{:15} {}".format(key, val))
+            print("--------------------------")
+            file1.write("|[[{}]]\n".format(m['name']))
+            file1.write("|{}\n".format(data.symbols[m['sym']]))
+            file1.write("|{}\n".format(m['base level']))
+            file1.write("|{}\n".format(m.get('frequency', 'n/a')))
+            file1.write("|{}\n".format(m.get('speed', 'n/a')))
+            file1.write("| {}\n".format(m.get('AC', 'n/a')))
+            file1.write("| {}\n".format(m.get('MR', 'n/a')))
+            file1.write("|{}\n".format(m.get('difficulty', 'n/a')))
+            file1.write("|{}\n".format("<br>".join(process_attacks(m['attacks']))))
+            file1.write("|{}\n".format("<br>".join(m['flags'])))
+            file1.write("|{}\n".format("<br>".join(m['gen'])))
+            file1.write("|-\n")
+        file1.write("|}\n")
+
+        # Monster analysis
+        file1.write("== Analysis ==\n")
+
+        # Count the monsters
+        num_monsters = len(monsters)
+        file1.write("Total count of monsters: {}\n".format(num_monsters))
+
+        count_dict = defaultdict(int)
+        lvl_dict = defaultdict(int)
+        diff_dict = defaultdict(int)
+        size_dict = defaultdict(int)
+    
+        for m in monsters:
+            lvl_dict[int(m['base level'])] += 1
+            diff_dict[int(m['difficulty'])] += 1
+            size_dict[m['size']] += 1
+    
+            for t in data.FLAG_TO.values():
+                if t in m['flags']:
+                    count_dict[t] += 1
+    
+            if "amphibious" in m['flags'] or "breathless" in m['flags']:
+                count_dict["resists water"] += 1
+
+        file1.write("=== Monster Base Levels ===\n")
+        
+        # Level table
+        file1.write('{|class="prettytable sortable striped"\n')
+        file1.write('!Level\n')
+        file1.write('!Count\n')
+        file1.write('!Percent\n')
+        file1.write('|-\n')
+        
+        for k in sorted(lvl_dict.keys()):
+            percent = (lvl_dict[k] / num_monsters) * 100
+            file1.write('| {}\n'.format(k))
+            file1.write('| {}\n'.format(lvl_dict[k]))
+            file1.write('| {:.2f}%\n'.format(percent))
+            file1.write('|-\n')
+        file1.write('|}\n')
+
+        file1.write("\n")
+        
+        # Difficulty table
+        file1.write('{|class="prettytable sortable striped"\n')
+        file1.write('!Difficulty\n')
+        file1.write('!Count\n')
+        file1.write('!Percent\n')
+        file1.write('|-\n')
+        for k in sorted(diff_dict.keys()):
+            percent = (diff_dict[k] / num_monsters) * 100
+            file1.write('| {}\n'.format(k))
+            file1.write('| {}\n'.format(diff_dict[k]))
+            file1.write('| {:.2f}%\n'.format(percent))
+            file1.write('|-\n')
+        file1.write('|}\n')
+
+
+        file1.write("\n")
+        
+        # Size table
+        file1.write('{|class="prettytable sortable striped"\n')
+        file1.write('!Size\n')
+        file1.write('!Count\n')
+        file1.write('!Percent\n')
+        file1.write('|-\n')
+        for k in data.size_list:
+            percent = (size_dict[k] / num_monsters) * 100
+            file1.write('| {}\n'.format(k))
+            file1.write('| {}\n'.format(size_dict[k]))
+            file1.write('| {:.2f}%\n'.format(percent))
+            file1.write('|-\n')
+        file1.write('|}\n')
+
+
+        file1.write("\n")
+        
+        # Flag table
+        file1.write('{|class="prettytable sortable striped"\n')
+        file1.write('!Flag\n')
+        file1.write('!Count\n')
+        file1.write('!Percent\n')
+        file1.write('|-\n')
+        for t in data.FLAG_TO.values():
+            percent = (count_dict[t] / num_monsters) * 100
+            file1.write('| {}\n'.format(t))
+            file1.write('| {}\n'.format(count_dict[t]))
+            file1.write('| {:.2f}%\n'.format(percent))
+            file1.write('|-\n')
+        file1.write('|}\n')
+
+        file1.write("\n")
+        
+        today = date.today()
+        file1.write("Last updated: {}<br>".format(today))
+        file1.write("[[Category:HackEM| ]]\n")
+
 def main():
-    with open("src/monst.c", "r") as a_file:
+    with open("../src/monst.c", "r") as a_file:
         monsters = []
         newmon = ""
         skipping = False;
@@ -524,90 +331,18 @@ def main():
                 
             if "MON(" in stripped_line:
                 # Save current and Start a new listing
-
                 newmon = stripcomments(newmon)
                 newmon = re.sub(' +', ' ', newmon)
-                monsters.append(newmon)
+                mdict = extract_data(newmon)
+                if mdict:
+                    monsters.append(mdict)
                 newmon = ""
                 newmon += stripped_line
             else:
                 newmon += stripped_line
-
-        # for m in monsters:
-        #     print(m)
-        #     print("")
-
-    # remove some of the early chafe
-    # monsters.pop(0)
-    # monsters.pop(0)
-    # monsters.pop(0)
-    # monsters.pop(0)
-
-    # Writing to file
-    with open("monsters.htm", "w") as file1:
-        # Writing data to a file
-        file1.write("{{otheruses|||monster (disambiguation)}}\n")
-        file1.write("This page lists all of the [[monster]]s that are in [[Hack'EM]].\n")
-        file1.write("\n")
-        file1.write("Some of these monsters might vary from their representations in vanilla NetHack or in other variants.\n")
-        file1.write("Note that most of the information presented here can be obtained about any creature in Hack'EM by "
-                    "using the far look command. The information displayed by this command is considered the single "
-                    "source of truth about monsters.\n")
-        file1.write("\n")
-        file1.write("\n")
-        file1.write('{|class="wikitable sortable" \n')
-        file1.write("|-\n")
-        file1.write('!scope="col" | Monster\n')
-        file1.write('!scope="col" | Sym\n')
-        file1.write('!scope="col" | Lvl\n')
-        file1.write('!scope="col" | Freq\n')
-        file1.write('!scope="col" | Speed\n')
-        file1.write('!scope="col" | AC\n')
-        file1.write('!scope="col" | MC\n')
-        file1.write('!scope="col" | Diff\n')
-        file1.write('!scope="col" class="unsortable"| Attacks\n')
-        file1.write('!scope="col" class="unsortable"| Properties\n')
-        file1.write('!scope="col" class="unsortable"| Notes\n')
-        file1.write("\n")
-        
-        file1.write("|-\n")
-        file1.write("\n")
-
-        for i, m in enumerate(monsters):
-            print("Monster #{}".format(i))
-            print(m)
-            print("")
-            mdict =  extract_data(m)
-            if not mdict:
-                continue
                 
-            for key, val in mdict.items():
-                print("{:15} {}".format(key, val))
-            print("--------------------------")
-            file1.write("|[[{}]]\n".format(mdict['name']))
-            file1.write("|{}\n".format(symbols[mdict['sym']]))
-            file1.write("|{}\n".format(mdict['base level']))
-            file1.write("|{}\n".format(mdict.get('frequency', 'n/a')))
-            file1.write("|{}\n".format(mdict.get('speed', 'n/a')))
-            file1.write("| {}\n".format(mdict.get('AC', 'n/a')))
-            file1.write("| {}\n".format(mdict.get('MR', 'n/a')))
-            file1.write("|{}\n".format(mdict.get('difficulty', 'n/a')))
-            file1.write("|{}\n".format("<br>".join(process_attacks(mdict['attacks']))))
-            file1.write("|{}\n".format("<br>".join(mdict['flags'])))
-            file1.write("|{}\n".format("<br>".join(mdict['gen'])))
-            file1.write("|-\n")
-        
-        file1.write("|}\n")
-        file1.write("\n")
-        file1.write("==See also==\n")
-        file1.write("*[[Item (Hack'EM)]]\n")
-        file1.write("\n")
-        today = date.today()
-        file1.write("Last updated: {}<br>".format(today))
-        file1.write("{{hackem-008}}\n")
-        file1.write("[[Category:Hack'EM monsters| ]]\n")
+    write_html(monsters)
     
-
 
 if __name__ == "__main__":
     main()

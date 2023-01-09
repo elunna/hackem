@@ -1623,14 +1623,15 @@ aligntyp alignment;
     
     switch ((int)alignment) {
 	case A_LAWFUL:
-	    mnum = lawful_minion(u.ulevel);
+            mnum = lminion();
 	    break;
 	case A_NEUTRAL:
 	    mnum = neutral_minion(u.ulevel);
 	    break;
 	case A_CHAOTIC:
 	case A_NONE:
-	    mnum = chaotic_minion(u.ulevel);
+	    /*mnum = chaotic_minion(u.ulevel);*/
+            mnum = ndemon(u.ualign.type);
 	    break;
 	default:
 	    impossible("unaligned player?");

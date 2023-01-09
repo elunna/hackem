@@ -474,33 +474,62 @@ struct damage_info_t *damage_info)
 #define is_odd_material(obj, mat) \
     ((obj)->material == (mat) && !(objects[(obj)->otyp].oc_material == (mat)))
         
-        if ((is_odd_material(otmp, GLASS) || is_odd_material(otmp, GEMSTONE))
-            && (objects[otmp->otyp].oc_dir & (PIERCE | SLASH))) {
-            /* glass and gemstone are extremely sharp */
-            tmp += 3;
-            damage_info->mat_damage = "\t+3 (gemstone/glass bonus).";
-        } else if (is_odd_material(otmp, GOLD) || is_odd_material(otmp, PLATINUM)) {
+        if (is_odd_material(otmp, GLASS)) {
+            /* glass is extremely sharp */
+            if (objects[otmp->otyp].oc_dir & PIERCE) {
+                tmp += 3;
+                damage_info->mat_damage = "\t+3 (glass piercing bonus).";
+            } else if (objects[otmp->otyp].oc_dir & SLASH) {
+                tmp += 3;
+                damage_info->mat_damage = "\t+3 (glass slashing bonus).";
+            }
+        } else if (is_odd_material(otmp, GEMSTONE)) {
+            /* gemstone is extremely sharp */
+            if (objects[otmp->otyp].oc_dir & PIERCE) {
+                tmp += 3;
+                damage_info->mat_damage = "\t+3 (gemstone piercing bonus).";
+            } else if (objects[otmp->otyp].oc_dir & PIERCE) {
+                tmp += 3;
+                damage_info->mat_damage = "\t+3 (gemstone slashing bonus).";
+            }
+        } else if (is_odd_material(otmp, GOLD)) {
             /* heavy metals, but softer than stone */
             if (objects[otmp->otyp].oc_dir & WHACK) {
                 tmp += 1;
-                damage_info->mat_damage = "\t+1 (gold/platinum bonus).";
+                damage_info->mat_damage = "\t+1 (gold whacking bonus).";
+            }
+        } else if (is_odd_material(otmp, PLATINUM)) {
+            /* heavy metals, but softer than stone */
+            if (objects[otmp->otyp].oc_dir & WHACK) {
+                tmp += 1;
+                damage_info->mat_damage = "\t+1 (platinum whacking bonus).";
             }
         } else if (is_odd_material(otmp, MITHRIL)) {
             /* light and sharp */
-            if (objects[otmp->otyp].oc_dir & (PIERCE | SLASH)) {
+            if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 2;
-                damage_info->mat_damage = "\t+2 (mithril bonus).";
+                damage_info->mat_damage = "\t+2 (mithril piercing bonus).";
+            } else if (objects[otmp->otyp].oc_dir & SLASH) {
+                tmp += 2;
+                damage_info->mat_damage = "\t+2 (mithril slashing bonus).";
             }
         } else if (is_odd_material(otmp, MINERAL)) {
             /* stone is heavy */
-            if (objects[otmp->otyp].oc_dir & (SLASH | WHACK)) {
+            if (objects[otmp->otyp].oc_dir & SLASH) {
                 tmp += 2;
-                damage_info->mat_damage = "\t+2 (mineral bonus).";
+                damage_info->mat_damage = "\t+2 (mineral slashing bonus).";
+            } else if (objects[otmp->otyp].oc_dir & WHACK) {
+                tmp += 2;
+                damage_info->mat_damage = "\t+2 (mineral whacking bonus).";
             }
-        } else if (is_odd_material(otmp, PLASTIC) || is_odd_material(otmp, PAPER)) {
+        } else if (is_odd_material(otmp, PLASTIC)) {
             /* just terrible weapons all around */
             tmp -= 2;
-            damage_info->mat_damage = "\t-2 (plastic/paper penalty).";
+            damage_info->mat_damage = "\t-2 (plastic penalty).";
+        } 
+        else if (is_odd_material(otmp, PAPER)) {
+            tmp -= 2;
+            damage_info->mat_damage = "\t-2 (paper penalty).";
         } else if (is_odd_material(otmp, WOOD) && !is_elven_weapon(otmp)) {
             /* poor at holding an edge */
             if (is_blade(otmp)) {
@@ -584,16 +613,16 @@ struct damage_info_t *damage_info)
         
         /* Describe the materials that inflict sear damage */
         if (otmp->material == SILVER) {
-            damage_info->silver_damage = "\t+1d20 against silver hating monsters.";
+            damage_info->hate_damage = "\t+1d20 against silver hating monsters.";
         }
         if (otmp->material == IRON) {
-            damage_info->iron_damage = "\t+1d6 against iron hating monsters.";
+            damage_info->hate_damage = "\t+1d6 against iron hating monsters.";
         }
         if (otmp->material == MITHRIL) {
-            damage_info->mithril_damage = "\t+1d6 against mithril hating monsters.";
+            damage_info->hate_damage = "\t+1d6 against mithril hating monsters.";
         }
         if (otmp->material == COPPER) {
-            damage_info->copper_damage = "\t+1d6 against copper hating monsters.";
+            damage_info->hate_damage = "\t+1d6 against copper hating monsters.";
         }
         
         if (artifact_light(otmp)) {

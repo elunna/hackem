@@ -261,11 +261,13 @@ gottype:
         for (j = rnd(100), i = 0; (j -= shtypes[i].prob) > 0; i++)
             continue;
 
-        /* big rooms cannot be wand or book shops,
+        /* big rooms cannot be wand, book, or mask shops,
          * - so make them general stores
          */
-        if (isbig(sroom) && (shtypes[i].symb == WAND_CLASS
-                             || shtypes[i].symb == SPBOOK_CLASS)) {
+        if (isbig(sroom) && 
+            (shtypes[i].symb == WAND_CLASS
+             || shtypes[i].symb == SPBOOK_CLASS
+             || !strcmp(shtypes[i].name, "mask shop"))) {
             i = 0;
         } 
         /* Prevent archery emporiums or gun shops if our player doesn't have

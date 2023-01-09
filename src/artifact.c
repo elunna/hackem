@@ -1633,6 +1633,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     char hittee[BUFSZ];
     struct artifact* atmp;
     int j, k, permdmg, chance;
+    int time = 1; /* For Mouser's Scalpel */
 
     Strcpy(hittee, youdefend ? you : mon_nam(mdef));
 
@@ -1926,12 +1927,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* if (attacks(AD_MAGM, otmp)) {*/
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage) {
-            if (!rn2(10)) {
-                pline_The("Master Sword hits%s %s%c",
-                          !spec_dbon_applies
-                              ? ""
-                              : "!  A hail of magic missiles strikes",
-                          hittee, !spec_dbon_applies ? '.' : '!');
+            pline_The("Master Sword hits %s.", hittee);
+            
+            if (!rn2(10) && spec_dbon_applies) {
+                pline("A hail of magic missiles strikes!");
                 *dmgptr += rnd(2) * 6;
             }
             
@@ -1947,6 +1946,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            sgn(tbx), sgn(tby), TRUE);
                 }
             }
+            msgprinted = TRUE;
             return realizes_damage;
         }
     }
@@ -2689,8 +2689,27 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         *dmgptr += rnd(4) * 5;
         return TRUE;
-       }
-
+    }
+    
+    /* Credits to BarclayII for Mouser's Scalpel rename and mechanic */
+    if (otmp->oartifact == ART_MOUSER_S_SCALPEL && dieroll < 10) { 
+        /* faster than a speeding bullet is the Gray Mouser... */
+        pline("There is a flurry of blows!");
+        /* I suppose this could theoretically continue forever... */
+        do {
+            *dmgptr += rnd(8) + 1 + otmp->spe;
+            time++;
+            dieroll = rn2(11);
+        } while (dieroll < 5);
+            
+        if (time == 1)
+            pline_The("rapier strikes %s!", hittee);
+        else if (time == 2)
+            pline_The("rapier strikes %s twice!", hittee);
+        else
+            pline_The("rapier strikes %s %d times in a row!", hittee, time); 
+    }
+       
     if (otmp->oartifact == ART_DEATHSWORD && dieroll < 4) {
         if (youdefend && !mindless(youmonst.data)) {
             pline_The((!multi) ? "heavy blade strikes you and you give in to pain!" 

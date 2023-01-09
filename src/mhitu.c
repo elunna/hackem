@@ -817,7 +817,7 @@ register struct monst *mtmp;
     }
 
     if (!range2 && marmf && marmf->otyp == STOMPING_BOOTS 
-        && verysmall(youmonst.data)) {
+        && youmonst.data->msize <= MZ_SMALL) {
         pline("%s stomps on you!", Monnam(mtmp));
         makeknown(marmf->otyp);
         if (Upolyd && !Unchanging) {
@@ -1823,7 +1823,10 @@ register struct attack *mattk;
                 break;
         }
         /* adjattrib gives dunce cap message when appropriate */
-        if (is_illithid(youmonst.data)) {
+        if (HPsychic_resistance) {
+            Your("brain is shielded from memory loss!");
+            break;
+        } else if (is_illithid(youmonst.data)) {
             if (!rn2(3))
                 Your("psionic abilities shield your brain from memory loss.");
             break;

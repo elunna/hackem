@@ -115,6 +115,7 @@ static struct Bool_Opt {
     { "BIOS", (boolean *) 0, FALSE, SET_IN_FILE },
 #endif
     { "blind", &u.uroleplay.blind, FALSE, DISP_IN_GAME },
+    { "bloodless", &iflags.bloodless, FALSE, SET_IN_GAME },
     { "bones", &flags.bones, TRUE, SET_IN_FILE },
 #ifdef INSURANCE
     { "checkpoint", &flags.ins_chkpt, TRUE, SET_IN_GAME },
@@ -4342,6 +4343,7 @@ boolean tinitial, tfrom_file;
                        || boolopt[i].addr == &iflags.use_inverse
                        || boolopt[i].addr == &iflags.hilite_pile
                        || boolopt[i].addr == &iflags.perm_invent
+                       || boolopt[i].addr == &iflags.bloodless
 #ifdef CURSES_GRAPHICS
                        || boolopt[i].addr == &iflags.cursesgraphics
 #endif
