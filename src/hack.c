@@ -2014,7 +2014,37 @@ domove_core()
         nomul(0);
         return;
     }
+    /* warn player before walking into known traps */
+    if (ParanoidTrap &&
+        ((trap = t_at(x, y)) && trap->tseen)) {
+        char qbuf[BUFSZ];
+        
+        switch (trap->ttyp) {
+        case SQKY_BOARD:
+        case BEAR_TRAP:
+        case PIT:
+        case SPIKED_PIT:
+        case HOLE:
+        case TRAPDOOR:
+            if (Levitation && !Flying) {
+                goto do_nothing;
+            }
+            /* fall through */
 
+        default:
+            Sprintf(qbuf, "Do you really want to %s into that %s?",
+                    locomotion(youmonst.data, "step"),
+                    defsyms[trap_to_defsym(trap->ttyp)].explanation);
+            if (yn(qbuf) != 'y') {
+                nomul(0);
+                context.move = 0;
+                return;
+            }
+        }
+    }
+
+do_nothing:
+    
     if (u_rooted())
         return;
 

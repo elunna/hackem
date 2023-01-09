@@ -1391,6 +1391,8 @@ STATIC_VAR const struct paranoia_opts {
       "y to pray (supersedes old \"prayconfirm\" option)" },
     { PARANOID_REMOVE, "Remove", 1, "Takeoff", 1,
       "always pick from inventory for Remove and Takeoff" },
+    { PARANOID_TRAP, "trap", 1, 0, 0,
+      "yes to walk into a trap" },
     { PARANOID_SWIM, "swim", 1, 0, 0,
       "yes to walk into a water or lava space" },
     /* for config file parsing; interactive menu skips these */
