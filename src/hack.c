@@ -2022,6 +2022,7 @@ domove_core()
         switch (trap->ttyp) {
         case SQKY_BOARD:
         case BEAR_TRAP:
+        case SPEAR_TRAP:
         case PIT:
         case SPIKED_PIT:
         case HOLE:
