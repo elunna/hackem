@@ -578,10 +578,10 @@ static const struct def_skill Skill_Inf[] = {
     { P_CROSSBOW, P_SKILLED },
     { P_DART, P_BASIC },
     { P_WHIP, P_SKILLED },
-    { P_ATTACK_SPELL, P_EXPERT },
+    { P_ATTACK_SPELL, P_SKILLED },
+    { P_MATTER_SPELL, P_SKILLED },
     { P_NECROMANCY_SPELL, P_SKILLED },
     { P_DIVINATION_SPELL, P_SKILLED },
-    { P_ENCHANTMENT_SPELL, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_RIDING, P_SKILLED },
     { P_NONE, 0 }

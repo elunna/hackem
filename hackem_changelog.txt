@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-08: Adjusted infidel spellcasting a bit: can reach skilled in matter (for fireball), removed enchantment school, reduced attack max to skilled.
 2023-01-08: Undead slayers and the yeoman now start with speed 12.
 2023-01-08: Object lookup shows range and rate-of-fire for firearms now.
 2023-01-08: Fix: Psychic resistance was not protecting player from mind flayer psychic blasts.
