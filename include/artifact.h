@@ -75,7 +75,6 @@ enum invoke_prop_types {
     LIGHTNING_BOLT,
     SEFFECT, 
     WITHER,
-    LION,
     OBJECT_DET
 };
 
