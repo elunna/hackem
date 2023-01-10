@@ -187,9 +187,11 @@ OBJECT: ('!', "booze"), (23,15)
 OBJECT: ('!', "booze"), (22,15)
 OBJECT: ('!', "booze"), (23,16)
 OBJECT: ('!', "booze"), (24,16)
+
 REGION: (29,14,31,16),lit,"weapon shop"
-REGION: (36,14,38,16),lit,"weapon shop"
+REGION: (36,14,38,16),lit,"gun shop"
 REGION: (43,14,45,16),lit,"tool shop"
+
 MONSTER: ('&', "succubus"), (50,13), hostile
 OBJECT: ('?', "scare monster"), (50,14), cursed, 0
 MONSTER: ('&', "incubus"), (52,13), hostile

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-11: Added a gun shop to the pirate quest.
 2023-01-11: Fix: Order of shops not matching between shknam.c, lev_main.c, and mkroom.h.
 2023-01-11: Updated look for passive damage for Candle of Eternal Flame.
 2023-01-11: Updated lookup info for Bradamante's Fury.
