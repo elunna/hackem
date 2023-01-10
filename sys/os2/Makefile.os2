@@ -1403,6 +1403,8 @@ $(MFILES) : $(DAT)\Monk.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Mon QF=Monk do_quest
 $(MFILES) : $(DAT)\Necro.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Nec QF=Necro do_quest
+$(PFILES) : $(DAT)\Pirate.des $(TEMP)\lev_comp.exe
+	$(MAKEB) QQ=Pir QF=Pirate do_quest	
 $(PFILES) : $(DAT)\Priest.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Pri QF=Priest do_quest
 $(RANFILES) : $(DAT)\Ranger.des $(TEMP)\lev_comp.exe

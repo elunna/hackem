@@ -86,6 +86,11 @@ static const struct innate {
                  { 3, &(HUndead_warning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
 
+  pir_abil[] = {  { 1, &(HSwimming), "", "" },
+                  { 7, &(HStealth), "stealthy", "" },	/* with cat-like tread ... */
+                  { 11, &(HFast), "quick", "slow" },
+                  { 0, 0, 0, 0 } },
+
   pri_abil[] = { { 15, &(HWarning), "sensitive", "" },
                  { 20, &(HFire_resistance), "cool", "warmer" },
                  { 0, 0, 0, 0 } },
@@ -852,6 +857,7 @@ int r;
         { PM_KNIGHT, kni_abil },
         { PM_MONK, mon_abil },
         { PM_NECROMANCER, nec_abil },
+        { PM_PIRATE, pir_abil },
         { PM_PRIEST, pri_abil },
         { PM_RANGER, ran_abil },
         { PM_ROGUE, rog_abil },

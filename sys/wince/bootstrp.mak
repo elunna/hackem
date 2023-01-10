@@ -243,7 +243,7 @@ $(O)sp_lev.tag:  $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\yendor.des   $(DAT)\arch.des     $(DAT)\barb.des    \
 	$(DAT)\caveman.des  $(DAT)\convict.des  $(DAT)\healer.des  \ 
 	$(DAT)\flame.des    $(DAT)\ice.des      $(DAT)\necro.des \ 
-	$(DAT)\slayer.des \ 
+	$(DAT)\slayer.des   $(DAT)\pirate.des \ 
 	$(DAT)\infidel.des  $(DAT)\knight.des   $(DAT)\monk.des    \
 	$(DAT)\priest.des   $(DAT)\ranger.des   $(DAT)\rogue.des   \
 	$(DAT)\samurai.des  $(DAT)\sokoban.des  $(DAT)\tourist.des \
@@ -271,6 +271,7 @@ $(O)sp_lev.tag:  $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)lev_comp knight.des
 	$(U)lev_comp monk.des
 	$(U)lev_comp necro.des
+	$(U)lev_comp pirate.des
 	$(U)lev_comp priest.des
 	$(U)lev_comp ranger.des
 	$(U)lev_comp rogue.des

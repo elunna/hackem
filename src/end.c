@@ -1645,7 +1645,8 @@ int how;
     }
 
     /* TODO: Add the skeletal pirate here (from splice) */
-    if (u.ugrave_arise >= LOW_PM && !done_stopprint) {
+    if (u.ugrave_arise >= LOW_PM && u.ugrave_arise != PM_GREEN_SLIME
+        && u.ugrave_arise != PM_SKELETAL_PIRATE && !done_stopprint) {
         /* give this feedback even if bones aren't going to be created,
            so that its presence or absence doesn't tip off the player to
            new bones or their lack; it might be a lie if makemon fails */

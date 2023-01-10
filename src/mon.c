@@ -2786,6 +2786,12 @@ struct monst *magr, *mdef;
     if (is_zombie(ma) && !(nonliving(md) || is_vampshifter(mdef)))
         return ALLOW_M | ALLOW_TM;
 
+    /* pirates vs mercenaries or you (if king of the hill) */
+    if (is_pirate(magr->data) && is_mercenary(mdef->data))
+        return (ALLOW_M | ALLOW_TM);
+    if (is_pirate(magr->data) && !magr->mpeaceful && u.ukinghill)
+        return (ALLOW_M | ALLOW_TM);
+    
     /* lawful and chaotic unicorns don't play nice with each other.
        neutral unicorns just don't care */
     if (ma == &mons[PM_WHITE_UNICORN] && md == &mons[PM_BLACK_UNICORN])

@@ -571,6 +571,13 @@ struct obj *obj;
             if (rn2(4))
                 cloak = CLOAK_OF_PROTECTION;
             break;
+        case PM_PIRATE:
+            if (rn2(4))
+                weapon = SCIMITAR;
+            if (rn2(3))
+                armor = JACKET;
+            (void) mongets(mtmp, POT_BOOZE);
+            break;
         case PM_PRIEST:
         case PM_PRIESTESS:
             if (rn2(2))

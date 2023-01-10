@@ -788,7 +788,7 @@ register struct monst *mtmp;
     register int mm = monsndx(ptr);
     struct obj* received;
     struct obj *otmp = mtmp->minvent;
-    int bias, w1, w2, randwand, quan, hbold;
+    int bias, w1, w2, randwand, quan, hbold, spe2;
 
     if (Is_rogue_level(&u.uz))
         return;
@@ -1312,6 +1312,11 @@ register struct monst *mtmp;
                 if (!rn2(7))
                     w2 = SPEAR;
                 break;
+            case PM_PIRATE_CREWMATE:
+                (void) mongets(mtmp, SCIMITAR);
+     		    (void) mongets(mtmp, LIGHT_ARMOR);
+     			(void) mongets(mtmp, HIGH_BOOTS);
+                break;
             }
             if (w1)
                 (void) mongets(mtmp, w1);
@@ -1543,7 +1548,23 @@ register struct monst *mtmp;
                                             : AMULET_OF_LIFE_SAVING);
         }
         break;
-
+    case S_GHOST:
+        if (mm == PM_BLACKBEARD_S_GHOST) {
+            otmp = mksobj(SCIMITAR, FALSE, FALSE);
+            curse(otmp);
+            otmp->oerodeproof = TRUE;
+            otmp->oeroded = 1;
+            spe2 = d(2,3);
+            otmp->spe = max(otmp->spe, spe2);
+            (void) mpickobj(mtmp, otmp);
+            
+            otmp = mksobj(CHEST, FALSE, FALSE);
+            otmp = oname(otmp, artiname(ART_TREASURY_OF_PROTEUS));
+            curse(otmp);
+            otmp->oerodeproof = TRUE;
+            mpickobj(mtmp, otmp);
+        }
+        break;
     case S_ANGEL:
         if (humanoid(ptr)) {
             /* create minion stuff; can't use mongets,
@@ -1766,7 +1787,12 @@ register struct monst *mtmp;
             otmp = mksobj(LANTERN, TRUE, FALSE);
             (void) mpickobj(mtmp, otmp);
             begin_burn(otmp, FALSE);
-        } 
+        } else if (mm == PM_PLANAR_PIRATE) {
+            (void) mongets(mtmp, TWO_HANDED_SWORD);
+            (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
+            (void) mongets(mtmp, GLOVES);
+            (void) mongets(mtmp, HIGH_BOOTS);
+        }
         else switch(mm) {
          /* Mind flayers get robes */
         case PM_MIND_FLAYER:
@@ -2697,7 +2723,10 @@ register struct monst *mtmp;
         break;
     }
 
-    if (is_mercenary(ptr) && !rn2(6) && !racial_elf(mtmp)) {
+    /* Bomb distribution */
+    if (is_pirate(ptr) && !rn2(2)) {
+        (void) mongets(mtmp, FIRE_BOMB);
+    } else if (is_mercenary(ptr) && !rn2(6) && !racial_elf(mtmp)) {
         (void) mongets(mtmp, FIRE_BOMB + rn2(3));
     }
 
@@ -3632,6 +3661,17 @@ rndmonst()
     register struct permonst *ptr;
     register int mndx, ct;
 
+    if (u.ukinghill) { /* You have pirate quest artifact in open inventory */
+        if (rnd(100) > 80){
+            if (In_endgame(&u.uz)) 
+                return &mons[PM_PLANAR_PIRATE];
+            else if (Inhell) 
+                return &mons[PM_DAMNED_PIRATE];
+            else
+                return &mons[PM_SKELETAL_PIRATE];
+        }
+    }
+    
     if (u.uz.dnum == quest_dnum && rn2(7) && (ptr = qt_montype()) != 0)
         return ptr;
 

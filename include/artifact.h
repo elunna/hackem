@@ -74,7 +74,9 @@ enum invoke_prop_types {
     SUMMON_WATER_ELEMENTAL,
     LIGHTNING_BOLT,
     SEFFECT, 
-    WITHER
+    WITHER,
+    LION,
+    OBJECT_DET
 };
 
 #endif /* ARTIFACT_H */

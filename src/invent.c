@@ -866,6 +866,9 @@ struct obj *obj;
             if (Role_if(PM_INFIDEL) && obj->spe)
                 u.uhave.amulet = 1;
             artitouch(obj);
+            if(obj->oartifact == ART_TREASURY_OF_PROTEUS){
+            		u.ukinghill = TRUE;
+             }
         }
         set_artifact_intrinsic(obj, 1, W_ART);
     }
@@ -1191,6 +1194,9 @@ struct obj *obj;
             u.uhave.questart = 0;
             if (Role_if(PM_INFIDEL) && obj->spe)
                 u.uhave.amulet = 0;
+        }
+        if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
+        	u.ukinghill = FALSE;
         }
         set_artifact_intrinsic(obj, 0, W_ART);
     }

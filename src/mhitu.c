@@ -2169,7 +2169,7 @@ register struct attack *mattk;
             return 1;
         }
         buf[0] = '\0';
-        switch (steal(mtmp, buf)) {
+        switch (steal(mtmp, buf, FALSE)) {
         case -1:
             return 2;
         case 0:

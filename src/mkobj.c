@@ -868,7 +868,8 @@ boolean artif;
             if (is_poisonable(otmp) && !rn2(100))
                 otmp->opoisoned = 1;
 
-            if (artif && !rn2(30 + (5 * u.uconduct.wisharti)))
+            if (artif && !rn2( (Role_if(PM_PIRATE) ? 5 : 30) 
+                              + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
             else if (rn2(175) < (level_difficulty() / 2))
                 otmp = create_oprop(otmp, TRUE);
@@ -1136,7 +1137,8 @@ boolean artif;
                 otmp->spe = rne(3);
             } else
                 blessorcurse(otmp, 10);
-            if (artif && !rn2(40 + (5 * u.uconduct.wisharti)))
+            if (artif && !rn2( (Role_if(PM_PIRATE) ? 10 : 40) 
+                              + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
             else if (!rn2(150))
                 otmp = create_oprop(otmp, TRUE);
@@ -1712,6 +1714,10 @@ register struct obj *obj;
     if (obj->material != objects[obj->otyp].oc_material) {
         wt = (wt * matdensities[obj->material])
              / matdensities[objects[obj->otyp].oc_material];
+    }
+
+    if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
+     	wt =  150; /* Same as a crystal ball (ie, the Orb of Weight) */
     }
 
     /* glob absorpsion means that merging globs accumulates weight while

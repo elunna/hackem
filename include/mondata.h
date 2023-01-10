@@ -677,6 +677,11 @@
     (ptr) == &mons[PM_BASILISK] || \
     (ptr) == &mons[PM_ASPHYNX])
 
+#define is_pirate(ptr) \
+    ((ptr) == &mons[PM_PIRATE] || (ptr) == &mons[PM_SKELETAL_PIRATE] \
+      || (ptr) == &mons[PM_DAMNED_PIRATE] || (ptr) == &mons[PM_PLANAR_PIRATE] \
+      || (ptr) == &mons[PM_MAYOR_CUMMERBUND] || (ptr) == &mons[PM_PIRATE_CREWMATE])
+
 #define is_mind_flayer(ptr) \
     ((ptr) == &mons[PM_MIND_FLAYER] \
     || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \

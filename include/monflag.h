@@ -55,6 +55,7 @@
 #define MS_PIG          47 /* Pigs, hogs */
 #define MS_YAWN         48 /* hippos yawn when angry */
 #define MS_ANT          49 /* ants */
+#define MS_PIRATE       50 /* pirates */
 
 #define MR_FIRE         0x00000001L /* resists fire */
 #define MR_COLD         0x00000002L /* resists cold */

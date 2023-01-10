@@ -270,9 +270,10 @@ boolean unchain_ball; /* whether to unpunish or just unwield */
  * Nymphs, rogues and monkeys won't steal coins
  */
 int
-steal(mtmp, objnambuf)
+steal(mtmp, objnambuf, artifact)
 struct monst *mtmp;
 char *objnambuf;
+boolean artifact;
 {
     struct obj *otmp;
     char pronounbuf[10];
@@ -309,7 +310,7 @@ char *objnambuf;
     }
 
     monkey_business = (is_animal(mtmp->data) || is_rogue(mtmp->data));
-    if (monkey_business || uarmg) {
+    if (monkey_business || uarmg || artifact) {
         ; /* skip ring special cases */
     } else if (Adornment & LEFT_RING) {
         otmp = uleft;
@@ -446,34 +447,35 @@ char *objnambuf;
                 if (Unaware)
                     unmul((char *) 0);
                 slowly = (armordelay >= 1 || multi < 0);
-                /* specific feedback for Graz'zt */
-                if (mtmp->data == &mons[PM_GRAZ_ZT])
-                    pline("%s enthralls you.  You gladly %s your %s.",
-                          !seen ? "He" : Monnam(mtmp),
-                          curssv ? "let him take"
-                                 : !slowly ? "hand over"
-                                           : was_doffing ? "continue removing"
-                                                         : "start removing",
-                          equipname(otmp));
-                /* below here is nymph feedback */
-                else if (flags.female)
-                    pline("%s charms you.  You gladly %s your %s.",
-                          !seen ? "She" : Monnam(mtmp),
-                          curssv ? "let her take"
-                                 : !slowly ? "hand over"
-                                           : was_doffing ? "continue removing"
-                                                         : "start removing",
-                          equipname(otmp));
-                else
-                    pline("%s seduces you and %s off your %s.",
-                          !seen ? "She" : Adjmonnam(mtmp, "beautiful"),
-                          curssv
-                              ? "helps you to take"
-                              : !slowly ? "you take"
-                                        : was_doffing ? "you continue taking"
-                                                      : "you start taking",
-                          equipname(otmp));
-                named++;
+                if (!artifact) {
+                    /* specific feedback for Graz'zt */
+                    if (mtmp->data == &mons[PM_GRAZ_ZT])
+                        pline("%s enthralls you.  You gladly %s your %s.",
+                              !seen ? "He" : Monnam(mtmp),
+                              curssv        ? "let him take"
+                              : !slowly     ? "hand over"
+                              : was_doffing ? "continue removing"
+                                            : "start removing",
+                              equipname(otmp));
+                    /* below here is nymph feedback */
+                    else if (flags.female)
+                        pline("%s charms you.  You gladly %s your %s.",
+                              !seen ? "She" : Monnam(mtmp),
+                              curssv        ? "let her take"
+                              : !slowly     ? "hand over"
+                              : was_doffing ? "continue removing"
+                                            : "start removing",
+                              equipname(otmp));
+                    else
+                        pline("%s seduces you and %s off your %s.",
+                              !seen ? "She" : Adjmonnam(mtmp, "beautiful"),
+                              curssv        ? "helps you to take"
+                              : !slowly     ? "you take"
+                              : was_doffing ? "you continue taking"
+                                            : "you start taking",
+                              equipname(otmp));
+                    named++;
+                }
                 /* the following is to set multi for later on */
                 nomul(-armordelay);
                 multi_reason = "taking off clothes";

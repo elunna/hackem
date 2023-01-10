@@ -222,7 +222,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Mirrorbright", SHIELD_OF_REFLECTION, (SPFX_RESTR | SPFX_HALRES | SPFX_REFLECT), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
-
+    
     /*
      *      Mjollnir can be thrown when wielded if hero has 25 Strength
      *      (usually via gauntlets of power but possible with rings of
@@ -320,6 +320,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
       3000L, NO_COLOR, DEFAULT_MAT),
 
+    A("The Marauder's Map", SCR_MAGIC_MAPPING, SPFX_RESTR, 0, 0, NO_ATTK,
+      NO_DFNS,	NO_CARY, OBJECT_DET, A_CHAOTIC, PM_PIRATE, NON_PM, 2000L,
+      NO_COLOR, DEFAULT_MAT),
+
     A("Plague", ORCISH_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
       PHYS(5,7), DFNS(AD_DRST), DFNS(AD_DISE), 0, A_CHAOTIC, NON_PM, NON_PM, 
       6000L, NO_COLOR, DEFAULT_MAT),
@@ -329,7 +333,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
           Invoke for water-walking and an earthquake. */
     A("Poseidon\'s Trident", TRIDENT, (SPFX_RESTR | SPFX_BREATHE), 0, 0, PHYS(3, 7),
       NO_DFNS, NO_CARY, WWALKING, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR, GOLD),
-
+    
+    A("Reaver",	SCIMITAR, (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 0, 0,
+      PHYS(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_PIRATE, NON_PM, 6000L,
+      NO_COLOR, DEFAULT_MAT),
+    
       /* The energy drain only works if the artifact kills its victim.
        * Also increases sacrifice value while wielded. */
     A("Secespita", KNIFE, (SPFX_RESTR | SPFX_ATTK), 0, 0,
@@ -590,6 +598,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       MH_UNDEAD, NO_ATTK, NO_DFNS, CARY(AD_FIRE), ENERGY_BOOST, A_LAWFUL,
       PM_PRIEST, NON_PM, 2000L, NO_COLOR, METAL),
 
+    A("The Treasury of Proteus", CHEST,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), SPFX_LUCK, 0, NO_ATTK, NO_DFNS,
+      CARY(AD_MAGM), 0,	A_CHAOTIC, PM_PIRATE, NON_PM, 
+      2500L, NO_COLOR, DEFAULT_MAT),
+    
     /* If playing a gnomish ranger, the player receives the 'Crossbow of Carl',
        otherwise rangers will receive the Longbow of Diana. Exact same properties
        between the two artifacts */
