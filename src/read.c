@@ -3459,12 +3459,31 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             which = !type_is_pname(ptr) ? "the " : "";
     }
     if (how & REALLY) {
-        if (!num_genocides())
-            livelog_printf(LL_CONDUCT|LL_GENOCIDE,
-                    "performed %s first annihilation (%s)", uhis(), makeplural(buf));
-        else
+        if (only_on_level) {
+            livelog_printf(LL_GENOCIDE, "annihilated %s on a level in %s",
+                       makeplural(buf), dungeons[u.uz.dnum].dname);
+        } else if (num_genocides() == 0) {
+            livelog_printf(LL_CONDUCT | LL_GENOCIDE, "performed %s first annihilation (%s)",
+                           uhis(), makeplural(buf));
+        } else {
             livelog_printf(LL_GENOCIDE, "annihilated %s", makeplural(buf));
-
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         /* setting no-corpse affects wishing and random tin generation */
         if (!only_on_level) { 
             mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE); 

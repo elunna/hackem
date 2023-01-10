@@ -648,12 +648,13 @@ const char *const *nlp;
     int name_wanted;
     s_level *sptr;
 
+#if 0
     if (nlp == shkfoods && In_mines(&u.uz) && Role_if(PM_MONK)
         && (sptr = Is_special(&u.uz)) != 0 && sptr->flags.town) {
         /* special-case override for minetown food store for monks */
         nlp = shkhealthfoods;
     } 
-    
+#endif
     if (!nlp) {
         shname = m_monnam(shk);
     } else if (nlp == shklight && In_mines(&u.uz) && (sptr = Is_special(&u.uz)) != 0
