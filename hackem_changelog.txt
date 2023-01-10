@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-10: Gnomes can use #monster to invoke their vanish technique.
 2023-01-10: Hobbits can use #monster to invoke their blink technique.
 2023-01-10: Revert random appearance of potions of amnesia - they are always sparkling as in SLASH'EM.
 2023-01-10: Removed some redundant entries from immune_death_magic.

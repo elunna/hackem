@@ -1925,6 +1925,35 @@ doblink()
 }
 
 int
+dovanish()
+{
+    int duration;
+    
+    if (u.utech) {
+        You_cant("use your ability again so soon.");
+        return 0;
+    }
+    
+    if (Invisible && Fast) {
+        You("are already quite nimble and undetectable.");
+        return 0;
+    }
+    duration = rn1(50, 50) + u.ulevel;
+    if (!Invisible) {
+        pline("In a puff of smoke,  you disappear!");
+        incr_itimeout(&HInvis, duration);
+    }
+        
+    if (!Fast) {
+        You("feel more nimble!");
+        incr_itimeout(&HFast, duration);
+    }
+    
+    newsym(u.ux,u.uy);      /* update position */
+    u.utech = rn1(1000, 500);
+    return 1;
+}
+int
 dopoly()
 {
     struct permonst *savedat = youmonst.data;

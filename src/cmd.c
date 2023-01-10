@@ -735,6 +735,8 @@ domonability(VOID_ARGS)
         return toggleshell();
     else if (is_hobbit(youmonst.data))
         return doblink();
+    else if (is_gnome(youmonst.data))
+        return dovanish();
     else if (is_mind_flayer(youmonst.data))
         return domindblast();
     else if (u.umonnum == PM_GREMLIN) {
