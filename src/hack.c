@@ -2017,8 +2017,7 @@ domove_core()
     /* warn player before walking into known traps */
     if (ParanoidTrap &&
         ((trap = t_at(x, y)) && trap->tseen)) {
-        char qbuf[BUFSZ];
-        
+
         switch (trap->ttyp) {
         case SQKY_BOARD:
         case BEAR_TRAP:
@@ -2033,12 +2032,15 @@ domove_core()
             /* fall through */
 
         default:
-            Sprintf(qbuf, "Do you really want to %s into that %s?",
-                    locomotion(youmonst.data, "step"),
-                    defsyms[trap_to_defsym(trap->ttyp)].explanation);
-            if (yn(qbuf) != 'y') {
-                nomul(0);
+            if (context.nopick) {
+                ; /* moving with m-prefix */
+                /*return;*/
+            } else {
                 context.move = 0;
+                nomul(0);
+                pline("(Use 'move' prefix to %s into the %s.)",
+                      locomotion(youmonst.data, "step"),
+                      defsyms[trap_to_defsym(trap->ttyp)].explanation);
                 return;
             }
         }
