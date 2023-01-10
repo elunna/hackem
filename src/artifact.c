@@ -4761,7 +4761,7 @@ monster then the grenade will instantly explode.  */
         
         break;
     case ART_CANDLE_OF_ETERNAL_FLAME: 
-        art_info.carried[16] = "Deals 2d7 passive fire damage to attackers";
+        art_info.carried[16] = "Deals 2d10 passive fire damage to attackers";
         break;
     case ART_MITRE_OF_HOLINESS:
         art_info.wielded[16] = "1/2 physical damage from undead and demons (Priests only)";
