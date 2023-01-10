@@ -203,7 +203,7 @@ static const char *const shkmusic[] = {
 
 static const char *const shkguns[] = {
     /* GTA 3 */
-    "Claude", "_Catalina", "8-Ball", "Salvatore",
+    "Claude", "_Catalina", "Eight-Ball", "Salvatore",
     /* Vice City */
     "Tommy", "Ken", "Lance", "Sonny", "Ricardo",
     /* San Andreas */
