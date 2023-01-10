@@ -204,6 +204,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       WIND(4, 5), DFNS(AD_CLOB), NO_CARY, SEFFECT, A_NEUTRAL, 
       NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
 
+    /* Keolewa from SporkHack - a Hawaiian war club. Buffed. */
+    A("Keolewa", CLUB, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN),
+      0, 0, ELEC(5, 8), DFNS(AD_ELEC), NO_CARY, 0, A_NEUTRAL,
+      PM_CAVEMAN, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+    
     /* Evilhack change: Magic fanfare unbalances victims in addition
      * to doing some damage. */
     A("Magicbane", QUARTERSTAFF, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
