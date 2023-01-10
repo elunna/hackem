@@ -4643,7 +4643,7 @@ monster then the grenade will instantly explode.  */
         art_info.xinfo = "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
         break;
     case ART_BRADAMANTE_S_FURY: 
-        art_info.xattack = "\t\tAutomatically unseats any mounted rider it hits. Also stuns monsters.";
+        art_info.xattack = "\t\tStuns monsters.";
         break;
     case ART_CIRCE_S_WITCHSTAFF: 
         art_info.xattack = "\t\t1/20 chance of turning target into a pig.";
