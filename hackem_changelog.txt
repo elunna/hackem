@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-10: Added 6 more top levels to sokobon (from fourk)
 2023-01-10: Fix: Monk's shatter attack not triggering due to robes being considered body armor.
 2023-01-10: Convict can reach expert in firearms.
 2023-01-10: Player centaurs will turn into zombie centaurs when dying from terminal illness.
