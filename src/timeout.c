@@ -689,6 +689,11 @@ nh_timeout()
         u.uinshell++;
     }
 
+    /* Technique timeout */
+    if (u.utech > 0)
+        if (--u.utech == 0)
+            pline("Your natural ability is ready.");
+    
     was_flying = Flying;
     for (upp = u.uprops; upp < u.uprops + SIZE(u.uprops); upp++)
         if (!(upp->intrinsic & HAVEPARTIAL) /* partial intrinsics do not time out */

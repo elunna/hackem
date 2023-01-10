@@ -1907,6 +1907,24 @@ toggleshell()
 }
 
 int
+doblink()
+{
+    int duration;
+    
+    if (u.utech) {
+        You_cant("use your ability again so soon.");
+        return 0;
+    }
+    
+    You("feel the flow of time slow down.");
+    /* A bit more generous than SLASH'EM */
+    duration = rnd(10 + u.ulevel) + 2;
+    u.utech = rn1(500, 500);
+    speed_up(duration);
+    return 1;
+}
+
+int
 dopoly()
 {
     struct permonst *savedat = youmonst.data;
