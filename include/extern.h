@@ -2171,6 +2171,7 @@ E int NDECL(dohide);
 E int NDECL(toggleshell);
 E int NDECL(doblink);
 E int NDECL(dovanish);
+E int NDECL(dodazzle);
 E int NDECL(dopoly);
 E int NDECL(domindblast);
 E void NDECL(uunstick);

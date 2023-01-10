@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-10: Vampirics can use #monster to invoke their dazzle technique.
 2023-01-10: Keolewa is back - cavemen get this as a second guaranteed sacrifice gift.
 2023-01-10: Archeologists start with a scroll of knowledge in lieu of their research technique being omitted.
 2023-01-10: Gnomes can use #monster to invoke their vanish technique.

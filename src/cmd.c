@@ -737,6 +737,8 @@ domonability(VOID_ARGS)
         return doblink();
     else if (is_gnome(youmonst.data))
         return dovanish();
+    else if (Race_if(PM_VAMPIRIC))
+        return dodazzle();
     else if (is_mind_flayer(youmonst.data))
         return domindblast();
     else if (u.umonnum == PM_GREMLIN) {

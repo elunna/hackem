@@ -1953,6 +1953,72 @@ dovanish()
     u.utech = rn1(1000, 500);
     return 1;
 }
+
+
+/* Short range stun attack */
+int
+dodazzle()
+{
+    struct monst *mtmp;
+    int range = (u.ulevel / 8) + 1;
+    int x2, y2, i;
+    
+    if (u.utech) {
+        You_cant("use your ability again so soon.");
+        return 0;
+    }
+    
+    if (Blind) {
+        You("can't see anything!");
+        return(0);
+    }
+    if (!getdir((char *)0)) 
+        return 0;
+    
+    if (!u.dx && !u.dy) {
+        /* Hopefully a mistake ;B */
+        You("can't see yourself!");
+        return 0;
+    }
+    for (i = 0; i  <= range; i++) {
+        x2 = u.ux + (i * u.dx);
+        y2 = u.uy + (i * u.dy);
+        if (!isok(x2, y2))
+            break;
+        mtmp = m_at(x2, y2);
+        
+        if (mtmp && canseemon(mtmp)) 
+            break;
+    }
+    if (!mtmp || !canseemon(mtmp)) {
+        You("fail to make eye contact with anything!");
+        return 0;
+    }
+    if (mtmp->mtame) {
+        You("decide not to stare at your %s.", mon_nam(mtmp));
+        return 0;
+    }
+    You("stare at %s.", mon_nam(mtmp));
+    
+    if (!haseyes(mtmp->data)) {
+        pline("..but %s has no eyes!", mon_nam(mtmp));
+        return 0;
+    } else if (!mtmp->mcansee) {
+        pline("..but %s cannot see you!", mon_nam(mtmp));
+        return 0;
+    }
+    if ((rn2(6) + rn2(6) + (u.ulevel - mtmp->m_lev)) > 10) {
+        You("dazzle %s!", mon_nam(mtmp));
+        mtmp->mcanmove = 0;
+        mtmp->mfrozen = rnd(10);
+    } else {
+        pline("%s breaks the stare!", Monnam(mtmp));
+    }
+    mtmp->mpeaceful = 0;
+    u.utech = rn1(50, 25);
+    return 1;
+}
+
 int
 dopoly()
 {
