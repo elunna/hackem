@@ -7226,7 +7226,7 @@ spiked pit
 	oh! any horror but this!
 		[ The Pit and the Pendulum, by Edgar Allan Poe ]
 planar pirate
-pirate
+~pirate
 	Yo ho, yo ho, a pirate's life for me.
 	We pillage plunder, we rifle and loot.
 	Drink up me 'earties, yo ho.
@@ -13351,7 +13351,29 @@ lich lord
     the term is used in a more general sense to refer to black magic 
     or witchcraft.
     [ Wikipedia, the free encyclopedia ]
-    
+pir* ranks
+pirate
+landlubber
+swabbie
+cutthroat
+bosun
+second mate
+first mate
+captain
+pirate lord
+dread pirate
+    Pirate ranks
+	  title            level
+    Landlubber        1 to 2
+    Swabbie           3 to 5
+    Cutthroat         6 to 9
+    Bosun            10 to 13
+    Second Mate      14 to 17
+    First Mate       18 to 21
+    Captain          22 to 25
+    Pirate Lord      26 to 29
+    Dread Pirate        30
+
 und* ranks
 assistant
 eliminator
