@@ -1423,6 +1423,27 @@ register struct monst *mtmp;
             (void) mongets(mtmp, ORCISH_BOW);
             /* 25 to 40 arrows */
             m_initthrow(mtmp, ORCISH_ARROW, rn2(16) + 25);
+        } 
+        else if (mm == PM_MAYOR_CUMMERBUND){
+            otmp = mksobj(SCIMITAR, FALSE, FALSE);
+            curse(otmp);
+            otmp->oerodeproof = TRUE;
+            otmp->spe = max(otmp->spe, d(1, 3));
+            (void) mpickobj(mtmp, otmp);
+			
+            otmp = mksobj(JACKET, FALSE, FALSE);
+            otmp->oerodeproof = TRUE;;
+            otmp->spe = max(otmp->spe, d(2,3));
+            (void) mpickobj(mtmp, otmp);
+			
+            otmp = mksobj(SMALL_SHIELD, FALSE, FALSE);
+            otmp->oerodeproof = TRUE;
+            otmp->spe = max(otmp->spe, d(1,3));
+            (void) mpickobj(mtmp, otmp);
+
+            (void) mongets(mtmp, OILSKIN_CLOAK);
+            (void) mongets(mtmp, HIGH_BOOTS);
+            (void) mongets(mtmp, GLOVES);
         } else if (mm == PM_RAT_KING) {
             otmp = mksobj(SCIMITAR, FALSE, FALSE);
             bless(otmp);
@@ -2276,7 +2297,7 @@ register struct monst *mtmp;
                 mac = 3;
                 break;
             case PM_CHIEF_YEOMAN_WARDER:
-				mongets(mtmp, TALLOW_CANDLE);
+                mongets(mtmp, TALLOW_CANDLE);
                 /* FALLTHROUGH */
             case PM_WATCH_CAPTAIN:
                 mac = -2;
