@@ -1669,9 +1669,6 @@ char *usr_text;
         if (a_info.nogen) {
             OBJPUTSTR("Does not generate randomly.");
         }
-        if (a_info.exclude) {
-            OBJPUTSTR("Excluded from total artifact count.");
-        }
         Sprintf(buf, "Cost: %d ", a_info.cost);
         OBJPUTSTR(buf);
 #if 0

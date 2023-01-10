@@ -653,7 +653,6 @@ struct art_info_t {
     boolean intelligent;
     boolean restricted;
     boolean nogen;
-    boolean exclude;
     boolean speaks;
     boolean beheads;
     boolean vscross;

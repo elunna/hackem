@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-11: Removed excluded property from artifact lookups.
 2023-01-10: Added Mayor Cummerbund's equipment.
 2023-01-10: Added some giant crabs to the pirate fill-b level.
 2023-01-10: Added info for Treasury of Proteus lookup.
