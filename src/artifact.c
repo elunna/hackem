@@ -4775,6 +4775,10 @@ monster then the grenade will instantly explode.  */
     case ART_IRON_SPOON_OF_LIBERATION: 
         art_info.xattack = "\t\t+1d5 to-hit bonus and double damage vs all monsters. ";
         break;
+    case ART_TREASURY_OF_PROTEUS:
+        art_info.xinfo = "Occasionally polymorphs items that have been placed inside.";
+        art_info.carried[17] = "Protects items in your inventory from becoming cursed.";
+        break;
     default:
         art_info.xinfo = "";
     } 
