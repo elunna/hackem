@@ -4609,6 +4609,8 @@ artifact_info(int anum)
             art_info.invoke = "Scroll of Air"; break;
         case ART_DEEP_FREEZE:
             art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
+        case ART_FIREWALL:
+            art_info.invoke = "Flame Sphere"; break;
         }
         break;
     default:

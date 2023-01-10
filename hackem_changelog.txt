@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-11: Added invoke info for Firewall to artifact lookup.
 2023-01-11: Removed unnecessary LION invoke ability from the SpliceHack pirate Patch.
 2023-01-11: Added invoke info for The Marauder's Map to artifact lookup.
 2023-01-11: Removed excluded property from artifact lookups.
