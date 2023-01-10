@@ -4600,6 +4600,7 @@ artifact_info(int anum)
     case INVIS: art_info.invoke = "Invisibility"; break;
     case FLYING: art_info.invoke = "Flying"; break;
     case WWALKING: art_info.invoke = "Water Walking"; break;
+    case OBJECT_DET: art_info.invoke = "Object Detection"; break;
         /*Invoke for water-walking and an earthquake. */
         
     case SEFFECT: 
