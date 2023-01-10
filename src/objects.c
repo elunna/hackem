@@ -1040,10 +1040,9 @@ POTION("sickness",              "fizzy",  0, 0, 42,  50, CLR_CYAN),
 POTION("fruit juice",            "dark",  0, 0, 42,  50, CLR_BLACK),
 POTION("acid",                  "white",  0, 0, 10, 250, CLR_WHITE),
 POTION("oil",                   "murky",  0, 0, 30, 250, CLR_BROWN),
-/* Amnesia potions can now be anything - since amnesia was nerfed. */
-POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),          /* Slash'EM */
 /* fixed description */
 POTION("water",                 "clear",  0, 0, 92, 100, CLR_CYAN),
+POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),          /* Slash'EM */
 POTION("blood",             "blood-red",  0, 0,  0,  50, CLR_RED),           /* Slash'EM */
 POTION("vampire blood",     "blood-red",  1, 0,  0, 300, CLR_RED),           /* Slash'EM */
 #undef POTION
