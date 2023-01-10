@@ -803,7 +803,7 @@ MONSTER: (' ', "ghost"), random, hostile
 MONSTER: (' ', "ghost"), random, hostile
 MONSTER: (' ', "ghost"), random, hostile
 
-MONSTER: ('@',"sergeant"), random, hostile
+MONSTER: ('@', "sergeant"), random, hostile
 
 MONSTER: ('&', "damned pirate"), random, hostile
 MONSTER: ('Z', "skeletal pirate"), random, hostile
@@ -824,3 +824,6 @@ MONSTER: ('Z', "skeletal pirate"), random, hostile
 #MONSTER: (';', "giant eel"), random, hostile
 #MONSTER: (';', "giant eel"), random, hostile
 #MONSTER: (';', "kraken"), random, hostile
+
+# Giant crabs added by Erik
+LOOP [8] { MONSTER: (';', "giant crab"), random, hostile }

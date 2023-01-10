@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-10: Added some giant crabs to the pirate fill-b level.
 2023-01-10: Added info for Treasury of Proteus lookup.
 2023-01-10: Implemented the Pirate Patch (from SpliceHack). Used the quest file from SlashTHEM with minor modifications.
 2023-01-10: Imported burning eye (from SlashTHEM)
