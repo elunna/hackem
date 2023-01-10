@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-10: Player centaurs will turn into zombie centaurs when dying from terminal illness.
 2023-01-10: Live logging of annihilations reflects whether it's level-wide or dungeon-wide.
 2023-01-10: Vampirics can use #monster to invoke their dazzle technique.
 2023-01-10: Keolewa is back - cavemen get this as a second guaranteed sacrifice gift.

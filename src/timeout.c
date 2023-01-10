@@ -511,8 +511,7 @@ sickness_dialogue()
             (void) strsubst(buf, "illness", "sickness");
         /* change final message slightly for zombie sickness */
         if ((u.usick_type & SICK_ZOMBIE) != 0
-            && !(Race_if(PM_CENTAUR) || Race_if(PM_ILLITHID)
-                 || Race_if(PM_TORTLE)))
+            && !(Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)))
             (void) strsubst(buf, "You are at Death's door",
                             "You feel a horrifying change coming over you");
         if (Hallucination && strstri(buf, "Death's door")) {
@@ -760,8 +759,7 @@ nh_timeout()
                 }
 
                 if (!!(u.usick_type & SICK_ZOMBIE)) {
-                    if (Race_if(PM_CENTAUR)
-                        || Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)) {
+                    if (Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)) {
                         killer.format = NO_KILLER_PREFIX;
                         Sprintf(killer.name, "diseased by %s",
                                 an(killer.name));
