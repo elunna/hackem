@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-10: Removed some redundant entries from immune_death_magic.
 2023-01-10: Require move prefix to move into known traps; replaces the y/n prompt.
 2023-01-10: Paranoid swim requires the move prefix to move into water/lava, replaces the y/n prompt.
 2023-01-10: New option: paranoid_trap (Ported from UnNetHack)
