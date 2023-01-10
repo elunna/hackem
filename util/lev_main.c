@@ -211,7 +211,8 @@ static struct {
     { "fungusfarm",  FUNGUSFARM },
     { "clinic",  CLINIC },
     { "terrorhall",  TERRORHALL },
-    { "shop", SHOPBASE },
+    
+    { "shop", SHOPBASE }, /* General store */
     { "armor shop", ARMORSHOP },
     { "scroll shop", SCROLLSHOP },
     { "potion shop", POTIONSHOP },
@@ -221,14 +222,14 @@ static struct {
     { "wand shop", WANDSHOP },
     { "tool shop", TOOLSHOP },
     { "book shop", BOOKSHOP },
-    { "tin shop", TINSHOP },
-    { "music shop", INSTRUMENTSHOP },
-    { "pet shop", PETSHOP },	/* Stephen White */
     { "archery shop", ARCHERYSHOP },
-    { "gun shop", GUNSHOP },
     { "mask shop", MASKSHOP },
     { "junk shop", JUNKSHOP },
     { "health food shop", FODDERSHOP },
+    { "tin shop", TINSHOP },
+    { "gun shop", GUNSHOP },
+    { "music shop", INSTRUMENTSHOP },
+    { "pet shop", PETSHOP },	/* Stephen White */
     { "candle shop", CANDLESHOP },
     { "black market", BLACKSHOP },
     { "black market foyer", BLACKFOYER },
