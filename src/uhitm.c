@@ -995,7 +995,7 @@ int dieroll;
     boolean issecespita = FALSE;
     boolean isvenom  = FALSE;
     boolean valid_weapon_attack = FALSE;
-    boolean unarmed = !uwep && !uarm && !uarms;
+    boolean unarmed = !uwep && (!uarm || is_robe(uarm)) && !uarms;
     boolean hand_to_hand = (thrown == HMON_MELEE
                             /* not grapnels; applied implies uwep */
                             || (thrown == HMON_APPLIED && is_pole(uwep)));
@@ -1043,30 +1043,34 @@ int dieroll;
 
         /* monks have a chance to break their opponents wielded weapon
          * under certain conditions */
-        if ((dieroll == 5 && unarmed
-            && Role_if(PM_MONK)
-            && P_SKILL(P_MARTIAL_ARTS) == P_GRAND_MASTER)
-            && ((monwep = MON_WEP(mon)) != 0
-                && !is_flimsy(monwep)
-                && !is_mithril(monwep)
-                && !is_crystal(monwep))
-                && !obj_resists(monwep,
-                        50 + 15 * (greatest_erosion(monwep)), 100)) {
-            setmnotwielded(mon, monwep);
-            mon->weapon_check = NEED_WEAPON;
-            You("%s your qi.  %s from the force of your blow!",
-                  rn2(2) ? "channel" : "focus",
-                  Yobjnam2(monwep, (monwep->material == WOOD || monwep->material == BONE)
-                           ? "splinter" : (monwep->material == PLATINUM || monwep->material == GOLD
-                                           || monwep->material == SILVER || monwep->material == COPPER)
-                           ? "break" : "shatter"));
-            m_useupall(mon, monwep);
-            /* If someone just shattered MY weapon, I'd flee! */
-            if (!rn2(4))
-                monflee(mon, d(2, 3), TRUE, TRUE);
-            hittxt = TRUE;
+        
+        if (Role_if(PM_MONK) && unarmed 
+              && P_SKILL(P_MARTIAL_ARTS) == P_GRAND_MASTER) {
+            if (dieroll == 5
+                && ((monwep = MON_WEP(mon)) != 0 && !is_flimsy(monwep)
+                   && !is_mithril(monwep) && !is_crystal(monwep))
+                && !obj_resists(
+                    monwep, 50 + 15 * (greatest_erosion(monwep)), 100)) {
+                setmnotwielded(mon, monwep);
+                mon->weapon_check = NEED_WEAPON;
+                You("%s your qi.  %s from the force of your blow!",
+                    rn2(2) ? "channel" : "focus",
+                    Yobjnam2(monwep, (monwep->material == WOOD
+                                      || monwep->material == BONE)
+                                         ? "splinter"
+                                     : (monwep->material == PLATINUM
+                                        || monwep->material == GOLD
+                                        || monwep->material == SILVER
+                                        || monwep->material == COPPER)
+                                         ? "break"
+                                         : "shatter"));
+                m_useupall(mon, monwep);
+                /* If someone just shattered MY weapon, I'd flee! */
+                if (!rn2(4))
+                    monflee(mon, d(2, 3), TRUE, TRUE);
+                hittxt = TRUE;
+            }
         }
-
     /* Blessed gloves give bonuses when fighting 'bare-handed'.  So do
         rings or gloves made of a hated material.  Note:  rings are worn
         under gloves, so you don't get both bonuses, and two hated rings
