@@ -5838,7 +5838,7 @@ spec_fixture_activate(xchar x, xchar y)
     switch (levl[x][y].typ) {
     case VENT:
         create_gas_cloud(x, y, 3, levl[x][y].poisonvnt ? depth(&u.uz) : 0);
-        (void) start_timer((long) 10L, TIMER_LEVEL, FIXTURE_ACTIVATE,
+        (void) start_timer((long) rn1(15, 10), TIMER_LEVEL, FIXTURE_ACTIVATE,
                            long_to_any(((long) x << 16) | (long) y));
         break;
     default:
