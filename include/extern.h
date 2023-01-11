@@ -968,7 +968,8 @@ E void FDECL(blowupforge, (int, int));
 E void FDECL(coolforge, (int, int));
 E void NDECL(drinkforge);
 E void FDECL(breaksink, (int, int));
-E void FDECL(breaktoilet, (int,int));
+E void FDECL(breaktoilet, (int, int));
+E void FDECL(breakvent, (int, int));
 E void NDECL(drinksink);
 E void NDECL(drinktoilet);
 

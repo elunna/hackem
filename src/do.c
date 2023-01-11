@@ -12,6 +12,7 @@ STATIC_DCL void FDECL(trycall, (struct obj *));
 STATIC_DCL boolean NDECL(teleport_sink);
 STATIC_DCL void FDECL(dosinkring, (struct obj *));
 STATIC_DCL void FDECL(dotoiletamulet, (struct obj *));
+STATIC_DCL void FDECL(doventbomb, (struct obj *));
 STATIC_PTR int FDECL(drop, (struct obj *));
 STATIC_PTR int NDECL(wipeoff);
 STATIC_DCL int FDECL(menu_drop, (int));
@@ -947,6 +948,26 @@ register struct obj *obj;
     }
 }
 
+/* obj is a bomb being dropped over a vent */
+STATIC_OVL void
+doventbomb(obj)
+register struct obj *obj;
+{
+    struct obj *otmp;
+    if (!is_bomb(obj))
+        impossible("non-bomb passed to doventbomb!");
+    
+    if (obj->quan > 1L) {
+        otmp = splitobj(obj, 1L);
+    } else {
+        otmp = obj;
+    }
+    pline("You arm %s and drop it into the vent...", doname(otmp));
+    useup(otmp);
+    pline("BOOM!");
+    breakvent(u.ux, u.uy);
+}
+
 /* some common tests when trying to drop or throw items */
 boolean
 canletgo(obj, word)
@@ -1029,6 +1050,10 @@ register struct obj *obj;
         if ((obj->oclass == AMULET_CLASS)
             && IS_TOILET(levl[u.ux][u.uy].typ)) {
             dotoiletamulet(obj);
+            return 1;
+        }
+        if (is_bomb(obj) && IS_VENT(levl[u.ux][u.uy].typ)) {
+            doventbomb(obj);
             return 1;
         }
         if (Sokoban && obj->otyp == BOULDER)

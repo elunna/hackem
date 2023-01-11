@@ -1249,6 +1249,28 @@ int x, y;
 }
 
 void
+breakvent(x, y)
+int x, y;
+{
+    register int num = rn1(5, 2);
+    struct monst *mtmp;
+    
+    if (cansee(x, y) || (x == u.ux && y == u.uy))
+        pline_The("vent is destroyed!");
+    else
+        You("hear something collapse!");
+    
+    level.flags.nvents--;
+    
+    /* Maybe create a pit instead? */
+    levl[x][y].typ = ROOM;
+    
+    newsym(x, y);
+    maybe_unhide_at(x, y);
+}
+
+
+void
 drinksink()
 {
     struct obj *otmp;
