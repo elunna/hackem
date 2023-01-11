@@ -4608,7 +4608,8 @@ drown()
          * boots, identify them. */
         if (uarmf 
             && uarmf->otyp == WATER_WALKING_BOOTS
-            && !objects[WATER_WALKING_BOOTS].oc_name_known) {
+            && !objects[WATER_WALKING_BOOTS].oc_name_known
+            && !HWwalking) {
             
             Your("boots don't sink into the water!");
             makeknown(WATER_WALKING_BOOTS);

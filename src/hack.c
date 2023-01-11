@@ -2075,7 +2075,8 @@ do_nothing:
         known_wwalking = (((uarmf && uarmf->otyp == WATER_WALKING_BOOTS
                             && objects[WATER_WALKING_BOOTS].oc_name_known)
                            || (uarm && Is_dragon_scaled_armor(uarm)
-                               && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES))
+                               && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES)
+                           || HWwalking)
                           && !u.usteed);
         /* FIXME: This can be exploited to identify the ring of fire resistance
          * if the player is wearing it unidentified and has identified
@@ -2107,10 +2108,6 @@ do_nothing:
                             Your("boots get wet.");
                     }
                     if (!context.swim_tip) {
-# if 0
-                        pline("(Use '%s' prefix to step in if you really want to.)",
-                              visctrl(cmd_from_func(do_reqmenu)));
-#endif
                         pline("(Use 'move' prefix to step in if you really want to.)");
                         context.swim_tip = TRUE;
                     }
@@ -2138,10 +2135,6 @@ do_nothing:
                         }
                     }
                     if (!context.swim_tip) {
-# if 0
-                        pline("(Use '%s' prefix to step in if you really want to.)",
-                              visctrl(cmd_from_func(do_reqmenu)));
-#endif
                         pline("(Use 'move' prefix to step in if you really want to.)");
                         context.swim_tip = TRUE;
                     }
@@ -2649,6 +2642,13 @@ boolean newspot;             /* true if called by spoteffects */
                 if (!rn2(3))
                     (void) water_damage(uarmf, "boots",
                                         TRUE, u.ux, u.uy);
+            }
+        } else if (shallow_water && Wwalking) {
+            if (uarmf 
+                && uarmf->otyp == WATER_WALKING_BOOTS
+                && !objects[WATER_WALKING_BOOTS].oc_name_known
+                && !HWwalking) {
+                makeknown(WATER_WALKING_BOOTS);
             }
         }
     }
