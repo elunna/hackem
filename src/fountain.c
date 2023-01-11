@@ -1252,9 +1252,6 @@ void
 breakvent(x, y)
 int x, y;
 {
-    register int num = rn1(5, 2);
-    struct monst *mtmp;
-    
     if (cansee(x, y) || (x == u.ux && y == u.uy))
         pline_The("vent is destroyed!");
     else
