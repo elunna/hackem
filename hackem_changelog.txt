@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-11: Monsters can use vents to conceal themselves.
 2023-01-11: Fix: Possible uninitialized mtmp in dodazzle().
 2023-01-11: Bombs can also be thrown into vents from a distance.
 2023-01-11: Vents are destroyed when bombs are dropped into them.

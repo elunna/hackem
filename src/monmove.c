@@ -2142,6 +2142,7 @@ register int x, y;
     case THRONE:
     case LADDER:
     case GRAVE:
+    case VENT:
         return 1;
     default:
         return 0;
