@@ -12,7 +12,6 @@ STATIC_DCL void FDECL(trycall, (struct obj *));
 STATIC_DCL boolean NDECL(teleport_sink);
 STATIC_DCL void FDECL(dosinkring, (struct obj *));
 STATIC_DCL void FDECL(dotoiletamulet, (struct obj *));
-STATIC_DCL void FDECL(doventbomb, (struct obj *));
 STATIC_PTR int FDECL(drop, (struct obj *));
 STATIC_PTR int NDECL(wipeoff);
 STATIC_DCL int FDECL(menu_drop, (int));
@@ -949,23 +948,21 @@ register struct obj *obj;
 }
 
 /* obj is a bomb being dropped over a vent */
-STATIC_OVL void
-doventbomb(obj)
+void
+doventbomb(obj, x, y)
 register struct obj *obj;
+int x, y;
 {
-    struct obj *otmp;
-    if (!is_bomb(obj))
+    if (!is_bomb(obj)) {
         impossible("non-bomb passed to doventbomb!");
-    
-    if (obj->quan > 1L) {
-        otmp = splitobj(obj, 1L);
-    } else {
-        otmp = obj;
+        return;
     }
-    pline("You arm %s and drop it into the vent...", doname(otmp));
-    useup(otmp);
+    pline("%s drops into the vent...", Doname2(obj));
     pline("BOOM!");
-    breakvent(u.ux, u.uy);
+    breakvent(x, y);
+    
+    /* useup will occur in other places - so we can drop it or throw it in */
+    /*useup(otmp);*/
 }
 
 /* some common tests when trying to drop or throw items */
@@ -1012,6 +1009,7 @@ STATIC_PTR int
 drop(obj)
 register struct obj *obj;
 {
+    struct obj *otmp;
     if (!obj)
         return 0;
     if (!canletgo(obj, "drop"))
@@ -1053,7 +1051,13 @@ register struct obj *obj;
             return 1;
         }
         if (is_bomb(obj) && IS_VENT(levl[u.ux][u.uy].typ)) {
-            doventbomb(obj);
+            if (obj->quan > 1L) {
+                otmp = splitobj(obj, 1L);
+            } else {
+                otmp = obj;
+            }
+            doventbomb(otmp, u.ux, u.uy);
+            useup(otmp);
             return 1;
         }
         if (Sokoban && obj->otyp == BOULDER)

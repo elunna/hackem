@@ -268,7 +268,6 @@ int shotlimit;
         
     }
     
-
     m_shot.s = ammo_and_launcher(obj, uwep) ? TRUE : FALSE;
     /* give a message if shooting more than one, or if player
        attempted to specify a count */
@@ -1613,7 +1612,12 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     
     /* Handle bombs or rockets */
     if (obj && thrownobj && is_bomb(obj)) {
-        arm_bomb(obj, TRUE);
+        if (IS_VENT(levl[bhitpos.x][bhitpos.y].typ)) {
+            doventbomb(obj, bhitpos.x, bhitpos.y);
+            thrownobj = (struct obj *) 0;
+        } else {
+            arm_bomb(obj, TRUE);
+        }
     }
 
     if (!thrownobj) {
