@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-11: Vents only have a 3/5 chance of being destroyed by bombs.
 2023-01-11: Stop vent timers when vents are destroyed.
 2023-01-11: Monsters can use vents to conceal themselves.
 2023-01-11: Fix: Possible uninitialized mtmp in dodazzle().

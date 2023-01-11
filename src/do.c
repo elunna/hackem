@@ -958,9 +958,11 @@ int x, y;
         return;
     }
     pline("%s drops into the vent...", Doname2(obj));
-    pline("BOOM!");
-    breakvent(x, y);
+    if (rnd(5) > 2) {
+        pline("BOOM!");
+        breakvent(x, y);
     
+    }
     /* useup will occur in other places - so we can drop it or throw it in */
     /*useup(otmp);*/
 }
