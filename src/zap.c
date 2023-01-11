@@ -5835,17 +5835,37 @@ fixture_activate(anything *arg, long timeout UNUSED)
 void
 spec_fixture_activate(xchar x, xchar y)
 {
-    switch (levl[x][y].typ) {
-    case VENT:
-        create_gas_cloud(x, y, 3, levl[x][y].poisonvnt ? depth(&u.uz) : 0);
-        (void) start_timer((long) rn1(15, 10), TIMER_LEVEL, FIXTURE_ACTIVATE,
-                           long_to_any(((long) x << 16) | (long) y));
-        break;
-    default:
-        /*impossible("weird fixture activation %s?", levl[x][y].typ);*/
+    struct permonst *mdat;
+    
+    if (levl[x][y].typ != VENT) {
         impossible("weird fixture activation %s?", explain_terrain(x, y));
-        break;
+        return;
     }
+
+    if (!rn2(17)) {
+        for (int i = 100; i > 0; i--) {
+            /* Make a creepy crawly */
+            switch (rnd(5)) {
+            case 1:
+                mdat = mkclass(S_SNAKE, 0);
+                break;
+            case 2:
+                mdat = mkclass(S_RODENT, 0);
+                break;
+            default:
+                mdat = mkclass(S_SPIDER, 0);
+            }
+            if (makemon(mdat, x, y, MM_NOGRP))
+                break;
+        }
+    } else {
+        create_gas_cloud(x, y, 3,
+                         levl[x][y].poisonvnt ? depth(&u.uz) : 0);
+    }
+    /* Always restart the timer! */
+    (void) start_timer((long) rn1(15, 10), TIMER_LEVEL,
+                       FIXTURE_ACTIVATE,
+                       long_to_any(((long) x << 16) | (long) y));
 }
 
 /* Burn floor scrolls, evaporate pools, etc... in a single square.

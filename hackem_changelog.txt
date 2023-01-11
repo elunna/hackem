@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Spiders, snakes, and rats can randomly pop out of vents.
 2023-01-12: Added a bit more random time between vent poofs.
 2023-01-12: When vents are destroyed they release a final large exhaust.
 2023-01-11: Polymorphed sinks can turn into vents.
