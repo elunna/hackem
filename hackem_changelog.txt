@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: When vents are destroyed they release a final large exhaust.
 2023-01-11: Polymorphed sinks can turn into vents.
 2023-01-11: Vents only have a 3/5 chance of being destroyed by bombs.
 2023-01-11: Stop vent timers when vents are destroyed.
