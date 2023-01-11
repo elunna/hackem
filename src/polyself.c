@@ -1959,7 +1959,7 @@ dovanish()
 int
 dodazzle()
 {
-    struct monst *mtmp;
+    struct monst *mtmp = NULL;
     int range = (u.ulevel / 8) + 1;
     int x2, y2, i;
     
