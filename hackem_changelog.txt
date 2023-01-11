@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-11: Added short blurb for confict in the guidebooks.
 2023-01-11: Fix: Issues with water walking boot id, intrinsic ww, and ice mages.
 2023-01-11: Fix: Water walking boots are only identified while worn and water walking. Removed inappropriate message for other water walking cases. 
 2023-01-11: Fix: shopkeeper name 8-ball 
