@@ -4606,10 +4606,13 @@ drown()
         /* maybe we were called because the hero moved or fell into a pool; if
          * so, assuming the only source of water walking is water walking
          * boots, identify them. */
-        if (!objects[WATER_WALKING_BOOTS].oc_name_known) {
+        if (uarmf 
+            && uarmf->otyp == WATER_WALKING_BOOTS
+            && !objects[WATER_WALKING_BOOTS].oc_name_known) {
+            
             Your("boots don't sink into the water!");
+            makeknown(WATER_WALKING_BOOTS);
         }
-        makeknown(WATER_WALKING_BOOTS);
         return FALSE;
     }
 
