@@ -1258,7 +1258,8 @@ int x, y;
         You("hear something collapse!");
     
     level.flags.nvents--;
-    
+    /* Cleanup fixture_activate timer */
+    spot_stop_timers(x, y, FIXTURE_ACTIVATE);
     /* Maybe create a pit instead? */
     levl[x][y].typ = ROOM;
     
