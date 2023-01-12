@@ -4116,15 +4116,12 @@ boolean by_you;
             else
                 pline("%s seems limber!", Monnam(mon));
         }
-        pseudo->quan = 20L;
         for (otemp = mon->minvent; otemp; otemp = onext) {
             onext = otemp->nobj;
             if (otemp->oclass == RING_CLASS) {
-                obj_extract_self(otemp);
                 mon->misc_worn_check &= ~otemp->owornmask;
                 update_mon_intrinsics(mon, otemp, FALSE, TRUE);
                 otemp->owornmask = 0L; /* obfree() expects this */
-                obfree(otemp, (struct obj *) 0);
             }
             (void) bhito(otemp, pseudo);
         }
