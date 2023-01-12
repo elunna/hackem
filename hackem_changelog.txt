@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Poison vents can show up after level 8.
 2023-01-12: Player vampires also resist death.
 2023-01-12: Enabled vampire race for pirates, disabled elf.
 2023-01-12: Only poison resistant monsters can hide in poisoned vents.

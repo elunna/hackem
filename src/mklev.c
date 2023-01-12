@@ -2069,7 +2069,7 @@ mkvent(int mazeflag, struct mkroom *croom)
     /* Old calculation made poison vents more likely as level deepened.
      * This seemed buggy - we'll make it a simple 2 in 3. */
     /*if (depth(&u.uz) > 6 && rn2(depth(&u.uz - 4)))*/
-    if (depth(&u.uz) > 13 && rn2(3))
+    if (depth(&u.uz) > 8 && rn2(3))
         levl[m.x][m.y].poisonvnt = 1;
     
     (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
