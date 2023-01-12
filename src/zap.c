@@ -5840,7 +5840,7 @@ spec_fixture_activate(xchar x, xchar y)
         return;
     }
 
-    if (!rn2(17)) {
+    if (!rn2(15)) {
         struct monst *mtmp = makemon(ventmon(), x, y, MM_NOGRP);
             if (mtmp && canseemon(mtmp)) {
                 pline("%s crawls out of the vent!", a_monnam(mtmp));

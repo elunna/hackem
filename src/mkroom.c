@@ -796,20 +796,25 @@ morguemon()
 struct permonst *
 ventmon()
 {
+    struct permonst *mdat;
     for (int i = 100; i > 0; i--) {
         /* Make a creepy crawly */
         switch (rnd(5)) {
         case 1:
-            return mkclass(S_SNAKE, 0);
+            mdat = mkclass(S_SNAKE, 0);
             break;
         case 2:
-            return mkclass(S_RODENT, 0);
+            mdat = mkclass(S_RODENT, 0);
             break;
         default:
-            return mkclass(S_SPIDER, 0);
+            mdat = mkclass(S_SPIDER, 0);
         }
-        
+        /* Try for poison res */
+        if ((mdat->mresists & MR_POISON) != 0) {
+            return mdat;
+        }
     }
+    return mdat;
 }
 
 struct permonst *

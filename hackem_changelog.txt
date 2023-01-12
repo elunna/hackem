@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Prefer poison resistant monsters when created from vents.
 2023-01-12: Refactored vent monster gen to ventmon function.
 2023-01-12: Fix: Guardian Angel minion broke after entering astral plane.
 2023-01-12: Hobbit's Blink technique now works as it did in SLASH'EM. Reduced timeout slightly.
