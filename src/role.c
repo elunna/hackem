@@ -474,7 +474,7 @@ const struct Role roles[] = {
       S_RODENT,
       S_ELEMENTAL, /* Ghost pirates, soldiers, rats in the food stores, and the occasional storm*/
       ART_TREASURY_OF_PROTEUS,
-      MH_HUMAN | MH_GNOME | MH_ORC | MH_ELF,
+      MH_HUMAN | MH_GNOME | MH_ORC | MH_VAMPIRE,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       {   8,  7, 7,  8,  8,  7 },

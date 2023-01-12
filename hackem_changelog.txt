@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Enabled vampire race for pirates, disabled elf.
 2023-01-12: Only poison resistant monsters can hide in poisoned vents.
 2023-01-12: Prefer poison resistant monsters when created from vents.
 2023-01-12: Refactored vent monster gen to ventmon function.
