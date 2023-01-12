@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Renamed wand of acid to wand of corrosion.
 2023-01-12: Fix: heap-use-after-free in munstone when rings are stone-to-fleshed.
 2023-01-12: Removed odrained bitfield.
 2023-01-12: Poison vents can show up after level 8.

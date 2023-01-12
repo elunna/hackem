@@ -2920,7 +2920,7 @@ boolean ordinary;
         }
         (void) create_gas_cloud(u.ux, u.uy, 1, 8);
         break;
-    case WAN_ACID:
+    case WAN_CORROSION:
         learn_it = TRUE;
         /* FALLTHROUGH */
     case SPE_ACID_BLAST:

@@ -996,12 +996,12 @@ doengrave()
                 Strcpy(post_engr_text, Blind ? "You feel the wand heat up."
                                              : "Flames fly from the wand.");
                 break;
-            case WAN_ACID:
+            case WAN_CORROSION:
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known && !Blind) {
                     if (flags.verbose)
-                        pline("This %s is a wand of acid!", xname(otmp));
+                        pline("This %s is a wand of corrosion!", xname(otmp));
                     preknown = TRUE;
                 } else if (!Deaf) {
                     Sprintf(post_engr_text, "Something sprays from the wand.");

@@ -4524,7 +4524,7 @@ struct obj *obj;
         expltype = EXPL_FIERY;
         mk_wandtrap(obj);
         goto wanexpl;
-    case WAN_ACID:
+    case WAN_CORROSION:
         expltype = EXPL_ACID;
         dmg *= 3; 
         goto wanexpl;
@@ -5222,7 +5222,7 @@ struct obj *obj;
             break;
             /* Shock, poison, acid, and sonic wands can make magic beam traps.*/
         case WAN_POISON_GAS:
-        case WAN_ACID:
+        case WAN_CORROSION:
         case WAN_SONICS:
         case WAN_LIGHTNING:
             traptype = MAGIC_BEAM_TRAP;

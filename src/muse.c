@@ -1604,7 +1604,7 @@ struct monst *mtmp;
 #define MUSE_WAN_SLOW_MONSTER   61
 #define MUSE_WAN_WIND           62
 #define MUSE_WAN_WATER          63
-#define MUSE_WAN_ACID           64
+#define MUSE_WAN_CORROSION         64
 #define MUSE_WAN_POISON_GAS     65
 #define MUSE_WAN_SONICS         66
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
@@ -1749,7 +1749,7 @@ int otyp;
     case HORN_OF_BLASTING:
         want++;
         /*FALLTHRU*/
-    case WAN_ACID:
+    case WAN_CORROSION:
         want++;
         /*FALLTHRU*/
     case WAN_FIRE:
@@ -1878,11 +1878,11 @@ boolean reflection_skip;
                     m.tocharge = obj;
                 }
             }
-            nomore(MUSE_WAN_ACID);
-            if (obj->otyp == WAN_ACID) {
+            nomore(MUSE_WAN_CORROSION);
+            if (obj->otyp == WAN_CORROSION) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_ACID)) {
                     m.offensive = obj;
-                    m.has_offense = MUSE_WAN_ACID;
+                    m.has_offense = MUSE_WAN_CORROSION;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
@@ -2601,7 +2601,7 @@ struct monst *mtmp;
     case MUSE_WAN_COLD:
     case MUSE_WAN_LIGHTNING:
     case MUSE_WAN_MAGIC_MISSILE:
-    case MUSE_WAN_ACID:
+    case MUSE_WAN_CORROSION:
     case MUSE_WAN_POISON_GAS:
     case MUSE_WAN_SONICS:
         mzapwand(mtmp, otmp, FALSE);

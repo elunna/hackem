@@ -1298,7 +1298,7 @@ WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS,  HI_METAL),
-WAND("acid",          "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
+WAND("corrosion",     "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 WAND("sonics",       "titanium",  20, 175, 1, RAY, METAL,  HI_METAL),
 WAND("water",       "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 /* extra descriptions, shuffled into use at start of new game */

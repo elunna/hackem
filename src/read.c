@@ -3073,7 +3073,7 @@ int chg; /* recharging */
     case WAN_MAGIC_MISSILE:
     case WAN_POISON_GAS:
     case WAN_SONICS:
-    case WAN_ACID:
+    case WAN_CORROSION:
         k = 8;
         break;
     case WAN_NOTHING:
