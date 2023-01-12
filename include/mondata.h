@@ -112,6 +112,7 @@
 
 #define immune_poisongas(ptr) \
     ((ptr) == &mons[PM_HEZROU] \
+     || (ptr) == &mons[PM_SKUNK] \
      || (ptr) == &mons[PM_GIANT_BADGER] \
      || (ptr) == &mons[PM_HONEY_BADGER])
 

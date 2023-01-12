@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Skunks are immune to poison gas.
 2023-01-12: Created polar bears, a stronger version of grizzlies that are cold resistant.
 2023-01-12: Re-added Lavender Town but toned down the undead difficulty. 
 2023-01-12: Spiders, snakes, and rats can randomly pop out of vents.
