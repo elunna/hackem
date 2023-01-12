@@ -342,6 +342,22 @@ boolean resuming;
                             if (rn2(3) != 0)
                                 moveamt -= NORMAL_SPEED / 2;
                         }
+                        
+                        /* TECH: Blinking! For Hobbitses */
+                        if (Race_if(PM_HOBBIT) && u.utechduration > 0) { 
+                            /* Case    Average  Variance
+			     * -------------------------
+			     * Normal    12         0
+			     * Fast      16        12
+			     * V fast    20        12
+			     * Blinking  24        12
+			     * F & B     28        18
+			     * V F & B   30        18
+                             */
+                            moveamt += NORMAL_SPEED * 2 / 3;
+                            if (rn2(3) == 0) 
+                                moveamt += NORMAL_SPEED / 2;
+                        }
                     }
 
                     if (Afraid && rn2(4)) { /* Afraid of a monster */

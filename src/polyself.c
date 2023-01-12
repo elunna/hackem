@@ -1909,8 +1909,6 @@ toggleshell()
 int
 doblink()
 {
-    int duration;
-    
     if (u.utechtimeout) {
         You_cant("use your ability again so soon.");
         return 0;
@@ -1918,9 +1916,10 @@ doblink()
     
     You("feel the flow of time slow down.");
     /* A bit more generous than SLASH'EM */
-    duration = rnd(10 + u.ulevel) + 2;
-    u.utechtimeout = rn1(500, 500);
-    speed_up(duration);
+    u.utechduration = rnd(10 + u.ulevel) + 2;
+    /* This is handled in allmain.c: moveloop() */
+    
+    u.utechtimeout = rn1(250, 500);
     return 1;
 }
 
