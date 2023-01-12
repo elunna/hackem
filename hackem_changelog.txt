@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Fix: Guardian Angel minion broke after entering astral plane.
 2023-01-09: Eased magical scaring restrictions a bit from EvilHack to be closer to 3.7.
 2023-01-09: Scroll of knowledge costs 50 so it isn't an obvious identify from the start.
 2023-01-09: Added Sokobon levels from Fourk. All soko levls are named now.

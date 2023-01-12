@@ -576,7 +576,9 @@ gain_guardian_angel()
         verbalize("Thy desire for conflict shall be fulfilled!");
         /* send in some hostile angels instead */
         lose_guardian_angel((struct monst *) 0);
-    } else if (u.ualign.record > 8) { /* fervent */
+    } 
+    
+    else if (u.ualign.record > 8) { /* fervent */
         if (!Deaf)
             pline("A voice whispers:");
         else
@@ -584,22 +586,11 @@ gain_guardian_angel()
         verbalize("Thou hast been worthy of me!");
         mm.x = u.ux;
         mm.y = u.uy;
+        
         if (enexto(&mm, mm.x, mm.y, &mons[PM_ANGEL])
-            && (mtmp = mk_roamer(&mons[PM_ANGEL], u.ualign.type, mm.x, mm.y,
-                                 TRUE)) != 0) {
-            mtmp->mstrategy &= ~STRAT_APPEARMSG;
-            /* guardian angel -- the one case mtame doesn't imply an
-             * edog structure, so we don't want to call tamedog().
-             * [Note: this predates mon->mextra which allows a monster
-             * to have both emin and edog at the same time.]
-             */
-            mtmp->mtame = 10;
-            /* for 'hilite_pet'; after making tame, before next message */
-            newsym(mtmp->mx, mtmp->my);
-            if (!Blind)
-                pline("An angel appears near you.");
-            else
-                You_feel("the presence of a friendly angel near you.");
+            /*&& (mtmp = mk_roamer(&mons[PM_ANGEL], u.ualign.type, mm.x, mm.y, TRUE)) != 0) {*/
+            && (mtmp = makemon(&mons[PM_ANGEL], mm.x, mm.y, MM_EDOG)) != 0) {
+            
             /* Too nasty for the game to unexpectedly break petless conduct on
              * the final level of the game. The angel will still appear, but
              * won't be tamed. */
@@ -607,10 +598,22 @@ gain_guardian_angel()
                 /* guardian angel -- the one case mtame doesn't
                 * imply an edog structure, so we don't want to
                 * call tamedog().
-                */
+                 */
                 mtmp->mtame = 10;
                 u.uconduct.pets++;
             }
+            
+            /* make sure our angel isn't starving to death when we arrive */
+            EDOG(mtmp)->hungrytime = 1000 + monstermoves;
+            mtmp->mstrategy &= ~STRAT_APPEARMSG;
+            
+            /* for 'hilite_pet'; after making tame, before next message */
+            newsym(mtmp->mx, mtmp->my);
+            if (!Blind)
+                pline("An angel appears near you.");
+            else
+                You_feel("the presence of a friendly angel near you.");
+            
             /* make him strong enough vs. endgame foes */
             mtmp->m_lev = rn1(8, 15);
             mtmp->mhp = mtmp->mhpmax =
