@@ -125,6 +125,7 @@ static NEARDATA const int ice_nasties[] = {
     PM_LYNX,
     PM_MASTODON,
     PM_OWLBEAR,
+    PM_POLAR_BEAR,
     PM_SABER_TOOTHED_TIGER,
     PM_SASQUATCH,
     PM_SILVER_DRAGON,

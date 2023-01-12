@@ -2076,6 +2076,16 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE,
         M2_STRONG | M2_HOSTILE, M3_INFRAVISIBLE | M3_BERSERK, 0, 0,
         8, CLR_RED),
+    MON("polar bear", S_QUADRUPED,                                /* HackEM */
+        LVL(15, 15, 7, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_BITE, AD_PHYS, 3, 10), 
+          ATTK(AT_CLAW, AD_PHYS, 2, 5),
+          ATTK(AT_CLAW, AD_PHYS, 1, 3), 
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1100, 500, MS_ROAR, MZ_LARGE), MR_COLD, MR_COLD,
+        M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_SWIM,
+        M2_STRONG, M3_INFRAVISIBLE | M3_BERSERK, 0, 0,
+        13, CLR_WHITE),
     MON("hippo", S_QUADRUPED,                                 /* SpliceHack */
         LVL(10, 3, 2, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 8, 4), 

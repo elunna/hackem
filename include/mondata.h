@@ -570,6 +570,7 @@
      || (ptr) == &mons[PM_BABY_OWLBEAR] \
      || (ptr) == &mons[PM_HUMAN_ZOMBIE] \
      || (ptr) == &mons[PM_GIANT_ZOMBIE] \
+     || (ptr) == &mons[PM_POLAR_BEAR] \
      || (ptr) == &mons[PM_LICH])
 
 #define likes_gtown(ptr) \
