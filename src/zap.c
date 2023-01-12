@@ -5835,28 +5835,15 @@ fixture_activate(anything *arg, long timeout UNUSED)
 void
 spec_fixture_activate(xchar x, xchar y)
 {
-    struct permonst *mdat;
-    
     if (levl[x][y].typ != VENT) {
         impossible("weird fixture activation %s?", explain_terrain(x, y));
         return;
     }
 
     if (!rn2(17)) {
-        for (int i = 100; i > 0; i--) {
-            /* Make a creepy crawly */
-            switch (rnd(5)) {
-            case 1:
-                mdat = mkclass(S_SNAKE, 0);
-                break;
-            case 2:
-                mdat = mkclass(S_RODENT, 0);
-                break;
-            default:
-                mdat = mkclass(S_SPIDER, 0);
-            }
-            if (makemon(mdat, x, y, MM_NOGRP))
-                break;
+        struct monst *mtmp = makemon(ventmon(), x, y, MM_NOGRP);
+            if (mtmp && canseemon(mtmp)) {
+                pline("%s crawls out of the vent!", a_monnam(mtmp));
         }
     } else {
         create_gas_cloud(x, y, 3,

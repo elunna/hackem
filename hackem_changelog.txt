@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Refactored vent monster gen to ventmon function.
 2023-01-12: Hobbit's Blink technique now works as it did in SLASH'EM. Reduced timeout slightly.
 2023-01-12: Refactored utech to utechtimeout.
 2023-01-12: Cthulhu will displace monsters to get to you.
