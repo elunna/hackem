@@ -1603,7 +1603,7 @@ struct monst *mtmp;
 #define MUSE_WAN_POLYMORPH      60
 #define MUSE_WAN_SLOW_MONSTER   61
 #define MUSE_WAN_WIND           62
-#define MUSE_WAN_WATER          63
+#define MUSE_WAN_DELUGE          63
 #define MUSE_WAN_CORROSION         64
 #define MUSE_WAN_POISON_GAS     65
 #define MUSE_WAN_SONICS         66
@@ -1740,7 +1740,7 @@ int otyp;
     case WAN_SLEEP:
         want++;
         /*FALLTHRU*/
-    case WAN_WATER:
+    case WAN_DELUGE:
         want++;
         /*FALLTHRU*/  
     case WAN_SONICS:
@@ -1852,11 +1852,11 @@ boolean reflection_skip;
                 }
                 continue;
             }
-            nomore(MUSE_WAN_WATER);
-            if (obj->otyp == WAN_WATER) {
+            nomore(MUSE_WAN_DELUGE);
+            if (obj->otyp == WAN_DELUGE) {
                 if (obj->spe > 0 && !amphibious(mtmp->data)) {
                     m.offensive = obj;
-                    m.has_offense = MUSE_WAN_WATER;
+                    m.has_offense = MUSE_WAN_DELUGE;
                 } /* Don't bother recharging */
             }
             nomore(MUSE_WAN_SONICS);
@@ -2246,11 +2246,11 @@ register struct obj *otmp;
         You("get blasted by hurricane-force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, 5 + rn2(5), TRUE);
         break;
-    case WAN_WATER:
+    case WAN_DELUGE:
         reveal_invis = TRUE;
         if (mtmp == &youmonst) {
             if (zap_oseen)
-                makeknown(WAN_WATER);
+                makeknown(WAN_DELUGE);
             if (rnd(20) < 10 + u.uac) {
                 tmp = d(likes_fire(youmonst.data) ? 12 : 1, 6);
                 pline_The("jet of water hits you!");
@@ -2279,7 +2279,7 @@ register struct obj *otmp;
         } else {
             miss("jet of water", mtmp);
             if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
-                makeknown(WAN_WATER);
+                makeknown(WAN_DELUGE);
         }
         break;
    /* disabled because find_offensive() never picks WAN_TELEPORTATION */
@@ -2659,7 +2659,7 @@ struct monst *mtmp;
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
     case MUSE_WAN_WIND:
-    case MUSE_WAN_WATER:
+    case MUSE_WAN_DELUGE:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
@@ -3799,7 +3799,7 @@ struct obj *obj;
             || typ == WAN_CREATE_MONSTER
             || typ == WAN_CREATE_HORDE
             || typ == WAN_WIND
-            || typ == WAN_WATER
+            || typ == WAN_DELUGE
             || typ == WAN_DRAINING
             || typ == WAN_HEALING
             || typ == WAN_EXTRA_HEALING

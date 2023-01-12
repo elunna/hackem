@@ -1300,7 +1300,7 @@ WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS,  HI_METAL),
 WAND("corrosion",     "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 WAND("sonics",       "titanium",  20, 175, 1, RAY, METAL,  HI_METAL),
-WAND("water",       "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
+WAND("deluge",      "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
 WAND(None,            "jeweled",  0, 150, 1, 0, IRON, HI_MINERAL),

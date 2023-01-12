@@ -367,7 +367,7 @@ struct obj *box;
                     otmp->owt = weight(otmp);
                 } else
                     while (otmp->otyp == WAN_CANCELLATION)
-                        otmp->otyp = rnd_class(WAN_LIGHT, WAN_WATER);
+                        otmp->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
             }
             /* material may have become invalid with a new otyp -- rerandomize
              * it to something valid */

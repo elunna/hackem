@@ -1923,7 +1923,7 @@ int id;
 
     case WAND_CLASS:
         while (otmp->otyp == WAN_WISHING || otmp->otyp == WAN_POLYMORPH)
-            otmp->otyp = rnd_class(WAN_LIGHT, WAN_WATER);
+            otmp->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
         /* altering the object tends to degrade its quality
            (analogous to spellbook `read count' handling) */
         if ((int) otmp->recharged < rn2(7)) /* recharge_limit */
@@ -2383,7 +2383,7 @@ struct obj *obj, *otmp;
             scatter(obj->ox, obj->oy, 4, MAY_HIT | MAY_DESTROY | VIS_EFFECTS,
                     obj);
             break;
-        case WAN_WATER:
+        case WAN_DELUGE:
             if (obj->lamplit) {
                 end_burn(obj, TRUE);
                 if (cansee(obj->ox, obj->oy)) {
@@ -2854,7 +2854,7 @@ boolean ordinary;
         destroy_item(WEAPON_CLASS, AD_FIRE);
         break;
 
-    case WAN_WATER:
+    case WAN_DELUGE:
         learn_it = TRUE;
         if (uwep && uwep->otyp == RUBBER_HOSE)
             You("hose yourself down!");
@@ -3709,7 +3709,7 @@ struct obj *obj; /* wand or spell */
             You("scour the floor with wind!");
         }
         break;
-    case WAN_WATER:
+    case WAN_DELUGE:
         if (u.dz > 0) {
             pline("Rain? Here?");
         }
@@ -3888,7 +3888,7 @@ struct obj *obj; /* wand or spell */
             case WAN_STRIKING:
             case SPE_FORCE_BOLT:
             case WAN_WIND:
-            case WAN_WATER:
+            case WAN_DELUGE:
                 wipe_engr_at(x, y, d(2, 4), TRUE);
                 break;
             default:
@@ -3948,7 +3948,7 @@ struct obj *obj;
     boolean wonder = FALSE;
     
     if (otyp == WAN_WONDER) {
-        wondertemp = WAN_LIGHT + rn2(WAN_WATER - WAN_LIGHT);
+        wondertemp = WAN_LIGHT + rn2(WAN_DELUGE - WAN_LIGHT);
         /* --hackem: Significantly reduced the chances of wishes */
         if (wondertemp == WAN_WISHING && rn2(100))
             wondertemp = WAN_POISON_GAS;
@@ -3990,7 +3990,7 @@ struct obj *obj;
         else if (otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_SONICBOOM)
             buzz(otyp - SPE_MAGIC_MISSILE + 10, u.ulevel / 2 + 1, u.ux, u.uy,
                  u.dx, u.dy);
-        else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_WATER)
+        else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_DELUGE)
             buzz(otyp - WAN_MAGIC_MISSILE,
                  (otyp == WAN_MAGIC_MISSILE) ? 2 : 6, u.ux, u.uy, u.dx, u.dy);
         else
@@ -4219,13 +4219,6 @@ struct obj **pobj; /* object tossed/used, set to NULL
         skiprange(range, &skiprange_start, &skiprange_end);
         allow_skip = !rn2(3);
     }
-
-#if 0
-    if (obj && obj->otyp == WAN_WATER) {
-        You("fire off a powerful jet of water!");
-        makeknown(obj->otyp);
-    }
-#endif
     
     if (weapon == FLASHED_LIGHT) {
         tmp_at(DISP_BEAM, cmap_to_glyph(S_flashbeam));
@@ -4375,7 +4368,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
                     destroy_drawbridge(x, y);
                 learn_it = TRUE;
                 break;
-            case WAN_WATER:
+            case WAN_DELUGE:
                 pline("Splash!");
                 learn_it = TRUE;
                 break;

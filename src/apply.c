@@ -4547,7 +4547,7 @@ struct obj *obj;
         pline("A tornado surrounds you!");
         affects_objects = TRUE;
         break;
-    case WAN_WATER:
+    case WAN_DELUGE:
         pline("KER-SPLOOSH!");
         affects_objects = TRUE;
         mk_wandtrap(obj);
@@ -4599,7 +4599,7 @@ struct obj *obj;
     /* [TODO?  This really ought to prevent the explosion from being
        fatal so that we never leave a bones file where none of the
        surrounding targets (or underlying objects) got affected yet.] */
-    if (obj->otyp != WAN_WIND && obj->otyp != WAN_WATER)
+    if (obj->otyp != WAN_WIND && obj->otyp != WAN_DELUGE)
         explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS,
                 EXPL_MAGICAL);
     /* prepare for potential feedback from polymorph... */
@@ -5202,7 +5202,7 @@ struct obj *obj;
         case WAN_MAGIC_MISSILE:
             traptype = MAGIC_TRAP;
             break;
-        case WAN_WATER:
+        case WAN_DELUGE:
             traptype = RUST_TRAP;
             break;
         case WAN_TELEPORTATION:

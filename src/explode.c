@@ -64,7 +64,7 @@ int expltype;
             /* most attack wands produce specific explosions;
                other types produce a generic magical explosion */
             if (objects[type].oc_dir == RAY
-                && type != WAN_DIGGING && type != WAN_WATER && type != WAN_SLEEP) {
+                && type != WAN_DIGGING && type != WAN_DELUGE && type != WAN_SLEEP) {
                 type -= WAN_MAGIC_MISSILE;
                 if (type < 0 || type > 9) {
                     impossible("explode: wand has bad zap type (%d).", type);

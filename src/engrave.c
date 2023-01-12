@@ -911,7 +911,7 @@ doengrave()
                 create_gas_cloud(u.ux, u.uy, 1, 4);
                 postknown = TRUE;
             break;
-            case WAN_WATER:
+            case WAN_DELUGE:
                 if (!Blind) {
                     Sprintf(post_engr_text,
                             "The bugs on the %s get washed away!", surface(u.ux, u.uy));
