@@ -116,7 +116,6 @@ struct obj {
     Bitfield(greased, 1);    /* covered with grease */
     Bitfield(nomerge, 1);    /* set temporarily to prevent merging */
     Bitfield(was_thrown, 1); /* thrown by hero since last picked up */
-    Bitfield(odrained,1);      /* drained corpse */       
     Bitfield(material, 5); /* material this obj is made of */
     Bitfield(in_use, 1);   /* for magic items before useup items */
     Bitfield(bypass, 1);   /* mark this as an object to be skipped by bhito() */
