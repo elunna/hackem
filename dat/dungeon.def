@@ -97,7 +97,7 @@ LEVEL:		    "sanctum" "none" @ (-1, 0)
 DUNGEON:	"The Gnomish Mines" "M" (8, 2)
 ALIGNMENT:	lawful
 DESCRIPTION:	mazelike
-RNDLEVEL:	"minetn" "T" @ (3, 2) 11
+RNDLEVEL:	"minetn" "T" @ (3, 2) 12
 LEVELDESC:	town
 RNDLEVEL:	"minend" "E" @ (-2, 0) 7
 RNDLEVEL:	"mineking" "M" @ (-1, 0) 2

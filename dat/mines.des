@@ -1331,6 +1331,125 @@ OBJECT: ')', random
 OBJECT: '(', random
 OBJECT: '(', random
 
+
+
+# Minetown variant 12
+# -- Lavender Town -- Minetown, but spooky!
+# -- By Kestrel Gregorich-Trevor
+
+MAZE: "minetn-12",' '
+FLAGS: inaccessibles
+INIT_MAP: mines,'.',' ',true,true,lit,true
+GEOMETRY:center,center
+
+
+#01234567890123456789012345678901234567890
+# 0   i    1    i    2    i    3    i    4
+MAP
+0.......................................
+1.-------------------------------------.
+2.|...................................|.
+3.|.------....------..-------------+-.|.
+4.|.|....+....|....|..+...|.........|.|.
+5.|.|....|....|....|..|...|.........|.|.
+6.|.|....|....|....|..--------------|.|.
+7.|.|....|....+....|......|.........|.|.
+8...------....------......+.........|...
+9.........................-----------...
+0.|...................................|.
+1.|................--+--..............|.
+2.|................|...|..............|.
+3.|------+-+---....+...+...-----------|.
+4.|.......|...|....|...|...+..........|.
+5.|.......|...|....--+--...|..........|.
+6.|.......|...|............|..........|.
+7.-------------------------------------.
+8.......................................
+ENDMAP
+
+# -- The town is creepy. Therefore, the town is dark.
+REGION: (01,01,37,18), unlit, "ordinary"
+
+STAIR: levregion(01,03,20,19), (00,01,37,17), up
+STAIR: levregion(61,03,75,19), (00,01,37,17), down
+
+# -- A few fountains.
+FOUNTAIN: (05,10)
+FOUNTAIN: (30,11)
+
+# -- The masouleum
+REGION: (19,12,21,14), lit, "temple"
+ALTAR: (20,13), align[0], shrine
+
+# -- The big graveyard
+# local graveyard = selection.floodfill(27,14);
+
+REGION:(27,14, 36, 16), lit, "morgue", unfilled {
+    GRAVE: random, "Buried Alive"
+    GRAVE: random
+    GRAVE: random
+    GRAVE: random
+    GRAVE: random
+    GRAVE: random
+    GRAVE: random
+    MONSTER: ( 'Z',"skeleton"), random, peaceful, asleep
+    MONSTER: 'Z', random, peaceful, asleep
+    MONSTER: 'Z', random, peaceful, asleep
+    LOOP [8] { MONSTER: 'Z', random, asleep }
+    LOOP [10] { MONSTER: 'Z', random, asleep }
+    MONSTER: 'W', random, asleep
+    IF [50%] { MONSTER: 'W', random, asleep }
+}
+
+DOOR: closed, (26,14)
+DOOR: closed, (22,13)
+DOOR: closed, (20,11)
+DOOR: closed, (20,15)
+DOOR: locked, (08,13)
+DOOR: closed, (08,04)
+DOOR: closed, (13,07)
+DOOR: closed, (21,04)
+DOOR: closed, (25,08)
+DOOR: closed, (34,03)
+
+# -- The shops
+REGION: (10,14,12,16), lit, "tool shop"
+REGION: (26,07,34,08), lit, "shop"
+REGION: (22,04,24,05), lit, "candle shop"
+REGION: (04,04,07,07), lit, "food shop"
+
+# -- Wary citizens
+MONSTER: ('h', "dwarf"), random
+MONSTER: ('G', "gnomish wizard"), random
+MONSTER: ('G', "gnomish wizard"), random
+MONSTER: ('G', "gnomish wizard"), random
+MONSTER: ('G', "gnome"), random
+MONSTER: ('G', "gnome king"), random
+MONSTER: ('G', "gnome thief"), random
+
+# -- Boo!
+MONSTER: ('Z', "dwarf zombie"), random
+MONSTER: ('Z', "dwarf zombie"), random
+MONSTER: ('Z', "dwarf zombie"), random
+MONSTER: ('Z', "gnome zombie"), random
+MONSTER: ('Z', "gnome zombie"), random
+MONSTER:(' ', "ghost"), random
+IF [50%] { MONSTER:(' ', "ghost"), random }
+MONSTER: ('Z', "human zombie"), random
+
+# -- A ghoulish gravekeeper.
+MONSTER: ('Z', "ghoul"), random, peaceful
+
+# -- The Watch.
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+
+
+
+
+
 # Mine end level variant 1
 # "Mimic of the Mines"
 #
