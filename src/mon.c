@@ -4181,11 +4181,12 @@ int how;
     if (mdef->data == &mons[PM_CTHULHU]) {
         cthulhu_dies(mdef);
     }
-
     if (is_fern_spore(mdef->data)) {
         spore_dies(mdef);
     }
-    
+    if (mdef->data == &mons[PM_SKUNK]) {
+        create_gas_cloud(mdef->mx, mdef->my, rn1(2, 2), rnd(8));
+    }
     if (be_sad && DEADMONSTER(mdef)) {
         if (kenny || (Hallucination && !rn2(4))) {
             verbalize("Oh my god, they killed Kenny!");
@@ -4366,7 +4367,9 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     if (mdat == &mons[PM_CTHULHU]) {
         cthulhu_dies(mtmp);
     }
-    
+    if (mdat == &mons[PM_SKUNK]) {
+        create_gas_cloud(mtmp->mx, mtmp->my, rn1(2, 1), rnd(8));
+    }
     if (is_fern_spore(mtmp->data)) {
         spore_dies(mtmp);
     }
