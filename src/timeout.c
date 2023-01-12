@@ -689,8 +689,8 @@ nh_timeout()
     }
 
     /* Technique timeout */
-    if (u.utech > 0)
-        if (--u.utech == 0)
+    if (u.utechtimeout > 0)
+        if (--u.utechtimeout == 0)
             pline("Your natural ability is ready.");
     
     was_flying = Flying;

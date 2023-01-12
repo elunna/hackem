@@ -1911,7 +1911,7 @@ doblink()
 {
     int duration;
     
-    if (u.utech) {
+    if (u.utechtimeout) {
         You_cant("use your ability again so soon.");
         return 0;
     }
@@ -1919,7 +1919,7 @@ doblink()
     You("feel the flow of time slow down.");
     /* A bit more generous than SLASH'EM */
     duration = rnd(10 + u.ulevel) + 2;
-    u.utech = rn1(500, 500);
+    u.utechtimeout = rn1(500, 500);
     speed_up(duration);
     return 1;
 }
@@ -1929,7 +1929,7 @@ dovanish()
 {
     int duration;
     
-    if (u.utech) {
+    if (u.utechtimeout) {
         You_cant("use your ability again so soon.");
         return 0;
     }
@@ -1950,7 +1950,7 @@ dovanish()
     }
     
     newsym(u.ux,u.uy);      /* update position */
-    u.utech = rn1(1000, 500);
+    u.utechtimeout = rn1(1000, 500);
     return 1;
 }
 
@@ -1963,7 +1963,7 @@ dodazzle()
     int range = (u.ulevel / 8) + 1;
     int x2, y2, i;
     
-    if (u.utech) {
+    if (u.utechtimeout) {
         You_cant("use your ability again so soon.");
         return 0;
     }
@@ -2015,7 +2015,7 @@ dodazzle()
         pline("%s breaks the stare!", Monnam(mtmp));
     }
     mtmp->mpeaceful = 0;
-    u.utech = rn1(50, 25);
+    u.utechtimeout = rn1(50, 25);
     return 1;
 }
 
