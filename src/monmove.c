@@ -2135,6 +2135,10 @@ register int x, y;
         return 2;
     
     switch (levl[x][y].typ) {
+    case VENT:
+        if (levl[x][y].poisonvnt == 1)
+            return 3; /* Only poison resistant can hide here */
+        /* FALLTHROUGH */
     case GRASS:
     case SINK:
     case TOILET:
@@ -2142,7 +2146,7 @@ register int x, y;
     case THRONE:
     case LADDER:
     case GRAVE:
-    case VENT:
+    
         return 1;
     default:
         return 0;

@@ -5455,7 +5455,8 @@ struct monst *mtmp;
                 || !touch_petrifies(&mons[otmp->corpsenm]))
                 undetected = TRUE;
         }
-        else if (concealment == 1) { /* terrain cover, no objects */
+        else if (concealment == 1 /* terrain cover, no objects */
+                 || (concealment == 3 && resists_poison(mtmp))) { 
             undetected = TRUE;
         }
     }
