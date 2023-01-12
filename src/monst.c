@@ -6926,7 +6926,7 @@ struct permonst _mons2[] = {
           | M1_SEE_INVIS | M1_NOHANDS | M1_POIS | M1_REGEN | M1_OMNIVORE,
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_STRONG 
             | M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,
-        M3_WAITFORU | M3_INFRAVISION | M3_NOTAME, 0, 
+        M3_WAITFORU | M3_INFRAVISION | M3_NOTAME | M3_DISPLACES, 0, 
         0, 61, CLR_BRIGHT_GREEN),
     
     /* Riders -- the Four Horsemen of the Apocalypse ("War" == player);
