@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Changed scramper, squealer, and mangler to Q. Scrampers are now yellow.
 2023-01-12: Removed drain life gaze from nabassu.
 2023-01-12: Renamed wand of water to wand of deluge.
 2023-01-12: Renamed wand of acid to wand of corrosion.

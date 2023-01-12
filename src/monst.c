@@ -2167,35 +2167,6 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_HOSTILE | M2_NASTY | M2_STRONG,
         0, 0, 0, 10, CLR_BLACK),
-    MON("scramper", S_QUADRUPED,                                /* Slash'EM */
-        LVL(3, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 1, 3),
-          ATTK(AT_BITE, AD_PHYS, 1, 3),
-          ATTK(AT_BITE, AD_PHYS, 1, 8),
-          ATTK(AT_STNG, AD_LEGS, 1, 6),
-          NO_ATTK, NO_ATTK),
-        SIZ(400, 100, MS_SILENT, MZ_LARGE), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_POIS, M2_HOSTILE,
-        M3_INFRAVISIBLE, 0, 0, 6, CLR_GREEN),
-    MON("squealer", S_QUADRUPED,                                /* Slash'EM */
-        LVL(4, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 1, 3),
-          ATTK(AT_BITE, AD_PHYS, 1, 3),
-          ATTK(AT_BITE, AD_PHYS, 1, 8),
-          ATTK(AT_STNG, AD_LEGS, 1, 6),
-          NO_ATTK, NO_ATTK),
-        SIZ(400, 100, MS_SHRIEK, MZ_LARGE), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_POIS, M2_HOSTILE,
-        M3_INFRAVISIBLE, 0, 0, 7, CLR_MAGENTA),
-    MON("mangler", S_QUADRUPED,                                 /* Slash'EM */
-        LVL(8, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 3, 3),
-          ATTK(AT_CLAW, AD_PHYS, 3, 3),
-          ATTK(AT_BITE, AD_PHYS, 3, 8),
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(400, 100, MS_SILENT, MZ_LARGE), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
-        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 10, CLR_ORANGE),
     /*
      * rodents
      */
@@ -4864,6 +4835,35 @@ struct permonst _mons2[] = {
     /*
      * Quantum mechanics
      */
+    MON("scramper", S_QUANTMECH,                                /* Slash'EM */
+        LVL(3, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 3),
+          ATTK(AT_BITE, AD_PHYS, 1, 3),
+          ATTK(AT_BITE, AD_PHYS, 1, 8),
+          ATTK(AT_STNG, AD_LEGS, 1, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(400, 100, MS_SILENT, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_POIS, M2_HOSTILE,
+        M3_INFRAVISIBLE, 0, 0, 6, CLR_YELLOW),
+    MON("squealer", S_QUANTMECH,                                /* Slash'EM */
+        LVL(4, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 1, 3),
+          ATTK(AT_BITE, AD_PHYS, 1, 3),
+          ATTK(AT_BITE, AD_PHYS, 1, 8),
+          ATTK(AT_STNG, AD_LEGS, 1, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(400, 100, MS_SHRIEK, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE | M1_POIS, M2_HOSTILE,
+        M3_INFRAVISIBLE, 0, 0, 7, CLR_MAGENTA),
+    MON("mangler", S_QUANTMECH,                                 /* Slash'EM */
+        LVL(8, 9, 7, 0, 0), (G_NOHELL | G_GENO | G_SGROUP | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 3, 3),
+          ATTK(AT_CLAW, AD_PHYS, 3, 3),
+          ATTK(AT_BITE, AD_PHYS, 3, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(400, 100, MS_SILENT, MZ_LARGE), 0, 0,
+        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
+        M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 10, CLR_ORANGE),
     MON("quantum mechanic", S_QUANTMECH,
         LVL(7, 12, 3, 10, 0), (G_GENO | 3),
         A(ATTK(AT_CLAW, AD_TLPT, 1, 4),
