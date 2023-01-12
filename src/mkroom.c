@@ -794,6 +794,25 @@ morguemon()
 }
 
 struct permonst *
+ventmon()
+{
+    for (int i = 100; i > 0; i--) {
+        /* Make a creepy crawly */
+        switch (rnd(5)) {
+        case 1:
+            return mkclass(S_SNAKE, 0);
+            break;
+        case 2:
+            return mkclass(S_RODENT, 0);
+            break;
+        default:
+            return mkclass(S_SPIDER, 0);
+        }
+        
+    }
+}
+
+struct permonst *
 antholemon()
 {
     int mtyp, indx, trycnt = 0;
