@@ -259,12 +259,13 @@ struct monst *mtmp;
             || (mtmp->mflee && !mtmp->mavenge))) {
         You("caitiff!");
         adjalign(-1);
-    } else if (Role_if(PM_SAMURAI) && mtmp->mpeaceful) {
+    } else if (Role_if(PM_SAMURAI) && mtmp->mpeaceful
+               && u.ualign.record > -10) {
         /* attacking peaceful creatures is bad for the samurai's giri */
         You("dishonorably attack the innocent!");
         adjalign(-1);
-    } else if (Role_if(PM_JEDI) && mtmp->mpeaceful &&
-        u.ualign.record > -10) {
+    } else if (Role_if(PM_JEDI) && mtmp->mpeaceful
+               && u.ualign.record > -10) {
         /* as well as for the way of the Jedi */
         You("violate the way of the Jedi!");
         /*u.ualign.sins++;*/
