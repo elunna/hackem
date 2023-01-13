@@ -913,13 +913,7 @@ WEPTOOL("blue lightsaber",  "lightsaber",                             /* Slash'E
 WEPTOOL("red lightsaber",  "lightsaber",                              /* Slash'EM */
 	0, 0, 1, 0,  1, 60, 500, 9,  11, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
 WEPTOOL("red double lightsaber",  "double lightsaber",                /* Slash'EM */
-	0, 0, 1, 1,  1, 60,1000, 15, 20, -4, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
-#if 0
-WEPTOOL("red double lightsaber",  "double lightsaber",
 	0, 0, 1, 1,  0, 60,1000, 9,  11, -4, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
-#endif
-
-
 
 OBJECT(OBJ("Candelabrum of Invocation", "candelabrum"),
        BITS(0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, P_NONE, GOLD),

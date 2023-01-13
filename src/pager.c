@@ -1118,6 +1118,7 @@ char *usr_text;
     dummy.bknown = obj ? obj->bknown : 0;
     dummy.blessed = obj ? obj->blessed : 0;
     dummy.cursed = obj ? obj->cursed : 0;
+    dummy.altmode = obj ? obj->altmode : 0;
     
     
     if (obj && otyp == STRANGE_OBJECT) {

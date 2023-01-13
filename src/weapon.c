@@ -389,7 +389,7 @@ struct damage_info_t *damage_info)
         case RED_DOUBLE_LIGHTSABER: 
             if (otmp->altmode) {
                 tmp += rnd(11) + 10;
-                damage_info->bonus_large = "1d11 + 10";
+                damage_info->bonus_large = "+1d11 + 10";
                 break;
             } 
             /* FALLTHROUGH */
