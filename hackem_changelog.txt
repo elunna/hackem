@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-13: The Master Sword, Xanathar's Ring, and Key of Access are cleaned up for bones files.
 2023-01-13: Jedi's can reach Expert in martial arts.
 2023-01-13: Samurai alignment abuse ceases below -10 when attacking peacefuls.
 2023-01-13: The Jedi Master gets some decent equipment.
