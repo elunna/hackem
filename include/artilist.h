@@ -162,7 +162,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /* This lance does a lot of damage, and also occasionally stuns */
     A("Bradamante\'s Fury", LANCE, (SPFX_RESTR), 0, 0,
-      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
+      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 800L,
       NO_COLOR, DEFAULT_MAT),
     
     /* Staff of Circe. 1/20 chance of turning target into an animal. */
