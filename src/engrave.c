@@ -1062,11 +1062,11 @@ doengrave()
         }
 
         if (is_lightsaber(otmp)) {
-		    if (otmp->lamplit) 
+            if (otmp->lamplit) 
                 type = BURN;
-		    else
-                Your("%s is deactivated!", aobjnam(otmp,"are"));
-		} else
+            else
+                Your("%s deactivated!", aobjnam(otmp,"are"));
+        } else
 
         switch (otmp->otyp) {
         case MAGIC_MARKER:
