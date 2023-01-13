@@ -628,6 +628,7 @@ static const struct def_skill Skill_J[] = {
     { P_LONG_SWORD, P_SKILLED }, 
     { P_SABER, P_SKILLED },
     { P_HEALING_SPELL, P_BASIC },
+    { P_ENCHANTMENT_SPELL, P_SKILLED}, /* special spell is charm monster */
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_BASIC }, 
     { P_BARE_HANDED_COMBAT, P_EXPERT },
