@@ -1143,8 +1143,7 @@ char *usr_text;
     OBJPUTSTR("");
     
     /* Object classes currently with no special messages here: amulets. */
-    if (olet == WEAPON_CLASS 
-        || weptool 
+    if (olet == WEAPON_CLASS || weptool
         || otyp == FLINT || otyp == ROCK || otyp == SLING_BULLET) {
         const int skill = oc.oc_skill;
         const char* dmgtyp = "blunt";
@@ -1189,6 +1188,7 @@ char *usr_text;
                     "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
                     damage_info.damage_small, damage_info.bonus_small,
                     damage_info.damage_large, damage_info.bonus_large);
+            OBJPUTSTR(buf);
         } else {
             Sprintf(buf, "Damage:  Unknown (identification required)");
             OBJPUTSTR(buf);
@@ -1198,7 +1198,7 @@ char *usr_text;
         if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
         if (damage_info.mat_damage)     { OBJPUTSTR(damage_info.mat_damage); }
-        if (damage_info.hate_damage)     { OBJPUTSTR(damage_info.hate_damage); }
+        if (damage_info.hate_damage)    { OBJPUTSTR(damage_info.hate_damage); }
 
         /* Properties */
         if (dummy.oprops_known) {

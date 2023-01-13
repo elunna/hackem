@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-12: Fix: weapon damage vs sm/lg not appearing in object lookup.
 2023-01-12: Jedi can reach skilled in enchantment spells.
 2023-01-12: Fix: lightsaber check might have had null-weapon in weapon_hit_bonus.
 2023-01-12: Jedi role patch (ported from SlashTHEM) 
