@@ -1538,35 +1538,40 @@ mon_ignite_lightsaber(obj, mon)
 struct obj * obj;
 struct monst * mon;
 {
-	/* No obj or not lightsaber */
-	if (!obj || !is_lightsaber(obj)) return;
+    /* No obj or not lightsaber */
+    if (!obj || !is_lightsaber(obj))
+        return;
 
-	/* WAC - Check lightsaber is on */
-	if (!obj->lamplit) {
-	    if (obj->cursed && !rn2(2)) {
+    /* for some reason, the lightsaber prototype is created with age == 0 */
+    if (obj->oartifact == ART_LIGHTSABER_PROTOTYPE)
+        obj->age = 300L;
+    
+    /* WAC - Check lightsaber is on */
+    if (!obj->lamplit) {
+        if (obj->cursed && !rn2(2)) {
             if (canseemon(mon)) pline("%s %s flickers and goes out.", 
                 s_suffix(Monnam(mon)), xname(obj));
-	    } else {
+        } else {
             if (canseemon(mon)) {
                 makeknown(obj->otyp);
                 pline("%s ignites %s.", Monnam(mon), an(xname(obj)));
             }	    	
             begin_burn(obj, FALSE);
-	    }
-	} else {
-		/* Double Lightsaber in single mode? Ignite second blade */
-		if (obj->otyp == RED_DOUBLE_LIGHTSABER && !obj->altmode) {
-		    /* Do we want to activate dual bladed mode? */
-		    if (!obj->altmode && (!obj->cursed || rn2(4))) {
-			if (canseemon(mon)) pline("%s ignites the second blade of %s.", 
-				Monnam(mon), an(xname(obj)));
-		    	obj->altmode = TRUE;
-		    	return;
-		    } else obj->altmode = FALSE;
-		    lightsaber_deactivate(obj, TRUE);
-		}
-		return;
-	}
+        }
+    } else {
+        /* Double Lightsaber in single mode? Ignite second blade */
+        if (obj->otyp == RED_DOUBLE_LIGHTSABER && !obj->altmode) {
+            /* Do we want to activate dual bladed mode? */
+            if (!obj->altmode && (!obj->cursed || rn2(4))) {
+                if (canseemon(mon)) pline("%s ignites the second blade of %s.", 
+                        Monnam(mon), an(xname(obj)));
+                obj->altmode = TRUE;
+                return;
+            } else obj->altmode = FALSE;
+            lightsaber_deactivate(obj, TRUE);
+        }
+        return;
+    }
 }
 
 
@@ -2354,7 +2359,11 @@ struct obj *weapon;
         weapon->oartifact == ART_LUCKLESS_FOLLY) {
         bonus += 2 * Luck;
     }
-
+    
+    /* Jedi are trained in lightsabers, no to-hit penalty for them */
+    if (Role_if(PM_JEDI) && is_lightsaber(weapon))
+        bonus -= objects[weapon->otyp].oc_hitbon;
+    
     return bonus;
 }
 
@@ -2448,7 +2457,27 @@ struct obj *weapon;
             break;
         }
     }
-
+    
+    /* Jedi are simply better */
+    if (Role_if(PM_JEDI) && weapon && is_lightsaber(weapon)) {
+        switch (P_SKILL(type)) {
+        case P_EXPERT: 
+            bonus += 4; 
+            break; /* fall through removed by Amy */
+        case P_SKILLED: 
+            bonus += 2; 
+            break;
+        case P_BASIC: 
+            bonus += 1; 
+            break;
+        case P_UNSKILLED: 
+            break;
+        default: 
+            impossible("unknown lightsaber skill for a jedi"); 
+            break;
+        }
+    }
+    
     return bonus;
 }
 

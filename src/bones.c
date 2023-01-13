@@ -233,14 +233,17 @@ boolean restore;
                 otmp->otyp = SPE_BLANK_PAPER;
                 curse(otmp);
             } else if (otmp->oartifact == ART_THIEFBANE) {
-			    /* Guaranteed artifacts become ordinary objects */
-			    otmp->oartifact = 0;
+                /* Guaranteed artifacts become ordinary objects */
+                otmp->oartifact = 0;
                 free_oname(otmp);
-			    #if 0
+#if 0
                 otmp->onamelth = 0;
-			    *ONAME(otmp) = '\0';
-                #endif
-			}
+                *ONAME(otmp) = '\0';
+#endif
+            } else if (is_lightsaber(otmp)){
+                if (otmp->lamplit)
+                    end_burn(otmp, FALSE);
+            }
         }
     }
 }

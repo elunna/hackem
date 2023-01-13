@@ -271,6 +271,7 @@ Boots_on(VOID_ARGS)
         u.uprops[objects[uarmf->otyp].oc_oprop].extrinsic & ~WORN_BOOTS;
 
     switch (uarmf->otyp) {
+    case PLASTEEL_BOOTS:
     case LOW_BOOTS:
     case DWARVISH_BOOTS:
     case HIGH_BOOTS:
@@ -408,6 +409,7 @@ Boots_off(VOID_ARGS)
     case HIGH_BOOTS:
     case KICKING_BOOTS:
     case ORCISH_BOOTS:
+    case PLASTEEL_BOOTS:
         break;
     default:
         impossible(unknown_type, c_boots, otyp);
@@ -613,6 +615,7 @@ Helmet_on(VOID_ARGS)
     case DWARVISH_HELM:
     case ORCISH_HELM:
     case HELM_OF_TELEPATHY:
+    case PLASTEEL_HELM:
         break;
     case TINFOIL_HAT:
         pline("Your thoughts feel much more secure.");
@@ -722,6 +725,7 @@ Helmet_off(VOID_ARGS)
     case ORCISH_HELM:
     case TINFOIL_HAT:
     case HELM_OF_MADNESS:
+    case PLASTEEL_HELM:
         break;
     case DUNCE_CAP:
         context.botl = 1;
@@ -770,6 +774,7 @@ Gloves_on(VOID_ARGS)
     case GAUNTLETS:
     case ROGUES_GLOVES:
     case BOXING_GLOVES:
+    case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_FUMBLING:
         if (!(HFumbling & ~TIMEOUT))
@@ -844,6 +849,7 @@ Gloves_off(VOID_ARGS)
     case GAUNTLETS_OF_PROTECTION:
     case ROGUES_GLOVES:
     case BOXING_GLOVES:
+    case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_SWIMMING:
 	    if (u.uinwater) {
@@ -2460,6 +2466,11 @@ boolean noisy;
                 pline_The("%s is too rigid to wear.",
                           helm_simple_name(otmp));
             err++;
+        } else if (((Upolyd && is_mind_flayer(youmonst.data)) || Race_if(PM_ILLITHID)) 
+                   && otmp->otyp == PLASTEEL_HELM) {
+            if (noisy)
+                pline_The("%s won't fit over your tentacles.", xname(otmp));
+            err++;
         } else
             *mask = W_ARMH;
     } else if (is_shield(otmp)) {
@@ -2897,6 +2908,10 @@ doputon()
                                        : (ublindf->otyp == GOGGLES) ? "some goggles"
                                                                     : "a blindfold");
         return 0;
+    }
+    if (uarmh && uarmh->otyp == PLASTEEL_HELM){
+        pline("The %s covers your whole face. You need to remove it first.", xname(uarmh));
+        return 1;
     }
     otmp = getobj(accessories, "put on");
     return otmp ? accessory_or_armor_on(otmp) : 0;

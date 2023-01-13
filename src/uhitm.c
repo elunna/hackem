@@ -263,6 +263,12 @@ struct monst *mtmp;
         /* attacking peaceful creatures is bad for the samurai's giri */
         You("dishonorably attack the innocent!");
         adjalign(-1);
+    } else if (Role_if(PM_JEDI) && mtmp->mpeaceful &&
+        u.ualign.record > -10) {
+        /* as well as for the way of the Jedi */
+        You("violate the way of the Jedi!");
+        /*u.ualign.sins++;*/
+        adjalign(-5);
     }
 }
 
@@ -322,6 +328,15 @@ int *attk_count, *role_roll_penalty;
             tmp -= (*role_roll_penalty = urole.spelarmr) + 20;
         else if (!uwep && !uarms)
             tmp += (u.ulevel / 3) + 2;
+    }
+    if (Role_if(PM_JEDI) && !Upolyd) {
+        if (((uwep && is_lightsaber(uwep) && uwep->lamplit) ||
+             (uswapwep && u.twoweap && is_lightsaber(uswapwep) && uswapwep->lamplit)) 
+            && (uarm && (uarm->otyp < ROBE || uarm->otyp > ROBE_OF_WEAKNESS))) {
+            char yourbuf[BUFSZ];
+            You("can't use %s %s effectively in this armor...", shk_your(yourbuf, uwep), xname(uwep));
+            tmp -= 20;  /* sorry */
+        }
     }
 
     /* elves get a slight bonus to-hit vs orcs */
@@ -1115,6 +1130,13 @@ int dieroll;
                     tmp = 0;
                 else
                     tmp = rnd(2);
+                
+                /* 5lo: Jedi know how to use an unlit lightsaber as a weapon */
+                if (is_lightsaber(obj) && !obj->lamplit && Role_if(PM_JEDI)) {
+                    tmp = d(1,4) + obj->spe + (P_SKILL(P_BARE_HANDED_COMBAT) - P_UNSKILLED);
+                    use_skill(P_BARE_HANDED_COMBAT, 1);  /* throw them a bone */
+                }
+                
                 if (mon_hates_material(mon, obj->material)) {
                     /* dmgval() already added bonus damage */
                     hated_obj = obj;
@@ -1285,6 +1307,29 @@ int dieroll;
                                            ? "splinter" : (monwep->material == PLATINUM || monwep->material == GOLD
                                                            || monwep->material == SILVER || monwep->material == COPPER)
                                                           ? "break" : "shatter"));
+                    m_useupall(mon, monwep);
+                    /* If someone just shattered MY weapon, I'd flee! */
+                    if (!rn2(4))
+                        monflee(mon, d(2, 3), TRUE, TRUE);
+                    hittxt = TRUE;
+                } else if (obj == uwep 
+                           && (Role_if(PM_JEDI) && is_lightsaber(obj)) 
+                           && ((wtype = uwep_skill_type()) != P_NONE 
+                               && P_SKILL(wtype) >= P_SKILLED) 
+                           && ((monwep = MON_WEP(mon)) != 0 
+                               && !is_lightsaber(monwep) 
+                               && !monwep->oartifact
+                               && !is_flimsy(monwep)
+                               && !is_mithril(monwep) /* mithril is super-strong */
+                               && !is_crystal(monwep) /* so are weapons made of gemstone */
+                               && !obj_resists(monwep, 50 + 15 * greatest_erosion(obj), 100))) {
+                    /*no cutting other lightsabers :) */
+                    /* no cutting artifacts either */
+                    setmnotwielded(mon,monwep);
+                    mon->weapon_check = NEED_WEAPON;
+                    Your("%s cuts %s %s in half!",
+                         xname(obj),
+                         s_suffix(mon_nam(mon)), xname(monwep));
                     m_useupall(mon, monwep);
                     /* If someone just shattered MY weapon, I'd flee! */
                     if (!rn2(4))

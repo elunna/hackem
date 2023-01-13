@@ -1097,6 +1097,15 @@ break_armor()
             }
         }
     }
+    if ((otmp = uarmh) != 0 && (is_mind_flayer(youmonst.data))) {
+        if (!otmp->cursed){
+            pline_The("%s is pushed from your head by your tentacles.", xname(otmp));
+            (void) Helmet_off();
+        } else {
+            Your("tentacles break through %s.", the(xname(otmp)));
+            useup(uarmh);
+        }
+    }
     if (nohands(youmonst.data) || verysmall(youmonst.data)) {
         if ((otmp = uarmg) != 0) {
             if (donning(otmp))

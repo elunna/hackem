@@ -550,6 +550,18 @@ struct obj *obj;
             if (rn2(2))
                 shield = STRANGE_OBJECT;
             break;
+        case PM_JEDI:
+        case PM_PADAWAN:
+            switch (rnd(3)) {
+            case 1: weapon = RED_LIGHTSABER; break;
+            case 2: weapon = BLUE_LIGHTSABER; break;
+            case 3: weapon = GREEN_LIGHTSABER; break;
+            }
+            cloak = STRANGE_OBJECT;
+            armor = rn2(2) ? ROBE : ROBE_OF_POWER;
+            helm = STRANGE_OBJECT;
+            shield = STRANGE_OBJECT;
+            break;
         case PM_KNIGHT:
             if (rn2(4))
                 weapon = LONG_SWORD;

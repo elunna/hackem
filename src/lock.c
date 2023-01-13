@@ -905,11 +905,14 @@ doforce()
                   && mtmp->m_ap_type != M_AP_FURNITURE
                   && mtmp->m_ap_type != M_AP_OBJECT) {
 
-        if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE])
-            verbalize("What do you think you are, a Jedi?"); /* Phantom Menace */
-        else
-            pline("I don't think %s would appreciate that.", mon_nam(mtmp));
-        return 0;
+            if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE]) {
+                if (Role_if(PM_JEDI)) /* Return of the Jedi */
+                    verbalize( "Your puny Jedi tricks won't work on me!");
+                else /* Phantom Menace */
+                    verbalize( "What do you think you are, a Jedi?");
+            } else
+                pline("I don't think %s would appreciate that.", mon_nam(mtmp));
+            return 0;
         }
 
         /* Lightsabers dig through doors and walls via dig.c */

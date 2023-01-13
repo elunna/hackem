@@ -115,6 +115,11 @@ struct trobj Ice_Mage[] = {
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
+static struct trobj Jedi[] = {
+    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
 struct trobj Infidel[] = {
     { AMULET_OF_YENDOR, 0, AMULET_CLASS, 1, 0 },
     { DAGGER, 1, WEAPON_CLASS, 1, 0 },
@@ -336,7 +341,18 @@ struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
-
+struct trobj GreenSaber[] = {
+    { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0, }
+};
+struct trobj BlueSaber[] = {
+    { BLUE_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0, }
+};
+struct trobj RedSaber[] = {
+    { RED_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0, }
+};
 
 /* race-based substitutions for initial inventory;
    the weaker cloak for elven rangers is intentional--they shoot better */
@@ -602,6 +618,19 @@ static const struct def_skill Skill_Inf[] = {
     { P_DIVINATION_SPELL, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_RIDING, P_SKILLED },
+    { P_NONE, 0 }
+};
+static const struct def_skill Skill_J[] = {
+    /* 5lo: Straight from Jedi patch */
+    { P_LIGHTSABER, P_EXPERT },
+    { P_SHORT_SWORD, P_BASIC }, 
+    { P_BROAD_SWORD, P_BASIC },
+    { P_LONG_SWORD, P_SKILLED }, 
+    { P_SABER, P_SKILLED },
+    { P_HEALING_SPELL, P_BASIC },
+    { P_RIDING, P_SKILLED },
+    { P_TWO_WEAPON_COMBAT, P_BASIC }, 
+    { P_BARE_HANDED_COMBAT, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_K[] = {
@@ -1166,6 +1195,29 @@ u_init()
         else
             ini_inv(GrapplingHook);
         skill_init(Skill_I);
+        break;
+        
+    case PM_JEDI:
+        ini_inv(Jedi);
+        /* Random lightsaber at start */
+        switch (rnd(3)) {
+        case 1:
+            ini_inv(RedSaber); 
+            break;
+        case 2: 
+            ini_inv(BlueSaber); 
+            break;
+        case 3: 
+            ini_inv(GreenSaber); 
+            break;
+        default: 
+            break;
+        }
+        if (!rn2(2))
+            ini_inv(Blindfold);
+        skill_init(Skill_J);
+        knows_class(WEAPON_CLASS);
+        knows_class(ARMOR_CLASS);
         break;
     case PM_CONVICT:
         ini_inv(Convict);
@@ -1885,6 +1937,9 @@ int otyp;
     case PM_INFIDEL:
         skills = Skill_Inf;
         break;
+    case PM_JEDI:
+        skills = Skill_J;
+        break;
     case PM_KNIGHT:
         skills = Skill_K;
         break;
@@ -2052,7 +2107,12 @@ register struct trobj *origtrop;
         /* Don't start with +0 or negative rings */
         if (objects[otyp].oc_charged && obj->spe <= 0)
             obj->spe = rne(3);
-
+        
+        /* start with maxed lightsaber. 
+         * only Jedi start with one, so no need to check Role_if here */
+        if (is_lightsaber(obj))
+            obj->age = 1500;
+        
         /* Don't allow materials to be start scummed for */
         set_material(obj, objects[otyp].oc_material);
 

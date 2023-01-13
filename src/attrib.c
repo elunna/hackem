@@ -60,6 +60,12 @@ static const struct innate {
                  { 20, &(HShock_resistance), "insulated", "conductive" },
                  { 0, 0, 0, 0 } },
 
+  jed_abil[] = { { 1, &(HStealth), "", ""},
+                 { 3, &(HTelepat), "disturbances in the force", "your grip on the force lessen" },
+                 { 5, &(HSee_invisible), "your vision sharpen", "your vision blurring" },
+                 { 7, &(HFast), "quick", "slow" },
+                 { 0, 0, 0, 0 } },
+  
   kni_abil[] = { { 7, &(HFast), "quick", "slow" }, { 0, 0, 0, 0 } },
 
   mon_abil[] = { { 1, &(HFast), "", "" },
@@ -853,6 +859,7 @@ int r;
         { PM_FLAME_MAGE, fla_abil },
         { PM_HEALER, hea_abil },
         { PM_ICE_MAGE, ice_abil },
+        { PM_JEDI, jed_abil },
         { PM_INFIDEL, inf_abil },
         { PM_KNIGHT, kni_abil },
         { PM_MONK, mon_abil },

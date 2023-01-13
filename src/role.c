@@ -302,6 +302,45 @@ const struct Role roles[] = {
       { 4, 3, 0, 1, 0, 2 },
       10, /* Energy */
       10, 3, 1, 2, 10, A_WIS, SPE_FIREBALL, -4 },
+    { {"Jedi", 0}, 
+      { { "Youngling",     0 },
+        //{ "Padawan",       0 },
+        { "Padawan",       0 },
+        //{ "Jedi Apprentice", 0 },
+        { "Jedi Apprentice", 0 },
+        //{ "Jedi Knight",    0 },
+        { "Jedi Knight",    0 },
+        { "Jedi Hero",      0 },
+        { "Jedi Master",    0 } },
+      "the Light Side", "the Force", "the Dark Side",
+      "Jed",
+      "the Jedi Temple",
+      "the Outer Rim",
+      PM_JEDI, 
+      NON_PM, 
+      PM_LITTLE_DOG,
+      PM_THE_JEDI_MASTER, 
+      PM_PADAWAN, 
+      PM_LORD_SIDIOUS,
+      PM_STORMTROOPER, 
+      PM_STORMTROOPER, 
+      S_HUMAN,
+      S_HUMAN,
+#if 0
+	ART_DELUDER, ART_SNAKESKIN
+#endif
+      ART_LIGHTSABER_PROTOTYPE,
+      MH_HUMAN | MH_ELF | MH_HOBBIT,
+      ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL,
+      /* Str Int Wis Dex Con Cha */
+      {  10,  7, 14, 12, 10, 14 },
+      {  30, 15, 15, 10, 20, 10 },
+      /* Init   Lower  Higher */
+      { 20, 4,  0, 8,  2, 4 },	/* Hit points */
+      {  5, 4,  0, 1,  0, 4 },
+      10, /* Energy */
+      0, 12 , -1, 2, 10, A_INT, SPE_CHARM_MONSTER, -4
+    },
     { { "Knight", 0 },
       { { "Gallant", 0 },
         { "Esquire", 0 },
@@ -319,13 +358,16 @@ const struct Role roles[] = {
       PM_KNIGHT,
       NON_PM,
       PM_PONY,
+      
       PM_KING_ARTHUR,
       PM_PAGE,
       PM_IXOTH,
+      
       PM_QUASIT,
       PM_OCHRE_JELLY,
       S_IMP,
       S_JELLY,
+      
       ART_MAGIC_MIRROR_OF_MERLIN,
       MH_HUMAN | MH_DWARF | MH_ELF | MH_ORC | MH_CENTAUR,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_CHAOTIC,

@@ -89,6 +89,17 @@ const char *name; /* if null, then format `*objp' */
             if (onm != onmbuf)
                 Strcpy(onmbuf, onm); /* [modifiable buffer for upstart()] */
             pline("%s %s you.", upstart(onmbuf), vtense(onmbuf, "miss"));
+        }
+         else if (Role_if(PM_JEDI) 
+                     && uwep 
+                     && is_lightsaber(uwep) 
+                     && uwep->lamplit
+                     && P_SKILL(weapon_type(uwep)) >= P_SKILLED 
+                     && rn2(5)) {
+            /* dodge four of five missiles, even when blind see "A new hope" 
+             * for blindness reference */
+            You("dodge %s with %s.", onm, yname(uwep));
+            return 0;
         } else
             You("are almost hit by %s.", onm);
         return 0;

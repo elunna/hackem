@@ -2886,6 +2886,25 @@ struct monst *magr, /* monster that is currently deciding where to move */
     if (ma == &mons[PM_RAVEN] && md == &mons[PM_FLOATING_EYE])
         return ALLOW_M | ALLOW_TM;
 
+    /* Stormtroopers vs. Padawans */
+    if(magr->data == &mons[PM_STORMTROOPER] && mdef->data == &mons[PM_PADAWAN])
+        return ALLOW_M | ALLOW_TM;
+    /* and vice versa */
+    if(mdef->data == &mons[PM_STORMTROOPER] && magr->data == &mons[PM_PADAWAN])
+        return ALLOW_M | ALLOW_TM;
+    /* Stormtroopers vs. Jedi */
+    if(magr->data == &mons[PM_STORMTROOPER] && mdef->data == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    /* and vice versa */
+    if(mdef->data == &mons[PM_STORMTROOPER] && magr->data == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    /* Jedi vs. Lord Sidious */
+    if(magr->data == &mons[PM_LORD_SIDIOUS] && mdef->data == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    /* and vice versa */
+    if(mdef->data == &mons[PM_LORD_SIDIOUS] && magr->data == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    
     /* dungeon fern spores hate everything */
     if (is_fern_spore(ma) 
         && !is_fern_spore(md) 

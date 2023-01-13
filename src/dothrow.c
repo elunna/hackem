@@ -1337,7 +1337,14 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-
+    /* 5lo: This gets used a lot, so put it here */
+    boolean jedi_forcethrow = 
+        (Role_if(PM_JEDI) 
+         && is_lightsaber(obj) 
+         && obj->lamplit
+         && !impaired 
+         && P_SKILL(weapon_type(obj)) >= P_SKILLED);
+    
     /* KMH -- Handle Plague here */
     if (uwep && uwep->oartifact == ART_PLAGUE &&
         ammo_and_launcher(obj, uwep) && is_poisonable(obj))
@@ -1440,6 +1447,16 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                 setuqwep((struct obj *) 0);
             setuwep(obj);
             u.twoweap = twoweap;
+        } else if (u.dz < 0 && jedi_forcethrow) {
+            pline("%s the %s and returns to your hand!",
+                  Tobjnam(obj, "hit"), ceiling(u.ux,u.uy));
+            obj = addinv(obj);
+            (void) encumber_msg();
+            if (obj->owornmask & W_QUIVER) /* in case addinv() autoquivered */
+                setuqwep((struct obj *) 0);
+            setuwep(obj);
+            u.twoweap = twoweap;
+            /*return;*/
         } else if (is_bomb(obj)) {
             arm_bomb(obj, TRUE);
         } else if (u.dz < 0) {
@@ -1634,60 +1651,71 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     } else {
         /* Mjollnir and Xiuhcoatl must be wielded to be thrown--caller verifies this;
            aklys must be wielded as primary to return when thrown */
-        if (iflags.returning_missile) { /* Mjollnir, Xiuhcoatl or aklys */
+        if (iflags.returning_missile || jedi_forcethrow) { /* Mjollnir, Xiuhcoatl or aklys */
             if (rn2(100)) {
-                if (tethered_weapon)
-                    tmp_at(DISP_END, BACKTRACK);
-                else
-                    sho_obj_return_to_u(obj); /* display its flight */
-
-                if (!impaired && rn2(100)) {
-                    pline("%s to your hand!", Tobjnam(obj, "return"));
-                    obj = addinv(obj);
-                    (void) encumber_msg();
-                    /* addinv autoquivers an aklys if quiver is empty;
-                       if obj is quivered, remove it before wielding */
-                    if (obj->owornmask & W_QUIVER)
-                        setuqwep((struct obj *) 0);
-                    setuwep(obj);
-                    u.twoweap = twoweap;
-                    retouch_object(&obj, TRUE);
-                    if (cansee(bhitpos.x, bhitpos.y))
-                        newsym(bhitpos.x, bhitpos.y);
+                /* or a Jedi with a lightsaber */
+                if (Role_if(PM_JEDI) && u.uen < 5 && obj->otyp != AKLYS) {
+                    You("don't have enough force to call %s. You need at least 5 points of mana!", the(xname(obj)));
                 } else {
-                    int dmg = rn2(2);
+                    if (Role_if(PM_JEDI) && obj->otyp != AKLYS)
+                        u.uen -= 5;
 
-                    if (!dmg) {
-                        pline(Blind ? "%s lands %s your %s."
-                                    : "%s back to you, landing %s your %s.",
-                              Blind ? Something : Tobjnam(obj, "return"),
-                              Levitation ? "beneath" : "at",
-                              makeplural(body_part(FOOT)));
+                    if (tethered_weapon)
+                        tmp_at(DISP_END, BACKTRACK);
+                    else
+                        sho_obj_return_to_u(obj); /* display its flight */
+
+                    if (!impaired && rn2(100)) {
+                        pline("%s to your hand!", Tobjnam(obj, "return"));
+                        obj = addinv(obj);
+                        (void) encumber_msg();
+                        /* addinv autoquivers an aklys if quiver is empty;
+                           if obj is quivered, remove it before wielding */
+                        if (obj->owornmask & W_QUIVER)
+                            setuqwep((struct obj *) 0);
+                        setuwep(obj);
+                        u.twoweap = twoweap;
+                        retouch_object(&obj, TRUE);
+                        if (cansee(bhitpos.x, bhitpos.y))
+                            newsym(bhitpos.x, bhitpos.y);
                     } else {
-                        dmg += rnd(3);
-                        pline(Blind ? "%s your %s!"
-                                    : "%s back toward you, hitting your %s!",
-                              Tobjnam(obj, Blind ? "hit" : "fly"),
-                              body_part(ARM));
-                        if (obj->oartifact)
-                            (void) artifact_hit((struct monst *) 0, &youmonst,
-                                                obj, &dmg, 0);
-                        if (Hate_material(obj->material)) {
-                            dmg += rnd(sear_damage(obj->material));
-                            exercise(A_CON, FALSE);
-                            searmsg(NULL, &youmonst, obj, TRUE);
-                        }
-                        losehp(Maybe_Half_Phys(dmg), killer_xname(obj),
-                               KILLED_BY);
-                    }
+                        int dmg = rn2(2);
 
-                    if (u.uswallow)
-                        goto swallowit;
-                    if (!ship_object(obj, u.ux, u.uy, FALSE))
-                        dropy(obj);
+                        if (!dmg) {
+                            pline(Blind
+                                      ? "%s lands %s your %s."
+                                      : "%s back to you, landing %s your %s.",
+                                  Blind ? Something : Tobjnam(obj, "return"),
+                                  Levitation ? "beneath" : "at",
+                                  makeplural(body_part(FOOT)));
+                        } else {
+                            dmg += rnd(3);
+                            pline(
+                                Blind
+                                    ? "%s your %s!"
+                                    : "%s back toward you, hitting your %s!",
+                                Tobjnam(obj, Blind ? "hit" : "fly"),
+                                body_part(ARM));
+                            if (obj->oartifact)
+                                (void) artifact_hit((struct monst *) 0,
+                                                    &youmonst, obj, &dmg, 0);
+                            if (Hate_material(obj->material)) {
+                                dmg += rnd(sear_damage(obj->material));
+                                exercise(A_CON, FALSE);
+                                searmsg(NULL, &youmonst, obj, TRUE);
+                            }
+                            losehp(Maybe_Half_Phys(dmg), killer_xname(obj),
+                                   KILLED_BY);
+                        }
+
+                        if (u.uswallow)
+                            goto swallowit;
+                        if (!ship_object(obj, u.ux, u.uy, FALSE))
+                            dropy(obj);
+                    }
+                    clear_thrownobj = TRUE;
+                    goto throwit_return;
                 }
-                clear_thrownobj = TRUE;
-                goto throwit_return;
             } else {
                 if (tethered_weapon)
                     tmp_at(DISP_END, 0);

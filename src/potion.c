@@ -638,6 +638,11 @@ dodrink()
         pline("If you can't breathe air, how can you drink liquid?");
         return 0;
     }
+    if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        pline("The %s covers your whole face.", xname(uarmh));
+        return 0;
+    }
+    
     /* Is there a fountain to drink from here? */
     if (IS_FOUNTAIN(levl[u.ux][u.uy].typ)
         /* not as low as floor level but similar restrictions apply */

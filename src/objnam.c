@@ -3483,6 +3483,7 @@ const char * in_str;
         && strncmpi(in_str, "ring of p'", 10)
         && strncmpi(in_str, "wand of orcus", 13)
         && strncmpi(in_str, "food ration", 11)
+        && strncmpi(in_str, "plasteel armor", 14)
         && strncmpi(in_str, "meat ring", 9)) {
         for (i = 0; i < (int) (sizeof wrpsym); i++) {
             int j = strlen(wrp[i]);

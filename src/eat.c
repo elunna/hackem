@@ -3041,6 +3041,10 @@ doeat()
         pline("If you can't breathe air, how can you consume solids?");
         return 0;
     }
+    if (uarmh && uarmh->otyp == PLASTEEL_HELM){
+        pline("The %s covers your whole face.", xname(uarmh));
+        return 0;
+    }
     if (!(otmp = floorfood("eat", 0)))
         return 0;
     if (check_capacity((char *) 0))

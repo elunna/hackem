@@ -1545,6 +1545,12 @@ struct obj *obj;
                               : "Sorry, fire and water don't mix.");
         return;
     }
+    
+    // for some reason, the lightsaber prototype is created with
+    // age == 0
+    if (obj->oartifact == ART_LIGHTSABER_PROTOTYPE)
+        obj->age = 300L;
+    
     /* magic lamps with an spe == 0 (wished for) cannot be lit */
     if ((!Is_candle(obj) && obj->age == 0)
         || (obj->otyp == MAGIC_LAMP && obj->spe == 0)) {

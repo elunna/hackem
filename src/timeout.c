@@ -2039,6 +2039,10 @@ boolean already_lit;
     case GREEN_LIGHTSABER:
         turns = 1;
         radius = 2;
+        if (obj->oartifact == ART_LIGHTSABER_PROTOTYPE) {
+            do_timer = FALSE;
+            obj->lamplit = 1;
+        }
         break;
     case POT_OIL:
         turns = obj->age;
@@ -2127,6 +2131,7 @@ boolean timer_attached;
 
     if (obj->otyp == MAGIC_LAMP 
             || obj->otyp == MAGIC_CANDLE
+            || obj->oartifact == ART_LIGHTSABER_PROTOTYPE 
             || artifact_light(obj))
         timer_attached = FALSE;
 
