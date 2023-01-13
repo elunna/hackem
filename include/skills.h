@@ -83,6 +83,7 @@ enum p_skills {
 /* These roles qualify for a martial arts bonus */
 #define martial_bonus() (Role_if(PM_SAMURAI) \
                          || Role_if(PM_MONK) \
+                         || Role_if(PM_JEDI) \
                          || Role_if(PM_UNDEAD_SLAYER))
 
 /*

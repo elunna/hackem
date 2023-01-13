@@ -631,7 +631,7 @@ static const struct def_skill Skill_J[] = {
     { P_ENCHANTMENT_SPELL, P_SKILLED}, /* special spell is charm monster */
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_BASIC }, 
-    { P_BARE_HANDED_COMBAT, P_EXPERT },
+    { P_MARTIAL_ARTS, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_K[] = {
