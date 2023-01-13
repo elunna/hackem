@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-13: The Jedi Master gets some decent equipment.
 2023-01-12: Fix typo when engraving with unlit lightsaber.
 2023-01-12: Corrected double lightsaber damage and formatting in lookup.
 2023-01-12: Fix: weapon damage vs sm/lg not appearing in object lookup.
