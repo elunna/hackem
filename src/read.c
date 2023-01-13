@@ -4073,6 +4073,7 @@ struct obj **sobjp;
         otmp2->oeroded2 = otmp->oeroded2;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
+        otmp2->oprops = otmp->oprops;
         
         /* Prevent exploits */
         if (otmp2->otyp == WAN_WISHING) 
