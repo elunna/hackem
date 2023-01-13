@@ -2361,7 +2361,7 @@ struct obj *weapon;
     }
     
     /* Jedi are trained in lightsabers, no to-hit penalty for them */
-    if (Role_if(PM_JEDI) && is_lightsaber(weapon))
+    if (weapon && is_lightsaber(weapon) && Role_if(PM_JEDI))
         bonus -= objects[weapon->otyp].oc_hitbon;
     
     return bonus;
