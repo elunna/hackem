@@ -2194,11 +2194,10 @@ register struct trobj *origtrop;
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
-                if (obj->otyp == SPEAR 
-                    || obj->otyp == DAGGER 
-                    || obj->otyp == ELVEN_DAGGER 
-                    || obj->otyp == TRIDENT 
-                    || obj->otyp == BULLET)
+                if (is_spear(obj) || is_ammo(obj)
+                      || obj->otyp == DAGGER 
+                      || obj->otyp == ELVEN_DAGGER
+                      || obj->otyp == TRIDENT)
                     set_material(obj, SILVER);
                 
                 if (obj->otyp == JACKET) 
