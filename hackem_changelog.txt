@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-14: Quest leaders will make you forfeit the quest artifact only if you heavily abuse alignment (less than -64 alignment abuse score required)
 2023-01-14: Undead slayers also get silver crossbow bolts or silver elven spears (if elven).
 2023-01-14: Enabled giants and centaurs for convicts.
 2023-01-14: Updated monsters on plane of water with deepest ones, giant squids, and mermaids.
