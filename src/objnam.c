@@ -3262,7 +3262,6 @@ static const struct alt_spellings {
     { "hand grenade", FIRE_BOMB },
     { "frag grenade", FIRE_BOMB },
     { "gas grenade", GAS_BOMB },
-    { "spear of light", ART_HOLY_SPEAR_OF_LIGHT },
     /* armor */
     { "smooth shield", SHIELD_OF_REFLECTION },
     { "grey dragon scales", GRAY_DRAGON_SCALES },
