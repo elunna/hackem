@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-14: Increased price of scroll of time to 300 (ink cost is still 30).
 2023-01-14: Removed spear of light from alt_spellings list (that only works for non-artifacts.)
 2023-01-14: Samurai gets Kiku-ichimonji as a first sacrifice gift instead of Snickersnee (from SlashTHEM).
 2023-01-14: Quest leaders will make you forfeit the quest artifact only if you heavily abuse alignment (less than -64 alignment abuse score required)
