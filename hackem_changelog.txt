@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-14: Fix all Sokoban typos.
 2023-01-14: Increased price of scroll of time to 300 (ink cost is still 30).
 2023-01-14: Removed spear of light from alt_spellings list (that only works for non-artifacts.)
 2023-01-14: Samurai gets Kiku-ichimonji as a first sacrifice gift instead of Snickersnee (from SlashTHEM).
@@ -86,7 +87,7 @@ Version 1.1 (unreleased)
 2023-01-10: Implemented the Pirate Patch (from SpliceHack). Used the quest file from SlashTHEM with minor modifications.
 2023-01-10: Imported burning eye (from SlashTHEM)
 2023-01-10: Added a form of the Chi Strike technique to the monks attack routine.
-2023-01-10: Added 6 more top levels to sokobon (from fourk)
+2023-01-10: Added 6 more top levels to sokoban (from fourk)
 2023-01-10: Fix: Monk's shatter attack not triggering due to robes being considered body armor.
 2023-01-10: Convict can reach expert in firearms.
 2023-01-10: Player centaurs will turn into zombie centaurs when dying from terminal illness.
@@ -148,7 +149,7 @@ Version 1.1 (unreleased)
 2023-01-05: Fix for soko .lev files
 2023-01-05: Re-added odrained to obj structure to preserve saves (will be removed in next release.)
 2023-01-05: Attacking a monster wearing deep dragon scales will only drain levels 1 in 3 times (to mirror mhitu)
-2023-01-05: Imported 11 sokobon levels from slashTHEM.
+2023-01-05: Imported 11 sokoban levels from slashTHEM.
 2023-01-05: Added more variety to the nasties list.
 2023-01-05: Fix: Hit message for The Master Sword.
 2023-01-05: Imported special attack for Mouser's Scalpel from slashTHEM.
@@ -387,7 +388,7 @@ fc70e1053 2022-12-09: "Fixed handling of vampiric attacks - fixes #121.",
 7b737611a 2022-12-09: "Adjusted the monsters on the neutral quest to more sane numbers.",
 ae59369be 2022-12-09: "Minions count as pets.",
 68ec31114 2022-12-09: "Your god will not grant a minion if you have maintained petless conduct. If you pet count ever changes to 1 or more, than minions are unlocked from sacrificing.",
-7ac2fedb7 2022-12-09: "The first level of sokobon always has 2 scrolls of earth.",
+7ac2fedb7 2022-12-09: "The first level of sokoban always has 2 scrolls of earth.",
 70e3045a4 2022-12-09: "Fix: if poly form was killed from being hit by the Wand of Orcus, max hitpoints were not restored when reverting to original form. (evil)",
 0dc0fd08c 2022-12-09: "Secespita tweaks. (evil)",
 a4fc64517 2022-12-09: "Brain eating/amnesia can remove intrinsic telepathy.",
@@ -2636,7 +2637,7 @@ a447338aa 2022-07-26: "Enabled #force down doors and using lightsabers to cut do
 70e8ae331 2022-07-26: "Fixed enlightenment reporting of glow warning.",
 44f9b9c67 2022-07-26: "Fixed frag grenade explosions, they were lightning. Changes to firey.",
 7214e5b5d 2022-07-26: "Removed unnecessary weapon checks in setapplyclasses and put firearm checks in getobj instead.",
-a5411f05a 2022-07-26: "Fixed issue of armed grenades turning into sokobon prize tools, created new bitfield for armed bombs.",
+a5411f05a 2022-07-26: "Fixed issue of armed grenades turning into sokoban prize tools, created new bitfield for armed bombs.",
 498597942 2022-07-25: "Implemented frag grenades and gas grenades.",
 f903d00f0 2022-07-25: "Apply modes for automatic firearms are now functional.",
 bf2177830 2022-07-25: "Shopkeepers can get shotguns and ammo.",

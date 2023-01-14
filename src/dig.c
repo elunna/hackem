@@ -1244,7 +1244,7 @@ struct obj *obj;
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);
-            wake_nearby(); /* --hackem: No more freebies in sokobon! */
+            wake_nearby(); /* --hackem: No more freebies in sokoban! */
         }
     } else if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)) {
         /* it must be air -- water checked above */
