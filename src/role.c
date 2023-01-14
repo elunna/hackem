@@ -154,8 +154,8 @@ const struct Role roles[] = {
       S_RODENT,
       S_SPIDER,
       ART_IRON_SPOON_OF_LIBERATION,
-      MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_HOBBIT
-          | MH_ILLITHID | MH_VAMPIRE,
+      MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_GIANT
+          | MH_ILLITHID | MH_VAMPIRE | MH_CENTAUR,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC | ROLE_NORACEALIGN,
       /* Str Int Wis Dex Con Cha */
       { 10, 7, 7, 7, 13, 6 },
