@@ -4894,6 +4894,7 @@ arti_poly_contents(struct obj *obj)
     struct obj *dobj = 0;  /*object to be deleted*/
     struct obj *otmp;
     You_hear("%s.",random_seasound[rn2(SIZE(random_seasound))]);
+    
     for (otmp = obj->cobj; otmp; otmp = otmp->nobj){
         if (!otmp->unpaid)
             otmp->no_charge = 1;
@@ -4901,16 +4902,18 @@ arti_poly_contents(struct obj *obj)
             delobj(dobj);
             dobj = 0;
         }
-        if(!obj_resists(otmp, 5, 95)) {
+        if (!obj_resists(otmp, 5, 95)) {
             /* KMH, conduct */
             u.uconduct.polypiles++;
             /* any saved lock context will be dangerously obsolete */
-            if (Is_box(otmp)) (void) boxlock(otmp, obj);
+            if (Is_box(otmp)) 
+                (void) boxlock(otmp, obj);
 
             if (obj_shudders(otmp)) {
                 dobj = otmp;
             }
-            else otmp = poly_obj(otmp, STRANGE_OBJECT);
+            else 
+                otmp = poly_obj(otmp, STRANGE_OBJECT);
         }
     }
     if (dobj) {

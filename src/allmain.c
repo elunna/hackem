@@ -414,16 +414,18 @@ boolean resuming;
 #endif
                     
                     if (u.ukinghill) {
-                        if (u.protean > 0) u.protean--;
+                        if (u.protean > 0)
+                            u.protean--;
                         else {
-                            for (pobj = invent; pobj; pobj=pobj->nobj)
+                            for (pobj = invent; pobj; pobj = pobj->nobj)
                                 if (pobj->oartifact == ART_TREASURY_OF_PROTEUS)
                                     break;
-                            if (!pobj) pline("Treasury not actually in inventory??");
-                            else if (pobj->cobj){
+                            if (!pobj) 
+                                impossible("Treasury not actually in inventory??");
+                            else if (pobj->cobj) {
                                 arti_poly_contents(pobj);
                             }
-                            u.protean = rnz(100)+d(3,10);
+                            u.protean = rnz(100) + d(3, 10);
                             update_inventory();
                         }
                     }
