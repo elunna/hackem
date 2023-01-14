@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-14: Updated monsters on plane of water with deepest ones, giant squids, and mermaids.
 2023-01-14: Some cleanup in Treasury of Proteus code.
 2023-01-13: Bradamante's Fury will always resist breaking.
 2023-01-13: Changed Bradamante's Fury to Lawful (matches Bradamante in the anime).
