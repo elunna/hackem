@@ -2367,6 +2367,8 @@ dosacrifice()
                                 typ = 0;
                             else if (is_orcish_obj(otmp) && !Race_if(PM_ORC))
                                 typ = 0;
+                            else if (Race_if(PM_VAMPIRIC) && otmp->material == SILVER)
+                                typ = 0;
 
                             obfree(otmp, (struct obj *) 0);
                             otmp = (struct obj *) 0;
@@ -2560,6 +2562,8 @@ dosacrifice()
                         while (((Race_if(PM_ELF) && otmp->material == IRON)
                                 || (Race_if(PM_ORC)
                                     && otmp->material == MITHRIL)
+                                || (Race_if(PM_VAMPIRIC)
+                                    && otmp->material == SILVER)
                                 || (Role_if(PM_INFIDEL)
                                     && otmp->material == SILVER))
                                && ncount++ < 500) {
