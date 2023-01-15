@@ -1937,6 +1937,11 @@ int id;
             otmp->otyp = rnd_class(POT_GAIN_ABILITY, POT_WATER);
         break;
 
+    case SCROLL_CLASS:
+        while (otmp->otyp == SCR_TIME)
+            otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
+        break;
+        
     case SPBOOK_CLASS:
         while (otmp->otyp == SPE_POLYMORPH)
             otmp->otyp = rnd_class(SPE_DIG, SPE_BLANK_PAPER);

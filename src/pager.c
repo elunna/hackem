@@ -1528,7 +1528,7 @@ char *usr_text;
             if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
                 OBJPUTSTR("Can be written on.");
             } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD
-                       || otyp == SCR_KNOWLEDGE) {
+                       || otyp == SCR_KNOWLEDGE || otyp == SCR_TIME) {
                 OBJPUTSTR("Cannot be written.");
             } else {
                 Sprintf(buf, "Takes %d to %d ink to write.",

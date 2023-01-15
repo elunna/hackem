@@ -2344,7 +2344,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("ZA WARUDO!");
             else
                 pline("Time slows down to a crawl around you!");
-            youmonst.movement = 50 + bcsign(sobj) * 25;
+            youmonst.movement += 50 + bcsign(sobj) * 25;
             morehungry(rn1(30, 30));
         }
         break;

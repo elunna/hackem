@@ -251,6 +251,10 @@ found:
         You("cannot write something you do not know!");
         return 1;
     }
+    if (new_obj->otyp == SCR_TIME) {
+        You("cannot write an illusion!");
+        return 1;
+    }
     if (pen->spe < basecost / 2) {
         Your("marker is too dry to write that!");
         obfree(new_obj, (struct obj *) 0);
