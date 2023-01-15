@@ -2914,7 +2914,7 @@ use_whetstone(stone, obj)
 struct obj *stone, *obj;
 {
     const char *occutext = "sharpening";
-    int tmptime = 100 + (rnl(13) * 5);
+    int tmptime = (15 + (rnl(13) * 5)) * obj->quan;
     register struct obj *potion;
     boolean fail_use = TRUE;
 

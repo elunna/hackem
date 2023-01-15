@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-15: Whetstones require fewer turns to sharpen, but also scale with the size of the stack to sharpen.
 2023-01-14: Vents cannot generate next to walls. Fixes #165.
 2023-01-14: Fix: Spellbooks included appearance entries for polymorph. Possibly fixes issue #126.
 2023-01-14: Fix: Polymorph of potions didn't include amnesia or blood potions.
