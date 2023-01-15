@@ -1443,6 +1443,7 @@ E void FDECL(remove_rooms, (int, int, int, int));
 
 /* ### mkmaze.c ### */
 
+E int FDECL(iswall, (int, int));
 E void FDECL(wallification, (int, int, int, int));
 E void FDECL(fix_wall_spines, (int, int, int, int));
 E void FDECL(walkfrom, (int, int, SCHAR_P));

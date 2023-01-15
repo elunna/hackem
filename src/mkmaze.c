@@ -13,7 +13,6 @@ extern int num_lregions;
 /* for preserving the insect legs when wallifying baalz level */
 static lev_region bughack = { {COLNO, ROWNO, 0, 0}, {COLNO, ROWNO, 0, 0} };
 
-STATIC_DCL int FDECL(iswall, (int, int));
 STATIC_DCL int FDECL(iswall_or_stone, (int, int));
 STATIC_DCL boolean FDECL(is_solid, (int, int));
 STATIC_DCL int FDECL(extend_spine, (int[3][3], int, int, int));
@@ -43,7 +42,7 @@ STATIC_DCL void NDECL(stolen_booty);
         }                                                        \
     } while (0)
 
-STATIC_OVL int
+int
 iswall(x, y)
 int x, y;
 {

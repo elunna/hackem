@@ -1151,7 +1151,7 @@ makelevel()
         }
         if (!rn2(40) && depth(&u.uz) > 2)
             mkforge(0, croom);
-        if (!rn2(80) && depth(&u.uz) > 3)
+        if (!rn2(65) && depth(&u.uz) > 3)
             mkvent(0, croom);
         if (!rn2(60))
             mkaltar(croom);
@@ -1614,6 +1614,36 @@ register xchar x, y;
     return FALSE;
 }
 
+
+boolean
+bywall(x, y)
+register xchar x, y;
+{
+    register int typ;
+    
+    if (isok(x + 1, y)) {
+        typ = levl[x + 1][y].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    if (isok(x - 1, y)) {
+        typ = levl[x - 1][y].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    if (isok(x, y + 1)) {
+        typ = levl[x][y + 1].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    if (isok(x, y - 1)) {
+        typ = levl[x][y - 1].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    return FALSE;
+}
+
 /* see whether it is allowable to create a door at [x,y] */
 int
 okdoor(x, y)
@@ -2056,13 +2086,13 @@ mkvent(int mazeflag, struct mkroom *croom)
     register int tryct = 0;
     
     do {
-        if (++tryct > 200)
+        if (++tryct > 500)
             return;
         if (mazeflag)
             mazexy(&m);
         else if (!somexy(croom, &m))
             return;
-    } while (occupied(m.x, m.y) || bydoor(m.x, m.y));
+    } while (occupied(m.x, m.y) || bydoor(m.x, m.y) || bywall(m.x, m.y));
 
     levl[m.x][m.y].typ = VENT;
     level.flags.nvents++;
