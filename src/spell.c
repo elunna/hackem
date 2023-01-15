@@ -993,6 +993,7 @@ boolean wiz_cast;
     int otyp, skill, role_skill, res = 0;
     boolean confused = (Confusion != 0);
     boolean physical_damage = FALSE;
+    boolean istechspell;
     struct obj *pseudo, *otmp = (struct obj *) 0;
     coord cc;
 
@@ -1415,6 +1416,10 @@ boolean wiz_cast;
         break;
     case SPE_JUMPING:
         if (!jump(max(role_skill, 1)))
+            pline1(nothing_happens);
+        break;
+    case SPE_JEDI_JUMP:
+        if (!jump((u.ulevel / 5 ) + 1)) 
             pline1(nothing_happens);
         break;
     case SPE_REPAIR_ARMOR:
@@ -2005,7 +2010,12 @@ int spell;
     int skill;
     int dex_adjust;
     boolean paladin_bonus, primary_casters, non_casters;
-
+    
+    /* For emulating techniques from SLASH'EM, some spells will always be 
+     * 100% if techniques */
+    if (Role_if(PM_JEDI) && spellid(spell) == SPE_JEDI_JUMP)
+        return 100;
+    
     /* Calculate intrinsic ability (splcaster) */
 
     splcaster = urole.spelbase;
@@ -2049,6 +2059,7 @@ int spell;
                    || Role_if(PM_BARBARIAN) 
                    || Role_if(PM_CAVEMAN)
                    || Role_if(PM_CONVICT) 
+                   || Role_if(PM_JEDI) 
                    || Role_if(PM_KNIGHT) 
                    || Role_if(PM_MONK)
                    || Role_if(PM_RANGER) 

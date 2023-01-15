@@ -1227,8 +1227,9 @@ SPELL("create monster",  "turquoise",     P_ENCHANTMENT_SPELL, 30,  3, 2, 1, NOD
 SPELL("remove curse",    "wrinkled",      P_ENCHANTMENT_SPELL, 25,  5, 3, 1, NODIR, HI_PAPER),
 SPELL("turn undead",     "copper",        P_NECROMANCY_SPELL,  15,  8, 6, 1, IMMEDIATE, HI_COPPER),
 SPELL("create familiar", "glittering",    P_ENCHANTMENT_SPELL, 10,  7, 6, 1, NODIR, CLR_WHITE),
+SPELL("jedi jump",         "colorful",    P_ENCHANTMENT_SPELL, 0,   3, 2, 1, IMMEDIATE, HI_PAPER),
 SPELL("protection",      "dull",          P_ENCHANTMENT_SPELL, 15,  3, 1, 1, NODIR, HI_PAPER),
-SPELL(None,         "colorful",    P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
+
 SPELL(None,         "long",        P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 SPELL(None,         "rainbow",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 SPELL(None,         "tattered",    P_NONE, 0, 0, 0, 1, 0, HI_PAPER),

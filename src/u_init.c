@@ -118,6 +118,7 @@ struct trobj Ice_Mage[] = {
 static struct trobj Jedi[] = {
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { SPE_JEDI_JUMP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
@@ -628,7 +629,7 @@ static const struct def_skill Skill_J[] = {
     { P_LONG_SWORD, P_SKILLED }, 
     { P_SABER, P_SKILLED },
     { P_HEALING_SPELL, P_BASIC },
-    { P_ENCHANTMENT_SPELL, P_SKILLED}, /* special spell is charm monster */
+    { P_ENCHANTMENT_SPELL, P_SKILLED }, /* special spell is charm monster */
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_BASIC }, 
     { P_MARTIAL_ARTS, P_EXPERT },
