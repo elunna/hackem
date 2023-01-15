@@ -1193,20 +1193,8 @@ int oldlevel, newlevel;
         context.warntype.intrins &= ~MH_UNDEAD;
 
     /* Learn your special spells! */
-    if (Role_if(PM_NECROMANCER)) {
-        short spell;
-        switch (u.ulevel) {
-        case 2: spell = SPE_CALL_UNDEAD; break;
-        case 3: spell = SPE_RAISE_ZOMBIES; break;
-        case 7: spell = SPE_COMMAND_UNDEAD; break;
-        case 9: spell = SPE_SUMMON_UNDEAD; break;
-        case 14: spell = SPE_ANIMATE_DEAD; break;
-        case 17: spell = SPE_SPIRIT_BOMB; break;
-        default: spell = 0;
-        }
-        if (!spell)
-            return;
-        
+    short spell = spelltech();
+    if (spell) {
         if (oldlevel < u.ulevel && newlevel >= u.ulevel
             && u.ulevelmax == u.ulevel) {
             int i;

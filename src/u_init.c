@@ -118,7 +118,6 @@ struct trobj Ice_Mage[] = {
 static struct trobj Jedi[] = {
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { SPE_JEDI_JUMP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {

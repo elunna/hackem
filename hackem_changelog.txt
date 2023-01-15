@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-15: Refactored spell/tech code for gaining them with levels. Jedis get jedi jump at level 2.
 2023-01-15: Added Jedi Jump spell for jedi's. Emulates the technique: Always has 100% success, but not randomly generated.
 2023-01-15: Fix: Reading a scroll of time extends the player's turn instead of letting monsters act after reading.
 2023-01-15: Whetstones require fewer turns to sharpen, but also scale with the size of the stack to sharpen.

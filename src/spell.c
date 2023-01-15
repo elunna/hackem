@@ -2412,4 +2412,35 @@ cast_sphere(short otyp)
         }
     }
 }
+
+short 
+spelltech() 
+{
+    if (Role_if(PM_NECROMANCER)) {
+        switch (u.ulevel) {
+        case 2:
+            return SPE_CALL_UNDEAD;
+        case 3:
+            return SPE_RAISE_ZOMBIES;
+        case 7:
+            return SPE_COMMAND_UNDEAD;
+        case 9:
+            return SPE_SUMMON_UNDEAD;
+        case 14:
+            return SPE_ANIMATE_DEAD;
+        case 17:
+            return SPE_SPIRIT_BOMB;
+        }
+    }
+    if (Role_if(PM_JEDI)) {
+        switch (u.ulevel) {
+        case 2:
+            return SPE_JEDI_JUMP;
+        /*case 5: return SPE_CHARGE_SABER;*/
+        /*case 8: return SPE_TELEKINESIS;*/
+        }
+    }
+    return 0;
+}
+
 /*spell.c*/
