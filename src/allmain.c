@@ -239,15 +239,19 @@ boolean resuming;
 
             do { /* hero can't move this turn loop */
                 wtcap = encumber_msg();
-
-                context.mon_moving = TRUE;
-                do {
-                    monscanmove = movemon();
-                    if (youmonst.movement >= NORMAL_SPEED)
-                        break; /* it's now your turn */
-                } while (monscanmove);
-                context.mon_moving = FALSE;
-
+                if (!u.utimestop) {
+                    context.mon_moving = TRUE;
+                    do {
+                        monscanmove = movemon();
+                        if (youmonst.movement >= NORMAL_SPEED)
+                            break; /* it's now your turn */
+                    } while (monscanmove);
+                    context.mon_moving = FALSE;
+                } else if (youmonst.movement < NORMAL_SPEED) {
+                    /* If a scroll of time has been read, we want the player's
+                     * current turn to be extended. */
+                    u.utimestop = FALSE;
+                }
                 if (!monscanmove && youmonst.movement < NORMAL_SPEED) {
                     /* both hero and monsters are out of steam this round */
                     struct monst *mtmp;

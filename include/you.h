@@ -326,7 +326,7 @@ struct you {
     boolean ukinghill; /* records if you are carying the pirate treasure
     (and are therefor king of the hill) */
     int protean; /* counter for the auto-polypiling power of the chest*/
-
+    boolean utimestop; /* Counter for scroll of time */
     struct prop uprops[LAST_PROP + 1];
 
     unsigned umconf;

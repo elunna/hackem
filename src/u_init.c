@@ -1051,6 +1051,7 @@ u_init()
 
     u.ukinghill = 0;
     u.protean = 0;
+    u.utimestop = FALSE;
 
     u.umonnum = u.umonster = (flags.female && urole.femalenum != NON_PM)
                                  ? urole.femalenum
