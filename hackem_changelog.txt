@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-15: Cleaned up Boulder Alley map for readability.
 2023-01-15: Changed vent color to bright cyan to differentiate them from iron bars.
 2023-01-15: Jedi can reach basic in firearms.
 2023-01-15: Refactored spell/tech code for gaining them with levels. Jedis get jedi jump at level 2.
