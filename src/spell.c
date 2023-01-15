@@ -50,6 +50,7 @@ STATIC_DCL char *FDECL(spellretention, (int, char *));
 STATIC_DCL int NDECL(throwspell);
 STATIC_DCL void FDECL(spell_backfire, (int));
 STATIC_DCL boolean FDECL(spell_aim_step, (genericptr_t, int, int));
+STATIC_PTR int NDECL(charge_saber);
 
 static const char clothes[] = { ARMOR_CLASS, 0 };
 
@@ -1422,6 +1423,20 @@ boolean wiz_cast;
         if (!jump((u.ulevel / 5 ) + 1)) 
             pline1(nothing_happens);
         break;
+    case SPE_CHARGE_SABER:
+        if (!uwep || !is_lightsaber(uwep)) {
+            You("are not holding a lightsaber!");
+            return 0;
+        }
+        if (u.uen < 5) {
+            You("lack the concentration to charge %s. You need at least 5 points of mana!", 
+                the(xname(uwep)));
+            return 0;
+        }
+        You("start charging %s.", the(xname(uwep)));
+        u.protean = -10;
+        set_occupation(charge_saber, "charging", 0);
+        break;
     case SPE_REPAIR_ARMOR:
         /* removes one level of erosion (both types) for a chosen piece of armor */
         if (role_skill >= P_BASIC) {
@@ -2013,7 +2028,9 @@ int spell;
     
     /* For emulating techniques from SLASH'EM, some spells will always be 
      * 100% if techniques */
-    if (Role_if(PM_JEDI) && spellid(spell) == SPE_JEDI_JUMP)
+    if (Role_if(PM_JEDI) && 
+        (spellid(spell) == SPE_JEDI_JUMP 
+         || spellid(spell) == SPE_CHARGE_SABER))
         return 100;
     
     /* Calculate intrinsic ability (splcaster) */
@@ -2436,11 +2453,39 @@ spelltech()
         switch (u.ulevel) {
         case 2:
             return SPE_JEDI_JUMP;
-        /*case 5: return SPE_CHARGE_SABER;*/
+        case 5: 
+            return SPE_CHARGE_SABER;
         /*case 8: return SPE_TELEKINESIS;*/
         }
     }
     return 0;
 }
 
+
+STATIC_PTR int
+charge_saber(VOID_ARGS)
+{
+    int i, tlevel;
+    /* Reusing uprotean here so we don't add another variable or struct just
+     * for charging. uprotean is also only used by real pirates. */
+    if (u.protean) {
+        u.protean++;
+        return 1;
+    }
+    tlevel = (u.ulevel - 5);
+    if (tlevel < 1)
+        tlevel = 1;
+
+    if (tlevel >= 10 && !rn2(5)) {
+        You("manage to channel the force perfectly!");
+        uwep->age += 1500; /* Jackpot! */
+    } else
+        You("channel the force into %s.", the(xname(uwep)));
+    
+   /* yes no return above, it's a bonus :)*/
+    uwep->age += u.uen * ((tlevel / rnd(10)) + 20); /* improved results by Amy */
+    u.uen = 0;
+    context.botl = 1;
+    return 0;
+}
 /*spell.c*/
