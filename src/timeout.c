@@ -1901,7 +1901,7 @@ long timeout;
                 switch (obj->where) {
                 case OBJ_INVENT:
                 case OBJ_MINVENT:
-                    pline("%s %s dims!",whose, xname(obj));
+                    pline("%s%s dims!",whose, xname(obj));
                     break;
                 case OBJ_FLOOR:
                     You("see %s dim!", an(xname(obj)));
