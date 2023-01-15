@@ -1944,7 +1944,13 @@ int id;
         
     case SPBOOK_CLASS:
         while (otmp->otyp == SPE_POLYMORPH)
-            otmp->otyp = rnd_class(SPE_DIG, SPE_BLANK_PAPER);
+            otmp->otyp = rnd_class(SPE_DIG, SPE_PROTECTION);
+        
+        /* Chance of SPE_BLANK_PAPER was removed above to prevent appearance
+         * entries from being used. */
+        if (!rn2(SPE_PROTECTION - SPE_DIG))
+            otmp->otyp = SPE_BLANK_PAPER;
+        
         /* reduce spellbook abuse; non-blank books degrade */
         if (otmp->otyp != SPE_BLANK_PAPER) {
             otmp->spestudied = obj->spestudied + 1;
