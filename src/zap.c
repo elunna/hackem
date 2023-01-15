@@ -1943,7 +1943,9 @@ int id;
         break;
         
     case SPBOOK_CLASS:
-        while (otmp->otyp == SPE_POLYMORPH)
+        while (otmp->otyp == SPE_POLYMORPH 
+               || otmp->otyp == SPE_JEDI_JUMP
+               || otmp->otyp == SPE_CHARGE_SABER)
             otmp->otyp = rnd_class(SPE_DIG, SPE_PROTECTION);
         
         /* Chance of SPE_BLANK_PAPER was removed above to prevent appearance

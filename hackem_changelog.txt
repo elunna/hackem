@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-15: Jedi spellbooks cannot be created by polypiling.
 2023-01-15: Fix msg: Your  green lightsaber (lit) dims!
 2023-01-15: Added Charge Saber spell technique for Jedi. Adapted from SlashTHEM.
 2023-01-15: Cleaned up Boulder Alley map for readability.
