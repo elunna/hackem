@@ -1934,7 +1934,7 @@ int id;
 
     case POTION_CLASS:
         while (otmp->otyp == POT_POLYMORPH)
-            otmp->otyp = rnd_class(POT_GAIN_ABILITY, POT_WATER);
+            otmp->otyp = rnd_class(POT_GAIN_ABILITY, POT_VAMPIRE_BLOOD);
         break;
 
     case SCROLL_CLASS:
