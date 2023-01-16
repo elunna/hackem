@@ -183,9 +183,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '.', "ice", C(CLR_CYAN) },                  /* ice */
        { ',', "grass", C(CLR_GREEN) },               /* grass */
        { '}', "molten lava", C(CLR_RED) },           /* lava */
-       { '.', "lowered drawbridge", C(CLR_BROWN) },  /* vodbridge */
+/*40*/ { '.', "lowered drawbridge", C(CLR_BROWN) },  /* vodbridge */
        { '.', "lowered drawbridge", C(CLR_BROWN) },  /* hodbridge */
-/*40*/ { '#', "raised drawbridge", C(CLR_BROWN) },   /* vcdbridge */
+       { '#', "raised drawbridge", C(CLR_BROWN) },   /* vcdbridge */
        { '#', "raised drawbridge", C(CLR_BROWN) },   /* hcdbridge */
        { ' ', "air", C(CLR_CYAN) },                  /* open air */
        { '#', "cloud", C(CLR_GRAY) },                /* [part of] a cloud */
@@ -193,9 +193,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '}', "sewage", C(CLR_GREEN) },              /* sewage */
        { '}', "water", C(CLR_BLUE) },                /* under water */
        { '^', "arrow trap", C(HI_METAL) },           /* trap */
-       { '^', "bolt trap", C(HI_METAL) },            /* trap */
+/*50*/ { '^', "bolt trap", C(HI_METAL) },            /* trap */
        { '^', "dart trap", C(HI_METAL) },            /* trap */
-/*50*/ { '^', "falling rock trap", C(CLR_GRAY) },    /* trap */
+       { '^', "falling rock trap", C(CLR_GRAY) },    /* trap */
        { '^', "squeaky board", C(CLR_BROWN) },       /* trap */
        { '^', "bear trap", C(HI_METAL) },            /* trap */
        { '^', "land mine", C(CLR_RED) },             /* trap */
@@ -203,9 +203,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '^', "sleeping gas trap", C(HI_ZAP) },      /* trap */
        { '^', "rust trap", C(CLR_BLUE) },            /* trap */
        { '^', "fire trap", C(CLR_ORANGE) },          /* trap */
-       { '^', "pit", C(CLR_BLACK) },                 /* trap */
+/*60*/ { '^', "pit", C(CLR_BLACK) },                 /* trap */
        { '^', "spiked pit", C(CLR_BLACK) },          /* trap */
-/*60*/ { '^', "hole", C(CLR_BROWN) },                /* trap */
+       { '^', "hole", C(CLR_BROWN) },                /* trap */
        { '^', "trap door", C(CLR_BROWN) },           /* trap */
        { '^', "teleportation trap", C(CLR_MAGENTA) },  /* trap */
        { '^', "level teleporter", C(CLR_MAGENTA) },    /* trap */
@@ -213,9 +213,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '"', "web", C(CLR_GRAY) },                    /* web */
        { '^', "statue trap", C(CLR_GRAY) },            /* trap */
        { '^', "magic trap", C(HI_ZAP) },               /* trap */
-       { '^', "anti-magic field", C(HI_ZAP) },         /* trap */
+/*70*/ { '^', "anti-magic field", C(HI_ZAP) },         /* trap */
        { '^', "polymorph trap", C(CLR_BRIGHT_GREEN) }, /* trap */
-/*70*/ { '^', "ice trap",	C(CLR_WHITE)},         /* trap */
+       { '^', "ice trap",	C(CLR_WHITE)},         /* trap */
        { '^', "spear trap", C(CLR_BROWN) },            /* trap */
        { '^', "magic beam trap", C(CLR_YELLOW) },      /* trap */
        { '~', "vibrating square", C(CLR_MAGENTA) },    /* "trap" */
@@ -224,9 +224,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '-', "", C(CLR_GRAY) },                /* hbeam */
        { '\\', "", C(CLR_GRAY) },               /* lslant */
        { '/', "", C(CLR_GRAY) },                /* rslant */
-       { '*', "", C(CLR_WHITE) },               /* dig beam */
+/*80*/ { '*', "", C(CLR_WHITE) },               /* dig beam */
        { '!', "", C(CLR_WHITE) },               /* camera flash beam */
-/*80*/ { ')', "", C(HI_WOOD) },                 /* boomerang open left */
+       { ')', "", C(HI_WOOD) },                 /* boomerang open left */
        { '(', "", C(HI_WOOD) },                 /* boomerang open right */
        { '0', "", C(HI_ZAP) },                  /* 4 magic shield symbols */
        { '#', "", C(HI_ZAP) },
@@ -235,9 +235,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '#', "poison cloud", C(CLR_BRIGHT_GREEN) },   /* part of a cloud */
        { '?', "valid position", C(CLR_BRIGHT_GREEN) }, /*  target position */
        /* swallow colors are changed by mapglyph() to match engulfing monst */
-       { '/', "", C(CLR_GREEN) },         /* swallow top left      */
+/*90*/ { '/', "", C(CLR_GREEN) },         /* swallow top left      */
        { '-', "", C(CLR_GREEN) },         /* swallow top center    */
-/*90*/ { '\\', "", C(CLR_GREEN) },        /* swallow top right     */
+       { '\\', "", C(CLR_GREEN) },        /* swallow top right     */
        { '|', "", C(CLR_GREEN) },         /* swallow middle left   */
        { '|', "", C(CLR_GREEN) },         /* swallow middle right  */
        { '\\', "", C(CLR_GREEN) },        /* swallow bottom left   */
@@ -246,9 +246,9 @@ const struct symdef defsyms[MAXPCHARS] = {
        /* explosion colors are changed by mapglyph() to match type of expl. */
        { '/', "", C(CLR_ORANGE) },        /* explosion top left     */
        { '-', "", C(CLR_ORANGE) },        /* explosion top center   */
-       { '\\', "", C(CLR_ORANGE) },       /* explosion top right    */
+/*100*/{ '\\', "", C(CLR_ORANGE) },       /* explosion top right    */
        { '|', "", C(CLR_ORANGE) },        /* explosion middle left  */
-/*100*/{ ' ', "", C(CLR_ORANGE) },        /* explosion middle center*/
+       { ' ', "", C(CLR_ORANGE) },        /* explosion middle center*/
        { '|', "", C(CLR_ORANGE) },        /* explosion middle right */
        { '\\', "", C(CLR_ORANGE) },       /* explosion bottom left  */
        { '-', "", C(CLR_ORANGE) },        /* explosion bottom center*/
