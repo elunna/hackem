@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-16: Fixed error in screen_symbols numbering (S_ss1-S_ss4)
 2023-01-16: Updated shop services code to check for duplicate services before adding. Fixes #166.
 2023-01-16: Vents can produce non-poison resistant monsters from non-poisoned vents.
 2023-01-16: Fix: ventmon() not checking if mdat was null before checking it's poison resistant.

@@ -220,10 +220,10 @@ enum screen_symbols {
     S_flashbeam = 81, /* camera flash symbol */
     S_boomleft  = 82, /* thrown boomerang, open left, e.g ')'    */
     S_boomright = 83, /* thrown boomerang, open right, e.g. '('  */
-    S_ss1       = 83, /* 4 magic shield ("resistance sparkle") glyphs */
-    S_ss2       = 84,
-    S_ss3       = 85,
-    S_ss4       = 86,
+    S_ss1       = 84, /* 4 magic shield ("resistance sparkle") glyphs */
+    S_ss2       = 85,
+    S_ss3       = 86,
+    S_ss4       = 87,
     S_poisoncloud = 88,
     S_goodpos   = 89, /* valid position for targeting via getpos() */
 
