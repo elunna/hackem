@@ -1442,32 +1442,44 @@ boolean wiz_cast;
         set_occupation(charge_saber, "charging", 0);
         break;
     case SPE_TELEKINESIS: {
-        coord cc;
+        boolean tried = TRUE;
         struct trap *ttrap;
+        coord cc;
         cc.x = u.ux;
         cc.y = u.uy;
-        pline("Where do you want to apply telekinesis?");
-        if (getpos(&cc, TRUE, "apply telekinesis where") < 0)
-            return 0;
-        if (!cansee(cc.x, cc.y)){
-            You("can't see what's there!");
-            return 0;
-        }
-        if ((ttrap = t_at(cc.x, cc.y)) && ttrap->tseen &&
-            yn("Handle the trap here?") == 'y') {
-            tele_disarm(ttrap, cc.x, cc.y);
-        } else if ((otmp = level.objects[cc.x][cc.y]) != 0) {
-            char buf[BUFSZ];
-            sprintf(buf, "Pick up %s?", the(xname(otmp)));
-            if (yn(buf) == 'n')
+        int ressss;
+        do {
+            pline("Apply telekinesis where?");
+            if (getpos(&cc, TRUE, "apply telekinesis") < 0) {
+                You("release the force energy back into your surroundings.");
                 return 0;
-            You("pick up an object from the %s.", surface(cc.x, cc.y));
-            (void) pickup_object(otmp, 1L, TRUE);
-            newsym(cc.x, cc.y);
-        } else {
-            You("can't do anything there");
-            return 0;
-        }
+            }
+            if (!cansee(cc.x, cc.y)) {
+                You("can't see what's there!");
+                continue;
+            }
+            if ((ttrap = t_at(cc.x, cc.y)) && ttrap->tseen
+                && yn("Handle the trap here?") == 'y') {
+                if (tele_disarm(ttrap, cc.x, cc.y))
+                    return 1;
+                else
+                    continue;
+            } else if ((otmp = level.objects[cc.x][cc.y]) != 0) {
+                char buf[BUFSZ];
+                sprintf(buf, "Pick up %s?", the(xname(otmp)));
+                if (yn(buf) == 'n')
+                    continue;
+                else {
+                    You("pick up an object from the %s.", surface(cc.x, cc.y));
+                    (void) pickup_object(otmp, 1L, TRUE);
+                    newsym(cc.x, cc.y);
+                    return 1;
+                }
+            } else {
+                You("can't do anything %sthere.", ttrap ? "else " : "");
+            }
+        } while (TRUE);
+        
         break;
     }
     case SPE_REPAIR_ARMOR:

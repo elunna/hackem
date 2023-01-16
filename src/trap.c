@@ -6853,7 +6853,7 @@ int x, y;
             return disarm_fire_trap(ttrap, TRUE);
         default:
             You("cannot disable %s trap.", (u.dx || u.dy) ? "that" : "this");
-            return 1;
+            return 0;
         }
     } else if (yn("Spring this trap?") == 'y') {
         switch (ttrap->ttyp) {
@@ -6885,6 +6885,7 @@ int x, y;
             return 0;
         }
     }
+    return 1;
 }
 
 /*trap.c*/
