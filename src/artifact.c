@@ -4447,7 +4447,7 @@ struct art_info_t
 artifact_info(int anum)
 {
     struct art_info_t art_info = { 0 };
-    char buf[BUFSZ], buf2[BUFSZ], buf3[BUFSZ];
+    char buf[QBUFSZ];
     
     art_info.name = artiname(anum);
     art_info.alignment = align_str(artilist[anum].alignment);
@@ -4479,29 +4479,31 @@ artifact_info(int anum)
     
     /* Special attacks */
     if (artilist[anum].attk.adtyp
-        || artilist[anum].attk.damn
-        || artilist[anum].attk.damd) {
+          || artilist[anum].attk.damn || artilist[anum].attk.damd) {
         Sprintf(buf, "%s, +1d%d to-hit +1d%d damage",
                 adtyp_str(artilist[anum].attk.adtyp, FALSE),
-                artilist[anum].attk.damn, artilist[anum].attk.damd);
-        art_info.attack = buf;
+                artilist[anum].attk.damn, 
+                artilist[anum].attk.damd);
+        art_info.attack = malloc(100);
+        strcpy(art_info.attack, buf);
         
         /* Does this deal double damage? */
         if (artilist[anum].attk.damd == 0) {
-            char dd[50];
             if (art_info.hates) {
-                Sprintf(dd, "\t\tdouble damage vs %s", art_info.hates);
-                art_info.dbldmg = dd;
+                Sprintf(buf, "\t\tdouble damage vs %s", art_info.hates);
+                art_info.dbldmg = malloc(100);
+                strcpy(art_info.dbldmg, buf);
             } else
-                art_info.dbldmg = "\t\tdeals double damage";
+                art_info.dbldmg = "deals double damage";
         }
     } else
         art_info.attack = NULL;
     
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
-        Sprintf(buf2, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
-        art_info.wielded[0] = buf2;
+        Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
+        art_info.wielded[0] = malloc(100);
+        strcpy(art_info.wielded[0], buf);
     }
     
     if ((artilist[anum].spfx & SPFX_SEARCH) != 0)
@@ -4535,16 +4537,18 @@ artifact_info(int anum)
     
     if ((artilist[anum].spfx & SPFX_WARN) != 0) {
         if ((artilist[anum].spfx & SPFX_DFLAGH) != 0) {
-            Sprintf(buf3, "warning against %s ", art_info.hates);
-            art_info.wielded[15] = buf3;
+            Sprintf(buf, "warning against %s ", art_info.hates);
+            art_info.wielded[15] = malloc(100);
+            strcpy(art_info.wielded[15], buf);
         } else {
             art_info.wielded[15] = "warning";
         }
     }
     /* Granted while carried. */
     if (artilist[anum].cary.adtyp) {
-        Sprintf(buf2, "%s resistance", adtyp_str(artilist[anum].cary.adtyp, TRUE));
-        art_info.carried[0] = buf2;
+        Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].cary.adtyp, TRUE));
+        art_info.carried[0] = malloc(100);
+        strcpy(art_info.carried[0], buf);
     } 
     if ((artilist[anum].cspfx & SPFX_SEARCH) != 0)
         art_info.carried[1] = "searching";
