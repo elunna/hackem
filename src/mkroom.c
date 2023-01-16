@@ -794,7 +794,8 @@ morguemon()
 }
 
 struct permonst *
-ventmon()
+ventmon(poisoned)
+int poisoned;
 {
     struct permonst *mdat;
     for (int i = 100; i > 0; i--) {
@@ -810,9 +811,13 @@ ventmon()
             mdat = mkclass(S_SPIDER, 0);
         }
         /* Try for poison res */
-        if (mdat && (mdat->mresists & MR_POISON) != 0) {
-            return mdat;
-        }
+        if (!mdat) 
+            continue;
+        
+        if (poisoned && (mdat->mresists & MR_POISON) != 0) {
+            break;
+        } else if (!poisoned)
+            break;
     }
     return mdat;
 }

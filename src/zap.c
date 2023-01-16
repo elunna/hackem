@@ -5849,9 +5849,9 @@ spec_fixture_activate(xchar x, xchar y)
     }
 
     if (!rn2(15)) {
-        struct monst *mtmp = makemon(ventmon(), x, y, MM_NOGRP);
+        struct monst *mtmp = makemon(ventmon(levl[x][y].poisonvnt), x, y, MM_NOGRP);
             if (mtmp && canseemon(mtmp)) {
-                pline("%s crawls out of the vent!", a_monnam(mtmp));
+                pline("%s crawls out of the vent!", Amonnam(mtmp));
         }
     } else {
         create_gas_cloud(x, y, 3,
