@@ -760,8 +760,12 @@ int *spell_no;
         else if (nspells == 27)
             Sprintf(lets, "a-zA");
         /* this assumes that there are at most 52 spells... */
-        else
+        else if ((nspells < 53))
             Sprintf(lets, "a-zA-%c", 'A' + nspells - 27);
+        if (nspells == 53)
+                Sprintf(lets, "a-zA-Z0");
+        else
+            Sprintf(lets, "a-zA-Z0-%c", '9' + nspells - 11);
 
         for (;;) {
             Sprintf(qbuf, "Cast which spell? [%s *?]", lets);
