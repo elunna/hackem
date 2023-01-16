@@ -810,7 +810,7 @@ ventmon()
             mdat = mkclass(S_SPIDER, 0);
         }
         /* Try for poison res */
-        if ((mdat->mresists & MR_POISON) != 0) {
+        if (mdat && (mdat->mresists & MR_POISON) != 0) {
             return mdat;
         }
     }
