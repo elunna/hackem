@@ -2840,7 +2840,7 @@ E void FDECL(drain_en, (int));
 E int NDECL(dountrap);
 E void FDECL(cnv_trap_obj, (int, int, struct trap *, BOOLEAN_P));
 E int FDECL(untrap, (BOOLEAN_P));
-E int FDECL(disarm_rust_trap, (struct trap *, BOOLEAN_P));
+E int FDECL(disarm_rust_trap, (struct trap *, BOOLEAN_P, BOOLEAN_P));
 E boolean FDECL(openholdingtrap, (struct monst *, boolean *));
 E boolean FDECL(closeholdingtrap, (struct monst *, boolean *));
 E boolean FDECL(openfallingtrap, (struct monst *, BOOLEAN_P, boolean *));
@@ -2862,6 +2862,7 @@ E boolean NDECL(lava_effects);
 E void NDECL(sink_into_lava);
 E void NDECL(sokoban_guilt);
 E void FDECL(trap_ice_effects, (xchar x, xchar y, boolean ice_is_melting));
+E boolean FDECL(tele_disarm, (struct trap *, int, int));
 
 /* ### u_init.c ### */
 

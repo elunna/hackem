@@ -26,12 +26,12 @@ STATIC_DCL int FDECL(untrap_prob, (struct trap *));
 STATIC_DCL void FDECL(move_into_trap, (struct trap *));
 STATIC_DCL int FDECL(try_disarm, (struct trap *, BOOLEAN_P));
 STATIC_DCL void FDECL(reward_untrap, (struct trap *, struct monst *));
-STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *));
-STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *));
-STATIC_DCL int FDECL(disarm_landmine, (struct trap *));
-STATIC_DCL int FDECL(disarm_spear_trap, (struct trap *));
-STATIC_DCL int FDECL(disarm_squeaky_board, (struct trap *));
-STATIC_DCL int FDECL(disarm_shooting_trap, (struct trap *, int));
+STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_landmine, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_spear_trap, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_squeaky_board, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_shooting_trap, (struct trap *, int, BOOLEAN_P));
 STATIC_DCL void FDECL(clear_conjoined_pits, (struct trap *));
 STATIC_DCL boolean FDECL(adj_nonconjoined_pit, (struct trap *));
 STATIC_DCL int FDECL(try_lift, (struct monst *, struct trap *, int,
@@ -5045,12 +5045,15 @@ struct monst *mtmp;
 }
 
 STATIC_OVL int
-disarm_holdingtrap(ttmp) /* Helge Hafting */
+disarm_holdingtrap(ttmp, tele) /* Helge Hafting */
 struct trap *ttmp;
+boolean tele;
 {
     struct monst *mtmp;
-    int fails = try_disarm(ttmp, FALSE);
-
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
+    int tx = tele ? ttmp->tx : u.ux + u.dx;
+    int ty = tele ? ttmp->ty : u.uy + u.dy;
+    
     if (fails < 2)
         return fails;
 
@@ -5073,15 +5076,16 @@ struct trap *ttmp;
             deltrap(ttmp);
         }
     }
-    newsym(u.ux + u.dx, u.uy + u.dy);
+    newsym(tx, ty);
     return 1;
 }
 
 STATIC_OVL int
-disarm_landmine(ttmp) /* Helge Hafting */
+disarm_landmine(ttmp, tele) /* Helge Hafting */
 struct trap *ttmp;
+boolean tele;
 {
-    int fails = try_disarm(ttmp, FALSE);
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
 
     if (fails < 2)
         return fails;
@@ -5091,11 +5095,12 @@ struct trap *ttmp;
 }
 
 STATIC_OVL int
-disarm_spear_trap(ttmp) /* Erik Lunna */
+disarm_spear_trap(ttmp, tele) /* Erik Lunna */
 struct trap *ttmp;
+boolean tele;
 {
     xchar trapx = ttmp->tx, trapy = ttmp->ty;
-    int fails = try_disarm(ttmp, FALSE);
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
     
     if (fails < 2)
         return fails;
@@ -5127,22 +5132,22 @@ struct trap *ttmp;
 }
 
 int
-disarm_rust_trap(ttmp, disarming) /* Paul Sonier */
+disarm_rust_trap(ttmp, disarming, tele) /* Paul Sonier */
 struct trap *ttmp;
-boolean disarming;
+boolean disarming, tele;
 {
-	xchar trapx = ttmp->tx, trapy = ttmp->ty;
-	int fails = try_disarm(ttmp, FALSE);
+    xchar trapx = ttmp->tx, trapy = ttmp->ty;
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
 
-	if (fails < 2) 
+    if (fails < 2) 
         return fails;
-	if (disarming)
-            You("disarm the water trap!");
-	deltrap(ttmp);
-	levl[trapx][trapy].typ = FOUNTAIN;
-	newsym(trapx, trapy);
-	level.flags.nfountains++;
-	return 1;
+    if (disarming)
+        You("disarm the water trap!");
+    deltrap(ttmp);
+    levl[trapx][trapy].typ = FOUNTAIN;
+    newsym(trapx, trapy);
+    level.flags.nfountains++;
+    return 1;
 }
 
 /* getobj will filter down to cans of grease and known potions of oil */
@@ -5151,13 +5156,23 @@ static NEARDATA const char disarmpotion[] = { ALL_CLASSES, POTION_CLASS, 0 };
 
 /* water disarms, oil will explode */
 STATIC_OVL int
-disarm_fire_trap(ttmp) /* Paul Sonier */
+disarm_fire_trap(ttmp, tele) /* Paul Sonier */
 struct trap *ttmp;
+boolean tele;
 {
     int fails;
     struct obj *obj;
     boolean bad_tool;
-
+    int tx = ttmp->tx, ty = ttmp->ty;
+    
+    if (tele) {
+        /* Chance of success should be calculated in tele_disarm already */
+        You("manage to extinguish the pilot light!");
+        deltrap(ttmp);
+        newsym(tx, ty);
+        return 1;
+    }
+    
     obj = getobj(disarmpotion, "untrap with");
     if (!obj)
         return 0;
@@ -5172,7 +5187,7 @@ struct trap *ttmp;
     }
 
     bad_tool = (obj->cursed || (obj->otyp != POT_WATER));
-    fails = try_disarm(ttmp, bad_tool);
+    fails = tele ? 2 : try_disarm(ttmp, bad_tool);
     if (fails < 2)
         return fails;
 
@@ -5187,13 +5202,14 @@ struct trap *ttmp;
 
 /* it may not make much sense to use grease on floor boards, but so what? */
 STATIC_OVL int
-disarm_squeaky_board(ttmp)
+disarm_squeaky_board(ttmp, tele)
 struct trap *ttmp;
+boolean tele;
 {
     struct obj *obj;
     boolean bad_tool;
     int fails;
-
+        
     obj = getobj(oil, "untrap with");
     if (!obj)
         return 0;
@@ -5202,7 +5218,7 @@ struct trap *ttmp;
                 || ((obj->otyp != POT_OIL 
                 || obj->lamplit)
                 && (obj->otyp != CAN_OF_GREASE || !obj->spe)));
-    fails = try_disarm(ttmp, bad_tool);
+    fails = tele ? 2 : try_disarm(ttmp, bad_tool);
     if (fails < 2)
         return fails;
 
@@ -5223,11 +5239,12 @@ struct trap *ttmp;
 
 /* removes traps that shoot arrows, darts, etc. */
 STATIC_OVL int
-disarm_shooting_trap(ttmp, otyp)
+disarm_shooting_trap(ttmp, otyp, tele)
 struct trap *ttmp;
 int otyp;
+boolean tele;
 {
-    int fails = try_disarm(ttmp, FALSE);
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
 
     if (fails < 2)
         return fails;
@@ -5455,23 +5472,23 @@ boolean force;
                 switch (ttmp->ttyp) {
                 case BEAR_TRAP:
                 case WEB:
-                    return disarm_holdingtrap(ttmp);
+                    return disarm_holdingtrap(ttmp, FALSE);
                 case LANDMINE:
-                    return disarm_landmine(ttmp);
+                    return disarm_landmine(ttmp, FALSE);
                 case SQKY_BOARD:
-                    return disarm_squeaky_board(ttmp);
+                    return disarm_squeaky_board(ttmp, FALSE);
                 case DART_TRAP:
-                    return disarm_shooting_trap(ttmp, DART);
+                    return disarm_shooting_trap(ttmp, DART, FALSE);
                 case ARROW_TRAP:
-                    return disarm_shooting_trap(ttmp, ARROW);
+                    return disarm_shooting_trap(ttmp, ARROW, FALSE);
                 case BOLT_TRAP:
-                    return disarm_shooting_trap(ttmp, CROSSBOW_BOLT);
+                    return disarm_shooting_trap(ttmp, CROSSBOW_BOLT, FALSE);
                 case SPEAR_TRAP:
-                    return disarm_spear_trap(ttmp);
+                    return disarm_spear_trap(ttmp, FALSE);
                 case RUST_TRAP:
-                    return disarm_rust_trap(ttmp, TRUE);
+                    return disarm_rust_trap(ttmp, TRUE, FALSE);
                 case FIRE_TRAP:
-                    return disarm_fire_trap(ttmp);
+                    return disarm_fire_trap(ttmp, FALSE);
                 case PIT:
                 case SPIKED_PIT:
                     if (here) {
@@ -6799,4 +6816,73 @@ randomray()
         return -10-(AD_MAGM - 1);
     }
 }
+
+boolean
+tele_disarm(ttrap, x, y)
+struct trap *ttrap;
+int x, y;
+{
+    int style;
+    if (yn("Disarm the trap?") == 'y') {
+        if (rnl(20) >= 10) {
+            pline("The force fails you this time!");
+            return 1;
+        }
+        /* copied from trap.c */
+        switch (ttrap->ttyp) {
+        case BEAR_TRAP:
+        case WEB:
+            return disarm_holdingtrap(ttrap, TRUE);
+        case LANDMINE:
+            return disarm_landmine(ttrap, TRUE);
+        /* These always require oil */
+        /*case SQKY_BOARD: return disarm_squeaky_board(ttrap, TRUE);*/
+        case DART_TRAP:
+            return disarm_shooting_trap(ttrap, DART, TRUE);
+        case ARROW_TRAP:
+            return disarm_shooting_trap(ttrap, ARROW, TRUE);
+        case BOLT_TRAP:
+            return disarm_shooting_trap(ttrap, CROSSBOW_BOLT, TRUE);
+        case SPEAR_TRAP:
+            return disarm_spear_trap(ttrap, TRUE);
+        case RUST_TRAP:
+            return disarm_rust_trap(ttrap, TRUE, TRUE);
+        case FIRE_TRAP:
+            return disarm_fire_trap(ttrap, TRUE);
+        default:
+            You("cannot disable %s trap.", (u.dx || u.dy) ? "that" : "this");
+            return 1;
+        }
+    } else if (yn("Spring this trap?") == 'y') {
+        switch (ttrap->ttyp) {
+        case LANDMINE: 
+            You("trigger the landmine.");
+            pline("KABLAAAM!");
+            blow_up_landmine(ttrap);
+            fill_pit(x, y);
+            newsym(x, y);
+            break;
+        case ROLLING_BOULDER_TRAP:
+            style = ROLL | (ttrap->tseen ? LAUNCH_KNOWN : 0);
+            You("trigger the trap!");
+            if (!launch_obj(BOULDER, ttrap->launch.x, ttrap->launch.y, 
+                            ttrap->launch2.x, ttrap->launch2.y, style)) {
+                deltrap(ttrap);
+                newsym(x, y);
+                pline("But no boulder was released.");
+            }
+            break;
+        case SQKY_BOARD:
+            pline("A board near you %s%s%s.",
+                  Deaf ? "vibrates" : "squeaks ",
+                  Deaf ? "" : trapnote(ttrap, 0), Deaf ? "" : " loudly");
+            wake_nearby();
+            break;
+        default:
+            You("can't spring this trap.");
+            return 0;
+        }
+    }
+}
+
 /*trap.c*/

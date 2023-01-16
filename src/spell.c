@@ -1441,6 +1441,35 @@ boolean wiz_cast;
         u.protean = -10;
         set_occupation(charge_saber, "charging", 0);
         break;
+    case SPE_TELEKINESIS: {
+        coord cc;
+        struct trap *ttrap;
+        cc.x = u.ux;
+        cc.y = u.uy;
+        pline("Where do you want to apply telekinesis?");
+        if (getpos(&cc, TRUE, "apply telekinesis where") < 0)
+            return 0;
+        if (!cansee(cc.x, cc.y)){
+            You("can't see what's there!");
+            return 0;
+        }
+        if ((ttrap = t_at(cc.x, cc.y)) && ttrap->tseen &&
+            yn("Handle the trap here?") == 'y') {
+            tele_disarm(ttrap, cc.x, cc.y);
+        } else if ((otmp = level.objects[cc.x][cc.y]) != 0) {
+            char buf[BUFSZ];
+            sprintf(buf, "Pick up %s?", the(xname(otmp)));
+            if (yn(buf) == 'n')
+                return 0;
+            You("pick up an object from the %s.", surface(cc.x, cc.y));
+            (void) pickup_object(otmp, 1L, TRUE);
+            newsym(cc.x, cc.y);
+        } else {
+            You("can't do anything there");
+            return 0;
+        }
+        break;
+    }
     case SPE_REPAIR_ARMOR:
         /* removes one level of erosion (both types) for a chosen piece of armor */
         if (role_skill >= P_BASIC) {
@@ -2031,10 +2060,11 @@ int spell;
     boolean paladin_bonus, primary_casters, non_casters;
     
     /* For emulating techniques from SLASH'EM, some spells will always be 
-     * 100% if techniques */
+     * 100% if techniques. Replace with is spelltech()? */
     if (Role_if(PM_JEDI) && 
         (spellid(spell) == SPE_JEDI_JUMP 
-         || spellid(spell) == SPE_CHARGE_SABER))
+         || spellid(spell) == SPE_CHARGE_SABER
+         || spellid(spell) == SPE_TELEKINESIS))
         return 100;
     
     /* Calculate intrinsic ability (splcaster) */
@@ -2459,7 +2489,8 @@ spelltech()
             return SPE_JEDI_JUMP;
         case 5: 
             return SPE_CHARGE_SABER;
-        /*case 8: return SPE_TELEKINESIS;*/
+        case 8: 
+            return SPE_TELEKINESIS;
         }
     }
     return 0;
