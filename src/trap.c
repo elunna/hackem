@@ -5144,9 +5144,11 @@ boolean disarming, tele;
     if (disarming)
         You("disarm the water trap!");
     deltrap(ttmp);
-    levl[trapx][trapy].typ = FOUNTAIN;
-    newsym(trapx, trapy);
-    level.flags.nfountains++;
+    if (tele) {
+        levl[trapx][trapy].typ = FOUNTAIN;
+        newsym(trapx, trapy);
+        level.flags.nfountains++;
+    }
     return 1;
 }
 
