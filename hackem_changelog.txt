@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-15: Fix: disarm_rust_trap called with missing parameter in zap.c.
 2023-01-15: Added the telekinesis spell technique for Jedi. Can disarm/trigger traps and remotely pickup objects.
 2023-01-15: Fix: Traditional spell menu wouldn't show characters for spells 0-9.
 2023-01-15: Jedi spellbooks cannot be created by polypiling.

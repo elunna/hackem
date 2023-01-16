@@ -6108,7 +6108,7 @@ boolean moncast;
                 pline("The rust trap explodes in an alchemic blast!");
             rangemod -= 1;
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
-            disarm_rust_trap(t, FALSE);
+            disarm_rust_trap(t, FALSE, TRUE);
         }
         else if (lev->typ == TREE) {
             if (see_it)
