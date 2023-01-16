@@ -3724,7 +3724,7 @@ struct obj *obj;
             break;
         case WWALKING:
             if (on) {
-                pline_The(" dungeon starts to tremble!");
+                pline_The("dungeon starts to tremble!");
                 do_earthquake(7);
                 Your("feet are surrounded by a swirl of foam!");
                 if (u.uinwater)

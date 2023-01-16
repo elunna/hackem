@@ -1263,9 +1263,9 @@ int x, y;
     /* Maybe create a pit instead? */
     levl[x][y].typ = ROOM;
     
-    /* One last blast */
-    (void) create_gas_cloud(x, y, 3 + rn2(3),
-                            levl[x][y].poisonvnt ? depth(&u.uz) : 0);
+    /* Shakes the bround */
+    pline_The("dungeon trembles!");
+    do_earthquake(1);
     
     newsym(x, y);
     maybe_unhide_at(x, y);
