@@ -981,7 +981,9 @@ const char *in_str;
         return PM_HYDRA;
     if (strstr(str, "ghoul queen") != NULL)
         return PM_GHOUL_QUEEN;
-        
+    if (strstr(str, "migo queen") != NULL)
+        return PM_MIGO_QUEEN;
+    
     slen = strlen(str);
     term = str + slen;
 

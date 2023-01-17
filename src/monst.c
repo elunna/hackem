@@ -319,9 +319,9 @@ NEARDATA struct permonst mons[] = {
         M3_INFRAVISION | M3_TRAITOR, 0, 0, 20, CLR_YELLOW),
     MON("migo queen", S_ANT,                                    /* Slash'EM */
         LVL(15, 15, -3, 50, -9), (G_GENO | G_NOGEN),
-        A(ATTK(AT_STNG, AD_DRIN, 1, 3),
-          ATTK(AT_BITE, AD_PHYS, 6, 8),
+        A(ATTK(AT_BITE, AD_PHYS, 6, 8),
           ATTK(AT_CLAW, AD_PHYS, 3, 6),
+          ATTK(AT_STNG, AD_DRIN, 1, 3),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1500, 100, MS_BUZZ, MZ_LARGE), MR_POISON, MR_POISON,
         M1_FLY | M1_POIS | M1_SEE_INVIS | M1_OMNIVORE,
