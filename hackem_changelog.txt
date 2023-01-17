@@ -14,6 +14,8 @@
 ==========================
 
 Version 1.1 (unreleased)
+
+2023-01-17: Added tile for Lord Sidious.
 2023-01-17: Added tile for The Jedi Master.
 2023-01-17: Added tile for plasteel armor.
 2023-01-17: Added tile for plasteel helm.
