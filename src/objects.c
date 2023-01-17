@@ -374,6 +374,26 @@ WEAPON("flaming lash", None,                                   /* SpliceHack */
 WEAPON("fly swatter", None,                                /* Slash'EM */
 	1, 0, 0, 0,  2,  10,   3, 10,  2, 2, B,   P_WHIP, PLASTIC, CLR_GREEN),
 
+
+/* LIGHTSABERS */
+/* [WAC]
+ * Lightsabers are -3 to hit 
+ * Double lightsaber is -4 to hit (only red)
+ * DMG is increased: 10.5/15.5
+ * green :9 + d3, 13 + d5
+ * blue : 8 + d5, 12 + d7
+ * red :  6 + d9, 10 + d11
+ * red double: 6 + d9 + d9, 10 + d11 + d11  (15/21) in double mode
+ */
+WEAPON("green lightsaber", "lightsaber",                             /* Slash'EM */
+	0, 0, 1, 0,  1, 60, 500, 3,  5, -3, SLASH, P_LIGHTSABER, PLASTIC, HI_METAL),
+WEAPON("blue lightsaber",  "lightsaber",                             /* Slash'EM */
+	0, 0, 1, 0,  1, 60, 500, 5,  7, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
+WEAPON("red lightsaber",  "lightsaber",                              /* Slash'EM */
+	0, 0, 1, 0,  1, 60, 500, 9,  11, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
+WEAPON("red double lightsaber",  "double lightsaber",                /* Slash'EM */
+	0, 0, 1, 1,  0, 60,1000, 9,  11, -4, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
+
 /* launchers */
 BOW("bow", None,               1, 1, 24, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
 BOW("elven bow", "runed bow",  0, 1, 12, 30, 60, 0, WOOD, P_BOW, HI_WOOD),
@@ -895,26 +915,6 @@ OBJECT(OBJ("spike", None),  /* SpliceHack */
 /* two unique tools;
  * not artifacts, despite the comment which used to be here
  */
-
-/* LIGHTSABERS */
-/* [WAC]
- * Lightsabers are -3 to hit 
- * Double lightsaber is -4 to hit (only red)
- * DMG is increased: 10.5/15.5
- * green :9 + d3, 13 + d5
- * blue : 8 + d5, 12 + d7
- * red :  6 + d9, 10 + d11
- * red double: 6 + d9 + d9, 10 + d11 + d11  (15/21) in double mode
- */
-WEPTOOL("green lightsaber", "lightsaber",                             /* Slash'EM */
-	0, 0, 1, 0,  1, 60, 500, 3,  5, -3, SLASH, P_LIGHTSABER, PLASTIC, HI_METAL),
-WEPTOOL("blue lightsaber",  "lightsaber",                             /* Slash'EM */
-	0, 0, 1, 0,  1, 60, 500, 5,  7, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
-WEPTOOL("red lightsaber",  "lightsaber",                              /* Slash'EM */
-	0, 0, 1, 0,  1, 60, 500, 9,  11, -3, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
-WEPTOOL("red double lightsaber",  "double lightsaber",                /* Slash'EM */
-	0, 0, 1, 1,  0, 60,1000, 9,  11, -4, SLASH, P_LIGHTSABER, PLATINUM, HI_METAL),
-
 OBJECT(OBJ("Candelabrum of Invocation", "candelabrum"),
        BITS(0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, P_NONE, GOLD),
        0, TOOL_CLASS, 0, 0, 10, 5000, 0, 0, 0, 0, 200, HI_GOLD),

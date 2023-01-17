@@ -1046,7 +1046,12 @@ doengrave()
     case WEAPON_CLASS:
         if (otmp->oartifact == ART_FIRE_BRAND)
             type = BURN;
-        else if (is_blade(otmp)) {
+        if (is_lightsaber(otmp)) {
+            if (otmp->lamplit) 
+                type = BURN;
+            else
+                Your("%s deactivated!", aobjnam(otmp,"are"));
+        } else if (is_blade(otmp)) {
             if ((int) otmp->spe > -3)
                 type = ENGRAVE;
             else
@@ -1060,13 +1065,6 @@ doengrave()
                 "That is a bit difficult to engrave with, don't you think?");
             return 0;
         }
-
-        if (is_lightsaber(otmp)) {
-            if (otmp->lamplit) 
-                type = BURN;
-            else
-                Your("%s deactivated!", aobjnam(otmp,"are"));
-        } else
 
         switch (otmp->otyp) {
         case MAGIC_MARKER:

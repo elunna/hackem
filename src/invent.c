@@ -1651,8 +1651,9 @@ register const char *let, *word;
                      && otyp != FAKE_AMULET_OF_YENDOR))
              || (!strcmp(word, "write with")
                  && (otmp->oclass == TOOL_CLASS
-                     && (!is_lightsaber(otmp) || !otmp->lamplit) 
-                     && otyp != MAGIC_MARKER && otyp != TOWEL))
+                     && otyp != MAGIC_MARKER && otyp != TOWEL)
+                 && (otmp->oclass == WEAPON_CLASS
+                    && (!is_lightsaber(otmp) || !otmp->lamplit)))
              || (!strcmp(word, "tin")
                  && (otyp != CORPSE || !tinnable(otmp)))
              || (!strcmp(word, "rub")
@@ -1664,6 +1665,7 @@ register const char *let, *word;
                  /* Picks, axes, pole-weapons, bullwhips */
                  && ((otmp->oclass == WEAPON_CLASS 
                         && !is_pick(otmp)
+                        && !is_lightsaber(otmp)
                         && !is_bomb(otmp)
                         && !is_firearm(otmp)
                         && !is_axe(otmp)
