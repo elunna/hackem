@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added tile for padawan.
 Added tile for Lord Sidious.
 Added tile for The Jedi Master.
 Added tile for plasteel armor.
