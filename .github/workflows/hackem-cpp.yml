@@ -2,11 +2,11 @@ name: HackEM
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
     tags:
       - '*' # won't work on tags containing /
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
 
 jobs:
   linux-build:
@@ -62,7 +62,7 @@ jobs:
         cp ./sys/winnt/Makefile.msc ./Makefile
         cd src
         nmake install
-    - uses: thedoctor0/zip-release@master
+    - uses: thedoctor0/zip-release@dev
       if: startsWith(github.ref, 'refs/tags/')
       with:
         type: 'zip'
