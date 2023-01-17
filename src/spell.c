@@ -998,7 +998,6 @@ boolean wiz_cast;
     int otyp, skill, role_skill, res = 0;
     boolean confused = (Confusion != 0);
     boolean physical_damage = FALSE;
-    boolean istechspell;
     struct obj *pseudo, *otmp = (struct obj *) 0;
     coord cc;
 
@@ -1442,12 +1441,10 @@ boolean wiz_cast;
         set_occupation(charge_saber, "charging", 0);
         break;
     case SPE_TELEKINESIS: {
-        boolean tried = TRUE;
         struct trap *ttrap;
-        coord cc;
+        /*coord cc;*/
         cc.x = u.ux;
         cc.y = u.uy;
-        int ressss;
         do {
             pline("Apply telekinesis where?");
             if (getpos(&cc, TRUE, "apply telekinesis") < 0) {
@@ -2512,7 +2509,7 @@ spelltech()
 STATIC_PTR int
 charge_saber(VOID_ARGS)
 {
-    int i, tlevel;
+    int tlevel;
     /* Reusing uprotean here so we don't add another variable or struct just
      * for charging. uprotean is also only used by real pirates. */
     if (u.protean) {

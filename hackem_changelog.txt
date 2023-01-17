@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Silenced some new compiler warnings.
 Cleaned up string warnings in artifact_info().
 Fixed bomb explosion colors when thrown by hostiles.
 Vents show up in dungeon overview.

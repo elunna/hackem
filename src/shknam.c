@@ -1198,7 +1198,6 @@ struct monst *shk;
 {
     const struct permonst *shkdat = &mons[ERAC(shk)->rmnum];
     ESHK(shk)->services = 0L;
-    int gensvc;
     
     /* KMH, balance patch 2 -- Increase probability of shopkeeper services.
      * Requested by Dave <mitch45678@aol.com>
