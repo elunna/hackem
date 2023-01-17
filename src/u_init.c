@@ -1201,7 +1201,6 @@ u_init()
         break;
         
     case PM_JEDI:
-        ini_inv(Jedi);
         /* Random lightsaber at start */
         switch (rnd(3)) {
         case 1:
@@ -1216,6 +1215,7 @@ u_init()
         default: 
             break;
         }
+        ini_inv(Jedi);
         if (!rn2(2))
             ini_inv(Blindfold);
         skill_init(Skill_J);

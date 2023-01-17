@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+2023-01-16: Jedi start with lightsabers as first item in inv, on 'a' letter.
 2023-01-16: Moved lightsabers to WEAPON class. 
 2023-01-16: Glitches in artifact lookups; correctly used buffers and strcpy to build strings for the pager. Fixes #164.
 2023-01-16: Fixed error in screen_symbols numbering (S_ss1-S_ss4)
