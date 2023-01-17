@@ -7197,17 +7197,17 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
         ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
-        expltype = EXPL_FIERY * isyou * -1;
+        expltype = EXPL_MAGICAL;
         d1 = 50, d2 = 6;
     } else if (otyp == FIRE_BOMB) {
         ztype = ZT_SPELL(ZT_FIRE) * yours;          /* 11 */
-        expltype = EXPL_FIERY * isyou * -1;        /*  5 */
+        expltype = EXPL_FIERY;                      /*  5 */
     } else if (otyp == GAS_BOMB) {
         ztype = ZT_SPELL(ZT_POISON_GAS) * yours;    /* 16 */
-        expltype = EXPL_NOXIOUS * isyou * -1;      /*  1 */
+        expltype = EXPL_NOXIOUS;                    /*  1 */
     } else if (otyp == SONIC_BOMB) {
         ztype = ZT_SPELL(ZT_SONIC) * yours;         /* 18 */
-        expltype = EXPL_DARK * isyou * -1;         /*  0 */
+        expltype = EXPL_FROSTY;                     /*  0 */
     } else
         impossible("Invalid bomb otyp for bomb_explode!");
     
