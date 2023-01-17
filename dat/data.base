@@ -9978,23 +9978,278 @@ javelin
 	fireman brake his neck!'  Why, that ain't a picture!
 		[ A Connecticut Yankee in King Arthur's Court,
 		    by Mark Twain ]
-*spellbook*
-	The Book of Three lay closed on the table.  Taran had never
-	been allowed to read the volume for himself; now he was sure
-	it held more than Dallben chose to tell him.  In the sun-
-	filled room, with Dallben still meditating and showing no
-	sign of stopping, Taran rose and moved through the shimmering
-	beams.  From the forest came the monotonous tick of a beetle.
-	His hands reached for the cover.  Taran gasped in pain and
-	snatched them away.  They smarted as if each of his fingers
-	had been stung by hornets.  He jumped back, stumbled against
-	the bench, and dropped to the floor, where he put his fingers
-	woefully into his mouth.
-	Dallben's eyes blinked open.  He peered at Taran and yawned
-	slowly.  "You had better see Coll about a lotion for those
-	hands," he advised.  "Otherwise, I shouldn't be surprised if
-	they blistered."
-		[ The Book of Three, by Lloyd Alexander ]
+spellbook of dig
+	Allows you to learn the spell of dig. 
+	
+	When cast, it has a similar effect to zapping a wand of digging - 
+	it fires a ray in a selected direction that digs through walls and 
+	can create holes in the floor.
+spellbook of magic missile
+	Allows you to learn the spell of magic missile.
+	
+	The magic missile ray does ((xplev/2) + 1)d6 damage + spell damage 
+	bonus, so higher-level spellcasters can deal significant damage 
+	with this spell. A level 30 character deals 16d6 damage with magic 
+	missile, averaging 56 damage per hit.
+	
+	This spell's damage is doubled for Knights by carrying the Magic 
+	Mirror of Merlin, any character with DeathVision, or a character 
+	wielding the Staff of Rot while withering.
+spellbook of fireball
+	Allows you to learn the spell of fireball. This spellbook is 
+	fireproof, preventing it from being destroyed by other sources 
+	of fire damage.
+
+	The spell of fireball is a medium-level attack spell that has
+	different effects depending on the character's skill level in 
+	matter spells; both versions will produce an explosion of fire. 
+	Monsters caught in the explosion are hit for 12d6; monsters with 
+	cold resistance take double damage, while targets with monster MR 
+	may resist for half the damage. If you are caught in an explosion, 
+	you take 6d6 damage unless you have fire resistance; this will 
+	cure sliming.
+
+	Ice in the affected squares melt into pools of water, while pools 
+	and fountains evaporate and dry up; pools will leave pits behind, 
+	while moats will not be affected. Closed doors will be destroyed, 
+	but other objects such as boulders are unaffected. Scrolls, books 
+	and potions in the explosion's area may be destroyed, while cloth 
+	and leather items may be burnt. This includes items in affected 
+	monsters' inventories. Exploding potions will subject nearby 
+	monsters to their vapors.
+
+	Casting the spell at Basic skill or lower creates a ray of fire; 
+	You are prompted for a direction in which to cast the spell. When 
+	the ray hits an obstacle or monster, it explodes, affecting the 
+	hit square and all 8 adjacent squares.
+
+	When casting the spell at Skilled or higher, you may choose a 
+	location to target the spell with. The following must apply for a 
+	tile to be eligible:
+
+	- The location is no more than 10 squares away.
+	- The square must be an open space.
+	- You must be able to see the chosen square normally (i.e. it must
+	  be lit and in line of sight).
+	
+	If you are engulfed, the explosions will be centered around 
+	yourself, and nothing will be affected outside the engulfing 
+	monster. If you are on the Plane of Water, you are prevented from 
+	casting the spell outright.
+
+	Two to nine explosions will follow. If there is a wall on the 
+	straight line between you and your target, the spell will explode 
+	around the square immediately before the first wall; otherwise, 
+	the explosions will be centered around the location you chose. The 
+	first explosion is centered on the selected location, and the 
+	subsequent ones will occur randomly on that square or any of the 
+	eight squares around it; the explosions themselves each affect a 
+	3x3 square area around their center.
+spellbook of cone of cold
+	Allows you to learn the spell of cone of cold.
+	
+	At Unskilled or Basic skill level, the spell zaps a ray with the 
+	same effect as a wand of cold. You are prompted for a direction in
+	which to cast the spell; you can also zap it at yourself, although 
+	this is not recommended.
+	
+	Monsters caught in the cold ray take (XL/2 + 1)d6 damage, plus 
+	damage bonus. Fire resistant monsters take an additional 
+	(XL/2 + 1)d3 damage. Cold resistant monsters take no damage. The 
+	ray will also reveal unseen monsters, as well as destroy doors and 
+	freeze watery tiles (puddles, sewage, pools). Any potions on the 
+	monsters (or your) inventory are subject to shattering.
+	
+	If zapped at yourself, you take 12-72 damage depending on how 
+	resistant to cold you are.
+	
+	At Skilled or Expert level, you may choose a location at which to 
+	cast explosions of cold, with the following restrictions:
+
+	- this location must be no more than 10 squares away;
+	- it must be an open space;
+	- you must either see the chosen square normally (it must be lit 
+	  and in the line of sight) or sense a monster on it via telepathy,
+	  infravision, a blessed potion of monster detection, or its spell
+	  equivalent (warning will not suffice).
+	  
+	The last two conditions do not need to be met if you are engulfed.
+	In this case, the explosions will be centered around yourself, and 
+	nothing will be affected outside the engulfing entity.
+
+	If there is a wall on the straight line between you and your 
+	target, the spell will explode around the square immediately 
+	before the first wall. Otherwise, the explosions will be 
+	centered around the location you chose. 2 to 9 explosions follow;
+	the first is in the center, the subsequent ones randomly at any of
+	the nine squares around that point. Each explosion affects the 
+	surrounding squares.
+
+	The damage to non-cold-resistant monsters is just XL/2 + 1 plus 
+	spell damage bonus, halved if they resist, doubled if they are 
+	resistant to fire, and doubled again is they're grabbing you and 
+	you're within blast radius. Monsters are dealt additional damage 
+	equal to the number of potion stacks in their inventory, even if 
+	they're cold resistant and potions didn't freeze.
+
+	Any explosions that would be centered on yourself do not take 
+	place, but instead do damage as 'zap self' above.
+
+	Explosions produce noise.
+spellbook of sleep
+	Allows you to learn the spell of sleep.
+	
+	Casting it has the same effect as zapping a wand of sleep: 
+	monsters will be put to sleep for (level/2 + 1)d25 turns, where 
+	level is your experience level.
+
+	Monsters can resist this spell with monster magic resistance, and 
+	it has no effect on already-sleeping or paralyzed monsters. 
+	Attacking monsters in melee has a 10% chance of waking them up. 
+	Bolts of sleep bounce from walls and unidentified secret doors, 
+	but are absorbed by known doors.
+spellbook of finger of death
+	Allows you to learn the spell of finger of death.
+	
+	The spellbook is most commonly received through wizard crowning: 
+	it is given on crowning if the wizard does not already have one 
+	and is not wielding Vorpal Blade or Stormbringer. The spellbook 
+	received this way is always blessed.
+	
+	Finger of death is the most powerful attack spell. The ray 
+	produced by this spell has the same effect as a wand of death: it 
+	instantly kills any monster it hits, unless the monster is resists
+	death magic (see below), or has magic resistance or reflection. 
+	Your skill in attack spells has no significant effect on finger of 
+	death, other than increasing the spellcasting success rate and to-
+	hit probability.
+
+	Zapping yourself directly with the spell is an instadeath, 
+	regardless of reflection or magic resistance, and is a very bad 
+	idea.
+
+	Monsters that resist death magic:
+	- Death
+	- major demon
+	- angels, devas
+	- nonliving
+	- quest leaders
+	- juggernauts
+	- shadow ogres, shadow wolves
+	- statue gargoyles
+	- moldy puddings
+	- black marketeers
+	- Cerberus
+	- Nebuchadnezzar
+	- Ragnaros
+spellbook of lightning
+	Allows you to learn the spell of lightning.
+	
+	Largely identical to the wand of lightning except dealing 
+	(xplev/2 + 1)d6 damage to non-shock-resistant targets instead of 
+	the 6d6 of the wand.
+
+	It can be reflected, but magic resistance doesn't stop it.
+spellbook of poison blast
+	Allows you to learn the spell of poison blast.
+	
+	At unskilled or basic skill, poison blast generates a ray akin to 
+	the poison blast of a green dragon or iron golem; it deals 
+	(xplev/2 + 1)d6 damage to non-poison resistant targets. If the 
+	blast hits the player, it has a 1 in 15 chance of being deadly 
+	poison (instadeath) and a 1 in 3 chance of dealing dexterity damage.
+	
+	At skilled and expert level, the spell may be targeted at a 
+	location no more than 10 squares away that is in sight and an open 
+	space. The explosion cannot be cast underwater or on the Plane of 
+	Water; if used while swallowed, it is automatically cast on your 
+	own location.
+
+	Two to nine explosions are generated; the first is centered at the 
+	target location, and subsequent explosions are randomly placed on 
+	any of the nine squares around that point (unless swallowed). Each
+	explosion affects the surrounding squares as the unskilled/basic 
+	spell, with the exception that the player suffers only the damage 
+	and not the additional poisoning effects.
+spellbook of acid blast
+	Allows you to learn the spell of acid blast.
+	
+	At unskilled or basic skill, poison blast generates a ray akin to 
+	the acid blast of a yellow dragon; it deals (xplev/2 + 1)d6 damage 
+	to non-acid resistant targets and corrodes weapon and armor on an 
+	independent 1-in-6 chance for each.
+
+	At skilled and expert level, the spell may be targeted at a 
+	location no more than 10 squares away that is in sight and an open
+	space. The explosion cannot be cast underwater or on the Plane of 
+	Water; if used while swallowed, it is automatically cast on your 
+	own location.
+
+	Two to nine explosions are generated; the first is centered at the
+	target location, and subsequent explosions are randomly placed on
+	any of the nine squares around that point (unless swallowed). Each
+	explosion deals damage as the unskilled/basic spell; only the 
+	damage is dealt, and weapons and armor are not eroded.
+spellbook of sonicboom
+	Allows you to learn the spell of sonicboom.
+	
+	Similar to a cone of cold, but inflicts sonic damage.
+spellbook of psionic wave
+	Illithids have a natural psionic attack that can confuse and kill, 
+	and is tied to spell power use (but is not considered a spell for 
+	the purposes of Amulet of Yendor interactions). If your race is 
+	changed (e.g. by getting crowned as an infidel), this ability is 
+	lost.
+	The psionic wave does 2d6 psychic damage. At Level 26, this 
+	increases to 4d6 psychic damage.
+spellbook of force bolt
+	Allows you to learn the spell of force bolt.
+	
+	Casting the spell allows you to shoot a force bolt in any 
+	direction, the same as a wand of striking. If the bolt hits a 
+	monster, it does 2d12 damage; monsters may resist for half damage. 
+	Monsters with player-style magic resistance take no damage.
+
+	The force bolt will break any boulder, statue, door or drawbridge 
+	that it hits. It will also break fragile items such as potions. 
+	Iron bars that are hit also have a chance of breaking (not on 
+	certain levels however). Note that if a monster is killed by a 
+	force bolt beam, the monster's inventory will be subjected to the 
+	beam.
+
+	It has a fixed chance of hitting, not affected by the player's 
+	dexterity or spell skills; if the roll of a d20 is lower than 
+	(10 + monster's AC), the spell hits.
+
+	Force bolt can pass the first monster it hits, also hitting monsters behind it.
+spellbook of drain life
+	Allows you to learn the spell of drain life.
+	
+	Casting it at a monster drains one level from it, does 1d8 × 2 
+	damage, and decreases the monster's maximum HP by 1d8 (with spell 
+	bonuses applicable to both). The base damage and HP reduction is 
+	doubled if you are a Knight carrying the Magic Mirror of Merlin,
+	have DeathVision, or are withering while wielding the Staff of Rot.
+	The monster's location will be revealed, if it is unseen. If the 
+	monster resists the spell through monster magic resistance, it will 
+	not be level drained, will suffer only 25% damage to its current HP, 
+	and will suffer no damage to its max HP. Monsters with drain 
+	resistance are not affected at all.
+
+	If the spell is cast at an object, the object will resist 90% of 
+	the time if it is an artifact, or 10% of the time otherwise. If 
+	the object does not resist, its charge or enchantment is reduced 
+	by 1. An object cannot have its charge or enchantment reduced 
+	below zero, and any objects with negative enchantments are 
+	unaffected.
+
+	Casting the spell at yourself drains one experience level with the 
+	usual message, as if you were hit with a monster's drain life 
+	attack, unless you are drain resistant. Losing a level reduces 
+	your maximum hit points and your hit points by the same amount, 
+	down to a minimum of one. If you are drained below experience 
+	level 1, you die.
+	
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
 		[]
