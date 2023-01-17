@@ -583,13 +583,16 @@ char *buf, *monbuf;
                    Is_airlevel(&u.uz) ? "cloudy area" : "fog/vapor cloud");
             printed_blood = TRUE;
             break;
-        case S_poisoncloud:
-            printed_blood = TRUE;
+        case S_poisoncloud: 
+            Strcpy(buf, "poison cloud");
+            printed_blood = TRUE; 
             break;
+#if 0
         case S_grass:
-            Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody grass" : "grass");
+            Sprintf(eos(buf), levl[x][y].splatpm ? "bloody grass" : "grass");
             printed_blood = TRUE;
             break;
+#endif
         case S_pool:
         case S_puddle:
         case S_sewage:

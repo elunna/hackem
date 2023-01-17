@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: poison clouds not described on farlook.  Fixes #144.
 Fixed error in Nharlotep, renamed to Nyarlathotep. Fixes #168.
 Limit thriae max births to 3.
 Revert EvilHack sacrifice gift changes: altar gifts are only artifacts. 
