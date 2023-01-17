@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Animate Dead costs (100 - u.ulevel) HP instead of (50 - u.ulevel) HP.
 Added database entries for the spellbooks 1-13.
 Fixed tile for spellbook of charge saber.
 Put lightsaber tiles in correct order in objects.txt.

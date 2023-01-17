@@ -2265,7 +2265,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SPE_ANIMATE_DEAD: {
         struct obj *obj;
         /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
-        int cost = 50 - u.ulevel; /* WAC make this depend on mon? */
+        int cost = 100 - u.ulevel; /* WAC make this depend on mon? */
                                   
         if (u.uswallow) {
             pline("You don't have enough elbow-room to maneuver.");
