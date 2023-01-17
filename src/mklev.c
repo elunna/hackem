@@ -2095,7 +2095,6 @@ mkvent(int mazeflag, struct mkroom *croom)
     } while (occupied(m.x, m.y) || bydoor(m.x, m.y) || bywall(m.x, m.y));
 
     levl[m.x][m.y].typ = VENT;
-    level.flags.nvents++;
     /* Old calculation made poison vents more likely as level deepened.
      * This seemed buggy - we'll make it a simple 2 in 3. */
     /*if (depth(&u.uz) > 6 && rn2(depth(&u.uz - 4)))*/
@@ -2104,6 +2103,7 @@ mkvent(int mazeflag, struct mkroom *croom)
     
     (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
                        long_to_any(((long) m.x << 16) | (long) m.y));
+    level.flags.nvents++;
 }
 
 STATIC_OVL void

@@ -1426,18 +1426,22 @@ wiz_map_levltyp(VOID_ARGS)
         if (level.flags.nfountains)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_fountain].sym,
                     (int) level.flags.nfountains);
+        
         if (level.flags.nsinks)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_sink].sym,
                     (int) level.flags.nsinks);
-         if (level.flags.nvents)
+        
+        if (level.flags.nvents)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_vent].sym,
                     (int) level.flags.nvents); 
+        
         if (level.flags.ntoilets)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_toilet].sym,
                     (int) level.flags.ntoilets);
         if (level.flags.nforges)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_forge].sym,
                     (int) level.flags.nforges);
+        
         if (level.flags.has_vault)
             Strcat(dsc, " vault");
         if (level.flags.has_shop)

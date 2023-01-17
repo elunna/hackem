@@ -2377,7 +2377,7 @@ d_level *lev;
 #define INTEREST(feat)                                                   \
     ((feat).nfount || (feat).nsink || (feat).nthrone || (feat).naltar    \
      || (feat).ngrave || (feat).ntree || (feat).nshop || (feat).ntemple  \
-     || (feat).nforge || (feat).ntoilet || (feat).ndeadtree)
+     || (feat).nforge || (feat).ntoilet || (feat).nvent || (feat).ndeadtree)
   /* || (feat).water || (feat).ice || (feat).lava */
 
 /* returns true if this level has something interesting to print out */
@@ -2598,6 +2598,11 @@ recalc_mapseen()
                 count = mptr->feat.ntoilet + 1;
                 if (count <= 3)
                     mptr->feat.ntoilet = count;
+                break;
+            case VENT:
+                count = mptr->feat.nvent + 1;
+                if (count <= 3)
+                    mptr->feat.nvent = count;
                 break;
             case FORGE:
                 count = mptr->feat.nforge + 1;
@@ -3069,6 +3074,7 @@ boolean printdun;
         ADDNTOBUF("fountain", mptr->feat.nfount);
         ADDNTOBUF("sink", mptr->feat.nsink);
         ADDNTOBUF("toilet", mptr->feat.ntoilet);
+        ADDNTOBUF("vent", mptr->feat.nvent);
         ADDNTOBUF("grave", mptr->feat.ngrave);
         ADDNTOBUF("tree", mptr->feat.ntree);
         ADDNTOBUF("dead tree", mptr->feat.ndeadtree);
