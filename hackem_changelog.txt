@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fixed error in Nharlotep, renamed to Nyarlathotep. Fixes #168.
 Limit thriae max births to 3.
 Revert EvilHack sacrifice gift changes: altar gifts are only artifacts. 
 Added database entries for spellbooks 14-21.

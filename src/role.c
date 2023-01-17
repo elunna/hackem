@@ -426,7 +426,7 @@ const struct Role roles[] = {
         { "Necromancer", 0 },
         { "Undead Master", 0 },
         { "Lich Lord", 0 } },
-      "Nharlotep", "Zugguthobal", "Gothuulbe", /* Assorted slimy things */
+      "Nyarlathotep", "Zugguthobal", "Gothuulbe", /* Assorted slimy things */
       "Nec", 
       "the Tower of the Dark Lord", 
       "the Lair of Maugneshaagar",
