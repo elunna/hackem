@@ -3534,7 +3534,8 @@ char *buf;
     else if (is_pool(x, y))
         dfeature = "pool of water";
     else if (IS_GRASS(ltyp))
-        cmap = S_grass; /* "grass" */
+       /* cmap = S_grass; */
+        dfeature = "grass"; /* "grass" */
     else if (is_puddle(x, y))
         dfeature = "pool of shallow water";
     else if (is_sewage(x, y))

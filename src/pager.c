@@ -547,7 +547,6 @@ char *buf, *monbuf;
             Strcpy(buf, defsyms[trap_to_defsym(tnum)].explanation);
     } else if (glyph_is_warning(glyph)) {
         int warnindx = glyph_to_warning(glyph);
-
         Strcpy(buf, def_warnsyms[warnindx].explanation);
     } else if (!glyph_is_cmap(glyph)) {
         Strcpy(buf, "unexplored area");
@@ -587,12 +586,10 @@ char *buf, *monbuf;
             Strcpy(buf, "poison cloud");
             printed_blood = TRUE; 
             break;
-#if 0
         case S_grass:
             Sprintf(eos(buf), levl[x][y].splatpm ? "bloody grass" : "grass");
             printed_blood = TRUE;
             break;
-#endif
         case S_pool:
         case S_puddle:
         case S_sewage:
