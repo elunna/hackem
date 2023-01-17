@@ -1143,6 +1143,7 @@ rancid jelly
 	inexpressibly dear and forlorn for a bit of blue jelly, would
 	force open the outer door until I returned and rejoined it.
 		[ Beholder's Eye, by Julie E. Czerneda ]
+~spellbook of spirit bomb
 *bomb
     Bombs are a new type of weapon in HackEM. There are three specific 
     types, the fire bomb, the gas bomb, and the sonic bomb. All are 
@@ -10249,6 +10250,115 @@ spellbook of drain life
 	your maximum hit points and your hit points by the same amount, 
 	down to a minimum of one. If you are drained below experience 
 	level 1, you die.
+spellbook of summon undead
+	Allows you to learn the spell of summon undead.
+	
+	On casting, there is a 72 in 73 chance of creating one undead 
+	monster and a 1 in 73 chance of creating five undead. The undead 
+	monsters will be V (1/10 chance), Z (4/10 chance), M (3/10 chance),
+	(1/10 chance), or W (1/10 chance).
+
+	If the player is a Necromancer they will automatically attempt to
+	dominate the resulting monster(s). If the player is not a 
+	necromancer but knows the command undead spell they will auto-cast 
+	command undead. In either case the monster(s) may resist, based on
+	their MR. The differences between the two cases is that non-
+	Necromancers must expend additional power to cast the second spell,
+	and Necromancers will dominate the resulting monsters, even if 
+	they are not undead - this is especially relevant for fire vampires
+	and star vampires, which are V but not undead.
+
+	The Necromancer automatically learns this spell at XL 9.
+spellbook of command undead
+	Allows you to learn the spell of command undead.
+	
+	This spell is equivalent to charm monster, except that it only 
+	affects undead.
+	
+	The Necromancer automatically learns this spell at XL 7.
+spellbook of raise zombies
+	Allows you to learn the spell of raise zombies.
+	
+	It will attempt to revive all corpses in adjacent squares and turn
+	them into appropriate zombies. Goblin corpses will result in orc 
+	zombies. Other humanoids will become a ghoul 3/4th of the time
+	or a ghast the remaining 1/4th. There is no effect on non-humanoid
+	corpses.
+
+	An attempt will be made to tame the resulting undead with the same
+	chances as casting charm monster. The undead will always be 
+	hostile if not tamed. You will be unable to move for 2 turns even 
+	if there was no effect.
+	
+	The Necromancer automatically learns this spell at XL 3.
+spellbook of call undead
+	Allows you to learn the spell of call undead.
+	
+	When cast, this spell gathers all your undead pets on the level to 
+	your location. This works exactly the same as a magic whistle, 
+	with the limitation of only summoning undead.
+	
+	The Necromancer automatically learns this spell at XL 2.
+spellbook of animate dead
+	Allows you to learn the spell of animate dead.
+	
+	It allows you to revive a corpse as a pet, either from the floor
+	or your inventory. In addition to the magic energy cost, there is
+	an additional cost of (100 - YOURLEVEL) hit points unless "You 
+	don't have the strength to perform revivification."
+	
+	The Necromancer automatically learns this spell at XL 14.
+spellbook of spirit bomb
+	Allows you to learn the spell of spirit bomb.
+	
+	The spell creates an effect similar to the fireball spell, although
+	it is non-elemental. The ray travels up to d8+1 squares and stops 
+	at the first monster hit. The resulting explosion damages hostile 
+	monsters, and leaves your character, any pets, and nearby objects
+	unaffected.
+	
+	If you have less than 10 energy after the initial casting cost, 
+	the spell will fizzle out. Otherwise, an additional cost of n is
+	applied, where n is 10 + (YOURLEVEL / 5). If n is more than your 
+	current energy, n is set to your current energy.
+	
+	n is then applied as bonus damage when the explosion occurs. The 
+	base damage of the spirit explosion is 3d6, plus any applicable 
+	spellcasting bonuses.
+    
+	The Necromancer automatically learns this spell at XL 17.
+spellbook of knock
+	Allows you to learn the spell of knock.
+	
+	The effect is the exact same as a wand of opening, and will unlock
+	doors and containers, as well as revealing hidden doors.
+	
+	However, it has many other uses besides the obvious: as a matter 
+	spell, it can be used to train for casting more powerful spells in
+	the school, notably polymorph. It can also expose secret doors 
+	whose locations are known to the player but not the character 
+	(especially on special levels), and can open the Castle drawbridge
+	without needing an instrument to play the passtune.
+	 
+	Casting knock also unlocks doors at a distance and does so slightly
+	faster than a key would manage; because of this, it might be useful
+	on the Astral Plane, though a wand of digging is better because it
+	will raze the doors. The spell also causes engulfing monsters to 
+	expel you, making it useful on the Plane of Air. It can also free 
+	you from most kinds of "holding traps", including bear traps, 
+	webs, pits, buried iron ball, or being stuck in the floor.
+	Technically it can also free you from being stuck in lava, but 
+	usually you will immediately start sinking again (unless you're 
+	e.g. levitating).
+	
+	Lastly, knock will also open iron safes and crystal chests.
+spellbook of wizard lock
+	Allows you to learn the spell of wizard lock.
+	
+	When cast, the effect is the same as that of a wand of locking, 
+	closing and locking any open doors and lockable containers in the
+	direction it was cast; if cast at an empty doorway, it will 
+	create a locked door. 
 	
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
