@@ -62,7 +62,7 @@ jobs:
         cp ./sys/winnt/Makefile.msc ./Makefile
         cd src
         nmake install
-    - uses: thedoctor0/zip-release@dev
+    - uses: thedoctor0/zip-release@master
       if: startsWith(github.ref, 'refs/tags/')
       with:
         type: 'zip'
