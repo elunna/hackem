@@ -6202,7 +6202,9 @@ int mnum;
        such into ordinary eggs rather than forbidding them outright */
     if (mnum == PM_SCORPIUS)
         mnum = PM_SCORPION;
-
+    else if (mnum == PM_GIRTAB || mnum == PM_SHELOB)
+        mnum = PM_CAVE_SPIDER;
+    
     mnum = little_to_big(mnum);
     /*
      * Queen bees lay killer bee eggs (usually), but killer bees don't
