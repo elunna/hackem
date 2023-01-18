@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: placing antimatter vortex over itself after disintegrating a shapechanger.
 Some additional checks when dried up puddles affect hidden monsters (from evil)
 Update copyright year to 2023.
 Fix: underwater vision update frequency.
