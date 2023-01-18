@@ -4052,11 +4052,15 @@ struct obj **sobjp;
         } else if (otmp->otyp == SPE_BOOK_OF_THE_DEAD) {
             otyp2 = SPE_BLANK_PAPER;
             return;
+        } else if (otmp->otyp == SCR_TIME) {
+            pline("The scroll violently resists the cloning process!");
+            otyp2 = SCR_BLANK_PAPER;
         } else {
             otyp2 = otmp->otyp;
         }
         otmp2 = mksobj_at(otyp2, u.ux, u.uy, FALSE, FALSE);
-        if (otmp2 == &zeroobj) impossible("Invalid cloned object?");
+        if (otmp2 == &zeroobj) 
+            impossible("Invalid cloned object?");
         /* beatitude */
         if (scursed) 
             curse(otmp2);
