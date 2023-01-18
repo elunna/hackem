@@ -2072,11 +2072,14 @@ int spell;
     boolean paladin_bonus, primary_casters, non_casters;
     
     /* For emulating techniques from SLASH'EM, some spells will always be 
-     * 100% if techniques. Replace with is spelltech()? */
-    if (Role_if(PM_JEDI) && 
+     * 100% if techniques.
+     * TODO: Better organization or structure for spelltechs. */
+    if ((Role_if(PM_JEDI) && 
         (spellid(spell) == SPE_JEDI_JUMP 
          || spellid(spell) == SPE_CHARGE_SABER
-         || spellid(spell) == SPE_TELEKINESIS))
+         || spellid(spell) == SPE_TELEKINESIS)) ||
+        (Role_if(PM_NECROMANCER)
+         && spell_skilltype(spellid(spell)) == P_NECROMANCY_SPELL))
         return 100;
     
     /* Calculate intrinsic ability (splcaster) */
