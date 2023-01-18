@@ -652,10 +652,8 @@ int spellnum;
     switch (spellnum) {
     case MGC_DEATH_TOUCH:
         pline("Oh no, %s's using the touch of death!", mhe(mtmp));
-        if (Death_resistance || immune_death_magic(youmonst.data)) {
-            You("%s.", nonliving(youmonst.data)
-                ? " seem no more dead than before"
-                : " are unaffected");
+        if (immune_death_magic(youmonst.data)) {
+            You("seem no more dead than before.");
         } else {
             if (Hallucination) {
                 You("have an out of body experience.");
@@ -2050,10 +2048,7 @@ int spellnum;
              || resists_magm(mtmp) || defended(mtmp, AD_MAGM));
         if (immune_death_magic(mtmp->data) || is_vampshifter(mtmp)) {
             if (yours || canseemon(mtmp))
-                pline("%s %s.", Monnam(mtmp),
-                      nonliving(mtmp->data)
-                          ? "seems no more dead than before"
-                          : "is unaffected");
+                pline("%s seems no more dead than before.", Monnam(mtmp));
         } else if (!resisted) {
             mtmp->mhp = -1;
             if (yours)

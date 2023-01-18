@@ -2323,9 +2323,7 @@ post_stone:
         if (immune_death_magic(mdef->data)) {
             /* Still does normal damage */
             if (vis)
-                pline("%s %s.", Monnam(mdef),
-                      nonliving(mdef->data) ? "looks no more dead than before"
-                                            : "is unaffected");
+                pline("%s looks no more dead than before.", Monnam(mdef));
             break;
         }
         switch (rn2(20)) {

@@ -15,7 +15,6 @@
 
 Version 1.1 (unreleased)
 
-Fix: missing a couple cases where Death_resistance should have been included.
 Fix: monster spell 'Summon nasties'.
 Fix: heap-use-after-free in munstone() function (additional evilhack tweaks).
 Fix: underwater far vision in unlit areas.
