@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Giant crocodile eggs didn't hatch baby crocs and giant centipede eggs didn't hatch centipedes. Fixes #171.
 Allow magic lamps (and candles) to operate underwater. (evil)
 Fix: bloody pools not described correctly when standing over them. Fixes #172.
 Fix: higher level tourist player monsters spawning with eggs that could hatch S_ORC type monsters.

@@ -1355,8 +1355,7 @@ static const short grownups[][2] = {
     { PM_LARVA, PM_MAGGOT},
     { PM_SABER_TOOTHED_CAT, PM_SABER_TOOTHED_TIGER},
     { PM_SHOGGOTH, PM_GIANT_SHOGGOTH},
-    { PM_CENTIPEDE, PM_NICKELPEDE},
-    { PM_NICKELPEDE, PM_GIANT_CENTIPEDE},
+    { PM_CENTIPEDE, PM_GIANT_CENTIPEDE},
     { PM_PILE_OF_KILLER_COINS, PM_LARGE_PILE_OF_KILLER_COINS},
     { PM_LARGE_PILE_OF_KILLER_COINS, PM_HUGE_PILE_OF_KILLER_COINS},
     
@@ -1395,7 +1394,11 @@ big_to_little(montype)
 int montype;
 {
     register int i;
-
+    
+    /* Exceptions */
+    if (montype == PM_GIANT_CROCODILE)
+        return PM_BABY_CROCODILE;
+    
     for (i = 0; grownups[i][0] >= LOW_PM; i++)
         if (montype == grownups[i][1]) {
             montype = grownups[i][0];
