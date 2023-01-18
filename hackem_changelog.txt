@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Update copyright year to 2023.
 Fix: underwater vision update frequency.
 Fix: latest Xcode build issue.
 Use actions/checkout@v3 (github workflow).
