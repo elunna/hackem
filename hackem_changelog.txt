@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: underwater far vision in unlit areas.
 Fix: Angelslayer's fire damage vs target.
 Fix: placing antimatter vortex over itself after disintegrating a shapechanger.
 Some additional checks when dried up puddles affect hidden monsters (from evil)
