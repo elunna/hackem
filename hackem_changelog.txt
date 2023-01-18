@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: thrown potions of polymorph by hostiles at hero that hit peacefuls anger them.
 Identity of the Riders hidden via farlook or 'More info about' prompt. (from evil)
 Fix: monster spell 'Summon nasties'.
 Fix: heap-use-after-free in munstone() function (additional evilhack tweaks).
