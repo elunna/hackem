@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Some additional checks when dried up puddles affect hidden monsters (from evil)
 Update copyright year to 2023.
 Fix: underwater vision update frequency.
 Fix: latest Xcode build issue.

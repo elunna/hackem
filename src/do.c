@@ -195,7 +195,7 @@ const char *verb;
                && (is_pit(t->ttyp) || is_hole(t->ttyp))) {
         ttyp = t->ttyp;
         tseen = t->tseen ? TRUE : FALSE;
-        if (((mtmp = m_at(x, y)) && mtmp->mtrapped)
+        if (((mtmp = m_at(x, y)) != 0 && mtmp->mtrapped)
             || (u.utrap && u.ux == x && u.uy == y)) {
             if (*verb && (cansee(x, y) || distu(x, y) == 0))
                 pline("%s boulder %s into the pit%s.",
@@ -306,12 +306,8 @@ deletedwithboulder:
         if (is_puddle(x, y) && !rn2(3)) {
             /* shallow water isn't an endless resource like a pool/moat */
             levl[x][y].typ = ROOM;
-            
-            /*maybe_unhide_at(x, y);*/
+            /* unhide any monsters lurking about */
             if ((mtmp = m_at(x, y)) != 0) {
-                /* probably ought to do some hefty damage to any
-                   non-ice creature caught in freezing water;
-                   at a minimum, eels are forced out of hiding */
                 if (is_swimmer(mtmp->data) && mtmp->mundetected) {
                     mtmp->mundetected = 0;
                 }
