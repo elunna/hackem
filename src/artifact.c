@@ -1709,38 +1709,41 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             } else if (otmp->oartifact == ART_ANGELSLAYER) {
-                if (!youattack && magr && cansee(magr->mx, magr->my)) {
-                    if (is_angel(mdef->data) && !rn2(10)) {
-                        pline("Angelslayer's eldritch flame consumes %s!",
-                              mon_nam(mdef));
-                        *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
-                        mongone(mdef);
-                    } else if (!spec_dbon_applies) {
-                        if (!youdefend)
-                            ;
-                        else
-                            pline_The("infernal trident hits %s.", hittee);
-                    } else {
-                        pline_The("infernal trident %s %s%c",
-                                  can_vaporize(mdef->data)
-                                      ? "vaporizes part of" : "burns",
-                                  hittee, !spec_dbon_applies ? '.' : '!');
+                boolean angel = youdefend ? is_angel(youmonst.data)
+                                          : is_angel(mdef->data);
+                boolean vaporize = youdefend ? can_vaporize(youmonst.data)
+                                             : can_vaporize(mdef->data);
+                boolean no_burn = youdefend ? how_resistant(FIRE_RES) == 100
+                                            : (resists_fire(mdef)
+                                               || defended(mdef, AD_FIRE));
+                
+                if (!spec_dbon_applies) {
+                    if ((youdefend || canseemon(mdef))
+                        && (youattack || cansee(magr->mx, magr->my)))
+                        pline_The("infernal trident hits %s.", hittee);
+                } else if (!rn2(10) && angel) {
+                    /* instant incineration */
+                    if (youdefend || canseemon(mdef))
+                        pline("Angelslayer's eldritch flame consumes %s!", hittee);
+                    if (youdefend) {
+                        u.ugrave_arise = (NON_PM - 2); /* no corpse */
+                        killer.format = NO_KILLER_PREFIX;
+                        Sprintf(killer.name, "incinerated by %s", the(xname(otmp)));
+                        done(DIED);
+                        *dmgptr = 1;
+                    } else { /* you or mon hit monster */
+                        if (youattack) {
+                            xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
+                        } else {
+                            monkilled(mdef, 0, AD_FIRE);
+                        }
                     }
                 } else {
-                    if (is_angel(mdef->data) && !rn2(10)) {
-                        pline("Angelslayer's eldritch flame consumes %s!",
-                              mon_nam(mdef));
-                        *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
-                        xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
-                    } else {
+                    if (youdefend || canseemon(mdef))
                         pline_The("infernal trident %s %s%c",
-                                  !spec_dbon_applies
-                                      ? "hits"
-                                      : can_vaporize(mdef->data)
-                                          ? "vaporizes part of"
-                                          : "burns",
+                                  vaporize ? "vaporizes part of"
+                                           : no_burn ? "hits" : "burns",
                                   hittee, !spec_dbon_applies ? '.' : '!');
-                    }
                 }
             } else if (otmp->oclass == WEAPON_CLASS
                        && (otmp->oprops & ITEM_FIRE)) {
