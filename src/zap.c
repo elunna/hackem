@@ -3134,7 +3134,9 @@ boolean ordinary;
         if (immune_death_magic(youmonst.data)) {
             pline((obj->otyp == WAN_DEATH)
                       ? "The wand shoots an apparently harmless beam at you."
-                      : "You seem no more dead than before.");
+                      : nonliving(youmonst.data)
+                          ? "You seem no more dead than before."
+                          : "You are unaffacted.");
             break;
         }
         if (Invulnerable) {
