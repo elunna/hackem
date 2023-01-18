@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Allow magic lamps (and candles) to operate underwater. (evil)
 Fix: bloody pools not described correctly when standing over them. Fixes #172.
 Fix: higher level tourist player monsters spawning with eggs that could hatch S_ORC type monsters.
 Fix: queen ants were laying queen ant eggs.

@@ -1540,7 +1540,7 @@ struct obj *obj;
     }
     if (!u_handsy())
         return;
-    if (Underwater) {
+    if (Underwater && obj->otyp != MAGIC_LAMP && obj->otyp != MAGIC_CANDLE) {
         pline(!Is_candle(obj) ? "This is not a diving lamp."
                               : "Sorry, fire and water don't mix.");
         return;
