@@ -2181,7 +2181,8 @@ struct obj *obj;
         obj = poly_obj(obj, MEATBALL);
         smell = TRUE;
         break;
-    case WEAPON_CLASS: /* crysknife */
+    case ARMOR_CLASS:
+    case WEAPON_CLASS:
         /* FALLTHRU */
     default:
         if (valid_obj_material(obj, FLESH)) {
