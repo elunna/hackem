@@ -1192,7 +1192,7 @@ int oldlevel, newlevel;
     else
         context.warntype.intrins &= ~MH_UNDEAD;
 
-    /* Learn your special spells! */
+    /* Learn tech-spells! */
     short spell = spelltech();
     if (spell) {
         if (oldlevel < u.ulevel && newlevel >= u.ulevel
@@ -1201,7 +1201,7 @@ int oldlevel, newlevel;
             for (i = 0; i < MAXSPELL; i++) {
                 if (spellid(i) == spell)
                     return; /* We already know it */
-                if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
+                if (spellid(i) == NO_SPELL)
                     break;
             }
             if (spellid(i) == NO_SPELL)
@@ -1211,7 +1211,6 @@ int oldlevel, newlevel;
             spl_book[i].sp_know = 100000;
         }
     }
-
 }
 
 int
