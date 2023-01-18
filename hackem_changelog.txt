@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Healing spells, cure sickness, and stone to flesh being cast on peacefuls doesn't anger them.
 Silenced some new compiler warnings.
 Cleaned up string warnings in artifact_info().
 Fixed bomb explosion colors when thrown by hostiles.

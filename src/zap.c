@@ -262,7 +262,6 @@ struct obj *otmp;
                 hit(zap_type_text, mtmp, exclam(dmg));
                 damage_mon(mtmp, dmg, AD_FIRE);
                 
-            
                 if (DEADMONSTER(mtmp)) {
                     killed(mtmp);
                 } 
@@ -604,6 +603,7 @@ struct obj *otmp;
             (void) resist(mtmp, otmp->oclass,
                           d(3, otyp == SPE_EXTRA_HEALING ? 8 : 4), TELL);
         }
+        helpful_gesture = TRUE;
         if (!curesick)
             break;
         /* FALLTHRU */
@@ -620,6 +620,7 @@ struct obj *otmp;
                 }
             }
             mtmp->msick = 0;
+            helpful_gesture = TRUE;
         } else if (is_zombie(mtmp->data)) {
             if (!DEADMONSTER(mtmp)) {
                 /* Allow wands of healing to be nasty versus zombies */
@@ -637,6 +638,7 @@ struct obj *otmp;
                 if (DEADMONSTER(mtmp))
                     killed(mtmp);
             }
+            helpful_gesture = FALSE;
         }
         break;
     case WAN_LIGHT: /* (broken wand) */
@@ -676,6 +678,7 @@ struct obj *otmp;
             } else {
                 pline("%s seems limber!", Monnam(mtmp));
             }
+            helpful_gesture = TRUE;
         } else
             wake = FALSE;
         break;
