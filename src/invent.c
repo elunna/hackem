@@ -3678,9 +3678,12 @@ boolean picked_some;
         }
     }
 
-    if (dfeature)
-        Sprintf(fbuf, "There is %s%s here.", bloody ? "bloody " : "", an(dfeature));
-
+    if (dfeature) {
+        if (bloody)
+            Sprintf(fbuf, "There is a bloody %s here.", dfeature);
+        else
+            Sprintf(fbuf, "There is %s here.", an(dfeature));
+    }
     if (!otmp || is_lava(u.ux, u.uy)
         || (is_pool(u.ux, u.uy) && !Underwater)) {
         if (dfeature)
