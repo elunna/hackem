@@ -681,7 +681,7 @@ const struct Role roles[] = {
       { 8, 0, 0, 8, 0, 0 }, /* Hit points */
       { 1, 0, 0, 1, 0, 1 },
       14, /* Energy */
-      0, 5, 1, 2, 10, A_INT, SPE_CHARM_MONSTER, -4 },
+      0, 5, 1, 2, 10, A_INT, SPE_CREATE_FAMILIAR, -4 },
     { { "Undead Slayer", 0 }, {
 	  { "Assistant",    0 },
 	  { "Eliminator",   0 },

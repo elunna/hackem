@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Changed Tourist's special spell to create familiar (Jedi get charm monster as their special now).
 Changed Pirate's special spell to haste self.
 Changed Ice Mage's special spell to spell of reflection.
 Changed Flame Mage's special spell to spell of enlighten.
