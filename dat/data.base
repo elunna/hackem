@@ -44,6 +44,7 @@ armour
 ~forging armor
 ~scroll of enchant armor
 ~scroll of destroy armor
+~spellbook of repair armor
 *armor
 suit or piece of armor
 ~*dragon*scale*
@@ -10359,7 +10360,124 @@ spellbook of wizard lock
 	closing and locking any open doors and lockable containers in the
 	direction it was cast; if cast at an empty doorway, it will 
 	create a locked door. 
+spellbook of polymorph
+	Allows you to learn the spell of polymorph.
 	
+	Casting a beam that changes any monster, item, or player it hits 
+	into something else of its type.
+spellbook of repair armor
+	Allows you to learn the spell of repair armor.
+	
+	When cast, repairs one level of damage to any worn piece of armor.
+	Will not make armor items fixed, but will bring them back to a new
+	undamaged state. This spell is significant, as the monster spell 
+	'destroy armor' can un-fix and damage your armor to the point that
+	it's destroyed completely, even armor that is inherently 
+	erodeproof. The spell will choose a worn piece of armor at random
+	to fix if unskilled in casting matter-based spells, otherwise at
+	basic or higher skill, the player can select which piece of armor
+	to repair.
+spellbook of reflection
+	Allows you to learn the spell of reflection.
+	
+	Creates a temporary reflective bubble around the caster, acts 
+	exactly the same as an amulet of reflection or silver dragon 
+	scales.
+spellbook of flame sphere
+	Allows you to learn the spell of flame sphere.
+	
+	Creates a tame flaming sphere that will explode itself on any 
+	nearby enemies. Will dissipate if not used in a timely manner.
+spellbook of freeze sphere
+	Allows you to learn the spell of freeze sphere.
+	
+	Creates a tame freezing sphere that will explode itself on any 
+	nearby enemies. Will dissipate if not used in a timely manner.
+spellbook of cancellation
+	Allows you to learn the spell of cancellation.
+
+	When cast, it fires a beam which works exactly like the wand of 
+	cancellation: items will be uncursed and unenchanted, scrolls and 
+	most spellbooks will be blanked, most wands and magical tools lose
+	their charges, and most potions will be turned into water. 
+	Monsters hit by the spell must each pass a monster MR check; if 
+	they fail, they can lose a lot or all of their special attacks.
+
+	The spellbook of cancellation is the only book that cannot be 
+	cancelled into a spellbook of blank paper by the spell or wand of 
+	cancellation, and the spell also cannot cancel the wand of 
+	cancellation or the wand of nothing.
+spellbook of fire bolt
+	Allows you to learn the spell of fire bolt.
+	
+	Fire Bolt only appears in the Flame Mage's starting inventory and 
+	is not randomly generated. The spellbook itself is immune to fire.
+	
+	When cast, this shoots a fire attack (similar to force bolt) that 
+	doesn't reflect and can hit multiple targets. It destroys doors, 
+	trees, grass, webs, fountains and can instakill straw and paper 
+	golems.
+	
+	Damage scales with level:
+	- Level 1 = 1d10 fire damage
+	- Level 4 = 1d10 + 1d8 fire damage
+	- Level 8 = 1d10 + 2d8 fire damage
+	- Level 12 = 1d10 + 3d8 fire damage
+	- Matter at Skilled adds +1d4 fire damage
+	- Matter at Expert adds +1d4 fire damage
+spellbook of slow monster
+	Allows you to learn the spell of slow monster.
+	
+	When cast, the spell acts similarly to a wand of slow monster: if
+	you cast it at a monster and they do not resist, it renders them 
+	slow (i.e. 2/3 of their normal speed). If the target(s) were 
+	already fast, they are returned to normal speed. If cast at a 
+	monster while it has you engulfed, you are immediately expelled. 
+	
+	If zapped at yourself, you gain intrinsic slowness for 13-23 
+	turns.
+spellbook of cause fear
+	Allows you to learn the spell of cause fear.
+
+	Casting this spell has the same effect as reading a scroll of 
+	scare monster: it will scare monsters, causing them to to run away. 
+	The downside of this method (versus those caused by more mundane 
+	or divine sources) is that it is subject to the target's monster 
+	magic resistance and immunities; once scared, a monster with full
+	HP has a 4% chance of recovering each turn. It has no effect on 
+	pets.
+spellbook of charm monster
+	Allows you to learn the spell of charm monster.
+	
+	This spell has the basic effect of an uncursed scroll of taming, 
+	turning adjacent monsters into pets. Monsters have a chance of 
+	resisting it, depending on their magic resistance. Covetous or 
+	human monsters will be pacified instead, as are demons unless you
+	are a demon yourself; the Wizard of Yendor, Medusa and the quest 
+	nemesis cannot be pacified or tamed. The taming effect will also 
+	pacify any angry shopkeepers it affects, even if they would 
+	normally resist.
+	
+	Note: The SLASH'EM mechanics of traitorous and untameable monsters 
+	have been added. This means that many monsters that a player would
+	typically tame with charm monster will now be able to turn hostile
+	on a whim (or not be tamable at all).
+spellbook of confuse monster
+	Allows you to learn the spell of confuse monster.
+	
+	Casting this spell has exactly the same effect as a scroll of 
+	confuse monster; your hands will "glow red", confusing the next 
+	monster you attack in melee, subject to monster magic resistance. 
+	
+	If cast at a skilled level of enchantment skill, it works like a 
+	blessed scroll of confuse monster instead, giving 2-9 more uses of
+	this ability. You can store up to 40 uses.
+
+	If you are polymorphed into a form not represented by @, the spell
+	has a different effect: you confuse yourself (for 1-100 turns). 
+	The confused scroll effects are not available via the spell, 
+	because confusion prevents spellcasting for players.
+		
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
 		[]
