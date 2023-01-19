@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Broke artifact lookups from trying to use strcpy for everything.
 Removed accompanying artifact defenders when wishing for artifacts. 
 Added acid resistance to more monsters.
 Disabled the Un black market until memory leak is debugged.

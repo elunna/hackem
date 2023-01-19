@@ -661,14 +661,14 @@ struct art_info_t {
     const char* material;
     const char* role;
     const char* race;
-    char *wielded[INTRINSICS];
-    char *carried[INTRINSICS];
-    char* invoke;
-    char* attack;
-    char* hates;
-    char* xattack;
-    char* xinfo;
-    char* dbldmg;
+    const char *wielded[INTRINSICS];
+    const char *carried[INTRINSICS];
+    const char* invoke;
+    const char* attack;
+    const char* hates;
+    const char* xattack;
+    const char* xinfo;
+    const char* dbldmg;
     
     
 };

@@ -4531,7 +4531,7 @@ artifact_info(int anum)
                 art_info.dbldmg = malloc(100);
                 strcpy(art_info.dbldmg, buf);
             } else
-                strcpy(art_info.dbldmg, "deals double damage");
+                art_info.dbldmg = "deals double damage";
         }
     } else
         art_info.attack = NULL;
@@ -4544,33 +4544,33 @@ artifact_info(int anum)
     }
     
     if ((artilist[anum].spfx & SPFX_SEARCH) != 0)
-        strcpy(art_info.wielded[1], "searching");
+        art_info.wielded[1] = "searching";
     if ((artilist[anum].spfx & SPFX_HALRES) != 0)
-        strcpy(art_info.wielded[2], "hallucination resistance");
+        art_info.wielded[2] = "hallucination resistance";
     if ((artilist[anum].spfx & SPFX_ESP) != 0)
-        strcpy(art_info.wielded[3], "telepathy");
+        art_info.wielded[3] = "telepathy";
     if ((artilist[anum].spfx & SPFX_STLTH) != 0)
-        strcpy(art_info.wielded[4], "stealth");
+        art_info.wielded[4] = "stealth";
     if ((artilist[anum].spfx & SPFX_REGEN) != 0)
-        strcpy(art_info.wielded[5], "regeneration");
+        art_info.wielded[5] = "regeneration";
     if ((artilist[anum].spfx & SPFX_EREGEN) != 0)
-        strcpy(art_info.wielded[6], "energy regeneration");
+        art_info.wielded[6] = "energy regeneration";
     if ((artilist[anum].spfx & SPFX_HSPDAM) != 0)
-        strcpy(art_info.wielded[7], "half spell damage");
+        art_info.wielded[7] = "half spell damage";
     if ((artilist[anum].spfx & SPFX_HPHDAM) != 0)
-        strcpy(art_info.wielded[8], "half physical damage");
+        art_info.wielded[8] = "half physical damage";
     if ((artilist[anum].spfx & SPFX_TCTRL) != 0)
-        strcpy(art_info.wielded[9], "teleport control");
+        art_info.wielded[9] = "teleport control";
     if ((artilist[anum].spfx & SPFX_LUCK) != 0)
-        strcpy(art_info.wielded[10], "luck");
+        art_info.wielded[10] = "luck";
     if ((artilist[anum].spfx & SPFX_XRAY) != 0)
-        strcpy(art_info.wielded[11], "astral vision");
+        art_info.wielded[11] = "astral vision";
     if ((artilist[anum].spfx & SPFX_REFLECT) != 0)
-        strcpy(art_info.wielded[12], "reflection");
+        art_info.wielded[12] = "reflection";
     if ((artilist[anum].spfx & SPFX_PROTECT) != 0)
-        strcpy(art_info.wielded[13], "protection");
+        art_info.wielded[13] = "protection";
     if ((artilist[anum].spfx & SPFX_BREATHE) != 0)
-        strcpy(art_info.wielded[14], "magical breathing");
+        art_info.wielded[14] = "magical breathing";
     
     if ((artilist[anum].spfx & SPFX_WARN) != 0) {
         if ((artilist[anum].spfx & SPFX_DFLAGH) != 0) {
@@ -4578,7 +4578,7 @@ artifact_info(int anum)
             art_info.wielded[15] = malloc(100);
             strcpy(art_info.wielded[15], buf);
         } else {
-            strcpy(art_info.wielded[15], "warning");
+            art_info.wielded[15] = "warning";
         }
     }
     /* Granted while carried. */
@@ -4588,242 +4588,242 @@ artifact_info(int anum)
         strcpy(art_info.carried[0], buf);
     } 
     if ((artilist[anum].cspfx & SPFX_SEARCH) != 0)
-        strcpy(art_info.carried[1], "searching");
+        art_info.carried[1] = "searching";
     if ((artilist[anum].cspfx & SPFX_HALRES) != 0)
-        strcpy(art_info.carried[2], "hallucination resistance");
+        art_info.carried[2] = "hallucination resistance";
     if ((artilist[anum].cspfx & SPFX_ESP) != 0)
-        strcpy(art_info.carried[3], "telepathy");
+        art_info.carried[3] = "telepathy";
     if ((artilist[anum].cspfx & SPFX_STLTH) != 0)
-        strcpy(art_info.carried[4], "stealth");
+        art_info.carried[4] = "stealth";
     if ((artilist[anum].cspfx & SPFX_REGEN) != 0)
-        strcpy(art_info.carried[5], "regeneration");
+        art_info.carried[5] = "regeneration";
     if ((artilist[anum].cspfx & SPFX_EREGEN) != 0)
-        strcpy(art_info.carried[6], "energy regeneration");
+        art_info.carried[6] = "energy regeneration";
     if ((artilist[anum].cspfx & SPFX_HSPDAM) != 0)
-        strcpy(art_info.carried[7], "half spell damage");
+        art_info.carried[7] = "half spell damage";
     if ((artilist[anum].cspfx & SPFX_HPHDAM) != 0)
-        strcpy(art_info.carried[8], "half physical damage");
+        art_info.carried[8] = "half physical damage";
     if ((artilist[anum].cspfx & SPFX_TCTRL) != 0)
-        strcpy(art_info.carried[9], "teleport control");
+        art_info.carried[9] = "teleport control";
     if ((artilist[anum].cspfx & SPFX_LUCK) != 0)
-        strcpy(art_info.carried[10], "luck");
+        art_info.carried[10] = "luck";
     if ((artilist[anum].cspfx & SPFX_XRAY) != 0)
-        strcpy(art_info.carried[11], "astral vision");
+        art_info.carried[11] = "astral vision";
     if ((artilist[anum].cspfx & SPFX_REFLECT) != 0)
-        strcpy(art_info.carried[12], "reflection");
+        art_info.carried[12] = "reflection";
     if ((artilist[anum].cspfx & SPFX_PROTECT) != 0)
-        strcpy(art_info.carried[13], "protection");
+        art_info.carried[13] = "protection";
     if ((artilist[anum].cspfx & SPFX_BREATHE) != 0)
-        strcpy(art_info.carried[14], "magical breathing");
+        art_info.carried[14] = "magical breathing";
     if ((artilist[anum].cspfx & SPFX_WARN) != 0)
-        strcpy(art_info.carried[15], "warning");
+        art_info.carried[15] = "warning";
 
     switch (artilist[anum].inv_prop) {
-    case TAMING: strcpy(art_info.invoke, "Taming"); break;
-    case HEALING: strcpy(art_info.invoke, "Healing"); break;
-    case ENERGY_BOOST: strcpy(art_info.invoke, "Energy Boost"); break;
-    case UNTRAP: strcpy(art_info.invoke, "Untrap"); break;
-    case CHARGE_OBJ: strcpy(art_info.invoke, "Charge Object"); break;
-    case LEV_TELE: strcpy(art_info.invoke, "Level Teleport"); break;
-    case LIGHT_AREA: strcpy(art_info.invoke, "Light Area"); break;
-    case CREATE_PORTAL: strcpy(art_info.invoke, "Branchport"); break;
-    case ENLIGHTENING: strcpy(art_info.invoke, "Enlightenment"); break;
-    case SUMMON_FIRE_ELEMENTAL: strcpy(art_info.invoke, "Summon Fire Elemental"); break;
-    case SUMMON_WATER_ELEMENTAL: strcpy(art_info.invoke, "Summon Storm Pet"); break;
-    case LIGHTNING_BOLT: strcpy(art_info.invoke, "Lightning Bolt"); break;
-    case WITHER: strcpy(art_info.invoke, "Wither"); break;
-    case CREATE_AMMO: strcpy(art_info.invoke, "Create Ammo"); break;
-    case PHASING: strcpy(art_info.invoke, "Phasing"); break;
-    case CHANNEL: strcpy(art_info.invoke, "Channel"); break;
-    case DEATH_MAGIC: strcpy(art_info.invoke, "Death Magic"); break;
-    case CONFLICT: strcpy(art_info.invoke, "Conflict"); break;
-    case LEVITATION: strcpy(art_info.invoke, "Levitation"); break;
-    case INVIS: strcpy(art_info.invoke, "Invisibility"); break;
-    case FLYING: strcpy(art_info.invoke, "Flying"); break;
-    case WWALKING: strcpy(art_info.invoke, "Water Walking"); break;
-    case OBJECT_DET: strcpy(art_info.invoke, "Object Detection"); break;
+    case TAMING: art_info.invoke = "Taming"; break;
+    case HEALING: art_info.invoke = "Healing"; break;
+    case ENERGY_BOOST: art_info.invoke = "Energy Boost"; break;
+    case UNTRAP: art_info.invoke = "Untrap"; break;
+    case CHARGE_OBJ: art_info.invoke = "Charge Object"; break;
+    case LEV_TELE: art_info.invoke = "Level Teleport"; break;
+    case LIGHT_AREA: art_info.invoke = "Light Area"; break;
+    case CREATE_PORTAL: art_info.invoke = "Branchport"; break;
+    case ENLIGHTENING: art_info.invoke = "Enlightenment"; break;
+    case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
+    case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
+    case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
+    case WITHER: art_info.invoke = "Wither"; break;
+    case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
+    case PHASING: art_info.invoke = "Phasing"; break;
+    case CHANNEL: art_info.invoke = "Channel"; break;
+    case DEATH_MAGIC: art_info.invoke = "Death Magic"; break;
+    case CONFLICT: art_info.invoke = "Conflict"; break;
+    case LEVITATION: art_info.invoke = "Levitation"; break;
+    case INVIS: art_info.invoke = "Invisibility"; break;
+    case FLYING: art_info.invoke = "Flying"; break;
+    case WWALKING: art_info.invoke = "Water Walking"; break;
+    case OBJECT_DET: art_info.invoke = "Object Detection"; break;
         /*Invoke for water-walking and an earthquake. */
         
     case SEFFECT: 
         switch (anum) {
         case ART_IMHULLU:
-            strcpy(art_info.invoke, "Scroll of Air"); break;
+            art_info.invoke = "Scroll of Air"; break;
         case ART_DEEP_FREEZE:
-            strcpy(art_info.invoke, "Scroll of Ice + Freeze Sphere"); break;
+            art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
         case ART_FIREWALL:
-            strcpy(art_info.invoke, "Flame Sphere"); break;
+            art_info.invoke = "Flame Sphere"; break;
         }
         break;
     default:
-        strcpy(art_info.invoke, "None"); break;
+        art_info.invoke = "None"; break;
     }
     
     /* Extra hard-coded info (not possible to automate into the lookup) */ 
     switch (anum) {
     case ART_BALMUNG:
-        strcpy(art_info.xattack, "\t\tShreds the armor of opponents.");
+        art_info.xattack = "\t\tShreds the armor of opponents.";
         /*Balmung always resists destruction */
         break;
     case ART_DRAMBORLEG:
-        strcpy(art_info.xattack, "\t\tCan destroy any balrog in one hit.");
+        art_info.xattack = "\t\tCan destroy any balrog in one hit.";
         break;
     case ART_DEMONBANE:
-        strcpy(art_info.wielded[16], "Angers demons princes and lords.");
-        strcpy(art_info.wielded[17], "Blocks demon gating while wielded.");
+        art_info.wielded[16] = "Angers demons princes and lords.";
+        art_info.wielded[17] = "Blocks demon gating while wielded. ";
         break;
     case ART_EXCALIBUR:
-        strcpy(art_info.wielded[16], "Angers demons princes and lords.");
+        art_info.wielded[16] = "Angers demons princes and lords.";
         break;
     case ART_HAND_GRENADE_OF_ANTIOCH: 
-        strcpy(art_info.xattack, "\t\tExplodes dealing 6d50 magical damage.");
+        art_info.xattack = "\t\tExplodes dealing 6d50 magical damage.";
         /* Once applied, the timer is always 3 turns - unless it hits a 
 monster then the grenade will instantly explode.  */
         break;
     case ART_MASTER_SWORD: 
-        strcpy(art_info.xattack, "\t\t10% of bonus magic attack on each successful hit.\n");
-        strcpy(art_info.xinfo, "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.");
+        art_info.xattack = "\t\t10% of bonus magic attack on each successful hit.\n";
+        art_info.xinfo = "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
         break;
     case ART_BRADAMANTE_S_FURY: 
-        strcpy(art_info.xattack, "\t\tStuns monsters.");
+        art_info.xattack = "\t\tStuns monsters.";
         break;
     case ART_CIRCE_S_WITCHSTAFF: 
-        strcpy(art_info.xattack, "\t\t1/20 chance of turning target into a pig.");
+        art_info.xattack = "\t\t1/20 chance of turning target into a pig.";
         break;
     case ART_CLEAVER: 
-        strcpy(art_info.xattack, "\t\tHits in a wide slashing arc; covers the 2 spots 45 degrees from the direction you attack.");
+        art_info.xattack = "\t\tHits in a wide slashing arc; covers the 2 spots 45 degrees from the direction you attack. ";
         break;
     case ART_GUNGNIR: 
-        strcpy(art_info.xinfo, "Can be created via a successful prayer by a lawful or neutral \n"
+        art_info.xinfo = "Can be created via a successful prayer by a lawful or neutral \n"
                          "pious Valkyrie, while wielding a non-artifact spear-like (spear \n"
                          "skill) weapon that is at least +5. Beatitude and erosion do not \n"
                          "matter. The spear will be turned into the atgeir Gungnir with no \n"
-                         "other changes made.");
+                         "other changes made.";
         break;
     case ART_IMHULLU: 
-        strcpy(art_info.xattack, "\t\t1/3 of the time Imhullu releases a tornado which\n"
-                         "\t\tdoes 3d4 bonus damage (Does not affect big monsters.)");
+        art_info.xattack = "\t\t1/3 of the time Imhullu releases a tornado which\n"
+                         "\t\tdoes 3d4 bonus damage (Does not affect big monsters.)";
         break;
     case ART_MAGICBANE: 
-        strcpy(art_info.wielded[16], "Absorbs and negate 95% of of curses directed at its wielder.");
+        art_info.wielded[16] = "Absorbs and negate 95% of of curses directed at its wielder.";
         break;
     case ART_MIRRORBRIGHT: 
-        strcpy(art_info.wielded[16], "Does not impede spellcasting while worn.");
+        art_info.wielded[16] = "Does not impede spellcasting while worn.";
         break;
     case ART_MJOLLNIR: 
-        strcpy(art_info.xinfo, "Mjollnir can be thrown when wielded if hero has 25 Strength\n"
+        art_info.xinfo = "Mjollnir can be thrown when wielded if hero has 25 Strength\n"
                          "(usually via gauntlets of power but possible with rings of\n"
                          "gain strength).  If the thrower is a Valkyrie, Mjollnir will\n"
                          "usually (99%) return and then usually (separate 99%) be caught\n"
                          "and automatically be re-wielded.  When returning Mjollnir is\n"
                          "not caught, there is a 50:50 chance of hitting hero for damage\n"
-                         "and its lightning shock might destroy some wands and/or rings.");
+                         "and its lightning shock might destroy some wands and/or rings.";
         break;
     case ART_DOOMBLADE: 
-        strcpy(art_info.xattack, "\t\tOn each hit there is a 25% chance Doomblade deals an extra (1d4 * 5) damage.");
+        art_info.xattack = "\t\tOn each hit there is a 25% chance Doomblade deals an extra (1d4 * 5) damage.";
         break;
     case ART_ELFRIST:
-        strcpy(art_info.xattack, "\t\t10% chance of instakill vs elves");
+        art_info.xattack = "\t\t10% chance of instakill vs elves";
         break;
     case ART_GRIMTOOTH: 
-        strcpy(art_info.xattack, "\t\t10% chance to instakill any elf it hits. \n"
-                         "Has a 1⁄6 chance to inflict sickness on any target.");
+        art_info.xattack = "\t\t10% chance to instakill any elf it hits. \n"
+                         "Has a 1⁄6 chance to inflict sickness on any target.";
         break;
     case ART_LUCKLESS_FOLLY: 
-        strcpy(art_info.xinfo, "Acts as a cursed luckstone regardless of its BCU status. It gets \n"
+        art_info.xinfo = "Acts as a cursed luckstone regardless of its BCU status. It gets \n"
                          "bonuses to-hit and damage based on the opposite of your luck value. \n"
                          "Obtaining luck of -13 will give this weapon an automatic +26\n"
-                         "to-hit and damage bonus.");
+                         "to-hit and damage bonus.";
         break;
     case ART_PLAGUE: 
-        strcpy(art_info.xattack, "\t\tAll arrows show from Plague are auto-poisoned.");
+        art_info.xattack = "\t\tAll arrows show from Plague are auto-poisoned.";
         break;
     case ART_ORCRIST:
-        strcpy(art_info.xattack, "\t\t10% chance of instakill vs orcs");
+        art_info.xattack = "\t\t10% chance of instakill vs orcs";
         break;
     case ART_SECESPITA: 
-        strcpy(art_info.wielded[16], "Increases sacrifice value by ~50%.");
+        art_info.wielded[16] = "Increases sacrifice value by ~50%.";
         /* The energy drain only works if the artifact kills its victim. */
         break;
     case ART_SERPENT_S_TONGUE: 
-        strcpy(art_info.xattack, "\t\tVs non-poison-resistant enemies: "
+        art_info.xattack = "\t\tVs non-poison-resistant enemies: "
                          "40% chance of 2 + d6 damage;"
                          "30% chance of 4 + 2d6 damage;"
                          "20% chance of 6 + 3d6 damage;"
-                         "10% chance of poison instadeath");
+                         "10% chance of poison instadeath";
         break;
     case ART_STING:
-        strcpy(art_info.xattack, "\t\t10% chance of instakill vs orcs");
+        art_info.xattack = "\t\t10% chance of instakill vs orcs";
         break;
     case ART_ANGELSLAYER:
-        strcpy(art_info.xattack, "\t\tFire damage applies to all monsters.");
+        art_info.xattack = "\t\tFire damage applies to all monsters.";
         break;
     case ART_CHAINS_OF_MALCANTHET: 
-        strcpy(art_info.xattack, "\t\tHas a 1/5 chance of paralyzing a monster for 1-4 turns on hit.");
-        strcpy(art_info.wielded[16], "Boosts charisma to 25 when wielded.");
+        art_info.xattack = "\t\tHas a 1/5 chance of paralyzing a monster for 1-4 turns on hit.";
+        art_info.wielded[16] = "Boosts charisma to 25 when wielded.";
         break;
     case ART_DROWSING_ROD: 
-        strcpy(art_info.xattack, "\t\tOn hit, there is a 19/20 chance of spraying"
-                         "a sleep inducing mist at the enemy.");
+        art_info.xattack = "\t\tOn hit, there is a 19/20 chance of spraying"
+                         "a sleep inducing mist at the enemy.";
         break;
     case ART_GLEIPNIR: 
-        strcpy(art_info.xinfo, "Based on the bindings used to trap Fenrir. This hook can \n"
+        art_info.xinfo = "Based on the bindings used to trap Fenrir. This hook can \n"
                          "grapple things regardless of size, and has a massive range \n"
-                         "(3x a regular grappling hook.)");
+                         "(3x a regular grappling hook.)";
         break;
     case ART_MYSTIC_EYES: 
-        strcpy(art_info.wielded[16], "While worn, confers Death Vision - which makes your attacks (both");
-        strcpy(art_info.wielded[17], "physical and magical) deal double damage, but also makes you hallucinate.");
+        art_info.wielded[16] = "While worn, confers Death Vision - which makes your attacks (both";
+        art_info.wielded[17] = "physical and magical) deal double damage, but also makes you hallucinate.";
         break;
     case ART_MORTALITY_DIAL: 
-        strcpy(art_info.wielded[16], "Prevents monsters from regenerating.");
-        strcpy(art_info.wielded[17], "Prevents trolls and zombies from reviving.");
+        art_info.wielded[16] = "Prevents monsters from regenerating.";
+        art_info.wielded[17] = "Prevents trolls and zombies from reviving.";
         break;
     case ART_OGRESMASHER: 
-        strcpy(art_info.wielded[16], "Wielding Ogresmasher grants 25 constitution");
+        art_info.wielded[16] = "Wielding Ogresmasher grants 25 constitution";
         break;
     case ART_ORIGIN: 
-        strcpy(art_info.wielded[16], "Greatly increases spellcasting ability (as a robe)");
+        art_info.wielded[16] = "Greatly increases spellcasting ability (as a robe)";
         break;
     case ART_SUNSPOT: 
-        strcpy(art_info.xattack, "\t\tHas a 1/3 chance of blinding monsters it hits for 17 turns.");
+        art_info.xattack = "\t\tHas a 1/3 chance of blinding monsters it hits for 17 turns.";
         break;
     case ART_THUNDERSTRUCK: 
-        strcpy(art_info.xattack, "\t\t25% chance of shooting out a sonic beam on each hit.");
+        art_info.xattack = "\t\t25% chance of shooting out a sonic beam on each hit.";
         break;
     case ART_TROLLSBANE: 
-        strcpy(art_info.wielded[16], "Prevents troll corpses from reviving.");
+        art_info.wielded[16] = "Prevents troll corpses from reviving.";
         break;
     case ART_STAFF_OF_ROT: 
-        strcpy(art_info.xattack, "\t\tDouble damage while you are withering.");
+        art_info.xattack = "\t\tDouble damage while you are withering.";
         break;
     case ART_XIUHCOATL: 
-        strcpy(art_info.xinfo, "Xiuhcoatl will return to the throwers hand much like\n"
-                         "Mjollnir, but requires high dexterity instead of strength to handle properly.");
+        art_info.xinfo = "Xiuhcoatl will return to the throwers hand much like\n"
+                         "Mjollnir, but requires high dexterity instead of strength to handle properly.";
         
         break;
     case ART_CANDLE_OF_ETERNAL_FLAME: 
-        strcpy(art_info.carried[16], "Deals 2d10 passive fire damage to attackers");
+        art_info.carried[16] = "Deals 2d10 passive fire damage to attackers";
         break;
     case ART_MITRE_OF_HOLINESS:
-        strcpy(art_info.wielded[16], "1/2 physical damage from undead and demons (Priests only)");
-        strcpy(art_info.wielded[17], "allows #pray and #turn to function in Gehennom when worn.");
-        strcpy(art_info.xinfo, "Doesn't block illithids from casting psionic wave when worn.");
+        art_info.wielded[16] = "1/2 physical damage from undead and demons (Priests only)";
+        art_info.wielded[17] = "allows #pray and #turn to function in Gehennom when worn.";
+        art_info.xinfo = "Doesn't block illithids from casting psionic wave when worn.";
         break;
     case ART_MASTER_KEY_OF_THIEVERY: 
-        strcpy(art_info.xinfo, "additional carry property if the Key is not cursed\n"
+        art_info.xinfo = "additional carry property if the Key is not cursed\n"
                          "(for rogues) or blessed (for non-rogues):  #untrap of doors and\n"
                          "chests will always find any traps; disarming those will always \n"
-                         "succeed.");
+                         "succeed.";
         break;
     case ART_IRON_SPOON_OF_LIBERATION: 
-        strcpy(art_info.xattack, "\t\t+1d5 to-hit bonus and double damage vs all monsters.");
+        art_info.xattack = "\t\t+1d5 to-hit bonus and double damage vs all monsters. ";
         break;
     case ART_TREASURY_OF_PROTEUS:
-        strcpy(art_info.xinfo, "Occasionally polymorphs items that have been placed inside.");
-        strcpy(art_info.carried[17], "Protects items in your inventory from becoming cursed.");
+        art_info.xinfo = "Occasionally polymorphs items that have been placed inside.";
+        art_info.carried[17] = "Protects items in your inventory from becoming cursed.";
         break;
     default:
-        strcpy(art_info.xinfo, "");
+        art_info.xinfo = "";
     } 
         
     return art_info;
