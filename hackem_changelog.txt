@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed locusts from the is_bigeater category and made them herbivores instead.
 Fix: mon_currwep wasn't set to NULL after shattering if it was glass. Fixes #174.
 Added database entries for spellbooks haste self through cure blindness.
 Added database entries for spellbooks polymorph through confuse monster.

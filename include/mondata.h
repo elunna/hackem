@@ -811,8 +811,7 @@
     ((ptr) == &mons[PM_GELATINOUS_CUBE] \
      || (ptr) == &mons[PM_SHOGGOTH] \
      || (ptr) == &mons[PM_GIANT_SHOGGOTH] \
-     || (ptr) == &mons[PM_TASMANIAN_DEVIL] \
-     || (ptr) == &mons[PM_LOCUST])
+     || (ptr) == &mons[PM_TASMANIAN_DEVIL])
 
 /* instantly eats any organic object it comes into contact with */
 #define is_souleater(ptr) \

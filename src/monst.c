@@ -262,7 +262,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_STNG, AD_DISE, 1, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1, 5, MS_BUZZ, MZ_TINY), MR_POISON, MR_POISON,
-        M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_OVIPAROUS | M1_POIS,
+        M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_HERBIVORE,
         M2_HOSTILE, 0, M4_VULNERABLE_ACID, 0, 11, CLR_GRAY),
     MON("assassin bug", S_ANT,                                  /* Slash'EM */
         LVL(10, 24, 4, 0, 0), (G_NOHELL | G_GENO | 1),
