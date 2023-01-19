@@ -381,7 +381,7 @@ boolean allow_detrimental;
             continue;
 
         if (is_launcher(otmp)
-            &&  (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK
+            &&  (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM
                       | ITEM_VENOM | ITEM_DRLI | ITEM_OILSKIN)))
             continue;
 
@@ -390,8 +390,8 @@ boolean allow_detrimental;
                      | ITEM_SEARCHING | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER)))
             continue;
 
-        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM | ITEM_DRLI))
-            && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM | ITEM_DRLI)))
+        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_DRLI))
+                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_DRLI)))
             continue; /* these are mutually exclusive */
 
         if (otmp->material != CLOTH
@@ -673,6 +673,9 @@ struct obj *otmp;
             return TRUE;
         if (adtyp == AD_ELEC
             && (otmp->oprops & ITEM_SHOCK))
+            return TRUE;
+        if (adtyp == AD_LOUD
+            && (otmp->oprops & ITEM_SCREAM))
             return TRUE;
         if (adtyp == AD_DRST
             && (otmp->oprops & ITEM_VENOM))
@@ -1276,13 +1279,15 @@ int tmp;
                                 || (attacks(AD_DRST, otmp)
                                     && ((yours) ? (!Poison_resistance) : (!resists_poison(mon))))
                                         || (attacks(AD_SLEE, otmp)
-                                        && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
-                                            || (attacks(AD_ACID, otmp)
-                                                && ((yours) ? (!Acid_resistance) : (!resists_acid(mon))))
-                                                    || (attacks(AD_DISE, otmp)
-                                                        && ((yours) ? (!Sick_resistance) : (!resists_sick(mon->data))))
-                                                            || (attacks(AD_DETH, otmp)
-                                                                && !(nonliving(mon->data) || is_demon(mon->data)))) {
+                                            && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
+                                                || (attacks(AD_ACID, otmp)
+                                                    && ((yours) ? (!Acid_resistance) : (!resists_acid(mon))))
+                                                        || (attacks(AD_LOUD, otmp)
+                                                            && ((yours) ? (!Sonic_resistance) : (!resists_sonic(mon))))
+                                                                || (attacks(AD_DISE, otmp)
+                                                                    && ((yours) ? (!Sick_resistance) : (!resists_sick(mon->data))))
+                                                                        || (attacks(AD_DETH, otmp)
+                                                                            && !(nonliving(mon->data) || is_demon(mon->data)))) {
 
 
             spec_dbon_applies = TRUE;
@@ -1658,9 +1663,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* the four basic attacks: fire, cold, shock and missiles */
     if (attacks(AD_FIRE, otmp)) {
         if (realizes_damage) {
-            
             if (otmp->oartifact == ART_FIRE_BRAND
-            || otmp->oartifact == ART_FIREWALL) {
+                  || otmp->oartifact == ART_FIREWALL) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
                     if (!spec_dbon_applies) {
                         if (!youdefend)
@@ -1917,6 +1921,68 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         msgprinted = TRUE;
         return realizes_damage;
     }
+    if (attacks(AD_LOUD, otmp)) {
+        if (realizes_damage) {
+            if (otmp->oartifact == ART_THUNDERSTRUCK) {
+                pline_The("thunderous morning star %s %s%c",
+                          !spec_dbon_applies ? "hits" : "blasts", hittee,
+                          !spec_dbon_applies ? '.' : '!');
+                
+                /* Occasionally shoot out a sonic beam */
+                if (!rn2(4)) {
+                    if (youattack) {
+                        dobuzz((int) (20 + (AD_LOUD - 1)), 3, u.ux, u.uy,
+                               u.dx, u.dy, TRUE);
+                    } else {
+                        dobuzz((int) (-20 - (AD_LOUD - 1)), 3, magr->mx,
+                               magr->my, sgn(tbx), sgn(tby), TRUE);
+                    }
+                }
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_SCREAM)) {
+                if (!youattack && magr && cansee(magr->mx, magr->my)) {
+                    if (!spec_dbon_applies) {
+                        if (!youdefend)
+                            ;
+                        else
+                            pline_The("%s hits %s.",
+                                      distant_name(otmp, xname), hittee);
+                    } else {
+                        pline_The("%s blasts %s%c",
+                                  distant_name(otmp, xname), hittee, 
+                                  !spec_dbon_applies ? '.' : '!');
+                    }
+                } else {
+                    pline_The("%s %s %s%c",
+                              distant_name(otmp, xname),
+                              !spec_dbon_applies ? "hits" : "blasts",
+                              hittee, !spec_dbon_applies ? '.' : '!');
+                }
+                if ((otmp->oprops & ITEM_SCREAM) && spec_dbon_applies)
+                    otmp->oprops_known |= ITEM_SCREAM;
+            }
+            if (spec_dbon_applies)
+                wake_nearto(mdef->mx, mdef->my, 4 * 4);
+            if (!rn2(4))
+                destroy_mitem(mdef, ARMOR_CLASS, AD_LOUD);
+            if (!rn2(4))
+                destroy_mitem(mdef, POTION_CLASS, AD_LOUD);
+            if (!rn2(7))
+                destroy_mitem(mdef, RING_CLASS, AD_LOUD);
+            if (!rn2(7))
+                destroy_mitem(mdef, TOOL_CLASS, AD_LOUD);
+            if (!rn2(7))
+                destroy_mitem(mdef, WAND_CLASS, AD_LOUD);
+            if (mdef->data == &mons[PM_GLASS_GOLEM]) {
+                pline("%s shatters into a million pieces!", Monnam(mdef));
+                *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
+                return TRUE;
+            }
+            msgprinted = TRUE;
+            return realizes_damage;
+        }
+    }
+    
 #if 0 /* The Master Sword is now the "imaginary widget!" */
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage)
@@ -2993,42 +3059,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             }
         }
     }
-    
-    if (attacks(AD_LOUD, otmp)) {
-        if (realizes_damage) {
-            pline_The("thunderous morning star %s %s%c",
-                      !spec_dbon_applies ? "hits" : "blasts", hittee,
-                      !spec_dbon_applies ? '.' : '!');
-            
-            /* Occasionally shoot out a sonic beam */
-            if (!rn2(4)) {
-                if (youattack) {
-                    dobuzz((int) (20 + (AD_LOUD - 1)), 3, u.ux, u.uy, u.dx,
-                           u.dy, TRUE);
-                } else {
-                    dobuzz((int) (-20 - (AD_LOUD - 1)), 3, magr->mx, magr->my,
-                           sgn(tbx), sgn(tby), TRUE);
-                }
-            }
-            if (!rn2(4))
-                destroy_mitem(mdef, ARMOR_CLASS, AD_LOUD);
-            if (!rn2(4))
-                destroy_mitem(mdef, POTION_CLASS, AD_LOUD);
-            if (!rn2(7))
-                destroy_mitem(mdef, RING_CLASS, AD_LOUD);
-            if (!rn2(7))
-                destroy_mitem(mdef, TOOL_CLASS, AD_LOUD);
-            if (!rn2(7))
-                destroy_mitem(mdef, WAND_CLASS, AD_LOUD);
-            if (mdef->data == &mons[PM_GLASS_GOLEM]) {
-                pline("%s shatters into a million pieces!", Monnam(mdef));
-                *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
-                return TRUE;
-            }
-            return realizes_damage;
-        }
-    }
-    
     
     /* Staff of Rot */
     if (attacks(AD_WTHR, otmp) && !rn2(3)) {

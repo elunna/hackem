@@ -375,6 +375,10 @@ int which;
         return !!(obj->oclass != WEAPON_CLASS
                   && !is_weptool(obj)
                   && (obj->oprops & ITEM_SHOCK));
+    case SONIC_RES:
+        return !!(obj->oclass != WEAPON_CLASS
+                  && !is_weptool(obj)
+                  && (obj->oprops & ITEM_SCREAM));
     case POISON_RES:
         return !!(obj->oclass != WEAPON_CLASS
                   && !is_weptool(obj)
@@ -610,6 +614,10 @@ boolean on, silently;
             case ITEM_SHOCK:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = SHOCK_RES;
+                break;
+            case ITEM_SCREAM:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = SONIC_RES;
                 break;
             case ITEM_VENOM:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
@@ -1424,6 +1432,13 @@ struct obj *obj;
                   || wielding_artifact(ART_SKULLCRUSHER)
                   || (u.twoweap && uswapwep->oprops & ITEM_SHOCK)
                   || (uwep && uwep->oprops & ITEM_SHOCK)) ? 25 : 5;
+        break;
+    case RIN_SONIC_RESISTANCE:
+        if (!(resists_sonic(mon) || defended(mon, AD_LOUD)))
+            rc = (dmgtype(youmonst.data, AD_LOUD)
+                  || wielding_artifact(ART_THUNDERSTRUCK)
+                  || (u.twoweap && uswapwep->oprops & ITEM_SCREAM)
+                  || (uwep && uwep->oprops & ITEM_SCREAM)) ? 25 : 5;
         break;
     case RIN_REGENERATION:
         rc = !mon_prop(mon, REGENERATION) ? 25 : 5;

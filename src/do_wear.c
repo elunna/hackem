@@ -179,6 +179,8 @@ long mask;
         EDrain_resistance |= mask;
     if (props & ITEM_SHOCK)
         EShock_resistance |= mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance |= mask;
     if (props & ITEM_VENOM)
         EPoison_resistance |= mask;
     if (props & ITEM_OILSKIN) {
@@ -229,6 +231,8 @@ long mask;
         EDrain_resistance &= ~mask;
     if (props & ITEM_SHOCK)
         EShock_resistance &= ~mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance &= ~mask;
     if (props & ITEM_VENOM)
         EPoison_resistance &= ~mask;
     if (props & ITEM_OILSKIN)

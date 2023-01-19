@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added scream/sonic property and fixed previous bug with artifact sonic damage.
 Necromancers can always cast necromancy spells with 0% fail rate.
 Fix: Necromancers/Jedi able to learn their techspells more than once. Fixes #173.
 Scrolls of time cannot be cloned. Attempting this results in a blank scroll.

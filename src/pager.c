@@ -1206,6 +1206,7 @@ char *usr_text;
             if (obj->oprops & ITEM_FIRE) OBJPUTSTR("\t+1d5 + 3 fire damage");
             if (obj->oprops & ITEM_FROST) OBJPUTSTR("\t+1d5 + 3 cold damage");
             if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("\t+1d5 + 3 shock damage");
+            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
         }
         
@@ -1254,6 +1255,7 @@ char *usr_text;
             if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
             if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
             if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
+            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
             if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
             if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");

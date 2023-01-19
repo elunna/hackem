@@ -531,6 +531,14 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
+    if (props & ITEM_SCREAM) {
+        if ((props_known & ITEM_SCREAM)
+            || dump_prop_flag) {
+            Strcat(buf, of),
+                Strcat(buf, weapon ? " scream" : " sonic resistance"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_VENOM) {
         if ((props_known & ITEM_VENOM)
             || dump_prop_flag) {
@@ -4040,6 +4048,11 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SHOCK;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "sonic", l = 5)
+                           || !strncmpi((p + of), "scream", l = 9)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_SCREAM;
+                    objpropcount++;
                 } else if (!strncmpi((p + of), "poison", l = 6)
                            || !strncmpi((p + of), "venom", l = 5)) {
                     if (!objpropcount || wizard)
@@ -5273,23 +5286,24 @@ struct obj *no_wish;
         || otmp->oclass == ARMOR_CLASS) {
         /* check for restrictions */
         if (objprops & ITEM_FROST)
-            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
         else if (objprops & ITEM_FIRE)
-            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM);
+            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
         else if (objprops & ITEM_DRLI)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
         else if (objprops & ITEM_SHOCK)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_VENOM);
         else if (objprops & ITEM_VENOM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK);
-
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_SHOCK);
+        else if (objprops & ITEM_SCREAM)
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM);
         if (objects[otmp->otyp].oc_magic)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM
                           | ITEM_VENOM | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
                           | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_EXCEL);
 
         if (Is_dragon_armor(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM
                           | ITEM_VENOM | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
                           | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_EXCEL);
 
@@ -5297,7 +5311,7 @@ struct obj *no_wish;
             objprops &= ~(ITEM_DRLI | ITEM_FUMBLING | ITEM_HUNGER);
 
         if (is_launcher(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM
                           | ITEM_SHOCK | ITEM_VENOM | ITEM_OILSKIN);
 
         if (is_ammo(otmp) || is_missile(otmp))
