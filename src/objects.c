@@ -573,6 +573,9 @@ ARMOR("Hawaiian shirt", None,
       1, 0, 0,  0, 10, 0,   5,   3, 10, 0,  ARM_SHIRT, CLOTH, CLR_MAGENTA),
 ARMOR("striped shirt", None,
       1, 0, 0,  0,  0, 0,   5,   2, 10, 0,  ARM_SHIRT, CLOTH, CLR_GRAY),
+/* Ruffled shirts are little different from other shirts */
+ARMOR("ruffled shirt", None,
+      1, 0, 0,  0,  2, 0,   5,   2, 10, 0,  ARM_SHIRT, CLOTH, CLR_WHITE),
 ARMOR("T-shirt", None,
       1, 0, 0,  0,  2, 0,   5,   2, 10, 0,  ARM_SHIRT, CLOTH, CLR_WHITE),
 

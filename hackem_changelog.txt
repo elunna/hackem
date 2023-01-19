@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Imported ruffled shirt from SlashTHEM.
 Imported mana cloak from SlashTHEM.
 Imported silver capped staff from SlashTHEM.
 Origin only displays a special message when wielding it.

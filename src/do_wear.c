@@ -989,6 +989,12 @@ Shirt_on(VOID_ARGS)
     case STRIPED_SHIRT:
     case T_SHIRT:
         break;
+    case RUFFLED_SHIRT:
+        You("%s very dashing in your %s.", 
+            Blind || (Invis && !See_invisible) ? "feel" : "look",
+            OBJ_NAME(objects[uarmu->otyp]));
+        ABON(A_CHA) += 1;
+        break;
     default:
         impossible(unknown_type, c_shirt, uarmu->otyp);
     }
@@ -1012,6 +1018,9 @@ Shirt_off(VOID_ARGS)
     case HAWAIIAN_SHIRT:
     case STRIPED_SHIRT:
     case T_SHIRT:
+        break;
+    case RUFFLED_SHIRT:
+        ABON(A_CHA) -= 1;
         break;
     default:
         impossible(unknown_type, c_shirt, uarmu->otyp);
