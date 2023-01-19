@@ -10704,6 +10704,8 @@ spellbook of extra healing
 	Pestilence will actually take 3d8 damage from the spell, with the 
 	damage halved due to his guaranteed monster magic resistance.
 
+    Zapping zombies with this spell will instead do damage to them.
+
 	Despite code that sets a flag to allow for different effects when 
 	cast at Skilled or higher, there is no actual difference in effect:
 	the implementation of the spell effect cures blindness, regardless
@@ -10746,7 +10748,7 @@ spellbook of stone to flesh
 	meatballs. A ring made of mineral or gemstone material becomes a 
 	meat ring; a marble wand becomes a meat stick.
 
-	When cast on yourself or other monster, any ongoing stiffening 
+	When cast on yourself or other monsters, any ongoing stiffening 
 	process is cancelled, and any susceptible items in open inventory
 	are transformed as well.
 spellbook of cure sickness
