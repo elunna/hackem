@@ -2527,7 +2527,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_TUCH, AD_WRAP, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1800, 350, MS_NEIGH, MZ_LARGE), 0, 0,
-        M1_NOHANDS | M1_CARNIVORE | M1_SWIM | M1_AMPHIBIOUS | M1_CONCEAL,
+        M1_NOHANDS | M1_CARNIVORE | M1_SWIM | M1_AMPHIBIOUS,
         M2_WANDER | M2_HOSTILE | M2_STRONG, M3_INFRAVISION, 0, 0,
         13, CLR_GREEN),
     MON("pegasus", S_UNICORN,                                   /* EvilHack */

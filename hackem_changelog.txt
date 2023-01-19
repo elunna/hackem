@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed M1_CONCEAL from selkie. It can hide underwater, but not under objects.
 Imported ruffled shirt from SlashTHEM.
 Imported mana cloak from SlashTHEM.
 Imported silver capped staff from SlashTHEM.
