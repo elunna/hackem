@@ -355,6 +355,8 @@ boolean allow_detrimental;
         return otmp;
     else if (otmp && Is_dragon_armor(otmp))
         return otmp;
+    else if is_bomb(otmp)
+        return otmp;
 
     /* properties only added to weapons and armor */
     if (otmp->oclass != WEAPON_CLASS
