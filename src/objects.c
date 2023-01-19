@@ -336,6 +336,8 @@ WEAPON("rubber hose", None,
        1, 0, 0, 0,  0,  20,   3,  4,  3, 0, B,   P_WHIP, PLASTIC, CLR_BROWN),
 WEAPON("quarterstaff", "staff",
        0, 0, 0, 1, 11,  40,   5,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
+WEAPON("silver capped staff", None,
+       0, 0, 1, 1,  5,  45, 100,  6,  6, 0, B,	 P_QUARTERSTAFF, SILVER, HI_SILVER),
 WEAPON("staff of divination", "wormwood staff",                /* EvilHack */
        0, 0, 1, 1,  5,  40, 400,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("staff of healing", "twisted staff",                    /* EvilHack */
