@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Changed Ice Mage's special spell to spell of reflection.
 Changed Flame Mage's special spell to spell of enlighten.
 Changed spell of cause fear back to the enchantment school.
 All roles (except Caveman) get their special spell granted when they reach level 12.

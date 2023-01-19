@@ -234,15 +234,15 @@ const struct Role roles[] = {
       20, /* Energy */
       10, 3, -3, 2, 10, A_WIS, SPE_CURE_SICKNESS, -4 },
     { { "Ice Mage", 0}, {
-            { "Cooler",        0 },   /* WAC was Chiller */
-            { "Condenser",     0 },   /* WAC was Chiller */
-            { "Chiller",       0 },
-            { "Froster",       0 },
-            { "Permafroster",  0 },   /* WAC was Froster */
-            { "Icer",          0 },   /* WAC was Froster */
-            { "Freezer",       0 },
-            { "Sublimer",      0 },   /* WAC was Freezer */
-            { "Ice-Master",    0 } },
+        { "Cooler",        0 },   /* WAC was Chiller */
+        { "Condenser",     0 },   /* WAC was Chiller */
+        { "Chiller",       0 },
+        { "Froster",       0 },
+        { "Permafroster",  0 },   /* WAC was Froster */
+        { "Icer",          0 },   /* WAC was Froster */
+        { "Freezer",       0 },
+        { "Sublimer",      0 },   /* WAC was Freezer */
+        { "Ice-Master",    0 } },
         "Air", "Frost", "Smoke", /* Special */
         "Ice", "the great Ring of Ice", "the Earth Mage's Cave",
         PM_ICE_MAGE, 
@@ -265,7 +265,7 @@ const struct Role roles[] = {
         { 10, 0,  0, 8,  1, 0 },	/* Hit points */
         {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
         0, 1, 0, 
-        2, 10, A_INT, SPE_CONE_OF_COLD,    -4 /* From old role.c */
+        2, 10, A_INT, SPE_REFLECTION,    -4 /* From old role.c */
     },
     { { "Infidel", 0 },
       { { "Apostate", 0 },
