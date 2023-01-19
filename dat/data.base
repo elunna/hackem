@@ -3027,6 +3027,7 @@ elementalism
  	risky art of summoning and binding such dangerous entities.
 ~human or other humanoid*
 ~elf ??m*
+~spellbook of haste self
 *elf*
 elven*
 	The Elves sat round the fire upon the grass or upon the sawn
@@ -3499,6 +3500,7 @@ fog* cloud
 	     [ Fog, by Carl Sandburg ]
 # includes "food detection" and "detect food", which might not be the best
 ~scroll of food detection
+~spellbook of detect food
 *food*
 	The little girl stood on tip-toe and picked one of the nicest
 	and biggest lunch-boxes, and then she sat down upon the ground
@@ -10477,7 +10479,215 @@ spellbook of confuse monster
 	has a different effect: you confuse yourself (for 1-100 turns). 
 	The confused scroll effects are not available via the spell, 
 	because confusion prevents spellcasting for players.
-		
+spellbook of haste self
+	Allows you to learn the spell of haste self.
+	
+	When cast, the spell gives you very fast speed temporarily, and 
+	can be cast cumulatively to increase the number of turns the 
+	effect lasts for. At Unskilled or Basic, the haste effect lasts 
+	for 100-109 (more) turns - at Skilled or Expert, it lasts for 160-
+	169 (more) turns.
+
+	Unlike a potion of speed, it will not heal wounded legs, but still
+	exercises dexterity when cast and will cure you of intrinsic 
+	slowness.
+spellbook of levitation
+	Allows you to learn the spell of levitation.
+	
+	Casting the spell of levitation at Basic skill or lower in escape
+	spells has the same effect as an uncursed potion of levitation - 
+	it grants you levitation for 10 to 149 (more) turns. Casting it at
+	Skilled or higher has the same effect as a blessed potion, giving
+	you 250 to 299 (more) turns of levitation as well as the ability 
+	to land at will using the > command.
+
+	Note that you must be at the appropriate skill-level at the time 
+	of casting; if you cast it while Basic and then train to Skilled, 
+	you will not be able to land at will unless you cast it again.
+spellbook of teleport away
+	Allows you to learn the spell of teleport away.
+	
+	The spell is a beam-type spell that can be aimed at monsters or at
+	yourself.
+	
+	Casting this spell at yourself has the same effect as the teleport
+	at will action or zapping yourself with a wand of teleportation - 
+	unless you are on a no-teleport level, you teleport to a random 
+	square on the current level that you can stand on (e.g. in your 
+	default form, you won't end up over water, inside a wall or 
+	monster, on a trap, etc.). The teleportation is not inherently 
+	controlled, but if you have teleport control, you can use that to 
+	control your destination.
+
+	The spell can be used on monsters, with similar effects to a wand 
+	of teleportation; the monster will teleport to a random square on 
+	the current level on which it can survive. 
+spellbook of passwall
+	Allows you to learn the spell of passwall.
+	
+	Casting the spell grants temporary intrinsic phasing, allowing you
+	to pass through solid walls and other objects for anywhere between
+	50 and 149 turns before they become solid again; if you are in a 
+	solid object when the phasing wears off, you will be stuck there 
+	unless you can dig yourself out, pray, or cast the spell again.
+spellbook of invisibility
+	Allows you to learn the spell of invisibility.
+	
+	Casting this spell at any skill level causes you to turn invisible
+	for 31 to 45 (more) turns.
+spellbook of jumping
+	Allows you to learn the spell of jumping.
+	
+	Casting allows you to jump to other tiles within a certain range, 
+	allowing you to pass over unavoidable traps and escape too-tough 
+	monsters. You must be able to see the landing spot, meaning that 
+	you cannot jump while blind, and you cannot jump over monsters; 
+	you will bump into them instead, angering them if they were 
+	peaceful. See the main article and its path section for more 
+	detailed information on jumping and whether a given jump will 
+	bring you in contact with a monster. Casting jump consumes d25 
+	nutrition, in addition to the ordinary hunger penalty.
+
+
+	Unskilled    Basic
+	...........  ...........
+	...........  ...........
+	.....x.....  ....xxx....
+	...xxxxx...  ...xxxxx...
+	...xxxxx...  ..xxxxxxx..
+	..xxx@xxx..  ..xxx@xxx..
+	...xxxxx...  ..xxxxxxx..
+	...xxxxx...  ...xxxxx...
+	.....x.....  ....xxx....
+	...........  ...........
+	...........  ...........
+
+
+	Skilled      Expert
+	...........  ...........
+	...........  ....xxx....
+	...xxxxx...  ..xxxxxxx..
+	..xxxxxxx..  ..xxxxxxx..
+	..xxxxxxx..  .xxxxxxxxx.
+	..xxx@xxx..  .xxxx@xxxx.
+	..xxxxxxx..  .xxxxxxxxx.
+	..xxxxxxx..  ..xxxxxxx..
+	...xxxxx...  ..xxxxxxx..
+	...........  ....xxx....
+	...........  ...........
+	
+spellbook of light
+	Allows you to learn the spell of light.
+	
+	Casting the spell of light has the same effect as an uncursed 
+	scroll of light: a circular area with 5 squares radius around your
+	position (while casting) is permanently made lit.
+spellbook of detect monsters
+	Allows you to learn the spell of detect monsters.
+	
+	At unskilled or basic skill level, the spell functions as an 
+	uncursed potion of monster detection, displaying the monsters of 
+	that dungeon level against a black background with no map detail, 
+	and allowing you to select monsters with the cursor to identify 
+	them; once you end the effect, the monsters revealed by the spell 
+	vanish from view. At skilled or expert level it functions as a 
+	blessed potion, revealing monsters on the map for 21-60 (more) 
+	turns; if you already have over 300 turns of monster detection, 
+	only one turn is added.
+spellbook of detect food
+	Allows you to learn the spell of detect food.
+	
+	Casting this spell has the same effect as the scroll of food 
+	detection, revealing the location of all comestibles on the level,
+	on the ground and even in monster inventories. If cast at Skilled
+	or Expert, you will also acquire the food appraisal intrinsic. 
+	This spell is the only one in HackEM that does not cause spell 
+	hunger at all, which is especially important given its function.
+spellbook of detect unseen
+	Allows you to learn the spell of detect unseen.
+	
+	Has the same effect as a wand of secret door detection.	It reveals 
+	secret doors and corridors, non-statue traps, portals, mimics, 
+	hidden, submerged and invisible monsters in an area of radius 8 
+	within line-of-sight. On the Plane of Air only, it also 
+	penetrates clouds.
+spellbook of detect treasure
+	Allows you to learn the spell of detect treasure.
+	
+	This spell has the same effect as a potion of object detection.
+	 
+	Unskilled or Basic: Same effect as quaffing an uncursed potion of 
+	object detection.
+	
+	Skilled or Expert: Same effect as quaffing a blessed potion of 
+	object detection.
+spellbook of clairvoyance
+	Allows you to learn the spell of clairvoyance.
+	
+	When cast, the spell magically maps a 19x11 area centered on your 
+	location. It also detects objects and presence of monsters in the
+	mapped area. At Unskilled or Basic, monsters are marked with an I 
+	glyph, and objects are described in general ("a scroll", "a wand",
+	etc.). At Skilled or above, monsters and objects will be shown as 
+	if you have seen them. If you have another source of clairvoyance,
+	the spell will always be cast as Skilled.
+
+	The spell is blocked if you are wearing a cornuthaum and are not a
+	Wizard. Unlike the clairvoyance provided by aligned priests and 
+	some items in HackEM, the clairvoyance spell only maps once per 
+	cast, and does not persist as a recurring effect.
+spellbook of enlighten
+	Allows you to learn the spell of enlighten.
+	
+	It is equivalent to the wand of enlightenment, which lets you see 
+	your properties and exercise wisdom.
+spellbook of identify
+	Allows you to learn the spell of identify.
+	
+	Casting this spell at Basic or lower skill level is equivalent to 
+	an uncursed scroll of identify, identifying 1 item 84% of the time
+	and identifying 2, 3, 4, or all items 4% of the time each. At 
+	Skilled or higher level, it works the same as a blessed scroll and
+	identifies 1d4 items 80% of the time, and will identify your 
+	entire inventory 20% of the time. With positive Luck, a Skilled or
+	higher casting will always identify at least 2 items.
+spellbook of magic mapping
+	Allows you to learn the spell of magic mapping.
+	
+	The spell reveals the entire map (although it does not fully 
+	reveal the contents of rooms), the same as an uncursed scroll of 
+	magic mapping; all of the level's walls and corridors, as well as
+	all staircases on the level are shown. Secret passages are 
+	revealed, but secret doors are not.
+
+	The spell will also reveal the current location of the magic 
+	portal on the Plane of Water if the player has formally located it
+	before using confused gold detection or a crystal ball.
+spellbook of healing
+	Allows you to learn the spell of healing.
+
+	Healing is a directional spell that heals its target(s) for 6d4 HP
+	and, at Skilled or higher, cures blindness. This will awaken a 
+	sleeping monster without angering it. The effect is similar to an 
+	uncursed potion of healing, except that the spell cannot increase 
+	maximum HP.
+
+	Casting this spell at a tame or peaceful monster will yield an 
+	alignment bonus for each monster affected, even if it was already 
+	at maximum HP; Lawfuls and Healers gain one alignment point, while
+	chaotics besides Healers lose one point.
+
+	Pestilence will actually take 3d4 damage from the spell of healing,
+	with the damage halved due to his guaranteed monster magic 
+	resistance.
+	
+	Zapping zombies with this spell will instead do damage to them.
+	
+spellbook of cure blindness
+	Allows you to learn the spell of cure blindness.
+	
+	Casting this spell simply cures intrinsic blindness.
+	
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
 		[]

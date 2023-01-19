@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added database entries for spellbooks haste self through cure blindness.
 Added database entries for spellbooks polymorph through confuse monster.
 Changed Tourist's special spell to create familiar (Jedi get charm monster as their special now).
 Changed Pirate's special spell to haste self.
