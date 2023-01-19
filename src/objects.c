@@ -336,6 +336,8 @@ WEAPON("rubber hose", None,
        1, 0, 0, 0,  0,  20,   3,  4,  3, 0, B,   P_WHIP, PLASTIC, CLR_BROWN),
 WEAPON("quarterstaff", "staff",
        0, 0, 0, 1, 11,  40,   5,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
+WEAPON("silver capped staff", None,
+       0, 0, 1, 1,  5,  45, 100,  6,  6, 0, B,	 P_QUARTERSTAFF, SILVER, HI_SILVER),
 WEAPON("staff of divination", "wormwood staff",                /* EvilHack */
        0, 0, 1, 1,  5,  40, 400,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("staff of healing", "twisted staff",                    /* EvilHack */
@@ -571,6 +573,9 @@ ARMOR("Hawaiian shirt", None,
       1, 0, 0,  0, 10, 0,   5,   3, 10, 0,  ARM_SHIRT, CLOTH, CLR_MAGENTA),
 ARMOR("striped shirt", None,
       1, 0, 0,  0,  0, 0,   5,   2, 10, 0,  ARM_SHIRT, CLOTH, CLR_GRAY),
+/* Ruffled shirts are little different from other shirts */
+ARMOR("ruffled shirt", None,
+      1, 0, 0,  0,  2, 0,   5,   2, 10, 0,  ARM_SHIRT, CLOTH, CLR_WHITE),
 ARMOR("T-shirt", None,
       1, 0, 0,  0,  2, 0,   5,   2, 10, 0,  ARM_SHIRT, CLOTH, CLR_WHITE),
 
@@ -604,6 +609,8 @@ CLOAK("cloak of magic resistance", "ornamental cope",
         /*  'cope' is not a spelling mistake... leave it be */
 CLOAK("poisonous cloak", "dirty rag",                           /* Slash'EM */
       0, 1,          0,  5, 0, 10, 60, 10, 3, CLOTH, CLR_BLACK),
+CLOAK("mana cloak", "funeral shroud",
+      0, 1, ENERGY_REGENERATION, 4, 0, 10, 50,  9, 3, CLOTH, CLR_BLACK),
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
 
