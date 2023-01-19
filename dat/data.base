@@ -10682,12 +10682,126 @@ spellbook of healing
 	resistance.
 	
 	Zapping zombies with this spell will instead do damage to them.
-	
 spellbook of cure blindness
 	Allows you to learn the spell of cure blindness.
 	
 	Casting this spell simply cures intrinsic blindness.
+spellbook of extra healing
+	Allows you to learn the spell of extra healing.
 	
+	Extra healing is a directional spell that heals its target(s) for 
+	6d8 HP and cures blindness; the spell will awaken a sleeping 
+	monster without angering it. The effect is similar to an uncursed 
+	potion of extra healing, though it cannot increase maximum HP and 
+	will not cure your own hallucination or sickness if you cast it at
+	yourself.
+
+	Casting this spell at a tame or peaceful monster will yield an 
+	alignment bonus for each monster affected, even if it was already 
+	at maximum HP. Lawfuls and Healers gain one alignment point, while
+	chaotic non-healers lose one point.
+
+	Pestilence will actually take 3d8 damage from the spell, with the 
+	damage halved due to his guaranteed monster magic resistance.
+
+	Despite code that sets a flag to allow for different effects when 
+	cast at Skilled or higher, there is no actual difference in effect:
+	the implementation of the spell effect cures blindness, regardless
+	of the flag.
+spellbook of restore ability
+	Allows you to learn the spell of restore ability.
+	
+	Casting this spell has the same effect as a potion of restore 
+	ability, except that it does not restore lost levels. At less than
+	skilled in healing spells, it restores one random lost attribute 
+	of strength, dexterity, constitution, intelligence, wisdom, or 
+	charisma to its previous maximum amount, like an uncursed potion. 
+	At skilled or expert, it restores all six attributes like a 
+	blessed potion.
+spellbook of stone to flesh
+	Allows you to learn the spell of stone to flesh.
+	
+	The spell of stone to flesh has many effects depending on what 
+	stone object(s) it is used on.
+	
+	Statues of monsters are brought to life; tame pets turned to stone
+	will be restore it to their original state. Additionally, if the 
+	monster is smaller than medium size and/or not fleshy, the statue 
+	will be turned into a single meatball instead. If the statue is of
+	a unique monster or a quest guardian, it will reanimate as a 
+	disguised doppelganger instead of the real creature, unless the 
+	statue was created by stoning that creature.
+
+	If the reanimation fails (usually because the creature is of a 
+	genocided species), the statue will be transformed into an 
+	appropriate corpse if possible, or remain unchanged if that 
+	monster cannot leave a corpse.
+
+	A statue of a stone golem that has stone to flesh cast on it will 
+	only leave behind a single meatball; an animated stone golem will 
+	instead become a flesh golem.
+
+	Casting stone to flesh on a boulder turns it into a huge chunk of 
+	meat; rocks, gray stones, and valuable non-glass gems become 
+	meatballs. A ring made of mineral or gemstone material becomes a 
+	meat ring; a marble wand becomes a meat stick.
+
+	When cast on yourself or other monster, any ongoing stiffening 
+	process is cancelled, and any susceptible items in open inventory
+	are transformed as well.
+spellbook of cure sickness
+	Allows you to learn the spell of cure sickness.
+	
+	When cast, the spell cures all forms of sickness, including food 
+	poisoning and illness, and removes slime.
+spellbook of create monster
+	Allows you to learn the spell of create monster.
+	
+	When cast, it has a 72/73 chance of creating a single monster or 
+	horde, and a 1/73 chance of creating 2-5 miscellaneous monsters, 
+	as with an uncursed scroll of create monster. The monsters will 
+	almost always have a difficulty level at or below your current 
+	level, and a monsters normally generated in groups (such as orcs 
+	or ants) will count as a single monster for the purposes of this 
+	spell. The monsters may be peaceful with the normal probability, 
+	but will never be tame; this is not a "create pet" spell.
+spellbook of remove curse
+	Allows you to learn the spell of remove curse.
+	
+	When cast at Basic level or lower, the spell of remove curse acts 
+	identically to an uncursed scroll of remove curse. At Skilled or 
+	higher, it is identical to a blessed scroll.	
+spellbook of turn undead
+	Allows you to learn the spell of turn undead.
+	
+	The spell has the same effect as the wand of undead turning: 
+	casting it creates a beam which deals 1d8 damage to undead 
+	monsters it hits (doubled for a knight with the Magic Mirror of 
+	Merlin), and scares them into fleeing if they fail a resistance 
+	check. It also has the ability to "unturn dead", which revives 
+	corpses and rejuvenates eggs.
+spellbook of create familiar
+	Allows you to learn the spell of create familiar.
+	
+	This spell creates a monster near you. It has a 1/3 chance of 
+	creating an appropriate starting pet and a 2/3 chance of creating 
+	a random monster. The created monster will be tame, if it is 
+	tameable, and made peaceful otherwise.
+	
+	Monsters that are traitorous or untameable will never be created
+	by this spell.
+spellbook of protection
+	Allows you to learn the spell of protection
+
+	Casting this spell decreases your AC temporarily; the exact 
+	reduction depends on:
+	- your experience level, 
+	- the amount of protection already gained from this spell, 
+	- and your AC before casting the spell. 
+	
+	The protection wears off at a rate of 1 point every 10 turns, or 1
+	point every 20 turns if the spell was cast with expert proficiency.
+
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
 		[]
