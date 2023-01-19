@@ -1960,6 +1960,12 @@ shk_other_services()
                  MENU_ITEMFLAGS_NONE);
     }
     
+    /* Property grafting*/
+    if (ESHK(shkp)->services & SHK_PROP) {
+        any.a_int = 26;
+        add_menu(tmpwin, NO_GLYPH, &any, 'P', 0, ATR_NONE, "Add Property",
+                 MENU_ITEMFLAGS_NONE);
+    }
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -2041,6 +2047,9 @@ shk_other_services()
             break;
         case 25:
             result = shk_tinker(slang, shkp);
+            break;
+        case 26:
+            result = shk_weapon_works(slang, shkp, SHK_PROP);
             break;
         default:
             pline("Unknown Service");
@@ -4194,7 +4203,9 @@ long svc_type;
     int charge;
 
     /* Pick weapon */
-    if (svc_type == SHK_WEP_FIX || svc_type == SHK_WEP_ENC)
+    if (svc_type == SHK_WEP_FIX 
+          || svc_type == SHK_WEP_ENC 
+          || svc_type == SHK_PROP)
         obj = getobj(weapon_types, "improve");
     else
         obj = getobj(weapon_types, "poison");
@@ -4209,7 +4220,7 @@ long svc_type;
     switch (svc_type) {
     case SHK_WEP_FIX:
         verbalize("This'll leave your %s untouchable!", xname(obj));
-        
+
         /* Costs more the more eroded it is (oeroded 0-3 * 2) */
         charge = 500 * (obj->oeroded + obj->oeroded2 + 1);
         if (obj->oeroded + obj->oeroded2 > 2)
@@ -4217,17 +4228,16 @@ long svc_type;
 
         /* Another warning if object is naturally rustproof */
         if (obj->oerodeproof || !is_damageable(obj))
-            pline("%s gives you a suspciously happy smile...",
-                  mon_nam(shkp));
+            pline("%s gives you a suspciously happy smile...", mon_nam(shkp));
 
         /* Artifacts cost more to deal with */
-        if (obj->oartifact) 
+        if (obj->oartifact)
             charge = charge * 3 / 2;
 
         /* Smooth out the charge a bit */
         shk_smooth_charge(&charge, 200, 1500);
 
-        if (shk_offer_price(slang, charge, shkp) == FALSE) 
+        if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
 
         /* Have some fun, but for this $$$ it better work. */
@@ -4248,21 +4258,21 @@ long svc_type;
         ** Gets to the point where you need to rob fort ludios
         ** in order to get it to +5!!
         */
-        charge = (obj->spe+1) * (obj->spe+1) * 625;
+        charge = (obj->spe + 1) * (obj->spe + 1) * 625;
 
-        if (obj->spe < 0) 
+        if (obj->spe < 0)
             charge = 100;
 
         /* Artifacts cost more to deal with */
-        if (obj->oartifact) 
+        if (obj->oartifact)
             charge *= 2;
 
         /* Smooth out the charge a bit (lower bound only) */
         shk_smooth_charge(&charge, 50, NOBOUND);
 
-        if (shk_offer_price(slang, charge, shkp) == FALSE) 
+        if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
-        if (obj->spe + 1 > 5) { 
+        if (obj->spe + 1 > 5) {
             verbalize("I can't enchant this any higher!");
             charge = 0;
             break;
@@ -4272,7 +4282,7 @@ long svc_type;
             Your("%s unexpectedly!", aobjnam(obj, "vibrate"));
         else if (Hallucination)
             Your("%s to evaporate into thin air!", aobjnam(obj, "seem"));
-            /* ...No actual vibrating and no evaporating */
+        /* ...No actual vibrating and no evaporating */
 
         if (obj->otyp == WORM_TOOTH) {
             obj->otyp = CRYSKNIFE;
@@ -4287,11 +4297,38 @@ long svc_type;
     case SHK_WEP_POI:
         verbalize("Just imagine what poisoned %s can do!", xname(obj));
         charge = 10 * obj->quan;
-        if (shk_offer_price(slang, charge, shkp) == FALSE) 
+        if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         obj->opoisoned = TRUE;
         break;
 
+    case SHK_PROP:
+        if (obj->oprops) {
+            Your("weapon already has a property.");
+            return 0;
+        } else if (obj->oartifact) {
+            pline("That weapon is already pretty special!");
+        }
+        verbalize("Imbue your weapon with special power!");
+        charge = 9 * 625;
+        /* What if it already has a property? */
+        
+        if (shk_offer_price(slang, charge, shkp) == FALSE) 
+            return 0;
+        
+        /* Have some fun! */
+        if (Confusion) {
+            Your("%s weirdly!", aobjnam(obj, "vibrate"));
+            
+            /* TODO: This might result in random enchantment, blessing, or
+             * cursing. */
+            create_oprop(obj, TRUE);
+        } else if (Hallucination) {
+            Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
+        } else
+            create_oprop(obj, FALSE);
+        break;
+        
     default:
         impossible("Unknown Weapon Enhancement");
         return 0;

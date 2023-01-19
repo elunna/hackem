@@ -1326,6 +1326,10 @@ struct monst *shk;
         /* 1 in 5 offer firearms training */
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
+        
+        /* 1 in 5 offer special property grafting */
+        if (!rn2(5))
+            maybe_add_svc(shk, SHK_PROP);
     }
     
     /* Armor shop services */

@@ -258,6 +258,7 @@ enum obj_class_types {
 #define SHK_RUMOR       0x00200000L /* r */
 #define SHK_FIREARMS    0x00400000L /* t */
 #define SHK_TINKER      0x00800000L /* T */
+#define SHK_PROP        0x01000000L /* P */
 
 #if 0 /* moved to decl.h so that makedefs.c won't see them */
 extern const struct class_sym

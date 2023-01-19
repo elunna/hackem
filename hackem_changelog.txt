@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Weapon based shops can offer an expensive random property service now.
 Added scream/sonic property and fixed previous bug with artifact sonic damage.
 Necromancers can always cast necromancy spells with 0% fail rate.
 Fix: Necromancers/Jedi able to learn their techspells more than once. Fixes #173.
