@@ -2472,7 +2472,8 @@ chain_identify(struct obj *chain)
 {
     struct obj *obj;
     for (obj = chain; obj; obj = obj->nobj) {
-        (void) identify(obj);
+        if (not_fully_identified(obj))
+            (void) identify(obj);
         if (Has_contents(obj))
             chain_identify(obj->cobj);
     }
