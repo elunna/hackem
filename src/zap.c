@@ -156,7 +156,6 @@ struct obj *otmp;
     boolean visible = FALSE;
     boolean dbldam = (Role_if(PM_KNIGHT) && u.uhave.questart) || dbl_dmg();
     boolean skilled_spell, helpful_gesture = FALSE;
-    boolean curesick = FALSE;
     int dmg, otyp = otmp->otyp;
     const char *zap_type_text = "spell";
     struct obj *obj;
@@ -545,20 +544,27 @@ struct obj *otmp;
     case SPE_HEALING:
     case SPE_EXTRA_HEALING:
         reveal_invis = TRUE;
-        if (is_zombie(mtmp->data))
-            curesick = TRUE;
-        else if (mtmp->data != &mons[PM_PESTILENCE]) {
+        int amt = otyp == WAN_HEALING ? d(5, 2) + 5 * !!bcsign(otmp) 
+                  : otyp == WAN_EXTRA_HEALING ? d(5, 4) + 10 * !!bcsign(otmp)
+                      : d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
+        if (is_zombie(mtmp->data)) {
+            /* Allow healing to be nasty versus zombies */
+            if (!DEADMONSTER(mtmp)) {
+                damage_mon(mtmp, amt * (dbl_dmg() ? 2 : 1), AD_PHYS);
+                if (canseemon(mtmp))
+                    pline("%s shudders in agony!", Monnam(mtmp));
+                if (DEADMONSTER(mtmp))
+                    killed(mtmp);
+            }
+            helpful_gesture = FALSE;
+        } else if (mtmp->data != &mons[PM_PESTILENCE]) {
             boolean already_max = (mtmp->mhp == mtmp->mhpmax);
             wake = FALSE; /* wakeup() makes the target angry */
-            mtmp->mhp += 
+            mtmp->mhp += amt;
             /* [ALI] FIXME: Makes no sense that cursed wands are more
             * effective than uncursed wands. This behaviour dates
             * right back to Slash v3 (and probably to v1).
             */
-            otyp == WAN_HEALING ? d(5, 2) + 5 * !!bcsign(otmp) 
-                : otyp == WAN_EXTRA_HEALING ? d(5, 4) + 10 * !!bcsign(otmp) 
-                : d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
-            
             if (mtmp->mhp > mtmp->mhpmax) {
                 if (otmp->oclass == WAND_CLASS)
                     mtmp->mhpmax++;
@@ -572,7 +578,6 @@ struct obj *otmp;
                     || otyp == SPE_EXTRA_HEALING
                     || (otyp == WAN_HEALING && otmp->blessed)
                     || (otyp == WAN_EXTRA_HEALING && !otmp->cursed)) {
-                curesick = TRUE;
                 mcureblindness(mtmp, canseemon(mtmp));
             }
             
@@ -598,6 +603,8 @@ struct obj *otmp;
                     /* This used to do this unconditionally, making chaotics get an
                      * alignment penalty for healing their pets. Don't do that. */
                     adjalign(sgn(u.ualign.type));
+                    if (sgn(u.ualign.type) < 0)
+                        You("feel guilty.");
                 }
             }
         } else { /* Pestilence */
@@ -605,10 +612,7 @@ struct obj *otmp;
             (void) resist(mtmp, otmp->oclass,
                           d(3, otyp == SPE_EXTRA_HEALING ? 8 : 4), TELL);
         }
-        helpful_gesture = TRUE;
-        if (!curesick)
-            break;
-        /* FALLTHRU */
+         break;
     case SPE_CURE_SICKNESS:
         if (mtmp->msick) {
             wake = FALSE;
@@ -625,15 +629,7 @@ struct obj *otmp;
             helpful_gesture = TRUE;
         } else if (is_zombie(mtmp->data)) {
             if (!DEADMONSTER(mtmp)) {
-                /* Allow wands of healing to be nasty versus zombies */
-                dmg = otyp == WAN_HEALING 
-                          ? d(5, 2) + 5 * !!bcsign(otmp) 
-                          : otyp == WAN_EXTRA_HEALING 
-                          ? d(5, 4) + 10 * !!bcsign(otmp) : d(1, 8);
-   
-                if (dbl_dmg())
-                    dmg *= 2;
-
+                dmg = d(1, 8) * (dbl_dmg() ? 2 : 1);
                 damage_mon(mtmp, dmg, AD_PHYS);
                 if (canseemon(mtmp))
                     pline("%s shudders in agony!", Monnam(mtmp));
