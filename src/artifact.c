@@ -863,7 +863,7 @@ long wp_mask;
         else
             ESearching &= ~wp_mask;
     }
-    if (otmp->oartifact == ART_ORIGIN) {
+    if (otmp->oartifact == ART_ORIGIN && wp_mask == W_WEP) {
         if (on) {
             pline("Your mind is flooded with magical knowledge.");
         } else {

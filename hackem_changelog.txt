@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Origin only displays a special message when wielding it.
 Monster descriptions do not include 'covered in blood'.
 Cleaned up the code where healing and curing spells damage zombies.
 Traitorous and untameable pets cannot be made from the spell of create familiar.
