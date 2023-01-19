@@ -382,7 +382,7 @@ boolean allow_detrimental;
 
         if (is_launcher(otmp)
             &&  (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM
-                      | ITEM_VENOM | ITEM_DRLI | ITEM_OILSKIN)))
+                      | ITEM_VENOM | ITEM_ACID | ITEM_DRLI | ITEM_OILSKIN)))
             continue;
 
         if ((is_ammo(otmp) || is_missile(otmp))
@@ -390,8 +390,8 @@ boolean allow_detrimental;
                      | ITEM_SEARCHING | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER)))
             continue;
 
-        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_DRLI))
-                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_DRLI)))
+        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID | ITEM_DRLI))
+                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
             continue; /* these are mutually exclusive */
 
         if (otmp->material != CLOTH
@@ -665,20 +665,17 @@ struct obj *otmp;
 
     if (!weap && otmp->oprops
         && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
-        if (adtyp == AD_FIRE
-            && (otmp->oprops & ITEM_FIRE))
+        if (adtyp == AD_FIRE && (otmp->oprops & ITEM_FIRE))
             return TRUE;
-        if (adtyp == AD_COLD
-            && (otmp->oprops & ITEM_FROST))
+        if (adtyp == AD_COLD && (otmp->oprops & ITEM_FROST))
             return TRUE;
-        if (adtyp == AD_ELEC
-            && (otmp->oprops & ITEM_SHOCK))
+        if (adtyp == AD_ELEC && (otmp->oprops & ITEM_SHOCK))
             return TRUE;
-        if (adtyp == AD_LOUD
-            && (otmp->oprops & ITEM_SCREAM))
+        if (adtyp == AD_LOUD && (otmp->oprops & ITEM_SCREAM))
             return TRUE;
-        if (adtyp == AD_DRST
-            && (otmp->oprops & ITEM_VENOM))
+        if (adtyp == AD_DRST && (otmp->oprops & ITEM_VENOM))
+            return TRUE;
+        if (adtyp == AD_ACID && (otmp->oprops & ITEM_ACID))
             return TRUE;
     }
     return FALSE;
@@ -2145,21 +2142,26 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Fifth basic attack - acid (for the new and improved Dirge... DIRGE) */
     if (attacks(AD_ACID, otmp)) {
         if (realizes_damage) {
+            boolean isdirge = otmp->oartifact == ART_DIRGE;
             if (!youattack && magr && cansee(magr->mx, magr->my)) {
                 if (!spec_dbon_applies) {
                     if (!youdefend)
                         ;
                     else
-                        pline_The("acidic blade hits %s.", hittee);
+                        pline_The("%s hits %s.", isdirge ? "acidic blade"
+                                                         : distant_name(otmp, xname),
+                                  hittee);
                 } else {
-                    pline_The("acidic blade %s %s%c",
+                    pline_The("%s %s %s%c", isdirge ? "acidic blade"
+                                                              : distant_name(otmp, xname),
                               can_corrode(mdef->data)
                                   ? "eats away part of"
                                   : "burns",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             } else {
-                pline_The("acidic blade %s %s%c",
+                pline_The("%s %s %s%c", isdirge ? "acidic blade" 
+                                                : distant_name(otmp, xname),
                           !spec_dbon_applies
                               ? "hits"
                               : can_corrode(mdef->data)

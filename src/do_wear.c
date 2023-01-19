@@ -183,6 +183,8 @@ long mask;
         ESonic_resistance |= mask;
     if (props & ITEM_VENOM)
         EPoison_resistance |= mask;
+    if (props & ITEM_ACID)
+        EAcid_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -235,6 +237,8 @@ long mask;
         ESonic_resistance &= ~mask;
     if (props & ITEM_VENOM)
         EPoison_resistance &= ~mask;
+    if (props & ITEM_ACID)
+        EAcid_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
