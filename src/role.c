@@ -525,7 +525,7 @@ const struct Role roles[] = {
       { 10, 0,  0, 8,  1, 0 },	/* Hit points */
       {  1, 0,  0, 1,  0, 1 },
       12,	/* Energy */
-      10, 8, 0, 2, 9, A_INT, SPE_CAUSE_FEAR, -4 },
+      10, 8, 0, 2, 9, A_INT, SPE_HASTE_SELF, -4 },
     /* Note:  Rogue precedes Ranger so that use of `-R' on the command line
        retains its traditional meaning. */
     { { "Rogue", 0 },
