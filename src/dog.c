@@ -114,10 +114,15 @@ boolean quietly;
             pm = &mons[pet_type()];
         } else {
             pm = rndmonst();
+
             if (!pm) {
                 if (!quietly)
                     There("seems to be nothing available for a familiar.");
                 break;
+            } else if ((pm->mflags3 & M3_TRAITOR) || (pm->mflags3 & M3_NOTAME)) {
+                /* These would not make good familiars */
+                pm = 0;
+                continue;
             }
         }
 
