@@ -2454,10 +2454,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     }
     case SCR_TRANSMOGRIFY: {
-        if (uwep && rn2(2))
-            otmp = uwep;
-        else
-            otmp = some_armor(&youmonst);
+        if (!already_known) {
+            if (uwep && rn2(2))
+                otmp = uwep;
+            else
+                otmp = some_armor(&youmonst);
+        } else {
+            otmp = getobj(all_count, "change material");
+        }
+            
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
             sobj = 0; /* useup() in strange_feeling() */
