@@ -664,13 +664,11 @@ struct art_info_t {
     const char *wielded[INTRINSICS];
     const char *carried[INTRINSICS];
     const char* invoke;
-    const char* attack;
+    char* attack;
     const char* hates;
     const char* xattack;
     const char* xinfo;
-    const char* dbldmg;
-    
-    
+    char* dbldmg;
 };
 
 #endif /* OBJ_H */

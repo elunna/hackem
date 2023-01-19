@@ -4531,7 +4531,7 @@ artifact_info(int anum)
                 art_info.dbldmg = malloc(100);
                 strcpy(art_info.dbldmg, buf);
             } else
-                art_info.dbldmg = "deals double damage";
+                strcpy(art_info.dbldmg, "deals double damage");
         }
     } else
         art_info.attack = NULL;

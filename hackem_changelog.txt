@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Silenced a couple warnings in the artifact lookups.
 Fix: Broke artifact lookups from trying to use strcpy for everything.
 Removed accompanying artifact defenders when wishing for artifacts. 
 Added acid resistance to more monsters.
