@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+All roles (except Caveman) get their special spell granted when they reach level 12.
 Created Herme's Boots: speed boots that grant sickness resistance when worn and can be invoked for flying. Credit to Umbire on the concept.
 When known, the scroll of transmogrify prompts you for an item to change.
 Removed M1_CONCEAL from selkie. It can hide underwater, but not under objects.

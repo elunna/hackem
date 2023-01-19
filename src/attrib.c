@@ -7,6 +7,8 @@
 #include "hack.h"
 #include <ctype.h>
 
+#define SPECSPEL_LEV 12
+
 /* part of the output on gain or loss of attribute */
 static const char
     *const plusattr[] = { "strong", "smart", "wise",
@@ -1210,6 +1212,21 @@ int oldlevel, newlevel;
             spl_book[i].sp_lev = objects[spell].oc_level;
             spl_book[i].sp_know = 100000;
         }
+    }
+    
+    /* Learn your special spell! (At level 12) */
+    if (oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
+        && u.ulevelmax == u.ulevel) {
+        int i;
+        for (i = 0; i < MAXSPELL; i++)
+            if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
+                break;
+        if (spellid(i) == NO_SPELL)
+            You("learn how to cast %s!", OBJ_NAME(objects[urole.spelspec]));
+        /*spl_book[i].sp_id = urole.spelspec;
+        spl_book[i].sp_lev = objects[urole.spelspec].oc_level;
+        spl_book[i].sp_know = 20000;*/
+        force_learn_spell(urole.spelspec);
     }
 }
 
