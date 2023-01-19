@@ -449,6 +449,7 @@ Cloak_on(VOID_ARGS)
         break;
     case CLOAK_OF_PROTECTION:
     case ROBE_OF_WEAKNESS:
+    case MANA_CLOAK:
         makeknown(uarmc->otyp);
         break;
     case CLOAK_OF_FLIGHT:
@@ -562,6 +563,7 @@ Cloak_off(VOID_ARGS)
     case PLAIN_CLOAK:
     case GREEN_COAT:
     case GRAY_DRAGON_SCALES:
+    case MANA_CLOAK:
         break;
     case ELVEN_CLOAK:
         toggle_stealth(otmp, oldprop, FALSE);
