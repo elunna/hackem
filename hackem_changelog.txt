@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Hellcats and hellminths get fire resistance.
 Dust devils also resist shock.
 Deep/er/est ones are vulnerable to fire.
 Serpopards resist poison.

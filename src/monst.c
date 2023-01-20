@@ -1043,7 +1043,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
           ATTK(AT_BITE, AD_FIRE, 3, 10), 
           NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(800, 400, MS_GROWL, MZ_LARGE), 0, 0,
+        SIZ(800, 400, MS_GROWL, MZ_LARGE), MR_FIRE, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_FLANK, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 14, CLR_RED),
     MON("serpopard", S_FELINE,                                /* SpliceHack */
@@ -2670,7 +2670,7 @@ NEARDATA struct permonst mons[] = {
         LVL(3, 16, -1, 0, 0), (G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
+        SIZ(10, 10, MS_SILENT, MZ_SMALL), MR_FIRE, 0,
         M1_ANIMAL | M1_CONCEAL | M1_SLITHY | M1_NOLIMBS | M1_CARNIVORE | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 3, CLR_GREEN),
     MON("rot worm", S_WORM,                                     /* Slash'EM */
