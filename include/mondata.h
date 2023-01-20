@@ -88,6 +88,7 @@
      || (ptr) == &mons[PM_SHADOW_OGRE] \
      || (ptr) == &mons[PM_SHADOW_WOLF] \
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
+     || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_WATER_MAGE]       \
      || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
