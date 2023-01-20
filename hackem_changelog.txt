@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Disabled level sounds where Vecna's branch used to be.
 Database entry for Yeoman.
 Corrected some typos in spellbook info. 
 Silenced a couple warnings in the artifact lookups.

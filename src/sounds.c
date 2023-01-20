@@ -413,7 +413,6 @@ dosounds()
         You_hear1(icequeenbranch_msg[rn2(2 + hallu)]);
         return;
     }
-#endif
     if (ledger_no(&u.uz) == ledger_no(&valley_level) + 1
         && !rn2(200)) {
         static const char* const vecnabranch_msg[] = {
@@ -424,6 +423,7 @@ dosounds()
         You_hear1(vecnabranch_msg[rn2(2 + hallu)]);
         return;
     }
+#endif
 }
 
 static const char *const h_sounds[] = {
