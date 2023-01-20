@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+All elementals (except ice elementals) resist sonic damage.
 All adult dragons resist sonic damage.
 Roles and races that start with a pick-axe only get a +0 pick-axe.
 Vampirics in base form have the expected behavior when zapped with undead turning.
