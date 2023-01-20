@@ -116,6 +116,7 @@ set_uasmon()
        show latent flight capability always blocked by levitation */
     /* this property also checks race instead of role */
     PROPSET(FLYING, (is_flyer(racedat) && !is_floater(racedat)));
+    PROPSET(JUMPING, (is_jumper(racedat)));
     if (!program_state.restoring) /* if loading, defer wings check until we have a steed */
         check_wings(TRUE);
     PROPSET(SWIMMING, is_swimmer(mdat));
