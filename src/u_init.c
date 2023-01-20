@@ -37,7 +37,7 @@ struct trobj Archeologist[] = {
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },        
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 2, UNDEF_BLESS },
     { SCR_KNOWLEDGE, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
-    { PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
+    /*{ PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },*/
     { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { TOUCHSTONE, 0, GEM_CLASS, 1, 0 },
     { SACK, 0, TOOL_CLASS, 1, 0 },
@@ -170,7 +170,7 @@ struct trobj Necromancer[] = {
     { SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
     { WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { WAN_FEAR, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
-    { PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },
+    /*{ PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },*/
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Priest[] = {
@@ -1112,6 +1112,7 @@ u_init()
         default: break;
         }
         ini_inv(Archeologist);
+        ini_inv(Pickaxe);
         if (!rn2(10))
             (rn2(100) > 50 ? ini_inv(Lamp) : ini_inv(Torch));
         else if (!rn2(2))
@@ -1295,6 +1296,7 @@ u_init()
     }
     case PM_NECROMANCER:
         ini_inv(Necromancer);
+        ini_inv(Pickaxe);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
         knows_class(SPBOOK_CLASS);
@@ -1546,7 +1548,9 @@ u_init()
         knows_object(DWARVISH_BOOTS);
         knows_object(DWARVISH_ROUNDSHIELD);
 
-        if (!Role_if(PM_ARCHEOLOGIST) && !Role_if(PM_CONVICT)) {
+        if (!Role_if(PM_ARCHEOLOGIST) 
+            && !Role_if(PM_CONVICT) 
+            && !Role_if(PM_NECROMANCER)) {
             if (!rn2(4)) {
                 /* Wise dwarves bring their toy to the dungeons */
                 ini_inv(Pickaxe);
