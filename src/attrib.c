@@ -172,14 +172,14 @@ static const struct innate {
   cen_abil[] = { { 1, &(HFast), "", "" },
                  /* use EJumping here, otherwise centaurs would only
                     be able to jump the same way as knights */
-                 { 5, &(EJumping), "light on your hooves", "weighted down" },
+                 /*{ 5, &(EJumping), "light on your hooves", "weighted down" },*/
                  { 10, &(HWarning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
 
   ill_abil[] = { { 1, &(HInfravision), "", "" },
                  { 1, &(HTelepat), "", "" },
                  { 1, &(HPsychic_resistance), "", "" },
-                 { 12, &(HFlying), "lighter than air", "gravity's pull" },
+                 /*{ 12, &(HFlying), "lighter than air", "gravity's pull" },*/
                  { 0, 0, 0, 0 } },
 
   dem_abil[] = { { 1, &(HInfravision), "", "" },
@@ -187,18 +187,18 @@ static const struct innate {
                  { 1, &(HPoison_resistance), "", "" },
                  { 1, &(HDrain_resistance), "", "" },
                  { 1, &(HSee_invisible), "", "" },
-                 { 1, &(HFlying), "", "" },
+                 /*{ 1, &(HFlying), "", "" },*/
                  /* also inediate */
                  { 0, 0, 0, 0 } },
 
-  trt_abil[] = { /*{ 1, &(HSwimming), "", "" },*/
+  trt_abil[] = { /*{ 1, &(HSwimming), "", "" },*/ 
                  { 5, &(HWarning), "sensitive", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
   
   vam_abil[] =   { /*{ 1, &(HInfravision), "", "" },*/
-                   /*{ 1, &(HDrain_resistance), "", "" },*/
-                   /*{ 1, &(HBreathless), "breathless", "full of air" },*/
+                   { 1, &(HDrain_resistance), "", "" },
+                   { 1, &(HBreathless), "breathless", "full of air" },
                    { 10, &(HRegeneration), "resilient", "less resilient" },
                    /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },

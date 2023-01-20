@@ -62,6 +62,9 @@ set_uasmon()
             u.uprops[PropIndx].intrinsic &= ~FROMFORM; \
     } while (0)
 
+    /* This section might benefit from checking the race pointer as well:
+     *  example: pm_resistance(racedat, MR_SLEEP) 
+     */
     PROPSET(FIRE_RES, resists_fire(&youmonst));
     PROPSET(COLD_RES, resists_cold(&youmonst));
     PROPSET(SLEEP_RES, resists_sleep(&youmonst));
