@@ -210,6 +210,7 @@ static const struct innate {
 STATIC_DCL void NDECL(exerper);
 STATIC_DCL void FDECL(postadjabil, (long *));
 STATIC_DCL const struct innate *FDECL(role_abil, (int));
+STATIC_DCL const struct innate *NDECL(get_rabil);
 STATIC_DCL const struct innate *FDECL(check_innate_abil, (long *, long));
 STATIC_DCL int FDECL(innately, (long *));
 
@@ -1092,6 +1093,43 @@ int propidx; /* special cases can have negative values */
     return buf;
 }
 
+STATIC_OVL const struct innate *
+get_rabil()
+{
+    switch (Race_switch) {
+    case PM_ELF:
+        return elf_abil;
+        break;
+    case PM_ORC:
+        return orc_abil;
+        break;
+    case PM_GIANT:
+        return gia_abil;
+        break;
+    case PM_HOBBIT:
+        return hob_abil;
+        break;
+    case PM_CENTAUR:
+        return cen_abil;
+        break;
+    case PM_ILLITHID:
+        return ill_abil;
+        break;
+    case PM_TORTLE:
+        return trt_abil;
+        break;
+    case PM_VAMPIRIC:
+        return vam_abil;
+        break;
+    case PM_HUMAN:
+    case PM_DWARF:
+    case PM_GNOME:
+    default:
+        return 0;
+        break;
+    }
+}
+
 void
 adjabil(oldlevel, newlevel)
 int oldlevel, newlevel;
@@ -1100,40 +1138,8 @@ int oldlevel, newlevel;
     long prevabil, mask = FROMEXPER;
 
     abil = role_abil(Role_switch);
-
-    switch (Race_switch) {
-    case PM_ELF:
-        rabil = elf_abil;
-        break;
-    case PM_ORC:
-        rabil = orc_abil;
-        break;
-    case PM_GIANT:
-        rabil = gia_abil;
-        break;
-    case PM_HOBBIT:
-        rabil = hob_abil;
-        break;
-    case PM_CENTAUR:
-        rabil = cen_abil;
-        break;
-    case PM_ILLITHID:
-        rabil = ill_abil;
-        break;
-    case PM_TORTLE:
-        rabil = trt_abil;
-        break;
-    case PM_VAMPIRIC:
-        rabil = vam_abil;
-        break;
-    case PM_HUMAN:
-    case PM_DWARF:
-    case PM_GNOME:
-    default:
-        rabil = 0;
-        break;
-    }
-
+    rabil = get_rabil();
+    
     while (abil || rabil) {
         /* Have we finished with the intrinsics list? */
         if (!abil || !abil->ability) {
