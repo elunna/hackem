@@ -4611,7 +4611,6 @@ struct monst *shkp;
     int progress = P_ADVANCE(weptype);
     int threshold = practice_needed_to_advance(P_SKILL(weptype));
     int required = practice_needed_to_advance(P_SKILL(weptype)) - progress;
-    debug_pline("P_ADVANCE(weptype) = %d", progress);
     
     /* Max skill store can grant */
     if (!strcmp(shtypes[ESHK(shkp)->shoptype-SHOPBASE].name, "gun store")) {
@@ -4624,8 +4623,6 @@ struct monst *shkp;
     } else {
         maxoffered = 0;
     }
-    debug_pline("maxoffered = %d", maxoffered);
-    
 
     if (can_advance(weptype, FALSE)) {
         You("should advance your skill before training more.");
@@ -4681,15 +4678,12 @@ struct monst *shkp;
             pline("Unfortunately, nothing new turns up.");
     }
     
-    You("start training %s intensely with %s", doname(uwep), mon_nam(shkp));
+    pline("%s trains you intensely in the way of %s.", doname(uwep), mon_nam(shkp));
     /*delay = -10;*/
     /*set_occupation(practice, "practicing", 0);*/
-    You("finish your practice session.");
     use_skill(weptype, required);
     return 1;
 }
-
-
 
 /*
 **
