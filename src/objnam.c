@@ -3538,12 +3538,21 @@ const char * in_str;
             return as->ob;
         }
     }
-    /* try Japanese names */
-    for (ji = Japanese_items; ji->item != 0; ji++) {
-        if (!strcmpi(in_str, ji->name)) {
-            return ji->item;
+    /* try role-specific names */
+    if (Role_if(PM_SAMURAI)) {
+        for (ji = Japanese_items; ji->item != 0; ji++) {
+            if (!strcmpi(in_str, ji->name)) {
+                return ji->item;
+            }
+        }
+    } else if (Role_if(PM_PIRATE)) {
+        for (ji = Pirate_items; ji->item != 0; ji++) {
+            if (!strcmpi(in_str, ji->name)) {
+                return ji->item;
+            }
         }
     }
+
     /* try fruits */
     if (fruit_from_name(in_str, FALSE, NULL))
         return SLIME_MOLD;
@@ -4424,7 +4433,7 @@ struct obj *no_wish;
     typ = 0;
 
     if (actualn) {
-        struct Jitem *j[] = {Japanese_items,Pirate_items};
+        struct Jitem *j[] = { Japanese_items, Pirate_items };
         for (i = 0; (unsigned long) i < sizeof(j) / sizeof(j[0]); i++)
         {
             while (j[i]->item) {
