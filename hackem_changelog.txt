@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Included MR_PSYCHIC and MR_SONIC in update_mon_intrinsics checks.
 set_uasmon checks if the polyform can jump and grants it.
 Tortles only get swimming from the MON struct.
 Vampirics get regeneration at level 10 (matches regular vampire level)
