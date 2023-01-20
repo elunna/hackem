@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Whirling spheres resist almost everything.
 Dust devil: MR_SHOCK -> MR_ELEC
 Hellcats and hellminths get fire resistance.
 Dust devils also resist shock.
