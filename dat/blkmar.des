@@ -109,22 +109,23 @@ $shopdoors = { (29,07), (35,13), (38,08), (38,11), (58,06), (51,12),
 SHUFFLE: $shops
 
 REGION: $shops[0], lit, "shop", filled, irregular
+DOOR: open, $shopdoors[0]
 REGION: $shops[1], lit, "scroll shop", filled, irregular
+DOOR: open, $shopdoors[1]
 REGION: $shops[2], lit, "potion shop", filled, irregular
+DOOR: open, $shopdoors[2]
 REGION: $shops[3], lit, "wand shop", filled, irregular
+DOOR: open, $shopdoors[3]
 REGION: $shops[4], lit, "ring shop", filled, irregular
+DOOR: open, $shopdoors[4]
 REGION: $shops[5], lit, "armor shop", filled, irregular
+DOOR: open, $shopdoors[5]
 REGION: $shops[6], lit, "tool shop", filled, irregular
+DOOR: open, $shopdoors[6]
 REGION: $shops[7], lit, "weapon shop", filled, irregular
+DOOR: open, $shopdoors[7]
 REGION: $shops[8], lit, "book shop", filled, irregular
-
-FOR $x = 0 TO 9 {
-  IF [80%] {
-    DOOR: closed, $shopdoors[$x]
-  } ELSE {
-    DOOR: open, $shopdoors[$x]
-  }
-}
+DOOR: open, $shopdoors[8]
 
 $assistants = { (10,02), (07,03), (05,04), (03,06), (02,08),
                 (10,16), (07,15), (05,14), (03,12), (02,10) }
