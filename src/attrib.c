@@ -191,7 +191,7 @@ static const struct innate {
                  /* also inediate */
                  { 0, 0, 0, 0 } },
 
-  trt_abil[] = { { 1, &(HSwimming), "", "" },
+  trt_abil[] = { /*{ 1, &(HSwimming), "", "" },*/
                  { 5, &(HWarning), "sensitive", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },

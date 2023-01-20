@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Tortles only get swimming from the MON struct.
 Vampirics get regeneration at level 10 (matches regular vampire level)
 Removed the special handling of vampiric in set_uasmon.
 The vampiric race now gets it's abilities from the monster struct rather than vam_abil. 
