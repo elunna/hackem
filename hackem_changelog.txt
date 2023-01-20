@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed corrosive sphere. Duplicate of acid sphere.
 Disabled level sounds where Vecna's branch used to be.
 Database entry for Yeoman.
 Corrected some typos in spellbook info. 

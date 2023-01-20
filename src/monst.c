@@ -827,15 +827,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 7, CLR_CYAN),
-     MON("corrosive sphere", S_EYE,                           /* SpliceHack */
-        LVL(6, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2), 
-        A(ATTK(AT_EXPL, AD_ACID, 4, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(10, 10, MS_SILENT, MZ_SMALL), MR_ELEC, MR_ELEC,
-        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
-            | M1_NOTAKE,
-        M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0,
-        8, CLR_BRIGHT_GREEN),
     MON("concussive sphere", S_EYE,                           /* SpliceHack */
         LVL(6, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2), 
         A(ATTK(AT_EXPL, AD_LOUD, 4, 6), 
