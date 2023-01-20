@@ -1869,7 +1869,7 @@ NEARDATA struct permonst mons[] = {
         LVL(3, 1, 3, 0, 0), (G_GENO | 4),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(200, 200, MS_SILENT, MZ_SMALL), 0, 0,
+        SIZ(200, 200, MS_SILENT, MZ_SMALL), MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 4, CLR_GRAY),
@@ -1877,7 +1877,7 @@ NEARDATA struct permonst mons[] = {
         LVL(5, 1, 0, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 3, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(400, 300, MS_SILENT, MZ_MEDIUM), 0, 0,
+        SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, M4_VULNERABLE_ACID, 0, 6, CLR_CYAN),
@@ -1885,7 +1885,7 @@ NEARDATA struct permonst mons[] = {
         LVL(7, 1, 0, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 4, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_ACID, 0,
+        SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_ACID | MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 9, CLR_WHITE),
@@ -1893,7 +1893,7 @@ NEARDATA struct permonst mons[] = {
         LVL(8, 1, 0, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 8, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_ACID | MR_FIRE, 0,
+        SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_ACID | MR_FIRE | MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 9, CLR_BLUE),
@@ -1902,7 +1902,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 16, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(400, 300, MS_SILENT, MZ_MEDIUM), 
-        MR_ACID | MR_ELEC | MR_FIRE | MR_COLD, 0,
+        MR_ACID | MR_ELEC | MR_FIRE | MR_COLD | MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 17, CLR_BRIGHT_MAGENTA),
