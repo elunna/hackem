@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Vampirics in base form have the expected behavior when zapped with undead turning.
 Vampirics are actually immune to death magic now.
 Moved most physical intrinsics to the MON structs instead of the rac_abil side.
 Included MR_PSYCHIC and MR_SONIC in update_mon_intrinsics checks.
