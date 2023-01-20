@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Random sink effect: noxious gas cloud (from 3.7)
 Fix: Vampirics had poison/sleep resistance and breathless disabled by mistake. 
 Monsters with sonic attacks get sonic resistance.
 All elementals (except ice elementals) resist sonic damage.
