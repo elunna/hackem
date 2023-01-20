@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Memory leak in oracle-3. Fixes #175.
 Fix: Removed loop for shopdoors in the 2nd black market. Fixes #101.
 Whirling spheres resist almost everything.
 Dust devil: MR_SHOCK -> MR_ELEC
