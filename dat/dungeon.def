@@ -31,7 +31,7 @@ BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
 #BRANCH:        "Chaotic Quest" @ (15, 5) portal
-BRANCH:         "Vecna's Domain" @ (15, 5) portal
+BRANCH:         "Chaotic Quest" @ (15, 5) portal
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 #               Grunds act's as a mini-castle for the player to overcome. 
@@ -214,7 +214,7 @@ LEVEL:          "mtemple" "none" @ (1, 0)
 #
 #       Vecna's Domain.
 #
-DUNGEON:        "Vecna's Domain" "none" (3, 0)
+DUNGEON:        "Chaotic Quest" "none" (3, 0)
 DESCRIPTION:    mazelike
 DESCRIPTION:    vecnad
 ALIGNMENT:      chaotic
