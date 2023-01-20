@@ -64,7 +64,7 @@ STATIC_OVL struct Jitem Japanese_items[] = {
     { 0, "" } 
 };
 
-static struct Jitem Pirate_items[] = { 
+STATIC_OVL struct Jitem Pirate_items[] = { 
     { POT_BOOZE, "rum" },
     { CRAM_RATION, "sea biscuit" },
     { SCIMITAR, "cutlass" },
