@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Amphisbaena resists stoning.
 All piercers resist sonics.
 Migo warriors resist cold.
 Removed corrosive sphere. Duplicate of acid sphere.
