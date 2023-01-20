@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Dust devil: MR_SHOCK -> MR_ELEC
 Hellcats and hellminths get fire resistance.
 Dust devils also resist shock.
 Deep/er/est ones are vulnerable to fire.

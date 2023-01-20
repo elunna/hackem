@@ -1396,7 +1396,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_ENGL, AD_PHYS, 2, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_HUMAN), 
-        MR_FIRE | MR_POISON | MR_ACID | MR_SHOCK, 0,
+        MR_FIRE | MR_POISON | MR_ACID | MR_ELEC, 0,
         M1_POIS | M1_FLY | M1_THICK_HIDE, 
         M2_STALK | M2_HOSTILE | M2_NASTY, 0, 0, MH_DEMON, 
         10, CLR_YELLOW),
