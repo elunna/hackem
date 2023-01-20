@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Deep/er/est ones are vulnerable to fire.
 Serpopards resist poison.
 Amphisbaena resists stoning.
 All piercers resist sonics.

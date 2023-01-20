@@ -1277,7 +1277,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STALK | M2_GREEDY | M2_JEWELS | M2_COLLECT | M2_MAGIC
           | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR,
-        0, 0, 9, CLR_GREEN),
+        M4_VULNERABLE_FIRE, 0, 9, CLR_GREEN),
     MON("deeper one", S_HUMANOID,                               /* Slash'EM */
         LVL(15,12, 0, 30, -7), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 4),
@@ -1290,7 +1290,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STALK | M2_GREEDY | M2_JEWELS | M2_COLLECT | M2_LORD 
           | M2_STRONG | M2_MAGIC | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR,
-        0, 0, 18, CLR_GREEN),
+        M4_VULNERABLE_FIRE, 0, 18, CLR_GREEN),
     MON("deepest one", S_HUMANOID,                              /* Slash'EM */
         LVL(30, 15, -5, 70, -9), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 3, 6),
@@ -1303,7 +1303,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STALK | M2_GREEDY | M2_JEWELS | M2_COLLECT | M2_PRINCE 
           | M2_STRONG | M2_MAGIC | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR,
-        0, 0, 33, HI_LORD),
+        M4_VULNERABLE_FIRE, 0, 33, HI_LORD),
     /*
      * imps & other minor demons/devils
      */
