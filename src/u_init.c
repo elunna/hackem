@@ -397,6 +397,7 @@ struct inv_sub {
     { PM_GNOME, ARROW, CROSSBOW_BOLT },
     { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD	      },
     { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD     },
+    { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD     },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
