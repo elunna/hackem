@@ -754,6 +754,7 @@ bag of tricks
     
 ~oilskin sack
 sack
+ditty bag
     The sack is the most basic form of container in NetHack. A sack 
     stores items beyond the 52-character limit, and protects its 
     contents from fire, cold, and many other forms of damage; it is 
@@ -1624,6 +1625,7 @@ cheese
 	weight ratio (250/2 = 125).
 chest
 large box
+foot locker
 	Dantes rapidly cleared away the earth around the chest.  Soon
 	the center lock appeared, then the handles at each end, all
 	delicately wrought in the manner of that period when art made
@@ -7551,6 +7553,7 @@ potion of blood
     - Potions of blood can be made via alchemy by dipping blood
       into potions of fruit juice.
 potion of sake
+potion of rum
 potion of booze
     When quaffed, this potion provides nutrition, abuses wisdom, 
     and may confuse you.
@@ -8970,6 +8973,7 @@ scalpel
 	missile attacks.  When invoked, it causes conflict in the
 	area around it.
 *scimitar
+cutlass
 	Oh, how handsome, how noble was the Vizier Ali Tebelin,
 	my father, as he stood there in the midst of the shot, his
 	scimitar in his hand, his face black with powder!  How his
@@ -10851,6 +10855,7 @@ spoon
 	 impaired state
 ~*aesculapius
 *staff
+oar
 	So they stood, each in his place, neither moving a finger's
 	breadth back, for one good hour, and many blows were given
 	and received by each in that time, till here and there were
@@ -12901,6 +12906,7 @@ water troll
 # because their entries precede this one
 weapon
 club
+belaying pin
 flail
 ~*broadsword
 ~sunsword
