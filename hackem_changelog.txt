@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed remaining weight based restrictions for two-weaponing.
 Random sink effect: noxious gas cloud (from 3.7)
 Fix: Vampirics had poison/sleep resistance and breathless disabled by mistake. 
 Monsters with sonic attacks get sonic resistance.
