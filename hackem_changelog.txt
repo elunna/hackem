@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed the special handling of vampiric in set_uasmon.
 The vampiric race now gets it's abilities from the monster struct rather than vam_abil. 
 Factored the race-to-race-abilities matching in adjabil.
 Added database entries for spellbooks haste self through cure blindness.

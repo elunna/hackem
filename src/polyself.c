@@ -51,12 +51,7 @@ set_uasmon()
     debug_pline("mdat->name = %s", mdat->mname);
 #endif
     
-    if (Race_if(PM_VAMPIRIC) && !Upolyd) {
-        set_mon_data(&youmonst, &mons[PM_VAMPIRIC]);
-    }
-    else 
-        set_mon_data(&youmonst, mdat);
-    
+    set_mon_data(&youmonst, mdat);
     racedat = raceptr(&youmonst);
     
 #define PROPSET(PropIndx, ON)                          \
