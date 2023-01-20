@@ -15,6 +15,15 @@
 
 Version 1.1 (unreleased)
 
+Vampirics in base form have the expected behavior when zapped with undead turning.
+Vampirics are actually immune to death magic now.
+Moved most physical intrinsics to the MON structs instead of the rac_abil side.
+Included MR_PSYCHIC and MR_SONIC in update_mon_intrinsics checks.
+set_uasmon checks if the polyform can jump and grants it.
+Tortles only get swimming from the MON struct.
+Removed the special handling of vampiric in set_uasmon.
+The vampiric race now gets it's abilities from the monster struct rather than vam_abil. 
+Factored the race-to-race-abilities matching in adjabil.
 Fix: References to Vecna's Realm not updated to Chaotic Quest.
 Fix: Memory leak in oracle-3. Fixes #175.
 Fix: Removed loop for shopdoors in the 2nd black market. Fixes #101.

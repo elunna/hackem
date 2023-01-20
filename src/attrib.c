@@ -172,14 +172,14 @@ static const struct innate {
   cen_abil[] = { { 1, &(HFast), "", "" },
                  /* use EJumping here, otherwise centaurs would only
                     be able to jump the same way as knights */
-                 { 5, &(EJumping), "light on your hooves", "weighted down" },
+                 /*{ 5, &(EJumping), "light on your hooves", "weighted down" },*/
                  { 10, &(HWarning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
 
   ill_abil[] = { { 1, &(HInfravision), "", "" },
                  { 1, &(HTelepat), "", "" },
                  { 1, &(HPsychic_resistance), "", "" },
-                 { 12, &(HFlying), "lighter than air", "gravity's pull" },
+                 /*{ 12, &(HFlying), "lighter than air", "gravity's pull" },*/
                  { 0, 0, 0, 0 } },
 
   dem_abil[] = { { 1, &(HInfravision), "", "" },
@@ -187,29 +187,28 @@ static const struct innate {
                  { 1, &(HPoison_resistance), "", "" },
                  { 1, &(HDrain_resistance), "", "" },
                  { 1, &(HSee_invisible), "", "" },
-                 { 1, &(HFlying), "", "" },
+                 /*{ 1, &(HFlying), "", "" },*/
                  /* also inediate */
                  { 0, 0, 0, 0 } },
 
-  trt_abil[] = { { 1, &(HSwimming), "", "" },
+  trt_abil[] = { /*{ 1, &(HSwimming), "", "" },*/ 
                  { 5, &(HWarning), "sensitive", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
   
-
-  vam_abil[] =   { { 1, &(HInfravision), "", "" },
-                   { 1, &(HDrain_resistance), "", "" },
-                   { 1, &(HBreathless), "breathless", "full of air" },
+  vam_abil[] =   { /*{ 1, &(HInfravision), "", "" },*/
+                   /*{ 1, &(HDrain_resistance), "", "" },*/
+                   /*{ 1, &(HBreathless), "breathless", "full of air" },*/
                    { 1, &(HRegeneration), "resilient", "less resilient" },
-                   { 1, &(HFlying), "lighter than air", "gravity's pull" },
+                   /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
-  
   
   hum_abil[] = { { 0, 0, 0, 0 } };
 
 STATIC_DCL void NDECL(exerper);
 STATIC_DCL void FDECL(postadjabil, (long *));
 STATIC_DCL const struct innate *FDECL(role_abil, (int));
+STATIC_DCL const struct innate *NDECL(get_rabil);
 STATIC_DCL const struct innate *FDECL(check_innate_abil, (long *, long));
 STATIC_DCL int FDECL(innately, (long *));
 
@@ -1092,6 +1091,43 @@ int propidx; /* special cases can have negative values */
     return buf;
 }
 
+STATIC_OVL const struct innate *
+get_rabil()
+{
+    switch (Race_switch) {
+    case PM_ELF:
+        return elf_abil;
+        break;
+    case PM_ORC:
+        return orc_abil;
+        break;
+    case PM_GIANT:
+        return gia_abil;
+        break;
+    case PM_HOBBIT:
+        return hob_abil;
+        break;
+    case PM_CENTAUR:
+        return cen_abil;
+        break;
+    case PM_ILLITHID:
+        return ill_abil;
+        break;
+    case PM_TORTLE:
+        return trt_abil;
+        break;
+    case PM_VAMPIRIC:
+        return vam_abil;
+        break;
+    case PM_HUMAN:
+    case PM_DWARF:
+    case PM_GNOME:
+    default:
+        return 0;
+        break;
+    }
+}
+
 void
 adjabil(oldlevel, newlevel)
 int oldlevel, newlevel;
@@ -1100,40 +1136,8 @@ int oldlevel, newlevel;
     long prevabil, mask = FROMEXPER;
 
     abil = role_abil(Role_switch);
-
-    switch (Race_switch) {
-    case PM_ELF:
-        rabil = elf_abil;
-        break;
-    case PM_ORC:
-        rabil = orc_abil;
-        break;
-    case PM_GIANT:
-        rabil = gia_abil;
-        break;
-    case PM_HOBBIT:
-        rabil = hob_abil;
-        break;
-    case PM_CENTAUR:
-        rabil = cen_abil;
-        break;
-    case PM_ILLITHID:
-        rabil = ill_abil;
-        break;
-    case PM_TORTLE:
-        rabil = trt_abil;
-        break;
-    case PM_VAMPIRIC:
-        rabil = vam_abil;
-        break;
-    case PM_HUMAN:
-    case PM_DWARF:
-    case PM_GNOME:
-    default:
-        rabil = 0;
-        break;
-    }
-
+    rabil = get_rabil();
+    
     while (abil || rabil) {
         /* Have we finished with the intrinsics list? */
         if (!abil || !abil->ability) {

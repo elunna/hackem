@@ -51,12 +51,7 @@ set_uasmon()
     debug_pline("mdat->name = %s", mdat->mname);
 #endif
     
-    if (Race_if(PM_VAMPIRIC) && !Upolyd) {
-        set_mon_data(&youmonst, &mons[PM_VAMPIRIC]);
-    }
-    else 
-        set_mon_data(&youmonst, mdat);
-    
+    set_mon_data(&youmonst, mdat);
     racedat = raceptr(&youmonst);
     
 #define PROPSET(PropIndx, ON)                          \
@@ -67,6 +62,9 @@ set_uasmon()
             u.uprops[PropIndx].intrinsic &= ~FROMFORM; \
     } while (0)
 
+    /* This section might benefit from checking the race pointer as well:
+     *  example: pm_resistance(racedat, MR_SLEEP) 
+     */
     PROPSET(FIRE_RES, resists_fire(&youmonst));
     PROPSET(COLD_RES, resists_cold(&youmonst));
     PROPSET(SLEEP_RES, resists_sleep(&youmonst));
@@ -121,6 +119,7 @@ set_uasmon()
        show latent flight capability always blocked by levitation */
     /* this property also checks race instead of role */
     PROPSET(FLYING, (is_flyer(racedat) && !is_floater(racedat)));
+    PROPSET(JUMPING, (is_jumper(racedat)));
     if (!program_state.restoring) /* if loading, defer wings check until we have a steed */
         check_wings(TRUE);
     PROPSET(SWIMMING, is_swimmer(mdat));

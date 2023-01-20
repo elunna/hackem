@@ -488,7 +488,7 @@ boolean on, silently;
         case STONE_RES:
         case PSYCHIC_RES:
             /* 1 through 9 correspond to MR_xxx mask values */
-            if (which >= 1 && which <= 9) {
+            if (which >= 1 && which <= 11) {
                 mask = (uchar) (1 << (which - 1));
                 mon->mextrinsics |= (unsigned long) mask;
             }

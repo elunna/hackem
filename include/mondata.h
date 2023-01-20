@@ -88,6 +88,7 @@
      || (ptr) == &mons[PM_SHADOW_OGRE] \
      || (ptr) == &mons[PM_SHADOW_WOLF] \
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
+     || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_WATER_MAGE]       \
      || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
@@ -100,7 +101,6 @@
     || is_demon(ptr) \
     || is_angel(ptr) \
     || (ptr)->msound == MS_LEADER \
-    || (ptr) == &mons[PM_VAMPIRIC] \
     || (ptr) == &mons[PM_JUGGERNAUT] \
     || (ptr) == &mons[PM_SHADOW_OGRE] \
     || (ptr) == &mons[PM_SHADOW_WOLF] \
@@ -109,7 +109,8 @@
     || (ptr) == &mons[PM_CERBERUS] \
     || (ptr) == &mons[PM_DEATH] \
     || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
-    || (ptr) == &mons[PM_RAGNAROS] )
+    || (ptr) == &mons[PM_RAGNAROS] \
+    || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_VAMPIRIC)))
 
 #define immune_poisongas(ptr) \
     ((ptr) == &mons[PM_HEZROU] \

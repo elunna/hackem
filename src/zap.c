@@ -1330,7 +1330,7 @@ unturn_you()
 {
     (void) unturn_dead(&youmonst); /* hit carried corpses and eggs */
 
-    if (is_undead(youmonst.data)) {
+    if (is_undead(youmonst.data) || (Race_if(PM_VAMPIRIC) && !Upolyd)) {
         You_feel("frightened and %sstunned.", Stunned ? "even more " : "");
         make_stunned((HStun & TIMEOUT) + (long) rnd(30), FALSE);
     } else {
