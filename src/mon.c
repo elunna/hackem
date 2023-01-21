@@ -2887,33 +2887,29 @@ struct monst *magr, /* monster that is currently deciding where to move */
         return ALLOW_M | ALLOW_TM;
 
     /* Stormtroopers vs. Padawans */
-    if(magr->data == &mons[PM_STORMTROOPER] && mdef->data == &mons[PM_PADAWAN])
+    if (ma == &mons[PM_STORMTROOPER] && md == &mons[PM_PADAWAN])
         return ALLOW_M | ALLOW_TM;
     /* and vice versa */
-    if(mdef->data == &mons[PM_STORMTROOPER] && magr->data == &mons[PM_PADAWAN])
+    if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_PADAWAN])
         return ALLOW_M | ALLOW_TM;
     /* Stormtroopers vs. Jedi */
-    if(magr->data == &mons[PM_STORMTROOPER] && mdef->data == &mons[PM_JEDI])
+    if (ma == &mons[PM_STORMTROOPER] && md == &mons[PM_JEDI])
         return ALLOW_M | ALLOW_TM;
     /* and vice versa */
-    if(mdef->data == &mons[PM_STORMTROOPER] && magr->data == &mons[PM_JEDI])
+    if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_JEDI])
         return ALLOW_M | ALLOW_TM;
     /* Jedi vs. Lord Sidious */
-    if(magr->data == &mons[PM_LORD_SIDIOUS] && mdef->data == &mons[PM_JEDI])
+    if (ma == &mons[PM_LORD_SIDIOUS] && md == &mons[PM_JEDI])
         return ALLOW_M | ALLOW_TM;
     /* and vice versa */
-    if(mdef->data == &mons[PM_LORD_SIDIOUS] && magr->data == &mons[PM_JEDI])
+    if (md == &mons[PM_LORD_SIDIOUS] && ma == &mons[PM_JEDI])
         return ALLOW_M | ALLOW_TM;
     
     /* dungeon fern spores hate everything */
-    if (is_fern_spore(ma) 
-        && !is_fern_spore(md) 
-        && !is_vegetation(md))
+    if (is_fern_spore(ma) && !is_fern_spore(md) && !is_vegetation(md))
         return ALLOW_M|ALLOW_TM;
     /* and everything hates them */
-    if (is_fern_spore(md) 
-        && !is_fern_spore(ma) 
-        && !is_vegetation(ma))
+    if (is_fern_spore(md) && !is_fern_spore(ma) && !is_vegetation(ma))
         return ALLOW_M|ALLOW_TM;
     
     /* insect-eating bugs vs insects */
