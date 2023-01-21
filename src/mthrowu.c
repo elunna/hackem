@@ -1245,7 +1245,7 @@ struct monst *mtmp;
     otmp = select_rwep(mtmp);
     if (!otmp)
         return FALSE;
-
+    
     if (is_pole(otmp)) {
         int dam, hitv;
 
@@ -1277,6 +1277,20 @@ struct monst *mtmp;
         return TRUE;
     }
 
+    if (is_bomb(otmp)) {
+        /* A few simple checks for throwing bombs, similar to throwing potions
+         * of oil. This could lead to weird behavior for weak monsters, so
+         * eventually this might fit better as a MUSE item. */
+        if (otmp->otyp == FIRE_BOMB && m_seenres(mtmp, M_SEEN_FIRE))
+            return FALSE;
+        if (otmp->otyp == GAS_BOMB && m_seenres(mtmp, M_SEEN_POISON))
+            return FALSE;
+        if (otmp->otyp == SONIC_BOMB && m_seenres(mtmp, M_SEEN_LOUD))
+            return FALSE;
+        if (dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) < 3 
+            && mtmp->mhp < 20)
+            return FALSE;
+    }
     x = mtmp->mx;
     y = mtmp->my;
 
