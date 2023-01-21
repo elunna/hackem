@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Guardian angel has it's apport set when summoned.
 Added even more pirate lingo.
 Much more pirate speak, insults, and object descriptions.
 Updated the piratespeak parser with more conversions.
