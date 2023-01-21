@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Guardian angel on astral plane wasn't peaceful. Fixes #181.
 2023-01-19: Removed accompanying artifact defenders when wishing for artifacts. 
 2023-01-12: Fix: Guardian Angel minion broke after entering astral plane.
 2023-01-09: Eased magical scaring restrictions a bit from EvilHack to be closer to 3.7.
