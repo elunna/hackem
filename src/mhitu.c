@@ -1209,7 +1209,8 @@ register struct monst *mtmp;
                 nomovemsg = "The combat suddenly awakens you.";
             }
         }
-        if (sum[i] == 2)
+        /* DEADMONSTER(mtmp) needed for if mtmp throws a bomb and kills itself */
+        if (sum[i] == 2 || DEADMONSTER(mtmp))
             return 1; /* attacker dead */
         if (sum[i] == 3)
             break; /* attacker teleported, no more attacks */

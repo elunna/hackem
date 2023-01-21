@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Monsters killed by throwing bombs at close range won't continue with other attacks. Fixes #179.
 Fix: Guardian angel on astral plane wasn't peaceful. Fixes #181.
 Minor cleanup in jedi grudges.
 Guardian angel has it's apport set when summoned.
