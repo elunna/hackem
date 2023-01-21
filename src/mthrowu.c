@@ -354,7 +354,8 @@ struct obj *otmp, *mwep;
         m_shot.o = otmp->otyp;
     } else {
         m_shot.o = STRANGE_OBJECT; /* don't give multishot feedback */
-        if (is_bullet(otmp) && !Deaf) You("hear gunfire.");
+        if (is_bullet(otmp) && !Deaf) 
+            You("hear gunfire.");
     }
     m_shot.n = multishot;
     for (m_shot.i = 1; m_shot.i <= m_shot.n; m_shot.i++) {

@@ -1628,8 +1628,6 @@ struct monst *mtmp;
 #define MUSE_HORN_OF_BLASTING   84
 #define MUSE_CAMERA             85 /* Skipping so other values don't overlap */
 
-
-
 static boolean
 linedup_chk_corpse(x, y)
 int x, y;

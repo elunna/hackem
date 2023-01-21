@@ -868,16 +868,19 @@ register struct monst *mtmp;
         newsym(mtmp->mx, mtmp->my);
     }
 
-	/* Make Star Vampires visible the moment they hit/miss us */
-	if(mtmp->data == &mons[PM_STAR_VAMPIRE] && mtmp->minvis
-	   && cansee(mtmp->mx, mtmp->my)) {
-	    mtmp->minvis = 0;
-	    newsym(mtmp->mx, mtmp->my);
-	}
+    /* Make Star Vampires visible the moment they hit/miss us */
+    if (mtmp->data == &mons[PM_STAR_VAMPIRE] && mtmp->minvis
+          && cansee(mtmp->mx, mtmp->my)) {
+        mtmp->minvis = 0;
+        newsym(mtmp->mx, mtmp->my);
+    }
     /*  Special demon handling code */
-    if ((mtmp->cham == NON_PM) && is_demon(mdat) && !range2
-        && mtmp->data != &mons[PM_BALROG] && mtmp->data != &mons[PM_SUCCUBUS]
-        && mtmp->data != &mons[PM_INCUBUS] && mtmp->data != &mons[PM_DEMON])
+    if ((mtmp->cham == NON_PM) 
+        && is_demon(mdat) && !range2
+        && mtmp->data != &mons[PM_BALROG] 
+        && mtmp->data != &mons[PM_SUCCUBUS]
+        && mtmp->data != &mons[PM_INCUBUS] 
+        && mtmp->data != &mons[PM_DEMON])
         if (!mtmp->mcan && !rn2(13))
             (void) msummon(mtmp);
 
@@ -1107,36 +1110,36 @@ register struct monst *mtmp;
                 sum[i] = volleymu(mtmp, mattk);
             break;
         case AT_MULTIPLY:
-			/*
-			 * Monster multiplying is an AT_ for the following
-			 * reasons:
-			 *   1. Monsters will only multiply when they're close
-			 *      to you.  The whole level will not become clogged
-			 *      up with giant lice from monsters multiplying
-			 *      where you can't see them.
-			 *   2. Tame monsters won't multiply.  Too bad! (unless
-			 *      they are conflicted or confused from hunger.
-			 *      A bit of a "tactic" -- but then you'll have to
-			 *      let them bite you, and anyway who really wants
-			 *      a dozen pet fleas to feed?)
-			 *   3. Monsters have to be next to you to multiply.
-			 *      This makes the inevitable altar abuse a little
-			 *      harder.
-			 *   4. Elbereth will stop monsters multiplying.
-			 *      Otherwise a ring of conflict would crowd out a
-			 *      whole level in no time.
-			 *   5. It is a hack.  (Shrug)
-			 *
-			 * Multiplying monsters must be low-level and
-			 * low-frequency, so as to minimise altar/experience
-			 * abuse.  Any multiplying monsters above about
-			 * level 5 should be G_NOCORPSE.
-			 *
-			 * RJ
-			 */
-			if (!range2)
-			    clone_mon(mtmp, 0, 0);
-			break;
+            /*
+             * Monster multiplying is an AT_ for the following
+             * reasons:
+             *   1. Monsters will only multiply when they're close
+             *      to you.  The whole level will not become clogged
+             *      up with giant lice from monsters multiplying
+             *      where you can't see them.
+             *   2. Tame monsters won't multiply.  Too bad! (unless
+             *      they are conflicted or confused from hunger.
+             *      A bit of a "tactic" -- but then you'll have to
+             *      let them bite you, and anyway who really wants
+             *      a dozen pet fleas to feed?)
+             *   3. Monsters have to be next to you to multiply.
+             *      This makes the inevitable altar abuse a little
+             *      harder.
+             *   4. Elbereth will stop monsters multiplying.
+             *      Otherwise a ring of conflict would crowd out a
+             *      whole level in no time.
+             *   5. It is a hack.  (Shrug)
+             *
+             * Multiplying monsters must be low-level and
+             * low-frequency, so as to minimise altar/experience
+             * abuse.  Any multiplying monsters above about
+             * level 5 should be G_NOCORPSE.
+             *
+             * RJ
+             */
+            if (!range2)
+                clone_mon(mtmp, 0, 0);
+            break;
         case AT_WEAP:
             if (range2) {
                 if (!Is_rogue_level(&u.uz))
