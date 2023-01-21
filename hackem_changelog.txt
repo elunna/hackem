@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Updated the piratespeak parser with more conversions.
 Added more piratey item names.
 Fix: heap-use-after-free when projectiles rusted away on passive rust attacks. Fixes #178.
 Pirate_items static declaration.
