@@ -18,6 +18,7 @@ STATIC_DCL struct obj *FDECL(on_ground, (SHORT_P));
 STATIC_DCL boolean FDECL(you_have, (int));
 STATIC_DCL unsigned long FDECL(target_on, (int, struct monst *));
 STATIC_DCL unsigned long FDECL(strategy, (struct monst *));
+STATIC_DCL const char *NDECL(get_insult);
 
 /* adding more neutral creatures will tend to reduce the number of monsters
    summoned by nasty(); adding more lawful creatures will reduce the number
@@ -1054,6 +1055,21 @@ const char *const random_insult[] = {
     "wittol",     "worm",         "wretch",
 };
 
+const char *const pirate_insult[] = { 
+    "bilge-sucker", "scallywag", "scurvy dog", "shark bait", 
+    "son of a biscuit eater", "bilge rat", "picaroon", 
+};
+
+STATIC_OVL const char *
+get_insult()
+{
+    if (Role_if(PM_PIRATE)) 
+        return random_insult[rn2(SIZE(random_insult))];
+    else
+        return pirate_insult[rn2(SIZE(pirate_insult))];
+}
+
+
 const char *const random_malediction[] = {
     "Hell shall soon claim thy remains,", "I chortle at thee, thou pathetic",
     "Prepare to die, thou", "Resistance is useless,",
@@ -1098,18 +1114,17 @@ register struct monst *mtmp;
         if (!rn2(5)) /* typical bad guy action */
             pline("%s laughs fiendishly.", Monnam(mtmp));
         else if (u.uhave.amulet && !rn2(SIZE(random_insult)))
-            verbalize("Relinquish the amulet, %s!",
-                      random_insult[rn2(SIZE(random_insult))]);
+            verbalize("Relinquish the amulet, %s!", get_insult());
         else if (u.uhp < 5 && !rn2(2)) /* Panic */
             verbalize(rn2(2) ? "Even now thy life force ebbs, %s!"
                              : "Savor thy breath, %s, it be thy last!",
-                      random_insult[rn2(SIZE(random_insult))]);
+                      get_insult());
         else if (mtmp->mhp < 5 && !rn2(2)) /* Parthian shot */
             verbalize(rn2(2) ? "I shall return." : "I'll be back.");
         else
             verbalize("%s %s!",
                       random_malediction[rn2(SIZE(random_malediction))],
-                      random_insult[rn2(SIZE(random_insult))]);
+                      get_insult());
     } else if (is_lminion(mtmp)
                && !(mtmp->isminion && EMIN(mtmp)->renegade)) {
         com_pager(rn2(QTN_ANGELIC - 1 + (Hallucination ? 1 : 0))

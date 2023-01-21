@@ -3002,11 +3002,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         instapetrify(kbuf);
                     }
                     /* give the object to the character */
-                    otmp2 = Role_if(PM_PIRATE) ?
-                                               hold_another_object(otmp2, "Ye snatched but dropped %s.",
-                                                                   doname(otmp2), "Ye steal: ") :
-                                               hold_another_object(otmp2, "You snatched but dropped %s.",
-                                                                   doname(otmp2), "You steal: ");
+                    otmp2 = Role_if(PM_PIRATE) 
+                        ? hold_another_object(otmp2, "Ye snatched but dropped %s.", 
+                                                      doname(otmp2), "Ye steal: ") 
+                                : hold_another_object(otmp2, "You snatched but dropped %s.", 
+                                                      doname(otmp2), "You steal: ");
                     /* more take-away handling, after theft message */
                     if (unwornmask & W_WEP) {		/* stole wielded weapon */
                         possibly_unwield(mdef, FALSE);
@@ -4920,7 +4920,7 @@ static const char *random_seasound[] = {
     "the laughter of the protean nymphs",
     "rushing tides",
     "the elusive sea change",
-    "the silence of the sea",
+    "the silence of the briney deep",
     "the passage of the albatross",
     "dancing raindrops",
     "coins rolling on the seabed",
