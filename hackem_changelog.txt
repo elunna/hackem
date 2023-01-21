@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Breaking a wand of deluge wasn't affecting monsters.
 Smarter bomb throwing for monsters.
 Fix: Monsters killed by throwing bombs at close range won't continue with other attacks. Fixes #179.
 Fix: Guardian angel on astral plane wasn't peaceful. Fixes #181.

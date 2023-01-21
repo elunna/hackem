@@ -317,6 +317,9 @@ struct obj *otmp;
         }
         learn_it = TRUE;
         break;
+    case WAN_DELUGE:
+        dmg = delugehitsm(mtmp, d(6, 8));
+        break;
     case WAN_SLOW_MONSTER:
     case SPE_SLOW_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {
@@ -4917,52 +4920,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         break;
     case ZT_WATER:
-        tmp = d(nd, 8);
-        if (mon->data == &mons[PM_IRON_GOLEM] 
-            || mon->data == &mons[PM_STEEL_GOLEM]) {
-            if (canseemon(mon))
-                pline("%s falls to pieces!", Monnam(mon));
-            if (mon->mtame)
-                pline("May %s rust in peace.", mon_nam(mon));
-            tmp = 500;
-            break;
-        } else if (u.uswallow && mon->data == &mons[PM_ICE_VORTEX]) {
-            The("water is quickly turning to ice!");
-            losehp(Maybe_Half_Phys(d(6, 6)), "turning into a block of ice", KILLED_BY);
-            expels(mon, mon->data, TRUE);
-        } else if (u.uswallow) {
-            pline("Ugh! Now it's slippery in here!");
-        } else if (mon->data == &mons[PM_WATER_ELEMENTAL]) {
-            mon->mhp += d(6, 6);
-            if (mon->mhp > mon->mhpmax)
-                mon->mhp = mon->mhpmax;
-            if (canseemon(mon)) {
-                pline("%s looks a lot better.", Monnam(mon));
-            }
-            break;
-        }
-        else if (mon->data == &mons[PM_EARTH_ELEMENTAL]) {
-            if (canseemon(mon))
-                pline("%s turns into a roiling pile of mud!", Monnam(mon));
-            (void) newcham(mon, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
-            break;
-        }
-        if (likes_fire(mon->data)) {
-            /* Nasty bonus versus firey monsters */
-            pline("%s is being extinguished!", Monnam(mon));
-            tmp += d(6, 6);
-        } else if (amphibious(mon->data)) {
-            pline("%s doesn't mind the water.", Monnam(mon));
-            tmp = 0;
-            break;
-        }
-        
-        if (!rn2(6))
-            water_damage(MON_WEP(mon), 0, TRUE, mon->mx, mon->my);
-        if (!rn2(6))
-            erode_armor(mon, ERODE_RUST);
+        tmp = delugehitsm(mon, d(nd, 8));
         break;
-
     }
     if (elemental_shift(mon, abstype)) {
         sho_shieldeff = TRUE;
@@ -7363,6 +7322,58 @@ destroyable_oclass(char oclass)
     if (oclass == RING_CLASS || oclass == WAND_CLASS)
         return TRUE;
     return FALSE;
+}
+
+/* Hits the moster with a ray of water (sea dragon, wand of deluge) 
+ * returns the amount of damage dealt */
+int
+delugehitsm(mon, tmp)
+struct monst *mon;
+int tmp;
+{
+    if (mon->data == &mons[PM_IRON_GOLEM] 
+        || mon->data == &mons[PM_STEEL_GOLEM]) {
+        if (canseemon(mon))
+            pline("%s falls to pieces!", Monnam(mon));
+        if (mon->mtame)
+            pline("May %s rust in peace.", mon_nam(mon));
+        return 500;
+
+    } else if (u.uswallow && mon->data == &mons[PM_ICE_VORTEX]) {
+        The("water is quickly turning to ice!");
+        losehp(Maybe_Half_Phys(d(6, 6)), "turning into a block of ice", KILLED_BY);
+        expels(mon, mon->data, TRUE);
+    } else if (u.uswallow) {
+        pline("Ugh! Now it's slippery in here!");
+    } else if (mon->data == &mons[PM_WATER_ELEMENTAL]) {
+        mon->mhp += d(6, 6);
+        if (mon->mhp > mon->mhpmax)
+            mon->mhp = mon->mhpmax;
+        if (canseemon(mon)) {
+            pline("%s looks a lot better.", Monnam(mon));
+        }
+        return tmp;
+    }
+    else if (mon->data == &mons[PM_EARTH_ELEMENTAL]) {
+        if (canseemon(mon))
+            pline("%s turns into a roiling pile of mud!", Monnam(mon));
+        (void) newcham(mon, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
+        return tmp;
+    }
+    if (likes_fire(mon->data)) {
+        /* Nasty bonus versus firey monsters */
+        pline("%s is being extinguished!", Monnam(mon));
+        tmp += d(6, 6);
+    } else if (amphibious(mon->data)) {
+        pline("%s doesn't mind the water.", Monnam(mon));
+        return 0;
+    }
+        
+    if (!rn2(6))
+        water_damage(MON_WEP(mon), 0, TRUE, mon->mx, mon->my);
+    if (!rn2(6))
+        erode_armor(mon, ERODE_RUST);
+    return tmp;
 }
 
 /*zap.c*/
