@@ -71,8 +71,13 @@ STATIC_OVL struct Jitem Pirate_items[] = {
     { SMALL_SHIELD, "buckler" },
     { SACK, "ditty bag" },
     { LARGE_BOX, "foot locker" },
+    { CHEST, "coffer" },
     { CLUB, "belaying pin" },
-    { QUARTERSTAFF, "oar"},
+    { QUARTERSTAFF, "oar" },
+    { EGG, "cackle fruit" },
+    { BULLWHIP, "cat o’ nine tails" },
+    { RIN_CONFLICT, "ring o’ mutiny" },
+    { HEAVY_MACHINE_GUN, "chase gun" },
     { 0, "" } 
 };
 
