@@ -28,28 +28,27 @@ char *saved_plines[DUMPLOG_MSG_COUNT] = { (char *) 0 };
 const char *
 replace(const char *st, const char *orig, const char *repl)
 {
-  	static char retval[TBUFSZ];
-  	char buffer[TBUFSZ];
-  	const char *ch, *pos;
-  	size_t len;
-  	memset(buffer, 0, TBUFSZ);
-  	pos = st;
-  	while ((ch = strstr(pos, orig))){
-    		len = (ch - pos);
-    		strncat(buffer, pos, len);
-    		strncat(buffer, repl, strlen(repl));
-    		pos = (ch + strlen(orig));
-  	}
-  	if (pos == st) {
-  		  return st;
-  	}
-  	if (pos < (st + strlen(st))) {
-  		  strncat(buffer, pos, (st - pos));
-  	}
-  	strcpy(retval, buffer);
-  	return retval;
+    static char retval[TBUFSZ];
+    char buffer[TBUFSZ];
+    const char *ch, *pos;
+    size_t len;
+    memset(buffer, 0, TBUFSZ);
+    pos = st;
+    while ((ch = strstr(pos, orig))) {
+        len = (ch - pos);
+        strncat(buffer, pos, len);
+        strncat(buffer, repl, strlen(repl));
+        pos = (ch + strlen(orig));
+    }
+    if (pos == st) {
+        return st;
+    }
+    if (pos < (st + strlen(st))) {
+        strncat(buffer, pos, (st - pos));
+    }
+    strcpy(retval, buffer);
+    return retval;
 }
-
 
 /*Ben Collver's fixes*/
 const char *
@@ -63,10 +62,13 @@ piratesay(const char *orig)
     orig = replace(orig, "You arm your sonic bomb.", "Fire in the hole!");
     orig = replace(orig, "You arm your gas bomb.", "Fire in the hole!");
     orig = replace(orig, "move the boulder", "heave ho");
+    orig = replace(orig, "no longer feel sluggish", "got your sea legs back");
     orig = replace(orig, "it is", "'tis");
     orig = replace(orig, "It is", "'Tis");
     orig = replace(orig, "Is not", "Ain't");
     orig = replace(orig, "is not", "ain't");
+    orig = replace(orig, "wipe off", "swab");
+    orig = replace(orig, "wiped off", "swabbed");
     orig = replace(orig, "You", "Ye");
     orig = replace(orig, "you", "ye");
     orig = replace(orig, "His", "'is");
@@ -104,6 +106,7 @@ piratesay(const char *orig)
     orig = replace(orig, "gold piece", "piece of eight");
     orig = replace(orig, "Gold piece", "Piece of eight");
     orig = replace(orig, "treasure", "booty");
+    orig = replace(orig, "potion", "bottle");
     orig = replace(orig, "Ouch!", "Arrr!");
     orig = replace(orig, "Wow!", "Avast!");
     orig = replace(orig, "Dumb", "Squiffy");
@@ -113,8 +116,8 @@ piratesay(const char *orig)
     orig = replace(orig, " just", " jus'");
     orig = replace(orig, "before", "'afore");
     orig = replace(orig, "Before", "'Afore");
-    orig = replace(orig, " rear", "aft");
-    orig = replace(orig, " rear", "dungbie");
+    orig = replace(orig, " rear", " aft");
+    orig = replace(orig, " bottom", " dungbie");
     orig = replace(orig, "After", "Aft");
     orig = replace(orig, " after", " aft");
     orig = replace(orig, "nothing", "naught");
@@ -139,6 +142,8 @@ piratesay(const char *orig)
     orig = replace(orig, "Oh my!", "Shiver me timbers!");
     orig = replace(orig, "What?", "Arr!");
     orig = replace(orig, "Why?", "Scupper that!");
+    orig = replace(orig, "Oh no!", "avast ye!");
+    orig = replace(orig, "Oh no", "avast ya");
     orig = replace(orig, "services rendered", "crackin' Jenny's tea up");
     orig = replace(orig, "suffocate", "dance with Jack Ketch");
     orig = replace(orig, "fall asleep", "take a chalk");
@@ -306,9 +311,9 @@ VA_DECL(const char *, line)
         dumplogmsg(line);
 #endif
 
-    if(Role_if(PM_PIRATE)){
-     		line = piratesay(line);
-   	}
+    if (Role_if(PM_PIRATE)){
+        line = piratesay(line);
+    }
 
     /* use raw_print() if we're called too early (or perhaps too late
        during shutdown) or if we're being called recursively (probably

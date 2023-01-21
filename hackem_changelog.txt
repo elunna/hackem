@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added even more pirate lingo.
 Much more pirate speak, insults, and object descriptions.
 Updated the piratespeak parser with more conversions.
 Added more piratey item names.

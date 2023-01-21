@@ -2605,7 +2605,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     return TRUE;
                 }
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
-                pline("%s cuts %s in half!", wepdesc, mon_nam(mdef));
+                if (Role_if(PM_PIRATE))
+                    pline("%s cleaves %s to the brisket!", wepdesc, mon_nam(mdef));
+                else    
+                    pline("%s cuts %s in half!", wepdesc, mon_nam(mdef));
                 otmp->dknown = TRUE;
                 return TRUE;
             } else {

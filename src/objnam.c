@@ -78,10 +78,13 @@ STATIC_OVL struct Jitem Pirate_items[] = {
     { BLINDFOLD, "eye patch" },
     { EGG, "cackle fruit" },
     { BULLWHIP, "cat o’ nine tails" },
+    { PISTOL, "blunderbuss" },
+    { SLING_BULLET, "grape shot" },
     { RIN_CONFLICT, "mutiny" },
     { HEAVY_MACHINE_GUN, "chase gun" },
     { AMULET_OF_STRANGULATION, "hempen halter" },
     { SPE_DETECT_TREASURE, "detect booty" },
+    { SCR_PUNISHMENT, "keelhaul" },
     { ROBE, "long clothes" },
     { 0, "" } 
 };

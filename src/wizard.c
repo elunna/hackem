@@ -1057,7 +1057,8 @@ const char *const random_insult[] = {
 
 const char *const pirate_insult[] = { 
     "bilge-sucker", "scallywag", "scurvy dog", "shark bait", 
-    "son of a biscuit eater", "bilge rat", "picaroon", 
+    "son of a biscuit eater", "bilge rat", "picaroon", "landlubber",
+    "knave", "interloper", 
 };
 
 STATIC_OVL const char *
@@ -1071,24 +1072,34 @@ get_insult()
 
 
 const char *const random_malediction[] = {
-    "Hell shall soon claim thy remains,", "I chortle at thee, thou pathetic",
-    "Prepare to die, thou", "Resistance is useless,",
-    "Surrender or die, thou", "There shall be no mercy, thou",
-    "Thou shalt repent of thy cunning,", "Thou art as a flea to me,",
-    "Thou art doomed,", "Thy fate is sealed,",
+    "Hell shall soon claim thy remains,", 
+    "I chortle at thee, thou pathetic",
+    "Prepare to die, thou", 
+    "Resistance is useless,",
+    "Surrender or die, thou", 
+    "There shall be no mercy, thou",
+    "Thou shalt repent of thy cunning,", 
+    "Thou art as a flea to me,",
+    "Thou art doomed,", 
+    "Thy fate is sealed,",
     "Verily, thou shalt be one dead"
 };
 
 const char *const random_icequeen[] = {
-    "My magic is greater than yours", "You will never defeat me",
-    "Winter shall last forever", "The cold never bothered me anyway",
-    "Muahahahah", "I am even more powerful than the Wizard himself",
-    "Run while you still can, fool", "Let's build a snowman",
+    "My magic is greater than yours", 
+    "You will never defeat me",
+    "Winter shall last forever", 
+    "The cold never bothered me anyway",
+    "Muahahahah", 
+    "I am even more powerful than the Wizard himself",
+    "Run while you still can, fool", 
+    "Let's build a snowman",
     "The pegasus belongs to me"
 };
 
 const char *const random_enchantress[] = {
-    "Thank you again for freeing me", "I have so much damage to undo",
+    "Thank you again for freeing me", 
+    "I have so much damage to undo",
     "I apologize for any harm I may have caused you",
     "Be careful leaving this place, I have no control over the monsters that still lurk here",
     "Please treat the pegasus well, it has been through a lot",
@@ -1096,7 +1107,8 @@ const char *const random_enchantress[] = {
 };
 
 const char *const random_vecna[] = {
-    "I am Vecna the Unholy", "Kneel before me, wretched mortal",
+    "I am Vecna the Unholy", 
+    "Kneel before me, wretched mortal",
     "You have no idea what true power is!  I will show you",
     "Your suffering will be legendary, even in hell",
     "Ah, the suffering.  The sweet, sweet suffering",
