@@ -879,6 +879,20 @@ boolean artif;
                 otmp->oerodeproof = TRUE;
                 otmp->spe = rn2(3) + 3;
             }
+            if (is_lightsaber(otmp)) {
+                switch (otmp->otyp) {
+                case RED_DOUBLE_LIGHTSABER:
+                    otmp->altmode = FALSE;
+                    /* FALLTHROUGH */
+                case GREEN_LIGHTSABER:
+                case BLUE_LIGHTSABER:
+                case RED_LIGHTSABER:
+                    otmp->lamplit = 0;
+                    otmp->age = (long) rn1(500, 1000);
+                    blessorcurse(otmp, 2);
+                    break;
+                }
+            }
             break;
         case FOOD_CLASS:
             otmp->oeaten = 0;
@@ -992,16 +1006,6 @@ boolean artif;
             case MAGIC_LAMP:
                 otmp->spe = 1;
                 otmp->lamplit = 0;
-                blessorcurse(otmp, 2);
-                break;
-            case RED_DOUBLE_LIGHTSABER:
-                otmp->altmode = FALSE;
-                /* FALLTHROUGH */
-            case GREEN_LIGHTSABER:
-            case BLUE_LIGHTSABER:
-            case RED_LIGHTSABER:
-                otmp->lamplit = 0;
-                otmp->age = (long) rn1(500,1000);
                 blessorcurse(otmp, 2);
                 break;
             case IRON_SAFE:
