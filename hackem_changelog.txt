@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Intelligent peacefuls avoid digging shop or temple walls.(evil)
 Grimtooth skips other attacks after instakill.
 Fix: Grimtooth's instakill vs elves.
 Silenced the warnings from artifact_info.
