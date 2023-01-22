@@ -5462,7 +5462,16 @@ struct monst *mtmp;
     } else if (hides_under(mtmp->data)) {
         int concealment = concealed_spot(x, y);
         
-        if (concealment == 2) { /* object cover */
+        /* If possible, prefer natural cover to object cover. Especially for
+         * swimmers - we want them to hide in the water and not the objects 
+         * in the water, because those objects are subject to movement from 
+         * the underwater currents. 
+         */
+        if (concealment == 1 /* terrain cover, no objects */
+                 || (concealment == 3 && resists_poison(mtmp))) { 
+            undetected = TRUE;
+        }
+        else if (concealment == 2) { /* object cover */
             struct obj *otmp = level.objects[x][y];
             
             /* most monsters won't hide under cockatrice corpse */
@@ -5472,10 +5481,6 @@ struct monst *mtmp;
                 || (mtmp == &youmonst ? Stone_resistance : resists_ston(mtmp))
                 || !touch_petrifies(&mons[otmp->corpsenm]))
                 undetected = TRUE;
-        }
-        else if (concealment == 1 /* terrain cover, no objects */
-                 || (concealment == 3 && resists_poison(mtmp))) { 
-            undetected = TRUE;
         }
     }
 
