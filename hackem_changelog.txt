@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Black wands now made of iron.
 Plastic wands cannot be broken.
 Usage fee for masks.
 Usage fee for lightsabers.
