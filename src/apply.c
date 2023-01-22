@@ -1496,13 +1496,14 @@ struct obj *obj;
                       yname(obj), obj->quan == 1L ? "itself" : "themselves");
             bill_dummy_object(obj);
         }
+        if (is_bomb(obj)) {
+            handle_bomb(obj, carried(obj));
+            return TRUE;
+        }
         begin_burn(obj, FALSE);
         return TRUE;
     }
-    if (is_bomb(obj)) {
-        handle_bomb(obj, FALSE);
-        return TRUE;
-    }
+
     return FALSE;
 }
 
@@ -5173,7 +5174,7 @@ boolean yourfault;
             /* We don't want the Holy Hand Grenade being accidentally ignited
                because it doesn't have a fuse. */
             pline("A bomb fuse suddenly ignites!");
-            arm_bomb(obj, TRUE);
+            arm_bomb(obj, yourfault);
         }
         update_inventory();
     } else if (yourfault)

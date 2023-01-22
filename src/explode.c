@@ -1031,7 +1031,8 @@ struct attack *mattk;
     killer.name[0] = '\0';
 }
 
-void arm_bomb(struct obj *obj, boolean yours)
+void 
+arm_bomb(struct obj *obj, boolean yours)
 {
     /* Three shall be the number of the counting and the
        number of the counting shall be three. */

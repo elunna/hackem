@@ -2520,7 +2520,7 @@ struct obj *obj, *otmp;
             }
             /* Try to arm bombs on the ground */
             if (is_bomb(obj)) {
-                handle_bomb(obj, FALSE);
+                handle_bomb(obj, !context.mon_moving);
             }
             break;
         default:
@@ -5217,7 +5217,7 @@ boolean u_caused;
         }
         /* Try to arm bombs on the ground */
         if (is_bomb(obj)) {
-            handle_bomb(obj, FALSE);
+            handle_bomb(obj, !context.mon_moving);
             continue;
         }
         
@@ -6446,7 +6446,7 @@ int osym, dmgtyp;
             break;
         case WEAPON_CLASS:
             if (is_bomb(obj)) {
-                handle_bomb(obj, FALSE);
+                handle_bomb(obj, !context.mon_moving);
             }
             return; /* For now we'll just light one bomb at a time */
         default:
@@ -6761,7 +6761,7 @@ int osym, dmgtyp;
                 break;
             case WEAPON_CLASS:
                 if (is_bomb(obj)) {
-                    handle_bomb(obj, FALSE);
+                    handle_bomb(obj, !context.mon_moving);
                 }
                 return 0; /* For now we'll just light one bomb at a time */ 
             default:
@@ -7147,27 +7147,30 @@ void
 bomb_explode(struct obj *obj, int x, int y, boolean isyou)
 {
     int d1 = 3, d2 = 6;
-    int otyp = obj->otyp;
     int yours = isyou ? 1 : -1;
-    int ztype = ZT_SPELL(ZT_FIRE) * yours; /* Default is fire */
-    int expltype = EXPL_FIERY * isyou * -1;
+    int ztype = 0; /* Default is fire */
+    int expltype = 0;
+    
+    if (isyou && yours < 0)
+        impossible("bomb_explode: isyou conflict, isyou=%d, obj->yours=%d",
+                   isyou, obj->yours);
     /* Major kludge to preserve the blame for the bomb */
     boolean save_mon_moving = context.mon_moving;
     context.mon_moving = !isyou;
     
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
         ztype = ZT_SPELL(ZT_MAGIC_MISSILE) * yours;
-        expltype = EXPL_MAGICAL;
+        expltype = EXPL_MAGICAL * yours * -1;
         d1 = 50, d2 = 6;
-    } else if (otyp == FIRE_BOMB) {
-        ztype = ZT_SPELL(ZT_FIRE) * yours;          /* 11 */
-        expltype = EXPL_FIERY;                      /*  5 */
-    } else if (otyp == GAS_BOMB) {
-        ztype = ZT_SPELL(ZT_POISON_GAS) * yours;    /* 16 */
-        expltype = EXPL_NOXIOUS;                    /*  1 */
-    } else if (otyp == SONIC_BOMB) {
-        ztype = ZT_SPELL(ZT_SONIC) * yours;         /* 18 */
-        expltype = EXPL_FROSTY;                     /*  0 */
+    } else if (obj->otyp == FIRE_BOMB) {
+        ztype = ZT_SPELL(ZT_FIRE) * yours;
+        expltype = EXPL_FIERY * yours * -1;
+    } else if (obj->otyp == GAS_BOMB) {
+        ztype = ZT_SPELL(ZT_POISON_GAS) * yours;
+        expltype = EXPL_NOXIOUS * yours * -1;
+    } else if (obj->otyp == SONIC_BOMB) {
+        ztype = ZT_SPELL(ZT_SONIC) * yours;
+        expltype = EXPL_FROSTY * yours * -1;
     } else
         impossible("Invalid bomb otyp for bomb_explode!");
     
