@@ -289,7 +289,7 @@ Boots_on(VOID_ARGS)
     case JUMPING_BOOTS:
         /* jumping is obvious no matter what the situation */
         makeknown(uarmf->otyp);
-        pline("Your %s feel longer.", makeplural(body_part(LEG)));
+        Your("%s feel longer.", makeplural(body_part(LEG)));
         break;
     case WATER_WALKING_BOOTS:
         if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
@@ -387,7 +387,7 @@ Boots_off(VOID_ARGS)
         break;
     case STOMPING_BOOTS:
         if (!Stealth && !Levitation && !Flying) {
-            pline("Your footsteps become considerably less violent.");
+            Your("footsteps become considerably less violent.");
             makeknown(otyp);
         }
         break;
@@ -410,7 +410,7 @@ Boots_off(VOID_ARGS)
     case JUMPING_BOOTS:
         /* jumping is obvious no matter what the situation */
         makeknown(otyp);
-        pline("Your %s feel shorter.", makeplural(body_part(LEG)));
+        Your("%s feel shorter.", makeplural(body_part(LEG)));
         break;
     case LOW_BOOTS:
     case DWARVISH_BOOTS:
@@ -628,7 +628,7 @@ Helmet_on(VOID_ARGS)
     case PLASTEEL_HELM:
         break;
     case TINFOIL_HAT:
-        pline("Your thoughts feel much more secure.");
+        Your("thoughts feel much more secure.");
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = TRUE;
@@ -638,7 +638,7 @@ Helmet_on(VOID_ARGS)
         adj_abon(uarmh, uarmh->spe);
         break;
     case HELM_OF_MADNESS:
-        pline("You feel your sanity drift away...");
+        You_feel("your sanity drift away...");
         uarmh->known = 1;
         context.botl = 1;
         curse(uarmh);
@@ -1074,12 +1074,12 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     case BLUE_DRAGON_SCALES:
         if (puton) {
             if (!Very_fast)
-                pline("You speed up%s.", Fast ? " a bit more" : "");
+                You("speed up%s.", Fast ? " a bit more" : "");
             EFast |= W_ARM;
         } else {
             EFast &= ~W_ARM;
             if (!Very_fast && !context.takeoff.cancelled_don)
-                pline("You slow down.");
+                You("slow down.");
         }
         break;
     case YELLOW_DRAGON_SCALES:
@@ -1901,7 +1901,7 @@ struct obj *otmp;
     if (otmp && otmp->otyp == MASK) {
         if (otmp->blessed) {
             otmp->blessed = 0;
-            pline("Your mask seems more brittle.");
+            Your("mask seems more brittle.");
         } else if (!otmp->blessed && !otmp->cursed && !rn2(3)) {
             otmp->cursed = 1;
             pline("This mask is about to break.");
@@ -2225,7 +2225,7 @@ dotakeoff()
     count_worn_stuff(&otmp, FALSE);
     if (!Narmorpieces && !Naccessories) {
         if (uskin)
-            pline("Your scaly armor is merged with your skin!");
+            Your("scaly armor is merged with your skin!");
         else
             pline("Not wearing any armor or accessories.");
         return 0;
@@ -2423,12 +2423,12 @@ boolean noisy;
        in case we get here via 'P' (doputon) */
     if (verysmall(youmonst.data) || nohands(youmonst.data)) {
         if (noisy)
-            You("can't wear any armor in your current form.");
+            You_cant("wear any armor in your current form.");
         return 0;
     }
     if (Hidinshell) {
         if (noisy)
-            You("can't wear any armor while hiding in your shell.");
+            You_cant("wear any armor while hiding in your shell.");
         return 0;
     }
 
@@ -2929,7 +2929,7 @@ doputon()
         return 0;
     }
     if (uarmh && uarmh->otyp == PLASTEEL_HELM){
-        pline("The %s covers your whole face. You need to remove it first.", xname(uarmh));
+        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
         return 1;
     }
     otmp = getobj(accessories, "put on");

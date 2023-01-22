@@ -315,7 +315,7 @@ int *attk_count, *role_roll_penalty;
 
     if (calculate_flankers(&youmonst, mtmp)) {
         tmp += 4;
-        pline("You flank %s.", mon_nam(mtmp));
+        You("flank %s.", mon_nam(mtmp));
     }
     
     /* level adjustment. maxing out has some benefits */
@@ -335,7 +335,7 @@ int *attk_count, *role_roll_penalty;
              (uswapwep && u.twoweap && is_lightsaber(uswapwep) && uswapwep->lamplit)) 
             && (uarm && (uarm->otyp < ROBE || uarm->otyp > ROBE_OF_WEAKNESS))) {
             char yourbuf[BUFSZ];
-            You("can't use %s %s effectively in this armor...", shk_your(yourbuf, uwep), xname(uwep));
+            You_cant("use %s %s effectively in this armor...", shk_your(yourbuf, uwep), xname(uwep));
             tmp -= 20;  /* sorry */
         }
     }
@@ -408,7 +408,7 @@ int *attk_count, *role_roll_penalty;
                     You("struggle trying to use the %s as a weapon.",
                          aobjnam(uwep, (char *) 0));
                 } else if (useskill != P_ISRESTRICTED) {
-                    You("feel like you could use some more practice.");
+                    You_feel("like you could use some more practice.");
                 } else {
                     You("aren't sure you're doing this the right way...");
                 }
@@ -565,7 +565,7 @@ register struct monst *mtmp;
 
     if ((is_displaced(mtmp->data) || has_displacement(mtmp))
         && !u.uswallow && !rn2(4)) {
-        pline("The image of %s shimmers and vanishes!", mon_nam(mtmp));
+        pline_The("image of %s shimmers and vanishes!", mon_nam(mtmp));
         return FALSE;
     }
 
@@ -823,7 +823,7 @@ struct attack *uattk;
              || !malive || m_at(x, y) != mon)) {
         if (wearshield) {
             if (!rn2(8))
-                pline("Your extra attack is ineffective while wearing %s.",
+                Your("extra attack is ineffective while wearing %s.",
                       an(xname(wearshield)));
         } else {
             tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum,
@@ -847,7 +847,7 @@ struct attack *uattk;
              || !malive || m_at(x, y) != mon)) {
         if (weararmor && !is_robe(uarm)) {
             if (!rn2(8))
-                pline("Your extra kick attack is ineffective while wearing %s.",
+                Your("extra kick attack is ineffective while wearing %s.",
                       xname(weararmor));
         } else if (Wounded_legs) {
             /* note: taken from dokick.c */
@@ -1049,7 +1049,7 @@ int dieroll;
                 hittxt = TRUE;
             } 
             else if (!rn2(2) && rnl(15) == 0) {
-                You("feel a surge of force.");
+                You_feel("a surge of force.");
                 tmp += (tmp + 2) * 2;
             }
         }
@@ -1925,7 +1925,7 @@ int dieroll;
         /* Torch's fire damage is handled here (unfortunately) */
         if (!Blind) {
             if (can_vaporize(mdat))
-                pline("Your %svaporizes part of %s.", xname(obj), mon_nam(mon));
+                Your("%svaporizes part of %s.", xname(obj), mon_nam(mon));
             else
                 pline("%s is on fire!", Monnam(mon));
         } 
@@ -1963,7 +1963,7 @@ int dieroll;
 
             if (obj->otyp == TORCH) {
                 if (mdat == &mons[PM_WATER_ELEMENTAL]) {
-                    pline("Your %s goes out.", xname(obj));
+                    Your("%s goes out.", xname(obj));
                     end_burn(obj, TRUE);
                 } else {
                     burn_faster(obj); /* Use up the torch more quickly */
@@ -3306,16 +3306,16 @@ do_rust:
         }
         break;
     case AD_CALM:	/* KMH -- koala attack */
-		/* Certain monsters aren't even made peaceful. */
-		if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
-				!(mdef->data->mflags3 & M3_COVETOUS) &&
-				!(mdef->data->geno & G_UNIQ)) {
-		    pline("You calm %s.", mon_nam(mdef));
-		    mdef->mpeaceful = 1;
-		    mdef->mtame = 0;
-		    tmp = 0;
-		}
-		break;
+        /* Certain monsters aren't even made peaceful. */
+        if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
+                        !(mdef->data->mflags3 & M3_COVETOUS) &&
+                        !(mdef->data->geno & G_UNIQ)) {
+            You("calm %s.", mon_nam(mdef));
+            mdef->mpeaceful = 1;
+            mdef->mtame = 0;
+            tmp = 0;
+        }
+        break;
     default:
         tmp = 0;
         break;
@@ -4340,15 +4340,17 @@ boolean wep_was_destroyed;
     case AD_SLEE:
         /* hackem: passive sleep attack for orange jelly */
         if (mhit && !mon->mcan) {
-		    if (Sleep_resistance) {
-                pline("You yawn.");
+            if (Sleep_resistance) {
+                You("yawn.");
                 break;
             }
-		    fall_asleep(-rnd(tmp), TRUE);
-		    if (Blind) You("are put to sleep!");
-		    else You("are put to sleep by %s!", mon_nam(mon));
-		}
-		break;
+            fall_asleep(-rnd(tmp), TRUE);
+            if (Blind) 
+                You("are put to sleep!");
+            else 
+                You("are put to sleep by %s!", mon_nam(mon));
+        }
+        break;
     case AD_DRLI:
         /* hackem: passive drain life for baby and adult deep dragons */
         if (mhit && !mon->mcan) {
@@ -4552,20 +4554,20 @@ boolean wep_was_destroyed;
         case AD_DSRM: /* adherer */
             if (uwep) {
                 otmp = uwep;
-                pline("Your weapon sticks to %s!", mon_nam(mon));
+                Your("weapon sticks to %s!", mon_nam(mon));
                 dropx(uwep);
                 obj_extract_self(otmp);
                 add_to_minv(mon, otmp);
             } else {
                 u.ustuck = mon;
-                pline("You stick to %s!", mon_nam(mon));
+                You("stick to %s!", mon_nam(mon));
             }
             break;
         case AD_HYDR: /* grow additional heads (hydra) */
             if (mhit && !mon->mcan && weapon && rn2(3)) {
                 if ((is_blade(weapon) || is_axe(weapon))
                       && weapon->oartifact != ART_FIRE_BRAND) {
-                    pline("You decapitate %s, but two more heads spring forth!",
+                    You("decapitate %s, but two more heads spring forth!",
                         mon_nam(mon));
                     grow_up(mon, (struct monst *) 0);
                 }
@@ -4678,7 +4680,7 @@ boolean wep_was_destroyed;
              /* specifically molds */
             if (ptr == &mons[PM_DISGUSTING_MOLD]) {
                 if (!Strangled && !Breathless) {
-                    pline("You inhale a cloud of spores!");
+                    You("inhale a cloud of spores!");
                     poisoned("spores", A_STR, "spore cloud", 30, FALSE);
                     break;
                 } else {
@@ -4889,7 +4891,7 @@ boolean wep_was_destroyed;
                     case 0:
                         /* Passive slow */
                         if (!Slow && !defends(AD_SLOW, uarm)) {
-                            You("feel a little sluggish...");
+                            You_feel("a little sluggish...");
                             u_slow_down();
                         }
                         break;
@@ -4920,7 +4922,7 @@ boolean wep_was_destroyed;
                     break;
                 } else if (flaming(youmonst.data)) {
                     /* Mega damage vs flaming/firey monsters? */
-                    pline("You are being extinguished!");
+                    You("are being extinguished!");
                     rehumanize();
                     break;
                 }
@@ -5024,7 +5026,7 @@ boolean wep_was_destroyed;
                 if (how_resistant(ACID_RES) == 100) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_ACID);
-                    pline("You are covered in %s, but it seems harmless.",
+                    You("are covered in %s, but it seems harmless.",
                           hliquid("acid"));
                     ugolemeffects(AD_ACID, t);
                     break;

@@ -191,7 +191,7 @@ boolean on, noisy;
             Strangled = 6L;
             context.botl = TRUE;
             if (noisy) {
-                You("can't breathe in here!");
+                You_cant("breathe in here!");
             }
         }
     /* off -- maybe block strangling */
@@ -454,12 +454,12 @@ int psflags;
             yourrace, old_uwvis = (Underwater && See_underwater);
 
     if (Unchanging) {
-        pline("You fail to transform!");
+        You("fail to transform!");
         return;
     }
     if (ublindf && ublindf->otyp == MASK &&
         ublindf->corpsenm == monsndx(youmonst.data)) {
-        pline("Your mask prevents you from transforming.");
+        Your("mask prevents you from transforming.");
         return;
     }
     /* being Stunned|Unaware doesn't negate this aspect of Poly_control */
@@ -1922,7 +1922,7 @@ doblink()
         return 0;
     }
     
-    You("feel the flow of time slow down.");
+    You_feel("the flow of time slow down.");
     /* A bit more generous than SLASH'EM */
     u.utechduration = rnd(10 + u.ulevel) + 2;
     /* This is handled in allmain.c: moveloop() */
@@ -1952,7 +1952,7 @@ dovanish()
     }
         
     if (!Fast) {
-        You("feel more nimble!");
+        You_feel("more nimble!");
         incr_itimeout(&HFast, duration);
     }
     
@@ -1976,7 +1976,7 @@ dodazzle()
     }
     
     if (Blind) {
-        You("can't see anything!");
+        You_cant("see anything!");
         return(0);
     }
     if (!getdir((char *)0)) 
@@ -1984,7 +1984,7 @@ dodazzle()
     
     if (!u.dx && !u.dy) {
         /* Hopefully a mistake ;B */
-        You("can't see yourself!");
+        You_cant("see yourself!");
         return 0;
     }
     for (i = 0; i  <= range; i++) {

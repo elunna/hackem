@@ -499,7 +499,7 @@ register struct obj *spellbook;
         if (booktype == SPE_PSIONIC_WAVE
             && !Race_if(PM_ILLITHID)) {
             You("do not understand the strange language this book is written in.");
-            pline("The inscriptions in the book start to fade away!");
+            pline_The("inscriptions in the book start to fade away!");
             spellbook->otyp = booktype = SPE_BLANK_PAPER;
             set_material(spellbook, PAPER);
             makeknown(booktype);
@@ -920,7 +920,7 @@ register struct monst *mdef;
     if (youdefend) {
         if (HReflecting) {
             if (!Blind)
-	        pline("The shimmering globe around you becomes slightly brighter.");
+                pline_The("shimmering globe around you becomes slightly brighter.");
             else
                 You_feel("slightly more smooth");
         } else {
@@ -1198,7 +1198,7 @@ boolean wiz_cast;
         /* psychic attack uses spell power but
            technically is not considered a spell */
         && spellid(spell) != SPE_PSIONIC_WAVE) {
-        pline("You draw upon your own life force to cast the spell.");
+        You("draw upon your own life force to cast the spell.");
         /* prevent healing spell abuse:
            healing can cure 6d4 worth of hit points,
            casting it drains 30 hit points.
@@ -1455,7 +1455,7 @@ boolean wiz_cast;
                 return 0;
             }
             if (!cansee(cc.x, cc.y)) {
-                You("can't see what's there!");
+                You_cant("see what's there!");
                 continue;
             }
             if ((ttrap = t_at(cc.x, cc.y)) && ttrap->tseen
@@ -1476,7 +1476,7 @@ boolean wiz_cast;
                     return 1;
                 }
             } else {
-                You("can't do anything %sthere.", ttrap ? "else " : "");
+                You_cant("do anything %sthere.", ttrap ? "else " : "");
             }
         } while (TRUE);
         
@@ -1497,7 +1497,7 @@ boolean wiz_cast;
             if (!otmp) {
                 otmp = getobj(clothes, "magically repair");
                 while (otmp && !(otmp->owornmask & W_ARMOR)) {
-                    pline("You cannot repair armor that is not worn.");
+                    You("cannot repair armor that is not worn.");
                     otmp = getobj(clothes, "magically repair");
                 }
             }
@@ -1507,10 +1507,10 @@ boolean wiz_cast;
         if (otmp) {
             if (greatest_erosion(otmp) > 0) {
                 if (Blind)
-                    pline("Your %s feels warmer for a brief moment.",
+                    Your("%s feels warmer for a brief moment.",
                           xname(otmp));
                 else
-                    pline("Your %s glows faintly golden for a moment.",
+                    Your("%s glows faintly golden for a moment.",
                           xname(otmp));
                 if (otmp->oeroded > 0)
                     otmp->oeroded--;
@@ -1519,12 +1519,12 @@ boolean wiz_cast;
                 update_inventory();
             } else {
                 if (!Blind)
-                    pline("Your %s glows briefly, but looks as new as ever.",
+                    Your("%s glows briefly, but looks as new as ever.",
                           xname(otmp));
             }
         } else {
             /* the player can probably feel this, so no need for a !Blind check :) */
-            pline("Your embarrassing skin rash clears up slightly.");
+            Your("embarrassing skin rash clears up slightly.");
         }
         break;
     case SPE_REFLECTION:
@@ -1535,10 +1535,10 @@ boolean wiz_cast;
         cast_sphere(otyp);
         break;
     case SPE_ENLIGHTEN: 
-        You("feel self-knowledgeable...");
+        You_feel("self-knowledgeable...");
         display_nhwindow(WIN_MESSAGE, FALSE);
         enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
-        pline("The feeling subsides.");
+        pline_The("feeling subsides.");
         exercise(A_WIS, TRUE);
         break;
     case SPE_PASSWALL:
@@ -2459,7 +2459,7 @@ cast_sphere(short otyp)
     struct monst *mtmp;
     int role_skill = P_SKILL(P_MATTER_SPELL);
     int n;
-    pline("You conjure elemental energy...");
+    You("conjure elemental energy...");
     for (n = 0; n < max(role_skill - 1, 1); n++) {
         mtmp = make_helper((otyp == SPE_FLAME_SPHERE) 
                                ? PM_FLAMING_SPHERE 

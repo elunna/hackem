@@ -369,7 +369,7 @@ deletedwithboulder:
             res = FALSE;
         }  else if (is_lightsaber(obj) && obj->lamplit) {
             if (cansee(x, y)) 
-                You("see %s deactivate.", an(xname(obj)));
+                You_see("%s deactivate.", an(xname(obj)));
             lightsaber_deactivate(obj, TRUE);
         } else {
             if (!Blind)
@@ -664,11 +664,11 @@ register struct obj *obj;
         break;
     case RIN_GAIN_INTELLIGENCE:
     case RIN_GAIN_WISDOM:
-        pline("The water flow seems %ser now.",
+        pline_The("water flow seems %ser now.",
                 (obj->spe<0) ? "dull" : "quick");
         break;
     case RIN_GAIN_DEXTERITY:
-        pline("The water flow seems %ser now.",
+        pline_The("water flow seems %ser now.",
                 (obj->spe<0) ? "slow" : "fast");
         break;
     case RIN_INCREASE_ACCURACY: /* KMH */
@@ -1829,7 +1829,7 @@ boolean at_stairs, falling, portal;
                     if (Blind) {
                         pline("A mysterious force prevents you from accessing the stairs.");
                     } else {
-                        You("see a magical glyph hovering in midair, preventing access to the stairs.");
+                        You_see("a magical glyph hovering in midair, preventing access to the stairs.");
                         pline("It reads 'Access denied, by order of Grund.'.");
                     }
                 } else if (falling) {
@@ -2127,7 +2127,7 @@ boolean at_stairs, falling, portal;
 #endif
             if (!Deaf)
                 You_hear("groans and moans everywhere.");
-            You("feel unable to rest or recuperate here.");
+            You_feel("unable to rest or recuperate here.");
         } else
             pline("It is hot here.  You smell smoke...");
     }

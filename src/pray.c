@@ -801,7 +801,7 @@ const char *str;
 int
 wiz_crown()
 {
-    pline("Your crown, my %s.", flags.female ? "queen" : "king");
+    Your("crown, my %s.", flags.female ? "queen" : "king");
     gcrownu();
     return 0;
 }
@@ -1560,7 +1560,7 @@ register struct monst *mtmp;
                 pline("However, your quest ends here...");
                 done(ESCAPED);
             } else {
-                pline("The Demigod of %s looks down upon you, and squashes you like the ant that you are.",
+                pline_The("Demigod of %s looks down upon you, and squashes you like the ant that you are.",
                       a_gname_at(mtmp->mx, mtmp->my));
                 Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
                 killer.format = KILLED_BY;
@@ -1904,7 +1904,7 @@ dosacrifice()
                             || uwep->otyp == ORCISH_LONG_SWORD)
                 && !uwep->oartifact && !(uarmh && uarmh->otyp == HELM_OF_OPPOSITE_ALIGNMENT)
                 && !exist_artifact(LONG_SWORD, artiname(ART_DIRGE))) {
-                pline("Your sword melts in your hand and transforms into something new!");
+                Your("sword melts in your hand and transforms into something new!");
                 uwep->oprops = uwep->oprops_known = 0L;
                 uwep->otyp = LONG_SWORD;
                 uwep = oname(uwep, artiname(ART_DIRGE));
@@ -2446,7 +2446,7 @@ dopray()
             preferably quite close to the toilet. If we are levitating
             we will skip straight to standard prayer since the player
             already went through a prompt. */
-        pline("You pray to the Porcelain God.");
+        You("pray to the Porcelain God.");
         
         if (!Sick && !HConfusion && !HStun && !Vomiting) {
             pline("He ignores your pleas.");

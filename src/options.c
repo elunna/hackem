@@ -5715,7 +5715,7 @@ boolean setinitial, setfromfile;
                     big_desc = thissize;
             }
             if (!setcount) {
-                pline("There are no appropriate %s symbol sets available.",
+                There("are no appropriate %s symbol sets available.",
                       rogueflag ? "rogue level" : "primary");
                 return TRUE;
             }
@@ -5796,7 +5796,7 @@ boolean setinitial, setfromfile;
             return TRUE;
         } else if (!symset_list) {
             /* The symbols file was empty */
-            pline("There were no symbol sets found in \"%s\".", SYMBOLS);
+            There("were no symbol sets found in \"%s\".", SYMBOLS);
             return TRUE;
         }
 

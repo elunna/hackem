@@ -495,7 +495,7 @@ register struct monst *magr, *mdef;
     if (calculate_flankers(magr, mdef)) {
         tmp += 4;
         if (magr->mtame && canseemon(magr)) {
-            pline("You help %s flank %s.", mon_nam(magr), mon_nam(mdef));
+            You("help %s flank %s.", mon_nam(magr), mon_nam(mdef));
         }
     }
     
@@ -1563,7 +1563,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                         destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
                     if (mwep->otyp == TORCH) {
                         if (pd == &mons[PM_WATER_ELEMENTAL]) {
-                            pline("The torch %s goes out.", xname(mwep));
+                            pline_The("torch %s goes out.", xname(mwep));
                             end_burn(mwep, TRUE);
                         } else {
                             burn_faster(mwep); /* Use up the torch more quickly */

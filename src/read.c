@@ -403,7 +403,7 @@ doread()
                 clr = "red";	/* you've been naughty */
         }
         if (!clr)
-            pline("There seems to be nothing special about this ring.");
+            There("seems to be nothing special about this ring.");
         else if (scroll->cursed)
             pline("It appears dark.");
         else
@@ -523,7 +523,7 @@ doread()
         };
 
         if (Blind) {
-            You("feel the embossed numbers:");
+            You_feel("the embossed numbers:");
         } else {
             if (flags.verbose)
                 pline("It reads:");
@@ -563,7 +563,7 @@ doread()
         return 1;
     } else if (scroll->oclass == COIN_CLASS) {
         if (Blind)
-            You("feel the embossed words:");
+            You_feel("the embossed words:");
         else if (flags.verbose)
             You("read:");
         pline("\"1 Zorkmid.  857 GUE.  In Frobs We Trust.\"");
@@ -573,7 +573,7 @@ doread()
         return 1;
     } else if (scroll->oartifact == ART_GJALLAR) {
         if (Blind)
-            You("feel the engraved signature:");
+            You_feel("the engraved signature:");
         else
             pline("It is signed:");
         pline("\"Heimdallr.\"");
@@ -599,11 +599,11 @@ doread()
         };
 
         if (Blind) {
-            You("feel only a smooth plastic window.");
+            You_feel("only a smooth plastic window.");
             return 0;
         }
         if (flags.verbose) {
-            pline("You turn over %s and read:", the(xname(scroll)));
+            You("turn over %s and read:", the(xname(scroll)));
         }
         pline("\"%s\".", eightball_msgs[rn2(SIZE(eightball_msgs))]);
         if (!u.uconduct.literate++) {
@@ -627,7 +627,7 @@ doread()
             return 0;
         }
         mesg = wrapper_msgs[scroll->o_id % SIZE(wrapper_msgs)];
-        pline("The wrapper reads: \"%s\".", mesg);
+        pline_The("wrapper reads: \"%s\".", mesg);
         maybe_learn_elbereth(mesg);
         if (!u.uconduct.literate++)
             livelog_write_string(LL_CONDUCT,
@@ -685,11 +685,11 @@ doread()
     }
     scroll->in_use = TRUE; /* scroll, not spellbook, now being read */
     if (scroll->oartifact) {
-        if(Blind) {
-                pline("Being blind, you cannot see the %s.", the(xname(scroll)));
-                return 0;
+        if (Blind) {
+            pline("Being blind, you cannot see the %s.", the(xname(scroll)));
+            return 0;
         }
-        pline("You examine %s.", the(xname(scroll)));
+        You("examine %s.", the(xname(scroll)));
     } else if (otyp != SCR_BLANK_PAPER) {
         boolean silently = !can_chant(&youmonst);
 
@@ -1177,7 +1177,7 @@ forget(howmuch)
 int howmuch;
 {
     if (Psychic_resistance) {
-        You("feel something tugging at your thoughts, but it quickly subsides.");
+        You_feel("something tugging at your thoughts, but it quickly subsides.");
         return;
     }
     if (Punished)
@@ -1397,7 +1397,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (!otmp) {
                 otmp = getobj(clothes, "enchant");
                 while (otmp && !(otmp->owornmask & W_ARMOR)) {
-                    pline("You cannot enchant armor that is not worn.");
+                    You("cannot enchant armor that is not worn.");
                     otmp = getobj(clothes, "enchant");
                 }
                 /* Dragon scales that are worn over body armor will cause the armor to
@@ -1946,7 +1946,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (Hallucination) {
             You_feel("you have experienced something fundamental.");
         } else {
-            pline("The elements swirl around you.");
+            pline_The("elements swirl around you.");
         }
         break;
     }
@@ -2064,18 +2064,18 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             int sx = u.ux, sy = u.uy;
 #if 0
             if (uwep || (u.twoweap && uswapwep)) {
-                pline("You can't do this while wielding a weapon!");
+                You_cant("do this while wielding a weapon!");
                 return 0;
 
             } else if (uarms) {
-                pline("You can't do this while holding a shield!");
+                You_cant("do this while holding a shield!");
                 return 0;
             }
 #endif
             if (!getdir(NULL))
                 return 0;
 
-            pline("You gather your energy...");
+            You("gather your energy...");
 
             if (u.uen < 10) {
                 pline("But it fizzles out.");
@@ -2211,7 +2211,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SPE_RAISE_ZOMBIES: {
         struct obj *obj;
         int i, j;
-        pline("You chant the ancient curse...");
+        You("chant the ancient curse...");
         /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
          * adding another case. */
         pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
@@ -2242,7 +2242,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         if (mtmp) {
                             if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
                                 tamedog(mtmp, pseudo);
-                                pline("You dominate %s!", mon_nam(mtmp));
+                                You("dominate %s!", mon_nam(mtmp));
                             } else {
                                 setmangry(mtmp, FALSE);
                             }
@@ -2262,12 +2262,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         int cost = 100 - u.ulevel; /* WAC make this depend on mon? */
                                   
         if (u.uswallow) {
-            pline("You don't have enough elbow-room to maneuver.");
+            You("don't have enough elbow-room to maneuver.");
             return 0;
         }
         
         if ((Upolyd && u.mh <= cost) || (!Upolyd && u.uhp <= cost)) {
-            pline("You don't have the strength to perform revivification!");
+            You("don't have the strength to perform revivification!");
             return 0;
         }
 
@@ -2279,7 +2279,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 #if 0
         /* Copied from slashem polyself probability */
         if ((rn2(5) + u.ulevel) < mons[obj->corpsenm].mlevel)
-            pline("Your attempt to animate the dead failed...");
+            Your("attempt to animate the dead failed...");
 #endif
         mtmp = revive(obj, TRUE);
         if (mtmp) {
@@ -2369,7 +2369,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (sblessed)
                 specified_id();
         }
-        You("feel more knowledgeable.");
+        You_feel("more knowledgeable.");
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
@@ -2421,7 +2421,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         else if (scursed) {
             if (!Breathless && !breathless(youmonst.data)) {
                 known = TRUE;
-                pline("The air is sucked from your lungs!");
+                pline_The("air is sucked from your lungs!");
                 losehp(d(3, 4), "asphyxiation", KILLED_BY);
             } else {
                 strange_feeling(sobj, "You feel oddly breathless.");
@@ -2552,7 +2552,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         } else {
             if (sobj->age > monstermoves) {
-                pline("The map is hard to see.");
+                pline_The("map is hard to see.");
                 nomul(rnd(3));
                 sobj->age += (long) d(3,10);
             } else sobj->age = monstermoves + (long) d(3,10);
@@ -2892,7 +2892,7 @@ retry:
             return; /* for safety; should never happen */
     }
     if (objects[otyp].oc_name_known) {
-        pline("You already know what that object looks like.");
+        You("already know what that object looks like.");
         if (++tries < 5)
             goto retry;
         pline1(thats_enough_tries);
@@ -4052,7 +4052,7 @@ struct obj **sobjp;
             otyp2 = SPE_BLANK_PAPER;
             return;
         } else if (otmp->otyp == SCR_TIME) {
-            pline("The scroll violently resists the cloning process!");
+            pline_The("scroll violently resists the cloning process!");
             otyp2 = SCR_BLANK_PAPER;
         } else {
             otyp2 = otmp->otyp;

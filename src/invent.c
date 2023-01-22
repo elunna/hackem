@@ -3692,7 +3692,7 @@ boolean picked_some;
         read_engr_at(u.ux, u.uy); /* Eric Backus */
         if (!skip_objects && (Blind || !dfeature)) {
             if (bloody) 
-                pline("There is %s blood splattered on the floor.", 
+                There("is %s blood splattered on the floor.", 
                       mons[levl[u.ux][u.uy].splatpm].mname);
             else
                 You("%s no objects here.", verb);

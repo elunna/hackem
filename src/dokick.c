@@ -908,7 +908,7 @@ boolean need_dir;
         switch (u.utraptype) {
         case TT_PIT:
             if (!Passes_walls)
-                pline("There's not enough room to kick down here.");
+                There("is not enough room to kick down here.");
             else
                 no_kick = FALSE;
             break;

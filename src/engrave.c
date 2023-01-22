@@ -171,7 +171,7 @@ cant_reach_floor(x, y, up, check_pit)
 int x, y;
 boolean up, check_pit;
 {
-    You("can't reach the %s.",
+    You_cant("reach the %s.",
         up ? ceiling(x, y)
            : (check_pit && can_reach_floor(FALSE))
                ? "bottom of the pit"
@@ -357,7 +357,7 @@ int x, y;
         case MARK:
             if (!Blind) {
                 sensed = 1;
-                pline("There's some graffiti on the %s here.", surface(x, y));
+                There("is some graffiti on the %s here.", surface(x, y));
             }
             break;
         case ENGR_BLOOD:
@@ -401,7 +401,7 @@ void
 learn_elbereth()
 {
     if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC)))
-        pline("You will NEVER learn about dirty Elven tricks!");
+        You("will NEVER learn dirty Elven tricks!");
     
     else if (!u.uevent.ulearned_elbereth) {
         debugpline0("You learn how to write Elbereth");
@@ -726,7 +726,8 @@ doengrave()
 
             if (otmp->otyp == WAN_WONDER) {
                 otmp->otyp = WAN_LIGHT + rn2(WAN_LIGHTNING - WAN_LIGHT);
-                if (!otmp->dknown) pline("You have found a wand of wonder!");
+                if (!otmp->dknown) 
+                    You("have found a wand of wonder!");
                 wonder = TRUE;
             }
             switch (otmp->otyp) {

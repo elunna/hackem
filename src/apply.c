@@ -301,17 +301,17 @@ struct obj* tobj;
 
     if (egg) {
 	if (Hallucination || tobj->cursed) {
-	    pline("You listen to the egg and guess... %s?",
+            You("listen to the egg and guess... %s?",
                   rndmonnam((char *) 0));
 	} else if (tobj->blessed) {
             if (stale_egg(egg) || egg->corpsenm == NON_PM)
-                pline("The egg doesn't really make any noise at all.");
+                pline_The("egg doesn't really make any noise at all.");
 	    else
                 You("listen to the egg and guess... %s!",
                     mons[egg->corpsenm].mname);
             egg->known = 1;
         } else {
-            You("can't quite tell what's inside the egg.");
+            You_cant("quite tell what's inside the egg.");
 	}
 	return TRUE;
     }
@@ -319,7 +319,7 @@ struct obj* tobj;
     /* using a stethoscope on a safe?  You safe-cracker, you. */
     if (safe && (rx == u.ux && ry == u.uy)) {
         if (Hallucination || Confusion || tobj->cursed) {
-            pline("You attempt to crack the safe using the combination... %s?",
+            You("attempt to crack the safe using the combination... %s?",
                   rndcolor());
         } else {
             pick_lock(tobj, 0, 0, NULL);
@@ -483,7 +483,7 @@ register struct obj *obj;
     }
 
     if (!its_dead(rx, ry, &res, obj))
-        You("hear nothing special."); /* not You_hear()  */
+        You_hear("nothing special."); /* not You_hear()  */
     return res;
 }
 
@@ -496,7 +496,7 @@ struct obj **optr;
     if (HStun) {
         You("are incapable of using %s.", yname(obj));
     } else if (Underwater) {
-        You("can't effectively shake %s in this medium.", yname(obj));
+        You_cant("effectively shake %s in this medium.", yname(obj));
     } else {
         You("vigorously shake %s...", yname(obj));
         check_unpaid_usage(obj, TRUE);
@@ -739,12 +739,12 @@ struct obj *obj;
             pline("This %s is already leashed.",
                   spotmon ? l_monnam(mtmp) : "creature");
         } else if (unsolid(mtmp->data)) {
-            pline("The leash would just fall off.");
+            pline_The("leash would just fall off.");
         } else if (nolimbs(mtmp->data) && !has_head(mtmp->data)) {
             pline("%s has no extremities the leash would fit.",
                   Monnam(mtmp));
         } else if (!leashable(mtmp)) {
-            pline("The leash won't fit onto %s.",
+            pline_The("leash won't fit onto %s.",
                   spotmon ? y_monnam(mtmp) : l_monnam(mtmp));
         } else {
             You("slip the leash around %s.",
@@ -1413,7 +1413,7 @@ struct obj *otmp;
 {
     boolean candle = Is_candle(otmp);
     if (otmp->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
-        pline("The candle flickers briefly, but it's flame burns on!");
+        pline_The("candle flickers briefly, but it's flame burns on!");
         return FALSE;
     }
     if ((candle || otmp->otyp == CANDELABRUM_OF_INVOCATION)
@@ -1531,7 +1531,7 @@ struct obj *obj;
             lightsaber_deactivate(obj, TRUE);
             return;
         } else if (obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
-            pline("The Candle of Eternal Flame will not stop burning!");
+            pline_The("Candle of Eternal Flame will not stop burning!");
             return;
         } else
             You("snuff out %s.", yname(obj));
@@ -2850,7 +2850,7 @@ set_whetstone(VOID_ARGS)
 
             /* More custom messages for how much erosion is left. */
             if (erosion >= 3) {
-                pline("You repair some of the damage, but there is still work to be done.");
+                You("repair some of the damage, but there is still work to be done.");
             } else if (erosion >= 2) {
                 if (Blind)
                     pline("%s %s starting to feel better.", Yname2(otmp), (otmp->quan > 1 ? "are": "is"));
@@ -2932,7 +2932,7 @@ struct obj *stone, *obj;
         || (uswapwep && u.twoweap && welded(uswapwep) && (uswapwep != obj))) {
         You("need both hands free.");
     } else if (nohands(youmonst.data)) {
-        You("can't handle %s with your %s.",
+        You_cant("handle %s with your %s.",
                 an(xname(stone)), makeplural(body_part(HAND)));
     } else if (verysmall(youmonst.data)) {
         You("are too small to use %s effectively.", an(xname(stone)));
@@ -2956,14 +2956,14 @@ struct obj *stone, *obj;
                 if ( !rn2(7)) {
                     /* 1 in 7 chance of using up the potion regardless of outcome */
                     useup(potion);
-                    pline("The whetstone absorbs your water!");
+                    pline_The("whetstone absorbs your water!");
                 }
             } else
                 pline("That isn't water!");
 	    } else
                 You("need some water when you use that.");
 	} else if (Levitation && !Lev_at_will && !u.uinwater) {
-	    You("can't reach the water.");
+            You_cant("reach the water.");
 	} else
 	    fail_use = FALSE;
 
@@ -3062,7 +3062,7 @@ struct obj **optr;
         && obj->oclass == GEM_CLASS && !is_graystone(obj)
         && !obj_resists(obj, 80, 100)) {
         if (Blind)
-            pline("You feel something shatter.");
+            You_feel("something shatter.");
         else if (Hallucination)
             pline("Oh, wow, look at the pretty shards.");
         else
@@ -3085,7 +3085,7 @@ struct obj **optr;
              * touchstone will yield the most */
             flint_made += 2;
         }
-        pline("You bang %s%s on %s.", ((obj->quan > 1L) ? "one of " : ""),
+        You("bang %s%s on %s.", ((obj->quan > 1L) ? "one of " : ""),
               the(xname(obj)), the(xname(tstone)));
         pline("It crumbles.");
 
@@ -4262,7 +4262,7 @@ struct obj *obj;
     if (Hallucination)
         You("give yourself a facial.");
     else
-        pline("You immerse your %s in %s%s.", body_part(FACE),
+        You("immerse your %s in %s%s.", body_part(FACE),
               several ? "one of " : "",
               several ? makeplural(the(xname(obj))) : the(xname(obj)));
     if (can_blnd((struct monst *) 0, &youmonst, AT_WEAP, obj)) {
@@ -4270,7 +4270,7 @@ struct obj *obj;
         u.ucreamed += blindinc;
         make_blinded(Blinded + (long) blindinc, FALSE);
         if (!Blind || (Blind && wasblind))
-            pline("There's %ssticky goop all over your %s.",
+            There("is %ssticky goop all over your %s.",
                   wascreamed ? "more " : "", body_part(FACE));
         else /* Blind  && !wasblind */
             You_cant("see through all the sticky goop on your %s.",
@@ -4947,9 +4947,9 @@ doapply()
         break;
     case SPOON:
         if (Role_if(PM_CONVICT)) 
-            pline("The guards used to hand these out with our food rations.  No one was ever able to figure out why.");
+            pline_The("guards used to hand these out with our food rations.  No one was ever able to figure out why.");
         else 
-            pline("You have never in your life seen such an odd item.  You have no idea how to use it.");
+            You("have never in your life seen such an odd item.  You have no idea how to use it.");
         break;
     case BELL:
     case BELL_OF_OPENING:

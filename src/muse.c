@@ -3428,9 +3428,9 @@ struct monst *mtmp;
         mreadmsg(mtmp, otmp);
         if (canseemon(mtmp)) {
             if (mtmp->mconf)
-                You("feel as though %s needs some help.", mon_nam(mtmp));
+                You_feel("as though %s needs some help.", mon_nam(mtmp));
             else
-                You("feel like someone is helping %s.", mon_nam(mtmp));
+                You_feel("like someone is helping %s.", mon_nam(mtmp));
             if (!objects[SCR_REMOVE_CURSE].oc_name_known
                 && !objects[SCR_REMOVE_CURSE].oc_uname)
                 docall(otmp);

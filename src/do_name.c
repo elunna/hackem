@@ -1348,15 +1348,15 @@ const char *name;
                 if (mtmp) {
                     if (!Blind) {
                         if (Hallucination)
-                            You("see the second coming of the Prophet.");
+                            You_see("the second coming of the Prophet.");
                         else
-                            You("see %s step out of the shadows.",
+                            You_see("%s step out of the shadows.",
                                 a_monnam(mtmp));
                     } else if (!Deaf) {
                         if (Hallucination)
-                            You("hear the sounds of silence.");
+                            You_hear("the sounds of silence.");
                         else
-                            You("hear movement nearby.");
+                            You_hear("movement nearby.");
                     }
                     if (!Deaf) {
                         pline("%s says:", Blind ? "Someone" : Monnam(mtmp));
@@ -1619,7 +1619,7 @@ namefloorobj()
     }
     if (!obj) {
         /* "under you" is safe here since there's no object to hide under */
-        pline("There doesn't seem to be any object %s.",
+        There("doesn't seem to be any object %s.",
               (cc.x == u.ux && cc.y == u.uy) ? "under you" : "there");
         return;
     }

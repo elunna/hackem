@@ -607,7 +607,7 @@ struct obj *otmp;
                      * alignment penalty for healing their pets. Don't do that. */
                     adjalign(sgn(u.ualign.type));
                     if (sgn(u.ualign.type) < 0)
-                        You("feel guilty.");
+                        You_feel("guilty.");
                 }
             }
         } else { /* Pestilence */
@@ -2781,7 +2781,8 @@ boolean ordinary;
     boolean wonder = FALSE;
     int damage = 0;
     if (obj->otyp == WAN_WONDER) {
-        if (!obj->dknown) pline("You have found a wand of wonder!");
+        if (!obj->dknown)
+            You("have found a wand of wonder!");
         switch (rn2(7)) {
         /* Not a complete list, just some interesting effects. */
         case 1: obj->otyp = WAN_LIGHTNING; break;
@@ -2821,7 +2822,7 @@ boolean ordinary;
         if (is_whirly(youmonst.data)) {
             exercise(A_CON, FALSE);
             if (!Unchanging) {
-                pline("The wind blasts you apart!");
+                pline_The("wind blasts you apart!");
                 rehumanize();
             } else {
                 losehp(Maybe_Half_Phys(d(5,6)), "blast of wind", KILLED_BY_AN);
@@ -3091,7 +3092,7 @@ boolean ordinary;
         makeknown(WAN_HEALING);
         break;
     case WAN_EXTRA_HEALING:
-        You("feel much better.");
+        You_feel("much better.");
         /* Always cure blindness/deafness, 
          * Cure sickness if not cursed */
         healup(d(6, 8), 0, !obj->cursed, TRUE);
@@ -3139,9 +3140,9 @@ boolean ordinary;
             break;
         }
         if (Invulnerable) {
-			pline("The ray passes right through you!");
-			break;
-		}
+            pline_The("ray passes right through you!");
+            break;
+        }
         learn_it = TRUE;
         Sprintf(killer.name, "shot %sself with a death ray", uhim());
         killer.format = NO_KILLER_PREFIX;
@@ -3172,7 +3173,7 @@ boolean ordinary;
             set_itimeout(&HWithering, (long) 0);
         }
         if (LarvaCarrier) {
-            You("feel as if something inside you has just died.");
+            You_feel("as if something inside you has just died.");
             make_carrier(0L, FALSE);
         }
         healup(0, 0, TRUE, FALSE);
@@ -3540,7 +3541,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
                     find_ac();
                 }
                 if (HReflecting > 0) {
-                    pline("The shimmering globe around you disappears.");
+                    pline_The("shimmering globe around you disappears.");
                     HReflecting = 0;
                 }
             }
@@ -3795,7 +3796,7 @@ struct obj *obj; /* wand or spell */
                 } else if (!ttmp->tseen) { /* => !Blind */
                     pline("There's a trapdoor beneath you; it shatters.");
                 } else {
-                    pline("The trapdoor beneath you shatters.");
+                    pline_The("trapdoor beneath you shatters.");
                     disclose = TRUE;
                 }
                 ttmp->ttyp = HOLE;
@@ -3835,7 +3836,7 @@ struct obj *obj; /* wand or spell */
                 if (is_pool(u.ux, u.uy) || is_ice(u.ux, u.uy))
                     pline1(nothing_happens);
                 else if (is_puddle(u.ux, u.uy) || is_sewage(u.ux, u.uy))
-                    pline("The water at your %s turns slightly %s.",
+                    pline_The("water at your %s turns slightly %s.",
                           makeplural(body_part(FOOT)), hcolor("red"));
                 else
                     pline("Blood %ss %s your %s.",
@@ -3980,7 +3981,8 @@ struct obj *obj;
         otyp = wondertemp;
         wonder = TRUE;
         disclose = TRUE;
-        if (!obj->dknown) pline("You have found a wand of wonder!");
+        if (!obj->dknown) 
+            You("have found a wand of wonder!");
     }
     
     exercise(A_WIS, TRUE);
@@ -5055,8 +5057,8 @@ xchar sx, sy;
                 if (uarmu)
                     (void) destroy_arm(uarmu, FALSE);
             }
-        }  if (Invulnerable) {
-            pline("The ray goes right through you!");
+        } if (Invulnerable) {
+            pline_The("ray goes right through you!");
             break;
         } else if (immune_death_magic(youmonst.data)) {
             shieldeff(sx, sy);
@@ -5072,10 +5074,10 @@ xchar sx, sy;
                 dam /= 2;
             }
             if (Reflecting) {
-                You("feel a little drained...");
+                You_feel("a little drained...");
                 u.uhpmax -= (dam / 3 + rn2(5)) / 2;
             } else {
-                You("feel drained...");
+                You_feel("drained...");
                 u.uhpmax -= dam / 3 + rn2(5);
             }
             break;
@@ -5086,7 +5088,7 @@ xchar sx, sy;
                 monstseesu(M_SEEN_MAGR);
                 dam /= 2;
             }
-            You("feel drained...");
+            You_feel("drained...");
             u.uhpmax -= dam / 3 + rn2(5);
             break;
         }
@@ -5576,7 +5578,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
             && abs(type) != ZT_BREATH(ZT_DEATH)) {
             levl[sx][sy].typ = DEADTREE;
             if (cansee(sx, sy)) {
-                pline("The tree withers and dies!");
+                pline_The("tree withers and dies!");
                 newsym(sx, sy);
             }
             range = 0;
@@ -5923,7 +5925,7 @@ boolean moncast;
             }
         } else if (lev->typ == TREE) {
             if (see_it)
-                pline("The tree burns to a crisp!");
+                pline_The("tree burns to a crisp!");
             lev->typ = DEADTREE;
             if (lev->typ == DEADTREE)
                 newsym(x, y);
@@ -5933,7 +5935,7 @@ boolean moncast;
                 ;
             } else {
                 if (see_it)
-                    pline("The dead tree burns to ashes!");
+                    pline_The("dead tree burns to ashes!");
                 rangemod -= 1000; /* stop */
                 lev->typ = ROOM, lev->flags = 0;
                 if (lev->typ == ROOM)
@@ -5945,7 +5947,7 @@ boolean moncast;
         } else if (IS_GRASS(lev->typ)) {
             lev->typ = ROOM;
             if (see_it) {
-                pline("The grass is scorched away!");
+                pline_The("grass is scorched away!");
                 newsym(x, y);
             }
             maybe_unhide_at(x, y);
@@ -5957,7 +5959,7 @@ boolean moncast;
         if (IS_GRASS(lev->typ)) {
             lev->typ = ROOM;
             if (see_it) {
-                pline("The grass dies!");
+                pline_The("grass dies!");
                 newsym(x, y);
             }
             maybe_unhide_at(x, y);
@@ -6066,14 +6068,14 @@ boolean moncast;
                 newsym(x, y);
         } else if (t && t->ttyp == RUST_TRAP) {
             if (see_it)
-                pline("The rust trap explodes in an alchemic blast!");
+                pline_The("rust trap explodes in an alchemic blast!");
             rangemod -= 1;
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
             disarm_rust_trap(t, FALSE, TRUE);
         }
         else if (lev->typ == TREE) {
             if (see_it)
-                pline("The acid contaminates the tree!");
+                pline_The("acid contaminates the tree!");
             lev->typ = DEADTREE;
             if (lev->typ == DEADTREE)
                 newsym(x, y);
@@ -6083,7 +6085,7 @@ boolean moncast;
                 ;
             } else {
                 if (see_it)
-                    pline("The dead tree decomposes!");
+                    pline_The("dead tree decomposes!");
                 rangemod -= 1000; /* stop */
                 lev->typ = ROOM, lev->flags = 0;
                 if (lev->typ == ROOM)
@@ -6094,7 +6096,7 @@ boolean moncast;
             }
         } else if (IS_FOUNTAIN(lev->typ)) {
             if (see_it)
-                pline("The fountain explodes in an alchemic blast!");
+                pline_The("fountain explodes in an alchemic blast!");
             rangemod -= 1;
             /* Might make more sense to have this be an acidic blast, 
              * but that results in problems with infinite explosions, 
@@ -6103,20 +6105,20 @@ boolean moncast;
             dryup(x, y, type > 0);
         } else if (IS_TOILET(lev->typ)) {
             if (see_it)
-                pline("The toilet explodes in an alchemic blast!");
+                pline_The("toilet explodes in an alchemic blast!");
             rangemod -= 1;
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
             breaktoilet(x, y);
         } else if (IS_SINK(lev->typ)) {
             if (see_it)
-                pline("The sink explodes in an alchemic blast!");
+                pline_The("sink explodes in an alchemic blast!");
             rangemod -= 1;
             explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
             breaksink(x, y);
         } else if (IS_GRASS(lev->typ)) {
             lev->typ = ROOM;
             if (see_it) {
-                pline("The grass is dissolved!");
+                pline_The("grass is dissolved!");
                 newsym(x, y);
             }
             maybe_unhide_at(x, y);

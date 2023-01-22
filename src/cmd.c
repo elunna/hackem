@@ -359,7 +359,7 @@ doextcmd(VOID_ARGS)
 
         func = extcmdlist[idx].ef_funct;
         if (!wizard && (extcmdlist[idx].flags & WIZMODECMD)) {
-            You("can't do that.");
+            You_cant("do that.");
             return 0;
         }
         if (iflags.menu_requested && !accept_menu_prefix(func)) {
@@ -1002,7 +1002,7 @@ wiz_spell(VOID_ARGS)
             return spelleffects(i, FALSE, TRUE);
         }
     }
-    pline("There is no such spell.");
+    There("is no such spell.");
     return 0;
 }
 
@@ -1605,7 +1605,7 @@ wiz_smell(VOID_ARGS)
         return 0;
     }
 
-    pline("You can move the cursor to a monster that you want to smell.");
+    You("can move the cursor to a monster that you want to smell.");
     do {
         pline("Pick a monster to smell.");
         ans = getpos(&cc, TRUE, "a monster");

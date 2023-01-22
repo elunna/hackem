@@ -355,7 +355,7 @@ struct obj *otmp, *mwep;
     } else {
         m_shot.o = STRANGE_OBJECT; /* don't give multishot feedback */
         if (is_bullet(otmp) && !Deaf) 
-            You("hear gunfire.");
+            You_hear("gunfire.");
     }
     m_shot.n = multishot;
     for (m_shot.i = 1; m_shot.i <= m_shot.n; m_shot.i++) {
@@ -888,7 +888,7 @@ register boolean verbose;
                     if (!Blind)
                         pline("Yecch!  You've been creamed.");
                     else
-                        pline("There's %s sticky all over your %s.",
+                        There("is %s sticky all over your %s.",
                               something, body_part(FACE));
                 } else if (singleobj->otyp == BLINDING_VENOM
                            || singleobj->otyp == SNOWBALL) {

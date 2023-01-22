@@ -125,7 +125,7 @@ picklock(VOID_ARGS)
            "known to be trapped" so declining to disarm and then
            retrying lock manipulation will find it all over again */
         if (In_sokoban(&u.uz) && xlock.door) {
-            pline("You find a trap!  But you see no way to disarm it.");
+            You("find a trap!  But you see no way to disarm it.");
             exercise(A_WIS, FALSE);
         } else if (yn("You find a trap!  Do you want to try to disarm it?") == 'y') {
             const char *what;
@@ -921,7 +921,7 @@ doforce()
 
         if (!IS_DOOR(door->typ)) {
         if (is_drawbridge_wall(x,y) >= 0)
-            pline("The drawbridge is too solid to force open.");
+                pline_The("drawbridge is too solid to force open.");
         else
             You("%s no door there.", Blind ? "feel" : "see");
         return 0;
@@ -1405,7 +1405,7 @@ int x, y;
             if (door->doormask & D_TRAPPED) {
                 if (In_sokoban(&u.uz)) {
                     if (cansee(x,y))
-                        pline("The door absorbs the force!");
+                        pline_The("door absorbs the force!");
                 } else {
                     if (MON_AT(x, y))
                         (void) mb_trapped(m_at(x, y));

@@ -519,7 +519,7 @@ boolean removebars;
         }
     if (sawit) {
         if (removebars)
-            pline("The iron bars rise back into the ceiling.");
+            pline_The("iron bars rise back into the ceiling.");
         else
             pline("Iron bars drop from the ceiling around the magic portal!");
     }
@@ -1491,7 +1491,7 @@ dopay()
         }
         mtmp = m_at(cx, cy);
         if (!cansee(cx, cy) && (!mtmp || !canspotmon(mtmp))) {
-            You("can't %s anyone there.", !Blind ? "see" : "sense");
+            You_cant("%s anyone there.", !Blind ? "see" : "sense");
             return 0;
         }
         if (!mtmp) {
@@ -4021,7 +4021,7 @@ long ident_type;
     /* Shopkeeper deviousness */
     if (ident_type == SHK_ID_BASIC) {
         if (Hallucination) {
-            pline("You hear %s tell you it's a pot of flowers.",
+            You_hear("%s tell you it's a pot of flowers.",
                     mon_nam(shkp));
             return 1;
         } else if (Confusion) {
@@ -4099,7 +4099,7 @@ struct monst *shkp;
             bless(obj);
         }
         else {
-            You("can't see straight and point to the wrong item");
+            You_cant("see straight and point to the wrong item");
         }
     }
     else {
@@ -4150,10 +4150,10 @@ struct monst *shkp;
 
     /* Shopkeeper deviousness */
     if (Confusion) {
-        pline("The numbers get all mixed up in your head.");
+        pline_The("numbers get all mixed up in your head.");
         return 0;
     } else if (Hallucination) {
-        You("hear %s say it'll \"knock 'em dead\"", mon_nam(shkp));
+        You_hear("%s say it'll \"knock 'em dead\"", mon_nam(shkp));
         return 0;
     }
 
@@ -4582,7 +4582,7 @@ struct monst *shkp;
         return 0;
     
     if (Hallucination) {
-        pline("You hear %s say: 'You Are Here.'", mon_nam(shkp));
+        You_hear("%s say: 'You Are Here.'", mon_nam(shkp));
     } else if (Confusion) {
         pline("%s tells you something... but you forget.", mon_nam(shkp));
     } else
@@ -4732,7 +4732,7 @@ struct monst *shkp;
 
     /* Shopkeeper deviousness */
     if (Hallucination) {
-        pline("You hear %s tell you it's Very Special now.", mon_nam(shkp));
+        You_hear("%s tell you it's Very Special now.", mon_nam(shkp));
         return 1;
     } else if (Confusion) {
         pline("%s dunks the thing in some water and hands it back to you.", mon_nam(shkp));

@@ -309,7 +309,7 @@ register struct obj *obj;
                     xname(obj));
         }
         if (how_resistant(FIRE_RES) == 100) {
-            You("can't reforge something you're wearing.");
+            You_cant("reforge something you're wearing.");
         }
         losehp(resist_reduce(d(1, 8), FIRE_RES),
                "dipping a worn object into a forge", KILLED_BY);
@@ -329,7 +329,7 @@ register struct obj *obj;
                   xname(uwep));
             if (!rn2((P_SKILL(P_HAMMER) < P_SKILLED) ? 8 : 2)
                 && Luck >= 0) { /* training up hammer skill pays off */
-                pline("The chain breaks free!");
+                pline_The("chain breaks free!");
                 unpunish();
             } else {
                 pline("Clang!");
@@ -859,9 +859,9 @@ drinkfountain()
         case 25: /* See invisible */
             if (Blind) {
                 if (Invisible) {
-                    You("feel transparent.");
+                    You_feel("transparent.");
                 } else {
-                    You("feel very self-conscious.");
+                    You_feel("very self-conscious.");
                     pline("Then it passes.");
                 }
             } else {
@@ -1175,7 +1175,7 @@ drinkforge()
     burn_away_slime();
     switch(rn2(20)) {
     case 0:
-        pline("You drink some molten lava.  Mmmmm mmm!");
+        You("drink some molten lava.  Mmmmm mmm!");
         u.uhunger += rnd(50);
         break;
     case 1:
@@ -1189,7 +1189,7 @@ drinkforge()
             pline("But it settles down.");
         break;
     default:
-        pline("You take a sip of molten lava.");
+        You("take a sip of molten lava.");
         u.uhunger += rnd(5);
     }
 }
@@ -1219,7 +1219,7 @@ int x, y;
     if (cansee(x, y) || (x == u.ux && y == u.uy))
         pline_The("toilet suddenly shatters!");
     else
-        You("hear something shatter!");
+        You_hear("something shatter!");
 
     level.flags.ntoilets--;
     levl[x][y].typ = FOUNTAIN;
@@ -1235,7 +1235,7 @@ int x, y;
                 else
                     pline("Oh no! Tons of poopies!");
             } else
-                You("hear something scuttling around you!");
+                You_hear("something scuttling around you!");
             while (num-- > 0) {
                 /* Since toilet can be broken by ranged means, generate 
                  * around the broken toilet */
@@ -1244,7 +1244,7 @@ int x, y;
                     (void) mintrap(mtmp);
             }
         } else
-            pline("The sewers seem strangely quiet.");
+            pline_The("sewers seem strangely quiet.");
     }
 }
 
@@ -1255,7 +1255,7 @@ int x, y;
     if (cansee(x, y) || (x == u.ux && y == u.uy))
         pline_The("vent is destroyed!");
     else
-        You("hear something collapse!");
+        You_hear("something collapse!");
     
     level.flags.nvents--;
     /* Cleanup fixture_activate timer */
@@ -1407,14 +1407,14 @@ drinktoilet()
         return;
     }
     if ((youmonst.data->mlet == S_DOG) && (rn2(5))) {
-        pline("The toilet water is quite refreshing!");
+        pline_The("toilet water is quite refreshing!");
         u.uhunger += 10;
         return;
     }
     switch (rn2(9)) {
     case 0: 
         if (mvitals[PM_SEWER_RAT].mvflags & G_GONE)
-            pline("The toilet seems quite dirty.");
+            pline_The("toilet seems quite dirty.");
         else {
             static NEARDATA struct monst *mtmp;
 
@@ -1436,7 +1436,7 @@ drinktoilet()
     case 3:
     case 4: 
         if (mvitals[PM_BABY_CROCODILE].mvflags & G_GONE)
-            pline("The toilet smells fishy.");
+            pline_The("toilet smells fishy.");
         else {
             static NEARDATA struct monst *mtmp;
             mtmp = makemon(&mons[PM_BABY_CROCODILE], u.ux,

@@ -340,7 +340,7 @@ u_slow_down()
     if (!Fast && !Slow)
         You("slow down.");
     else if (!Slow)	 /* speed of some sort */
-        You("feel a strange lethargy overcome you.");
+        You_feel("a strange lethargy overcome you.");
     else
 	Your("lethargy seems to be settling in for the long haul.");
     incr_itimeout(&HSlow, rnd(11) + 12);
@@ -1238,7 +1238,7 @@ diseasemu(mdat)
 struct permonst *mdat;
 {
     if (LarvaCarrier) {
-        You("feel as if your body is your own again.");
+        You_feel("as if your body is your own again.");
         make_carrier(0L, FALSE);
     }
     if (Sick_resistance) {
@@ -2979,7 +2979,7 @@ struct attack *mattk;
                 if (!(HMagical_breathing || EMagical_breathing)) {
                     /* test this one first, in case breathless and also wearing
                      * magical breathing */
-                    You("can't breathe, but you don't need to.");
+                    You_cant("breathe, but you don't need to.");
                 } else {
                     You("can still breathe, though.");
                     if (uamul && uamul->otyp == AMULET_OF_MAGICAL_BREATHING)
@@ -3034,7 +3034,7 @@ struct attack *mattk;
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
             if (defends(AD_BLND, uarm)) {
-                pline("Your armor reflects the light!");
+                Your("armor reflects the light!");
             } else if (!Blind) {
                 long was_blinded = Blinded;
 
@@ -3232,7 +3232,7 @@ boolean ufound;
         not_affected = resists_blnd(&youmonst);
         if (ufound && !not_affected) {
             if (defends(AD_BLND, uarm)) {
-                pline("Your armor reflects the explosion of light!");
+                Your("armor reflects the explosion of light!");
             }
             /* sometimes you're affected even if it's invisible */
             else if (mon_visible(mtmp) || (rnd(tmp /= 2) > u.ulevel)) {
@@ -3484,7 +3484,7 @@ struct attack *mattk;
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                     break;
                 }
-                pline("You meet %s gaze! The shadows merge into utter darkness!",
+                You("meet %s gaze! The shadows merge into utter darkness!",
                       s_suffix(mon_nam(mtmp)) );
                 make_blinded(Blinded + d((int)mattk->damn, (int)mattk->damd), FALSE);
                 if (!Blind) Your1(vision_clears);
@@ -3504,7 +3504,7 @@ struct attack *mattk;
             } else if (defends(AD_BLND, uarm)) {
                 if (!rn2(5))
                     /* Don't show msg every round, as mentioned above */
-                    pline("Your armor reflects %s radiance!",  s_suffix(mon_nam(mtmp)));
+                    Your("armor reflects %s radiance!",  s_suffix(mon_nam(mtmp)));
             } else {
                 int blnd = d((int) mattk->damn, (int) mattk->damd);
 
@@ -3598,7 +3598,7 @@ struct attack *mattk;
                 monflee(mtmp, 0, FALSE, TRUE);
             } else {
                 change_luck(-1);
-                pline("You don't feel as lucky as before.");
+                You("don't feel as lucky as before.");
             }
             stop_occupation();
         }
@@ -3615,7 +3615,7 @@ struct attack *mattk;
                 You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             } else if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD && rn2(3)) {
-                pline("The %s doesn't look so bad through %s.",
+                pline_The("%s doesn't look so bad through %s.",
                       s_suffix(Monnam(mtmp)), An(bare_artifactname(ublindf)));
                 break;
             }
@@ -3686,7 +3686,7 @@ struct attack *mattk;
             if (cancelled) {
                 break;
             } else if (how_resistant(DISINT_RES) == 100) {
-                pline("You bask in its %s aura.", hcolor(NH_BLACK));
+                You("bask in its %s aura.", hcolor(NH_BLACK));
                 monstseesu(M_SEEN_DISINT);
                 stop_occupation();
             } else if (how_resistant(DISINT_RES) > 0) {
@@ -4004,10 +4004,9 @@ int n;
     if (Invulnerable) 
         n = 0;
     if (n == 0) {
-		pline("You are unharmed.");
-		return;
-	}
-
+        You("are unharmed.");
+        return;
+    }
     if (Upolyd) {
         u.mh -= n;
         if (u.mh < 1)
@@ -4675,7 +4674,7 @@ int dmg;
     }
     
     if (Sonic_resistance && !Deaf) {
-        pline("The noise doesn't seem to bother you.");
+        pline_The("noise doesn't seem to bother you.");
         monstseesu(M_SEEN_LOUD);
         return FALSE;
     } else if (!Deaf) {
@@ -4714,7 +4713,7 @@ struct attack *mattk;
 
         if (resists_fire(mtmp)) {
             shieldeff(mtmp->mx, mtmp->my);
-            pline("The fire doesn't burns %s.", Monnam(mtmp));
+            pline_The("fire doesn't burns %s.", Monnam(mtmp));
             golemeffects(mtmp, AD_FIRE, tmp);
         } else {
             if (resists_cold(mtmp))

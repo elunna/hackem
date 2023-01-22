@@ -222,7 +222,7 @@ boolean talk;
         if (talk && u.fearedmon) {
             You("are afraid of %s!", mon_nam(u.fearedmon));
         } else if (talk) {
-            You("feel afraid!");
+            You_feel("afraid!");
         }
     }
     if ((xtime && !old) || (!xtime && old))
@@ -639,7 +639,7 @@ dodrink()
         return 0;
     }
     if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
-        pline("The %s covers your whole face.", xname(uarmh));
+        pline_The("%s covers your whole face.", xname(uarmh));
         return 0;
     }
     
@@ -1176,7 +1176,7 @@ register struct obj *otmp;
             (void) make_hallucinated(0L, FALSE, 0L);
         }
         if (LarvaCarrier) {
-            You("feel as if your body is your own again.");
+            You_feel("as if your body is your own again.");
             make_carrier(0L, FALSE);
         }
         break;
@@ -1279,7 +1279,7 @@ register struct obj *otmp;
             pline("It\'s like drinking glue!");
             unkn++;
         } else {
-            pline("You are covered in a mirror-like sheen!");
+            You("are covered in a mirror-like sheen!");
             if (otmp->blessed) {
                 set_itimeout(&HReflecting, rn1(50, otmp->odiluted ? 100 : 250));
             } else {
@@ -2322,10 +2322,10 @@ register struct obj *obj;
     if (!breathe) {
         /* currently only acid affects eyes */
         if (eyes && obj->otyp == POT_ACID && !Acid_resistance) {
-            pline("The fumes sting your %s.", eyestr);
+            pline_The("fumes sting your %s.", eyestr);
         }
         else {
-            pline("The vapors don't seem to affect you.");
+            pline_The("vapors don't seem to affect you.");
         }
         return;
     }
@@ -2426,7 +2426,7 @@ register struct obj *obj;
             exercise(A_CON, FALSE);
             You("start to shrivel up!");
         } else {
-            You("feel a tiny bit better.");
+            You_feel("a tiny bit better.");
             set_itimeout(&HRegeneration, rn1(5, 5));
             unambiguous = TRUE;
         }
@@ -2527,7 +2527,7 @@ register struct obj *obj;
         exercise(A_DEX, TRUE);
         break;
     case POT_REFLECTION:
-        pline("You are covered in a mirror-like sheen!");
+        You("are covered in a mirror-like sheen!");
         set_itimeout(&HReflecting, rn1(5, 15));
         unambiguous = TRUE;
         break;
@@ -2593,7 +2593,7 @@ register struct obj *obj;
             }
         }
         else {
-            pline("The %s fumes burn your %s and %s!",
+            pline_The("%s fumes burn your %s and %s!",
                     (Hallucination ? "amaroidal" : "acrid"),
                     (eyes ? eyestr : ""),
                     makeplural(body_part(LUNG)));
@@ -3197,7 +3197,7 @@ dodip()
                 rider_cant_reach(); /* not skilled enough to reach */
             } else if (IS_SEWAGE(here)) {
                 if (rn2(3)) {
-                    You("see something moving under the surface and abruptly pull away your %s.",
+                    You_see("something moving under the surface and abruptly pull away your %s.",
                         xname(obj));
                 } else if (obj_resists(obj, 0, 0) || obj == uball
                            || (is_worn(obj) && obj->cursed)) {
@@ -3793,7 +3793,7 @@ void
         useup(obj);
         return;
     }
-    pline("You pour the %s down the drain, creating a puff of vapor.",
+    You("pour the %s down the drain, creating a puff of vapor.",
           xname(obj));
     potionbreathe(obj);
     useup(obj);

@@ -575,7 +575,7 @@ struct monst* ghost;
     if (Psychic_resistance 
         || Role_if(PM_NECROMANCER) 
         || Role_if(PM_UNDEAD_SLAYER)) {
-        You("see a ghost try to frighten you.");
+        You_see("a ghost try to frighten you.");
         return;
     }
     if (multi >= 0) {
@@ -1179,7 +1179,7 @@ struct monst *mtmp;
                   mon_nam(mtmp));
         (void) rloc(mtmp, FALSE);
     } else if (mtmp->data == &mons[PM_CTHULHU]) {
-        pline("There are some things incapable of being understood!");
+        There("are some things incapable of being understood!");
         make_confused(HConfusion + rnd(20), FALSE);
     }
 }

@@ -865,9 +865,9 @@ long wp_mask;
     }
     if (otmp->oartifact == ART_ORIGIN && wp_mask == W_WEP) {
         if (on) {
-            pline("Your mind is flooded with magical knowledge.");
+            Your("mind is flooded with magical knowledge.");
         } else {
-            pline("You feel less in touch with your magical abilities.");
+            You_feel("less in touch with your magical abilities.");
         }
     }
     if (spfx & SPFX_HALRES) {
@@ -2365,7 +2365,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), mon_nam(mdef));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && is_were(youmonst.data) && k) {
-                    pline("The silver blade gravely burns you!");
+                    pline_The("silver blade gravely burns you!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2381,7 +2381,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), mon_nam(mdef));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)) && k) {
-                    pline("The magical spear eviscerates you!");
+                    pline_The("magical spear eviscerates you!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2397,7 +2397,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && is_ogre(youmonst.data) && k) {
-                    pline("The monstrous hammer crushes your skull!");
+                    pline_The("monstrous hammer crushes your skull!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2433,7 +2433,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_orc(youmonst.data),
                            Race_if(PM_ORC)) && k) {
-                    You("feel Orcrist slice deep across your neck!");
+                    You_feel("Orcrist slice deep across your neck!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2450,7 +2450,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_elf(youmonst.data),
                            Race_if(PM_ELF)) && k) {
-                    You("feel Elfrist slice deep across your neck!");
+                    You_feel("Elfrist slice deep across your neck!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2467,7 +2467,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_orc(youmonst.data),
                            Race_if(PM_ORC)) && k) {
-                    You("feel Sting stab deep into your heart!");
+                    You_feel("Sting stab deep into your heart!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2518,7 +2518,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         mongone(mdef);
                     }
                 } else if (youdefend && is_undead(youmonst.data) && k) {
-                    pline("The holy power of Sunsword incinerates your undead flesh!");
+                    pline_The("holy power of Sunsword incinerates your undead flesh!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                     /* player returns to their original form */
                 } else
@@ -2536,7 +2536,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), mon_nam(mdef));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && youmonst.data == &mons[PM_BALROG]) {
-                    pline("The magical axe obliterates you!");
+                    pline_The("magical axe obliterates you!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2745,7 +2745,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 return TRUE;
             }
         } else if (!Blind) {
-            pline("Your vision is consumed in a flash of blinding light!");
+            Your("vision is consumed in a flash of blinding light!");
             make_blinded(Blinded + 17, FALSE);
             return TRUE;
         }
@@ -2772,7 +2772,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Credits to BarclayII for Mouser's Scalpel rename and mechanic */
     if (otmp->oartifact == ART_MOUSER_S_SCALPEL && dieroll < 10) { 
         /* faster than a speeding bullet is the Gray Mouser... */
-        pline("There is a flurry of blows!");
+        There("is a flurry of blows!");
         /* I suppose this could theoretically continue forever... */
         do {
             *dmgptr += rnd(8) + 1 + otmp->spe;
@@ -3340,7 +3340,7 @@ struct obj *obj;
             any = zeroany; /* set all bits to zero */
             
             if (Is_blackmarket(&u.uz) && *u.ushops) {
-                You("feel very disoriented for a moment.");
+                You_feel("very disoriented for a moment.");
                 break;
             }
             start_menu(tmpwin);
@@ -3405,7 +3405,7 @@ struct obj *obj;
             break;
         case SUMMON_FIRE_ELEMENTAL:
             pm = &mons[PM_FIRE_ELEMENTAL];
-            pline("You summon an elemental.");
+            You("summon an elemental.");
             mtmp = makemon(pm, u.ux, u.uy, MM_EDOG | MM_IGNOREWATER);
             initedog(mtmp);
             u.uconduct.pets++;
@@ -3427,7 +3427,7 @@ struct obj *obj;
             default: pm = &mons[PM_WATER_ELEMENTAL]; break;
             }
             mtmp = makemon(pm, u.ux, u.uy, MM_EDOG | MM_IGNOREWATER);
-            pline("You blow the whistle and a creature appears from a storm cloud!");
+            You("blow the whistle and a creature appears from a storm cloud!");
             initedog(mtmp);
             u.uconduct.pets++;
             mtmp->msleeping = 0;
@@ -4172,7 +4172,7 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
 #else
         if (!bane) {
 #endif
-            pline("The %s of %s %s!", materialnm[obj->material],
+            pline_The("%s of %s %s!", materialnm[obj->material],
                   yname(obj), rn2(2) ? "hurts to touch" : "burns your skin");
         } else {
             You_cant("handle %s%s!", yname(obj),

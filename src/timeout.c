@@ -674,7 +674,7 @@ nh_timeout()
 
     /* Give a small warning that spell-based reflection is running out. */
     if (HReflecting == 20 && !Blind)
-        pline("The shimmering globe around you is starting to fade.");
+        pline_The("shimmering globe around you is starting to fade.");
 
     if (u.ugallop) {
         if (--u.ugallop == 0L && u.usteed)
@@ -691,7 +691,7 @@ nh_timeout()
     /* Technique timeout */
     if (u.utechtimeout > 0)
         if (--u.utechtimeout == 0)
-            pline("Your natural ability is ready.");
+            Your("natural ability is ready.");
     
     if (u.utechduration > 0) {
         u.utechduration--;
@@ -797,9 +797,9 @@ nh_timeout()
                 break;
             case REFLECTING:
                 if (!Blind)
-                    pline("The shimmering globe around you flickers and vanishes.");
+                    pline_The("shimmering globe around you flickers and vanishes.");
                 else
-                    pline("You don't feel very smooth anymore.");
+                    You("don't feel very smooth anymore.");
                 break;
             /* all these need to make sure the external intrinsic isn't there too */
             case VULN_FIRE:
@@ -1089,7 +1089,7 @@ long timeout;
             }
             if (!silent) {
                 if (canseemon(mtmp))
-                    You("see %s engulfed in an explosion!", mon_nam(mtmp));
+                    You_see("%s engulfed in an explosion!", mon_nam(mtmp));
             }
             mtmp->mhp -= d(2, 5);
             if (mtmp->mhp < 1) {
@@ -1572,7 +1572,7 @@ struct obj *obj;
             pline("Batteries have not been invented yet.");
         break;
     case OBJ_FLOOR:
-        (Hallucination) ? You("feel a strange urge to give a lantern a hug.") :
+        (Hallucination) ? You_feel("a strange urge to give a lantern a hug.") :
                           You_see("a lantern getting dim.");
         break;
     case OBJ_MINVENT:
@@ -1717,7 +1717,7 @@ long timeout;
                     break;
                 case OBJ_FLOOR:
                     if (obj->otyp == LANTERN)
-                        (Hallucination) ? You("feel like the floor is less happy now.") :
+                        (Hallucination) ? You_feel("like the floor is less happy now.") :
                                           You_see("a lantern run out of power.");
                     else
                         You_see("%s go out.", an(xname(obj)));
@@ -1904,11 +1904,11 @@ long timeout;
                     pline("%s%s dims!",whose, xname(obj));
                     break;
                 case OBJ_FLOOR:
-                    You("see %s dim!", an(xname(obj)));
+                    You_see("%s dim!", an(xname(obj)));
                     break;
                 }
             } else {
-                You("hear the hum of %s change!", an(xname(obj)));
+                You_hear("the hum of %s change!", an(xname(obj)));
             }
             break;
         case 0:
@@ -1959,11 +1959,11 @@ boolean timer_attached;
                     pline("%s%s deactivates.", whose, xname(obj));
                     break;
                 case OBJ_FLOOR:
-                    You("see %s deactivate.", an(xname(obj)));
+                    You_see("%s deactivate.", an(xname(obj)));
                     break;
             }
         } else {
-            You("hear a lightsaber deactivate.");
+            You_hear("a lightsaber deactivate.");
         }
     }
     if (obj->otyp == RED_DOUBLE_LIGHTSABER) 
@@ -2184,9 +2184,9 @@ void burn_faster(struct obj *obj) {
     }
     
     if (turns > 4)
-        pline("The torch sparks and flares!");
+        pline_The("torch sparks and flares!");
     else
-        pline("The torch flares up!");
+        pline_The("torch flares up!");
 
     obj->age -= turns;
 

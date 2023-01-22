@@ -1028,7 +1028,7 @@ register struct monst *mtmp;
     } else if (is_longworm(mtmp->data) && inshallow) {
         int dam = d(3, 12);
         if (canseemon(mtmp))
-            pline("The water burns %s flesh!", s_suffix(mon_nam(mtmp)));
+            pline_The("water burns %s flesh!", s_suffix(mon_nam(mtmp)));
         mtmp->mhp -= dam;
         if (mtmp->mhpmax > dam)
             mtmp->mhpmax -= (dam + 1) / 2;
@@ -1747,7 +1747,7 @@ register struct monst *mtmp;
                       distant_name(otmp, doname));
 
             else if (!Deaf && flags.verbose)
-                You("hear an awful gobbling noise!");
+                You_hear("an awful gobbling noise!");
 
             mtmp->meating = 2;
             delobj(otmp);
@@ -1788,7 +1788,7 @@ minfestcorpse(struct monst *mtmp)
                 pline("%s infests %s!", Monnam(mtmp),
                   distant_name(otmp,doname));
             else if (!Deaf && flags.verbose)
-                You("hear an unsettling writhing noise.");
+                You_hear("an unsettling writhing noise.");
             
             dog_givit(mtmp, &mons[otmp->corpsenm]);
             
@@ -3323,7 +3323,7 @@ struct monst *mtmp;
                 makeknown(AMULET_OF_LIFE_SAVING);
             }
             if (!Deaf)
-                You("hear diabolical laughter in the distance...");
+                You_hear("diabolical laughter in the distance...");
             pline("%s dies!", Monnam(mtmp));
             if (cansee(mtmp->mx, mtmp->my))
                 pline_The("medallion crumbles to dust!");
@@ -5064,7 +5064,7 @@ boolean via_attack;
             You_feel("clever."); /* no alignment penalty */
 
         if (!Blind)
-            pline("The engraving beneath you fades.");
+            pline_The("engraving beneath you fades.");
         del_engr_at(u.ux, u.uy);
     }
 

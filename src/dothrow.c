@@ -699,7 +699,7 @@ int x, y;
             You("crash into some iron bars.");
             dmg = rnd(2 + *range);
             if (Hate_material(IRON)) {
-                pline("The iron hurts to touch!");
+                pline_The("iron hurts to touch!");
                 dmg += sear_damage(IRON);
             } else {
                 pline("Ouch!");
@@ -860,7 +860,7 @@ int x, y;
             dotrap(ttmp, 0);
             return FALSE;
         } else if (ttmp->ttyp == VIBRATING_SQUARE) {
-            pline("The ground vibrates as you pass it.");
+            pline_The("ground vibrates as you pass it.");
             dotrap(ttmp, 0); /* doesn't print messages */
         } else if (ttmp->ttyp == FIRE_TRAP) {
             dotrap(ttmp, 0);
@@ -966,7 +966,7 @@ boolean verbose;
         nomul(0);
         return;
     } else if (Stable) {
-        pline("Your fortitude prevents you from moving.");
+        Your("fortitude prevents you from moving.");
         nomul(0);
         return;
     } else if (u.utrap) {

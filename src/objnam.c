@@ -5252,7 +5252,7 @@ struct obj *no_wish;
                           Deaf ? "funky smell"
                                : "the sound could have been more mellow");
                 else
-                    pline("There is a puff of smoke and a figure appears!");
+                    There("is a puff of smoke and a figure appears!");
             }
             if (!Deaf) {
                 pline("%s says:", Blind ? "Someone" : Monnam(mtmp));

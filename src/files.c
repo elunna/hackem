@@ -4522,7 +4522,7 @@ unsigned oid; /* book identifier */
     if (!fp) {
         /* this is actually an error - cannot open tribute file! */
         if (!nowin_buf)
-            pline("You feel too overwhelmed to continue!");
+            You_feel("too overwhelmed to continue!");
         return grasped;
     }
 

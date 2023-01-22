@@ -1132,8 +1132,7 @@ struct obj *obj;
         ry = u.uy + u.dy;
         if (!isok(rx, ry)) {
             if (is_lightsaber(uwep))
-                pline("Your %s bounces off harmlessly.",
-                    aobjnam(obj, (char *)0));
+                Your("%s bounces off harmlessly.", aobjnam(obj, (char *)0));
             else {
                 pline("Clash!");
                 wake_nearby();
@@ -1196,7 +1195,7 @@ struct obj *obj;
 
                     trap_with_u->conjoined |= (1 << idx);
                     trap->conjoined |= (1 << adjidx);
-                    pline("You clear some debris from between the pits.");
+                    You("clear some debris from between the pits.");
                 }
             } else if (u.utrap && u.utraptype == TT_PIT
                        && (trap_with_u = t_at(u.ux, u.uy)) != 0) {
@@ -2343,7 +2342,7 @@ struct monst *mdef, *magr;
 
     if (flags.verbose) {
         if (youattack) {
-            pline("You stomp the ground!");
+            You("stomp the ground!");
         } else {
             if (canseemon(magr))
                 pline("%s stomps the ground!", Monnam(magr));
@@ -2357,7 +2356,7 @@ struct monst *mdef, *magr;
         /* The existing chasm grows larger. A pit creator that is low on health
          * is more likely to dig all the way through and turn it into a hole. */
         if (canseexy) {
-            pline("The %s below %s grows deeper!",
+            pline_The("%s below %s grows deeper!",
                   trap->ttyp == HOLE ? "chasm" : "pit",
                   youdefend ? "you" : mon_nam(mdef));
         }

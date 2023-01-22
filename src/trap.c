@@ -1647,7 +1647,7 @@ unsigned trflags;
                     if (!Hallucination)
                         pline("A cloud of brightly colored smoke billows up around you!");
                     else
-                        pline("The floor lights came on!  Let's disco!");
+                        pline_The("floor lights came on!  Let's disco!");
                 } else {
                     pline("It smells sort of %s in here.",
                           Hallucination ? "purple" : "funky");
@@ -1937,7 +1937,7 @@ struct obj *otmp;
         steedhit = TRUE;
         break;
     case SPEAR_TRAP:
-        pline("The spear stabs %s%s!",
+        pline_The("spear stabs %s%s!",
               (is_flyer(steed->data) || Levitation || Flying) ? "at " : "",
               mon_nam(steed));
         if (is_flyer(steed->data) || Levitation || Flying) {
@@ -2826,7 +2826,7 @@ register struct monst *mtmp;
                       surface(mtmp->mx, mtmp->my),
                       mon_nam(mtmp));
             else if (see_it)
-                You("see a freezing cloud shoot from the %s!",
+                You_see("a freezing cloud shoot from the %s!",
                     surface(mtmp->mx, mtmp->my));
             
             if (resists_cold(mtmp)) {
@@ -2851,7 +2851,7 @@ register struct monst *mtmp;
                     pline("A cascade of steamy bubbles erupts from the %s under %s!",
                           surface(mtmp->mx, mtmp->my), mon_nam(mtmp));
                 else if (see_it)
-                    You("see a cascade of steamy bubbles erupt from the %s!",
+                    You_see("a cascade of steamy bubbles erupt from the %s!",
                         surface(mtmp->mx, mtmp->my));
                 if (rn2(2)) {
                     if (in_sight)
@@ -3213,7 +3213,7 @@ register struct monst *mtmp;
             }
             if (is_flyer(mptr)) {
                 if (in_sight)
-                    pline("The spear isn't long enough to reach %s.", mon_nam(mtmp));
+                    pline_The("spear isn't long enough to reach %s.", mon_nam(mtmp));
             } else if (thick_skinned(mptr)) {
                 if (in_sight)
                     pline("But it breaks off against %s.", mon_nam(mtmp));
@@ -3407,7 +3407,7 @@ float_up()
             (void) buried_ball(&cc);
             /* being chained to the floor blocks levitation from floating
                above that floor but not from enhancing carrying capacity */
-            You("feel lighter, but your %s is still chained to the %s.",
+            You_feel("lighter, but your %s is still chained to the %s.",
                 body_part(LEG),
                 IS_ROOM(levl[cc.x][cc.y].typ) ? "floor" : "ground");
         } else if (u.utraptype == WEB) {
@@ -3820,9 +3820,9 @@ domagictrap()
                        && !pm_invisible(youmonst.data)) {
                 if (!Blind) {
                     if (!See_invisible)
-                        pline("You can see yourself again!");
+                        You("can see yourself again!");
                     else
-                        pline("You can't see through yourself anymore.");
+                        You_cant("see through yourself anymore.");
                 }
             } else {
                 /* If we're invisible from another source */
@@ -4087,7 +4087,7 @@ xchar x, y;
         oart = obj->oartifact;
 
     if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
-        pline("The egg starts to hatch!");
+        pline_The("egg starts to hatch!");
         hatch_faster(obj);
         return FALSE;
     }
@@ -4173,7 +4173,7 @@ struct obj *obj;
             ) {
             if (!Blind) {
                 if (victim == &youmonst)
-                    pline("Your %s.", aobjnam(obj, "fade"));
+                    Your("%s.", aobjnam(obj, "fade"));
                 else if (vismon)
                     pline("%s %s.", s_suffix(Monnam(victim)),
                           aobjnam(obj, "fade"));
@@ -4301,7 +4301,7 @@ xchar x, y;
 #endif
            ) return 0;
         if (in_invent)
-            pline("Your %s %s.", ostr, vtense(ostr, "fade"));
+            Your("%s %s.", ostr, vtense(ostr, "fade"));
 
         obj->otyp = SCR_BLANK_PAPER;
         obj->dknown = 0;
@@ -4317,7 +4317,7 @@ xchar x, y;
             return 0;
         }
         if (in_invent)
-            pline("Your %s %s.", ostr, vtense(ostr, "fade"));
+            Your("%s %s.", ostr, vtense(ostr, "fade"));
 
         if (obj->otyp == SPE_NOVEL) {
             obj->novelidx = 0;
@@ -4396,7 +4396,7 @@ xchar x, y;
             return ER_DESTROYED;
         } else if (obj->odiluted) {
             if (in_invent)
-                pline("Your %s %s further.", ostr, vtense(ostr, "dilute"));
+                Your("%s %s further.", ostr, vtense(ostr, "dilute"));
 
             obj->otyp = POT_WATER;
             obj->dknown = 0;
@@ -4407,7 +4407,7 @@ xchar x, y;
             return ER_DAMAGED;
         } else if (obj->otyp != POT_WATER && obj->otyp != POT_OIL) {
             if (in_invent)
-                pline("Your %s %s.", ostr, vtense(ostr, "dilute"));
+                Your("%s %s.", ostr, vtense(ostr, "dilute"));
 
             obj->odiluted++;
             if (in_invent)
@@ -6827,7 +6827,7 @@ int x, y;
     int style;
     if (yn("Disarm the trap?") == 'y') {
         if (rnl(20) >= 10) {
-            pline("The force fails you this time!");
+            pline_The("force fails you this time!");
             return 1;
         }
         /* copied from trap.c */
@@ -6881,7 +6881,7 @@ int x, y;
             wake_nearby();
             break;
         default:
-            You("can't spring this trap.");
+            You_cant("spring this trap.");
             return 0;
         }
     }

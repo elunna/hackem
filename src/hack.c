@@ -187,7 +187,7 @@ moverock()
                 if (Blind)
                     feel_location(sx, sy);
                 if (canspotmon(mtmp)) {
-                    pline("There's %s on the other side.", a_monnam(mtmp));
+                    There("is %s on the other side.", a_monnam(mtmp));
                     deliver_part1 = TRUE;
                 } else {
                     You_hear("a monster behind %s.", the(xname(otmp)));
@@ -905,7 +905,7 @@ int mode;
                so we won't get here, hence don't need to worry about
                "there" being somewhere the player isn't sure of */
             if (mode == DO_MOVE)
-                pline("There is an obstacle there.");
+                There("is an obstacle there.");
             return FALSE;
         } else if (tmpr->typ == IRONBARS) {
             if ((dmgtype(youmonst.data, AD_RUST)
@@ -955,7 +955,7 @@ int mode;
                     You("ooze under the door.");
             } else if (Underwater) {
                 if (mode == DO_MOVE)
-                    pline("There is an obstacle there.");
+                    There("is an obstacle there.");
                 return FALSE;
             } else if (tunnels(youmonst.data) && !needspick(youmonst.data)) {
                 /* Eat the door. */
@@ -2596,7 +2596,7 @@ boolean newspot;             /* true if called by spoteffects */
             }
         } else if (shallow_water && !Wwalking) {
             if (is_puddle(u.ux, u.uy) && u.umoved)
-                pline("You splash through the shallow water.");
+                You("splash through the shallow water.");
 
             if (is_sewage(u.ux, u.uy) && u.umoved && !rn2(4)
                 && !is_tortle(youmonst.data)
@@ -2624,7 +2624,7 @@ boolean newspot;             /* true if called by spoteffects */
                      && (!uarmf
                          || strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4))) {
                 int dam = rnd(6);
-                pline("Your %s rust!", makeplural(body_part(FOOT)));
+                Your("%s rust!", makeplural(body_part(FOOT)));
                 if (u.mhmax > dam)
                     u.mhmax -= dam;
                 losehp(dam, "rusting away", NO_KILLER_PREFIX);
@@ -2632,7 +2632,7 @@ boolean newspot;             /* true if called by spoteffects */
                 int dam = d(3, 12);
                 if (u.mhmax > dam)
                     u.mhmax -= ((dam + 1) / 2);
-                pline("The water burns your flesh!");
+                pline_The("water burns your flesh!");
                 losehp(dam, "contact with water", NO_KILLER_PREFIX);
             }
             if (verysmall(youmonst.data))
@@ -3659,13 +3659,13 @@ register const char *knam;
 boolean k_format;
 {
     /* [max] Invulnerable no dmg */
-	if (Invulnerable) {
-		n = 0;
-		pline("You are unharmed!");
-		/* NOTE: DO NOT RETURN - losehp is also called to check for death 
-		 * via u.uhp < 1
-		 */
-	}        
+    if (Invulnerable) {
+        n = 0;
+        You("are unharmed!");
+        /* NOTE: DO NOT RETURN - losehp is also called to check for death 
+         * via u.uhp < 1
+         */
+    }        
     if (Upolyd) {
         u.mh -= n;
         if (u.mhmax < u.mh)
@@ -4186,7 +4186,7 @@ xchar x, y;
                 lev->looted &= ~TREE_LOOTED;
                 block_point(pos.x, pos.y);
                 /*if (cansee(pos.x, pos.y))
-                    You("see a tree shoot up from the %s!", surface(pos.x, pos.y));*/
+                    You_see("a tree shoot up from the %s!", surface(pos.x, pos.y));*/
                 newsym(pos.x, pos.y);
                 return TRUE;
             }
