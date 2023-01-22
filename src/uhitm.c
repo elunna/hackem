@@ -1740,7 +1740,8 @@ int dieroll;
             adjalign(Role_if(PM_KNIGHT) ? -3 : -1);
         }
         if (obj && !rn2(nopoison)
-            && !iskas && !isvenom) {
+            && !iskas && !isvenom
+            && !is_bullet(obj)) {
             /* remove poison now in case obj ends up in a bones file */
             obj->opoisoned = FALSE;
             /* defer "obj is no longer poisoned" until after hit message */
