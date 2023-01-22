@@ -2519,7 +2519,7 @@ struct obj *obj, *otmp;
                 hatch_faster(obj);
             }
             /* Try to arm bombs on the ground */
-            if (is_bomb(obj)) {
+            if (is_bomb(obj) && !obj->oarmed) {
                 handle_bomb(obj, !context.mon_moving);
             }
             break;
@@ -5216,7 +5216,7 @@ boolean u_caused;
             continue;
         }
         /* Try to arm bombs on the ground */
-        if (is_bomb(obj)) {
+        if (is_bomb(obj) && !obj->oarmed) {
             handle_bomb(obj, !context.mon_moving);
             continue;
         }
@@ -6445,7 +6445,7 @@ int osym, dmgtyp;
             }
             break;
         case WEAPON_CLASS:
-            if (is_bomb(obj)) {
+            if (is_bomb(obj) && !obj->oarmed) {
                 handle_bomb(obj, !context.mon_moving);
             }
             return; /* For now we'll just light one bomb at a time */
@@ -6760,7 +6760,7 @@ int osym, dmgtyp;
                 }
                 break;
             case WEAPON_CLASS:
-                if (is_bomb(obj)) {
+                if (is_bomb(obj) && !obj->oarmed) {
                     handle_bomb(obj, !context.mon_moving);
                 }
                 return 0; /* For now we'll just light one bomb at a time */ 

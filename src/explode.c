@@ -1039,6 +1039,13 @@ arm_bomb(struct obj *obj, boolean yours)
     if (obj->oarmed) {
         return;
     }
+    if (carried(obj) && obj->unpaid && costly_spot(u.ux, u.uy)) {
+        /* if it catches while you have it, then it's your tough luck */
+        verbalize("You arm %s, you bought %s!",
+                  (obj->quan > 1L) ? "them" : "it",
+                  (obj->quan > 1L) ? "them" : "it");
+        bill_dummy_object(obj);
+    }
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
         attach_bomb_blow_timeout(obj, 3, yours);
     } else if (is_bomb(obj)) {
