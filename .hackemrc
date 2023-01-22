@@ -604,8 +604,8 @@ AUTOPICKUP_EXCEPTION=">.*unpaid.*"
 # Instead of #untrap, use 'v'
 BIND=v:untrap
 #BIND=v:wizmakemap
-# Instead of #rub, use '~'
-BIND=~:rub
+# Instead of #force, use '~'
+BIND=~:force
 # Instead of #dip, use '!'
 BIND=!:dip
 
