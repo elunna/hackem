@@ -1560,8 +1560,8 @@ struct obj *obj;
             /* Your("lamp has run out of power."); */
             Your("%s has run out of power.", xname(obj));
         else if (obj->otyp == TORCH) {
-		    Your("torch has burnt out and cannot be relit.");
-		}
+            Your("torch has burnt out and cannot be relit.");
+        }
         else
             pline("This %s has no oil.", xname(obj));
         return;
@@ -1576,18 +1576,19 @@ struct obj *obj;
             check_unpaid(obj);
             pline("%slamp is now on.", Shk_Your(buf, obj));
         } else if (obj->otyp == TORCH) {
-		    check_unpaid(obj);
-		    pline("%s flame%s burn%s%s", s_suffix(Yname2(obj)),
-			  plur(obj->quan), obj->quan > 1L ? "" : "s",
-			  Blind ? "." : " brightly!");
-		} else if (is_lightsaber(obj)) {
-		    /* WAC -- lightsabers */
-		    /* you can see the color of the blade */
-		    
-		    if (!Blind) makeknown(obj->otyp);
-		    You("ignite %s.", yname(obj));
-		    unweapon = FALSE;
-		} else { /* candle(s) */
+            check_unpaid(obj);
+            pline("%s flame%s burn%s%s", s_suffix(Yname2(obj)),
+                  plur(obj->quan), obj->quan > 1L ? "" : "s",
+                  Blind ? "." : " brightly!");
+        } else if (is_lightsaber(obj)) {
+            /* WAC -- lightsabers */
+            /* you can see the color of the blade */
+            check_unpaid(obj);
+            if (!Blind) 
+                makeknown(obj->otyp);
+            You("ignite %s.", yname(obj));
+            unweapon = FALSE;
+        } else { /* candle(s) */
             pline("%s flame%s %s%s", s_suffix(Yname2(obj)), plur(obj->quan),
                   otense(obj, "burn"), Blind ? "." : " brightly!");
             if (obj->unpaid 

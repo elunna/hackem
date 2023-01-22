@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Usage fee for lightsabers.
 Raised price of bombs to 50.
 Charging for arming bombs in shops.
 Misc bomb blame fixes.
