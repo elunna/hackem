@@ -3074,14 +3074,9 @@ find_ac()
      * they are "growing" an ice armor as they increase in power - kind of 
      * like the tortle. The Ice Mage has a bit of a deficit compared to the 
      * Flame Mage, so hopefully this helps offset the imbalance. 
-     * We'll impose similar restrictions - 
-     * no armor (except robes) and no shields allowed */
-    if (Role_if(PM_ICE_MAGE) && (!uarm ||
-              uarm->otyp == ROBE ||
-              uarm->otyp == ROBE_OF_POWER ||
-              uarm->otyp == ROBE_OF_WEAKNESS ||
-              uarm->otyp == ROBE_OF_PROTECTION)
-        && !uarms) {
+     * We'll impose similar restrictions - no armor (except robes) and no 
+     * shields allowed */
+    if (Role_if(PM_ICE_MAGE) && (!uarm || is_robe(uarm)) && !uarms) {
         /*WAC cap off the ac bonus to -11 */
         if (u.ulevel > 18) 
             uac -= 11;

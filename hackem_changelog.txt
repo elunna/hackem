@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Cleanup in ice mage AC calculation.
 Fix: Tortle monks starts with a toque instead of a robe of power.
 Breaking wands of healing/extra healing heals you and surrounding monsters.
 Fix: Lightsabers generated with few charges (caused by converting to WEAPON_CLASS)
