@@ -1042,30 +1042,6 @@ struct monst *mtmp;
                 }
             }
             break;
-
-	    case GREEN_LIGHTSABER:
-	    case BLUE_LIGHTSABER:
-	    case RED_LIGHTSABER:
-        case RED_DOUBLE_LIGHTSABER:
-            if (is_cursed) {
-                if (obj->lamplit) {
-                    end_burn(obj, TRUE);
-                    obj->age = 0;
-                    if (!Blind)
-                        pline("%s deactivates!", The(xname(obj)));
-                } else
-                    obj->age = 0;
-            } else if (is_blessed) {
-                obj->age = 1500;
-                p_glow2(obj, NH_BLUE);
-            } else {
-                obj->age += 750;
-                if (obj->age > 1500) 
-                    obj->age = 1500;
-                p_glow1(obj);
-            }
-            break;
-        
         case CRYSTAL_BALL:
             if (is_cursed) {
                 stripspe(obj);
@@ -1147,6 +1123,24 @@ struct monst *mtmp;
             break;
         } /* switch */
 
+    } else if (is_lightsaber(obj)) {
+        if (is_cursed) {
+            if (obj->lamplit) {
+                end_burn(obj, TRUE);
+                obj->age = 0;
+                if (!Blind)
+                    pline("%s deactivates!", The(xname(obj)));
+            } else
+                obj->age = 0;
+        } else if (is_blessed) {
+            obj->age = 1500;
+            p_glow2(obj, NH_BLUE);
+        } else {
+            obj->age += 750;
+            if (obj->age > 1500) 
+                obj->age = 1500;
+            p_glow1(obj);
+        }
     } else {
     not_chargable:
         if (yours)
