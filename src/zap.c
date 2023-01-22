@@ -2405,10 +2405,7 @@ struct obj *obj, *otmp;
             break;
         case WAN_DELUGE:
             if (obj->lamplit) {
-                end_burn(obj, TRUE);
-                if (cansee(obj->ox, obj->oy)) {
-                    You_see("%s go out.", an(xname(obj)));
-                }
+                snuff_lit(obj);
             }
             break;
         case WAN_CANCELLATION:

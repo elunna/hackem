@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Snuffing light sources when wand of deluge is broken.
 Refactored a bunch of artifact string literals.
 Added binding for #force in included rcfile.
 Used verbalize instead of pline in more of the shopkeeper service dialogue.
