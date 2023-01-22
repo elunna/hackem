@@ -1712,6 +1712,14 @@ char *usr_text;
         
         wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
+        if (a_info.wield_res) {
+            Sprintf(buf, "\t%s", a_info.wield_res);
+            OBJPUTSTR(buf);
+        }
+        if (a_info.wield_warn) {
+            Sprintf(buf, "\t%s", a_info.wield_warn);
+            OBJPUTSTR(buf);
+        }
         for (i = 0; i < INTRINSICS; i++) {
             if (a_info.wielded[i]) {
                 Sprintf(buf, "\t%s", a_info.wielded[i]);
@@ -1719,11 +1727,15 @@ char *usr_text;
                 wielded = TRUE;
             }
         }
-        if (!wielded)
+        if (!wielded && !a_info.wield_res && !a_info.wield_warn)
             OBJPUTSTR("\tNone");
         
         carried = FALSE;
         OBJPUTSTR("While carried:");
+        if (a_info.carr_res) {
+            Sprintf(buf, "\t%s", a_info.carr_res);
+            OBJPUTSTR(buf);
+        }
         for (i = 0; i < INTRINSICS; i++) {
             if (a_info.carried[i]) {
                 Sprintf(buf, "\t%s", a_info.carried[i]);
@@ -1731,7 +1743,7 @@ char *usr_text;
                 carried = TRUE;
             }
         }
-        if (!carried)
+        if (!carried && !a_info.carr_res)
             OBJPUTSTR("\tNone");
         
         Sprintf(buf, "When #invoked: %s ", a_info.invoke);
@@ -1740,7 +1752,14 @@ char *usr_text;
         if (a_info.xinfo) {
             OBJPUTSTR(a_info.xinfo);
         }
+        /* Free some of these manually */
+        free(a_info.wield_warn);
+        free(a_info.wield_res);
+        free(a_info.carr_res);
+        free(a_info.attack);
+        free(a_info.dbldmg);
     }
+
 }
 
 /*

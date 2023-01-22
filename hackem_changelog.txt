@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Silenced the warnings from artifact_info.
 Fix: Swimmers that can also conceal themselves will prefer hiding in the water to under the objects.
 Drowsing Rod only prints mist msg when monster can move.
 Fix: Snuffing light sources when wand of deluge is broken.

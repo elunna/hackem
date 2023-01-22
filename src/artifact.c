@@ -4531,12 +4531,12 @@ artifact_info(int anum)
         
         /* Does this deal double damage? */
         if (artilist[anum].attk.damd == 0) {
+            art_info.dbldmg = malloc(100);
             if (art_info.hates) {
                 Sprintf(buf, "\t\tdouble damage vs %s", art_info.hates);
-                art_info.dbldmg = malloc(100);
                 strcpy(art_info.dbldmg, buf);
             } else
-                strcpy(art_info.dbldmg, "deals double damage");
+                strcpy(art_info.dbldmg, "\t\tdeals double damage");
         }
     } else
         art_info.attack = NULL;
@@ -4544,84 +4544,85 @@ artifact_info(int anum)
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
         Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
-        art_info.wielded[0] = malloc(100);
-        strcpy(art_info.wielded[0], buf);
+        art_info.wield_res = malloc(100);
+        strcpy(art_info.wield_res, buf);
     }
     
     if ((artilist[anum].spfx & SPFX_SEARCH) != 0)
-        art_info.wielded[1] = "searching";
+        art_info.wielded[0] = "searching";
     if ((artilist[anum].spfx & SPFX_HALRES) != 0)
-        art_info.wielded[2] = "hallucination resistance";
+        art_info.wielded[1] = "hallucination resistance";
     if ((artilist[anum].spfx & SPFX_ESP) != 0)
-        art_info.wielded[3] = "telepathy";
+        art_info.wielded[2] = "telepathy";
     if ((artilist[anum].spfx & SPFX_STLTH) != 0)
-        art_info.wielded[4] = "stealth";
+        art_info.wielded[3] = "stealth";
     if ((artilist[anum].spfx & SPFX_REGEN) != 0)
-        art_info.wielded[5] = "regeneration";
+        art_info.wielded[4] = "regeneration";
     if ((artilist[anum].spfx & SPFX_EREGEN) != 0)
-        art_info.wielded[6] = "energy regeneration";
+        art_info.wielded[5] = "energy regeneration";
     if ((artilist[anum].spfx & SPFX_HSPDAM) != 0)
-        art_info.wielded[7] = "half spell damage";
+        art_info.wielded[6] = "half spell damage";
     if ((artilist[anum].spfx & SPFX_HPHDAM) != 0)
-        art_info.wielded[8] = "half physical damage";
+        art_info.wielded[7] = "half physical damage";
     if ((artilist[anum].spfx & SPFX_TCTRL) != 0)
-        art_info.wielded[9] = "teleport control";
+        art_info.wielded[8] = "teleport control";
     if ((artilist[anum].spfx & SPFX_LUCK) != 0)
-        art_info.wielded[10] = "luck";
+        art_info.wielded[9] = "luck";
     if ((artilist[anum].spfx & SPFX_XRAY) != 0)
-        art_info.wielded[11] = "astral vision";
+        art_info.wielded[10] = "astral vision";
     if ((artilist[anum].spfx & SPFX_REFLECT) != 0)
-        art_info.wielded[12] = "reflection";
+        art_info.wielded[11] = "reflection";
     if ((artilist[anum].spfx & SPFX_PROTECT) != 0)
-        art_info.wielded[13] = "protection";
+        art_info.wielded[12] = "protection";
     if ((artilist[anum].spfx & SPFX_BREATHE) != 0)
-        art_info.wielded[14] = "magical breathing";
+        art_info.wielded[13] = "magical breathing";
     
     if ((artilist[anum].spfx & SPFX_WARN) != 0) {
         if ((artilist[anum].spfx & SPFX_DFLAGH) != 0) {
             Sprintf(buf, "warning against %s ", art_info.hates);
-            art_info.wielded[15] = malloc(100);
-            strcpy(art_info.wielded[15], buf);
+            art_info.wield_warn = malloc(100);
+            strcpy(art_info.wield_warn, buf);
         } else {
-            art_info.wielded[15] = "warning";
+            /*art_info.wield_warn = "warning";*/
+            strcpy(art_info.wield_warn, "warning");
         }
     }
     /* Granted while carried. */
     if (artilist[anum].cary.adtyp) {
         Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].cary.adtyp, TRUE));
-        art_info.carried[0] = malloc(100);
-        strcpy(art_info.carried[0], buf);
+        art_info.carr_res = malloc(100);
+        strcpy(art_info.carr_res, buf);
     } 
     if ((artilist[anum].cspfx & SPFX_SEARCH) != 0)
-        art_info.carried[1] = "searching";
+        art_info.carried[0] = "searching";
     if ((artilist[anum].cspfx & SPFX_HALRES) != 0)
-        art_info.carried[2] = "hallucination resistance";
+        art_info.carried[1] = "hallucination resistance";
     if ((artilist[anum].cspfx & SPFX_ESP) != 0)
-        art_info.carried[3] = "telepathy";
+        art_info.carried[2] = "telepathy";
     if ((artilist[anum].cspfx & SPFX_STLTH) != 0)
-        art_info.carried[4] = "stealth";
+        art_info.carried[3] = "stealth";
     if ((artilist[anum].cspfx & SPFX_REGEN) != 0)
-        art_info.carried[5] = "regeneration";
+        art_info.carried[4] = "regeneration";
     if ((artilist[anum].cspfx & SPFX_EREGEN) != 0)
-        art_info.carried[6] = "energy regeneration";
+        art_info.carried[5] = "energy regeneration";
     if ((artilist[anum].cspfx & SPFX_HSPDAM) != 0)
-        art_info.carried[7] = "half spell damage";
+        art_info.carried[6] = "half spell damage";
     if ((artilist[anum].cspfx & SPFX_HPHDAM) != 0)
-        art_info.carried[8] = "half physical damage";
+        art_info.carried[7] = "half physical damage";
     if ((artilist[anum].cspfx & SPFX_TCTRL) != 0)
-        art_info.carried[9] = "teleport control";
+        art_info.carried[8] = "teleport control";
     if ((artilist[anum].cspfx & SPFX_LUCK) != 0)
-        art_info.carried[10] = "luck";
+        art_info.carried[9] = "luck";
     if ((artilist[anum].cspfx & SPFX_XRAY) != 0)
-        art_info.carried[11] = "astral vision";
+        art_info.carried[10] = "astral vision";
     if ((artilist[anum].cspfx & SPFX_REFLECT) != 0)
-        art_info.carried[12] = "reflection";
+        art_info.carried[11] = "reflection";
     if ((artilist[anum].cspfx & SPFX_PROTECT) != 0)
-        art_info.carried[13] = "protection";
+        art_info.carried[12] = "protection";
     if ((artilist[anum].cspfx & SPFX_BREATHE) != 0)
-        art_info.carried[14] = "magical breathing";
+        art_info.carried[13] = "magical breathing";
     if ((artilist[anum].cspfx & SPFX_WARN) != 0)
-        art_info.carried[15] = "warning";
+        art_info.carried[14] = "warning";
 
     switch (artilist[anum].inv_prop) {
     case TAMING: art_info.invoke = "Taming"; break;
@@ -4909,7 +4910,6 @@ struct obj *otmp;
     return ((artilist[art].spfx & SPFX_NOWISH) != 0L);
 }
 
-
 static const char *random_seasound[] = {
     "distant waves",
     "distant surf",
@@ -4937,11 +4937,11 @@ static const char *random_seasound[] = {
 void
 arti_poly_contents(struct obj *obj)
 {
-    struct obj *dobj = 0;  /*object to be deleted*/
+    struct obj *dobj = 0;  /* object to be deleted */
     struct obj *otmp;
-    You_hear("%s.",random_seasound[rn2(SIZE(random_seasound))]);
+    You_hear("%s.", random_seasound[rn2(SIZE(random_seasound))]);
     
-    for (otmp = obj->cobj; otmp; otmp = otmp->nobj){
+    for (otmp = obj->cobj; otmp; otmp = otmp->nobj) {
         if (!otmp->unpaid)
             otmp->no_charge = 1;
         if (dobj) {
