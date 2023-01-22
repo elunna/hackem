@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Breaking wands of healing/extra healing heals you and surrounding monsters.
 Fix: Lightsabers generated with few charges (caused by converting to WEAPON_CLASS)
 Fix: Lightsabers couldn't be recharged (caused by converting them to WEAPON_CLAS)
 Fix: Breaking a wand of deluge wasn't affecting monsters.

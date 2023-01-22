@@ -4589,7 +4589,8 @@ struct obj *obj;
     case WAN_HEALING:
     case WAN_EXTRA_HEALING:
         dmg = 0;
-        goto discard_broken_wand;
+        affects_objects = FALSE;
+        break;
     case WAN_FEAR:
         if (!Role_if(PM_NECROMANCER)) {
             make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
@@ -4605,7 +4606,9 @@ struct obj *obj;
     /* [TODO?  This really ought to prevent the explosion from being
        fatal so that we never leave a bones file where none of the
        surrounding targets (or underlying objects) got affected yet.] */
-    if (obj->otyp != WAN_WIND)
+    if (obj->otyp != WAN_WIND
+            && obj->otyp != WAN_HEALING 
+            && obj->otyp != WAN_EXTRA_HEALING)
         explode(obj->ox, obj->oy, -(obj->otyp), rnd(dmg), WAND_CLASS,
                 EXPL_MAGICAL);
     /* prepare for potential feedback from polymorph... */
