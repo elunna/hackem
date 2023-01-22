@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Plastic wands cannot be broken.
 Usage fee for masks.
 Usage fee for lightsabers.
 Raised price of bombs to 50.
