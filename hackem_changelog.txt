@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Piratesay: Hmm -> Arr
 Fix: Zombies could be obliterated by Undead Slayer pets or other causes.
 Fix missing semicolon in last commit. Oops.
 Fix: Animate Dead spell could select tins/food as targets. Fixes #182.

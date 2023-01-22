@@ -141,6 +141,8 @@ piratesay(const char *orig)
     orig = replace(orig, "Uh-oh.", "Sink me!");
     orig = replace(orig, "Oh my!", "Shiver me timbers!");
     orig = replace(orig, "What?", "Arr!");
+    orig = replace(orig, "Hmmm", "Arr);
+    orig = replace(orig, "Hmm", "Arr");
     orig = replace(orig, "Why?", "Scupper that!");
     orig = replace(orig, "Oh no!", "avast ye!");
     orig = replace(orig, "Oh no", "avast ya");
