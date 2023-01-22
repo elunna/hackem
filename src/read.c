@@ -2272,7 +2272,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
 
         /*obj = getobj((const char *) revivables, "revive");*/
-        if (!(obj = floorfood("revive", 0)))
+        if (!(obj = floorfood("revive", 1)))
             return 0;
         if (cost < 0)
             cost = 0;
@@ -2281,6 +2281,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if ((rn2(5) + u.ulevel) < mons[obj->corpsenm].mlevel)
             Your("attempt to animate the dead failed...");
 #endif
+        You("channel your life force into the revivification!")
+        if (Upolyd)
+            u.mh -= cost;
+        else
+            u.uhp -= cost;
         mtmp = revive(obj, TRUE);
         if (mtmp) {
             if (Is_blackmarket(&u.uz))
@@ -2294,10 +2299,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 obfree(pseudo, NULL);
             }
         }
-        if (Upolyd)
-            u.mh -= cost;
-        else
-            u.uhp -= cost;
         break;
     }
     case SCR_ANNIHILATION:

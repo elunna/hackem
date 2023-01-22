@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Animate Dead spell could select tins/food as targets. Fixes #182.
 Unpoisoned bullets show no message (they break regardless)
 Fix: Bullets silently break when falling down stairs.
 Refactored a bunch of text using the pline wrappers like You_see, You_hear, You_cant, etc.
