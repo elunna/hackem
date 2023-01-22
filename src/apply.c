@@ -2543,9 +2543,14 @@ struct obj **optr;
 {
     register struct obj *obj = *optr;
     int old_light, new_light;
+    if (obj->unpaid && costly_spot(u.ux, u.uy)) {
+        verbalize("You wear it, you buy it!");
+        bill_dummy_object(obj);
+    }
     
     if (!polyok(&mons[obj->corpsenm])) {
         pline("%s violently, then splits in two!", Tobjnam(obj, "shudder"));
+        
         useup(obj);
         return TRUE;
     }
@@ -5025,6 +5030,7 @@ doapply()
     case KEG:
         if (obj->spe > 0) {
             consume_obj_charge(obj, TRUE);
+            /*check_unpaid(obj);*/
             otmp = mksobj(POT_BOOZE, FALSE, FALSE);
             otmp->blessed = obj->blessed;
             otmp->cursed = obj->cursed;
