@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Grimtooth skips other attacks after instakill.
 Fix: Grimtooth's instakill vs elves.
 Silenced the warnings from artifact_info.
 Fix: Swimmers that can also conceal themselves will prefer hiding in the water to under the objects.

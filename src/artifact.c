@@ -2275,6 +2275,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         monkilled(mdef, 0, AD_DISE);
                     }
                 }
+                msgprinted = TRUE;
+                return realizes_damage;
             } else {
                 if (youdefend || canseemon(mdef))
                     pline_The("filthy dagger %s %s%c",
