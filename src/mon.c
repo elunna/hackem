@@ -3805,7 +3805,7 @@ boolean was_swallowed; /* digestion */
         && (wielding_artifact(ART_TROLLSBANE) || artdial)) {
         if (cansee(mon->mx, mon->my))
             pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
-                  artdial ? "Mortality Dial" : "Trollsbane", s_suffix(mon_nam(mon)));
+                artiname(uwep->oartifact), s_suffix(mon_nam(mon)));
         return FALSE;
     }
 
@@ -3814,7 +3814,7 @@ boolean was_swallowed; /* digestion */
         && (wielding_artifact(ART_SUNSWORD) || artdial)) {
         if (cansee(mon->mx, mon->my))
             pline("In the presence of %s, %s corpse dissolves into nothingness.",
-                  artdial ? "Mortality Dial" : "Sunsword", s_suffix(mon_nam(mon)));
+                  artiname(uwep->oartifact), s_suffix(mon_nam(mon)));
         return FALSE;
     }
     

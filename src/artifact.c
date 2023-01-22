@@ -457,7 +457,6 @@ short *otyp;
             return a->name;
         }
     }
-
     return (char *) 0;
 }
 
@@ -1727,7 +1726,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 } else if (!rn2(10) && angel) {
                     /* instant incineration */
                     if (youdefend || canseemon(mdef))
-                        pline("Angelslayer's eldritch flame consumes %s!", hittee);
+                        pline("%s's eldritch flame consumes %s!", 
+                              artiname(otmp->oartifact), hittee);
                     if (youdefend) {
                         u.ugrave_arise = (NON_PM - 2); /* no corpse */
                         killer.format = NO_KILLER_PREFIX;
@@ -1997,7 +1997,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* if (attacks(AD_MAGM, otmp)) {*/
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage) {
-            pline_The("Master Sword hits %s.", hittee);
+            pline("%s hits %s.", artiname(otmp->oartifact), hittee);
             
             if (!rn2(10) && spec_dbon_applies) {
                 pline("A hail of magic missiles strikes!");
@@ -2290,7 +2290,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Drowsing Rod */
     if (attacks(AD_SLEE, otmp) && rn2(20)) {
         if (realizes_damage) {
-            pline_The("rod sprays a %s %s at %s!", rndcolor(),
+            pline_The("staff sprays a %s %s at %s!", rndcolor(),
             (rn2(2) ? "gas" : "mist"), hittee);
         }
         if (youdefend && 
@@ -2301,10 +2301,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             if (Blind)
                 You("are put to sleep!");
             else
-                You("are put to sleep by the Drowsing Rod!");
+                You("are put to sleep by %s!", artiname(otmp->oartifact));
         } else if (mdef->mcanmove && !breathless(mdef->data) && sleep_monst(mdef, d(2, 4), -1)) {
              if (!Blind)
-                pline("%s is put to sleep by Drowsing Rod's vapors!", Monnam(mdef));
+                pline("%s is put to sleep by %s's vapors!", Monnam(mdef), artiname(otmp->oartifact));
             slept_monst(mdef);
         }
         return realizes_damage;
@@ -2450,7 +2450,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_elf(youmonst.data),
                            Race_if(PM_ELF)) && k) {
-                    You_feel("Elfrist slice deep across your neck!");
+                    You_feel("%s slice deep across your neck!", artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2467,24 +2467,26 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_orc(youmonst.data),
                            Race_if(PM_ORC)) && k) {
-                    You_feel("Sting stab deep into your heart!");
+                    You_feel("%s stab deep into your heart!", artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
                 return TRUE;
             case ART_GRIMTOOTH:
                 if (youattack && racial_elf(mdef) && j) {
-                    You("push Grimtooth deep into the bowels of %s!", mon_nam(mdef));
+                    You("push %s deep into the bowels of %s!", 
+                        artiname(otmp->oartifact), mon_nam(mdef));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (!youattack && !youdefend
                            && magr && racial_elf(mdef) && j) {
                     if (cansee(magr->mx, magr->my))
-                        pline("%s pushes Grimtooth deep into %s bowels!",
-                              Monnam(magr), s_suffix(mon_nam(mdef)));
+                        pline("%s pushes %s deep into %s bowels!", Monnam(magr), 
+                              artiname(otmp->oartifact), s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_elf(youmonst.data),
                            Race_if(PM_ELF)) && k) {
-                    pline("Grimtooth penetrates your soft flesh, disembowelling you!");
+                    pline("%s penetrates your soft flesh, disembowelling you!",
+                          artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
                     return FALSE;
@@ -2492,13 +2494,13 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             case ART_SUNSWORD:
                 if (youattack && is_undead(mdef->data) && j) {
                     if (mdef->isvecna) {
-                        pline("Sunsword flares brightly, severely wounding %s!",
-                              mon_nam(mdef));
+                        pline("%s flares brightly, severely wounding %s!",
+                              artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr *= 3;
                         return TRUE;
                     } else {
-                        pline("Sunsword flares brightly as it incinerates %s!",
-                              mon_nam(mdef));
+                        pline("%s flares brightly as it incinerates %s!",
+                              artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                         xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
                     }
@@ -2506,19 +2508,20 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            && magr && is_undead(mdef->data) && j) {
                     if (mdef->isvecna) {
                         if (cansee(magr->mx, magr->my))
-                            pline("Sunsword flares brightly, severely wounding %s!",
-                                  mon_nam(mdef));
+                            pline("%s flares brightly, severely wounding %s!",
+                              artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr *= 3;
                         return TRUE;
                     } else {
                         if (cansee(magr->mx, magr->my))
-                            pline("Sunsword flares brightly as it incinerates %s!",
-                                  mon_nam(mdef));
+                            pline("%s flares brightly as it incinerates %s!",
+                                  artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                         mongone(mdef);
                     }
                 } else if (youdefend && is_undead(youmonst.data) && k) {
-                    pline_The("holy power of Sunsword incinerates your undead flesh!");
+                    pline_The("holy power of %s incinerates your undead flesh!",
+                              artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                     /* player returns to their original form */
                 } else
@@ -2544,31 +2547,32 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             case ART_DEMONBANE:
                 if (youattack && is_demon(mdef->data) && j) {
                     if (is_ndemon(mdef->data)) {
-                        pline("Demonbane gravely wounds %s!",
+                        pline("%s gravely wounds %s!", artiname(otmp->oartifact),
                               mon_nam(mdef));
                         *dmgptr *= 3;
                         return TRUE;
                     } else {
-                        pline("Demonbane shines brilliantly, destroying %s!",
-                              mon_nam(mdef));
+                        pline("%s shines brilliantly, destroying %s!",
+                              artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                     }
                 } else if (!youattack && !youdefend
                            && magr && is_demon(mdef->data) && j) {
                     if (is_ndemon(mdef->data)) {
                         if (cansee(magr->mx, magr->my))
-                            pline("Demonbane gravely wounds %s!",
-                                  mon_nam(mdef));
+                            pline("%s gravely wounds %s!", 
+                                  artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr *= 3;
                         return TRUE;
                     } else {
                         if (cansee(magr->mx, magr->my))
-                            pline("Demonbane shines brilliantly, destroying %s!",
-                                  mon_nam(mdef));
+                            pline("%s shines brilliantly, destroying %s!",
+                                  artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                     }
                 } else if (youdefend && is_demon(youmonst.data) && k) {
-                    pline("Demonbane shines brilliantly, destroying you!");
+                    pline("%s shines brilliantly, destroying you!",
+                          artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                     /* player returns to their original form */
                 } else
@@ -2760,10 +2764,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                       Monnam(magr), hittee);
         } else {
             if (youattack)
-                You("plunge the Doomblade deeply into %s!", mon_nam(mdef));
+                You("plunge the %s deeply into %s!", 
+                    artiname(otmp->oartifact), mon_nam(mdef));
             else
-                pline("%s plunges the Doomblade deeply into %s!",
-                      Monnam(magr), hittee);
+                pline("%s plunges the %s deeply into %s!",
+                      Monnam(magr), artiname(otmp->oartifact), hittee);
         }
         *dmgptr += rnd(4) * 5;
         return TRUE;
@@ -3072,7 +3077,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         /* Duplicated from uhitm.c */
         uchar withertime = max(2, *dmgptr);
         boolean lose_maxhp = (withertime >= 8); /* if already withering */
-        
         /* Most monster attacks don't do their normal damange, but the Staff
          * of Rot is an exceptions - it's not a monster attack, and the 
          * quarterstaff needs some help anyway. */
@@ -3081,13 +3085,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         boolean no_effect = (nonliving(youmonst.data) || is_vampshifter(&youmonst));
         if (youdefend && !no_effect) {
             lose_maxhp = (withertime >= 8); /* if already withering */
-                                                    
             if (Withering)
                 Your("withering speeds up!");
             else
                 You("begin to wither away!");
             incr_itimeout(&HWithering, withertime);
-            
             if (lose_maxhp) {
                 if (Upolyd && u.mhmax > 1) {
                     u.mhmax--;
@@ -3100,12 +3102,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         } else {
             if (canseemon(mdef))
                 pline("%s is withering away!", Monnam(mdef));
-
             if (mdef->mwither + withertime > UCHAR_MAX)
                 mdef->mwither = UCHAR_MAX;
             else
                 mdef->mwither += withertime;
-
             if (lose_maxhp && mdef->mhpmax > 1) {
                 mdef->mhpmax--;
                 mdef->mhp = min(mdef->mhp, mdef->mhpmax);
@@ -3186,11 +3186,13 @@ struct obj *obj;
 
     if (oart->inv_prop > LAST_PROP) {
         if (artinum == ART_FIREWALL && !Role_if(PM_FLAME_MAGE)) {
-            You("don't feel that kind of connection with Firewall.");
+            You("don't feel that kind of connection with %s.", 
+                artiname(obj->oartifact));
             return 1;
         }
         if (artinum == ART_DEEP_FREEZE && !Role_if(PM_ICE_MAGE)) {
-            You("don't feel that kind of connection with Deep Freeze.");
+            You("don't feel that kind of connection with %s.",
+                artiname(obj->oartifact));
             return 1;
         }
         /* It's a special power, not "just" a property */
@@ -3452,7 +3454,7 @@ struct obj *obj;
         }
         case SEFFECT: {
             struct obj* pseudo = NULL;
-            switch(artinum) {
+            switch (artinum) {
             case ART_IMHULLU:
                 pseudo = mksobj(SCR_AIR, FALSE, FALSE);
                 break;
@@ -3479,7 +3481,7 @@ struct obj *obj;
         case WITHER: {
             uchar withertime = max(20, 60);
             boolean lose_maxhp = (withertime >= 8); /* if already withering */
-            pline_The("Staff of Rot gleams with dark energy!");
+            pline("%s gleams with dark energy!", artiname(obj->oartifact));
             aggravate();
             
             if (Withering)

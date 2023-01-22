@@ -1413,7 +1413,7 @@ struct obj *otmp;
 {
     boolean candle = Is_candle(otmp);
     if (otmp->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
-        pline_The("candle flickers briefly, but it's flame burns on!");
+        pline("%s flickers briefly, but it's flame burns on!", artiname(otmp->oartifact));
         return FALSE;
     }
     if ((candle || otmp->otyp == CANDELABRUM_OF_INVOCATION)
@@ -1531,7 +1531,8 @@ struct obj *obj;
             lightsaber_deactivate(obj, TRUE);
             return;
         } else if (obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
-            pline_The("Candle of Eternal Flame will not stop burning!");
+            /*pline_The("%s will not stop burning!", xname(obj));*/
+            pline("%s will not stop burning!", artiname(obj->oartifact));
             return;
         } else
             You("snuff out %s.", yname(obj));
