@@ -165,38 +165,38 @@ const struct Role roles[] = {
       { 1, 0, 0, 1, 0, 1 },
       10, /* Energy */
       -10, 5, 0, 2, 10, A_INT, SPE_TELEPORT_AWAY, -4 },
-    { { "Flame Mage", 0 }, {
-            { "Spark",         0 },   /* WAC was Igniter */
-            { "Igniter",       0 },
-            { "Broiler",       0 },   /* WAC was Igniter */
-            { "Combuster",     0 },   /* WAC was Torcher */
-            { "Torcher",       0 },
-            { "Scorcher",      0 },   /* WAC was Torcher */
-            { "Incinerator",   0 },
-            { "Disintegrator", 0 },   /* WAC was Incinerator */
-            { "Flame-Master",  0 } },
-        "Earth", "Fire", "Ash", /* Special */
-        "Fla", "the great Circle of Flame", "the Water Mage's Cave",
-        PM_FLAME_MAGE, 
-        NON_PM, 
-        PM_HELL_HOUND_PUP,
-        PM_HIGH_FLAME_MAGE, 
-        PM_IGNITER,
-        PM_WATER_MAGE,
-        PM_WATER_ELEMENTAL, 
-        PM_RUST_MONSTER, 
-        S_ELEMENTAL, 
-        S_RUSTMONST,
-        ART_CANDLE_OF_ETERNAL_FLAME,
-        MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME,
-        ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-        /* Str Int Wis Dex Con Cha */
-        {   7, 9,  11,  7,  7,  7 },
-        {  12, 15, 20, 20, 20, 10 },
-        /* Init   Lower  Higher */
-        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-        {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
-        0, 1, 0, 2, 10, A_WIS, SPE_ENLIGHTEN, -4 },
+    { { "Flame Mage", 0 }, 
+      { { "Spark",         0 },   /* WAC was Igniter */
+        { "Igniter",       0 },
+        { "Broiler",       0 },   /* WAC was Igniter */
+        { "Combuster",     0 },   /* WAC was Torcher */
+        { "Torcher",       0 },
+        { "Scorcher",      0 },   /* WAC was Torcher */
+        { "Incinerator",   0 },
+        { "Disintegrator", 0 },   /* WAC was Incinerator */
+        { "Flame-Master",  0 } },
+      "Earth", "Fire", "Ash", /* Special */
+      "Fla", "the great Circle of Flame", "the Water Mage's Cave",
+      PM_FLAME_MAGE, 
+      NON_PM, 
+      PM_HELL_HOUND_PUP,
+      PM_HIGH_FLAME_MAGE, 
+      PM_IGNITER,
+      PM_WATER_MAGE,
+      PM_WATER_ELEMENTAL, 
+      PM_RUST_MONSTER, 
+      S_ELEMENTAL, 
+      S_RUSTMONST,
+      ART_CANDLE_OF_ETERNAL_FLAME,
+      MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME,
+      ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      {   7, 9,  11,  7,  7,  7 },
+      {  12, 15, 20, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
+      0, 1, 0, 2, 10, A_WIS, SPE_ENLIGHTEN, -4 },
     { { "Healer", 0 },
       { { "Rhizotomist", 0 },
         { "Empiric", 0 },
@@ -233,8 +233,8 @@ const struct Role roles[] = {
       { 4, 2, 0, 1, 0, 2 },
       20, /* Energy */
       10, 3, -3, 2, 10, A_WIS, SPE_CURE_SICKNESS, -4 },
-    { { "Ice Mage", 0}, {
-        { "Cooler",        0 },   /* WAC was Chiller */
+    { { "Ice Mage", 0 }, 
+      { { "Cooler",        0 },   /* WAC was Chiller */
         { "Condenser",     0 },   /* WAC was Chiller */
         { "Chiller",       0 },
         { "Froster",       0 },
@@ -243,30 +243,29 @@ const struct Role roles[] = {
         { "Freezer",       0 },
         { "Sublimer",      0 },   /* WAC was Freezer */
         { "Ice-Master",    0 } },
-        "Air", "Frost", "Smoke", /* Special */
-        "Ice", "the great Ring of Ice", "the Earth Mage's Cave",
-        PM_ICE_MAGE, 
-        NON_PM, 
-        PM_WINTER_WOLF_CUB,
-        PM_HIGH_ICE_MAGE, 
-        PM_FROSTER, 
-        PM_RAGNAROS,
-        PM_RUST_MONSTER, 
-        PM_XORN, 
-        S_RUSTMONST, 
-        S_XORN,
-        ART_STORM_WHISTLE,
-        MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_ILLITHID | MH_CENTAUR, 
-        ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
-        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
-        {   7, 10,  7,  7,  7,  7 },
-        {  10, 30, 10, 20, 20, 10 },
-        /* Init   Lower  Higher */
-        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-        {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
-        0, 1, 0, 
-        2, 10, A_INT, SPE_REFLECTION,    -4 /* From old role.c */
-    },
+      "Air", "Frost", "Smoke", /* Special */
+      "Ice", "the great Ring of Ice", "the Earth Mage's Cave",
+      PM_ICE_MAGE, 
+      NON_PM, 
+      PM_WINTER_WOLF_CUB,
+      PM_HIGH_ICE_MAGE, 
+      PM_FROSTER, 
+      PM_RAGNAROS,
+      PM_RUST_MONSTER, 
+      PM_XORN, 
+      S_RUSTMONST, 
+      S_XORN,
+      ART_STORM_WHISTLE,
+      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_ILLITHID | MH_CENTAUR, 
+      ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
+      /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+      {   7, 10,  7,  7,  7,  7 },
+      {  10, 30, 10, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
+      0, 1, 0, 
+      2, 10, A_INT, SPE_REFLECTION,    -4 },
     { { "Infidel", 0 },
       { { "Apostate", 0 },
         { "Heathen", 0 },
@@ -302,13 +301,10 @@ const struct Role roles[] = {
       { 4, 3, 0, 1, 0, 2 },
       10, /* Energy */
       10, 3, 1, 2, 10, A_WIS, SPE_FIREBALL, -4 },
-    { {"Jedi", 0}, 
+    { { "Jedi", 0 }, 
       { { "Youngling",     0 },
-        //{ "Padawan",       0 },
         { "Padawan",       0 },
-        //{ "Jedi Apprentice", 0 },
         { "Jedi Apprentice", 0 },
-        //{ "Jedi Knight",    0 },
         { "Jedi Knight",    0 },
         { "Jedi Hero",      0 },
         { "Jedi Master",    0 } },
@@ -339,8 +335,7 @@ const struct Role roles[] = {
       { 20, 4,  0, 8,  2, 4 },	/* Hit points */
       {  5, 4,  0, 1,  0, 4 },
       10, /* Energy */
-      0, 12 , -1, 2, 10, A_INT, SPE_CHARM_MONSTER, -4
-    },
+      0, 12 , -1, 2, 10, A_INT, SPE_CHARM_MONSTER, -4 },
     { { "Knight", 0 },
       { { "Gallant", 0 },
         { "Esquire", 0 },
@@ -358,16 +353,13 @@ const struct Role roles[] = {
       PM_KNIGHT,
       NON_PM,
       PM_PONY,
-      
       PM_KING_ARTHUR,
       PM_PAGE,
       PM_IXOTH,
-      
       PM_QUASIT,
       PM_OCHRE_JELLY,
       S_IMP,
       S_JELLY,
-      
       ART_MAGIC_MIRROR_OF_MERLIN,
       MH_HUMAN | MH_DWARF | MH_ELF | MH_ORC | MH_CENTAUR,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_CHAOTIC,
@@ -443,13 +435,13 @@ const struct Role roles[] = {
       ART_GREAT_DAGGER_OF_GLAURGNAA,
       MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
-	  /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
-	  {   7, 10,  7,  7,  7,  7 },
-	  {  10, 30, 10, 20, 20, 10 },
-	  /* Init   Lower  Higher */
-	  { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-	  {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
-	  0, 1, 0, 2, 10, A_INT, SPE_SUMMON_UNDEAD, -4 },
+      /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+      {   7, 10,  7,  7,  7,  7 },
+      {  10, 30, 10, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
+      0, 1, 0, 2, 10, A_INT, SPE_SUMMON_UNDEAD, -4 },
     { { "Priest", "Priestess" },
       { { "Aspirant", 0 },
         { "Acolyte", 0 },
@@ -682,33 +674,33 @@ const struct Role roles[] = {
       { 1, 0, 0, 1, 0, 1 },
       14, /* Energy */
       0, 5, 1, 2, 10, A_INT, SPE_CREATE_FAMILIAR, -4 },
-    { { "Undead Slayer", 0 }, {
-	  { "Assistant",    0 },
-	  { "Eliminator",   0 },
-	  { "Eliminator",   0 },
-	  { "Exterminator", 0 },
-	  { "Exterminator", 0 },
-	  { "Destroyer",   0 },
-	  { "Vindicator",  0 },
-	  { "Vindicator",  0 },
-	  { "Undead Slayer", 0 } },
-	"Seeker", "Osiris", "Seth", /* Egyptian */
-	"Und", "the Temple of Light", "the Crypt of Dracula",
-	PM_UNDEAD_SLAYER, NON_PM, NON_PM,
-	PM_VAN_HELSING, PM_EXTERMINATOR, PM_COUNT_DRACULA,
-	PM_HUMAN_MUMMY, PM_VAMPIRE, S_MUMMY, S_VAMPIRE,
-	ART_STAKE_OF_VAN_HELSING,
+    { { "Undead Slayer", 0 }, 
+      { { "Assistant",    0 },
+        { "Eliminator",   0 },
+        { "Eliminator",   0 },
+        { "Exterminator", 0 },
+        { "Exterminator", 0 },
+        { "Destroyer",   0 },
+        { "Vindicator",  0 },
+        { "Vindicator",  0 },
+        { "Undead Slayer", 0 } },
+    "Seeker", "Osiris", "Seth", /* Egyptian */
+    "Und", "the Temple of Light", "the Crypt of Dracula",
+    PM_UNDEAD_SLAYER, NON_PM, NON_PM,
+    PM_VAN_HELSING, PM_EXTERMINATOR, PM_COUNT_DRACULA,
+    PM_HUMAN_MUMMY, PM_VAMPIRE, S_MUMMY, S_VAMPIRE,
+    ART_STAKE_OF_VAN_HELSING,
     /* --hackem: Disabled MH_WERE, MH_ORC */
-	MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
-          | MH_CENTAUR | MH_TORTLE,
-	ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-	/* Str Int Wis Dex Con Cha */ /* Modified from Knight */
-	{  13,  7, 14,  8, 10, 10 },
-	{  20, 15, 15, 10, 20, 10 },
-	/* Init   Lower  Higher */
-	{ 14, 0,  0, 8,  2, 0 },	/* Hit points */
-	{  1, 4,  0, 1,  0, 2 },10,	/* Energy */
-	10, 8,-2, 0,  9, A_WIS, SPE_PROTECTION, -4 },
+    MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
+      | MH_CENTAUR | MH_TORTLE,
+    ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+    /* Str Int Wis Dex Con Cha */ /* Modified from Knight */
+    {  13,  7, 14,  8, 10, 10 },
+    {  20, 15, 15, 10, 20, 10 },
+    /* Init   Lower  Higher */
+    { 14, 0,  0, 8,  2, 0 },	/* Hit points */
+    {  1, 4,  0, 1,  0, 2 },10,	/* Energy */
+    10, 8,-2, 0,  9, A_WIS, SPE_PROTECTION, -4 },
     { { "Valkyrie", 0 },
       { { "Stripling", 0 },
         { "Skirmisher", 0 },
@@ -761,7 +753,6 @@ const struct Role roles[] = {
       PM_WIZARD,
       NON_PM,
       PM_PSEUDODRAGON,
-      
       PM_NEFERET_THE_GREEN,
       PM_APPRENTICE,
       PM_DARK_ONE,
@@ -784,7 +775,7 @@ const struct Role roles[] = {
     { { "Yeoman", 0 },
 	/* Landowner titles, naval ranks and positions */
 	/* We intentionally avoid Lieutenant and Captain */
-	  { { "Usher",          0 },
+      { { "Usher",          0 },
         { "Steward", "Stewardess" },
         { "Keeper",         0 },
         { "Marshal",        0 },
@@ -795,18 +786,19 @@ const struct Role roles[] = {
         { "Regent",         0} },
 	"His Majesty", "His Holiness", "The Commons", /* The three estates */
 	"Yeo", "London", "the inner ward",
-	PM_YEOMAN, NON_PM, PM_PONY,
-	PM_CHIEF_YEOMAN_WARDER, PM_YEOMAN_WARDER, PM_COLONEL_BLOOD,
-	PM_RAVEN, PM_WEREWOLF, S_RODENT, S_DOG,
-	ART_CROWN_OF_SAINT_EDWARD,
-	MH_HUMAN | MH_ELF | MH_HOBBIT | MH_CENTAUR, ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-	/* Str Int Wis Dex Con Cha */
-	{  12,  7, 10, 12, 12,  7 },
-	{  20, 15, 15, 10, 20, 10 },
-	/* Init   Lower  Higher */
-	{ 14, 0,  0, 8,  2, 0 },	/* Hit points */
-	{  1, 4,  0, 1,  0, 2 },10,	/* Energy */
-	10, 8,-2, 0,  9, A_WIS, SPE_KNOCK, -4 },
+      PM_YEOMAN, NON_PM, PM_PONY,
+      PM_CHIEF_YEOMAN_WARDER, PM_YEOMAN_WARDER, PM_COLONEL_BLOOD,
+      PM_RAVEN, PM_WEREWOLF, S_RODENT, S_DOG,
+      ART_CROWN_OF_SAINT_EDWARD,
+      MH_HUMAN | MH_ELF | MH_HOBBIT | MH_CENTAUR, ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      {  12,  7, 10, 12, 12,  7 },
+      {  20, 15, 15, 10, 20, 10 },
+      /* Init   Lower  Higher */
+      { 14, 0,  0, 8,  2, 0 },	/* Hit points */
+      {  1, 4,  0, 1,  0, 2 },10,	/* Energy */
+      10, 8,-2, 0,  9, A_WIS, SPE_KNOCK, -4 },
+    
     /* Array terminator */
     { { 0, 0 } }
 };

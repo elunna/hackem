@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+role.c cleanup.
 Cleanup in ice mage AC calculation.
 Fix: Tortle monks starts with a toque instead of a robe of power.
 Breaking wands of healing/extra healing heals you and surrounding monsters.
