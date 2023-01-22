@@ -3819,8 +3819,11 @@ boolean was_swallowed; /* digestion */
     }
     
     /* Undead Slayers have a chance to totally destroy zombie corpses */
-    if (is_zombie(mdat) && Role_if(PM_UNDEAD_SLAYER) 
-        && distu(mon->mx, mon->my) < 2 && rn2(3)) {
+    if (is_zombie(mdat) 
+        && Role_if(PM_UNDEAD_SLAYER)
+        && context.mon_moving == 0
+        && distu(mon->mx, mon->my) < 2 
+        && rn2(4)) {
         if (cansee(mon->mx, mon->my)) {
             pline("%s!", rn2(2) ? "Squish" : 
                   rn2(2) ? "Squash" : "Smash");
