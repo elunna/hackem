@@ -15,6 +15,8 @@
 
 Version 1.1 (unreleased)
 
+Fix: Bullets silently break when falling down stairs.
+Refactored a bunch of text using the pline wrappers like You_see, You_hear, You_cant, etc.
 role.c cleanup.
 Cleanup in ice mage AC calculation.
 Fix: Tortle monks starts with a toque instead of a robe of power.

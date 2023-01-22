@@ -1869,7 +1869,8 @@ boolean shop_floor_obj;
                 change_luck((schar) -min(otmp->quan, 5L));
             result = "splat";
         }
-        You_hear("a muffled %s.", result);
+        if (!is_bullet(otmp))
+            You_hear("a muffled %s.", result);
         obj_extract_self(otmp);
         obfree(otmp, (struct obj *) 0);
         return TRUE;
