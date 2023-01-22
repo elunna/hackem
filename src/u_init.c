@@ -422,6 +422,7 @@ struct inv_sub {
     { PM_TORTLE, RING_MAIL, TOQUE },
     { PM_TORTLE, BATTLE_AXE, TRIDENT },
     { PM_TORTLE, ROBE, TOQUE },
+    { PM_TORTLE, ROBE_OF_POWER, TOQUE },
     { PM_TORTLE, HAWAIIAN_SHIRT, TOQUE },
     { PM_TORTLE, SPEAR, TRIDENT }, /* Undead Slayer */
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
