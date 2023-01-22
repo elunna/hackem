@@ -21,6 +21,7 @@ STATIC_DCL boolean FDECL(wrong_elem_type, (struct permonst *));
 STATIC_DCL void FDECL(m_initgrp, (struct monst *, int, int, int, int));
 STATIC_DCL void FDECL(m_initthrow, (struct monst *, int, int));
 STATIC_DCL void FDECL(m_initweap, (struct monst *));
+STATIC_DCL void FDECL(m_initweap_normal, (struct monst *));
 STATIC_DCL void FDECL(m_initinv, (struct monst *));
 STATIC_DCL boolean FDECL(makemon_rnd_goodpos, (struct monst *,
                                                unsigned, coord *));
@@ -789,7 +790,7 @@ register struct monst *mtmp;
     register int mm = monsndx(ptr);
     struct obj* received;
     struct obj *otmp = mtmp->minvent;
-    int bias, w1, w2, randwand, quan, hbold, spe2;
+    int w1, w2, randwand, quan, hbold, spe2;
 
     if (Is_rogue_level(&u.uz))
         return;
@@ -1204,11 +1205,12 @@ register struct monst *mtmp;
                         w1 = AUTO_SHOTGUN;
                         m_initthrow(mtmp, SHOTGUN_SHELL, 10);
                         m_initthrow(mtmp, SHOTGUN_SHELL, 10);
-                    } else {
+                    } else if (!rn2(3)) {
                         w1 = ASSAULT_RIFLE;
                         m_initthrow(mtmp, BULLET, 30);
                         m_initthrow(mtmp, BULLET, 30);
-                    }
+                    } else
+                        w1 = rn2(2) ? FLAIL : MACE;
 	            if (Is_stronghold(&u.uz)) {
                     w2 = BOW;
                     m_initthrow(mtmp, ARROW, 30);
@@ -1240,15 +1242,18 @@ register struct monst *mtmp;
                             w1 = AUTO_SHOTGUN;
                             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
                             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-                        } else if (rn2(2)) {
+                        } else if (!rn2(3)) {
                             w1 = HEAVY_MACHINE_GUN;
                             m_initthrow(mtmp, BULLET, 60);
                             m_initthrow(mtmp, BULLET, 60);
                             m_initthrow(mtmp, BULLET, 60);
-                        } else {
+                        } else if (!rn2(3)){
                             w1 = ASSAULT_RIFLE;
                             m_initthrow(mtmp, BULLET, 60);
                             m_initthrow(mtmp, BULLET, 60);
+                        } else {
+                            w2 = CROSSBOW;
+                            m_initthrow(mtmp, CROSSBOW_BOLT, 30);
                         }
                     }
 
@@ -1350,13 +1355,7 @@ register struct monst *mtmp;
                 w2 = KNIFE;
             if (w2)
                 (void) mongets(mtmp, w2);
-        } 
-    
-
-        
-        
-        
-        else if (racial_elf(mtmp)) {
+        } else if (racial_elf(mtmp)) {
             if (rn2(2))
                 (void) mongets(mtmp,
 		 (rn2(2) && (mm == PM_GREY_ELF || mm == PM_ELF_LORD
@@ -1444,7 +1443,6 @@ register struct monst *mtmp;
             otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
             otmp->spe = rnd(2) + 1;
             (void) mpickobj(mtmp, otmp);
-            /* (void) mongets(mtmp, ROBE); */
             (void) mongets(mtmp, 
                            rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE));
             (void) mongets(mtmp, CORNUTHAUM);
@@ -1624,7 +1622,7 @@ register struct monst *mtmp;
                and maybe make it special */
             int typ = rn2(2) ? LONG_SWORD : HEAVY_MACE;
             otmp = mksobj(typ, FALSE, FALSE);
-            if ((!rn2(20) || is_lord(ptr))
+            if ((!rn2(20) || is_lord(ptr) || is_prince(ptr))
                 && sgn(mtmp->isminion ? EMIN(mtmp)->min_align
                                       : ptr->maligntyp) == A_LAWFUL) {
                 otmp = oname(otmp, artiname(typ == LONG_SWORD
@@ -1638,9 +1636,10 @@ register struct monst *mtmp;
             otmp->spe = rn2(4);
             (void) mpickobj(mtmp, otmp);
 
-            otmp = mksobj(!rn2(4) || is_lord(ptr) ? SHIELD_OF_REFLECTION
-                                                  : rn2(3) ? LARGE_SHIELD
-                                                           : SHIELD_OF_LIGHT,
+            otmp = mksobj((!rn2(4) || is_lord(ptr) || is_prince(ptr))
+                          ? SHIELD_OF_REFLECTION
+                          : rn2(3) ? LARGE_SHIELD
+                                   : SHIELD_OF_LIGHT,
                           FALSE, FALSE);
             /* uncurse(otmp); -- mksobj(,FALSE,) item is always uncursed */
             otmp->oerodeproof = TRUE;
@@ -1661,31 +1660,31 @@ register struct monst *mtmp;
     case S_GNOME:
         switch (mm) {
             case PM_GNOLL:
-                if(!rn2(3)) (void) mongets(mtmp, ORCISH_HELM);
-                if(!rn2(3)) (void) mongets(mtmp, STUDDED_ARMOR);
-                if(!rn2(3)) (void) mongets(mtmp, ORCISH_SHIELD);
-                if(!rn2(4)) (void) mongets(mtmp, SPEAR);
+                if (!rn2(3))
+                    (void) mongets(mtmp, ORCISH_HELM);
+                if (!rn2(3))
+                    (void) mongets(mtmp, STUDDED_ARMOR);
+                if (!rn2(3))
+                    (void) mongets(mtmp, ORCISH_SHIELD);
+                if (rn2(4))
+                    (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
+                else
+                    (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
                 break;
-
             case PM_GNOLL_WARRIOR:
-                if(!rn2(2)) (void) mongets(mtmp, ORCISH_HELM);
-
+                if(!rn2(2)) 
+                    (void) mongets(mtmp, ORCISH_HELM);
                 if (!rn2(20))
                     (void) mongets(mtmp, ORANGE_DRAGON_SCALES);
                 else if (rn2(3))
                     (void) mongets(mtmp, SCALE_MAIL);
                 else
                     (void) mongets(mtmp, SPLINT_MAIL);
-
-                if(!rn2(2)) (void) mongets(mtmp, ORCISH_SHIELD);
-                if(!rn2(3)) (void) mongets(mtmp, KATANA);
+                if (!rn2(2)) 
+                    (void) mongets(mtmp, ORCISH_SHIELD);
+                if (!rn2(3)) 
+                    (void) mongets(mtmp, KATANA);
                 break;
-
-            #if 0  /* --hackem: Disabling until we figure out what to do with Gnolls. */
-            case PM_GNOLL_HUNTER:
-                (void) mongets(mtmp, BOW);
-                m_initthrow(mtmp, ARROW, 12);
-            #endif
 
             case PM_GNOLL_CHIEFTAIN:
                 (void) mongets(mtmp, ORCISH_HELM);
@@ -1744,13 +1743,8 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, GREEN_DRAGON_SCALES);
                 break;
             default:
-                if (is_gnoll(ptr) && mm != PM_GNOLL_SHAMAN) {
-                    if (rn2(4))
-                        (void) mongets(mtmp, rn2(3) ? FLAIL : SPEAR);
-                    else
-                        (void) mongets(mtmp, !rn2(3) ? VOULGE : MORNING_STAR);
-
-                }
+                m_initweap_normal(mtmp);
+                break;
         break;
     }
     break;
@@ -1881,10 +1875,10 @@ register struct monst *mtmp;
     case S_KOP:
         /* create Keystone Kops with cream pies to
            throw. As suggested by KAA.     [MRS] */
-        if (!rn2(4))
-            m_initthrow(mtmp, CREAM_PIE, 2);
         if (rn2(3))
             (void) mongets(mtmp, (rn2(2)) ? CLUB : RUBBER_HOSE);
+        if (!rn2(4))
+            m_initthrow(mtmp, CREAM_PIE, 2);
         else if (!rn2(3)) {
             m_initthrow(mtmp, BULLET, 15);
             (void) mongets(mtmp, PISTOL);
@@ -1973,9 +1967,6 @@ register struct monst *mtmp;
             else
                 m_initthrow(mtmp, SLING_BULLET, 4 + rnd(6));
         } else if (!rn2(4)) {
-            /* WAC gets orcish 1:4, otherwise darts
-                    (used to be darts 1:4)
-                gets orcish short sword 1:4, otherwise orcish dagger */
             if (!rn2(4))
                 m_initthrow(mtmp, ORCISH_SPEAR, 1);
             else
@@ -1999,7 +1990,6 @@ register struct monst *mtmp;
             /* 50% of Jermlaine carry an offensive potion. */
             if (!rn2(2)) {
                 int chance = rnd(25);
-
                 if (chance < 5)
                     (void) mongets(mtmp, POT_OIL);
                 else if (chance < 12)
@@ -2193,66 +2183,75 @@ register struct monst *mtmp;
             break;
         /*FALLTHRU*/
     default:
-        /*
-         * Now the general case, some chance of getting some type
-         * of weapon for "normal" monsters.  Certain special types
-         * of monsters will get a bonus chance or different selections.
-         * Unique monsters are typically kitted out in specific and
-         * deliberate gear, so exclude them.
-         */
-        bias = is_lord(ptr) + is_prince(ptr) * 2 + extra_nasty(ptr);
-        switch (rnd(14 - (2 * bias))) {
-        case 1:
-            if (!unique_corpstat(ptr)) {
-                if (strongmonst(ptr))
-                    (void) mongets(mtmp, BATTLE_AXE);
-                else {
-                    m_initthrow(mtmp, DART, 12);
-                }
-            }
-            break;
-        case 2:
-            if (!unique_corpstat(ptr)) {
-                if (strongmonst(ptr))
-                    (void) mongets(mtmp, TWO_HANDED_SWORD);
-                else {
-                    (void) mongets(mtmp, CROSSBOW);
-                    m_initthrow(mtmp, CROSSBOW_BOLT, 12);
-                }
-            }
-            break;
-        case 3:
-            if (!unique_corpstat(ptr)) {
-                (void) mongets(mtmp, BOW);
-                m_initthrow(mtmp, ARROW, 12);
-            }
-            break;
-        case 4:
-            if (!unique_corpstat(ptr)) {
-                if (strongmonst(ptr))
-                    (void) mongets(mtmp, LONG_SWORD);
-                else {
-                    m_initthrow(mtmp, DAGGER, 3);
-                }
-            }
-            break;
-        case 5:
-            if (!unique_corpstat(ptr)) {
-                if (strongmonst(ptr))
-                    (void) mongets(mtmp, LUCERN_HAMMER);
-                else {
-                    (void) mongets(mtmp, AKLYS);
-                }
-            }
-            break;
-        default:
-            break;
-        }
+        m_initweap_normal(mtmp);
         break;
     }
 
     if ((int) mtmp->m_lev > rn2(75))
         (void) mongets(mtmp, rnd_offensive_item(mtmp));
+}
+
+
+/*
+ * Now the general case, some chance of getting some type
+ * of weapon for "normal" monsters.  Certain special types
+ * of monsters will get a bonus chance or different selections.
+ * Unique monsters are typically kitted out in specific and
+ * deliberate gear, so exclude them.
+ */
+STATIC_OVL void
+m_initweap_normal(mtmp)
+register struct monst *mtmp;
+{
+
+    register struct permonst *ptr = mtmp->data;
+    int bias;
+    bias = is_lord(ptr) + is_prince(ptr) * 2 + extra_nasty(ptr);
+    switch (rnd(14 - (2 * bias))) {
+    case 1:
+        if (!unique_corpstat(ptr)) {
+            if (strongmonst(ptr))
+                (void) mongets(mtmp, BATTLE_AXE);
+            else {
+                m_initthrow(mtmp, DART, 12);
+            }
+        }
+        break;
+    case 2:
+        if (!unique_corpstat(ptr)) {
+            if (strongmonst(ptr))
+                (void) mongets(mtmp, TWO_HANDED_SWORD);
+            else {
+                (void) mongets(mtmp, CROSSBOW);
+                m_initthrow(mtmp, CROSSBOW_BOLT, 12);
+            }
+        }
+        break;
+    case 3:
+        if (!unique_corpstat(ptr)) {
+            (void) mongets(mtmp, BOW);
+            m_initthrow(mtmp, ARROW, 12);
+        }
+        break;
+    case 4:
+        if (!unique_corpstat(ptr)) {
+            if (strongmonst(ptr))
+                (void) mongets(mtmp, LONG_SWORD);
+            else
+                m_initthrow(mtmp, DAGGER, 3);
+        }
+        break;
+    case 5:
+        if (!unique_corpstat(ptr)) {
+            if (strongmonst(ptr))
+                (void) mongets(mtmp, LUCERN_HAMMER);
+            else
+                (void) mongets(mtmp, AKLYS);
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 /*
