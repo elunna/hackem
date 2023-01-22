@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Used verbalize instead of pline in more of the shopkeeper service dialogue.
 Fix missing parentheses in last commit.
 Piratesay: Hmm -> Arr
 Fix: Zombies could be obliterated by Undead Slayer pets or other causes.

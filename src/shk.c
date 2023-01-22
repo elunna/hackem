@@ -4021,8 +4021,7 @@ long ident_type;
     /* Shopkeeper deviousness */
     if (ident_type == SHK_ID_BASIC) {
         if (Hallucination) {
-            You_hear("%s tell you it's a pot of flowers.",
-                    mon_nam(shkp));
+            verbalize("It's a pot of flowers.");
             return 1;
         } else if (Confusion) {
             pline("%s tells you but you forget.", mon_nam(shkp));
@@ -4304,10 +4303,10 @@ long svc_type;
 
     case SHK_PROP:
         if (obj->oprops) {
-            Your("weapon already has a property.");
+            verbalize("Your weapon already has a property.");
             return 0;
         } else if (obj->oartifact) {
-            pline("That weapon is already pretty special!");
+            verbalize("That weapon is already pretty special!");
         }
         verbalize("Imbue your weapon with special power!");
         charge = 9 * 625;
@@ -4472,23 +4471,23 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
     /* Verify the item we picked matches the shop type */
     if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH 
             && obj->oclass != WAND_CLASS ) {
-        pline("I only can charge wands.");
+        verbalize("I only can charge wands.");
         return 0;
     }
     else if (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH 
              && obj->oclass != TOOL_CLASS) {
-        pline("I only can charge tools.");
+        verbalize("I only can charge tools.");
         return 0;
     }
     else if (shk_class_match(RING_CLASS, shkp) == SHK_MATCH 
              && obj->oclass != RING_CLASS) {
-        pline("I only can charge rings.");
+        verbalize("I only can charge rings.");
         return 0;
     }
 #if 0 /* Disabled charging spellbooks */
     else if (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH 
              && obj->oclass != SPBOOK_CLASS) {
-        pline("I only can charge spellbooks.");
+        verbalize("I only can charge spellbooks.");
         return 0;
     }
 #endif
@@ -4576,13 +4575,13 @@ struct monst *shkp;
 {
     long charge = 25;                     /* Rumor Cost */
                                     
-    pline("I heard some juicy stuff the other day...");
+    verbalize("I heard some juicy stuff the other day...");
     /* Go ahead? */
     if (shk_offer_price(slang, charge, shkp) == FALSE) 
         return 0;
     
     if (Hallucination) {
-        You_hear("%s say: 'You Are Here.'", mon_nam(shkp));
+        verbalize("You. Are. Here.");
     } else if (Confusion) {
         pline("%s tells you something... but you forget.", mon_nam(shkp));
     } else
@@ -4625,28 +4624,28 @@ struct monst *shkp;
     }
 
     if (can_advance(weptype, FALSE)) {
-        You("should advance your skill before training more.");
+        verbalize("You should advance your skill before training more.");
         return 0;
     } else if (!uwep || (weapon_type(uwep) == P_NONE)) {
-        You("are not wielding a weapon!");
+        verbalize("You are not wielding a weapon!");
         return 0;
     } else if (weapon_type(uwep) != P_FIREARM) {
-        You("are not wielding a firearm!");
+        verbalize("You are not wielding a firearm!");
         return 0;
     } else if  (Confusion || Stunned || Hallucination || Afraid) {
-        You("should not be wielding a firearm right now!");
+        verbalize("You should not be wielding a firearm right now!");
         return 0;
     } else if (P_SKILL(weptype) >= P_MAX_SKILL(weptype)) {
-        You("cannot increase your skill in %s.", weapon_descr(uwep));
+        verbalize("You cannot increase your skill in %s.", weapon_descr(uwep));
         return 0;
     } else if (!can_practice(weptype)) {
-        You("cannot learn much about %s right now.", weapon_descr(uwep));
+        verbalize("You cannot learn much about %s right now.", weapon_descr(uwep));
         return 0;
     } else if (progress == threshold) {
-        You("are unable to learn more at this time!");
+        verbalize("You are unable to learn more at this time!");
         return 0;
     } else if (progress >= maxoffered) {
-        pline("I have nothing to teach you!");
+        verbalize("I have nothing to teach you!");
         return 0;
     }
     
@@ -4673,7 +4672,7 @@ struct monst *shkp;
         if (rnd(15) <= ACURR(A_INT)) {
             makeknown(uwep->otyp);
             uwep->known = TRUE;
-            pline("This is %s", doname(uwep));
+            verbalize("This is %s", doname(uwep));
         } else
             pline("Unfortunately, nothing new turns up.");
     }
@@ -4714,13 +4713,13 @@ struct monst *shkp;
     /* Artifacts cost more to deal with */
 
     if (obj->oartifact) {
-        pline("That item is as good as it'll get!");
+        verbalize("That item is as good as it'll get!");
         return 0;
     }
     
     /* Test if this object yields anything */
     if (!obj2upgrade(obj->otyp)) {
-        pline("I can't upgrade that object.");
+        verbalize("I can't upgrade that object.");
         return 0;
     }
     /* Smooth out the charge a bit (lower bound only) */
@@ -4732,7 +4731,7 @@ struct monst *shkp;
 
     /* Shopkeeper deviousness */
     if (Hallucination) {
-        You_hear("%s tell you it's Very Special now.", mon_nam(shkp));
+        verbalize("It's Very Special now.");
         return 1;
     } else if (Confusion) {
         pline("%s dunks the thing in some water and hands it back to you.", mon_nam(shkp));
@@ -4743,10 +4742,10 @@ struct monst *shkp;
     if (res != 0) {
         if (res == 1) {
             /* The object was upgraded */
-            pline("Hmm!");
+            verbalize("Hmm!");
             prinv((char *)0, obj, 0L);
         } else
-            pline("Huh.");
+            verbalize("Huh.");
           
         update_inventory();
     }
