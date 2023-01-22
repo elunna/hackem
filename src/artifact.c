@@ -2247,40 +2247,56 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             adjalign(Role_if(PM_KNIGHT) ? -10 : -1);
         }
         if (realizes_damage) {
-            if (!youattack && magr && cansee(magr->mx, magr->my)) {
-                if (!spec_dbon_applies) {
-                    if (!youdefend)
-                        ;
-                    else
-                        pline_The("filthy dagger hits %s.", hittee);
-                } else {
-                    pline_The("filthy dagger %s %s%c",
-                              Sick_resistance
-                                  ? "hits"
-                                  : rn2(2) ? "contaminates" : "infects",
-                              hittee, !spec_dbon_applies ? '.' : '!');
+            boolean elf = youdefend ? is_elf(youmonst.data)
+                                    : racial_elf(mdef);
+            boolean no_sick = youdefend ? Sick_resistance
+                                        : (resists_sick(mdef->data)
+                                           || defended(mdef, AD_DISE));
+
+            if (!spec_dbon_applies) {
+                if ((youdefend || canseemon(mdef))
+                    && (youattack || cansee(magr->mx, magr->my)))
+                    pline_The("filthy dagger hits %s.", hittee);
+            } else if (!rn2(10) && elf) {
+                if (youdefend || canseemon(mdef))
+                    pline("%s penetrates %s soft flesh, disembowelling %s!",
+                          artiname(otmp->oartifact), 
+                          youdefend ? "your" : s_suffix(mon_nam(mdef)),
+                          youdefend ? "you" : noit_mhim(mdef));
+                if (youdefend) {
+                    killer.format = NO_KILLER_PREFIX;
+                    Sprintf(killer.name, "disemboweled by %s", the(xname(otmp)));
+                    done(DIED);
+                    *dmgptr = 1;
+                } else { /* you or mon hit monster */
+                    if (youattack) {
+                        xkilled(mdef, XKILL_NOMSG);
+                    } else {
+                        monkilled(mdef, 0, AD_DISE);
+                    }
                 }
             } else {
-                pline_The("filthy dagger %s %s%c",
-                          (resists_sick(mdef->data) || defended(mdef, AD_DISE))
-                              ? "hits"
-                              : rn2(2) ? "contaminates" : "infects",
-                          hittee, !spec_dbon_applies ? '.' : '!');
+                if (youdefend || canseemon(mdef))
+                    pline_The("filthy dagger %s %s%c",
+                              no_sick ? "hits"
+                                      : rn2(2) ? "contaminates" : "infects",
+                              hittee, !spec_dbon_applies ? '.' : '!');
             }
-        }
-        if (youdefend && !rn2(6)) {
-            diseasemu(mdef->data);
-        } else {
-            mdef->mdiseasetime = rnd(10) + 5;
-            if (!(resists_sick(mdef->data) || defended(mdef, AD_DISE))) {
-                if (canseemon(mdef))
-                    pline("%s looks %s.", Monnam(mdef),
-                          mdef->mdiseased ? "even worse" : "diseased");
-                mdef->mdiseased = 1;
-                if (wielding_artifact(ART_GRIMTOOTH))
-                    mdef->mdiseabyu = TRUE;
-                else
-                    mdef->mdiseabyu = FALSE;
+
+            if (youdefend && !rn2(5)) {
+                diseasemu(mdef->data);
+            } else if (!youdefend) {
+                mdef->mdiseasetime = rnd(10) + 5;
+                if (!no_sick && !rn2(5)) {
+                    if (canseemon(mdef))
+                        pline("%s looks %s.", Monnam(mdef),
+                              mdef->mdiseased ? "even worse" : "diseased");
+                    mdef->mdiseased = 1;
+                    if (wielding_artifact(ART_GRIMTOOTH))
+                        mdef->mdiseabyu = TRUE;
+                    else
+                        mdef->mdiseabyu = FALSE;
+                }
             }
         }
         msgprinted = TRUE;
