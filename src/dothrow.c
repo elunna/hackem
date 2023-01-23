@@ -1491,10 +1491,15 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         }
     } else {
         /* crossbow range is independent of strength */
-        crossbowing = (ammo_and_launcher(obj, uwep)
-                       && weapon_type(uwep) == P_CROSSBOW);
-        gunning = (ammo_and_launcher(obj, uwep)
-                       && weapon_type(uwep) == P_FIREARM);
+        if (ammo_and_launcher(obj, uwep)) {
+            crossbowing = (weapon_type(uwep) == P_CROSSBOW);
+            if (weapon_type(uwep) == P_FIREARM) {
+                gunning = matching_firearm(obj, uwep);
+                if (!gunning)
+                    pline("The quivered ammo doesn't fit the firearm.");
+            }
+        }
+        
         urange = (crossbowing ? 18 : (int) ACURRSTR) / 2;
 
         /* hard limit this so crossbows will fire further

@@ -214,6 +214,8 @@ struct obj {
     || otmp->otyp == GAS_BOMB)
 #define matching_launcher(a, l) \
     ((l) && objects[(a)->otyp].oc_skill == -objects[(l)->otyp].oc_skill)
+#define matching_firearm(a, l) \
+    ((l) && objects[(a)->otyp].w_ammotyp == objects[(l)->otyp].w_ammotyp)
 #define ammo_and_launcher(a, l) (is_ammo(a) && matching_launcher(a, l))
 #define is_missile(otmp)                                          \
     ((otmp->oclass == WEAPON_CLASS \
