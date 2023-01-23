@@ -63,8 +63,8 @@ piratesay(const char *orig)
     orig = replace(orig, "You arm your gas bomb.", "Fire in the hole!");
     orig = replace(orig, "move the boulder", "heave ho");
     orig = replace(orig, "no longer feel sluggish", "got your sea legs back");
-    orig = replace(orig, "it is", "'tis");
-    orig = replace(orig, "It is", "'Tis");
+    orig = replace(orig, " it is", " 'tis");
+    orig = replace(orig, "It is ", "'Tis ");
     orig = replace(orig, "Is not", "Ain't");
     orig = replace(orig, "is not", "ain't");
     orig = replace(orig, "wipe off", "swab");

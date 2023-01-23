@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix pirate speak 'This sea biscu'tis bland.'
 Removed unused is_unpoisonable_firearm_ammo.
 Fix: Firearms require appropriate ammo to be effective.
 Fix: Bloody grass is described correctly on farlook. Fixes #138.
