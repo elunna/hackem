@@ -2407,7 +2407,7 @@ struct permonst **for_supplement;
                     hit_trap = TRUE;
             }
 
-            if (i == S_altar || is_cmap_trap(i))
+            if (i == S_altar || i == S_grass || is_cmap_trap(i))
                 need_to_look = TRUE;
         }
     }

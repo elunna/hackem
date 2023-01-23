@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Bloody grass is described correctly on farlook. Fixes #138.
 Fix: 'There is a bloody grass here.'
 Added missing grass entry to gather_locs_interesting.
 Added some missing features to cmd.c: levltyp
