@@ -267,10 +267,7 @@ struct obj {
 			((otmp)->oclass == WEAPON_CLASS && \
 			 objects[(otmp)->otyp].oc_skill == P_FIREARM)
 #define is_bullet(otmp)	((otmp)->oclass == WEAPON_CLASS && \
-			 objects[(otmp)->otyp].oc_skill == -P_FIREARM)
-#define is_unpoisonable_firearm_ammo(otmp)	\
-			 (is_bullet(otmp) || is_bomb(otmp))
-             
+			 objects[(otmp)->otyp].oc_skill == -P_FIREARM) 
 #define is_wet_towel(o) ((o)->otyp == TOWEL && (o)->spe > 0)
 #define bimanual(otmp) \
     ((!(Race_if(PM_GIANT)) || (Race_if(PM_GIANT) && is_2h_launcher(otmp))) \
