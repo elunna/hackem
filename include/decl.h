@@ -253,6 +253,11 @@ E const int shield_static[];
 #include "spell.h"
 E NEARDATA struct spell spl_book[]; /* sized in decl.c */
 
+#ifndef TECH_H
+#include "tech.h"
+#endif
+E NEARDATA struct tech tech_list[];     /* sized in decl.c */
+
 #include "color.h"
 #ifdef TEXTCOLOR
 E const int zapcolors[];

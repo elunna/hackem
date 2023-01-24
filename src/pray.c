@@ -2728,6 +2728,123 @@ doturn()
     return 1;
 }
 
+
+
+#if 0
+int
+doturn()
+{	
+    /* WAC doturn is now a technique */
+    /* Try to use turn undead spell if you don't know the tech. */
+    /*	if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT) && !Role_if(PM_UNDEAD_SLAYER)) {*/
+    if (!tech_known(T_TURN_UNDEAD)) {
+        if (objects[SPE_TURN_UNDEAD].oc_name_known) {
+            register int sp_no;
+            for (sp_no = 0; sp_no < MAXSPELL &&
+                            spl_book[sp_no].sp_id != NO_SPELL &&
+                            spl_book[sp_no].sp_id != SPE_TURN_UNDEAD; sp_no++);
+            
+            if (sp_no < MAXSPELL &&
+                spl_book[sp_no].sp_id == SPE_TURN_UNDEAD)
+                return spelleffects(sp_no, TRUE);
+        }
+
+        You("don't know how to turn undead!");
+        return(0);
+    }
+    return (turn_undead());
+}
+#endif
+
+int
+turn_undead()
+{
+    struct monst *mtmp, *mtmp2;
+    int once, range, xlev;
+
+    u.uconduct.gnostic++;
+
+    if ((u.ualign.type != A_CHAOTIC
+         && (is_demon(youmonst.data) || is_undead(youmonst.data)))
+        || u.ugangr > 6 /* "Die, mortal!" */) {
+        pline("For some reason, %s seems to ignore you.", u_gname());
+        aggravate();
+        exercise(A_WIS, FALSE);
+        return (0);
+    }
+
+    if (Inhell) {
+        pline("Since you are in Gehennom, %s won't help you.", u_gname());
+        aggravate();
+        return (0);
+    }
+    pline("Calling upon %s, you chant an arcane formula.", u_gname());
+    exercise(A_WIS, TRUE);
+
+    /* note: does not perform unturn_dead() on victims' inventories */
+    range = BOLT_LIM + (u.ulevel / 5); /* 5 to 11 */
+    range *= range;
+    once = 0;
+    for (mtmp = fmon; mtmp; mtmp = mtmp2) {
+        mtmp2 = mtmp->nmon;
+
+        if (DEADMONSTER(mtmp))
+            continue;
+        if (!cansee(mtmp->mx, mtmp->my) || distu(mtmp->mx, mtmp->my) > range)
+            continue;
+
+        if (!mtmp->mpeaceful
+            && (is_undead(mtmp->data)
+                || (is_demon(mtmp->data) && (u.ulevel > (MAXULEV / 2))))) {
+            mtmp->msleeping = 0;
+            if (Confusion) {
+                if (!once++)
+                    pline("Unfortunately, your voice falters.");
+                mtmp->mflee = 0;
+                mtmp->mfrozen = 0;
+                mtmp->mcanmove = 1;
+            } else if (!resist(mtmp, '\0', 0, TELL)) {
+                xlev = 6;
+                switch (mtmp->data->mlet) {
+                    /* this is intentional, lichs are tougher
+                       than zombies. */
+                    /* ToDo - catch vampire bats */
+                case S_LICH:
+                    xlev += 2; /*FALLTHRU*/
+                case S_GHOST:
+                    xlev += 2; /*FALLTHRU*/
+                case S_VAMPIRE:
+                    xlev += 2; /*FALLTHRU*/
+                case S_WRAITH:
+                    xlev += 2; /*FALLTHRU*/
+                case S_MUMMY:
+                    xlev += 2; /*FALLTHRU*/
+                case S_ZOMBIE:
+                    if (u.ulevel >= xlev && !resist(mtmp, '\0', 0, NOTELL)) {
+                        if (u.ualign.type == A_CHAOTIC) {
+                            mtmp->mpeaceful = 1;
+                            set_malign(mtmp);
+                        } else { /* damn them */
+                            killed(mtmp);
+                        }
+                        break;
+                    } /* else flee */
+                    /*FALLTHRU*/
+                default:
+                    monflee(mtmp, 0, FALSE, TRUE);
+                    break;
+                }
+            }
+        }
+    }
+    nomul(-(5 - ((u.ulevel - 1) / 6))); /* -5 .. -1 */
+    multi_reason = "trying to turn the monsters";
+    nomovemsg = You_can_move_again;
+/*    nomul(-2, "trying to turn undead monsters");*/
+    return 1;
+}
+
+
 int
 altarmask_at(x, y)
 int x, y;

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Initial import of technique code.
 Changed #forge to #craft; removed duplicate armor entry in data.base.
 Fix 'welcome to hackem'
 Invoking the Holy Spear of Light lights the entire level.

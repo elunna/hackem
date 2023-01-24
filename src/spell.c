@@ -15,6 +15,7 @@
    period but didn't get adjusted when that period got doubled to 20000) */
 #define KEEN 20000
 #define CAST_BOOST 	  500	/* memory increase for successful casting */
+#define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
 #define MAX_KNOW 	70000	/* Absolute Max timeout */
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
@@ -2389,6 +2390,27 @@ struct obj *obj;
         incrnknow(i, 0);
     }
     return;
+}
+
+boolean
+studyspell()
+{
+    /*Vars are for studying spells 'W', 'F', 'I', 'N'*/
+    int spell_no;
+    
+    if (getspell(&spell_no)) {
+        if (spellknow(spell_no) <= 0) {
+            You("are unable to focus your memory of the spell.");
+            return (FALSE);
+        } else if (spellknow(spell_no) <= 1000) {
+            Your("focus and reinforce your memory of the spell.");
+            boostknow(spell_no, REINFORCE_BOOST);
+            exercise(A_WIS, TRUE);      /* extra study */
+            return (TRUE);
+        } else /* 1000 < spellknow(spell_no) <= 5000 */
+            You("know that spell quite well already.");
+    }
+    return (FALSE);
 }
 
 /* return TRUE if hero knows spell otyp, FALSE otherwise */

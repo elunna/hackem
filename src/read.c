@@ -47,7 +47,7 @@ STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
 static void seffect_cloning(struct obj **);
 STATIC_PTR int FDECL(mon_to_zombie, (int));
-STATIC_PTR boolean FDECL(cant_create, (int *, boolean));
+
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)

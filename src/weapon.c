@@ -16,6 +16,10 @@ STATIC_DCL boolean FDECL(peaked_skill, (int));
 STATIC_DCL void FDECL(skill_advance, (int));
 static int dmgval_core(struct obj*, struct monst*, struct damage_info_t*);
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
+STATIC_PTR int NDECL(practice);
+
+/*WAC practicing needs a delay counter*/
+static NEARDATA schar delay;            /* moves left for practice */
 
 /* Categories whose names don't come from OBJ_NAME(objects[type])
  */
@@ -2590,4 +2594,55 @@ register struct obj *obj;
     obj->owornmask &= ~W_WEP;
 }
 
+/* WAC return true if skill can be practiced */
+boolean
+can_practice(skill)
+int skill;
+{
+    return !P_RESTRICTED(skill) && P_SKILL(skill) < P_MAX_SKILL(skill) 
+           && u.skills_advanced < P_SKILL_LIMIT;
+}
+
+void
+practice_weapon()
+{
+    if (can_practice(weapon_type(uwep))
+#ifdef WIZARD
+	    || (wizard && (yn("Skill at normal max. Practice?") == 'y'))
+#endif
+    ) {
+        if (uwep)
+            You("start practicing intensely with %s", doname(uwep));
+        else
+            You("start practicing intensely with your %s %s.",
+                uarmg ? "gloved" : "bare", /* Del Lamb */
+                makeplural(body_part(HAND)));
+
+        delay = -10;
+        set_occupation(practice, "practicing", 0);
+    } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep)))
+        You("cannot increase your skill in %s.", P_NAME(weapon_type(uwep)));
+    else
+        You("cannot learn much about %s right now.",
+            P_NAME(weapon_type(uwep)));
+}
+
+/*WAC  weapon practice code*/
+STATIC_PTR int
+practice()
+{
+    int amt;
+    if (delay) {    /* not if (delay++), so at end delay == 0 */
+        delay++;
+        use_skill(weapon_type(uwep), 1);
+        /*WAC a bit of practice so even if you're interrupted
+          you won't be wasting your time ;B*/
+        return 1; /* still busy */
+    }
+    You("finish your practice session.");
+    /* Grant 1/3 of the total skill needed to reach the next skill threshold. */
+    amt = practice_needed_to_advance(P_SKILL(weapon_type(uwep))) / 3;
+    use_skill(weapon_type(uwep), amt);
+    return(0);
+}
 /*weapon.c*/

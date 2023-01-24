@@ -85,6 +85,7 @@
 		31B8A3C221A238060055BD01 /* role.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A35C21A238040055BD01 /* role.c */; };
 		31B8A3C321A238060055BD01 /* steed.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A35D21A238040055BD01 /* steed.c */; };
 		31B8A3C421A238060055BD01 /* apply.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A35E21A238040055BD01 /* apply.c */; };
+		31B8A3C521A238060055BD01 /* tech.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A35F21A238040055BD01 /* tech.c */; };
 		31B8A3C521A238060055BD01 /* timeout.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A35F21A238040055BD01 /* timeout.c */; };
 		31B8A3C621A238060055BD01 /* dbridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A36021A238040055BD01 /* dbridge.c */; };
 		31B8A3C721A238060055BD01 /* monmove.c in Sources */ = {isa = PBXBuildFile; fileRef = 31B8A36121A238040055BD01 /* monmove.c */; };
@@ -529,6 +530,7 @@
 		31B8A35C21A238040055BD01 /* role.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = role.c; path = ../../src/role.c; sourceTree = "<group>"; };
 		31B8A35D21A238040055BD01 /* steed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = steed.c; path = ../../src/steed.c; sourceTree = "<group>"; };
 		31B8A35E21A238040055BD01 /* apply.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = apply.c; path = ../../src/apply.c; sourceTree = "<group>"; };
+		31B8A35F21A238040055BD01 /* tech.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tech.c; path = ../../src/timeout.c; sourceTree = "<group>"; };
 		31B8A35F21A238040055BD01 /* timeout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timeout.c; path = ../../src/timeout.c; sourceTree = "<group>"; };
 		31B8A36021A238040055BD01 /* dbridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dbridge.c; path = ../../src/dbridge.c; sourceTree = "<group>"; };
 		31B8A36121A238040055BD01 /* monmove.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = monmove.c; path = ../../src/monmove.c; sourceTree = "<group>"; };

@@ -14,7 +14,6 @@
 STATIC_DCL void FDECL(makekops, (coord *));
 STATIC_DCL void FDECL(call_kops, (struct monst *, BOOLEAN_P));
 STATIC_DCL void FDECL(kops_gone, (BOOLEAN_P));
-STATIC_DCL boolean FDECL(can_practice, (int)); /* WAC for Practicing */
 
 #define NOTANGRY(mon) ((mon)->mpeaceful)
 #define ANGRY(mon) (!NOTANGRY(mon))
@@ -4589,14 +4588,6 @@ struct monst *shkp;
     return 1;
 }
 
-/* WAC return true if skill can be practiced */
-STATIC_OVL boolean
-can_practice(skill)
-int skill;
-{
-    return !P_RESTRICTED(skill) && P_SKILL(skill) < P_MAX_SKILL(skill) 
-                                && u.skills_advanced < P_SKILL_LIMIT;
-}
 
 
 static int

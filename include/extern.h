@@ -2247,6 +2247,7 @@ E boolean FDECL(moffer, (struct monst *));
 E int NDECL(wiz_crown);
 E const char *NDECL(u_gname);
 E int NDECL(doturn);
+E int NDECL(turn_undead);
 E int FDECL(altarmask_at, (int, int));
 E const char *NDECL(a_gname);
 E const char *FDECL(a_gname_at, (XCHAR_P x, XCHAR_P y));
@@ -2340,6 +2341,7 @@ E int FDECL(seffects, (struct obj *));
 E void FDECL(drop_boulder_on_player,
              (BOOLEAN_P, BOOLEAN_P, BOOLEAN_P, BOOLEAN_P));
 E boolean FDECL(drop_boulder_on_monster, (int, int, BOOLEAN_P, BOOLEAN_P));
+E boolean FDECL(cant_create, (int *, boolean));
 E boolean create_particular_from_buffer(const char*);
 E void FDECL(wand_explode, (struct obj *, int));
 E void FDECL(mwand_explode, (struct monst *, struct obj *));
@@ -2661,6 +2663,7 @@ E int FDECL(tport_spell, (int));
 E void NDECL(losespells);
 E int NDECL(dovspell);
 E void FDECL(initialspell, (struct obj *));
+E boolean NDECL(studyspell);
 E boolean FDECL(known_spell, (SHORT_P));
 E int FDECL(spell_idx, (SHORT_P));
 E boolean FDECL(force_learn_spell, (SHORT_P));
@@ -2704,6 +2707,19 @@ E void NDECL(kick_steed);
 E void FDECL(dismount_steed, (int));
 E void FDECL(place_monster, (struct monst *, int, int));
 E boolean FDECL(stucksteed, (BOOLEAN_P));
+
+/* ### tech.c ### */
+
+E void FDECL(adjtech, (int,int));
+E int NDECL(dotech);
+E void NDECL(docalm);
+E void FDECL(shield_block, (int));
+E boolean FDECL(shield_blockable, (struct monst *, struct attack *));
+E int FDECL(tech_inuse, (int));
+E void NDECL(tech_timeout);
+E void FDECL(extend_tech_time, (int, int));
+E boolean FDECL(tech_known, (SHORT_P));
+E void FDECL(learntech, (SHORT_P,long,int));
 
 /* ### teleport.c ### */
 
@@ -3136,6 +3152,8 @@ E int FDECL(weapon_hit_bonus, (struct obj *));
 E int FDECL(weapon_dam_bonus, (struct obj *));
 E void FDECL(skill_init, (const struct def_skill *));
 E struct art_info_t artifact_info(int);
+E void NDECL(practice_weapon);
+E boolean FDECL(can_practice, (int)); /* WAC for Practicing */
 
 /* ### were.c ### */
 
