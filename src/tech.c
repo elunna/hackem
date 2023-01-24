@@ -141,9 +141,6 @@ static const struct innate_tech
 	  	       {   6, T_E_FIST, 1},
 		       {   8, T_DRAW_ENERGY, 1},
 		       {  10, T_G_SLAM, 1},
-		       {  11, T_WARD_FIRE, 1},
-		       {  13, T_WARD_COLD, 1},
-		       {  15, T_WARD_ELEC, 1},
 		       {  17, T_SPIRIT_BOMB, 1},
 		       {  20, T_POWER_SURGE, 1},
 		       {   0, 0, 0} },
@@ -227,16 +224,12 @@ static const struct innate_tech
 		       {   8, T_DRAW_ENERGY, 1},
 		       {   8, T_TELEKINESIS, 1},
 		       {  10, T_G_SLAM, 1},
-		       {  11, T_WARD_FIRE, 1},
-		       {  13, T_WARD_COLD, 1},
-		       {  15, T_WARD_ELEC, 1},
 		       {  17, T_SPIRIT_BOMB, 1},
 		       {  20, T_POWER_SURGE, 1},
 		       {   0, 0, 0} },
 	pok_tech[] = { {   1, T_POKE_BALL, 1},
 		       {   2, T_PUMMEL, 1},
 		       {   4, T_DASH, 1},
-		       {  5, T_WARD_FIRE, 1},
 		       {   8, T_BLITZ, 1},
 		       {  9, T_WARD_COLD, 1},
 		       {  10, T_RAISE_ZOMBIES, 1},
@@ -1433,37 +1426,6 @@ int tech_no;
             else 
                 u.uhp -= num;
             t_timeout = rn1(1000, 500);
-            break;
-        case T_WARD_FIRE:
-            /* Already have it intrinsically? */
-            if (HFire_resistance & FROMOUTSIDE) return 0;
-
-            You("invoke the ward against flame!");
-            HFire_resistance += rn1(100, 50);
-            HFire_resistance += techlev(tech_no);
-            t_timeout = rn1(1000, 500);
-            break;
-        case T_WARD_COLD:
-            /* Already have it intrinsically? */
-            if (HCold_resistance & FROMOUTSIDE) 
-                return 0;
-
-            You("invoke the ward against ice!");
-            HCold_resistance += rn1(100, 50);
-            HCold_resistance += techlev(tech_no);
-            t_timeout = rn1(1000, 500);
-
-            break;
-        case T_WARD_ELEC:
-            /* Already have it intrinsically? */
-            if (HShock_resistance & FROMOUTSIDE)
-                return 0;
-
-            You("invoke the ward against lightning!");
-            HShock_resistance += rn1(100, 50);
-            HShock_resistance += techlev(tech_no);
-            t_timeout = rn1(1000, 500);
-
             break;
         case T_TINKER:
             if (Blind) {
