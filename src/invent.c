@@ -3535,8 +3535,7 @@ char *buf;
     else if (is_pool(x, y))
         dfeature = "pool of water";
     else if (IS_GRASS(ltyp))
-       /* cmap = S_grass; */
-        dfeature = "grass"; /* "grass" */
+        cmap = S_grass;   /* "grass" */
     else if (is_puddle(x, y))
         dfeature = "pool of shallow water";
     else if (is_sewage(x, y))
@@ -3680,10 +3679,14 @@ boolean picked_some;
     }
 
     if (dfeature) {
-        if (bloody)
-            Sprintf(fbuf, "There is a bloody %s here.", dfeature);
-        else
+        if (bloody) {
+            if (!strncmp(dfeature, "grass ", 6))
+                Sprintf(fbuf, "There is bloody %s here.", dfeature);
+            else
+                Sprintf(fbuf, "There is a bloody %s here.", dfeature);
+        } else {
             Sprintf(fbuf, "There is %s here.", an(dfeature));
+        }
     }
     if (!otmp || is_lava(u.ux, u.uy)
         || (is_pool(u.ux, u.uy) && !Underwater)) {

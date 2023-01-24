@@ -16,6 +16,15 @@
 Version 1.1 (unreleased)
 
 Changed #forge to #craft; removed duplicate armor entry in data.base.
+Fix 'welcome to hackem'
+Invoking the Holy Spear of Light lights the entire level.
+Fix pirate speak 'This sea biscu'tis bland.'
+Removed unused is_unpoisonable_firearm_ammo.
+Fix: Firearms require appropriate ammo to be effective.
+Fix: Bloody grass is described correctly on farlook. Fixes #138.
+Fix: 'There is a bloody grass here.'
+Added missing grass entry to gather_locs_interesting.
+Added some missing features to cmd.c: levltyp
 Black wands now made of iron.
 Plastic wands cannot be broken.
 Usage fee for masks.

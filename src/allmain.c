@@ -1177,7 +1177,7 @@ boolean new_game; /* false => restoring an old game */
                 : currentgend != flags.initgend))
         Sprintf(eos(buf), " %s", genders[currentgend].adj);
 
-    pline(new_game ? "%s %s, welcome to hackem!  You are %s %s %s."
+    pline(new_game ? "%s %s, welcome to Hack'EM!  You are %s %s %s."
                    : "%s %s, the%s %s %s, welcome back to Hack'EM!",
           Hello((struct monst *) 0), plname, buf, urace.adj,
           (currentgend && urole.name.f) ? urole.name.f : urole.name.m);

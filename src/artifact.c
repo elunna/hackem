@@ -3306,14 +3306,18 @@ struct obj *obj;
         case LEV_TELE:
             level_tele();
             break;
-        case LIGHT_AREA:
+        case LIGHT_AREA: {
+            struct obj *pseudo = mksobj(SCR_LIGHT, FALSE, FALSE);
+            bless(pseudo);
+            pseudo->ox = u.ux, pseudo->oy = u.uy;
             if (!Blind)
                 pline("%s shines brightly for an instant!", The(xname(obj)));
             else
                 pline("%s grows warm for a second!", The(xname(obj)));
-            litroom(TRUE, obj);
+            litroom(TRUE, pseudo);
+            obfree(pseudo, NULL);
             vision_recalc(0);
-            
+
             if (is_undead(youmonst.data)) {
                 You("burn in the radiance!");
                 /* This is ground zero.  Not good news ... */
@@ -3329,27 +3333,30 @@ struct obj *obj;
             /* Undead and Demonics can't stand the light */
             unseen = 0;
             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                if (DEADMONSTER(mtmp)) continue;
-                    if (distu(mtmp->mx, mtmp->my) > 9*9) 
-                        continue;
-                if (couldsee(mtmp->mx, mtmp->my) &&
-                      (is_undead(mtmp->data) || is_demon(mtmp->data)) &&
-                      !resist(mtmp, '\0', 0, TELL)) {
-                    
+                if (DEADMONSTER(mtmp))
+                    continue;
+                if (distu(mtmp->mx, mtmp->my) > 9 * 9)
+                    continue;
+                if (couldsee(mtmp->mx, mtmp->my)
+                    && (is_undead(mtmp->data) || is_demon(mtmp->data))
+                    && !resist(mtmp, '\0', 0, TELL)) {
                     if (canseemon(mtmp))
                         pline("%s burns in the radiance!", Monnam(mtmp));
                     else
                         unseen++;
-                    
-                    /* damage depends on distance, divisor ranges from 10 to 2 */
+
+                    /* damage depends on distance, divisor ranges from 10 to 2
+                     */
                     mtmp->mhp /= (10 - (distu(mtmp->mx, mtmp->my) / 10));
-                    if (mtmp->mhp < 1) 
+                    if (mtmp->mhp < 1)
                         mtmp->mhp = 1;
                 }
             }
             if (unseen)
-                You_hear("%s of intense pain!", unseen > 1 ? "cries" : "a cry");
+                You_hear("%s of intense pain!",
+                         unseen > 1 ? "cries" : "a cry");
             break;
+        }
         case CREATE_PORTAL: {
             int i, num_ok_dungeons, last_ok_dungeon = 0;
             d_level newlev;

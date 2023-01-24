@@ -394,6 +394,7 @@ int x, y, gloc;
                      || glyph_to_cmap(glyph) == S_tree
                      || glyph_to_cmap(glyph) == S_bars
                      || glyph_to_cmap(glyph) == S_ice
+                     || glyph_to_cmap(glyph) == S_grass
                      || glyph_to_cmap(glyph) == S_air
                      || glyph_to_cmap(glyph) == S_cloud
                      || glyph_to_cmap(glyph) == S_lava

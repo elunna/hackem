@@ -1716,10 +1716,14 @@ int dieroll;
 
         /* to be valid a projectile must have had the correct projector */
         wep = PROJECTILE(obj) ? uwep : obj;
-        tmp += weapon_dam_bonus(wep);
-        /* [this assumes that `!thrown' implies wielded...] */
-        wtype = thrown ? weapon_type(wep) : uwep_skill_type();
-        use_skill(wtype, 1);
+        if (!matching_firearm(obj, uwep)) {
+            tmp = rnd(2);
+        } else {
+            tmp += weapon_dam_bonus(wep);
+            /* [this assumes that `!thrown' implies wielded...] */
+            wtype = thrown ? weapon_type(wep) : uwep_skill_type();
+            use_skill(wtype, 1);
+        }
     }
     
     if (dbl_dmg()) {
