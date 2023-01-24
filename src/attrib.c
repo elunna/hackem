@@ -1198,26 +1198,6 @@ int oldlevel, newlevel;
         context.warntype.intrins |= MH_UNDEAD;
     else
         context.warntype.intrins &= ~MH_UNDEAD;
-
-    /* Learn tech-spells! */
-    short spell = spelltech();
-    if (spell) {
-        if (oldlevel < u.ulevel && newlevel >= u.ulevel
-            && u.ulevelmax == u.ulevel) {
-            int i;
-            for (i = 0; i < MAXSPELL; i++) {
-                if (spellid(i) == spell)
-                    return; /* We already know it */
-                if (spellid(i) == NO_SPELL)
-                    break;
-            }
-            if (spellid(i) == NO_SPELL)
-                You("learn how to cast %s!", OBJ_NAME(objects[spell]));
-            spl_book[i].sp_id = spell;
-            spl_book[i].sp_lev = objects[spell].oc_level;
-            spl_book[i].sp_know = 100000;
-        }
-    }
     
     /* Learn your special spell! (At level 12) */
     if (oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
