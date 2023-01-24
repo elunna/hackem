@@ -51,7 +51,6 @@ STATIC_DCL char *FDECL(spellretention, (int, char *));
 STATIC_DCL int NDECL(throwspell);
 STATIC_DCL void FDECL(spell_backfire, (int));
 STATIC_DCL boolean FDECL(spell_aim_step, (genericptr_t, int, int));
-STATIC_PTR int NDECL(charge_saber);
 
 static const char clothes[] = { ARMOR_CLASS, 0 };
 
@@ -1426,63 +1425,6 @@ boolean wiz_cast;
         if (!jump(max(role_skill, 1)))
             pline1(nothing_happens);
         break;
-    case SPE_JEDI_JUMP:
-        if (!jump((u.ulevel / 5 ) + 1)) 
-            pline1(nothing_happens);
-        break;
-    case SPE_CHARGE_SABER:
-        if (!uwep || !is_lightsaber(uwep)) {
-            You("are not holding a lightsaber!");
-            return 0;
-        }
-        if (u.uen < 5) {
-            You("lack the concentration to charge %s. You need at least 5 points of mana!", 
-                the(xname(uwep)));
-            return 0;
-        }
-        You("start charging %s.", the(xname(uwep)));
-        u.protean = -10;
-        set_occupation(charge_saber, "charging", 0);
-        break;
-    case SPE_TELEKINESIS: {
-        struct trap *ttrap;
-        /*coord cc;*/
-        cc.x = u.ux;
-        cc.y = u.uy;
-        do {
-            pline("Apply telekinesis where?");
-            if (getpos(&cc, TRUE, "apply telekinesis") < 0) {
-                You("release the force energy back into your surroundings.");
-                return 0;
-            }
-            if (!cansee(cc.x, cc.y)) {
-                You_cant("see what's there!");
-                continue;
-            }
-            if ((ttrap = t_at(cc.x, cc.y)) && ttrap->tseen
-                && yn("Handle the trap here?") == 'y') {
-                if (tele_disarm(ttrap, cc.x, cc.y))
-                    return 1;
-                else
-                    continue;
-            } else if ((otmp = level.objects[cc.x][cc.y]) != 0) {
-                char buf[BUFSZ];
-                sprintf(buf, "Pick up %s?", the(xname(otmp)));
-                if (yn(buf) == 'n')
-                    continue;
-                else {
-                    You("pick up an object from the %s.", surface(cc.x, cc.y));
-                    (void) pickup_object(otmp, 1L, TRUE);
-                    newsym(cc.x, cc.y);
-                    return 1;
-                }
-            } else {
-                You_cant("do anything %sthere.", ttrap ? "else " : "");
-            }
-        } while (TRUE);
-        
-        break;
-    }
     case SPE_REPAIR_ARMOR:
         /* removes one level of erosion (both types) for a chosen piece of armor */
         if (role_skill >= P_BASIC) {
@@ -2071,18 +2013,7 @@ int spell;
     int skill;
     int dex_adjust;
     boolean paladin_bonus, primary_casters, non_casters;
-    
-    /* For emulating techniques from SLASH'EM, some spells will always be 
-     * 100% if techniques.
-     * TODO: Better organization or structure for spelltechs. */
-    if ((Role_if(PM_JEDI) && 
-        (spellid(spell) == SPE_JEDI_JUMP 
-         || spellid(spell) == SPE_CHARGE_SABER
-         || spellid(spell) == SPE_TELEKINESIS)) ||
-        (Role_if(PM_NECROMANCER)
-         && spell_skilltype(spellid(spell)) == P_NECROMANCY_SPELL))
-        return 100;
-    
+
     /* Calculate intrinsic ability (splcaster) */
 
     splcaster = urole.spelbase;
@@ -2501,30 +2432,4 @@ cast_sphere(short otyp)
     }
 }
 
-STATIC_PTR int
-charge_saber(VOID_ARGS)
-{
-    int tlevel;
-    /* Reusing uprotean here so we don't add another variable or struct just
-     * for charging. uprotean is also only used by real pirates. */
-    if (u.protean) {
-        u.protean++;
-        return 1;
-    }
-    tlevel = (u.ulevel - 5);
-    if (tlevel < 1)
-        tlevel = 1;
-
-    if (tlevel >= 10 && !rn2(5)) {
-        You("manage to channel the force perfectly!");
-        uwep->age += 1500; /* Jackpot! */
-    } else
-        You("channel the force into %s.", the(xname(uwep)));
-    
-   /* yes no return above, it's a bonus :)*/
-    uwep->age += u.uen * ((tlevel / rnd(10)) + 20); /* improved results by Amy */
-    u.uen = 0;
-    context.botl = 1;
-    return 0;
-}
 /*spell.c*/

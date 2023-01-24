@@ -1904,7 +1904,6 @@ int tech_no;
           set_occupation(charge_saber, "charging", 0);
           t_timeout = 500;
           break;
-        
         default:
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
