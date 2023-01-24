@@ -693,10 +693,6 @@ age_spells()
         if (spellknow(i)) {
             if (spellid(i) == SPE_PSIONIC_WAVE)
                 continue;
-             /* Necromancers don't lose memory of their necromancy spells */
-            if (spell_skilltype(spellid(i)) == P_NECROMANCY_SPELL 
-                 && Role_if(PM_NECROMANCER))
-                continue;
             decrnknow(i);
         }
     }
