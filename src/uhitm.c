@@ -1047,10 +1047,6 @@ int dieroll;
                 if (!rn2(4))
                     monflee(mon, d(2, 3), TRUE, TRUE);
                 hittxt = TRUE;
-            } 
-            else if (!rn2(2) && rnl(15) == 0) {
-                You_feel("a surge of force.");
-                tmp += (tmp + 2) * 2;
             }
         }
     /* Blessed gloves give bonuses when fighting 'bare-handed'.  So do
