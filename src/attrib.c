@@ -1199,6 +1199,9 @@ int oldlevel, newlevel;
     else
         context.warntype.intrins &= ~MH_UNDEAD;
     
+    /* WAC -- adjust techniques */
+	adjtech(oldlevel, newlevel);
+
     /* Learn your special spell! (At level 12) */
     if (oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
         && u.ulevelmax == u.ulevel) {

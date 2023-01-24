@@ -1528,7 +1528,7 @@ register struct attack *mattk;
                     dmg = 1;
                     pline("%s hits you with the %s corpse.", Monnam(mtmp),
                           mons[otmp->corpsenm].mname);
-                    if (!Stoned)
+                    if (!Stoned && !shield_blockable(mtmp, mattk))
                         goto do_stone;
                 }
                 dmg += dmgval(otmp, &youmonst);
@@ -1549,7 +1549,7 @@ register struct attack *mattk;
                     mon_currwep = NULL;
                 }
 
-                if (!dmg)
+                if (!dmg || shield_blockable(mtmp, mattk))
                     break;
                 if (Hate_material(wepmaterial)) {
                     /* dmgval() already added extra damage */
@@ -1630,12 +1630,12 @@ register struct attack *mattk;
         break;
     case AD_DISE:
         hitmsg(mtmp, mattk);
-        if (!diseasemu(mdat) || Invulnerable)
+        if (shield_blockable(mtmp, mattk) || !diseasemu(mdat) || Invulnerable)
             dmg = 0;
         break;
     case AD_FIRE:
         hitmsg(mtmp, mattk);
-        if (uncancelled) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled) {
             pline("You're %s!", on_fire(&youmonst, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
             if (completelyburns(youmonst.data)) { /* paper or straw golem */
                 You("go up in flames!");
@@ -1664,7 +1664,7 @@ register struct attack *mattk;
         break;
     case AD_COLD:
         hitmsg(mtmp, mattk);
-        if (uncancelled) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled) {
             pline("You're covered in frost!");
             if (how_resistant(COLD_RES) == 100) {
                 pline_The("frost doesn't seem cold!");
@@ -1720,7 +1720,7 @@ register struct attack *mattk;
         break;
     case AD_ELEC:
         hitmsg(mtmp, mattk);
-        if (uncancelled) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled) {
             You("get zapped!");
             if (how_resistant(SHOCK_RES) == 100) {
                 pline_The("zap doesn't shock you!");
@@ -1738,7 +1738,8 @@ register struct attack *mattk;
         break;
     case AD_SLEE:
         hitmsg(mtmp, mattk);
-        if (uncancelled && multi >= 0 && !rn2(5)) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled 
+              && multi >= 0 && !rn2(5)) {
             if (how_resistant(SLEEP_RES) == 100) {
                 monstseesu(M_SEEN_SLEEP);
                 break;
@@ -1751,7 +1752,8 @@ register struct attack *mattk;
         }
         break;
     case AD_BLND:
-        if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
+        if (!shield_blockable(mtmp, mattk) && 
+              can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
             if (!Blind)
                 pline("%s blinds you!", Monnam(mtmp));
             make_blinded(Blinded + (long) dmg, FALSE);
@@ -1771,7 +1773,7 @@ register struct attack *mattk;
         goto dopois;
  dopois:
         hitmsg(mtmp, mattk);
-        if (uncancelled && !rn2(8)) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled && !rn2(8)) {
             Sprintf(buf, "%s %s", s_suffix(Monnam(mtmp)),
                     mpoisons_subj(mtmp, mattk));
             poisoned(buf, ptmp, mdat->mname, 30, FALSE);
@@ -1779,7 +1781,8 @@ register struct attack *mattk;
         break;
     case AD_DRIN:
         hitmsg(mtmp, mattk);
-        if (defends(AD_DRIN, uwep) || !has_head(youmonst.data)) {
+        if (shield_blockable(mtmp, mattk) || defends(AD_DRIN, uwep)
+              || !has_head(youmonst.data)) {
             You("don't seem harmed.");
             /* Not clear what to do for green slimes */
             break;
@@ -1883,7 +1886,7 @@ register struct attack *mattk;
             }
             break;
         }
-        if (uncancelled && multi >= 0 && !rn2(3)) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled && multi >= 0 && !rn2(3)) {
             if (Free_action) {
                 You("momentarily stiffen.");
             } else {
@@ -1900,7 +1903,7 @@ register struct attack *mattk;
         break;
     case AD_TCKL:
         hitmsg(mtmp, mattk);
-        if (uncancelled && multi >= 0 && !rn2(3)) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled && multi >= 0 && !rn2(3)) {
             if (Free_action)
                 You_feel("horrible tentacles probing your flesh!");
             else {
@@ -1918,7 +1921,7 @@ register struct attack *mattk;
         break;
     case AD_DRLI:
         hitmsg(mtmp, mattk);
-        if (uncancelled && !rn2(3)) {
+        if (!shield_blockable(mtmp, mattk) && uncancelled && !rn2(3)) {
             if (!Drain_resistance) {
                 /* Shadow ogre has a life-drain touch attack */
                 if (mtmp->data == &mons[PM_SHADOW_OGRE]) {
@@ -1945,7 +1948,10 @@ register struct attack *mattk;
         long side = rn2(2) ? RIGHT_SIDE : LEFT_SIDE;
         const char *sidestr = (side == RIGHT_SIDE) ? "right" : "left",
                    *Monst_name = Monnam(mtmp), *leg = body_part(LEG);
-
+        
+        if (shield_blockable(mtmp, mattk))
+            break;
+        
         /* This case is too obvious to ignore, but Nethack is not in
          * general very good at considering height--most short monsters
          * still _can_ attack you when you're flying or mounted.
@@ -1984,6 +1990,8 @@ register struct attack *mattk;
     }
     case AD_STON: /* cockatrice */
         hitmsg(mtmp, mattk);
+        if (shield_blockable(mtmp, mattk))
+            break;
         if (!rn2(3)) {
             if (mtmp->mcan) {
                 if (!Deaf)
@@ -2014,10 +2022,14 @@ register struct attack *mattk;
         break;
     case AD_STCK:
         hitmsg(mtmp, mattk);
+        if (shield_blockable(mtmp, mattk))
+            break;
         if (uncancelled && !u.ustuck && !sticks(youmonst.data))
             u.ustuck = mtmp;
         break;
     case AD_WRAP:
+        if (shield_blockable(mtmp, mattk))
+            break;
         if ((!mtmp->mcan || u.ustuck == mtmp) && !sticks(youmonst.data)) {
             if (!u.ustuck
                 && mtmp->data == &mons[PM_SALAMANDER] ? !rn2(6) : !rn2(8)) {
@@ -2096,6 +2108,8 @@ register struct attack *mattk;
         break;
     case AD_WERE:
         hitmsg(mtmp, mattk);
+        if (shield_blockable(mtmp, mattk))
+            break;
         if (uncancelled && !rn2(4) && u.ulycn == NON_PM
             && !Protection_from_shape_changers && !defends(AD_WERE, uwep)) {
             You_feel("feverish.");
@@ -2109,12 +2123,13 @@ register struct attack *mattk;
         break;
     case AD_SGLD:
         hitmsg(mtmp, mattk);
+        if (shield_blockable(mtmp, mattk))
+            break;
         if (youmonst.data->mlet == mdat->mlet)
             break;
         if (!(mtmp->mcan || Hidinshell))
             stealgold(mtmp);
         break;
-
     case AD_SSEX:
         if (SYSOPT_SEDUCE) {
             if (could_seduce(mtmp, &youmonst, mattk) == 1 
@@ -2484,13 +2499,13 @@ do_rust:
     case AD_CALM:	/* KMH -- koala attack */
         hitmsg(mtmp, mattk);
         if (uncancelled)
-        /* --hackem: Pending implementation of techniques.
-            docalm(); */
-            You("calm down.");
+            docalm();
         break;
     case AD_SLIM:
         hitmsg(mtmp, mattk);
         if (!uncancelled)
+            break;
+        if (shield_blockable(mtmp, mattk))
             break;
         if (flaming(youmonst.data)) {
             pline_The("slime burns away!");
@@ -2550,6 +2565,11 @@ do_rust:
                 /* still take regular damage */
                 pline("%s slices through your %s.",
                       Monnam(mtmp), body_part(NECK));
+                break;
+            }
+            if (shield_blockable(mtmp, mattk)) {
+                pline("%s attack glances harmlessly off of your shield.",
+                      s_suffix(Monnam(mtmp)));
                 break;
             }
             if (Hidinshell) {
@@ -2655,8 +2675,13 @@ do_rust:
     }
 
     if ((Upolyd ? u.mh : u.uhp) < 1) {
-        /* already dead? call rehumanize() or done_in_by() as appropriate */
-        mdamageu(mtmp, 1);
+        if (shield_blockable(mtmp, mattk)) {
+            You("block the attack with your shield.");
+            shield_block(dmg);
+        } else {
+            /* already dead? call rehumanize() or done_in_by() as appropriate */
+            mdamageu(mtmp, 1);
+        }
         dmg = 0;
     }
 
@@ -4007,6 +4032,11 @@ int n;
         You("are unharmed.");
         return;
     }
+    /* WAC For consistency...DO be careful using techniques ;B */
+	if (mtmp->mtame != 0 && tech_inuse(T_PRIMAL_ROAR)) {
+		n *= 2; /* Double Damage! */
+	}
+
     if (Upolyd) {
         u.mh -= n;
         if (u.mh < 1)

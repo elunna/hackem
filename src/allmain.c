@@ -347,20 +347,20 @@ boolean resuming;
                                 moveamt -= NORMAL_SPEED / 2;
                         }
                         
-                        /* TECH: Blinking! For Hobbitses */
-                        if (Race_if(PM_HOBBIT) && u.utechduration > 0) { 
+                       
+                        /* TECH: Blinking! */
+                        if (tech_inuse(T_BLINK)) {
                             /* Case    Average  Variance
-			     * -------------------------
-			     * Normal    12         0
-			     * Fast      16        12
-			     * V fast    20        12
-			     * Blinking  24        12
-			     * F & B     28        18
-			     * V F & B   30        18
-                             */
+                            * -------------------------
+                            * Normal    12         0
+                            * Fast      16        12
+                            * V fast    20        12
+                            * Blinking  24        12
+                            * F & B     28        18
+                            * V F & B   30        18
+                            */
                             moveamt += NORMAL_SPEED * 2 / 3;
-                            if (rn2(3) == 0) 
-                                moveamt += NORMAL_SPEED / 2;
+                            if (rn2(3) == 0) moveamt += NORMAL_SPEED / 2;
                         }
                     }
 
@@ -983,6 +983,11 @@ int wtcap;
             if (Sleepy && u.usleep)
                 heal++;
             
+            if (!u.uinvulnerable && u.uen > 0 && u.uhp < u.uhpmax 
+                && tech_inuse(T_CHI_HEALING)) {
+                u.uen--;
+                heal++;
+		    }
             if (heal && !(Withering && heal > 0)) {
                 context.botl = TRUE;
                 u.uhp += heal;

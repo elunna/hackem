@@ -2668,11 +2668,17 @@ msickness:
         }
         break;
     default:
-        tmp = 0;
+        /* necessary change to make pets more viable --Amy */
+        /* tmp = 0; */
         break;
     }
     if (!tmp)
         return res;
+        
+    /* WAC -- Caveman Primal Roar ability */
+    if (magr->mtame != 0 && tech_inuse(T_PRIMAL_ROAR)) {
+        tmp *= 2; /* Double Damage! */
+    }
 
     if (damage_mon(mdef, tmp, mattk->adtyp)) {
         if (m_at(mdef->mx, mdef->my) == magr) { /* see gulpmm() */

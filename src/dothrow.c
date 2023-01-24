@@ -256,6 +256,12 @@ int shotlimit;
                                  ? 16 : 18))
             multishot = rnd(multishot);
 
+        /* Tech: Flurry */
+        if (objects[obj->otyp].oc_skill == -P_BOW && tech_inuse(T_FLURRY))
+            multishot += 1; /* Let'em rip! */
+        if (objects[obj->otyp].oc_skill == -P_SLING && tech_inuse(T_FLURRY))
+            multishot += 1; /* Let'em rip! */
+        
         multishot = rnd(multishot);
         
         if ((long) multishot > obj->quan)
@@ -264,10 +270,7 @@ int shotlimit;
         /* Shotlimit controls your rate of fire */
         if (shotlimit > 0 && multishot > shotlimit)
             multishot = shotlimit;
-        
-        
     }
-    
     m_shot.s = ammo_and_launcher(obj, uwep) ? TRUE : FALSE;
     /* give a message if shooting more than one, or if player
        attempted to specify a count */

@@ -628,6 +628,10 @@ nh_timeout()
             u.luckturn = moves;
 	}
     }
+    
+    /* WAC -- check for timeout of specials */
+	tech_timeout();
+
     if (HPasses_walls)
         phasing_dialogue();
     if (u.uinvulnerable)

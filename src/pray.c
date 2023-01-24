@@ -2730,7 +2730,7 @@ doturn()
 
 
 
-#if 0
+#if 0 /* This will replace the original doturn */
 int
 doturn()
 {	

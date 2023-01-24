@@ -108,6 +108,7 @@ extern int NDECL(dosacrifice);        /**/
 extern int NDECL(dopray);             /**/
 extern int NDECL(dotip);              /**/
 extern int NDECL(doturn);             /**/
+extern int NDECL(dotech);             /**/
 extern int NDECL(doredraw);           /**/
 extern int NDECL(doread);             /**/
 extern int NDECL(dosave);             /**/
@@ -4265,7 +4266,8 @@ struct ext_func_tab extcmdlist[] = {
             wiz_timeout_queue, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { M('T'), "tip", "empty a container", dotip, AUTOCOMPLETE },
     { '_', "travel", "travel to a specific location on the map", dotravel },
-    { M('t'), "turn", "turn undead away", doturn, IFBURIED | AUTOCOMPLETE },
+    /* { M('t'), "turn", "turn undead away", doturn, IFBURIED | AUTOCOMPLETE },*/
+    { M('t'), "tech", "Use Techniques [M-t]", dotech, AUTOCOMPLETE },
     { 'X', "twoweapon", "toggle two-weapon combat",
             dotwoweapon, AUTOCOMPLETE },
     { M('u'), "untrap", "untrap something", dountrap, AUTOCOMPLETE },
