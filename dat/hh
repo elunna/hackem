@@ -49,6 +49,7 @@ a       apply   apply or use a tool (pick-axe, key, camera, etc.)
 A       armor   take off all armor
 c       close   close a door
 C       call    name a monster, an individual object, or a type of object
+        craft   crafts an item in a forge
 d       drop    drop an object.  d7a:  drop seven items of object 'a'
 D       Drop    drop selected types of objects
 e       eat     eat something
@@ -103,6 +104,7 @@ M-C     conduct view optional challenges
 M-d     dip     dip an object into something
 M-e     enhance advance or check weapon and spell skills
 M-f     force   force a lock
+M-F     craft   craft an item (on a forge)
 M-i     invoke  invoke an object's special powers
 M-j     jump    jump to another location
 M-l     loot    loot a box on the floor

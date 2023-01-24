@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Changed #forge to #craft; removed duplicate armor entry in data.base.
 Black wands now made of iron.
 Plastic wands cannot be broken.
 Usage fee for masks.

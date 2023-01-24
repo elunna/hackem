@@ -36,41 +36,6 @@ abbot
 	manner, "What is God?"  The answer is not recorded but it is
 	probable that the asker went on worrying out answers for himself.
 		[ The Runaway Abbot, by G. K. Chesterton ]
-# takes "suit or piece of armor" when specifying '['
-# FIXME too: "ac, armor class" also merits its own distinct entry
-ac
-armor
-armour
-~forging armor
-~scroll of enchant armor
-~scroll of destroy armor
-~spellbook of repair armor
-*armor
-suit or piece of armor
-~*dragon*scale*
-~scroll of mail
-*mail
-~armor r*
-~armor f*
-	"The last spot on the school jousting team came down to another
-	boy and me.  He was poor, and his only armor was a blanket his
-	mother had made him from her hair.  I, on the other hand, had
-	a brand new suit of chain mail.  Just before our joust, I asked
-	him what he'd do if he made the team.  (I was hoping to be more
-	popular with the ladies.)  He said he would be able to save the
-	town from dragons and be able to afford some water for his 20
-	brothers and sisters.
-
-	Well, a sense of compassion came over me.  I insisted we swap
-	armor.  He was forced to accept, as it would have been an
-	insult not to do so.
-
-	On the battlefield, we charged at each other and we both connected
-	with our lances.
-
-	Lying there on the mud mortally wounded, I learned what true armor
-	class was that day."
-		[ When Help Collides, by J. D. Berry ]
 aerdrie faenya
 	Aerdrie  Faenya is the elven goddess of air and weather. As a rain-
 	bringer, she is revered as a source of fertility.  She is, however,
@@ -83,8 +48,22 @@ aerdrie faenya
 	aarakocra, ki-rin, and lammasu.
 					 [ Monster Mythology, by TSR inc. ]
 ac
-armor*
-armour*
+~scroll of enchant armor
+~scroll of destroy armor
+~scroll of mail
+~spellbook of repair armor
+suit or piece of armor
+~*dragon*scale*
+~forging armor
+~forge armor
+~craft armor
+~crafting armor
+~armor craft*
+~armor forg*
+~armor recipe*
+*armor
+armour
+*mail
 	"The last spot on the school jousting team came down to another 
 	boy and me. He was poor, and his only armor was a blanket his 
 	mother had made him from her hair. I, on the other hand, had 
@@ -2689,16 +2668,17 @@ dunce*
 	children's cartoons.
 		[ Wikipedia, the free encyclopedia ]
 forge
+craft
 cookbook
 fusions
-    Getting Started
+    The #craft command: Getting Started
     
     1) Find a forge.
     2) Find a hammer, any will do.
     3) Find two gemstone or metallic objects from the recipe
        chapters.
     4) Put both of those objects into the forge whilst
-       wielding your hammer (#forge).
+       wielding your hammer (#craft).
     5) Start forging.  If successful, you'll forge a brand
        new object.
     
@@ -2713,7 +2693,10 @@ fusions
 forging w*
 weapon r*
 weapon f*
-    Forging Weapons      (See "forge" for instructions)
+weapon c*
+forge weap*
+craft weap*
+    Forging Weapons      (See "craft" for instructions)
     
     dagger                  = knife + 2 arrows
     elven dagger            = knife + 2 elven arrows
@@ -2798,10 +2781,14 @@ weapon f*
     shotgun                 = pistol + broadsword
     auto shotgun            = shotgun + iron chain
 # forging armor, armor recipes, armor fusions
-forging a*
-armor r*
-armor f*
-    Forging Weapons      (See "forge" for instructions)
+forging armor
+forge armor
+crafting armor
+craft armor
+armor craft*
+armor forg*
+armor recipe*
+    Forging Weapons      (See "craft" for instructions)
     
     plate mail              = splint mail + chain mail
     crystal plate mail      = plate mail + 3 dilithium crystals
