@@ -2584,24 +2584,25 @@ prayer_done() /* M. Stephenson (1.0.3b) */
     return 1;
 }
 
-/* #turn command */
+/* #turn command [EvilHack version] 
+ * (previous doturn, converted for use with techniques */
 int
-doturn()
+turn_undead()
 {
     /* Knights & Priest(esse)s only please */
     struct monst *mtmp, *mtmp2;
     const char *Gname;
     int once, range, xlev;
-
-    if (!Role_if(PM_PRIEST) 
-        && !Role_if(PM_KNIGHT) 
-        && !Role_if(PM_UNDEAD_SLAYER)) {
+#if 0 /* Disable for tech */
+    if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT) && !Role_if(PM_UNDEAD_SLAYER)) {
         /* Try to use the "turn undead" spell. */
         if (known_spell(SPE_TURN_UNDEAD))
             return spelleffects(spell_idx(SPE_TURN_UNDEAD), FALSE, FALSE);
         You("don't know how to turn undead!");
         return 0;
     }
+#endif
+    
     if (Hidinshell) {
         You_cant("turn undead while hiding in your shell!");
         return 0;
@@ -2647,6 +2648,7 @@ doturn()
     once = 0;
     for (mtmp = fmon; mtmp; mtmp = mtmp2) {
         mtmp2 = mtmp->nmon;
+        
         if (DEADMONSTER(mtmp))
             continue;
         /* 3.6.3: used to use cansee() here but the purpose is to prevent
@@ -2681,6 +2683,7 @@ doturn()
                     /*FALLTHRU*/
                 case S_VAMPIRE:
                     xlev += 2;
+                    /* TODO: - catch vampire bats? */
                     /*FALLTHRU*/
                 case S_WRAITH:
                     xlev += 2;
@@ -2728,9 +2731,6 @@ doturn()
     return 1;
 }
 
-
-
-#if 0 /* This will replace the original doturn */
 int
 doturn()
 {	
@@ -2746,104 +2746,14 @@ doturn()
             
             if (sp_no < MAXSPELL &&
                 spl_book[sp_no].sp_id == SPE_TURN_UNDEAD)
-                return spelleffects(sp_no, TRUE);
+                return spelleffects(sp_no, TRUE, FALSE);
         }
 
         You("don't know how to turn undead!");
-        return(0);
+        return 0;
     }
     return (turn_undead());
 }
-#endif
-
-int
-turn_undead()
-{
-    struct monst *mtmp, *mtmp2;
-    int once, range, xlev;
-
-    u.uconduct.gnostic++;
-
-    if ((u.ualign.type != A_CHAOTIC
-         && (is_demon(youmonst.data) || is_undead(youmonst.data)))
-        || u.ugangr > 6 /* "Die, mortal!" */) {
-        pline("For some reason, %s seems to ignore you.", u_gname());
-        aggravate();
-        exercise(A_WIS, FALSE);
-        return (0);
-    }
-
-    if (Inhell) {
-        pline("Since you are in Gehennom, %s won't help you.", u_gname());
-        aggravate();
-        return (0);
-    }
-    pline("Calling upon %s, you chant an arcane formula.", u_gname());
-    exercise(A_WIS, TRUE);
-
-    /* note: does not perform unturn_dead() on victims' inventories */
-    range = BOLT_LIM + (u.ulevel / 5); /* 5 to 11 */
-    range *= range;
-    once = 0;
-    for (mtmp = fmon; mtmp; mtmp = mtmp2) {
-        mtmp2 = mtmp->nmon;
-
-        if (DEADMONSTER(mtmp))
-            continue;
-        if (!cansee(mtmp->mx, mtmp->my) || distu(mtmp->mx, mtmp->my) > range)
-            continue;
-
-        if (!mtmp->mpeaceful
-            && (is_undead(mtmp->data)
-                || (is_demon(mtmp->data) && (u.ulevel > (MAXULEV / 2))))) {
-            mtmp->msleeping = 0;
-            if (Confusion) {
-                if (!once++)
-                    pline("Unfortunately, your voice falters.");
-                mtmp->mflee = 0;
-                mtmp->mfrozen = 0;
-                mtmp->mcanmove = 1;
-            } else if (!resist(mtmp, '\0', 0, TELL)) {
-                xlev = 6;
-                switch (mtmp->data->mlet) {
-                    /* this is intentional, lichs are tougher
-                       than zombies. */
-                    /* ToDo - catch vampire bats */
-                case S_LICH:
-                    xlev += 2; /*FALLTHRU*/
-                case S_GHOST:
-                    xlev += 2; /*FALLTHRU*/
-                case S_VAMPIRE:
-                    xlev += 2; /*FALLTHRU*/
-                case S_WRAITH:
-                    xlev += 2; /*FALLTHRU*/
-                case S_MUMMY:
-                    xlev += 2; /*FALLTHRU*/
-                case S_ZOMBIE:
-                    if (u.ulevel >= xlev && !resist(mtmp, '\0', 0, NOTELL)) {
-                        if (u.ualign.type == A_CHAOTIC) {
-                            mtmp->mpeaceful = 1;
-                            set_malign(mtmp);
-                        } else { /* damn them */
-                            killed(mtmp);
-                        }
-                        break;
-                    } /* else flee */
-                    /*FALLTHRU*/
-                default:
-                    monflee(mtmp, 0, FALSE, TRUE);
-                    break;
-                }
-            }
-        }
-    }
-    nomul(-(5 - ((u.ulevel - 1) / 6))); /* -5 .. -1 */
-    multi_reason = "trying to turn the monsters";
-    nomovemsg = You_can_move_again;
-/*    nomul(-2, "trying to turn undead monsters");*/
-    return 1;
-}
-
 
 int
 altarmask_at(x, y)

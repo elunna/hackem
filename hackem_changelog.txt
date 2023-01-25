@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+#turn is now a technique.
 Removed remaining wards from tech_names.
 Removed #monster tech workarounds in favor of the original techniques.
 Removed all the sigil techniques.
