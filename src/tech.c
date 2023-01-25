@@ -60,9 +60,6 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
 	"primal roar",
 	"liquid leap",
 	"critical strike",
-	"sigil of control",
-	"sigil of tempest",
-	"sigil of discharge",
 	"raise zombies",
 	"revivification",
 	"ward against flame",
@@ -109,17 +106,13 @@ static const struct innate_tech
 	fla_tech[] = { {   1, T_REINFORCE, 1},
 		       {   3, T_POWER_SURGE, 1},
 		       {   5, T_DRAW_ENERGY, 1},
-		       {  10, T_SIGIL_TEMPEST, 1},
-		       {  20, T_SIGIL_DISCHARGE, 1},
 		       {   0, 0, 0} },
 	hea_tech[] = { /*{   1, T_SURGERY, 1},*/
 		       {  20, T_REVIVE, 1},
 		       {   0, 0, 0} },
 	ice_tech[] = { {   1, T_REINFORCE, 1},
 		       {   5, T_DRAW_ENERGY, 1},
-		       {  10, T_SIGIL_TEMPEST, 1},
 		       {  12, T_POWER_SURGE, 1},
-		       {  20, T_SIGIL_DISCHARGE, 1},
 		       {   0, 0, 0} },
 	jed_tech[] = { {   1, T_JEDI_JUMP, 1},
 		       {   5, T_CHARGE_SABER, 1},
@@ -147,7 +140,6 @@ static const struct innate_tech
 	nec_tech[] = { {   1, T_REINFORCE, 1},
 		       {   1, T_RAISE_ZOMBIES, 1},
 		       {  10, T_POWER_SURGE, 1},
-		       {  15, T_SIGIL_TEMPEST, 1},
 		       {   0, 0, 0} },
 	pri_tech[] = { {   1, T_TURN_UNDEAD, 1},
 		       {   1, T_BLESSING, 1},
@@ -179,9 +171,6 @@ static const struct innate_tech
 	wiz_tech[] = { {   1, T_REINFORCE, 1},
 		       {   3, T_DRAW_ENERGY, 1},
 		       {   5, T_POWER_SURGE, 1},
-		       {   7, T_SIGIL_CONTROL, 1},
-		       {  14, T_SIGIL_TEMPEST, 1},
-		       {  20, T_SIGIL_DISCHARGE, 1},
 		       {   0, 0, 0} },		       
     
 #if 0 /* drunk */
@@ -201,17 +190,11 @@ static const struct innate_tech
         aci_tech[] = { {   1, T_REINFORCE, 1},
                    {   3, T_POWER_SURGE, 1},
                    {   5, T_DRAW_ENERGY, 1},
-                   {   7, T_SIGIL_CONTROL, 1},
-                   {  10, T_SIGIL_TEMPEST, 1},
-                   {  20, T_SIGIL_DISCHARGE, 1},
                    {   0, 0, 0} },
         /* electric mage */
         ele_tech[] = { {   1, T_REINFORCE, 1},
 		       {   3, T_POWER_SURGE, 1},
 		       {   5, T_DRAW_ENERGY, 1},
-		       {   7, T_SIGIL_CONTROL, 1},
-		       {  10, T_SIGIL_TEMPEST, 1},
-		       {  20, T_SIGIL_DISCHARGE, 1},
 		       {   0, 0, 0} },
     /* No gladiator */
 	gla_tech[] = { {   3, T_SHIELD_BLOCK, 1},
@@ -1304,51 +1287,6 @@ int tech_no;
             t_timeout = rn1(1000, 500);
             break;
         }
-        case T_SIGIL_TEMPEST: 
-            /* Have enough power? */
-            num = 50 - techlev(tech_no);
-            if (u.uen < num) {
-                You("don't have enough power to invoke the sigil! You need at least %d!", num);
-                return 0;
-            }
-            u.uen -= num;
-
-            /* Invoke */
-            You("invoke the sigil of tempest!");
-            techt_inuse(tech_no) = d(1, 6) + rnd(techlev(tech_no) / 5 + 1) + 2;
-            u_wipe_engr(2);
-            return 0;
-            break;
-        case T_SIGIL_CONTROL:
-            /* Have enough power? */
-            num = 30 - techlev(tech_no) / 2;
-            if (u.uen < num) {
-                You("don't have enough power to invoke the sigil! You need at least %d!", num);
-                return 0;
-            }
-            u.uen -= num;
-
-            /* Invoke */
-            You("invoke the sigil of control!");
-            techt_inuse(tech_no) = d(1, 4) + rnd(techlev(tech_no) / 5 + 1) + 2;
-            u_wipe_engr(2);
-            return 0;
-            break;
-        case T_SIGIL_DISCHARGE:
-            /* Have enough power? */
-            num = 100 - techlev(tech_no) * 2;
-            if (u.uen < num) {
-                You("don't have enough power to invoke the sigil! You need at least %d!",num);
-                return 0;
-            }
-            u.uen -= num;
-
-            /* Invoke */
-            You("invoke the sigil of discharge!");
-            techt_inuse(tech_no) = d(1, 4) + rnd(techlev(tech_no) / 5 + 1) + 2;
-            u_wipe_engr(2);
-            return 0;
-            break;
         case T_RAISE_ZOMBIES: {
             /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
          * adding another case. */
@@ -2029,15 +1967,6 @@ tech_timeout()
                         break;
                     case T_E_FIST:
                         You("feel the power dissipate.");
-                        break;
-                    case T_SIGIL_TEMPEST:
-                        pline_The("sigil of tempest fades.");
-                        break;
-                    case T_SIGIL_CONTROL:
-                        pline_The("sigil of control fades.");
-                        break;
-                    case T_SIGIL_DISCHARGE:
-                        pline_The("sigil of discharge fades.");
                         break;
                     case T_RAGE:
                         Your("anger cools.");

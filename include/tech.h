@@ -62,38 +62,35 @@ struct blitz_tab {
 #define T_PRIMAL_ROAR 	16
 #define T_LIQUID_LEAP 	17
 #define T_CRIT_STRIKE 	18
-#define T_SIGIL_CONTROL 19
-#define T_SIGIL_TEMPEST 20
-#define T_SIGIL_DISCHARGE 21
-#define T_RAISE_ZOMBIES 22
-#define T_REVIVE 	23
-#define T_TINKER 	24
-#define T_RAGE	 	25
-#define T_BLINK	 	26
-#define T_CHI_STRIKE 	27
-#define T_DRAW_ENERGY 	28
-#define T_CHI_HEALING 	29
-#define T_DISARM 	30
-#define T_DAZZLE 	31
-#define T_BLITZ 	32
-#define T_PUMMEL 	33
-#define T_G_SLAM 	34
-#define T_DASH	 	35
-#define T_POWER_SURGE 	36
-#define T_SPIRIT_BOMB 	37
-#define T_DRAW_BLOOD	38
+#define T_RAISE_ZOMBIES 19
+#define T_REVIVE 	20
+#define T_TINKER 	21
+#define T_RAGE	 	22
+#define T_BLINK	 	23
+#define T_CHI_STRIKE 	24
+#define T_DRAW_ENERGY 	25
+#define T_CHI_HEALING 	26
+#define T_DISARM 	27
+#define T_DAZZLE 	28
+#define T_BLITZ 	29
+#define T_PUMMEL 	30
+#define T_G_SLAM 	31
+#define T_DASH	 	32
+#define T_POWER_SURGE 	33
+#define T_SPIRIT_BOMB 	34
+#define T_DRAW_BLOOD	35
 /* Added by Slash'EM Extended */
-#define T_WORLD_FALL	39
-#define T_CREATE_AMMO	40
-#define T_APPRAISAL	41
-#define T_BOOZE		42
+#define T_WORLD_FALL	36
+#define T_CREATE_AMMO	37
+#define T_APPRAISAL	38
+#define T_BOOZE		39
 /* Added by SlashTHEM */
-#define T_SOULEATER 	43
-#define T_SHIELD_BLOCK  44
-#define T_JEDI_JUMP	45
-#define T_CHARGE_SABER	46
-#define T_TELEKINESIS	47
+#define T_SOULEATER 	40
+#define T_SHIELD_BLOCK  41
+#define T_JEDI_JUMP	42
+#define T_CHARGE_SABER	43
+#define T_TELEKINESIS	44
  
-#define MAXTECH 48
+#define MAXTECH 45
 
 #endif /* TECH_H */
