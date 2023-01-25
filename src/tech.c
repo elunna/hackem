@@ -881,7 +881,8 @@ int tech_no;
             }
             if (Sick || Slimed) {
                 if (carrying(SCALPEL)) {
-                    pline("Using your scalpel (ow!), you cure your infection!");
+                    pline("Using %s (ow!), you cure your infection!", 
+                          yname(carrying(SCALPEL)));
                     make_sick(0L, (char *)0, TRUE, SICK_ALL);
                     Slimed = 0;
                     if (Upolyd) {
@@ -1638,7 +1639,8 @@ int tech_no;
                 return 0;
             }
             check_unpaid(obj);
-            pline("Using your medical kit, you draw off a phial of your blood.");
+            pline("Using %s, you draw off a phial of your blood.", 
+                  yname(carrying(MEDICAL_KIT)));
             losexp("drawing blood");
             if (u.uexp > 0)
                 u.uexp = newuexp(u.ulevel - 1);
@@ -1739,7 +1741,7 @@ int tech_no;
               You_cant("block attacks without a shield.");
               return 0;
           }
-          You("inject your energy into your shield.");
+          You("inject your energy into %s shield.", yname(uarms));
           techt_inuse(tech_no) = d(3, 4) + techlev(tech_no);
           t_timeout = rn1(1000, 500);
           break;
@@ -1824,7 +1826,8 @@ int dam;
         u.uen -= dam;
         if (u.uen <= 0) {
               u.uen = 0;
-              You("can no longer block damage with your shield.");
+              You("can no longer block damage with %s.", 
+                  uarms ? yname(uarms) : "a shield");
               for (i = 0; i < MAXTECH; ++i) {
                     if (techid(i) == T_SHIELD_BLOCK) {
                         techt_inuse(i) = 0;
@@ -1949,7 +1952,7 @@ tech_timeout()
                         break;
                     case T_SHIELD_BLOCK:
                         if (uarms)
-                            You("release the energy from your shield.");
+                            You("release the energy from %s.", yname(uarms));
                         break;
                     default:
                         break;
