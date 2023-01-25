@@ -179,11 +179,13 @@ char oclass;
      * that Box can't contain anything else because putting something in
      * would resolve the cat/corpse situation and convert to ordinary box.
      */
-    if (Has_contents(obj) && !SchroedingersBox(obj)) {
+    if (Has_contents(obj) && (!SchroedingersBox(obj) && obj->otyp != MEDICAL_KIT)) {
         for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
             if (otmp->oclass == oclass)
                 return otmp;
-            else if (Has_contents(otmp) && obj->otyp != KEG
+            else if (Has_contents(otmp) 
+                     && obj->otyp != KEG
+                     && otmp->otyp != MEDICAL_KIT 
                      && (temp = o_in(otmp, oclass)) != 0)
                 return temp;
     }

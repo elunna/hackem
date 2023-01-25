@@ -606,7 +606,8 @@ struct mkroom *sroom;
                 /* And for misc healing objects */
                 if (!rn2(10))
                     (void) mksobj_at(PILL, sx, sy, TRUE, FALSE);
-                /* if (!rn2(40)) (void) mksobj_at(MEDICAL_KIT, sx, sy, TRUE, FALSE); */
+                if (!rn2(40)) 
+                        (void) mksobj_at(MEDICAL_KIT, sx, sy, TRUE, FALSE);
                 break;
             case COCKNEST:
                 if (!rn2(3)) {

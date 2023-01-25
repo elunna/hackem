@@ -829,6 +829,7 @@ CONTAINER("chest",            None, 1, 0, 0, 25, 600,  16, WOOD, HI_WOOD),
 CONTAINER("iron safe",        None, 1, 0, 0, 10, 900,  50, IRON, HI_METAL),  /* EvilHack/Un */
 CONTAINER("crystal chest",    None, 1, 1, 0,  1, 500,  20, GEMSTONE, CLR_WHITE), /* EvilHack */
 CONTAINER("ice box",          None, 1, 0, 0,  5, 900,  42, PLASTIC, CLR_WHITE),
+CONTAINER("medical kit","suitcase", 0, 0, 0, 10,  25, 500, LEATHER, HI_LEATHER),
 CONTAINER("sack",            "bag", 0, 0, 0, 35,  15,   2, CLOTH, HI_CLOTH),
 CONTAINER("oilskin sack",    "bag", 0, 0, 0,  5,  15, 100, CLOTH, HI_CLOTH),
 CONTAINER("bag of holding",  "bag", 0, 1, 0, 20,  15, 100, CLOTH, HI_CLOTH),
@@ -914,11 +915,20 @@ WEPTOOL("torch", None,                 1, 0, 0, 0,  0,  25,   8,  5,  2, 0, WHAC
 WEPTOOL("unicorn horn", None,          1, 1, 0, 1,  0,  20, 100,  12, 12, 1, PIERCE, P_UNICORN_HORN, BONE, CLR_WHITE),
         /* 3.4.1: unicorn horn left classified as "magic" */
 
+/* Two pseudo tools. These can never exist outside of medical kits. */
+OBJECT(OBJ("bandage", None),
+		BITS(1,1,0,0,0,0,0,1,0,0,0,P_NONE,CLOTH), 0,
+		TOOL_CLASS, 0, 0, 1, 1, 0, 0, 0, 0, 0, CLR_WHITE),
+OBJECT(OBJ("phial", None),
+		BITS(1,1,0,0,0,0,0,1,0,0,0,P_NONE,GLASS), 0,
+		TOOL_CLASS, 0, 0, 2, 1, 0, 0, 0, 0, 1, HI_GLASS),
+
 /* manticore spikes - counts as WEPTOOL? */
 OBJECT(OBJ("spike", None),  /* SpliceHack */
       BITS(1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, P_NONE, BONE), 0,
       TOOL_CLASS, 0, 0, 1, 0, 6, 6, 0, 0, 0, HI_ORGANIC),
-      
+
+
 /* two unique tools;
  * not artifacts, despite the comment which used to be here
  */

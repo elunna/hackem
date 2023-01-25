@@ -292,12 +292,18 @@ STATIC_OVL void
 mkbox_cnts(box)
 struct obj *box;
 {
-    register int n;
+    register int n, minn = 0;
     register struct obj *otmp;
 
     box->cobj = (struct obj *) 0;
 
     switch (box->otyp) {
+    case MEDICAL_KIT:
+        n = 60;
+        /* Initial inventory, no empty medical kits */
+        if (moves <= 1 && !in_mklev) 
+            minn = 1;
+        break;
     case ICE_BOX:
         n = 20;
         break;
@@ -328,7 +334,11 @@ struct obj *box;
     }
 
     for (n = rn2(n + 1); n > 0; n--) {
-        if (box->otyp == ICE_BOX) {
+        if (box->otyp == MEDICAL_KIT) {
+            int supplies[] = { PHIAL, BANDAGE, PILL };
+            if (!(otmp = mksobj(supplies[rn2(SIZE(supplies))], TRUE, TRUE)))
+                continue;
+        } else if (box->otyp == ICE_BOX) {
             otmp = mksobj(CORPSE, TRUE, FALSE);
             /* Note: setting age to 0 is correct.  Age has a different
              * from usual meaning for objects stored in ice boxes. -KAA
@@ -1026,6 +1036,7 @@ boolean artif;
             case SACK:
             case OILSKIN_SACK:
             case BAG_OF_HOLDING:
+            case MEDICAL_KIT:
                 mkbox_cnts(otmp);
                 break;
             case KEG:

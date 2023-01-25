@@ -104,7 +104,7 @@ static const struct innate_tech
 		       {   3, T_POWER_SURGE, 1},
 		       {   5, T_DRAW_ENERGY, 1},
 		       {   0, 0, 0} },
-	hea_tech[] = { /*{   1, T_SURGERY, 1},*/
+	hea_tech[] = { {   1, T_SURGERY, 1},
 		       {  20, T_REVIVE, 1},
 		       {   0, 0, 0} },
 	ice_tech[] = { {   1, T_REINFORCE, 1},
@@ -675,7 +675,6 @@ dotech()
     return 0;
 }
 
-#if 0 /* No MEDICAL_KIT yet */
 static NEARDATA const char kits[] = { TOOL_CLASS, 0 };
 
 static struct obj *
@@ -710,7 +709,6 @@ char *verb;
     }
     return otmp;
 }
-#endif
 
 /* gettech is reworked getspell */
 /* reworked class special effects code */
@@ -876,7 +874,6 @@ int tech_no;
             }
             t_timeout = rn1(500, 500);
             break;
-#if 0 /* T_SURGERY */
         case T_SURGERY:
             if (Hallucination || Stunned || Confusion) {
                 You("are in no condition to perform surgery!");
@@ -905,6 +902,7 @@ int tech_no;
                 otmp = use_medical_kit(BANDAGE, FALSE,
                         "dress your wounds with");
                 if (otmp) {
+                    pline("Using %s, you dress your wounds.", yname(otmp));
                     check_unpaid(otmp);
                     if (otmp->quan > 1L) {
                         otmp->quan--;
@@ -913,7 +911,6 @@ int tech_no;
                         obj_extract_self(otmp);
                         obfree(otmp, (struct obj *)0);
                     }
-                    pline("Using %s, you dress your wounds.", yname(otmp));
                     healup(techlev(tech_no) * (rnd(2) + 1) + rn1(5, 5), 0, FALSE, FALSE);
                 } else {
                     You("strap your wounds as best you can.");
@@ -924,7 +921,6 @@ int tech_no;
             } else 
                 You("don't need your healing powers!");
             break;
-#endif
         case T_HEAL_HANDS:
             if (Slimed) {
                 Your("body is on fire!");
@@ -1623,10 +1619,9 @@ int tech_no;
                 return 0;
             t_timeout = rn1(1000, 500);
             break;
-#if 0 /* TODO after medical kits */
         case T_DRAW_BLOOD:
             if (!maybe_polyd(is_vampire(youmonst.data),
-              Race_if(PM_VAMPIRE))) {
+              Race_if(PM_VAMPIRIC))) {
                 /* ALI
                  * Otherwise we get problems with what we create:
                  * potions of vampire blood would no longer be
@@ -1661,7 +1656,6 @@ int tech_no;
                 (const char *)0);
             t_timeout = rn1(1000, 500);
             break;
-#endif
         case T_JEDI_JUMP:
             if (u.uen < 25){
                 You("can't channel the force around you. Jedi jumps require 25 points of mana!");
@@ -2122,7 +2116,7 @@ race_tech()
         return (gno_tech);
     case PM_HOBBIT:
         return (hob_tech);
-    case PM_VAMPIRE:
+    case PM_VAMPIRIC:
         return (vam_tech);
 
 #if 0 /* Deferred */

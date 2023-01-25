@@ -1707,6 +1707,9 @@ register const char *let, *word;
              || (!strcmp(word, "call") && !objtyp_is_callable(otyp))
              || (!strcmp(word, "adjust") && otmp->oclass == COIN_CLASS
                  && !usegold)
+             || ((!strcmp(word, "draw blood with") ||
+			    !strcmp(word, "bandage your wounds with")) &&
+		        (otmp->oclass == TOOL_CLASS && otyp != MEDICAL_KIT))
              ) {
                 foo--;
             }

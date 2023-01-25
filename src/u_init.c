@@ -87,7 +87,7 @@ struct trobj Healer[] = {
     { SCALPEL, 1, WEAPON_CLASS, 1, 1 },
     { GLOVES, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { STETHOSCOPE, 0, TOOL_CLASS, 1, 0 },
-    /* Missing medical kit */
+    { MEDICAL_KIT, 0, TOOL_CLASS, 1, 0 },   
     { POT_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { POT_EXTRA_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { WAN_SLEEP, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },

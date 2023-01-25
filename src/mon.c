@@ -1905,6 +1905,8 @@ struct monst *mtmp;
                 if (mtmp->mhp > mtmp->mhpmax)
                     mtmp->mhp = mtmp->mhpmax;
             }
+            if (otmp->otyp == MEDICAL_KIT)
+                delete_contents(otmp);
             if (Has_contents(otmp))
                 meatbox(mtmp, otmp);
             /* possibility of being turned to stone or into slime can't

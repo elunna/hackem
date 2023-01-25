@@ -26,6 +26,7 @@ STATIC_DCL int FDECL(use_torch, (struct obj *));
 STATIC_DCL void FDECL(light_cocktail, (struct obj **));
 STATIC_PTR void FDECL(display_jump_positions, (int));
 STATIC_DCL void FDECL(use_tinning_kit, (struct obj *));
+STATIC_DCL void FDECL(apply_medkit, (struct obj *));
 STATIC_DCL void FDECL(use_grease, (struct obj *));
 STATIC_DCL void FDECL(use_trap, (struct obj *));
 STATIC_DCL void FDECL(apply_flint, (struct obj **));
@@ -2366,6 +2367,83 @@ end:
 #undef TimedTrouble
 }
 
+STATIC_DCL void
+apply_medkit(obj)
+struct obj *obj;
+{
+    boolean can_use;
+    if (Role_if(PM_HEALER))
+        can_use = TRUE;
+    else if ((Role_if(PM_PRIEST) || Role_if(PM_MONK)
+              || Role_if(PM_UNDEAD_SLAYER) || Role_if(PM_SAMURAI))
+             && !rn2(2))
+        can_use = TRUE;
+    else if (!rn2(4))
+        can_use = TRUE;
+
+    if (obj->cursed && rn2(3))
+        can_use = FALSE;
+    if (obj->blessed && rn2(3))
+        can_use = TRUE;
+
+    makeknown(MEDICAL_KIT);
+    if (obj->cobj) {
+        struct obj *otmp;
+        for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
+            if (otmp->otyp == PILL)
+                break;
+        if (!otmp)
+            You_cant("find any more pills in %s.", yname(obj));
+        else if (!is_edible(otmp))
+            You("find, but cannot eat, a white pill in %s.", yname(obj));
+        else {
+            check_unpaid(obj);
+            if (otmp->quan > 1L) {
+                otmp->quan--;
+                obj->owt = weight(obj);
+            } else {
+                obj_extract_self(otmp);
+                obfree(otmp, (struct obj *) 0);
+            }
+            /*
+             * Note that while white and pink pills share the
+             * same otyp value, they are quite different.
+             */
+            You("take a white pill from %s and swallow it.", yname(obj));
+            if (can_use) {
+                if (Sick)
+                    make_sick(0L, (char *) 0, TRUE, SICK_ALL);
+                else if (Blinded > (long) (u.ucreamed + 1))
+                    make_blinded(u.ucreamed ? (long) (u.ucreamed + 1) : 0L,
+                                 TRUE);
+                else if (HHallucination)
+                    make_hallucinated(0L, TRUE, 0L);
+                else if (Vomiting)
+                    make_vomiting(0L, TRUE);
+                else if (HConfusion)
+                    make_confused(0L, TRUE);
+                else if (HStun)
+                    make_stunned(0L, TRUE);
+                else if (u.uhp < u.uhpmax) {
+                    u.uhp += rn1(10, 10);
+                    if (u.uhp > u.uhpmax)
+                    u.uhp = u.uhpmax;
+                    You_feel("better.");
+                    context.botl = TRUE;
+                } else
+                    pline1(nothing_happens);
+            } else if (!rn2(3))
+                pline("Nothing seems to happen.");
+            else if (!Sick)
+                make_sick(rn1(15, 15), "bad pill", TRUE, SICK_VOMITABLE);
+            else {
+                You("seem to have made your condition worse!");
+                losehp(rn1(10, 10), "a drug overdose", KILLED_BY);
+            }
+        }
+    } else
+        You("seem to be out of medical supplies");
+}
 /*
  * Timer callback routine: turn figurine into monster
  */
@@ -5029,6 +5107,9 @@ doapply()
     case LEATHER_DRUM:
     case DRUM_OF_EARTHQUAKE:
         return do_play_instrument(obj);
+    case MEDICAL_KIT:
+        apply_medkit(obj);
+        break;
     case KEG:
         if (obj->spe > 0) {
             consume_obj_charge(obj, TRUE);

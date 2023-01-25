@@ -2932,7 +2932,14 @@ boolean more_containers; /* True iff #loot multiple and this isn't last one */
         used = 1;
         return used;
     }
-
+    /* Medical Kit */
+    if (current_container->otyp == MEDICAL_KIT) {
+        if (!Has_contents(current_container))
+            pline("%s", emptymsg);
+        else
+            (void) display_cinventory(current_container);
+        return 0;
+    }
     cursed_mbag = Is_mbag(current_container)
         && current_container->cursed
         && Has_contents(current_container);
