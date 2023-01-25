@@ -2352,6 +2352,7 @@ E void FDECL(punish, (struct obj *));
 E void NDECL(unpunish);
 E boolean FDECL(cant_revive, (int *, BOOLEAN_P, struct obj *));
 E boolean NDECL(create_particular);
+E int FDECL(mon_to_zombie, (int));
 
 /* ### rect.c ### */
 

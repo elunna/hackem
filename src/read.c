@@ -46,7 +46,6 @@ STATIC_PTR void FDECL(undo_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
 static void seffect_cloning(struct obj **);
-STATIC_PTR int FDECL(mon_to_zombie, (int));
 
 
 STATIC_OVL boolean
@@ -3912,7 +3911,6 @@ struct obj **sobjp;
                                 (const char *) 0);
     }
 }
-
 
 int mon_to_zombie(int monnum) {
     if ((&mons[monnum])->mlet == S_ZOMBIE) 

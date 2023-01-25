@@ -14,7 +14,6 @@ static boolean FDECL(dotechmenu, (int, int *));
 static void NDECL(doblitzlist);
 static int FDECL(get_tech_no,(int));
 static int FDECL(techeffects, (int));
-static int FDECL(mon_to_zombie, (int));
 STATIC_PTR int NDECL(tinker);
 STATIC_PTR int NDECL(charge_saber);
 STATIC_PTR int NDECL(draw_energy);
@@ -2177,39 +2176,6 @@ int oldlevel, newlevel;
         }
     }
 }
-
-int
-mon_to_zombie(monnum)
-int monnum;
-{
-    if ((&mons[monnum])->mlet == S_ZOMBIE)
-        return monnum; /* is already zombie */
-    if ((&mons[monnum])->mlet == S_KOBOLD)
-        return PM_KOBOLD_ZOMBIE;
-    if ((&mons[monnum])->mlet == S_GNOME)
-        return PM_GNOME_ZOMBIE;
-    if (is_orc(&mons[monnum]))
-        return PM_ORC_ZOMBIE;
-    if (is_dwarf(&mons[monnum]))
-        return PM_DWARF_ZOMBIE;
-    if (is_elf(&mons[monnum]))
-        return PM_ELF_ZOMBIE;
-    if (is_human(&mons[monnum]))
-        return PM_HUMAN_ZOMBIE;
-    if (monnum == PM_ETTIN)
-        return PM_ETTIN_ZOMBIE;
-    if (is_giant(&mons[monnum]))
-        return PM_GIANT_ZOMBIE;
-    /* Is it humanoid? */
-    if (!humanoid(&mons[monnum]))
-        return -1;
-    /* Otherwise,  return a ghoul or ghast */
-    if (!rn2(4))
-        return PM_GHAST;
-    else
-        return PM_GHOUL;
-}
-
 
 STATIC_PTR int
 charge_saber()

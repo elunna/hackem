@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed mon_to_zombie in tech.c, used existing one in read.c.
 Necromancers get bonus for using draw energy near graves.
 Draw energy tech now uses GRASS, PUDDLE, SEWAGE, and DEADTREE.
 Created a spirit tempest technique for necros. Fixed spirit bomb to use SPIRIT_CLASS explosion.
