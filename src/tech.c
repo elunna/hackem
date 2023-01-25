@@ -1768,8 +1768,10 @@ int tech_no;
               }
               if ((ttrap = t_at(cc.x, cc.y)) && ttrap->tseen
                   && yn("Handle the trap here?") == 'y') {
-                    if (tele_disarm(ttrap, cc.x, cc.y))
+                    if (tele_disarm(ttrap, cc.x, cc.y)) {
+                        t_timeout = 250;
                         return 1;
+                    }
                     else
                         continue;
               } else if ((otmp = level.objects[cc.x][cc.y]) != 0) {
@@ -1781,13 +1783,13 @@ int tech_no;
                         You("pick up an object from the %s.", surface(cc.x, cc.y));
                         (void) pickup_object(otmp, 1L, TRUE);
                         newsym(cc.x, cc.y);
+                        t_timeout = 250;
                         return 1;
                     }
               } else {
                     You_cant("do anything %sthere.", ttrap ? "else " : "");
               }
           } while (TRUE);
-        
           break;
         }
         case T_CHARGE_SABER:
@@ -2241,7 +2243,7 @@ charge_saber()
     } else
         You("channel the force into %s.", the(xname(uwep)));
 
-    // yes no return above, it's a bonus :)
+    /* yes no return above, it's a bonus :) */
     uwep->age += u.uen * ((techlev(T_CHARGE_SABER) / rnd(10)) + 51); 
     /* improved results by Amy */
     u.uen = 0;
