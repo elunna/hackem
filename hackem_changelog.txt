@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Change appearance of medkit to white bag, add medkit tile.
 Silence uninitialized mtmp warning in tech.c
 Removed hurtmon function from tech.c and replaced uses with damage_mon.
 Fix: matching_firearm missing weapon check causing issues with martial arts.
