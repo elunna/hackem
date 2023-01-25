@@ -1110,7 +1110,7 @@ int dieroll;
             int dmgbonus = 0;
             hittxt = TRUE;
             dmgbonus = d(2, 4);
-            switch (rn2(4)) {
+            switch (rn2(5)) {
                 case 0: /* Fire */
                 if (!Blind) 
                     pline("%s is on fire!", Monnam(mon));
@@ -1160,6 +1160,18 @@ int dieroll;
                             pline_The("acid doesn't burn %s!", Monnam(mon));
                         dmgbonus = 0;
                     }
+                    break;
+                case 4: /* Sonic */
+                    if (!Blind) 
+                        pline("A sonic boom erupts from your fist!");
+                    if (resists_sonic(mon)) {
+                        shieldeff(mon->mx, mon->my);
+                        golemeffects(mon, AD_LOUD, dmgbonus);
+                        dmgbonus = 0;
+                    }
+                    dmgbonus += destroy_mitem(mon, RING_CLASS, AD_LOUD);
+                    dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_LOUD);
+                    dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_LOUD);
                     break;
             }
             if (dmgbonus > 0)
