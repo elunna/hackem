@@ -691,17 +691,6 @@ nh_timeout()
     } else if (u.uinshell < 0) {
         u.uinshell++;
     }
-
-    /* Technique timeout */
-    if (u.utechtimeout > 0)
-        if (--u.utechtimeout == 0)
-            Your("natural ability is ready.");
-    
-    if (u.utechduration > 0) {
-        u.utechduration--;
-        if (u.utechduration == 0 && Race_if(PM_HOBBIT))
-            You("sense the flow of time returning to normal.");
-    }
     
     was_flying = Flying;
     for (upp = u.uprops; upp < u.uprops + SIZE(u.uprops); upp++)

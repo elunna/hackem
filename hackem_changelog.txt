@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed #monster tech workarounds in favor of the original techniques.
 Removed all the sigil techniques.
 Necromany spells time out as usual for necromancers again.
 Removed the jedi spell-techs in favor of the actual techniques.

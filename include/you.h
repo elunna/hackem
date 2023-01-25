@@ -418,8 +418,6 @@ struct you {
     long usleep;             /* sleeping; monstermove you last started */
     int uinvault;
     int uinshell;            /* time in shell */
-    int utechtimeout;        /* timeout from technique */
-    int utechduration;       /* Duration of active technique */
     struct monst *ustuck;    /* engulfer or grabber, maybe grabbee if Upolyd */
     struct monst *usteed;    /* mount when riding */
     struct monst *fearedmon; /* object of the player's fear */
