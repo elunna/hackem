@@ -3277,6 +3277,7 @@ static const struct alt_spellings {
 } spellings[] = {
     /* weapons */
     { "pickax", PICK_AXE },
+    { "medkit", MEDICAL_KIT },
     { "whip", BULLWHIP },
     { "lash", FLAMING_LASH },
     { "sabre", SABER },
