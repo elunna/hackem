@@ -40,55 +40,55 @@ static const char no_elbow_room[] =
  */
  
 STATIC_OVL NEARDATA const char *tech_names[] = {
-	"no technique",     /* 0 */
-	"berserk",          /* 1 */
-	"kiii",             /* 2 */
-	"research",         /* 3 */
-	"surgery",          /* 4 */
-	"reinforce memory", /* 5 */
-	"missile flurry",   /* 6 */
-	"weapon practice",  /* 7 */
-        "eviscerate",       /* 8 */
-	"healing hands",    /* 9 */
-	"calm steed",       /* 10 */
-	"turn undead",      /* 11 */
-	"vanish",           /* 12 */
-	"cutthroat",        /* 13 */
-	"blessing",         /* 14 */
-	"elemental fist",   /* 15 */
-	"primal roar",      /* 16 */
-	"liquid leap",      /* 17 */
-	"critical strike",  /* 18 */
-	"raise zombies",    /* 19 */
-	"revivification",   /* 20 */
-	"tinker",           /* 21 */
-	"rage eruption",    /* 22 */
-	"blink",            /* 23 */
-	"chi strike",       /* 24 */
-	"draw energy",      /* 25 */
-	"chi healing",      /* 26 */
-	"disarm",           /* 27 */
-	"dazzle",           /* 28 */
-	"chained blitz",    /* 29 */
-	"pummel",           /* 30 */
-	"ground slam",      /* 31 */
-	"air dash",         /* 32 */
-	"power surge",      /* 33 */
-	"spirit bomb",      /* 34 */
-	"draw blood",       /* 35 */
-	/* SLEX techs */
-	"world fall",       /* 36 */
-	"create ammo",      /* 37 */
-	"appraisal",        /* 38 */
-	"booze",            /* 39 */
-	/* SlashTHEM techs */
-	"souleater",        /* 40 */
-	"shield block",     /* 41 */
-	"jedi jump",        /* 42 */
-	"charge saber",     /* 43 */
-	"telekinesis",      /* 44 */
-        "call undead",      /* 45 */
-	""
+    "no technique",     /* 0 */
+    "berserk",          /* 1 */
+    "kiii",             /* 2 */
+    "research",         /* 3 */
+    "surgery",          /* 4 */
+    "reinforce memory", /* 5 */
+    "missile flurry",   /* 6 */
+    "weapon practice",  /* 7 */
+    "eviscerate",       /* 8 */
+    "healing hands",    /* 9 */
+    "calm steed",       /* 10 */
+    "turn undead",      /* 11 */
+    "vanish",           /* 12 */
+    "cutthroat",        /* 13 */
+    "blessing",         /* 14 */
+    "elemental fist",   /* 15 */
+    "primal roar",      /* 16 */
+    "liquid leap",      /* 17 */
+    "critical strike",  /* 18 */
+    "raise zombies",    /* 19 */
+    "revivification",   /* 20 */
+    "tinker",           /* 21 */
+    "rage eruption",    /* 22 */
+    "blink",            /* 23 */
+    "chi strike",       /* 24 */
+    "draw energy",      /* 25 */
+    "chi healing",      /* 26 */
+    "disarm",           /* 27 */
+    "dazzle",           /* 28 */
+    "chained blitz",    /* 29 */
+    "pummel",           /* 30 */
+    "ground slam",      /* 31 */
+    "air dash",         /* 32 */
+    "power surge",      /* 33 */
+    "spirit bomb",      /* 34 */
+    "draw blood",       /* 35 */
+    /* SLEX techs */
+    "world fall",       /* 36 */
+    "create ammo",      /* 37 */
+    "appraisal",        /* 38 */
+    "booze",            /* 39 */
+    /* SlashTHEM techs */
+    "souleater",        /* 40 */
+    "shield block",     /* 41 */
+    "jedi jump",        /* 42 */
+    "charge saber",     /* 43 */
+    "telekinesis",      /* 44 */
+    "call undead",      /* 45 */
+    ""
 };
 
 /* Roles */
