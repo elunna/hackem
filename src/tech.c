@@ -541,8 +541,9 @@ int *tech_no;
                         techtout(i));
         else
 #endif
+        
         if (!iflags.menu_tab_sep)			
-            Sprintf(buf, "%s%-*s %5d   %s",
+             Sprintf(buf, "%s%-*s %5d   %s",
                     prefix, longest, techname(i), tlevel,
                     tech_inuse(techid(i)) ? "Active" :
                     tlevel <= 0 ? "Beyond recall" :
@@ -551,7 +552,7 @@ int *tech_no;
                     techtout(i) > 1000 ? "Not Ready" :
                     techtout(i) > 100 ? "Reloading" : "Soon");
         else
-            Sprintf(buf, "%s%s\t%5d\t%s",
+             Sprintf(buf, "%s%s\t%5d\t%s",
                     prefix, techname(i), tlevel,
                     tech_inuse(techid(i)) ? "Active" :
                     tlevel <= 0 ? "Beyond recall" :
@@ -561,7 +562,7 @@ int *tech_no;
                     techtout(i) > 100 ? "Reloading" : "Soon");
 
         add_menu(tmpwin, NO_GLYPH, &any,
-                techtout(i) ? 0 : let, 0, ATR_NONE, buf, MENU_UNSELECTED);
+                 techtout(i) ? 0 : let, 0, ATR_NONE, buf, MENU_UNSELECTED);
         if (let++ == 'z') 
             let = 'A';
     }
@@ -1954,82 +1955,83 @@ void
 tech_timeout()
 {
     int i;
-
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
               continue;
+        /* Check if technique is done */
         if (techt_inuse(i)) {
-              /* Check if technique is done */
-              if (!(--techt_inuse(i)))
-                    switch (techid(i)) {
-#if 0 /* Lyca techs */
-                    case T_EVISCERATE:
-                        You("retract your claws.");
-                        /* You're using bare hands now,  so new msg for next attack */
-                        unweapon = TRUE;
-                        /* Lose berserk status */
-                        repeat_hit = 0;
-                        break;
-                    case T_BERSERK:
-                        The("red haze in your mind clears.");
-                        break;
+            if (!(--techt_inuse(i))) {
+                switch (techid(i)) {
+#if 0 /* Pending lunatic/lycanthrope role/race */
+                case T_EVISCERATE:
+                    You("retract your claws.");
+                    /* You're using bare hands now,  so new msg for next attack */
+                    unweapon = TRUE;
+                    /* Lose berserk status */
+                    repeat_hit = 0;
+                    break;
 #endif
-                    case T_KIII:
-                        You("calm down.");
-                        break;
-                    case T_FLURRY:
-                        You("relax.");
-                        break;
-                    case T_E_FIST:
-                        You("feel the power dissipate.");
-                        break;
-                    case T_RAGE:
-                        Your("anger cools.");
-                        break;
-                    case T_POWER_SURGE:
-                        pline_The("awesome power within you fades.");
-                        break;
-                    case T_BLINK:
-                        You("sense the flow of time returning to normal.");
-                        break;
-                    case T_CHI_STRIKE:
-                        You("feel the power in your hands dissipate.");
-                        break;
-                    case T_CHI_HEALING:
-                        You("feel the healing power dissipate.");
-                        break;
-                    case T_SOULEATER:
-                        if (uwep)
-                            pline_The("dark flames surrounding %s dissipate.",
-                                      doname(uwep));
-                        break;
-                    case T_SHIELD_BLOCK:
-                        if (uarms)
-                            You("release the energy from %s.", yname(uarms));
-                        break;
-                    default:
-                        break;
-                    }
-              else
-                    switch (techid(i)) {
-                        /* During the technique */
-                    case T_RAGE:
-                        /* Bleed but don't kill */
-                        if (u.uhpmax > 1)
-                            u.uhpmax--;
-                        if (u.uhp > 1)
-                            u.uhp--;
-                        break;
-                    case T_POWER_SURGE:
-                        /* Bleed off power.  Can go to zero as 0 power is not fatal */
-                        if (u.uenmax > 1)
-                            u.uenmax--;
-                        if (u.uen > 0)
-                            u.uen--;
-                        break;
-                    default:
-                        break;
-                    }
+                case T_BERSERK:
+                    The("red haze in your mind clears.");
+                    break;
+                case T_KIII:
+                    You("calm down.");
+                    break;
+                case T_FLURRY:
+                    You("relax.");
+                    break;
+                case T_E_FIST:
+                    You("feel the power dissipate.");
+                    break;
+                case T_RAGE:
+                    Your("anger cools.");
+                    break;
+                case T_POWER_SURGE:
+                    pline_The("awesome power within you fades.");
+                    break;
+                case T_BLINK:
+                    You("sense the flow of time returning to normal.");
+                    break;
+                case T_CHI_STRIKE:
+                    You("feel the power in your hands dissipate.");
+                    break;
+                case T_CHI_HEALING:
+                    You("feel the healing power dissipate.");
+                    break;
+                case T_SOULEATER:
+                    if (uwep)
+                        pline_The("dark flames surrounding %s dissipate.",
+                                  doname(uwep));
+                    break;
+                case T_SHIELD_BLOCK:
+                    if (uarms)
+                        You("release the energy from %s.", yname(uarms));
+                    break;
+                default:
+                    break;
+                }
+            }
+            else {
+                switch (techid(i)) {
+                    /* During the technique */
+                case T_RAGE:
+                    /* Bleed but don't kill */
+                    if (u.uhpmax > 1)
+                        u.uhpmax--;
+                    if (u.uhp > 1)
+                        u.uhp--;
+                    break;
+                case T_POWER_SURGE:
+                    /* Bleed off power.  Can go to zero as 0 power is not fatal */
+                    if (u.uenmax > 1)
+                        u.uenmax--;
+                    if (u.uen > 0)
+                        u.uen--;
+                    break;
+                default:
+                    break;
+                }
+            }
         }
 
         if (techtout(i) == 1) {
@@ -2069,7 +2071,6 @@ docalm()
     }
     if (n)
         You("calm down.");
-        
 }
 
 
@@ -2079,72 +2080,58 @@ role_tech()
 {
     switch (Role_switch) {
     case PM_ARCHEOLOGIST:
-        return (arc_tech);
+        return arc_tech;
     case PM_BARBARIAN:
-        return (bar_tech);
+        return bar_tech;
     case PM_CAVEMAN:
-        return (cav_tech);
+        return cav_tech;
     case PM_FLAME_MAGE:
-        return (fla_tech);
+        return fla_tech;
     case PM_HEALER:
-        return (hea_tech);
+        return hea_tech;
     case PM_ICE_MAGE:
-        return (ice_tech);
+        return ice_tech;
     case PM_JEDI:
-        return (jed_tech);
+        return jed_tech;
     case PM_KNIGHT:
         if (u.ualign.type == A_CHAOTIC)
-             return (drk_tech);
+             return drk_tech;
         else
-             return (kni_tech);
+             return kni_tech;
     case PM_MONK:
-        return (mon_tech);
+        return mon_tech;
     case PM_NECROMANCER:
-        return (nec_tech);
+        return nec_tech;
     case PM_PRIEST:
-        return (pri_tech);
+        return pri_tech;
     case PM_RANGER:
-        return (ran_tech);
+        return ran_tech;
     case PM_ROGUE:
-        return (rog_tech);
+        return rog_tech;
     case PM_SAMURAI:
-        return (sam_tech);
+        return sam_tech;
     case PM_TOURIST:
-        return (tou_tech);
+        return tou_tech;
     case PM_UNDEAD_SLAYER:
-        return (und_tech);
+        return und_tech;
     case PM_VALKYRIE:
-        return (val_tech);
+        return val_tech;
     case PM_WIZARD:
-        return (wiz_tech);
+        return wiz_tech;
     case PM_YEOMAN:
-        return (yeo_tech);
+        return yeo_tech;
         
 #if 0 /* 5lo: Deferred for now */
 case PM_DRUNK:
        return (dru_tech);
-    case PM_POKEMON:
-        return (pok_tech);
-    case PM_PSION:
-        return (psi_tech);
     case PM_BARD:
         return (brd_tech);
-    case PM_ACID_MAGE:
-        return (aci_tech);
     case PM_LUNATIC:
         return (lun_tech);
-    case PM_ELECTRIC_MAGE:
-        return (ele_tech);
     case PM_WARRIOR:
        return (war_tech);
-    case PM_GLADIATOR:
-       return (gla_tech);
     case PM_NINJA:
         return (nin_tech);
-    case PM_PALADIN:
-       return (pal_tech);
-    case PM_UNDERTAKER:
-      return (unt_tech);
 #endif
         
     default:
@@ -2157,15 +2144,15 @@ race_tech()
 {
     switch (Race_switch) {
     case PM_DWARF:
-        return (dwa_tech);
+        return dwa_tech;
     case PM_ELF:
-        return (elf_tech);
+        return elf_tech;
     case PM_GNOME:
-        return (gno_tech);
+        return gno_tech;
     case PM_HOBBIT:
-        return (hob_tech);
+        return hob_tech;
     case PM_VAMPIRIC:
-        return (vam_tech);
+        return vam_tech;
 
 #if 0 /* Deferred */
     case PM_DROW:
@@ -2173,12 +2160,6 @@ race_tech()
         return (dop_tech);
     case PM_CLOCKWORK_AUTOMATON:
         return (clk_tech);
-    case PM_KOBOLD:
-        return (kob_tech);
-    case PM_OGRE:
-        return (ogr_tech);
-    case PM_HUMAN_WEREWOLF:
-        return (lyc_tech);
     case PM_INCANTIFIER:
         return (inc_tech);
 #endif

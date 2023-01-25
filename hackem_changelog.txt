@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Misc tech.c formatting.
 Fix tech_names indentation.
 Silence compiler warning for unused pseudo in read.c
 Imported tiles for bandage and phial.
