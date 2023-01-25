@@ -1111,7 +1111,7 @@ int dieroll;
             hittxt = TRUE;
             dmgbonus = d(2, 4);
             switch (rn2(5)) {
-                case 0: /* Fire */
+            case 0: /* Fire */
                 if (!Blind) 
                     pline("%s is on fire!", Monnam(mon));
                 dmgbonus += destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);
@@ -1122,57 +1122,74 @@ int dieroll;
                         pline_The("fire doesn't heat %s!", mon_nam(mon));
                     golemeffects(mon, AD_FIRE, dmgbonus);
                     dmgbonus = 0;
+                } else if (!rn2(20)) {
+                    dmgbonus += rnd(6);
                 }
                 /* only potions damage resistant players in destroy_item */
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_FIRE);
                 break;
-                case 1: /* Cold */
-                    if (!Blind) 
-                        pline("%s is covered in frost!", Monnam(mon));
-                    if (resists_cold(mon)) {
-                        shieldeff(mon->mx, mon->my);
-                        if (!Blind)
-                            pline_The("frost doesn't chill %s!", mon_nam(mon));
-                        golemeffects(mon, AD_COLD, dmgbonus);
-                        dmgbonus = 0;
-                    }
-                    dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_COLD);
-                    break;
-                case 2: /* Elec */
-                    if (!Blind) 
-                        pline("%s is zapped!", Monnam(mon));
-                    dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_ELEC);
-                    if (resists_elec(mon)) {
-                        shieldeff(mon->mx, mon->my);
-                        if (!Blind)
-                            pline_The("zap doesn't shock %s!", mon_nam(mon));
-                        golemeffects(mon, AD_ELEC, dmgbonus);
-                            dmgbonus = 0;
-                    }
-                    /* only rings damage resistant players in destroy_item */
-                    dmgbonus += destroy_mitem(mon, RING_CLASS, AD_ELEC);
-                    break;
-                case 3: /* Acid */
+            case 1: /* Cold */
+                if (!Blind) 
+                    pline("%s is covered in frost!", Monnam(mon));
+                if (resists_cold(mon)) {
+                    shieldeff(mon->mx, mon->my);
                     if (!Blind)
-                        pline("%s is covered in acid!", Monnam(mon));
-                    if (resists_acid(mon)) {
-                        if (!Blind)
-                            pline_The("acid doesn't burn %s!", Monnam(mon));
+                        pline_The("frost doesn't chill %s!", mon_nam(mon));
+                    golemeffects(mon, AD_COLD, dmgbonus);
+                    dmgbonus = 0;
+                } else if (!rn2(25)) {
+                    dmgbonus += rnd(6);
+                } 
+                dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_COLD);
+                break;
+            case 2: /* Elec */
+                if (!Blind) 
+                    pline("%s is zapped!", Monnam(mon));
+                
+                dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_ELEC);
+                if (resists_elec(mon)) {
+                    shieldeff(mon->mx, mon->my);
+                    if (!Blind)
+                        pline_The("zap doesn't shock %s!", mon_nam(mon));
+                    golemeffects(mon, AD_ELEC, dmgbonus);
                         dmgbonus = 0;
-                    }
-                    break;
-                case 4: /* Sonic */
-                    if (!Blind) 
-                        pline("A sonic boom erupts from your fist!");
-                    if (resists_sonic(mon)) {
-                        shieldeff(mon->mx, mon->my);
-                        golemeffects(mon, AD_LOUD, dmgbonus);
-                        dmgbonus = 0;
-                    }
-                    dmgbonus += destroy_mitem(mon, RING_CLASS, AD_LOUD);
-                    dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_LOUD);
-                    dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_LOUD);
-                    break;
+                } else if (!rn2(100)) {
+                    dmgbonus += rnd(20);
+                    if (canseemon(mon))
+                        pline("%s is jolted with electricity!", Monnam(mon));
+                }
+                /* only rings damage resistant players in destroy_item */
+                dmgbonus += destroy_mitem(mon, RING_CLASS, AD_ELEC);
+                break;
+            case 3: /* Acid */
+                if (!Blind)
+                    pline("%s is covered in acid!", Monnam(mon));
+                if (resists_acid(mon)) {
+                    if (!Blind)
+                        pline_The("acid doesn't burn %s!", Monnam(mon));
+                    dmgbonus = 0;
+                } else if (!rn2(100)) {
+                    dmgbonus += rnd(20);
+                    if (canseemon(mon))
+                        pline("%s is severely burned!", Monnam(mon));
+                }
+                break;
+            case 4: /* Sonic */
+                You("hit the %s with a loud bang!", Monnam(mon));
+                if (resists_sonic(mon)) {
+                    shieldeff(mon->mx, mon->my);
+                    golemeffects(mon, AD_LOUD, dmgbonus);
+                    dmgbonus = 0;
+                } else if (!rn2(100)) {
+                    pline("A sonic boom erupts from your fist!");
+                    dmgbonus += d(2, 16);
+                    if (canseemon(mon))
+                        pline("%s is severely burned!", Monnam(mon));
+                }
+                dmgbonus += destroy_mitem(mon, RING_CLASS, AD_LOUD);
+                dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_LOUD);
+                dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_LOUD);
+                break;
             }
             if (dmgbonus > 0)
                 tmp += dmgbonus;
