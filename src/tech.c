@@ -1884,12 +1884,18 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     if (!tech_inuse(T_SHIELD_BLOCK) ||
-        /* Additional restrictions:
-         * not weak, swallowed, can sense mon
-         * and not under abonormal status effects
-         */
-        !canspotmon(mtmp) || u.uhs >= 3 || u.uswallow || u.usleep || Fumbling
-        || Stunned || Confusion || Blind || Vomiting)
+          /* Additional restrictions: */
+          !canspotmon(mtmp) 
+          || u.uhs >= 3 
+          || u.uswallow 
+          || u.usleep
+          || Fumbling
+          || Stunned 
+          || Confusion 
+          || Afraid
+          || Slow
+          || Blind 
+          || Vomiting)
         return FALSE;
     /* Assuming you took it off or had it stolen while tech is active */
     if (!uarms)
