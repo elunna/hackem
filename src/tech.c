@@ -928,8 +928,16 @@ int tech_no;
                 burn_away_slime();
                 t_timeout = 3000;
             } else if (Sick) {
-                You("lay your hands on the foul sickness...");
+                You("lay your %s on the foul sickness...",
+                    makeplural(body_part(HAND)));
                 make_sick(0L, (char*)0, TRUE, SICK_ALL);
+                t_timeout = 3000;
+            } else if (LarvaCarrier) {
+                You("lay your %s on your %s...", 
+                    makeplural(body_part(HAND)),
+                    body_part(STOMACH));
+                make_carrier(0L, FALSE);
+                You_feel("as if your body is your own again.");
                 t_timeout = 3000;
             } else if (Upolyd ? u.mh < u.mhmax : u.uhp < u.uhpmax) {
                 pline("A warm glow spreads through your body!");
