@@ -1638,12 +1638,6 @@ int tech_no;
                 return 0;
             }
             check_unpaid(obj);
-            if (obj->quan > 1L)
-                obj->quan--;
-            else {
-                obj_extract_self(obj);
-                obfree(obj, (struct obj *)0);
-            }
             pline("Using your medical kit, you draw off a phial of your blood.");
             losexp("drawing blood");
             if (u.uexp > 0)
@@ -1651,6 +1645,13 @@ int tech_no;
             otmp = mksobj(POT_VAMPIRE_BLOOD, FALSE, FALSE);
             otmp->cursed = obj->cursed;
             otmp->blessed = obj->blessed;
+            
+            if (obj->quan > 1L)
+                obj->quan--;
+            else {
+                obj_extract_self(obj);
+                obfree(obj, (struct obj *)0);
+            }
             (void) hold_another_object(otmp,
                 "You fill, but have to drop, %s!", doname(otmp),
                 (const char *)0);
