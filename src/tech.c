@@ -170,79 +170,24 @@ static const struct innate_tech
 	wiz_tech[] = { {   1, T_REINFORCE, 1},
 		       {   3, T_DRAW_ENERGY, 1},
 		       {   5, T_POWER_SURGE, 1},
-		       {   0, 0, 0} },		       
-    
-#if 0 /* drunk */
-	dru_tech[] = { {   1, T_BOOZE, 1},
 		       {   0, 0, 0} },
-        /* bard */
-        brd_tech[] = { {   1, T_PRIMAL_ROAR, 1},
+#if 0 
+	dru_tech[] = { {   1, T_BOOZE, 1}, /* drunk */
+		       {   0, 0, 0} },
+        brd_tech[] = { {   1, T_PRIMAL_ROAR, 1}, /* bard */
                    {  10, T_BOOZE, 1},
                    {  20, T_RAGE, 1},
                    {   0, 0, 0} },
-        /* no ninja */
-        nin_tech[] = { {   1, T_VANISH, 1},
+        nin_tech[] = { {   1, T_VANISH, 1}, /* ninja */
                    {   1, T_CRIT_STRIKE, 1},
                    {  10, T_CUTTHROAT, 1},
                    {   0, 0, 0} },
-        /* acid mage */
-        aci_tech[] = { {   1, T_REINFORCE, 1},
-                   {   3, T_POWER_SURGE, 1},
-                   {   5, T_DRAW_ENERGY, 1},
-                   {   0, 0, 0} },
-        /* electric mage */
-        ele_tech[] = { {   1, T_REINFORCE, 1},
-		       {   3, T_POWER_SURGE, 1},
-		       {   5, T_DRAW_ENERGY, 1},
-		       {   0, 0, 0} },
-    /* No gladiator */
-	gla_tech[] = { {   3, T_SHIELD_BLOCK, 1},
-		       {   0, 0, 0} },
-	psi_tech[] = { {   1, T_PUMMEL, 1},
-		       {   1, T_DASH, 1},
-		       {   2, T_CHI_STRIKE, 1},
-	  	       {   4, T_CHI_HEALING, 1},
-	  	       {   6, T_E_FIST, 1},
-		       {   8, T_DRAW_ENERGY, 1},
-		       {   8, T_TELEKINESIS, 1},
-		       {  10, T_G_SLAM, 1},
-		       {  17, T_SPIRIT_BOMB, 1},
-		       {  20, T_POWER_SURGE, 1},
-		       {   0, 0, 0} },
-	pok_tech[] = { {   1, T_POKE_BALL, 1},
-		       {   2, T_PUMMEL, 1},
-		       {   4, T_DASH, 1},
-		       {   8, T_BLITZ, 1},
-		       {  10, T_RAISE_ZOMBIES, 1},
-	  	       {   15, T_CREATE_AMMO, 1},
-	  	       {   16, T_E_FIST, 1},
-	  	       {   18, T_WORLD_FALL, 1},
-		       {   20, T_DRAW_ENERGY, 1},
-		       {   22, T_RESEARCH, 1},
-		       {  25, T_G_SLAM, 1},
-		       {  27, T_BLESSING, 1},
-		       {  28, T_REVIVE, 1},
-		       {  29, T_SPIRIT_BOMB, 1},
-		       {  30, T_POWER_SURGE, 1},
-		       {   0, 0, 0} },
-        /* paladin */
-        pal_tech[] = { {   1, T_TURN_UNDEAD, 1},
-                   {   3, T_SHIELD_BLOCK, 1},
-                   {   5, T_BLESSING, 1},
-                   {   10, T_HEAL_HANDS, 1},
-                   {   0, 0, 0} },
-        /* undertaker */
-        unt_tech[] = { {   1, T_TURN_UNDEAD, 1},
-                   {   0, 0, 0} },
-        /* warrior */
-        war_tech[] = { {   1, T_PRACTICE, 1},
+        war_tech[] = { {   1, T_PRACTICE, 1}, /* warrior */
                    {   1, T_SHIELD_BLOCK, 1},
                    {   0, 0, 0} },
-        /* lunatic */
-        lun_tech[] = { {   1, T_EVISCERATE, 1},
+        lun_tech[] = { {   1, T_EVISCERATE, 1}, /* lunatic */
                    {  10, T_BERSERK, 1},
                    {   0, 0, 0} },
-    
 #endif
 	/* Races */
 	dwa_tech[] = { {   1, T_RAGE, 1},
