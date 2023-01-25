@@ -4955,7 +4955,7 @@ struct permonst _mons2[] = {
             | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE,
         M2_HOSTILE, M3_ACCURATE, 0, 0, 10, CLR_BLUE),
      MON("cerastes", S_SNAKE,                                 /* SpliceHack */
-        LVL(7, 0, 15, 10, 0), (G_GENO | 2),
+        LVL(7, 16, 15, 10, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 6), 
           ATTK(AT_BUTT, AD_PHYS, 1, 8), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: cerastes has speed 0.
 Chaotic roles don't start with holy wafers.
 Spirit tempest tech gets a multi bonus at level 21.
 Removed mon_to_zombie in tech.c, used existing one in read.c.
