@@ -1098,14 +1098,14 @@ int dieroll;
             }
         }
         /* WAC - Hand-to-Hand Combat Techniques */
-        if ((tech_inuse(T_CHI_STRIKE))  && (u.uen > 0)) {
+        if (tech_inuse(T_CHI_STRIKE) && u.uen > 0) {
             You("feel a surge of force.");
             tmp += (u.uen > (10 + (u.ulevel / 5)) ? 
                 (10 + (u.ulevel / 5)) : u.uen);
             u.uen -= (10 + (u.ulevel / 5));
             if (u.uen < 0) 
                 u.uen = 0;
-	    }
+        }
         if (tech_inuse(T_E_FIST)) {
             int dmgbonus = 0;
             hittxt = TRUE;
@@ -1864,7 +1864,7 @@ int dieroll;
 
         /* to be valid a projectile must have had the correct projector */
         wep = PROJECTILE(obj) ? uwep : obj;
-        if (!matching_firearm(obj, uwep)) {
+        if (weapon_type(uwep) == P_FIREARM && !matching_firearm(obj, uwep)) {
             tmp = rnd(2);
         } else {
             tmp += weapon_dam_bonus(wep);

@@ -1883,7 +1883,7 @@ int tech_id;
     }
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == tech_id) {
-              return (techt_inuse(i));
+              return techt_inuse(i);
         }
     }
     return 0;
