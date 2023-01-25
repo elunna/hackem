@@ -332,8 +332,8 @@ struct obj *box;
         n = 0;
         break;
     }
-
-    for (n = rn2(n + 1); n > 0; n--) {
+    int tries = rn1((n + 1 - minn), minn);
+    for (n = tries; n > 0; n--) {
         if (box->otyp == MEDICAL_KIT) {
             int supplies[] = { PHIAL, BANDAGE, PILL };
             if (!(otmp = mksobj(supplies[rn2(SIZE(supplies))], TRUE, TRUE)))
@@ -3654,6 +3654,8 @@ struct obj* obj;
         case LEASH:
         case SADDLE:
         case TINNING_KIT:
+        case BANDAGE:
+        case PHIAL:
         case AMULET_OF_YENDOR:
         case FAKE_AMULET_OF_YENDOR:
             return NULL;
