@@ -1985,8 +1985,10 @@ tech_timeout()
                     }
         }
 
-        if (techtout(i) == 1)
+        if (techtout(i) == 1) {
               pline("Your %s technique is ready to be used!", techname(i));
+              stop_occupation();
+        }
         if (techtout(i) > 0)
               techtout(i)--;
     }
