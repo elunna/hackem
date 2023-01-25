@@ -91,7 +91,8 @@ struct blitz_tab {
 #define T_CHARGE_SABER	43
 #define T_TELEKINESIS	44
 #define T_CALL_UNDEAD	45
+#define T_SPIRIT_TEMPEST 46
  
-#define MAXTECH 46
+#define MAXTECH 47
 
 #endif /* TECH_H */

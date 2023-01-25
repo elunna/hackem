@@ -28,6 +28,7 @@ static int NDECL(blitz_g_slam);
 static int NDECL(blitz_dash);
 static int NDECL(blitz_power_surge);
 static int NDECL(blitz_spirit_bomb);
+static int NDECL(spirit_tempest);
 
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
 
@@ -88,6 +89,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "charge saber",     /* 43 */
     "telekinesis",      /* 44 */
     "call undead",      /* 45 */
+    "spirit tempest",   /* 46 */
     ""
 };
 
@@ -159,6 +161,7 @@ static const struct innate_tech
         { 3, T_RAISE_ZOMBIES, 1 },
         { 10, T_POWER_SURGE, 1 },
         { 14, T_REVIVE, 1 },
+        { 17, T_SPIRIT_TEMPEST, 1 },
         { 0, 0, 0 } 
     },
     pri_tech[] = { 
@@ -1636,6 +1639,13 @@ int tech_no;
             
             t_timeout = rn1(1000, 500);
             break;
+        case T_SPIRIT_TEMPEST:
+            /* Restrictions: Must not be impaired */
+            
+            if (!spirit_tempest())
+                return 0;
+            t_timeout = rn1(250, 250);
+            break;
         case T_DRAW_BLOOD:
             if (!maybe_polyd(is_vampire(youmonst.data),
               Race_if(PM_VAMPIRIC))) {
@@ -2753,10 +2763,35 @@ blitz_spirit_bomb()
     num = spell_damage_bonus(num); /* hackem bonus */
                                    
     /* Magical Explosion */
-    explode(sx, sy, 10, (d(3, 6) + num), WAND_CLASS, EXPL_MAGICAL);
+    explode(sx, sy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
     return 1;
 }
 
+static int
+spirit_tempest()
+{
+    int tech_no, num;
+    tech_no = (get_tech_no(T_SPIRIT_TEMPEST));
+    if (tech_no == -1) {
+        return 0;
+    }
+    
+    You("channel the spirits from deep within...");
+    if (u.uen < 20) {
+        pline("But it fizzles out.");
+        u.uen = 0;
+        return 0;
+    }
+    /* hackem: Boosted damage potential */
+    num = 20 + d(10, (techlev(tech_no) / 3));
+    num = (u.uen < num ? u.uen : num);
+    
+    u.uen -= num;
+    num = spell_damage_bonus(num); /* hackem bonus */
+    /* Magical Explosion */
+    explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
+    return 1;
+}
 #ifdef DEBUG
 void
 wiz_debug_cmd() /* in this case, allow controlled loss of techniques */
