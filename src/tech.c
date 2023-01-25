@@ -14,7 +14,6 @@ static boolean FDECL(dotechmenu, (int, int *));
 static void NDECL(doblitzlist);
 static int FDECL(get_tech_no,(int));
 static int FDECL(techeffects, (int));
-static void FDECL(hurtmon, (struct monst *,int));
 static int FDECL(mon_to_zombie, (int));
 STATIC_PTR int NDECL(tinker);
 STATIC_PTR int NDECL(charge_saber);
@@ -957,14 +956,17 @@ int tech_no;
                      * organs will always do _some_ damage.
                      */
                     tmp = mtmp->mhp > 1 ? mtmp->mhp / 2 : 1;
-                    if (!humanoid(mtmp->data) || is_golem(mtmp->data) ||
-                            mtmp->data->mlet == S_CENTAUR) {
+                    if (!humanoid(mtmp->data) 
+                        || is_golem(mtmp->data) 
+                        || mtmp->data->mlet == S_CENTAUR) {
                         You("are hampered by the differences in anatomy.");
                         tmp /= 2;
                     }
                     tmp += techlev(tech_no);
                     t_timeout = rn1(1000, 500);
-                    hurtmon(mtmp, tmp);
+                    if (damage_mon(mtmp, tmp, AD_PHYS)) {
+                        killed(mtmp);
+                    }
                 }
             }
             break;
@@ -1008,7 +1010,9 @@ int tech_no;
                         }
                         tmp += techlev(tech_no);
                         t_timeout = rn1(1000, 500);
-                        hurtmon(mtmp, tmp);
+                        if (damage_mon(mtmp, tmp, AD_PHYS)) {
+                            killed(mtmp);
+                        }
                     }
                 }
             }
@@ -1173,7 +1177,9 @@ int tech_no;
                             tmp += rn2((int) (techlev(tech_no) / 5 + 1));
                             if (!Blind) 
                                 pline_The("acid burns %s!", mon_nam(mtmp));
-                            hurtmon(mtmp, tmp);
+                            if (damage_mon(mtmp, tmp, AD_ACID)) {
+                                killed(mtmp);
+                            }
                         } else if (!Blind) 
                             pline_The("acid doesn't affect %s!", mon_nam(mtmp));
                     }
@@ -1706,7 +1712,7 @@ int tech_no;
             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
                 if (couldsee(mtmp->mx, mtmp->my) && !is_flan(mtmp->data)) {
                     pline("%s screams in agony!", Monnam(mtmp));
-                    mtmp->mhp /= 4;
+                    damage_mon(mtmp, mtmp->mhp / 4, AD_PHYS);
                     if (mtmp->mhp < 1)
                         mtmp->mhp = 1;
                 }
@@ -2011,17 +2017,6 @@ docalm()
         
 }
 
-static void
-hurtmon(mtmp, tmp)
-struct monst *mtmp;
-int tmp;
-{
-    mtmp->mhp -= tmp;
-    if (mtmp->mhp < 1)
-        killed(mtmp);
-    else if (wizard)
-        showdmg(tmp);
-}
 
 static const struct 	
 innate_tech *
@@ -2644,9 +2639,7 @@ blitz_g_slam()
     You("hurl %s downwards...", mon_nam(mtmp));
     if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz))
         return 1;
-
-
-
+    
     tmp = (5 + rnd(6) + (techlev(tech_no) / 5));
 
     chasm = maketrap(u.ux + u.dx, u.uy + u.dy, PIT);
@@ -2661,7 +2654,7 @@ blitz_g_slam()
 
     mselftouch(mtmp, "Falling, ", TRUE);
     if (!DEADMONSTER(mtmp)) {
-        if ((mtmp->mhp -= tmp) <= 0) {
+        if (damage_mon(mtmp, tmp, AD_PHYS)) {
              if (!cansee(u.ux + u.dx, u.uy + u.dy))
                 pline("It is destroyed!");
              else {

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed hurtmon function from tech.c and replaced uses with damage_mon.
 Fix: matching_firearm missing weapon check causing issues with martial arts.
 Removed animate dead spell.
 Necromancer gets raise zombies technique at level 3.
