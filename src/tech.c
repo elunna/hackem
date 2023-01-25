@@ -2420,7 +2420,7 @@ doblitz()
                     break;
                 if (blitz_num) {
                     /* Check if trying to chain two of the exact same 
-				 * commands in a row
+                     * commands in a row
                      */
                     if (j == blitz_chain[(blitz_num - 1)])
                         break;
@@ -2745,8 +2745,10 @@ blitz_spirit_bomb()
 static int
 spirit_tempest()
 {
-    int tech_no, num;
+    int tech_no, num, failcheck;
+    int blasts = (u.ulevel > 20) ? (3 + rn2(4)) : 1;
     tech_no = (get_tech_no(T_SPIRIT_TEMPEST));
+    boolean didblast = FALSE;
     if (tech_no == -1) {
         return 0;
     }
@@ -2758,13 +2760,45 @@ spirit_tempest()
         return 0;
     }
     /* hackem: Boosted damage potential */
-    num = 20 + d(10, (techlev(tech_no) / 3));
+    num = 20 + d(10, (techlev(tech_no) / 3) + 1);
+    
+    /* Bonus damage can't go over our available energy */
     num = (u.uen < num ? u.uen : num);
     
     u.uen -= num;
     num = spell_damage_bonus(num); /* hackem bonus */
+   
+    /* Throwback to the sigil of tempest in SLASH'EM. 
+     * Becomes available when we are XP level 21.
+     */
+    while (blasts--) {
+         failcheck = 0;
+         do {
+            confdir(); /* Random Dir */
+            /* 0-2 spaces from our current position */
+            u.dx += u.ux + rn2(3); 
+            u.dy += u.uy + rn2(3);
+            failcheck++;
+         } while (failcheck < 3 &&
+                  (!cansee(u.dx, u.dy) 
+                   || !isok(u.dx, u.dy)
+                   || IS_STWALL(levl[u.dx][u.dy].typ)));
+         
+         if (failcheck >= 3)
+            continue;
+
+         explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
+         delay_output();
+         didblast = TRUE;
+    }
+    if (!didblast) {
+         explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
+         delay_output();
+    }
+
+    
     /* Magical Explosion */
-    explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
+/*    explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);*/
     return 1;
 }
 #ifdef DEBUG
