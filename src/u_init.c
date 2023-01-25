@@ -2161,6 +2161,10 @@ register struct trobj *origtrop;
         if (Race_if(PM_ORC) && obj->material == MITHRIL
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
+        
+        /* Holy wafers do damage to chaotic players */
+        if (u.ualign.type == A_CHAOTIC && obj->otyp == HOLY_WAFER)
+            obj->otyp = SPRIG_OF_WOLFSBANE;
 
         if (urace.malenum != PM_HUMAN) {
             /* substitute race-specific items; this used to be in
