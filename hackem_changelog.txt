@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed animate dead spell.
 Necromancer gets raise zombies technique at level 3.
 Removed raise zombies spell.
 Removed some unused role tech stuff from SlashTHEM.

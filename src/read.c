@@ -2122,51 +2122,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
-    case SPE_ANIMATE_DEAD: {
-        struct obj *obj;
-        /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
-        int cost = 100 - u.ulevel; /* WAC make this depend on mon? */
-                                  
-        if (u.uswallow) {
-            You("don't have enough elbow-room to maneuver.");
-            return 0;
-        }
-        
-        if ((Upolyd && u.mh <= cost) || (!Upolyd && u.uhp <= cost)) {
-            You("don't have the strength to perform revivification!");
-            return 0;
-        }
-
-        /*obj = getobj((const char *) revivables, "revive");*/
-        if (!(obj = floorfood("revive", 1)))
-            return 0;
-        if (cost < 0)
-            cost = 0;
-#if 0
-        /* Copied from slashem polyself probability */
-        if ((rn2(5) + u.ulevel) < mons[obj->corpsenm].mlevel)
-            Your("attempt to animate the dead failed...");
-#endif
-        You("channel your life force into the revivification!");
-        if (Upolyd)
-            u.mh -= cost;
-        else
-            u.uhp -= cost;
-        mtmp = revive(obj, TRUE);
-        if (mtmp) {
-            if (Is_blackmarket(&u.uz))
-                setmangry(mtmp, FALSE);
-            else if (mtmp->isshk)
-                make_happy_shk(mtmp, FALSE);
-            else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
-                tamedog(mtmp, pseudo);
-                /* Add undead tag? */
-                obfree(pseudo, NULL);
-            }
-        }
-        break;
-    }
     case SCR_ANNIHILATION:
         if (!already_known)
             You("have found a scroll of annihilation!");

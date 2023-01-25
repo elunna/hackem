@@ -1297,8 +1297,12 @@ int tech_no;
                 else {
                     if (mtmp->isshk)
                         make_happy_shk(mtmp, FALSE);
-                    else if (!resist(mtmp, SPBOOK_CLASS, 0, NOTELL))
-                        (void) tamedog(mtmp, (struct obj *) 0);
+                    else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
+                        pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
+                        tamedog(mtmp, pseudo);
+                        /* Add undead tag? */
+                        obfree(pseudo, NULL);
+                    }
                 }
             }
             if (Upolyd) 
