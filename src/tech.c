@@ -802,42 +802,6 @@ int tech_no;
             techt_inuse(tech_no) = rnd((int) (techlev(tech_no) / 6 + 1)) + 2;
             t_timeout = rn1(1000, 500);
             break;
-#if 0
-        case T_INVOKE_DEITY: /* ask for healing if your alignment record is positive --Amy */
-            /* If your deity feels annoyed, they will damage you and increase your prayer timeout. They won't get angry though. */
-            if (u.ualign.record < 0) {
-                if (Inhell || Is_valley(&u.uz)) {
-                    pline("%s is inaccessible, and Moloch decides to smite you!",u_gname() );
-                    u.ublesscnt += rnz(-u.ualign.record);
-                    losehp(rnz(-u.ualign.record), "annoying Moloch", KILLED_BY);
-                } else {
-                    pline("%s smites you for your sins!",u_gname() );
-                    u.ublesscnt += rnz(-u.ualign.record);
-                    losehp(rnz(-u.ualign.record), "disturbing their deity", KILLED_BY);
-                }
-            } 
-            else if (Inhell) {
-                /* Trying to invoke a deity in Gehennom is never a good idea... */
-                pline("%s is inaccessible, and Moloch decides to smite you!",u_gname() );
-                u.ublesscnt += rnz(level_difficulty() + 1 );
-                losehp(rnz(level_difficulty() + 1 ), "trying to contact their deity in Gehennom", KILLED_BY);
-            }
-            else if (u.ualign.record > 0) {
-                /* If your deity is pleased with you, heal some damage and decrease your prayer timeout. */
-                pline("%s commends your efforts and grants you a boon.",u_gname() );
-                u.ublesscnt -= rnz(u.ualign.record + techlev(tech_no) );
-                if (u.ublesscnt < 0) 
-                    u.ublesscnt = 0;
-                healup( rnz(u.ualign.record + techlev(tech_no)) , 0, FALSE, FALSE);
-            }
-            else { /* alignment record exactly 0, do nothing */
-                pline("%s ignores your pleadings.",u_gname() );
-            }
-
-            u.uconduct.gnostic++;	/* you just tried to access your god */
-            t_timeout = rn1(1500, 1500);
-            break;
-#endif
         case T_APPRAISAL:
             if (!uwep) {
                 You("are not wielding anything!");
