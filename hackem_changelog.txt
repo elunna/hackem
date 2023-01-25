@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed revive tech from healers; necromancers get it at level 14.
 Removed call undead spell, converted to a technique.
 Buffed spirit bomb technique damage.
 Removed spirit bomb spell.
