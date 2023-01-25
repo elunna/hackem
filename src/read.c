@@ -1355,7 +1355,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             new_erodeproof;
     struct obj *otmp = (struct obj *) 0;
     struct monst *mtmp, *mtmp2;
-    struct obj* pseudo;
     if (objects[otyp].oc_magic)
         exercise(A_WIS, TRUE);                       /* just for trying */
     already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
