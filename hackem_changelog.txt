@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Necromancer gets raise zombies technique at level 3.
 Removed raise zombies spell.
 Removed some unused role tech stuff from SlashTHEM.
 Removed revive tech from healers; necromancers get it at level 14.
