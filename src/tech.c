@@ -2754,7 +2754,8 @@ blitz_spirit_bomb()
         u.uen = 0;
     }
 
-    num = 10 + (techlev(tech_no) / 5);
+    /* hackem: Boosted damage potential */
+    num = 10 + d(5, (techlev(tech_no) / 2));
     num = (u.uen < num ? u.uen : num);
 
     u.uen -= num;
@@ -2773,6 +2774,8 @@ blitz_spirit_bomb()
         sx += u.dx;
         sy += u.dy;
     }
+    num = spell_damage_bonus(num); /* hackem bonus */
+                                   
     /* Magical Explosion */
     explode(sx, sy, 10, (d(3, 6) + num), WAND_CLASS, EXPL_MAGICAL);
     return 1;
