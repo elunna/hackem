@@ -226,7 +226,9 @@ const char *drainer; /* cause of death, if drain should be fatal */
        wizard mode request to reduce level; never fatal though */
     if (drainer && !strcmp(drainer, "#levelchange"))
         drainer = 0;
-    else if (resists_drli(&youmonst) && strcmp(drainer, "drawing blood"))
+    else if (drainer && !strcmp(drainer, "drawing blood"))
+        ; /* Process normally */
+    else if (resists_drli(&youmonst))
         return;
 
     if (u.ulevel > 1) {
