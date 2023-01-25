@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed call undead spell, converted to a technique.
 Buffed spirit bomb technique damage.
 Removed spirit bomb spell.
 Timeout for telekinesis tech.

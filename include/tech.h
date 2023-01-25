@@ -90,7 +90,8 @@ struct blitz_tab {
 #define T_JEDI_JUMP	42
 #define T_CHARGE_SABER	43
 #define T_TELEKINESIS	44
+#define T_CALL_UNDEAD	45
  
-#define MAXTECH 45
+#define MAXTECH 46
 
 #endif /* TECH_H */

@@ -2027,38 +2027,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             flush_screen(0);
             break;
         }
-        case SPE_CALL_UNDEAD:
-        {
-            register struct monst *nextmon;
-            int pet_cnt = 0, omx, omy;
-
-            for (mtmp = fmon; mtmp; mtmp = nextmon) {
-                nextmon = mtmp->nmon; /* trap might kill mon */
-                if (DEADMONSTER(mtmp) || !is_undead(mtmp->data))
-                    continue;
-                /* steed is already at your location, so not affected;
-                   this avoids trap issues if you're on a trap location */
-                if (mtmp == u.usteed)
-                    continue;
-                if (mtmp->mtame) {
-                    if (mtmp->mtrapped) {
-                        /* no longer in previous trap (affects mintrap) */
-                        mtmp->mtrapped = 0;
-                        fill_pit(mtmp->mx, mtmp->my);
-                    }
-                    omx = mtmp->mx, omy = mtmp->my;
-                    mnexto(mtmp);
-                    if (mtmp->mx != omx || mtmp->my != omy) {
-                        mtmp->mundetected = 0; /* reveal non-mimic hider */
-                        if (canspotmon(mtmp))
-                            ++pet_cnt;
-                        if (mintrap(mtmp) == 2)
-                            change_luck(-1);
-                    }
-                }
-            }
-            break;
-        }
         case SCR_ENCHANT_WEAPON:
         /* [What about twoweapon mode?  Proofing/repairing/enchanting both
            would be too powerful, but shouldn't we choose randomly between

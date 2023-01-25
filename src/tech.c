@@ -88,6 +88,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
 	"jedi jump",
 	"charge saber",
 	"telekinesis",
+        "call undead",
 	""
 };
 
@@ -136,6 +137,7 @@ static const struct innate_tech
 		       {   0, 0, 0} },
 	nec_tech[] = { {   1, T_REINFORCE, 1},
 		       {   1, T_RAISE_ZOMBIES, 1},
+                       {   2, T_CALL_UNDEAD, 1},
 		       {  10, T_POWER_SURGE, 1},
 		       {   0, 0, 0} },
 	pri_tech[] = { {   1, T_TURN_UNDEAD, 1},
@@ -1295,6 +1297,37 @@ int tech_no;
             nomovemsg = "";
 
             t_timeout = rn1(1000, 500);
+            break;
+        }
+        case T_CALL_UNDEAD: {
+            register struct monst *nextmon;
+            int pet_cnt = 0, omx, omy;
+            
+            for (mtmp = fmon; mtmp; mtmp = nextmon) {
+                nextmon = mtmp->nmon; /* trap might kill mon */
+                if (DEADMONSTER(mtmp) || !is_undead(mtmp->data))
+                    continue;
+                /* steed is already at your location, so not affected;
+                   this avoids trap issues if you're on a trap location */
+                if (mtmp == u.usteed)
+                    continue;
+                if (mtmp->mtame) {
+                    if (mtmp->mtrapped) {
+                        /* no longer in previous trap (affects mintrap) */
+                        mtmp->mtrapped = 0;
+                        fill_pit(mtmp->mx, mtmp->my);
+                    }
+                    omx = mtmp->mx, omy = mtmp->my;
+                    mnexto(mtmp);
+                    if (mtmp->mx != omx || mtmp->my != omy) {
+                        mtmp->mundetected = 0; /* reveal non-mimic hider */
+                        if (canspotmon(mtmp))
+                            ++pet_cnt;
+                        if (mintrap(mtmp) == 2)
+                            change_luck(-1);
+                    }
+                }
+            }
             break;
         }
         case T_REVIVE: 
