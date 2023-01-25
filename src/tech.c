@@ -285,35 +285,6 @@ dop_tech[] = { {   1, T_LIQUID_LEAP, 1},
 #define techname(tech)        (tech_names[techid(tech)])
 #define techlet(tech)  \
         ((char)((tech < 26) ? ('a' + tech) : ('A' + tech - 26)))
-
-/* A simple pseudorandom number generator
- *
- * This should generate fairly random numbers that will be 
- * mod LP_HPMOD from 2 to 9,  with 0 mod LP_HPMOD 
- * but can't use the normal RNG since can_limitbreak() must
- * return the same state on the same turn.
- * This also has to depend on things that do NOT change during 
- * save and restore,  and also should only change between turns
- */
-#if 0 /* Probably overkill */
-#define LB_CYCLE 259993L	/* number of turns before the pattern repeats */
-#define LB_BASE1 ((long) (monstermoves + u.uhpmax + 300L))
-#define LB_BASE2 ((long) (moves + u.uenmax + u.ulevel + 300L))
-#define LB_STRIP 6	/* Remove the last few bits as they tend to be less random */
-#endif
- 
-#define LB_CYCLE 101L	/* number of turns before the pattern repeats */
-#define LB_BASE1 ((long) (monstermoves + u.uhpmax + 10L))
-#define LB_BASE2 ((long) (moves + u.uenmax + u.ulevel + 10L))
-#define LB_STRIP 3	/* Remove the last few bits as they tend to be less random */
- 
-#define LB_HPMOD ((long) ((u.uhp * 10 / u.uhpmax > 2) ? \
-        			(u.uhp * 10 / u.uhpmax) : 2))
-
-#define can_limitbreak() (!Upolyd && (u.uhp*10 < u.uhpmax) && \
-        		  (u.uhp == 1 || (!((((LB_BASE1 * \
-        		  LB_BASE2) % LB_CYCLE) >> LB_STRIP) \
-        		  % LB_HPMOD))))
         
 /* Whether you know the tech */
 boolean
@@ -550,7 +521,6 @@ int *tech_no;
                         tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
                         tech_inuse(techid(i)) ? "Active" :
                         tlevel <= 0 ? "Beyond recall" :
-                        can_limitbreak() ? "LIMIT" :
                         !techtout(i) ? "Prepared" : 
                         techtout(i) > 10000 ? "Huge timeout" :
                         techtout(i) > 1000 ? "Not Ready" :
@@ -564,7 +534,6 @@ int *tech_no;
                         tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
                         tech_inuse(techid(i)) ? "Active" :
                         tlevel <= 0 ? "Beyond recall" :
-                        can_limitbreak() ? "LIMIT" :
                         !techtout(i) ? "Prepared" : 
                         techtout(i) > 10000 ? "Huge timeout" :
                         techtout(i) > 1000 ? "Not Ready" :
@@ -577,7 +546,6 @@ int *tech_no;
                     prefix, longest, techname(i), tlevel,
                     tech_inuse(techid(i)) ? "Active" :
                     tlevel <= 0 ? "Beyond recall" :
-                    can_limitbreak() ? "LIMIT" :
                     !techtout(i) ? "Prepared" : 
                     techtout(i) > 10000 ? "Huge timeout" :
                     techtout(i) > 1000 ? "Not Ready" :
@@ -587,7 +555,6 @@ int *tech_no;
                     prefix, techname(i), tlevel,
                     tech_inuse(techid(i)) ? "Active" :
                     tlevel <= 0 ? "Beyond recall" :
-                    can_limitbreak() ? "LIMIT" :
                     !techtout(i) ? "Prepared" : 
                     techtout(i) > 10000 ? "Huge timeout" :
                     techtout(i) > 1000 ? "Not Ready" :
@@ -658,7 +625,6 @@ dump_techniques()
                     tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
                     tech_inuse(techid(i)) ? "Active" :
                     tlevel <= 0 ? "Beyond recall" :
-                    can_limitbreak() ? "LIMIT" :
                     !techtout(i) ? "Prepared" : 
                     techtout(i) > 10000 ? "Huge timeout" :
                     techtout(i) > 1000 ? "Not Ready" :
@@ -673,7 +639,6 @@ dump_techniques()
                     tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
                     tech_inuse(techid(i)) ? "Active" :
                     tlevel <= 0 ? "Beyond recall" :
-                    can_limitbreak() ? "LIMIT" :
                     !techtout(i) ? "Prepared" : 
                     techtout(i) > 10000 ? "Huge timeout" :
                     techtout(i) > 1000 ? "Not Ready" :
@@ -769,7 +734,7 @@ int tech_no;
         pline("This technique is already active!");
         return 0;
     }
-    if (techtout(tech_no) && !can_limitbreak()) {
+    if (techtout(tech_no)) {
         You("have to wait %s before using your technique again.",
             (techtout(tech_no) > 100) ?
                     "for a while" : "a little longer");
@@ -1841,9 +1806,7 @@ int tech_no;
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
     }
-    
-    if (!can_limitbreak())
-        techtout(tech_no) = (t_timeout * (100 - techlev(tech_no)) / 100);
+    techtout(tech_no) = (t_timeout * (100 - techlev(tech_no)) / 100);
 
     /* By default, action should take a turn */
     return 1;

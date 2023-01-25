@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed limit breaking from techniques.
 Shield block also doesn't work if afraid or slow.
 #turn is now a technique.
 Removed remaining wards from tech_names.
