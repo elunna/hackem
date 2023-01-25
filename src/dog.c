@@ -1163,7 +1163,7 @@ register struct obj *obj;
 
     /* Necromancers can tame dead monsters - if we are here, it means
      * we already passed the resistance check */
-    if (Role_if(PM_NECROMANCER) && obj && obj->otyp == SPE_ANIMATE_DEAD) {
+    if (Role_if(PM_NECROMANCER) && obj && obj->otyp == SPE_COMMAND_UNDEAD) {
         newedog(mtmp);
         initedog(mtmp);
         u.uconduct.pets++;

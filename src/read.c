@@ -2122,54 +2122,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
-    case SPE_RAISE_ZOMBIES: {
-        struct obj *obj;
-        int i, j;
-        You("chant the ancient curse...");
-        /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
-         * adding another case. */
-        pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
-        for (i = -1; i <= 1; i++) {
-            for (j = -1; j <= 1; j++) {
-                int corpsenm;
-
-                if (!isok(u.ux + i, u.uy + j))
-                    continue;
-                for (obj = level.objects[u.ux + i][u.uy + j]; obj;
-                     obj = otmp) {
-                    otmp = obj->nexthere;
-
-                    if (obj->otyp != CORPSE)
-                        continue;
-                    /* Only generate undead */
-                    corpsenm = mon_to_zombie(obj->corpsenm);
-                    if (corpsenm != -1 && !cant_create(&corpsenm, TRUE)) {
-                        /* Maintain approx. proportion of oeaten to cnutrit
-                         * so that the zombie's HP relate roughly to how
-                         * much of the original corpse was left.
-                         */
-                        if (obj->oeaten)
-                            obj->oeaten =
-                                eaten_stat(mons[corpsenm].cnutrit, obj);
-                        obj->corpsenm = corpsenm;
-                        mtmp = revive(obj, TRUE);
-                        if (mtmp) {
-                            if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                                tamedog(mtmp, pseudo);
-                                You("dominate %s!", mon_nam(mtmp));
-                            } else {
-                                setmangry(mtmp, FALSE);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        obfree(pseudo, NULL);
-        nomul(-2); /* You need to recover */
-        nomovemsg = 0;
-        break;
-    }
     case SPE_ANIMATE_DEAD: {
         struct obj *obj;
         /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/

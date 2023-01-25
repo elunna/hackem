@@ -1200,7 +1200,7 @@ int tech_no;
         case T_RAISE_ZOMBIES: {
             /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
          * adding another case. */
-            pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
+            pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
             You("chant the ancient curse...");
             for (i = -1; i <= 1; i++) {
                 for (j = -1; j <= 1; j++) {
@@ -1236,6 +1236,7 @@ int tech_no;
                     }
                 }
             }
+            obfree(pseudo, NULL);
             /* You need to recover */
             nomul(-2);
             multi_reason = "recovering from an attempt to raise zombies";
