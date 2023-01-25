@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Draw energy tech now uses GRASS, PUDDLE, SEWAGE, and DEADTREE.
 Created a spirit tempest technique for necros. Fixed spirit bomb to use SPIRIT_CLASS explosion.
 Removed unused T_INVOKE_DEITY technique.
 Misc tech.c formatting.

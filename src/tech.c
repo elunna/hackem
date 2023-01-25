@@ -2303,12 +2303,15 @@ draw_energy()
                  powbonus = 3;
                  break;
              case FOUNTAIN:
+             case GRASS: /* common */
+             case PUDDLE: /* also common */
                  powbonus = 2;
                  break;
              case SINK: /* Cleansing water */
                  if (!rn2(3))
                     powbonus = 2;
                  break;
+             case SEWAGE:
              case TOILET: /* Water Power...but also waste! */
                  if (rn2(100) < 50)
                     powbonus = 2;
@@ -2316,6 +2319,7 @@ draw_energy()
                     powbonus = -2;
                  break;
              case GRAVE:
+             case DEADTREE:
                  powbonus = -4;
                  break;
              default:
