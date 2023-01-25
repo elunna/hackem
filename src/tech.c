@@ -2319,6 +2319,11 @@ draw_energy()
                     powbonus = -2;
                  break;
              case GRAVE:
+                 if (Role_if(PM_NECROMANCER)) {
+                    powbonus = (u.uenmax > 36 ? u.uenmax / 6 : 6);
+                    break;
+                 }
+                 /* FALLTHROUGH */
              case DEADTREE:
                  powbonus = -4;
                  break;
