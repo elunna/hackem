@@ -91,132 +91,186 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
 	""
 };
 
-static const struct innate_tech 
-	/* Roles */
-	arc_tech[] = { {   1, T_RESEARCH, 1},
-		       {   0, 0, 0} },
-	bar_tech[] = { {   1, T_BERSERK, 1},
-		       {   5, T_RAGE, 1},
-		       {   0, 0, 0} },
-	cav_tech[] = { {   1, T_PRIMAL_ROAR, 1},
-		       {   0, 0, 0} },
-	fla_tech[] = { {   1, T_REINFORCE, 1},
-		       {   3, T_POWER_SURGE, 1},
-		       {   5, T_DRAW_ENERGY, 1},
-		       {   0, 0, 0} },
-	hea_tech[] = { {   1, T_SURGERY, 1},
-		       {   0, 0, 0} },
-	ice_tech[] = { {   1, T_REINFORCE, 1},
-		       {   5, T_DRAW_ENERGY, 1},
-		       {  12, T_POWER_SURGE, 1},
-		       {   0, 0, 0} },
-	jed_tech[] = { {   1, T_JEDI_JUMP, 1},
-		       {   5, T_CHARGE_SABER, 1},
-		       {   8, T_TELEKINESIS, 1},
-		       {   0, 0, 0,} },
-	kni_tech[] = { {   1, T_TURN_UNDEAD, 1},
-		       {   1, T_HEAL_HANDS, 1},
-		       {   1, T_SHIELD_BLOCK, 1},
-		       {   0, 0, 0} },
-		       /* 5lo: for Dark Knights */
-	drk_tech[] = { {   1, T_SOULEATER, 1},
-		       {   1, T_SHIELD_BLOCK, 1},
-		       {   0, 0, 0} },
-	mon_tech[] = { {   1, T_PUMMEL, 1},
-		       {   1, T_DASH, 1},
-		       {   1, T_BLITZ, 1},
-		       {   2, T_CHI_STRIKE, 1},
-	  	       {   4, T_CHI_HEALING, 1},
-	  	       {   6, T_E_FIST, 1},
-		       {   8, T_DRAW_ENERGY, 1},
-		       {  10, T_G_SLAM, 1},
-		       {  17, T_SPIRIT_BOMB, 1},
-		       {  20, T_POWER_SURGE, 1},
-		       {   0, 0, 0} },
-	nec_tech[] = { {   1, T_REINFORCE, 1},
-                       {   2, T_CALL_UNDEAD, 1},
-		       {   3, T_RAISE_ZOMBIES, 1},
-		       {  10, T_POWER_SURGE, 1},
-                       {  14, T_REVIVE, 1},
-		       {   0, 0, 0} },
-	pri_tech[] = { {   1, T_TURN_UNDEAD, 1},
-		       {   1, T_BLESSING, 1},
-		       {   7, T_SHIELD_BLOCK, 1},
-		       {   10, T_HEAL_HANDS, 1},
-		       {   30, T_REVIVE, 1},
-		       {   0, 0, 0} },
-	
-	ran_tech[] = { {   1, T_FLURRY, 1},
-		       {   0, 0, 0} },
-	rog_tech[] = { {   1, T_CRIT_STRIKE, 1},
-		       {  15, T_CUTTHROAT, 1},
-		       {   0, 0, 0} },
-	sam_tech[] = { {   1, T_KIII, 1},
-		       {   0, 0, 0} },
-	tou_tech[] = { /* Put Tech here */
-		       {   0, 0, 0} },
-	und_tech[] = { {   1, T_TURN_UNDEAD, 1},
-		       {   1, T_PRACTICE, 1},
-		       {   7, T_SHIELD_BLOCK, 1},
-		       {   0, 0, 0} },
-	
-	val_tech[] = { {   1, T_PRACTICE, 1},
-		       {   1, T_SHIELD_BLOCK, 1},
-		       {   0, 0, 0} },
-	yeo_tech[] = {
-		       {   1, T_CALM_STEED, 1},
-		       {   0, 0, 0} },
-	wiz_tech[] = { {   1, T_REINFORCE, 1},
-		       {   3, T_DRAW_ENERGY, 1},
-		       {   5, T_POWER_SURGE, 1},
-		       {   0, 0, 0} },
+/* Roles */
+static const struct innate_tech
+    arc_tech[] = { 
+        { 1, T_RESEARCH, 1 },
+        { 0, 0, 0 } 
+    },
+    bar_tech[] = { 
+        { 1, T_BERSERK, 1 },
+        { 5, T_RAGE, 1 },
+        { 0, 0, 0 } 
+    },
+    cav_tech[] = { 
+        { 1, T_PRIMAL_ROAR, 1 },
+        { 0, 0, 0 } 
+    },
+    fla_tech[] = { 
+        { 1, T_REINFORCE, 1 },
+        { 3, T_POWER_SURGE, 1 },
+        { 5, T_DRAW_ENERGY, 1 },
+        { 0, 0, 0 } 
+    },
+    hea_tech[] = { 
+        { 1, T_SURGERY, 1 },
+        { 0, 0, 0 } 
+    },
+    ice_tech[] = { 
+        { 1, T_REINFORCE, 1 },
+        { 5, T_DRAW_ENERGY, 1 },
+        { 12, T_POWER_SURGE, 1 },
+        { 0, 0, 0 } 
+    },
+    jed_tech[] = { 
+        { 1, T_JEDI_JUMP, 1 },
+        { 5, T_CHARGE_SABER, 1 },
+        { 8, T_TELEKINESIS, 1 },
+        { 0, 0, 0 } 
+    },
+    kni_tech[] = { 
+        { 1, T_TURN_UNDEAD, 1 },
+        { 1, T_HEAL_HANDS, 1 },
+        { 1, T_SHIELD_BLOCK, 1 },
+        { 0, 0, 0 } 
+    },
+        /* 5lo: for Dark Knights */
+    drk_tech[] = { 
+        { 1, T_SOULEATER, 1 },
+        { 1, T_SHIELD_BLOCK, 1 },
+        { 0, 0, 0 } 
+    },
+    mon_tech[] = { 
+        { 1, T_PUMMEL, 1 },
+        { 1, T_DASH, 1 },
+        { 1, T_BLITZ, 1 },
+        { 2, T_CHI_STRIKE, 1 },
+        { 4, T_CHI_HEALING, 1 },
+        { 6, T_E_FIST, 1 },
+        { 8, T_DRAW_ENERGY, 1 },
+        { 10, T_G_SLAM, 1 },
+        { 17, T_SPIRIT_BOMB, 1 },
+        { 20, T_POWER_SURGE, 1 },
+        { 0, 0, 0 }
+    },
+    nec_tech[] = { 
+        { 1, T_REINFORCE, 1 },
+        { 2, T_CALL_UNDEAD, 1 },
+        { 3, T_RAISE_ZOMBIES, 1 },
+        { 10, T_POWER_SURGE, 1 },
+        { 14, T_REVIVE, 1 },
+        { 0, 0, 0 } 
+    },
+    pri_tech[] = { 
+        { 1, T_TURN_UNDEAD, 1 },
+        { 1, T_BLESSING, 1 },
+        { 7, T_SHIELD_BLOCK, 1 },
+        { 10, T_HEAL_HANDS, 1 },
+        { 30, T_REVIVE, 1 },
+        { 0, 0, 0 } 
+    },
+    ran_tech[] = { 
+        { 1, T_FLURRY, 1 },
+        { 0, 0, 0 } 
+    },
+    rog_tech[] = { 
+        { 1, T_CRIT_STRIKE, 1 },
+        { 15, T_CUTTHROAT, 1 },
+        { 0, 0, 0 } 
+    },
+    sam_tech[] = { 
+        { 1, T_KIII, 1 },
+        { 0, 0, 0 } 
+    },
+    tou_tech[] = {
+        { 0, 0, 0 } 
+    },
+    und_tech[] = { 
+        { 1, T_TURN_UNDEAD, 1 },
+        { 1, T_PRACTICE, 1 },
+        { 7, T_SHIELD_BLOCK, 1 },
+        { 0, 0, 0 } 
+    },
+    val_tech[] = { 
+        { 1, T_PRACTICE, 1 },
+        { 1, T_SHIELD_BLOCK, 1 },
+        { 0, 0, 0 } 
+    },
+    yeo_tech[] = {
+        { 1, T_CALM_STEED, 1 },
+        { 0, 0, 0 } 
+    },
+    wiz_tech[] = { 
+        { 1, T_REINFORCE, 1 },
+        { 3, T_DRAW_ENERGY, 1 },
+        { 5, T_POWER_SURGE, 1 },
+        { 0, 0, 0 } 
+    },
 #if 0 
-	dru_tech[] = { {   1, T_BOOZE, 1}, /* drunk */
-		       {   0, 0, 0} },
-        brd_tech[] = { {   1, T_PRIMAL_ROAR, 1}, /* bard */
-                   {  10, T_BOOZE, 1},
-                   {  20, T_RAGE, 1},
-                   {   0, 0, 0} },
-        nin_tech[] = { {   1, T_VANISH, 1}, /* ninja */
-                   {   1, T_CRIT_STRIKE, 1},
-                   {  10, T_CUTTHROAT, 1},
-                   {   0, 0, 0} },
-        war_tech[] = { {   1, T_PRACTICE, 1}, /* warrior */
-                   {   1, T_SHIELD_BLOCK, 1},
-                   {   0, 0, 0} },
-        lun_tech[] = { {   1, T_EVISCERATE, 1}, /* lunatic */
-                   {  10, T_BERSERK, 1},
-                   {   0, 0, 0} },
+    dru_tech[] = { 
+        { 1, T_BOOZE, 1 }, /* drunk */
+        { 0, 0, 0 } 
+    },
+    brd_tech[] = { 
+        { 1, T_PRIMAL_ROAR, 1 }, /* bard */
+        {  10, T_BOOZE, 1 },
+        {  20, T_RAGE, 1 },
+        { 0, 0, 0 } 
+    },
+    nin_tech[] = { 
+        { 1, T_VANISH, 1 }, /* ninja */
+        { 1, T_CRIT_STRIKE, 1 },
+        {  10, T_CUTTHROAT, 1 },
+        { 0, 0, 0 } 
+    },
+    war_tech[] = { 
+        { 1, T_PRACTICE, 1 }, /* warrior */
+        { 1, T_SHIELD_BLOCK, 1 },
+        { 0, 0, 0 } 
+    },
+    lun_tech[] = { 
+        { 1, T_EVISCERATE, 1 }, /* lunatic */
+        {  10, T_BERSERK, 1 },
+        { 0, 0, 0 } 
+    },
 #endif
-	/* Races */
-	dwa_tech[] = { {   1, T_RAGE, 1},
-		       {   0, 0, 0} },
-	elf_tech[] = { /* Put Tech here */
-		       {   0, 0, 0} },
-	gno_tech[] = { {   1, T_VANISH, 1},
-		       {   7, T_TINKER, 1},
-		       {   0, 0, 0} },
-	hob_tech[] = { {   1, T_BLINK, 1},
-		       {   0, 0, 0} },
-	vam_tech[] = { {   1, T_DAZZLE, 1},
-		       {   1, T_DRAW_BLOOD, 1},
-		       {   0, 0, 0} };
-    
+    /* Races */
+    dwa_tech[] = { 
+        { 1, T_RAGE, 1 },
+        { 0, 0, 0 } 
+    },
+    elf_tech[] = {
+        { 0, 0, 0 }
+    },
+    gno_tech[] = { 
+        { 1, T_VANISH, 1 },
+        {   7, T_TINKER, 1 },
+        { 0, 0, 0 } 
+    },
+    hob_tech[] = { 
+        { 1, T_BLINK, 1 },
+        { 0, 0, 0 } 
+    },
+    vam_tech[] = { 
+        { 1, T_DAZZLE, 1 },
+        { 1, T_DRAW_BLOOD, 1 },
+        { 0, 0, 0 } 
+    };
+
 #if 0 /* Deferred races */
-dop_tech[] = { {   1, T_LIQUID_LEAP, 1},
-               {   0, 0, 0} },
-        clk_tech[] = { {   1, T_TINKER, 1},
-               {   0, 0, 0} },
-        ogr_tech[] = { {   1, T_PRIMAL_ROAR, 1},
-                   {   10, T_BERSERK, 1},
-                   {   0, 0, 0} },
-        kob_tech[] = { {   10, T_TINKER, 1},
-		       {   0, 0, 0} },
-	lyc_tech[] = { {   1, T_EVISCERATE, 1},
-		       {  10, T_BERSERK, 1},
-		       {   0, 0, 0} },
-        inc_tech[] = { {   1, T_DRAW_ENERGY, 1},
-		       {   0, 0, 0} };
+    dop_tech[] = { 
+        { 1, T_LIQUID_LEAP, 1 },
+        { 0, 0, 0 } 
+    },
+    lyc_tech[] = { 
+        { 1, T_EVISCERATE, 1 },
+        {  10, T_BERSERK, 1 },
+        { 0, 0, 0 } 
+    },
+    inc_tech[] = { 
+        { 1, T_DRAW_ENERGY, 1 },
+        { 0, 0, 0 } 
+    };
 #endif
 /* Local Macros 
  * these give you direct access to the player's list of techs.  
