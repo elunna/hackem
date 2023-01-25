@@ -817,6 +817,10 @@ may_generate_eroded(struct obj* otmp) {
     if (otmp->otyp == WORM_TOOTH || otmp->otyp == UNICORN_HORN) {
         return FALSE;
     }
+    /* item is part of a medkit */
+    if (otmp->otyp == BANDAGE || otmp->otyp == PHIAL) {
+        return FALSE;
+    }
     /* item is an artifact */
     if (otmp->oartifact) {
         return FALSE;
