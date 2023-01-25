@@ -1199,8 +1199,6 @@ SPELL("command undead",  "dark",          P_NECROMANCY_SPELL,  10,  7, 4, 1, IMM
 SPELL("raise zombies",   "big",           P_NECROMANCY_SPELL,   0,  2, 2, 1, IMMEDIATE, CLR_BLACK),
 SPELL("call undead",     "fuzzy",         P_NECROMANCY_SPELL,   0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("animate dead",    "deep",          P_NECROMANCY_SPELL,   0,  3, 3, 1, IMMEDIATE, HI_SILVER),
-SPELL("spirit bomb",     "spotted",       P_NECROMANCY_SPELL,   0,  3, 5, 1, IMMEDIATE, CLR_WHITE),
-
 SPELL("knock",           "pink",          P_MATTER_SPELL,      35,  1, 1, 1, IMMEDIATE, CLR_BRIGHT_MAGENTA),
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),
 SPELL("polymorph",       "silver",        P_MATTER_SPELL,      10,  8, 6, 1, IMMEDIATE, HI_SILVER),
@@ -1246,6 +1244,7 @@ SPELL("turn undead",     "copper",        P_NECROMANCY_SPELL,  15,  8, 6, 1, IMM
 SPELL("create familiar", "glittering",    P_ENCHANTMENT_SPELL, 10,  7, 6, 1, NODIR, CLR_WHITE),
 SPELL("protection",      "dull",          P_ENCHANTMENT_SPELL, 15,  3, 1, 1, NODIR, HI_PAPER),
 
+SPELL(None,         "spotted",     P_NONE, 0, 0, 0, 1, 0, CLR_WHITE),
 SPELL(None,         "colorful",    P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 SPELL(None,         "long",        P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 SPELL(None,         "rainbow",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),

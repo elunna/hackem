@@ -1620,10 +1620,11 @@ int tech_no;
                 You("can't do this while holding a shield!");
                 return 0;
             }
-            if (!getdir((char *)0))
+            if (!getdir(NULL))
                 return 0;
             if (!blitz_spirit_bomb())
                 return 0;
+            
             t_timeout = rn1(1000, 500);
             break;
         case T_DRAW_BLOOD:
@@ -2740,7 +2741,6 @@ blitz_spirit_bomb()
 {
     int tech_no, num;
     int sx = u.ux, sy = u.uy, i;
-
     tech_no = (get_tech_no(T_SPIRIT_BOMB));
 
     if (tech_no == -1) {
@@ -2750,7 +2750,7 @@ blitz_spirit_bomb()
     You("gather your energy...");
 
     if (u.uen < 10) {
-        pline("But it fizzles out because you have less than 10 points of mana.");
+        pline("But it fizzles out.");
         u.uen = 0;
     }
 
