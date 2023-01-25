@@ -1068,18 +1068,16 @@ int tech_no;
                 (void) Shk_Your(Your_buf, obj);
             if (obj->cursed) {
                 if (!Blind)
-                    pline("%s %s %s.",Your_buf,
-                                      aobjnam(obj, "softly glow"),
-                                      hcolor(NH_AMBER));
+                    pline("%s%s %s.",Your_buf, aobjnam(obj, "softly glow"),
+                          hcolor(NH_AMBER));
                 uncurse(obj);
                 obj->bknown = 1;
             } else if (!obj->blessed) {
                 if (!Blind) {
                     str = hcolor(NH_LIGHT_BLUE);
-                    pline("%s %s with a%s %s aura.",
-                              Your_buf,
-                              aobjnam(obj, "softly glow"),
-                              index(vowels, *str) ? "n" : "", str);
+                    pline("%s%s with a%s %s aura.", Your_buf,
+                          aobjnam(obj, "softly glow"), 
+                          index(vowels, *str) ? "n" : "", str);
                 }
                 bless(obj);
                 obj->bknown = 1;
