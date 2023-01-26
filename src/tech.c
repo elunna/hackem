@@ -1530,8 +1530,10 @@ int tech_no;
             }
             break;
         case T_SHELL:
-            toggleshell();
-            break;
+            /* Timeout is handled in toggleshell() 
+             * We don't want this to drop down, otherwise the timeout will be
+             * reset. */
+            return toggleshell();
         case T_DAZZLE:
             mtmp = (struct monst *) 0;
             /* Short range stun attack */
@@ -2869,6 +2871,47 @@ do_force_push()
     }
     return 1;
 }
+
+/* Shell toggling for tortle race. Modified from EvilHack to be compatible 
+ * with the technique framework. 
+ * Returns 1 if the tortle emerged from it's shell. */
+int
+toggleshell()
+{
+    int tech_no = (get_tech_no(T_SHELL));
+    boolean was_blind = Blind, was_hiding = Hidinshell ;
+    
+    if (!was_hiding && u.uinshell) {
+         You_cant("retreat into your shell again so soon.");
+         return 0;
+    } else if (!was_hiding && Punished) {
+         You_cant("retreat into your shell with an iron ball chained to your %s!",
+                  body_part(LEG));
+         return 0;
+    }
+
+    You("%s your shell.", was_hiding ? "emerge from" : "retreat into");
+    /* maximum of 200 turns our hero can stay inside their shell,
+       and then 300-400 turns before they can hide in it again
+       after emerging from it */
+    if (was_hiding) {
+         HHalf_physical_damage &= ~FROMOUTSIDE;
+         u.uinshell = 0;
+         techtout(tech_no) = (rn1(100, 300));
+    } else {
+         u.uinshell = 200;
+         HHalf_physical_damage |= FROMOUTSIDE;
+    }
+    
+    find_ac();
+    context.botl = 1;
+    if (was_blind ^ Blind)
+         toggle_blindness();
+
+    return 1;
+}
+
+
 #ifdef DEBUG
 void
 wiz_debug_cmd() /* in this case, allow controlled loss of techniques */

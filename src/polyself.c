@@ -1882,39 +1882,6 @@ dohide()
 }
 
 int
-toggleshell()
-{
-    boolean was_blind = Blind, was_hiding = Hidinshell;
-
-    if (!was_hiding && u.uinshell) {
-        You_cant("retreat into your shell again so soon.");
-        return 0;
-    } else if (!was_hiding && Punished) {
-        You_cant("retreat into your shell with an iron ball chained to your %s!",
-                 body_part(LEG));
-        return 0;
-    }
-
-    You("%s your shell.", was_hiding ? "emerge from" : "retreat into");
-    /* maximum of 200 turns our hero can stay inside their shell,
-       and then 300-400 turns before they can hide in it again
-       after emerging from it */
-    u.uinshell = was_hiding ? -rn1(100, 300) : 200;
-
-    if (!was_hiding)
-        HHalf_physical_damage |= FROMOUTSIDE;
-    else
-        HHalf_physical_damage &= ~FROMOUTSIDE;
-
-    find_ac();
-    context.botl = 1;
-    if (was_blind ^ Blind)
-        toggle_blindness();
-
-    return 1;
-}
-
-int
 dopoly()
 {
     struct permonst *savedat = youmonst.data;
