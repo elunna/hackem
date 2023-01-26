@@ -3016,6 +3016,7 @@ struct monst *mtmp;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3032,6 +3033,7 @@ struct monst *mtmp;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3046,7 +3048,8 @@ struct monst *mtmp;
             && uarms && !rn2(7) && obj == MON_WEP(mtmp)
             /* hero's location must be known and adjacent */
             && mtmp->mux == u.ux && mtmp->muy == u.uy
-            && distu(mtmp->mx, mtmp->my) <= 2) {
+            && distu(mtmp->mx, mtmp->my) <= 2
+            && !u.uswallow) {
             m.misc = obj;
             m.has_misc = MUSE_DWARVISH_BEARDED_AXE_SHIELD;
         }
@@ -3156,6 +3159,7 @@ struct obj *start;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3172,6 +3176,7 @@ struct obj *start;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3186,7 +3191,8 @@ struct obj *start;
             && uarms && !rn2(7) && obj == MON_WEP(mtmp)
             /* hero's location must be known and adjacent */
             && mtmp->mux == u.ux && mtmp->muy == u.uy
-            && distu(mtmp->mx, mtmp->my) <= 2) {
+            && distu(mtmp->mx, mtmp->my) <= 2
+            && !u.uswallow) {
             m.misc = obj;
             m.has_misc = MUSE_DWARVISH_BEARDED_AXE_SHIELD;
         }
