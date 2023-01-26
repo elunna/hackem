@@ -158,6 +158,7 @@ static const struct innate_tech
         { 1, T_REINFORCE, 1 },
         { 2, T_CALL_UNDEAD, 1 },
         { 3, T_RAISE_ZOMBIES, 1 },
+        { 6, T_SOULEATER, 1 },
         { 10, T_POWER_SURGE, 1 },
         { 14, T_REVIVE, 1 },
         { 17, T_SPIRIT_TEMPEST, 1 },
