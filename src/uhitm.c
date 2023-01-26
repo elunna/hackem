@@ -9,7 +9,6 @@
 STATIC_DCL boolean FDECL(known_hitum, (struct monst *, struct obj *, int *,
                                        int, int, struct attack *, int));
 STATIC_DCL boolean FDECL(theft_petrifies, (struct obj *));
-STATIC_DCL void FDECL(steal_it, (struct monst *, struct attack *));
 STATIC_DCL struct obj *FDECL(really_steal, (struct obj *, struct monst *));
 STATIC_DCL boolean FDECL(hitum_cleave, (struct monst *, struct attack *));
 STATIC_DCL boolean FDECL(hitum, (struct monst *, struct attack *));
@@ -1991,42 +1990,8 @@ int dieroll;
     }
 
     if (thievery) {
-        /* Izchak is off-limits */
-        if (mon->isshk
-            && !strcmp(shkname(mon), "Izchak")) {
-            You("find yourself unable to steal from %s.",
-                mon_nam(mon));
-            use_skill(P_THIEVERY, -1);
+        if (!do_pickpocket(mon))
             return 0;
-        }
-        /* pets are also off-limits, since #loot can be
-           used to give your pets as much as they can carry.
-           would be an easy way to abuse thievery and train
-           the skill without risk */
-        if (mon->mtame) {
-            You_cant("bring yourself to steal from %s.",
-                mon_nam(mon));
-            use_skill(P_THIEVERY, -1);
-            return 0;
-        }
-        /* engulfed? ummm no */
-        if (u.uswallow) {
-            pline("What exactly were you planning on stealing?  Its stomach?");
-            use_skill(P_THIEVERY, -1);
-            return 0;
-        }
-        if (mon->minvent != 0) {
-            You("%s to %s %s.",
-                rn2(2) ? "try" : "attempt",
-                rn2(2) ? "steal from" : "pickpocket",
-                mon_nam(mon));
-            steal_it(mon, &youmonst.data->mattk[0]);
-        } else if (mon->minvent == 0) {
-            pline("%s has nothing for you to %s.",
-                  Monnam(mon), rn2(2) ? "steal" : "pickpocket");
-            /* prevent skill from incrementing - nothing was stolen */
-            use_skill(P_THIEVERY, -1);
-        }
         hittxt = TRUE;
     } else if (!already_killed)
         damage_mon(mon, tmp, AD_PHYS);
@@ -2518,7 +2483,7 @@ struct obj *otmp;
  * If the target is wearing body armor, take all of its possessions;
  * otherwise, take one object.  [Is this really the behavior we want?]
  */
-STATIC_OVL void
+void
 steal_it(mdef, mattk)
 struct monst *mdef;
 struct attack *mattk;

@@ -92,6 +92,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "spirit tempest",   /* 46 */
     "force push",       /* 47 */
     "shell",            /* 48 */
+    "pickpocket",       /* 49 */
     ""
 };
 
@@ -181,6 +182,7 @@ static const struct innate_tech
         { 0, 0, 0 } 
     },
     rog_tech[] = { 
+        { 1, T_PICKPOCKET, 1 },
         { 1, T_CRIT_STRIKE, 1 },
         { 15, T_CUTTHROAT, 1 },
         { 0, 0, 0 } 
@@ -1406,7 +1408,29 @@ int tech_no;
             You("direct your internal energy to restoring your body!");
             techt_inuse(tech_no) = techlev(tech_no) * 2 + 4;
             t_timeout = rn1(1000, 500);
-            break;	
+            break;
+        case T_PICKPOCKET:
+            if (!Role_if(PM_ROGUE)) {
+                impossible("Attempting pickpocket technique as non-rogue.");
+                return 0;
+            }
+            if (Upolyd) {
+                You("must be in your natural form to pickpocket.");
+                return 0;
+            }
+            if (uwep) {
+                You_cant("do this while holding a weapon");
+                return 0;
+            }
+            if (!getdir(NULL))
+                return 0;
+            mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+            if (!mtmp) {
+                pline("No one is there!");
+                return 0;
+            }
+            /* No timeout */
+            return do_pickpocket(mtmp);
         case T_DISARM:
             if (P_SKILL(weapon_type(uwep)) == P_NONE) {
                 You("aren't wielding a proper weapon!");
@@ -2911,6 +2935,48 @@ toggleshell()
     return 1;
 }
 
+int
+do_pickpocket(mon)
+struct monst *mon;
+{
+    /* Izchak is off-limits */
+    if (mon->isshk
+        && !strcmp(shkname(mon), "Izchak")) {
+         You("find yourself unable to steal from %s.",
+             mon_nam(mon));
+         use_skill(P_THIEVERY, -1);
+         return 0;
+    }
+    /* pets are also off-limits, since #loot can be
+       used to give your pets as much as they can carry.
+       would be an easy way to abuse thievery and train
+       the skill without risk */
+    if (mon->mtame) {
+         You_cant("bring yourself to steal from %s.",
+                  mon_nam(mon));
+         use_skill(P_THIEVERY, -1);
+         return 0;
+    }
+    /* engulfed? ummm no */
+    if (u.uswallow) {
+         pline("What exactly were you planning on stealing?  Its stomach?");
+         use_skill(P_THIEVERY, -1);
+         return 0;
+    }
+    if (mon->minvent != 0) {
+         You("%s to %s %s.",
+             rn2(2) ? "try" : "attempt",
+             rn2(2) ? "steal from" : "pickpocket",
+             mon_nam(mon));
+         steal_it(mon, &youmonst.data->mattk[0]);
+    } else if (mon->minvent == 0) {
+         pline("%s has nothing for you to %s.",
+               Monnam(mon), rn2(2) ? "steal" : "pickpocket");
+         /* prevent skill from incrementing - nothing was stolen */
+         use_skill(P_THIEVERY, -1);
+    }
+    return 1;
+}
 
 #ifdef DEBUG
 void

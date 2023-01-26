@@ -94,7 +94,8 @@ struct blitz_tab {
 #define T_SPIRIT_TEMPEST 46
 #define T_FORCE_PUSH    47
 #define T_SHELL         48
+#define T_PICKPOCKET    49
  
-#define MAXTECH 48
+#define MAXTECH 50
 
 #endif /* TECH_H */

@@ -2718,6 +2718,7 @@ E void FDECL(extend_tech_time, (int, int));
 E boolean FDECL(tech_known, (SHORT_P));
 E void FDECL(learntech, (SHORT_P,long,int));
 E int NDECL(toggleshell);
+E int FDECL(do_pickpocket, (struct monst *));
 
 /* ### teleport.c ### */
 
@@ -2908,6 +2909,7 @@ E void FDECL(stumble_onto_mimic, (struct monst *));
 E int FDECL(flash_hits_mon, (struct monst *, struct obj *));
 E void FDECL(light_hits_gremlin, (struct monst *, int));
 E boolean NDECL(dbl_dmg);
+E void FDECL(steal_it, (struct monst *, struct attack *));
 
 /* ### unixmain.c ### */
 
