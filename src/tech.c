@@ -1747,9 +1747,10 @@ int tech_no;
                         mtmp->mhp = 1;
                 }
             }
-            int weapon_modifier = (uwep && uwep->otyp == LONG_SWORD
-                                   && uwep->oartifact == ART_DIRGE)
-                                      ? 5 : 1;
+            /* Instead of being limited to Soulthief (which Hack'EM is not
+             * importing - we will allow any artifact that drains life. */
+            int weapon_modifier = (attacks(AD_DRLI, uwep) ? 5 : 1);
+                                   
             techt_inuse(tech_no) = (techlev(tech_no) / 2) + weapon_modifier;
             /* See uhitm.c in particular for the extra damage */
             pline("Dark flames flow from %s.", doname(uwep));
