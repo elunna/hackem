@@ -6793,7 +6793,7 @@ static int
 find_remembered_stairs(boolean upstairs, coord *cc)
 {
     xchar x, y;
-    int stair, sladder, sbranch;
+    int k, stair, sladder, sbranch;
     int found_stairs = 0;
     if (upstairs) {
         stair = S_upstair;
@@ -6819,7 +6819,6 @@ find_remembered_stairs(boolean upstairs, coord *cc)
 
     /* We can't reference the stairs directly because mimics can mimic fake
        ones. */
-    int k;
     for (x = 0; x < COLNO; x++) {
         for (y = 0; y < ROWNO; y++) {
             if (levl[x][y].seenv) {
@@ -6838,7 +6837,6 @@ find_remembered_stairs(boolean upstairs, coord *cc)
             }
         }
     }
-
     return found_stairs;
 }
 

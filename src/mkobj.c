@@ -294,7 +294,7 @@ struct obj *box;
 {
     register int n, minn = 0;
     register struct obj *otmp;
-
+    int tries;
     box->cobj = (struct obj *) 0;
 
     switch (box->otyp) {
@@ -332,7 +332,7 @@ struct obj *box;
         n = 0;
         break;
     }
-    int tries = rn1((n + 1 - minn), minn);
+    tries = rn1((n + 1 - minn), minn);
     for (n = tries; n > 0; n--) {
         if (box->otyp == MEDICAL_KIT) {
             int supplies[] = { PHIAL, BANDAGE, PILL };

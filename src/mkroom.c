@@ -799,7 +799,8 @@ ventmon(poisoned)
 int poisoned;
 {
     struct permonst *mdat;
-    for (int i = 100; i > 0; i--) {
+    int i;
+    for (i = 100; i > 0; i--) {
         /* Make a creepy crawly */
         switch (rnd(5)) {
         case 1:

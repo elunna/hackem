@@ -1548,8 +1548,7 @@ struct obj *obj;
         return;
     }
     
-    // for some reason, the lightsaber prototype is created with
-    // age == 0
+    /*for some reason, the lightsaber prototype is created with age == 0*/
     if (obj->oartifact == ART_LIGHTSABER_PROTOTYPE)
         obj->age = 300L;
     

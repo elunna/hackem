@@ -688,7 +688,7 @@ static struct obj *
 use_medical_kit(type, feedback, verb)
 int type;
 boolean feedback;
-char *verb;
+const char *verb;
 {
     struct obj *obj, *otmp;
     makeknown(MEDICAL_KIT);
@@ -2220,7 +2220,7 @@ charge_saber()
     }
     if (tlevel >= 10 && !rn2(5)) {
         You("manage to channel the force perfectly!");
-        uwep->age += 1500; // Jackpot!
+        uwep->age += 1500; /* Jackpot! */
     } else
         You("channel the force into %s.", the(xname(uwep)));
 
@@ -2771,9 +2771,9 @@ blitz_spirit_bomb()
 static int
 spirit_tempest()
 {
-    int tech_no, num, failcheck;
+    int tech_no = (get_tech_no(T_SPIRIT_TEMPEST));
     int blasts = (u.ulevel > 20) ? (3 + rn2(4)) : 1;
-    tech_no = (get_tech_no(T_SPIRIT_TEMPEST));
+    int num, failcheck;
     boolean didblast = FALSE;
     if (tech_no == -1) {
         return 0;

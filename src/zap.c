@@ -545,10 +545,11 @@ struct obj *otmp;
     case WAN_HEALING:
     case WAN_EXTRA_HEALING:
     case SPE_HEALING:
-    case SPE_EXTRA_HEALING:
+    case SPE_EXTRA_HEALING: {
         reveal_invis = TRUE;
-        int amt = otyp == WAN_HEALING ? d(5, 2) + 5 * !!bcsign(otmp) 
-                  : otyp == WAN_EXTRA_HEALING ? d(5, 4) + 10 * !!bcsign(otmp)
+        int amt = otyp == WAN_HEALING ? d(5, 2) + 5 * !!bcsign(otmp)
+                  : otyp == WAN_EXTRA_HEALING
+                      ? d(5, 4) + 10 * !!bcsign(otmp)
                       : d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
         if (is_zombie(mtmp->data)) {
             /* Allow healing to be nasty versus zombies */
@@ -567,7 +568,7 @@ struct obj *otmp;
             /* [ALI] FIXME: Makes no sense that cursed wands are more
             * effective than uncursed wands. This behaviour dates
             * right back to Slash v3 (and probably to v1).
-            */
+             */
             if (mtmp->mhp > mtmp->mhpmax) {
                 if (otmp->oclass == WAND_CLASS)
                     mtmp->mhpmax++;
@@ -577,16 +578,15 @@ struct obj *otmp;
                healing only needs to not be cursed, so spell always cures
                [potions quaffed by monsters behave slightly differently;
                we use the rules for the hero here...] */
-            if (skilled_spell
-                    || otyp == SPE_EXTRA_HEALING
-                    || (otyp == WAN_HEALING && otmp->blessed)
-                    || (otyp == WAN_EXTRA_HEALING && !otmp->cursed)) {
+            if (skilled_spell || otyp == SPE_EXTRA_HEALING
+                || (otyp == WAN_HEALING && otmp->blessed)
+                || (otyp == WAN_EXTRA_HEALING && !otmp->cursed)) {
                 mcureblindness(mtmp, canseemon(mtmp));
             }
-            
+
             if (canseemon(mtmp)) {
                 if (disguised_mimic) {
-                    if (is_obj_mappear(mtmp,STRANGE_OBJECT)) {
+                    if (is_obj_mappear(mtmp, STRANGE_OBJECT)) {
                         /* it can do better now */
                         set_mimic_sym(mtmp);
                         newsym(mtmp->mx, mtmp->my);
@@ -594,8 +594,10 @@ struct obj *otmp;
                         mimic_hit_msg(mtmp, otyp);
                 } else {
                     pline("%s looks%s better.", Monnam(mtmp),
-                      (otyp == SPE_EXTRA_HEALING || 
-                       otyp == WAN_EXTRA_HEALING) ? " much" : "");
+                          (otyp == SPE_EXTRA_HEALING
+                           || otyp == WAN_EXTRA_HEALING)
+                              ? " much"
+                              : "");
                 }
                 makeknown(otyp);
             }
@@ -603,8 +605,7 @@ struct obj *otmp;
                 if (Role_if(PM_HEALER)) {
                     adjalign(1);
                 } else if (!mtmp->mtame) {
-                    /* This used to do this unconditionally, making chaotics get an
-                     * alignment penalty for healing their pets. Don't do that. */
+                    /* This used to do this unconditionally, making chaotics get an alignment penalty for healing their pets. Don't do that. */
                     adjalign(sgn(u.ualign.type));
                     if (sgn(u.ualign.type) < 0)
                         You_feel("guilty.");
@@ -615,7 +616,8 @@ struct obj *otmp;
             (void) resist(mtmp, otmp->oclass,
                           d(3, otyp == SPE_EXTRA_HEALING ? 8 : 4), TELL);
         }
-         break;
+        break;
+    }
     case SPE_CURE_SICKNESS:
         if (mtmp->msick) {
             wake = FALSE;
