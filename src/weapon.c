@@ -43,35 +43,35 @@ static NEARDATA schar delay;            /* moves left for practice */
 STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     /* Weapon */
     0, 
-    DAGGER, 
-    KNIFE, 
-    AXE, 
-    PICK_AXE, 
-    SHORT_SWORD, 
-    BROADSWORD, 
-    LONG_SWORD,
-    TWO_HANDED_SWORD, 
-    PN_SABER, 
-    CLUB, 
-    MACE, 
-    MORNING_STAR, 
-    FLAIL,
-    PN_HAMMER, 
-    QUARTERSTAFF, 
-    PN_POLEARMS, 
-    SPEAR, 
-    TRIDENT, 
-    PN_LIGHTSABER,
-    LANCE, 
-    BOW, 
-    SLING,
-    PN_FIREARMS,
-    CROSSBOW, 
-    DART,
-    SHURIKEN, 
-    BOOMERANG, 
-    PN_WHIP, 
-    UNICORN_HORN,   /* last weapon */
+    DAGGER,             /* 1 */
+    KNIFE,              /* 2 */
+    AXE,                /* 3 */
+    PICK_AXE,           /* 4 */
+    SHORT_SWORD,        /* 5 */
+    BROADSWORD,         /* 6 */
+    LONG_SWORD,         /* 7 */
+    TWO_HANDED_SWORD,   /* 8 */
+    PN_SABER,           /* 9 */
+    CLUB,               /* 10 */
+    MACE,               /* 11 */
+    MORNING_STAR,       /* 12 */
+    FLAIL,              /* 13 */
+    PN_HAMMER,          /* 14 */
+    QUARTERSTAFF,       /* 15 */
+    PN_POLEARMS,        /* 16 */
+    SPEAR,              /* 17 */
+    TRIDENT,            /* 18 */
+    PN_LIGHTSABER,      /* 19 */
+    LANCE,              /* 20 */
+    BOW,                /* 21 */
+    SLING,              /* 22 */
+    PN_FIREARMS,        /* 23 */
+    CROSSBOW,           /* 24 */
+    DART,               /* 25 */
+    SHURIKEN,           /* 26 */
+    BOOMERANG,          /* 27 */
+    PN_WHIP,            /* 28 */
+    UNICORN_HORN,       /* 29 last weapon */
     
     PN_ATTACK_SPELL, 
     PN_HEALING_SPELL, 
