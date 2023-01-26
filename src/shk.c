@@ -3932,6 +3932,21 @@ static NEARDATA const char identify_types[] = { ALL_CLASSES, 0 };
 static NEARDATA const char weapon_types[] = { WEAPON_CLASS, TOOL_CLASS, 0 };
 static NEARDATA const char armor_types[] = { ARMOR_CLASS, 0 };
 
+#define IDENTIFY_TYPES 11
+static svc_id_type id_types[IDENTIFY_TYPES] = {
+    { SHK_ID_WEAPON,    WEAPON_CLASS },
+    { SHK_ID_ARMOR,     ARMOR_CLASS },
+    { SHK_ID_SCROLL,    SCROLL_CLASS },
+    { SHK_ID_BOOK,      SPBOOK_CLASS },
+    { SHK_ID_POTION,    POTION_CLASS },
+    { SHK_ID_RING,      RING_CLASS },
+    { SHK_ID_AMULET,    AMULET_CLASS },
+    { SHK_ID_WAND,      WAND_CLASS },
+    { SHK_ID_TOOL,      TOOL_CLASS },
+    { SHK_ID_GEM,       GEM_CLASS },
+    { SHK_ID_FOOD,      FOOD_CLASS },
+};
+
 /*
 ** FUNCTION shk_identify
 **
@@ -3945,7 +3960,8 @@ struct monst *shkp;
 long ident_type;
 {
     register struct obj *obj;       /* The object to identify       */
-    int charge;                     /* Cost to identify             */
+    int i, charge;                     /* Cost to identify             */
+
     boolean ripoff = FALSE;         /* Shkp ripping you off?        */
 
     /* Pick object */
@@ -3953,20 +3969,12 @@ long ident_type;
         return 0;
     
     /* Validate item against service */
-    if (     (ident_type == SHK_ID_WEAPON && obj->oclass != WEAPON_CLASS)
-          || (ident_type == SHK_ID_ARMOR && obj->oclass != ARMOR_CLASS)
-          || (ident_type == SHK_ID_SCROLL && obj->oclass != SCROLL_CLASS)
-          || (ident_type == SHK_ID_BOOK && obj->oclass != SPBOOK_CLASS)
-          || (ident_type == SHK_ID_POTION && obj->oclass != POTION_CLASS)
-          || (ident_type == SHK_ID_RING && obj->oclass != RING_CLASS)
-          || (ident_type == SHK_ID_AMULET && obj->oclass != AMULET_CLASS)
-          || (ident_type == SHK_ID_WAND && obj->oclass != WAND_CLASS)
-          || (ident_type == SHK_ID_TOOL && obj->oclass != TOOL_CLASS)
-          || (ident_type == SHK_ID_GEM && obj->oclass != GEM_CLASS)
-          || (ident_type == SHK_ID_FOOD && obj->oclass != FOOD_CLASS)
-          ) {
-        verbalize("That item doesn't work with this service.");
-        return 0;
+    for (i = 0; i < IDENTIFY_TYPES; i++) {
+        if (ident_type == id_types[i].svc_type 
+              && obj->oclass != id_types[i].id_type ) {
+            verbalize("That item doesn't work with this service.");
+            return 0;
+        }
     }
     
     /* All specialty identify services default to basic. 

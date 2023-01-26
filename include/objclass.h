@@ -260,6 +260,11 @@ enum obj_class_types {
 #define SHK_TINKER      0x00800000L /* T */
 #define SHK_PROP        0x01000000L /* P */
 
+typedef struct {
+    int svc_type;
+    int id_type;
+} svc_id_type;
+
 #if 0 /* moved to decl.h so that makedefs.c won't see them */
 extern const struct class_sym
         def_oc_syms[MAXOCLASSES];       /* default class symbols */
