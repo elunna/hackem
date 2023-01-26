@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Refactored force push code.
 Using the force push tech while engulfed breaks you out.
 Jedi gain a force-push technique at level 14.
 Necromancer gets souleater tech at level 6.

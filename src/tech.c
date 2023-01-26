@@ -28,6 +28,7 @@ static int NDECL(blitz_dash);
 static int NDECL(blitz_power_surge);
 static int NDECL(blitz_spirit_bomb);
 static int NDECL(spirit_tempest);
+static int NDECL(do_force_push);
 
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
 
@@ -1821,35 +1822,18 @@ int tech_no;
         * Can't use while afraid/weak.
         */
         case T_FORCE_PUSH: {
-            struct monst *mon;
-            int sx = u.ux, sy = u.uy;
-            int hurtledist = 2;
-            int range = 1;
-            range += techlev(tech_no) / 3;
-          if (range > 3)
-              range = 3;
-          hurtledist += techlev(tech_no) / 3;
-          
-          if (u.uswallow && u.ustuck) {
-              mon = u.ustuck;
-              You("blast a hole in %s!", mon_nam(mon));
-              expels(mon, mon->data, TRUE);
-          } else if (!getdir(NULL) || (!u.dx && !u.dy && !u.dz)) {
-              You("can't force yourself!");
-          } else {
-            for (i = 0; i < 3; i++) {
-                if (!isok(sx, sy) || IS_STWALL(levl[sx][sy].typ))
-                    break;
-                if ((mon = m_at(sx, sy)) != 0) {
-                    pline("%s gets blasted by the force!", Monnam(mon));
-                    mhurtle(mon, mon->mx - u.ux, mon->my - u.uy,
-                            hurtledist + rn2(2));
-                    break;
-                }
-                sx += u.dx;
-                sy += u.dy;
-            }
+          /* Need at least one free hand! */
+          if (u.twoweap && uswapwep) {
+              You("can't do this while two-weaponing!");
+              return 0;
+          } else if (uarms) {
+              You("can't do this while holding a shield!");
+              return 0;
           }
+          if (!getdir(NULL))
+              return 0;
+          if (!do_force_push())
+              return 0;
           /*t_timeout = rn1(250, 250);*/
           break;
         }
@@ -2744,7 +2728,7 @@ blitz_spirit_bomb()
 {
     int tech_no, num;
     int sx = u.ux, sy = u.uy, i;
-    tech_no = (get_tech_no(T_SPIRIT_BOMB));
+    tech_no = get_tech_no(T_SPIRIT_BOMB);
 
     if (tech_no == -1) {
         return 0;
@@ -2837,10 +2821,42 @@ spirit_tempest()
          explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
          delay_output();
     }
+    return 1;
+}
 
+/* Assumes u.dx, u.dy already set up */
+static int
+do_force_push()
+{
+    struct monst *mon;
+    int i, sx = u.ux, sy = u.uy;
+    int tech_no = get_tech_no(T_FORCE_PUSH);
+    int range = 1 + (techlev(tech_no) / 3);
     
-    /* Magical Explosion */
-/*    explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);*/
+    if (tech_no == -1) {
+         return 0;
+    }
+    if (range > 3)
+         range = 3;
+    
+    if (u.uswallow && u.ustuck) {
+         mon = u.ustuck;
+         You("blast a hole in %s!", mon_nam(mon));
+         expels(mon, mon->data, TRUE);
+    } else {
+         for (i = 0; i < 3; i++) {
+            if (!isok(sx, sy) || IS_STWALL(levl[sx][sy].typ))
+                break;
+            if ((mon = m_at(sx, sy)) != 0) {
+                pline("%s gets blasted by the force!", Monnam(mon));
+                mhurtle(mon, mon->mx - u.ux, mon->my - u.uy,
+                        1 + rnd(techlev(1 + tech_no) / 3));
+                break;
+            }
+            sx += u.dx;
+            sy += u.dy;
+         }
+    }
     return 1;
 }
 #ifdef DEBUG
