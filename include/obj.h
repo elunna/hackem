@@ -647,7 +647,7 @@ struct damage_info_t {
  * Filled in artifact_info() and used in the pokedex.
  */
 
-#define INTRINSICS 14
+#define INTRINSICS 20
 
 struct art_info_t {
     const char* name;
