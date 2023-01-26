@@ -4820,28 +4820,39 @@ int upper;
     int bonus;
 
     /* KMH -- Avoid using floating-point arithmetic */
-         if(ACURR(A_CHA) > 21) *pcharge *= 11;
-    else if(ACURR(A_CHA) > 18) *pcharge *= 12;
-    else if(ACURR(A_CHA) > 15) *pcharge *= 13;
-    else if(ACURR(A_CHA) > 12) *pcharge *= 14;
-    else if(ACURR(A_CHA) > 10) *pcharge *= 15;
-    else if(ACURR(A_CHA) > 8)  *pcharge *= 16;
-    else if(ACURR(A_CHA) > 7)  *pcharge *= 17;
-    else if(ACURR(A_CHA) > 6)  *pcharge *= 18;
-    else if(ACURR(A_CHA) > 5)  *pcharge *= 19;
-    else if(ACURR(A_CHA) > 4)  *pcharge *= 20;
-    else *pcharge *= 21;
+    if (ACURR(A_CHA) > 21)
+        *pcharge *= 11;
+    else if (ACURR(A_CHA) > 18)
+        *pcharge *= 12;
+    else if (ACURR(A_CHA) > 15)
+        *pcharge *= 13;
+    else if (ACURR(A_CHA) > 12)
+        *pcharge *= 14;
+    else if (ACURR(A_CHA) > 10)
+        *pcharge *= 15;
+    else if (ACURR(A_CHA) > 8)
+        *pcharge *= 16;
+    else if (ACURR(A_CHA) > 7)
+        *pcharge *= 17;
+    else if (ACURR(A_CHA) > 6)
+        *pcharge *= 18;
+    else if (ACURR(A_CHA) > 5)
+        *pcharge *= 19;
+    else if (ACURR(A_CHA) > 4)
+        *pcharge *= 20;
+    else
+        *pcharge *= 21;
     *pcharge /= 10;
 
-    if (Is_blackmarket(&u.uz)) 
+    if (Is_blackmarket(&u.uz))
         *pcharge *= 3;
     /* Skip upper stuff? */
-    if (upper == NOBOUND) 
+    if (upper == NOBOUND)
         goto check_lower;
 
     /* This should give us something like a charisma of 5 to 25. */
-    charisma = ABASE(A_CHA) + ABON(A_CHA) + ATEMP(A_CHA);        
-
+    /*charisma = ABASE(A_CHA) + ABON(A_CHA) + ATEMP(A_CHA);*/
+    charisma = ACURR(A_CHA)
     /* Now: 0 to 10 = 0.  11 and up = 1 to whatever. */
     if (charisma <= 10)
         charisma = 0;
@@ -4849,18 +4860,18 @@ int upper;
         charisma -= 10;
 
     /* Charismatic players get smaller upper bounds */
-    bonus=((upper/50)*charisma);
+    bonus = ((upper / 50) * charisma);
 
     /* Adjust upper.  Upper > lower! */
     upper -= bonus;
-    upper = (upper>=lower) ? upper : lower;
+    upper = (upper >= lower) ? upper : lower;
 
     /* Ok, do the min/max stuff */
-    if (*pcharge > upper) 
-        *pcharge=upper;
+    if (*pcharge > upper)
+        *pcharge = upper;
 check_lower:
-    if (*pcharge < lower) 
-        *pcharge=lower;
+    if (*pcharge < lower)
+        *pcharge = lower;
 }
 
 int

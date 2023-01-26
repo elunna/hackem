@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Reformatted shk_smooth_charge; charisma is calculated using ACURR(A_CHA) now.
 Refactored force push code.
 Using the force push tech while engulfed breaks you out.
 Jedi gain a force-push technique at level 14.
