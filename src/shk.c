@@ -3969,10 +3969,10 @@ long ident_type;
         return 0;
     }
     
-    /* All specialty identify services default to premium. 
-     * We should only see BASIC identify in general stores or black market */
-    if (ident_type != SHK_ID_BASIC)
-        ident_type = SHK_ID_PREMIUM;
+    /* All specialty identify services default to basic. 
+     * We should only see premier identify in the black market */
+    if (ident_type != SHK_ID_PREMIUM)
+        ident_type = SHK_ID_BASIC;
     
     /*
     ** Shopkeeper is ripping you off if:
@@ -4820,12 +4820,19 @@ int upper;
     int bonus;
 
     /* KMH -- Avoid using floating-point arithmetic */
+    
     if (ACURR(A_CHA) > 21)
-        *pcharge *= 11;
+        *pcharge *= 7;
+    else if (ACURR(A_CHA) > 20)
+        *pcharge *= 8;
     else if (ACURR(A_CHA) > 18)
+        *pcharge *= 9;
+    else if (ACURR(A_CHA) > 17)
+        *pcharge *= 10;
+    else if (ACURR(A_CHA) > 16)
+        *pcharge *= 11;
+    else if (ACURR(A_CHA) > 14)
         *pcharge *= 12;
-    else if (ACURR(A_CHA) > 15)
-        *pcharge *= 13;
     else if (ACURR(A_CHA) > 12)
         *pcharge *= 14;
     else if (ACURR(A_CHA) > 10)
@@ -4852,7 +4859,7 @@ int upper;
 
     /* This should give us something like a charisma of 5 to 25. */
     /*charisma = ABASE(A_CHA) + ABON(A_CHA) + ATEMP(A_CHA);*/
-    charisma = ACURR(A_CHA)
+    charisma = ACURR(A_CHA);
     /* Now: 0 to 10 = 0.  11 and up = 1 to whatever. */
     if (charisma <= 10)
         charisma = 0;

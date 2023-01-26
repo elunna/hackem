@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+All shop identify services are basic (and half price). shk_smooth_charge rewards higher charisma.
 Reformatted shk_smooth_charge; charisma is calculated using ACURR(A_CHA) now.
 Refactored force push code.
 Using the force push tech while engulfed breaks you out.
