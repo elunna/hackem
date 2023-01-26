@@ -1829,7 +1829,12 @@ int tech_no;
           if (range > 3)
               range = 3;
           hurtledist += techlev(tech_no) / 3;
-          if (!getdir(NULL) || (!u.dx && !u.dy && !u.dz)) {
+          
+          if (u.uswallow && u.ustuck) {
+              mon = u.ustuck;
+              You("blast a hole in %s!", mon_nam(mon));
+              expels(mon, mon->data, TRUE);
+          } else if (!getdir(NULL) || (!u.dx && !u.dy && !u.dz)) {
               You("can't force yourself!");
           } else {
             for (i = 0; i < 3; i++) {
