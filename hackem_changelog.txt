@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+The tortle shell ability can now be accessed through the technique menu.
 Monster revived by revivification tech get the revived flag.
 Fix size of art_info INTRINSICS.
 Silenced new round of compiler warnings.

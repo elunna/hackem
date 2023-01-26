@@ -91,6 +91,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "call undead",      /* 45 */
     "spirit tempest",   /* 46 */
     "force push",       /* 47 */
+    "shell",            /* 48 */
     ""
 };
 
@@ -255,6 +256,10 @@ static const struct innate_tech
     },
     hob_tech[] = { 
         { 1, T_BLINK, 1 },
+        { 0, 0, 0 } 
+    },
+    tor_tech[] = { 
+        { 1, T_SHELL, 1 },
         { 0, 0, 0 } 
     },
     vam_tech[] = { 
@@ -1524,6 +1529,9 @@ int tech_no;
                 mtmp->mfrozen = 0;
             }
             break;
+        case T_SHELL:
+            toggleshell();
+            break;
         case T_DAZZLE:
             mtmp = (struct monst *) 0;
             /* Short range stun attack */
@@ -2150,6 +2158,8 @@ race_tech()
         return gno_tech;
     case PM_HOBBIT:
         return hob_tech;
+    case PM_TORTLE:
+        return tor_tech;
     case PM_VAMPIRIC:
         return vam_tech;
 
