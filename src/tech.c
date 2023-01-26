@@ -1331,7 +1331,7 @@ int tech_no;
                     else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
                         pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
                         tamedog(mtmp, pseudo);
-                        /* Add undead tag? */
+                        mtmp->mrevived = TRUE;
                         obfree(pseudo, NULL);
                     }
                 }

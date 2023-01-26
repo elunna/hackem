@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Monster revived by revivification tech get the revived flag.
 Fix size of art_info INTRINSICS.
 Silenced new round of compiler warnings.
 Fix: disarming swallowed hero.
