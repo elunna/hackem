@@ -262,7 +262,7 @@ enum obj_class_types {
 
 typedef struct {
     int svc_type;
-    int id_type;
+    const char id_type;
 } svc_id_type;
 
 #if 0 /* moved to decl.h so that makedefs.c won't see them */

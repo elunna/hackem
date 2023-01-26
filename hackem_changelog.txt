@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fixed getobj for identify services, the item prompt shows the matching item types now.
 Refactored shopkeeper identify object validation.
 All shop identify services are basic (and half price). shk_smooth_charge rewards higher charisma.
 Reformatted shk_smooth_charge; charisma is calculated using ACURR(A_CHA) now.

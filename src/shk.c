@@ -3932,8 +3932,10 @@ static NEARDATA const char identify_types[] = { ALL_CLASSES, 0 };
 static NEARDATA const char weapon_types[] = { WEAPON_CLASS, TOOL_CLASS, 0 };
 static NEARDATA const char armor_types[] = { ARMOR_CLASS, 0 };
 
-#define IDENTIFY_TYPES 11
+#define IDENTIFY_TYPES 13
 static svc_id_type id_types[IDENTIFY_TYPES] = {
+    { SHK_ID_BASIC,     ALL_CLASSES },
+    { SHK_ID_PREMIUM,   ALL_CLASSES },
     { SHK_ID_WEAPON,    WEAPON_CLASS },
     { SHK_ID_ARMOR,     ARMOR_CLASS },
     { SHK_ID_SCROLL,    SCROLL_CLASS },
@@ -3961,22 +3963,18 @@ long ident_type;
 {
     register struct obj *obj;       /* The object to identify       */
     int i, charge;                     /* Cost to identify             */
-
     boolean ripoff = FALSE;         /* Shkp ripping you off?        */
 
     /* Pick object */
-    if ( !(obj = getobj(identify_types, "have identified"))) 
-        return 0;
-    
-    /* Validate item against service */
     for (i = 0; i < IDENTIFY_TYPES; i++) {
-        if (ident_type == id_types[i].svc_type 
-              && obj->oclass != id_types[i].id_type ) {
-            verbalize("That item doesn't work with this service.");
-            return 0;
+        if (ident_type != id_types[i].svc_type) {
+            continue;
         }
+        if (!(obj = getobj(&id_types[i].id_type, "have identified")))
+            return 0;
+        break;
     }
-    
+
     /* All specialty identify services default to basic. 
      * We should only see premier identify in the black market */
     if (ident_type != SHK_ID_PREMIUM)
