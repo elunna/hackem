@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Enabled soul eater tech for dark knight; changed associated weapon from soulthief to dirge.
 Added some rare bonus crits for elemental fist (inspired by splicehack skills)
 Elemental fist can inflict sonic damage.
 cerastes is a desert dweller - so they get fire resistance.

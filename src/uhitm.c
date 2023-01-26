@@ -394,11 +394,9 @@ int *attk_count, *role_roll_penalty;
     }
 
     /* special class effect uses... */
-	if (tech_inuse(T_KIII))
+    if (tech_inuse(T_KIII))
         tmp += 4;
-	if (tech_inuse(T_BERSERK))
-        tmp += 2;
-	if (tech_inuse(T_SOULEATER))
+    if (tech_inuse(T_BERSERK) || tech_inuse(T_SOULEATER))
         tmp += 2;
     
     /* if unskilled with a weapon/object type (bare-handed is exempt),

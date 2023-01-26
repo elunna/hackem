@@ -1723,12 +1723,12 @@ int tech_no;
             t_timeout = rn1(1000, 1000);
             break;
 #endif
-#if 0 /* TODO: What is this? */
+
         case T_SOULEATER:
             num = Upolyd ? (u.mhmax / 2) : (u.uhpmax / 2);
 
             if ((!Upolyd && u.uhp <= num) || (Upolyd && u.mh <= num)) {
-                You("don't have the strength to invoke Souleater! Requires at least %i HP!",
+                You("don't have the strength to invoke Dirge! Requires at least %i HP!",
                     num + 1);
                 return 0;
             }
@@ -1737,6 +1737,7 @@ int tech_no;
                 return 0;
             }
             You("unleash a burst of dark energy!");
+            
             /* Works against anything in line of sight...except flan */
             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
                 if (couldsee(mtmp->mx, mtmp->my) && !is_flan(mtmp->data)) {
@@ -1747,9 +1748,8 @@ int tech_no;
                 }
             }
             int weapon_modifier = (uwep && uwep->otyp == LONG_SWORD
-                                   && uwep->oartifact == ART_SOULTHIEF)
-                                      ? 5
-                                      : 1;
+                                   && uwep->oartifact == ART_DIRGE)
+                                      ? 5 : 1;
             techt_inuse(tech_no) = (techlev(tech_no) / 2) + weapon_modifier;
             /* See uhitm.c in particular for the extra damage */
             pline("Dark flames flow from %s.", doname(uwep));
@@ -1760,7 +1760,6 @@ int tech_no;
             context.botl = TRUE;
             t_timeout = rn1(1000, 1000);
             break;
-#endif
         case T_SHIELD_BLOCK:
           if (!uarms) {
               You_cant("block attacks without a shield.");

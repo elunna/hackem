@@ -697,7 +697,10 @@
          || (ptr) == &mons[PM_GARGOYLE] \
          || (ptr) == &mons[PM_WINGED_GARGOYLE] \
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
-
+/* This is only used for the Souleater tech */
+#define is_flan(ptr) ((ptr)->mlet == S_BLOB || \
+                     (ptr)->mlet == S_JELLY || \
+                     (ptr)->mlet == S_PUDDING)
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
                           ((ptr) == youmonst.data && !Upolyd && Race_if(PM_VAMPIRIC)))
 
