@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Elemental fist does it's elemental damage separately from the physical damage.
 Fix: Slings not working correctly because of firearm/bullet matching.
 Fixed getobj for identify services, the item prompt shows the matching item types now.
 Refactored shopkeeper identify object validation.

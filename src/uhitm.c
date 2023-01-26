@@ -1110,13 +1110,13 @@ int dieroll;
             dmgbonus = d(2, 4);
             switch (rn2(5)) {
             case 0: /* Fire */
-                if (!Blind) 
+                if (!Blind)
                     pline("%s is on fire!", Monnam(mon));
                 dmgbonus += destroy_mitem(mon, SCROLL_CLASS, AD_FIRE);
                 dmgbonus += destroy_mitem(mon, SPBOOK_CLASS, AD_FIRE);
                 if (resists_fire(mon)) {
                     shieldeff(mon->mx, mon->my);
-                    if (!Blind) 
+                    if (!Blind)
                         pline_The("fire doesn't heat %s!", mon_nam(mon));
                     golemeffects(mon, AD_FIRE, dmgbonus);
                     dmgbonus = 0;
@@ -1125,9 +1125,10 @@ int dieroll;
                 }
                 /* only potions damage resistant players in destroy_item */
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_FIRE);
+                damage_mon(mon, dmgbonus, AD_FIRE);
                 break;
             case 1: /* Cold */
-                if (!Blind) 
+                if (!Blind)
                     pline("%s is covered in frost!", Monnam(mon));
                 if (resists_cold(mon)) {
                     shieldeff(mon->mx, mon->my);
@@ -1137,20 +1138,21 @@ int dieroll;
                     dmgbonus = 0;
                 } else if (!rn2(25)) {
                     dmgbonus += rnd(6);
-                } 
+                }
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_COLD);
+                damage_mon(mon, dmgbonus, AD_COLD);
                 break;
             case 2: /* Elec */
-                if (!Blind) 
+                if (!Blind)
                     pline("%s is zapped!", Monnam(mon));
-                
+
                 dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_ELEC);
                 if (resists_elec(mon)) {
                     shieldeff(mon->mx, mon->my);
                     if (!Blind)
                         pline_The("zap doesn't shock %s!", mon_nam(mon));
                     golemeffects(mon, AD_ELEC, dmgbonus);
-                        dmgbonus = 0;
+                    dmgbonus = 0;
                 } else if (!rn2(100)) {
                     dmgbonus += rnd(20);
                     if (canseemon(mon))
@@ -1158,6 +1160,7 @@ int dieroll;
                 }
                 /* only rings damage resistant players in destroy_item */
                 dmgbonus += destroy_mitem(mon, RING_CLASS, AD_ELEC);
+                damage_mon(mon, dmgbonus, AD_ELEC);
                 break;
             case 3: /* Acid */
                 if (!Blind)
@@ -1171,6 +1174,7 @@ int dieroll;
                     if (canseemon(mon))
                         pline("%s is severely burned!", Monnam(mon));
                 }
+                damage_mon(mon, dmgbonus, AD_ACID);
                 break;
             case 4: /* Sonic */
                 You("hit the %s with a loud bang!", Monnam(mon));
@@ -1187,11 +1191,10 @@ int dieroll;
                 dmgbonus += destroy_mitem(mon, RING_CLASS, AD_LOUD);
                 dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_LOUD);
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_LOUD);
+                damage_mon(mon, dmgbonus, AD_LOUD);
                 break;
             }
-            if (dmgbonus > 0)
-                tmp += dmgbonus;
-	    } /* Techinuse Elemental Fist */	
+        }/* Techinuse Elemental Fist */	
 
     /* Blessed gloves give bonuses when fighting 'bare-handed'.  So do
         rings or gloves made of a hated material.  Note:  rings are worn
