@@ -3961,7 +3961,7 @@ const char *slang;
 struct monst *shkp;
 long ident_type;
 {
-    register struct obj *obj;       /* The object to identify       */
+    register struct obj *obj = ((struct obj *) 0); /* The object to identify */
     int i, charge;                     /* Cost to identify             */
     boolean ripoff = FALSE;         /* Shkp ripping you off?        */
 
