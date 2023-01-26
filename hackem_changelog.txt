@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Jedi gain a force-push technique at level 14.
 Necromancer gets souleater tech at level 6.
 Souleater tech will buff any weapon that drains life (instead of just originally Soulthief)
 Enabled soul eater tech for dark knight; changed associated weapon from soulthief to dirge.

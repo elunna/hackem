@@ -89,6 +89,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "telekinesis",      /* 44 */
     "call undead",      /* 45 */
     "spirit tempest",   /* 46 */
+    "force push",       /* 47 */
     ""
 };
 
@@ -127,6 +128,7 @@ static const struct innate_tech
         { 1, T_JEDI_JUMP, 1 },
         { 5, T_CHARGE_SABER, 1 },
         { 8, T_TELEKINESIS, 1 },
+        { 14, T_FORCE_PUSH, 1 },
         { 0, 0, 0 } 
     },
     kni_tech[] = { 
@@ -1810,6 +1812,40 @@ int tech_no;
                     You_cant("do anything %sthere.", ttrap ? "else " : "");
               }
           } while (TRUE);
+          break;
+        }
+        /* Basically a wand of wind effect for the Jedi 
+        * Scale the hurtle distance a little with the techlevel.
+        * Used inside engulfer expels you.
+        * Using while conf/stunned fires in random dir.
+        * Can't use while afraid/weak.
+        */
+        case T_FORCE_PUSH: {
+            struct monst *mon;
+            int sx = u.ux, sy = u.uy;
+            int hurtledist = 2;
+            int range = 1;
+            range += techlev(tech_no) / 3;
+          if (range > 3)
+              range = 3;
+          hurtledist += techlev(tech_no) / 3;
+          if (!getdir(NULL) || (!u.dx && !u.dy && !u.dz)) {
+              You("can't force yourself!");
+          } else {
+            for (i = 0; i < 3; i++) {
+                if (!isok(sx, sy) || IS_STWALL(levl[sx][sy].typ))
+                    break;
+                if ((mon = m_at(sx, sy)) != 0) {
+                    pline("%s gets blasted by the force!", Monnam(mon));
+                    mhurtle(mon, mon->mx - u.ux, mon->my - u.uy,
+                            hurtledist + rn2(2));
+                    break;
+                }
+                sx += u.dx;
+                sy += u.dy;
+            }
+          }
+          /*t_timeout = rn1(250, 250);*/
           break;
         }
         case T_CHARGE_SABER:
