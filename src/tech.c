@@ -65,6 +65,7 @@ static int FDECL(tech_shieldblock, (int));
 static int FDECL(tech_telekinesis, (int));
 static int FDECL(tech_forcepush, (int));
 static int FDECL(tech_chargesaber, (int));
+static int FDECL(tech_tumble, (int));
 
 
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
@@ -130,6 +131,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "force push",       /* 47 */
     "shell",            /* 48 */
     "pickpocket",       /* 49 */
+    "tumble",           /* 50 */
     ""
 };
 
@@ -212,6 +214,10 @@ static const struct innate_tech
         { 7, T_SHIELD_BLOCK, 1 },
         { 10, T_HEAL_HANDS, 1 },
         { 30, T_REVIVE, 1 },
+        { 0, 0, 0 } 
+    },
+    pir_tech[] = {
+        { 1, T_TUMBLE, 1 },
         { 0, 0, 0 } 
     },
     ran_tech[] = { 
@@ -999,6 +1005,10 @@ int tech_no;
             if (tech_chargesaber(get_tech_no(T_CHARGE_SABER)))
                 t_timeout = 500;
             break;
+        case T_TUMBLE:
+            if (tech_tumble(get_tech_no(T_TUMBLE)))
+                t_timeout = rn1(10, 5);
+            break;
         default:
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
@@ -1248,6 +1258,8 @@ role_tech()
         return mon_tech;
     case PM_NECROMANCER:
         return nec_tech;
+    case PM_PIRATE:
+        return pir_tech;
     case PM_PRIEST:
         return pri_tech;
     case PM_RANGER:
@@ -3374,6 +3386,64 @@ int tech_no;
     return 1;
 }
 
+
+int
+tech_tumble(tech_no)
+int tech_no;
+{
+    int roll;
+    struct monst *mtmp;
+    struct trap *trtmp;
+    int tx, ty;
+    int tumbleskill = (techlev(tech_no) / 5) + 1;
+    if (u.uswallow) {
+         You("tumble in place.");
+         return 1;
+    }
+    if (u.utrap) {
+         You("cannot tumble until you extricate yourself.");
+         return 0;
+    }
+    if (Fumbling) {
+         You("slip and land on your %s!", body_part(HEAD));
+         losehp(Maybe_Half_Phys(rnd(20)), "ill-advised gymnastics",
+                KILLED_BY);
+         return 1;
+    }
+    roll = rn2(6);
+    if (tumbleskill <= P_UNSKILLED || roll > tumbleskill) {
+         You(Hallucination ? "are too busy tripping!" : "trip!");
+         return 1;
+    }
+    if (!getdir((char *)0) || !isok(u.ux + u.dx, u.uy + u.dy)) 
+         return 0;
+    if (!u.dx && !u.dy) {
+         You("do a sommersault.");
+         return 1;
+    }
+    mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+    if (!mtmp || !canspotmon(mtmp)) {
+         You("don't see anyone to tumble past in that direction.");
+         return 0;
+    }
+    You("tumble past %s.", mon_nam(mtmp));
+    tx = u.ux;
+    ty = u.uy;
+    u.ux = mtmp->mx;
+    u.uy = mtmp->my;
+    remove_monster(mtmp->mx, mtmp->my);
+    place_monster(mtmp, tx, ty);
+    trtmp = t_at(u.ux, u.uy);
+    if (trtmp) dotrap(trtmp, FORCETRAP);
+    if (roll > tumbleskill) {
+         nomul(-rnd(2));
+         multi_reason = "recovering from a tumble";
+         nomovemsg = "You recover from your tumble.";
+    }
+    newsym(u.ux, u.uy);
+    newsym(mtmp->mx, mtmp->my);
+    return 1;
+}
 
 #ifdef DEBUG
 void

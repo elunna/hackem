@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Adapted the Tumble skill from SpliceHack into a technique. Pirates get it from level 1. 
 Refactor techniques into their own functions.
 The rogue's thievery ability is now available on the technique menu.
 Tortle shell technique (and #monster) now works with the tech timeout system.
