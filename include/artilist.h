@@ -303,7 +303,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Grimtooth", ORCISH_DAGGER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH),
       0, MH_ELF, DISE(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 
       1500L, CLR_RED, DEFAULT_MAT),
-
+    
+    A("Houchou", SPOON, (SPFX_RESTR), 0, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
+      50000L, NO_COLOR, DEFAULT_MAT),
+    
    /* from SporkHack - many of the same properties as Stormbringer
     *      Meant to be wielded by Vlad. */
     A("Lifestealer", TWO_HANDED_SWORD,

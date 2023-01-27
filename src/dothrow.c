@@ -2126,9 +2126,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             /* projectiles other than magic stones sometimes disappear
                when thrown; projectiles aren't among the types of weapon
                that hmon() might have destroyed so obj is intact */
-            if (objects[otyp].oc_skill < P_NONE
+            if ((objects[otyp].oc_skill < P_NONE
                 && objects[otyp].oc_skill > -P_BOOMERANG
-                && !objects[otyp].oc_magic) {
+                && !objects[otyp].oc_magic) 
+                || obj->oartifact == ART_HOUCHOU) {
                 /* we were breaking 2/3 of everything unconditionally.
                  * we still don't want anything to survive unconditionally,
                  * but we need ammo to stay around longer on average.
@@ -2154,7 +2155,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                     && rn2(2)) {
                     broken = FALSE;
                 }
-
+                if (obj->oartifact == ART_HOUCHOU) {
+                    broken = TRUE;
+                }
+                
                 if (broken) {
                     if (*u.ushops || obj->unpaid)
                         check_shop_obj(obj, bhitpos.x, bhitpos.y, TRUE);
