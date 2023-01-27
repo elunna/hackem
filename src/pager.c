@@ -1279,15 +1279,30 @@ char *usr_text;
             if (obj && (obj->otyp == CORPSE)) {
                 Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
                 OBJPUTSTR(buf);
-                
-                /* Provides resistance? */
-                /* Poisonous? */
-                
-                
+                OBJPUTSTR("Takes various amounts of turns to eat.");
+
+                /* Corpse conveyances */
+                struct permonst *pm = &mons[obj->corpsenm];
+                corpse_conveys(buf, pm);
+                if (is_were(pm)) {
+                    OBJPUTSTR("Corpse conveys lycanthropy.");
+                } else {
+                    if (*buf) {
+                        Sprintf(buf2, "Corpse conveys %s.", buf);
+                        OBJPUTSTR(buf2);
+                    } else
+                        OBJPUTSTR("Corpse conveys no intrinsics.");
+                }
+                if (poisonous(pm)) {
+                    OBJPUTSTR("Corpse is poisonous.");
+                }
+                if (acidic(pm)) {
+                    OBJPUTSTR("Corpse is acidic.");
+                }
             } else {
                 OBJPUTSTR("Comestible providing varied nutrition.");
             }
-            OBJPUTSTR("Takes various amounts of turns to eat.");
+            
             if (obj) {
                 if (vegan(&mons[cnum])) {
                     OBJPUTSTR("Is vegan.");
@@ -1296,7 +1311,6 @@ char *usr_text;
                 } else {
                     OBJPUTSTR("Is not vegetarian.");
                 }
-                
             } else {
                 OBJPUTSTR("May or may not be vegetarian.");
             }
