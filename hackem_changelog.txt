@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Initial import of doppledanger race from SLASH'EM.
 Fix: piratesay and 'sscuttled'
 Adapted the Sunder skill from SpliceHack into a technique. Pirates get it at level 5. 
 Object lookup for corpses now shows intrinsics conferred and if they are poisonous or acidic.

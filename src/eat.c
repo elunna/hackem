@@ -2054,6 +2054,10 @@ struct obj *otmp;
         make_glib(rn1(11, 5));
     }
 
+    /* WAC Track food types eaten */
+	if (mvitals[mnum].eaten < 255)
+        mvitals[mnum].eaten++;
+
     return retcode;
 }
 

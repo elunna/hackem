@@ -4214,6 +4214,7 @@ struct ext_func_tab extcmdlist[] = {
     { 'S', "save", "save the game and exit", dosave, IFBURIED | GENERALCMD },
     { 's', "search", "search for traps and secret doors",
             dosearch, IFBURIED, "searching" },
+    { M('y'), "youpoly", "polymorph at will", polyatwill, AUTOCOMPLETE},
     { '*', "seeall", "show all equipment in use", doprinuse, IFBURIED },
     { AMULET_SYM, "seeamulet", "show the amulet currently worn",
             dopramulet, IFBURIED },

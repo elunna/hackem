@@ -2087,6 +2087,8 @@ register struct trobj *origtrop;
                       by having the Amulet of Yendor in starting
                       inventory */
                    || (otyp == SPE_CLAIRVOYANCE && Role_if(PM_INFIDEL))
+                   /* 5lo -- Doppelgangers shouldn't get ring of poly control. */
+                   || (Race_if(PM_DOPPELGANGER) && otyp == RIN_POLYMORPH_CONTROL)
                    /* powerful spells are either useless to
                       low level players or unbalancing; also
                       spells in restricted skill categories */

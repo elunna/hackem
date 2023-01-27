@@ -3083,6 +3083,10 @@ find_ac()
         else 
             uac -= (u.ulevel / 2) + 2;
     }
+    /* Doppleganger no-armor bonus. */
+    if (Race_if(PM_DOPPELGANGER) && !uarm) 
+        uac -= (u.ulevel / 4) + 1;
+    
     /* Drunken boxing */
     if (Role_if(PM_MONK) && Confusion && !uarm) {
         uac -= 1;

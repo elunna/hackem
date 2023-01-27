@@ -1113,6 +1113,24 @@ const struct Race races[] = {
         {  3, 0,  0, 3,  2, 0 },	/* Hit points */
         {  3, 0,  4, 0,  4, 0 }		/* Energy */
     },
+    {	"doppelganger", "doppelganger", "doppelganger-kind", "Dop",
+        {0, 0}, /* individual as a noun */
+        PM_DOPPELGANGER,    /* PM_ as a male monster */
+        NON_PM,             /* ...or as a female (NON_PM == same) */
+        PM_HUMAN_MUMMY,     /* PM_ as a mummy */
+        PM_HUMAN_ZOMBIE,    /* PM_ as a zombie */
+        MH_HUMAN | ROLE_MALE | ROLE_FEMALE 
+            | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
+        MH_HUMAN,        /* your own race's bit mask */
+        MH_WERE,          /* always peaceful */
+        MH_ELF | MH_GNOME | MH_DWARF, /* always hostile */
+        /*    Str     Int Wis Dex Con Cha */
+        {      1,      3,  3,  1,  1,  1 },
+        { STR18(100), 20, 20, 20, 20, 15 },
+        /* Init   Lower  Higher */
+        {  0, 0,  0, 1,  1, 0 },	/* Hit points */
+        {  7, 0,  5, 0,  5, 0 }		/* Energy */
+    },
     /* Array terminator */
     { 0, 0, 0, 0 }
 };
