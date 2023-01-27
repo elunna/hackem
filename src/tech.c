@@ -66,7 +66,7 @@ static int FDECL(tech_telekinesis, (int));
 static int FDECL(tech_forcepush, (int));
 static int FDECL(tech_chargesaber, (int));
 static int FDECL(tech_tumble, (int));
-
+static int FDECL(tech_sunder, (int));
 
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
 
@@ -132,6 +132,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "shell",            /* 48 */
     "pickpocket",       /* 49 */
     "tumble",           /* 50 */
+    "sunder",           /* 51 */
     ""
 };
 
@@ -218,6 +219,7 @@ static const struct innate_tech
     },
     pir_tech[] = {
         { 1, T_TUMBLE, 1 },
+        { 5, T_SUNDER, 1 },
         { 0, 0, 0 } 
     },
     ran_tech[] = { 
@@ -1007,6 +1009,10 @@ int tech_no;
             break;
         case T_TUMBLE:
             if (tech_tumble(get_tech_no(T_TUMBLE)))
+                t_timeout = rn1(10, 5);
+            break;
+        case T_SUNDER:
+            if (tech_sunder(get_tech_no(T_SUNDER)))
                 t_timeout = rn1(10, 5);
             break;
         default:
@@ -3444,6 +3450,64 @@ int tech_no;
     newsym(mtmp->mx, mtmp->my);
     return 1;
 }
+
+
+int
+tech_sunder(tech_no)
+int tech_no;
+{
+    struct obj *otmp;
+    struct monst *mtmp;
+    int roll;
+    int skill = (techlev(tech_no) / 5) + 2; /* +2 so it starts at basic */
+    skill = (skill > 3) ? 3 : skill;
+    if (skill <= P_UNSKILLED) {
+         You("are not skilled enough to attempt to sunder objects.");
+         return 0;
+    }
+    if (u.uswallow) {
+         pline("Try attacking, instead.");
+         return 0;
+    }
+    if (!getdir((char *)0) || !isok(u.ux + u.dx, u.uy + u.dy)) return 0;
+    if (!u.dx && !u.dy) {
+         if (uwep) You("cannot break your own weapon!");
+         else pline("Break your %s? You need those!", makeplural(body_part(HAND)));
+    }
+    mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+    if (!mtmp || !canspotmon(mtmp)) {
+         You("don't see anyone with equipment to sunder!");
+         return 0;
+    }
+    if (!MON_WEP(mtmp)) {
+         pline("%s does not have a weapon for you to sunder.", Monnam(mtmp));
+         return 0;
+    }
+    roll = rn2(6);
+    otmp = MON_WEP(mtmp);
+    if (roll >= (skill - (otmp->oartifact ? 2 : 0))) {
+         pline("%d %d", roll, skill);
+         You("fail to sunder %s's weapon.", mon_nam(mtmp));
+         return 1;
+    }
+
+    You("sunder %s's %s!", mon_nam(mtmp), xname(otmp));
+    if (touch_petrifies(&mons[otmp->corpsenm])) {
+         if (!uwep && !Stone_resistance) {
+            Sprintf(killer.name, "sundering %s with an unarmed strike",
+                    killer_xname(otmp));
+            instapetrify(killer.name);
+         } else if (!uwep) {
+            uwep->material = STONE;
+         }
+         update_inventory();
+         context.botl = 1;
+    }
+    setmangry(mtmp, TRUE);
+    m_useup(mtmp, otmp);
+    return 1;
+}
+
 
 #ifdef DEBUG
 void

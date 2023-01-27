@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Adapted the Sunder skill from SpliceHack into a technique. Pirates get it at level 5. 
 Object lookup for corpses now shows intrinsics conferred and if they are poisonous or acidic.
 Extracted corpse intrinsic info from add_mon_info.
 Adapted the Tumble skill from SpliceHack into a technique. Pirates get it from level 1. 
