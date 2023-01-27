@@ -126,8 +126,8 @@ piratesay(const char *orig)
     orig = replace(orig, "record", "log");
     orig = replace(orig, "careful", "handsome");
     orig = replace(orig, "quick", "smart");
-    orig = replace(orig, "killed", "scuttled");
-    orig = replace(orig, "kill", "scuttle");
+    orig = replace(orig, "killed ", "scuttled ");
+    orig = replace(orig, "kill ", "scuttle ");
     orig = replace(orig, "probably", "prolly");
     orig = replace(orig, "own ", "owns ");
     orig = replace(orig, "music ", "chanties");
