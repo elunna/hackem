@@ -19,6 +19,7 @@ STATIC_DCL struct permonst *FDECL(lookat, (int, int, char *, char *));
 STATIC_DCL char *FDECL(hallucinatory_armor, (char *));
 STATIC_DCL void FDECL(add_mon_info, (winid, struct permonst *));
 STATIC_DCL void FDECL(add_obj_info, (winid, struct obj *, SHORT_P, char *));
+STATIC_DCL void FDECL(corpse_conveys, (char *, struct permonst *));
 STATIC_DCL void FDECL(look_all, (BOOLEAN_P,BOOLEAN_P));
 STATIC_DCL void FDECL(do_supplemental_info, (char *, struct permonst *,
                                              BOOLEAN_P));
@@ -794,7 +795,7 @@ struct permonst * pm;
     char buf2[BUFSZ];
     int i, gen = pm->geno;
     int freq = (gen & G_FREQ);
-    int pct = max(5, (int) (pm->cwt / 90));
+    
     boolean uniq = !!(gen & G_UNIQ);
     boolean hell = !!(gen & G_HELL);
     boolean nohell = !!(gen & G_NOHELL);
@@ -819,14 +820,7 @@ struct permonst * pm;
             Strcat(buf, ", ");    \
         Strcat(buf, str);         \
     }
-#define ADDPCTRES(cond, amt, str)    \
-    if (cond) {                      \
-        if (*buf)                    \
-            Strcat(buf, ", ");       \
-        Sprintf(eos(buf), "%d%% %s", \
-                amt, str);           \
-    }
-
+    
 #define MONPUTSTR(str) putstr(datawin, ATR_NONE, str)
 
     /* differentiate the two forms of werecreatures */
@@ -862,7 +856,7 @@ struct permonst * pm;
                 freq == 3 ? "slightly rare" :
                 freq == 2 ? "rare" : "very rare");
     MONPUTSTR(buf);
-
+    
     /* Resistances */
     buf[0] = '\0';
     ADDRESIST(pm_resistance(pm, MR_FIRE), "fire");
@@ -886,29 +880,9 @@ struct permonst * pm;
     } else {
         MONPUTSTR("Has no resistances.");
     }
-
+    
     /* Corpse conveyances */
-    buf[0] = '\0';
-    ADDPCTRES(intrinsic_possible(FIRE_RES, pm), pct, "fire");
-    ADDPCTRES(intrinsic_possible(COLD_RES, pm), pct, "cold");
-    ADDPCTRES(intrinsic_possible(SHOCK_RES, pm), pct, "shock");
-    ADDPCTRES(intrinsic_possible(SLEEP_RES, pm), pct, "sleep");
-    ADDPCTRES(intrinsic_possible(POISON_RES, pm), pct, "poison");
-    ADDPCTRES(intrinsic_possible(DISINT_RES, pm), pct, "disintegration");
-    /* acid, stone, and psionic resistance aren't currently conveyable */
-    if (*buf)
-        Strcat(buf, " resistance");
-    APPENDC(intrinsic_possible(TELEPORT, pm), "teleportation");
-    APPENDC(intrinsic_possible(TELEPORT_CONTROL, pm), "teleport control");
-    APPENDC(intrinsic_possible(TELEPAT, pm), "telepathy");
-    /* There are a bunch of things that happen in cpostfx (levels for wraiths,
-     * stunning for bats...) but only count the ones that actually behave like
-     * permanent intrinsic gains.
-     * If you find yourself listing multiple things here for the same effect,
-     * that may indicate the property should be added to psuedo_intrinsics. */
-    APPENDC(pm == &mons[PM_QUANTUM_MECHANIC], "speed or slowness");
-    APPENDC(pm == &mons[PM_MIND_FLAYER] || pm == &mons[PM_MASTER_MIND_FLAYER],
-            "intelligence");
+    corpse_conveys(buf, pm);
     if (is_were(pm)) {
         /* Weres need a bit of special handling, since 1) you always get
          * lycanthropy so "may convey" could imply the player might not contract
@@ -936,7 +910,7 @@ struct permonst * pm;
             MONPUTSTR("Corpse conveys no intrinsics.");
     } else
         MONPUTSTR("Leaves no corpse.");
-
+    
     /* Flag descriptions */
     buf[0] = '\0';
     APPENDC(is_male(pm), "male");
@@ -1305,6 +1279,11 @@ char *usr_text;
             if (obj && (obj->otyp == CORPSE)) {
                 Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
                 OBJPUTSTR(buf);
+                
+                /* Provides resistance? */
+                /* Poisonous? */
+                
+                
             } else {
                 OBJPUTSTR("Comestible providing varied nutrition.");
             }
@@ -1317,6 +1296,7 @@ char *usr_text;
                 } else {
                     OBJPUTSTR("Is not vegetarian.");
                 }
+                
             } else {
                 OBJPUTSTR("May or may not be vegetarian.");
             }
@@ -1759,7 +1739,49 @@ char *usr_text;
         free(a_info.attack);
         free(a_info.dbldmg);
     }
+}
 
+STATIC_OVL void
+corpse_conveys(buf, pm)
+struct permonst * pm;
+char *buf;
+{
+    int pct = max(5, (int) (pm->cwt / 90));
+#define ADDPCTRES(cond, amt, str)    \
+    if (cond) {                      \
+        if (*buf)                    \
+            Strcat(buf, ", ");       \
+        Sprintf(eos(buf), "%d%% %s", \
+                amt, str);           \
+    }
+#define APPENDC(cond, str)        \
+    if (cond) {                   \
+        if (*buf)                 \
+            Strcat(buf, ", ");    \
+        Strcat(buf, str);         \
+    }
+    /* Corpse conveyances */
+    buf[0] = '\0';
+    ADDPCTRES(intrinsic_possible(FIRE_RES, pm), pct, "fire");
+    ADDPCTRES(intrinsic_possible(COLD_RES, pm), pct, "cold");
+    ADDPCTRES(intrinsic_possible(SHOCK_RES, pm), pct, "shock");
+    ADDPCTRES(intrinsic_possible(SLEEP_RES, pm), pct, "sleep");
+    ADDPCTRES(intrinsic_possible(POISON_RES, pm), pct, "poison");
+    ADDPCTRES(intrinsic_possible(DISINT_RES, pm), pct, "disintegration");
+    /* acid, stone, and psionic resistance aren't currently conveyable */
+    if (*buf)
+        Strcat(buf, " resistance");
+    APPENDC(intrinsic_possible(TELEPORT, pm), "teleportation");
+    APPENDC(intrinsic_possible(TELEPORT_CONTROL, pm), "teleport control");
+    APPENDC(intrinsic_possible(TELEPAT, pm), "telepathy");
+    /* There are a bunch of things that happen in cpostfx (levels for wraiths,
+     * stunning for bats...) but only count the ones that actually behave like
+     * permanent intrinsic gains.
+     * If you find yourself listing multiple things here for the same effect,
+     * that may indicate the property should be added to psuedo_intrinsics. */
+    APPENDC(pm == &mons[PM_QUANTUM_MECHANIC], "speed or slowness");
+    APPENDC(pm == &mons[PM_MIND_FLAYER] || pm == &mons[PM_MASTER_MIND_FLAYER],
+            "intelligence");
 }
 
 /*
