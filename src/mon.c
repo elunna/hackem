@@ -5462,7 +5462,7 @@ struct monst *mtmp;
                     : (mtmp->mtrapped && (t = t_at(x, y)) != 0
                        && !is_pit(t->ttyp))) {
         ; /* can't hide while stuck in a non-pit trap */
-    } else if (is_swimmer(mtmp->data) && hides_under(mtmp->data)) {
+    } else if (mtmp->data->mlet == S_EEL) {
         undetected = ((is_pool(x, y) || is_puddle(x, y))
                       && !Is_waterlevel(&u.uz));
     } else if (mtmp->data == &mons[PM_GIANT_LEECH]) {
