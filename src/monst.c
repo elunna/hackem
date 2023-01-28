@@ -3089,7 +3089,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 20, MS_SQEEK, MZ_TINY), 0, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_WANDER,
-        M3_INFRAVISIBLE | M3_SKITTISH, 0, 0, 2, CLR_BROWN),
+        M3_INFRAVISIBLE, 0, 0, 2, CLR_BROWN),
     MON("giant bat", S_BAT,
         LVL(2, 22, 7, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 6), 
