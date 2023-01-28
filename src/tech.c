@@ -1664,6 +1664,7 @@ doblitzlist()
 {
     winid tmpwin;
     int i;
+    int maxmoves = MIN_CHAIN + (techlev(get_tech_no(T_BLITZ)) / 10);
     char buf[BUFSZ];
     menu_item *selected;
     anything any;
@@ -1680,10 +1681,10 @@ doblitzlist()
     Sprintf(buf, "%16s %10s %-17s", "[LD = Left Down]", "[D = Down]",
             "[RD = Right Down]");
     add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
-
+    
     Sprintf(buf, "%-30s %10s   %s", "Name", "Type", "Command");
     add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
-
+    
     for (i = 0; blitzes[i].blitz_len; i++) {
         if (tech_known(blitzes[i].blitz_tech)) {
              Sprintf(buf, "%-30s %10s   %s",
@@ -1703,6 +1704,10 @@ doblitzlist()
                       MENU_UNSELECTED);
         }
     }
+    add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, "", MENU_UNSELECTED);
+    Sprintf(buf, "You have a maximum of %d moves available.", maxmoves);
+    add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
+    
     end_menu(tmpwin, "Currently known blitz manoeuvers");
     select_menu(tmpwin, PICK_NONE, &selected);
     destroy_nhwindow(tmpwin);
