@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Monsters that swim and conceal will always choose the water as hiding cover over objects.
 Increase difficulty of werebear to 14.
 Whetstones cannot be used with sewage.
 Whetstones auto-id when used.
