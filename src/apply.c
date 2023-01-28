@@ -3070,6 +3070,9 @@ struct obj *stone, *obj;
         boolean isedged =
             (is_pick(obj) || (objects[ttyp].oc_dir & (PIERCE | SLASH)));
 
+        /* Auto-ID on use */
+        makeknown_msg(stone->otyp);
+        
         if (obj == &zeroobj) {
             You("file your nails.");
         } else if (!is_metallic(obj)) {
