@@ -1996,8 +1996,8 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(700, 300, MS_ROAR, MZ_LARGE), MR_POISON, 0,
         M1_NOHANDS | M1_POIS | M1_REGEN | M1_OMNIVORE,
-        M2_NOPOLY | M2_STRONG, 
-        M3_INFRAVISIBLE | M3_BERSERK, 0, MH_WERE, 8, CLR_BLACK),
+        M2_NOPOLY | M2_STRONG | M2_PEACEFUL, 
+        M3_INFRAVISIBLE | M3_BERSERK, 0, MH_WERE, 14, CLR_BLACK),
     MON("bull", S_QUADRUPED,                                    /* Slash'EM */
         LVL(10, 15, 5, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BUTT, AD_PHYS, 2, 8),
@@ -5960,8 +5960,8 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_WERE, MZ_HUMAN), MR_POISON, 0,
         M1_HUMANOID | M1_POIS | M1_REGEN | M1_OMNIVORE,
-        M2_NOPOLY | M2_COLLECT,
-        M3_INFRAVISIBLE | M3_BERSERK, 0, MH_HUMAN | MH_WERE, 6, CLR_BLUE),
+        M2_NOPOLY | M2_COLLECT | M2_PEACEFUL,
+        M3_INFRAVISIBLE | M3_BERSERK, 0, MH_HUMAN | MH_WERE, 14, CLR_BLUE),
     MON("weresnake", S_HUMAN,                                   /* Slash'EM */
         LVL(9, 12, 10, 20, -7), (0),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 4),
