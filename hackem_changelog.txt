@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Cleanup whetstone code/formatting.
 Fix: Werebears generating peaceful; inconsistent alignment with other werefoo.
 Fix: piratesay and 'sscuttled'
 Adapted the Sunder skill from SpliceHack into a technique. Pirates get it at level 5. 

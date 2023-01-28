@@ -3006,101 +3006,96 @@ struct obj *stone, *obj;
     register struct trap *trap = t_at(u.ux, u.uy);
     boolean is_rusttrap = trap != 0 && trap->ttyp == RUST_TRAP;
 
-    /* Cavemen are good with rocks, so they can do the job in half the time. */
+    /* Cavemen are good with rocks, so they can do the job in half the time.
+     */
     if (Role_if(PM_CAVEMAN))
         tmptime /= 2;
 
     if (u.ustuck && sticks(youmonst.data)) {
         You("should let go of %s first.", mon_nam(u.ustuck));
-    } else if ((welded(uwep) && (uwep != stone)) 
-        || (uswapwep && u.twoweap && welded(uswapwep) && (uswapwep != obj))) {
+    } else if ((welded(uwep) && (uwep != stone))
+               || (uswapwep && u.twoweap && welded(uswapwep)
+                   && (uswapwep != obj))) {
         You("need both hands free.");
     } else if (nohands(youmonst.data)) {
-        You_cant("handle %s with your %s.",
-                an(xname(stone)), makeplural(body_part(HAND)));
+        You_cant("handle %s with your %s.", an(xname(stone)),
+                 makeplural(body_part(HAND)));
     } else if (verysmall(youmonst.data)) {
         You("are too small to use %s effectively.", an(xname(stone)));
-    } else if (!is_pool(u.ux, u.uy)
-      && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
-      && !IS_PUDDLE(levl[u.ux][u.uy].typ)
-      && !IS_SEWAGE(levl[u.ux][u.uy].typ)
-      && (!is_rusttrap)
-      && !IS_TOILET(levl[u.ux][u.uy].typ)
-      && !IS_SINK(levl[u.ux][u.uy].typ)) {
-
+    } else if (!is_pool(u.ux, u.uy) && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
+               && !IS_PUDDLE(levl[u.ux][u.uy].typ)
+               && !IS_SEWAGE(levl[u.ux][u.uy].typ) && (!is_rusttrap)
+               && !IS_TOILET(levl[u.ux][u.uy].typ)
+               && !IS_SINK(levl[u.ux][u.uy].typ)) {
         /* --hackem: We test if we are NOT on a water source above.
              A player can use a potion of water if on hand. */
         if (carrying(POT_WATER)) {
-            potion = getobj(beverages, "wet the whetstone with");
-            if (!potion)
+            char buf[QBUFSZ];
+            Sprintf(buf, "wet the %s with", xname(stone));
+            potion = getobj(beverages, buf);
+            if (!potion) {
                 fail_use = TRUE;
-            else if (potion->otyp == POT_WATER) {
+            } else if (potion->otyp == POT_WATER) {
                 fail_use = FALSE;
-
-                if ( !rn2(7)) {
+                if (!rn2(7)) {
                     /* 1 in 7 chance of using up the potion regardless of outcome */
                     useup(potion);
-                    pline_The("whetstone absorbs your water!");
+                    pline_The("%s absorbs your water!", xname(stone));
                 }
-            } else
+            } else {
                 pline("That isn't water!");
-	    } else
-                You("need some water when you use that.");
-	} else if (Levitation && !Lev_at_will && !u.uinwater) {
-            You_cant("reach the water.");
-	} else
-	    fail_use = FALSE;
+            }
+        } else
+            You("need some water when you use that.");
+    } else if (Levitation && !Lev_at_will && !u.uinwater) {
+        You_cant("reach the water.");
+    } else {
+        fail_use = FALSE;
+    }
+    if (fail_use) {
+        reset_whetstone();
+        return;
+    }
 
-	if (fail_use) {
-	    reset_whetstone();
-	    return;
-	}
+    if (stone == whetstoneinfo.wsobj && obj == whetstoneinfo.tobj
+        && carried(obj) && carried(stone)) {
+        You("resume %s %s.", occutext, yname(obj));
+        set_occupation(set_whetstone, occutext, 0);
+        return;
+    }
 
-	if (stone == whetstoneinfo.wsobj 
-     && obj == whetstoneinfo.tobj 
-     && carried(obj) && carried(stone)) {
-	    You("resume %s %s.", occutext, yname(obj));
-	    set_occupation(set_whetstone, occutext, 0);
-	    return;
-	}
+    if (obj) {
+        int ttyp = obj->otyp;
+        boolean isweapon = (obj->oclass == WEAPON_CLASS || is_weptool(obj));
+        boolean isedged =
+            (is_pick(obj) || (objects[ttyp].oc_dir & (PIERCE | SLASH)));
 
-	if (obj) {
-	    int ttyp = obj->otyp;
-	    boolean isweapon = (obj->oclass == WEAPON_CLASS || is_weptool(obj));
-	    boolean isedged = (is_pick(obj) ||
-				(objects[ttyp].oc_dir & (PIERCE|SLASH)));
-	    
         if (obj == &zeroobj) {
-		    You("file your nails.");
+            You("file your nails.");
         } else if (!is_metallic(obj)) {
-		    pline("That would ruin the %s %s.",
-			  materialnm[objects[ttyp].oc_material],
-		      xname(obj));
-	    } else if (!isweapon || !isedged) {
+            pline("That would ruin the %s %s.",
+                  materialnm[objects[ttyp].oc_material], xname(obj));
+        } else if (!isweapon || !isedged) {
             pline("%s not something you can sharpen.",
-              is_plural(obj) ? "They are" : "It is");
-	    } else if (obj->spe >= 1
-                && (stone->blessed && !obj->cursed)
-                && !obj->oeroded 
-                && !obj->oeroded2) {
-		    
+                  is_plural(obj) ? "They are" : "It is");
+        } else if (obj->spe >= 1 && (stone->blessed && !obj->cursed)
+                   && !obj->oeroded && !obj->oeroded2) {
             pline("%s %s sharp and pointy enough.",
-			  is_plural(obj) ? "They" : "It",
-			  otense(obj, Blind ? "feel" : "look"));
-	    } else {
-            if (stone->cursed) 
+                  is_plural(obj) ? "They" : "It",
+                  otense(obj, Blind ? "feel" : "look"));
+        } else {
+            if (stone->cursed) {
                 tmptime *= 2;
-            
+            }
             whetstoneinfo.time_needed = tmptime;
             whetstoneinfo.tobj = obj;
             whetstoneinfo.wsobj = stone;
             You("start %s %s.", occutext, yname(obj));
             set_occupation(set_whetstone, occutext, 0);
-	    }
-	} else 
+        }
+    } else
         You("wave %s in the %s.", the(xname(stone)),
-	    (IS_POOL(levl[u.ux][u.uy].typ) 
-        && Underwater) ? "water" : "air");
+            (IS_POOL(levl[u.ux][u.uy].typ) && Underwater) ? "water" : "air");
 }
 
 
