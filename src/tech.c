@@ -1673,15 +1673,11 @@ doblitzlist()
     start_menu(tmpwin);
     any.a_void = 0; /* zero out all bits */
 
-    Sprintf(buf, "%16s %10s %-17s", "[LU = Left Up]", "[U = Up]",
-            "[RU = Right Up]");
+    Sprintf(buf, "%16s %5s %-17s", "[U = Up]", "", "[L = Left]");
     add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
-    Sprintf(buf, "%16s %10s %-17s", "[L = Left]", "", "[R = Right]");
+    Sprintf(buf, "%16s %5s %-17s", "[D = Down]", "", "[R = Right]");
     add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
-    Sprintf(buf, "%16s %10s %-17s", "[LD = Left Down]", "[D = Down]",
-            "[RD = Right Down]");
-    add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
-    
+
     Sprintf(buf, "%-30s %10s   %s", "Name", "Type", "Command");
     add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
     
