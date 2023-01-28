@@ -3024,7 +3024,7 @@ struct obj *stone, *obj;
         You("are too small to use %s effectively.", an(xname(stone)));
     } else if (!is_pool(u.ux, u.uy) && !IS_FOUNTAIN(levl[u.ux][u.uy].typ)
                && !IS_PUDDLE(levl[u.ux][u.uy].typ)
-               && !IS_SEWAGE(levl[u.ux][u.uy].typ) && (!is_rusttrap)
+               && (!is_rusttrap)
                && !IS_TOILET(levl[u.ux][u.uy].typ)
                && !IS_SINK(levl[u.ux][u.uy].typ)) {
         /* --hackem: We test if we are NOT on a water source above.
