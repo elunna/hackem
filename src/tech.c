@@ -2573,7 +2573,7 @@ int tech_no;
     int i, j;
     You("let out a bloodcurdling roar!");
     aggravate();
-    techt_inuse(tech_no) = d(2,6) + (techlev(tech_no)) + 2;
+    techt_inuse(tech_no) = d(4, 6) + (techlev(tech_no)) + 12;
     incr_itimeout(&HFast, techt_inuse(tech_no));
     
     for (i = -5; i <= 5; i++) {
@@ -2581,18 +2581,9 @@ int tech_no;
             if (isok(u.ux + i, u.uy + j)
                 && (mtmp = m_at(u.ux + i, u.uy + j))) {
                 if (mtmp->mtame != 0 && !mtmp->msummoned) {
-                    /*struct permonst *ptr = mtmp->data;*/
-                    /*int ttime = techt_inuse(tech_no);*/
-                    /*int type = little_to_big(monsndx(ptr));*/
-
-                    tamedog(mtmp, (struct obj *) 0);
-#if 0 /* TODO: IMPORT LATER */
-                            if (type && type != monsndx(ptr)) {
-                                ptr = &mons[type];
-                                mon_spec_poly(mtmp, ptr, ttime, FALSE,
-                                              canseemon(mtmp), FALSE, TRUE);
-                            }
-#endif
+                    /* Change from SLASH'EM: Instead of the temporary poly,
+                     * we fully heal your close pets. */
+                    mtmp->mhp = mtmp->mhpmax;
                 }
             }
          }

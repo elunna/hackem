@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Instead of the Primal Roar tech temporarily poly-upgrading pets, we full heal them and the duration has been extended.
 Kii technique timeout gets extended on successful hits.
 Fix: Bug introduced from Worm that Walks evaporation.
 Reduced the timeout of most techs to a max of 1000 or 1500 for the most powerful techs.
