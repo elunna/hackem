@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Weapon shop services were being made available to any shop.
 Adjust mkobj_erosions chances to match 3.7.
 Silence unused variable warning from previous fix.
 Fix leak in Blackmarket level file (fixed by Bhaak)

@@ -1313,7 +1313,7 @@ struct monst *shk;
         maybe_add_svc(shk, SHK_UNCURSE);
     
     /* Weapon shop services */
-    if (shk_class_match(WEAPON_CLASS, shk)) {
+    if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         /* Weapon rust/erode-proofing */
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_WEP_FIX);
