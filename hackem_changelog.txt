@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Reduced the timeout of most techs to a max of 1000 or 1500 for the most powerful techs.
 Fix: If wielding Sunsword or Mortality Dial, Worm that Walks will evaporate instead of leaving worms.
 Message for Worm that Walks dissolving.
 Instead of wasting a move when making a mistake in chain blitz, it just cancels the tech and let's the player try again.
