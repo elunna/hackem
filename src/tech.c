@@ -1629,13 +1629,13 @@ doblitz()
              if (blitz_num >= MAX_CHAIN || blitz_num >= max_moves) {
                 You("went over the maximum allowable commands [%d].",
                          max_moves);
-                break; /* Trying to chain too many blitz commands */
+                return 0; /* Trying to chain too many blitz commands */
              }
              else if (!strncmp(bp, blitzes[j].blitz_cmd, cmd_len)) {
                 /* Trying to chain in a command you don't know yet */
                 if (!tech_known(blitzes[j].blitz_tech)) {
                     pline("You don't know %s yet.", tech_name);
-                    break;
+                    return 0;
                 }
                 if (blitz_num) {
                     /* Check if trying to chain two of the exact same 
@@ -1644,13 +1644,13 @@ doblitz()
                     if (j == prev_blitz) {
                         You_cant("chain two of the exact same commands [%s] in a row.",
                                  tech_name);
-                        break;
+                        return 0;
                     }
                     /* Trying to chain after chain finishing command */
                     if (blitzes[prev_blitz].blitz_type == BLITZ_END) {
                         You_cant("enter more commands after a chain finisher [%s].",
                                  tech_names[blitzes[prev_blitz].blitz_tech]);
-                        break;
+                        return 0;
                     }
                     /* Trying to put a chain starter after starting a chain
                      * Note that it's OK to put two chain starters in a row */
@@ -1658,7 +1658,7 @@ doblitz()
                         && (blitzes[prev_blitz].blitz_type != BLITZ_START)) {
                         You_cant("enter a chain starter [%s] after starting a command chain.",
                                  tech_name);
-                        break;
+                        return 0;
                     }
                 }
                 bp += cmd_len;
