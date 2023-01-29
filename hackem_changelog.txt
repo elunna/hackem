@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added default names for pirate pets.
 Adapted the Blood Magic skill from SpliceHack into a technique for necromancers.
 Instead of the Primal Roar tech temporarily poly-upgrading pets, we full heal them and the duration has been extended.
 Kii technique timeout gets extended on successful hits.

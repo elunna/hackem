@@ -294,7 +294,10 @@ makedog()
     } else if (!*petname && pettype == PM_WOLF) {
         if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN))
             petname = "Slasher"; /* The Warrior */
-    }
+    } else if (!*petname && pettype == PM_MONKEY) {
+        petname = "Ugga-Ugga";
+    } else if (!*petname && pettype == PM_PARROT)
+        petname = "Squawks";
 
     mtmp = makemon(&mons[pettype], u.ux, u.uy, MM_EDOG);
 
