@@ -482,7 +482,6 @@ struct opvar *ov;
     static const char nhFunc[] = "opvar_var_conversion";
     struct splev_var *tmp;
     struct opvar *tmpov;
-    struct opvar *array_idx = NULL;
 
     if (!coder || !ov)
         return NULL;
@@ -492,15 +491,21 @@ struct opvar *ov;
     while (tmp) {
         if (!strcmp(tmp->name, OV_s(ov))) {
             if ((tmp->svtyp & SPOVAR_ARRAY)) {
-                array_idx = opvar_var_conversion(coder,
-                                               splev_stack_pop(coder->stack));
+                struct opvar *variable = splev_stack_pop(coder->stack);
+                struct opvar *array_idx = opvar_var_conversion(coder, variable);
+                
                 if (!array_idx || OV_typ(array_idx) != SPOVAR_INT)
                     panic("array idx not an int");
                 if (tmp->array_len < 1)
                     panic("array len < 1");
                 OV_i(array_idx) = (OV_i(array_idx) % tmp->array_len);
                 tmpov = opvar_clone(tmp->data.arrayvalues[OV_i(array_idx)]);
-                opvar_free(array_idx);
+
+                opvar_free_x(array_idx);
+                if (array_idx != variable) {
+                    opvar_free_x(variable);
+                }
+
                 return tmpov;
             } else {
                 tmpov = opvar_clone(tmp->data.value);
