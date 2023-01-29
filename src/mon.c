@@ -3410,13 +3410,13 @@ register struct monst *mtmp;
     struct permonst *mptr;
     int tmp, i;
     coord cc;
-    
+    boolean nocorpse = (wielding_artifact(ART_SUNSWORD) || wielding_artifact(ART_MORTALITY_DIAL));
     mtmp->mhp = 0; /* in case caller hasn't done this */
     lifesaved_monster(mtmp);
     if (!DEADMONSTER(mtmp))
         return;
-
-    if (mtmp->data == &mons[PM_WORM_THAT_WALKS]) {
+    
+    if (mtmp->data == &mons[PM_WORM_THAT_WALKS] && !nocorpse) {
         if (cansee(mtmp->mx, mtmp->my)) {
             pline_The("body of %s dissolves into worms!", mon_nam(mtmp));
         } else {
@@ -3427,6 +3427,10 @@ register struct monst *mtmp;
                 break;
             makemon(&mons[PM_HELLMINTH], cc.x, cc.y, NO_MINVENT);
         }
+    } else {
+        if (cansee(mtmp->mx, mtmp->my))
+            pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
+                  artiname(uwep->oartifact), s_suffix(mon_nam(mtmp)));
     }
     /* someone or something decided to mess with Izchak. oops... */
     if (is_izchak(mtmp, TRUE)) {
