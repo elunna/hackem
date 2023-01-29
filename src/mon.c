@@ -3416,22 +3416,24 @@ register struct monst *mtmp;
     if (!DEADMONSTER(mtmp))
         return;
     
-    if (mtmp->data == &mons[PM_WORM_THAT_WALKS] && !nocorpse) {
-        if (cansee(mtmp->mx, mtmp->my)) {
-            pline_The("body of %s dissolves into worms!", mon_nam(mtmp));
+    if (mtmp->data == &mons[PM_WORM_THAT_WALKS]) {
+        if (nocorpse) {
+            if (cansee(mtmp->mx, mtmp->my))
+                pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
+                      artiname(uwep->oartifact), s_suffix(mon_nam(mtmp)));
         } else {
-            You_hear("the slithering of many bodies.");
+            if (cansee(mtmp->mx, mtmp->my)) {
+                pline_The("body of %s dissolves into worms!", mon_nam(mtmp));
+            } else {
+                You_hear("the slithering of many bodies.");
+            }
+            for (i = 0; i < rnd(10); i++) {
+                if (!enexto(&cc, mtmp->mx, mtmp->my, 0))
+                    break;
+                makemon(&mons[PM_HELLMINTH], cc.x, cc.y, NO_MINVENT);
+            }
         }
-        for (i = 0; i < rnd(10); i++) {
-            if (!enexto(&cc, mtmp->mx, mtmp->my, 0))
-                break;
-            makemon(&mons[PM_HELLMINTH], cc.x, cc.y, NO_MINVENT);
-        }
-    } else {
-        if (cansee(mtmp->mx, mtmp->my))
-            pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
-                  artiname(uwep->oartifact), s_suffix(mon_nam(mtmp)));
-    }
+    } 
     /* someone or something decided to mess with Izchak. oops... */
     if (is_izchak(mtmp, TRUE)) {
         if (canspotmon(mtmp)) {
