@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Message for Worm that Walks dissolving.
 Instead of wasting a move when making a mistake in chain blitz, it just cancels the tech and let's the player try again.
 Chain blitz shows helpful feedback for incorrect inputs.
 Chain blitz now shows input feedback as you type the blitz commands. 

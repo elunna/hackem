@@ -3418,7 +3418,7 @@ register struct monst *mtmp;
 
     if (mtmp->data == &mons[PM_WORM_THAT_WALKS]) {
         if (cansee(mtmp->mx, mtmp->my)) {
-            pline_The("body of %s dissolves into maggots!", mon_nam(mtmp));
+            pline_The("body of %s dissolves into worms!", mon_nam(mtmp));
         } else {
             You_hear("the slithering of many bodies.");
         }
