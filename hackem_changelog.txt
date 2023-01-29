@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: domonability declared twice in extern.h
 Adapted the monk's boulder break ability into a technique.
 Added default names for pirate pets.
 Adapted the Blood Magic skill from SpliceHack into a technique for necromancers.
