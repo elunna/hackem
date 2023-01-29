@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Silence unused variable warning from previous fix.
 Fix leak in Blackmarket level file (fixed by Bhaak)
 Yellow dragons get a passive acid attack instead of corrosion to mirror the YDS behavior.
 Fix: domonability declared twice in extern.h

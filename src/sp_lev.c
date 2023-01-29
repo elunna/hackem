@@ -479,7 +479,6 @@ opvar_var_conversion(coder, ov)
 struct sp_coder *coder;
 struct opvar *ov;
 {
-    static const char nhFunc[] = "opvar_var_conversion";
     struct splev_var *tmp;
     struct opvar *tmpov;
 
