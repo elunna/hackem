@@ -67,6 +67,7 @@ static int FDECL(tech_forcepush, (int));
 static int FDECL(tech_chargesaber, (int));
 static int FDECL(tech_tumble, (int));
 static int FDECL(tech_sunder, (int));
+static int FDECL(tech_bloodmagic, (int));
 
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
 
@@ -133,6 +134,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "pickpocket",       /* 49 */
     "tumble",           /* 50 */
     "sunder",           /* 51 */
+    "blood magic",      /* 52 */
     ""
 };
 
@@ -203,7 +205,8 @@ static const struct innate_tech
         { 1, T_REINFORCE, 1 },
         { 2, T_CALL_UNDEAD, 1 },
         { 3, T_RAISE_ZOMBIES, 1 },
-        { 6, T_SOULEATER, 1 },
+        { 5, T_BLOOD_MAGIC, 1 },
+        { 8, T_SOULEATER, 1 },
         { 10, T_POWER_SURGE, 1 },
         { 14, T_REVIVE, 1 },
         { 17, T_SPIRIT_TEMPEST, 1 },
@@ -1015,6 +1018,10 @@ int tech_no;
             if (tech_sunder(get_tech_no(T_SUNDER)))
                 t_timeout = rn1(10, 5);
             break;
+        case T_BLOOD_MAGIC:
+            if (tech_bloodmagic(get_tech_no(T_BLOOD_MAGIC)))
+                t_timeout = rn1(250, 250);
+            break;
         default:
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
@@ -1133,6 +1140,9 @@ tech_timeout()
                     repeat_hit = 0;
                     break;
 #endif
+                case T_BLOOD_MAGIC:
+                    The("darkness leaves your heart.");
+                    break;
                 case T_BERSERK:
                     The("red haze in your mind clears.");
                     break;
@@ -3468,7 +3478,6 @@ int tech_no;
     return 1;
 }
 
-
 int
 tech_sunder(tech_no)
 int tech_no;
@@ -3524,7 +3533,17 @@ int tech_no;
     m_useup(mtmp, otmp);
     return 1;
 }
-
+int
+tech_bloodmagic(tech_no)
+int tech_no;
+{
+    if (tech_no == -1) { /* Prevent unused var warning */
+         return 0;
+    }
+    You("invite a dark power into your heart!");
+    techt_inuse(tech_no) = (int) (techlev(tech_no) * 6 + 1) + 2;
+    return 1;
+}
 
 #ifdef DEBUG
 void
