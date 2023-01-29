@@ -15,7 +15,6 @@
 
 Version 1.1 (unreleased)
 
-
 Fix leak in Blackmarket level file (fixed by Bhaak)
 Yellow dragons get a passive acid attack instead of corrosion to mirror the YDS behavior.
 Fix: domonability declared twice in extern.h
@@ -195,7 +194,6 @@ Removed the special handling of vampiric in set_uasmon.
 The vampiric race now gets it's abilities from the monster struct rather than vam_abil. 
 Factored the race-to-race-abilities matching in adjabil.
 Fix: References to Vecna's Realm not updated to Chaotic Quest.
-Fix: Removed loop for shopdoors in the 2nd black market. Fixes #101.
 Whirling spheres resist almost everything.
 Dust devil: MR_SHOCK -> MR_ELEC
 Hellcats and hellminths get fire resistance.
