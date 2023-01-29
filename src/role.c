@@ -397,7 +397,7 @@ const struct Role roles[] = {
       S_XORN,
       ART_EYES_OF_THE_OVERWORLD,
       MH_HUMAN | MH_ELF | MH_DWARF | MH_GIANT | MH_CENTAUR
-          | MH_TORTLE,
+          | MH_TORTLE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -664,7 +664,7 @@ const struct Role roles[] = {
       S_SPIDER,
       S_CENTAUR,
       ART_YENDORIAN_EXPRESS_CARD,
-      MH_HUMAN | MH_HOBBIT | MH_GNOME | MH_TORTLE,
+      MH_HUMAN | MH_HOBBIT | MH_GNOME | MH_TORTLE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 6, 7, 7, 10 },
@@ -1113,15 +1113,15 @@ const struct Race races[] = {
         {  3, 0,  0, 3,  2, 0 },	/* Hit points */
         {  3, 0,  4, 0,  4, 0 }		/* Energy */
     },
-    {	"doppelganger", "doppelganger", "doppelganger-kind", "Dop",
+    {	"shapeshifter", "doppleganger", "doppleganger-kind", "Dop",
         {0, 0}, /* individual as a noun */
         PM_DOPPELGANGER,    /* PM_ as a male monster */
         NON_PM,             /* ...or as a female (NON_PM == same) */
         PM_HUMAN_MUMMY,     /* PM_ as a mummy */
         PM_HUMAN_ZOMBIE,    /* PM_ as a zombie */
-        MH_HUMAN | ROLE_MALE | ROLE_FEMALE 
+        MH_SHIFTER | ROLE_MALE | ROLE_FEMALE 
             | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
-        MH_HUMAN,        /* your own race's bit mask */
+        MH_SHIFTER,        /* your own race's bit mask */
         MH_WERE,          /* always peaceful */
         MH_ELF | MH_GNOME | MH_DWARF, /* always hostile */
         /*    Str     Int Wis Dex Con Cha */

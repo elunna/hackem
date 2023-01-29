@@ -928,6 +928,7 @@ unsigned mhflag;
         "illithid", 
         "tortle", 
         "vampire",
+        "shapeshifter",
         "undead",
         "lycanthrope",
         "demon",
