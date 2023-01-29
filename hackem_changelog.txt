@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Adjust mkobj_erosions chances to match 3.7.
 Silence unused variable warning from previous fix.
 Fix leak in Blackmarket level file (fixed by Bhaak)
 Yellow dragons get a passive acid attack instead of corrosion to mirror the YDS behavior.
