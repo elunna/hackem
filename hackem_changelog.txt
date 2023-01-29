@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Chain blitz now shows input feedback as you type the blitz commands. 
 doblitz: Refactored a couple blobs, made a little more readable.
 Removed extra LU, RU, LD, and RD info from blitz menu.
 Chain blitz tech now shows how many blitz moves you have available.

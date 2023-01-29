@@ -1535,7 +1535,9 @@ doblitz()
 {
     int i, j, dx, dy, bdone = 0, tech_no;
     char buf[BUFSZ];
+    char buf2[BUFSZ];
     char *bp;
+    char cmdlist[BUFSZ];
     int blitz_chain[MAX_CHAIN], blitz_num;
     tech_no = (get_tech_no(T_BLITZ));
     int max_moves = (MIN_CHAIN + (techlev(tech_no) / 10));
@@ -1557,7 +1559,7 @@ doblitz()
     }
 
     bp = buf;
-
+    
     if (!getdir((char *) 0))
         return 0;
     if (!u.dx && !u.dy) {
@@ -1568,31 +1570,43 @@ doblitz()
     dy = u.dy;
 
     doblitzlist();
-
+    Strcpy(cmdlist, "");
     for (i = 0; i < MAX_BLITZ; i++) {
-        if (!getdir(Enter_Blitz))
+        if (i == 0)
+            sprintf(buf2, "%s", Enter_Blitz);
+        else
+            sprintf(buf2, "[%s]:", cmdlist);
+        if (!getdir(buf2))
              return 0; /* Get directional input */
         if (!u.dx && !u.dy && !u.dz)
              break;
         if (u.dx == -1) {
              *(bp) = 'L';
+             strcat(cmdlist, "L");
              bp++;
         } else if (u.dx == 1) {
              *(bp) = 'R';
+             strcat(cmdlist, "R");
              bp++;
         }
         if (u.dy == -1) {
              *(bp) = 'U';
+             strcat(cmdlist, "U");
              bp++;
         } else if (u.dy == 1) {
              *(bp) = 'D';
+             strcat(cmdlist, "D");
              bp++;
         }
         if (u.dz == -1) {
              *(bp) = '>';
+             /* TODO: Why do these have to be reversed? */
+             strcat(cmdlist, "<"); 
              bp++;
         } else if (u.dz == 1) {
              *(bp) = '<';
+             /* TODO: Why do these have to be reversed? */
+             strcat(cmdlist, ">");
              bp++;
         }
     }
