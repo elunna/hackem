@@ -135,6 +135,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "tumble",           /* 50 */
     "sunder",           /* 51 */
     "blood magic",      /* 52 */
+    "break rock",       /* 53 */
     ""
 };
 
@@ -192,6 +193,7 @@ static const struct innate_tech
         { 1, T_PUMMEL, 1 },
         { 1, T_DASH, 1 },
         { 1, T_BLITZ, 1 },
+        { 1, T_BREAK_ROCK, 1 },
         { 2, T_CHI_STRIKE, 1 },
         { 4, T_CHI_HEALING, 1 },
         { 6, T_E_FIST, 1 },
@@ -772,6 +774,139 @@ const char *verb;
     return otmp;
 }
 
+
+static NEARDATA int dpx, dpy; /* boulder being attacked */
+static NEARDATA int breakturns; /* concentration turn */
+
+STATIC_OVL int
+ma_break(VOID_ARGS)
+{
+    struct obj *bobj, *obj;
+    int prob;
+
+    if (distu(dpx, dpy) > 2) {
+        Your("qi dissipates in all directions.");
+        make_confused(6 + breakturns * P_SKILL(P_MARTIAL_ARTS), FALSE);
+        return 0;
+    }
+
+    if (breakturns < 40 / P_SKILL(P_MARTIAL_ARTS)) {
+        breakturns++;
+        return 1; /* still concentrating */
+    }
+
+    if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0)
+        pline("Focusing your qi, you %s the boulder.",
+              rn2(2) ? "strike" : "hit");
+    else if ((obj = sobj_at(STATUE, dpx, dpy)) !=0)
+        pline("Focusing your qi, you %s the statue.",
+              rn2(2) ? "strike" : "hit");
+
+    /* even while blind you can first feel and then image the boulder */
+    if (Confusion || Hallucination || Stunned) {
+        if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
+            if (rn2(2)) {
+                You("swing wildly, missing the boulder.");
+            } else {
+                You("slip, hitting your head against the boulder!");
+                losehp(d(1, 4), "face planting into a boulder.",
+                       NO_KILLER_PREFIX);
+            }
+        } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
+            if (rn2(2)) {
+                You("swing wildly, missing the statue.");
+            } else {
+                You("slip, hitting your head against the statue!");
+                losehp(d(1, 4), "trying to headbutt a statue.",
+                       NO_KILLER_PREFIX);
+            }
+        }
+        return 0;
+    }
+
+    prob = 40;
+    prob -= u.ulevel;
+    prob /= P_SKILL(P_MARTIAL_ARTS);
+
+    /* inherently strong races get a probability bonus,
+     * inherently weak races, not so much */
+    if (Race_if(PM_GIANT))
+        prob -= 3;
+    if (Race_if(PM_CENTAUR))
+        prob -= 2;
+    if (Race_if(PM_ELF))
+        prob += 1;
+
+    if (uarmg) {
+        switch (uarmg->otyp) {
+        case GAUNTLETS_OF_POWER:
+        case MUMMIFIED_HAND: /* the Hand of Vecna */
+            prob -= 10;
+            break;
+        case GAUNTLETS_OF_FUMBLING:
+            prob *= 4;
+            break;
+        case GLOVES:
+        case GAUNTLETS:
+        case GAUNTLETS_OF_DEXTERITY:
+        case GAUNTLETS_OF_PROTECTION:
+            break;
+        default:
+            impossible("Unknown type of gloves (%d)", uarmg->otyp);
+        }
+    }
+
+    if (3 > prob)
+        prob = 3; /* don't be always successful without skill */
+
+    if (P_SKILL(P_MARTIAL_ARTS) > P_EXPERT || !rn2(prob)) {
+        if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
+            fracture_rock(obj);
+            pline_The("boulder splits and falls apart.");
+        } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
+            break_statue(obj);
+            pline_The("statue shatters into pieces.");
+        }
+        if ((bobj = sobj_at(BOULDER, dpx, dpy)) != 0) {
+            /* another boulder here, restack it to the top */
+            obj_extract_self(bobj);
+            place_object(bobj, dpx, dpy);
+        }
+        exercise(A_STR, TRUE);
+        use_skill(P_MARTIAL_ARTS, 1);
+    } else {
+        if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
+            pline("However, your qi is not focused enough to break the boulder.");
+            losehp(d(1, 6), "trying to split a boulder.", KILLED_BY);
+        } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
+            pline("However, your qi is not focused enough to break the statue.");
+            losehp(d(1, 6), "trying to shatter a statue.", KILLED_BY);
+        }
+        if (!rn2(5)) {
+            You("need more training to reliably focus your qi.");
+            use_skill(P_MARTIAL_ARTS, 1);
+        }
+    }
+    return 0; /* done */
+}
+
+int
+do_breakrock(x, y)
+int x, y;
+{
+    if (P_SKILL(P_MARTIAL_ARTS) < P_SKILLED) {
+        You("lack the necessary training to focus your qi.");
+        return 0;
+    } else {
+        You("start channeling your qi.");
+        dpx = x;
+        dpy = y;
+        breakturns = 0;
+        set_occupation(ma_break, "channeling your qi", 0);
+    }
+    return 1;
+}
+
 /* gettech is reworked getspell */
 /* reworked class special effects code */
 /* adapted from specialpower in cmd.c */
@@ -1022,6 +1157,13 @@ int tech_no;
             if (tech_bloodmagic(get_tech_no(T_BLOOD_MAGIC)))
                 t_timeout = rn1(250, 250);
             break;
+        case T_BREAK_ROCK:
+            if (!getdir(NULL))
+                return 0;
+            int x = u.dx + u.ux;
+            int y = u.dy + u.uy;
+            return do_breakrock(x, y);
+            /* No timeout */
         default:
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
@@ -2142,6 +2284,7 @@ struct monst *mon;
     }
     return 1;
 }
+
 
 int
 tech_surgery(tech_no)
@@ -3533,6 +3676,7 @@ int tech_no;
     m_useup(mtmp, otmp);
     return 1;
 }
+
 int
 tech_bloodmagic(tech_no)
 int tech_no;

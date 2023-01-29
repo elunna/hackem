@@ -2719,6 +2719,7 @@ E boolean FDECL(tech_known, (SHORT_P));
 E void FDECL(learntech, (SHORT_P,long,int));
 E int NDECL(toggleshell);
 E int FDECL(do_pickpocket, (struct monst *));
+E int FDECL(do_breakrock, (int, int));
 
 /* ### teleport.c ### */
 
