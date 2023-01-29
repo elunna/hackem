@@ -1538,6 +1538,7 @@ doblitz()
     char *bp;
     int blitz_chain[MAX_CHAIN], blitz_num;
     tech_no = (get_tech_no(T_BLITZ));
+    int max_moves = (MIN_CHAIN + (techlev(tech_no) / 10));
     techt_inuse(T_BLITZ) = 1;
     if (tech_no == -1) {
         return 0;
@@ -1609,11 +1610,11 @@ doblitz()
     while (strncmp(bp, ".", 1)) {
         bdone = 0;
         for (j = 0; blitzes[j].blitz_len; j++) {
+             int cmd_len = blitzes[j].blitz_len;
              if (blitz_num >= MAX_CHAIN
-                 || blitz_num >= (MIN_CHAIN + (techlev(tech_no) / 10)))
+                 || blitz_num >= max_moves)
                 break; /* Trying to chain too many blitz commands */
-             else if (!strncmp(bp, blitzes[j].blitz_cmd,
-                               blitzes[j].blitz_len)) {
+             else if (!strncmp(bp, blitzes[j].blitz_cmd, cmd_len)) {
                 /* Trying to chain in a command you don't know yet */
                 if (!tech_known(blitzes[j].blitz_tech))
                     break;
@@ -1621,10 +1622,11 @@ doblitz()
                     /* Check if trying to chain two of the exact same 
                      * commands in a row
                      */
-                    if (j == blitz_chain[(blitz_num - 1)])
+                    int prev_blitz = blitz_chain[(blitz_num - 1)];
+                    if (j == prev_blitz)
                         break;
                     /* Trying to chain after chain finishing command */
-                    if (blitzes[blitz_chain[(blitz_num - 1)]].blitz_type == BLITZ_END)
+                    if (blitzes[prev_blitz].blitz_type == BLITZ_END)
                         break;
                     /* Trying to put a chain starter after starting
                      * a chain
@@ -1632,11 +1634,10 @@ doblitz()
                      * row
                      */
                     if ((blitzes[j].blitz_type == BLITZ_START)
-                        && (blitzes[blitz_chain[(blitz_num - 1)]].blitz_type
-                            != BLITZ_START))
+                        && (blitzes[prev_blitz].blitz_type != BLITZ_START))
                         break;
                 }
-                bp += blitzes[j].blitz_len;
+                bp += cmd_len;
                 blitz_chain[blitz_num] = j;
                 blitz_num++;
                 bdone = 1;
