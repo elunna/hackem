@@ -63,6 +63,8 @@ piratesay(const char *orig)
     orig = replace(orig, "You arm your gas bomb.", "Fire in the hole!");
     orig = replace(orig, "move the boulder", "heave ho");
     orig = replace(orig, "no longer feel sluggish", "got your sea legs back");
+    orig = replace(orig, "suddenly seems weaker", "looks seasick");
+    orig = replace(orig, "don't know", "dunno");
     orig = replace(orig, " it is", " 'tis");
     orig = replace(orig, "It is ", "'Tis ");
     orig = replace(orig, "Is not", "Ain't");
@@ -84,8 +86,8 @@ piratesay(const char *orig)
     orig = replace(orig, " is ", " be ");
     orig = replace(orig, " is.", " be.");
     orig = replace(orig, "Of", "O'");
-    orig = replace(orig, " of ", " o' ");
-    orig = replace(orig, " to ", " t' ");
+    orig = !rn2(2) ? replace(orig, " of ", " o' ") : orig;
+    /*orig = replace(orig, " to ", " t' ");*/
     orig = replace(orig, " for", " fer");
     orig = replace(orig, "What ", "Wha' ");
     orig = replace(orig, "what ", "wha' ");
@@ -110,7 +112,7 @@ piratesay(const char *orig)
     orig = replace(orig, "Ouch!", "Arrr!");
     orig = replace(orig, "Wow!", "Avast!");
     orig = replace(orig, "Dumb", "Squiffy");
-    orig = replace(orig, "ing", "in'");
+    orig = replace(orig, "ing", !rn2(2) ? "in" : "ing");
     orig = replace(orig, "state", "way");
     orig = replace(orig, "boy ", "whelp");
     orig = replace(orig, " just", " jus'");
@@ -125,15 +127,29 @@ piratesay(const char *orig)
     orig = replace(orig, "recorded", "logged");
     orig = replace(orig, "record", "log");
     orig = replace(orig, "careful", "handsome");
+    orig = replace(orig, "terrible", "ghastly");
     orig = replace(orig, "quick", "smart");
-    orig = replace(orig, "killed ", "scuttled ");
-    orig = replace(orig, "kill ", "scuttle ");
+    orig = replace(orig, "talk", "natter");
+    orig = replace(orig, "noises", "racket");
+    orig = replace(orig, " lord", " cap'n");
+    orig = replace(orig, " killed", 
+                   rn2(2) ? " scuttled" : rn2(2) 
+                                          ? " killed" : rn2(2) 
+                                                ? " sunk" : " cut down");
+    orig = replace(orig, "kill ", 
+                   rn2(2) ? "scuttle " : rn2(2) 
+                                         ? "kill " : rn2(2) 
+                                               ? "sink " : "cut ");
+    orig = replace(orig, "dies ", 
+                   rn2(2) ? "walks the plank" : rnd(2) 
+                                                ? "dances the hempen jig" : rnd(2) 
+                                                      ? "sees the black spot" : "dies");
     orig = replace(orig, "probably", "prolly");
     orig = replace(orig, "own ", "owns ");
-    orig = replace(orig, "music ", "chanties");
-    orig = replace(orig, "toilet ", "head");
-    orig = replace(orig, "knapsack ", "duffle");
-    orig = replace(orig, "dirty rag ", "black jack");
+    orig = replace(orig, "music ", "chanties ");
+    orig = replace(orig, "toilet", "head");
+    orig = replace(orig, "knapsack", "duffle");
+    orig = replace(orig, "dirty rag", "black jack");
     orig = replace(orig, "succubus", "strumpet");
     orig = replace(orig, "incubus", "rapscallion");
     orig = replace(orig, "scoundrel", "picaroon");
