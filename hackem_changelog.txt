@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Slightly discourage pets with ranged attacks (ie: hell hound pups) from attacking strong peacefuls.
 Fix: Spirit bomb at level 17-18 could result in d(5, 0). Fixes #192.
 Fix: Silence warning for uninitialized tryct in polyself.
 Fix: Untrapping rust traps wasn't yielding a fountain and had incorrect message.

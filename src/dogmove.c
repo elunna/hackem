@@ -1164,8 +1164,8 @@ struct monst *mtmp, *mtarg;
             score -= 3000L;
             return score;
         }
-        /* Is the monster peaceful or tame? */
-        if (/*mtarg->mpeaceful ||*/ mtarg->mtame || mtarg == &youmonst) {
+        /* Is the monster tame? */
+        if (mtarg->mtame || mtarg == &youmonst) {
             /* Pets will never be targeted */
             score -= 3000L;
             return score;
@@ -1174,6 +1174,12 @@ struct monst *mtmp, *mtarg;
         if (find_friends(mtmp, mtarg, 15)) {
             score -= 3000L;
             return score;
+        }
+        /* Is the monster peaceful?
+         * Usually discourage from attacking peacefuls, mostly to avoid 
+         * retaliation from watchmen, watch captains, or shopkeepers. */
+        if (mtarg->mpeaceful) {
+            score -= 200L;
         }
         /* Target hostile monsters in preference to peaceful ones */
         if (!mtarg->mpeaceful)
