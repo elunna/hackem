@@ -1784,9 +1784,6 @@ doblitz()
     *(bp) = '\0';
     bp = buf;
 
-    /* Point of no return - You've entered and terminated a blitz, so... */
-    u.uen -= 10;
-
     /* parse input */
     /* You can't put two of the same blitz in a row */
     blitz_num = 0;
@@ -1838,10 +1835,14 @@ doblitz()
              }
         }
         if (!bdone) {
-             You("stumble!");
-             return 1;
+             /*You("stumble!");*/
+             pline("Try again.");
+             return 0;
         }
     }
+    /* Energy is used only if valid sequence is processed. */
+    u.uen -= 10;
+    
     for (i = 0; i < blitz_num; i++) {
         u.dx = dx;
         u.dy = dy;
