@@ -2138,7 +2138,7 @@ blitz_spirit_bomb()
     }
 
     /* hackem: Boosted damage potential */
-    num = 10 + d(5, (techlev(tech_no) / 2));
+    num = 10 + d(5, ((techlev(tech_no) / 2) + 1));
     num = (u.uen < num ? u.uen : num);
 
     u.uen -= num;
