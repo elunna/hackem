@@ -890,6 +890,7 @@ static const struct def_skill Skill_U[] = {
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
     { P_MARTIAL_ARTS, P_MASTER }, /* Buffy the Vampire Slayer */
+    { P_TWO_WEAPON_COMBAT, P_BASIC },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_V[] = {
