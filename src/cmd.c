@@ -3772,6 +3772,7 @@ int final;
             enl_msg(You_, "have been killed ", p, buf, "");
     }
     if (Race_if(PM_DOPPELGANGER)) { 
+        buf[0] = '\0';
         enlght_out("");
         enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
         Strcat(buf, " ");
