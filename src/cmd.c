@@ -3711,7 +3711,7 @@ int final;
             you_can(buf, "");
         }
     }
-
+    
 #ifdef DEBUG
     /* named fruit debugging (doesn't really belong here...); to enable,
        include 'fruit' in DEBUGFILES list (even though it isn't a file...) */
@@ -3771,6 +3771,25 @@ int final;
         if (p)
             enl_msg(You_, "have been killed ", p, buf, "");
     }
+    if (Race_if(PM_DOPPELGANGER)) { 
+        enlght_out("");
+        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
+        Strcat(buf, " ");
+        /*you_have(buf, "Eaten memory of these monsters:");*/
+        for (int i = LOW_PM; i < NUMMONS; i++) {
+            if (mvitals[i].eaten) {
+                /*Sprintf(buf, "%s, ", mons[i].mname);*/
+                strcat(buf, mons[i].mname);
+                Strcat(buf, ", ");
+            }
+        }
+        if (strlen(buf) > 3) {
+            buf[strlen(buf) - 2] = '\0';
+            enlght_out(buf);
+        } else {
+            enlght_out("None");
+        }
+    } 
 }
 
 /* ^X command */
