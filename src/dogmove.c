@@ -179,7 +179,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == RIN_POISON_RESISTANCE
              || otmp->otyp == RIN_SHOCK_RESISTANCE
              || otmp->otyp == RIN_REGENERATION
-             || otmp->otyp == RIN_TELEPORTATION
+             /*|| otmp->otyp == RIN_TELEPORTATION*/
              || otmp->otyp == RIN_TELEPORT_CONTROL
              || otmp->otyp == RIN_SLOW_DIGESTION
              || otmp->otyp == RIN_INCREASE_DAMAGE
