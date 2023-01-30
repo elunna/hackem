@@ -704,6 +704,15 @@ boolean via_disintegration;
     done(DIED);
 }
 
+
+STATIC_OVL void
+update_prayer_stats(int pray_result)
+{
+    u.lastprayed = moves;
+    u.lastprayresult = pray_result;
+    u.reconciled = REC_NONE;
+}
+
 STATIC_OVL void
 angrygods(resp_god)
 aligntyp resp_god;
@@ -715,9 +724,7 @@ aligntyp resp_god;
     u.ublessed = 0;
 
     if (u.ualign.type == resp_god) {
-        u.lastprayed = moves;
-        u.lastprayresult = PRAY_ANGER;
-        u.reconciled = REC_NONE;
+        update_prayer_stats(PRAY_ANGER);
     }
 
     /* changed from tmp = u.ugangr + abs (u.uluck) -- rph */
@@ -2115,9 +2122,7 @@ dosacrifice()
                 u.ugangr += 3;
             }
             value = -3;
-            u.lastprayed = moves;
-            u.lastprayresult = PRAY_ANGER;
-            u.reconciled = REC_NONE;
+            update_prayer_stats(PRAY_ANGER);
         }
     } /* fake Amulet */
 
@@ -2164,15 +2169,11 @@ dosacrifice()
                     change_luck(-3);
                     u.ublesscnt += 300;
 
-                    u.lastprayed = moves;
-                    u.lastprayresult = PRAY_CONV;
-                    u.reconciled = REC_NONE;
+                    update_prayer_stats(PRAY_CONV);
                 } else {
                     u.ugangr += 3;
                     adjalign(-5);
-                    u.lastprayed = moves;
-                    u.lastprayresult = PRAY_ANGER;
-                    u.reconciled = REC_NONE;
+                    update_prayer_stats(PRAY_ANGER);
                     pline("%s rejects your sacrifice!", a_gname());
                     godvoice(altaralign, "Suffer, infidel!");
                     change_luck(-5);
@@ -2324,9 +2325,7 @@ dosacrifice()
 
                     u.ugifts++;
                     u.ublesscnt = rnz(300 + (50 * u.ugifts));
-                    u.lastprayed = moves;
-                    u.lastprayresult = PRAY_GIFT;
-                    u.reconciled = REC_NONE;
+                    update_prayer_stats(PRAY_GIFT);
                     exercise(A_WIS, TRUE);
 
                     /* make sure we can use this weapon */
@@ -2493,9 +2492,7 @@ dopray()
     if (!can_pray(TRUE))
         return 0;
 
-    u.lastprayed = moves;
-    u.lastprayresult = PRAY_INPROG;
-    u.reconciled = REC_NONE;
+    update_prayer_stats(PRAY_INPROG);
 
     if (wizard && p_type >= 0) {
         if (yn("Force the gods to be pleased?") == 'y') {

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Simple refactoring for prayer stats (from Un)
 Show prayer stats in Attributes menu (from UnNetHack, originally from dNetHack)
 Quest luck boon for completing quest with minimal alignment abuse (credit to mobileuser)
 Fixed the Fedora's luck to match Un's implementation. Before it was granting 3 luck and acting as a luckstone, now it just grants base 1 luck.
