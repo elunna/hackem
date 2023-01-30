@@ -2177,6 +2177,82 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
         /* intrinsics and other traditional enlightenment feedback */
         attributes_enlightenment(mode, final);
     }
+    
+    /* Stuff related to #pray */
+    
+    enlght_out("");
+    enlght_out_attr(ATR_SUBHEAD, final ? "Final Attributes:" : "Spiritual Attributes:");
+    
+    if (u.ugangr) {
+        Sprintf(buf, " %sangry with you",
+                u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");
+        if (wizard)
+            Sprintf(eos(buf), " (%d)", u.ugangr);
+        enl_msg(u_gname(), " is", " was", buf, "");
+    } else {
+        /*
+         * We need to suppress this when the game is over, because death
+         * can change the value calculated by can_pray(), potentially
+         * resulting in a false claim that you could have prayed safely.
+         */
+        if (!final) {
+#if 0
+            /* "can [not] safely pray" vs "could [not] have safely prayed" */
+            Sprintf(buf, "%s%ssafely pray%s", can_pray(FALSE) ? "" : "not ",
+                    final ? "have " : "", final ? "ed" : "");
+#else
+            Sprintf(buf, "%ssafely pray", can_pray(FALSE) ? "" : "not ");
+#endif
+            if (wizard)
+                Sprintf(eos(buf), " (%d)", u.ublesscnt);
+            you_can(buf, "");
+        }
+    }
+    if (u.lastprayed) {
+        Sprintf(buf, "You last %s %ld turns ago",
+                u.lastprayresult == PRAY_GIFT ? "received a gift" :
+                u.lastprayresult == PRAY_ANGER ? "angered your god" :
+                u.lastprayresult == PRAY_CONV ? "converted to a new god" :
+                                              "prayed",
+                moves - u.lastprayed);
+        enl_msg(buf, "", "", "", "");
+        if (u.lastprayresult == PRAY_GOOD) {
+            enl_msg("That prayer was well received", "", "", "", "");
+        } else if (u.lastprayresult == PRAY_BAD) {
+            enl_msg("That prayer was poorly received", "", "", "", "");
+        } else if (u.lastprayresult == PRAY_INPROG) {
+            enl_msg("That prayer ", "is ", "was ", "in progress", "");
+        }
+        if (u.reconciled){
+            if (u.reconciled == REC_REC) {
+                Sprintf(buf, " since reconciled with your god");
+                enl_msg("You ", "have", "had", buf, "");
+            } else if (u.reconciled == REC_MOL) {
+                Sprintf(buf, " since mollified your god");
+                enl_msg("You ", "have", "had", buf, "");
+            }
+        }
+    }
+    /* In case the player missed the "urge to perform a sacrifice",
+     * put a reminder here. */
+    if (u.ualign.type == A_NONE) {
+        long due = moves - context.next_moloch_offering;
+        if (due < 0) {
+            if (wizard) {
+                Sprintf(buf, "%ld turns until your next "
+                             "mandatory sacrifice to ", -due);
+                you_have(buf, u_gname());
+            }
+        } else {
+            if (wizard && due > 0)
+                Sprintf(buf, "%ld turns late for your "
+                             "next sacrifice to ", due);
+            else
+                Strcpy(buf, "due for a sacrifice to ");
+            you_are(buf, u_gname());
+        }
+    }
+    
     /* reminder to player and/or information for dumplog */
     if ((mode & BASICENLIGHTENMENT) != 0 && (wizard || discover)) {
         enlght_out(""); /* separator */
@@ -2928,25 +3004,6 @@ int final;
             enl_msg("You ", "fall", "fell", " asleep uncontrollably", buf);
         }
     }
-    /* In case the player missed the "urge to perform a sacrifice",
-     * put a reminder here. */
-    if (u.ualign.type == A_NONE) {
-        long due = moves - context.next_moloch_offering;
-        if (due < 0) {
-            if (wizard) {
-                Sprintf(buf, "%ld turns until your next "
-                        "mandatory sacrifice to ", -due);
-                you_have(buf, u_gname());
-            }
-        } else {
-            if (wizard && due > 0)
-                Sprintf(buf, "%ld turns late for your "
-                        "next sacrifice to ", due);
-            else
-                Strcpy(buf, "due for a sacrifice to ");
-            you_are(buf, u_gname());
-        }
-    }
     /* hunger/nutrition */
     if (Hunger) {
         if (magic || cause_known(HUNGER))
@@ -3189,14 +3246,7 @@ int final;
         else
             you_are("not wearing any armor", "");
     }
-    if (!final) {
-        if (u.ulastprayed < 0)
-            you_have_never("prayed");
-        else {
-            Sprintf(buf, " on turn %ld (%ld turns ago)", u.ulastprayed, (moves - u.ulastprayed));
-            enlght_line(You_, "prayed", buf, "");
-        }
-    }
+    
 }
 
 /* attributes: intrinsics and the like, other non-obvious capabilities */
@@ -3227,7 +3277,7 @@ int final;
         else 
             you_are(hofe_titles[u.uevent.uhand_of_elbereth - 1], "");
     }
-
+    
     Sprintf(buf, "%s", piousness(TRUE, "aligned"));
     if (u.ualign.record >= 0)
         you_are(buf, "");
@@ -3688,32 +3738,6 @@ int final;
         you_have(buf, "");
     } 
     
-    if (u.ugangr) {
-        Sprintf(buf, " %sangry with you",
-                u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");
-        if (wizard)
-            Sprintf(eos(buf), " (%d)", u.ugangr);
-        enl_msg(u_gname(), " is", " was", buf, "");
-    } else {
-        /*
-         * We need to suppress this when the game is over, because death
-         * can change the value calculated by can_pray(), potentially
-         * resulting in a false claim that you could have prayed safely.
-         */
-        if (!final) {
-#if 0
-            /* "can [not] safely pray" vs "could [not] have safely prayed" */
-            Sprintf(buf, "%s%ssafely pray%s", can_pray(FALSE) ? "" : "not ",
-                    final ? "have " : "", final ? "ed" : "");
-#else
-            Sprintf(buf, "%ssafely pray", can_pray(FALSE) ? "" : "not ");
-#endif
-            if (wizard)
-                Sprintf(eos(buf), " (%d)", u.ublesscnt);
-            you_can(buf, "");
-        }
-    }
-
 #ifdef DEBUG
     /* named fruit debugging (doesn't really belong here...); to enable,
        include 'fruit' in DEBUGFILES list (even though it isn't a file...) */

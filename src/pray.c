@@ -714,6 +714,12 @@ aligntyp resp_god;
         resp_god = A_NONE;
     u.ublessed = 0;
 
+    if (u.ualign.type == resp_god) {
+        u.lastprayed = moves;
+        u.lastprayresult = PRAY_ANGER;
+        u.reconciled = REC_NONE;
+    }
+
     /* changed from tmp = u.ugangr + abs (u.uluck) -- rph */
     /* added test for alignment diff -dlc */
     if (resp_god != u.ualign.type)
@@ -2109,6 +2115,9 @@ dosacrifice()
                 u.ugangr += 3;
             }
             value = -3;
+            u.lastprayed = moves;
+            u.lastprayresult = PRAY_ANGER;
+            u.reconciled = REC_NONE;
         }
     } /* fake Amulet */
 
@@ -2154,9 +2163,16 @@ dosacrifice()
                     /* Beware, Conversion is costly */
                     change_luck(-3);
                     u.ublesscnt += 300;
+
+                    u.lastprayed = moves;
+                    u.lastprayresult = PRAY_CONV;
+                    u.reconciled = REC_NONE;
                 } else {
                     u.ugangr += 3;
                     adjalign(-5);
+                    u.lastprayed = moves;
+                    u.lastprayresult = PRAY_ANGER;
+                    u.reconciled = REC_NONE;
                     pline("%s rejects your sacrifice!", a_gname());
                     godvoice(altaralign, "Suffer, infidel!");
                     change_luck(-5);
@@ -2242,6 +2258,7 @@ dosacrifice()
 
                     if ((int) u.uluck < 0)
                         u.uluck = 0;
+                    u.reconciled = REC_MOL;
                 }
             } else { /* not satisfied yet */
                 if (Hallucination)
@@ -2276,6 +2293,7 @@ dosacrifice()
                         You("have a feeling of reconciliation.");
                     if ((int) u.uluck < 0)
                         u.uluck = 0;
+                    u.reconciled = REC_REC;
                 }
             }
         } else {
@@ -2306,6 +2324,9 @@ dosacrifice()
 
                     u.ugifts++;
                     u.ublesscnt = rnz(300 + (50 * u.ugifts));
+                    u.lastprayed = moves;
+                    u.lastprayresult = PRAY_GIFT;
+                    u.reconciled = REC_NONE;
                     exercise(A_WIS, TRUE);
 
                     /* make sure we can use this weapon */
@@ -2367,6 +2388,7 @@ dosacrifice()
                         : "glimpse a four-leaf clover at your %s.",
                         makeplural(body_part(FOOT)));
             }
+            u.reconciled = REC_REC;
         }
     }
     return 1;
@@ -2471,7 +2493,9 @@ dopray()
     if (!can_pray(TRUE))
         return 0;
 
-    u.ulastprayed = moves;
+    u.lastprayed = moves;
+    u.lastprayresult = PRAY_INPROG;
+    u.reconciled = REC_NONE;
 
     if (wizard && p_type >= 0) {
         if (yn("Force the gods to be pleased?") == 'y') {
@@ -2510,6 +2534,7 @@ prayer_done() /* M. Stephenson (1.0.3b) */
     aligntyp alignment = p_aligntyp;
 
     u.uinvulnerable = FALSE;
+    u.lastprayresult = PRAY_GOOD;
     if (p_type == -1) {
         const char* residual = "residual undead turning effect";
         godvoice(alignment,
@@ -2526,13 +2551,17 @@ prayer_done() /* M. Stephenson (1.0.3b) */
             Strcpy(killer.name, residual);
             killer.format = KILLED_BY_AN;
         }
-        
-        if (!Race_if(PM_VAMPIRIC))
-            rehumanize();
-        
         /* no Half_physical_damage adjustment here */
-        if (!HUnchanging) {
+        if (!Race_if(PM_VAMPIRIC)) {
+            u.lastprayresult = PRAY_GOOD;
+            rehumanize();
             losehp(rnd(20), "residual undead turning effect", KILLED_BY_AN);
+        } else {
+            u.lastprayresult = PRAY_BAD;
+            /* Starting vampires are inherently vampiric */
+            losehp(rnd(20), "residual undead turning effect", KILLED_BY_AN);
+            pline("You get the idea that %s will be of little help to you.",
+                  align_gname(alignment));
             exercise(A_CON, FALSE);
         }
         return 1;
