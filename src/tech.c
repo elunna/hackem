@@ -2226,9 +2226,9 @@ int
 toggleshell()
 {
     int tech_no = (get_tech_no(T_SHELL));
-    boolean was_blind = Blind, was_hiding = Hidinshell ;
+    boolean was_blind = Blind, was_hiding = Hidinshell;
     
-    if (!was_hiding && u.uinshell) {
+    if (!was_hiding && (u.uinshell || techtout(tech_no))) {
          You_cant("retreat into your shell again so soon.");
          return 0;
     } else if (!was_hiding && Punished) {

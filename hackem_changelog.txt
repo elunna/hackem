@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Tortle's shell tech timeout wasn't working properly with #monster.
 Double damage is handled properly for techs.
 Fort Ludios can appear below Medusa's.
 Pets will not use rings of teleportation.
