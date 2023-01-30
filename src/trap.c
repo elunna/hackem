@@ -5142,9 +5142,9 @@ boolean disarming, tele;
     if (fails < 2) 
         return fails;
     if (disarming)
-        You("disarm the water trap!");
+        You("disarm the rust trap!");
     deltrap(ttmp);
-    if (tele) {
+    if (!tele) {
         levl[trapx][trapy].typ = FOUNTAIN;
         newsym(trapx, trapy);
         level.flags.nfountains++;
