@@ -15,6 +15,13 @@
 
 Version 1.1 (unreleased)
 
+Every other race is hostile to doppelgangers (except were-foo).
+Eating tinned corpses also added to eaten memory for doppelgangers.
+Fix typo in doppelganger eaten list.
+Doppelgangers can lose memory of eaten monsters if hit with amnesia effects.
+Added a list of all monsters doppelgangers have eaten to the stats menu (^X).
+Added the MH_SHIFTER flag for the doppelganger race.
+Initial import of doppledanger race from SLASH'EM.
 Ported Houchou (from SLASH'EM)
 Fix: Tortle's shell tech timeout wasn't working properly with #monster.
 Double damage is handled properly for techs.

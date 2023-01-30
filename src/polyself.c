@@ -322,38 +322,44 @@ newman()
 {
     int i, oldlvl, newlvl, hpmax, enmax;
 
-    oldlvl = u.ulevel;
-    newlvl = oldlvl + rn1(5, -2);     /* new = old + {-2,-1,0,+1,+2} */
-    if (newlvl > 127 || newlvl < 1) { /* level went below 0? */
-        goto dead; /* old level is still intact (in case of lifesaving) */
-    }
-    if (newlvl > MAXULEV)
-        newlvl = MAXULEV;
-    /* If your level goes down, your peak level goes down by
-       the same amount so that you can't simply use blessed
-       full healing to undo the decrease.  But if your level
-       goes up, your peak level does *not* undergo the same
-       adjustment; you might end up losing out on the chance
-       to regain some levels previously lost to other causes. */
-    if (newlvl < oldlvl)
-        u.ulevelmax -= (oldlvl - newlvl);
-    if (u.ulevelmax < newlvl)
-        u.ulevelmax = newlvl;
-    u.ulevel = newlvl;
+    if (Race_if(PM_DOPPELGANGER)) {
+        if (!rn2(10))
+            change_sex();
+        /* set up new attribute points (particularly Con) */
+        redist_attr();
+    } else {
+        oldlvl = u.ulevel;
+        newlvl = oldlvl + rn1(5, -2);     /* new = old + {-2,-1,0,+1,+2} */
+        if (newlvl > 127 || newlvl < 1) { /* level went below 0? */
+            goto dead; /* old level is still intact (in case of lifesaving) */
+        }
+        if (newlvl > MAXULEV)
+            newlvl = MAXULEV;
+        /* If your level goes down, your peak level goes down by
+           the same amount so that you can't simply use blessed
+           full healing to undo the decrease.  But if your level
+           goes up, your peak level does *not* undergo the same
+           adjustment; you might end up losing out on the chance
+           to regain some levels previously lost to other causes. */
+        if (newlvl < oldlvl)
+            u.ulevelmax -= (oldlvl - newlvl);
+        if (u.ulevelmax < newlvl)
+            u.ulevelmax = newlvl;
+        u.ulevel = newlvl;
 
-    if (sex_change_ok && !rn2(10))
-        change_sex();
+        if (sex_change_ok && !rn2(10))
+            change_sex();
 
-    adjabil(oldlvl, (int) u.ulevel);
-    reset_rndmonst(NON_PM); /* new monster generation criteria */
+        adjabil(oldlvl, (int) u.ulevel);
+        reset_rndmonst(NON_PM); /* new monster generation criteria */
 
-    /* random experience points for the new experience level */
-    u.uexp = rndexp(FALSE);
+        /* random experience points for the new experience level */
+        u.uexp = rndexp(FALSE);
 
-    /* set up new attribute points (particularly Con) */
-    redist_attr();
+        /* set up new attribute points (particularly Con) */
+        redist_attr();
 
-    /*
+        /*
      * New hit points:
      *  remove level-gain based HP from any extra HP accumulated
      *  (the "extra" might actually be negative);
@@ -366,40 +372,54 @@ newman()
      * [lifesaving capability needed to handle level 0 and -1 cases]
      * and the extra got multiplied by 2 or 3.  Repeat the level
      * drain and polyself steps until out of lifesaving capability.)
-     */
-    hpmax = u.uhpmax;
-    for (i = 0; i < oldlvl; i++)
-        hpmax -= (int) u.uhpinc[i];
-    /* hpmax * rn1(4,8) / 10; 0.95*hpmax on average */
-    hpmax = rounddiv((long) hpmax * (long) rn1(4, 8), 10);
-    for (i = 0; (u.ulevel = i) < newlvl; i++)
-        hpmax += newhp();
-    if (hpmax < u.ulevel)
-        hpmax = u.ulevel; /* min of 1 HP per level */
-    /* retain same proportion for current HP; u.uhp * hpmax / u.uhpmax */
-    u.uhp = rounddiv((long) u.uhp * (long) hpmax, u.uhpmax);
-    u.uhpmax = hpmax;
-    /*
-     * Do the same for spell power.
-     */
-    enmax = u.uenmax;
-    for (i = 0; i < oldlvl; i++)
-        enmax -= (int) u.ueninc[i];
-    enmax = rounddiv((long) enmax * (long) rn1(4, 8), 10);
-    for (i = 0; (u.ulevel = i) < newlvl; i++)
-        enmax += newpw();
-    if (enmax < u.ulevel)
-        enmax = u.ulevel;
-    u.uen = rounddiv((long) u.uen * (long) enmax,
-                     ((u.uenmax < 1) ? 1 : u.uenmax));
-    u.uenmax = enmax;
-    /* [should alignment record be tweaked too?] */
+         */
+        hpmax = u.uhpmax;
+        for (i = 0; i < oldlvl; i++)
+            hpmax -= (int) u.uhpinc[i];
+        /* hpmax * rn1(4,8) / 10; 0.95*hpmax on average */
+        hpmax = rounddiv((long) hpmax * (long) rn1(4, 8), 10);
+        for (i = 0; (u.ulevel = i) < newlvl; i++)
+            hpmax += newhp();
+        if (hpmax < u.ulevel)
+            hpmax = u.ulevel; /* min of 1 HP per level */
+        /* retain same proportion for current HP; u.uhp * hpmax / u.uhpmax */
+        u.uhp = rounddiv((long) u.uhp * (long) hpmax, u.uhpmax);
+        u.uhpmax = hpmax;
 
+        /*
+     * Do the same for spell power.
+         */
+        enmax = u.uenmax;
+        for (i = 0; i < oldlvl; i++)
+            enmax -= (int) u.ueninc[i];
+        enmax = rounddiv((long) enmax * (long) rn1(4, 8), 10);
+        for (i = 0; (u.ulevel = i) < newlvl; i++)
+            enmax += newpw();
+        if (enmax < u.ulevel)
+            enmax = u.ulevel;
+        u.uen = rounddiv((long) u.uen * (long) enmax,
+                         ((u.uenmax < 1) ? 1 : u.uenmax));
+        u.uenmax = enmax;
+        /* [should alignment record be tweaked too?] */
+    }
     u.uhunger = rn1(500, 500);
     if (Sick)
         make_sick(0L, (char *) 0, FALSE, SICK_ALL);
     if (Stoned)
         make_stoned(0L, (char *) 0, 0, (char *) 0);
+    
+    /* Special handling for dopps */
+    if (Race_if(PM_DOPPELGANGER)) {
+        if (u.uhp <= 10)
+            u.uhp = 10;
+        if (u.uhpmax <= 10)
+            u.uhpmax = 10;
+        if (u.uen <= u.ulevel)
+            u.uen = u.ulevel;
+        if (u.uenmax <= u.ulevel)
+            u.uenmax = u.ulevel;
+    }
+
     if (u.uhp <= 0) {
         if (Polymorph_control) { /* even when Stunned || Unaware */
             if (u.uhp <= 0)
@@ -437,6 +457,8 @@ newman()
         selftouch(no_longer_petrify_resistant);
 }
 
+#define TRYLIMIT 5
+
 void
 polyself(psflags)
 int psflags;
@@ -464,7 +486,7 @@ int psflags;
     }
     /* being Stunned|Unaware doesn't negate this aspect of Poly_control */
     if (!Polymorph_control && !forcecontrol && !draconian && !iswere
-        && !isvamp) {
+        && !isvamp && !Race_if(PM_DOPPELGANGER)) {
         if (rn2(20) > ACURR(A_CON)) {
             You1(shudder_for_moment);
             losehp(rnd(30), "system shock", KILLED_BY_AN);
@@ -557,6 +579,44 @@ int psflags;
         if (isvamp && (tryct <= 0 || mntmp == PM_WOLF || mntmp == PM_FOG_CLOUD
                        || is_bat(&mons[mntmp])))
             goto do_vampyr;
+    } else if (Race_if(PM_DOPPELGANGER)) {
+        /* Not an experienced Doppelganger yet */
+        do {
+            /* Slightly different wording */
+            getlin("Attempt to become what kind of monster? [type the name]",
+                   buf);
+            mntmp = name_to_mon(buf);
+            if (mntmp < LOW_PM) 
+                pline("I've never heard of such monsters.");
+            /* Note:  humans are illegal as monsters, but an
+             * illegal monster forces newman(), which is what we
+             * want if they specified a human.... */
+            else if (!polyok(&mons[mntmp]) && !your_race(&mons[mntmp]))
+                You("cannot polymorph into that.");
+            else if (!mvitals[mntmp].eaten) {
+                You("attempt an unfamiliar polymorph.");
+                if ((rn2(5) + u.ulevel) < mons[mntmp].mlevel)
+                    mntmp = LOW_PM - 1; /* Didn't work for sure */
+                /* Either way, give it a shot */
+                break;
+            } else
+                break;
+        } while (++tryct < TRYLIMIT);
+        
+        if (tryct == TRYLIMIT)
+            pline1(thats_enough_tries);
+        
+        /* Copied from below draconian||iswere||isvamp block */
+        /* if polymon fails, "you feel" message has been given
+         * so don't follow up with another polymon or newman;
+         * sex_change_ok left disabled here */
+        if (mntmp == PM_HUMAN)
+            newman(); /* werecritter */
+        else if (mntmp < LOW_PM)
+            return;
+        else
+            (void) polymon(mntmp);
+        goto made_change; /* maybe not, but this is right anyway */
     } else if (draconian || iswere || isvamp) {
         /* special changes that don't require polyok() */
         if (draconian) {
@@ -648,11 +708,15 @@ int psflags;
      * we deliberately chose something illegal to force newman().
      */
     sex_change_ok++;
-    if (!polyok(&mons[mntmp]) || (!forcecontrol && !rn2(5))
+    /* WAC Doppelgangers go through a 1/20 check rather than 1/5 */
+    if (!polyok(&mons[mntmp])
+        || (Race_if(PM_DOPPELGANGER) ? (((u.ulevel < mons[mntmp].mlevel) 
+                                         || !mvitals[mntmp].eaten) && !rn2(20)) 
+                                     : !rn2(5)) 
         || yourrace) {
         newman();
-    } else {
-        (void) polymon(mntmp);
+    } else if (!polymon(mntmp)) {
+        return;
     }
     sex_change_ok--; /* reset */
 
@@ -821,6 +885,11 @@ int mntmp;
 #else
         u.mtimedone = u.mtimedone * u.ulevel / mlvl;
 #endif
+    }
+    /* WAC Doppelgangers can stay much longer in a form they know well */
+    if (Race_if(PM_DOPPELGANGER) && mvitals[mntmp].eaten) {
+        u.mtimedone *= 2;
+        u.mtimedone += mvitals[mntmp].eaten;
     }
 
     if (uskin && mntmp != armor_to_dragon(&youmonst))
@@ -993,6 +1062,7 @@ STATIC_OVL void
 break_armor()
 {
     register struct obj *otmp;
+    boolean controlled_change = Race_if(PM_DOPPELGANGER);
 
     if (breakarm(&youmonst)) {
         if ((otmp = uarm) != 0) {
@@ -1016,7 +1086,11 @@ break_armor()
                        && otmp->otyp == LARGE_SPLINT_MAIL) {
                 Your("armor falls off!");
                 (void) Armor_gone();
-                dropp(otmp);
+                dropx(otmp);
+            } else if (controlled_change && !otmp->cursed) {
+                You("quickly remove your armor as you start to change.");
+                (void) Armor_gone();
+                dropp(otmp); /*WAC Drop instead of destroy*/
             } else {
                 You("break out of your armor!");
                 exercise(A_STR, FALSE);
@@ -1029,15 +1103,26 @@ break_armor()
                 Your("%s falls off!", cloak_simple_name(otmp));
                 (void) Cloak_off();
                 dropp(otmp);
+            } else if (controlled_change && !otmp->cursed) {
+                You("remove your %s before you transform.",
+                    cloak_simple_name(otmp));
+                (void) Cloak_off();
+                dropx(otmp);
             } else {
                 Your("%s tears apart!", cloak_simple_name(otmp));
                 (void) Cloak_off();
                 useup(otmp);
             }
         }
-        if (uarmu) {
-            Your("shirt rips to shreds!");
-            useup(uarmu);
+        if ((otmp = uarmu) != 0) {
+            if (controlled_change && !otmp->cursed && !uskin) {
+                You("take off your shirt just before it starts to rip.");
+                setworn((struct obj *) 0, otmp->owornmask & W_ARMU);
+                dropx(otmp);
+            } else {
+                Your("shirt rips to shreds!");
+                useup(uarmu);
+            }
         }
     } else if (sliparm(&youmonst)) {
         if (((otmp = uarm) != 0) && (racial_exception(&youmonst, otmp) < 1)) {
@@ -1257,9 +1342,10 @@ void
 rehumanize()
 {
     boolean was_flying = (Flying != 0);
+    boolean forced = (u.mh < 1);
 
     /* You can't revert back while unchanging */
-    if (Unchanging) {
+    if (Unchanging && forced) {
         if (u.mh < 1) {
             You("die...");
             killer.format = NO_KILLER_PREFIX;
@@ -1290,6 +1376,15 @@ rehumanize()
         killer.format = KILLED_BY;
         done(DIED);
     }
+    if (forced 
+        || (!Race_if(PM_DOPPELGANGER) && (rn2(20) > ACURR(A_CON)))) { 
+	/* Exhaustion for "forced" rehumaization & must pass con check for 
+        * non-doppelgangers 
+        * Don't penalize doppelgangers/polymorph running out */
+   	/* WAC Polymorph Exhaustion 1/2 HP to prevent abuse */
+	    u.uhp = (u.uhp / 2) + 1;
+	}
+
     nomul(0);
 
     context.botl = 1;
@@ -2288,5 +2383,192 @@ udeadinside()
                  ? "condemned" /* undead plus manes */
                  : "empty";    /* golems plus vortices */
 }
+
+#if 0
+static struct {
+    int mon;
+    int reqtime;
+    boolean merge;
+} draconic;
+
+
+STATIC_PTR
+int
+mage_transform()	/* called each move during transformation process */
+{
+    if (--draconic.reqtime)
+        return 1;
+    if (draconic.merge)
+        merge_with_armor();
+    polymon(draconic.mon);
+    return 0;
+}
+#endif
+
+int
+polyatwill()      /* Polymorph under conscious control (#youpoly) */
+{
+#define EN_DOPP 	20 /* This is the "base cost" for a polymorph
+* Actual cost is this base cost + 5 * monster level
+* of the final form you actually assume.
+* Energy will be taken first, then you will get 
+* more hungry if you do not have enough energy.
+*/
+#define EN_WERE 10
+#define EN_BABY_DRAGON 10
+#define EN_ADULT_DRAGON 15
+    
+#if 0
+    int otyp = uarm ? Dragon_armor_to_scales(uarm) : 0;
+
+    boolean scales = (uarm 
+         && (uarmc->otyp == RED_DRAGON_SCALES && Role_if(PM_FLAME_MAGE))
+         || (uarm && uarm->otyp == WHITE_DRAGON_SCALES && Role_if(PM_ICE_MAGE)));
+
+
+    boolean scale_mail = (
+        uarm 
+        && Is_dragon_scaled_armor(uarm)
+        && ((Role_if(PM_FLAME_MAGE) || otyp == RED_DRAGON_SCALES) 
+            || && (Role_if(PM_ICE_MAGE) || otyp == WHITE_DRAGON_SCALES)));
+#endif
+    
+    /* KMH, balance patch -- new intrinsic */
+    if (Unchanging) {
+        pline("You cannot change your form.");
+        return 0;
+    }
+
+    /* First, if in correct polymorphed form, rehumanize (for free) 
+	 * Omit Lycanthropes,  who need to spend energy to change back and forth
+     */
+#if 0
+    if (Upolyd
+        && (Race_if(PM_DOPPELGANGER) || (Role_if(PM_FLAME_MAGE)
+                && (u.umonnum == PM_RED_DRAGON
+                    || u.umonnum == PM_BABY_RED_DRAGON))
+            || (Role_if(PM_ICE_MAGE) && (u.umonnum == PM_WHITE_DRAGON
+                    || u.umonnum == PM_BABY_WHITE_DRAGON)))) {
+#endif
+    if (Upolyd && Race_if(PM_DOPPELGANGER)) {
+        rehumanize();
+        return 1;
+    }
+#if 0
+    if ((Role_if(PM_ICE_MAGE) || Role_if(PM_FLAME_MAGE)) 
+        && (u.ulevel > 6 || scale_mail)) {
+        /* [ALI]
+         * I've rewritten the logic here to fix the failure messages,
+         * but the requirements for polymorphing into the two dragon
+         * forms remains the same:
+         *
+         * Polymorph into adult dragon form if one of:
+         *
+         * - Wearing scale mail (no charge).
+         * - Wearing scales and experience level 7 and
+         *   energy level 11 or more (charge is 10).
+         * - Not wearing scales or scale mail and experience level 14 and
+         *   energy level 16 or more (charge is 15).
+         *
+         * Polymorph into baby dragon form if one of:
+         *
+         * - Wearing scales and experience level 7 and
+         *   energy level 10 or less (no charge).
+         * - Not wearing scales or scale mail and experience level 14 and
+         *   energy level 11-15 (charge is 10).
+         * - Not wearing scales or scale mail and experience level 7-13 and
+         *   energy level 11 or more (charge is 10).
+         *
+         * Fail if one of:
+         *
+         * - Not wearing scales or scale mail and experience level 7 and
+         *   energy level 10 or less (not enough energy).
+         * - Not wearing scale mail and experience level 6 or less
+         *   (not experienced enough).
+         *
+         * The transformation takes a few turns. If interrupted during this
+         * period then the ritual must be begun again from the beginning.
+         * We deliberately don't say what form the ritual takes since it
+         * is unaffected by blindness, confusion, stun etc.
+         */
+        if (yn("Transform into your draconic form?") == 'n')
+            return 0;
+        else if (!scales && !scale_mail && u.uen <= EN_BABY_DRAGON) {
+            You("don't have the energy to polymorph. You need at least %d!",
+                EN_BABY_DRAGON);
+            return 0;
+        } else {
+            /* Check if you can do the adult form */
+            if (u.ulevel > 13 && u.uen > EN_ADULT_DRAGON
+                || scales && u.uen > EN_BABY_DRAGON || scale_mail) {
+                /* If you have scales, energy cost is less */
+                /* If you have scale mail,  there is no cost! */
+                if (!scale_mail) {
+                    if (scales)
+                        u.uen -= EN_BABY_DRAGON;
+                    else
+                        u.uen -= EN_ADULT_DRAGON;
+                }
+
+                draconic.mon = Role_if(PM_FLAME_MAGE) ? PM_RED_DRAGON
+                               : PM_WHITE_DRAGON;
+                draconic.merge = scales || scale_mail;
+                /* Otherwise use the baby form */
+            } else {
+                if (!scales)
+                    u.uen -= EN_BABY_DRAGON;
+
+                draconic.mon = Role_if(PM_FLAME_MAGE) ? PM_BABY_RED_DRAGON
+                               : PM_BABY_WHITE_DRAGON;
+                draconic.merge = scales;
+            }
+            draconic.reqtime = 2;
+            if (mvitals[draconic.mon].mvflags & G_GENOD)
+                draconic.merge = FALSE;
+            set_occupation(mage_transform,
+                           "transforming into your draconic form", 0);
+            You("begin the transformation ritual.");
+            return 1;
+        }
+    }
+#endif
+    if (Race_if(PM_DOPPELGANGER)) {
+        if (yn("Polymorph at will?") == 'n')
+            return 0;
+        else if (u.uen < EN_DOPP) {
+            You("don't have the energy to polymorph! You need at least %d!",
+                EN_DOPP);
+            return 0;
+        } else {
+            u.uen -= EN_DOPP;
+            if (multi >= 0) {
+                if (occupation)
+                    stop_occupation();
+                else
+                    nomul(0);
+            }
+            polyself(1);
+            if (Upolyd) { /* You actually polymorphed */
+                u.uen -= 5 * mons[u.umonnum].mlevel;
+                if (u.uen < 0) {
+                    morehungry(-u.uen);
+                    u.uen = 0;
+                }
+            }
+            return 1;
+        }
+    } else {
+        pline("You can't polymorph at will%s.",
+              ((Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)
+                || Race_if(PM_DOPPELGANGER))
+                   ? " yet"
+                   : ""));
+        return 0;
+    }
+
+    context.botl = 1;
+    return 1;
+}
+
 
 /*polyself.c*/

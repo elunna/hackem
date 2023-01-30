@@ -319,13 +319,13 @@ static const struct innate_tech
         { 1, T_DAZZLE, 1 },
         { 1, T_DRAW_BLOOD, 1 },
         { 0, 0, 0 } 
-    };
-
-#if 0 /* Deferred races */
+    },
     dop_tech[] = { 
         { 1, T_LIQUID_LEAP, 1 },
         { 0, 0, 0 } 
-    },
+    };
+
+#if 0 /* Deferred races */
     lyc_tech[] = { 
         { 1, T_EVISCERATE, 1 },
         {  10, T_BERSERK, 1 },
@@ -1023,7 +1023,7 @@ int tech_no;
             break;
         case T_LIQUID_LEAP: {
             if (tech_liquidleap(get_tech_no(T_LIQUID_LEAP)))
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(250, 250);
             break;
         }
         case T_RAISE_ZOMBIES: {
@@ -1488,11 +1488,11 @@ race_tech()
         return tor_tech;
     case PM_VAMPIRIC:
         return vam_tech;
-
-#if 0 /* Deferred */
-    case PM_DROW:
     case PM_DOPPELGANGER:
         return (dop_tech);
+        
+#if 0 /* Deferred */
+    case PM_DROW:
     case PM_CLOCKWORK_AUTOMATON:
         return (clk_tech);
     case PM_INCANTIFIER:

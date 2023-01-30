@@ -204,6 +204,10 @@ static const struct innate {
                    /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
   
+  dop_abil[] = { /* {   1, &(HPolymorph), "", "" },*/
+                 { 25, &(HPolymorph_control), "your choices improve", "choiceless" },
+                 { 0, 0, 0, 0 } },
+  
   hum_abil[] = { { 0, 0, 0, 0 } };
 
 STATIC_DCL void NDECL(exerper);
@@ -932,6 +936,9 @@ long frommask;
         case PM_VAMPIRIC:
             abil = vam_abil;
             break;
+        case PM_DOPPELGANGER:
+            abil = dop_abil;
+            break;
         default:
             break;
         }
@@ -1119,6 +1126,9 @@ get_rabil()
         break;
     case PM_VAMPIRIC:
         return vam_abil;
+        break;
+    case PM_DOPPELGANGER:
+        return dop_abil;
         break;
     case PM_HUMAN:
     case PM_DWARF:

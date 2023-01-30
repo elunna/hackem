@@ -1628,7 +1628,8 @@ const char *mesg;
         tin->dknown = tin->known = 1;
         cprefx(mnum);
         cpostfx(mnum);
-
+        mvitals[mnum].eaten = TRUE;
+        
         /* charge for one at pre-eating cost */
         tin = costly_tin(COST_OPEN);
 
@@ -2053,6 +2054,10 @@ struct obj *otmp;
               Glib ? "even more" : "very");
         make_glib(rn1(11, 5));
     }
+
+    /* WAC Track food types eaten */
+	if (mvitals[mnum].eaten < 255)
+        mvitals[mnum].eaten++;
 
     return retcode;
 }

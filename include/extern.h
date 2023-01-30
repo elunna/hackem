@@ -2185,6 +2185,7 @@ E void FDECL(ugolemeffects, (int, int));
 E int FDECL(armor_to_dragon, (struct monst *));
 E boolean NDECL(ugenocided);
 E const char *NDECL(udeadinside);
+E int NDECL(polyatwill);
 
 /* ### potion.c ### */
 
