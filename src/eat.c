@@ -1628,7 +1628,8 @@ const char *mesg;
         tin->dknown = tin->known = 1;
         cprefx(mnum);
         cpostfx(mnum);
-
+        mvitals[mnum].eaten = TRUE;
+        
         /* charge for one at pre-eating cost */
         tin = costly_tin(COST_OPEN);
 

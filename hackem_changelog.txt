@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Eating tinned corpses also added to eaten memory for doppelgangers.
 Fix typo in doppelganger eaten list.
 Doppelgangers can lose memory of eaten monsters if hit with amnesia effects.
 Added a list of all monsters doppelgangers have eaten to the stats menu (^X).
