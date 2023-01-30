@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Jedi can be tortles.
 Undead Slayers can reach basic in twoweaponing.
 Every other race is hostile to doppelgangers (except were-foo).
 Eating tinned corpses also added to eaten memory for doppelgangers.
