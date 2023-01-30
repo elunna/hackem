@@ -366,7 +366,20 @@ struct obj *obj; /* quest artifact; possibly null if carrying Amulet */
         }
         livelog_printf(LL_ACHIEVE, "completed %s quest without incident",
                        uhis());
+        
+        /* Since the player is punished for abusing alignment, let's reward them
+         * for "walking the line", with a permanent +3 luck bonus (credit to 
+         * mobileuser for this idea). */
+        if (u.ualign.abuse >= -4) {
+            flags.quest_boon = TRUE;
+            change_luck(3);
+            livelog_printf(LL_ACHIEVE, "received a boon from %s quest leader for good behavior",
+                           uhis());
+            pline("Before departing, you hear some strange whispering. You feel your luck changing!");
+            
+        }
     }
+
 }
 
 boolean

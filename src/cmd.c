@@ -2421,7 +2421,9 @@ int final;
                   : "happened");
         enlght_out(buf);
     }
-
+    if (flags.quest_boon) {
+        you_have("luck boon from your quest leader for good behavior", "");
+    }
     if (!Upolyd) {
         int ulvl = (int) u.ulevel;
         /* [flags.showexp currently does not matter; should it?] */

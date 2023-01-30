@@ -33,6 +33,7 @@ struct flag {
 #define discover flags.explore
     boolean female;
     boolean friday13;        /* it's Friday the 13th */
+    boolean quest_boon;      /* luck bonus for beating the quest with good alignment */
     boolean help;            /* look in data file for info about stuff */
     boolean ignintr;         /* ignore interrupts */
     boolean ins_chkpt;       /* checkpoint as appropriate; INSURANCE */

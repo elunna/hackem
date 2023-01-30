@@ -190,7 +190,9 @@ boolean resuming;
         pline("Watch out!  Bad things can happen on Friday the 13th.");
         change_luck(-1);
     }
-
+    if (flags.quest_boon) {
+        change_luck(3); /* silent */
+    }
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
         set_wear((struct obj *) 0); /* for side-effects of starting gear */

@@ -580,13 +580,13 @@ nh_timeout()
 
     if (flags.friday13)
         baseluck -= 1;
-
-    if (Role_if(PM_ARCHEOLOGIST) && uarmh && uarmh->otyp == FEDORA) {
+    if (Role_if(PM_ARCHEOLOGIST) && uarmh && uarmh->otyp == FEDORA)
         baseluck += lucky_fedora();
-    }
     if (quest_status.killed_leader)
         baseluck -= 4;
-
+    if (flags.quest_boon)
+        baseluck += 3;
+    
     if (u.uluck != baseluck) {
 	int timeout = 600;
 	int time_luck = stone_luck(FALSE);
