@@ -329,6 +329,9 @@ struct damage_info_t *damage_info)
         || otyp == PUMPKIN_PIE
         || otyp == SPRIG_OF_CATNIP)
         return 0;
+        
+    if (otmp->oartifact == ART_HOUCHOU)
+	        return 9999;
 
     if (ptr == NULL || bigmonst(ptr)) {
         if (objects[otyp].oc_wldam) {

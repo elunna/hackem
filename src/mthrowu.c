@@ -163,8 +163,8 @@ int x, y;
     struct trap *t;
 
     if (obj->otyp == CREAM_PIE || obj->oclass == VENOM_CLASS
-        || (is_bullet(obj)) || 
-        (ohit && obj->otyp == EGG))
+        || (is_bullet(obj)) || (obj->oartifact == ART_HOUCHOU) 
+        || (ohit && obj->otyp == EGG))
         create = 0;
     else if (ohit && (is_multigen(obj) || obj->otyp == ROCK))
         create = !rn2(3);

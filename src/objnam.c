@@ -3588,6 +3588,7 @@ const char *str;
         "magenta",       /* not the "mage" rank */
         "bat from hell", /* not the "bat" monster */
         "Thiefbane",     /* not the "thief" rank */
+        "Houchou",       /* not something... */
     };
     int i;
     for (i = 0; i < SIZE(non_monster_strs); ++i) {

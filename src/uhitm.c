@@ -1195,22 +1195,26 @@ int dieroll;
             }
         }/* Techinuse Elemental Fist */	
          
-    /* fighting with fists will get the gloves' bonus... */
-    if (!uwep && uarmg)
-        tmp += uarmg->spe;
-        
+        /* fighting with fists will get the gloves' bonus... */
+        if (!uwep && uarmg)
+            tmp += uarmg->spe;
+            
         
         /* Blessed gloves give bonuses when fighting 'bare-handed'.  So do
         rings or gloves made of a hated material.  Note:  rings are worn
         under gloves, so you don't get both bonuses, and two hated rings
         don't give double bonus. */
-    tmp += special_dmgval(&youmonst, mon, (W_ARMG | W_RINGL | W_RINGR),
+        tmp += special_dmgval(&youmonst, mon, (W_ARMG | W_RINGL | W_RINGR),
                             &hated_obj);
     } else {
         if (obj->oartifact == ART_SWORD_OF_KAS)
             iskas = TRUE;
         if (obj->oartifact == ART_SECESPITA)
             issecespita = TRUE;
+        if (thrown && obj->oartifact == ART_HOUCHOU) {
+            pline("There is a bright flash as %s hits %s.",
+                  artiname(obj->oartifact), the(mon_nam(mon)));
+        }
         if (obj->oprops & ITEM_VENOM)
             isvenom = TRUE;
         if (!(artifact_light(obj) && obj->lamplit))
@@ -1227,6 +1231,8 @@ int dieroll;
                 is_launcher(obj)
                 /* or strike with a missile in your hand... */
                 || (!thrown && (is_missile(obj) || is_ammo(obj)))
+                /* or melee with Houchou */
+                || (!thrown && obj->oartifact == ART_HOUCHOU)
                 /* or use a pole at short range and not mounted or not a centaur... */
                 || (!thrown && !u.usteed 
                       && !Race_if(PM_CENTAUR) 
