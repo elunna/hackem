@@ -130,6 +130,9 @@ boolean check_if_better, stashing;
              || otmp->otyp == AMULET_OF_MAGIC_RESISTANCE
              || otmp->otyp == AMULET_OF_GUARDING
              || otmp->otyp == AMULET_OF_ESP
+             || otmp->otyp == AMULET_OF_DRAIN_RESISTANCE
+             || otmp->otyp == AMULET_VERSUS_POISON
+             || otmp->otyp == AMULET_VERSUS_STONE
              /* bags */
              || otmp->otyp == BAG_OF_HOLDING
              || otmp->otyp == BAG_OF_TRICKS
@@ -154,6 +157,11 @@ boolean check_if_better, stashing;
              || otmp->otyp == WAN_POLYMORPH
              || otmp->otyp == WAN_CANCELLATION
              || otmp->otyp == WAN_UNDEAD_TURNING
+             || otmp->otyp == WAN_WIND
+             || otmp->otyp == WAN_DELUGE
+             || otmp->otyp == WAN_CORROSION
+             || otmp->otyp == WAN_POISON_GAS
+             || otmp->otyp == WAN_SONICS
              || otmp->otyp == POT_HEALING
              || otmp->otyp == POT_EXTRA_HEALING
              || otmp->otyp == POT_FULL_HEALING
@@ -180,6 +188,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == RIN_LEVITATION
              || otmp->otyp == FROST_HORN
              || otmp->otyp == FIRE_HORN
+             || otmp->otyp == HORN_OF_BLASTING
              || otmp->otyp == MAGIC_HARP
              || otmp->otyp == DRUM_OF_EARTHQUAKE
              || otmp->otyp == FIGURINE
