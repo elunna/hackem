@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Reimplement damage bonus from worn gloves enchantment if fighting bare-handed.
 Fix: ancient subroom location bug.
 Fix: Weapon shop services were being made available to any shop.
 Adjust mkobj_erosions chances to match 3.7.
