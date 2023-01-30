@@ -1123,7 +1123,8 @@ const struct Race races[] = {
             | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
         MH_SHIFTER,        /* your own race's bit mask */
         MH_WERE,          /* always peaceful */
-        MH_ELF | MH_GNOME | MH_DWARF, /* always hostile */
+        MH_ELF | MH_GNOME | MH_DWARF | MH_HOBBIT | MH_HUMAN | MH_ORC 
+            | MH_TORTLE | MH_GIANT | MH_CENTAUR | MH_ILLITHID, /* always hostile */
         /*    Str     Int Wis Dex Con Cha */
         {      1,      3,  3,  1,  1,  1 },
         { STR18(100), 20, 20, 20, 20, 15 },
