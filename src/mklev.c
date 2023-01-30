@@ -2440,8 +2440,8 @@ xchar x, y;
 
     if (!(u.uz.dnum == oracle_level.dnum      /* in main dungeon */
           && !at_dgn_entrance("The Quest")    /* but not Quest's entry */
-          && (u_depth = depth(&u.uz)) > 10    /* beneath 10 */
-          && u_depth < depth(&medusa_level))) /* and above Medusa */
+          && (u_depth = depth(&u.uz)) > 10))  /* beneath 10 */
+
         return;
 
     /* Adjust source to be current level and re-insert branch. */
