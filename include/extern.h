@@ -522,6 +522,7 @@ E void FDECL(mintroduce, (struct monst *));
 
 /* ### do_wear.c ### */
 
+E int lucky_fedora(void);
 #ifdef USE_TRAMPOLI
 E int NDECL(Armor_on);
 E int NDECL(Boots_on);

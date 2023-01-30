@@ -615,8 +615,10 @@ Helmet_on(VOID_ARGS)
 
     switch (uarmh->otyp) {
     case FEDORA:
-        set_moreluck();
-        context.botl = 1;
+        /* archeologists receive luck bonus for wearing fedora */
+        if (Role_if(PM_ARCHEOLOGIST)) {
+            change_luck(lucky_fedora());
+        }
         break;
     case TOQUE:
     case HELMET:
@@ -723,10 +725,10 @@ Helmet_off(VOID_ARGS)
 
     switch (uarmh->otyp) {
     case FEDORA:
-        setworn((struct obj *)0, W_ARMH);
-        set_moreluck();
-        context.botl = 1;
-        return 0;
+        if (Role_if(PM_ARCHEOLOGIST)) {
+            change_luck(-lucky_fedora());
+        }
+        break;
     case TOQUE:
     case HELMET:
     case DENTED_POT:
@@ -1153,6 +1155,12 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     default:
         break;
     }
+}
+
+int
+lucky_fedora(void)
+{
+    return 1;
 }
 
 STATIC_PTR

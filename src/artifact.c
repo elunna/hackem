@@ -546,10 +546,6 @@ struct obj *obj;
     /* might as well check for this too */
     if (obj->otyp == LUCKSTONE)
         return TRUE;
-
-    /* Only archeologists get a luck bonus from wearing fedoras. */
-    if (obj->otyp == FEDORA && obj == uarmh && Role_if(PM_ARCHEOLOGIST)) 
-        return TRUE;
     
     if (obj->oprops & ITEM_EXCEL
         && obj->owornmask & (W_ARMOR | W_WEP | W_SWAPWEP))

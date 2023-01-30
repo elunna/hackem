@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fixed the Fedora's luck to match Un's implementation. Before it was granting 3 luck and acting as a luckstone, now it just grants base 1 luck.
 Reimplement damage bonus from worn gloves enchantment if fighting bare-handed.
 Fix: ancient subroom location bug.
 Fix: Weapon shop services were being made available to any shop.
