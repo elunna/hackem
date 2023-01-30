@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Double damage is handled properly for techs.
 Fort Ludios can appear below Medusa's.
 Pets will not use rings of teleportation.
 Updated could_use_item with new items monsters can use.

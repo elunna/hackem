@@ -9,6 +9,7 @@
 
 /* #define DEBUG */		/* turn on for diagnostics */
 
+static boolean FDECL(procdmg, (struct monst*, int, int));
 static boolean FDECL(gettech, (int *));
 static boolean FDECL(dotechmenu, (int, int *));
 static void NDECL(doblitzlist);
@@ -348,7 +349,23 @@ static const struct innate_tech
 #define techname(tech)        (tech_names[techid(tech)])
 #define techlet(tech)  \
         ((char)((tech < 26) ? ('a' + tech) : ('A' + tech - 26)))
-        
+
+/* Helper function to help with tech damage (and double damage) */
+static boolean
+procdmg(mtmp, amount, type)
+struct monst *mtmp;
+int amount, type;
+{
+    if (dbl_dmg())
+        amount *= 2;
+
+    if (damage_mon(mtmp, amount, type)) {
+        killed(mtmp);
+        return TRUE;
+    }
+    return FALSE;
+
+}
 /* Whether you know the tech */
 boolean
 tech_known(tech)
@@ -2037,7 +2054,7 @@ blitz_g_slam()
 
     mselftouch(mtmp, "Falling, ", TRUE);
     if (!DEADMONSTER(mtmp)) {
-        if (damage_mon(mtmp, tmp, AD_PHYS)) {
+        if (procdmg(mtmp, tmp, AD_PHYS)) {
              if (!cansee(u.ux + u.dx, u.uy + u.dy))
                 pline("It is destroyed!");
              else {
@@ -2046,7 +2063,6 @@ blitz_g_slam()
                                            SUPPRESS_SADDLE, FALSE) 
                                 : mon_nam(mtmp));
              }
-             xkilled(mtmp, 0);
         }
     }
 
@@ -2459,10 +2475,7 @@ int tech_no;
                 tmp /= 2;
             }
             tmp += techlev(tech_no);
-            
-            if (damage_mon(mtmp, tmp, AD_PHYS)) {
-                killed(mtmp);
-            }
+            procdmg(mtmp, tmp, AD_PHYS);
          }
     }
     return 1;
@@ -2512,9 +2525,8 @@ int tech_no;
                     tmp = mtmp->mhp / 2;
                 }
                 tmp += techlev(tech_no);
-                if (damage_mon(mtmp, tmp, AD_PHYS)) {
-                    killed(mtmp);
-                }
+                procdmg(mtmp, tmp, AD_PHYS);
+
             }
          }
     }
@@ -2837,9 +2849,7 @@ int tech_no;
                     tmp += rn2((int) (techlev(tech_no) / 5 + 1));
                     if (!Blind) 
                         pline_The("acid burns %s!", mon_nam(mtmp));
-                    if (damage_mon(mtmp, tmp, AD_ACID)) {
-                        killed(mtmp);
-                    }
+                    procdmg(mtmp, tmp, AD_ACID);
                 } else if (!Blind) 
                     pline_The("acid doesn't affect %s!", mon_nam(mtmp));
             }
@@ -3407,7 +3417,7 @@ int tech_no;
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
          if (couldsee(mtmp->mx, mtmp->my) && !is_flan(mtmp->data)) {
             pline("%s screams in agony!", Monnam(mtmp));
-            damage_mon(mtmp, mtmp->mhp / 4, AD_PHYS);
+            damage_mon(mtmp, mtmp->mhp / (dbl_dmg() ? 2 : 4), AD_PHYS);
             if (mtmp->mhp < 1)
                 mtmp->mhp = 1;
          }
