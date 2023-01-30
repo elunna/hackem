@@ -581,6 +581,7 @@ int psflags;
             goto do_vampyr;
     } else if (Race_if(PM_DOPPELGANGER)) {
         /* Not an experienced Doppelganger yet */
+        tryct = 0;
         do {
             /* Slightly different wording */
             getlin("Attempt to become what kind of monster? [type the name]",
