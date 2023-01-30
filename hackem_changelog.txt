@@ -15,8 +15,9 @@
 
 Version 1.1 (unreleased)
 
-Added a list of all monsters dopplegangers have eaten to the stats menu (^X).
-Added the MH_SHIFTER flag for the doppleganger race.
+Doppelgangers can lose memory of eaten monsters if hit with amnesia effects.
+Added a list of all monsters doppelgangers have eaten to the stats menu (^X).
+Added the MH_SHIFTER flag for the doppelganger race.
 Initial import of doppledanger race from SLASH'EM.
 Fix: piratesay and 'sscuttled'
 Adapted the Sunder skill from SpliceHack into a technique. Pirates get it at level 5. 
