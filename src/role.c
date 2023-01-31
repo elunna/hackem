@@ -50,7 +50,8 @@ const struct Role roles[] = {
       S_SNAKE,
       S_MUMMY,
       ART_XIUHCOATL,
-      MH_HUMAN | MH_DWARF | MH_GNOME | MH_VAMPIRE | MH_HOBBIT | MH_TORTLE,
+      MH_HUMAN | MH_DWARF | MH_GNOME | MH_VAMPIRE | MH_HOBBIT | MH_TORTLE 
+          | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 10, 7, 7, 7 },
@@ -155,7 +156,7 @@ const struct Role roles[] = {
       S_SPIDER,
       ART_IRON_SPOON_OF_LIBERATION,
       MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_GIANT
-          | MH_ILLITHID | MH_VAMPIRE | MH_CENTAUR,
+          | MH_ILLITHID | MH_VAMPIRE | MH_CENTAUR | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC | ROLE_NORACEALIGN,
       /* Str Int Wis Dex Con Cha */
       { 10, 7, 7, 7, 13, 6 },
@@ -256,7 +257,7 @@ const struct Role roles[] = {
       S_RUSTMONST, 
       S_XORN,
       ART_STORM_WHISTLE,
-      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_ILLITHID | MH_CENTAUR, 
+      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_ILLITHID | MH_CENTAUR | MH_SHIFTER, 
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
       {   7, 10,  7,  7,  7,  7 },
@@ -433,7 +434,8 @@ const struct Role roles[] = {
       S_BAT, 
       S_IMP,
       ART_GREAT_DAGGER_OF_GLAURGNAA,
-      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID,
+      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID 
+          | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
       {   7, 10,  7,  7,  7,  7 },
@@ -468,7 +470,7 @@ const struct Role roles[] = {
       S_WRAITH,
       ART_MITRE_OF_HOLINESS,
       MH_HUMAN | MH_ELF | MH_DWARF | MH_ORC | MH_GIANT
-          | MH_HOBBIT | MH_CENTAUR | MH_ILLITHID | MH_TORTLE,
+          | MH_HOBBIT | MH_CENTAUR | MH_ILLITHID | MH_TORTLE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -545,7 +547,7 @@ const struct Role roles[] = {
       S_NYMPH,
       S_NAGA,
       ART_MASTER_KEY_OF_THIEVERY,
-      MH_HUMAN | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE,
+      MH_HUMAN | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 7, 10, 7, 6 },
