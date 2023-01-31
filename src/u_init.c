@@ -1207,8 +1207,6 @@ u_init()
             force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(2)) 
             ini_inv(Lenses);
-        else
-            ini_inv(GrapplingHook);
         skill_init(Skill_I);
         break;
         
