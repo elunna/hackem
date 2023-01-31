@@ -2431,10 +2431,10 @@ boolean controllable_poly;
 * Energy will be taken first, then you will get 
 * more hungry if you do not have enough energy.
  */
-#define EN_DOPP 	20
-#define EN_WERE 10
-#define EN_BABY_DRAGON 10
-#define EN_ADULT_DRAGON 15
+#define EN_DOPP         20
+#define EN_WERE         10
+#define EN_BABY_DRAGON  20
+#define EN_ADULT_DRAGON 40
 
 int
 polyatwill()      /* Polymorph under conscious control (#youpoly) */
@@ -2470,7 +2470,8 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
     }
 
     if ((Role_if(PM_ICE_MAGE) || Role_if(PM_FLAME_MAGE)) 
-        && (u.ulevel > 6 || scale_mail)) {
+        && (u.ulevel > 7 || scale_mail)) {
+        /* Updated by hackemslashem: higher level and energy requirements */
         /* [ALI]
          * I've rewritten the logic here to fix the failure messages,
          * but the requirements for polymorphing into the two dragon
@@ -2479,25 +2480,25 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
          * Polymorph into adult dragon form if one of:
          *
          * - Wearing scale mail (no charge).
-         * - Wearing scales and experience level 7 and
-         *   energy level 11 or more (charge is 10).
+         * - Wearing scales and experience level 8 and
+         *   energy level 21 or more (charge is 20).
          * - Not wearing scales or scale mail and experience level 14 and
-         *   energy level 16 or more (charge is 15).
+         *   energy level 41 or more (charge is 40).
          *
          * Polymorph into baby dragon form if one of:
          *
-         * - Wearing scales and experience level 7 and
-         *   energy level 10 or less (no charge).
-         * - Not wearing scales or scale mail and experience level 14 and
-         *   energy level 11-15 (charge is 10).
-         * - Not wearing scales or scale mail and experience level 7-13 and
-         *   energy level 11 or more (charge is 10).
+         * - Wearing scales and experience level 8 and
+         *   energy level 20 or less (no charge).
+         * - Not wearing scales or scale mail and experience level 15 and
+         *   energy level 21-25 (charge is 20).
+         * - Not wearing scales or scale mail and experience level 8-14 and
+         *   energy level 21 or more (charge is 20).
          *
          * Fail if one of:
          *
-         * - Not wearing scales or scale mail and experience level 7 and
-         *   energy level 10 or less (not enough energy).
-         * - Not wearing scale mail and experience level 6 or less
+         * - Not wearing scales or scale mail and experience level 8 and
+         *   energy level 20 or less (not enough energy).
+         * - Not wearing scale mail and experience level 7 or less
          *   (not experienced enough).
          *
          * The transformation takes a few turns. If interrupted during this
@@ -2513,9 +2514,9 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
             return 0;
         } else {
             /* Check if you can do the adult form */
-            if ((u.ulevel > 13 && u.uen > EN_ADULT_DRAGON)
-                || (scales && u.uen > EN_BABY_DRAGON) 
-                || scale_mail) {
+            if ((u.ulevel > 14 && u.uen > EN_ADULT_DRAGON)
+                  || (scales && u.uen > EN_BABY_DRAGON) 
+                  || scale_mail) {
                 /* If you have scales, energy cost is less */
                 /* If you have scale mail,  there is no cost! */
                 if (!scale_mail) {
