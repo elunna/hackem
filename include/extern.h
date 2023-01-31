@@ -272,6 +272,7 @@ E void FDECL(dtoxy, (coord *, int));
 E int FDECL(movecmd, (CHAR_P));
 E int NDECL(dxdy_moveok);
 E int FDECL(getdir, (const char *));
+E int FDECL(blitzdir, (const char *));
 E void NDECL(confdir);
 extern void feardir(void);
 E const char *FDECL(directionname, (int));

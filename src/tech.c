@@ -1740,15 +1740,22 @@ doblitz()
 
     doblitzlist();
     Strcpy(cmdlist, "");
+    int res;
     for (i = 0; i < MAX_BLITZ; i++) {
         if (i == 0)
             sprintf(buf2, "%s", Enter_Blitz);
         else
             sprintf(buf2, "[%s]:", cmdlist);
-        if (!getdir(buf2))
-             return 0; /* Get directional input */
-        if (!u.dx && !u.dy && !u.dz)
+        res = blitzdir(buf2);  /* Get directional input */
+        if (!res)
+             return 0;
+        else if (res < 0) { /* Invalid input, try again */
+             i--;
+             continue;
+        }
+        if (!u.dx && !u.dy && !u.dz) {
              break;
+        }
         if (u.dx == -1) {
              *(bp) = 'L';
              strcat(cmdlist, "L");

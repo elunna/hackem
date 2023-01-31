@@ -5941,6 +5941,51 @@ const char *s;
     return 1;
 }
 
+
+/* Modified version of getdir for use with the chain blitz comand inputs 
+ * Returns 0 for ESC (to escape out)
+ * Return 1 for valid input
+ * Return -1 for invalid input
+ * */
+int
+blitzdir(s)
+const char *s;
+{
+    char dirsym;
+    int is_mov;
+    
+retry:
+    if (in_doagain || *readchar_queue)
+        dirsym = readchar();
+    else
+        dirsym = yn_function((s && *s != '^') ? s : "In what direction?",
+                             (char *) 0, '\0');
+    /* remove the prompt string so caller won't have to */
+    clear_nhwindow(WIN_MESSAGE);
+
+    if (redraw_cmd(dirsym)) { /* ^R */
+        docrt();              /* redraw */
+        goto retry;
+    }
+    savech(dirsym);
+    is_mov = movecmd(dirsym);
+    
+    if (dirsym == Cmd.spkeys[NHKF_GETDIR_SELF]
+        || dirsym == Cmd.spkeys[NHKF_GETDIR_SELF2]) {
+        u.dx = u.dy = u.dz = 0;
+    } else if (dirsym == Cmd.spkeys[NHKF_ESC]) {
+        pline("Chained Blitz cancelled.");
+        return 0;
+    } else if (dirsym == Cmd.spkeys[NHKF_ESC]) {
+        pline("Chained Blitz cancelled.");
+        return 0;
+    } else if (!is_mov && !u.dz) {
+        pline("What a strange direction!");
+        return -1;
+    }
+    return 1;
+}
+
 STATIC_OVL void
 show_direction_keys(win, centerchar, nodiag)
 winid win; /* should specify a window which is using a fixed-width font... */

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Implemented a separate version of getdir for doblitz for better input handling.
 Chain blitz only costs energy if a successful command sequence is input; invalid commands also don't use up the tech.
 Slightly discourage pets with ranged attacks (ie: hell hound pups) from attacking strong peacefuls.
 Fix: Spirit bomb at level 17-18 could result in d(5, 0). Fixes #192.
