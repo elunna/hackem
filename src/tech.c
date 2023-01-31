@@ -1680,17 +1680,19 @@ static const char *Enter_Blitz = "Enter Blitz Command[. to end]: ";
  */
 static const struct blitz_tab blitzes[] = {
     { "LLDDR", 5, blitz_chi_strike, T_CHI_STRIKE, BLITZ_START },
-    { "LLDDRDR", 7, blitz_chi_strike, T_CHI_STRIKE, BLITZ_START },
+    { "RRDDL", 5, blitz_chi_strike, T_CHI_STRIKE, BLITZ_START },
+    /*{ "LLDDRDR", 7, blitz_chi_strike, T_CHI_STRIKE, BLITZ_START },*/
     { "RR", 2, blitz_dash, T_DASH, BLITZ_START },
     { "LL", 2, blitz_dash, T_DASH, BLITZ_START },
     { "UURRDDL", 7, blitz_e_fist, T_E_FIST, BLITZ_START },
-    { "URURRDDLDL", 10, blitz_e_fist, T_E_FIST, BLITZ_START },
-    { "DDRRDDRR", 8, blitz_power_surge, T_POWER_SURGE, BLITZ_START },
-    { "DRDRDRDR", 8, blitz_power_surge, T_POWER_SURGE, BLITZ_START },
+    { "UULLDDR", 7, blitz_e_fist, T_E_FIST, BLITZ_START },
+    /*{ "DDRRDDRR", 8, blitz_power_surge, T_POWER_SURGE, BLITZ_START },*/
+    /*{ "DRDRDRDR", 8, blitz_power_surge, T_POWER_SURGE, BLITZ_START },*/
+    { ">>>>", 4, blitz_power_surge, T_POWER_SURGE, BLITZ_START },
     { "LRL", 3, blitz_pummel, T_PUMMEL, BLITZ_CHAIN },
     { "RLR", 3, blitz_pummel, T_PUMMEL, BLITZ_CHAIN },
     { "DDDD", 4, blitz_g_slam, T_G_SLAM, BLITZ_END },
-    { "DUDUUDDD", 8, blitz_spirit_bomb, T_SPIRIT_BOMB, BLITZ_END },
+    { "UUUUD", 5, blitz_spirit_bomb, T_SPIRIT_BOMB, BLITZ_END },
     { "", 0, (void *) 0, 0, BLITZ_END } /* Array terminator */
 };
 

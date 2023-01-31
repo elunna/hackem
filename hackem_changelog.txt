@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Updated blitz commands to be shorter and more intuitive; commands with 2 versions are always mirrored.
 Chain blitz commands can also be terminated with ; or :
 Implemented a separate version of getdir for doblitz for better input handling.
 Chain blitz only costs energy if a successful command sequence is input; invalid commands also don't use up the tech.
