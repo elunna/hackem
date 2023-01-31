@@ -1777,12 +1777,12 @@ doblitz()
              bp++;
         }
         if (u.dz == -1) {
-             *(bp) = '>';
+             *(bp) = '<';
              /* TODO: Why do these have to be reversed? */
              strcat(cmdlist, "<"); 
              bp++;
         } else if (u.dz == 1) {
-             *(bp) = '<';
+             *(bp) = '>';
              /* TODO: Why do these have to be reversed? */
              strcat(cmdlist, ">");
              bp++;
