@@ -1562,7 +1562,10 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             } else if (obj->oclass != GEM_CLASS)
                 range /= 2;
         }
-        
+
+        if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+            range += 2; /* Small bonus for snowball spell */
+        }
         if (Is_airlevel(&u.uz) || Levitation) {
             /* action, reaction... */
             urange -= range;
@@ -1960,7 +1963,11 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             break;
         }
     }
-
+    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+        /* This is needed because otherwise we miss way too much */
+        if (P_SKILL(P_MATTER_SPELL) >= P_BASIC) 
+            tmp += 14;
+    }
     if (obj->otyp == SPIKE)
         tmp += 5;  /* For when we are poly'd into a manticore */
     

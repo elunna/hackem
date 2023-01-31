@@ -1747,17 +1747,15 @@ int dieroll;
                         else
                             mon->mblinded += tmp;
                     } else {
-                        tmp = 0;
                         pline(obj->otyp == CREAM_PIE ? "Splat!"
                               : obj->otyp == SNOWBALL ? "Thwap!" : "Splash!");
                         setmangry(mon, TRUE);
                     }
-                    
+                    tmp = (obj->otyp == SNOWBALL) ? d(2, 4) : 0;
                     if (thrown)
                         obfree(obj, (struct obj *) 0);
                     else
                         useup(obj);
-                    
                     hittxt = TRUE;
                     get_dmg_bonus = FALSE;
                     break;
