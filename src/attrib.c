@@ -8,6 +8,8 @@
 #include <ctype.h>
 
 #define SPECSPEL_LEV 12
+#define YOUPOLY_SMALL 8     /* baby dragons for mages */
+#define YOUPOLY_LARGE 15    /* adult dragons for mages */
 
 /* part of the output on gain or loss of attribute */
 static const char
@@ -1226,6 +1228,19 @@ int oldlevel, newlevel;
         spl_book[i].sp_know = 20000;*/
         force_learn_spell(urole.spelspec);
     }
+    /* Inform flame mages and ice mages of their #youpoly ability */
+    if (Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)) {
+        if (oldlevel < YOUPOLY_SMALL && newlevel >= YOUPOLY_SMALL) {
+            if (newlevel > oldlevel)
+                Your("powers grow! (Use #youpoly to turn into baby dragon form)");
+            else
+                Your("powers diminish!");
+        }
+        if (oldlevel < YOUPOLY_LARGE && newlevel >= YOUPOLY_LARGE) {
+            if (newlevel > oldlevel)
+                Your("powers grow! (Use #youpoly to turn into adult dragon form)");
+        }
+    }
 }
 
 int
@@ -1502,14 +1517,14 @@ int reason; /* 0==conversion, 1==helm-of-OA on, 2==helm-of-OA off */
 int
 uhp()
 {
-	return (Upolyd ? u.mh : u.uhp);
+    return (Upolyd ? u.mh : u.uhp);
 }
 
 /** Returns the maximal hitpoints of your current form. */
 int
 uhpmax()
 {
-	return (Upolyd ? u.mhmax : u.uhpmax);
+    return (Upolyd ? u.mhmax : u.uhpmax);
 }
 
 
