@@ -1164,7 +1164,12 @@ int role, gend, algn;
             else
                 high_ch = 0;
         }
-
+        if (this_ch == 'd') {
+            if (!strcmp(races[i].noun, "doppelganger"))
+                this_ch = 'D';
+            else
+                high_ch = 0;
+        }
         /* filtering: picking race, so choose by first letter, with
            capital letter as unseen accelerator;
            !filtering: resetting filter rather than picking, choose by
