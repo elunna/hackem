@@ -28,6 +28,7 @@ STATIC_DCL void NDECL(break_armor);
 STATIC_DCL void FDECL(drop_weapon, (int));
 STATIC_DCL void NDECL(newman);
 STATIC_DCL void NDECL(polysense);
+STATIC_DCL void FDECL(merge_with_armor, (BOOLEAN_P));
 
 STATIC_VAR const char no_longer_petrify_resistant[] =
     "No longer petrify-resistant, you";
@@ -622,42 +623,7 @@ int psflags;
         /* special changes that don't require polyok() */
         if (draconian) {
         do_merge:
-            /* armor_to_dragon will return uskin if uskin turned you into a
-             * dragon; thus, the assumption here is that a hero who turned into
-             * a dragon by merging with armor won't be able to wear other types
-             * of dragon armor while polymorphed. */
-            mntmp = armor_to_dragon(&youmonst);
-            if (controllable_poly) {
-                Sprintf(buf, "Become %s?", an(mons[mntmp].mname));
-                if (yn(buf) != 'y') {
-                    return;
-                }
-            }
-            if (!(mvitals[mntmp].mvflags & G_GENOD)) {
-                struct obj **mergarm =
-                    (uarm && Is_dragon_scaled_armor(uarm)) ? &uarm
-                      : (uarmc && Is_dragon_scales(uarmc)) ? &uarmc
-                        : (struct obj **) 0;
-                unsigned was_lit = mergarm ? (*mergarm)->lamplit : 0;
-                int arm_light = mergarm && artifact_light(*mergarm)
-                                  ? arti_light_radius(*mergarm) : 0;
-                /* allow G_EXTINCT */
-                You("merge with your scaly armor.");
-                if (uskin) {
-                    impossible("Already merged with some armor!");
-                } else if (!mergarm) {
-                    impossible("No dragon armor / dragon cloak to merge?");
-                } else {
-                    uskin = *mergarm;
-                    *mergarm = NULL;
-                    /* dragon scales remain intact as uskin */
-                }
-                /* save/restore hack */
-                uskin->owornmask |= I_SPECIAL;
-                if (was_lit)
-                    maybe_adjust_light(uskin, arm_light);
-                update_inventory();
-            }
+           merge_with_armor(controllable_poly);
         } else if (iswere) {
         do_shift:
             if (Upolyd && were_beastie(mntmp) != u.ulycn)
@@ -1063,7 +1029,13 @@ STATIC_OVL void
 break_armor()
 {
     register struct obj *otmp;
-    boolean controlled_change = Race_if(PM_DOPPELGANGER);
+    boolean controlled_change = Race_if(PM_DOPPELGANGER) 
+                                || (Role_if(PM_FLAME_MAGE) 
+                                    && (u.umonnum == PM_BABY_RED_DRAGON
+                                        || u.umonnum == PM_RED_DRAGON)) 
+                                || (Role_if(PM_ICE_MAGE) 
+                                    && (u.umonnum == PM_BABY_WHITE_DRAGON
+                                        || u.umonnum == PM_WHITE_DRAGON));
 
     if (breakarm(&youmonst)) {
         if ((otmp = uarm) != 0) {
@@ -2385,13 +2357,12 @@ udeadinside()
                  : "empty";    /* golems plus vortices */
 }
 
-#if 0
+
 static struct {
     int mon;
     int reqtime;
     boolean merge;
 } draconic;
-
 
 STATIC_PTR
 int
@@ -2399,63 +2370,105 @@ mage_transform()	/* called each move during transformation process */
 {
     if (--draconic.reqtime)
         return 1;
+
     if (draconic.merge)
-        merge_with_armor();
+        merge_with_armor(FALSE);
     polymon(draconic.mon);
+    
     return 0;
 }
-#endif
 
-int
-polyatwill()      /* Polymorph under conscious control (#youpoly) */
+
+/* armor_to_dragon will return uskin if uskin turned you into a
+ * dragon; thus, the assumption here is that a hero who turned into
+ * a dragon by merging with armor won't be able to wear other types
+ * of dragon armor while polymorphed.
+ */
+static void
+merge_with_armor(controllable_poly)
+boolean controllable_poly;
 {
-#define EN_DOPP 	20 /* This is the "base cost" for a polymorph
+    int mntmp;
+    char buf[BUFSZ] = DUMMY;
+    mntmp = armor_to_dragon(&youmonst);
+    if (controllable_poly) {
+        Sprintf(buf, "Become %s?", an(mons[mntmp].mname));
+        if (yn(buf) != 'y') {
+            return;
+        }
+    }
+    if (!(mvitals[mntmp].mvflags & G_GENOD)) {
+        struct obj **mergarm =
+            (uarm && Is_dragon_scaled_armor(uarm)) ? &uarm
+            : (uarmc && Is_dragon_scales(uarmc)) ? &uarmc
+                                                   : (struct obj **) 0;
+        unsigned was_lit = mergarm ? (*mergarm)->lamplit : 0;
+        int arm_light = mergarm && artifact_light(*mergarm)
+                            ? arti_light_radius(*mergarm) : 0;
+        /* allow G_EXTINCT */
+        You("merge with your scaly armor.");
+        if (uskin) {
+            impossible("Already merged with some armor!");
+        } else if (!mergarm) {
+            impossible("No dragon armor / dragon cloak to merge?");
+        } else {
+            uskin = *mergarm;
+            *mergarm = NULL;
+            /* dragon scales remain intact as uskin */
+        }
+        /* save/restore hack */
+        uskin->owornmask |= I_SPECIAL;
+        if (was_lit)
+            maybe_adjust_light(uskin, arm_light);
+        update_inventory();
+    }
+}
+
+
+/* This is the "base cost" for a polymorph
 * Actual cost is this base cost + 5 * monster level
 * of the final form you actually assume.
 * Energy will be taken first, then you will get 
 * more hungry if you do not have enough energy.
-*/
+ */
+#define EN_DOPP 	20
 #define EN_WERE 10
 #define EN_BABY_DRAGON 10
 #define EN_ADULT_DRAGON 15
-    
-#if 0
+
+int
+polyatwill()      /* Polymorph under conscious control (#youpoly) */
+{
     int otyp = uarm ? Dragon_armor_to_scales(uarm) : 0;
 
-    boolean scales = (uarm 
-         && (uarmc->otyp == RED_DRAGON_SCALES && Role_if(PM_FLAME_MAGE))
-         || (uarm && uarm->otyp == WHITE_DRAGON_SCALES && Role_if(PM_ICE_MAGE)));
-
-
-    boolean scale_mail = (
-        uarm 
-        && Is_dragon_scaled_armor(uarm)
-        && ((Role_if(PM_FLAME_MAGE) || otyp == RED_DRAGON_SCALES) 
-            || && (Role_if(PM_ICE_MAGE) || otyp == WHITE_DRAGON_SCALES)));
-#endif
+    boolean scales = (uarmc
+         && ((uarmc->otyp == RED_DRAGON_SCALES && Role_if(PM_FLAME_MAGE))
+         || (uarmc && uarmc->otyp == WHITE_DRAGON_SCALES && Role_if(PM_ICE_MAGE))));
     
-    /* KMH, balance patch -- new intrinsic */
+    boolean scale_mail = (uarm && Is_dragon_scaled_armor(uarm)
+        && ((Role_if(PM_FLAME_MAGE) || otyp == RED_DRAGON_SCALES) 
+            || (Role_if(PM_ICE_MAGE) || otyp == WHITE_DRAGON_SCALES)));
+    
     if (Unchanging) {
         pline("You cannot change your form.");
         return 0;
     }
 
     /* First, if in correct polymorphed form, rehumanize (for free) 
-	 * Omit Lycanthropes,  who need to spend energy to change back and forth
+     * Omit Lycanthropes,  who need to spend energy to change back and forth
      */
-#if 0
-    if (Upolyd
-        && (Race_if(PM_DOPPELGANGER) || (Role_if(PM_FLAME_MAGE)
-                && (u.umonnum == PM_RED_DRAGON
-                    || u.umonnum == PM_BABY_RED_DRAGON))
-            || (Role_if(PM_ICE_MAGE) && (u.umonnum == PM_WHITE_DRAGON
-                    || u.umonnum == PM_BABY_WHITE_DRAGON)))) {
-#endif
-    if (Upolyd && Race_if(PM_DOPPELGANGER)) {
+    boolean polyd_fla = Role_if(PM_FLAME_MAGE) 
+                        && (u.umonnum == PM_RED_DRAGON 
+                            || u.umonnum == PM_BABY_RED_DRAGON);
+    boolean polyd_ice = Role_if(PM_ICE_MAGE) 
+                        && (u.umonnum == PM_WHITE_DRAGON 
+                            || u.umonnum == PM_BABY_WHITE_DRAGON);
+    
+    if (Upolyd && (Race_if(PM_DOPPELGANGER) || polyd_fla || polyd_ice)) {
         rehumanize();
         return 1;
     }
-#if 0
+
     if ((Role_if(PM_ICE_MAGE) || Role_if(PM_FLAME_MAGE)) 
         && (u.ulevel > 6 || scale_mail)) {
         /* [ALI]
@@ -2500,8 +2513,9 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
             return 0;
         } else {
             /* Check if you can do the adult form */
-            if (u.ulevel > 13 && u.uen > EN_ADULT_DRAGON
-                || scales && u.uen > EN_BABY_DRAGON || scale_mail) {
+            if ((u.ulevel > 13 && u.uen > EN_ADULT_DRAGON)
+                || (scales && u.uen > EN_BABY_DRAGON) 
+                || scale_mail) {
                 /* If you have scales, energy cost is less */
                 /* If you have scale mail,  there is no cost! */
                 if (!scale_mail) {
@@ -2532,7 +2546,7 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
             return 1;
         }
     }
-#endif
+
     if (Race_if(PM_DOPPELGANGER)) {
         if (yn("Polymorph at will?") == 'n')
             return 0;
@@ -2562,14 +2576,12 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
         pline("You can't polymorph at will%s.",
               ((Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)
                 || Race_if(PM_DOPPELGANGER))
-                   ? " yet"
-                   : ""));
+                   ? " yet" : ""));
         return 0;
     }
 
     context.botl = 1;
     return 1;
 }
-
 
 /*polyself.c*/

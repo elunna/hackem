@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Enabled #youpoly for flame mages and ice mages.
 Doppelgangers are back on the menu boys! (as D)
 Imported Hellfire (from SLASH'EM)
 Fix: Blitz processing had < and > reversed.
