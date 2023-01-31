@@ -1197,7 +1197,7 @@ int howmuch;
     if (u.uevent.know_horror && rn2(3))
         u.uevent.know_horror = 0;
     
-    /* Dopplegangers can forget what they have eaten. */
+    /* Doppelgangers can forget what they have eaten. */
     for (int i = LOW_PM; i < NUMMONS; i++) {
         if (mvitals[i].eaten && !rn2(3)) {
             mvitals[i].eaten = FALSE;

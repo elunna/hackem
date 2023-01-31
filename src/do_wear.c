@@ -3091,7 +3091,7 @@ find_ac()
         else 
             uac -= (u.ulevel / 2) + 2;
     }
-    /* Doppleganger no-armor bonus. */
+    /* Doppelganger no-armor bonus. */
     if (Race_if(PM_DOPPELGANGER) && !uarm) 
         uac -= (u.ulevel / 4) + 1;
     

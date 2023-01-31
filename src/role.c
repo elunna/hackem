@@ -1115,7 +1115,7 @@ const struct Race races[] = {
         {  3, 0,  0, 3,  2, 0 },	/* Hit points */
         {  3, 0,  4, 0,  4, 0 }		/* Energy */
     },
-    {	"shapeshifter", "doppleganger", "doppleganger-kind", "Dop",
+    {	"doppelganger", "doppelganger", "doppelganger-kind", "Dop",
         {0, 0}, /* individual as a noun */
         PM_DOPPELGANGER,    /* PM_ as a male monster */
         NON_PM,             /* ...or as a female (NON_PM == same) */
