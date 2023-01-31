@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Imported Hellfire (from SLASH'EM)
 Fix: Blitz processing had < and > reversed.
 Updated blitz commands to be shorter and more intuitive; commands with 2 versions are always mirrored.
 Chain blitz commands can also be terminated with ; or :

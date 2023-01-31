@@ -8,7 +8,7 @@
 
 STATIC_DCL int FDECL(monmulti, (struct monst *, struct obj *, struct obj *));
 STATIC_DCL void FDECL(monshoot, (struct monst *, struct obj *, struct obj *));
-STATIC_DCL int FDECL(drop_throw, (struct obj *, BOOLEAN_P, int, int));
+STATIC_DCL int FDECL(drop_throw, (struct monst *, struct obj *, BOOLEAN_P, int, int));
 
 #define URETREATING(x, y) \
     (distmin(u.ux, u.uy, x, y) > distmin(u.ux0, u.uy0, x, y))
@@ -152,7 +152,8 @@ const char *name; /* if null, then format `*objp' */
  * Returns 0 if object still exists (not destroyed).
  */
 STATIC_OVL int
-drop_throw(obj, ohit, x, y)
+drop_throw(mon, obj, ohit, x, y)
+register struct monst *mon;
 register struct obj *obj;
 boolean ohit;
 int x, y;
@@ -161,7 +162,10 @@ int x, y;
     int create;
     struct monst *mtmp;
     struct trap *t;
-
+    struct obj *mwep = (struct obj *) 0;
+    
+    if (mon) 
+        mwep = MON_WEP(mon);
     if (obj->otyp == CREAM_PIE || obj->oclass == VENOM_CLASS
         || (is_bullet(obj)) || (obj->oartifact == ART_HOUCHOU) 
         || (ohit && obj->otyp == EGG))
@@ -181,7 +185,23 @@ int x, y;
             bomb_explode(obj, bhitpos.x, bhitpos.y, FALSE);
         }
     }
+    
+    /* D: Detonate crossbow bolts from Hellfire if they hit */
+#define ZT_FIRE (10 + (AD_FIRE - 1))
+    if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
+        && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
+        if (cansee(bhitpos.x, bhitpos.y))
+            pline("%s explodes in a ball of fire!", Doname2(obj));
+        else
+            You_hear("an explosion");
 
+        explode(bhitpos.x, bhitpos.y, -ZT_FIRE, d(2, 6), WEAPON_CLASS,
+                EXPL_FIERY);
+
+        /* D: Exploding bolts will be destroyed */
+        create = 0;
+    }
+    
     if (create && !((mtmp = m_at(x, y)) != 0 && mtmp->mtrapped
                     && (t = t_at(x, y)) != 0
                     && is_pit(t->ttyp))) {
@@ -545,7 +565,7 @@ boolean verbose;    /* give message(s) even when you can't see what happened */
         if (!range) { /* Last position; object drops */
             if (is_pole(otmp))
                 return 1;
-            (void) drop_throw(otmp, 0, mtmp->mx, mtmp->my);
+            (void) drop_throw(archer, otmp, 0, mtmp->mx, mtmp->my);
             return 1;
         }
     } else if (otmp->oclass == POTION_CLASS) {
@@ -665,7 +685,7 @@ boolean verbose;    /* give message(s) even when you can't see what happened */
         if (is_pole(otmp))
             return 1;
 
-        objgone = drop_throw(otmp, 1, bhitpos.x, bhitpos.y);
+        objgone = drop_throw(archer, otmp, 1, bhitpos.x, bhitpos.y);
         if (!objgone && range == -1) { /* special case */
             obj_extract_self(otmp);    /* free it for motion again */
             return 0;
@@ -749,7 +769,6 @@ register boolean verbose;
 	if (mwep && is_ammo(singleobj) && ammo_and_launcher(singleobj, mwep)) {
 	    if (mwep->oartifact == ART_PLAGUE && is_poisonable(singleobj))
 			singleobj->opoisoned = 1;
-
 	    /* D: Hellfire is handled in drop_throw */
 	}
 
@@ -765,7 +784,7 @@ register boolean verbose;
         dy = rn2(3) - 1;
         /* check validity of new direction */
         if (!dx && !dy) {
-            (void) drop_throw(singleobj, 0, bhitpos.x, bhitpos.y);
+            (void) drop_throw(mon, singleobj, 0, bhitpos.x, bhitpos.y);
             goto cleanup_thrown;
         }
     }
@@ -775,7 +794,7 @@ register boolean verbose;
          * destroying singleobj and set it to null if it's any of certain
          * breakable objects like glass weapons. */
         if (singleobj) {
-            (void) drop_throw(singleobj, 0, bhitpos.x, bhitpos.y);
+            (void) drop_throw(mon, singleobj, 0, bhitpos.x, bhitpos.y);
         }
         goto cleanup_thrown;
     }
@@ -921,7 +940,7 @@ register boolean verbose;
             }
             stop_occupation();
             if (hitu) {
-                (void) drop_throw(singleobj, hitu, u.ux, u.uy);
+                (void) drop_throw(mon, singleobj, hitu, u.ux, u.uy);
                 break;
             }
         }
@@ -947,7 +966,7 @@ register boolean verbose;
                              || (archer && canseemon(archer))))
                     pline("%s misses.", The(mshot_xname(singleobj)));
 
-                (void) drop_throw(singleobj, 0, bhitpos.x, bhitpos.y);
+                (void) drop_throw(mon, singleobj, 0, bhitpos.x, bhitpos.y);
             }
             break;
         }

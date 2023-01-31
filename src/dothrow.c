@@ -1893,6 +1893,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     register int disttmp; /* distance modifier */
     int otyp = obj->otyp, hmode;
     boolean guaranteed_hit = (u.uswallow && mon == u.ustuck);
+    boolean hellfiring = (uwep && uwep->oartifact == ART_HELLFIRE);
     int dieroll;
 
     hmode = (obj == uwep) ? HMON_APPLIED
@@ -2116,6 +2117,19 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                 exercise(A_WIS, FALSE);
             }
             exercise(A_DEX, TRUE);
+
+            /* Detonate bolts shot by Hellfire */
+#define ZT_FIRE (10 + (AD_FIRE - 1))
+            if (hellfiring && ammo_and_launcher(obj, uwep)) {
+
+                if (cansee(bhitpos.x, bhitpos.y))
+                    pline("%s explodes in a ball of fire!", Doname2(obj));
+                else
+                    You_hear("an explosion");
+                explode(bhitpos.x, bhitpos.y, ZT_FIRE, d(2, 6),
+                        WEAPON_CLASS, EXPL_FIERY);
+            }
+
             /* if hero was swallowed and projectile killed the engulfer,
                'obj' got added to engulfer's inventory and then dropped,
                so we can't safely use that pointer anymore; it escapes
