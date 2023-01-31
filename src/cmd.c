@@ -5971,7 +5971,9 @@ retry:
     is_mov = movecmd(dirsym);
     
     if (dirsym == Cmd.spkeys[NHKF_GETDIR_SELF]
-        || dirsym == Cmd.spkeys[NHKF_GETDIR_SELF2]) {
+        || dirsym == Cmd.spkeys[NHKF_GETDIR_SELF2]
+        || dirsym == Cmd.spkeys[NHKF_GETPOS_PICK_O]
+        || dirsym == Cmd.spkeys[NHKF_GETPOS_PICK_V]) {
         u.dx = u.dy = u.dz = 0;
     } else if (dirsym == Cmd.spkeys[NHKF_ESC]) {
         pline("Chained Blitz cancelled.");
