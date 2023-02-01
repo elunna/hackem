@@ -2272,6 +2272,9 @@ int
 do_pickpocket(mon)
 struct monst *mon;
 {
+    /* Exercise by default, decrease with failure  */
+    use_skill(P_THIEVERY, 1);
+    
     /* Izchak is off-limits */
     if (mon->isshk
         && !strcmp(shkname(mon), "Izchak")) {
