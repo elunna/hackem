@@ -2225,7 +2225,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           ATTK(AT_NONE, AD_BLND, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(30, 30, MS_GROWL, MZ_SMALL), 0, 0,
+        SIZ(30, 30, MS_GROWL, MZ_SMALL), MR_POISON, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER, 
         M3_INFRAVISIBLE, 0, 0, 2, CLR_BLACK),
     MON("rabid rat", S_RODENT,

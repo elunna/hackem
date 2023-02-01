@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Skunks are poison resistant.
 Chaotics don't get a guilty message for robbing shops.
 When applied, the Iron Spoon of Liberation can be used as a digging tool (from dnh)
 Ported Scroll of Acquirement from SlashTHEM. Same restrictions as the scroll of time.
