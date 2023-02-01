@@ -122,6 +122,7 @@ E boolean FDECL(wielding_artifact, (int));
 E boolean NDECL(awaiting_guaranteed_gift);
 E int FDECL(arti_align, (int));
 E boolean FDECL(non_wishable_artifact, (struct obj *));
+E boolean FDECL(arti_digs, (struct obj *));
 
 /* ### attrib.c ### */
 

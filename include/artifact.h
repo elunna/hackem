@@ -39,6 +39,8 @@
 #define SPFX_BREATHE    0x10000000L /* Magical breathing */
 #define SPFX_BLIND      0x20000000L /* Weapon blinds on hit */
 #define SPFX_NOWISH     0x40000000L  /* cannot be wished for */
+#define SPFX_DIG        0x80000000L  /* can be used to dig like a pickaxe */
+
 struct artifact {
     short otyp;
     const char *name;

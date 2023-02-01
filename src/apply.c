@@ -5029,12 +5029,6 @@ doapply()
     case MIRROR:
         res = use_mirror(obj);
         break;
-    case SPOON:
-        if (Role_if(PM_CONVICT)) 
-            pline_The("guards used to hand these out with our food rations.  No one was ever able to figure out why.");
-        else 
-            You("have never in your life seen such an odd item.  You have no idea how to use it.");
-        break;
     case BELL:
     case BELL_OF_OPENING:
         use_bell(&obj);
@@ -5174,6 +5168,17 @@ doapply()
     case SONIC_BOMB:
         handle_bomb(obj, TRUE);
         break;
+    case SPOON:
+        if (!obj->oartifact) {
+            if (Role_if(PM_CONVICT))
+                pline_The("guards used to hand these out with our food rations.  "
+                      "No one was ever able to figure out why.");
+            else
+                You("have never in your life seen such an odd item.  "
+                    "You have no idea how to use it.");
+            break;
+        }
+        /* FALLTHROUGH */
     default:
         /* Pole-weapons can strike at a distance */
         if (is_pole(obj)) {

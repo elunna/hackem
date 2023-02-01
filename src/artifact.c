@@ -4989,4 +4989,13 @@ arti_poly_contents(struct obj *obj)
     }
 }
 
+/* used so that callers don't need to known about SPFX_ codes */
+boolean
+arti_digs(obj)
+struct obj *obj;
+{
+    return (obj && obj->oartifact && spec_ability(obj, SPFX_DIG));
+}
+
+
 /*artifact.c*/

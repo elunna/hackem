@@ -180,9 +180,10 @@ struct obj {
 #define is_axe(otmp)                                              \
     ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
      && objects[otmp->otyp].oc_skill == P_AXE)
-#define is_pick(otmp)                                             \
-    ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
-     && objects[otmp->otyp].oc_skill == P_PICK_AXE)
+#define is_pick(otmp)	(((otmp->oclass == WEAPON_CLASS || \
+			 otmp->oclass == TOOL_CLASS) && \
+			 (objects[otmp->otyp].oc_skill == P_PICK_AXE)) || \
+			  arti_digs(otmp))
 #define is_sword(otmp)                                \
     (otmp->oclass == WEAPON_CLASS                     \
      && objects[otmp->otyp].oc_skill >= P_SHORT_SWORD \
