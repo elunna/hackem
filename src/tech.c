@@ -2271,6 +2271,18 @@ int
 do_pickpocket(mon)
 struct monst *mon;
 {
+    if (!Role_if(PM_ROGUE)) {
+         impossible("Attempting pickpocket technique as non-rogue.");
+         return 0;
+    }
+    if (Upolyd) {
+         You("must be in your natural form to pickpocket.");
+         return 0;
+    }
+    if (uwep) {
+         You_cant("do this while holding a weapon");
+         return 0;
+    }
     /* Exercise by default, decrease with failure  */
     use_skill(P_THIEVERY, 1);
     
@@ -3120,18 +3132,6 @@ int tech_no;
 {
     struct monst *mtmp = NULL;
     if (tech_no == -1) { /* Prevent unused var warning */
-         return 0;
-    }
-    if (!Role_if(PM_ROGUE)) {
-         impossible("Attempting pickpocket technique as non-rogue.");
-         return 0;
-    }
-    if (Upolyd) {
-         You("must be in your natural form to pickpocket.");
-         return 0;
-    }
-    if (uwep) {
-         You_cant("do this while holding a weapon");
          return 0;
     }
     if (!getdir(NULL))
