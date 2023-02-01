@@ -646,7 +646,8 @@ struct monst *shkp;
                    total, currency(total), s_suffix(shkname(shkp)),
                    shtypes[eshkp->shoptype - SHOPBASE].name);
     if (!Role_if(PM_ROGUE) && u.ualign.type != A_NONE) { /* stealing is unlawful */
-        You_feel("guilty.");
+        if (u.ualign.type >= A_NEUTRAL)
+            You_feel("guilty.");
         adjalign(-sgn(u.ualign.type));
     }
 
