@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Guidebook entry for pirates.
 Ice mages no longer can start with a grappling hook.
 Ice mages start with a stack of snowballs (random quantity).
 Ice mages starts with wand of cold instead of wand of deluge.

@@ -132,7 +132,11 @@
           lore, and mastered some of the  most  forbidden  of  the  magical
           lore.  Many have fallen to the armies of the undead that they are
           capable of bringing forth and controlling.
-
+                
+               Pirates are swashbuckling adventurers, skilled on the sea 
+          and tough on land. They speak the language of the sea and drink 
+          like fish.
+          
                Priests  and Priestesses are clerics militant, crusaders ad-
           vancing the cause of righteousness with  arms,  armor,  and  arts
           thaumaturgic.   Their  ability to commune with deities via prayer
