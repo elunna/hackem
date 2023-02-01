@@ -1066,9 +1066,8 @@ int tech_no;
                 t_timeout = rn1(500, 500);
             break;
         case T_PICKPOCKET:
-            if (tech_pickpocket(get_tech_no(T_PICKPOCKET)))
-                t_timeout = rn1(10, 5);
-            break;
+            return tech_pickpocket(get_tech_no(T_PICKPOCKET));
+            /* No timeout */
         case T_DISARM:
             return tech_disarm(get_tech_no(T_DISARM)); /* No timeout */
             break;

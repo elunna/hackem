@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed timeout from Rogue pickpocketing tech.
 Fix: Rogue pickpocketing was defaulting to -1 skill use. Fixes #194.
 Only lawfuls get a guilty message for robbing shops.
 Skunks are poison resistant.
