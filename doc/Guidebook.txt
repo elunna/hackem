@@ -118,7 +118,11 @@
                Ice Mages command the forces of cold.  An  experienced  Mage
           can  summon  great blizzards yet remain unaffected by the turmoil
           of the elements.
-
+            
+               Jedi are masters of the force, the energy that flows through
+          the universe. Their skills are focused on the sword and lightsaber
+          - care for it well, and it will keep you alive.
+               
                Knights are distinguished  from  the  common  skirmisher  by
           their  devotion  to  the ideals of chivalry and by the surpassing
           excellence of their armor.

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Guidebook entry for Jedi.
 Guidebook entry for doppelgangers.
 Guidebook entry for pirates.
 Ice mages no longer can start with a grappling hook.
