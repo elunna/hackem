@@ -1105,6 +1105,7 @@ SCROLL("charging",                "HACKEM MUCHE",  1,  15, 300),
 SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack */
             /* Fire burn and cauldron bubble. */
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
+SCROLL("acquirement",       "HZLRC KSTSBD MPFNG",  1,  10, 300),
 SCROLL("ice",		           "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
 SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
     /* Extra descriptions, shuffled into use at start of new game.
@@ -1134,7 +1135,6 @@ SCROLL(None,  "VAS CORP BET MANI",  1,   0, 100), /* Ultima */
 SCROLL(None,            "XOR OTA",  1,   0, 100), /* Aarne Haapakoski */
 SCROLL(None, "STRC PRST SKRZ KRK",  1,   0, 100), /* Czech and Slovak
                                                         tongue-twister */
-SCROLL(None, "HZLRC KSTSBD MPFNG",  1,   0, 100),
 SCROLL(None,            "NYEHEHE",  1,   0, 100), /* laughing noise */
 SCROLL(None,      "ELPHE MONATER",  1,   0, 100), /* famous mistranslation */
 SCROLL(None,               "ABAJ",  1,   0, 100), /* famous mistranslation */

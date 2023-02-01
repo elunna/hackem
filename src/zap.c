@@ -1944,7 +1944,7 @@ int id;
         break;
 
     case SCROLL_CLASS:
-        while (otmp->otyp == SCR_TIME)
+        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT)
             otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
         break;
         

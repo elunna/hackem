@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Ported Scroll of Acquirement from SlashTHEM. Same restrictions as the scroll of time.
 Guidebook entry for Jedi.
 Guidebook entry for doppelgangers.
 Guidebook entry for pirates.

@@ -4797,7 +4797,10 @@ struct obj *no_wish;
         begin_burn(otmp, FALSE);
         obj_extract_self(otmp); /* now release it for caller's use */
     }
-
+    /* obviously don't allow wishing for scrolls of wishing --Amy */
+    if (typ == SCR_ACQUIREMENT && !wizard) 
+        typ = SCR_BLANK_PAPER;
+    
     /* if player specified a reasonable count, maybe honor it */
     if (cnt > 1 && objects[typ].oc_merge
         && (wizard || cnt < rnd(6) || (cnt <= 7 && Is_candle(otmp))

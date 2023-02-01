@@ -45,8 +45,8 @@ STATIC_PTR void FDECL(do_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(undo_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
-static void seffect_cloning(struct obj **);
-
+STATIC_PTR void seffect_cloning(struct obj **);
+STATIC_PTR void NDECL(do_acquirement);
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
@@ -2505,6 +2505,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         punish(sobj);
         break;
+    case SCR_ACQUIREMENT: 
+        known = TRUE;
+        
+        pline("You have found a scroll of acquirement!");
+        if (sobj->cursed || (!sobj->blessed && Luck + rn2(5) < 0)) {
+            pline("Unfortuantely, nothing happens.");
+            break;
+        }
+        do_acquirement();
+        break;
     case SCR_STINKING_CLOUD: {
         coord cc;
 
@@ -3877,7 +3887,7 @@ struct obj **sobjp;
         } else if (otmp->otyp == SPE_BOOK_OF_THE_DEAD) {
             otyp2 = SPE_BLANK_PAPER;
             return;
-        } else if (otmp->otyp == SCR_TIME) {
+        } else if (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT) {
             pline_The("scroll violently resists the cloning process!");
             otyp2 = SCR_BLANK_PAPER;
         } else {
@@ -3996,4 +4006,125 @@ create_particular_from_buffer(const char* bufp)
 
     return FALSE;
 }
+
+/* 5lo: A menu for acquirement instead of the awful, terrible way
+ * SlashEM-Extended handles this.
+ */
+static void
+do_acquirement()
+{
+    struct obj *acqo;
+    menu_item *pick_list = (menu_item *) 0;
+    winid win;
+    anything any;
+    char ch = 'q';
+
+    win = create_nhwindow(NHW_MENU);
+    start_menu(win);
+    any.a_void = 0;
+    any.a_char = 'r';
+    add_menu(win, NO_GLYPH, &any, 'r', 0, ATR_NONE, "Random item",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = ')';
+    add_menu(win, NO_GLYPH, &any, ')', 0, ATR_NONE, "Weapon",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '[';
+    add_menu(win, NO_GLYPH, &any, '[', 0, ATR_NONE, "Armor", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '%';
+    add_menu(win, NO_GLYPH, &any, '%', 0, ATR_NONE, "Comestible",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '?';
+    add_menu(win, NO_GLYPH, &any, '?', 0, ATR_NONE, "Scroll",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '+';
+    add_menu(win, NO_GLYPH, &any, '+', 0, ATR_NONE, "Spellbook",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '!';
+    add_menu(win, NO_GLYPH, &any, '!', 0, ATR_NONE, "Potion",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '"';
+    add_menu(win, NO_GLYPH, &any, '"', 0, ATR_NONE, "Amulet",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '=';
+    add_menu(win, NO_GLYPH, &any, '=', 0, ATR_NONE, "Ring", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '/';
+    add_menu(win, NO_GLYPH, &any, '/', 0, ATR_NONE, "Wand", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '(';
+    add_menu(win, NO_GLYPH, &any, '(', 0, ATR_NONE, "Tool", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '*';
+    add_menu(win, NO_GLYPH, &any, '*', 0, ATR_NONE, "Gem", MENU_UNSELECTED);
+    end_menu(win, "Select a type of item to create:");
+    /* No chains, iron balls, venom, boulders or gold */
+    if (select_menu(win, PICK_ONE, &pick_list) > 0) {
+        ch = pick_list->item.a_char;
+        free((genericptr_t) pick_list);
+    }
+    destroy_nhwindow(win);
+
+    switch (ch) {
+    default:
+    case 'r':
+        acqo = mkobj_at(RANDOM_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case ')':
+        acqo = mkobj_at(WEAPON_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '[':
+        acqo = mkobj_at(ARMOR_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '%':
+        acqo = mkobj_at(FOOD_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '?':
+        acqo = mkobj_at(SCROLL_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '+':
+        acqo = mkobj_at(SPBOOK_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '!':
+        acqo = mkobj_at(POTION_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '"':
+        acqo = mkobj_at(AMULET_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '=':
+        acqo = mkobj_at(RING_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '/':
+        acqo = mkobj_at(WAND_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '(':
+        acqo = mkobj_at(TOOL_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '*':
+        acqo = mkobj_at(GEM_CLASS, u.ux, u.uy, FALSE);
+        break;
+    }
+    if (acqo->otyp == GOLD_PIECE)
+        acqo->quan = rnd(1000);
+    if (acqo->otyp == MAGIC_LAMP) {
+        acqo->otyp = OIL_LAMP;
+        acqo->age = 1500L;
+    }
+    if (acqo->otyp == MAGIC_MARKER)
+        acqo->recharged = 1;
+    while (acqo->otyp == WAN_WISHING || acqo->otyp == WAN_POLYMORPH)
+        acqo->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
+    while (acqo->otyp == SCR_ACQUIREMENT)
+        acqo->otyp = rnd_class(SCR_CREATE_MONSTER, SCR_BLANK_PAPER);
+
+    pline("An item has appeared on the ground just beneath you.");
+}
+
 /*read.c*/
