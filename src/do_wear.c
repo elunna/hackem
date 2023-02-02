@@ -631,6 +631,8 @@ Helmet_on(VOID_ARGS)
         break;
     case TINFOIL_HAT:
         Your("thoughts feel much more secure.");
+        uarmh->known = 1;
+        makeknown(TINFOIL_HAT);
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = TRUE;
