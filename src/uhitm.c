@@ -1204,8 +1204,9 @@ int dieroll;
         rings or gloves made of a hated material.  Note:  rings are worn
         under gloves, so you don't get both bonuses, and two hated rings
         don't give double bonus. */
-        tmp += special_dmgval(&youmonst, mon, (W_ARMG | W_RINGL | W_RINGR),
-                            &hated_obj);
+        if (!uwep && !uarmg)
+            tmp += special_dmgval(&youmonst, mon, 
+                                  (W_ARMG | W_RINGL | W_RINGR), &hated_obj);
     } else {
         if (obj->oartifact == ART_SWORD_OF_KAS)
             iskas = TRUE;
@@ -1869,7 +1870,7 @@ int dieroll;
         }
     }
 
-    /*#t
+    /*
      * Ki special ability, see cmd.c in function special_ability.
      * In this case, we do twice damage! Wow!
      *

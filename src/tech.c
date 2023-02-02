@@ -25,6 +25,7 @@ static int NDECL(blitz_chi_strike);
 static int NDECL(blitz_e_fist);
 static int NDECL(blitz_pummel);
 static int NDECL(blitz_g_slam);
+static int NDECL(blitz_uppercut);
 static int NDECL(blitz_dash);
 static int NDECL(blitz_power_surge);
 static int NDECL(blitz_spirit_bomb);
@@ -2089,18 +2090,14 @@ blitz_g_slam()
     return 1;
 }
 
-
-
-
 /* Assumes u.dx, u.dy already set up */
 static int
 blitz_uppercut()
 {
-    int tech_no, tmp;
+    int tech_no = (get_tech_no(T_UPPERCUT));
+    int tmp;
     struct monst *mtmp;
-    struct trap *chasm;
-    
-    tech_no = (get_tech_no(T_UPPERCUT));
+    struct permonst *mdat;
 
     if (tech_no == -1) {
         return 0;
@@ -2112,7 +2109,6 @@ blitz_uppercut()
         You("can't do this while holding a shield!");
         return 0;
     }
-
     if (!u.dx && !u.dy) {
         You("flex your muscles.");
         return 0;
@@ -2122,44 +2118,49 @@ blitz_uppercut()
         You("strike nothing.");
         return 0;
     }
-    if (!attack(mtmp))
-        return 0;
+    /*if (!attack(mtmp)) return 0;*/
 
     /* Slam the monster into the ground */
     mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
     if (!mtmp || u.uswallow)
         return 1;
-
-    You("hurl %s downwards...", mon_nam(mtmp));
-    if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz))
-        return 1;
+    mdat = mtmp->data;
     
-    tmp = (5 + rnd(6) + (techlev(tech_no) / 5));
-
-    chasm = maketrap(u.ux + u.dx, u.uy + u.dy, PIT);
-    if (chasm) {
-        if (!is_flyer(mtmp->data) && !is_clinger(mtmp->data))
-             mtmp->mtrapped = 1;
-        chasm->tseen = 1;
-        levl[u.ux + u.dx][u.uy + u.dy].doormask = 0;
-        pline("%s slams into the ground, creating a crater!", Monnam(mtmp));
+    tmp = (10 + rnd(6) + (techlev(tech_no) / 5)); /* Same as ground slam */
+    if (has_head(mtmp->data)) {
+        /* Bonus vs things with heads */
+        You("wind up your first and clock the %s with an uppercut!", mon_nam(mtmp));
         tmp *= 2;
-    }
-
-    mselftouch(mtmp, "Falling, ", TRUE);
-    if (!DEADMONSTER(mtmp)) {
-        if (procdmg(mtmp, tmp, AD_PHYS)) {
-             if (!cansee(u.ux + u.dx, u.uy + u.dy))
-                pline("It is destroyed!");
-             else {
-                You("destroy %s!",
-                    mtmp->mtame ? x_monnam(mtmp, ARTICLE_THE, "poor", 
-                                           SUPPRESS_SADDLE, FALSE) 
-                                : mon_nam(mtmp));
+    } else
+        You("slam the %s with your fist!", mon_nam(mtmp));
+    
+    procdmg(mtmp, tmp, AD_PHYS);
+    
+    /* TODO: Below copied from uhitm, refactor? */
+    if (!DEADMONSTER(mtmp) 
+          && !biggermonst(mdat) 
+          && !thick_skinned(mdat) 
+          && !unsolid(mdat)) {
+        if (rn2(2)) {
+             if (canspotmon(mtmp)) {
+                pline("%s %s from your powerful strike!", Monnam(mtmp),
+                      makeplural(stagger(mdat, "stagger")));
+             }
+             if (mhurtle_to_doom(mtmp, tmp, &mdat, FALSE)) {
+                ;
+                /*already_killed = TRUE;*/
+             }
+        } else if (!mindless(mtmp->data)) {
+             if (canspotmon(mtmp))
+                Your("forceful blow knocks %s senseless!", mon_nam(mtmp));
+             /* avoid migrating a dead monster */
+             if (mtmp->mhp > tmp) {
+                mtmp->mconf = 1;
+                mdat = mtmp->data; /* in case of a polymorph trap */
+                /*if (DEADMONSTER(mon)) already_killed = TRUE;*/
              }
         }
     }
-
     return 1;
 }
 
