@@ -67,8 +67,8 @@ piratesay(const char *orig)
     orig = replace(orig, "don't know", "dunno");
     orig = replace(orig, " it is", " 'tis");
     orig = replace(orig, "It is ", "'Tis ");
-    orig = replace(orig, "Is not", "Ain't");
-    orig = replace(orig, "is not", "ain't");
+    orig = replace(orig, "Is not ", "Ain't ");
+    orig = replace(orig, "is not ", "ain't ");
     orig = replace(orig, "wipe off", "swab");
     orig = replace(orig, "wiped off", "swabbed");
     orig = replace(orig, "You", "Ye");
@@ -87,7 +87,7 @@ piratesay(const char *orig)
     orig = replace(orig, " is.", " be.");
     orig = replace(orig, "Of", "O'");
     orig = !rn2(2) ? replace(orig, " of ", " o' ") : orig;
-    /*orig = replace(orig, " to ", " t' ");*/
+    orig = replace(orig, " to ", rn2(5) ? " to " : " t' ");
     orig = replace(orig, " for", " fer");
     orig = replace(orig, "What ", "Wha' ");
     orig = replace(orig, "what ", "wha' ");
@@ -112,7 +112,7 @@ piratesay(const char *orig)
     orig = replace(orig, "Ouch!", "Arrr!");
     orig = replace(orig, "Wow!", "Avast!");
     orig = replace(orig, "Dumb", "Squiffy");
-    orig = replace(orig, "ing", !rn2(2) ? "in" : "ing");
+    
     orig = replace(orig, "state", "way");
     orig = replace(orig, "boy ", "whelp");
     orig = replace(orig, " just", " jus'");
@@ -145,7 +145,7 @@ piratesay(const char *orig)
                                                 ? "dances the hempen jig" : rnd(2) 
                                                       ? "sees the black spot" : "dies");
     orig = replace(orig, "probably", "prolly");
-    orig = replace(orig, "own ", "owns ");
+    orig = replace(orig, " own ", " owns ");
     orig = replace(orig, "music ", "chanties ");
     orig = replace(orig, "toilet", "head");
     orig = replace(orig, "knapsack", "duffle");
@@ -169,6 +169,9 @@ piratesay(const char *orig)
     orig = replace(orig, "wakes up", "shows a leg");
     orig = replace(orig, "wake up", "show a leg");
     orig = replace(orig, "steal ", rn2(3) ? "hornswaggle " : "steal ");
+    
+    /* This will catch a LOT of stuff */
+    orig = replace(orig, "ging ", "gin'");
     
     return orig;
 }

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix some errors and awkwardness in pirate speak.
 Revert WAND_BACKFIRE_CHANCE to 100.
 Fix: A couple checks were skipped on force-fight pickpocketing for rogues.
 Removed timeout from Rogue pickpocketing tech.
