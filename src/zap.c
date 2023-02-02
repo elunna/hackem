@@ -4675,7 +4675,8 @@ int dx, dy;
                 break;
             } else { /* we catch it */
                 tmp_at(DISP_END, 0);
-                You("skillfully catch the %s.", obj->otyp == BOOMERANG ? "boomerang" : "chakram");
+                if (m_shot.i == m_shot.n)
+                    You("skillfully catch the %s.", obj->otyp == BOOMERANG ? "boomerang" : "chakram");
                 return &youmonst;
             }
         }

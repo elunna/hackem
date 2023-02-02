@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Windrider can be multishot.
 Thrown chakrams slice through monsters and always return to you.
 Imported Windrider from dnethack. Changed from a boomerang to a chakram that does double damage.
 Fix: The torch flaring up message displayed when monster wielding it wasn't in view.

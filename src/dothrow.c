@@ -128,7 +128,8 @@ int shotlimit;
      */
     multishot = 1;
     skill = objects[obj->otyp].oc_skill;
-    if (obj->quan > 1L /* no point checking if there's only 1 */
+    /* no point checking if there's only 1 */
+    if ((obj->quan > 1L || obj->oartifact == ART_WINDRIDER)
         /* ammo requires corresponding launcher be wielded */
         && (is_ammo(obj) ? matching_launcher(obj, uwep)
                          /* otherwise any stackable (non-ammo) weapon */
@@ -264,7 +265,7 @@ int shotlimit;
         
         multishot = rnd(multishot);
         
-        if ((long) multishot > obj->quan)
+        if ((long) multishot > obj->quan && obj->oartifact != ART_WINDRIDER)
             multishot = (int) obj->quan;
         
         /* Shotlimit controls your rate of fire */
