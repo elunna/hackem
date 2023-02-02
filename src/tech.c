@@ -137,6 +137,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "sunder",           /* 51 */
     "blood magic",      /* 52 */
     "break rock",       /* 53 */
+    "uppercut",         /* 54 */
     ""
 };
 
@@ -200,6 +201,7 @@ static const struct innate_tech
         { 6, T_E_FIST, 1 },
         { 8, T_DRAW_ENERGY, 1 },
         { 10, T_G_SLAM, 1 },
+        { 13, T_UPPERCUT, 1 },
         { 17, T_SPIRIT_BOMB, 1 },
         { 20, T_POWER_SURGE, 1 },
         { 0, 0, 0 }
@@ -1101,6 +1103,14 @@ int tech_no;
                 return 0;
             t_timeout = rn1(500, 500);
             break;
+        case T_UPPERCUT:
+            /* Called outside of blitz_pummel to work with doblitz */
+            if (!getdir((char *)0))
+                return 0;
+            if (!blitz_uppercut())
+                return 0;
+            t_timeout = rn1(500, 500);
+            break;
         case T_DASH:
             /* Called outside of blitz_pummel to work with doblitz */
             if (!getdir((char *)0))
@@ -1691,6 +1701,7 @@ static const struct blitz_tab blitzes[] = {
     { "LRL", 3, blitz_pummel, T_PUMMEL, BLITZ_CHAIN },
     { "RLR", 3, blitz_pummel, T_PUMMEL, BLITZ_CHAIN },
     { "DDDD", 4, blitz_g_slam, T_G_SLAM, BLITZ_END },
+    { "DUDUDU", 6, blitz_uppercut, T_UPPERCUT, BLITZ_END },
     { "UUUUD", 5, blitz_spirit_bomb, T_SPIRIT_BOMB, BLITZ_END },
     { "", 0, (void *) 0, 0, BLITZ_END } /* Array terminator */
 };
@@ -2077,6 +2088,82 @@ blitz_g_slam()
 
     return 1;
 }
+
+
+
+
+/* Assumes u.dx, u.dy already set up */
+static int
+blitz_uppercut()
+{
+    int tech_no, tmp;
+    struct monst *mtmp;
+    struct trap *chasm;
+    
+    tech_no = (get_tech_no(T_UPPERCUT));
+
+    if (tech_no == -1) {
+        return 0;
+    }
+    if (uwep || (u.twoweap && uswapwep)) {
+        You("can't do this while wielding a weapon!");
+        return 0;
+    } else if (uarms) {
+        You("can't do this while holding a shield!");
+        return 0;
+    }
+
+    if (!u.dx && !u.dy) {
+        You("flex your muscles.");
+        return 0;
+    }
+    mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+    if (!mtmp) {
+        You("strike nothing.");
+        return 0;
+    }
+    if (!attack(mtmp))
+        return 0;
+
+    /* Slam the monster into the ground */
+    mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+    if (!mtmp || u.uswallow)
+        return 1;
+
+    You("hurl %s downwards...", mon_nam(mtmp));
+    if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz))
+        return 1;
+    
+    tmp = (5 + rnd(6) + (techlev(tech_no) / 5));
+
+    chasm = maketrap(u.ux + u.dx, u.uy + u.dy, PIT);
+    if (chasm) {
+        if (!is_flyer(mtmp->data) && !is_clinger(mtmp->data))
+             mtmp->mtrapped = 1;
+        chasm->tseen = 1;
+        levl[u.ux + u.dx][u.uy + u.dy].doormask = 0;
+        pline("%s slams into the ground, creating a crater!", Monnam(mtmp));
+        tmp *= 2;
+    }
+
+    mselftouch(mtmp, "Falling, ", TRUE);
+    if (!DEADMONSTER(mtmp)) {
+        if (procdmg(mtmp, tmp, AD_PHYS)) {
+             if (!cansee(u.ux + u.dx, u.uy + u.dy))
+                pline("It is destroyed!");
+             else {
+                You("destroy %s!",
+                    mtmp->mtame ? x_monnam(mtmp, ARTICLE_THE, "poor", 
+                                           SUPPRESS_SADDLE, FALSE) 
+                                : mon_nam(mtmp));
+             }
+        }
+    }
+
+    return 1;
+}
+
+
 
 /* Assumes u.dx, u.dy already set up */
 static int

@@ -99,7 +99,8 @@ struct blitz_tab {
 #define T_SUNDER        51
 #define T_BLOOD_MAGIC   52
 #define T_BREAK_ROCK    53
+#define T_UPPERCUT      54
  
-#define MAXTECH 54
+#define MAXTECH 55
 
 #endif /* TECH_H */
