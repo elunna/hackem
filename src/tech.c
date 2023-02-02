@@ -1996,11 +1996,12 @@ blitz_pummel()
         You("strike nothing.");
         return 0;
     }
+    context.forcefight = TRUE; 
     if (!attack(mtmp))
         return 0;
-
-    /* Perform the extra attacks
-     */
+    
+    
+    /* Perform the extra attacks */
     for (i = 0; (i < 4); i++) {
         if (rn2(70) > (techlev(tech_no) + 30))
              break;
