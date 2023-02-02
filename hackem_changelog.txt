@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Scrolls of blank paper are known by all roles at start of game.
 Auto-ID the tinfoil hat when worn.
 Fix some errors and awkwardness in pirate speak.
 Revert WAND_BACKFIRE_CHANCE to 100.

@@ -1763,7 +1763,9 @@ u_init()
     if (num_spells() && (u.uenmax < 5))
         u.uen = u.uenmax = u.ueninc[u.ulevel] = 5;
 
+    /* Quality-of-Life */
     knows_object(POT_WATER);
+    knows_object(SCR_BLANK_PAPER);
     return;
 }
 
