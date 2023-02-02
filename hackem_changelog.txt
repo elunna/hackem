@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Executing ground slam or uppercut on peacefuls didn't anger them.
 Added uppercut technique for monks (alternate finisher to ground slam)
 Scrolls of blank paper are known by all roles at start of game.
 Auto-ID the tinfoil hat when worn.

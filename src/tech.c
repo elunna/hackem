@@ -2049,14 +2049,19 @@ blitz_g_slam()
         You("strike nothing.");
         return 0;
     }
+    /* Required for the first attack, otherwise nothing happens if we attempt
+     * to attack peacefuls. */
+    context.forcefight = TRUE; 
     if (!attack(mtmp))
         return 0;
-
+    
     /* Slam the monster into the ground */
     mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
     if (!mtmp || u.uswallow)
         return 1;
 
+    wakeup(mtmp, TRUE);
+    
     You("hurl %s downwards...", mon_nam(mtmp));
     if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz))
         return 1;
@@ -2118,9 +2123,6 @@ blitz_uppercut()
         You("strike nothing.");
         return 0;
     }
-    /*if (!attack(mtmp)) return 0;*/
-
-    /* Slam the monster into the ground */
     mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
     if (!mtmp || u.uswallow)
         return 1;
@@ -2135,6 +2137,7 @@ blitz_uppercut()
         You("slam the %s with your fist!", mon_nam(mtmp));
     
     procdmg(mtmp, tmp, AD_PHYS);
+    wakeup(mtmp, TRUE);
     
     /* TODO: Below copied from uhitm, refactor? */
     if (!DEADMONSTER(mtmp) 
