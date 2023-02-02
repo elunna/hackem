@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Imported Windrider from dnethack. Changed from a boomerang to a chakram that does double damage.
 Fix: The torch flaring up message displayed when monster wielding it wasn't in view.
 Fix: Executing pummel on a peaceful will forcefully carry it out.
 Fix: Executing ground slam or uppercut on peacefuls didn't anger them.

@@ -511,6 +511,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       10000L, NO_COLOR, DRAGON_HIDE),
     
+    /*returns to your hand.*/
+    A("Windrider", CHAKRAM, (SPFX_RESTR), 0, 0,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 4000L,
+      NO_COLOR, DEFAULT_MAT),
+    
     A("Werebane", SABER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_WERE,
       PHYS(5, 10), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
       NO_COLOR, SILVER),
