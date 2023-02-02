@@ -2179,11 +2179,12 @@ void burn_faster(struct obj *obj) {
         return;
     }
     
-    if (turns > 4)
-        pline_The("torch sparks and flares!");
-    else
-        pline_The("torch flares up!");
-
+    if (cansee(obj->ox, obj->oy)) {
+        if (turns > 4)
+            pline_The("torch sparks and flares!");
+        else
+            pline_The("torch flares up!");
+    }
     obj->age -= turns;
 
     if (obj->age < 1)
