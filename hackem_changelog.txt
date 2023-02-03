@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: prevent Valley of the Dead bones files.
 Fix: For previous fix addressing silver rings under gloves.
 Windrider can be multishot.
 Thrown chakrams slice through monsters and always return to you.
