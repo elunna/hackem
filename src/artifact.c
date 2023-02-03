@@ -1633,11 +1633,15 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     static const char you[] = "you";
     char hittee[BUFSZ];
     struct artifact* atmp;
-    int j, k, permdmg, chance;
+    int j, k, mdx, mdy, permdmg, chance;
     int time = 1; /* For Mouser's Scalpel */
 
     Strcpy(hittee, youdefend ? you : mon_nam(mdef));
-
+    
+    if (!youattack) {
+        mdx = sgn(mdef->mx - magr->mx);
+        mdy = sgn(mdef->my - magr->my);
+    }
     /* The following takes care of most of the damage, but not all--
      * the exception being for level draining, which is specially
      * handled.  Messages are done in this function, however.
@@ -1930,7 +1934,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                u.dx, u.dy, TRUE);
                     } else {
                         dobuzz((int) (-20 - (AD_LOUD - 1)), 3, magr->mx,
-                               magr->my, sgn(tbx), sgn(tby), TRUE);
+                               magr->my, mdx, mdy, TRUE);
                     }
                 }
             } else if (otmp->oclass == WEAPON_CLASS
@@ -1993,13 +1997,25 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* if (attacks(AD_MAGM, otmp)) {*/
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage) {
-            pline("%s hits %s.", artiname(otmp->oartifact), hittee);
-            
-            if (!rn2(10) && spec_dbon_applies) {
-                pline("A hail of magic missiles strikes!");
+            if (!youattack && magr && cansee(magr->mx, magr->my)) {
+                if (!spec_dbon_applies) {
+                    if (!youdefend)
+                        ;
+                    else
+                        pline("%s hits %s.", artiname(otmp->oartifact), hittee);
+                } else if (!rn2(10) && spec_dbon_applies) {
+                    pline("A hail of magic missiles strikes!");
+                    *dmgptr += rnd(2) * 6;
+                }
+            } else if (!rn2(10)) {
+                pline_The("Master Sword hits%s %s%c",
+                          !spec_dbon_applies
+                              ? ""
+                              : "!  A hail of magic missiles strikes",
+                          hittee, !spec_dbon_applies ? '.' : '!');
                 *dmgptr += rnd(2) * 6;
             }
-            
+
             /* Occasionally shoot out a magic missile
              * Must be at full health: 3/4 chance of ray.
              * 2d6 - same as a wand. */
@@ -2009,7 +2025,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            u.dy, TRUE);
                 } else if (magr && magr->mhp == magr->mhpmax) {
                     dobuzz((int) (-20 - (AD_MAGM - 1)), 2, magr->mx, magr->my,
-                           sgn(tbx), sgn(tby), TRUE);
+                           mdx, mdy, TRUE);
                 }
             }
             msgprinted = TRUE;

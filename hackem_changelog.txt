@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Master Sword/Thunderstruck not shooting beam in correct direction when wielded by pets.
 Reading a blessed scroll of amnesia allows option to reset accumulated skills.
 Fix: worn rings covered by worn gloves could do material damage to monsters. (thanks qt and K2)
 Fix: prevent Valley of the Dead bones files.
