@@ -702,17 +702,17 @@ struct obj **hated_obj; /* ptr to offending object, can be NULL if not wanted */
      * roll for everything that applies and take the highest damage. */
     struct {
         long mask;
-        struct obj* obj;
+        struct obj **obj;
     } array[9] = {
-        { W_ARMG, gloves },
-        { W_ARMH, helm   },
-        { W_ARMS, shield },
-        { W_ARMF, boots  },
-        { W_ARM,  armor  },
-        { W_ARMC, cloak  },
-        { W_ARMU, shirt  },
-        { W_RINGL, leftring },
-        { W_RINGR, rightring }
+        { W_ARMG, &gloves },
+        { W_ARMH, &helm   },
+        { W_ARMS, &shield },
+        { W_ARMF, &boots  },
+        { W_ARM,  &armor  },
+        { W_ARMC, &cloak  },
+        { W_ARMU, &shirt  },
+        { W_RINGL, &leftring },
+        { W_RINGR, &rightring }
     };
 
     if (hated_obj)
@@ -750,8 +750,8 @@ struct obj **hated_obj; /* ptr to offending object, can be NULL if not wanted */
     }
 
     for (i = 0; i < 9; ++i) {
-        if (array[i].obj && (armask & array[i].mask)) {
-            tmpbonus = dmgval(array[i].obj, mdef);
+        if (*array[i].obj && (armask & array[i].mask)) {
+            tmpbonus = dmgval(*array[i].obj, mdef);
             if (tmpbonus > bonus) {
                 bonus = tmpbonus;
                 if (hated_obj) {
@@ -765,11 +765,11 @@ struct obj **hated_obj; /* ptr to offending object, can be NULL if not wanted */
                      * one, so that searmsg will get called with the most
                      * appropriate message.
                      */
-                    if (mon_hates_material(mdef, array[i].obj->material)
+                    if (mon_hates_material(mdef, (*array[i].obj)->material)
                         && (*hated_obj == NULL
-                            || (sear_damage(array[i].obj->material)
+                            || (sear_damage((*array[i].obj)->material)
                                 > sear_damage((*hated_obj)->material)))) {
-                        *hated_obj = array[i].obj;
+                        *hated_obj = *array[i].obj;
                     }
                 }
             }

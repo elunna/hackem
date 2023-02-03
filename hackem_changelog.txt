@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: worn rings covered by worn gloves could do material damage to monsters. (thanks qt and K2)
 Fix: prevent Valley of the Dead bones files.
 Fix: For previous fix addressing silver rings under gloves.
 Windrider can be multishot.
