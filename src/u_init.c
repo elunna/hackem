@@ -192,11 +192,13 @@ struct trobj Priest[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Pirate[] = {
-#define PIR_KNIVES	1
-#define PIR_SNACK 5
-#define PIR_JEWELRY 7
-#define PIR_TOOL 8
+#define PIR_KNIVES	2
+#define PIR_SNACK 6
+#define PIR_JEWELRY 8
+#define PIR_TOOL 9
+#define PIR_BULLETS 10
     { SCIMITAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { FLINTLOCK, 0, WEAPON_CLASS, 1, 0 },
     { KNIFE, 1, WEAPON_CLASS, 2, 0 },
     { JACKET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -205,6 +207,7 @@ static struct trobj Pirate[] = {
     { POT_BOOZE, 0, POTION_CLASS, 3, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
+    { BULLET,  0, WEAPON_CLASS, 20, 0 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Ranger[] = {
@@ -1331,6 +1334,7 @@ u_init()
             Pirate[PIR_JEWELRY].trotyp = RIN_ADORNMENT;
         if (rn2(100) < 50)
             Pirate[PIR_TOOL].trotyp = GRAPPLING_HOOK;
+        Pirate[PIR_BULLETS].trquan += rn2(Pirate[PIR_BULLETS].trquan / 2);
         ini_inv(Pirate);
         knows_object(OILSKIN_SACK);
         knows_object(OILSKIN_CLOAK);

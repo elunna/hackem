@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Pirates start with a flintlock and bullets.
 Imported the flintlock gun (from dNetHack)
 Pirates get the weapon practice technique (in prep for giving them flintlocks)
 Infidels get the Reinforce Memory technique at level 1 and Draw Energy at level 5.
