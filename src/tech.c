@@ -177,6 +177,8 @@ static const struct innate_tech
     },
     inf_tech[] = { 
         { 1, T_CURSE, 1 },
+        { 1, T_REINFORCE, 1 },
+        { 5, T_DRAW_ENERGY, 1 },
         { 0, 0, 0 } 
     },
     jed_tech[] = { 
