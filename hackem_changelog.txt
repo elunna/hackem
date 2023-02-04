@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Updated tiles with new gun appearances.
 Removed two-weapon skill from Ice Mage.
 Moved passive staff of rot code to prevent resetting possible ice/cold damage in mhitu.
 Ice mages get a passive ice attack that scales with their ice armor strength and level.
