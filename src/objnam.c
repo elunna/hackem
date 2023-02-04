@@ -4547,9 +4547,14 @@ struct obj *no_wish;
 
     if (!oclass && actualn) {
         short objtyp;
-
-        /* Perhaps it's an artifact specified by name, not type */
-        name = artifact_name(actualn, &objtyp);
+        
+        if (!strncmp(actualn, "kiku", 4)) {
+            /* minor kludge for Kiku-ichimonji */
+            name = artifact_name("Kiku-ichimonji", &objtyp);
+        } else {
+            /* Perhaps it's an artifact specified by name, not type */
+            name = artifact_name(actualn, &objtyp);
+        }
         if (name) {
             typ = objtyp;
             goto typfnd;
