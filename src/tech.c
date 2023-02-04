@@ -38,6 +38,7 @@ static int FDECL(tech_vanish, (int));
 static int FDECL(tech_critstrike, (int));
 static int FDECL(tech_cutthroat, (int));
 static int FDECL(tech_blessing, (int));
+static int FDECL(tech_curse, (int));
 static int FDECL(tech_research, (int));
 static int FDECL(tech_eviscerate, (int));
 static int FDECL(tech_berserk, (int));
@@ -139,6 +140,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "blood magic",      /* 52 */
     "break rock",       /* 53 */
     "uppercut",         /* 54 */
+    "curse",            /* 55 */
     ""
 };
 
@@ -171,6 +173,10 @@ static const struct innate_tech
         { 1, T_REINFORCE, 1 },
         { 5, T_DRAW_ENERGY, 1 },
         { 12, T_POWER_SURGE, 1 },
+        { 0, 0, 0 } 
+    },
+    inf_tech[] = { 
+        { 1, T_CURSE, 1 },
         { 0, 0, 0 } 
     },
     jed_tech[] = { 
@@ -1016,6 +1022,10 @@ int tech_no;
             if (tech_blessing(get_tech_no(T_BLESSING)))
                 t_timeout = rn1(500, 500);
             break;
+        case T_CURSE:
+            if (tech_curse(get_tech_no(T_CURSE)))
+                t_timeout = rn1(500, 500);
+            break;
         case T_E_FIST: 
             if (tech_efist(get_tech_no(T_E_FIST)))
                 t_timeout = rn1(1000, 500);
@@ -1432,6 +1442,8 @@ role_tech()
         return hea_tech;
     case PM_ICE_MAGE:
         return ice_tech;
+    case PM_INFIDEL:
+        return inf_tech;
     case PM_JEDI:
         return jed_tech;
     case PM_KNIGHT:
@@ -2685,6 +2697,52 @@ int tech_no;
     } else {
          if (obj->bknown) {
             pline ("That object is already blessed!");
+            return 0;
+         }
+         obj->bknown = 1;
+         pline("The aura fades.");
+    }
+    return 1;
+}
+
+
+int
+tech_curse(tech_no)
+int tech_no;
+{
+    char allowall[2], Your_buf[BUFSZ];
+    struct obj *obj;
+    const char *str;
+    allowall[0] = ALL_CLASSES; 
+    allowall[1] = '\0';
+    if (tech_no == -1) { /* Prevent unused var warning */
+         return 0;
+    }
+    if (!(obj = getobj(allowall, "curse"))) 
+         return 0;
+    
+    pline("An aura of evil surrounds your hands!");
+    if (!Blind) 
+         (void) Shk_Your(Your_buf, obj);
+    if (obj->blessed) {
+         if (!Blind)
+            pline("%s%s %s.",Your_buf, aobjnam(obj, "darkly glow"),
+                  hcolor(NH_AMBER));
+         obj->blessed = 0;
+         unbless(obj);
+         obj->bknown = 1;
+    } else if (!obj->cursed) {
+         if (!Blind) {
+            str = hcolor(NH_RED);
+            pline("%s%s with a%s %s aura.", Your_buf,
+                  aobjnam(obj, "harshly glow"), 
+                  index(vowels, *str) ? "n" : "", str);
+         }
+         curse(obj);
+         obj->bknown = 1;
+    } else {
+         if (obj->bknown) {
+            pline ("That object is already cursed!");
             return 0;
          }
          obj->bknown = 1;

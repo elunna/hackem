@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Infidels get a new technique, Curse, at level 1 that unblesses or curses items depending on their BUC status. 
 Fix: Master Sword/Thunderstruck not shooting beam in correct direction when wielded by pets.
 Reading a blessed scroll of amnesia allows option to reset accumulated skills.
 Fix: worn rings covered by worn gloves could do material damage to monsters. (thanks qt and K2)
