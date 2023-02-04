@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Reverted necromancer starting inventory closer to SLASH'EM.
 Amulets dropped into toilets will auto-ID if possible.
 Fix: Errors giving flintlocks to pirate crewmates. 
 Pirates start with a flintlock and bullets.

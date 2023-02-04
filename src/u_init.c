@@ -163,13 +163,11 @@ struct trobj Monk[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Necromancer[] = {
-#define N_BOOK          9
+#define N_BOOK          7
     { DAGGER, 0, WEAPON_CLASS, 2, UNDEF_BLESS },
-    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { UNDEF_TYP, UNDEF_SPE, FOOD_CLASS, 2, 0 },
-    { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
-    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 2, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 3, UNDEF_BLESS },
     { SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
     { SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
     { SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
@@ -178,7 +176,7 @@ struct trobj Necromancer[] = {
     { WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
         /* KMH -- ...and the matching wand for the inexperienced */
     { WAN_FEAR, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
-    /*{ PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },*/
+    { PICK_AXE, 1, TOOL_CLASS, 1, 1 }, /* for dealing with ghosts */
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Priest[] = {
@@ -1316,7 +1314,6 @@ u_init()
         default: break;
         }
         ini_inv(Necromancer);
-        ini_inv(Pickaxe);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
         knows_class(SPBOOK_CLASS);
