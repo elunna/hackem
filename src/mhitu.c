@@ -4743,7 +4743,7 @@ struct attack *mattk;
 
         if (resists_fire(mtmp)) {
             shieldeff(mtmp->mx, mtmp->my);
-            pline_The("fire doesn't burns %s.", Monnam(mtmp));
+            pline_The("fire doesn't burn %s.", Monnam(mtmp));
             golemeffects(mtmp, AD_FIRE, tmp);
         } else {
             if (resists_cold(mtmp))
@@ -4758,6 +4758,38 @@ struct attack *mattk;
             return 2;
         }
     }
+    
+    
+    if (Role_if(PM_ICE_MAGE)) {
+        if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
+            shieldeff(mtmp->mx, mtmp->my);
+            pline_The("cold doesn't affect %s.", Monnam(mtmp));
+            golemeffects(mtmp, AD_COLD, tmp);
+        } else if (rn2(24) <= icebonus()) {
+            tmp = icebonus() * d(1, 4);
+            
+            if (resists_fire(mtmp))
+                tmp += 3;
+            pline("%s is suddenly freezing!", Monnam(mtmp));
+            
+            if (!rn2(3))
+                tmp += destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+            
+            if (wizard)
+                showdmg(tmp);
+            if ((mtmp->mhp -= tmp) <= 0) {
+                pline("%s dies!", Monnam(mtmp));
+                xkilled(mtmp, 0);
+                if (mtmp->mhp > 0)
+                    return 1;
+                return 2;
+            }
+        }
+    }
+    
+    
+    
+    
     
     if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && !rn2(3))  {
         /* Duplicated from uhitm.c */
