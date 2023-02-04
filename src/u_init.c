@@ -604,7 +604,7 @@ static const struct def_skill Skill_I[] = {
     { P_MATTER_SPELL, P_EXPERT },
 
     { P_RIDING, P_EXPERT },
-    { P_TWO_WEAPON_COMBAT, P_SKILLED },
+    /*{ P_TWO_WEAPON_COMBAT, P_SKILLED },*/
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
