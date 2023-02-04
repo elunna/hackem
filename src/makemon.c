@@ -1347,11 +1347,8 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, SCIMITAR);
                 (void) mongets(mtmp, LIGHT_ARMOR);
                 (void) mongets(mtmp, HIGH_BOOTS);
-                (void) mongets(mtmp, FLINTLOCK, mkobjflags);
-                otmp = mksobj(BULLET, mkobjflags|MKOBJ_NOINIT);
-                otmp->quan += 10 + rnd(5);
-                otmp->owt = weight(otmp);
-                (void) mpickobj(mtmp, otmp);
+                (void) mongets(mtmp, FLINTLOCK);
+                m_initthrow(mtmp, BULLET, 10);
                 break;
             }
             if (w1)
