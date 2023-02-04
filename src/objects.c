@@ -406,6 +406,7 @@ BOW("sling", None,             1, 0, 40,  3, 20, 0, LEATHER, P_SLING, HI_LEATHER
 BOW("crossbow", None,          1, 1, 45, 50, 40, 0, WOOD, P_CROSSBOW, HI_WOOD),
 
 /* firearms */
+GUN("flintlock", None,	       1, 0, 0,  10,   50,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* dNetHack */
 GUN("pistol", None,	       1, 0, 0,  20,  100,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 GUN("submachine gun", None,    1, 0, 0,  25,  250, -1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 GUN("heavy machine gun", None, 1, 1, 0, 200, 2000, -4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */

@@ -1148,6 +1148,8 @@ register struct monst *mtmp;
                         propellor = (oselect(mtmp, RIFLE));
                     if (!propellor) 
                         propellor = (oselect(mtmp, PISTOL));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, FLINTLOCK));
                 } else if ((objects[rwep[i]].w_ammotyp) == WP_SHELL) {
                     propellor = (oselect(mtmp, AUTO_SHOTGUN));
                     if (!propellor) 

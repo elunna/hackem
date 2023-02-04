@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Imported the flintlock gun (from dNetHack)
 Pirates get the weapon practice technique (in prep for giving them flintlocks)
 Infidels get the Reinforce Memory technique at level 1 and Draw Energy at level 5.
 Infidels get a new technique, Curse, at level 1 that unblesses or curses items depending on their BUC status. 

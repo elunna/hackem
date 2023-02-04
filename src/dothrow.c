@@ -1355,9 +1355,13 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         obj->opoisoned = 1;
 
     notonhead = FALSE; /* reset potentially stale value */
-    if (((obj->cursed && u.ualign.type != A_NONE)
+    if (((obj->cursed && u.ualign.type != A_NONE) /* cursed ammo */
+          /* Priests trying to throw pointy things */
           || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)))
-          || obj->greased)
+          /* or greased */
+          || obj->greased
+          /* or flintlock */
+          || (ammo_and_launcher(obj, uwep) && uwep->otyp == FLINTLOCK))
         && (u.dx || u.dy) && !rn2(7)) {
         boolean slipok = TRUE;
 
@@ -2806,6 +2810,8 @@ int otyp;
         return 4;
     case SHOTGUN:
         return 5;
+    case FLINTLOCK:
+        return 8;
     case SUBMACHINE_GUN:
         return 10;
     case PISTOL:
@@ -2830,6 +2836,8 @@ int otyp;
     switch(otyp) {
     case SNIPER_RIFLE:
         return -3;
+    case FLINTLOCK:
+        return -2;
     case RIFLE:
     case SHOTGUN:
         return -1;
