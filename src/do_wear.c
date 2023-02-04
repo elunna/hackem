@@ -3086,12 +3086,8 @@ find_ac()
      * Flame Mage, so hopefully this helps offset the imbalance. 
      * We'll impose similar restrictions - no armor (except robes) and no 
      * shields allowed */
-    if (Role_if(PM_ICE_MAGE) && (!uarm || is_robe(uarm)) && !uarms) {
-        /*WAC cap off the ac bonus to -11 */
-        if (u.ulevel > 18) 
-            uac -= 11;
-        else 
-            uac -= (u.ulevel / 2) + 2;
+    if (Role_if(PM_ICE_MAGE)) {
+        uac -= icebonus();
     }
     /* Doppelganger no-armor bonus. */
     if (Race_if(PM_DOPPELGANGER) && !uarm) 
@@ -3149,6 +3145,19 @@ find_ac()
         u.uac = uac;
         context.botl = 1;
     }
+}
+
+int
+icebonus()
+{
+    /* No non-robe body armor and no shield allowed */
+    if ((!uarm || is_robe(uarm)) && !uarms) {
+        if (u.ulevel > 18) 
+            return 11;
+        else 
+            return (u.ulevel / 2) + 2;
+    }
+    return 0;
 }
 
 void
