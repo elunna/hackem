@@ -8,7 +8,6 @@
 #include "hack.h"
 #include "lev.h"
 
-STATIC_DCL void FDECL(trycall, (struct obj *));
 STATIC_DCL boolean NDECL(teleport_sink);
 STATIC_DCL void FDECL(dosinkring, (struct obj *));
 STATIC_DCL void FDECL(dotoiletamulet, (struct obj *));
@@ -468,14 +467,6 @@ register struct obj *obj;
     }
 }
 
-STATIC_OVL void
-trycall(obj)
-register struct obj *obj;
-{
-    if (!objects[obj->otyp].oc_name_known && !objects[obj->otyp].oc_uname)
-        docall(obj);
-}
-
 /* Transforms the sink at the player's position into
    a fountain, throne, altar or grave. */
 void
@@ -627,7 +618,6 @@ register struct obj *obj;
         obj->in_use = FALSE;
         dropx(obj);
         /* Let's skip the wiki lookup shall we? */
-        /* trycall(obj); */
         makeknown(obj->otyp);
         return;
     case RIN_LEVITATION:
@@ -778,7 +768,6 @@ register struct obj *obj;
         }
     }
     if (ideed)
-        /* trycall(obj); */
         makeknown(obj->otyp);
     else if (!nosink)
         You_hear("the ring bouncing down the drainpipe.");
@@ -932,7 +921,7 @@ register struct obj *obj;
     }
 
     if (ideed)
-        trycall(obj);
+        makeknown(obj->otyp);
 
     /* Object gets wet */
     if (erode_obj(obj, NULL, ERODE_RUST, EF_GREASE | EF_DESTROY) == 3) {

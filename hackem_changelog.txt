@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Amulets dropped into toilets will auto-ID if possible.
 Fix: Errors giving flintlocks to pirate crewmates. 
 Pirates start with a flintlock and bullets.
 Imported the flintlock gun (from dNetHack)
