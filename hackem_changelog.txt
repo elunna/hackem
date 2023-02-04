@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Attempting to throw projectiles while afraid usually results in them slipping.
 Imported gun and ammo appearances from dNetHack.
 Added tile for flintlock.
 Reverted necromancer starting inventory closer to SLASH'EM.

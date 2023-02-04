@@ -1360,6 +1360,8 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
           || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)))
           /* or greased */
           || obj->greased
+          /* or panicking */
+          || Afraid
           /* or flintlock */
           || (ammo_and_launcher(obj, uwep) && uwep->otyp == FLINTLOCK))
         && (u.dx || u.dy) && !rn2(7)) {
