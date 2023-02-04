@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Moved passive staff of rot code to prevent resetting possible ice/cold damage in mhitu.
 Ice mages get a passive ice attack that scales with their ice armor strength and level.
 Refactored ice mage ice armor AC bonus.
 Attempting to throw projectiles while afraid usually results in them slipping.

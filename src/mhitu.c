@@ -4732,7 +4732,36 @@ struct attack *mattk;
     unsigned how_seen;
     char mlet;
     boolean vis, monable;
+    
+    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && !rn2(3))  {
+        /* Duplicated from uhitm.c */
+        boolean no_effect = nonliving(mtmp->data) || is_vampshifter(mtmp);
+        uchar withertime = max(2, tmp);
+        boolean lose_maxhp = (withertime >= 8); /* if already withering */
+        tmp = 0;  /*doesn't deal immediate damage */
+                                                
+        if (!no_effect) {
+            if (canseemon(mtmp))
+                pline("%s is withering away!", Monnam(mtmp));
+            
+            if (mtmp->mwither + withertime > UCHAR_MAX)
+                mtmp->mwither = UCHAR_MAX;
+            else
+                mtmp->mwither += withertime;
 
+            if (lose_maxhp && mtmp->mhpmax > 1) {
+                mtmp->mhpmax--;
+                mtmp->mhp = min(mtmp->mhp, mtmp->mhpmax);
+            }
+            mtmp->mwither_from_u = TRUE;
+            
+            /* Monsters won't just keep pounding on you and withering */
+            if (rn2(3) && (!mtmp->mflee || mtmp->mfleetim)) {
+                monflee(mtmp, 0, FALSE, TRUE);
+            }
+        }
+    }
+    
     if (carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)) {
         tmp = d(2, 10);
         pline("%s is suddenly on fire!", Monnam(mtmp));
@@ -4759,7 +4788,6 @@ struct attack *mattk;
         }
     }
     
-    
     if (Role_if(PM_ICE_MAGE)) {
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
             shieldeff(mtmp->mx, mtmp->my);
@@ -4783,39 +4811,6 @@ struct attack *mattk;
                 if (mtmp->mhp > 0)
                     return 1;
                 return 2;
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && !rn2(3))  {
-        /* Duplicated from uhitm.c */
-        boolean no_effect = nonliving(mtmp->data) || is_vampshifter(mtmp);
-        uchar withertime = max(2, tmp);
-        boolean lose_maxhp = (withertime >= 8); /* if already withering */
-        tmp = 0;  /*doesn't deal immediate damage */
-
-        if (!no_effect) {
-            if (canseemon(mtmp))
-                pline("%s is withering away!", Monnam(mtmp));
-            
-            if (mtmp->mwither + withertime > UCHAR_MAX)
-                mtmp->mwither = UCHAR_MAX;
-            else
-                mtmp->mwither += withertime;
-
-            if (lose_maxhp && mtmp->mhpmax > 1) {
-                mtmp->mhpmax--;
-                mtmp->mhp = min(mtmp->mhp, mtmp->mhpmax);
-            }
-            mtmp->mwither_from_u = TRUE;
-            
-            /* Monsters won't just keep pounding on you and withering */
-            if (rn2(3) && (!mtmp->mflee || mtmp->mfleetim)) {
-                monflee(mtmp, 0, FALSE, TRUE);
             }
         }
     }
