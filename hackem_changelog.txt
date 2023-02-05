@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Tweak to Valley of the Dead bones files. (evil)
 Fix: suppress Hand of Vecna cold-based attack if target is already dead.
 Fix: Monsters could jump into poly traps when trapped (via muse). Fixes #197.
 Temporary fix for #191. Shell ability is disabled if polymorphed.
