@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Handle attempting to engrave with snowballs (or any VENOM_CLASS object). Fixes #198.
 Tweak to Valley of the Dead bones files. (evil)
 Fix: suppress Hand of Vecna cold-based attack if target is already dead.
 Fix: Monsters could jump into poly traps when trapped (via muse). Fixes #197.

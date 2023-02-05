@@ -1106,6 +1106,9 @@ doengrave()
         }
         /*FALLTHRU*/
     case VENOM_CLASS:
+        pline(
+            "That is a bit difficult to engrave with, don't you think?");
+        return 0;
     case ILLOBJ_CLASS:
         impossible("You're engraving with an illegal object!");
         break;
