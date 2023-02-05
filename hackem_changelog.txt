@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Temporary fix for #191. Shell ability is disabled if polymorphed.
 Fix: beam coordinates in artifact_hit trying to reference null attacker.
 Added wishing shortcut 'kiku' to get Kiku-ichimonji.
 Updated tiles with new gun appearances.

@@ -2343,8 +2343,17 @@ toggleshell()
 {
     int tech_no = (get_tech_no(T_SHELL));
     boolean was_blind = Blind, was_hiding = Hidinshell;
-    
-    if (!was_hiding && (u.uinshell || techtout(tech_no))) {
+    if (Upolyd && Race_if(PM_TORTLE)) {
+         You_cant("retreat into your shell as a different form.");
+         return 0;
+    } else if (Upolyd) {
+         /* TODO: Enable this, requires overhaul of adjtech. 
+          * The problem is that a player starting as a different race 
+          * doesn't have the SHELL tech, so when techtout(tech_no) is 
+          * called, it causes a global-buffer-overflow */
+         You("aren't that familiar with the ways of tortles...");
+         return 0;
+    } else if (!was_hiding && (u.uinshell || techtout(tech_no))) {
          You_cant("retreat into your shell again so soon.");
          return 0;
     } else if (!was_hiding && Punished) {
