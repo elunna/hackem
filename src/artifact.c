@@ -1638,7 +1638,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
     Strcpy(hittee, youdefend ? you : mon_nam(mdef));
     
-    if (!youattack) {
+    if (!youattack && magr) {
         mdx = sgn(mdef->mx - magr->mx);
         mdy = sgn(mdef->my - magr->my);
     }
