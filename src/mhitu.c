@@ -4788,13 +4788,17 @@ struct attack *mattk;
         }
     }
     
+    /* Ice Mage gets a passive cold attack that grows as they get stronger
+     * and their ice armor becomes more powerful. We'll delay it a few levels
+     * so really low level ice mages have to work for it. */
     if (Role_if(PM_ICE_MAGE)) {
+        int icetmp = icebonus() - 3;
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
             shieldeff(mtmp->mx, mtmp->my);
             pline_The("cold doesn't affect %s.", Monnam(mtmp));
             golemeffects(mtmp, AD_COLD, tmp);
-        } else if (rn2(24) <= icebonus()) {
-            tmp = icebonus() * d(1, 4);
+        } else if (rn2(24) <= icetmp) {
+            tmp = icetmp * d(1, 4);
             
             if (resists_fire(mtmp))
                 tmp += 3;

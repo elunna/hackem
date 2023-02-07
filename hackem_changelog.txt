@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Ice mages don't get a passive ice armor attack until level 4.
 Vampirics don't get regeneration, but instead gain HP when they feed on lifeblood.
 Fix: Handle attempting to engrave with snowballs (or any VENOM_CLASS object). Fixes #198.
 Tweak to Valley of the Dead bones files. (evil)
