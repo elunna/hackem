@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Techniques were not saved or restored.
 Vampiric convicts start with the same amount of hunger other convicts do.
 Ice mages don't get a passive ice armor attack until level 4.
 Vampirics don't get regeneration, but instead gain HP when they feed on lifeblood.
