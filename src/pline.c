@@ -174,18 +174,18 @@ piratesay(const char *orig)
     orig = replace(orig, "steal ", rn2(3) ? "hornswaggle " : "steal ");
     
     /* This will catch a LOT of stuff */
-    orig = replace(orig, "cing ", "cin'");
-    orig = replace(orig, "ding ", "din'");
-    orig = replace(orig, "ging ", "gin'");
-    orig = replace(orig, "king ", "kin'");
-    orig = replace(orig, "ming ", "min'");
-    orig = replace(orig, "ning ", "nin'");
-    orig = replace(orig, "oing ", "oin'");
-    orig = replace(orig, "ting ", "tin'");
-    orig = replace(orig, "ssing ", "ssin'");
-    orig = replace(orig, "ving ", "vin'");
-    orig = replace(orig, "wing ", "win'");
-    orig = replace(orig, "ying ", "yin'");
+    orig = replace(orig, "cing ", "cin' ");
+    orig = replace(orig, "ding ", "din' ");
+    orig = replace(orig, "ging ", "gin' ");
+    orig = replace(orig, "king ", "kin' ");
+    orig = replace(orig, "ming ", "min' ");
+    orig = replace(orig, "ning ", "nin' ");
+    orig = replace(orig, "oing ", "oin' ");
+    orig = replace(orig, "ting ", "tin' ");
+    orig = replace(orig, "ssing ", "ssin' ");
+    orig = replace(orig, "ving ", "vin' ");
+    orig = replace(orig, "wing ", "win' ");
+    orig = replace(orig, "ying ", "yin' ");
     
     return orig;
 }

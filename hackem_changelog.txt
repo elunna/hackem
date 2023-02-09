@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Missing spaces in piratesay replacements.
 Fix some stuff with piratesay and eye patch; fine tune ing endings.
 Bring maybe_unhide_at up-to-date with Evil/3.7.
 Prevent certain mplayer items from random erosion.
