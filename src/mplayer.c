@@ -421,6 +421,7 @@ short typ;
     if (typ == STRANGE_OBJECT)
         return;
     obj = mksobj(typ, FALSE, FALSE);
+    obj->oeroded = obj->oeroded2 = 0;
     if (!rn2(3))
         obj->oerodeproof = 1;
     if (!rn2(3))

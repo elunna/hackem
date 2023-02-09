@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Prevent certain mplayer items from random erosion.
 Allow food appraisal intrinsic to warn against the Eye of Vecna.
 Update to 'monsters could jump into poly traps when trapped'
 Fix: containers flagged as waterproof were not subject to water damage.
