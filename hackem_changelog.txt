@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Update to 'monsters could jump into poly traps when trapped'
 Fix: containers flagged as waterproof were not subject to water damage.
 Fix: Techniques were not saved or restored.
 Vampiric convicts start with the same amount of hunger other convicts do.
