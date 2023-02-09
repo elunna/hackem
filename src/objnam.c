@@ -75,7 +75,7 @@ STATIC_OVL struct Jitem Pirate_items[] = {
     { CLUB, "belaying pin" },
     { QUARTERSTAFF, "oar" },
     { BASEBALL_BAT, "peg leg" },
-    { BLINDFOLD, "eye patch" },
+    { BLINDFOLD, "eye-patch" },
     { EGG, "cackle fruit" },
     { BULLWHIP, "cat o’ nine tails" },
     { PISTOL, "blunderbuss" },
