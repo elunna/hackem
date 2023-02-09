@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Bring maybe_unhide_at up-to-date with Evil/3.7.
 Prevent certain mplayer items from random erosion.
 Allow food appraisal intrinsic to warn against the Eye of Vecna.
 Update to 'monsters could jump into poly traps when trapped'
