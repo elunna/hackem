@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Re-enabled mines rivers.
 Pirates always start with 3 +1 knives.
 Balance tweaks for vampirics: less natural HP regen, HP when they feed, gets Regeneration and Hunger at level 10. 
 Fix: Missing spaces in piratesay replacements.
