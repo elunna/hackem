@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Decrease the nutrition vampirics receive to standard SLASH'EM level, but double the HP they receive from draining life.
 Update windows splash screen (thanks qt!)
 More tweaks to maybe_unhide_at(). From NetHack 3.7 git commit 5073aac.
 Bloody tiles show random monster blood when hallucinating.

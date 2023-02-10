@@ -3150,14 +3150,14 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                 /* [ALI] Biting monsters does not count against eating 
                  * conducts. The draining of life is considered to be 
                  * primarily a non-physical effect */
-                lesshungry(xtmp * 8);
+                lesshungry(xtmp * 6);
                 /* Feeding increases HP */
                 if (Upolyd) {
-                    u.mh += xtmp;
+                    u.mh += xtmp * 2;
                     if (u.mh > u.mhmax)
                         u.mh = u.mhmax;
                 } else {
-                    u.uhp += xtmp;
+                    u.uhp += xtmp * 2;
                     if (u.uhp > u.uhpmax)
                         u.uhp = u.uhpmax;
                 }
