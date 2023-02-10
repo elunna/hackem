@@ -190,14 +190,13 @@ struct trobj Priest[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Pirate[] = {
-#define PIR_KNIVES	2
 #define PIR_SNACK 6
 #define PIR_JEWELRY 8
 #define PIR_TOOL 9
 #define PIR_BULLETS 10
     { SCIMITAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { FLINTLOCK, 0, WEAPON_CLASS, 1, 0 },
-    { KNIFE, 1, WEAPON_CLASS, 2, 0 },
+    { KNIFE, 1, WEAPON_CLASS, 3, 0 },
     { JACKET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { CRAM_RATION, 0, FOOD_CLASS, 2, UNDEF_BLESS },
@@ -1320,7 +1319,6 @@ u_init()
         break;
     case PM_PIRATE:
         u.umoney0 = rnd(300);
-        Pirate[PIR_KNIVES].trquan = rn1(2, 2);
         if (!rn2(4))
             Pirate[PIR_SNACK].trotyp = KELP_FROND;
         Pirate[PIR_SNACK].trquan += rn2(4);
