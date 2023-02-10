@@ -3132,7 +3132,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp = 0;
         break;
     case AD_DRLI:
-        if (!negated && !rn2(3)
+        if (!negated && (rnd(5) <= 2)
             && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
             int xtmp = d(2, 6);
             
@@ -3150,7 +3150,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                 /* [ALI] Biting monsters does not count against eating 
                  * conducts. The draining of life is considered to be 
                  * primarily a non-physical effect */
-                lesshungry(xtmp * 10);
+                lesshungry(xtmp * 8);
                 /* Feeding increases HP */
                 if (Upolyd) {
                     u.mh += xtmp;
