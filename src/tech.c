@@ -130,7 +130,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "jedi jump",        /* 42 */
     "charge saber",     /* 43 */
     "telekinesis",      /* 44 */
-    "call undead",      /* 45 */
+    "whistle undead",      /* 45 */
     "spirit tempest",   /* 46 */
     "force push",       /* 47 */
     "shell",            /* 48 */
@@ -217,7 +217,7 @@ static const struct innate_tech
     },
     nec_tech[] = { 
         { 1, T_REINFORCE, 1 },
-        { 2, T_CALL_UNDEAD, 1 },
+        { 2, T_WHISTLE_UNDEAD, 1 },
         { 3, T_RAISE_ZOMBIES, 1 },
         { 5, T_BLOOD_MAGIC, 1 },
         { 8, T_SOULEATER, 1 },
@@ -1047,8 +1047,8 @@ int tech_no;
                 t_timeout = rn1(500, 500);
             break;
         }
-        case T_CALL_UNDEAD: {
-            if (tech_callundead(get_tech_no(T_CALL_UNDEAD)))
+        case T_WHISTLE_UNDEAD: {
+            if (tech_callundead(get_tech_no(T_WHISTLE_UNDEAD)))
                 t_timeout = rn1(100, 100);
             break;
         }

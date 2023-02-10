@@ -90,7 +90,7 @@ struct blitz_tab {
 #define T_JEDI_JUMP	42
 #define T_CHARGE_SABER	43
 #define T_TELEKINESIS	44
-#define T_CALL_UNDEAD	45
+#define T_WHISTLE_UNDEAD	45
 #define T_SPIRIT_TEMPEST 46
 #define T_FORCE_PUSH    47
 #define T_SHELL         48

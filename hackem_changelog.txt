@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Rename Call Undead tech to Whistle Undead (avoid confusion with monster spell)
 Re-enabled mines rivers.
 Pirates always start with 3 +1 knives.
 Balance tweaks for vampirics: less natural HP regen, HP when they feed, gets Regeneration and Hunger at level 10. 
