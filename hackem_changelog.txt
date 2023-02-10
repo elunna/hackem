@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Bloody tiles show random monster blood when hallucinating.
 Rename Call Undead tech to Whistle Undead (avoid confusion with monster spell)
 Re-enabled mines rivers.
 Pirates always start with 3 +1 knives.

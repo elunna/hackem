@@ -619,7 +619,8 @@ char *buf, *monbuf;
     }
     if (!pm && cansee(x, y) && levl[x][y].splatpm && !printed_blood)
         Sprintf(eos(buf), " covered in %s blood",
-                mons[levl[x][y].splatpm].mname);
+                Hallucination ? rndmonnam(NULL) : 
+                              mons[levl[x][y].splatpm].mname);
     return (pm && !Hallucination) ? pm : (struct permonst *) 0;
 }
 
