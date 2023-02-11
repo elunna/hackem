@@ -1109,7 +1109,7 @@ char *usr_text;
 
     if ((obj && otyp == STRANGE_OBJECT)) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
-    } else if (dummy.oprops_known) {
+    } else if (dummy.oprops_known || otyp == CORPSE) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
     } else if (identified) {
         Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
