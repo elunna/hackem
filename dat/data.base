@@ -3388,7 +3388,6 @@ fishing pole
 	interesting but brief demonstration of a spiral in action.
 		[ Men at Arms, by Terry Pratchett ]
 flesh golem
-*frankenstein
 	With an anxiety that almost amounted to agony, I collected
 	the instruments of life around me, that I might infuse a spark
 	of being into the lifeless thing that lay at my feet.  It was
@@ -3410,6 +3409,7 @@ flesh golem
 	which they were set, his shrivelled complexion and straight
 	black lips.
 		[ Frankenstein, by Mary Wollstonecraft Shelley ]
+~flintlock
 flint*
 	An emerald is as green as grass;
 	A ruby red as blood;
@@ -3421,6 +3421,22 @@ flint*
 	An opal holds a fiery spark;
 	But a flint holds fire.
 		[ Precious Stones, by Christina Giorgina Rossetti ]
+flintlock
+	Flintlock is a general term for any firearm that uses a flint-
+	striking ignition mechanism, the first of which appeared in 
+	Western Europe in the early 16th century. The term may also apply 
+	to a particular form of the mechanism itself, also known as the 
+	true flintlock, that was introduced in the early 17th century, and
+	gradually replaced earlier firearm-ignition technologies, such as 
+	the matchlock, the wheellock, and the earlier flintlock mechanisms
+	such as snaplock and snaphaunce.
+
+	The true flintlock continued to be in common use for over two 
+	centuries, replaced by percussion cap and, later, the cartridge-
+	based systems in the early-to-mid 19th century. Although long 
+	superseded by modern firearms, flintlock weapons enjoy continuing 
+	popularity with black-powder shooting enthusiasts.
+	    [ Wikipedia, the free encyclopedia ]
 floating eye
 	Floating eyes, not surprisingly, are large, floating eyeballs
 	which drift about the dungeon.  Though not dangerous in and
@@ -6138,6 +6154,15 @@ ma*annan*
 	magic armour which no sword could pierce.  He later became
 	god of the sea, beneath which he lived in Tir na nOc, the
 	underworld.
+mana cloak
+    It provides MC3 and one point of AC when worn, in addition 
+    to its main power of providing energy regeneration.
+    
+    Mana cloaks are one of the best options for spellcasters in the
+    cloak slot. Energy regeneration is a coveted property that is 
+    extremely rare, and a mana cloak is the only source of it on a 
+    non-artifact. It is a further consideration for doppelgangers, 
+    who use energy to #youpoly.
 manes
     The gnats of the dungeon, these swarming monsters are rarely
 	seen alone.
@@ -6283,6 +6308,31 @@ huge chunk of meat
 	But we hae meat, and we can eat,
 	Sae let the Lord be thankit.
 		[ Grace Before Meat, by Robert Burns ]
+medical kit
+	A medical kit is a tool in SLASH'EM.It appears as a leather bag 
+	when unidentified, but cannot hold anything except pills, bandages, 
+	and phials. To view the contents of a medical kit, drop it and 
+	#loot it. There is no way to refill an empty medical kit.
+
+	Only Healers can use the bandages (to bandage their wounds as part
+	of their surgery technique). Only vampiric players can use the 
+	phials (to draw off a phial of their own blood for later 
+	consumption).
+
+	Anyone can apply a medical kit to swallow a pill from it, but only
+	Healers can reliably do this successfully, and then only if the 
+	kit is not cursed. If the pill works, it will cure your first 
+	trouble from the following list: sickness, blindness not caused by
+	something on your face, hallucination, vomiting, confusion, 
+	stunning, and loss of hit points (it will heal you by 10–19 HP but
+	won't increase your maximum). If the pill fails, it may have no 
+	effect, cause HP loss, or make you deathly sick.
+	
+	Success probability
+	Status     Healer  Monk/Priest/Samurai/Undead Slayer  Other role
+	Blessed    1       5/6                                3/4
+	Uncursed   1       1/2                                1/4
+	Cursed     1/3     1/6                                1/12
 medusa
 perseus
 shield of reflection
@@ -8990,7 +9040,15 @@ scroll of air
 
 	Confused effects:
 	- creates an air elemental if cursed, or a whirling sphere.
-
+scroll of acquirement
+    When read, the player may acquire an item, which is like wishing
+    except the player can only specify the item class (weapon, armor,
+    scroll etc.) to get.
+    
+    - If cursed, this scroll has no effect.
+    - If blessed, the player gets to choose an item type.
+    - If uncursed, the player must pass a (Luck + rn2(5) < 0) check to 
+    get the acquirement.
 scroll of amnesia
     When read, this scroll causes you to forget things(*) and abuses
     your wisdom.
@@ -10270,57 +10328,6 @@ spellbook of command undead
 	affects undead.
 	
 	The Necromancer automatically learns this spell at XL 7.
-spellbook of raise zombies
-	Allows you to learn the spell of raise zombies.
-	
-	It will attempt to revive all corpses in adjacent squares and turn
-	them into appropriate zombies. Goblin corpses will result in orc 
-	zombies. Other humanoids will become a ghoul 3/4th of the time
-	or a ghast the remaining 1/4th. There is no effect on non-humanoid
-	corpses.
-
-	An attempt will be made to tame the resulting undead with the same
-	chances as casting charm monster. The undead will always be 
-	hostile if not tamed. You will be unable to move for 2 turns even 
-	if there was no effect.
-	
-	The Necromancer automatically learns this spell at XL 3.
-spellbook of call undead
-	Allows you to learn the spell of call undead.
-	
-	When cast, this spell gathers all your undead pets on the level to 
-	your location. This works exactly the same as a magic whistle, 
-	with the limitation of only summoning undead.
-	
-	The Necromancer automatically learns this spell at XL 2.
-spellbook of animate dead
-	Allows you to learn the spell of animate dead.
-	
-	It allows you to revive a corpse as a pet, either from the floor
-	or your inventory. In addition to the magic energy cost, there is
-	an additional cost of (100 - YOURLEVEL) hit points unless "You 
-	don't have the strength to perform revivification."
-	
-	The Necromancer automatically learns this spell at XL 14.
-spellbook of spirit bomb
-	Allows you to learn the spell of spirit bomb.
-	
-	The spell creates an effect similar to the fireball spell, although
-	it is non-elemental. The ray travels up to d8+1 squares and stops 
-	at the first monster hit. The resulting explosion damages hostile 
-	monsters, and leaves your character, any pets, and nearby objects
-	unaffected.
-	
-	If you have less than 10 energy after the initial casting cost, 
-	the spell will fizzle out. Otherwise, an additional cost of n is
-	applied, where n is 10 + (YOURLEVEL / 5). If n is more than your 
-	current energy, n is set to your current energy.
-	
-	n is then applied as bonus damage when the explosion occurs. The 
-	base damage of the spirit explosion is 3d6, plus any applicable 
-	spellcasting bonuses.
-    
-	The Necromancer automatically learns this spell at XL 17.
 spellbook of knock
 	Allows you to learn the spell of knock.
 	
@@ -10539,7 +10546,6 @@ spellbook of jumping
 	bring you in contact with a monster. Casting jump consumes d25 
 	nutrition, in addition to the ordinary hunger penalty.
 
-
 	Unskilled    Basic
 	...........  ...........
 	...........  ...........
@@ -10552,7 +10558,6 @@ spellbook of jumping
 	.....x.....  ....xxx....
 	...........  ...........
 	...........  ...........
-
 
 	Skilled      Expert
 	...........  ...........
@@ -11996,7 +12001,7 @@ wakizashi
 	and especially during times of civil wars, a tanto was worn
 	in place of a wakizashi.
 		[ Wikipedia, the free encyclopedia ]
-wand of acid
+wand of corrosion
 	Shoots an acidic ray, similar to a yellow dragon's breath attack.
 	- The acid ray deals 6d6 acid damage to monsters that don't 
 	  resist acid.
@@ -12676,7 +12681,7 @@ wand of undead turning
 	  Monsters and objects in the affected squares are turned.
 	
 	Engraving: Dust
-wand of water
+wand of deluge
 	Similar to the breath of a sea dragon, this zaps a torrent of 
 	water that slams into its target, inflicting 6d8 physical damage. 
     
