@@ -209,10 +209,12 @@ E char whereis_real_path[255];
 
 E long done_money;
 E NEARDATA char plname[PL_NSIZ];
-E NEARDATA char dogname[];
+E NEARDATA char birdname[];
 E NEARDATA char catname[];
+E NEARDATA char dogname[];
 E NEARDATA char horsename[];
 E NEARDATA char ghoulname[];
+E NEARDATA char monkeyname[];
 E NEARDATA char wolfname[];
 E NEARDATA char pseudoname[];
 E NEARDATA char ratname[];

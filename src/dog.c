@@ -253,7 +253,11 @@ makedog()
     else if (pettype == PM_PSEUDODRAGON)
         petname = pseudoname;
     else if (pettype == PM_GHOUL)
-		petname = ghoulname;
+        petname = ghoulname;
+    else if (pettype == PM_PARROT)
+        petname = birdname;
+    else if (pettype == PM_MONKEY)
+        petname = monkeyname;
     else if (pettype == PM_SEWER_RAT)
         petname = ratname;
     else if (pettype == PM_LESSER_HOMUNCULUS)

@@ -237,6 +237,8 @@ gender     Your starting gender (male, female, or random).         [random]
            boolean options, the "gender" option will take precedence.
 horsename  the name of your first horse                              [none]
 ghoulname  the name of your first ghoul                              [none]
+birdname  the name of your first bird                                [none]
+monkeyname  the name of your first monkey                            [none]
 pseudoname the name of your first pseudodragon                       [none]
 ratname    the name of your first rat                                [none]
            Convicts are the only role to have a sewer rat as a

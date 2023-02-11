@@ -131,7 +131,9 @@ OPTIONS=!fixinv,perm_invent,sortpack
 ### Pets ###
 # What to call your starting pet, and its type
 #OPTIONS=dogname:Quinn,catname:Vladimir,horsename:Silver,pettype:dog
-#OPTIONS=ghoulname:Igor
+OPTIONS=ghoulname:Igor
+OPTIONS=birdname:Squawks
+OPTIONS=monkeyname:Ugga-Ugga
 # Don't intentionally attack your pets
 OPTIONS=confirm,!hilite_pet,safe_pet
 

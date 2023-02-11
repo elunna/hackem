@@ -109,6 +109,8 @@ OPTIONS=dogname:Spike
 OPTIONS=catname:Opal
 OPTIONS=horsename:Octavia
 OPTIONS=ghoulname:Discord
+OPTIONS=birdname:Polly
+OPTIONS=monkeyname:Unga-Unga
 OPTIONS=wolfname:Apache
 
 # The nameable fruit is always vegan

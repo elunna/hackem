@@ -44,6 +44,8 @@ OPTIONS=symset:IBMGraphics,roguesymset:RogueEpyx
 #OPTIONS=dogname:Fido,catname:Morris,fruit:guava
 #OPTIONS=horsename:Silver
 #OPTIONS=ghoulname:Igor
+#OPTIONS=birdname:Squawks
+#OPTIONS=monkeyname:Ugga-Ugga
 
 # Disable autopickup
 OPTIONS=autopickup

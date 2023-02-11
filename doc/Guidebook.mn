@@ -3076,6 +3076,9 @@ Note that the vanquished monsters list includes all monsters killed by
 traps and each other as well as by you.
 And the dungeon overview shows all levels you had visited but does not
 reveal things about them that you hadn't discovered.
+.lp birdname
+Name your starting bird (ex. ``birdname:Squawks'').
+Cannot be set with the `O' command.
 .lp dogname
 Name your starting dog (for example \(lqdogname:Fang\(rq).
 Cannot be set with the \(oqO\(cq command.
@@ -3267,6 +3270,9 @@ Default \(oq,\(cq.
 ." Format menu entries using TAB to separate columns (default off).
 ." Only applicable to some menus, and only useful to some interfaces.
 ." Debug mode only.
+.lp monkeyname
+Name your starting monkey (ex. ``monkeyname:bananas'').
+Cannot be set with the `O' command.
 .lp monpolycontrol
 Prompt for new form whenever any monster changes shape (default off).
 Debug mode only.
