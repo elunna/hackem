@@ -252,22 +252,23 @@ struct monst *mtmp;
     if (u.ualign.record <= -10)
         return;
 
-    if (Role_if(PM_KNIGHT) && u.ualign.type == A_LAWFUL
-        && !is_undead(mtmp->data)
-        && (!mtmp->mcanmove || mtmp->msleeping
+    if (Role_if(PM_KNIGHT) 
+          && u.ualign.type == A_LAWFUL
+          && !is_undead(mtmp->data)
+          && (!mtmp->mcanmove || mtmp->msleeping
             || (mtmp->mflee && !mtmp->mavenge))) {
-        You("caitiff!");
+        if (u.ualign.record > -11)
+            You("caitiff!");
         adjalign(-1);
-    } else if (Role_if(PM_SAMURAI) && mtmp->mpeaceful
-               && u.ualign.record > -10) {
+    } else if (Role_if(PM_SAMURAI) && mtmp->mpeaceful) {
         /* attacking peaceful creatures is bad for the samurai's giri */
-        You("dishonorably attack the innocent!");
+        if (u.ualign.record > -11)
+            You("dishonorably attack the innocent!");
         adjalign(-1);
-    } else if (Role_if(PM_JEDI) && mtmp->mpeaceful
-               && u.ualign.record > -10) {
+    } else if (Role_if(PM_JEDI) && mtmp->mpeaceful) {
         /* as well as for the way of the Jedi */
-        You("violate the way of the Jedi!");
-        /*u.ualign.sins++;*/
+        if (u.ualign.record > -10)
+            You("violate the way of the Jedi!");
         adjalign(-5);
     }
 }
