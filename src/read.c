@@ -2520,11 +2520,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         known = TRUE;
         
         pline("You have found a scroll of acquirement!");
-        if (sobj->cursed || (!sobj->blessed && Luck + rn2(5) < 0)) {
+        if (sobj->cursed) {
             pline("Unfortuantely, nothing happens.");
             break;
         }
         do_acquirement();
+        
+        if (sobj->blessed && Luck + rn2(5) > 3)
+            do_acquirement(); /* Bonus! */
         break;
     case SCR_STINKING_CLOUD: {
         coord cc;

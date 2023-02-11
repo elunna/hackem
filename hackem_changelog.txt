@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Uncursed scrolls of acquirement always give item; blessed scrolls have a chance at bonus item depending on luck.
 Tweak to how alignment penalty is handled with Sam/Knight/Jedi attacking dishonorably. They don't get a msg past -10 alignment, but still get the penalty.
 Updated database info: flintlocks, mana cloak, medical kit, scroll of acquirement, removed spelltech entries, updated wands of water/acid.
 Object lookup for corpse shows the corpse type.
