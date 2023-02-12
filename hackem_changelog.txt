@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added a forge to pleasant valley.
 The Master Sword and Thunderstruck will not fire rays if peacefuls or pets are in the way.
 Uncursed scrolls of acquirement always give item; blessed scrolls have a chance at bonus item depending on luck.
 Tweak to how alignment penalty is handled with Sam/Knight/Jedi attacking dishonorably. They don't get a msg past -10 alignment, but still get the penalty.
