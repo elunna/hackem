@@ -32,6 +32,7 @@ STATIC_DCL uchar FDECL(abil_to_adtyp, (long *));
 STATIC_DCL int FDECL(glow_strength, (int));
 STATIC_DCL boolean FDECL(untouchable, (struct obj *, BOOLEAN_P));
 STATIC_DCL int FDECL(count_surround_traps, (int, int));
+STATIC_DCL boolean FDECL(can_we_zap, (int, int, int));
 
 /* The amount added to the victim's total hit points to insure that the
    victim will be killed even after damage bonus/penalty adjustments.
@@ -1929,7 +1930,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 
                 /* Occasionally shoot out a sonic beam */
                 if (!rn2(4)) {
-                    if (youattack) {
+                    if (youattack && can_we_zap(u.dx, u.dy, 13)) {
                         dobuzz((int) (20 + (AD_LOUD - 1)), 3, u.ux, u.uy,
                                u.dx, u.dy, TRUE);
                     } else {
@@ -2020,7 +2021,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
              * Must be at full health: 3/4 chance of ray.
              * 2d6 - same as a wand. */
             if (rn2(4)) {
-                if (youattack && (u.uhp == u.uhpmax)) {
+                if (youattack && (u.uhp == u.uhpmax) && can_we_zap(u.dx, u.dy, 13)) {
                     dobuzz((int) (20 + (AD_MAGM - 1)), 2, u.ux, u.uy, u.dx,
                            u.dy, TRUE);
                 } else if (magr && magr->mhp == magr->mhpmax) {
@@ -5014,4 +5015,34 @@ struct obj *obj;
 }
 
 
+STATIC_OVL boolean
+can_we_zap(dx, dy, maxdist)
+int dx, dy, maxdist;
+{
+    struct monst *targ = 0;
+    int curx = u.ux, cury = u.uy;
+    int dist = 0;
+
+    /* Walk outwards */
+    for ( ; dist < maxdist; ++dist) {
+        curx += dx;
+        cury += dy;
+        if (!isok(curx, cury))
+            break;
+
+        /*if (curx == mtmp->mux && cury == mtmp->muy)
+            return &youmonst;*/
+
+        if ((targ = m_at(curx, cury)) != 0) {
+            /* Is the monster visible? */
+            if ((targ->minvis && !See_invisible) || targ->mundetected) {
+                continue;
+            }
+            if (targ->mtame || targ->mpeaceful) {
+                return FALSE;
+            }
+        }
+    }
+    return TRUE;
+}
 /*artifact.c*/
