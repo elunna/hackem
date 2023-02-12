@@ -2012,6 +2012,12 @@ register int after;
                 if (meatjelly(mtmp) == 2)
                     return 2; /* it died */
             }
+            
+            /* Cats love catnip */
+            if (is_feline(ptr)) {
+                if (meatcatnip(mtmp) == 2)
+                    return 2; /* it died */
+            }
 
             if (!*in_rooms(mtmp->mx, mtmp->my, SHOPBASE) || !rn2(25)) {
                 boolean picked = FALSE;

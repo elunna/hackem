@@ -2005,7 +2005,7 @@ register struct monst *mtmp;
             grow = mlevelgain(otmp);
             heal = mhealup(otmp);
             mstone = mstoning(otmp);
-            delobj(otmp);
+            
             ptr = mtmp->data;
             if (grow) {
                 ptr = grow_up(mtmp, (struct monst *) 0);
@@ -2029,6 +2029,50 @@ register struct monst *mtmp;
     }
     return 0;
 }
+
+
+/* monster eats catnip */
+int
+meatcatnip(mtmp)
+register struct monst *mtmp;
+{
+    register struct obj *otmp;
+    struct permonst *ptr;
+    
+    /* If a pet, eating is handled separately, in dog.c */
+    if (mtmp->mtame || !is_feline(mtmp->data))
+        return 0;
+    
+    /* Eats topmost sprig of catnip if it is there */
+    for (otmp = level.objects[mtmp->mx][mtmp->my]; otmp; otmp = otmp->nexthere) {
+        if (otmp->otyp == SPRIG_OF_CATNIP) {
+            if (cansee(mtmp->mx, mtmp->my) && flags.verbose)
+                pline("%s eats %s!", Monnam(mtmp), singular(otmp, doname));
+            else if (!Deaf && flags.verbose)
+                You_hear("a meowing sound.");
+            mtmp->meating = otmp->owt / 2 + 1;
+            
+            if (!Blind)
+                pline("%s chases %s tail!", Monnam(mtmp), mhis(mtmp));
+            mtmp->mconf = 1;
+            otmp->quan--;
+            otmp->owt = weight(otmp);
+            if (otmp->quan <= 0)
+                delobj(otmp);
+
+            ptr = mtmp->data;
+            
+            if (!ptr)
+                return 2; /* it died */
+        }
+        newsym(mtmp->mx, mtmp->my);
+        return 1;
+    }
+    return 0;
+}
+
+
+
 
 int
 mloot_container(mon, container, vismon)
