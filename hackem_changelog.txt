@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Grund the Orc King resists sickness.
 Cats (all f) can eat catnip on the ground and get confused.
 Grund's Stronghold has a large cache of ammo in one of the storage rooms. 
 Added a forge to pleasant valley.

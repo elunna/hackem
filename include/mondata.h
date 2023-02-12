@@ -65,6 +65,7 @@
      || (ptr) == &mons[PM_LOCUST] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
+     || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
      || (ptr) == &mons[PM_MARRASHI] \
      || (ptr) == &mons[PM_WATER_ELEMENTAL])
 
