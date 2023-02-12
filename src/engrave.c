@@ -400,7 +400,7 @@ int x, y;
 void
 learn_elbereth()
 {
-    if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC)))
+    if (Race_if(PM_ORC))
         You("will NEVER learn dirty Elven tricks!");
     
     else if (!u.uevent.ulearned_elbereth) {
