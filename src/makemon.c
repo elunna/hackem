@@ -1455,8 +1455,7 @@ register struct monst *mtmp;
             (void) mongets(mtmp, ORCISH_BOW);
             /* 25 to 40 arrows */
             m_initthrow(mtmp, ORCISH_ARROW, rn2(16) + 25);
-        } 
-        else if (mm == PM_MAYOR_CUMMERBUND){
+        } else if (mm == PM_MAYOR_CUMMERBUND){
             otmp = mksobj(SCIMITAR, FALSE, FALSE);
             curse(otmp);
             otmp->oerodeproof = TRUE;
@@ -1474,8 +1473,7 @@ register struct monst *mtmp;
             (void) mpickobj(mtmp, otmp);
 
             (void) mongets(mtmp, OILSKIN_CLOAK);
-            (void) mongets(mtmp, HIGH_BOOTS);
-            (void) mongets(mtmp, GLOVES);
+            
         } else if (mm == PM_RAT_KING) {
             otmp = mksobj(SCIMITAR, FALSE, FALSE);
             bless(otmp);
@@ -3442,6 +3440,11 @@ long mmflags;
         mtmp->isvecna = TRUE;
     } else if (mndx == PM_GRUND_THE_ORC_KING) {
         mtmp->isgrund = TRUE;
+        (void) mongets(mtmp, SUBMACHINE_GUN);
+        m_initthrow(mtmp, BULLET, 39);
+        (void) mongets(mtmp, HIGH_BOOTS);
+        (void) mongets(mtmp, GLOVES);
+        (void) mongets(mtmp, DENTED_POT);
     } else if (mndx == PM_WIZARD_OF_YENDOR) {
         mtmp->iswiz = TRUE;
         context.no_of_wizards++;
@@ -4223,8 +4226,10 @@ int otyp;
             otmp->oeroded2 = 0;
         }
 
-        /* Medusa's bow and arrows are also high quality */
-        if (mtmp->data == &mons[PM_MEDUSA]) {
+        /* Medusa's bow and arrows are also high quality 
+         * (and Grund's weapons) */
+        if (mtmp->data == &mons[PM_MEDUSA]
+              || mtmp->data == &mons[PM_GRUND_THE_ORC_KING]) {
             if (otmp->oclass == WEAPON_CLASS && otmp->spe < 7)
                 otmp->spe = rn2(3) + 3;
             otmp->blessed = TRUE;
