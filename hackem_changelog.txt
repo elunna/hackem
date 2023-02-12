@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Spell memory for books now matches SLASH'EM (10000 turns). 
 Fix: do not allow the Idol of Moloch to be cancelled.
 Fix: Honey badgers only eat 1 royal jelly at a time.
 Grund gets some extra armor and a beefy submachine gun.
