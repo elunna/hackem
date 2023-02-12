@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Honey badgers only eat 1 royal jelly at a time.
 Grund gets some extra armor and a beefy submachine gun.
 Grund the Orc King resists sickness.
 Cats (all f) can eat catnip on the ground and get confused.

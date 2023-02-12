@@ -1991,8 +1991,7 @@ register struct monst *mtmp;
         if (is_royaljelly(otmp)) {
             if (mtmp->data == &mons[PM_HONEY_BADGER]) {
                 if (cansee(mtmp->mx, mtmp->my) && flags.verbose)
-                    pline("%s eats %s!", Monnam(mtmp),
-                          distant_name(otmp, doname));
+                    pline("%s eats %s!", Monnam(mtmp), singular(otmp, doname));
                 else if (!Deaf && flags.verbose)
                     You_hear("a smacking sound.");
                 mtmp->meating = otmp->owt / 2 + 1;
@@ -2005,7 +2004,10 @@ register struct monst *mtmp;
             grow = mlevelgain(otmp);
             heal = mhealup(otmp);
             mstone = mstoning(otmp);
-            
+            otmp->quan--;
+            otmp->owt = weight(otmp);
+            if (otmp->quan <= 0)
+                    delobj(otmp);
             ptr = mtmp->data;
             if (grow) {
                 ptr = grow_up(mtmp, (struct monst *) 0);
