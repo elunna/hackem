@@ -5705,7 +5705,14 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
 
     /* Depending on who the attacker and flanker are, return a boolean. */
     if (youflanker)
-        return canseemon(mdef) && !Stunned;
+        return canseemon(mdef)
+               && !Hallucination
+               && !Afraid
+               && !Confusion
+               && !Punished
+               && !Fumbling
+               && !Wounded_legs
+               && !Stunned;
     else if (!flanker 
              || !flanker->mcanmove 
              || flanker->msleeping

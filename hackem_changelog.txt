@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+You cannot flank if hallucinating, afraid, confused, punished, fumbling, wounded, or stunned.
 Fix message when pets flank monsters without your help. Fixes #176.
 Confused monsters cannot flank.
 Refactor flanking code for readability and added comments.
