@@ -5721,6 +5721,9 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
           || flanker->mflee
           || flanker->mconf
           || flanker->mtrapped
+          || flanker->mstone
+          || flanker->msick
+          || flanker->mdiseased
           || flanker->mstun) {
         /* Impaired monsters don't make good flankers */
         return FALSE;
