@@ -5641,8 +5641,9 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     boolean youflanker = FALSE;
     boolean youattack = FALSE;
     boolean youdefend = FALSE;
-    int ax, ay, dx, dy;
-    int xt, yt;
+    int ax, ay; /* Attacker coords */
+    int dx, dy; /* Defender coords */
+    int fx, fy; /* Flanker coords */
 
     if (magr == &youmonst) 
         youattack = TRUE;
@@ -5673,23 +5674,29 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     if (abs(ax - dx) > 1 || abs(ay - dy) > 1)
         return FALSE;
 
-    /* Find the flanker, if one happens to exist. */
+    /* Find the flanker, if one happens to exist.
+     * The flanker must "sandwich" the defender.
+     * 
+     * a..  .a.  ..a  ...  f..  .f.  ..f  ...
+     * .d.  .d.  .d.  fda  .d.  .d.  .d.  adf
+     * ..f  .f.  f..  ...  ..a  .a.  a..  ...  
+     */
     if (dx > ax) 
-        xt = ax + 2;
+        fx = ax + 2;
     else if (dx < ax) 
-        xt = ax - 2;
+        fx = ax - 2;
     else
-        xt = ax;
+        fx = ax;
 
     if (dy > ay) 
-        yt = ay + 2;
+        fy = ay + 2;
     else if (dy < ay) 
-        yt = ay - 2;
+        fy = ay - 2;
     else 
-        yt = ay;
+        fy = ay;
 
-    if (isok(xt,yt) && MON_AT(xt, yt))
-        flanker = m_at(xt, yt);
+    if (isok(fx, fy) && MON_AT(fx, fy))
+        flanker = m_at(fx, fy);
     else
         return FALSE;
     
@@ -5699,17 +5706,30 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     /* Depending on who the attacker and flanker are, return a boolean. */
     if (youflanker)
         return canseemon(mdef) && !Stunned;
-    else if (!flanker || !flanker->mcanmove || flanker->msleeping
-        || flanker->mflee || flanker->mstun)
+    else if (!flanker 
+             || !flanker->mcanmove 
+             || flanker->msleeping
+             || flanker->mflee 
+             || flanker->mstun)
+        /* Impaired monsters don't make good flankers */
         return FALSE;
     
     if (youattack) {
-        return flanker->mtame;
+        /* Only pets can help us flank */
+        return flanker->mtame; 
     } else if (youdefend) {
+        /* Any hostiles can flank us */
         return !flanker->mpeaceful;
+    } else if (youflanker){
+        return mdef->mtame;
     } else {
-        return youflanker ? mdef->mtame : mdef->mpeaceful != flanker->mpeaceful;
+        /* If you are not involved in the flanking, then the flanking can 
+         * still occur if the defender and flanker are peaceful and hostile.
+         * Both must be different.
+         */
+        return mdef->mpeaceful != flanker->mpeaceful;
     }
+    
 }
 
 /*mhitu.c*/
