@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Doppelgangers know about polymorph items - also silenced u_init warning about unknown race (reported by cbus)
 Monsters that are sick, diseased, or turning to stone cannot flank.
 Being blind could negate monster's flanking advantage on the player.
 Trapped monsters cannot assist with flanking.

@@ -1677,6 +1677,14 @@ u_init()
         knows_object(POT_BLOOD);
         break;
 
+    case PM_DOPPELGANGER:
+        /* Doppelgangers naturally everything know about polymorph */
+        knows_object(POT_POLYMORPH);
+        knows_object(WAN_POLYMORPH);
+        knows_object(SPE_POLYMORPH);
+        knows_object(RIN_POLYMORPH);
+        break;
+        
     default: /* impossible */
         pline("u_init: unknown race %d", Race_switch);
         break;
