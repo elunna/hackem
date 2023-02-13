@@ -494,8 +494,8 @@ register struct monst *magr, *mdef;
     }
     if (calculate_flankers(magr, mdef)) {
         tmp += 4;
-        if (magr->mtame && canseemon(magr)) {
-            You("help %s flank %s.", mon_nam(magr), mon_nam(mdef));
+        if (canseemon(magr) && canseemon(mdef)) {
+            pline("%s flanks %s.", Monnam(magr), mon_nam(mdef));
         }
     }
     
