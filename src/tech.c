@@ -133,14 +133,14 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "whistle undead",      /* 45 */
     "spirit tempest",   /* 46 */
     "force push",       /* 47 */
-    "shell",            /* 48 */
+    "curse",            /* 48 */
     "pickpocket",       /* 49 */
     "tumble",           /* 50 */
     "sunder",           /* 51 */
     "blood magic",      /* 52 */
     "break rock",       /* 53 */
     "uppercut",         /* 54 */
-    "curse",            /* 55 */
+    "",            /* 55 */
     ""
 };
 
@@ -323,8 +323,7 @@ static const struct innate_tech
         { 1, T_BLINK, 1 },
         { 0, 0, 0 } 
     },
-    tor_tech[] = { 
-        { 1, T_SHELL, 1 },
+    tor_tech[] = {
         { 0, 0, 0 } 
     },
     vam_tech[] = { 
@@ -1087,11 +1086,6 @@ int tech_no;
         case T_DISARM:
             return tech_disarm(get_tech_no(T_DISARM)); /* No timeout */
             break;
-        case T_SHELL:
-            /* Timeout is handled in toggleshell() 
-             * We don't want this to drop down, otherwise the timeout will be
-             * reset. */
-            return toggleshell();
         case T_DAZZLE:
             if (tech_dazzle(get_tech_no(T_DAZZLE)))
                 t_timeout = rn1(50, 25);
@@ -2331,55 +2325,6 @@ int tech_no;
          explode(u.ux, u.uy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
          delay_output();
     }
-    return 1;
-}
-
-
-/* Shell toggling for tortle race. Modified from EvilHack to be compatible 
- * with the technique framework. 
- * Returns 1 if the tortle emerged from it's shell. */
-int
-toggleshell()
-{
-    int tech_no = (get_tech_no(T_SHELL));
-    boolean was_blind = Blind, was_hiding = Hidinshell;
-    if (Upolyd && Race_if(PM_TORTLE)) {
-         You_cant("retreat into your shell as a different form.");
-         return 0;
-    } else if (Upolyd) {
-         /* TODO: Enable this, requires overhaul of adjtech. 
-          * The problem is that a player starting as a different race 
-          * doesn't have the SHELL tech, so when techtout(tech_no) is 
-          * called, it causes a global-buffer-overflow */
-         You("aren't that familiar with the ways of tortles...");
-         return 0;
-    } else if (!was_hiding && (u.uinshell || techtout(tech_no))) {
-         You_cant("retreat into your shell again so soon.");
-         return 0;
-    } else if (!was_hiding && Punished) {
-         You_cant("retreat into your shell with an iron ball chained to your %s!",
-                  body_part(LEG));
-         return 0;
-    }
-
-    You("%s your shell.", was_hiding ? "emerge from" : "retreat into");
-    /* maximum of 200 turns our hero can stay inside their shell,
-       and then 300-400 turns before they can hide in it again
-       after emerging from it */
-    if (was_hiding) {
-         HHalf_physical_damage &= ~FROMOUTSIDE;
-         u.uinshell = 0;
-         techtout(tech_no) = (rn1(100, 300));
-    } else {
-         u.uinshell = 200;
-         HHalf_physical_damage |= FROMOUTSIDE;
-    }
-    
-    find_ac();
-    context.botl = 1;
-    if (was_blind ^ Blind)
-         toggle_blindness();
-
     return 1;
 }
 

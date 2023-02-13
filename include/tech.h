@@ -93,15 +93,14 @@ struct blitz_tab {
 #define T_WHISTLE_UNDEAD	45
 #define T_SPIRIT_TEMPEST 46
 #define T_FORCE_PUSH    47
-#define T_SHELL         48
+#define T_CURSE         48
 #define T_PICKPOCKET    49
 #define T_TUMBLE        50
 #define T_SUNDER        51
 #define T_BLOOD_MAGIC   52
 #define T_BREAK_ROCK    53
 #define T_UPPERCUT      54
-#define T_CURSE         55
 
-#define MAXTECH 56
+#define MAXTECH 55
 
 #endif /* TECH_H */
