@@ -5696,25 +5696,25 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     else 
         fy = ay;
 
-    if (isok(fx, fy) && MON_AT(fx, fy))
+    if (isok(fx, fy) && MON_AT(fx, fy)) {
         flanker = m_at(fx, fy);
-    else
-        return FALSE;
-    
-    if (flanker == &youmonst) 
+    } else if (u_at(fx, fy)) {
+        flanker = &youmonst;
         youflanker = TRUE;
+        
+        if (youdefend)
+            impossible("calculate_flankers: youflanker and youdefend both TRUE!");
+        if (youattack)
+            impossible("calculate_flankers: youflanker and youattack both TRUE!");
+    } else {
+        return FALSE;
+    }
 
     /* Depending on who the attacker and flanker are, return a boolean. */
-    if (youflanker && 
-          (!canseemon(mdef)
-          || !Hallucination
-          || !Afraid
-          || !Confusion
-          || !Punished
-          || !Fumbling
-          || !Wounded_legs
-          || !Stunned)) {
-        return FALSE;
+    if (youflanker) {
+        if (!canseemon(mdef) || Hallucination || Afraid || Confusion
+            || Punished || Fumbling || Wounded_legs || Stunned)
+            return FALSE;
     } else if (!flanker 
           || !flanker->mcanmove 
           || flanker->msleeping
@@ -5730,8 +5730,8 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     } else if (youdefend) {
         /* Any hostiles can flank us */
         return !flanker->mpeaceful;
-    } else if (youflanker){
-        return mdef->mtame;
+    } else if (youflanker) {
+        return magr->mtame;
     } else {
         /* If you are not involved in the flanking, then flanking can 
          * still occur if the defender and flanker are peaceful and hostile.
