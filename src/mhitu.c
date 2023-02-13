@@ -847,7 +847,7 @@ register struct monst *mtmp;
     if (tmp <= 0)
         tmp = 1;
     
-    if (!u.uswallow && calculate_flankers(mtmp, &youmonst) && !Blind) {
+    if (!u.uswallow && calculate_flankers(mtmp, &youmonst)) {
         /* Scale with monster difficulty */
         ftmp = (int) ((mtmp->m_lev - 4) / 2) + 4;
         tmp += ftmp;

@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Being blind could negate monster's flanking advantage on the player.
 Trapped monsters cannot assist with flanking.
 More Hero flanking assist fixes.
 Fix: When hero assists flanks, the impairment checks returned too early preventing an assist.
