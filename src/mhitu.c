@@ -5720,6 +5720,7 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
           || flanker->msleeping
           || flanker->mflee
           || flanker->mconf
+          || flanker->mtrapped
           || flanker->mstun) {
         /* Impaired monsters don't make good flankers */
         return FALSE;

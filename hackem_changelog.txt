@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Trapped monsters cannot assist with flanking.
 More Hero flanking assist fixes.
 Fix: When hero assists flanks, the impairment checks returned too early preventing an assist.
 You cannot flank if hallucinating, afraid, confused, punished, fumbling, wounded, or stunned.
