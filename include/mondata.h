@@ -384,6 +384,9 @@
 #define is_not_zombie(ptr) \
     (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \
+     || (ptr) == &mons[PM_SKELETAL_PIRATE] \
+     || (ptr) == &mons[PM_DRAUGR] \
+     || (ptr) == &mons[PM_GUG] \
      || (ptr) == &mons[PM_REVENANT])
 #define is_zombie(ptr) ((ptr)->mlet == S_ZOMBIE && !is_not_zombie(ptr))
 #define can_become_zombie(ptr) \
