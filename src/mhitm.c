@@ -498,7 +498,7 @@ register struct monst *magr, *mdef;
         ftmp = (int) ((magr->m_lev - 4) / 2) + 4;
         tmp += ftmp;
         
-        if (canseemon(magr) && canseemon(mdef)) {
+        if (canseemon(magr)) {
             pline("%s flanks %s [-%dAC].", Monnam(magr), mon_nam(mdef), ftmp);
         }
     }

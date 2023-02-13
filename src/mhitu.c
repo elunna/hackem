@@ -5705,24 +5705,25 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
         youflanker = TRUE;
 
     /* Depending on who the attacker and flanker are, return a boolean. */
-    if (youflanker)
-        return canseemon(mdef)
-               && !Hallucination
-               && !Afraid
-               && !Confusion
-               && !Punished
-               && !Fumbling
-               && !Wounded_legs
-               && !Stunned;
-    else if (!flanker 
-             || !flanker->mcanmove 
-             || flanker->msleeping
-             || flanker->mflee
-             || flanker->mconf
-             || flanker->mstun)
+    if (youflanker && 
+          (!canseemon(mdef)
+          || !Hallucination
+          || !Afraid
+          || !Confusion
+          || !Punished
+          || !Fumbling
+          || !Wounded_legs
+          || !Stunned)) {
+        return FALSE;
+    } else if (!flanker 
+          || !flanker->mcanmove 
+          || flanker->msleeping
+          || flanker->mflee
+          || flanker->mconf
+          || flanker->mstun) {
         /* Impaired monsters don't make good flankers */
         return FALSE;
-    
+    }
     if (youattack) {
         /* Only pets can help us flank */
         return flanker->mtame; 
@@ -5732,7 +5733,7 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
     } else if (youflanker){
         return mdef->mtame;
     } else {
-        /* If you are not involved in the flanking, then the flanking can 
+        /* If you are not involved in the flanking, then flanking can 
          * still occur if the defender and flanker are peaceful and hostile.
          * Both must be different.
          */
