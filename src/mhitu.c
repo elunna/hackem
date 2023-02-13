@@ -595,7 +595,7 @@ mattacku(mtmp)
 register struct monst *mtmp;
 {
     struct attack *mattk, alt_attk;
-    int i, j, k = 0, tmp, sum[NATTK];
+    int i, j, k = 0, tmp, ftmp, sum[NATTK];
     struct permonst *mdat = mtmp->data;
     struct obj * marmf = which_armor(mtmp, W_ARMF);
     boolean ranged = (distu(mtmp->mx, mtmp->my) > 3);
@@ -846,11 +846,12 @@ register struct monst *mtmp;
         tmp -= 12;
     if (tmp <= 0)
         tmp = 1;
+    
     if (!u.uswallow && calculate_flankers(mtmp, &youmonst) && !Blind) {
-        You("are being flanked!");
-        tmp += 4;
         /* Scale with monster difficulty */
-        tmp += (int) ((mtmp->m_lev - 4) / 2);
+        ftmp = (int) ((mtmp->m_lev - 4) / 2) + 4;
+        tmp += ftmp;
+        You("are being flanked! [-%dAC]", ftmp);
     }
 
     /* find rings of increase accuracy */

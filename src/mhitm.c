@@ -448,6 +448,7 @@ register struct monst *magr, *mdef;
 {
     int i,          /* loop counter */
         tmp,        /* amour class difference */
+        ftmp,       /* flanking bonus */
         strike = 0, /* hit this attack */
         attk,       /* attack attempted this time */
         struck = 0, /* hit at least once */
@@ -493,9 +494,12 @@ register struct monst *magr, *mdef;
         mdef->msleeping = 0;
     }
     if (calculate_flankers(magr, mdef)) {
-        tmp += 4;
+        /* Scale with monster difficulty */
+        ftmp = (int) ((magr->m_lev - 4) / 2) + 4;
+        tmp += ftmp;
+        
         if (canseemon(magr) && canseemon(mdef)) {
-            pline("%s flanks %s.", Monnam(magr), mon_nam(mdef));
+            pline("%s flanks %s [-%dAC].", Monnam(magr), mon_nam(mdef), ftmp);
         }
     }
     

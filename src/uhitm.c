@@ -280,7 +280,7 @@ uchar aatyp;        /* usually AT_WEAP or AT_KICK */
 struct obj *weapon; /* uwep or uswapwep or NULL */
 int *attk_count, *role_roll_penalty;
 {
-    int tmp, tmp2;
+    int tmp, tmp2, ftmp;
     int wepskill, twowepskill, useskill;
 
     *role_roll_penalty = 0; /* default is `none' */
@@ -314,8 +314,10 @@ int *attk_count, *role_roll_penalty;
     }
 
     if (calculate_flankers(&youmonst, mtmp)) {
-        tmp += 4;
-        You("flank %s.", mon_nam(mtmp));
+        /* Scale with monster difficulty */
+        ftmp = (int) ((u.ulevel - 4) / 2) + 4;
+        tmp += ftmp;
+        You("flank %s. [-%dAC]", mon_nam(mtmp), ftmp);
     }
     
     /* level adjustment. maxing out has some benefits */
