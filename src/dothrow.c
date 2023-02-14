@@ -2204,6 +2204,11 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             }
             if (passive_obj(mon, obj, (struct attack *) 0) == ER_DESTROYED)
                 return 1;
+            if (mon->data == &mons[PM_ADHERER] && !DEADMONSTER(mon)) {
+                pline("The %s sticks to %s", xname(obj), mon_nam(mon));
+                (void) mpickobj(mon, obj);
+                return 1;
+            }
         } else {
             tmiss(obj, mon, TRUE);
             if (hmode == HMON_APPLIED)

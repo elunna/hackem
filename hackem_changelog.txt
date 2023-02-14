@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Projectiles thrown at adherers (by hero) will also stick to them.
 Adherer passive disarm works for mon vs mon, and mon vs you. Passive stick also works when you are polyd into an adherer. 
 Reverted the tortle shell technique - only available via #monster now. Fixes #191.
 Skeletal pirates, draugr, and gugs don't count as zombies.
