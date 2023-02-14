@@ -1969,14 +1969,14 @@ post_stone:
         }
         break;
     case AD_TCKL:
-		if(!cancelled && mdef->mcanmove) {
-		    if (vis) {
-			Strcpy(buf, Monnam(magr));
-			pline("%s mercilessly tickles %s.", buf, mon_nam(mdef));
-		    }
+        if (!cancelled && mdef->mcanmove) {
+            if (vis) {
+                Strcpy(buf, Monnam(magr));
+                pline("%s mercilessly tickles %s.", buf, mon_nam(mdef));
+            }
             paralyze_monst(mdef, rnd(10));
-  		}
-		break;
+        }
+        break;
     case AD_SLOW:
         if (!cancelled && mdef->mspeed != MSLOW) {
             unsigned int oldspeed = mdef->mspeed;
@@ -2922,6 +2922,7 @@ struct obj *mwep;
     char buf[BUFSZ];
     int i, tmp;
     struct attack *mdattk;
+    struct obj *otmp;
     mdattk = has_erac(mdef) ? ERAC(mdef)->mattk : mddat->mattk;
 
     for (i = 0;; i++) {
@@ -3164,6 +3165,18 @@ struct obj *mwep;
             }
             tmp = 0;
             break;
+        case AD_DSRM: /* adherer */
+            otmp = MON_WEP(magr);
+            if (otmp) {
+                pline("%s's %s sticks to %s!", Monnam(magr), xname(otmp),
+                      Monnam(mdef));
+                obj_extract_self(otmp);
+                possibly_unwield(magr, FALSE);
+                setmnotwielded(magr, otmp);
+                (void) mpickobj(mdef, otmp);
+            }
+            break;
+                      
         case AD_PLYS: /* Floating eye */
             if (tmp > 127)
                 tmp = 127;

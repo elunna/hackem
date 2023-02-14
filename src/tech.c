@@ -3323,22 +3323,22 @@ int tech_no;
             break;
          case 3:
 #if 0
-                    if (!rn2(25)) {
-                        /* proficient at disarming, but maybe not
-                           so proficient at catching weapons */
-                        int hitu, hitvalu;
+            if (!rn2(25)) {
+                /* proficient at disarming, but maybe not
+                   so proficient at catching weapons */
+                int hitu, hitvalu;
 
-                        hitvalu = 8 + obj->spe;
-                        hitu = thitu(hitvalu,
-                                dmgval(obj, &youmonst),
-                                obj, xname(obj));
-                        if (hitu)
-                            pline("%s hits you as you try to snatch it!",
-                                    The(xname(obj)));
-                        place_object(obj, u.ux, u.uy);
-                        stackobj(obj);
-                        break;
-                    }
+                hitvalu = 8 + obj->spe;
+                hitu = thitu(hitvalu,
+                        dmgval(obj, &youmonst),
+                        obj, xname(obj));
+                if (hitu)
+                    pline("%s hits you as you try to snatch it!",
+                            The(xname(obj)));
+                place_object(obj, u.ux, u.uy);
+                stackobj(obj);
+                break;
+            }
 #endif /* 0 */
             /* right into your inventory */
             You("snatch %s %s!", s_suffix(mon_nam(mtmp)), xname(obj));

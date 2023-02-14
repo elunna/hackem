@@ -4730,6 +4730,7 @@ struct attack *mattk;
 {
     int i, tmp = 0;
     struct attack *oldu_mattk = 0;
+    struct obj *otmp;
     unsigned how_seen;
     char mlet;
     boolean vis, monable;
@@ -5459,6 +5460,19 @@ struct attack *mattk;
                 } else
                     tmp = 0;
                 goto assess_dmg;
+            }
+            break;
+        case AD_DSRM: /* adherer */
+            otmp = MON_WEP(mtmp);
+            if (otmp) {
+                pline("%s's %s sticks to you!", Monnam(mtmp), xname(otmp));
+                obj_extract_self(otmp);
+                possibly_unwield(mtmp, FALSE);
+                setmnotwielded(mtmp, otmp);
+                hold_another_object(otmp, "You drop %s!", doname(otmp), (const char *)0);
+            } else if (!u.ustuck) {
+                u.ustuck = mtmp;
+                pline("%s sticks to you!", Monnam(mtmp));
             }
             break;
         case AD_PLYS: /* Floating eye */
