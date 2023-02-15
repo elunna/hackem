@@ -1259,7 +1259,7 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     struct obj *obj = (uarmc ? uarmc : uarm);
-    
+    boolean is_sal = mtmp->data == &mons[PM_SALAMANDER];
     if (!obj)
         obj = uarmu;
     if (mattk->adtyp == AD_DRIN)
@@ -1274,9 +1274,8 @@ struct attack *mattk;
         || (obj->oprops & ITEM_OILSKIN))
         && (!obj->cursed || rn2(3))) {
         pline("%s %s your %s %s!", Monnam(mtmp),
-              (mattk->adtyp == AD_WRAP
-               && mtmp->data != &mons[PM_SALAMANDER]) ? "slips off of"
-                                                      : "grabs you, but cannot hold onto",
+              (mattk->adtyp == AD_WRAP && !is_sal) 
+                  ? "slips off of" : "grabs you, but cannot hold onto",
               obj->greased ? "greased" : "slippery",
               /* avoid "slippery slippery cloak"
                  for undiscovered oilskin cloak */
@@ -1293,8 +1292,8 @@ struct attack *mattk;
     /* 50% chance (with a luck bonus) of slipping free with free action */
     } else if (Free_action && (rnl(10) < 5)) {
         pline("%s %s you, but you quickly free yourself!",
-            Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
-            "swings itself around of" : "grabs");
+            Monnam(mtmp), (mattk->adtyp == AD_WRAP && !is_sal)
+                                ? "swings itself around" : "grabs");
         return TRUE;
     }
     /* 50% chance (with a luck bonus) of slipping free with mud boots. 
@@ -1304,8 +1303,8 @@ struct attack *mattk;
              && objdescr_is(uarmf, "mud boots")
              && (rnl(10) < 5)) {
         pline("%s %s you, but you quickly free yourself!",
-              Monnam(mtmp), (mattk->adtyp == AD_WRAP) ?
-              "swings itself around of" : "grabs");
+              Monnam(mtmp), (mattk->adtyp == AD_WRAP && !is_sal)
+                                ? "swings itself around" : "grabs");
         return TRUE;
     }
     return FALSE;

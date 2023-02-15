@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Malformed messages when free action prevents being grabbed (reported by mobileuser)
 Bodaks hate light.
 Projectiles thrown at adherers (by hero) will also stick to them.
 Adherer passive disarm works for mon vs mon, and mon vs you. Passive stick also works when you are polyd into an adherer. 
