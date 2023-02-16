@@ -2959,21 +2959,15 @@ struct obj *mwep;
             acid_damage(MON_WEP(magr));
         goto assess_dmg;
     case AD_SLEE:
-        /* hackem: I make no guarantees that this works correctly! 
-            check back to see if this affects riders/steeds.
-        */
         if (mhit && !mdef->mcan) {
-            Strcpy(buf, Monnam(magr));
-
             if (resists_sleep(magr) || defended(magr, AD_SLEE)) {
                 pline("%s is not affected.", Monnam(magr));
             }
-            else if (sleep_monst(mdef, tmp, -1)) {
-                if (vis) {
-                    pline("%s is put to sleep by %s.", buf, Monnam(magr));
-                }
-		    mdef->mstrategy &= ~STRAT_WAITFORU;
-		    slept_monst(mdef);
+            else if (sleep_monst(magr, tmp, -1)) {
+                if (vis)
+                    pline("%s is put to sleep by %s.", Monnam(magr), mon_nam(mdef));
+                magr->mstrategy &= ~STRAT_WAITFORU;
+                slept_monst(magr);
             }
         }
         break;

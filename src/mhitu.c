@@ -5305,9 +5305,6 @@ struct attack *mattk;
         goto assess_dmg;
 
     case AD_SLEE:
-        /* hackem: I make no guarantees that this works correctly! 
-            check back to see if this affects riders/steeds.
-        */
         if (resists_sleep(mtmp) || defended(mtmp, AD_SLEE)) {
             pline("%s is not affected.", Monnam(mtmp));
         }
