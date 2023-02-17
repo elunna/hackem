@@ -9,9 +9,9 @@ b j n   1 2 3           g<dir>:   run in direction <dir> until something
                                     case means the Control key, not a caret)
  >  down                m<dir>:   move without picking up objects/fighting
                         F<dir>:   fight even if you don't sense a monster
-                If the number_pad option is set, the number keys move instead.
-                Depending on the platform, Shift number (on the numberpad),
-                Meta number, or Alt number will invoke the YUHJKLBN commands.
+                If the number_pad option is set, the digit keys move instead.
+                Depending on the platform, Shift digit (on the numberpad),
+                Meta digit, or Alt digit will invoke the YUHJKLBN commands.
                 Control <dir> may or may not work when number_pad is enabled,
                 depending on the platform's capabilities.
                 Digit '5' acts as 'G' prefix, unless number_pad is set to 2
@@ -22,23 +22,30 @@ b j n   1 2 3           g<dir>:   run in direction <dir> until something
                 used but 'y' and 'z' are swapped.
 
 General commands:
-?       help    display one of several informative texts
-#quit   quit    end the game without saving current game
-S       save    save the game (to be continued later) and exit
-                [to restore, play again and use the same character name]
-!       sh      escape to some SHELL (if allowed; 'exit' to resume play)
-^Z      suspend suspend the game (independent of your current suspend char)
+?     help      display one of several informative texts
+#quit quit      end the game without saving current game
+S     save      save the game (to be continued later) and exit
+                [to restore, play again and use the same character name;
+                use #quit to quit without saving]
+!     sh        escape to some SHELL (if allowed; 'exit' to resume play)
+^Z    suspend   suspend the game (independent of your current suspend char)
                 [on UNIX(tm)-based systems, use the 'fg' command to resume]
-O       options set options
-/       what-is tell what a map symbol represents
-\       known   display list of what's been discovered
-v       version display version number
-V       history display game history
-^A      again   redo the previous command (^A denotes the keystroke CTRL-A)
-^R      redraw  redraw the screen
-^P      prevmsg repeat previous message (subsequent ^P's repeat earlier ones)
+O     options   set options
+/     what-is   tell what a map symbol represents
+\     known     display list of what's been discovered
+v     version   display version number
+V     history   display game history
+^A    again     redo the previous command
+^R    redraw    redraw the screen
+^P    prevmsg   repeat previous message (consecutive ^P's repeat earlier ones)
 #               introduces an extended command (#? for a list of them)
-&       what-does describe the command a keystroke invokes
+&     what-does describe the command a keystroke invokes
+
+Control characters are depicted as '^' followed by a letter.  Depress Ctrl
+or Control like a shift key then type the letter.  Control characters are
+case-insensitive; ^D is the same as ^d, Ctrl+d is same as Ctrl+Shift+d.
+There are a few non-letter control characters; nethack uses ^[ as a synonym
+for Escape (or vice versa) but none of the others.
 
 Game commands:
 ^D      kick    kick (a door, or something else)
@@ -92,8 +99,11 @@ _       travel  move via a shortest-path algorithm to a point on the map
 :       look    look at what is here
 ;       farlook look at what is somewhere else by selecting a map symbol
 
-Keyboards that have a meta key can also use these extended commands
-via the meta modifier instead of the # prefix:
+Keyboards that have a meta key (some use Alt for that, so typing Alt as a
+shift plus 'e' would generate 'M-e') can also use these extended commands
+via the meta modifier as an alternative to using the # prefix.  Unlike
+control characters, meta characters are case-sensitive so M-a is different
+from M-A.  Type the latter with two keys used as shifts, Meta+Shift+a.
 
 M-?             display extended command help (if the platform allows this)
 M-2     twoweapon toggle two-weapon combat (unless number_pad is enabled)
@@ -124,12 +134,15 @@ M-u     untrap  untrap something
 M-v     version print compile time options for this version
 M-w     wipe    wipe off your face
 
-If the "number_pad" option is on, these additional variants are available:
+If the 'number_pad' option is on, keys usually used for movement can be
+used for various commands:
 
 n               followed by number of times to repeat the next command
-h       help    display one of several informative texts, like '?'
-j       jump    jump to another location
-k       kick    kick something (usually a door)
-l       loot    loot a box on the floor
-N       name    name an item or type of object
-u       untrap  untrap something (usually a trapped object)
+h     help      display one of several informative texts, like '?'
+j     jump      jump to another location
+k     kick      kick something (usually a door)
+l     loot      loot a box on the floor
+N     name      name an item or type of object
+u     untrap    untrap something (usually a trapped object)
+
+Additional commands are available in debug mode (also known as wizard mode).

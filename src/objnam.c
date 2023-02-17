@@ -1,4 +1,4 @@
-/* NetHack 3.6	objnam.c	$NHDT-Date: 1583315888 2020/03/04 09:58:08 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.293 $ */
+/* NetHack 3.6	objnam.c	$NHDT-Date: 1674864732 2023/01/28 00:12:12 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.259 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Robert Patrick Rankin, 2011. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -18,6 +18,7 @@ STATIC_DCL short FDECL(rnd_otyp_by_namedesc, (const char *, CHAR_P, int));
 STATIC_DCL boolean FDECL(wishymatch, (const char *, const char *, BOOLEAN_P));
 STATIC_DCL char *NDECL(nextobuf);
 STATIC_DCL void FDECL(releaseobuf, (char *));
+STATIC_DCL void FDECL(xcalled, (char *, int, const char *, const char *));
 STATIC_DCL char *FDECL(minimal_xname, (struct obj *));
 STATIC_DCL void FDECL(add_erosion_words, (struct obj *, char *));
 STATIC_DCL char *FDECL(doname_base, (struct obj *obj, unsigned));
@@ -202,7 +203,7 @@ register int otyp;
         actualn = Alternate_item_name(otyp, Japanese_items);
     else if (Role_if(PM_PIRATE) && Alternate_item_name(otyp, Pirate_items))
      	actualn = Alternate_item_name(otyp, Pirate_items);
-
+    buf[0] = '\0';
     switch (ocl->oc_class) {
     case COIN_CLASS:
         Strcpy(buf, "coin");
@@ -233,7 +234,7 @@ register int otyp;
         else
             Strcpy(buf, "amulet");
         if (un)
-            Sprintf(eos(buf), " called %s", un);
+            xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
         if (dn)
             Sprintf(eos(buf), " (%s)", dn);
         return buf;
@@ -242,8 +243,8 @@ register int otyp;
             Strcpy(buf, actualn);
             if (GemStone(otyp) && ocl->oc_class != ARMOR_CLASS)
                 Strcat(buf, " stone");
-            if (un)
-                Sprintf(eos(buf), " called %s", un);
+            if (un) /* 3: length of " (" + ")" which will enclose 'dn' */
+                xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
             if (dn)
                 Sprintf(eos(buf), " (%s)", dn);
         } else {
@@ -253,7 +254,7 @@ register int otyp;
                        (ocl->oc_material == MINERAL
                         || otyp == SLING_BULLET) ? " stone" : " gem");
             if (un)
-                Sprintf(eos(buf), " called %s", un);
+                xcalled(buf, BUFSZ, "", un);
         }
         return buf;
     }
@@ -262,13 +263,13 @@ register int otyp;
         if (ocl->oc_unique)
             Strcpy(buf, actualn); /* avoid spellbook of Book of the Dead */
         /* KMH -- "mood ring" instead of "ring of mood" */
-	    else if (otyp == RIN_MOOD)
-		    Sprintf(buf, "%s ring", actualn);
+        else if (otyp == RIN_MOOD)
+            Sprintf(buf, "%s ring", actualn);
         else
             Sprintf(eos(buf), " of %s", actualn);
     }
-    if (un)
-        Sprintf(eos(buf), " called %s", un);
+    if (un) /* 3: length of " (" + ")" which will enclose 'dn' */
+        xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
     if (dn)
         Sprintf(eos(buf), " (%s)", dn);
     return buf;
@@ -618,6 +619,24 @@ boolean has_of;
     }
 }
 
+/* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
+STATIC_OVL void
+xcalled(buf, siz, pfx, sfx)
+char *buf;       /* eos(obuf) or eos(&obuf[PREFIX]) */
+int siz;         /* BUFSZ or BUFSZ-PREFIX */
+const char *pfx; /* usually class string, sometimes more specific */
+const char *sfx; /* user assigned type name */
+{
+    int bufsiz = siz - 1 - (int) strlen(buf),
+        pfxlen = (int) (strlen(pfx) + sizeof " called " - sizeof "");
+
+    if (pfxlen > bufsiz)
+        panic("xcalled: not enough room for prefix (%d > %d)",
+              pfxlen, bufsiz);
+
+    Sprintf(eos(buf), "%s called %.*s", pfx, bufsiz - pfxlen, sfx);
+}
+
 char *
 xname(obj)
 struct obj *obj;
@@ -659,6 +678,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         actualn = Alternate_item_name(typ, Japanese_items);
     else if (Role_if(PM_PIRATE) && Alternate_item_name(typ, Pirate_items))
      	actualn = Alternate_item_name(typ, Pirate_items);
+    
     /* As of 3.6.2: this used to be part of 'dn's initialization, but it
        needs to come after possibly overriding 'actualn' */
     if (!dn)
@@ -732,13 +752,14 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Sprintf(eos(buf), "amulet called %s", un);
         else if (is_soko_prize_flag(obj))
             Strcpy(buf, "sokoban prize amulet");
+        else if (un)
+            xcalled(buf, BUFSZ - PREFIX, "amulet", un);
         else
             Sprintf(eos(buf), "%s amulet", dn);
         break;
     case WEAPON_CLASS:
         if (is_poisonable(obj) && obj->opoisoned)
             Strcat(buf, "poisoned ");
-
         /*FALLTHRU*/
     case VENOM_CLASS:
     case SPIRIT_CLASS:
@@ -761,9 +782,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         else if (nn && !is_soko_prize_flag(obj))
             Strcat(buf, actualn);
         else if (un && !is_soko_prize_flag(obj)) {
-            Strcat(buf, dn);
-            Strcat(buf, " called ");
-            Strcat(buf, un);
+            xcalled(buf, BUFSZ - PREFIX, dn, un);
         } else if (is_soko_prize_flag(obj)) {
             Strcpy(buf, "sokoban prize tool");
         } else
@@ -947,8 +966,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 }
                 Strcat(buf, actualn);
             } else {
-                Strcat(buf, " called ");
-                Strcat(buf, un);
+                xcalled(buf, BUFSZ - PREFIX, "", un);
             }
         } else {
             Strcat(buf, dn);
@@ -963,8 +981,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcat(buf, " of ");
             Strcat(buf, actualn);
         } else if (un) {
-            Strcat(buf, " called ");
-            Strcat(buf, un);
+            xcalled(buf, BUFSZ - PREFIX, "", un);
         } else if (ocl->oc_magic) {
             Strcat(buf, " labeled ");
             Strcat(buf, dn);
@@ -979,7 +996,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         else if (nn)
             Sprintf(eos(buf), "wand of %s", actualn);
         else if (un)
-            Sprintf(eos(buf), "wand called %s", un);
+            xcalled(buf, BUFSZ - PREFIX, "wand", un);
         else
             Sprintf(eos(buf), "%s wand", dn);
         break;
@@ -990,7 +1007,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             else if (nn)
                 Strcat(buf, actualn);
             else if (un)
-                Sprintf(eos(buf), "novel called %s", un);
+                xcalled(buf, BUFSZ - PREFIX, "novel", un);
             else
                 Sprintf(eos(buf), "%s book", dn);
             break;
@@ -1002,7 +1019,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 Strcat(buf, "spellbook of ");
             Strcat(buf, actualn);
         } else if (un) {
-            Sprintf(eos(buf), "spellbook called %s", un);
+            xcalled(buf, BUFSZ - PREFIX, "spellbook", un);
         } else
             Sprintf(eos(buf), "%s spellbook", dn);
         break;
@@ -1011,13 +1028,13 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcpy(buf, "ring");
         else if (nn) {
             /* KMH -- "mood ring" instead of "ring of mood" */
-			if (typ == RIN_MOOD)
-				Sprintf(buf, "%s ring", actualn);
-			else
+            if (typ == RIN_MOOD)
+                Sprintf(buf, "%s ring", actualn);
+            else
                 Sprintf(eos(buf), "ring of %s", actualn);
         }
         else if (un)
-            Sprintf(eos(buf), "ring called %s", un);
+            xcalled(buf, BUFSZ - PREFIX, "ring", un);
         else
             Sprintf(eos(buf), "%s ring", dn);
         break;
@@ -1036,7 +1053,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcpy(buf, rock);
         } else if (!nn) {
             if (un)
-                Sprintf(eos(buf), "%s called %s", rock, un);
+                xcalled(buf, BUFSZ - PREFIX, rock, un);
             else
                 Sprintf(eos(buf), "%s %s", dn, rock);
         } else {
@@ -1083,7 +1100,8 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     if (has_oname(obj) && dknown) {
         Strcat(buf, " named ");
  nameit:
-        Strcat(buf, ONAME(obj));
+        (void) strncat(buf, ONAME(obj),
+                       BUFSZ - 1 - PREFIX - (unsigned) strlen(buf));
     }
 
     if (!strncmpi(buf, "the ", 4))
@@ -1484,7 +1502,8 @@ unsigned doname_flags;
         }
         
         if (is_bomb(obj))
-		    if (obj->oarmed) Strcat(bp, " (armed)");
+            if (obj->oarmed) 
+                Strcat(bp, " (armed)");
         break;
     case TOOL_CLASS:
         add_erosion_words(obj, prefix);
@@ -1520,7 +1539,6 @@ unsigned doname_flags;
                 || obj->otyp == MAGIC_LAMP
                 || obj->otyp == LANTERN 
                 || Is_candle(obj)) {
-            
             /* WAC - magic candles are never "partly used" */
             if (Is_candle(obj) && obj->otyp != MAGIC_CANDLE
                     && obj->age < 20L * (long) objects[obj->otyp].oc_cost) {
@@ -2149,7 +2167,7 @@ const char *str;
         return strcpy(buf, "an []");
     }
     (void) just_an(buf, str);
-    return strcat(buf, str);
+    return strncat(buf, str, BUFSZ - 1 - (unsigned) strlen(buf));
 }
 
 char *
@@ -2217,9 +2235,7 @@ const char *str;
         Strcpy(buf, "the ");
     else
         buf[0] = '\0';
-    Strcat(buf, str);
-
-    return buf;
+    return strncat(buf, str, BUFSZ - 1 - (unsigned) strlen(buf));
 }
 
 char *
@@ -2538,8 +2554,8 @@ register const char *verb;
      */
 
     if (Role_if(PM_PIRATE) && !strcmp(verb, "are")) {
-    		Strcpy(buf, "be");
-    		return buf;
+        Strcpy(buf, "be");
+        return buf;
     }
 
     if (subj) {
@@ -3701,9 +3717,9 @@ struct obj *no_wish;
                 bp++;
             l = 0;
         } else if (!strncmpi(bp, "blessed ", l = 8)) {
-                   /*WAC removed this.  Holy is in some artifact weapon names
-                                        || !strncmpi(bp, "holy ", l=5)
-                        */
+           /*WAC removed this.  Holy is in some artifact weapon names
+                            || !strncmpi(bp, "holy ", l=5)
+            */
             blessed = 1;
         } else if (!strncmpi(bp, "bgf ", l = 4) 
                    || !strncmpi(bp, "bfg ", l = 4)) {
@@ -3919,10 +3935,12 @@ struct obj *no_wish;
      */
     if ((p = strstri(bp, " named ")) != 0) {
         *p = 0;
+        /* note: if 'name' is too long, oname() will truncate it */
         name = p + 7;
     }
     if ((p = strstri(bp, " called ")) != 0) {
         *p = 0;
+        /* note: if 'un' is too long, obj lookup just won't match anything */
         un = p + 8;
         /* "helmet called telepathy" is not "helmet" (a specific type)
          * "shield called reflection" is not "shield" (a general type)
@@ -5110,6 +5128,7 @@ struct obj *no_wish;
             case ART_OGRESMASHER:
                 pm = PM_BARBARIAN;
                 break;
+            case ART_KEOLEWA:
             case ART_DRAGONBANE:
             case ART_SKULLCRUSHER:
             case ART_SCEPTRE_OF_MIGHT:
