@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Infidel role - repeatedly chatting with your quest leader causes 'completed his/her quest without incident' livelog to run every time.
 Fix: Passive sleep attack for orange jelly not handled correctly for mon vs mon.
 Changed flaming lash's material to dragon hide so it doesn't smoulder away.
 Remove extra stairs to removed castle dungeon branch.

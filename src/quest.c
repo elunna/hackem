@@ -363,6 +363,8 @@ struct obj *obj; /* quest artifact; possibly null if carrying Amulet */
                 obj->oerodeproof = 1; /* Leader 'fixes' it for you */
             }
             update_inventory();
+            livelog_printf(LL_ACHIEVE, "completed %s quest without incident",
+                           uhis());
         }
         livelog_printf(LL_ACHIEVE, "completed %s quest without incident",
                        uhis());
