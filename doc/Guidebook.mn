@@ -24,7 +24,7 @@
 .ds vr "NetHack 3.6
 .ds f0 "\*(vr
 .ds f1
-.ds f2 "September 29, 2021
+.ds f2 "February 3, 2023
 .
 .\" A note on some special characters:
 .\" \(lq = left double quote
@@ -189,7 +189,7 @@ and easy to overcome at first sight, an experienced Wizard is a deadly foe.
 You may also choose the race of your character (within limits; most
 roles have restrictions on which races are eligible for them):
 .pg
-\fIDoppelgangers\fP have the anviable ability to change form at will,  at
+\fIDoppelgangers\fP have the enviable ability to change form at will,  at
 a cost of some mystic energy (\fImana\fP),  although what they become
 may be a bit of a surprise,  even for them.
 .pg
@@ -3872,11 +3872,10 @@ Platform-specific Customization options
 .pg
 Here are explanations of options that are used by specific platforms or ports
 to customize and change the port behavior.
-.lp altkeyhandler
-Select an alternate keystroke handler dll to load (Win32 tty NetHack only).
-The name of the handler is specified without the .dll extension and without
-any path information.
-Cannot be set with the \(oqO\(cq command.
+.lp altkeyhandling
+Select an alternate way to handle keystrokes (Win32 tty NetHack only).
+The name of the handling type is one of \(lqdefault\(rq, \(lqray\(rq,
+\(lq340\(rq.
 .lp altmeta
 On Amiga, this option controls whether typing \(lqAlt\(rq plus another key
 functions as a meta-shift for that key (default on).
@@ -5261,6 +5260,9 @@ NetHack 3.6.5 was released on January 27, 2020 containing some security fixes
 and a small number of bug fixes.
 .pg
 NetHack 3.6.6 was released on March 8, 2020 containing a security fix and
+some bug fixes.
+.pg
+NetHack 3.6.7 was released in February 2023 containing a security fix and
 some bug fixes.
 .pg
 The official NetHack web site is maintained by \fBKen Lorber\fP
