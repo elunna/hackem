@@ -319,8 +319,7 @@ boolean fleemsg;
     struct monst* mtmp2;
 
     /* shouldn't happen; maybe warrants impossible()? */
-    if (DEADMONSTER(mtmp) || mindless(mtmp->data)
-        || unique_corpstat(mtmp->data))
+    if (DEADMONSTER(mtmp) || unique_corpstat(mtmp->data))
         return;
 
     if (mtmp == u.ustuck)
