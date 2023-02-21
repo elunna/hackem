@@ -1717,6 +1717,9 @@ u_init()
                 }
             }
         }
+        /* If a dwarven monk starts with a pickaxe, don't start wielding it */
+        if (uwep)
+            setuwep((struct obj *) 0);
     }
 
     /* Tortles that start with a trident get one that
