@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Added SLASH'EM style names for most special levels so they appear in status bar.
 Fix: Snowball throwing monsters had inappropriate message when throwing snowballs.
 Updated Skullcrusher and Doomblade to match slashem damage again. 
 Artifacts do SLASH'EM style flat damage instead of d notation.

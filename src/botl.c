@@ -521,10 +521,32 @@ char *buf;
     /* TODO:    Add in dungeon name */
     if (Is_knox(&u.uz))
         Sprintf(buf, "%s ", dungeons[u.uz.dnum].dname);
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "The Gnomish Mines"))
+        Sprintf(buf, "Mines:%d ", depth(&u.uz));
     else if (In_quest(&u.uz))
         Sprintf(buf, "Home %d ", dunlev(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "Sokoban"))
+        Sprintf(buf, "Sokoban:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "Town"))
+        Sprintf(buf, "Town:%d ", depth(&u.uz));
+    else if (Is_grunds_level(&u.uz))
+        Sprintf(buf, "Stronghold:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "Lawful Quest"))
+        Sprintf(buf, "Lawful:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "Neutral Quest"))
+        Sprintf(buf, "Neutral:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "Chaotic Quest"))
+        Sprintf(buf, "Chaotic:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "The Temple of Moloch"))
+        Sprintf(buf, "Temple:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "The Spider Caves"))
+        Sprintf(buf, "Spider:%d ", depth(&u.uz));
     else if (Is_blackmarket(&u.uz))
         Sprintf(buf, "Blackmarket ");
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "The Wyrm Caves"))
+        Sprintf(buf, "Wyrm Caves:%d ", depth(&u.uz));
+    else if (!strcmp(dungeons[u.uz.dnum].dname, "Vlad's Tower"))
+        Sprintf(buf, "Vlad Tower:%d ", depth(&u.uz));
     else if (In_endgame(&u.uz))
         Sprintf(buf, Is_astralevel(&u.uz) ? "Astral Plane " : "End Game ");
     else {
