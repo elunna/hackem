@@ -491,6 +491,9 @@
      || (ptr) == &mons[PM_RECLUSE_SPIDER] \
      || (ptr) == &mons[PM_WERESPIDER]  \
      || (ptr) == &mons[PM_SPIBRAWULF])
+#define throws_snowballs(ptr) \
+    ((ptr) == &mons[PM_SNOW_GOLEM] \
+     || (ptr) == &mons[PM_ICE_ELEMENTAL])
 #define is_unicorn(ptr) ((ptr)->mlet == S_UNICORN && likes_gems(ptr))
 #define is_longworm(ptr)                                                   \
     (((ptr) == &mons[PM_BABY_LONG_WORM]) \

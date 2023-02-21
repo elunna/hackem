@@ -1084,7 +1084,7 @@ struct attack *mattk;
         }
         if (!rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
             if (canseemon(mtmp)) {
-                if (mtmp && mtmp->data == &mons[PM_SNOW_GOLEM])
+                if (mtmp && throws_snowballs(mtmp->data))
                     pline("%s throws a snowball!", Monnam(mtmp));
                 else
                     pline("%s spits venom!", Monnam(mtmp));
@@ -1416,7 +1416,7 @@ struct attack *mattk;
         if (!rn2(BOLT_LIM
                  - distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy))) {
             if (canseemon(mtmp)) {
-                if (mtmp && mtmp->data == &mons[PM_SNOW_GOLEM])
+                if (mtmp && throws_snowballs(mtmp->data))
                     pline("%s throws a snowball!", Monnam(mtmp));
                 else
                     pline("%s spits venom!", Monnam(mtmp));
