@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Stairs could get replaced in bandit town level.
 If a dwarvish monk gets a pick-axe in starting inventory, it is not wielded by default.
 Added SLASH'EM style names for most special levels so they appear in status bar.
 Fix: Snowball throwing monsters had inappropriate message when throwing snowballs.

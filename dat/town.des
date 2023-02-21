@@ -708,8 +708,6 @@ TRAP: "arrow", (65,13)
 LEVEL: "town-7"
 MESSAGE: "You step into the sunlight. You hear the sounds of riff-raff."
 ROOM: "ordinary", lit, random, random, (76,17) {
-    STAIR: random, down
-
     ENGRAVING: random, mark, "Welcome... to HELL!!"
     FOUNTAIN: (06,12)
     FOUNTAIN: (39,09)
@@ -821,4 +819,6 @@ ROOM: "ordinary", lit, random, random, (76,17) {
     OBJECT: ('(', "chest"), random
     OBJECT: ('(', "chest"), random
     OBJECT: ('(', "iron safe"), random
+    
+    STAIR: random, down
 }
