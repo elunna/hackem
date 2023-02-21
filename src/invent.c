@@ -863,7 +863,7 @@ struct obj *obj;
             if (u.uhave.questart)
                 impossible("already have quest artifact?");
             u.uhave.questart = 1;
-            if (Role_if(PM_INFIDEL) && obj->spe)
+            if (Role_if(PM_INFIDEL) && u.uachieve.amulet)
                 u.uhave.amulet = 1;
             artitouch(obj);
             if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
@@ -1192,7 +1192,7 @@ struct obj *obj;
             if (!u.uhave.questart)
                 impossible("don't have quest artifact?");
             u.uhave.questart = 0;
-            if (Role_if(PM_INFIDEL) && obj->spe)
+            if (Role_if(PM_INFIDEL) && u.uachieve.amulet)
                 u.uhave.amulet = 0;
         }
         if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
