@@ -1233,7 +1233,7 @@ struct obj *otmp;
     return 0L;
 }
 
-/* special attack bonus */
+/* special attack to-hit bonus */
 int
 spec_abon(otmp, mon)
 struct obj *otmp;
@@ -1245,7 +1245,9 @@ struct monst *mon;
        always return 0 for any artifact which has that attribute */
 
     if (weap && weap->attk.damn && spec_applies(weap, mon))
-        return rnd((int) weap->attk.damn);
+        /*return rnd((int) weap->attk.damn);*/
+        /* SLASH'EM style flat damage for artifacts */
+        return (int)weap->attk.damn;
     return 0;
 }
 
@@ -1317,7 +1319,7 @@ int tmp;
         spec_dbon_applies = spec_applies(weap, mon);
 
     if (spec_dbon_applies)
-        return weap->attk.damd ? rnd((int) weap->attk.damd) : max(tmp, 1);
+        return weap->attk.damd ? (int) weap->attk.damd : max(tmp, 1);
     return 0;
 }
 
