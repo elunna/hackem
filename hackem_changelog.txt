@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: describing barding.
 Fix: track the Idol of Moloch's imbuement properly. Also fix
 Mindless monsters can flee.
 Fix: monster jumping logic.
