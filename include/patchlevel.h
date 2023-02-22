@@ -5,7 +5,7 @@
 
 /* NetHack 3.6.x */
 #define VERSION_MAJOR 1
-#define VERSION_MINOR 0
+#define VERSION_MINOR 1
 /*
  * PATCHLEVEL is updated for each release.
  */
@@ -39,7 +39,7 @@
  * to individual level files matter; changes to general game state don't)
  * but the extra complexity to support that is not worth the effort.]
  */
-/*#define VERSION_COMPATIBILITY 0x10000000L*/
+/*#define VERSION_COMPATIBILITY 0x10100000L*/
 
 /****************************************************************************/
 /* Version 3.6.x */
