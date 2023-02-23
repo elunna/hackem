@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Prevent shield from being taken away via dwarvish bearded axe attack if expert skill or higher in shields.
 Utilize shield skill to shield bash monsters the player is attacking.
 Shield skill.
 Fix: artifacts warning of monsters would flicker on/off for every monster kill.
