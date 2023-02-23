@@ -1189,7 +1189,7 @@ boolean artif;
         case WAND_CLASS:
             if (otmp->otyp == WAN_WISHING) {
                 otmp->spe = rnd(3);
-                otmp->recharged = Is_stronghold(&u.uz) ? 0 : 1;
+                otmp->recharged = (Is_stronghold(&u.uz) || discover) ? 0 : 1;
             } else if (otmp->otyp == WAN_WONDER) {
                 otmp->spe = rn1(10, 15);
             } else {
