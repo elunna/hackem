@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Shield skill.
 Fix: artifacts warning of monsters would flicker on/off for every monster kill.
 Prep for 1.1 release.
 Fix: Stairs could get replaced in bandit town level.

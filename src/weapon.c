@@ -25,20 +25,21 @@ static NEARDATA schar delay;            /* moves left for practice */
  */
 #define PN_BARE_HANDED (-1) /* includes martial arts and thievery */
 #define PN_TWO_WEAPONS (-2)
-#define PN_RIDING (-3)
-#define PN_POLEARMS (-4)
-#define PN_SABER (-5)
-#define PN_HAMMER (-6)
-#define PN_FIREARMS (-7)
-#define PN_WHIP (-8)
-#define PN_ATTACK_SPELL (-9)
-#define PN_HEALING_SPELL (-10)
-#define PN_DIVINATION_SPELL (-11)
-#define PN_ENCHANTMENT_SPELL (-12)
-#define PN_NECRO_SPELL (-13)
-#define PN_ESCAPE_SPELL (-14)
-#define PN_MATTER_SPELL (-15)
-#define PN_LIGHTSABER	(-16)
+#define PN_SHIELD (-3)
+#define PN_RIDING (-4)
+#define PN_POLEARMS (-5)
+#define PN_SABER (-6)
+#define PN_HAMMER (-7)
+#define PN_FIREARMS (-8)
+#define PN_WHIP (-9)
+#define PN_ATTACK_SPELL (-10)
+#define PN_HEALING_SPELL (-11)
+#define PN_DIVINATION_SPELL (-12)
+#define PN_ENCHANTMENT_SPELL (-13)
+#define PN_NECRO_SPELL (-14)
+#define PN_ESCAPE_SPELL (-15)
+#define PN_MATTER_SPELL (-16)
+#define PN_LIGHTSABER	(-17)
 
 STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     /* Weapon */
@@ -81,8 +82,9 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     PN_ESCAPE_SPELL, 
     PN_MATTER_SPELL,
     /* Other */
-    PN_BARE_HANDED, 
-    PN_TWO_WEAPONS, 
+    PN_BARE_HANDED,
+    PN_TWO_WEAPONS,
+    PN_SHIELD,
     PN_RIDING
 };
 
@@ -90,7 +92,8 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
 STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
     "no skill", 
     "bare hands", /* use barehands_or_martial[] instead */
-    "two weapon combat", 
+    "two weapon combat",
+    "shield",
     "riding", 
     "polearms", 
     "saber", 
@@ -131,7 +134,8 @@ int skill;
              (skill == P_NONE) ? ""
                  : (skill <= P_LAST_WEAPON) ? "weapon "
                      : (skill <= P_LAST_SPELL) ? "spell casting "
-                         : "fighting ");
+                         : (skill == P_SHIELD) ? "defensive "
+                             : "fighting ");
 }
 
 /* weapon's skill category name for use as generalized description of weapon;
@@ -2599,6 +2603,11 @@ const struct def_skill *class_skill;
     /* Centaurs/tortles can never ride anything */
     if (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         P_SKILL(P_RIDING) = P_NONE;
+
+    /* Roles that can reach expert or master in shield skill
+       already have a basic understanding of how to use them */
+    if (Role_if(PM_KNIGHT) || Role_if(PM_VALKYRIE))
+        P_SKILL(P_SHIELD) = P_BASIC;
 
     /*
      * Make sure we haven't missed setting the max on a skill
