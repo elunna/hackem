@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: crash if attacking bare-handed and not wearing a shield if role has shield skill.
 Prevent shield from being taken away via dwarvish bearded axe attack if expert skill or higher in shields.
 Utilize shield skill to shield bash monsters the player is attacking.
 Shield skill.
