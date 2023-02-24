@@ -398,6 +398,16 @@ struct monst *mtmp;
         m.has_defense = MUSE_POT_HEALING;
         return TRUE;
     }
+    if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_WAN_EXTRA_HEALING;
+        return TRUE;
+    }
+    if ((obj = m_carrying(mtmp, WAN_HEALING)) != 0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_WAN_HEALING;
+        return TRUE;
+    }
     if (is_vampire(mtmp->data) &&
         (obj = m_carrying(mtmp, POT_VAMPIRE_BLOOD)) !=0) {
         m.defensive = obj;
@@ -903,6 +913,16 @@ struct obj *start;
             if (obj->otyp == POT_HEALING) {
                 m.defensive = obj;
                 m.has_defense = MUSE_POT_HEALING;
+            }
+            nomore(MUSE_WAN_EXTRA_HEALING);
+            if (obj->otyp == WAN_EXTRA_HEALING) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_EXTRA_HEALING;
+            }
+            nomore(MUSE_WAN_HEALING);
+            if (obj->otyp == WAN_HEALING) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_HEALING;
             }
             nomore(MUSE_POT_VAMPIRE_BLOOD);
             if(is_vampire(mtmp->data) && obj->otyp == POT_VAMPIRE_BLOOD) {
