@@ -2570,7 +2570,7 @@ eatpill()
     case 6:
         pline("Wow... everything is moving in slow motion...");
         /* KMH, balance patch -- Use incr_itimeout() instead of += */
-        incr_itimeout(&HFast, rn1(10,200));
+        incr_itimeout(&HFast, rn1(10, 200));
         break;
     default:
         break;
@@ -2744,26 +2744,26 @@ struct obj *otmp;
             you_unwere(TRUE);
         break;
     case HOLY_WAFER:            
-		if (u.ualign.type == A_LAWFUL) {
-			if (u.uhp < u.uhpmax) {
-				You_feel("warm inside.");
-				u.uhp += rn1(20,20);
-				if (u.uhp > u.uhpmax) 
+        if (u.ualign.type == A_LAWFUL) {
+            if (u.uhp < u.uhpmax) {
+                You_feel("warm inside.");
+                u.uhp += rn1(20, 20);
+                if (u.uhp > u.uhpmax)
                     u.uhp = u.uhpmax;
-			} 
-		}
-		if (Sick) 
+            }
+        }
+        if (Sick) 
             make_sick(0L, (char *)0, TRUE, SICK_ALL);
-		if (u.ulycn != -1) {
-		    you_unwere(TRUE);
-		}
-		if (u.ualign.type == A_CHAOTIC) {
-		    You_feel("a burning inside!");
-		    u.uhp -= rn1(10,10);
-		    /* KMH, balance patch 2 -- should not have 0 hp */
-		    if (u.uhp < 1) u.uhp = 1;
-		}
-		break;
+        if (u.ulycn != -1)
+            you_unwere(TRUE);
+        if (u.ualign.type == A_CHAOTIC) {
+            You_feel("a burning inside!");
+            u.uhp -= rn1(10, 10);
+            /* KMH, balance patch 2 -- should not have 0 hp */
+            if (u.uhp < 1)
+                u.uhp = 1;
+        }
+        break;
     case CARROT:
         if (!u.uswallow
             || !attacktype_fordmg(u.ustuck->data, AT_ENGL, AD_BLND))

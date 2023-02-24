@@ -3365,13 +3365,13 @@ docontact(VOID_ARGS)
         putstr(cwin, 0, buf);
         putstr(cwin, 0, "");
     }
-    putstr(cwin, 0, "To contact the HackEM development team directly,");
+    putstr(cwin, 0, "To contact the Hack'EM development team directly,");
     /*XXX overflow possibilities*/
     Sprintf(buf, "visit #hackem or #hardfought on Libera Chat IRC, or email <%s>.",
             DEVTEAM_EMAIL);
     putstr(cwin, 0, buf);
     putstr(cwin, 0, "");
-    putstr(cwin, 0, "For more information on HackEM, or to report a bug,");
+    putstr(cwin, 0, "For more information on Hack'EM, or to report a bug,");
     Sprintf(buf, "visit our website \"%s\".", DEVTEAM_URL);
     putstr(cwin, 0, buf);
     display_nhwindow(cwin, FALSE);

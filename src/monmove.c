@@ -877,8 +877,8 @@ toofar:
         || mtmp->data == &mons[PM_ACID_ELEMENTAL]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
-    /* --hackem: Not an exact copy of Hezrous, but skunks are known
-         * for being stinky. So they will frequently leave trails of gas...
+    /* Not an exact copy of Hezrous, but skunks are known
+     * for being stinky. So they will frequently leave trails of gas...
      */
     if (mtmp->data == &mons[PM_SKUNK] && !rn2(3))
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);

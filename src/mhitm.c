@@ -2486,19 +2486,20 @@ msickness:
             tmp = mon_poly(magr, mdef, tmp);
         break;
     case AD_CALM:	/* KMH -- koala attack */
-		/* Certain monsters aren't even made peaceful. */
-		if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
-			!(mdef->data->mflags3 & M3_COVETOUS) &&
-			!(mdef->data->geno & G_UNIQ) &&
-			(magr->mtame || mdef->mtame)) {
-		    if (vis) pline("%s looks calmer.", Monnam(mdef));
-		    if (mdef == u.usteed)
-			dismount_steed(DISMOUNT_THROWN);
-		    mdef->mpeaceful = 1;
-		    mdef->mtame = 0;
-		    tmp = 0;
-		}
-		break;
+        /* Certain monsters aren't even made peaceful. */
+        if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
+                !(mdef->data->mflags3 & M3_COVETOUS) &&
+                !(mdef->data->geno & G_UNIQ) &&
+                (magr->mtame || mdef->mtame)) {
+            if (vis)
+                pline("%s looks calmer.", Monnam(mdef));
+            if (mdef == u.usteed)
+                dismount_steed(DISMOUNT_THROWN);
+            mdef->mpeaceful = 1;
+            mdef->mtame = 0;
+            tmp = 0;
+        }
+        break;
     case AD_WTHR: {
         uchar withertime = max(2, tmp);
         boolean no_effect =

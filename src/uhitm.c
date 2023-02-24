@@ -4588,7 +4588,7 @@ boolean wep_was_destroyed;
         exercise(A_STR, FALSE);
         break;
     case AD_SLEE:
-        /* hackem: passive sleep attack for orange jelly */
+        /* passive sleep attack for orange jelly */
         if (mhit && !mon->mcan) {
             if (Sleep_resistance) {
                 You("yawn.");

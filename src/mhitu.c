@@ -2506,7 +2506,8 @@ do_rust:
             morehungry(rn1(40, 40));
         /* plus the normal damage */
         break;
-    case AD_CALM:	/* KMH -- koala attack */
+    case AD_CALM:
+        /* KMH -- koala attack */
         hitmsg(mtmp, mattk);
         if (uncancelled)
             docalm();
@@ -3052,8 +3053,6 @@ struct attack *mattk;
                 if (is_corrodeable(otmp2)) {
                     /* --hackem: I'm disabling the EF_DESTROY flag because it requires
                      * a more complicated loop and it's a bit unfair. */
-
-                    /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
                     erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
                     break;
                 }

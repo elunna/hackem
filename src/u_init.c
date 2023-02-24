@@ -1263,7 +1263,7 @@ u_init()
             force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(25))
             ini_inv(Lamp);
-        /* --hackem: Naturally familiar with these potions in their work */
+        /* Naturally familiar with healing items in their work */
         knows_object(POT_SICKNESS);
         knows_object(POT_PARALYSIS);
         knows_object(POT_SLEEPING);
@@ -2253,7 +2253,7 @@ register struct trobj *origtrop;
                     obj->oerodeproof = 1;
             }
             
-            /* --hackem: Undead Slayers get special silver weapons.
+            /* Undead Slayers get special silver weapons.
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 

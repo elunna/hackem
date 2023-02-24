@@ -818,7 +818,7 @@ unsigned corpseflags;
         while (num--)
             obj = mksobj_at(WAX_CANDLE, x, y, TRUE, FALSE);
         
-        /* --hackem: Small chance to drop a magic candle = NiceHack! */
+        /* Small chance to drop a magic candle */
         if (!rn2(69))
             obj = mksobj_at(MAGIC_CANDLE, x, y, TRUE, FALSE);
         free_mname(mtmp);
@@ -5053,7 +5053,7 @@ struct monst *mtmp;
             }
     }
     /* Frightful presence! */
-    /* --hackem: I cut the number of eligible roaring dragons by half.*/
+    /* Cut the number of eligible roaring dragons by half.*/
     if (mtmp->data->msound == MS_ROAR 
         && !mtmp->mpeaceful
         && is_dragon(mtmp->data) 

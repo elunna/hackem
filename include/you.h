@@ -395,9 +395,9 @@ struct you {
                          + when blessed or uncursed, - when cursed */
 #define LUCKMAX   10  /* maximum value of u.ulUck */
 #define LUCKMIN (-10) /* minimum value of u.uluck */
-    schar uhitinc;          /* Additional to-hit bonus */
-    schar udaminc;          /* Additional damage bonus */
-    long  uhealbonus;		/* KMH -- Healing bonus from healthstones */
+    schar uhitinc;           /* Additional to-hit bonus */
+    schar udaminc;           /* Additional damage bonus */
+    long  uhealbonus;        /* KMH -- Healing bonus from healthstones */
     schar uac;
     uchar uspellprot;        /* protection by SPE_PROTECTION */
     uchar usptime;           /* #moves until uspellprot-- */

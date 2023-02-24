@@ -2640,7 +2640,6 @@ register struct obj *obj;
         if (!Blind)
             known = TRUE;
         if (obj->otyp == WAN_LIGHT && !cursed(obj, TRUE)) {
-            /* blindingflash();     --hackem: NIMF! */
             if (lightdamage(obj, TRUE, 5))
                 known = TRUE;
         }
@@ -3186,10 +3185,6 @@ boolean ordinary;
         damage += rnd(25);
         if (flashburn((long) damage))
             learn_it = TRUE;
-#if 0 /* --hackem: NIMF! */
-        if (obj->otyp == WAN_LIGHT && !cursed(obj, TRUE))
-            blindingflash();
-#endif
         damage = 0; /* reset */
         break;
     case WAN_OPENING:
@@ -3966,7 +3961,7 @@ struct obj *obj;
     
     if (otyp == WAN_WONDER) {
         wondertemp = WAN_LIGHT + rn2(WAN_DELUGE - WAN_LIGHT);
-        /* --hackem: Significantly reduced the chances of wishes */
+        /* Significantly reduced the chances of wishes */
         if (wondertemp == WAN_WISHING && rn2(100))
             wondertemp = WAN_POISON_GAS;
         if (wondertemp == WAN_WONDER)
@@ -7174,7 +7169,7 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     } else
         impossible("Invalid bomb otyp for bomb_explode!");
     
-    /* --hackem: WEAPON_CLASS does not have any special handling in explode(). */
+    /* WEAPON_CLASS does not have any special handling in explode(). */
     explode(x, y, ztype, d(d1, d2), WEAPON_CLASS, expltype);
     
     context.mon_moving = save_mon_moving;

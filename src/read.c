@@ -3141,10 +3141,6 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
      *  correctly update all previously seen positions *and* correctly
      *  set the waslit bit [could be messed up from above].
      */
-#if 0 /* --hackem: NIMF! */
-    if (on)
-        blindingflash();
-#endif
     if (!Blind) {
         vision_recalc(2);
 

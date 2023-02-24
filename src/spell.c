@@ -506,7 +506,7 @@ register struct obj *spellbook;
             return 1;
         }
         
-        /* --hackem: Elemental mages are not receptive to opposite element's teachings 
+        /* -Elemental mages are not receptive to opposite element's teachings 
          * We'll auto-id it if rejected as compensation. */
         if (Role_if(PM_FLAME_MAGE)) {
             if (booktype == SPE_CONE_OF_COLD || booktype == SPE_FREEZE_SPHERE) {
@@ -1125,8 +1125,8 @@ boolean wiz_cast;
              */
             intell = acurr(A_INT);
             
-            /* --hackem: Let Flame and Ice Mages have hungerless bonus too.
-             * We decrease it slightly so Wizards are still special. */
+            /* Let Flame and Ice Mages have hungerless bonus too.
+             * We decrease it slightly so Wizards still have superior ability. */
             if (Role_if(PM_FLAME_MAGE)) {
                 /* Flame Mages use WIS for spells */
                 intell = acurr(A_WIS) - 2; 

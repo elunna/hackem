@@ -722,15 +722,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     /* Convict role quest artifact (from dnh)
      * has a +1d5 to-hit bonus and does double damage to all monsters. 
-     * When carried, it confers automatic searching, free action, and luck, 
-     * when wielded, it confers stealth. 
+     * When carried, it confers automatic searching, free action, and luck.
+     * When wielded, it confers stealth. 
      * Invoking allows you to phase through walls for a limited time, 
      * Applying The Iron Spoon of Liberation allows you to dig; 
      * It can also be used to engrave with the same quality and speed as an athame.
      * Also - As a spoon, Convicts wielding it can make sneak attacks similar to a Rogue.
      */
-    /* --hackem: I added stealth to the carry effects, since we don't have
-     * some of these extra fields in dnh. */
     A("The Iron Spoon of Liberation", SPOON,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH | SPFX_DIG), 
       (SPFX_SEARCH | SPFX_SEEK | SPFX_LUCK), 0,

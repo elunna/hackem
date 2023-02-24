@@ -2475,7 +2475,7 @@ dopray()
         }
         pline("He smiles upon you.");
 
-        /* --hackem: It doesn't make sense to NOT cure vomiting.. by vomiting. */
+        /* Cure vomiting.. by vomiting. */
         if (Vomiting)
             make_vomiting(0L, TRUE);
         if (Sick)

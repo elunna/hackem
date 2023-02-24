@@ -4551,12 +4551,9 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
             /* Premier gives you ONE more charge */
             if (svc_type == 'p') 
                 obj->spe++;
-
-#if 0 /* --hackem: This seems too cheeky */
             verbalize("Since you'll have everything you always wanted,");
             verbalize("...How about loaning me some money?");
             money2mon(shkp, money_cnt(invent));
-#endif 
             makeknown(obj->otyp);
             bot();
         } else {
