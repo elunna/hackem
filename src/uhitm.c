@@ -1594,10 +1594,12 @@ int dieroll;
                 case URUK_HAI_SHIELD:
                 case ORCISH_SHIELD:
                 case LARGE_SHIELD:
+                case TOWER_SHIELD:
                 case DWARVISH_ROUNDSHIELD:
                 case SHIELD_OF_REFLECTION:
                 case SHIELD_OF_LIGHT:
                 case SHIELD_OF_MOBILITY:
+                case RESONANT_SHIELD:
                     if (uarms && P_SKILL(P_SHIELD) >= P_BASIC) {
                          /* dmgval for shields is just one point,
                             plus whatever material damage applies */
@@ -1607,6 +1609,8 @@ int dieroll;
                            of shield */
                         if (obj->otyp == SMALL_SHIELD)
                             tmp += rn2(3) + 1;
+                        else if  (obj->otyp == TOWER_SHIELD)
+                            tmp += rn2(12) + 1;
                         else
                             tmp += rn2(6) + 2;
 
