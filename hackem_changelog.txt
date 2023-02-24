@@ -15,13 +15,13 @@
 
 Version 1.1 (unreleased)
 
-Some descriptive miss messages for thrown/fired objects at the player.
-Wand of wishing in explore mode charges.
+Some descriptive miss messages for thrown/fired objects at the player. (from EvilHack)
+Wand of wishing in explore mode charges.(from EvilHack)
 Fix: crash if attacking bare-handed and not wearing a shield if role has shield skill.
-Prevent shield from being taken away via dwarvish bearded axe attack if expert skill or higher in shields.
-Utilize shield skill to shield bash monsters the player is attacking.
-Shield skill.
-Fix: artifacts warning of monsters would flicker on/off for every monster kill.
+Prevent shield from being taken away via dwarvish bearded axe attack if expert skill or higher in shields.(from EvilHack)
+Utilize shield skill to shield bash monsters the player is attacking.(from EvilHack)
+Shield skill.(from EvilHack)
+Fix: artifacts warning of monsters would flicker on/off for every monster kill.(from EvilHack)
 Prep for 1.1 release.
 Fix: Stairs could get replaced in bandit town level.
 If a dwarvish monk gets a pick-axe in starting inventory, it is not wielded by default.
@@ -29,12 +29,12 @@ Added SLASH'EM style names for most special levels so they appear in status bar.
 Fix: Snowball throwing monsters had inappropriate message when throwing snowballs.
 Updated Skullcrusher and Doomblade to match slashem damage again. 
 Artifacts do SLASH'EM style flat damage instead of d notation.
-Fix: object materials - several wish parsing bugs.
-Fix: describing barding.
-Fix: track the Idol of Moloch's imbuement properly. Also fix
+Fix: object materials - several wish parsing bugs.(from EvilHack)
+Fix: describing barding.(from EvilHack)
+Fix: track the Idol of Moloch's imbuement properly. Also fix(from EvilHack)
 Mindless monsters can flee.
-Fix: monster jumping logic.
-Fix: Infidel role - repeatedly chatting with your quest leader causes 'completed his/her quest without incident' livelog to run every time.
+Fix: monster jumping logic.(from EvilHack)
+Fix: Infidel role - repeatedly chatting with your quest leader causes 'completed his/her quest without incident' livelog to run every time.(from EvilHack)
 Fix: Passive sleep attack for orange jelly not handled correctly for mon vs mon.
 Changed flaming lash's material to dragon hide so it doesn't smoulder away.
 Remove extra stairs to removed castle dungeon branch.
@@ -56,7 +56,7 @@ Confused monsters cannot flank.
 Refactor flanking code for readability and added comments.
 Player orcs can't learn Elbereth even if polyd.
 Spell memory for books now matches SLASH'EM (10000 turns). 
-Fix: do not allow the Idol of Moloch to be cancelled.
+Fix: do not allow the Idol of Moloch to be cancelled.(from EvilHack)
 Fix: Honey badgers only eat 1 royal jelly at a time.
 Grund gets some extra armor and a beefy submachine gun.
 Grund the Orc King resists sickness.
@@ -70,7 +70,7 @@ Updated database info: flintlocks, mana cloak, medical kit, scroll of acquiremen
 Object lookup for corpse shows the corpse type.
 Decrease the nutrition vampirics receive to standard SLASH'EM level, but double the HP they receive from draining life.
 Update windows splash screen (thanks qt!)
-More tweaks to maybe_unhide_at(). From NetHack 3.7 git commit 5073aac.
+More tweaks to maybe_unhide_at(). From NetHack 3.7 git commit 5073aac. (from EvilHack)
 Bloody tiles show random monster blood when hallucinating.
 Rename Call Undead tech to Whistle Undead (avoid confusion with monster spell)
 Re-enabled mines rivers.
@@ -78,21 +78,21 @@ Pirates always start with 3 +1 knives.
 Balance tweaks for vampirics: less natural HP regen, HP when they feed, gets Regeneration and Hunger at level 10. 
 Fix: Missing spaces in piratesay replacements.
 Fix some stuff with piratesay and eye patch; fine tune ing endings.
-Bring maybe_unhide_at up-to-date with Evil/3.7.
-Prevent certain mplayer items from random erosion.
-Allow food appraisal intrinsic to warn against the Eye of Vecna.
+Bring maybe_unhide_at up-to-date with Evil/3.7. (from EvilHack)
+Prevent certain mplayer items from random erosion.(from EvilHack)
+Allow food appraisal intrinsic to warn against the Eye of Vecna.(from EvilHack)
 Update to 'monsters could jump into poly traps when trapped'
-Fix: containers flagged as waterproof were not subject to water damage.
+Fix: containers flagged as waterproof were not subject to water damage.(from EvilHack)
 Fix: Techniques were not saved or restored.
 Vampiric convicts start with the same amount of hunger other convicts do.
 Ice mages don't get a passive ice armor attack until level 4.
 Vampirics don't get regeneration, but instead gain HP when they feed on lifeblood.
 Fix: Handle attempting to engrave with snowballs (or any VENOM_CLASS object). Fixes #198.
-Tweak to Valley of the Dead bones files. (evil)
-Fix: suppress Hand of Vecna cold-based attack if target is already dead.
+Tweak to Valley of the Dead bones files. (from EvilHack)
+Fix: suppress Hand of Vecna cold-based attack if target is already dead.(from EvilHack)
 Fix: Monsters could jump into poly traps when trapped (via muse). Fixes #197.
 Temporary fix for #191. Shell ability is disabled if polymorphed.
-Fix: beam coordinates in artifact_hit trying to reference null attacker.
+Fix: beam coordinates in artifact_hit trying to reference null attacker.(from EvilHack)
 Added wishing shortcut 'kiku' to get Kiku-ichimonji.
 Updated tiles with new gun appearances.
 Removed two-weapon skill from Ice Mage.
@@ -111,9 +111,9 @@ Pirates get the weapon practice technique (in prep for giving them flintlocks)
 Infidels get the Reinforce Memory technique at level 1 and Draw Energy at level 5.
 Infidels get a new technique, Curse, at level 1 that unblesses or curses items depending on their BUC status. 
 Fix: Master Sword/Thunderstruck not shooting beam in correct direction when wielded by pets.
-Reading a blessed scroll of amnesia allows option to reset accumulated skills.
+Reading a blessed scroll of amnesia allows option to reset accumulated skills. (from EvilHack)
 Fix: worn rings covered by worn gloves could do material damage to monsters. (thanks qt and K2)
-Fix: prevent Valley of the Dead bones files.
+Fix: prevent Valley of the Dead bones files.(from EvilHack)
 Fix: For previous fix addressing silver rings under gloves.
 Windrider can be multishot.
 Thrown chakrams slice through monsters and always return to you.
@@ -174,8 +174,8 @@ Simple refactoring for prayer stats (from Un)
 Show prayer stats in Attributes menu (from UnNetHack, originally from dNetHack)
 Quest luck boon for completing quest with minimal alignment abuse (credit to mobileuser)
 Fixed the Fedora's luck to match Un's implementation. Before it was granting 3 luck and acting as a luckstone, now it just grants base 1 luck.
-Reimplement damage bonus from worn gloves enchantment if fighting bare-handed.
-Fix: ancient subroom location bug.
+Reimplement damage bonus from worn gloves enchantment if fighting bare-handed.(from EvilHack)
+Fix: ancient subroom location bug.(3.7)
 Fix: Weapon shop services were being made available to any shop.
 Adjust mkobj_erosions chances to match 3.7.
 Silence unused variable warning from previous fix.
@@ -301,8 +301,8 @@ Raised price of bombs to 50.
 Charging for arming bombs in shops.
 Misc bomb blame fixes.
 makemon cleanup; gnomes get their regular weapons again.
-Intelligent peacefuls avoid digging shop or temple walls.(evil)
-Grimtooth skips other attacks after instakill.
+Intelligent peacefuls avoid digging shop or temple walls.(from EvilHack)
+Grimtooth skips other attacks after instakill.(from EvilHack)
 Fix: Grimtooth's instakill vs elves.
 Silenced the warnings from artifact_info.
 Fix: Swimmers that can also conceal themselves will prefer hiding in the water to under the objects.
@@ -405,28 +405,28 @@ Added scream/sonic property and fixed previous bug with artifact sonic damage.
 Necromancers can always cast necromancy spells with 0% fail rate.
 Fix: Necromancers/Jedi able to learn their techspells more than once. Fixes #173.
 Scrolls of time cannot be cloned. Attempting this results in a blank scroll.
-More fixes for giant crocodiles and their eggs from EvilHack.
+More fixes for giant crocodiles and their eggs (from EvilHack)
 Girtab and Shelob can lay eggs that hatch cave spiders.
 Centipedes cannot grow into giant centipedes.
 Fix: Giant crocodile eggs didn't hatch baby crocs and giant centipede eggs didn't hatch centipedes. Fixes #171.
-Allow magic lamps (and candles) to operate underwater. (evil)
+Allow magic lamps (and candles) to operate underwater. (from EvilHack)
 Fix: bloody pools not described correctly when standing over them. Fixes #172.
-Fix: higher level tourist player monsters spawning with eggs that could hatch S_ORC type monsters.
-Fix: queen ants were laying queen ant eggs.
+Fix: higher level tourist player monsters spawning with eggs that could hatch S_ORC type monsters.(from EvilHack)
+Fix: queen ants were laying queen ant eggs.(from EvilHack)
 Fix: thrown potions of polymorph by hostiles at hero that hit peacefuls anger them.
-Identity of the Riders hidden via farlook or 'More info about' prompt. (from evil)
+Identity of the Riders hidden via farlook or 'More info about' prompt (from EvilHack)
 Fix: monster spell 'Summon nasties'.
 Fix: heap-use-after-free in munstone() function (additional evilhack tweaks).
-Fix: underwater far vision in unlit areas.
-Fix: Angelslayer's fire damage vs target.
-Fix: placing antimatter vortex over itself after disintegrating a shapechanger.
-Some additional checks when dried up puddles affect hidden monsters (from evil)
+Fix: underwater far vision in unlit areas.(from EvilHack)
+Fix: Angelslayer's fire damage vs target.(from EvilHack)
+Fix: placing antimatter vortex over itself after disintegrating a shapechanger.(from EvilHack)
+Some additional checks when dried up puddles affect hidden monsters (from EvilHack)
 Update copyright year to 2023.
-Fix: underwater vision update frequency.
-Fix: latest Xcode build issue.
-Use actions/checkout@v3 (github workflow).
-Fix: feedback for Infidel killing themselves from life force drain.
-Tortles that start with a trident, the trident is rustproof.
+Fix: underwater vision update frequency. (from EvilHack)
+Fix: latest Xcode build issue. (from EvilHack)
+Use actions/checkout@v3 (github workflow). (from EvilHack)
+Fix: feedback for Infidel killing themselves from life force drain. (from EvilHack)
+Tortles that start with a trident, the trident is rustproof. (from EvilHack)
 Fix: Healing spells, cure sickness, and stone to flesh being cast on peacefuls doesn't anger them.
 Silenced some new compiler warnings.
 Cleaned up string warnings in artifact_info().
@@ -435,7 +435,7 @@ Vents show up in dungeon overview.
 Fix: migo queens would continue to attack after being stoned. Fixes #169.
 Cleaned up code related to grass.
 Fix: poison clouds not described on farlook.  Fixes #144.
-Fixed error in Nharlotep, renamed to Nyarlathotep. Fixes #168.
+Fixed error in Nharlotep, renamed to Nyarlathotep. Fixes #168. (Reported by transcendreamer)
 Limit thriae max births to 3.
 Revert EvilHack sacrifice gift changes: altar gifts are only artifacts. 
 Added database entries for spellbooks 14-21.
@@ -534,9 +534,9 @@ Monsters can use vents to conceal themselves.
 Fix: Possible uninitialized mtmp in dodazzle().
 Bombs can also be thrown into vents from a distance.
 Vents are destroyed when bombs are dropped into them.
-Fix: Minetown food shop doesn't convert to health food store for monks.
-Added short blurb for confict in the guidebooks.
-Fix: Issues with water walking boot id, intrinsic ww, and ice mages.
+Fix: Minetown food shop doesn't convert to health food store for monks. (from EvilHack)
+Added short blurb for convict in the guidebooks.
+Fix: Issues with water walking boot id, intrinsic ww, and ice mages. (reported by cbus)
 Fix: Water walking boots are only identified while worn and water walking. Removed inappropriate message for other water walking cases. 
 Fix: shopkeeper name 8-ball 
 Added pirate ranks to lookup database.
@@ -567,7 +567,7 @@ Hobbits can use #monster to invoke their blink technique.
 Revert random appearance of potions of amnesia - they are always sparkling as in SLASH'EM.
 Removed some redundant entries from immune_death_magic.
 Require move prefix to move into known traps; replaces the y/n prompt.
-Paranoid swim requires the move prefix to move into water/lava, replaces the y/n prompt.
+Paranoid swim requires the move prefix to move into water/lava, replaces the y/n prompt. (credit to cbus)
 New option: paranoid_trap (Ported from UnNetHack)
 Removed extra minion check in betrayed.
 Fix: When changlings are disintegested, they are prevented from ressurecting. Fixes #159.
@@ -626,7 +626,7 @@ Fix: Tipping a bag of tricks on the ground tried to free the bag from the player
 Fix: Pills had nutrition 0, possibily causing problems when partly eaten.
 Fix: Crash when dipping empty lamp into oil.
 Fix: Priests of Moloch are peaceful to infidels.
-Fix: Necromancer's added multiple duplicate spells to their spellbook. Fixes #120.
+Fix: Necromancer added multiple duplicate spells to their spellbook. Fixes #120.
 Poison vents can't show up until after level 13.
 Fix: Malformed clinic and terror hall messages.
 Cleaned up mine's end levels.
@@ -673,15 +673,15 @@ Noted HackEM being hosted on hardfought in readme.
 Fixed weird formatting in Master Sword lookup text.
 Fix: Object lookups for certain objects showing (null) in object type. Fixes #140.
 When a player kills a shambling horror, they gain access to it's pokedex.
-Greatly increase odds of sewage vs water rivers forming in the Gnomish Mines.
-Fix: dead trees dropping fruit/petrified status, icequeen 2nd map tweaks.
-Fix: Dramborleg damage output.
-Fix: make the Eye and Hand of Vecna immune to fire/lava damage.
-Fix: crowned Infidel that started as a centaur kept jump ability.
-Fix: unable to dig if wielding a cursed pick-axe/mattock
-Correct 'too many hooves' feedback
+Greatly increase odds of sewage vs water rivers forming in the Gnomish Mines. (from EvilHack)
+Fix: dead trees dropping fruit/petrified status, icequeen 2nd map tweaks. (from EvilHack)
+Fix: Dramborleg damage output. (from EvilHack)
+Fix: make the Eye and Hand of Vecna immune to fire/lava damage. (from EvilHack)
+Fix: crowned Infidel that started as a centaur kept jump ability. (from EvilHack)
+Fix: unable to dig if wielding a cursed pick-axe/mattock (from EvilHack)
+Correct 'too many hooves' feedback (from EvilHack)
 Fix: crash when wearing white dragon-scaled armor and no boots while 100% fire resistant
-Fix: AT_MAGC / AD_FIRE attack in regards to demons.
+Fix: AT_MAGC / AD_FIRE attack in regards to demons. (from EvilHack)
 Reverted Gnomish Mines back to standard depth (8-9 levels instead of 10-11)
 Cursed wand backfire is dependant on luck. 0 luck is same as before, but positive or negative luck highly impacts the chances of backfire.
 Fix: Order of potion of amnesia in objects.txt
