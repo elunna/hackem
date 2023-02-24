@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Pets can wear rings of sonic and psychic resistance.
 Pets can wear amulets of drain resistance and petrification resistance.
 Remove shield skill from samurai.
 Tower shields and resonant shields are handled in shield bashing now. Tower shields deal more damage than other shields.

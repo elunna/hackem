@@ -3918,6 +3918,10 @@ struct obj *obj;
             return (!(resists_elec(mon) || defended(mon, AD_ELEC)));
         if (typ == RIN_POISON_RESISTANCE)
             return (!(resists_poison(mon) || defended(mon, AD_DRST)));
+        if (typ == RIN_SONIC_RESISTANCE)
+            return (!(resists_sonic(mon) || defended(mon, AD_LOUD)));
+        if (typ == RIN_PSYCHIC_RESISTANCE)
+            return (!(resists_psychic(mon) || defended(mon, AD_PSYC)));
         if (typ == RIN_SLOW_DIGESTION)
             return (!mon_prop(mon, SLOW_DIGESTION));
         if (typ == RIN_REGENERATION)
