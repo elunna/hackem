@@ -877,13 +877,10 @@ toofar:
         || mtmp->data == &mons[PM_ACID_ELEMENTAL]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
-    /* --hackem: I don't want an exact copy of Hezrous, but badgers are known
+    /* --hackem: Not an exact copy of Hezrous, but skunks are known
          * for being stinky. So they will frequently leave trails of gas...
-         * Same for skunks
      */
-    if ((mtmp->data == &mons[PM_GIANT_BADGER]
-        || mtmp->data == &mons[PM_HONEY_BADGER]
-         || mtmp->data == &mons[PM_SKUNK]) && !rn2(3)) /* badger stink */
+    if (mtmp->data == &mons[PM_SKUNK] && !rn2(3))
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
     /* Mist wolves make misty cloud floods */

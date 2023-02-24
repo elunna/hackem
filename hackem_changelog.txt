@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Badgers don't leave gas clouds anymore, just skunks (reported by mobileuser)
 Pets can zap themselves with wands of healing.
 Pets can wear rings of sonic and psychic resistance.
 Pets can wear amulets of drain resistance and petrification resistance.
