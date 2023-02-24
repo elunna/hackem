@@ -3855,6 +3855,8 @@ struct obj *obj;
             || typ == AMULET_OF_GUARDING
             || typ == AMULET_OF_ESP
             || typ == AMULET_OF_MAGIC_RESISTANCE
+            || typ == AMULET_VERSUS_STONE
+            || typ == AMULET_OF_DRAIN_RESISTANCE
             || obj->oartifact == ART_EYE_OF_THE_AETHIOPICA)
             return TRUE;
         /* who doesn't want the ultimate amulet? and they can be fooled also */

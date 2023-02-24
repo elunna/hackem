@@ -843,6 +843,8 @@ boolean racialexception;
                     && obj->otyp != AMULET_OF_MAGIC_RESISTANCE
                     && obj->otyp != AMULET_OF_GUARDING
                     && obj->otyp != AMULET_OF_ESP
+                    && obj->otyp != AMULET_VERSUS_STONE
+                    && obj->otyp != AMULET_OF_DRAIN_RESISTANCE
                     && obj->oartifact != ART_EYE_OF_THE_AETHIOPICA))
                 continue;
             /* for 'best' to be non-Null, it must be an amulet of guarding;
