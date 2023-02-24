@@ -162,7 +162,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko4-3"
-FLAGS: noteleport, hardfloor, mazelevel, premapped
+FLAGS: noteleport, hardfloor, mazelevel, premapped, solidify
 INIT_MAP: solidfill, ' '
 MESSAGE:"Mirror Hall"
 GEOMETRY: center, center
@@ -219,7 +219,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko4-4"
-FLAGS: noteleport, hardfloor, mazelevel, premapped
+FLAGS: noteleport, hardfloor, mazelevel, premapped, solidify
 MESSAGE:"We See You"
 INIT_MAP: solidfill, ' '
 GEOMETRY: center, center
@@ -284,7 +284,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko4-5"
-FLAGS: noteleport, hardfloor, mazelevel, premapped
+FLAGS: noteleport, hardfloor, mazelevel, premapped, solidify
 MESSAGE:"False Flag"
 INIT_MAP: solidfill, ' '
 GEOMETRY: center, center
@@ -349,7 +349,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko4-6"
-FLAGS: noteleport, hardfloor, mazelevel, premapped
+FLAGS: noteleport, hardfloor, mazelevel, premapped, solidify
 INIT_MAP: solidfill, ' '
 MESSAGE:"One Wrong Step"
 GEOMETRY: center, center
@@ -1319,7 +1319,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko3-3"
-FLAGS: noteleport, mazelevel, premapped
+FLAGS: noteleport, mazelevel, premapped, solidify
 MESSAGE:"Old Man of the Mountain"
 INIT_MAP: solidfill, ' '
 GEOMETRY: center, center
@@ -1375,7 +1375,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko3-4"
-FLAGS: noteleport, mazelevel, premapped
+FLAGS: noteleport, mazelevel, premapped, solidify
 MESSAGE:"Roundabout"
 INIT_MAP: solidfill, ' '
 GEOMETRY: center, center
@@ -2439,7 +2439,7 @@ OBJECT: '/', random
 
 
 LEVEL:"soko2-3"
-FLAGS: noteleport, mazelevel, premapped
+FLAGS: noteleport, mazelevel, premapped, solidify
 MESSAGE:"The Pergola"
 INIT_MAP: solidfill, ' '
 GEOMETRY: center, center
