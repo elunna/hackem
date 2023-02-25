@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Tortle shamans are telepathic and will grant telepathy intrinsic if eaten. (from EvilHack)
 Cleaned up a bunch of old comments.
 Fix: Prevent Xorns from teleporting outside Sokoban levels.
 Badgers don't leave gas clouds anymore, just skunks (reported by mobileuser)
