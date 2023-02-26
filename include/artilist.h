@@ -301,7 +301,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
   /* Warns when elves are present, but its damage bonus applies to all targets.
    *      (handled as special case in spec_dbon()). */
     A("Grimtooth", ORCISH_DAGGER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH),
-      0, MH_ELF, DISE(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 
+      0, MH_ELF, DISE(5, 6), DFNS(AD_DISE), NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 
       1500L, CLR_RED, DEFAULT_MAT),
     
     /* Auto-explode code in dothrow.c, uhitm.c */
