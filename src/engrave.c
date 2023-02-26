@@ -967,7 +967,7 @@ doengrave()
                 ptext = TRUE;
                 type = ENGRAVE;
                 if (!objects[otmp->otyp].oc_name_known) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of digging!", xname(otmp));
                     preknown = TRUE;
                 }
@@ -990,7 +990,7 @@ doengrave()
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of fire!", xname(otmp));
                     preknown = TRUE;
                 }
@@ -1001,7 +1001,7 @@ doengrave()
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known && !Blind) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of corrosion!", xname(otmp));
                     preknown = TRUE;
                 } else if (!Deaf) {
@@ -1012,7 +1012,7 @@ doengrave()
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of lightning!", xname(otmp));
                     preknown = TRUE;
                 }

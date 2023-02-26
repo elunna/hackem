@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Inappropriate message when burning/engraving with wand of wonder (reported by mobileuser)
 Grimtooth grants sickness resistance while wielded (suggested by mobileuser).
 Tortle shamans are telepathic and will grant telepathy intrinsic if eaten. (from EvilHack)
 Cleaned up a bunch of old comments.
