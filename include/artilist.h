@@ -532,10 +532,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR, BONE),
 
     /* Xanathar's eyestalk ring of proof against detection and location */
-    A("Xanathar's Ring of Proof", RIN_SEE_INVISIBLE,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), SPFX_WARN, 0,
-      NO_ATTK, DFNS(AD_MAGM), NO_CARY,
-      INVIS, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+    A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_STLTH), SPFX_WARN, 0,
+      NO_ATTK, NO_DFNS, NO_CARY,
+      SELF_TELE, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
     
     /*
      *      The artifacts for the quest dungeon, all self-willed.

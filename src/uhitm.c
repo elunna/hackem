@@ -497,7 +497,8 @@ register struct monst *mtmp;
         if (verysmall(mtmp->data) || !rn2(4)) {
             You("stomp on %s!", mon_nam(mtmp));
             xkilled(mtmp, XKILL_GIVEMSG);
-            wake_nearby();
+            if (!SuperStealth)
+                wake_nearby();
             makeknown(uarmf->otyp);
             return TRUE;
         }
@@ -1058,7 +1059,7 @@ int dieroll;
 
     /* Awaken nearby monsters. A stealthy hero makes much less noise */
     if (!(is_silent(youmonst.data) && helpless(mon))
-        && rn2(Stealth ? 10 : 2)) {
+        && rn2(Stealth ? 10 : 2) && !SuperStealth) {
         int base_combat_noise = combat_noise(&mons[urace.malenum]);
         wake_nearto(mon->mx, mon->my, Stealth ? base_combat_noise / 2
                                               : base_combat_noise);

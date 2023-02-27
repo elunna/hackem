@@ -2488,8 +2488,7 @@ boolean newspot;             /* true if called by spoteffects */
                       rn2(2) ? "wading" : "trudging",
                       rn2(2) ? "this sludge" : "the muck");
             }
-
-            if (!verysmall(youmonst.data) && !rn2(4))
+            if (!verysmall(youmonst.data) && !SuperStealth && !rn2(4))
                 wake_nearby();
 
             if (Upolyd && youmonst.data  == &mons[PM_GREMLIN])

@@ -258,8 +258,8 @@ forcelock(VOID_ARGS)
             exercise(A_DEX, TRUE);
             return ((xlock.usedtime = 0));
         }
-    } else             /* blunt */
-        wake_nearby(); /* due to hammering on the container */
+    } else if (!SuperStealth)            /* blunt */
+            wake_nearby(); /* due to hammering on the container */
 
     if (rn2(100) >= xlock.chance)
         return 1; /* still busy */

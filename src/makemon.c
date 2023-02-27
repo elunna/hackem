@@ -3428,7 +3428,7 @@ long mmflags;
         }
     } else if (mndx == PM_XANATHAR) {
         struct obj *otmp;
-        otmp = oname(mksobj(RIN_SEE_INVISIBLE, TRUE, FALSE),
+        otmp = oname(mksobj(RIN_DISPLACEMENT, TRUE, FALSE),
                      artiname(ART_XANATHAR_S_RING_OF_PROOF));
         if (otmp) {
             otmp->blessed = otmp->cursed = 0;
