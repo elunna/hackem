@@ -751,6 +751,7 @@ RING("invisibility", "wire",                     INVIS,                    150, 
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 1, 0,  5, GOLD, HI_METAL),
 RING("mood", "ridged",                           0,                        100, 1, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
 RING("sleeping", "wedding",                      SLEEPY,                   100, 1, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
+RING("displacement", "neon",                     DISPLACED,                200, 1, 1, 0,  0, PLASTIC, CLR_BLUE),
 RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
 
 /* Extra descriptions */

@@ -703,6 +703,9 @@ register struct obj *obj;
         /* for S_room case, same message as for teleportation is given */
         ideed = (levl[u.ux][u.uy].typ != ROOM);
         break;
+    case RIN_DISPLACEMENT:
+        pline_The("sink is over there! No wait, it's here now!");
+        break;
     default:
         ideed = FALSE;
         break;

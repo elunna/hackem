@@ -2500,6 +2500,7 @@ struct obj *otmp;
                 fix_petrification();
             break;
         case RIN_SUSTAIN_ABILITY:
+        case RIN_DISPLACEMENT:
         case AMULET_OF_LIFE_SAVING:
         case AMULET_OF_FLYING:
         case AMULET_OF_REFLECTION: /* nice try */

@@ -1673,7 +1673,12 @@ register struct obj *obj;
             make_afraid(0L, TRUE);
             context.botl = TRUE;
         }
+        break;
+    case RIN_DISPLACEMENT:
+        toggle_displacement(obj, oldprop, TRUE);
+        break;
     }
+
 }
 
 STATIC_OVL void
@@ -1800,6 +1805,9 @@ boolean gone;
          * change shape again -dgk
          */
         restartcham();
+        break;
+    case RIN_DISPLACEMENT:
+        toggle_displacement(obj, (EDisplaced & ~mask), FALSE);
         break;
     }
 }
