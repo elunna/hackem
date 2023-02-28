@@ -171,7 +171,7 @@ cant_reach_floor(x, y, up, check_pit)
 int x, y;
 boolean up, check_pit;
 {
-    You("can't reach the %s.",
+    You_cant("reach the %s.",
         up ? ceiling(x, y)
            : (check_pit && can_reach_floor(FALSE))
                ? "bottom of the pit"
@@ -357,7 +357,7 @@ int x, y;
         case MARK:
             if (!Blind) {
                 sensed = 1;
-                pline("There's some graffiti on the %s here.", surface(x, y));
+                There("is some graffiti on the %s here.", surface(x, y));
             }
             break;
         case ENGR_BLOOD:
@@ -400,8 +400,8 @@ int x, y;
 void
 learn_elbereth()
 {
-    if (maybe_polyd(is_orc(youmonst.data), Race_if(PM_ORC)))
-        pline("You will NEVER learn about dirty Elven tricks!");
+    if (Race_if(PM_ORC))
+        You("will NEVER learn dirty Elven tricks!");
     
     else if (!u.uevent.ulearned_elbereth) {
         debugpline0("You learn how to write Elbereth");
@@ -726,7 +726,8 @@ doengrave()
 
             if (otmp->otyp == WAN_WONDER) {
                 otmp->otyp = WAN_LIGHT + rn2(WAN_LIGHTNING - WAN_LIGHT);
-                if (!otmp->dknown) pline("You have found a wand of wonder!");
+                if (!otmp->dknown) 
+                    You("have found a wand of wonder!");
                 wonder = TRUE;
             }
             switch (otmp->otyp) {
@@ -911,7 +912,7 @@ doengrave()
                 create_gas_cloud(u.ux, u.uy, 1, 4);
                 postknown = TRUE;
             break;
-            case WAN_WATER:
+            case WAN_DELUGE:
                 if (!Blind) {
                     Sprintf(post_engr_text,
                             "The bugs on the %s get washed away!", surface(u.ux, u.uy));
@@ -966,7 +967,7 @@ doengrave()
                 ptext = TRUE;
                 type = ENGRAVE;
                 if (!objects[otmp->otyp].oc_name_known) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of digging!", xname(otmp));
                     preknown = TRUE;
                 }
@@ -989,19 +990,19 @@ doengrave()
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of fire!", xname(otmp));
                     preknown = TRUE;
                 }
                 Strcpy(post_engr_text, Blind ? "You feel the wand heat up."
                                              : "Flames fly from the wand.");
                 break;
-            case WAN_ACID:
+            case WAN_CORROSION:
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known && !Blind) {
-                    if (flags.verbose)
-                        pline("This %s is a wand of acid!", xname(otmp));
+                    if (flags.verbose && !wonder)
+                        pline("This %s is a wand of corrosion!", xname(otmp));
                     preknown = TRUE;
                 } else if (!Deaf) {
                     Sprintf(post_engr_text, "Something sprays from the wand.");
@@ -1011,7 +1012,7 @@ doengrave()
                 ptext = TRUE;
                 type = BURN;
                 if (!objects[otmp->otyp].oc_name_known) {
-                    if (flags.verbose)
+                    if (flags.verbose && !wonder)
                         pline("This %s is a wand of lightning!", xname(otmp));
                     preknown = TRUE;
                 }
@@ -1046,7 +1047,12 @@ doengrave()
     case WEAPON_CLASS:
         if (otmp->oartifact == ART_FIRE_BRAND)
             type = BURN;
-        else if (is_blade(otmp)) {
+        if (is_lightsaber(otmp)) {
+            if (otmp->lamplit) 
+                type = BURN;
+            else
+                Your("%s deactivated!", aobjnam(otmp,"are"));
+        } else if (is_blade(otmp)) {
             if ((int) otmp->spe > -3)
                 type = ENGRAVE;
             else
@@ -1060,13 +1066,6 @@ doengrave()
                 "That is a bit difficult to engrave with, don't you think?");
             return 0;
         }
-
-        if (is_lightsaber(otmp)) {
-		    if (otmp->lamplit) 
-                type = BURN;
-		    else
-                Your("%s is deactivated!", aobjnam(otmp,"are"));
-		} else
 
         switch (otmp->otyp) {
         case MAGIC_MARKER:
@@ -1107,6 +1106,9 @@ doengrave()
         }
         /*FALLTHRU*/
     case VENOM_CLASS:
+        pline(
+            "That is a bit difficult to engrave with, don't you think?");
+        return 0;
     case ILLOBJ_CLASS:
         impossible("You're engraving with an illegal object!");
         break;

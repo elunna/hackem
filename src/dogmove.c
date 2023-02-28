@@ -130,6 +130,9 @@ boolean check_if_better, stashing;
              || otmp->otyp == AMULET_OF_MAGIC_RESISTANCE
              || otmp->otyp == AMULET_OF_GUARDING
              || otmp->otyp == AMULET_OF_ESP
+             || otmp->otyp == AMULET_OF_DRAIN_RESISTANCE
+             || otmp->otyp == AMULET_VERSUS_POISON
+             || otmp->otyp == AMULET_VERSUS_STONE
              /* bags */
              || otmp->otyp == BAG_OF_HOLDING
              || otmp->otyp == BAG_OF_TRICKS
@@ -154,6 +157,13 @@ boolean check_if_better, stashing;
              || otmp->otyp == WAN_POLYMORPH
              || otmp->otyp == WAN_CANCELLATION
              || otmp->otyp == WAN_UNDEAD_TURNING
+             || otmp->otyp == WAN_WIND
+             || otmp->otyp == WAN_DELUGE
+             || otmp->otyp == WAN_CORROSION
+             || otmp->otyp == WAN_POISON_GAS
+             || otmp->otyp == WAN_SONICS
+             || otmp->otyp == WAN_HEALING
+             || otmp->otyp == WAN_EXTRA_HEALING
              || otmp->otyp == POT_HEALING
              || otmp->otyp == POT_EXTRA_HEALING
              || otmp->otyp == POT_FULL_HEALING
@@ -171,7 +181,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == RIN_POISON_RESISTANCE
              || otmp->otyp == RIN_SHOCK_RESISTANCE
              || otmp->otyp == RIN_REGENERATION
-             || otmp->otyp == RIN_TELEPORTATION
+             /*|| otmp->otyp == RIN_TELEPORTATION*/
              || otmp->otyp == RIN_TELEPORT_CONTROL
              || otmp->otyp == RIN_SLOW_DIGESTION
              || otmp->otyp == RIN_INCREASE_DAMAGE
@@ -180,6 +190,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == RIN_LEVITATION
              || otmp->otyp == FROST_HORN
              || otmp->otyp == FIRE_HORN
+             || otmp->otyp == HORN_OF_BLASTING
              || otmp->otyp == MAGIC_HARP
              || otmp->otyp == DRUM_OF_EARTHQUAKE
              || otmp->otyp == FIGURINE
@@ -221,9 +232,12 @@ boolean check_if_better, stashing;
             /* these aren't typically super-special or unique types of items,
              * so just hang onto them if they will be useful -- the hero can
              * use #loot to take them if need be */
-            if (otmp->oclass == POTION_CLASS || otmp->oclass == SCROLL_CLASS
-                || otmp->oclass == RING_CLASS || otmp->oclass == AMULET_CLASS
-                || (otmp->oclass == WAND_CLASS && otmp->otyp != WAN_DEATH
+            if (otmp->oclass == POTION_CLASS 
+                || otmp->oclass == SCROLL_CLASS
+                || otmp->oclass == RING_CLASS 
+                || otmp->oclass == AMULET_CLASS
+                || (otmp->oclass == WAND_CLASS 
+                    && otmp->otyp != WAN_DEATH
                     && otmp->otyp != WAN_WISHING))
                 return TRUE;
 
@@ -1155,8 +1169,8 @@ struct monst *mtmp, *mtarg;
             score -= 3000L;
             return score;
         }
-        /* Is the monster peaceful or tame? */
-        if (/*mtarg->mpeaceful ||*/ mtarg->mtame || mtarg == &youmonst) {
+        /* Is the monster tame? */
+        if (mtarg->mtame || mtarg == &youmonst) {
             /* Pets will never be targeted */
             score -= 3000L;
             return score;
@@ -1165,6 +1179,12 @@ struct monst *mtmp, *mtarg;
         if (find_friends(mtmp, mtarg, 15)) {
             score -= 3000L;
             return score;
+        }
+        /* Is the monster peaceful?
+         * Usually discourage from attacking peacefuls, mostly to avoid 
+         * retaliation from watchmen, watch captains, or shopkeepers. */
+        if (mtarg->mpeaceful) {
+            score -= 200L;
         }
         /* Target hostile monsters in preference to peaceful ones */
         if (!mtarg->mpeaceful)
@@ -1329,7 +1349,6 @@ register struct monst *mtmp;
     if (udist < 4 && has_edog && !rn2(3)
     	    && can_betray(mtmp->data)
             && !mindless(mtmp->data)
-            && !mtmp->isminion
             /*&& mtmp->mhp >= u.uhp */	/* Pet is buff enough */
             && rn2(22) > mtmp->mtame	/* Roll against tameness */
             && rn2(edog->abuse + 2)) {
@@ -1337,7 +1356,7 @@ register struct monst *mtmp;
 	if (canseemon(mtmp))
 	    pline("%s turns on you!", Monnam(mtmp));
 	else
-	    pline("You feel uneasy about %s.", y_monnam(mtmp));
+            You_feel("uneasy about %s.", y_monnam(mtmp));
 	mtmp->mpeaceful = 0;
 	mtmp->mtame = 0;
 	mtmp->mtraitor = TRUE;

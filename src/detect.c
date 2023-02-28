@@ -179,11 +179,13 @@ char oclass;
      * that Box can't contain anything else because putting something in
      * would resolve the cat/corpse situation and convert to ordinary box.
      */
-    if (Has_contents(obj) && !SchroedingersBox(obj)) {
+    if (Has_contents(obj) && (!SchroedingersBox(obj) && obj->otyp != MEDICAL_KIT)) {
         for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
             if (otmp->oclass == oclass)
                 return otmp;
-            else if (Has_contents(otmp) && obj->otyp != KEG
+            else if (Has_contents(otmp) 
+                     && obj->otyp != KEG
+                     && otmp->otyp != MEDICAL_KIT 
                      && (temp = o_in(otmp, oclass)) != 0)
                 return temp;
     }
@@ -556,7 +558,7 @@ register struct obj *sobj;
         You("%s %s nearby.", sobj ? "smell" : "sense", what);
         if (sobj && sobj->blessed) {
             if (!u.uedibility || !Food_sense)
-                pline("Your %s starts to tingle.", body_part(NOSE));
+                Your("%s starts to tingle.", body_part(NOSE));
             u.uedibility = 1;
         }
     } else {

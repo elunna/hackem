@@ -51,6 +51,7 @@
     <Desfiles Include = "monk.des"/>
     <Desfiles Include = "necro.des"/>
     <Desfiles Include = "oracle.des"/>
+    <Desfiles Include = "pirate.des"/>
     <Desfiles Include = "priest.des"/>
     <Desfiles Include = "ranger.des"/>
     <Desfiles Include = "rogue.des"/>

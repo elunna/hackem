@@ -115,6 +115,9 @@
 
 #define DeathVision (ublindf && ublindf->oartifact == ART_MYSTIC_EYES && !Blind)
 
+#define SuperStealth ((uright && uright->oartifact == ART_XANATHAR_S_RING_OF_PROOF) \
+ || (uleft && uleft->oartifact == ART_XANATHAR_S_RING_OF_PROOF))
+
 /*** Troubles ***/
 /* Pseudo-property */
 #define Punished (uball != 0)

@@ -26,12 +26,12 @@ STATIC_DCL int FDECL(untrap_prob, (struct trap *));
 STATIC_DCL void FDECL(move_into_trap, (struct trap *));
 STATIC_DCL int FDECL(try_disarm, (struct trap *, BOOLEAN_P));
 STATIC_DCL void FDECL(reward_untrap, (struct trap *, struct monst *));
-STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *));
-STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *));
-STATIC_DCL int FDECL(disarm_landmine, (struct trap *));
-STATIC_DCL int FDECL(disarm_spear_trap, (struct trap *));
-STATIC_DCL int FDECL(disarm_squeaky_board, (struct trap *));
-STATIC_DCL int FDECL(disarm_shooting_trap, (struct trap *, int));
+STATIC_DCL int FDECL(disarm_holdingtrap, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_fire_trap, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_landmine, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_spear_trap, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_squeaky_board, (struct trap *, BOOLEAN_P));
+STATIC_DCL int FDECL(disarm_shooting_trap, (struct trap *, int, BOOLEAN_P));
 STATIC_DCL void FDECL(clear_conjoined_pits, (struct trap *));
 STATIC_DCL boolean FDECL(adj_nonconjoined_pit, (struct trap *));
 STATIC_DCL int FDECL(try_lift, (struct monst *, struct trap *, int,
@@ -158,6 +158,7 @@ int ef_flags;
             uvictim, vismon, visobj;
     int erosion, cost_type;
     struct monst *victim;
+    struct obj *otmp2, *ncobj;
 
     if (!otmp)
         return ER_NOTHING;
@@ -287,12 +288,18 @@ int ef_flags;
                                         : s_suffix(Monnam(victim)),
                       ostr, vtense(ostr, action[type]));
         } else {
-            if (uvictim || vismon || visobj)
-                pline("%s %s %s away!",
-                      uvictim ? "Your"
-                              : !vismon ? "The" /* visobj */
-                                        : s_suffix(Monnam(victim)),
-                      ostr, vtense(ostr, action[type]));
+            if (uvictim || vismon || visobj) {
+                if (otmp->otyp == IRON_SAFE && rn2(20)) {
+                    pline("%s is still completely rusted.", Yname2(otmp));
+                    return ER_DAMAGED;
+                } else {
+                    pline("%s %s %s away!",
+                          uvictim ? "Your"
+                                  : !vismon ? "The" /* visobj */
+                                            : s_suffix(Monnam(victim)),
+                          ostr, vtense(ostr, action[type]));
+                }
+            }
         }
         if (ef_flags & EF_PAY)
             costly_alteration(otmp, cost_type);
@@ -306,6 +313,28 @@ int ef_flags;
                 else
                     delobj(otmp);
             }
+        } else if (Is_box(otmp)) {
+            /* Container has rusted away - dump contents out */
+            if (Has_contents(otmp)) {
+                if (uvictim || vismon || visobj)
+                    pline("Its contents fall out.");
+                for (otmp2 = otmp->cobj; otmp2; otmp2 = ncobj) {
+                    ncobj = otmp2->nobj;
+                    obj_extract_self(otmp2);
+                    if (uvictim) {
+                        if (!flooreffects(otmp2, u.ux, u.uy, ""))
+                            place_object(otmp2, u.ux, u.uy);
+                    } else if (victim && (victim != &youmonst)) {
+                         if (!flooreffects(otmp2, victim->mx, victim->my, ""))
+                             place_object(otmp2, victim->mx, victim->my);
+                    }
+                }
+            }
+            setnotworn(otmp);
+            if (carried(otmp))
+                useupall(otmp);
+            else
+                delobj(otmp);
         } else if (victim && (victim != &youmonst)) {
             extract_from_minvent(victim, otmp, TRUE, TRUE);
             obfree(otmp, (struct obj *) 0);
@@ -1647,7 +1676,7 @@ unsigned trflags;
                     if (!Hallucination)
                         pline("A cloud of brightly colored smoke billows up around you!");
                     else
-                        pline("The floor lights came on!  Let's disco!");
+                        pline_The("floor lights came on!  Let's disco!");
                 } else {
                     pline("It smells sort of %s in here.",
                           Hallucination ? "purple" : "funky");
@@ -1937,7 +1966,7 @@ struct obj *otmp;
         steedhit = TRUE;
         break;
     case SPEAR_TRAP:
-        pline("The spear stabs %s%s!",
+        pline_The("spear stabs %s%s!",
               (is_flyer(steed->data) || Levitation || Flying) ? "at " : "",
               mon_nam(steed));
         if (is_flyer(steed->data) || Levitation || Flying) {
@@ -2826,7 +2855,7 @@ register struct monst *mtmp;
                       surface(mtmp->mx, mtmp->my),
                       mon_nam(mtmp));
             else if (see_it)
-                You("see a freezing cloud shoot from the %s!",
+                You_see("a freezing cloud shoot from the %s!",
                     surface(mtmp->mx, mtmp->my));
             
             if (resists_cold(mtmp)) {
@@ -2851,7 +2880,7 @@ register struct monst *mtmp;
                     pline("A cascade of steamy bubbles erupts from the %s under %s!",
                           surface(mtmp->mx, mtmp->my), mon_nam(mtmp));
                 else if (see_it)
-                    You("see a cascade of steamy bubbles erupt from the %s!",
+                    You_see("a cascade of steamy bubbles erupt from the %s!",
                         surface(mtmp->mx, mtmp->my));
                 if (rn2(2)) {
                     if (in_sight)
@@ -3213,7 +3242,7 @@ register struct monst *mtmp;
             }
             if (is_flyer(mptr)) {
                 if (in_sight)
-                    pline("The spear isn't long enough to reach %s.", mon_nam(mtmp));
+                    pline_The("spear isn't long enough to reach %s.", mon_nam(mtmp));
             } else if (thick_skinned(mptr)) {
                 if (in_sight)
                     pline("But it breaks off against %s.", mon_nam(mtmp));
@@ -3407,7 +3436,7 @@ float_up()
             (void) buried_ball(&cc);
             /* being chained to the floor blocks levitation from floating
                above that floor but not from enhancing carrying capacity */
-            You("feel lighter, but your %s is still chained to the %s.",
+            You_feel("lighter, but your %s is still chained to the %s.",
                 body_part(LEG),
                 IS_ROOM(levl[cc.x][cc.y].typ) ? "floor" : "ground");
         } else if (u.utraptype == WEB) {
@@ -3820,9 +3849,9 @@ domagictrap()
                        && !pm_invisible(youmonst.data)) {
                 if (!Blind) {
                     if (!See_invisible)
-                        pline("You can see yourself again!");
+                        You("can see yourself again!");
                     else
-                        pline("You can't see through yourself anymore.");
+                        You_cant("see through yourself anymore.");
                 }
             } else {
                 /* If we're invisible from another source */
@@ -4087,7 +4116,7 @@ xchar x, y;
         oart = obj->oartifact;
 
     if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
-        pline("The egg starts to hatch!");
+        pline_The("egg starts to hatch!");
         hatch_faster(obj);
         return FALSE;
     }
@@ -4173,7 +4202,7 @@ struct obj *obj;
             ) {
             if (!Blind) {
                 if (victim == &youmonst)
-                    pline("Your %s.", aobjnam(obj, "fade"));
+                    Your("%s.", aobjnam(obj, "fade"));
                 else if (vismon)
                     pline("%s %s.", s_suffix(Monnam(victim)),
                           aobjnam(obj, "fade"));
@@ -4209,8 +4238,6 @@ const char *ostr;
 boolean force;
 xchar x, y;
 {
-    struct obj *otmp, *ncobj;
-    int in_sight = !Blind && couldsee(x, y); /* Don't care if it's lit */
     boolean in_invent = obj && carried(obj), described = FALSE;
 
     if (!obj)
@@ -4259,32 +4286,7 @@ xchar x, y;
            gets into!" message, the player now has more information and
            thus we need to waste any potion they may have used (also,
            flavourwise the water is now on the floor) */
-        return ER_DAMAGED;
-    } else if (Is_box(obj) && greatest_erosion(obj) == MAX_ERODE) {
-        if (obj->otyp == IRON_SAFE && rn2(50)) {
-            if (in_sight)
-                pline("%s is still completely rusted.", Yname2(obj));
-            return ER_DAMAGED;
-        } else {
-            /* Container has rusted away - dump contents out */
-            if (in_sight)
-                pline("%s rusts completely away!", Yname2(obj));
-            if (Has_contents(obj)) {
-                if (in_sight)
-                    pline("Its contents fall out.");
-                for (otmp = obj->cobj; otmp; otmp = ncobj) {
-                    ncobj = otmp->nobj;
-                    obj_extract_self(otmp);
-                    if (!flooreffects(otmp, x, y, ""))
-                        place_object(otmp, x, y);
-                }
-            }
-            setnotworn(obj);
-            delobj(obj);
-            if (in_invent)
-                update_inventory();
-            return ER_DESTROYED;
-        }
+        return erode_obj(obj, ostr, ERODE_RUST, EF_DESTROY);
     } else if (!force && (Luck + 5) > rn2(20)) {
         /*  chance per item of sustaining damage:
             *   max luck:               10%
@@ -4301,7 +4303,7 @@ xchar x, y;
 #endif
            ) return 0;
         if (in_invent)
-            pline("Your %s %s.", ostr, vtense(ostr, "fade"));
+            Your("%s %s.", ostr, vtense(ostr, "fade"));
 
         obj->otyp = SCR_BLANK_PAPER;
         obj->dknown = 0;
@@ -4317,7 +4319,7 @@ xchar x, y;
             return 0;
         }
         if (in_invent)
-            pline("Your %s %s.", ostr, vtense(ostr, "fade"));
+            Your("%s %s.", ostr, vtense(ostr, "fade"));
 
         if (obj->otyp == SPE_NOVEL) {
             obj->novelidx = 0;
@@ -4396,7 +4398,7 @@ xchar x, y;
             return ER_DESTROYED;
         } else if (obj->odiluted) {
             if (in_invent)
-                pline("Your %s %s further.", ostr, vtense(ostr, "dilute"));
+                Your("%s %s further.", ostr, vtense(ostr, "dilute"));
 
             obj->otyp = POT_WATER;
             obj->dknown = 0;
@@ -4407,7 +4409,7 @@ xchar x, y;
             return ER_DAMAGED;
         } else if (obj->otyp != POT_WATER && obj->otyp != POT_OIL) {
             if (in_invent)
-                pline("Your %s %s.", ostr, vtense(ostr, "dilute"));
+                Your("%s %s.", ostr, vtense(ostr, "dilute"));
 
             obj->odiluted++;
             if (in_invent)
@@ -4606,10 +4608,14 @@ drown()
         /* maybe we were called because the hero moved or fell into a pool; if
          * so, assuming the only source of water walking is water walking
          * boots, identify them. */
-        if (!objects[WATER_WALKING_BOOTS].oc_name_known) {
+        if (uarmf 
+            && uarmf->otyp == WATER_WALKING_BOOTS
+            && !objects[WATER_WALKING_BOOTS].oc_name_known
+            && !HWwalking) {
+            
             Your("boots don't sink into the water!");
+            makeknown(WATER_WALKING_BOOTS);
         }
-        makeknown(WATER_WALKING_BOOTS);
         return FALSE;
     }
 
@@ -5041,12 +5047,15 @@ struct monst *mtmp;
 }
 
 STATIC_OVL int
-disarm_holdingtrap(ttmp) /* Helge Hafting */
+disarm_holdingtrap(ttmp, tele) /* Helge Hafting */
 struct trap *ttmp;
+boolean tele;
 {
     struct monst *mtmp;
-    int fails = try_disarm(ttmp, FALSE);
-
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
+    int tx = tele ? ttmp->tx : u.ux + u.dx;
+    int ty = tele ? ttmp->ty : u.uy + u.dy;
+    
     if (fails < 2)
         return fails;
 
@@ -5069,15 +5078,16 @@ struct trap *ttmp;
             deltrap(ttmp);
         }
     }
-    newsym(u.ux + u.dx, u.uy + u.dy);
+    newsym(tx, ty);
     return 1;
 }
 
 STATIC_OVL int
-disarm_landmine(ttmp) /* Helge Hafting */
+disarm_landmine(ttmp, tele) /* Helge Hafting */
 struct trap *ttmp;
+boolean tele;
 {
-    int fails = try_disarm(ttmp, FALSE);
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
 
     if (fails < 2)
         return fails;
@@ -5087,11 +5097,12 @@ struct trap *ttmp;
 }
 
 STATIC_OVL int
-disarm_spear_trap(ttmp) /* Erik Lunna */
+disarm_spear_trap(ttmp, tele) /* Erik Lunna */
 struct trap *ttmp;
+boolean tele;
 {
     xchar trapx = ttmp->tx, trapy = ttmp->ty;
-    int fails = try_disarm(ttmp, FALSE);
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
     
     if (fails < 2)
         return fails;
@@ -5123,22 +5134,24 @@ struct trap *ttmp;
 }
 
 int
-disarm_rust_trap(ttmp, disarming) /* Paul Sonier */
+disarm_rust_trap(ttmp, disarming, tele) /* Paul Sonier */
 struct trap *ttmp;
-boolean disarming;
+boolean disarming, tele;
 {
-	xchar trapx = ttmp->tx, trapy = ttmp->ty;
-	int fails = try_disarm(ttmp, FALSE);
+    xchar trapx = ttmp->tx, trapy = ttmp->ty;
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
 
-	if (fails < 2) 
+    if (fails < 2) 
         return fails;
-	if (disarming)
-            You("disarm the water trap!");
-	deltrap(ttmp);
-	levl[trapx][trapy].typ = FOUNTAIN;
-	newsym(trapx, trapy);
-	level.flags.nfountains++;
-	return 1;
+    if (disarming)
+        You("disarm the rust trap!");
+    deltrap(ttmp);
+    if (!tele) {
+        levl[trapx][trapy].typ = FOUNTAIN;
+        newsym(trapx, trapy);
+        level.flags.nfountains++;
+    }
+    return 1;
 }
 
 /* getobj will filter down to cans of grease and known potions of oil */
@@ -5147,13 +5160,23 @@ static NEARDATA const char disarmpotion[] = { ALL_CLASSES, POTION_CLASS, 0 };
 
 /* water disarms, oil will explode */
 STATIC_OVL int
-disarm_fire_trap(ttmp) /* Paul Sonier */
+disarm_fire_trap(ttmp, tele) /* Paul Sonier */
 struct trap *ttmp;
+boolean tele;
 {
     int fails;
     struct obj *obj;
     boolean bad_tool;
-
+    int tx = ttmp->tx, ty = ttmp->ty;
+    
+    if (tele) {
+        /* Chance of success should be calculated in tele_disarm already */
+        You("manage to extinguish the pilot light!");
+        deltrap(ttmp);
+        newsym(tx, ty);
+        return 1;
+    }
+    
     obj = getobj(disarmpotion, "untrap with");
     if (!obj)
         return 0;
@@ -5168,7 +5191,7 @@ struct trap *ttmp;
     }
 
     bad_tool = (obj->cursed || (obj->otyp != POT_WATER));
-    fails = try_disarm(ttmp, bad_tool);
+    fails = tele ? 2 : try_disarm(ttmp, bad_tool);
     if (fails < 2)
         return fails;
 
@@ -5183,13 +5206,14 @@ struct trap *ttmp;
 
 /* it may not make much sense to use grease on floor boards, but so what? */
 STATIC_OVL int
-disarm_squeaky_board(ttmp)
+disarm_squeaky_board(ttmp, tele)
 struct trap *ttmp;
+boolean tele;
 {
     struct obj *obj;
     boolean bad_tool;
     int fails;
-
+        
     obj = getobj(oil, "untrap with");
     if (!obj)
         return 0;
@@ -5198,7 +5222,7 @@ struct trap *ttmp;
                 || ((obj->otyp != POT_OIL 
                 || obj->lamplit)
                 && (obj->otyp != CAN_OF_GREASE || !obj->spe)));
-    fails = try_disarm(ttmp, bad_tool);
+    fails = tele ? 2 : try_disarm(ttmp, bad_tool);
     if (fails < 2)
         return fails;
 
@@ -5219,11 +5243,12 @@ struct trap *ttmp;
 
 /* removes traps that shoot arrows, darts, etc. */
 STATIC_OVL int
-disarm_shooting_trap(ttmp, otyp)
+disarm_shooting_trap(ttmp, otyp, tele)
 struct trap *ttmp;
 int otyp;
+boolean tele;
 {
-    int fails = try_disarm(ttmp, FALSE);
+    int fails = tele ? 2 : try_disarm(ttmp, FALSE);
 
     if (fails < 2)
         return fails;
@@ -5451,23 +5476,23 @@ boolean force;
                 switch (ttmp->ttyp) {
                 case BEAR_TRAP:
                 case WEB:
-                    return disarm_holdingtrap(ttmp);
+                    return disarm_holdingtrap(ttmp, FALSE);
                 case LANDMINE:
-                    return disarm_landmine(ttmp);
+                    return disarm_landmine(ttmp, FALSE);
                 case SQKY_BOARD:
-                    return disarm_squeaky_board(ttmp);
+                    return disarm_squeaky_board(ttmp, FALSE);
                 case DART_TRAP:
-                    return disarm_shooting_trap(ttmp, DART);
+                    return disarm_shooting_trap(ttmp, DART, FALSE);
                 case ARROW_TRAP:
-                    return disarm_shooting_trap(ttmp, ARROW);
+                    return disarm_shooting_trap(ttmp, ARROW, FALSE);
                 case BOLT_TRAP:
-                    return disarm_shooting_trap(ttmp, CROSSBOW_BOLT);
+                    return disarm_shooting_trap(ttmp, CROSSBOW_BOLT, FALSE);
                 case SPEAR_TRAP:
-                    return disarm_spear_trap(ttmp);
+                    return disarm_spear_trap(ttmp, FALSE);
                 case RUST_TRAP:
-                    return disarm_rust_trap(ttmp, TRUE);
+                    return disarm_rust_trap(ttmp, TRUE, FALSE);
                 case FIRE_TRAP:
-                    return disarm_fire_trap(ttmp);
+                    return disarm_fire_trap(ttmp, FALSE);
                 case PIT:
                 case SPIKED_PIT:
                     if (here) {
@@ -6795,4 +6820,74 @@ randomray()
         return -10-(AD_MAGM - 1);
     }
 }
+
+boolean
+tele_disarm(ttrap, x, y)
+struct trap *ttrap;
+int x, y;
+{
+    int style;
+    if (yn("Disarm the trap?") == 'y') {
+        if (rnl(20) >= 10) {
+            pline_The("force fails you this time!");
+            return 1;
+        }
+        /* copied from trap.c */
+        switch (ttrap->ttyp) {
+        case BEAR_TRAP:
+        case WEB:
+            return disarm_holdingtrap(ttrap, TRUE);
+        case LANDMINE:
+            return disarm_landmine(ttrap, TRUE);
+        /* These always require oil */
+        /*case SQKY_BOARD: return disarm_squeaky_board(ttrap, TRUE);*/
+        case DART_TRAP:
+            return disarm_shooting_trap(ttrap, DART, TRUE);
+        case ARROW_TRAP:
+            return disarm_shooting_trap(ttrap, ARROW, TRUE);
+        case BOLT_TRAP:
+            return disarm_shooting_trap(ttrap, CROSSBOW_BOLT, TRUE);
+        case SPEAR_TRAP:
+            return disarm_spear_trap(ttrap, TRUE);
+        case RUST_TRAP:
+            return disarm_rust_trap(ttrap, TRUE, TRUE);
+        case FIRE_TRAP:
+            return disarm_fire_trap(ttrap, TRUE);
+        default:
+            You("cannot disable %s trap.", (u.dx || u.dy) ? "that" : "this");
+            return 0;
+        }
+    } else if (yn("Spring this trap?") == 'y') {
+        switch (ttrap->ttyp) {
+        case LANDMINE: 
+            You("trigger the landmine.");
+            pline("KABLAAAM!");
+            blow_up_landmine(ttrap);
+            fill_pit(x, y);
+            newsym(x, y);
+            break;
+        case ROLLING_BOULDER_TRAP:
+            style = ROLL | (ttrap->tseen ? LAUNCH_KNOWN : 0);
+            You("trigger the trap!");
+            if (!launch_obj(BOULDER, ttrap->launch.x, ttrap->launch.y, 
+                            ttrap->launch2.x, ttrap->launch2.y, style)) {
+                deltrap(ttrap);
+                newsym(x, y);
+                pline("But no boulder was released.");
+            }
+            break;
+        case SQKY_BOARD:
+            pline("A board near you %s%s%s.",
+                  Deaf ? "vibrates" : "squeaks ",
+                  Deaf ? "" : trapnote(ttrap, 0), Deaf ? "" : " loudly");
+            wake_nearby();
+            break;
+        default:
+            You_cant("spring this trap.");
+            return 0;
+        }
+    }
+    return 1;
+}
+
 /*trap.c*/

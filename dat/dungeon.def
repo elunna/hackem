@@ -31,7 +31,7 @@ BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
 #BRANCH:        "Chaotic Quest" @ (15, 5) portal
-BRANCH:         "Vecna's Domain" @ (15, 5) portal
+BRANCH:         "Chaotic Quest" @ (15, 5) portal
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 #               Grunds act's as a mini-castle for the player to overcome. 
@@ -97,7 +97,7 @@ LEVEL:		    "sanctum" "none" @ (-1, 0)
 DUNGEON:	"The Gnomish Mines" "M" (8, 2)
 ALIGNMENT:	lawful
 DESCRIPTION:	mazelike
-RNDLEVEL:	"minetn" "T" @ (3, 2) 11
+RNDLEVEL:	"minetn" "T" @ (3, 2) 12
 LEVELDESC:	town
 RNDLEVEL:	"minend" "E" @ (-2, 0) 7
 RNDLEVEL:	"mineking" "M" @ (-1, 0) 2
@@ -139,7 +139,7 @@ DUNGEON:		"Sokoban" "none" (4, 0)
 DESCRIPTION:    mazelike
 ALIGNMENT:      neutral
 ENTRY:          -1
-RNDLEVEL:		"soko1" "none" @ (1, 0) 6
+RNDLEVEL:		"soko1" "none" @ (1, 0) 12
 RNDLEVEL:		"soko2" "none" @ (2, 0) 17
 RNDLEVEL:		"soko3" "none" @ (3, 0) 17
 RNDLEVEL:		"soko4" "none" @ (4, 0) 18
@@ -214,7 +214,7 @@ LEVEL:          "mtemple" "none" @ (1, 0)
 #
 #       Vecna's Domain.
 #
-DUNGEON:        "Vecna's Domain" "none" (3, 0)
+DUNGEON:        "Chaotic Quest" "none" (3, 0)
 DESCRIPTION:    mazelike
 DESCRIPTION:    vecnad
 ALIGNMENT:      chaotic

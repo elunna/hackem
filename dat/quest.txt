@@ -211,7 +211,7 @@ The familiar presence of %o is in the ether.
 # hero might already be carrying it, so don't say anything like
 # "%o's presence can't be felt"
 %Cp Arc 00042
-The have returned to %ns lair.
+You have returned to %ns lair.
 %E
 %Cc Arc 00050
 "So, %p, you think that you can succeed in recovering
@@ -2474,6 +2474,269 @@ I have noticed that %ap are unusually resistant to my clerical magic.
 "Perhaps that extends to %d %diself, as well."
 %E [You should avoid invoking %o on the %a high altar.]
 #
+#       Jedi
+#
+%Cc Jed 00001
+You are back at %H where you were raised and trained during your youth.
+You fondly remember your mentor, %l, and your fellow %g.
+Looking around, to the eye everything looks normal. You wonder why
+%l would call you here without necessity.
+
+Then some stormtroopers jump from the shadows...
+%E
+%Cp Jed 00002
+Once again you are back at %H.
+%E
+%Cp Jed 00003
+Again, you stand before %H.  You vaguely sense that this
+may be the last time you stand before %l.
+%E
+%Cp Jed 00005
+"Hello, %p. May the force be with you!"
+%E
+%Cp Jed 00006
+"%p, it seems the force has left us..."
+%E
+%Cp Jed 00007
+"The dark side is strong, or so they tell us."
+%E
+%Cp Jed 00008
+"If the dark side is so powerful, why not use its power for us?"
+%E
+%Cp Jed 00009
+"What shall we do, %p?"
+%E
+%Cp Jed 00010
+"Hello, %p. May the force be with you!"
+%E
+%Cp Jed 00011
+"The force has led us to victory!"
+%E
+%Cp Jed 00012
+"Will the Sith ever be defeated?"
+%E
+%Cp Jed 00013
+"So you defeated %n?"
+%E
+%Cp Jed 00014
+"Is this the fabled %o?"
+%E
+%Cc Jed 00015
+"It's good to see you again, %p. I'm glad you got our transmission.
+Let me check if you are capable of helping us in this dark hour."
+%E
+%Cp Jed 00016
+"The force is strong in you, %p. But is it strong enough now?"
+%E
+%Cp Jed 00017
+"Again, you are back, %p. Have you enhanced your knowledge of the force
+far enough now?"
+%E
+%Cc Jed 00018
+"You are arrogant, %p. This is the way to the Dark Side. Unfortunately,
+we cannot allow you to walk the halls of %H anymore to protect our %gP.
+Leave, now, and never return here, or we will have to deal with you
+in ways other than words."
+%E
+%Cc Jed 00019
+"The force is strong within you, %p. But sadly, a mere %r could never
+hope to be a help in this dark hour.
+Go and learn more of the way of the force. When you reached the skills
+of a %R, return here.
+
+May the force be with you!"
+%E
+%Cc Jed 00020
+"You have strayed from the light side of the force! Leave, now!
+And return only when you made up your mind about which way to
+follow."
+%E
+%Cc Jed 00021
+"Ah, %p. You have become a fine %r, you have become skilled in using
+the force and the ways of the Jedi. As such, you must help us:"
+
+"As you surely noticed, war has broken out between the Sith and the
+Jedi. Stormtroopers, Sith and Jedi are desperately fighting and
+dying for what they believe in."
+
+"What they are fighting over? A mighty artifact, %o.
+It is the first lightsaber ever made and has powers greater than any
+lightsaber in use today. It never runs out of power and has a built-in
+targeting device."
+
+"It was also thought to be lost forever, but eventually a merchant
+discovered it in the outer rim and announced it for sale. Needless to
+say, that merchant was no longer alive when we got there, slaughtered
+by the Sith, who - despite all their efforts - couldn't get their hands
+on it yet."
+
+"We need your help in this matter. Every man on the front in the outer
+rim counts."
+
+"Oh, and we got word that %n himself has gone to the outer rim to claim
+%o. You better hurry."
+
+"May the force be with you!"
+%E
+%Cp Jed 00024
+"Remember, you must return with %o so
+that we may lift the darkness from the silver bell."
+%E
+%Cp Jed 00025
+"Remember, %p, follow always the path of the %d."
+%E
+%Cp Jed 00026
+"May the force be with you!"
+%E
+%Cp Jed 00027
+"Remember, %p, follow always the path of the %d."
+%E
+%Cp Jed 00028
+"May the force be with you!"
+%E
+%Cp Jed 00029
+"Remember, %p, follow always the path of the %d."
+%E
+%Cp Jed 00030
+"May the force be with you!"
+%E
+%Cp Jed 00031
+"Remember, %p, follow always the path of the %d."
+%E
+%Cp Jed 00032
+"May the force be with you!"
+%E
+%Cp Jed 00033
+"Remember, %p, follow always the path of the %d."
+%E
+%Cp Jed 00034
+"May the force be with you!"
+%E
+%Cc Jed 00035
+You arrive at the %i.
+Following the emanations of the force, you work your way through the
+different planets trying to locate %o.
+%E
+%Cp Jed 00036
+Again, you arrive at the %i.
+%E
+%Cc Jed 00040
+You arrive at an unnamed planet.
+You can feel large disturbances in the force before you, like huge
+armies crossing weapons.
+You know that you must hurry in order to not disappoint %l.
+%E
+%Cp Jed 00041
+Again, you arrive at the unnamed planet.
+%E
+%Cc Jed 00050
+"Again, %l sends a worthless %c to get %o from me?
+Well, I can give you a choice: Join me!"
+%E
+%Cp Jed 00051
+"Again, you challenge me, %r? You can't beat the dark side of the force!"
+%E
+%Cp Jed 00052
+"Haven't you learned your lesson yet? I shall teach it to you now!"
+%E
+%Cp Jed 00053
+"Got your hands on %o, little %c? You will not be able to draw all its
+powers anyway. Now, you wouldn't kill an unarmed, would you?"
+%E
+%Cp Jed 00060
+"Join the dark side and you'll be granted powers beyond your wildest dreams!"
+%E
+%Cp Jed 00061
+"%l's faith in you is his weak point!"
+%E
+%Cp Jed 00062
+"A %c you want to be? I call you a %g!"
+%E
+%Cp Jed 00063
+"Join the dark side and you'll be granted powers beyond your wildest dreams!"
+%E
+%Cp Jed 00064
+"%l's faith in you is his weak point!"
+%E
+%Cp Jed 00065
+"A %c you want to be? I call you a %g!"
+%E
+%Cp Jed 00066
+"Join the dark side and you'll be granted powers beyond your wildest dreams!"
+%E
+%Cp Jed 00067
+"%l's faith in you is his weak point!"
+%E
+%Cp Jed 00068
+"A %c you want to be? I call you a %g!"
+%E
+%Cp Jed 00069
+"Join the dark side and you'll be granted powers beyond your wildest dreams!"
+%E
+%Cc Jed 00070
+You have %o in your hands.
+Force surrounds it like air surrounds a planet. You can see why no
+other lightsaber was made like this one.
+%E
+%Cc Jed 00071
+You have %o in your hands.
+Force surrounds it like air surrounds a planet. You can see why no
+other lightsaber was made like this one.
+%E
+%Cc Jed 00080
+You finally manage to land the final blow against %n.
+But as you just want to claim your victory, his body dissolves into
+nothingness.
+
+"You can't win against %n! I will be back!"
+
+You feel a shiver run up and down your spine as you head back
+to %l.
+%E
+%Cc Jed 00081
+As you approach %l, he beams at you and says:
+
+	You have not disappointed the halls of %H.
+	The war is over, %o is secured and peace
+	can be restored.
+
+	Though %n escaped us again, we will not rest until he is
+	destroyed. The Sith must never return to power.
+%E
+%Cc Jed 00082
+"Be careful with %o. Though it gives great power, it also requires
+great responsibility from its owner. Use the portal to return to
+%Z and find the Amulet of Yendor.
+%E
+
+%Cc Jed 00083
+%l focuses intently on %o.
+
+Defeated %n you have. Glorious is your victory, but 
+you seem to have lost your way in the dark side... 
+
+I fear that you will have to return %o to us for 
+safekeepingat %H.
+
+Please %p, return %o to us now.
+%E
+%Cc Jed 00084
+"%p, what a sacrifice you have made. Difficult is 
+the path of a jedi.  Rest assured, %d is with you 
+on this day.  %o will be safe with us."
+%E ["You give %o to %l."]
+%Cp Jed 00090
+"Welcome back, %p. How is the search for the Amulet of Yendor?"
+%E
+%Cc Jed 00091
+"You really are a %S of %H."
+
+"Ancient Jedi Legends tell us that the amulet must be brought to
+a place called 'The Astral Plane' and offered to %d there."
+
+"May the force be with you, %p."
+%E
+#
 #	Knight
 #
 %Cc Kni 00001
@@ -3511,8 +3774,7 @@ as possible.
 %Cc Pri 00071
 As you pick up %o, you feel the essence of
 %d fill your soul.  You know now why %n stole it from
-%H, for with it, %ca of %d could
-easily defeat his plans.
+%H, for with it, %ca of %d could easily defeat his plans.
 %E [You feel %d as you pick up %o.]
 %Cc Pri 00080
 You feel a wrenching shift in the ether as %ns body dissolves
@@ -3572,6 +3834,272 @@ you must take the amulet, and sacrifice it on %ds altar on
 the Astral Plane.  I suspect that I shall never see you again in this
 life, but I hope to at %ds feet."
 %E [Take the Amulet to the Astral Plane and offer it on %ds altar.]
+#
+#	Pirate
+#
+%Cc Pir 00001
+Ye breathe deeply of the sweet bouquet that is %H.
+
+...It'll linger.
+
+Rather than the chaotic din ye recall, a eerie silence greets yer
+lugs. In the distance, ye hear soldiers on patrol. Seems yer pirate
+brethren be in need of yer assistance!
+%E [Ye find yerself at Tortuga, but there be soldiers about!]
+%Cp Pir 00002
+Once again, you breathe the bouquet that is %H.
+%E
+%Cp Pir 00003
+Ye are back on %H.
+Ye fear that soon the brethren of the coast will have to abandon
+%H.
+%E
+%Cp Pir 00005
+"The soldiers o' Yendor attacked %H and destroyed %l's home!"
+%E
+%Cp Pir 00006
+"These Yendorans 'ave disturbed the dead that lay in Davy Jones's
+Locker!"
+%E
+%Cp Pir 00007
+"Ol' %l once sailed with the Dread Pirate Roberts, or so they say."
+%E
+%Cp Pir 00008
+"%n has risen and scattered the soldiers sent to %i.
+Now the dead attack %H as well!"
+%E
+%Cp Pir 00009
+"Captain Ketch led the attack and sank many o' our ships. Now Ketch be
+trapped on %i."
+%E
+%Cp Pir 00010
+"Have ye found much booty in the Dungeons o' Doom?"
+%E
+%Cp Pir 00011
+"Did ye send Ketch to feed the fishes?"
+%E
+%Cp Pir 00012
+"Arrrr!"
+%E
+%Cp Pir 00013
+"Ol' %l once sailed with the Dread Pirate Roberts, or so they say."
+%E
+%Cp Pir 00014
+"Be there comely lasses in the Dungeons o' Doom?"
+%E
+%Cc Pir 00015
+"So, %p. Ye have returned to yer brethren. We 'ave need of a canny
+%S of the coast to show these Yendorans to the plank.
+
+"Let me be see'n if you BE that %S."
+%E [%lC challenges ye to prove yer worth.]
+%Cp Pir 00016
+"Ye try me patience, %p.
+I hope that this time ye be ready."
+%E
+%Cp Pir 00017
+"I hope for yer sake ye are prepared at last."
+%E
+%Cc Pir 00018
+"Me mercy is at an end, %p. Leave %H and never return."
+%E [Ye be an utter failure.]
+%Cc Pir 00019
+"Ye be still too weak.  Return a proven %R. Perhaps then
+ye will be ready.
+
+"Go now, and follow %d to glory and riches."
+%E [Ye ain't strong enough yet.]
+%Cc Pir 00020
+"Ye must follow %d through %a waters to reach %i.
+
+"As ye be now ye would never make it. Do not return to %H
+until ye be wise in the ways o' %d."
+%E [Ye must atone fer yer sins. Return when ye be ready.]
+%Cc Pir 00021
+"I always knew ye had greatness in ye, %S. As a %g, perhaps ye may
+succeed where I once failed.
+
+"In my youth, I sailed with the immortal Dread Pirate, Roberts. In our
+adventures, we came to oppose Blackbeard, then mightiest of the servants
+of the Devil, in his quest for %o.
+
+"Our final duel took place at the center of %i. Roberts,
+himself a mighty follower of %d, bested Blackbeard
+at swordplay, sending him tumbling into the caldera. But Blackbeard
+was able to place a mighty curse on %o, and I was
+unable to stop it plunging into the caldera to join him.
+
+"Now these Yendorans have come to claim what I lost, and in my age
+I be unable to stop them. So it falls to ye, my %S. Drive these
+soldiers from %H, then sail to %i, destroy %n
+once and fer all, and claim %o, in yer own name!"
+%E
+%Cp Pir 00024
+"Remember, ye must return with %o so
+that we may lift the curse from the silver bell."
+%E
+%Cp Pir 00025
+"Do not be shaken by the fearsome form of %n."
+%E
+%Cp Pir 00026
+"To enter %i ye must find a hidden fissure in the rocks."
+%E
+%Cp Pir 00027
+"Oh, an' Captain Ketch owes me for a new house!"
+%E
+%Cp Pir 00028
+"Captain Ketch sailed to %i, but the ship was lost on the
+rocks an' Ketch doesn't know the way into the caves."
+%E
+%Cp Pir 00029
+"If ye do not destroy %n, he will follow you back here!"
+%E
+%Cp Pir 00030
+"Sharks swim in the waters around %i."
+%E
+%Cp Pir 00031
+"It be pitch black in %i!"
+%E
+%Cp Pir 00032
+"There be much treasure lost in the waves around %i."
+%E
+%Cp Pir 00033
+"Only the %a can reach %i."
+%E
+%Cp Pir 00034
+"Trust %d in yer hour of need."
+%E
+%Cc Pir 00035
+Ye have reached the treacherous waters around %i at last.
+The ghostly minions of %n are everywhere around you.
+%E [Ye have reached %i. The minions of %n be everywhere.]
+%Cp Pir 00036
+Ye know that this time you must find and destroy %n.
+%E
+%Cc Pir 00040
+Ye sense the presence of %o at the heart of %i.
+%E [Ye sense %o at the heart of %i.]
+%Cp Pir 00041
+Ye know that soon ye shall claim %o for yer own.
+%E
+%Cp Pir 00042
+Ye have returned to %ns lair.
+%E
+%Cc Pir 00050
+"So, %p, %l thinks that ye can claim %o,
+when even he could not?!
+
+"He must be senile to send %ra to destroy me, when even in his prime
+he failed at the same task! No, it is your soul that shall go to %d."
+%E [%nC threatens to send ye to %d.]
+%Cp Pir 00051
+"I have been toying with ye, %p. This time I will kill ye."
+%E
+%Cc Pir 00052
+"Flee now, %p. A %c cannot destroy %n.
+
+"If ye do not flee, I will inflict so much suffering on ye that
+%l will feel guilty for ever having sent his %S to me!"
+%E
+%Cc Pir 00053
+"Return %o to me, or I shall visit torments on ye even
+Judas knows naught of.
+%E
+%Cp Pir 00060
+"I defeated death, even %l couldn't destroy me at his best.
+What hope have ye, %p."
+%E
+%Cp Pir 00061
+"I am the mightiest follower of the Devil the world
+has ever known! Your weak devotion to %d
+will not save ye."
+%E
+%Cp Pir 00062
+"Beg for mercy now, and I will only kill ye."
+%E
+%Cp Pir 00063
+"Abandon your %a ways! Slink off and never face me again!"
+%E
+%Cp Pir 00064
+"Vengeance will be mine, %p. I will make %l pay,
+for what he did to me!"
+%E
+%Cp Pir 00065
+"The Brethren of the Coast are finished. Now I rule the seas!"
+%E
+%Cp Pir 00066
+"With %o I control all the treasures of the sea!"
+%E
+%Cp Pir 00067
+"I will never die!"
+%E
+%Cp Pir 00068
+"Are ye truly the greatest pirate %H has left?
+It will share your fate!"
+%E
+%Cp Pir 00069
+"Die in vain, %p! I will send %l to join ye!"
+%E
+%Cc Pir 00070
+As ye pick up %o, ye feel a great
+weight has been lifted from your shoulders.  Your only thoughts are
+to quickly return to %H and find %l.
+%E [Ye feel the need to return %o to %l at %H]
+%Cc Pir 00071
+As ye pick up %o, ye feel a great
+weight has been lifted from your shoulders.
+%E [You feel %d as you pick up %o.]
+%Cc Pir 00080
+A great crack opens below %n, and a huge, flaming hand
+reaches out to seize his wispy form. He curses ye:
+    NO! I won't die here, %p! It is ye who's soul will feed
+	the Devil! I am king of all the oceans, I cannot be killed!
+	I will haunt ye until %d betrays ye!
+%E [%nC be dragged into the depths of Hell.]
+%Cc Pir 00081
+As %l senses %o, the lines on his face harden
+into what may be his version of a smile.
+    Ye have claimed %o.  Ye hold in
+	yer hands all the treasures of the sea.  Ye may well be
+	the next Dread Pirate, greater even than Roberts. My
+	%S, ye should seek a treasure greater than any pirate
+	has ever sought before: the Amulet of Yendor.
+
+	The great Wizard, who lives in Yendor, knows that ye
+	can claim this prize. It was he who sent the soldiers here.
+	Return to %Z, and claim yer destiny!
+%E [Return to %Z and find the Wizard of Yendor.]
+%Cc Pir 00082
+"%oC is yers.  Yer destiny awaits through the portal that
+brought ye here."
+%E [Take %oC and return through the portal.]
+%Cc Pir 00083
+"Ye have returned, %p.  And with %o, I see.
+Yo ho ho!
+
+"Well done, %p.  Ye have defeated %n and
+recovered %o, and I have lifted the curse from
+the silver bell.  However, %d has
+directed that %o shall be kept
+here with us at %H.
+
+Please %p, return %o to us now.
+%E ["%lC asks you to forfeit %o."]
+%Cc Pir 00084
+"Thank ye %p for ye sacrifice, scalleywag. I know this
+must have been difficult to do. Rest assured, %d smiles down
+upon you this day.  %o will be safe with us."
+%E ["You give %o to %l."]
+%Cp Pir 00090
+"Tell me of yer adventures in yer quest for the Amulet of Yendor."
+%E
+%Cc Pir 00091
+"Ye have claimed the Amulet of Yendor! Truly ye were destined to be
+the greatest %S of the Breathren of the Coast!
+
+"Now ye must travel to the astral sea, and offer the Amulet on the
+High Altar of %d!"
+%E [Ye must sail the seas of the Astral Plane!]
 #
 #	Ranger
 #

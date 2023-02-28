@@ -128,14 +128,19 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR, COPPER),
 
     A("Skullcrusher", CLUB, SPFX_RESTR, 0, 0,
-      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 
+      PHYS(3, 10), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 
       2000L, NO_COLOR, MINERAL),
 
-    A("Snickersnee", KATANA, SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
-      0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR, DEFAULT_MAT),
+    A("Snickersnee", KATANA, 
+      SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
+      0, A_LAWFUL, NON_PM, NON_PM, 1200L, NO_COLOR, DEFAULT_MAT),
 
+    A("Kiku-ichimonji", KATANA, /* 5lo: New sacrifice gift for Samurai */
+      SPFX_RESTR, 0, 0, PHYS(4, 12), NO_DFNS, NO_CARY, 
+      0, A_LAWFUL, PM_SAMURAI, NON_PM, 1200L, NO_COLOR, DEFAULT_MAT),
+    
     A("Holy Spear of Light", SPEAR, (SPFX_RESTR | SPFX_INTEL | SPFX_DFLAGH), 0, MH_UNDEAD,
-      PHYS(5,10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, PM_UNDEAD_SLAYER, 
+      PHYS(5, 10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, PM_UNDEAD_SLAYER, 
       NON_PM, 4000L, NO_COLOR, SILVER),
 
     A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),
@@ -154,7 +159,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR, METAL),
 
     A("Quick Blade", ELVEN_SHORT_SWORD,
-      SPFX_RESTR, 0, 0, PHYS(9,2), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
+      SPFX_RESTR, 0, 0, PHYS(9, 2), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
       1000L, NO_COLOR, DEFAULT_MAT),
 
 
@@ -162,7 +167,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /* This lance does a lot of damage, and also occasionally stuns */
     A("Bradamante\'s Fury", LANCE, (SPFX_RESTR), 0, 0,
-      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 800L,
+      PHYS(5, 12), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 800L,
       NO_COLOR, DEFAULT_MAT),
     
     /* Staff of Circe. 1/20 chance of turning target into an animal. */
@@ -175,7 +180,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR, DEFAULT_MAT),
 
     A("Deluder", CLOAK_OF_DISPLACEMENT, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_JEDI, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
 
     A("Disrupter", MACE, (SPFX_RESTR | SPFX_DFLAGH), 0, MH_UNDEAD,
@@ -204,6 +209,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       WIND(4, 5), DFNS(AD_CLOB), NO_CARY, SEFFECT, A_NEUTRAL, 
       NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
 
+    /* Keolewa from SporkHack - a Hawaiian war club. Buffed. */
+    A("Keolewa", CLUB, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN),
+      0, 0, ELEC(5, 8), DFNS(AD_ELEC), NO_CARY, 0, A_NEUTRAL,
+      PM_CAVEMAN, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+    
     /* Evilhack change: Magic fanfare unbalances victims in addition
      * to doing some damage. */
     A("Magicbane", QUARTERSTAFF, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
@@ -217,7 +227,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Mirrorbright", SHIELD_OF_REFLECTION, (SPFX_RESTR | SPFX_HALRES | SPFX_REFLECT), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
-
+    
     /*
      *      Mjollnir can be thrown when wielded if hero has 25 Strength
      *      (usually via gauntlets of power but possible with rings of
@@ -245,13 +255,16 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Whisperfeet", SPEED_BOOTS, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_TOURIST, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
-
+    
+    A("Helm of Hermes", HELM_OF_SPEED, (SPFX_RESTR), 0, 0,
+      NO_ATTK, DFNS(AD_DISE), NO_CARY, FLYING, A_NEUTRAL, NON_PM, NON_PM, 
+      5000L, NO_COLOR, DEFAULT_MAT),
 
         /*** Chaotic artifacts ***/
 
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
-      PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
+      PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 
       5000L, CLR_RED, IRON),
 
     /* Yeenoghu's infamous triple-headed flail. A massive weapon reputed to have been created
@@ -278,7 +291,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       ACID(5, 10), DFNS(AD_ACID), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       4000L, NO_COLOR, MITHRIL),
 
-    A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 19), NO_DFNS, NO_CARY,
+    A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 10), NO_DFNS, NO_CARY,
       0, A_CHAOTIC, NON_PM, NON_PM, 1000L, NO_COLOR, DEFAULT_MAT),
 
     A("Elfrist", ORCISH_SPEAR, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ELF,
@@ -288,9 +301,18 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
   /* Warns when elves are present, but its damage bonus applies to all targets.
    *      (handled as special case in spec_dbon()). */
     A("Grimtooth", ORCISH_DAGGER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH),
-      0, MH_ELF, DISE(5, 6), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, PM_ORC, 
+      0, MH_ELF, DISE(5, 6), DFNS(AD_DISE), NO_CARY, 0, A_CHAOTIC, NON_PM, PM_ORC, 
       1500L, CLR_RED, DEFAULT_MAT),
-
+    
+    /* Auto-explode code in dothrow.c, uhitm.c */
+    A("Hellfire", CROSSBOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
+      PHYS(5, 7), DFNS(AD_FIRE), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
+      4000L, CLR_RED, DEFAULT_MAT),
+   
+    A("Houchou", SPOON, (SPFX_RESTR), 0, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
+      50000L, NO_COLOR, DEFAULT_MAT),
+    
    /* from SporkHack - many of the same properties as Stormbringer
     *      Meant to be wielded by Vlad. */
     A("Lifestealer", TWO_HANDED_SWORD,
@@ -315,6 +337,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
       3000L, NO_COLOR, DEFAULT_MAT),
 
+    A("The Marauder's Map", SCR_MAGIC_MAPPING, SPFX_RESTR, 0, 0, NO_ATTK,
+      NO_DFNS,	NO_CARY, OBJECT_DET, A_CHAOTIC, PM_PIRATE, NON_PM, 2000L,
+      NO_COLOR, DEFAULT_MAT),
+
     A("Plague", ORCISH_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
       PHYS(5,7), DFNS(AD_DRST), DFNS(AD_DISE), 0, A_CHAOTIC, NON_PM, NON_PM, 
       6000L, NO_COLOR, DEFAULT_MAT),
@@ -324,7 +350,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
           Invoke for water-walking and an earthquake. */
     A("Poseidon\'s Trident", TRIDENT, (SPFX_RESTR | SPFX_BREATHE), 0, 0, PHYS(3, 7),
       NO_DFNS, NO_CARY, WWALKING, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR, GOLD),
-
+    
+    A("Reaver",	SCIMITAR, (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 0, 0,
+      PHYS(5, 8), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_PIRATE, NON_PM, 6000L,
+      NO_COLOR, DEFAULT_MAT),
+    
       /* The energy drain only works if the artifact kills its victim.
        * Also increases sacrifice value while wielded. */
     A("Secespita", KNIFE, (SPFX_RESTR | SPFX_ATTK), 0, 0,
@@ -481,6 +511,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       10000L, NO_COLOR, DRAGON_HIDE),
     
+    /*returns to your hand.*/
+    A("Windrider", CHAKRAM, (SPFX_RESTR), 0, 0,
+      PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 4000L,
+      NO_COLOR, DEFAULT_MAT),
+    
     A("Werebane", SABER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_WERE,
       PHYS(5, 10), DFNS(AD_WERE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1500L,
       NO_COLOR, SILVER),
@@ -497,10 +532,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR, BONE),
 
     /* Xanathar's eyestalk ring of proof against detection and location */
-    A("Xanathar's Ring of Proof", RIN_SEE_INVISIBLE,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), SPFX_WARN, 0,
-      NO_ATTK, DFNS(AD_MAGM), NO_CARY,
-      INVIS, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+    A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_STLTH), SPFX_WARN, 0,
+      NO_ATTK, NO_DFNS, NO_CARY,
+      SELF_TELE, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
     
     /*
      *      The artifacts for the quest dungeon, all self-willed.
@@ -564,6 +599,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, CARY(AD_COLD), SUMMON_WATER_ELEMENTAL,
       A_NEUTRAL, PM_ICE_MAGE, NON_PM, 1000L, NO_COLOR, DEFAULT_MAT),
 
+    A("The Lightsaber Prototype", RED_LIGHTSABER,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_REFLECT), 0, 0,
+      PHYS(5, 10), NO_DFNS, NO_CARY,
+      ENERGY_BOOST, A_LAWFUL, PM_JEDI, NON_PM, 3500L, NO_COLOR, DEFAULT_MAT),
+    
     A("The Magic Mirror of Merlin", MIRROR,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_SPEAK | SPFX_REFLECT),
       (SPFX_REFLECT | SPFX_ESP | SPFX_HSPDAM), 0,
@@ -585,6 +625,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       MH_UNDEAD, NO_ATTK, NO_DFNS, CARY(AD_FIRE), ENERGY_BOOST, A_LAWFUL,
       PM_PRIEST, NON_PM, 2000L, NO_COLOR, METAL),
 
+    A("The Treasury of Proteus", CHEST,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), SPFX_LUCK, 0, NO_ATTK, NO_DFNS,
+      CARY(AD_MAGM), 0,	A_CHAOTIC, PM_PIRATE, NON_PM, 
+      2500L, NO_COLOR, DEFAULT_MAT),
+    
     /* If playing a gnomish ranger, the player receives the 'Crossbow of Carl',
        otherwise rangers will receive the Longbow of Diana. Exact same properties
        between the two artifacts */
@@ -677,17 +722,15 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     /* Convict role quest artifact (from dnh)
      * has a +1d5 to-hit bonus and does double damage to all monsters. 
-     * When carried, it confers automatic searching, free action, and luck, 
-     * when wielded, it confers stealth. 
+     * When carried, it confers automatic searching, free action, and luck.
+     * When wielded, it confers stealth. 
      * Invoking allows you to phase through walls for a limited time, 
      * Applying The Iron Spoon of Liberation allows you to dig; 
      * It can also be used to engrave with the same quality and speed as an athame.
      * Also - As a spoon, Convicts wielding it can make sneak attacks similar to a Rogue.
      */
-    /* --hackem: I added stealth to the carry effects, since we don't have
-     * some of these extra fields in dnh. */
     A("The Iron Spoon of Liberation", SPOON,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH), 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH | SPFX_DIG), 
       (SPFX_SEARCH | SPFX_SEEK | SPFX_LUCK), 0,
       PHYS(5,0), NO_DFNS, CARY(AD_PLYS), PHASING, 
       A_CHAOTIC, PM_CONVICT, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),

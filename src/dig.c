@@ -841,7 +841,8 @@ coord *cc;
     } else if (is_lava(dig_x, dig_y) || is_damp_terrain(dig_x, dig_y)) {
         pline_The("%s sloshes furiously for a moment, then subsides.",
                   hliquid(is_lava(dig_x, dig_y) ? "lava" : "water"));
-        wake_nearby(); /* splashing */
+        if (!SuperStealth)
+            wake_nearby(); /* splashing */
 
     } else if (old_typ == DRAWBRIDGE_DOWN
                || (is_drawbridge_wall(dig_x, dig_y) >= 0)) {
@@ -1132,11 +1133,11 @@ struct obj *obj;
         ry = u.uy + u.dy;
         if (!isok(rx, ry)) {
             if (is_lightsaber(uwep))
-                pline("Your %s bounces off harmlessly.",
-                    aobjnam(obj, (char *)0));
+                Your("%s bounces off harmlessly.", aobjnam(obj, (char *)0));
             else {
                 pline("Clash!");
-                wake_nearby();
+                if (!SuperStealth)
+                    wake_nearby();
             }
             return 1;
         }
@@ -1196,7 +1197,7 @@ struct obj *obj;
 
                     trap_with_u->conjoined |= (1 << idx);
                     trap->conjoined |= (1 << adjidx);
-                    pline("You clear some debris from between the pits.");
+                    You("clear some debris from between the pits.");
                 }
             } else if (u.utrap && u.utraptype == TT_PIT
                        && (trap_with_u = t_at(u.ux, u.uy)) != 0) {
@@ -1244,7 +1245,8 @@ struct obj *obj;
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);
-            wake_nearby(); /* --hackem: No more freebies in sokobon! */
+            if (!SuperStealth)
+                wake_nearby(); /* --hackem: No more freebies in sokoban! */
         }
     } else if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)) {
         /* it must be air -- water checked above */
@@ -1258,7 +1260,8 @@ struct obj *obj;
     } else if (IS_PUDDLE(levl[u.ux][u.uy].typ)
                || IS_SEWAGE(levl[u.ux][u.uy].typ)) {
         Your("%s against the water's surface.", aobjnam(obj, "splash"));
-        wake_nearby();
+        if (!SuperStealth)
+            wake_nearby();
     } else if ((trap = t_at(u.ux, u.uy)) != 0
                && (uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
         dotrap(trap, FORCEBUNGLE);
@@ -2343,7 +2346,7 @@ struct monst *mdef, *magr;
 
     if (flags.verbose) {
         if (youattack) {
-            pline("You stomp the ground!");
+            You("stomp the ground!");
         } else {
             if (canseemon(magr))
                 pline("%s stomps the ground!", Monnam(magr));
@@ -2357,7 +2360,7 @@ struct monst *mdef, *magr;
         /* The existing chasm grows larger. A pit creator that is low on health
          * is more likely to dig all the way through and turn it into a hole. */
         if (canseexy) {
-            pline("The %s below %s grows deeper!",
+            pline_The("%s below %s grows deeper!",
                   trap->ttyp == HOLE ? "chasm" : "pit",
                   youdefend ? "you" : mon_nam(mdef));
         }

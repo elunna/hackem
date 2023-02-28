@@ -511,8 +511,7 @@ sickness_dialogue()
             (void) strsubst(buf, "illness", "sickness");
         /* change final message slightly for zombie sickness */
         if ((u.usick_type & SICK_ZOMBIE) != 0
-            && !(Race_if(PM_CENTAUR) || Race_if(PM_ILLITHID)
-                 || Race_if(PM_TORTLE)))
+            && !(Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)))
             (void) strsubst(buf, "You are at Death's door",
                             "You feel a horrifying change coming over you");
         if (Hallucination && strstri(buf, "Death's door")) {
@@ -581,10 +580,13 @@ nh_timeout()
 
     if (flags.friday13)
         baseluck -= 1;
-
+    if (Role_if(PM_ARCHEOLOGIST) && uarmh && uarmh->otyp == FEDORA)
+        baseluck += lucky_fedora();
     if (quest_status.killed_leader)
         baseluck -= 4;
-
+    if (flags.quest_boon)
+        baseluck += 3;
+    
     if (u.uluck != baseluck) {
 	int timeout = 600;
 	int time_luck = stone_luck(FALSE);
@@ -629,6 +631,10 @@ nh_timeout()
             u.luckturn = moves;
 	}
     }
+    
+    /* WAC -- check for timeout of specials */
+	tech_timeout();
+
     if (HPasses_walls)
         phasing_dialogue();
     if (u.uinvulnerable)
@@ -675,7 +681,7 @@ nh_timeout()
 
     /* Give a small warning that spell-based reflection is running out. */
     if (HReflecting == 20 && !Blind)
-        pline("The shimmering globe around you is starting to fade.");
+        pline_The("shimmering globe around you is starting to fade.");
 
     if (u.ugallop) {
         if (--u.ugallop == 0L && u.usteed)
@@ -688,7 +694,7 @@ nh_timeout()
     } else if (u.uinshell < 0) {
         u.uinshell++;
     }
-
+    
     was_flying = Flying;
     for (upp = u.uprops; upp < u.uprops + SIZE(u.uprops); upp++)
         if (!(upp->intrinsic & HAVEPARTIAL) /* partial intrinsics do not time out */
@@ -755,8 +761,7 @@ nh_timeout()
                 }
 
                 if (!!(u.usick_type & SICK_ZOMBIE)) {
-                    if (Race_if(PM_CENTAUR)
-                        || Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)) {
+                    if (Race_if(PM_ILLITHID) || Race_if(PM_TORTLE)) {
                         killer.format = NO_KILLER_PREFIX;
                         Sprintf(killer.name, "diseased by %s",
                                 an(killer.name));
@@ -788,9 +793,9 @@ nh_timeout()
                 break;
             case REFLECTING:
                 if (!Blind)
-                    pline("The shimmering globe around you flickers and vanishes.");
+                    pline_The("shimmering globe around you flickers and vanishes.");
                 else
-                    pline("You don't feel very smooth anymore.");
+                    You("don't feel very smooth anymore.");
                 break;
             /* all these need to make sure the external intrinsic isn't there too */
             case VULN_FIRE:
@@ -1080,7 +1085,7 @@ long timeout;
             }
             if (!silent) {
                 if (canseemon(mtmp))
-                    You("see %s engulfed in an explosion!", mon_nam(mtmp));
+                    You_see("%s engulfed in an explosion!", mon_nam(mtmp));
             }
             mtmp->mhp -= d(2, 5);
             if (mtmp->mhp < 1) {
@@ -1563,7 +1568,7 @@ struct obj *obj;
             pline("Batteries have not been invented yet.");
         break;
     case OBJ_FLOOR:
-        (Hallucination) ? You("feel a strange urge to give a lantern a hug.") :
+        (Hallucination) ? You_feel("a strange urge to give a lantern a hug.") :
                           You_see("a lantern getting dim.");
         break;
     case OBJ_MINVENT:
@@ -1708,7 +1713,7 @@ long timeout;
                     break;
                 case OBJ_FLOOR:
                     if (obj->otyp == LANTERN)
-                        (Hallucination) ? You("feel like the floor is less happy now.") :
+                        (Hallucination) ? You_feel("like the floor is less happy now.") :
                                           You_see("a lantern run out of power.");
                     else
                         You_see("%s go out.", an(xname(obj)));
@@ -1892,14 +1897,14 @@ long timeout;
                 switch (obj->where) {
                 case OBJ_INVENT:
                 case OBJ_MINVENT:
-                    pline("%s %s dims!",whose, xname(obj));
+                    pline("%s%s dims!",whose, xname(obj));
                     break;
                 case OBJ_FLOOR:
-                    You("see %s dim!", an(xname(obj)));
+                    You_see("%s dim!", an(xname(obj)));
                     break;
                 }
             } else {
-                You("hear the hum of %s change!", an(xname(obj)));
+                You_hear("the hum of %s change!", an(xname(obj)));
             }
             break;
         case 0:
@@ -1950,11 +1955,11 @@ boolean timer_attached;
                     pline("%s%s deactivates.", whose, xname(obj));
                     break;
                 case OBJ_FLOOR:
-                    You("see %s deactivate.", an(xname(obj)));
+                    You_see("%s deactivate.", an(xname(obj)));
                     break;
             }
         } else {
-            You("hear a lightsaber deactivate.");
+            You_hear("a lightsaber deactivate.");
         }
     }
     if (obj->otyp == RED_DOUBLE_LIGHTSABER) 
@@ -2030,6 +2035,10 @@ boolean already_lit;
     case GREEN_LIGHTSABER:
         turns = 1;
         radius = 2;
+        if (obj->oartifact == ART_LIGHTSABER_PROTOTYPE) {
+            do_timer = FALSE;
+            obj->lamplit = 1;
+        }
         break;
     case POT_OIL:
         turns = obj->age;
@@ -2118,6 +2127,7 @@ boolean timer_attached;
 
     if (obj->otyp == MAGIC_LAMP 
             || obj->otyp == MAGIC_CANDLE
+            || obj->oartifact == ART_LIGHTSABER_PROTOTYPE 
             || artifact_light(obj))
         timer_attached = FALSE;
 
@@ -2169,11 +2179,12 @@ void burn_faster(struct obj *obj) {
         return;
     }
     
-    if (turns > 4)
-        pline("The torch sparks and flares!");
-    else
-        pline("The torch flares up!");
-
+    if (cansee(obj->ox, obj->oy)) {
+        if (turns > 4)
+            pline_The("torch sparks and flares!");
+        else
+            pline_The("torch flares up!");
+    }
     obj->age -= turns;
 
     if (obj->age < 1)

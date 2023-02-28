@@ -908,7 +908,7 @@ boolean need_dir;
         switch (u.utraptype) {
         case TT_PIT:
             if (!Passes_walls)
-                pline("There's not enough room to kick down here.");
+                There("is not enough room to kick down here.");
             else
                 no_kick = FALSE;
             break;
@@ -1000,8 +1000,8 @@ boolean need_dir;
         if (!maybe_kick_monster(mtmp, x, y))
             return context.move;
     }
-
-    wake_nearby();
+    if (!SuperStealth)
+        wake_nearby();
     u_wipe_engr(2);
 
     if (!isok(x, y)) {
@@ -1869,7 +1869,8 @@ boolean shop_floor_obj;
                 change_luck((schar) -min(otmp->quan, 5L));
             result = "splat";
         }
-        You_hear("a muffled %s.", result);
+        if (!is_bullet(otmp))
+            You_hear("a muffled %s.", result);
         obj_extract_self(otmp);
         obfree(otmp, (struct obj *) 0);
         return TRUE;

@@ -33,6 +33,7 @@ struct flag {
 #define discover flags.explore
     boolean female;
     boolean friday13;        /* it's Friday the 13th */
+    boolean quest_boon;      /* luck bonus for beating the quest with good alignment */
     boolean help;            /* look in data file for info about stuff */
     boolean ignintr;         /* ignore interrupts */
     boolean ins_chkpt;       /* checkpoint as appropriate; INSURANCE */
@@ -112,6 +113,7 @@ struct flag {
 #define PARANOID_WERECHANGE 0x0100
 #define PARANOID_EATING     0x0200
 #define PARANOID_SWIM       0x0400
+#define PARANOID_TRAP       0x0800
     int pickup_burden; /* maximum burden before prompt */
     int pile_limit;    /* controls feedback when walking over objects */
     int  boot_count; /* boots from fishing pole */
@@ -227,6 +229,15 @@ enum getloc_filters {
 
     NUM_GFILTER
 };
+
+#ifdef WIN32
+enum windows_key_handling {
+    no_keyhandling,
+    default_keyhandling,
+    ray_keyhandling,
+    nh340_keyhandling
+};
+#endif
 
 struct debug_flags {
     boolean test;
@@ -440,8 +451,9 @@ struct instance_flags {
     boolean msg_is_alert;   /* suggest windowport should grab player's attention
                              * and request <TAB> acknowlegement */
 #ifdef WIN32
-#define MAX_ALTKEYHANDLER 25
-    char altkeyhandler[MAX_ALTKEYHANDLER];
+#define MAX_ALTKEYHANDLING 25
+    char altkeyhandling[MAX_ALTKEYHANDLING];
+    enum windows_key_handling key_handling;
 #endif
     /* copies of values in struct u, used during detection when the
        originals are temporarily cleared; kept here rather than
@@ -533,6 +545,8 @@ enum runmode_types {
 /* remove: remove ('R') and takeoff ('T') commands prompt for an inventory
    item even when only one accessory or piece of armor is currently worn */
 #define ParanoidRemove ((flags.paranoia_bits & PARANOID_REMOVE) != 0)
+/* Ask for 'yes' before walking into known traps */
+#define ParanoidTrap ((flags.paranoia_bits & PARANOID_TRAP) != 0)
 /* breakwand: Applying a wand */
 #define ParanoidBreakwand ((flags.paranoia_bits & PARANOID_BREAKWAND) != 0)
 /* werechange: accepting randomly timed werecreature change to transform

@@ -818,7 +818,7 @@ unsigned corpseflags;
         while (num--)
             obj = mksobj_at(WAX_CANDLE, x, y, TRUE, FALSE);
         
-        /* --hackem: Small chance to drop a magic candle = NiceHack! */
+        /* Small chance to drop a magic candle */
         if (!rn2(69))
             obj = mksobj_at(MAGIC_CANDLE, x, y, TRUE, FALSE);
         free_mname(mtmp);
@@ -1028,7 +1028,7 @@ register struct monst *mtmp;
     } else if (is_longworm(mtmp->data) && inshallow) {
         int dam = d(3, 12);
         if (canseemon(mtmp))
-            pline("The water burns %s flesh!", s_suffix(mon_nam(mtmp)));
+            pline_The("water burns %s flesh!", s_suffix(mon_nam(mtmp)));
         mtmp->mhp -= dam;
         if (mtmp->mhpmax > dam)
             mtmp->mhpmax -= (dam + 1) / 2;
@@ -1747,7 +1747,7 @@ register struct monst *mtmp;
                       distant_name(otmp, doname));
 
             else if (!Deaf && flags.verbose)
-                You("hear an awful gobbling noise!");
+                You_hear("an awful gobbling noise!");
 
             mtmp->meating = 2;
             delobj(otmp);
@@ -1788,7 +1788,7 @@ minfestcorpse(struct monst *mtmp)
                 pline("%s infests %s!", Monnam(mtmp),
                   distant_name(otmp,doname));
             else if (!Deaf && flags.verbose)
-                You("hear an unsettling writhing noise.");
+                You_hear("an unsettling writhing noise.");
             
             dog_givit(mtmp, &mons[otmp->corpsenm]);
             
@@ -1905,6 +1905,8 @@ struct monst *mtmp;
                 if (mtmp->mhp > mtmp->mhpmax)
                     mtmp->mhp = mtmp->mhpmax;
             }
+            if (otmp->otyp == MEDICAL_KIT)
+                delete_contents(otmp);
             if (Has_contents(otmp))
                 meatbox(mtmp, otmp);
             /* possibility of being turned to stone or into slime can't
@@ -1989,8 +1991,7 @@ register struct monst *mtmp;
         if (is_royaljelly(otmp)) {
             if (mtmp->data == &mons[PM_HONEY_BADGER]) {
                 if (cansee(mtmp->mx, mtmp->my) && flags.verbose)
-                    pline("%s eats %s!", Monnam(mtmp),
-                          distant_name(otmp, doname));
+                    pline("%s eats %s!", Monnam(mtmp), singular(otmp, doname));
                 else if (!Deaf && flags.verbose)
                     You_hear("a smacking sound.");
                 mtmp->meating = otmp->owt / 2 + 1;
@@ -2003,7 +2004,10 @@ register struct monst *mtmp;
             grow = mlevelgain(otmp);
             heal = mhealup(otmp);
             mstone = mstoning(otmp);
-            delobj(otmp);
+            otmp->quan--;
+            otmp->owt = weight(otmp);
+            if (otmp->quan <= 0)
+                    delobj(otmp);
             ptr = mtmp->data;
             if (grow) {
                 ptr = grow_up(mtmp, (struct monst *) 0);
@@ -2027,6 +2031,50 @@ register struct monst *mtmp;
     }
     return 0;
 }
+
+
+/* monster eats catnip */
+int
+meatcatnip(mtmp)
+register struct monst *mtmp;
+{
+    register struct obj *otmp;
+    struct permonst *ptr;
+    
+    /* If a pet, eating is handled separately, in dog.c */
+    if (mtmp->mtame || !is_feline(mtmp->data))
+        return 0;
+    
+    /* Eats topmost sprig of catnip if it is there */
+    for (otmp = level.objects[mtmp->mx][mtmp->my]; otmp; otmp = otmp->nexthere) {
+        if (otmp->otyp == SPRIG_OF_CATNIP) {
+            if (cansee(mtmp->mx, mtmp->my) && flags.verbose)
+                pline("%s eats %s!", Monnam(mtmp), singular(otmp, doname));
+            else if (!Deaf && flags.verbose)
+                You_hear("a meowing sound.");
+            mtmp->meating = otmp->owt / 2 + 1;
+            
+            if (!Blind)
+                pline("%s chases %s tail!", Monnam(mtmp), mhis(mtmp));
+            mtmp->mconf = 1;
+            otmp->quan--;
+            otmp->owt = weight(otmp);
+            if (otmp->quan <= 0)
+                delobj(otmp);
+
+            ptr = mtmp->data;
+            
+            if (!ptr)
+                return 2; /* it died */
+        }
+        newsym(mtmp->mx, mtmp->my);
+        return 1;
+    }
+    return 0;
+}
+
+
+
 
 int
 mloot_container(mon, container, vismon)
@@ -2550,6 +2598,12 @@ long flag;
                 && !((flag & ALLOW_WALL) && may_passwall(nx, ny))
                 && !((IS_TREES(ntyp) ? treeok : rockok) && may_dig(nx, ny)))
                 continue;
+            /* intelligent peacefuls avoid digging shop/temple walls */
+            if (IS_ROCK(ntyp) && rockok
+                && !mindless(mon->data) && (mon->mpeaceful || mon->mtame)
+                && (*in_rooms(nx, ny, TEMPLE) || *in_rooms(nx, ny, SHOPBASE))
+                && !(*in_rooms(x, y, TEMPLE) || *in_rooms(x, y, SHOPBASE)))
+                continue;
             /* KMH -- Added iron bars */
             if (ntyp == IRONBARS
                 && (!(flag & ALLOW_BARS)
@@ -2786,6 +2840,12 @@ struct monst *magr, *mdef;
     if (is_zombie(ma) && !(nonliving(md) || is_vampshifter(mdef)))
         return ALLOW_M | ALLOW_TM;
 
+    /* pirates vs mercenaries or you (if king of the hill) */
+    if (is_pirate(magr->data) && is_mercenary(mdef->data))
+        return (ALLOW_M | ALLOW_TM);
+    if (is_pirate(magr->data) && !magr->mpeaceful && u.ukinghill)
+        return (ALLOW_M | ALLOW_TM);
+    
     /* lawful and chaotic unicorns don't play nice with each other.
        neutral unicorns just don't care */
     if (ma == &mons[PM_WHITE_UNICORN] && md == &mons[PM_BLACK_UNICORN])
@@ -2880,15 +2940,30 @@ struct monst *magr, /* monster that is currently deciding where to move */
     if (ma == &mons[PM_RAVEN] && md == &mons[PM_FLOATING_EYE])
         return ALLOW_M | ALLOW_TM;
 
+    /* Stormtroopers vs. Padawans */
+    if (ma == &mons[PM_STORMTROOPER] && md == &mons[PM_PADAWAN])
+        return ALLOW_M | ALLOW_TM;
+    /* and vice versa */
+    if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_PADAWAN])
+        return ALLOW_M | ALLOW_TM;
+    /* Stormtroopers vs. Jedi */
+    if (ma == &mons[PM_STORMTROOPER] && md == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    /* and vice versa */
+    if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    /* Jedi vs. Lord Sidious */
+    if (ma == &mons[PM_LORD_SIDIOUS] && md == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    /* and vice versa */
+    if (md == &mons[PM_LORD_SIDIOUS] && ma == &mons[PM_JEDI])
+        return ALLOW_M | ALLOW_TM;
+    
     /* dungeon fern spores hate everything */
-    if (is_fern_spore(ma) 
-        && !is_fern_spore(md) 
-        && !is_vegetation(md))
+    if (is_fern_spore(ma) && !is_fern_spore(md) && !is_vegetation(md))
         return ALLOW_M|ALLOW_TM;
     /* and everything hates them */
-    if (is_fern_spore(md) 
-        && !is_fern_spore(ma) 
-        && !is_vegetation(ma))
+    if (is_fern_spore(md) && !is_fern_spore(ma) && !is_vegetation(ma))
         return ALLOW_M|ALLOW_TM;
     
     /* insect-eating bugs vs insects */
@@ -3302,7 +3377,7 @@ struct monst *mtmp;
                 makeknown(AMULET_OF_LIFE_SAVING);
             }
             if (!Deaf)
-                You("hear diabolical laughter in the distance...");
+                You_hear("diabolical laughter in the distance...");
             pline("%s dies!", Monnam(mtmp));
             if (cansee(mtmp->mx, mtmp->my))
                 pline_The("medallion crumbles to dust!");
@@ -3381,24 +3456,30 @@ register struct monst *mtmp;
     struct permonst *mptr;
     int tmp, i;
     coord cc;
-    
+    boolean nocorpse = (wielding_artifact(ART_SUNSWORD) || wielding_artifact(ART_MORTALITY_DIAL));
     mtmp->mhp = 0; /* in case caller hasn't done this */
     lifesaved_monster(mtmp);
     if (!DEADMONSTER(mtmp))
         return;
-
+    
     if (mtmp->data == &mons[PM_WORM_THAT_WALKS]) {
-        if (cansee(mtmp->mx, mtmp->my)) {
-            pline_The("body of %s dissolves into maggots!", mon_nam(mtmp));
+        if (nocorpse) {
+            if (cansee(mtmp->mx, mtmp->my))
+                pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
+                      artiname(uwep->oartifact), s_suffix(mon_nam(mtmp)));
         } else {
-            You_hear("the slithering of many bodies.");
+            if (cansee(mtmp->mx, mtmp->my)) {
+                pline_The("body of %s dissolves into worms!", mon_nam(mtmp));
+            } else {
+                You_hear("the slithering of many bodies.");
+            }
+            for (i = 0; i < rnd(10); i++) {
+                if (!enexto(&cc, mtmp->mx, mtmp->my, 0))
+                    break;
+                makemon(&mons[PM_HELLMINTH], cc.x, cc.y, NO_MINVENT);
+            }
         }
-        for (i = 0; i < rnd(10); i++) {
-            if (!enexto(&cc, mtmp->mx, mtmp->my, 0))
-                break;
-            makemon(&mons[PM_HELLMINTH], cc.x, cc.y, NO_MINVENT);
-        }
-    }
+    } 
     /* someone or something decided to mess with Izchak. oops... */
     if (is_izchak(mtmp, TRUE)) {
         if (canspotmon(mtmp)) {
@@ -3784,7 +3865,7 @@ boolean was_swallowed; /* digestion */
         && (wielding_artifact(ART_TROLLSBANE) || artdial)) {
         if (cansee(mon->mx, mon->my))
             pline("In the presence of %s, %s corpse flares brightly and burns to ashes.",
-                  artdial ? "Mortality Dial" : "Trollsbane", s_suffix(mon_nam(mon)));
+                artiname(uwep->oartifact), s_suffix(mon_nam(mon)));
         return FALSE;
     }
 
@@ -3793,13 +3874,16 @@ boolean was_swallowed; /* digestion */
         && (wielding_artifact(ART_SUNSWORD) || artdial)) {
         if (cansee(mon->mx, mon->my))
             pline("In the presence of %s, %s corpse dissolves into nothingness.",
-                  artdial ? "Mortality Dial" : "Sunsword", s_suffix(mon_nam(mon)));
+                  artiname(uwep->oartifact), s_suffix(mon_nam(mon)));
         return FALSE;
     }
     
     /* Undead Slayers have a chance to totally destroy zombie corpses */
-    if (is_zombie(mdat) && Role_if(PM_UNDEAD_SLAYER) 
-        && distu(mon->mx, mon->my) < 2 && rn2(3)) {
+    if (is_zombie(mdat) 
+        && Role_if(PM_UNDEAD_SLAYER)
+        && context.mon_moving == 0
+        && distu(mon->mx, mon->my) < 2 
+        && rn2(4)) {
         if (cansee(mon->mx, mon->my)) {
             pline("%s!", rn2(2) ? "Squish" : 
                   rn2(2) ? "Squash" : "Smash");
@@ -4163,19 +4247,24 @@ int how;
     disintegested = (how == AD_DGST || how == -AD_RBRE
                      || how == AD_WTHR);
     
-    if (disintegested)
+    if (disintegested) {
+        /* Pre-cancel a changling so it doesn't get a chance to reconstitute
+         */
+        if (is_changeling(mdef))
+            mdef->cham = -1;
         mondead(mdef);
-    else
+    } else {
         mondied(mdef);
-
+    }
     if (mdef->data == &mons[PM_CTHULHU]) {
         cthulhu_dies(mdef);
     }
-
     if (is_fern_spore(mdef->data)) {
         spore_dies(mdef);
     }
-    
+    if (mdef->data == &mons[PM_SKUNK]) {
+        create_gas_cloud(mdef->mx, mdef->my, rn1(2, 2), rnd(8));
+    }
     if (be_sad && DEADMONSTER(mdef)) {
         if (kenny || (Hallucination && !rn2(4))) {
             verbalize("Oh my god, they killed Kenny!");
@@ -4356,7 +4445,9 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     if (mdat == &mons[PM_CTHULHU]) {
         cthulhu_dies(mtmp);
     }
-    
+    if (mdat == &mons[PM_SKUNK]) {
+        create_gas_cloud(mtmp->mx, mtmp->my, rn1(2, 1), rnd(8));
+    }
     if (is_fern_spore(mtmp->data)) {
         spore_dies(mtmp);
     }
@@ -4962,7 +5053,7 @@ struct monst *mtmp;
             }
     }
     /* Frightful presence! */
-    /* --hackem: I cut the number of eligible roaring dragons by half.*/
+    /* Cut the number of eligible roaring dragons by half.*/
     if (mtmp->data->msound == MS_ROAR 
         && !mtmp->mpeaceful
         && is_dragon(mtmp->data) 
@@ -5036,7 +5127,7 @@ boolean via_attack;
             You_feel("clever."); /* no alignment penalty */
 
         if (!Blind)
-            pline("The engraving beneath you fades.");
+            pline_The("engraving beneath you fades.");
         del_engr_at(u.ux, u.uy);
     }
 
@@ -5395,16 +5486,26 @@ maybe_unhide_at(x, y)
 xchar x, y;
 {
     struct monst *mtmp;
+    boolean undetected = FALSE, trapped = FALSE;
     
     if (concealed_spot(x, y))
         return;
-    if ((mtmp = m_at(x, y)) == 0 && u_at(x, y)) {
+    
+    if ((mtmp = m_at(x, y)) != (struct monst *) 0) {
+        undetected = mtmp->mundetected;
+        trapped = mtmp->mtrapped;
+    } else if (x == u.ux && y == u.uy) {
         mtmp = &youmonst;
-        /* mtmp->mundetected here isn't synchronized with u.uundetected, 
-         * we have to use u.uundetected for the hero. */
-        if (u.uundetected && hides_under(mtmp->data))
-            (void) hideunder(mtmp);
-    } else if (mtmp && mtmp->mundetected && hides_under(mtmp->data))
+        undetected = u.uundetected;
+        trapped = u.utrap;
+    } else {
+        return;
+    }
+
+    if (undetected
+        && ((hides_under(mtmp->data) && (!OBJ_AT(x, y) || trapped))
+            || (mtmp->data->mlet == S_EEL && !is_damp_terrain(x, y))
+            || (mtmp->data == &mons[PM_GIANT_LEECH] && !is_sewage(x, y))))
         (void) hideunder(mtmp);
 }
 /* monster/hero tries to hide under something at the current location.
@@ -5431,7 +5532,16 @@ struct monst *mtmp;
     } else if (hides_under(mtmp->data)) {
         int concealment = concealed_spot(x, y);
         
-        if (concealment == 2) { /* object cover */
+        /* If possible, prefer natural cover to object cover. Especially for
+         * swimmers - we want them to hide in the water and not the objects 
+         * in the water, because those objects are subject to movement from 
+         * the underwater currents. 
+         */
+        if (concealment == 1 /* terrain cover, no objects */
+                 || (concealment == 3 && resists_poison(mtmp))) { 
+            undetected = TRUE;
+        }
+        else if (concealment == 2) { /* object cover */
             struct obj *otmp = level.objects[x][y];
             
             /* most monsters won't hide under cockatrice corpse */
@@ -5441,9 +5551,6 @@ struct monst *mtmp;
                 || (mtmp == &youmonst ? Stone_resistance : resists_ston(mtmp))
                 || !touch_petrifies(&mons[otmp->corpsenm]))
                 undetected = TRUE;
-        }
-        else if (concealment == 1) { /* terrain cover, no objects */
-            undetected = TRUE;
         }
     }
 
@@ -6169,16 +6276,21 @@ int mnum;
        such into ordinary eggs rather than forbidding them outright */
     if (mnum == PM_SCORPIUS)
         mnum = PM_SCORPION;
-
+    else if (mnum == PM_GIRTAB || mnum == PM_SHELOB)
+        mnum = PM_CAVE_SPIDER;
+    
     mnum = little_to_big(mnum);
     /*
      * Queen bees lay killer bee eggs (usually), but killer bees don't
      * grow into queen bees.  Ditto for [winged-]gargoyles.
      */
     if (mnum == PM_KILLER_BEE || mnum == PM_GARGOYLE
+        || mnum == PM_GIANT_ANT
         || (lays_eggs(&mons[mnum])
             && (BREEDER_EGG
-                || (mnum != PM_QUEEN_BEE && mnum != PM_WINGED_GARGOYLE))))
+                || (mnum != PM_QUEEN_BEE
+                    && mnum != PM_WINGED_GARGOYLE
+                    && mnum != PM_QUEEN_ANT))))
         return mnum;
     return NON_PM;
 }
@@ -6194,6 +6306,10 @@ boolean force_ordinary;
             mnum = PM_KILLER_BEE;
         else if (mnum == PM_WINGED_GARGOYLE)
             mnum = PM_GARGOYLE;
+        else if (mnum == PM_QUEEN_ANT)
+            mnum = PM_GIANT_ANT;
+        else if (mnum == PM_GIANT_CROCODILE)
+            mnum = PM_CROCODILE; /* appearances only */
     }
     return mnum;
 }

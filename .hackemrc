@@ -109,6 +109,8 @@ OPTIONS=dogname:Spike
 OPTIONS=catname:Opal
 OPTIONS=horsename:Octavia
 OPTIONS=ghoulname:Discord
+OPTIONS=birdname:Polly
+OPTIONS=monkeyname:Unga-Unga
 OPTIONS=wolfname:Apache
 
 # The nameable fruit is always vegan
@@ -547,7 +549,7 @@ AUTOPICKUP_EXCEPTION=">.*wand of sleep"
 AUTOPICKUP_EXCEPTION="<.*wand (of|called) death"
 AUTOPICKUP_EXCEPTION="<.*wand of lightning"
 AUTOPICKUP_EXCEPTION="<.*wand of poison gas"
-AUTOPICKUP_EXCEPTION="<.*wand of acid"
+AUTOPICKUP_EXCEPTION="<.*wand of corrosion"
 AUTOPICKUP_EXCEPTION="<.*wand of sonics"
 AUTOPICKUP_EXCEPTION="<.*wand of water"
 AUTOPICKUP_EXCEPTION="<.*wand of fireball"
@@ -604,8 +606,8 @@ AUTOPICKUP_EXCEPTION=">.*unpaid.*"
 # Instead of #untrap, use 'v'
 BIND=v:untrap
 #BIND=v:wizmakemap
-# Instead of #rub, use '~'
-BIND=~:rub
+# Instead of #force, use '~'
+BIND=~:force
 # Instead of #dip, use '!'
 BIND=!:dip
 

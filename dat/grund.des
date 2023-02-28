@@ -418,6 +418,16 @@ CONTAINER:('(', "iron safe"),(06,01) {
     [50%]: OBJECT: ('!', "enlightenment"), blessed, 0
     [50%]: OBJECT: ('!', "enlightenment"), blessed, 0
 
+    # Ammo cache
+    LOOP [40] {
+        [40%]: OBJECT: (')', "bullet"), uncursed, +1
+        [40%]: OBJECT: (')', "shotgun shell"), uncursed, +2
+    }
+    LOOP [5] {
+        [50%]: OBJECT: (')', "fire bomb"), 1
+        [50%]: OBJECT: (')', "gas bomb"), 1
+        [50%]: OBJECT: (')', "sonic bomb"), 1
+    }
     GOLD: 8700, (06,01)
     GOLD: 1d200, (06,01)
 }

@@ -703,6 +703,8 @@ unsigned int *stuckid, *steedid, *fearedmonid;
     mread(fd, (genericptr_t) &monstermoves, sizeof monstermoves);
     mread(fd, (genericptr_t) &quest_status, sizeof (struct q_score));
     mread(fd, (genericptr_t) spl_book, (MAXSPELL + 1) * sizeof (struct spell));
+    mread(fd, (genericptr_t) tech_list,
+			sizeof(struct tech) * (MAXTECH + 1));
     restore_artifacts(fd);
     restore_oracles(fd);
     if (u.ustuck)

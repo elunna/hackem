@@ -7,6 +7,10 @@
 #include "hack.h"
 #include <ctype.h>
 
+#define SPECSPEL_LEV 12
+#define YOUPOLY_SMALL 8     /* baby dragons for mages */
+#define YOUPOLY_LARGE 15    /* adult dragons for mages */
+
 /* part of the output on gain or loss of attribute */
 static const char
     *const plusattr[] = { "strong", "smart", "wise",
@@ -60,6 +64,12 @@ static const struct innate {
                  { 20, &(HShock_resistance), "insulated", "conductive" },
                  { 0, 0, 0, 0 } },
 
+  jed_abil[] = { { 1, &(HStealth), "", ""},
+                 { 3, &(HTelepat), "disturbances in the force", "your grip on the force lessen" },
+                 { 5, &(HSee_invisible), "your vision sharpen", "your vision blurring" },
+                 { 7, &(HFast), "quick", "slow" },
+                 { 0, 0, 0, 0 } },
+  
   kni_abil[] = { { 7, &(HFast), "quick", "slow" }, { 0, 0, 0, 0 } },
 
   mon_abil[] = { { 1, &(HFast), "", "" },
@@ -85,6 +95,11 @@ static const struct innate {
                  { 1, &(HSick_resistance), "hale", "" },
                  { 3, &(HUndead_warning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
+
+  pir_abil[] = {  { 1, &(HSwimming), "", "" },
+                  { 7, &(HStealth), "stealthy", "" },	/* with cat-like tread ... */
+                  { 11, &(HFast), "quick", "slow" },
+                  { 0, 0, 0, 0 } },
 
   pri_abil[] = { { 15, &(HWarning), "sensitive", "" },
                  { 20, &(HFire_resistance), "cool", "warmer" },
@@ -159,14 +174,14 @@ static const struct innate {
   cen_abil[] = { { 1, &(HFast), "", "" },
                  /* use EJumping here, otherwise centaurs would only
                     be able to jump the same way as knights */
-                 { 5, &(EJumping), "light on your hooves", "weighted down" },
+                 /*{ 5, &(EJumping), "light on your hooves", "weighted down" },*/
                  { 10, &(HWarning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
 
   ill_abil[] = { { 1, &(HInfravision), "", "" },
                  { 1, &(HTelepat), "", "" },
                  { 1, &(HPsychic_resistance), "", "" },
-                 { 12, &(HFlying), "lighter than air", "gravity's pull" },
+                 /*{ 12, &(HFlying), "lighter than air", "gravity's pull" },*/
                  { 0, 0, 0, 0 } },
 
   dem_abil[] = { { 1, &(HInfravision), "", "" },
@@ -174,29 +189,34 @@ static const struct innate {
                  { 1, &(HPoison_resistance), "", "" },
                  { 1, &(HDrain_resistance), "", "" },
                  { 1, &(HSee_invisible), "", "" },
-                 { 1, &(HFlying), "", "" },
+                 /*{ 1, &(HFlying), "", "" },*/
                  /* also inediate */
                  { 0, 0, 0, 0 } },
 
-  trt_abil[] = { { 1, &(HSwimming), "", "" },
+  trt_abil[] = { /*{ 1, &(HSwimming), "", "" },*/ 
                  { 5, &(HWarning), "sensitive", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
   
-
-  vam_abil[] =   { { 1, &(HInfravision), "", "" },
+  vam_abil[] =   { { 1, &(HPoison_resistance), "", "" },
+                   { 1, &(HSleep_resistance), "", "" },
                    { 1, &(HDrain_resistance), "", "" },
                    { 1, &(HBreathless), "breathless", "full of air" },
-                   { 1, &(HRegeneration), "resilient", "less resilient" },
-                   { 1, &(HFlying), "lighter than air", "gravity's pull" },
+                   { 1, &(HHunger), "ravenous", "more content" },
+                   { 10, &(HRegeneration), "resilient", "less resilient" },
+                   /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
   
+  dop_abil[] = { /* {   1, &(HPolymorph), "", "" },*/
+                 { 25, &(HPolymorph_control), "your choices improve", "choiceless" },
+                 { 0, 0, 0, 0 } },
   
   hum_abil[] = { { 0, 0, 0, 0 } };
 
 STATIC_DCL void NDECL(exerper);
 STATIC_DCL void FDECL(postadjabil, (long *));
 STATIC_DCL const struct innate *FDECL(role_abil, (int));
+STATIC_DCL const struct innate *NDECL(get_rabil);
 STATIC_DCL const struct innate *FDECL(check_innate_abil, (long *, long));
 STATIC_DCL int FDECL(innately, (long *));
 
@@ -848,10 +868,12 @@ int r;
         { PM_FLAME_MAGE, fla_abil },
         { PM_HEALER, hea_abil },
         { PM_ICE_MAGE, ice_abil },
+        { PM_JEDI, jed_abil },
         { PM_INFIDEL, inf_abil },
         { PM_KNIGHT, kni_abil },
         { PM_MONK, mon_abil },
         { PM_NECROMANCER, nec_abil },
+        { PM_PIRATE, pir_abil },
         { PM_PRIEST, pri_abil },
         { PM_RANGER, ran_abil },
         { PM_ROGUE, rog_abil },
@@ -916,6 +938,9 @@ long frommask;
             break;
         case PM_VAMPIRIC:
             abil = vam_abil;
+            break;
+        case PM_DOPPELGANGER:
+            abil = dop_abil;
             break;
         default:
             break;
@@ -1077,6 +1102,46 @@ int propidx; /* special cases can have negative values */
     return buf;
 }
 
+STATIC_OVL const struct innate *
+get_rabil()
+{
+    switch (Race_switch) {
+    case PM_ELF:
+        return elf_abil;
+        break;
+    case PM_ORC:
+        return orc_abil;
+        break;
+    case PM_GIANT:
+        return gia_abil;
+        break;
+    case PM_HOBBIT:
+        return hob_abil;
+        break;
+    case PM_CENTAUR:
+        return cen_abil;
+        break;
+    case PM_ILLITHID:
+        return ill_abil;
+        break;
+    case PM_TORTLE:
+        return trt_abil;
+        break;
+    case PM_VAMPIRIC:
+        return vam_abil;
+        break;
+    case PM_DOPPELGANGER:
+        return dop_abil;
+        break;
+    case PM_HUMAN:
+    case PM_DWARF:
+    case PM_GNOME:
+    default:
+        return 0;
+        break;
+    }
+}
+
 void
 adjabil(oldlevel, newlevel)
 int oldlevel, newlevel;
@@ -1085,40 +1150,8 @@ int oldlevel, newlevel;
     long prevabil, mask = FROMEXPER;
 
     abil = role_abil(Role_switch);
-
-    switch (Race_switch) {
-    case PM_ELF:
-        rabil = elf_abil;
-        break;
-    case PM_ORC:
-        rabil = orc_abil;
-        break;
-    case PM_GIANT:
-        rabil = gia_abil;
-        break;
-    case PM_HOBBIT:
-        rabil = hob_abil;
-        break;
-    case PM_CENTAUR:
-        rabil = cen_abil;
-        break;
-    case PM_ILLITHID:
-        rabil = ill_abil;
-        break;
-    case PM_TORTLE:
-        rabil = trt_abil;
-        break;
-    case PM_VAMPIRIC:
-        rabil = vam_abil;
-        break;
-    case PM_HUMAN:
-    case PM_DWARF:
-    case PM_GNOME:
-    default:
-        rabil = 0;
-        break;
-    }
-
+    rabil = get_rabil();
+    
     while (abil || rabil) {
         /* Have we finished with the intrinsics list? */
         if (!abil || !abil->ability) {
@@ -1178,39 +1211,37 @@ int oldlevel, newlevel;
         context.warntype.intrins |= MH_UNDEAD;
     else
         context.warntype.intrins &= ~MH_UNDEAD;
+    
+    /* WAC -- adjust techniques */
+	adjtech(oldlevel, newlevel);
 
-    /* Learn your special spells! */
-    if (Role_if(PM_NECROMANCER)) {
-        short spell;
-        switch (u.ulevel) {
-        case 2: spell = SPE_CALL_UNDEAD; break;
-        case 3: spell = SPE_RAISE_ZOMBIES; break;
-        case 7: spell = SPE_COMMAND_UNDEAD; break;
-        case 9: spell = SPE_SUMMON_UNDEAD; break;
-        case 14: spell = SPE_ANIMATE_DEAD; break;
-        case 17: spell = SPE_SPIRIT_BOMB; break;
-        default: spell = 0;
+    /* Learn your special spell! (At level 12) */
+    if (oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
+        && u.ulevelmax == u.ulevel) {
+        int i;
+        for (i = 0; i < MAXSPELL; i++)
+            if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
+                break;
+        if (spellid(i) == NO_SPELL)
+            You("learn how to cast %s!", OBJ_NAME(objects[urole.spelspec]));
+        /*spl_book[i].sp_id = urole.spelspec;
+        spl_book[i].sp_lev = objects[urole.spelspec].oc_level;
+        spl_book[i].sp_know = 20000;*/
+        force_learn_spell(urole.spelspec);
+    }
+    /* Inform flame mages and ice mages of their #youpoly ability */
+    if (Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)) {
+        if (oldlevel < YOUPOLY_SMALL && newlevel >= YOUPOLY_SMALL) {
+            if (newlevel > oldlevel)
+                Your("powers grow! (Use #youpoly to turn into baby dragon form)");
+            else
+                Your("powers diminish!");
         }
-        if (!spell)
-            return;
-        
-        if (oldlevel < u.ulevel && newlevel >= u.ulevel
-            && u.ulevelmax == u.ulevel) {
-            int i;
-            for (i = 0; i < MAXSPELL; i++) {
-                if (spellid(i) == spell)
-                    return; /* We already know it */
-                if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
-                    break;
-            }
-            if (spellid(i) == NO_SPELL)
-                You("learn how to cast %s!", OBJ_NAME(objects[spell]));
-            spl_book[i].sp_id = spell;
-            spl_book[i].sp_lev = objects[spell].oc_level;
-            spl_book[i].sp_know = 100000;
+        if (oldlevel < YOUPOLY_LARGE && newlevel >= YOUPOLY_LARGE) {
+            if (newlevel > oldlevel)
+                Your("powers grow! (Use #youpoly to turn into adult dragon form)");
         }
     }
-
 }
 
 int
@@ -1487,14 +1518,14 @@ int reason; /* 0==conversion, 1==helm-of-OA on, 2==helm-of-OA off */
 int
 uhp()
 {
-	return (Upolyd ? u.mh : u.uhp);
+    return (Upolyd ? u.mh : u.uhp);
 }
 
 /** Returns the maximal hitpoints of your current form. */
 int
 uhpmax()
 {
-	return (Upolyd ? u.mhmax : u.uhpmax);
+    return (Upolyd ? u.mhmax : u.uhpmax);
 }
 
 

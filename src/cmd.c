@@ -108,6 +108,7 @@ extern int NDECL(dosacrifice);        /**/
 extern int NDECL(dopray);             /**/
 extern int NDECL(dotip);              /**/
 extern int NDECL(doturn);             /**/
+extern int NDECL(dotech);             /**/
 extern int NDECL(doredraw);           /**/
 extern int NDECL(doread);             /**/
 extern int NDECL(dosave);             /**/
@@ -359,7 +360,7 @@ doextcmd(VOID_ARGS)
 
         func = extcmdlist[idx].ef_funct;
         if (!wizard && (extcmdlist[idx].flags & WIZMODECMD)) {
-            You("can't do that.");
+            You_cant("do that.");
             return 0;
         }
         if (iflags.menu_requested && !accept_menu_prefix(func)) {
@@ -996,7 +997,7 @@ wiz_spell(VOID_ARGS)
             return spelleffects(i, FALSE, TRUE);
         }
     }
-    pline("There is no such spell.");
+    There("is no such spell.");
     return 0;
 }
 
@@ -1420,18 +1421,22 @@ wiz_map_levltyp(VOID_ARGS)
         if (level.flags.nfountains)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_fountain].sym,
                     (int) level.flags.nfountains);
+        
         if (level.flags.nsinks)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_sink].sym,
                     (int) level.flags.nsinks);
-         if (level.flags.nvents)
+        
+        if (level.flags.nvents)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_vent].sym,
                     (int) level.flags.nvents); 
+        
         if (level.flags.ntoilets)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_toilet].sym,
                     (int) level.flags.ntoilets);
         if (level.flags.nforges)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_forge].sym,
                     (int) level.flags.nforges);
+        
         if (level.flags.has_vault)
             Strcat(dsc, " vault");
         if (level.flags.has_shop)
@@ -1522,14 +1527,48 @@ wiz_map_levltyp(VOID_ARGS)
 /* temporary? hack, since level type codes aren't the same as screen
    symbols and only the latter have easily accessible descriptions */
 static const char *levltyp[] = {
-    "stone", "vertical wall", "horizontal wall", "top-left corner wall",
-    "top-right corner wall", "bottom-left corner wall",
-    "bottom-right corner wall", "cross wall", "tee-up wall", "tee-down wall",
-    "tee-left wall", "tee-right wall", "drawbridge wall", "tree",
-    "secret door", "secret corridor", "pool", "moat", "water",
-    "drawbridge up", "lava pool", "iron bars", "door", "corridor", "room",
-    "stairs", "ladder", "forge", "fountain", "vent", "throne", "sink", 
-    "grave", "altar", "ice", "drawbridge down", "air", "cloud", "puddle", 
+    "stone",
+    "vertical wall",
+    "horizontal wall",
+    "top-left corner wall",
+    "top-right corner wall",
+    "bottom-left corner wall",
+    "bottom-right corner wall",
+    "cross wall",
+    "tee-up wall",
+    "tee-down wall",
+    "tee-left wall",
+    "tee-right wall",
+    "drawbridge wall",
+    "tree",
+    "dead tree",
+    "secret door",
+    "secret corridor",
+    "pool",
+    "moat",
+    "water",
+    "drawbridge up",
+    "lava pool",
+    "iron bars",
+    "door",
+    "corridor",
+    "room",
+    "stairs",
+    "ladder",
+    "forge",
+    "fountain",
+    "vent",
+    "throne",
+    "sink",
+    "toilet",
+    "grave",
+    "altar",
+    "ice",
+    "grass",
+    "drawbridge down",
+    "air",
+    "cloud",
+    "puddle",
     "sewage",
     /* not a real terrain type, but used for undiggable stone
        by wiz_map_levltyp() */
@@ -1595,7 +1634,7 @@ wiz_smell(VOID_ARGS)
         return 0;
     }
 
-    pline("You can move the cursor to a monster that you want to smell.");
+    You("can move the cursor to a monster that you want to smell.");
     do {
         pline("Pick a monster to smell.");
         ans = getpos(&cc, TRUE, "a monster");
@@ -2138,6 +2177,82 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
         /* intrinsics and other traditional enlightenment feedback */
         attributes_enlightenment(mode, final);
     }
+    
+    /* Stuff related to #pray */
+    
+    enlght_out("");
+    enlght_out_attr(ATR_SUBHEAD, final ? "Final Attributes:" : "Spiritual Attributes:");
+    
+    if (u.ugangr) {
+        Sprintf(buf, " %sangry with you",
+                u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");
+        if (wizard)
+            Sprintf(eos(buf), " (%d)", u.ugangr);
+        enl_msg(u_gname(), " is", " was", buf, "");
+    } else {
+        /*
+         * We need to suppress this when the game is over, because death
+         * can change the value calculated by can_pray(), potentially
+         * resulting in a false claim that you could have prayed safely.
+         */
+        if (!final) {
+#if 0
+            /* "can [not] safely pray" vs "could [not] have safely prayed" */
+            Sprintf(buf, "%s%ssafely pray%s", can_pray(FALSE) ? "" : "not ",
+                    final ? "have " : "", final ? "ed" : "");
+#else
+            Sprintf(buf, "%ssafely pray", can_pray(FALSE) ? "" : "not ");
+#endif
+            if (wizard)
+                Sprintf(eos(buf), " (%d)", u.ublesscnt);
+            you_can(buf, "");
+        }
+    }
+    if (u.lastprayed) {
+        Sprintf(buf, "You last %s %ld turns ago",
+                u.lastprayresult == PRAY_GIFT ? "received a gift" :
+                u.lastprayresult == PRAY_ANGER ? "angered your god" :
+                u.lastprayresult == PRAY_CONV ? "converted to a new god" :
+                                              "prayed",
+                moves - u.lastprayed);
+        enl_msg(buf, "", "", "", "");
+        if (u.lastprayresult == PRAY_GOOD) {
+            enl_msg("That prayer was well received", "", "", "", "");
+        } else if (u.lastprayresult == PRAY_BAD) {
+            enl_msg("That prayer was poorly received", "", "", "", "");
+        } else if (u.lastprayresult == PRAY_INPROG) {
+            enl_msg("That prayer ", "is ", "was ", "in progress", "");
+        }
+        if (u.reconciled){
+            if (u.reconciled == REC_REC) {
+                Sprintf(buf, " since reconciled with your god");
+                enl_msg("You ", "have", "had", buf, "");
+            } else if (u.reconciled == REC_MOL) {
+                Sprintf(buf, " since mollified your god");
+                enl_msg("You ", "have", "had", buf, "");
+            }
+        }
+    }
+    /* In case the player missed the "urge to perform a sacrifice",
+     * put a reminder here. */
+    if (u.ualign.type == A_NONE) {
+        long due = moves - context.next_moloch_offering;
+        if (due < 0) {
+            if (wizard) {
+                Sprintf(buf, "%ld turns until your next "
+                             "mandatory sacrifice to ", -due);
+                you_have(buf, u_gname());
+            }
+        } else {
+            if (wizard && due > 0)
+                Sprintf(buf, "%ld turns late for your "
+                             "next sacrifice to ", due);
+            else
+                Strcpy(buf, "due for a sacrifice to ");
+            you_are(buf, u_gname());
+        }
+    }
+    
     /* reminder to player and/or information for dumplog */
     if ((mode & BASICENLIGHTENMENT) != 0 && (wizard || discover)) {
         enlght_out(""); /* separator */
@@ -2382,7 +2497,9 @@ int final;
                   : "happened");
         enlght_out(buf);
     }
-
+    if (flags.quest_boon) {
+        you_have("luck boon from your quest leader for good behavior", "");
+    }
     if (!Upolyd) {
         int ulvl = (int) u.ulevel;
         /* [flags.showexp currently does not matter; should it?] */
@@ -2887,25 +3004,6 @@ int final;
             enl_msg("You ", "fall", "fell", " asleep uncontrollably", buf);
         }
     }
-    /* In case the player missed the "urge to perform a sacrifice",
-     * put a reminder here. */
-    if (u.ualign.type == A_NONE) {
-        long due = moves - context.next_moloch_offering;
-        if (due < 0) {
-            if (wizard) {
-                Sprintf(buf, "%ld turns until your next "
-                        "mandatory sacrifice to ", -due);
-                you_have(buf, u_gname());
-            }
-        } else {
-            if (wizard && due > 0)
-                Sprintf(buf, "%ld turns late for your "
-                        "next sacrifice to ", due);
-            else
-                Strcpy(buf, "due for a sacrifice to ");
-            you_are(buf, u_gname());
-        }
-    }
     /* hunger/nutrition */
     if (Hunger) {
         if (magic || cause_known(HUNGER))
@@ -3148,14 +3246,7 @@ int final;
         else
             you_are("not wearing any armor", "");
     }
-    if (!final) {
-        if (u.ulastprayed < 0)
-            you_have_never("prayed");
-        else {
-            Sprintf(buf, " on turn %ld (%ld turns ago)", u.ulastprayed, (moves - u.ulastprayed));
-            enlght_line(You_, "prayed", buf, "");
-        }
-    }
+    
 }
 
 /* attributes: intrinsics and the like, other non-obvious capabilities */
@@ -3181,9 +3272,12 @@ int final;
                                                     "the Envoy of Balance",
                                                     "the Glory of Arioch",
                                                     "the Emissary of Moloch" };
-        you_are(hofe_titles[u.uevent.uhand_of_elbereth - 1], "");
+        if (Role_if(PM_PIRATE)) 
+            you_are("the Pirate King", "");
+        else 
+            you_are(hofe_titles[u.uevent.uhand_of_elbereth - 1], "");
     }
-
+    
     Sprintf(buf, "%s", piousness(TRUE, "aligned"));
     if (u.ualign.record >= 0)
         you_are(buf, "");
@@ -3644,32 +3738,6 @@ int final;
         you_have(buf, "");
     } 
     
-    if (u.ugangr) {
-        Sprintf(buf, " %sangry with you",
-                u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");
-        if (wizard)
-            Sprintf(eos(buf), " (%d)", u.ugangr);
-        enl_msg(u_gname(), " is", " was", buf, "");
-    } else {
-        /*
-         * We need to suppress this when the game is over, because death
-         * can change the value calculated by can_pray(), potentially
-         * resulting in a false claim that you could have prayed safely.
-         */
-        if (!final) {
-#if 0
-            /* "can [not] safely pray" vs "could [not] have safely prayed" */
-            Sprintf(buf, "%s%ssafely pray%s", can_pray(FALSE) ? "" : "not ",
-                    final ? "have " : "", final ? "ed" : "");
-#else
-            Sprintf(buf, "%ssafely pray", can_pray(FALSE) ? "" : "not ");
-#endif
-            if (wizard)
-                Sprintf(eos(buf), " (%d)", u.ublesscnt);
-            you_can(buf, "");
-        }
-    }
-
 #ifdef DEBUG
     /* named fruit debugging (doesn't really belong here...); to enable,
        include 'fruit' in DEBUGFILES list (even though it isn't a file...) */
@@ -3729,6 +3797,26 @@ int final;
         if (p)
             enl_msg(You_, "have been killed ", p, buf, "");
     }
+    if (Race_if(PM_DOPPELGANGER)) { 
+        buf[0] = '\0';
+        enlght_out("");
+        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
+        Strcat(buf, " ");
+        /*you_have(buf, "Eaten memory of these monsters:");*/
+        for (int i = LOW_PM; i < NUMMONS; i++) {
+            if (mvitals[i].eaten) {
+                /*Sprintf(buf, "%s, ", mons[i].mname);*/
+                strcat(buf, mons[i].mname);
+                Strcat(buf, ", ");
+            }
+        }
+        if (strlen(buf) > 3) {
+            buf[strlen(buf) - 2] = '\0';
+            enlght_out(buf);
+        } else {
+            enlght_out("None");
+        }
+    } 
 }
 
 /* ^X command */
@@ -4106,7 +4194,7 @@ struct ext_func_tab extcmdlist[] = {
             enter_explore_mode, IFBURIED },
     { 'f', "fire", "fire ammunition from quiver", dofire },
     { M('f'), "force", "force a lock", doforce, AUTOCOMPLETE },
-    { M('F'), "forge", "combine two objects to create a new object", doforging, AUTOCOMPLETE },
+    { M('F'), "craft", "combine two objects to create a new object", doforging, AUTOCOMPLETE },
     { ';', "glance", "show what type of thing a map symbol corresponds to",
             doquickwhatis, IFBURIED | GENERALCMD },
     { '?', "help", "give a help message", dohelp, IFBURIED | GENERALCMD },
@@ -4172,6 +4260,7 @@ struct ext_func_tab extcmdlist[] = {
     { 'S', "save", "save the game and exit", dosave, IFBURIED | GENERALCMD },
     { 's', "search", "search for traps and secret doors",
             dosearch, IFBURIED, "searching" },
+    { M('y'), "youpoly", "polymorph at will", polyatwill, AUTOCOMPLETE},
     { '*', "seeall", "show all equipment in use", doprinuse, IFBURIED },
     { AMULET_SYM, "seeamulet", "show the amulet currently worn",
             dopramulet, IFBURIED },
@@ -4218,7 +4307,8 @@ struct ext_func_tab extcmdlist[] = {
             wiz_timeout_queue, IFBURIED | AUTOCOMPLETE | WIZMODECMD },
     { M('T'), "tip", "empty a container", dotip, AUTOCOMPLETE },
     { '_', "travel", "travel to a specific location on the map", dotravel },
-    { M('t'), "turn", "turn undead away", doturn, IFBURIED | AUTOCOMPLETE },
+    /* { M('t'), "turn", "turn undead away", doturn, IFBURIED | AUTOCOMPLETE },*/
+    { M('t'), "tech", "Use Techniques [M-t]", dotech, AUTOCOMPLETE },
     { 'X', "twoweapon", "toggle two-weapon combat",
             dotwoweapon, AUTOCOMPLETE },
     { M('u'), "untrap", "untrap something", dountrap, AUTOCOMPLETE },
@@ -5851,6 +5941,53 @@ const char *s;
     return 1;
 }
 
+
+/* Modified version of getdir for use with the chain blitz comand inputs 
+ * Returns 0 for ESC (to escape out)
+ * Return 1 for valid input
+ * Return -1 for invalid input
+ * */
+int
+blitzdir(s)
+const char *s;
+{
+    char dirsym;
+    int is_mov;
+    
+retry:
+    if (in_doagain || *readchar_queue)
+        dirsym = readchar();
+    else
+        dirsym = yn_function((s && *s != '^') ? s : "In what direction?",
+                             (char *) 0, '\0');
+    /* remove the prompt string so caller won't have to */
+    clear_nhwindow(WIN_MESSAGE);
+
+    if (redraw_cmd(dirsym)) { /* ^R */
+        docrt();              /* redraw */
+        goto retry;
+    }
+    savech(dirsym);
+    is_mov = movecmd(dirsym);
+    
+    if (dirsym == Cmd.spkeys[NHKF_GETDIR_SELF]
+        || dirsym == Cmd.spkeys[NHKF_GETDIR_SELF2]
+        || dirsym == Cmd.spkeys[NHKF_GETPOS_PICK_O]
+        || dirsym == Cmd.spkeys[NHKF_GETPOS_PICK_V]) {
+        u.dx = u.dy = u.dz = 0;
+    } else if (dirsym == Cmd.spkeys[NHKF_ESC]) {
+        pline("Chained Blitz cancelled.");
+        return 0;
+    } else if (dirsym == Cmd.spkeys[NHKF_ESC]) {
+        pline("Chained Blitz cancelled.");
+        return 0;
+    } else if (!is_mov && !u.dz) {
+        pline("What a strange direction!");
+        return -1;
+    }
+    return 1;
+}
+
 STATIC_OVL void
 show_direction_keys(win, centerchar, nodiag)
 winid win; /* should specify a window which is using a fixed-width font... */
@@ -6750,7 +6887,7 @@ static int
 find_remembered_stairs(boolean upstairs, coord *cc)
 {
     xchar x, y;
-    int stair, sladder, sbranch;
+    int k, stair, sladder, sbranch;
     int found_stairs = 0;
     if (upstairs) {
         stair = S_upstair;
@@ -6776,7 +6913,6 @@ find_remembered_stairs(boolean upstairs, coord *cc)
 
     /* We can't reference the stairs directly because mimics can mimic fake
        ones. */
-    int k;
     for (x = 0; x < COLNO; x++) {
         for (y = 0; y < ROWNO; y++) {
             if (levl[x][y].seenv) {
@@ -6795,7 +6931,6 @@ find_remembered_stairs(boolean upstairs, coord *cc)
             }
         }
     }
-
     return found_stairs;
 }
 

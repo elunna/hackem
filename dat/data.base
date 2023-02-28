@@ -36,40 +36,6 @@ abbot
 	manner, "What is God?"  The answer is not recorded but it is
 	probable that the asker went on worrying out answers for himself.
 		[ The Runaway Abbot, by G. K. Chesterton ]
-# takes "suit or piece of armor" when specifying '['
-# FIXME too: "ac, armor class" also merits its own distinct entry
-ac
-armor
-armour
-~forging armor
-~scroll of enchant armor
-~scroll of destroy armor
-*armor
-suit or piece of armor
-~*dragon*scale*
-~scroll of mail
-*mail
-~armor r*
-~armor f*
-	"The last spot on the school jousting team came down to another
-	boy and me.  He was poor, and his only armor was a blanket his
-	mother had made him from her hair.  I, on the other hand, had
-	a brand new suit of chain mail.  Just before our joust, I asked
-	him what he'd do if he made the team.  (I was hoping to be more
-	popular with the ladies.)  He said he would be able to save the
-	town from dragons and be able to afford some water for his 20
-	brothers and sisters.
-
-	Well, a sense of compassion came over me.  I insisted we swap
-	armor.  He was forced to accept, as it would have been an
-	insult not to do so.
-
-	On the battlefield, we charged at each other and we both connected
-	with our lances.
-
-	Lying there on the mud mortally wounded, I learned what true armor
-	class was that day."
-		[ When Help Collides, by J. D. Berry ]
 aerdrie faenya
 	Aerdrie  Faenya is the elven goddess of air and weather. As a rain-
 	bringer, she is revered as a source of fertility.  She is, however,
@@ -82,8 +48,22 @@ aerdrie faenya
 	aarakocra, ki-rin, and lammasu.
 					 [ Monster Mythology, by TSR inc. ]
 ac
-armor*
-armour*
+~scroll of enchant armor
+~scroll of destroy armor
+~scroll of mail
+~spellbook of repair armor
+suit or piece of armor
+~*dragon*scale*
+~forging armor
+~forge armor
+~craft armor
+~crafting armor
+~armor craft*
+~armor forg*
+~armor recipe*
+*armor
+armour
+*mail
 	"The last spot on the school jousting team came down to another 
 	boy and me. He was poor, and his only armor was a blanket his 
 	mother had made him from her hair. I, on the other hand, had 
@@ -753,6 +733,7 @@ bag of tricks
     
 ~oilskin sack
 sack
+ditty bag
     The sack is the most basic form of container in NetHack. A sack 
     stores items beyond the 52-character limit, and protects its 
     contents from fire, cold, and many other forms of damage; it is 
@@ -1143,6 +1124,7 @@ rancid jelly
 	inexpressibly dear and forlorn for a bit of blue jelly, would
 	force open the outer door until I returned and rejoined it.
 		[ Beholder's Eye, by Julie E. Czerneda ]
+~spellbook of spirit bomb
 *bomb
     Bombs are a new type of weapon in HackEM. There are three specific 
     types, the fire bomb, the gas bomb, and the sonic bomb. All are 
@@ -1622,6 +1604,7 @@ cheese
 	weight ratio (250/2 = 125).
 chest
 large box
+foot locker
 	Dantes rapidly cleared away the earth around the chest.  Soon
 	the center lock appeared, then the handles at each end, all
 	delicately wrought in the manner of that period when art made
@@ -2685,16 +2668,17 @@ dunce*
 	children's cartoons.
 		[ Wikipedia, the free encyclopedia ]
 forge
+craft
 cookbook
 fusions
-    Getting Started
+    The #craft command: Getting Started
     
     1) Find a forge.
     2) Find a hammer, any will do.
     3) Find two gemstone or metallic objects from the recipe
        chapters.
     4) Put both of those objects into the forge whilst
-       wielding your hammer (#forge).
+       wielding your hammer (#craft).
     5) Start forging.  If successful, you'll forge a brand
        new object.
     
@@ -2709,7 +2693,10 @@ fusions
 forging w*
 weapon r*
 weapon f*
-    Forging Weapons      (See "forge" for instructions)
+weapon c*
+forge weap*
+craft weap*
+    Forging Weapons      (See "craft" for instructions)
     
     dagger                  = knife + 2 arrows
     elven dagger            = knife + 2 elven arrows
@@ -2794,10 +2781,14 @@ weapon f*
     shotgun                 = pistol + broadsword
     auto shotgun            = shotgun + iron chain
 # forging armor, armor recipes, armor fusions
-forging a*
-armor r*
-armor f*
-    Forging Weapons      (See "forge" for instructions)
+forging armor
+forge armor
+crafting armor
+craft armor
+armor craft*
+armor forg*
+armor recipe*
+    Forging Weapons      (See "craft" for instructions)
     
     plate mail              = splint mail + chain mail
     crystal plate mail      = plate mail + 3 dilithium crystals
@@ -3025,6 +3016,7 @@ elementalism
  	risky art of summoning and binding such dangerous entities.
 ~human or other humanoid*
 ~elf ??m*
+~spellbook of haste self
 *elf*
 elven*
 	The Elves sat round the fire upon the grass or upon the sawn
@@ -3396,7 +3388,6 @@ fishing pole
 	interesting but brief demonstration of a spiral in action.
 		[ Men at Arms, by Terry Pratchett ]
 flesh golem
-*frankenstein
 	With an anxiety that almost amounted to agony, I collected
 	the instruments of life around me, that I might infuse a spark
 	of being into the lifeless thing that lay at my feet.  It was
@@ -3418,6 +3409,7 @@ flesh golem
 	which they were set, his shrivelled complexion and straight
 	black lips.
 		[ Frankenstein, by Mary Wollstonecraft Shelley ]
+~flintlock
 flint*
 	An emerald is as green as grass;
 	A ruby red as blood;
@@ -3429,6 +3421,22 @@ flint*
 	An opal holds a fiery spark;
 	But a flint holds fire.
 		[ Precious Stones, by Christina Giorgina Rossetti ]
+flintlock
+	Flintlock is a general term for any firearm that uses a flint-
+	striking ignition mechanism, the first of which appeared in 
+	Western Europe in the early 16th century. The term may also apply 
+	to a particular form of the mechanism itself, also known as the 
+	true flintlock, that was introduced in the early 17th century, and
+	gradually replaced earlier firearm-ignition technologies, such as 
+	the matchlock, the wheellock, and the earlier flintlock mechanisms
+	such as snaplock and snaphaunce.
+
+	The true flintlock continued to be in common use for over two 
+	centuries, replaced by percussion cap and, later, the cartridge-
+	based systems in the early-to-mid 19th century. Although long 
+	superseded by modern firearms, flintlock weapons enjoy continuing 
+	popularity with black-powder shooting enthusiasts.
+	    [ Wikipedia, the free encyclopedia ]
 floating eye
 	Floating eyes, not surprisingly, are large, floating eyeballs
 	which drift about the dungeon.  Though not dangerous in and
@@ -3497,6 +3505,7 @@ fog* cloud
 	     [ Fog, by Carl Sandburg ]
 # includes "food detection" and "detect food", which might not be the best
 ~scroll of food detection
+~spellbook of detect food
 *food*
 	The little girl stood on tip-toe and picked one of the nicest
 	and biggest lunch-boxes, and then she sat down upon the ground
@@ -6145,6 +6154,15 @@ ma*annan*
 	magic armour which no sword could pierce.  He later became
 	god of the sea, beneath which he lived in Tir na nOc, the
 	underworld.
+mana cloak
+    It provides MC3 and one point of AC when worn, in addition 
+    to its main power of providing energy regeneration.
+    
+    Mana cloaks are one of the best options for spellcasters in the
+    cloak slot. Energy regeneration is a coveted property that is 
+    extremely rare, and a mana cloak is the only source of it on a 
+    non-artifact. It is a further consideration for doppelgangers, 
+    who use energy to #youpoly.
 manes
     The gnats of the dungeon, these swarming monsters are rarely
 	seen alone.
@@ -6290,6 +6308,31 @@ huge chunk of meat
 	But we hae meat, and we can eat,
 	Sae let the Lord be thankit.
 		[ Grace Before Meat, by Robert Burns ]
+medical kit
+	A medical kit is a tool in SLASH'EM.It appears as a leather bag 
+	when unidentified, but cannot hold anything except pills, bandages, 
+	and phials. To view the contents of a medical kit, drop it and 
+	#loot it. There is no way to refill an empty medical kit.
+
+	Only Healers can use the bandages (to bandage their wounds as part
+	of their surgery technique). Only vampiric players can use the 
+	phials (to draw off a phial of their own blood for later 
+	consumption).
+
+	Anyone can apply a medical kit to swallow a pill from it, but only
+	Healers can reliably do this successfully, and then only if the 
+	kit is not cursed. If the pill works, it will cure your first 
+	trouble from the following list: sickness, blindness not caused by
+	something on your face, hallucination, vomiting, confusion, 
+	stunning, and loss of hit points (it will heal you by 10–19 HP but
+	won't increase your maximum). If the pill fails, it may have no 
+	effect, cause HP loss, or make you deathly sick.
+	
+	Success probability
+	Status     Healer  Monk/Priest/Samurai/Undead Slayer  Other role
+	Blessed    1       5/6                                3/4
+	Uncursed   1       1/2                                1/4
+	Cursed     1/3     1/6                                1/12
 medusa
 perseus
 shield of reflection
@@ -7226,7 +7269,7 @@ spiked pit
 	oh! any horror but this!
 		[ The Pit and the Pendulum, by Edgar Allan Poe ]
 planar pirate
-pirate
+~pirate
 	Yo ho, yo ho, a pirate's life for me.
 	We pillage plunder, we rifle and loot.
 	Drink up me 'earties, yo ho.
@@ -7547,6 +7590,7 @@ potion of blood
     - Potions of blood can be made via alchemy by dipping blood
       into potions of fruit juice.
 potion of sake
+potion of rum
 potion of booze
     When quaffed, this potion provides nutrition, abuses wisdom, 
     and may confuse you.
@@ -8966,6 +9010,7 @@ scalpel
 	missile attacks.  When invoked, it causes conflict in the
 	area around it.
 *scimitar
+cutlass
 	Oh, how handsome, how noble was the Vizier Ali Tebelin,
 	my father, as he stood there in the midst of the shot, his
 	scimitar in his hand, his face black with powder!  How his
@@ -8995,7 +9040,15 @@ scroll of air
 
 	Confused effects:
 	- creates an air elemental if cursed, or a whirling sphere.
-
+scroll of acquirement
+    When read, the player may acquire an item, which is like wishing
+    except the player can only specify the item class (weapon, armor,
+    scroll etc.) to get.
+    
+    - If cursed, this scroll has no effect.
+    - If blessed, the player gets to choose an item type.
+    - If uncursed, the player must pass a (Luck + rn2(5) < 0) check to 
+    get the acquirement.
 scroll of amnesia
     When read, this scroll causes you to forget things(*) and abuses
     your wisdom.
@@ -9978,23 +10031,775 @@ javelin
 	fireman brake his neck!'  Why, that ain't a picture!
 		[ A Connecticut Yankee in King Arthur's Court,
 		    by Mark Twain ]
-*spellbook*
-	The Book of Three lay closed on the table.  Taran had never
-	been allowed to read the volume for himself; now he was sure
-	it held more than Dallben chose to tell him.  In the sun-
-	filled room, with Dallben still meditating and showing no
-	sign of stopping, Taran rose and moved through the shimmering
-	beams.  From the forest came the monotonous tick of a beetle.
-	His hands reached for the cover.  Taran gasped in pain and
-	snatched them away.  They smarted as if each of his fingers
-	had been stung by hornets.  He jumped back, stumbled against
-	the bench, and dropped to the floor, where he put his fingers
-	woefully into his mouth.
-	Dallben's eyes blinked open.  He peered at Taran and yawned
-	slowly.  "You had better see Coll about a lotion for those
-	hands," he advised.  "Otherwise, I shouldn't be surprised if
-	they blistered."
-		[ The Book of Three, by Lloyd Alexander ]
+spellbook of dig
+	Allows you to learn the spell of dig. 
+	
+	When cast, it has a similar effect to zapping a wand of digging - 
+	it fires a ray in a selected direction that digs through walls and 
+	can create holes in the floor.
+spellbook of magic missile
+	Allows you to learn the spell of magic missile.
+	
+	The magic missile ray does ((xplev/2) + 1)d6 damage + spell damage 
+	bonus, so higher-level spellcasters can deal significant damage 
+	with this spell. A level 30 character deals 16d6 damage with magic 
+	missile, averaging 56 damage per hit.
+	
+	This spell's damage is doubled for Knights by carrying the Magic 
+	Mirror of Merlin, any character with DeathVision, or a character 
+	wielding the Staff of Rot while withering.
+spellbook of fireball
+	Allows you to learn the spell of fireball. This spellbook is 
+	fireproof, preventing it from being destroyed by other sources 
+	of fire damage.
+
+	The spell of fireball is a medium-level attack spell that has
+	different effects depending on the character's skill level in 
+	matter spells; both versions will produce an explosion of fire. 
+	Monsters caught in the explosion are hit for 12d6; monsters with 
+	cold resistance take double damage, while targets with monster MR 
+	may resist for half the damage. If you are caught in an explosion, 
+	you take 6d6 damage unless you have fire resistance; this will 
+	cure sliming.
+
+	Ice in the affected squares melt into pools of water, while pools 
+	and fountains evaporate and dry up; pools will leave pits behind, 
+	while moats will not be affected. Closed doors will be destroyed, 
+	but other objects such as boulders are unaffected. Scrolls, books 
+	and potions in the explosion's area may be destroyed, while cloth 
+	and leather items may be burnt. This includes items in affected 
+	monsters' inventories. Exploding potions will subject nearby 
+	monsters to their vapors.
+
+	Casting the spell at Basic skill or lower creates a ray of fire; 
+	You are prompted for a direction in which to cast the spell. When 
+	the ray hits an obstacle or monster, it explodes, affecting the 
+	hit square and all 8 adjacent squares.
+
+	When casting the spell at Skilled or higher, you may choose a 
+	location to target the spell with. The following must apply for a 
+	tile to be eligible:
+
+	- The location is no more than 10 squares away.
+	- The square must be an open space.
+	- You must be able to see the chosen square normally (i.e. it must
+	  be lit and in line of sight).
+	
+	If you are engulfed, the explosions will be centered around 
+	yourself, and nothing will be affected outside the engulfing 
+	monster. If you are on the Plane of Water, you are prevented from 
+	casting the spell outright.
+
+	Two to nine explosions will follow. If there is a wall on the 
+	straight line between you and your target, the spell will explode 
+	around the square immediately before the first wall; otherwise, 
+	the explosions will be centered around the location you chose. The 
+	first explosion is centered on the selected location, and the 
+	subsequent ones will occur randomly on that square or any of the 
+	eight squares around it; the explosions themselves each affect a 
+	3x3 square area around their center.
+spellbook of cone of cold
+	Allows you to learn the spell of cone of cold.
+	
+	At Unskilled or Basic skill level, the spell zaps a ray with the 
+	same effect as a wand of cold. You are prompted for a direction in
+	which to cast the spell; you can also zap it at yourself, although 
+	this is not recommended.
+	
+	Monsters caught in the cold ray take (XL/2 + 1)d6 damage, plus 
+	damage bonus. Fire resistant monsters take an additional 
+	(XL/2 + 1)d3 damage. Cold resistant monsters take no damage. The 
+	ray will also reveal unseen monsters, as well as destroy doors and 
+	freeze watery tiles (puddles, sewage, pools). Any potions on the 
+	monsters (or your) inventory are subject to shattering.
+	
+	If zapped at yourself, you take 12-72 damage depending on how 
+	resistant to cold you are.
+	
+	At Skilled or Expert level, you may choose a location at which to 
+	cast explosions of cold, with the following restrictions:
+
+	- this location must be no more than 10 squares away;
+	- it must be an open space;
+	- you must either see the chosen square normally (it must be lit 
+	  and in the line of sight) or sense a monster on it via telepathy,
+	  infravision, a blessed potion of monster detection, or its spell
+	  equivalent (warning will not suffice).
+	  
+	The last two conditions do not need to be met if you are engulfed.
+	In this case, the explosions will be centered around yourself, and 
+	nothing will be affected outside the engulfing entity.
+
+	If there is a wall on the straight line between you and your 
+	target, the spell will explode around the square immediately 
+	before the first wall. Otherwise, the explosions will be 
+	centered around the location you chose. 2 to 9 explosions follow;
+	the first is in the center, the subsequent ones randomly at any of
+	the nine squares around that point. Each explosion affects the 
+	surrounding squares.
+
+	The damage to non-cold-resistant monsters is just XL/2 + 1 plus 
+	spell damage bonus, halved if they resist, doubled if they are 
+	resistant to fire, and doubled again is they're grabbing you and 
+	you're within blast radius. Monsters are dealt additional damage 
+	equal to the number of potion stacks in their inventory, even if 
+	they're cold resistant and potions didn't freeze.
+
+	Any explosions that would be centered on yourself do not take 
+	place, but instead do damage as 'zap self' above.
+
+	Explosions produce noise.
+spellbook of sleep
+	Allows you to learn the spell of sleep.
+	
+	Casting it has the same effect as zapping a wand of sleep: 
+	monsters will be put to sleep for (level/2 + 1)d25 turns, where 
+	level is your experience level.
+
+	Monsters can resist this spell with monster magic resistance, and 
+	it has no effect on already-sleeping or paralyzed monsters. 
+	Attacking monsters in melee has a 10% chance of waking them up. 
+	Bolts of sleep bounce from walls and unidentified secret doors, 
+	but are absorbed by known doors.
+spellbook of finger of death
+	Allows you to learn the spell of finger of death.
+	
+	The spellbook is most commonly received through wizard crowning: 
+	it is given on crowning if the wizard does not already have one 
+	and is not wielding Vorpal Blade or Stormbringer. The spellbook 
+	received this way is always blessed.
+	
+	Finger of death is the most powerful attack spell. The ray 
+	produced by this spell has the same effect as a wand of death: it 
+	instantly kills any monster it hits, unless the monster is resists
+	death magic (see below), or has magic resistance or reflection. 
+	Your skill in attack spells has no significant effect on finger of 
+	death, other than increasing the spellcasting success rate and to-
+	hit probability.
+
+	Zapping yourself directly with the spell is an instadeath, 
+	regardless of reflection or magic resistance, and is a very bad 
+	idea.
+
+	Monsters that resist death magic:
+	- Death
+	- major demon
+	- angels, devas
+	- nonliving
+	- quest leaders
+	- juggernauts
+	- shadow ogres, shadow wolves
+	- statue gargoyles
+	- moldy puddings
+	- black marketeers
+	- Cerberus
+	- Nebuchadnezzar
+	- Ragnaros
+spellbook of lightning
+	Allows you to learn the spell of lightning.
+	
+	Largely identical to the wand of lightning except dealing 
+	(xplev/2 + 1)d6 damage to non-shock-resistant targets instead of 
+	the 6d6 of the wand.
+
+	It can be reflected, but magic resistance doesn't stop it.
+spellbook of poison blast
+	Allows you to learn the spell of poison blast.
+	
+	At unskilled or basic skill, poison blast generates a ray akin to 
+	the poison blast of a green dragon or iron golem; it deals 
+	(xplev/2 + 1)d6 damage to non-poison resistant targets. If the 
+	blast hits the player, it has a 1 in 15 chance of being deadly 
+	poison (instadeath) and a 1 in 3 chance of dealing dexterity damage.
+	
+	At skilled and expert level, the spell may be targeted at a 
+	location no more than 10 squares away that is in sight and an open 
+	space. The explosion cannot be cast underwater or on the Plane of 
+	Water; if used while swallowed, it is automatically cast on your 
+	own location.
+
+	Two to nine explosions are generated; the first is centered at the 
+	target location, and subsequent explosions are randomly placed on 
+	any of the nine squares around that point (unless swallowed). Each
+	explosion affects the surrounding squares as the unskilled/basic 
+	spell, with the exception that the player suffers only the damage 
+	and not the additional poisoning effects.
+spellbook of acid blast
+	Allows you to learn the spell of acid blast.
+	
+	At unskilled or basic skill, poison blast generates a ray akin to 
+	the acid blast of a yellow dragon; it deals (xplev/2 + 1)d6 damage 
+	to non-acid resistant targets and corrodes weapon and armor on an 
+	independent 1-in-6 chance for each.
+
+	At skilled and expert level, the spell may be targeted at a 
+	location no more than 10 squares away that is in sight and an open
+	space. The explosion cannot be cast underwater or on the Plane of 
+	Water; if used while swallowed, it is automatically cast on your 
+	own location.
+
+	Two to nine explosions are generated; the first is centered at the
+	target location, and subsequent explosions are randomly placed on
+	any of the nine squares around that point (unless swallowed). Each
+	explosion deals damage as the unskilled/basic spell; only the 
+	damage is dealt, and weapons and armor are not eroded.
+spellbook of sonicboom
+	Allows you to learn the spell of sonicboom.
+	
+	Similar to a cone of cold, but inflicts sonic damage.
+spellbook of psionic wave
+	Illithids have a natural psionic attack that can confuse and kill, 
+	and is tied to spell power use (but is not considered a spell for 
+	the purposes of Amulet of Yendor interactions). If your race is 
+	changed (e.g. by getting crowned as an infidel), this ability is 
+	lost.
+	The psionic wave does 2d6 psychic damage. At Level 26, this 
+	increases to 4d6 psychic damage.
+spellbook of force bolt
+	Allows you to learn the spell of force bolt.
+	
+	Casting the spell allows you to shoot a force bolt in any 
+	direction, the same as a wand of striking. If the bolt hits a 
+	monster, it does 2d12 damage; monsters may resist for half damage. 
+	Monsters with player-style magic resistance take no damage.
+
+	The force bolt will break any boulder, statue, door or drawbridge 
+	that it hits. It will also break fragile items such as potions. 
+	Iron bars that are hit also have a chance of breaking (not on 
+	certain levels however). Note that if a monster is killed by a 
+	force bolt beam, the monster's inventory will be subjected to the 
+	beam.
+
+	It has a fixed chance of hitting, not affected by the player's 
+	dexterity or spell skills; if the roll of a d20 is lower than 
+	(10 + monster's AC), the spell hits.
+
+	Force bolt can pass the first monster it hits, also hitting monsters behind it.
+spellbook of drain life
+	Allows you to learn the spell of drain life.
+	
+	Casting it at a monster drains one level from it, does 1d8 × 2 
+	damage, and decreases the monster's maximum HP by 1d8 (with spell 
+	bonuses applicable to both). The base damage and HP reduction is 
+	doubled if you are a Knight carrying the Magic Mirror of Merlin,
+	have DeathVision, or are withering while wielding the Staff of Rot.
+	The monster's location will be revealed, if it is unseen. If the 
+	monster resists the spell through monster magic resistance, it will 
+	not be level drained, will suffer only 25% damage to its current HP, 
+	and will suffer no damage to its max HP. Monsters with drain 
+	resistance are not affected at all.
+
+	If the spell is cast at an object, the object will resist 90% of 
+	the time if it is an artifact, or 10% of the time otherwise. If 
+	the object does not resist, its charge or enchantment is reduced 
+	by 1. An object cannot have its charge or enchantment reduced 
+	below zero, and any objects with negative enchantments are 
+	unaffected.
+
+	Casting the spell at yourself drains one experience level with the 
+	usual message, as if you were hit with a monster's drain life 
+	attack, unless you are drain resistant. Losing a level reduces 
+	your maximum hit points and your hit points by the same amount, 
+	down to a minimum of one. If you are drained below experience 
+	level 1, you die.
+spellbook of summon undead
+	Allows you to learn the spell of summon undead.
+	
+	On casting, there is a 72 in 73 chance of creating one undead 
+	monster and a 1 in 73 chance of creating five undead. The undead 
+	monsters will be V (1/10 chance), Z (4/10 chance), M (3/10 chance),
+	(1/10 chance), or W (1/10 chance).
+
+	If the player is a Necromancer they will automatically attempt to
+	dominate the resulting monster(s). If the player is not a 
+	necromancer but knows the command undead spell they will auto-cast 
+	command undead. In either case the monster(s) may resist, based on
+	their MR. The differences between the two cases is that non-
+	Necromancers must expend additional power to cast the second spell,
+	and Necromancers will dominate the resulting monsters, even if 
+	they are not undead - this is especially relevant for fire vampires
+	and star vampires, which are V but not undead.
+
+	The Necromancer automatically learns this spell at XL 9.
+spellbook of command undead
+	Allows you to learn the spell of command undead.
+	
+	This spell is equivalent to charm monster, except that it only 
+	affects undead.
+	
+	The Necromancer automatically learns this spell at XL 7.
+spellbook of knock
+	Allows you to learn the spell of knock.
+	
+	The effect is the exact same as a wand of opening, and will unlock
+	doors and containers, as well as revealing hidden doors.
+	
+	However, it has many other uses besides the obvious: as a matter 
+	spell, it can be used to train for casting more powerful spells in
+	the school, notably polymorph. It can also expose secret doors 
+	whose locations are known to the player but not the character 
+	(especially on special levels), and can open the Castle drawbridge
+	without needing an instrument to play the passtune.
+	 
+	Casting knock also unlocks doors at a distance and does so slightly
+	faster than a key would manage; because of this, it might be useful
+	on the Astral Plane, though a wand of digging is better because it
+	will raze the doors. The spell also causes engulfing monsters to 
+	expel you, making it useful on the Plane of Air. It can also free 
+	you from most kinds of "holding traps", including bear traps, 
+	webs, pits, buried iron ball, or being stuck in the floor.
+	Technically it can also free you from being stuck in lava, but 
+	usually you will immediately start sinking again (unless you're 
+	e.g. levitating).
+	
+	Lastly, knock will also open iron safes and crystal chests.
+spellbook of wizard lock
+	Allows you to learn the spell of wizard lock.
+	
+	When cast, the effect is the same as that of a wand of locking, 
+	closing and locking any open doors and lockable containers in the
+	direction it was cast; if cast at an empty doorway, it will 
+	create a locked door. 
+spellbook of polymorph
+	Allows you to learn the spell of polymorph.
+	
+	Casting a beam that changes any monster, item, or player it hits 
+	into something else of its type.
+spellbook of repair armor
+	Allows you to learn the spell of repair armor.
+	
+	When cast, repairs one level of damage to any worn piece of armor.
+	Will not make armor items fixed, but will bring them back to a new
+	undamaged state. This spell is significant, as the monster spell 
+	'destroy armor' can un-fix and damage your armor to the point that
+	it's destroyed completely, even armor that is inherently 
+	erodeproof. The spell will choose a worn piece of armor at random
+	to fix if unskilled in casting matter-based spells, otherwise at
+	basic or higher skill, the player can select which piece of armor
+	to repair.
+spellbook of reflection
+	Allows you to learn the spell of reflection.
+	
+	Creates a temporary reflective bubble around the caster, acts 
+	exactly the same as an amulet of reflection or silver dragon 
+	scales.
+spellbook of flame sphere
+	Allows you to learn the spell of flame sphere.
+	
+	Creates a tame flaming sphere that will explode itself on any 
+	nearby enemies. Will dissipate if not used in a timely manner.
+spellbook of freeze sphere
+	Allows you to learn the spell of freeze sphere.
+	
+	Creates a tame freezing sphere that will explode itself on any 
+	nearby enemies. Will dissipate if not used in a timely manner.
+spellbook of cancellation
+	Allows you to learn the spell of cancellation.
+
+	When cast, it fires a beam which works exactly like the wand of 
+	cancellation: items will be uncursed and unenchanted, scrolls and 
+	most spellbooks will be blanked, most wands and magical tools lose
+	their charges, and most potions will be turned into water. 
+	Monsters hit by the spell must each pass a monster MR check; if 
+	they fail, they can lose a lot or all of their special attacks.
+
+	The spellbook of cancellation is the only book that cannot be 
+	cancelled into a spellbook of blank paper by the spell or wand of 
+	cancellation, and the spell also cannot cancel the wand of 
+	cancellation or the wand of nothing.
+spellbook of fire bolt
+	Allows you to learn the spell of fire bolt.
+	
+	Fire Bolt only appears in the Flame Mage's starting inventory and 
+	is not randomly generated. The spellbook itself is immune to fire.
+	
+	When cast, this shoots a fire attack (similar to force bolt) that 
+	doesn't reflect and can hit multiple targets. It destroys doors, 
+	trees, grass, webs, fountains and can instakill straw and paper 
+	golems.
+	
+	Damage scales with level:
+	- Level 1 = 1d10 fire damage
+	- Level 4 = 1d10 + 1d8 fire damage
+	- Level 8 = 1d10 + 2d8 fire damage
+	- Level 12 = 1d10 + 3d8 fire damage
+	- Matter at Skilled adds +1d4 fire damage
+	- Matter at Expert adds +1d4 fire damage
+spellbook of slow monster
+	Allows you to learn the spell of slow monster.
+	
+	When cast, the spell acts similarly to a wand of slow monster: if
+	you cast it at a monster and they do not resist, it renders them 
+	slow (i.e. 2/3 of their normal speed). If the target(s) were 
+	already fast, they are returned to normal speed. If cast at a 
+	monster while it has you engulfed, you are immediately expelled. 
+	
+	If zapped at yourself, you gain intrinsic slowness for 13-23 
+	turns.
+spellbook of cause fear
+	Allows you to learn the spell of cause fear.
+
+	Casting this spell has the same effect as reading a scroll of 
+	scare monster: it will scare monsters, causing them to to run away. 
+	The downside of this method (versus those caused by more mundane 
+	or divine sources) is that it is subject to the target's monster 
+	magic resistance and immunities; once scared, a monster with full
+	HP has a 4% chance of recovering each turn. It has no effect on 
+	pets.
+spellbook of charm monster
+	Allows you to learn the spell of charm monster.
+	
+	This spell has the basic effect of an uncursed scroll of taming, 
+	turning adjacent monsters into pets. Monsters have a chance of 
+	resisting it, depending on their magic resistance. Covetous or 
+	human monsters will be pacified instead, as are demons unless you
+	are a demon yourself; the Wizard of Yendor, Medusa and the quest 
+	nemesis cannot be pacified or tamed. The taming effect will also 
+	pacify any angry shopkeepers it affects, even if they would 
+	normally resist.
+	
+	Note: The SLASH'EM mechanics of traitorous and untameable monsters 
+	have been added. This means that many monsters that a player would
+	typically tame with charm monster will now be able to turn hostile
+	on a whim (or not be tamable at all).
+spellbook of confuse monster
+	Allows you to learn the spell of confuse monster.
+	
+	Casting this spell has exactly the same effect as a scroll of 
+	confuse monster; your hands will "glow red", confusing the next 
+	monster you attack in melee, subject to monster magic resistance. 
+	
+	If cast at a skilled level of enchantment skill, it works like a 
+	blessed scroll of confuse monster instead, giving 2-9 more uses of
+	this ability. You can store up to 40 uses.
+
+	If you are polymorphed into a form not represented by @, the spell
+	has a different effect: you confuse yourself (for 1-100 turns). 
+	The confused scroll effects are not available via the spell, 
+	because confusion prevents spellcasting for players.
+spellbook of haste self
+	Allows you to learn the spell of haste self.
+	
+	When cast, the spell gives you very fast speed temporarily, and 
+	can be cast cumulatively to increase the number of turns the 
+	effect lasts for. At Unskilled or Basic, the haste effect lasts 
+	for 100-109 (more) turns - at Skilled or Expert, it lasts for 160-
+	169 (more) turns.
+
+	Unlike a potion of speed, it will not heal wounded legs, but still
+	exercises dexterity when cast and will cure you of intrinsic 
+	slowness.
+spellbook of levitation
+	Allows you to learn the spell of levitation.
+	
+	Casting the spell of levitation at Basic skill or lower in escape
+	spells has the same effect as an uncursed potion of levitation - 
+	it grants you levitation for 10 to 149 (more) turns. Casting it at
+	Skilled or higher has the same effect as a blessed potion, giving
+	you 250 to 299 (more) turns of levitation as well as the ability 
+	to land at will using the > command.
+
+	Note that you must be at the appropriate skill-level at the time 
+	of casting; if you cast it while Basic and then train to Skilled, 
+	you will not be able to land at will unless you cast it again.
+spellbook of teleport away
+	Allows you to learn the spell of teleport away.
+	
+	The spell is a beam-type spell that can be aimed at monsters or at
+	yourself.
+	
+	Casting this spell at yourself has the same effect as the teleport
+	at will action or zapping yourself with a wand of teleportation - 
+	unless you are on a no-teleport level, you teleport to a random 
+	square on the current level that you can stand on (e.g. in your 
+	default form, you won't end up over water, inside a wall or 
+	monster, on a trap, etc.). The teleportation is not inherently 
+	controlled, but if you have teleport control, you can use that to 
+	control your destination.
+
+	The spell can be used on monsters, with similar effects to a wand 
+	of teleportation; the monster will teleport to a random square on 
+	the current level on which it can survive. 
+spellbook of passwall
+	Allows you to learn the spell of passwall.
+	
+	Casting the spell grants temporary intrinsic phasing, allowing you
+	to pass through solid walls and other objects for anywhere between
+	50 and 149 turns before they become solid again; if you are in a 
+	solid object when the phasing wears off, you will be stuck there 
+	unless you can dig yourself out, pray, or cast the spell again.
+spellbook of invisibility
+	Allows you to learn the spell of invisibility.
+	
+	Casting this spell at any skill level causes you to turn invisible
+	for 31 to 45 (more) turns.
+spellbook of jumping
+	Allows you to learn the spell of jumping.
+	
+	Casting allows you to jump to other tiles within a certain range, 
+	allowing you to pass over unavoidable traps and escape too-tough 
+	monsters. You must be able to see the landing spot, meaning that 
+	you cannot jump while blind, and you cannot jump over monsters; 
+	you will bump into them instead, angering them if they were 
+	peaceful. See the main article and its path section for more 
+	detailed information on jumping and whether a given jump will 
+	bring you in contact with a monster. Casting jump consumes d25 
+	nutrition, in addition to the ordinary hunger penalty.
+
+	Unskilled    Basic
+	...........  ...........
+	...........  ...........
+	.....x.....  ....xxx....
+	...xxxxx...  ...xxxxx...
+	...xxxxx...  ..xxxxxxx..
+	..xxx@xxx..  ..xxx@xxx..
+	...xxxxx...  ..xxxxxxx..
+	...xxxxx...  ...xxxxx...
+	.....x.....  ....xxx....
+	...........  ...........
+	...........  ...........
+
+	Skilled      Expert
+	...........  ...........
+	...........  ....xxx....
+	...xxxxx...  ..xxxxxxx..
+	..xxxxxxx..  ..xxxxxxx..
+	..xxxxxxx..  .xxxxxxxxx.
+	..xxx@xxx..  .xxxx@xxxx.
+	..xxxxxxx..  .xxxxxxxxx.
+	..xxxxxxx..  ..xxxxxxx..
+	...xxxxx...  ..xxxxxxx..
+	...........  ....xxx....
+	...........  ...........
+	
+spellbook of light
+	Allows you to learn the spell of light.
+	
+	Casting the spell of light has the same effect as an uncursed 
+	scroll of light: a circular area with 5 squares radius around your
+	position (while casting) is permanently made lit.
+spellbook of detect monsters
+	Allows you to learn the spell of detect monsters.
+	
+	At unskilled or basic skill level, the spell functions as an 
+	uncursed potion of monster detection, displaying the monsters of 
+	that dungeon level against a black background with no map detail, 
+	and allowing you to select monsters with the cursor to identify 
+	them; once you end the effect, the monsters revealed by the spell 
+	vanish from view. At skilled or expert level it functions as a 
+	blessed potion, revealing monsters on the map for 21-60 (more) 
+	turns; if you already have over 300 turns of monster detection, 
+	only one turn is added.
+spellbook of detect food
+	Allows you to learn the spell of detect food.
+	
+	Casting this spell has the same effect as the scroll of food 
+	detection, revealing the location of all comestibles on the level,
+	on the ground and even in monster inventories. If cast at Skilled
+	or Expert, you will also acquire the food appraisal intrinsic. 
+	This spell is the only one in HackEM that does not cause spell 
+	hunger at all, which is especially important given its function.
+spellbook of detect unseen
+	Allows you to learn the spell of detect unseen.
+	
+	Has the same effect as a wand of secret door detection.	It reveals 
+	secret doors and corridors, non-statue traps, portals, mimics, 
+	hidden, submerged and invisible monsters in an area of radius 8 
+	within line-of-sight. On the Plane of Air only, it also 
+	penetrates clouds.
+spellbook of detect treasure
+	Allows you to learn the spell of detect treasure.
+	
+	This spell has the same effect as a potion of object detection.
+	 
+	Unskilled or Basic: Same effect as quaffing an uncursed potion of 
+	object detection.
+	
+	Skilled or Expert: Same effect as quaffing a blessed potion of 
+	object detection.
+spellbook of clairvoyance
+	Allows you to learn the spell of clairvoyance.
+	
+	When cast, the spell magically maps a 19x11 area centered on your 
+	location. It also detects objects and presence of monsters in the
+	mapped area. At Unskilled or Basic, monsters are marked with an I 
+	glyph, and objects are described in general ("a scroll", "a wand",
+	etc.). At Skilled or above, monsters and objects will be shown as 
+	if you have seen them. If you have another source of clairvoyance,
+	the spell will always be cast as Skilled.
+
+	The spell is blocked if you are wearing a cornuthaum and are not a
+	Wizard. Unlike the clairvoyance provided by aligned priests and 
+	some items in HackEM, the clairvoyance spell only maps once per 
+	cast, and does not persist as a recurring effect.
+spellbook of enlighten
+	Allows you to learn the spell of enlighten.
+	
+	It is equivalent to the wand of enlightenment, which lets you see 
+	your properties and exercise wisdom.
+spellbook of identify
+	Allows you to learn the spell of identify.
+	
+	Casting this spell at Basic or lower skill level is equivalent to 
+	an uncursed scroll of identify, identifying 1 item 84% of the time
+	and identifying 2, 3, 4, or all items 4% of the time each. At 
+	Skilled or higher level, it works the same as a blessed scroll and
+	identifies 1d4 items 80% of the time, and will identify your 
+	entire inventory 20% of the time. With positive Luck, a Skilled or
+	higher casting will always identify at least 2 items.
+spellbook of magic mapping
+	Allows you to learn the spell of magic mapping.
+	
+	The spell reveals the entire map (although it does not fully 
+	reveal the contents of rooms), the same as an uncursed scroll of 
+	magic mapping; all of the level's walls and corridors, as well as
+	all staircases on the level are shown. Secret passages are 
+	revealed, but secret doors are not.
+
+	The spell will also reveal the current location of the magic 
+	portal on the Plane of Water if the player has formally located it
+	before using confused gold detection or a crystal ball.
+spellbook of healing
+	Allows you to learn the spell of healing.
+
+	Healing is a directional spell that heals its target(s) for 6d4 HP
+	and, at Skilled or higher, cures blindness. This will awaken a 
+	sleeping monster without angering it. The effect is similar to an 
+	uncursed potion of healing, except that the spell cannot increase 
+	maximum HP.
+
+	Casting this spell at a tame or peaceful monster will yield an 
+	alignment bonus for each monster affected, even if it was already 
+	at maximum HP; Lawfuls and Healers gain one alignment point, while
+	chaotics besides Healers lose one point.
+
+	Pestilence will actually take 3d4 damage from the spell of healing,
+	with the damage halved due to his guaranteed monster magic 
+	resistance.
+	
+	Zapping zombies with this spell will instead do damage to them.
+spellbook of cure blindness
+	Allows you to learn the spell of cure blindness.
+	
+	Casting this spell simply cures intrinsic blindness.
+spellbook of extra healing
+	Allows you to learn the spell of extra healing.
+	
+	Extra healing is a directional spell that heals its target(s) for 
+	6d8 HP and cures blindness; the spell will awaken a sleeping 
+	monster without angering it. The effect is similar to an uncursed 
+	potion of extra healing, though it cannot increase maximum HP and 
+	will not cure your own hallucination or sickness if you cast it at
+	yourself.
+
+	Casting this spell at a tame or peaceful monster will yield an 
+	alignment bonus for each monster affected, even if it was already 
+	at maximum HP. Lawfuls and Healers gain one alignment point, while
+	chaotic non-healers lose one point.
+
+	Pestilence will actually take 3d8 damage from the spell, with the 
+	damage halved due to his guaranteed monster magic resistance.
+
+    Zapping zombies with this spell will instead do damage to them.
+
+	Despite code that sets a flag to allow for different effects when 
+	cast at Skilled or higher, there is no actual difference in effect:
+	the implementation of the spell effect cures blindness, regardless
+	of the flag.
+spellbook of restore ability
+	Allows you to learn the spell of restore ability.
+	
+	Casting this spell has the same effect as a potion of restore 
+	ability, except that it does not restore lost levels. At less than
+	skilled in healing spells, it restores one random lost attribute 
+	of strength, dexterity, constitution, intelligence, wisdom, or 
+	charisma to its previous maximum amount, like an uncursed potion. 
+	At skilled or expert, it restores all six attributes like a 
+	blessed potion.
+spellbook of stone to flesh
+	Allows you to learn the spell of stone to flesh.
+	
+	The spell of stone to flesh has many effects depending on what 
+	stone object(s) it is used on.
+	
+	Statues of monsters are brought to life; tame pets turned to stone
+	will be restore it to their original state. Additionally, if the 
+	monster is smaller than medium size and/or not fleshy, the statue 
+	will be turned into a single meatball instead. If the statue is of
+	a unique monster or a quest guardian, it will reanimate as a 
+	disguised doppelganger instead of the real creature, unless the 
+	statue was created by stoning that creature.
+
+	If the reanimation fails (usually because the creature is of a 
+	genocided species), the statue will be transformed into an 
+	appropriate corpse if possible, or remain unchanged if that 
+	monster cannot leave a corpse.
+
+	A statue of a stone golem that has stone to flesh cast on it will 
+	only leave behind a single meatball; an animated stone golem will 
+	instead become a flesh golem.
+
+	Casting stone to flesh on a boulder turns it into a huge chunk of 
+	meat; rocks, gray stones, and valuable non-glass gems become 
+	meatballs. A ring made of mineral or gemstone material becomes a 
+	meat ring; a marble wand becomes a meat stick.
+
+	When cast on yourself or other monsters, any ongoing stiffening 
+	process is cancelled, and any susceptible items in open inventory
+	are transformed as well.
+spellbook of cure sickness
+	Allows you to learn the spell of cure sickness.
+	
+	When cast, the spell cures all forms of sickness, including food 
+	poisoning and illness, and removes slime.
+spellbook of create monster
+	Allows you to learn the spell of create monster.
+	
+	When cast, it has a 72/73 chance of creating a single monster or 
+	horde, and a 1/73 chance of creating 2-5 miscellaneous monsters, 
+	as with an uncursed scroll of create monster. The monsters will 
+	almost always have a difficulty level at or below your current 
+	level, and a monsters normally generated in groups (such as orcs 
+	or ants) will count as a single monster for the purposes of this 
+	spell. The monsters may be peaceful with the normal probability, 
+	but will never be tame; this is not a "create pet" spell.
+spellbook of remove curse
+	Allows you to learn the spell of remove curse.
+	
+	When cast at Basic level or lower, the spell of remove curse acts 
+	identically to an uncursed scroll of remove curse. At Skilled or 
+	higher, it is identical to a blessed scroll.	
+spellbook of turn undead
+	Allows you to learn the spell of turn undead.
+	
+	The spell has the same effect as the wand of undead turning: 
+	casting it creates a beam which deals 1d8 damage to undead 
+	monsters it hits (doubled for a knight with the Magic Mirror of 
+	Merlin), and scares them into fleeing if they fail a resistance 
+	check. It also has the ability to "unturn dead", which revives 
+	corpses and rejuvenates eggs.
+spellbook of create familiar
+	Allows you to learn the spell of create familiar.
+	
+	This spell creates a monster near you. It has a 1/3 chance of 
+	creating an appropriate starting pet and a 2/3 chance of creating 
+	a random monster. The created monster will be tame, if it is 
+	tameable, and made peaceful otherwise.
+	
+	Monsters that are traitorous or untameable will never be created
+	by this spell.
+spellbook of protection
+	Allows you to learn the spell of protection
+
+	Casting this spell decreases your AC temporarily; the exact 
+	reduction depends on:
+	- your experience level, 
+	- the amount of protection already gained from this spell, 
+	- and your AC before casting the spell. 
+	
+	The protection wears off at a rate of 1 point every 10 turns, or 1
+	point every 20 turns if the spell was cast with expert proficiency.
+
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
 		[]
@@ -10042,6 +10847,7 @@ spoon
 	 impaired state
 ~*aesculapius
 *staff
+oar
 	So they stood, each in his place, neither moving a finger's
 	breadth back, for one good hour, and many blows were given
 	and received by each in that time, till here and there were
@@ -11195,7 +12001,7 @@ wakizashi
 	and especially during times of civil wars, a tanto was worn
 	in place of a wakizashi.
 		[ Wikipedia, the free encyclopedia ]
-wand of acid
+wand of corrosion
 	Shoots an acidic ray, similar to a yellow dragon's breath attack.
 	- The acid ray deals 6d6 acid damage to monsters that don't 
 	  resist acid.
@@ -11875,7 +12681,7 @@ wand of undead turning
 	  Monsters and objects in the affected squares are turned.
 	
 	Engraving: Dust
-wand of water
+wand of deluge
 	Similar to the breath of a sea dragon, this zaps a torrent of 
 	water that slams into its target, inflicting 6d8 physical damage. 
     
@@ -12092,6 +12898,7 @@ water troll
 # because their entries precede this one
 weapon
 club
+belaying pin
 flail
 ~*broadsword
 ~sunsword
@@ -13351,7 +14158,29 @@ lich lord
     the term is used in a more general sense to refer to black magic 
     or witchcraft.
     [ Wikipedia, the free encyclopedia ]
-    
+pir* ranks
+pirate
+landlubber
+swabbie
+cutthroat
+bosun
+second mate
+first mate
+captain
+pirate lord
+dread pirate
+    Pirate ranks
+	  title            level
+    Landlubber        1 to 2
+    Swabbie           3 to 5
+    Cutthroat         6 to 9
+    Bosun            10 to 13
+    Second Mate      14 to 17
+    First Mate       18 to 21
+    Captain          22 to 25
+    Pirate Lord      26 to 29
+    Dread Pirate        30
+
 und* ranks
 assistant
 eliminator
@@ -13402,6 +14231,21 @@ regent
 	Chancellor         26 to 29
 	Regent                30
 	
+	Yeoman is a noun originally referring either to one who	owns and 
+	cultivates land or to the middle ranks of servants in an English 
+	royal or noble household. The term was first documented in mid-
+	14th-century England. The 14th century also witnessed the 
+	rise of the yeoman longbow archer during the Hundred Years' War, 
+	and the yeoman outlaws celebrated in the Robin Hood ballads. 
+	Yeomen also joined the English Navy during the Hundred Years' War
+	as seamen and archers.
+    
+    In the early 15th century, yeoman was the rank of chivalry between
+    page and squire. By the late 17th century, yeoman became a rank in
+    the new Royal Navy for the common seamen who were in charge of 
+    ship's stores, such as foodstuffs, gunpowder, and sails.
+        [ Wikipedia, the free encyclopedia ]
+    
 ##
 # list the titles for all the Discworld novels (3.6 tribute);
 # the extra leading spaces are intentional--tty displays the whole list

@@ -179,8 +179,12 @@ long mask;
         EDrain_resistance |= mask;
     if (props & ITEM_SHOCK)
         EShock_resistance |= mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance |= mask;
     if (props & ITEM_VENOM)
         EPoison_resistance |= mask;
+    if (props & ITEM_ACID)
+        EAcid_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -229,8 +233,12 @@ long mask;
         EDrain_resistance &= ~mask;
     if (props & ITEM_SHOCK)
         EShock_resistance &= ~mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance &= ~mask;
     if (props & ITEM_VENOM)
         EPoison_resistance &= ~mask;
+    if (props & ITEM_ACID)
+        EAcid_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
@@ -271,6 +279,7 @@ Boots_on(VOID_ARGS)
         u.uprops[objects[uarmf->otyp].oc_oprop].extrinsic & ~WORN_BOOTS;
 
     switch (uarmf->otyp) {
+    case PLASTEEL_BOOTS:
     case LOW_BOOTS:
     case DWARVISH_BOOTS:
     case HIGH_BOOTS:
@@ -280,7 +289,7 @@ Boots_on(VOID_ARGS)
     case JUMPING_BOOTS:
         /* jumping is obvious no matter what the situation */
         makeknown(uarmf->otyp);
-        pline("Your %s feel longer.", makeplural(body_part(LEG)));
+        Your("%s feel longer.", makeplural(body_part(LEG)));
         break;
     case WATER_WALKING_BOOTS:
         if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
@@ -378,7 +387,7 @@ Boots_off(VOID_ARGS)
         break;
     case STOMPING_BOOTS:
         if (!Stealth && !Levitation && !Flying) {
-            pline("Your footsteps become considerably less violent.");
+            Your("footsteps become considerably less violent.");
             makeknown(otyp);
         }
         break;
@@ -401,13 +410,14 @@ Boots_off(VOID_ARGS)
     case JUMPING_BOOTS:
         /* jumping is obvious no matter what the situation */
         makeknown(otyp);
-        pline("Your %s feel shorter.", makeplural(body_part(LEG)));
+        Your("%s feel shorter.", makeplural(body_part(LEG)));
         break;
     case LOW_BOOTS:
     case DWARVISH_BOOTS:
     case HIGH_BOOTS:
     case KICKING_BOOTS:
     case ORCISH_BOOTS:
+    case PLASTEEL_BOOTS:
         break;
     default:
         impossible(unknown_type, c_boots, otyp);
@@ -439,6 +449,7 @@ Cloak_on(VOID_ARGS)
         break;
     case CLOAK_OF_PROTECTION:
     case ROBE_OF_WEAKNESS:
+    case MANA_CLOAK:
         makeknown(uarmc->otyp);
         break;
     case CLOAK_OF_FLIGHT:
@@ -552,6 +563,7 @@ Cloak_off(VOID_ARGS)
     case PLAIN_CLOAK:
     case GREEN_COAT:
     case GRAY_DRAGON_SCALES:
+    case MANA_CLOAK:
         break;
     case ELVEN_CLOAK:
         toggle_stealth(otmp, oldprop, FALSE);
@@ -603,8 +615,10 @@ Helmet_on(VOID_ARGS)
 
     switch (uarmh->otyp) {
     case FEDORA:
-        set_moreluck();
-        context.botl = 1;
+        /* archeologists receive luck bonus for wearing fedora */
+        if (Role_if(PM_ARCHEOLOGIST)) {
+            change_luck(lucky_fedora());
+        }
         break;
     case TOQUE:
     case HELMET:
@@ -613,9 +627,12 @@ Helmet_on(VOID_ARGS)
     case DWARVISH_HELM:
     case ORCISH_HELM:
     case HELM_OF_TELEPATHY:
+    case PLASTEEL_HELM:
         break;
     case TINFOIL_HAT:
-        pline("Your thoughts feel much more secure.");
+        Your("thoughts feel much more secure.");
+        uarmh->known = 1;
+        makeknown(TINFOIL_HAT);
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = TRUE;
@@ -625,7 +642,7 @@ Helmet_on(VOID_ARGS)
         adj_abon(uarmh, uarmh->spe);
         break;
     case HELM_OF_MADNESS:
-        pline("You feel your sanity drift away...");
+        You_feel("your sanity drift away...");
         uarmh->known = 1;
         context.botl = 1;
         curse(uarmh);
@@ -710,10 +727,10 @@ Helmet_off(VOID_ARGS)
 
     switch (uarmh->otyp) {
     case FEDORA:
-        setworn((struct obj *)0, W_ARMH);
-        set_moreluck();
-        context.botl = 1;
-        return 0;
+        if (Role_if(PM_ARCHEOLOGIST)) {
+            change_luck(-lucky_fedora());
+        }
+        break;
     case TOQUE:
     case HELMET:
     case DENTED_POT:
@@ -722,6 +739,7 @@ Helmet_off(VOID_ARGS)
     case ORCISH_HELM:
     case TINFOIL_HAT:
     case HELM_OF_MADNESS:
+    case PLASTEEL_HELM:
         break;
     case DUNCE_CAP:
         context.botl = 1;
@@ -770,6 +788,7 @@ Gloves_on(VOID_ARGS)
     case GAUNTLETS:
     case ROGUES_GLOVES:
     case BOXING_GLOVES:
+    case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_FUMBLING:
         if (!(HFumbling & ~TIMEOUT))
@@ -844,6 +863,7 @@ Gloves_off(VOID_ARGS)
     case GAUNTLETS_OF_PROTECTION:
     case ROGUES_GLOVES:
     case BOXING_GLOVES:
+    case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_SWIMMING:
 	    if (u.uinwater) {
@@ -973,6 +993,12 @@ Shirt_on(VOID_ARGS)
     case STRIPED_SHIRT:
     case T_SHIRT:
         break;
+    case RUFFLED_SHIRT:
+        You("%s very dashing in your %s.", 
+            Blind || (Invis && !See_invisible) ? "feel" : "look",
+            OBJ_NAME(objects[uarmu->otyp]));
+        ABON(A_CHA) += 1;
+        break;
     default:
         impossible(unknown_type, c_shirt, uarmu->otyp);
     }
@@ -996,6 +1022,9 @@ Shirt_off(VOID_ARGS)
     case HAWAIIAN_SHIRT:
     case STRIPED_SHIRT:
     case T_SHIRT:
+        break;
+    case RUFFLED_SHIRT:
+        ABON(A_CHA) -= 1;
         break;
     default:
         impossible(unknown_type, c_shirt, uarmu->otyp);
@@ -1049,12 +1078,12 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     case BLUE_DRAGON_SCALES:
         if (puton) {
             if (!Very_fast)
-                pline("You speed up%s.", Fast ? " a bit more" : "");
+                You("speed up%s.", Fast ? " a bit more" : "");
             EFast |= W_ARM;
         } else {
             EFast &= ~W_ARM;
             if (!Very_fast && !context.takeoff.cancelled_don)
-                pline("You slow down.");
+                You("slow down.");
         }
         break;
     case YELLOW_DRAGON_SCALES:
@@ -1128,6 +1157,12 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     default:
         break;
     }
+}
+
+int
+lucky_fedora(void)
+{
+    return 1;
 }
 
 STATIC_PTR
@@ -1638,7 +1673,12 @@ register struct obj *obj;
             make_afraid(0L, TRUE);
             context.botl = TRUE;
         }
+        break;
+    case RIN_DISPLACEMENT:
+        toggle_displacement(obj, oldprop, TRUE);
+        break;
     }
+
 }
 
 STATIC_OVL void
@@ -1766,6 +1806,9 @@ boolean gone;
          */
         restartcham();
         break;
+    case RIN_DISPLACEMENT:
+        toggle_displacement(obj, (EDisplaced & ~mask), FALSE);
+        break;
     }
 }
 
@@ -1876,7 +1919,7 @@ struct obj *otmp;
     if (otmp && otmp->otyp == MASK) {
         if (otmp->blessed) {
             otmp->blessed = 0;
-            pline("Your mask seems more brittle.");
+            Your("mask seems more brittle.");
         } else if (!otmp->blessed && !otmp->cursed && !rn2(3)) {
             otmp->cursed = 1;
             pline("This mask is about to break.");
@@ -2200,7 +2243,7 @@ dotakeoff()
     count_worn_stuff(&otmp, FALSE);
     if (!Narmorpieces && !Naccessories) {
         if (uskin)
-            pline("Your scaly armor is merged with your skin!");
+            Your("scaly armor is merged with your skin!");
         else
             pline("Not wearing any armor or accessories.");
         return 0;
@@ -2398,12 +2441,12 @@ boolean noisy;
        in case we get here via 'P' (doputon) */
     if (verysmall(youmonst.data) || nohands(youmonst.data)) {
         if (noisy)
-            You("can't wear any armor in your current form.");
+            You_cant("wear any armor in your current form.");
         return 0;
     }
     if (Hidinshell) {
         if (noisy)
-            You("can't wear any armor while hiding in your shell.");
+            You_cant("wear any armor while hiding in your shell.");
         return 0;
     }
 
@@ -2459,6 +2502,11 @@ boolean noisy;
             if (noisy)
                 pline_The("%s is too rigid to wear.",
                           helm_simple_name(otmp));
+            err++;
+        } else if (((Upolyd && is_mind_flayer(youmonst.data)) || Race_if(PM_ILLITHID)) 
+                   && otmp->otyp == PLASTEEL_HELM) {
+            if (noisy)
+                pline_The("%s won't fit over your tentacles.", xname(otmp));
             err++;
         } else
             *mask = W_ARMH;
@@ -2898,6 +2946,10 @@ doputon()
                                                                     : "a blindfold");
         return 0;
     }
+    if (uarmh && uarmh->otyp == PLASTEEL_HELM){
+        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        return 1;
+    }
     otmp = getobj(accessories, "put on");
     return otmp ? accessory_or_armor_on(otmp) : 0;
 }
@@ -2918,7 +2970,6 @@ find_ac()
                           Race_if(PM_GIANT)
                               ? 6 : Race_if(PM_TORTLE)
                                   ? 0 : mons[u.umonnum].ac);
-
 
     /* armor class from worn gear */
 
@@ -2970,6 +3021,15 @@ find_ac()
 
     if (uarms) {
         uac -= armor_bonus(uarms);
+        if (P_SKILL(P_SHIELD) == P_BASIC)
+            uac -= 1;
+        else if (P_SKILL(P_SHIELD) == P_SKILLED)
+            uac -= 3;
+        else if (P_SKILL(P_SHIELD) == P_EXPERT)
+            uac -= 5;
+        else if (P_SKILL(P_SHIELD) == P_MASTER)
+            uac -= 8;
+
         if ((Race_if(PM_ORC)
              && (uarms->otyp == ORCISH_SHIELD
                  || uarms->otyp == URUK_HAI_SHIELD))
@@ -3040,20 +3100,15 @@ find_ac()
      * they are "growing" an ice armor as they increase in power - kind of 
      * like the tortle. The Ice Mage has a bit of a deficit compared to the 
      * Flame Mage, so hopefully this helps offset the imbalance. 
-     * We'll impose similar restrictions - 
-     * no armor (except robes) and no shields allowed */
-    if (Role_if(PM_ICE_MAGE) && (!uarm ||
-              uarm->otyp == ROBE ||
-              uarm->otyp == ROBE_OF_POWER ||
-              uarm->otyp == ROBE_OF_WEAKNESS ||
-              uarm->otyp == ROBE_OF_PROTECTION)
-        && !uarms) {
-        /*WAC cap off the ac bonus to -11 */
-        if (u.ulevel > 18) 
-            uac -= 11;
-        else 
-            uac -= (u.ulevel / 2) + 2;
+     * We'll impose similar restrictions - no armor (except robes) and no 
+     * shields allowed */
+    if (Role_if(PM_ICE_MAGE)) {
+        uac -= icebonus();
     }
+    /* Doppelganger no-armor bonus. */
+    if (Race_if(PM_DOPPELGANGER) && !uarm) 
+        uac -= (u.ulevel / 4) + 1;
+    
     /* Drunken boxing */
     if (Role_if(PM_MONK) && Confusion && !uarm) {
         uac -= 1;
@@ -3106,6 +3161,19 @@ find_ac()
         u.uac = uac;
         context.botl = 1;
     }
+}
+
+int
+icebonus()
+{
+    /* No non-robe body armor and no shield allowed */
+    if ((!uarm || is_robe(uarm)) && !uarms) {
+        if (u.ulevel > 18) 
+            return 11;
+        else 
+            return (u.ulevel / 2) + 2;
+    }
+    return 0;
 }
 
 void

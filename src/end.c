@@ -480,7 +480,7 @@ int how;
 
         if (mon_nm != PM_GREEN_SLIME) {
             /* green slime already has transformation messages */
-            pline("Your soul does not leave your %s.",
+            Your("soul does not leave your %s.",
                   rn2(2) ? "dead body" : "corpse");
         }
         /* Set unchanging FIRST (polymon doesn't care about it):
@@ -1357,7 +1357,7 @@ int how;
         Your("medallion %s!", !Blind ? "begins to glow" : "feels warm");
         if (uamul->cursed) {
             Your("medallion %s!", !Blind ? "glows white-hot" : "sears your neck");
-            You("hear manic laughter in the distance...");
+            You_hear("manic laughter in the distance...");
             Your("medallion turns to ash!");
             pline("It appears your luck has run out...");
             savelife(how); /* killed by foo, while bar */
@@ -1645,7 +1645,8 @@ int how;
     }
 
     /* TODO: Add the skeletal pirate here (from splice) */
-    if (u.ugrave_arise >= LOW_PM && !done_stopprint) {
+    if (u.ugrave_arise >= LOW_PM && u.ugrave_arise != PM_GREEN_SLIME
+        && u.ugrave_arise != PM_SKELETAL_PIRATE && !done_stopprint) {
         /* give this feedback even if bones aren't going to be created,
            so that its presence or absence doesn't tip off the player to
            new bones or their lack; it might be a lie if makemon fails */

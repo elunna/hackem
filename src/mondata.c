@@ -880,6 +880,8 @@ struct permonst *pm1, *pm2;
                 || pm2 == &mons[PM_WINGED_GARGOYLE]);
     if (pm1 == &mons[PM_KILLER_BEE] || pm1 == &mons[PM_QUEEN_BEE])
         return (pm2 == &mons[PM_KILLER_BEE] || pm2 == &mons[PM_QUEEN_BEE]);
+    if (pm1 == &mons[PM_GIANT_ANT] || pm1 == &mons[PM_QUEEN_ANT])
+        return (pm2 == &mons[PM_GIANT_ANT] || pm2 == &mons[PM_QUEEN_ANT]);
 
     if (is_longworm(pm1))
         return is_longworm(pm2); /* handles tail */
@@ -926,6 +928,7 @@ unsigned mhflag;
         "illithid", 
         "tortle", 
         "vampire",
+        "shapeshifter",
         "undead",
         "lycanthrope",
         "demon",
@@ -981,7 +984,9 @@ const char *in_str;
         return PM_HYDRA;
     if (strstr(str, "ghoul queen") != NULL)
         return PM_GHOUL_QUEEN;
-        
+    if (strstr(str, "migo queen") != NULL)
+        return PM_MIGO_QUEEN;
+    
     slen = strlen(str);
     term = str + slen;
 
@@ -1343,7 +1348,7 @@ static const short grownups[][2] = {
     { PM_GIBBERSLUG, PM_GIBBERLING },
     { PM_SHAMBLING_HORROR, PM_SHAMBLING_HORROR }, /* To enable AD_LARV attack */
     
-    /* hackem -- growing up, slashem additions */
+    /* SLASH'EM additions */
     { PM_DINGO_PUPPY, PM_DINGO}, 
     { PM_DINGO, PM_LARGE_DINGO},
     { PM_DEEP_ONE, PM_DEEPER_ONE}, 
@@ -1353,8 +1358,6 @@ static const short grownups[][2] = {
     { PM_LARVA, PM_MAGGOT},
     { PM_SABER_TOOTHED_CAT, PM_SABER_TOOTHED_TIGER},
     { PM_SHOGGOTH, PM_GIANT_SHOGGOTH},
-    { PM_CENTIPEDE, PM_NICKELPEDE},
-    { PM_NICKELPEDE, PM_GIANT_CENTIPEDE},
     { PM_PILE_OF_KILLER_COINS, PM_LARGE_PILE_OF_KILLER_COINS},
     { PM_LARGE_PILE_OF_KILLER_COINS, PM_HUGE_PILE_OF_KILLER_COINS},
     
@@ -1380,6 +1383,12 @@ int montype;
 {
     register int i;
 
+    /* Exceptions, such as a monster type that is
+       oviporous that spans more than two classes
+       of monsters */
+    if (montype == PM_GIANT_CROCODILE)
+        return PM_BABY_CROCODILE;
+
     for (i = 0; grownups[i][0] >= LOW_PM; i++)
         if (montype == grownups[i][0]) {
             montype = grownups[i][1];
@@ -1393,7 +1402,11 @@ big_to_little(montype)
 int montype;
 {
     register int i;
-
+    
+    /* Exceptions */
+    if (montype == PM_GIANT_CROCODILE)
+        return PM_BABY_CROCODILE;
+    
     for (i = 0; grownups[i][0] >= LOW_PM; i++)
         if (montype == grownups[i][1]) {
             montype = grownups[i][0];

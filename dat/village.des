@@ -43,6 +43,11 @@ ENDMAP
 STAIR: (03,02), down
 STAIR: (25,15), up
 
+# Random forge
+$places = { (41,01), (45,01), (49,01),(53,01),(73,08),(73,10),(73,12),(73,14) }
+SHUFFLE: $places
+FORGE:$places[0]
+          
 # Regions
 # Entry Caves
 REGION: (01,01,06,03), unlit, "ordinary"

@@ -17,6 +17,7 @@ on.
 
         - and |  The walls of a room, possibly also open doors or a grave.
         .        The floor of a room or a doorway.
+        ,        Grass.
         #        A corridor, or iron bars, or a type of tree, or a drawbridge.
         >        Stairs down: a way to the next level.
         <        Stairs up: a way to the previous level.

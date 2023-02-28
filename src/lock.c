@@ -125,7 +125,7 @@ picklock(VOID_ARGS)
            "known to be trapped" so declining to disarm and then
            retrying lock manipulation will find it all over again */
         if (In_sokoban(&u.uz) && xlock.door) {
-            pline("You find a trap!  But you see no way to disarm it.");
+            You("find a trap!  But you see no way to disarm it.");
             exercise(A_WIS, FALSE);
         } else if (yn("You find a trap!  Do you want to try to disarm it?") == 'y') {
             const char *what;
@@ -258,8 +258,8 @@ forcelock(VOID_ARGS)
             exercise(A_DEX, TRUE);
             return ((xlock.usedtime = 0));
         }
-    } else             /* blunt */
-        wake_nearby(); /* due to hammering on the container */
+    } else if (!SuperStealth)            /* blunt */
+            wake_nearby(); /* due to hammering on the container */
 
     if (rn2(100) >= xlock.chance)
         return 1; /* still busy */
@@ -905,11 +905,14 @@ doforce()
                   && mtmp->m_ap_type != M_AP_FURNITURE
                   && mtmp->m_ap_type != M_AP_OBJECT) {
 
-        if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE])
-            verbalize("What do you think you are, a Jedi?"); /* Phantom Menace */
-        else
-            pline("I don't think %s would appreciate that.", mon_nam(mtmp));
-        return 0;
+            if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE]) {
+                if (Role_if(PM_JEDI)) /* Return of the Jedi */
+                    verbalize( "Your puny Jedi tricks won't work on me!");
+                else /* Phantom Menace */
+                    verbalize( "What do you think you are, a Jedi?");
+            } else
+                pline("I don't think %s would appreciate that.", mon_nam(mtmp));
+            return 0;
         }
 
         /* Lightsabers dig through doors and walls via dig.c */
@@ -918,7 +921,7 @@ doforce()
 
         if (!IS_DOOR(door->typ)) {
         if (is_drawbridge_wall(x,y) >= 0)
-            pline("The drawbridge is too solid to force open.");
+                pline_The("drawbridge is too solid to force open.");
         else
             You("%s no door there.", Blind ? "feel" : "see");
         return 0;
@@ -1402,7 +1405,7 @@ int x, y;
             if (door->doormask & D_TRAPPED) {
                 if (In_sokoban(&u.uz)) {
                     if (cansee(x,y))
-                        pline("The door absorbs the force!");
+                        pline_The("door absorbs the force!");
                 } else {
                     if (MON_AT(x, y))
                         (void) mb_trapped(m_at(x, y));

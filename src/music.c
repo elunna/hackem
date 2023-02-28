@@ -325,7 +325,7 @@ int force;
                 goto do_pit;
             case TOILET :
                 if (cansee(x,y))
-                    pline("The toilet falls into a chasm.");
+                    pline_The("toilet falls into a chasm.");
                 goto do_pit;
             case FORGE:
                 if (cansee(x, y))
@@ -734,7 +734,7 @@ struct obj *instr;
             pline("%s %s.", Yname2(instr),
                   do_spec ? "produces beautiful harmonies" : "produces a horrendous din");
         else
-            You("feel the vibrations in your soul.");
+            You_feel("the vibrations in your soul.");
         if (do_spec)
             exercise(A_CHA, TRUE);
         else
@@ -930,7 +930,7 @@ struct obj *instr;
                                          * continue to be stuck until some
                                          * condition is met, such as
                                          * opening/closing magic used on it */
-                                        pline("The mechanism seems to get jammed.");
+                                        pline_The("mechanism seems to get jammed.");
                                         pline("It won't close.");
                                     }
                                     close_drawbridge(x, y);

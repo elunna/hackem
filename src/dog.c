@@ -56,14 +56,22 @@ register struct monst *mtmp;
 STATIC_OVL int
 pet_type()
 {
-    if (urole.petnum != NON_PM)
+    if (urole.petnum != NON_PM) {
         return urole.petnum;
-    else if (preferred_pet == 'c')
+    } else if (Role_if(PM_PIRATE)) {
+        if (preferred_pet == 'B')
+            return (PM_PARROT);
+        else if (preferred_pet == 'Y')
+            return PM_MONKEY;
+        else
+            return (rn2(2) ? PM_PARROT : PM_MONKEY);
+    } else if (preferred_pet == 'c') {
         return PM_KITTEN;
-    else if (preferred_pet == 'd')
+    } else if (preferred_pet == 'd') {
         return PM_LITTLE_DOG;
-    else
+    } else {
         return rn2(2) ? PM_KITTEN : PM_LITTLE_DOG;
+    } 
 }
 
 struct monst *
@@ -106,10 +114,15 @@ boolean quietly;
             pm = &mons[pet_type()];
         } else {
             pm = rndmonst();
+
             if (!pm) {
                 if (!quietly)
                     There("seems to be nothing available for a familiar.");
                 break;
+            } else if ((pm->mflags3 & M3_TRAITOR) || (pm->mflags3 & M3_NOTAME)) {
+                /* These would not make good familiars */
+                pm = 0;
+                continue;
             }
         }
 
@@ -240,7 +253,11 @@ makedog()
     else if (pettype == PM_PSEUDODRAGON)
         petname = pseudoname;
     else if (pettype == PM_GHOUL)
-		petname = ghoulname;
+        petname = ghoulname;
+    else if (pettype == PM_PARROT)
+        petname = birdname;
+    else if (pettype == PM_MONKEY)
+        petname = monkeyname;
     else if (pettype == PM_SEWER_RAT)
         petname = ratname;
     else if (pettype == PM_LESSER_HOMUNCULUS)
@@ -281,7 +298,10 @@ makedog()
     } else if (!*petname && pettype == PM_WOLF) {
         if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN))
             petname = "Slasher"; /* The Warrior */
-    }
+    } else if (!*petname && pettype == PM_MONKEY) {
+        petname = "Ugga-Ugga";
+    } else if (!*petname && pettype == PM_PARROT)
+        petname = "Squawks";
 
     mtmp = makemon(&mons[pettype], u.ux, u.uy, MM_EDOG);
 
@@ -1150,7 +1170,7 @@ register struct obj *obj;
 
     /* Necromancers can tame dead monsters - if we are here, it means
      * we already passed the resistance check */
-    if (Role_if(PM_NECROMANCER) && obj && obj->otyp == SPE_ANIMATE_DEAD) {
+    if (Role_if(PM_NECROMANCER) && obj && obj->otyp == SPE_COMMAND_UNDEAD) {
         newedog(mtmp);
         initedog(mtmp);
         u.uconduct.pets++;

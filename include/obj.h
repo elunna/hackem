@@ -116,7 +116,6 @@ struct obj {
     Bitfield(greased, 1);    /* covered with grease */
     Bitfield(nomerge, 1);    /* set temporarily to prevent merging */
     Bitfield(was_thrown, 1); /* thrown by hero since last picked up */
-    Bitfield(odrained,1);      /* drained corpse */       
     Bitfield(material, 5); /* material this obj is made of */
     Bitfield(in_use, 1);   /* for magic items before useup items */
     Bitfield(bypass, 1);   /* mark this as an object to be skipped by bhito() */
@@ -133,12 +132,11 @@ struct obj {
 #define record_achieve_special corpsenm
 #define dragonscales corpsenm /* dragon-scaled body armor
                                * (index into objects[], not mons[]) */
-    int usecount;           /* overloaded for various things that tally */
-#define spestudied usecount /* # of times a spellbook has been studied */
-#define wep_kills usecount  /* number of kills a weapon has */
-#define newwarncnt usecount /* How many monsters a glow warning artifact is currently warning of */
+    int wep_kills;          /* tally number of kills a weapon has */
+    int spestudied;         /* tally # of times a spellbook has been studied */
+    int newwarncnt;         /* tally how many monsters a glow warning artifact is currently warning of */
     unsigned oeaten;        /* nutrition left in food, if partly eaten */
-#define lastwarncnt oeaten  /* How many monsters a glow warning artifact was last warning of */
+    unsigned lastwarncnt;   /* tally how many monsters a glow warning artifact was last warning of */
     long age;               /* creation date */
     long owornmask;
     struct oextra *oextra;  /* pointer to oextra struct */
@@ -181,9 +179,10 @@ struct obj {
 #define is_axe(otmp)                                              \
     ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
      && objects[otmp->otyp].oc_skill == P_AXE)
-#define is_pick(otmp)                                             \
-    ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
-     && objects[otmp->otyp].oc_skill == P_PICK_AXE)
+#define is_pick(otmp)	(((otmp->oclass == WEAPON_CLASS || \
+			 otmp->oclass == TOOL_CLASS) && \
+			 (objects[otmp->otyp].oc_skill == P_PICK_AXE)) || \
+			  arti_digs(otmp))
 #define is_sword(otmp)                                \
     (otmp->oclass == WEAPON_CLASS                     \
      && objects[otmp->otyp].oc_skill >= P_SHORT_SWORD \
@@ -215,6 +214,9 @@ struct obj {
     || otmp->otyp == GAS_BOMB)
 #define matching_launcher(a, l) \
     ((l) && objects[(a)->otyp].oc_skill == -objects[(l)->otyp].oc_skill)
+#define matching_firearm(a, l) \
+    ((l) && (objects[l->otyp].oc_skill >= -P_FIREARM) && \
+     (objects[(a)->otyp].w_ammotyp == objects[(l)->otyp].w_ammotyp))
 #define ammo_and_launcher(a, l) (is_ammo(a) && matching_launcher(a, l))
 #define is_missile(otmp)                                          \
     ((otmp->oclass == WEAPON_CLASS \
@@ -266,10 +268,7 @@ struct obj {
 			((otmp)->oclass == WEAPON_CLASS && \
 			 objects[(otmp)->otyp].oc_skill == P_FIREARM)
 #define is_bullet(otmp)	((otmp)->oclass == WEAPON_CLASS && \
-			 objects[(otmp)->otyp].oc_skill == -P_FIREARM)
-#define is_unpoisonable_firearm_ammo(otmp)	\
-			 (is_bullet(otmp) || is_bomb(otmp))
-             
+			 objects[(otmp)->otyp].oc_skill == -P_FIREARM) 
 #define is_wet_towel(o) ((o)->otyp == TOWEL && (o)->spe > 0)
 #define bimanual(otmp) \
     ((!(Race_if(PM_GIANT)) || (Race_if(PM_GIANT) && is_2h_launcher(otmp))) \
@@ -356,12 +355,13 @@ struct obj {
 #define Has_contents(o)                                \
     (/* (Is_container(o) || (o)->otyp == STATUE) && */ \
      (o)->cobj != (struct obj *) 0)
-#define Is_container(o) ((o)->otyp >= LARGE_BOX && (o)->otyp <= BAG_OF_TRICKS)
+#define Is_container(o) ((o)->otyp == MEDICAL_KIT || \
+                         ((o)->otyp >= LARGE_BOX && (o)->otyp <= BAG_OF_TRICKS))
 #define Is_nonprize_container(o) (Is_container(o) && !is_soko_prize_flag(o))
 #define Is_box(o) ((o)->otyp == LARGE_BOX || (o)->otyp == CHEST \
                    || (o)->otyp == IRON_SAFE || (o)->otyp == CRYSTAL_CHEST)
 #define Is_mbag(o) ((o)->otyp == BAG_OF_HOLDING \
-                    || ((o)->otyp == BAG_OF_TRICKS  && (o)->spe > 0) \
+                    || ((o)->otyp == BAG_OF_TRICKS && (o)->spe > 0) \
                     || ((o)->otyp == BAG_OF_RATS  && (o)->spe > 0))
 #define Is_allbag(o) ((o)->otyp >= SACK && (o)->otyp <= BAG_OF_TRICKS)
 #define SchroedingersBox(o) ((o)->otyp == LARGE_BOX && (o)->spe == 1)
@@ -382,7 +382,7 @@ struct obj {
     ((obj)->otyp >= FIRST_DRAGON_SCALES && (obj)->otyp <= LAST_DRAGON_SCALES)
 /* Note: dragonscales is corpsenm, and corpsenm is usually initialized to
  * NON_PM, which is -1. Thus, check for > 0 rather than just nonzero. */
-#define Is_dragon_scaled_armor(obj)                \
+#define Is_dragon_scaled_armor(obj) \
     (is_suit(obj) && (obj)->dragonscales > 0)
 #define Is_dragon_armor(obj) \
     (Is_dragon_scales(obj) || Is_dragon_scaled_armor(obj))
@@ -567,19 +567,21 @@ struct obj {
 #define ITEM_FROST     0x00000002L /* frost damage or resistance */
 #define ITEM_SHOCK     0x00000004L /* shock damage or resistance */
 #define ITEM_VENOM     0x00000008L /* poison damage or resistance */
-#define ITEM_DRLI      0x00000010L /* drains life or resists it */
-#define ITEM_OILSKIN   0x00000020L /* permanently greased */
-#define ITEM_ESP       0x00000040L /* extrinsic telepathy */
-#define ITEM_SEARCHING 0x00000080L /* extrinsic searching */
-#define ITEM_WARNING   0x00000100L /* extrinsic warning */
-#define ITEM_EXCEL     0x00000200L /* confers luck, charisma boost */
-#define ITEM_FUMBLING  0x00000400L /* extrinsic fumbling */
-#define ITEM_HUNGER    0x00000800L /* extrinsic hunger */
+#define ITEM_ACID      0x00000010L /* poison damage or resistance */
+#define ITEM_SCREAM    0x00000020L /* sonic damage or resistance */
+#define ITEM_DRLI      0x00000040L /* drains life or resists it */
+#define ITEM_OILSKIN   0x00000080L /* permanently greased */
+#define ITEM_ESP       0x00000100L /* extrinsic telepathy */
+#define ITEM_SEARCHING 0x00000200L /* extrinsic searching */
+#define ITEM_WARNING   0x00000400L /* extrinsic warning */
+#define ITEM_EXCEL     0x00000800L  /* confers luck, charisma boost */
+#define ITEM_FUMBLING  0x00001000L/* extrinsic fumbling */
+#define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
 #define ITEM_PROP_MASK 0x00000FFFL /* all current properties */
-#define MAX_ITEM_PROPS 12
+#define MAX_ITEM_PROPS 14
 
 /*
  *  Notes for adding new oextra structures:
@@ -645,7 +647,7 @@ struct damage_info_t {
  * Filled in artifact_info() and used in the pokedex.
  */
 
-#define INTRINSICS 18
+#define INTRINSICS 20
 
 struct art_info_t {
     const char* name;
@@ -653,7 +655,6 @@ struct art_info_t {
     boolean intelligent;
     boolean restricted;
     boolean nogen;
-    boolean exclude;
     boolean speaks;
     boolean beheads;
     boolean vscross;
@@ -663,14 +664,15 @@ struct art_info_t {
     const char* race;
     const char *wielded[INTRINSICS];
     const char *carried[INTRINSICS];
+    char* wield_res;
+    char* wield_warn;
+    char* carr_res;
     const char* invoke;
-    const char* attack;
+    char* attack;
     const char* hates;
     const char* xattack;
     const char* xinfo;
-    const char* dbldmg;
-    
-    
+    char* dbldmg;
 };
 
 #endif /* OBJ_H */

@@ -16,58 +16,63 @@ STATIC_DCL boolean FDECL(peaked_skill, (int));
 STATIC_DCL void FDECL(skill_advance, (int));
 static int dmgval_core(struct obj*, struct monst*, struct damage_info_t*);
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
+STATIC_PTR int NDECL(practice);
+
+/*WAC practicing needs a delay counter*/
+static NEARDATA schar delay;            /* moves left for practice */
 
 /* Categories whose names don't come from OBJ_NAME(objects[type])
  */
 #define PN_BARE_HANDED (-1) /* includes martial arts and thievery */
 #define PN_TWO_WEAPONS (-2)
-#define PN_RIDING (-3)
-#define PN_POLEARMS (-4)
-#define PN_SABER (-5)
-#define PN_HAMMER (-6)
-#define PN_FIREARMS (-7)
-#define PN_WHIP (-8)
-#define PN_ATTACK_SPELL (-9)
-#define PN_HEALING_SPELL (-10)
-#define PN_DIVINATION_SPELL (-11)
-#define PN_ENCHANTMENT_SPELL (-12)
-#define PN_NECRO_SPELL (-13)
-#define PN_ESCAPE_SPELL (-14)
-#define PN_MATTER_SPELL (-15)
-#define PN_LIGHTSABER	(-16)
+#define PN_SHIELD (-3)
+#define PN_RIDING (-4)
+#define PN_POLEARMS (-5)
+#define PN_SABER (-6)
+#define PN_HAMMER (-7)
+#define PN_FIREARMS (-8)
+#define PN_WHIP (-9)
+#define PN_ATTACK_SPELL (-10)
+#define PN_HEALING_SPELL (-11)
+#define PN_DIVINATION_SPELL (-12)
+#define PN_ENCHANTMENT_SPELL (-13)
+#define PN_NECRO_SPELL (-14)
+#define PN_ESCAPE_SPELL (-15)
+#define PN_MATTER_SPELL (-16)
+#define PN_LIGHTSABER	(-17)
 
 STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     /* Weapon */
     0, 
-    DAGGER, 
-    KNIFE, 
-    AXE, 
-    PICK_AXE, 
-    SHORT_SWORD, 
-    BROADSWORD, 
-    LONG_SWORD,
-    TWO_HANDED_SWORD, 
-    PN_SABER, 
-    CLUB, 
-    MACE, 
-    MORNING_STAR, 
-    FLAIL,
-    PN_HAMMER, 
-    QUARTERSTAFF, 
-    PN_POLEARMS, 
-    SPEAR, 
-    TRIDENT, 
-    PN_LIGHTSABER,
-    LANCE, 
-    BOW, 
-    SLING,
-    PN_FIREARMS,
-    CROSSBOW, 
-    DART,
-    SHURIKEN, 
-    BOOMERANG, 
-    PN_WHIP, 
-    UNICORN_HORN,   /* last weapon */
+    DAGGER,             /* 1 */
+    KNIFE,              /* 2 */
+    AXE,                /* 3 */
+    PICK_AXE,           /* 4 */
+    SHORT_SWORD,        /* 5 */
+    BROADSWORD,         /* 6 */
+    LONG_SWORD,         /* 7 */
+    TWO_HANDED_SWORD,   /* 8 */
+    PN_SABER,           /* 9 */
+    CLUB,               /* 10 */
+    MACE,               /* 11 */
+    MORNING_STAR,       /* 12 */
+    FLAIL,              /* 13 */
+    PN_HAMMER,          /* 14 */
+    QUARTERSTAFF,       /* 15 */
+    PN_POLEARMS,        /* 16 */
+    SPEAR,              /* 17 */
+    TRIDENT,            /* 18 */
+    PN_LIGHTSABER,      /* 19 */
+    LANCE,              /* 20 */
+    BOW,                /* 21 */
+    SLING,              /* 22 */
+    PN_FIREARMS,        /* 23 */
+    CROSSBOW,           /* 24 */
+    DART,               /* 25 */
+    SHURIKEN,           /* 26 */
+    BOOMERANG,          /* 27 */
+    PN_WHIP,            /* 28 */
+    UNICORN_HORN,       /* 29 last weapon */
     
     PN_ATTACK_SPELL, 
     PN_HEALING_SPELL, 
@@ -77,8 +82,9 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
     PN_ESCAPE_SPELL, 
     PN_MATTER_SPELL,
     /* Other */
-    PN_BARE_HANDED, 
-    PN_TWO_WEAPONS, 
+    PN_BARE_HANDED,
+    PN_TWO_WEAPONS,
+    PN_SHIELD,
     PN_RIDING
 };
 
@@ -86,7 +92,8 @@ STATIC_VAR NEARDATA const short skill_names_indices[P_NUM_SKILLS] = {
 STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
     "no skill", 
     "bare hands", /* use barehands_or_martial[] instead */
-    "two weapon combat", 
+    "two weapon combat",
+    "shield",
     "riding", 
     "polearms", 
     "saber", 
@@ -127,7 +134,8 @@ int skill;
              (skill == P_NONE) ? ""
                  : (skill <= P_LAST_WEAPON) ? "weapon "
                      : (skill <= P_LAST_SPELL) ? "spell casting "
-                         : "fighting ");
+                         : (skill == P_SHIELD) ? "defensive "
+                             : "fighting ");
 }
 
 /* weapon's skill category name for use as generalized description of weapon;
@@ -325,6 +333,9 @@ struct damage_info_t *damage_info)
         || otyp == PUMPKIN_PIE
         || otyp == SPRIG_OF_CATNIP)
         return 0;
+        
+    if (otmp->oartifact == ART_HOUCHOU)
+	        return 9999;
 
     if (ptr == NULL || bigmonst(ptr)) {
         if (objects[otyp].oc_wldam) {
@@ -389,7 +400,7 @@ struct damage_info_t *damage_info)
         case RED_DOUBLE_LIGHTSABER: 
             if (otmp->altmode) {
                 tmp += rnd(11) + 10;
-                damage_info->bonus_large = "1d11 + 10";
+                damage_info->bonus_large = "+1d11 + 10";
                 break;
             } 
             /* FALLTHROUGH */
@@ -695,17 +706,17 @@ struct obj **hated_obj; /* ptr to offending object, can be NULL if not wanted */
      * roll for everything that applies and take the highest damage. */
     struct {
         long mask;
-        struct obj* obj;
+        struct obj **obj;
     } array[9] = {
-        { W_ARMG, gloves },
-        { W_ARMH, helm   },
-        { W_ARMS, shield },
-        { W_ARMF, boots  },
-        { W_ARM,  armor  },
-        { W_ARMC, cloak  },
-        { W_ARMU, shirt  },
-        { W_RINGL, leftring },
-        { W_RINGR, rightring }
+        { W_ARMG, &gloves },
+        { W_ARMH, &helm   },
+        { W_ARMS, &shield },
+        { W_ARMF, &boots  },
+        { W_ARM,  &armor  },
+        { W_ARMC, &cloak  },
+        { W_ARMU, &shirt  },
+        { W_RINGL, &leftring },
+        { W_RINGR, &rightring }
     };
 
     if (hated_obj)
@@ -743,8 +754,8 @@ struct obj **hated_obj; /* ptr to offending object, can be NULL if not wanted */
     }
 
     for (i = 0; i < 9; ++i) {
-        if (array[i].obj && (armask & array[i].mask)) {
-            tmpbonus = dmgval(array[i].obj, mdef);
+        if (*array[i].obj && (armask & array[i].mask)) {
+            tmpbonus = dmgval(*array[i].obj, mdef);
             if (tmpbonus > bonus) {
                 bonus = tmpbonus;
                 if (hated_obj) {
@@ -758,11 +769,11 @@ struct obj **hated_obj; /* ptr to offending object, can be NULL if not wanted */
                      * one, so that searmsg will get called with the most
                      * appropriate message.
                      */
-                    if (mon_hates_material(mdef, array[i].obj->material)
+                    if (mon_hates_material(mdef, (*array[i].obj)->material)
                         && (*hated_obj == NULL
-                            || (sear_damage(array[i].obj->material)
+                            || (sear_damage((*array[i].obj)->material)
                                 > sear_damage((*hated_obj)->material)))) {
-                        *hated_obj = array[i].obj;
+                        *hated_obj = *array[i].obj;
                     }
                 }
             }
@@ -1141,6 +1152,8 @@ register struct monst *mtmp;
                         propellor = (oselect(mtmp, RIFLE));
                     if (!propellor) 
                         propellor = (oselect(mtmp, PISTOL));
+                    if (!propellor) 
+                        propellor = (oselect(mtmp, FLINTLOCK));
                 } else if ((objects[rwep[i]].w_ammotyp) == WP_SHELL) {
                     propellor = (oselect(mtmp, AUTO_SHOTGUN));
                     if (!propellor) 
@@ -1505,9 +1518,13 @@ register struct monst *mon;
             newly_welded = mwelded(obj);
             obj->owornmask &= ~W_WEP;
             if (newly_welded) {
+                const char *mon_hand = mbodypart(mon, HAND);
+
+                if (bimanual(obj))
+                    mon_hand = makeplural(mon_hand);
                 pline("%s %s to %s %s!", Tobjnam(obj, "weld"),
                       is_plural(obj) ? "themselves" : "itself",
-                      s_suffix(mon_nam(mon)), mbodypart(mon, HAND));
+                      s_suffix(mon_nam(mon)), mon_hand);
                 obj->bknown = 1;
             }
         }
@@ -1538,35 +1555,40 @@ mon_ignite_lightsaber(obj, mon)
 struct obj * obj;
 struct monst * mon;
 {
-	/* No obj or not lightsaber */
-	if (!obj || !is_lightsaber(obj)) return;
+    /* No obj or not lightsaber */
+    if (!obj || !is_lightsaber(obj))
+        return;
 
-	/* WAC - Check lightsaber is on */
-	if (!obj->lamplit) {
-	    if (obj->cursed && !rn2(2)) {
+    /* for some reason, the lightsaber prototype is created with age == 0 */
+    if (obj->oartifact == ART_LIGHTSABER_PROTOTYPE)
+        obj->age = 300L;
+    
+    /* WAC - Check lightsaber is on */
+    if (!obj->lamplit) {
+        if (obj->cursed && !rn2(2)) {
             if (canseemon(mon)) pline("%s %s flickers and goes out.", 
                 s_suffix(Monnam(mon)), xname(obj));
-	    } else {
+        } else {
             if (canseemon(mon)) {
                 makeknown(obj->otyp);
                 pline("%s ignites %s.", Monnam(mon), an(xname(obj)));
             }	    	
             begin_burn(obj, FALSE);
-	    }
-	} else {
-		/* Double Lightsaber in single mode? Ignite second blade */
-		if (obj->otyp == RED_DOUBLE_LIGHTSABER && !obj->altmode) {
-		    /* Do we want to activate dual bladed mode? */
-		    if (!obj->altmode && (!obj->cursed || rn2(4))) {
-			if (canseemon(mon)) pline("%s ignites the second blade of %s.", 
-				Monnam(mon), an(xname(obj)));
-		    	obj->altmode = TRUE;
-		    	return;
-		    } else obj->altmode = FALSE;
-		    lightsaber_deactivate(obj, TRUE);
-		}
-		return;
-	}
+        }
+    } else {
+        /* Double Lightsaber in single mode? Ignite second blade */
+        if (obj->otyp == RED_DOUBLE_LIGHTSABER && !obj->altmode) {
+            /* Do we want to activate dual bladed mode? */
+            if (!obj->altmode && (!obj->cursed || rn2(4))) {
+                if (canseemon(mon)) pline("%s ignites the second blade of %s.", 
+                        Monnam(mon), an(xname(obj)));
+                obj->altmode = TRUE;
+                return;
+            } else obj->altmode = FALSE;
+            lightsaber_deactivate(obj, TRUE);
+        }
+        return;
+    }
 }
 
 
@@ -1884,6 +1906,14 @@ int skill;
     You("are now %s skilled in %s.",
         P_SKILL(skill) >= P_MAX_SKILL(skill) ? "most" : "more",
         P_NAME(skill));
+
+    if (!tech_known(T_DISARM)
+          && (P_SKILL(skill) == P_SKILLED) 
+          && skill <= P_LAST_WEAPON 
+          && skill != P_WHIP) {
+    	learntech(T_DISARM, FROMOUTSIDE, 1);
+    	You("learn how to perform disarm!");
+    }
 }
 
 static const struct skill_range {
@@ -2124,6 +2154,7 @@ lose_weapon_skill(n)
 int n; /* number of slots to lose; normally one */
 {
     int skill;
+    boolean maybe_loose_disarm = FALSE;
 
     while (--n >= 0) {
         /* deduct first from unused slots then from last placed one, if any */
@@ -2133,6 +2164,7 @@ int n; /* number of slots to lose; normally one */
             skill = u.skill_record[--u.skills_advanced];
             if (P_SKILL(skill) <= P_UNSKILLED)
                 panic("lose_weapon_skill (%d)", skill);
+            maybe_loose_disarm = TRUE;
             P_SKILL(skill)--; /* drop skill one level */
             /* Lost skill might have taken more than one slot; refund rest. */
             u.weapon_slots = slots_required(skill) - 1;
@@ -2140,6 +2172,18 @@ int n; /* number of slots to lose; normally one */
                skill by using the refunded slots, but giving a message
                to that effect would seem pretty confusing.... */
         }
+    }
+    if (maybe_loose_disarm && tech_known(T_DISARM)) {
+	int i;
+	for (i = u.skills_advanced - 1; i >= 0; i--) {
+	    skill = u.skill_record[i];
+	    if (skill <= P_LAST_WEAPON 
+                  && skill != P_WHIP 
+                  && P_SKILL(skill) >= P_SKILLED)
+		break;
+	}
+	if (i < 0)
+	    learntech(T_DISARM, FROMOUTSIDE, -1);
     }
 }
 
@@ -2180,6 +2224,19 @@ int n; /* number of skills to drain */
             You("forget %syour training in %s.",
                 P_SKILL(skill) >= P_BASIC ? "some of " : "", P_NAME(skill));
         }
+}
+
+void
+reset_weapon_skills()
+{
+    while (u.skills_advanced) {
+        int skill = u.skill_record[--u.skills_advanced];
+        if (P_SKILL(skill) <= P_UNSKILLED)
+            panic("clear_all_skills (%d)", skill);
+        P_SKILL(skill)--; /* drop skill one level */
+        /* Lost skill might have taken more than one slot; refund rest. */
+        u.weapon_slots += slots_required(skill);
+    }
 }
 
 int
@@ -2354,7 +2411,11 @@ struct obj *weapon;
         weapon->oartifact == ART_LUCKLESS_FOLLY) {
         bonus += 2 * Luck;
     }
-
+    
+    /* Jedi are trained in lightsabers, no to-hit penalty for them */
+    if (weapon && is_lightsaber(weapon) && Role_if(PM_JEDI))
+        bonus -= objects[weapon->otyp].oc_hitbon;
+    
     return bonus;
 }
 
@@ -2448,7 +2509,27 @@ struct obj *weapon;
             break;
         }
     }
-
+    
+    /* Jedi are simply better */
+    if (Role_if(PM_JEDI) && weapon && is_lightsaber(weapon)) {
+        switch (P_SKILL(type)) {
+        case P_EXPERT: 
+            bonus += 4; 
+            break; /* fall through removed by Amy */
+        case P_SKILLED: 
+            bonus += 2; 
+            break;
+        case P_BASIC: 
+            bonus += 1; 
+            break;
+        case P_UNSKILLED: 
+            break;
+        default: 
+            impossible("unknown lightsaber skill for a jedi"); 
+            break;
+        }
+    }
+    
     return bonus;
 }
 
@@ -2523,6 +2604,11 @@ const struct def_skill *class_skill;
     if (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         P_SKILL(P_RIDING) = P_NONE;
 
+    /* Roles that can reach expert or master in shield skill
+       already have a basic understanding of how to use them */
+    if (Role_if(PM_KNIGHT) || Role_if(PM_VALKYRIE))
+        P_SKILL(P_SHIELD) = P_BASIC;
+
     /*
      * Make sure we haven't missed setting the max on a skill
      * & set advance
@@ -2561,4 +2647,55 @@ register struct obj *obj;
     obj->owornmask &= ~W_WEP;
 }
 
+/* WAC return true if skill can be practiced */
+boolean
+can_practice(skill)
+int skill;
+{
+    return !P_RESTRICTED(skill) && P_SKILL(skill) < P_MAX_SKILL(skill) 
+           && u.skills_advanced < P_SKILL_LIMIT;
+}
+
+void
+practice_weapon()
+{
+    if (can_practice(weapon_type(uwep))
+#ifdef WIZARD
+	    || (wizard && (yn("Skill at normal max. Practice?") == 'y'))
+#endif
+    ) {
+        if (uwep)
+            You("start practicing intensely with %s", doname(uwep));
+        else
+            You("start practicing intensely with your %s %s.",
+                uarmg ? "gloved" : "bare", /* Del Lamb */
+                makeplural(body_part(HAND)));
+
+        delay = -10;
+        set_occupation(practice, "practicing", 0);
+    } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep)))
+        You("cannot increase your skill in %s.", P_NAME(weapon_type(uwep)));
+    else
+        You("cannot learn much about %s right now.",
+            P_NAME(weapon_type(uwep)));
+}
+
+/*WAC  weapon practice code*/
+STATIC_PTR int
+practice()
+{
+    int amt;
+    if (delay) {    /* not if (delay++), so at end delay == 0 */
+        delay++;
+        use_skill(weapon_type(uwep), 1);
+        /*WAC a bit of practice so even if you're interrupted
+          you won't be wasting your time ;B*/
+        return 1; /* still busy */
+    }
+    You("finish your practice session.");
+    /* Grant 1/3 of the total skill needed to reach the next skill threshold. */
+    amt = practice_needed_to_advance(P_SKILL(weapon_type(uwep))) / 3;
+    use_skill(weapon_type(uwep), amt);
+    return(0);
+}
 /*weapon.c*/

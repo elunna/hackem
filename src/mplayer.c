@@ -421,6 +421,7 @@ short typ;
     if (typ == STRANGE_OBJECT)
         return;
     obj = mksobj(typ, FALSE, FALSE);
+    obj->oeroded = obj->oeroded2 = 0;
     if (!rn2(3))
         obj->oerodeproof = 1;
     if (!rn2(3))
@@ -483,14 +484,14 @@ struct obj *obj;
         set_malign(mtmp); /* peaceful may have changed again */
 
         /* default equipment; much of it will be overridden below */
-        weapon = rn2(2) ? LONG_SWORD : rnd_class(SPEAR, BULLWHIP);
+        weapon = rn2(2) ? LONG_SWORD : rnd_class(SPEAR, FLY_SWATTER);
         armor  = rnd_class(PLATE_MAIL, RING_MAIL);
         cloak  = !rn2(8) ? STRANGE_OBJECT
                          : rnd_class(OILSKIN_CLOAK, CLOAK_OF_DISPLACEMENT);
         helm   = !rn2(8) ? STRANGE_OBJECT
                          : rnd_class(ELVEN_HELM, HELM_OF_TELEPATHY);
         shield = !rn2(8) ? STRANGE_OBJECT
-                         : rnd_class(ELVEN_SHIELD, SHIELD_OF_LIGHT);
+                         : rnd_class(ELVEN_SHIELD, SHIELD_OF_MOBILITY);
 
         switch (monsndx(ptr)) {
         case PM_ARCHEOLOGIST:
@@ -550,6 +551,18 @@ struct obj *obj;
             if (rn2(2))
                 shield = STRANGE_OBJECT;
             break;
+        case PM_JEDI:
+        case PM_PADAWAN:
+            switch (rnd(3)) {
+            case 1: weapon = RED_LIGHTSABER; break;
+            case 2: weapon = BLUE_LIGHTSABER; break;
+            case 3: weapon = GREEN_LIGHTSABER; break;
+            }
+            cloak = STRANGE_OBJECT;
+            armor = rn2(2) ? ROBE : ROBE_OF_POWER;
+            helm = STRANGE_OBJECT;
+            shield = STRANGE_OBJECT;
+            break;
         case PM_KNIGHT:
             if (rn2(4))
                 weapon = LONG_SWORD;
@@ -570,6 +583,13 @@ struct obj *obj;
                 armor = ROBE;
             if (rn2(4))
                 cloak = CLOAK_OF_PROTECTION;
+            break;
+        case PM_PIRATE:
+            if (rn2(4))
+                weapon = SCIMITAR;
+            if (rn2(3))
+                armor = JACKET;
+            (void) mongets(mtmp, POT_BOOZE);
             break;
         case PM_PRIEST:
         case PM_PRIESTESS:

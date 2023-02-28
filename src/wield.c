@@ -192,6 +192,11 @@ struct obj *wep;
         /* don't retouch and take material damage if you're wearing
            gloves, except for crowned Infidels (demon race) */
         res++; /* takes a turn even though it doesn't get wielded */
+    } else if (tech_inuse(T_EVISCERATE)) {
+		/* WAC - if you have 'L' has claws out and wields weapon,
+		 * can't retract claws
+		 */
+		You("can't retract your claws!");
     } else {
         /* Weapon WILL be wielded after this point */
         res++;

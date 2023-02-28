@@ -24,7 +24,7 @@
 .ds vr "NetHack 3.6
 .ds f0 "\*(vr
 .ds f1
-.ds f2 "September 29, 2021
+.ds f2 "February 3, 2023
 .
 .\" A note on some special characters:
 .\" \(lq = left double quote
@@ -115,6 +115,10 @@ and a great two-handed sword.
 \fICavemen\fP and \fICavewomen\fP start with exceptional strength but,
 unfortunately, with neolithic weapons.
 .pg
+\fIConvicts\fP are hardened by the prison system and ready for anything 
+after their recent escape.  They may have the hard knock life in the 
+early going, but convicts are just as tough as the dungeon.
+.pg
 \fIFlame Mages\fP have managed to harness mystical energies into the control
 of the element of fire.  Notwithstanding their pet hell hounds,  woe be unto
 anyone who stands in the way of a skilled mage casting a fireball.
@@ -133,6 +137,10 @@ proficient in black magics, but less so in the physical combat.  As an
 Infidel, your goal is not to retrieve the Amulet, but to return it to its
 hiding place within Gehennom.
 .pg
+\fIJedi\fP are masters of the force, the energy that flows through the 
+universe. Their skills are focused on the sword and lightsaber; care for 
+it well, and it will keep you alive.
+.pg
 \fIKnights\fP are distinguished from the common skirmisher by their
 devotion to the ideals of chivalry and by the surpassing excellence of
 their armor.
@@ -145,6 +153,9 @@ as with.  They wear no armor but make up for it with increased mobility.
 mastered some of the most forbidden of the magical lore.  Many have fallen
 to the armies of the undead that they are capable of bringing forth and
 controlling.
+.pg
+\fIPirates\fP are swashbuckling adventurers, skilled on the sea and tough 
+on land. They speak the language of the sea and drink like fish. 
 .pg
 \fIPriests\fP and \fIPriestesses\fP are clerics militant, crusaders
 advancing the cause of righteousness with arms, armor, and arts
@@ -177,6 +188,10 @@ and easy to overcome at first sight, an experienced Wizard is a deadly foe.
 .pg
 You may also choose the race of your character (within limits; most
 roles have restrictions on which races are eligible for them):
+.pg
+\fIDoppelgangers\fP have the enviable ability to change form at will,  at
+a cost of some mystic energy (\fImana\fP),  although what they become
+may be a bit of a surprise,  even for them.
 .pg
 \fIDwarves\fP are smaller than humans or elves, but are stocky and solid
 individuals.  Dwarves' most notable trait is their great expertise in mining
@@ -3061,6 +3076,9 @@ Note that the vanquished monsters list includes all monsters killed by
 traps and each other as well as by you.
 And the dungeon overview shows all levels you had visited but does not
 reveal things about them that you hadn't discovered.
+.lp birdname
+Name your starting bird (ex. ``birdname:Squawks'').
+Cannot be set with the `O' command.
 .lp dogname
 Name your starting dog (for example \(lqdogname:Fang\(rq).
 Cannot be set with the \(oqO\(cq command.
@@ -3252,6 +3270,9 @@ Default \(oq,\(cq.
 ." Format menu entries using TAB to separate columns (default off).
 ." Only applicable to some menus, and only useful to some interfaces.
 ." Debug mode only.
+.lp monkeyname
+Name your starting monkey (ex. ``monkeyname:bananas'').
+Cannot be set with the `O' command.
 .lp monpolycontrol
 Prompt for new form whenever any monster changes shape (default off).
 Debug mode only.
@@ -3372,6 +3393,8 @@ than immediately praying; on by default;
 .PL Remove
 require selection from inventory for \(oqR\(cq and \(oqT\(cq
 commands even when wearing just one applicable item.
+.PL swim
+prevent walking into water or lava.
 .PL all
 turn on all of the above.
 .PE
@@ -3849,11 +3872,10 @@ Platform-specific Customization options
 .pg
 Here are explanations of options that are used by specific platforms or ports
 to customize and change the port behavior.
-.lp altkeyhandler
-Select an alternate keystroke handler dll to load (Win32 tty NetHack only).
-The name of the handler is specified without the .dll extension and without
-any path information.
-Cannot be set with the \(oqO\(cq command.
+.lp altkeyhandling
+Select an alternate way to handle keystrokes (Win32 tty NetHack only).
+The name of the handling type is one of \(lqdefault\(rq, \(lqray\(rq,
+\(lq340\(rq.
 .lp altmeta
 On Amiga, this option controls whether typing \(lqAlt\(rq plus another key
 functions as a meta-shift for that key (default on).
@@ -4585,7 +4607,7 @@ g	S_gremlin	(gremlin)
 h	S_humanoid	(humanoid)
 \-	S_hwall	(horizontal wall)
 \.	S_ice	(ice)
-\.	S_grass	(grass)
+\,	S_grass	(grass)
 i	S_imp	(imp or minor demon)
 I	S_invisible	(invisible monster)
 J	S_jabberwock	(jabberwock)
@@ -4776,6 +4798,8 @@ If this is the case, disable the
 .op number_pad
 option and use the traditional
 Rogue-like commands.
+.lp paranoid_confirmation:swim
+Prevent walking into water or lava.
 .lp autodescribe
 Automatically describe the terrain under the cursor when targeting.
 .lp mention_walls
@@ -5236,6 +5260,9 @@ NetHack 3.6.5 was released on January 27, 2020 containing some security fixes
 and a small number of bug fixes.
 .pg
 NetHack 3.6.6 was released on March 8, 2020 containing a security fix and
+some bug fixes.
+.pg
+NetHack 3.6.7 was released in February 2023 containing a security fix and
 some bug fixes.
 .pg
 The official NetHack web site is maintained by \fBKen Lorber\fP

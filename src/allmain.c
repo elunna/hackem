@@ -153,6 +153,7 @@ boolean resuming;
     char ch;
     int abort_lev;
 #endif
+    struct obj *pobj;
     int moveamt = 0, wtcap = 0, change = 0;
     boolean monscanmove = FALSE;
 
@@ -189,7 +190,9 @@ boolean resuming;
         pline("Watch out!  Bad things can happen on Friday the 13th.");
         change_luck(-1);
     }
-
+    if (flags.quest_boon) {
+        change_luck(3); /* silent */
+    }
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
         set_wear((struct obj *) 0); /* for side-effects of starting gear */
@@ -238,15 +241,19 @@ boolean resuming;
 
             do { /* hero can't move this turn loop */
                 wtcap = encumber_msg();
-
-                context.mon_moving = TRUE;
-                do {
-                    monscanmove = movemon();
-                    if (youmonst.movement >= NORMAL_SPEED)
-                        break; /* it's now your turn */
-                } while (monscanmove);
-                context.mon_moving = FALSE;
-
+                if (!u.utimestop) {
+                    context.mon_moving = TRUE;
+                    do {
+                        monscanmove = movemon();
+                        if (youmonst.movement >= NORMAL_SPEED)
+                            break; /* it's now your turn */
+                    } while (monscanmove);
+                    context.mon_moving = FALSE;
+                } else if (youmonst.movement < NORMAL_SPEED) {
+                    /* If a scroll of time has been read, we want the player's
+                     * current turn to be extended. */
+                    u.utimestop = FALSE;
+                }
                 if (!monscanmove && youmonst.movement < NORMAL_SPEED) {
                     /* both hero and monsters are out of steam this round */
                     struct monst *mtmp;
@@ -341,6 +348,22 @@ boolean resuming;
                             if (rn2(3) != 0)
                                 moveamt -= NORMAL_SPEED / 2;
                         }
+                        
+                       
+                        /* TECH: Blinking! */
+                        if (tech_inuse(T_BLINK)) {
+                            /* Case    Average  Variance
+                            * -------------------------
+                            * Normal    12         0
+                            * Fast      16        12
+                            * V fast    20        12
+                            * Blinking  24        12
+                            * F & B     28        18
+                            * V F & B   30        18
+                            */
+                            moveamt += NORMAL_SPEED * 2 / 3;
+                            if (rn2(3) == 0) moveamt += NORMAL_SPEED / 2;
+                        }
                     }
 
                     if (Afraid && rn2(4)) { /* Afraid of a monster */
@@ -395,6 +418,24 @@ boolean resuming;
                         mk_dgl_extrainfo();
                     }
 #endif
+                    
+                    if (u.ukinghill) {
+                        if (u.protean > 0)
+                            u.protean--;
+                        else {
+                            for (pobj = invent; pobj; pobj = pobj->nobj)
+                                if (pobj->oartifact == ART_TREASURY_OF_PROTEUS)
+                                    break;
+                            if (!pobj) 
+                                impossible("Treasury not actually in inventory??");
+                            else if (pobj->cobj) {
+                                arti_poly_contents(pobj);
+                            }
+                            u.protean = rnz(100) + d(3, 10);
+                            update_inventory();
+                        }
+                    }
+                    
                     /* One possible result of prayer is healing.  Whether or
                      * not you get healed depends on your current hit points.
                      * If you are allowed to regenerate during the prayer,
@@ -594,19 +635,11 @@ boolean resuming;
                         }
                     }
                     restore_attrib();
-                    /* underwater and waterlevel vision are done here */
+                    /* vision will be updated as bubbles move */
                     if (Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
                         movebubbles();
                     else if (Is_firelevel(&u.uz))
                         fumaroles();
-                    else if (Underwater && !See_underwater) {
-                        under_water(0);
-                        docrt();
-                    } else if (Underwater)
-                        docrt();
-                    /* vision while buried done here */
-                    else if (u.uburied)
-                        under_ground(0);
 
                     /* when immobile, count is in turns */
                     if (multi < 0) {
@@ -701,6 +734,16 @@ boolean resuming;
             else if (!u.umoved)
                 (void) pooleffects(FALSE);
             context.coward = FALSE;
+
+            /* vision while buried or underwater is updated here */
+            if (Underwater && !See_underwater) {
+                under_water(0);
+                docrt();
+            } else if (Underwater) {
+                docrt();
+            } else if (u.uburied) {
+                under_ground(0);
+            }
 
         } /* actual time passed */
 
@@ -899,6 +942,10 @@ int wtcap;
             && (encumbrance_ok || U_CAN_REGEN()) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
             
+            if (Race_if(PM_VAMPIRIC) && rn2(3)) 
+                return; /* Vampires have regeneration penalty, they only
+                         * regenerate on 1/3rd of valid turns, so must rely
+                         * more on draining life. */
             /*
             * KMH, balance patch -- New regeneration code
             * Healthstones have been added, which alter your effective
@@ -942,6 +989,11 @@ int wtcap;
             if (Sleepy && u.usleep)
                 heal++;
             
+            if (!u.uinvulnerable && u.uen > 0 && u.uhp < u.uhpmax 
+                && tech_inuse(T_CHI_HEALING)) {
+                u.uen--;
+                heal++;
+		    }
             if (heal && !(Withering && heal > 0)) {
                 context.botl = TRUE;
                 u.uhp += heal;
@@ -1136,8 +1188,8 @@ boolean new_game; /* false => restoring an old game */
                 : currentgend != flags.initgend))
         Sprintf(eos(buf), " %s", genders[currentgend].adj);
 
-    pline(new_game ? "%s %s, welcome to hackem!  You are %s %s %s."
-                   : "%s %s, the%s %s %s, welcome back to HackEM!",
+    pline(new_game ? "%s %s, welcome to Hack'EM!  You are %s %s %s."
+                   : "%s %s, the%s %s %s, welcome back to Hack'EM!",
           Hello((struct monst *) 0), plname, buf, urace.adj,
           (currentgend && urole.name.f) ? urole.name.f : urole.name.m);
 }

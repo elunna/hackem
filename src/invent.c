@@ -1,4 +1,4 @@
-/* NetHack 3.6	invent.c	$NHDT-Date: 1575245062 2019/12/02 00:04:22 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.267 $ */
+/* NetHack 3.6	invent.c	$NHDT-Date: 1674864733 2023/01/28 00:12:13 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.268 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Derek S. Ray, 2015. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -863,9 +863,12 @@ struct obj *obj;
             if (u.uhave.questart)
                 impossible("already have quest artifact?");
             u.uhave.questart = 1;
-            if (Role_if(PM_INFIDEL) && obj->spe)
+            if (Role_if(PM_INFIDEL) && u.uachieve.amulet)
                 u.uhave.amulet = 1;
             artitouch(obj);
+            if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
+                u.ukinghill = TRUE;
+            }
         }
         set_artifact_intrinsic(obj, 1, W_ART);
     }
@@ -1189,8 +1192,11 @@ struct obj *obj;
             if (!u.uhave.questart)
                 impossible("don't have quest artifact?");
             u.uhave.questart = 0;
-            if (Role_if(PM_INFIDEL) && obj->spe)
+            if (Role_if(PM_INFIDEL) && u.uachieve.amulet)
                 u.uhave.amulet = 0;
+        }
+        if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
+            u.ukinghill = FALSE;
         }
         set_artifact_intrinsic(obj, 0, W_ART);
     }
@@ -1645,8 +1651,9 @@ register const char *let, *word;
                      && otyp != FAKE_AMULET_OF_YENDOR))
              || (!strcmp(word, "write with")
                  && (otmp->oclass == TOOL_CLASS
-                     && (!is_lightsaber(otmp) || !otmp->lamplit) 
-                     && otyp != MAGIC_MARKER && otyp != TOWEL))
+                     && otyp != MAGIC_MARKER && otyp != TOWEL)
+                 && (otmp->oclass == WEAPON_CLASS
+                    && (!is_lightsaber(otmp) || !otmp->lamplit)))
              || (!strcmp(word, "tin")
                  && (otyp != CORPSE || !tinnable(otmp)))
              || (!strcmp(word, "rub")
@@ -1658,6 +1665,7 @@ register const char *let, *word;
                  /* Picks, axes, pole-weapons, bullwhips */
                  && ((otmp->oclass == WEAPON_CLASS 
                         && !is_pick(otmp)
+                        && !is_lightsaber(otmp)
                         && !is_bomb(otmp)
                         && !is_firearm(otmp)
                         && !is_axe(otmp)
@@ -1699,6 +1707,9 @@ register const char *let, *word;
              || (!strcmp(word, "call") && !objtyp_is_callable(otyp))
              || (!strcmp(word, "adjust") && otmp->oclass == COIN_CLASS
                  && !usegold)
+             || ((!strcmp(word, "draw blood with") ||
+			    !strcmp(word, "bandage your wounds with")) &&
+		        (otmp->oclass == TOOL_CLASS && otyp != MEDICAL_KIT))
              ) {
                 foo--;
             }
@@ -2464,7 +2475,8 @@ chain_identify(struct obj *chain)
 {
     struct obj *obj;
     for (obj = chain; obj; obj = obj->nobj) {
-        (void) identify(obj);
+        if (not_fully_identified(obj))
+            (void) identify(obj);
         if (Has_contents(obj))
             chain_identify(obj->cobj);
     }
@@ -2595,10 +2607,13 @@ long quan;       /* if non-0, print this quantity, not obj->quan */
 #else
     static char li[BUFSZ];
 #endif
+    char suffix[80]; /* plenty of room for count and hallucinatory currency */
+    int sfxlen, txtlen; /* signed int for %*s formatting */
+    const char *fmt;
     boolean use_invlet = (flags.invlet_constant
                           && let != CONTAINED_SYM && let != HANDS_SYM);
-    long savequan = 0;
-    long save_owt = 0;
+    long savequan = 0L;
+    long save_owt = 0L;
 
     if (quan && obj) {
         if (iflags.invweight) {
@@ -2614,24 +2629,37 @@ long quan;       /* if non-0, print this quantity, not obj->quan */
      *  *  Then obj == null and we are printing a total amount.
      *  >  Then the object is contained and doesn't have an inventory letter.
      */
-    if (cost != 0 || let == '*') {
+    fmt = "%c - %.*s%s";
+    if (!txt)
+        txt = doname(obj);
+    txtlen = (int) strlen(txt);
+
+    if (cost != 0L || let == '*') {
         /* if dot is true, we're doing Iu, otherwise Ix */
-        Sprintf(li,
-                iflags.menu_tab_sep ? "%c - %s\t%6ld %s"
-                                    : "%c - %-45s %6ld %s",
-                (dot && use_invlet ? obj->invlet : let),
-                (txt ? txt : doname(obj)), cost, currency(cost));
+        if (dot && use_invlet)
+            let = obj->invlet;
+        Sprintf(suffix, "%c%6ld %.50s", iflags.menu_tab_sep ? '\t' : ' ',
+                cost, currency(cost));
+        if (!iflags.menu_tab_sep) {
+            fmt = "%c - %-45.*s%s";
+            if (txtlen < 45)
+                txtlen = 45;
+        }
     } else {
         /* ordinary inventory display or pickup message */
-        Sprintf(li, "%c - %s%s", (use_invlet ? obj->invlet : let),
-                (txt ? txt : doname(obj)), (dot ? "." : ""));
+        if (use_invlet)
+            let = obj->invlet;
+        Strcpy(suffix, dot ? "." : "");
     }
-    if (savequan) {
+    sfxlen = (int) strlen(suffix);
+    if (txtlen > BUFSZ - 1 - (4 + sfxlen)) /* 4: "c - " prefix */
+        txtlen = BUFSZ - 1 - (4 + sfxlen);
+    Sprintf(li, fmt, let, txtlen, txt, suffix);
+
+    if (savequan)
         obj->quan = savequan;
-    }
-    if (save_owt) {
+    if (save_owt)
         obj->owt = save_owt;
-    }
 
     return li;
 }
@@ -3526,7 +3554,7 @@ char *buf;
     else if (is_pool(x, y))
         dfeature = "pool of water";
     else if (IS_GRASS(ltyp))
-        cmap = S_grass; /* "grass" */
+        cmap = S_grass;   /* "grass" */
     else if (is_puddle(x, y))
         dfeature = "pool of shallow water";
     else if (is_sewage(x, y))
@@ -3669,9 +3697,16 @@ boolean picked_some;
         }
     }
 
-    if (dfeature)
-        Sprintf(fbuf, "There is %s%s here.", bloody ? "bloody " : "", an(dfeature));
-
+    if (dfeature) {
+        if (bloody) {
+            if (!strncmp(dfeature, "grass ", 6))
+                Sprintf(fbuf, "There is bloody %s here.", dfeature);
+            else
+                Sprintf(fbuf, "There is a bloody %s here.", dfeature);
+        } else {
+            Sprintf(fbuf, "There is %s here.", an(dfeature));
+        }
+    }
     if (!otmp || is_lava(u.ux, u.uy)
         || (is_pool(u.ux, u.uy) && !Underwater)) {
         if (dfeature)
@@ -3679,7 +3714,7 @@ boolean picked_some;
         read_engr_at(u.ux, u.uy); /* Eric Backus */
         if (!skip_objects && (Blind || !dfeature)) {
             if (bloody) 
-                pline("There is %s blood splattered on the floor.", 
+                There("is %s blood splattered on the floor.", 
                       mons[levl[u.ux][u.uy].splatpm].mname);
             else
                 You("%s no objects here.", verb);
@@ -4140,7 +4175,8 @@ long numused;
 STATIC_VAR NEARDATA const char *names[] = {
     0, "Illegal objects", "Weapons", "Armor", "Rings", "Amulets", "Tools",
     "Comestibles", "Potions", "Scrolls", "Spellbooks", "Wands", "Coins",
-    "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms", "Spirits"
+    "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms",
+    "Spirits"
 };
 STATIC_VAR NEARDATA const char oth_symbols[] = { CONTAINED_SYM, '\0' };
 STATIC_VAR NEARDATA const char *oth_names[] = { "Bagged/Boxed items" };

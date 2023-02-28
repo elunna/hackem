@@ -13,8 +13,9 @@
    eligible to reread the spellbook and regain 100% retention (the threshold
    used to be 1000 turns, which was 10% of the original 10000 turn retention
    period but didn't get adjusted when that period got doubled to 20000) */
-#define KEEN 20000
+#define KEEN            10000
 #define CAST_BOOST 	  500	/* memory increase for successful casting */
+#define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
 #define MAX_KNOW 	70000	/* Absolute Max timeout */
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
@@ -498,14 +499,14 @@ register struct obj *spellbook;
         if (booktype == SPE_PSIONIC_WAVE
             && !Race_if(PM_ILLITHID)) {
             You("do not understand the strange language this book is written in.");
-            pline("The inscriptions in the book start to fade away!");
+            pline_The("inscriptions in the book start to fade away!");
             spellbook->otyp = booktype = SPE_BLANK_PAPER;
             set_material(spellbook, PAPER);
             makeknown(booktype);
             return 1;
         }
         
-        /* --hackem: Elemental mages are not receptive to opposite element's teachings 
+        /* -Elemental mages are not receptive to opposite element's teachings 
          * We'll auto-id it if rejected as compensation. */
         if (Role_if(PM_FLAME_MAGE)) {
             if (booktype == SPE_CONE_OF_COLD || booktype == SPE_FREEZE_SPHERE) {
@@ -692,10 +693,6 @@ age_spells()
         if (spellknow(i)) {
             if (spellid(i) == SPE_PSIONIC_WAVE)
                 continue;
-             /* Necromancers don't lose memory of their necromancy spells */
-            if (spell_skilltype(spellid(i)) == P_NECROMANCY_SPELL 
-                 && Role_if(PM_NECROMANCER))
-                continue;
             decrnknow(i);
         }
     }
@@ -759,8 +756,12 @@ int *spell_no;
         else if (nspells == 27)
             Sprintf(lets, "a-zA");
         /* this assumes that there are at most 52 spells... */
-        else
+        else if ((nspells < 53))
             Sprintf(lets, "a-zA-%c", 'A' + nspells - 27);
+        if (nspells == 53)
+                Sprintf(lets, "a-zA-Z0");
+        else
+            Sprintf(lets, "a-zA-Z0-%c", '9' + nspells - 11);
 
         for (;;) {
             Sprintf(qbuf, "Cast which spell? [%s *?]", lets);
@@ -915,7 +916,7 @@ register struct monst *mdef;
     if (youdefend) {
         if (HReflecting) {
             if (!Blind)
-	        pline("The shimmering globe around you becomes slightly brighter.");
+                pline_The("shimmering globe around you becomes slightly brighter.");
             else
                 You_feel("slightly more smooth");
         } else {
@@ -1099,7 +1100,7 @@ boolean wiz_cast;
         res = 1; /* time is going to elapse even if spell doesn't get cast */
     }
 
-    if (energy > u.uen) {
+    if (energy > u.uen && !tech_inuse(T_BLOOD_MAGIC)) {
         if (spellid(spell) == SPE_PSIONIC_WAVE)
             Your("mind is fatigued.  You cannot use your psychic energy.");
         else
@@ -1124,8 +1125,8 @@ boolean wiz_cast;
              */
             intell = acurr(A_INT);
             
-            /* --hackem: Let Flame and Ice Mages have hungerless bonus too.
-             * We decrease it slightly so Wizards are still special. */
+            /* Let Flame and Ice Mages have hungerless bonus too.
+             * We decrease it slightly so Wizards still have superior ability. */
             if (Role_if(PM_FLAME_MAGE)) {
                 /* Flame Mages use WIS for spells */
                 intell = acurr(A_WIS) - 2; 
@@ -1174,10 +1175,13 @@ boolean wiz_cast;
             You("fail to cast the spell correctly.");
         if (u.ualign.type == A_NONE && !u.uhave.amulet
             && !u.uachieve.amulet
-            && spellid(spell) != SPE_PSIONIC_WAVE)
-            losehp(energy / 2, "draining their own life force", KILLED_BY);
-        else
+            && spellid(spell) != SPE_PSIONIC_WAVE) {
+            Sprintf(killer.name, "draining %s own life force", uhis());
+            losehp(energy / 2, killer.name, KILLED_BY);
+        }
+        else {
             u.uen -= energy / 2;
+        }
         context.botl = 1;
         return 1;
     }
@@ -1191,7 +1195,7 @@ boolean wiz_cast;
         /* psychic attack uses spell power but
            technically is not considered a spell */
         && spellid(spell) != SPE_PSIONIC_WAVE) {
-        pline("You draw upon your own life force to cast the spell.");
+        You("draw upon your own life force to cast the spell.");
         /* prevent healing spell abuse:
            healing can cure 6d4 worth of hit points,
            casting it drains 30 hit points.
@@ -1200,14 +1204,26 @@ boolean wiz_cast;
            result is that our Infidel will still lose about
            the same amount of hit points as if casting
            something other than healing/extra healing */
+        Sprintf(killer.name, "draining %s own life force", uhis());
         if (spellid(spell) == SPE_HEALING) {
-            losehp(6 * energy, "draining their own life force", KILLED_BY);
+            losehp(6 * energy, killer.name, KILLED_BY);
         } else if (spellid(spell) == SPE_EXTRA_HEALING) {
-            losehp(4 * energy, "draining their own life force", KILLED_BY);
+            losehp(4 * energy, killer.name, KILLED_BY);
         } else {
-            losehp(energy, "draining their own life force", KILLED_BY);
+            losehp(energy, killer.name, KILLED_BY);
         }
-    } else {
+    }         
+    else if (energy > u.uen && tech_inuse(T_BLOOD_MAGIC)) {
+        /* only can hit this case if using blood magic */
+        energy -= u.uen;
+        u.uen = 0;
+        pline("You draw upon your own life force to cast the spell.");
+        losehp(energy, "reckless use of blood magic", KILLED_BY);
+        if (spellid(spell) == SPE_HEALING ||
+            spellid(spell) == SPE_EXTRA_HEALING)
+            losehp(3 * energy, "abuse of blood magic", KILLED_BY);
+    }
+    else {
         u.uen -= energy;
     }
 
@@ -1373,10 +1389,6 @@ boolean wiz_cast;
     case SPE_CREATE_MONSTER:
     case SPE_COMMAND_UNDEAD:
     case SPE_SUMMON_UNDEAD:
-    case SPE_RAISE_ZOMBIES:
-    case SPE_CALL_UNDEAD:
-    case SPE_ANIMATE_DEAD:
-    case SPE_SPIRIT_BOMB:
         (void) seffects(pseudo);
         break;
 
@@ -1432,7 +1444,7 @@ boolean wiz_cast;
             if (!otmp) {
                 otmp = getobj(clothes, "magically repair");
                 while (otmp && !(otmp->owornmask & W_ARMOR)) {
-                    pline("You cannot repair armor that is not worn.");
+                    You("cannot repair armor that is not worn.");
                     otmp = getobj(clothes, "magically repair");
                 }
             }
@@ -1442,10 +1454,10 @@ boolean wiz_cast;
         if (otmp) {
             if (greatest_erosion(otmp) > 0) {
                 if (Blind)
-                    pline("Your %s feels warmer for a brief moment.",
+                    Your("%s feels warmer for a brief moment.",
                           xname(otmp));
                 else
-                    pline("Your %s glows faintly golden for a moment.",
+                    Your("%s glows faintly golden for a moment.",
                           xname(otmp));
                 if (otmp->oeroded > 0)
                     otmp->oeroded--;
@@ -1454,12 +1466,12 @@ boolean wiz_cast;
                 update_inventory();
             } else {
                 if (!Blind)
-                    pline("Your %s glows briefly, but looks as new as ever.",
+                    Your("%s glows briefly, but looks as new as ever.",
                           xname(otmp));
             }
         } else {
             /* the player can probably feel this, so no need for a !Blind check :) */
-            pline("Your embarrassing skin rash clears up slightly.");
+            Your("embarrassing skin rash clears up slightly.");
         }
         break;
     case SPE_REFLECTION:
@@ -1470,10 +1482,10 @@ boolean wiz_cast;
         cast_sphere(otyp);
         break;
     case SPE_ENLIGHTEN: 
-        You("feel self-knowledgeable...");
+        You_feel("self-knowledgeable...");
         display_nhwindow(WIN_MESSAGE, FALSE);
         enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
-        pline("The feeling subsides.");
+        pline_The("feeling subsides.");
         exercise(A_WIS, TRUE);
         break;
     case SPE_PASSWALL:
@@ -2049,6 +2061,7 @@ int spell;
                    || Role_if(PM_BARBARIAN) 
                    || Role_if(PM_CAVEMAN)
                    || Role_if(PM_CONVICT) 
+                   || Role_if(PM_JEDI) 
                    || Role_if(PM_KNIGHT) 
                    || Role_if(PM_MONK)
                    || Role_if(PM_RANGER) 
@@ -2314,6 +2327,27 @@ struct obj *obj;
     return;
 }
 
+boolean
+studyspell()
+{
+    /*Vars are for studying spells 'W', 'F', 'I', 'N'*/
+    int spell_no;
+    
+    if (getspell(&spell_no)) {
+        if (spellknow(spell_no) <= 0) {
+            You("are unable to focus your memory of the spell.");
+            return (FALSE);
+        } else if (spellknow(spell_no) <= 1000) {
+            Your("focus and reinforce your memory of the spell.");
+            boostknow(spell_no, REINFORCE_BOOST);
+            exercise(A_WIS, TRUE);      /* extra study */
+            return (TRUE);
+        } else /* 1000 < spellknow(spell_no) <= 5000 */
+            You("know that spell quite well already.");
+    }
+    return (FALSE);
+}
+
 /* return TRUE if hero knows spell otyp, FALSE otherwise */
 boolean
 known_spell(otyp)
@@ -2382,7 +2416,7 @@ cast_sphere(short otyp)
     struct monst *mtmp;
     int role_skill = P_SKILL(P_MATTER_SPELL);
     int n;
-    pline("You conjure elemental energy...");
+    You("conjure elemental energy...");
     for (n = 0; n < max(role_skill - 1, 1); n++) {
         mtmp = make_helper((otyp == SPE_FLAME_SPHERE) 
                                ? PM_FLAMING_SPHERE 
@@ -2401,4 +2435,5 @@ cast_sphere(short otyp)
         }
     }
 }
+
 /*spell.c*/

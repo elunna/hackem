@@ -65,6 +65,7 @@
      || (ptr) == &mons[PM_LOCUST] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
+     || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
      || (ptr) == &mons[PM_MARRASHI] \
      || (ptr) == &mons[PM_WATER_ELEMENTAL])
 
@@ -88,6 +89,7 @@
      || (ptr) == &mons[PM_SHADOW_OGRE] \
      || (ptr) == &mons[PM_SHADOW_WOLF] \
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
+     || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_WATER_MAGE]       \
      || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
@@ -100,22 +102,20 @@
     || is_demon(ptr) \
     || is_angel(ptr) \
     || (ptr)->msound == MS_LEADER \
-    || (ptr) == &mons[PM_MOVANIC_DEVA] \
-    || (ptr) == &mons[PM_MONADIC_DEVA] \
-    || (ptr) == &mons[PM_ASTRAL_DEVA] \
     || (ptr) == &mons[PM_JUGGERNAUT] \
     || (ptr) == &mons[PM_SHADOW_OGRE] \
     || (ptr) == &mons[PM_SHADOW_WOLF] \
     || (ptr) == &mons[PM_STATUE_GARGOYLE] \
-    || (ptr) == &mons[PM_MOLDY_PUDDING] \
     || (ptr) == &mons[PM_BLACK_MARKETEER] \
     || (ptr) == &mons[PM_CERBERUS] \
     || (ptr) == &mons[PM_DEATH] \
     || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
-     || (ptr) == &mons[PM_RAGNAROS] )
+    || (ptr) == &mons[PM_RAGNAROS] \
+    || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_VAMPIRIC)))
 
 #define immune_poisongas(ptr) \
     ((ptr) == &mons[PM_HEZROU] \
+     || (ptr) == &mons[PM_SKUNK] \
      || (ptr) == &mons[PM_GIANT_BADGER] \
      || (ptr) == &mons[PM_HONEY_BADGER])
 
@@ -231,6 +231,7 @@
      || (ptr) == &mons[PM_FLOATING_EYE] \
      || (ptr) == &mons[PM_GNOMISH_WIZARD] \
      || (ptr) == &mons[PM_GOBLIN_SHAMAN] \
+     || (ptr) == &mons[PM_TORTLE_SHAMAN] \
      || (ptr) == &mons[PM_GNOLL_SHAMAN] \
      || (ptr) == &mons[PM_HILL_GIANT_SHAMAN] \
      || (ptr) == &mons[PM_ILLITHID] \
@@ -240,7 +241,6 @@
      || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
      || (ptr) == &mons[PM_NEOTHELID] \
      || (ptr) == &mons[PM_ORC_SHAMAN])
-     /*|| (ptr) == &mons[PM_GNOLL_CLERIC]  \ */
      
 #define has_claws(ptr) \
     ((is_illithid(ptr)                                         \
@@ -384,6 +384,9 @@
 #define is_not_zombie(ptr) \
     (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \
+     || (ptr) == &mons[PM_SKELETAL_PIRATE] \
+     || (ptr) == &mons[PM_DRAUGR] \
+     || (ptr) == &mons[PM_GUG] \
      || (ptr) == &mons[PM_REVENANT])
 #define is_zombie(ptr) ((ptr)->mlet == S_ZOMBIE && !is_not_zombie(ptr))
 #define can_become_zombie(ptr) \
@@ -488,6 +491,9 @@
      || (ptr) == &mons[PM_RECLUSE_SPIDER] \
      || (ptr) == &mons[PM_WERESPIDER]  \
      || (ptr) == &mons[PM_SPIBRAWULF])
+#define throws_snowballs(ptr) \
+    ((ptr) == &mons[PM_SNOW_GOLEM] \
+     || (ptr) == &mons[PM_ICE_ELEMENTAL])
 #define is_unicorn(ptr) ((ptr)->mlet == S_UNICORN && likes_gems(ptr))
 #define is_longworm(ptr)                                                   \
     (((ptr) == &mons[PM_BABY_LONG_WORM]) \
@@ -574,6 +580,7 @@
      || (ptr) == &mons[PM_BABY_OWLBEAR] \
      || (ptr) == &mons[PM_HUMAN_ZOMBIE] \
      || (ptr) == &mons[PM_GIANT_ZOMBIE] \
+     || (ptr) == &mons[PM_POLAR_BEAR] \
      || (ptr) == &mons[PM_LICH])
 
 #define likes_gtown(ptr) \
@@ -681,6 +688,11 @@
     (ptr) == &mons[PM_BASILISK] || \
     (ptr) == &mons[PM_ASPHYNX])
 
+#define is_pirate(ptr) \
+    ((ptr) == &mons[PM_PIRATE] || (ptr) == &mons[PM_SKELETAL_PIRATE] \
+      || (ptr) == &mons[PM_DAMNED_PIRATE] || (ptr) == &mons[PM_PLANAR_PIRATE] \
+      || (ptr) == &mons[PM_MAYOR_CUMMERBUND] || (ptr) == &mons[PM_PIRATE_CREWMATE])
+
 #define is_mind_flayer(ptr) \
     ((ptr) == &mons[PM_MIND_FLAYER] \
     || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
@@ -692,7 +704,10 @@
          || (ptr) == &mons[PM_GARGOYLE] \
          || (ptr) == &mons[PM_WINGED_GARGOYLE] \
 	 || (ptr) == &mons[PM_STATUE_GARGOYLE])
-
+/* This is only used for the Souleater tech */
+#define is_flan(ptr) ((ptr)->mlet == S_BLOB || \
+                     (ptr)->mlet == S_JELLY || \
+                     (ptr)->mlet == S_PUDDING)
 #define is_vampire(ptr)	((ptr)->mlet == S_VAMPIRE || \
                           ((ptr) == youmonst.data && !Upolyd && Race_if(PM_VAMPIRIC)))
 
@@ -703,6 +718,7 @@
 #define hates_light(ptr) ((ptr) == &mons[PM_GREMLIN]  \
                           || (ptr) == &mons[PM_GIBBERLING] \
                           || (ptr) == &mons[PM_GRIMLOCK] \
+                          || (ptr) == &mons[PM_BODAK] \
                           || (ptr) == &mons[PM_NOSFERATU])
 
 #define stationary(ptr)     ((ptr)->mflags4 & M4_STATIONARY)
@@ -807,8 +823,7 @@
     ((ptr) == &mons[PM_GELATINOUS_CUBE] \
      || (ptr) == &mons[PM_SHOGGOTH] \
      || (ptr) == &mons[PM_GIANT_SHOGGOTH] \
-     || (ptr) == &mons[PM_TASMANIAN_DEVIL] \
-     || (ptr) == &mons[PM_LOCUST])
+     || (ptr) == &mons[PM_TASMANIAN_DEVIL])
 
 /* instantly eats any organic object it comes into contact with */
 #define is_souleater(ptr) \

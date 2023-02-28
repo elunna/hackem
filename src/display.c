@@ -1945,30 +1945,30 @@ back_to_defsym(xchar x, xchar y)
         idx = (ptr->ladder & LA_DOWN) ? S_dnladder : S_upladder;
         break;
 #endif
-    case FOUNTAIN: idx = S_fountain; break;
-    case VENT: idx = S_vent; break;
-    case FORGE: idx = S_forge; break;
-    case SINK: idx = S_sink; break;
-    case TOILET: idx = S_toilet; break;
+    case FOUNTAIN:      idx = S_fountain; break;
+    case VENT:          idx = S_vent; break;
+    case FORGE:         idx = S_forge; break;
+    case SINK:          idx = S_sink; break;
+    case TOILET:        idx = S_toilet; break;
     /* triggers special behavior in back_to_defsym() */
-    case ALTAR: idx = S_altar; break;
-    case GRAVE: idx = S_grave; break;
-    case THRONE: idx = S_throne; break;
-    case LAVAPOOL: idx = S_lava; break;
-    case ICE: idx = S_ice; break;
-    case GRASS: idx = S_grass; break;
-    case AIR: idx = S_air; break;
-    case CLOUD: idx = S_cloud; break;
-    case WATER: idx = S_water; break;
+    case ALTAR:         idx = S_altar; break;
+    case GRAVE:         idx = S_grave; break;
+    case THRONE:        idx = S_throne; break;
+    case LAVAPOOL:      idx = S_lava; break;
+    case ICE:           idx = S_ice; break;
+    case GRASS:         idx = S_grass; break;
+    case AIR:           idx = S_air; break;
+    case CLOUD:         idx = S_cloud; break;
+    case WATER:         idx = S_water; break;
     case DBWALL:
         idx = (ptr->horizontal) ? S_hcdbridge : S_vcdbridge;
         break;
     case DRAWBRIDGE_UP:
         switch (ptr->drawbridgemask & DB_UNDER) {
-        case DB_MOAT: idx = S_pool; break;
-        case DB_LAVA: idx = S_lava; break;
-        case DB_ICE: idx = S_ice; break;
-        case DB_FLOOR: idx = S_room; break;
+        case DB_MOAT:   idx = S_pool; break;
+        case DB_LAVA:   idx = S_lava; break;
+        case DB_ICE:    idx = S_ice; break;
+        case DB_FLOOR:  idx = S_room; break;
         default:
             impossible("Strange db-under: %d",
                        ptr->drawbridgemask & DB_UNDER);

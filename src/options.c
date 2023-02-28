@@ -336,7 +336,11 @@ static struct Comp_Opt {
     { "homunname", "the name of your (first) homunculus (e.g., homunname:Steve)",
       PL_PSIZ, DISP_IN_GAME },
     { "ghoulname",  "the name of your (first) ghoul (e.g., ghoulname:Casper)",
-	  PL_PSIZ, DISP_IN_GAME },
+      PL_PSIZ, DISP_IN_GAME },
+    { "birdname",  "the name of your (first) bird (e.g., birdname:Squawks)",
+      PL_PSIZ, DISP_IN_GAME },
+    { "monkeyname",  "the name of your (first) monkey (e.g., monkeyname:Ugga-Ugga)",
+      PL_PSIZ, DISP_IN_GAME },
     { "horsename", "the name of your (first) horse (e.g., horsename:Silver)",
       PL_PSIZ, DISP_IN_GAME },
     { "map_mode", "map display mode under Windows", 20, DISP_IN_GAME }, /*WC*/
@@ -1391,8 +1395,10 @@ STATIC_VAR const struct paranoia_opts {
       "y to pray (supersedes old \"prayconfirm\" option)" },
     { PARANOID_REMOVE, "Remove", 1, "Takeoff", 1,
       "always pick from inventory for Remove and Takeoff" },
+    { PARANOID_TRAP, "trap", 1, 0, 0,
+      "yes to walk into a trap" },
     { PARANOID_SWIM, "swim", 1, 0, 0,
-      "yes to walk into a water or lava space" },
+      "avoid walking into lava or water" },
     /* for config file parsing; interactive menu skips these */
     { 0, "none", 4, 0, 0, 0 }, /* require full word match */
     { ~0, "all", 3, 0, 0, 0 }, /* ditto */
@@ -2353,7 +2359,39 @@ boolean tinitial, tfrom_file;
         sanitize_name(ghoulname);
         return retval;
     }
-        
+    
+    fullname = "birdname";
+    if (match_optname(opts, fullname, 3, TRUE)) {
+        if (duplicate)
+            complain_about_duplicate(opts, 1);
+        if (negated) {
+            bad_negation(fullname, FALSE);
+            return FALSE;
+        } else if ((op = string_for_env_opt(fullname, opts, FALSE))
+                   != empty_optstr) {
+            nmcpy(birdname, op, PL_PSIZ);
+        } else
+            return FALSE;
+        sanitize_name(birdname);
+        return retval;
+    }
+    
+    fullname = "monkeyname";
+    if (match_optname(opts, fullname, 3, TRUE)) {
+        if (duplicate)
+            complain_about_duplicate(opts, 1);
+        if (negated) {
+            bad_negation(fullname, FALSE);
+            return FALSE;
+        } else if ((op = string_for_env_opt(fullname, opts, FALSE))
+                   != empty_optstr) {
+            nmcpy(monkeyname, op, PL_PSIZ);
+        } else
+            return FALSE;
+        sanitize_name(monkeyname);
+        return retval;
+    }
+    
     fullname = "wolfname";
     if (match_optname(opts, fullname, 3, TRUE)) {
         if (duplicate)
@@ -2997,7 +3035,7 @@ boolean tinitial, tfrom_file;
             return FALSE;
         } else if ((op = string_for_opt(opts, negated)) != empty_optstr) {
 #if defined(WIN32) && defined(TTY_GRAPHICS)
-            set_altkeyhandler(op);
+            set_altkeyhandling(op);
 #endif
         } else
             return FALSE;
@@ -5713,7 +5751,7 @@ boolean setinitial, setfromfile;
                     big_desc = thissize;
             }
             if (!setcount) {
-                pline("There are no appropriate %s symbol sets available.",
+                There("are no appropriate %s symbol sets available.",
                       rogueflag ? "rogue level" : "primary");
                 return TRUE;
             }
@@ -5794,7 +5832,7 @@ boolean setinitial, setfromfile;
             return TRUE;
         } else if (!symset_list) {
             /* The symbols file was empty */
-            pline("There were no symbol sets found in \"%s\".", SYMBOLS);
+            There("were no symbol sets found in \"%s\".", SYMBOLS);
             return TRUE;
         }
 
@@ -5837,7 +5875,11 @@ boolean setinitial, setfromfile;
             assign_graphics(PRIMARY);
         preference_update("symset");
         need_redraw = TRUE;
-
+#ifdef WIN32
+    } else if (!strcmp("altkeyhandler", optname)
+               || !strcmp("altkeyhandling", optname)) {
+        return set_keyhandling_via_option();
+#endif
     } else {
         /* didn't match any of the special options */
         return FALSE;
@@ -5877,7 +5919,11 @@ char *buf;
 #ifdef WIN32
     else if (!strcmp(optname, "altkeyhandler"))
         Sprintf(buf, "%s",
-                iflags.altkeyhandler[0] ? iflags.altkeyhandler : "default");
+                (iflags.key_handling == ray_keyhandling)
+                    ? "ray"
+                    : (iflags.key_handling == nh340_keyhandling)
+                        ? "340"
+                        : "default");
 #endif
 #ifdef BACKWARD_COMPAT
     else if (!strcmp(optname, "boulder"))
@@ -5946,8 +5992,12 @@ char *buf;
         Sprintf(buf, "%s", rolestring(flags.initgend, genders, adj));
     else if (!strcmp(optname, "horsename"))
         Sprintf(buf, "%s", horsename[0] ? horsename : none);
-    else if (!strcmp(optname, "ghoulname")) 
-		Sprintf(buf, "%s", ghoulname[0] ? ghoulname : none);
+    else if (!strcmp(optname, "ghoulname"))
+        Sprintf(buf, "%s", ghoulname[0] ? ghoulname : none);
+    else if (!strcmp(optname, "birdname"))
+        Sprintf(buf, "%s", birdname[0] ? birdname : none);
+    else if (!strcmp(optname, "monkeyname"))
+        Sprintf(buf, "%s", monkeyname[0] ? monkeyname : none);
     else if (!strcmp(optname, "homunname"))
         Sprintf(buf, "%s", homunname[0] ? horsename : none);
     else if (!strcmp(optname, "map_mode")) {

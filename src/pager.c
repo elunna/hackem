@@ -19,6 +19,7 @@ STATIC_DCL struct permonst *FDECL(lookat, (int, int, char *, char *));
 STATIC_DCL char *FDECL(hallucinatory_armor, (char *));
 STATIC_DCL void FDECL(add_mon_info, (winid, struct permonst *));
 STATIC_DCL void FDECL(add_obj_info, (winid, struct obj *, SHORT_P, char *));
+STATIC_DCL void FDECL(corpse_conveys, (char *, struct permonst *));
 STATIC_DCL void FDECL(look_all, (BOOLEAN_P,BOOLEAN_P));
 STATIC_DCL void FDECL(do_supplemental_info, (char *, struct permonst *,
                                              BOOLEAN_P));
@@ -547,7 +548,6 @@ char *buf, *monbuf;
             Strcpy(buf, defsyms[trap_to_defsym(tnum)].explanation);
     } else if (glyph_is_warning(glyph)) {
         int warnindx = glyph_to_warning(glyph);
-
         Strcpy(buf, def_warnsyms[warnindx].explanation);
     } else if (!glyph_is_cmap(glyph)) {
         Strcpy(buf, "unexplored area");
@@ -583,11 +583,12 @@ char *buf, *monbuf;
                    Is_airlevel(&u.uz) ? "cloudy area" : "fog/vapor cloud");
             printed_blood = TRUE;
             break;
-        case S_poisoncloud:
-            printed_blood = TRUE;
+        case S_poisoncloud: 
+            Strcpy(buf, "poison cloud");
+            printed_blood = TRUE; 
             break;
         case S_grass:
-            Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody grass" : "grass");
+            Sprintf(eos(buf), levl[x][y].splatpm ? "bloody grass" : "grass");
             printed_blood = TRUE;
             break;
         case S_pool:
@@ -616,9 +617,10 @@ char *buf, *monbuf;
             break;
         }
     }
-    if (cansee(x, y) && levl[x][y].splatpm && !printed_blood)
+    if (!pm && cansee(x, y) && levl[x][y].splatpm && !printed_blood)
         Sprintf(eos(buf), " covered in %s blood",
-                mons[levl[x][y].splatpm].mname);
+                Hallucination ? rndmonnam(NULL) : 
+                              mons[levl[x][y].splatpm].mname);
     return (pm && !Hallucination) ? pm : (struct permonst *) 0;
 }
 
@@ -794,7 +796,7 @@ struct permonst * pm;
     char buf2[BUFSZ];
     int i, gen = pm->geno;
     int freq = (gen & G_FREQ);
-    int pct = max(5, (int) (pm->cwt / 90));
+    
     boolean uniq = !!(gen & G_UNIQ);
     boolean hell = !!(gen & G_HELL);
     boolean nohell = !!(gen & G_NOHELL);
@@ -819,14 +821,7 @@ struct permonst * pm;
             Strcat(buf, ", ");    \
         Strcat(buf, str);         \
     }
-#define ADDPCTRES(cond, amt, str)    \
-    if (cond) {                      \
-        if (*buf)                    \
-            Strcat(buf, ", ");       \
-        Sprintf(eos(buf), "%d%% %s", \
-                amt, str);           \
-    }
-
+    
 #define MONPUTSTR(str) putstr(datawin, ATR_NONE, str)
 
     /* differentiate the two forms of werecreatures */
@@ -862,7 +857,7 @@ struct permonst * pm;
                 freq == 3 ? "slightly rare" :
                 freq == 2 ? "rare" : "very rare");
     MONPUTSTR(buf);
-
+    
     /* Resistances */
     buf[0] = '\0';
     ADDRESIST(pm_resistance(pm, MR_FIRE), "fire");
@@ -886,29 +881,9 @@ struct permonst * pm;
     } else {
         MONPUTSTR("Has no resistances.");
     }
-
+    
     /* Corpse conveyances */
-    buf[0] = '\0';
-    ADDPCTRES(intrinsic_possible(FIRE_RES, pm), pct, "fire");
-    ADDPCTRES(intrinsic_possible(COLD_RES, pm), pct, "cold");
-    ADDPCTRES(intrinsic_possible(SHOCK_RES, pm), pct, "shock");
-    ADDPCTRES(intrinsic_possible(SLEEP_RES, pm), pct, "sleep");
-    ADDPCTRES(intrinsic_possible(POISON_RES, pm), pct, "poison");
-    ADDPCTRES(intrinsic_possible(DISINT_RES, pm), pct, "disintegration");
-    /* acid, stone, and psionic resistance aren't currently conveyable */
-    if (*buf)
-        Strcat(buf, " resistance");
-    APPENDC(intrinsic_possible(TELEPORT, pm), "teleportation");
-    APPENDC(intrinsic_possible(TELEPORT_CONTROL, pm), "teleport control");
-    APPENDC(intrinsic_possible(TELEPAT, pm), "telepathy");
-    /* There are a bunch of things that happen in cpostfx (levels for wraiths,
-     * stunning for bats...) but only count the ones that actually behave like
-     * permanent intrinsic gains.
-     * If you find yourself listing multiple things here for the same effect,
-     * that may indicate the property should be added to psuedo_intrinsics. */
-    APPENDC(pm == &mons[PM_QUANTUM_MECHANIC], "speed or slowness");
-    APPENDC(pm == &mons[PM_MIND_FLAYER] || pm == &mons[PM_MASTER_MIND_FLAYER],
-            "intelligence");
+    corpse_conveys(buf, pm);
     if (is_were(pm)) {
         /* Weres need a bit of special handling, since 1) you always get
          * lycanthropy so "may convey" could imply the player might not contract
@@ -936,7 +911,7 @@ struct permonst * pm;
             MONPUTSTR("Corpse conveys no intrinsics.");
     } else
         MONPUTSTR("Leaves no corpse.");
-
+    
     /* Flag descriptions */
     buf[0] = '\0';
     APPENDC(is_male(pm), "male");
@@ -1118,6 +1093,7 @@ char *usr_text;
     dummy.bknown = obj ? obj->bknown : 0;
     dummy.blessed = obj ? obj->blessed : 0;
     dummy.cursed = obj ? obj->cursed : 0;
+    dummy.altmode = obj ? obj->altmode : 0;
     
     
     if (obj && otyp == STRANGE_OBJECT) {
@@ -1133,7 +1109,7 @@ char *usr_text;
 
     if ((obj && otyp == STRANGE_OBJECT)) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
-    } else if (dummy.oprops_known) {
+    } else if (dummy.oprops_known || otyp == CORPSE) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
     } else if (identified) {
         Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
@@ -1143,8 +1119,7 @@ char *usr_text;
     OBJPUTSTR("");
     
     /* Object classes currently with no special messages here: amulets. */
-    if (olet == WEAPON_CLASS 
-        || weptool 
+    if (olet == WEAPON_CLASS || weptool
         || otyp == FLINT || otyp == ROCK || otyp == SLING_BULLET) {
         const int skill = oc.oc_skill;
         const char* dmgtyp = "blunt";
@@ -1189,6 +1164,7 @@ char *usr_text;
                     "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
                     damage_info.damage_small, damage_info.bonus_small,
                     damage_info.damage_large, damage_info.bonus_large);
+            OBJPUTSTR(buf);
         } else {
             Sprintf(buf, "Damage:  Unknown (identification required)");
             OBJPUTSTR(buf);
@@ -1198,13 +1174,15 @@ char *usr_text;
         if (damage_info.axe_damage)     { OBJPUTSTR(damage_info.axe_damage); }
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
         if (damage_info.mat_damage)     { OBJPUTSTR(damage_info.mat_damage); }
-        if (damage_info.hate_damage)     { OBJPUTSTR(damage_info.hate_damage); }
+        if (damage_info.hate_damage)    { OBJPUTSTR(damage_info.hate_damage); }
 
         /* Properties */
         if (dummy.oprops_known) {
             if (obj->oprops & ITEM_FIRE) OBJPUTSTR("\t+1d5 + 3 fire damage");
             if (obj->oprops & ITEM_FROST) OBJPUTSTR("\t+1d5 + 3 cold damage");
             if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("\t+1d5 + 3 shock damage");
+            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
+            if (obj->oprops & ITEM_ACID) OBJPUTSTR("\t+1d5 + 3 acid damage");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
         }
         
@@ -1253,7 +1231,9 @@ char *usr_text;
             if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
             if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
             if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
+            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
+            if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
             if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
             if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
             if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
@@ -1300,10 +1280,30 @@ char *usr_text;
             if (obj && (obj->otyp == CORPSE)) {
                 Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
                 OBJPUTSTR(buf);
+                OBJPUTSTR("Takes various amounts of turns to eat.");
+
+                /* Corpse conveyances */
+                struct permonst *pm = &mons[obj->corpsenm];
+                corpse_conveys(buf, pm);
+                if (is_were(pm)) {
+                    OBJPUTSTR("Corpse conveys lycanthropy.");
+                } else {
+                    if (*buf) {
+                        Sprintf(buf2, "Corpse conveys %s.", buf);
+                        OBJPUTSTR(buf2);
+                    } else
+                        OBJPUTSTR("Corpse conveys no intrinsics.");
+                }
+                if (poisonous(pm)) {
+                    OBJPUTSTR("Corpse is poisonous.");
+                }
+                if (acidic(pm)) {
+                    OBJPUTSTR("Corpse is acidic.");
+                }
             } else {
                 OBJPUTSTR("Comestible providing varied nutrition.");
             }
-            OBJPUTSTR("Takes various amounts of turns to eat.");
+            
             if (obj) {
                 if (vegan(&mons[cnum])) {
                     OBJPUTSTR("Is vegan.");
@@ -1527,7 +1527,7 @@ char *usr_text;
             if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
                 OBJPUTSTR("Can be written on.");
             } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD
-                       || otyp == SCR_KNOWLEDGE) {
+                       || otyp == SCR_KNOWLEDGE || otyp == SCR_TIME) {
                 OBJPUTSTR("Cannot be written.");
             } else {
                 Sprintf(buf, "Takes %d to %d ink to write.",
@@ -1669,9 +1669,6 @@ char *usr_text;
         if (a_info.nogen) {
             OBJPUTSTR("Does not generate randomly.");
         }
-        if (a_info.exclude) {
-            OBJPUTSTR("Excluded from total artifact count.");
-        }
         Sprintf(buf, "Cost: %d ", a_info.cost);
         OBJPUTSTR(buf);
 #if 0
@@ -1710,6 +1707,14 @@ char *usr_text;
         
         wielded = FALSE;
         OBJPUTSTR("While wielded/worn:");
+        if (a_info.wield_res) {
+            Sprintf(buf, "\t%s", a_info.wield_res);
+            OBJPUTSTR(buf);
+        }
+        if (a_info.wield_warn) {
+            Sprintf(buf, "\t%s", a_info.wield_warn);
+            OBJPUTSTR(buf);
+        }
         for (i = 0; i < INTRINSICS; i++) {
             if (a_info.wielded[i]) {
                 Sprintf(buf, "\t%s", a_info.wielded[i]);
@@ -1717,11 +1722,15 @@ char *usr_text;
                 wielded = TRUE;
             }
         }
-        if (!wielded)
+        if (!wielded && !a_info.wield_res && !a_info.wield_warn)
             OBJPUTSTR("\tNone");
         
         carried = FALSE;
         OBJPUTSTR("While carried:");
+        if (a_info.carr_res) {
+            Sprintf(buf, "\t%s", a_info.carr_res);
+            OBJPUTSTR(buf);
+        }
         for (i = 0; i < INTRINSICS; i++) {
             if (a_info.carried[i]) {
                 Sprintf(buf, "\t%s", a_info.carried[i]);
@@ -1729,7 +1738,7 @@ char *usr_text;
                 carried = TRUE;
             }
         }
-        if (!carried)
+        if (!carried && !a_info.carr_res)
             OBJPUTSTR("\tNone");
         
         Sprintf(buf, "When #invoked: %s ", a_info.invoke);
@@ -1738,7 +1747,56 @@ char *usr_text;
         if (a_info.xinfo) {
             OBJPUTSTR(a_info.xinfo);
         }
+        /* Free some of these manually */
+        free(a_info.wield_warn);
+        free(a_info.wield_res);
+        free(a_info.carr_res);
+        free(a_info.attack);
+        free(a_info.dbldmg);
     }
+}
+
+STATIC_OVL void
+corpse_conveys(buf, pm)
+struct permonst * pm;
+char *buf;
+{
+    int pct = max(5, (int) (pm->cwt / 90));
+#define ADDPCTRES(cond, amt, str)    \
+    if (cond) {                      \
+        if (*buf)                    \
+            Strcat(buf, ", ");       \
+        Sprintf(eos(buf), "%d%% %s", \
+                amt, str);           \
+    }
+#define APPENDC(cond, str)        \
+    if (cond) {                   \
+        if (*buf)                 \
+            Strcat(buf, ", ");    \
+        Strcat(buf, str);         \
+    }
+    /* Corpse conveyances */
+    buf[0] = '\0';
+    ADDPCTRES(intrinsic_possible(FIRE_RES, pm), pct, "fire");
+    ADDPCTRES(intrinsic_possible(COLD_RES, pm), pct, "cold");
+    ADDPCTRES(intrinsic_possible(SHOCK_RES, pm), pct, "shock");
+    ADDPCTRES(intrinsic_possible(SLEEP_RES, pm), pct, "sleep");
+    ADDPCTRES(intrinsic_possible(POISON_RES, pm), pct, "poison");
+    ADDPCTRES(intrinsic_possible(DISINT_RES, pm), pct, "disintegration");
+    /* acid, stone, and psionic resistance aren't currently conveyable */
+    if (*buf)
+        Strcat(buf, " resistance");
+    APPENDC(intrinsic_possible(TELEPORT, pm), "teleportation");
+    APPENDC(intrinsic_possible(TELEPORT_CONTROL, pm), "teleport control");
+    APPENDC(intrinsic_possible(TELEPAT, pm), "telepathy");
+    /* There are a bunch of things that happen in cpostfx (levels for wraiths,
+     * stunning for bats...) but only count the ones that actually behave like
+     * permanent intrinsic gains.
+     * If you find yourself listing multiple things here for the same effect,
+     * that may indicate the property should be added to psuedo_intrinsics. */
+    APPENDC(pm == &mons[PM_QUANTUM_MECHANIC], "speed or slowness");
+    APPENDC(pm == &mons[PM_MIND_FLAYER] || pm == &mons[PM_MASTER_MIND_FLAYER],
+            "intelligence");
 }
 
 /*
@@ -1783,10 +1841,14 @@ char *supplemental_name;
      * for Angel and angel, make the lookup string the same for both
      * user_typed_name and picked name.
      */
-    if (pm != (struct permonst *) 0 && !user_typed_name)
-        dbase_str = strcpy(newstr, pm->mname);
-    else
+    if (pm != (struct permonst *) 0 && !user_typed_name) {
+        if (is_rider(pm))
+            dbase_str = strcpy(newstr, "Rider");
+        else
+            dbase_str = strcpy(newstr, pm->mname);
+    } else {
         dbase_str = strcpy(newstr, inp);
+    }
     (void) lcase(dbase_str);
 
     /*
@@ -2099,6 +2161,9 @@ char *supplemental_name;
                             && !wizard
                             && !u.uevent.know_horror)
                             ; /* no freebies */
+                        else if (is_rider(pm) && !user_typed_name
+                                 && !without_asking)
+                            ; /* no stats via farlook */
                         else
                             add_mon_info(datawin, pm);
                         if (is_were(pm) && pm != &mons[PM_RAT_KING]) {
@@ -2379,7 +2444,7 @@ struct permonst **for_supplement;
                     hit_trap = TRUE;
             }
 
-            if (i == S_altar || is_cmap_trap(i))
+            if (i == S_altar || i == S_grass || is_cmap_trap(i))
                 need_to_look = TRUE;
         }
     }
@@ -3300,13 +3365,13 @@ docontact(VOID_ARGS)
         putstr(cwin, 0, buf);
         putstr(cwin, 0, "");
     }
-    putstr(cwin, 0, "To contact the HackEM development team directly,");
+    putstr(cwin, 0, "To contact the Hack'EM development team directly,");
     /*XXX overflow possibilities*/
     Sprintf(buf, "visit #hackem or #hardfought on Libera Chat IRC, or email <%s>.",
             DEVTEAM_EMAIL);
     putstr(cwin, 0, buf);
     putstr(cwin, 0, "");
-    putstr(cwin, 0, "For more information on HackEM, or to report a bug,");
+    putstr(cwin, 0, "For more information on Hack'EM, or to report a bug,");
     Sprintf(buf, "visit our website \"%s\".", DEVTEAM_URL);
     putstr(cwin, 0, buf);
     display_nhwindow(cwin, FALSE);

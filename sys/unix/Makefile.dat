@@ -172,8 +172,8 @@ spec_levs: ../util/lev_comp \
 quest_levs: ../util/lev_comp \
 	Arch.des Barb.des Caveman.des Convict.des Healer.des Infidel.des \
 	Flame.des Ice.des Necro.des Slayer.des Yeoman.des \
-	Knight.des Monk.des Priest.des Ranger.des Rogue.des Samurai.des \
-	Tourist.des Valkyrie.des Wizard.des
+	Knight.des Monk.des Pirate.des Priest.des Ranger.des \
+	Rogue.des Samurai.des Tourist.des Valkyrie.des Wizard.des
 	../util/lev_comp Arch.des
 	../util/lev_comp Barb.des
 	../util/lev_comp Caveman.des
@@ -185,6 +185,7 @@ quest_levs: ../util/lev_comp \
 	../util/lev_comp Knight.des
 	../util/lev_comp Monk.des
 	../util/lev_comp Necro.des
+	../util/lev_comp Pirate.des
 	../util/lev_comp Priest.des
 	../util/lev_comp Ranger.des
 	../util/lev_comp Rogue.des

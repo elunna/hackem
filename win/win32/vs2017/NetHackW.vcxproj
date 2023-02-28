@@ -136,6 +136,7 @@
     <ClCompile Include="$(SrcDir)steal.c" />
     <ClCompile Include="$(SrcDir)steed.c" />
     <ClCompile Include="$(SrcDir)sys.c" />
+    <ClCompile Include="$(SrcDir)tech.c" />
     <ClCompile Include="$(SrcDir)teleport.c" />
     <ClCompile Include="$(SrcDir)tile.c" />
     <ClCompile Include="$(SrcDir)timeout.c" />

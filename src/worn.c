@@ -375,10 +375,18 @@ int which;
         return !!(obj->oclass != WEAPON_CLASS
                   && !is_weptool(obj)
                   && (obj->oprops & ITEM_SHOCK));
+    case SONIC_RES:
+        return !!(obj->oclass != WEAPON_CLASS
+                  && !is_weptool(obj)
+                  && (obj->oprops & ITEM_SCREAM));
     case POISON_RES:
         return !!(obj->oclass != WEAPON_CLASS
                   && !is_weptool(obj)
                   && (obj->oprops & ITEM_VENOM));
+    case ACID_RES:
+        return !!(obj->oclass != WEAPON_CLASS
+                  && !is_weptool(obj)
+                  && (obj->oprops & ITEM_ACID));
     case TELEPAT:
         return !!(obj->oprops & ITEM_ESP);
     case FUMBLING:
@@ -480,7 +488,7 @@ boolean on, silently;
         case STONE_RES:
         case PSYCHIC_RES:
             /* 1 through 9 correspond to MR_xxx mask values */
-            if (which >= 1 && which <= 9) {
+            if (which >= 1 && which <= 11) {
                 mask = (uchar) (1 << (which - 1));
                 mon->mextrinsics |= (unsigned long) mask;
             }
@@ -611,9 +619,17 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = SHOCK_RES;
                 break;
+            case ITEM_SCREAM:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = SONIC_RES;
+                break;
             case ITEM_VENOM:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = POISON_RES;
+                break;
+            case ITEM_ACID:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = ACID_RES;
                 break;
             case ITEM_ESP:
                 which = TELEPAT;
@@ -827,6 +843,8 @@ boolean racialexception;
                     && obj->otyp != AMULET_OF_MAGIC_RESISTANCE
                     && obj->otyp != AMULET_OF_GUARDING
                     && obj->otyp != AMULET_OF_ESP
+                    && obj->otyp != AMULET_VERSUS_STONE
+                    && obj->otyp != AMULET_OF_DRAIN_RESISTANCE
                     && obj->oartifact != ART_EYE_OF_THE_AETHIOPICA))
                 continue;
             /* for 'best' to be non-Null, it must be an amulet of guarding;
@@ -892,6 +910,8 @@ boolean racialexception;
                     && obj->otyp != RIN_COLD_RESISTANCE
                     && obj->otyp != RIN_POISON_RESISTANCE
                     && obj->otyp != RIN_SHOCK_RESISTANCE
+                    && obj->otyp != RIN_SONIC_RESISTANCE
+                    && obj->otyp != RIN_PSYCHIC_RESISTANCE
                     && obj->otyp != RIN_REGENERATION
                     && obj->otyp != RIN_TELEPORTATION
                     && obj->otyp != RIN_TELEPORT_CONTROL
@@ -1424,6 +1444,13 @@ struct obj *obj;
                   || wielding_artifact(ART_SKULLCRUSHER)
                   || (u.twoweap && uswapwep->oprops & ITEM_SHOCK)
                   || (uwep && uwep->oprops & ITEM_SHOCK)) ? 25 : 5;
+        break;
+    case RIN_SONIC_RESISTANCE:
+        if (!(resists_sonic(mon) || defended(mon, AD_LOUD)))
+            rc = (dmgtype(youmonst.data, AD_LOUD)
+                  || wielding_artifact(ART_THUNDERSTRUCK)
+                  || (u.twoweap && uswapwep->oprops & ITEM_SCREAM)
+                  || (uwep && uwep->oprops & ITEM_SCREAM)) ? 25 : 5;
         break;
     case RIN_REGENERATION:
         rc = !mon_prop(mon, REGENERATION) ? 25 : 5;

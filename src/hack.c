@@ -187,7 +187,7 @@ moverock()
                 if (Blind)
                     feel_location(sx, sy);
                 if (canspotmon(mtmp)) {
-                    pline("There's %s on the other side.", a_monnam(mtmp));
+                    There("is %s on the other side.", a_monnam(mtmp));
                     deliver_part1 = TRUE;
                 } else {
                     You_hear("a monster behind %s.", the(xname(otmp)));
@@ -691,122 +691,6 @@ dosinkfall()
     float_vs_flight();
 }
 
-static NEARDATA int dpx, dpy; /* boulder being attacked */
-static NEARDATA int breakturns; /* concentration turn */
-
-STATIC_OVL int
-ma_break(VOID_ARGS)
-{
-    struct obj *bobj, *obj;
-    int prob;
-
-    if (distu(dpx, dpy) > 2) {
-        Your("qi dissipates in all directions.");
-        make_confused(6 + breakturns * P_SKILL(P_MARTIAL_ARTS), FALSE);
-        return 0;
-    }
-
-    if (breakturns < 40 / P_SKILL(P_MARTIAL_ARTS)) {
-        breakturns++;
-        return 1; /* still concentrating */
-    }
-
-    if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0)
-        pline("Focusing your qi, you %s the boulder.",
-              rn2(2) ? "strike" : "hit");
-    else if ((obj = sobj_at(STATUE, dpx, dpy)) !=0)
-        pline("Focusing your qi, you %s the statue.",
-              rn2(2) ? "strike" : "hit");
-
-    /* even while blind you can first feel and then image the boulder */
-    if (Confusion || Hallucination || Stunned) {
-        if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
-            if (rn2(2)) {
-                You("swing wildly, missing the boulder.");
-            } else {
-               You("slip, hitting your head against the boulder!");
-               losehp(d(1, 4), "face planting into a boulder.",
-                      NO_KILLER_PREFIX);
-            }
-        } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
-            if (rn2(2)) {
-                You("swing wildly, missing the statue.");
-            } else {
-               You("slip, hitting your head against the statue!");
-               losehp(d(1, 4), "trying to headbutt a statue.",
-                      NO_KILLER_PREFIX);
-            }
-        }
-        return 0;
-    }
-
-    prob = 40;
-    prob -= u.ulevel;
-    prob /= P_SKILL(P_MARTIAL_ARTS);
-
-    /* inherently strong races get a probability bonus,
-     * inherently weak races, not so much */
-    if (Race_if(PM_GIANT))
-        prob -= 3;
-    if (Race_if(PM_CENTAUR))
-        prob -= 2;
-    if (Race_if(PM_ELF))
-        prob += 1;
-
-    if (uarmg) {
-        switch (uarmg->otyp) {
-        case GAUNTLETS_OF_POWER:
-        case MUMMIFIED_HAND: /* the Hand of Vecna */
-            prob -= 10;
-            break;
-        case GAUNTLETS_OF_FUMBLING:
-            prob *= 4;
-            break;
-        case GLOVES:
-        case GAUNTLETS:
-        case GAUNTLETS_OF_DEXTERITY:
-        case GAUNTLETS_OF_PROTECTION:
-            break;
-        default:
-            impossible("Unknown type of gloves (%d)", uarmg->otyp);
-        }
-    }
-
-    if (3 > prob)
-        prob = 3; /* don't be always successful without skill */
-
-    if (P_SKILL(P_MARTIAL_ARTS) > P_EXPERT
-        || !rn2(prob)) {
-        if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
-            fracture_rock(obj);
-            pline_The("boulder splits and falls apart.");
-        } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
-            break_statue(obj);
-            pline_The("statue shatters into pieces.");
-        }
-        if ((bobj = sobj_at(BOULDER, dpx, dpy)) != 0) {
-            /* another boulder here, restack it to the top */
-            obj_extract_self(bobj);
-            place_object(bobj, dpx, dpy);
-        }
-        exercise(A_STR, TRUE);
-        use_skill(P_MARTIAL_ARTS, 1);
-    } else {
-        if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
-            pline("However, your qi is not focused enough to break the boulder.");
-            losehp(d(1, 6), "trying to split a boulder.", KILLED_BY);
-        } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
-            pline("However, your qi is not focused enough to break the statue.");
-            losehp(d(1, 6), "trying to shatter a statue.", KILLED_BY);
-        }
-        if (!rn2(5)) {
-            You("need more training to reliably focus your qi.");
-            use_skill(P_MARTIAL_ARTS, 1);
-        }
-    }
-    return 0; /* done */
-}
-
 /* intended to be called only on ROCKs or TREEs */
 boolean
 may_dig(x, y)
@@ -905,7 +789,7 @@ int mode;
                so we won't get here, hence don't need to worry about
                "there" being somewhere the player isn't sure of */
             if (mode == DO_MOVE)
-                pline("There is an obstacle there.");
+                There("is an obstacle there.");
             return FALSE;
         } else if (tmpr->typ == IRONBARS) {
             if ((dmgtype(youmonst.data, AD_RUST)
@@ -955,7 +839,7 @@ int mode;
                     You("ooze under the door.");
             } else if (Underwater) {
                 if (mode == DO_MOVE)
-                    pline("There is an obstacle there.");
+                    There("is an obstacle there.");
                 return FALSE;
             } else if (tunnels(youmonst.data) && !needspick(youmonst.data)) {
                 /* Eat the door. */
@@ -1979,15 +1863,7 @@ domove_core()
         if (((boulder = sobj_at(BOULDER, x, y)) != 0
             || (boulder = sobj_at(STATUE, x, y)) != 0)
             && weapon_type(uwep) == P_BARE_HANDED_COMBAT && Role_if(PM_MONK)) {
-            if (P_SKILL(P_MARTIAL_ARTS) < P_SKILLED) {
-                You("lack the necessary training to focus your qi.");
-            } else {
-                You("start channeling your qi.");
-                dpx = x;
-                dpy = y;
-                breakturns = 0;
-                set_occupation(ma_break, "channeling your qi", 0);
-            }
+            do_breakrock(x, y);
             return;
         } else {
             You("%s%s %s.",
@@ -2014,7 +1890,40 @@ domove_core()
         nomul(0);
         return;
     }
+    /* warn player before walking into known traps */
+    if (ParanoidTrap &&
+        ((trap = t_at(x, y)) && trap->tseen)) {
 
+        switch (trap->ttyp) {
+        case SQKY_BOARD:
+        case BEAR_TRAP:
+        case SPEAR_TRAP:
+        case PIT:
+        case SPIKED_PIT:
+        case HOLE:
+        case TRAPDOOR:
+            if (Levitation && !Flying) {
+                goto do_nothing;
+            }
+            /* fall through */
+
+        default:
+            if (context.nopick) {
+                ; /* moving with m-prefix */
+                /*return;*/
+            } else {
+                context.move = 0;
+                nomul(0);
+                pline("(Use 'move' prefix to %s into the %s.)",
+                      locomotion(youmonst.data, "step"),
+                      defsyms[trap_to_defsym(trap->ttyp)].explanation);
+                return;
+            }
+        }
+    }
+
+do_nothing:
+    
     if (u_rooted())
         return;
 
@@ -2042,7 +1951,8 @@ domove_core()
         known_wwalking = (((uarmf && uarmf->otyp == WATER_WALKING_BOOTS
                             && objects[WATER_WALKING_BOOTS].oc_name_known)
                            || (uarm && Is_dragon_scaled_armor(uarm)
-                               && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES))
+                               && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES)
+                           || HWwalking)
                           && !u.usteed);
         /* FIXME: This can be exploited to identify the ring of fire resistance
          * if the player is wearing it unidentified and has identified
@@ -2052,13 +1962,18 @@ domove_core()
                            && uarmf->oerodeproof && uarmf->rknown)
                           || (uarm && Is_dragon_scaled_armor(uarm)
                                && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES));
+        
         if (!Levitation && !Flying && grounded(youmonst.data)
             && !Stunned && !Confusion && levl[x][y].seenv
             && ((is_pool(x, y) && !is_pool(u.ux, u.uy))
                 || (is_lava(x, y) && !is_lava(u.ux, u.uy)))) {
             if (is_pool(x, y) && !known_wwalking) {
-                if (ParanoidSwim
-                    && !paranoid_query(ParanoidSwim, "Really enter the water?")) {
+                
+                if (context.nopick) {
+                    /* moving with m-prefix */
+                    context.swim_tip = TRUE;
+                    /*return FALSE;*/
+                } else if (ParanoidSwim) {
                     context.move = 0;
                     nomul(0);
                     You("narrowly avoid %s into the %s.",
@@ -2068,11 +1983,18 @@ domove_core()
                         if (water_damage(uarmf, "metal boots", TRUE, u.ux, u.uy) == ER_NOTHING)
                             Your("boots get wet.");
                     }
+                    if (!context.swim_tip) {
+                        pline("(Use 'move' prefix to step in if you really want to.)");
+                        context.swim_tip = TRUE;
+                    }
                     return;
                 }
             } else if (is_lava(x, y) && !known_lwalking) {
-                if (ParanoidSwim
-                    && !paranoid_query(ParanoidSwim, "Really enter the lava?")) {
+                if (context.nopick) {
+                    /* moving with m-prefix */
+                    context.swim_tip = TRUE;
+                    /*return;*/
+                } else if (ParanoidSwim) {
                     context.move = 0;
                     nomul(0);
                     You("narrowly avoid %s into the lava.",
@@ -2087,6 +2009,10 @@ domove_core()
                             losehp(resist_reduce(d(1, 4), FIRE_RES),
                                    "touching molten lava", KILLED_BY);
                         }
+                    }
+                    if (!context.swim_tip) {
+                        pline("(Use 'move' prefix to step in if you really want to.)");
+                        context.swim_tip = TRUE;
                     }
                     return;
                 }
@@ -2546,7 +2472,7 @@ boolean newspot;             /* true if called by spoteffects */
             }
         } else if (shallow_water && !Wwalking) {
             if (is_puddle(u.ux, u.uy) && u.umoved)
-                pline("You splash through the shallow water.");
+                You("splash through the shallow water.");
 
             if (is_sewage(u.ux, u.uy) && u.umoved && !rn2(4)
                 && !is_tortle(youmonst.data)
@@ -2562,8 +2488,7 @@ boolean newspot;             /* true if called by spoteffects */
                       rn2(2) ? "wading" : "trudging",
                       rn2(2) ? "this sludge" : "the muck");
             }
-
-            if (!verysmall(youmonst.data) && !rn2(4))
+            if (!verysmall(youmonst.data) && !SuperStealth && !rn2(4))
                 wake_nearby();
 
             if (Upolyd && youmonst.data  == &mons[PM_GREMLIN])
@@ -2574,7 +2499,7 @@ boolean newspot;             /* true if called by spoteffects */
                      && (!uarmf
                          || strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4))) {
                 int dam = rnd(6);
-                pline("Your %s rust!", makeplural(body_part(FOOT)));
+                Your("%s rust!", makeplural(body_part(FOOT)));
                 if (u.mhmax > dam)
                     u.mhmax -= dam;
                 losehp(dam, "rusting away", NO_KILLER_PREFIX);
@@ -2582,7 +2507,7 @@ boolean newspot;             /* true if called by spoteffects */
                 int dam = d(3, 12);
                 if (u.mhmax > dam)
                     u.mhmax -= ((dam + 1) / 2);
-                pline("The water burns your flesh!");
+                pline_The("water burns your flesh!");
                 losehp(dam, "contact with water", NO_KILLER_PREFIX);
             }
             if (verysmall(youmonst.data))
@@ -2592,6 +2517,13 @@ boolean newspot;             /* true if called by spoteffects */
                 if (!rn2(3))
                     (void) water_damage(uarmf, "boots",
                                         TRUE, u.ux, u.uy);
+            }
+        } else if (shallow_water && Wwalking) {
+            if (uarmf 
+                && uarmf->otyp == WATER_WALKING_BOOTS
+                && !objects[WATER_WALKING_BOOTS].oc_name_known
+                && !HWwalking) {
+                makeknown(WATER_WALKING_BOOTS);
             }
         }
     }
@@ -3602,13 +3534,13 @@ register const char *knam;
 boolean k_format;
 {
     /* [max] Invulnerable no dmg */
-	if (Invulnerable) {
-		n = 0;
-		pline("You are unharmed!");
-		/* NOTE: DO NOT RETURN - losehp is also called to check for death 
-		 * via u.uhp < 1
-		 */
-	}        
+    if (Invulnerable) {
+        n = 0;
+        You("are unharmed!");
+        /* NOTE: DO NOT RETURN - losehp is also called to check for death 
+         * via u.uhp < 1
+         */
+    }        
     if (Upolyd) {
         u.mh -= n;
         if (u.mhmax < u.mh)
@@ -4129,7 +4061,7 @@ xchar x, y;
                 lev->looted &= ~TREE_LOOTED;
                 block_point(pos.x, pos.y);
                 /*if (cansee(pos.x, pos.y))
-                    You("see a tree shoot up from the %s!", surface(pos.x, pos.y));*/
+                    You_see("a tree shoot up from the %s!", surface(pos.x, pos.y));*/
                 newsym(pos.x, pos.y);
                 return TRUE;
             }

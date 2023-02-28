@@ -15,172 +15,741 @@
 
 Version 1.1 (unreleased)
 
+Revamp of Xanathar's Ring of Proof.
+New item: ring of displacement.
+Lower Rodney's AC from -8 to -6 (from EvilHack)
+Fix: Inappropriate message when burning/engraving with wand of wonder (reported by mobileuser)
+Grimtooth grants sickness resistance while wielded (suggested by mobileuser).
+Tortle shamans are telepathic and will grant telepathy intrinsic if eaten. (from EvilHack)
+Cleaned up a bunch of old comments.
+Fix: Prevent Xorns from teleporting outside Sokoban levels.
+Badgers don't leave gas clouds anymore, just skunks (reported by mobileuser)
+Pets can zap themselves with wands of healing.
+Pets can wear rings of sonic and psychic resistance.
+Pets can wear amulets of drain resistance and petrification resistance.
+Remove shield skill from samurai.
+Tower shields and resonant shields are handled in shield bashing now. Tower shields deal more damage than other shields.
+Undead slayers can reach expert in shield.
+Yeoman can reach basic in shields.
+Some descriptive miss messages for thrown/fired objects at the player. (from EvilHack)
+Wand of wishing in explore mode charges.(from EvilHack)
+Fix: crash if attacking bare-handed and not wearing a shield if role has shield skill.
+Prevent shield from being taken away via dwarvish bearded axe attack if expert skill or higher in shields.(from EvilHack)
+Utilize shield skill to shield bash monsters the player is attacking.(from EvilHack)
+Shield skill.(from EvilHack)
+Fix: artifacts warning of monsters would flicker on/off for every monster kill.(from EvilHack)
+Prep for 1.1 release.
+Fix: Stairs could get replaced in bandit town level.
+If a dwarvish monk gets a pick-axe in starting inventory, it is not wielded by default.
+Added SLASH'EM style names for most special levels so they appear in status bar.
+Fix: Snowball throwing monsters had inappropriate message when throwing snowballs.
+Updated Skullcrusher and Doomblade to match slashem damage again. 
+Artifacts do SLASH'EM style flat damage instead of d notation.
+Fix: object materials - several wish parsing bugs.(from EvilHack)
+Fix: describing barding.(from EvilHack)
+Fix: track the Idol of Moloch's imbuement properly. Also fix(from EvilHack)
+Mindless monsters can flee.
+Fix: monster jumping logic.(from EvilHack)
+Fix: Infidel role - repeatedly chatting with your quest leader causes 'completed his/her quest without incident' livelog to run every time.(from EvilHack)
+Fix: Passive sleep attack for orange jelly not handled correctly for mon vs mon.
+Changed flaming lash's material to dragon hide so it doesn't smoulder away.
+Remove extra stairs to removed castle dungeon branch.
+Fix: Malformed messages when free action prevents being grabbed (reported by mobileuser)
+Bodaks hate light.
+Projectiles thrown at adherers (by hero) will also stick to them.
+Adherer passive disarm works for mon vs mon, and mon vs you. Passive stick also works when you are polyd into an adherer. 
+Reverted the tortle shell technique - only available via #monster now. Fixes #191.
+Skeletal pirates, draugr, and gugs don't count as zombies.
+Doppelgangers know about polymorph items - also silenced u_init warning about unknown race (reported by cbus)
+Monsters that are sick, diseased, or turning to stone cannot flank.
+Being blind could negate monster's flanking advantage on the player.
+Trapped monsters cannot assist with flanking.
+More Hero flanking assist fixes.
+Fix: When hero assists flanks, the impairment checks returned too early preventing an assist.
+You cannot flank if hallucinating, afraid, confused, punished, fumbling, wounded, or stunned.
+Fix message when pets flank monsters without your help. Fixes #176.
+Confused monsters cannot flank.
+Refactor flanking code for readability and added comments.
+Player orcs can't learn Elbereth even if polyd.
+Spell memory for books now matches SLASH'EM (10000 turns). 
+Fix: do not allow the Idol of Moloch to be cancelled.(from EvilHack)
+Fix: Honey badgers only eat 1 royal jelly at a time.
+Grund gets some extra armor and a beefy submachine gun.
+Grund the Orc King resists sickness.
+Cats (all f) can eat catnip on the ground and get confused.
+Grund's Stronghold has a large cache of ammo in one of the storage rooms. 
+Added a forge to pleasant valley.
+The Master Sword and Thunderstruck will not fire rays if peacefuls or pets are in the way.
+Uncursed scrolls of acquirement always give item; blessed scrolls have a chance at bonus item depending on luck.
+Tweak to how alignment penalty is handled with Sam/Knight/Jedi attacking dishonorably. They don't get a msg past -10 alignment, but still get the penalty.
+Updated database info: flintlocks, mana cloak, medical kit, scroll of acquirement, removed spelltech entries, updated wands of water/acid.
+Object lookup for corpse shows the corpse type.
+Decrease the nutrition vampirics receive to standard SLASH'EM level, but double the HP they receive from draining life.
+Update windows splash screen (thanks qt!)
+More tweaks to maybe_unhide_at(). From NetHack 3.7 git commit 5073aac. (from EvilHack)
+Bloody tiles show random monster blood when hallucinating.
+Rename Call Undead tech to Whistle Undead (avoid confusion with monster spell)
+Re-enabled mines rivers.
+Pirates always start with 3 +1 knives.
+Balance tweaks for vampirics: less natural HP regen, HP when they feed, gets Regeneration and Hunger at level 10. 
+Fix: Missing spaces in piratesay replacements.
+Fix some stuff with piratesay and eye patch; fine tune ing endings.
+Bring maybe_unhide_at up-to-date with Evil/3.7. (from EvilHack)
+Prevent certain mplayer items from random erosion.(from EvilHack)
+Allow food appraisal intrinsic to warn against the Eye of Vecna.(from EvilHack)
+Update to 'monsters could jump into poly traps when trapped'
+Fix: containers flagged as waterproof were not subject to water damage.(from EvilHack)
+Fix: Techniques were not saved or restored.
+Vampiric convicts start with the same amount of hunger other convicts do.
+Ice mages don't get a passive ice armor attack until level 4.
+Vampirics don't get regeneration, but instead gain HP when they feed on lifeblood.
+Fix: Handle attempting to engrave with snowballs (or any VENOM_CLASS object). Fixes #198.
+Tweak to Valley of the Dead bones files. (from EvilHack)
+Fix: suppress Hand of Vecna cold-based attack if target is already dead.(from EvilHack)
+Fix: Monsters could jump into poly traps when trapped (via muse). Fixes #197.
+Temporary fix for #191. Shell ability is disabled if polymorphed.
+Fix: beam coordinates in artifact_hit trying to reference null attacker.(from EvilHack)
+Added wishing shortcut 'kiku' to get Kiku-ichimonji.
+Updated tiles with new gun appearances.
+Removed two-weapon skill from Ice Mage.
+Moved passive staff of rot code to prevent resetting possible ice/cold damage in mhitu.
+Ice mages get a passive ice attack that scales with their ice armor strength and level.
+Refactored ice mage ice armor AC bonus.
+Attempting to throw projectiles while afraid usually results in them slipping.
+Imported gun and ammo appearances from dNetHack.
+Added tile for flintlock.
+Reverted necromancer starting inventory closer to SLASH'EM.
+Amulets dropped into toilets will auto-ID if possible.
+Fix: Errors giving flintlocks to pirate crewmates. 
+Pirates start with a flintlock and bullets.
+Imported the flintlock gun (from dNetHack)
+Pirates get the weapon practice technique (in prep for giving them flintlocks)
+Infidels get the Reinforce Memory technique at level 1 and Draw Energy at level 5.
+Infidels get a new technique, Curse, at level 1 that unblesses or curses items depending on their BUC status. 
+Fix: Master Sword/Thunderstruck not shooting beam in correct direction when wielded by pets.
+Reading a blessed scroll of amnesia allows option to reset accumulated skills. (from EvilHack)
+Fix: worn rings covered by worn gloves could do material damage to monsters. (thanks qt and K2)
+Fix: prevent Valley of the Dead bones files.(from EvilHack)
+Fix: For previous fix addressing silver rings under gloves.
+Windrider can be multishot.
+Thrown chakrams slice through monsters and always return to you.
+Imported Windrider from dnethack. Changed from a boomerang to a chakram that does double damage.
+Fix: The torch flaring up message displayed when monster wielding it wasn't in view.
+Fix: Executing pummel on a peaceful will forcefully carry it out.
+Fix: Executing ground slam or uppercut on peacefuls didn't anger them.
+Added uppercut technique for monks (alternate finisher to ground slam)
+Scrolls of blank paper are known by all roles at start of game.
+Auto-ID the tinfoil hat when worn.
+Fix some errors and awkwardness in pirate speak.
+Revert WAND_BACKFIRE_CHANCE to 100.
+Fix: A couple checks were skipped on force-fight pickpocketing for rogues.
+Removed timeout from Rogue pickpocketing tech.
+Fix: Rogue pickpocketing was defaulting to -1 skill use. Fixes #194.
+Only lawfuls get a guilty message for robbing shops.
+Skunks are poison resistant.
+Chaotics don't get a guilty message for robbing shops.
+When applied, the Iron Spoon of Liberation can be used as a digging tool (from dnh)
+Ported Scroll of Acquirement from SlashTHEM. Same restrictions as the scroll of time.
+Guidebook entry for Jedi.
+Guidebook entry for doppelgangers.
+Guidebook entry for pirates.
+Ice mages no longer can start with a grappling hook.
+Ice mages start with a stack of snowballs (random quantity).
+Ice mages starts with wand of cold instead of wand of deluge.
+Show messages when ice/flame mages reach levels 8 and 15 informing player of their #youpoly ability.
+Increased level and energy requirements for mage #youpoly.
+Enabled #youpoly for flame mages and ice mages.
+Doppelgangers are back on the menu boys! (as D)
+Imported Hellfire (from SLASH'EM)
+Fix: Blitz processing had < and > reversed.
+Updated blitz commands to be shorter and more intuitive; commands with 2 versions are always mirrored.
+Chain blitz commands can also be terminated with ; or :
+Implemented a separate version of getdir for doblitz for better input handling.
+Chain blitz only costs energy if a successful command sequence is input; invalid commands also don't use up the tech.
+Slightly discourage pets with ranged attacks (ie: hell hound pups) from attacking strong peacefuls.
+Fix: Spirit bomb at level 17-18 could result in d(5, 0). Fixes #192.
+Fix: Silence warning for uninitialized tryct in polyself.
+Fix: Untrapping rust traps wasn't yielding a fountain and had incorrect message.
+More updates and adjustments to pirate vocab.
+Jedi can be tortles.
+Undead Slayers can reach basic in twoweaponing.
+Every other race is hostile to doppelgangers (except were-foo).
+Eating tinned corpses also added to eaten memory for doppelgangers.
+Fix typo in doppelganger eaten list.
+Doppelgangers can lose memory of eaten monsters if hit with amnesia effects.
+Added a list of all monsters doppelgangers have eaten to the stats menu (^X).
+Added the MH_SHIFTER flag for the doppelganger race.
+Initial import of doppledanger race from SLASH'EM.
+Ported Houchou (from SLASH'EM)
+Fix: Tortle's shell tech timeout wasn't working properly with #monster.
+Double damage is handled properly for techs.
+Fort Ludios can appear below Medusa's.
+Pets will not use rings of teleportation.
+Updated could_use_item with new items monsters can use.
+Simple refactoring for prayer stats (from Un)
+Show prayer stats in Attributes menu (from UnNetHack, originally from dNetHack)
+Quest luck boon for completing quest with minimal alignment abuse (credit to mobileuser)
+Fixed the Fedora's luck to match Un's implementation. Before it was granting 3 luck and acting as a luckstone, now it just grants base 1 luck.
+Reimplement damage bonus from worn gloves enchantment if fighting bare-handed.(from EvilHack)
+Fix: ancient subroom location bug.(3.7)
+Fix: Weapon shop services were being made available to any shop.
+Adjust mkobj_erosions chances to match 3.7.
+Silence unused variable warning from previous fix.
+Fix leak in Blackmarket level file (fixed by Bhaak)
+Yellow dragons get a passive acid attack instead of corrosion to mirror the YDS behavior.
+Fix: domonability declared twice in extern.h
+Adapted the monk's boulder break ability into a technique.
+Added default names for pirate pets.
+Adapted the Blood Magic skill from SpliceHack into a technique for necromancers.
+Instead of the Primal Roar tech temporarily poly-upgrading pets, we full heal them and the duration has been extended.
+Kii technique timeout gets extended on successful hits.
+Fix: Bug introduced from Worm that Walks evaporation.
+Reduced the timeout of most techs to a max of 1000 or 1500 for the most powerful techs.
+Fix: If wielding Sunsword or Mortality Dial, Worm that Walks will evaporate instead of leaving worms.
+Message for Worm that Walks dissolving.
+Instead of wasting a move when making a mistake in chain blitz, it just cancels the tech and let's the player try again.
+Chain blitz shows helpful feedback for incorrect inputs.
+Chain blitz now shows input feedback as you type the blitz commands. 
+doblitz: Refactored a couple blobs, made a little more readable.
+Removed extra LU, RU, LD, and RD info from blitz menu.
+Chain blitz tech now shows how many blitz moves you have available.
+Removed skittish property from bats.
+Increase difficulty of werebear to 14.
+Whetstones cannot be used with sewage.
+Whetstones auto-id when used.
+Cleanup whetstone code/formatting.
+Fix: Werebears generating peaceful; inconsistent alignment with other werefoo.
+Fix: piratesay and 'sscuttled'
+Adapted the Sunder skill from SpliceHack into a technique. Pirates get it at level 5. 
+Object lookup for corpses now shows intrinsics conferred and if they are poisonous or acidic.
+Extracted corpse intrinsic info from add_mon_info.
+Adapted the Tumble skill from SpliceHack into a technique. Pirates get it from level 1. 
+Refactor techniques into their own functions.
+The rogue's thievery ability is now available on the technique menu.
+Tortle shell technique (and #monster) now works with the tech timeout system.
+The tortle shell ability can now be accessed through the technique menu.
+Monster revived by revivification tech get the revived flag.
+Fix size of art_info INTRINSICS.
+Silenced new round of compiler warnings.
+Fix: disarming swallowed hero.
+Fix uninitialized obj in shk_identify.
+Elemental fist does it's elemental damage separately from the physical damage.
+Fix: Slings not working correctly because of firearm/bullet matching.
+Fixed getobj for identify services, the item prompt shows the matching item types now.
+Refactored shopkeeper identify object validation.
+All shop identify services are basic (and half price). shk_smooth_charge rewards higher charisma.
+Reformatted shk_smooth_charge; charisma is calculated using ACURR(A_CHA) now.
+Refactored force push code.
+Using the force push tech while engulfed breaks you out.
+Jedi gain a force-push technique at level 14.
+Necromancer gets souleater tech at level 6.
+Souleater tech will buff any weapon that drains life (instead of just originally Soulthief)
+Enabled soul eater tech for dark knight; changed associated weapon from soulthief to dirge.
+Added some rare bonus crits for elemental fist (inspired by splicehack skills)
+Elemental fist can inflict sonic damage.
+cerastes is a desert dweller - so they get fire resistance.
+Fix: cerastes has speed 0.
+Chaotic roles don't start with holy wafers.
+Spirit tempest tech gets a multi bonus at level 21.
+Removed mon_to_zombie in tech.c, used existing one in read.c.
+Necromancers get bonus for using draw energy near graves.
+Draw energy tech now uses GRASS, PUDDLE, SEWAGE, and DEADTREE.
+Created a spirit tempest technique for necros. Fixed spirit bomb to use SPIRIT_CLASS explosion.
+Removed unused T_INVOKE_DEITY technique.
+Misc tech.c formatting.
+Fix tech_names indentation.
+Silence compiler warning for unused pseudo in read.c
+Imported tiles for bandage and phial.
+Cleanup innate_tech structs.
+Change appearance of medkit to white bag, add medkit tile.
+Silence uninitialized mtmp warning in tech.c
+Removed hurtmon function from tech.c and replaced uses with damage_mon.
+Fix: matching_firearm missing weapon check causing issues with martial arts.
+Removed animate dead spell.
+Necromancer gets raise zombies technique at level 3.
+Removed raise zombies spell.
+Removed some unused role tech stuff from SlashTHEM.
+Removed revive tech from healers; necromancers get it at level 14.
+Removed call undead spell, converted to a technique.
+Buffed spirit bomb technique damage.
+Removed spirit bomb spell.
+Timeout for telekinesis tech.
+Fix: Level drain via drain blood tech. 
+When techniques are ready it stops your current occupation.
+Healing hands uses correct anatomy references.
+Healing hands technique can also cure larval infection.
+Fix extra spaces in blessing technique messages.
+Correct ownership descriptions in technique item strings.
+Fix: heap-use-after-free after last phial used up by draw blood tech.
+Shortcut for wishing for medical kits: 'medkit'
+Bandages and phials don't generate eroded or erodeproof.
+Bandages can only be cloth, phials are glass.
+Imported medical kits from SlashTHEM; enabled surgery and draw blood techniques.
+Removed limit breaking from techniques.
+Shield block also doesn't work if afraid or slow.
+#turn is now a technique.
+Removed remaining wards from tech_names.
+Removed #monster tech workarounds in favor of the original techniques.
+Removed all the sigil techniques.
+Necromany spells time out as usual for necromancers again.
+Removed the jedi spell-techs in favor of the actual techniques.
+Removed the warding techs for fire, cold, and shock.
+Integrated techniques into the codebase.
+Necromancers receive spellbooks of command/summon undead and one random book.
+Removed Chi Strike effect for monks in uhitm.
+Removed spelltechs for necromancer and jedi (in prep for real techniques.)
+Initial import of technique code.
+Changed #forge to #craft; removed duplicate armor entry in data.base.
+Fix 'welcome to hackem'
+Invoking the Holy Spear of Light lights the entire level.
+Fix pirate speak 'This sea biscu'tis bland.'
+Removed unused is_unpoisonable_firearm_ammo.
+Fix: Firearms require appropriate ammo to be effective.
+Fix: Bloody grass is described correctly on farlook. Fixes #138.
+Fix: 'There is a bloody grass here.'
+Added missing grass entry to gather_locs_interesting.
+Added some missing features to cmd.c: levltyp
+Black wands now made of iron.
+Plastic wands cannot be broken.
+Usage fee for masks.
+Usage fee for lightsabers.
+Raised price of bombs to 50.
+Charging for arming bombs in shops.
+Misc bomb blame fixes.
+makemon cleanup; gnomes get their regular weapons again.
+Intelligent peacefuls avoid digging shop or temple walls.(from EvilHack)
+Grimtooth skips other attacks after instakill.(from EvilHack)
+Fix: Grimtooth's instakill vs elves.
+Silenced the warnings from artifact_info.
+Fix: Swimmers that can also conceal themselves will prefer hiding in the water to under the objects.
+Drowsing Rod only prints mist msg when monster can move.
+Fix: Snuffing light sources when wand of deluge is broken.
+Refactored a bunch of artifact string literals.
+Added binding for #force in included rcfile.
+Used verbalize instead of pline in more of the shopkeeper service dialogue.
+Fix missing parentheses in last commit.
+Piratesay: Hmm -> Arr
+Fix: Zombies could be obliterated by Undead Slayer pets or other causes.
+Fix missing semicolon in last commit. Oops.
+Fix: Animate Dead spell could select tins/food as targets. Fixes #182.
+Unpoisoned bullets show no message (they break regardless)
+Fix: Bullets silently break when falling down stairs.
+Refactored a bunch of text using the pline wrappers like You_see, You_hear, You_cant, etc.
+role.c cleanup.
+Cleanup in ice mage AC calculation.
+Fix: Tortle monks starts with a toque instead of a robe of power.
+Breaking wands of healing/extra healing heals you and surrounding monsters.
+Fix: Lightsabers generated with few charges (caused by converting to WEAPON_CLASS)
+Fix: Lightsabers couldn't be recharged (caused by converting them to WEAPON_CLAS)
+Fix: Breaking a wand of deluge wasn't affecting monsters.
+Smarter bomb throwing for monsters.
+Fix: Monsters killed by throwing bombs at close range won't continue with other attacks. Fixes #179.
 Fix: Guardian angel on astral plane wasn't peaceful. Fixes #181.
-2023-01-19: Removed accompanying artifact defenders when wishing for artifacts. 
-2023-01-12: Fix: Guardian Angel minion broke after entering astral plane.
-2023-01-09: Eased magical scaring restrictions a bit from EvilHack to be closer to 3.7.
-2023-01-09: Scroll of knowledge costs 50 so it isn't an obvious identify from the start.
-2023-01-09: Added Sokobon levels from Fourk. All soko levls are named now.
-2023-01-08: Adjusted infidel spellcasting a bit: can reach skilled in matter (for fireball), removed enchantment school, reduced attack max to skilled.
-2023-01-08: Undead slayers and the yeoman now start with speed 12.
-2023-01-08: Object lookup shows range and rate-of-fire for firearms now.
-2023-01-08: Fix: Psychic resistance was not protecting player from mind flayer psychic blasts.
-2023-01-08: Fix: Neutral quest artifact not generating correctly.
-2023-01-08: Fix: mon hiding under nonexistent bomb after it exploded. Fixes #133.
-2023-01-08: Mermaids, sea horses, and giant squids are vulnerable to shock damage.
-2023-01-08: Fix: Puddles dried up when splashed by a falling object, and hiding swimmers stayed hidden. Fixes #158.
-2023-01-08: Updated README with info for new players.
-2023-01-08: Fix: Zapping a wand of speed monster or quaffing potion of speed cures intrinsic slowness.
-2023-01-08: Fix: stairtravel was not working when known stairs were covered up by objects. Fixes #145.
-2023-01-07: Skunks also leave occasional poison gas clouds.
-2023-01-07: Bumped chakram dmg vs large to 10.
-2023-01-07: Throne insight now recursively identifies all items in your possession and in your containers (fiq)
-2023-01-07: If a bag of rats or tricks with contents is charged, it now explodes.
-2023-01-07: Bags of rats are considered magical bags.
-2023-01-07: Players cannot put known wands of cancellation or magical bags into bags of holding anymore (dnh).
-2023-01-07: Reduced cost of baseball bat to 20.
-2023-01-07: Changed footbow cost to 60.
-2023-01-07: Increased price of chakrams to 10.
-2023-01-07: Updated message for killing Grund.
-2023-01-07: Selflook describes blood on the floor.
-2023-01-07: Bloody tiles not being updated when monsters are killed.
-2023-01-07: Fix: Spirits dropped and auto-collected by necromancers cause highlighted piles on non-piles.
-2023-01-07: Centaurs also start knowing light arrows and footbows.
-2023-01-07: Monks start with a robe of power.
-2023-01-07: Baseball bats can be generated in different materials.
-2023-01-07: Reduced the prices of wooden stakes and great daggers.
-2023-01-07: Enabled neutral alignment and centaur race for yeomen.
-2023-01-07: Monsters that darken rooms need to be hostile and within 10 squares to darken.
-2023-01-05: Silenced more compiler warnings.
-2023-01-05: Fixed missed hit proc for Mouser's Scalpel.
-2023-01-05: Pets that explode will attack anything.
-2023-01-05: Spirits are no longer auto-picked up by Necromancers in shops.
-2023-01-05: Refactored the pager logic for material damage bonuses.
-2023-01-05: Big rooms cannot be mask shops.
-2023-01-05: Iron bars now block spears from passing through.
-2023-01-05: The Master Sword is now unaligned so anyone can use it.
-2023-01-05: Flame mages and ice mages start with extrinisic protection instead of intrinsic protection.
-2023-01-05: Fix for soko .lev files
-2023-01-05: Re-added odrained to obj structure to preserve saves (will be removed in next release.)
-2023-01-05: Attacking a monster wearing deep dragon scales will only drain levels 1 in 3 times (to mirror mhitu)
-2023-01-05: Imported 11 sokobon levels from slashTHEM.
-2023-01-05: Added more variety to the nasties list.
-2023-01-05: Fix: Hit message for The Master Sword.
-2023-01-05: Imported special attack for Mouser's Scalpel from slashTHEM.
-2023-01-05: Fix: Could not tip bag of rats or tricks when filled with items.
-2023-01-05: Fix: Creating a hole (or any trap) on ice would leave the ice meltout timer remaining. Fixes #104. 
-2023-01-05: Fix: Tipping a bag of tricks on the ground tried to free the bag from the player's inventory. Fixes #155.
-2023-01-05: Fix: Pills had nutrition 0, possibily causing problems when partly eaten.
-2023-01-05: Fix: Crash when dipping empty lamp into oil.
-2023-01-05: Fix: Priests of Moloch are peaceful to infidels.
-2023-01-05: Fix: Necromancer's added multiple duplicate spells to their spellbook. Fixes #120.
-2023-01-05: Poison vents can't show up until after level 13.
-2023-01-05: Fix: Malformed clinic and terror hall messages.
-2023-01-04: Cleaned up mine's end levels.
-2023-01-04: Fix: hear smell message for clinic rooms.
-2023-01-04: Added tile for spirits.
-2023-01-04: Removed file Files.
-2023-01-04: Lawful minions are granted using lminion (like Splice does) instead of the hardcoded list from SLASH'EM. 
-2023-01-04: Chaotic minions are granted using ndemon (like Splice does) instead of the hardcoded list from SLASH'EM. 
-2023-01-04: Grunds moat can sometimes be lava, but not sewage. Prevents odd moat tile.
-2023-01-04: Fix: Silenced warning related to vents in lev_comp.y
-2023-01-04: Fixed gas spore room in neutral quest.
-2023-01-04: The Staff of Rot is no longer the chaotic quest reward. It is now a regular artifact and can generate randomly or from altar gifts.
-2023-01-04: Reduced the difficulty of Vecna back to SLASH'EM levels; still has an extra clerical attack from Evil though.
-2023-01-04: Reduced the difficulty of the rest of Vecna's lair; less nasties.
-2023-01-04: Removed the two huge graveyards from the first level of Vecna's quest.
-2023-01-04: Replaced the chaotic quest with Vecna's branch. Added entrance light.
-2023-01-04: Cave trolls can clobber you.
-2023-01-04: bite_monster uses the flaming macro for better coverage vs green slimes.
-2023-01-04: Removed remaining corpse draining mechanics leftover from vampirics. Fixes #153.
-2023-01-04: Fix: Second prompt for dip listed tools.
-2023-01-03: Add bloodless option. (splice)
-2023-01-03: Stomping boots also crush small monsters 1/4 of the time.
-2023-01-03: Adjustments of many monsters sizes to make sense and work with stomping boots.
-2023-01-03: Ice Mages can start with confuse monster again; vampirics can cast it without being confused.
-2023-01-03: Necromancers can pacify or tame zombies by chatting with them.
-2023-01-03: Extrinsic psychic resistance protects you from the amnesia attack of zombies.
-2023-01-03: Fix: Lookup info for rocks, flint, and sling bullets.
-2023-01-03: Reverted flame and freeze sphere spells back to level 1 spells.
-2023-01-03: If zapped with a ray of water, earth elementals will transform into mud elementals.
-2023-01-03: Fix: Partly eaten food pieces not displaying correctly in inventory. Fixes #146.
-2023-01-03: Vampirics now start with all their intrinsics at level 1. Also rebalanced their intrinsics.
-2023-01-03: Reverted the draining mechanic of the vampiric race.
-2023-01-03: Revert: Magicbane will never cause a Bag of Holding explosion. 
-2023-01-03: Better handling of zapping wand of water while engulfed by ice vortex.
-2023-01-03: Fix: Reading scroll of ice underwater while poly'd. Fixes #152.
-2023-01-02: Changed Skullcrusher material to MINERAL so it gets an extra +2 damage bonus.
-2023-01-02: Increased difficulty of migo drones and migo warriors.
-2023-01-02: Increased difficulty of all dragons to 30, deep dragon to 35.
-2023-01-02: Nurses have a chance of dropping pills on death.
-2023-01-02: Reverted f056c292c, potion of amnesia back to randomized appearance to preserve saves.
-2023-01-02: Fix: Puddles and sewage turning red from blood; fixed description.
-2023-01-02: Fix: Impossible when trying to write scroll of knowledge. Fixes #149.
-2023-01-02: Noted HackEM being hosted on hardfought in readme.
-2023-01-02: Fixed weird formatting in Master Sword lookup text.
-2023-01-02: Fix: Object lookups for certain objects showing (null) in object type. Fixes #140.
-2023-01-02: When a player kills a shambling horror, they gain access to it's pokedex.
-2023-01-02: Greatly increase odds of sewage vs water rivers forming in the Gnomish Mines.
-2023-01-02: Fix: dead trees dropping fruit/petrified status, icequeen 2nd map tweaks.
-2023-01-02: Fix: Dramborleg damage output.
-2023-01-02: Fix: make the Eye and Hand of Vecna immune to fire/lava damage.
-2023-01-02: Fix: crowned Infidel that started as a centaur kept jump ability.
-2023-01-02: Fix: unable to dig if wielding a cursed pick-axe/mattock
-2023-01-02: Correct 'too many hooves' feedback
-2023-01-02: Fix: crash when wearing white dragon-scaled armor and no boots while 100% fire resistant
-2023-01-02: Fix: AT_MAGC / AD_FIRE attack in regards to demons.
-2023-01-02: Reverted Gnomish Mines back to standard depth (8-9 levels instead of 10-11)
-2023-01-02: Cursed wand backfire is dependant on luck. 0 luck is same as before, but positive or negative luck highly impacts the chances of backfire.
-2023-01-02: Fix: Order of potion of amnesia in objects.txt
-2023-01-01: Added bardings to pet shops.
-2023-01-01: Flame mages can get skilled in firearms.
-2023-01-01: Rebalanced other shop item probabilities to add up to 100.
-2023-01-01: Fix: gun store item probabilities not adding up to 100.
-2023-01-01: Expanded the types of axes that are generated when trees are present on a level.
-2023-01-01: Robe are now excluded from armor that hinders monk's bonus kick attacks.
-2023-01-01: Fire and Ice Elementals should be peaceful for flame mages and ice mages, respectively.
-2023-01-01: Wands of fear work even when you can't see the monsters affected.
-2023-01-01: Magicbane ALWAYS blows up Bags of Holding when inserted into one.
-2023-01-01: Changed Sword of Justice material to METAL.
-2023-01-01: Increased chance of boomerangs from z. They can also generate blessed, cursed, or with enchantments.
-2023-01-01: Spellbook of Raise zombies should not generate randomly.
-2023-01-01: Tourist can get expert in boomerang skill.
-2023-01-01: Reduced weight of sling bullet to 1.
-2023-01-01: Added Necromancer to primary_spellcasters for altar gifts.
-2023-01-01: Don't offer train firearms service if the player can't get firearms skills.
-2023-01-01: Increased chances of god blessing something when offering.
-2023-01-01: You don't get a minion gift from an altar if you have any pets on the level.
-2023-01-01: Revert potion of amnesia random appearance - it should always be sparkling.
-2023-01-01: When masks are generated, make sure NO_POLY monsters are prevented from being the mask type.
-2023-01-01: Removed all passive attacks from baby dragons.
-2023-01-01: Invoking Firewall casts flaming sphere.
-2023-01-01: Moved the SUMMON_FIRE_ELEMENTAL invoke ability from Firewall back to the Eternal Candle.
-2023-01-01: Doubled the damage bonus of Firewall to d8 fire.
-2023-01-01: Fire Bolt burns grass up as it zaps over.
-2023-01-01: Removed some trees in Pleasant Valley.
-2023-01-01: Orc mines end: fountain is now surrounded by puddles instead of pools.
-2023-01-01: Gremlins always gremlin. Midnight is irrelevant.
-2023-01-01: Reverted wraith corpse eating changes from SLASH'EM.
-2023-01-01: Necromancers can get basic in divination.
-2023-01-01: Reverted extra damage from slashem artifact blasts.
-2023-01-01: Reverted strength gain nerf from eating giants.
-2023-01-01: Cloak book quote in encyclopedia entry had underscores.
-2023-01-01: Replace fingerless gloves appearance with fine.
-2023-01-01: Move charm monster to level 4 (less effective with traitorous and untameable monsters)
-2023-01-01: Adjusted Flame Mage skills: axe->skilled, mace->basic, club->expert, mace->basic, whip->skilled, unicorn horn->skilled.
-2023-01-01: Move Spellbook of Freeze Sphere back to level 2.
-2023-01-01: Reverted Infidels starting with Spellbook of Poison Blast, they start with Drain Life again.
-2023-01-01: Increased spellbook of poison blast to level 4 spell.
-2023-01-01: Change The Key Of Access to GEMSTONE.
-2023-01-01: Increase Candle of Eternal Flame passive fire damage to 2d10.
-2023-01-01: Mines rivers now only have a 1 in 3 change of generating past minetown.
-2023-01-01: Lowered price of vampire blood to 300.
-2023-01-01: Reverted breakable musical instruments and locking tools. Locking tools now only break if cursed and 1/5 change (as in EvilHack)
-2023-01-01: Reverted Mandatory grunds requirement. Grunds now appears as a branch on level 12 as in SLASH'EM.
+Minor cleanup in jedi grudges.
+Guardian angel has it's apport set when summoned.
+Added even more pirate lingo.
+Much more pirate speak, insults, and object descriptions.
+Updated the piratespeak parser with more conversions.
+Added more piratey item names.
+Fix: heap-use-after-free when projectiles rusted away on passive rust attacks. Fixes #178.
+Pirate_items static declaration.
+Fix: Object lookups work correctly for pirate item appearances.
+Lookups for pirate items shows database entries.
+Vampiric pirates start with potions of blood instead of cram rations.
+Removed debug lines from shk_firearms.
+Removed remaining weight based restrictions for two-weaponing.
+Random sink effect: noxious gas cloud (from 3.7)
+Fix: Vampirics had poison/sleep resistance and breathless disabled by mistake. 
+Monsters with sonic attacks get sonic resistance.
+All elementals (except ice elementals) resist sonic damage.
+All adult dragons resist sonic damage.
+Roles and races that start with a pick-axe only get a +0 pick-axe.
+Vampirics in base form have the expected behavior when zapped with undead turning.
+Vampirics are actually immune to death magic now.
+Moved most physical intrinsics to the MON structs instead of the rac_abil side.
+Included MR_PSYCHIC and MR_SONIC in update_mon_intrinsics checks.
+set_uasmon checks if the polyform can jump and grants it.
+Tortles only get swimming from the MON struct.
+Removed the special handling of vampiric in set_uasmon.
+The vampiric race now gets it's abilities from the monster struct rather than vam_abil. 
+Factored the race-to-race-abilities matching in adjabil.
+Fix: References to Vecna's Realm not updated to Chaotic Quest.
+Whirling spheres resist almost everything.
+Dust devil: MR_SHOCK -> MR_ELEC
+Hellcats and hellminths get fire resistance.
+Dust devils also resist shock.
+Deep/er/est ones are vulnerable to fire.
+Serpopards resist poison.
+Amphisbaena resists stoning.
+All piercers resist sonics.
+Migo warriors resist cold.
+Removed corrosive sphere. Duplicate of acid sphere.
+Disabled level sounds where Vecna's branch used to be.
+Database entry for Yeoman.
+Corrected some typos in spellbook info. 
+Silenced a couple warnings in the artifact lookups.
+Fix: Broke artifact lookups from trying to use strcpy for everything.
+Removed accompanying artifact defenders when wishing for artifacts. 
+Added acid resistance to more monsters.
+Disabled the Un black market until memory leak is debugged.
+Removed locusts from the is_bigeater category and made them herbivores instead.
+Fix: mon_currwep wasn't set to NULL after shattering if it was glass. Fixes #174.
+Added database entries for spellbooks haste self through cure blindness.
+Added database entries for spellbooks polymorph through confuse monster.
+Changed Tourist's special spell to create familiar (Jedi get charm monster as their special now).
+Changed Pirate's special spell to haste self.
+Changed Ice Mage's special spell to spell of reflection.
+Changed Flame Mage's special spell to spell of enlighten.
+Changed spell of cause fear back to the enchantment school.
+All roles (except Caveman) get their special spell granted when they reach level 12.
+Renamed Herme's Boots and converted to a helm of speed.
+Created Herme's Boots: speed boots that grant sickness resistance when worn and can be invoked for flying. Credit to Umbire on the concept.
+When known, the scroll of transmogrify prompts you for an item to change.
+Removed M1_CONCEAL from selkie. It can hide underwater, but not under objects.
+Imported ruffled shirt from SlashTHEM.
+Imported mana cloak from SlashTHEM.
+Imported silver capped staff from SlashTHEM.
+Throne identification only identifies unknown items.
+Origin only displays a special message when wielding it.
+Monster descriptions do not include 'covered in blood'.
+Cleaned up the code where healing and curing spells damage zombies.
+Traitorous and untameable pets cannot be made from the spell of create familiar.
+Bombs cannot get properties.
+Added sizzle/acid property.
+Weapon based shops can offer an expensive random property service now.
+Added scream/sonic property and fixed previous bug with artifact sonic damage.
+Necromancers can always cast necromancy spells with 0% fail rate.
+Fix: Necromancers/Jedi able to learn their techspells more than once. Fixes #173.
+Scrolls of time cannot be cloned. Attempting this results in a blank scroll.
+More fixes for giant crocodiles and their eggs (from EvilHack)
+Girtab and Shelob can lay eggs that hatch cave spiders.
+Centipedes cannot grow into giant centipedes.
+Fix: Giant crocodile eggs didn't hatch baby crocs and giant centipede eggs didn't hatch centipedes. Fixes #171.
+Allow magic lamps (and candles) to operate underwater. (from EvilHack)
+Fix: bloody pools not described correctly when standing over them. Fixes #172.
+Fix: higher level tourist player monsters spawning with eggs that could hatch S_ORC type monsters.(from EvilHack)
+Fix: queen ants were laying queen ant eggs.(from EvilHack)
+Fix: thrown potions of polymorph by hostiles at hero that hit peacefuls anger them.
+Identity of the Riders hidden via farlook or 'More info about' prompt (from EvilHack)
+Fix: monster spell 'Summon nasties'.
+Fix: heap-use-after-free in munstone() function (additional evilhack tweaks).
+Fix: underwater far vision in unlit areas.(from EvilHack)
+Fix: Angelslayer's fire damage vs target.(from EvilHack)
+Fix: placing antimatter vortex over itself after disintegrating a shapechanger.(from EvilHack)
+Some additional checks when dried up puddles affect hidden monsters (from EvilHack)
+Update copyright year to 2023.
+Fix: underwater vision update frequency. (from EvilHack)
+Fix: latest Xcode build issue. (from EvilHack)
+Use actions/checkout@v3 (github workflow). (from EvilHack)
+Fix: feedback for Infidel killing themselves from life force drain. (from EvilHack)
+Tortles that start with a trident, the trident is rustproof. (from EvilHack)
+Fix: Healing spells, cure sickness, and stone to flesh being cast on peacefuls doesn't anger them.
+Silenced some new compiler warnings.
+Cleaned up string warnings in artifact_info().
+Fixed bomb explosion colors when thrown by hostiles.
+Vents show up in dungeon overview.
+Fix: migo queens would continue to attack after being stoned. Fixes #169.
+Cleaned up code related to grass.
+Fix: poison clouds not described on farlook.  Fixes #144.
+Fixed error in Nharlotep, renamed to Nyarlathotep. Fixes #168. (Reported by transcendreamer)
+Limit thriae max births to 3.
+Revert EvilHack sacrifice gift changes: altar gifts are only artifacts. 
+Added database entries for spellbooks 14-21.
+Animate Dead costs (100 - u.ulevel) HP instead of (50 - u.ulevel) HP.
+Added database entries for the spellbooks 1-13.
+Fixed tile for spellbook of charge saber.
+Put lightsaber tiles in correct order in objects.txt.
+Added tile for padawan.
+Added tile for Lord Sidious.
+Added tile for The Jedi Master.
+Added tile for plasteel armor.
+Added tile for plasteel helm.
+Added tile for plasteel gloves.
+Added tile for plasteel boots.
+Added tile for jedi.
+Added tile for stormtrooper.
+Fixed order of polar bear in tiles.
+Fixed some inventory object ranges for mplayers.
+Jedi start with lightsabers as first item in inv, on 'a' letter.
+Moved lightsabers to WEAPON class. 
+Glitches in artifact lookups; correctly used buffers and strcpy to build strings for the pager. Fixes #164.
+Fixed error in screen_symbols numbering (S_ss1-S_ss4)
+Updated shop services code to check for duplicate services before adding. Fixes #166.
+Vents can produce non-poison resistant monsters from non-poisoned vents.
+Fix: ventmon() not checking if mdat was null before checking it's poison resistant.
+Instead of vents leaving a large cloud when destroyed, it causes a small earthquake.
+Rearranged the telekinesis logic into a loop, so player doesn't waste MP on invalid targets.
+Disarming rust traps from a distance (telekinesis or zapping acid) doesn't produce a fountain.
+Fix: disarm_rust_trap called with missing parameter in zap.c.
+Added the telekinesis spell technique for Jedi. Can disarm/trigger traps and remotely pickup objects.
+Fix: Traditional spell menu wouldn't show characters for spells 0-9.
+Jedi spellbooks cannot be created by polypiling.
+Fix msg: Your  green lightsaber (lit) dims!
+Added Charge Saber spell technique for Jedi. Adapted from SlashTHEM.
+Cleaned up Boulder Alley map for readability.
+Changed vent color to bright cyan to differentiate them from iron bars.
+Jedi can reach basic in firearms.
+Refactored spell/tech code for gaining them with levels. Jedis get jedi jump at level 2.
+Added Jedi Jump spell for jedi's. Emulates the technique: Always has 100% success, but not randomly generated.
+Fix: Reading a scroll of time extends the player's turn instead of letting monsters act after reading.
+Whetstones require fewer turns to sharpen, but also scale with the size of the stack to sharpen.
+Vents cannot generate next to walls. Fixes #165.
+Fix: Spellbooks included appearance entries for polymorph. Possibly fixes issue #126.
+Fix: Polymorph of potions didn't include amnesia or blood potions.
+Scroll of time adds to existing movement points; but now cannot be written or polypiled for.
+Vampirics should very rarely receive silver items as sacrifice gifts.
+Fix all Sokoban typos.
+Increased price of scroll of time to 300 (ink cost is still 30).
+Removed spear of light from alt_spellings list (that only works for non-artifacts.)
+Samurai gets Kiku-ichimonji as a first sacrifice gift instead of Snickersnee (from SlashTHEM).
+Quest leaders will make you forfeit the quest artifact only if you heavily abuse alignment (less than -64 alignment abuse score required)
+Undead slayers also get silver crossbow bolts or silver elven spears (if elven).
+Enabled giants and centaurs for convicts.
+Updated monsters on plane of water with deepest ones, giant squids, and mermaids.
+Some cleanup in Treasury of Proteus code.
+Bradamante's Fury will always resist breaking.
+Changed Bradamante's Fury to Lawful (matches Bradamante in the anime).
+Scrolls of cloning now also clone object properies.
+The Master Sword, Xanathar's Ring, and Key of Access are cleaned up for bones files.
+Jedi's can reach Expert in martial arts.
+Samurai alignment abuse ceases below -10 when attacking peacefuls.
+The Jedi Master gets some decent equipment.
+Fix typo when engraving with unlit lightsaber.
+Corrected double lightsaber damage and formatting in lookup.
+Fix: weapon damage vs sm/lg not appearing in object lookup.
+Jedi can reach skilled in enchantment spells.
+Fix: lightsaber check might have had null-weapon in weapon_hit_bonus.
+Jedi role patch (ported from SlashTHEM) 
+Changed scramper, squealer, and mangler to Q. Scrampers are now yellow.
+Removed drain life gaze from nabassu.
+Renamed wand of water to wand of deluge.
+Renamed wand of acid to wand of corrosion.
+Fix: heap-use-after-free in munstone when rings are stone-to-fleshed.
+Removed odrained bitfield.
+Poison vents can show up after level 8.
+Player vampires also resist death.
+Enabled vampire race for pirates, disabled elf.
+Only poison resistant monsters can hide in poisoned vents.
+Prefer poison resistant monsters when created from vents.
+Refactored vent monster gen to ventmon function.
+Fix: Guardian Angel minion broke after entering astral plane.
+Hobbit's Blink technique now works as it did in SLASH'EM. Reduced timeout slightly.
+Refactored utech to utechtimeout.
+Cthulhu will displace monsters to get to you.
+Skunks leave a small poison cloud on death.
+Skunks are immune to poison gas.
+Created polar bears, a stronger version of grizzlies that are cold resistant.
+Re-added Lavender Town but toned down the undead difficulty. 
+Spiders, snakes, and rats can randomly pop out of vents.
+Added a bit more random time between vent poofs.
+When vents are destroyed they release a final large exhaust.
+Polymorphed sinks can turn into vents.
+Vents only have a 3/5 chance of being destroyed by bombs.
+Stop vent timers when vents are destroyed.
+Monsters can use vents to conceal themselves.
+Fix: Possible uninitialized mtmp in dodazzle().
+Bombs can also be thrown into vents from a distance.
+Vents are destroyed when bombs are dropped into them.
+Fix: Minetown food shop doesn't convert to health food store for monks. (from EvilHack)
+Added short blurb for convict in the guidebooks.
+Fix: Issues with water walking boot id, intrinsic ww, and ice mages. (reported by cbus)
+Fix: Water walking boots are only identified while worn and water walking. Removed inappropriate message for other water walking cases. 
+Fix: shopkeeper name 8-ball 
+Added pirate ranks to lookup database.
+Added a gun shop to the pirate quest.
+Fix: Order of shops not matching between shknam.c, lev_main.c, and mkroom.h.
+Updated look for passive damage for Candle of Eternal Flame.
+Updated lookup info for Bradamante's Fury.
+Added invoke info for Firewall to artifact lookup.
+Removed unnecessary LION invoke ability from the SpliceHack pirate Patch.
+Added invoke info for The Marauder's Map to artifact lookup.
+Removed excluded property from artifact lookups.
+Added Mayor Cummerbund's equipment.
+Added some giant crabs to the pirate fill-b level.
+Added info for Treasury of Proteus lookup.
+Implemented the Pirate Patch (from SpliceHack). Used the quest file from SlashTHEM with minor modifications.
+Imported burning eye (from SlashTHEM)
+Added a form of the Chi Strike technique to the monks attack routine.
+Added 6 more top levels to sokoban (from fourk)
+Fix: Monk's shatter attack not triggering due to robes being considered body armor.
+Convict can reach expert in firearms.
+Player centaurs will turn into zombie centaurs when dying from terminal illness.
+Live logging of annihilations reflects whether it's level-wide or dungeon-wide.
+Vampirics can use #monster to invoke their dazzle technique.
+Keolewa is back - cavemen get this as a second guaranteed sacrifice gift.
+Archeologists start with a scroll of knowledge in lieu of their research technique being omitted.
+Gnomes can use #monster to invoke their vanish technique.
+Hobbits can use #monster to invoke their blink technique.
+Revert random appearance of potions of amnesia - they are always sparkling as in SLASH'EM.
+Removed some redundant entries from immune_death_magic.
+Require move prefix to move into known traps; replaces the y/n prompt.
+Paranoid swim requires the move prefix to move into water/lava, replaces the y/n prompt. (credit to cbus)
+New option: paranoid_trap (Ported from UnNetHack)
+Removed extra minion check in betrayed.
+Fix: When changlings are disintegested, they are prevented from ressurecting. Fixes #159.
+Eased magical scaring restrictions a bit from EvilHack to be closer to 3.7.
+Scroll of knowledge costs 50 so it isn't an obvious identify from the start.
+Added Sokobon levels from Fourk. All soko levls are named now.
+Adjusted infidel spellcasting a bit: can reach skilled in matter (for fireball), removed enchantment school, reduced attack max to skilled.
+Undead slayers and the yeoman now start with speed 12.
+Object lookup shows range and rate-of-fire for firearms now.
+Fix: Psychic resistance was not protecting player from mind flayer psychic blasts.
+Fix: Neutral quest artifact not generating correctly.
+Fix: mon hiding under nonexistent bomb after it exploded. Fixes #133.
+Mermaids, sea horses, and giant squids are vulnerable to shock damage.
+Fix: Puddles dried up when splashed by a falling object, and hiding swimmers stayed hidden. Fixes #158.
+Updated README with info for new players.
+Fix: Zapping a wand of speed monster or quaffing potion of speed cures intrinsic slowness.
+Fix: stairtravel was not working when known stairs were covered up by objects. Fixes #145.
+Skunks also leave occasional poison gas clouds.
+Bumped chakram dmg vs large to 10.
+Throne insight now recursively identifies all items in your possession and in your containers (fiq)
+If a bag of rats or tricks with contents is charged, it now explodes.
+Bags of rats are considered magical bags.
+Players cannot put known wands of cancellation or magical bags into bags of holding anymore (dnh).
+Reduced cost of baseball bat to 20.
+Changed footbow cost to 60.
+Increased price of chakrams to 10.
+Updated message for killing Grund.
+Selflook describes blood on the floor.
+Bloody tiles not being updated when monsters are killed.
+Fix: Spirits dropped and auto-collected by necromancers cause highlighted piles on non-piles.
+Centaurs also start knowing light arrows and footbows.
+Monks start with a robe of power.
+Baseball bats can be generated in different materials.
+Reduced the prices of wooden stakes and great daggers.
+Enabled neutral alignment and centaur race for yeomen.
+Monsters that darken rooms need to be hostile and within 10 squares to darken.
+Silenced more compiler warnings.
+Fixed missed hit proc for Mouser's Scalpel.
+Pets that explode will attack anything.
+Spirits are no longer auto-picked up by Necromancers in shops.
+Refactored the pager logic for material damage bonuses.
+Big rooms cannot be mask shops.
+Iron bars now block spears from passing through.
+The Master Sword is now unaligned so anyone can use it.
+Flame mages and ice mages start with extrinisic protection instead of intrinsic protection.
+Fix for soko .lev files
+Re-added odrained to obj structure to preserve saves (will be removed in next release.)
+Attacking a monster wearing deep dragon scales will only drain levels 1 in 3 times (to mirror mhitu)
+Imported 11 sokoban levels from slashTHEM.
+Added more variety to the nasties list.
+Fix: Hit message for The Master Sword.
+Imported special attack for Mouser's Scalpel from slashTHEM.
+Fix: Could not tip bag of rats or tricks when filled with items.
+Fix: Creating a hole (or any trap) on ice would leave the ice meltout timer remaining. Fixes #104. 
+Fix: Tipping a bag of tricks on the ground tried to free the bag from the player's inventory. Fixes #155.
+Fix: Pills had nutrition 0, possibily causing problems when partly eaten.
+Fix: Crash when dipping empty lamp into oil.
+Fix: Priests of Moloch are peaceful to infidels.
+Fix: Necromancer added multiple duplicate spells to their spellbook. Fixes #120.
+Poison vents can't show up until after level 13.
+Fix: Malformed clinic and terror hall messages.
+Cleaned up mine's end levels.
+Fix: hear smell message for clinic rooms.
+Added tile for spirits.
+Removed file Files.
+Lawful minions are granted using lminion (like Splice does) instead of the hardcoded list from SLASH'EM. 
+Chaotic minions are granted using ndemon (like Splice does) instead of the hardcoded list from SLASH'EM. 
+Grunds moat can sometimes be lava, but not sewage. Prevents odd moat tile.
+Fix: Silenced warning related to vents in lev_comp.y
+Fixed gas spore room in neutral quest.
+The Staff of Rot is no longer the chaotic quest reward. It is now a regular artifact and can generate randomly or from altar gifts.
+Reduced the difficulty of Vecna back to SLASH'EM levels; still has an extra clerical attack from Evil though.
+Reduced the difficulty of the rest of Vecna's lair; less nasties.
+Removed the two huge graveyards from the first level of Vecna's quest.
+Replaced the chaotic quest with Vecna's branch. Added entrance light.
+Cave trolls can clobber you.
+bite_monster uses the flaming macro for better coverage vs green slimes.
+Removed remaining corpse draining mechanics leftover from vampirics. Fixes #153.
+Fix: Second prompt for dip listed tools.
+Add bloodless option. (splice)
+Stomping boots also crush small monsters 1/4 of the time.
+Adjustments of many monsters sizes to make sense and work with stomping boots.
+Ice Mages can start with confuse monster again; vampirics can cast it without being confused.
+Necromancers can pacify or tame zombies by chatting with them.
+Extrinsic psychic resistance protects you from the amnesia attack of zombies.
+Fix: Lookup info for rocks, flint, and sling bullets.
+Reverted flame and freeze sphere spells back to level 1 spells.
+If zapped with a ray of water, earth elementals will transform into mud elementals.
+Fix: Partly eaten food pieces not displaying correctly in inventory. Fixes #146.
+Vampirics now start with all their intrinsics at level 1. Also rebalanced their intrinsics.
+Reverted the draining mechanic of the vampiric race.
+Revert: Magicbane will never cause a Bag of Holding explosion. 
+Better handling of zapping wand of water while engulfed by ice vortex.
+Fix: Reading scroll of ice underwater while poly'd. Fixes #152.
+Changed Skullcrusher material to MINERAL so it gets an extra +2 damage bonus.
+Increased difficulty of migo drones and migo warriors.
+Increased difficulty of all dragons to 30, deep dragon to 35.
+Nurses have a chance of dropping pills on death.
+Reverted f056c292c, potion of amnesia back to randomized appearance to preserve saves.
+Fix: Puddles and sewage turning red from blood; fixed description.
+Fix: Impossible when trying to write scroll of knowledge. Fixes #149.
+Noted HackEM being hosted on hardfought in readme.
+Fixed weird formatting in Master Sword lookup text.
+Fix: Object lookups for certain objects showing (null) in object type. Fixes #140.
+When a player kills a shambling horror, they gain access to it's pokedex.
+Greatly increase odds of sewage vs water rivers forming in the Gnomish Mines. (from EvilHack)
+Fix: dead trees dropping fruit/petrified status, icequeen 2nd map tweaks. (from EvilHack)
+Fix: Dramborleg damage output. (from EvilHack)
+Fix: make the Eye and Hand of Vecna immune to fire/lava damage. (from EvilHack)
+Fix: crowned Infidel that started as a centaur kept jump ability. (from EvilHack)
+Fix: unable to dig if wielding a cursed pick-axe/mattock (from EvilHack)
+Correct 'too many hooves' feedback (from EvilHack)
+Fix: crash when wearing white dragon-scaled armor and no boots while 100% fire resistant
+Fix: AT_MAGC / AD_FIRE attack in regards to demons. (from EvilHack)
+Reverted Gnomish Mines back to standard depth (8-9 levels instead of 10-11)
+Cursed wand backfire is dependant on luck. 0 luck is same as before, but positive or negative luck highly impacts the chances of backfire.
+Fix: Order of potion of amnesia in objects.txt
+Added bardings to pet shops.
+Flame mages can get skilled in firearms.
+Rebalanced other shop item probabilities to add up to 100.
+Fix: gun store item probabilities not adding up to 100.
+Expanded the types of axes that are generated when trees are present on a level.
+Robe are now excluded from armor that hinders monk's bonus kick attacks.
+Fire and Ice Elementals should be peaceful for flame mages and ice mages, respectively.
+Wands of fear work even when you can't see the monsters affected.
+Magicbane ALWAYS blows up Bags of Holding when inserted into one.
+Changed Sword of Justice material to METAL.
+Increased chance of boomerangs from z. They can also generate blessed, cursed, or with enchantments.
+Spellbook of Raise zombies should not generate randomly.
+Tourist can get expert in boomerang skill.
+Reduced weight of sling bullet to 1.
+Added Necromancer to primary_spellcasters for altar gifts.
+Don't offer train firearms service if the player can't get firearms skills.
+Increased chances of god blessing something when offering.
+You don't get a minion gift from an altar if you have any pets on the level.
+Revert potion of amnesia random appearance - it should always be sparkling.
+When masks are generated, make sure NO_POLY monsters are prevented from being the mask type.
+Removed all passive attacks from baby dragons.
+Invoking Firewall casts flaming sphere.
+Moved the SUMMON_FIRE_ELEMENTAL invoke ability from Firewall back to the Eternal Candle.
+Doubled the damage bonus of Firewall to d8 fire.
+Fire Bolt burns grass up as it zaps over.
+Removed some trees in Pleasant Valley.
+Orc mines end: fountain is now surrounded by puddles instead of pools.
+Gremlins always gremlin. Midnight is irrelevant.
+Reverted wraith corpse eating changes from SLASH'EM.
+Necromancers can get basic in divination.
+Reverted extra damage from slashem artifact blasts.
+Reverted strength gain nerf from eating giants.
+Cloak book quote in encyclopedia entry had underscores.
+Replace fingerless gloves appearance with fine.
+Move charm monster to level 4 (less effective with traitorous and untameable monsters)
+Adjusted Flame Mage skills: axe->skilled, mace->basic, club->expert, mace->basic, whip->skilled, unicorn horn->skilled.
+Move Spellbook of Freeze Sphere back to level 2.
+Reverted Infidels starting with Spellbook of Poison Blast, they start with Drain Life again.
+Increased spellbook of poison blast to level 4 spell.
+Change The Key Of Access to GEMSTONE.
+Increase Candle of Eternal Flame passive fire damage to 2d10.
+Mines rivers now only have a 1 in 3 change of generating past minetown.
+Lowered price of vampire blood to 300.
+Reverted breakable musical instruments and locking tools. Locking tools now only break if cursed and 1/5 change (as in EvilHack)
+Reverted Mandatory grunds requirement. Grunds now appears as a branch on level 12 as in SLASH'EM.
 
 Version 1.0 (released Dec 27, 2022)
 
-d4e2aced2 2023-01-01: "Updated included rcfile with new item appearances and misc fixes; sysconf now includes paranoid options.",
+d4e2aced2 "Updated included rcfile with new item appearances and misc fixes; sysconf now includes paranoid options.",
 6a980c4a4 2022-12-30: "Fix: Exploding bags of holding would crash. Fixes issue #141.",
 7b44316a7 2022-12-27: "Added wands to autopickup for default config.",
 c2a7a1219 2022-12-26: "Fix: create pool was instantly killing flying monsters.",
@@ -302,7 +871,7 @@ fc70e1053 2022-12-09: "Fixed handling of vampiric attacks - fixes #121.",
 7b737611a 2022-12-09: "Adjusted the monsters on the neutral quest to more sane numbers.",
 ae59369be 2022-12-09: "Minions count as pets.",
 68ec31114 2022-12-09: "Your god will not grant a minion if you have maintained petless conduct. If you pet count ever changes to 1 or more, than minions are unlocked from sacrificing.",
-7ac2fedb7 2022-12-09: "The first level of sokobon always has 2 scrolls of earth.",
+7ac2fedb7 2022-12-09: "The first level of sokoban always has 2 scrolls of earth.",
 70e3045a4 2022-12-09: "Fix: if poly form was killed from being hit by the Wand of Orcus, max hitpoints were not restored when reverting to original form. (evil)",
 0dc0fd08c 2022-12-09: "Secespita tweaks. (evil)",
 a4fc64517 2022-12-09: "Brain eating/amnesia can remove intrinsic telepathy.",
@@ -2551,7 +3120,7 @@ a447338aa 2022-07-26: "Enabled #force down doors and using lightsabers to cut do
 70e8ae331 2022-07-26: "Fixed enlightenment reporting of glow warning.",
 44f9b9c67 2022-07-26: "Fixed frag grenade explosions, they were lightning. Changes to firey.",
 7214e5b5d 2022-07-26: "Removed unnecessary weapon checks in setapplyclasses and put firearm checks in getobj instead.",
-a5411f05a 2022-07-26: "Fixed issue of armed grenades turning into sokobon prize tools, created new bitfield for armed bombs.",
+a5411f05a 2022-07-26: "Fixed issue of armed grenades turning into sokoban prize tools, created new bitfield for armed bombs.",
 498597942 2022-07-25: "Implemented frag grenades and gas grenades.",
 f903d00f0 2022-07-25: "Apply modes for automatic firearms are now functional.",
 bf2177830 2022-07-25: "Shopkeepers can get shotguns and ammo.",
