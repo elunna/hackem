@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Balance junk probabilities in junk shops.
 Fix: skeletal pirates generated with impossible eroded items (reported by cbus)
 Re-organized gas spore chamber in Neutral quest. Removed random teleport traps and made level no-teleport.
 Reduced the quantity of pirate's starting bullets.
