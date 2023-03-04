@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Downgraded Drowsing Rod to +4 damage bonus.
 Reverted Firewall to +4 damage bonus.
 Removed badgers from poison gas cloud immunity (since they aren't leaving gas clouds anymore)
 Vampirics get hunger at level 10, not level 1.
