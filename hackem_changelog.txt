@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Removed badgers from poison gas cloud immunity (since they aren't leaving gas clouds anymore)
 Vampirics get hunger at level 10, not level 1.
 Revamp of Xanathar's Ring of Proof.
 New item: ring of displacement.
