@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Pirates have a 10% of starting with a 0:1 wand of death (from Pirate YANI page).
 Fix: Acid resistance not protecting items from corrosion/acid attacks.
 Funny message if you use Spirit Tempest as a hallucinating female necromancer.
 Destroying a town drawbridge in view of guards angers them. 
