@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: skeletal pirates generated with impossible eroded items (reported by cbus)
 Re-organized gas spore chamber in Neutral quest. Removed random teleport traps and made level no-teleport.
 Reduced the quantity of pirate's starting bullets.
 Pirates have a 10% of starting with a 0:1 wand of death (from Pirate YANI page).
