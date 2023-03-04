@@ -2306,7 +2306,8 @@ do_rust:
         hitmsg(mtmp, mattk);
         if (mtmp->mcan)
             break;
-        erode_armor(&youmonst, ERODE_CORRODE);
+        if (!EAcid_resistance)
+            erode_armor(&youmonst, ERODE_CORRODE);
         break;
     case AD_DCAY:
         hitmsg(mtmp, mattk);
@@ -3046,22 +3047,23 @@ struct attack *mattk;
             else
                 You("are covered in slime!  It burns!");
             exercise(A_STR, FALSE);
-        }
-        /* Mik: Go corrode a few things... */
-        if (mtmp->data == &mons[PM_SHOGGOTH] || mtmp->data == &mons[PM_GIANT_SHOGGOTH]) {
-            for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
-                if (is_corrodeable(otmp2)) {
-                    /* --hackem: I'm disabling the EF_DESTROY flag because it requires
+            
+            /* Mik: Go corrode a few things... */
+            if (mtmp->data == &mons[PM_SHOGGOTH] || mtmp->data == &mons[PM_GIANT_SHOGGOTH]) {
+                for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
+                    if (is_corrodeable(otmp2)) {
+                        /* --hackem: I'm disabling the EF_DESTROY flag because it requires
                      * a more complicated loop and it's a bit unfair. */
-                    erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
-                    break;
+                        erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+                        break;
+                    }
                 }
-            }
-        } else {
-            for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
-                if (is_corrodeable(otmp2) && !rn2(9))
-                    /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
-                    erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+            } else {
+                for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
+                    if (is_corrodeable(otmp2) && !rn2(9))
+                        /* erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, (EF_VERBOSE | EF_DESTROY)); */
+                        erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
+                }
             }
         }
         break;
