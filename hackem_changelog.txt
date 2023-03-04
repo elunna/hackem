@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Destroying a town drawbridge in view of guards angers them. 
 Fix: cursed wands of make invisible work if you have permanent or temporary intrinsic invisible.
 Downgraded Drowsing Rod to +4 damage bonus.
 Reverted Firewall to +4 damage bonus.

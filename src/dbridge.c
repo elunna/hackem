@@ -940,6 +940,7 @@ destroy_drawbridge(x, y)
 int x, y;
 {
     register struct rm *lev1, *lev2;
+    register struct monst *mtmp;
     struct trap *t;
     struct obj *otmp;
     int x2, y2, i;
@@ -1060,7 +1061,21 @@ int x, y;
                 do_entity(etmp1);
         }
     }
+    if (in_town(x, y))
+        for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+            if (DEADMONSTER(mtmp))
+                continue;
+            if (is_watch(mtmp->data) && mtmp->mpeaceful
+                && couldsee(mtmp->mx, mtmp->my)) {
+                mon_yells(mtmp, "Halt, vandal!  You're under arrest!");
+                (void) angry_guards(FALSE);
+
+                break;
+            }
+        }
     nokiller();
+    
+    
 }
 
 /*dbridge.c*/
