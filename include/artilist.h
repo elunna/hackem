@@ -540,22 +540,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /*
      *      The artifacts for the quest dungeon, all self-willed.
      */
-
-    /*
-     *      At first I was going to add the artifact shield that was made for the
-     *      Archeologist quest in UnNetHack, but then decided to do something unique.
-     *      Behold Xiuhcoatl, a dark wooden spear-thrower that does fire damage much like
-     *      Mjollnir does electrical damage. From Aztec lore, Xiuhcoatl is an atlatl,
-     *      which is an ancient device that was used to throw spears with great force
-     *      and even greater distances. Xiuhcoatl will return to the throwers hand much like
-     *      Mjollnir, but requires high dexterity instead of strength to handle properly.
-     */
-    A("Xiuhcoatl", ATLATL,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_ATTK | SPFX_DEFN), SPFX_ESP, 0,
-      FIRE(5, 24), DFNS(AD_FIRE), NO_CARY, LEVITATION, A_LAWFUL, PM_ARCHEOLOGIST,
-      NON_PM, 3500L, NO_COLOR, DEFAULT_MAT),
-
-#if 0 /* Replaced by Xiuhcoatl */
+    A("Itlachiayaque", SHIELD_OF_REFLECTION,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_ESP | SPFX_HSPDAM), 0, 
+      NO_ATTK, NO_DFNS, CARY(AD_FIRE), SMOKE_CLOUD, A_LAWFUL, PM_ARCHEOLOGIST, NON_PM,
+      3000L, NO_COLOR, DEFAULT_MAT),
+    
+#if 0 /* Replaced by  Itlachiayaque*/
     A("The Orb of Detection", CRYSTAL_BALL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_ESP | SPFX_HSPDAM), 0,
       NO_ATTK, NO_DFNS, CARY(AD_MAGM), INVIS, A_LAWFUL, PM_ARCHEOLOGIST,

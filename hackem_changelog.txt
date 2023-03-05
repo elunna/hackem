@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Replaced archeologist quest artifact Xiuhcoatl with Itlachiayaque (from UnNetHack).
 Balance junk probabilities in junk shops.
 Fix: skeletal pirates generated with impossible eroded items (reported by cbus)
 Re-organized gas spore chamber in Neutral quest. Removed random teleport traps and made level no-teleport.

@@ -1416,7 +1416,7 @@ struct obj *obj;
             rc = (dmgtype(youmonst.data, AD_FIRE)
                   || wielding_artifact(ART_FIRE_BRAND)
                   || wielding_artifact(ART_FIREWALL)
-                  || wielding_artifact(ART_XIUHCOATL)
+                  || wielding_artifact(ART_ITLACHIAYAQUE)
                   || wielding_artifact(ART_ANGELSLAYER)
                   || (u.twoweap && uswapwep->oprops & ITEM_FIRE)
                   || (uwep && uwep->oprops & ITEM_FIRE)) ? 25 : 5;

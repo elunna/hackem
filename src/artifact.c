@@ -1689,28 +1689,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                       : "burns",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
-            } else if (otmp->oartifact == ART_XIUHCOATL) {
-                if (!youattack && magr && cansee(magr->mx, magr->my)) {
-                    if (!spec_dbon_applies) {
-                        if (!youdefend)
-                            ;
-                        else
-                            pline_The("flaming spear hits %s.", hittee);
-                    } else {
-                        pline_The("flaming spear %s %s%c",
-                                  can_vaporize(mdef->data)
-                                      ? "vaporizes part of" : "burns",
-                                  hittee, !spec_dbon_applies ? '.' : '!');
-                    }
-                } else {
-                    pline_The("flaming spear %s %s%c",
-                              !spec_dbon_applies
-                                  ? "hits"
-                                  : can_vaporize(mdef->data)
-                                      ? "vaporizes part of"
-                                      : "burns",
-                              hittee, !spec_dbon_applies ? '.' : '!');
-                }
             } else if (otmp->oartifact == ART_ANGELSLAYER) {
                 boolean angel = youdefend ? is_angel(youmonst.data)
                                           : is_angel(mdef->data);
@@ -3577,6 +3555,29 @@ struct obj *obj;
             incr_itimeout(&HPasses_walls, (50 + rnd(100)));
             obj->age += HPasses_walls; /* Time begins after phasing ends */
             break;
+        case SMOKE_CLOUD: {
+            coord cc;
+            cc.x = u.ux;
+            cc.y = u.uy;
+            /* Cause trouble if cursed or player is wrong role */
+            if (!obj->cursed && (Role_switch == oart->role || !oart->role)) {
+                You("may summon a stinking cloud.");
+                pline("Where do you want to center the cloud?");
+                if (getpos(&cc, TRUE, "the desired position") < 0) {
+                    pline("%s", Never_mind);
+                    obj->age = 0;
+                    return 0;
+                }
+                if (!cansee(cc.x, cc.y) || distu(cc.x, cc.y) >= 64) {
+                    You("smell rotten eggs.");
+                    return 0;
+                }
+            }
+            pline("A cloud of toxic smoke pours out!");
+            (void) create_gas_cloud(cc.x, cc.y, 3 + bcsign(obj),
+                                    8 + 4 * bcsign(obj));
+            break;
+        }
         case CHANNEL:
             /* Should this break atheist conduct?  Currently it doesn't,
              * under the excuse of being necessary to ascend.
@@ -4842,11 +4843,6 @@ monster then the grenade will instantly explode.  */
         break;
     case ART_STAFF_OF_ROT: 
         art_info.xattack = "\t\tDouble damage while you are withering.";
-        break;
-    case ART_XIUHCOATL: 
-        art_info.xinfo = "Xiuhcoatl will return to the throwers hand much like\n"
-                         "Mjollnir, but requires high dexterity instead of strength to handle properly.";
-        
         break;
     case ART_CANDLE_OF_ETERNAL_FLAME: 
         art_info.carried[16] = "Deals 2d10 passive fire damage to attackers";

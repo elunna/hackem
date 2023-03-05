@@ -286,7 +286,7 @@ struct obj {
 #define ushooting() (uwep && objects[uwep->otyp].oc_skill == P_FIREARM)
 
 /* 'is_quest_artifact()' only applies to the current role's artifact */
-#define any_quest_artifact(o) ((o)->oartifact >= ART_XIUHCOATL)
+#define any_quest_artifact(o) ((o)->oartifact >= ART_ITLACHIAYAQUE)
 
 /* Armor */
 #define is_shield(otmp)          \

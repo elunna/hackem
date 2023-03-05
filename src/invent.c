@@ -978,7 +978,7 @@ struct obj *obj;
 
     /* fill empty quiver if obj was thrown */
     if (obj_was_thrown && flags.pickup_thrown && !uquiver
-        /* if Mjollnir or Xiuhcoatl is thrown and fails to return,
+        /* if Mjollnir is thrown and fails to return,
            we want to auto-pick it when we move to its spot, but not
            into quiver because it needs to be wielded to be re-thrown;
            aklys likewise because player using 'f' to throw it might
@@ -988,7 +988,6 @@ struct obj *obj;
            possibly realize that re-wielding is necessary */
         && obj->otyp != AKLYS
         && obj->oartifact != ART_MJOLLNIR
-        && obj->oartifact != ART_XIUHCOATL
         && (throwing_weapon(obj) || is_ammo(obj)))
         setuqwep(obj);
  added:

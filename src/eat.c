@@ -3199,7 +3199,7 @@ doeat()
         } else if (!nodelicious) {
             pline("%s%s is delicious!",
                   (obj_is_pname(otmp)
-                   && otmp->oartifact < ART_XIUHCOATL)
+                   && otmp->oartifact < ART_ITLACHIAYAQUE)
                       ? ""
                       : "This ",
                   (otmp->oclass == COIN_CLASS)

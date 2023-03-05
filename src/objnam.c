@@ -2281,7 +2281,7 @@ const char *verb;
     /* leave off "your" for most of your artifacts, but prepend
      * "your" for unique objects and "foo of bar" quest artifacts */
     if (!carried(obj) || !obj_is_pname(obj)
-        || (obj->oartifact >= ART_XIUHCOATL
+        || (obj->oartifact >= ART_ITLACHIAYAQUE
             && obj->oartifact != ART_GJALLAR)
         || obj->oartifact == ART_DRAGONBANE
         || obj->oartifact == ART_WALLET_OF_PERSEUS) {
@@ -2365,7 +2365,7 @@ struct obj *obj;
     /* leave off "your" for most of your artifacts, but prepend
      * "your" for unique objects and "foo of bar" quest artifacts */
     if (!carried(obj) || !obj_is_pname(obj)
-        || (obj->oartifact >= ART_XIUHCOATL
+        || (obj->oartifact >= ART_ITLACHIAYAQUE
             && obj->oartifact != ART_GJALLAR)
         || obj->oartifact == ART_DRAGONBANE
         || obj->oartifact == ART_WALLET_OF_PERSEUS) {
@@ -5180,7 +5180,7 @@ struct obj *no_wish;
 
         if (pm < 0) {
             switch(otmp->oartifact) {
-            case ART_XIUHCOATL:
+            case ART_ITLACHIAYAQUE:
             case ART_SUNSWORD:
             case ART_GRAYSWANDIR:
                 pm = PM_ARCHEOLOGIST;
