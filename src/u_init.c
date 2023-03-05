@@ -190,21 +190,23 @@ struct trobj Priest[] = {
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Pirate[] = {
-#define PIR_SNACK 6
-#define PIR_JEWELRY 8
-#define PIR_TOOL 9
-#define PIR_BULLETS 10
     { SCIMITAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { FLINTLOCK, 0, WEAPON_CLASS, 1, 0 },
     { KNIFE, 1, WEAPON_CLASS, 3, 0 },
     { JACKET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { CRAM_RATION, 0, FOOD_CLASS, 2, UNDEF_BLESS },
+#define PIR_SNACK 6
     { BANANA, 0, FOOD_CLASS, 3, 0 },
+#define PIR_RUM 7
     { POT_BOOZE, 0, POTION_CLASS, 3, UNDEF_BLESS },
+#define PIR_JEWELRY 8
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+#define PIR_TOOL 9
     { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
-    { BULLET,  0, WEAPON_CLASS, 20, 0 },
+#define PIR_BULLETS 10
+    { BULLET,  0, WEAPON_CLASS, 8, 0 },
+    { CRAM_RATION, 0, FOOD_CLASS, 2, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Ranger[] = {
@@ -333,6 +335,8 @@ struct trobj Towel[] = { { TOWEL, 0, TOOL_CLASS, 1, 0 },
                                 { 0, 0, 0, 0, 0 } };
 struct trobj Wishing[] = { { WAN_WISHING, 3, WAND_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
+struct trobj DeathWand[] = { { WAN_DEATH, 1, WAND_CLASS, 1, 0 },
+                           { 0, 0, 0, 0, 0 } };
 struct trobj Money[] = { { GOLD_PIECE, 0, COIN_CLASS, 1, 0 },
                                 { 0, 0, 0, 0, 0 } };
 struct trobj Gem[] = { { UNDEF_TYP, 0, GEM_CLASS, 1, 0 },
@@ -349,18 +353,12 @@ struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
-struct trobj GreenSaber[] = {
-    { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { 0, 0, 0, 0, 0, }
-};
-struct trobj BlueSaber[] = {
-    { BLUE_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { 0, 0, 0, 0, 0, }
-};
-struct trobj RedSaber[] = {
-    { RED_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { 0, 0, 0, 0, 0, }
-};
+struct trobj GreenSaber[] = { { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+                              { 0, 0, 0, 0, 0, } };
+struct trobj BlueSaber[] = { { BLUE_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+                             { 0, 0, 0, 0, 0, } };
+struct trobj RedSaber[] = { { RED_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+                            { 0, 0, 0, 0, 0, } };
 
 /* race-based substitutions for initial inventory;
    the weaker cloak for elven rangers is intentional--they shoot better */
@@ -1341,6 +1339,11 @@ u_init()
             Pirate[PIR_TOOL].trotyp = GRAPPLING_HOOK;
         Pirate[PIR_BULLETS].trquan += rn2(Pirate[PIR_BULLETS].trquan / 2);
         ini_inv(Pirate);
+        
+        /* From Fyr/YANI/Pirate */
+        if (!rn2(10))
+            ini_inv(DeathWand);
+        
         knows_object(OILSKIN_SACK);
         knows_object(OILSKIN_CLOAK);
         knows_object(GRAPPLING_HOOK);

@@ -2031,12 +2031,14 @@ register struct monst *mtmp;
             otmp = rn2(2) ? mksobj(SCIMITAR, FALSE, FALSE) :
                           mksobj(KNIFE, FALSE, FALSE);
             curse(otmp);
-            otmp->oeroded = 1;
+            if (is_flammable(otmp) || is_rustprone(otmp))
+                otmp->oeroded = 1;
             (void) mpickobj(mtmp, otmp);
             otmp = rn2(2) ? mksobj(HIGH_BOOTS, FALSE, FALSE) :
                           mksobj(JACKET, FALSE, FALSE);
             curse(otmp);
-            otmp->oeroded2 = 1;
+            if (is_rottable(otmp) || is_corrodeable(otmp))
+                otmp->oeroded2 = 1;
             (void) mpickobj(mtmp, otmp);
             break;
         default:

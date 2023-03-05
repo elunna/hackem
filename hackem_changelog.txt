@@ -15,6 +15,19 @@
 
 Version 1.1 (unreleased)
 
+Balance junk probabilities in junk shops.
+Fix: skeletal pirates generated with impossible eroded items (reported by cbus)
+Re-organized gas spore chamber in Neutral quest. Removed random teleport traps and made level no-teleport.
+Reduced the quantity of pirate's starting bullets.
+Pirates have a 10% of starting with a 0:1 wand of death (from Pirate YANI page).
+Fix: Acid resistance not protecting items from corrosion/acid attacks.
+Funny message if you use Spirit Tempest as a hallucinating female necromancer.
+Destroying a town drawbridge in view of guards angers them. 
+Fix: cursed wands of make invisible work if you have permanent or temporary intrinsic invisible.
+Downgraded Drowsing Rod to +4 damage bonus.
+Reverted Firewall to +4 damage bonus.
+Removed badgers from poison gas cloud immunity (since they aren't leaving gas clouds anymore)
+Vampirics get hunger at level 10, not level 1.
 Revamp of Xanathar's Ring of Proof.
 New item: ring of displacement.
 Lower Rodney's AC from -8 to -6 (from EvilHack)

@@ -2282,13 +2282,18 @@ int tech_no;
     int num, failcheck;
     boolean didblast = FALSE;
     /* Restrictions: Must not be impaired */
-            
-    You("channel the spirits from deep within...");
+    
+    if (Hallucination && flags.female)
+        pline("There is a tempest in me!");
+    else
+        You("channel the spirits from deep within...");
+    
     if (u.uen < 20) {
         pline("But it fizzles out.");
         u.uen = 0;
         return 0;
     }
+    
     /* hackem: Boosted damage potential */
     num = 20 + d(10, (techlev(tech_no) / 3) + 1);
     
