@@ -161,9 +161,6 @@ WEAPON("dwarvish spear", "stout spear",
        0, 1, 0, 0, 12,  30,   3,  8,  8, 0, P,   P_SPEAR, IRON, HI_METAL),
 WEAPON("javelin", "throwing spear",
        0, 1, 0, 0, 10,  20,   3,  6,  6, 0, P,   P_SPEAR, IRON, HI_METAL),
-/* Base weapon for the artifact weapon Xiuhcoatl */
-WEAPON("atlatl", None,                                         /* EvilHack */
-       1, 0, 0, 0,  0,  30,  10,  8, 12, 2, P,   P_SPEAR, WOOD, CLR_BLACK),
 /* Base weapon for the artifact weapon Gungnir */
 WEAPON("atgeir", "bladed spear",                                /* dNethack */
        1, 0, 0, 0,  5,  45,  15,  4, 12, 0, P,   P_SPEAR, IRON, HI_METAL),

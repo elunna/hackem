@@ -49,7 +49,7 @@ const struct Role roles[] = {
       PM_HUMAN_MUMMY,
       S_SNAKE,
       S_MUMMY,
-      ART_XIUHCOATL,
+      ART_ITLACHIAYAQUE,
       MH_HUMAN | MH_DWARF | MH_GNOME | MH_VAMPIRE | MH_HOBBIT | MH_TORTLE 
           | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,

@@ -21,11 +21,10 @@ STATIC_DCL void FDECL(sho_obj_return_to_u, (struct obj * obj));
 STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
 
 /* uwep might already be removed from inventory so test for W_WEP instead;
-   for Valk + Mjollnir, caller needs to validate the strength requirement,
-   for Xiuhcoatl, caller needs to validate the dexterity requirement */
+   for Valk + Mjollnir, caller needs to validate the strength requirement */
 #define AutoReturn(o, wmsk) \
     ((((wmsk) & W_WEP) != 0                                             \
-      && ((o)->otyp == AKLYS || (o)->oartifact == ART_XIUHCOATL         \
+      && ((o)->otyp == AKLYS                                            \
           || ((o)->oartifact == ART_MJOLLNIR && Role_if(PM_VALKYRIE)))) \
      || (o)->otyp == BOOMERANG || (o)->otyp == CHAKRAM)
 
@@ -80,19 +79,13 @@ int shotlimit;
 
     if (!canletgo(obj, "throw"))
         return 0;
-    if ((obj->oartifact == ART_MJOLLNIR || obj->oartifact == ART_XIUHCOATL) && obj != uwep) {
+    if (obj->oartifact == ART_MJOLLNIR && obj != uwep) {
         pline("%s must be wielded before it can be thrown.", The(xname(obj)));
         return 0;
     }
     if ((obj->oartifact == ART_MJOLLNIR && ACURR(A_STR) < STR19(25))
         || (obj->otyp == BOULDER && !racial_throws_rocks(&youmonst))) {
         pline("It's too heavy.");
-        return 1;
-    }
-    if (obj->oartifact == ART_XIUHCOATL
-        && (ACURR(A_DEX) < 18
-            || (!Role_if(PM_ARCHEOLOGIST) && ACURR(A_DEX) < 21))) {
-        pline("%s a deft hand.", Tobjnam(obj, "require"));
         return 1;
     }
     if (!u.dx && !u.dy && !u.dz) {
@@ -1445,7 +1438,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             tmp_at(DISP_TETHER, obj_to_glyph(obj, rn2_on_display_rng));
     } else if (u.dz) {
         if (u.dz < 0
-            /* Mjollnir and Xiuhcoatl must be wielded to be thrown--caller verifies this;
+            /* Mjollnir must be wielded to be thrown--caller verifies this;
                aklys must be wielded as primary to return when thrown */
             && iflags.returning_missile
             && !impaired) {
@@ -1592,8 +1585,6 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             range = 20; /* you must be giant */
         else if (obj->oartifact == ART_MJOLLNIR)
             range = (range + 1) / 2; /* it's heavy */
-        else if (obj->oartifact == ART_XIUHCOATL)
-            range = (range + 2); /* not heavy at all */
         else if (tethered_weapon) /* primary weapon is aklys */
             /* if an aklys is going to return, range is limited by the
                length of the attached cord [implicit aspect of item] */
@@ -1671,9 +1662,9 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             clear_thrownobj = TRUE;
         goto throwit_return;
     } else {
-        /* Mjollnir and Xiuhcoatl must be wielded to be thrown--caller verifies this;
+        /* Mjollnir must be wielded to be thrown--caller verifies this;
            aklys must be wielded as primary to return when thrown */
-        if (iflags.returning_missile || jedi_forcethrow) { /* Mjollnir, Xiuhcoatl or aklys */
+        if (iflags.returning_missile || jedi_forcethrow) { /* Mjollnir or aklys */
             if (rn2(100)) {
                 /* or a Jedi with a lightsaber */
                 if (Role_if(PM_JEDI) && u.uen < 5 && obj->otyp != AKLYS) {
@@ -1743,7 +1734,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                     tmp_at(DISP_END, 0);
                 /* when this location is stepped on, the weapon will be
                    auto-picked up due to 'obj->was_thrown' of 1;
-                   addinv() prevents thrown Mjollnir or Xiuhcoatl from being placed
+                   addinv() prevents thrown Mjollnir from being placed
                    into the quiver slot, but an aklys will end up there if
                    that slot is empty at the time; since hero will need to
                    explicitly rewield the weapon to get throw-and-return
