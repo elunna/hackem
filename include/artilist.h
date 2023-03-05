@@ -541,7 +541,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      *      The artifacts for the quest dungeon, all self-willed.
      */
     A("Itlachiayaque", SHIELD_OF_REFLECTION,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_ESP | SPFX_HSPDAM), 0, 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_ESP | SPFX_WARN | SPFX_HSPDAM), 0, 
       NO_ATTK, NO_DFNS, CARY(AD_FIRE), SMOKE_CLOUD, A_LAWFUL, PM_ARCHEOLOGIST, NON_PM,
       3000L, NO_COLOR, GOLD),
     
