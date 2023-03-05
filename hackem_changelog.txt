@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Itlachiayaque must be worn to confer 1/2 spell damage and ESP.
 Itlachiayaque also grants warning (xnh)
 Itlachiayaque is gold (xnh)
 Replaced archeologist quest artifact Xiuhcoatl with Itlachiayaque (from UnNetHack).
