@@ -18,6 +18,7 @@ STATIC_DCL struct obj *FDECL(on_ground, (SHORT_P));
 STATIC_DCL boolean FDECL(you_have, (int));
 STATIC_DCL unsigned long FDECL(target_on, (int, struct monst *));
 STATIC_DCL unsigned long FDECL(strategy, (struct monst *));
+STATIC_DCL const char *NDECL(get_insult);
 
 /* adding more neutral creatures will tend to reduce the number of monsters
    summoned by nasty(); adding more lawful creatures will reduce the number
@@ -125,6 +126,7 @@ static NEARDATA const int ice_nasties[] = {
     PM_LYNX,
     PM_MASTODON,
     PM_OWLBEAR,
+    PM_POLAR_BEAR,
     PM_SABER_TOOTHED_TIGER,
     PM_SASQUATCH,
     PM_SILVER_DRAGON,
@@ -190,7 +192,8 @@ amulet()
 #endif
     if ((((amu = uamul) != 0 && amu->otyp == AMULET_OF_YENDOR)
          || ((amu = uwep) != 0 && (amu->otyp == AMULET_OF_YENDOR
-                                   || (amu->oartifact == ART_IDOL_OF_MOLOCH && amu->spe))))
+                                   || (amu->oartifact == ART_IDOL_OF_MOLOCH
+                                       && u.uachieve.amulet))))
         && !rn2(15)) {
         for (ttmp = ftrap; ttmp; ttmp = ttmp->ntrap) {
             if (ttmp->ttyp == MAGIC_PORTAL) {
@@ -231,7 +234,8 @@ register struct monst *mtmp;
 
     for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj)
         if (otmp->otyp == AMULET_OF_YENDOR
-            || (otmp->oartifact == ART_IDOL_OF_MOLOCH && otmp->spe))
+            || (otmp->oartifact == ART_IDOL_OF_MOLOCH
+                && u.uachieve.amulet))
             return 1;
     return 0;
 }
@@ -1053,25 +1057,51 @@ const char *const random_insult[] = {
     "wittol",     "worm",         "wretch",
 };
 
+const char *const pirate_insult[] = { 
+    "bilge-sucker", "scallywag", "scurvy dog", "shark bait", 
+    "son of a biscuit eater", "bilge rat", "picaroon", "landlubber",
+    "knave", "interloper", 
+};
+
+STATIC_OVL const char *
+get_insult()
+{
+    if (Role_if(PM_PIRATE)) 
+        return random_insult[rn2(SIZE(random_insult))];
+    else
+        return pirate_insult[rn2(SIZE(pirate_insult))];
+}
+
+
 const char *const random_malediction[] = {
-    "Hell shall soon claim thy remains,", "I chortle at thee, thou pathetic",
-    "Prepare to die, thou", "Resistance is useless,",
-    "Surrender or die, thou", "There shall be no mercy, thou",
-    "Thou shalt repent of thy cunning,", "Thou art as a flea to me,",
-    "Thou art doomed,", "Thy fate is sealed,",
+    "Hell shall soon claim thy remains,", 
+    "I chortle at thee, thou pathetic",
+    "Prepare to die, thou", 
+    "Resistance is useless,",
+    "Surrender or die, thou", 
+    "There shall be no mercy, thou",
+    "Thou shalt repent of thy cunning,", 
+    "Thou art as a flea to me,",
+    "Thou art doomed,", 
+    "Thy fate is sealed,",
     "Verily, thou shalt be one dead"
 };
 
 const char *const random_icequeen[] = {
-    "My magic is greater than yours", "You will never defeat me",
-    "Winter shall last forever", "The cold never bothered me anyway",
-    "Muahahahah", "I am even more powerful than the Wizard himself",
-    "Run while you still can, fool", "Let's build a snowman",
+    "My magic is greater than yours", 
+    "You will never defeat me",
+    "Winter shall last forever", 
+    "The cold never bothered me anyway",
+    "Muahahahah", 
+    "I am even more powerful than the Wizard himself",
+    "Run while you still can, fool", 
+    "Let's build a snowman",
     "The pegasus belongs to me"
 };
 
 const char *const random_enchantress[] = {
-    "Thank you again for freeing me", "I have so much damage to undo",
+    "Thank you again for freeing me", 
+    "I have so much damage to undo",
     "I apologize for any harm I may have caused you",
     "Be careful leaving this place, I have no control over the monsters that still lurk here",
     "Please treat the pegasus well, it has been through a lot",
@@ -1079,7 +1109,8 @@ const char *const random_enchantress[] = {
 };
 
 const char *const random_vecna[] = {
-    "I am Vecna the Unholy", "Kneel before me, wretched mortal",
+    "I am Vecna the Unholy", 
+    "Kneel before me, wretched mortal",
     "You have no idea what true power is!  I will show you",
     "Your suffering will be legendary, even in hell",
     "Ah, the suffering.  The sweet, sweet suffering",
@@ -1097,18 +1128,17 @@ register struct monst *mtmp;
         if (!rn2(5)) /* typical bad guy action */
             pline("%s laughs fiendishly.", Monnam(mtmp));
         else if (u.uhave.amulet && !rn2(SIZE(random_insult)))
-            verbalize("Relinquish the amulet, %s!",
-                      random_insult[rn2(SIZE(random_insult))]);
+            verbalize("Relinquish the amulet, %s!", get_insult());
         else if (u.uhp < 5 && !rn2(2)) /* Panic */
             verbalize(rn2(2) ? "Even now thy life force ebbs, %s!"
                              : "Savor thy breath, %s, it be thy last!",
-                      random_insult[rn2(SIZE(random_insult))]);
+                      get_insult());
         else if (mtmp->mhp < 5 && !rn2(2)) /* Parthian shot */
             verbalize(rn2(2) ? "I shall return." : "I'll be back.");
         else
             verbalize("%s %s!",
                       random_malediction[rn2(SIZE(random_malediction))],
-                      random_insult[rn2(SIZE(random_insult))]);
+                      get_insult());
     } else if (is_lminion(mtmp)
                && !(mtmp->isminion && EMIN(mtmp)->renegade)) {
         com_pager(rn2(QTN_ANGELIC - 1 + (Hallucination ? 1 : 0))

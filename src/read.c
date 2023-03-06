@@ -45,9 +45,8 @@ STATIC_PTR void FDECL(do_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(undo_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
-static void seffect_cloning(struct obj **);
-STATIC_PTR int FDECL(mon_to_zombie, (int));
-STATIC_PTR boolean FDECL(cant_create, (int *, boolean));
+STATIC_PTR void seffect_cloning(struct obj **);
+STATIC_PTR void NDECL(do_acquirement);
 
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
@@ -403,7 +402,7 @@ doread()
                 clr = "red";	/* you've been naughty */
         }
         if (!clr)
-            pline("There seems to be nothing special about this ring.");
+            There("seems to be nothing special about this ring.");
         else if (scroll->cursed)
             pline("It appears dark.");
         else
@@ -523,7 +522,7 @@ doread()
         };
 
         if (Blind) {
-            You("feel the embossed numbers:");
+            You_feel("the embossed numbers:");
         } else {
             if (flags.verbose)
                 pline("It reads:");
@@ -563,7 +562,7 @@ doread()
         return 1;
     } else if (scroll->oclass == COIN_CLASS) {
         if (Blind)
-            You("feel the embossed words:");
+            You_feel("the embossed words:");
         else if (flags.verbose)
             You("read:");
         pline("\"1 Zorkmid.  857 GUE.  In Frobs We Trust.\"");
@@ -573,7 +572,7 @@ doread()
         return 1;
     } else if (scroll->oartifact == ART_GJALLAR) {
         if (Blind)
-            You("feel the engraved signature:");
+            You_feel("the engraved signature:");
         else
             pline("It is signed:");
         pline("\"Heimdallr.\"");
@@ -599,11 +598,11 @@ doread()
         };
 
         if (Blind) {
-            You("feel only a smooth plastic window.");
+            You_feel("only a smooth plastic window.");
             return 0;
         }
         if (flags.verbose) {
-            pline("You turn over %s and read:", the(xname(scroll)));
+            You("turn over %s and read:", the(xname(scroll)));
         }
         pline("\"%s\".", eightball_msgs[rn2(SIZE(eightball_msgs))]);
         if (!u.uconduct.literate++) {
@@ -627,7 +626,7 @@ doread()
             return 0;
         }
         mesg = wrapper_msgs[scroll->o_id % SIZE(wrapper_msgs)];
-        pline("The wrapper reads: \"%s\".", mesg);
+        pline_The("wrapper reads: \"%s\".", mesg);
         maybe_learn_elbereth(mesg);
         if (!u.uconduct.literate++)
             livelog_write_string(LL_CONDUCT,
@@ -684,7 +683,13 @@ doread()
         return study_book(scroll);
     }
     scroll->in_use = TRUE; /* scroll, not spellbook, now being read */
-    if (otyp != SCR_BLANK_PAPER) {
+    if (scroll->oartifact) {
+        if (Blind) {
+            pline("Being blind, you cannot see the %s.", the(xname(scroll)));
+            return 0;
+        }
+        You("examine %s.", the(xname(scroll)));
+    } else if (otyp != SCR_BLANK_PAPER) {
         boolean silently = !can_chant(&youmonst);
 
         /* a few scroll feedback messages describe something happening
@@ -715,7 +720,7 @@ doread()
                 docall(scroll);
         }
         scroll->in_use = FALSE;
-        if (otyp != SCR_BLANK_PAPER)
+        if (otyp != SCR_BLANK_PAPER  && !scroll->oartifact)
             useup(scroll);
     }
     return 1;
@@ -1036,30 +1041,6 @@ struct monst *mtmp;
                 }
             }
             break;
-
-	    case GREEN_LIGHTSABER:
-	    case BLUE_LIGHTSABER:
-	    case RED_LIGHTSABER:
-        case RED_DOUBLE_LIGHTSABER:
-            if (is_cursed) {
-                if (obj->lamplit) {
-                    end_burn(obj, TRUE);
-                    obj->age = 0;
-                    if (!Blind)
-                        pline("%s deactivates!", The(xname(obj)));
-                } else
-                    obj->age = 0;
-            } else if (is_blessed) {
-                obj->age = 1500;
-                p_glow2(obj, NH_BLUE);
-            } else {
-                obj->age += 750;
-                if (obj->age > 1500) 
-                    obj->age = 1500;
-                p_glow1(obj);
-            }
-            break;
-        
         case CRYSTAL_BALL:
             if (is_cursed) {
                 stripspe(obj);
@@ -1141,6 +1122,24 @@ struct monst *mtmp;
             break;
         } /* switch */
 
+    } else if (is_lightsaber(obj)) {
+        if (is_cursed) {
+            if (obj->lamplit) {
+                end_burn(obj, TRUE);
+                obj->age = 0;
+                if (!Blind)
+                    pline("%s deactivates!", The(xname(obj)));
+            } else
+                obj->age = 0;
+        } else if (is_blessed) {
+            obj->age = 1500;
+            p_glow2(obj, NH_BLUE);
+        } else {
+            obj->age += 750;
+            if (obj->age > 1500) 
+                obj->age = 1500;
+            p_glow1(obj);
+        }
     } else {
     not_chargable:
         if (yours)
@@ -1177,7 +1176,7 @@ forget(howmuch)
 int howmuch;
 {
     if (Psychic_resistance) {
-        You("feel something tugging at your thoughts, but it quickly subsides.");
+        You_feel("something tugging at your thoughts, but it quickly subsides.");
         return;
     }
     if (Punished)
@@ -1198,6 +1197,12 @@ int howmuch;
     if (u.uevent.know_horror && rn2(3))
         u.uevent.know_horror = 0;
     
+    /* Doppelgangers can forget what they have eaten. */
+    for (int i = LOW_PM; i < NUMMONS; i++) {
+        if (mvitals[i].eaten && !rn2(3)) {
+            mvitals[i].eaten = FALSE;
+        }
+    }
     forget_traps();
 
     if (howmuch & ALL_SPELLS)
@@ -1355,7 +1360,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             new_erodeproof;
     struct obj *otmp = (struct obj *) 0;
     struct monst *mtmp, *mtmp2;
-    struct obj* pseudo;
     if (objects[otyp].oc_magic)
         exercise(A_WIS, TRUE);                       /* just for trying */
     already_known = (sobj->oclass == SPBOOK_CLASS /* spell */
@@ -1397,7 +1401,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (!otmp) {
                 otmp = getobj(clothes, "enchant");
                 while (otmp && !(otmp->owornmask & W_ARMOR)) {
-                    pline("You cannot enchant armor that is not worn.");
+                    You("cannot enchant armor that is not worn.");
                     otmp = getobj(clothes, "enchant");
                 }
                 /* Dragon scales that are worn over body armor will cause the armor to
@@ -1946,7 +1950,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (Hallucination) {
             You_feel("you have experienced something fundamental.");
         } else {
-            pline("The elements swirl around you.");
+            pline_The("elements swirl around you.");
         }
         break;
     }
@@ -2025,92 +2029,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
             /* flush monsters before asking for identification */
             flush_screen(0);
-            break;
-        }
-        case SPE_CALL_UNDEAD:
-        {
-            register struct monst *nextmon;
-            int pet_cnt = 0, omx, omy;
-
-            for (mtmp = fmon; mtmp; mtmp = nextmon) {
-                nextmon = mtmp->nmon; /* trap might kill mon */
-                if (DEADMONSTER(mtmp) || !is_undead(mtmp->data))
-                    continue;
-                /* steed is already at your location, so not affected;
-                   this avoids trap issues if you're on a trap location */
-                if (mtmp == u.usteed)
-                    continue;
-                if (mtmp->mtame) {
-                    if (mtmp->mtrapped) {
-                        /* no longer in previous trap (affects mintrap) */
-                        mtmp->mtrapped = 0;
-                        fill_pit(mtmp->mx, mtmp->my);
-                    }
-                    omx = mtmp->mx, omy = mtmp->my;
-                    mnexto(mtmp);
-                    if (mtmp->mx != omx || mtmp->my != omy) {
-                        mtmp->mundetected = 0; /* reveal non-mimic hider */
-                        if (canspotmon(mtmp))
-                            ++pet_cnt;
-                        if (mintrap(mtmp) == 2)
-                            change_luck(-1);
-                    }
-                }
-            }
-            break;
-        }
-        case SPE_SPIRIT_BOMB: {
-            int num, i, range;
-            int sx = u.ux, sy = u.uy;
-#if 0
-            if (uwep || (u.twoweap && uswapwep)) {
-                pline("You can't do this while wielding a weapon!");
-                return 0;
-
-            } else if (uarms) {
-                pline("You can't do this while holding a shield!");
-                return 0;
-            }
-#endif
-            if (!getdir(NULL))
-                return 0;
-
-            pline("You gather your energy...");
-
-            if (u.uen < 10) {
-                pline("But it fizzles out.");
-                u.uen = 0;
-            }
-
-            /*num = 10 + (techlev(tech_no) / 5);*/
-            num = 10 + (u.ulevel / 5);
-            num = (u.uen < num ? u.uen : num);
-
-            u.uen -= num;
-            
-            /* At expert we could use throwspell? */
-            
-            /* Original Spirit Bomb went 2 tiles exactly (but went through
-             * monsters), this will go as far as a regular wand and stop
-             * on monsters. */
-            range = rnd(8) + 1;
-            for (i = 0; i < range; i++) {
-                if (!isok(sx, sy) || !cansee(sx, sy)
-                    || IS_STWALL(levl[sx][sy].typ) || u.uswallow || m_at(sx, sy))
-                    break;
-                
-                /* Display the center of the explosion */
-                tmp_at(DISP_FLASH, explosion_to_glyph(EXPL_MAGICAL, S_explode5));
-                tmp_at(sx, sy);
-                delay_output();
-                tmp_at(DISP_END, 0);
-
-                sx += u.dx;
-                sy += u.dy;
-            }
-            num = spell_damage_bonus(u.ulevel / 2 + 1);
-            /* Magical Explosion */
-            explode(sx, sy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
             break;
         }
         case SCR_ENCHANT_WEAPON:
@@ -2208,98 +2126,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
-    case SPE_RAISE_ZOMBIES: {
-        struct obj *obj;
-        int i, j;
-        pline("You chant the ancient curse...");
-        /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
-         * adding another case. */
-        pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
-        for (i = -1; i <= 1; i++) {
-            for (j = -1; j <= 1; j++) {
-                int corpsenm;
-
-                if (!isok(u.ux + i, u.uy + j))
-                    continue;
-                for (obj = level.objects[u.ux + i][u.uy + j]; obj;
-                     obj = otmp) {
-                    otmp = obj->nexthere;
-
-                    if (obj->otyp != CORPSE)
-                        continue;
-                    /* Only generate undead */
-                    corpsenm = mon_to_zombie(obj->corpsenm);
-                    if (corpsenm != -1 && !cant_create(&corpsenm, TRUE)) {
-                        /* Maintain approx. proportion of oeaten to cnutrit
-                         * so that the zombie's HP relate roughly to how
-                         * much of the original corpse was left.
-                         */
-                        if (obj->oeaten)
-                            obj->oeaten =
-                                eaten_stat(mons[corpsenm].cnutrit, obj);
-                        obj->corpsenm = corpsenm;
-                        mtmp = revive(obj, TRUE);
-                        if (mtmp) {
-                            if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                                tamedog(mtmp, pseudo);
-                                pline("You dominate %s!", mon_nam(mtmp));
-                            } else {
-                                setmangry(mtmp, FALSE);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        obfree(pseudo, NULL);
-        nomul(-2); /* You need to recover */
-        nomovemsg = 0;
-        break;
-    }
-    case SPE_ANIMATE_DEAD: {
-        struct obj *obj;
-        /*int cost = mons[obj->corpsenm].mlevel + mons[obj->corpsenm].mr - u.ulevel;*/
-        int cost = 50 - u.ulevel; /* WAC make this depend on mon? */
-                                  
-        if (u.uswallow) {
-            pline("You don't have enough elbow-room to maneuver.");
-            return 0;
-        }
-        
-        if ((Upolyd && u.mh <= cost) || (!Upolyd && u.uhp <= cost)) {
-            pline("You don't have the strength to perform revivification!");
-            return 0;
-        }
-
-        /*obj = getobj((const char *) revivables, "revive");*/
-        if (!(obj = floorfood("revive", 0)))
-            return 0;
-        if (cost < 0)
-            cost = 0;
-#if 0
-        /* Copied from slashem polyself probability */
-        if ((rn2(5) + u.ulevel) < mons[obj->corpsenm].mlevel)
-            pline("Your attempt to animate the dead failed...");
-#endif
-        mtmp = revive(obj, TRUE);
-        if (mtmp) {
-            if (Is_blackmarket(&u.uz))
-                setmangry(mtmp, FALSE);
-            else if (mtmp->isshk)
-                make_happy_shk(mtmp, FALSE);
-            else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                pseudo = mksobj(SPE_ANIMATE_DEAD, FALSE, FALSE);
-                tamedog(mtmp, pseudo);
-                /* Add undead tag? */
-                obfree(pseudo, NULL);
-            }
-        }
-        if (Upolyd)
-            u.mh -= cost;
-        else
-            u.uhp -= cost;
-        break;
-    }
     case SCR_ANNIHILATION:
         if (!already_known)
             You("have found a scroll of annihilation!");
@@ -2338,8 +2164,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("ZA WARUDO!");
             else
                 pline("Time slows down to a crawl around you!");
-            youmonst.movement = 50 + bcsign(sobj) * 25;
+            youmonst.movement += 50 + bcsign(sobj) * 25;
             morehungry(rn1(30, 30));
+            u.utimestop = TRUE;
         }
         break;
     case SCR_TELEPORTATION:
@@ -2368,7 +2195,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (sblessed)
                 specified_id();
         }
-        You("feel more knowledgeable.");
+        You_feel("more knowledgeable.");
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
@@ -2420,7 +2247,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         else if (scursed) {
             if (!Breathless && !breathless(youmonst.data)) {
                 known = TRUE;
-                pline("The air is sucked from your lungs!");
+                pline_The("air is sucked from your lungs!");
                 losehp(d(3, 4), "asphyxiation", KILLED_BY);
             } else {
                 strange_feeling(sobj, "You feel oddly breathless.");
@@ -2447,10 +2274,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     }
     case SCR_TRANSMOGRIFY: {
-        if (uwep && rn2(2))
-            otmp = uwep;
-        else
-            otmp = some_armor(&youmonst);
+        if (!already_known) {
+            if (uwep && rn2(2))
+                otmp = uwep;
+            else
+                otmp = some_armor(&youmonst);
+        } else {
+            otmp = getobj(all_count, "change material");
+        }
+            
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
             sobj = 0; /* useup() in strange_feeling() */
@@ -2516,7 +2348,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             make_confused(HConfusion + rnd(30), FALSE);
             break;
         }
-        if (sblessed) {
+        if (sblessed && !(sobj->oartifact)) {
             register int x, y;
 
             for (x = 1; x < COLNO; x++)
@@ -2534,32 +2366,52 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             make_confused(HConfusion + rnd(30), FALSE);
             break;
         }
-        pline("A map coalesces in your mind!");
-        cval = (scursed && !confused);
-        if (cval)
-            HConfusion = 1; /* to screw up map */
-        do_mapping();
-        if (cval) {
-            HConfusion = 0; /* restore */
-            pline("Unfortunately, you can't grasp the details.");
+        if (!(sobj->oartifact)) {
+            pline("A map coalesces in your mind!");
+            cval = (scursed && !confused);
+            if (cval)
+                HConfusion = 1; /* to screw up map */
+            do_mapping();
+            if (cval) {
+                HConfusion = 0; /* restore */
+                pline("Unfortunately, you can't grasp the details.");
+            }
+        } else {
+            if (sobj->age > monstermoves) {
+                pline_The("map is hard to see.");
+                nomul(rnd(3));
+                sobj->age += (long) d(3,10);
+            } else sobj->age = monstermoves + (long) d(3,10);
+                do_vicinity_map(sobj);
         }
         break;
     case SCR_AMNESIA:
         known = TRUE;
-        if (is_illithid(youmonst.data)) {
-            Your("psionic abilities ward off the scroll's magic.");
-            break;
+        if (sblessed && ACURR(A_INT) > 12) {
+            if (yn("Do you want to reset your skills training?") != 'y') {
+                goto forget_routine;
+            } else {
+                Your("skills training has been reset.");
+                reset_weapon_skills();
+                break;
+            }
         } else {
-            forget((!sblessed ? ALL_SPELLS : 0));
-            if (Hallucination) /* Ommmmmm! */
-                Your("mind releases itself from mundane concerns.");
-            else if (!strncmpi(plname, "Maud", 4))
-                pline("As your mind turns inward on itself, you forget everything else.");
-            else if (rn2(2))
-                pline("Who was that Maud person anyway?");
-            else
-                pline("Thinking of Maud you forget everything else.");
-            exercise(A_WIS, FALSE);
+ forget_routine:
+            if (is_illithid(youmonst.data)) {
+                Your("psionic abilities ward off the scroll's magic.");
+                break;
+            } else {
+                forget((!sblessed ? ALL_SPELLS : 0));
+                if (Hallucination) /* Ommmmmm! */
+                    Your("mind releases itself from mundane concerns.");
+                else if (!strncmpi(plname, "Maud", 4))
+                    pline("As your mind turns inward on itself, you forget everything else.");
+                else if (rn2(2))
+                    pline("Who was that Maud person anyway?");
+                else
+                    pline("Thinking of Maud you forget everything else.");
+                exercise(A_WIS, FALSE);
+            }
         }
         break;
     case SCR_FIRE: {
@@ -2663,6 +2515,19 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             break;
         }
         punish(sobj);
+        break;
+    case SCR_ACQUIREMENT: 
+        known = TRUE;
+        
+        pline("You have found a scroll of acquirement!");
+        if (sobj->cursed) {
+            pline("Unfortuantely, nothing happens.");
+            break;
+        }
+        do_acquirement();
+        
+        if (sobj->blessed && Luck + rn2(5) > 3)
+            do_acquirement(); /* Bonus! */
         break;
     case SCR_STINKING_CLOUD: {
         coord cc;
@@ -2877,7 +2742,7 @@ retry:
             return; /* for safety; should never happen */
     }
     if (objects[otyp].oc_name_known) {
-        pline("You already know what that object looks like.");
+        You("already know what that object looks like.");
         if (++tries < 5)
             goto retry;
         pline1(thats_enough_tries);
@@ -3058,7 +2923,7 @@ int chg; /* recharging */
     case WAN_MAGIC_MISSILE:
     case WAN_POISON_GAS:
     case WAN_SONICS:
-    case WAN_ACID:
+    case WAN_CORROSION:
         k = 8;
         break;
     case WAN_NOTHING:
@@ -3276,10 +3141,6 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
      *  correctly update all previously seen positions *and* correctly
      *  set the waslit bit [could be messed up from above].
      */
-#if 0 /* --hackem: NIMF! */
-    if (on)
-        blindingflash();
-#endif
     if (!Blind) {
         vision_recalc(2);
 
@@ -3459,12 +3320,31 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             which = !type_is_pname(ptr) ? "the " : "";
     }
     if (how & REALLY) {
-        if (!num_genocides())
-            livelog_printf(LL_CONDUCT|LL_GENOCIDE,
-                    "performed %s first annihilation (%s)", uhis(), makeplural(buf));
-        else
+        if (only_on_level) {
+            livelog_printf(LL_GENOCIDE, "annihilated %s on a level in %s",
+                       makeplural(buf), dungeons[u.uz.dnum].dname);
+        } else if (num_genocides() == 0) {
+            livelog_printf(LL_CONDUCT | LL_GENOCIDE, "performed %s first annihilation (%s)",
+                           uhis(), makeplural(buf));
+        } else {
             livelog_printf(LL_GENOCIDE, "annihilated %s", makeplural(buf));
-
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         /* setting no-corpse affects wishing and random tin generation */
         if (!only_on_level) { 
             mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE); 
@@ -4017,11 +3897,15 @@ struct obj **sobjp;
         } else if (otmp->otyp == SPE_BOOK_OF_THE_DEAD) {
             otyp2 = SPE_BLANK_PAPER;
             return;
+        } else if (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT) {
+            pline_The("scroll violently resists the cloning process!");
+            otyp2 = SCR_BLANK_PAPER;
         } else {
             otyp2 = otmp->otyp;
         }
         otmp2 = mksobj_at(otyp2, u.ux, u.uy, FALSE, FALSE);
-        if (otmp2 == &zeroobj) impossible("Invalid cloned object?");
+        if (otmp2 == &zeroobj) 
+            impossible("Invalid cloned object?");
         /* beatitude */
         if (scursed) 
             curse(otmp2);
@@ -4039,6 +3923,7 @@ struct obj **sobjp;
         otmp2->oeroded2 = otmp->oeroded2;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
+        otmp2->oprops = otmp->oprops;
         
         /* Prevent exploits */
         if (otmp2->otyp == WAN_WISHING) 
@@ -4052,7 +3937,6 @@ struct obj **sobjp;
                                 (const char *) 0);
     }
 }
-
 
 int mon_to_zombie(int monnum) {
     if ((&mons[monnum])->mlet == S_ZOMBIE) 
@@ -4132,4 +4016,125 @@ create_particular_from_buffer(const char* bufp)
 
     return FALSE;
 }
+
+/* 5lo: A menu for acquirement instead of the awful, terrible way
+ * SlashEM-Extended handles this.
+ */
+static void
+do_acquirement()
+{
+    struct obj *acqo;
+    menu_item *pick_list = (menu_item *) 0;
+    winid win;
+    anything any;
+    char ch = 'q';
+
+    win = create_nhwindow(NHW_MENU);
+    start_menu(win);
+    any.a_void = 0;
+    any.a_char = 'r';
+    add_menu(win, NO_GLYPH, &any, 'r', 0, ATR_NONE, "Random item",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = ')';
+    add_menu(win, NO_GLYPH, &any, ')', 0, ATR_NONE, "Weapon",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '[';
+    add_menu(win, NO_GLYPH, &any, '[', 0, ATR_NONE, "Armor", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '%';
+    add_menu(win, NO_GLYPH, &any, '%', 0, ATR_NONE, "Comestible",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '?';
+    add_menu(win, NO_GLYPH, &any, '?', 0, ATR_NONE, "Scroll",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '+';
+    add_menu(win, NO_GLYPH, &any, '+', 0, ATR_NONE, "Spellbook",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '!';
+    add_menu(win, NO_GLYPH, &any, '!', 0, ATR_NONE, "Potion",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '"';
+    add_menu(win, NO_GLYPH, &any, '"', 0, ATR_NONE, "Amulet",
+             MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '=';
+    add_menu(win, NO_GLYPH, &any, '=', 0, ATR_NONE, "Ring", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '/';
+    add_menu(win, NO_GLYPH, &any, '/', 0, ATR_NONE, "Wand", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '(';
+    add_menu(win, NO_GLYPH, &any, '(', 0, ATR_NONE, "Tool", MENU_UNSELECTED);
+    any.a_void = 0;
+    any.a_char = '*';
+    add_menu(win, NO_GLYPH, &any, '*', 0, ATR_NONE, "Gem", MENU_UNSELECTED);
+    end_menu(win, "Select a type of item to create:");
+    /* No chains, iron balls, venom, boulders or gold */
+    if (select_menu(win, PICK_ONE, &pick_list) > 0) {
+        ch = pick_list->item.a_char;
+        free((genericptr_t) pick_list);
+    }
+    destroy_nhwindow(win);
+
+    switch (ch) {
+    default:
+    case 'r':
+        acqo = mkobj_at(RANDOM_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case ')':
+        acqo = mkobj_at(WEAPON_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '[':
+        acqo = mkobj_at(ARMOR_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '%':
+        acqo = mkobj_at(FOOD_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '?':
+        acqo = mkobj_at(SCROLL_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '+':
+        acqo = mkobj_at(SPBOOK_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '!':
+        acqo = mkobj_at(POTION_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '"':
+        acqo = mkobj_at(AMULET_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '=':
+        acqo = mkobj_at(RING_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '/':
+        acqo = mkobj_at(WAND_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '(':
+        acqo = mkobj_at(TOOL_CLASS, u.ux, u.uy, FALSE);
+        break;
+    case '*':
+        acqo = mkobj_at(GEM_CLASS, u.ux, u.uy, FALSE);
+        break;
+    }
+    if (acqo->otyp == GOLD_PIECE)
+        acqo->quan = rnd(1000);
+    if (acqo->otyp == MAGIC_LAMP) {
+        acqo->otyp = OIL_LAMP;
+        acqo->age = 1500L;
+    }
+    if (acqo->otyp == MAGIC_MARKER)
+        acqo->recharged = 1;
+    while (acqo->otyp == WAN_WISHING || acqo->otyp == WAN_POLYMORPH)
+        acqo->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
+    while (acqo->otyp == SCR_ACQUIREMENT)
+        acqo->otyp = rnd_class(SCR_CREATE_MONSTER, SCR_BLANK_PAPER);
+
+    pline("An item has appeared on the ground just beneath you.");
+}
+
 /*read.c*/

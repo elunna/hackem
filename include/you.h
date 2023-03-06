@@ -323,7 +323,10 @@ struct you {
 
     int uhunger;  /* refd only in eat.c and shk.c */
     unsigned uhs; /* hunger state - see eat.c */
-
+    boolean ukinghill; /* records if you are carying the pirate treasure
+    (and are therefor king of the hill) */
+    int protean; /* counter for the auto-polypiling power of the chest*/
+    boolean utimestop; /* Counter for scroll of time */
     struct prop uprops[LAST_PROP + 1];
 
     unsigned umconf;
@@ -392,9 +395,9 @@ struct you {
                          + when blessed or uncursed, - when cursed */
 #define LUCKMAX   10  /* maximum value of u.ulUck */
 #define LUCKMIN (-10) /* minimum value of u.uluck */
-    schar uhitinc;          /* Additional to-hit bonus */
-    schar udaminc;          /* Additional damage bonus */
-    long  uhealbonus;		/* KMH -- Healing bonus from healthstones */
+    schar uhitinc;           /* Additional to-hit bonus */
+    schar udaminc;           /* Additional damage bonus */
+    long  uhealbonus;        /* KMH -- Healing bonus from healthstones */
     schar uac;
     uchar uspellprot;        /* protection by SPE_PROTECTION */
     uchar usptime;           /* #moves until uspellprot-- */
@@ -407,7 +410,20 @@ struct you {
     int ugangr;              /* if the gods are angry at you */
     int ugifts;              /* number of artifacts bestowed */
     int ublessed, ublesscnt; /* blessing/duration from #pray */
-    long ulastprayed;        /* the turn you last prayed */
+    long lastprayed;
+    uchar lastprayresult, reconciled;
+#define PRAY_NONE   0
+#define PRAY_GOOD   1
+#define PRAY_BAD    2
+#define PRAY_GIFT   3
+#define PRAY_ANGER  4
+#define PRAY_CONV   5
+#define PRAY_INPROG 6
+
+#define REC_NONE    0
+#define REC_REC     1
+#define REC_MOL     2
+
     long umoney0;
     long uspare1;
     long uexp, urexp;

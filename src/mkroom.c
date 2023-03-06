@@ -606,7 +606,8 @@ struct mkroom *sroom;
                 /* And for misc healing objects */
                 if (!rn2(10))
                     (void) mksobj_at(PILL, sx, sy, TRUE, FALSE);
-                /* if (!rn2(40)) (void) mksobj_at(MEDICAL_KIT, sx, sy, TRUE, FALSE); */
+                if (!rn2(40)) 
+                        (void) mksobj_at(MEDICAL_KIT, sx, sy, TRUE, FALSE);
                 break;
             case COCKNEST:
                 if (!rn2(3)) {
@@ -791,6 +792,36 @@ morguemon()
             : (i < v) ? mkclass(S_WRAITH, 0) 
             : (i < 70) ? mkclass(S_MUMMY, 0) 
                        : mkclass(S_ZOMBIE, 0));
+}
+
+struct permonst *
+ventmon(poisoned)
+int poisoned;
+{
+    struct permonst *mdat;
+    int i;
+    for (i = 100; i > 0; i--) {
+        /* Make a creepy crawly */
+        switch (rnd(5)) {
+        case 1:
+            mdat = mkclass(S_SNAKE, 0);
+            break;
+        case 2:
+            mdat = mkclass(S_RODENT, 0);
+            break;
+        default:
+            mdat = mkclass(S_SPIDER, 0);
+        }
+        /* Try for poison res */
+        if (!mdat) 
+            continue;
+        
+        if (poisoned && (mdat->mresists & MR_POISON) != 0) {
+            break;
+        } else if (!poisoned)
+            break;
+    }
+    return mdat;
 }
 
 struct permonst *

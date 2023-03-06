@@ -142,6 +142,7 @@
     <ClCompile Include="$(SrcDir)steal.c" />
     <ClCompile Include="$(SrcDir)steed.c" />
     <ClCompile Include="$(SrcDir)sys.c" />
+    <ClCompile Include="$(SrcDir)tech.c" />
     <ClCompile Include="$(SrcDir)teleport.c" />
     <ClCompile Include="$(SrcDir)tile.c" />
     <ClCompile Include="$(SrcDir)timeout.c" />
@@ -233,6 +234,7 @@
     <ClInclude Include="$(IncDir)skills.h" />
     <ClInclude Include="$(IncDir)spell.h" />
     <ClInclude Include="$(IncDir)sp_lev.h" />
+    <ClInclude Include="$(IncDir)tech.h" />
     <ClInclude Include="$(IncDir)timeout.h" />
     <ClInclude Include="$(IncDir)tradstdc.h" />
     <ClInclude Include="$(IncDir)trap.h" />

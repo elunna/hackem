@@ -8,7 +8,7 @@
 
 STATIC_DCL int FDECL(monmulti, (struct monst *, struct obj *, struct obj *));
 STATIC_DCL void FDECL(monshoot, (struct monst *, struct obj *, struct obj *));
-STATIC_DCL int FDECL(drop_throw, (struct obj *, BOOLEAN_P, int, int));
+STATIC_DCL int FDECL(drop_throw, (struct monst *, struct obj *, BOOLEAN_P, int, int));
 
 #define URETREATING(x, y) \
     (distmin(u.ux, u.uy, x, y) > distmin(u.ux0, u.uy0, x, y))
@@ -88,9 +88,45 @@ const char *name; /* if null, then format `*objp' */
         } else if (u.uac + tlev <= dieroll - 2) {
             if (onm != onmbuf)
                 Strcpy(onmbuf, onm); /* [modifiable buffer for upstart()] */
-            pline("%s %s you.", upstart(onmbuf), vtense(onmbuf, "miss"));
+            if ((thick_skinned(youmonst.data)
+                 || (!Upolyd && Race_if(PM_TORTLE))) && rn2(2)) {
+                Your("%s %s %s.",
+                     (is_dragon(youmonst.data) ? "scaly hide"
+                                               : (youmonst.data == &mons[PM_GIANT_TURTLE]
+                                                  || Race_if(PM_TORTLE))
+                                                   ? "protective shell"
+                                                   : "thick hide"),
+                      (rn2(2) ? "blocks" : "deflects"), onm);
+            } else {
+                pline("%s %s you.", upstart(onmbuf), vtense(onmbuf, "miss"));
+            }
         } else
             You("are almost hit by %s.", onm);
+
+        if (uarms && !rn2(3)) {
+            Your("%s %s %s.",
+                 uarms->oartifact ? xname(uarms)
+                                  : simple_typename(uarms->otyp),
+                 (rn2(2) ? "blocks" : "deflects"), onm);
+            use_skill(P_SHIELD, 1);
+        }
+        return 0;
+    } else if (tech_inuse(T_SHIELD_BLOCK)) {
+		if (Blind || !flags.verbose) 
+            pline("You block it with your shield");
+		else 
+            You("block %s with your shield", onm);
+		shield_block(dam);
+		return (0);
+    } else if (Role_if(PM_JEDI) 
+            && uwep 
+            && is_lightsaber(uwep) 
+            && uwep->lamplit
+            && P_SKILL(weapon_type(uwep)) >= P_SKILLED 
+            && rn2(5)) {
+        /* dodge four of five missiles, even when blind see "A new hope" 
+            * for blindness reference */
+        You("dodge %s with %s.", onm, yname(uwep));
         return 0;
     } else {
         if (Blind || !flags.verbose)
@@ -135,7 +171,8 @@ const char *name; /* if null, then format `*objp' */
  * Returns 0 if object still exists (not destroyed).
  */
 STATIC_OVL int
-drop_throw(obj, ohit, x, y)
+drop_throw(mon, obj, ohit, x, y)
+register struct monst *mon;
 register struct obj *obj;
 boolean ohit;
 int x, y;
@@ -144,10 +181,13 @@ int x, y;
     int create;
     struct monst *mtmp;
     struct trap *t;
-
+    struct obj *mwep = (struct obj *) 0;
+    
+    if (mon) 
+        mwep = MON_WEP(mon);
     if (obj->otyp == CREAM_PIE || obj->oclass == VENOM_CLASS
-        || (is_bullet(obj)) || 
-        (ohit && obj->otyp == EGG))
+        || (is_bullet(obj)) || (obj->oartifact == ART_HOUCHOU) 
+        || (ohit && obj->otyp == EGG))
         create = 0;
     else if (ohit && (is_multigen(obj) || obj->otyp == ROCK))
         create = !rn2(3);
@@ -164,7 +204,23 @@ int x, y;
             bomb_explode(obj, bhitpos.x, bhitpos.y, FALSE);
         }
     }
+    
+    /* D: Detonate crossbow bolts from Hellfire if they hit */
+#define ZT_FIRE (10 + (AD_FIRE - 1))
+    if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
+        && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
+        if (cansee(bhitpos.x, bhitpos.y))
+            pline("%s explodes in a ball of fire!", Doname2(obj));
+        else
+            You_hear("an explosion");
 
+        explode(bhitpos.x, bhitpos.y, -ZT_FIRE, d(2, 6), WEAPON_CLASS,
+                EXPL_FIERY);
+
+        /* D: Exploding bolts will be destroyed */
+        create = 0;
+    }
+    
     if (create && !((mtmp = m_at(x, y)) != 0 && mtmp->mtrapped
                     && (t = t_at(x, y)) != 0
                     && is_pit(t->ttyp))) {
@@ -343,7 +399,8 @@ struct obj *otmp, *mwep;
         m_shot.o = otmp->otyp;
     } else {
         m_shot.o = STRANGE_OBJECT; /* don't give multishot feedback */
-        if (is_bullet(otmp) && !Deaf) You("hear gunfire.");
+        if (is_bullet(otmp) && !Deaf) 
+            You_hear("gunfire.");
     }
     m_shot.n = multishot;
     for (m_shot.i = 1; m_shot.i <= m_shot.n; m_shot.i++) {
@@ -527,7 +584,7 @@ boolean verbose;    /* give message(s) even when you can't see what happened */
         if (!range) { /* Last position; object drops */
             if (is_pole(otmp))
                 return 1;
-            (void) drop_throw(otmp, 0, mtmp->mx, mtmp->my);
+            (void) drop_throw(archer, otmp, 0, mtmp->mx, mtmp->my);
             return 1;
         }
     } else if (otmp->oclass == POTION_CLASS) {
@@ -647,7 +704,7 @@ boolean verbose;    /* give message(s) even when you can't see what happened */
         if (is_pole(otmp))
             return 1;
 
-        objgone = drop_throw(otmp, 1, bhitpos.x, bhitpos.y);
+        objgone = drop_throw(archer, otmp, 1, bhitpos.x, bhitpos.y);
         if (!objgone && range == -1) { /* special case */
             obj_extract_self(otmp);    /* free it for motion again */
             return 0;
@@ -731,7 +788,6 @@ register boolean verbose;
 	if (mwep && is_ammo(singleobj) && ammo_and_launcher(singleobj, mwep)) {
 	    if (mwep->oartifact == ART_PLAGUE && is_poisonable(singleobj))
 			singleobj->opoisoned = 1;
-
 	    /* D: Hellfire is handled in drop_throw */
 	}
 
@@ -747,7 +803,7 @@ register boolean verbose;
         dy = rn2(3) - 1;
         /* check validity of new direction */
         if (!dx && !dy) {
-            (void) drop_throw(singleobj, 0, bhitpos.x, bhitpos.y);
+            (void) drop_throw(mon, singleobj, 0, bhitpos.x, bhitpos.y);
             goto cleanup_thrown;
         }
     }
@@ -757,7 +813,7 @@ register boolean verbose;
          * destroying singleobj and set it to null if it's any of certain
          * breakable objects like glass weapons. */
         if (singleobj) {
-            (void) drop_throw(singleobj, 0, bhitpos.x, bhitpos.y);
+            (void) drop_throw(mon, singleobj, 0, bhitpos.x, bhitpos.y);
         }
         goto cleanup_thrown;
     }
@@ -876,7 +932,7 @@ register boolean verbose;
                     if (!Blind)
                         pline("Yecch!  You've been creamed.");
                     else
-                        pline("There's %s sticky all over your %s.",
+                        There("is %s sticky all over your %s.",
                               something, body_part(FACE));
                 } else if (singleobj->otyp == BLINDING_VENOM
                            || singleobj->otyp == SNOWBALL) {
@@ -903,7 +959,7 @@ register boolean verbose;
             }
             stop_occupation();
             if (hitu) {
-                (void) drop_throw(singleobj, hitu, u.ux, u.uy);
+                (void) drop_throw(mon, singleobj, hitu, u.ux, u.uy);
                 break;
             }
         }
@@ -929,7 +985,7 @@ register boolean verbose;
                              || (archer && canseemon(archer))))
                     pline("%s misses.", The(mshot_xname(singleobj)));
 
-                (void) drop_throw(singleobj, 0, bhitpos.x, bhitpos.y);
+                (void) drop_throw(mon, singleobj, 0, bhitpos.x, bhitpos.y);
             }
             break;
         }
@@ -1047,7 +1103,7 @@ struct attack *mattk;
         }
         if (!rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
             if (canseemon(mtmp)) {
-                if (mtmp && mtmp->data == &mons[PM_SNOW_GOLEM])
+                if (mtmp && throws_snowballs(mtmp->data))
                     pline("%s throws a snowball!", Monnam(mtmp));
                 else
                     pline("%s spits venom!", Monnam(mtmp));
@@ -1233,7 +1289,7 @@ struct monst *mtmp;
     otmp = select_rwep(mtmp);
     if (!otmp)
         return FALSE;
-
+    
     if (is_pole(otmp)) {
         int dam, hitv;
 
@@ -1265,6 +1321,20 @@ struct monst *mtmp;
         return TRUE;
     }
 
+    if (is_bomb(otmp)) {
+        /* A few simple checks for throwing bombs, similar to throwing potions
+         * of oil. This could lead to weird behavior for weak monsters, so
+         * eventually this might fit better as a MUSE item. */
+        if (otmp->otyp == FIRE_BOMB && m_seenres(mtmp, M_SEEN_FIRE))
+            return FALSE;
+        if (otmp->otyp == GAS_BOMB && m_seenres(mtmp, M_SEEN_POISON))
+            return FALSE;
+        if (otmp->otyp == SONIC_BOMB && m_seenres(mtmp, M_SEEN_LOUD))
+            return FALSE;
+        if (dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) < 3 
+            && mtmp->mhp < 20)
+            return FALSE;
+    }
     x = mtmp->mx;
     y = mtmp->my;
 
@@ -1365,7 +1435,7 @@ struct attack *mattk;
         if (!rn2(BOLT_LIM
                  - distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy))) {
             if (canseemon(mtmp)) {
-                if (mtmp && mtmp->data == &mons[PM_SNOW_GOLEM])
+                if (mtmp && throws_snowballs(mtmp->data))
                     pline("%s throws a snowball!", Monnam(mtmp));
                 else
                     pline("%s spits venom!", Monnam(mtmp));
@@ -1663,7 +1733,6 @@ int whodidit;   /* 1==hero, 0=other, -1==just check whether it'll pass thru */
             hits = (oskill != -P_BOW && oskill != -P_CROSSBOW
                     && oskill != -P_DART && oskill != -P_SHURIKEN
                     && oskill != -P_FIREARM
-//                    && oskill != P_SPEAR
                     && oskill != P_KNIFE); /* but not dagger */
             break;
         }

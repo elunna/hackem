@@ -670,7 +670,7 @@ int spellnum;
                     monstseesu(M_SEEN_MAGR);
                     dmg /= 2;
                 }
-                You("feel drained...");
+                You_feel("drained...");
                 u.uhpmax -= dmg / 3 + rn2(5);
                 losehp(dmg, "touch of death", KILLED_BY_AN);
             }
@@ -741,7 +741,7 @@ int spellnum;
                     MON_CASTBALL, EXPL_ACID);
             if (how_resistant(ACID_RES) == 100) {
                 shieldeff(u.ux, u.uy);
-                pline("The acid dissipates harmlessly.");
+                pline_The("acid dissipates harmlessly.");
                 monstseesu(M_SEEN_ACID);
             }
             if (rn2(u.twoweap ? 2 : 3))
@@ -771,24 +771,28 @@ int spellnum;
             impossible("bad wizard cloning?");
         break;
     case MGC_SUMMON_MONS: {
-        int count;
+        int count = nasty(mtmp, FALSE);
 
-        count = nasty(mtmp, FALSE); /* summon something nasty */
-        if (mtmp->iswiz) {
+        if (!count) {
+            ; /* nothing was created? */
+        } else if (mtmp->iswiz) {
             verbalize("Destroy the thief, my pet%s!", plur(count));
         } else if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
             verbalize("Defend me, my minion%s!", plur(count));
         } else {
-            const char *mappear = (count == 1) ? "A monster appears"
-                                               : "Monsters appear";
+            boolean one = (count == 1);
+            const char *mappear = one ? "A monster appears"
+                                      : "Monsters appear";
 
             /* messages not quite right if plural monsters created but
                only a single monster is seen */
             if (Invis && !mon_prop(mtmp, SEE_INVIS)
                 && (mtmp->mux != u.ux || mtmp->muy != u.uy))
-                pline("%s around a spot near you!", mappear);
+                pline("%s %s a spot near you!", mappear,
+                      one ? "at" : "around");
             else if (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy))
-                pline("%s around your displaced image!", mappear);
+                pline("%s %s your displaced image!", mappear,
+                      one ? "by" : "around");
             else
                 pline("%s from nowhere!", mappear);
         }
@@ -1031,7 +1035,7 @@ int spellnum;
                 monstseesu(M_SEEN_REFL);
             }
             if (how_resistant(SHOCK_RES) == 100) {
-                pline("You aren't shocked.");
+                You("aren't shocked.");
                 monstseesu(M_SEEN_ELEC);
                 dmg = 0;
             }
@@ -2266,7 +2270,7 @@ int spellnum;
         if (!yours) {
             impossible("ucast healing but not yours?");
         } else if (u.mh < u.mhmax) {
-            You("feel better.");
+            You_feel("better.");
             u.mh += dmg;
             if ((u.mh += d(3, 6)) > u.mhmax)
                 u.mh = u.mhmax;
@@ -2579,7 +2583,7 @@ int spellnum;
         if (!yours) {
             impossible("ucast healing but not yours?");
         } else if (u.mh < u.mhmax) {
-            You("feel better.");
+            You_feel("better.");
             u.mh += dmg;
             /* note: player healing does 6d4; this used to do 1d8 */
             if ((u.mh += d(3, 6)) > u.mhmax)

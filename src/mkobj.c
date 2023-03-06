@@ -292,12 +292,18 @@ STATIC_OVL void
 mkbox_cnts(box)
 struct obj *box;
 {
-    register int n;
+    register int n, minn = 0;
     register struct obj *otmp;
-
+    int tries;
     box->cobj = (struct obj *) 0;
 
     switch (box->otyp) {
+    case MEDICAL_KIT:
+        n = 60;
+        /* Initial inventory, no empty medical kits */
+        if (moves <= 1 && !in_mklev) 
+            minn = 1;
+        break;
     case ICE_BOX:
         n = 20;
         break;
@@ -326,9 +332,13 @@ struct obj *box;
         n = 0;
         break;
     }
-
-    for (n = rn2(n + 1); n > 0; n--) {
-        if (box->otyp == ICE_BOX) {
+    tries = rn1((n + 1 - minn), minn);
+    for (n = tries; n > 0; n--) {
+        if (box->otyp == MEDICAL_KIT) {
+            int supplies[] = { PHIAL, BANDAGE, PILL };
+            if (!(otmp = mksobj(supplies[rn2(SIZE(supplies))], TRUE, TRUE)))
+                continue;
+        } else if (box->otyp == ICE_BOX) {
             otmp = mksobj(CORPSE, TRUE, FALSE);
             /* Note: setting age to 0 is correct.  Age has a different
              * from usual meaning for objects stored in ice boxes. -KAA
@@ -367,7 +377,7 @@ struct obj *box;
                     otmp->owt = weight(otmp);
                 } else
                     while (otmp->otyp == WAN_CANCELLATION)
-                        otmp->otyp = rnd_class(WAN_LIGHT, WAN_WATER);
+                        otmp->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
             }
             /* material may have become invalid with a new otyp -- rerandomize
              * it to something valid */
@@ -807,6 +817,10 @@ may_generate_eroded(struct obj* otmp) {
     if (otmp->otyp == WORM_TOOTH || otmp->otyp == UNICORN_HORN) {
         return FALSE;
     }
+    /* item is part of a medkit */
+    if (otmp->otyp == BANDAGE || otmp->otyp == PHIAL) {
+        return FALSE;
+    }
     /* item is an artifact */
     if (otmp->oartifact) {
         return FALSE;
@@ -868,7 +882,8 @@ boolean artif;
             if (is_poisonable(otmp) && !rn2(100))
                 otmp->opoisoned = 1;
 
-            if (artif && !rn2(30 + (5 * u.uconduct.wisharti)))
+            if (artif && !rn2( (Role_if(PM_PIRATE) ? 5 : 30) 
+                              + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
             else if (rn2(175) < (level_difficulty() / 2))
                 otmp = create_oprop(otmp, TRUE);
@@ -877,6 +892,20 @@ boolean artif;
                 bless(otmp);
                 otmp->oerodeproof = TRUE;
                 otmp->spe = rn2(3) + 3;
+            }
+            if (is_lightsaber(otmp)) {
+                switch (otmp->otyp) {
+                case RED_DOUBLE_LIGHTSABER:
+                    otmp->altmode = FALSE;
+                    /* FALLTHROUGH */
+                case GREEN_LIGHTSABER:
+                case BLUE_LIGHTSABER:
+                case RED_LIGHTSABER:
+                    otmp->lamplit = 0;
+                    otmp->age = (long) rn1(500, 1000);
+                    blessorcurse(otmp, 2);
+                    break;
+                }
             }
             break;
         case FOOD_CLASS:
@@ -993,16 +1022,6 @@ boolean artif;
                 otmp->lamplit = 0;
                 blessorcurse(otmp, 2);
                 break;
-            case RED_DOUBLE_LIGHTSABER:
-                otmp->altmode = FALSE;
-                /* FALLTHROUGH */
-            case GREEN_LIGHTSABER:
-            case BLUE_LIGHTSABER:
-            case RED_LIGHTSABER:
-                otmp->lamplit = 0;
-                otmp->age = (long) rn1(500,1000);
-                blessorcurse(otmp, 2);
-                break;
             case IRON_SAFE:
                 otmp->olocked = 1;
                 mkbox_cnts(otmp);
@@ -1021,6 +1040,7 @@ boolean artif;
             case SACK:
             case OILSKIN_SACK:
             case BAG_OF_HOLDING:
+            case MEDICAL_KIT:
                 mkbox_cnts(otmp);
                 break;
             case KEG:
@@ -1136,7 +1156,8 @@ boolean artif;
                 otmp->spe = rne(3);
             } else
                 blessorcurse(otmp, 10);
-            if (artif && !rn2(40 + (5 * u.uconduct.wisharti)))
+            if (artif && !rn2( (Role_if(PM_PIRATE) ? 10 : 40) 
+                              + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
             else if (!rn2(150))
                 otmp = create_oprop(otmp, TRUE);
@@ -1168,7 +1189,7 @@ boolean artif;
         case WAND_CLASS:
             if (otmp->otyp == WAN_WISHING) {
                 otmp->spe = rnd(3);
-                otmp->recharged = Is_stronghold(&u.uz) ? 0 : 1;
+                otmp->recharged = (Is_stronghold(&u.uz) || discover) ? 0 : 1;
             } else if (otmp->otyp == WAN_WONDER) {
                 otmp->spe = rn1(10, 15);
             } else {
@@ -1240,16 +1261,16 @@ boolean artif;
             /* A small fraction of non-artifact items will generate eroded or
              * possibly erodeproof. An item that generates eroded will never be
              * erodeproof, and vice versa. */
-            if (!rn2(75)) {
+            if (!rn2(100)) {
                 otmp->oerodeproof = 1;
             }
             else {
-                if (!rn2(75) && (is_flammable(otmp) || is_rustprone(otmp))) {
+                if (!rn2(80) && (is_flammable(otmp) || is_rustprone(otmp))) {
                     do {
                         otmp->oeroded++;
                     } while (otmp->oeroded < 3 && !rn2(9));
                 }
-                if (!rn2(75) && (is_rottable(otmp) || is_corrodeable(otmp))) {
+                if (!rn2(80) && (is_rottable(otmp) || is_corrodeable(otmp))) {
                     do {
                         otmp->oeroded2++;
                     } while (otmp->oeroded2 < 3 && !rn2(9));
@@ -1257,7 +1278,7 @@ boolean artif;
             }
             /* and an extremely small fraction of the time, erodable items
              * will generate greased */
-            if (!rn2(3263)) {
+            if (!rn2(1000)) {
                 otmp->greased = 1;
             }
         }
@@ -1712,6 +1733,10 @@ register struct obj *obj;
     if (obj->material != objects[obj->otyp].oc_material) {
         wt = (wt * matdensities[obj->material])
              / matdensities[objects[obj->otyp].oc_material];
+    }
+
+    if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
+     	wt =  150; /* Same as a crystal ball (ie, the Orb of Weight) */
     }
 
     /* glob absorpsion means that merging globs accumulates weight while
@@ -3376,7 +3401,7 @@ struct obj *otmp2;
             boolean adj = ((otmp->ox != u.ux || otmp->oy != u.uy)
                            && (otmp2->ox != u.ux || otmp2->oy != u.uy));
 
-            pline("The %s%s coalesce%s.",
+            pline_The("%s%s coalesce%s.",
                   (onfloor && adj) ? "adjacent " : "",
                   makeplural(obj_typename(otmp->otyp)),
                   inpack ? " inside your pack" : "");
@@ -3618,6 +3643,7 @@ struct obj* obj;
         case STAFF_OF_MATTER:
         case STAFF_OF_ESCAPE:
         case STAFF_OF_WAR:
+        case SILVER_CAPPED_STAFF:
         case WOODEN_STAKE:
         case GRAPPLING_HOOK:
         case IRON_SAFE:
@@ -3632,6 +3658,8 @@ struct obj* obj;
         case LEASH:
         case SADDLE:
         case TINNING_KIT:
+        case BANDAGE:
+        case PHIAL:
         case AMULET_OF_YENDOR:
         case FAKE_AMULET_OF_YENDOR:
             return NULL;

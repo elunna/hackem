@@ -201,6 +201,7 @@ const int shield_static[SHIELD_COUNT] = {
 };
 
 NEARDATA struct spell spl_book[MAXSPELL + 1] = { DUMMY };
+NEARDATA struct tech tech_list[MAXTECH + 1] = {DUMMY};
 
 NEARDATA long moves = 1L, monstermoves = 1L;
 /* These diverge when player is Fast */
@@ -218,11 +219,13 @@ NEARDATA const struct monst zeromonst = DUMMY;
 NEARDATA const anything zeroany;
 
 /* originally from dog.c */
+NEARDATA char birdname[PL_PSIZ] = DUMMY;
 NEARDATA char dogname[PL_PSIZ] = DUMMY;
 NEARDATA char catname[PL_PSIZ] = DUMMY;
 NEARDATA char horsename[PL_PSIZ] = DUMMY;
 NEARDATA char wolfname[PL_PSIZ] = DUMMY;
 NEARDATA char ghoulname[PL_PSIZ] = DUMMY;
+NEARDATA char monkeyname[PL_PSIZ] = DUMMY;
 NEARDATA char pseudoname[PL_PSIZ] = DUMMY;
 NEARDATA char ratname[PL_PSIZ] = DUMMY;
 NEARDATA char homunname[PL_PSIZ] = DUMMY;

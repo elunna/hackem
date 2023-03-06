@@ -704,6 +704,15 @@ boolean via_disintegration;
     done(DIED);
 }
 
+
+STATIC_OVL void
+update_prayer_stats(int pray_result)
+{
+    u.lastprayed = moves;
+    u.lastprayresult = pray_result;
+    u.reconciled = REC_NONE;
+}
+
 STATIC_OVL void
 angrygods(resp_god)
 aligntyp resp_god;
@@ -713,6 +722,10 @@ aligntyp resp_god;
     if (mitre_inhell())
         resp_god = A_NONE;
     u.ublessed = 0;
+
+    if (u.ualign.type == resp_god) {
+        update_prayer_stats(PRAY_ANGER);
+    }
 
     /* changed from tmp = u.ugangr + abs (u.uluck) -- rph */
     /* added test for alignment diff -dlc */
@@ -801,7 +814,7 @@ const char *str;
 int
 wiz_crown()
 {
-    pline("Your crown, my %s.", flags.female ? "queen" : "king");
+    Your("crown, my %s.", flags.female ? "queen" : "king");
     gcrownu();
     return 0;
 }
@@ -858,13 +871,23 @@ gcrownu()
 
     obj = ok_wep(uwep) ? uwep : 0;
     already_exists = in_hand = FALSE; /* lint suppression */
+                                      
+    if (Role_if(PM_PIRATE)) {
+        u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
+        in_hand = (uwep && uwep->oartifact == ART_REAVER);
+        already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
+        verbalize("Hurrah for our Pirate King!");
+        livelog_printf(LL_DIVINEGIFT,
+                       "was granted the title of \"Pirate King\" by %s", u_gname());
+    } else {
     switch (u.ualign.type) {
     case A_LAWFUL:
         u.uevent.uhand_of_elbereth = 1;
         verbalize("I crown thee...  The Hand of Elbereth!");
         learn_elbereth();
         livelog_printf(LL_DIVINEGIFT,
-                "was crowned \"The Hand of Elbereth\" by %s", u_gname());
+                       "was crowned \"The Hand of Elbereth\" by %s",
+                       u_gname());
         break;
     case A_NEUTRAL:
         u.uevent.uhand_of_elbereth = 2;
@@ -880,7 +903,7 @@ gcrownu()
         }
         verbalize("Thou shalt be my Envoy of Balance!");
         livelog_printf(LL_DIVINEGIFT, "became %s Envoy of Balance",
-                s_suffix(u_gname()));
+                       s_suffix(u_gname()));
         break;
     case A_CHAOTIC:
         u.uevent.uhand_of_elbereth = 3;
@@ -896,29 +919,37 @@ gcrownu()
         }
         if (Role_if(PM_PRIEST)) {
             verbalize("Thou art chosen to take lives for My Glory!");
-            livelog_printf(LL_DIVINEGIFT, "was chosen to take lives for the Glory of %s",
+            livelog_printf(LL_DIVINEGIFT,
+                           "was chosen to take lives for the Glory of %s",
                            u_gname());
 
         } else {
             verbalize("Thou art chosen to %s for My Glory!",
                       ((already_exists && !in_hand)
-                       || class_gift != STRANGE_OBJECT) ? "take lives"
-                      : "steal souls");
-            livelog_printf(LL_DIVINEGIFT, "was chosen to %s for the Glory of %s",
-                           ((already_exists && !in_hand) || class_gift != STRANGE_OBJECT)
-                           ? "take lives" : "steal souls", u_gname());
+                       || class_gift != STRANGE_OBJECT)
+                          ? "take lives"
+                          : "steal souls");
+            livelog_printf(LL_DIVINEGIFT,
+                           "was chosen to %s for the Glory of %s",
+                           ((already_exists && !in_hand)
+                            || class_gift != STRANGE_OBJECT)
+                               ? "take lives"
+                               : "steal souls",
+                           u_gname());
         }
         break;
     case A_NONE:
         u.uevent.uhand_of_elbereth = 4;
         if (Role_if(PM_INFIDEL)) {
             verbalize("Thou shalt be my vassal of suffering and terror!");
-            livelog_printf(LL_DIVINEGIFT, "became the Emissary of Moloch");
+            livelog_printf(LL_DIVINEGIFT,
+                           "became the Emissary of Moloch");
             class_gift = SPE_FIREBALL; /* no special weapon */
             unrestrict_weapon_skill(P_TRIDENT);
             P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
             if (Upolyd)
-                rehumanize(); /* return to human/orcish form -- not a demon yet */
+                rehumanize(); /* return to human/orcish form -- not a
+                                 demon yet */
             pline1("Wings sprout from your back and you grow a barbed tail!");
             maxint = urace.attrmax[A_INT];
             maxwis = urace.attrmax[A_WIS];
@@ -926,12 +957,14 @@ gcrownu()
             /* mental faculties are not changed by demonization */
             urace.attrmax[A_INT] = maxint;
             urace.attrmax[A_WIS] = maxwis;
-            youmonst.data->msize = MZ_HUMAN; /* in case we started out as a giant */
+            youmonst.data->msize =
+                MZ_HUMAN; /* in case we started out as a giant */
             set_uasmon();
             newsym(u.ux, u.uy);
             retouch_equipment(2); /* silver */
             break;
         }
+    }
     }
 
     if (objects[class_gift].oc_class == SPBOOK_CLASS) {
@@ -955,104 +988,114 @@ gcrownu()
             obj = uwep; /* to be blessed,&c */
     }
 
-    switch (u.ualign.type) {
-    case A_LAWFUL:
-        if (class_gift != STRANGE_OBJECT) {
-            ; /* already got bonus above */
-        } else if (obj && obj->otyp == LONG_SWORD && !obj->oartifact
-                   && !Role_if(PM_PRIEST)) {
-            if (!Blind)
+    if (Role_if(PM_PIRATE)) {
+        u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
+        in_hand = (uwep && uwep->oartifact == ART_REAVER);
+        already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
+        verbalize("Hurrah for our Pirate King!");
+        livelog_printf(LL_DIVINEGIFT,
+                       "was granted the title of \"Pirate King\" by %s", u_gname());
+    } else {
+        switch (u.ualign.type) {
+        case A_LAWFUL:
+            if (class_gift != STRANGE_OBJECT) {
+                ; /* already got bonus above */
+            } else if (obj && obj->otyp == LONG_SWORD && !obj->oartifact
+                       && !Role_if(PM_PRIEST)) {
+                if (!Blind)
                 Your("sword shines brightly for a moment.");
-            obj = oname(obj, artiname(ART_EXCALIBUR));
-            if (obj && obj->oartifact == ART_EXCALIBUR) {
+                obj = oname(obj, artiname(ART_EXCALIBUR));
+                if (obj && obj->oartifact == ART_EXCALIBUR) {
                 u.ugifts++;
                 u.uconduct.artitouch++;
+                }
             }
-        }
-        /* acquire Excalibur's skill regardless of weapon or gift */
-        if (!Role_if(PM_PRIEST))
-            unrestrict_weapon_skill(P_LONG_SWORD);
-        if (obj && obj->oartifact == ART_EXCALIBUR)
-            discover_artifact(ART_EXCALIBUR);
-        break;
-    case A_NEUTRAL:
-        if (class_gift != STRANGE_OBJECT) {
-            ; /* already got bonus above */
-        } else if (obj && in_hand) {
+            /* acquire Excalibur's skill regardless of weapon or gift */
             if (!Role_if(PM_PRIEST))
+                unrestrict_weapon_skill(P_LONG_SWORD);
+            if (obj && obj->oartifact == ART_EXCALIBUR)
+                discover_artifact(ART_EXCALIBUR);
+            break;
+        case A_NEUTRAL:
+            if (class_gift != STRANGE_OBJECT) {
+                ; /* already got bonus above */
+            } else if (obj && in_hand) {
+                if (!Role_if(PM_PRIEST))
                 Your("%s goes snicker-snack!", xname(obj));
-            obj->dknown = TRUE;
-        } else if (!already_exists) {
-            if (Role_if(PM_PRIEST)) {
+                obj->dknown = TRUE;
+            } else if (!already_exists) {
+                if (Role_if(PM_PRIEST)) {
                 obj = mksobj(HEAVY_WAR_HAMMER, FALSE, FALSE);
                 obj = oname(obj, artiname(ART_MJOLLNIR));
                 obj->spe = 1;
                 at_your_feet("A hammer");
-            } else {
+                } else {
                 obj = mksobj(LONG_SWORD, FALSE, FALSE);
                 obj = oname(obj, artiname(ART_VORPAL_BLADE));
                 obj->spe = 1;
                 at_your_feet("A sword");
+                }
+                dropy(obj);
+                u.ugifts++;
             }
-            dropy(obj);
-            u.ugifts++;
-        }
-        /* acquire Vorpal Blade's skill regardless of weapon or gift */
-        if (!Role_if(PM_PRIEST))
-            unrestrict_weapon_skill(P_LONG_SWORD);
-        if (obj && obj->oartifact == ART_VORPAL_BLADE)
-            discover_artifact(ART_VORPAL_BLADE);
-        if (obj && obj->oartifact == ART_MJOLLNIR)
-            discover_artifact(ART_MJOLLNIR);
-        break;
-    case A_CHAOTIC: {
-        char swordbuf[BUFSZ];
-
-        Sprintf(swordbuf, "%s sword", hcolor(NH_BLACK));
-        if (class_gift != STRANGE_OBJECT) {
-            ; /* already got bonus above */
-        } else if (obj && in_hand) {
+            /* acquire Vorpal Blade's skill regardless of weapon or gift */
             if (!Role_if(PM_PRIEST))
+                unrestrict_weapon_skill(P_LONG_SWORD);
+            if (obj && obj->oartifact == ART_VORPAL_BLADE)
+                discover_artifact(ART_VORPAL_BLADE);
+            if (obj && obj->oartifact == ART_MJOLLNIR)
+                discover_artifact(ART_MJOLLNIR);
+            break;
+        case A_CHAOTIC: {
+            char swordbuf[BUFSZ];
+
+            Sprintf(swordbuf, "%s sword", hcolor(NH_BLACK));
+            if (class_gift != STRANGE_OBJECT) {
+                ; /* already got bonus above */
+            } else if (obj && in_hand) {
+                if (!Role_if(PM_PRIEST))
                 Your("%s hums ominously!", swordbuf);
-            obj->dknown = TRUE;
-        } else if (!already_exists) {
-            if (Role_if(PM_PRIEST)) {
+                obj->dknown = TRUE;
+            } else if (!already_exists) {
+                if (Role_if(PM_PRIEST)) {
                 obj = mksobj(HEAVY_WAR_HAMMER, FALSE, FALSE);
                 obj = oname(obj, artiname(ART_MJOLLNIR));
                 obj->spe = 1;
                 at_your_feet("A hammer");
-            } else {
+                } else {
                 obj = mksobj(RUNESWORD, FALSE, FALSE);
                 obj = oname(obj, artiname(ART_STORMBRINGER));
                 obj->spe = 1;
                 at_your_feet(An(swordbuf));
+                }
+                dropy(obj);
+                u.ugifts++;
             }
-            dropy(obj);
-            u.ugifts++;
+            /* acquire Stormbringer's skill regardless of weapon or gift */
+            if (!Role_if(PM_PRIEST))
+                unrestrict_weapon_skill(P_BROAD_SWORD);
+            if (obj && obj->oartifact == ART_STORMBRINGER)
+                discover_artifact(ART_STORMBRINGER);
+            if (obj && obj->oartifact == ART_MJOLLNIR)
+                discover_artifact(ART_MJOLLNIR);
+            break;
         }
-        /* acquire Stormbringer's skill regardless of weapon or gift */
-        if (!Role_if(PM_PRIEST))
-            unrestrict_weapon_skill(P_BROAD_SWORD);
-        if (obj && obj->oartifact == ART_STORMBRINGER)
-            discover_artifact(ART_STORMBRINGER);
-        if (obj && obj->oartifact == ART_MJOLLNIR)
-            discover_artifact(ART_MJOLLNIR);
-        break;
-    }
-    case A_NONE:
-        /* OK, we don't get an artifact, but surely Moloch
+        case A_NONE:
+            /* OK, we don't get an artifact, but surely Moloch
          * can at least offer His own blessing? */
-        obj = uwep;
-        if (ok_wep(obj) && !obj->oartifact
-            && obj->quan == 1 && !(obj->oprops & ITEM_PROP_MASK)) {
-            Your("%s is wreathed in hellfire!", simple_typename(obj->otyp));
-            obj->oprops |= ITEM_FIRE;
-            obj->oprops_known |= ITEM_FIRE;
+            obj = uwep;
+            if (ok_wep(obj) && !obj->oartifact && obj->quan == 1
+                && !(obj->oprops & ITEM_PROP_MASK)) {
+                Your("%s is wreathed in hellfire!",
+                     simple_typename(obj->otyp));
+                obj->oprops |= ITEM_FIRE;
+                obj->oprops_known |= ITEM_FIRE;
+            }
+            break;
+        default:
+            obj = 0; /* lint */
+            break;
         }
-        break;
-    default:
-        obj = 0; /* lint */
-        break;
     }
 
     /* enhance weapon regardless of alignment or artifact status */
@@ -1530,7 +1573,7 @@ register struct monst *mtmp;
                 pline("However, your quest ends here...");
                 done(ESCAPED);
             } else {
-                pline("The Demigod of %s looks down upon you, and squashes you like the ant that you are.",
+                pline_The("Demigod of %s looks down upon you, and squashes you like the ant that you are.",
                       a_gname_at(mtmp->mx, mtmp->my));
                 Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
                 killer.format = KILLED_BY;
@@ -1874,7 +1917,7 @@ dosacrifice()
                             || uwep->otyp == ORCISH_LONG_SWORD)
                 && !uwep->oartifact && !(uarmh && uarmh->otyp == HELM_OF_OPPOSITE_ALIGNMENT)
                 && !exist_artifact(LONG_SWORD, artiname(ART_DIRGE))) {
-                pline("Your sword melts in your hand and transforms into something new!");
+                Your("sword melts in your hand and transforms into something new!");
                 uwep->oprops = uwep->oprops_known = 0L;
                 uwep->otyp = LONG_SWORD;
                 uwep = oname(uwep, artiname(ART_DIRGE));
@@ -2079,6 +2122,7 @@ dosacrifice()
                 u.ugangr += 3;
             }
             value = -3;
+            update_prayer_stats(PRAY_ANGER);
         }
     } /* fake Amulet */
 
@@ -2124,9 +2168,12 @@ dosacrifice()
                     /* Beware, Conversion is costly */
                     change_luck(-3);
                     u.ublesscnt += 300;
+
+                    update_prayer_stats(PRAY_CONV);
                 } else {
                     u.ugangr += 3;
                     adjalign(-5);
+                    update_prayer_stats(PRAY_ANGER);
                     pline("%s rejects your sacrifice!", a_gname());
                     godvoice(altaralign, "Suffer, infidel!");
                     change_luck(-5);
@@ -2212,6 +2259,7 @@ dosacrifice()
 
                     if ((int) u.uluck < 0)
                         u.uluck = 0;
+                    u.reconciled = REC_MOL;
                 }
             } else { /* not satisfied yet */
                 if (Hallucination)
@@ -2246,335 +2294,15 @@ dosacrifice()
                         You("have a feeling of reconciliation.");
                     if ((int) u.uluck < 0)
                         u.uluck = 0;
+                    u.reconciled = REC_REC;
                 }
             }
         } else {
-            int nchance = u.ulevel + 6;
-            /* having never abused your alignment slightly increases
-               the odds of receiving a gift from your deity.
-               the more artifacts the player wishes for, the lower
-               the chances of receiving an artifact gift via sacrifice */
-            int reg_gift_odds  = ((u.ualign.abuse == 0) ? 5 : 6) + (2 * u.ugifts);
-            int arti_gift_odds = ((u.ualign.abuse == 0) ? 9 : 10) + (2 * u.ugifts) + (2 * u.uconduct.wisharti);
-            boolean primary_casters, primary_casters_priest;
-
-            /* Primary casting roles */
-            primary_casters = Role_if(PM_HEALER) 
-                              || Role_if(PM_FLAME_MAGE) 
-                              || Role_if(PM_ICE_MAGE) 
-                              || Role_if(PM_NECROMANCER) 
-                              || Role_if(PM_WIZARD) 
-                              || Role_if(PM_INFIDEL);
-            primary_casters_priest = Role_if(PM_PRIEST);
-
-            /* you were already in pretty good standing
-             *
-             * The player can gain an artifact;
-             * The chance goes down as the number of artifacts goes up.
-             *
-             * From SporkHack (heavily modified):
-             * The player can also get handed just a plain old hunk of
-             * weaponry or piece of armor, but it will be blessed, +3 to +5,
-             * fire/rustproof, and if it's a weapon, it'll be in one of the
-             * player's available skill slots. The lower level you are, the
-             * more likely it is that you'll get a hunk of ordinary junk
-             * rather than an artifact.
-             *
-             * Note that no artifact is guaranteed; it's still subject to the
-             * chances of generating one of those in the first place. These
-             * are just the chances that an artifact will even be considered
-             * as a gift.
-             *
-             * If your role has a guaranteed first sacrifice gift, you will
-             * not receive a non-artifact item as a gift until you've gotten
-             * your guaranteed artifact.
-             *
-             * level  4: 10% chance level  9: 20% chance level 12: 30% chance
-             * level 14: 40% chance level 17: 50% chance level 19: 60% chance
-             * level 21: 70% chance level 23: 80% chance level 24: 90% chance
-             * level 26 or greater: 100% chance
-             */
-            if ((!awaiting_guaranteed_gift() || u.ulevel <= 2)
-                && rn2(10) >= (int) ((nchance * nchance) / 100)) {
-                if (u.uluck >= 0 && !rn2(reg_gift_odds)) {
-                    int typ, ncount = 0;
-                    if (rn2(2)) { /* Making a weapon */
-                        do {
-                            /* Don't give unicorn horns or anything the player's restricted in
-                             * Lets also try to dish out suitable gear based on the player's role */
-                            if (primary_casters) {
-                                typ = rn2(2) ? rnd_class(DAGGER, ATHAME) : rnd_class(MACE, FLAIL);
-                            } else if (primary_casters_priest) {
-                                typ = rnd_class(MACE, FLAIL);
-                            } else if (Role_if(PM_MONK)) {
-                                if (!u.uconduct.weaphit)
-                                    typ = SHURIKEN;
-                                else
-                                    typ = rn2(4) ? rnd_class(QUARTERSTAFF, STAFF_OF_WAR)
-                                                 : BROADSWORD;
-                            } else {
-                                typ = rnd_class(SPEAR, KATANA);
-                            }
-
-                            /* apply starting inventory subs - so we'll get racial gear if possible */
-                            if (urace.malenum != PM_HUMAN) {
-                                int i;
-                                for (i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
-                                    if (inv_subs[i].race_pm == urace.malenum
-                                        && typ == inv_subs[i].item_otyp) {
-                                        typ = inv_subs[i].subs_otyp;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            /* The issue here is it blocks elves from getting basically
-                             * anything, since most (non-elven) weapons are base mat iron...
-                             * if we have the WRONG race, then let's not do that
-                             */
-                            otmp = mksobj(typ, FALSE, FALSE);
-                            if (is_elven_obj(otmp) && !Race_if(PM_ELF))
-                                typ = 0;
-                            else if (is_orcish_obj(otmp) && !Race_if(PM_ORC))
-                                typ = 0;
-
-                            obfree(otmp, (struct obj *) 0);
-                            otmp = (struct obj *) 0;
-
-                            if (typ && !P_RESTRICTED(objects[typ].oc_skill))
-                                break;
-                        } while (ncount++ < 1000);
-                    } else if ((primary_casters || primary_casters_priest) && !rn2(3)) {
-                        /* Making a spellbook */
-                        int trycnt = u.ulevel + 1;
-
-                        otmp = mkobj(SPBOOK_CLASS, TRUE);
-
-                        if (!otmp)
-                            return 1;
-
-                        while (--trycnt > 0) {
-                            if (otmp->otyp != SPE_BLANK_PAPER) {
-
-                                if (Role_if(PM_ICE_MAGE) &&
-                                    (otmp->otyp == SPE_FIREBALL
-                                    || otmp->otyp == SPE_FIRE_BOLT
-                                    || otmp->otyp == SPE_FLAME_SPHERE)) {
-                                    ; /* Ice mages shouldn't get fire magic */
-                                } 
-                                else if (Role_if(PM_FLAME_MAGE) &&
-                                    (otmp->otyp == SPE_CONE_OF_COLD
-                                    || otmp->otyp == SPE_FREEZE_SPHERE)) {
-                                    ; /* Flame mages shouldn't get ice magic */
-                                } 
-                                else if (!known_spell(otmp->otyp)
-                                    && !P_RESTRICTED(spell_skilltype(otmp->otyp)))
-                                    break; /* usable, but not yet known */
-                            } else {
-                                if (!objects[SPE_BLANK_PAPER].oc_name_known
-                                    || carrying(MAGIC_MARKER))
-                                    break;
-                            }
-                            otmp->otyp = rnd_class(bases[SPBOOK_CLASS], SPE_BLANK_PAPER);
-                            otmp->owt = weight(otmp);
-                        }
-
-                        bless(otmp);
-                        at_your_feet("An object");
-                        place_object(otmp, u.ux, u.uy);
-                        newsym(u.ux, u.uy);
-                        godvoice(u.ualign.type, "Use this gift skillfully!");
-                        u.ugifts++;
-                        u.ublesscnt = rnz(300 + (50 * u.ugifts));
-                        exercise(A_WIS, TRUE);
-                        if (!Hallucination && !Blind) {
-                            otmp->dknown = 1;
-                            makeknown(otmp->otyp);
-                        }
-                        livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
-                                       "had %s given to %s by %s",
-                                       an(xname(otmp)), uhim(), u_gname());
-                        return 1;
-                    } else { /* Making armor */
-                        do {
-                            /* even chance for each slot
-                               giants and tortles are evenly distributed among armor
-                               they can wear. monks and centaurs end up more likely
-                               to receive certain kinds, but them's the breaks */
-                            switch (Race_if(PM_GIANT) ? rn1(4, 2)
-                                                      : Race_if(PM_TORTLE) ? rn1(3, 3)
-                                                                           : rn2(6)) {
-                            case 0:
-                                /* body armor (inc. shirts) */
-                                if (primary_casters || primary_casters_priest) {
-                                    typ = rn2(2) ? rnd_class(LIGHT_ARMOR, JACKET)
-                                                 : rn2(6) ? typ == STUDDED_ARMOR
-                                                          : typ == CRYSTAL_PLATE_MAIL;
-                                } else {
-                                    typ = rnd_class(PLATE_MAIL, T_SHIRT);
-                                }
-                                if (!Role_if(PM_MONK)
-                                    || (typ == T_SHIRT || typ == HAWAIIAN_SHIRT)) {
-                                    break; /* monks only can have shirts */
-                                } /* monks have (almost) double chance for cloaks */
-                                /* FALLTHRU */
-                            case 1:
-                                /* cloak */
-                                typ = rnd_class(MUMMY_WRAPPING, CLOAK_OF_DISPLACEMENT);
-                                break;
-                            case 2:
-                                /* boots */
-                                if (primary_casters || primary_casters_priest) {
-                                    typ = !rn2(3) ? typ == LOW_BOOTS
-                                                  : rnd_class(HIGH_BOOTS, LEVITATION_BOOTS);
-                                } else {
-                                    typ = rnd_class(LOW_BOOTS, LEVITATION_BOOTS);
-                                }
-                                if (!Race_if(PM_CENTAUR)) {
-                                    break;
-                                } /* centaurs have double chances to get a shield */
-                                /* FALLTHRU */
-                            case 3:
-                                /* shield */
-                                if (primary_casters || primary_casters_priest) {
-                                    typ = rn2(8) ? typ == SMALL_SHIELD
-                                                 : rnd_class(SHIELD_OF_REFLECTION, SHIELD_OF_MOBILITY);
-                                } else {
-                                    typ = rnd_class(SMALL_SHIELD, SHIELD_OF_MOBILITY);
-                                }
-                                if (!Role_if(PM_MONK)) {
-                                    break;
-                                } /* monks have double chances to get gloves */
-                                /* FALLTHRU */
-                            case 4:
-                                /* gloves */
-                                if ((primary_casters || primary_casters_priest)
-                                    && !Race_if(PM_TORTLE)) {
-                                    typ = rn2(3) ? typ == GLOVES
-                                                 : rnd_class(GAUNTLETS_OF_POWER,
-                                                             GAUNTLETS_OF_DEXTERITY);
-                                } else if (Race_if(PM_TORTLE)) {
-                                    typ = rn2(3) ? typ == GLOVES
-                                                 : rnd_class(GAUNTLETS_OF_PROTECTION,
-                                                             GAUNTLETS_OF_DEXTERITY);
-                                } else {
-                                    typ = rnd_class(GLOVES, GAUNTLETS_OF_DEXTERITY);
-                                }
-                                break;
-                            case 5:
-                                /* helm */
-                                if ((primary_casters || primary_casters_priest)
-                                    && !Race_if(PM_TORTLE)) {
-                                    if (Role_if(PM_WIZARD)) {
-                                        typ = rn2(2) ? rnd_class(CORNUTHAUM, ELVEN_HELM)
-                                                     : rnd_class(HELM_OF_BRILLIANCE,
-                                                                 HELM_OF_TELEPATHY);
-                                    } else {
-                                        typ = rn2(2) ? rnd_class(FEDORA, ELVEN_HELM)
-                                                     : rnd_class(HELM_OF_BRILLIANCE,
-                                                                 HELM_OF_TELEPATHY);
-                                    }
-                                } else if (Race_if(PM_TORTLE)) {
-                                    if (Role_if(PM_WIZARD)) {
-                                        typ = rnd_class(CORNUTHAUM, ELVEN_HELM);
-                                    } else {
-                                        typ = rnd_class(FEDORA, ELVEN_HELM);
-                                    }
-                                } else {
-                                    typ = rnd_class(ELVEN_HELM, HELM_OF_TELEPATHY);
-                                }
-                                break;
-                            default:
-                                typ = HAWAIIAN_SHIRT; /* Ace Ventura approved. Alrighty then. */
-                                break;
-                            }
-
-                            /* Same as weapons, but not as badly obviously
-                             * apply starting inventory subs - so we'll get
-                             * racial gear if possible
-                             */
-                            if (urace.malenum != PM_HUMAN) {
-                                int i;
-                                for (i = 0; inv_subs[i].race_pm != NON_PM; ++i) {
-                                    if (inv_subs[i].race_pm == urace.malenum
-                                        && typ == inv_subs[i].item_otyp) {
-                                        typ = inv_subs[i].subs_otyp;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            /* if we have the WRONG object, then let's not do that */
-                            otmp = mksobj(typ, FALSE, FALSE);
-                            if (is_elven_armor(otmp) && !Race_if(PM_ELF))
-                                typ = 0;
-                            else if (is_orcish_armor(otmp) && !Race_if(PM_ORC))
-                                typ = 0;
-                            else if (is_dwarvish_armor(otmp) && !Race_if(PM_DWARF))
-                                typ = 0;
-                            else if (otmp->otyp == LARGE_SPLINT_MAIL && !Race_if(PM_GIANT)
-                                     && !Role_if(PM_SAMURAI))
-                                typ = 0;
-                            else if (otmp->otyp == HELM_OF_OPPOSITE_ALIGNMENT)
-                                typ = 0;
-
-                            obfree(otmp, (struct obj *) 0);
-                            otmp = (struct obj *) 0;
-
-                        } while (ncount++ < 1000 && !typ);
-                    }
-
-                    if (typ) {
-                        ncount = 0;
-                        otmp = mksobj(typ, FALSE, FALSE);
-                        while (((Race_if(PM_ELF) && otmp->material == IRON)
-                                || (Race_if(PM_ORC)
-                                    && otmp->material == MITHRIL)
-                                || (Role_if(PM_INFIDEL)
-                                    && otmp->material == SILVER))
-                               && ncount++ < 500) {
-                            obfree(otmp, (struct obj *) 0);
-                            otmp = mksobj(typ, FALSE, FALSE);
-                            /* keep trying for non-iron */
-                        }
-
-                        if (otmp) {
-                            if (otmp->otyp == SHURIKEN)
-                                otmp->quan = (long) rn1(7, 14); /* 14-20 count */
-                            if (!rn2(8))
-                                otmp = create_oprop(otmp, FALSE);
-                            if (altaralign == A_NONE)
-                                curse(otmp);
-                            else
-                                bless(otmp);
-                            otmp->spe = rn2(3) + 3; /* +3 to +5 */
-                            otmp->oerodeproof = TRUE;
-                            otmp->owt = weight(otmp);
-                            at_your_feet(otmp->quan > 1L ? "Some objects"
-                                                         : "An object");
-                            place_object(otmp, u.ux, u.uy);
-                            newsym(u.ux, u.uy);
-                            if (altaralign == A_NONE)
-                                godvoice(u.ualign.type,
-                                         "Use this gift ominously!");
-                            else
-                                godvoice(u.ualign.type,
-                                         "Use this gift valorously!");
-                            u.ugifts++;
-                            u.ublesscnt = rnz(300 + (50 * u.ugifts));
-                            exercise(A_WIS, TRUE);
-                            if (!Hallucination && !Blind) {
-                                otmp->dknown = 1;
-                                makeknown(otmp->otyp);
-                            }
-                            livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
-                                           "had %s entrusted to %s by %s",
-                                           doname(otmp), uhim(), u_gname());
-                            return 1;
-                        }
-                    }
-                }
-            } else if (u.uluck >= 0 && !rn2(arti_gift_odds)) {
+            /* you were already in pretty good standing */
+            /* The player can gain an artifact */
+            /* The chance goes down as the number of artifacts goes up */
+            if (u.ulevel > 2 && u.uluck >= 0
+                && !rn2(10 + (2 * u.ugifts * u.ugifts))) {
                 otmp = mk_artifact((struct obj *) 0, a_align(u.ux, u.uy));
                 if (otmp) {
                     if (otmp->spe < 0)
@@ -2597,6 +2325,7 @@ dosacrifice()
 
                     u.ugifts++;
                     u.ublesscnt = rnz(300 + (50 * u.ugifts));
+                    update_prayer_stats(PRAY_GIFT);
                     exercise(A_WIS, TRUE);
 
                     /* make sure we can use this weapon */
@@ -2658,6 +2387,7 @@ dosacrifice()
                         : "glimpse a four-leaf clover at your %s.",
                         makeplural(body_part(FOOT)));
             }
+            u.reconciled = REC_REC;
         }
     }
     return 1;
@@ -2737,7 +2467,7 @@ dopray()
             preferably quite close to the toilet. If we are levitating
             we will skip straight to standard prayer since the player
             already went through a prompt. */
-        pline("You pray to the Porcelain God.");
+        You("pray to the Porcelain God.");
         
         if (!Sick && !HConfusion && !HStun && !Vomiting) {
             pline("He ignores your pleas.");
@@ -2745,7 +2475,7 @@ dopray()
         }
         pline("He smiles upon you.");
 
-        /* --hackem: It doesn't make sense to NOT cure vomiting.. by vomiting. */
+        /* Cure vomiting.. by vomiting. */
         if (Vomiting)
             make_vomiting(0L, TRUE);
         if (Sick)
@@ -2762,7 +2492,7 @@ dopray()
     if (!can_pray(TRUE))
         return 0;
 
-    u.ulastprayed = moves;
+    update_prayer_stats(PRAY_INPROG);
 
     if (wizard && p_type >= 0) {
         if (yn("Force the gods to be pleased?") == 'y') {
@@ -2801,6 +2531,7 @@ prayer_done() /* M. Stephenson (1.0.3b) */
     aligntyp alignment = p_aligntyp;
 
     u.uinvulnerable = FALSE;
+    u.lastprayresult = PRAY_GOOD;
     if (p_type == -1) {
         const char* residual = "residual undead turning effect";
         godvoice(alignment,
@@ -2817,13 +2548,17 @@ prayer_done() /* M. Stephenson (1.0.3b) */
             Strcpy(killer.name, residual);
             killer.format = KILLED_BY_AN;
         }
-        
-        if (!Race_if(PM_VAMPIRIC))
-            rehumanize();
-        
         /* no Half_physical_damage adjustment here */
-        if (!HUnchanging) {
+        if (!Race_if(PM_VAMPIRIC)) {
+            u.lastprayresult = PRAY_GOOD;
+            rehumanize();
             losehp(rnd(20), "residual undead turning effect", KILLED_BY_AN);
+        } else {
+            u.lastprayresult = PRAY_BAD;
+            /* Starting vampires are inherently vampiric */
+            losehp(rnd(20), "residual undead turning effect", KILLED_BY_AN);
+            pline("You get the idea that %s will be of little help to you.",
+                  align_gname(alignment));
             exercise(A_CON, FALSE);
         }
         return 1;
@@ -2875,24 +2610,25 @@ prayer_done() /* M. Stephenson (1.0.3b) */
     return 1;
 }
 
-/* #turn command */
+/* #turn command [EvilHack version] 
+ * (previous doturn, converted for use with techniques */
 int
-doturn()
+turn_undead()
 {
     /* Knights & Priest(esse)s only please */
     struct monst *mtmp, *mtmp2;
     const char *Gname;
     int once, range, xlev;
-
-    if (!Role_if(PM_PRIEST) 
-        && !Role_if(PM_KNIGHT) 
-        && !Role_if(PM_UNDEAD_SLAYER)) {
+#if 0 /* Disable for tech */
+    if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT) && !Role_if(PM_UNDEAD_SLAYER)) {
         /* Try to use the "turn undead" spell. */
         if (known_spell(SPE_TURN_UNDEAD))
             return spelleffects(spell_idx(SPE_TURN_UNDEAD), FALSE, FALSE);
         You("don't know how to turn undead!");
         return 0;
     }
+#endif
+    
     if (Hidinshell) {
         You_cant("turn undead while hiding in your shell!");
         return 0;
@@ -2938,6 +2674,7 @@ doturn()
     once = 0;
     for (mtmp = fmon; mtmp; mtmp = mtmp2) {
         mtmp2 = mtmp->nmon;
+        
         if (DEADMONSTER(mtmp))
             continue;
         /* 3.6.3: used to use cansee() here but the purpose is to prevent
@@ -2972,6 +2709,7 @@ doturn()
                     /*FALLTHRU*/
                 case S_VAMPIRE:
                     xlev += 2;
+                    /* TODO: - catch vampire bats? */
                     /*FALLTHRU*/
                 case S_WRAITH:
                     xlev += 2;
@@ -3017,6 +2755,30 @@ doturn()
     multi_reason = "trying to turn the monsters";
     nomovemsg = You_can_move_again;
     return 1;
+}
+
+int
+doturn()
+{	
+    /* WAC doturn is now a technique */
+    /* Try to use turn undead spell if you don't know the tech. */
+    /*	if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT) && !Role_if(PM_UNDEAD_SLAYER)) {*/
+    if (!tech_known(T_TURN_UNDEAD)) {
+        if (objects[SPE_TURN_UNDEAD].oc_name_known) {
+            register int sp_no;
+            for (sp_no = 0; sp_no < MAXSPELL &&
+                            spl_book[sp_no].sp_id != NO_SPELL &&
+                            spl_book[sp_no].sp_id != SPE_TURN_UNDEAD; sp_no++);
+            
+            if (sp_no < MAXSPELL &&
+                spl_book[sp_no].sp_id == SPE_TURN_UNDEAD)
+                return spelleffects(sp_no, TRUE, FALSE);
+        }
+
+        You("don't know how to turn undead!");
+        return 0;
+    }
+    return (turn_undead());
 }
 
 int

@@ -17,6 +17,8 @@ OPTIONS=verbose,news,fruit:pineapple
 OPTIONS=dogname:Dhairrhuwyth
 OPTIONS=catname:Ghisteslwchlohm
 OPTIONS=ghoulname:Igor
+OPTIONS=birdname:Squawks
+OPTIONS=monkeyname:Ugga-Ugga
 #
 # The graphics symbols mappings below are for NetHack 3.4.  NetHack 3.6
 # uses a new scheme, but this file has not been updated.

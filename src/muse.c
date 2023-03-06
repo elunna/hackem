@@ -398,6 +398,16 @@ struct monst *mtmp;
         m.has_defense = MUSE_POT_HEALING;
         return TRUE;
     }
+    if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_WAN_EXTRA_HEALING;
+        return TRUE;
+    }
+    if ((obj = m_carrying(mtmp, WAN_HEALING)) != 0) {
+        m.defensive = obj;
+        m.has_defense = MUSE_WAN_HEALING;
+        return TRUE;
+    }
     if (is_vampire(mtmp->data) &&
         (obj = m_carrying(mtmp, POT_VAMPIRE_BLOOD)) !=0) {
         m.defensive = obj;
@@ -572,7 +582,7 @@ struct monst *mtmp;
         return FALSE;
     }
 
-    if (stuck || immobile) {
+    if (stuck || immobile || mtmp->mtrapped) {
         ; /* fleeing by stairs or traps is not possible */
     } else if (levl[x][y].typ == STAIRS) {
         if (x == xdnstair && y == ydnstair) {
@@ -903,6 +913,16 @@ struct obj *start;
             if (obj->otyp == POT_HEALING) {
                 m.defensive = obj;
                 m.has_defense = MUSE_POT_HEALING;
+            }
+            nomore(MUSE_WAN_EXTRA_HEALING);
+            if (obj->otyp == WAN_EXTRA_HEALING) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_EXTRA_HEALING;
+            }
+            nomore(MUSE_WAN_HEALING);
+            if (obj->otyp == WAN_HEALING) {
+                m.defensive = obj;
+                m.has_defense = MUSE_WAN_HEALING;
             }
             nomore(MUSE_POT_VAMPIRE_BLOOD);
             if(is_vampire(mtmp->data) && obj->otyp == POT_VAMPIRE_BLOOD) {
@@ -1603,8 +1623,8 @@ struct monst *mtmp;
 #define MUSE_WAN_POLYMORPH      60
 #define MUSE_WAN_SLOW_MONSTER   61
 #define MUSE_WAN_WIND           62
-#define MUSE_WAN_WATER          63
-#define MUSE_WAN_ACID           64
+#define MUSE_WAN_DELUGE          63
+#define MUSE_WAN_CORROSION         64
 #define MUSE_WAN_POISON_GAS     65
 #define MUSE_WAN_SONICS         66
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
@@ -1627,8 +1647,6 @@ struct monst *mtmp;
 #define MUSE_FIRE_HORN          83
 #define MUSE_HORN_OF_BLASTING   84
 #define MUSE_CAMERA             85 /* Skipping so other values don't overlap */
-
-
 
 static boolean
 linedup_chk_corpse(x, y)
@@ -1740,7 +1758,7 @@ int otyp;
     case WAN_SLEEP:
         want++;
         /*FALLTHRU*/
-    case WAN_WATER:
+    case WAN_DELUGE:
         want++;
         /*FALLTHRU*/  
     case WAN_SONICS:
@@ -1749,7 +1767,7 @@ int otyp;
     case HORN_OF_BLASTING:
         want++;
         /*FALLTHRU*/
-    case WAN_ACID:
+    case WAN_CORROSION:
         want++;
         /*FALLTHRU*/
     case WAN_FIRE:
@@ -1852,11 +1870,11 @@ boolean reflection_skip;
                 }
                 continue;
             }
-            nomore(MUSE_WAN_WATER);
-            if (obj->otyp == WAN_WATER) {
+            nomore(MUSE_WAN_DELUGE);
+            if (obj->otyp == WAN_DELUGE) {
                 if (obj->spe > 0 && !amphibious(mtmp->data)) {
                     m.offensive = obj;
-                    m.has_offense = MUSE_WAN_WATER;
+                    m.has_offense = MUSE_WAN_DELUGE;
                 } /* Don't bother recharging */
             }
             nomore(MUSE_WAN_SONICS);
@@ -1878,11 +1896,11 @@ boolean reflection_skip;
                     m.tocharge = obj;
                 }
             }
-            nomore(MUSE_WAN_ACID);
-            if (obj->otyp == WAN_ACID) {
+            nomore(MUSE_WAN_CORROSION);
+            if (obj->otyp == WAN_CORROSION) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_ACID)) {
                     m.offensive = obj;
-                    m.has_offense = MUSE_WAN_ACID;
+                    m.has_offense = MUSE_WAN_CORROSION;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
@@ -2246,11 +2264,11 @@ register struct obj *otmp;
         You("get blasted by hurricane-force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, 5 + rn2(5), TRUE);
         break;
-    case WAN_WATER:
+    case WAN_DELUGE:
         reveal_invis = TRUE;
         if (mtmp == &youmonst) {
             if (zap_oseen)
-                makeknown(WAN_WATER);
+                makeknown(WAN_DELUGE);
             if (rnd(20) < 10 + u.uac) {
                 tmp = d(likes_fire(youmonst.data) ? 12 : 1, 6);
                 pline_The("jet of water hits you!");
@@ -2279,7 +2297,7 @@ register struct obj *otmp;
         } else {
             miss("jet of water", mtmp);
             if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
-                makeknown(WAN_WATER);
+                makeknown(WAN_DELUGE);
         }
         break;
    /* disabled because find_offensive() never picks WAN_TELEPORTATION */
@@ -2601,7 +2619,7 @@ struct monst *mtmp;
     case MUSE_WAN_COLD:
     case MUSE_WAN_LIGHTNING:
     case MUSE_WAN_MAGIC_MISSILE:
-    case MUSE_WAN_ACID:
+    case MUSE_WAN_CORROSION:
     case MUSE_WAN_POISON_GAS:
     case MUSE_WAN_SONICS:
         mzapwand(mtmp, otmp, FALSE);
@@ -2659,7 +2677,7 @@ struct monst *mtmp;
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
     case MUSE_WAN_WIND:
-    case MUSE_WAN_WATER:
+    case MUSE_WAN_DELUGE:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
@@ -2945,6 +2963,7 @@ struct monst *mtmp;
     int xx, yy, pmidx = NON_PM;
     boolean immobile = (mdat->mmove == 0);
     boolean stuck = (mtmp == u.ustuck);
+    boolean trapped = mtmp->mtrapped;
 
     m.misc = (struct obj *) 0;
     m.has_misc = 0;
@@ -2960,7 +2979,7 @@ struct monst *mtmp;
     if (dist2(x, y, mtmp->mux, mtmp->muy) > 36)
         return FALSE;
 
-    if (!stuck && !immobile && (mtmp->cham == NON_PM)
+    if (!stuck && !immobile && !trapped && (mtmp->cham == NON_PM)
         && mons[(pmidx = monsndx(mdat))].difficulty < 6) {
         boolean ignore_boulders = (r_verysmall(mtmp)
                                    || racial_throws_rocks(mtmp)
@@ -3018,6 +3037,7 @@ struct monst *mtmp;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3034,6 +3054,7 @@ struct monst *mtmp;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3048,7 +3069,8 @@ struct monst *mtmp;
             && uarms && !rn2(7) && obj == MON_WEP(mtmp)
             /* hero's location must be known and adjacent */
             && mtmp->mux == u.ux && mtmp->muy == u.uy
-            && distu(mtmp->mx, mtmp->my) <= 2) {
+            && distu(mtmp->mx, mtmp->my) <= 2
+            && !u.uswallow) {
             m.misc = obj;
             m.has_misc = MUSE_DWARVISH_BEARDED_AXE_SHIELD;
         }
@@ -3158,6 +3180,7 @@ struct obj *start;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3174,6 +3197,7 @@ struct obj *start;
             && distu(mtmp->mx, mtmp->my) <= 2
             /* don't bother if it can't work (this doesn't
                prevent cursed weapons from being targetted) */
+            && !u.uswallow
             && (canletgo(uwep, "")
                 || (u.twoweap && canletgo(uswapwep, "")))) {
             m.misc = obj;
@@ -3188,7 +3212,8 @@ struct obj *start;
             && uarms && !rn2(7) && obj == MON_WEP(mtmp)
             /* hero's location must be known and adjacent */
             && mtmp->mux == u.ux && mtmp->muy == u.uy
-            && distu(mtmp->mx, mtmp->my) <= 2) {
+            && distu(mtmp->mx, mtmp->my) <= 2
+            && !u.uswallow) {
             m.misc = obj;
             m.has_misc = MUSE_DWARVISH_BEARDED_AXE_SHIELD;
         }
@@ -3430,9 +3455,9 @@ struct monst *mtmp;
         mreadmsg(mtmp, otmp);
         if (canseemon(mtmp)) {
             if (mtmp->mconf)
-                You("feel as though %s needs some help.", mon_nam(mtmp));
+                You_feel("as though %s needs some help.", mon_nam(mtmp));
             else
-                You("feel like someone is helping %s.", mon_nam(mtmp));
+                You_feel("like someone is helping %s.", mon_nam(mtmp));
             if (!objects[SCR_REMOVE_CURSE].oc_name_known
                 && !objects[SCR_REMOVE_CURSE].oc_uname)
                 docall(otmp);
@@ -3582,6 +3607,9 @@ struct monst *mtmp;
                       !is_plural(obj) ? "It is" : "They are", hand,
                       !obj->bknown ? '!' : '.');
                 /* obj->bknown = 1; */ /* welded() takes care of this */
+                where_to = 0;
+            } else if (P_SKILL(P_SHIELD) >= P_EXPERT) {
+                You("hold on firmly to %s.", ysimple_name(obj));
                 where_to = 0;
             }
             if (!where_to) {
@@ -3799,7 +3827,7 @@ struct obj *obj;
             || typ == WAN_CREATE_MONSTER
             || typ == WAN_CREATE_HORDE
             || typ == WAN_WIND
-            || typ == WAN_WATER
+            || typ == WAN_DELUGE
             || typ == WAN_DRAINING
             || typ == WAN_HEALING
             || typ == WAN_EXTRA_HEALING
@@ -3847,6 +3875,8 @@ struct obj *obj;
             || typ == AMULET_OF_GUARDING
             || typ == AMULET_OF_ESP
             || typ == AMULET_OF_MAGIC_RESISTANCE
+            || typ == AMULET_VERSUS_STONE
+            || typ == AMULET_OF_DRAIN_RESISTANCE
             || obj->oartifact == ART_EYE_OF_THE_AETHIOPICA)
             return TRUE;
         /* who doesn't want the ultimate amulet? and they can be fooled also */
@@ -3908,6 +3938,10 @@ struct obj *obj;
             return (!(resists_elec(mon) || defended(mon, AD_ELEC)));
         if (typ == RIN_POISON_RESISTANCE)
             return (!(resists_poison(mon) || defended(mon, AD_DRST)));
+        if (typ == RIN_SONIC_RESISTANCE)
+            return (!(resists_sonic(mon) || defended(mon, AD_LOUD)));
+        if (typ == RIN_PSYCHIC_RESISTANCE)
+            return (!(resists_psychic(mon) || defended(mon, AD_PSYC)));
         if (typ == RIN_SLOW_DIGESTION)
             return (!mon_prop(mon, SLOW_DIGESTION));
         if (typ == RIN_REGENERATION)
@@ -4102,7 +4136,7 @@ boolean by_you;
     if (is_spellcaster(mon) && !mon->mcan
         && !mon->mspec_used && !mon->mconf
         && mon->m_lev >= 5) {
-        struct obj *otemp, *onext, *pseudo;
+        struct obj *otmp, *onext, *pseudo;
 
         pseudo = mksobj(SPE_STONE_TO_FLESH, FALSE, FALSE);
         pseudo->blessed = pseudo->cursed = 0;
@@ -4116,17 +4150,12 @@ boolean by_you;
             else
                 pline("%s seems limber!", Monnam(mon));
         }
-        pseudo->quan = 20L;
-        for (otemp = mon->minvent; otemp; otemp = onext) {
-            onext = otemp->nobj;
-            if (otemp->oclass == RING_CLASS) {
-                obj_extract_self(otemp);
-                mon->misc_worn_check &= ~otemp->owornmask;
-                update_mon_intrinsics(mon, otemp, FALSE, TRUE);
-                otemp->owornmask = 0L; /* obfree() expects this */
-                obfree(otemp, (struct obj *) 0);
-            }
-            (void) bhito(otemp, pseudo);
+        for (otmp = mon->minvent; otmp; otmp = onext) {
+            onext = otmp->nobj;
+            mon->misc_worn_check &= ~otmp->owornmask;
+            update_mon_intrinsics(mon, otmp, FALSE, TRUE);
+            otmp->owornmask = 0L; /* obfree() expects this */
+            (void) bhito(otmp, pseudo);
         }
         obfree(pseudo, (struct obj *) 0);
         mon->mlstmv = monstermoves; /* it takes a turn */

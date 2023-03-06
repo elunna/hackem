@@ -448,6 +448,7 @@ register struct monst *magr, *mdef;
 {
     int i,          /* loop counter */
         tmp,        /* amour class difference */
+        ftmp,       /* flanking bonus */
         strike = 0, /* hit this attack */
         attk,       /* attack attempted this time */
         struck = 0, /* hit at least once */
@@ -493,9 +494,12 @@ register struct monst *magr, *mdef;
         mdef->msleeping = 0;
     }
     if (calculate_flankers(magr, mdef)) {
-        tmp += 4;
-        if (magr->mtame && canseemon(magr)) {
-            pline("You help %s flank %s.", mon_nam(magr), mon_nam(mdef));
+        /* Scale with monster difficulty */
+        ftmp = (int) ((magr->m_lev - 4) / 2) + 4;
+        tmp += ftmp;
+        
+        if (canseemon(magr)) {
+            pline("%s flanks %s [-%dAC].", Monnam(magr), mon_nam(mdef), ftmp);
         }
     }
     
@@ -1563,7 +1567,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                         destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
                     if (mwep->otyp == TORCH) {
                         if (pd == &mons[PM_WATER_ELEMENTAL]) {
-                            pline("The torch %s goes out.", xname(mwep));
+                            pline_The("torch %s goes out.", xname(mwep));
                             end_burn(mwep, TRUE);
                         } else {
                             burn_faster(mwep); /* Use up the torch more quickly */
@@ -1965,14 +1969,14 @@ post_stone:
         }
         break;
     case AD_TCKL:
-		if(!cancelled && mdef->mcanmove) {
-		    if (vis) {
-			Strcpy(buf, Monnam(magr));
-			pline("%s mercilessly tickles %s.", buf, mon_nam(mdef));
-		    }
+        if (!cancelled && mdef->mcanmove) {
+            if (vis) {
+                Strcpy(buf, Monnam(magr));
+                pline("%s mercilessly tickles %s.", buf, mon_nam(mdef));
+            }
             paralyze_monst(mdef, rnd(10));
-  		}
-		break;
+        }
+        break;
     case AD_SLOW:
         if (!cancelled && mdef->mspeed != MSLOW) {
             unsigned int oldspeed = mdef->mspeed;
@@ -2482,19 +2486,20 @@ msickness:
             tmp = mon_poly(magr, mdef, tmp);
         break;
     case AD_CALM:	/* KMH -- koala attack */
-		/* Certain monsters aren't even made peaceful. */
-		if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
-			!(mdef->data->mflags3 & M3_COVETOUS) &&
-			!(mdef->data->geno & G_UNIQ) &&
-			(magr->mtame || mdef->mtame)) {
-		    if (vis) pline("%s looks calmer.", Monnam(mdef));
-		    if (mdef == u.usteed)
-			dismount_steed(DISMOUNT_THROWN);
-		    mdef->mpeaceful = 1;
-		    mdef->mtame = 0;
-		    tmp = 0;
-		}
-		break;
+        /* Certain monsters aren't even made peaceful. */
+        if (!mdef->iswiz && mdef->data != &mons[PM_MEDUSA] &&
+                !(mdef->data->mflags3 & M3_COVETOUS) &&
+                !(mdef->data->geno & G_UNIQ) &&
+                (magr->mtame || mdef->mtame)) {
+            if (vis)
+                pline("%s looks calmer.", Monnam(mdef));
+            if (mdef == u.usteed)
+                dismount_steed(DISMOUNT_THROWN);
+            mdef->mpeaceful = 1;
+            mdef->mtame = 0;
+            tmp = 0;
+        }
+        break;
     case AD_WTHR: {
         uchar withertime = max(2, tmp);
         boolean no_effect =
@@ -2522,7 +2527,7 @@ msickness:
         }
         break;
     }
-    case AD_DISN: /* currently only called via AT_GAZE */
+    case AD_DISN:
         if (!rn2(5)) {
             struct obj *otmp = (struct obj *) 0, *otmp2;
 
@@ -2589,6 +2594,8 @@ msickness:
                     if (!m_amulet)
                         pline("%s is disintegrated!", Monnam(mdef));
                     else
+                        /* FIXME? the gaze? this handles other types of
+                           disintegration attacks too */
                         pline("%s crumbles under the gaze!",
                               Monnam(mdef));
                 }
@@ -2613,8 +2620,11 @@ msickness:
                 else
                     monkilled(mdef, (char *) 0, -AD_RBRE);
                 tmp = 0;
-                return (MM_DEF_DIED | (grow_up(magr, mdef) ? 0 : MM_AGR_DIED));
-                break;
+                if (DEADMONSTER(mdef))
+                    res |= MM_DEF_DIED; /* not lifesaved */
+                if (!grow_up(magr, mdef))
+                    res |= MM_AGR_DIED;
+                return res;
             }
         }
         break;
@@ -2663,11 +2673,17 @@ msickness:
         }
         break;
     default:
-        tmp = 0;
+        /* necessary change to make pets more viable --Amy */
+        /* tmp = 0; */
         break;
     }
     if (!tmp)
         return res;
+        
+    /* WAC -- Caveman Primal Roar ability */
+    if (magr->mtame != 0 && tech_inuse(T_PRIMAL_ROAR)) {
+        tmp *= 2; /* Double Damage! */
+    }
 
     if (damage_mon(mdef, tmp, mattk->adtyp)) {
         if (m_at(mdef->mx, mdef->my) == magr) { /* see gulpmm() */
@@ -2907,6 +2923,7 @@ struct obj *mwep;
     char buf[BUFSZ];
     int i, tmp;
     struct attack *mdattk;
+    struct obj *otmp;
     mdattk = has_erac(mdef) ? ERAC(mdef)->mattk : mddat->mattk;
 
     for (i = 0;; i++) {
@@ -2943,21 +2960,15 @@ struct obj *mwep;
             acid_damage(MON_WEP(magr));
         goto assess_dmg;
     case AD_SLEE:
-        /* hackem: I make no guarantees that this works correctly! 
-            check back to see if this affects riders/steeds.
-        */
         if (mhit && !mdef->mcan) {
-            Strcpy(buf, Monnam(magr));
-
             if (resists_sleep(magr) || defended(magr, AD_SLEE)) {
                 pline("%s is not affected.", Monnam(magr));
             }
-            else if (sleep_monst(mdef, tmp, -1)) {
-                if (vis) {
-                    pline("%s is put to sleep by %s.", buf, Monnam(magr));
-                }
-		    mdef->mstrategy &= ~STRAT_WAITFORU;
-		    slept_monst(mdef);
+            else if (sleep_monst(magr, tmp, -1)) {
+                if (vis)
+                    pline("%s is put to sleep by %s.", Monnam(magr), mon_nam(mdef));
+                magr->mstrategy &= ~STRAT_WAITFORU;
+                slept_monst(magr);
             }
         }
         break;
@@ -3149,6 +3160,18 @@ struct obj *mwep;
             }
             tmp = 0;
             break;
+        case AD_DSRM: /* adherer */
+            otmp = MON_WEP(magr);
+            if (otmp) {
+                pline("%s's %s sticks to %s!", Monnam(magr), xname(otmp),
+                      Monnam(mdef));
+                obj_extract_self(otmp);
+                possibly_unwield(magr, FALSE);
+                setmnotwielded(magr, otmp);
+                (void) mpickobj(mdef, otmp);
+            }
+            break;
+                      
         case AD_PLYS: /* Floating eye */
             if (tmp > 127)
                 tmp = 127;

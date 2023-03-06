@@ -21,11 +21,10 @@ STATIC_DCL void FDECL(sho_obj_return_to_u, (struct obj * obj));
 STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
 
 /* uwep might already be removed from inventory so test for W_WEP instead;
-   for Valk + Mjollnir, caller needs to validate the strength requirement,
-   for Xiuhcoatl, caller needs to validate the dexterity requirement */
+   for Valk + Mjollnir, caller needs to validate the strength requirement */
 #define AutoReturn(o, wmsk) \
     ((((wmsk) & W_WEP) != 0                                             \
-      && ((o)->otyp == AKLYS || (o)->oartifact == ART_XIUHCOATL         \
+      && ((o)->otyp == AKLYS                                            \
           || ((o)->oartifact == ART_MJOLLNIR && Role_if(PM_VALKYRIE)))) \
      || (o)->otyp == BOOMERANG || (o)->otyp == CHAKRAM)
 
@@ -80,19 +79,13 @@ int shotlimit;
 
     if (!canletgo(obj, "throw"))
         return 0;
-    if ((obj->oartifact == ART_MJOLLNIR || obj->oartifact == ART_XIUHCOATL) && obj != uwep) {
+    if (obj->oartifact == ART_MJOLLNIR && obj != uwep) {
         pline("%s must be wielded before it can be thrown.", The(xname(obj)));
         return 0;
     }
     if ((obj->oartifact == ART_MJOLLNIR && ACURR(A_STR) < STR19(25))
         || (obj->otyp == BOULDER && !racial_throws_rocks(&youmonst))) {
         pline("It's too heavy.");
-        return 1;
-    }
-    if (obj->oartifact == ART_XIUHCOATL
-        && (ACURR(A_DEX) < 18
-            || (!Role_if(PM_ARCHEOLOGIST) && ACURR(A_DEX) < 21))) {
-        pline("%s a deft hand.", Tobjnam(obj, "require"));
         return 1;
     }
     if (!u.dx && !u.dy && !u.dz) {
@@ -128,7 +121,8 @@ int shotlimit;
      */
     multishot = 1;
     skill = objects[obj->otyp].oc_skill;
-    if (obj->quan > 1L /* no point checking if there's only 1 */
+    /* no point checking if there's only 1 */
+    if ((obj->quan > 1L || obj->oartifact == ART_WINDRIDER)
         /* ammo requires corresponding launcher be wielded */
         && (is_ammo(obj) ? matching_launcher(obj, uwep)
                          /* otherwise any stackable (non-ammo) weapon */
@@ -256,19 +250,21 @@ int shotlimit;
                                  ? 16 : 18))
             multishot = rnd(multishot);
 
+        /* Tech: Flurry */
+        if (objects[obj->otyp].oc_skill == -P_BOW && tech_inuse(T_FLURRY))
+            multishot += 1; /* Let'em rip! */
+        if (objects[obj->otyp].oc_skill == -P_SLING && tech_inuse(T_FLURRY))
+            multishot += 1; /* Let'em rip! */
+        
         multishot = rnd(multishot);
         
-        if ((long) multishot > obj->quan)
+        if ((long) multishot > obj->quan && obj->oartifact != ART_WINDRIDER)
             multishot = (int) obj->quan;
         
         /* Shotlimit controls your rate of fire */
         if (shotlimit > 0 && multishot > shotlimit)
             multishot = shotlimit;
-        
-        
     }
-    
-
     m_shot.s = ammo_and_launcher(obj, uwep) ? TRUE : FALSE;
     /* give a message if shooting more than one, or if player
        attempted to specify a count */
@@ -700,7 +696,7 @@ int x, y;
             You("crash into some iron bars.");
             dmg = rnd(2 + *range);
             if (Hate_material(IRON)) {
-                pline("The iron hurts to touch!");
+                pline_The("iron hurts to touch!");
                 dmg += sear_damage(IRON);
             } else {
                 pline("Ouch!");
@@ -861,7 +857,7 @@ int x, y;
             dotrap(ttmp, 0);
             return FALSE;
         } else if (ttmp->ttyp == VIBRATING_SQUARE) {
-            pline("The ground vibrates as you pass it.");
+            pline_The("ground vibrates as you pass it.");
             dotrap(ttmp, 0); /* doesn't print messages */
         } else if (ttmp->ttyp == FIRE_TRAP) {
             dotrap(ttmp, 0);
@@ -967,7 +963,7 @@ boolean verbose;
         nomul(0);
         return;
     } else if (Stable) {
-        pline("Your fortitude prevents you from moving.");
+        Your("fortitude prevents you from moving.");
         nomul(0);
         return;
     } else if (u.utrap) {
@@ -1338,16 +1334,29 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-
+    /* 5lo: This gets used a lot, so put it here */
+    boolean jedi_forcethrow = 
+        (Role_if(PM_JEDI) 
+         && is_lightsaber(obj) 
+         && obj->lamplit
+         && !impaired 
+         && P_SKILL(weapon_type(obj)) >= P_SKILLED);
+    
     /* KMH -- Handle Plague here */
     if (uwep && uwep->oartifact == ART_PLAGUE &&
         ammo_and_launcher(obj, uwep) && is_poisonable(obj))
         obj->opoisoned = 1;
 
     notonhead = FALSE; /* reset potentially stale value */
-    if (((obj->cursed && u.ualign.type != A_NONE)
+    if (((obj->cursed && u.ualign.type != A_NONE) /* cursed ammo */
+          /* Priests trying to throw pointy things */
           || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)))
-          || obj->greased)
+          /* or greased */
+          || obj->greased
+          /* or panicking */
+          || Afraid
+          /* or flintlock */
+          || (ammo_and_launcher(obj, uwep) && uwep->otyp == FLINTLOCK))
         && (u.dx || u.dy) && !rn2(7)) {
         boolean slipok = TRUE;
 
@@ -1429,7 +1438,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             tmp_at(DISP_TETHER, obj_to_glyph(obj, rn2_on_display_rng));
     } else if (u.dz) {
         if (u.dz < 0
-            /* Mjollnir and Xiuhcoatl must be wielded to be thrown--caller verifies this;
+            /* Mjollnir must be wielded to be thrown--caller verifies this;
                aklys must be wielded as primary to return when thrown */
             && iflags.returning_missile
             && !impaired) {
@@ -1441,6 +1450,16 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                 setuqwep((struct obj *) 0);
             setuwep(obj);
             u.twoweap = twoweap;
+        } else if (u.dz < 0 && jedi_forcethrow) {
+            pline("%s the %s and returns to your hand!",
+                  Tobjnam(obj, "hit"), ceiling(u.ux,u.uy));
+            obj = addinv(obj);
+            (void) encumber_msg();
+            if (obj->owornmask & W_QUIVER) /* in case addinv() autoquivered */
+                setuqwep((struct obj *) 0);
+            setuwep(obj);
+            u.twoweap = twoweap;
+            /*return;*/
         } else if (is_bomb(obj)) {
             arm_bomb(obj, TRUE);
         } else if (u.dz < 0) {
@@ -1459,7 +1478,12 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
-        iflags.returning_missile = 0; /* doesn't return if it hits monster */
+        
+        /* Boomerang doesn't return if it hits monster, 
+         * chakrams will return (they slice through their targets) */
+        if (obj->otyp != CHAKRAM)
+            iflags.returning_missile = 0;
+
         mon = boomhit(obj, u.dx, u.dy);
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
@@ -1479,6 +1503,10 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                        && weapon_type(uwep) == P_CROSSBOW);
         gunning = (ammo_and_launcher(obj, uwep)
                        && weapon_type(uwep) == P_FIREARM);
+        if (gunning && !matching_firearm(obj, uwep)) {
+            pline("The quivered ammo doesn't fit the firearm.");
+            gunning = FALSE;
+        }
         urange = (crossbowing ? 18 : (int) ACURRSTR) / 2;
 
         /* hard limit this so crossbows will fire further
@@ -1539,7 +1567,10 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             } else if (obj->oclass != GEM_CLASS)
                 range /= 2;
         }
-        
+
+        if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+            range += 2; /* Small bonus for snowball spell */
+        }
         if (Is_airlevel(&u.uz) || Levitation) {
             /* action, reaction... */
             urange -= range;
@@ -1554,8 +1585,6 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             range = 20; /* you must be giant */
         else if (obj->oartifact == ART_MJOLLNIR)
             range = (range + 1) / 2; /* it's heavy */
-        else if (obj->oartifact == ART_XIUHCOATL)
-            range = (range + 2); /* not heavy at all */
         else if (tethered_weapon) /* primary weapon is aklys */
             /* if an aklys is going to return, range is limited by the
                length of the attached cord [implicit aspect of item] */
@@ -1613,7 +1642,12 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     
     /* Handle bombs or rockets */
     if (obj && thrownobj && is_bomb(obj)) {
-        arm_bomb(obj, TRUE);
+        if (IS_VENT(levl[bhitpos.x][bhitpos.y].typ)) {
+            doventbomb(obj, bhitpos.x, bhitpos.y);
+            thrownobj = (struct obj *) 0;
+        } else {
+            arm_bomb(obj, TRUE);
+        }
     }
 
     if (!thrownobj) {
@@ -1628,68 +1662,79 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             clear_thrownobj = TRUE;
         goto throwit_return;
     } else {
-        /* Mjollnir and Xiuhcoatl must be wielded to be thrown--caller verifies this;
+        /* Mjollnir must be wielded to be thrown--caller verifies this;
            aklys must be wielded as primary to return when thrown */
-        if (iflags.returning_missile) { /* Mjollnir, Xiuhcoatl or aklys */
+        if (iflags.returning_missile || jedi_forcethrow) { /* Mjollnir or aklys */
             if (rn2(100)) {
-                if (tethered_weapon)
-                    tmp_at(DISP_END, BACKTRACK);
-                else
-                    sho_obj_return_to_u(obj); /* display its flight */
-
-                if (!impaired && rn2(100)) {
-                    pline("%s to your hand!", Tobjnam(obj, "return"));
-                    obj = addinv(obj);
-                    (void) encumber_msg();
-                    /* addinv autoquivers an aklys if quiver is empty;
-                       if obj is quivered, remove it before wielding */
-                    if (obj->owornmask & W_QUIVER)
-                        setuqwep((struct obj *) 0);
-                    setuwep(obj);
-                    u.twoweap = twoweap;
-                    retouch_object(&obj, TRUE);
-                    if (cansee(bhitpos.x, bhitpos.y))
-                        newsym(bhitpos.x, bhitpos.y);
+                /* or a Jedi with a lightsaber */
+                if (Role_if(PM_JEDI) && u.uen < 5 && obj->otyp != AKLYS) {
+                    You("don't have enough force to call %s. You need at least 5 points of mana!", the(xname(obj)));
                 } else {
-                    int dmg = rn2(2);
+                    if (Role_if(PM_JEDI) && obj->otyp != AKLYS)
+                        u.uen -= 5;
 
-                    if (!dmg) {
-                        pline(Blind ? "%s lands %s your %s."
-                                    : "%s back to you, landing %s your %s.",
-                              Blind ? Something : Tobjnam(obj, "return"),
-                              Levitation ? "beneath" : "at",
-                              makeplural(body_part(FOOT)));
+                    if (tethered_weapon)
+                        tmp_at(DISP_END, BACKTRACK);
+                    else
+                        sho_obj_return_to_u(obj); /* display its flight */
+
+                    if (!impaired && rn2(100)) {
+                        pline("%s to your hand!", Tobjnam(obj, "return"));
+                        obj = addinv(obj);
+                        (void) encumber_msg();
+                        /* addinv autoquivers an aklys if quiver is empty;
+                           if obj is quivered, remove it before wielding */
+                        if (obj->owornmask & W_QUIVER)
+                            setuqwep((struct obj *) 0);
+                        setuwep(obj);
+                        u.twoweap = twoweap;
+                        retouch_object(&obj, TRUE);
+                        if (cansee(bhitpos.x, bhitpos.y))
+                            newsym(bhitpos.x, bhitpos.y);
                     } else {
-                        dmg += rnd(3);
-                        pline(Blind ? "%s your %s!"
-                                    : "%s back toward you, hitting your %s!",
-                              Tobjnam(obj, Blind ? "hit" : "fly"),
-                              body_part(ARM));
-                        if (obj->oartifact)
-                            (void) artifact_hit((struct monst *) 0, &youmonst,
-                                                obj, &dmg, 0);
-                        if (Hate_material(obj->material)) {
-                            dmg += rnd(sear_damage(obj->material));
-                            exercise(A_CON, FALSE);
-                            searmsg(NULL, &youmonst, obj, TRUE);
-                        }
-                        losehp(Maybe_Half_Phys(dmg), killer_xname(obj),
-                               KILLED_BY);
-                    }
+                        int dmg = rn2(2);
 
-                    if (u.uswallow)
-                        goto swallowit;
-                    if (!ship_object(obj, u.ux, u.uy, FALSE))
-                        dropy(obj);
+                        if (!dmg) {
+                            pline(Blind
+                                      ? "%s lands %s your %s."
+                                      : "%s back to you, landing %s your %s.",
+                                  Blind ? Something : Tobjnam(obj, "return"),
+                                  Levitation ? "beneath" : "at",
+                                  makeplural(body_part(FOOT)));
+                        } else {
+                            dmg += rnd(3);
+                            pline(
+                                Blind
+                                    ? "%s your %s!"
+                                    : "%s back toward you, hitting your %s!",
+                                Tobjnam(obj, Blind ? "hit" : "fly"),
+                                body_part(ARM));
+                            if (obj->oartifact)
+                                (void) artifact_hit((struct monst *) 0,
+                                                    &youmonst, obj, &dmg, 0);
+                            if (Hate_material(obj->material)) {
+                                dmg += rnd(sear_damage(obj->material));
+                                exercise(A_CON, FALSE);
+                                searmsg(NULL, &youmonst, obj, TRUE);
+                            }
+                            losehp(Maybe_Half_Phys(dmg), killer_xname(obj),
+                                   KILLED_BY);
+                        }
+
+                        if (u.uswallow)
+                            goto swallowit;
+                        if (!ship_object(obj, u.ux, u.uy, FALSE))
+                            dropy(obj);
+                    }
+                    clear_thrownobj = TRUE;
+                    goto throwit_return;
                 }
-                clear_thrownobj = TRUE;
-                goto throwit_return;
             } else {
                 if (tethered_weapon)
                     tmp_at(DISP_END, 0);
                 /* when this location is stepped on, the weapon will be
                    auto-picked up due to 'obj->was_thrown' of 1;
-                   addinv() prevents thrown Mjollnir or Xiuhcoatl from being placed
+                   addinv() prevents thrown Mjollnir from being placed
                    into the quiver slot, but an aklys will end up there if
                    that slot is empty at the time; since hero will need to
                    explicitly rewield the weapon to get throw-and-return
@@ -1854,6 +1899,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     register int disttmp; /* distance modifier */
     int otyp = obj->otyp, hmode;
     boolean guaranteed_hit = (u.uswallow && mon == u.ustuck);
+    boolean hellfiring = (uwep && uwep->oartifact == ART_HELLFIRE);
     int dieroll;
 
     hmode = (obj == uwep) ? HMON_APPLIED
@@ -1920,7 +1966,11 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             break;
         }
     }
-
+    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
+        /* This is needed because otherwise we miss way too much */
+        if (P_SKILL(P_MATTER_SPELL) >= P_BASIC) 
+            tmp += 14;
+    }
     if (obj->otyp == SPIKE)
         tmp += 5;  /* For when we are poly'd into a manticore */
     
@@ -2077,6 +2127,19 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                 exercise(A_WIS, FALSE);
             }
             exercise(A_DEX, TRUE);
+
+            /* Detonate bolts shot by Hellfire */
+#define ZT_FIRE (10 + (AD_FIRE - 1))
+            if (hellfiring && ammo_and_launcher(obj, uwep)) {
+
+                if (cansee(bhitpos.x, bhitpos.y))
+                    pline("%s explodes in a ball of fire!", Doname2(obj));
+                else
+                    You_hear("an explosion");
+                explode(bhitpos.x, bhitpos.y, ZT_FIRE, d(2, 6),
+                        WEAPON_CLASS, EXPL_FIERY);
+            }
+
             /* if hero was swallowed and projectile killed the engulfer,
                'obj' got added to engulfer's inventory and then dropped,
                so we can't safely use that pointer anymore; it escapes
@@ -2087,9 +2150,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             /* projectiles other than magic stones sometimes disappear
                when thrown; projectiles aren't among the types of weapon
                that hmon() might have destroyed so obj is intact */
-            if (objects[otyp].oc_skill < P_NONE
+            if ((objects[otyp].oc_skill < P_NONE
                 && objects[otyp].oc_skill > -P_BOOMERANG
-                && !objects[otyp].oc_magic) {
+                && !objects[otyp].oc_magic) 
+                || obj->oartifact == ART_HOUCHOU) {
                 /* we were breaking 2/3 of everything unconditionally.
                  * we still don't want anything to survive unconditionally,
                  * but we need ammo to stay around longer on average.
@@ -2115,7 +2179,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                     && rn2(2)) {
                     broken = FALSE;
                 }
-
+                if (obj->oartifact == ART_HOUCHOU) {
+                    broken = TRUE;
+                }
+                
                 if (broken) {
                     if (*u.ushops || obj->unpaid)
                         check_shop_obj(obj, bhitpos.x, bhitpos.y, TRUE);
@@ -2128,6 +2195,11 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             }
             if (passive_obj(mon, obj, (struct attack *) 0) == ER_DESTROYED)
                 return 1;
+            if (mon->data == &mons[PM_ADHERER] && !DEADMONSTER(mon)) {
+                pline("The %s sticks to %s", xname(obj), mon_nam(mon));
+                (void) mpickobj(mon, obj);
+                return 1;
+            }
         } else {
             tmiss(obj, mon, TRUE);
             if (hmode == HMON_APPLIED)
@@ -2736,6 +2808,8 @@ int otyp;
         return 4;
     case SHOTGUN:
         return 5;
+    case FLINTLOCK:
+        return 8;
     case SUBMACHINE_GUN:
         return 10;
     case PISTOL:
@@ -2760,6 +2834,8 @@ int otyp;
     switch(otyp) {
     case SNIPER_RIFLE:
         return -3;
+    case FLINTLOCK:
+        return -2;
     case RIFLE:
     case SHOTGUN:
         return -1;

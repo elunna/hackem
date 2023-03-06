@@ -8,7 +8,6 @@
 #include "hack.h"
 #include "lev.h"
 
-STATIC_DCL void FDECL(trycall, (struct obj *));
 STATIC_DCL boolean NDECL(teleport_sink);
 STATIC_DCL void FDECL(dosinkring, (struct obj *));
 STATIC_DCL void FDECL(dotoiletamulet, (struct obj *));
@@ -195,7 +194,7 @@ const char *verb;
                && (is_pit(t->ttyp) || is_hole(t->ttyp))) {
         ttyp = t->ttyp;
         tseen = t->tseen ? TRUE : FALSE;
-        if (((mtmp = m_at(x, y)) && mtmp->mtrapped)
+        if (((mtmp = m_at(x, y)) != 0 && mtmp->mtrapped)
             || (u.utrap && u.ux == x && u.uy == y)) {
             if (*verb && (cansee(x, y) || distu(x, y) == 0))
                 pline("%s boulder %s into the pit%s.",
@@ -306,12 +305,8 @@ deletedwithboulder:
         if (is_puddle(x, y) && !rn2(3)) {
             /* shallow water isn't an endless resource like a pool/moat */
             levl[x][y].typ = ROOM;
-            
-            /*maybe_unhide_at(x, y);*/
+            /* unhide any monsters lurking about */
             if ((mtmp = m_at(x, y)) != 0) {
-                /* probably ought to do some hefty damage to any
-                   non-ice creature caught in freezing water;
-                   at a minimum, eels are forced out of hiding */
                 if (is_swimmer(mtmp->data) && mtmp->mundetected) {
                     mtmp->mundetected = 0;
                 }
@@ -373,7 +368,7 @@ deletedwithboulder:
             res = FALSE;
         }  else if (is_lightsaber(obj) && obj->lamplit) {
             if (cansee(x, y)) 
-                You("see %s deactivate.", an(xname(obj)));
+                You_see("%s deactivate.", an(xname(obj)));
             lightsaber_deactivate(obj, TRUE);
         } else {
             if (!Blind)
@@ -472,14 +467,6 @@ register struct obj *obj;
     }
 }
 
-STATIC_OVL void
-trycall(obj)
-register struct obj *obj;
-{
-    if (!objects[obj->otyp].oc_name_known && !objects[obj->otyp].oc_uname)
-        docall(obj);
-}
-
 /* Transforms the sink at the player's position into
    a fountain, throne, altar or grave. */
 void
@@ -495,7 +482,7 @@ polymorph_sink()
     sinklooted = levl[u.ux][u.uy].looted != 0;
     level.flags.nsinks--;
     levl[u.ux][u.uy].doormask = 0; /* levl[][].flags */
-    switch (rn2(6)) {
+    switch (rn2(7)) {
     default:
     case 0:
         sym = S_fountain;
@@ -536,6 +523,13 @@ polymorph_sink()
         sym = S_toilet;
         levl[u.ux][u.uy].typ = TOILET;
         level.flags.ntoilets++;
+        break;
+    case 6:
+        sym = S_vent;
+        levl[u.ux][u.uy].typ = VENT;
+        level.flags.nvents++;
+        (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
+                           long_to_any(((long) u.ux << 16) | (long) u.uy));
         break;
     }
     /* give message even if blind; we know we're not levitating,
@@ -624,7 +618,6 @@ register struct obj *obj;
         obj->in_use = FALSE;
         dropx(obj);
         /* Let's skip the wiki lookup shall we? */
-        /* trycall(obj); */
         makeknown(obj->otyp);
         return;
     case RIN_LEVITATION:
@@ -661,11 +654,11 @@ register struct obj *obj;
         break;
     case RIN_GAIN_INTELLIGENCE:
     case RIN_GAIN_WISDOM:
-        pline("The water flow seems %ser now.",
+        pline_The("water flow seems %ser now.",
                 (obj->spe<0) ? "dull" : "quick");
         break;
     case RIN_GAIN_DEXTERITY:
-        pline("The water flow seems %ser now.",
+        pline_The("water flow seems %ser now.",
                 (obj->spe<0) ? "slow" : "fast");
         break;
     case RIN_INCREASE_ACCURACY: /* KMH */
@@ -709,6 +702,9 @@ register struct obj *obj;
         nosink = TRUE;
         /* for S_room case, same message as for teleportation is given */
         ideed = (levl[u.ux][u.uy].typ != ROOM);
+        break;
+    case RIN_DISPLACEMENT:
+        pline_The("sink is over there! No wait, it's here now!");
         break;
     default:
         ideed = FALSE;
@@ -775,7 +771,6 @@ register struct obj *obj;
         }
     }
     if (ideed)
-        /* trycall(obj); */
         makeknown(obj->otyp);
     else if (!nosink)
         You_hear("the ring bouncing down the drainpipe.");
@@ -929,7 +924,7 @@ register struct obj *obj;
     }
 
     if (ideed)
-        trycall(obj);
+        makeknown(obj->otyp);
 
     /* Object gets wet */
     if (erode_obj(obj, NULL, ERODE_RUST, EF_GREASE | EF_DESTROY) == 3) {
@@ -945,6 +940,26 @@ register struct obj *obj;
     } else {
         useup(obj);
     }
+}
+
+/* obj is a bomb being dropped over a vent */
+void
+doventbomb(obj, x, y)
+register struct obj *obj;
+int x, y;
+{
+    if (!is_bomb(obj)) {
+        impossible("non-bomb passed to doventbomb!");
+        return;
+    }
+    pline("%s drops into the vent...", Doname2(obj));
+    if (rnd(5) > 2) {
+        pline("BOOM!");
+        breakvent(x, y);
+    
+    }
+    /* useup will occur in other places - so we can drop it or throw it in */
+    /*useup(otmp);*/
 }
 
 /* some common tests when trying to drop or throw items */
@@ -991,6 +1006,7 @@ STATIC_PTR int
 drop(obj)
 register struct obj *obj;
 {
+    struct obj *otmp;
     if (!obj)
         return 0;
     if (!canletgo(obj, "drop"))
@@ -1029,6 +1045,16 @@ register struct obj *obj;
         if ((obj->oclass == AMULET_CLASS)
             && IS_TOILET(levl[u.ux][u.uy].typ)) {
             dotoiletamulet(obj);
+            return 1;
+        }
+        if (is_bomb(obj) && IS_VENT(levl[u.ux][u.uy].typ)) {
+            if (obj->quan > 1L) {
+                otmp = splitobj(obj, 1L);
+            } else {
+                otmp = obj;
+            }
+            doventbomb(otmp, u.ux, u.uy);
+            useup(otmp);
             return 1;
         }
         if (Sokoban && obj->otyp == BOULDER)
@@ -1282,7 +1308,9 @@ int retry;
         bypass_objlist(invent, FALSE);
     } else {
         /* should coordinate with perm invent, maybe not show worn items */
-        n = query_objlist("What would you like to drop?", &invent,
+        n = query_objlist(Role_if(PM_PIRATE) 
+                              ? "What would ye like to drop?"
+                              : "What would you like to drop?", &invent,
                           (USE_INVLET | INVORDER_SORT), &pick_list, PICK_ANY,
                           all_categories ? allow_all : allow_category);
         if (n > 0) {
@@ -1456,7 +1484,11 @@ dodown()
             return 0;
         }
         You("are standing at the gate to Gehennom.");
-        pline("Unspeakable cruelty and harm lurk down there.");
+        if (Role_if(PM_PIRATE)) {
+            pline("There, there be monsters.");
+        } else {
+            pline("Unspeakable cruelty and harm lurk down there.");
+        }
         if (yn("Are you sure you want to enter?") != 'y')
             return 0;
         else
@@ -1789,7 +1821,7 @@ boolean at_stairs, falling, portal;
                     if (Blind) {
                         pline("A mysterious force prevents you from accessing the stairs.");
                     } else {
-                        You("see a magical glyph hovering in midair, preventing access to the stairs.");
+                        You_see("a magical glyph hovering in midair, preventing access to the stairs.");
                         pline("It reads 'Access denied, by order of Grund.'.");
                     }
                 } else if (falling) {
@@ -2087,7 +2119,7 @@ boolean at_stairs, falling, portal;
 #endif
             if (!Deaf)
                 You_hear("groans and moans everywhere.");
-            You("feel unable to rest or recuperate here.");
+            You_feel("unable to rest or recuperate here.");
         } else
             pline("It is hot here.  You smell smoke...");
     }

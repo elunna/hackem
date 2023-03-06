@@ -64,7 +64,7 @@ int expltype;
             /* most attack wands produce specific explosions;
                other types produce a generic magical explosion */
             if (objects[type].oc_dir == RAY
-                && type != WAN_DIGGING && type != WAN_WATER && type != WAN_SLEEP) {
+                && type != WAN_DIGGING && type != WAN_DELUGE && type != WAN_SLEEP) {
                 type -= WAN_MAGIC_MISSILE;
                 if (type < 0 || type > 9) {
                     impossible("explode: wand has bad zap type (%d).", type);
@@ -1031,12 +1031,20 @@ struct attack *mattk;
     killer.name[0] = '\0';
 }
 
-void arm_bomb(struct obj *obj, boolean yours)
+void 
+arm_bomb(struct obj *obj, boolean yours)
 {
     /* Three shall be the number of the counting and the
        number of the counting shall be three. */
     if (obj->oarmed) {
         return;
+    }
+    if (carried(obj) && obj->unpaid && costly_spot(u.ux, u.uy)) {
+        /* if it catches while you have it, then it's your tough luck */
+        verbalize("You arm %s, you bought %s!",
+                  (obj->quan > 1L) ? "them" : "it",
+                  (obj->quan > 1L) ? "them" : "it");
+        bill_dummy_object(obj);
     }
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {
         attach_bomb_blow_timeout(obj, 3, yours);

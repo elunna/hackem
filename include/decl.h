@@ -209,10 +209,12 @@ E char whereis_real_path[255];
 
 E long done_money;
 E NEARDATA char plname[PL_NSIZ];
-E NEARDATA char dogname[];
+E NEARDATA char birdname[];
 E NEARDATA char catname[];
+E NEARDATA char dogname[];
 E NEARDATA char horsename[];
 E NEARDATA char ghoulname[];
+E NEARDATA char monkeyname[];
 E NEARDATA char wolfname[];
 E NEARDATA char pseudoname[];
 E NEARDATA char ratname[];
@@ -252,6 +254,11 @@ E const int shield_static[];
 
 #include "spell.h"
 E NEARDATA struct spell spl_book[]; /* sized in decl.c */
+
+#ifndef TECH_H
+#include "tech.h"
+#endif
+E NEARDATA struct tech tech_list[];     /* sized in decl.c */
 
 #include "color.h"
 #ifdef TEXTCOLOR
@@ -302,6 +309,7 @@ E NEARDATA struct mvitals {
     uchar born;
     uchar died;
     uchar mvflags;
+    uchar eaten; /* WAC -- eaten memory */
 } mvitals[NUMMONS];
 
 E NEARDATA long domove_attempting;

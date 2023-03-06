@@ -1812,7 +1812,7 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
 
     if (Hate_material(cobj->material) && !uarmg) {
         char kbuf[BUFSZ];
-        pline("The %s lid %s!", materialnm[cobj->material],
+        pline_The("%s lid %s!", materialnm[cobj->material],
               cobj->material == SILVER ? "sears your flesh" : "hurts to touch");
         Sprintf(kbuf, "opening a %s container", materialnm[cobj->material]);
         losehp(rnd(sear_damage(cobj->material)), kbuf, KILLED_BY);
@@ -2077,7 +2077,7 @@ reverse_loot()
                    && (mon = makemon(courtmon(), x, y, NO_MM_FLAGS)) != 0) {
             freeinv(goldob);
             add_to_minv(mon, goldob);
-            pline("The exchequer accepts your contribution.");
+            pline_The("exchequer accepts your contribution.");
             if (!rn2(10))
                 levl[x][y].looted = T_LOOTED;
         } else {
@@ -2193,7 +2193,7 @@ boolean taking;
             }
             if (maxquan < otmp->quan)
                 otmp = splitobj(otmp, maxquan);
-            pline("You give %s %s.", mon_nam(mtmp), yname(otmp));
+            You("give %s %s.", mon_nam(mtmp), yname(otmp));
             if (otmp->owornmask)
                 setnotworn(otmp); /* reset quivered, wielded, etc, status */
             obj_extract_self(otmp);
@@ -2447,7 +2447,8 @@ register struct obj *obj;
         pline_The("stone%s won't leave your person.", plur(obj->quan));
         return 0;
     } else if (obj->otyp == AMULET_OF_YENDOR
-               || (Role_if(PM_INFIDEL) && is_quest_artifact(obj) && obj->spe)
+               || (Role_if(PM_INFIDEL)
+                   && is_quest_artifact(obj))
                || obj->otyp == CANDELABRUM_OF_INVOCATION
                || obj->otyp == BELL_OF_OPENING
                || obj->otyp == SPE_BOOK_OF_THE_DEAD) {
@@ -2582,7 +2583,7 @@ register struct obj *obj;
             obj->otyp == SCR_CHARGING && !obj->cursed) {
             makeknown(obj->otyp);
             makeknown(current_container->otyp);
-            pline("The %s digests the magic of the %s!", xname(current_container), xname(obj));
+            pline_The("%s digests the magic of the %s!", xname(current_container), xname(obj));
             recharge(current_container, (obj->blessed ? 1 : 0), &youmonst);
             if (current_container->spe > 0) {
                 current_container = NULL;
@@ -2803,7 +2804,7 @@ open_coffin(struct obj *box, boolean past)
     if (!canspotmon(vampire)) {
 	You("think %s brushed against your %s.", something, body_part(HAND));
     } else {
-	pline("There %s a %s in the coffin.", past ? "was" : "is",
+        There("%s a %s in the coffin.", past ? "was" : "is",
 		Hallucination ? "dark knight" : m_monnam(vampire));
 	pline_The("%s rises!", Hallucination ? "dark knight" : m_monnam(vampire));
     }
@@ -2932,7 +2933,14 @@ boolean more_containers; /* True iff #loot multiple and this isn't last one */
         used = 1;
         return used;
     }
-
+    /* Medical Kit */
+    if (current_container->otyp == MEDICAL_KIT) {
+        if (!Has_contents(current_container))
+            pline("%s", emptymsg);
+        else
+            (void) display_cinventory(current_container);
+        return 0;
+    }
     cursed_mbag = Is_mbag(current_container)
         && current_container->cursed
         && Has_contents(current_container);
@@ -4003,7 +4011,7 @@ del_soko_prizes()
             y = otmp->oy;
             obj_extract_self(otmp);
             if (cansee(x, y)) {
-                You("see %s %s.", an(xname(otmp)),
+                You_see("%s %s.", an(xname(otmp)),
                     rn2(2) ? "dissolve into nothingness"
                            : "wink out of existience");
                 newsym(x, y);

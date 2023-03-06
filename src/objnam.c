@@ -1,4 +1,4 @@
-/* NetHack 3.6	objnam.c	$NHDT-Date: 1583315888 2020/03/04 09:58:08 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.293 $ */
+/* NetHack 3.6	objnam.c	$NHDT-Date: 1674864732 2023/01/28 00:12:12 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.259 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Robert Patrick Rankin, 2011. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -18,6 +18,7 @@ STATIC_DCL short FDECL(rnd_otyp_by_namedesc, (const char *, CHAR_P, int));
 STATIC_DCL boolean FDECL(wishymatch, (const char *, const char *, BOOLEAN_P));
 STATIC_DCL char *NDECL(nextobuf);
 STATIC_DCL void FDECL(releaseobuf, (char *));
+STATIC_DCL void FDECL(xcalled, (char *, int, const char *, const char *));
 STATIC_DCL char *FDECL(minimal_xname, (struct obj *));
 STATIC_DCL void FDECL(add_erosion_words, (struct obj *, char *));
 STATIC_DCL char *FDECL(doname_base, (struct obj *obj, unsigned));
@@ -27,6 +28,7 @@ STATIC_DCL boolean FDECL(singplur_lookup, (char *, char *, BOOLEAN_P,
 STATIC_DCL char *FDECL(singplur_compound, (char *));
 STATIC_DCL char *FDECL(xname_flags, (struct obj *, unsigned));
 STATIC_DCL boolean FDECL(badman, (const char *, BOOLEAN_P));
+STATIC_DCL boolean FDECL(not_spec_material, (const char * const, int));
 STATIC_DCL char *FDECL(globwt, (struct obj *, char *, boolean *));
 
 struct Jitem {
@@ -64,7 +66,32 @@ STATIC_OVL struct Jitem Japanese_items[] = {
     { 0, "" } 
 };
 
-STATIC_DCL const char *FDECL(Japanese_item_name, (int i));
+STATIC_OVL struct Jitem Pirate_items[] = { 
+    { POT_BOOZE, "rum" },
+    { CRAM_RATION, "sea biscuit" },
+    { SCIMITAR, "cutlass" },
+    { SMALL_SHIELD, "buckler" },
+    { SACK, "ditty bag" },
+    { LARGE_BOX, "foot locker" },
+    { CHEST, "coffer" },
+    { CLUB, "belaying pin" },
+    { QUARTERSTAFF, "oar" },
+    { BASEBALL_BAT, "peg leg" },
+    { BLINDFOLD, "eye-patch" },
+    { EGG, "cackle fruit" },
+    { BULLWHIP, "cat o’ nine tails" },
+    { PISTOL, "blunderbuss" },
+    { SLING_BULLET, "grape shot" },
+    { RIN_CONFLICT, "mutiny" },
+    { HEAVY_MACHINE_GUN, "chase gun" },
+    { AMULET_OF_STRANGULATION, "hempen halter" },
+    { SPE_DETECT_TREASURE, "detect booty" },
+    { SCR_PUNISHMENT, "keelhaul" },
+    { ROBE, "long clothes" },
+    { 0, "" } 
+};
+
+static const char *Alternate_item_name(int i, struct Jitem *);
 
 STATIC_OVL char *
 strprepend(s, pref)
@@ -173,8 +200,11 @@ register int otyp;
     const char *un = ocl->oc_uname;
     int nn = ocl->oc_name_known;
 
-    if (Role_if(PM_SAMURAI) && Japanese_item_name(otyp))
-        actualn = Japanese_item_name(otyp);
+    if (Role_if(PM_SAMURAI) && Alternate_item_name(otyp, Japanese_items))
+        actualn = Alternate_item_name(otyp, Japanese_items);
+    else if (Role_if(PM_PIRATE) && Alternate_item_name(otyp, Pirate_items))
+     	actualn = Alternate_item_name(otyp, Pirate_items);
+    buf[0] = '\0';
     switch (ocl->oc_class) {
     case COIN_CLASS:
         Strcpy(buf, "coin");
@@ -205,7 +235,7 @@ register int otyp;
         else
             Strcpy(buf, "amulet");
         if (un)
-            Sprintf(eos(buf), " called %s", un);
+            xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
         if (dn)
             Sprintf(eos(buf), " (%s)", dn);
         return buf;
@@ -214,8 +244,8 @@ register int otyp;
             Strcpy(buf, actualn);
             if (GemStone(otyp) && ocl->oc_class != ARMOR_CLASS)
                 Strcat(buf, " stone");
-            if (un)
-                Sprintf(eos(buf), " called %s", un);
+            if (un) /* 3: length of " (" + ")" which will enclose 'dn' */
+                xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
             if (dn)
                 Sprintf(eos(buf), " (%s)", dn);
         } else {
@@ -225,7 +255,7 @@ register int otyp;
                        (ocl->oc_material == MINERAL
                         || otyp == SLING_BULLET) ? " stone" : " gem");
             if (un)
-                Sprintf(eos(buf), " called %s", un);
+                xcalled(buf, BUFSZ, "", un);
         }
         return buf;
     }
@@ -234,13 +264,13 @@ register int otyp;
         if (ocl->oc_unique)
             Strcpy(buf, actualn); /* avoid spellbook of Book of the Dead */
         /* KMH -- "mood ring" instead of "ring of mood" */
-	    else if (otyp == RIN_MOOD)
-		    Sprintf(buf, "%s ring", actualn);
+        else if (otyp == RIN_MOOD)
+            Sprintf(buf, "%s ring", actualn);
         else
             Sprintf(eos(buf), " of %s", actualn);
     }
-    if (un)
-        Sprintf(eos(buf), " called %s", un);
+    if (un) /* 3: length of " (" + ")" which will enclose 'dn' */
+        xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
     if (dn)
         Sprintf(eos(buf), " (%s)", dn);
     return buf;
@@ -516,12 +546,28 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
+    if (props & ITEM_SCREAM) {
+        if ((props_known & ITEM_SCREAM)
+            || dump_prop_flag) {
+            Strcat(buf, of),
+                Strcat(buf, weapon ? " scream" : " sonic resistance"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_VENOM) {
         if ((props_known & ITEM_VENOM)
             || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " venom" : " poison resistance"),
             Strcpy(of, " and");
+        }
+    }
+    if (props & ITEM_ACID) {
+        if ((props_known & ITEM_ACID)
+            || dump_prop_flag) {
+            Strcat(buf, of),
+                Strcat(buf, weapon ? " sizzle" : " acid resistance"),
+                Strcpy(of, " and");
         }
     }
     if (props & ITEM_ESP) {
@@ -574,6 +620,24 @@ boolean has_of;
     }
 }
 
+/* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
+STATIC_OVL void
+xcalled(buf, siz, pfx, sfx)
+char *buf;       /* eos(obuf) or eos(&obuf[PREFIX]) */
+int siz;         /* BUFSZ or BUFSZ-PREFIX */
+const char *pfx; /* usually class string, sometimes more specific */
+const char *sfx; /* user assigned type name */
+{
+    int bufsiz = siz - 1 - (int) strlen(buf),
+        pfxlen = (int) (strlen(pfx) + sizeof " called " - sizeof "");
+
+    if (pfxlen > bufsiz)
+        panic("xcalled: not enough room for prefix (%d > %d)",
+              pfxlen, bufsiz);
+
+    Sprintf(eos(buf), "%s called %.*s", pfx, bufsiz - pfxlen, sfx);
+}
+
 char *
 xname(obj)
 struct obj *obj;
@@ -611,8 +675,11 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     boolean known, dknown, bknown;
 
     buf = nextobuf() + PREFIX; /* leave room for "17 -3 " */
-    if (Role_if(PM_SAMURAI) && Japanese_item_name(typ))
-        actualn = Japanese_item_name(typ);
+    if (Role_if(PM_SAMURAI) && Alternate_item_name(typ, Japanese_items))
+        actualn = Alternate_item_name(typ, Japanese_items);
+    else if (Role_if(PM_PIRATE) && Alternate_item_name(typ, Pirate_items))
+     	actualn = Alternate_item_name(typ, Pirate_items);
+    
     /* As of 3.6.2: this used to be part of 'dn's initialization, but it
        needs to come after possibly overriding 'actualn' */
     if (!dn)
@@ -686,13 +753,14 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Sprintf(eos(buf), "amulet called %s", un);
         else if (is_soko_prize_flag(obj))
             Strcpy(buf, "sokoban prize amulet");
+        else if (un)
+            xcalled(buf, BUFSZ - PREFIX, "amulet", un);
         else
             Sprintf(eos(buf), "%s amulet", dn);
         break;
     case WEAPON_CLASS:
         if (is_poisonable(obj) && obj->opoisoned)
             Strcat(buf, "poisoned ");
-
         /*FALLTHRU*/
     case VENOM_CLASS:
     case SPIRIT_CLASS:
@@ -715,9 +783,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         else if (nn && !is_soko_prize_flag(obj))
             Strcat(buf, actualn);
         else if (un && !is_soko_prize_flag(obj)) {
-            Strcat(buf, dn);
-            Strcat(buf, " called ");
-            Strcat(buf, un);
+            xcalled(buf, BUFSZ - PREFIX, dn, un);
         } else if (is_soko_prize_flag(obj)) {
             Strcpy(buf, "sokoban prize tool");
         } else
@@ -901,8 +967,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 }
                 Strcat(buf, actualn);
             } else {
-                Strcat(buf, " called ");
-                Strcat(buf, un);
+                xcalled(buf, BUFSZ - PREFIX, "", un);
             }
         } else {
             Strcat(buf, dn);
@@ -917,8 +982,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcat(buf, " of ");
             Strcat(buf, actualn);
         } else if (un) {
-            Strcat(buf, " called ");
-            Strcat(buf, un);
+            xcalled(buf, BUFSZ - PREFIX, "", un);
         } else if (ocl->oc_magic) {
             Strcat(buf, " labeled ");
             Strcat(buf, dn);
@@ -933,7 +997,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         else if (nn)
             Sprintf(eos(buf), "wand of %s", actualn);
         else if (un)
-            Sprintf(eos(buf), "wand called %s", un);
+            xcalled(buf, BUFSZ - PREFIX, "wand", un);
         else
             Sprintf(eos(buf), "%s wand", dn);
         break;
@@ -944,7 +1008,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             else if (nn)
                 Strcat(buf, actualn);
             else if (un)
-                Sprintf(eos(buf), "novel called %s", un);
+                xcalled(buf, BUFSZ - PREFIX, "novel", un);
             else
                 Sprintf(eos(buf), "%s book", dn);
             break;
@@ -956,7 +1020,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 Strcat(buf, "spellbook of ");
             Strcat(buf, actualn);
         } else if (un) {
-            Sprintf(eos(buf), "spellbook called %s", un);
+            xcalled(buf, BUFSZ - PREFIX, "spellbook", un);
         } else
             Sprintf(eos(buf), "%s spellbook", dn);
         break;
@@ -965,13 +1029,13 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcpy(buf, "ring");
         else if (nn) {
             /* KMH -- "mood ring" instead of "ring of mood" */
-			if (typ == RIN_MOOD)
-				Sprintf(buf, "%s ring", actualn);
-			else
+            if (typ == RIN_MOOD)
+                Sprintf(buf, "%s ring", actualn);
+            else
                 Sprintf(eos(buf), "ring of %s", actualn);
         }
         else if (un)
-            Sprintf(eos(buf), "ring called %s", un);
+            xcalled(buf, BUFSZ - PREFIX, "ring", un);
         else
             Sprintf(eos(buf), "%s ring", dn);
         break;
@@ -990,7 +1054,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcpy(buf, rock);
         } else if (!nn) {
             if (un)
-                Sprintf(eos(buf), "%s called %s", rock, un);
+                xcalled(buf, BUFSZ - PREFIX, rock, un);
             else
                 Sprintf(eos(buf), "%s %s", dn, rock);
         } else {
@@ -1037,7 +1101,8 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     if (has_oname(obj) && dknown) {
         Strcat(buf, " named ");
  nameit:
-        Strcat(buf, ONAME(obj));
+        (void) strncat(buf, ONAME(obj),
+                       BUFSZ - 1 - PREFIX - (unsigned) strlen(buf));
     }
 
     if (!strncmpi(buf, "the ", 4))
@@ -1305,11 +1370,12 @@ unsigned doname_flags;
             Sprintf(prefix, "%ld ", obj->quan);
         else
             Strcpy(prefix, "some ");
-    } else if (obj->otyp == CORPSE || is_barding(obj)) {
+    } else if (obj->otyp == CORPSE) {
         /* skip article prefix for corpses [else corpse_xname()
-           would have to be taught how to strip it off again].
-           do the same for barding */
+           would have to be taught how to strip it off again] */
         *prefix = '\0';
+    } else if (is_barding(obj)) {
+        Strcpy(prefix, "some ");
     } else if (obj_is_pname(obj) || the_unique_obj(obj)) {
         if (!strncmpi(bp, "the ", 4))
             bp += 4;
@@ -1438,7 +1504,8 @@ unsigned doname_flags;
         }
         
         if (is_bomb(obj))
-		    if (obj->oarmed) Strcat(bp, " (armed)");
+            if (obj->oarmed) 
+                Strcat(bp, " (armed)");
         break;
     case TOOL_CLASS:
         add_erosion_words(obj, prefix);
@@ -1474,7 +1541,6 @@ unsigned doname_flags;
                 || obj->otyp == MAGIC_LAMP
                 || obj->otyp == LANTERN 
                 || Is_candle(obj)) {
-            
             /* WAC - magic candles are never "partly used" */
             if (Is_candle(obj) && obj->otyp != MAGIC_CANDLE
                     && obj->age < 20L * (long) objects[obj->otyp].oc_cost) {
@@ -2103,7 +2169,7 @@ const char *str;
         return strcpy(buf, "an []");
     }
     (void) just_an(buf, str);
-    return strcat(buf, str);
+    return strncat(buf, str, BUFSZ - 1 - (unsigned) strlen(buf));
 }
 
 char *
@@ -2171,9 +2237,7 @@ const char *str;
         Strcpy(buf, "the ");
     else
         buf[0] = '\0';
-    Strcat(buf, str);
-
-    return buf;
+    return strncat(buf, str, BUFSZ - 1 - (unsigned) strlen(buf));
 }
 
 char *
@@ -2217,7 +2281,7 @@ const char *verb;
     /* leave off "your" for most of your artifacts, but prepend
      * "your" for unique objects and "foo of bar" quest artifacts */
     if (!carried(obj) || !obj_is_pname(obj)
-        || (obj->oartifact >= ART_XIUHCOATL
+        || (obj->oartifact >= ART_ITLACHIAYAQUE
             && obj->oartifact != ART_GJALLAR)
         || obj->oartifact == ART_DRAGONBANE
         || obj->oartifact == ART_WALLET_OF_PERSEUS) {
@@ -2301,7 +2365,7 @@ struct obj *obj;
     /* leave off "your" for most of your artifacts, but prepend
      * "your" for unique objects and "foo of bar" quest artifacts */
     if (!carried(obj) || !obj_is_pname(obj)
-        || (obj->oartifact >= ART_XIUHCOATL
+        || (obj->oartifact >= ART_ITLACHIAYAQUE
             && obj->oartifact != ART_GJALLAR)
         || obj->oartifact == ART_DRAGONBANE
         || obj->oartifact == ART_WALLET_OF_PERSEUS) {
@@ -2490,6 +2554,12 @@ register const char *verb;
      * Special case: allow null sobj to get the singular 3rd person
      * present tense form so we don't duplicate this code elsewhere.
      */
+
+    if (Role_if(PM_PIRATE) && !strcmp(verb, "are")) {
+        Strcpy(buf, "be");
+        return buf;
+    }
+
     if (subj) {
         if (!strncmpi(subj, "a ", 2) || !strncmpi(subj, "an ", 3))
             goto sing;
@@ -3225,6 +3295,7 @@ static const struct alt_spellings {
 } spellings[] = {
     /* weapons */
     { "pickax", PICK_AXE },
+    { "medkit", MEDICAL_KIT },
     { "whip", BULLWHIP },
     { "lash", FLAMING_LASH },
     { "sabre", SABER },
@@ -3239,17 +3310,14 @@ static const struct alt_spellings {
     { "hand grenade", FIRE_BOMB },
     { "frag grenade", FIRE_BOMB },
     { "gas grenade", GAS_BOMB },
-    { "spear of light", ART_HOLY_SPEAR_OF_LIGHT },
     /* armor */
     { "smooth shield", SHIELD_OF_REFLECTION },
     { "grey dragon scales", GRAY_DRAGON_SCALES },
     { "T shirt", T_SHIRT },
     { "tee shirt", T_SHIRT },
     { "BoL",  LEVITATION_BOOTS},
-    { "BoS",  SPEED_BOOTS},
-    { "SB",  SPEED_BOOTS},
+    { "bos",  SPEED_BOOTS},
     { "BoWW",  WATER_WALKING_BOOTS},
-    { "WWB",  WATER_WALKING_BOOTS},
     { "CoD",  CLOAK_OF_DISPLACEMENT},
     { "CoI",  CLOAK_OF_INVISIBILITY},
     { "CoMR",  CLOAK_OF_MAGIC_RESISTANCE},
@@ -3303,6 +3371,7 @@ static const struct alt_spellings {
     { "SoEA", SCR_ENCHANT_ARMOR },
     { "SoEW", SCR_ENCHANT_WEAPON },
     { "SoG", SCR_ANNIHILATION },
+    { "SoA", SCR_ANNIHILATION },
     { "scroll of genocide", SCR_ANNIHILATION },
     { "genocide", SCR_ANNIHILATION },
     { "SoI", SCR_IDENTIFY },
@@ -3460,6 +3529,7 @@ const char * in_str;
         && strncmpi(in_str, "ring of p'", 10)
         && strncmpi(in_str, "wand of orcus", 13)
         && strncmpi(in_str, "food ration", 11)
+        && strncmpi(in_str, "plasteel armor", 14)
         && strncmpi(in_str, "meat ring", 9)) {
         for (i = 0; i < (int) (sizeof wrpsym); i++) {
             int j = strlen(wrp[i]);
@@ -3499,12 +3569,21 @@ const char * in_str;
             return as->ob;
         }
     }
-    /* try Japanese names */
-    for (ji = Japanese_items; ji->item != 0; ji++) {
-        if (!strcmpi(in_str, ji->name)) {
-            return ji->item;
+    /* try role-specific names */
+    if (Role_if(PM_SAMURAI)) {
+        for (ji = Japanese_items; ji->item != 0; ji++) {
+            if (!strcmpi(in_str, ji->name)) {
+                return ji->item;
+            }
+        }
+    } else if (Role_if(PM_PIRATE)) {
+        for (ji = Pirate_items; ji->item != 0; ji++) {
+            if (!strcmpi(in_str, ji->name)) {
+                return ji->item;
+            }
         }
     }
+
     /* try fruits */
     if (fruit_from_name(in_str, FALSE, NULL))
         return SLIME_MOLD;
@@ -3526,10 +3605,75 @@ const char *str;
         "magenta",       /* not the "mage" rank */
         "bat from hell", /* not the "bat" monster */
         "Thiefbane",     /* not the "thief" rank */
+        "Houchou",       /* not something... */
+        "Xanathar's Ring of Proof",       /* not Xanathar... */
     };
     int i;
     for (i = 0; i < SIZE(non_monster_strs); ++i) {
         if (!strncmpi(str, non_monster_strs[i], strlen(non_monster_strs[i]))) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+/* Return true if the input string appears to be specifying something that
+   happens to start with a material name and is not actually specifying a
+   material */
+STATIC_OVL boolean
+not_spec_material(str, material)
+const char * const str;
+int material;
+{
+    int i;
+    const char *matstr = materialnm[material];
+    int matlen = strlen(matstr);
+    /* is this the entire string? e.g. "gold" is actually a wish for zorkmids.
+       The effect of this is that you can't just wish for a material and get a
+       random item, made of that material, from the set of items that can be
+       made of that material, but this was never a feature anyway; it would give
+       a totally random object even if the material-object combo was invalid */
+    if (!strcmp(str, matstr)) {
+        return TRUE;
+    }
+    /* does it match some object? */
+    for (i = STRANGE_OBJECT + 1; i < NUM_OBJECTS; ++i) {
+        /* match in the object name e.g. "gold detection", "wax candle" */
+        const char *oc_name = OBJ_NAME(objects[i]),
+                   *oc_descr = OBJ_DESCR(objects[i]);
+        if (oc_name && !strncmpi(str, oc_name, strlen(oc_name))) {
+            return TRUE;
+        }
+        /* match in the object description, followed by object class name e.g.
+           "silver ring"
+           Note: this assumes that the only types of objects that can have
+           material strings as descriptions are not eligible to have object
+           materials vary on them. It also does not account for the fact that,
+           for instance, there being more wand descriptions than wands could
+           mean that "iron wand" doesn't actually exist in this game... */
+        if (oc_descr && !strcmp(matstr, oc_descr)) {
+            /* this is a bit complicated... the only 3 object classes that ought
+               to behave this way are rings, wands and spellbooks, all of which
+               have the singular object class string in def_oc_syms[].explain.
+               If e.g. "silver armor" was a real randomized armor description this
+               would break because the explain is "suit or piece of armor" */
+            const char *aftermat = str + matlen + 1; /* advance past material */
+            oc_descr = def_oc_syms[(int) objects[i].oc_class].explain;
+            if (!strncmpi(aftermat, oc_descr, strlen(oc_descr))) {
+                return TRUE;
+            }
+        }
+    }
+    /* does it match some artifact? e.g. "platinum yendorian express card" */
+    short otyp;
+    if (artifact_name(str, &otyp)) {
+        return TRUE;
+    }
+    /* does it match some terrain or a trap? e.g. "iron bars" */
+    for (i = 0; i < MAXPCHARS; ++i) {
+        const char *terr_name = defsyms[i].explanation;
+        if (terr_name && *terr_name
+            && !strncmpi(str, terr_name, strlen(terr_name))) {
             return TRUE;
         }
     }
@@ -3639,9 +3783,9 @@ struct obj *no_wish;
                 bp++;
             l = 0;
         } else if (!strncmpi(bp, "blessed ", l = 8)) {
-                   /*WAC removed this.  Holy is in some artifact weapon names
-                                        || !strncmpi(bp, "holy ", l=5)
-                        */
+           /*WAC removed this.  Holy is in some artifact weapon names
+                            || !strncmpi(bp, "holy ", l=5)
+            */
             blessed = 1;
         } else if (!strncmpi(bp, "bgf ", l = 4) 
                    || !strncmpi(bp, "bfg ", l = 4)) {
@@ -3759,15 +3903,7 @@ struct obj *no_wish;
         } else {
             /* check for materials */
             if (!strncmpi(bp, "silver dragon", l = 13)
-                || !strncmpi(bp, "gold dragon", l = 11)
-                || !strcmp(bp, "gold")
-                || !strncmpi(bp, "gold piece", l = 10)
-                || !strncmpi(bp, "wax candle", l = 10)
-                || !strncmpi(bp, "platinum yendorian express card", l = 31)
-                || !strncmpi(bp, "iron bars", l = 9)
-                || !strncmpi(bp, "crystal chest", l = 13)
-                || !strncmpi(bp, "crystal plate mail", l = 18)
-                || !strncmpi(bp, "iron spoon of liberation", l = 23)) {
+                || !strncmpi(bp, "gold dragon", l = 11)) {
                 /* hack so that gold/silver dragon scales doesn't get
                  * interpreted as silver, or a wish for just "gold" doesn't get
                  * interpreted as gold */
@@ -3776,7 +3912,12 @@ struct obj *no_wish;
             /* doesn't currently catch "wood" for wooden */
             for (i = 1; i < NUM_MATERIAL_TYPES; i++) {
                 l = strlen(materialnm[i]);
-                if (l > 0 && !strncmpi(bp, materialnm[i], l))
+                if (l > 0 && !strncmpi(bp, materialnm[i], l)
+                    /* it LOOKS like a wish for a material...
+                       but need to ensure that it's not just a wish for
+                       something else that happens to have a prefix of a
+                       material */
+                    && !not_spec_material(bp, i))
                 {
                     material = i;
                     l++;
@@ -3857,10 +3998,12 @@ struct obj *no_wish;
      */
     if ((p = strstri(bp, " named ")) != 0) {
         *p = 0;
+        /* note: if 'name' is too long, oname() will truncate it */
         name = p + 7;
     }
     if ((p = strstri(bp, " called ")) != 0) {
         *p = 0;
+        /* note: if 'un' is too long, obj lookup just won't match anything */
         un = p + 8;
         /* "helmet called telepathy" is not "helmet" (a specific type)
          * "shield called reflection" is not "shield" (a general type)
@@ -4017,10 +4160,20 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SHOCK;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "sonic", l = 5)
+                           || !strncmpi((p + of), "scream", l = 9)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_SCREAM;
+                    objpropcount++;
                 } else if (!strncmpi((p + of), "poison", l = 6)
                            || !strncmpi((p + of), "venom", l = 5)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_VENOM;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "acid", l = 6)
+                           || !strncmpi((p + of), "sizzle", l = 5)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_ACID;
                     objpropcount++;
                 } else if ((!strncmpi((p + of), "telepathy", l = 9)
                             && strncmpi(bp, "helm", l = 4))
@@ -4375,14 +4528,17 @@ struct obj *no_wish;
     typ = 0;
 
     if (actualn) {
-        struct Jitem *j = Japanese_items;
-
-        while (j->item) {
-            if (actualn && !strcmpi(actualn, j->name)) {
-                typ = j->item;
-                goto typfnd;
+        struct Jitem *j[] = { Japanese_items, Pirate_items };
+        for (i = 0; (unsigned long) i < sizeof(j) / sizeof(j[0]); i++)
+        {
+            while (j[i]->item) {
+                if (actualn && !strcmpi(actualn, j[i]->name)) {
+                    typ = j[i]->item;
+                    /*return 2; */
+                    goto typfnd;
+                }
+                j[i]++;
             }
-            j++;
         }
     }
     /* if we've stripped off "armor" and failed to match anything
@@ -4471,9 +4627,14 @@ struct obj *no_wish;
 
     if (!oclass && actualn) {
         short objtyp;
-
-        /* Perhaps it's an artifact specified by name, not type */
-        name = artifact_name(actualn, &objtyp);
+        
+        if (!strncmp(actualn, "kiku", 4)) {
+            /* minor kludge for Kiku-ichimonji */
+            name = artifact_name("Kiku-ichimonji", &objtyp);
+        } else {
+            /* Perhaps it's an artifact specified by name, not type */
+            name = artifact_name(actualn, &objtyp);
+        }
         if (name) {
             typ = objtyp;
             goto typfnd;
@@ -4721,7 +4882,10 @@ struct obj *no_wish;
         begin_burn(otmp, FALSE);
         obj_extract_self(otmp); /* now release it for caller's use */
     }
-
+    /* obviously don't allow wishing for scrolls of wishing --Amy */
+    if (typ == SCR_ACQUIREMENT && !wizard) 
+        typ = SCR_BLANK_PAPER;
+    
     /* if player specified a reasonable count, maybe honor it */
     if (cnt > 1 && objects[typ].oc_merge
         && (wizard || cnt < rnd(6) || (cnt <= 7 && Is_candle(otmp))
@@ -4965,6 +5129,7 @@ struct obj *no_wish;
      */
     if ((is_quest_artifact(otmp)
         || non_wishable_artifact(otmp)
+        || (Role_if(PM_PIRATE) && otmp->oartifact == ART_REAVER)
         || (Role_if(PM_RANGER) && ((Race_if(PM_GNOME) && otmp->oartifact == ART_LONGBOW_OF_DIANA)
                                    || (!Race_if(PM_GNOME) && otmp->oartifact == ART_CROSSBOW_OF_CARL)))
         || (otmp->oartifact && rn2(u.uconduct.wisharti))) && !wizard) {
@@ -5015,7 +5180,7 @@ struct obj *no_wish;
 
         if (pm < 0) {
             switch(otmp->oartifact) {
-            case ART_XIUHCOATL:
+            case ART_ITLACHIAYAQUE:
             case ART_SUNSWORD:
             case ART_GRAYSWANDIR:
                 pm = PM_ARCHEOLOGIST;
@@ -5026,6 +5191,7 @@ struct obj *no_wish;
             case ART_OGRESMASHER:
                 pm = PM_BARBARIAN;
                 break;
+            case ART_KEOLEWA:
             case ART_DRAGONBANE:
             case ART_SKULLCRUSHER:
             case ART_SCEPTRE_OF_MIGHT:
@@ -5177,7 +5343,7 @@ struct obj *no_wish;
                           Deaf ? "funky smell"
                                : "the sound could have been more mellow");
                 else
-                    pline("There is a puff of smoke and a figure appears!");
+                    There("is a puff of smoke and a figure appears!");
             }
             if (!Deaf) {
                 pline("%s says:", Blind ? "Someone" : Monnam(mtmp));
@@ -5249,32 +5415,35 @@ struct obj *no_wish;
         || otmp->oclass == ARMOR_CLASS) {
         /* check for restrictions */
         if (objprops & ITEM_FROST)
-            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_FIRE)
-            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM);
+            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_DRLI)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_SHOCK)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_VENOM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK);
-
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_SHOCK | ITEM_ACID);
+        else if (objprops & ITEM_SCREAM)
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID);
+        else if (objprops & ITEM_ACID)
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
         if (objects[otmp->otyp].oc_magic)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK
-                          | ITEM_VENOM | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM
+                          | ITEM_VENOM | ITEM_ACID | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
                           | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_EXCEL);
 
         if (Is_dragon_armor(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK
-                          | ITEM_VENOM | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM
+                          | ITEM_VENOM | ITEM_ACID | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
                           | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_EXCEL);
 
         if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
             objprops &= ~(ITEM_DRLI | ITEM_FUMBLING | ITEM_HUNGER);
 
         if (is_launcher(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI
-                          | ITEM_SHOCK | ITEM_VENOM | ITEM_OILSKIN);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM
+                          | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID | ITEM_OILSKIN);
 
         if (is_ammo(otmp) || is_missile(otmp))
             objprops &= ~(ITEM_DRLI | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
@@ -5328,17 +5497,16 @@ int first, last;
 }
 
 STATIC_OVL const char *
-Japanese_item_name(i)
+Alternate_item_name(i, alternate_items)
 int i;
+struct Jitem *alternate_items;
 {
-    struct Jitem *j = Japanese_items;
-
-    while (j->item) {
-        if (i == j->item)
-            return j->name;
-        j++;
+    while (alternate_items->item) {
+        if (i == alternate_items->item)
+            return alternate_items->name;
+        alternate_items++;
     }
-    return (const char *) 0;
+    return (const char *)0;
 }
 
 const char *

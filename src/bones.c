@@ -34,6 +34,9 @@ d_level *lev;
                          in any dungeon (level 1 isn't multiway) */
                       || Is_botlevel(lev)
                       || (Is_branchlev(lev) && lev->dlevel > 1)
+                      /* only allow bones in the valley if Cerberus
+                         still lives */
+                      || (Is_valley(lev) && !u.uevent.ucerberus)
                       /* no bones in the invocation level */
                       || (In_hell(lev)
                           && lev->dlevel == dunlevs_in_dungeon(lev) - 1));
@@ -232,15 +235,20 @@ boolean restore;
             } else if (otmp->otyp == SPE_BOOK_OF_THE_DEAD) {
                 otmp->otyp = SPE_BLANK_PAPER;
                 curse(otmp);
-            } else if (otmp->oartifact == ART_THIEFBANE) {
-			    /* Guaranteed artifacts become ordinary objects */
-			    otmp->oartifact = 0;
+            } else if (otmp->oartifact == ART_THIEFBANE
+                       || otmp->oartifact == ART_MASTER_SWORD
+                       || otmp->oartifact == ART_XANATHAR_S_RING_OF_PROOF) {
+                /* Guaranteed artifacts become ordinary objects */
+                otmp->oartifact = 0;
                 free_oname(otmp);
-			    #if 0
-                otmp->onamelth = 0;
-			    *ONAME(otmp) = '\0';
-                #endif
-			}
+            } else if (otmp->oartifact == ART_KEY_OF_ACCESS) {
+                otmp->otyp = SKELETON_KEY;
+                set_material(otmp, COPPER);
+                curse(otmp);
+            } else if (is_lightsaber(otmp)){
+                if (otmp->lamplit)
+                    end_burn(otmp, FALSE);
+            }
         }
     }
 }

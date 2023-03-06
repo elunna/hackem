@@ -49,8 +49,9 @@ const struct Role roles[] = {
       PM_HUMAN_MUMMY,
       S_SNAKE,
       S_MUMMY,
-      ART_XIUHCOATL,
-      MH_HUMAN | MH_DWARF | MH_GNOME | MH_VAMPIRE | MH_HOBBIT | MH_TORTLE,
+      ART_ITLACHIAYAQUE,
+      MH_HUMAN | MH_DWARF | MH_GNOME | MH_VAMPIRE | MH_HOBBIT | MH_TORTLE 
+          | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 10, 7, 7, 7 },
@@ -154,8 +155,8 @@ const struct Role roles[] = {
       S_RODENT,
       S_SPIDER,
       ART_IRON_SPOON_OF_LIBERATION,
-      MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_HOBBIT
-          | MH_ILLITHID | MH_VAMPIRE,
+      MH_HUMAN | MH_DWARF | MH_GNOME | MH_ORC | MH_HOBBIT | MH_GIANT
+          | MH_ILLITHID | MH_VAMPIRE | MH_CENTAUR | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC | ROLE_NORACEALIGN,
       /* Str Int Wis Dex Con Cha */
       { 10, 7, 7, 7, 13, 6 },
@@ -165,38 +166,38 @@ const struct Role roles[] = {
       { 1, 0, 0, 1, 0, 1 },
       10, /* Energy */
       -10, 5, 0, 2, 10, A_INT, SPE_TELEPORT_AWAY, -4 },
-    { { "Flame Mage", 0 }, {
-            { "Spark",         0 },   /* WAC was Igniter */
-            { "Igniter",       0 },
-            { "Broiler",       0 },   /* WAC was Igniter */
-            { "Combuster",     0 },   /* WAC was Torcher */
-            { "Torcher",       0 },
-            { "Scorcher",      0 },   /* WAC was Torcher */
-            { "Incinerator",   0 },
-            { "Disintegrator", 0 },   /* WAC was Incinerator */
-            { "Flame-Master",  0 } },
-        "Earth", "Fire", "Ash", /* Special */
-        "Fla", "the great Circle of Flame", "the Water Mage's Cave",
-        PM_FLAME_MAGE, 
-        NON_PM, 
-        PM_HELL_HOUND_PUP,
-        PM_HIGH_FLAME_MAGE, 
-        PM_IGNITER,
-        PM_WATER_MAGE,
-        PM_WATER_ELEMENTAL, 
-        PM_RUST_MONSTER, 
-        S_ELEMENTAL, 
-        S_RUSTMONST,
-        ART_CANDLE_OF_ETERNAL_FLAME,
-        MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME,
-        ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-        /* Str Int Wis Dex Con Cha */
-        {   7, 9,  11,  7,  7,  7 },
-        {  12, 15, 20, 20, 20, 10 },
-        /* Init   Lower  Higher */
-        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-        {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
-        0, 1, 0, 2, 10, A_WIS, SPE_FIRE_BOLT, -4 },
+    { { "Flame Mage", 0 }, 
+      { { "Spark",         0 },   /* WAC was Igniter */
+        { "Igniter",       0 },
+        { "Broiler",       0 },   /* WAC was Igniter */
+        { "Combuster",     0 },   /* WAC was Torcher */
+        { "Torcher",       0 },
+        { "Scorcher",      0 },   /* WAC was Torcher */
+        { "Incinerator",   0 },
+        { "Disintegrator", 0 },   /* WAC was Incinerator */
+        { "Flame-Master",  0 } },
+      "Earth", "Fire", "Ash", /* Special */
+      "Fla", "the great Circle of Flame", "the Water Mage's Cave",
+      PM_FLAME_MAGE, 
+      NON_PM, 
+      PM_HELL_HOUND_PUP,
+      PM_HIGH_FLAME_MAGE, 
+      PM_IGNITER,
+      PM_WATER_MAGE,
+      PM_WATER_ELEMENTAL, 
+      PM_RUST_MONSTER, 
+      S_ELEMENTAL, 
+      S_RUSTMONST,
+      ART_CANDLE_OF_ETERNAL_FLAME,
+      MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME,
+      ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      {   7, 9,  11,  7,  7,  7 },
+      {  12, 15, 20, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  4, 3,  0, 2,  0, 3 }, 12,	/* Energy */
+      0, 1, 0, 2, 10, A_WIS, SPE_ENLIGHTEN, -4 },
     { { "Healer", 0 },
       { { "Rhizotomist", 0 },
         { "Empiric", 0 },
@@ -233,40 +234,39 @@ const struct Role roles[] = {
       { 4, 2, 0, 1, 0, 2 },
       20, /* Energy */
       10, 3, -3, 2, 10, A_WIS, SPE_CURE_SICKNESS, -4 },
-    { { "Ice Mage", 0}, {
-            { "Cooler",        0 },   /* WAC was Chiller */
-            { "Condenser",     0 },   /* WAC was Chiller */
-            { "Chiller",       0 },
-            { "Froster",       0 },
-            { "Permafroster",  0 },   /* WAC was Froster */
-            { "Icer",          0 },   /* WAC was Froster */
-            { "Freezer",       0 },
-            { "Sublimer",      0 },   /* WAC was Freezer */
-            { "Ice-Master",    0 } },
-        "Air", "Frost", "Smoke", /* Special */
-        "Ice", "the great Ring of Ice", "the Earth Mage's Cave",
-        PM_ICE_MAGE, 
-        NON_PM, 
-        PM_WINTER_WOLF_CUB,
-        PM_HIGH_ICE_MAGE, 
-        PM_FROSTER, 
-        PM_RAGNAROS,
-        PM_RUST_MONSTER, 
-        PM_XORN, 
-        S_RUSTMONST, 
-        S_XORN,
-        ART_STORM_WHISTLE,
-        MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_ILLITHID | MH_CENTAUR, 
-        ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
-        /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
-        {   7, 10,  7,  7,  7,  7 },
-        {  10, 30, 10, 20, 20, 10 },
-        /* Init   Lower  Higher */
-        { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-        {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
-        0, 1, 0, 
-        2, 10, A_INT, SPE_CONE_OF_COLD,    -4 /* From old role.c */
-    },
+    { { "Ice Mage", 0 }, 
+      { { "Cooler",        0 },   /* WAC was Chiller */
+        { "Condenser",     0 },   /* WAC was Chiller */
+        { "Chiller",       0 },
+        { "Froster",       0 },
+        { "Permafroster",  0 },   /* WAC was Froster */
+        { "Icer",          0 },   /* WAC was Froster */
+        { "Freezer",       0 },
+        { "Sublimer",      0 },   /* WAC was Freezer */
+        { "Ice-Master",    0 } },
+      "Air", "Frost", "Smoke", /* Special */
+      "Ice", "the great Ring of Ice", "the Earth Mage's Cave",
+      PM_ICE_MAGE, 
+      NON_PM, 
+      PM_WINTER_WOLF_CUB,
+      PM_HIGH_ICE_MAGE, 
+      PM_FROSTER, 
+      PM_RAGNAROS,
+      PM_RUST_MONSTER, 
+      PM_XORN, 
+      S_RUSTMONST, 
+      S_XORN,
+      ART_STORM_WHISTLE,
+      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_ILLITHID | MH_CENTAUR | MH_SHIFTER, 
+      ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
+      /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+      {   7, 10,  7,  7,  7,  7 },
+      {  10, 30, 10, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
+      0, 1, 0, 
+      2, 10, A_INT, SPE_REFLECTION,    -4 },
     { { "Infidel", 0 },
       { { "Apostate", 0 },
         { "Heathen", 0 },
@@ -302,6 +302,41 @@ const struct Role roles[] = {
       { 4, 3, 0, 1, 0, 2 },
       10, /* Energy */
       10, 3, 1, 2, 10, A_WIS, SPE_FIREBALL, -4 },
+    { { "Jedi", 0 }, 
+      { { "Youngling",     0 },
+        { "Padawan",       0 },
+        { "Jedi Apprentice", 0 },
+        { "Jedi Knight",    0 },
+        { "Jedi Hero",      0 },
+        { "Jedi Master",    0 } },
+      "the Light Side", "the Force", "the Dark Side",
+      "Jed",
+      "the Jedi Temple",
+      "the Outer Rim",
+      PM_JEDI, 
+      NON_PM, 
+      PM_LITTLE_DOG,
+      PM_THE_JEDI_MASTER, 
+      PM_PADAWAN, 
+      PM_LORD_SIDIOUS,
+      PM_STORMTROOPER, 
+      PM_STORMTROOPER, 
+      S_HUMAN,
+      S_HUMAN,
+#if 0
+	ART_DELUDER, ART_SNAKESKIN
+#endif
+      ART_LIGHTSABER_PROTOTYPE,
+      MH_HUMAN | MH_ELF | MH_HOBBIT | MH_TORTLE,
+      ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL,
+      /* Str Int Wis Dex Con Cha */
+      {  10,  7, 14, 12, 10, 14 },
+      {  30, 15, 15, 10, 20, 10 },
+      /* Init   Lower  Higher */
+      { 20, 4,  0, 8,  2, 4 },	/* Hit points */
+      {  5, 4,  0, 1,  0, 4 },
+      10, /* Energy */
+      0, 12 , -1, 2, 10, A_INT, SPE_CHARM_MONSTER, -4 },
     { { "Knight", 0 },
       { { "Gallant", 0 },
         { "Esquire", 0 },
@@ -363,7 +398,7 @@ const struct Role roles[] = {
       S_XORN,
       ART_EYES_OF_THE_OVERWORLD,
       MH_HUMAN | MH_ELF | MH_DWARF | MH_GIANT | MH_CENTAUR
-          | MH_TORTLE,
+          | MH_TORTLE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -384,7 +419,7 @@ const struct Role roles[] = {
         { "Necromancer", 0 },
         { "Undead Master", 0 },
         { "Lich Lord", 0 } },
-      "Nharlotep", "Zugguthobal", "Gothuulbe", /* Assorted slimy things */
+      "Nyarlathotep", "Zugguthobal", "Gothuulbe", /* Assorted slimy things */
       "Nec", 
       "the Tower of the Dark Lord", 
       "the Lair of Maugneshaagar",
@@ -399,15 +434,16 @@ const struct Role roles[] = {
       S_BAT, 
       S_IMP,
       ART_GREAT_DAGGER_OF_GLAURGNAA,
-      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID,
+      MH_HUMAN | MH_ORC | MH_VAMPIRE | MH_GIANT | MH_CENTAUR | MH_ILLITHID 
+          | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
-	  /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
-	  {   7, 10,  7,  7,  7,  7 },
-	  {  10, 30, 10, 20, 20, 10 },
-	  /* Init   Lower  Higher */
-	  { 10, 0,  0, 8,  1, 0 },	/* Hit points */
-	  {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
-	  0, 1, 0, 2, 10, A_INT, SPE_SUMMON_UNDEAD, -4 },
+      /* Str Int Wis Dex Con Cha */  /* Direct copy from Wizard */
+      {   7, 10,  7,  7,  7,  7 },
+      {  10, 30, 10, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  4, 3,  0, 2,  0, 3 },12,	/* Energy */
+      0, 1, 0, 2, 10, A_INT, SPE_SUMMON_UNDEAD, -4 },
     { { "Priest", "Priestess" },
       { { "Aspirant", 0 },
         { "Acolyte", 0 },
@@ -434,7 +470,7 @@ const struct Role roles[] = {
       S_WRAITH,
       ART_MITRE_OF_HOLINESS,
       MH_HUMAN | MH_ELF | MH_DWARF | MH_ORC | MH_GIANT
-          | MH_HOBBIT | MH_CENTAUR | MH_ILLITHID | MH_TORTLE,
+          | MH_HOBBIT | MH_CENTAUR | MH_ILLITHID | MH_TORTLE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
@@ -445,6 +481,45 @@ const struct Role roles[] = {
       { 5, 3, 0, 2, 0, 2 },
       10, /* Energy */
       0, 3, -2, 2, 10, A_WIS, SPE_REMOVE_CURSE, -4 },
+    /* Pirate is after priest so priest retains lowercase 'p' in character 
+     * select */ 
+    { { "Pirate", 0 }, 
+      { { "Landlubber", 0 },
+        { "Swabbie", 0 },
+        { "Cutthroat", 0 },
+        { "Bosun", 0 },
+        { "Second Mate", 0 },
+        { "First Mate", 0 },
+        { "Captain", 0 },
+        { "Pirate Lord", "Pirate Lady" },
+        { "Dread Pirate", 0 } },
+      "Davy Jones", "_the deep blue sea", "_the storm",
+      /* Davy Jones would be chaotic, but we want something all pirates are
+        opposed to. */
+      "Pir",
+      "Tortuga",
+      "Shipwreck Island",
+      PM_PIRATE,
+      NON_PM,
+      NON_PM,
+      PM_MAYOR_CUMMERBUND,
+      PM_PIRATE_CREWMATE,
+      PM_BLACKBEARD_S_GHOST,
+      PM_SKELETAL_PIRATE,
+      PM_SOLDIER,
+      S_RODENT,
+      S_ELEMENTAL, /* Ghost pirates, soldiers, rats in the food stores, and the occasional storm*/
+      ART_TREASURY_OF_PROTEUS,
+      MH_HUMAN | MH_GNOME | MH_ORC | MH_VAMPIRE,
+      ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
+      /* Str Int Wis Dex Con Cha */
+      {   8,  7, 7,  8,  8,  7 },
+      {  20, 15, 10, 20, 25, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0,  0, 8,  1, 0 },	/* Hit points */
+      {  1, 0,  0, 1,  0, 1 },
+      12,	/* Energy */
+      10, 8, 0, 2, 9, A_INT, SPE_HASTE_SELF, -4 },
     /* Note:  Rogue precedes Ranger so that use of `-R' on the command line
        retains its traditional meaning. */
     { { "Rogue", 0 },
@@ -472,7 +547,7 @@ const struct Role roles[] = {
       S_NYMPH,
       S_NAGA,
       ART_MASTER_KEY_OF_THIEVERY,
-      MH_HUMAN | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE,
+      MH_HUMAN | MH_ORC | MH_HOBBIT | MH_GNOME | MH_VAMPIRE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 7, 10, 7, 6 },
@@ -591,7 +666,7 @@ const struct Role roles[] = {
       S_SPIDER,
       S_CENTAUR,
       ART_YENDORIAN_EXPRESS_CARD,
-      MH_HUMAN | MH_HOBBIT | MH_GNOME | MH_TORTLE,
+      MH_HUMAN | MH_HOBBIT | MH_GNOME | MH_TORTLE | MH_SHIFTER,
       ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 6, 7, 7, 10 },
@@ -600,34 +675,33 @@ const struct Role roles[] = {
       { 8, 0, 0, 8, 0, 0 }, /* Hit points */
       { 1, 0, 0, 1, 0, 1 },
       14, /* Energy */
-      0, 5, 1, 2, 10, A_INT, SPE_CHARM_MONSTER, -4 },
-    { { "Undead Slayer", 0 }, {
-	  { "Assistant",    0 },
-	  { "Eliminator",   0 },
-	  { "Eliminator",   0 },
-	  { "Exterminator", 0 },
-	  { "Exterminator", 0 },
-	  { "Destroyer",   0 },
-	  { "Vindicator",  0 },
-	  { "Vindicator",  0 },
-	  { "Undead Slayer", 0 } },
-	"Seeker", "Osiris", "Seth", /* Egyptian */
-	"Und", "the Temple of Light", "the Crypt of Dracula",
-	PM_UNDEAD_SLAYER, NON_PM, NON_PM,
-	PM_VAN_HELSING, PM_EXTERMINATOR, PM_COUNT_DRACULA,
-	PM_HUMAN_MUMMY, PM_VAMPIRE, S_MUMMY, S_VAMPIRE,
-	ART_STAKE_OF_VAN_HELSING,
-    /* --hackem: Disabled MH_WERE, MH_ORC */
-	MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
-          | MH_CENTAUR | MH_TORTLE,
-	ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-	/* Str Int Wis Dex Con Cha */ /* Modified from Knight */
-	{  13,  7, 14,  8, 10, 10 },
-	{  20, 15, 15, 10, 20, 10 },
-	/* Init   Lower  Higher */
-	{ 14, 0,  0, 8,  2, 0 },	/* Hit points */
-	{  1, 4,  0, 1,  0, 2 },10,	/* Energy */
-	10, 8,-2, 0,  9, A_WIS, SPE_PROTECTION, -4 },
+      0, 5, 1, 2, 10, A_INT, SPE_CREATE_FAMILIAR, -4 },
+    { { "Undead Slayer", 0 }, 
+      { { "Assistant",    0 },
+        { "Eliminator",   0 },
+        { "Eliminator",   0 },
+        { "Exterminator", 0 },
+        { "Exterminator", 0 },
+        { "Destroyer",   0 },
+        { "Vindicator",  0 },
+        { "Vindicator",  0 },
+        { "Undead Slayer", 0 } },
+    "Seeker", "Osiris", "Seth", /* Egyptian */
+    "Und", "the Temple of Light", "the Crypt of Dracula",
+    PM_UNDEAD_SLAYER, NON_PM, NON_PM,
+    PM_VAN_HELSING, PM_EXTERMINATOR, PM_COUNT_DRACULA,
+    PM_HUMAN_MUMMY, PM_VAMPIRE, S_MUMMY, S_VAMPIRE,
+    ART_STAKE_OF_VAN_HELSING,
+    MH_HUMAN | MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
+      | MH_CENTAUR | MH_TORTLE,
+    ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+    /* Str Int Wis Dex Con Cha */ /* Modified from Knight */
+    {  13,  7, 14,  8, 10, 10 },
+    {  20, 15, 15, 10, 20, 10 },
+    /* Init   Lower  Higher */
+    { 14, 0,  0, 8,  2, 0 },	/* Hit points */
+    {  1, 4,  0, 1,  0, 2 },10,	/* Energy */
+    10, 8,-2, 0,  9, A_WIS, SPE_PROTECTION, -4 },
     { { "Valkyrie", 0 },
       { { "Stripling", 0 },
         { "Skirmisher", 0 },
@@ -680,7 +754,6 @@ const struct Role roles[] = {
       PM_WIZARD,
       NON_PM,
       PM_PSEUDODRAGON,
-      
       PM_NEFERET_THE_GREEN,
       PM_APPRENTICE,
       PM_DARK_ONE,
@@ -703,7 +776,7 @@ const struct Role roles[] = {
     { { "Yeoman", 0 },
 	/* Landowner titles, naval ranks and positions */
 	/* We intentionally avoid Lieutenant and Captain */
-	  { { "Usher",          0 },
+      { { "Usher",          0 },
         { "Steward", "Stewardess" },
         { "Keeper",         0 },
         { "Marshal",        0 },
@@ -714,18 +787,19 @@ const struct Role roles[] = {
         { "Regent",         0} },
 	"His Majesty", "His Holiness", "The Commons", /* The three estates */
 	"Yeo", "London", "the inner ward",
-	PM_YEOMAN, NON_PM, PM_PONY,
-	PM_CHIEF_YEOMAN_WARDER, PM_YEOMAN_WARDER, PM_COLONEL_BLOOD,
-	PM_RAVEN, PM_WEREWOLF, S_RODENT, S_DOG,
-	ART_CROWN_OF_SAINT_EDWARD,
-	MH_HUMAN | MH_ELF | MH_HOBBIT | MH_CENTAUR, ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL,
-	/* Str Int Wis Dex Con Cha */
-	{  12,  7, 10, 12, 12,  7 },
-	{  20, 15, 15, 10, 20, 10 },
-	/* Init   Lower  Higher */
-	{ 14, 0,  0, 8,  2, 0 },	/* Hit points */
-	{  1, 4,  0, 1,  0, 2 },10,	/* Energy */
-	10, 8,-2, 0,  9, A_WIS, SPE_KNOCK, -4 },
+      PM_YEOMAN, NON_PM, PM_PONY,
+      PM_CHIEF_YEOMAN_WARDER, PM_YEOMAN_WARDER, PM_COLONEL_BLOOD,
+      PM_RAVEN, PM_WEREWOLF, S_RODENT, S_DOG,
+      ART_CROWN_OF_SAINT_EDWARD,
+      MH_HUMAN | MH_ELF | MH_HOBBIT | MH_CENTAUR, ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      {  12,  7, 10, 12, 12,  7 },
+      {  20, 15, 15, 10, 20, 10 },
+      /* Init   Lower  Higher */
+      { 14, 0,  0, 8,  2, 0 },	/* Hit points */
+      {  1, 4,  0, 1,  0, 2 },10,	/* Energy */
+      10, 8,-2, 0,  9, A_WIS, SPE_KNOCK, -4 },
+    
     /* Array terminator */
     { { 0, 0 } }
 };
@@ -1039,6 +1113,25 @@ const struct Race races[] = {
         /* Init   Lower  Higher */
         {  3, 0,  0, 3,  2, 0 },	/* Hit points */
         {  3, 0,  4, 0,  4, 0 }		/* Energy */
+    },
+    {	"doppelganger", "doppelganger", "doppelganger-kind", "Dop",
+        {0, 0}, /* individual as a noun */
+        PM_DOPPELGANGER,    /* PM_ as a male monster */
+        NON_PM,             /* ...or as a female (NON_PM == same) */
+        PM_HUMAN_MUMMY,     /* PM_ as a mummy */
+        PM_HUMAN_ZOMBIE,    /* PM_ as a zombie */
+        MH_SHIFTER | ROLE_MALE | ROLE_FEMALE 
+            | ROLE_NEUTRAL | ROLE_CHAOTIC, /* allowed variations */
+        MH_SHIFTER,        /* your own race's bit mask */
+        MH_WERE,          /* always peaceful */
+        MH_ELF | MH_GNOME | MH_DWARF | MH_HOBBIT | MH_HUMAN | MH_ORC 
+            | MH_TORTLE | MH_GIANT | MH_CENTAUR | MH_ILLITHID, /* always hostile */
+        /*    Str     Int Wis Dex Con Cha */
+        {      1,      3,  3,  1,  1,  1 },
+        { STR18(100), 20, 20, 20, 20, 15 },
+        /* Init   Lower  Higher */
+        {  0, 0,  0, 1,  1, 0 },	/* Hit points */
+        {  7, 0,  5, 0,  5, 0 }		/* Energy */
     },
     /* Array terminator */
     { 0, 0, 0, 0 }
@@ -2575,6 +2668,8 @@ struct monst *mtmp;
         return (mtmp && mtmp->data == &mons[PM_SHOPKEEPER])
                     ? "Irasshaimase"
                     : "Konnichi wa"; /* Japanese */
+    case PM_PIRATE:
+        return "Ahoy"; /* Pirate */
     case PM_TOURIST:
         return "Aloha"; /* Hawaiian */
     case PM_VALKYRIE:

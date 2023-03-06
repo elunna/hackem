@@ -55,6 +55,7 @@
 #define MS_PIG          47 /* Pigs, hogs */
 #define MS_YAWN         48 /* hippos yawn when angry */
 #define MS_ANT          49 /* ants */
+#define MS_PIRATE       50 /* pirates */
 
 #define MR_FIRE         0x00000001L /* resists fire */
 #define MR_COLD         0x00000002L /* resists cold */
@@ -203,16 +204,17 @@
 #define MH_ILLITHID     0x00000100L
 #define MH_TORTLE       0x00000200L
 #define MH_VAMPIRE      0x00000400L
+#define MH_SHIFTER      0x00000800L
 /* Flags below not used as a player race */
-#define MH_UNDEAD       0x00000800L
-#define MH_WERE         0x00001000L
-#define MH_DEMON        0x00002000L
-#define MH_DRAGON       0x00004000L 
-#define MH_ANGEL        0x00008000L 
-#define MH_OGRE         0x00010000L
-#define MH_TROLL        0x00020000L
-#define MH_GNOLL        0x00040000L
-#define MH_JABBERWOCK   0x00080000L
+#define MH_UNDEAD       0x00001000L
+#define MH_WERE         0x00002000L
+#define MH_DEMON        0x00004000L
+#define MH_DRAGON       0x00008000L
+#define MH_ANGEL        0x00010000L
+#define MH_OGRE         0x00020000L
+#define MH_TROLL        0x00040000L
+#define MH_GNOLL        0x00080000L
+#define MH_JABBERWOCK   0x00100000L
 
 #define MH_ANY          0x80000000L
 

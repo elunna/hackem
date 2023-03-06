@@ -1151,7 +1151,7 @@ makelevel()
         }
         if (!rn2(40) && depth(&u.uz) > 2)
             mkforge(0, croom);
-        if (!rn2(80) && depth(&u.uz) > 3)
+        if (!rn2(65) && depth(&u.uz) > 3)
             mkvent(0, croom);
         if (!rn2(60))
             mkaltar(croom);
@@ -1614,6 +1614,36 @@ register xchar x, y;
     return FALSE;
 }
 
+
+boolean
+bywall(x, y)
+register xchar x, y;
+{
+    register int typ;
+    
+    if (isok(x + 1, y)) {
+        typ = levl[x + 1][y].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    if (isok(x - 1, y)) {
+        typ = levl[x - 1][y].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    if (isok(x, y + 1)) {
+        typ = levl[x][y + 1].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    if (isok(x, y - 1)) {
+        typ = levl[x][y - 1].typ;
+        if (IS_WALL(typ))
+            return TRUE;
+    }
+    return FALSE;
+}
+
 /* see whether it is allowable to create a door at [x,y] */
 int
 okdoor(x, y)
@@ -2056,24 +2086,24 @@ mkvent(int mazeflag, struct mkroom *croom)
     register int tryct = 0;
     
     do {
-        if (++tryct > 200)
+        if (++tryct > 500)
             return;
         if (mazeflag)
             mazexy(&m);
         else if (!somexy(croom, &m))
             return;
-    } while (occupied(m.x, m.y) || bydoor(m.x, m.y));
+    } while (occupied(m.x, m.y) || bydoor(m.x, m.y) || bywall(m.x, m.y));
 
     levl[m.x][m.y].typ = VENT;
-    level.flags.nvents++;
     /* Old calculation made poison vents more likely as level deepened.
      * This seemed buggy - we'll make it a simple 2 in 3. */
     /*if (depth(&u.uz) > 6 && rn2(depth(&u.uz - 4)))*/
-    if (depth(&u.uz) > 13 && rn2(3))
+    if (depth(&u.uz) > 8 && rn2(3))
         levl[m.x][m.y].poisonvnt = 1;
     
     (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
                        long_to_any(((long) m.x << 16) | (long) m.y));
+    level.flags.nvents++;
 }
 
 STATIC_OVL void
@@ -2410,8 +2440,8 @@ xchar x, y;
 
     if (!(u.uz.dnum == oracle_level.dnum      /* in main dungeon */
           && !at_dgn_entrance("The Quest")    /* but not Quest's entry */
-          && (u_depth = depth(&u.uz)) > 10    /* beneath 10 */
-          && u_depth < depth(&medusa_level))) /* and above Medusa */
+          && (u_depth = depth(&u.uz)) > 10))  /* beneath 10 */
+
         return;
 
     /* Adjust source to be current level and re-insert branch. */

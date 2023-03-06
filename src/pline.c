@@ -24,6 +24,172 @@ static void FDECL(execplinehandler, (const char *));
 unsigned saved_pline_index = 0; /* slot in saved_plines[] to use next */
 char *saved_plines[DUMPLOG_MSG_COUNT] = { (char *) 0 };
 
+/*Ben Collver's fixes*/
+const char *
+replace(const char *st, const char *orig, const char *repl)
+{
+    static char retval[TBUFSZ];
+    char buffer[TBUFSZ];
+    const char *ch, *pos;
+    size_t len;
+    memset(buffer, 0, TBUFSZ);
+    pos = st;
+    while ((ch = strstr(pos, orig))) {
+        len = (ch - pos);
+        strncat(buffer, pos, len);
+        strncat(buffer, repl, strlen(repl));
+        pos = (ch + strlen(orig));
+    }
+    if (pos == st) {
+        return st;
+    }
+    if (pos < (st + strlen(st))) {
+        strncat(buffer, pos, (st - pos));
+    }
+    strcpy(retval, buffer);
+    return retval;
+}
+
+/*Ben Collver's fixes*/
+const char *
+piratesay(const char *orig)
+{
+    orig = replace(orig, "find it hard to breathe", "start dancing the hempen jig");
+    orig = replace(orig, "succeed in lockin' the box", "batten down the hatches");
+    orig = replace(orig, "You fall down the stairs.", "Blow the man down!");
+    orig = replace(orig, "You fall down the ladder.", "Blow the man down!");
+    orig = replace(orig, "You arm your fire bomb.", "Fire in the hole!");
+    orig = replace(orig, "You arm your sonic bomb.", "Fire in the hole!");
+    orig = replace(orig, "You arm your gas bomb.", "Fire in the hole!");
+    orig = replace(orig, "move the boulder", "heave ho");
+    orig = replace(orig, "no longer feel sluggish", "got your sea legs back");
+    orig = replace(orig, "suddenly seems weaker", "looks seasick");
+    orig = replace(orig, "don't know", "dunno");
+    orig = replace(orig, " it is", " 'tis");
+    orig = replace(orig, "It is ", "'Tis ");
+    orig = replace(orig, "Is not ", "Ain't ");
+    orig = replace(orig, "is not ", "ain't ");
+    orig = replace(orig, "wipe off", "swab");
+    orig = replace(orig, "wiped off", "swabbed");
+    orig = replace(orig, "You", "Ye");
+    orig = replace(orig, "you", "ye");
+    orig = replace(orig, "His", "'is");
+    orig = replace(orig, " his", " 'is");
+    orig = replace(orig, " him", " 'im");
+    orig = replace(orig, "Her", "'er");
+    orig = replace(orig, " her", " 'er");
+    orig = replace(orig, " my", " me");
+    orig = replace(orig, "Are", "Be");
+    orig = replace(orig, " are", " be");
+    orig = replace(orig, " and", " 'n");
+    orig = replace(orig, "Is", "Be");
+    orig = replace(orig, " is ", " be ");
+    orig = replace(orig, " is.", " be.");
+    orig = replace(orig, "Of", "O'");
+    orig = !rn2(2) ? replace(orig, " of ", " o' ") : orig;
+    orig = replace(orig, " to ", rn2(5) ? " to " : " t' ");
+    orig = replace(orig, " for", " fer");
+    orig = replace(orig, "What ", "Wha' ");
+    orig = replace(orig, "what ", "wha' ");
+    orig = replace(orig, "with ", "wit' ");
+    orig = replace(orig, "With", "Wit'");
+    orig = replace(orig, " have", " 'ave");
+    orig = replace(orig, "Not ", "Nah ");
+    orig = replace(orig, "not ", "nah ");
+    orig = replace(orig, " eye ", " deadlight ");
+    orig = replace(orig, " eye.", " deadlight.");
+    orig = replace(orig, " eye!", " deadlight!");
+    orig = replace(orig, " eyes", " deadlights");
+    orig = replace(orig, "zorkmid", "doubloon");
+    orig = replace(orig, "Zorkmid", "Doubloon");
+    orig = replace(orig, "gold coins", "pieces of eight");
+    orig = replace(orig, "Gold coins", "Pieces of eight");
+    orig = replace(orig, "gold coin", "piece of eight");
+    orig = replace(orig, "Gold coin", "Piece of eight");
+    orig = replace(orig, "gold pieces", "pieces of eight");
+    orig = replace(orig, "Gold pieces", "Pieces of eight");
+    orig = replace(orig, "gold piece", "piece of eight");
+    orig = replace(orig, "Gold piece", "Piece of eight");
+    orig = replace(orig, "treasure", "booty");
+    orig = replace(orig, "potion", "bottle");
+    orig = replace(orig, "Ouch!", "Arrr!");
+    orig = replace(orig, "Wow!", "Avast!");
+    orig = replace(orig, "Dumb", "Squiffy");
+    
+    orig = replace(orig, "state", "way");
+    orig = replace(orig, "boy ", "whelp");
+    orig = replace(orig, " just", " jus'");
+    orig = replace(orig, "before", "'afore");
+    orig = replace(orig, "Before", "'Afore");
+    orig = replace(orig, " rear", " aft");
+    orig = replace(orig, " bottom", " dungbie");
+    orig = replace(orig, "After", "Aft");
+    orig = replace(orig, " after", " aft");
+    orig = replace(orig, "nothing", "naught");
+    orig = replace(orig, "Nothing", "Naught");
+    orig = replace(orig, "recorded", "logged");
+    orig = replace(orig, "record", "log");
+    orig = replace(orig, "careful", "handsome");
+    orig = replace(orig, "terrible", "ghastly");
+    orig = replace(orig, "quick", "smart");
+    orig = replace(orig, "talk", "natter");
+    orig = replace(orig, "noises", "racket");
+    orig = replace(orig, " lord", " cap'n");
+    orig = replace(orig, " killed", 
+                   rn2(2) ? " scuttled" : rn2(2) 
+                                          ? " killed" : rn2(2) 
+                                                ? " sunk" : " cut down");
+    orig = replace(orig, "kill ", 
+                   rn2(2) ? "scuttle " : rn2(2) 
+                                         ? "kill " : rn2(2) 
+                                               ? "sink " : "cut ");
+    orig = replace(orig, "dies ", 
+                   rn2(2) ? "walks the plank" : rnd(2) 
+                                                ? "dances the hempen jig" : rnd(2) 
+                                                      ? "sees the black spot" : "dies");
+    orig = replace(orig, "probably", "prolly");
+    orig = replace(orig, " own ", " owns ");
+    orig = replace(orig, "music ", "chanties ");
+    orig = replace(orig, "toilet", "head");
+    orig = replace(orig, "knapsack", "duffle");
+    orig = replace(orig, "dirty rag", "black jack");
+    orig = replace(orig, "succubus", "strumpet");
+    orig = replace(orig, "incubus", "rapscallion");
+    orig = replace(orig, "scoundrel", "picaroon");
+    orig = replace(orig, "Gasp!", "Blimey!");
+    orig = replace(orig, "Uh-oh.", "Sink me!");
+    orig = replace(orig, "Oh my!", "Shiver me timbers!");
+    orig = replace(orig, "What?", "Arr!");
+    orig = replace(orig, "Hmmm", "Arr");
+    orig = replace(orig, "Hmm", "Arr");
+    orig = replace(orig, "Why?", "Scupper that!");
+    orig = replace(orig, "Oh no!", "avast ye!");
+    orig = replace(orig, "Oh no", "avast ya");
+    orig = replace(orig, "services rendered", "crackin' Jenny's tea up");
+    orig = replace(orig, "suffocate", "dance with Jack Ketch");
+    orig = replace(orig, "fall asleep", "take a chalk");
+    orig = replace(orig, "falls asleep", "takes a chalk");
+    orig = replace(orig, "wakes up", "shows a leg");
+    orig = replace(orig, "wake up", "show a leg");
+    orig = replace(orig, "steal ", rn2(3) ? "hornswaggle " : "steal ");
+    
+    /* This will catch a LOT of stuff */
+    orig = replace(orig, "cing ", "cin' ");
+    orig = replace(orig, "ding ", "din' ");
+    orig = replace(orig, "ging ", "gin' ");
+    orig = replace(orig, "king ", "kin' ");
+    orig = replace(orig, "ming ", "min' ");
+    orig = replace(orig, "ning ", "nin' ");
+    orig = replace(orig, "oing ", "oin' ");
+    orig = replace(orig, "ting ", "tin' ");
+    orig = replace(orig, "ssing ", "ssin' ");
+    orig = replace(orig, "ving ", "vin' ");
+    orig = replace(orig, "wing ", "win' ");
+    orig = replace(orig, "ying ", "yin' ");
+    
+    return orig;
+}
+
 /* keep the most recent DUMPLOG_MSG_COUNT messages */
 void
 dumplogmsg(line)
@@ -179,6 +345,11 @@ VA_DECL(const char *, line)
     if ((pline_flags & SUPPRESS_HISTORY) == 0)
         dumplogmsg(line);
 #endif
+
+    if (Role_if(PM_PIRATE)){
+        line = piratesay(line);
+    }
+
     /* use raw_print() if we're called too early (or perhaps too late
        during shutdown) or if we're being called recursively (probably
        via debugpline() in the interface code) */

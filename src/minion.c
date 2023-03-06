@@ -602,7 +602,8 @@ gain_guardian_angel()
                 mtmp->mtame = 10;
                 u.uconduct.pets++;
             }
-            
+            mtmp->mpeaceful = TRUE; 
+            EDOG(mtmp)->apport = ACURR(A_CHA);
             /* make sure our angel isn't starving to death when we arrive */
             EDOG(mtmp)->hungrytime = 1000 + monstermoves;
             mtmp->mstrategy &= ~STRAT_APPEARMSG;

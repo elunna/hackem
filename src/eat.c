@@ -734,7 +734,7 @@ boolean allowmsg;
             if (Upolyd && your_race(fptr))
                 You("have a bad feeling deep inside.");
             if (Hallucination) {
-                You("feel unaccountably peckish.");      /* Fallen London */
+                You_feel("unaccountably peckish.");      /* Fallen London */
             } else {
                 You("cannibal!  You will regret this!");
             }
@@ -1351,7 +1351,7 @@ int pm;
             attrcurse();
         if ((Hallucination)) {
             (void) make_hallucinated(0L, FALSE, 0L);
-            pline("The world seems less enchanting.");
+            pline_The("world seems less enchanting.");
         }
         break;
     case PM_MAGICAL_EYE:
@@ -1628,7 +1628,8 @@ const char *mesg;
         tin->dknown = tin->known = 1;
         cprefx(mnum);
         cpostfx(mnum);
-
+        mvitals[mnum].eaten = TRUE;
+        
         /* charge for one at pre-eating cost */
         tin = costly_tin(COST_OPEN);
 
@@ -1648,7 +1649,7 @@ const char *mesg;
             struct obj* cookie = mksobj(FORTUNE_COOKIE, FALSE, FALSE);
             cookie->blessed = tin->blessed;
             cookie->cursed = tin->cursed;
-            pline("There is a free fortune cookie inside!");
+            There("is a free fortune cookie inside!");
             hold_another_object(cookie, "It falls to the floor.", NULL, NULL);
         }
     } else { /* spinach... */
@@ -2054,6 +2055,10 @@ struct obj *otmp;
         make_glib(rn1(11, 5));
     }
 
+    /* WAC Track food types eaten */
+	if (mvitals[mnum].eaten < 255)
+        mvitals[mnum].eaten++;
+
     return retcode;
 }
 
@@ -2172,7 +2177,7 @@ struct obj *otmp;
             pline("This cake is very filling! You feel bloated.");
             exercise(A_DEX, FALSE);
         } else if (Hallucination) {
-            pline("You have some cake, and you eat it too!");
+            You("have some cake, and you eat it too!");
         } else {
             pline("This cake is fantastic! You feel amazing.");
             /* blessed restore ability */
@@ -2472,9 +2477,9 @@ struct obj *otmp;
             break;
         case AMULET_OF_DANGER: {
             if (Hallucination)
-                pline("You\'re in the Danger Zone...");
+                pline("You're in the Danger Zone!");
             else
-                You("feel more dangerous!");
+                You_feel("more dangerous!");
             break;
         }
         case RIN_SLEEPING:
@@ -2495,6 +2500,7 @@ struct obj *otmp;
                 fix_petrification();
             break;
         case RIN_SUSTAIN_ABILITY:
+        case RIN_DISPLACEMENT:
         case AMULET_OF_LIFE_SAVING:
         case AMULET_OF_FLYING:
         case AMULET_OF_REFLECTION: /* nice try */
@@ -2517,14 +2523,14 @@ eatpill()
         /* Chances of wish have been nerfed */
         if (!rn2(25 - u.uluck)) {
             /* [Tom] wishing pills are from the Land of Oz */
-            pline("The pink sugar coating hid a silver wishing pill!");
+            pline_The("pink sugar coating hid a silver wishing pill!");
             makewish();
         } else
             pline1(nothing_happens);
         break;
     case 1:
         if(!Poison_resistance) {
-            You("feel your stomach twinge.");
+            You_feel("your stomach twinge.");
             losestr(rnd(4));
             losehp(rnd(15), "poisonous pill", KILLED_BY_AN);
         } else  You("seem unaffected by the poison.");
@@ -2556,7 +2562,7 @@ eatpill()
         if (Sleep_resistance) {
             pline("Hmm. Nothing happens.");
         } else {
-            pline("You feel drowsy...");
+            You_feel("drowsy...");
             nomul(-rn2(50));
             u.usleep = 1;
             nomovemsg = "You wake up.";
@@ -2565,7 +2571,7 @@ eatpill()
     case 6:
         pline("Wow... everything is moving in slow motion...");
         /* KMH, balance patch -- Use incr_itimeout() instead of += */
-        incr_itimeout(&HFast, rn1(10,200));
+        incr_itimeout(&HFast, rn1(10, 200));
         break;
     default:
         break;
@@ -2573,7 +2579,7 @@ eatpill()
     
     /* Pills always cure larval infections */
     if (LarvaCarrier) {
-        You("feel as if your body is your own again.");
+        You_feel("as if your body is your own again.");
         make_carrier(0L, FALSE);
     }
 }
@@ -2593,7 +2599,7 @@ struct obj *otmp;
     case 0:
     case 1:
         if (!Poison_resistance) {
-            You("feel rather ill....");
+            You_feel("rather ill....");
             losestr(rnd(4));
             losehp(rnd(15), "poisonous mushroom", KILLED_BY_AN);
         } else
@@ -2679,7 +2685,7 @@ eatspecial()
     }
 
     if (otmp->oartifact == ART_HAND_OF_VECNA) {
-        You("feel a burning deep inside your %s!", body_part(STOMACH));
+        You_feel("a burning deep inside your %s!", body_part(STOMACH));
         if (otmp->cursed)
             u.uhp -= rn1(150, 250);
         else
@@ -2739,26 +2745,26 @@ struct obj *otmp;
             you_unwere(TRUE);
         break;
     case HOLY_WAFER:            
-		if (u.ualign.type == A_LAWFUL) {
-			if (u.uhp < u.uhpmax) {
-				You("feel warm inside.");
-				u.uhp += rn1(20,20);
-				if (u.uhp > u.uhpmax) 
+        if (u.ualign.type == A_LAWFUL) {
+            if (u.uhp < u.uhpmax) {
+                You_feel("warm inside.");
+                u.uhp += rn1(20, 20);
+                if (u.uhp > u.uhpmax)
                     u.uhp = u.uhpmax;
-			} 
-		}
-		if (Sick) 
+            }
+        }
+        if (Sick) 
             make_sick(0L, (char *)0, TRUE, SICK_ALL);
-		if (u.ulycn != -1) {
-		    you_unwere(TRUE);
-		}
-		if (u.ualign.type == A_CHAOTIC) {
-		    You("feel a burning inside!");
-		    u.uhp -= rn1(10,10);
-		    /* KMH, balance patch 2 -- should not have 0 hp */
-		    if (u.uhp < 1) u.uhp = 1;
-		}
-		break;
+        if (u.ulycn != -1)
+            you_unwere(TRUE);
+        if (u.ualign.type == A_CHAOTIC) {
+            You_feel("a burning inside!");
+            u.uhp -= rn1(10, 10);
+            /* KMH, balance patch 2 -- should not have 0 hp */
+            if (u.uhp < 1)
+                u.uhp = 1;
+        }
+        break;
     case CARROT:
         if (!u.uswallow
             || !attacktype_fordmg(u.ustuck->data, AT_ENGL, AD_BLND))
@@ -2773,7 +2779,7 @@ struct obj *otmp;
     case EYEBALL:
         if (!otmp->oartifact)
             break;
-        You("feel a burning deep inside your %s!", body_part(STOMACH));
+        You_feel("a burning deep inside your %s!", body_part(STOMACH));
         if (otmp->cursed)
             u.uhp -= rn1(150, 250);
         else
@@ -2929,7 +2935,7 @@ struct obj *otmp;
         else
             return 2;
     }
-    if (stoneorslime) {
+    if (stoneorslime || otmp->oartifact == ART_EYE_OF_VECNA) {
         Sprintf(buf, "%s like %s could be something very dangerous!  %s",
                 foodsmell, it_or_they, eat_it_anyway);
         if (yn_function(buf, ynchars, 'n') == 'n')
@@ -3039,6 +3045,10 @@ doeat()
         return 0;
     } else if (Strangled) {
         pline("If you can't breathe air, how can you consume solids?");
+        return 0;
+    }
+    if (uarmh && uarmh->otyp == PLASTEEL_HELM){
+        pline_The("%s covers your whole face.", xname(uarmh));
         return 0;
     }
     if (!(otmp = floorfood("eat", 0)))
@@ -3189,7 +3199,7 @@ doeat()
         } else if (!nodelicious) {
             pline("%s%s is delicious!",
                   (obj_is_pname(otmp)
-                   && otmp->oartifact < ART_XIUHCOATL)
+                   && otmp->oartifact < ART_ITLACHIAYAQUE)
                       ? ""
                       : "This ",
                   (otmp->oclass == COIN_CLASS)
@@ -3732,7 +3742,7 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     char qbuf[QBUFSZ];
     char c;
     boolean feeding = !strcmp(verb, "eat"),    /* corpsecheck==0 */
-        offering = !strcmp(verb, "sacrifice"); /* corpsecheck==1 */
+        offering = (!strcmp(verb, "sacrifice")); /* corpsecheck==1 */
 
     /* if we can't touch floor objects then use invent food only */
     if (iflags.menu_requested /* command was preceded by 'm' prefix */

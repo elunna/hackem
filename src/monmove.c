@@ -319,8 +319,7 @@ boolean fleemsg;
     struct monst* mtmp2;
 
     /* shouldn't happen; maybe warrants impossible()? */
-    if (DEADMONSTER(mtmp) || mindless(mtmp->data)
-        || unique_corpstat(mtmp->data))
+    if (DEADMONSTER(mtmp) || unique_corpstat(mtmp->data))
         return;
 
     if (mtmp == u.ustuck)
@@ -878,13 +877,10 @@ toofar:
         || mtmp->data == &mons[PM_ACID_ELEMENTAL]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
-    /* --hackem: I don't want an exact copy of Hezrous, but badgers are known
-         * for being stinky. So they will frequently leave trails of gas...
-         * Same for skunks
+    /* Not an exact copy of Hezrous, but skunks are known
+     * for being stinky. So they will frequently leave trails of gas...
      */
-    if ((mtmp->data == &mons[PM_GIANT_BADGER]
-        || mtmp->data == &mons[PM_HONEY_BADGER]
-         || mtmp->data == &mons[PM_SKUNK]) && !rn2(3)) /* badger stink */
+    if (mtmp->data == &mons[PM_SKUNK] && !rn2(3))
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
     /* Mist wolves make misty cloud floods */
@@ -1313,9 +1309,14 @@ register int after;
     }
 #endif
 
-    /* jump toward the player if that lies in our nature */
-    if (can_jump(mtmp) || is_jumper(ptr)) {
+    /* jump toward the player if that lies in
+       our nature, can see the player, and isn't
+       otherwise incapacitated in some way */
+    if ((can_jump(mtmp) || is_jumper(ptr)) && m_canseeu(mtmp)
+        && !(mtmp->mflee || mtmp->mconf
+             || mtmp->mstun || mtmp->msleeping)) {
         int dist = dist2(mtmp->mx, mtmp->my, u.ux, u.uy);
+
         if (!mtmp->mpeaceful && !rn2(3) && dist <= 20 && dist > 8) {
             int x = u.ux - mtmp->mx;
             int y = u.uy - mtmp->my;
@@ -2012,6 +2013,12 @@ register int after;
                 if (meatjelly(mtmp) == 2)
                     return 2; /* it died */
             }
+            
+            /* Cats love catnip */
+            if (is_feline(ptr)) {
+                if (meatcatnip(mtmp) == 2)
+                    return 2; /* it died */
+            }
 
             if (!*in_rooms(mtmp->mx, mtmp->my, SHOPBASE) || !rn2(25)) {
                 boolean picked = FALSE;
@@ -2135,6 +2142,10 @@ register int x, y;
         return 2;
     
     switch (levl[x][y].typ) {
+    case VENT:
+        if (levl[x][y].poisonvnt == 1)
+            return 3; /* Only poison resistant can hide here */
+        /* FALLTHROUGH */
     case GRASS:
     case SINK:
     case TOILET:
@@ -2142,6 +2153,7 @@ register int x, y;
     case THRONE:
     case LADDER:
     case GRAVE:
+    
         return 1;
     default:
         return 0;
@@ -2399,7 +2411,7 @@ boolean domsg;
     }
 
     if (reslt && domsg) {
-        pline("You %s %s where %s was.",
+        You("%s %s where %s was.",
               !canseemon(mon) ? "now detect" : "observe",
               noname_monnam(mon, ARTICLE_A), oldmtype);
         /* this message is given when it turns into a fog cloud

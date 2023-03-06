@@ -45,7 +45,7 @@
 %.au
 \author{Original version - Eric S. Raymond\\
 (Edited and expanded for 3.6 by Mike Stephenson and others)}
-\date{September 29, 2021}
+\date{February 3, 2023}
 
 \maketitle
 
@@ -130,6 +130,12 @@ and a great two-handed sword.
 start with exceptional strength, but unfortunately, neolithic weapons.
 %.pg
 %
+\item[\bb{Convicts}]%
+are hardened by the prison system and ready for anything 
+after their recent escape.  They may have the hard knock life in the 
+early going, but convicts are just as tough as the dungeon.
+%.pg
+%
 \item[\bb{Flame Mages}]%
 have managed to harness mystical energies into the control
 of the element of fire.  Notwithstanding their pet hell hounds,  woe be unto
@@ -156,6 +162,12 @@ magics, but less so in the physical combat.  As an Infidel, your goal is not
 to retrieve the Amulet, but to return it to its hiding place within Gehennom.
 %.pg
 %
+\item[\bb{Jedi}]%
+are masters of the force, the energy that flows through the universe. Their 
+skills are focused on the sword and lightsaber; care for it well, and it will
+keep you alive.
+%.pg
+%
 \item[\bb{Knights}]%
 are distinguished from the common skirmisher by their
 devotion to the ideals of chivalry and by the surpassing excellence of
@@ -173,6 +185,11 @@ have delved into the darkest of the magical lore, and
 mastered some of the most forbidden of the magical lore.  Many have fallen
 to the armies of the undead that they are capable of bringing forth and
 controlling.
+%.pg
+%
+\item[\bb{Pirates}]%
+are swashbuckling adventurers, skilled on the sea and tough on land.
+They speak the language of the sea and drink like fish. 
 %.pg
 %
 \item[\bb{Priests {\rm and} Priestesses}]%
@@ -226,6 +243,11 @@ roles have restrictions on which races are eligible for them):
 %.pg
 %
 \blist{}
+\item[\bb{Doppelgangers}]%
+have the enviable ability to change form at will,  at
+a cost of some mystic energy ({\it mana\/}),  although what they become
+may be a bit of a surprise,  even for them.
+%.pg
 \item[\bb{Dwarves}]%
 are smaller than humans or elves, but are stocky and solid
 individuals.  Dwarves' most notable trait is their great expertise in mining
@@ -3365,6 +3387,10 @@ traps and each other as well as by you.
 And the dungeon overview shows all levels you had visited but does not
 reveal things about them that you hadn't discovered.
 %.lp
+\item[\ib{birdname}]
+Name your starting bird (for example, ``{\tt birdname:Squawks}'').
+Cannot be set with the `{\tt O}' command.
+%.lp
 \item[\ib{dogname}]
 Name your starting dog (for example, ``{\tt dogname:Fang}'').
 Cannot be set with the `{\tt O}' command.
@@ -3572,6 +3598,10 @@ Default `,'.
 % Only applicable to some menus, and only useful to some interfaces.
 % Debug mode only.
 %.lp
+\item[\ib{monkeyname}]
+Name your starting monkey (for example, ``{\tt monkeyname:Ugga-Ugga}'').
+Cannot be set with the `{\tt O}' command.
+%.lp
 \item[\ib{monpolycontrol}]
 Prompt for new form whenever any monster changes shape (default off).
 Debug mode only.
@@ -3715,6 +3745,8 @@ than immediately praying; on by default;
 \item[{\tt Remove~}] require selection from inventory for `{\tt R}'
 and `{\tt T}'
 commands even when wearing just one applicable item.
+\item[{\tt swim~~~}]
+prevent walking into water or lava.
 \item[{\tt all~~~~}]
 turn on all of the above.
 \elist
@@ -4288,11 +4320,9 @@ or ports to customize and change the port behavior.
 
 \blist{}
 %.lp
-\item[\ib{altkeyhandler}]
-Select an alternate keystroke handler dll to load ({\it Win32 tty\/ NetHack\/} only).
-The name of the handler is specified without the .dll extension and without any
-path information.
-Cannot be set with the `{\tt O}' command.
+\item[\ib{altkeyhandling}]
+Select an alternate way to handle keystrokes ({\it Win32 tty\/ NetHack\/} only).
+The name of the handling type is one of {\it default}, {\it ray}, {\it 340}
 %.lp
 \item[\ib{altmeta}]
 On Amiga, this option controls whether typing ``Alt'' plus another key
@@ -5279,6 +5309,9 @@ Show menus on a cleared screen and aligned to the left edge.
 A lot of speech access programs use the number-pad to review the screen.
 If this is the case, disable the number\verb+_+pad option and use the
 traditional Rogue-like commands.
+\item[\ib{paranoid\verb+_+confirmation:swim}]
+Prevent walking into water or lava.
+%.lp
 %.lp
 \item[\ib{autodescribe}]
 Automatically describe the terrain under the cursor when targeting.
@@ -5859,6 +5892,11 @@ and a small number of bug fixes.
 %.pg
 \medskip
 NetHack 3.6.6 was released on March 8, 2020 containing a security fix and
+some bug fixes.
+
+%.pg
+\medskip
+NetHack 3.6.7 was released in February 2023 containing a security fix and
 some bug fixes.
 
 %.pg

@@ -2600,6 +2600,10 @@ char *origbuf;
         (void) strncpy(ratname, bufp, PL_PSIZ - 1);
     } else if (match_varname(buf, "GHOULNAME", 3)) {
         (void) strncpy(ghoulname, bufp, PL_PSIZ - 1);
+    } else if (match_varname(buf, "MONKEYNAME", 3)) {
+        (void) strncpy(monkeyname, bufp, PL_PSIZ - 1);
+    } else if (match_varname(buf, "BIRDNAME", 3)) {
+        (void) strncpy(birdname, bufp, PL_PSIZ - 1);
 
 #ifdef SYSCF
     } else if (src == SET_IN_SYS && match_varname(buf, "WIZARDS", 7)) {
@@ -4522,7 +4526,7 @@ unsigned oid; /* book identifier */
     if (!fp) {
         /* this is actually an error - cannot open tribute file! */
         if (!nowin_buf)
-            pline("You feel too overwhelmed to continue!");
+            You_feel("too overwhelmed to continue!");
         return grasped;
     }
 

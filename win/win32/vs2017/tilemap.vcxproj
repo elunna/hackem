@@ -65,6 +65,7 @@
     <ClInclude Include="$(IncDir)rm.h" />
     <ClInclude Include="$(IncDir)skills.h" />
     <ClInclude Include="$(IncDir)spell.h" />
+    <ClInclude Include="$(IncDir)tech.h" />
     <ClInclude Include="$(IncDir)timeout.h" />
     <ClInclude Include="$(IncDir)tradstdc.h" />
     <ClInclude Include="$(IncDir)trampoli.h" />

@@ -55,6 +55,7 @@ short otyp;
     case SCR_ICE:
         return 20;
     case SCR_TIME:
+    case SCR_ACQUIREMENT:
     case SCR_ANNIHILATION:
     case SCR_CLONING:
         return 30;
@@ -249,6 +250,14 @@ found:
     basecost = ink_cost(new_obj->otyp);
     if (new_obj->otyp == SCR_KNOWLEDGE) {
         You("cannot write something you do not know!");
+        return 1;
+    }
+    if (new_obj->otyp == SCR_TIME) {
+        You("cannot write an illusion!");
+        return 1;
+    }
+    if (new_obj->otyp == SCR_ACQUIREMENT) {
+        You("cannot acquire an acquirement!");
         return 1;
     }
     if (pen->spe < basecost / 2) {

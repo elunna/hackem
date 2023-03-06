@@ -82,6 +82,7 @@ enum roomtype_types {
     TERRORHALL = 27, /* hulks */
     RNDVAULT   = 28, /* random vault, not to be confused with VAULT */
     BLACKFOYER = 29, /* Foyer to the black market */
+                      
     SHOPBASE   = 30, /* everything above this is a shop */
     ARMORSHOP  = 31, /* specific shop defines for level compiler */
     SCROLLSHOP = 32,
@@ -92,14 +93,14 @@ enum roomtype_types {
     WANDSHOP   = 37,
     TOOLSHOP   = 38,
     BOOKSHOP   = 39,
-    GUNSHOP    = 40,
-    FODDERSHOP = 41, /* health food store */
-    TINSHOP    = 42,
-    INSTRUMENTSHOP = 43,
-    PETSHOP    = 44, /* Stephen White */
-    ARCHERYSHOP = 45,
-    MASKSHOP   = 46,
-    JUNKSHOP   = 47,
+    ARCHERYSHOP = 40,
+    MASKSHOP   = 41,
+    JUNKSHOP   = 42,
+    FODDERSHOP = 43, /* health food store */
+    TINSHOP    = 44,
+    GUNSHOP    = 45,
+    INSTRUMENTSHOP = 46,
+    PETSHOP    = 47, /* Stephen White */
     CANDLESHOP = 48, /*(UNIQUESHOP) */
     BLACKSHOP  = 49  /*(UNIQUESHOP) */
 };

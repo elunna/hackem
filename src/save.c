@@ -185,6 +185,8 @@ dosave0()
         change_luck(-1);              /* and unido!ab */
     if (flags.friday13)
         change_luck(1);
+    if (flags.quest_boon)
+        change_luck(-3);
     if (iflags.window_inited)
         HUP clear_nhwindow(WIN_MESSAGE);
 
@@ -358,6 +360,8 @@ register int fd, mode;
     bwrite(fd, (genericptr_t) &quest_status, sizeof quest_status);
     bwrite(fd, (genericptr_t) spl_book,
            sizeof(struct spell) * (MAXSPELL + 1));
+    bwrite(fd, (genericptr_t) tech_list,
+			sizeof(struct tech) * (MAXTECH + 1));
     save_artifacts(fd);
     save_oracles(fd, mode);
     if (ustuck_id)

@@ -36,7 +36,8 @@ struct trobj Archeologist[] = {
     { FOOD_RATION, 0, FOOD_CLASS, 3, 0 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },        
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 2, UNDEF_BLESS },
-    { PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
+    { SCR_KNOWLEDGE, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
+    /*{ PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },*/
     { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { TOUCHSTONE, 0, GEM_CLASS, 1, 0 },
     { SACK, 0, TOOL_CLASS, 1, 0 },
@@ -86,7 +87,7 @@ struct trobj Healer[] = {
     { SCALPEL, 1, WEAPON_CLASS, 1, 1 },
     { GLOVES, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { STETHOSCOPE, 0, TOOL_CLASS, 1, 0 },
-    /* Missing medical kit */
+    { MEDICAL_KIT, 0, TOOL_CLASS, 1, 0 },   
     { POT_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { POT_EXTRA_HEALING, 0, POTION_CLASS, 4, UNDEF_BLESS },
     { WAN_SLEEP, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
@@ -101,17 +102,24 @@ struct trobj Healer[] = {
 };
 struct trobj Ice_Mage[] = {
 #define I_BOOK          10
+#define T_SNOWBALLS     11
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
     { SCR_ICE, UNDEF_SPE, SCROLL_CLASS, 2, 0 },
-    { WAN_WATER, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+    { WAN_COLD, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { FROST_HORN, UNDEF_SPE, TOOL_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
+    { SNOWBALL, 0, VENOM_CLASS, 12, 0 }, /* quan is variable */
+    { 0, 0, 0, 0, 0 }
+};
+static struct trobj Jedi[] = {
+    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
@@ -155,16 +163,20 @@ struct trobj Monk[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Necromancer[] = {
+#define N_BOOK          7
     { DAGGER, 0, WEAPON_CLASS, 2, UNDEF_BLESS },
-    { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
-    { UNDEF_TYP, UNDEF_SPE, FOOD_CLASS, 2, 0 },
-    { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
-    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 2, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, POTION_CLASS, 3, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 3, UNDEF_BLESS },
+    { SPE_SUMMON_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
+    { SPE_COMMAND_UNDEAD, 0, SPBOOK_CLASS, 1, 1 },
     { SPE_DRAIN_LIFE, 0, SPBOOK_CLASS, 1, 1 },
+        /* WAC -- gave him drain life rather than turn undead */
+    { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { WAN_DRAINING, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
+        /* KMH -- ...and the matching wand for the inexperienced */
     { WAN_FEAR, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
-    { PICK_AXE, 1, TOOL_CLASS, 1, UNDEF_BLESS },
+    { PICK_AXE, 1, TOOL_CLASS, 1, 1 }, /* for dealing with ghosts */
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Priest[] = {
@@ -175,6 +187,26 @@ struct trobj Priest[] = {
     { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 1, 0 },
     { SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 1, 0 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 2, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
+static struct trobj Pirate[] = {
+    { SCIMITAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { FLINTLOCK, 0, WEAPON_CLASS, 1, 0 },
+    { KNIFE, 1, WEAPON_CLASS, 3, 0 },
+    { JACKET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { HIGH_BOOTS, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { CRAM_RATION, 0, FOOD_CLASS, 2, UNDEF_BLESS },
+#define PIR_SNACK 6
+    { BANANA, 0, FOOD_CLASS, 3, 0 },
+#define PIR_RUM 7
+    { POT_BOOZE, 0, POTION_CLASS, 3, UNDEF_BLESS },
+#define PIR_JEWELRY 8
+    { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
+#define PIR_TOOL 9
+    { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
+#define PIR_BULLETS 10
+    { BULLET,  0, WEAPON_CLASS, 8, 0 },
+    { CRAM_RATION, 0, FOOD_CLASS, 2, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Ranger[] = {
@@ -303,6 +335,8 @@ struct trobj Towel[] = { { TOWEL, 0, TOOL_CLASS, 1, 0 },
                                 { 0, 0, 0, 0, 0 } };
 struct trobj Wishing[] = { { WAN_WISHING, 3, WAND_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
+struct trobj DeathWand[] = { { WAN_DEATH, 1, WAND_CLASS, 1, 0 },
+                           { 0, 0, 0, 0, 0 } };
 struct trobj Money[] = { { GOLD_PIECE, 0, COIN_CLASS, 1, 0 },
                                 { 0, 0, 0, 0, 0 } };
 struct trobj Gem[] = { { UNDEF_TYP, 0, GEM_CLASS, 1, 0 },
@@ -319,7 +353,12 @@ struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
-
+struct trobj GreenSaber[] = { { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+                              { 0, 0, 0, 0, 0, } };
+struct trobj BlueSaber[] = { { BLUE_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+                             { 0, 0, 0, 0, 0, } };
+struct trobj RedSaber[] = { { RED_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+                            { 0, 0, 0, 0, 0, } };
 
 /* race-based substitutions for initial inventory;
    the weaker cloak for elven rangers is intentional--they shoot better */
@@ -364,6 +403,7 @@ struct inv_sub {
     { PM_GNOME, ARROW, CROSSBOW_BOLT },
     { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD	      },
     { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD     },
+    { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD     },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
@@ -388,6 +428,7 @@ struct inv_sub {
     { PM_TORTLE, RING_MAIL, TOQUE },
     { PM_TORTLE, BATTLE_AXE, TRIDENT },
     { PM_TORTLE, ROBE, TOQUE },
+    { PM_TORTLE, ROBE_OF_POWER, TOQUE },
     { PM_TORTLE, HAWAIIAN_SHIRT, TOQUE },
     { PM_TORTLE, SPEAR, TRIDENT }, /* Undead Slayer */
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
@@ -419,6 +460,7 @@ static const struct def_skill Skill_A[] = {
     { P_RIDING, P_BASIC },
     { P_TWO_WEAPON_COMBAT, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_EXPERT },
+    { P_SHIELD, P_SKILLED },
     { P_FIREARM, P_SKILLED },
     { P_NONE, 0 }
 };
@@ -444,6 +486,7 @@ static const struct def_skill Skill_B[] = {
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_MASTER },
+    { P_SHIELD, P_SKILLED },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_C[] = {
@@ -466,6 +509,7 @@ static const struct def_skill Skill_C[] = {
     { P_UNICORN_HORN, P_BASIC },
     { P_RIDING, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_MASTER },
+    { P_SHIELD, P_BASIC },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_Con[] = {
@@ -480,11 +524,13 @@ static const struct def_skill Skill_Con[] = {
     { P_SHORT_SWORD, P_BASIC },
     { P_BROAD_SWORD, P_SKILLED },
     { P_SLING, P_SKILLED },
+    { P_FIREARM, P_EXPERT },
     { P_ATTACK_SPELL, P_BASIC },
     { P_ESCAPE_SPELL, P_EXPERT },
     { P_RIDING, P_BASIC },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
+    { P_SHIELD, P_BASIC },
     { P_NONE, 0 }
 };
 
@@ -559,7 +605,7 @@ static const struct def_skill Skill_I[] = {
     { P_MATTER_SPELL, P_EXPERT },
 
     { P_RIDING, P_EXPERT },
-    { P_TWO_WEAPON_COMBAT, P_SKILLED },
+    /*{ P_TWO_WEAPON_COMBAT, P_SKILLED },*/
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_NONE, 0 }
 };
@@ -584,6 +630,21 @@ static const struct def_skill Skill_Inf[] = {
     { P_DIVINATION_SPELL, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_RIDING, P_SKILLED },
+    { P_NONE, 0 }
+};
+static const struct def_skill Skill_J[] = {
+    /* 5lo: Straight from Jedi patch */
+    { P_LIGHTSABER, P_EXPERT },
+    { P_SHORT_SWORD, P_BASIC }, 
+    { P_BROAD_SWORD, P_BASIC },
+    { P_LONG_SWORD, P_SKILLED }, 
+    { P_SABER, P_SKILLED },
+    { P_FIREARM, P_BASIC },
+    { P_HEALING_SPELL, P_BASIC },
+    { P_ENCHANTMENT_SPELL, P_SKILLED }, /* special spell is charm monster */
+    { P_RIDING, P_SKILLED },
+    { P_TWO_WEAPON_COMBAT, P_BASIC }, 
+    { P_MARTIAL_ARTS, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_K[] = {
@@ -613,6 +674,7 @@ static const struct def_skill Skill_K[] = {
     { P_RIDING, P_EXPERT },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_EXPERT },
+    { P_SHIELD, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_Mon[] = {
@@ -651,6 +713,7 @@ static const struct def_skill Skill_N[] = {
     { P_DIVINATION_SPELL, P_BASIC },
     { P_NECROMANCY_SPELL, P_EXPERT },
     { P_BARE_HANDED_COMBAT, P_BASIC },
+    { P_SHIELD, P_SKILLED },
     { P_NONE, 0 }
 };
 
@@ -669,6 +732,33 @@ static const struct def_skill Skill_P[] = {
     { P_ENCHANTMENT_SPELL, P_EXPERT },
     { P_RIDING, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_BASIC },
+    { P_SHIELD, P_BASIC },
+    { P_NONE, 0 }
+};
+static const struct def_skill Skill_Pir[] = {
+    { P_DAGGER, P_SKILLED },
+    { P_KNIFE,  P_EXPERT },
+    { P_AXE, P_SKILLED },
+    { P_SHORT_SWORD, P_BASIC },
+    { P_BROAD_SWORD, P_EXPERT },
+    { P_LONG_SWORD, P_BASIC },
+    { P_SABER, P_EXPERT },
+    { P_CLUB, P_BASIC },
+    { P_MORNING_STAR, P_SKILLED },
+    { P_FLAIL, P_EXPERT },
+    { P_SPEAR, P_SKILLED },
+    { P_TRIDENT, P_EXPERT },
+    { P_CROSSBOW, P_EXPERT },
+    { P_DART, P_SKILLED },
+    { P_WHIP, P_SKILLED },
+    { P_UNICORN_HORN, P_BASIC },
+    { P_ATTACK_SPELL, P_BASIC },
+    { P_DIVINATION_SPELL, P_BASIC },
+    { P_ENCHANTMENT_SPELL, P_BASIC },
+    { P_ESCAPE_SPELL, P_SKILLED },
+    { P_TWO_WEAPON_COMBAT, P_SKILLED },
+    { P_BARE_HANDED_COMBAT, P_EXPERT },
+    { P_FIREARM, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_R[] = {
@@ -696,6 +786,7 @@ static const struct def_skill Skill_R[] = {
     { P_TWO_WEAPON_COMBAT, P_EXPERT },
     { P_FIREARM, P_EXPERT },
     { P_THIEVERY, P_MASTER },
+    { P_SHIELD, P_BASIC },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_Ran[] = {
@@ -724,6 +815,7 @@ static const struct def_skill Skill_Ran[] = {
     { P_RIDING, P_BASIC },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_BASIC },
+    { P_SHIELD, P_SKILLED },
     { P_FIREARM, P_EXPERT },
     { P_NONE, 0 }
 };
@@ -781,6 +873,7 @@ static const struct def_skill Skill_T[] = {
     { P_RIDING, P_BASIC },
     { P_TWO_WEAPON_COMBAT, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
+    { P_SHIELD, P_BASIC },
     { P_FIREARM, P_BASIC },
     { P_NONE, 0 }
 };
@@ -807,6 +900,8 @@ static const struct def_skill Skill_U[] = {
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
     { P_MARTIAL_ARTS, P_MASTER }, /* Buffy the Vampire Slayer */
+    { P_TWO_WEAPON_COMBAT, P_BASIC },
+    { P_SHIELD, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_V[] = {
@@ -829,6 +924,7 @@ static const struct def_skill Skill_V[] = {
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_EXPERT },
+    { P_SHIELD, P_MASTER },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_W[] = {
@@ -873,6 +969,7 @@ static const struct def_skill Skill_Y[] = {
     { P_RIDING, P_EXPERT },
     { P_TWO_WEAPON_COMBAT, P_SKILLED }, 
     { P_BARE_HANDED_COMBAT, P_SKILLED },
+    { P_SHIELD, P_BASIC },
     { P_NONE, 0 }
 };
 
@@ -973,7 +1070,11 @@ u_init()
 
     u.umoved = FALSE;
     u.umortality = 0;
-    u.ugrave_arise = NON_PM;
+    u.ugrave_arise = Role_if(PM_PIRATE) ? PM_SKELETAL_PIRATE : NON_PM;
+
+    u.ukinghill = 0;
+    u.protean = 0;
+    u.utimestop = FALSE;
 
     u.umonnum = u.umonster = (flags.female && urole.femalenum != NON_PM)
                                  ? urole.femalenum
@@ -997,7 +1098,6 @@ u_init()
     for (i = 0; i <= MAXSPELL; i++)
         spl_book[i].sp_id = NO_SPELL;
     u.ublesscnt = 300; /* no prayers just yet */
-    u.ulastprayed = -1; /* has never prayed */
     u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL] = u.ualign.type =
         aligns[flags.initalign].value;
 
@@ -1033,6 +1133,7 @@ u_init()
         default: break;
         }
         ini_inv(Archeologist);
+        ini_inv(Pickaxe);
         if (!rn2(10))
             (rn2(100) > 50 ? ini_inv(Lamp) : ini_inv(Torch));
         else if (!rn2(2))
@@ -1111,14 +1212,36 @@ u_init()
         default: 
             break;
         }
+        Ice_Mage[T_SNOWBALLS].trquan = rn1(12, 8);
         ini_inv(Ice_Mage);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(2)) 
             ini_inv(Lenses);
-        else
-            ini_inv(GrapplingHook);
         skill_init(Skill_I);
+        break;
+        
+    case PM_JEDI:
+        /* Random lightsaber at start */
+        switch (rnd(3)) {
+        case 1:
+            ini_inv(RedSaber); 
+            break;
+        case 2: 
+            ini_inv(BlueSaber); 
+            break;
+        case 3: 
+            ini_inv(GreenSaber); 
+            break;
+        default: 
+            break;
+        }
+        ini_inv(Jedi);
+        if (!rn2(2))
+            ini_inv(Blindfold);
+        skill_init(Skill_J);
+        knows_class(WEAPON_CLASS);
+        knows_class(ARMOR_CLASS);
         break;
     case PM_CONVICT:
         ini_inv(Convict);
@@ -1127,10 +1250,7 @@ u_init()
         knows_object(SKELETON_KEY);
         knows_object(GRAPPLING_HOOK);
         skill_init(Skill_Con);
-        if (Race_if(PM_VAMPIRIC))
-            u.uhunger = 999;  /* On the verge of satiated */
-        else
-            u.uhunger = 200;  /* On the verge of hungry */
+        u.uhunger = 200;  /* On the verge of hungry */
         u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL]
             = u.ualign.type = A_CHAOTIC; /* Override racial alignment */
         break;
@@ -1141,7 +1261,7 @@ u_init()
             force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(25))
             ini_inv(Lamp);
-        /* --hackem: Naturally familiar with these potions in their work */
+        /* Naturally familiar with healing items in their work */
         knows_object(POT_SICKNESS);
         knows_object(POT_PARALYSIS);
         knows_object(POT_SLEEPING);
@@ -1192,6 +1312,14 @@ u_init()
         break;
     }
     case PM_NECROMANCER:
+        switch (rnd(5)) {
+        case 1: Necromancer[N_BOOK].trotyp = SPE_FORCE_BOLT; break;
+        case 2: Necromancer[N_BOOK].trotyp = SPE_KNOCK; break;
+        case 3: Necromancer[N_BOOK].trotyp = SPE_MAGIC_MISSILE; break;
+        case 4: Necromancer[N_BOOK].trotyp = SPE_CREATE_MONSTER; break;
+        case 5: Necromancer[N_BOOK].trotyp = SPE_WIZARD_LOCK; break;
+        default: break;
+        }
         ini_inv(Necromancer);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
@@ -1199,6 +1327,27 @@ u_init()
         if (!rn2(5)) 
             ini_inv(Blindfold);
         skill_init(Skill_N);
+        break;
+    case PM_PIRATE:
+        u.umoney0 = rnd(300);
+        if (!rn2(4))
+            Pirate[PIR_SNACK].trotyp = KELP_FROND;
+        Pirate[PIR_SNACK].trquan += rn2(4);
+        if (rn2(100) < 50)
+            Pirate[PIR_JEWELRY].trotyp = RIN_ADORNMENT;
+        if (rn2(100) < 50)
+            Pirate[PIR_TOOL].trotyp = GRAPPLING_HOOK;
+        Pirate[PIR_BULLETS].trquan += rn2(Pirate[PIR_BULLETS].trquan / 2);
+        ini_inv(Pirate);
+        
+        /* From Fyr/YANI/Pirate */
+        if (!rn2(10))
+            ini_inv(DeathWand);
+        
+        knows_object(OILSKIN_SACK);
+        knows_object(OILSKIN_CLOAK);
+        knows_object(GRAPPLING_HOOK);
+        skill_init(Skill_Pir);
         break;
     case PM_PRIEST:
         ini_inv(Priest);
@@ -1428,7 +1577,9 @@ u_init()
         knows_object(DWARVISH_BOOTS);
         knows_object(DWARVISH_ROUNDSHIELD);
 
-        if (!Role_if(PM_ARCHEOLOGIST) && !Role_if(PM_CONVICT)) {
+        if (!Role_if(PM_ARCHEOLOGIST) 
+            && !Role_if(PM_CONVICT) 
+            && !Role_if(PM_NECROMANCER)) {
             if (!rn2(4)) {
                 /* Wise dwarves bring their toy to the dungeons */
                 ini_inv(Pickaxe);
@@ -1542,6 +1693,14 @@ u_init()
         knows_object(POT_BLOOD);
         break;
 
+    case PM_DOPPELGANGER:
+        /* Doppelgangers naturally everything know about polymorph */
+        knows_object(POT_POLYMORPH);
+        knows_object(WAN_POLYMORPH);
+        knows_object(SPE_POLYMORPH);
+        knows_object(RIN_POLYMORPH);
+        break;
+        
     default: /* impossible */
         pline("u_init: unknown race %d", Race_switch);
         break;
@@ -1572,6 +1731,21 @@ u_init()
                 } else {
                     otmp->corpsenm = PM_LICHEN;
                 }
+            }
+        }
+        /* If a dwarven monk starts with a pickaxe, don't start wielding it */
+        if (uwep)
+            setuwep((struct obj *) 0);
+    }
+
+    /* Tortles that start with a trident get one that
+       is rustproof (currently only barbarian role) */
+    if (Race_if(PM_TORTLE)) {
+        struct obj *otmp;
+        for (otmp = invent; otmp; otmp = otmp->nobj) {
+            if (otmp->otyp == TRIDENT) {
+                otmp->oerodeproof = 1;
+                otmp->rknown = 1;
             }
         }
     }
@@ -1612,7 +1786,9 @@ u_init()
     if (num_spells() && (u.uenmax < 5))
         u.uen = u.uenmax = u.ueninc[u.ulevel] = 5;
 
+    /* Quality-of-Life */
     knows_object(POT_WATER);
+    knows_object(SCR_BLANK_PAPER);
     return;
 }
 
@@ -1822,6 +1998,9 @@ int otyp;
     case PM_INFIDEL:
         skills = Skill_Inf;
         break;
+    case PM_JEDI:
+        skills = Skill_J;
+        break;
     case PM_KNIGHT:
         skills = Skill_K;
         break;
@@ -1934,6 +2113,8 @@ register struct trobj *origtrop;
                       by having the Amulet of Yendor in starting
                       inventory */
                    || (otyp == SPE_CLAIRVOYANCE && Role_if(PM_INFIDEL))
+                   /* 5lo -- Doppelgangers shouldn't get ring of poly control. */
+                   || (Race_if(PM_DOPPELGANGER) && otyp == RIN_POLYMORPH_CONTROL)
                    /* powerful spells are either useless to
                       low level players or unbalancing; also
                       spells in restricted skill categories */
@@ -1989,7 +2170,12 @@ register struct trobj *origtrop;
         /* Don't start with +0 or negative rings */
         if (objects[otyp].oc_charged && obj->spe <= 0)
             obj->spe = rne(3);
-
+        
+        /* start with maxed lightsaber. 
+         * only Jedi start with one, so no need to check Role_if here */
+        if (is_lightsaber(obj))
+            obj->age = 1500;
+        
         /* Don't allow materials to be start scummed for */
         set_material(obj, objects[otyp].oc_material);
 
@@ -2003,6 +2189,10 @@ register struct trobj *origtrop;
         if (Race_if(PM_ORC) && obj->material == MITHRIL
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
+        
+        /* Holy wafers do damage to chaotic players */
+        if (u.ualign.type == A_CHAOTIC && obj->otyp == HOLY_WAFER)
+            obj->otyp = SPRIG_OF_WOLFSBANE;
 
         if (urace.malenum != PM_HUMAN) {
             /* substitute race-specific items; this used to be in
@@ -2066,15 +2256,14 @@ register struct trobj *origtrop;
                     obj->oerodeproof = 1;
             }
             
-            /* --hackem: Undead Slayers get special silver weapons.
+            /* Undead Slayers get special silver weapons.
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
-                if (obj->otyp == SPEAR 
-                    || obj->otyp == DAGGER 
-                    || obj->otyp == ELVEN_DAGGER 
-                    || obj->otyp == TRIDENT 
-                    || obj->otyp == BULLET)
+                if (is_spear(obj) || is_ammo(obj)
+                      || obj->otyp == DAGGER 
+                      || obj->otyp == ELVEN_DAGGER
+                      || obj->otyp == TRIDENT)
                     set_material(obj, SILVER);
                 
                 if (obj->otyp == JACKET) 

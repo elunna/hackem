@@ -20,9 +20,9 @@ enum prop_types {
     POISON_RES        =  6,
     ACID_RES          =  7,
     STONE_RES         =  8,
-     /* note: for the first eight properties, MR_xxx == (1 << (xxx_RES - 1)) */
     SONIC_RES         =  9,
     PSYCHIC_RES       = 10,
+    /* note: for the first ten properties, MR_xxx == (1 << (xxx_RES - 1)) */
     DRAIN_RES         = 11,
     SICK_RES          = 12,
     INVULNERABLE      = 13,

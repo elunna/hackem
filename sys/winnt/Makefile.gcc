@@ -139,7 +139,7 @@ SKIP_NETHACKW=Y
 #==============================================================================
 
 #  The version of the game this Makefile was designed for
-NETHACK_VERSION="1.0.0"
+NETHACK_VERSION="1.1.0"
 
 # A brief version for use in macros
 NHV1=$(subst .,,$(NETHACK_VERSION))
@@ -313,7 +313,7 @@ VOBJ24 = $(O)track.o    $(O)trap.o     $(O)u_init.o   $(O)uhitm.o
 VOBJ25 = $(O)vault.o    $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o
 VOBJ26 = $(O)were.o     $(O)wield.o    $(O)windows.o  $(O)wizard.o
 VOBJ27 = $(O)worm.o     $(O)worn.o     $(O)write.o    $(O)zap.o
-#VOBJ28 = $(O)win10.o
+VOBJ28 = $(O)win10.o   $(O)tech.o
 
 DLBOBJ = $(O)dlb.o
 
@@ -443,7 +443,8 @@ HACK_H = $(INCL)/hack.h $(CONFIG_H) $(INCL)/align.h $(INCL)/context.h \
 	       $(INCL)/timeout.h $(INCL)/trap.h $(INCL)/flag.h $(INCL)/rm.h \
 	       $(INCL)/vision.h $(INCL)/display.h $(INCL)/engrave.h \
 	       $(INCL)/rect.h $(INCL)/region.h $(INCL)/winprocs.h \
-	       $(INCL)/wintty.h $(INCL)/sys.h $(INCL)/trampoli.h
+	       $(INCL)/wintty.h $(INCL)/sys.h $(INCL)/trampoli.h \
+	       $(INCL)/tech.h
 
 LEV_H       = $(INCL)/lev.h
 DGN_FILE_H  = $(INCL)/dgn_file.h
@@ -791,7 +792,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/flame.des    $(DAT)/ice.des      $(DAT)/necro.des \
 	 $(DAT)/knight.des   $(DAT)/monk.des     $(DAT)/priest.des \
 	 $(DAT)/ranger.des   $(DAT)/rogue.des    $(DAT)/samurai.des \
-	 $(DAT)/slayer.des   $(DAT)/yeoman.des \
+	 $(DAT)/slayer.des   $(DAT)/yeoman.des   $(DAT)/pirate.des \
 	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
 	 $(DAT)/wizard.des	 $(DAT)/town.des     $(DAT)/village.des \
 	 $(DAT)/rats.des     $(DAT)/stor.des \
@@ -826,6 +827,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/knight.des)
 	$(subst /,\,$(U)levcomp $(DAT)/monk.des)
 	$(subst /,\,$(U)levcomp $(DAT)/necro.des)
+	$(subst /,\,$(U)levcomp $(DAT)/pirate.des)
 	$(subst /,\,$(U)levcomp $(DAT)/priest.des)
 	$(subst /,\,$(U)levcomp $(DAT)/ranger.des)
 	$(subst /,\,$(U)levcomp $(DAT)/rogue.des)
@@ -1537,10 +1539,10 @@ endif
 ifeq "$(WANT_WIN_QT4)" "Y"
 # Qt dependencies
 
-$(GAMEDIR))/Qt5Core.dll : $(QT4_DIRECTORY)/bin/Qt5Core.dll
+$(GAMEDIR)/Qt5Core.dll : $(QT4_DIRECTORY)/bin/Qt5Core.dll
 	$(subst /,\,@copy $< $@ >nul)
 
-$(GAMEDIR))/Qt5Gui.dll : $(QT4_DIRECTORY)/bin/Qt5Gui.dll
+$(GAMEDIR)/Qt5Gui.dll : $(QT4_DIRECTORY)/bin/Qt5Gui.dll
 	$(subst /,\,@copy $< $@ >nul)
 
 $(GAMEDIR)/Qt5Widgets.dll : $(QT4_DIRECTORY)/bin/Qt5Widgets.dll
@@ -1794,6 +1796,7 @@ $(O)spell.o: spell.c $(HACK_H)
 $(O)steal.o: steal.c $(HACK_H)
 $(O)steed.o: steed.c $(HACK_H)
 $(O)sys.o: sys.c $(HACK_H)
+$(O)tech.o: tech.c $(HACK_H) $(INCL)/tech.h
 $(O)teleport.o: teleport.c $(HACK_H)
 $(O)timeout.o: timeout.c $(HACK_H) $(INCL)/lev.h
 $(O)topten.o: topten.c $(HACK_H) $(INCL)/dlb.h $(INCL)/patchlevel.h
