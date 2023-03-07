@@ -2362,7 +2362,7 @@ dosacrifice()
                 && !u.uevent.qcompleted
                 && !u.uevent.qexpelled
                 && !u.uevent.uhand_of_elbereth 
-                && (count_pets() < 2)
+                && (count_pets() < 1)
                 && !rn2(10 + (4 * u.ugifts))) {
                 god_gives_pet(altaralign);
                 return 1;
