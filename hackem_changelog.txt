@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Bags of tricks/rats show empty only when they don't have items. Fixes #209.
 Fix: Accessing a bag of tricks or bag of rats always used a turn. Fixes #214.
 Fix: Ctrl-X was showing if it was safe to pray in non-wizmode. Fixes #213.
 Fix: Unknown/new gloves caused impossible in monk's boulder breaking technique. Fixes #211.
