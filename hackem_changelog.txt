@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Ctrl-X was showing if it was safe to pray in non-wizmode. Fixes #213.
 Fix: Unknown/new gloves caused impossible in monk's boulder breaking technique. Fixes #211.
 Fix: Aphrodite introduced herself as someone else. Fixes #208.
 Fix: Potions of amnesia required 2 dips to fully dilute (SLASH'EM required only 1 dip). Fixes #212.

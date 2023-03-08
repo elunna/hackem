@@ -2189,7 +2189,7 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
         if (wizard)
             Sprintf(eos(buf), " (%d)", u.ugangr);
         enl_msg(u_gname(), " is", " was", buf, "");
-    } else {
+    } else 
         /*
          * We need to suppress this when the game is over, because death
          * can change the value calculated by can_pray(), potentially
@@ -2203,11 +2203,12 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
 #else
             Sprintf(buf, "%ssafely pray", can_pray(FALSE) ? "" : "not ");
 #endif
-            if (wizard)
+            if (wizard || final) {
                 Sprintf(eos(buf), " (%d)", u.ublesscnt);
-            you_can(buf, "");
+                you_can(buf, "");
+            }
         }
-    }
+    
     if (u.lastprayed) {
         Sprintf(buf, "You last %s %ld turns ago",
                 u.lastprayresult == PRAY_GIFT ? "received a gift" :
