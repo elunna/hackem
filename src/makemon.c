@@ -4288,27 +4288,44 @@ golemhp(type)
 int type;
 {
     switch (type) {
-		case PM_PAPER_GOLEM: return 36;
-		case PM_STRAW_GOLEM: return 40;
-		case PM_WAX_GOLEM: return 40;
-		case PM_GARGOYLE: return 46;
-		case PM_PLASTIC_GOLEM: return 60;
-		case PM_ROPE_GOLEM: return 60;
-		case PM_LEATHER_GOLEM: return 80;
-		case PM_GOLD_GOLEM: return 80;
-		case PM_WOOD_GOLEM: return 100;
-		case PM_FLESH_GOLEM: return 120;
-		case PM_STATUE_GARGOYLE: return 140;
-		case PM_CLAY_GOLEM: return 150;
-		case PM_STONE_GOLEM: return 180;
-		case PM_GLASS_GOLEM: return 140;
-		case PM_SNOW_GOLEM: return 150;
-		case PM_IRON_GOLEM: return 240;
-		case PM_RUBY_GOLEM: return 250;
-		case PM_DIAMOND_GOLEM: return 270;
-		case PM_SAPPHIRE_GOLEM: return 280;
-		case PM_STEEL_GOLEM: return 290;
-		case PM_CRYSTAL_GOLEM: return 300;
+    case PM_STRAW_GOLEM:
+        return 20;
+    case PM_PAPER_GOLEM:
+        return 20;
+    case PM_WAX_GOLEM:
+        return 40;
+    case PM_PLASTIC_GOLEM:
+        return 40;
+    case PM_ROPE_GOLEM:
+        return 30;
+    case PM_LEATHER_GOLEM:
+        return 40;
+    case PM_GOLD_GOLEM:
+        return 40;
+    case PM_WOOD_GOLEM:
+        return 50;
+    case PM_FLESH_GOLEM:
+        return 40;
+    case PM_CLAY_GOLEM:
+        return 50;
+    case PM_STONE_GOLEM:
+        return 60;
+    case PM_GLASS_GOLEM:
+        return 60;
+    case PM_IRON_GOLEM:
+        return 80;
+    case PM_SNOW_GOLEM:
+        return 150;
+    case PM_RUBY_GOLEM:
+        return 250;
+    case PM_DIAMOND_GOLEM:
+        return 270;
+    case PM_SAPPHIRE_GOLEM:
+        return 280;
+    case PM_STEEL_GOLEM:
+        return 290;
+    case PM_CRYSTAL_GOLEM:
+        return 300;
     default:
         return 0;
     }

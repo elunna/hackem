@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Revert golem HP starting values to EvilHack levels.
 Fix: Spirit tempest technique could check sight out of bounds, causing a global-buffer-overflow. Fixes #207.
 Fix: Bags of tricks/rats show empty only when they don't have items. Fixes #209.
 Fix: Accessing a bag of tricks or bag of rats always used a turn. Fixes #214.
