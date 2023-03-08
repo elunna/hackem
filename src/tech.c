@@ -874,13 +874,8 @@ ma_break(VOID_ARGS)
         case GAUNTLETS_OF_FUMBLING:
             prob *= 4;
             break;
-        case GLOVES:
-        case GAUNTLETS:
-        case GAUNTLETS_OF_DEXTERITY:
-        case GAUNTLETS_OF_PROTECTION:
-            break;
         default:
-            impossible("Unknown type of gloves (%d)", uarmg->otyp);
+            break;
         }
     }
 
