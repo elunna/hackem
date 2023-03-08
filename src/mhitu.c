@@ -2179,7 +2179,7 @@ register struct attack *mattk;
         } else {
             /* Only nymphs/mermaids introduce - other thieves won't introduce 
              * themselves (like gnome thiefs or muggers) */
-            if (is_nymph(mtmp->data) || mtmp->data == &mons[PM_MERMAID]) 
+            if ((is_nymph(mtmp->data) || mtmp->data == &mons[PM_MERMAID]) && !type_is_pname(mtmp->data)) 
                 mintroduce(mtmp);
             if (mtmp->mcan || Hidinshell || (uwep && uwep->oartifact == ART_THIEFBANE)) {
                 if (!Blind)

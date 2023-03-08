@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Aphrodite introduced herself as someone else. Fixes #208.
 Fix: Potions of amnesia required 2 dips to fully dilute (SLASH'EM required only 1 dip). Fixes #212.
 Fix: Minions can't be granted if you have any pets on the level.
 Archeologists can reach skilled in shields.
