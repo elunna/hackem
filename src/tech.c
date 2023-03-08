@@ -2310,8 +2310,8 @@ int tech_no;
             u.dy += u.uy + rn2(3);
             failcheck++;
          } while (failcheck < 3 &&
-                  (!cansee(u.dx, u.dy) 
-                   || !isok(u.dx, u.dy)
+                  (!isok(u.dx, u.dy) 
+                   || !cansee(u.dx, u.dy)
                    || IS_STWALL(levl[u.dx][u.dy].typ)));
          
          if (failcheck >= 3)
