@@ -1096,7 +1096,7 @@ register struct obj *obj;
         floating_above("toilet");
         return;
     }
-
+    
     er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
 
     if (obj->otyp == POT_ACID && er != ER_DESTROYED) {

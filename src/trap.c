@@ -4396,6 +4396,12 @@ xchar x, y;
             if (in_invent)
                 update_inventory();
             return ER_DESTROYED;
+        } else if (obj->otyp == POT_AMNESIA) {
+            /* Diluting a !ofAmnesia just gives water... */
+            Your("%s flat.", aobjnam(obj, "become"));
+            obj->odiluted = 0;
+            obj->otyp = POT_WATER;
+            return ER_DAMAGED;
         } else if (obj->odiluted) {
             if (in_invent)
                 Your("%s %s further.", ostr, vtense(ostr, "dilute"));
