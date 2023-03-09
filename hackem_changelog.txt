@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Monsters were able to use wands of healing with no charges. Fixes #218.
 Fix: Lightsabers staying lit in bones file creation caused impossible when reloaded. Fixes #215.
 Fix: Looting a 0:0 bag of tricks (or rats) still bit you. Fixes #216.
 See invisible can be gained permanently from potions/stalkers/fountains again.

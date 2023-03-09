@@ -398,12 +398,12 @@ struct monst *mtmp;
         m.has_defense = MUSE_POT_HEALING;
         return TRUE;
     }
-    if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0) {
+    if ((obj = m_carrying(mtmp, WAN_EXTRA_HEALING)) != 0 && obj->spe > 0) {
         m.defensive = obj;
         m.has_defense = MUSE_WAN_EXTRA_HEALING;
         return TRUE;
     }
-    if ((obj = m_carrying(mtmp, WAN_HEALING)) != 0) {
+    if ((obj = m_carrying(mtmp, WAN_HEALING)) != 0 && obj->spe > 0) {
         m.defensive = obj;
         m.has_defense = MUSE_WAN_HEALING;
         return TRUE;
@@ -915,12 +915,12 @@ struct obj *start;
                 m.has_defense = MUSE_POT_HEALING;
             }
             nomore(MUSE_WAN_EXTRA_HEALING);
-            if (obj->otyp == WAN_EXTRA_HEALING) {
+            if (obj->otyp == WAN_EXTRA_HEALING && obj->spe > 0) {
                 m.defensive = obj;
                 m.has_defense = MUSE_WAN_EXTRA_HEALING;
             }
             nomore(MUSE_WAN_HEALING);
-            if (obj->otyp == WAN_HEALING) {
+            if (obj->otyp == WAN_HEALING && obj->spe > 0) {
                 m.defensive = obj;
                 m.has_defense = MUSE_WAN_HEALING;
             }
