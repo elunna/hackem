@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Updated artiwish odds to match vanilla/slashem; first two artiwishes are guaranteed.
 Fix: Magma elementals created lava pools on death - when dying on an ice tile, the ice melt timer was not handled properly. Fixes #220.
 Fix: Inappropriate message when a monk's robe is destroyed (reported by Loggers_VIII).
 Huge or gigantic monsters on a pool/lava tile will not be instakilled if a boulder fills up the pool/lava spot (from EvilHack).
