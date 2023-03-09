@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Remove unnecessary code from in_hell_effects() and in_iceq_effects() (from EvilHack).
 Fix: paranoid swim would kick in while phasing under certain conditions (from EvilHack).
 Fix: wrong deity was made upset if caught trying to ascend while wearing a helm of opposite alignment (from EvilHack).
 Mind flayer larva victims, if peaceful, will become hostile when turned into a mind flayer (from EvilHack).
