@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Digging is noisy (more changes to make digging noisy from 3.7 e260aa587).
 Updated artiwish odds to match vanilla/slashem; first two artiwishes are guaranteed.
 Fix: Magma elementals created lava pools on death - when dying on an ice tile, the ice melt timer was not handled properly. Fixes #220.
 Fix: Inappropriate message when a monk's robe is destroyed (reported by Loggers_VIII).
