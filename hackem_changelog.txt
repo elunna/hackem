@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Mind flayer larva victims, if peaceful, will become hostile when turned into a mind flayer (from EvilHack).
 Fix: Dwarven undead slayer's silver dwarvish spear was invalid material. Fixes #219.
 Fix: Monsters were able to use wands of healing with no charges. Fixes #218.
 Fix: Lightsabers staying lit in bones file creation caused impossible when reloaded. Fixes #215.
