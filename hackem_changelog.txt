@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+See invisible can be gained permanently from potions/stalkers/fountains again.
 Revert golem HP starting values to EvilHack levels.
 Fix: Spirit tempest technique could check sight out of bounds, causing a global-buffer-overflow. Fixes #207.
 Fix: Bags of tricks/rats show empty only when they don't have items. Fixes #209.
