@@ -3501,7 +3501,7 @@ int num;
     boolean iseating = (occupation == eatfood) || force_save_hs;
 
     debugpline1("lesshungry(%d)", num);
-    u.uhunger += (Hunger ? (num + 1) / 2 : num);
+    u.uhunger += num;
     if (u.uhunger >= (Race_if(PM_HOBBIT) ? 4000 : 2000)) {
         if (!iseating || context.victual.canchoke) {
             if (iseating) {
