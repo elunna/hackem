@@ -10322,15 +10322,11 @@ spellbook of summon undead
 	and Necromancers will dominate the resulting monsters, even if 
 	they are not undead - this is especially relevant for fire vampires
 	and star vampires, which are V but not undead.
-
-	The Necromancer automatically learns this spell at XL 9.
 spellbook of command undead
 	Allows you to learn the spell of command undead.
 	
 	This spell is equivalent to charm monster, except that it only 
 	affects undead.
-	
-	The Necromancer automatically learns this spell at XL 7.
 spellbook of knock
 	Allows you to learn the spell of knock.
 	
@@ -13211,29 +13207,6 @@ zruty
 	
 ##
 # Artifact lookup info
-Spear of Light
-	Invoke:
-	Permanently lights a section of the dungeon
-    with a radius of 12 squares and also damages 
-    undead and demons caught in thelight. Note that
-    the spear is intelligent and will therefore 
-    blast you if you are not Lawful.
-    
-    Within this radius, undead and demons take 
-    damage. This damage will never actually kill 
-    these monsters; A minimum of 1 remaining hit 
-    point is ensured. This will also not anger any
-    peaceful undead it affects or decrease tameness
-    of tame undead.
-    
-    Note that if you are playing as a vampire or are 
-    polymorphed into an undead or demon, your hit 
-    points will be divided by 100, with no minimum 
-    cutoff of one hit point. Death from this hit 
-    point loss will not revert you to your normal 
-    form, and will instead kill you outright. Also
-    note that high-level or high-MR monsters may 
-    resist this damage altogether.
 Cleaver
 	Attacks in a wide arc and can hit multiple monsters in an arc 
 	with one swing: each attack will first strike the monster 45 
@@ -13307,12 +13280,6 @@ Dirge
       become a 'long sword' regardless). Must have positive alignment.
     - You can throw Dirge at iron bars to dissolve them.
     - If it has not yet been generated, Graz'zt gets Dirge.
-Dragonbane
-    Dragonbane is no longer a weapon, but a pair of magical gloves made from
-    the scales of a long dead ancient dragon. The gloves afford much of the
-    same special abilities as the weapon did, but swaps fire resistance for acid
-    resistance. Other dragons will be able to sense the power of these gloves
-    and will be affected accordingly.
 The Eye of Vecna
 	Invoke:          DEATH_MAGIC: When invoked, it causes the Eye to
 	                 death gaze at all monsters within visual range,
