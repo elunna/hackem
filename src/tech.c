@@ -1147,6 +1147,8 @@ int tech_no;
         case T_JEDI_JUMP:
             if (tech_jedijump(get_tech_no(T_JEDI_JUMP)))
                 t_timeout = rn1(50, 25);
+            else
+                return 0;
             break;
         case T_BOOZE:
              if (tech_booze(get_tech_no(T_BOOZE)))
@@ -3473,7 +3475,7 @@ int
 tech_jedijump(tech_no)
 int tech_no;
 {
-    if (u.uen < 25){
+    if (u.uen < 25) {
          You("can't channel the force around you. Jedi jumps require 25 points of mana!");
          return 0;
     }

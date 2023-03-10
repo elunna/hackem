@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Jedi jump tech doesn't waste a turn when an illegal move is tried.
 database: removed outdated info about necromancer spelltechs.
 Lowered the spellbook of command undead to a level 3 spell.
 Digging is noisy (more changes to make digging noisy from 3.7 e260aa587).
