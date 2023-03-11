@@ -2233,7 +2233,10 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
                 enl_msg("You ", "have", "had", buf, "");
             }
         }
+    } else {
+        enl_msg("You have never prayed", "", "", "", "");
     }
+    
     /* In case the player missed the "urge to perform a sacrifice",
      * put a reminder here. */
     if (u.ualign.type == A_NONE) {
