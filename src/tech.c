@@ -2489,17 +2489,22 @@ int tech_no;
     if (u.usteed) {
          You("attempt to calm your steed.");
          tamedog(u.usteed, (struct obj *) 0);
-         
+
          if (u.usteed->mtame >= 10) {
             pline("%s looks tame enough.", Monnam(u.usteed));
          } else {
             u.usteed->mtame += rnd((techlev(tech_no) + 2) / 3);
             pline("%s gets tamer.", Monnam(u.usteed));
-            
+
             return 1;
          }
-    } else
+    } else if (maybe_polyd(is_centaur(youmonst.data), Race_if(PM_CENTAUR))) {
+         make_afraid(0L, TRUE);
+         context.botl = TRUE;
+         return 1;
+    } else {
          Your("technique is only effective when riding a monster.");
+    }
     return 0;
 }
 

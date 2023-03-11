@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+The calm steed technique will cure fear when used in centaur form/race (suggested by mobileuser).
 Spiritual attributes (in Ctrl-X menu) shows if you haven't prayed so there isn't just a blank spot there.
 When playing as a doppleganger you can see the corpses you have eaten in your Ctrl-X menu.
 Fix: Jedi jump tech doesn't waste a turn when an illegal move is tried.
