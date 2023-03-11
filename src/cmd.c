@@ -2261,6 +2261,27 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
         Sprintf(buf, "running in %s mode", wizard ? "debug" : "explore");
         you_are(buf, "");
     }
+    
+    if (Race_if(PM_DOPPELGANGER)) { 
+        buf[0] = '\0';
+        enlght_out("");
+        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
+        Strcat(buf, " ");
+        /*you_have(buf, "Eaten memory of these monsters:");*/
+        for (int i = LOW_PM; i < NUMMONS; i++) {
+            if (mvitals[i].eaten) {
+                /*Sprintf(buf, "%s, ", mons[i].mname);*/
+                strcat(buf, mons[i].mname);
+                Strcat(buf, ", ");
+            }
+        }
+        if (strlen(buf) > 3) {
+            buf[strlen(buf) - 2] = '\0';
+            enlght_out(buf);
+        } else {
+            enlght_out("None");
+        }
+    } 
 
     if (!en_via_menu) {
         display_nhwindow(en_win, TRUE);
@@ -3798,26 +3819,6 @@ int final;
         if (p)
             enl_msg(You_, "have been killed ", p, buf, "");
     }
-    if (Race_if(PM_DOPPELGANGER)) { 
-        buf[0] = '\0';
-        enlght_out("");
-        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
-        Strcat(buf, " ");
-        /*you_have(buf, "Eaten memory of these monsters:");*/
-        for (int i = LOW_PM; i < NUMMONS; i++) {
-            if (mvitals[i].eaten) {
-                /*Sprintf(buf, "%s, ", mons[i].mname);*/
-                strcat(buf, mons[i].mname);
-                Strcat(buf, ", ");
-            }
-        }
-        if (strlen(buf) > 3) {
-            buf[strlen(buf) - 2] = '\0';
-            enlght_out(buf);
-        } else {
-            enlght_out("None");
-        }
-    } 
 }
 
 /* ^X command */
