@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Refactored all techniques so they don't waste a turn if cancelled. Fixes #223.
 Revivification doesn't waste a turn if it isn't successfully used.
 Reinforce Memory doesn't waste a turn if it isn't successfully used.
 Fix: Remove duplicate message for finishing quest without incident.
