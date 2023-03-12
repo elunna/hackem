@@ -972,6 +972,8 @@ int tech_no;
         case T_REINFORCE:
             if (tech_reinforce(get_tech_no(T_REINFORCE)))
                 t_timeout = rn1(500, 500);
+            else
+                return 0;
            break;
         case T_FLURRY:
             if (tech_flurry(get_tech_no(T_FLURRY)))
