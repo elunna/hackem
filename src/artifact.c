@@ -395,12 +395,13 @@ boolean allow_detrimental;
                     && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
             continue; /* these are mutually exclusive */
 
-        if (otmp->material != CLOTH
-            && (j & ITEM_OILSKIN))
+        if (otmp->material != CLOTH && (j & ITEM_OILSKIN))
             continue;
 
-        if (otmp->otyp == OILSKIN_CLOAK
-            && (j & ITEM_OILSKIN))
+        if (otmp->otyp == OILSKIN_CLOAK && (j & ITEM_OILSKIN))
+            continue;
+        
+        if (otmp->otyp == ROGUES_GLOVES && (j & ITEM_SEARCHING))
             continue;
 
         otmp->oprops |= j;
