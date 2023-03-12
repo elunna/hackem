@@ -1051,6 +1051,8 @@ int tech_no;
         case T_REVIVE: 
             if (tech_revive(get_tech_no(T_REVIVE)))
                 t_timeout = rn1(1000, 500);
+            else
+                return 0;
             break;
         case T_TINKER:
             if (tech_tinker(get_tech_no(T_TINKER)))

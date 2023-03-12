@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Revivification doesn't waste a turn if it isn't successfully used.
 Reinforce Memory doesn't waste a turn if it isn't successfully used.
 Fix: Remove duplicate message for finishing quest without incident.
 The calm steed technique will cure fear when used in centaur form/race (suggested by mobileuser).
