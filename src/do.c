@@ -1426,11 +1426,12 @@ dodown()
         else if (Is_waterlevel(&u.uz))
             You("are floating in %s.",
                 is_pool(u.ux, u.uy) ? "the water" : "a bubble of air");
-        else
+        else if (stairs_down || ladder_down)
             floating_above(stairs_down ? "stairs" : ladder_down
                                                     ? "ladder"
                                                     : surface(u.ux, u.uy));
-        return 0; /* didn't move */
+        if (stairs_down || ladder_down)
+            return 0; /* didn't move */
     }
 
     if (Upolyd && ceiling_hider(&mons[u.umonnum]) && u.uundetected) {
@@ -1460,7 +1461,9 @@ dodown()
 
     if (!stairs_down && !ladder_down) {
         trap = t_at(u.ux, u.uy);
-        if (trap && (uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
+        if (trap 
+            && !Levitation 
+            && (uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
             dotrap(trap, TOOKPLUNGE);
             return 1;
         } else if (!trap || !is_hole(trap->ttyp)
@@ -1545,6 +1548,11 @@ dodown()
 int
 doup()
 {
+    boolean not_on_stairs = (
+        (u.ux != xupstair || u.uy != yupstair) 
+        && (!xupladder || u.ux != xupladder || u.uy != yupladder) 
+        && (!sstairs.sx || u.ux != sstairs.sx 
+            || u.uy != sstairs.sy || !sstairs.up));
     if (u_rooted())
         return 1;
 
@@ -1560,10 +1568,7 @@ doup()
         return 1;
     }
 
-    if ((u.ux != xupstair || u.uy != yupstair)
-        && (!xupladder || u.ux != xupladder || u.uy != yupladder)
-        && (!sstairs.sx || u.ux != sstairs.sx || u.uy != sstairs.sy
-            || !sstairs.up)) {
+    if (not_on_stairs) {
         if (do_stair_travel('<')) {
             return 0;
         } else {

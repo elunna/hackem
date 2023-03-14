@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: > auto travel doesn't work while levitating. Fixes #226.
 Fix: Rogues gloves could get the searching property (they already grant searching).
 Shopkeeper identify service for armor and weapons is premium for the same price.
 Refactored all techniques so they don't waste a turn if cancelled. Fixes #223.
