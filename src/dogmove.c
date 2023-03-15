@@ -1319,9 +1319,15 @@ boolean ranged;
        || (!ranged && mtmp2->data == &mons[PM_FLOATING_EYE] && rn2(10)
            && mtmp->mcansee && haseyes(mtmp->data) && mtmp2->mcansee
            && (mon_prop(mtmp, SEE_INVIS) || !mtmp2->minvis))
-       || (!ranged && mtmp2->data == &mons[PM_GELATINOUS_CUBE] && rn2(10))
-       || mtmp2->data == &mons[PM_HEDGEHOG]
-       || (!ranged && mtmp2->data == &mons[PM_GREEN_SLIME] && rn2(10))
+       /* Monsters with dangerous passive attacks */
+       || (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE] 
+                          || mtmp2->data == &mons[PM_HEDGEHOG]
+                          || mtmp2->data == &mons[PM_GREEN_SLIME]) 
+              && rn2(10))
+       /* Disintegrators */
+       || (!ranged && (mtmp2->data == &mons[PM_BLACK_DRAGON] 
+                      || mtmp2->data == &mons[PM_ANTIMATTER_VORTEX]) 
+          && !(resists_disint(mtmp) || defended(mtmp, AD_DISN)))
        || (!ranged && max_passive_dmg(mtmp2, mtmp) >= mtmp->mhp)
        || ((mtmp->mhp * 4 < mtmp->mhpmax || mtmp2->data->msound == MS_GUARDIAN
            || mtmp2->data->msound == MS_LEADER)
