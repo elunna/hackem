@@ -4775,24 +4775,25 @@ struct attack *mattk;
     }
     
     if (carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)) {
-        tmp = d(2, 10);
         pline("%s is suddenly on fire!", Monnam(mtmp));
+        if (resists_fire(mtmp)) {
+            tmp = 0;
+            shieldeff(mtmp->mx, mtmp->my);
+            pline_The("fire doesn't burn %s.", mon_nam(mtmp));
+            golemeffects(mtmp, AD_FIRE, tmp);
+        } else {
+            tmp = d(2, 10);
+            if (resists_cold(mtmp))
+                tmp += 3;
+        }      
+        /* Item destruction */
         tmp += destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
         tmp += destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
         if (rn2(3)) 
             tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
-
-        if (resists_fire(mtmp)) {
-            shieldeff(mtmp->mx, mtmp->my);
-            pline_The("fire doesn't burn %s.", Monnam(mtmp));
-            golemeffects(mtmp, AD_FIRE, tmp);
-        } else {
-            if (resists_cold(mtmp))
-                tmp += 3;
-        }
         tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
+        
         if ((mtmp->mhp -= tmp) <= 0) {
-            pline("%s dies!", Monnam(mtmp));
             xkilled(mtmp,0);
             if (mtmp->mhp > 0) 
                 return 1;

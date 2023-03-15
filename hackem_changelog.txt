@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Candle of Eternal Flame was affecting fire resistant monsters and had message issues (reported by Noisytoot).
 Added DEDIT_GETLIN to linux-debug hints file.
 Fix: > auto travel doesn't work while levitating. Fixes #226.
 Fix: Rogues gloves could get the searching property (they already grant searching).
