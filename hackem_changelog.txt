@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Acid elementals should not leave poison gas clouds (suggested by mobileuser).
 Fix: Player centaur had incorrect body parts when polymorphed (reported by mobileuser).
 Pets won't melee monsters with passive disintegration unless they resist it (reported by Noisytoot). 
 Fix: Candle of Eternal Flame was affecting fire resistant monsters and had message issues (reported by Noisytoot).
