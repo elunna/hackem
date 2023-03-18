@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: objects created with an object property would sometimes be blessed and cursed simutaneously (from EvilHack).
 Fix: engraving with a bladed weapon or magic marker would not update permanent inventory (from EvilHack).
 Acid elementals should not leave poison gas clouds (suggested by mobileuser).
 Fix: Player centaur had incorrect body parts when polymorphed (reported by mobileuser).
