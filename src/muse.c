@@ -844,7 +844,7 @@ struct obj *start;
         if (m.has_defense && !rn2(3))
             break;
 
-        if (Is_container(obj) && obj->otyp != BAG_OF_TRICKS) {
+        if (Is_container(obj) && !Bad_bag(obj)) {
             (void) find_defensive_recurse(mtmp, obj->cobj);
             continue;
         }
@@ -1830,7 +1830,7 @@ boolean reflection_skip;
      || (charge_precedence((o)->otyp) > charge_precedence(m.tocharge->otyp)))
     /* this picks the last viable item rather than prioritizing choices */
     for (obj = start; obj; obj = obj->nobj) {
-        if (Is_container(obj)) {
+        if (Is_container(obj) && !Bad_bag(obj)) {
             (void) find_offensive_recurse(mtmp, obj->cobj, target,
                                           reflection_skip);
             continue;
@@ -3152,7 +3152,7 @@ struct obj *start;
     struct permonst *mdat = mtmp->data;
 #define nomore(x) if (m.has_misc == (x)) continue;
     for (obj = start; obj; obj = obj->nobj) {
-        if (Is_container(obj)) {
+        if (Is_container(obj) && !Bad_bag(obj)) {
             (void) find_misc_recurse(mtmp, obj->cobj);
             continue;
         }

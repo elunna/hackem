@@ -363,6 +363,9 @@ struct obj {
 #define Is_mbag(o) ((o)->otyp == BAG_OF_HOLDING \
                     || ((o)->otyp == BAG_OF_TRICKS && (o)->spe > 0) \
                     || ((o)->otyp == BAG_OF_RATS  && (o)->spe > 0))
+#define Bad_bag(o) (((o)->otyp == BAG_OF_TRICKS && (o)->spe > 0) \
+                     || ((o)->otyp == BAG_OF_RATS && (o)->spe > 0) \
+                     || ((o)->otyp == MEDICAL_KIT))
 #define Is_allbag(o) ((o)->otyp >= SACK && (o)->otyp <= BAG_OF_TRICKS)
 #define SchroedingersBox(o) ((o)->otyp == LARGE_BOX && (o)->spe == 1)
 /* usually waterproof; random chance to be subjected to leakage if cursed;

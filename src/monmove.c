@@ -1540,7 +1540,7 @@ register int after;
                     if (is_soko_prize_flag(otmp))
                         continue;
 
-                    if ((((Is_container(otmp)
+                    if ((((Is_container(otmp) && !Bad_bag(otmp)
                            && likes_contents(mtmp, otmp) && can_open)
                           || ((likegold && otmp->oclass == COIN_CLASS)
                           || (likeobjs && index(practical, otmp->oclass)
@@ -2349,6 +2349,8 @@ struct monst *mtmp;
             && typ != SACK
             && typ != BAG_OF_HOLDING 
             && typ != BAG_OF_TRICKS
+            && typ != BAG_OF_RATS
+            && typ != MEDICAL_KIT
             && !Is_candle(obj) 
             && typ != OILSKIN_SACK 
             && typ != LEASH
