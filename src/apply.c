@@ -585,9 +585,8 @@ struct obj *obj;
                 }
             }
         }
-        /* if (pet_cnt > 0) makeknown(obj->otyp); */
+        makeknown_msg(obj->otyp);
     }
-    makeknown_msg(obj->otyp);
 }
 
 boolean
