@@ -4396,6 +4396,12 @@ xchar x, y;
             if (in_invent)
                 update_inventory();
             return ER_DESTROYED;
+        } else if (obj->otyp == POT_AMNESIA) {
+            /* Diluting a !ofAmnesia just gives water... */
+            Your("%s flat.", aobjnam(obj, "become"));
+            obj->odiluted = 0;
+            obj->otyp = POT_WATER;
+            return ER_DAMAGED;
         } else if (obj->odiluted) {
             if (in_invent)
                 Your("%s %s further.", ostr, vtense(ostr, "dilute"));
@@ -6478,7 +6484,6 @@ in_hell_effects()
                      || u.umonnum == PM_SEA_DRAGON
                      || u.umonnum == PM_FOG_CLOUD);
 
-        u.uhp = -1;
         killer.format = KILLED_BY;
         Strcpy(killer.name, in_hell_killer);
         You("%s...", boil_away ? "boil away" : "are roasted alive");
@@ -6526,7 +6531,6 @@ in_iceq_effects()
                         || u.umonnum == PM_SEA_DRAGON
                         || u.umonnum == PM_FOG_CLOUD);
 
-        u.uhp = -1;
         killer.format = KILLED_BY;
         Strcpy(killer.name, in_iceq_killer);
         You("%s...", freeze_solid ? "freeze solid" : "freeze to death");

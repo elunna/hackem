@@ -699,7 +699,7 @@ doforging(void)
            ensure that the newly forged object doesn't
            randomly have a property added at creation */
         if ((obj1->oprops & 0L) && (obj2->oprops & 0L))
-            output->oprops |= 0L;
+            output->oprops = 0L;
 
         /* if objects are enchanted or have charges,
            carry that over, and use the greater of the two */
@@ -868,7 +868,7 @@ drinkfountain()
                 You_see("an image of someone stalking you.");
                 pline("But it disappears.");
             }
-            incr_itimeout(&HSee_invisible, (long) rn1(100, 50));
+            HSee_invisible |= FROMOUTSIDE;
             newsym(u.ux, u.uy);
             exercise(A_WIS, TRUE);
             break;
@@ -1096,7 +1096,7 @@ register struct obj *obj;
         floating_above("toilet");
         return;
     }
-
+    
     er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
 
     if (obj->otyp == POT_ACID && er != ER_DESTROYED) {

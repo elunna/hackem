@@ -873,8 +873,7 @@ toofar:
     /*  Now the actual movement phase
      */
 
-    if (mtmp->data == &mons[PM_HEZROU] 
-        || mtmp->data == &mons[PM_ACID_ELEMENTAL]) /* stench */
+    if (mtmp->data == &mons[PM_HEZROU]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
 
     /* Not an exact copy of Hezrous, but skunks are known

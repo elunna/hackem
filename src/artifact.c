@@ -395,12 +395,13 @@ boolean allow_detrimental;
                     && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
             continue; /* these are mutually exclusive */
 
-        if (otmp->material != CLOTH
-            && (j & ITEM_OILSKIN))
+        if (otmp->material != CLOTH && (j & ITEM_OILSKIN))
             continue;
 
-        if (otmp->otyp == OILSKIN_CLOAK
-            && (j & ITEM_OILSKIN))
+        if (otmp->otyp == OILSKIN_CLOAK && (j & ITEM_OILSKIN))
+            continue;
+        
+        if (otmp->otyp == ROGUES_GLOVES && (j & ITEM_SEARCHING))
             continue;
 
         otmp->oprops |= j;
@@ -412,18 +413,17 @@ boolean allow_detrimental;
             || otmp->oclass == ARMOR_CLASS)
         && !(otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER))) {
         if (!rn2(8)) {
-            otmp->spe = rne(3);
-            otmp->blessed = rn2(2);
-        } else if (!rn2(8)) {
-            curse(otmp);
-            otmp->spe = -rne(3);
-        } else {
             blessorcurse(otmp, 8);
+            if (otmp->cursed)
+                otmp->spe = -rne(3);
+            else
+                otmp->spe = rne(3);
         }
     }
 
     if (otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER)) {
-        curse(otmp);
+        if (!otmp->cursed)
+            curse(otmp);
         otmp->spe = -rne(3);
     }
     return otmp;

@@ -15,6 +15,50 @@
 
 Version 1.1 (unreleased)
 
+Fix: forged objects having an object property when they shouldn't (from EvilHack).
+Fix: objects created with an object property would sometimes be blessed and cursed simutaneously (from EvilHack).
+Fix: engraving with a bladed weapon or magic marker would not update permanent inventory (from EvilHack).
+Acid elementals should not leave poison gas clouds (suggested by mobileuser).
+Fix: Player centaur had incorrect body parts when polymorphed (reported by mobileuser).
+Pets won't melee monsters with passive disintegration unless they resist it (reported by Noisytoot). 
+Fix: Candle of Eternal Flame was affecting fire resistant monsters and had message issues (reported by Noisytoot).
+Added DEDIT_GETLIN to linux-debug hints file.
+Fix: > auto travel doesn't work while levitating. Fixes #226.
+Fix: Rogues gloves could get the searching property (they already grant searching).
+Shopkeeper identify service for armor and weapons is premium for the same price.
+Refactored all techniques so they don't waste a turn if cancelled. Fixes #223.
+Revivification doesn't waste a turn if it isn't successfully used.
+Reinforce Memory doesn't waste a turn if it isn't successfully used.
+Fix: Remove duplicate message for finishing quest without incident.
+The calm steed technique will cure fear when used in centaur form/race (suggested by mobileuser).
+Spiritual attributes (in Ctrl-X menu) shows if you haven't prayed so there isn't just a blank spot there.
+When playing as a doppleganger you can see the corpses you have eaten in your Ctrl-X menu.
+Fix: Jedi jump tech doesn't waste a turn when an illegal move is tried.
+database: removed outdated info about necromancer spelltechs.
+Lowered the spellbook of command undead to a level 3 spell.
+Digging is noisy (more changes to make digging noisy from 3.7 e260aa587).
+Updated artiwish odds to match vanilla/slashem; first two artiwishes are guaranteed.
+Fix: Magma elementals created lava pools on death - when dying on an ice tile, the ice melt timer was not handled properly. Fixes #220.
+Fix: Inappropriate message when a monk's robe is destroyed (reported by Loggers_VIII).
+Huge or gigantic monsters on a pool/lava tile will not be instakilled if a boulder fills up the pool/lava spot (from EvilHack).
+Remove unnecessary code from in_hell_effects() and in_iceq_effects() (from EvilHack).
+Fix: paranoid swim would kick in while phasing under certain conditions (from EvilHack).
+Fix: wrong deity was made upset if caught trying to ascend while wearing a helm of opposite alignment (from EvilHack).
+Mind flayer larva victims, if peaceful, will become hostile when turned into a mind flayer (from EvilHack).
+Fix: Dwarven undead slayer's silver dwarvish spear was invalid material. Fixes #219.
+Fix: Monsters were able to use wands of healing with no charges. Fixes #218.
+Fix: Lightsabers staying lit in bones file creation caused impossible when reloaded. Fixes #215.
+Fix: Looting a 0:0 bag of tricks (or rats) still bit you. Fixes #216.
+See invisible can be gained permanently from potions/stalkers/fountains again.
+Revert golem HP starting values to EvilHack levels.
+Fix: Spirit tempest technique could check sight out of bounds, causing a global-buffer-overflow. Fixes #207.
+Fix: Bags of tricks/rats show empty only when they don't have items. Fixes #209.
+Fix: Accessing a bag of tricks or bag of rats always used a turn. Fixes #214.
+Fix: Ctrl-X was showing if it was safe to pray in non-wizmode. Fixes #213.
+Fix: Unknown/new gloves caused impossible in monk's boulder breaking technique. Fixes #211.
+Fix: Aphrodite introduced herself as someone else. Fixes #208.
+Fix: Potions of amnesia required 2 dips to fully dilute (SLASH'EM required only 1 dip). Fixes #212.
+Fix: Minions can't be granted if you have any pets on the level.
 Archeologists can reach skilled in shields.
 Itlachiayaque must be worn to confer 1/2 spell damage and ESP.
 Itlachiayaque also grants warning (xnh)

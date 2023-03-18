@@ -1051,9 +1051,10 @@ register struct obj *otmp;
              */
             make_blinded(0L, TRUE);
         }
-	/* remove free permanent see-invis... */
-	incr_itimeout(&HSee_invisible,
-		      rn1(otmp->odiluted ? 50 : 100, otmp->blessed ? 1500: 750));
+        if (otmp->blessed)
+            HSee_invisible |= FROMOUTSIDE;
+        else
+	    incr_itimeout(&HSee_invisible, rn1(otmp->odiluted ? 50 : 100, 750));
         set_mimic_blocking(); /* do special mimic handling */
         see_monsters();       /* see invisible monsters */
         newsym(u.ux, u.uy);   /* see yourself! */

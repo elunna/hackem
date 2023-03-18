@@ -1225,7 +1225,7 @@ Armor_gone()
     struct obj *otmp = uarm;
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
 
-    if (Role_if(PM_MONK))
+    if (Role_if(PM_MONK) && !is_robe(otmp))
         You_feel("much more comfortable and free now.");
 
     if (otmp)

@@ -3554,10 +3554,11 @@ static const struct icp portable_container_materials[] = {
 };
 
 static const struct icp dwarvish_weapon_materials[] = {
-    {50, IRON},
+    {45, IRON},
     {25, METAL},
     {20, MITHRIL},
-    { 5, GEMSTONE} /* gemstone is very hard and very sharp */
+    { 5, GEMSTONE}, /* gemstone is very hard and very sharp */
+    { 5, SILVER}
 };
 
 static const struct icp elven_weapon_materials[] = {
