@@ -1246,17 +1246,18 @@ int pm;
         context.botl = 1;
         check_intrinsics = TRUE; /* might also convey poison resistance */
         break;
-    case PM_STALKER: {
-        boolean was_invis = !!Invis;
-        incr_itimeout(&HInvis, (long) rn1(100, 50));
-        if (!was_invis && !Blind && !BInvis) {
-            self_invis_message();
-        }
-        if (was_invis) {
-            incr_itimeout(&HSee_invisible, (long) rn1(100, 50));
+    case PM_STALKER:
+        if (!Invis) {
+            set_itimeout(&HInvis, (long) rn1(100, 50));
+            if (!Blind && !BInvis)
+                self_invis_message();
+        } else {
+            if (!(HInvis & INTRINSIC))
+                You_feel("hidden!");
+            HInvis |= FROMOUTSIDE;
+            HSee_invisible |= FROMOUTSIDE;
         }
         newsym(u.ux, u.uy);
-    }
         /*FALLTHRU*/
     case PM_YELLOW_LIGHT:
     case PM_GIANT_BAT:
@@ -3501,7 +3502,7 @@ int num;
     boolean iseating = (occupation == eatfood) || force_save_hs;
 
     debugpline1("lesshungry(%d)", num);
-    u.uhunger += (Hunger ? (num + 1) / 2 : num);
+    u.uhunger += num;
     if (u.uhunger >= (Race_if(PM_HOBBIT) ? 4000 : 2000)) {
         if (!iseating || context.victual.canchoke) {
             if (iseating) {

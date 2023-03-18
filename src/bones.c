@@ -245,9 +245,9 @@ boolean restore;
                 otmp->otyp = SKELETON_KEY;
                 set_material(otmp, COPPER);
                 curse(otmp);
-            } else if (is_lightsaber(otmp)){
-                if (otmp->lamplit)
-                    end_burn(otmp, FALSE);
+            } else if (is_lightsaber(otmp)) {
+                if (obj_is_burning(otmp))
+                    end_burn(otmp, TRUE);
             }
         }
     }

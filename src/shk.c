@@ -3894,10 +3894,10 @@ struct obj *obj;
         return 375;
         break;
     case WEAPON_CLASS:
-        return 75;
+        return 40;
         break;
     case ARMOR_CLASS:
-        return 100;
+        return 50;
         break;
     case FOOD_CLASS:
         return 25;   
@@ -3978,7 +3978,9 @@ long ident_type;
 
     /* All specialty identify services default to basic. 
      * We should only see premier identify in the black market */
-    if (ident_type != SHK_ID_PREMIUM)
+    if (ident_type == SHK_ID_WEAPON || ident_type == SHK_ID_ARMOR)
+        ident_type = SHK_ID_PREMIUM;
+    else if (ident_type != SHK_ID_PREMIUM)
         ident_type = SHK_ID_BASIC;
     
     /*

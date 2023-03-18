@@ -4970,7 +4970,7 @@ doapply()
         break;
     case BAG_OF_TRICKS:
     case BAG_OF_RATS:
-        (void) bagotricks(obj);
+        res = bagotricks(obj);
         break;
     case CAN_OF_GREASE:
         use_grease(obj);

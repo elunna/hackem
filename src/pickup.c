@@ -1818,7 +1818,7 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
         losehp(rnd(sear_damage(cobj->material)), kbuf, KILLED_BY);
     }
 
-    if (cobj->otyp == BAG_OF_TRICKS) {
+    if (cobj->otyp == BAG_OF_TRICKS && cobj->spe > 0) {
         You("carefully open %s...", the(xname(cobj)));
         pline("It develops a huge set of %s you!",
               Hallucination ? "lips and kisses" : "teeth and bites");
@@ -1827,7 +1827,7 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
         makeknown(BAG_OF_TRICKS);
         abort_looting = TRUE;
         return 1;
-    } else if (cobj->otyp == BAG_OF_RATS) {
+    } else if (cobj->otyp == BAG_OF_RATS && cobj->spe > 0) {
         You("carefully open %s...", the(xname(cobj)));
         if (!rn2(3)) {
             pline("A whiskered critter bites you!");

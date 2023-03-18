@@ -301,6 +301,7 @@ dig(VOID_ARGS)
         case 1:
             pline("Bang!  You hit with the broad side of %s!",
                   the(xname(uwep)));
+            wake_nearby();
             break;
         default:
             Your("swing misses its mark.");
@@ -520,8 +521,9 @@ dig(VOID_ARGS)
         if (!did_dig_msg) {
             if (is_lightsaber(uwep)) 
                 You("burn steadily through %s.", the(d_target[dig_target]));
-		    else
+            else
                 You("hit the %s with all your might.", d_target[dig_target]);
+            wake_nearby();
             did_dig_msg = TRUE;
         }
     }
@@ -656,6 +658,7 @@ int ttyp;
                 You("dig a pit in the %s.", surface_type);
             if (shopdoor)
                 pay_for_damage("ruin", FALSE);
+            wake_nearby();
         } else if (!madeby_obj && canseemon(madeby)) {
             pline("%s digs a pit in the %s.", Monnam(madeby), surface_type);
         } else if (cansee(x, y) && flags.verbose) {
@@ -871,6 +874,7 @@ coord *cc;
              * fills it.  Final outcome:  no hole, no boulder.
              */
             pline("KADOOM!  The boulder falls in!");
+            wake_nearby();
             (void) delfloortrap(ttmp);
         }
         delobj(boulder_here);

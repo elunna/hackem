@@ -1386,18 +1386,11 @@ unsigned doname_flags;
 
     /* "empty" goes at the beginning, but item count goes at the end */
     if (cknown
-        /* bag of tricks: include "empty" prefix if it's known to
-           be empty but its precise number of charges isn't known
-           (when that is known, suffix of "(n:0)" will be appended,
-           making the prefix be redundant; note that 'known' flag
-           isn't set when emptiness gets discovered because then
-           charging magic would yield known number of new charges);
-           horn of plenty isn't a container but is close enough */
-        && ((obj->otyp == BAG_OF_TRICKS 
-             || obj->otyp == HORN_OF_PLENTY
-             || obj->otyp == BAG_OF_RATS)
-             ? (obj->spe == 0 && !known)
-             /* not a bag of tricks or horn of plenty: it's empty if
+        /* bag of tricks/rats: include "empty" prefix if it's known to
+           be without charges and empty */
+        && ((obj->otyp == BAG_OF_TRICKS || obj->otyp == BAG_OF_RATS)
+             ? (obj->spe == 0 && !Has_contents(obj))
+             /* not a bag of tricks/rats: it's empty if
                 it is a container that has no contents */
              : ((Is_container(obj) || obj->otyp == STATUE)
                 && !Has_contents(obj))))
@@ -5132,7 +5125,7 @@ struct obj *no_wish;
         || (Role_if(PM_PIRATE) && otmp->oartifact == ART_REAVER)
         || (Role_if(PM_RANGER) && ((Race_if(PM_GNOME) && otmp->oartifact == ART_LONGBOW_OF_DIANA)
                                    || (!Race_if(PM_GNOME) && otmp->oartifact == ART_CROSSBOW_OF_CARL)))
-        || (otmp->oartifact && rn2(u.uconduct.wisharti))) && !wizard) {
+        || (otmp->oartifact && rn2(u.uconduct.wisharti) > 1)) && !wizard) {
         artifact_exists(otmp, ONAME(otmp), FALSE);
         obfree(otmp, (struct obj *) 0);
         otmp = (struct obj *) &zeroobj;

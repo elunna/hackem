@@ -366,8 +366,6 @@ struct obj *obj; /* quest artifact; possibly null if carrying Amulet */
             livelog_printf(LL_ACHIEVE, "completed %s quest without incident",
                            uhis());
         }
-        livelog_printf(LL_ACHIEVE, "completed %s quest without incident",
-                       uhis());
         
         /* Since the player is punished for abusing alignment, let's reward them
          * for "walking the line", with a permanent +3 luck bonus (credit to 
