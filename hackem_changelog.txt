@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Random breath attack didn't function correctly when polymorphed into a crystal golem (reported by Noisytoot).
 Drinking from toilets cures the larva carrier condition (suggested by mobileuser).
 Fix: Magic whistles would auto-id when used by silent monsters or other non-functional applications (reported by mobileuser).
 Fix: forged objects having an object property when they shouldn't (from EvilHack).
