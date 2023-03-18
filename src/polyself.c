@@ -2211,7 +2211,7 @@ int part;
         return bird_parts[part];
     if (has_beak(mptr) && part == NOSE)
         return "beak";
-    if (is_centaur(mon->data)
+    if (is_centaur(mptr)
         || mptr->mlet == S_UNICORN
         || mptr == &mons[PM_KI_RIN]
         || mptr == &mons[PM_ELDRITCH_KI_RIN]

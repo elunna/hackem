@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Centaur check.
 Monster bag usage, updates for bags of tricks/rats and medical kits (suggested by mobileuser).
 Fix: Random breath attack didn't function correctly when polymorphed into a crystal golem (reported by Noisytoot).
 Drinking from toilets cures the larva carrier condition (suggested by mobileuser).
