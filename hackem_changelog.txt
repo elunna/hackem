@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Crash when applied polearm sticks to adherer (reported by mobileuser).
 Fix: Candles could skip aging when lit and player was fast (reported by mobileuser).
 Centaur check.
 Monster bag usage, updates for bags of tricks/rats and medical kits (suggested by mobileuser).

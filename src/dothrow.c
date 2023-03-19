@@ -2197,7 +2197,13 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
                 return 1;
             if (mon->data == &mons[PM_ADHERER] && !DEADMONSTER(mon)) {
                 pline("The %s sticks to %s", xname(obj), mon_nam(mon));
-                (void) mpickobj(mon, obj);
+                
+                if (uwep && obj == uwep) {
+                    dropx(uwep);
+                    obj_extract_self(obj);
+                    add_to_minv(mon, obj);
+                } else 
+                    (void) mpickobj(mon, obj);
                 return 1;
             }
         } else {
