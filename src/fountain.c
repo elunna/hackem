@@ -1410,6 +1410,10 @@ drinktoilet()
         pline_The("toilet water is quite refreshing!");
         u.uhunger += 10;
         return;
+    } 
+    if (LarvaCarrier) {
+        You_feel("as if your body is your own again.");
+        make_carrier(0L, FALSE);
     }
     switch (rn2(9)) {
     case 0: 

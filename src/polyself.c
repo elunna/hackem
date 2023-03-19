@@ -1392,12 +1392,20 @@ dobreathe()
 
     if (!getdir((char *) 0))
         return 0;
-
+    
     mattk = attacktype_fordmg(youmonst.data, AT_BREA, AD_ANY);
     if (!mattk)
         impossible("bad breath attack?"); /* mouthwash needed... */
     else if (!u.dx && !u.dy && !u.dz)
         ubreatheu(mattk);
+    else if (youmonst.data == &mons[PM_CRYSTAL_GOLEM]) {
+        /* Extra handling for AD_RBRE - player might poly into a crystal
+         * golem. */
+        uchar adtyp;
+        adtyp = mattk->adtyp == AD_RBRE ? rnd(AD_ACID) : mattk->adtyp;
+        buzz((int) (20 + adtyp - 1), (int) mattk->damn, u.ux, u.uy, u.dx,
+             u.dy);
+    }
     else
         buzz((int) (20 + mattk->adtyp - 1), (int) mattk->damn, u.ux, u.uy,
              u.dx, u.dy);
@@ -2203,7 +2211,7 @@ int part;
         return bird_parts[part];
     if (has_beak(mptr) && part == NOSE)
         return "beak";
-    if (is_centaur(mon->data)
+    if (is_centaur(mptr)
         || mptr->mlet == S_UNICORN
         || mptr == &mons[PM_KI_RIN]
         || mptr == &mons[PM_ELDRITCH_KI_RIN]
