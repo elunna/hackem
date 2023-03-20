@@ -3219,9 +3219,12 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             /* Liches and the like are immune to annihilation until Vecna
                is destroyed */
             if (!u.uevent.uvecna
-                && (!strcmpi(buf, "lich") || !strcmpi(buf, "demilich")
-                    || !strcmpi(buf, "master lich") || !strcmpi(buf, "arch-lich")
-                    || !strcmpi(buf, "arch lich") || !strcmpi(buf, "alhoon"))) {
+                && (!strcmpi(buf, "lich")
+                    || !strcmpi(buf, "demilich")
+                    || !strcmpi(buf, "master lich")
+                    || !strcmpi(buf, "arch-lich")
+                    || !strcmpi(buf, "arch lich")
+                    || !strcmpi(buf, "alhoon"))) {
                 pline_The("voice of Vecna fills your mind:");
                 verbalize("Thou shalt do no harm to %s whilst I exist!",
                           makeplural(buf));
@@ -3284,6 +3287,17 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             if (is_demon(ptr))
                 adjalign(sgn(u.ualign.type));
 
+            /* Spiritually connected */
+            if ((Role_if(PM_FLAME_MAGE) && 
+                 (!strcmpi(buf, "red dragon") 
+                  || !strcmpi(buf, "red baby dragon")))
+                 || (Role_if(PM_ICE_MAGE) && 
+                    (!strcmpi(buf, "white dragon") 
+                     || !strcmpi(buf, "white baby dragon")))) {
+                You_feel("guilty.");
+                adjalign(-99);
+            }
+            
             if (!(ptr->geno & G_GENO)) {
                 if (!Deaf) {
                     /* FIXME: unconditional "caverns" will be silly in some

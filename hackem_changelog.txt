@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Flame and Ice mages get severe alignment penalties for genociding their related dragons.
 Fix: Confused monsters would never target other monsters, only the player.
 Fix: Tossing bombs up or down could create timer panic on save (reported by mobileuser).
 Fix: Crash when applied polearm sticks to adherer (reported by mobileuser).
