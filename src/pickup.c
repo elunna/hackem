@@ -3502,19 +3502,18 @@ boolean creation;
     char buf[BUFSZ];
     register struct obj *obj, *nobj, *bag = (struct obj *) 0;
     struct obj *wep = bag, *hwep = bag, *rwep = bag, *proj = bag;
+    
     for (obj = mon->minvent; obj; obj = obj->nobj) {
         if (!Is_nonprize_container(obj)
-            || obj->otyp == BAG_OF_TRICKS
+            || Bad_bag(obj)
             || obj->olocked)
             continue;
         if (obj->otyp == BAG_OF_HOLDING && !obj->cursed) {
             bag = obj;
             break;
         } else if (!bag
-            || (obj->otyp == OILSKIN_SACK
-                && bag->otyp != OILSKIN_SACK)
-            || (obj->otyp == SACK
-                && (bag->otyp != OILSKIN_SACK
+            || (obj->otyp == OILSKIN_SACK && bag->otyp != OILSKIN_SACK)
+            || (obj->otyp == SACK && (bag->otyp != OILSKIN_SACK
                     && bag->otyp != SACK))) {
             bag = obj;
 	}

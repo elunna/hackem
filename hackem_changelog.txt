@@ -15,6 +15,13 @@
 
 Version 1.1 (unreleased)
 
+Fix: Crash when applied polearm sticks to adherer (reported by mobileuser).
+Fix: Candles could skip aging when lit and player was fast (reported by mobileuser).
+Centaur check.
+Monster bag usage, updates for bags of tricks/rats and medical kits (suggested by mobileuser).
+Fix: Random breath attack didn't function correctly when polymorphed into a crystal golem (reported by Noisytoot).
+Drinking from toilets cures the larva carrier condition (suggested by mobileuser).
+Fix: Magic whistles would auto-id when used by silent monsters or other non-functional applications (reported by mobileuser).
 Fix: forged objects having an object property when they shouldn't (from EvilHack).
 Fix: objects created with an object property would sometimes be blessed and cursed simutaneously (from EvilHack).
 Fix: engraving with a bladed weapon or magic marker would not update permanent inventory (from EvilHack).

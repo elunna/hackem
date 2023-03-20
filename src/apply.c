@@ -585,9 +585,8 @@ struct obj *obj;
                 }
             }
         }
-        /* if (pet_cnt > 0) makeknown(obj->otyp); */
+        makeknown_msg(obj->otyp);
     }
-    makeknown_msg(obj->otyp);
 }
 
 boolean
@@ -1534,11 +1533,15 @@ struct obj *obj;
             lightsaber_deactivate(obj, TRUE);
             return;
         } else if (obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
-            /*pline_The("%s will not stop burning!", xname(obj));*/
             pline("%s will not stop burning!", artiname(obj->oartifact));
             return;
         } else
             You("snuff out %s.", yname(obj));
+        
+        /* If the candle is still full, age it by one point so it correctly 
+         * shows "partly used" and makes identifying magic candles easier. */
+        if (Is_candle(obj) && obj->age < 20L * (long) objects[obj->otyp].oc_cost)
+            obj->age--;
         end_burn(obj, TRUE);
         return;
     }
