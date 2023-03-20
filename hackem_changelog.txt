@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Shopkeepers not interested in buying magic candles, fixes #231 (reported by nh2465).
 Fix: multishot bonuses with various races (from EvilHack).
 Fix: The leather cloak of flight hoistses you up into the air! Fixes #230 (reported by mobileuser).
 Flame and Ice mages get severe alignment penalties for genociding their related dragons.

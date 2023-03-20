@@ -3732,7 +3732,8 @@ xchar x, y;
         || obj->oclass == BALL_CLASS || obj->oclass == CHAIN_CLASS
         || offer == 0L || (obj->oclass == FOOD_CLASS && obj->oeaten)
         || (Is_candle(obj)
-            && obj->age < 20L * (long) objects[obj->otyp].oc_cost)) {
+            && obj->age < 20L * (long) objects[obj->otyp].oc_cost
+               && obj->otyp != MAGIC_CANDLE)) {
         pline("%s seems uninterested%s.", Shknam(shkp),
               cgold ? " in the rest" : "");
         if (container)
@@ -5015,18 +5016,15 @@ boolean shk_buying;
         if (Is_candle(obj)
             && obj->age < 20L * (long) objects[obj->otyp].oc_cost) {
             tmp /= 2L;
-        }
-        else if (obj->otyp == TORCH) {
+        } else if (obj->otyp == TORCH) {
             if (obj->age == 0) {
                 tmp = 0L;
-            }
-            else if (obj->age < 25) {
+            } else if (obj->age < 25) {
                 tmp /= 4L;
-            }
-            else if (obj->age < 50) {
+            } else if (obj->age < 50) {
                 tmp /= 2L;
             }
-		}
+        }
         break;
     }
     return tmp;
