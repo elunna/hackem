@@ -1425,7 +1425,9 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                                                          : (genericptr_t) 0;
     /* NOTE:  No early returns after this point or returning_missile
        will be left with a stale pointer. */
-
+    if (is_bomb(obj))
+        arm_bomb(obj, TRUE);
+        
     if (u.uswallow) {
         if (obj == uball) {
             uball->ox = uchain->ox = u.ux;
@@ -1460,8 +1462,6 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             setuwep(obj);
             u.twoweap = twoweap;
             /*return;*/
-        } else if (is_bomb(obj)) {
-            arm_bomb(obj, TRUE);
         } else if (u.dz < 0) {
             (void) toss_up(obj, rn2(5) && !Underwater);
         } else if (u.dz > 0 && u.usteed && obj->oclass == POTION_CLASS

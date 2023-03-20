@@ -561,6 +561,9 @@ struct damage_info_t *damage_info)
     if (is_lightsaber(otmp) && !otmp->lamplit)
         tmp += rnd(2);
 
+    if (is_bomb(otmp))
+        tmp += rnd(2);
+    
     /* negative modifiers mustn't produce negative damage */
     if (tmp < 0)
         tmp = 0;
