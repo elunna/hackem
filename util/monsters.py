@@ -169,8 +169,9 @@ def write_html(monsters):
         file1.write("Note that most of the information presented here can be obtained about any creature in Hack'EM by "
                     "using the far look command. The information displayed by this command is considered the single "
                     "source of truth about monsters.\n")
+        file1.write("An automated script scrapes all of this info directly from the Hack'EM source.\n")
         file1.write("\n")
-        file1.write("== Hack'EM Monsters\n")
+        file1.write("== Hack'EM Monsters ==\n")
         file1.write("\n")
         file1.write('{|class="wikitable sortable" \n')
         file1.write("|-\n")

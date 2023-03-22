@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Minor updates to items and monsters info scrapers.
 Fix: Vorpal jabberwock not beheaded by vorpal blade (reported by mobileuser).
 Fix: locking then unlocking the Sokoban closet doors prevents them from being sealed (from EvilHack).
 Fix: Shopkeepers not interested in buying magic candles, fixes #231 (reported by nh2465).

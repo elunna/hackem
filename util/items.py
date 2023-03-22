@@ -205,12 +205,8 @@ def write_html(item_dict):
     with open("item.htm", "w") as file1:
         file1.write("{{otheruses|||monster (disambiguation)}}\n")
         file1.write("This page lists all of the [[items]] that are in [[Hack'EM]].\n")
+        file1.write("An automated script scrapes all of this info directly from the Hack'EM source.\n")
         file1.write("\n")
-        file1.write("\n")
-        file1.write('{|class="wikitable sortable" \n')
-        file1.write("|-\n")
-        file1.write('!scope="col" | Item\n')
-        file1.write('!scope="col" | Sym\n')
 
         for k, items in item_dict.items():
             file1.write("\n")
