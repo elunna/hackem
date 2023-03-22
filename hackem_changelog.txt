@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Typo when triggering ice trap (reported by Loggers_VIII). Fixes #234.
 Minor updates to items and monsters info scrapers.
 Fix: Vorpal jabberwock not beheaded by vorpal blade (reported by mobileuser).
 Fix: locking then unlocking the Sokoban closet doors prevents them from being sealed (from EvilHack).
