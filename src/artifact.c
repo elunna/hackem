@@ -2645,7 +2645,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             }
         /* --hackem: Sexy 10% beheading chance from Slash'EM */
         } else if (dieroll < 3 || (otmp->oartifact == ART_VORPAL_BLADE &&
-				      mdef->data == &mons[PM_JABBERWOCK])) {
+                                   is_jabberwock(mdef->data))) {
             
             static const char *const behead_msg[2] = { 
                 "%s beheads %s!",                                       
