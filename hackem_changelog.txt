@@ -9,12 +9,13 @@
 - amateurhour and qt for their endless debugging advice.
 
 ### Thanks: 
-- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico
+- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
 
 ==========================
 
 Version 1.1 (unreleased)
 
+Credit more players in changelog. Thank you!
 Players are prevented from tipping known explosive items into known bags of holding.
 Fix: heap-use-after-free when tipping sack with wand of cancellation into bag of holding. Fixes #237.
 Fix: Typo when triggering ice trap (reported by Loggers_VIII). Fixes #234.
