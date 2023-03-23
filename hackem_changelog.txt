@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Players are prevented from tipping known explosive items into known bags of holding.
 Fix: heap-use-after-free when tipping sack with wand of cancellation into bag of holding. Fixes #237.
 Fix: Typo when triggering ice trap (reported by Loggers_VIII). Fixes #234.
 Minor updates to items and monsters info scrapers.
