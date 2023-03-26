@@ -113,7 +113,10 @@
 
 #define Invulnerable u.uprops[INVULNERABLE].intrinsic /* [Tom] */
 
-#define DeathVision (ublindf && ublindf->oartifact == ART_MYSTIC_EYES && !Blind)
+#define DeathVision (ublindf \
+                     && ublindf->oartifact == ART_MYSTIC_EYES \
+                     && !Blind                                \
+                     && !Halluc_resistance)
 
 #define SuperStealth ((uright && uright->oartifact == ART_XANATHAR_S_RING_OF_PROOF) \
  || (uleft && uleft->oartifact == ART_XANATHAR_S_RING_OF_PROOF))
@@ -166,10 +169,10 @@
 #define HHalluc_resistance u.uprops[HALLUC_RES].intrinsic
 #define EHalluc_resistance u.uprops[HALLUC_RES].extrinsic
 #define Halluc_resistance (HHalluc_resistance || EHalluc_resistance)
-#define Hallucination ((HHallucination && !Halluc_resistance) \
-                       || u.uroleplay.hallu                   \
-                       || (uarmh && uarmh->otyp == HELM_OF_MADNESS) \
-                       || DeathVision)
+#define Hallucination (((HHallucination || DeathVision \
+                         || (uarmh && uarmh->otyp == HELM_OF_MADNESS)) \
+                         && !Halluc_resistance) \
+                       || u.uroleplay.hallu)
 
 /* Timeout, plus a worn mask */
 #define HDeaf u.uprops[DEAF].intrinsic
