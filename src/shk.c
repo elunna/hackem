@@ -4062,9 +4062,13 @@ struct monst *shkp;
     int charge;                     /* How much to uncurse          */
 
     /* Pick object */
-    if ( !(obj = getobj(identify_types, "uncurse")))
+    if (!(obj = getobj(identify_types, "uncurse")))
         return 0;
 
+    if (obj->bknown && !obj->cursed && !Confusion && !Hallucination) {
+        pline("That item is not cursed!");
+        return 0;
+    }
     /* Charge is same as cost */
     charge = get_cost(obj, shop_keeper(*u.ushops));
             
@@ -4081,16 +4085,15 @@ struct monst *shkp;
 
     /* Shopkeeper responses */
     /* KMH -- fixed bknown, curse(), bless(), uncurse() */
-    if (!obj->bknown 
+    if (!obj->bknown
           && !Role_if(PM_PRIEST)
-          && !Role_if(PM_NECROMANCER) 
+          && !Role_if(PM_NECROMANCER)
           && !no_cheat) {
         /* Not identified! */
         pline("%s snickers and says \"See, nice and uncursed!\"",
                 mon_nam(shkp));
         obj->bknown = FALSE;
-    }
-    else if (Confusion) {
+    } else if (Confusion) {
         /* Curse the item! */
         You("accidentally ask for the item to be cursed");
         curse(obj);
@@ -4101,16 +4104,13 @@ struct monst *shkp;
         ** then there's a chance for the object to be blessed!
         */
         if (!rn2(4)) {
-            pline("Distracted by your blood-shot %s, the shopkeeper",
+            pline("Distracted by your blood-shot %s, the shopkeeper accidentally blesses the item!",
                 makeplural(body_part(EYE)));
-            pline("accidentally blesses the item!");
             bless(obj);
-        }
-        else {
+        } else {
             You_cant("see straight and point to the wrong item");
         }
-    }
-    else {
+    } else {
         verbalize("All done - safe to handle, now!");
         uncurse(obj);
     }

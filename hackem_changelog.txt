@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Uncurse service can't be used for non-cursed BUC identified items, unless confused or hallucinating. Reported by cbus.
 Fix: Wearing Mystic Eyes and a source of hallucination resistance cancels DeathVision. Suggested by Noisytoot.
 Credit more players in changelog. Thank you!
 Players are prevented from tipping known explosive items into known bags of holding.
