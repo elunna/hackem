@@ -4849,7 +4849,7 @@ monster then the grenade will instantly explode.  */
         break;
     case ART_MITRE_OF_HOLINESS:
         art_info.wielded[16] = "1/2 physical damage from undead and demons (Priests only)";
-        art_info.wielded[17] = "allows #pray and #turn to function in Gehennom when worn.";
+        art_info.wielded[17] = "allows #pray and turn tech to function in Gehennom when worn.";
         art_info.xinfo = "Doesn't block illithids from casting psionic wave when worn.";
         break;
     case ART_MASTER_KEY_OF_THIEVERY: 

@@ -128,8 +128,8 @@ M-q     quit    stop playing
 M-r     rub     rub a lamp or a stone
 M-R     ride    mount or dismount saddled steed
 M-s     sit     sit down
-M-T     tip     upend a container to dump out its contents
 M-t     tech    use technique
+M-T     tip     upend a container to dump out its contents
 M-u     untrap  untrap something
 M-v     version print compile time options for this version
 M-w     wipe    wipe off your face

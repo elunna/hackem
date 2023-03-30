@@ -1421,8 +1421,9 @@ When picking a target with cursor and the
 .op autodescribe
 option is on, the top line will show \(lq(no travel path)\(rq if
 your character does not know of a path to that location.
-.lp "#turn    "
-Turn undead away.
+.lp "#tech    "
+Perform a role or race specific technique. A menu showing the techniques
+available to your character will be displayed.
 Autocompletes.
 .lp #twoweapon
 Toggle two-weapon combat on or off.
