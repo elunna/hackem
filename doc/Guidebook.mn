@@ -1424,7 +1424,6 @@ your character does not know of a path to that location.
 .lp "#turn    "
 Turn undead away.
 Autocompletes.
-Default key is \(oqM-t\(cq.
 .lp #twoweapon
 Toggle two-weapon combat on or off.
 Autocompletes.
@@ -1626,7 +1625,7 @@ option is enabled)
 .lp M-s
 #sit
 .lp M-t
-#turn
+#tech
 .lp M-T
 #tip
 .lp M-u

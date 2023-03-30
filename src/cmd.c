@@ -4313,7 +4313,7 @@ struct ext_func_tab extcmdlist[] = {
     { M('T'), "tip", "empty a container", dotip, AUTOCOMPLETE },
     { '_', "travel", "travel to a specific location on the map", dotravel },
     /* { M('t'), "turn", "turn undead away", doturn, IFBURIED | AUTOCOMPLETE },*/
-    { M('t'), "tech", "Use Techniques [M-t]", dotech, AUTOCOMPLETE },
+    { M('t'), "tech", "use techniques", dotech, AUTOCOMPLETE },
     { 'X', "twoweapon", "toggle two-weapon combat",
             dotwoweapon, AUTOCOMPLETE },
     { M('u'), "untrap", "untrap something", dountrap, AUTOCOMPLETE },
