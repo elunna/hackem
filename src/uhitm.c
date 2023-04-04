@@ -1454,7 +1454,7 @@ int dieroll;
                         monflee(mon, d(2, 3), TRUE, TRUE);
                     hittxt = TRUE;
                 } else if (obj == uwep 
-                           && (Role_if(PM_JEDI) && is_lightsaber(obj)) 
+                           && (Role_if(PM_JEDI) && is_lightsaber(obj) && obj->lamplit)
                            && ((wtype = uwep_skill_type()) != P_NONE 
                                && P_SKILL(wtype) >= P_SKILLED) 
                            && ((monwep = MON_WEP(mon)) != 0 
@@ -1464,7 +1464,7 @@ int dieroll;
                                && !is_mithril(monwep) /* mithril is super-strong */
                                && !is_crystal(monwep) /* so are weapons made of gemstone */
                                && !obj_resists(monwep, 50 + 15 * greatest_erosion(obj), 100))) {
-                    /*no cutting other lightsabers :) */
+                    /* no cutting other lightsabers :) */
                     /* no cutting artifacts either */
                     setmnotwielded(mon,monwep);
                     mon->weapon_check = NEED_WEAPON;
