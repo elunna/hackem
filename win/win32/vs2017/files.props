@@ -44,6 +44,7 @@
     <Desfiles Include = "ice.des"/>
     <Desfiles Include = "icequeen.des"/>
     <Desfiles Include = "infidel.des"/>
+    <Desfiles Include = "jedi.des"/>
     <Desfiles Include = "knight.des"/>
     <Desfiles Include = "knox.des"/>
     <Desfiles Include = "medusa.des"/>
