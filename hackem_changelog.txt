@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Force push tech could cause rnd(0). Fixes #241.
 Fix: Jedi quest, Fixes #240 (reported by mobileuser). 
 Remove references to the #turn extended command since it was adapted into a technique.
 Remove references to #turn keybinding.
