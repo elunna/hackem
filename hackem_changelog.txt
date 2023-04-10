@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: multiple objects in a stack highlighting (EvilHack).
 Fix: prevent forging an object if neither base objects material is valid (EvilHack).
 Fix: remove urace test from player race macros (EvilHack).
 Fix: player monsters inheriting race flags from the player (EvilHack).
