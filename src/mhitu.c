@@ -616,7 +616,9 @@ register struct monst *mtmp;
 
     if (!ranged)
         nomul(0);
-    if (DEADMONSTER(mtmp) || (Underwater && !is_swimmer(mtmp->data)))
+    if (DEADMONSTER(mtmp)
+        || (Underwater && !(is_swimmer(mtmp->data)
+                            && is_pool(mtmp->mx, mtmp->my))))
         return 0;
 
     /* If swallowed, can only be affected by u.ustuck */
