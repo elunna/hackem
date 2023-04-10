@@ -3023,7 +3023,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
         }
         if (!Blind)
-            pline("%s is %s!", Monnam(mdef), on_fire(mdef, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
+            pline("%s is %s!", Monnam(mdef),
+                  on_fire(mdef, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
         if (completelyburns(pd)) { /* paper golem or straw golem */
             if (!Blind)
                 pline("%s burns completely!", Monnam(mdef));
@@ -3036,11 +3037,14 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
             /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
         }
-        tmp += destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
-        tmp += destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
-        tmp += destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
         
-        if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
+        if (!mon_underwater(mdef)) {
+            tmp += destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
+            tmp += destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+            tmp += destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
+        }
+        if (resists_fire(mdef) || defended(mdef, AD_FIRE)
+            || mon_underwater(mdef)) {
             if (!Blind)
                 pline_The("fire doesn't heat %s!", mon_nam(mdef));
             golemeffects(mdef, AD_FIRE, tmp);
@@ -3145,7 +3149,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp += destroy_mitem(mdef, RING_CLASS, AD_ELEC);
         break;
     case AD_ACID:
-        if (resists_acid(mdef) || defended(mdef, AD_ACID))
+        if (resists_acid(mdef) || defended(mdef, AD_ACID)
+            || mon_underwater(mdef))
             tmp = 0;
         break;
     case AD_STON:
@@ -4558,7 +4563,7 @@ boolean wep_was_destroyed;
      */
     switch (mattk[i].adtyp) {
     case AD_FIRE:
-        if (mhit && !mon->mcan) {
+        if (mhit && !mon->mcan && !Underwater) {
             if (aatyp == AT_KICK) {
                 if (uarmf && !rn2(6))
                     (void) erode_obj(uarmf, xname(uarmf), ERODE_BURN,
@@ -4586,14 +4591,16 @@ boolean wep_was_destroyed;
                 You("are splashed by %s %s!", s_suffix(mon_nam(mon)),
                     hliquid("acid"));
 
-            if (!Acid_resistance)
+            if (!(Acid_resistance || Underwater))
                 mdamageu(mon, tmp);
             else
                 monstseesu(M_SEEN_ACID);
-            if (!rn2(30))
-                erode_armor(&youmonst, ERODE_CORRODE);
+            if (!Underwater) {
+                if (!rn2(30))
+                    erode_armor(&youmonst, ERODE_CORRODE);
+            }
         }
-        if (mhit) {
+        if (mhit && !Underwater) {
             if (aatyp == AT_KICK) {
                 if (uarmf && !rn2(6))
                     (void) erode_obj(uarmf, xname(uarmf), ERODE_CORRODE,
@@ -4916,7 +4923,8 @@ boolean wep_was_destroyed;
             break;
         case AD_FIRE:
             if (monnear(mon, u.ux, u.uy)) {
-                if (how_resistant(FIRE_RES) == 100) {
+                if (how_resistant(FIRE_RES) == 100
+                    || Underwater) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_FIRE);
                     You_feel("mildly warm.");
@@ -5319,7 +5327,8 @@ boolean wep_was_destroyed;
                     erode_armor(&youmonst, ERODE_CORRODE);
                 break;
             case RED_DRAGON_SCALES:
-                if (how_resistant(FIRE_RES) == 100) {
+                if (how_resistant(FIRE_RES) == 100
+                    || Underwater) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_FIRE);
                     You_feel("mildly warm from %s armor.",
@@ -5415,14 +5424,14 @@ struct attack *mattk;     /* null means we find one internally */
 
     switch (mattk->adtyp) {
     case AD_FIRE:
-        if (!rn2(6) && !mon->mcan
+        if (!rn2(6) && !mon->mcan && !Underwater
             /* steam vortex: fire resist applies, fire damage doesn't */
             && mon->data != &mons[PM_STEAM_VORTEX]) {
             ret = erode_obj(obj, NULL, ERODE_BURN, EF_GREASE | EF_DESTROY);
         }
         break;
     case AD_ACID:
-        if (!rn2(6)) {
+        if (!rn2(6) && !Underwater) {
             ret = erode_obj(obj, NULL, ERODE_CORRODE, EF_GREASE | EF_DESTROY);
         }
         break;

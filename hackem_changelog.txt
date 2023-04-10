@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Being underwater (player or monster) provides protection against fire/acid attacks (EvilHack).
 m_canseeu() allows seeing the player underwater (EvilHack).
 Fix: inconsistent attack behavior while submerged in water (EvilHack).
 Fix: Force push tech could cause rnd(0). Fixes #241.
