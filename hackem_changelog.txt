@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+m_canseeu() allows seeing the player underwater (EvilHack).
 Fix: inconsistent attack behavior while submerged in water (EvilHack).
 Fix: Force push tech could cause rnd(0). Fixes #241.
 Fix: Jedi quest, Fixes #240 (reported by mobileuser). 
