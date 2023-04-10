@@ -4752,7 +4752,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         break;
     case ZT_FIRE:
-        if (resists_fire(mon) || defended(mon, AD_FIRE)) {
+        if (resists_fire(mon) || defended(mon, AD_FIRE)
+            || mon_underwater(mon)) {
             sho_shieldeff = TRUE;
             break;
         }
@@ -4887,7 +4888,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         tmp = d(nd, 6);
         break;
     case ZT_ACID:
-        if (resists_acid(mon) || defended(mon, AD_ACID)) {
+        if (resists_acid(mon) || defended(mon, AD_ACID)
+            || mon_underwater(mon)) {
             sho_shieldeff = TRUE;
             break;
         }
@@ -4963,7 +4965,8 @@ xchar sx, sy;
            in after this switch statement */
         break;
     case ZT_FIRE:
-        if (how_resistant(FIRE_RES) == 100) {
+        if (how_resistant(FIRE_RES) == 100
+            || Underwater) {
             shieldeff(sx, sy);
             You("don't feel hot!");
             monstseesu(M_SEEN_FIRE);
@@ -4971,16 +4974,18 @@ xchar sx, sy;
         } else {
             dam = resist_reduce(d(nd, 6), FIRE_RES);
         }
-        burn_away_slime();
-        if (!Reflecting) {
-            if (burnarmor(&youmonst)) { /* "body hit" */
-                if (!rn2(3))
-                    destroy_item(POTION_CLASS, AD_FIRE);
-                if (!rn2(3))
-                    destroy_item(SCROLL_CLASS, AD_FIRE);
-                if (!rn2(5))
-                    destroy_item(SPBOOK_CLASS, AD_FIRE);
-                destroy_item(FOOD_CLASS, AD_FIRE);
+        if (!Underwater) {
+            burn_away_slime();
+            if (!Reflecting) {
+                if (burnarmor(&youmonst)) { /* "body hit" */
+                    if (!rn2(3))
+                        destroy_item(POTION_CLASS, AD_FIRE);
+                    if (!rn2(3))
+                        destroy_item(SCROLL_CLASS, AD_FIRE);
+                    if (!rn2(5))
+                        destroy_item(SPBOOK_CLASS, AD_FIRE);
+                    destroy_item(FOOD_CLASS, AD_FIRE);
+                }
                 destroy_item(WEAPON_CLASS, AD_FIRE); /* Destroy carried bombs */
             }
         }
@@ -5113,7 +5118,7 @@ xchar sx, sy;
         }
         break;
     case ZT_ACID:
-        if (Acid_resistance) {
+        if (Acid_resistance || Underwater) {
             pline_The("%s doesn't hurt.", hliquid("acid"));
             monstseesu(M_SEEN_ACID);
             dam = 0;
@@ -5122,7 +5127,7 @@ xchar sx, sy;
             dam = d(nd, 6);
             exercise(A_STR, FALSE);
         }
-        if (!Reflecting) {
+        if (!(Reflecting || Underwater)) {
             /* using two weapons at once makes both of them more vulnerable */
             if (!rn2(u.twoweap ? 3 : 6))
                 acid_damage(uwep);

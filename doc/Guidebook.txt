@@ -1580,6 +1580,9 @@
           #takeoffall
                Remove all armor.  Default key is `A'.
 
+          #tech
+               Use a technique.  Default key is `M-t'.
+
           #teleport
                Teleport around the level.  Default key is `^T'.
 
@@ -1620,9 +1623,6 @@
 
                option  is  on, the top line will show "(no travel path)" if
                your character does not know of a path to that location.
-
-          #turn
-               Turn undead away.  Autocompletes.  Default key is `M-t'.
 
           #twoweapon
                Toggle two-weapon combat on or off.  Autocompletes.  Default
@@ -1822,7 +1822,7 @@
 
           M-s  #sit
 
-          M-t  #turn
+          M-t  #tech
 
           M-T  #tip
 

@@ -2619,15 +2619,6 @@ turn_undead()
     struct monst *mtmp, *mtmp2;
     const char *Gname;
     int once, range, xlev;
-#if 0 /* Disable for tech */
-    if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT) && !Role_if(PM_UNDEAD_SLAYER)) {
-        /* Try to use the "turn undead" spell. */
-        if (known_spell(SPE_TURN_UNDEAD))
-            return spelleffects(spell_idx(SPE_TURN_UNDEAD), FALSE, FALSE);
-        You("don't know how to turn undead!");
-        return 0;
-    }
-#endif
     
     if (Hidinshell) {
         You_cant("turn undead while hiding in your shell!");
@@ -2762,7 +2753,6 @@ doturn()
 {	
     /* WAC doturn is now a technique */
     /* Try to use turn undead spell if you don't know the tech. */
-    /*	if (!Role_if(PM_PRIEST) && !Role_if(PM_KNIGHT) && !Role_if(PM_UNDEAD_SLAYER)) {*/
     if (!tech_known(T_TURN_UNDEAD)) {
         if (objects[SPE_TURN_UNDEAD].oc_name_known) {
             register int sp_no;

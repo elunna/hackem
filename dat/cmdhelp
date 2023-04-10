@@ -217,7 +217,7 @@ M-q	Quit (exit without saving)
 M-r	Rub a lamp or a touchstone
 M-R	Ride: mount or dismount a saddled steed
 M-s	Sit down
-M-t	Turn undead
+M-t	Tech, use a technique
 M-T	Tip: empty a container
 M-u	Untrap something (trap, door, or chest)
 M-v	Print compile time options for this version of NetHack

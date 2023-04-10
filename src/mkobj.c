@@ -3654,7 +3654,6 @@ struct obj* obj;
         case LAND_MINE:
         case BEARTRAP:
         case TOWEL:
-        case MUMMY_WRAPPING:
         case BLINDFOLD:
         case LEASH:
         case SADDLE:

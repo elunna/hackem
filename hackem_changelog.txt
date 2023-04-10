@@ -9,12 +9,51 @@
 - amateurhour and qt for their endless debugging advice.
 
 ### Thanks: 
-- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico
+- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
 
 ==========================
 
 Version 1.1 (unreleased)
 
+Fix: Wand of wind was not magical.
+Fix: remove unnecessary check for Monk's random kick attack (EvilHack).
+Fix: Demonbane's instakill damage vs demons (EvilHack).
+Fix: fire/acid explosions not affecting various objects in open inventory (EvilHack).
+Fix: missing race from 'Dark Knight' template (EvilHack).
+Fix: grammar when welcoming the player back to a saved game (EvilHack).
+Fix: armor losing fooproofing via a monsters 'destroy armor' spell was not updated in perm_invent (curses) (EvilHack).
+Fix: Giant race using a club damage bonus was applied to every weapon (EvilHack).
+Fix: multiple objects in a stack highlighting (EvilHack).
+Fix: prevent forging an object if neither base objects material is valid (EvilHack).
+Fix: remove urace test from player race macros (EvilHack).
+Fix: player monsters inheriting race flags from the player (EvilHack).
+Fix: zombie bite attack slipping off of a greased/oilskin helm feedback (EvilHack).
+Fix: some follow-up to last commit (Izchak and angelic form) (EvilHack).
+Fix: Izchak keeps transforming back into angelic form after every death (EvilHack).
+Fix: worn chromatic dragon scales as a giant could be destroyed if poly'd into a smaller monster and then revert back to giant form (EvilHack).
+Being underwater (player or monster) provides protection against fire/acid attacks (EvilHack).
+m_canseeu() allows seeing the player underwater (EvilHack).
+Fix: inconsistent attack behavior while submerged in water (EvilHack).
+Fix: Force push tech could cause rnd(0). Fixes #241.
+Fix: Jedi quest, Fixes #240 (reported by mobileuser). 
+Remove references to the #turn extended command since it was adapted into a technique.
+Remove references to #turn keybinding.
+Fix trailing whitespace in Guidebook.txt.
+Uncurse service can't be used for non-cursed BUC identified items, unless confused or hallucinating. Reported by cbus.
+Fix: Wearing Mystic Eyes and a source of hallucination resistance cancels DeathVision. Suggested by Noisytoot.
+Credit more players in changelog. Thank you!
+Players are prevented from tipping known explosive items into known bags of holding.
+Fix: heap-use-after-free when tipping sack with wand of cancellation into bag of holding. Fixes #237.
+Fix: Typo when triggering ice trap (reported by Loggers_VIII). Fixes #234.
+Minor updates to items and monsters info scrapers.
+Fix: Vorpal jabberwock not beheaded by vorpal blade (reported by mobileuser).
+Fix: locking then unlocking the Sokoban closet doors prevents them from being sealed (from EvilHack).
+Fix: Shopkeepers not interested in buying magic candles, fixes #231 (reported by nh2465).
+Fix: multishot bonuses with various races (from EvilHack).
+Fix: The leather cloak of flight hoistses you up into the air! Fixes #230 (reported by mobileuser).
+Flame and Ice mages get severe alignment penalties for genociding their related dragons.
+Fix: Confused monsters would never target other monsters, only the player.
+Fix: Tossing bombs up or down could create timer panic on save (reported by mobileuser).
 Fix: Crash when applied polearm sticks to adherer (reported by mobileuser).
 Fix: Candles could skip aging when lit and player was fast (reported by mobileuser).
 Centaur check.

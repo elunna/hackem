@@ -3318,12 +3318,13 @@ char *buf;
     Strcat(buf, honored[rn2(SIZE(honored) - 1) + u.uevent.udemigod]);
     if (is_vampire(youmonst.data))
         Strcat(buf, (flags.female) ? " dark lady" : " dark lord");
-    else if (is_elf(youmonst.data))
+    else if (maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
         Strcat(buf, (flags.female) ? " hiril" : " hir");
     else
-        Strcat(buf, !is_human(youmonst.data) ? " creature"
-                                             : (flags.female) ? " lady"
-                                                              : " sir");
+        Strcat(buf, !maybe_polyd(is_human(youmonst.data),
+                                 Race_if(PM_HUMAN)) ? " creature"
+                                                    : (flags.female) ? " lady"
+                                                                     : " sir");
 }
 
 void
@@ -3732,7 +3733,8 @@ xchar x, y;
         || obj->oclass == BALL_CLASS || obj->oclass == CHAIN_CLASS
         || offer == 0L || (obj->oclass == FOOD_CLASS && obj->oeaten)
         || (Is_candle(obj)
-            && obj->age < 20L * (long) objects[obj->otyp].oc_cost)) {
+            && obj->age < 20L * (long) objects[obj->otyp].oc_cost
+               && obj->otyp != MAGIC_CANDLE)) {
         pline("%s seems uninterested%s.", Shknam(shkp),
               cgold ? " in the rest" : "");
         if (container)
@@ -4061,9 +4063,13 @@ struct monst *shkp;
     int charge;                     /* How much to uncurse          */
 
     /* Pick object */
-    if ( !(obj = getobj(identify_types, "uncurse")))
+    if (!(obj = getobj(identify_types, "uncurse")))
         return 0;
 
+    if (obj->bknown && !obj->cursed && !Confusion && !Hallucination) {
+        pline("That item is not cursed!");
+        return 0;
+    }
     /* Charge is same as cost */
     charge = get_cost(obj, shop_keeper(*u.ushops));
             
@@ -4080,16 +4086,15 @@ struct monst *shkp;
 
     /* Shopkeeper responses */
     /* KMH -- fixed bknown, curse(), bless(), uncurse() */
-    if (!obj->bknown 
+    if (!obj->bknown
           && !Role_if(PM_PRIEST)
-          && !Role_if(PM_NECROMANCER) 
+          && !Role_if(PM_NECROMANCER)
           && !no_cheat) {
         /* Not identified! */
         pline("%s snickers and says \"See, nice and uncursed!\"",
                 mon_nam(shkp));
         obj->bknown = FALSE;
-    }
-    else if (Confusion) {
+    } else if (Confusion) {
         /* Curse the item! */
         You("accidentally ask for the item to be cursed");
         curse(obj);
@@ -4100,16 +4105,13 @@ struct monst *shkp;
         ** then there's a chance for the object to be blessed!
         */
         if (!rn2(4)) {
-            pline("Distracted by your blood-shot %s, the shopkeeper",
+            pline("Distracted by your blood-shot %s, the shopkeeper accidentally blesses the item!",
                 makeplural(body_part(EYE)));
-            pline("accidentally blesses the item!");
             bless(obj);
-        }
-        else {
+        } else {
             You_cant("see straight and point to the wrong item");
         }
-    }
-    else {
+    } else {
         verbalize("All done - safe to handle, now!");
         uncurse(obj);
     }
@@ -5015,18 +5017,15 @@ boolean shk_buying;
         if (Is_candle(obj)
             && obj->age < 20L * (long) objects[obj->otyp].oc_cost) {
             tmp /= 2L;
-        }
-        else if (obj->otyp == TORCH) {
+        } else if (obj->otyp == TORCH) {
             if (obj->age == 0) {
                 tmp = 0L;
-            }
-            else if (obj->age < 25) {
+            } else if (obj->age < 25) {
                 tmp /= 4L;
-            }
-            else if (obj->age < 50) {
+            } else if (obj->age < 50) {
                 tmp /= 2L;
             }
-		}
+        }
         break;
     }
     return tmp;

@@ -747,7 +747,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\knight.des   $(DAT)\monk.des     $(DAT)\priest.des \
 	$(DAT)\ranger.des   $(DAT)\rogue.des    $(DAT)\samurai.des \
 	$(DAT)\sokoban.des  $(DAT)\tourist.des  $(DAT)\valkyrie.des \
-	$(DAT)\wizard.des
+	$(DAT)\wizard.des   $(DAT)\jedi.des
 	cd $(DAT)
 	$(U)levcomp bigroom.des
 	$(U)levcomp castle.des
@@ -783,6 +783,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp healer.des
 	$(U)levcomp ice.des
 	$(U)levcomp infidel.des
+	$(U)levcomp jedi.des
 	$(U)levcomp knight.des
 	$(U)levcomp monk.des
 	$(U)levcomp necro.des

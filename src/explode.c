@@ -480,11 +480,16 @@ int expltype;
                 if (adtyp == AD_FIRE) {
                     (void) burnarmor(mtmp);
                 }
-                idamres += destroy_mitem(mtmp, SCROLL_CLASS, (int) adtyp);
-                idamres += destroy_mitem(mtmp, SPBOOK_CLASS, (int) adtyp);
-                idamnonres += destroy_mitem(mtmp, POTION_CLASS, (int) adtyp);
-                idamnonres += destroy_mitem(mtmp, RING_CLASS, (int) adtyp);
-                idamnonres += destroy_mitem(mtmp, WAND_CLASS, (int) adtyp);
+                if (mon_underwater(mtmp)
+                    && (adtyp == AD_FIRE || adtyp == AD_ACID)) {
+                    ; /* nothing happens */
+                } else {
+                    idamres += destroy_mitem(mtmp, SCROLL_CLASS, (int) adtyp);
+                    idamres += destroy_mitem(mtmp, SPBOOK_CLASS, (int) adtyp);
+                    idamnonres += destroy_mitem(mtmp, POTION_CLASS, (int) adtyp);
+                    idamnonres += destroy_mitem(mtmp, RING_CLASS, (int) adtyp);
+                    idamnonres += destroy_mitem(mtmp, WAND_CLASS, (int) adtyp);
+                }
                 idamnonres += destroy_mitem(mtmp, WEAPON_CLASS, (int) adtyp);
                 
                 if (olet == SPIRIT_CLASS && mtmp->mtame) {
@@ -519,12 +524,15 @@ int expltype;
                         mdam *= 2;
                     else if (resists_fire(mtmp) && adtyp == AD_COLD)
                         mdam *= 2;
+                    if (mon_underwater(mtmp)
+                        && (adtyp == AD_FIRE || adtyp == AD_ACID))
+                        mdam = rnd(3); /* physical damage only */
                     /* dungeon ferns are immune to explosions */
                     if (is_vegetation(mtmp->data))
                         mdam = idamres = idamnonres = 0;
                     
                     damage_mon(mtmp, mdam, adtyp);
-		    damage_mon(mtmp, idamres + idamnonres, adtyp);
+                    damage_mon(mtmp, idamres + idamnonres, adtyp);
                 }
                 if (DEADMONSTER(mtmp)) {
                     int xkflg = ((adtyp == AD_FIRE
@@ -577,29 +585,45 @@ int expltype;
             iflags.last_msg = PLNMSG_CAUGHT_IN_EXPLOSION;
         }
         /* do property damage first, in case we end up leaving bones */
-        if (adtyp == AD_FIRE)
-            burn_away_slime();
+        if (adtyp == AD_FIRE) {
+            if (!Underwater)
+                burn_away_slime();
+        }
         if (Invulnerable) {
             damu = 0;
             You("are unharmed!");
         } else if (adtyp == AD_PHYS || physical_dmg)
             damu = Maybe_Half_Phys(damu);
-        if (adtyp == AD_FIRE)
-            burnarmor(&youmonst);
-        if (adtyp == AD_ACID && !EAcid_resistance) {
-            if (rn2(u.twoweap ? 2 : 3))
-                acid_damage(uwep);
-            if (u.twoweap && rn2(2))
-                acid_damage(uswapwep);
-            if (rn2(4))
-                erode_armor(&youmonst, ERODE_CORRODE);
+        if (adtyp == AD_FIRE) {
+            if (Underwater)
+                damu =  Maybe_Half_Phys(damu);
+            if (!Underwater)
+                (void) burnarmor(&youmonst);
         }
-        destroy_item(SCROLL_CLASS, (int) adtyp);
-        destroy_item(SPBOOK_CLASS, (int) adtyp);
-        destroy_item(POTION_CLASS, (int) adtyp);
-        destroy_item(RING_CLASS, (int) adtyp);
-        destroy_item(WAND_CLASS, (int) adtyp);
-        destroy_item(WEAPON_CLASS, (int) adtyp);
+        if (adtyp == AD_ACID && !EAcid_resistance) {
+            if (!Underwater) {
+                if (rn2(u.twoweap ? 2 : 3))
+                    acid_damage(uwep);
+                if (u.twoweap && rn2(2))
+                    acid_damage(uswapwep);
+                if (rn2(4))
+                    erode_armor(&youmonst, ERODE_CORRODE);
+            }
+            if (Underwater)
+                damu =  Maybe_Half_Phys(damu);
+        }
+
+        if (Underwater
+            && (adtyp == AD_FIRE || adtyp == AD_ACID)) {
+            ; /* nothing happens */
+        } else {
+            destroy_item(SCROLL_CLASS, (int) adtyp);
+            destroy_item(SPBOOK_CLASS, (int) adtyp);
+            destroy_item(POTION_CLASS, (int) adtyp);
+            destroy_item(RING_CLASS, (int) adtyp);
+            destroy_item(WAND_CLASS, (int) adtyp);
+            destroy_item(WEAPON_CLASS, (int) adtyp);
+        }
         
         ugolemeffects((int) adtyp, damu);
         if (uhurt == 2) {

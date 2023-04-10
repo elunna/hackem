@@ -469,7 +469,7 @@ Cloak_on(VOID_ARGS)
             if (!already_flying) {
                 makeknown(uarmc->otyp);
                 context.botl = TRUE; /* status: 'Fly' On */
-                pline("%s you up into the air!", Tobjnam(uarmc, "hoists"));
+                pline("%s you up into the air!", Tobjnam(uarmc, "hoist"));
             }
         }
         break;

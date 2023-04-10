@@ -281,6 +281,7 @@ char **argv;
         ":dat:Knight.des",   ":dat:Monk.des",       ":dat:Priest.des",
         ":dat:Ranger.des",   ":dat:Rogue.des",      ":dat:Samurai.des",
         ":dat:Tourist.des",  ":dat:Valkyrie.des",   ":dat:Wizard.des",
+        ":dat:Jedi.des",
         ":dat:bigroom.des",  ":dat:castle.des",     ":dat:endgame.des",
         ":dat:gehennom.des", ":dat:lethe.des",      ":dat:icequeen.des",
         ":dat:nkai.des",     ":dat:ucastle.des",

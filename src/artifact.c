@@ -1266,7 +1266,8 @@ int tmp;
         && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
         /* until we know otherwise... */
         if ((attacks(AD_FIRE, otmp)
-            && ((yours) ? (!Fire_resistance) : (!resists_fire(mon))))
+            && ((yours) ? !(Fire_resistance || Underwater)
+                        : !(resists_fire(mon) || mon_underwater(mon))))
                 || (attacks(AD_COLD, otmp)
                     && ((yours) ? (!Cold_resistance) : (!resists_cold(mon))))
                         || (attacks(AD_ELEC, otmp)
@@ -1276,7 +1277,8 @@ int tmp;
                                         || (attacks(AD_SLEE, otmp)
                                             && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
                                                 || (attacks(AD_ACID, otmp)
-                                                    && ((yours) ? (!Acid_resistance) : (!resists_acid(mon))))
+                                                    && ((yours) ? !(Acid_resistance || Underwater)
+                                                    : !(resists_acid(mon) || mon_underwater(mon))))
                                                         || (attacks(AD_LOUD, otmp)
                                                             && ((yours) ? (!Sonic_resistance) : (!resists_sonic(mon))))
                                                                 || (attacks(AD_DISE, otmp)
@@ -1676,7 +1678,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         pline_The("fiery %s %s %s%c", 
                                   otmp->oartifact == ART_FIRE_BRAND ? "blade" : "staff",
                                   can_vaporize(mdef->data)
-                                      ? "vaporizes part of" : "burns",
+                                      ? "vaporizes part of"
+                                      : mon_underwater(mdef) ? "hits" : "burns",
                                   hittee, !spec_dbon_applies ? '.' : '!');
                     }
                 } else {
@@ -1686,7 +1689,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   ? "hits"
                                   : can_vaporize(mdef->data)
                                       ? "vaporizes part of"
-                                      : "burns",
+                                        : mon_underwater(mdef) ? "hits" : "burns",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             } else if (otmp->oartifact == ART_ANGELSLAYER) {
@@ -1694,9 +1697,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                           : is_angel(mdef->data);
                 boolean vaporize = youdefend ? can_vaporize(youmonst.data)
                                              : can_vaporize(mdef->data);
-                boolean no_burn = youdefend ? how_resistant(FIRE_RES) == 100
+                boolean no_burn = youdefend ? (how_resistant(FIRE_RES) == 100
+                                               || Underwater)
                                             : (resists_fire(mdef)
-                                               || defended(mdef, AD_FIRE));
+                                               || defended(mdef, AD_FIRE)
+                                               || mon_underwater(mdef));
                 
                 if (!spec_dbon_applies) {
                     if ((youdefend || canseemon(mdef))
@@ -1740,7 +1745,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         pline_The("%s %s %s%c",
                                   distant_name(otmp, xname),
                                   can_vaporize(mdef->data)
-                                      ? "vaporizes part of" : "burns",
+                                      ? "vaporizes part of"
+                                      : mon_underwater(mdef) ? "hits" : "burns",
                                   hittee, !spec_dbon_applies ? '.' : '!');
                     }
                 } else {
@@ -1750,33 +1756,37 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   ? "hits"
                                   : can_vaporize(mdef->data)
                                       ? "vaporizes part of"
-                                      : "burns",
+                                      : mon_underwater(mdef) ? "hits" : "burns",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             }
             if (completelyburns(mdef->data) || is_wooden(mdef->data)
                 || mdef->data == &mons[PM_GREEN_SLIME]) {
-                if (youdefend) {
+                if (youdefend && !Underwater) {
                     You("ignite and turn to ash!");
                     losehp((Upolyd ? u.mh : u.uhp) + 1, "immolation",
                            NO_KILLER_PREFIX);
                 } else {
-                    pline("%s ignites and turns to ash!", Monnam(mdef));
-                    mondead(mdef);
+                    if (!mon_underwater(mdef)) {
+                        pline("%s ignites and turns to ash!", Monnam(mdef));
+                        mondead(mdef);
+                    }
                 }
             }
             if ((otmp->oprops & ITEM_FIRE) && spec_dbon_applies)
                 otmp->oprops_known |= ITEM_FIRE;
         }
-        if (!rn2(4))
-            (void) destroy_mitem(mdef, POTION_CLASS, AD_FIRE);
-        if (!rn2(4))
-            (void) destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
-        if (!rn2(7))
-            (void) destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
-        if (rn2(3))
-            (void) destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
-        if (youdefend && Slimed)
+        if (youdefend ? !Underwater : !mon_underwater(mdef)) {
+            if (!rn2(4))
+                (void) destroy_mitem(mdef, POTION_CLASS, AD_FIRE);
+            if (!rn2(4))
+                (void) destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
+            if (!rn2(7))
+                (void) destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+            if (rn2(3))
+                (void) destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
+        }
+        if (youdefend && Slimed && !Underwater)
             burn_away_slime();
         msgprinted = TRUE;
         return realizes_damage;
@@ -2149,7 +2159,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                                               : distant_name(otmp, xname),
                               can_corrode(mdef->data)
                                   ? "eats away part of"
-                                  : "burns",
+                                  : mon_underwater(mdef) ? "hits" : "burns",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             } else {
@@ -2159,12 +2169,14 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               ? "hits"
                               : can_corrode(mdef->data)
                                   ? "eats away part of"
-                                  : "burns",
+                                  : mon_underwater(mdef) ? "hits" : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
             }
         }
-        if (!rn2(5))
-            erode_armor(mdef, ERODE_CORRODE);
+        if (youdefend ? !Underwater : !mon_underwater(mdef)) {
+            if (!rn2(5))
+                erode_armor(mdef, ERODE_CORRODE);
+        }
         msgprinted = TRUE;
         return realizes_damage;
     }
@@ -2238,7 +2250,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             adjalign(Role_if(PM_KNIGHT) ? -10 : -1);
         }
         if (realizes_damage) {
-            boolean elf = youdefend ? is_elf(youmonst.data)
+            boolean elf = youdefend ? maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF))
                                     : racial_elf(mdef);
             boolean no_sick = youdefend ? Sick_resistance
                                         : (resists_sick(mdef->data)
@@ -2555,7 +2567,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 return TRUE;
             case ART_DEMONBANE:
                 if (youattack && is_demon(mdef->data) && j) {
-                    if (is_ndemon(mdef->data)) {
+                    if (!is_ndemon(mdef->data)) {
                         pline("%s gravely wounds %s!", artiname(otmp->oartifact),
                               mon_nam(mdef));
                         *dmgptr *= 3;
@@ -2567,7 +2579,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     }
                 } else if (!youattack && !youdefend
                            && magr && is_demon(mdef->data) && j) {
-                    if (is_ndemon(mdef->data)) {
+                    if (!is_ndemon(mdef->data)) {
                         if (cansee(magr->mx, magr->my))
                             pline("%s gravely wounds %s!", 
                                   artiname(otmp->oartifact), mon_nam(mdef));
@@ -2579,7 +2591,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                     }
-                } else if (youdefend && is_demon(youmonst.data) && k) {
+                } else if (youdefend && k
+                           && maybe_polyd(is_demon(youmonst.data), Race_if(PM_DEMON))) {
                     pline("%s shines brilliantly, destroying you!",
                           artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
@@ -2645,7 +2658,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             }
         /* --hackem: Sexy 10% beheading chance from Slash'EM */
         } else if (dieroll < 3 || (otmp->oartifact == ART_VORPAL_BLADE &&
-				      mdef->data == &mons[PM_JABBERWOCK])) {
+                                   is_jabberwock(mdef->data))) {
             
             static const char *const behead_msg[2] = { 
                 "%s beheads %s!",                                       
@@ -4849,7 +4862,7 @@ monster then the grenade will instantly explode.  */
         break;
     case ART_MITRE_OF_HOLINESS:
         art_info.wielded[16] = "1/2 physical damage from undead and demons (Priests only)";
-        art_info.wielded[17] = "allows #pray and #turn to function in Gehennom when worn.";
+        art_info.wielded[17] = "allows #pray and turn tech to function in Gehennom when worn.";
         art_info.xinfo = "Doesn't block illithids from casting psionic wave when worn.";
         break;
     case ART_MASTER_KEY_OF_THIEVERY: 
