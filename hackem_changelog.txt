@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: remove unnecessary check for Monk's random kick attack (EvilHack).
 Fix: Demonbane's instakill damage vs demons (EvilHack).
 Fix: fire/acid explosions not affecting various objects in open inventory (EvilHack).
 Fix: missing race from 'Dark Knight' template (EvilHack).
