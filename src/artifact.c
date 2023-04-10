@@ -2250,7 +2250,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             adjalign(Role_if(PM_KNIGHT) ? -10 : -1);
         }
         if (realizes_damage) {
-            boolean elf = youdefend ? is_elf(youmonst.data)
+            boolean elf = youdefend ? maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF))
                                     : racial_elf(mdef);
             boolean no_sick = youdefend ? Sick_resistance
                                         : (resists_sick(mdef->data)
@@ -2591,7 +2591,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                     }
-                } else if (youdefend && is_demon(youmonst.data) && k) {
+                } else if (youdefend && k
+                           && maybe_polyd(is_demon(youmonst.data), Race_if(PM_DEMON))) {
                     pline("%s shines brilliantly, destroying you!",
                           artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);

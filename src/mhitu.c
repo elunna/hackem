@@ -1824,7 +1824,8 @@ register struct attack *mattk;
             break;
         }
 
-        if (is_illithid(youmonst.data) && !is_zombie(mdat)) {
+        if (maybe_polyd(is_illithid(youmonst.data), Race_if(PM_ILLITHID))
+            && !is_zombie(mdat)) {
             Your("psionic abilities shield your brain.");
             break;
         }
