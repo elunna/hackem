@@ -15,6 +15,8 @@
 
 Version 1.1 (unreleased)
 
+Fix: prevent forging an object if neither base objects material is valid (EvilHack).
+Fix: remove urace test from player race macros (EvilHack).
 Fix: player monsters inheriting race flags from the player (EvilHack).
 Fix: zombie bite attack slipping off of a greased/oilskin helm feedback (EvilHack).
 Fix: some follow-up to last commit (Izchak and angelic form) (EvilHack).
