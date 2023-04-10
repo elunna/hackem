@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: armor losing fooproofing via a monsters 'destroy armor' spell was not updated in perm_invent (curses) (EvilHack).
 Fix: Giant race using a club damage bonus was applied to every weapon (EvilHack).
 Fix: multiple objects in a stack highlighting (EvilHack).
 Fix: prevent forging an object if neither base objects material is valid (EvilHack).
