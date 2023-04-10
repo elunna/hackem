@@ -2567,7 +2567,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 return TRUE;
             case ART_DEMONBANE:
                 if (youattack && is_demon(mdef->data) && j) {
-                    if (is_ndemon(mdef->data)) {
+                    if (!is_ndemon(mdef->data)) {
                         pline("%s gravely wounds %s!", artiname(otmp->oartifact),
                               mon_nam(mdef));
                         *dmgptr *= 3;
@@ -2579,7 +2579,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     }
                 } else if (!youattack && !youdefend
                            && magr && is_demon(mdef->data) && j) {
-                    if (is_ndemon(mdef->data)) {
+                    if (!is_ndemon(mdef->data)) {
                         if (cansee(magr->mx, magr->my))
                             pline("%s gravely wounds %s!", 
                                   artiname(otmp->oartifact), mon_nam(mdef));

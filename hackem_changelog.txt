@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Demonbane's instakill damage vs demons (EvilHack).
 Fix: fire/acid explosions not affecting various objects in open inventory (EvilHack).
 Fix: missing race from 'Dark Knight' template (EvilHack).
 Fix: grammar when welcoming the player back to a saved game (EvilHack).
