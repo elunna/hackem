@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: worn chromatic dragon scales as a giant could be destroyed if poly'd into a smaller monster and then revert back to giant form (EvilHack).
 Being underwater (player or monster) provides protection against fire/acid attacks (EvilHack).
 m_canseeu() allows seeing the player underwater (EvilHack).
 Fix: inconsistent attack behavior while submerged in water (EvilHack).
