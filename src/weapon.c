@@ -209,7 +209,7 @@ struct obj *otmp;
 struct monst *mon;
 {
     int tmp = 0;
-    struct permonst *ptr = mon->data;
+    struct permonst *ptr = r_data(mon);
     boolean Is_weapon = (otmp->oclass == WEAPON_CLASS || is_weptool(otmp));
 
     if (Is_weapon)
@@ -322,7 +322,7 @@ struct monst *mon,
 struct damage_info_t *damage_info)
 {
     int tmp = 0, otyp = otmp->otyp;
-    struct permonst *ptr = mon ? mon->data : NULL;
+    struct permonst *ptr = mon ? r_data(mon) : NULL;
     boolean Is_weapon = (otmp->oclass == WEAPON_CLASS || is_weptool(otmp));
 
     /*if (!ptr) 
