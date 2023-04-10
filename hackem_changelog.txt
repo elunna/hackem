@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: zombie bite attack slipping off of a greased/oilskin helm feedback (EvilHack).
 Fix: some follow-up to last commit (Izchak and angelic form) (EvilHack).
 Fix: Izchak keeps transforming back into angelic form after every death (EvilHack).
 Fix: worn chromatic dragon scales as a giant could be destroyed if poly'd into a smaller monster and then revert back to giant form (EvilHack).

@@ -1286,7 +1286,10 @@ struct attack *mattk;
         && (!obj->cursed || rn2(3))) {
         pline("%s %s your %s %s!", Monnam(mtmp),
               (mattk->adtyp == AD_WRAP && !is_sal) 
-                  ? "slips off of" : "grabs you, but cannot hold onto",
+                  ? "slips off of"
+                  : (mattk->adtyp == AD_DRIN && is_zombie(mtmp->data))
+                        ? "bites you, but slips off of"
+                        : "grabs you, but cannot hold onto",
               obj->greased ? "greased" : "slippery",
               /* avoid "slippery slippery cloak"
                  for undiscovered oilskin cloak */
