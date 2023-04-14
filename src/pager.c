@@ -1224,7 +1224,8 @@ char *usr_text;
         }
         
         Sprintf(buf, "Takes %d turn%s to put on or remove.",
-                oc.oc_delay, (oc.oc_delay == 1 ? "" : "s"));
+                oc.oc_delay == 0 ? 1 : oc.oc_delay, 
+                (oc.oc_delay == 1 ? "" : "s"));
         OBJPUTSTR(buf);
         
         if (dummy.oprops_known) {
