@@ -2482,7 +2482,7 @@ Looking around, to the eye everything looks normal. You wonder why
 %l would call you here without necessity.
 
 Then some stormtroopers jump from the shadows...
-%E
+%E [You arrive at %H, but all is not well.]
 %Cp Jed 00002
 Once again you are back at %H.
 %E
@@ -2523,7 +2523,7 @@ may be the last time you stand before %l.
 %Cc Jed 00015
 "It's good to see you again, %p. I'm glad you got our transmission.
 Let me check if you are capable of helping us in this dark hour."
-%E
+%E ["Return, you have, %p, to a most difficult task."]
 %Cp Jed 00016
 "The force is strong in you, %p. But is it strong enough now?"
 %E
@@ -2536,7 +2536,7 @@ far enough now?"
 we cannot allow you to walk the halls of %H anymore to protect our %gP.
 Leave, now, and never return here, or we will have to deal with you
 in ways other than words."
-%E
+%E ["%pC, you have failed us.  Begone!"]
 %Cc Jed 00019
 "The force is strong within you, %p. But sadly, a mere %r could never
 hope to be a help in this dark hour.
@@ -2544,12 +2544,12 @@ Go and learn more of the way of the force. When you reached the skills
 of a %R, return here.
 
 May the force be with you!"
-%E
+%E [%pC, a mere %r is too inexperienced.]
 %Cc Jed 00020
 "You have strayed from the light side of the force! Leave, now!
 And return only when you made up your mind about which way to
 follow."
-%E
+%E ["%pC, you have strayed from the %a path.  Purify yourself!"]
 %Cc Jed 00021
 "Ah, %p. You have become a fine %r, you have become skilled in using
 the force and the ways of the Jedi. As such, you must help us:"
@@ -2576,7 +2576,7 @@ rim counts."
 %o. You better hurry."
 
 "May the force be with you!"
-%E
+%E [%nC has stolen %o.  Locate %i, defeat %ni, and return %O.]
 %Cp Jed 00024
 "Remember, you must return with %o so
 that we may lift the darkness from the silver bell."
@@ -2615,7 +2615,7 @@ that we may lift the darkness from the silver bell."
 You arrive at the %i.
 Following the emanations of the force, you work your way through the
 different planets trying to locate %o.
-%E
+%E [This menacing phantom must hide the entrance to %i.]
 %Cp Jed 00036
 Again, you arrive at the %i.
 %E
@@ -2624,17 +2624,17 @@ You arrive at an unnamed planet.
 You can feel large disturbances in the force before you, like huge
 armies crossing weapons.
 You know that you must hurry in order to not disappoint %l.
-%E
+%E [This disturbance must be the presence of %o.]
 %Cp Jed 00041
 Again, you arrive at the unnamed planet.
 %E
 %Cc Jed 00050
 "Again, %l sends a worthless %c to get %o from me?
 Well, I can give you a choice: Join me!"
-%E
+%E  ["Now, %p, you shall die!"]
 %Cp Jed 00051
 "Again, you challenge me, %r? You can't beat the dark side of the force!"
-%E
+%E ["Your feeble skills are no match for the power of the Dark Side."]
 %Cp Jed 00052
 "Haven't you learned your lesson yet? I shall teach it to you now!"
 %E
@@ -2676,12 +2676,12 @@ powers anyway. Now, you wouldn't kill an unarmed, would you?"
 You have %o in your hands.
 Force surrounds it like air surrounds a planet. You can see why no
 other lightsaber was made like this one.
-%E
+%E [The power of %o flows through your body!  You must return it to %l.]
 %Cc Jed 00071
 You have %o in your hands.
 Force surrounds it like air surrounds a planet. You can see why no
 other lightsaber was made like this one.
-%E
+%E [The power of %o flows through your body!]
 %Cc Jed 00080
 You finally manage to land the final blow against %n.
 But as you just want to claim your victory, his body dissolves into
@@ -2701,12 +2701,12 @@ As you approach %l, he beams at you and says:
 
 	Though %n escaped us again, we will not rest until he is
 	destroyed. The Sith must never return to power.
-%E
+%E [%lC instructs you to guard %o from now on.]
 %Cc Jed 00082
 "Be careful with %o. Though it gives great power, it also requires
 great responsibility from its owner. Use the portal to return to
 %Z and find the Amulet of Yendor.
-%E
+%E  ["Resume your search for the Amulet beyond the magic portal to %Z."]
 
 %Cc Jed 00083
 %l focuses intently on %o.
@@ -2718,7 +2718,7 @@ I fear that you will have to return %o to us for
 safekeepingat %H.
 
 Please %p, return %o to us now.
-%E
+%E  ["%lC asks you to forfeit %o."]
 %Cc Jed 00084
 "%p, what a sacrifice you have made. Difficult is 
 the path of a jedi.  Rest assured, %d is with you 
@@ -2726,7 +2726,7 @@ on this day.  %o will be safe with us."
 %E ["You give %o to %l."]
 %Cp Jed 00090
 "Welcome back, %p. How is the search for the Amulet of Yendor?"
-%E
+%E ["Have you progressed with your quest to regain the Amulet of Yendor for %d?"]
 %Cc Jed 00091
 "You really are a %S of %H."
 
@@ -2734,7 +2734,7 @@ on this day.  %o will be safe with us."
 a place called 'The Astral Plane' and offered to %d there."
 
 "May the force be with you, %p."
-%E
+%E [Take the Amulet to the Astral Plane and sacrifice it at the altar of %d.]
 #
 #	Knight
 #
