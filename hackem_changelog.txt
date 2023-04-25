@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Hit with unlit lightsaber practices unarmed for jedi.
 Fix: Armor with 0 delay displayed 0 turns to wear/put on (reported by cbus).
 Fix: Added quest summary lines for Jedi quest messages.
 Fix: Wand of wind was not magical.
