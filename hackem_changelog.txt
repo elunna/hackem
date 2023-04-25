@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Doppelganger players could controlled poly at any level. Fixes #242.
 Fix: Hit with unlit lightsaber practices unarmed for jedi.
 Fix: Remove timout for T_TINKER
 Fix: Armor with 0 delay displayed 0 turns to wear/put on (reported by cbus).
