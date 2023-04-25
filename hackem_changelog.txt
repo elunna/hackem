@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Necromancers could not benefit from items granting energy regeneration. Fixes #233.
 Ice Mages can not be doppelgangers.
 Fix: Infidels start with basic skill in necromancy and attack spells (reported by cbus/mobileuser)
 Fix: Moloch should curse items rather than bless for infidels.
