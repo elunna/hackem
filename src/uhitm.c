@@ -1282,7 +1282,8 @@ int dieroll;
                       && obj->otyp != SPIKED_CHAIN)
                 /* or throw a missile without the proper bow... */
                 || (is_ammo(obj) && (thrown != HMON_THROWN
-                                     || !ammo_and_launcher(obj, uwep)))) {
+                                     || !ammo_and_launcher(obj, uwep)))
+                || (is_lightsaber(obj) && !obj->lamplit)) {
                 /* then do only 1-2 points of damage */
                 if (noncorporeal(mdat) && !shade_glare(obj))
                     tmp = 0;
