@@ -732,7 +732,8 @@ domonability(VOID_ARGS)
         return dospinweb();
     else if (is_hider(youmonst.data))
         return dohide();
-    else if (is_tortle(youmonst.data))
+    else if (maybe_polyd(is_tortle(youmonst.data),
+             Race_if(PM_TORTLE)))
         return toggleshell();
     else if (is_mind_flayer(youmonst.data))
         return domindblast();
@@ -4313,7 +4314,7 @@ struct ext_func_tab extcmdlist[] = {
     { M('T'), "tip", "empty a container", dotip, AUTOCOMPLETE },
     { '_', "travel", "travel to a specific location on the map", dotravel },
     /* { M('t'), "turn", "turn undead away", doturn, IFBURIED | AUTOCOMPLETE },*/
-    { M('t'), "tech", "Use Techniques [M-t]", dotech, AUTOCOMPLETE },
+    { M('t'), "tech", "use techniques", dotech, AUTOCOMPLETE },
     { 'X', "twoweapon", "toggle two-weapon combat",
             dotwoweapon, AUTOCOMPLETE },
     { M('u'), "untrap", "untrap something", dountrap, AUTOCOMPLETE },

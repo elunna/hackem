@@ -581,9 +581,27 @@ register struct monst *mtmp;
         return FALSE;
     }
 
-    /* We don't need to check for vampirics here, hitum does this already for
-     * races like illithid and centaur. */
-    /*if (Upolyd || Race_if(PM_VAMPIRIC))*/
+    if (Underwater && !is_pool(mtmp->mx, mtmp->my)) {
+        ; /* no attack, hero will still attempt to move onto solid ground */
+        return FALSE;
+    }
+    
+    if (Underwater
+        && !grounded(mtmp->data) && is_pool(mtmp->mx, mtmp->my)) {
+        char pnambuf[BUFSZ];
+
+        /* save its current description in case of polymorph */
+        Strcpy(pnambuf, y_monnam(mtmp));
+        mtmp->mtrapped = 0;
+        remove_monster(mtmp->mx, mtmp->my);
+        place_monster(mtmp, u.ux0, u.uy0);
+        newsym(mtmp->mx, mtmp->my);
+        newsym(u.ux0, u.uy0);
+
+        You("swim underneath %s.", pnambuf);
+        return FALSE;
+    }
+    
     if (Upolyd)
         (void) hmonas(mtmp, NON_PM, TRUE);
     else
@@ -894,8 +912,8 @@ struct attack *uattk;
        or greater in martial arts */
     if (!rn2(3) && !uwep && Role_if(PM_MONK)
         && P_SKILL(P_MARTIAL_ARTS) >= P_MASTER
-        && !(u.usteed || u.uswallow || multi < 0
-             || u.umortality > oldumort
+        && !(u.usteed || u.uswallow || u.uinwater
+             || multi < 0 || u.umortality > oldumort
              || !malive || m_at(x, y) != mon)) {
         if (weararmor && !is_robe(uarm)) {
             if (!rn2(8))
@@ -912,16 +930,15 @@ struct attack *uattk;
                 Your("%s%s %s in no shape for kicking.",
                      (wl == LEFT_SIDE) ? "left " : (wl == RIGHT_SIDE) ? "right " : "",
                      bp, (wl == BOTH_SIDES) ? "are" : "is");
-        } else if (Race_if(PM_CENTAUR)
-                   && touch_petrifies(mon->data)) {
-            /* kick doesn't happen - centaurs can't wear boots */
-            ;
         } else {
             tmp = find_roll_to_hit(mon, uattk->aatyp, uarmf, &attknum,
                                    &armorpenalty);
             dieroll = rnd(20);
             mhit = (tmp > dieroll || u.uswallow);
-            /* kick passive counter-attack only occurs if kick attack hits */
+            /* kick passive counter-attack only occurs if kick attack hits,
+               kick_monster() will prevent kick attack vs monsters that
+               shouldn't be touched bare-skinned for races that can't wear
+               boots */
             if (mhit && !DEADMONSTER(mon))
                 kick_monster(mon, x, y);
         }
@@ -932,7 +949,7 @@ struct attack *uattk;
     if (bash_chance
         && wearshield && P_SKILL(P_SHIELD) >= P_BASIC
         && !(multi < 0 || u.umortality > oldumort
-             || !malive || m_at(x, y) != mon)) {
+             || u.uinwater || !malive || m_at(x, y) != mon)) {
         tmp = find_roll_to_hit(mon, uattk->aatyp, wearshield, &attknum,
                                &armorpenalty);
         dieroll = rnd(20);
@@ -1304,12 +1321,13 @@ int dieroll;
                 }
             } else {
                 tmp = dmgval(obj, mon);
-                /* Giants are more effective with a club.
+                /* Giants are more effective with club-like weapons.
                  * For example, a caveman's starting +1 club will do an average
                  * of 4.444 rather than 3 against large monsters, and 6.4725
                  * rather than 4.5 against small.
                  **/
                 if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))
+                    && objects[obj->otyp].oc_skill == P_CLUB
                     && !noncorporeal(mdat)) {
                     int tmp2 = dmgval(obj, mon);
                     if (tmp < tmp2)
@@ -1454,7 +1472,7 @@ int dieroll;
                         monflee(mon, d(2, 3), TRUE, TRUE);
                     hittxt = TRUE;
                 } else if (obj == uwep 
-                           && (Role_if(PM_JEDI) && is_lightsaber(obj)) 
+                           && (Role_if(PM_JEDI) && is_lightsaber(obj) && obj->lamplit)
                            && ((wtype = uwep_skill_type()) != P_NONE 
                                && P_SKILL(wtype) >= P_SKILLED) 
                            && ((monwep = MON_WEP(mon)) != 0 
@@ -1464,7 +1482,7 @@ int dieroll;
                                && !is_mithril(monwep) /* mithril is super-strong */
                                && !is_crystal(monwep) /* so are weapons made of gemstone */
                                && !obj_resists(monwep, 50 + 15 * greatest_erosion(obj), 100))) {
-                    /*no cutting other lightsabers :) */
+                    /* no cutting other lightsabers :) */
                     /* no cutting artifacts either */
                     setmnotwielded(mon,monwep);
                     mon->weapon_check = NEED_WEAPON;
@@ -2471,9 +2489,11 @@ struct attack *mattk;
                 || (obj->oprops & ITEM_OILSKIN))
         && (!obj->cursed || rn2(3))) {
         pline_The("%s %s %s %s!",
-                  (mattk->adtyp == AD_WRAP
-                   && youmonst.data != &mons[PM_SALAMANDER]) ? "attack slips off of"
-                                                             : "attack cannot hold onto",
+                  ((mattk->adtyp == AD_WRAP
+                    && youmonst.data != &mons[PM_SALAMANDER])
+                   || (mattk->adtyp == AD_DRIN && is_zombie(youmonst.data)))
+                     ? "attack slips off of"
+                     : "attack cannot hold onto",
                   s_suffix(mon_nam(mdef)), obj->greased ? "greased" : "slippery",
                   /* avoid "slippery slippery cloak"
                      for undiscovered oilskin cloak */
@@ -2883,7 +2903,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
     /* since hero can't be cancelled, only defender's armor applies */
     negated = !(rn2(10) >= 3 * armpro);
 
-    if (is_demon(youmonst.data) && !rn2(13) && !uwep
+    if (maybe_polyd(is_demon(youmonst.data), Race_if(PM_DEMON))
+        && !rn2(13) && !uwep
         && u.umonnum != PM_SUCCUBUS && u.umonnum != PM_INCUBUS
         && u.umonnum != PM_BALROG && u.umonnum != PM_DEMON) {
         demonpet();
@@ -3005,7 +3026,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
         }
         if (!Blind)
-            pline("%s is %s!", Monnam(mdef), on_fire(mdef, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
+            pline("%s is %s!", Monnam(mdef),
+                  on_fire(mdef, mattk->aatyp == AT_HUGS ? ON_FIRE_HUG : ON_FIRE));
         if (completelyburns(pd)) { /* paper golem or straw golem */
             if (!Blind)
                 pline("%s burns completely!", Monnam(mdef));
@@ -3018,11 +3040,14 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
             /* Don't return yet; keep hp<1 and tmp=0 for pet msg */
         }
-        tmp += destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
-        tmp += destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
-        tmp += destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
         
-        if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
+        if (!mon_underwater(mdef)) {
+            tmp += destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
+            tmp += destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
+            tmp += destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
+        }
+        if (resists_fire(mdef) || defended(mdef, AD_FIRE)
+            || mon_underwater(mdef)) {
             if (!Blind)
                 pline_The("fire doesn't heat %s!", mon_nam(mdef));
             golemeffects(mdef, AD_FIRE, tmp);
@@ -3127,7 +3152,8 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp += destroy_mitem(mdef, RING_CLASS, AD_ELEC);
         break;
     case AD_ACID:
-        if (resists_acid(mdef) || defended(mdef, AD_ACID))
+        if (resists_acid(mdef) || defended(mdef, AD_ACID)
+            || mon_underwater(mdef))
             tmp = 0;
         break;
     case AD_STON:
@@ -4540,7 +4566,7 @@ boolean wep_was_destroyed;
      */
     switch (mattk[i].adtyp) {
     case AD_FIRE:
-        if (mhit && !mon->mcan) {
+        if (mhit && !mon->mcan && !Underwater) {
             if (aatyp == AT_KICK) {
                 if (uarmf && !rn2(6))
                     (void) erode_obj(uarmf, xname(uarmf), ERODE_BURN,
@@ -4568,14 +4594,16 @@ boolean wep_was_destroyed;
                 You("are splashed by %s %s!", s_suffix(mon_nam(mon)),
                     hliquid("acid"));
 
-            if (!Acid_resistance)
+            if (!(Acid_resistance || Underwater))
                 mdamageu(mon, tmp);
             else
                 monstseesu(M_SEEN_ACID);
-            if (!rn2(30))
-                erode_armor(&youmonst, ERODE_CORRODE);
+            if (!Underwater) {
+                if (!rn2(30))
+                    erode_armor(&youmonst, ERODE_CORRODE);
+            }
         }
-        if (mhit) {
+        if (mhit && !Underwater) {
             if (aatyp == AT_KICK) {
                 if (uarmf && !rn2(6))
                     (void) erode_obj(uarmf, xname(uarmf), ERODE_CORRODE,
@@ -4898,7 +4926,8 @@ boolean wep_was_destroyed;
             break;
         case AD_FIRE:
             if (monnear(mon, u.ux, u.uy)) {
-                if (how_resistant(FIRE_RES) == 100) {
+                if (how_resistant(FIRE_RES) == 100
+                    || Underwater) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_FIRE);
                     You_feel("mildly warm.");
@@ -5301,7 +5330,8 @@ boolean wep_was_destroyed;
                     erode_armor(&youmonst, ERODE_CORRODE);
                 break;
             case RED_DRAGON_SCALES:
-                if (how_resistant(FIRE_RES) == 100) {
+                if (how_resistant(FIRE_RES) == 100
+                    || Underwater) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_FIRE);
                     You_feel("mildly warm from %s armor.",
@@ -5397,14 +5427,14 @@ struct attack *mattk;     /* null means we find one internally */
 
     switch (mattk->adtyp) {
     case AD_FIRE:
-        if (!rn2(6) && !mon->mcan
+        if (!rn2(6) && !mon->mcan && !Underwater
             /* steam vortex: fire resist applies, fire damage doesn't */
             && mon->data != &mons[PM_STEAM_VORTEX]) {
             ret = erode_obj(obj, NULL, ERODE_BURN, EF_GREASE | EF_DESTROY);
         }
         break;
     case AD_ACID:
-        if (!rn2(6)) {
+        if (!rn2(6) && !Underwater) {
             ret = erode_obj(obj, NULL, ERODE_CORRODE, EF_GREASE | EF_DESTROY);
         }
         break;

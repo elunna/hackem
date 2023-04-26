@@ -3707,7 +3707,7 @@ int tech_no;
             if ((mon = m_at(sx, sy)) != 0) {
                 pline("%s gets blasted by the force!", Monnam(mon));
                 mhurtle(mon, mon->mx - u.ux, mon->my - u.uy,
-                        1 + rnd(techlev(1 + tech_no) / 3));
+                        1 + rn2(1 + (techlev(tech_no) / 3)));
                 break;
             }
             sx += u.dx;

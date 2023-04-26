@@ -446,7 +446,7 @@ struct monst *mtmp;
         if (mtmp2 && mlined_up(mtmp, mtmp2, FALSE))
             return mtmp2;
 
-        if (!mtmp->mpeaceful && !conflicted
+        if (!mtmp->mpeaceful && !(conflicted || mtmp->mconf)
             && ((mtmp->mstrategy & STRAT_STRATMASK) == STRAT_NONE)
             && lined_up(mtmp))
             return &youmonst;  /* kludge - attack the player first if possible */
@@ -466,7 +466,7 @@ struct monst *mtmp;
         dir = rn2(8);
         origdir = -1;
 
-        if (!mtmp->mpeaceful && !conflicted && lined_up(mtmp))
+        if (!mtmp->mpeaceful && !(conflicted || mtmp->mconf) && lined_up(mtmp))
             return &youmonst;  /* kludge - attack the player first if possible */
     }
 
@@ -488,7 +488,7 @@ struct monst *mtmp;
             if (!isok(x, y) || !ZAP_POS(levl[x][y].typ) || closed_door(x, y))
                 break; /* off the map or otherwise bad */
 
-            if (!conflicted
+            if (!(conflicted || mtmp->mconf)
                 && ((mtmp->mpeaceful && (x == mtmp->mux && y == mtmp->muy))
                 || (mtmp->mtame && x == u.ux && y == u.uy))) {
                 mret = oldmret;
@@ -504,8 +504,8 @@ struct monst *mtmp;
                             mons[monsndx(oldmret->data)].difficulty))
                         mret = mat;
                 } else if ((mm_aggression(mtmp, mat) & ALLOW_M)
-                           || conflicted) {
-                    if (mtmp->mtame && !conflicted
+                           || (conflicted || mtmp->mconf)) {
+                    if (mtmp->mtame && !(conflicted || mtmp->mconf)
                         && !acceptable_pet_target(mtmp, mat, TRUE)) {
                         mret = oldmret;
                         break; /* not willing to attack in that direction */
@@ -513,7 +513,7 @@ struct monst *mtmp;
 
                     /* Can't make some pairs work together
                        if they hate each other on principle. */
-                    if ((conflicted
+                    if (((conflicted || mtmp->mconf)
                         || (!(mtmp->mtame && mat->mtame) || !rn2(5)))
                         && i > 0) {
                         if ((!oldmret)

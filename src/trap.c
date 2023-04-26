@@ -624,7 +624,7 @@ unsigned ftflags;
                  && !(ftflags & TOOKPLUNGE))
              || (Inhell && !u.uevent.invoked && newlevel == bottom)) {
         /* Give player giants a hint... */
-        if (is_giant(youmonst.data))
+        if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
             dont_fall = "don't fall, but you can climb down.";
         else
             dont_fall = "don't fall in.";
@@ -2096,7 +2096,7 @@ struct obj *box;	/* at the moment only for floor traps */
         return;
     }
 
-    pline("A freezing cloud shoots from %s!", surface(u.ux, u.uy));
+    pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
     if (Cold_resistance) {
         shieldeff(u.ux, u.uy);
         num = 0;

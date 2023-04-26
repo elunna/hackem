@@ -320,7 +320,7 @@ struct monst* mdef;
     if (newcham(mdef, &mons[PM_MIND_FLAYER], FALSE, FALSE)) {
         char name[PL_PSIZ];
         /* off-chance Izchak succumbs to a mind flayer larva's physical attack */
-        if (is_izchak(mdef, TRUE)) {
+        if (is_izchak(mdef, TRUE) && racial_human(mdef)) {
             pline("But wait!  %s transforms again into his true form!",
                   Monnam(mdef));
             mdef->mcanmove = 1;
@@ -332,6 +332,7 @@ struct monst* mdef;
             mdef->mconf = 0;
             mdef->mstun = 0;
             newcham(mdef, &mons[PM_ARCHANGEL], FALSE, FALSE);
+            free_erac(mdef);
             mdef->mhp = mdef->mhpmax = 1500;
             newsym(mdef->mx, mdef->my);
             return;
@@ -521,6 +522,8 @@ int mndx, mode;
                 mndx = PM_HOBBIT;
             else if (is_illithid(ptr))
                 mndx = PM_ILLITHID;
+            else if (is_tortle(ptr))
+                mndx = PM_TORTLE;
         }
         break;
     }
@@ -1423,7 +1426,7 @@ mcalcdistress()
         were_change(mtmp);
 
         /* special handling for Izchak */
-        if (is_izchak(mtmp, TRUE)) {
+        if (is_izchak(mtmp, TRUE) && racial_human(mtmp)) {
             if (mtmp->mstone > 3 || mtmp->msick > 0)
                 mondead(mtmp);
         }
@@ -3478,7 +3481,7 @@ register struct monst *mtmp;
         }
     } 
     /* someone or something decided to mess with Izchak. oops... */
-    if (is_izchak(mtmp, TRUE)) {
+    if (is_izchak(mtmp, TRUE) && racial_human(mtmp)) {
         if (canspotmon(mtmp)) {
             pline("But wait!  %s rises and transforms into his true form!",
                   Monnam(mtmp));
@@ -3495,6 +3498,7 @@ register struct monst *mtmp;
         if (!mtmp->mpeaceful)
             hot_pursuit(mtmp);
         newcham(mtmp, &mons[PM_ARCHANGEL], FALSE, FALSE);
+        free_erac(mtmp);
         mtmp->mhp = mtmp->mhpmax = 1500;
         if (mtmp == u.ustuck) {
             if (u.uswallow)

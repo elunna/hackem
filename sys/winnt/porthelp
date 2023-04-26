@@ -64,7 +64,7 @@ The available commands are:
     Alt-q    #quit           - quit the game. (Same as #quit)
     Alt-r    #rub            - rub a lamp.
     Alt-s    #sit            - sit down.
-    Alt-t    #turn           - turn undead.
+    Alt-t    #tech           - technique.
     Alt-u    #untrap         - untrap something.
     Alt-v    #version        - list compile time options for this version of
                                NetHack.

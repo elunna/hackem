@@ -1397,6 +1397,8 @@ $(HFILES) : $(DAT)\Ice.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Ice QF=Ice do_quest
 $(IFILES) : $(DAT)\Infidel.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Inf QF=Infidel do_quest
+$(IFILES) : $(DAT)\Jedi.des $(TEMP)\lev_comp.exe
+    $(MAKEB) QQ=Jed QF=Jedi do_quest
 $(KFILES) : $(DAT)\Knight.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Kni QF=Knight do_quest
 $(MFILES) : $(DAT)\Monk.des $(TEMP)\lev_comp.exe
