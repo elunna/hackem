@@ -2574,7 +2574,8 @@ const struct def_skill *class_skill;
     } else if (Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)) {
         P_SKILL(P_MATTER_SPELL) = P_BASIC;
     } else if (Role_if(PM_INFIDEL)) {
-        P_SKILL(P_ATTACK_SPELL) = P_BASIC;
+        P_SKILL(P_NECROMANCY_SPELL) = P_BASIC;
+        P_SKILL(P_MATTER_SPELL) = P_BASIC;
     } else if (Role_if(PM_PRIEST)) {
         P_SKILL(P_ENCHANTMENT_SPELL) = P_BASIC;
     } else if (Role_if(PM_NECROMANCER)) {

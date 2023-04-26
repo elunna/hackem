@@ -2609,7 +2609,7 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
                 else
                     nomul(0);
             }
-            polyself(1);
+            polyself(0);
             if (Upolyd) { /* You actually polymorphed */
                 u.uen -= 5 * mons[u.umonnum].mlevel;
                 if (u.uen < 0) {

@@ -15,6 +15,15 @@
 
 Version 1.1 (unreleased)
 
+Infidels start with basic in matter instead of attack.
+Wizards can be doppelgangers. (Suggested by cbus)
+Fix: Necromancers could not benefit from items granting energy regeneration. Fixes #233.
+Ice Mages can not be doppelgangers.
+Fix: Infidels start with basic skill in necromancy and attack spells (reported by cbus/mobileuser)
+Fix: Moloch should curse items rather than bless for infidels.
+Fix: Doppelganger players could controlled poly at any level. Fixes #242.
+Fix: Hit with unlit lightsaber practices unarmed for jedi.
+Fix: Remove timout for T_TINKER
 Fix: Armor with 0 delay displayed 0 turns to wear/put on (reported by cbus).
 Fix: Added quest summary lines for Jedi quest messages.
 Fix: Wand of wind was not magical.
