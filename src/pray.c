@@ -21,6 +21,7 @@ STATIC_DCL void FDECL(consume_offering, (struct obj *));
 STATIC_DCL boolean FDECL(water_prayer, (BOOLEAN_P));
 STATIC_DCL boolean FDECL(blocked_boulder, (int, int));
 STATIC_DCL void NDECL(god_gives_benefit);
+STATIC_DCL void NDECL(moloch_gives_curse);
 STATIC_DCL int NDECL(count_pets);
 
 /* simplify a few tests */
@@ -1082,7 +1083,7 @@ gcrownu()
         }
         case A_NONE:
             /* OK, we don't get an artifact, but surely Moloch
-         * can at least offer His own blessing? */
+             * can at least offer His own blessing? */
             obj = uwep;
             if (ok_wep(obj) && !obj->oartifact && obj->quan == 1
                 && !(obj->oprops & ITEM_PROP_MASK)) {
@@ -2367,8 +2368,12 @@ dosacrifice()
                 god_gives_pet(altaralign);
                 return 1;
             } else if (!rnl(20 + u.ulevel)) {
-                /* Random item blessed */
-                god_gives_benefit();
+                /* Random item blessed/cursed */
+                if (Role_if(PM_INFIDEL) && u.ualign.type==A_NONE)
+                    moloch_gives_curse();
+                else
+                    god_gives_benefit();
+
                 return 1;
             }
             
@@ -3077,6 +3082,55 @@ god_gives_benefit()
         Your("%s %s.", what ? what :
                             (const char *)aobjnam (otmp, "softly glow"),
              hcolor(NH_AMBER));
+}
+
+/* Curse something */
+void
+moloch_gives_curse()
+{
+    register struct obj *otmp;
+    const char *what = (const char *)0;
+    
+    /* randomly curse items */
+    /* do not curse amulets since that would make lifesaving useless */
+
+    /* weapon takes precedence if it interferes
+       with taking off a ring or shield */
+    if (uwep && !uwep->cursed) /* weapon */
+        otmp = uwep;
+    else if (uswapwep && !uswapwep->cursed) /* secondary weapon */
+        otmp = uswapwep;
+    /* gloves come next, due to rings */
+    else if (uarmg && !uarmg->cursed)    /* gloves */
+        otmp = uarmg;
+    /* then shield due to two handed weapons and spells */
+    else if (uarms && !uarms->cursed)    /* shield */
+        otmp = uarms;
+    /* then cloak due to body armor */
+    else if (uarmc && !uarmc->cursed)    /* cloak */
+        otmp = uarmc;
+    else if (uarm && !uarm->cursed)      /* armor */
+        otmp = uarm;
+    else if (uarmh && !uarmh->cursed)    /* helmet */
+        otmp = uarmh;
+    else if (uarmf && !uarmf->cursed)    /* boots */
+        otmp = uarmf;
+    else if (uarmu && !uarmu->cursed)    /* shirt */
+        otmp = uarmu;
+    else if (uleft && !uleft->cursed)    /* rings */
+        otmp = uleft;
+    else if (uright && !uright->cursed)
+        otmp = uright;
+    else {
+        return; /* Nothing to do! */
+    }
+    curse(otmp);
+    otmp->bknown = TRUE;
+
+    if (!Blind)
+        Your("%s %s.", what ? what :
+                            (const char *)aobjnam (otmp, "softly glow"),
+             hcolor(NH_BLACK));
 }
 
 STATIC_OVL int

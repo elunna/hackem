@@ -1076,8 +1076,7 @@ int tech_no;
             break;
         case T_TINKER:
             res = tech_tinker(get_tech_no(T_TINKER));
-            if (res)
-                t_timeout = rn1(10, 5);
+            /* No timeout */
             break;
         case T_RAGE:     	
             res = tech_rage(get_tech_no(T_RAGE));
