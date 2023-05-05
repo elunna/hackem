@@ -3939,10 +3939,18 @@ struct obj **sobjp;
         if (otmp2->otyp == WAX_CANDLE) otmp2->material = WAX;
 
         /* Prevent exploits */
-        if (otmp2->otyp == WAN_WISHING) 
-            otmp2->spe = -1;
-        else if (otmp2->otyp == MAGIC_MARKER && otmp2->spe >= 16)
-            otmp2->spe = 15;
+        if (otmp2->otyp == WAN_WISHING) {
+            otmp2->otyp = WAN_WONDER;
+            otmp2->spe = rn1(10, 15);
+        } else if (otmp2->otyp == MAGIC_LAMP) {
+            otmp2->otyp = MAGIC_CANDLE;
+            otmp2->material = WAX;
+        } else if (otmp2->otyp == MAGIC_MARKER) {
+            otmp2->otyp = ATHAME;
+            otmp2->material = METAL;
+            if (sblessed) otmp2->spe = rnd(otmp->spe / 10);
+        }
+
         otmp2->quan = 1;
         obj_extract_self(otmp2);
         (void) hold_another_object(otmp2, "Whoops! %s out of your grasp.",
