@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Allow cloning of invocation items
 Fix: Add second weapon attack for Und so they can two-weapon (reported by VaderFLAG).
 Infidels start with basic in matter instead of attack.
 Wizards can be doppelgangers. (Suggested by cbus)

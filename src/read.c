@@ -3901,16 +3901,12 @@ struct obj **sobjp;
         /* Unique items */
         if (otmp->otyp == BELL_OF_OPENING) {
             otyp2 = BELL;
-            return;
         } else if (otmp->otyp == CANDELABRUM_OF_INVOCATION) {
             otyp2 = WAX_CANDLE;
-            return;
         } else if (otmp->otyp == AMULET_OF_YENDOR) {
             otyp2 = FAKE_AMULET_OF_YENDOR;
-            return;
         } else if (otmp->otyp == SPE_BOOK_OF_THE_DEAD) {
             otyp2 = SPE_BLANK_PAPER;
-            return;
         } else if (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT) {
             pline_The("scroll violently resists the cloning process!");
             otyp2 = SCR_BLANK_PAPER;
@@ -3939,6 +3935,9 @@ struct obj **sobjp;
         otmp2->corpsenm = otmp->corpsenm;
         otmp2->oprops = otmp->oprops;
         
+        /* prevent cloning of the candelabrum yielding a gold candle */
+        if (otmp2->otyp == WAX_CANDLE) otmp2->material = WAX;
+
         /* Prevent exploits */
         if (otmp2->otyp == WAN_WISHING) 
             otmp2->spe = -1;
