@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Medical kits can cure parasitic larva (reported by VaderFLAG).
 Fix: Fix issue of robe of protection not giving effects of merged dragon scales and reduce to MC1 (reported by VaderFLAG).
 Fix: Cloning of wands of wishing/magic lamp/markers will yield other items.
 Fix: Allow cloning of invocation items

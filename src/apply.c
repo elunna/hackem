@@ -2417,7 +2417,10 @@ struct obj *obj;
             if (can_use) {
                 if (Sick)
                     make_sick(0L, (char *) 0, TRUE, SICK_ALL);
-                else if (Blinded > (long) (u.ucreamed + 1))
+                else if (LarvaCarrier) {
+                    You_feel("as if your body is your own again.");
+                    make_carrier(0L, FALSE);
+                } else if (Blinded > (long) (u.ucreamed + 1))
                     make_blinded(u.ucreamed ? (long) (u.ucreamed + 1) : 0L,
                                  TRUE);
                 else if (HHallucination)
@@ -2431,7 +2434,7 @@ struct obj *obj;
                 else if (u.uhp < u.uhpmax) {
                     u.uhp += rn1(10, 10);
                     if (u.uhp > u.uhpmax)
-                    u.uhp = u.uhpmax;
+                        u.uhp = u.uhpmax;
                     You_feel("better.");
                     context.botl = TRUE;
                 } else
