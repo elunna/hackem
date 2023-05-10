@@ -1,4 +1,4 @@
-                           
+
 # Hack'EM Changelog
 
 ## Credits
@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Change the Pw cost of jedi jump #tech from 25 to 10 (like the spell).
 Fix: Medical kits can cure parasitic larva (reported by VaderFLAG).
 Fix: Fix issue of robe of protection not giving effects of merged dragon scales and reduce to MC1 (reported by VaderFLAG).
 Fix: Cloning of wands of wishing/magic lamp/markers will yield other items.
