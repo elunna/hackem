@@ -2272,15 +2272,29 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
         enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
         Strcat(buf, " ");
         /*you_have(buf, "Eaten memory of these monsters:");*/
+        char full = 0;
         for (int i = LOW_PM; i < NUMMONS; i++) {
             if (mvitals[i].eaten) {
                 /*Sprintf(buf, "%s, ", mons[i].mname);*/
+
+                // Check for mname + "..." + '\0'
+                if (BUFSZ < strlen(buf) + strlen(mons[i].mname) + 3 + 1) {
+                    full = 1;
+                    break;
+                }
                 strcat(buf, mons[i].mname);
                 Strcat(buf, ", ");
             }
         }
-        if (strlen(buf) > 3) {
-            buf[strlen(buf) - 2] = '\0';
+        size_t len_buf = strlen(buf);
+        if (len_buf > 3) {
+            if (full) {
+                // Replace ", " with "...\0"
+                buf[len_buf - 2] = buf[len_buf - 1] = buf[len_buf] = '.';
+                buf[len_buf + 1] = '\0';
+            } else {
+                buf[len_buf - 2] = '\0';
+            }
             enlght_out(buf);
         } else {
             enlght_out("None");
