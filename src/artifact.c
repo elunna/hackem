@@ -962,7 +962,8 @@ long wp_mask;
                 EReflecting &= ~wp_mask;
         } else if (otmp
             && (otmp->oartifact == ART_LONGBOW_OF_DIANA
-                || otmp->oartifact == ART_CROSSBOW_OF_CARL)
+                || otmp->oartifact == ART_CROSSBOW_OF_CARL
+                || otmp->oartifact == ART_LIGHTSABER_PROTOTYPE)
             && (wp_mask & W_WEP)) { /* wielding various reflecting artifacts */
             if (on)
                 EReflecting |= wp_mask;
