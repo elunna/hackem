@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Fix: Fix the lightsaber prototype not giving reflection when wielded (reported by mobileuser).
 Fix: Fix buffer overflow in the ^X menu caused by eaten monsters when playing doppelgangers.
 Change the Pw cost of jedi jump #tech from 25 to 10 (like the spell).
 Fix: Medical kits can cure parasitic larva (reported by VaderFLAG).
