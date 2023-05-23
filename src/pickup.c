@@ -2430,7 +2430,7 @@ register struct obj *obj;
     } else if (obj == current_container) {
         pline("That would be an interesting topological exercise.");
         return 0;
-    } else if ((Is_mbag(obj) || obj->otyp == WAN_CANCELLATION)
+    } else if ((Is_mbag(obj) || (obj->otyp == WAN_CANCELLATION && obj->spe > 0))
              && objects[obj->otyp].oc_name_known 
                && obj->dknown 
                && current_container->otyp == BAG_OF_HOLDING
