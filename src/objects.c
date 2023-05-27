@@ -1199,7 +1199,7 @@ SPELL("knock",           "pink",          P_MATTER_SPELL,      35,  1, 1, 1, IMM
 SPELL("wizard lock",     "dark green",    P_MATTER_SPELL,      30,  3, 2, 1, IMMEDIATE, CLR_GREEN),
 SPELL("polymorph",       "silver",        P_MATTER_SPELL,      10,  8, 6, 1, IMMEDIATE, HI_SILVER),
 SPELL("repair armor",    "platinum",      P_MATTER_SPELL,      20,  6, 3, 1, IMMEDIATE, HI_PAPER), /* EvilHack */
-SPELL("reflection",	 "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),  /* EvilHack */
+SPELL("reflection",	     "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMMEDIATE, CLR_BROWN),  /* EvilHack */
 SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
 SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
 SPELL("cancellation",    "shining",       P_MATTER_SPELL,      15,  8, 7, 1, IMMEDIATE, CLR_WHITE),
@@ -1256,7 +1256,6 @@ SPELL(None,         "stapled",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 SPELL(None,         "stylish",     P_NONE, 0, 0, 0, 1, 0, HI_PAPER),
 SPELL(None,         "tartan",      P_NONE, 0, 0, 0, 1, 0, CLR_RED),
 SPELL(None,         "chartreuse",  P_NONE, 0, 0, 0, 1, 0, CLR_GREEN),
-SPELL(None,         "decrepit",    P_NONE, 0, 0, 0, 1, 0, CLR_BROWN),
 SPELL(None,         "crimson",     P_NONE, 0, 0, 0, 1, 0, CLR_RED),
 SPELL(None,         "charcoal",    P_NONE, 0, 0, 0, 1, 0, CLR_BLACK),
 /* books with fixed descriptions */
