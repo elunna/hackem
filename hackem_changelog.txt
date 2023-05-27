@@ -15,6 +15,7 @@
 
 Version 1.1 (unreleased)
 
+Reflection spell improvements (EvilHack).
 Fix: Infidels should not get any friendly angels on astral plane (reported by mobileuser).
 Fix: Reused glyphs in #wizlevelport in curses mode don't work (menu->reuse_accels does not get set).
 Fix: Fix the lightsaber prototype not giving reflection when wielded (reported by mobileuser).
