@@ -3520,13 +3520,13 @@ int
 tech_jedijump(tech_no)
 int tech_no;
 {
-    if (u.uen < 25) {
-         You("can't channel the force around you. Jedi jumps require 25 points of mana!");
+    if (u.uen < 10) {
+         You("can't channel the force around you. Jedi jumps require 10 points of mana!");
          return 0;
     }
     if (!jump((techlev(tech_no) / 5) + 1))
          return 0;
-    u.uen -= 25;
+    u.uen -= 10;
     return 1;
 }
 

@@ -1135,11 +1135,15 @@ menu_display_page(nhmenu *menu, WINDOW * win, int page_num, char *selectors)
         if (menu_item_ptr->identifier.a_void != NULL) {
             if (menu_item_ptr->accelerator != 0) {
                 curletter = menu_item_ptr->accelerator;
+
+                if (curletter >= 'a' && page_num > 1) {
+                    menu->reuse_accels = TRUE;
+                }
             } else {
                 if (first_accel) {
                     curletter = menu_get_accel(TRUE);
                     first_accel = FALSE;
-                    if (!menu->reuse_accels && (menu->num_pages > 1)) {
+                    if (!menu->reuse_accels && menu->num_pages > 1) {
                         menu->reuse_accels = TRUE;
                     }
                 } else {

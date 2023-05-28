@@ -1,4 +1,4 @@
-                           
+
 # Hack'EM Changelog
 
 ## Credits
@@ -13,8 +13,20 @@
 
 ==========================
 
-Version 1.1 (unreleased)
+Version 1.14 (released May 28, 2023)
 
+Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
+Reflection spell improvements (EvilHack).
+Fix: Infidels should not get any friendly angels on astral plane (reported by mobileuser).
+Fix: Reused glyphs in #wizlevelport in curses mode don't work (menu->reuse_accels does not get set).
+Fix: Fix the lightsaber prototype not giving reflection when wielded (reported by mobileuser).
+Fix: Fix buffer overflow in the ^X menu caused by eaten monsters when playing doppelgangers.
+Change the Pw cost of jedi jump #tech from 25 to 10 (like the spell).
+Fix: Medical kits can cure parasitic larva (reported by VaderFLAG).
+Fix: Fix issue of robe of protection not giving effects of merged dragon scales and reduce to MC1 (reported by VaderFLAG).
+Fix: Cloning of wands of wishing/magic lamp/markers will yield other items.
+Fix: Allow cloning of invocation items
+Fix: Add second weapon attack for Und so they can two-weapon (reported by VaderFLAG).
 Infidels start with basic in matter instead of attack.
 Wizards can be doppelgangers. (Suggested by cbus)
 Fix: Necromancers could not benefit from items granting energy regeneration. Fixes #233.

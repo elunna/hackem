@@ -568,7 +568,7 @@ gain_guardian_angel()
 
     Hear_again(); /* attempt to cure any deafness now (divine
                      message will be heard even if that fails) */
-    if (Conflict) {
+    if (Conflict || u.ualign.type == A_NONE) {
         if (!Deaf)
             pline("A voice booms:");
         else
