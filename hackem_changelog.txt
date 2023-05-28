@@ -13,7 +13,7 @@
 
 ==========================
 
-Version 1.1 (unreleased)
+Version 1.14 (released May 28, 2023)
 
 Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
 Reflection spell improvements (EvilHack).
