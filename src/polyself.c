@@ -623,7 +623,8 @@ int psflags;
         /* special changes that don't require polyok() */
         if (draconian) {
         do_merge:
-           merge_with_armor(controllable_poly);
+            mntmp = armor_to_dragon(&youmonst);
+            merge_with_armor(controllable_poly);
         } else if (iswere) {
         do_shift:
             if (Upolyd && were_beastie(mntmp) != u.ulycn)
