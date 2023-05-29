@@ -18,9 +18,9 @@ COMPRESSBIN="/bin/gzip"
 NH_GIT="/home/build/HackEM"
 NH_BRANCH="master"
 # HACKDIR from include/config.h; aka nethack subdir inside chroot
-NHSUBDIR="hackem-1.1.0"
+NHSUBDIR="hackem-1.1.4"
 # VAR_PLAYGROUND from include/unixconf.h
-NH_VAR_PLAYGROUND="/hackem-1.1.0/var/"
+NH_VAR_PLAYGROUND="/hackem-1.1.4/var/"
 # END OF CONFIG
 ##############################################################################
 
@@ -45,8 +45,8 @@ set -e
 umask 022
 
 echo "Creating inprogress and extrainfo directories"
-mkdir -p "$NAO_CHROOT/dgldir/inprogress-hackem110"
-chown "$USRGRP" "$NAO_CHROOT/dgldir/inprogress-hackem110"
+mkdir -p "$NAO_CHROOT/dgldir/inprogress-hackem114"
+chown "$USRGRP" "$NAO_CHROOT/dgldir/inprogress-hackem114"
 mkdir -p "$NAO_CHROOT/dgldir/extrainfo-hackem"
 chown "$USRGRP" "$NAO_CHROOT/dgldir/extrainfo-hackem"
 
