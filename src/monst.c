@@ -7526,7 +7526,8 @@ struct permonst _mons2[] = {
     MON("undead slayer", S_HUMAN,                               /* Slash'EM */
         LVL(10, 12, 10, 1, -1), G_NOGEN,
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_WEAP, AD_PHYS, 1, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_FEMALE | M2_COLLECT | M2_HOSTILE,
