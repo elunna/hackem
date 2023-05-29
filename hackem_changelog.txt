@@ -13,6 +13,10 @@
 
 ==========================
 
+Version 1.1.5 (unreleased)
+
+Fix: Fix segfault when reading confused ?oEnchantArmor with dragon scales (reported by Noisytoot).
+
 Version 1.1.4 (released May 28, 2023)
 
 Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
