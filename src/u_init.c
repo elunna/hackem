@@ -406,6 +406,7 @@ struct inv_sub {
     { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD     },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
+    { PM_GIANT, ROBE_OF_POWER, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
     { PM_GIANT, LIGHT_ARMOR, HELMET },
     { PM_GIANT, CLOAK_OF_MAGIC_RESISTANCE, LOW_BOOTS },
