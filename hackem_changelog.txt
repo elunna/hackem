@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Do not learn the disarm #tech from ranged weapon skills.
 Fix: Add robe of power for PM_GIANT to race-based substitution for initial inventory.
 Fix: Fix segfault when reading confused ?oEnchantArmor with dragon scales (reported by Noisytoot).
 
