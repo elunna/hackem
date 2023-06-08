@@ -1509,6 +1509,7 @@ u_init()
                 knows_object(gem);
             }
         }
+        knows_object(MAGIC_MARKER);
         knows_object(MAGIC_WHISTLE);
         knows_object(MAGIC_HARP);
         knows_object(MAGIC_FLUTE);
