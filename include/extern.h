@@ -3159,7 +3159,7 @@ E int FDECL(weapon_hit_bonus, (struct obj *));
 E int FDECL(weapon_dam_bonus, (struct obj *));
 E void FDECL(skill_init, (const struct def_skill *));
 E struct art_info_t artifact_info(int);
-E void NDECL(practice_weapon);
+E boolean NDECL(practice_weapon);
 E boolean FDECL(can_practice, (int)); /* WAC for Practicing */
 
 /* ### were.c ### */

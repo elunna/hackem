@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: If weapon practice #tech fails because maxed skill and known weapon don't apply the cooldown.
 Fix: Vampires are now restricted in two weapon combat.
 Make magic markers pre identified on wizards (they already showed up as "magical markers").
 Fix: When calling robes their base name should be "robe" and not "armor".

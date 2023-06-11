@@ -2671,7 +2671,8 @@ int skill;
            && u.skills_advanced < P_SKILL_LIMIT;
 }
 
-void
+/* return true if a weapon skill has been practiced and false otherwise */
+boolean
 practice_weapon()
 {
     if (can_practice(weapon_type(uwep))
@@ -2688,11 +2689,16 @@ practice_weapon()
 
         delay = -10;
         set_occupation(practice, "practicing", 0);
-    } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep)))
+    } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep))) {
         You("cannot increase your skill in %s.", P_NAME(weapon_type(uwep)));
-    else
-        You("cannot learn much about %s right now.",
-            P_NAME(weapon_type(uwep)));
+        return 0;
+    }
+    else {
+        You("cannot learn much about %s right now.", P_NAME(weapon_type(uwep)));
+        return 0;
+    }
+
+    return 1;
 }
 
 /*WAC  weapon practice code*/

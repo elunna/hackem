@@ -2875,7 +2875,7 @@ int tech_no;
          You("are not wielding a weapon!");
          return 0;
     } else if (uwep->known == TRUE) {
-         practice_weapon();
+         return practice_weapon();
     } else {
          if (not_fully_identified(uwep)) {
             You("examine %s.", doname(uwep));
@@ -2887,9 +2887,8 @@ int tech_no;
                 pline("Unfortunately, you didn't learn anything new.");
          } 
          /*WAC Added practicing code - in weapon.c*/
-         practice_weapon();
+         return practice_weapon();
     }
-    return 1;
 }
 
 int
