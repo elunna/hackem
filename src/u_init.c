@@ -123,8 +123,8 @@ static struct trobj Jedi[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
-    { AMULET_OF_YENDOR, 0, AMULET_CLASS, 1, 0 },
     { DAGGER, 1, WEAPON_CLASS, 1, 0 },
+    { AMULET_OF_YENDOR, 0, AMULET_CLASS, 1, 0 },
     { JACKET, 1, ARMOR_CLASS, 1, CURSED },
     { CLOAK_OF_PROTECTION, 0, ARMOR_CLASS, 1, CURSED },
     { POT_WATER, 0, POTION_CLASS, 3, CURSED },

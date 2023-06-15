@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Move daggers to first entry in Inf starting equipment.
 Fix: If weapon practice #tech fails because maxed skill and known weapon don't apply the cooldown.
 Fix: Vampires are now restricted in two weapon combat.
 Make magic markers pre identified on wizards (they already showed up as "magical markers").
