@@ -1196,7 +1196,13 @@ int tech_no;
                 t_timeout = rn1(500, 500);
             break;
         case T_TELEKINESIS: {
-            res = tech_telekinesis(get_tech_no(T_TELEKINESIS));
+            int tech_no = get_tech_no(T_TELEKINESIS);
+
+            /* Set t_inuse=1 temporarily so the use of telekinesis can be seen in shk.c */
+            tech_list[tech_no].t_inuse = 1;
+            res = tech_telekinesis(tech_no);
+            tech_list[tech_no].t_inuse = 0;
+
             if (res)
                 t_timeout = 250;
             break;
@@ -3659,7 +3665,6 @@ int tech_no;
             You_cant("do anything %sthere.", ttrap ? "else " : "");
          }
     } while (TRUE);
-    
 }
 
 

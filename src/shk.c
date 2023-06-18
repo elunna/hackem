@@ -3041,7 +3041,7 @@ boolean include_contents;
     }
 
     /* onbill() gave no message if unexpected problem occurred */
-    if (!shkp || (unp_obj->unpaid && !bp))
+    if (!tech_inuse(T_TELEKINESIS) && (!shkp || (unp_obj->unpaid && !bp)))
         impossible("unpaid_cost: object wasn't on any bill.");
     return amt;
 }
