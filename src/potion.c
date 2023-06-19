@@ -3959,8 +3959,22 @@ register struct obj *obj;
     
     if (obj->otyp == FLINT) {
         split1off = (obj->quan > 1L);
-        if (split1off)
+        if (split1off) {
             obj = splitobj(obj, 1L);
+
+            if (carried(obj)) {
+                freeinv(obj);
+                if (inv_cnt(FALSE) >= 52) {
+                    sellobj_state(SELL_DONTSELL);
+                    dropy(obj);
+                    sellobj_state(SELL_NORMAL);
+                } else {
+                    obj->nomerge = 1; /* used to prevent merge */
+                    obj = addinv(obj);
+                    obj->nomerge = 0;
+                }
+            }
+        }
     }
         
     /* Convert it */
