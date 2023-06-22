@@ -9,7 +9,7 @@
 - amateurhour and qt for their endless debugging advice.
 
 ### Thanks: 
-- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
+- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
 
 ==========================
 
