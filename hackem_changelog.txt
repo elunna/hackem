@@ -13,24 +13,9 @@
 
 ==========================
 
-Version 1.1.5 (unreleased)
-
-
-Fix: Crash when lit lightsaber auto-returns to Jedi (reported by disperse). Fixes #271.
-Fix: Duplicate decrepit spellbooks (reported by hothraxxa).
-Fix: Upgrading a stack of flintstones would give same index to upgraded stone (reported by shadowrider).
-Fix: Telekinesis stealing caused program in disorder.
-Move daggers to first entry in Inf starting equipment.
-Fix: If weapon practice #tech fails because maxed skill and known weapon don't apply the cooldown.
-Fix: Vampires are now restricted in two weapon combat.
-Make magic markers pre identified on wizards (they already showed up as "magical markers").
-Fix: When calling robes their base name should be "robe" and not "armor".
-Fix: Do not learn the disarm #tech from ranged weapon skills.
-Fix: Add robe of power for PM_GIANT to race-based substitution for initial inventory.
-Fix: Fix segfault when reading confused ?oEnchantArmor with dragon scales (reported by Noisytoot).
-
 Version 1.1.4 (released May 28, 2023)
 
+Fix: Crash when lit lightsaber auto-returns to Jedi (reported by disperse). Fixes #271.
 Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
 Reflection spell improvements (EvilHack).
 Fix: Infidels should not get any friendly angels on astral plane (reported by mobileuser).
