@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Con-Dop start with a cursed "oUnchanging to prevent escaping the striped shirt using #youpoly.
 Fix: Duplicate decrepit spellbooks (reported by hothraxxa).
 Fix: Upgrading a stack of flintstones would give same index to upgraded stone (reported by shadowrider).
 Fix: Telekinesis stealing caused program in disorder.

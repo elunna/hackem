@@ -347,6 +347,8 @@ struct trobj Pickaxe[] = { { PICK_AXE, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj AoMR[] = { { AMULET_OF_MAGIC_RESISTANCE, 0, AMULET_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
+struct trobj AoUn[] = { { AMULET_OF_UNCHANGING, 0, AMULET_CLASS, 1, CURSED },
+                               { 0, 0, 0, 0, 0 } };
 struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
@@ -1696,6 +1698,13 @@ u_init()
         break;
 
     case PM_DOPPELGANGER:
+        /* Con-Dop gets a cursed amulet of unchanging so they can not easily
+         * escape the cursed striped shirt and iron ball by #youpoly/liquid leap */
+        if (Role_if(PM_CONVICT)) {
+            ini_inv(AoUn);
+            knows_object(AMULET_OF_UNCHANGING);
+        }
+
         /* Doppelgangers naturally everything know about polymorph */
         knows_object(POT_POLYMORPH);
         knows_object(WAN_POLYMORPH);
