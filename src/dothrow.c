@@ -1354,11 +1354,16 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-    /* 5lo: This gets used a lot, so put it here */
+    /* 5lo: This gets used a lot, so put it here 
+     * hackem: Updated so that the lightsaber only auto-returns if thrown from
+     * the Jedi's primary hand. Otherwise we run into issues later when re-
+     * wielding with wielding-artifact.
+     * */
     boolean jedi_forcethrow = 
         (Role_if(PM_JEDI) 
          && is_lightsaber(obj) 
          && obj->lamplit
+         && (wep_mask & W_WEP) != 0
          && !impaired 
          && P_SKILL(weapon_type(obj)) >= P_SKILLED);
     
