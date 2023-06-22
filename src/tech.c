@@ -2946,6 +2946,15 @@ int tech_no;
     struct monst *mtmp = NULL;
     coord cc;
     int dx, dy, sx, sy, range;
+
+    if (Unchanging) {
+        if (!Hallucination)
+            pline("Your form is too rigid to leap!");
+        else
+            pline("You're feeling a little too stiff.");
+
+        return 0;
+    }
     
     pline("Where do you want to leap to?");
     cc.x = sx = u.ux;
