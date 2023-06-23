@@ -102,7 +102,6 @@ struct trobj Healer[] = {
 };
 struct trobj Ice_Mage[] = {
 #define I_BOOK          10
-#define T_SNOWBALLS     11
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
@@ -114,7 +113,6 @@ struct trobj Ice_Mage[] = {
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-    { SNOWBALL, 0, VENOM_CLASS, 12, 0 }, /* quan is variable */
     { 0, 0, 0, 0, 0 }
 };
 static struct trobj Jedi[] = {
@@ -1215,7 +1213,6 @@ u_init()
         default: 
             break;
         }
-        Ice_Mage[T_SNOWBALLS].trquan = rn1(12, 8);
         ini_inv(Ice_Mage);
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);

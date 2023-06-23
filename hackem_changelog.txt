@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Removed snowballs from ice mage starting inventory; too buggy (reported by transcendreamer). Fixes #264.
 Move tortle max skill in tridents from u_init() to skill_init(). Bar/Mon/Und can get Expert and Hea/Tou can get skilled in tridents (Reported by Disperse).
 Fix order of rock mole tile.
 Fixed order of monsters in monst.c to obey the designated rules. Fixes #247. 
