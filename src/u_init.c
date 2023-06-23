@@ -1597,11 +1597,8 @@ u_init()
 
     case PM_TORTLE:
         /* if their role lists trident as a trainable skill,
-           raise the max proficiency level by one */
-        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK) || Role_if(PM_UNDEAD_SLAYER))
-            P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
-        if (Role_if(PM_HEALER) || Role_if(PM_TOURIST))
-            P_MAX_SKILL(P_TRIDENT) = P_SKILLED;
+           raise the max proficiency level by one:
+          this is set in weapon.c:skill_init */
 
         if (!rn2(4)) {
             /* in case they want to go for a swim */
