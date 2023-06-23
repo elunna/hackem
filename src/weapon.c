@@ -2619,6 +2619,11 @@ const struct def_skill *class_skill;
     if (Role_if(PM_KNIGHT) || Role_if(PM_VALKYRIE))
         P_SKILL(P_SHIELD) = P_BASIC;
 
+    /* Give Und-Tor ability to get skilled in trident since it is
+     * their replacement weapon for spears */
+    if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_TORTLE))
+        P_MAX_SKILL(P_TRIDENT) = P_SKILLED;
+
     /*
      * Make sure we haven't missed setting the max on a skill
      * & set advance

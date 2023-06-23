@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Allow Und-Tor to get skilled in trident since tridents are their replacement for starting spear (reported by Disperse).
 Allow lawful non knights to dip for excalibur if crowned hand of Elbereth (suggested by Noisytoot).
 Prevent liquid leap #tech when wearing "oUnchanging.
 Con-Dop start with a cursed "oUnchanging to prevent escaping the striped shirt using #youpoly.
