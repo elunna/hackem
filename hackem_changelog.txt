@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Remove Gungnir as being Val first gift. Fixes #293.
 Added tinker to database lookup. Fixes #308. 
 Changed Nebuchadnezzar's alignment to lawful (Suggested by mobileuser). Fixes #311.
 Fix: Run update_inventory() after blessing/cursing of item from sacrifice to update perm_invent.

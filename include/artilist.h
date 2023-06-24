@@ -198,7 +198,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* Gungnir has an insane to-hit bonus. */
     A("Gungnir", ATGEIR, (SPFX_RESTR), 0, 0, 
       PHYS(20, 12), NO_DFNS, NO_CARY, LIGHTNING_BOLT, A_NEUTRAL, 
-      PM_VALKYRIE, NON_PM, 4000L, NO_COLOR, METAL),
+      NON_PM, NON_PM, 4000L, NO_COLOR, METAL),
       
     /* Mesopatamian in origin. Grants stability. against clobber/hurtle.
       Invoke for a scroll of air. 
