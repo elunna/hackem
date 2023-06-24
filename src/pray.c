@@ -2374,6 +2374,7 @@ dosacrifice()
                 else
                     god_gives_benefit();
 
+                update_inventory();
                 return 1;
             }
             
