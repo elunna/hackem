@@ -1970,7 +1970,8 @@ do_nothing:
             && !(u.usteed && is_flyer(u.usteed->data)) && grounded(youmonst.data)
             && !Stunned && !Confusion && levl[x][y].seenv
             && ((is_pool(x, y) && !is_pool(u.ux, u.uy))
-                || (is_lava(x, y) && !is_lava(u.ux, u.uy)))) {
+                || (is_lava(x, y) && !is_lava(u.ux, u.uy))
+                || (is_open_air(x, y) && !is_open_air(u.ux, u.uy)))) {
             if (is_pool(x, y) && !known_wwalking) {
                 
                 if (context.nopick) {
@@ -2014,6 +2015,25 @@ do_nothing:
                                    "touching molten lava", KILLED_BY);
                         }
                     }
+                    if (!context.swim_tip) {
+                        pline("(Use 'move' prefix to step in if you really want to.)");
+                        context.swim_tip = TRUE;
+                    }
+                    return;
+                }
+            } else if (is_open_air(x, y)
+                && (!HLevitation && !ELevitation)
+                && (!EFlying && !HFlying)) {
+
+                if (context.nopick) {
+                    /* moving with m-prefix */
+                    context.swim_tip = TRUE;
+                    /*return;*/
+                } else if (ParanoidSwim) {
+                    context.move = 0;
+                    nomul(0);
+
+                    You("narrowly avoid plunging into open air.");
                     if (!context.swim_tip) {
                         pline("(Use 'move' prefix to step in if you really want to.)");
                         context.swim_tip = TRUE;

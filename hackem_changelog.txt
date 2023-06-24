@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Make paranoid swim warn about open air. Fixes #290.
 Fix: Tinfoil hats can only be metal to prevent weird material clashes (reported by hothraxxa). Fixes #277.
 Re-added candles to Vlad's tower (reported by shadowrider). Fixes #280.
 Fix: Tiamat could fall asleep. Limited the dragon slumbering so only orange dragons can fall asleep now (reported by shadowrider38). Fixes #282.
