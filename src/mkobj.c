@@ -3658,6 +3658,7 @@ struct obj* obj;
         case LEASH:
         case SADDLE:
         case TINNING_KIT:
+        case TINFOIL_HAT:
         case BANDAGE:
         case PHIAL:
         case AMULET_OF_YENDOR:
