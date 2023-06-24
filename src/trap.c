@@ -6679,7 +6679,8 @@ lava_effects()
     }
 
 burn_stuff:
-    fire_damage_chain(invent, FALSE, FALSE, u.ux, u.uy);
+    if (!EFire_resistance)
+        fire_damage_chain(invent, FALSE, FALSE, u.ux, u.uy);
     return FALSE;
 }
 
