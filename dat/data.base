@@ -11759,7 +11759,9 @@ unreconnoitered
 	Area of map which is beyond limited perception range when
 	underwater or engulfed by a monster.
 upgrade
-    Dipping an item can possibly upgrade that item to something more useful.
+tinker
+    Tinkering or dipping an item into a potion of gain level can 
+    possibly upgrade that item to something more useful.
     
     Quarterstaff              -> Magical staff
     Boomerang                 -> Chakram
