@@ -4882,11 +4882,11 @@ struct attack *mattk;
             break;
 
         case DEEP_DRAGON_SCALES:
+            Your("armor radiates with dark energy!");
             if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
                 if (canseemon(mtmp) && !rn2(3)) {
                     shieldeff(mtmp->mx, mtmp->my);
-                    Your("armor does not appear to affect %s",
-                         mon_nam(mtmp));
+                    pline("%s seems unaffected.", mon_nam(mtmp));
                 }
 
             } else if (!rn2(3)) {
