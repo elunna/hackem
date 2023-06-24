@@ -700,7 +700,7 @@ can_twoweapon()
 
 #define NOT_WEAPON(obj) (!is_weptool(obj) && obj->oclass != WEAPON_CLASS)
     if (!could_twoweap(youmonst.data)) {
-        if (Upolyd || Race_if(PM_VAMPIRIC))
+        if (Upolyd)
             You_cant("use two weapons in your current form.");
         else
             pline("%s aren't able to use two weapons at once.",
