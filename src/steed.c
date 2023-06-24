@@ -362,6 +362,7 @@ doride()
 
     if (u.usteed) {
         dismount_steed(DISMOUNT_BYCHOICE);
+        update_inventory();
     } else if (getdir((char *) 0) && isok(u.ux + u.dx, u.uy + u.dy)) {
         if (wizard && yn("Force the mount to succeed?") == 'y')
             forcemount = TRUE;
