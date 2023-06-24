@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: genociding all lich types and alhoons before destroying Vecna (From EvilHack) Fixes #309.
 Reverted 5966c08f8. Updated message for twoweaponing denial if you are a vampire.
 Reverted: Fix: Vampires are now restricted in two weapon combat.
 Fix: Remove Gungnir as being Val first gift. Fixes #293.
