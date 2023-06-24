@@ -4191,8 +4191,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                         && were_beastie(mon->mnum) == u.ulycn
                         && !Role_if(PM_CAVEMAN) && !Race_if(PM_ORC))
                     || (how_resistant(DISINT_RES) == 0
-                        && (mon->data == &mons[PM_BLACK_DRAGON]
-                            || mon->data == &mons[PM_BABY_BLACK_DRAGON]))))
+                        && mon->data == &mons[PM_BLACK_DRAGON])))
                 break;
             /*FALLTHRU*/
         case AT_BITE:
@@ -4200,12 +4199,11 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                monsters if doing so would be fatal */
             if ((i > 0 && is_vampire(youmonst.data))
                 && ((how_resistant(DISINT_RES) == 0
-                        && (mon->data == &mons[PM_BLACK_DRAGON]
-                        || mon->data == &mons[PM_BABY_BLACK_DRAGON]))
+                        && mon->data == &mons[PM_BLACK_DRAGON])
                     || is_rider(mon->data) 
                     || touch_petrifies(mon->data) 
                     || mon->data == &mons[PM_MEDUSA] 
-                    || mon->data == &mons[PM_GREEN_SLIME] ))
+                    || mon->data == &mons[PM_GREEN_SLIME]))
                 break;
             if (is_zombie(youmonst.data)
                 && mattk->aatyp == AT_BITE
@@ -4224,8 +4222,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                     Race_if(PM_DEMON)))
                 && (touch_petrifies(mon->data)
                     || (how_resistant(DISINT_RES) == 0
-                        && (mon->data == &mons[PM_BLACK_DRAGON]
-                            || mon->data == &mons[PM_BABY_BLACK_DRAGON]))))
+                        && mon->data == &mons[PM_BLACK_DRAGON])))
                 break;
             /*FALLTHRU*/
         case AT_KICK:

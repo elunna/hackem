@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Pets and certain polyforms would not attack baby black dragons (reported by Noisytoot). Fixes #286.
 Fix: Inappropriate messages for wooden stakes when thrown (reported by VaderFLAG). Fixes #294. 
 Correct typo in Eternal Flame resisting being extinguished (reported by Noisytoot). Fixes #292.
 Fix: genociding all lich types and alhoons before destroying Vecna (From EvilHack) Fixes #309.
