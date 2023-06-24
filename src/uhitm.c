@@ -1933,16 +1933,16 @@ int dieroll;
              * Using Stake of Van Helsing is +1
              */
             if (!rn2(10 - skill)) {
-                You("plunge your stake into the heart of %s.", mon_nam(mon));
+                pline("%s plunges into the heart of %s.", Yname2(obj), mon_nam(mon));
                 vapekilled = TRUE;
             } else {
-                You("drive your stake into %s.", mon_nam(mon));
+                pline("%s drives violently into %s.", Yname2(obj), mon_nam(mon));
                 /* Scale the dmg bonus with skill level */
                 tmp += rnd(6) + skill;
             }
             hittxt = TRUE;
         } else {
-            You("thrust your stake into %s.", mon_nam(mon));
+            pline("%s penetrates %s.", Yname2(obj), mon_nam(mon));
             tmp += rnd(6);
             hittxt = TRUE;
         }

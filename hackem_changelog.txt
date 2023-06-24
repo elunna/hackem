@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Inappropriate messages for wooden stakes when thrown (reported by VaderFLAG). Fixes #294. 
 Correct typo in Eternal Flame resisting being extinguished (reported by Noisytoot). Fixes #292.
 Fix: genociding all lich types and alhoons before destroying Vecna (From EvilHack) Fixes #309.
 Reverted 5966c08f8. Updated message for twoweaponing denial if you are a vampire.
