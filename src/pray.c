@@ -864,10 +864,15 @@ gcrownu()
                       && uwep->oartifact != ART_STORMBRINGER))
         && !carrying(SPE_FINGER_OF_DEATH)) {
         class_gift = SPE_FINGER_OF_DEATH;
-    } else if (Role_if(PM_MONK) && (!uwep || !uwep->oartifact)
-               && !carrying(SPE_RESTORE_ABILITY)) {
+    } else if (Role_if(PM_MONK) && (!uwep || !uwep->oartifact)) {
         /* monks rarely wield a weapon */
-        class_gift = SPE_RESTORE_ABILITY;
+        /* Disabled the spellbook because Monk's get restore ability at level 12 */
+        class_gift = MAGIC_MARKER;
+        obj = mksobj(class_gift, TRUE, FALSE);
+        obj->bknown = 1; /* ok to skip set_bknown() */
+        at_your_feet("An object");
+        place_object(obj, u.ux, u.uy);
+        newsym(u.ux, u.uy);
     }
 
     obj = ok_wep(uwep) ? uwep : 0;

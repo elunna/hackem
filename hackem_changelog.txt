@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Monks get a magic marker for their crowning gift instead of a Spellbook of Restore Ability (suggested by Noisytoot). Fixes #278.
 Make paranoid swim warn about open air. Fixes #290.
 Fix: Tinfoil hats can only be metal to prevent weird material clashes (reported by hothraxxa). Fixes #277.
 Re-added candles to Vlad's tower (reported by shadowrider). Fixes #280.
