@@ -316,7 +316,7 @@ const struct Role roles[] = {
       PM_JEDI, 
       NON_PM, 
       PM_LITTLE_DOG,
-      PM_THE_JEDI_MASTER, 
+      PM_JEDI_MASTER, 
       PM_PADAWAN, 
       PM_LORD_SIDIOUS,
       PM_STORMTROOPER, 

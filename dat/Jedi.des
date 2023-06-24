@@ -5,7 +5,7 @@
 #
 #	The "start" level for the quest.
 #
-#	Here you meet your (besieged) class leader, The Jedi Master
+#	Here you meet your (besieged) class leader, the Jedi Master
 #	and receive your quest assignment.
 #
 MAZE: "Jed-strt", 'A'
@@ -70,7 +70,7 @@ DOOR: closed, (55,13)
 DOOR: closed, (55,07)
 
 # The Jedi Master
-MONSTER: ('@', "The Jedi Master"), (37,10)
+MONSTER: ('@', "Jedi Master"), (37,10)
 
 # His treasure
 CONTAINER: ('(', "chest"), $places[1] {

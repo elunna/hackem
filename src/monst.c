@@ -7714,7 +7714,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_COLLECT
             | M2_MAGIC,
         M3_CLOSE | M3_INFRAVISIBLE, 0, MH_HUMAN, 23, CLR_RED),
-    MON("The Jedi Master", S_HUMAN,
+    MON("Jedi Master", S_HUMAN,
         LVL(20, 18, -5, 50, 10), (G_NOGEN | G_UNIQ | G_NOCORPSE),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
           ATTK(AT_WEAP, AD_PHYS, 1, 6),

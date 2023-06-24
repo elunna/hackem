@@ -2541,7 +2541,7 @@ register struct monst *mtmp;
             (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
             (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, POT_SPEED);
-        } else if (ptr == &mons[PM_THE_JEDI_MASTER]) {
+        } else if (ptr == &mons[PM_JEDI_MASTER]) {
             otmp = mksobj(BLUE_LIGHTSABER, FALSE, FALSE);
             otmp->blessed = otmp->oerodeproof = 1;
             otmp->spe = rn1(3, 3);
