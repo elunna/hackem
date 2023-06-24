@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Run update_inventory() on successful #ride to update the weight in perm_invent.
 Clarified messages when deep dragon scales deals passive attack (reported by janis). Fixes #288.  
 Fix: Removed unnecessary The from Jedi Master's title. Fixes #276.
 Monks get a magic marker for their crowning gift instead of a Spellbook of Restore Ability (suggested by Noisytoot). Fixes #278.
