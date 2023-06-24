@@ -33,6 +33,7 @@ MONSTER:('V',"Vlad the Impaler"),(06,05) {
 #MONSTER:'V',(03,01)
 #MONSTER:'V',(07,01)
 #MONSTER:'V',(11,01)
+
 # The doors
 DOOR:closed,(08,03)
 DOOR:closed,(10,03)
@@ -41,6 +42,7 @@ DOOR:locked,(10,05)
 DOOR:locked,(08,07)
 DOOR:locked,(10,07)
 DOOR:closed,(03,06)
+
 # treasures
 # +4 containers are secretly coffins.
 OBJECT:"large box",(07,05),cursed,+4
@@ -87,27 +89,19 @@ MONSTER:('d',"hell hound pup"),$place[3]
 MONSTER:('d',"winter wolf"),$place[4]
 IF [50%] {
   CONTAINER:('(',"chest"),$place[5] {
-#    IF [50%] {
-      OBJECT:('"',"amulet of life saving")
-#    } ELSE {
+      OBJECT:('(', "wax candle"), quantity:4d2
       OBJECT:('"',"amulet of change")
-#    }
   }
 } ELSE {
   CONTAINER:('(',"iron safe"),$place[5] {
-#    IF [50%] {
       OBJECT:('"',"amulet of life saving")
-#    } ELSE {
-      OBJECT:('"',"amulet of change")
+      OBJECT:('(', "wax candle"), quantity:4d2
     }
-#  }
+
 }
 CONTAINER:('(',"chest"),$place[6] {
-#  IF [50%] {
     OBJECT:('"',"amulet of strangulation")
-#  } ELSE {
-    OBJECT:('"',"amulet of restful sleep")
-#  }
+    OBJECT:('(', "tallow candle"), quantity:4d2
 }
 [60%]: OBJECT: ('[',"water walking boots"),$place[7]
 [60%]: OBJECT: ('[',"crystal plate mail"),$place[8]
