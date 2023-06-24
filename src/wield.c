@@ -699,11 +699,9 @@ can_twoweapon()
     struct obj *otmp;
 
 #define NOT_WEAPON(obj) (!is_weptool(obj) && obj->oclass != WEAPON_CLASS)
-    if (!could_twoweap(youmonst.data) || Race_if(PM_VAMPIRIC)) {
-        if (Upolyd)
+    if (!could_twoweap(youmonst.data)) {
+        if (Upolyd || Race_if(PM_VAMPIRIC))
             You_cant("use two weapons in your current form.");
-        else if (Race_if(PM_VAMPIRIC))
-            pline("Vampires aren't able to use two weapons at once.");
         else
             pline("%s aren't able to use two weapons at once.",
                   makeplural((flags.female && urole.name.f) ? urole.name.f

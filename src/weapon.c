@@ -2641,11 +2641,6 @@ const struct def_skill *class_skill;
         }
     }
 
-    /* Vampires are restricted in two-weaponing */
-    if (Race_if(PM_VAMPIRIC)) {
-        P_MAX_SKILL(P_TWO_WEAPON_COMBAT) = P_SKILL(P_TWO_WEAPON_COMBAT) = P_ISRESTRICTED;
-    }
-
     /* each role has a special spell; allow at least basic for its type
        (despite the function name, this works for spell skills too) */
     unrestrict_weapon_skill(spell_skilltype(urole.spelspec));
