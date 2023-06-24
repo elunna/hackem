@@ -5821,7 +5821,7 @@ struct permonst _mons2[] = {
         M2_HOSTILE | M2_STRONG, 0, 0, 0, 18, CLR_CYAN),
     MON("iron golem", S_GOLEM,
         LVL(18, 6, 3, 60, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 4, 10), 
+        A(ATTK(AT_CLAW, AD_PHYS, 4, 10), 
           ATTK(AT_BREA, AD_DRST, 4, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2000, 0, MS_SILENT, MZ_LARGE),
@@ -5841,7 +5841,7 @@ struct permonst _mons2[] = {
         0, M4_VULNERABLE_FIRE, 0, 25, CLR_BRIGHT_CYAN),
     MON("ruby golem", S_GOLEM,                                  /* Slash'EM */
         LVL(24, 12, 3, 60, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 4,10), 
+        A(ATTK(AT_CLAW, AD_PHYS, 4, 10), 
           ATTK(AT_BREA, AD_FIRE, 5, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2000, 0, MS_SILENT, MZ_LARGE),
@@ -5851,7 +5851,7 @@ struct permonst _mons2[] = {
         0, 0, 0, 28, CLR_RED),
     MON("diamond golem", S_GOLEM,                               /* Slash'EM */
         LVL(26, 12, 3, 60, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 5,10), 
+        A(ATTK(AT_CLAW, AD_PHYS, 5, 10), 
           ATTK(AT_BREA, AD_MAGM, 5, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2000, 0, MS_SILENT, MZ_LARGE),
@@ -5861,7 +5861,7 @@ struct permonst _mons2[] = {
         0, 0, 0, 30, CLR_WHITE),
     MON("sapphire golem", S_GOLEM,                              /* Slash'EM */
         LVL(28, 12, 3, 60, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 6,10), 
+        A(ATTK(AT_CLAW, AD_PHYS, 6, 10), 
           ATTK(AT_BREA, AD_ELEC, 5, 8),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2000, 0, MS_SILENT, MZ_LARGE),
@@ -5871,7 +5871,7 @@ struct permonst _mons2[] = {
         0, 0, 0, 32, CLR_BRIGHT_CYAN),
     MON("steel golem", S_GOLEM,                                 /* Slash'EM */
         LVL(30, 15, 3, 60, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 6,10), 
+        A(ATTK(AT_CLAW, AD_PHYS, 6, 10), 
           ATTK(AT_BREA, AD_COLD, 5, 8),
           ATTK(AT_NONE, AD_ENCH, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK),
@@ -5882,7 +5882,7 @@ struct permonst _mons2[] = {
         0, M4_VULNERABLE_ACID, 0, 34, CLR_BRIGHT_BLUE),
     MON("crystal golem", S_GOLEM,                               /* Slash'EM */
         LVL(32, 15, 3, 60, 0), (G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 8, 12), 
+        A(ATTK(AT_CLAW, AD_PHYS, 8, 12), 
           ATTK(AT_BREA, AD_RBRE, 6, 8),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2000, 0, MS_SILENT, MZ_LARGE),
