@@ -3366,6 +3366,7 @@ auto shotgun
         [ The Gunslinger, by Stephen King ]
 
     Crafting recipes:
+        pistol                  = flintlock + iron chain
         submachine gun          = pistol + iron chain
         heavy machine gun       = submachine gun + iron chain
         rifle                   = pistol + crossbow

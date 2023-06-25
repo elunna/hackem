@@ -517,7 +517,7 @@ static const struct forge_recipe {
     { LUCERN_HAMMER, SPEAR, HEAVY_WAR_HAMMER, 1, 1 },
     { BEC_DE_CORBIN, SPEAR, WAR_HAMMER, 1, 1 },
     
-    /* No recipe for pistol...  */
+    { PISTOL, FLINTLOCK, IRON_CHAIN, 1, 1 },
     { SUBMACHINE_GUN, PISTOL, IRON_CHAIN, 1, 1 },
     { HEAVY_MACHINE_GUN, SUBMACHINE_GUN, IRON_CHAIN, 1, 1 },
     { RIFLE, PISTOL, CROSSBOW, 1, 1 },
