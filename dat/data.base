@@ -90,6 +90,8 @@ thonged club
 	it to be drawn back to the wielder after having been thrown.
 	It should not be confused with the atlatl, which is a device
 	used to throw spears for longer distances.
+	
+	Crafting recipe: aklys = spear + flail
 adherer
 	Please refrain from peeling off the special space-age polymer
 	holding the starship together. It may look and feel like duct
@@ -609,6 +611,8 @@ athame
 	pentacle).  Traditionally, the athame is a double-edged,
 	black-handled, cross-hilted dagger of between six and
 	eighteen inches length.
+	
+	Crafting recipe: athame = dagger + stiletto
 athen*
 	Athene was the offspring of Zeus, and without a mother.  She
 	sprang forth from his head completely armed.  Her favourite
@@ -633,6 +637,13 @@ double?headed?axe
 	"Bite deep and wide, O Axe, the tree;
 	Bright Seer, help on thy prophecy!"
 		[ Malcolm's Katie, by Isabella Valancey Crawford ]
+    
+    Crafting recipes:
+        axe                     = dagger + spear
+        throwing axe            = axe + dagger
+        dwarvish bearded axe    = axe + dwarvish short sword 
+        battle-axe              = axe + broadsword 
+        battle-axe              = axe + axe
 axolotl
 	A mundane salamander, harmless.
 ~bag of*
@@ -1296,6 +1307,11 @@ brigit
 	Bring me my cross of gold,
 	As a talisman.
 		[ "Broadsword" (refrain) by Ian Anderson ]
+		
+	Crafting recipes:
+	    broadsword              = scimitar + short sword 
+        elven broadsword        = scimitar + elven short sword 
+        runesword               = broadsword + dagger
 bugbear
 	Bugbears are relatives of goblins, although they tend to be
 	larger and more hairy.  They are aggressive carnivores and
@@ -1569,6 +1585,8 @@ chakram
     dexterous with them.
         [ Duarte Barbosa (1970). A Description of the Coasts of East 
         Africa and Malabar. ]
+    
+    Crafting recipe: chakram = boomerang + shuriken
 chameleon
 	A small lizard perched on a brown stone.  Feeling threatened by
 	the approach of human beings along the path, it metamorphosed
@@ -2082,6 +2100,12 @@ cyclops
 	I see thee yet, in form as palpable
 	As this which now I draw.
 		[ Macbeth, by William Shakespeare ]
+		
+	Crafting recipes:
+	    dagger                  = knife + 2 arrows
+        elven dagger            = knife + 2 elven arrows
+        orcish dagger           = knife + 2 orcish arrows
+        great dagger            = parazonium + knife
 damned pirate
  	These memories were bought with the lives of good men
  	A price that I paid without scruple
@@ -5270,6 +5294,8 @@ katana
 	The katana is a long, single-edged samurai sword with a
 	slightly curved blade.  Its long handle is designed to allow
 	it to be wielded with either one or two hands.
+	
+	Crafting recipe: katana = long sword + long sword
 ice queen
 kathryn*
 	"The White Witch? Who is she?"
@@ -5413,6 +5439,10 @@ stiletto
 	Like that.  Prepare to meet your God, says he.  Chuck!  It
 	went into his back up to the butt.
 		[ Ulysses, by James Joyce ]
+	
+	Crafting recipes:
+	    knife = 2 arrows + 2 darts
+        stiletto = knife + 2 crossbow bolts
 bourbon
 koa
 ozzy
@@ -6125,6 +6155,12 @@ sceptre
 	about in armour, and sovereigns needed champions to vindicate
 	their rights.
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
+	
+	Crafting recipes:
+	    mace                    = war hammer + dagger 
+        heavy mace              = mace + mace
+        rod                     = mace + 2 rubies 
+        executioner's mace      = heavy mace + mace
 magic marker
 	A magic marker is a magical tool in NetHack that can be used to 
 	write magic scrolls and spellbooks. It is a highly sought-after 
@@ -6612,6 +6648,10 @@ lemur
 	but with the head attached by a short chain.
 		[ Dictionary of Medieval Knighthood and Chivalry,
 		  by Bradford Broughton ]
+    
+    Crafting recipes:
+        morning star            = mace + dagger 
+        orcish morning star     = mace + orcish dagger 
 *mosquito
 	Red Saunders said he could take anything.  The men found a corner
 	of the island where thick clouds of mosquitos were hovering above
@@ -7159,6 +7199,14 @@ panther
         obtained the name Pegasus because he was believed to have made
         his appearance near the sources (pegai) of Oceanus.
                 [ Encyclopedia Mythica, ed. M.F. Lindemans ]
+parazonium
+    A parazonium is a long triangular dagger, wide at the hilt end and
+    coming to a point. In Roman mythology, it is frequently carried by 
+    Virtus, particularly in early representations. It is also sometimes
+    carried by Mars, or Roma, or the emperor, giving them the aura of 
+    courage.
+    
+    Crafting recipe: parazonium = dagger + knife
 parrot
 	Polly desires a compressed edible concoction of wheat!
 pelias
@@ -7242,7 +7290,6 @@ dwarvish mattock
 	squares can fall through the hole - this counts as theft and will
 	anger the shopkeeper.
 
-
 	Watchmen do not appreciate you digging up the level on their watch,
 	and will warn you if they see you trying to dig through doors or 
 	walls with a pick-axe. Continuing immediately after being warned 
@@ -7263,6 +7310,8 @@ dwarvish mattock
 	Ages of Europe, the mattock served as an improvised shafted
 	weapon for the poorer classes.
 		[ Wikipedia, the free encyclopedia ]
+		
+	Crafting recipe: dwarvish mattock = pick-axe + dwarvish short sword
 *piercer
 	Ye Piercer doth look like unto a stalactyte, and hangeth
 	from the roofs of caves and caverns.  Unto the height of a
@@ -7511,6 +7560,8 @@ trident
     Has a special +4 to-hit bonus against swimming monsters that are 
     in water, and a secondary +2 to-hit bonus against any snake(S) or
     sea monster(;) that is not in water.
+    
+    Crafting recipe: trident = scimitar + spear 
 poisonous cloak
     The poisonous cloak is dangerous, as it can poison you, possibly 
     fatally. The cloak has a randomized appearance, the dirty rag 
@@ -8930,6 +8981,8 @@ rust monster or disenchanter
 	Not the six hundred.
 		[ The Charge of the Light Brigade,
 		  by Alfred, Lord Tennyson ]
+	
+	Crafting recipe: saber = scimitar + long sword 
 saber-toothed tiger
 saber-toothed cat
 	The saber-toothed tiger, a common term for a member of the
@@ -9055,6 +9108,8 @@ scalpel
 	cut through the skin. ... Medical scalpel blades are gradually
 	curved for greater precision when cutting through tissue.
 		[ Wikipedia, the free encyclopedia ]
+		
+	Crafting recipe: scalpel = knife + stiletto
 *sceptre of might
 	This heavy mace was created aeons ago in some unknown cave,
 	and has been passed down from generation to generation of
@@ -9069,6 +9124,10 @@ cutlass
 	scimitar in his hand, his face black with powder!  How his
 	enemies fled before him!
 		[ The Count of Monte Cristo, by Alexandre Dumas ]
+		
+	Crafting recipes:
+	    scimitar                = knife + short sword
+        orcish scimitar         = knife + orcish short sword
 scorpio*
 	A sub-species of the spider (_Scorpionidae_), the scorpion
 	distinguishes itself from them by having a lower body that
@@ -9892,6 +9951,8 @@ shuriken
 	the throat, the other in the middle of her chest.  It wouldn't
 	kill her, but she wouldn't be fighting anyone for a while.
 		[ Jhereg, by Steven Brust ]
+	
+	Crafting recipe: shuriken (3-4) = dagger + 2 darts
 silver
 	A white, precious, metallic chemical element that is extremely 
 	ductile and malleable, capable of high polish, and an excellent
@@ -10084,6 +10145,13 @@ javelin
 	fireman brake his neck!'  Why, that ain't a picture!
 		[ A Connecticut Yankee in King Arthur's Court,
 		    by Mark Twain ]
+		    
+    Crafting recipes:
+        spear                   = dagger + 2 arrows
+        elven spear             = elven dagger + 2 elven arrows
+        orcish spear            = orcish dagger + 2 orcish arrows
+        dwarvish spear          = spear + 2 arrows
+        javelin                 = spear + 2 crossbow bolts
 spellbook of dig
 	Allows you to learn the spell of dig. 
 	
@@ -11636,6 +11704,8 @@ tsurugi
 	special process, causing it to never rust.  The tsurugi is
 	rumored to be so sharp that it can occasionally cut
 	opponents in half!
+	
+	Crafting recipe: tsurugi = katana + two-handed sword
 ~*spellbook
 turquoise*
 	TUBAL:  There came divers of Antonio's creditors in my company
@@ -12881,6 +12951,10 @@ warg
 	while men of both armies scrambled in the swirling waters for
 	rubies knocked free of his armor.
 		[ A Game of Thrones, by George R.R. Martin ]
+	
+	Crafting recipes:
+	    war hammer              = mace + flail
+        heavy war hammer        = war hammer + war hammer
 * wasp
 ichneumon *
 	These insects are feared for their ability to lay eggs inside
@@ -12960,6 +13034,7 @@ water troll
 weapon
 club
 belaying pin
+gladius
 ~*broadsword
 ~sunsword
 ~runed short sword
@@ -12967,6 +13042,16 @@ belaying pin
 *sword
 	A weapon is a device for making your enemy change his mind.
 		[ The Vor Game, by Lois McMaster Bujold ]
+	
+	Crafting recipes:
+	    long sword              = short sword + short sword
+        elven long sword        = elven short sword (x2) 
+        orcish long sword       = orcish short sword (x2)
+	    short sword             = dagger + 2 crossbow bolts 
+        elven short sword       = elven dagger + 2 crossbow bolts
+        orcish short sword      = orcish dagger + 2 crossbow bolts
+        dwarvish short sword    = short sword + dwarvish spear
+        gladius                 = short sword + broadsword
 web
 	I watch her in the corner there, 
 	As, restless, bold, and unafraid, 
