@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Added message when Helm of Hermes or Demonbane is invoked.
 Fix: Polymorphing into vampire bat shape should not cause stun. Fixes #272.
 Increased the chance of vampire blood-feeding from 2/5 to 2/3.
 Fix: Jedi counted as quest guardians (reported by Umbire). Fixes #248.

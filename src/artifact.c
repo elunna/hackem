@@ -3809,6 +3809,15 @@ struct obj *obj;
             } else
                 (void) float_down(I_SPECIAL | TIMEOUT, W_ARTI);
             break;
+        case FLYING:
+            if (on) {
+                You("are now in flight.");
+            } else
+                You("%s.", (is_pool_or_lava(u.ux, u.uy)
+            || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
+               ? "stop flying"
+               : "land");
+            break;
         case INVIS:
             if (BInvis || Blind)
                 goto nothing_special;
