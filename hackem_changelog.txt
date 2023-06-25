@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Reverted name of Holy Spear of Light back to Spear of Light. Also reverted wishing for holy items. Reported by hothraxxa. Fixes #287.
 Fix typo in monsters.txt for jedi trainer.
 Added message when Helm of Hermes or Demonbane is invoked.
 Fix: Polymorphing into vampire bat shape should not cause stun. Fixes #272.

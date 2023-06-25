@@ -1659,7 +1659,7 @@ unsigned doname_flags;
                     arti_light_description(obj));
         }
 
-    } else if (!Blind && obj->oartifact == ART_HOLY_SPEAR_OF_LIGHT && obj->lamplit) {
+    } else if (!Blind && obj->oartifact == ART_SPEAR_OF_LIGHT && obj->lamplit) {
         Sprintf(eos(bp), " (%s lit)", arti_light_description(obj));
     }
 
@@ -3778,10 +3778,8 @@ struct obj *no_wish;
             while (*bp == ' ')
                 bp++;
             l = 0;
-        } else if (!strncmpi(bp, "blessed ", l = 8)) {
-           /*WAC removed this.  Holy is in some artifact weapon names
-                            || !strncmpi(bp, "holy ", l=5)
-            */
+        } else if (!strncmpi(bp, "blessed ", l = 8)
+                || !strncmpi(bp, "holy ", l=5)) {
             blessed = 1;
         } else if (!strncmpi(bp, "bgf ", l = 4) 
                    || !strncmpi(bp, "bfg ", l = 4)) {
@@ -5301,7 +5299,7 @@ struct obj *no_wish;
             case ART_REAPER:
                 pm = PM_YEOMAN;
                 break;
-            case ART_HOLY_SPEAR_OF_LIGHT:
+            case ART_SPEAR_OF_LIGHT:
                 pm = PM_UNDEAD_SLAYER;
                 break;
 

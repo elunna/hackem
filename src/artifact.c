@@ -3333,7 +3333,7 @@ struct obj *obj;
                 if (u.uhp < 1) {
                     u.uhp = 0;
                     killer.format = KILLED_BY;
-                    Strcpy(killer.name, "the Holy Spear of Light");
+                    Strcpy(killer.name, "the Spear of Light");
                     done(DIED);
                 }
             }
@@ -3944,7 +3944,7 @@ struct obj *obj;
 
     return (boolean) (get_artifact(obj) && 
         (obj->oartifact == ART_SUNSWORD
-        || obj->oartifact == ART_HOLY_SPEAR_OF_LIGHT
+        || obj->oartifact == ART_SPEAR_OF_LIGHT
         || obj->oartifact == ART_CANDLE_OF_ETERNAL_FLAME));
 }
 

@@ -2324,7 +2324,7 @@ dosacrifice()
                     godvoice(u.ualign.type, "Use my gift wisely!");
 
                     /* Light up Candle of Eternal Flame and
-                     * Holy Spear of Light on creation.
+                     * Spear of Light on creation.
                      */
                     if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD)
                         begin_burn(otmp, FALSE);
