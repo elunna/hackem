@@ -13,10 +13,10 @@
    eligible to reread the spellbook and regain 100% retention (the threshold
    used to be 1000 turns, which was 10% of the original 10000 turn retention
    period but didn't get adjusted when that period got doubled to 20000) */
-#define KEEN            10000
-#define CAST_BOOST 	  500	/* memory increase for successful casting */
-#define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
-#define MAX_KNOW 	70000	/* Absolute Max timeout */
+#define KEEN            20000
+#define CAST_BOOST 	    500	/* memory increase for successful casting */
+#define REINFORCE_BOOST 20000	/* memory increase for reinforce memory */
+#define MAX_KNOW 	    100000	/* Absolute Max timeout */
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
