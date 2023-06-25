@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Added crafting recipes for most armors to the database.
 Added a crafting recipe for pistols using the flintlock.
 Added more crafting info to the database for weapons. Fixes #307.
 Updated database with entries for crafting some weapons.

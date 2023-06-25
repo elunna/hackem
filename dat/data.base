@@ -83,6 +83,16 @@ armour
 	Lying there on the mud mortally wounded, I learned what true armor 
 	class was that day."
 	 	[ When Help Collides, by J. D. Berry ]
+	
+	Crafting recipes:
+	    plate mail              = splint mail + chain mail
+        crystal plate mail      = plate mail + 3 dilithium crystals
+        splint mail             = scale mail + chain mail
+        large splint mail       = plate mail + plate mail
+        banded mail             = scale mail + ring mail
+        chain mail              = ring mail + ring mail
+        scale mail              = ring mail + helmet
+        ring mail               = large shield + helmet
 aclys
 aklys
 thonged club
@@ -848,6 +858,7 @@ barding of reflection
 	
 	Barding of reflection: Just like regular barding, but it's fully
 	reflective just like a shield of reflection.
+	
 	Barding (also spelled bard or barb) is body armour for war horses.
 	The practice of armoring horses was first extensively developed in
 	antiquity in the eastern kingdoms of Parthia and Pahlava, and
@@ -858,6 +869,12 @@ barding of reflection
 	become a symbol of the late European Middle Ages chivalry and the
 	era of knights.
 		[ Wikipedia, the free encyclopedia ]
+	
+	Crafting recipes:
+	    barding                 = saddle + plate mail
+        spiked barding          = barding + morning star 
+        barding of reflection   = barding + shield of reflection
+        barding of reflection   = barding + shield of reflection
 baseball bat
 	The sneer is gone from Casey's lip, his teeth are clenched in hate,
 	He pounds with cruel violence his bat upon the plate;
@@ -2886,6 +2903,12 @@ dwarven*
 	they like, and a dwarvish gift is likely to turn to gold in
 	the hand.  But on the whole they are a snappish lot.
 	    [ The Immortals, by Derek and Julia Parker ]
+	   
+	Crafting recipes:
+	    dwarvish chain mail     = chain mail + dwarvish roundshield
+	    dwarvish roundshield    = large shield + dwarvish helm
+	    dwarvish boots          = gauntlets + dwarvish short sword
+	    dwarvish helm           = helmet + dwarvish short sword
 earendil
 elwing
 	In after days, when because of the triumph of Morgoth Elves and
@@ -3075,6 +3098,10 @@ elven shield
 	brown as fallow fields by night, dusk-silver as water under
 	the stars.
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
+	
+	Crafting recipes:
+	    elven chain mail        = chain mail + elven shield
+	    elven shield            = small shield + elven dagger
 emerald
 	'Put off that mask of burning gold
 	With emerald eyes.'
@@ -3721,6 +3748,8 @@ gauntlets
 	worn as part of a full suit of armor. 
 	
     Applies a -2 to-hit penalty when shooting from a bow.
+    
+    Crafting recipe: gauntlets = helmet + mace
 gauntlets of dexterity
     Modifies the wearer's dexterity based on its enchantment, up to a 
     maximum of 25. Wearing gauntlets of dexterity of any non-zero 
@@ -4572,7 +4601,9 @@ tinfoil hat
     
     The tin foil hat protects the wearer from damage from a (master) 
     mind flayer's psychic blast, with the downside that it also 
-    prevents the wearer from sensing monsters by telepathy. 
+    prevents the wearer from sensing monsters by telepathy.
+    
+    Crafting recipe: tinfoil hat = dented pot + dunce cap
 helm of madness
     Autocurses and causes hallucination when worn. Grants +3 charisma. 
     Usually generated cursed.
@@ -7107,6 +7138,14 @@ uruk*hai
 	hunting for them.  There is nothing a horde of orcs cannot
 	use.
 		[ het Boek van de Regels; Het Oog des Meesters ]
+
+    Crafting recipes:
+        orcish chain mail       = ring mail + orcish shield
+        orcish ring mail        = orcish shield + orcish helm
+        orcish helm             = dented pot + orcish dagger
+        uruk-hai shield         = orcish shield + orcish shield
+        orcish shield           = orcish helm + orcish boots
+        orcish boots            = gauntlets + orcish short sword
 orion
 sirius
 	Orion was the son of Neptune. He was a handsome giant and a
