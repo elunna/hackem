@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Updated database with entries for crafting some weapons.
 Fix: missing block message summary when Grund is killed (reported by Janis). Fixes #256.
 Increased starting spell retention and reinforce memory to 20000. MAX_SPELL_STUDY is now 30 to match SLASHEM. Fixes #289.
 Fix: Clinic and Terror Hall flags not being reset for different levels (reportedby VaderFLAG). Fixes #299.

@@ -3206,6 +3206,8 @@ hand of vecna
 	his lieutenant Kas.  The two appendages were left with a
 	fragment of the lich's will and attempted to work his deeds
 	wherever they went.
+falchion
+    Crafting recipe: falchion = scimitar + scimitar
 father dagon
 mother hydra
 	"Yield up enough sacrifices an' savage knick-knacks an' 
@@ -3318,6 +3320,34 @@ figurine*
 	years by private owners and dealers too stupid to see what
 	it was under the skin.
 		[ The Maltese Falcon, by Dashiell Hammett ]
+firearms
+pistol
+submachine gun
+heavy machine gun
+rifle
+sniper rifle
+shotgun
+auto shotgun
+    'I do not aim with my hand; he who aims with his hand has 
+    forgotten the face of his father.
+    I aim with my eye.
+    
+    I do not shoot with my hand; he who shoots with his hand has 
+    forgotten the face of his father.
+    I shoot with my mind.
+    
+    I do not kill with my gun; he who kills with his gun has 
+    forgotten the face of his father.
+    I kill with my heart.'
+        [ The Gunslinger, by Stephen King ]
+
+    Crafting recipes:
+        submachine gun          = pistol + iron chain
+        heavy machine gun       = submachine gun + iron chain
+        rifle                   = pistol + crossbow
+        sniper rifle            = rifle + iron chain
+        shotgun                 = pistol + broadsword
+        auto shotgun            = shotgun + iron chain
 fire trap
 	'Let him be for a while,' said Cohen.  'I reckon the fish
 	disagreed with him.'
@@ -3381,6 +3411,10 @@ fishing pole
 	realistic option is to keep moving.  Standing still is an
 	interesting but brief demonstration of a spiral in action.
 		[ Men at Arms, by Terry Pratchett ]
+	
+	Crafting recipes:
+	    flail                   = mace + morning star 
+        triple-headed flail     = flail + spiked chain
 flesh golem
 	With an anxiety that almost amounted to agony, I collected
 	the instruments of life around me, that I might infuse a spark
@@ -5563,6 +5597,8 @@ lance
 	and finally tumbled him a good way off from it on the field in
 	evil plight.
 	  [ Don Quixote of La Mancha, by Miquel de Cervantes Saavedra ]
+	  
+	Crafting recipe: lance = glaive + javelin
 land mine
 	A land mine is a tool that can be carried around, and then applied
 	to produce a land mine trap.
@@ -7416,6 +7452,20 @@ lucern hammer
 	double-edged blades and nothing more, while others combined
 	the pick, spear, and hammer or axe all in one weapon.
 		[ Heraldry and Armor of the Middle Ages, by Marvin H. Pakula ]
+		
+	Crafting recipes:
+	    partisan                = spear + broadsword
+        ranseur                 = spear + stiletto
+        spetum                  = spear + knife
+        glaive                  = spear + short sword 
+        halberd                 = ranseur + axe 
+        bardiche                = spear + battle-axe 
+        voulge                  = spear + axe  
+        fauchard                = spear + saber 
+        guisarme                = spear + grappling hook 
+        bill-guisarme           = spear + guisarme
+        lucern hammer           = spear + heavy war hammer 
+        bec de corbin           = spear + war hammer
 polymorph trap
 	One morning, as Gregor Samsa was waking up from anxious dreams,
 	he discovered that in bed he had been changed into a monstrous
@@ -10820,6 +10870,10 @@ anthropomanc*
 spiked chain
 	It's never fun when things are unfair, unless things are
 	unfair in your favor.
+	
+	Crafting recipes:
+	    spiked chain            = iron chain + 2 daggers
+        spiked chain            = iron chain + 2 knives
 *spore
 *sphere
 	The attack by those who want to die -- this is the attack
@@ -11630,6 +11684,12 @@ honu
 	inclination, albedos and rotational velocities, and decided to have
 	a bit of fun for once.
 		[ Wyrd Sisters, by Terry Pratchett ]
+two-handed sword
+    The Zweihänder (German 'two-hander'), also Doppelhänder ('double-
+    hander'), Beidhänder ('both-hander'), Bihänder or Bidenhänder, is a 
+    large two-handed sword primarily in use during the 16th century.
+    
+    Crafting recipe: two-handed sword = long sword + broadsword
 twoflower
 guide
 	"Rincewind!"
@@ -12900,7 +12960,6 @@ water troll
 weapon
 club
 belaying pin
-flail
 ~*broadsword
 ~sunsword
 ~runed short sword
