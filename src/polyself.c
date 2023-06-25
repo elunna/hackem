@@ -105,7 +105,10 @@ set_uasmon()
                        || mdat == &mons[PM_LOCUST]
                        || mdat == &mons[PM_KATHRYN_THE_ICE_QUEEN]));
 
-    PROPSET(STUNNED, (mdat == &mons[PM_STALKER] || is_bat(mdat)));
+    /* Monster vampire bats are not stunned so neither should the player be */
+    if (mdat != &mons[PM_VAMPIRE_BAT])
+        PROPSET(STUNNED, (mdat == &mons[PM_STALKER] || is_bat(mdat)));
+
     PROPSET(HALLUC_RES, dmgtype(mdat, AD_HALU));
     PROPSET(SEE_INVIS, perceives(mdat));
     PROPSET(TELEPAT, telepathic(mdat));
