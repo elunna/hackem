@@ -6708,3 +6708,4 @@ the bunker floor.  You hear him cough one last insult.
 
 "You scum. You think you have a chance at beating this dungeon? *cough*
 *cough*  I'll see you in Gehennom! Haa..aa....ahrhhg..."
+%E [Grund is dead.]
