@@ -99,7 +99,6 @@ struct obj {
     Bitfield(oerodeproof, 1); /* erodeproof weapon/armor */
     Bitfield(olocked, 1);     /* object is locked */
 #define sokoprize olocked     /* special flag for sokoban prize */
-#define orecursive olocked    /* special flag for preventing recursive calls */
     Bitfield(oticking, 1);     /* object is going to blow up */
 #define oarmed oticking      /* armed explosive */
     Bitfield(obroken, 1);     /* lock has been broken */

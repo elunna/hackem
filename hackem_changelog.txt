@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Reverted a19c091cb Chance the Amulet of Yendor will teleport away if dropped.
 Removed Spear of Light from Undead Slayer's first sac gift, causes blasting with other lawfuls. Fixes #255.
 Reverted name of Holy Spear of Light back to Spear of Light. Also reverted wishing for holy items. Reported by hothraxxa. Fixes #287.
 Fix typo in monsters.txt for jedi trainer.
