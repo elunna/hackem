@@ -3240,7 +3240,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp = 0;
         break;
     case AD_DRLI:
-        if (!negated && (rnd(5) <= 2)
+        if (!negated && rnd(3)
             && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
             int xtmp = d(2, 6);
             
