@@ -696,6 +696,7 @@ struct obj *otmp;
             dmg = spell_damage_bonus(dmg);
         if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
             shieldeff(mtmp->mx, mtmp->my);
+            pline("Boing!");
         } else if (!resist(mtmp, otmp->oclass, dmg, NOTELL)
                    && !DEADMONSTER(mtmp)) {
             damage_mon(mtmp, dmg, AD_DRIN);
