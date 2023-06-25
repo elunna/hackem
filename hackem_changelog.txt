@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Clinic and Terror Hall flags not being reset for different levels (reportedby VaderFLAG). Fixes #299.
 Updated the SLASHEM golems so they deal claw damage instead of weapon damage (reported by shadowrider38). Fixes #283.
 Fix: Run update_inventory() on successful #ride to update the weight in perm_invent.
 Clarified messages when deep dragon scales deals passive attack (reported by janis). Fixes #288.  
