@@ -84,15 +84,15 @@ MONSTER: ('@', "padawan"), (38,11), peaceful
 MONSTER: ('@', "padawan"), (38,09), peaceful
 MONSTER: ('@', "padawan"), (36,11), peaceful
 MONSTER: ('@', "padawan"), (36,09), peaceful
-MONSTER: ('@', "jedi"), (18,4), peaceful
-MONSTER: ('@', "jedi"), (19,4), peaceful
+MONSTER: ('@', "jedi trainer"), (18,4), peaceful
+MONSTER: ('@', "jedi trainer"), (19,4), peaceful
 MONSTER: ('@', "jedi"), (18,15), peaceful
 MONSTER: ('@', "jedi"), (19,15), peaceful
 MONSTER: ('@', "jedi"), (56,4), peaceful
 MONSTER: ('@', "jedi"), (57,4), peaceful
-MONSTER: ('@', "jedi"), (56,15), peaceful
-MONSTER: ('@', "jedi"), (57,15), peaceful
-MONSTER: ('@', "jedi"), (33,10), peaceful
+MONSTER: ('@', "padawan"), (56,15), peaceful
+MONSTER: ('@', "padawan"), (57,15), peaceful
+MONSTER: ('@', "padawan"), (33,10), peaceful
 
 # Non diggable walls
 NON_DIGGABLE: (00,00,75,20)
@@ -277,14 +277,14 @@ TRAP: random, random
 
 # Random monsters.
 MONSTER: ('@', "Lord Sidious"), (60,06), hostile
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
 MONSTER: ('@', "jedi"), random, peaceful
 MONSTER: ('@', "jedi"), random, peaceful
 MONSTER: ('@', "stormtrooper"), random, hostile
@@ -332,8 +332,8 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile
@@ -364,8 +364,8 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile

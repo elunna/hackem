@@ -115,7 +115,7 @@ struct trobj Ice_Mage[] = {
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { 0, 0, 0, 0, 0 }
 };
-static struct trobj Jedi[] = {
+struct trobj Jedi[] = {
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }

@@ -184,20 +184,21 @@ extern struct trobj Archeologist[];
 extern struct trobj Barbarian[];
 extern struct trobj Cave_man[];
 extern struct trobj Convict[];
+extern struct trobj Flame_Mage[];
 extern struct trobj Healer[];
+extern struct trobj Ice_Mage[];
+extern struct trobj Jedi[];
 extern struct trobj Knight[];
 extern struct trobj Monk[];
+extern struct trobj Necromancer[];
 extern struct trobj Priest[];
 extern struct trobj Ranger[];
 extern struct trobj Rogue[];
 extern struct trobj Samurai[];
 extern struct trobj Tourist[];
+extern struct trobj UndeadSlayer[];
 extern struct trobj Valkyrie[];
 extern struct trobj Wizard[];
-extern struct trobj Flame_Mage[];
-extern struct trobj Ice_Mage[];
-extern struct trobj Necromancer[];
-extern struct trobj UndeadSlayer[];
 extern struct trobj Yeoman[];
 
 extern struct trobj Tinopener[];
@@ -917,6 +918,17 @@ register struct monst *mtmp;
             mongets(mtmp, SKELETON_KEY);
             mongets(mtmp, WAN_SLEEP);
             break;
+        case PM_JEDI:
+            mkmonmoney(mtmp, (long) rn1(251, 250));
+            ini_mon_inv(mtmp, Jedi, 1);
+            mongets(mtmp, SKELETON_KEY);
+            mongets(mtmp, WAN_WIND);
+            switch (rnd(3)) {
+            case 1: mongets(mtmp, RED_LIGHTSABER); break;
+            case 2: mongets(mtmp, BLUE_LIGHTSABER); break;
+            case 3: mongets(mtmp, GREEN_LIGHTSABER); break;
+            }
+            break;
         case PM_INFIDEL:
             mkmonmoney(mtmp, (long) rn1(251, 250));
             if (racial_giant(mtmp))
@@ -1137,7 +1149,8 @@ register struct monst *mtmp;
                 || mm == PM_CHIEF_YEOMAN_WARDER
                 || mm == PM_YEOMAN_WARDER
                 || mm == PM_TEMPLAR
-                || mm == PM_JEDI 
+                || mm == PM_JEDI
+                || mm == PM_JEDI_TRAINER
                 || mm == PM_PADAWAN 
                 || mm == PM_STORMTROOPER) {
             w1 = w2 = 0;
@@ -1317,11 +1330,19 @@ register struct monst *mtmp;
                 break;
             case PM_PADAWAN:
             case PM_JEDI:
-                switch (rnd(3)){
-                case 1: mongets(mtmp, RED_LIGHTSABER); break;
-                case 2: mongets(mtmp, BLUE_LIGHTSABER); break;
-                case 3: mongets(mtmp, GREEN_LIGHTSABER); break;
-                default: break;
+            case PM_JEDI_TRAINER:
+                switch (rnd(3)) {
+                case 1:
+                    mongets(mtmp, RED_LIGHTSABER);
+                    break;
+                case 2:
+                    mongets(mtmp, BLUE_LIGHTSABER);
+                    break;
+                case 3:
+                    mongets(mtmp, GREEN_LIGHTSABER);
+                    break;
+                default:
+                    break;
                 }
                 break;
             case PM_STORMTROOPER:
@@ -2437,7 +2458,8 @@ register struct monst *mtmp;
                 if (ptr != &mons[PM_SOLDIER] && !rn2(3))
                     (void) mongets(mtmp, BUGLE);
             }
-        } else if (ptr == &mons[PM_SHOPKEEPER]) {
+        } else if (ptr == &mons[PM_SHOPKEEPER] 
+                   || ptr == &mons[PM_JEDI_TRAINER]) {
             (void) mongets(mtmp, SKELETON_KEY);
             if (rn2(4))
                 (void) mongets(mtmp, rn2(3) ? ELVEN_HELM : HELMET);
@@ -2456,7 +2478,15 @@ register struct monst *mtmp;
             case 3:
                 (void) mongets(mtmp, WAN_SLEEP);
             }
-        } else if (ptr == &mons[PM_ONE_EYED_SAM]) {
+        } else if (ptr == &mons[PM_PADAWAN]) {
+            if (rn2(4))
+                (void) mongets(mtmp, rn2(3) ? ELVEN_HELM : HELMET);
+            if (rn2(3)) {
+                (void) mongets(mtmp, rn2(6) ? CLOAK_OF_PROTECTION
+                                            : CLOAK_OF_MAGIC_RESISTANCE);
+            }
+        }
+        else if (ptr == &mons[PM_ONE_EYED_SAM]) {
                 otmp = mksobj(LONG_SWORD, FALSE, FALSE);
                 otmp = oname(otmp, artiname(ART_THIEFBANE));
                 bless(otmp);

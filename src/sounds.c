@@ -1069,6 +1069,15 @@ register struct monst *mtmp;
                                   QT_CHARON));
                 };
                 break;
+            case PM_JEDI_TRAINER:
+            case PM_JEDI:
+                pline_msg =
+                    "discusses the various implications of The Force.";
+                break;
+            case PM_PADAWAN:
+                pline_msg =
+                    "tells you their aspirations to become great Jedi.";
+                break;
             default:
                 pline_msg = "discusses dungeon exploration.";
                 break;

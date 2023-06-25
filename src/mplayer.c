@@ -286,6 +286,12 @@ struct monst *mtmp;
         rptr->mattk[1].adtyp = AD_SPEL;
         mtmp->mintrinsics |= MR_FIRE;
         break;
+    case PM_JEDI:
+        /* A little bit of force magic for them */
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].aatyp = AT_MAGC;
+        rptr->mattk[1].adtyp = AD_CLRC;
+        break;
     case PM_KNIGHT:
         if (race == PM_ELF || race == PM_ORC
             || race == PM_CENTAUR)
@@ -552,11 +558,16 @@ struct obj *obj;
                 shield = STRANGE_OBJECT;
             break;
         case PM_JEDI:
-        case PM_PADAWAN:
             switch (rnd(3)) {
-            case 1: weapon = RED_LIGHTSABER; break;
-            case 2: weapon = BLUE_LIGHTSABER; break;
-            case 3: weapon = GREEN_LIGHTSABER; break;
+            case 1:
+                weapon = RED_LIGHTSABER;
+                break;
+            case 2:
+                weapon = BLUE_LIGHTSABER;
+                break;
+            case 3:
+                weapon = GREEN_LIGHTSABER;
+                break;
             }
             cloak = STRANGE_OBJECT;
             armor = rn2(2) ? ROBE : ROBE_OF_POWER;

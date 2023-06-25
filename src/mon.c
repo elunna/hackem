@@ -2947,16 +2947,22 @@ struct monst *magr, /* monster that is currently deciding where to move */
     if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_PADAWAN])
         return ALLOW_M | ALLOW_TM;
     /* Stormtroopers vs. Jedi */
-    if (ma == &mons[PM_STORMTROOPER] && md == &mons[PM_JEDI])
+    if (ma == &mons[PM_STORMTROOPER]
+            && (md == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
+
     /* and vice versa */
-    if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_JEDI])
+    if (md == &mons[PM_STORMTROOPER] 
+            && (ma == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
+    
     /* Jedi vs. Lord Sidious */
-    if (ma == &mons[PM_LORD_SIDIOUS] && md == &mons[PM_JEDI])
+    if (ma == &mons[PM_LORD_SIDIOUS] 
+            && (ma == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
     /* and vice versa */
-    if (md == &mons[PM_LORD_SIDIOUS] && ma == &mons[PM_JEDI])
+    if (md == &mons[PM_LORD_SIDIOUS] 
+            && (ma == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
     
     /* dungeon fern spores hate everything */
