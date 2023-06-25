@@ -5299,9 +5299,6 @@ struct obj *no_wish;
             case ART_REAPER:
                 pm = PM_YEOMAN;
                 break;
-            case ART_SPEAR_OF_LIGHT:
-                pm = PM_UNDEAD_SLAYER;
-                break;
 
             /* non-wishable artifacts (wizmode only) */
             case ART_LIFESTEALER:
