@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Windrider crashed when it hit a monster (reported by cbus). Fixes #319.
 Reaver will not steal weapons if it causes you to become burdened. Fixes #316.
 Revert: Thrown chakrams slice through monsters and always return to you.
 Moved stair placement for Angband levels to the end to avoid stair issues (reported by VaderFLAG). Fixes #305.

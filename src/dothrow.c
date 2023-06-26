@@ -288,7 +288,9 @@ int shotlimit;
     m_shot.s = ammo_and_launcher(obj, uwep) ? TRUE : FALSE;
     /* give a message if shooting more than one, or if player
        attempted to specify a count */
-    if (multishot > 1 || shotlimit > 0) {
+    if (obj->oartifact == ART_WINDRIDER) {
+        You("throw the %s.", distant_name(obj, xname));
+    } else if (multishot > 1 || shotlimit > 0) {
         /* "You shoot N arrows." or "You throw N daggers." */
         You("%s %d %s.", m_shot.s ? "shoot" : "throw",
             multishot, /* (might be 1 if player gave shotlimit) */
@@ -1503,7 +1505,11 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
-        iflags.returning_missile = 0; /* doesn't return if it hits monster */
+        else if (obj->oartifact != ART_WINDRIDER) {
+            iflags.returning_missile = 0; /* doesn't return if it hits monster */
+        }
+        
+        
         mon = boomhit(obj, u.dx, u.dy);
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
