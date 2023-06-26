@@ -537,6 +537,10 @@ struct obj *corpse;
             || mtmp->cham == PM_KAS /* in case he's vampshifted */
             || mptr == &mons[PM_RAT_KING]
             || mtmp->cham == PM_RAT_KING /* in case he's wereshifted */
+            || mptr == &mons[PM_COUNT_DRACULA]
+            || mtmp->cham == PM_COUNT_DRACULA /* in case he's vampshifted */
+            || mptr == &mons[PM_NOSFERATU]
+            || mtmp->cham == PM_NOSFERATU /* in case he's vampshifted */
             || mptr == &mons[PM_CTHULHU]
             || mptr == &mons[PM_ABOMINABLE_SNOWMAN]
             || mptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
