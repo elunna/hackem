@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Wielding/wearing item giving stoning res will cure stoning (EvilHack).
 Fix: Remove peaceful temple priest protection spell spam (EvilHack).
 Mood rings can generate in junk shops.
 Fix: Some roles could start with 2 torches.

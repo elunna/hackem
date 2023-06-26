@@ -1089,6 +1089,10 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     case YELLOW_DRAGON_SCALES:
         if (puton) {
             EStone_resistance |= W_ARM;
+            if (Stone_resistance && Stoned) {
+                make_stoned(0L, "You no longer seem to be petrifying.", 0,
+                            (char *) 0);
+            }
         } else {
             EStone_resistance &= ~W_ARM;
         }
@@ -1142,6 +1146,11 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             EAcid_resistance   |= W_ARM;
             EStone_resistance  |= W_ARM;
             EReflecting        |= W_ARM;
+
+            if (Stone_resistance && Stoned) {
+                make_stoned(0L, "You no longer seem to be petrifying.", 0,
+                            (char *) 0);
+            }
         } else {
             EPoison_resistance &= ~W_ARM;
             EFire_resistance   &= ~W_ARM;
