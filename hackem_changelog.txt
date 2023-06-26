@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Some roles could start with 2 torches.
 Vampires no longer get hunger intrinsic at level 10.
 Fix: quest leader dying by means other than by the player directly (EvilHack).
 Fix: stealth and waking nearby monsters during combat (EvilHack).
