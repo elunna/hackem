@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Mood rings can generate in junk shops.
 Fix: Some roles could start with 2 torches.
 Vampires no longer get hunger intrinsic at level 10.
 Fix: quest leader dying by means other than by the player directly (EvilHack).
