@@ -5269,7 +5269,7 @@ struct permonst _mons2[] = {
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_UNDEAD | MH_VAMPIRE, 25, CLR_GRAY),
     /* Kas, top lieutenant to Vecna */
     MON("Kas", S_VAMPIRE,                                      /* EvilHack */
-        LVL(26, 16, -5, 70, -10), (G_NOGEN | G_NOCORPSE | G_UNIQ),
+        LVL(26, 16, 5, 70, -10), (G_NOGEN | G_NOCORPSE | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
           ATTK(AT_WEAP, AD_PHYS, 4, 4),
           ATTK(AT_BITE, AD_DRLI, 1, 12), 
