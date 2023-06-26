@@ -16,6 +16,7 @@
 Version 1.1.5 (unreleased)
 
 Vampires no longer get hunger intrinsic at level 10.
+Fix: stealth and waking nearby monsters during combat (EvilHack).
 Fix: Do not save Count Dracula or Nosferatu in bones. 
 Fix: vampshifted Vlad/Kas/Rat king in bones (EvilHack).
 Fix: Windrider crashed when it hit a monster (reported by cbus). Fixes #319.
