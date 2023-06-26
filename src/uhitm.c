@@ -1075,12 +1075,11 @@ int dieroll;
 
     saved_oname[0] = '\0';
 
-    /* Awaken nearby monsters. A stealthy hero makes much less noise,
-       playing as a rogue or wielding Shadowblade even less so */
+    /* Awaken nearby monsters. A stealthy hero makes much less noise or playing as a rogue. */
     if (!(is_silent(youmonst.data) && helpless(mon))
-        && is_rogue ? 20
+        && !rn2(is_rogue ? 20
                     : Stealth ? 10
-                              : 2
+                              : 2)
         && !SuperStealth) {
 
         int base_combat_noise = combat_noise(&mons[urace.malenum]);
