@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: quest leader dying by means other than by the player directly (EvilHack).
 Fix: stealth and waking nearby monsters during combat (EvilHack).
 Fix: Do not save Count Dracula or Nosferatu in bones. 
 Fix: vampshifted Vlad/Kas/Rat king in bones (EvilHack).
