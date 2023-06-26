@@ -202,7 +202,7 @@ static const struct innate {
                    { 1, &(HSleep_resistance), "", "" },
                    { 1, &(HDrain_resistance), "", "" },
                    { 1, &(HBreathless), "breathless", "full of air" },
-                   { 10, &(HHunger), "ravenous", "more content" },
+                   /*{ 10, &(HHunger), "ravenous", "more content" },*/
                    { 10, &(HRegeneration), "resilient", "less resilient" },
                    /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
