@@ -3011,7 +3011,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 struct obj *otmp2;
                 long unwornmask;
                 
-                if ((otmp2 = mdef->minvent) != 0) {
+                /* Don't steal items if it pushes us over burdened! */
+                if ((otmp2 = mdef->minvent) != 0 
+                      && ((int) (otmp2->owt + inv_weight()) < 0)) {
+                    
                     /* take the object away from the monster */
                     obj_extract_self(otmp2);
                     if ((unwornmask = otmp2->owornmask) != 0L) {
@@ -3038,6 +3041,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                                       doname(otmp2), "Ye steal: ") 
                                 : hold_another_object(otmp2, "You snatched but dropped %s.", 
                                                       doname(otmp2), "You steal: ");
+                    
                     /* more take-away handling, after theft message */
                     if (unwornmask & W_WEP) {		/* stole wielded weapon */
                         possibly_unwield(mdef, FALSE);
@@ -3048,11 +3052,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     }
                 }
             }
-        } else if(youdefend){
+        } else if (youdefend){
             char buf[BUFSZ];
             buf[0] = '\0';
             steal(magr, buf, TRUE);
-        } else{
+        } else {
             struct obj *obj;
             /* find an object to steal, non-cursed if magr is tame */
             for (obj = mdef->minvent; obj; obj = obj->nobj)
