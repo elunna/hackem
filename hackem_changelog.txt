@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert: Thrown chakrams slice through monsters and always return to you.
 Moved stair placement for Angband levels to the end to avoid stair issues (reported by VaderFLAG). Fixes #305.
 Potions of invulnerability now protect from drain life attacks while active. Fixes #315.
 Reverted a19c091cb Chance the Amulet of Yendor will teleport away if dropped.

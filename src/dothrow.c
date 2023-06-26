@@ -1503,12 +1503,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
-        
-        /* Boomerang doesn't return if it hits monster, 
-         * chakrams will return (they slice through their targets) */
-        if (obj->otyp != CHAKRAM)
-            iflags.returning_missile = 0;
-
+        iflags.returning_missile = 0; /* doesn't return if it hits monster */
         mon = boomhit(obj, u.dx, u.dy);
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
