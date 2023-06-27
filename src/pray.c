@@ -1687,6 +1687,10 @@ aligntyp alignment;
 	    mnum = ndemon(A_NONE);
 	    break;
     }
+    if (mnum == NON_PM) {
+        You("feel a powerful presense gather, but it suddenly recedes!");
+        return;
+    }
     mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN | MM_NOGRP);
     if (mon) {
         livelog_printf (LL_DIVINEGIFT,
