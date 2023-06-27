@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Replaced Vecna's branch from Evil with Vecna's Manse from SlashTHEM.
 Shopkeepers will only pay the standard vanilla amount for wands of nothing (suggested by disperse). Fixes #320.
 Fix: Invoke ability for Demonbane and Helmet of Hermes is now levitation instead of flying. Fixes #295.
 Raised Kas's starting AC from -5 to 5 (suggested by mobileuser). Fixes #298.

@@ -30,7 +30,6 @@ BRANCH: 	    "Grund's Stronghold" @ (12, 2)
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
-#BRANCH:        "Chaotic Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
@@ -127,10 +126,10 @@ ALIGNMENT:		neutral
 DESCRIPTION:	mazelike
 LEVEL:			"qneutral" "none" @ (1, 0)
 
-#DUNGEON:		"Chaotic Quest" "none" (1, 0)
-#ALIGNMENT:		chaotic
-#DESCRIPTION:	mazelike
-#LEVEL:			"qchaos" "none" @ (1, 0)
+DUNGEON:		"Chaotic Quest" "none" (1, 0)
+ALIGNMENT:		chaotic
+DESCRIPTION:	mazelike
+LEVEL:			"qchaos" "none" @ (1, 0)
 
 #
 # Sokoban
@@ -210,17 +209,6 @@ LEVEL:          "mtemple" "none" @ (1, 0)
 #LEVEL:          "icequeen-1" "none" @ (1, 0)
 #LEVEL:          "icequeen-2" "none" @ (2, 0)
 #LEVEL:          "icequeen-3" "none" @ (3, 0)
-
-#
-#       Vecna's Domain.
-#
-DUNGEON:        "Chaotic Quest" "none" (3, 0)
-DESCRIPTION:    mazelike
-DESCRIPTION:    vecnad
-ALIGNMENT:      chaotic
-LEVEL:          "vecna-1" "none" @ (1, 0)
-LEVEL:          "vecna-2" "none" @ (2, 0)
-LEVEL:          "vecna-3" "none" @ (3, 0)
 
 #
 #	Vlad's Tower
