@@ -1072,23 +1072,38 @@ STATIC_OVL void
 mktemple()
 {
     register struct mkroom *sroom;
-    coord *shrine_spot;
+    coord ss; /* shrine spot */
+    register int tryct = 0;
     register struct rm *lev;
 
     if (!(sroom = pick_room(TRUE)))
         return;
-
-    /* set up Priest and shrine */
-    sroom->rtype = TEMPLE;
+    
     /*
      * In temples, shrines are blessed altars
      * located in the center of the room
+     * To accomodate new weirdly shaped rooms, we are using a different
+     * algorithm to find the position of the temple - as long as it has space 
+     * on all sides for the priest to move, it should be okay.
      */
-    shrine_spot = shrine_pos((int) ((sroom - rooms) + ROOMOFFSET));
-    lev = &levl[shrine_spot->x][shrine_spot->y];
+   /* shrine_spot = shrine_pos((int) ((sroom - rooms) + ROOMOFFSET));*/
+    
+    do {
+        if (++tryct > 500)
+            return;
+        if (!somexy(sroom, &ss))
+            return;
+    } while (occupied(ss.x, ss.y) 
+             || bydoor(ss.x, ss.y) 
+             || bywall(ss.x, ss.y));
+    
+    /* set up Priest and shrine (after successful spot is found) */
+    sroom->rtype = TEMPLE;
+    
+    lev = &levl[ss.x][ss.y];
     lev->typ = ALTAR;
     lev->altarmask = induced_align(80);
-    priestini(&u.uz, sroom, shrine_spot->x, shrine_spot->y, FALSE);
+    priestini(&u.uz, sroom, ss.x, ss.y, FALSE);
     lev->altarmask |= AM_SHRINE;
     level.flags.has_temple = 1;
 }

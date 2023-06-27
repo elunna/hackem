@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Temple altars can be placed anywhere in a room to accomodate non-symmetrical room styles. Fixes #314.
 Fix: Minion gifts could potentially be NON_PM, which was not handled correctly (reported by oh6). Fixes #296.
 Replaced Vecna's branch from Evil with Vecna's Manse from SlashTHEM.
 Shopkeepers will only pay the standard vanilla amount for wands of nothing (suggested by disperse). Fixes #320.
