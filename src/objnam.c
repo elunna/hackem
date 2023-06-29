@@ -2488,16 +2488,38 @@ struct obj *obj;
 }
 
 static const char *wrp[] = {
-    "wand",   "ring",      "potion",     "scroll", "gem",
-    "amulet", "spellbook", "spell book",
+    "wand",
+    "ring",
+    "potion",
+    "bottle", 
+    "scroll",
+    "gem",
+    "amulet",
+    "spellbook",
+    "spell book",
     /* for non-specific wishes */
-    "weapon", "armor",     "tool",       "food",   "comestible",
+    "weapon",
+    "armor",
+    "tool",
+    "food",
+    "comestible",
 };
-static const char wrpsym[] = { WAND_CLASS,   RING_CLASS,   POTION_CLASS,
-                               SCROLL_CLASS, GEM_CLASS,    AMULET_CLASS,
-                               SPBOOK_CLASS, SPBOOK_CLASS, WEAPON_CLASS,
-                               ARMOR_CLASS,  TOOL_CLASS,   FOOD_CLASS,
-                               FOOD_CLASS };
+static const char wrpsym[] = {
+    WAND_CLASS,
+    RING_CLASS,
+    POTION_CLASS,
+    POTION_CLASS,
+    SCROLL_CLASS,
+    GEM_CLASS,
+    AMULET_CLASS,
+    SPBOOK_CLASS,
+    SPBOOK_CLASS,
+    WEAPON_CLASS,
+    ARMOR_CLASS,
+    TOOL_CLASS,
+    FOOD_CLASS,
+    FOOD_CLASS
+};
 
 /* return form of the verb (input plural) if xname(otmp) were the subject */
 char *
