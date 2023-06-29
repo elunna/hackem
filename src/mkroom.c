@@ -22,7 +22,6 @@ STATIC_DCL struct mkroom *FDECL(pick_room, (BOOLEAN_P));
 STATIC_DCL void NDECL(mkshop), FDECL(mkzoo, (int)), NDECL(mkswamp);
 STATIC_DCL void NDECL(mktemple);
 STATIC_DCL void FDECL(mkgarden, (struct mkroom *));
-STATIC_DCL coord *FDECL(shrine_pos, (int));
 STATIC_DCL struct permonst *NDECL(morguemon);
 STATIC_DCL struct permonst *NDECL(squadmon);
 STATIC_DCL struct permonst *NDECL(fungus);
@@ -1044,28 +1043,6 @@ mkswamp() /* Michiel Huisjes & Fred de Wilde */
                 }
         level.flags.has_swamp = 1;
     }
-}
-
-STATIC_OVL coord *
-shrine_pos(roomno)
-int roomno;
-{
-    static coord buf;
-    int delta;
-    struct mkroom *troom = &rooms[roomno - ROOMOFFSET];
-
-    /* if width and height are odd, placement will be the exact center;
-       if either or both are even, center point is a hypothetical spot
-       between map locations and placement will be adjacent to that */
-    delta = troom->hx - troom->lx;
-    buf.x = troom->lx + delta / 2;
-    if ((delta % 2) && rn2(2))
-        buf.x++;
-    delta = troom->hy - troom->ly;
-    buf.y = troom->ly + delta / 2;
-    if ((delta % 2) && rn2(2))
-        buf.y++;
-    return &buf;
 }
 
 STATIC_OVL void
