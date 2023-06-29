@@ -1001,6 +1001,13 @@ gcrownu()
         verbalize("Hurrah for our Pirate King!");
         livelog_printf(LL_DIVINEGIFT,
                        "was granted the title of \"Pirate King\" by %s", u_gname());
+
+        obj = mksobj(SCIMITAR, FALSE, FALSE);
+        obj = oname(obj, artiname(ART_REAVER));
+        obj->spe = 1;
+        at_your_feet("A cutlass");
+        dropy(obj);
+        u.ugifts++;
     } else {
         switch (u.ualign.type) {
         case A_LAWFUL:
