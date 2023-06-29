@@ -1430,8 +1430,8 @@ E void FDECL(topologize, (struct mkroom *, BOOLEAN_P));
 E void FDECL(topologize, (struct mkroom *));
 #endif
 E void FDECL(place_branch, (branch *, XCHAR_P, XCHAR_P));
-E boolean FDECL(bydoor, (xchar x, xchar y));
-E boolean FDECL(bywall, (xchar x, xchar y));
+E boolean FDECL(bydoor, (int x, int y));
+E boolean FDECL(bywall, (int x, int y));
 E boolean FDECL(occupied, (XCHAR_P, XCHAR_P));
 E int FDECL(okdoor, (XCHAR_P, XCHAR_P));
 E void FDECL(dodoor, (int, int, struct mkroom *));

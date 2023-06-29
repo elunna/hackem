@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Silence bydoor and bywall compiler warnings.
 Fix: M2_FLANK flag was using same slot as M2_MAGIC. Fixes #313.
 Fix: heap-use-after-free when long worms where slimed by a player polyd as green slime mid worm hit loop. Fixes #224.
 Fix: Temple altars can be placed anywhere in a room to accomodate non-symmetrical room styles. Fixes #314.
