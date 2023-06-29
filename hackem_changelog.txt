@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: heap-use-after-free when long worms where slimed by a player polyd as green slime mid worm hit loop. Fixes #224.
 Fix: Temple altars can be placed anywhere in a room to accomodate non-symmetrical room styles. Fixes #314.
 Fix: Minion gifts could potentially be NON_PM, which was not handled correctly (reported by oh6). Fixes #296.
 Replaced Vecna's branch from Evil with Vecna's Manse from SlashTHEM.
@@ -93,6 +94,7 @@ Fix: Fix segfault when reading confused ?oEnchantArmor with dragon scales (repor
 
 Version 1.1.4 (released May 28, 2023)
 
+Fix: Crash when lit lightsaber auto-returns to Jedi (reported by disperse). Fixes #271.
 Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
 Reflection spell improvements (EvilHack).
 Fix: Infidels should not get any friendly angels on astral plane (reported by mobileuser).
