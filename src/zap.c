@@ -4638,10 +4638,13 @@ int dx, dy;
     bhitpos.x = u.ux;
     bhitpos.y = u.uy;
     boom = counterclockwise ? S_boomleft : S_boomright;
+    
     for (i = 0; i < 8; i++)
         if (xdir[i] == dx && ydir[i] == dy)
             break;
     tmp_at(DISP_FLASH, cmap_to_glyph(boom));
+    
+    /* Boomerangs take 10 steps to leave and return */
     for (ct = 0; ct < 10; ct++) {
         i = (i + 8) % 8;                          /* 0..7 (8 -> 0, -1 -> 7) */
         boom = (S_boomleft + S_boomright - boom); /* toggle */
@@ -4650,17 +4653,23 @@ int dx, dy;
         dy = ydir[i];
         bhitpos.x += dx;
         bhitpos.y += dy;
+        
+        /* Did it hit a monster? */
         if ((mtmp = m_at(bhitpos.x, bhitpos.y)) != 0) {
             m_respond(mtmp);
             tmp_at(DISP_END, 0);
             return mtmp;
         }
+        
+        /* Did it hit something solid, ie: tree, wall */
         if (!ZAP_POS(levl[bhitpos.x][bhitpos.y].typ)
             || closed_door(bhitpos.x, bhitpos.y)) {
             bhitpos.x -= dx;
             bhitpos.y -= dy;
             break;
         }
+        
+        /* Did it return to us? */
         if (bhitpos.x == u.ux && bhitpos.y == u.uy) { /* ct == 9 */
             if (Fumbling || rn2(20) >= ACURR(A_DEX)) {
                 /* we hit ourselves */
@@ -4677,11 +4686,14 @@ int dx, dy;
         }
         tmp_at(bhitpos.x, bhitpos.y);
         delay_output();
+        
+        /* boomerang falls on sink */
         if (IS_SINK(levl[bhitpos.x][bhitpos.y].typ)) {
             if (!Deaf)
                 pline("Klonk!");
-            break; /* boomerang falls on sink */
+            break; 
         }
+        
         /* ct==0, initial position, we want next delta to be same;
            ct==5, opposite position, repeat delta undoes first one */
         if (ct % 5 != 0)
