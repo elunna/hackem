@@ -210,7 +210,7 @@ register int otyp;
         Strcpy(buf, "coin");
         break;
     case POTION_CLASS:
-        Strcpy(buf, "potion");
+        Strcpy(buf, Role_if(PM_PIRATE) ? "bottle": "potion");
         break;
     case SCROLL_CLASS:
         Strcpy(buf, "scroll");
@@ -273,6 +273,10 @@ register int otyp;
         xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
     if (dn)
         Sprintf(eos(buf), " (%s)", dn);
+        
+    if (Role_if(PM_PIRATE))
+        buf = replace(buf, "potion", "bottle");
+        
     return buf;
 }
 
@@ -955,13 +959,13 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         break;
     case POTION_CLASS:
         if (!dknown) {
-            Strcat(buf, "potion");
+            Strcat(buf, Role_if(PM_PIRATE) ? "bottle": "potion");
             break;
         }
         if (obj->odiluted)
             Strcat(buf, "diluted ");
         if (nn || un) {
-            Strcat(buf, "potion");
+            Strcat(buf, Role_if(PM_PIRATE) ? "bottle": "potion");
             if (nn) {
                 Strcat(buf, " of ");
                 if (typ == POT_WATER && bknown
@@ -974,7 +978,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             }
         } else {
             Strcat(buf, dn);
-            Strcat(buf, " potion");
+            Strcat(buf, Role_if(PM_PIRATE) ? " bottle": " potion");
         }
         break;
     case SCROLL_CLASS:

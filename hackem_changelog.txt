@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Potions display as bottles in inventory when playing as pirate (reported by mobileuser). Fixes #306
 Removed unused shrine_pos function.
 Silence bydoor and bywall compiler warnings.
 Fix: M2_FLANK flag was using same slot as M2_MAGIC. Fixes #313.
