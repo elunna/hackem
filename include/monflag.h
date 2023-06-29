@@ -130,6 +130,7 @@
 #define M2_MINION       0x00001000L /* is a minion of a deity */
 #define M2_MERC         0x00002000L /* is a guard or soldier */
 #define M2_SHAPESHIFTER 0x00004000L /* is a shapeshifting species */
+#define M2_FLANK        0x00008000L /* will attempt to outflank the player */
 #define M2_MALE         0x00010000L /* always male */
 #define M2_FEMALE       0x00020000L /* always female */
 #define M2_NEUTER       0x00040000L /* neither male nor female */
@@ -145,7 +146,7 @@
 #define M2_GREEDY       0x10000000L /* likes gold */
 #define M2_JEWELS       0x20000000L /* likes gems */
 #define M2_COLLECT      0x40000000L /* picks up weapons and food */
-#define M2_FLANK        0x80000000L /* will attempt to outflank the player */
+
 
 #ifdef NHSTDC
 #define M2_MAGIC        0x80000000UL /* picks up magic items */
@@ -173,10 +174,8 @@
 #define M3_SKITTISH     0x0800 /* tends to stay a few squares away from you */
 #define M3_ACCURATE     0x1000 /* gets an accuracy bonus to hit */
 #define M3_BERSERK      0x2000 /* extremely indiscriminate in its attacks */
-
-/* [DS] Lethe */
-#define M3_TRAITOR	0x4000			/* Capable of treachery */
-#define M3_NOTAME	0x8000			/* Cannot be tamed */
+#define M3_TRAITOR	    0x4000			/* Capable of treachery */
+#define M3_NOTAME	    0x8000			/* Cannot be tamed */
 
 #define M4_VULNERABLE_FIRE 0x0001 /* inherent elemental vulnerabilities */
 #define M4_VULNERABLE_COLD 0x0002
