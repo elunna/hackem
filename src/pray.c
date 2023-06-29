@@ -882,7 +882,6 @@ gcrownu()
         u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
         in_hand = (uwep && uwep->oartifact == ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
-        verbalize("Hurrah for our Pirate King!");
         livelog_printf(LL_DIVINEGIFT,
                        "was granted the title of \"Pirate King\" by %s", u_gname());
     } else {
