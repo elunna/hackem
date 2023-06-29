@@ -1093,9 +1093,13 @@ struct monst *mon;
         }
         return 0;
     }
-    if (Punished && (obj != uball)) {
-        unpunish(); /* Remove a mundane heavy iron ball */
+    
+    if (oart == &artilist[ART_IRON_SPOON_OF_LIBERATION]) {
+        if (Punished && (obj != uball)) {
+            unpunish(); /* Remove a mundane heavy iron ball */
+        }
     }
+    
     if (oart == &artilist[ART_CROSSBOW_OF_CARL]) {
         if (yours ? Role_if(PM_RANGER) && Race_if(PM_GNOME)
                   : racial_gnome(mon))
