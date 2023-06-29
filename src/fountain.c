@@ -401,6 +401,8 @@ result:
     case 22:
         if (Luck < 0) {
             blowupforge(u.ux, u.uy);
+            /* Avoid destroying the same item twice in the later lava_damage. */
+            return;
         } else {
            pline("Molten lava surges up and splashes all over you!");
            

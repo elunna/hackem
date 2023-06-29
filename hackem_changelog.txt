@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: heap-use-after-free caused by exploding forge destroying same item twice. Fixes #270.
 boomhit() comments.
 Fix: Broken replace definition from 0c505a059.
 Followup to last commit, any role can wish for bottles in place of potions.
