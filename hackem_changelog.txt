@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Marauder's Map was missing invoke ability (reported by mobileuser). Fixes #324.
 Fix: heap-use-after-free caused by exploding forge destroying same item twice. Fixes #270.
 boomhit() comments.
 Fix: Broken replace definition from 0c505a059.

@@ -3562,6 +3562,10 @@ struct obj *obj;
             nhUse(otmp);
             break;
         }
+        case OBJECT_DET:
+            object_detect(obj, 0);
+            /*artifact_detect(obj);*/
+            break;
         case PHASING:   /* Walk through walls and stone like a xorn */
             if (Passes_walls)
                 goto nothing_special;
