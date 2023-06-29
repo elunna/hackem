@@ -15,6 +15,7 @@
 
 Version 1.1.4 (released May 28, 2023)
 
+Fix: heap-use-after-free when long worms where slimed by a player polyd as green slime mid worm hit loop. Fixes #224.
 Fix: Crash when lit lightsaber auto-returns to Jedi (reported by disperse). Fixes #271.
 Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
 Reflection spell improvements (EvilHack).
