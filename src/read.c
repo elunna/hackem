@@ -2377,12 +2377,19 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("Unfortunately, you can't grasp the details.");
             }
         } else {
+            /* Marauder's Map */
             if (sobj->age > monstermoves) {
                 pline_The("map is hard to see.");
                 nomul(rnd(3));
-                sobj->age += (long) d(3,10);
-            } else sobj->age = monstermoves + (long) d(3,10);
+                sobj->age += (long) d(3, 10);
+            } else if (sobj->blessed && rnl(8) == 0) {
+                sobj->age = monstermoves + (long) d(3, 10);
+                pline_The("map is clear as day!");
+                do_mapping();
+            } else {
+                sobj->age = monstermoves + (long) d(3, 10);
                 do_vicinity_map(sobj);
+            }
         }
         break;
     case SCR_AMNESIA:
