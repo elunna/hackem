@@ -2144,8 +2144,7 @@ E void FDECL(collect_spirit, (struct monst *, struct obj *));
 E void FDECL(dumplogmsg, (const char *));
 E void NDECL(dumplogfreemessages);
 #endif
-E char *FDECL(replace, (const char *, const char *, const char *));
-E char *FDECL(piratesay, (const char *));
+E const char *FDECL(replace, (const char *, const char *, const char *));
 E void VDECL(pline, (const char *, ...)) PRINTF_F(1, 2);
 E void VDECL(custompline, (unsigned, const char *, ...)) PRINTF_F(2, 3);
 E void VDECL(Norep, (const char *, ...)) PRINTF_F(1, 2);
