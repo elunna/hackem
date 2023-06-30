@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Renamed Giant Squid to Thing from Below (as it was in SpliceHack).
 Remove kill/cut pirate speak replacement (suggested by mobileuser).
 Fix: Any artifact blast could unpunish a player. Fixes #325.
 Fix: Duplicate "Hurrah for our Pirate King!" message when Pirates get crowned. Fixed in #326.

@@ -3087,7 +3087,7 @@ register struct monst *mtmp;
             case PM_CYCLOPS:
             case PM_LORD_SURTUR:
             case PM_ANNAM:
-            case PM_GIANT_SQUID:
+            case PM_THING_FROM_BELOW:
                 tear_web = TRUE;
                 break;
             }

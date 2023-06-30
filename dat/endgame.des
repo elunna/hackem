@@ -426,7 +426,7 @@ LOOP [8] { MONSTER: (';', "kraken"), random }
 LOOP [8] { MONSTER: ('h', "deepest one"), random }
 LOOP [4] { MONSTER: (';', "mermaid"), random }
 LOOP [4] { MONSTER: (';', "piranha"), random }
-LOOP [4] { MONSTER: (';', "giant squid"), random }
+LOOP [4] { MONSTER: (';', "thing from below"), random }
 MONSTER: ('S', "water moccasin"), random
 MONSTER: ('S', "water moccasin"), random
 MONSTER: ('T', "water troll"), random

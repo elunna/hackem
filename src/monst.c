@@ -7089,7 +7089,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_HOSTILE | M2_STRONG, M3_INFRAVISIBLE,
         M4_VULNERABLE_ELEC, 0, 22, CLR_RED),
     /* Previously known as "thing from below" in Splice */
-    MON("giant squid", S_EEL,                                 /* SpliceHack */
+    MON("thing from below", S_EEL,                           /* SpliceHack */
         LVL(30, 12, 6, 0, -3), (G_GENO | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
           ATTK(AT_MAGC, AD_SPEL, 4, 4),
