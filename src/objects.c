@@ -1078,7 +1078,7 @@ SCROLL("remove curse",             "PRATYAVAYAH",  1,  65,  80),
 SCROLL("enchant weapon",         "DAIYEN FOOELS",  1,  80,  60),
 SCROLL("create monster",       "LEP GEX VEN ZEA",  1,  45, 200),
 SCROLL("taming",                   "PRIRUTSENIE",  1,  15, 200),
-SCROLL("annihilation",              "ELBIB YLOH",  1,  15, 300),
+SCROLL("genocide",                  "ELBIB YLOH",  1,  15, 300),
 SCROLL("elementalism",          "4OFAE OF9 SCC9",  1,  10, 300), /* SpliceHack/Lethe Patch */
                                    /* Voynich */
 SCROLL("light",                 "VERR YED HORRE",  1,  90,  50),

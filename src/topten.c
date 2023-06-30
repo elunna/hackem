@@ -105,7 +105,7 @@ boolean incl_helpless;
         "killed by ", "betrayed by ", "choked on ", "poisoned by ", "died of ",
         /* DROWNING, BURNING, DISSOLVED, CRUSHING, */
         "drowned in ", "burned by ", "dissolved in ", "crushed to death by ",
-        /* STONING, TURNED_SLIME, ANNIHILATED, */
+        /* STONING, TURNED_SLIME, GENOCIDED, */
         "petrified by ", "turned to slime by ", "killed by ",
         /* PANICKED, TRICKED, QUIT, ESCAPED, ASCENDED */
         "", "", "", "", ""
@@ -501,7 +501,7 @@ encode_extended_conducts()
     add_achieveX(buf, "polyselfless",              !u.uconduct.polyselfs);
     add_achieveX(buf, "wishless",                  !u.uconduct.wishes);
     add_achieveX(buf, "artiwishless",              !u.uconduct.wisharti);
-    add_achieveX(buf, "annihilationless",          !num_genocides());
+    add_achieveX(buf, "genocideless",              !num_genocides());
     add_achieveX(buf, "never_had_a_pet",           !u.uconduct.pets);
     add_achieveX(buf, "never_touched_an_artifact", !u.uconduct.artitouch);
     add_achieveX(buf, "elberethless",              !u.uconduct.elbereth);

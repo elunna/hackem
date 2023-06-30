@@ -3392,10 +3392,8 @@ static const struct alt_spellings {
     { "scroll of recharging", SCR_CHARGING },
     { "SoEA", SCR_ENCHANT_ARMOR },
     { "SoEW", SCR_ENCHANT_WEAPON },
-    { "SoG", SCR_ANNIHILATION },
-    { "SoA", SCR_ANNIHILATION },
-    { "scroll of genocide", SCR_ANNIHILATION },
-    { "genocide", SCR_ANNIHILATION },
+    { "genocide", SCR_GENOCIDE },
+    { "SoG", SCR_GENOCIDE },
     { "SoI", SCR_IDENTIFY },
     { "SoRC", SCR_REMOVE_CURSE },
 

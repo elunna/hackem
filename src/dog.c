@@ -128,7 +128,7 @@ boolean quietly;
 
         mtmp = makemon(pm, x, y, MM_EDOG | MM_IGNOREWATER
                                          | (!idol * NO_MINVENT));
-        if (otmp && !mtmp) { /* monster was annihilated or square occupied */
+        if (otmp && !mtmp) { /* monster was genocided or square occupied */
             if (!quietly) {
                 if (!idol)
                     pline_The("figurine writhes and then shatters "
@@ -214,7 +214,7 @@ xchar x, y;
     } while (!mtmp && --trycnt > 0);
 
     if (!mtmp)
-        return (struct monst *) 0; /* annihilated */
+        return (struct monst *) 0; /* genocided */
 
     initedog(mtmp);
     u.uconduct.pets++;
@@ -306,7 +306,7 @@ makedog()
     mtmp = makemon(&mons[pettype], u.ux, u.uy, MM_EDOG);
 
     if (!mtmp)
-        return ((struct monst *) 0); /* pets were annihilated */
+        return ((struct monst *) 0); /* pets were genocided */
 
     context.startingpet_mid = mtmp->m_id;
     /* Horses already wear a saddle */
@@ -1257,7 +1257,7 @@ register struct obj *obj;
     if (obj) { /* thrown food */
         /* defer eating until the edog extension has been set up */
         place_object(obj, mtmp->mx, mtmp->my); /* put on floor */
-        /* devour the food (might grow into larger, annihilated monster) */
+        /* devour the food (might grow into larger, genocided monster) */
         if (dog_eat(mtmp, obj, mtmp->mx, mtmp->my, TRUE) == 2)
             return TRUE; /* oops, it died... */
         /* `obj' is now obsolete */

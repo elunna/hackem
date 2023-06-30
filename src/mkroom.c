@@ -851,7 +851,7 @@ antholemon()
             mtyp = PM_GIANT_ANT;
             break;
         }
-        /* try again if chosen type has been annihilated or used up */
+        /* try again if chosen type has been genocided or used up */
     } while (++trycnt < NUMANTS && (mvitals[mtyp].mvflags & G_GONE));
 
     return ((mvitals[mtyp].mvflags & G_GONE) ? (struct permonst *) 0
@@ -879,7 +879,7 @@ guildmon()
             case 4: mtyp = PM_SEWER_RAT; break;
             }
         }
-        /* try again if chosen type has been annihilated or used up */
+        /* try again if chosen type has been genocided or used up */
     } while (++trycnt < 3 && (mvitals[mtyp].mvflags & G_GONE));
 
     return ((mvitals[mtyp].mvflags & G_GONE) ? (struct permonst *) 0
