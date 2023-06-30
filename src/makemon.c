@@ -1462,6 +1462,12 @@ register struct monst *mtmp;
             otmp->spe = rnd(4) + 1;
             (void) mpickobj(mtmp, otmp);
             (void) mongets(mtmp, LARGE_SHIELD);
+        } else if (mm == PM_DARK_ONE) {
+            otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
+            otmp->spe = rnd(2) + 1;
+            (void) mpickobj(mtmp, otmp);
+            (void) mongets(mtmp, CLOAK_OF_MAGIC_RESISTANCE);
+            (void) mongets(mtmp, CORNUTHAUM);
         } else if (mm == PM_NEFERET_THE_GREEN) {
             otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
             otmp->spe = rnd(2) + 1;
@@ -2806,13 +2812,6 @@ register struct monst *mtmp;
             default:
                 break;
             }
-        }
-        break;
-    case S_HUMANOID:
-        if (ptr == &mons[PM_DARK_ONE]) {
-            (void) mongets(mtmp, ROBE);
-            if (!rn2(4))
-                (void) mongets(mtmp, CORNUTHAUM);
         }
         break;
     default:
