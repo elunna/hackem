@@ -139,10 +139,6 @@ piratesay(const char *orig)
                    rn2(2) ? " scuttled" : rn2(2) 
                                           ? " killed" : rn2(2) 
                                                 ? " sunk" : " cut down");
-    orig = replace(orig, "kill ", 
-                   rn2(2) ? "scuttle " : rn2(2) 
-                                         ? "kill " : rn2(2) 
-                                               ? "sink " : "cut ");
     orig = replace(orig, "dies ", 
                    rn2(2) ? "walks the plank" : rnd(2) 
                                                 ? "dances the hempen jig" : rnd(2) 

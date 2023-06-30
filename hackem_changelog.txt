@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Remove kill/cut pirate speak replacement (suggested by mobileuser).
 Fix: Any artifact blast could unpunish a player. Fixes #325.
 Fix: Duplicate "Hurrah for our Pirate King!" message when Pirates get crowned. Fixed in #326.
 Fix: Pirates get Reaver as their crowning gift (reported by Mobileuser). Fixed in #326.
