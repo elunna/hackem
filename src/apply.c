@@ -4615,7 +4615,7 @@ struct obj *obj;
         goto discard_broken_wand;
     case WAN_DEATH:
     case WAN_LIGHTNING:
-    case WAN_SONICS:
+    case WAN_NOISE:
         dmg *= 4;
         goto wanexpl;
     case WAN_FIRE:
@@ -5336,7 +5336,7 @@ struct obj *obj;
             /* Shock, poison, acid, and sonic wands can make magic beam traps.*/
         case WAN_POISON_GAS:
         case WAN_CORROSION:
-        case WAN_SONICS:
+        case WAN_NOISE:
         case WAN_LIGHTNING:
             traptype = MAGIC_BEAM_TRAP;
             break;

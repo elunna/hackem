@@ -8,13 +8,14 @@
 - K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
 - amateurhour and qt for their endless debugging advice.
 
-### Thanks: 
+### Thanks:
 - nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
 
 ==========================
 
 Version 1.1.5 (unreleased)
 
+Rename wand of sonics to wand of noise. Fixes #332.
 Added some other fish to the Sunless Sea.
 Renamed Giant Squid to Thing from Below (as it was in SpliceHack).
 Remove kill/cut pirate speak replacement (suggested by mobileuser).

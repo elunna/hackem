@@ -161,7 +161,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == WAN_DELUGE
              || otmp->otyp == WAN_CORROSION
              || otmp->otyp == WAN_POISON_GAS
-             || otmp->otyp == WAN_SONICS
+             || otmp->otyp == WAN_NOISE
              || otmp->otyp == WAN_HEALING
              || otmp->otyp == WAN_EXTRA_HEALING
              || otmp->otyp == POT_HEALING

@@ -2364,7 +2364,7 @@ struct obj *obj, *otmp;
             if (res)
                 learn_it = TRUE;
             break;
-        case WAN_SONICS:
+        case WAN_NOISE:
         case WAN_STRIKING:
         case SPE_FORCE_BOLT:
             /* learn the type if you see or hear something break
@@ -2881,7 +2881,7 @@ boolean ordinary;
         uwatereffects();
         break;
 
-    case WAN_SONICS:
+    case WAN_NOISE:
     case HORN_OF_BLASTING:
         learn_it = TRUE;
         /* FALLTHRU */
@@ -6543,7 +6543,7 @@ int osym, dmgtyp;
                 dindx = 8;
                 break;
             case WAND_CLASS:
-                if (obj->otyp == WAN_SONICS) {
+                if (obj->otyp == WAN_NOISE) {
                     skip++;
                     break;
                 }

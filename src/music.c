@@ -653,7 +653,7 @@ struct obj *instr;
         break;
     case FIRE_HORN:  /* Idem wand of fire */
     case FROST_HORN: /* Idem wand of cold */
-    case HORN_OF_BLASTING: /* Idem wand of sonics */
+    case HORN_OF_BLASTING: /* Idem wand of noise */
         consume_obj_charge(instr, TRUE);
 
         if (!getdir((char *) 0)) {

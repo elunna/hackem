@@ -3387,7 +3387,7 @@ int final;
     if (Sonic_resistance)
         you_are("sonic resistant", from_what(SONIC_RES));
     if (ESonic_resistance)
-        enl_msg("Your items ", "are", "were", " protected from sonics",
+        enl_msg("Your items ", "are", "were", " protected from sonic",
                 from_what(AD_LOUD));
     if (Drain_resistance)
         you_are("level-drain resistant", from_what(DRAIN_RES));

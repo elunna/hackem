@@ -778,7 +778,7 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
-            case WAN_SONICS:
+            case WAN_NOISE:
                 if (!Deaf) {
                     Strcpy(post_engr_text,
                         "The wand issues a series of loud bangs!");

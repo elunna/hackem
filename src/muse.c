@@ -1623,10 +1623,10 @@ struct monst *mtmp;
 #define MUSE_WAN_POLYMORPH      60
 #define MUSE_WAN_SLOW_MONSTER   61
 #define MUSE_WAN_WIND           62
-#define MUSE_WAN_DELUGE          63
-#define MUSE_WAN_CORROSION         64
+#define MUSE_WAN_DELUGE         63
+#define MUSE_WAN_CORROSION      64
 #define MUSE_WAN_POISON_GAS     65
-#define MUSE_WAN_SONICS         66
+#define MUSE_WAN_NOISE          66
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
                                         * redefine; nonconsecutive value is ok */
 #define MUSE_SCR_EARTH          68
@@ -1761,7 +1761,7 @@ int otyp;
     case WAN_DELUGE:
         want++;
         /*FALLTHRU*/  
-    case WAN_SONICS:
+    case WAN_NOISE:
         want++;
         /*FALLTHRU*/   
     case HORN_OF_BLASTING:
@@ -1877,11 +1877,11 @@ boolean reflection_skip;
                     m.has_offense = MUSE_WAN_DELUGE;
                 } /* Don't bother recharging */
             }
-            nomore(MUSE_WAN_SONICS);
-            if (obj->otyp == WAN_SONICS) {
+            nomore(MUSE_WAN_NOISE);
+            if (obj->otyp == WAN_NOISE) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD)) {
                     m.offensive = obj;
-                    m.has_offense = MUSE_WAN_SONICS;
+                    m.has_offense = MUSE_WAN_NOISE;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
@@ -2621,7 +2621,7 @@ struct monst *mtmp;
     case MUSE_WAN_MAGIC_MISSILE:
     case MUSE_WAN_CORROSION:
     case MUSE_WAN_POISON_GAS:
-    case MUSE_WAN_SONICS:
+    case MUSE_WAN_NOISE:
         mzapwand(mtmp, otmp, FALSE);
         if (oseen)
             makeknown(otmp->otyp);
