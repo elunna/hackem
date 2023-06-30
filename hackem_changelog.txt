@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Elementals should ignore musical instruments. Fixes #334.
 Reverted the Dark One back to a human.
 Lowered poison insta death resistance threshold from 35% to 25%.
 Rename wand of sonics to wand of noise. Fixes #332.
