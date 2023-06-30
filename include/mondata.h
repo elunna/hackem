@@ -53,11 +53,9 @@
      || is_angel(ptr) \
      || is_demon(ptr) \
      || is_rider(ptr) \
-     || (ptr) == &mons[PM_AIR_ELEMENTAL] \
+     || is_elemental(ptr) \
      || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
      || (ptr) == &mons[PM_CONVICT] \
-     || (ptr) == &mons[PM_EARTH_ELEMENTAL] \
-     || (ptr) == &mons[PM_FIRE_ELEMENTAL] \
      || (ptr) == &mons[PM_GIANT_LEECH] \
      || (ptr) == &mons[PM_GIANT_COCKROACH]\
      || (ptr) == &mons[PM_GOLD_DRAGON] \
@@ -66,8 +64,7 @@
      || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
      || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
      || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
-     || (ptr) == &mons[PM_MARRASHI] \
-     || (ptr) == &mons[PM_WATER_ELEMENTAL])
+     || (ptr) == &mons[PM_MARRASHI])
 
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */
 #define resists_mgc(ptr) \
