@@ -192,6 +192,7 @@ MONSTER: (';', "giant crab"), (10,8), hostile
 MONSTER: (';', "giant crab"), (12,9), hostile
 MONSTER: (';', "giant crab"), (10,11), hostile
 
+
 # lurking offshore...
 MONSTER: (';', "shark"), (26,05), hostile
 MONSTER: (';', "shark"), (28,05), hostile
@@ -200,6 +201,11 @@ MONSTER: (';', "shark"), (27,07), hostile
 MONSTER: (';', "shark"), (26,09), hostile
 MONSTER: (';', "shark"), (30,09), hostile
 MONSTER: (';', "shark"), (31,11), hostile
+
+MONSTER: (';', "sea horse"), random, hostile
+MONSTER: (';', "swordfish"), random, hostile
+MONSTER: (';', "thing from below"), (60,3), hostile
+MONSTER: (';', "mermaid"), (60,10), hostile
 
 LOOP [6] { MONSTER: (';', "shark"), random, hostile }
 LOOP [7] { MONSTER: ';', random, hostile }
