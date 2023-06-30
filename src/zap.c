@@ -7164,6 +7164,9 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     int ztype = 0; /* Default is fire */
     int expltype = 0;
     
+    /* stop previous timer, if any */
+    (void) stop_timer(BOMB_BLOW, obj_to_any(obj));
+    
     if (isyou && yours < 0)
         impossible("bomb_explode: isyou conflict, isyou=%d, obj->yours=%d",
                    isyou, obj->yours);

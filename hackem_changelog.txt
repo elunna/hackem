@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Panic when saving immediately after thrown bomb explosion. Fixes #337.
 Fix: Sewers of Waterdeep missing stairs down (reported by mobileuser). Fixes #331.
 All elementals resist sickness.
 Elementals should ignore musical instruments. Fixes #334.
