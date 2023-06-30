@@ -86,7 +86,7 @@ boolean
 poly_when_stoned(ptr)
 struct permonst *ptr;
 {
-    /* non-stone golems turn into stone golems unless latter is annihilated */
+    /* non-stone golems turn into stone golems unless latter is genocided */
     return (boolean) (is_golem(ptr) && ptr != &mons[PM_STONE_GOLEM]
                       && !(mvitals[PM_STONE_GOLEM].mvflags & G_GENOD));
     /* allow G_EXTINCT */
@@ -1113,7 +1113,7 @@ const char *in_str;
     return mntmp;
 }
 
-/* monster class from user input; used for annihilation and controlled polymorph;
+/* monster class from user input; used for genocide and controlled polymorph;
    returns 0 rather than MAXMCLASSES if no match is found */
 int
 name_to_monclass(in_str, mndx_p)

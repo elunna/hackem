@@ -162,7 +162,7 @@ symbols = {
 
 genflags = {
     "G_NOCORPSE": "does not leave a corpse",
-    "G_GENO": "can be annihilated",
+    "G_GENO": "can be genocided",
     "G_LGROUP": "appears in large groups",
     "G_SGROUP": "appears in small groups",
     "G_NOGEN": "generated only specially",

@@ -2126,9 +2126,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
-    case SCR_ANNIHILATION:
+    case SCR_GENOCIDE:
         if (!already_known)
-            You("have found a scroll of annihilation!");
+            You("have found a scroll of genocide!");
         known = TRUE;
         do_genocide((!sobj->cursed) | (2 * !!Confusion),
                     !sobj->blessed);
@@ -3181,12 +3181,12 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
 void
 do_genocide(how, only_on_level)
 int how;
-boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
+boolean only_on_level; /**< if TRUE only genocide monsters on current level,
                             not in the complete dungeon */
-/* 0 = no annihilation; create monsters (cursed scroll) */
-/* 1 = normal annihilation */
-/* 3 = forced annihilation of player */
-/* 5 (4 | 1) = normal annihilation from throne */
+/* 0 = no genocide; create monsters (cursed scroll) */
+/* 1 = normal genocide */
+/* 3 = forced genocide of player */
+/* 5 (4 | 1) = normal genocide from throne */
 {
     char buf[BUFSZ] = DUMMY;
     register int i, killplayer = 0;
@@ -3210,10 +3210,10 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
                 pline1(thats_enough_tries);
                 return;
             }
-            getlin("What monster do you want to annihilate? [type the name]",
+            getlin("What monster do you want to genocide? [type the name]",
                    buf);
             (void) mungspaces(buf);
-            /* choosing "none" preserves annihilationless conduct */
+            /* choosing "none" preserves genocideless conduct */
             if (*buf == '\033' || !strcmpi(buf, "none")
                 || !strcmpi(buf, "nothing")) {
                 /* ... but no free pass if cursed */
@@ -3222,12 +3222,11 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
 
                 return;
             }
-            
+
             mndx = name_to_mon(buf);
             ptr = &mons[mndx];
             
-            /* Liches and the like are immune to annihilation until Vecna
-               is destroyed */
+            /* Liches and the like are immune to genocide until Vecna is destroyed */
             if (!u.uevent.uvecna && no_geno_vecna(ptr)) {
                 pline_The("voice of Vecna fills your mind:");
                 verbalize("Thou shalt do no harm to %s whilst I exist!",
@@ -3247,7 +3246,7 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
                         shieldeff(u.ux, u.uy);
                         monstseesu(M_SEEN_FIRE);
                     } else {
-                        losehp(rnd(3), "burning scroll of annihilation", KILLED_BY_AN);
+                        losehp(rnd(3), "burning scroll of genocide", KILLED_BY_AN);
                     }
                 }
                 return;
@@ -3275,7 +3274,7 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
                 continue;
             }
             /* Although "genus" is Latin for race, the hero benefits
-             * from both race and role; thus annihilation affects either.
+             * from both race and role; thus genocide affects either.
              */
             if (Your_Own_Role(mndx) || Your_Own_Race(mndx)) {
                 killplayer++;
@@ -3337,29 +3336,14 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
     }
     if (how & REALLY) {
         if (only_on_level) {
-            livelog_printf(LL_GENOCIDE, "annihilated %s on a level in %s",
+            livelog_printf(LL_GENOCIDE, "genocided %s on a level in %s",
                        makeplural(buf), dungeons[u.uz.dnum].dname);
         } else if (num_genocides() == 0) {
-            livelog_printf(LL_CONDUCT | LL_GENOCIDE, "performed %s first annihilation (%s)",
+            livelog_printf(LL_CONDUCT | LL_GENOCIDE, "performed %s first genocide (%s)",
                            uhis(), makeplural(buf));
         } else {
-            livelog_printf(LL_GENOCIDE, "annihilated %s", makeplural(buf));
+            livelog_printf(LL_GENOCIDE, "genocided %s", makeplural(buf));
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         /* setting no-corpse affects wishing and random tin generation */
         if (!only_on_level) { 
@@ -3383,14 +3367,14 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             u.uhp = -1;
             if (how & PLAYER) {
                 killer.format = KILLED_BY;
-                Strcpy(killer.name, "annihilation confusion");
+                Strcpy(killer.name, "genocidal confusion");
             } else if (how & ONTHRONE) {
                 /* player selected while on a throne */
                 killer.format = KILLED_BY_AN;
                 Strcpy(killer.name, "imperious order");
             } else { /* selected player deliberately, not confused */
                 killer.format = KILLED_BY_AN;
-                Strcpy(killer.name, "scroll of annihilation");
+                Strcpy(killer.name, "scroll of genocide");
             }
 
             /* Polymorphed characters will die as soon as they're rehumanized.

@@ -150,7 +150,7 @@ register boolean display_update;
 
         /* remove from level.monsters[][] */
 
-        /* need to check curr->wx for annihilation while migrating_mon */
+        /* need to check curr->wx for genocided while migrating_mon */
         if (curr->wx) {
             remove_monster(curr->wx, curr->wy);
 

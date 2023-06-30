@@ -86,7 +86,7 @@ const char *msg;
             return;
         }
         if (chk_geno && (mvitals[mndx].mvflags & G_GENOD) != 0)
-            impossible("annihilated %s in play (%s)", mons[mndx].mname, msg);
+            impossible("genocided %s in play (%s)", mons[mndx].mname, msg);
     }
     if (mtmp->isshk && !has_eshk(mtmp))
         impossible("shk without eshk (%s)", msg);
@@ -1634,7 +1634,7 @@ struct obj *otmp;
 /*
  * Maybe eat a metallic object (not just gold).
  * Return value: 0 => nothing happened, 1 => monster ate something,
- * 2 => monster died (it must have grown into a annihilated form, but
+ * 2 => monster died (it must have grown into a genocided form, but
  * that can't happen at present because nothing which eats objects
  * has young and old forms).
  */
@@ -3422,9 +3422,9 @@ struct monst *mtmp;
         mtmp->mhp = mtmp->mhpmax;
 
         if (!surviver) {
-            /* annihilated monster can't be life-saved */
+            /* genocided monster can't be life-saved */
             if (cansee(mtmp->mx, mtmp->my))
-                pline("Unfortunately, %s is still annihilated...",
+                pline("Unfortunately, %s is still genocided...",
                       mon_nam(mtmp));
             mtmp->mhp = 0;
         }
@@ -6088,7 +6088,7 @@ boolean msg;      /* "The oldmon turns into a newmon!" */
         if (!tryct)
             return 0;
     } else if (mvitals[monsndx(mdat)].mvflags & G_GENOD)
-        return 0; /* passed in mdat is annihilated */
+        return 0; /* passed in mdat is genocided */
 
     if (mdat == olddata)
         return 0; /* still the same monster */
@@ -6351,7 +6351,7 @@ boolean egg;
                       || (mvitals[alt_idx].mvflags & G_GENOD) != 0);
 }
 
-/* kill off any eggs of annihilated monsters */
+/* kill off any eggs of genocided monsters */
 STATIC_OVL void
 kill_eggs(obj_list)
 struct obj *obj_list;
@@ -6382,7 +6382,7 @@ struct obj *obj_list;
         }
 }
 
-/* kill all members of annihilated species */
+/* kill all members of genocided species */
 void
 kill_genocided_monsters()
 {
@@ -6391,15 +6391,15 @@ kill_genocided_monsters()
     int mndx;
 
     /*
-     * Called during annihilation, and again upon level change.  The latter
+     * Called during genocide, and again upon level change.  The latter
      * catches up with any migrating monsters as they finally arrive at
      * their intended destinations, so possessions get deposited there.
      *
      * Chameleon handling:
-     *  1) if chameleons have been annihilated, destroy them
+     *  1) if chameleons have been genocided, destroy them
      *     regardless of current form;
      *  2) otherwise, force every chameleon which is imitating
-     *     any annihilated species to take on a new form.
+     *     any genocided species to take on a new form.
      */
     for (mtmp = fmon; mtmp; mtmp = mtmp2) {
         mtmp2 = mtmp->nmon;

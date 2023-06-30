@@ -9560,8 +9560,6 @@ scroll of food detection
     - blessed: you additionally acquire the food appraisal intrinsic.
     - cursed/confused: you will detect potions instead.
 scroll of genocide
-scroll of annihilation
-scroll of ann*
    The effects  depend on the scroll's beatitude, including confused
    readings:
     - blessed: You may eliminate a single monster species from the

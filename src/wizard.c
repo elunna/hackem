@@ -880,9 +880,9 @@ BOOLEAN_P centered_on_stairs;
                     && !enexto(&bypos, summoner->mux, summoner->muy,
                                &mons[makeindex]))
                     continue;
-                /* this honors annihilation but overrides extinction; it
-                   ignores inside-hell-only (G_HELL) & outside-hell-only
-                   (G_NOHELL) */
+
+                /* this honors genocide but overrides extinction; it ignores
+                   inside-hell-only (G_HELL) & outside-hell-only (G_NOHELL) */
                 if ((mtmp = makemon(&mons[makeindex], bypos.x, bypos.y,
                                     MM_ADJACENTOK))
                     != 0) {
