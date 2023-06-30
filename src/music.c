@@ -76,6 +76,7 @@ int distance;
             else if (distm < distance / 3
                      && !resist(mtmp, TOOL_CLASS, 0, NOTELL)
                      /* some monsters are immune */
+                     && !is_elemental(mtmp->data)
                      && onscary(0, 0, mtmp))
                 monflee(mtmp, 0, FALSE, TRUE);
         }
