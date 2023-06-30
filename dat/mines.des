@@ -2271,6 +2271,7 @@ DOOR:locked,(68,04)
 DOOR:locked,(67,11)
 # Stairs
 STAIR:(48,12),up
+STAIR:(6,4),down
 
 # Non diggable / non phase walls
 NON_DIGGABLE:(00,00,74,17)
