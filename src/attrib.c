@@ -427,7 +427,7 @@ boolean thrown_weapon; /* thrown weapons are less deadly */
 
     i = !fatal ? 1 : rn2(fatal + (thrown_weapon ? 20 : 0));
     if (i == 0 && typ != A_CHA) {
-        if (how_resistant(POISON_RES) >= 35) {
+        if (how_resistant(POISON_RES) >= 25) {
             pline_The("poison was extremely toxic!");
             i = resist_reduce(d(4, 6), POISON_RES);
             losehp(i, pkiller, kprefix);
