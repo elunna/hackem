@@ -1385,8 +1385,8 @@ volleymu(struct monst *mtmp, struct attack *mattk)
                 otmp = mksobj(otyp, TRUE, FALSE);
                 m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
                         distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp, TRUE);
-               /* obfree(otmp, (struct obj *) 0);*/
-                /*otmp = (struct obj *) 0;*/
+                obfree(otmp, (struct obj *) 0);
+                otmp = (struct obj *) 0;
             }
             nomul(0);
             return 0;

@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Memory leak when manticore volleys spikes at player. Fixes #347.
 Fix: Swimmers that also conceal themselves cannot hide under objects in the water. Fixes #345.
 Fix: Missing hit message from Master Sword (reported by mobileuser & shadowrider38). Fixes #344.
 Fix: Panic when saving immediately after thrown bomb explosion. Fixes #337.
