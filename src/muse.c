@@ -2784,7 +2784,11 @@ struct monst *mtmp;
          * the monster iteself. */
         boolean vis = cansee(mtmp->mx, mtmp->my);
         mreadmsg(mtmp, otmp);
-        if (clone_mon(mtmp, 0, 0) && vis)
+        
+        /* Temporary workaround, cloned mplayers cause problems with their inventory */
+        if (is_mplayer(mtmp->data))
+            pline("%s shudders for a moment!", Monnam(mtmp));
+        else if (clone_mon(mtmp, 0, 0) && vis)
             pline("%s multiplies!", Monnam(mtmp));
         return 2;
     } /* case MUSE_SCR_CLONING */
