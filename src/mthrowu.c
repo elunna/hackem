@@ -1145,8 +1145,8 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
         return 0;
     }
 
-    if (mlined_up(mtarg, mtmp, FALSE) 
-        && !rn2(BOLT_LIM-distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
+    if (mlined_up(mtmp, mtarg, FALSE) 
+        && !rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
         for (i = 0; i < numattacks; i++) {
             switch (mattk->adtyp) {
             case AD_QUIL:
@@ -1166,7 +1166,7 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
             target = mtarg;
             otmp = mksobj(otyp, TRUE, FALSE);
             m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
-                    distmin(mtmp->mx,mtmp->my,mtarg->mx,mtarg->my), otmp, TRUE);
+                    distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my), otmp, TRUE);
             target = (struct monst *)0;
             /*nomul(0);*/
             /*obfree(otmp, (struct obj *) 0);*/
