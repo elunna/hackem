@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert "Disabled monsters using scrolls of cloning - fixes #75."
 Fix: Crash when reloading vampiric bones. Fixes #349.
 Fix: DYWYPI screen does not list contents of bags of rats or tricks (reported by hothraxxa). Fixes #348.
 Fix: Exiting the whetstone rubbing prompt wastes a turn. Fixes #341.
