@@ -30,7 +30,7 @@ STATIC_DCL void FDECL(apply_medkit, (struct obj *));
 STATIC_DCL void FDECL(use_grease, (struct obj *));
 STATIC_DCL void FDECL(use_trap, (struct obj *));
 STATIC_DCL void FDECL(apply_flint, (struct obj **));
-STATIC_DCL void FDECL(use_stone, (struct obj **));
+STATIC_DCL int FDECL(use_stone, (struct obj **));
 STATIC_PTR int NDECL(set_trap); /* occupation callback */
 STATIC_DCL int FDECL(use_whip, (struct obj *));
 STATIC_DCL int FDECL(use_axe, (struct obj *));
@@ -1715,8 +1715,7 @@ dorub()
 
     if (obj && obj->oclass == GEM_CLASS) {
         if (is_graystone(obj) || obj->otyp == ROCK) {
-            use_stone(&obj);
-            return 1;
+            return use_stone(&obj);
         } else {
             pline("Sorry, I don't know how to use that.");
             return 0;
@@ -3001,7 +3000,7 @@ set_whetstone(VOID_ARGS)
 
 
 /* use stone on obj. the stone doesn't necessarily need to be a whetstone. */
-STATIC_OVL void
+STATIC_OVL int
 use_whetstone(stone, obj)
 struct obj *stone, *obj;
 {
@@ -3062,14 +3061,14 @@ struct obj *stone, *obj;
     }
     if (fail_use) {
         reset_whetstone();
-        return;
+        return 0;
     }
 
     if (stone == whetstoneinfo.wsobj && obj == whetstoneinfo.tobj
         && carried(obj) && carried(stone)) {
         You("resume %s %s.", occutext, yname(obj));
         set_occupation(set_whetstone, occutext, 0);
-        return;
+        return 1;
     }
 
     if (obj) {
@@ -3086,14 +3085,17 @@ struct obj *stone, *obj;
         } else if (!is_metallic(obj)) {
             pline("That would ruin the %s %s.",
                   materialnm[objects[ttyp].oc_material], xname(obj));
+            return 0;
         } else if (!isweapon || !isedged) {
             pline("%s not something you can sharpen.",
                   is_plural(obj) ? "They are" : "It is");
+            return 0;
         } else if (obj->spe >= 1 && (stone->blessed && !obj->cursed)
                    && !obj->oeroded && !obj->oeroded2) {
             pline("%s %s sharp and pointy enough.",
                   is_plural(obj) ? "They" : "It",
                   otense(obj, Blind ? "feel" : "look"));
+            return 0;
         } else {
             if (stone->cursed) {
                 tmptime *= 2;
@@ -3107,11 +3109,12 @@ struct obj *stone, *obj;
     } else
         You("wave %s in the %s.", the(xname(stone)),
             (IS_POOL(levl[u.ux][u.uy].typ) && Underwater) ? "water" : "air");
+    return 1;
 }
 
 
 /* touchstones - by Ken Arnold */
-STATIC_OVL void
+STATIC_OVL int
 use_stone(optr)
 struct obj **optr;
 {
@@ -3138,14 +3141,14 @@ struct obj **optr;
                   : allowall;
     Sprintf(stonebuf, "rub on the stone%s", plur(tstone->quan));
     if ((obj = getobj(choices, stonebuf)) == 0)
-        return;
+        return 0;
 
     if (!u_handsy())
-        return;
+        return 0;
 
     if (obj == tstone && obj->quan == 1L) {
         You_cant("rub %s on itself.", the(xname(obj)));
-        return;
+        return 0;
     }
 
     if (tstone->otyp == TOUCHSTONE && tstone->cursed
@@ -3159,7 +3162,7 @@ struct obj **optr;
             pline("A sharp crack shatters %s%s.",
                   (obj->quan > 1L) ? "one of " : "", the(xname(obj)));
         useup(obj);
-        return;
+        return 1;
     }
 
     /* break rocks and maybe get some flint out of them */
@@ -3181,7 +3184,7 @@ struct obj **optr;
 
         if (flint_made <= 0) {
             flint_made = 0;
-            return;
+            return 1;
         }
         flint = mksobj(FLINT, TRUE, FALSE);
         flint->quan = flint_made;
@@ -3190,15 +3193,15 @@ struct obj **optr;
                                     The(aobjnam(flint, "slip")),
                                     (const char*) 0);
         useup(obj);
-        return;
+        return 1;
     }
 
     if (Blind && tstone->otyp == TOUCHSTONE) {
         pline(scritch);
-        return;
+        return 1;
     } else if (Hallucination) {
         pline("Oh wow, man: Fractals!");
-        return;
+        return 1;
     }
 
     do_scratch = FALSE;
@@ -3214,8 +3217,7 @@ struct obj **optr;
 
     if (tstone->otyp == WHETSTONE 
         && (oclass == WEAPON_CLASS || is_weptool(obj))) {
-        use_whetstone(tstone, obj);
-        return;
+        return use_whetstone(tstone, obj);
     }
     
     switch (oclass) {
@@ -3232,7 +3234,7 @@ struct obj **optr;
             makeknown(TOUCHSTONE);
             makeknown(obj->otyp);
             prinv((char *) 0, obj, 0L);
-            return;
+            return 1;
         } else {
             /* either a ring or the touchstone was not effective */
             if (obj->material == GLASS) {
@@ -3247,13 +3249,13 @@ struct obj **optr;
         switch (obj->material) {
         case CLOTH:
             pline("%s a little more polished now.", Tobjnam(tstone, "look"));
-            return;
+            return 1;
         case LIQUID:
             if (!obj->known) /* note: not "whetstone" */
                 You("must think this is a wetstone, do you?");
             else
                 pline("%s a little wetter now.", Tobjnam(tstone, "are"));
-            return;
+            return 1;
         case WAX:
             streak_color = "waxy";
             break; /* okay even if not touchstone */
@@ -3299,7 +3301,7 @@ struct obj **optr;
             makeknown(tstone->otyp);
             if (u.uinwater) {
                 pline("You'd need a flamethrower to make fire here.");
-                return;
+                return 1;
             }
             You("strike a few sparks from the flint stone!");
             if (u.uswallow) {
@@ -3312,7 +3314,7 @@ struct obj **optr;
                     if (gone)
                         *optr = (struct obj *) 0;
                 }
-                return;
+                return 1;
             }
 
             for (i = u.ux - 1; i < u.ux + 2; i++) {
@@ -3346,13 +3348,13 @@ struct obj **optr;
                 if (gone)
                     *optr = (struct obj *) 0;
             }
-            return;
+            return 1;
         }
     } else if (streak_color)
         You_see("%s streaks on the %s.", streak_color, stonebuf);
     else if (tstone->otyp == TOUCHSTONE)
         pline(scritch);
-    return;
+    return 1;
 }
 
 static struct trapinfo {
@@ -5138,7 +5140,7 @@ doapply()
             && yn("Affix your flint to some arrows?") == 'y')
             apply_flint(&obj);
         else
-            use_stone(&obj);
+            res = use_stone(&obj);
         break;
     case LUCKSTONE:
     case LOADSTONE:
@@ -5146,7 +5148,7 @@ doapply()
     case HEALTHSTONE:
     case WHETSTONE:
     case ROCK:
-        use_stone(&obj);
+        res = use_stone(&obj);
         break;
     case ASSAULT_RIFLE:
         /* Switch between firing modes. */

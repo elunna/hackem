@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Exiting the whetstone rubbing prompt wastes a turn. Fixes #341.
 Fix: Memory leak when manticore volleys spikes at another monsther.
 Fix: Pet manticore fires spikes the opposite direction of target. Fixes #343.
 Fix: Memory leak when manticore volleys spikes at player. Fixes #347.
