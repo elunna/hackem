@@ -90,7 +90,7 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
         icequeen-?.lev vecna-?.lev tower?.lev valley.lev \
         wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev \
         town-?.lev townfill.lev village.lev \
-		rats-?.lev stor.lev cavepass.lev \
+		rats-?.lev nymph.lev stor.lev cavepass.lev \
         cavenest.lev cavefill.lev cavebegn.lev caveend.lev \
         tomb-?.lev mtemple.lev grund.lev blkmar-?.lev \
         qlawful.lev qneutral.lev qchaos.lev \

@@ -733,7 +733,7 @@ recover: $(U)recover.exe
 $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\endgame.des  $(DAT)\gehennom.des $(DAT)\lethe.des \
 	$(DAT)\icequeen.des $(DAT)\knox.des     $(DAT)\medusa.des \
-	$(DAT)\oracle.des   $(DAT)\tower.des \
+	$(DAT)\nymph.des    $(DAT)\oracle.des   $(DAT)\tower.des \
 	$(DAT)\vaults.des   $(DAT)\vecna.des    $(DAT)\yendor.des \
     $(DAT)\nkai.des     $(DAT)\ucastle.des  $(DAT)\town.des \
     $(DAT)\village.des \
@@ -760,6 +760,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp knox.des
 	$(U)levcomp mines.des
 	$(U)levcomp medusa.des
+	$(U)levcomp nymph.des
 	$(U)levcomp oracle.des
 	$(U)levcomp sokoban.des
 	$(U)levcomp tower.des
@@ -1328,6 +1329,7 @@ spotless: clean
 	if exist $(DAT)\medusa-?.lev	 del $(DAT)\medusa-?.lev
 	if exist $(DAT)\mine*.lev	 del $(DAT)\mine*.lev
 	if exist $(DAT)\mtemple.lev	 del $(DAT)\mtemple.lev
+	if exist $(DAT)\nymph.lev	 del $(DAT)\nymph.lev
 	if exist $(DAT)\options		 del $(DAT)\options
 	if exist $(DAT)\ttyoptions	 del $(DAT)\ttyoptions
 	if exist $(DAT)\guioptions	 del $(DAT)\guioptions

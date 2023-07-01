@@ -23,9 +23,10 @@ RNDLEVEL:	    "oracle" "O" @ (5, 4) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
 CHAINBRANCH:	"Town" "oracle" + (2, 2) up
-BRANCH:		    "Fort Ludios" @ (10, 20) portal
+BRANCH:         "Fort Ludios" @ (10, 20) portal
+LEVEL:		    "nymph" "N" @ (8, 22) 45
 RNDLEVEL:	    "bigrm" "B" @ (10, 25) 40 13
-RNDLEVEL:		"rats" "R" @ (10, 5) 3
+RNDLEVEL:		"rats" "R" @ (10, 5) 2
 BRANCH: 	    "Grund's Stronghold" @ (12, 2)
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
@@ -143,6 +144,8 @@ RNDLEVEL:		"soko2" "none" @ (2, 0) 17
 RNDLEVEL:		"soko3" "none" @ (3, 0) 17
 RNDLEVEL:		"soko4" "none" @ (4, 0) 18
 
+
+
 #   The city of Angband
 #
 DUNGEON:	    "Town" "A" (3, 0)
@@ -174,6 +177,8 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
 #LEVEL:          "cavepass" "D" @ (2, 6) 50
+#LEVEL:          "jermlain" "D" @ (3, 4) 44
+#BRANCH:		 "The Spider Caves" @ (2, 8)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###

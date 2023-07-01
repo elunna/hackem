@@ -784,7 +784,7 @@ recover: $(U)recover.exe
 $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/endgame.des  $(DAT)/gehennom.des $(DAT)/lethe.des \
 	 $(DAT)/icequeen.des $(DAT)/knox.des     $(DAT)/medusa.des \
-	 $(DAT)/oracle.des   $(DAT)/tower.des \
+	 $(DAT)/nymph.des    $(DAT)/oracle.des   $(DAT)/tower.des \
 	 $(DAT)/vaults.des   $(DAT)/vecna.des    $(DAT)/yendor.des \
 	 $(DAT)/nkai.des     $(DAT)/ucastle.des \
 	 $(DAT)/arch.des     $(DAT)/barb.des     $(DAT)/caveman.des \
@@ -811,6 +811,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
 	$(subst /,\,$(U)levcomp $(DAT)/mines.des)
 	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
+	$(subst /,\,$(U)levcomp $(DAT)/nymph.des)
 	$(subst /,\,$(U)levcomp $(DAT)/oracle.des)
 	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
 	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
@@ -1332,6 +1333,7 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\medusa-?.lev	   del $(W_DAT)\medusa-?.lev
 	if exist $(W_DAT)\mine*.lev	   del $(W_DAT)\mine*.lev
 	if exist $(W_DAT)\mtemple.lev	   del $(W_DAT)\mtemple.lev
+	if exist $(W_DAT)\nymph.lev        del $(W_DAT)\nymph.lev
 	if exist $(W_DAT)\options          del $(W_DAT)\options
 	if exist $(W_DAT)\ttyoptions	   del $(W_DAT)\ttyoptions
 	if exist $(W_DAT)\guioptions       del $(W_DAT)\guioptions
