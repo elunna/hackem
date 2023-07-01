@@ -581,12 +581,16 @@ struct obj *corpse;
         if (!otmp)
             return; /* couldn't make statue */
         mtmp = (struct monst *) 0;
-    } else if (Race_if(PM_VAMPIRIC)) {
+    } 
+#if 0
+    else if (Race_if(PM_VAMPIRIC)) {
         /* don't let vampires rise as some other monsters */
         drop_upon_death((struct monst *) 0, (struct obj *) 0, u.ux, u.uy);
         mtmp = (struct monst *)0;
         u.ugrave_arise = NON_PM;
-    } else if (u.ugrave_arise < LOW_PM) {
+    } 
+#endif
+    else if (u.ugrave_arise < LOW_PM) {
         /* drop everything */
         drop_upon_death((struct monst *) 0, (struct obj *) 0, u.ux, u.uy);
         /* trick makemon() into allowing monster creation
