@@ -1169,8 +1169,8 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
                     distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my), otmp, TRUE);
             target = (struct monst *)0;
             /*nomul(0);*/
-            /*obfree(otmp, (struct obj *) 0);*/
-            /*otmp = (struct obj *) 0;*/
+            obfree(otmp, (struct obj *) 0);
+            otmp = (struct obj *) 0;
             
         }
         nomul(0);

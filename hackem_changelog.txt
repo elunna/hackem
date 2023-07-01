@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Memory leak when manticore volleys spikes at another monsther.
 Fix: Pet manticore fires spikes the opposite direction of target. Fixes #343.
 Fix: Memory leak when manticore volleys spikes at player. Fixes #347.
 Fix: Missing hit message from Master Sword (reported by mobileuser & shadowrider38). Fixes #344.
