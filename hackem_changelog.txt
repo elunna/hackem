@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Missing hit message from Master Sword (reported by mobileuser & shadowrider38). Fixes #344.
 Fix: Panic when saving immediately after thrown bomb explosion. Fixes #337.
 Fix: Sewers of Waterdeep missing stairs down (reported by mobileuser). Fixes #331.
 All elementals resist sickness.

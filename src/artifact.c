@@ -1976,38 +1976,29 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
     }
     
-#if 0 /* The Master Sword is now the "imaginary widget!" */
-    if (attacks(AD_MAGM, otmp)) {
-        if (realizes_damage)
-            pline_The("imaginary widget hits%s %s%c",
-                      !spec_dbon_applies
-                          ? ""
-                          : "!  A hail of magic missiles strikes",
-                      hittee, !spec_dbon_applies ? '.' : '!');
-        msgprinted = TRUE;
-        return realizes_damage;
-    }
-#endif
-    /* if (attacks(AD_MAGM, otmp)) {*/
+    /* The Master Sword */
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage) {
             if (!youattack && magr && cansee(magr->mx, magr->my)) {
                 if (!spec_dbon_applies) {
-                    if (!youdefend)
+                    if (!youdefend) {
                         ;
-                    else
+                    } else {
                         pline("%s hits %s.", artiname(otmp->oartifact), hittee);
+                        msgprinted = TRUE;
+                    }
                 } else if (!rn2(10) && spec_dbon_applies) {
                     pline("A hail of magic missiles strikes!");
                     *dmgptr += rnd(2) * 6;
+                    msgprinted = TRUE;
                 }
-            } else if (!rn2(10)) {
-                pline_The("Master Sword hits%s %s%c",
-                          !spec_dbon_applies
-                              ? ""
-                              : "!  A hail of magic missiles strikes",
-                          hittee, !spec_dbon_applies ? '.' : '!');
+            } else if (spec_dbon_applies && !rn2(10)) {
+                pline_The("Master Sword hits %s. A hail of magic missiles strikes!", hittee);
                 *dmgptr += rnd(2) * 6;
+                msgprinted = TRUE;
+            } else {
+                pline_The("Master Sword hits %s.", hittee);
+                msgprinted = TRUE;
             }
 
             /* Occasionally shoot out a magic missile
@@ -2022,7 +2013,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            mdx, mdy, TRUE);
                 }
             }
-            msgprinted = TRUE;
             return realizes_damage;
         }
     }
