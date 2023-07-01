@@ -1906,8 +1906,9 @@ boolean identified, all_containers, reportempty;
                     box->lknown = 1;
                 update_inventory();
             }
-            if (box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS) {
-                continue; /* wrong type of container */
+            if ((box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS) 
+                  && Bad_bag(box)) {
+                continue; /* Charged bag of tricks or bag of rats */
             } else if (box->cobj) {
                 winid tmpwin = create_nhwindow(NHW_MENU);
                 Loot *sortedcobj, *srtc;
