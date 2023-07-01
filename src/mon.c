@@ -5530,7 +5530,9 @@ struct monst *mtmp;
     struct trap *t;
     boolean undetected = FALSE, is_u = (mtmp == &youmonst);
     xchar x = is_u ? u.ux : mtmp->mx, y = is_u ? u.uy : mtmp->my;
-
+    boolean valid_water = ((is_pool(x, y) || is_puddle(x, y))
+                      && !Is_waterlevel(&u.uz));
+                      
     if (mtmp == u.ustuck) {
         ; /* can't hide if holding you or held by you */
     } else if (is_u ? (u.utrap && u.utraptype != TT_PIT)
@@ -5538,8 +5540,7 @@ struct monst *mtmp;
                        && !is_pit(t->ttyp))) {
         ; /* can't hide while stuck in a non-pit trap */
     } else if (mtmp->data->mlet == S_EEL) {
-        undetected = ((is_pool(x, y) || is_puddle(x, y))
-                      && !Is_waterlevel(&u.uz));
+        undetected = valid_water;
     } else if (mtmp->data == &mons[PM_GIANT_LEECH]) {
         undetected = (is_sewage(x, y));
     } else if (hides_under(mtmp->data)) {
@@ -5554,7 +5555,7 @@ struct monst *mtmp;
                  || (concealment == 3 && resists_poison(mtmp))) { 
             undetected = TRUE;
         }
-        else if (concealment == 2) { /* object cover */
+        else if (concealment == 2 && !valid_water) { /* object cover */
             struct obj *otmp = level.objects[x][y];
             
             /* most monsters won't hide under cockatrice corpse */
