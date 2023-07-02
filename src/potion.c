@@ -1304,20 +1304,22 @@ register struct obj *otmp;
         }
         break;
     case POT_SPEED:
-    case SPE_HASTE_SELF:
-        if (otmp->otyp != POT_SPEED) { /* haste self */
-            speed_up(rn1(10, (otmp->odiluted ? 65 : 110) + 60 * bcsign(otmp)));
-            break;
-        }
-
         /* skip when mounted; heal_legs() would heal steed's legs */
         if (Wounded_legs && !otmp->cursed && !u.usteed) {
             heal_legs(0);
             unkn++;
+            break;
         }
-        /* Only grants temporary speed */
+        /* FALLTHRU */
+    case SPE_HASTE_SELF:
         speed_up(rn1(10, 100 + 60 * bcsign(otmp)));
 
+        /* non-cursed potion grants intrinsic speed */
+        if (otmp->otyp == POT_SPEED
+            && !otmp->cursed && !(HFast & INTRINSIC)) {
+            Your("quickness feels very natural.");
+            HFast |= FROMOUTSIDE;
+        }
         break;
     case POT_BLINDNESS:
         if (Blind)
@@ -2520,9 +2522,8 @@ register struct obj *obj;
         unambiguous = TRUE;
         break;
     case POT_SPEED:
-        if (!Fast && !Slow) {
+        if (!Fast && !Slow)
             Your("knees seem more flexible now.");
-        }
         unambiguous = TRUE;
         incr_itimeout(&HFast, rnd(5));
         exercise(A_DEX, TRUE);
@@ -4325,21 +4326,25 @@ obj2upgrade(int otyp)
     /* This object is not upgradable */
     return 0;
 }
+
 /* Character becomes very fast temporarily. */
 void
-speed_up(long duration)
+speed_up(duration)
+long duration;
 {
+    /* will fix intrinsic 'slow' */
     if (Slow) {
-        /* Cure slowness */
         HSlow = 0;
         if (!ESlow)
             You("no longer feel sluggish.");
     }
-    if (!Very_fast) {
+
+    if (!Very_fast && !Slow) {
         You("are suddenly moving %sfaster.", Fast ? "" : "much ");
-    } else {
+    } else if (!Slow) {
         Your("%s get new energy.", makeplural(body_part(LEG)));
     }
+
     exercise(A_DEX, TRUE);
     incr_itimeout(&HFast, duration);
 }

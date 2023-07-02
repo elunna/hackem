@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Match Wand/Potion of speed behavior from EvilHack.
 Don't drop aklys on the floor due to slippery fingers. (EvilHack)
 Fix: various monsters movement speed while underwater. (EvilHack)
 Defending against cancellation odds adjusted when wearing gray dragon-scaled armor. (EvilHack)

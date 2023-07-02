@@ -2233,7 +2233,7 @@ E struct monst *FDECL(split_mon, (struct monst *, struct monst *));
 E const char *NDECL(bottlename);
 E int FDECL(upgrade_obj, (struct obj *));
 E int FDECL(obj2upgrade, (int));
-E void speed_up(long);
+E void FDECL(speed_up, (long));
 E short mixtype(struct obj *, struct obj *);
 
 /* ### pray.c ### */
