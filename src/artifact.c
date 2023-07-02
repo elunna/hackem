@@ -1778,8 +1778,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     }
                 }
             }
-            if ((otmp->oprops & ITEM_FIRE) && spec_dbon_applies)
+            if ((otmp->oprops & ITEM_FIRE) && spec_dbon_applies) {
                 otmp->oprops_known |= ITEM_FIRE;
+                update_inventory();
+            }
         }
         if (youdefend ? !Underwater : !mon_underwater(mdef)) {
             if (!rn2(4))
@@ -1850,8 +1852,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             }
-            if ((otmp->oprops & ITEM_FROST) && spec_dbon_applies)
+            if ((otmp->oprops & ITEM_FROST) && spec_dbon_applies) {
                 otmp->oprops_known |= ITEM_FROST;
+                update_inventory();
+            }
         }
         if (!rn2(4))
             (void) destroy_mitem(mdef, POTION_CLASS, AD_COLD);
@@ -1902,8 +1906,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             }
-            if ((otmp->oprops & ITEM_SHOCK) && spec_dbon_applies)
+            if ((otmp->oprops & ITEM_SHOCK) && spec_dbon_applies) {
                 otmp->oprops_known |= ITEM_SHOCK;
+                update_inventory();
+            }
         }
         if (spec_dbon_applies && otmp->oartifact == ART_MJOLLNIR)
             wake_nearto(mdef->mx, mdef->my, 4 * 4);
@@ -1951,8 +1957,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               !spec_dbon_applies ? "hits" : "blasts",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
-                if ((otmp->oprops & ITEM_SCREAM) && spec_dbon_applies)
+                if ((otmp->oprops & ITEM_SCREAM) && spec_dbon_applies) {
                     otmp->oprops_known |= ITEM_SCREAM;
+                    update_inventory();
+                }
             }
             if (spec_dbon_applies)
                 wake_nearto(mdef->mx, mdef->my, 4 * 4);
@@ -2225,8 +2233,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
             }
-            if ((otmp->oprops & ITEM_VENOM) && spec_dbon_applies)
+            if ((otmp->oprops & ITEM_VENOM) && spec_dbon_applies) {
                 otmp->oprops_known |= ITEM_VENOM;
+                update_inventory();
+            }
+
             if (youdefend) {
                 if (spec_dbon_applies && !rn2(8))
                     poisoned("blade", A_STR, "poisoned blade", 30, FALSE);
@@ -2894,8 +2905,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     pline("%s draws the %s from %s!",
                           The(distant_name(otmp, xname)), life,
                           mon_nam(mdef));
-                if (otmp->oprops & ITEM_DRLI)
+                if (otmp->oprops & ITEM_DRLI) {
                     otmp->oprops_known |= ITEM_DRLI;
+                    update_inventory();
+                }
             }
             if (mdef->m_lev == 0) {
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
@@ -2937,8 +2950,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             else
                 pline("%s drains your %s!", The(distant_name(otmp, xname)),
                       life);
-            if (otmp->oprops & ITEM_DRLI)
+            if (otmp->oprops & ITEM_DRLI) {
                 otmp->oprops_known |= ITEM_DRLI;
+                update_inventory();
+            }
             losexp("life drainage");
             if (magr && magr->mhp < magr->mhpmax) {
                 magr->mhp += (abs(oldhpmax - u.uhpmax) + 1) / 2;

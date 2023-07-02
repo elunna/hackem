@@ -128,12 +128,14 @@ register struct obj *obj;
         uwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
+        update_inventory();
     }
 
     if (olduwep && (olduwep->oprops & ITEM_EXCEL)) {
         olduwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
+        update_inventory();
     }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
@@ -336,6 +338,7 @@ register struct obj *obj;
         uswapwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
+        update_inventory();
     }
     return;
 }
