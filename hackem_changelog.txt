@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: various monsters movement speed while underwater. (EvilHack)
 Defending against cancellation odds adjusted when wearing gray dragon-scaled armor. (EvilHack)
 Fix: monsters stuck in a loop switching between melee and ranged weapon. (EvilHack)
 Fix: Vecna's artifacts never forming if destroyed over lava or a pool (EvilHack)
