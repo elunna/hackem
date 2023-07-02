@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Changes to 'a'pplying whips. (EvilHack)
 Match Wand/Potion of speed behavior from EvilHack.
 Don't drop aklys on the floor due to slippery fingers. (EvilHack)
 Fix: various monsters movement speed while underwater. (EvilHack)
