@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Restore Tourists skill in twoweaponing to 'skilled'. (EvilHack)
 Fix: two compile warnings, a bit of formatting cleanup from last commit. (EvilHack)
 Consolidate some fire_ and lava_damage() code, and make fiery items fireproof (EvilHack)
 Changes to 'a'pplying whips. (EvilHack)
