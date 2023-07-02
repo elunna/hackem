@@ -3484,13 +3484,15 @@ boolean youattack, allow_cancel_kill, self_cancel;
             if (rn2(10)
                 && (otmp = which_armor(mdef, W_ARM))
                 && Is_dragon_scaled_armor(otmp)
-                && Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES) {
+                && (Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES
+                    || Dragon_armor_to_scales(otmp) == CHROMATIC_DRAGON_SCALES)) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
                     You("sense a wave of energy dissipate around %s.",
                         mon_nam(mdef));
                 return FALSE;
-            } else if (mdef->data == &mons[PM_GRAY_DRAGON]
+            } else if (mdef->data == &mons[PM_TIAMAT]
+                       || mdef->data == &mons[PM_GRAY_DRAGON]
                        || mdef->data == &mons[PM_BABY_GRAY_DRAGON]) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
@@ -3520,7 +3522,13 @@ boolean youattack, allow_cancel_kill, self_cancel;
         if (youdefend) {
             if (rn2(10) && uarm
                 && Is_dragon_scaled_armor(uarm)
-                && Dragon_armor_to_scales(uarm)== GRAY_DRAGON_SCALES) {
+                && (Dragon_armor_to_scales(uarm)== GRAY_DRAGON_SCALES
+                    || Dragon_armor_to_scales(otmp) == CHROMATIC_DRAGON_SCALES)) {
+                shieldeff(u.ux, u.uy);
+                You_feel("a wave of energy dissipate around you.");
+                return FALSE;
+            } else if (rn2(3) && Role_if(PM_MONK)
+                && ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
                 return FALSE;
@@ -3550,13 +3558,15 @@ boolean youattack, allow_cancel_kill, self_cancel;
             if (rn2(10)
                 && (otmp = which_armor(mdef, W_ARM))
                 && Is_dragon_scaled_armor(otmp)
-                && Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES) {
+                && (Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES
+                    || Dragon_armor_to_scales(otmp) == CHROMATIC_DRAGON_SCALES)) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
                     You("sense a wave of energy dissipate around %s.",
                         mon_nam(mdef));
                 return FALSE;
-            } else if (mdef->data == &mons[PM_GRAY_DRAGON]
+            } else if (mdef->data == &mons[PM_TIAMAT]
+                       || mdef->data == &mons[PM_GRAY_DRAGON]
                        || mdef->data == &mons[PM_BABY_GRAY_DRAGON]) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
