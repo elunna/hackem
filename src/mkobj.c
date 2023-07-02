@@ -2114,7 +2114,7 @@ register struct obj *otmp;
         || otmp->oartifact == ART_HAND_OF_VECNA)
         return FALSE;
 
-    /* fire-related items are immune*/
+    /* fire-related items are immune */
     if (objects[otyp].oc_oprop == FIRE_RES
         || otyp == WAN_FIRE
         || otyp == SCR_FIRE

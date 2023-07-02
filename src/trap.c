@@ -4102,8 +4102,7 @@ lava_damage(obj, x, y)
 struct obj *obj;
 xchar x, y;
 {
-    int otyp = obj->otyp, ocls = obj->oclass,
-        oart = obj->oartifact;
+    int otyp = obj->otyp, oart = obj->oartifact;
 
     if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
         pline_The("egg starts to hatch!");
