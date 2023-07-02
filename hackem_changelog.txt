@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: feedback when engulfed by a water elemental/sea dragon and the player is amphibious. (EvilHack)
 Fix: worn glass helmets would never break when boulders hit them. (EvilHack)
 Fix: permanent inventory not updating various object property discoveries (curses mode). (EvilHack)
 Adjust weight of large/monstrous spiders. (EvilHack)
