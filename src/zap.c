@@ -3170,8 +3170,9 @@ boolean ordinary;
         if (Slimed)
             make_slimed(0L, "The slime disappears!");
         if (Withering) {
-            You("are no longer withering away.");
             set_itimeout(&HWithering, (long) 0);
+            if (!Withering)
+                You("are no longer withering away.");
         }
         if (LarvaCarrier) {
             You_feel("as if something inside you has just died.");

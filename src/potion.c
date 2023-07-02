@@ -1410,8 +1410,9 @@ no_rise:
                 !otmp->cursed, TRUE);
         if (otmp->blessed) {
             if (Withering) {
-                You("are no longer withering away.");
                 set_itimeout(&HWithering, (long) 0);
+                if (!Withering)
+                    You("are no longer withering away.");
             }
         }
         (void) make_hallucinated(0L, TRUE, 0L);
@@ -1430,8 +1431,9 @@ no_rise:
         }
         if (!otmp->cursed) {
             if (Withering) {
-                You("are no longer withering away.");
                 set_itimeout(&HWithering, (long) 0);
+                if (!Withering)
+                    You("are no longer withering away.");
             }
         }
         (void) make_hallucinated(0L, TRUE, 0L);
