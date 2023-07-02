@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: sokoban prizes could still spawn with an invalid material. (EvilHack)
 Cure monsters of withering when applicable (EvilHack)
 Fix: Cure withering when polymorphing into something nonliving (EvilHack)
 Fix: monster not mentioned when cured of withering (EvilHack)
