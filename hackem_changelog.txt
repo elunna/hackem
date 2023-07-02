@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Follow up to 'inconsistent attack behavior while submerged in  water'. (EvilHack)
 Fix: Memory leak: spitmm with acid and venom. Fixes #351.
 Fix: Confused scroll of cloning on self does not copy race (reported by cbus). Fixes #350.
 mplayers cannot clone themselves.
