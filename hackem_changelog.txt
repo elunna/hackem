@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Small correction to last commit. (EvilHack)
 Add a couple more sources of cancellation protection. (EvilHack)
 Fix: account for EWithering when curing HWithering (EvilHack)
 Make 'Make withering more consistent' more consistent (EvilHack)
