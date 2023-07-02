@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Don't drop aklys on the floor due to slippery fingers. (EvilHack)
 Fix: various monsters movement speed while underwater. (EvilHack)
 Defending against cancellation odds adjusted when wearing gray dragon-scaled armor. (EvilHack)
 Fix: monsters stuck in a loop switching between melee and ranged weapon. (EvilHack)
