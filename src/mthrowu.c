@@ -1125,6 +1125,8 @@ struct attack *mattk;
             }
             return 1;
         }
+        obfree(otmp, (struct obj *) 0);
+        otmp = (struct obj *) 0;
     }
     return 0;
 }
