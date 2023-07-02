@@ -2622,13 +2622,7 @@ do_rust:
         break;
     case AD_WTHR: {
         uchar withertime = max(2, dmg);
-        boolean no_effect =
-            (nonliving(youmonst.data) /* This could use is_fleshy(), but that would
-                                         make a large set of monsters immune like
-                                         fungus, blobs, and jellies. */
-             || is_vampshifter(&youmonst) 
-             || Race_if(PM_VAMPIRIC)
-             || !uncancelled);
+        boolean no_effect = (BWithering || !uncancelled);
         boolean lose_maxhp = (withertime >= 8); /* if already withering */
         hitmsg(mtmp, mattk);
         

@@ -452,7 +452,8 @@
 
 #define HWithering u.uprops[WITHERING].intrinsic
 #define EWithering u.uprops[WITHERING].extrinsic
-#define Withering (HWithering || EWithering)
+#define BWithering u.uprops[WITHERING].blocked
+#define Withering ((HWithering || EWithering) && !BWithering)
 
 #define HStable u.uprops[STABLE].intrinsic
 #define EStable u.uprops[STABLE].extrinsic
