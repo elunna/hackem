@@ -3460,6 +3460,7 @@ mondead(mtmp)
 register struct monst *mtmp;
 {
     struct permonst *mptr;
+    struct obj *otmp;
     int tmp, i;
     coord cc;
     boolean nocorpse = (wielding_artifact(ART_SUNSWORD) || wielding_artifact(ART_MORTALITY_DIAL));
@@ -3578,6 +3579,28 @@ register struct monst *mtmp;
         newsym(mtmp->mx, mtmp->my);
         rise_msg = TRUE;
         return;
+    }
+
+    /* special handling for Vecna and his artifacts */
+    if (mtmp->isvecna) {
+        if (!Blind) {
+            if (is_lava(mtmp->mx, mtmp->my)
+                || is_pool(mtmp->mx, mtmp->my))
+                pline("As the remnants of %s body vanish, you notice something sink into the %s...",
+                      s_suffix(mon_nam(mtmp)), surface(mtmp->mx, mtmp->my));
+            else
+                pline("As the remnants of %s body vanish, you notice something was left behind...",
+                      s_suffix(mon_nam(mtmp)));
+        }
+        if (rn2(2)) {
+            otmp = mksobj(EYEBALL, FALSE, FALSE);
+            otmp = oname(otmp, artiname(ART_EYE_OF_VECNA));
+        } else {
+            otmp = mksobj(MUMMIFIED_HAND, FALSE, FALSE);
+            otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
+        }
+        curse(otmp);
+        place_object(otmp, mtmp->mx, mtmp->my);
     }
 
     if (is_vampshifter(mtmp) || is_changeling(mtmp)) {
@@ -3827,7 +3850,6 @@ struct monst *magr;    /* killer, if swallowed */
 boolean was_swallowed; /* digestion */
 {
     struct permonst *mdat = mon->data;
-    struct obj *otmp;
     int i, tmp, x, y;
     boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
     
@@ -3837,20 +3859,6 @@ boolean was_swallowed; /* digestion */
         || (mdat->mlet == S_LICH && mdat != &mons[PM_WORM_THAT_WALKS])) {
         if (cansee(mon->mx, mon->my) && !was_swallowed)
             pline("%s body crumbles into dust.", s_suffix(Monnam(mon)));
-        if (mon->isvecna) {
-            if (!Blind)
-                pline("As the remnants of %s body vanish, you notice something was left behind...",
-                      s_suffix(mon_nam(mon)));
-            if (rn2(2)) {
-                otmp = mksobj(EYEBALL, FALSE, FALSE);
-                otmp = oname(otmp, artiname(ART_EYE_OF_VECNA));
-            } else {
-                otmp = mksobj(MUMMIFIED_HAND, FALSE, FALSE);
-                otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
-            }
-            curse(otmp);
-            place_object(otmp, mon->mx, mon->my);
-        }
         return FALSE;
     }
 
