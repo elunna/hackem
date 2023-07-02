@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Sting warns of spiders. (EvilHack)
 withering feedback wording: drier->dessicated (EvilHack)
 Implement 'race0' field to xlogfile, denoting starting race. (EvilHack)
 Small correction to last commit. (EvilHack)

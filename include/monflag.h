@@ -213,7 +213,8 @@
 #define MH_OGRE         0x00020000L
 #define MH_TROLL        0x00040000L
 #define MH_GNOLL        0x00080000L
-#define MH_JABBERWOCK   0x00100000L
+#define MH_SPIDER       0x00100000L
+#define MH_JABBERWOCK   0x00200000L
 
 #define MH_ANY          0x80000000L
 

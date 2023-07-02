@@ -2297,7 +2297,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK,NO_ATTK),
         SIZ(50, 50, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE,
-        M2_HOSTILE, 0, 0, 0, 3, CLR_GRAY),
+        M2_HOSTILE, 0, 0, MH_SPIDER, 3, CLR_GRAY),
     MON("centipede", S_SPIDER,
         LVL(2, 4, 3, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 1, 3),
@@ -2311,14 +2311,14 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(50, 50, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE,
-        M2_HOSTILE, 0, 0, 0, 5, CLR_BROWN),
+        M2_HOSTILE, 0, 0, MH_SPIDER, 5, CLR_BROWN),
     MON("jumping spider", S_SPIDER,                             /* EvilHack */
         LVL(3, 15, 3, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_DRST, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(75, 75, MS_SILENT, MZ_TINY), MR_POISON, MR_POISON,
         M1_CONCEAL | M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE | M2_JUMPER, 0, 0, 0, 5, CLR_CYAN),
+        M2_HOSTILE | M2_JUMPER, 0, 0, MH_SPIDER, 5, CLR_CYAN),
     MON("barking spider", S_SPIDER,                             /* Slash'EM */
         LVL(5, 15, 3, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2),
@@ -2327,7 +2327,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(100, 100, MS_BARK, MZ_SMALL), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS
             | M1_CARNIVORE, M2_HOSTILE,
-        0, 0, 0, 7, CLR_ORANGE),
+        0, 0, MH_SPIDER, 7, CLR_ORANGE),
     MON("giant spider", S_SPIDER,
         LVL(5, 15, 4, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 2, 4), 
@@ -2335,7 +2335,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 100, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE | M2_STRONG, 0, 0, 0, 8, CLR_MAGENTA),
+        M2_HOSTILE | M2_STRONG, 0, 0, MH_SPIDER, 8, CLR_MAGENTA),
     MON("scorpion", S_SPIDER,
         LVL(5, 15, 3, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2), 
@@ -2361,7 +2361,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_TPORT
             | M1_CARNIVORE | M3_SKITTISH,
         M2_HOSTILE | M2_STRONG,
-        0, 0, 0, 10, CLR_BLUE),
+        0, 0, MH_SPIDER, 10, CLR_BLUE),
     MON("monstrous spider", S_SPIDER,                         /* SpliceHack */
         LVL(8, 15, 4, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 4, 6),
@@ -2369,7 +2369,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(200, 200, MS_SILENT, MZ_HUGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE | M2_STRONG, 0, 0, 0, 10, CLR_ORANGE),
+        M2_HOSTILE | M2_STRONG, 0, 0, MH_SPIDER, 10, CLR_ORANGE),
     MON("werespider", S_SPIDER,                                 /* Slash'EM */
         LVL(11, 15, 3, 0, 0), (G_GENO | G_NOGEN | 1),
         A(ATTK(AT_BITE, AD_WERE, 4, 4),
@@ -2377,7 +2377,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(100, 100, MS_BARK, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE | M1_REGEN,
         M2_NOPOLY | M2_HOSTILE,
-        M3_INFRAVISIBLE, 0, MH_WERE, 13, CLR_BLACK),
+        M3_INFRAVISIBLE, 0, MH_WERE | MH_SPIDER, 13, CLR_BLACK),
     MON("carrion crawler", S_SPIDER,                            /* Slash'EM */
         LVL(3, 12, 3, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_TUCH, AD_PLYS, 1, 1),
@@ -2418,7 +2418,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_STRONG | M2_PNAME | M2_PRINCE | M2_FEMALE | M2_STALK
             | M2_HOSTILE | M2_NASTY | M2_NOPOLY,
-        M3_INFRAVISION | M3_NOTAME, 0, 0, 28, CLR_RED),
+        M3_INFRAVISION | M3_NOTAME, 0, MH_SPIDER, 28, CLR_RED),
     MON("Shelob", S_SPIDER,                                     /* Slash'EM */
         LVL(26, 15, 3, 0, 0), (G_UNIQ | G_NOGEN | 1),
         A(ATTK(AT_BITE, AD_PHYS, 8, 4),
@@ -2428,7 +2428,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_STRONG | M2_PNAME | M2_PRINCE | M2_FEMALE | M2_STALK
             | M2_HOSTILE | M2_NASTY | M2_NOPOLY,
-        M3_INFRAVISION | M3_NOTAME, 0, 0, 31, CLR_BLACK),
+        M3_INFRAVISION | M3_NOTAME, 0, MH_SPIDER, 31, CLR_BLACK),
     /*
      * trappers, lurkers, &c
      */
@@ -6766,7 +6766,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY
             | M2_STRONG | M2_LORD | M2_FEMALE,
         M3_WAITFORU | M3_WANTSAMUL | M3_INFRAVISIBLE | M3_INFRAVISION,
-        0, MH_DEMON, 36, HI_LORD),
+        0, MH_DEMON | MH_SPIDER, 36, HI_LORD),
     MON("Geryon", S_DEMON,
         LVL(72, 12, -3, 75, 15), (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 6), 

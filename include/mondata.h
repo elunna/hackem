@@ -360,7 +360,7 @@
 #define is_ogre(ptr) (((ptr)->mhflags & MH_OGRE) != 0L)
 #define is_troll(ptr) (((ptr)->mhflags & MH_TROLL) != 0L)
 #define is_gnoll(ptr) (((ptr)->mhflags & MH_GNOLL) != 0L)
-
+#define is_spider(ptr) (((ptr)->mhflags & MH_SPIDER) != 0L)
 #define is_not_zombie(ptr) \
     (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \
@@ -459,16 +459,7 @@
 #define likes_gems(ptr) (((ptr)->mflags2 & M2_JEWELS) != 0L)
 #define likes_objs(ptr) (((ptr)->mflags2 & M2_COLLECT) != 0L || is_armed(ptr))
 #define likes_magic(ptr) (((ptr)->mflags2 & M2_MAGIC) != 0L)
-#define webmaker(ptr) \
-    ((ptr) == &mons[PM_BARKING_SPIDER] \
-     || (ptr) == &mons[PM_CAVE_SPIDER] \
-     || (ptr) == &mons[PM_GIANT_SPIDER] \
-     || (ptr) == &mons[PM_JUMPING_SPIDER] \
-     || (ptr) == &mons[PM_LOLTH] \
-     || (ptr) == &mons[PM_PHASE_SPIDER] \
-     || (ptr) == &mons[PM_RECLUSE_SPIDER] \
-     || (ptr) == &mons[PM_WERESPIDER]  \
-     || (ptr) == &mons[PM_SPIBRAWULF])
+#define webmaker(ptr) (is_spider(ptr) || (ptr) == &mons[PM_SPIBRAWULF])
 #define throws_snowballs(ptr) \
     ((ptr) == &mons[PM_SNOW_GOLEM] \
      || (ptr) == &mons[PM_ICE_ELEMENTAL])

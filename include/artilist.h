@@ -143,8 +143,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 10), NO_DFNS, NO_CARY, LIGHT_AREA, A_LAWFUL, NON_PM, 
       NON_PM, 4000L, NO_COLOR, SILVER),
 
-    A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0, MH_ORC, PHYS(5, 0),
-      NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, PM_ELF, 800L, CLR_BRIGHT_BLUE, MITHRIL),
+    A("Sting", ELVEN_DAGGER, (SPFX_WARN | SPFX_DFLAGH), 0,
+      (MH_ORC | MH_SPIDER), PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_LAWFUL,
+      NON_PM, PM_ELF, 1000L, CLR_BRIGHT_BLUE, MITHRIL),
     
     /*
      *      Sunsword from SporkHack was silver in nature, and also warned of nearby undead
