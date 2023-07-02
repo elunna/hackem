@@ -807,20 +807,18 @@ register struct monst *mtmp;
 toofar:
 
     /* If monster is nearby you, and has to wield a weapon, do so.
-     * This costs the monster a move, of course.
-     */
+       This costs the monster a move, of course */
     if ((!mtmp->mpeaceful || Conflict) && inrange
         && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 8
         && attacktype(mdat, AT_WEAP)) {
         struct obj *mw_tmp;
 
         /* The scared check is necessary.  Otherwise a monster that is
-         * one square near the player but fleeing into a wall would keep
-         * switching between pick-axe and weapon.  If monster is stuck
-         * in a trap, prefer ranged weapon (wielding is done in thrwmu).
-         * This may cost the monster an attack, but keeps the monster
-         * from switching back and forth if carrying both.
-         */
+           one square near the player but fleeing into a wall would keep
+           switching between pick-axe and weapon.  If monster is stuck
+           in a trap, prefer ranged weapon (wielding is done in thrwmu).
+           This may cost the monster an attack, but keeps the monster
+           from switching back and forth if carrying both */
         mw_tmp = MON_WEP(mtmp);
         if (!(scared && mw_tmp && is_pick(mw_tmp))
             && !(mw_tmp && is_pole(mw_tmp))
@@ -840,20 +838,19 @@ toofar:
         || attacktype(mtmp->data, AT_SCRE)
         || attacktype(mtmp->data, AT_VOLY)
         || (attacktype(mtmp->data, AT_MAGC)
-            && (((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp
-                <= AD_LOUD)))) && !mtmp->mspec_used)
+            && ((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp
+                <= AD_LOUD)))
+          && !mtmp->mspec_used)
         || (attacktype(mtmp->data, AT_WEAP)
-            && select_rwep(mtmp) != 0)
-        || find_offensive(mtmp))
+            && select_rwep(mtmp) != 0) || find_offensive(mtmp))
         && mtmp->mlstmv != monstermoves) {
-        register struct monst *mtmp2 = mfind_target(mtmp);
+        struct monst *mtmp2 = mfind_target(mtmp);
         /* the > value is important here - if it's not just right,
            the attacking monster can get stuck in a loop switching
            back and forth between its melee weapon and launcher */
-        if (mtmp2
+        if (mtmp2 && (mtmp2 != mtmp)
             && (mtmp2 != &youmonst
-                || dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) > 4)
-            && (mtmp2 != mtmp)) {
+                || dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) > 8)) {
             int res;
             res = (mtmp2 == &youmonst) ? mattacku(mtmp)
                                        : mattackm(mtmp, mtmp2);
@@ -868,8 +865,7 @@ toofar:
     if (m_stash_items(mtmp, FALSE))
 	return 0;
 
-    /*  Now the actual movement phase
-     */
+    /* Now the actual movement phase */
 
     if (mtmp->data == &mons[PM_HEZROU]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
@@ -977,8 +973,7 @@ toofar:
         }
     }
 
-    /*  Now, attack the player if possible - one attack set per monst
-     */
+    /* Now, attack the player if possible - one attack set per monst */
 
     if (tmp != 3 && (!mtmp->mpeaceful
                      || (Conflict && !resist_conflict(mtmp)))) {
