@@ -2159,7 +2159,6 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_SCR_FIRE;
         }
-#if 0 /* Disabled until a non-buggy implementation is found */
         nomore(MUSE_SCR_CLONING);
         if (obj->otyp == SCR_CLONING
             && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 2
@@ -2167,7 +2166,6 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_SCR_CLONING;
         }
-#endif
         nomore(MUSE_CAMERA);
         if (obj->otyp == EXPENSIVE_CAMERA
             && (!Blind || hates_light(youmonst.data))
@@ -2781,17 +2779,19 @@ struct monst *mtmp;
         }
         return 2;
     } /* case MUSE_SCR_FIRE */
-#if 0 /* Disabled for now*/
     case MUSE_SCR_CLONING: {
         /* We won't bother with confused - scrolls of cloning always clone 
          * the monster iteself. */
         boolean vis = cansee(mtmp->mx, mtmp->my);
         mreadmsg(mtmp, otmp);
-        if (clone_mon(mtmp, 0, 0) && vis)
+        
+        /* Temporary workaround, cloned mplayers cause problems with their inventory */
+        if (is_mplayer(mtmp->data))
+            pline("%s shudders for a moment!", Monnam(mtmp));
+        else if (clone_mon(mtmp, 0, 0) && vis)
             pline("%s multiplies!", Monnam(mtmp));
         return 2;
     } /* case MUSE_SCR_CLONING */
-#endif
     case MUSE_CAMERA: {
         if (Hallucination)
             verbalize("Say cheese!");

@@ -3870,6 +3870,9 @@ struct obj **sobjp;
             mtmp = christen_monst(mtmp, plname);
             /* TODO: Match race */
             
+            if (is_mplayer(mtmp->data))
+                apply_race(mtmp, urace.malenum);
+            
             mtmp->m_lev = u.ulevel;
             mtmp->mhpmax = u.uhpmax;
             mtmp->mhp = u.uhp;
