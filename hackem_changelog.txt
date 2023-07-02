@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Adjust weight of large/monstrous spiders. (EvilHack)
 Sting warns of spiders. (EvilHack)
 withering feedback wording: drier->dessicated (EvilHack)
 Implement 'race0' field to xlogfile, denoting starting race. (EvilHack)

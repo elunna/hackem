@@ -2333,7 +2333,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_DRST, 2, 4), 
           ATTK(AT_TUCH, AD_WEBS, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(200, 100, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
+        SIZ(1200, 250, MS_SILENT, MZ_LARGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, MH_SPIDER, 8, CLR_MAGENTA),
     MON("scorpion", S_SPIDER,
@@ -2367,7 +2367,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_DRST, 4, 6),
           ATTK(AT_SCRE, AD_FEAR, 2, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(200, 200, MS_SILENT, MZ_HUGE), MR_POISON, MR_POISON,
+        SIZ(1500, 300, MS_SILENT, MZ_HUGE), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, MH_SPIDER, 10, CLR_ORANGE),
     MON("werespider", S_SPIDER,                                 /* Slash'EM */
