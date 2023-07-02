@@ -882,8 +882,9 @@ gcrownu()
         u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
         in_hand = (uwep && uwep->oartifact == ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
-        livelog_printf(LL_DIVINEGIFT,
-                       "was granted the title of \"Pirate King\" by %s", u_gname());
+        livelog_printf(LL_DIVINEGIFT, "was granted the title of \"Pirate %s\" by %s",
+                       flags.female ? "Queen" : "King",
+                       u_gname());
     } else {
     switch (u.ualign.type) {
     case A_LAWFUL:
@@ -997,9 +998,12 @@ gcrownu()
         u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
         in_hand = (uwep && uwep->oartifact == ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
-        verbalize("Hurrah for our Pirate King!");
+        verbalize("Hurrah for our Pirate %s!",
+                  flags.female ? "Queen" : "King");
         livelog_printf(LL_DIVINEGIFT,
-                       "was granted the title of \"Pirate King\" by %s", u_gname());
+                       "was granted the title of \"Pirate %s\" by %s",
+                       flags.female ? "Queen" : "King",
+                       u_gname());
 
         obj = mksobj(SCIMITAR, FALSE, FALSE);
         obj = oname(obj, artiname(ART_REAVER));

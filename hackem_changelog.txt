@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Use Pirate King/Queen properly when crowned as pirate.
 Fix: DYWYPI screen does not list contents of bags of rats or tricks (reported by hothraxxa). Fixes #348.
 Fix: Exiting the whetstone rubbing prompt wastes a turn. Fixes #341.
 Fix: Memory leak when manticore volleys spikes at another monsther.
