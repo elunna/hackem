@@ -4231,6 +4231,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                         && mon->data == &mons[PM_BLACK_DRAGON])))
                 break;
             /*FALLTHRU*/
+        case AT_GAZE:
         case AT_KICK:
         case AT_BUTT:
         /*weaponless:*/
@@ -4291,6 +4292,9 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                     break;
                 case AT_STNG:
                     verb = "sting";
+                    break;
+                case AT_GAZE:
+                    verb = "gaze";
                     break;
                 default:
                     verb = "hit";
@@ -4458,8 +4462,8 @@ boolean weapon_attacks; /* skip weapon attacks if false */
         case AT_BREA:
         case AT_SPIT:
         case AT_VOLY:
-        case AT_SCRE:
-        case AT_GAZE: /* all done using #monster command */
+        case AT_SCRE: /* all done using #monster command */
+        /*case AT_GAZE: We can use this in melee too. */
             dhit = 0;
             break;
         case AT_MULTIPLY:
