@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Add phasing status to botl. (EvilHack)
 Fix: various issues with monsters setting off container traps. (EvilHack)
 Monsters can utilize free action. (EvilHack)
 Fix: weapon material damage adjustments. (EvilHack)
