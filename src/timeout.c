@@ -2021,6 +2021,11 @@ boolean already_lit;
         do_timer = FALSE;
         if (obj->otyp == MAGIC_CANDLE) 
             obj->age = 300L;
+        if (!obj->cursed) {
+            if (lightdamage(obj, FALSE, 5)) {
+                    ; /* light haters */
+            }
+        }
         break;
     case RED_DOUBLE_LIGHTSABER:
         if (obj->altmode && obj->age > 1) {
