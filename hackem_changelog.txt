@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: cavepersons/priests could still have certain weapon  skills unrestricted that shouldn't have been. (EvilHack)
 Show play time/wallclock time in the dumplog (text and html). (EvilHack)
 Show spells known in the dumplog (text and html). (EvilHack)
 Git info formatting in dumplog. (EvilHack)
