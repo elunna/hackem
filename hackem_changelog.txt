@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Git info formatting in dumplog. (EvilHack)
 Fix: blanked spellbooks from reading not updating in permanent inventory. (EvilHack)
 Fix: the Wizard of Yendor could be awakened prematurely on wizard1 level. (EvilHack)
 Fix: The 'weapon' welds itself to the 'monsters' hand! (EvilHack)
