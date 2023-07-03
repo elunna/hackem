@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: various issues with monsters setting off container traps. (EvilHack)
 Monsters can utilize free action. (EvilHack)
 Fix: weapon material damage adjustments. (EvilHack)
 Fix: double message when entering the lemure pits (hellc demon boss level). (EvilHack)
