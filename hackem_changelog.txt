@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Adjustments to racial abilities. (EvilHack)
 Allow some monsters to break boulders. (EvilHack)
 Add phasing status to botl. (EvilHack)
 Fix: various issues with monsters setting off container traps. (EvilHack)
