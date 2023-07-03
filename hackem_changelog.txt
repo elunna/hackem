@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: dismounting crash from last commit. (EvilHack)
 Adjust feedback when freezing a liquid underfoot while riding a steed. (EvilHack)
 Make elemental vulnerability more consistent (EvilHack)
 Fix: some doors would spawn booby-trapped as early as dungeon level one. (EvilHack)
