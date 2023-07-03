@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Changed manticore spikes to VENOM_CLASS and moved with other venom objects in objects.c.
 Updated neutral minions gifted by altar sacrifice.
 Updated list of lawful minions gifted by altar sacrifice.
 Revert d396169a1... Lawful minions are granted using lminion

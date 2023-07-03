@@ -87,22 +87,20 @@ OBJECT(OBJ("strange object", None),
 #define WEAPON(name,desc,kn,mg,mgc,bi,prob,wt,            \
                cost,sdam,ldam,hitbon,typ,sub,metal,color) \
     OBJECT(OBJ(name,desc),                                           \
-       BITS(kn, mg, 1, 0, mgc, 1, 0, 0, bi, 0, typ, sub, metal), \
-       0, WEAPON_CLASS, prob, 0, wt,                             \
-       cost, sdam, ldam, hitbon, 0, wt, color)
-
+           BITS(kn, mg, 1, 0, mgc, 1, 0, 0, bi, 0, typ, sub, metal), \
+           0, WEAPON_CLASS, prob, 0, wt,                             \
+           cost, sdam, ldam, hitbon, 0, wt, color)
 #define PROJECTILE(name,desc,kn,prob,wt,                  \
                    cost,sdam,ldam,hitbon,metal,sub,color) \
     OBJECT(OBJ(name,desc),                                          \
-       BITS(kn, 1, 1, 0, 0, 1, 0, 0, 0, 0, PIERCE, sub, metal), \
-       0, WEAPON_CLASS, prob, 0, wt,                            \
-       cost, sdam, ldam, hitbon, 0, wt, color)
-
+           BITS(kn, 1, 1, 0, 0, 1, 0, 0, 0, 0, PIERCE, sub, metal), \
+           0, WEAPON_CLASS, prob, 0, wt,                            \
+           cost, sdam, ldam, hitbon, 0, wt, color)
 #define BOW(name,desc,kn,bi,prob,wt,cost,hitbon,metal,sub,color) \
     OBJECT(OBJ(name,desc),                                          \
-       BITS(kn, 0, 1, 0, 0, 1, 0, 0, bi, 0, 0, sub, metal),     \
-       0, WEAPON_CLASS, prob, 0, wt,                            \
-       cost, 2, 2, hitbon, 0, wt, color)
+           BITS(kn, 0, 1, 0, 0, 1, 0, 0, bi, 0, 0, sub, metal),     \
+           0, WEAPON_CLASS, prob, 0, wt,                            \
+           cost, 2, 2, hitbon, 0, wt, color)
 
 #define BULLET(name,app,kn,prob,wt,cost,sdam,ldam,hitbon,ammotyp,typ,metal,sub,color) \
     OBJECT(OBJ(name,app), \
@@ -922,12 +920,6 @@ OBJECT(OBJ("phial", None),
 		BITS(1,1,0,0,0,0,0,1,0,0,0,P_NONE,GLASS), 0,
 		TOOL_CLASS, 0, 0, 2, 1, 0, 0, 0, 0, 1, HI_GLASS),
 
-/* manticore spikes - counts as WEPTOOL? */
-OBJECT(OBJ("spike", None),  /* SpliceHack */
-      BITS(1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, P_NONE, BONE), 0,
-      TOOL_CLASS, 0, 0, 1, 0, 6, 6, 0, 0, 0, HI_ORGANIC),
-
-
 /* two unique tools;
  * not artifacts, despite the comment which used to be here
  */
@@ -1456,6 +1448,10 @@ OBJECT(OBJ("snowball", None),                                  /* EvilHack */
        BITS(1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, P_NONE, LIQUID), 0,
        VENOM_CLASS, 500, 0, 1, 0, 6, 6, 0, 0, 0, HI_GLASS),
         /* +d6 small or large */
+/* manticore spikes - counts as WEPTOOL? */
+OBJECT(OBJ("spike", None),                                    /* SpliceHack */
+      BITS(1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, P_NONE, BONE), 0,
+      VENOM_CLASS, 0, 0, 1, 0, 6, 6, 0, 0, 0, HI_ORGANIC),
 
 OBJECT(OBJ("spirit", None),
         /*  nmkn,mrg,uskn,ctnr,mgc,chrg,uniq,nwsh,big,tuf,dir,sub,   mtrl) \ */
