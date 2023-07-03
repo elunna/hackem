@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Swimmers that also conceal themselves cannot hide under objects in the water. Fixes #345.
 Xanathar can now summon eyes and spheres.
 Allow pets/monsters to wear ring of displacement (suggested by mobileuser). Fixes #235.
 Fix: one compile warning, formatting cleanup from last commit. (EvilHack)
