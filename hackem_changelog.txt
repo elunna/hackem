@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: The 'weapon' welds itself to the 'monsters' hand! (EvilHack)
 Convict thievery skill adjustment. (EvilHack)
 Magic lamps/candles won't be extinguished by a rust trap. (EvilHack)
 Convicts can use and train up thievery skill. (EvilHack)
