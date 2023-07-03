@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Make elemental vulnerability more consistent (EvilHack)
 Fix: some doors would spawn booby-trapped as early as dungeon level one. (EvilHack)
 Fix: locking/unlocking containers in sokoban. (EvilHack)
 Fix: minor feedback bug when player's shield blocks a ranged attack. (EvilHack)

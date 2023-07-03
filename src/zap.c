@@ -4786,8 +4786,6 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             break;
         }
         tmp = d(nd, 6);
-        if (resists_cold(mon))
-            tmp += 7;
         if (spellcaster)
             tmp = spell_damage_bonus(tmp);
         if (burnarmor(mon)) {
@@ -4807,8 +4805,6 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             break;
         }
         tmp = d(nd, 6);
-        if (resists_fire(mon))
-            tmp += d(nd, 3);
         if (spellcaster)
             tmp = spell_damage_bonus(tmp);
         if (!rn2(3))
@@ -4962,6 +4958,10 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         tmp /= 2;
     if (tmp < 0)
         tmp = 0; /* don't allow negative damage */
+    /* have to do vulnerability here because we need to return tmp.
+       damage_mon() wouldn't tell us if tmp is increased. */
+    if (vulnerable_to(mon, abstype + 1))
+        tmp = ((3 * tmp) + 1) / 2;
     debugpline3("zapped monster hp = %d (= %d - %d)", mon->mhp - tmp,
                 mon->mhp, tmp);
     /* For debugging */
