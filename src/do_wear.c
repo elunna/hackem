@@ -1216,9 +1216,10 @@ Armor_off(VOID_ARGS)
 
     check_wings(FALSE);
 
+    dragon_armor_handling(otmp, FALSE);
+
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
-    dragon_armor_handling(otmp, FALSE);
     return 0;
 }
 
