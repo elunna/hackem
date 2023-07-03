@@ -1230,7 +1230,7 @@ SPELL("magic mapping",   "dusty",         P_DIVINATION_SPELL,  15,  7, 5, 1, NOD
 SPELL("healing",         "white",         P_HEALING_SPELL,     35,  2, 1, 1, IMMEDIATE, CLR_WHITE),
 SPELL("cure blindness",  "yellow",        P_HEALING_SPELL,     20,  2, 2, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("extra healing",   "plaid",         P_HEALING_SPELL,     25,  5, 3, 1, IMMEDIATE, CLR_GREEN),
-SPELL("restore ability", "light brown",   P_HEALING_SPELL,     25,  5, 2, 1, NODIR, CLR_BROWN),
+SPELL("restore ability", "light brown",   P_HEALING_SPELL,     25,  5, 2, 1, IMMEDIATE, CLR_BROWN),
 SPELL("stone to flesh",  "thick",         P_HEALING_SPELL,     15,  1, 3, 1, IMMEDIATE, HI_PAPER),
 SPELL("cure sickness",   "indigo",        P_HEALING_SPELL,     30,  3, 3, 1, IMMEDIATE, CLR_BLUE),
 
