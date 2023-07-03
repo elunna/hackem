@@ -4308,7 +4308,8 @@ int otyp;
             otmp = (struct obj *) 0;
         }
         return spe;
-    }
+    } else
+        otmp = (struct obj *) 0; /* obj wasn't able to get created? */
     return 0;
 }
 

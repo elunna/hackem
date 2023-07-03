@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Memory leak in mongets if invalid object is created. Fixes #355.
 Fix: Manticore spikes falling down stairs and a few other memory leaks. Fixes #354.
 Fix: Memory leak in tech_revive. Fixes #356.
 Fix: Swimmers that also conceal themselves cannot hide under objects in the water. Fixes #345.
