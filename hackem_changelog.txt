@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Ranger quest artifact, if blessed, has a chance to produce ammo with an object property. (EvilHack)
 Fix: proper handling of flying/clinging u.usteed from last commit. (EvilHack)
 Fix: dismounting crash from last commit. (EvilHack)
 Adjust feedback when freezing a liquid underfoot while riding a steed. (EvilHack)
