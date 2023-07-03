@@ -4445,8 +4445,11 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             dieroll = rnd(20);
             if ((dhit = (tmp > rnd(20 + i)))) {
                 wakeup(mon, TRUE);
-                if (noncorporeal(mon->data))
-                    Your("attempt to surround %s is harmless.", mon_nam(mon));
+                if (noncorporeal(mon->data)
+                    || passes_walls(mon->data))
+                    Your("attempt to %s %s is futile.",
+                         (mattk->adtyp == AD_DGST ? "engulf" : "surround"),
+                         mon_nam(mon));
                 else if (is_fern_spore(mon->data))
                     You("would rather not eat that %s.", mon_nam(mon));
                 else {

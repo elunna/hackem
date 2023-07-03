@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Phasing allows escape from being engulfed. (EvilHack)
 Tweak to 'restore ability spell is now directional'. (EvilHack)
 Restore ability spell is now directional. (EvilHack)
 Fix: cavepersons/priests could still have certain weapon  skills unrestricted that shouldn't have been. (EvilHack)
