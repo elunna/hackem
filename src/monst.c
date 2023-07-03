@@ -7577,7 +7577,7 @@ struct permonst _mons2[] = {
         M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 20, CLR_YELLOW),
     MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
-        A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
+        A(ATTK(AT_MAGC, AD_CLRC, 4, 6),
           ATTK(AT_GAZE, AD_SLEE, 2, 25),
           ATTK(AT_GAZE, AD_DISN, 0, 0), 
           ATTK(AT_GAZE, AD_STON, 0, 0),

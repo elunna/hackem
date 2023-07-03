@@ -960,7 +960,6 @@ int spellnum;
 
     switch (spellnum) {
     case CLC_SUMMON_ELM:
-
         if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
             coord bypos;
             if (!enexto(&bypos, mtmp->mx, mtmp->my, mtmp->data))
@@ -1065,10 +1064,13 @@ int spellnum;
     case CLC_INSECTS: {
         /* Try for bugs, and if there are none
            left, go for (sticks to) snakes.  -3. */
-        boolean spiders = (mtmp->data == &mons[PM_LOLTH]);
-        struct permonst *pm = mkclass(spiders ? S_SPIDER : S_ANT, 0);
+        boolean spiders = mtmp->data == &mons[PM_LOLTH];
+        boolean spheres = mtmp->data == &mons[PM_XANATHAR];
+        struct permonst *pm = mkclass(spiders ? S_SPIDER
+                                      : spheres ? S_EYE :S_ANT, 0);
         struct monst *mtmp2 = (struct monst *) 0;
-        char let = (pm ? (spiders ? S_SPIDER : S_ANT) : S_SNAKE);
+        char let = (pm ? (spiders ? S_SPIDER
+                          : spheres ? S_EYE: S_ANT) : S_SNAKE);
         boolean success = FALSE, seecaster;
         int i, quan, oldseen, newseen;
         coord bypos;
@@ -1126,6 +1128,8 @@ int spellnum;
             fmt = "%s transforms a clump of sticks into snakes!";
         else if (let == S_SPIDER)
             fmt = "%s summons arachnids!";
+        else if (let == S_EYE)
+            fmt = "%s summons orbs!";
         else if (Invis && !mon_prop(mtmp, SEE_INVIS)
                  && (mtmp->mux != u.ux || mtmp->muy != u.uy))
             fmt = "%s summons insects around a spot near you!";
