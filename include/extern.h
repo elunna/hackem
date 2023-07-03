@@ -652,6 +652,7 @@ E boolean FDECL(walk_path, (coord *, coord *,
                             boolean (*)(genericptr, int, int), genericptr_t));
 E boolean FDECL(hurtle_jump, (genericptr_t, int, int));
 E boolean FDECL(hurtle_step, (genericptr_t, int, int));
+E boolean FDECL(will_hurtle, (struct monst *, XCHAR_P, XCHAR_P));
 extern int firearm_range(int);
 extern int firearm_rof(int);
 
