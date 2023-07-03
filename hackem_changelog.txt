@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Allow pets/monsters to wear ring of displacement (suggested by mobileuser). Fixes #235.
 Fix: one compile warning, formatting cleanup from last commit. (EvilHack)
 Adjustments to racial abilities. (EvilHack)
 Allow some monsters to break boulders. (EvilHack)

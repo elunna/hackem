@@ -926,6 +926,7 @@ boolean racialexception;
                     && obj->otyp != RIN_INCREASE_ACCURACY
                     && obj->otyp != RIN_PROTECTION
                     && obj->otyp != RIN_LEVITATION
+                    && obj->otyp != RIN_DISPLACEMENT
                     && obj->otyp != RIN_FREE_ACTION))
                 continue;
             if (mon->data == &mons[PM_NAZGUL]
@@ -1498,6 +1499,10 @@ struct obj *obj;
         break;
     case RIN_FREE_ACTION:
         rc = 30;
+        break;
+    case RIN_DISPLACEMENT:
+        if (!mon_prop(mon, DISPLACED))
+            rc = 25;
         break;
     }
     old = which_armor(mon, W_RINGL);

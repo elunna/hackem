@@ -189,6 +189,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == RIN_PROTECTION
              || otmp->otyp == RIN_LEVITATION
              || otmp->otyp == RIN_FREE_ACTION
+             || otmp->otyp == RIN_DISPLACEMENT
              || otmp->otyp == FROST_HORN
              || otmp->otyp == FIRE_HORN
              || otmp->otyp == HORN_OF_BLASTING
