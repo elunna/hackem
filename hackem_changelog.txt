@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Add Grandmaster's Robe from dNethack. Fixes #346.
 Fix: Null mdef in explum when yellow light exploded.
 Disabled the Sword of Annihilation.
 Allow a worn not cursed amulet of life saving to save the player if they fall in an 'open air' space. (EvilHack)

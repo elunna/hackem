@@ -1540,7 +1540,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         special_armor = is_elven_armor(otmp)
                         || otmp->oartifact == ART_HAND_OF_VECNA
                         || (Role_if(PM_WIZARD) && otmp->otyp == CORNUTHAUM)
-                        || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA);
+                        || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA)
+                        || otmp->oartifact == ART_GRANDMASTER_S_ROBE;
         if (scursed)
             same_color = (otmp->otyp == BLACK_DRAGON_SCALES);
         else

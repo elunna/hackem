@@ -964,6 +964,26 @@ struct attack *uattk;
             (void) passive(mon, wearshield, mhit, malive, AT_WEAP, FALSE);
     }
 
+    /* extra hit with 50% chance of another extra hit if wearing Grandmaster's Robe */
+    if (!uwep && malive && weararmor && weararmor->oartifact == ART_GRANDMASTER_S_ROBE) {
+        tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum, &armorpenalty);
+        dieroll = rnd(20);
+        mhit = (tmp > dieroll || u.uswallow);
+        malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk, dieroll);
+
+        /* second passive counter-attack only occurs if second attack hits */
+        if (mhit) (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
+
+        /* 50% chance to get a second bonus attack */
+        if (malive && rn2(2)) {
+            tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum, &armorpenalty);
+            dieroll = rnd(20);
+            mhit = (tmp > dieroll || u.uswallow);
+            malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk, dieroll);
+
+            if (mhit) (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
+        }
+    }
 
     /* Your race may grant extra attacks. Illithids don't use
      * their tentacle attack every turn, Centaurs are strong

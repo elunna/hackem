@@ -84,6 +84,9 @@ hack_artifacts()
         artilist[ART_MJOLLNIR].alignment = alignmnt;
     }
 
+    if (Role_if(PM_MONK))
+        artilist[ART_GRANDMASTER_S_ROBE].alignment = alignmnt;
+
     /* Fix up the quest artifact */
     if (urole.questarti) {
         artilist[urole.questarti].alignment = alignmnt;
@@ -661,7 +664,14 @@ const char *name;
         aname = a->name;
         if (!strncmpi(aname, "the ", 4))
             aname += 4;
-        if (!strcmp(aname, name))
+
+        if (!strcmp(aname, "Grandmaster's Robe")) {
+            if (u.ulevel >= 30 && P_SKILL(P_MARTIAL_ARTS) >= P_GRAND_MASTER)
+                return (boolean) ((a->spfx & (SPFX_NOGEN | SPFX_RESTR)) != 0
+                                  || otmp->quan > 1L);
+            else
+                return 1;
+        } else if (!strcmp(aname, name))
             return (boolean) ((a->spfx & (SPFX_NOGEN | SPFX_RESTR)) != 0
                               || otmp->quan > 1L);
     }

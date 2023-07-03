@@ -1352,7 +1352,7 @@ const char *name;
         /* if obj is owned by a shop, increase your bill */
         if (obj->unpaid)
             alter_cost(obj, 0L);
-        if (via_naming) {
+        if (via_naming && obj->oartifact != ART_GRANDMASTER_S_ROBE) {
             /* naming an artifact has consequences now, much like
                wishing for one... not as bad as spawning a player
                monster or quest nemesis, but you're still not
