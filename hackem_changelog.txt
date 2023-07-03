@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert d396169a1... Lawful minions are granted using lminion
 Removed level 5 requirement for getting minion pets from altar sacrifice.
 Fix: Typo in god_gives_pet.
 Updated list of chaotic minions gifted by altar sacrifice.
