@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: minor feedback bug when player's shield blocks a ranged attack. (EvilHack)
 Fix: minor issues with Mines' End 'Orc Temple' map. (EvilHack)
 Fix: hurtled monster logic. (EvilHack)
 Fix: stacked food objects, weight not updating for split object in curses mode if eating was interrupted. (EvilHack)
