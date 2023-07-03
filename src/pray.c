@@ -1699,7 +1699,7 @@ aligntyp alignment;
 	    break;
     }
     if (mnum == NON_PM) {
-        You("feel a powerful presense gather, but it suddenly recedes!");
+        You("feel a powerful presence gather, but it suddenly recedes!");
         return;
     }
     mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN | MM_NOGRP);
