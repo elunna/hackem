@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: wishing for a string with mismatched parens, that doesn't contain any actual wish before them. (EvilHack)
 Fix: separate monster from player when determining number of objects in inventory to cancel. (EvilHack)
 Fix: oilskin sacks/cloaks spawning with materials other than cloth. (EvilHack)
 Phasing allows escape from being engulfed. (EvilHack)
