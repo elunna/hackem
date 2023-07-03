@@ -1691,8 +1691,7 @@ aligntyp alignment;
 	    break;
 	case A_CHAOTIC:
 	case A_NONE:
-	    /*mnum = chaotic_minion(u.ulevel);*/
-            mnum = ndemon(u.ualign.type);
+	    mnum = chaotic_minion(u.ulevel);
 	    break;
 	default:
 	    impossible("unaligned player?");
