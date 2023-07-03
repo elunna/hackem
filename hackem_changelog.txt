@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Removed level 5 requirement for getting minion pets from altar sacrifice.
 Fix: Typo in god_gives_pet.
 Updated list of chaotic minions gifted by altar sacrifice.
 Revert c424a80 Chaotic minions are granted using ndemon

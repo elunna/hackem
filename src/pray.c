@@ -2377,8 +2377,7 @@ dosacrifice()
              *      I'm now using the calculation from SpliceHack that considers
              *      the quantity of gifts given .
              */
-            if (u.uconduct.pets > 0 
-                && u.ulevel > 4 
+            if (u.uconduct.pets > 0
                 && u.uluck >= 0
                 && !u.uevent.qcompleted
                 && !u.uevent.qexpelled
