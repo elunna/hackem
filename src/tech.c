@@ -3167,7 +3167,6 @@ int tech_no;
     /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
      * adding another case.
      * */
-    struct obj* pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
     struct monst *mtmp = NULL;
     struct obj *obj;
     int num;
@@ -3195,7 +3194,7 @@ int tech_no;
             if (mtmp->isshk)
                 make_happy_shk(mtmp, FALSE);
             else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
+                struct obj* pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
                 tamedog(mtmp, pseudo);
                 mtmp->mrevived = TRUE;
                 obfree(pseudo, NULL);
