@@ -83,6 +83,7 @@
 #define MR2_TELEPATHY   0x00010000L /* telepathic */
 #define MR2_JUMPING     0x00020000L /* can jump */
 #define MR2_REFLECTION  0x00040000L /* has reflection */
+#define MR2_FREE_ACTION 0x00080000L /* has free action */
 
 #define M1_FLY          0x00000001L /* can fly or float */
 #define M1_SWIM         0x00000002L /* can traverse water */

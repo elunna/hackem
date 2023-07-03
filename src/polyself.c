@@ -1807,7 +1807,7 @@ dogaze()
                     } else if (is_undead(mtmp->data) || mindless(mtmp->data) 
                                 || is_demon(mtmp->data)) {
                         pline("%s does not seem to care.", Monnam(mtmp));
-                    } else {
+                    } else if (!has_free_action(mtmp)) {
                         pline("%s reels in shock and horror!", Monnam(mtmp));
                         paralyze_monst(mtmp, rnd(10));
                     }

@@ -3490,17 +3490,28 @@ do_rust:
         break;
     case AD_PLYS:
         if (!negated && mdef->mcanmove && !rn2(3) && tmp < mdef->mhp) {
-            if (!Blind)
-                pline("%s is frozen by you!", Monnam(mdef));
+            if (!Blind) {
+                if (has_free_action(mdef)) {
+                    pline("%s stiffens momentarily.", Monnam(mdef));
+                } else {
+                    pline("%s is frozen by you!", Monnam(mdef));
+                }
+            }
+            if (has_free_action(mdef))
+                break;
             paralyze_monst(mdef, rnd(10));
         }
         break;
     case AD_TCKL:
-		if (!negated && mdef->mcanmove && !rn2(3) && tmp < mdef->mhp) {
-		    if (!Blind) You("mercilessly tickle %s!", mon_nam(mdef));
-		    paralyze_monst(mdef, rnd(10));
-		}
-		break;
+        if (!negated && mdef->mcanmove
+              && !rn2(3) && tmp < mdef->mhp) {
+            if (has_free_action(mdef))
+                break;
+            if (!Blind)
+                You("mercilessly tickle %s!", mon_nam(mdef));
+            paralyze_monst(mdef, rnd(10));
+        }
+        break;
     case AD_SLEE:
         if (!negated && !mdef->msleeping && sleep_monst(mdef, rnd(10), -1)) {
             if (!Blind)

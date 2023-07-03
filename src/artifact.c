@@ -2988,7 +2988,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             nomul(-4);
             multi_reason = "bound by the Chains of Malcanthet";
             nomovemsg = You_can_move_again;
-        } else if (mdef->mcanmove) {
+        } else if (mdef->mcanmove && !has_free_action(mdef)) {
             paralyze_monst(mdef, rnd(4));
         }
         return realizes_damage;

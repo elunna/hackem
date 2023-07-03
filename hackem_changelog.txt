@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Monsters can utilize free action. (EvilHack)
 Fix: weapon material damage adjustments. (EvilHack)
 Fix: double message when entering the lemure pits (hellc demon boss level). (EvilHack)
 Fix: dialogue formatting with the Priest quest. (EvilHack)
