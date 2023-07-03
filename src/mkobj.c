@@ -3672,6 +3672,8 @@ struct obj* obj;
         case SADDLE:
         case TINNING_KIT:
         case TINFOIL_HAT:
+        case OILSKIN_SACK:
+        case OILSKIN_CLOAK:
         case BANDAGE:
         case PHIAL:
         case AMULET_OF_YENDOR:
@@ -3737,7 +3739,6 @@ struct obj* obj;
         case BASEBALL_BAT:
             return bat_materials;
         case SACK:
-        case OILSKIN_SACK:
         case BAG_OF_HOLDING:
         case BAG_OF_TRICKS:
             return portable_container_materials;

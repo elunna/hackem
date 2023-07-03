@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: oilskin sacks/cloaks spawning with materials other than cloth. (EvilHack)
 Phasing allows escape from being engulfed. (EvilHack)
 Tweak to 'restore ability spell is now directional'. (EvilHack)
 Restore ability spell is now directional. (EvilHack)
