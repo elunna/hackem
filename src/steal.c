@@ -291,8 +291,10 @@ boolean artifact;
     /* food being eaten might already be used up but will not have
        been removed from inventory yet; we don't want to steal that,
        so this will cause it to be removed now */
-    if (occupation)
+    if (occupation) {
         (void) maybe_finished_meal(FALSE);
+        update_inventory(); /* meal weight has changed */
+    }
 
     icnt = inv_cnt(FALSE); /* don't include gold */
     if (!icnt || (icnt == 1 && uskin)) {

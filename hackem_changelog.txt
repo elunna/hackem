@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: stacked food objects, weight not updating for split object in curses mode if eating was interrupted. (EvilHack)
 Fix: zapping cancellation at magical trap. (EvilHack)
 Allow monks with intrinsic water walking to enter into and stay in pools/moats. (EvilHack)
 Fix: feedback when engulfed by a water elemental/sea dragon and the player is amphibious. (EvilHack)
