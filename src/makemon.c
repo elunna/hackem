@@ -1244,12 +1244,12 @@ register struct monst *mtmp;
                         m_initthrow(mtmp, ARROW, 30);
                     }
                 } else if (racial_orc(mtmp)) {
-                    w1 = rn2(2) ? BROADSWORD : ORCISH_SCIMITAR;
+                    w1 = rn2(2) ? ORCISH_LONG_SWORD : ORCISH_SCIMITAR;
                 } else if (racial_giant(mtmp)) {
                     w1 = rn2(2) ? HALBERD : BATTLE_AXE;
                     mongets(mtmp, BOULDER);
                 } else {
-                    w1 = rn2(2) ? BROADSWORD : ORCISH_LONG_SWORD;
+                    w1 = rn2(2) ? BROADSWORD : LONG_SWORD;
                     if (Is_stronghold(&u.uz)) {
                         if (rn2(2)) {
                             w1 = AUTO_SHOTGUN;
