@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Updated list of chaotic minions gifted by altar sacrifice.
 Revert c424a80 Chaotic minions are granted using ndemon
 Fix: Memory leak in mongets if invalid object is created. Fixes #355.
 Fix: Manticore spikes falling down stairs and a few other memory leaks. Fixes #354.
