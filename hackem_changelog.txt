@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Show play time/wallclock time in the dumplog (text and html). (EvilHack)
 Show spells known in the dumplog (text and html). (EvilHack)
 Git info formatting in dumplog. (EvilHack)
 Fix: blanked spellbooks from reading not updating in permanent inventory. (EvilHack)
