@@ -2951,7 +2951,6 @@ register boolean newlev;
                 You("have an uncanny feeling...");
             break;
         case LEMUREPIT:
-            You("enter a pit of tortured lemures!");
             break;
         case BEEHIVE:
             You("enter a giant beehive!");
