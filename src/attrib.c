@@ -161,7 +161,7 @@ static const struct innate {
                  { 1, &(HPoison_resistance), "", "" },
                  { 0, 0, 0, 0 } },
 
-  /* giants had it FROMFORM---make it FROMRACE like other races */
+  /* giants had it FROMFORM - make it FROMRACE like other races */
   gia_abil[] = { { 1, &(HInfravision), "", "" },
                  { 1, &(HAggravate_monster), "", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
@@ -186,7 +186,7 @@ static const struct innate {
                  /*{ 12, &(HFlying), "lighter than air", "gravity's pull" },*/
                  { 0, 0, 0, 0 } },
 
-  /* remove drain res and flying---they are FROMFORM
+  /* remove drain res and flying - they are FROMFORM
    * add sick res to remain consistent with previous behavior */
   dem_abil[] = { { 1, &(HInfravision), "", "" },
                  { 1, &(HFire_resistance), "", "" },

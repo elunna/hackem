@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: one compile warning, formatting cleanup from last commit. (EvilHack)
 Adjustments to racial abilities. (EvilHack)
 Allow some monsters to break boulders. (EvilHack)
 Add phasing status to botl. (EvilHack)

@@ -832,7 +832,7 @@ gcrownu()
     xchar maxint, maxwis;
 #define ok_wep(o) ((o) && ((o)->oclass == WEAPON_CLASS || is_weptool(o)))
 
-    /* Moloch-worshippers get intrinsics from becoming a demon*/
+    /* Moloch-worshippers get intrinsics from becoming a demon */
     if (u.ualign.type != A_NONE) {
         incr_resistance(&HFire_resistance, 100);
         incr_resistance(&HCold_resistance, 100);
@@ -949,8 +949,8 @@ gcrownu()
             unrestrict_weapon_skill(P_TRIDENT);
             P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
             if (Upolyd)
-                rehumanize(); /* return to human/orcish form -- not a
-                                 demon yet */
+                rehumanize(); /* return to original form -- not a demon yet */
+
             /* lose ALL old racial abilities */
             adjabil(u.ulevel, 0);
             maxint = urace.attrmax[A_INT];

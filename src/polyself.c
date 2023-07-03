@@ -77,6 +77,7 @@ set_uasmon()
     PROPSET(SONIC_RES, resists_sonic(&youmonst));
     PROPSET(PSYCHIC_RES, resists_psychic(&youmonst));
     PROPSET(DRAIN_RES, resists_drain(racedat));
+
     /* Vulnerablilties */
     PROPSET(VULN_FIRE, vulnerable_to(&youmonst, AD_FIRE));
     PROPSET(VULN_COLD, vulnerable_to(&youmonst, AD_COLD));
