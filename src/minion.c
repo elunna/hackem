@@ -344,25 +344,18 @@ int lawful_minion(int difficulty)
    difficulty = difficulty + rn2(5) - 2;
    if (difficulty < 0) 
        difficulty = 0;
-   if (difficulty > 30) 
-       difficulty = 30;
    difficulty /= 3;
-   
-   switch (difficulty) {
-      case 0: return PM_TENGU;
-      case 1: return PM_COUATL;
-      case 2: return PM_WHITE_UNICORN;
-      case 3: return PM_MOVANIC_DEVA;
-      case 4: return PM_MONADIC_DEVA;
-      case 5: return PM_KI_RIN;
-      case 6: return PM_ASTRAL_DEVA;
-      case 7: return PM_ARCHON;
-      case 8: return PM_PLANETAR;
-      case 9: return PM_SOLAR;
-      case 10: return PM_SOLAR;
 
-      default: return PM_TENGU;
-   }
+   if (difficulty < 0)
+       difficulty = 0;
+   if (difficulty < 10)
+       return rn2(3) ? PM_TENGU : PM_YUKI_ONNA;
+   if (difficulty < 25)
+       return lminion();
+   if (difficulty > 24)
+       return PM_ARCHON + rn2(3);
+
+   return PM_TENGU;
 }
 
 int neutral_minion(int difficulty)
@@ -370,16 +363,11 @@ int neutral_minion(int difficulty)
    given a difficulty rating from 1 to 30 */
 {
    difficulty = difficulty + rn2(9) - 4;
-   if (difficulty < 0) 
-       difficulty = 0;
-   if (difficulty > 30) 
-       difficulty = 30;
    if (difficulty < 6) 
        return PM_GRAY_UNICORN;
-   if (difficulty < 15) 
+   if (difficulty > 9)
        return rand_elemental();
-   
-   return (PM_DJINNI /* +rn2(4) */);
+   return PM_DJINNI;
 }
 
 int chaotic_minion(int difficulty)
