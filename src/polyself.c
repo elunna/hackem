@@ -1469,8 +1469,8 @@ dovolley()
             otmp = mksobj(otyp, TRUE, FALSE);
             otmp->spe = 1; /* to indicate it's yours */
             throwit(otmp, 0L, FALSE);
-            obfree(otmp, (struct obj *) 0);
             otmp = (struct obj *) 0;
+
         }
     }
     return 1;

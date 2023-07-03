@@ -2679,6 +2679,7 @@ struct obj *obj;
     case SHOTGUN_SHELL:
     case SNOWBALL:
     case SPRIG_OF_CATNIP:
+    case SPIKE:
     /* In Splice the lash breaks upon throwing, not sure why but we'll leave it. */
     case FLAMING_LASH: 
         return 1;
@@ -2749,6 +2750,9 @@ boolean in_view;
         break;
     case SNOWBALL:
         pline("Thwap!");
+        break;
+    case SPIKE:
+        /* No message needed */
         break;
     }
 }
