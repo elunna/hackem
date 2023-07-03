@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: separate monster from player when determining number of objects in inventory to cancel. (EvilHack)
 Fix: oilskin sacks/cloaks spawning with materials other than cloth. (EvilHack)
 Phasing allows escape from being engulfed. (EvilHack)
 Tweak to 'restore ability spell is now directional'. (EvilHack)
