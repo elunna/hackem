@@ -484,10 +484,7 @@ struct damage_info_t *damage_info)
         tmp += otmp->spe;
 
         /* adjust for various materials */
-#define is_odd_material(obj, mat) \
-    ((obj)->material == (mat) && !(objects[(obj)->otyp].oc_material == (mat)))
-        
-        if (is_odd_material(otmp, GLASS)) {
+        if (otmp->material == GLASS || otmp->material == GEMSTONE) {
             /* glass is extremely sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 3;
@@ -496,7 +493,7 @@ struct damage_info_t *damage_info)
                 tmp += 3;
                 damage_info->mat_damage = "\t+3 (glass slashing bonus).";
             }
-        } else if (is_odd_material(otmp, GEMSTONE)) {
+        } else if (otmp->material == GEMSTONE) {
             /* gemstone is extremely sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 3;
@@ -505,19 +502,19 @@ struct damage_info_t *damage_info)
                 tmp += 3;
                 damage_info->mat_damage = "\t+3 (gemstone slashing bonus).";
             }
-        } else if (is_odd_material(otmp, GOLD)) {
+        } else if (otmp->material == GOLD) {
             /* heavy metals, but softer than stone */
             if (objects[otmp->otyp].oc_dir & WHACK) {
                 tmp += 1;
                 damage_info->mat_damage = "\t+1 (gold whacking bonus).";
             }
-        } else if (is_odd_material(otmp, PLATINUM)) {
+        } else if (otmp->material == PLATINUM) {
             /* heavy metals, but softer than stone */
             if (objects[otmp->otyp].oc_dir & WHACK) {
                 tmp += 1;
                 damage_info->mat_damage = "\t+1 (platinum whacking bonus).";
             }
-        } else if (is_odd_material(otmp, MITHRIL)) {
+        } else if (otmp->material == MITHRIL) {
             /* light and sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 2;
@@ -526,7 +523,7 @@ struct damage_info_t *damage_info)
                 tmp += 2;
                 damage_info->mat_damage = "\t+2 (mithril slashing bonus).";
             }
-        } else if (is_odd_material(otmp, MINERAL)) {
+        } else if (otmp->material == MINERAL) {
             /* stone is heavy */
             if (objects[otmp->otyp].oc_dir & SLASH) {
                 tmp += 2;
@@ -535,28 +532,29 @@ struct damage_info_t *damage_info)
                 tmp += 2;
                 damage_info->mat_damage = "\t+2 (mineral whacking bonus).";
             }
-        } else if (is_odd_material(otmp, PLASTIC)) {
+        } else if (otmp->material == PLASTIC) {
             /* just terrible weapons all around */
             tmp -= 2;
             damage_info->mat_damage = "\t-2 (plastic penalty).";
         } 
-        else if (is_odd_material(otmp, PAPER)) {
+        else if (otmp->material == PAPER) {
             tmp -= 2;
             damage_info->mat_damage = "\t-2 (paper penalty).";
-        } else if (is_odd_material(otmp, WOOD) && !is_elven_weapon(otmp)) {
+        } else if (otmp->material == WOOD && !is_elven_weapon(otmp)) {
             /* poor at holding an edge */
             if (is_blade(otmp)) {
                 tmp -= 1;
                 damage_info->mat_damage = "\t-1 (wood penalty).";
             }
-        } else if (is_odd_material(otmp, METAL)) {
+        } else if (otmp->material == METAL) {
             /* steel has roughly the same density as iron,
                but is stronger and makes for a finer edge
                on bladed weapons */
-            tmp += 1;
+            if (objects[otmp->otyp].oc_dir & (PIERCE | SLASH)) {
+                tmp += 1;
+            }
             damage_info->mat_damage = "\t+1 (metal bonus).";
         }
-#undef is_odd_material
     } 
     
     /* lightsaber that isn't lit ;) */
