@@ -97,7 +97,8 @@
 
 /* is_vampshifter(mon) in handled explicitly in zap.c */
 #define immune_death_magic(ptr) \
-    (nonliving(ptr) \
+    (dmgtype((ptr), AD_DETH) \
+    || nonliving(ptr) \
     || is_demon(ptr) \
     || is_angel(ptr) \
     || (ptr)->msound == MS_LEADER \

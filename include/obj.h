@@ -505,6 +505,9 @@ struct obj {
     ((o)->otyp == LENSES || (o)->otyp == GOGGLES \
      || is_gloves(o) || is_boots(o))
 
+#define bypass_forging_rules(obj) \
+    ((obj)->otyp == SADDLE)
+
 /* 'PRIZE' values override obj->corpsenm so prizes mustn't be object types
    which use that field for monster type (or other overloaded purpose) */
 #define MINES_PRIZE 1

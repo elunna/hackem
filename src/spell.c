@@ -2093,7 +2093,8 @@ int spell;
     if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
 
-    if (uarmh && is_metallic(uarmh) && uarmh->otyp != HELM_OF_BRILLIANCE && !paladin_bonus)
+    if (uarmh && is_metallic(uarmh)
+        && uarmh->otyp != HELM_OF_BRILLIANCE && !paladin_bonus)
         splcaster += uarmhbon;
     if (uarmg && is_metallic(uarmg) && !paladin_bonus)
         splcaster += uarmgbon;

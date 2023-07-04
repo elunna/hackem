@@ -613,8 +613,8 @@ doforging(void)
     if (!obj1) {
         You("need a base object to forge with.");
         return 0;
-    } else if (!(is_metallic(obj1)
-                 || is_crystal(obj1) || obj1->otyp == SADDLE)) {
+    } else if (!(is_metallic(obj1) || is_crystal(obj1)
+                 || bypass_forging_rules(obj1))) {
         /* object should be gemstone or metallic */
         pline_The("base object must be made of gemstone or something metallic.");
         return 0;
@@ -625,8 +625,8 @@ doforging(void)
     if (!obj2) {
         You("need more than one object.");
         return 0;
-    } else if (!(is_metallic(obj2)
-                 || is_crystal(obj2) || obj2->otyp == SADDLE)) {
+    } else if (!(is_metallic(obj2) || is_crystal(obj2)
+                 || bypass_forging_rules(obj1))) {
         /* secondary object should also be gemstone or metallic */
         pline_The("secondary object must be made of gemstone or something metallic.");
         return 0;

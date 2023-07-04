@@ -3395,6 +3395,8 @@ int final;
         you_are("immune to sickness", from_what(SICK_RES));
     if (Stone_resistance)
         you_are("petrification resistant", from_what(STONE_RES));
+    if (Death_resistance)
+        you_are("immune to the effects of death magic", from_what(DEATH_RES));
     if (Halluc_resistance)
         enl_msg(You_, "resist", "resisted", " hallucinations",
                 from_what(HALLUC_RES));
@@ -3627,8 +3629,6 @@ int final;
         you_can("survive without having to eat", "");
     else if (is_vampire(raceptr(&youmonst)))
         you_can("feed on blood and lifeblood", "");
-    if (immune_death_magic(raceptr(&youmonst)))
-        you_are("immune to the effects of death magic", "");
     if (u.uhitinc)
         you_have(enlght_combatinc("to hit", u.uhitinc, final, buf), "");
     if (u.udaminc)

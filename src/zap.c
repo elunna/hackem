@@ -3152,7 +3152,8 @@ boolean ordinary;
 
     case WAN_DEATH:
     case SPE_FINGER_OF_DEATH:
-        if (immune_death_magic(youmonst.data)) {
+        if (Death_resistance || immune_death_magic(youmonst.data)) {
+            shieldeff(u.ux, u.uy);
             pline((obj->otyp == WAN_DEATH)
                       ? "The wand shoots an apparently harmless beam at you."
                       : "You seem no more dead than before.");
@@ -4884,6 +4885,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
                 break;
             }
             if (immune_death_magic(mon->data)
+                || defended(mon, AD_DETH)
                 || is_vampshifter(mon)) {
                 sho_shieldeff = TRUE;
                 tmp = 0;
@@ -5130,7 +5132,8 @@ xchar sx, sy;
         } if (Invulnerable) {
             pline_The("ray goes right through you!");
             break;
-        } else if (immune_death_magic(youmonst.data)) {
+        } else if (Death_resistance
+                   || immune_death_magic(youmonst.data)) {
             shieldeff(sx, sy);
             You("seem unaffected.");
             break;

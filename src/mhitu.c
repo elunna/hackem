@@ -2467,7 +2467,7 @@ do_rust:
     case AD_DETH:
         if (mtmp && mdat == &mons[PM_DEATH])
             pline("%s reaches out with its deadly touch.", Monnam(mtmp));
-        if (immune_death_magic(youmonst.data)) {
+        if (Death_resistance || immune_death_magic(youmonst.data)) {
             /* Still does normal damage */
             You("are unaffected by death magic.");
             break;
@@ -3833,8 +3833,9 @@ struct attack *mattk;
             /* currently only Vecna has the gaze of death */
             if (mtmp && mtmp->data == &mons[PM_VECNA])
                 You("meet %s deadly gaze!", s_suffix(mon_nam(mtmp)));
-            if (immune_death_magic(youmonst.data)) {
+            if (Death_resistance || immune_death_magic(youmonst.data)) {
                 /* Still does normal damage */
+                shieldeff(u.ux, u.uy);
                 You("are unaffected by death magic.");
                 break;
             }
