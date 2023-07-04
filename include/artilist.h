@@ -39,6 +39,7 @@ static const char *artifact_names[] = {
 #define     DREN(a,b)   {0,AD_DREN,a,b}         /* drains energy */
 #define     STON(a,b)   {0,AD_STON,a,b}         /* petrification */
 #define     DETH(a,b)   {0,AD_DETH,a,b}         /* special death attack */
+#define     DISN(a,b)   {0,AD_DISN,a,b}         /* disintegration attack */
 #define     PLYS(a,b)   {0,AD_PLYS,a,b}         /* whip binding */
 #define     SLEE(a,b)   {0,AD_SLEE,a,b}         /* Sleep attack  */
 #define     LOUD(a,b)   {0,AD_LOUD,a,b}         /* Sonic attack  */
@@ -537,7 +538,17 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_STLTH), SPFX_WARN, 0,
       NO_ATTK, NO_DFNS, NO_CARY,
       SELF_TELE, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
-    
+
+    /* The Sword of Annihilation can only be created by forging the
+       artifacts Fire Brand and Frost Brand together. Their combined
+       magic and energy form to produce a sword capable of
+       disintegrating most anything it hits, while protecting the
+       one that wields it from the same type of attack */
+    A("The Sword of Annihilation", LONG_SWORD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL),
+      0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
+      NON_PM, NON_PM, 25000L, CLR_BLACK, METAL),
+
     /*
      *      The artifacts for the quest dungeon, all self-willed.
      */
@@ -761,6 +772,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #undef DREN
 #undef STON
 #undef DETH
+#undef DISN
 #undef PLYS
 #undef LOUD
 #undef WTHR
