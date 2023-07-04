@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Typo fix. (EvilHack)
 Fix: missing a couple cases where Death_resistance should have been included. (EvilHack)
 Fix: various issues with the Sword of Annihilation's attack. (EvilHack)
 Ported death resistance from EvilHack.
