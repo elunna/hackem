@@ -145,26 +145,26 @@ int prop;
 {
     switch (prop) {
         case SEARCHING:
-            return SPFX_SEEK;
-	case WARNING:
+            return SPFX_SEARCH;
+        case WARNING:
             return SPFX_WARN;
-	case TELEPAT:
+        case TELEPAT:
             return SPFX_ESP;
-	case HALLUC_RES:
+        case HALLUC_RES:
             return SPFX_HALRES;
-	case STEALTH:
+        case STEALTH:
             return SPFX_STLTH;
-	case REGENERATION:
+        case REGENERATION:
             return SPFX_REGEN;
-	case TELEPORT_CONTROL:
+        case TELEPORT_CONTROL:
             return SPFX_TCTRL;
-	case ENERGY_REGENERATION:
+        case ENERGY_REGENERATION:
             return SPFX_EREGEN;
-	case HALF_SPDAM:
+        case HALF_SPDAM:
             return SPFX_HSPDAM;
-	case HALF_PHDAM:
+        case HALF_PHDAM:
             return SPFX_HPHDAM;
-	case REFLECTING:
+        case REFLECTING:
             return SPFX_REFLECT;
     }
      return 0L;
@@ -3694,7 +3694,25 @@ struct obj *obj;
             object_detect(obj, 0);
             /*artifact_detect(obj);*/
             break;
-        case PHASING:   /* Walk through walls and stone like a xorn */
+        case FEAR: {
+            int ct = 0;
+
+            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp))
+                    continue;
+                if (cansee(mtmp->mx, mtmp->my)) {
+                    monflee(mtmp, 0, FALSE, FALSE);
+                    if (!mtmp->mtame)
+                        ct++; /* pets don't laugh at you */
+                }
+            }
+            if (!Deaf)
+                You_hear("%s laughter coming from %s!",
+                         rn2(2) ? "fiendish" : "maniacal",
+                         xname(obj));
+            break;
+        }
+        case PHASING: /* Walk through walls and stone like a xorn */
             if (Passes_walls)
                 goto nothing_special;
             if (!Hallucination) {

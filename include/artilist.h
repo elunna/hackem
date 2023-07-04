@@ -486,7 +486,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL | SPFX_REGEN
        | SPFX_HPHDAM),
       0, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
-      NON_PM, NON_PM, 50000L, CLR_BLACK, FLESH),
+      NON_PM, NON_PM, 50000L, NO_COLOR, FLESH),
 
     /* Blinding mace. */
     A("Sunspot", MACE, (SPFX_RESTR | SPFX_BLIND), 0, 0,
@@ -547,7 +547,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Sword of Annihilation", LONG_SWORD,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL),
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
-      NON_PM, NON_PM, 25000L, CLR_BLACK, METAL),
+      NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
 
     /*
      *      The artifacts for the quest dungeon, all self-willed.

@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Ported the fear invoke from Shadowblade (from EvilHack ef63e53ad).
 Forging artifacts. (EvilHack)
 Fix: Only 3 wish attempts allowed when it should be 5 (reported by hothraxxa). Fixes #357.
 Updates from EvilHack commit d5ffd4b5d pertaining to monsters that hate light.
