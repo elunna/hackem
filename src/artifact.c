@@ -2353,85 +2353,107 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         msgprinted = TRUE;
         return realizes_damage;
     }
+
     /* Eighth basic attack - disintegration */
     if (attacks(AD_DISN, otmp)) {
+        boolean resistant = youdefend ? how_resistant(DISINT_RES) >= 50
+                                      : (resists_disint(mdef)
+                                         || defended(mdef, AD_DISN));
         if (realizes_damage) {
             /* currently the only object that uses this
-               is the Sword of Anniliation artifact */
-            if (!youattack && magr && cansee(magr->mx, magr->my)) {
-                if (!rn2(10) && !(resists_disint(mdef)
-                                  || defended(mdef, AD_DISN))) {
-                    pline_The("deadly blade disintegrates %s%c",
-                              hittee, !spec_dbon_applies ? '.' : '!');
-                    mongone(mdef);
-                } else if (!spec_dbon_applies) {
-                    if (!youdefend)
-                        ;
-                    else
-                        pline_The("dark blade hits %s.", hittee);
-                } else {
-                    if (!rn2(10) && (how_resistant(DISINT_RES) < 50)) {
-                        pline_The("deadly blade disintegrates %s%c",
-                                  hittee, !spec_dbon_applies ? '.' : '!');
-                        u.ugrave_arise = -3;
-                        killer.format = NO_KILLER_PREFIX;
-                        Sprintf(killer.name, "disintegrated by %s",
-                                the(xname(otmp)));
-                        done(DIED);
-                        *dmgptr = 1;
-                    } else {
-                        pline_The("dark blade %s %s%c",
-                                  Disint_resistance
-                                      ? "hits"
-                                      : "partially disintegrates",
-                                  hittee, !spec_dbon_applies ? '.' : '!');
-                    }
+               is the Sword of Annihilation artifact */
+            pline_The("deadly blade %s %s!",
+                      resistant ? "hits" : "partially disintegrates", hittee);
+        }
 
-                    /* chance for worn armor to be disintegrated */
-                    if (uarms && !rn2(3)) {
-                        (void) destroy_arm(uarms, FALSE);
-                    } else if (uarmc && !rn2(4)) {
-                        (void) destroy_arm(uarmc, FALSE);
-                    } else if (uarm && !rn2(6)) {
-                        (void) destroy_arm(uarm, FALSE);
+        if (!rn2(12) && !resistant) {
+            /* instant disintegration */
+            pline_The("deadly blade disintegrates %s!", hittee);
+            if (youdefend) {
+                u.ugrave_arise = (NON_PM - 2); /* no corpse */
+                killer.format = NO_KILLER_PREFIX;
+                Sprintf(killer.name, "disintegrated by %s", the(xname(otmp)));
+                done(DIED);
+            } else { /* you or mon hit monster */
+                disint_mon_invent(mdef);
+                if (youattack) {
+                    if (is_rider(mdef->data)) {
+                        if (vis) {
+                            pline("%s body reintegrates before your %s!",
+                                  s_suffix(Monnam(mdef)),
+                                  (eyecount(youmonst.data) == 1)
+                                      ? body_part(EYE)
+                                      : makeplural(body_part(EYE)));
+                            pline("%s resurrects!", Monnam(mdef));
+                        }
+                        mdef->mhp = mdef->mhpmax;
+                    } else {
+                        xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
                     }
-                }
-            } else {
-                if (!rn2(6) && !(resists_disint(mdef)
-                                 || defended(mdef, AD_DISN))) {
-                    pline_The("deadly blade disintegrates %s%c",
-                              hittee, !spec_dbon_applies ? '.' : '!');
-                    xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
                 } else {
-                    pline_The("dark blade %s %s%c",
-                              (resists_disint(mdef) || defended(mdef, AD_DISN))
-                                  ? "hits"
-                                  : "partially disintegrates",
-                              hittee, !spec_dbon_applies ? '.' : '!');
+                    if (is_rider(mdef->data)) {
+                        if (vis) {
+                            pline("%s body reintegrates!",
+                                  s_suffix(Monnam(mdef)));
+                            pline("%s resurrects!", Monnam(mdef));
+                        }
+                        mdef->mhp = mdef->mhpmax;
+                    } else {
+                        monkilled(mdef, 0, AD_DISN);
+                    }
                 }
             }
+            return TRUE;
+        }
 
-            /* chance for monster's worn armor to be disintegrated */
-            if (!youdefend) {
-                if ((mdef->misc_worn_check & W_ARMS) && !rn2(3)) {
+        /* maybe disintegrate some armor */
+        struct obj *target = (struct obj *) 0;
+
+        if (youdefend) { /* hero's armor is targeted */
+            if (uarms && !rn2(3)) {
+                target = uarms;
+            } else if (uarmc && !rn2(4)) {
+                target = uarmc;
+            } else if (uarm && !rn2(6)) {
+                target = uarm;
+            }
+
+            if (target) {
+                if (target->otyp == BLACK_DRAGON_SCALES
+                    || (Is_dragon_scaled_armor(target)
+                        && Dragon_armor_to_scales(target) == BLACK_DRAGON_SCALES)) {
+                    /* nothing happens */
+                    Your("%s vibrates unexpectedly, but remains intact.",
+                         xname(target));
+                } else {
+                    (void) destroy_arm(target, FALSE);
+                }
+            }
+        } else { /* monster's armor is targeted */
+            if ((mdef->misc_worn_check & W_ARMS) && !rn2(3)) {
+                target = which_armor(mdef, W_ARMS);
+            } else if ((mdef->misc_worn_check & W_ARMC) && !rn2(4)) {
+                target = which_armor(mdef, W_ARMC);
+            } else if ((mdef->misc_worn_check & W_ARM) && !rn2(6)) {
+                target = which_armor(mdef, W_ARM);
+            }
+
+            if (target) {
+                if (target->otyp == BLACK_DRAGON_SCALES
+                    || (Is_dragon_scaled_armor(target)
+                        && Dragon_armor_to_scales(target) == BLACK_DRAGON_SCALES)) {
+                    /* nothing happens */
                     if (canseemon(mdef))
-                        pline("%s %s is disintegrated!",
-                              s_suffix(Monnam(mdef)), xname(which_armor(mdef, W_ARMS)));
-                    m_useup(mdef, which_armor(mdef, W_ARMS));
-                } else if ((mdef->misc_worn_check & W_ARMC) && !rn2(4)) {
+                        pline("%s %s vibrates unexpectedly, but remains intact.",
+                              s_suffix(Monnam(mdef)), xname(target));
+                } else {
                     if (canseemon(mdef))
-                        pline("%s %s is disintegrated!",
-                              s_suffix(Monnam(mdef)), xname(which_armor(mdef, W_ARMC)));
-                    m_useup(mdef, which_armor(mdef, W_ARMC));
-                } else if ((mdef->misc_worn_check & W_ARM) && !rn2(6)) {
-                    if (canseemon(mdef))
-                        pline("%s %s is disintegrated!",
-                              s_suffix(Monnam(mdef)), xname(which_armor(mdef, W_ARM)));
-                    m_useup(mdef, which_armor(mdef, W_ARM));
+                        pline("%s %s is disintegrated!", s_suffix(Monnam(mdef)),
+                              xname(target));
+                    m_useup(mdef, target);
                 }
             }
         }
-        msgprinted = TRUE;
         return realizes_damage;
     }
 
