@@ -2110,17 +2110,31 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Fifth basic attack - acid (for the new and improved Dirge... DIRGE) */
     if (attacks(AD_ACID, otmp)) {
         if (realizes_damage) {
-            pline_The("acidic blade %s %s%c",
-                      !spec_dbon_applies
-                          ? "hits"
-                          : can_corrode(mdef->data)
-                              ? "eats away part of"
-                              : mon_underwater(mdef) ? "hits" : "burns",
-                      hittee, !spec_dbon_applies ? '.' : '!');
+            if (otmp->oartifact == ART_DIRGE) {
+                pline_The("acidic blade %s %s%c",
+                          !spec_dbon_applies        ? "hits"
+                          : can_corrode(mdef->data) ? "eats away part of"
+                          : mon_underwater(mdef)    ? "hits"
+                                                    : "burns",
+                          hittee, !spec_dbon_applies ? '.' : '!');
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_ACID)) {
+                pline_The("acidic %s %s %s%c",
+                          distant_name(otmp, xname),
+                          !spec_dbon_applies        ? "hits"
+                          : can_corrode(mdef->data) ? "eats away part of"
+                          : mon_underwater(mdef)    ? "hits"
+                                                    : "burns",
+                          hittee, !spec_dbon_applies ? '.' : '!');
+            }
         }
         if (youdefend ? !Underwater : !mon_underwater(mdef)) {
             if (!rn2(5))
                 erode_armor(mdef, ERODE_CORRODE);
+        }
+        if ((otmp->oprops & ITEM_ACID) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_ACID;
+            update_inventory();
         }
         return realizes_damage;
     }
