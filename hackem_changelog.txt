@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Create new artifact flag and macro (SPFX_FORGED and is_forged_artifact()). (EvilHack)
 Fix: AT_SCRE / AD_LOUD in mhitm.c (EvilHack)
 Fix: boolean statement in AD_LOUD (mhitu.c) (EvilHack)
 Fix: AD_LOUD not doing damage; new monster - celestial dragon. (EvilHack)

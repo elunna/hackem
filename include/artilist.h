@@ -88,8 +88,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, MH_DEMON, PHYS(8, 8), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL,
       NON_PM, PM_DWARF, 9000L, CLR_RED, MITHRIL),
 
-    A("Excalibur", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_SEEK
-                                | SPFX_DEFN | SPFX_INTEL | SPFX_SEARCH),
+    A("Excalibur", LONG_SWORD, (SPFX_NOGEN | SPFX_RESTR | SPFX_DEFN
+                                | SPFX_INTEL | SPFX_SEARCH),
       0, 0, PHYS(5, 10), DFNS(AD_DRLI), NO_CARY, 0, A_LAWFUL, PM_KNIGHT, NON_PM,
       4000L, NO_COLOR, DEFAULT_MAT),
 
@@ -539,13 +539,23 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY,
       SELF_TELE, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
 
+
+
+    /*
+     *      Forged artifacts
+     *
+     *      Artifacts that can only be created in a forge
+     *      by forging two existing artifacts together to
+     *      create a new artifact.
+     */
+
     /* The Sword of Annihilation can only be created by forging the
        artifacts Fire Brand and Frost Brand together. Their combined
        magic and energy form to produce a sword capable of
        disintegrating most anything it hits, while protecting the
        one that wields it from the same type of attack */
     A("The Sword of Annihilation", LONG_SWORD,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL),
+      (SPFX_NOGEN | SPFX_FORGED | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL),
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
 
@@ -733,7 +743,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      */
     A("The Iron Spoon of Liberation", SPOON,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH | SPFX_DIG), 
-      (SPFX_SEARCH | SPFX_SEEK | SPFX_LUCK), 0,
+      (SPFX_SEARCH | SPFX_LUCK), 0,
       PHYS(5,0), NO_DFNS, CARY(AD_PLYS), PHASING, 
       A_CHAOTIC, PM_CONVICT, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     

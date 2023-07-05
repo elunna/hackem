@@ -5264,4 +5264,14 @@ int dx, dy, maxdist;
     }
     return TRUE;
 }
+boolean
+is_forged_artifact(otmp)
+struct obj *otmp;
+{
+    int art = otmp->oartifact;
+    if (!art)
+        return FALSE;
+    return ((artilist[art].spfx & SPFX_FORGED) != 0L);
+}
+
 /*artifact.c*/
