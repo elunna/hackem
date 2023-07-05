@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Add -DEDIT_GETLIN to sys/unix/hints/linux.
 Couple disintegested updates from EvilHack for mhitm.c
 Fix: #wizbury cannot be used on open air spaces. Fixes #353.
 Fix: display of eaten_memory for doppelganger ctrl-X display (reported by cbus). Fixes #340.
