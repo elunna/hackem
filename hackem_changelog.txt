@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: #wizbury cannot be used on open air spaces. Fixes #353.
 Fix: display of eaten_memory for doppelganger ctrl-X display (reported by cbus). Fixes #340.
 Handle weapons with the acidic property and reveal in inventory when used.
 Add Grandmaster's Robe from dNethack. Fixes #346.
