@@ -2732,6 +2732,7 @@ E void NDECL(tech_timeout);
 E void FDECL(extend_tech_time, (int, int));
 E boolean FDECL(tech_known, (SHORT_P));
 E void FDECL(learntech, (SHORT_P,long,int));
+E void NDECL(dump_techniques);
 E int FDECL(do_pickpocket, (struct monst *));
 E int FDECL(do_breakrock, (int, int));
 

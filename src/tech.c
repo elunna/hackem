@@ -680,25 +680,23 @@ int *tech_no;
     return FALSE;
 }
 
-#ifdef DUMP_LOG
 void 
 dump_techniques()
 {
-
-    winid tmpwin;
-    int i, n, len, tlevel;
+    int i, tlevel;
     char buf[BUFSZ];
     const char *prefix;
 
     if (techid(0) == NO_TECH) {
-        dump("", "You didn't know any techniques.");
-        dump("", "");
+        putstr(0, 0, "You didn't know any techniques.");
         return;
     }
-    dump("", "Techniques known in the end");
+
+    putstr(0, ATR_HEADING, "Techniques known in the end");
 
     Sprintf(buf, "    %-17s Level  Status", "Name");
-    dump("  ",buf);
+    putstr(0, ATR_PREFORM, buf);
+
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
             continue;
@@ -722,7 +720,7 @@ dump_techniques()
                     techtout(i) > 1000 ? "Not Ready" :
                     techtout(i) > 100 ? "Reloading" : "Soon",
                     techtout(i));
-            dump("  ", buf);
+            putstr(0, ATR_PREFORM, buf);
         } else {
             Sprintf(buf, "%s%s\t%2d%c%c%c\t%s(%i)",
                     prefix, techname(i), tlevel,
@@ -736,13 +734,13 @@ dump_techniques()
                     techtout(i) > 1000 ? "Not Ready" :
                     techtout(i) > 100 ? "Reloading" : "Soon",
                     techtout(i));
-            dump("  ", buf);
+            putstr(0, ATR_PREFORM, buf);
         }
     }
-    dump("", "");
+    putstr(0, 0, "You didn't know any spells.");
 
 } /* dump_techniques */
-#endif
+
 
 static int
 get_tech_no(tech)

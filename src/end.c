@@ -947,6 +947,8 @@ time_t when; /* date+time at end of game */
     putstr(NHW_DUMPTXT, 0, "");
     dump_spells();
     putstr(NHW_DUMPTXT, 0, "");
+    dump_techniques();
+    putstr(NHW_DUMPTXT, 0, "");
     list_vanquished('d', FALSE); /* 'd' => 'y' */
     putstr(NHW_DUMPTXT, 0, "");
     list_genocided('d', FALSE); /* 'd' => 'y' */
