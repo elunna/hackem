@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Formatting fixes. (EvilHack)
 Fix monster hurtling back player with Ogresmasher. (EvilHack)
 Ogresmasher knockback. (EvilHack)
 Fix: refactor and fix various bugs in artifact_hit() function. (EvilHack)

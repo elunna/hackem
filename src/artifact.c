@@ -2429,7 +2429,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     /* player returns to their original form */
                 } else if (hurtle_distance) {
                     if (youattack) {
-                        You("smash back %s%s", mon_nam(mdef), canseemon(mdef) ? exclam(4*hurtle_distance) : ".");
+                        You("smash back %s%s", mon_nam(mdef), canseemon(mdef) ? exclam(4 * hurtle_distance) : ".");
                         mhurtle(mdef, u.dx, u.dy, hurtle_distance);
                     } else if (!youattack && !youdefend) {
                         if (cansee(magr->mx, magr->my))
