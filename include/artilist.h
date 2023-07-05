@@ -549,6 +549,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      *      create a new artifact.
      */
 
+ /* For now HackEM does not have any forged artifacts. This one from
+       * EvilHack will serve as a template for the future. */
+#if 0
     /* The Sword of Annihilation can only be created by forging the
        artifacts Fire Brand and Frost Brand together. Their combined
        magic and energy form to produce a sword capable of
@@ -558,6 +561,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_NOGEN | SPFX_FORGED | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL),
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
+#endif
 
     /*
      *      The artifacts for the quest dungeon, all self-willed.

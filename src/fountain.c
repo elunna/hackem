@@ -577,7 +577,7 @@ static const struct forge_arti {
     short typ2;
 } artifusions[] = {
     /* artifacts */
-    { ART_SWORD_OF_ANNIHILATION, ART_FIRE_BRAND, ART_FROST_BRAND },
+    /* { ART_SWORD_OF_ANNIHILATION, ART_FIRE_BRAND, ART_FROST_BRAND }, */
     { 0, 0, 0 }
 };
 
