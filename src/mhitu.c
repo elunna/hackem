@@ -1696,8 +1696,7 @@ register struct attack *mattk;
         } else
             dmg = 0;
         break;
-    case AD_LOUD:
-        boolean cancelled = (mtmp->mcan != 0);
+    case AD_LOUD: {
         boolean wakeup;
         int fate;
         long lcount;
@@ -1706,27 +1705,24 @@ register struct attack *mattk;
          * Only screams when a certain distance from our hero,
          * can see them, and has the available mspec.
          */
-        if (distu(mtmp->mx, mtmp->my) > 128
-            || !m_canseeu(mtmp) || mtmp->mspec_used)
+        if (distu(mtmp->mx, mtmp->my) > 128 || !m_canseeu(mtmp)
+            || mtmp->mspec_used)
             return FALSE;
 
-        if (!cancelled && canseemon(mtmp) && Deaf) {
-            pline("It looks as if %s is yelling at you.",
-                  mon_nam(mtmp));
-        } else if (!cancelled
-                   && !canseemon(mtmp) && Deaf) {
+        if (uncancelled && canseemon(mtmp) && Deaf) {
+            pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
+        } else if (uncancelled && !canseemon(mtmp) && Deaf) {
             You("sense a disturbing vibration in the air.");
-        } else if (cancelled
-                   && canseemon(mtmp) && !Deaf) {
+        } else if (mtmp->mcan && canseemon(mtmp) && !Deaf) {
             pline("%s croaks hoarsely.", Monnam(mtmp));
-        } else if (cancelled && !canseemon(mtmp) && !Deaf) {
+        } else if (mtmp->mcan && !canseemon(mtmp) && !Deaf) {
             You_hear("a hoarse croak nearby.");
         }
 
         /* Set mspec->mused */
         mtmp->mspec_used = mtmp->mspec_used + (rn2(6) + 5);
 
-        if (cancelled)
+        if (mtmp->mcan)
             return FALSE;
 
         /* scream attacks */
@@ -1734,7 +1730,8 @@ register struct attack *mattk;
         case AD_LOUD:
             if (!Deaf) {
                 if (m_canseeu(mtmp)) {
-                    pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
+                    pline("%s lets out a bloodcurdling scream!",
+                          Monnam(mtmp));
                     if (u.usleep)
                         unmul("You are frightened awake!");
                 }
@@ -1784,8 +1781,7 @@ register struct attack *mattk;
             }
             if (Sonic_resistance)
                 break;
-            if (Psychic_resistance
-                || Role_if(PM_NECROMANCER)
+            if (Psychic_resistance || Role_if(PM_NECROMANCER)
                 || Role_if(PM_UNDEAD_SLAYER)) {
                 You("are not afraid.");
                 break;
@@ -1839,8 +1835,7 @@ register struct attack *mattk;
             }
             break;
         case AD_GIBB:
-            /* Gibberlings's emit a bunch of creepy sounds, uttering ghastly howls,
-         * clicks, shrieks and insane chattering noises. */
+            /* Gibberlings's emit a bunch of creepy sounds, uttering ghastly howls, clicks, shrieks and insane chattering noises. */
             if (Deaf)
                 break; /* No inventory effects */
             wakeup = FALSE;
@@ -1861,7 +1856,8 @@ register struct attack *mattk;
                 if (Sonic_resistance)
                     break;
                 if (!Confusion)
-                    You("suddenly feel %s.", Hallucination ? "trippy" : "confused");
+                    You("suddenly feel %s.",
+                        Hallucination ? "trippy" : "confused");
                 make_confused((HConfusion & TIMEOUT) + lcount, TRUE);
                 break;
             case 13:
@@ -1946,6 +1942,7 @@ register struct attack *mattk;
             /* We still get damage from the noise */
             mdamageu(mtmp, dmg);
         }
+    }
         break;
     case AD_ELEC:
         hitmsg(mtmp, mattk);
