@@ -7079,7 +7079,7 @@ makewish()
     Strcpy(promptbuf, "For what do you wish");
     if (iflags.cmdassist && tries > 0)
         Strcat(promptbuf, " (enter 'help' for assistance)");
-    tries++;
+    /* tries++; */
     Strcat(promptbuf, "?");
     getlin(promptbuf, buf);
     (void) mungspaces(buf);

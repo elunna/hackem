@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Only 3 wish attempts allowed when it should be 5 (reported by hothraxxa). Fixes #357.
 Updates from EvilHack commit d5ffd4b5d pertaining to monsters that hate light.
 Fix placement of spike tile in objects.txt
 Changed manticore spikes to VENOM_CLASS and moved with other venom objects in objects.c.
