@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Spear trap tweaks, remove multiple random death messages. (EvilHack)
 Allow knights to tame dragons of the same alignment. (EvilHack)
 Fix: memory leak and typo in spitmm(). (EvilHack)
 Crowned infidel receives sleep resistance. (EvilHack)
