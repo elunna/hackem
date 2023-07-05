@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Ogresmasher knockback. (EvilHack)
 Fix: refactor and fix various bugs in artifact_hit() function. (EvilHack)
 Fix: monsters sonic attack subject to passive attacks from player. (EvilHack)
 Create new artifact flag and macro (SPFX_FORGED and is_forged_artifact()). (EvilHack)
