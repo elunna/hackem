@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Crowned infidel receives sleep resistance. (EvilHack)
 Fix: celestial dragon scales/dragon-scaled armor and flying. (EvilHack)
 Fix: ogresmasher knockback monster vs player, some feedback formatting. (EvilHack)
 Formatting fixes. (EvilHack)
