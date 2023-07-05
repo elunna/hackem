@@ -3653,7 +3653,10 @@ register struct monst *mdef;
 register struct attack *mattk;
 {
     register int tmp = d((int) mattk->damn, (int) mattk->damd);
-    
+
+    if (!mdef)
+        return 0;
+
     switch (mattk->adtyp) {
     case AD_BLND:
         if (mdef && !resists_blnd(mdef)) {
