@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: x-ray vision issues when using multiple objects that grant it at the same time. (EvilHack)
 Monsters flagged as a lord/prince don't spawn with eroded gear. (EvilHack)
 Fix: logic in amulet/tool naming after 3.6.7 merge (matching EvilHack).
 Typo fix. (EvilHack)
