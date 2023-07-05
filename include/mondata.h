@@ -111,6 +111,7 @@
     || (ptr) == &mons[PM_DEATH] \
     || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
     || (ptr) == &mons[PM_RAGNAROS] \
+    || (ptr) == &mons[PM_CELESTIAL_DRAGON] \
     || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_VAMPIRIC)))
 
 #define immune_poisongas(ptr) \
