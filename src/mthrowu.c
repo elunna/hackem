@@ -1097,7 +1097,7 @@ struct attack *mattk;
             otmp = mksobj(SNOWBALL, TRUE, FALSE);
             break;
         default:
-            impossible("bad attack type in spitmu");
+            impossible("bad attack type in spitmm");
             /*FALLTHRU*/
         }
         if (!rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
@@ -1122,10 +1122,12 @@ struct attack *mattk;
                 if (dog->hungrytime > 1)
                     dog->hungrytime -= 5;
             }
+
             return 1;
+        } else {
+            obj_extract_self(otmp);
+            obfree(otmp, (struct obj *) 0);
         }
-        obfree(otmp, (struct obj *) 0);
-        otmp = (struct obj *) 0;
     }
     return 0;
 }
