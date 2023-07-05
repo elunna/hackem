@@ -2142,6 +2142,7 @@ int mode;  /* BASICENLIGHTENMENT | MAGICENLIGHTENMENT (| both) */
 int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
 {
     char buf[BUFSZ], tmpbuf[BUFSZ];
+    int cnt = 0;
 
     en_win = create_nhwindow(NHW_MENU);
     en_via_menu = !final;
@@ -2269,34 +2270,17 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
     if (Race_if(PM_DOPPELGANGER)) { 
         buf[0] = '\0';
         enlght_out("");
-        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
+        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory (for Doppelganger #youpoly):");
         Strcat(buf, " ");
-        /*you_have(buf, "Eaten memory of these monsters:");*/
-        char full = 0;
-        for (int i = LOW_PM; i < NUMMONS; i++) {
-            if (mvitals[i].eaten) {
-                /*Sprintf(buf, "%s, ", mons[i].mname);*/
 
-                // Check for mname + "..." + '\0'
-                if (BUFSZ < strlen(buf) + strlen(mons[i].mname) + 3 + 1) {
-                    full = 1;
-                    break;
-                }
-                strcat(buf, mons[i].mname);
-                Strcat(buf, ", ");
+        for (int i = LOW_PM; i < NUMMONS; i++) {
+            /* Don't list monsters we can't poly into */
+            if (mvitals[i].eaten && polyok(&mons[i])) {
+                cnt++;
+                enlght_out(mons[i].mname);
             }
         }
-        size_t len_buf = strlen(buf);
-        if (len_buf > 3) {
-            if (full) {
-                // Replace ", " with "...\0"
-                buf[len_buf - 2] = buf[len_buf - 1] = buf[len_buf] = '.';
-                buf[len_buf + 1] = '\0';
-            } else {
-                buf[len_buf - 2] = '\0';
-            }
-            enlght_out(buf);
-        } else {
+        if (!cnt) {
             enlght_out("None");
         }
     } 
