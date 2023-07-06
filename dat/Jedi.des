@@ -43,6 +43,8 @@ $places = { (57,3), (17,14), (57,14) }
 # according to starwars.com the Jedi temple is a tall building high up into
 # the sky. So it seems right to have it being surrounded by Air
 
+TELEPORT_REGION:(26,05,46,15),(00,00,00,00)
+
 # Dungeon Description
 REGION: (00,00,75,20), unlit, "ordinary"
 REGION: (16,02,23,07), lit, "ordinary"

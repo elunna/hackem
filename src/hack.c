@@ -72,13 +72,19 @@ rndmappos(x,y) /* guaranteed to return a valid coord */
 xchar *x;
 xchar *y;
 {
-   if (*x >= COLNO) *x = COLNO;
-   else if (*x == -1) *x = rn2(COLNO-1)+1;
-   else if (*x < 1) *x = 1;
-   
-   if (*y >= ROWNO) *y = ROWNO;
-   else if (*y == -1) *y = rn2(ROWNO);
-   else if (*y < 0) *y = 0;
+    if (*x >= COLNO)
+        *x = COLNO;
+    else if (*x == -1)
+        *x = rn2(COLNO - 1) + 1;
+    else if (*x < 1)
+        *x = 1;
+
+    if (*y >= ROWNO)
+        *y = ROWNO;
+    else if (*y == -1)
+        *y = rn2(ROWNO);
+    else if (*y < 0)
+        *y = 0;
 }
 
 boolean
@@ -3266,7 +3272,8 @@ lookaround()
                 || levl[x][y].typ == ROOM
                 || levl[x][y].typ == ICE
                 || IS_GRASS(levl[x][y].typ)
-                || IS_AIR(levl[x][y].typ)) {
+                || (IS_AIR(levl[x][y].typ)
+                    && !In_V_tower(&u.uz) && !In_icequeen_branch(&u.uz))) {
                 continue;
             } else if (closed_door(x, y) || (mtmp && is_door_mappear(mtmp))) {
                 if (x != u.ux && y != u.uy)
