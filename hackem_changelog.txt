@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+The Iron Spoon of Liberation grants phasing with no timeout. Fixes #358.
 Fix: Added teleport region to Jedi quest home so players can't randomly appear over air. Fixes #360.
 Fix: Sides of Jedi quest home had floor spaces instead of air.
 Fix: Gnome and dwarf thieves were stealing by seducing (reported by mobileuser).

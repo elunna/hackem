@@ -3614,14 +3614,17 @@ struct obj *obj;
                          xname(obj));
             break;
         }
-        case PHASING: /* Walk through walls and stone like a xorn */
-            if (Passes_walls)
-                goto nothing_special;
+        case PASSES_WALLS: /* Walk through walls and stone like a xorn */
+            if (Passes_walls) {
+                incr_itimeout(&HPasses_walls, 0);
+                break;
+            }
             if (oart == &artilist[ART_IRON_SPOON_OF_LIBERATION]) {
                 if (Punished && (obj != uball)) {
                     unpunish(); /* Remove a mundane heavy iron ball */
                 }
             }
+
             if (!Hallucination) {
                 Your("body begins to feel less solid.");
             } else {
@@ -4768,7 +4771,7 @@ artifact_info(int anum)
     case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
     case WITHER: art_info.invoke = "Wither"; break;
     case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
-    case PHASING: art_info.invoke = "Phasing"; break;
+    case PASSES_WALLS: art_info.invoke = "Phasing"; break;
     case CHANNEL: art_info.invoke = "Channel"; break;
     case DEATH_MAGIC: art_info.invoke = "Death Magic"; break;
     case CONFLICT: art_info.invoke = "Conflict"; break;
