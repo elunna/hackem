@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Sides of Jedi quest home had floor spaces instead of air.
 Fix: Gnome and dwarf thieves were stealing by seducing (reported by mobileuser).
 Show techniques known in the dumplog (text and html).
 Add -DEDIT_GETLIN to sys/unix/hints/linux.
