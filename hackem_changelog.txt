@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Inconsistencies in titles in "forging weapons" and "forging armor" pokedex entries.
 Fix: Cursed Cleaver does not have protection of friendlies.
 Copy should_cleave() from xNethack and add prevention of cleaver attacking friendlies.
 Fix: Message for trying to put gloves over Hand of Vecna.

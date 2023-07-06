@@ -2731,7 +2731,7 @@ weapon f*
 weapon c*
 forge weap*
 craft weap*
-    Forging Weapons      (See "craft" for instructions)
+    Forging Weapons         (See "craft" for instructions)
     
     dagger                  = knife + 2 arrows
     elven dagger            = knife + 2 elven arrows
@@ -2823,7 +2823,7 @@ craft armor
 armor craft*
 armor forg*
 armor recipe*
-    Forging Weapons      (See "craft" for instructions)
+    Forging Armor           (See "craft" for instructions)
     
     plate mail              = splint mail + chain mail
     crystal plate mail      = plate mail + 3 dilithium crystals
