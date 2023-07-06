@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert: mplayers cannot clone themselves.
 Fix: Crash when reloading bones (credit to Bhaak). Fixes #349.
 Fix: Messages between gaining and losnig intrinsic and/or extrinsic hallucination. Fixes #342.
 Refactored how Helm of Madness and Mystic Eyes grant extrinsic hallucination.
