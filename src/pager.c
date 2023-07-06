@@ -1127,9 +1127,12 @@ char *usr_text;
         const char* ldambon = "";*/
 
         if (skill == 0) {
-            Sprintf(buf, "%s-handed weapon%s using no weapon skill.",
-                    (oc.oc_bimanual ? "Two" : "Single"),
-                    (weptool ? "-tool" : ""));
+            if (is_bomb(obj))
+                Sprintf(buf, "Thrown bomb using no specific skill.");
+            else
+                Sprintf(buf, "%s-handed weapon%s using no weapon skill.",
+                        (oc.oc_bimanual ? "Two" : "Single"),
+                        (weptool ? "-tool" : ""));
         } else if (skill > 0) {
             Sprintf(buf, "%s-handed weapon%s using the %s skill.",
                     (oc.oc_bimanual ? "Two" : "Single"),
