@@ -3713,7 +3713,7 @@ boolean picked_some;
 
     if (dfeature) {
         if (bloody) {
-            if (!strncmp(dfeature, "grass ", 6))
+            if (!strncmp(dfeature, "grass", 6))
                 Sprintf(fbuf, "There is bloody %s here.", dfeature);
             else
                 Sprintf(fbuf, "There is a bloody %s here.", dfeature);
