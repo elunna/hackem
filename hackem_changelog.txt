@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Change how Grandmaster's Robe bonus attack work. If the all normal punches hit the bonus attack chain starts. The second bonus attack only happens if the first hits.
 Fix: There is a bloody grass here (reported by Umbire).
 Clarify object lookup info for bombs (reported by hothraxxa).
 Fix: Curses inventory blank from bones fix (95fc05fdf).
