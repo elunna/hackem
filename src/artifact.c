@@ -3593,8 +3593,10 @@ struct obj *obj;
             break;
         }
         case OBJECT_DET:
-            object_detect(obj, 0);
-            /*artifact_detect(obj);*/
+            if (obj->oartifact == ART_MARAUDER_S_MAP)
+                artifact_detect(obj);
+            else
+                object_detect(obj, 0);
             break;
         case FEAR: {
             int ct = 0;
