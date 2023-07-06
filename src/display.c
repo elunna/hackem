@@ -547,6 +547,20 @@ struct monst *mon;
     return wl;
 }
 
+/* map or status window might not be ready for output during level creation
+   or game restoration (something like u.usteed which affects display of
+   the hero and also a status condition might not be set up yet) */
+boolean
+suppress_map_output(void)
+{
+    if (in_mklev || program_state.saving || program_state.restoring)
+        return TRUE;
+#ifdef HANGUPHANDLING
+    if (program_state.done_hup)
+        return TRUE;
+#endif
+    return FALSE;
+}
 
 /*
  * feel_newsym()
@@ -581,6 +595,10 @@ xchar x, y;
     struct rm *lev;
     struct obj *boulder;
     register struct monst *mon;
+
+    /* replicate safeguards used by newsym(); might not be required here */
+    if (suppress_map_output())
+        return;
 
     if (!isok(x, y))
         return;
@@ -742,12 +760,9 @@ register int x, y;
     register int see_it;
     register xchar worm_tail;
 
-    if (in_mklev)
+    /* don't try to produce map output when level is in a state of flux */
+    if (suppress_map_output())
         return;
-#ifdef HANGUPHANDLING
-    if (program_state.done_hup)
-        return;
-#endif
 
     /* only permit updating the hero when swallowed */
     if (u.uswallow) {
@@ -1472,11 +1487,10 @@ redraw_map()
      * used to get much too involved with each dungeon level as it was
      * read and written.
      *
-     * !u.ux: display isn't ready yet; (program_state.restoring ||
-     * !on_level()): was part of cliparound() but interface shouldn't
-     * access this much internals
+     * !u.ux: display isn't ready yet; (restoring || !on_level()): was part
+     * of cliparound() but interface shouldn't access this much internals
      */
-    if (!u.ux || program_state.restoring || !on_level(&u.uz0, &u.uz))
+    if (!u.ux || suppress_map_output() || !on_level(&u.uz0, &u.uz))
         return;
 
     /*
@@ -1680,7 +1694,7 @@ int cursor_on_u;
     register int x, y;
 
     /* 3.7: don't update map, status, or perm_invent during save/restore */
-    if (program_state.saving || program_state.restoring)
+    if (suppress_map_output())
         return;
 
     if (cursor_on_u == -1)

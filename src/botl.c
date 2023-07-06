@@ -56,6 +56,9 @@ do_statusline1()
     register char *nb;
     register int i, j;
 
+    if (suppress_map_output())
+        return strcpy(newbot1, "");
+
     Strcpy(newbot1, plname);
     if ('a' <= newbot1[0] && newbot1[0] <= 'z')
         newbot1[0] += 'A' - 'a';
@@ -111,6 +114,9 @@ do_statusline2()
     unsigned dln, dx, hln, xln, tln, cln;
     int hp, hpmax, cap;
     long money;
+
+    if (suppress_map_output())
+        return strcpy(newbot2, "");
 
     /*
      * Various min(x,9999)'s are to avoid having excessive values

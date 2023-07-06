@@ -2561,7 +2561,9 @@ learn_unseen_invent()
 void
 update_inventory()
 {
-    if (program_state.saving || program_state.restoring)
+    if (!program_state.in_moveloop) /* not covered by suppress_map_output */
+        return;
+    if (suppress_map_output()) /* despite name, used for perm_invent too */
         return;
 
     /*
