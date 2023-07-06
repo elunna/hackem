@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Copy should_cleave() from xNethack and add prevention of cleaver attacking friendlies.
 Fix: Message for trying to put gloves over Hand of Vecna.
 The Iron Spoon of Liberation grants phasing with no timeout. Fixes #358.
 Fix: Added teleport region to Jedi quest home so players can't randomly appear over air. Fixes #360.
