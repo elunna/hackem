@@ -495,7 +495,7 @@ long xtime; /* nonzero if this is an attempt to turn on hallucination */
 boolean talk;
 long mask; /* nonzero if resistance status should change by mask */
 {
-    long old = HHallucination;
+    long old = Hallucination;
     boolean changed = 0;
     const char *message, *verb;
 
@@ -534,31 +534,35 @@ long mask; /* nonzero if resistance status should change by mask */
             }
         }
     }
-
-    if (changed) {
-        /* in case we're mimicking an orange (hallucinatory form
-           of mimicking gold) update the mimicking's-over message */
-        if (!Hallucination)
-            eatmupdate();
-
-        if (u.uswallow) {
-            swallowed(0); /* redraw swallow display */
-        } else {
-            /* The see_* routines should be called *before* the pline. */
-            see_monsters();
-            see_objects();
-            see_traps();
-        }
-
-        /* for perm_inv and anything similar
-        (eg. Qt windowport's equipped items display) */
-        update_inventory();
-
-        context.botl = TRUE;
-        if (talk)
-            pline(message, verb);
-    }
+    if (changed)
+        post_hallucination();
+    if (talk && (old != Hallucination))
+        pline(message, verb);
     return changed;
+}
+
+void
+post_hallucination()
+{
+    /* in case we're mimicking an orange (hallucinatory form
+       of mimicking gold) update the mimicking's-over message */
+    if (!Hallucination)
+        eatmupdate();
+
+    if (u.uswallow) {
+        swallowed(0); /* redraw swallow display */
+    } else {
+        /* The see_* routines should be called *before* the pline. */
+        see_monsters();
+        see_objects();
+        see_traps();
+    }
+
+    /* for perm_inv and anything similar
+    (eg. Qt windowport's equipped items display) */
+    update_inventory();
+
+    context.botl = TRUE;
 }
 
 void

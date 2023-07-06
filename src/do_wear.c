@@ -682,13 +682,25 @@ Helmet_on(VOID_ARGS)
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
         break;
-    case HELM_OF_MADNESS:
-        You_feel("your sanity drift away...");
-        uarmh->known = 1;
-        context.botl = 1;
-        curse(uarmh);
-        makeknown(HELM_OF_MADNESS);
+    case HELM_OF_MADNESS: {
+        if (Hallucination) {
+            boolean already_hallucinating;
+
+            EHallucination &= ~W_ARMH;
+            already_hallucinating = !!Hallucination;
+            EHallucination |= W_ARMH;
+
+            if (!already_hallucinating && !EHalluc_resistance) {
+                makeknown(HELM_OF_MADNESS);
+                context.botl = TRUE; /* status: On */
+                You_feel("your sanity drift away...");
+                uarmh->known = 1;
+                curse(uarmh);
+                post_hallucination();
+            }
+        }
         break;
+    }
     case CORNUTHAUM:
         /* people think marked wizards know what they're talking about,
            but it takes trained arrogance to pull it off, and the actual
@@ -779,7 +791,7 @@ Helmet_off(VOID_ARGS)
     case DWARVISH_HELM:
     case ORCISH_HELM:
     case TINFOIL_HAT:
-    case HELM_OF_MADNESS:
+
     case PLASTEEL_HELM:
         break;
     case DUNCE_CAP:
@@ -792,6 +804,18 @@ Helmet_off(VOID_ARGS)
             context.botl = 1;
         }
         break;
+    case HELM_OF_MADNESS: {
+        boolean was_hallucinating = !!Hallucination;
+        setworn((struct obj *) 0, W_ARMH);
+        if (was_hallucinating && !Hallucination) {
+            makeknown(HELM_OF_MADNESS);
+            context.botl = TRUE; /* status: Off */
+            post_hallucination();
+            pline("Everything %s SO boring now.",
+                  (!Blind) ? "looks" : "feels");
+        }
+        break;
+    }
     case HELM_OF_SPEED:
         setworn((struct obj *) 0, W_ARMH);
         if (!Very_fast && !context.takeoff.cancelled_don)
@@ -1926,6 +1950,7 @@ Blindf_on(otmp)
 struct obj *otmp;
 {
     boolean already_blind = Blind, changed = FALSE;
+    boolean already_hallucinating = !!Hallucination;
 
     /* blindfold might be wielded; release it for wearing */
     if (otmp->owornmask & W_WEAPONS)
@@ -1956,8 +1981,13 @@ struct obj *otmp;
         toggle_blindness(); /* potion.c */
     }
     
-    if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES)
-        pline("With madness comes clarity.");
+    if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES) {
+        if (!already_hallucinating && !EHalluc_resistance) {
+            context.botl = TRUE; /* status: On */
+            pline("With madness comes clarity.");
+            post_hallucination();
+        }
+    }
 
     if (ublindf && ublindf->otyp == MASK)
         if (use_mask(&ublindf)) 
@@ -1973,6 +2003,7 @@ struct obj *otmp;
 {
     boolean was_blind = Blind, changed = FALSE,
             nooffmsg = !otmp;
+    boolean was_hallucinating = !!Hallucination;
 
     if (!otmp)
         otmp = ublindf;
@@ -2011,6 +2042,16 @@ struct obj *otmp;
     if (changed) {
         toggle_blindness(); /* potion.c */
     }
+
+    if (otmp && otmp->oartifact == ART_MYSTIC_EYES) {
+        if (was_hallucinating && !Hallucination) {
+            context.botl = TRUE; /* status: Off */
+            post_hallucination();
+            pline("Everything %s SO boring now.",
+                  (!Blind) ? "looks" : "feels");
+        }
+    }
+
     if (otmp && otmp->otyp == MASK) {
         if (otmp->blessed) {
             otmp->blessed = 0;

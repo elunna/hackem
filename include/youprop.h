@@ -170,11 +170,11 @@
 
 /* Hallucination is solely a timeout */
 #define HHallucination u.uprops[HALLUC].intrinsic
+#define EHallucination u.uprops[HALLUC].extrinsic
 #define HHalluc_resistance u.uprops[HALLUC_RES].intrinsic
 #define EHalluc_resistance u.uprops[HALLUC_RES].extrinsic
 #define Halluc_resistance (HHalluc_resistance || EHalluc_resistance)
-#define Hallucination (((HHallucination || DeathVision \
-                         || (uarmh && uarmh->otyp == HELM_OF_MADNESS)) \
+#define Hallucination (((HHallucination || EHallucination || DeathVision) \
                          && !Halluc_resistance) \
                        || u.uroleplay.hallu)
 

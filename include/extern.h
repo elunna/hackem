@@ -2219,6 +2219,7 @@ E void FDECL(make_vomiting, (long, BOOLEAN_P));
 E void FDECL(make_blinded, (long, BOOLEAN_P));
 E void NDECL(toggle_blindness);
 E boolean FDECL(make_hallucinated, (long, BOOLEAN_P, long));
+E void NDECL(post_hallucination);
 E void FDECL(make_deaf, (long, BOOLEAN_P));
 E void FDECL(make_glib, (int));
 E void NDECL(self_invis_message);
