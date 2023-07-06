@@ -1156,7 +1156,7 @@ NEARDATA struct permonst mons[] = {
     MON("dwarf thief", S_HUMANOID,                             /* Slash'EM */
         LVL(2, 6, 10, 10, 4), (G_GENO | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
-          ATTK(AT_TUCH, AD_SITM, 0, 0), 
+          ATTK(AT_WEAP, AD_SITM, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(900, 300, MS_HUMANOID, MZ_HUMAN), 0, 0,
         M1_TUNNEL | M1_NEEDPICK | M1_HUMANOID | M1_OMNIVORE,
@@ -4038,7 +4038,7 @@ NEARDATA struct permonst mons[] = {
     MON("gnome thief", S_GNOME,                                 /* Slash'EM */
         LVL(1, 6, 10, 4, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          ATTK(AT_TUCH, AD_SITM, 0, 0), 
+          ATTK(AT_WEAP, AD_SITM, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(650, 100, MS_ORC, MZ_SMALL), 0, 0,
         M1_HUMANOID | M1_OMNIVORE, M2_HOSTILE | M2_COLLECT,
