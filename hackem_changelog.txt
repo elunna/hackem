@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Curses inventory blank from bones fix (95fc05fdf).
 Fix: Incorrect pager info for bombs. Reported by hothraxxa.
 Fix: Crash when reloading bones (credit to Bhaak). Fixes #349.
 Fix: Messages between gaining and losing intrinsic and/or extrinsic hallucination. Fixes #342.
