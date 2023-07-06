@@ -495,7 +495,7 @@ long xtime; /* nonzero if this is an attempt to turn on hallucination */
 boolean talk;
 long mask; /* nonzero if resistance status should change by mask */
 {
-    long old = HHallucination;
+    long old = Hallucination;
     boolean changed = 0;
     const char *message, *verb;
 
@@ -536,7 +536,7 @@ long mask; /* nonzero if resistance status should change by mask */
     }
     if (changed)
         post_hallucination();
-    if (talk)
+    if (talk && (old != Hallucination))
         pline(message, verb);
     return changed;
 }

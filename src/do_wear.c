@@ -690,7 +690,7 @@ Helmet_on(VOID_ARGS)
             already_hallucinating = !!Hallucination;
             EHallucination |= W_ARMH;
 
-            if (!already_hallucinating) {
+            if (!already_hallucinating && !EHalluc_resistance) {
                 makeknown(HELM_OF_MADNESS);
                 context.botl = TRUE; /* status: On */
                 You_feel("your sanity drift away...");
@@ -811,6 +811,8 @@ Helmet_off(VOID_ARGS)
             makeknown(HELM_OF_MADNESS);
             context.botl = TRUE; /* status: Off */
             post_hallucination();
+            pline("Everything %s SO boring now.",
+                  (!Blind) ? "looks" : "feels");
         }
         break;
     }
@@ -1980,7 +1982,7 @@ struct obj *otmp;
     }
     
     if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES) {
-        if (!already_hallucinating) {
+        if (!already_hallucinating && !EHalluc_resistance) {
             context.botl = TRUE; /* status: On */
             pline("With madness comes clarity.");
             post_hallucination();
@@ -2001,6 +2003,7 @@ struct obj *otmp;
 {
     boolean was_blind = Blind, changed = FALSE,
             nooffmsg = !otmp;
+    boolean was_hallucinating = !!Hallucination;
 
     if (!otmp)
         otmp = ublindf;
@@ -2040,12 +2043,12 @@ struct obj *otmp;
         toggle_blindness(); /* potion.c */
     }
 
-    if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES) {
-        boolean was_hallucinating = !!Hallucination;
-        setworn((struct obj *) 0, W_TOOL);
+    if (otmp && otmp->oartifact == ART_MYSTIC_EYES) {
         if (was_hallucinating && !Hallucination) {
             context.botl = TRUE; /* status: Off */
             post_hallucination();
+            pline("Everything %s SO boring now.",
+                  (!Blind) ? "looks" : "feels");
         }
     }
 
