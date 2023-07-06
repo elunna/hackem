@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: boomerang equiped in multiple slots (from 3.7)
 Fix: Messages between gaining and losnig intrinsic and/or extrinsic hallucination. Fixes #342.
 Refactored how Helm of Madness and Mystic Eyes grant extrinsic hallucination.
 Fix: Inconsistencies in titles in "forging weapons" and "forging armor" pokedex entries.

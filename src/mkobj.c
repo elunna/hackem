@@ -2770,6 +2770,11 @@ obj_sanity_check()
     if (kickedobj)
         insane_object(kickedobj, ofmt3, "kickedobj sanity",
                       (struct monst *) 0);
+    /* returning_missile temporarily remembers thrownobj and should be
+      Null in between moves */
+    if (iflags.returning_missile)
+        insane_object(kickedobj, ofmt3, "returning_missile sanity",
+                      (struct monst *) 0);
     /* current_wand isn't removed from invent while in use, but should
        be Null between moves when we're called */
     if (current_wand)
