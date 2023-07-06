@@ -1126,7 +1126,11 @@ char *usr_text;
        /* const char* sdambon = "";
         const char* ldambon = "";*/
 
-        if (skill >= 0) {
+        if (skill == 0) {
+            Sprintf(buf, "%s-handed weapon%s using no weapon skill.",
+                    (oc.oc_bimanual ? "Two" : "Single"),
+                    (weptool ? "-tool" : ""));
+        } else if (skill > 0) {
             Sprintf(buf, "%s-handed weapon%s using the %s skill.",
                     (oc.oc_bimanual ? "Two" : "Single"),
                     (weptool ? "-tool" : ""),
