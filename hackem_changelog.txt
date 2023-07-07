@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Cleaned up m_randrace so it matches with the role info.
 Simplify the manticore spike volley code.
 Fix a couple things in spirit tile.
 Silence compiler warnings in tech.c for misc occupations.
