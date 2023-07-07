@@ -2909,6 +2909,7 @@ xchar x, y; /* clone's preferred location or 0 (near mon) */
      * appropriate flags that go along with their race */
     if (is_mplayer(mon->data)) {
         init_mplayer_erac(m2, mon->mextra->erac->rmnum);
+        outfit_mplayer(m2, FALSE, (struct obj *) 0);
     }
 
     if (emits_light(m2->data))

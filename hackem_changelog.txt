@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Cloned mplayers generate new inventory specific to their race/role. Fixes #335.
 Cloned mplayers will inherit the same race as the parent.
 Fix: Cloned monsters were sharing same mw reference. Fixes #75.
 Fix: Monsters using scrolls of cloning didn't use up the scroll.

@@ -1761,6 +1761,7 @@ E void FDECL(get_mplname, (struct monst *, char *));
 E void FDECL(init_mplayer_erac, (struct monst *, int));
 E struct monst *FDECL(mk_mplayer,
      (struct permonst *, XCHAR_P, XCHAR_P, BOOLEAN_P, struct obj *));
+E void FDECL(outfit_mplayer, (struct monst *, BOOLEAN_P, struct obj *));
 E void FDECL(create_mplayers, (int, BOOLEAN_P));
 E void FDECL(mplayer_talk, (struct monst *));
 
