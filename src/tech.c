@@ -1598,7 +1598,7 @@ int oldlevel, newlevel;
 }
 
 STATIC_PTR int
-charge_saber()
+charge_saber(VOID_ARGS)
 {
     int i, tlevel;
     if (delay) {
@@ -1629,7 +1629,7 @@ charge_saber()
 
 /*WAC tinker code*/
 STATIC_PTR int
-tinker()
+tinker(VOID_ARGS)
 {
     int chance;
     struct obj *otmp = uwep;
@@ -1660,7 +1660,7 @@ tinker()
 
 /*WAC  draw energy from surrounding objects */
 STATIC_PTR int
-draw_energy()
+draw_energy(VOID_ARGS)
 {
     int powbonus = 1;
     if (delay) { /* not if (delay++), so at end delay == 0 */
@@ -3274,7 +3274,6 @@ int tech_no;
     set_occupation(draw_energy, "drawing energy", 0);         
     return 1;
 }
-
 
 int
 tech_chiheal(tech_no)
