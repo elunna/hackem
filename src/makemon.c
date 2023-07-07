@@ -2883,6 +2883,7 @@ xchar x, y; /* clone's preferred location or 0 (near mon) */
     m2->mtrapped = 0;
     m2->mcloned = 1;
     m2->minvent = (struct obj *) 0; /* objects don't clone */
+    m2->mw = (struct obj *) 0; /* Reset monster weapon */
     m2->mleashed = 0;
     /* Max HP the same, but current HP halved for both.  The caller
      * might want to override this by halving the max HP also.
@@ -2903,6 +2904,14 @@ xchar x, y; /* clone's preferred location or 0 (near mon) */
     (void) memset((genericptr_t) m2->mtrack, 0, sizeof m2->mtrack);
 
     place_monster(m2, m2->mx, m2->my);
+
+    /* set player monsters rank/title, race flags, and any
+     * appropriate flags that go along with their race */
+    if (is_mplayer(mon->data)) {
+        init_mplayer_erac(m2, mon->mextra->erac->rmnum);
+        outfit_mplayer(m2, FALSE, (struct obj *) 0);
+    }
+
     if (emits_light(m2->data))
         new_light_source(m2->mx, m2->my, emits_light(m2->data), LS_MONSTER,
                          monst_to_any(m2));
@@ -3321,7 +3330,7 @@ long mmflags;
     /* set player monsters rank/title, race flags, and any
        appropriate flags that go along with their race */
     if (is_mplayer(ptr))
-        init_mplayer_erac(mtmp);
+        init_mplayer_erac(mtmp, 0);
     else if (is_mercenary(ptr) && ptr != &mons[PM_GUARD])
         apply_race(mtmp, m_randrace(mndx));
 

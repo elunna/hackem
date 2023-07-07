@@ -2066,6 +2066,13 @@ boolean reflection_skip;
             }
             continue;
         }
+        nomore(MUSE_SCR_CLONING);
+        if (obj->otyp == SCR_CLONING
+            && distu(mtmp->mx, mtmp->my) < 32
+            && mtmp->mcansee && haseyes(mtmp->data)) {
+            m.offensive = obj;
+            m.has_offense = MUSE_SCR_CLONING;
+        }
         nomore(MUSE_SCR_STINKING_CLOUD)
         if (obj->otyp == SCR_STINKING_CLOUD && m_canseeu(mtmp)
             && distu(mtmp->mx, mtmp->my) < 32
@@ -2164,13 +2171,6 @@ boolean reflection_skip;
             && !m_seenres(mtmp, M_SEEN_FIRE)) {
             m.offensive = obj;
             m.has_offense = MUSE_SCR_FIRE;
-        }
-        nomore(MUSE_SCR_CLONING);
-        if (obj->otyp == SCR_CLONING
-            && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 2
-            && mtmp->mcansee && haseyes(mtmp->data)) {
-            m.offensive = obj;
-            m.has_offense = MUSE_SCR_CLONING;
         }
         nomore(MUSE_CAMERA);
         if (obj->otyp == EXPENSIVE_CAMERA
@@ -2790,12 +2790,9 @@ struct monst *mtmp;
          * the monster iteself. */
         boolean vis = cansee(mtmp->mx, mtmp->my);
         mreadmsg(mtmp, otmp);
-        
-        /* Temporary workaround, cloned mplayers cause problems with their inventory */
-        if (is_mplayer(mtmp->data))
-            pline("%s shudders for a moment!", Monnam(mtmp));
-        else if (clone_mon(mtmp, 0, 0) && vis)
+        if (clone_mon(mtmp, 0, 0) && vis)
             pline("%s multiplies!", Monnam(mtmp));
+        m_useup(mtmp, otmp);
         return 2;
     } /* case MUSE_SCR_CLONING */
     case MUSE_CAMERA: {
