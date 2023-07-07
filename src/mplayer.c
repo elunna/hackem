@@ -215,14 +215,14 @@ char *nam;
 }
 
 void
-init_mplayer_erac(mtmp)
+init_mplayer_erac(mtmp, mndx)
 struct monst *mtmp;
+int mndx;
 {
     char nam[PL_PSIZ];
     int race;
     struct erac *rptr;
-    int mndx = mtmp->mnum;
-    struct permonst *ptr = &mons[mndx];
+    struct permonst *ptr = &mons[mtmp->mnum];
 
     newerac(mtmp);
     rptr = ERAC(mtmp);
@@ -240,7 +240,11 @@ struct monst *mtmp;
     rptr->mattk[1].damn = 1;
     rptr->mattk[1].damd = 6;
 
-    race = m_randrace(mndx);
+    if (!mndx)
+        race = m_randrace(mtmp->mnum);
+    else
+        race = mndx;
+
     apply_race(mtmp, race);
 
     switch (mndx) {
