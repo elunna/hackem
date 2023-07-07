@@ -2989,6 +2989,7 @@ set_whetstone(VOID_ARGS)
                 otmp->spe++;
                 pline("%s %s more powerful now.%s", Yname2(otmp),
                   otense(otmp, Blind ? "feel" : "look"), Blind ? " (Woah!)" : "");
+                update_inventory();
             }
         }
 
