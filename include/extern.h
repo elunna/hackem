@@ -2786,6 +2786,7 @@ E void FDECL(attach_spirit_fade_timeout, (struct obj *, long));
 E void FDECL(attach_egg_hatch_timeout, (struct obj *, long));
 E void FDECL(attach_fig_transform_timeout, (struct obj *));
 E void FDECL(kill_egg, (struct obj *));
+E void FDECL(bomb_blow, (ANY_P *, long));
 E void FDECL(hatch_egg, (ANY_P *, long));
 E void FDECL(spirit_fade, (ANY_P *, long));
 E void FDECL(learn_egg_type, (int));

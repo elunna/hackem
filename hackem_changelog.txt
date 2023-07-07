@@ -15,7 +15,8 @@
 
 Version 1.1.5 (unreleased)
 
-Silence compiler warning warning C4113 for do_iceflood.
+Silence compiler warning C4113 for bomb_blow.
+Silence compiler warning C4113 for do_iceflood.
 Silence compiler warning for mage_transform.
 Fix: Run update_inventory() after succesful whetstone use.
 Cloned mplayers generate new inventory specific to their race/role. Fixes #335.
