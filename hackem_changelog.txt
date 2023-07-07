@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix a couple things in spirit tile.
 Silence compiler warnings in tech.c for misc occupations.
 Silence compiler warning C4113 for bomb_blow.
 Silence compiler warning C4113 for do_iceflood.
