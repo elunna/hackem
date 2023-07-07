@@ -42,6 +42,7 @@ STATIC_DCL boolean FDECL(get_valid_stinking_cloud_pos, (int, int));
 STATIC_DCL boolean FDECL(is_valid_stinking_cloud_pos, (int, int, BOOLEAN_P));
 STATIC_PTR void FDECL(display_stinking_cloud_positions, (int));
 STATIC_PTR void FDECL(do_flood, (int, int, genericptr_t));
+STATIC_PTR void FDECL(do_iceflood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(undo_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
