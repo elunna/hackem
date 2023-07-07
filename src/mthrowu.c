@@ -1138,7 +1138,6 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
 {
     struct obj *otmp = (struct obj*) 0;
     int i;
-    int otyp;
     int numattacks = d(mattk->damn, mattk->damd);
 
     if (mtmp->mcan) {
@@ -1147,32 +1146,20 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
                   s_suffix(mon_nam(mtmp)));
         return 0;
     }
+    if (mattk->adtyp != AD_QUIL)
+        impossible("volleymm called with non AD_QUIL attack type!");
 
     if (mlined_up(mtmp, mtarg, FALSE) 
         && !rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
         for (i = 0; i < numattacks; i++) {
-            switch (mattk->adtyp) {
-            case AD_QUIL:
-                otyp = SPIKE;
-                break;
-            default:
-                impossible("bad attack type in volleymm");
-                break;
-            }
-            if (canseemon(mtmp)) {
-                if (otyp == SPIKE) {
-                    pline("%s fires a volley of spikes!", Monnam(mtmp));
-                } else {
-                    pline("%s fires a volley!", Monnam(mtmp));
-                }
-            }
+            if (canseemon(mtmp))
+                pline("%s fires a volley of spikes!", Monnam(mtmp));
             target = mtarg;
-            otmp = mksobj(otyp, TRUE, FALSE);
+            otmp = mksobj(SPIKE, TRUE, FALSE);
             m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
                     distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my), otmp, TRUE);
             target = (struct monst *)0;
             otmp = (struct obj *) 0;
-            
         }
         nomul(0);
         return 1;
@@ -1360,9 +1347,7 @@ int
 volleymu(struct monst *mtmp, struct attack *mattk)
 {
     struct obj *otmp = (struct obj*) 0;
-    int i;
-    int otyp;
-    int numattacks = d(mattk->damn, mattk->damd);
+    int i, numattacks = d(mattk->damn, mattk->damd);
 
     if (mtmp->mcan) {
         if (!Deaf)
@@ -1370,27 +1355,23 @@ volleymu(struct monst *mtmp, struct attack *mattk)
                   s_suffix(mon_nam(mtmp)));
         return 0;
     }
+
+    if (mattk->adtyp != AD_QUIL)
+        impossible("bad attack type in volleymu");
+
     if (lined_up(mtmp) && !rn2(BOLT_LIM
                  - distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy))) {
-            if (canseemon(mtmp)) {
-                pline("%s fires a volley of spikes!", Monnam(mtmp));
-            }
-            for (i = 0; i < numattacks; i++) {
-                switch (mattk->adtyp) {
-                case AD_QUIL:
-                    otyp = SPIKE;
-                    break;
-                default:
-                    impossible("bad attack type in volleymu");
-                }
-                otmp = mksobj(otyp, TRUE, FALSE);
-                m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
-                        distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp, TRUE);
-                otmp = (struct obj *) 0;
-
-            }
-            nomul(0);
-            return 0;
+        if (canseemon(mtmp)) {
+            pline("%s fires a volley of spikes!", Monnam(mtmp));
+        }
+        for (i = 0; i < numattacks; i++) {
+            otmp = mksobj(SPIKE, TRUE, FALSE);
+            m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
+                    distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp,
+                    TRUE);
+            otmp = (struct obj *) 0;
+        }
+        nomul(0);
     }
     return 0;
 }

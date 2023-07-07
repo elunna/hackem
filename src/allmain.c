@@ -1070,7 +1070,7 @@ newgame()
 {
     int i;
     /* Add this flag here to activate rr fuzzing */
-    /*iflags.debug_fuzzer = 1; */
+    iflags.debug_fuzzer = 1;
     
 #ifdef MFLOPPY
     gameDiskPrompt();
