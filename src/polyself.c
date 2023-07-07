@@ -2424,7 +2424,7 @@ static struct {
 
 STATIC_PTR
 int
-mage_transform()	/* called each move during transformation process */
+mage_transform(VOID_ARGS)	/* called each move during transformation process */
 {
     if (--draconic.reqtime)
         return 1;
