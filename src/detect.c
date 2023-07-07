@@ -623,7 +623,6 @@ artifact_detect(detector)
 struct obj *detector; /* object doing the detecting */
 {
     register int x, y;
-    char stuff[BUFSZ];
     int do_dknown = (detector && (detector->oclass == POTION_CLASS
                                   || detector->oclass == SPBOOK_CLASS)
                      && detector->blessed);
