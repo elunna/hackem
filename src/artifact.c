@@ -4723,6 +4723,7 @@ artifact_info(int anum)
             strcpy(art_info.wield_warn, buf);
         } else {
             /*art_info.wield_warn = "warning";*/
+            if (!art_info.wield_warn) art_info.wield_warn = malloc(100);
             strcpy(art_info.wield_warn, "warning");
         }
     }
