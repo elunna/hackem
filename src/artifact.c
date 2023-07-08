@@ -3255,10 +3255,13 @@ struct obj *obj;
         if (obj->age > monstermoves) {
             /* the artifact is tired :-) */
             You_feel("that %s %s ignoring you.", the(xname(obj)),
-                     otense(obj, "are"));
-            /* and just got more so; patience is essential... */
-            obj->age += (long) d(3, 10);
-            return 1;
+                    otense(obj, "are"));
+
+            if (!wizard || yn("Override?") != 'y') {
+                /* and just got more so; patience is essential... */
+                obj->age += (long) d(3, 10);
+                return 1;
+            }
         }
         obj->age = monstermoves + rnz(100);
 
@@ -3844,10 +3847,13 @@ struct obj *obj;
             /* the artifact is tired :-) */
             u.uprops[oart->inv_prop].extrinsic ^= W_ARTI;
             You_feel("that %s %s ignoring you.", the(xname(obj)),
-                     otense(obj, "are"));
-            /* can't just keep repeatedly trying */
-            obj->age += (long) d(3, 10);
-            return 1;
+                    otense(obj, "are"));
+
+            if (!wizard || yn("Override?") != 'y') {
+                /* can't just keep repeatedly trying */
+                obj->age += (long) d(3, 10);
+                return 1;
+            }
         } else if (!on) {
             /* when turning off property, determine downtime */
             /* arbitrary for now until we can tune this -dlc */
