@@ -6964,7 +6964,7 @@ short mndx;
              | MH_ILLITHID | MH_ORC  | MH_TORTLE);
         break;
     case PM_PIRATE:
-        permitted |= (MH_GNOME | MH_ORC | MH_VAMPIRE);
+        permitted |= (MH_GNOME | MH_ILLITHID | MH_ORC | MH_VAMPIRE);
         break;
     case PM_RANGER:
         permitted |= (MH_CENTAUR | MH_GNOME | MH_HOBBIT | MH_ORC);
