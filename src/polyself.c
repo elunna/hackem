@@ -538,6 +538,19 @@ int psflags;
                     pline("I've never heard of such monsters.");
                 else
                     You_cant("polymorph into any of those.");
+            } else if (wizard && Upolyd
+                       && (mntmp == u.umonster
+                           /* "priest" and "priestess" match the monster
+                              rather than the role; override that unless
+                              the text explicitly contains "aligned" */
+                           || ((u.umonster == PM_PRIEST || u.umonster == PM_PRIESTESS)
+                               && mntmp == PM_ALIGNED_PRIEST
+                               && !strstri(buf, "aligned")))) {
+                /* in wizard mode, picking own role while poly'd reverts to
+                   normal without newman()'s chance of level or sex change */
+                rehumanize();
+                old_light = 0; /* rehumanize() extinguishes u-as-mon light */
+                goto made_change;
             } else if (iswere && (were_beastie(mntmp) == u.ulycn
                                   || mntmp == counter_were(u.ulycn)
                                   || (Upolyd && mntmp == PM_HUMAN))) {
