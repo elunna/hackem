@@ -78,7 +78,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* From SporkHack. Now a silver mace with an extra property.
        First sacrifice gift for a priest. */
     A("Demonbane", HEAVY_MACE, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_DEMON,
-      PHYS(5, 0), NO_DFNS, NO_CARY, LEVITATION, A_LAWFUL, PM_PRIEST, NON_PM, 3000L,
+      PHYS(5, 0), NO_DFNS, NO_CARY, LEVITATION, A_LAWFUL, NON_PM, NON_PM, 3000L,
       CLR_WHITE, SILVER),
 
     /* From LotR. Provides magic resistance and one level of MC when wielded.
@@ -186,7 +186,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       5000L, NO_COLOR, DEFAULT_MAT),
 
     A("Disrupter", MACE, (SPFX_RESTR | SPFX_DFLAGH), 0, MH_UNDEAD,
-      PHYS(5,30), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
+      PHYS(5,30), NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_PRIEST, NON_PM,
       500L, NO_COLOR, DEFAULT_MAT),
 
     A("Gauntlets of Defense", GAUNTLETS_OF_DEXTERITY, SPFX_RESTR, SPFX_HPHDAM, 0,
