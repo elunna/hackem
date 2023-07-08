@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: One-eyed Sam generating with a long sword Thiefbane. Reported by shadowrider38/mobileuser.
 Add override to invocation of artifacts in wizmode.
 Fix a couple things in spirit tile.
 Silence compiler warnings in tech.c for misc occupations.
