@@ -1194,8 +1194,6 @@ u_init()
             break;
         }
         ini_inv(Ice_Mage);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(2)) 
             ini_inv(Lenses);
         skill_init(Skill_I);
@@ -1224,8 +1222,6 @@ u_init()
         break;
     case PM_CONVICT:
         ini_inv(Convict);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_object(SKELETON_KEY);
         knows_object(GRAPPLING_HOOK);
         skill_init(Skill_Con);
@@ -1236,8 +1232,6 @@ u_init()
     case PM_HEALER:
         u.umoney0 = rn1(1000, 1001);
         ini_inv(Healer);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(25))
             ini_inv(Lamp);
         /* Naturally familiar with healing items in their work */
@@ -1254,8 +1248,6 @@ u_init()
     case PM_INFIDEL:
         u.umoney0 = rn1(251, 250);
         ini_inv(Infidel);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_object(SCR_CHARGING);
         skill_init(Skill_Inf);
         break;
@@ -1290,8 +1282,6 @@ u_init()
         default: break;
         }
         ini_inv(Necromancer);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_class(SPBOOK_CLASS);
         if (!rn2(5)) 
             ini_inv(Blindfold);
@@ -1320,8 +1310,6 @@ u_init()
         break;
     case PM_PRIEST:
         ini_inv(Priest);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(4))
             ini_inv(Lamp);
         knows_object(POT_WATER);
@@ -1420,8 +1408,6 @@ u_init()
         ini_inv(Wizard);
         if (Race_if(PM_GIANT) || Race_if(PM_TORTLE))
             ini_inv(AoMR);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(5))
             ini_inv(Lamp);
         if (!rn2(5))
@@ -1507,7 +1493,11 @@ u_init()
         break;
 
     case PM_GNOME:
+        break;
+
     case PM_ILLITHID:
+        /* All illithids start with spell of psionic wave. */
+        force_learn_spell(SPE_PSIONIC_WAVE);
         break;
 
     case PM_TORTLE:
