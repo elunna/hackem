@@ -497,7 +497,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 5), DFNS(AD_BLND), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       2000L, NO_COLOR, DEFAULT_MAT),
 
-    A("Thiefbane", TWO_HANDED_SWORD,
+    A("Thiefbane", LONG_SWORD,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_BEHEAD | SPFX_WARN), 0, 0, 
       PHYS(5, 1), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       1500L, NO_COLOR, PLATINUM),

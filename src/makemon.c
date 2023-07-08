@@ -2493,7 +2493,7 @@ register struct monst *mtmp;
             }
         }
         else if (ptr == &mons[PM_ONE_EYED_SAM]) {
-                otmp = mksobj(TWO_HANDED_SWORD, FALSE, FALSE);
+                otmp = mksobj(LONG_SWORD, FALSE, FALSE);
                 otmp = oname(otmp, artiname(ART_THIEFBANE));
                 bless(otmp);
                 otmp->oerodeproof = TRUE;
