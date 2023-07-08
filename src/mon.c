@@ -7056,24 +7056,48 @@ short raceidx;
         rptr->mattk[2].adtyp = AD_DRIN;
         rptr->mattk[2].damn = 2;
         rptr->mattk[2].damd = 1;
+        rptr->ralign = -3;
         break;
     case PM_VAMPIRIC:
         rptr->mattk[2].aatyp = AT_BITE;
         rptr->mattk[2].adtyp = AD_DRLI;
         rptr->mattk[2].damn = 1;
         rptr->mattk[2].damd = 6;
+        rptr->ralign = -3;
         break;
     case PM_CENTAUR:
         rptr->mattk[2].aatyp = AT_KICK;
         rptr->mattk[2].adtyp = AD_PHYS;
         rptr->mattk[2].damn = 1;
         rptr->mattk[2].damd = 6;
+        rptr->ralign = rn2(2) ? 0 : -3;
         break;
     case PM_GIANT:
         rptr->mattk[2].aatyp = AT_WEAP;
         rptr->mattk[2].adtyp = AD_CLOB;
         rptr->mattk[2].damn = 2;
         rptr->mattk[2].damd = 10;
+        break;
+    case PM_GNOME:
+        rptr->ralign = 0;
+        break;
+    case PM_DWARF:
+        rptr->ralign = rn2(2) ? 0 : 3;
+        break;
+    case PM_ELF:
+        rptr->ralign = 3;
+        break;
+    case PM_TORTLE:
+        rptr->ralign = rn2(2) ? 0 : 3;
+        break;
+    case PM_ORC:
+        rptr->ralign = -3;
+        break;
+    case PM_HOBBIT:
+        rptr->ralign = 0;
+        break;
+    case PM_DOPPELGANGER:
+        rptr->ralign = 0;
         break;
     }
 }
