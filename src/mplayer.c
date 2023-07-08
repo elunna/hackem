@@ -230,7 +230,13 @@ int mndx;
     rptr->ralign = ptr->maligntyp;
     memcpy(rptr->mattk, ptr->mattk, sizeof(struct attack) * NATTK);
 
-    /* default player monster attacks */
+    /* default player monster attacks
+     * In EvilHack the defaults were:
+     *      Attack 0: AT_WEAP, AD_PHYS 1d6
+     *      Attack 1: AT_WEAP, AD_SAMU 1d6
+     *
+     * In HackEM we are designating the 2 slot just for racial abilities.
+     * */
     rptr->mattk[0].aatyp = AT_WEAP;
     rptr->mattk[0].adtyp = AD_PHYS;
     rptr->mattk[0].damn = 1;

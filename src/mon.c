@@ -7048,6 +7048,34 @@ short raceidx;
     rptr->mflags1 |= ptr->mflags1;
     rptr->mflags2 |= ptr->mflags2;
     rptr->mflags3 |= ptr->mflags3;
+
+    /* Special races get a bonus attack and certain adjustments. */
+    switch (raceidx) {
+    case PM_ILLITHID:
+        rptr->mattk[2].aatyp = AT_TENT;
+        rptr->mattk[2].adtyp = AD_DRIN;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 1;
+        break;
+    case PM_VAMPIRIC:
+        rptr->mattk[2].aatyp = AT_BITE;
+        rptr->mattk[2].adtyp = AD_DRLI;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+        break;
+    case PM_CENTAUR:
+        rptr->mattk[2].aatyp = AT_KICK;
+        rptr->mattk[2].adtyp = AD_PHYS;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+        break;
+    case PM_GIANT:
+        rptr->mattk[2].aatyp = AT_WEAP;
+        rptr->mattk[2].adtyp = AD_CLOB;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 10;
+        break;
+    }
 }
 
 /**
