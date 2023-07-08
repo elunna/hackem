@@ -4462,7 +4462,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     
     /* Slaughter wights release a death wail on dying */
     if (mtmp->data == &mons[PM_SLAUGHTER_WIGHT] &&
-                       !disintegested && m_canseeu(mtmp)) {
+                       !disintegested) {
         deathwail(mtmp);
     }
     
@@ -7129,26 +7129,36 @@ deathwail(mtmp)
 struct monst *mtmp;
 {
     int dmg = d(2, 18);
-    /* Mostly copied from mhitu.c */
+
+    /* Note: This attack triggers even if cancelled! */
+    if (!m_canseeu(mtmp))
+        return;
+
     if (Deaf) {
         pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
-        dmg = 1;
-    } else
+    } else {
         pline("%s releases a death wail!", Monnam(mtmp));
-    
+        if (u.usleep)
+            unmul("You are frightened awake!");
+    }
+
     if (Sonic_resistance) {
         You("are unaffected by the noise.");
-        dmg = 0;
         monstseesu(M_SEEN_LOUD);
-    } else {
+        return;
+    } else if (u.umonnum == PM_GLASS_GOLEM) {
+        You("shatter into a million pieces!");
+        rehumanize();
+        return;
+    }
+
+    if (!Deaf) {
         Your("mind reels from the noise!");
         make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
         stop_occupation();
+        mdamageu(mtmp, dmg);
     }
-    
-    if (!Deaf && u.usleep && m_canseeu(mtmp))
-        unmul("You are frightened awake!");
-        
+    /* being deaf won't protect objects in inventory, or being made of glass */
     if (!rn2(6))
         erode_armor(&youmonst, ERODE_FRACTURE);
     if (!rn2(5))
@@ -7163,15 +7173,8 @@ struct monst *mtmp;
         destroy_item(TOOL_CLASS, AD_LOUD);
     if (!rn2(3))
         destroy_item(WAND_CLASS, AD_LOUD);
-    
-    if (u.umonnum == PM_GLASS_GOLEM) {
-        You("shatter into a million pieces!");
-        rehumanize();
-    } else if (Sonic_resistance && !Deaf) {
-        monstseesu(M_SEEN_LOUD);
-    } else if (!Deaf) {
-        mdamageu(mtmp, dmg);
-    }
+
+
 }
 
 /* If mindex is -1, spirits are made off the range of player monster types.

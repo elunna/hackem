@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Refactor deathwail, protect items if player has sonic resistance.
 Doppelganger options: Remove arc, tourist, necro. Add undead slayer.
 Allow illithid Pirate.
 Allow dwarven Jedi.
