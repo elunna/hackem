@@ -627,7 +627,7 @@ struct obj *detector; /* object doing the detecting */
                                   || detector->oclass == SPBOOK_CLASS)
                      && detector->blessed);
     int ct = 0;
-    register struct obj *obj, *otmp = (struct obj *) 0;
+    register struct obj *obj;
     register struct monst *mtmp;
     int ter_typ = TER_DETECT | TER_OBJ;
 
@@ -640,17 +640,14 @@ struct obj *detector; /* object doing the detecting */
             if (!(obj->ox == u.ux && obj->oy == u.uy))
                 ct++;
         }
-        if (do_dknown)
-            do_dknown_of(obj, FALSE);
+        if (do_dknown) do_dknown_of(obj, FALSE);
     }
 
     for (obj = level.buriedobjlist; obj; obj = obj->nobj) {
         if (obj->oartifact) {
-            if (!(obj->ox == u.ux && obj->oy == u.uy))
-                ct++;
+            if (!(obj->ox == u.ux && obj->oy == u.uy)) ct++;
         }
-        if (do_dknown)
-            do_dknown_of(obj, FALSE);
+        if (do_dknown) do_dknown_of(obj, FALSE);
     }
 
     if (u.usteed)
@@ -660,10 +657,8 @@ struct obj *detector; /* object doing the detecting */
         if (DEADMONSTER(mtmp))
             continue;
         for (obj = mtmp->minvent; obj; obj = obj->nobj) {
-            if (obj->oartifact)
-                ct++;
-            if (do_dknown)
-                do_dknown_of(obj, FALSE);
+            if (obj->oartifact) ct++;
+            if (do_dknown) do_dknown_of(obj, FALSE);
         }
     }
 
@@ -694,13 +689,16 @@ struct obj *detector; /* object doing the detecting */
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
             continue;
-        for (obj = mtmp->minvent; obj; obj = obj->nobj)
-            if (obj->oartifact) {
-                otmp->ox = mtmp->mx; /* at monster location */
-                otmp->oy = mtmp->my;
-                map_object(otmp, 1);
+
+        for (obj = mtmp->minvent; obj; obj = obj->nobj) {
+            if (obj && obj->oartifact) {
+                ct++;
+                obj->ox = mtmp->mx; /* at monster location */
+                obj->oy = mtmp->my;
+                map_object(obj, 1);
                 break;
             }
+        }
     }
     if (!glyph_is_object(glyph_at(u.ux, u.uy))) {
         newsym(u.ux, u.uy);
