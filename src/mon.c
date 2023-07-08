@@ -6944,7 +6944,7 @@ short mndx;
         permitted |= (MH_CENTAUR | MH_GIANT | MH_ORC | MH_ILLITHID);
         break;
     case PM_JEDI:
-        permitted |= (MH_ELF | MH_HOBBIT | MH_TORTLE);
+        permitted |= (MH_DWARF | MH_ELF | MH_HOBBIT | MH_TORTLE);
         break;
     case PM_KNIGHT:
         permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_ORC);

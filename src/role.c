@@ -327,7 +327,7 @@ const struct Role roles[] = {
 	ART_DELUDER, ART_SNAKESKIN
 #endif
       ART_LIGHTSABER_PROTOTYPE,
-      MH_HUMAN | MH_ELF | MH_HOBBIT | MH_TORTLE,
+      MH_HUMAN | MH_DWARF | MH_ELF | MH_HOBBIT | MH_TORTLE,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL,
       /* Str Int Wis Dex Con Cha */
       {  10,  7, 14, 12, 10, 14 },
