@@ -1154,16 +1154,6 @@ u_init()
         ini_inv(Barbarian);
         if (!rn2(6))
             ini_inv(Torch);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(3)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         knows_class(WEAPON_CLASS); /* excluding polearms */
         knows_class(ARMOR_CLASS);
         skill_init(Skill_B);
@@ -1172,16 +1162,6 @@ u_init()
         u.nv_range = 2;
         Cave_man[C_AMMO].trquan = rn1(11, 10); /* 10..20 */
         ini_inv(Cave_man);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(8)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_C);
         break;
     case PM_FLAME_MAGE:
@@ -1220,7 +1200,6 @@ u_init()
             ini_inv(Lenses);
         skill_init(Skill_I);
         break;
-        
     case PM_JEDI:
         /* Random lightsaber at start */
         switch (rnd(3)) {
@@ -1278,16 +1257,6 @@ u_init()
         if (Race_if(PM_ILLITHID))
             force_learn_spell(SPE_PSIONIC_WAVE);
         knows_object(SCR_CHARGING);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(4)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_Inf);
         break;
     case PM_KNIGHT:
@@ -1356,17 +1325,6 @@ u_init()
         if (!rn2(4))
             ini_inv(Lamp);
         knows_object(POT_WATER);
-        
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(6)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_P);
         /* KMH, conduct --
          * Some may claim that this isn't agnostic, since they
@@ -1406,16 +1364,6 @@ u_init()
             ini_inv(Blindfold);
         knows_class(WEAPON_CLASS); /* all weapons */
         knows_class(ARMOR_CLASS);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(4)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_S);
         break;
     case PM_TOURIST:
@@ -1452,16 +1400,6 @@ u_init()
             break;
         }
         ini_inv(UndeadSlayer);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(3)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
         skill_init(Skill_U);
@@ -1474,16 +1412,6 @@ u_init()
         ini_inv(Valkyrie);
         if (!rn2(6))
             ini_inv(Lamp);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(3)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         knows_class(WEAPON_CLASS); /* excludes polearms */
         knows_class(ARMOR_CLASS);
         skill_init(Skill_V);
@@ -1498,16 +1426,6 @@ u_init()
             ini_inv(Lamp);
         if (!rn2(5))
             ini_inv(Blindfold);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(7)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         knows_object(MAGIC_MARKER);
         knows_object(MAGIC_WHISTLE);
         knows_object(MAGIC_HARP);
@@ -1603,14 +1521,23 @@ u_init()
         }
         break;
 
-    case PM_GIANT:
+    case PM_GIANT: {
+        struct trobj RandomGem = Gem[0];
+        while (!rn2(3)) {
+            int gem = rnd_class(TOPAZ, JADE);
+            Gem[0] = RandomGem;
+            Gem[0].trotyp = gem;
+            ini_inv(Gem);
+            knows_object(gem);
+        }
+
         /* Giants know valuable gems from glass, and may recognize a few types of valuable gem. */
         for (i = DILITHIUM_CRYSTAL; i <= LUCKSTONE; i++) {
             if ((objects[i].oc_cost <= 1) || (rn2(100) < 5 + ACURR(A_INT)))
                 knows_object(i);
         }
         break;
-
+    }
     case PM_HOBBIT:
         /* Hobbits are always hungry; you'd be hard-pressed to come across one that didn't have
          * something to snack on or at least a means to make more food */

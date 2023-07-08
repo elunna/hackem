@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Consolidated all gem generation code in u_unit.c for the giant player race.
 Refactor some flame-ice mage stuff.
 Refactor deathwail, protect items if player has sonic resistance.
 Doppelganger options: Remove arc, tourist, necro. Add undead slayer.
