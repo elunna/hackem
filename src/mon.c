@@ -443,6 +443,35 @@ int mndx;
     return mndx;
 }
 
+/* convert the monster index of an living to possible undead counterpart
+ * Unlike undead_to_corpse, this could have different outcomes. For example
+ * a gnome could be replaced by a gnome zombie or a gnome mummy.
+ * */
+int
+living_to_undead(mndx)
+int mndx;
+{
+    switch (mndx) {
+    case PM_GNOME:
+    case PM_GNOME_LORD:
+    case PM_ROCK_GNOME:
+    case PM_GNOME_KING:
+    case PM_GNOMISH_WIZARD:
+        return rn2(2) ? PM_GNOME_MUMMY : PM_GNOME_ZOMBIE;
+    case PM_DWARF:
+    case PM_MOUNTAIN_DWARF:
+    case PM_DWARF_LORD:
+    case PM_DWARF_KING:
+        return rn2(2) ? PM_DWARF_MUMMY : PM_GIANT_ZOMBIE;
+    case PM_HOBBIT:
+    case PM_HOBBIT_PICKPOCKET:
+        return rn2(2) ? PM_HOBBIT_MUMMY : PM_HOBBIT_ZOMBIE;
+    case PM_MOUNTAIN_CENTAUR:
+    case PM_FOREST_CENTAUR:
+        return rn2(2) ? PM_CENTAUR_MUMMY : PM_CENTAUR_ZOMBIE;
+    }
+    return 0;
+}
 /* Convert the monster index of some monsters (such as quest guardians)
  * to their generic species type.
  *

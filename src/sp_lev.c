@@ -1663,21 +1663,8 @@ struct mkroom *croom;
         /* As we go deeper the chances for undead increase - this way we retain
          * more variety and meanness, but the upper levels are still doable */
         if (In_mines(&u.uz) && (rn2(13) < depth(&u.uz) - 2)) {
-            switch (m->id) {
-            case PM_GNOME: m->id = PM_GNOME_MUMMY; break;
-            case PM_ROCK_GNOME: m->id = PM_GNOME_ZOMBIE; break;
-            case PM_GNOMISH_WIZARD: m->id = PM_ORC_SHAMAN; break;
-            case PM_GNOME_LORD: m->id = PM_GNOME_MUMMY; break;
-            case PM_GNOME_KING: m->id = PM_OGRE; break;
-            case PM_DWARF: m->id = PM_DWARF_MUMMY; break;
-            case PM_MOUNTAIN_DWARF: m->id = PM_DWARF_ZOMBIE; break;
-            case PM_DWARF_LORD: m->id = PM_DWARF_MUMMY; break;
-            case PM_DWARF_KING: m->id = PM_WAR_ORC; break;
-            case PM_HOBBIT: m->id = PM_HOBBIT_ZOMBIE; break;
-            case PM_HOBBIT_PICKPOCKET: m->id = PM_HOBBIT_ZOMBIE; break;
-            case PM_MOUNTAIN_CENTAUR: m->id = PM_CENTAUR_ZOMBIE; break;
-            case PM_FOREST_CENTAUR: m->id = PM_CENTAUR_MUMMY; break;
-            }
+            int res = living_to_undead(m->id);
+            m->id = res ? res : m->id;
         }
         pm = &mons[m->id];
         g_mvflags = (unsigned) mvitals[monsndx(pm)].mvflags;

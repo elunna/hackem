@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Refactored undead generation for mines denizens.
 Consolidated psionic wave granting in u_unit.c for illithids.
 Consolidated all gem generation code in u_unit.c for the giant player race.
 Refactor some flame-ice mage stuff.

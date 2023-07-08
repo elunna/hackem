@@ -1581,6 +1581,7 @@ E boolean FDECL(zombie_maker, (struct permonst *));
 E int FDECL(zombie_form, (struct permonst *));
 E void FDECL(become_flayer, (struct monst *));
 E int FDECL(undead_to_corpse, (int));
+E int FDECL(living_to_undead, (int));
 E int FDECL(genus, (int, int));
 E int FDECL(pm_to_cham, (int));
 E int FDECL(minliquid, (struct monst *));
