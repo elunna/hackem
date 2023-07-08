@@ -33,6 +33,7 @@ STATIC_DCL int FDECL(glow_strength, (int));
 STATIC_DCL boolean FDECL(untouchable, (struct obj *, BOOLEAN_P));
 STATIC_DCL int FDECL(count_surround_traps, (int, int));
 STATIC_DCL boolean FDECL(can_we_zap, (int, int, int));
+STATIC_DCL boolean FDECL(forbidden_artifact, (struct obj *));
 
 /* The amount added to the victim's total hit points to insure that the
    victim will be killed even after damage bonus/penalty adjustments.
@@ -1126,10 +1127,8 @@ struct monst *mon;
     /* can pick it up unless you're totally non-synch'd with the artifact */
     /* --hackem: Elemental mages have special restrictions */
     if ((badclass && badalign && self_willed)
-        || (yours && obj->oartifact == ART_FROST_BRAND && Role_if(PM_FLAME_MAGE))
-        || (yours && obj->oartifact == ART_DEEP_FREEZE && Role_if(PM_FLAME_MAGE))
-        || (yours && obj->oartifact == ART_FIRE_BRAND && Role_if(PM_ICE_MAGE))
-        || (yours && obj->oartifact == ART_FIREWALL && Role_if(PM_ICE_MAGE))) {
+        || (yours && forbidden_artifact(obj))) {
+
         if (yours) {
             if (!carried(obj))
                 pline("%s your grasp!", Tobjnam(obj, "evade"));
@@ -5143,6 +5142,7 @@ int dx, dy, maxdist;
     }
     return TRUE;
 }
+
 boolean
 is_forged_artifact(otmp)
 struct obj *otmp;
@@ -5153,4 +5153,19 @@ struct obj *otmp;
     return ((artilist[art].spfx & SPFX_FORGED) != 0L);
 }
 
+STATIC_OVL boolean
+forbidden_artifact(otmp)
+struct obj *otmp;
+{
+    if (otmp->oartifact == ART_FROST_BRAND && Role_if(PM_FLAME_MAGE))
+        return TRUE;
+    if (otmp->oartifact == ART_DEEP_FREEZE && Role_if(PM_FLAME_MAGE))
+        return TRUE;
+    if (otmp->oartifact == ART_FIRE_BRAND && Role_if(PM_ICE_MAGE))
+        return TRUE;
+    if (otmp->oartifact == ART_FIREWALL && Role_if(PM_ICE_MAGE))
+        return TRUE;
+
+    return FALSE;
+}
 /*artifact.c*/
