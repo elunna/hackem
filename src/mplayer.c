@@ -230,7 +230,13 @@ int mndx;
     rptr->ralign = ptr->maligntyp;
     memcpy(rptr->mattk, ptr->mattk, sizeof(struct attack) * NATTK);
 
-    /* default player monster attacks */
+    /* default player monster attacks
+     * In EvilHack the defaults were:
+     *      Attack 0: AT_WEAP, AD_PHYS 1d6
+     *      Attack 1: AT_WEAP, AD_SAMU 1d6
+     *
+     * In HackEM we are designating the 2 slot just for racial abilities.
+     * */
     rptr->mattk[0].aatyp = AT_WEAP;
     rptr->mattk[0].adtyp = AD_PHYS;
     rptr->mattk[0].damn = 1;
@@ -251,14 +257,10 @@ int mndx;
     case PM_ARCHEOLOGIST:
         /* flags for all archeologists regardless of race */
         rptr->mflags1 |= (M1_TUNNEL | M1_NEEDPICK);
-        if (race == PM_GNOME)
-            rptr->ralign = 0;
         break;
     case PM_BARBARIAN:
         /* flags for all barbarians regardless of race */
         rptr->mflags3 |= M3_BERSERK;
-        if (race == PM_DWARF || race == PM_TORTLE)
-            rptr->ralign = 0;
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
@@ -269,8 +271,6 @@ int mndx;
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = rptr->mattk[1].adtyp = 0;
         rptr->mattk[1].damn = rptr->mattk[1].damd = 0;
-        if (race == PM_GNOME)
-            rptr->ralign = 0;
         break;
     case PM_CONVICT:
         /* flags for all convicts regardless of race */
@@ -297,9 +297,6 @@ int mndx;
         rptr->mattk[1].adtyp = AD_CLRC;
         break;
     case PM_KNIGHT:
-        if (race == PM_ELF || race == PM_ORC
-            || race == PM_CENTAUR)
-            rptr->ralign = -3;
         break;
     case PM_MONK:
         /* flags for all monks regardless of race */
@@ -311,10 +308,6 @@ int mndx;
         rptr->mattk[0].damd = rptr->mattk[1].damd = 8;
         rptr->mflags1 |= M1_SEE_INVIS;
         mtmp->mintrinsics |= (MR_POISON | MR_SLEEP);
-        if (race == PM_DWARF || race == PM_TORTLE)
-            rptr->ralign = 3;
-        if (race == PM_ELF)
-            rptr->ralign = -3;
         break;
     case PM_PRIEST:
     case PM_PRIESTESS:
@@ -322,24 +315,16 @@ int mndx;
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_CLRC;
-        if (race == PM_ORC || race == PM_ILLITHID)
-            rptr->ralign = -3;
-        if (race == PM_TORTLE)
-            rptr->ralign = 0;
         break;
     case PM_RANGER:
         /* flags for all rangers regardless of race */
         rptr->mflags3 |= M3_ACCURATE;
-        if (race == PM_HOBBIT)
-            rptr->ralign = 0;
         break;
     case PM_ROGUE:
         /* flags for all rogues regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].adtyp = AD_SITM;
         rptr->mflags3 |= M3_ACCURATE;
-        if (race == PM_HOBBIT || race == PM_GNOME)
-            rptr->ralign = 0;
         break;
     case PM_SAMURAI:
         /* flags for all samurai regardless of race */
@@ -356,39 +341,24 @@ int mndx;
         rptr->mattk[0].damn = rptr->mattk[1].damn = 1;
         rptr->mattk[0].damd = rptr->mattk[1].damd = 8;
         mtmp->mintrinsics |= MR_COLD;
-        if (race == PM_DWARF)
-            rptr->ralign = 3;
         break;
     case PM_WIZARD:
         /* flags for all wizards regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_SPEL;
-        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC)
-            rptr->ralign = -3;
-        if (race == PM_DWARF || race == PM_HOBBIT
-            || race == PM_TORTLE)
-            rptr->ralign = 0;
         break;
     case PM_FLAME_MAGE:
         /* flags for all mages regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].adtyp = AD_CLRC;
         mtmp->mintrinsics |= MR_FIRE;
-        if (race == PM_DWARF || race == PM_HOBBIT || race == PM_GNOME)
-            rptr->ralign = 0;
-        if (race == PM_TORTLE || race == PM_ELF)
-            rptr->ralign = 3;
         break;
     case PM_ICE_MAGE: 
         /* flags for all healers regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         mtmp->mintrinsics |= MR_COLD;
-        if (race == PM_HOBBIT || race == PM_GNOME || race == PM_CENTAUR)
-            rptr->ralign = 0;
-        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC)
-            rptr->ralign = -3;
         break;
     case PM_NECROMANCER:
         /* flags for all necromancers regardless of race */
@@ -396,23 +366,10 @@ int mndx;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_CLRC;
         rptr->mflags1 |= (M1_TUNNEL | M1_NEEDPICK);
-        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC
-            || race == PM_CENTAUR)
-            rptr->ralign = -3;
-        break;
         break;
     case PM_UNDEAD_SLAYER:
-        if (race == PM_DWARF || race == PM_HOBBIT)
-            rptr->ralign = 0;
-        if (race == PM_ELF || race == PM_TORTLE || race == PM_CENTAUR)
-            rptr->ralign = 3;
-        break;
     case PM_YEOMAN:
-        if (race == PM_ELF || race == PM_HOBBIT)
-            rptr->ralign = 3;
         break;
-                
-                
     default:
         break;
     }

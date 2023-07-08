@@ -15,6 +15,13 @@
 
 Version 1.1.5 (unreleased)
 
+Doppelganger options: Remove arc, tourist, necro. Add undead slayer.
+Allow illithid Pirate.
+Allow dwarven Jedi.
+Refactor racial alignment adjustments from init_mplayer_erac() to apply_race().
+mplayers might get an additional attack depending on their race.
+Cleaned up m_randrace so it matches with the role info.
+Simplify the manticore spike volley code.
 wizard mode light source bug (From 3.7)
 Wielding Disrupter grants warning vs undead.
 Priests now get Disrupter for first sacrifice gift instead of Demonbane as per SLASH'EM.

@@ -6913,11 +6913,12 @@ short mndx;
         permitted |= (MH_DWARF | MH_ELF | MH_GNOME | MH_GIANT);
         break;
     case PM_ARCHEOLOGIST:
-        permitted |= (MH_DWARF | MH_GNOME | MH_HOBBIT | MH_TORTLE);
+        permitted |= (MH_DWARF | MH_GNOME | MH_HOBBIT | MH_TORTLE
+                      | MH_VAMPIRE);
         break;
     case PM_BARBARIAN:
-        permitted |= (MH_DWARF | MH_ORC | MH_GIANT | MH_CENTAUR
-                      | MH_TORTLE);
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_GIANT | MH_ORC
+                      | MH_TORTLE | MH_VAMPIRE);
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
@@ -6925,64 +6926,72 @@ short mndx;
         break;
     case PM_CONVICT:
         permitted |=
-            (MH_DWARF | MH_ORC | MH_GNOME | MH_HOBBIT | MH_ILLITHID);
+            (MH_CENTAUR | MH_DWARF | MH_GIANT  | MH_GNOME | MH_HOBBIT
+             | MH_ILLITHID | MH_ORC | MH_VAMPIRE );
+        break;
+    case PM_FLAME_MAGE:
+        permitted |= (MH_DWARF | MH_ELF | MH_GNOME);
         break;
     case PM_HEALER:
         permitted |=
-            (MH_DWARF | MH_ELF | MH_GNOME | MH_HOBBIT | MH_CENTAUR
+            (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GNOME | MH_HOBBIT
              | MH_TORTLE);
         break;
+    case PM_ICE_MAGE:
+        permitted |= (MH_CENTAUR | MH_ORC | MH_ILLITHID | MH_VAMPIRE);
+        break;
     case PM_INFIDEL:
-        permitted |= (MH_ELF | MH_GIANT | MH_ORC | MH_ILLITHID);
+        permitted |= (MH_CENTAUR | MH_GIANT | MH_ORC | MH_ILLITHID);
+        break;
+    case PM_JEDI:
+        permitted |= (MH_DWARF | MH_ELF | MH_HOBBIT | MH_TORTLE);
         break;
     case PM_KNIGHT:
-        permitted |= (MH_DWARF | MH_ELF | MH_ORC | MH_CENTAUR);
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_ORC);
         break;
     case PM_MONK:
-        permitted |= (MH_DWARF | MH_ELF | MH_GIANT | MH_CENTAUR
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GIANT
                       | MH_TORTLE);
+        break;
+    case PM_NECROMANCER:
+        permitted |= (MH_CENTAUR | MH_ORC | MH_GIANT | MH_ILLITHID
+                      | MH_ORC | MH_VAMPIRE);
         break;
     case PM_PRIEST:
     case PM_PRIESTESS:
         permitted |=
-            (MH_DWARF | MH_ELF | MH_GIANT | MH_HOBBIT | MH_CENTAUR
-             | MH_ORC | MH_ILLITHID | MH_TORTLE);
+            (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GIANT | MH_HOBBIT
+             | MH_ILLITHID | MH_ORC  | MH_TORTLE);
+        break;
+    case PM_PIRATE:
+        permitted |= (MH_GNOME | MH_ILLITHID | MH_ORC | MH_VAMPIRE);
         break;
     case PM_RANGER:
-        permitted |= (MH_ELF | MH_GNOME | MH_HOBBIT | MH_CENTAUR | MH_ORC);
+        permitted |= (MH_CENTAUR | MH_GNOME | MH_HOBBIT | MH_ORC);
         break;
     case PM_ROGUE:
-        permitted |= (MH_ELF | MH_HOBBIT | MH_ORC | MH_GNOME);
+        permitted |= (MH_GNOME | MH_HOBBIT | MH_ORC | MH_VAMPIRE);
         break;
     case PM_SAMURAI:
         permitted |= (MH_DWARF | MH_GIANT);
         break;
     case PM_TOURIST:
-        permitted |= (MH_HOBBIT | MH_GNOME | MH_TORTLE);
+        permitted |= (MH_GNOME | MH_HOBBIT |  MH_TORTLE);
+        break;
+    case PM_UNDEAD_SLAYER:
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GNOME | MH_GIANT
+                      | MH_HOBBIT | MH_TORTLE);
         break;
     case PM_VALKYRIE:
-        permitted |= (MH_DWARF | MH_GIANT | MH_CENTAUR);
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_GIANT);
         break;
     case PM_WIZARD:
         permitted |=
-          (MH_DWARF | MH_ELF | MH_GIANT | MH_GNOME | MH_HOBBIT
-           | MH_ORC | MH_ILLITHID | MH_TORTLE);
-        break;
-    case PM_FLAME_MAGE:
-        permitted |= (MH_GNOME | MH_HOBBIT | MH_GIANT | MH_DWARF | MH_ELF);
-        break;
-    case PM_ICE_MAGE: 
-        permitted |= (MH_GNOME | MH_ORC | MH_HOBBIT | MH_ILLITHID | MH_CENTAUR);
-        break;
-    case PM_NECROMANCER:
-        permitted |= (MH_ORC | MH_GIANT | MH_CENTAUR | MH_ILLITHID);
-        break;
-    case PM_UNDEAD_SLAYER:
-        permitted |= (MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
-                      | MH_CENTAUR | MH_TORTLE);
+          (MH_DWARF | MH_ELF | MH_GIANT | MH_GNOME | MH_HOBBIT |
+             MH_ILLITHID | MH_ORC | MH_TORTLE | MH_VAMPIRE);
         break;
     case PM_YEOMAN:
-        permitted |= (MH_ELF | MH_HOBBIT);
+        permitted |= (MH_ELF | MH_HOBBIT | MH_CENTAUR);
         break;
     default:
         break;
@@ -7039,6 +7048,58 @@ short raceidx;
     rptr->mflags1 |= ptr->mflags1;
     rptr->mflags2 |= ptr->mflags2;
     rptr->mflags3 |= ptr->mflags3;
+
+    /* Special races get a bonus attack and certain adjustments. */
+    switch (raceidx) {
+    case PM_ILLITHID:
+        rptr->mattk[2].aatyp = AT_TENT;
+        rptr->mattk[2].adtyp = AD_DRIN;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 1;
+        rptr->ralign = -3;
+        break;
+    case PM_VAMPIRIC:
+        rptr->mattk[2].aatyp = AT_BITE;
+        rptr->mattk[2].adtyp = AD_DRLI;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+        rptr->ralign = -3;
+        break;
+    case PM_CENTAUR:
+        rptr->mattk[2].aatyp = AT_KICK;
+        rptr->mattk[2].adtyp = AD_PHYS;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+        rptr->ralign = rn2(2) ? 0 : -3;
+        break;
+    case PM_GIANT:
+        rptr->mattk[2].aatyp = AT_WEAP;
+        rptr->mattk[2].adtyp = AD_CLOB;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 10;
+        break;
+    case PM_GNOME:
+        rptr->ralign = 0;
+        break;
+    case PM_DWARF:
+        rptr->ralign = rn2(2) ? 0 : 3;
+        break;
+    case PM_ELF:
+        rptr->ralign = 3;
+        break;
+    case PM_TORTLE:
+        rptr->ralign = rn2(2) ? 0 : 3;
+        break;
+    case PM_ORC:
+        rptr->ralign = -3;
+        break;
+    case PM_HOBBIT:
+        rptr->ralign = 0;
+        break;
+    case PM_DOPPELGANGER:
+        rptr->ralign = 0;
+        break;
+    }
 }
 
 /**
