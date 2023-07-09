@@ -1979,11 +1979,9 @@ do_nothing:
                 || (is_lava(x, y) && !is_lava(u.ux, u.uy))
                 || (is_open_air(x, y) && !is_open_air(u.ux, u.uy)))) {
             if (is_pool(x, y) && !known_wwalking) {
-                
                 if (context.nopick) {
                     /* moving with m-prefix */
                     context.swim_tip = TRUE;
-                    /*return FALSE;*/
                 } else if (ParanoidSwim) {
                     context.move = 0;
                     nomul(0);

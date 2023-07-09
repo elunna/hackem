@@ -3793,6 +3793,18 @@ int tech_no;
          You("don't see anyone to tumble past in that direction.");
          return 0;
     }
+
+    if (is_pool(mtmp->mx, mtmp->my) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really tumble into the water?")) {
+            return 0;
+         }
+    } else if (is_lava(mtmp->mx, mtmp->my) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really tumble into the lava?")) {
+            return 0;
+         }
+    }
+
+
     You("tumble past %s.", mon_nam(mtmp));
     tx = u.ux;
     ty = u.uy;
@@ -3803,13 +3815,17 @@ int tech_no;
     trtmp = t_at(u.ux, u.uy);
     if (trtmp)
          dotrap(trtmp, FORCETRAP);
+
+    newsym(u.ux, u.uy);
+    newsym(mtmp->mx, mtmp->my);
+    spoteffects(FALSE);
+
     if (roll > tumbleskill) {
          nomul(-rnd(2));
          multi_reason = "recovering from a tumble";
          nomovemsg = "You recover from your tumble.";
     }
-    newsym(u.ux, u.uy);
-    newsym(mtmp->mx, mtmp->my);
+
     return 1;
 }
 
