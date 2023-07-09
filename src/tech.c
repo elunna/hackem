@@ -3066,6 +3066,10 @@ int tech_no;
                 pline_The("acid doesn't affect %s!", mon_nam(mtmp));
          }
 
+         /* Interact with dungeon features */
+//         zap_over_floor(sx, sy, AD_ACID, FALSE, 0, FALSE);
+         zap_over_floor(sx, sy, (AD_ACID - 1), FALSE, 0, FALSE);
+
          /* Clean up */
          tmp_at(DISP_END, 0);
          if (tmp_invul)
