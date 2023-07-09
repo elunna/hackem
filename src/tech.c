@@ -3113,6 +3113,9 @@ int tech_no;
                 range = 0; /* Stop right there! */
                 cc.x = sx;
                 cc.y = sy;
+            } else if (levl[sx][sy].typ == IRONBARS) {
+                sokoban_guilt();
+                pline("You cheater!");
             }
          }
          /* Clean up */
