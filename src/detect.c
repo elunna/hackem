@@ -623,31 +623,41 @@ artifact_detect(detector)
 struct obj *detector; /* object doing the detecting */
 {
     register int x, y;
-    int do_dknown = (detector && (detector->oclass == POTION_CLASS
-                                  || detector->oclass == SPBOOK_CLASS)
-                     && detector->blessed);
+    int do_dknown = (detector && detector->blessed);
     int ct = 0;
     register struct obj *obj;
     register struct monst *mtmp;
     int ter_typ = TER_DETECT | TER_OBJ;
 
     if (do_dknown)
-        for (obj = invent; obj; obj = obj->nobj)
-            do_dknown_of(obj, FALSE);
+        for (obj = invent; obj; obj = obj->nobj) {
+            do_dknown_of(obj, TRUE);
+            discover_artifact((xchar) obj->oartifact);
+            obj->known = 1;
+        }
 
     for (obj = fobj; obj; obj = obj->nobj) {
         if (obj->oartifact) {
             if (!(obj->ox == u.ux && obj->oy == u.uy))
                 ct++;
         }
-        if (do_dknown) do_dknown_of(obj, FALSE);
+        if (do_dknown) {
+            do_dknown_of(obj, TRUE);
+            discover_artifact((xchar) obj->oartifact);
+            obj->known = 1;
+        }
     }
 
     for (obj = level.buriedobjlist; obj; obj = obj->nobj) {
         if (obj->oartifact) {
-            if (!(obj->ox == u.ux && obj->oy == u.uy)) ct++;
+            if (!(obj->ox == u.ux && obj->oy == u.uy))
+                ct++;
         }
-        if (do_dknown) do_dknown_of(obj, FALSE);
+        if (do_dknown) {
+            do_dknown_of(obj, TRUE);
+            discover_artifact((xchar) obj->oartifact);
+            obj->known = 1;
+        }
     }
 
     if (u.usteed)
@@ -657,8 +667,13 @@ struct obj *detector; /* object doing the detecting */
         if (DEADMONSTER(mtmp))
             continue;
         for (obj = mtmp->minvent; obj; obj = obj->nobj) {
-            if (obj->oartifact) ct++;
-            if (do_dknown) do_dknown_of(obj, FALSE);
+            if (obj->oartifact)
+                ct++;
+            if (do_dknown) {
+                do_dknown_of(obj, TRUE);
+                discover_artifact((xchar) obj->oartifact);
+                obj->known = 1;
+            }
         }
     }
 
@@ -669,7 +684,8 @@ struct obj *detector; /* object doing the detecting */
      *  Map all buried objects first.
      */
     for (obj = level.buriedobjlist; obj; obj = obj->nobj)
-        if (obj->oartifact) map_object(obj, 1);
+        if (obj->oartifact)
+            map_object(obj, 1);
 
     /*
      * If we are mapping all objects, map only the top object of a pile or
