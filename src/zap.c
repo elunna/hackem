@@ -6051,8 +6051,7 @@ boolean moncast;
                 destroy_drawbridge(xx, yy);
             }
             rangemod -= 3;
-        }
-        else if (lev->typ == IRONBARS) {
+        } else if (lev->typ == IRONBARS) {
             if ((lev->wall_info & W_NONDIGGABLE) != 0) {
                 if (see_it)
                     Norep("The %s vibrate somewhat but remain intact.",
@@ -6087,6 +6086,9 @@ boolean moncast;
                     (void) scatter(otmp->ox, otmp->oy, 1, MAY_HIT, otmp);
                 }
             }
+        } else if (IS_TOILET(lev->typ)) {
+            rangemod -= 1;
+            breaktoilet(x, y);
         }
         break;
     }
