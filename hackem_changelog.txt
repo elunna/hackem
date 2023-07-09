@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Using the air dash tech while confused or stunned goes in a random direction.
 Fix effects when tumbling into water and lava. Add paranoid swim prompts.
 Tumble tech cannot be used underwater or while levitating.
 Disallow Wyrm Caves from generating bones. Fixes #362.

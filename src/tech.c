@@ -2228,6 +2228,9 @@ blitz_dash()
     if (tech_no == -1) {
         return 0;
     }
+    if (Stunned || Confusion)
+        confdir();
+
     if (!u.dx && !u.dy) {
         You("stretch.");
         return 0;
