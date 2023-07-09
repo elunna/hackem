@@ -2246,6 +2246,7 @@ blitz_dash()
         You("dash forwards!");
     hurtle(u.dx, u.dy, 2, FALSE);
     multi = 0; /* No paralysis with dash */
+
     return 1;
 }
 
@@ -2980,9 +2981,11 @@ int tech_no;
     } else if (distu(cc.x, cc.y) > 19 + techlev(tech_no)) {
          pline("Too far!");
          return 0;
-    } else if (!isok(cc.x, cc.y) || m_at(cc.x, cc.y)
+    } else if (!isok(cc.x, cc.y)
+               || m_at(cc.x, cc.y)
                || IS_ROCK(levl[cc.x][cc.y].typ)
-               || sobj_at(BOULDER, cc.x, cc.y) || closed_door(cc.x, cc.y)) {
+               || sobj_at(BOULDER, cc.x, cc.y)
+               || closed_door(cc.x, cc.y)) {
          You_cant("flow there!"); /* MAR */
          return 0;
     }
@@ -3067,20 +3070,25 @@ int tech_no;
          }
 
          /* Interact with dungeon features */
-//         zap_over_floor(sx, sy, AD_ACID, FALSE, 0, FALSE);
          zap_over_floor(sx, sy, (AD_ACID - 1), FALSE, 0, FALSE);
 
+         /* A little Sokoban guilt... */
+         if (In_sokoban(&u.uz)) {
+            struct trap *ttmp = t_at(sx, sy);
+            if (ttmp && (ttmp->ttyp == PIT || ttmp->ttyp == HOLE)) {
+                sokoban_guilt();
+                pline("You cheater!");
+                range = 0; /* Stop right there! */
+                cc.x = sx;
+                cc.y = sy;
+            }
+         }
          /* Clean up */
          tmp_at(DISP_END, 0);
          if (tmp_invul)
             Invulnerable = 0;
     }
 
-    /* A little Sokoban guilt... */
-    if (In_sokoban(&u.uz)) {
-         change_luck(-1);
-         pline("You cheater!");
-    }
     You("reform!");
     teleds(cc.x, cc.y, FALSE);
     nomul(-1);
