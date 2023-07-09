@@ -2228,7 +2228,14 @@ blitz_dash()
     if (tech_no == -1) {
         return 0;
     }
-    if (Stunned || Confusion)
+    if (u.utrap) {
+        You("cannot air dash until you extricate yourself.");
+        return 0;
+    } else if (Underwater) {
+        pline("This is not the water dash!");
+        return 0;
+    }
+    if (Stunned || Confusion || Fumbling)
         confdir();
 
     if (!u.dx && !u.dy) {
