@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Removed hard floors of wyrm caves (below the entrance level).
 Refactored undead generation for mines denizens.
 Consolidated psionic wave granting in u_unit.c for illithids.
 Consolidated all gem generation code in u_unit.c for the giant player race.
