@@ -2221,10 +2221,11 @@ blitz_uppercut()
 static int
 blitz_dash()
 {
-    int tech_no, mx, my;
+    int tech_no, cx, cy, mx, my;
     boolean stopped = FALSE;
     tech_no = (get_tech_no(T_DASH));
-
+    cx = u.ux + (u.dx * 2);
+    cy = u.uy + (u.dy * 2);
 
     if (tech_no == -1) {
         return 0;
@@ -2238,7 +2239,19 @@ blitz_dash()
     }
     if (Stunned || Confusion || Fumbling)
         confdir();
+    else {
 
+        if (is_pool(cx, cy) && ParanoidSwim) {
+             if (!paranoid_query(ParanoidHit, "Really dash into the water?")) {
+                return 0;
+             }
+        } else if (is_lava(cx, cy) && ParanoidSwim) {
+             if (!paranoid_query(ParanoidHit, "Really dash into the lava?")) {
+                return 0;
+             }
+        }
+
+    }
     if (!u.dx && !u.dy) {
         You("stretch.");
         return 0;
