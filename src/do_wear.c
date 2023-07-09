@@ -2575,8 +2575,12 @@ boolean noisy;
             *mask = W_ARMF;
     } else if (is_gloves(otmp)) {
         if (uarmg) {
-            if (noisy)
-                already_wearing(c_gloves);
+            if (noisy) {
+                if (uarmg->otyp == MUMMIFIED_HAND)
+                    You_cant("fit %s into a glove.", the(xname(uarmg)));
+                else
+                    already_wearing(c_gloves);
+            }
             err++;
         } else if (welded(uwep)) {
             if (noisy)
