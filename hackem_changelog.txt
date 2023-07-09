@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Paranoid confirm for liquid leaping into water or lava.
 Cannot air dash while trapped or underwater. Air dashing while fumbling goes in random direction.
 Using the air dash tech while confused or stunned goes in a random direction.
 Fix effects when tumbling into water and lava. Add paranoid swim prompts.

@@ -2954,14 +2954,14 @@ int tech_no;
     int dx, dy, sx, sy, range;
 
     if (Unchanging) {
-        if (!Hallucination)
+         if (!Hallucination)
             pline("Your form is too rigid to leap!");
-        else
+         else
             pline("You're feeling a little too stiff.");
 
-        return 0;
+         return 0;
     }
-    
+
     pline("Where do you want to leap to?");
     cc.x = sx = u.ux;
     cc.y = sy = u.uy;
@@ -2972,6 +2972,7 @@ int tech_no;
 
     dx = cc.x - u.ux;
     dy = cc.y - u.uy;
+
     /* allow diagonals */
     if (dx && dy && dx != dy && dx != -dy) {
          You("can only leap in straight lines!");
@@ -2979,95 +2980,109 @@ int tech_no;
     } else if (distu(cc.x, cc.y) > 19 + techlev(tech_no)) {
          pline("Too far!");
          return 0;
-    } else if (m_at(cc.x, cc.y) || !isok(cc.x, cc.y) ||
-               IS_ROCK(levl[cc.x][cc.y].typ) ||
-               sobj_at(BOULDER, cc.x, cc.y) ||
-               closed_door(cc.x, cc.y)) {
+    } else if (!isok(cc.x, cc.y) || m_at(cc.x, cc.y)
+               || IS_ROCK(levl[cc.x][cc.y].typ)
+               || sobj_at(BOULDER, cc.x, cc.y) || closed_door(cc.x, cc.y)) {
          You_cant("flow there!"); /* MAR */
          return 0;
-    } else {
-         You("liquify!");
-         if (Punished) {
-            You("slip out of the iron chain.");
-            unpunish();
+    }
+
+    if (is_pool(cc.x, cc.y) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really leap into the water?")) {
+            return 0;
          }
-         if (u.utrap) {
-            switch (u.utraptype) {
-            case TT_BEARTRAP: 
-                You("slide out of the bear trap.");
-                break;
-            case TT_PIT:
-                You("leap from the pit!");
-                break;
-            case TT_WEB:
-                You("flow through the web!");
-                break;
-            case TT_LAVA:
-                You("separate from the lava!");
-                u.utrap = 0;
-                break;
-            case TT_INFLOOR:
-                u.utrap = 0;
-                You("ooze out of the floor!");
-            }
+    } else if (is_lava(cc.x, cc.y) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really leap into the lava?")) {
+            return 0;
+         }
+    }
+
+    You("liquify!");
+
+    if (Punished) {
+         You("slip out of the iron chain.");
+         unpunish();
+    }
+    if (u.utrap) {
+         switch (u.utraptype) {
+         case TT_BEARTRAP:
+            You("slide out of the bear trap.");
+            break;
+         case TT_PIT:
+            You("leap from the pit!");
+            break;
+         case TT_WEB:
+            You("flow through the web!");
+            break;
+         case TT_LAVA:
+            You("separate from the lava!");
             u.utrap = 0;
+            break;
+         case TT_INFLOOR:
+            u.utrap = 0;
+            You("ooze out of the floor!");
          }
-         /* Fry the things in the path ;B */
-         if (dx) 
-            range = dx;
-         else
-            range = dy;
-         if (range < 0) 
-            range = -range;
-                
-         dx = sgn(dx);
-         dy = sgn(dy);
-                
-         while (range-- > 0) {
-            int tmp_invul = 0;
-                    
-            if (!Invulnerable)
-                Invulnerable = tmp_invul = 1;
-            sx += dx; sy += dy;
-            tmp_at(DISP_BEAM, zapdir_to_glyph(dx, dy, AD_ACID-1));
-            tmp_at(sx,sy);
-            delay_output(); /* wait a little */
-            if ((mtmp = m_at(sx, sy)) != 0) {
-                int chance;
-                        
-                chance = rn2(20);
-                if (!chance || (3 - chance) > AC_VALUE(find_mac(mtmp)))
-                    break;
-                setmangry(mtmp, TRUE);
-                You("catch %s in your acid trail!", mon_nam(mtmp));
-                if (!resists_acid(mtmp)) {
-                    int tmp = 1;
-                    /* Need to add a to-hit */
-                    tmp += d(2, 4);
-                    tmp += rn2((int) (techlev(tech_no) / 5 + 1));
-                    if (!Blind) 
-                        pline_The("acid burns %s!", mon_nam(mtmp));
-                    procdmg(mtmp, tmp, AD_ACID);
-                } else if (!Blind) 
-                    pline_The("acid doesn't affect %s!", mon_nam(mtmp));
-            }
-            /* Clean up */
-            tmp_at(DISP_END, 0);
-            if (tmp_invul) 
-                Invulnerable = 0;
+         u.utrap = 0;
+    }
+
+    /* Fry the things in the path ;B */
+    if (dx)
+         range = dx;
+    else
+         range = dy;
+    if (range < 0)
+         range = -range;
+
+    dx = sgn(dx);
+    dy = sgn(dy);
+
+    while (range-- > 0) {
+         int tmp_invul = 0;
+
+         if (!Invulnerable)
+            Invulnerable = tmp_invul = 1;
+         sx += dx;
+         sy += dy;
+         tmp_at(DISP_BEAM, zapdir_to_glyph(dx, dy, AD_ACID - 1));
+         tmp_at(sx, sy);
+         delay_output(); /* wait a little */
+         if ((mtmp = m_at(sx, sy)) != 0) {
+            int chance;
+
+            chance = rn2(20);
+            if (!chance || (3 - chance) > AC_VALUE(find_mac(mtmp)))
+                break;
+            setmangry(mtmp, TRUE);
+            You("catch %s in your acid trail!", mon_nam(mtmp));
+            if (!resists_acid(mtmp)) {
+                int tmp = 1;
+                /* Need to add a to-hit */
+                tmp += d(2, 4);
+                tmp += rn2((int) (techlev(tech_no) / 5 + 1));
+                if (!Blind)
+                    pline_The("acid burns %s!", mon_nam(mtmp));
+                procdmg(mtmp, tmp, AD_ACID);
+            } else if (!Blind)
+                pline_The("acid doesn't affect %s!", mon_nam(mtmp));
          }
 
-         /* A little Sokoban guilt... */
-         if (In_sokoban(&u.uz)) {
-            change_luck(-1);
-            pline("You cheater!");
-         }
-         You("reform!");
-         teleds(cc.x, cc.y, FALSE);
-         nomul(-1);
-         multi_reason = "liquid leaping";
-         nomovemsg = "";
+         /* Clean up */
+         tmp_at(DISP_END, 0);
+         if (tmp_invul)
+            Invulnerable = 0;
     }
+
+    /* A little Sokoban guilt... */
+    if (In_sokoban(&u.uz)) {
+         change_luck(-1);
+         pline("You cheater!");
+    }
+    You("reform!");
+    teleds(cc.x, cc.y, FALSE);
+    nomul(-1);
+    multi_reason = "liquid leaping";
+    nomovemsg = "";
+
     return 1;
 }
 
