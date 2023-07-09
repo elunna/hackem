@@ -3759,6 +3759,14 @@ int tech_no;
          You("tumble in place.");
          return 1;
     }
+    if (Underwater) {
+         You("cannot tumble in the water!");
+         return 0;
+    }
+    if (Levitation) {
+         You("cannot tumble in the air!");
+         return 0;
+    }
     if (u.utrap) {
          You("cannot tumble until you extricate yourself.");
          return 0;
@@ -3793,7 +3801,8 @@ int tech_no;
     remove_monster(mtmp->mx, mtmp->my);
     place_monster(mtmp, tx, ty);
     trtmp = t_at(u.ux, u.uy);
-    if (trtmp) dotrap(trtmp, FORCETRAP);
+    if (trtmp)
+         dotrap(trtmp, FORCETRAP);
     if (roll > tumbleskill) {
          nomul(-rnd(2));
          multi_reason = "recovering from a tumble";
