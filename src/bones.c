@@ -37,6 +37,8 @@ d_level *lev;
                       /* only allow bones in the valley if Cerberus
                          still lives */
                       || (Is_valley(lev) && !u.uevent.ucerberus)
+                      /* no bones in the Wyrm Caves */
+                      || (In_caves(lev))
                       /* no bones in the invocation level */
                       || (In_hell(lev)
                           && lev->dlevel == dunlevs_in_dungeon(lev) - 1));

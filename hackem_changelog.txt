@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Disallow Wyrm Caves from generating bones. Fixes #362.
 Marauder's Map detects monsters on invoke.
 Marauder's Map artifact detect also discovers the artifact.
 Removed hard floors of wyrm caves (below the entrance level).

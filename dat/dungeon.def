@@ -34,8 +34,6 @@ BRANCH:         "Neutral Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-#               Grunds act's as a mini-castle for the player to overcome. 
-#               Grund must be defeated to proceed down the stairs
 BRANCH: 	    "The Wyrm Caves" @ (22, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
 BRANCH: 	    "The Lost Levels" @ (25, 6)
@@ -176,9 +174,6 @@ DUNGEON:        "The Wyrm Caves" "D" (5, 2)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
-#LEVEL:          "cavepass" "D" @ (2, 6) 50
-#LEVEL:          "jermlain" "D" @ (3, 4) 44
-#BRANCH:		 "The Spider Caves" @ (2, 8)
 LEVEL:          "caveend" "D" @ (-1, 0)
 
 ### The Black Market ###
@@ -187,7 +182,7 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
-### The Lost Tomb ###
+### The Lost Levels ###
 # Includes: 
 #   The Lost Tomb, 
 #   The Spider Caves, 
