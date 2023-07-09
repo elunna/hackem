@@ -2599,6 +2599,7 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants */
         && (racial_exception(&youmonst, otmp) < 1)
+        && !(Role_if(PM_MONK) && otmp->oartifact == ART_GRANDMASTER_S_ROBE)
         && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
         && !(Race_if(PM_GIANT) && otmp
              && otmp->otyp == CHROMATIC_DRAGON_SCALES)) {
