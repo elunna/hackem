@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Handle cheating in sokoban with air dash.
 Handle cheating in sokoban with liquid leap (reported by cbus and umbire)
 Liquid leap affects all squares the same as being zapped with acid.
 Paranoid confirm for liquid leaping into water or lava.

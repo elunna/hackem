@@ -2217,13 +2217,14 @@ blitz_uppercut()
 }
 
 
-
 /* Assumes u.dx, u.dy already set up */
 static int
 blitz_dash()
 {
-    int tech_no;
+    int tech_no, mx, my;
+    boolean stopped = FALSE;
     tech_no = (get_tech_no(T_DASH));
+
 
     if (tech_no == -1) {
         return 0;
@@ -2244,9 +2245,27 @@ blitz_dash()
     }
     if ((!Punished || carried(uball)) && !u.utrap)
         You("dash forwards!");
-    hurtle(u.dx, u.dy, 2, FALSE);
-    multi = 0; /* No paralysis with dash */
 
+    mx = u.ux + u.dx;
+    my = u.uy + u.dy;
+
+    /* Check if we cheated in soko. Since it's only a 2 step jump we only
+     * need to check the middle space. */
+    if (isok(mx, my) && In_sokoban(&u.uz)) {
+        struct trap *ttmp = t_at(mx, my);
+        if (ttmp && (ttmp->ttyp == PIT || ttmp->ttyp == HOLE)) {
+             stopped = TRUE;
+        }
+    }
+    if (stopped) {
+        /* Using hurtle for 1 space results in double trap handling */
+        teleds(mx, my, TELEDS_ALLOW_DRAG);
+        sokoban_guilt();
+        pline("You cheater!");
+    } else
+        hurtle(u.dx, u.dy, 2, FALSE);
+
+    multi = 0; /* No paralysis with dash */
     return 1;
 }
 
