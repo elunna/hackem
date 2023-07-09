@@ -804,8 +804,12 @@ int mode;
                 return FALSE;
             }
             if (!(Passes_walls || passes_bars(youmonst.data))) {
-                if (mode == DO_MOVE && iflags.mention_walls)
+                if ((mode == DO_MOVE && iflags.mention_walls))
                     You("cannot pass through the bars.");
+                return FALSE;
+            }
+            if (In_sokoban(&u.uz) && passes_bars(youmonst.data)) {
+                You("cannot pass through the bars.");
                 return FALSE;
             }
         } else if (tunnels(youmonst.data) && !needspick(youmonst.data)) {

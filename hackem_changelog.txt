@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Players polyd into slithy monsters can't slither though iron bars in sokoban. Fixes #365.
 Liquid leaping through sokoban iron bars incurrs luck penalty.
 Paranoid confirm for air dashing into water or lava.
 Handle cheating in sokoban with air dash.
