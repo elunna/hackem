@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Confused giants lost track of player position after clobber attack. Fixes #369.
 Any race can wear the Grandmaster's Robe (potential sac gift for tortles or giants).
 Giant and tortle monks can always wear the Grandmaster's Robe.
 Sonic rays will shatter toilets.
