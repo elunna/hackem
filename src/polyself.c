@@ -1463,7 +1463,7 @@ dovolley()
     for (i = 0; i < numattacks; i++) {
         otmp = mksobj(SPIKE, TRUE, FALSE);
         otmp->spe = 1; /* to indicate it's yours */
-        throwit(otmp, 0L, FALSE);
+        throwit(otmp, 0L, FALSE, (struct obj *) 0);
         otmp = (struct obj *) 0;
     }
 
@@ -1498,7 +1498,7 @@ dospit()
             break;
         }
         otmp->spe = 1; /* to indicate it's yours */
-        throwit(otmp, 0L, FALSE);
+        throwit(otmp, 0L, FALSE, (struct obj *) 0);
     }
     return 1;
 }

@@ -11,13 +11,16 @@ STATIC_DCL int FDECL(throw_obj, (struct obj *, int));
 STATIC_DCL boolean FDECL(ok_to_throw, (int *));
 STATIC_DCL void NDECL(autoquiver);
 STATIC_DCL int FDECL(gem_accept, (struct monst *, struct obj *));
+static boolean harmless_missile(struct obj *);
+static boolean toss_up(struct obj *, boolean);
+static void sho_obj_return_to_u(struct obj * obj);
+static struct obj *return_throw_to_inv(struct obj *, long, boolean,
+                                       struct obj *);
 STATIC_DCL void FDECL(tmiss, (struct obj *, struct monst *, BOOLEAN_P));
 STATIC_DCL int FDECL(throw_gold, (struct obj *));
 STATIC_DCL void FDECL(check_shop_obj, (struct obj *, XCHAR_P, XCHAR_P,
                                        BOOLEAN_P));
 static boolean harmless_missile(struct obj *);
-STATIC_DCL boolean FDECL(toss_up, (struct obj *, BOOLEAN_P));
-STATIC_DCL void FDECL(sho_obj_return_to_u, (struct obj * obj));
 STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
 
 /* uwep might already be removed from inventory so test for W_WEP instead;
@@ -45,7 +48,7 @@ throw_obj(obj, shotlimit)
 struct obj *obj;
 int shotlimit;
 {
-    struct obj *otmp;
+    struct obj *otmp, *oldslot;;
     int multishot;
     schar skill;
     long wep_mask;
@@ -298,6 +301,7 @@ int shotlimit;
     }
 
     wep_mask = obj->owornmask;
+    oldslot = 0;
     m_shot.o = obj->otyp;
     m_shot.n = multishot;
     ammo_stack = obj;
@@ -310,9 +314,10 @@ int shotlimit;
             otmp = obj;
             if (otmp->owornmask)
                 remove_worn_item(otmp, FALSE);
+            oldslot = obj->nobj;
         }
         freeinv(otmp);
-        throwit(otmp, wep_mask, twoweap);
+        throwit(otmp, wep_mask, twoweap, oldslot);
     }
     ammo_stack = (struct obj *) 0;
     m_shot.n = m_shot.i = 0;
@@ -1388,10 +1393,11 @@ struct obj *obj;
 
 /* throw an object, NB: obj may be consumed in the process */
 void
-throwit(obj, wep_mask, twoweap)
+throwit(obj, wep_mask, twoweap, oldslot)
 struct obj *obj;
 long wep_mask; /* used to re-equip returning boomerang */
 boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
+struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 {
     register struct monst *mon;
     int range, urange;
@@ -1516,12 +1522,8 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             && !impaired) {
             pline("%s the %s and returns to your %s!", Tobjnam(obj, "hit"),
                   ceiling(u.ux, u.uy), body_part(HAND));
-            obj = addinv(obj);
-            (void) encumber_msg();
-            if (obj->owornmask & W_QUIVER) /* in case addinv() autoquivered */
-                setuqwep((struct obj *) 0);
-            setuwep(obj);
-            u.twoweap = twoweap;
+            obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
+
         } else if (u.dz < 0 && jedi_forcethrow) {
             pline("%s the %s and returns to your hand!",
                   Tobjnam(obj, "hit"), ceiling(u.ux,u.uy));
@@ -1548,21 +1550,16 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
-        else if (obj->oartifact != ART_WINDRIDER) {
-            iflags.returning_missile = 0; /* doesn't return if it hits monster */
-        }
+
         
         
         mon = boomhit(obj, u.dx, u.dy);
+        if (obj->oartifact != ART_WINDRIDER) {
+            iflags.returning_missile = 0; /* has returned or isn't going to */
+        }
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
-            obj = addinv(obj);
-            (void) encumber_msg();
-            if (wep_mask && !(obj->owornmask & wep_mask)) {
-                setworn(obj, wep_mask);
-                /* moot; can no longer two-weapon with missile(s) */
-                u.twoweap = twoweap;
-            }
+            obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
             clear_thrownobj = TRUE;
             goto throwit_return;
         }
@@ -1761,7 +1758,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                         if (range > 0)
                             pline("%s to your %s!", Tobjnam(obj, "return"),
                                   body_part(HAND));
-                        obj = addinv(obj);
+                        obj = addinv_before(obj, oldslot);
                         (void) encumber_msg();
                         /* addinv autoquivers an aklys if quiver is empty;
                            if obj is quivered, remove it before wielding */
@@ -1888,6 +1885,66 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     if (clear_thrownobj)
         thrownobj = (struct obj *) 0;
     return;
+}
+
+/* handle a throw-and-return missile coming back into inventory; makes sure
+   that if it was wielded, it will be re-wielded; if it was split off of a
+   stack (boomerang), don't let it merge with a different compatible stack */
+static struct obj *
+return_throw_to_inv(
+    struct obj *obj,        /* object to add to invent */
+    long wep_mask,          /* its owornmask before it was removed from invent */
+    boolean twoweap,        /* True if hero was dual-wielding before removal */
+    struct obj *oldslot)    /* following item in invent in case of '!fixinv' */
+{
+    struct obj *otmp = NULL;
+
+    /* if 'obj' is from a stack split, we can put it back by undoing split
+       so there's no chance of merging with some other compatable stack */
+    if (obj->o_id == context.objsplit.parent_oid
+        || obj->o_id == context.objsplit.child_oid) {
+        obj->nobj = invent;
+        invent = obj;
+        obj->where = OBJ_INVENT;
+        otmp = unsplitobj(obj);
+        if (!otmp) {
+            invent = obj->nobj;
+            obj->nobj = 0;
+            obj->where = OBJ_FREE;
+        } else {
+            obj = otmp;
+        }
+    }
+
+    /* if 'obj' wasn't from a stack split or if it wouldn't merge back
+       (maybe new erosion damage?) then it needs to be added to invent;
+       don't merge with any other stack even if there is a compatable one
+       (others with similar erosion?) */
+    if (!otmp) {
+        obj->nomerge = 1;
+        obj = addinv_before(obj, oldslot);
+        obj->nomerge = 0;
+
+        /* in case addinv() autoquivered */
+        if ((obj->owornmask & W_QUIVER) != 0
+            && ((obj->owornmask | wep_mask) & (W_WEP | W_SWAPWEP)) != 0)
+            setuqwep((struct obj *) 0);
+
+        if ((wep_mask & W_WEP) && !uwep)
+            setuwep(obj);
+        else if ((wep_mask & W_SWAPWEP) && !uswapwep)
+            setuswapwep(obj);
+        else if ((wep_mask & W_QUIVER) && !uquiver)
+            setuqwep(obj);
+
+        /* in case the throw ended dual-wielding, reinstate it after
+           successful catch (not needed for boomerang split/unsplit) */
+        if (twoweap && !u.twoweap)
+            u.twoweap = twoweap;
+    }
+
+    (void) encumber_msg();
+    return obj;
 }
 
 /* an object may hit a monster; various factors adjust chance of hitting */
