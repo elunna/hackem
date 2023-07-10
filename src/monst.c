@@ -3427,7 +3427,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1500, 500, MS_ROAR, MZ_HUGE), MR_ACID | MR_STONE, 0,
+        SIZ(1500, 500, MS_ROAR, MZ_HUGE), MR_ACID | MR_STONE | MR_SONIC, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_YELLOW),
@@ -3436,7 +3436,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_CLAW, AD_PHYS, 4, 6), NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(3000, 1000, MS_ROAR, MZ_HUGE),
         MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_ACID
-            | MR_STONE, 0,
+            | MR_STONE | MR_SONIC, 0,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
             | M1_CARNIVORE | M1_REGEN,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_GREEDY
