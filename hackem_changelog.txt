@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Monsters cannot break boulders in Sokoban (requested by cbus).
 Fix: Skip cavepeople's special spell when they reach level 12 since they don't have one. Fixes #364.
 Suppress excessive guilt messages in Black Market. Fixes #368.
 Feedback for trying to wear gloves/gauntlets over the Hand of Vecna. (from EvilHack)
