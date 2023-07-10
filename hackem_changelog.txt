@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Allow monsters wielding a digging tool to break boulders. (from EvilHack)
 Player monster racial settings refactor. (from EvilHack)
 Fix: bug with how pets consider intrinsic-granting corpses as treats. (from EvilHack)
 Fix: Confused giants lost track of player position after clobber attack. Fixes #369.
