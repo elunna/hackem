@@ -2715,7 +2715,7 @@ boolean noisy;
         if (uarmg) {
             if (noisy) {
                 if (uarmg->otyp == MUMMIFIED_HAND)
-                    You_cant("fit %s into a glove.", the(xname(uarmg)));
+                    pline("%s resists being covered!", The(xname(uarmg)));
                 else
                     already_wearing(c_gloves);
             }
