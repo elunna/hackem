@@ -1236,7 +1236,8 @@ int oldlevel, newlevel;
 	adjtech(oldlevel, newlevel);
 
     /* Learn your special spell! (At level 12) */
-    if (oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
+    if (urole.spelspec &&
+            oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
         && u.ulevelmax == u.ulevel) {
         int i;
         for (i = 0; i < MAXSPELL; i++)
@@ -1249,6 +1250,7 @@ int oldlevel, newlevel;
         spl_book[i].sp_know = 20000;*/
         force_learn_spell(urole.spelspec);
     }
+
     /* Inform flame mages and ice mages of their #youpoly ability */
     if (Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)) {
         if (oldlevel < YOUPOLY_SMALL && newlevel >= YOUPOLY_SMALL) {
