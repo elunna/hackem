@@ -7080,55 +7080,129 @@ short raceidx;
 
     /* Special races get a bonus attack and certain adjustments. */
     switch (raceidx) {
-    case PM_ILLITHID:
-        rptr->mattk[2].aatyp = AT_TENT;
-        rptr->mattk[2].adtyp = AD_DRIN;
-        rptr->mattk[2].damn = 2;
-        rptr->mattk[2].damd = 1;
-        rptr->ralign = -3;
-        break;
-    case PM_VAMPIRIC:
-        rptr->mattk[2].aatyp = AT_BITE;
-        rptr->mattk[2].adtyp = AD_DRLI;
-        rptr->mattk[2].damn = 1;
-        rptr->mattk[2].damd = 6;
-        rptr->ralign = -3;
-        break;
     case PM_CENTAUR:
+        /* Centars get a kick attack */
         rptr->mattk[2].aatyp = AT_KICK;
         rptr->mattk[2].adtyp = AD_PHYS;
         rptr->mattk[2].damn = 1;
         rptr->mattk[2].damd = 6;
-        rptr->ralign = rn2(2) ? 0 : -3;
-        break;
-    case PM_GIANT:
-        rptr->mattk[2].aatyp = AT_WEAP;
-        rptr->mattk[2].adtyp = AD_CLOB;
-        rptr->mattk[2].damn = 2;
-        rptr->mattk[2].damd = 10;
-        break;
-    case PM_GNOME:
-        rptr->ralign = 0;
-        break;
-    case PM_DWARF:
-        rptr->ralign = rn2(2) ? 0 : 3;
-        break;
-    case PM_ELF:
-        rptr->ralign = 3;
-        break;
-    case PM_TORTLE:
-        rptr->ralign = rn2(2) ? 0 : 3;
-        break;
-    case PM_ORC:
-        rptr->ralign = -3;
-        break;
-    case PM_HOBBIT:
-        rptr->ralign = 0;
+
+        rptr->ralign = rn2(3) ? -3 : 0;
+        if (mtmp->mnum == PM_HEALER || mtmp->mnum == PM_VALKYRIE
+            || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = 0;
         break;
     case PM_DOPPELGANGER:
         rptr->ralign = 0;
         break;
+    case PM_DWARF:
+        rptr->ralign = rn2(3) ? 3 : 0;
+        if (mtmp->mnum == PM_CONVICT)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_HEALER
+            || mtmp->mnum == PM_WIZARD)
+            rptr->ralign = 0;
+        if (mtmp->mnum == PM_KNIGHT)
+            rptr->ralign = 3;
+        break;
+    case PM_ELF:
+        rptr->ralign = rn2(3) ? 3 : 0;
+        if (mtmp->mnum == PM_HEALER)
+            rptr->ralign = 0;
+        if (mtmp->mnum == PM_KNIGHT || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = 3;
+        break;
+    case PM_GIANT:
+        /* Giants get a clobber attack */
+        rptr->mattk[2].aatyp = AT_WEAP;
+        rptr->mattk[2].adtyp = AD_CLOB;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 10;
+
+        /* Only non-spellcasters get the bonus clobber */
+        if (!(mtmp->mnum == PM_WIZARD || mtmp->mnum == PM_MONK
+              || mtmp->mnum == PM_PRIEST || mtmp->mnum == PM_PRIESTESS
+              || mtmp->mnum == PM_NECROMANCER)) {
+            rptr->mattk[0].aatyp = AT_WEAP;
+            rptr->mattk[0].adtyp = AD_CLOB;
+            rptr->mattk[0].damn = 2;
+            rptr->mattk[0].damd = 8;
+        }
+        rptr->ralign = rn2(2) ? 3 : rn2(2) ? 0 : -3;
+        if (mtmp->mnum == PM_CAVEMAN || mtmp->mnum == PM_CAVEWOMAN
+            || mtmp->mnum == PM_VALKYRIE)
+            rptr->ralign = rn2(2) ? 0 : 3;
+        if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_WIZARD)
+            rptr->ralign = rn2(2) ? 0 : -3;
+        break;
+    case PM_GNOME:
+        rptr->ralign = 0;
+        if (mtmp->mnum == PM_CONVICT)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_RANGER || mtmp->mnum == PM_ROGUE
+            || mtmp->mnum == PM_WIZARD || mtmp->mnum == PM_PIRATE)
+            rptr->ralign = rn2(3) ? 0 : -3;
+        break;
+    case PM_HOBBIT:
+        rptr->ralign = 0;
+        if (mtmp->mnum == PM_CONVICT)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_PRIEST
+            || mtmp->mnum == PM_PRIESTESS || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = rn2(3) ? 0 : 3;
+        break;
+    case PM_HUMAN:
+        if (mtmp->mnum == PM_CONVICT || mtmp->mnum == PM_NECROMANCER)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_RANGER
+            || mtmp->mnum == PM_ROGUE || mtmp->mnum == PM_WIZARD
+            || mtmp->mnum == PM_ICE_MAGE)
+            rptr->ralign = rn2(2) ? 0 : -3;
+        if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_CAVEMAN
+            || mtmp->mnum == PM_CAVEWOMAN || mtmp->mnum == PM_VALKYRIE
+            || mtmp->mnum == PM_FLAME_MAGE || mtmp->mnum == PM_UNDEAD_SLAYER
+            || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = rn2(2) ? 0 : 3;
+        if (mtmp->mnum == PM_KNIGHT)
+            rptr->ralign = rn2(2) ? 3 : -3;
+        if (mtmp->mnum == PM_MONK || mtmp->mnum == PM_PRIEST
+            || mtmp->mnum == PM_PRIESTESS)
+            rptr->ralign = rn2(2) ? 3 : rn2(2) ? 0 : -3;
+        if (mtmp->mnum == PM_JEDI)
+            rptr->ralign = 3;
+        break;
+    case PM_ILLITHID:
+        /* Illithids get a tentacle attack */
+        rptr->mattk[2].aatyp = AT_TENT;
+        rptr->mattk[2].adtyp = AD_DRIN;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 1;
+
+        rptr->ralign = -3;
+        break;
+    case PM_ORC:
+        rptr->ralign = -3;
+        break;
+    case PM_TORTLE:
+        rptr->ralign = 0;
+        if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_MONK
+            || mtmp->mnum == PM_PRIEST || mtmp->mnum == PM_PRIESTESS)
+            rptr->ralign = rn2(4) ? 3 : 0;
+        break;
+    case PM_VAMPIRIC:
+        /* Vampires get a bite attack */
+        rptr->mattk[2].aatyp = AT_BITE;
+        rptr->mattk[2].adtyp = AD_DRLI;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+
+        rptr->ralign = -3;
+        break;
     }
+
+    /* Applies to all infidels regardless */
+    if (mtmp->mnum == PM_INFIDEL)
+        rptr->ralign = -128;
 }
 
 /**

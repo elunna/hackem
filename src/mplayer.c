@@ -297,6 +297,7 @@ int mndx;
         rptr->mattk[1].adtyp = AD_CLRC;
         break;
     case PM_KNIGHT:
+        /* nothing special based on role */
         break;
     case PM_MONK:
         /* flags for all monks regardless of race */

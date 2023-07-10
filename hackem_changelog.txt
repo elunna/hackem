@@ -15,7 +15,8 @@
 
 Version 1.1.5 (unreleased)
 
-Fix: bug with how pets consider intrinsic-granting corpses as treats. (from (EvilHack)
+Player monster racial settings refactor. (from EvilHack)
+Fix: bug with how pets consider intrinsic-granting corpses as treats. (from EvilHack)
 Fix: Confused giants lost track of player position after clobber attack. Fixes #369.
 Any race can wear the Grandmaster's Robe (potential sac gift for tortles or giants).
 Giant and tortle monks can always wear the Grandmaster's Robe.
