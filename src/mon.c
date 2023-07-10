@@ -5236,7 +5236,8 @@ boolean via_attack;
                 adjalign(2);
             }
         } else {
-            if (u.ualign.type != A_NONE) { /* Infidels are supposed to be bad */
+            /* Prevent guilt spam in Black Market when angering everybody */
+            if (u.ualign.type != A_NONE && !Is_blackmarket(&u.uz)) { /* Infidels are supposed to be bad */
                 if (canspotmon(mtmp))
                     You_feel("guilty.");
                 else
@@ -5333,7 +5334,7 @@ boolean via_attack;
                                    perhaps reduce tameness? */
                             } else {
                                 mon->mpeaceful = 0;
-                                if (u.ualign.type != A_NONE) {
+                                if (u.ualign.type != A_NONE && !Is_blackmarket(&u.uz)) {
                                     if (canspotmon(mon))
                                         You_feel("guilty.");
                                     else

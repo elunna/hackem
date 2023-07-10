@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Suppress excessive guilt messages in Black Market. Fixes #368.
 Feedback for trying to wear gloves/gauntlets over the Hand of Vecna. (from EvilHack)
 Allow monsters wielding a digging tool to break boulders. (from EvilHack)
 Player monster racial settings refactor. (from EvilHack)
