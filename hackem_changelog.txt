@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Impossible when Convict attempted pickpocket technique. Fixes #370.
 Monsters cannot break boulders in Sokoban (requested by cbus).
 Fix: Skip cavepeople's special spell when they reach level 12 since they don't have one. Fixes #364.
 Suppress excessive guilt messages in Black Market. Fixes #368.

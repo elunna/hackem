@@ -2419,8 +2419,8 @@ int
 do_pickpocket(mon)
 struct monst *mon;
 {
-    if (!Role_if(PM_ROGUE)) {
-         impossible("Attempting pickpocket technique as non-rogue.");
+    if (!(Role_if(PM_ROGUE) || Role_if(PM_CONVICT))) {
+         impossible("Attempting pickpocket technique as non-valid role.");
          return 0;
     }
     if (Upolyd) {
