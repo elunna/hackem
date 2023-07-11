@@ -243,7 +243,6 @@ struct monst {
      || (mon)->cham == PM_VAMPIRE_LORD  \
      || (mon)->cham == PM_VAMPIRE_KING  \
      || (mon)->cham == PM_VAMPIRE_MAGE  \
-     || (mon)->cham == PM_KAS           \
      || (mon)->cham == PM_VLAD_THE_IMPALER)
 #define is_changeling(mon)                                          \
     ((mon)->cham == PM_CHAMELEON || (mon)->cham == PM_DOPPELGANGER  \

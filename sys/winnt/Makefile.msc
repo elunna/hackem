@@ -734,7 +734,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\endgame.des  $(DAT)\gehennom.des $(DAT)\lethe.des \
 	$(DAT)\icequeen.des $(DAT)\knox.des     $(DAT)\medusa.des \
 	$(DAT)\nymph.des    $(DAT)\oracle.des   $(DAT)\tower.des \
-	$(DAT)\vaults.des   $(DAT)\vecna.des    $(DAT)\yendor.des \
+	$(DAT)\vaults.des   $(DAT)\yendor.des \
     $(DAT)\nkai.des     $(DAT)\ucastle.des  $(DAT)\town.des \
     $(DAT)\village.des \
 	$(DAT)\rats.des 	$(DAT)\stor.des 	$(DAT)\caves.des \
@@ -774,7 +774,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp mtemple.des
 	$(U)levcomp grund.des
 	$(U)levcomp blkmar.des
-	$(U)levcomp vecna.des
 	$(U)levcomp yendor.des
 	$(U)levcomp arch.des
 	$(U)levcomp barb.des
@@ -1352,7 +1351,6 @@ spotless: clean
 	if exist $(DAT)\village.lev	 del $(DAT)\village.lev
 	if exist $(DAT)\valley.lev	 del $(DAT)\valley.lev
 	if exist $(DAT)\vaults.dat       del $(DAT)\vaults.dat
-	if exist $(DAT)\vecna-?.lev	 del $(DAT)\vecna-?.lev
 	if exist $(DAT)\vlt-????.lev	 del $(DAT)\vlt-????.lev
 	if exist $(DAT)\water.lev	 del $(DAT)\water.lev
 	if exist $(DAT)\wizard?.lev	 del $(DAT)\wizard?.lev

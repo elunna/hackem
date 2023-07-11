@@ -382,15 +382,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
       6000L, NO_COLOR, DEFAULT_MAT),
 
-  /*
-   * The Sword of Kas - the sword forged by Vecna and given to his top
-   * lieutenant, Kas. */
-    A("The Sword of Kas", TWO_HANDED_SWORD, 
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN 
-       | SPFX_INTEL | SPFX_DALIGN),
-      0, 0, DRST(10, 0), DFNS(AD_STON), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
-      15000L, NO_COLOR, GEMSTONE),
-
     /*** Unaligned artifacts ***/
 
     /* The quasi-evil twin of Demonbane, Angelslayer is an unholy trident

@@ -114,16 +114,6 @@ register struct obj *obj;
             || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
         context.botl = 1;
 
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_SWORD_OF_KAS)
-            || (olduwep && olduwep->oartifact == ART_SWORD_OF_KAS))) {
-        if (Stone_resistance && Stoned) {
-            make_stoned(0L, "You no longer seem to be petrifying.", 0,
-                        (char *) 0);
-        }
-        context.botl = 1;
-    }
-
     if (uwep && uwep == obj && (uwep->oprops & ITEM_EXCEL)) {
         uwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
@@ -323,15 +313,6 @@ register struct obj *obj;
     if (uswapwep == obj
         && (u.twoweap && uswapwep->oartifact == ART_GIANTSLAYER))
         context.botl = 1;
-
-    if (uswapwep == obj
-        && (u.twoweap && uswapwep->oartifact == ART_SWORD_OF_KAS)) {
-        if (Stone_resistance && Stoned) {
-            make_stoned(0L, "You no longer seem to be petrifying.", 0,
-                        (char *) 0);
-        }
-        context.botl = 1;
-    }
 
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {

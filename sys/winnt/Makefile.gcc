@@ -785,7 +785,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/endgame.des  $(DAT)/gehennom.des $(DAT)/lethe.des \
 	 $(DAT)/icequeen.des $(DAT)/knox.des     $(DAT)/medusa.des \
 	 $(DAT)/nymph.des    $(DAT)/oracle.des   $(DAT)/tower.des \
-	 $(DAT)/vaults.des   $(DAT)/vecna.des    $(DAT)/yendor.des \
+	 $(DAT)/vaults.des   $(DAT)/yendor.des \
 	 $(DAT)/nkai.des     $(DAT)/ucastle.des \
 	 $(DAT)/arch.des     $(DAT)/barb.des     $(DAT)/caveman.des \
 	 $(DAT)/convict.des  $(DAT)/healer.des   $(DAT)/infidel.des \
@@ -816,7 +816,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
 	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
 	$(subst /,\,$(U)levcomp $(DAT)/vaults.des)
-	$(subst /,\,$(U)levcomp $(DAT)/vecna.des)
 	$(subst /,\,$(U)levcomp $(DAT)/yendor.des)
 	$(subst /,\,$(U)levcomp $(DAT)/arch.des)
 	$(subst /,\,$(U)levcomp $(DAT)/barb.des)
@@ -1358,7 +1357,6 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\village.lev	   del $(W_DAT)\village.lev
 	if exist $(W_DAT)\valley.lev	   del $(W_DAT)\valley.lev
 	if exist $(W_DAT)\vaults.dat       del $(W_DAT)\vaults.dat
-	if exist $(W_DAT)\vecna-?.lev      del $(W_DAT)\vecna-?.lev
 	if exist $(W_DAT)\vlt-????.lev     del $(W_DAT)\vlt-????.lev
 	if exist $(W_DAT)\water.lev	   del $(W_DAT)\water.lev
 	if exist $(W_DAT)\wizard?.lev	   del $(W_DAT)\wizard?.lev

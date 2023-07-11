@@ -3885,8 +3885,7 @@ boolean was_swallowed; /* digestion */
     boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
     
     if (mdat == &mons[PM_VLAD_THE_IMPALER]
-        || mdat == &mons[PM_ALHOON] 
-        || mdat == &mons[PM_KAS]
+        || mdat == &mons[PM_ALHOON]
         || (mdat->mlet == S_LICH && mdat != &mons[PM_WORM_THAT_WALKS])) {
         if (cansee(mon->mx, mon->my) && !was_swallowed)
             pline("%s body crumbles into dust.", s_suffix(Monnam(mon)));
@@ -5766,10 +5765,9 @@ struct monst *mon;
     boolean uppercase_only = Is_rogue_level(&u.uz);
 
     switch (mndx) {
-    case PM_KAS:
     case PM_VLAD_THE_IMPALER:
         /* ensure Vlad can keep carrying the Candelabrum */
-        if (mon_has_special(mon) || mon->data == &mons[PM_KAS])
+        if (mon_has_special(mon))
             break; /* leave mndx as is */
         wolfchance = 3;
     /*FALLTHRU*/
@@ -5849,10 +5847,6 @@ int *mndx_p, monclass;
         *mndx_p = PM_VLAD_THE_IMPALER;
         return TRUE;
     }
-    if (mon->cham == PM_KAS && mon_has_special(mon)) {
-        *mndx_p = PM_KAS;
-        return TRUE;
-    }
     if (*mndx_p >= LOW_PM && is_shapeshifter(&mons[*mndx_p])) {
         /* player picked some type of shapeshifter; use mon's self
            (vampire or chameleon) */
@@ -5927,7 +5921,6 @@ struct monst *mon;
             mndx = pick_animal();
         break;
     case PM_VLAD_THE_IMPALER:
-    case PM_KAS:
     case PM_VAMPIRE_MAGE:
     case PM_VAMPIRE_KING:
     case PM_VAMPIRE_LORD:

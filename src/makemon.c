@@ -2762,19 +2762,7 @@ register struct monst *mtmp;
             else
                 (void) mongets(mtmp, POT_BLOOD);
         }
-
-        if (ptr == &mons[PM_KAS]) {
-            otmp = mksobj(TWO_HANDED_SWORD, FALSE, FALSE);
-            otmp = oname(otmp, artiname(ART_SWORD_OF_KAS));
-            curse(otmp);
-            otmp->spe = rnd(4) + 1;
-            (void) mpickobj(mtmp, otmp);
-            (void) mongets(mtmp, PLATE_MAIL);
-            (void) mongets(mtmp, HELMET);
-            (void) mongets(mtmp, GAUNTLETS);
-            (void) mongets(mtmp, DWARVISH_BOOTS);
-            (void) mongets(mtmp, RIN_SLOW_DIGESTION);
-        }
+        
         break;
     	
     case S_BAT:
@@ -3448,7 +3436,7 @@ long mmflags;
         /* this is a shapechanger after all */
         mtmp->cham = mcham;
         /* Vlad and Kas stay in their normal shape so they can carry inventory */
-        if (mndx != PM_VLAD_THE_IMPALER && mndx != PM_KAS
+        if (mndx != PM_VLAD_THE_IMPALER
             /* Note:  shapechanger's initial form used to be chosen here
                with rndmonst(), yielding a monster which was appropriate
                to the level's difficulty but ignoring the changer's usual

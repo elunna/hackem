@@ -5327,7 +5327,6 @@ struct obj *no_wish;
             case ART_BUTCHER:
             case ART_EYE_OF_VECNA:
             case ART_HAND_OF_VECNA:
-            case ART_SWORD_OF_KAS:
             case ART_THIEFBANE:
                 pm = PM_SAMURAI;
                 break;

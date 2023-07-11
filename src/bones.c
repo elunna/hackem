@@ -394,7 +394,6 @@ struct obj *obj;
     case ART_LIFESTEALER:
     case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:
-    case ART_SWORD_OF_KAS:
     default:
         return FALSE;
         break;
@@ -422,9 +421,6 @@ struct obj *obj;
     case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:
         owner = PM_VECNA;
-        break;
-    case ART_SWORD_OF_KAS:
-        owner = PM_KAS;
         break;
     default:
         break;
@@ -537,8 +533,6 @@ struct obj *corpse;
             || (mptr == &mons[PM_ORACLE] && !fixuporacle(mtmp))
             || (mtmp->iscerberus && !Is_valley(&u.uz))
             || (mptr == &mons[PM_CHARON] && !Is_valley(&u.uz))
-            || mptr == &mons[PM_KAS]
-            || mtmp->cham == PM_KAS /* in case he's vampshifted */
             || mptr == &mons[PM_RAT_KING]
             || mtmp->cham == PM_RAT_KING /* in case he's wereshifted */
             || mptr == &mons[PM_COUNT_DRACULA]

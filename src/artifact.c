@@ -2140,19 +2140,12 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Sixth basic attack - poison */
     if (attacks(AD_DRST, otmp)) {
         if (realizes_damage) {
-            if (otmp->oartifact == ART_SWORD_OF_KAS) {
-                pline_The("gigantic blade %s %s%c",
+            if (otmp->oclass == WEAPON_CLASS && (otmp->oprops & ITEM_VENOM)) {
+                pline_The("%s %s %s%c", distant_name(otmp, xname),
                           (resists_poison(mdef) || defended(mdef, AD_DRST))
                               ? "hits"
-                              : rn2(2) ? "poisons" : "eviscerates",
-                          hittee, !spec_dbon_applies ? '.' : '!');
-            } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_VENOM)) {
-                pline_The("%s %s %s%c",
-                          distant_name(otmp, xname),
-                          (resists_poison(mdef) || defended(mdef, AD_DRST))
-                              ? "hits"
-                              : rn2(2) ? "infects" : "poisons",
+                          : rn2(2) ? "infects"
+                                   : "poisons",
                           hittee, !spec_dbon_applies ? '.' : '!');
             }
         }

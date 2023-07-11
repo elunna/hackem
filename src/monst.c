@@ -5290,20 +5290,6 @@ struct permonst _mons2[] = {
       	M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_LORD
           | M2_MALE | M2_MAGIC | M2_FLANK, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, MH_UNDEAD | MH_VAMPIRE, 25, CLR_GRAY),
-    /* Kas, top lieutenant to Vecna */
-    MON("Kas", S_VAMPIRE,                                      /* EvilHack */
-        LVL(26, 16, 5, 70, -10), (G_NOGEN | G_NOCORPSE | G_UNIQ),
-        A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
-          ATTK(AT_WEAP, AD_PHYS, 4, 4),
-          ATTK(AT_BITE, AD_DRLI, 1, 12), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_VAMPIRE, MZ_HUMAN), MR_SLEEP | MR_POISON, 0,
-        M1_FLY | M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN,
-        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_STRONG
-            | M2_NASTY | M2_MALE | M2_PRINCE | M2_SHAPESHIFTER | M2_FLANK,
-        M3_ACCURATE | M3_WAITFORU | M3_INFRAVISIBLE,
-        M4_VULNERABLE_FIRE, 
-        MH_UNDEAD | MH_VAMPIRE, 30, CLR_BLACK),
 
     /* The DevTeam buffed Vlad quite a bit. No need to pull any settings over
      * from GruntHack. We do have an attack tweak here from SporkHack, plus

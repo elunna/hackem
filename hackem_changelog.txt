@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Remove Kas, Sword of Kas, and Vecna's branch (from EvilHack).
 Revert luck blade back to a short sword (SLASH'EM).
 Remove Keolewa from being caveman second sac gift.
 Fix: Found and corrected colors on stormtrooper. Fixes #377.

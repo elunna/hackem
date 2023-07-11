@@ -221,11 +221,9 @@ struct obj *wep; /* uwep for attack(), null for kick_monster() */
 
     if (flags.confirm && mtmp->mpeaceful
         && !Confusion && !Hallucination && !Stunned) {
-        /* Intelligent chaotic weapons (Stormbringer, The Sword of Kas) want blood */
+        /* Intelligent chaotic weapons (Stormbringer) want blood */
         if (wep && (wep->oartifact == ART_STORMBRINGER
-                    || wep->oartifact == ART_SWORD_OF_KAS
-                    || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER)
-                    || (u.twoweap && uswapwep->oartifact == ART_SWORD_OF_KAS))) {
+                    || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER))) {
             override_confirmation = TRUE;
             return FALSE;
         }
@@ -447,12 +445,10 @@ register struct monst *mtmp;
      * 07/92) then we assume that you're not trying to attack. Instead,
      * you'll usually just swap places if this is a movement command
      */
-    /* Intelligent chaotic weapons (Stormbringer, The Sword of Kas) want blood */
+    /* Intelligent chaotic weapons (Stormbringer) want blood */
     if (is_safepet(mtmp) && !context.forcefight) {
         if (!uwep || !(uwep->oartifact == ART_STORMBRINGER
-                       || uwep->oartifact == ART_SWORD_OF_KAS
-                       || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER)
-                       || (u.twoweap && uswapwep->oartifact == ART_SWORD_OF_KAS))) {
+                       || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER))) {
             /* There are some additional considerations: this won't work
              * if in a shop or Punished or you miss a random roll or
              * if you can walk thru walls and your pet cannot (KAA) or
@@ -892,10 +888,9 @@ struct attack *uattk;
     if (tmp > dieroll)
         exercise(A_DEX, TRUE);
 
-    /* if twoweaponing with stormbringer/sword of kas, don't force both
+    /* if twoweaponing with stormbringer, don't force both
      * attacks -- only from the actual 'bloodthirsty' weapon(s) */
-#define forced_attack(w) ((w) && ((w)->oartifact == ART_STORMBRINGER \
-                                  || (w)->oartifact == ART_SWORD_OF_KAS))
+#define forced_attack(w) ((w) && ((w)->oartifact == ART_STORMBRINGER))
     if ((!override_confirmation || forced_attack(uwep))
         && !(multi < 0 || u.umortality > oldumort)) {
         /* bhitpos is set up by caller */
@@ -1330,8 +1325,6 @@ int dieroll;
         tmp += special_dmgval(&youmonst, mon, (W_ARMG | W_RINGL | W_RINGR),
                               &hated_obj);
     } else {
-        if (obj->oartifact == ART_SWORD_OF_KAS)
-            iskas = TRUE;
         if (obj->oartifact == ART_SECESPITA)
             issecespita = TRUE;
         if (thrown && obj->oartifact == ART_HOUCHOU) {
@@ -1983,21 +1976,6 @@ int dieroll;
     if (uarm && Is_dragon_scaled_armor(uarm)
         && Dragon_armor_to_scales(uarm) == RED_DRAGON_SCALES)
 	tmp += rnd(6);
-
-    /* wielding The Sword of Kas against Vecna does
-       triple damage. Has to be wielded in primary hand */
-    if (uwep && uwep->oartifact == ART_SWORD_OF_KAS
-        && mon && mdat == &mons[PM_VECNA])
-        tmp *= 3;
-
-    /* Even though the Sword of Kas is attuned to Vecna,
-       it does extra harm to creatures that draw their
-       power from him also */
-    if (uwep && uwep->oartifact == ART_SWORD_OF_KAS && mon
-        && (mdat == &mons[PM_LICH] || mdat == &mons[PM_DEMILICH]
-            || mdat == &mons[PM_MASTER_LICH] || mdat == &mons[PM_ARCH_LICH]
-            || mdat == &mons[PM_ALHOON]))
-        tmp *= 2;
 
     /* Wooden stakes vs vampires */
     if (uwep && uwep->otyp == WOODEN_STAKE && is_vampire(mdat)) {

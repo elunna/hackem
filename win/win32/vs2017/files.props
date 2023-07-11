@@ -64,7 +64,6 @@
     <Desfiles Include = "tower.des"/>
     <Desfiles Include = "valkyrie.des"/>
     <Desfiles Include = "vaults.des"/>
-    <Desfiles Include = "vecna.des"/>
     <Desfiles Include = "wizard.des"/>	
     <Desfiles Include = "yeoman.des"/>	
     <Desfiles Include = "yendor.des"/>
@@ -165,9 +164,6 @@
     <Levfiles Include = "tower2.lev"/>
     <Levfiles Include = "tower3.lev"/>
     <Levfiles Include = "tower4.lev"/>
-    <Levfiles Include = "vecna-1.lev"/>
-    <Levfiles Include = "vecna-2.lev"/>
-    <Levfiles Include = "vecna-3.lev"/>
     <Levfiles Include = "vlt-0000.lev"/>
     <Levfiles Include = "vlt-0001.lev"/>
     <Levfiles Include = "vlt-0002.lev"/>
