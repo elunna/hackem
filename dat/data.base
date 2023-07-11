@@ -1326,7 +1326,7 @@ brigit
 		[ "Broadsword" (refrain) by Ian Anderson ]
 		
 	Crafting recipes:
-	    broadsword              = scimitar + short sword 
+        broadsword              = scimitar + short sword 
         elven broadsword        = scimitar + elven short sword 
         runesword               = broadsword + dagger
 bugbear
