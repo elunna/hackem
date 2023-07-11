@@ -2847,7 +2847,6 @@ boolean ordinary;
             }
         } else
             /* Hurtle in a random direction */
-            
             hurtle(rn2(3) - 1, rn2(3) - 1, 5 + rn2(5), TRUE);
         break;
     case WAN_LIGHTNING:

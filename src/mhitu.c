@@ -3288,6 +3288,9 @@ boolean ufound;
     case AD_WIND:
         You("are blasted by hurricane force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, tmp, TRUE);
+        /* Update monster's knowledge of your position */
+        mtmp->mux = u.ux;
+        mtmp->muy = u.uy;
         tmp = 0;
         break;
     default:

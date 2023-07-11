@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+More hurtle updates so monsters know where we hurtled.
 Celestial dragons get sonic resistance too.
 Fix: boomerang bits (from 3.7).
 Fix: boomerang equiped in multiple slots (from 3.7)
