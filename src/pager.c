@@ -2789,6 +2789,7 @@ coord *click_cc;
                 if (supplemental_pm)
                     do_supplemental_info(supplemental_name, supplemental_pm,
                                          (boolean) (ans == LOOK_VERBOSE));
+                supplemental_pm = 0;
             }
         } else {
             pline("I've never heard of such things.");
