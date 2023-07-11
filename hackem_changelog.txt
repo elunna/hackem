@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert luck blade back to a short sword (SLASH'EM).
 Remove Keolewa from being caveman second sac gift.
 Fix: Found and corrected colors on stormtrooper. Fixes #377.
 Fix: mon_race_name didn't handle spiders.
