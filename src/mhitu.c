@@ -4995,16 +4995,12 @@ struct attack *mattk;
             monable = !mtmp->mcan && (!mtmp->minvis || mon_prop(mtmp, SEE_INVIS));
             mlet = r_data(mtmp)->mlet;
             if (!mtmp->mcansee) {
-                if (vis)
-                    pline("%s can't see anything right now.", Monnam(mtmp));
+                ; /* Do nothing */
             } else if ((how_seen & SEENMON) == MONSEEN_INFRAVIS) {
-                if (vis) /* (redundant) */
-                    pline("%s is too far away to see %sself in the dark.",
-                          Monnam(mtmp), mhim(mtmp));
-                /* some monsters do special things */
+                ; /* Do nothing */
+            /* some monsters do special things */
             } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
-                if (vis)
-                    pline("%s doesn't have a reflection.", Monnam(mtmp));
+                ; /* Do nothing */
             } else if (monable && !mtmp->mcan && !mtmp->minvis
                        && mtmp->data == &mons[PM_MAGICAL_EYE]) {
                 if (vis) {
@@ -5014,15 +5010,19 @@ struct attack *mattk;
                 }
                 mtmp->mcan = 1;
                 monflee(mtmp, 0, FALSE, TRUE);
-            } else if (monable && mtmp->data == &mons[PM_UMBER_HULK]) {
+            } else if (monable && mtmp->data == &mons[PM_SLUMBER_HULK]) {
                 if (vis)
+                    pline("%s tires itself!", Monnam(mtmp));
+                slept_monst(mtmp);
+            } else if (monable && mtmp->data->mlet == S_UMBER) {
+                if (vis) {
                     pline("%s confuses itself!", Monnam(mtmp));
-                mtmp->mconf = 1;
+                    mtmp->mconf = 1;
+                }
             } else if (!is_unicorn(mtmp->data) && !humanoid(mtmp->data)
                        && (!mtmp->minvis || mon_prop(mtmp, SEE_INVIS)) && !rn2(5)) {
-                /* For the sake of balance and non-tediousness, we'll invert the mirror chances
-                 * from 80% to 20%
-                 */
+                /* For the sake of balance and non-tediousness, we'll invert
+                 * the mirror chances from 80% to 20% */
                 boolean do_react = TRUE;
 
                 if (do_react) {

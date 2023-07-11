@@ -2144,7 +2144,7 @@ NEARDATA struct permonst mons[] = {
             | M2_HOSTILE | M2_NASTY | M2_NOPOLY, 
         0, 0, 0, 34, HI_LORD),
     MON("catoblepas", S_QUADRUPED,                              /* Slash'EM */
-        LVL(6, 6, 7, 10, 0), (G_NOGEN | G_UNIQ |G_GENO),
+        LVL(6, 6, 7, 10, 0), (G_NOGEN | G_UNIQ | G_GENO),
         A(ATTK(AT_GAZE, AD_DETH, 2, 6),
           ATTK(AT_BITE, AD_PHYS, 1, 3),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
