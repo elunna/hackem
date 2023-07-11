@@ -5381,8 +5381,8 @@ boolean wep_was_destroyed;
             case GOLD_DRAGON_SCALES:
                 if (!rn2(3)) {
                     /* Using AT_EXPL to simulate yellow light explosion. */
-                    if (can_blnd(mon, &youmonst, AT_EXPL,
-                                 (struct obj *) 0)) {
+                    if (can_blnd(mon, &youmonst, AT_EXPL, (struct obj *) 0)
+                                || !defends(AD_BLND, uarm)) {
                         if (!Blind)
                             pline("%s's golden armor blinds you!", Monnam(mon));
                         /* We could use our attack damage, but instead 3d6 seems

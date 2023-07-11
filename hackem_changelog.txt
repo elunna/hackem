@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: silver dragon scaled armor wasn't protecting against blindness in some situations (reported by mobileuser). Fixes #373.
 Fix: Farlook info repeats for multiple uses (reported by Umbire). Fixes #361.
 More hurtle updates so monsters know where we hurtled.
 Celestial dragons get sonic resistance too.
