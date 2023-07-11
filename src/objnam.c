@@ -5208,7 +5208,6 @@ struct obj *no_wish;
             case ART_OGRESMASHER:
                 pm = PM_BARBARIAN;
                 break;
-            case ART_KEOLEWA:
             case ART_DRAGONBANE:
             case ART_SKULLCRUSHER:
             case ART_SCEPTRE_OF_MIGHT:

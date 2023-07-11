@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Remove Keolewa from being caveman second sac gift.
 Fix: Found and corrected colors on stormtrooper. Fixes #377.
 Fix: mon_race_name didn't handle spiders.
 Fix: Mixed indent in dat/data.base causing bad alignment when displaying.
