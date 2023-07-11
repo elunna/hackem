@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: mon_race_name didn't handle spiders.
 Fix: Mixed indent in dat/data.base causing bad alignment when displaying.
 Tidy up behavior when silver dragon armor reflects and has no effect. Added effects for new hulks.
 Fix: silver dragon scaled armor wasn't protecting against blindness in some situations (reported by mobileuser). Fixes #373.

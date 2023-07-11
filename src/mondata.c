@@ -937,6 +937,7 @@ unsigned mhflag;
         "ogre",
         "troll",
         "gnoll",
+        "spider",
         "jabberwock"
     };
     return mrnames[mhflag];
