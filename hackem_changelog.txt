@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Morgues don't make corpses from races that don't make sense (reported by mobileuser). Fixes #380.
 Added database entry for rogues gloves.
 Fix: Renamed latex gloves to gardening gloves to avoid awkward material combinations (Reported by hothraxxa). Fixes #378.
 Fix: Could not wish for rogues gloves.

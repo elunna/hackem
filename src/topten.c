@@ -1481,6 +1481,12 @@ struct obj *otmp;
 
     /* set race */
     racendx = raceinfo(tt->plrace, (tt->plgend[0] == 'F'));
+
+    /* Don't make corpses from races that don't make sense,
+     * ie: demons, vampires. */
+    if (otmp->otyp == CORPSE && no_corpse(&mons[racendx]))
+        return (struct obj *) 0;;
+
     if (racendx > NON_PM) {
         mtmp = makemon(&mons[classndx], 0, 0, MM_NOCOUNTBIRTH);
         apply_race(mtmp, racendx);
