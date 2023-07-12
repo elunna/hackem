@@ -3762,7 +3762,6 @@ gauntlets of fumbling
     Causes fumbling when worn and are usually generated cursed.
     Wearing cursed gauntlets of fumbling is a minor trouble.
     They incur a −9 to-hit penalty with bows.
-
 gauntlets of power
     Wearing gauntlets of power grants 1 AC and sets your strength to
     25 regardless of beatitude, auto-identifying them. They apply a
@@ -3776,6 +3775,12 @@ gauntlets of power
 
     Monsters wearing gauntlets of power add 3-6 damage to their
     weapon attacks, with no effect on monsters that cannot wield weapons.
+gauntlets of protection
+    "The best defense is a good offense."
+gauntlets of swimming
+    Spike: Right. Water can take any form. It drifts without effort
+    one moment, then pounds down in a torrent the very next.
+        [ Cowboy Bebop ]
 rogues gloves
     "Thievery requires subtlety, from the beginning of the heist to the end."
         [ Magic the Gathering Rogue's Gloves card, Wizards of the Coast ]
@@ -8857,6 +8862,9 @@ robe of weakness
     Its effect will cancel if combined with gauntlets of power.
 
     Usually generated cursed
+robe of protection
+    Innocence is lucky if it finds the same protection as guilt
+        [ Francois de La Rochefoucauld ]
 robert the lifer
 	They send you here for life, that’s exactly what they take.
 	The part that counts, anyways.

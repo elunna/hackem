@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Added database entries for gauntlets of swimming, and gauntlets/robe of protection.
 Fix: Invalid materials resulting from item upgrades are reset to a random valid material. Fixes #381.
 Fix: Morgues don't make corpses from races that don't make sense (reported by mobileuser). Fixes #380.
 Added database entry for rogues gloves.
