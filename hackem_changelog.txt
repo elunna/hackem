@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Remove tile for Kas.
 Remove Kas, Sword of Kas, and Vecna's branch (from EvilHack).
 Revert luck blade back to a short sword (SLASH'EM).
 Remove Keolewa from being caveman second sac gift.
