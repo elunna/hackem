@@ -3498,23 +3498,23 @@ dodip()
         useup(potion);
         return 1;
     } else if (potion->otyp == POT_GAIN_LEVEL) {
-	    int res = upgrade_obj(obj);
-	    if (res != 0) {
-		if (res == 1) {
-		    /* The object was upgraded */
-		    pline("Hmm!  You don't recall dipping that into the potion.");
-		    prinv((char *)0, obj, 0L);
-		} /* else potion exploded */
-		if (!objects[potion->otyp].oc_name_known &&
-			!objects[potion->otyp].oc_uname)
-		    docall(potion);
-		useup(potion);
-		update_inventory();
-		exercise(A_WIS, TRUE);
-		return 1;
-	    }
-	    /* no return here, go for Interesting... message */
-	}
+        int res = upgrade_obj(obj);
+        if (res != 0) {
+            if (res == 1) {
+                /* The object was upgraded */
+                pline("Hmm!  You don't recall dipping that into the potion.");
+                prinv((char *) 0, obj, 0L);
+            } /* else potion exploded */
+            if (!objects[potion->otyp].oc_name_known
+                && !objects[potion->otyp].oc_uname)
+                docall(potion);
+            useup(potion);
+            update_inventory();
+            exercise(A_WIS, TRUE);
+            return 1;
+        }
+        /* no return here, go for Interesting... message */
+    }
  more_dips:
         
     /* Allow filling of MAGIC_LAMPs to prevent identification by player */
@@ -3612,6 +3612,7 @@ dodip()
         singlepotion->blessed = singlepotion->cursed = 0;
         singlepotion->odiluted = 0;
         singlepotion->bknown = FALSE;
+
         if (Blind) {
             singlepotion->dknown = FALSE;
         } else {
@@ -3957,6 +3958,7 @@ register struct obj *obj;
     /* Check to see if object is valid */
     if (!obj)
         return 0;
+
     (void) snuff_lit(obj);
     if (obj->oartifact)
         /* WAC -- Could have some funky fx */
@@ -3965,7 +3967,7 @@ register struct obj *obj;
     newtyp = obj2upgrade(obj->otyp);
     if (!newtyp)
         return 0;
-    
+
     if (obj->otyp == FLINT) {
         split1off = (obj->quan > 1L);
         if (split1off) {
@@ -4118,6 +4120,12 @@ register struct obj *obj;
             return -1;
         }
     }
+    /* Check if the new object fits the old material.
+     * If not... */
+    if (!valid_obj_material(obj, obj->material)) {
+        init_obj_material(obj);
+    }
+
     return 1;
 }
 
