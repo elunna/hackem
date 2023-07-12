@@ -3539,6 +3539,7 @@ const char * in_str;
         && strncmpi(in_str, "detect food", 11)
         && strncmpi(in_str, "food detection", 14)
         && strncmpi(in_str, "ring mail", 9)
+        && strncmpi(in_str, "rogues gloves", 13)
         && strncmpi(in_str, "studded armor", 13)
         && strncmpi(in_str, "armor", 5)
         && strncmpi(in_str, "tooled horn", 11)
@@ -3617,6 +3618,7 @@ const char *str;
         "wizard lock",   /* not the "wizard" monster! */
         "death wand",    /* 'of inversion', not Rider */
         "master key",    /* not the "master" rank */
+        "rogues gloves", /* not the "rogue" monster */
         "ninja-to",      /* not the "ninja" rank */
         "magenta",       /* not the "mage" rank */
         "bat from hell", /* not the "bat" monster */
@@ -4263,6 +4265,7 @@ struct obj *no_wish;
         && strncmpi(bp, "ninja-to", 8)      /* not the "ninja" rank */
         && strncmpi(bp, "master key", 10)   /* not the "master" rank */
         && strncmpi(bp, "master sword", 12)   /* not the "master" rank */
+        && strncmpi(bp, "rogues gloves", 13)   /* not the "master" rank */
         && strncmpi(bp, "magenta", 7)       /* not the "mage" rank */
         && strncmpi(bp, "Bat from Hell", 13)
         && strncmpi(bp, "vampire blood", 13) /* not the "vampire" monster */

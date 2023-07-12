@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Could not wish for rogues gloves.
 Wooden stakes now just stakes and can be different materials.
 Remove tile for Kas.
 Remove Kas, Sword of Kas, and Vecna's branch (from EvilHack).
