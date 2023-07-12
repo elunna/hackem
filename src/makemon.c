@@ -328,7 +328,7 @@ struct trobj giantSamurai[] = {
 };
 
 struct trobj giantUndeadSlayer[] = {
-    { WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
     { HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { HIGH_BOOTS, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -438,7 +438,7 @@ struct trobj tortleTourist[] = {
 };
 
 struct trobj tortleUndeadSlayer[] = {
-    { WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
     { TOQUE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { SMALL_SHIELD, 0, ARMOR_CLASS, 1, UNDEF_BLESS },

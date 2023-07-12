@@ -1608,7 +1608,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             }
 
             /* Stakes do extra dmg vs vamps */
-            if (mwep && mwep->otyp == WOODEN_STAKE && is_vampire(pd)) {
+            if (mwep && mwep->otyp == STAKE && is_vampire(pd)) {
                 if (!rn2(5)) {
                     if (vis) {
                         Strcpy(buf, Monnam(magr));

@@ -3663,7 +3663,6 @@ struct obj* obj;
         case STAFF_OF_ESCAPE:
         case STAFF_OF_WAR:
         case SILVER_CAPPED_STAFF:
-        case WOODEN_STAKE:
         case GRAPPLING_HOOK:
         case IRON_SAFE:
         case CRYSTAL_CHEST:

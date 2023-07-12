@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Wooden stakes now just stakes and can be different materials.
 Remove tile for Kas.
 Remove Kas, Sword of Kas, and Vecna's branch (from EvilHack).
 Revert luck blade back to a short sword (SLASH'EM).

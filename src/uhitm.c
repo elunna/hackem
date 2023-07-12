@@ -1977,8 +1977,8 @@ int dieroll;
         && Dragon_armor_to_scales(uarm) == RED_DRAGON_SCALES)
 	tmp += rnd(6);
 
-    /* Wooden stakes vs vampires */
-    if (uwep && uwep->otyp == WOODEN_STAKE && is_vampire(mdat)) {
+    /* Stakes vs vampires */
+    if (uwep && uwep->otyp == STAKE && is_vampire(mdat)) {
         int skill = P_SKILL(weapon_type(uwep));
 
         if (Role_if(PM_UNDEAD_SLAYER))
