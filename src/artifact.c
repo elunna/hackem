@@ -142,6 +142,40 @@ int artinum;
     return artilist[artinum].name;
 }
 
+/* create an obj containing otyp and oartifact from a name.
+ * this is used when looking up artifact names in pager.c */
+struct obj *
+get_faux_artifact_obj(name)
+const char *name;
+{
+    struct obj *obj = 0;
+
+    const struct artifact *a;
+    register const char *aname;
+
+    if (!strncmpi(name, "the ", 4))
+        name += 4;
+
+    int index = 1;
+    for (a = artilist + 1; a->otyp; a++) {
+        aname = a->name;
+
+        if (!strncmpi(aname, "the ", 4))
+            aname += 4;
+
+        if (!strcmpi(name, aname)) {
+            obj = mksobj(a->otyp, TRUE, FALSE);
+            obj->otyp = a->otyp;
+            obj->oartifact = index;
+            break;
+        }
+
+        index++;
+    }
+
+    return obj;
+}
+
 /* Finds a matching SPFX for a prop - used in mondata.c */
 unsigned long
 arti_prop_spfx(prop)
