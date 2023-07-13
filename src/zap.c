@@ -4682,6 +4682,7 @@ int dx, dy;
     int boom; /* showsym[] index  */
     struct monst *mtmp;
     boolean counterclockwise = TRUE; /* right-handed throw */
+    boolean obj_gone = FALSE;
 
     /* counterclockwise traversal patterns:
      *  ..........................54.................................
@@ -4718,10 +4719,18 @@ int dx, dy;
         /* Did it hit a monster? */
         if ((mtmp = m_at(bhitpos.x, bhitpos.y)) != 0) {
             m_respond(mtmp);
-            tmp_at(DISP_END, 0);
-            return mtmp;
+
+            /* Because I want boomerangs to be handled more like Secret of
+             * Mana, ie, they just pass through multiple enemies but only stop
+             * when hitting a wall, we handle the attacks here instead */
+            obj_gone = thitmonst(mtmp, obj);
+
+            if (mtmp == &youmonst || obj_gone) {
+                tmp_at(DISP_END, 0);
+                return mtmp;
+            }
         }
-        
+
         /* Did it hit something solid, ie: tree, wall */
         if (!ZAP_POS(levl[bhitpos.x][bhitpos.y].typ)
             || closed_door(bhitpos.x, bhitpos.y)) {
