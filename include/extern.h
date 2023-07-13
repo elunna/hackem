@@ -63,12 +63,11 @@ E void FDECL(fig_transform, (ANY_P *, long));
 E int FDECL(unfixable_trouble_count, (BOOLEAN_P));
 E void FDECL(handle_bomb, (struct obj *, BOOLEAN_P));
 
-/* ### artifact.c ### */
+    /* ### artifact.c ### */
 
 E void NDECL(init_artifacts);
 E void FDECL(save_artifacts, (int));
 E void FDECL(restore_artifacts, (int));
-E struct obj *FDECL(get_faux_artifact_obj, (const char *));
 E unsigned long FDECL(arti_prop_spfx, (int));
 E const char *FDECL(artiname, (int));
 E short FDECL(artifact_material, (int));

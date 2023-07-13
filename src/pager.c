@@ -1957,7 +1957,6 @@ char *supplemental_name;
     }
 
     /* Make sure the name is non-empty. */
-    boolean obj_free = FALSE;
     if (*dbase_str) {
         long pass1offset = -1L;
         int chk_skip, pass = 1;
@@ -2097,32 +2096,12 @@ char *supplemental_name;
                 }
             }
 
-            if (obj) {
-                /* catches inventory lookup */
-                otyp = obj->otyp;
-            } else {
-                /* obj will be null for ground lookup with ;: and searches with /?
-                 * object lookup: try to parse as an object, and try the material
-                 * version of the string first */
-                otyp = name_to_otyp(dbase_str_with_material);
-                if (otyp == STRANGE_OBJECT) {
-                    /* catches search for "longsword" */
-                    otyp = name_to_otyp(dbase_str);
-                }
-
-                if (otyp == STRANGE_OBJECT) {
-                    /* catches inventory lookup and /? search for stormbringer */
-                    struct obj *obj_lookup = get_faux_artifact_obj(encycl_matched);
-                    otyp = obj_lookup ? obj_lookup->otyp : STRANGE_OBJECT;
-
-                    /* we have an struct obj */
-                    if (otyp != STRANGE_OBJECT && obj_lookup) {
-                        obj = obj_lookup;
-                        obj_free = TRUE;
-                    }
-                }
+            /* object lookup: try to parse as an object, and try the material
+             * version of the string first */
+            otyp = name_to_otyp(dbase_str_with_material);
+            if (otyp == STRANGE_OBJECT) {
+                otyp = name_to_otyp(dbase_str);
             }
-
 
             /* prompt for more info (if using whatis to navigate the map) */
             yes_to_moreinfo = FALSE;
@@ -2253,14 +2232,10 @@ char *supplemental_name;
                             putstr(datawin, 0, tp);
                         }
                     }
-
                     display_nhwindow(datawin, FALSE);
                     destroy_nhwindow(datawin), datawin = WIN_ERR;
                 }
             }
-                if (obj_free) {
-                    obfree(obj, (struct obj *) 0);
-                }
         }
     }
     goto checkfile_done; /* skip error feedback */

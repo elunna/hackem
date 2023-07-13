@@ -19,7 +19,6 @@ Fix: Undead was incorrectly pluralized.
 Fix: Artifact lookup didn't handle multiple hated monster types. Fixes #374.
 Boomerang type weapons can pass through enemies on hit. Fixes #323.
 Fix: Bad armor check in grandmaster's robe bonus hit. Fixes #375.
-Fix: Artifact lookup with `/?` and `;:`. Fixes #177.
 Added database entries for gauntlets of swimming, and gauntlets/robe of protection.
 Fix: Invalid materials resulting from item upgrades are reset to a random valid material. Fixes #381.
 Fix: Morgues don't make corpses from races that don't make sense (reported by mobileuser). Fixes #380.
