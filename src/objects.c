@@ -644,8 +644,6 @@ SHIELD("shield of mobility", "slippery shield",                /* EvilHack */
  */
 GLOVES("gloves", "old gloves",
        0, 0,          0, 16, 1, 10,   8, 9, 0,  LEATHER, HI_LEATHER),
-GLOVES("plasteel gloves", "white gloves",
-       0, 0,          0,  1, 1,  9, 25,  8, 0, PLASTIC, CLR_WHITE),
 GLOVES("gauntlets", "falconry gloves",                          /* EvilHack */
        0, 0,          0, 12, 1, 30,  50, 9, 0,  IRON, CLR_BROWN),
 GLOVES("gauntlets of power", "riding gloves",
@@ -662,6 +660,8 @@ GLOVES("gauntlets of swimming", "black gloves",                 /* Slash'EM */
 	0, 1,  SWIMMING,   8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of dexterity", "fencing gloves",
        0, 1,          0,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
+GLOVES("plasteel gloves", "white gloves",
+       0, 0,          0,  1, 1,  9, 25,  8, 0, PLASTIC, CLR_WHITE),
 GLOVES("mummified hand", None,                                  /* EvilHack */
        0, 0,          0,  0, 1,  5, 100, 9, 0,  FLESH, CLR_BLACK),
 
