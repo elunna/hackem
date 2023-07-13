@@ -1076,30 +1076,30 @@ char *usr_text;
     char olet = oc.oc_class;
     char buf[BUFSZ];
     char buf2[BUFSZ];
-    boolean weptool = (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
+    const char *actualn = OBJ_NAME(oc);
     const char* identified_potion_name;
     const char* alt_mat;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
     boolean wielded, carried, identified_potion;
-    boolean identified = (otyp != STRANGE_OBJECT && oc.oc_name_known);
+    boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
+                                              && oc.oc_name_known));
+    boolean weptool = (boolean) (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
     int i, mat_bon, obj_weight;
+
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
-    dummy.oclass = oc.oc_class;
+    dummy.oclass = olet;
+    /* Use actual object's material if available, otherwise the default */
     dummy.material = obj ? obj->material : oc.oc_material;
     dummy.oprops_known = obj ? obj->oprops_known : 0;
     dummy.bknown = obj ? obj->bknown : 0;
     dummy.blessed = obj ? obj->blessed : 0;
     dummy.cursed = obj ? obj->cursed : 0;
     dummy.altmode = obj ? obj->altmode : 0;
-    
-    
-    if (obj && otyp == STRANGE_OBJECT) {
-        oc = objects[obj->otyp];
-        olet = oc.oc_class;
-    }
+
+
 #define OBJPUTSTR(str) putstr(datawin, ATR_NONE, str)
 #define ADDCLASSPROP(cond, str)          \
     if (cond) {                          \
@@ -1107,18 +1107,39 @@ char *usr_text;
         Strcat(buf, str);                \
     }
 
+    /* OBJECT INFO HEADLINE */
+
+    /* We have the object but it's not reveal_info */
     if ((obj && otyp == STRANGE_OBJECT)) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
-    } else if (dummy.oprops_known || otyp == CORPSE) {
+    }
+    else if (obj && otyp == CORPSE) {
+        Sprintf(buf, "Object lookup for \"%s\":",
+                corpse_xname(obj, (const char *) 0, CXN_NO_PFX));
+    }
+    /* We have the object and it is reveal_info */
+    else if ((obj && oc.oc_name_known) || dummy.oprops_known) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
-    } else if (identified) {
+    }
+#if 0
+    /* The item is reveal_info but it doesn't or can't have oprops */
+    else if (reveal_info) {
         Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
-    } else
-        Sprintf(buf, "Object lookup for \"%s\":", usr_text ? usr_text : simple_typename(otyp));
+    }
+#endif
+    /* We don't have it and don't know it */
+    else if (usr_text)
+        Sprintf(buf, "Object lookup for \"%s\":", usr_text);
+    else
+        Sprintf(buf, "Object lookup for \"%s\":", actualn);
+
     putstr(datawin, ATR_BOLD, buf);
     OBJPUTSTR("");
     
     /* Object classes currently with no special messages here: amulets. */
+
+    /* WEAPON INFO */
+
     if (olet == WEAPON_CLASS || weptool
         || otyp == FLINT || otyp == ROCK || otyp == SLING_BULLET) {
         const int skill = oc.oc_skill;
@@ -1166,7 +1187,7 @@ char *usr_text;
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
         damage_info = dmgval_info(&dummy);
-        if (identified) {
+        if (reveal_info) {
             Sprintf(buf,
                     "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
                     damage_info.damage_small, damage_info.bonus_small,
@@ -1193,13 +1214,13 @@ char *usr_text;
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
         }
         
-        if (identified) {
+        if (reveal_info) {
             Sprintf(buf, "Has a %s%d %s to hit.",
                     (oc.oc_hitbon >= 0 ? "+" : ""), oc.oc_hitbon,
                     (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
             OBJPUTSTR(buf);
         }
-        if (skill == P_FIREARM && identified) {
+        if (skill == P_FIREARM && reveal_info) {
             Sprintf(buf, "Rate-of-fire: %d", firearm_rof(otyp));
             OBJPUTSTR(buf);
             Sprintf(buf, "Range: %d", firearm_range(otyp));
@@ -1207,6 +1228,9 @@ char *usr_text;
         }
         
     }
+
+    /* ARMOR INFO */
+
     if (olet == ARMOR_CLASS) {
         /* Indexes here correspond to ARM_SHIELD, etc; not the W_* masks.
          * Expects ARM_SUIT = 0, all the way up to ARM_SHIRT = 6. */
@@ -1218,7 +1242,7 @@ char *usr_text;
                 armorslots[oc.oc_armcat]);
 
         OBJPUTSTR(buf);
-        if (identified) {
+        if (reveal_info) {
             Sprintf(buf, "Base AC %d, magic cancellation %d.", oc.a_ac, oc.a_can);
         } else {
             Sprintf(buf, "Base AC %d.", oc.a_ac);
@@ -1247,6 +1271,9 @@ char *usr_text;
             if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
         }
     }
+
+    /* PROPERTY INFO */
+
     if (dummy.oprops_known 
         && (olet == WEAPON_CLASS || olet == ARMOR_CLASS)) {
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
@@ -1255,8 +1282,10 @@ char *usr_text;
         if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
     }
-    
-    if (identified) { 
+
+    /* APPEARANCE BONUSES */
+
+    if (reveal_info && oc.oc_name_known) {
         /* Effects based on the base description of the item --
         only one will apply, so an if-else chain is
         appropriate */
@@ -1281,38 +1310,54 @@ char *usr_text;
         else if (objdescr_is(&dummy, "visored helm"))
             OBJPUTSTR("Protects from blinding claws and venom (visored helm)");
     }
+
+    /* COMESTIBLE INFO */
+
     if (olet == FOOD_CLASS) {
         int cnum = obj ? obj->corpsenm : 0;
         
         if (otyp == TIN || otyp == CORPSE) {
-            if (obj && (obj->otyp == CORPSE)) {
+
+
+            if (obj && obj->known) {
                 Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
                 OBJPUTSTR(buf);
                 OBJPUTSTR("Takes various amounts of turns to eat.");
 
-                /* Corpse conveyances */
                 struct permonst *pm = &mons[obj->corpsenm];
                 corpse_conveys(buf, pm);
+
+                /* Corpse conveyances */
                 if (is_were(pm)) {
-                    OBJPUTSTR("Corpse conveys lycanthropy.");
+                    OBJPUTSTR("Conveys lycanthropy.");
                 } else {
                     if (*buf) {
-                        Sprintf(buf2, "Corpse conveys %s.", buf);
+                        Sprintf(buf2, "Conveys %s.", buf);
                         OBJPUTSTR(buf2);
                     } else
-                        OBJPUTSTR("Corpse conveys no intrinsics.");
+                        OBJPUTSTR("Conveys no intrinsics.");
                 }
-                if (poisonous(pm)) {
-                    OBJPUTSTR("Corpse is poisonous.");
+
+                /* poison is removed by the tinning process */
+                if (poisonous(pm) && otyp != TIN) {
+                    OBJPUTSTR("Is poisonous.");
                 }
-                if (acidic(pm)) {
-                    OBJPUTSTR("Corpse is acidic.");
+
+                /* acid damage is removed by the tinning process */
+                if (acidic(pm) && otyp != TIN) {
+                    OBJPUTSTR("Is acidic.");
                 }
-            } else {
-                OBJPUTSTR("Comestible providing varied nutrition.");
-            }
-            
-            if (obj) {
+
+                if ((amorphous(&mons[cnum])
+                     || slithy(&mons[cnum])
+                     || mons[cnum].mlet == S_BLOB)
+                    && mons[cnum].mlet != S_SNAKE
+                    && mons[cnum].mlet != S_NAGA
+                    && mons[cnum].mlet != S_MIMIC) {
+
+                    OBJPUTSTR("Consuming this can cause slippery fingers.");
+                }
+
                 if (vegan(&mons[cnum])) {
                     OBJPUTSTR("Is vegan.");
                 } else if (vegetarian(&mons[cnum])) {
@@ -1321,25 +1366,16 @@ char *usr_text;
                     OBJPUTSTR("Is not vegetarian.");
                 }
             } else {
+                OBJPUTSTR("Comestible providing varied nutrition.");
                 OBJPUTSTR("May or may not be vegetarian.");
             }
-            
-            if ((amorphous(&mons[cnum]) 
-                 || slithy(&mons[cnum])
-                 || mons[cnum].mlet == S_BLOB)
-                && mons[cnum].mlet != S_SNAKE 
-                && mons[cnum].mlet != S_NAGA
-                && mons[cnum].mlet != S_MIMIC) {
-                
-                OBJPUTSTR("Consuming this can cause slippery fingers.");
-            }
-            
         } else {
             Sprintf(buf, "Comestible providing %d nutrition.", oc.oc_nutrition);
             OBJPUTSTR(buf);
             Sprintf(buf, "Takes %d turn%s to eat.", oc.oc_delay,
                     (oc.oc_delay == 1 ? "" : "s"));
             OBJPUTSTR(buf);
+
             /* TODO: put special-case VEGGY foods in a list which can be
              * referenced by doeat(), so there's no second source for this. */
             if (oc.oc_material == FLESH && otyp != EGG) {
@@ -1363,19 +1399,28 @@ char *usr_text;
                     OBJPUTSTR("Is vegan.");
                 }
             }
+
             if (obj && Is_pudding(obj)) {
                 OBJPUTSTR("Consuming this can cause slippery fingers.");
             }
         }
     }
+
+    /* POTION INFO */
+
     if (olet == POTION_CLASS) {
         /* nothing special */
         OBJPUTSTR("Potion.");
     }
+
+    /* SCROLL INFO */
+
     if (olet == SCROLL_CLASS) {
         /* nothing special (ink is covered below) */
         OBJPUTSTR("Scroll.");
     }
+
+    /* SPELLBOOK INFO */
 
     if (olet == SPBOOK_CLASS) {
         if (otyp == SPE_BLANK_PAPER) {
@@ -1392,6 +1437,9 @@ char *usr_text;
             OBJPUTSTR(buf);
         }
     }
+
+    /* WAND INFO */
+
     if (olet == WAND_CLASS) {
         if (otyp == STRANGE_OBJECT) {
             Strcpy(buf, "Wand.");
@@ -1401,17 +1449,21 @@ char *usr_text;
         OBJPUTSTR(buf);
     }
 
+    /* RING INFO */
+
     if (olet == RING_CLASS) {
-        OBJPUTSTR(identified && oc.oc_charged ? "Chargeable ring." : "Ring.");
+        OBJPUTSTR(reveal_info && oc.oc_charged ? "Chargeable ring." : "Ring.");
         /* see material comment below; only show toughness status if this
-         * particular ring is already identified... */
+         * particular ring is already reveal_info... */
         if (oc.oc_tough && oc.oc_name_known) {
             OBJPUTSTR("Is made of a hard material.");
         }
     }
 
+    /* GEM INFO */
+
     if (olet == GEM_CLASS) {
-        if (identified) {
+        if (reveal_info) {
             if (oc.oc_material == MINERAL) {
                 OBJPUTSTR("Type of stone.");
             } else if (oc.oc_material == GLASS) {
@@ -1444,6 +1496,9 @@ char *usr_text;
             }
         }
     }
+
+    /* TOOL INFO */
+
     if (olet == TOOL_CLASS && !weptool) {
         const char* subclass = "tool";
         switch (otyp) {
@@ -1497,11 +1552,13 @@ char *usr_text;
             subclass = "theoretically tonal instrument";
             break;
         }
-        Sprintf(buf, "%s%s.", (identified && oc.oc_charged ? "chargeable " : ""), subclass);
+        Sprintf(buf, "%s%s.", (reveal_info && oc.oc_charged ? "chargeable " : ""), subclass);
         /* capitalize first letter of buf */
         buf[0] -= ('a' - 'A');
         OBJPUTSTR(buf);
     }
+
+    /* COST INFO */
 
     /* cost, wt should go next */
     buf[0] = '\0';
@@ -1529,6 +1586,8 @@ char *usr_text;
     }
     OBJPUTSTR(buf);
 
+    /* INK COST */
+
     /* Scrolls or spellbooks: ink cost */
     if (otyp != STRANGE_OBJECT) {
         if (olet == SCROLL_CLASS || olet == SPBOOK_CLASS) {
@@ -1545,8 +1604,9 @@ char *usr_text;
         }
     }
 
-    /* power conferred */
-    if (identified && oc.oc_oprop) {
+    /* POWER CONFERRED */
+
+    if (reveal_info && oc.oc_oprop) {
         for (i = 0; propertynames[i].prop_name; ++i) {
             /* hack for alchemy smocks because everything about alchemy smocks
              * is a hack */
@@ -1606,6 +1666,8 @@ char *usr_text;
         }
     }
 
+    /* MISC PROPERTIES */
+
     buf[0] = '\0';
     if (otyp != STRANGE_OBJECT) {
         ADDCLASSPROP(oc.oc_magic, "inherently magical");
@@ -1616,7 +1678,15 @@ char *usr_text;
         OBJPUTSTR(buf2);
     }
 
-    /* Material.
+    /* Full-line remarks */
+    if (oc.oc_merge) {
+        OBJPUTSTR("Merges with identical items.");
+    }
+    if (oc.oc_unique) {
+        OBJPUTSTR("Unique item.");
+    }
+
+    /* MATERIALS.
      * Note that we should not show the material of certain objects if they are
      * subject to description shuffling that includes materials. If the player
      * has already discovered this object, though, then it's fine to show the
@@ -1640,7 +1710,7 @@ char *usr_text;
             mat_str = "vegetable matter";
         }
         alt_mat = obj ? materialnm[obj->material] : mat_str;
-        if (obj && obj->material != oc.oc_material)
+        if (obj && oc.oc_material && obj->material != oc.oc_material)
             Sprintf(buf, "Material: %s (normally made of %s)", alt_mat, mat_str);
         else
             Sprintf(buf, "Material: %s ", mat_str);
@@ -1650,14 +1720,8 @@ char *usr_text;
     /* TODO: prevent obj lookup from displaying with monster database entry
      * (e.g. scroll of light gives "light" monster database) */
 
-    /* Full-line remarks */
-    if (oc.oc_merge) {
-        OBJPUTSTR("Merges with identical items.");
-    }
-    if (oc.oc_unique) {
-        OBJPUTSTR("Unique item.");
-    }
-    
+    /* ARTIFACT PROPERTIES */
+
     if (obj && obj->oartifact) {
         struct art_info_t a_info = artifact_info(obj->oartifact);
         OBJPUTSTR("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
