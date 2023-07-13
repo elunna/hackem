@@ -857,7 +857,12 @@ struct permonst * pm;
                 freq == 3 ? "slightly rare" :
                 freq == 2 ? "rare" : "very rare");
     MONPUTSTR(buf);
-    
+
+    if (gen & G_GENO)
+        MONPUTSTR("Can be genocided.");
+    else
+        MONPUTSTR("Can not be genocided.");
+
     /* Resistances */
     buf[0] = '\0';
     ADDRESIST(pm_resistance(pm, MR_FIRE), "fire");
