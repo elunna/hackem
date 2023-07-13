@@ -853,7 +853,6 @@ struct attack *uattk;
     boolean malive = TRUE, wep_was_destroyed = FALSE;
     struct obj *wepbefore = uwep;
     struct obj *wearshield = uarms;
-    struct obj *weararmor = uarm;
     int armorpenalty, attknum = 0, x = u.ux + u.dx, y = u.uy + u.dy,
                       tmp = find_roll_to_hit(mon, uattk->aatyp, uwep,
                                              &attknum, &armorpenalty);
@@ -959,10 +958,10 @@ struct attack *uattk;
         && !(u.usteed || u.uswallow || u.uinwater
              || multi < 0 || u.umortality > oldumort
              || !malive || m_at(x, y) != mon)) {
-        if (weararmor && !is_robe(uarm)) {
+        if (uarm && !is_robe(uarm)) {
             if (!rn2(8))
                 Your("extra kick attack is ineffective while wearing %s.",
-                      xname(weararmor));
+                      xname(uarm));
         } else if (Wounded_legs) {
             /* note: taken from dokick.c */
             long wl = (EWounded_legs & BOTH_SIDES);
@@ -1008,25 +1007,27 @@ struct attack *uattk;
     /* extra hit with 50% chance of another extra hit if wearing Grandmaster's Robe */
     if (!uwep && malive
             && mhit_get_grandmaster_robe_bonus
-            && weararmor
-            && weararmor->oartifact == ART_GRANDMASTER_S_ROBE) {
-        tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum, &armorpenalty);
+            && uarm
+            && uarm->oartifact == ART_GRANDMASTER_S_ROBE) {
+        tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum,
+                               &armorpenalty);
         dieroll = rnd(20);
         mhit = (tmp > dieroll || u.uswallow);
-        malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk, dieroll);
-
-        /* second passive counter-attack only occurs if second attack hits */
-        if (mhit) (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
+        malive =
+            known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk, dieroll);
 
         /* 50% chance to get a second bonus attack */
         if (malive && mhit && rn2(2)) {
-            tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum, &armorpenalty);
+            tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum,
+                                   &armorpenalty);
             dieroll = rnd(20);
             mhit = (tmp > dieroll || u.uswallow);
-            malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk, dieroll);
-
-            if (mhit) (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
+            malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk,
+                                 dieroll);
         }
+        /* second passive counter-attack only occurs if second attack hits */
+        if (mhit)
+            (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
     }
 
     /* Your race may grant extra attacks. Illithids don't use
