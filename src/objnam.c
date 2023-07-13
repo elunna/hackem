@@ -2884,7 +2884,8 @@ const char *oldstr;
     {
         static const char *const already_plural[] = {
             "ae",  /* algae, larvae, &c */
-            "matzot", 0,
+            "matzot",
+            "undead", 0,
         };
 
         /* spot+1: synch up with makesingular's usage */
