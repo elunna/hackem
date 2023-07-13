@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Boomerang type weapons can pass through enemies on hit. Fixes #323.
 Fix: Bad armor check in grandmaster's robe bonus hit. Fixes #375.
 Fix: Artifact lookup with `/?` and `;:`. Fixes #177.
 Added database entries for gauntlets of swimming, and gauntlets/robe of protection.

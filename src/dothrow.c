@@ -1401,11 +1401,11 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 {
     register struct monst *mon;
     int range, urange;
-    boolean crossbowing, gunning, clear_thrownobj = FALSE,
+    boolean crossbowing, gunning, boomeranging, clear_thrownobj = FALSE,
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-    /* 5lo: This gets used a lot, so put it here 
+    /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from
      * the Jedi's primary hand. Otherwise we run into issues later when re-
      * wielding with wielding-artifact.
@@ -1548,21 +1548,20 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         goto throwit_return;
 
     } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
+        boomeranging = TRUE;
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
 
-        
-        
         mon = boomhit(obj, u.dx, u.dy);
-        if (obj->oartifact != ART_WINDRIDER) {
-            iflags.returning_missile = 0; /* has returned or isn't going to */
-        }
+        iflags.returning_missile = 0; /* has returned or isn't going to */
+
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
             obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
             clear_thrownobj = TRUE;
             goto throwit_return;
         }
+
     } else {
         /* crossbow range is independent of strength */
         crossbowing = (ammo_and_launcher(obj, uwep)
@@ -1691,7 +1690,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         }
     }
 
-    if (mon) {
+    if (mon && !boomeranging) {
         boolean obj_gone;
 
         if (mon->isshk && obj->where == OBJ_MINVENT && obj->ocarry == mon) {
