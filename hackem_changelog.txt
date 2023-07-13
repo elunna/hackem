@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Artifact lookup didn't handle multiple hated monster types. Fixes #374.
 Boomerang type weapons can pass through enemies on hit. Fixes #323.
 Fix: Bad armor check in grandmaster's robe bonus hit. Fixes #375.
 Fix: Artifact lookup with `/?` and `;:`. Fixes #177.

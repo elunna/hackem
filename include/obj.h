@@ -674,7 +674,7 @@ struct art_info_t {
     char* carr_res;
     const char* invoke;
     char* attack;
-    const char* hates;
+    char* hates;
     const char* xattack;
     const char* xinfo;
     char* dbldmg;

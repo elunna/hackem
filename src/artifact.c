@@ -4682,12 +4682,17 @@ artifact_info(int anum)
     /* Hated/Targeted Monster */
     if ((artilist[anum].mtype)) {
         int i;
+        buf[0] = '\0';
+
         for (i = 0; i < 32; i++) {
             if (artilist[anum].mtype & (1 << i)) {
-                art_info.hates = makeplural(mon_race_name(i));
-                break;
+                /* art_info.hates = makeplural(mon_race_name(i)); */
+                strcat(buf, makeplural(mon_race_name(i)));
+                Strcat(buf, " ");
             }
         }
+        art_info.hates = malloc(100);
+        strcpy(art_info.hates, buf);
     }
     
     /* Special attacks */
