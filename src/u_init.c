@@ -1004,8 +1004,11 @@ register char sym;
 
     for (ct = bases[(uchar) sym]; ct < bases[(uchar) sym + 1]; ct++) {
         /* not flagged as magic but shouldn't be pre-discovered */
-        if (ct == CORNUTHAUM || ct == DUNCE_CAP)
+        if (ct == CORNUTHAUM
+            || ct == DUNCE_CAP
+            || ROBE)
             continue;
+
         if (sym == WEAPON_CLASS) {
             odummy.otyp = ct; /* update 'o' */
             /* arbitrary: only knights and samurai recognize polearms */
