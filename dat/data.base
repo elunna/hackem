@@ -685,7 +685,7 @@ bag of holding
     vanish, with a separate 1/13 chance for each item.
 
     Some items should not be put in a bag of holding, or they will
-    make the bag explode – scattering all of its contents, destroying
+    make the bag explode - scattering all of its contents, destroying
     the bag and damaging the player. These items are as follows:
 
     - Other bags of holding
@@ -841,7 +841,7 @@ barding of reflection
 	steed just as you apply a saddle, and just like saddles, it's 'one
 	size fits all'. The material the barding is made from determines
 	how much extra AC protection it gives your steed (iron, the softer
-	/more dense metals – 3 AC, steel or stone – 4 AC, mithril – 5 AC).
+	/more dense metals - 3 AC, steel or stone - 4 AC, mithril - 5 AC).
 
 	It also affords some protection to your steeds head against any
 	attacks that target it (zombie bite attack, mind flayer tentacle
@@ -936,7 +936,7 @@ bear*trap
 	Escaping
 	The ordinary way to escape a bear trap is to try to move out of it.
 	For some reason, trying to move diagonally is most effective,
-	allowing you to escape in 4–7 moves; this will move you
+	allowing you to escape in 4-7 moves; this will move you
 	diagonally out of the trap even if a wall is in the way. Attempting
 	to move orthogonally requires about five times as many moves to
 	escape.
@@ -951,7 +951,7 @@ bear*trap
 
 	Finally, it is possible to jump out of a bear trap. This carries a
 	penalty, however: you will take d10 damage and suffer wounded legs
-	for 500–1499 turns.
+	for 500-1499 turns.
 
 	Oddly, beartraps reset themselves after someone escapes from them.
 
@@ -1657,7 +1657,7 @@ crystal chest
     A rare and magical type of container that cannot be locked,
     unlocked or forced open by any physical means (this includes the
     Master Key of Thievery). The only way to open or lock this
-    container is by magical means – a wand of opening or the spell
+    container is by magical means - a wand of opening or the spell
     'knock' to unlock, or a wand of locking or the spell 'wizard lock'
     to secure. Otherwise, a crystal chest is immune to all other
     forms of magic, meaning it cannot be probed, cancelled, or
@@ -2485,10 +2485,10 @@ dragon scales
 	  of armor than they would for the same armor piece without scales.
 
 	- Dragon scales having secondary extrinsics was taken from
-	  SporkHack, and then heavily modified – all dragon scales have a
+	  SporkHack, and then heavily modified - all dragon scales have a
 	  secondary extrinsic effect when fused with regular body armor and
 	  turned into dragon-scaled armor. Dragon scales worn on their own
-	  only exhibit their primary extrinsic, with one exception – gold
+	  only exhibit their primary extrinsic, with one exception - gold
 	  dragon/chromatic dragon scales will give off light, regardless
 	  of whether it's just scales or dragon-scaled armor.
 
@@ -2999,7 +2999,7 @@ egg
 
 	A fresh monster egg will hatch with about 99.954% chance, unless
 	the relevant monster (either baby or adult form) is genocided. If
-	an egg will hatch, it will do so after 151–200 turns.
+	an egg will hatch, it will do so after 151-200 turns.
 
 	Eggs will only hatch if in your inventory or on the floor; if kept
 	in a container on the turn it's supposed to hatch, the egg will
@@ -4444,7 +4444,7 @@ harp
 magic harp
 	A magic harp is a tonal musical instrument, and one of the two harps.
 
-	Magic harps are created with 1–8 charges.
+	Magic harps are created with 1-8 charges.
 
 	If it has any charges left when applied, then it produces "very
 	attractive music" which tames monsters around you and exercises
@@ -4836,7 +4836,7 @@ tooled horn
 	magical horn.
 
 	Improvising with it will awaken (and possibly scare) nearby
-	monsters – including pets – and will abuse your wisdom. Monsters
+	monsters - including pets - and will abuse your wisdom. Monsters
 	are awakened if their distance to you is at most 5.48 times the
 	root of your level, and are scared (if not resisted) if their
 	distance to you is at most 3.16 times the root of your level. They
@@ -6440,7 +6440,7 @@ medical kit
 	kit is not cursed. If the pill works, it will cure your first
 	trouble from the following list: sickness, blindness not caused by
 	something on your face, hallucination, vomiting, confusion,
-	stunning, and loss of hit points (it will heal you by 10–19 HP but
+	stunning, and loss of hit points (it will heal you by 10-19 HP but
 	won't increase your maximum). If the pill fails, it may have no
 	effect, cause HP loss, or make you deathly sick.
 
@@ -7377,8 +7377,8 @@ pill
 	Effect
 	- You get a wish.
 	- You gain 80 nutrition and gain ability dependant on luck (like a fountain).
-	- You become very fast for 200–209 turns.
-	- You are poisoned; you lose 1–4 points of strength and 1–15 hit points.
+	- You become very fast for 200-209 turns.
+	- You are poisoned; you lose 1-4 points of strength and 1-15 hit points.
 	- You fall asleep for up to 49 turns.
 	- You hallucinate for 150 (more) turns.
 	- You are stunned for 30 (more) turns.
@@ -11623,7 +11623,7 @@ moist towel
 	gives an indication of the wetness level of the towel; the exact
 	wetness is only shown in wizard mode. A towel can be made wet by
 	any source of water, including an uncursed potion of water or a
-	rust trap. This will add 1–7 levels of wetness, to the maximum of
+	rust trap. This will add 1-7 levels of wetness, to the maximum of
 	7.
 
 	When wielded as a weapon, a wet towel will deal between 1 and

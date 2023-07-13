@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Replace troublesome dashes in data.base
 crystal description in materialnm didn't really fit, changed to gemstone.
 Fix: Undead was incorrectly pluralized.
 Fix: Artifact lookup didn't handle multiple hated monster types. Fixes #374.
