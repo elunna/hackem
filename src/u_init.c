@@ -1221,7 +1221,17 @@ u_init()
             ini_inv(Blindfold);
         skill_init(Skill_J);
         knows_class(WEAPON_CLASS);
-        knows_class(ARMOR_CLASS);
+        /*knows_class(ARMOR_CLASS);*/
+
+        /* Instead, Jedi will know their enemy. */
+        knows_object(PLASTEEL_HELM);
+        knows_object(PLASTEEL_ARMOR);
+        knows_object(PLASTEEL_GLOVES);
+        knows_object(PLASTEEL_BOOTS);
+        knows_object(GREEN_LIGHTSABER);
+        knows_object(RED_LIGHTSABER);
+        knows_object(BLUE_LIGHTSABER);
+        knows_object(RED_DOUBLE_LIGHTSABER);
         break;
     case PM_CONVICT:
         ini_inv(Convict);

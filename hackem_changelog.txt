@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Jedi start out knowing all plasteel items and lightsabers instead of all armors.
 Robes shouldn't be pre-discovered by roles that know armor.
 Added more lookup info for effects caused by eating corpses and tins.
 Replace troublesome dashes in data.base
