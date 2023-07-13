@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Added more lookup info for effects caused by eating corpses and tins.
 Replace troublesome dashes in data.base
 crystal description in materialnm didn't really fit, changed to gemstone.
 Fix: Undead was incorrectly pluralized.

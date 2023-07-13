@@ -1316,9 +1316,7 @@ char *usr_text;
     if (olet == FOOD_CLASS) {
         int cnum = obj ? obj->corpsenm : 0;
         
-        if (otyp == TIN || otyp == CORPSE) {
-
-
+        if (otyp == TIN || otyp == CORPSE || Is_pudding(obj)) {
             if (obj && obj->known) {
                 Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
                 OBJPUTSTR(buf);
@@ -1328,26 +1326,33 @@ char *usr_text;
                 corpse_conveys(buf, pm);
 
                 /* Corpse conveyances */
-                if (is_were(pm)) {
-                    OBJPUTSTR("Conveys lycanthropy.");
-                } else {
-                    if (*buf) {
-                        Sprintf(buf2, "Conveys %s.", buf);
-                        OBJPUTSTR(buf2);
-                    } else
-                        OBJPUTSTR("Conveys no intrinsics.");
+                if (*buf) {
+                    Sprintf(buf2, "Conveys %s.", buf);
+                    OBJPUTSTR(buf2);
+                } else
+                    OBJPUTSTR("Conveys no intrinsics.");
+                if (is_giant(pm)) {
+                    OBJPUTSTR("Conveys strength.");
                 }
-
+                if (cnum == PM_LIZARD || acidic(&mons[cnum]))
+                        OBJPUTSTR("Consuming this can cure petrification.");
                 /* poison is removed by the tinning process */
                 if (poisonous(pm) && otyp != TIN) {
                     OBJPUTSTR("Is poisonous.");
                 }
-
                 /* acid damage is removed by the tinning process */
                 if (acidic(pm) && otyp != TIN) {
                     OBJPUTSTR("Is acidic.");
                 }
-
+                if (is_were(pm)) {
+                    OBJPUTSTR("Conveys lycanthropy.");
+                }
+                if (flesh_petrifies(pm)) {
+                    OBJPUTSTR("Consuming this can cause petrification.");
+                }
+                if (otyp == GLOB_OF_GREEN_SLIME) {
+                    OBJPUTSTR("Consuming this can cause sliming.");
+                }
                 if ((amorphous(&mons[cnum])
                      || slithy(&mons[cnum])
                      || mons[cnum].mlet == S_BLOB)
@@ -1357,7 +1362,15 @@ char *usr_text;
 
                     OBJPUTSTR("Consuming this can cause slippery fingers.");
                 }
-
+                if (cnum == PM_YELLOW_LIGHT
+                    || cnum == PM_GIANT_BAT
+                    || cnum == PM_ZOO_BAT
+                    || cnum == PM_BAT)
+                    OBJPUTSTR("Consuming this can cause stunning.");
+                if (dmgtype(pm, AD_STUN) || dmgtype(pm, AD_HALU)
+                    || cnum == PM_VIOLET_FUNGUS) {
+                    OBJPUTSTR("Consuming this can cause hallucination.");
+                }
                 if (vegan(&mons[cnum])) {
                     OBJPUTSTR("Is vegan.");
                 } else if (vegetarian(&mons[cnum])) {

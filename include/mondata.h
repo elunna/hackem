@@ -664,6 +664,9 @@
     (ptr) == &mons[PM_BASILISK] || \
     (ptr) == &mons[PM_ASPHYNX])
 
+/* monster types that cause hero to be turned into stone if eaten */
+#define flesh_petrifies(pm) (touch_petrifies(pm) || (pm) == &mons[PM_MEDUSA])
+
 #define is_pirate(ptr) \
     ((ptr) == &mons[PM_PIRATE] || (ptr) == &mons[PM_SKELETAL_PIRATE] \
       || (ptr) == &mons[PM_DAMNED_PIRATE] || (ptr) == &mons[PM_PLANAR_PIRATE] \
