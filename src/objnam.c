@@ -242,7 +242,9 @@ register int otyp;
     default:
         if (nn) {
             Strcpy(buf, actualn);
-            if (GemStone(otyp) && ocl->oc_class != ARMOR_CLASS)
+            if (GemStone(otyp)
+                  && ocl->oc_class != ARMOR_CLASS
+                  && ocl->oc_class != WEAPON_CLASS)
                 Strcat(buf, " stone");
             if (un) /* 3: length of " (" + ")" which will enclose 'dn' */
                 xcalled(buf, BUFSZ - (dn ? (int) strlen(dn) + 3 : 0), "", un);
