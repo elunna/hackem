@@ -1908,7 +1908,15 @@ int skill;
         P_NAME(skill));
 
     if (!tech_known(T_DISARM)
-          && (P_SKILL(skill) == P_SKILLED) && skill <= P_LAST_WEAPON) {
+          && P_SKILL(skill) == P_SKILLED
+          && skill <= P_LAST_WEAPON
+          && skill != P_BOW
+          && skill != P_SLING
+          && skill != P_FIREARM
+          && skill != P_CROSSBOW
+          && skill != P_DART
+          && skill != P_SHURIKEN
+          && skill != P_BOOMERANG) {
     	learntech(T_DISARM, FROMOUTSIDE, 1);
     	You("learn how to perform disarm!");
     }
