@@ -413,9 +413,9 @@ GUN("auto shotgun",      "strange broken crossbow", 1, 1, 0,  60, 1500,  1,  WP_
 
 BULLET("bullet",          "pellet", 1, 0, 1,   5,   20, 30, 0, WP_BULLET, P, IRON, -P_FIREARM, HI_METAL), /* Slash'EM */
 BULLET("shotgun shell", "red tube", 1, 0, 1,   7,   30, 45, 0, WP_SHELL,  P, IRON, -P_FIREARM, CLR_RED), /* Slash'EM */
-BULLET("fire bomb",         "bomb", 1, 0,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_GREEN), /* Slash'EM */
-BULLET("sonic bomb",        "bomb", 1, 0,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_BLACK), /* Slash'EM */
-BULLET("gas bomb",          "bomb", 1, 0,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_ORANGE), /* Slash'EM */
+BULLET("fire bomb",         "bomb", 0, 0,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_GREEN), /* Slash'EM */
+BULLET("sonic bomb",        "bomb", 0, 0,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_BLACK), /* Slash'EM */
+BULLET("gas bomb",          "bomb", 0, 0,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_ORANGE), /* Slash'EM */
 
 #undef P
 #undef S
