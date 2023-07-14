@@ -1921,6 +1921,12 @@ int skill;
     	learntech(T_DISARM, FROMOUTSIDE, 1);
     	You("learn how to perform disarm!");
     }
+    if (!tech_known(T_SHIELD_BLOCK)
+        && skill == P_SHIELD
+        && P_SKILL(skill) == P_SKILLED) {
+        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, 1);
+        You("learn how to perform shield block!");
+    }
 }
 
 static const struct skill_range {
@@ -2162,7 +2168,7 @@ lose_weapon_skill(n)
 int n; /* number of slots to lose; normally one */
 {
     int skill;
-    boolean maybe_loose_disarm = FALSE;
+    boolean maybe_lose_disarm = FALSE;
 
     while (--n >= 0) {
         /* deduct first from unused slots then from last placed one, if any */
@@ -2172,16 +2178,19 @@ int n; /* number of slots to lose; normally one */
             skill = u.skill_record[--u.skills_advanced];
             if (P_SKILL(skill) <= P_UNSKILLED)
                 panic("lose_weapon_skill (%d)", skill);
-            maybe_loose_disarm = TRUE;
+            maybe_lose_disarm = TRUE;
             P_SKILL(skill)--; /* drop skill one level */
             /* Lost skill might have taken more than one slot; refund rest. */
             u.weapon_slots = slots_required(skill) - 1;
             /* It might now be possible to advance some other pending
                skill by using the refunded slots, but giving a message
                to that effect would seem pretty confusing.... */
+
+            if (skill == P_SHIELD && P_SKILL(skill) < P_SKILLED)
+                learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
         }
     }
-    if (maybe_loose_disarm && tech_known(T_DISARM)) {
+    if (maybe_lose_disarm && tech_known(T_DISARM)) {
 	int i;
 	for (i = u.skills_advanced - 1; i >= 0; i--) {
 	    skill = u.skill_record[i];
@@ -2224,6 +2233,9 @@ int n; /* number of skills to drain */
             prevadv = practice_needed_to_advance(P_SKILL(skill) - 1);
             if (P_ADVANCE(skill) >= curradv)
                 P_ADVANCE(skill) = prevadv + rn2(curradv - prevadv);
+
+            if (skill == P_SHIELD && P_SKILL(skill) < P_SKILLED)
+                learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
         }
     }
 

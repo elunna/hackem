@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Players get the Shield Block technique when they reach skilled in Shields.
 Refine some places where Xanathar's ring stealth should apply.
 mplayer symbols reflect their actual race.
 Fix: Boulder trap pathing could go out of bounds. Fixes #363.
