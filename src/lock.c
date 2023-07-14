@@ -265,7 +265,7 @@ forcelock(VOID_ARGS)
             return ((xlock.usedtime = 0));
         }
     } else if (!SuperStealth)            /* blunt */
-            wake_nearby(); /* due to hammering on the container */
+        wake_nearby(); /* due to hammering on the container */
 
     if (rn2(100) >= xlock.chance)
         return 1; /* still busy */

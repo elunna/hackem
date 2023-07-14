@@ -519,12 +519,16 @@ dig(VOID_ARGS)
             return 0; /* statue or boulder got taken */
 
         if (!did_dig_msg) {
-            if (is_lightsaber(uwep)) 
+            if (is_lightsaber(uwep)) {
                 You("burn steadily through %s.", the(d_target[dig_target]));
-            else
+            } else if (SuperStealth) {
+                You("stealthily chip away at the %s.", d_target[dig_target]);
+            } else {
                 You("hit the %s with all your might.", d_target[dig_target]);
-            wake_nearby();
+                wake_nearby();
+            }
             did_dig_msg = TRUE;
+
         }
     }
     return 1;
@@ -658,7 +662,8 @@ int ttyp;
                 You("dig a pit in the %s.", surface_type);
             if (shopdoor)
                 pay_for_damage("ruin", FALSE);
-            wake_nearby();
+            if (!SuperStealth)
+                wake_nearby();
         } else if (!madeby_obj && canseemon(madeby)) {
             pline("%s digs a pit in the %s.", Monnam(madeby), surface_type);
         } else if (cansee(x, y) && flags.verbose) {
@@ -1138,10 +1143,9 @@ struct obj *obj;
         if (!isok(rx, ry)) {
             if (is_lightsaber(uwep))
                 Your("%s bounces off harmlessly.", aobjnam(obj, (char *)0));
-            else {
+            else if (!SuperStealth) {
                 pline("Clash!");
-                if (!SuperStealth)
-                    wake_nearby();
+                wake_nearby();
             }
             return 1;
         }
@@ -1167,8 +1171,11 @@ struct obj *obj;
                 multi_reason = "stuck in a spider web";
                 nomovemsg = "You pull free.";
             } else if (lev->typ == IRONBARS) {
-                pline("Clang!");
-                wake_nearby();
+                if (!SuperStealth) {
+                    pline("Clang!");
+                    wake_nearby();
+                } else
+                    pline("Bink...");
             } else if (IS_TREES(lev->typ)) {
                 You("need an axe to cut down a tree.");
             } else if (IS_ROCK(lev->typ)) {
