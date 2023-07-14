@@ -1004,9 +1004,7 @@ register char sym;
 
     for (ct = bases[(uchar) sym]; ct < bases[(uchar) sym + 1]; ct++) {
         /* not flagged as magic but shouldn't be pre-discovered */
-        if (ct == CORNUTHAUM
-            || ct == DUNCE_CAP
-            || ROBE)
+        if (ct == CORNUTHAUM || ct == DUNCE_CAP || ROBE)
             continue;
 
         if (sym == WEAPON_CLASS) {
@@ -1020,7 +1018,10 @@ register char sym;
                 && (!is_launcher(o) && !is_ammo(o) && !is_spear(o)))
                 continue;
             /* rogues know daggers, regardless of racial variations */
-            if (Role_if(PM_ROGUE) && (objects[o->otyp].oc_skill != P_DAGGER))
+            if (Role_if(PM_ROGUE) && objects[o->otyp].oc_skill != P_DAGGER)
+                continue;
+            /* convicts know firearms*/
+            if (Role_if(PM_CONVICT) && objects[o->otyp].oc_skill != P_FIREARM)
                 continue;
         }
 
@@ -1241,6 +1242,7 @@ u_init()
         u.uhunger = 200;  /* On the verge of hungry */
         u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL]
             = u.ualign.type = A_CHAOTIC; /* Override racial alignment */
+        knows_class(WEAPON_CLASS); /* firearms only */
         break;
     case PM_HEALER:
         u.umoney0 = rn1(1000, 1001);
