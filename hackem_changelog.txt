@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Prevent 'Tech already known' panic when Infidel is crowned.
 Lower undead slayer weapon damage from d8 to d6.
 Re-add ranged weapon exceptions to disarm tech.
 Fix: Disarm tech wasn't earned with certain weapon skill advancements.

@@ -1577,13 +1577,14 @@ int oldlevel, newlevel;
                     
         for (; tech->tech_id; tech++) {
             if (oldlevel < tech->ulevel && newlevel >= tech->ulevel) {
-                if (tech->ulevel != 1 && !tech_known(tech->tech_id))
-                    You("learn how to perform %s!", tech_names[tech->tech_id]);
-                
-                learntech(tech->tech_id, mask, tech->tech_lev);
+                if (!tech_known(tech->tech_id)) {
+                    if (tech->ulevel != 1)
+                        You("learn how to perform %s!",
+                            tech_names[tech->tech_id]);
+                    learntech(tech->tech_id, mask, tech->tech_lev);
+                }
             } else if (oldlevel >= tech->ulevel && newlevel < tech->ulevel
                         && tech->ulevel != 1) {
-                    
                 learntech(tech->tech_id, mask, -1);
                 if (!tech_known(tech->tech_id))
                     You("lose the ability to perform %s!",

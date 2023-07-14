@@ -1233,7 +1233,7 @@ int oldlevel, newlevel;
         context.warntype.intrins &= ~MH_UNDEAD;
     
     /* WAC -- adjust techniques */
-	adjtech(oldlevel, newlevel);
+    adjtech(oldlevel, newlevel);
 
     /* Learn your special spell! (At level 12) */
     if (urole.spelspec &&
