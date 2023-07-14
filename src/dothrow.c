@@ -1572,6 +1572,12 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
             pline("The quivered ammo doesn't fit the firearm.");
             gunning = FALSE;
         }
+        if (gunning) {
+            if (!Deaf)
+                pline("Boom!");
+            makeknown_msg(uwep->otyp);
+        }
+
         urange = (crossbowing ? 18 : (int) ACURRSTR) / 2;
 
         /* hard limit this so crossbows will fire further

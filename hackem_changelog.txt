@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Firearms start out with unknown appearances but are identified on use.
 All bombs start out unknown as 'bomb' appearance.
 Fixed lookup issues with bombs.
 Fixed some food lookup issues with puddings.
