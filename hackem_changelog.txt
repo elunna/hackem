@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Boulder trap pathing could go out of bounds. Fixes #363.
 Clean up tool and property info in add_obj_info.
 Factored out olet from add_obj_info.
 Fix: We can't swim under monsters while engulfed or swallowed. Fixes #322.
