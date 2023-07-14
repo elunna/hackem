@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: We can't swim under monsters while engulfed or swallowed. Fixes #322.
 Fix knows_class bug from 9aaaf566c. Oops.
 Convicts start out knowing all firearms.
 Gun shops can also carry assault rifles, flintlocks, grease, and towels.
