@@ -1518,50 +1518,52 @@ char *usr_text;
     if (oc.oc_class == TOOL_CLASS && !weptool) {
         const char* subclass = "tool";
         switch (otyp) {
-        case LARGE_BOX:
-        case CHEST:
-        case ICE_BOX:
-        case KEG:
-        case IRON_SAFE:
-        case CRYSTAL_CHEST:
-        case SACK:
-        case OILSKIN_SACK:
         case BAG_OF_HOLDING:
+        case BAG_OF_RATS:
+        case BAG_OF_TRICKS:
+        case CHEST:
+        case CRYSTAL_CHEST:
+        case ICE_BOX:
+        case IRON_SAFE:
+        case KEG:
+        case LARGE_BOX:
+        case OILSKIN_SACK:
+        case SACK:
             subclass = "container";
             break;
-        case SKELETON_KEY:
-        case LOCK_PICK:
         case CREDIT_CARD:
+        case LOCK_PICK:
+        case SKELETON_KEY:
             subclass = "unlocking tool";
             break;
+        case LANTERN:
+        case MAGIC_LAMP:
+        case OIL_LAMP:
         case TALLOW_CANDLE:
         case WAX_CANDLE:
-        case LANTERN:
-        case OIL_LAMP:
-        case MAGIC_LAMP:
             subclass = "light source";
             break;
         case LAND_MINE:
         case BEARTRAP:
             subclass = "trap which can be set";
             break;
-        case PEA_WHISTLE:
-        case MAGIC_WHISTLE:
         case BELL:
-        case LEATHER_DRUM:
         case DRUM_OF_EARTHQUAKE:
+        case LEATHER_DRUM:
+        case MAGIC_WHISTLE:
+        case PEA_WHISTLE:
             subclass = "atonal instrument";
             break;
+        case BAGPIPE:
         case BUGLE:
-        case MAGIC_FLUTE:
-        case FLUTE:
-        case TOOLED_HORN:
         case FIRE_HORN:
+        case FLUTE:
         case FROST_HORN:
         case HARP:
-        case MAGIC_HARP:
         case LUTE:
-        case BAGPIPE:
+        case MAGIC_FLUTE:
+        case MAGIC_HARP:
+        case TOOLED_HORN:
             subclass = "tonal instrument";
             break;
         case HORN_OF_BLASTING:
@@ -1644,31 +1646,31 @@ char *usr_text;
                         effect = "life saving";
                         /* FALLTHRU */
                     /* for things that don't work with "Makes you" */
-                    case GLIB:
-                    case WOUNDED_LEGS:
-                    case DETECT_MONSTERS:
-                    case SEE_INVIS:
-                    case HUNGER:
-                    case WARNING:
-                    /* don't do special warn_of_mon */
-                    case SEARCHING:
-                    case INFRAVISION:
                     case AGGRAVATE_MONSTER:
                     case CONFLICT:
-                    case JUMPING:
-                    case TELEPORT_CONTROL:
-                    case SWIMMING:
-                    case SLOW_DIGESTION:
+                    case DETECT_MONSTERS:
+                    case ENERGY_REGENERATION:
+                    case FIXED_ABIL:
+                    case FLYING:
+                    case FREE_ACTION:
+                    case GLIB:
                     case HALF_SPDAM:
                     case HALF_PHDAM:
-                    case REGENERATION:
-                    case ENERGY_REGENERATION:
+                    case HUNGER:
+                    case INFRAVISION:
+                    case JUMPING:
+                    case POLYMORPH_CONTROL:
                     case PROTECTION:
                     case PROT_FROM_SHAPE_CHANGERS:
-                    case POLYMORPH_CONTROL:
-                    case FREE_ACTION:
-                    case FIXED_ABIL:
+                    case REGENERATION:
+                    case SEARCHING:
+                    case SEE_INVIS:
+                    case SLOW_DIGESTION:
                     case STABLE:
+                    case SWIMMING:
+                    case TELEPORT_CONTROL:
+                    case WARNING: /* don't do special warn_of_mon */
+                    case WOUNDED_LEGS:
                         confers = "Confers";
                         break;
                     default:
