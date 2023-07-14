@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Factored out olet from add_obj_info.
 Fix: We can't swim under monsters while engulfed or swallowed. Fixes #322.
 Fix knows_class bug from 9aaaf566c. Oops.
 Convicts start out knowing all firearms.

@@ -1078,7 +1078,6 @@ char *usr_text;
 {
     struct objclass oc = objects[otyp];
     struct damage_info_t damage_info;
-    char olet = oc.oc_class;
     char buf[BUFSZ];
     char buf2[BUFSZ];
     const char *actualn = OBJ_NAME(oc);
@@ -1090,12 +1089,12 @@ char *usr_text;
     boolean wielded, carried, identified_potion;
     boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
                                               && oc.oc_name_known));
-    boolean weptool = (boolean) (olet == TOOL_CLASS && oc.oc_skill != P_NONE);
+    boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     int i, mat_bon, obj_weight;
 
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
-    dummy.oclass = olet;
+    dummy.oclass = oc.oc_class;
     /* Use actual object's material if available, otherwise the default */
     dummy.material = obj ? obj->material : oc.oc_material;
     dummy.oprops_known = obj ? obj->oprops_known : 0;
@@ -1126,12 +1125,7 @@ char *usr_text;
     else if ((obj && oc.oc_name_known) || dummy.oprops_known) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
     }
-#if 0
-    /* The item is reveal_info but it doesn't or can't have oprops */
-    else if (reveal_info) {
-        Sprintf(buf, "Object lookup for \"%s\":", simple_typename(otyp));
-    }
-#endif
+
     /* We don't have it and don't know it */
     else if (usr_text)
         Sprintf(buf, "Object lookup for \"%s\":", usr_text);
@@ -1145,7 +1139,7 @@ char *usr_text;
 
     /* WEAPON INFO */
 
-    if (olet == WEAPON_CLASS || weptool
+    if (oc.oc_class == WEAPON_CLASS || weptool
         || otyp == FLINT || otyp == ROCK || otyp == SLING_BULLET) {
         const int skill = oc.oc_skill;
         const char* dmgtyp = "blunt";
@@ -1235,12 +1229,11 @@ char *usr_text;
             Sprintf(buf, "Range: %d", firearm_range(otyp));
             OBJPUTSTR(buf);
         }
-        
     }
 
     /* ARMOR INFO */
 
-    if (olet == ARMOR_CLASS) {
+    if (oc.oc_class == ARMOR_CLASS) {
         /* Indexes here correspond to ARM_SHIELD, etc; not the W_* masks.
          * Expects ARM_SUIT = 0, all the way up to ARM_SHIRT = 6. */
         const char* armorslots[] = {
@@ -1284,7 +1277,7 @@ char *usr_text;
     /* PROPERTY INFO */
 
     if (dummy.oprops_known 
-        && (olet == WEAPON_CLASS || olet == ARMOR_CLASS)) {
+        && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
         if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
         if (obj->oprops & ITEM_WARNING) OBJPUTSTR("Grants warning");
@@ -1322,7 +1315,7 @@ char *usr_text;
 
     /* COMESTIBLE INFO */
 
-    if (olet == FOOD_CLASS) {
+    if (oc.oc_class == FOOD_CLASS) {
         int cnum = obj ? obj->corpsenm : 0;
         struct permonst *pm = &mons[cnum];
 
@@ -1431,21 +1424,21 @@ char *usr_text;
 
     /* POTION INFO */
 
-    if (olet == POTION_CLASS) {
+    if (oc.oc_class == POTION_CLASS) {
         /* nothing special */
         OBJPUTSTR("Potion.");
     }
 
     /* SCROLL INFO */
 
-    if (olet == SCROLL_CLASS) {
+    if (oc.oc_class == SCROLL_CLASS) {
         /* nothing special (ink is covered below) */
         OBJPUTSTR("Scroll.");
     }
 
     /* SPELLBOOK INFO */
 
-    if (olet == SPBOOK_CLASS) {
+    if (oc.oc_class == SPBOOK_CLASS) {
         if (otyp == SPE_BLANK_PAPER) {
             OBJPUTSTR("Spellbook.");
         } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD) {
@@ -1463,7 +1456,7 @@ char *usr_text;
 
     /* WAND INFO */
 
-    if (olet == WAND_CLASS) {
+    if (oc.oc_class == WAND_CLASS) {
         if (otyp == STRANGE_OBJECT) {
             Strcpy(buf, "Wand.");
         } else {
@@ -1474,7 +1467,7 @@ char *usr_text;
 
     /* RING INFO */
 
-    if (olet == RING_CLASS) {
+    if (oc.oc_class == RING_CLASS) {
         OBJPUTSTR(reveal_info && oc.oc_charged ? "Chargeable ring." : "Ring.");
         /* see material comment below; only show toughness status if this
          * particular ring is already reveal_info... */
@@ -1485,7 +1478,7 @@ char *usr_text;
 
     /* GEM INFO */
 
-    if (olet == GEM_CLASS) {
+    if (oc.oc_class == GEM_CLASS) {
         if (reveal_info) {
             if (oc.oc_material == MINERAL) {
                 OBJPUTSTR("Type of stone.");
@@ -1522,7 +1515,7 @@ char *usr_text;
 
     /* TOOL INFO */
 
-    if (olet == TOOL_CLASS && !weptool) {
+    if (oc.oc_class == TOOL_CLASS && !weptool) {
         const char* subclass = "tool";
         switch (otyp) {
         case LARGE_BOX:
@@ -1591,8 +1584,8 @@ char *usr_text;
     } else {
         int base_cost = oc.oc_cost;
         for (i = 0; i < NUM_OBJECTS; i++) {
-            if (objects[i].oc_class == olet) {
-                if (olet == SPBOOK_CLASS && i == SPE_BOOK_OF_THE_DEAD) {
+            if (objects[i].oc_class == oc.oc_class) {
+                if (oc.oc_class == SPBOOK_CLASS && i == SPE_BOOK_OF_THE_DEAD) {
                     continue;
                 }
                 if (objects[i].oc_cost != base_cost) {
@@ -1613,7 +1606,7 @@ char *usr_text;
 
     /* Scrolls or spellbooks: ink cost */
     if (otyp != STRANGE_OBJECT) {
-        if (olet == SCROLL_CLASS || olet == SPBOOK_CLASS) {
+        if (oc.oc_class == SCROLL_CLASS || oc.oc_class == SPBOOK_CLASS) {
             if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
                 OBJPUTSTR("Can be written on.");
             } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD
@@ -1716,7 +1709,8 @@ char *usr_text;
      * material.
      * Object classes where this may matter: rings, wands. All randomized tools
      * share materials, and all scrolls and potions are the same material. */
-    if (!(olet == RING_CLASS || olet == WAND_CLASS) || oc.oc_name_known) {
+    if (!(oc.oc_class == RING_CLASS || oc.oc_class == WAND_CLASS)
+        || oc.oc_name_known) {
         /* char array converting materials to strings; if this is ever needed
         * anywhere else it should be externified. Corresponds exactly to the
         * materials defined in objclass.h.
