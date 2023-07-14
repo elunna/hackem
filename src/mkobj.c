@@ -960,7 +960,7 @@ boolean artif;
                 otmp->quan = (long) rnd(2);
                 break;
             }
-            if (Is_pudding(otmp)) {
+            if (Is_pudding(otmp->otyp)) {
                 otmp->quan = 1L; /* for emphasis; glob quantity is always 1 */
                 otmp->globby = 1;
                 otmp->known = otmp->dknown = 1;

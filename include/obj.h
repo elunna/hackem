@@ -335,14 +335,14 @@ struct obj {
 #define mlevelgain(obj) (ofood(obj) && (obj)->corpsenm == PM_WRAITH)
 #define mhealup(obj) (ofood(obj) && (obj)->corpsenm == PM_NURSE)
 #define is_royaljelly(o) (o->otyp == LUMP_OF_ROYAL_JELLY)
-#define Is_pudding(o)                                                 \
-    (o->otyp == GLOB_OF_GRAY_OOZE                                     \
-     || o->otyp == GLOB_OF_BROWN_PUDDING                              \
-     || o->otyp == GLOB_OF_GREEN_SLIME                                \
-     || o->otyp == GLOB_OF_BLOOD_PUDDING                              \
-     || o->otyp == GLOB_OF_GEL                                        \
-     || o->otyp == GLOB_OF_MOLDY_PUDDING                              \
-     || o->otyp == GLOB_OF_BLACK_PUDDING)
+#define Is_pudding(otyp)                                                 \
+    (otyp == GLOB_OF_GRAY_OOZE                                     \
+     || otyp == GLOB_OF_BROWN_PUDDING                              \
+     || otyp == GLOB_OF_GREEN_SLIME                                \
+     || otyp == GLOB_OF_BLOOD_PUDDING                              \
+     || otyp == GLOB_OF_GEL                                        \
+     || otyp == GLOB_OF_MOLDY_PUDDING                              \
+     || otyp == GLOB_OF_BLACK_PUDDING)
 
 /* Spirit stuff */
 #define MIN_SPIRIT_FADE_TIME 10 /* longest a spirit hangs around */

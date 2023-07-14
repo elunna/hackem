@@ -745,7 +745,7 @@ struct obj **potmp, **pobj;
         if (otmp->oclass == COIN_CLASS)
             otmp->owt = weight(otmp), otmp->bknown = 0;
         /* and puddings!!!1!!one! */
-        else if (!Is_pudding(otmp))
+        else if (!Is_pudding(otmp->otyp))
             otmp->owt += obj->owt;
         if (!has_oname(otmp) && has_oname(obj))
             otmp = *potmp = oname(otmp, ONAME(obj));

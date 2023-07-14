@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fixed some food lookup issues with puddings.
 Plasteel gloves should always have the white gloves appearance.
 Fix: Ornate mace was displaying as Rod Stone in discoveries.
 Added genocide info to the monster lookup.

@@ -1320,17 +1320,18 @@ char *usr_text;
 
     if (olet == FOOD_CLASS) {
         int cnum = obj ? obj->corpsenm : 0;
-        
-        if (otyp == TIN || otyp == CORPSE || Is_pudding(obj)) {
+        struct permonst *pm = &mons[cnum];
+
+        if (otyp == TIN || otyp == CORPSE
+              || (obj && Is_pudding(obj->otyp))
+              || Is_pudding(otyp)) {
             if (obj && obj->known) {
-                Sprintf(buf, "Comestible providing %d nutrition at the most.", mons[obj->corpsenm].cnutrit);
+                Sprintf(buf, "Comestible providing %d nutrition at the most.", pm->cnutrit);
                 OBJPUTSTR(buf);
                 OBJPUTSTR("Takes various amounts of turns to eat.");
 
-                struct permonst *pm = &mons[obj->corpsenm];
-                corpse_conveys(buf, pm);
-
                 /* Corpse conveyances */
+                corpse_conveys(buf, pm);
                 if (*buf) {
                     Sprintf(buf2, "Conveys %s.", buf);
                     OBJPUTSTR(buf2);
@@ -1339,7 +1340,7 @@ char *usr_text;
                 if (is_giant(pm)) {
                     OBJPUTSTR("Conveys strength.");
                 }
-                if (cnum == PM_LIZARD || acidic(&mons[cnum]))
+                if (cnum == PM_LIZARD || acidic(pm))
                         OBJPUTSTR("Consuming this can cure petrification.");
                 /* poison is removed by the tinning process */
                 if (poisonous(pm) && otyp != TIN) {
@@ -1358,8 +1359,8 @@ char *usr_text;
                 if (otyp == GLOB_OF_GREEN_SLIME) {
                     OBJPUTSTR("Consuming this can cause sliming.");
                 }
-                if ((amorphous(&mons[cnum])
-                     || slithy(&mons[cnum])
+                if ((amorphous(pm)
+                     || slithy(pm)
                      || mons[cnum].mlet == S_BLOB)
                     && mons[cnum].mlet != S_SNAKE
                     && mons[cnum].mlet != S_NAGA
@@ -1376,9 +1377,9 @@ char *usr_text;
                     || cnum == PM_VIOLET_FUNGUS) {
                     OBJPUTSTR("Consuming this can cause hallucination.");
                 }
-                if (vegan(&mons[cnum])) {
+                if (vegan(pm)) {
                     OBJPUTSTR("Is vegan.");
-                } else if (vegetarian(&mons[cnum])) {
+                } else if (vegetarian(pm)) {
                     OBJPUTSTR("Is vegetarian but not vegan.");
                 } else {
                     OBJPUTSTR("Is not vegetarian.");
@@ -1418,7 +1419,7 @@ char *usr_text;
                 }
             }
 
-            if (obj && Is_pudding(obj)) {
+            if ((obj && Is_pudding(obj->otyp)) || Is_pudding(otyp)) {
                 OBJPUTSTR("Consuming this can cause slippery fingers.");
             }
         }
