@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Lower undead slayer weapon damage from d8 to d6.
 Re-add ranged weapon exceptions to disarm tech.
 Fix: Disarm tech wasn't earned with certain weapon skill advancements.
 Fix: Disarm tech wasn't lost when amnesia took away weapon skills.
