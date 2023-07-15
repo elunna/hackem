@@ -2179,23 +2179,28 @@ char *supplemental_name;
                 }
             }
 
-            /* object lookup: try to parse as an object, and try the material
-             * version of the string first */
-            otyp = name_to_otyp(dbase_str_with_material);
-            if (otyp == STRANGE_OBJECT) {
-                otyp = name_to_otyp(dbase_str);
-            }
+            if (obj) {
+                /* catches inventory lookup */
+                otyp = obj->otyp;
+            } else {
+                /* obj will be null for ground lookup with ;: and searches with /?
+                 * object lookup: try to parse as an object, and try the material
+                 * version of the string first */
+                otyp = name_to_otyp(dbase_str_with_material);
+                if (otyp == STRANGE_OBJECT) {
+                    /* catches search for "longsword" */
+                    otyp = name_to_otyp(dbase_str);
+                }
 
                 if (otyp == STRANGE_OBJECT) {
                     /* catches inventory lookup and /? search for stormbringer */
                     struct obj *obj_lookup = get_faux_artifact_obj(encycl_matched);
+                    otyp = obj_lookup ? obj_lookup->otyp : STRANGE_OBJECT;
 
-                    if (obj_lookup) {
-                        otyp = obj_lookup->otyp;
+                    /* we have an struct obj */
+                    if (otyp != STRANGE_OBJECT && obj_lookup) {
                         obj = obj_lookup;
-                        obj_free = TRUE;
-                    } else {
-                        otyp = STRANGE_OBJECT;
+                        /*obj_free = TRUE;*/
                     }
                 }
             }
@@ -2330,6 +2335,7 @@ char *supplemental_name;
                             putstr(datawin, 0, tp);
                         }
                     }
+
                     display_nhwindow(datawin, FALSE);
                     destroy_nhwindow(datawin), datawin = WIN_ERR;
                 }
