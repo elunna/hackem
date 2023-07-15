@@ -2162,14 +2162,21 @@ int n; /* number of slots to gain; normally one */
 }
 
 void
-maybe_lose_disarm(skill)
-int skill;
+maybe_lose_disarm()
 {
+    int skill;
     if (tech_known(T_DISARM)) {
         int i;
         for (i = u.skills_advanced - 1; i >= 0; i--) {
             skill = u.skill_record[i];
-            if (skill <= P_LAST_WEAPON && P_SKILL(skill) >= P_SKILLED)
+            if (P_SKILL(skill) >= P_SKILLED && skill <= P_LAST_WEAPON
+                && skill != P_BOW
+                && skill != P_SLING
+                && skill != P_FIREARM
+                && skill != P_CROSSBOW
+                && skill != P_DART
+                && skill != P_SHURIKEN
+                && skill != P_BOOMERANG)
                 break;
         }
         if (i < 0)
@@ -2183,6 +2190,7 @@ int n; /* number of slots to lose; normally one */
 {
     int skill;
     boolean check_disarm = FALSE;
+    boolean check_shield = FALSE;
 
     while (--n >= 0) {
         /* deduct first from unused slots then from last placed one, if any */
@@ -2192,7 +2200,7 @@ int n; /* number of slots to lose; normally one */
             skill = u.skill_record[--u.skills_advanced];
             if (P_SKILL(skill) <= P_UNSKILLED)
                 panic("lose_weapon_skill (%d)", skill);
-            check_disarm = TRUE;
+            check_disarm = check_shield = TRUE;
             P_SKILL(skill)--; /* drop skill one level */
             /* Lost skill might have taken more than one slot; refund rest. */
             u.weapon_slots = slots_required(skill) - 1;
@@ -2201,12 +2209,16 @@ int n; /* number of slots to lose; normally one */
                to that effect would seem pretty confusing.... */
 
             /* Potentially lose shield block tech */
-            if (skill == P_SHIELD && P_SKILL(skill) < P_SKILLED)
+            if (skill == P_SHIELD && tech_known(T_SHIELD_BLOCK)
+                && P_SKILL(skill) < P_SKILLED)
                 learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
         }
     }
     if (check_disarm)
-        maybe_lose_disarm(skill);
+        maybe_lose_disarm();
+    if (check_shield && tech_known(T_SHIELD_BLOCK)
+            && P_SKILL(skill) < P_SKILLED)
+        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
 }
 
 void
@@ -2215,6 +2227,7 @@ int n; /* number of skills to drain */
 {
     int skill, i, curradv, prevadv;
     boolean check_disarm = FALSE;
+    boolean check_shield = FALSE;
     int tmpskills[P_NUM_SKILLS];
 
     (void) memset((genericptr_t) tmpskills, 0, sizeof(tmpskills));
@@ -2231,7 +2244,7 @@ int n; /* number of skills to drain */
             u.skills_advanced--;
             if (P_SKILL(skill) <= P_UNSKILLED)
                 panic("drain_weapon_skill (%d)", skill);
-            check_disarm = TRUE;
+            check_disarm = check_shield = TRUE;
             P_SKILL(skill)--;   /* drop skill one level */
             /* refund slots used for skill */
             u.weapon_slots += slots_required(skill);
@@ -2240,9 +2253,6 @@ int n; /* number of skills to drain */
             prevadv = practice_needed_to_advance(P_SKILL(skill) - 1);
             if (P_ADVANCE(skill) >= curradv)
                 P_ADVANCE(skill) = prevadv + rn2(curradv - prevadv);
-
-            if (skill == P_SHIELD && P_SKILL(skill) < P_SKILLED)
-                learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
         }
     }
 
@@ -2251,8 +2261,13 @@ int n; /* number of skills to drain */
             You("forget %syour training in %s.",
                 P_SKILL(skill) >= P_BASIC ? "some of " : "", P_NAME(skill));
         }
+
     if (check_disarm)
-        maybe_lose_disarm(skill);
+        maybe_lose_disarm();
+    if (check_shield && tech_known(T_SHIELD_BLOCK)
+            && P_SKILL(skill) < P_SKILLED)
+        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
+
 }
 
 void
