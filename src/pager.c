@@ -2262,13 +2262,11 @@ char *supplemental_name;
                         ; /* do nothing, 'pokedex' is disabled */
                     }
                     /* object lookup info */
-                    if (do_obj_lookup) {
-                        add_obj_info(datawin, obj, otyp, encycl_matched);
-                        putstr(datawin, 0, "");
-                    } else if (obj) {
+                    if (do_obj_lookup || obj) {
                         add_obj_info(datawin, obj, otyp, encycl_matched);
                         putstr(datawin, 0, "");
                     }
+
                     /* monster lookup info */
                     /* secondary to object lookup because there are some
                      * monsters whose names are substrings of objects, like
@@ -2344,6 +2342,9 @@ char *supplemental_name;
 
                     display_nhwindow(datawin, FALSE);
                     destroy_nhwindow(datawin), datawin = WIN_ERR;
+
+                    if (do_obj_lookup)
+                        break; /* Limit dialogs for object lookup. */
                 }
             }
         }
@@ -2895,10 +2896,11 @@ coord *click_cc;
                 Strcpy(temp_buf, firstmatch);
                 /*checkfile(temp_buf, supplemental_pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);*/
                 checkfile(NULL, temp_buf, supplemental_pm, FALSE, (boolean) (ans == LOOK_VERBOSE), supplemental_name);
-                
+
                 if (supplemental_pm)
                     do_supplemental_info(supplemental_name, supplemental_pm,
                                          (boolean) (ans == LOOK_VERBOSE));
+
                 supplemental_pm = 0;
             }
         } else {
