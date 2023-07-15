@@ -165,6 +165,7 @@ const char *name;
             obj = mksobj(a->otyp, TRUE, FALSE);
             obj->otyp = a->otyp;
             obj->oartifact = index;
+            obj->material = artilist[index].material;
             break;
         }
 

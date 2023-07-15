@@ -1728,8 +1728,11 @@ char *usr_text;
             mat_str = "vegetable matter";
         }
         alt_mat = obj ? materialnm[obj->material] : mat_str;
-        if (obj && oc.oc_material && obj->material != oc.oc_material)
+        if (obj && !obj->oartifact
+              && oc.oc_material && obj->material != oc.oc_material)
             Sprintf(buf, "Material: %s (normally made of %s)", alt_mat, mat_str);
+        else if (obj && obj->oartifact)
+            Sprintf(buf, "Material: %s ", alt_mat);
         else
             Sprintf(buf, "Material: %s ", mat_str);
         OBJPUTSTR(buf);
