@@ -227,7 +227,6 @@ static const struct innate_tech
     pri_tech[] = { 
         { 1, T_TURN_UNDEAD, 1 },
         { 1, T_BLESSING, 1 },
-        { 7, T_SHIELD_BLOCK, 1 },
         { 10, T_HEAL_HANDS, 1 },
         { 30, T_REVIVE, 1 },
         { 0, 0, 0 } 
@@ -293,7 +292,7 @@ static const struct innate_tech
     },
     war_tech[] = { 
         { 1, T_PRACTICE, 1 }, /* warrior */
-        { 1, T_SHIELD_BLOCK, 1 },
+        { 1, T_SHIELD_BLOCK, 1 }, /*Let them get at least skilled in shield*/
         { 0, 0, 0 } 
     },
     lun_tech[] = { 
