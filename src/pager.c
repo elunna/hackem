@@ -1276,7 +1276,7 @@ char *usr_text;
 
     /* PROPERTY INFO */
 
-    if (dummy.oprops_known 
+    if (dummy.oprops_known
         && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
         if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
@@ -2185,6 +2185,21 @@ char *supplemental_name;
             if (otyp == STRANGE_OBJECT) {
                 otyp = name_to_otyp(dbase_str);
             }
+
+                if (otyp == STRANGE_OBJECT) {
+                    /* catches inventory lookup and /? search for stormbringer */
+                    struct obj *obj_lookup = get_faux_artifact_obj(encycl_matched);
+
+                    if (obj_lookup) {
+                        otyp = obj_lookup->otyp;
+                        obj = obj_lookup;
+                        obj_free = TRUE;
+                    } else {
+                        otyp = STRANGE_OBJECT;
+                    }
+                }
+            }
+
 
             /* prompt for more info (if using whatis to navigate the map) */
             yes_to_moreinfo = FALSE;
