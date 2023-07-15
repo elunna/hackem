@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Consolidate associated race and role info for artifact lookup.
 Show correct base cost for artifact lookup.
 get_faux_artifact_obj handles default material for the artifact.
 Object lookup doesn't hide properties for artifacts if the base object isn't known.

@@ -1773,18 +1773,10 @@ char *usr_text;
             OBJPUTSTR("Does not generate randomly.");
         }
 
-#if 0
-        Sprintf(buf, "Material: %s ", a_info.material);
+        Sprintf(buf, "Associated class/role: %s/%s ",
+                a_info.role, a_info.race) ;
         OBJPUTSTR(buf);
-#endif
-        if (a_info.role) {
-            Sprintf(buf, "Associated class: %s ", a_info.role);
-            OBJPUTSTR(buf);
-        }
-        if (a_info.race) {
-            Sprintf(buf, "Associated race: %s ", a_info.race);
-            OBJPUTSTR(buf);
-        }
+
         if (artifact_light(obj)) {
             OBJPUTSTR("Artifact light source");
         }
