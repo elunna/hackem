@@ -1103,6 +1103,10 @@ char *usr_text;
     dummy.altmode = obj ? obj->altmode : 0;
 
 
+    /* TODO: prevent obj lookup from displaying with monster database entry
+     * (e.g. scroll of light gives "light" monster database) */
+
+
 #define OBJPUTSTR(str) putstr(datawin, ATR_NONE, str)
 #define ADDCLASSPROP(cond, str)          \
     if (cond) {                          \
@@ -1577,34 +1581,6 @@ char *usr_text;
         OBJPUTSTR(buf);
     }
 
-    /* COST INFO */
-
-    /* cost, wt should go next */
-    buf[0] = '\0';
-    obj_weight = obj ? weight(obj) : oc.oc_weight;
-    if (otyp != STRANGE_OBJECT) {
-        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
-    } else {
-        int base_cost = oc.oc_cost;
-        for (i = 0; i < NUM_OBJECTS; i++) {
-            if (objects[i].oc_class == oc.oc_class) {
-                if (oc.oc_class == SPBOOK_CLASS && i == SPE_BOOK_OF_THE_DEAD) {
-                    continue;
-                }
-                if (objects[i].oc_cost != base_cost) {
-                    base_cost = -1;
-                }
-            }
-        }
-
-        if (base_cost > 0) {
-            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
-        } else {
-            Sprintf(buf, "Weighs %d aum.", obj_weight);
-        }
-    }
-    OBJPUTSTR(buf);
-
     /* INK COST */
 
     /* Scrolls or spellbooks: ink cost */
@@ -1740,13 +1716,45 @@ char *usr_text;
         OBJPUTSTR(buf);
     }
 
-    /* TODO: prevent obj lookup from displaying with monster database entry
-     * (e.g. scroll of light gives "light" monster database) */
+    /* COST/WEIGHT INFO */
+
+    /* cost, wt should go next */
+    buf[0] = '\0';
+    obj_weight = obj ? weight(obj) : oc.oc_weight;
+    if (is_artifact) {
+        Sprintf(buf, "Weighs %d aum.", obj_weight);
+    } else if (otyp != STRANGE_OBJECT) {
+        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
+    } else {
+        int base_cost = oc.oc_cost;
+        for (i = 0; i < NUM_OBJECTS; i++) {
+            if (objects[i].oc_class == oc.oc_class) {
+                if (oc.oc_class == SPBOOK_CLASS && i == SPE_BOOK_OF_THE_DEAD) {
+                    continue;
+                }
+                if (objects[i].oc_cost != base_cost) {
+                    base_cost = -1;
+                }
+            }
+        }
+
+        if (base_cost > 0) {
+            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
+        } else {
+            Sprintf(buf, "Weighs %d aum.", obj_weight);
+        }
+    }
+    OBJPUTSTR(buf);
 
     /* ARTIFACT PROPERTIES */
 
     if (obj && obj->oartifact) {
         struct art_info_t a_info = artifact_info(obj->oartifact);
+
+        /* Make it look like it fits with the first section */
+        Sprintf(buf, "Base Cost: %d ", a_info.cost);
+        OBJPUTSTR(buf);
+
         OBJPUTSTR("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         Sprintf(buf, "Artifact: %s ", a_info.name);
         OBJPUTSTR(buf);
@@ -1764,8 +1772,7 @@ char *usr_text;
         if (a_info.nogen) {
             OBJPUTSTR("Does not generate randomly.");
         }
-        Sprintf(buf, "Cost: %d ", a_info.cost);
-        OBJPUTSTR(buf);
+
 #if 0
         Sprintf(buf, "Material: %s ", a_info.material);
         OBJPUTSTR(buf);
