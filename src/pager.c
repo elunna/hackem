@@ -1112,21 +1112,23 @@ char *usr_text;
 
     /* OBJECT INFO HEADLINE */
 
-    boolean hide_art_appearance = obj && obj->oartifact && !oc.oc_name_known;
+    /* If it's an artifact, we always have it in obj. */
+    boolean is_artifact = obj && obj->oartifact;
+    boolean hide_appearance = !oc.oc_name_known;
     boolean show_corpse = obj && otyp == CORPSE;
     /* We have the object and it is reveal_info */
     boolean reveal_fullname = (obj && oc.oc_name_known) || dummy.oprops_known;
     boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
                                               && oc.oc_name_known));
     /* We have the object but it's not reveal_info */
-    if ((obj && otyp == STRANGE_OBJECT) && !hide_art_appearance) {
+    if ((obj && otyp == STRANGE_OBJECT) && !hide_appearance) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
     } else if (show_corpse) {
         Sprintf(buf, "Object lookup for \"%s\":",
                 corpse_xname(obj, (const char *) 0, CXN_NO_PFX));
     } else if (reveal_fullname) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
-    } else if (hide_art_appearance)
+    } else if (is_artifact && !oc.oc_name_known)
         Sprintf(buf, "Object lookup for \"%s\":", artiname(obj->oartifact));
     else /* We don't have it and don't know it */
         Sprintf(buf, "Object lookup for \"%s\":", usr_text ? usr_text: actualn);
@@ -1189,7 +1191,7 @@ char *usr_text;
         /* Ugh. Can we just get rid of dmgval() and put its damage bonuses into
          * the object class? */
         damage_info = dmgval_info(&dummy);
-        if (reveal_info) {
+        if (reveal_info || is_artifact) {
             Sprintf(buf,
                     "Damage:  1d%d%s versus small and 1d%d%s versus large monsters.",
                     damage_info.damage_small, damage_info.bonus_small,
@@ -1216,7 +1218,7 @@ char *usr_text;
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
         }
         
-        if (reveal_info) {
+        if (reveal_info || is_artifact) {
             Sprintf(buf, "Has a %s%d %s to hit.",
                     (oc.oc_hitbon >= 0 ? "+" : ""), oc.oc_hitbon,
                     (oc.oc_hitbon >= 0 ? "bonus" : "penalty"));
@@ -1243,14 +1245,14 @@ char *usr_text;
                 armorslots[oc.oc_armcat]);
 
         OBJPUTSTR(buf);
-        if (reveal_info) {
+        if (reveal_info || is_artifact) {
             Sprintf(buf, "Base AC %d, magic cancellation %d.", oc.a_ac, oc.a_can);
         } else {
             Sprintf(buf, "Base AC %d.", oc.a_ac);
         }
         OBJPUTSTR(buf);
         mat_bon = obj ? material_bonus(obj) : 0;
-        if (mat_bon) {
+        if (obj && mat_bon) {
             Sprintf(buf, "Effective AC %d (from material)", oc.a_ac + mat_bon);
             OBJPUTSTR(buf);
         }
@@ -1478,7 +1480,7 @@ char *usr_text;
     /* GEM INFO */
 
     if (oc.oc_class == GEM_CLASS) {
-        if (reveal_info) {
+        if (reveal_info || is_artifact) {
             if (oc.oc_material == MINERAL) {
                 OBJPUTSTR("Type of stone.");
             } else if (oc.oc_material == GLASS) {
@@ -1623,7 +1625,7 @@ char *usr_text;
 
     /* POWER CONFERRED */
 
-    if (reveal_info && oc.oc_oprop) {
+    if ((reveal_info || is_artifact) && oc.oc_oprop) {
         for (i = 0; propertynames[i].prop_name; ++i) {
             /* hack for alchemy smocks because everything about alchemy smocks
              * is a hack */

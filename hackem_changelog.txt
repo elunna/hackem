@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Object lookup doesn't hide properties for artifacts if the base object isn't known.
 Fix: get_faux_artifact_obj could use a random material instead of the artifact material.
 Fix: Lookup for artifacts could leak the item's base object appearance.
 Get artifact lookups working for /? and on ground. Limit to single dialog popup.
