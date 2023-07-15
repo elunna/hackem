@@ -1087,8 +1087,7 @@ char *usr_text;
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
     boolean wielded, carried, identified_potion;
-    boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
-                                              && oc.oc_name_known));
+
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     int i, mat_bon, obj_weight;
 
@@ -1113,24 +1112,24 @@ char *usr_text;
 
     /* OBJECT INFO HEADLINE */
 
+    boolean hide_art_appearance = obj && obj->oartifact && !oc.oc_name_known;
+    boolean show_corpse = obj && otyp == CORPSE;
+    /* We have the object and it is reveal_info */
+    boolean reveal_fullname = (obj && oc.oc_name_known) || dummy.oprops_known;
+    boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
+                                              && oc.oc_name_known));
     /* We have the object but it's not reveal_info */
-    if ((obj && otyp == STRANGE_OBJECT)) {
+    if ((obj && otyp == STRANGE_OBJECT) && !hide_art_appearance) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
-    }
-    else if (obj && otyp == CORPSE) {
+    } else if (show_corpse) {
         Sprintf(buf, "Object lookup for \"%s\":",
                 corpse_xname(obj, (const char *) 0, CXN_NO_PFX));
-    }
-    /* We have the object and it is reveal_info */
-    else if ((obj && oc.oc_name_known) || dummy.oprops_known) {
+    } else if (reveal_fullname) {
         Sprintf(buf, "Object lookup for \"%s\":", cxname_singular(obj));
-    }
-
-    /* We don't have it and don't know it */
-    else if (usr_text)
-        Sprintf(buf, "Object lookup for \"%s\":", usr_text);
-    else
-        Sprintf(buf, "Object lookup for \"%s\":", actualn);
+    } else if (hide_art_appearance)
+        Sprintf(buf, "Object lookup for \"%s\":", artiname(obj->oartifact));
+    else /* We don't have it and don't know it */
+        Sprintf(buf, "Object lookup for \"%s\":", usr_text ? usr_text: actualn);
 
     putstr(datawin, ATR_BOLD, buf);
     OBJPUTSTR("");
