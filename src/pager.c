@@ -1755,9 +1755,13 @@ char *usr_text;
         Sprintf(buf, "Base Cost: %d ", a_info.cost);
         OBJPUTSTR(buf);
 
-        OBJPUTSTR("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        Sprintf(buf, "Artifact: %s ", a_info.name);
+        OBJPUTSTR("");
+        Sprintf(buf, "~~~ Artifact: %s ~~~", a_info.name);
         OBJPUTSTR(buf);
+
+        Sprintf(buf, "Type: %s ", OBJ_NAME(objects[obj->otyp]));
+        OBJPUTSTR(buf);
+
         Sprintf(buf, "Alignment: %s ", a_info.alignment);
         OBJPUTSTR(buf);
         if (a_info.intelligent) {
@@ -1782,16 +1786,22 @@ char *usr_text;
         }
         
         if (a_info.attack) {
-            Sprintf(buf, "Special attack: %s ", a_info.attack);
+            OBJPUTSTR("Special attack(s):");
+            Sprintf(buf, "\t%s ", a_info.attack);
             OBJPUTSTR(buf);
+
             if (a_info.beheads)
-                OBJPUTSTR("\t\tbeheads");
+                OBJPUTSTR("\tbeheads");
             if (a_info.vscross)
-                OBJPUTSTR("\t\tbonus vs cross-aligned monsters");
-            if (a_info.dbldmg)
-                OBJPUTSTR(a_info.dbldmg);     
-            if (a_info.xattack)
-                OBJPUTSTR(a_info.xattack);
+                OBJPUTSTR("\tbonus vs cross-aligned monsters");
+            if (a_info.dbldmg) {
+                Sprintf(buf, "\t%s ", a_info.dbldmg);
+                OBJPUTSTR(buf);
+            }
+            if (a_info.xattack) {
+                Sprintf(buf, "\t%s ", a_info.xattack);
+                OBJPUTSTR(buf);
+            }
         }
         
         if (a_info.hates) {

@@ -4702,7 +4702,7 @@ artifact_info(int anum)
     /* Special attacks */
     if (artilist[anum].attk.adtyp
           || artilist[anum].attk.damn || artilist[anum].attk.damd) {
-        Sprintf(buf, "%s, +1d%d to-hit +1d%d damage",
+        Sprintf(buf, "%s, +1d%d to-hit, +1d%d damage",
                 adtyp_str(artilist[anum].attk.adtyp, FALSE),
                 artilist[anum].attk.damn, 
                 artilist[anum].attk.damd);
@@ -4713,10 +4713,10 @@ artifact_info(int anum)
         if (artilist[anum].attk.damd == 0) {
             art_info.dbldmg = malloc(100);
             if (art_info.hates) {
-                Sprintf(buf, "\t\tdouble damage vs %s", art_info.hates);
+                Sprintf(buf, "double damage vs %s", art_info.hates);
                 strcpy(art_info.dbldmg, buf);
             } else
-                strcpy(art_info.dbldmg, "\t\tdeals double damage");
+                strcpy(art_info.dbldmg, "deals double damage");
         }
     } else
         art_info.attack = NULL;
@@ -4849,11 +4849,11 @@ artifact_info(int anum)
     /* Extra hard-coded info (not possible to automate into the lookup) */ 
     switch (anum) {
     case ART_BALMUNG:
-        art_info.xattack = "\t\tShreds the armor of opponents.";
+        art_info.xattack = "Shreds the armor of opponents.";
         /*Balmung always resists destruction */
         break;
     case ART_DRAMBORLEG:
-        art_info.xattack = "\t\tCan destroy any balrog in one hit.";
+        art_info.xattack = "Can destroy any balrog in one hit.";
         break;
     case ART_DEMONBANE:
         art_info.wielded[16] = "Angers demons princes and lords.";
@@ -4863,22 +4863,22 @@ artifact_info(int anum)
         art_info.wielded[16] = "Angers demons princes and lords.";
         break;
     case ART_HAND_GRENADE_OF_ANTIOCH: 
-        art_info.xattack = "\t\tExplodes dealing 6d50 magical damage.";
+        art_info.xattack = "Explodes dealing 6d50 magical damage.";
         /* Once applied, the timer is always 3 turns - unless it hits a 
 monster then the grenade will instantly explode.  */
         break;
     case ART_MASTER_SWORD: 
-        art_info.xattack = "\t\t10% of bonus magic attack on each successful hit.\n";
+        art_info.xattack = "10% of bonus magic attack on each successful hit.\n";
         art_info.xinfo = "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
         break;
     case ART_BRADAMANTE_S_FURY: 
-        art_info.xattack = "\t\tStuns monsters.";
+        art_info.xattack = "Stuns monsters.";
         break;
     case ART_CIRCE_S_WITCHSTAFF: 
-        art_info.xattack = "\t\t1/20 chance of turning target into a pig.";
+        art_info.xattack = "1/20 chance of turning target into a pig.";
         break;
     case ART_CLEAVER: 
-        art_info.xattack = "\t\tHits in a wide slashing arc; covers the 2 spots 45 degrees from the direction you attack. ";
+        art_info.xattack = "Hits in a wide slashing arc; covers the 2 spots 45 degrees from the direction you attack. ";
         break;
     case ART_GUNGNIR: 
         art_info.xinfo = "Can be created via a successful prayer by a lawful or neutral \n"
@@ -4888,8 +4888,8 @@ monster then the grenade will instantly explode.  */
                          "other changes made.";
         break;
     case ART_IMHULLU: 
-        art_info.xattack = "\t\t1/3 of the time Imhullu releases a tornado which\n"
-                         "\t\tdoes 3d4 bonus damage (Does not affect big monsters.)";
+        art_info.xattack = "1/3 of the time Imhullu releases a tornado which\n"
+                         "does 3d4 bonus damage (Does not affect big monsters.)";
         break;
     case ART_MAGICBANE: 
         art_info.wielded[16] = "Absorbs and negate 95% of of curses directed at its wielder.";
@@ -4907,13 +4907,13 @@ monster then the grenade will instantly explode.  */
                          "and its lightning shock might destroy some wands and/or rings.";
         break;
     case ART_DOOMBLADE: 
-        art_info.xattack = "\t\tOn each hit there is a 25% chance Doomblade deals an extra (1d4 * 5) damage.";
+        art_info.xattack = "On each hit there is a 25% chance Doomblade deals an extra (1d4 * 5) damage.";
         break;
     case ART_ELFRIST:
-        art_info.xattack = "\t\t10% chance of instakill vs elves";
+        art_info.xattack = "10% chance of instakill vs elves";
         break;
     case ART_GRIMTOOTH: 
-        art_info.xattack = "\t\t10% chance to instakill any elf it hits. \n"
+        art_info.xattack = "10% chance to instakill any elf it hits. \n"
                          "Has a 1⁄6 chance to inflict sickness on any target.";
         break;
     case ART_LUCKLESS_FOLLY: 
@@ -4923,34 +4923,34 @@ monster then the grenade will instantly explode.  */
                          "to-hit and damage bonus.";
         break;
     case ART_PLAGUE: 
-        art_info.xattack = "\t\tAll arrows show from Plague are auto-poisoned.";
+        art_info.xattack = "All arrows show from Plague are auto-poisoned.";
         break;
     case ART_ORCRIST:
-        art_info.xattack = "\t\t10% chance of instakill vs orcs";
+        art_info.xattack = "10% chance of instakill vs orcs";
         break;
     case ART_SECESPITA: 
         art_info.wielded[16] = "Increases sacrifice value by ~50%.";
         /* The energy drain only works if the artifact kills its victim. */
         break;
     case ART_SERPENT_S_TONGUE: 
-        art_info.xattack = "\t\tVs non-poison-resistant enemies: "
+        art_info.xattack = "Vs non-poison-resistant enemies: "
                          "40% chance of 2 + d6 damage;"
                          "30% chance of 4 + 2d6 damage;"
                          "20% chance of 6 + 3d6 damage;"
                          "10% chance of poison instadeath";
         break;
     case ART_STING:
-        art_info.xattack = "\t\t10% chance of instakill vs orcs";
+        art_info.xattack = "10% chance of instakill vs orcs";
         break;
     case ART_ANGELSLAYER:
-        art_info.xattack = "\t\tFire damage applies to all monsters.";
+        art_info.xattack = "Fire damage applies to all monsters.";
         break;
     case ART_CHAINS_OF_MALCANTHET: 
-        art_info.xattack = "\t\tHas a 1/5 chance of paralyzing a monster for 1-4 turns on hit.";
+        art_info.xattack = "Has a 1/5 chance of paralyzing a monster for 1-4 turns on hit.";
         art_info.wielded[16] = "Boosts charisma to 25 when wielded.";
         break;
     case ART_DROWSING_ROD: 
-        art_info.xattack = "\t\tOn hit, there is a 19/20 chance of spraying"
+        art_info.xattack = "On hit, there is a 19/20 chance of spraying"
                          "a sleep inducing mist at the enemy.";
         break;
     case ART_GLEIPNIR: 
@@ -4973,16 +4973,16 @@ monster then the grenade will instantly explode.  */
         art_info.wielded[16] = "Greatly increases spellcasting ability (as a robe)";
         break;
     case ART_SUNSPOT: 
-        art_info.xattack = "\t\tHas a 1/3 chance of blinding monsters it hits for 17 turns.";
+        art_info.xattack = "Has a 1/3 chance of blinding monsters it hits for 17 turns.";
         break;
     case ART_THUNDERSTRUCK: 
-        art_info.xattack = "\t\t25% chance of shooting out a sonic beam on each hit.";
+        art_info.xattack = "25% chance of shooting out a sonic beam on each hit.";
         break;
     case ART_TROLLSBANE: 
         art_info.wielded[16] = "Prevents troll corpses from reviving.";
         break;
     case ART_STAFF_OF_ROT: 
-        art_info.xattack = "\t\tDouble damage while you are withering.";
+        art_info.xattack = "Double damage while you are withering.";
         break;
     case ART_CANDLE_OF_ETERNAL_FLAME: 
         art_info.carried[16] = "Deals 2d10 passive fire damage to attackers";
@@ -4999,7 +4999,7 @@ monster then the grenade will instantly explode.  */
                          "succeed.";
         break;
     case ART_IRON_SPOON_OF_LIBERATION: 
-        art_info.xattack = "\t\t+1d5 to-hit bonus and double damage vs all monsters. ";
+        art_info.xattack = "+1d5 to-hit bonus and double damage vs all monsters. ";
         break;
     case ART_TREASURY_OF_PROTEUS:
         art_info.xinfo = "Occasionally polymorphs items that have been placed inside.";
