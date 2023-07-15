@@ -2187,7 +2187,8 @@ char *supplemental_name;
                  * object lookup: try to parse as an object, and try the material
                  * version of the string first */
                 otyp = name_to_otyp(dbase_str_with_material);
-                if (otyp == STRANGE_OBJECT) {
+                /* If alt is something, we have a named object or artifact */
+                if (!alt && otyp == STRANGE_OBJECT) {
                     /* catches search for "longsword" */
                     otyp = name_to_otyp(dbase_str);
                 }
@@ -2195,9 +2196,11 @@ char *supplemental_name;
                 if (otyp == STRANGE_OBJECT) {
                     /* catches inventory lookup and /? search for stormbringer */
                     struct obj *obj_lookup;
-                    
-                    obj_lookup = get_faux_artifact_obj(dbase_str_with_material);
-                    
+                    if (user_typed_name)
+                        obj_lookup = get_faux_artifact_obj(dbase_str_with_material);
+                    else
+                        obj_lookup = get_faux_artifact_obj(alt);
+
                     otyp = obj_lookup ? obj_lookup->otyp : STRANGE_OBJECT;
 
                     /* we got a matching artifact for the lookup */
