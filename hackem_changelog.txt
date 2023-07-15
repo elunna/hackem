@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Boomerangs have a higher chance of slicing through enemies the higher your skill in boomerang.
 Instead of getting Shield Block tech at level 7, Priests can reach skilled in shields.
 Clean up the artifact lookup a bit, format damage better.
 Add infidel blurb to guidebook.txt

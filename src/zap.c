@@ -4729,6 +4729,29 @@ int dx, dy;
                 tmp_at(DISP_END, 0);
                 return mtmp;
             }
+            int ceil;
+            /* Slicing through gets better with skill */
+            switch (P_SKILL(P_BOOMERANG)) {
+            case P_UNSKILLED:
+                ceil = 150;
+                break;
+            case P_BASIC:
+                ceil = 101;
+                break;
+            case P_SKILLED:
+                ceil = 52;
+                break;
+            case P_EXPERT:
+                ceil = 3;
+                break;
+            }
+            /* Windrider (or any artifact boomerang) slices through all */
+            if (rnd(150) <= ceil && !obj->oartifact) {
+                bhitpos.x -= dx;
+                bhitpos.y -= dy;
+                break;
+            }
+                
         }
 
         /* Did it hit something solid, ie: tree, wall */
