@@ -372,7 +372,7 @@ MONSTER: ('O', "ogre mage"), (04,10), hostile
 [50%]: MONSTER: ('O', "ogre mage"), (06,10), hostile
 
 [50%]: MONSTER: ('O', "shadow ogre"), (06,07), hostile
-[50%]: MONSTER: ('O', "ogre lord"), (06,13), hostile
+[50%]: MONSTER: ('O', "ogre noble"), (06,13), hostile
 
 MONSTER: ('Z', "orc zombie"), (07,04), asleep, hostile
 MONSTER: ('Z', "orc zombie"), (09,06), asleep, hostile

@@ -1381,8 +1381,8 @@ register struct monst *mtmp;
         } else if (racial_elf(mtmp)) {
             if (rn2(2))
                 (void) mongets(mtmp,
-		 (rn2(2) && (mm == PM_GREY_ELF || mm == PM_ELF_LORD
-                             || mm == PM_ELVENKING || mm == PM_ELVEN_WIZARD))
+		 (rn2(2) && (mm == PM_GREY_ELF || mm == PM_ELVEN_NOBLE
+                             || mm == PM_ELVEN_ROYAL || mm == PM_ELVEN_WIZARD))
 			     ? ELVEN_HELM : ELVEN_CLOAK);
             if (rn2(2) && mm != PM_ELVEN_WIZARD) {
                 struct obj* mail = m_carrying(mtmp, ELVEN_CHAIN_MAIL);
@@ -1420,7 +1420,7 @@ register struct monst *mtmp;
                 }
                 break;
             }
-            if (mm == PM_ELVENKING) {
+            if (mm == PM_ELVEN_ROYAL) {
                 if (rn2(3) || (in_mklev && Is_earthlevel(&u.uz)))
                     (void) mongets(mtmp, PICK_AXE);
                 if (!rn2(50))
@@ -1828,8 +1828,8 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, DWARVISH_HELM);
                 if (!rn2(3) && mm != PM_MOUNTAIN_DWARF) {
                     (void) mongets(mtmp, DWARVISH_CHAIN_MAIL);
-                    if ((ptr == &mons[PM_DWARF_LORD] && !rn2(4))
-                        || (ptr == &mons[PM_DWARF_KING] && !rn2(2))) {
+                    if ((ptr == &mons[PM_DWARF_NOBLE] && !rn2(4))
+                        || (ptr == &mons[PM_DWARF_ROYAL] && !rn2(2))) {
                         struct obj* mail = m_carrying(mtmp, DWARVISH_CHAIN_MAIL);
                         if (mail)
                             set_material(mail, MITHRIL);
@@ -1964,7 +1964,7 @@ register struct monst *mtmp;
         }
         break;
     case S_OGRE:
-        if (!rn2(mm == PM_OGRE_KING ? 3 : mm == PM_OGRE_LORD ? 6 : 12))
+        if (!rn2(mm == PM_OGRE_ROYAL ? 3 : mm == PM_OGRE_NOBLE ? 6 : 12))
             (void) mongets(mtmp, BATTLE_AXE);
         else
             (void) mongets(mtmp, CLUB);
@@ -3435,7 +3435,7 @@ long mmflags;
         && (mcham = pm_to_cham(mndx)) != NON_PM) {
         /* this is a shapechanger after all */
         mtmp->cham = mcham;
-        /* Vlad and Kas stay in their normal shape so they can carry inventory */
+        /* Vlad stays in his normal shape so he can carry inventory */
         if (mndx != PM_VLAD_THE_IMPALER
             /* Note:  shapechanger's initial form used to be chosen here
                with rndmonst(), yielding a monster which was appropriate

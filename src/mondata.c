@@ -996,19 +996,15 @@ const char *in_str;
     /* nobles and royalty */
     if (slen > 5 && (s = strstri(term - 5, " lady")) != 0)
         Strcpy(term - 4, "lord");
-#if 0
     else if (slen > 5 && (s = strstri(term - 5, " lord")) != 0)
         Strcpy(term - 4, "noble");
-#endif
     else if (slen > 6 && (s = strstri(term - 6, " queen")) != 0
              && strncmpi(str, "kathryn ", 8))
         Strcpy(term - 5, "king");
-#if 0
     else if (slen > 5 && (s = strstri(term - 5, " king")) != 0
              && strncmpi(str, "rat ", 4) 
-            && && strncmpi(str, "grund the orc ", 14))
+             && strncmpi(str, "grund the orc ", 14))
         Strcpy(term - 4, "royal");
-#endif
     /* be careful with "ies"; "priest", "zombies" */
     else if (slen > 3 && !strcmpi(term - 3, "ies")
              && (slen < 7 || strcmpi(term - 7, "zombies")))
@@ -1043,7 +1039,7 @@ const char *in_str;
             { "master of assassin", PM_MASTER_ASSASSIN },
             /* Outdated names */
             { "invisible stalker", PM_STALKER },
-            { "high-elf", PM_ELVENKING }, /* PM_HIGH_ELF is obsolete */
+            { "high-elf", PM_ELVEN_ROYAL }, /* PM_HIGH_ELF is obsolete */
             /* other misspellings or incorrect words */
             { "wood-elf", PM_WOODLAND_ELF },
             { "wood elf", PM_WOODLAND_ELF },
@@ -1268,12 +1264,12 @@ static const short grownups[][2] = {
     { PM_NIGHTMARE, PM_CAUCHEMAR },
     { PM_PEGASUS, PM_GREATER_PEGASUS },
     { PM_KOBOLD, PM_LARGE_KOBOLD },
-    { PM_LARGE_KOBOLD, PM_KOBOLD_LORD },
-    { PM_ROCK_GNOME, PM_GNOME_LORD },
-    { PM_GNOME_LORD, PM_GNOME_WARRIOR },
-    { PM_GNOME_WARRIOR, PM_GNOME_KING },
-    { PM_MOUNTAIN_DWARF, PM_DWARF_LORD },
-    { PM_DWARF_LORD, PM_DWARF_KING },
+    { PM_LARGE_KOBOLD, PM_KOBOLD_NOBLE },
+    { PM_ROCK_GNOME, PM_GNOME_NOBLE },
+    { PM_GNOME_NOBLE, PM_GNOME_WARRIOR },
+    { PM_GNOME_WARRIOR, PM_GNOME_ROYAL },
+    { PM_MOUNTAIN_DWARF, PM_DWARF_NOBLE },
+    { PM_DWARF_NOBLE, PM_DWARF_ROYAL },
     /* { PM_GNOLL, PM_GNOLL_HUNTER },
     { PM_GNOLL_HUNTER, PM_FLIND }, */
     { PM_GNOLL, PM_GNOLL_WARRIOR}, 
@@ -1288,18 +1284,18 @@ static const short grownups[][2] = {
     { PM_LESSER_HOMUNCULUS, PM_HOMUNCULUS },
     { PM_HOMUNCULUS, PM_GREATER_HOMUNCULUS },
     { PM_CAVE_SPIDER, PM_GIANT_SPIDER },
-    { PM_OGRE, PM_OGRE_LORD },
-    { PM_OGRE_LORD, PM_OGRE_KING },
-    { PM_WOODLAND_ELF, PM_ELF_LORD },
-    { PM_GREEN_ELF, PM_ELF_LORD },
-    { PM_GREY_ELF, PM_ELF_LORD },
-    { PM_ELF_LORD, PM_ELVENKING },
+    { PM_OGRE, PM_OGRE_NOBLE },
+    { PM_OGRE_NOBLE, PM_OGRE_ROYAL },
+    { PM_WOODLAND_ELF, PM_ELVEN_NOBLE },
+    { PM_GREEN_ELF, PM_ELVEN_NOBLE },
+    { PM_GREY_ELF, PM_ELVEN_NOBLE },
+    { PM_ELVEN_NOBLE, PM_ELVEN_ROYAL },
     { PM_LICH, PM_DEMILICH },
     { PM_DEMILICH, PM_MASTER_LICH },
     { PM_MASTER_LICH, PM_ARCH_LICH },
-    { PM_VAMPIRE, PM_VAMPIRE_LORD },
-    { PM_VAMPIRE_LORD, PM_VAMPIRE_KING },
-    { PM_VAMPIRE_KING, PM_VAMPIRE_MAGE },
+    { PM_VAMPIRE, PM_VAMPIRE_NOBLE },
+    { PM_VAMPIRE_NOBLE, PM_VAMPIRE_ROYAL },
+    { PM_VAMPIRE_ROYAL, PM_VAMPIRE_MAGE },
     { PM_BAT, PM_GIANT_BAT },
     { PM_BABY_GRAY_DRAGON, PM_GRAY_DRAGON },
     { PM_BABY_SILVER_DRAGON, PM_SILVER_DRAGON },

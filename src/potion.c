@@ -1624,7 +1624,7 @@ no_rise:
             } else if (!Unchanging) {
                 int successful_polymorph = FALSE;
                 if (otmp->blessed)
-                    successful_polymorph = polymon(PM_VAMPIRE_LORD);
+                    successful_polymorph = polymon(PM_VAMPIRE_NOBLE);
                 else if (otmp->cursed)
                     successful_polymorph = polymon(PM_VAMPIRE_BAT);
                 else

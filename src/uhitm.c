@@ -27,7 +27,7 @@ STATIC_DCL boolean FDECL(shade_aware, (struct obj *));
 extern boolean notonhead; /* for long worms */
 
 /* Used to flag attacks caused by Stormbringer's
- * or The Sword of Kas maliciousness. */
+   maliciousness. */
 static boolean override_confirmation = FALSE;
 
 #define PROJECTILE(obj) ((obj) && is_ammo(obj))
@@ -903,11 +903,10 @@ struct attack *uattk;
     }
 
     /* second attack for two-weapon combat; won't occur if Stormbringer
-       or the Sword of Kas overrode confirmation (assumes Stormbringer/
-       Sword of Kas is primary weapon), or if hero became paralyzed by
-       passive counter-attack, or if hero was killed by passive
-       counter-attack and got life-saved, or if monster was killed or
-       knocked to different location */
+       overrode confirmation (assumes Stormbringer is primary weapon), 
+       or if hero became paralyzed by passive counter-attack, or if hero 
+       was killed by passive counter-attack and got life-saved, or if
+       monster was killed or knocked to different location */
     if (u.twoweap && (!override_confirmation || forced_attack(uswapwep))
                   && !(multi < 0 || u.umortality > oldumort
                        || !malive || m_at(x, y) != mon)) {

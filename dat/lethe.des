@@ -338,7 +338,7 @@ MONSTER: 'Z', (38,01)
 MONSTER: 'Z', (36,01)
 
 # The fountain room 
-MONSTER: ('V', "vampire lord"), (05,03), asleep, hostile
+MONSTER: ('V', "vampire noble"), (05,03), asleep, hostile
 OBJECT: ('?', "create monster"), (06,06), cursed,0
 OBJECT: ('!', "full healing"), (06,06)
 
@@ -361,7 +361,7 @@ OBJECT: ('(', "chest"), (06,08)
 GOLD: 1d200, (06,08)
 
 # Stray Vampire
-MONSTER: ('V', "vampire lord"),(53,17), asleep, hostile
+MONSTER: ('V', "vampire noble"),(53,17), asleep, hostile
 OBJECT: ('/', "fire"), (53,17)
 OBJECT: ('/', "slow monster"), (53,17)
 
@@ -577,8 +577,8 @@ STAIR: (02,06), up
 DRAWBRIDGE: (27,03), east, open
 
 # Ogre Kings Throne Room
-MONSTER: ('O', "ogre king"), (66,03)
-MONSTER: ('O', "ogre king"), (66,04)
+MONSTER: ('O', "ogre royal"), (66,03)
+MONSTER: ('O', "ogre royal"), (66,04)
 
 # An advisor (original lethe patch has an Ogre Shaman)
 #MONSTER:'O',"ogre shaman",(65,04)
@@ -591,7 +591,7 @@ MONSTER: ('O', "ogre"), (65,04)
 MONSTER: ('O', "ogre"), (67,04)
 
 # A petitioner
-MONSTER: ('k', "kobold lord"), (65,03)
+MONSTER: ('k', "kobold noble"), (65,03)
 
 # His treasure
 OBJECT: ('(', "chest"), (70,02)

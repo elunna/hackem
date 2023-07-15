@@ -1971,8 +1971,8 @@ MONSTER:(' ',"shade"),(32,16)
 MONSTER:(' ',"shade"),(32,18)
 MONSTER:('V',"vampire"),(35,18)
 MONSTER:('V',"vampire"),(35,16)
-MONSTER:('V',"vampire lord"),(36,16)
-MONSTER:('V',"vampire lord"),(36,17)
+MONSTER:('V',"vampire noble"),(36,16)
+MONSTER:('V',"vampire noble"),(36,17)
 # Watches the sanctum
 MONSTER:('h',"alhoon"),(24,09)
 # Randomly placed companions
@@ -1995,10 +1995,10 @@ MONSTER:('Z',"human zombie"),random
 MONSTER:('Z',"revenant"),random
 MONSTER:('Z',"revenant"),random
 MONSTER:('V',"vampire"),random
-MONSTER:('V',"vampire lord"),random
-MONSTER:('V',"vampire lord"),random
-MONSTER:('V',"vampire king"),random
-MONSTER:('V',"vampire king"),random
+MONSTER:('V',"vampire noble"),random
+MONSTER:('V',"vampire noble"),random
+MONSTER:('V',"vampire royal"),random
+MONSTER:('V',"vampire royal"),random
 # Lava
 MONSTER:(':',"salamander"),(46,01),hostile
 MONSTER:(':',"salamander"),(46,17),hostile

@@ -75,7 +75,7 @@ static NEARDATA const int nasties[] = {
     PM_HILL_GIANT_SHAMAN,
     PM_MAGICAL_EYE,
     PM_MASTER_MIND_FLAYER,
-    PM_OGRE_KING,
+    PM_OGRE_ROYAL,
     PM_OLOG_HAI,
     PM_RED_DRAGON,
     PM_REVENANT,
@@ -83,7 +83,7 @@ static NEARDATA const int nasties[] = {
     PM_SLAUGHTER_WIGHT,
     PM_STORM_GIANT,
     /* PM_VAMPIRE_MAGE - summoner too nasty for nasties */
-    PM_VAMPIRE_KING,
+    PM_VAMPIRE_ROYAL,
     PM_WINGED_GARGOYLE,
 
     /* lawful */
@@ -94,8 +94,8 @@ static NEARDATA const int nasties[] = {
     PM_BEARDED_DEVIL,
     PM_SPINED_DEVIL,
     PM_COUATL,
-    PM_DWARF_KING,
-    PM_ELVENKING,
+    PM_DWARF_ROYAL,
+    PM_ELVEN_ROYAL,
     PM_ELVEN_WIZARD,
     PM_FIRE_GIANT,
     PM_GOLD_DRAGON,
@@ -155,7 +155,7 @@ static NEARDATA const int vecna_nasties[] = {
     PM_REVENANT,
     PM_SHADE,
     PM_SPECTRE,
-    PM_VAMPIRE_LORD,
+    PM_VAMPIRE_NOBLE,
     PM_VROCK,
     PM_WEREWOLF,
     PM_WRAITH,
@@ -165,7 +165,7 @@ static NEARDATA const int vecna_nasties[] = {
 static NEARDATA const unsigned wizapp[] = {
     PM_HUMAN,
     PM_LAVA_DEMON,
-    PM_VAMPIRE_KING,
+    PM_VAMPIRE_ROYAL,
     PM_RED_DRAGON,
     PM_ROCK_TROLL,
     PM_UMBER_HULK,

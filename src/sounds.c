@@ -698,8 +698,8 @@ register struct monst *mtmp;
         boolean isnight = night();
 
         boolean kindred = maybe_polyd(u.umonnum == PM_VAMPIRE 
-                                      || u.umonnum == PM_VAMPIRE_LORD
-                                      || u.umonnum == PM_VAMPIRE_KING
+                                      || u.umonnum == PM_VAMPIRE_NOBLE
+                                      || u.umonnum == PM_VAMPIRE_ROYAL
                                       || u.umonnum == PM_VAMPIRE_MAGE,
                                       Race_if(PM_VAMPIRIC));
         boolean nightchild =

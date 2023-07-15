@@ -1215,7 +1215,7 @@ CONTAINER:"chest", (7,1), trapped { }
 TRAP: "statue", (7,3)
 TRAP: "statue", (7,7)
 OBJECT:('`',"statue"),(7,3),montype:('d', "werejackal")
-OBJECT:('`',"statue"),(7,7),montype:('@', "elvenking")
+OBJECT:('`',"statue"),(7,7),montype:('@', "elven royal")
 
 # Pacman
 LEVEL:"vlt-0070"
