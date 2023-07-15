@@ -159,8 +159,8 @@ const char *name;
     int index = 1;
     for (a = artilist + 1; a->otyp; a++) {
         aname = a->name;
-        if (!strncmpi(name, "the ", 4))
-            name += 4;
+        if (!strncmpi(aname, "the ", 4))
+            aname += 4;
         if (!strcmpi(name, aname)) {
             obj = mksobj(a->otyp, TRUE, FALSE);
             obj->otyp = a->otyp;

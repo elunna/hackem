@@ -2194,10 +2194,13 @@ char *supplemental_name;
 
                 if (otyp == STRANGE_OBJECT) {
                     /* catches inventory lookup and /? search for stormbringer */
-                    struct obj *obj_lookup = get_faux_artifact_obj(encycl_matched);
+                    struct obj *obj_lookup;
+                    
+                    obj_lookup = get_faux_artifact_obj(dbase_str_with_material);
+                    
                     otyp = obj_lookup ? obj_lookup->otyp : STRANGE_OBJECT;
 
-                    /* we have an struct obj */
+                    /* we got a matching artifact for the lookup */
                     if (otyp != STRANGE_OBJECT && obj_lookup) {
                         obj = obj_lookup;
                         /*obj_free = TRUE;*/
