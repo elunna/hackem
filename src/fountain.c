@@ -452,7 +452,7 @@ static const struct forge_recipe {
     { AKLYS, SPEAR, FLAIL, 1, 1 },
     { SHURIKEN, DART, DAGGER, 2, 1 },
     { CHAKRAM, BOOMERANG, SHURIKEN, 1, 1 },
-    
+
     { SPEAR, ARROW, DAGGER, 2, 1 },
     { ELVEN_SPEAR, ELVEN_ARROW, ELVEN_DAGGER, 2, 1 },
     { ORCISH_SPEAR, ORCISH_ARROW, ORCISH_DAGGER, 2, 1 },
@@ -502,8 +502,7 @@ static const struct forge_recipe {
     { HEAVY_WAR_HAMMER, WAR_HAMMER, WAR_HAMMER, 1, 1 },
     { FLAIL, MACE, MORNING_STAR, 1, 1 },
     { TRIPLE_HEADED_FLAIL, FLAIL, SPIKED_CHAIN },
-    { SPIKED_CHAIN, IRON_CHAIN, DAGGER, 1, 2 },
-    { SPIKED_CHAIN, IRON_CHAIN, KNIFE, 1, 2 },
+    { SPIKED_CHAIN, IRON_CHAIN, SHURIKEN, 1, 2 },
     
     { LANCE, JAVELIN, GLAIVE, 1, 1 },
     { PARTISAN, SPEAR, BROADSWORD, 1, 1 },
@@ -526,7 +525,12 @@ static const struct forge_recipe {
     { SNIPER_RIFLE, RIFLE, IRON_CHAIN, 1, 1 },
     { SHOTGUN, PISTOL, BROADSWORD, 1, 1 },
     { AUTO_SHOTGUN, SHOTGUN, IRON_CHAIN, 1, 1 },
-    
+
+    { BULLET, IRON_CHAIN, DART, 1, 2 },
+    { BULLET, IRON_CHAIN, DAGGER, 1, 2 },
+    { BULLET, IRON_CHAIN, KNIFE, 1, 2 },
+    { SHOTGUN_SHELL, IRON_CHAIN, BULLET, 1, 2 },
+
     /* armor (helmets) */
     { ORCISH_HELM, DENTED_POT, ORCISH_DAGGER, 1, 1 },
     { DWARVISH_HELM, HELMET, DWARVISH_SHORT_SWORD, 1, 1 },
@@ -814,8 +818,11 @@ doforging(void)
                formed */
             if (output->quan > 3L) {
                 output->quan = 3L;
-                if (!rn2(4)) /* small chance of an extra */
+                if (output->otyp == BULLET)
+                    output->quan += 10 + rnd(5); /* More generous with bullets */
+                else if (!rn2(4)) /* small chance of an extra */
                     output->quan += 1L;
+
             }
             output->owt = weight(output);
             You("have successfully forged %s.", doname(output));

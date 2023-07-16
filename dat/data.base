@@ -2792,8 +2792,7 @@ craft weap*
     heavy war hammer        = war hammer + war hammer
     flail                   = mace + morning star
     triple-headed flail     = flail + spiked chain
-    spiked chain            = iron chain + 2 daggers
-    spiked chain            = iron chain + 2 knives
+    spiked chain            = iron chain + 2 shuriken
 
     lance                   = glaive + javelin
     partisan                = spear + broadsword
@@ -2815,6 +2814,9 @@ craft weap*
     sniper rifle            = rifle + iron chain
     shotgun                 = pistol + broadsword
     auto shotgun            = shotgun + iron chain
+
+    bullets                 = iron chain + 2 daggers/knives/darts
+    shotgun shells          = iron chain + 2 bullets
 # forging armor, armor recipes, armor fusions
 forging armor
 forge armor
@@ -10990,8 +10992,7 @@ spiked chain
 	unfair in your favor.
 
 	Crafting recipes:
-	spiked chain            = iron chain + 2 daggers
-	spiked chain            = iron chain + 2 knives
+	spiked chain            = iron chain + 2 shuriken
 *spore
 *sphere
 	The attack by those who want to die -- this is the attack
