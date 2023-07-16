@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Silence warning in objname about discarding const qualifier.
 Bullets and shotgun shells can be forged now. Recipe for spike chain is now iron chain + 2 shuriken.
 Fix: Races with armor restrictions can receive unusable armor from their god (reported by Ardub23). Fixes #385.
 Boomerangs have a higher chance of slicing through enemies the higher your skill in boomerang.

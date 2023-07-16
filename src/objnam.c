@@ -277,7 +277,7 @@ register int otyp;
         Sprintf(eos(buf), " (%s)", dn);
         
     if (Role_if(PM_PIRATE))
-        buf = replace(buf, "potion", "bottle");
+        buf = (char *) replace(buf, "potion", "bottle");
         
     return buf;
 }
