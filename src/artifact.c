@@ -3585,29 +3585,6 @@ struct obj *obj;
             }
             break;
         }
-        case WITHER: {
-            uchar withertime = max(20, 60);
-            boolean lose_maxhp = (withertime >= 8); /* if already withering */
-            pline("%s gleams with dark energy!", artiname(obj->oartifact));
-            aggravate();
-            
-            if (Withering)
-                Your("withering speeds up!");
-            else
-                You("begin to wither away!");
-            incr_itimeout(&HWithering, withertime);
-
-            if (lose_maxhp) {
-                if (Upolyd && u.mhmax > 1) {
-                    u.mhmax--;
-                    u.mh = min(u.mh, u.mhmax);
-                } else if (u.uhpmax > 1) {
-                    u.uhpmax--;
-                    u.uhp = min(u.uhp, u.uhpmax);
-                }
-            }
-            break;
-        }
         case CREATE_AMMO: {
             struct obj *otmp = mksobj(obj->otyp == CROSSBOW ? CROSSBOW_BOLT : ARROW, TRUE, FALSE);
 
@@ -4825,7 +4802,6 @@ artifact_info(int anum)
     case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
     case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
     case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
-    case WITHER: art_info.invoke = "Wither"; break;
     case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
     case PASSES_WALLS: art_info.invoke = "Phasing"; break;
     case CHANNEL: art_info.invoke = "Channel"; break;
@@ -4986,9 +4962,6 @@ monster then the grenade will instantly explode.  */
         break;
     case ART_TROLLSBANE: 
         art_info.wielded[16] = "Prevents troll corpses from reviving.";
-        break;
-    case ART_STAFF_OF_ROT: 
-        art_info.xattack = "Double damage while you are withering.";
         break;
     case ART_CANDLE_OF_ETERNAL_FLAME: 
         art_info.carried[16] = "Deals 2d10 passive fire damage to attackers";

@@ -5742,10 +5742,6 @@ dbl_dmg()
     if (DeathVision) {
         return TRUE;
     }
-    /* If we wield the Staff of Rot and are withering, we get double damage. */
-    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)  {
-        return TRUE;
-    }
     return FALSE;
 }
 /*uhitm.c*/

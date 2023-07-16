@@ -2919,8 +2919,6 @@ int final;
         you_are("hallucinating", from_what(HALLUC));
     if (DeathVision)
         you_are("dealing double damage due to comprehending death", "");
-    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)
-        you_are("dealing double damage due to the Staff of Rot", "");
     if (Blind) {
         /* from_what() (currently wizard-mode only) checks !haseyes()
            before u.uroleplay.blind, so we should too */

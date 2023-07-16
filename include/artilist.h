@@ -372,6 +372,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       400L, NO_COLOR, DEFAULT_MAT),
         /* See artifact.c for special poison damage */
     
+    A("The Staff of Rot", STAFF_OF_NECROMANCY,
+      (SPFX_RESTR | SPFX_ATTK), 0, 0,
+      WTHR(0, 12), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      5000L, NO_COLOR, BONE),
+    
     /* Stormbringer only has a 2 because it can drain a level, providing 8 more. */
     A("Stormbringer", RUNESWORD,
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL | SPFX_DRLI),
@@ -522,11 +527,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
-    
-    A("The Staff of Rot", STAFF_OF_NECROMANCY,
-      (SPFX_RESTR | SPFX_ATTK), 0, 0,
-      WTHR(6, 6), NO_DFNS, NO_CARY,
-      WITHER, A_CHAOTIC, NON_PM, NON_PM, 5000L, NO_COLOR, BONE),
 
     /* Xanathar's eyestalk ring of proof against detection and location */
     A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
