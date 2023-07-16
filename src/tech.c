@@ -861,7 +861,6 @@ ma_break(VOID_ARGS)
     if (uarmg) {
         switch (uarmg->otyp) {
         case GAUNTLETS_OF_POWER:
-        case MUMMIFIED_HAND: /* the Hand of Vecna */
             prob -= 10;
             break;
         case GAUNTLETS_OF_FUMBLING:

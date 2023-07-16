@@ -2302,8 +2302,7 @@ do_rust:
             break;
         }
         if (!uwep && !uarmu && !uarm && !uarmc
-            && !uarms && !uarmf && !uarmh
-            && (!uarmg || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA))) {
+            && !uarms && !uarmg && !uarmf && !uarmh) {
             boolean goaway = FALSE;
 
             pline("%s touches you!  (I hope you don't mind.)", Monnam(mtmp));
@@ -4495,8 +4494,7 @@ struct monst *mon;
         }
     }
 
-    naked = (!uarmc && !uarmf && (!uarmg || uarmg->oartifact == ART_HAND_OF_VECNA)
-             && !uarms && !uarmh && !uarmu);
+    naked = (!uarmc && !uarmf && !uarmg && !uarms && !uarmh && !uarmu);
     pline("%s %s%s.", Who,
           Deaf ? "seems to murmur into your ear"
                : naked ? "murmurs sweet nothings into your ear"
@@ -4681,10 +4679,6 @@ const char *str;
     /* removal of a previous item might have sent the hero elsewhere
        (loss of levitation that leads to landing on a transport trap) */
     if (u.utotype || distu(mon->mx, mon->my) > 2)
-        return;
-    /* the Hand of Vecna cannot be stolen, as it has 'merged' with
-       the wearer */
-    if (obj && obj->oartifact == ART_HAND_OF_VECNA)
         return;
 
     /* being deaf overrides confirmation prompt for high charisma */

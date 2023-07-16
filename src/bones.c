@@ -389,7 +389,7 @@ struct obj *obj;
         lair = &hellb_level;
         break;
     case ART_LIFESTEALER:
-    case ART_EYE_OF_VECNA:
+    case ART_EYE_OF_THE_BEHOLDER:
     case ART_HAND_OF_VECNA:
     default:
         return FALSE;
@@ -415,9 +415,11 @@ struct obj *obj;
     case ART_LIFESTEALER:
         owner = PM_VLAD_THE_IMPALER;
         break;
-    case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:
         owner = PM_VECNA;
+        break;
+    case ART_EYE_OF_THE_BEHOLDER:
+        owner = PM_BEHOLDER;
         break;
     default:
         break;

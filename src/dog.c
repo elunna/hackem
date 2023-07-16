@@ -929,7 +929,7 @@ register struct obj *obj;
     if (mptr == &mons[PM_KOALA])
         return (obj->otyp == EUCALYPTUS_LEAF ? DOGFOOD : APPORT);
 
-    if (obj->oartifact == ART_EYE_OF_VECNA)
+    if (obj->oartifact == ART_EYE_OF_THE_BEHOLDER)
         return TABU;
 
     switch (obj->oclass) {

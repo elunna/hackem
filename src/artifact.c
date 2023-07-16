@@ -3436,30 +3436,6 @@ struct obj *obj;
                          unseen > 1 ? "cries" : "a cry");
             break;
         }
-        case DEATH_GAZE:
-            if (u.uluck < -9) {
-                pline_The("Eye turns on you!");
-                u.uhp = 0;
-                killer.format = KILLED_BY;
-                Strcpy(killer.name,  "the Eye of the Beholder");
-                done(DIED);
-            }
-            pline_The("Eye looks around with its icy gaze!");
-            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                if (DEADMONSTER(mtmp))
-                    continue;
-                /* The eye is never blind ... */
-                if (couldsee(mtmp->mx, mtmp->my) && !is_undead(mtmp->data)) {
-                    pline("%s screams in agony!", Monnam(mtmp));
-                    mtmp->mhp /= 3;
-                    if (mtmp->mhp < 1)
-                        mtmp->mhp = 1;
-                }
-            }
-            /* Tsk,tsk.. */
-            adjalign(-3);
-            u.uluck -= 3;
-            break;
         case CREATE_PORTAL: {
             int i, num_ok_dungeons, last_ok_dungeon = 0;
             d_level newlev;
@@ -3782,39 +3758,70 @@ struct obj *obj;
                 use_figurine(&obj);
             }
             break;
-        case DEATH_MAGIC:
+        case SUMMON_UNDEAD: {
+            register struct monst *mtmp2;
+            if (u.uluck < -9) {
+                u.uhp -= rn2(20) + 5;
+                pline_The("Hand claws you with its icy nails!");
+                if (u.uhp <= 0) {
+                    killer.format = KILLED_BY;
+                    Strcpy(killer.name, "the Hand of Vecna");
+                    done(DIED);
+                }
+            }
+            /* TODO: Use the Book of the Dead invoke instead? */
+            int summon_loop = rn2(4) + 4;
+            pline("Creatures from the grave surround you!");
+            do {
+                switch (rn2(6) + 1) {
+                case 1:
+                    pm = mkclass(S_VAMPIRE, 0);
+                    break;
+                case 2:
+                case 3:
+                    pm = mkclass(S_ZOMBIE, 0);
+                    break;
+                case 4:
+                    pm = mkclass(S_MUMMY, 0);
+                    break;
+                case 5:
+                    pm = mkclass(S_GHOST, 0);
+                    break;
+                default:
+                    pm = mkclass(S_WRAITH, 0);
+                    break;
+                }
+                mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
+                if ((mtmp2 = tamedog(mtmp, (struct obj *)0)) != 0)
+                    mtmp = mtmp2;
+                mtmp->mtame = 30;
+                summon_loop--;
+            } while (summon_loop);
+            
+            /* Tsk,tsk.. */
+            adjalign(-3);
+            u.uluck -= 3;
+            break;
+        }
+        case DEATH_GAZE:
+            /* Adapted from EvilHack */
             if (u.uluck < -9) {
                 /* being immune to death magic doesn't help in this instance */
                 pline("%s turns on you!", The(xname(obj)));
                 u.uhp = 0;
                 killer.format = KILLED_BY;
-                if (obj->oartifact == ART_EYE_OF_VECNA) {
-                    Strcpy(killer.name, "the Eye of Vecna");
-                } else {
-                    Strcpy(killer.name, "the Hand of Vecna");
-                }
+                Strcpy(killer.name, "the Eye of the Beholder");
+                
                 done(DIED);
             } else {
-                if (obj->oartifact == ART_EYE_OF_VECNA) {
-                    pline("%s looks around with its icy gaze!",
-                          The(xname(obj)));
-                /* The Hand of Vecna needs to be 'worn' for it to be invoked */
-                } else if (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA) {
-                    You("hold %s up high above your %s!",
-                        the(xname(obj)), body_part(HEAD));
-                } else if (obj->oartifact == ART_HAND_OF_VECNA) {
-                    You("hold %s up high above your %s, but nothing happens.",
-                        the(xname(obj)), body_part(HEAD));
-                    break;
-                }
-
+                pline("%s looks around with its icy gaze!", The(xname(obj)));
+                
                 for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
                     if (DEADMONSTER(mtmp))
                         continue;
                     /* The eye is never blind ... */
-                    if ((obj->oartifact == ART_EYE_OF_VECNA ? couldsee(mtmp->mx, mtmp->my)
-                                                            : canspotmon(mtmp))
-                        && !immune_death_magic(mtmp->data)) {
+                    if (couldsee(mtmp->mx, mtmp->my)
+                          && !immune_death_magic(mtmp->data)) {
                         int tmp = 12;
                         switch (rn2(20)) {
                         case 19:
@@ -3851,19 +3858,17 @@ struct obj *obj;
                         case 0:
                             if (resists_magm(mtmp) || defended(mtmp, AD_MAGM))
                                 shieldeff(mtmp->mx, mtmp->my);
-                            if (obj->oartifact == ART_EYE_OF_VECNA) {
-                                pline("%s resists %s deadly gaze.",
-                                      Monnam(mtmp), the(s_suffix(xname(obj))));
-                            } else {
-                                pline("%s resists %s deadly aura.",
-                                      Monnam(mtmp), the(s_suffix(xname(obj))));
-                            }
+                            
+                            pline("%s resists %s deadly gaze.",
+                                  Monnam(mtmp), the(s_suffix(xname(obj))));
+                            
                             tmp = 0;
                             break;
                         }
                     }
                 }
             }
+            
             /* Use at your own risk... */
             if (u.ualign.type != A_NONE) {
                 if (u.ualign.type == A_LAWFUL) {
@@ -3874,6 +3879,7 @@ struct obj *obj;
                     adjalign(-3);
                 }
             }
+            /* Tsk,tsk.. */
             change_luck(-3);
             exercise(A_WIS, FALSE);
             break;
@@ -4825,7 +4831,8 @@ artifact_info(int anum)
     case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
     case PASSES_WALLS: art_info.invoke = "Phasing"; break;
     case CHANNEL: art_info.invoke = "Channel"; break;
-    case DEATH_MAGIC: art_info.invoke = "Death Magic"; break;
+    case DEATH_GAZE: art_info.invoke = "Death Gaze"; break;
+    case SUMMON_UNDEAD: art_info.invoke = "Summon Undead"; break;
     case CONFLICT: art_info.invoke = "Conflict"; break;
     case LEVITATION: art_info.invoke = "Levitation"; break;
     case INVIS: art_info.invoke = "Invisibility"; break;

@@ -1199,18 +1199,11 @@ break_armor()
             if (donning(otmp))
                 cancel_don();
             /* Drop weapon along with gloves */
-            if (uarmg->oartifact == ART_HAND_OF_VECNA) {
-                if (uwep) {
-                    You("drop your weapon!");
-                    drop_weapon(0);
-                }
-            } else {
-                You("drop your gloves%s!", uwep ? " and weapon" : "");
-                drop_weapon(0);
-                (void) Gloves_off();
-                /* Glib manipulation (ends immediately) handled by Gloves_off */
-                dropp(otmp);
-            }
+            You("drop your gloves%s!", uwep ? " and weapon" : "");
+            drop_weapon(0);
+            (void) Gloves_off();
+            /* Glib manipulation (ends immediately) handled by Gloves_off */
+            dropp(otmp);
         }
         if ((otmp = uarms) != 0) {
             You("can no longer hold your shield!");

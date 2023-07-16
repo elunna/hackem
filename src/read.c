@@ -1543,7 +1543,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         /* elven armor vibrates warningly when enchanted beyond a limit */
         special_armor = is_elven_armor(otmp)
-                        || otmp->oartifact == ART_HAND_OF_VECNA
                         || (Role_if(PM_WIZARD) && otmp->otyp == CORNUTHAUM)
                         || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA)
                         || otmp->oartifact == ART_GRANDMASTER_S_ROBE;
@@ -1559,31 +1558,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         s = scursed ? -otmp->spe : otmp->spe;
         if (s > (special_armor ? 5 : 3) && rn2(s)) {
             otmp->in_use = TRUE;
-            if ((otmp == uarmg) && otmp->oartifact == ART_HAND_OF_VECNA) {
-                /* The Hand of Vecna is 'merged' with the wearer,
-                   it can't be destroyed this way */
-                pline("%s violently %s%s%s for a while, but nothing else happens.",
-                      Yname2(otmp),
-                      otense(otmp, Blind ? "vibrate" : "glow"),
-                      (!Blind && !same_color) ? " " : "",
-                      (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
-                                                                  : NH_SILVER));
-            } else {
-                pline("%s violently %s%s%s for a while, then %s.", Yname2(otmp),
-                      otense(otmp, Blind ? "vibrate" : "glow"),
-                      (!Blind && !same_color) ? " " : "",
-                      (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
-                                                                  : NH_SILVER),
-                      otense(otmp, "evaporate"));
-            }
+            pline("%s violently %s%s%s for a while, then %s.", Yname2(otmp),
+                  otense(otmp, Blind ? "vibrate" : "glow"),
+                  (!Blind && !same_color) ? " " : "",
+                  (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
+                                                              : NH_SILVER),
+                  otense(otmp, "evaporate"));
             if (carried(otmp)) {
-                if ((otmp == uarmg) && otmp->oartifact == ART_HAND_OF_VECNA) {
-                    otmp->in_use = FALSE; /* nothing happens if worn */
-                } else {
-                    remove_worn_item(otmp, FALSE);
-                    useup(otmp);
-                }
-            } else if (mcarried(otmp)) {
+                remove_worn_item(otmp, FALSE);
+                useup(otmp);
+            } else {
                 /* steed barding */
                 m_useup(otmp->ocarry, otmp);
             }

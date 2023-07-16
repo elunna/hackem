@@ -866,7 +866,6 @@ Gloves_on(VOID_ARGS)
 		}
 		break;
     case GAUNTLETS_OF_POWER:
-    case MUMMIFIED_HAND: /* the Hand of Vecna */
         makeknown(uarmg->otyp);
         context.botl = 1; /* taken care of in attrib.c */
         break;
@@ -941,7 +940,6 @@ Gloves_off(VOID_ARGS)
             HFumbling = EFumbling = 0;
         break;
     case GAUNTLETS_OF_POWER:
-    case MUMMIFIED_HAND: /* the Hand of Vecna */
         makeknown(uarmg->otyp);
         context.botl = 1; /* taken care of in attrib.c */
         break;
@@ -2432,9 +2430,7 @@ boolean silent;
         return 0;
     }
     /* Inf are immune to curses. */
-    if (Role_if(PM_INFIDEL) || !otmp->cursed
-        || ((otmp == uwep) && !welded(otmp))
-        || ((otmp == uarmg) && uarmg->oartifact == ART_HAND_OF_VECNA))
+    if (Role_if(PM_INFIDEL) || !otmp->cursed || (otmp == uwep && !welded(otmp)))
         return 0;
     if (silent)
         return 1;
@@ -2695,12 +2691,8 @@ boolean noisy;
             *mask = W_ARMF;
     } else if (is_gloves(otmp)) {
         if (uarmg) {
-            if (noisy) {
-                if (uarmg->otyp == MUMMIFIED_HAND)
-                    pline("%s resists being covered!", The(xname(uarmg)));
-                else
-                    already_wearing(c_gloves);
-            }
+            if (noisy)
+                already_wearing(c_gloves);
             err++;
         } else if (welded(uwep)) {
             if (noisy)
@@ -3021,14 +3013,7 @@ struct obj *obj;
         if (delay) {
             nomul(delay);
             multi_reason = "dressing up";
-            if (obj == uarmg && obj->oartifact == ART_HAND_OF_VECNA) {
-                if (u.ualign.type == A_NONE)
-                    com_pager(301);
-                else
-                    com_pager(302);
-            } else {
-                nomovemsg = "You finish your dressing maneuver.";
-            }
+            nomovemsg = "You finish your dressing maneuver.";
         } else {
             unmul(""); /* call (*aftermv)(), clear it+nomovemsg+multi_reason */
             on_msg(obj);
@@ -3548,10 +3533,6 @@ register struct obj *otmp;
                   uarmg->unpaid ? "The" : "Your", /* simplified Shk_Your() */
                   gloves_simple_name(uarmg));
             return 0;
-        } else if (uarmg->oartifact == ART_HAND_OF_VECNA) {
-            pline("%s has merged with your left %s and cannot be removed.",
-                  The(xname(uarmg)), body_part(ARM));
-            return 0;
         }
     }
     /* special boot checks */
@@ -3966,10 +3947,6 @@ boolean choose;
                   Yname2(otmp), rn2(2) ? "resists completely"
                                        : "defies physics");
             goto end;
-        } else if (uarmg && (uarmg == otmp)
-                   && otmp->oartifact == ART_HAND_OF_VECNA) {
-            /* no feedback, as we're pretending it's not actually worn */
-            goto end;
         }
         if (donning(otmp))
             cancel_don();
@@ -4095,8 +4072,7 @@ boolean only_if_known_cursed; /* ignore covering unless known to be cursed */
         return TRUE;
     }
     /* check for ring covered by gloves */
-    if ((obj == uleft || obj == uright) && uarmg && BLOCKSACCESS(uarmg)
-        && uarmg->oartifact != ART_HAND_OF_VECNA) {
+    if ((obj == uleft || obj == uright) && uarmg && BLOCKSACCESS(uarmg)) {
         if (verb) {
             Strcpy(buf, yname(uarmg));
             You(need_to_take_off_outer_armor, buf, verb, yname(obj));

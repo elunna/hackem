@@ -2935,7 +2935,7 @@ struct obj *otmp;
         else
             return 2;
     }
-    if (stoneorslime || otmp->oartifact == ART_EYE_OF_VECNA) {
+    if (stoneorslime || otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
         Sprintf(buf, "%s like %s could be something very dangerous!  %s",
                 foodsmell, it_or_they, eat_it_anyway);
         if (yn_function(buf, ynchars, 'n') == 'n')
@@ -3083,10 +3083,7 @@ doeat()
     } else if ((otmp->owornmask & (W_ARMOR | W_TOOL | W_AMUL | W_SADDLE))
                != 0) {
         /* let them eat rings */
-        if (otmp->oartifact == ART_HAND_OF_VECNA)
-            You_cant("eat %s that's a part of you!", something);
-        else
-            You_cant("eat %s you're wearing.", something);
+        You_cant("eat %s you're wearing.", something);
         return 0;
     } else if (!(carried(otmp) ? retouch_object(&otmp, FALSE)
                                : touch_artifact(otmp, &youmonst))) {

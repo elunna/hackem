@@ -662,8 +662,6 @@ GLOVES("gauntlets of dexterity", "fencing gloves",
        0, 1,          0,  8, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("plasteel gloves", "white gloves",
        0, 0,          0,  1, 1,  9, 25,  8, 0, PLASTIC, CLR_WHITE),
-GLOVES("mummified hand", None,                                  /* EvilHack */
-       0, 0,          0,  0, 1,  5, 100, 9, 0,  FLESH, CLR_BLACK),
 
 /* boots */
 BOOTS("low boots", "walking shoes",
@@ -953,6 +951,7 @@ FOOD("tripe ration",        140,  2, 10, 0, FLESH, 200, CLR_BROWN),
 FOOD("corpse",                0,  1,  0, 0, FLESH,   0, CLR_BROWN),
 /* body parts (currently only for base object: the Eye of Vecna) */
 FOOD("eyeball",               0,  1,  1, 0, FLESH,   5, CLR_WHITE),
+FOOD("severed hand",          0,  1,  0, 0, FLESH,  40, CLR_BROWN),
 FOOD("egg",                  85,  1,  1, 1, FLESH,  80, CLR_WHITE),
 FOOD("meatball",              0,  1,  1, 0, FLESH,   5, CLR_BROWN),
 FOOD("meat stick",            0,  1,  1, 0, FLESH,   5, CLR_BROWN),

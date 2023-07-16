@@ -225,8 +225,7 @@ int ef_flags;
     if (check_grease && otmp->greased) {
         grease_protect(otmp, ostr, victim);
         return ER_GREASED;
-    } else if (!erosion_matters(otmp)
-               || otmp->oartifact == ART_HAND_OF_VECNA) {
+    } else if (!erosion_matters(otmp)) {
         return ER_NOTHING;
     } else if (!vulnerable || (otmp->oerodeproof && otmp->rknown)) {
         if (flags.verbose && print && (uvictim || vismon))
@@ -4097,9 +4096,9 @@ xchar x, y;
        (let Book of the Dead fall through to fire_damage() to get feedback) */
     if (obj_resists(obj, 0, 0) && otyp != SPE_BOOK_OF_THE_DEAD)
         return FALSE;
-    /* the artifacts that generate when Vecna is destroyed are never
+    /* the artifacts that generate when quest guardians are destroyed are never
        destroyed by lava */
-    if (oart == ART_EYE_OF_VECNA || oart == ART_HAND_OF_VECNA)
+    if (oart == ART_EYE_OF_THE_BEHOLDER || oart == ART_HAND_OF_VECNA)
         return FALSE;
     /* destroy liquid (venom), wax, veggy, flesh, paper (except for scrolls
        and books--let fire damage deal with them), cloth, leather, wood, bone

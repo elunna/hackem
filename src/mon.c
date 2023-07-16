@@ -3642,13 +3642,10 @@ register struct monst *mtmp;
                 pline("As the remnants of %s body vanish, you notice something was left behind...",
                       s_suffix(mon_nam(mtmp)));
         }
-        if (rn2(2)) {
-            otmp = mksobj(EYEBALL, FALSE, FALSE);
-            otmp = oname(otmp, artiname(ART_EYE_OF_VECNA));
-        } else {
-            otmp = mksobj(MUMMIFIED_HAND, FALSE, FALSE);
-            otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
-        }
+
+        otmp = mksobj(SEVERED_HAND, FALSE, FALSE);
+        otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
+        
         curse(otmp);
         place_object(otmp, mtmp->mx, mtmp->my);
     }

@@ -1785,9 +1785,9 @@ dosacrifice()
      */
 #define MAXVALUE 24 /* Highest corpse value (besides Wiz) */
 
-    /* sacrificing the Eye of Vecna is a special case */
-    if (otmp->oartifact == ART_EYE_OF_VECNA) {
-        You("offer this evil abomination to %s...", a_gname());
+    /* sacrificing the Eye of the Beholder is a special case */
+    if (otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
+        You("offer this abomination to %s...", a_gname());
         value = MAXVALUE; /* woop */
         /* KMH, conduct */
         if (!u.uconduct.gnostic++)

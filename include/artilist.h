@@ -472,22 +472,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(2, 6), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       500L, CLR_MAGENTA, DEFAULT_MAT),
 
-    /* The Eye of Vecna, which Vecna will sometimes death drop
-       before the rest of his body crumbles to dust */
-    A("The Eye of Vecna", EYEBALL,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL),
-      (SPFX_XRAY | SPFX_ESP | SPFX_HSPDAM),
-      0, NO_ATTK, NO_DFNS, CARY(AD_COLD), DEATH_MAGIC, A_NONE,
-      NON_PM, NON_PM, 50000L, NO_COLOR, DEFAULT_MAT),
-
-    /* The Hand of Vecna, another possible artifact that Vecna
-       might drop once destroyed */
-    A("The Hand of Vecna", MUMMIFIED_HAND,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL | SPFX_REGEN
-       | SPFX_HPHDAM),
-      0, 0, NO_ATTK, DFNS(AD_DISE), NO_CARY, DEATH_MAGIC, A_NONE,
-      NON_PM, NON_PM, 50000L, NO_COLOR, FLESH),
-
     /* Blinding mace. */
     A("Sunspot", MACE, (SPFX_RESTR | SPFX_BLIND), 0, 0,
       PHYS(5, 5), DFNS(AD_BLND), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
@@ -540,6 +524,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY,
       DEATH_GAZE, A_NEUTRAL, NON_PM, NON_PM, 
       500L, NO_COLOR, DEFAULT_MAT),
+
+    A("The Hand of Vecna", SEVERED_HAND,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL), 
+      (SPFX_REGEN | SPFX_HPHDAM), 0, 
+    NO_ATTK, DFNS(AD_DRLI), CARY(AD_COLD), SUMMON_UNDEAD, A_CHAOTIC, 
+    NON_PM, NON_PM, 700L, NO_COLOR, DEFAULT_MAT ),
 
 
 

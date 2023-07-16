@@ -823,8 +823,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             break;
         }
 
-        if (is_boots(obj)
-            || (is_gloves(obj) && obj->otyp != MUMMIFIED_HAND))
+        if (is_boots(obj) || is_gloves(obj))
             Strcat(buf, "pair of ");
 
         if (dknown && (obj->oprops & ITEM_OILSKIN)
@@ -1495,17 +1494,13 @@ unsigned doname_flags;
                           because donning() returns True for both cases */
                        : doffing(obj) ? " (being doffed)"
                          : donning(obj) ? " (being donned)"
-                           : obj->otyp == MUMMIFIED_HAND ? " "
-                             : " (being worn)");
+                           : " (being worn)");
             /* slippery fingers is an intrinsic condition of the hero
                rather than extrinsic condition of objects, but gloves
                are described as slippery when hero has slippery fingers */
             if (obj == uarmg && Glib) /* just appended "(something)",
                                        * change to "(something; slippery)" */
                 Strcpy(rindex(bp, ')'), "; slippery)");
-            else if (obj->otyp == MUMMIFIED_HAND)
-                Sprintf(rindex(bp, ' '), " (merged to your left %s)",
-                        body_part(ARM));
         }
         if (Is_dragon_scaled_armor(obj)) {
             char scalebuf[30];
@@ -3307,7 +3302,7 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "shield", ARMOR_CLASS, SMALL_SHIELD, SHIELD_OF_MOBILITY },
     { "hat", ARMOR_CLASS, DUNCE_CAP, FEDORA },
     { "helm", ARMOR_CLASS, DUNCE_CAP, HELM_OF_TELEPATHY },
-    { "gloves", ARMOR_CLASS, GLOVES, MUMMIFIED_HAND },
+    { "gloves", ARMOR_CLASS, GLOVES, PLASTEEL_GLOVES },
     { "gauntlets", ARMOR_CLASS, GAUNTLETS, GAUNTLETS_OF_POWER },
     { "boots", ARMOR_CLASS, LOW_BOOTS, FUMBLE_BOOTS },
     { "shoes", ARMOR_CLASS, LOW_BOOTS, ORCISH_BOOTS },
@@ -5351,7 +5346,7 @@ struct obj *no_wish;
             /* non-wishable artifacts (wizmode only) */
             case ART_LIFESTEALER:
             case ART_BUTCHER:
-            case ART_EYE_OF_VECNA:
+            case ART_EYE_OF_THE_BEHOLDER:
             case ART_HAND_OF_VECNA:
             case ART_THIEFBANE:
                 pm = PM_SAMURAI;

@@ -2109,8 +2109,8 @@ register struct obj *otmp;
         return FALSE;
 
     /* both the eye and the hand are fleshy, but they come from
-       Vecna, and are not harmed by fire */
-    if (otmp->oartifact == ART_EYE_OF_VECNA
+       magical guardians, and are not harmed by fire */
+    if (otmp->oartifact == ART_EYE_OF_THE_BEHOLDER
         || otmp->oartifact == ART_HAND_OF_VECNA)
         return FALSE;
 
