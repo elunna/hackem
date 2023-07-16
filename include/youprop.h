@@ -122,9 +122,6 @@
                      && !Blind                                \
                      && !Halluc_resistance)
 
-/* Temp fix after removing xanathar's ring */
-#define SuperStealth (FALSE)
-
 /*** Troubles ***/
 /* Pseudo-property */
 #define Punished (uball != 0)

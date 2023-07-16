@@ -26,8 +26,7 @@ STATIC_DCL boolean FDECL(shade_aware, (struct obj *));
 
 extern boolean notonhead; /* for long worms */
 
-/* Used to flag attacks caused by Stormbringer's
-   maliciousness. */
+/* Used to flag attacks caused by Stormbringer's maliciousness. */
 static boolean override_confirmation = FALSE;
 
 #define PROJECTILE(obj) ((obj) && is_ammo(obj))
@@ -496,8 +495,7 @@ register struct monst *mtmp;
         if (verysmall(mtmp->data) || !rn2(4)) {
             You("stomp on %s!", mon_nam(mtmp));
             xkilled(mtmp, XKILL_GIVEMSG);
-            if (!SuperStealth)
-                wake_nearby();
+            wake_nearby();
             makeknown(uarmf->otyp);
             return TRUE;
         }
@@ -1144,12 +1142,12 @@ int dieroll;
 
     saved_oname[0] = '\0';
 
-    /* Awaken nearby monsters. A stealthy hero makes much less noise or playing as a rogue. */
+    /* Awaken nearby monsters. A stealthy hero makes much less noise or 
+     * playing as a rogue. */
     if (!(is_silent(youmonst.data) && helpless(mon))
         && !rn2(is_rogue ? 20
                     : Stealth ? 10
-                              : 2)
-        && !SuperStealth) {
+                              : 2)) {
 
         int base_combat_noise = combat_noise(&mons[urace.malenum]);
         wake_nearto(mon->mx, mon->my, is_rogue ? base_combat_noise / 4

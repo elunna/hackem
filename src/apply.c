@@ -1383,17 +1383,15 @@ struct obj **optr;
         You("attach %ld%s %s to %s.", obj->quan, !otmp->spe ? "" : " more", s,
             the(xname(otmp)));
         if (obj->otyp == MAGIC_CANDLE) {
-		    if (was_lamplit) {
-			    pline_The("new %s %s very ordinary.", 
-                    s, vtense(s, "look"));
-            }
-		    else {
+            if (was_lamplit) {
+                pline_The("new %s %s very ordinary.", s, vtense(s, "look"));
+            } else {
                 pline("%s very ordinary.",
-                    (obj->quan > 1L) ? "They look" : "It looks");
+                      (obj->quan > 1L) ? "They look" : "It looks");
             }
             if (!otmp->spe)
-			    otmp->age = 600L;
-		} else if (!otmp->spe || otmp->age > obj->age)
+                otmp->age = 600L;
+        } else if (!otmp->spe || otmp->age > obj->age)
             otmp->age = obj->age;
         otmp->spe += (int) obj->quan;
         if (otmp->lamplit && !was_lamplit)

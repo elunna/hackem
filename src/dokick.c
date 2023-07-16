@@ -998,8 +998,8 @@ boolean need_dir;
         if (!maybe_kick_monster(mtmp, x, y))
             return context.move;
     }
-    if (!SuperStealth)
-        wake_nearby();
+
+    wake_nearby();
     u_wipe_engr(2);
 
     if (!isok(x, y)) {

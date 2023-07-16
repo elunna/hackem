@@ -301,7 +301,6 @@ dig(VOID_ARGS)
         case 1:
             pline("Bang!  You hit with the broad side of %s!",
                   the(xname(uwep)));
-            wake_nearby();
             break;
         default:
             Your("swing misses its mark.");
@@ -519,14 +518,11 @@ dig(VOID_ARGS)
             return 0; /* statue or boulder got taken */
 
         if (!did_dig_msg) {
-            if (is_lightsaber(uwep)) {
+            if (is_lightsaber(uwep)) 
                 You("burn steadily through %s.", the(d_target[dig_target]));
-            } else {
+            else
                 You("hit the %s with all your might.", d_target[dig_target]);
-                wake_nearby();
-            }
             did_dig_msg = TRUE;
-
         }
     }
     return 1;
@@ -660,8 +656,7 @@ int ttyp;
                 You("dig a pit in the %s.", surface_type);
             if (shopdoor)
                 pay_for_damage("ruin", FALSE);
-            if (!SuperStealth)
-                wake_nearby();
+            wake_nearby();
         } else if (!madeby_obj && canseemon(madeby)) {
             pline("%s digs a pit in the %s.", Monnam(madeby), surface_type);
         } else if (cansee(x, y) && flags.verbose) {
@@ -847,8 +842,7 @@ coord *cc;
     } else if (is_lava(dig_x, dig_y) || is_damp_terrain(dig_x, dig_y)) {
         pline_The("%s sloshes furiously for a moment, then subsides.",
                   hliquid(is_lava(dig_x, dig_y) ? "lava" : "water"));
-        if (!SuperStealth)
-            wake_nearby(); /* splashing */
+        wake_nearby(); /* splashing */
 
     } else if (old_typ == DRAWBRIDGE_DOWN
                || (is_drawbridge_wall(dig_x, dig_y) >= 0)) {
@@ -877,7 +871,6 @@ coord *cc;
              * fills it.  Final outcome:  no hole, no boulder.
              */
             pline("KADOOM!  The boulder falls in!");
-            wake_nearby();
             (void) delfloortrap(ttmp);
         }
         delobj(boulder_here);
@@ -1017,7 +1010,6 @@ coord *cc;
     }
     levl[dig_x][dig_y].typ = ROOM, levl[dig_x][dig_y].flags = 0;
     del_engr_at(dig_x, dig_y);
-    
     newsym(dig_x, dig_y);
     return;
 }
@@ -1141,22 +1133,18 @@ struct obj *obj;
         if (!isok(rx, ry)) {
             if (is_lightsaber(uwep))
                 Your("%s bounces off harmlessly.", aobjnam(obj, (char *)0));
-            else if (!SuperStealth) {
+            else {
                 pline("Clash!");
-                wake_nearby();
             }
             return 1;
         }
-
         lev = &levl[rx][ry];
         if (MON_AT(rx, ry) && attack(m_at(rx, ry)))
             return 1;
-
         dig_target = dig_typ(obj, rx, ry);
         if (dig_target == DIGTYP_UNDIGGABLE) {
             /* ACCESSIBLE or POOL */
             trap = t_at(rx, ry);
-
             if (trap && trap->ttyp == WEB) {
                 if (!trap->tseen) {
                     seetrap(trap);
@@ -1169,11 +1157,8 @@ struct obj *obj;
                 multi_reason = "stuck in a spider web";
                 nomovemsg = "You pull free.";
             } else if (lev->typ == IRONBARS) {
-                if (!SuperStealth) {
-                    pline("Clang!");
-                    wake_nearby();
-                } else
-                    pline("Bink...");
+                pline("Clang!");
+                wake_nearby();
             } else if (IS_TREES(lev->typ)) {
                 You("need an axe to cut down a tree.");
             } else if (IS_ROCK(lev->typ)) {
@@ -1188,7 +1173,6 @@ struct obj *obj;
                 if (vibrate) {
                     losehp(Maybe_Half_Phys(2), "axing a hard object",
                            KILLED_BY);
-                    wake_nearby();
                 }
             } else if (u.utrap && u.utraptype == TT_PIT && trap
                        && (trap_with_u = t_at(u.ux, u.uy))
@@ -1254,8 +1238,6 @@ struct obj *obj;
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);
-            if (!SuperStealth)
-                wake_nearby(); /* --hackem: No more freebies in sokoban! */
         }
     } else if (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)) {
         /* it must be air -- water checked above */
@@ -1269,8 +1251,7 @@ struct obj *obj;
     } else if (IS_PUDDLE(levl[u.ux][u.uy].typ)
                || IS_SEWAGE(levl[u.ux][u.uy].typ)) {
         Your("%s against the water's surface.", aobjnam(obj, "splash"));
-        if (!SuperStealth)
-            wake_nearby();
+        wake_nearby();
     } else if ((trap = t_at(u.ux, u.uy)) != 0
                && (uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
         dotrap(trap, FORCEBUNGLE);
@@ -2337,6 +2318,7 @@ struct monst *mdef, *magr;
     const boolean canseexy = cansee(x, y);
     struct obj *boulder = sobj_at(BOULDER, x, y);
     boolean sent_down_hole = FALSE;
+
     /* check for illegalities: out of bounds, terrain unsuitable for traps,
      * or trap types that should not be deleted and replaced with pits */
     if (!isok(x, y) || !SPACE_POS(typ) || IS_FURNITURE(typ) || IS_AIR(typ)
