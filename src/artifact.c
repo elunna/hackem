@@ -287,6 +287,7 @@ aligntyp alignment; /* target alignment, or A_NONE */
                 eligible[n++] = m;
             continue; /* move on to next possibility */
         }
+        otmp = mksobj((int) a->otyp, TRUE, FALSE);
 
         /* we're looking for an alignment-specific item
            suitable for hero's role+race */
@@ -294,8 +295,13 @@ aligntyp alignment; /* target alignment, or A_NONE */
             /* avoid enemies' equipment */
             && (a->race == NON_PM || !race_hostile(&mons[a->race]))
             && !Hate_material(artifact_material(m))
+            && !(is_cloak(otmp) && !can_wear_arm(otmp, FALSE))
+            /* TODO: Do this better. */
+            && !(is_boots(otmp) && (Race_if(PM_CENTAUR) || Race_if(PM_CENTAUR)))
+            /* TODO: Check any bane */
             && !(Race_if(PM_GIANT) && (a->mtype & MH_GIANT))
             && !(Role_if(PM_PRIEST) && (is_slash(a) || is_pierce(a)))) {
+
             /* when a role-specific first choice is available, use it */
             if (Role_if(a->role)) {
                 /* make this be the only possibility in the list */
