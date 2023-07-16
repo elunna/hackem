@@ -65,7 +65,6 @@ enum invoke_prop_types {
     UNTRAP,
     CHARGE_OBJ,
     LEV_TELE,
-    SELF_TELE,
     CREATE_PORTAL,
     ENLIGHTENING,
     CREATE_AMMO,

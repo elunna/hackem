@@ -3385,9 +3385,6 @@ struct obj *obj;
         case LEV_TELE:
             level_tele();
             break;
-        case SELF_TELE:
-            tele();
-            break;
         case LIGHT_AREA: {
             struct obj *pseudo = mksobj(SCR_LIGHT, FALSE, FALSE);
             bless(pseudo);
@@ -4819,7 +4816,6 @@ artifact_info(int anum)
     case UNTRAP: art_info.invoke = "Untrap"; break;
     case CHARGE_OBJ: art_info.invoke = "Charge Object"; break;
     case LEV_TELE: art_info.invoke = "Level Teleport"; break;
-    case SELF_TELE: art_info.invoke = "Teleport"; break;
     case LIGHT_AREA: art_info.invoke = "Light Area"; break;
     case CREATE_PORTAL: art_info.invoke = "Branchport"; break;
     case ENLIGHTENING: art_info.invoke = "Enlightenment"; break;
