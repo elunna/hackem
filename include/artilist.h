@@ -536,7 +536,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       10000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Eye of the Beholder", EYEBALL,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), 0, 0,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY,
       DEATH_GAZE, A_NEUTRAL, NON_PM, NON_PM, 
       500L, NO_COLOR, DEFAULT_MAT),
