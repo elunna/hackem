@@ -467,6 +467,7 @@ encode_extended_achievements()
     /* other notable achievements */
     add_achieveX(buf, "defeated_ice_queen", u.uachieve.defeat_icequeen);
     add_achieveX(buf, "defeated_cerberus", u.uachieve.killed_cerberus);
+    add_achieveX(buf, "defeated_nightmare", u.uachieve.killed_nightmare);
     add_achieveX(buf, "defeated_vecna", u.uachieve.killed_vecna);
     add_achieveX(buf, "defeated_grund", u.uachieve.killed_grund);
     add_achieveX(buf, "got_crowned", u.uevent.uhand_of_elbereth);

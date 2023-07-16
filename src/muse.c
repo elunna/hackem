@@ -4039,14 +4039,17 @@ const char *str;
     } else if (mon->data == &mons[PM_DIAMOND_GOLEM]
 	         || mon->data == &mons[PM_SAPPHIRE_GOLEM]
 	         || mon->data == &mons[PM_CRYSTAL_GOLEM]) {
-	    /* Some of the higher golems have intrinsic reflection */
-	    if (str)
-		    pline(str, s_suffix(mon_nam(mon)), "body");
-	    return TRUE;
-	} else if (has_reflection(mon)) {
+        /* Some of the higher golems have intrinsic reflection */
+        if (str)
+                pline(str, s_suffix(mon_nam(mon)), "body");
+        return TRUE;
+    } else if (has_reflection(mon)) {
         /* specifically for the monster spell MGC_REFLECTION */
         if (str)
-            pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
+                pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
+        return TRUE;
+    } else if (mon->data == &mons[PM_NIGHTMARE]) {
+        pline(str, s_suffix(mon_nam(mon)), "horn");
         return TRUE;
     }
     return FALSE;
@@ -4565,7 +4568,7 @@ struct monst *mon;
     case PM_LESSER_NIGHTMARE:
     case PM_LICHEN:
     case PM_LIZARD:
-    case PM_NIGHTMARE:
+    case PM_GREATER_NIGHTMARE:
     case PM_WOOD_NYMPH:
         return TRUE;
     default:

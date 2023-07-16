@@ -523,11 +523,18 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR, SILVER),
 
     /*** Alignment quest artifacts ***/
+#if 0
     A("The Key Of Access", SKELETON_KEY,
       (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
-
+#endif 
+    
+    A("Nighthorn", UNICORN_HORN,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT), 0, 0,
+      NO_ATTK, NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
+      10000L, NO_COLOR, DEFAULT_MAT),
+    
     /* Xanathar's eyestalk ring of proof against detection and location */
     A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_STLTH), SPFX_WARN, 0,

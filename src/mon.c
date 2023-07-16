@@ -929,6 +929,19 @@ unsigned corpseflags;
         }
         break;
     }
+    case PM_NIGHTMARE:
+        pline("All that remains is her horn...");
+        obj = oname(mksobj(UNICORN_HORN, TRUE, FALSE),
+                    artiname(ART_NIGHTHORN));
+        goto initspecial;
+    initspecial:
+        obj->quan = 1;
+        curse(obj);
+        place_object(obj, x, y);
+        stackobj(obj);
+        newsym(x, y);
+        return obj;
+        break;
     default_1:
     default:
         if (mvitals[mndx].mvflags & G_NOCORPSE) {
@@ -3818,6 +3831,9 @@ register struct monst *mtmp;
     } else if (mtmp->isvecna && !u.uachieve.killed_vecna) {
         u.uachieve.killed_vecna = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "destroyed Vecna");
+    } else if (mtmp->data == &mons[PM_NIGHTMARE] && !u.uachieve.killed_nightmare) {
+        u.uachieve.killed_nightmare = 1;
+        livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Nightmare");
     } else if (mtmp->isgrund && !u.uachieve.killed_grund) {
         u.uachieve.killed_grund = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Grund");

@@ -4106,6 +4106,9 @@ int final;
     if (u.uachieve.killed_medusa)
         enl_msg(You_, "have ", "",
                 "defeated Medusa", ""), ++acnt;
+    if (u.uachieve.killed_nightmare)
+        enl_msg(You_, "have ", "",
+                "defeated Nightmare", ""), ++acnt;
     if (u.uachieve.killed_cerberus)
         enl_msg(You_, "have ", "",
                 "defeated Cerberus", ""), ++acnt;

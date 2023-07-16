@@ -2501,7 +2501,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(1500, 300, MS_NEIGH, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_WANDER | M2_STRONG | M2_DOMESTIC, M3_INFRAVISIBLE, 0, 0, 7, CLR_BROWN),
-    MON("nightmare", S_UNICORN,                                 /* EvilHack */
+    MON("greater nightmare", S_UNICORN,                                 /* EvilHack */
         LVL(5, 20, 5, 0, -9), (G_GENO | 2),
         A(ATTK(AT_KICK, AD_PHYS, 1, 8),
           ATTK(AT_BITE, AD_DRST, 1, 2),
@@ -7571,19 +7571,18 @@ struct permonst _mons2[] = {
 /*
  * KMH -- Monsters of the aligned key quests
  */
-    MON("Nebuchadnezzar", S_HUMAN,
-        LVL(20, 15, -4, 75, 20), (G_NOGEN | G_UNIQ | G_NOCORPSE),
-        A(ATTK(AT_WEAP, AD_PHYS, 3, 10), 
-          ATTK(AT_KICK, AD_PHYS, 2, 8),
-          ATTK(AT_MAGC, AD_CLRC, 2, 8), 
-          ATTK(AT_MAGC, AD_CLRC, 2, 8), 
-          NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_SILENT, MZ_HUMAN),
-        MR_FIRE | MR_ELEC | MR_SLEEP | MR_STONE, 0,
-        M1_HUMANOID | M1_SEE_INVIS | M1_OMNIVORE,
-        M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_STRONG | M2_MALE 
-            | M2_COLLECT | M2_MAGIC,
-        M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 20, CLR_YELLOW),
+    MON("Nightmare", S_UNICORN, 
+        LVL(12, 24, -2, 70, 15), (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        A(ATTK(AT_BUTT, AD_PHYS, 3, 12), 
+          ATTK(AT_KICK, AD_PHYS, 3, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1500, 300, MS_NEIGH, MZ_LARGE),
+        MR_POISON | MR_FIRE | MR_COLD | MR_ELEC,
+        MR_POISON | MR_FIRE | MR_COLD | MR_ELEC,
+        M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
+        M2_NOPOLY | M2_PNAME | M2_FEMALE | M2_HOSTILE | M2_NASTY | M2_STALK |
+            M2_WANDER | M2_STRONG,
+        M3_WAITFORU | M3_WANTSALL, 0, 0, 20, CLR_RED),
     MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
         A(ATTK(AT_MAGC, AD_CLRC, 4, 6),

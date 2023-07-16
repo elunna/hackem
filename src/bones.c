@@ -245,9 +245,8 @@ boolean restore;
                 /* Guaranteed artifacts become ordinary objects */
                 otmp->oartifact = 0;
                 free_oname(otmp);
-            } else if (otmp->oartifact == ART_KEY_OF_ACCESS) {
-                otmp->otyp = SKELETON_KEY;
-                set_material(otmp, COPPER);
+            } else if (otmp->oartifact == ART_NIGHTHORN) {
+                otmp->otyp = UNICORN_HORN;
                 curse(otmp);
             } else if (is_lightsaber(otmp)) {
                 if (obj_is_burning(otmp))
@@ -540,6 +539,7 @@ struct obj *corpse;
             || mptr == &mons[PM_NOSFERATU]
             || mtmp->cham == PM_NOSFERATU /* in case he's vampshifted */
             || mptr == &mons[PM_CTHULHU]
+            || mptr == &mons[PM_NIGHTMARE]
             || mptr == &mons[PM_ABOMINABLE_SNOWMAN]
             || mptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
             || mptr == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {

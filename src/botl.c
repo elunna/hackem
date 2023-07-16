@@ -540,11 +540,11 @@ char *buf;
     else if (Is_grunds_level(&u.uz))
         Sprintf(buf, "Stronghold:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Lawful Quest"))
-        Sprintf(buf, "Lawful:%d ", depth(&u.uz));
+        Sprintf(buf, "Nightmare:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Neutral Quest"))
-        Sprintf(buf, "Neutral:%d ", depth(&u.uz));
+        Sprintf(buf, "Beholder:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Chaotic Quest"))
-        Sprintf(buf, "Chaotic:%d ", depth(&u.uz));
+        Sprintf(buf, "Vecna:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "The Temple of Moloch"))
         Sprintf(buf, "Temple:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "The Spider Caves"))
