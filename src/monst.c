@@ -7586,22 +7586,6 @@ struct permonst _mons2[] = {
             | M2_NEUTER,
         M3_WANTSBOOK | M3_WAITFORU | M3_CLOSE | M3_INFRAVISION, 0, 0, 
         20, CLR_GRAY),
-    MON("Acererak", S_LICH,                                     /* dNetHack */
-        LVL(33, 15, -9, 99, -15), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
-          ATTK(AT_TUCH, AD_DRLI, 5, 6), 
-          ATTK(AT_MAGC, AD_SPEL, 0, 0),
-          ATTK(AT_GAZE, AD_DRLI, 2, 6), 
-          NO_ATTK, NO_ATTK),
-        SIZ(1200, 100, MS_CUSS, MZ_HUMAN),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_POISON | MR_STONE, 
-        MR_FIRE | MR_COLD, /* Grants fire/cold res if eaten? */
-        M1_BREATHLESS | M1_HUMANOID | M1_POIS | M1_REGEN | M1_SEE_INVIS,
-        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_STRONG 
-            | M2_MAGIC | M2_NASTY | M2_PRINCE | M2_MALE  
-             | M2_GREEDY | M2_JEWELS | M2_COLLECT,
-        M3_WANTSALL | M3_WAITFORU | M3_CLOSE | M3_INFRAVISION,
-        0, MH_UNDEAD, 36, CLR_YELLOW),
     
     /*
      * quest leaders
