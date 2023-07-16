@@ -12,7 +12,7 @@ STATIC_DCL boolean FDECL(ok_to_throw, (int *));
 STATIC_DCL void NDECL(autoquiver);
 STATIC_DCL int FDECL(gem_accept, (struct monst *, struct obj *));
 static boolean harmless_missile(struct obj *);
-static boolean toss_up(struct obj *, boolean);
+static boolean toss_up(struct obj *, BOOLEAN_P);
 static void sho_obj_return_to_u(struct obj * obj);
 static struct obj *return_throw_to_inv(struct obj *, long, boolean,
                                        struct obj *);
