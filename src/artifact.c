@@ -3439,6 +3439,30 @@ struct obj *obj;
                          unseen > 1 ? "cries" : "a cry");
             break;
         }
+        case DEATH_GAZE:
+            if (u.uluck < -9) {
+                pline_The("Eye turns on you!");
+                u.uhp = 0;
+                killer.format = KILLED_BY;
+                Strcpy(killer.name,  "the Eye of the Beholder");
+                done(DIED);
+            }
+            pline_The("Eye looks around with its icy gaze!");
+            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                if (DEADMONSTER(mtmp))
+                    continue;
+                /* The eye is never blind ... */
+                if (couldsee(mtmp->mx, mtmp->my) && !is_undead(mtmp->data)) {
+                    pline("%s screams in agony!", Monnam(mtmp));
+                    mtmp->mhp /= 3;
+                    if (mtmp->mhp < 1)
+                        mtmp->mhp = 1;
+                }
+            }
+            /* Tsk,tsk.. */
+            adjalign(-3);
+            u.uluck -= 3;
+            break;
         case CREATE_PORTAL: {
             int i, num_ok_dungeons, last_ok_dungeon = 0;
             d_level newlev;

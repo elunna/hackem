@@ -241,13 +241,11 @@ boolean restore;
                 curse(otmp);
             } else if (otmp->oartifact == ART_THIEFBANE
                        || otmp->oartifact == ART_MASTER_SWORD
-                       || otmp->oartifact == ART_XANATHAR_S_RING_OF_PROOF) {
+                       || otmp->oartifact == ART_NIGHTHORN
+                       || otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
                 /* Guaranteed artifacts become ordinary objects */
                 otmp->oartifact = 0;
                 free_oname(otmp);
-            } else if (otmp->oartifact == ART_NIGHTHORN) {
-                otmp->otyp = UNICORN_HORN;
-                curse(otmp);
             } else if (is_lightsaber(otmp)) {
                 if (obj_is_burning(otmp))
                     end_burn(otmp, TRUE);
@@ -540,6 +538,7 @@ struct obj *corpse;
             || mtmp->cham == PM_NOSFERATU /* in case he's vampshifted */
             || mptr == &mons[PM_CTHULHU]
             || mptr == &mons[PM_NIGHTMARE]
+            || mptr == &mons[PM_BEHOLDER]
             || mptr == &mons[PM_ABOMINABLE_SNOWMAN]
             || mptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
             || mptr == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {

@@ -1067,7 +1067,7 @@ int spellnum;
         /* Try for bugs, and if there are none
            left, go for (sticks to) snakes.  -3. */
         boolean spiders = mtmp->data == &mons[PM_LOLTH];
-        boolean spheres = mtmp->data == &mons[PM_XANATHAR];
+        boolean spheres = mtmp->data == &mons[PM_BEHOLDER];
         struct permonst *pm = mkclass(spiders ? S_SPIDER
                                       : spheres ? S_EYE :S_ANT, 0);
         struct monst *mtmp2 = (struct monst *) 0;

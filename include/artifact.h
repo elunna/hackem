@@ -72,6 +72,7 @@ enum invoke_prop_types {
     FEAR,
     CHANNEL,
     DEATH_MAGIC,
+    DEATH_GAZE,
     LIGHT_AREA,
     SUMMON_FIRE_ELEMENTAL,
     SUMMON_WATER_ELEMENTAL,

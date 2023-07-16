@@ -861,19 +861,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD,
         M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
         M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0, 0, 12, HI_LORD),
-    MON("beholder", S_EYE,                                      /* EvilHack */
-        LVL(8, 3, -8, 50, -10), (1),         
-        A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
-          ATTK(AT_GAZE, AD_SLEE, 2, 25),
-          ATTK(AT_GAZE, AD_DISN, 0, 0), 
-          ATTK(AT_GAZE, AD_STON, 0, 0),
-          ATTK(AT_GAZE, AD_CNCL, 4, 4), 
-          ATTK(AT_BITE, AD_PHYS, 8, 8)),
-        SIZ(800, 200, MS_SILENT, MZ_LARGE), MR_COLD | MR_ELEC | MR_POISON
-            | MR_STONE, MR_POISON,
-        M1_FLY | M1_BREATHLESS | M1_NOLIMBS,
-        M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_NEUTER,
-        M3_SKITTISH | M3_INFRAVISIBLE | M3_NOTAME, 0, 0, 14, CLR_BROWN),
+
     /*
      * felines
      */
@@ -7583,7 +7571,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_PNAME | M2_FEMALE | M2_HOSTILE | M2_NASTY | M2_STALK |
             M2_WANDER | M2_STRONG,
         M3_WAITFORU | M3_WANTSALL, 0, 0, 20, CLR_RED),
-    MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),  
+    MON("Beholder", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
         A(ATTK(AT_MAGC, AD_CLRC, 4, 6),
           ATTK(AT_GAZE, AD_SLEE, 2, 25),
@@ -7594,8 +7582,10 @@ struct permonst _mons2[] = {
         SIZ(800, 200, MS_SILENT, MZ_LARGE), 
         MR_COLD | MR_ELEC | MR_POISON | MR_STONE, MR_POISON,
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_NEUTER,
-        M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 20, CLR_YELLOW),
+        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_MAGIC | M2_NASTY 
+            | M2_NEUTER,
+        M3_WANTSBOOK | M3_WAITFORU | M3_CLOSE | M3_INFRAVISION, 0, 0, 
+        20, CLR_GRAY),
     MON("Acererak", S_LICH,                                     /* dNetHack */
         LVL(33, 15, -9, 99, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 

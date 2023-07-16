@@ -4109,6 +4109,9 @@ int final;
     if (u.uachieve.killed_nightmare)
         enl_msg(You_, "have ", "",
                 "defeated Nightmare", ""), ++acnt;
+    if (u.uachieve.killed_beholder)
+        enl_msg(You_, "have ", "",
+                "defeated Beholder", ""), ++acnt;
     if (u.uachieve.killed_cerberus)
         enl_msg(You_, "have ", "",
                 "defeated Cerberus", ""), ++acnt;

@@ -535,11 +535,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
       10000L, NO_COLOR, DEFAULT_MAT),
     
-    /* Xanathar's eyestalk ring of proof against detection and location */
-    A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_STLTH), SPFX_WARN, 0,
+    A("The Eye of the Beholder", EYEBALL,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY,
-      SELF_TELE, A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+      DEATH_GAZE, A_NEUTRAL, NON_PM, NON_PM, 
+      500L, NO_COLOR, DEFAULT_MAT),
 
 
 

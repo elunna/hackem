@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Removed beholders. Replaced Xanathar with Beholder.
 Replaced Nebuchadnezzar with Nightmare.
 Fix: Applying wands of opening could make trap doors on invalid levels. Fixes #386.
 Staff of Rot revamp: Remove invoke/double damage effects. Make it +0 tohit, +12 wither attack instead.

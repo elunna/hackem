@@ -78,7 +78,8 @@ struct u_achieve {
     Bitfield(killed_medusa, 1);
     Bitfield(defeat_icequeen, 1);
     Bitfield(killed_cerberus, 1);
-    Bitfield(killed_nightmare,1);   /* You defeated Nightmare. */
+    Bitfield(killed_nightmare, 1);      /* You defeated Nightmare. */
+    Bitfield(killed_beholder, 1);       /* You defeated Beholder. */
     Bitfield(killed_vecna, 1);
     Bitfield(killed_grund, 1);
 

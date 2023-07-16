@@ -3382,12 +3382,6 @@ long mmflags;
         break;
     case S_JABBERWOCK:
         break;
-    case S_EYE:
-        if (mtmp->data == &mons[PM_BEHOLDER]) {
-            if (rn2(5) && !u.uhave.amulet)
-                mtmp->msleeping = 1;
-        }
-        break;
     case S_NYMPH:
         if (rn2(5) && !u.uhave.amulet)
             mtmp->msleeping = 1;
@@ -3444,14 +3438,6 @@ long mmflags;
                Let newcham() pick the shape. */
             && newcham(mtmp, (struct permonst *) 0, FALSE, FALSE))
             allow_minvent = FALSE;
-    } else if (mndx == PM_XANATHAR) {
-        struct obj *otmp;
-        otmp = oname(mksobj(RIN_DISPLACEMENT, TRUE, FALSE),
-                     artiname(ART_XANATHAR_S_RING_OF_PROOF));
-        if (otmp) {
-            otmp->blessed = otmp->cursed = 0;
-            mpickobj(mtmp, otmp);
-        }
     } else if (mndx == PM_CERBERUS) {
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {

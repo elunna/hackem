@@ -3648,7 +3648,6 @@ const char *str;
         "bat from hell", /* not the "bat" monster */
         "Thiefbane",     /* not the "thief" rank */
         "Houchou",       /* not something... */
-        "Xanathar's Ring of Proof",       /* not Xanathar... */
     };
     int i;
     for (i = 0; i < SIZE(non_monster_strs); ++i) {

@@ -521,8 +521,6 @@ dig(VOID_ARGS)
         if (!did_dig_msg) {
             if (is_lightsaber(uwep)) {
                 You("burn steadily through %s.", the(d_target[dig_target]));
-            } else if (SuperStealth) {
-                You("stealthily chip away at the %s.", d_target[dig_target]);
             } else {
                 You("hit the %s with all your might.", d_target[dig_target]);
                 wake_nearby();

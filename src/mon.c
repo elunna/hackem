@@ -934,6 +934,12 @@ unsigned corpseflags;
         obj = oname(mksobj(UNICORN_HORN, TRUE, FALSE),
                     artiname(ART_NIGHTHORN));
         goto initspecial;
+    case PM_BEHOLDER:
+        pline("All that remains is a single eye...");
+        obj = oname(mksobj(EYEBALL, TRUE, FALSE),
+                    artiname(ART_EYE_OF_THE_BEHOLDER));
+        goto initspecial;
+        
     initspecial:
         obj->quan = 1;
         curse(obj);
@@ -3834,6 +3840,9 @@ register struct monst *mtmp;
     } else if (mtmp->data == &mons[PM_NIGHTMARE] && !u.uachieve.killed_nightmare) {
         u.uachieve.killed_nightmare = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Nightmare");
+    } else if (mtmp->data == &mons[PM_BEHOLDER] && !u.uachieve.killed_beholder) {
+        u.uachieve.killed_beholder = 1;
+        livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Beholder");
     } else if (mtmp->isgrund && !u.uachieve.killed_grund) {
         u.uachieve.killed_grund = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Grund");
