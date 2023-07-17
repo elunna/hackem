@@ -105,12 +105,9 @@ MAP
 |--------------------------------------------------------------
 ENDMAP
 
-#STAIR: (23,6), up
-#STAIR: (19,14), down
-
-STAIR: (67,2), up
-STAIR: (23,6), down
-
+STAIR: (23,6), up
+STAIR: (19,14), down
+#RANDOM_MONSTERS: 'k'
 #ROOM: "ordinary" , lit, random, random, (11,9)
 
 DOOR: closed,(1,7)
