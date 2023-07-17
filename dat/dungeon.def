@@ -150,8 +150,7 @@ RNDLEVEL:		"soko4" "none" @ (4, 0) 18
 DUNGEON:	    "Town" "A" (3, 0)
 LEVALIGN:       lawful
 ENTRY:		    -1
-RNDLEVEL:       "town" "none" @ (1, 0) 7
-#LEVEL:          "town-7" "none" @ (1, 0)
+RNDLEVEL:       "town" "none" @ (1, 0) 5
 LEVEL:          "village" "none" @ (2, 0)
 LEVEL:          "townfill" "none" @ (3, 0)
 LEVELDESC:      town
