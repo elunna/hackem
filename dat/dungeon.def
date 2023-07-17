@@ -43,7 +43,7 @@ BRANCH:		    "The Sunless Sea" @ (28, 4)
 BRANCH: 	    "The Temple of Moloch" @ (32, 4)
 BRANCH: 	    "The Giant Caverns" @ (32, 4)
 LEVEL:		    "nymph" "N" @ (23, 2) 35
-RNDLEVEL:	    "bigrm" "B" @ (20, 20) 75 13
+RNDLEVEL:	    "bigrm" "B" @ (20, 20) 75 20
 LEVEL:	        "stor" "S" @ (19, 21) 66
 # REMOVED: LEVEL:		"guild" "G" @ (26, 14) 20
 
