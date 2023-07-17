@@ -34,6 +34,7 @@ ENDMAP
 NON_DIGGABLE:(00,00,75,19)
 # Portal arrival point
 BRANCH:(08,16,08,16),(0,0,0,0)
+STAIR: (22,9), down
 # accessible via ^V in wizard mode; arrive near the portal
 TELEPORT_REGION:(06,15,09,16),(0,0,0,0),up
 TELEPORT_REGION:(06,15,09,16),(0,0,0,0),down
@@ -185,6 +186,7 @@ ENDMAP
 NON_DIGGABLE:(00,00,75,19)
 # Portal arrival point
 BRANCH:(08,16,08,16),(0,0,0,0)
+STAIR: (42,9), down
 TELEPORT_REGION:(06,15,09,16),(0,0,0,0),up
 TELEPORT_REGION:(06,15,09,16),(0,0,0,0),down
 #   Throne room, with Croesus on the throne
@@ -313,6 +315,7 @@ NON_DIGGABLE:(00,00,75,19)
 REGION:(00,00,75,19),lit,"ordinary"
 # Portal arrival point
 BRANCH:(06,16,06,16),(0,0,0,0)
+STAIR: (55,10), down
 #   Throne room, with Croesus on the throne
 REGION:(62,12,75,15),lit,"throne"
 MONSTER:('@',"Croesus"),(66,14),hostile

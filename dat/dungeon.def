@@ -171,10 +171,11 @@ LEVEL:          "grund" "Z" @ (1, 0)
 #
 #	The Central Vault of Croesus.
 #
-DUNGEON:	"Fort Ludios" "K" (1, 0)
+DUNGEON:	"Fort Ludios" "K" (2, 0)
 DESCRIPTION:	mazelike
 ALIGNMENT:	unaligned
-RNDLEVEL:	"knox" "K" @ (-1, 0) 3
+RNDLEVEL:	"knox" "K" @ (1, 0) 3
+LEVEL:      "ucastle" "D" @ (2, 0)
 
 ### The Wyrm Caves ###
 DUNGEON:        "The Wyrm Caves" "D" (2, 0)
