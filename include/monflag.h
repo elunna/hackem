@@ -220,8 +220,7 @@
 #define MH_ANY          0x80000000L
 
 /* for mons[].geno (constant during game) */
-#define G_VECNA         0x4000    /* can't be genocided until Vecna is destroyed */
-#define G_VLGROUP	0x2000	/* appear in very large groups normally */
+#define G_VLGROUP	    0x2000	/* appear in very large groups normally */
 #define G_UNIQ          0x1000     /* generated only once */
 #define G_NOHELL        0x0800   /* not generated in "hell" */
 #define G_HELL          0x0400     /* generated only in "hell" */

@@ -3216,32 +3216,6 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
             mndx = name_to_mon(buf);
             ptr = &mons[mndx];
             
-            /* Liches and the like are immune to genocide until Vecna is destroyed */
-            if (!u.uevent.uvecna && no_geno_vecna(ptr)) {
-                pline_The("voice of Vecna fills your mind:");
-                verbalize("Thou shalt do no harm to %s whilst I exist!",
-                          makeplural(buf));
-                if (how & ONTHRONE) { /* dark magic causes the throne to burn you */
-                    pline_The("throne glows white hot!");
-                    if (how_resistant(FIRE_RES) == 100) {
-                        shieldeff(u.ux, u.uy);
-                        monstseesu(M_SEEN_FIRE);
-                    } else {
-                        losehp(rnd(3), "sitting on a searing hot throne", KILLED_BY);
-                    }
-                } else { /* the dark magic causes the scroll to burn */
-                    pline("A dark magic catches the scroll on fire and you burn your %s.",
-                          makeplural(body_part(HAND)));
-                    if (how_resistant(FIRE_RES) == 100) {
-                        shieldeff(u.ux, u.uy);
-                        monstseesu(M_SEEN_FIRE);
-                    } else {
-                        losehp(rnd(3), "burning scroll of genocide", KILLED_BY_AN);
-                    }
-                }
-                return;
-            }
-
 #ifdef WIZARD	/* to aid in topology testing; remove pesky monsters */
             if (wizard && buf[0] == '*') {
                 register struct monst *mtmp, *mtmp2;
