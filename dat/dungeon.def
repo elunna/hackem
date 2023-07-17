@@ -17,7 +17,7 @@
 DUNGEON:	    "The Dungeons of Doom" "D" (42, 5)
 ALIGNMENT:	    unaligned
 BRANCH:		    "The Gnomish Mines" @ (2, 3)
-RNDLEVEL:	    "mall" "T" @ (5, 2) 2
+RNDLEVEL:	    "mall" "T" @ (5, 2) 75 2
 LEVALIGN:	    lawful
 LEVELDESC:	    town
 RNDLEVEL:	    "oracle" "O" @ (7, 3) 3
