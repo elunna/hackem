@@ -136,7 +136,7 @@ spec_levs: ../util/lev_comp \
 	town.des village.des rats.des sea.des \
 	stor.des caves.des tomb.des spiders.des \
 	mtemple.des grund.des blkmar.des \
-	lethe.des nkai.des ucastle.des
+	lethe.des nkai.des ucastle.des kobold.des
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
 	../util/lev_comp castle.des
@@ -156,6 +156,7 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp vaults.des
 	../util/lev_comp town.des
 	../util/lev_comp village.des
+	../util/lev_comp kobold.des
 	../util/lev_comp rats.des
 	../util/lev_comp stor.des
 	../util/lev_comp caves.des

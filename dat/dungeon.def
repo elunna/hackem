@@ -27,6 +27,7 @@ BRANCH:         "Fort Ludios" @ (10, 20) portal
 LEVEL:		    "nymph" "N" @ (8, 22) 45
 RNDLEVEL:	    "bigrm" "B" @ (10, 25) 40 13
 RNDLEVEL:		"rats" "R" @ (10, 5) 2
+RNDLEVEL:	    "kobold" "K" @ (11, 2) 50 2
 BRANCH: 	    "Grund's Stronghold" @ (12, 2)
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal

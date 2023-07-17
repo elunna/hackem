@@ -1,0 +1,245 @@
+#
+# Kobold level version 1
+#
+
+LEVEL: "kobold-1"
+# RANDOM_MONSTERS: 'k'
+
+ROOM: "ordinary" , lit, random, random, (11,9) {
+    #NAME: "central"
+    OBJECT:('(',"chest"),random
+    OBJECT:('(',"chest"),random
+    OBJECT:('(',"chest"),random
+    OBJECT:('(',"crystal chest"),random
+    OBJECT: ')',(4,4)
+    OBJECT: ')',(4,4)
+    OBJECT: '/',(4,4)
+    OBJECT: '[',(4,4)
+    OBJECT: '[',(4,4)
+    OBJECT: '!',(4,4)
+    OBJECT: '!',(4,4)
+
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+    MONSTER: ('k', "large kobold"), random, hostile
+    MONSTER: ('k', "large kobold"), random, hostile
+    MONSTER: ('k', "large kobold"), random, hostile
+    MONSTER: ('k', "kobold noble"), random, hostile
+    MONSTER: ('k', "kobold noble"), random, hostile
+    MONSTER: ('k', "swamp kobold"), random, hostile
+    MONSTER: ('k', "swamp kobold"), random, hostile
+    MONSTER: ('k', "swamp kobold"), random, hostile
+    MONSTER: ('k', "rock kobold"), random, hostile
+    MONSTER: ('k', "rock kobold"), random, hostile
+    MONSTER: ('k', "rock kobold"), random, hostile
+    MONSTER: ('k', "Kroo the Kobold King"), (4,4), hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+    STAIR: random, up
+    OBJECT: random,random
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+    STAIR: random, down
+    OBJECT: random, random
+    TRAP: random, random
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+    OBJECT: random, random
+    OBJECT: random, random
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+    OBJECT: random, random
+    TRAP: random, random
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+    OBJECT: random, random
+    TRAP: random, random
+    MONSTER: 'k', random, hostile
+    MONSTER: 'k', random, hostile
+}
+
+RANDOM_CORRIDORS
+
+#
+# Kobold level version 2
+#
+MAZE: "kobold-2",' '
+GEOMETRY: center,center
+#0        1         2         3         4         5         6
+#1234567890123456789012345678901234567890123456789012345678901234567890
+MAP
+|--------------------------------------    -------------------|  ----|
+|....|...|.|...|......|.|......|......|----|............+.....S##+...|
+|S---|...|.+...|......|.+......|......|....|.|---+------|.....|  |...|
+|....|...+.|...|......+.|......|......|....+.|..|.......|.....|  |---|
+|....|...|.|...|......|.|......|......|....|.|..--|.....|.....S#### 
+|--+------+------------+----------+---------.+....|.....---+--|   #  
+|.......................|.....|..............|....|.....|.....|   ### 
+|+--------------------|.|.....+.|---+-----S------------+|.....|     # 
+|.......+.+.....|.....|.|.....|.|......|  #           |.|.....|     # 
+|.---+---.|----.+.....|.|.....|.|......|  ##          |.+.....|     # 
+|.|.....|.|...|.|.....|.-------.|------|   #          |.|.....|  #### 
+|.|.....|.+...|+|-----|.|...|...|....|     ###        |+------|  #   
+|.|-----|.|...|.......|.|...|.|-|....|     ###        |.......| |+--|
+|.|.....|.|...|.......|.|...|.+K|....|                |.......| |...|
+|.|.....|.----|...\...|.--+--.-----+------------------|.......| |...|
+|.+.....|.....+.......+..............S................S.......| |---|
+|--------------------------------------------------------------
+ENDMAP
+
+#STAIR: (23,6), up
+#STAIR: (19,14), down
+
+STAIR: (67,2), up
+STAIR: (23,6), down
+
+#ROOM: "ordinary" , lit, random, random, (11,9)
+
+DOOR: closed,(1,7)
+DOOR: closed,(2,15)
+DOOR: closed,(3,5)
+DOOR: closed,(5,9)
+DOOR: closed,(8,8)
+DOOR: closed,(9,3)
+DOOR: closed,(10,5)
+DOOR: closed,(10,11)
+DOOR: closed,(10,8)
+DOOR: closed,(11,2)
+DOOR: closed,(14,15)
+DOOR: closed,(15,11)
+DOOR: closed,(16,9)
+DOOR: closed,(22,15)
+DOOR: closed,(22,3)
+DOOR: closed,(23,5)
+DOOR: closed,(24,2)
+DOOR: closed,(26,14)
+DOOR: closed,(30,7)
+DOOR: closed,(30,13)
+DOOR: closed,(34,5)
+DOOR: closed,(35,14)
+DOOR: closed,(36,7)
+DOOR: closed,(43,3)
+DOOR: closed,(45,5)
+DOOR: closed,(49,2)
+DOOR: closed,(55,7)
+DOOR: closed,(55,11)
+DOOR: closed,(56,1)
+DOOR: closed,(56,9)
+DOOR: closed,(59,5)
+
+TRAP: random,random
+TRAP: random,random
+TRAP: random,random
+
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+GOLD: 1d200, random
+
+OBJECT:('(',"chest"),(45,12)
+OBJECT:'*',(45,12)
+OBJECT:'/',(45,12)
+OBJECT:'*',(45,12)
+
+OBJECT:('(',"chest"),(65,13)
+OBJECT:'*',(65,13)
+OBJECT:'*',(65,13)
+OBJECT:'*',(65,13)
+GOLD: 2d200,(65,13)
+
+OBJECT:'*',(68,2)
+OBJECT:'*',(68,2)
+OBJECT:'*',(68,2)
+GOLD: 3d200,(68,2)
+OBJECT:('(',"chest"),(68,2)
+
+OBJECT:('(',"chest"),(2,1)
+OBJECT:('(',"chest"),(3,1)
+OBJECT:('(',"chest"),(4,1)
+OBJECT:('(',"chest"),(18,13)
+OBJECT: ')',(18,14)
+OBJECT: ')',(18,14)
+OBJECT: '/',(18,14)
+OBJECT: '[',(18,14)
+OBJECT: '[',(18,14)
+OBJECT: '!',(18,14)
+OBJECT: '!',(18,14)
+
+# Throne position: (18,14)
+
+MONSTER: ('B',"rhumbat"), (43,11), hostile, asleep
+MONSTER: ('B',"rhumbat"), (65,13), hostile, asleep
+MONSTER: ('s',"giant spider"), (67,1), hostile, asleep
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "kobold"), random, hostile
+MONSTER: ('k', "large kobold"), (15,12), hostile
+MONSTER: ('k', "large kobold"), (19,12), hostile
+MONSTER: ('k', "rock kobold"), (20,12), hostile
+MONSTER: ('k', "swamp kobold"), (16,13), hostile
+MONSTER: ('k', "large kobold"), (19,13), hostile
+MONSTER: ('k', "swamp kobold"), (15,14), hostile
+MONSTER: ('k', "swamp kobold"), (17,14), hostile
+MONSTER: ('k', "Kroo the Kobold King"), (18,14), hostile
+MONSTER: ('k', "rock kobold"), (20,14), hostile
+MONSTER: ('k', "kobold shaman"), (15,15), hostile
+MONSTER: ('k', "kobold shaman"), (16,15), hostile
+MONSTER: 'k', random, hostile
+MONSTER: 'k', random, hostile
+MONSTER: 'k', random, hostile
+MONSTER: 'k', random, hostile
+MONSTER: 'k', random, hostile
+MONSTER: 'k', (17,12), hostile
+MONSTER: 'k', (21,12), hostile
+MONSTER: 'k', (18,13), hostile
+MONSTER: 'k', (21,13), hostile
+MONSTER: 'k', (20,15), hostile
+MONSTER: 'k', (21,15), hostile
