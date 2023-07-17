@@ -147,7 +147,7 @@ dosounds()
             "hear someone praising your valor!",
             "hear someone singing: \"Jingle bells, jingle bells...\"",
         };
-        You(spooky_msg[rn2(15)+hallu*9]);
+        You1(spooky_msg[rn2(15) + hallu * 9]);
         return;
     }
     if (level.flags.has_vault && !rn2(200)) {

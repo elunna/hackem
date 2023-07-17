@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Silence compiler warning for spooky messages.
 Fix tab issues in unix makefile.
 Celibate tracking missing from encodeconduct.
 Revert "The Crown of Saint Edward now only grants MR when worn."
