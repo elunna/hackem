@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Added spooky sounds to nightmare level (Tina Hall).
 Added giant caverns to the dungeon (from SLASHEM)
 Added the castle dungeon level under Fort Ludios.
 Re-slashify the dungeon.

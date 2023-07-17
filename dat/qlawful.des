@@ -4,8 +4,7 @@
 #
 # Nightmare's Nightmare World
 MAZE:"qlawful",' '
-#FLAGS: noteleport, hardfloor, nommap, shortsighted, spooky
-FLAGS: noteleport, hardfloor, nommap, shortsighted
+FLAGS: noteleport, hardfloor, nommap, shortsighted, spooky
 
 GEOMETRY: center, center
 #          1         2         3         4         5         6         7
