@@ -2025,7 +2025,7 @@ struct obj *otmp;
                          && rn2(10)
                          && ((rotted < 1) ? TRUE : !rn2(rotted+1)));
         const char *pmxnam = food_xname(otmp, FALSE);
-
+        
         if (!strncmpi(pmxnam, "the ", 4))
             pmxnam += 4;
         pline("%s%s %s %s%c",
@@ -2273,7 +2273,8 @@ struct obj *otmp;
         } else {
  give_feedback:
             pline("This %s is %s", singular(otmp, xname),
-              (otmp->cursed || otmp->otyp == FRUITCAKE)
+              (otmp->cursed || otmp->otyp == FRUITCAKE 
+                   || otmp->otyp == EYEBALL || otmp->otyp == SEVERED_HAND)
                  ? (Hallucination ? "grody!" : "terrible!")
                  : (otmp->otyp == CRAM_RATION
                     || otmp->otyp == K_RATION
@@ -2786,7 +2787,18 @@ struct obj *otmp;
             u.uhp -= rn1(50, 150);
         if (u.uhp <= 0) {
             killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Eye of Vecna");
+            Strcpy(killer.name, "eating the Eye of the Beholder");
+            done(DIED);
+        }
+        break;
+    case SEVERED_HAND:
+        if (!otmp->oartifact) 
+            break;
+        You("feel the hand scrabbling around inside of you!");
+        u.uhp -= rn1(50,150);
+        if (u.uhp <= 0) {
+            killer.format = KILLED_BY;
+            Strcpy(killer.name, "eating the Hand of Vecna");
             done(DIED);
         }
         break;
@@ -3159,6 +3171,7 @@ doeat()
             nodelicious = TRUE;
         }
 #endif
+
         context.victual.nmod = basenutrit;
         context.victual.eating = TRUE; /* needed for lesshungry() */
 
@@ -3185,7 +3198,9 @@ doeat()
             nodelicious = TRUE;
         } else if (otmp->material == PAPER)
             nodelicious = TRUE;
-
+        else if (otmp->otyp == EYEBALL || otmp->otyp == SEVERED_HAND)
+            nodelicious = TRUE;
+        
         if (otmp->oclass == WEAPON_CLASS && otmp->opoisoned) {
             pline("Ecch - that must have been poisonous!");
             if (how_resistant(POISON_RES) < 100) {

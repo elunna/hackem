@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix feedback for eating the Eye of the Beholder or Hand of Vecna.
 Removed leftover database bit for Hand/Eye of Vecna.
 Remove some bits leftover from Ice Mage's snowball spell.
 Completely remove Ice Queen branch.
