@@ -5367,6 +5367,10 @@ struct obj *obj;
             traptype = ANTI_MAGIC;
             break;
         case WAN_OPENING:
+            /* Trap doors are not allowed on some levels
+             * (ie: entry level of Sokoban.) */
+            if (!Can_fall_thru(&u.uz))
+                return;
             traptype = TRAPDOOR;
             break;
             /* Shock, poison, acid, and sonic wands can make magic beam traps.*/
