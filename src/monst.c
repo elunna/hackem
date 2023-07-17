@@ -6792,7 +6792,7 @@ struct permonst _mons2[] = {
         A(ATTK(AT_WEAP, AD_PHYS, 4, 8), 
           ATTK(AT_CLAW, AD_STUN, 6, 6),
           ATTK(AT_MAGC, AD_CLRC, 4, 6), 
-          ATTK(AT_CLAW, AD_PHYS, 3, 6),
+          ATTK(AT_CLAW, AD_SITM, 3, 6),
           NO_ATTK, NO_ATTK),
         SIZ(1000, 500, MS_CUSS, MZ_LARGE), MR_FIRE | MR_COLD | MR_POISON, 0,
         M1_FLY | M1_SEE_INVIS | M1_HUMANOID | M1_POIS,
