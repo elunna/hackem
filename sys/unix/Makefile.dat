@@ -148,10 +148,10 @@ spec_levs: ../util/lev_comp \
 	nymph.des \
 	oracle.des \
 	qchaos.des \
-    qlawful.des \
-    qneutral.des \
-    rats.des \
-    sea.des \
+	qlawful.des \
+	qneutral.des \
+	rats.des \
+	sea.des \
 	sokoban.des \
 	spiders.des \
 	stor.des \
@@ -176,20 +176,20 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp lethe.des
 	../util/lev_comp mall.des
 	../util/lev_comp medusa.des
-    ../util/lev_comp mines.des
-    ../util/lev_comp mtemple.des
+	../util/lev_comp mines.des
+	../util/lev_comp mtemple.des
 	../util/lev_comp nkai.des
 	../util/lev_comp nymph.des
 	../util/lev_comp oracle.des
 	../util/lev_comp qchaos.des
-    ../util/lev_comp qlawful.des
-    ../util/lev_comp qneutral.des
-    ../util/lev_comp rats.des
-    ../util/lev_comp sea.des
+	../util/lev_comp qlawful.des
+	../util/lev_comp qneutral.des
+	../util/lev_comp rats.des
+	../util/lev_comp sea.des
 	../util/lev_comp sokoban.des
 	../util/lev_comp spiders.des
-    ../util/lev_comp stor.des
-    ../util/lev_comp tomb.des
+	../util/lev_comp stor.des
+	../util/lev_comp tomb.des
 	../util/lev_comp tower.des
 	../util/lev_comp town.des
 	../util/lev_comp ucastle.des
