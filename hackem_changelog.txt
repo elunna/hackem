@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Silence compiler warning for the hand of vecna invoke.
 Revert "Being in the presence of demon lords or princes negates self teleportation." 
 Revert "Being in the presence of demon lords or princes negates the effects of cursed gain level"
 Revert "Graz'zt no longer has an item stealing attack - replaced with physical attack instead."

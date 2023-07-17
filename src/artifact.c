@@ -3759,7 +3759,6 @@ struct obj *obj;
             }
             break;
         case SUMMON_UNDEAD: {
-            register struct monst *mtmp2;
             if (u.uluck < -9) {
                 u.uhp -= rn2(20) + 5;
                 pline_The("Hand claws you with its icy nails!");
@@ -3769,7 +3768,6 @@ struct obj *obj;
                     done(DIED);
                 }
             }
-            /* TODO: Use the Book of the Dead invoke instead? */
             int summon_loop = rn2(4) + 4;
             pline("Creatures from the grave surround you!");
             do {
@@ -3792,9 +3790,8 @@ struct obj *obj;
                     break;
                 }
                 mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
-                if ((mtmp2 = tamedog(mtmp, (struct obj *)0)) != 0)
-                    mtmp = mtmp2;
-                mtmp->mtame = 30;
+                tamedog(mtmp, (struct obj *) 0);
+                mtmp->mtame = 30; /* Do we need this? */
                 summon_loop--;
             } while (summon_loop);
             
