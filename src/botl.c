@@ -427,7 +427,6 @@ max_rank_sz()
     return;
 }
 
-#ifdef SCORE_ON_BOTL
 long
 botl_score()
 {
@@ -443,7 +442,6 @@ botl_score()
         utotal = LONG_MAX; /* wrap around */
     return utotal;
 }
-#endif /* SCORE_ON_BOTL */
 
 #ifdef REALTIME_ON_BOTL
 /* Returns a human readable formatted duration (e.g. 2h:03m:ss). */

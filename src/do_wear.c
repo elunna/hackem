@@ -1198,7 +1198,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         }
         break;
     case CELESTIAL_DRAGON_SCALES: {
-        boolean already_flying;
+        boolean already_flying, was_flying;
         if (puton) {
             ESleep_resistance |= W_ARM;
             EShock_resistance |= W_ARM;
@@ -1224,7 +1224,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             ESleep_resistance &= ~W_ARM;
             EShock_resistance &= ~W_ARM;
 
-            boolean was_flying = !!Flying;
+            was_flying = !!Flying;
 
             /* remove armor 'early' to determine whether Flying changes */
             setworn((struct obj *) 0, W_ARM);

@@ -1756,7 +1756,8 @@ static const struct blitz_tab blitzes[] = {
 static int
 doblitz()
 {
-    int i, j, dx, dy, bdone = 0, tech_no = get_tech_no(T_BLITZ);
+    int i, j, dx, dy, res, bdone = 0, 
+                           tech_no = get_tech_no(T_BLITZ);
     char buf[BUFSZ], buf2[BUFSZ];
     char *bp;
     char cmdlist[BUFSZ];
@@ -1792,7 +1793,6 @@ doblitz()
 
     doblitzlist();
     Strcpy(cmdlist, "");
-    int res;
     for (i = 0; i < MAX_BLITZ; i++) {
         if (i == 0)
             sprintf(buf2, "%s", Enter_Blitz);
