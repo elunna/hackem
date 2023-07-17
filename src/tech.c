@@ -2976,7 +2976,8 @@ int tech_no;
     struct monst *mtmp = NULL;
     coord cc;
     int dx, dy, sx, sy, range;
-
+    boolean shopdamage = FALSE;
+    
     if (Unchanging) {
          if (!Hallucination)
             pline("Your form is too rigid to leap!");
@@ -3093,8 +3094,8 @@ int tech_no;
          }
 
          /* Interact with dungeon features */
-         zap_over_floor(sx, sy, (AD_ACID - 1), FALSE, 0, FALSE);
-
+         zap_over_floor(sx, sy, (AD_ACID - 1), &shopdamage, 0, FALSE);
+         
          /* A little Sokoban guilt... */
          if (In_sokoban(&u.uz)) {
             struct trap *ttmp = t_at(sx, sy);
@@ -3113,6 +3114,10 @@ int tech_no;
          tmp_at(DISP_END, 0);
          if (tmp_invul)
             Invulnerable = 0;
+         
+         if (shopdamage)
+            pay_for_damage("dissolve", FALSE);
+         shopdamage = FALSE;
     }
 
     You("reform!");
