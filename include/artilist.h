@@ -480,9 +480,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1000L,
       NO_COLOR, DEFAULT_MAT),
 
-    A("Wallet of Perseus", BAG_OF_HOLDING, SPFX_RESTR, SPFX_PROTECT, 0,
+    A("Wallet of Perseus", BAG_OF_HOLDING, SPFX_RESTR, 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
-      10000L, NO_COLOR, DRAGON_HIDE),
+      10000L, NO_COLOR, DEFAULT_MAT),
     
     /*returns to your hand.*/
     A("Windrider", CHAKRAM, (SPFX_RESTR), 0, 0,
