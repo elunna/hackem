@@ -132,7 +132,7 @@ spec_levs: ../util/lev_comp \
 	bigroom.des castle.des endgame.des gehennom.des \
 	knox.des medusa.des mines.des nymph.des oracle.des \
 	sokoban.des tower.des yendor.des vaults.des \
-	qlawful.des qneutral.des qchaos.des \
+	qlawful.des qneutral.des qchaos.des mall.des \
 	town.des village.des rats.des sea.des \
 	stor.des caves.des tomb.des spiders.des \
 	mtemple.des grund.des blkmar.des \
@@ -154,6 +154,7 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp tower.des
 	../util/lev_comp yendor.des
 	../util/lev_comp vaults.des
+	../util/lev_comp mall.des
 	../util/lev_comp town.des
 	../util/lev_comp village.des
 	../util/lev_comp kobold.des

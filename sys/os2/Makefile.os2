@@ -1309,6 +1309,8 @@ $(GAMEDIR)\knox.lev : $(DAT)\knox.des $(TEMP)\lev_comp.exe
 	$(MAKEB) LF=knox do_slev
 $(GAMEDIR)\oracle.lev : $(DAT)\oracle.des $(TEMP)\lev_comp.exe
 	$(MAKEB) LF=oracle do_slev
+$(TEMP)\mall-1.lev : $(DAT)\mall.des $(TEMP)\lev_comp.exe
+	$(MAKEB) LF=mall-1 do_slev
 $(TEMP)\kobold-1.lev : $(DAT)\kobold.des $(TEMP)\lev_comp.exe
 	$(MAKEB) LF=kobold-1 do_slev
 do_slev :

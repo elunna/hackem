@@ -1,0 +1,212 @@
+#       SCCS Id: @(#)mall.des  3.4     1993/02/23
+#       Copyright (c) 1989 by Jean-Christophe Collet
+#       Copyright (c) 1991 by M. Stephenson
+# NetHack may be freely redistributed.  See license for details.
+#
+
+#
+# The Town/Mall: Version 1
+#
+
+LEVEL: "mall-1"
+MESSAGE: "You hear the sounds of civilization."
+
+ROOM: "ordinary" , lit, random, random, (48,15) {
+#NAME: "town"
+FOUNTAIN: (20, 7)
+
+#
+#       The Town Watch.
+#
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('r', "sewer rat"), random, hostile
+MONSTER: ('r', "sewer rat"), random, hostile
+MONSTER: ('f', "kitten"), random, hostile
+
+SUBROOM: "tool shop" [20%], lit, (2,2), (6,4) {
+    ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "food shop" [40%], lit, (2,9), (6,4) {
+    ROOMDOOR: false, open, north, random
+}
+
+SUBROOM: "scroll shop" [20%], unlit, (9,2), (6,4) {
+    ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "potion shop" [30%], lit, (9,9), (6,4) {
+    ROOMDOOR: false, open, north, random
+}
+
+SUBROOM: "ring shop" [12%], lit, (16,2), (4,3) {
+    ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "candle shop" [33%], lit, (23,2), (6,3) {
+    ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "book shop" [12%], lit, (16,10), (4,3) {
+    ROOMDOOR: false, open, east, random
+}
+
+SUBROOM: "wand shop" [17%], lit, (33,2), (3,3) {
+    ROOMDOOR: false, open, west, random
+}
+
+SUBROOM: "weapon shop" [20%], lit, (39,2), (7,4) {
+    ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "armor shop" [22%], unlit, (38,10), (7,3) {
+    ROOMDOOR: false, open, north, random
+}
+
+# WAC Changed chance from 20 to 100.  Should be at least 1 guaranteed shop
+SUBROOM: "shop", lit, (23,9), (10,4) {
+    ROOMDOOR: false, open, north, random
+}
+}
+
+ROOM: "ordinary", random, random, random, random {
+    STAIR: random, up
+    STAIR: random, down
+    MONSTER: random, random
+}
+
+ROOM: "ordinary", random, random, random, random {
+    MONSTER: random, random
+    OBJECT: random, random
+}
+
+ROOM: "ordinary", random, random, random, random {
+    OBJECT: random, random
+}
+
+ROOM: "ordinary", random, random, random, random {
+    MONSTER: random, random
+    OBJECT: random, random
+    TRAP: random, random
+}
+
+#RANDOM_MONSTERS:'@','r'
+#MONSTER: '@', random
+#MONSTER: 'r', random
+
+RANDOM_CORRIDORS
+
+#
+# The Town/Mall: Version 2
+#
+
+LEVEL: "mall-2"
+MESSAGE: "You hear the sounds of civilization."
+
+ROOM: "ordinary" , lit, random, random, (48,15) {
+#NAME: "town"
+FOUNTAIN: (22, 7)
+
+# from 2 to 48 across
+
+#
+#       The Town Watch.
+#
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watchman"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "watch captain"), random, peaceful
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('@', "mugger"), random, hostile
+MONSTER: ('r', "sewer rat"), random, hostile
+MONSTER: ('r', "sewer rat"), random, hostile
+MONSTER: ('d', "little dog"), random, hostile
+
+SUBROOM: "weapon shop" [20%], lit, (2,2), (5,4) {
+  ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "ring shop" [12%], lit, (8,2), (4,4) {
+  ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "candle shop" [33%], lit, (15,3), (5,3) {
+  ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "armor shop" [22%], unlit, (25,2), (6,4) {
+  ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "food shop" [40%], lit, (32,2), (14,3) {
+  ROOMDOOR: false, open, south, random
+}
+
+SUBROOM: "scroll shop" [20%], unlit, (2,9), (6,4) {
+  ROOMDOOR: false, open, north, random
+}
+
+SUBROOM: "potion shop" [30%], lit, (9,9), (6,4) {
+  ROOMDOOR: false, open, north, random
+}
+
+SUBROOM: "tool shop" [20%], lit, (19,10), (5,3) {
+  ROOMDOOR: false, open, north, random
+}
+
+SUBROOM: "book shop" [12%], lit, (25,10), (4,3) {
+  ROOMDOOR: false, open, north, random
+}
+
+SUBROOM: "wand shop" [17%], lit, (43,10), (3,3) {
+  ROOMDOOR: false, open, north, random
+}
+
+# WAC Changed chance from 20 to 100.  Should be at least 1 guaranteed shop
+SUBROOM: "shop", lit, (33,9), (9,4) {
+  ROOMDOOR: false, open, west, random
+}
+}
+
+ROOM: "ordinary", random, random, random, random {
+  STAIR: random, up
+  STAIR: random, down
+  MONSTER: random, random
+}
+
+ROOM: "ordinary", random, random, random, random {
+  MONSTER: random, random
+  OBJECT: random, random
+}
+
+ROOM: "ordinary", random, random, random, random {
+  OBJECT: random, random
+}
+
+ROOM: "ordinary", random, random, random, random {
+  MONSTER: random, random
+  OBJECT: random, random
+  TRAP: random, random
+}
+
+
+#RANDOM_MONSTERS:'@','r'
+#MONSTER: '@', random
+#MONSTER: 'r', random
+
+RANDOM_CORRIDORS

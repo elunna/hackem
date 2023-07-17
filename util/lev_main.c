@@ -287,7 +287,7 @@ char **argv;
         ":dat:nkai.des",     ":dat:ucastle.des",    ":dat:spiders.des", 
         ":dat:knox.des",     ":dat:medusa.des",     ":dat:mines.des",
         ":dat:nymph.des",    ":dat:oracle.des",     ":dat:sokoban.des",
-        ":dat:tower.des",    ":dat:yendor.des",
+        ":dat:tower.des",    ":dat:yendor.des",     ":dat:mall.des",
         ":dat:town.des",     ":dat:village.des",
         ":dat:caves.des",    ":dat:kobold.des",
         ":dat:tomb.des",     ":dat:stor.des", 

@@ -738,7 +738,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
     $(DAT)\nkai.des     $(DAT)\ucastle.des  $(DAT)\town.des \
     $(DAT)\village.des  $(DAT)\spiders.des \
 	$(DAT)\rats.des 	$(DAT)\stor.des 	$(DAT)\caves.des \
-	$(DAT)\tomb.des 	$(DAT)\mtemple.des \
+	$(DAT)\tomb.des 	$(DAT)\mtemple.des  $(DAT)\mall.des \
 	$(DAT)\grund.des 	$(DAT)\blkmar.des   $(DAT)\kobold.des \
 	$(DAT)\arch.des     $(DAT)\barb.des     $(DAT)\caveman.des \
 	$(DAT)\convict.des  $(DAT)\healer.des   $(DAT)\infidel.des \
@@ -764,6 +764,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp sokoban.des
 	$(U)levcomp tower.des
 	$(U)levcomp vaults.des
+	$(U)levcomp mall.des
 	$(U)levcomp town.des
 	$(U)levcomp village.des
 	$(U)levcomp rats.des
