@@ -23,26 +23,32 @@ LEVELDESC:	    town
 RNDLEVEL:	    "oracle" "O" @ (7, 3) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
-CHAINBRANCH:	"Town" "oracle" + (2, 2) up
-BRANCH:         "Fort Ludios" @ (10, 20) portal
-LEVEL:		    "nymph" "N" @ (8, 22) 45
-RNDLEVEL:	    "bigrm" "B" @ (10, 25) 40 13
-RNDLEVEL:		"rats" "R" @ (10, 5) 2
+CHAINBRANCH:	"Town" "oracle" + (2, 0) up
+BRANCH:         "Fort Ludios" @ (10, 30) portal
+RNDLEVEL:		"rats" "R" @ (10, 2) 50 2
 RNDLEVEL:	    "kobold" "K" @ (11, 2) 50 2
 BRANCH: 	    "Grund's Stronghold" @ (12, 2)
+
+# Quest levels
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
-ALIGNMENT:      chaotic
-DESCRIPTION:    mazelike
-BRANCH: 	    "The Wyrm Caves" @ (22, 2)
-BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
-BRANCH: 	    "The Lost Tomb" @ (25, 6)
-LEVEL:	        "stor" "S" @ (22, 9) 66
-BRANCH: 	    "The Temple of Moloch" @ (31, 4)
-BRANCH:		    "The Spider Caves" @ (26, 5)
+
+BRANCH: 	    "The Wyrm Caves" @ (20, 2)
+BRANCH:		    "One-eyed Sam's Market" @ (22, 2) portal
+BRANCH: 	    "The Lost Tomb" @ (21, 4)
+BRANCH:		    "The Spider Caves" @ (26, 4)
 BRANCH:		    "The Sunless Sea" @ (28, 4)
+BRANCH: 	    "The Temple of Moloch" @ (32, 4)
+# TODO: BRANCH: 	"The Giant Caverns" @ (32, 4)
+LEVEL:		    "nymph" "N" @ (23, 2) 35
+RNDLEVEL:	    "bigrm" "B" @ (20, 20) 75 13
+LEVEL:	        "stor" "S" @ (19, 21) 66
+# REMOVED: LEVEL:		"guild" "G" @ (26, 14) 20
+
+
+
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
 LEVALIGN:	    chaotic
 RNDLEVEL:	    "castle" "none" @ (-1, 0) 3
