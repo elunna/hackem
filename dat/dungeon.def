@@ -181,16 +181,12 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
-### The Lost Levels ###
-# Includes: 
-#   The Lost Tomb, 
-#   The Spider Caves, 
-#   The Sunless Sea
-#   The Giant Caves
+### The Lost Tomb ###
+# Includes The Lost Tomb, The Spider Caves, and The Sunless Sea.
 DUNGEON:        "The Lost Levels" "L" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-RNDLEVEL:       "tomb" "L" @ (1, 0) 4
+RNDLEVEL:       "tomb" "L" @ (1, 0) 3
 
 ### The Temple of Moloch ###
 DUNGEON:        "The Temple of Moloch" "none" (1, 0)
