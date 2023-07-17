@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert "The Stake of Van Helsing must be wielded now to get magic resistance."
 Revert "The Great Dagger of Glaurgnaa must be wielded to get magic resistance."
 Organized some of the makefiles.
 Imported more big room variants from SlashTHEM.
