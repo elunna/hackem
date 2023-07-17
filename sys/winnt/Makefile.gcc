@@ -782,41 +782,57 @@ recover: $(U)recover.exe
 	$(subst /,\,if exist $(DOC)/recover.txt copy $(DOC)/recover.txt $(GAMEDIR)/recover.txt)
 
 $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
-	 $(DAT)/endgame.des  $(DAT)/gehennom.des $(DAT)/lethe.des \
-	 $(DAT)/knox.des     $(DAT)/medusa.des \
-	 $(DAT)/nymph.des    $(DAT)/oracle.des   $(DAT)/tower.des \
-	 $(DAT)/vaults.des   $(DAT)/yendor.des \
-	 $(DAT)/nkai.des     $(DAT)/ucastle.des \
-	 $(DAT)/arch.des     $(DAT)/barb.des     $(DAT)/caveman.des \
-	 $(DAT)/convict.des  $(DAT)/healer.des   $(DAT)/infidel.des \
-	 $(DAT)/flame.des    $(DAT)/ice.des      $(DAT)/necro.des \
-	 $(DAT)/knight.des   $(DAT)/monk.des     $(DAT)/priest.des \
-	 $(DAT)/ranger.des   $(DAT)/rogue.des    $(DAT)/samurai.des \
-	 $(DAT)/slayer.des   $(DAT)/yeoman.des   $(DAT)/pirate.des \
-	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
-	 $(DAT)/jedi.des     $(DAT)/mall-1.des   $(DAT)/mall-2.des \
-	 $(DAT)/wizard.des	 $(DAT)/town.des     $(DAT)/village.des \
-	 $(DAT)/rats.des     $(DAT)/stor.des     $(DAT)/spiders.des \
-     $(DAT)/caves.des  $(DAT)/tomb.des       $(DAT)/giants.des \
-     $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
+    $(DAT)/arch.des \
+    $(DAT)/barb.des \
+    $(DAT)/caveman.des \
+    $(DAT)/convict.des \
+    $(DAT)/healer.des \
+    $(DAT)/ice.des \
+    $(DAT)/infidel.des \
+    $(DAT)/jedi.des \
+    $(DAT)/flame.des \
+    $(DAT)/knight.des \
+    $(DAT)/monk.des \
+    $(DAT)/necro.des \
+    $(DAT)/pirate.des \
+    $(DAT)/priest.des \
+    $(DAT)/ranger.des \
+    $(DAT)/rogue.des \
+    $(DAT)/samurai.des \
+    $(DAT)/slayer.des \
+    $(DAT)/tourist.des \
+    $(DAT)/valkyrie.des \
+    $(DAT)/wizard.des \
+    $(DAT)/yeoman.des \
+    $(DAT)/blkmar.des \
+    $(DAT)/caves.des \
+    $(DAT)/endgame.des \
+    $(DAT)/gehennom.des \
+    $(DAT)/giants.des \
+    $(DAT)/grund.des \
+    $(DAT)/knox.des \
+    $(DAT)/lethe.des \
+    $(DAT)/mall-1.des \
+    $(DAT)/mall-2.des \
+    $(DAT)/medusa.des \
+    $(DAT)/mtemple.des \
+    $(DAT)/nkai.des \
+    $(DAT)/nymph.des \
+    $(DAT)/oracle.des \
+    $(DAT)/rats.des \
+    $(DAT)/sokoban.des \
+    $(DAT)/spiders.des \
+    $(DAT)/stor.des \
+    $(DAT)/tomb.des \
+    $(DAT)/tower.des \
+    $(DAT)/town.des \
+    $(DAT)/vaults.des \
+    $(DAT)/ucastle.des \
+    $(DAT)/village.des \
+    $(DAT)/yendor.des \
 
-	$(subst /,\,$(U)levcomp $(DAT)/bigroom.des)
-	$(subst /,\,$(U)levcomp $(DAT)/castle.des)
-	$(subst /,\,$(U)levcomp $(DAT)/endgame.des)
-	$(subst /,\,$(U)levcomp $(DAT)/gehennom.des)
-	$(subst /,\,$(U)levcomp $(DAT)/lethe.des)
-	$(subst /,\,$(U)levcomp $(DAT)/ucastle.des)
-	$(subst /,\,$(U)levcomp $(DAT)/nkai.des)
-	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
-	$(subst /,\,$(U)levcomp $(DAT)/mines.des)
-	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
-	$(subst /,\,$(U)levcomp $(DAT)/nymph.des)
-	$(subst /,\,$(U)levcomp $(DAT)/oracle.des)
-	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
-	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
-	$(subst /,\,$(U)levcomp $(DAT)/vaults.des)
-	$(subst /,\,$(U)levcomp $(DAT)/yendor.des)
-	$(subst /,\,$(U)levcomp $(DAT)/arch.des)
+
+    $(subst /,\,$(U)levcomp $(DAT)/arch.des)
 	$(subst /,\,$(U)levcomp $(DAT)/barb.des)
 	$(subst /,\,$(U)levcomp $(DAT)/caveman.des)
 	$(subst /,\,$(U)levcomp $(DAT)/convict.des)
@@ -838,17 +854,35 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/valkyrie.des)
 	$(subst /,\,$(U)levcomp $(DAT)/wizard.des)
 	$(subst /,\,$(U)levcomp $(DAT)/yeoman.des)
+	
+	$(subst /,\,$(U)levcomp $(DAT)/bigroom.des)
+	$(subst /,\,$(U)levcomp $(DAT)/blkmar.des
+	$(subst /,\,$(U)levcomp $(DAT)/castle.des)
+	$(subst /,\,$(U)levcomp $(DAT)/caves.des
+	$(subst /,\,$(U)levcomp $(DAT)/endgame.des)
+	$(subst /,\,$(U)levcomp $(DAT)/gehennom.des)
+	$(subst /,\,$(U)levcomp $(DAT)/giants.des
+	$(subst /,\,$(U)levcomp $(DAT)/grund.des
+	$(subst /,\,$(U)levcomp $(DAT)/lethe.des)
+	$(subst /,\,$(U)levcomp $(DAT)/nkai.des)
+	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
 	$(subst /,\,$(U)levcomp $(DAT)/mall-1.des)
     $(subst /,\,$(U)levcomp $(DAT)/mall-2.des)
-    $(subst /,\,$(U)levcomp $(DAT)/ rats.des
-    $(subst /,\,$(U)levcomp $(DAT)/ stor.des
-    $(subst /,\,$(U)levcomp $(DAT)/ caves.des
-    $(subst /,\,$(U)levcomp $(DAT)/ tomb.des
-    $(subst /,\,$(U)levcomp $(DAT)/ spiders.des
-    $(subst /,\,$(U)levcomp $(DAT)/ giants.des
-    $(subst /,\,$(U)levcomp $(DAT)/ mtemple.des
-    $(subst /,\,$(U)levcomp $(DAT)/ grund.des
-    $(subst /,\,$(U)levcomp $(DAT)/ blkmar.des
+	$(subst /,\,$(U)levcomp $(DAT)/mines.des)
+	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
+	$(subst /,\,$(U)levcomp $(DAT)/mtemple.des
+	$(subst /,\,$(U)levcomp $(DAT)/nymph.des)
+	$(subst /,\,$(U)levcomp $(DAT)/oracle.des)
+	$(subst /,\,$(U)levcomp $(DAT)/rats.des
+	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
+	$(subst /,\,$(U)levcomp $(DAT)/spiders.des
+	$(subst /,\,$(U)levcomp $(DAT)/stor.des
+	$(subst /,\,$(U)levcomp $(DAT)/tomb.des
+	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
+	$(subst /,\,$(U)levcomp $(DAT)/ucastle.des)
+	$(subst /,\,$(U)levcomp $(DAT)/vaults.des)
+	$(subst /,\,$(U)levcomp $(DAT)/yendor.des)
+
 	$(subst /,\,copy *.lev $(DAT))
 	$(subst /,\,del *.lev)
 	$(subst /,\,echo sp_levs done > $(O)sp_lev.tag)

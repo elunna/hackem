@@ -129,55 +129,98 @@ options:	../util/makedefs
 
 
 spec_levs: ../util/lev_comp \
-	bigroom.des castle.des endgame.des gehennom.des \
-	knox.des medusa.des mines.des nymph.des oracle.des \
-	sokoban.des tower.des yendor.des vaults.des \
-	qlawful.des qneutral.des qchaos.des mall.des \
-	town.des village.des rats.des sea.des \
-	stor.des caves.des tomb.des spiders.des \
-	mtemple.des grund.des blkmar.des giants.des \
-	lethe.des nkai.des ucastle.des kobold.des
+	bigroom.des \
+	blkmar.des \
+	castle.des \
+	caves.des \
+	endgame.des \
+	gehennom.des \
+	giants.des \
+	grund.des \
+	knox.des \
+	kobold.des \
+	lethe.des \
+	mall.des \
+	medusa.des \
+	mines.des \
+	mtemple.des \
+	nkai.des \
+	nymph.des \
+	oracle.des \
+	qchaos.des \
+    qlawful.des \
+    qneutral.des \
+    rats.des \
+    sea.des \
+	sokoban.des \
+	spiders.des \
+	stor.des \
+	tomb.des \
+	tower.des \
+	town.des \
+	ucastle.des \
+	vaults.des \
+	village.des \
+	yendor.des 
 	-rm -f vaults.dat
 	../util/lev_comp bigroom.des
+	../util/lev_comp blkmar.des
 	../util/lev_comp castle.des
+	../util/lev_comp caves.des
 	../util/lev_comp endgame.des
 	../util/lev_comp gehennom.des
-	../util/lev_comp lethe.des
-	../util/lev_comp ucastle.des
-	../util/lev_comp nkai.des
+	../util/lev_comp giants.des
+	../util/lev_comp grund.des
 	../util/lev_comp knox.des
+	../util/lev_comp kobold.des
+	../util/lev_comp lethe.des
+	../util/lev_comp mall.des
 	../util/lev_comp medusa.des
-	../util/lev_comp mines.des
+    ../util/lev_comp mines.des
+    ../util/lev_comp mtemple.des
+	../util/lev_comp nkai.des
 	../util/lev_comp nymph.des
 	../util/lev_comp oracle.des
-	../util/lev_comp sokoban.des
-	../util/lev_comp tower.des
-	../util/lev_comp yendor.des
-	../util/lev_comp vaults.des
-	../util/lev_comp mall.des
-	../util/lev_comp town.des
-	../util/lev_comp village.des
-	../util/lev_comp kobold.des
-	../util/lev_comp rats.des
-	../util/lev_comp stor.des
-	../util/lev_comp caves.des
-	../util/lev_comp tomb.des
-	../util/lev_comp spiders.des
-	../util/lev_comp giants.des
-	../util/lev_comp sea.des
-	../util/lev_comp mtemple.des
-	../util/lev_comp grund.des
-	../util/lev_comp blkmar.des
-	../util/lev_comp qlawful.des
-	../util/lev_comp qneutral.des
 	../util/lev_comp qchaos.des
+    ../util/lev_comp qlawful.des
+    ../util/lev_comp qneutral.des
+    ../util/lev_comp rats.des
+    ../util/lev_comp sea.des
+	../util/lev_comp sokoban.des
+	../util/lev_comp spiders.des
+    ../util/lev_comp stor.des
+    ../util/lev_comp tomb.des
+	../util/lev_comp tower.des
+	../util/lev_comp town.des
+	../util/lev_comp ucastle.des
+	../util/lev_comp vaults.des
+	../util/lev_comp village.des
+	../util/lev_comp yendor.des
 	touch spec_levs
 
 quest_levs: ../util/lev_comp \
-	Arch.des Barb.des Caveman.des Convict.des Healer.des Infidel.des \
-	Flame.des Ice.des Jedi.des Necro.des Slayer.des Yeoman.des \
-	Knight.des Monk.des Pirate.des Priest.des Ranger.des \
-	Rogue.des Samurai.des Tourist.des Valkyrie.des Wizard.des
+	Arch.des \
+	Barb.des \
+	Caveman.des \
+	Convict.des \
+	Flame.des \
+	Healer.des \
+	Ice.des \
+	Infidel.des \
+	Jedi.des \
+	Knight.des \
+	Monk.des \
+	Necro.des \
+	Pirate.des \
+	Priest.des \
+	Ranger.des \
+	Rogue.des \
+	Samurai.des \
+	Slayer.des \
+	Tourist.des \
+	Valkyrie.des \
+	Wizard.des \
+	Yeoman.des
 	../util/lev_comp Arch.des
 	../util/lev_comp Barb.des
 	../util/lev_comp Caveman.des
