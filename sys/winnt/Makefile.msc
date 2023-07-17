@@ -788,7 +788,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)\vaults.des \
 	$(DAT)\village.des \
 	$(DAT)\yendor.des
-	``
 	cd $(DAT)
 	$(U)levcomp arch.des
     $(U)levcomp barb.des
