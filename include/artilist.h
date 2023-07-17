@@ -684,7 +684,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     A("The Crown of Saint Edward", HELM_OF_TELEPATHY,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_HSPDAM), 0,
-      NO_ATTK, DFNS(AD_MAGM), NO_CARY, 0,  
+      NO_ATTK, NO_DFNS, CARY(AD_MAGM), 0,  
       A_LAWFUL, PM_YEOMAN, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     /*

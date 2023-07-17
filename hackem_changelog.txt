@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Revert "The Crown of Saint Edward now only grants MR when worn."
 Revert "The Stake of Van Helsing must be wielded now to get magic resistance."
 Revert "The Great Dagger of Glaurgnaa must be wielded to get magic resistance."
 Organized some of the makefiles.
