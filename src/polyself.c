@@ -2505,6 +2505,8 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
         && ((Role_if(PM_FLAME_MAGE) || otyp == RED_DRAGON_SCALES) 
             || (Role_if(PM_ICE_MAGE) || otyp == WHITE_DRAGON_SCALES)));
     
+    boolean polyd_fla, polyd_ice;
+    
     if (Unchanging) {
         pline("You cannot change your form.");
         return 0;
@@ -2513,12 +2515,12 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
     /* First, if in correct polymorphed form, rehumanize (for free) 
      * Omit Lycanthropes,  who need to spend energy to change back and forth
      */
-    boolean polyd_fla = Role_if(PM_FLAME_MAGE) 
-                        && (u.umonnum == PM_RED_DRAGON 
-                            || u.umonnum == PM_BABY_RED_DRAGON);
-    boolean polyd_ice = Role_if(PM_ICE_MAGE) 
-                        && (u.umonnum == PM_WHITE_DRAGON 
-                            || u.umonnum == PM_BABY_WHITE_DRAGON);
+    polyd_fla = Role_if(PM_FLAME_MAGE) 
+                && (u.umonnum == PM_RED_DRAGON 
+                    || u.umonnum == PM_BABY_RED_DRAGON);
+    polyd_ice = Role_if(PM_ICE_MAGE) 
+                && (u.umonnum == PM_WHITE_DRAGON 
+                    || u.umonnum == PM_BABY_WHITE_DRAGON);
     
     if (Upolyd && (Race_if(PM_DOPPELGANGER) || polyd_fla || polyd_ice)) {
         rehumanize();

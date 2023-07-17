@@ -48,7 +48,7 @@ throw_obj(obj, shotlimit)
 struct obj *obj;
 int shotlimit;
 {
-    struct obj *otmp, *oldslot;;
+    struct obj *otmp, *oldslot;
     int multishot;
     schar skill;
     long wep_mask;

@@ -1087,8 +1087,15 @@ char *usr_text;
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
     boolean wielded, carried, identified_potion;
-
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
+    /* If it's an artifact, we always have it in obj. */
+    boolean is_artifact = obj && obj->oartifact;
+    boolean hide_appearance = !oc.oc_name_known;
+    boolean show_corpse = obj && otyp == CORPSE;
+    /* We have the object and it is reveal_info */
+    boolean reveal_fullname = (obj && (oc.oc_name_known || obj->oprops_known));
+    boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
+                                              && oc.oc_name_known));
     int i, mat_bon, obj_weight;
 
     struct obj dummy = { 0 };
@@ -1116,14 +1123,7 @@ char *usr_text;
 
     /* OBJECT INFO HEADLINE */
 
-    /* If it's an artifact, we always have it in obj. */
-    boolean is_artifact = obj && obj->oartifact;
-    boolean hide_appearance = !oc.oc_name_known;
-    boolean show_corpse = obj && otyp == CORPSE;
-    /* We have the object and it is reveal_info */
-    boolean reveal_fullname = (obj && oc.oc_name_known) || dummy.oprops_known;
-    boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
-                                              && oc.oc_name_known));
+
     /* We have the object but it's not reveal_info */
     if ((obj && otyp == STRANGE_OBJECT) && !hide_appearance) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));

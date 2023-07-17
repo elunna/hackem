@@ -279,7 +279,7 @@ struct attack *mattk;
                 killed(mtmp);
         }
         /* train shield skill if the shield made a block */
-        if ((blocker == uarms))
+        if (blocker == uarms)
             use_skill(P_SHIELD, 1);
     }
 end:

@@ -152,11 +152,11 @@ const char *name;
     struct obj *obj = 0;
     const struct artifact *a;
     register const char *aname;
-
+    int index = 1;
+    
     if (!strncmpi(name, "the ", 4))
         name += 4;
-
-    int index = 1;
+    
     for (a = artilist + 1; a->otyp; a++) {
         aname = a->name;
         if (!strncmpi(aname, "the ", 4))
@@ -165,7 +165,7 @@ const char *name;
             obj = mksobj(a->otyp, TRUE, FALSE);
             obj->otyp = a->otyp;
             obj->oartifact = index;
-            /* TODO: Might be a better way to do this. */
+            
             if (artilist[index].material)
                 obj->material = artilist[index].material;
             else
@@ -1354,8 +1354,8 @@ int tmp;
 {
     register const struct artifact *weap = get_artifact(otmp);
     boolean yours = (mon == &youmonst);
-    spec_dbon_applies = FALSE;
     int dbon = 0, adtype;
+    spec_dbon_applies = FALSE;
 
     if (!weap && otmp->oprops
         && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
@@ -1739,13 +1739,15 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     boolean vis = (!youattack && magr && cansee(magr->mx, magr->my))
                   || (!youdefend && cansee(mdef->mx, mdef->my))
                   || (youattack && u.uswallow && mdef == u.ustuck && !Blind);
-    boolean realizes_damage;
+    boolean realizes_damage, angel;
     const char *wepdesc;
     static const char you[] = "you";
     char hittee[BUFSZ];
     struct artifact* atmp;
+    struct obj *target;
     int j, k, mdx, mdy, permdmg = 0, chance;
     int time = 1; /* For Mouser's Scalpel */
+    int hurtle_distance = 0; /* For Ogresmasher */
 
     Strcpy(hittee, youdefend ? you : mon_nam(mdef));
     
@@ -1770,7 +1772,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
      * additional check for its knockback behavior for MZ_MEDIUM and
      * smaller targets. Knockback rate is set here as well in rn2(rate).
      */
-     int hurtle_distance = 0;
      if (otmp->oartifact == ART_OGRESMASHER
          && mdef->data->msize < MZ_LARGE && !rn2(5))
          hurtle_distance = MZ_LARGE - mdef->data->msize;
@@ -1788,32 +1789,28 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     if (attacks(AD_FIRE, otmp)) {
         if (realizes_damage) {
             if (otmp->oartifact == ART_FIRE_BRAND
-                  || otmp->oartifact == ART_FIREWALL) {
+                || otmp->oartifact == ART_FIREWALL) {
                 pline_The("fiery blade %s %s%c",
-                          !spec_dbon_applies
-                              ? "hits"
-                              : can_vaporize(mdef->data)
-                                  ? "vaporizes part of"
-                                  : mon_underwater(mdef) ? "hits" : "burns",
+                          !spec_dbon_applies         ? "hits"
+                          : can_vaporize(mdef->data) ? "vaporizes part of"
+                          : mon_underwater(mdef)     ? "hits"
+                                                     : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
 
             } else if (otmp->oartifact == ART_ANGELSLAYER) {
                 pline_The("infernal trident %s %s%c",
-                          !spec_dbon_applies
-                              ? "hits"
-                              : can_vaporize(mdef->data)
-                                  ? "vaporizes part of"
-                                  : mon_underwater(mdef) ? "hits" : "burns",
+                          !spec_dbon_applies         ? "hits"
+                          : can_vaporize(mdef->data) ? "vaporizes part of"
+                          : mon_underwater(mdef)     ? "hits"
+                                                     : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
             } else if (otmp->oclass == WEAPON_CLASS
                        && (otmp->oprops & ITEM_FIRE)) {
-                pline_The("%s %s %s%c",
-                          distant_name(otmp, xname),
-                          !spec_dbon_applies
-                              ? "hits"
-                              : can_vaporize(mdef->data)
-                                  ? "vaporizes part of"
-                                  : mon_underwater(mdef) ? "hits" : "burns",
+                pline_The("%s %s %s%c", distant_name(otmp, xname),
+                          !spec_dbon_applies         ? "hits"
+                          : can_vaporize(mdef->data) ? "vaporizes part of"
+                          : mon_underwater(mdef)     ? "hits"
+                                                     : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
             }
         }
@@ -1836,8 +1833,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         if (youdefend && Slimed && !Underwater)
             burn_away_slime();
 
-        boolean angel = youdefend ? is_angel(youmonst.data)
-                                  : is_angel(mdef->data);
+        angel = youdefend ? is_angel(youmonst.data) : is_angel(mdef->data);
 
         if (wielding_artifact(ART_ANGELSLAYER)
             && ((completelyburns(mdef->data) || is_wooden(mdef->data)
@@ -1845,8 +1841,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 || (!rn2(10) && angel))) {
             if (youdefend && !Underwater) {
                 if (angel) {
-                    pline("Angelslayer's eldritch flame consumes %s!", hittee);
-                    losehp((Upolyd ? u.mh : u.uhp) + 1, "incinerated by Angelslayer",
+                    pline("Angelslayer's eldritch flame consumes %s!",
+                          hittee);
+                    losehp((Upolyd ? u.mh : u.uhp) + 1,
+                           "incinerated by Angelslayer",
                            NO_KILLER_PREFIX);
                 } else {
                     You("ignite and turn to ash!");
@@ -1856,9 +1854,11 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             } else {
                 if (!mon_underwater(mdef)) {
                     if (angel)
-                        pline("Angelslayer's eldritch flame consumes %s!", hittee);
+                        pline("Angelslayer's eldritch flame consumes %s!",
+                              hittee);
                     else
-                        pline("%s ignites and turns to ash!", Monnam(mdef));
+                        pline("%s ignites and turns to ash!",
+                              Monnam(mdef));
                     if (youattack)
                         xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
                     else
@@ -1869,6 +1869,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
+
     if (attacks(AD_COLD, otmp)) {
         if (realizes_damage) {
             if (otmp->oartifact == ART_FROST_BRAND 
@@ -2317,7 +2318,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
 
         /* maybe disintegrate some armor */
-        struct obj *target = (struct obj *) 0;
+        target = (struct obj *) 0;
 
         if (youdefend) { /* hero's armor is targeted */
             if (uarms && !rn2(3)) {
@@ -3759,6 +3760,7 @@ struct obj *obj;
             }
             break;
         case SUMMON_UNDEAD: {
+            int summon_loop;
             if (u.uluck < -9) {
                 u.uhp -= rn2(20) + 5;
                 pline_The("Hand claws you with its icy nails!");
@@ -3768,7 +3770,7 @@ struct obj *obj;
                     done(DIED);
                 }
             }
-            int summon_loop = rn2(4) + 4;
+            summon_loop = rn2(4) + 4;
             pline("Creatures from the grave surround you!");
             do {
                 switch (rn2(6) + 1) {

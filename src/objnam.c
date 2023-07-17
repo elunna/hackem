@@ -3661,9 +3661,9 @@ not_spec_material(str, material)
 const char * const str;
 int material;
 {
-    int i;
     const char *matstr = materialnm[material];
-    int matlen = strlen(matstr);
+    int i, matlen = strlen(matstr);
+    short otyp;
     /* is this the entire string? e.g. "gold" is actually a wish for zorkmids.
        The effect of this is that you can't just wish for a material and get a
        random item, made of that material, from the set of items that can be
@@ -3701,7 +3701,6 @@ int material;
         }
     }
     /* does it match some artifact? e.g. "platinum yendorian express card" */
-    short otyp;
     if (artifact_name(str, &otyp)) {
         return TRUE;
     }

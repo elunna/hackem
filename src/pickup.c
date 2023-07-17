@@ -3680,7 +3680,8 @@ struct obj *box; /* or bag */
 
     {
         struct obj *otmp, *nobj;
-        boolean terse, highdrop = !can_reach_floor(TRUE),
+        boolean terse, explosive_combo, prevent_explosion,
+                highdrop = !can_reach_floor(TRUE),
                 altarizing = IS_ALTAR(levl[ox][oy].typ),
                 cursed_mbag = (Is_mbag(box) && box->cursed);
         long loss = 0L;
@@ -3722,14 +3723,14 @@ struct obj *box; /* or bag */
                 iflags.suppress_price++; /* doname formatting */
             }
             
-            boolean explosive_combo = targetbox 
-                                      && Is_mbag(targetbox) 
-                                      && mbag_explodes(otmp, 0);
-            boolean prevent_explosion = explosive_combo 
-                                        && (Is_mbag(otmp) || otmp->otyp == WAN_CANCELLATION)
-                                        && objects[otmp->otyp].oc_name_known 
-                                        && otmp->dknown 
-                                        && targetbox->otyp == BAG_OF_HOLDING;
+            explosive_combo = targetbox 
+                              && Is_mbag(targetbox) 
+                              && mbag_explodes(otmp, 0);
+            prevent_explosion = explosive_combo 
+                                && (Is_mbag(otmp) || otmp->otyp == WAN_CANCELLATION)
+                                && objects[otmp->otyp].oc_name_known 
+                                && otmp->dknown 
+                                && targetbox->otyp == BAG_OF_HOLDING;
             
             if (prevent_explosion)
                 You("flick %s away from the %s.", ansimpleoname(otmp), 

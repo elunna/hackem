@@ -1175,6 +1175,8 @@ void
 forget(howmuch)
 int howmuch;
 {
+    int i;
+    
     if (Psychic_resistance) {
         You_feel("something tugging at your thoughts, but it quickly subsides.");
         return;
@@ -1198,7 +1200,7 @@ int howmuch;
         u.uevent.know_horror = 0;
     
     /* Doppelgangers can forget what they have eaten. */
-    for (int i = LOW_PM; i < NUMMONS; i++) {
+    for (i = LOW_PM; i < NUMMONS; i++) {
         if (mvitals[i].eaten && !rn2(3)) {
             mvitals[i].eaten = FALSE;
         }

@@ -1226,9 +1226,7 @@ int tech_no;
         case T_BREAK_ROCK:
             if (!getdir(NULL))
                 return 0;
-            int x = u.dx + u.ux;
-            int y = u.dy + u.uy;
-            res = do_breakrock(x, y);
+            res = do_breakrock(u.dx + u.ux,  u.dy + u.uy);
             /* No timeout */
             break;
         default:
@@ -1758,13 +1756,11 @@ static const struct blitz_tab blitzes[] = {
 static int
 doblitz()
 {
-    int i, j, dx, dy, bdone = 0, tech_no;
-    char buf[BUFSZ];
-    char buf2[BUFSZ];
+    int i, j, dx, dy, bdone = 0, tech_no = get_tech_no(T_BLITZ);
+    char buf[BUFSZ], buf2[BUFSZ];
     char *bp;
     char cmdlist[BUFSZ];
     int blitz_chain[MAX_CHAIN], blitz_num;
-    tech_no = (get_tech_no(T_BLITZ));
     int max_moves = (MIN_CHAIN + (techlev(tech_no) / 10));
     techt_inuse(T_BLITZ) = 1;
     if (tech_no == -1) {
@@ -3640,7 +3636,7 @@ tech_souleater(tech_no)
 int tech_no;
 {
     struct monst *mtmp;
-    int num;
+    int num, weapon_modifier;
     num = Upolyd ? (u.mhmax / 2) : (u.uhpmax / 2);
     
     if ((!Upolyd && u.uhp <= num) || (Upolyd && u.mh <= num)) {
@@ -3665,7 +3661,7 @@ int tech_no;
     }
     /* Instead of being limited to Soulthief (which Hack'EM is not
              * importing - we will allow any artifact that drains life. */
-    int weapon_modifier = (attacks(AD_DRLI, uwep) ? 5 : 1);
+    weapon_modifier = (attacks(AD_DRLI, uwep) ? 5 : 1);
                                    
     techt_inuse(tech_no) = (techlev(tech_no) / 2) + weapon_modifier;
     /* See uhitm.c in particular for the extra damage */

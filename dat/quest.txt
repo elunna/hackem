@@ -2633,7 +2633,7 @@ Well, I can give you a choice: Join me!"
 %E  ["Now, %p, you shall die!"]
 %Cp Jed 00051
 "Again, you challenge me, %r? You can't beat the dark side of the force!"
-%E ["Your feeble skills are no match for the power of the Dark Side."]
+%E
 %Cp Jed 00052
 "Haven't you learned your lesson yet? I shall teach it to you now!"
 %E
@@ -2725,7 +2725,7 @@ on this day.  %o will be safe with us."
 %E ["You give %o to %l."]
 %Cp Jed 00090
 "Welcome back, %p. How is the search for the Amulet of Yendor?"
-%E ["Have you progressed with your quest to regain the Amulet of Yendor for %d?"]
+%E
 %Cc Jed 00091
 "You really are a %S of %H."
 

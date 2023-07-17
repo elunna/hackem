@@ -546,11 +546,11 @@ struct obj *otmp;
     case WAN_EXTRA_HEALING:
     case SPE_HEALING:
     case SPE_EXTRA_HEALING: {
-        reveal_invis = TRUE;
         int amt = otyp == WAN_HEALING ? d(5, 2) + 5 * !!bcsign(otmp)
                   : otyp == WAN_EXTRA_HEALING
                       ? d(5, 4) + 10 * !!bcsign(otmp)
                       : d(6, otyp == SPE_EXTRA_HEALING ? 8 : 4);
+        reveal_invis = TRUE;
         if (is_zombie(mtmp->data)) {
             /* Allow healing to be nasty versus zombies */
             if (!DEADMONSTER(mtmp)) {
@@ -4679,7 +4679,7 @@ struct obj *obj;
 int dx, dy;
 {
     register int i, ct;
-    int boom; /* showsym[] index  */
+    int ceil, boom; /* showsym[] index  */
     struct monst *mtmp;
     boolean counterclockwise = TRUE; /* right-handed throw */
     boolean obj_gone = FALSE;
@@ -4729,7 +4729,7 @@ int dx, dy;
                 tmp_at(DISP_END, 0);
                 return mtmp;
             }
-            int ceil;
+            
             /* Slicing through gets better with skill */
             switch (P_SKILL(P_BOOMERANG)) {
             case P_UNSKILLED:
@@ -7260,6 +7260,8 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     int yours = isyou ? 1 : -1;
     int ztype = 0; /* Default is fire */
     int expltype = 0;
+    /* Major kludge to preserve the blame for the bomb */
+    boolean save_mon_moving = context.mon_moving;
     
     /* stop previous timer, if any */
     (void) stop_timer(BOMB_BLOW, obj_to_any(obj));
@@ -7267,8 +7269,7 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     if (isyou && yours < 0)
         impossible("bomb_explode: isyou conflict, isyou=%d, obj->yours=%d",
                    isyou, obj->yours);
-    /* Major kludge to preserve the blame for the bomb */
-    boolean save_mon_moving = context.mon_moving;
+    
     context.mon_moving = !isyou;
     
     if (obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH) {

@@ -891,7 +891,7 @@ STATIC_OVL void
 regen_hp(wtcap)
 int wtcap;
 {
-    int heal = 0;
+    int efflev, effcon, heal = 0;
     boolean reached_full = FALSE,
             encumbrance_ok = (wtcap < MOD_ENCUMBER || !u.umoved),
             infidel_no_amulet = (u.ualign.type == A_NONE && !u.uhave.amulet
@@ -948,9 +948,9 @@ int wtcap;
             * experience level and constitution (-2 cursed, +1 uncursed,
             * +2 blessed) for the basis of regeneration calculations.
             */
-
-            int efflev = u.ulevel + u.uhealbonus;
-            int effcon = ACURR(A_CON) + u.uhealbonus;
+            
+            efflev = u.ulevel + u.uhealbonus;
+            effcon = ACURR(A_CON) + u.uhealbonus;
             heal = 0;
             
             if (efflev > 9) {

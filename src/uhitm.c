@@ -4593,12 +4593,12 @@ int malive;
 uchar aatyp;
 boolean wep_was_destroyed;
 {
+    register int i, t, tmp;
     register struct permonst *ptr = mon->data;
     register struct obj *m_armor;
-    register int i, t, tmp;
-    register struct attack *mattk;
     struct obj *otmp;
-    mattk = has_erac(mon) ? ERAC(mon)->mattk : ptr->mattk;
+    register struct attack *mattk = has_erac(mon) 
+                                        ? ERAC(mon)->mattk : ptr->mattk;
     boolean thievery = ((Role_if(PM_ROGUE) || Role_if(PM_CONVICT))
                         && context.forcefight && !Upolyd);
 

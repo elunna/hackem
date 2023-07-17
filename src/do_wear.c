@@ -1197,18 +1197,18 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             }
         }
         break;
-    case CELESTIAL_DRAGON_SCALES:
+    case CELESTIAL_DRAGON_SCALES: {
+        boolean already_flying;
         if (puton) {
-            ESleep_resistance  |= W_ARM;
-            EShock_resistance  |= W_ARM;
+            ESleep_resistance |= W_ARM;
+            EShock_resistance |= W_ARM;
 
             /* setworn() has already set extrinisic flying */
             float_vs_flight(); /* block flying if levitating */
-            check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+            check_wings(TRUE); /* are we in a form that has wings and can
+                                  already fly? */
 
             if (Flying) {
-                boolean already_flying;
-
                 /* to determine whether this flight is new we have to muck
                    about in the Flying intrinsic (actually extrinsic) */
                 EFlying &= ~W_ARM;
@@ -1221,25 +1221,27 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
                 }
             }
         } else {
-            ESleep_resistance  &= ~W_ARM;
-            EShock_resistance  &= ~W_ARM;
+            ESleep_resistance &= ~W_ARM;
+            EShock_resistance &= ~W_ARM;
 
             boolean was_flying = !!Flying;
 
             /* remove armor 'early' to determine whether Flying changes */
             setworn((struct obj *) 0, W_ARM);
             float_vs_flight(); /* probably not needed here */
-            check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+            check_wings(TRUE); /* are we in a form that has wings and can
+                                  already fly? */
             if (was_flying && !Flying) {
                 context.botl = TRUE; /* status: 'Fly' Off */
                 You("%s.", (is_pool_or_lava(u.ux, u.uy)
                             || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
-                              ? "stop flying"
-                              : "land");
+                               ? "stop flying"
+                               : "land");
                 spoteffects(TRUE);
             }
         }
         break;
+    }
     case CHROMATIC_DRAGON_SCALES:
         /* magic res handled in objects.c */
         if (puton) {
@@ -2786,14 +2788,12 @@ can_wear_arm(otmp, noisy)
 struct obj *otmp;
 boolean noisy;
 {
-    const char *which;
-    which = is_cloak(otmp)
-                ? c_cloak
-                : is_shirt(otmp)
-                      ? c_shirt
-                      : is_suit(otmp)
-                            ? c_suit
-                            : 0;
+    const char *which = is_cloak(otmp) 
+                            ? c_cloak 
+                            : is_shirt(otmp) 
+                                  ? c_shirt 
+                                  : is_suit(otmp) 
+                                        ? c_suit : 0;
 
     boolean cantwear = cantweararm(&youmonst)
         /* same exception for cloaks as used in m_dowear() */

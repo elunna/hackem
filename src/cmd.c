@@ -2140,7 +2140,7 @@ int mode;  /* BASICENLIGHTENMENT | MAGICENLIGHTENMENT (| both) */
 int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
 {
     char buf[BUFSZ], tmpbuf[BUFSZ];
-    int cnt = 0;
+    int i, cnt = 0;
 
     en_win = create_nhwindow(NHW_MENU);
     en_via_menu = !final;
@@ -2271,7 +2271,7 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
         enlght_out_attr(ATR_SUBHEAD, "Eaten Memory (for Doppelganger #youpoly):");
         Strcat(buf, " ");
 
-        for (int i = LOW_PM; i < NUMMONS; i++) {
+        for (i = LOW_PM; i < NUMMONS; i++) {
             /* Don't list monsters we can't poly into */
             if (mvitals[i].eaten && polyok(&mons[i])) {
                 cnt++;
