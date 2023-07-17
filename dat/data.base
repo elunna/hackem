@@ -3254,13 +3254,6 @@ eyes of the overworld
 	Usually, there is nothing to be seen.  However, the wearer
 	is also able to look back and see the area around herself,
 	much like looking on a map.  Why anyone would want to ...
-eye of vecna
-hand of vecna
-	The Eye of Vecna and the Hand of Vecna were the only remnants
-	of the powerful lich Vecna, after he was betrayed and killed by
-	his lieutenant Kas.  The two appendages were left with a
-	fragment of the lich's will and attempted to work his deeds
-	wherever they went.
 falchion
     Crafting recipe: falchion = scimitar + scimitar
 father dagon
@@ -13431,56 +13424,6 @@ Dirge
       become a 'long sword' regardless). Must have positive alignment.
     - You can throw Dirge at iron bars to dissolve them.
     - If it has not yet been generated, Graz'zt gets Dirge.
-The Eye of Vecna
-	Invoke:          DEATH_MAGIC: When invoked, it causes the Eye to
-	                 death gaze at all monsters within visual range,
-	                 either greatly reducing their hit points or
-	                 killing them outright if they don't have magic
-	                 resistance. Using the Eye this way can be
-	                 detrimental, as each use drops the players luck
-	                 and alignment by three points, and abuses wisdom.
-	                 Invoking the Eye too often can cause it to turn
-	                 on the player instead, killing them.
-
-   	The Eye of Vecna is an extremely powerful artifact that is an
-   	actual body part that comes from Vecna himself. In this setting,
-   	Vecna must be destroyed in order to obtain the Eye, and even
-   	then, there is only a 50% chance that it will drop (the other 50%
-   	is the Hand of Vecna dropping). Be aware that if Vecna is
-   	destroyed via stoning, his Eye will not appear. The Eye of Vecna
-   	can be eaten, but doing so is strongly discouraged. It can also be
-   	sacrificed on an altar for maximum value.
-The Hand of Vecna
-	Invoke:          DEATH_MAGIC: It can be invoked for its death
-	                 magic just like the Eye, killing or hurting any
-	                 monster within line of sight that isn't resistant
-	                 to death magic. And just as with the Eye, invoking
-	                 its death magic has consequences.
-
-    The Hand of Vecna is also an extremely powerful artifact that is
-    an actual body part that comes from Vecna himself. Just as with
-    the Eye, Vecna must be destroyed in order to obtain the Hand, and
-    even then, there is only a 50% chance that it will drop (the other
-    50% is the Eye of Vecna dropping). Be aware that if Vecna is
-    destroyed via stoning, his Hand will not appear. The Hand of Vecna
-    appears as a 'mummified hand', and takes up the glove slot for
-    worn armor. Once 'worn' (it fuses itself to your left arm), it
-    cannot be removed, ever, even if the player polymorphs into a
-    monster that would normally cause it to drop their gloves. Because
-    of this, it is immune to erosion, disintegration, destroy armor
-    monster spell, and destroy armor scroll. It also cannot be stolen
-    when worn. The Hand can be enchanted up to +7, but because it
-    can't be destroyed, it will never evaporate if attempting to
-    enchant it higher than +7 (nothing happens).
-
-    The Hand of Vecna also confers giant strength like gauntlets of
-    power, and will cause an additional 1d5 + 7 (8-12) hit points of
-    cold damage via melee attack to monsters affected by cold,
-    regardless of whether a weapon is wielded or are fighting bare-
-    handed. Worn rings can be removed without issue, even if the Hand
-    of Vecna is cursed, as it's not treated as worn armor. Objects
-    like a cockatrice corpse can also be handled without concern. The
-    Hand must be 'worn' for any of these abilities to function.
 The Ring of P\'hul
     Based loosely off of the Ring of P'hul - from 'The Lords of Dus' series
     by Lawrence Watt-Evans. This is another one of those artifacts that would
