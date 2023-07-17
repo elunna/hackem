@@ -736,7 +736,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\nymph.des    $(DAT)\oracle.des   $(DAT)\tower.des \
 	$(DAT)\vaults.des   $(DAT)\yendor.des \
     $(DAT)\nkai.des     $(DAT)\ucastle.des  $(DAT)\town.des \
-    $(DAT)\village.des \
+    $(DAT)\village.des  $(DAT)\spiders.des \
 	$(DAT)\rats.des 	$(DAT)\stor.des 	$(DAT)\caves.des \
 	$(DAT)\tomb.des 	$(DAT)\mtemple.des \
 	$(DAT)\grund.des 	$(DAT)\blkmar.des    \
@@ -770,6 +770,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)levcomp stor.des
 	$(U)levcomp caves.des
 	$(U)levcomp tomb.des
+	$(U)levcomp spiders.des
 	$(U)levcomp mtemple.des
 	$(U)levcomp grund.des
 	$(U)levcomp blkmar.des
@@ -1342,7 +1343,7 @@ spotless: clean
 	if exist $(DAT)\sanctum.lev	 del $(DAT)\sanctum.lev
 	if exist $(DAT)\soko?-*.lev	 del $(DAT)\soko?-*.lev
 	if exist $(DAT)\stor-?.lev	 del $(DAT)\stor-?.lev
-	if exist $(DAT)\tomb-?.lev	 del $(DAT)\tomb-?.lev
+	if exist $(DAT)\tomb.lev	 del $(DAT)\tomb.lev
 	if exist $(DAT)\tower?.lev	 del $(DAT)\tower?.lev
 	if exist $(DAT)\townfill.lev del $(DAT)\townfill.lev
 	if exist $(DAT)\town-?.lev del $(DAT)\town-?.lev

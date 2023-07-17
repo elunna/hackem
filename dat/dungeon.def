@@ -36,9 +36,11 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 BRANCH: 	    "The Wyrm Caves" @ (22, 2)
 BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
-BRANCH: 	    "The Lost Levels" @ (25, 6)
+BRANCH: 	    "The Lost Tomb" @ (25, 6)
 LEVEL:	        "stor" "S" @ (22, 9) 66
 BRANCH: 	    "The Temple of Moloch" @ (31, 4)
+BRANCH:		    "The Spider Caves" @ (26, 5)
+BRANCH:		    "The Sunless Sea" @ (28, 4)
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
 LEVALIGN:	    chaotic
 RNDLEVEL:	    "castle" "none" @ (-1, 0) 3
@@ -182,11 +184,22 @@ DESCRIPTION:    mazelike
 RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
 ### The Lost Tomb ###
-# Includes The Lost Tomb, The Spider Caves, and The Sunless Sea.
-DUNGEON:        "The Lost Levels" "L" (1, 0)
+DUNGEON:        "The Lost Tomb" "L" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-RNDLEVEL:       "tomb" "L" @ (1, 0) 3
+LEVEL:          "tomb" "L" @ (1, 0)
+
+### The Spider Caves ###
+DUNGEON:        "The Spider Caves" "S" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "spiders" "S" @ (1, 0)
+
+### The Sunless Sea ###
+DUNGEON:        "The Sunless Sea" "none" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "sea" "none" @ (1, 0)
 
 ### The Temple of Moloch ###
 DUNGEON:        "The Temple of Moloch" "none" (1, 0)

@@ -133,8 +133,8 @@ spec_levs: ../util/lev_comp \
 	knox.des medusa.des mines.des nymph.des oracle.des \
 	sokoban.des tower.des yendor.des vaults.des \
 	qlawful.des qneutral.des qchaos.des \
-	town.des village.des rats.des \
-	stor.des caves.des tomb.des \
+	town.des village.des rats.des sea.des \
+	stor.des caves.des tomb.des spiders.des \
 	mtemple.des grund.des blkmar.des \
 	lethe.des nkai.des ucastle.des
 	-rm -f vaults.dat
@@ -160,6 +160,8 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp stor.des
 	../util/lev_comp caves.des
 	../util/lev_comp tomb.des
+	../util/lev_comp spiders.des
+	../util/lev_comp sea.des
 	../util/lev_comp mtemple.des
 	../util/lev_comp grund.des
 	../util/lev_comp blkmar.des

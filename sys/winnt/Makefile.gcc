@@ -796,7 +796,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
 	 $(DAT)/jedi.des \
 	 $(DAT)/wizard.des	 $(DAT)/town.des     $(DAT)/village.des \
-	 $(DAT)/rats.des     $(DAT)/stor.des \
+	 $(DAT)/rats.des     $(DAT)/stor.des     $(DAT)/spiders.des\
      $(DAT)/caves.des  $(DAT)/tomb.des \
      $(DAT)/mtemple.des  $(DAT)/grund.des    $(DAT)/blkmar.des \
 
@@ -842,6 +842,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
     $(subst /,\,$(U)levcomp $(DAT)/ stor.des
     $(subst /,\,$(U)levcomp $(DAT)/ caves.des
     $(subst /,\,$(U)levcomp $(DAT)/ tomb.des
+    $(subst /,\,$(U)levcomp $(DAT)/ spiders.des
     $(subst /,\,$(U)levcomp $(DAT)/ mtemple.des
     $(subst /,\,$(U)levcomp $(DAT)/ grund.des
     $(subst /,\,$(U)levcomp $(DAT)/ blkmar.des
@@ -1348,7 +1349,7 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\sanctum.lev	   del $(W_DAT)\sanctum.lev
 	if exist $(W_DAT)\soko?-*.lev	   del $(W_DAT)\soko?-*.lev
 	if exist $(W_DAT)\stor-?.lev	   del $(W_DAT)\stor-?.lev
-	if exist $(W_DAT)\tomb-?.lev	   del $(W_DAT)\tomb-?.lev
+	if exist $(W_DAT)\tomb.lev	       del $(W_DAT)\tomb.lev
 	if exist $(W_DAT)\tower?.lev	   del $(W_DAT)\tower?.lev
 	if exist $(W_DAT)\townfill.lev	   del $(W_DAT)\townfill.lev
 	if exist $(W_DAT)\town-?.lev	   del $(W_DAT)\town-?.lev

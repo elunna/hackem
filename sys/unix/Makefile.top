@@ -89,10 +89,10 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
         minetn-*.lev oracle-?.lev orcus.lev sanctum.lev soko?-*.lev \
         tower?.lev valley.lev \
         wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev \
-        town-?.lev townfill.lev village.lev \
-		rats-?.lev nymph.lev stor.lev cavepass.lev \
+        town-?.lev townfill.lev village.lev spiders.lev \
+		rats-?.lev nymph.lev stor.lev cavepass.lev sea.lev \
         cavenest.lev cavefill.lev cavebegn.lev caveend.lev \
-        tomb-?.lev mtemple.lev grund.lev blkmar-?.lev \
+        tomb.lev mtemple.lev grund.lev blkmar-?.lev \
         qlawful.lev qneutral.lev qchaos.lev \
         leth-*.lev nkai-*.lev ucastle.lev
 QUEST_LEVS = ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev
