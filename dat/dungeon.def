@@ -14,11 +14,9 @@
 #		number of choices for its branch level _first_.
 #
 
-DUNGEON:	    "The Dungeons of Doom" "D" (35, 5)
+DUNGEON:	    "The Dungeons of Doom" "D" (42, 5)
 ALIGNMENT:	    unaligned
 BRANCH:		    "The Gnomish Mines" @ (2, 3)
-#LEVEL:		    "rogue" "R" @ (15, 4)
-#LEVELDESC:	    roguelike
 RNDLEVEL:	    "mall" "T" @ (5, 2) 2
 LEVALIGN:	    lawful
 LEVELDESC:	    town
