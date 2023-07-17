@@ -42,7 +42,6 @@
     <Desfiles Include = "nkai.des"/>
     <Desfiles Include = "healer.des"/>
     <Desfiles Include = "ice.des"/>
-    <Desfiles Include = "icequeen.des"/>
     <Desfiles Include = "infidel.des"/>
     <Desfiles Include = "jedi.des"/>
     <Desfiles Include = "knight.des"/>
@@ -101,9 +100,6 @@
     <Levfiles Include = "orcus.lev"/>
     <Levfiles Include = "sanctum.lev"/>
     <Levfiles Include = "valley.lev"/>
-    <Levfiles Include = "icequeen-1.lev"/>
-    <Levfiles Include = "icequeen-2.lev"/>
-    <Levfiles Include = "icequeen-3.lev"/>
     <Levfiles Include = "knox-1.lev"/>
     <Levfiles Include = "knox-2.lev"/>
     <Levfiles Include = "knox-3.lev"/>

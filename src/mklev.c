@@ -1740,7 +1740,7 @@ coord *tm;
             kind = RUST_TRAP;
             break;
         }
-    } else if (Inhell && !Iniceq && !rn2(5)) {
+    } else if (Inhell && !rn2(5)) {
         /* bias the frequency of fire traps in Gehennom */
         kind = FIRE_TRAP;
     } else {

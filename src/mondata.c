@@ -998,8 +998,7 @@ const char *in_str;
         Strcpy(term - 4, "lord");
     else if (slen > 5 && (s = strstri(term - 5, " lord")) != 0)
         Strcpy(term - 4, "noble");
-    else if (slen > 6 && (s = strstri(term - 6, " queen")) != 0
-             && strncmpi(str, "kathryn ", 8))
+    else if (slen > 6 && (s = strstri(term - 6, " queen")) != 0)
         Strcpy(term - 5, "king");
     else if (slen > 5 && (s = strstri(term - 5, " king")) != 0
              && strncmpi(str, "rat ", 4) 
@@ -1534,7 +1533,6 @@ enum on_fire_types attktype;
         break;
     case PM_ICE_VORTEX:
     case PM_SNOW_GOLEM:
-    case PM_ABOMINABLE_SNOWMAN:
     case PM_FREEZING_SPHERE:
         /* Melts and then boils away or evaporates. */    
         switch (attktype) {

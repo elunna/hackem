@@ -402,28 +402,6 @@ dosounds()
         };
         pline("%s", blkmar_msg[rn2(2)+hallu]);
     }
-#if 0
-    if (ledger_no(&u.uz) == ledger_no(&medusa_level) - 1
-        && !rn2(200)) {
-        static const char* const icequeenbranch_msg[] = {
-            "an eerie, ominous wail.",
-            "a howling wind.",
-            "someone singing \"Do You Want to Build a Snowman?\""
-        };
-        You_hear1(icequeenbranch_msg[rn2(2 + hallu)]);
-        return;
-    }
-    if (ledger_no(&u.uz) == ledger_no(&valley_level) + 1
-        && !rn2(200)) {
-        static const char* const vecnabranch_msg[] = {
-            "a mysterious chanting.",
-            "the tortured cries of the damned.",
-            "\"Dead man walking\"..."
-        };
-        You_hear1(vecnabranch_msg[rn2(2 + hallu)]);
-        return;
-    }
-#endif
 }
 
 static const char *const h_sounds[] = {
@@ -1153,8 +1131,6 @@ register struct monst *mtmp;
             cuss(mtmp);
         else if (is_lminion(mtmp))
             verbl_msg = "It's not too late.";
-        else if (mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS])
-            verbl_msg = "Ozzy!  I can't throw the stick if you won't drop it!";
         else
             verbl_msg = "We're all doomed.";
         break;

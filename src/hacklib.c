@@ -66,7 +66,6 @@
         boolean         friday_13th     (void)
         int             night           (void)
         int             midnight        (void)
-        boolean         kathryn_bday    (void)
         void            strbuf_init     (strbuf *, const char *)
         void            strbuf_append   (strbuf *, const char *)
         void            strbuf_reserve  (strbuf *, int)
@@ -1173,12 +1172,6 @@ int
 midnight()
 {
     return (getlt()->tm_hour == 0);
-}
-
-boolean
-kathryn_bday()
-{
-    return (boolean) ((getmday() == 12) && (getmonth() == 2));
 }
 
 static char buf_fmt_duration[BUFSZ];

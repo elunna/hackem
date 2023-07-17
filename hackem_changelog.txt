@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Completely remove Ice Queen branch.
 Vecna no longer has to be defeated to genocide liches/alhoons.
 Removed the Eye of Vecna and reverted the Hand of Vecna to SLASH'EM's behavior.
 The Eye of the Beholder is intelligent.

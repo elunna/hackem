@@ -6481,53 +6481,6 @@ in_hell_effects()
     return FALSE;
 }
 
-/* Also derived from lava_effects(), hero can freeze in
-   the Ice Queen branch without adequate cold resistance */
-static const char in_iceq_killer[] = "freezing to death";
-
-boolean
-in_iceq_effects()
-{
-    int dmg = resist_reduce(d(1, 6), COLD_RES);
-    boolean usurvive, freeze_solid;
-
-    if (likes_iceq(youmonst.data))
-        return FALSE;
-
-    usurvive = how_resistant(COLD_RES) == 100 || (dmg < u.uhp);
-
-    if (how_resistant(COLD_RES) < 100) {
-        if (how_resistant(COLD_RES) >= 50) {
-            if (rn2(3))
-                You("are slowly freezing to death.");
-        } else if (how_resistant(COLD_RES) < 50)
-            You("are freezing to death!");
-        if (usurvive) {
-            losehp(dmg, in_iceq_killer, KILLED_BY);
-            return FALSE;
-        }
-
-        if (wizard)
-            usurvive = TRUE;
-
-        freeze_solid = (u.umonnum == PM_WATER_ELEMENTAL
-                        || u.umonnum == PM_STEAM_VORTEX
-                        || u.umonnum == PM_WATER_TROLL
-                        || u.umonnum == PM_BABY_SEA_DRAGON
-                        || u.umonnum == PM_SEA_DRAGON
-                        || u.umonnum == PM_FOG_CLOUD);
-
-        killer.format = KILLED_BY;
-        Strcpy(killer.name, in_iceq_killer);
-        You("%s...", freeze_solid ? "freeze solid" : "freeze to death");
-        done(DIED);
-
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
 static const char lava_killer[] = "molten lava";
 
 boolean

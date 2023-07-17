@@ -1926,7 +1926,6 @@ boolean called;
     if (name_at_start && (article == ARTICLE_YOUR || !has_adjectives)) {
         if (mdat == &mons[PM_WIZARD_OF_YENDOR]
             || mdat == &mons[PM_RAT_KING]
-            || mdat == &mons[PM_ABOMINABLE_SNOWMAN]
             || mdat == &mons[PM_ARCHBISHOP_OF_MOLOCH])
             article = ARTICLE_THE;
         else
@@ -2394,8 +2393,6 @@ static const char *const sir_Terry_novels[] = {
     "A Hat Full of Sky", "Going Postal", "Thud!", "Wintersmith",
     "Making Money", "Unseen Academicals", "I Shall Wear Midnight", "Snuff",
     "Raising Steam", "The Shepherd's Crown",
-    /* Specific journal for the Ice Queen side branch */
-    "The Adventurer's Journal",
 };
 
 const char *

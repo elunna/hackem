@@ -6627,53 +6627,8 @@ determined to recover the Amulet for your deity, or die
 in the attempt.  Your hour of destiny has come.  For
 the sake of us all:  Go bravely with %d!
 %E [%dC has chosen you to recover the Amulet of Yendor for %dI.]
-#
-# Ice Queen branch text (lifting the curse)
-#
-%Cc - 00200
-Thank you for freeing me from this awful curse, %p!
-Long ago, a powerful and evil witch cast a spell on me, which
-transformed me into the Ice Queen.  She controlled my every
-thought, causing me to bring winter permanently to this land.
-Only by being defeated in combat could I be free from her
-wretched malediction.  I am forever in your debt.  But before
-I can repay that debt, I must undo the damage I have caused
-here.  And please free the captive pegasus, I am certain it
-will be extremely grateful.  Fare thee well, brave %r.
-Until we meet again...
-%E [You have freed Kathryn the Enchantress from a terrible curse.]
-%Cc - 00201
-I suppose I should thank you for freeing me %p,
-but in good conscience, I cannot!  I do not know what your
-motives are %c, but you are in the service of Moloch!
-It was one of his witches that put this wretched curse upon
-me in the first place.  Because you freed me, I will spare
-you %p, but only for a few moments.  Leave this place
-while you are still able to do so.
-%E [You have freed Kathryn the Enchantress from a terrible curse.]
-#
-# Putting on the Hand of Vecna
-#
-%Cc - 00301
-As you move the Hand of Vecna closer to your own, your left
-hand suddenly shrivels up and falls off at the wrist!  Before
-you can react, the Hand of Vecna attaches itself to where your
-own hand used to be, infusing your entire body with an evil
-magic.  Exhilarated, you raise the Hand high above your head,
-reveling in your new-found power.  You realize that the Hand
-of Vecna has merged itself to your body, and that you will
-never be free of it.  An evil smile slowly spreads across your
-face at this revelation.
-%E [The Hand of Vecna has permanently affixed itself to your left arm.]
-%Cc - 00302
-As you move the Hand of Vecna closer to your own, your left
-hand suddenly shrivels up and falls off at the wrist!  Before
-you can react, the Hand of Vecna attaches itself to where your
-own hand used to be, infusing your entire body with an evil
-magic.  In a panic, you struggle to remove it from your arm,
-but it has merged itself to you completely.  It slowly dawns on
-you that you will never be able to free yourself from it.
-%E [The Hand of Vecna has permanently affixed itself to your left arm.]
+
+
 #
 # Defeating Vecna
 #

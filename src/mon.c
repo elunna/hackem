@@ -31,7 +31,6 @@ STATIC_DCL void FDECL(m_detach, (struct monst *, struct permonst *));
 STATIC_DCL void FDECL(lifesaved_monster, (struct monst *));
 STATIC_DCL void FDECL(migrate_mon, (struct monst *, XCHAR_P, XCHAR_P));
 STATIC_DCL boolean FDECL(ok_to_obliterate, (struct monst *));
-STATIC_DCL void FDECL(icequeenrevive, (struct monst *));
 STATIC_DCL void FDECL(deathwail, (struct monst *));
 
 /* note: duplicated in dog.c */
@@ -3073,13 +3072,6 @@ struct monst *magr, /* monster that is currently deciding where to move */
         && !mindless(md))
         return ALLOW_M | ALLOW_TM;
 
-    /* mini-me recently had a bad encounter with a yellowjacket.
-       she now hates all things that can sting */
-    if ((ma == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-         || ma == &mons[PM_KATHRYN_THE_ENCHANTRESS])
-        && can_sting(md))
-        return ALLOW_M | ALLOW_TM;
-
     /* now test all two-way aggressions both ways */
     return (mm_2way_aggression(magr, mdef) | mm_2way_aggression(mdef, magr));
 }
@@ -3134,11 +3126,7 @@ dmonsfree()
     buf[0] = '\0';
     for (mtmp = &fmon; *mtmp;) {
         freetmp = *mtmp;
-
-        if (DEADMONSTER(freetmp)
-            && freetmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-            icequeenrevive(freetmp);
-
+        
         if (DEADMONSTER(freetmp) && !freetmp->isgd) {
             *mtmp = freetmp->nmon;
             freetmp->nmon = NULL;
@@ -3566,71 +3554,7 @@ register struct monst *mtmp;
         newsym(mtmp->mx, mtmp->my);
         return;
     }
-    if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-        if (!u.uachieve.defeat_icequeen)
-            u.uachieve.defeat_icequeen = 1;
-        return; /* handled in dmonsfree */
-    }
-    /* our hero decided to choose poorly and attempt to kill
-       Kathryn the Enchantress */
-    if (mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {
-        if (canspotmon(mtmp)) {
-            pline("But wait!  %s is not truly dead!", mon_nam(mtmp));
-            pline("Not even death can overcome her magic!");
-            rise_msg = TRUE;
-        }
-        mtmp->mcanmove = 1;
-        mtmp->mfrozen = 0;
-        mtmp->mstone = 0;
-        mtmp->msick = 0;
-        mtmp->mdiseased = 0;
-        mtmp->mconf = 0;
-        mtmp->mstun = 0;
-        mtmp->mpeaceful = 0;
-        mtmp->m_lev = 100;
-        mtmp->mhp = mtmp->mhpmax = 7500;
-        if (mtmp == u.ustuck) {
-            if (u.uswallow)
-                expels(mtmp, mtmp->data, FALSE);
-            else
-                uunstick();
-        }
-        newsym(mtmp->mx, mtmp->my);
-        if (u.ualign.type == A_NONE) {
-            adjalign(10);
-        } else {
-            You_feel("very guilty.");
-            adjalign(-15);
-        }
-        change_luck(-15);
-        return;
-    }
-
-    /* special handling for the Ice Queen's dogs */
-    if (mtmp->data == &mons[PM_BOURBON] || mtmp->data == &mons[PM_OZZY]) {
-        if (canspotmon(mtmp)) {
-            You("have made %s submit, and %s is no longer hostile.", mon_nam(mtmp), mhe(mtmp));
-        }
-        mtmp->mcanmove = 1;
-        mtmp->mfrozen = 0;
-        mtmp->mstone = 0;
-        mtmp->msick = 0;
-        mtmp->mdiseased = 0;
-        mtmp->mconf = 0;
-        mtmp->mstun = 0;
-        mtmp->mpeaceful = 1;
-        mtmp->mhp = mtmp->mhpmax;
-        if (mtmp == u.ustuck) {
-            if (u.uswallow)
-                expels(mtmp, mtmp->data, FALSE);
-            else
-                uunstick();
-        }
-        newsym(mtmp->mx, mtmp->my);
-        rise_msg = TRUE;
-        return;
-    }
-
+    
     /* special handling for Vecna and his artifacts */
     if (mtmp->isvecna) {
         if (!Blind) {
@@ -4439,10 +4363,6 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
         if (!u.uconduct.killer++)
             livelog_write_string (LL_CONDUCT,"killed for the first time");
 
-    if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-        && u.uachieve.defeat_icequeen)
-        return;
-
     if (mtmp->data == &mons[PM_SHAMBLING_HORROR])
         u.uevent.know_horror = TRUE;
     
@@ -5204,30 +5124,7 @@ boolean via_attack;
             pline_The("engraving beneath you fades.");
         del_engr_at(u.ux, u.uy);
     }
-
-    if (via_attack
-        && (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS])) {
-        struct monst *mon;
-        struct permonst *bourbon = &mons[PM_BOURBON];
-        struct permonst *ozzy = &mons[PM_OZZY];
-
-        for (mon = fmon; mon; mon = mon->nmon) {
-            if (DEADMONSTER(mon))
-                continue;
-            if (mon->data == bourbon && mon->mpeaceful) {
-                mon->mstrategy &= ~STRAT_WAITMASK;
-                mon->mpeaceful = 0;
-                growl(mon);
-            }
-            if (mon->data == ozzy && mon->mpeaceful) {
-                mon->mstrategy &= ~STRAT_WAITMASK;
-                mon->mpeaceful = 0;
-                growl(mon);
-            }
-        }
-    }
-
+    
     /* AIS: Should this be in both places, or just in wakeup()? */
     if (!(via_attack
         && (Role_if(PM_ROGUE) && !uwep && context.forcefight && !Upolyd))) {
@@ -6752,113 +6649,6 @@ struct permonst *mdat;
             }
     }
     return msg_given ? TRUE : FALSE;
-}
-
-void
-icequeenrevive(mtmp)
-struct monst *mtmp;
-{
-    struct monst *mon;
-    struct permonst *bourbon = &mons[PM_BOURBON];
-    struct permonst *ozzy = &mons[PM_OZZY];
-
-    /* our hero has freed the Ice Queen from her curse */
-    if (mtmp->data != &mons[PM_KATHRYN_THE_ICE_QUEEN])
-        return;
-
-    /* in case player kills themselves while defeating
-       the ice queen and isn't lifesaved */
-    if (u.uhp <= 0 && !Lifesaved) {
-        ; /* suppress feedback */
-    } else {
-        Your("actions have released %s from a powerful curse!", mon_nam(mtmp));
-        if (canspotmon(mtmp))
-            You("watch as %s undergoes a transformation, back into her original form.",
-                mon_nam(mtmp));
-    }
-    mtmp->mcanmove = 1;
-    mtmp->mfrozen = 0;
-    mtmp->mstone = 0;
-    mtmp->msick = 0;
-    mtmp->mdiseased = 0;
-    mtmp->mwither = 0;
-    mtmp->mconf = 0;
-    mtmp->mstun = 0;
-    mtmp->mpeaceful = 1;
-
-    if (!u.uachieve.defeat_icequeen) /* should be redundant, but in case of funky business */
-        u.uachieve.defeat_icequeen = 1;
-
-    mvitals[PM_KATHRYN_THE_ICE_QUEEN].died++;
-    livelog_printf(LL_UMONST, "defeated %s", noit_mon_nam(mtmp));
-    newcham(mtmp, &mons[PM_KATHRYN_THE_ENCHANTRESS], FALSE, FALSE);
-    if (kathryn_bday()) {
-        mtmp->mhp = mtmp->mhpmax = 15000;
-    } else {
-        mtmp->mhp = mtmp->mhpmax = 7500;
-    }
-    if (mtmp == u.ustuck) {
-        if (u.uswallow)
-            expels(mtmp, mtmp->data, FALSE);
-        else
-            uunstick();
-    }
-    newsym(mtmp->mx, mtmp->my);
-
-    /* Fix up Bourbon and Ozzy */
-    for (mon = fmon; mon; mon = mon->nmon) {
-        if (DEADMONSTER(mon))
-            continue;
-        /* cure any ailments the dogs may have also */
-        if (mon->data == bourbon || mon->data == ozzy) {
-            if (u.uhp <= 0 && !Lifesaved) {
-                ; /* suppress feedback */
-            } else {
-                if (mon->data == bourbon) {
-                    if (m_cansee(mtmp, mon->mx, mon->my))
-                        pline("%s motions for Bourbon to heel and stop %s attack.",
-                              Monnam(mtmp), mhis(mon));
-                } else {
-                    if (m_cansee(mtmp, mon->mx, mon->my))
-                        pline("%s motions for Ozzy to heel and stop %s attack.",
-                              Monnam(mtmp), mhis(mon));
-                }
-            }
-            mon->mcanmove = 1;
-            mon->mfrozen = 0;
-            mon->mstone = 0;
-            mon->msick = 0;
-            mon->mdiseased = 0;
-            mon->mwither = 0;
-            mon->mconf = 0;
-            mon->mstun = 0;
-            mon->mpeaceful = 1;
-        }
-    }
-    /* in case player kills themselves while defeating
-       the ice queen and isn't lifesaved */
-    if (u.uhp <= 0 && !Lifesaved) {
-        ; /* suppress feedback */
-    } else {
-        if (Role_if(PM_INFIDEL)) {
-            /* the enchantress will not tolerate those that serve Moloch.
-               our infidel has 100 turns to do what they're going to do
-               and get the hell out before the situation becomes dire */
-            com_pager(201);
-            mtmp->mpeaceful = 0;
-            paralyze_monst(mtmp, 100);
-        } else {
-            com_pager(200);
-        }
-    }
-    if (u.ualign.type == A_NONE) {
-        You_feel("guilty.");
-        adjalign(-2); /* doing good things as an agent of Moloch? pfft */
-    } else {
-        adjalign(2);
-    }
-    change_luck(2);
-    return;
 }
 
 /* The I_SPECIAL bit of misc_worn_check is used to flag a monster that should

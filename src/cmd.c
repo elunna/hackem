@@ -1404,8 +1404,6 @@ wiz_map_levltyp(VOID_ARGS)
                 Strcat(dsc, " mazelike");
             if (slev->flags.hellish)
                 Strcat(dsc, " hellish");
-            if (slev->flags.iceq)
-                Strcat(dsc, " Ice Queen branch");
             if (slev->flags.vecnad)
                 Strcat(dsc, " Vecna's branch");
 #if 0
@@ -4119,9 +4117,6 @@ int final;
     if (u.uachieve.killed_grund)
         enl_msg(You_, "have ", "",
                 "defeated Grund", ""), ++acnt;
-    if (u.uachieve.defeat_icequeen)
-        enl_msg(You_, "have ", "",
-                "defeated Kathryn the Ice Queen", ""), ++acnt;
     if (u.uachieve.bell)
         enl_msg(You_, "have ", "",
                 "handled the Bell of Opening", ""), ++acnt;

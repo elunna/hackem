@@ -146,10 +146,7 @@ int spellval;
         i = rn2(3);
         switch (i) {
         case 2:
-            if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-                return MGC_ICE_BOLT;
-            else
-                return MGC_FIRE_BOLT;
+            return MGC_FIRE_BOLT;
         case 1:
             return MGC_ICE_BOLT;
         case 0:
@@ -208,10 +205,7 @@ int spellval;
         i = rn2(3);
         switch (i) {
         case 2:
-            if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-                return MGC_ICE_BOLT;
-            else
-                return MGC_FIRE_BOLT;
+            return MGC_FIRE_BOLT;
         case 1:
             return MGC_ICE_BOLT;
         case 0:
@@ -253,8 +247,7 @@ int spellnum;
     case 12:
         return CLC_GEYSER;
     case 11:
-        if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mtmp->data == &mons[PM_ASMODEUS])
+        if (mtmp->data == &mons[PM_ASMODEUS])
             return CLC_LIGHTNING;
         else
             return CLC_FIRE_PILLAR;
@@ -265,8 +258,7 @@ int spellnum;
     case 8:
         if ((is_demon(mtmp->data)
              && mtmp->data != &mons[PM_LOLTH])
-            || mtmp->mtame || mtmp->mpeaceful
-            || mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
+            || mtmp->mtame || mtmp->mpeaceful)
             return CLC_VULN_YOU;
         else
             return CLC_INSECTS;
@@ -363,9 +355,7 @@ boolean foundyou;
                 || mtmp->data->msound == MS_LEADER
                 || mtmp->data->msound == MS_NEMESIS
                 || mtmp->data == &mons[PM_ORACLE]
-                || mtmp->data == &mons[PM_HIGH_PRIEST]
-                || mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-                || mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]))
+                || mtmp->data == &mons[PM_HIGH_PRIEST]))
             mtmp->mspec_used = 0;
 
         /* Having the EotA in inventory drops mspec to 0 */
@@ -785,8 +775,6 @@ int spellnum;
             ; /* nothing was created? */
         } else if (mtmp->iswiz) {
             verbalize("Destroy the thief, my pet%s!", plur(count));
-        } else if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-            verbalize("Defend me, my minion%s!", plur(count));
         } else {
             boolean one = (count == 1);
             const char *mappear = one ? "A monster appears"
@@ -962,35 +950,24 @@ int spellnum;
 
     switch (spellnum) {
     case CLC_SUMMON_ELM:
-        if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-            coord bypos;
-            if (!enexto(&bypos, mtmp->mx, mtmp->my, mtmp->data))
-                break;
-            minion = makemon(&mons[PM_SNOW_GOLEM], bypos.x, bypos.y,
-                             MM_ANGRY);
-            if (minion && canspotmon(minion))
-                pline("A minion of %s appears!", mon_nam(mtmp));
-        } else {
-            aligntype = mon_aligntyp(mtmp);
-            minion = summon_minion(aligntype, FALSE);
-            if (minion) {
-                boolean vassal = (aligntype == A_NONE);
-                set_malign(minion);
-                if (canspotmon(minion))
-                    pline("A %s of %s appears!",
-                          vassal ? "vassal" : "servant",
-                          vassal ? Moloch : aligns[1 - aligntype].noun);
-            }
+        aligntype = mon_aligntyp(mtmp);
+        minion = summon_minion(aligntype, FALSE);
+        if (minion) {
+            boolean vassal = (aligntype == A_NONE);
+            set_malign(minion);
+            if (canspotmon(minion))
+                pline("A %s of %s appears!",
+                      vassal ? "vassal" : "servant",
+                      vassal ? Moloch : aligns[1 - aligntype].noun);
         }
+    
         dmg = 0;
         break;
     case CLC_GEYSER:
         /* this is physical damage (force not heat),
          * not magical damage or fire damage
          */
-        if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mtmp->data == &mons[PM_ASMODEUS]
-            || mtmp->data == &mons[PM_VECNA]) {
+        if (mtmp->data == &mons[PM_ASMODEUS] || mtmp->data == &mons[PM_VECNA]) {
             pline("An avalanche of ice and snow slams into you from nowhere!");
             dmg = d(8, 8);
             if (Half_physical_damage)
@@ -1206,9 +1183,7 @@ int spellnum;
               Blind ? "slimy" : vulntext[dmg], body_part(SKIN));
         switch (dmg) {
         case 1:
-            if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-                || mtmp->data == &mons[PM_ASMODEUS]
-                || mtmp->data == &mons[PM_VECNA]) {
+            if (mtmp->data == &mons[PM_ASMODEUS] || mtmp->data == &mons[PM_VECNA]) {
                 if (Vulnerable_cold)
                     return;
                 incr_itimeout(&HVulnerable_cold, rnd(100) + 150);
@@ -1690,13 +1665,10 @@ struct attack *mattk;
                 || mtmp->data->msound == MS_LEADER
                 || mtmp->data->msound == MS_NEMESIS
                 || mtmp->data == &mons[PM_ORACLE]
-                || mtmp->data == &mons[PM_HIGH_PRIEST]
-                || mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]))
+                || mtmp->data == &mons[PM_HIGH_PRIEST]))
             mtmp->mspec_used = 0;
 
-        if (is_dprince(mtmp->data)
-            || mtmp->iswiz || mtmp->isvecna
-            || mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS])
+        if (is_dprince(mtmp->data) || mtmp->iswiz || mtmp->isvecna)
             /* mspec 0 always */
             mtmp->mspec_used = 0;
 

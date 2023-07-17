@@ -655,11 +655,6 @@ boolean resuming;
                     if (Inhell && !Is_valley(&u.uz))
                         in_hell_effects();
 
-                    /* Running around in the Ice Queen branch without
-                       100% cold resistance */
-                    if (Iniceq)
-                        in_iceq_effects();
-
                     /* If wielding/wearing any of the 'banes, make those
                        monsters that they are against hostile should they
                        be tame or peaceful */

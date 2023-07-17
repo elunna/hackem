@@ -1043,11 +1043,6 @@ toofar:
     if (inrange && mtmp->data->msound == MS_CUSS && !mtmp->mpeaceful
         && couldsee(mtmp->mx, mtmp->my) && !mtmp->minvis && !rn2(5))
         cuss(mtmp);
-    /* freeing the Ice Queen from her curse */
-    if (inrange && mtmp->data->msound == MS_CUSS && mtmp->mpeaceful
-        && mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]
-        && couldsee(mtmp->mx, mtmp->my) && !mtmp->minvis && !rn2(5))
-        cuss(mtmp);
 
     /* note: can't get here when tmp==2 so this always returns 0 */
     return (tmp == 2);

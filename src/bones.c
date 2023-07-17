@@ -540,10 +540,7 @@ struct obj *corpse;
             || mtmp->cham == PM_NOSFERATU /* in case he's vampshifted */
             || mptr == &mons[PM_CTHULHU]
             || mptr == &mons[PM_NIGHTMARE]
-            || mptr == &mons[PM_BEHOLDER]
-            || mptr == &mons[PM_ABOMINABLE_SNOWMAN]
-            || mptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mptr == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {
+            || mptr == &mons[PM_BEHOLDER]) {
             mongone(mtmp);
             if (mtmp == ukiller)
                 ukiller = (struct monst *) 0;

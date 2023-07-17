@@ -710,26 +710,6 @@ NEARDATA struct permonst mons[] = {
         MR_FIRE | MR_ELEC, MR_FIRE | MR_ELEC,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 19, CLR_RED),
-    MON("Bourbon", S_DOG,                                       /* EvilHack */
-        LVL(20, 20, 2, 40, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_BITE, AD_PHYS, 4, 6), 
-          ATTK(AT_CLAW, AD_PHYS, 3, 4),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(500, 250, MS_BARK, MZ_MEDIUM),
-        MR_STONE | MR_SLEEP | MR_COLD, MR_COLD,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
-            | M2_NOPOLY | M2_NASTY | M2_PNAME | M2_FEMALE,
-        M3_INFRAVISION | M3_CLOSE | M3_BERSERK, 0, 0, 22, CLR_BROWN),
-    MON("Ozzy", S_DOG,                                          /* EvilHack */
-        LVL(22, 14, 0, 40, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_BITE, AD_PHYS, 6, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(850, 400, MS_BARK, MZ_LARGE),
-        MR_STONE | MR_SLEEP | MR_COLD, MR_COLD,
-        M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
-            | M2_NOPOLY | M2_NASTY | M2_PNAME | M2_MALE,
-        M3_INFRAVISION | M3_CLOSE | M3_BERSERK, 0, 0, 24, CLR_BROWN),
     MON("Cerberus", S_DOG,                                      /* EvilHack */
         LVL(27, 20, -7, 90, -7), (G_NOGEN | G_UNIQ | G_HELL),
         A(ATTK(AT_BITE, AD_PHYS, 3, 6), 
@@ -5474,19 +5454,6 @@ struct permonst _mons2[] = {
         M1_ANIMAL | M1_HUMANOID | M1_CARNIVORE, M2_HOSTILE | M2_STRONG
             | M2_NASTY | M2_JUMPER,
         M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BROWN),
-    MON("Abominable Snowman", S_YETI,                           /* EvilHack */
-        LVL(25, 12, 0, 50, 0), (G_UNIQ | G_NOGEN),
-        A(ATTK(AT_BITE, AD_PHYS, 8, 4), 
-          ATTK(AT_WEAP, AD_PHYS, 6, 6),
-          ATTK(AT_CLAW, AD_CLOB, 6, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(5000, 2000, MS_GROWL, MZ_GIGANTIC),
-        MR_SLEEP | MR_POISON | MR_STONE | MR_COLD, MR_COLD,
-        M1_ANIMAL | M1_HUMANOID | M1_CARNIVORE | M1_REGEN | M1_THICK_HIDE
-            | M1_SWIM,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_ROCKTHROW,
-        M3_INFRAVISION | M3_BERSERK | M3_WAITFORU, M4_VULNERABLE_FIRE,
-        0, 27, DRAGON_SILVER),
     /*
      * Zombies
      */
@@ -6364,36 +6331,6 @@ struct permonst _mons2[] = {
             | M2_MALE | M2_GREEDY | M2_COLLECT | M2_FLANK,
         M3_WAITFORU | M3_INFRAVISIBLE,
         0, MH_HUMAN | MH_WERE, 14, CLR_BLACK),
-    MON("Kathryn the Ice Queen", S_HUMAN,                       /* EvilHack */
-        LVL(32, 15, 0, 80, A_NONE), (G_UNIQ | G_NOCORPSE | G_NOGEN),
-        A(ATTK(AT_WEAP, AD_PHYS, 3, 4), 
-          ATTK(AT_TUCH, AD_COLD, 8, 8),
-          ATTK(AT_MAGC, AD_CLRC, 3, 8), 
-          ATTK(AT_MAGC, AD_SPEL, 3, 8),
-          NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_CUSS, MZ_HUMAN),
-        MR_STONE | MR_SLEEP | MR_COLD, 0,
-        M1_HUMANOID | M1_REGEN | M1_OMNIVORE | M1_SEE_INVIS
-            | M1_FLY | M1_TPORT_CNTRL,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_PNAME
-            | M2_FEMALE | M2_GREEDY | M2_COLLECT | M2_MAGIC,
-        M3_WAITFORU | M3_INFRAVISION | M3_ACCURATE,
-        M4_VULNERABLE_FIRE, MH_HUMAN, 36, DRAGON_SILVER),
-    MON("Kathryn the Enchantress", S_HUMAN,                     /* EvilHack */
-        LVL(100, 9, 0, 100, 15), (G_UNIQ | G_NOCORPSE | G_NOGEN),
-        A(ATTK(AT_WEAP, AD_PHYS, 10, 10), 
-          ATTK(AT_MAGC, AD_CLRC, 10, 10),
-          ATTK(AT_MAGC, AD_SPEL, 10, 10), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_CUSS, MZ_HUMAN),
-        MR_STONE | MR_SLEEP | MR_COLD | MR_FIRE | MR_ELEC | MR_POISON
-            | MR_ACID | MR_DISINT | MR_PSYCHIC, 0,
-        M1_HUMANOID | M1_REGEN | M1_OMNIVORE | M1_SEE_INVIS
-            | M1_FLY | M1_TPORT_CNTRL,
-        M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_NASTY | M2_PNAME
-            | M2_FEMALE | M2_GREEDY | M2_COLLECT | M2_MAGIC,
-        M3_CLOSE | M3_INFRAVISION | M3_ACCURATE,
-        0, MH_HUMAN, 104, CLR_YELLOW),
     /*
      * ghosts
      */

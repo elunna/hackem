@@ -2126,18 +2126,6 @@ boolean at_stairs, falling, portal;
         && !u.uevent.hellc_entered)
         u.uevent.hellc_entered = 1;
 
-    if (!In_icequeen_branch(&u.uz0) && Iniceq
-        && !u.uevent.iceq_entered) {
-        u.uevent.iceq_entered = 1;
-        You("arrive in a frozen, barren wasteland.");
-        pline_The("remnants of a once majestic forest stretch out before you.");
-#ifdef MICRO
-        display_nhwindow(WIN_MESSAGE, FALSE);
-#endif
-        if (!Deaf)
-            You_hear("the distant howl of hungry wolves.");
-    }
-
     if (!In_vecna_branch(&u.uz0) && Invecnad
         && !u.uevent.vecnad_entered) {
         u.uevent.vecnad_entered = 1;

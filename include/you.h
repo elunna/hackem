@@ -52,7 +52,6 @@ struct u_event {
     Bitfield(gehennom_entered, 1);  /* entered Gehennom via Valley */
     Bitfield(tower_entered, 1);     /* entered Vlad's tower (cavern level) */
     Bitfield(hellc_entered, 1);     /* entered one of the demon prince lairs */
-    Bitfield(iceq_entered, 1);      /* entered the Ice Queen's realm */
     Bitfield(vecnad_entered, 1);    /* entered Vecna's domain */
     Bitfield(grunds_entered, 1);    /* entered Grund's Stronghold */
     Bitfield(uhand_of_elbereth, 3); /* became Hand of Elbereth */
@@ -76,7 +75,6 @@ struct u_achieve {
     Bitfield(finish_sokoban, 1);  /* obtained the sokoban prize */
 
     Bitfield(killed_medusa, 1);
-    Bitfield(defeat_icequeen, 1);
     Bitfield(killed_cerberus, 1);
     Bitfield(killed_nightmare, 1);      /* You defeated Nightmare. */
     Bitfield(killed_beholder, 1);       /* You defeated Beholder. */

@@ -1644,7 +1644,7 @@ unsigned breakflags; /* breakage control */
 {
     struct obj *otmp = *objp;
     int obj_type = otmp->otyp;
-    boolean nodissolve = ((levl[barsx][barsy].wall_info & W_NONDIGGABLE) != 0) && !Iniceq,
+    boolean nodissolve = ((levl[barsx][barsy].wall_info & W_NONDIGGABLE) != 0),
             your_fault = (breakflags & BRK_BY_HERO) != 0;
 
     if (your_fault

@@ -783,7 +783,7 @@ recover: $(U)recover.exe
 
 $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/endgame.des  $(DAT)/gehennom.des $(DAT)/lethe.des \
-	 $(DAT)/icequeen.des $(DAT)/knox.des     $(DAT)/medusa.des \
+	 $(DAT)/knox.des     $(DAT)/medusa.des \
 	 $(DAT)/nymph.des    $(DAT)/oracle.des   $(DAT)/tower.des \
 	 $(DAT)/vaults.des   $(DAT)/yendor.des \
 	 $(DAT)/nkai.des     $(DAT)/ucastle.des \
@@ -807,7 +807,6 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/lethe.des)
 	$(subst /,\,$(U)levcomp $(DAT)/ucastle.des)
 	$(subst /,\,$(U)levcomp $(DAT)/nkai.des)
-	$(subst /,\,$(U)levcomp $(DAT)/icequeen.des)
 	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
 	$(subst /,\,$(U)levcomp $(DAT)/mines.des)
 	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
@@ -1327,7 +1326,6 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\hellb-?.lev	   del $(W_DAT)\hellb-?.lev
 	if exist $(W_DAT)\hellc-?.lev	   del $(W_DAT)\hellc-?.lev
 	if exist $(W_DAT)\hellfill.lev     del $(W_DAT)\hellfill.lev
-	if exist $(W_DAT)\icequeen-?.lev   del $(W_DAT)\icequeen-?.lev
 	if exist $(W_DAT)\knox-?.lev	   del $(W_DAT)\knox-?.lev
 	if exist $(W_DAT)\medusa-?.lev	   del $(W_DAT)\medusa-?.lev
 	if exist $(W_DAT)\mine*.lev	   del $(W_DAT)\mine*.lev

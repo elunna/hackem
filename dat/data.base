@@ -5339,40 +5339,11 @@ katana
 	it to be wielded with either one or two hands.
 
 	Crafting recipe: katana = long sword + long sword
-ice queen
-kathryn*
-	"The White Witch? Who is she?"
-	"Why, it is she that has got all Narnia under her thumb.
-	It's she that makes it always winter.  Always winter and
-	never Christmas; think of that!"
-	"How awful!" said Lucy.
-
-	Every moment the patches of green grew bigger and the patches
-	of snow grew smaller.  Every moment more and more of the trees
-	shook off their robes of snow.  Soon, wherever you looked,
-	instead of white shapes you saw the dark green of firs or the
-	black prickly branches of bare oaks and beeches and elms.
-	Then the mist turned from white to gold and presently cleared
-	away altogether.  Shafts of delicious sunlight struck down on
-	to the forest floor and overhead you could see a blue sky
-	between the tree tops.
-		[ The Lion, the Witch and the Wardrobe,
-		  by C.S. Lewis ]
-kas
-sword of kas
-	Kas the Bloody-Handed was the most trusted lieutenant of the
-	despotic lich Vecna, and wielder of the Sword of Kas.
-
-	After many years of loyal service to Vecna, Kas eventually
-	betrayed his master.  It is said that the sword itself whispered
-	to Kas, convincing him to slay his master and usurp his power.
 keg
 	Contains a very large number of potions of booze. Quaffing from
 	the keg will consume a single potion; applying the keg will
 	consume all the potions, potentially killing the player via
 	alcohol poisoning.
-
-
 kelp*
 *frond
     It is only generated under water: 1/10 chance of being generated
@@ -5486,21 +5457,6 @@ stiletto
 	Crafting recipes:
 	knife = 2 arrows + 2 darts
 	stiletto = knife + 2 crossbow bolts
-bourbon
-koa
-ozzy
-german shepherd
-	I am your friend, your partner,
-	Your defender, your dog.
-	You are my life, my leader.
-	I will be yours, faithful and true,
-	To the last beat of my heart.
-	I am the German Shepherd.
-		[ Author unknown ]
-
-	Koa:     July 25th, 2009 - November 29th, 2020
-	Ozzy:    January 13th, 2015 - present
-	Bourbon: April 19th, 2016 - present
 koala
 	A fine example of evolution gone wrong.
 ~kobold ??m*
@@ -13363,7 +13319,6 @@ yeenoghu
 	Yeenoghu, the demon lord of gnolls.  He casts magic projectiles
 	at those close to him, and a mere gaze into his piercing eyes
 	may hopelessly confuse the battle-weary adventurer.
-abominable snowman
 yeti
 	The Abominable Snowman, or yeti, is one of the truly great
 	unknown animals of the twentieth century.  It is a large hairy
@@ -14449,6 +14404,3 @@ discworld novel*
 	  Raising Steam
 	  The Shepherd's Crown
 ##
-# 'novel' that is part of the Ice Queen branch
-journal
-    The Adventurer's Journal

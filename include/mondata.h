@@ -63,8 +63,6 @@
      || (ptr) == &mons[PM_GOLD_DRAGON] \
      || (ptr) == &mons[PM_JUGGERNAUT] \
      || (ptr) == &mons[PM_LOCUST] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
      || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
      || (ptr) == &mons[PM_MARRASHI])
 
@@ -90,9 +88,7 @@
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
      || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_WATER_MAGE]       \
-     || (ptr) == &mons[PM_NIGHTMARE] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS])
+     || (ptr) == &mons[PM_NIGHTMARE])
 /* is_were() doesn't handle hero in human form */
 
 /* is_vampshifter(mon) in handled explicitly in zap.c */
@@ -509,57 +505,9 @@
      || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_NYMPH])
 
-/* Ice Queen branch defines */
-#define is_iceq_only(ptr) \
-    ((ptr) == &mons[PM_SNOW_GOLEM] \
-     || (ptr) == &mons[PM_WOOLLY_MAMMOTH] \
-     || (ptr) == &mons[PM_SABER_TOOTHED_TIGER] \
-     || (ptr) == &mons[PM_ICE_NYMPH] \
-     || (ptr) == &mons[PM_FROST_SALAMANDER] \
-     || (ptr) == &mons[PM_REVENANT])
 #define freeze_step(ptr) \
     ((ptr) == &mons[PM_SNOW_GOLEM] \
-     || (ptr) == &mons[PM_FROST_SALAMANDER] \
-     || (ptr) == &mons[PM_ABOMINABLE_SNOWMAN])
-#define likes_iceq(ptr) \
-    ((ptr) == &mons[PM_SNOW_GOLEM] \
-     || (ptr) == &mons[PM_OWLBEAR] \
-     || (ptr) == &mons[PM_WOLF] \
-     || (ptr) == &mons[PM_WEREWOLF] \
-     || (ptr) == &mons[PM_WINTER_WOLF_CUB] \
-     || (ptr) == &mons[PM_WINTER_WOLF] \
-     || (ptr) == &mons[PM_WARG] \
-     || (ptr) == &mons[PM_FREEZING_SPHERE] \
-     || (ptr) == &mons[PM_LYNX] \
-     || (ptr) == &mons[PM_BLUE_JELLY] \
-     || (ptr) == &mons[PM_GOBLIN_CAPTAIN] \
-     || (ptr) == &mons[PM_MASTODON] \
-     || (ptr) == &mons[PM_WOOLLY_MAMMOTH] \
-     || (ptr) == &mons[PM_ICE_VORTEX] \
-     || (ptr) == &mons[PM_MOUNTAIN_CENTAUR] \
-     || (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
-     || (ptr) == &mons[PM_WHITE_DRAGON] \
-     || (ptr) == &mons[PM_BABY_SILVER_DRAGON] \
-     || (ptr) == &mons[PM_SILVER_DRAGON] \
-     || (ptr) == &mons[PM_BROWN_MOLD] \
-     || (ptr) == &mons[PM_FROST_GIANT] \
-     || (ptr) == &mons[PM_ICE_TROLL] \
-     || (ptr) == &mons[PM_YETI] \
-     || (ptr) == &mons[PM_SASQUATCH] \
-     || (ptr) == &mons[PM_SABER_TOOTHED_TIGER] \
-     || (ptr) == &mons[PM_FROST_SALAMANDER] \
-     || (ptr) == &mons[PM_ICE_NYMPH] \
-     || (ptr) == &mons[PM_REVENANT] \
-     || (ptr) == &mons[PM_BABY_OWLBEAR] \
-     || (ptr) == &mons[PM_HUMAN_ZOMBIE] \
-     || (ptr) == &mons[PM_GIANT_ZOMBIE] \
-     || (ptr) == &mons[PM_POLAR_BEAR] \
-     || (ptr) == &mons[PM_LICH])
-
-#define likes_gtown(ptr) \
-    ((ptr)->mlet == S_ORC \
-    || (ptr)->mlet == S_KOBOLD \
-    || is_rat(ptr))
+     || (ptr) == &mons[PM_FROST_SALAMANDER])
 
 /* macros for various monsters affected by specific types of damage */
 #define can_vaporize(ptr) \
@@ -844,9 +792,7 @@
 
 /* monsters not technically killed, but defeated instead */
 #define is_defeated(ptr) \
-    ((ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
-     || (ptr) == &mons[PM_BOURBON] \
-     || (ptr) == &mons[PM_OZZY])
+    ((ptr) == &mons[PM_GRUND_THE_ORC_KING])
 
 #define is_racialmon(ptr) (is_mplayer(ptr) || is_mercenary(ptr))
 

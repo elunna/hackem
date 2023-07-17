@@ -1513,19 +1513,6 @@ register struct monst *mtmp;
         } else if (mm == PM_CHARON) {
             (void) mongets(mtmp, WAN_OPENING);
             mkmonmoney(mtmp, (long) rn1(100, 100));
-        } else if (mm == PM_KATHRYN_THE_ICE_QUEEN) {
-            otmp = mksobj(ATHAME, FALSE, FALSE);
-            bless(otmp);
-            otmp->oprops = ITEM_FROST;
-            otmp->oerodeproof = TRUE;
-            otmp->spe = rnd(3) + 4;
-            (void) mpickobj(mtmp, otmp);
-            (void) mongets(mtmp, AMULET_OF_REFLECTION);
-            (void) mongets(mtmp, GLOVES);
-            (void) mongets(mtmp, HIGH_BOOTS);
-            (void) mongets(mtmp, RIN_SLOW_DIGESTION);
-            (void) mongets(mtmp, rn2(2) ? CLOAK_OF_MAGIC_RESISTANCE
-                                        : CLOAK_OF_DISPLACEMENT);
         } else if (ptr->msound == MS_GUARDIAN) {
             /* quest "guardians" */
             switch (mm) {
@@ -3324,14 +3311,6 @@ long mmflags;
 
     mtmp->mpeaceful = (mmflags & MM_ANGRY) ? FALSE : peace_minded(mtmp);
     mtmp->mtraitor  = FALSE;
-    
-    /* The ice queen is a much more deadly opponent
-       on her birthday */
-    if (ptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-        && kathryn_bday()) {
-        mtmp->mhp = mtmp->mhpmax = 500;
-        (void) mongets(mtmp, POT_FULL_HEALING);
-    }
 
     /* Beef up Cerberus a bit without jacking up
        his level so high that pets won't attempt
@@ -3795,15 +3774,9 @@ rndmonst()
                 continue;
             if (Inhell && (ptr->geno & G_NOHELL))
                 continue;
-            if (Iniceq && !likes_iceq(ptr))
-                continue;
-            if (!Iniceq && is_iceq_only(ptr))
-                continue;
             ct = (int) (ptr->geno & G_FREQ) + align_shift(ptr);
 	    if (!is_mplayer(ptr))
 	        ct *= 3;
-            if (Iniceq && likes_iceq(ptr))
-                ct *= 5;
             if (ct < 0 || ct > 127)
                 panic("rndmonst: bad count [#%d: %d]", mndx, ct);
             rndmonst_state.choice_count += ct;
@@ -3863,8 +3836,6 @@ int mndx, mvflagsmask, genomask;
     if (ptr->geno & genomask)
         return FALSE;
     if (is_placeholder(ptr))
-        return FALSE;
-    if (!In_icequeen_branch(&u.uz) && ptr == &mons[PM_ICE_NYMPH])
         return FALSE;
     if (!Role_if(PM_INFIDEL)
         && (ptr == &mons[PM_AGENT] || ptr == &mons[PM_CHAMPION]))

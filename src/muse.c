@@ -1048,14 +1048,6 @@ struct monst *mtmp;
                 pline("%s seems disoriented for a moment.", Monnam(mtmp));
             return 2;
         }
-        if (Iniceq && mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-            if (vismon) {
-                pline("A powerful curse prevents %s from teleporting!",
-                      mon_nam(mtmp));
-                verbalize("Nooooo!");
-            }
-            return 2;
-        }
         if (oseen && how)
             makeknown(how);
         (void) rloc(mtmp, TRUE);
@@ -1098,14 +1090,7 @@ struct monst *mtmp;
                     pline("%s shudders for a moment.", Monnam(mtmp));
                 return 2;
             }
-            if (Iniceq && mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-                if (vismon) {
-                    pline("A powerful curse prevents %s from leaving this place!",
-                          mon_nam(mtmp));
-                    verbalize("Nooooo!");
-                }
-                return 2;
-            }
+
             get_level(&flev, nlev);
             migrate_to_level(mtmp, ledger_no(&flev), MIGR_RANDOM,
                              (coord *) 0);
@@ -2926,12 +2911,7 @@ struct monst *mtmp;
     case 9:
         return WAN_SLEEP;
     case 10:
-        if (Iniceq)
-            return rn2(6) ? WAN_SLEEP
-                          : rn2(3) ? WAN_LIGHTNING
-                                   : WAN_FIRE;
-        else
-            return rn2(30) ? WAN_FIRE : POT_OIL;
+        return rn2(30) ? WAN_FIRE : POT_OIL;
     case 11:
         return WAN_COLD;
     case 12:
@@ -3363,8 +3343,7 @@ struct monst *mtmp;
 
                 get_level(&tolevel, tolev);
                 /* insurance against future changes... */
-                if (on_level(&tolevel, &u.uz)
-                    || (Iniceq && mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]))
+                if (on_level(&tolevel, &u.uz))
                     goto skipmsg;
                 if (vismon) {
                     pline("%s rises up, through the %s!", Monnam(mtmp),

@@ -243,7 +243,6 @@ char *buf;
         /* more random stuff */
         "Alhoons really suck",
         "I love magic lamp",
-        "The Ice Queen Snow Cone Stand, est. 2020",
         "Cerberus ate my homework",
         "My firstborn for a magic marker",
     };

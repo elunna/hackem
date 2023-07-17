@@ -73,10 +73,6 @@ struct monst *mon;
             return 0;
         }
 
-        /* The Ice Queen's realm is too cold for almost all demons */
-        if (Iniceq && is_demon(ptr))
-            dtype = PM_ICE_DEVIL;
-
         atyp = mon_aligntyp(mon);
     } else {
         ptr = &mons[PM_WIZARD_OF_YENDOR];

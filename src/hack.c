@@ -2922,10 +2922,7 @@ register boolean newlev;
          * but everything else gives a message only the first time */
         switch (rt) {
         case ZOO:
-            if (Iniceq)
-                You("enter an ice cave!");
-            else
-                pline("Welcome to David's treasure zoo!");
+            pline("Welcome to David's treasure zoo!");
             break;
         case GARDEN:
             if (Blind)
@@ -3276,7 +3273,7 @@ lookaround()
                 || levl[x][y].typ == ICE
                 || IS_GRASS(levl[x][y].typ)
                 || (IS_AIR(levl[x][y].typ)
-                    && !In_V_tower(&u.uz) && !In_icequeen_branch(&u.uz))) {
+                    && !In_V_tower(&u.uz))) {
                 continue;
             } else if (closed_door(x, y) || (mtmp && is_door_mappear(mtmp))) {
                 if (x != u.ux && y != u.uy)

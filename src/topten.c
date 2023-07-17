@@ -465,7 +465,6 @@ encode_extended_achievements()
     add_achieveX(buf, "quest_completed", u.uevent.qcompleted);
 
     /* other notable achievements */
-    add_achieveX(buf, "defeated_ice_queen", u.uachieve.defeat_icequeen);
     add_achieveX(buf, "defeated_cerberus", u.uachieve.killed_cerberus);
     add_achieveX(buf, "defeated_nightmare", u.uachieve.killed_nightmare);
     add_achieveX(buf, "defeated_vecna", u.uachieve.killed_vecna);
@@ -619,7 +618,7 @@ encodeachieve()
         r |= 1L << 10;
     if (u.uachieve.killed_medusa)
         r |= 1L << 11;
-    if (u.uachieve.defeat_icequeen)
+    if (u.uachieve.killed_grund)
         r |= 1L << 12;
     if (u.uevent.minor_oracle)
         r |= 1L << 13;
@@ -629,8 +628,6 @@ encodeachieve()
         r |= 1L << 15;
     if (u.uachieve.killed_cerberus)
         r |= 1L << 16;
-    if (u.uachieve.killed_grund)
-        r |= 1L << 17;
 
     return r;
 }

@@ -395,19 +395,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_ATTK | SPFX_SEARCH | SPFX_HSPDAM | SPFX_WARN | SPFX_DFLAGH),
       0, MH_ANGEL, FIRE(5, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
       5000L, NO_COLOR, DEFAULT_MAT),
-
-#if 0 
-    /* Bag of the Hesperides - this is the magical bag obtained by Perseus
-   * from the Hesperides (nymphs) to contain and transport Medusa's head.
-   * The bag naturally repels water, and it has greater weight reduction
-   * than a regular bag of holding. Found at the end of the Ice Queen branch
-   * with the captive pegasus.
-   */
-    A("Bag of the Hesperides", BAG_OF_HOLDING,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), SPFX_PROTECT, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
-      8000L, NO_COLOR, DRAGONHIDE),
-#endif
     
     /* Warning vs angels; grants 25 charisma while wielded; special paralysis hit*/
     A("Chains of Malcanthet", SPIKED_CHAIN, 
