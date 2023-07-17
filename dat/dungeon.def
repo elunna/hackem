@@ -41,7 +41,7 @@ BRANCH: 	    "The Lost Tomb" @ (21, 4)
 BRANCH:		    "The Spider Caves" @ (26, 4)
 BRANCH:		    "The Sunless Sea" @ (28, 4)
 BRANCH: 	    "The Temple of Moloch" @ (32, 4)
-# TODO: BRANCH: 	"The Giant Caverns" @ (32, 4)
+BRANCH: 	    "The Giant Caverns" @ (32, 4)
 LEVEL:		    "nymph" "N" @ (23, 2) 35
 RNDLEVEL:	    "bigrm" "B" @ (20, 20) 75 13
 LEVEL:	        "stor" "S" @ (19, 21) 66
@@ -213,6 +213,12 @@ DUNGEON:        "The Temple of Moloch" "none" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "mtemple" "none" @ (1, 0)
+
+### The Giant Caverns ###
+DUNGEON:        "The Giant Caverns" "H" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "giants" "H" @ (1, 0)
 
 #
 #	Vlad's Tower
