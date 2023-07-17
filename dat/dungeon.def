@@ -148,7 +148,6 @@ RNDLEVEL:		"soko3" "none" @ (3, 0) 17
 RNDLEVEL:		"soko4" "none" @ (4, 0) 18
 
 
-
 #   The city of Angband
 #
 DUNGEON:	    "Town" "A" (3, 0)
@@ -174,11 +173,11 @@ ALIGNMENT:	unaligned
 RNDLEVEL:	"knox" "K" @ (-1, 0) 3
 
 ### The Wyrm Caves ###
-DUNGEON:        "The Wyrm Caves" "D" (5, 2)
+DUNGEON:        "The Wyrm Caves" "D" (2, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
-LEVEL:          "caveend" "D" @ (-1, 0)
+LEVEL:          "caveend" "D" @ (2, 0)
 
 ### The Black Market ###
 DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)
