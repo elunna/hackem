@@ -794,7 +794,7 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	 $(DAT)/ranger.des   $(DAT)/rogue.des    $(DAT)/samurai.des \
 	 $(DAT)/slayer.des   $(DAT)/yeoman.des   $(DAT)/pirate.des \
 	 $(DAT)/sokoban.des  $(DAT)/tourist.des  $(DAT)/valkyrie.des \
-	 $(DAT)/jedi.des \
+	 $(DAT)/jedi.des     $(DAT)/mall-1.des   $(DAT)/mall-2.des \\
 	 $(DAT)/wizard.des	 $(DAT)/town.des     $(DAT)/village.des \
 	 $(DAT)/rats.des     $(DAT)/stor.des     $(DAT)/spiders.des\
      $(DAT)/caves.des  $(DAT)/tomb.des \
@@ -838,6 +838,8 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(subst /,\,$(U)levcomp $(DAT)/valkyrie.des)
 	$(subst /,\,$(U)levcomp $(DAT)/wizard.des)
 	$(subst /,\,$(U)levcomp $(DAT)/yeoman.des)
+	$(subst /,\,$(U)levcomp $(DAT)/mall-1.des)
+    $(subst /,\,$(U)levcomp $(DAT)/mall-2.des)
     $(subst /,\,$(U)levcomp $(DAT)/ rats.des
     $(subst /,\,$(U)levcomp $(DAT)/ stor.des
     $(subst /,\,$(U)levcomp $(DAT)/ caves.des
