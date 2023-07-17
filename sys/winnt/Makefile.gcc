@@ -781,7 +781,7 @@ recover: $(U)recover.exe
 	$(subst /,\,if exist $(U)recover.exe copy $(U)recover.exe  $(GAMEDIR))
 	$(subst /,\,if exist $(DOC)/recover.txt copy $(DOC)/recover.txt $(GAMEDIR)/recover.txt)
 
-$(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
+$(O)sp_lev.tag: $(O)utility.tag \ 
     $(DAT)/arch.des \
     $(DAT)/barb.des \
     $(DAT)/caveman.des \
@@ -804,7 +804,9 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
     $(DAT)/valkyrie.des \
     $(DAT)/wizard.des \
     $(DAT)/yeoman.des \
-    $(DAT)/blkmar.des \
+    $(DAT)/bigroom.des \
+    $(DAT)/blkmar.des \    
+    $(DAT)/castle.des \
     $(DAT)/caves.des \
     $(DAT)/endgame.des \
     $(DAT)/gehennom.des \

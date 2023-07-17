@@ -753,8 +753,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)\valkyrie.des \
 	$(DAT)\wizard.des \
 	$(DAT)\yeoman.des \
-
-
     $(DAT)\bigroom.des \
     $(DAT)\blkmar.des \
     $(DAT)\castle.des \
@@ -814,7 +812,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
     $(U)levcomp valkyrie.des
     $(U)levcomp wizard.des
     $(U)levcomp yeoman.des
-	
 	$(U)levcomp bigroom.des
 	$(U)levcomp blkmar.des
 	$(U)levcomp castle.des
