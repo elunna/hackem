@@ -1527,12 +1527,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         } else if (u.dz < 0 && jedi_forcethrow) {
             pline("%s the %s and returns to your hand!",
                   Tobjnam(obj, "hit"), ceiling(u.ux,u.uy));
-            obj = addinv(obj);
-            (void) encumber_msg();
-            if (obj->owornmask & W_QUIVER) /* in case addinv() autoquivered */
-                setuqwep((struct obj *) 0);
-            setuwep(obj);
-            u.twoweap = twoweap;
+            obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
             /*return;*/
         } else if (u.dz < 0) {
             (void) toss_up(obj, rn2(5) && !Underwater);
