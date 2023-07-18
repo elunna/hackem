@@ -4048,6 +4048,17 @@ int final;
                (u.uconduct.techuse > 1L) ? "s" : "");
        you_have_X(buf);
     }
+    
+    if (!u.uconduct.shk) {
+       you_have_X("had no dealings with shopkeepers");
+    } else {
+       Sprintf(buf, "completed %ld financial transaction%s", u.uconduct.shk,
+               (u.uconduct.shk > 1L) ? "s" : "");
+       you_have_X(buf);
+    }
+    
+    
+    
     if (!u.uconduct.uncelibate)
         you_have_X("remained celibate");
     else if (wizard) {

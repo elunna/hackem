@@ -113,7 +113,7 @@ struct u_conduct {     /* number of times... */
     long pets;         /* obtained a pet */
     long uncelibate;   /* interacted with a foocubus */
     long techuse;      /* Used your techniques */
-
+    long shk;       /* Did business with a shopkeeper */
     /* genocides already listed at end of game */
 };
 

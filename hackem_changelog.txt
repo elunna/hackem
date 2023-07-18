@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Conduct for paying or being paid by shopkeepers.
 Add technique conduct details in a couple missing spots.
 Hand of Vecna invoke uses change_luck (reported by Noisytoot).
 Message for calm steed tech when centaurs use it.

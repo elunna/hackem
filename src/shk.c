@@ -1196,6 +1196,10 @@ register struct monst *shkp;
     else if (balance < 0)
         money2u(shkp, -balance);
     context.botl = 1;
+    
+    if (!u.uconduct.shk++)
+        livelog_printf(LL_CONDUCT, "participated in the Yendorian economy for the first time");
+    
     if (robbed) {
         robbed -= tmp;
         if (robbed < 0)
@@ -4804,7 +4808,10 @@ struct monst *shkp;
         verbalize("Cash on the spot, %s, and you ain't got the dough!", slang);
         return FALSE;
     }
-
+    
+    if (!u.uconduct.shk++)
+        livelog_printf(LL_CONDUCT, "participated in the Yendorian economy for the first time");
+    
     /* Charge the customer */
     charge = check_credit(charge, shkp); /* Deduct the credit first */
 
