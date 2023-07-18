@@ -2657,6 +2657,7 @@ struct attack *mattk;
     /* greased objects are difficult to get a grip on, hence
        the odds that an attempt at stealing it may fail */
     if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
+        || otmp->otyp == OILSKIN_SACK
         || (otmp->oprops & ITEM_OILSKIN))
         && (!otmp->cursed || rn2(4))) {
         Your("%s slip off of %s %s %s!",
