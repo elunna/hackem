@@ -2580,6 +2580,7 @@ int tech_no;
             return 1;
          }
     } else if (maybe_polyd(is_centaur(youmonst.data), Race_if(PM_CENTAUR))) {
+         You("attempt to calm yourself.");
          make_afraid(0L, TRUE);
          context.botl = TRUE;
          return 1;

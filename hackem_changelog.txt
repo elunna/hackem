@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Message for calm steed tech when centaurs use it.
 Add conduct for techniques performed.
 Fix celibacy conduct description in dumplog.
 Fix: Do not allow a dragonscaled robe of power to be named Grandmaster's Robe.
