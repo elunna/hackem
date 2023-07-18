@@ -3565,7 +3565,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
         if (youdefend) {
             if (rn2(10) && uarm
                 && Is_dragon_scaled_armor(uarm)
-                && (Dragon_armor_to_scales(uarm)== GRAY_DRAGON_SCALES
+                && (Dragon_armor_to_scales(uarm) == GRAY_DRAGON_SCALES
                     || Dragon_armor_to_scales(uarm) == CHROMATIC_DRAGON_SCALES)) {
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
@@ -3636,14 +3636,14 @@ boolean youattack, allow_cancel_kill, self_cancel;
         }
 
         for (otmp = (youdefend ? invent : mdef->minvent);
-                     otmp; otmp = otmp->nobj) {
+             otmp; otmp = otmp->nobj) {
             /* gold isn't subject to being cursed or blessed */
             if (otmp->oclass == COIN_CLASS)
                 continue;
             onum++;
         }
         /* Magicbane doesn't cancel inventory items */
-        if (!(obj && (obj->oartifact == ART_MAGICBANE)))
+        if (obj && obj->oartifact == ART_MAGICBANE)
             onum = 0;
         
         if (onum) {
