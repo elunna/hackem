@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Do not allow a dragonscaled robe of power to be named Grandmaster's Robe.
 Revert god_gives_blessing chance to same as slashem.
 Fix: Items were not being cancelled by cancellation (reported by mobileuser/hothraxxa).
 Include oilskin sacks and the like to have a chance to resist being stolen. (from EvilHack)

@@ -1335,6 +1335,12 @@ const char *name;
     if (obj->oartifact || (lth && exist_artifact(obj->otyp, name)))
         return obj;
 
+    if (!strcmpi(name, "Grandmaster's Robe")
+            && Is_dragon_scaled_armor(obj)) {
+        pline("While engraving, your %s slips.", body_part(HAND));
+        return obj;
+    }
+
     new_oname(obj, lth); /* removes old name if one is present */
     if (lth)
         Strcpy(ONAME(obj), name);
