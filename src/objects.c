@@ -866,9 +866,9 @@ OBJECT(OBJ("barding of reflection", "polished barding"),                        
         0, TOOL_CLASS, 1, 0, 275, 600, 0, 0, 3, 0, 275, HI_METAL),
 TOOL("leash",               None, 1, 0, 0, 0,  65,  12,  20, LEATHER, HI_LEATHER),
 TOOL("stethoscope",         None, 1, 0, 0, 0,  25,   4,  75, IRON, HI_METAL),
-TOOL("tinning kit",         None, 1, 0, 0, 1,  15, 100,  30, IRON, HI_METAL),
+TOOL("tinning kit",         None, 1, 0, 0, 1,  20, 100,  30, IRON, HI_METAL),
 TOOL("tin opener",          None, 1, 0, 0, 0,  35,   4,  30, IRON, HI_METAL),
-TOOL("can of grease",       None, 1, 0, 0, 1,  15,  15,  20, IRON, HI_METAL),
+TOOL("can of grease",       None, 1, 0, 0, 1,  10,  15,  20, IRON, HI_METAL),
 TOOL("figurine",            None, 1, 0, 1, 0,  25,  50,  80, MINERAL, HI_MINERAL),
         /* monster type specified by obj->corpsenm */
 TOOL("mask",                None, 1, 0, 1, 0,  10,  20, 150, WOOD, HI_WOOD),        /* SpliceHack */

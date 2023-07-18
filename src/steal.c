@@ -377,7 +377,7 @@ boolean artifact;
                   ? xname(otmp)
                   : cloak_simple_name(otmp));
 
-        if (otmp->greased && !rn2(3)) {
+        if (otmp->greased && !rn2(2)) {
             pline_The("grease wears off.");
             otmp->greased = 0;
             update_inventory();
@@ -649,7 +649,7 @@ struct monst *mtmp;
                   makeplural(mbodypart(mtmp, HAND)),
                   xname(otmp));
 
-            if (otmp->greased && !rn2(3)) {
+            if (otmp->greased && !rn2(2)) {
                 pline_The("grease wears off.");
                 otmp->greased = 0;
                 update_inventory();
