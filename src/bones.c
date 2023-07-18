@@ -241,6 +241,9 @@ boolean restore;
                 curse(otmp);
             } else if (otmp->oartifact == ART_THIEFBANE
                        || otmp->oartifact == ART_MASTER_SWORD
+                       || otmp->oartifact == ART_KEY_OF_LAW
+                       || otmp->oartifact == ART_KEY_OF_NEUTRALITY
+                       || otmp->oartifact == ART_KEY_OF_CHAOS
                        || otmp->oartifact == ART_NIGHTHORN
                        || otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
                 /* Guaranteed artifacts become ordinary objects */

@@ -5352,6 +5352,9 @@ struct obj *no_wish;
             case ART_EYE_OF_THE_BEHOLDER:
             case ART_HAND_OF_VECNA:
             case ART_THIEFBANE:
+            case ART_KEY_OF_LAW:
+            case ART_KEY_OF_NEUTRALITY:
+            case ART_KEY_OF_CHAOS:
                 pm = PM_SAMURAI;
                 break;
             default:

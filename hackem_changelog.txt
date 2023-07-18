@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Imported the alignment keys from SLASH'EM.
 Fix: Give Death a weapon attack so the scythe can be used. Fixes #406. Reported by Noisytoot.
 Mortality Dial can be forged by combining werebane and trollsbane (from SpliceHack)
 Fix: Mortality Dial had the SPFX_RESTR listed twice.

@@ -3433,6 +3433,30 @@ long mmflags;
         context.no_of_wizards++;
         if (context.no_of_wizards == 1 && Is_earthlevel(&u.uz))
             mitem = SPE_DIG;
+    } else if (mndx == PM_NIGHTMARE) {
+        struct obj *otmp;
+        otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
+                     artiname(ART_KEY_OF_LAW));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
+    } else if (mndx == PM_BEHOLDER) {
+        struct obj *otmp;
+        otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
+                     artiname(ART_KEY_OF_NEUTRALITY));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
+    } else if (mndx == PM_VECNA) {
+        struct obj *otmp;
+        otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
+                     artiname(ART_KEY_OF_CHAOS));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
     } else if (mndx == PM_GHOST && !(mmflags & MM_NONAME)) {
         mtmp = christen_monst(mtmp, rndghostname());
     } else if (mndx == urole.ldrnum) {
