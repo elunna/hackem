@@ -2393,7 +2393,7 @@ dosacrifice()
                 && !rn2(10 + (4 * u.ugifts))) {
                 god_gives_pet(altaralign);
                 return 1;
-            } else if (!rnl(20 + u.ulevel)) {
+            } else if (!rnl(30 + u.ulevel)) {
                 /* Random item blessed/cursed */
                 if (Role_if(PM_INFIDEL) && u.ualign.type==A_NONE)
                     moloch_gives_curse();
