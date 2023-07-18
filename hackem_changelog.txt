@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: material sear messages were being suppressed vs the player. (from EvilHack)
 Greased objects have a chance to resist being stolen. (from EvilHack)
 Small refactor in jedi forcethrowing their lightsaber.
 Silence more compiler warnings.
