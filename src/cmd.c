@@ -4042,7 +4042,12 @@ int final;
        you_have_never("owned a pet");
     
     if (!u.uconduct.uncelibate)
-        you_have_X("been celibate");
+        you_have_X("remained celibate");
+    else if (wizard) {
+        Sprintf(buf, "your vow of celibacy %ld time%s",
+                u.uconduct.uncelibate, plur(u.uconduct.uncelibate));
+        enl_msg(You_, "have broken ", "broke ", buf, "");
+    }
     
     show_achievements(final);
     
