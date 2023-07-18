@@ -4926,7 +4926,7 @@ boolean wep_was_destroyed;
     if (malive && !mon->mcan && rn2(3)) {
         switch (mattk[i].adtyp) {
         case AD_DSRM: /* adherer */
-            if (uwep) {
+            if (uwep && uwep != uball) {
                 otmp = uwep;
                 Your("weapon sticks to %s!", mon_nam(mon));
                 dropx(uwep);
