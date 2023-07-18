@@ -4041,6 +4041,13 @@ int final;
     if (!u.uconduct.pets)
        you_have_never("owned a pet");
     
+    if (!u.uconduct.techuse) {
+       you_have_X("performed no techniques");
+    } else {
+       Sprintf(buf, "performed %ld technique%s", u.uconduct.techuse,
+               (u.uconduct.techuse > 1L) ? "s" : "");
+       you_have_X(buf);
+    }
     if (!u.uconduct.uncelibate)
         you_have_X("remained celibate");
     else if (wizard) {

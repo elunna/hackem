@@ -969,7 +969,6 @@ int tech_no;
             res = tech_reinforce(get_tech_no(T_REINFORCE));
             if (res)
                 t_timeout = rn1(500, 500);
-
            break;
         case T_FLURRY:
             res = tech_flurry(get_tech_no(T_FLURRY));
@@ -1007,7 +1006,8 @@ int tech_no;
                 t_timeout = 250;
             break;
         case T_TURN_UNDEAD:
-            return turn_undead();
+            res = turn_undead();
+            break;
         case T_VANISH:
             res = tech_vanish(get_tech_no(T_VANISH));
             if (res)
@@ -1233,6 +1233,11 @@ int tech_no;
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
     }
+    if (res && !u.uconduct.techuse++)
+        livelog_printf(LL_CONDUCT, 
+                           "performed a technique for the first time - %s", 
+                           techname(tech_no));
+    
     techtout(tech_no) = (t_timeout * (100 - techlev(tech_no)) / 100);
 
     /* By default, action should take a turn */

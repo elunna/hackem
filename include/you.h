@@ -112,6 +112,7 @@ struct u_conduct {     /* number of times... */
     long artitouch;    /* touched an artifact */
     long pets;         /* obtained a pet */
     long uncelibate;   /* interacted with a foocubus */
+    long techuse;      /* Used your techniques */
     /* genocides already listed at end of game */
 };
 
