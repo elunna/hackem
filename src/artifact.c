@@ -3799,7 +3799,7 @@ struct obj *obj;
             
             /* Tsk,tsk.. */
             adjalign(-3);
-            u.uluck -= 3;
+            change_luck(-3);
             break;
         }
         case DEATH_GAZE:

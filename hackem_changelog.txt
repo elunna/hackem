@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Hand of Vecna invoke uses change_luck (reported by Noisytoot).
 Message for calm steed tech when centaurs use it.
 Add conduct for techniques performed.
 Fix celibacy conduct description in dumplog.
