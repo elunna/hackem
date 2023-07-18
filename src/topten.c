@@ -513,6 +513,7 @@ encode_extended_conducts()
     add_achieveX(buf, "bonesless",                 !u.uroleplay.numbones);
     add_achieveX(buf, "never_died",                 u.umortality == 0);
     add_achieveX(buf, "celibate",                   u.uconduct.uncelibate == 0);
+    add_achieveX(buf, "techniques",                 u.uconduct.techuse == 0);
     add_achieveX(buf, "never_abused_alignment",     u.ualign.abuse == 0);
 
     return buf;
@@ -587,7 +588,9 @@ encodeconduct()
         e |= 1L << 20;
     if (!u.uconduct.uncelibate)
         e |= 1L << 21;
-
+    if (!u.uconduct.techuse)
+        e |= 1L << 22;
+    
     return e;
 }
 
