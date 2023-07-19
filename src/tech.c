@@ -680,7 +680,6 @@ dump_techniques()
 {
     int i, tlevel;
     char buf[BUFSZ];
-    const char *prefix;
 
     if (techid(0) == NO_TECH) {
         putstr(0, 0, "You didn't know any techniques.");
@@ -689,51 +688,27 @@ dump_techniques()
 
     putstr(0, ATR_HEADING, "Techniques known in the end");
 
-    Sprintf(buf, "    %-17s Level  Status", "Name");
+    Sprintf(buf, "%-20s      Level  Status (timeout)", "     Name");
     putstr(0, ATR_PREFORM, buf);
 
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
             continue;
         tlevel = techlev(i);
-        if (!techtout(i) && tlevel > 0) {
-            /* Ready to use */
-            prefix = "";
-        } else {
-            prefix = "    ";
-        }
-        if (!iflags.menu_tab_sep) {		
-            Sprintf(buf, "%s%-20s %2d%c%c%c   %s(%i)",
-                    prefix, techname(i), tlevel,
-                    tech_list[i].t_intrinsic & FROMEXPER ? 'X' : ' ',
-                    tech_list[i].t_intrinsic & FROMRACE ? 'R' : ' ',
-                    tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
-                    tech_inuse(techid(i)) ? "Active" :
-                    tlevel <= 0 ? "Beyond recall" :
-                    !techtout(i) ? "Prepared" : 
-                    techtout(i) > 10000 ? "Huge timeout" :
-                    techtout(i) > 1000 ? "Not Ready" :
-                    techtout(i) > 100 ? "Reloading" : "Soon",
-                    techtout(i));
-            putstr(0, ATR_PREFORM, buf);
-        } else {
-            Sprintf(buf, "%s%s\t%2d%c%c%c\t%s(%i)",
-                    prefix, techname(i), tlevel,
-                    tech_list[i].t_intrinsic & FROMEXPER ? 'X' : ' ',
-                    tech_list[i].t_intrinsic & FROMRACE ? 'R' : ' ',
-                    tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
-                    tech_inuse(techid(i)) ? "Active" :
-                    tlevel <= 0 ? "Beyond recall" :
-                    !techtout(i) ? "Prepared" : 
-                    techtout(i) > 10000 ? "Huge timeout" :
-                    techtout(i) > 1000 ? "Not Ready" :
-                    techtout(i) > 100 ? "Reloading" : "Soon",
-                    techtout(i));
-            putstr(0, ATR_PREFORM, buf);
-        }
+        
+        Sprintf(buf, "     %-20s  %2d    %s (%i)",
+                techname(i),
+                tlevel,
+                tech_inuse(techid(i))
+                    ? "Active" : tlevel <= 0
+                          ? "Beyond recall" : !techtout(i)
+                                ? "Prepared" : techtout(i) > 10000
+                                      ? "Huge timeout" : techtout(i) > 1000
+                                            ? "Not Ready" : techtout(i) > 100
+                                                  ? "Reloading" : "Soon",
+                techtout(i));
+        putstr(0, ATR_PREFORM, buf);
     }
-    putstr(0, 0, "You didn't know any spells.");
-
 } /* dump_techniques */
 
 

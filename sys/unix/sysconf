@@ -136,12 +136,13 @@ LLC_TURNS=3000
 #   %D current time, YYYYMMDDhhmmss format
 #   %n player name
 #   %N first character of player name
-DUMPLOGFILE=/dgldir/userdata/%N/%n/hackem/dumplog/%t.hackem.txt
+DUMPLOGFILE=/tmp/%t.hackem.txt
 
 # End of game HTML dump.
 # Only available if NetHack was compiled with DUMPHTML
 # Allows placeholders as above.
-DUMPHTMLFILE=/dgldir/userdata/%N/%n/hackem/dumplog/%t.hackem.html
+#DUMPHTMLFILE=/dgldir/userdata/%N/%n/hackem/dumplog/%t.hackem.html
+DUMPHTMLFILE=/tmp/%t.hackem.html
 
 # Number of bones file pools.
 # The pool you belong to is determined at game start. You will

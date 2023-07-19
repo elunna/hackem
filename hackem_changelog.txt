@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Cleanup techniques display in dumplog.
 Fix: eating damaging foods when polymorphed (submitted by Ardub23)
 Fix: Iron ball sticks to adherer in combat while punished, causes panic. Fixes #389.
 Conduct for paying or being paid by shopkeepers.
