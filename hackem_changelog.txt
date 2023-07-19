@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix some memory leaks in mk_artifact.
 Fix: Error in mk_artifact, PM_CENTAUR listed twice in checking boot gifts.
 Cleanup techniques display in dumplog.
 Fix: eating damaging foods when polymorphed (submitted by Ardub23)

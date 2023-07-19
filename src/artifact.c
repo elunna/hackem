@@ -307,8 +307,14 @@ aligntyp alignment; /* target alignment, or A_NONE */
                 /* make this be the only possibility in the list */
                 eligible[0] = m;
                 n = 1;
+                if (by_align)
+                    obfree(otmp, (struct obj *) 0);
                 break; /* skip all other candidates */
             } else if (by_align && Role_if(PM_PIRATE)) {
+                obfree(otmp, (struct obj *) 0);
+                /* No further gifts for Pirates! */
+                if (exist_artifact(SCR_MAGIC_MAPPING, artiname(ART_MARAUDER_S_MAP)))
+                    return (struct obj *) 0;
                 continue; /* pirates are not gifted artifacts */
             }
             /* found something to consider for random selection */
@@ -328,6 +334,7 @@ aligntyp alignment; /* target alignment, or A_NONE */
                    is overwritten and `altn' becomes irrelevant] */
             }
         }
+        obfree(otmp, (struct obj *) 0);
     }
 
     /* resort to fallback list if main list was empty */
@@ -351,7 +358,7 @@ aligntyp alignment; /* target alignment, or A_NONE */
             artiexist[m] = TRUE;
             fix_artifact(otmp);
         }
-    } else {
+    } else if (otmp) {
         otmp = create_oprop(otmp, FALSE);
     }
     return otmp;
