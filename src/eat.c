@@ -2687,15 +2687,7 @@ eatspecial()
 
     if (otmp->oartifact == ART_HAND_OF_VECNA) {
         You_feel("a burning deep inside your %s!", body_part(STOMACH));
-        if (otmp->cursed)
-            u.uhp -= rn1(150, 250);
-        else
-            u.uhp -= rn1(50, 150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Hand of Vecna");
-            done(DIED);
-        }
+        losehp((otmp->cursed) ? rn1(150, 250) : rn1(50, 150), "eating the Hand of Vecna", KILLED_BY);
     }
 
     if (otmp == uwep && otmp->quan == 1L)
@@ -2760,10 +2752,16 @@ struct obj *otmp;
             you_unwere(TRUE);
         if (u.ualign.type == A_CHAOTIC) {
             You_feel("a burning inside!");
-            u.uhp -= rn1(10, 10);
             /* KMH, balance patch 2 -- should not have 0 hp */
-            if (u.uhp < 1)
-                u.uhp = 1;
+            if (Upolyd) {
+                u.mh -= rn1(10, 10);
+                if (u.mh < 1)
+                    u.mh = 1; /* instead of rehumanize() */
+            } else {
+                u.uhp -= rn1(10, 10);
+                if (u.uhp < 1)
+                    u.uhp = 1;
+            }
         }
         break;
     case CARROT:
@@ -2781,15 +2779,7 @@ struct obj *otmp;
         if (!otmp->oartifact)
             break;
         You_feel("a burning deep inside your %s!", body_part(STOMACH));
-        if (otmp->cursed)
-            u.uhp -= rn1(150, 250);
-        else
-            u.uhp -= rn1(50, 150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Eye of Vecna");
-            done(DIED);
-        }
+        losehp((otmp->cursed) ? rn1(150, 250) : rn1(50, 150), "eating the Eye of Vecna", KILLED_BY);
         break;
     case LUMP_OF_ROYAL_JELLY:
         /* This stuff seems to be VERY healthy! */
