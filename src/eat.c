@@ -2686,16 +2686,8 @@ eatspecial()
     }
 
     if (otmp->oartifact == ART_HAND_OF_VECNA) {
-        You_feel("a burning deep inside your %s!", body_part(STOMACH));
-        if (otmp->cursed)
-            u.uhp -= rn1(150, 250);
-        else
-            u.uhp -= rn1(50, 150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Hand of Vecna");
-            done(DIED);
-        }
+        You("feel the hand scrabbling around inside of you!");
+        losehp(rn1(50, 150), "eating the Hand of Vecna", KILLED_BY);
     }
 
     if (otmp == uwep && otmp->quan == 1L)
@@ -2781,26 +2773,15 @@ struct obj *otmp;
         if (!otmp->oartifact)
             break;
         You_feel("a burning deep inside your %s!", body_part(STOMACH));
-        if (otmp->cursed)
-            u.uhp -= rn1(150, 250);
-        else
-            u.uhp -= rn1(50, 150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Eye of the Beholder");
-            done(DIED);
-        }
+        losehp((otmp->cursed) 
+                   ? rn1(150, 250) 
+                   : rn1(50, 150), "eating the Eye of the Beholder", KILLED_BY);
         break;
     case SEVERED_HAND:
         if (!otmp->oartifact) 
             break;
         You("feel the hand scrabbling around inside of you!");
-        u.uhp -= rn1(50,150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Hand of Vecna");
-            done(DIED);
-        }
+        losehp(rn1(50, 150), "eating the Hand of Vecna", KILLED_BY);
         break;
     case LUMP_OF_ROYAL_JELLY:
         /* This stuff seems to be VERY healthy! */
