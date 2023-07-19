@@ -297,7 +297,7 @@ aligntyp alignment; /* target alignment, or A_NONE */
             && !Hate_material(artifact_material(m))
             && !(is_cloak(otmp) && !can_wear_arm(otmp, FALSE))
             /* TODO: Do this better. */
-            && !(is_boots(otmp) && (Race_if(PM_CENTAUR) || Race_if(PM_CENTAUR)))
+            && !(is_boots(otmp) && (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE)))
             /* TODO: Check any bane */
             && !(Race_if(PM_GIANT) && (a->mtype & MH_GIANT))
             && !(Role_if(PM_PRIEST) && (is_slash(a) || is_pierce(a)))) {
