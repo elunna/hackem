@@ -590,6 +590,15 @@ register struct monst *mtmp;
         && is_pool(mtmp->mx, mtmp->my)) {
         char pnambuf[BUFSZ];
 
+        /* Don't allow forcefighting flying monsters. This can cause the
+         * flyer to displace into the hero's position without moving the hero.
+         * This solution still let's rogue's exercise their thievery skills
+         * underwater as well. This solution was created by terrapin. */
+        if (context.forcefight) {
+            You("flail wildly.");
+            return FALSE;
+        }
+
         /* save its current description in case of polymorph */
         Strcpy(pnambuf, y_monnam(mtmp));
         mtmp->mtrapped = 0;

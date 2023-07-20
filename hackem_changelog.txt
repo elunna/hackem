@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Force-fighting flyers while underwater.
 Dragon roars sound muffled if underwater.
 Fix: Breaking wands could create traps on deep water/lava squares. 
 Fix: A trap could generate on Master Kaen's altar (reported by arahael).
