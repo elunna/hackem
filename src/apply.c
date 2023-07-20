@@ -5319,12 +5319,16 @@ boolean yourfault;
                                   (const char *) 0);
         if (obj)
             obj->nomerge = 0;
-    } else if (split1off && obj->where == OBJ_MINVENT) {
+    }
+#if 0
+    else if (split1off && obj->where == OBJ_MINVENT) {
         obj_extract_self(obj); /* free from inv */
         obj->nomerge = 1;
         if (obj)
             obj->nomerge = 0;
+        add_to_minv(mon, otmp);
     }
+#endif
 }
 
 void
