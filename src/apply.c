@@ -5335,11 +5335,19 @@ void
 mk_wandtrap(obj)
 struct obj *obj;
 {
-    /* make appropriate trap if you broke a wand */
-    if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-        !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                   !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                   !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
+    /* make appropriate trap if you broke a wand: 
+     * Tiles that are off-limits are stairs, furniture, rock/stone,
+     * closed doors, and any deep water or lava.
+     * */
+    if ((obj->spe > 2) && rn2(obj->spe - 2) 
+          && !u.uswallow 
+          && !On_stairs(u.ux, u.uy)
+          && !is_pool(u.ux, u.uy)
+          && !is_lava(u.ux, u.uy)
+          && !IS_FURNITURE(levl[u.ux][u.uy].typ)
+          && !IS_ROCK(levl[u.ux][u.uy].typ)
+          && !closed_door(u.ux, u.uy)
+          && !t_at(u.ux, u.uy)) {
         struct trap *ttmp;
         int traptype = MAGIC_TRAP; /* Default in case of impossible */
         

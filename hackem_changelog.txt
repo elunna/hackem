@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix: Breaking wands could create traps on deep water/lava squares. 
 Fix: A trap could generate on Master Kaen's altar (reported by arahael).
 Small tweak to bomb_blow when bomb blows up on floor.
 Fix: Bombs disappeared when their fuse ignited in a monster's inventory.
