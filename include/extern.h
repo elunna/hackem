@@ -571,7 +571,7 @@ E int NDECL(doremring);
 E int FDECL(cursed, (struct obj *, BOOLEAN_P));
 E int FDECL(armoroff, (struct obj *));
 E int FDECL(canwearobj, (struct obj *, long *, BOOLEAN_P));
-E boolean FDECL(can_wear_arm, (struct obj *, BOOLEAN_P));
+E boolean FDECL(can_wear_arm, (struct obj *, BOOLEAN_P, const char *));
 E int NDECL(dowear);
 E int NDECL(doputon);
 E void NDECL(find_ac);
