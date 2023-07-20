@@ -5053,7 +5053,9 @@ struct monst *mtmp;
         && is_dragon(mtmp->data) 
         && monsndx(mtmp->data) >= PM_GRAY_DRAGON
         && monsndx(mtmp->data) % 2 == 0) {
-        if (!Deaf && canseemon(mtmp)) {
+        if (!Deaf && Underwater) {
+            You("hear a muffled roar.");
+        } else if (!Deaf && canseemon(mtmp)) {
             pline("%s lets out a thunderous roar!", Monnam(mtmp));
             stop_occupation();
         } else if (!Deaf) {
@@ -5063,6 +5065,7 @@ struct monst *mtmp;
         }
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
         if ((canseemon(mtmp) || (!Deaf && !Sonic_resistance))
+            && !Underwater
             && !Confusion
             && !Role_if(PM_KNIGHT)
             && !(uarmg && uarmg->oartifact == ART_DRAGONBANE)
