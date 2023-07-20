@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Remove potential trap creation when bomb explodes in water. 
 Fix: Swimming under invisible ghosts caused Mon is not there panics. Fixes #322.
 Fix some memory leaks in mk_artifact.
 Fix: Error in mk_artifact, PM_CENTAUR listed twice in checking boot gifts.

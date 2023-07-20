@@ -1092,7 +1092,7 @@ long timeout;
             if (mtmp->mhp < 1) {
                 if (!bomb->yours)
                     monkilled(mtmp, (silent ? "" : "explosion"), AD_PHYS);
-                else 
+                else
                     xkilled(mtmp, !silent);
             }
             break;
@@ -1112,50 +1112,32 @@ long timeout;
             }
             losehp(d(2, 5), "carrying live explosives", KILLED_BY);
             break;
-            case OBJ_FLOOR:
-                underwater = is_pool(x, y);
-                if (!silent) {
-                    if (x == u.ux && y == u.uy) {
-                        if (underwater && (Flying || Levitation))
-                            pline_The("water boils beneath you.");
-                        else if (underwater && Wwalking)
-                            pline_The("water erupts around you.");
-                        else 
-                            pline("A bomb explodes under your %s!",
-                                  makeplural(body_part(FOOT)));
-                    } else if (cansee(x, y)) {
-                        You(underwater ?
-                            "see a plume of water shoot up." :
-                            "see a bomb explode.");
-                    }
-
+        case OBJ_FLOOR:
+            underwater = is_pool(x, y);
+            if (!silent) {
+                if (x == u.ux && y == u.uy) {
+                    if (underwater && (Flying || Levitation))
+                        pline_The("water boils beneath you.");
+                    else if (underwater && Wwalking)
+                        pline_The("water erupts around you.");
+                    else
+                        pline("A bomb explodes under your %s!",
+                              makeplural(body_part(FOOT)));
+                    
+                    losehp(d(2, 5), "enfulfed in an explosion", KILLED_BY);
+                } else if (cansee(x, y)) {
+                    You(underwater ? "see a plume of water shoot up."
+                                   : "see a bomb explode.");
                 }
-                if (underwater && (Flying || Levitation || Wwalking)) {
-                    if (Wwalking && x == u.ux && y == u.uy) {
-                        struct trap trap;
-                        trap.ntrap = NULL;
-                        trap.tx = x;
-                        trap.ty = y;
-                        trap.launch.x = -1;
-                        trap.launch.y = -1;
-                        trap.ttyp = RUST_TRAP;
-                        trap.tseen = 0;
-                        trap.once = 0;
-                        trap.madeby_u = 0;
-                        trap.dst.dnum = -1;
-                        trap.dst.dlevel = -1;
-                        dotrap(&trap, 0);
-                    }
-                    goto free_bomb;
-                }
-                break;
-            default:	/* Buried, contained, etc. */
-                if (!silent)
-                    You_hear("a muffled explosion.");
-                goto free_bomb;
-                break;
             }
-            bomb_explode(bomb, x, y, bomb->yours);
+            goto free_bomb;
+        default: /* Buried, contained, etc. */
+            if (!silent)
+                You_hear("a muffled explosion.");
+            goto free_bomb;
+            break;
+        }
+        bomb_explode(bomb, x, y, bomb->yours);
 
 free_bomb:
         if (carried(bomb)) {
