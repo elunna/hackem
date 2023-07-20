@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Small tweak to bomb_blow when bomb blows up on floor.
 Fix: Bombs disappeared when their fuse ignited in a monster's inventory.
 Fixed placement of portal in pirate quest.
 bomb_blow should use damage_mon instead of manipulating the monster hp directly.

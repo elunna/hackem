@@ -1130,7 +1130,7 @@ long timeout;
                                    : "see a bomb explode.");
                 }
             }
-            goto free_bomb;
+            break;
         default: /* Buried, contained, etc. */
             if (!silent)
                 You_hear("a muffled explosion.");
