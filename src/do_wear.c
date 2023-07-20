@@ -2569,7 +2569,12 @@ long *mask;
 boolean noisy;
 {
     int err = 0;
-
+    const char *which = is_cloak(otmp) 
+                            ? c_cloak 
+                            : is_shirt(otmp) 
+                                  ? c_shirt 
+                                  : is_suit(otmp) 
+                                        ? c_suit : 0;
 
     /* this is the same check as for 'W' (dowear), but different message,
        in case we get here via 'P' (doputon) */
@@ -2585,7 +2590,7 @@ boolean noisy;
     }
 
 
-    if (!can_wear_arm(otmp, noisy)) {
+    if (which && !can_wear_arm(otmp, noisy)) {
         return 0;
     } else if (otmp->owornmask & W_ARMOR) {
         if (noisy)

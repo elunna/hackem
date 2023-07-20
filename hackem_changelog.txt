@@ -15,6 +15,7 @@
 
 Version 1.1.5 (unreleased)
 
+Fix issues with canwearobj and can_wear_armor.
 Caveppl can tame saber-toothed cats (reported by mobileuser).
 Fix: Force-fighting flyers while underwater.
 Dragon roars sound muffled if underwater.
