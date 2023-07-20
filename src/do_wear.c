@@ -2569,12 +2569,7 @@ long *mask;
 boolean noisy;
 {
     int err = 0;
-    const char *which = is_cloak(otmp) 
-                            ? c_cloak 
-                            : is_shirt(otmp) 
-                                  ? c_shirt 
-                                  : is_suit(otmp) 
-                                        ? c_suit : 0;
+
 
     /* this is the same check as for 'W' (dowear), but different message,
        in case we get here via 'P' (doputon) */
@@ -2588,8 +2583,9 @@ boolean noisy;
             You_cant("wear any armor while hiding in your shell.");
         return 0;
     }
-    
-    if (which && !can_wear_arm(otmp, noisy, which)) {
+
+
+    if (!can_wear_arm(otmp, noisy)) {
         return 0;
     } else if (otmp->owornmask & W_ARMOR) {
         if (noisy)
@@ -2788,11 +2784,17 @@ boolean noisy;
 /* Helper function to simplify canwearobj and also allow use to give better
  * altar gifts. */
 boolean
-can_wear_arm(otmp, noisy, which)
+can_wear_arm(otmp, noisy)
 struct obj *otmp;
 boolean noisy;
-const char * which;
 {
+    const char *which = is_cloak(otmp) 
+                            ? c_cloak 
+                            : is_shirt(otmp) 
+                                  ? c_shirt 
+                                  : is_suit(otmp) 
+                                        ? c_suit : 0;
+
     boolean cantwear = cantweararm(&youmonst)
         /* same exception for cloaks as used in m_dowear() */
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
@@ -2804,7 +2806,7 @@ const char * which;
         && !(Race_if(PM_GIANT) && otmp
              && otmp->otyp == CHROMATIC_DRAGON_SCALES);
 
-    if (cantwear && noisy)
+    if (cantwear &&noisy)
         pline_The("%s will not fit on your body.", which);
 
     return !cantwear;
