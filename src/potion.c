@@ -3971,7 +3971,9 @@ register struct obj *obj;
             }
         }
     }
-        
+    if (obj->otyp == LEASH && obj->leashmon)
+        o_unleash(obj);
+
     /* Convert it */
     obj->otyp = newtyp;
     
@@ -3998,6 +4000,12 @@ register struct obj *obj;
     case CHAKRAM:
         /* Maybe change the material? */
         warp_material(obj, TRUE);
+        break;
+    case SADDLE:
+        obj->corpsenm = -1;
+        break;
+    case LEASH:
+        obj->corpsenm = 0;
         break;
     }
     
@@ -4073,8 +4081,6 @@ register struct obj *obj;
             owornmask &= ~W_TOOL;
         otyp2 = obj->otyp;
         obj->otyp = otyp;
-        if (obj->otyp == LEASH && obj->leashmon)
-            o_unleash(obj);
         remove_worn_item(obj, TRUE);
         obj->otyp = otyp2;
         obj->owornmask = owornmask;
