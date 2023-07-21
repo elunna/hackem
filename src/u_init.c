@@ -1410,7 +1410,7 @@ u_init()
             break;
         }
 
-        /* Vampires get a platinum longsword and a trench coat just like blade */
+        /* Vampires get a longsword and a trench coat just like Blade */
         if (Race_if(PM_VAMPIRIC)) {
             UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
             UndeadSlayer[U_ARMOR].trotyp = TRENCH_COAT;
@@ -2222,8 +2222,7 @@ register struct trobj *origtrop;
             
             /* Undead Slayers get special silver weapons.
              * Before the object materials patch this was easy, but 
-             * looks like we'll just do it here.
-             * Vampire Undead Slayers get a titanium long sword because Blade */
+             * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
                 /* no food for vampires except garlic */
                 if (urace.malenum == PM_VAMPIRIC
@@ -2244,10 +2243,6 @@ register struct trobj *origtrop;
                 
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
-
-                /* Blades long sword was of platinum */
-                if (Race_if(PM_VAMPIRIC) && obj->otyp == LONG_SWORD)
-                    set_material(obj, PLATINUM);
             }
             if (obj->otyp == STRIPED_SHIRT)
                 obj->cursed = TRUE;
