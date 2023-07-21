@@ -2243,6 +2243,9 @@ register struct trobj *origtrop;
                 
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
+
+                if (Race_if(PM_VAMPIRIC) && obj->otyp && obj->otyp == LONG_SWORD)
+                    set_material(obj, METAL);
             }
             if (obj->otyp == STRIPED_SHIRT)
                 obj->cursed = TRUE;
