@@ -4795,7 +4795,7 @@ struct attack *mattk;
         int icetmp = icebonus() - 3;
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
             shieldeff(mtmp->mx, mtmp->my);
-            pline_The("cold doesn't affect %s.", Monnam(mtmp));
+            pline_The("cold doesn't affect %s.", mon_nam(mtmp));
             golemeffects(mtmp, AD_COLD, tmp);
         } else if (rn2(24) <= icetmp) {
             tmp = icetmp * d(1, 4);
