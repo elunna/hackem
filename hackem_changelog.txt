@@ -7,9 +7,10 @@
 - My wife - for being endlessly patient with this time-consuming endeavor!
 - K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
 - amateurhour and qt for their endless debugging advice.
+- cbus for co-maintaining and developing ideas for this project.
 
 ### Thanks:
-- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
+- nh2465, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
 
 ==========================
 
