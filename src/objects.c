@@ -917,7 +917,7 @@ OBJECT(OBJ("bandage", None),
 		TOOL_CLASS, 0, 0, 1, 1, 0, 0, 0, 0, 0, CLR_WHITE),
 OBJECT(OBJ("phial", None),
 		BITS(1,1,0,0,0,0,0,1,0,0,0,P_NONE,GLASS), 0,
-		TOOL_CLASS, 0, 0, 2, 1, 0, 0, 0, 0, 1, HI_GLASS),
+		TOOL_CLASS, 0, 0, 1, 1, 0, 0, 0, 0, 1, HI_GLASS),
 
 /* two unique tools;
  * not artifacts, despite the comment which used to be here
