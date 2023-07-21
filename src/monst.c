@@ -1659,13 +1659,10 @@ NEARDATA struct permonst mons[] = {
      * replaced them with spellcasting and more stealing instead. */ 
     MON("dream thief", S_NYMPH,                               /* SpliceHack */
         LVL(14, 15, 4, 40, 0), (G_NOHELL | 1),
-        A(ATTK(AT_CLAW, AD_CURS, 0, 0), 
-          /*ATTK(AT_MAGC, AD_PSYC, 5, 5),*/
-          ATTK(AT_MAGC, AD_CLRC, 5, 5),
-          ATTK(AT_CLAW, AD_SITM, 0, 0), 
-          /* ATTK(AT_TUCH, AD_MEMR, 0, 0), */
-          ATTK(AT_CLAW, AD_SITM, 0, 0), 
-          NO_ATTK, NO_ATTK),
+        A(ATTK(AT_CLAW, AD_SITM, 0, 0),
+          ATTK(AT_CLAW, AD_CURS, 0, 0), 
+          ATTK(AT_MAGC, AD_SPEL, 5, 5),
+          NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0,
         M1_HUMANOID | M1_TPORT | M1_FLY,
         M2_HOSTILE | M2_MALE | M2_COLLECT, M3_INFRAVISIBLE, 
