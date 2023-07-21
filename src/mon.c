@@ -6989,6 +6989,7 @@ short raceidx;
             rptr->ralign = rn2(2) ? 3 : rn2(2) ? 0 : -3;
         if (mtmp->mnum == PM_JEDI)
             rptr->ralign = 3;
+        mtmp->data->mlet = S_HUMAN;
         break;
     case PM_ILLITHID:
         /* Illithids get a tentacle attack */
