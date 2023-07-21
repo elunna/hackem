@@ -981,7 +981,12 @@ int tech_no;
                 t_timeout = 250;
             break;
         case T_TURN_UNDEAD:
-            res = turn_undead();
+            /* Due to Undead Slayer Vampire being a playable combination */
+            if (Race_if(PM_VAMPIRIC)) {
+                You("shudder at the thought."); 
+            } else {
+                res = turn_undead();
+            }
             break;
         case T_VANISH:
             res = tech_vanish(get_tech_no(T_VANISH));

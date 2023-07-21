@@ -16,6 +16,7 @@
 
 Version 1.1.5 (unreleased)
 
+Add Und-Vam as a possible combination (because Blade). Fixes #372.
 Lower weight of phials to 1.
 Fix: Dream thief could continue attacking after killing something with their magic attack. Fixes #397.
 Fix: Human NPCs didn't have the correct symbol. Fixes #396.

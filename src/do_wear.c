@@ -446,6 +446,7 @@ Cloak_on(VOID_ARGS)
     case CLOAK_OF_MAGIC_RESISTANCE:
     case PLAIN_CLOAK:
     case GREEN_COAT:
+    case TRENCH_COAT:
     case GRAY_DRAGON_SCALES:
         break;
     case CLOAK_OF_PROTECTION:
@@ -583,6 +584,7 @@ Cloak_off(VOID_ARGS)
     case POISONOUS_CLOAK:
     case PLAIN_CLOAK:
     case GREEN_COAT:
+    case TRENCH_COAT:
     case GRAY_DRAGON_SCALES:
     case MANA_CLOAK:
         break;

@@ -610,6 +610,8 @@ CLOAK("mana cloak", "funeral shroud",
       0, 1, ENERGY_REGENERATION, 4, 0, 10, 50,  9, 3, CLOTH, CLR_BLACK),
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
+CLOAK("trench coat", "black cloak",
+      0, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BLACK),
 
 /* shields */
 SHIELD("small shield", None,
