@@ -746,6 +746,23 @@ int mntmp;
         return 0;
     }
     
+    /* STEPHEN WHITE'S NEW CODE */
+    /* If your an Undead Slayer, you can't become undead! */
+    if (Role_if(PM_UNDEAD_SLAYER) 
+          && (is_undead(&mons[mntmp]) || is_demon(&mons[mntmp]))) {
+        if (Polymorph_control) { 
+            You("hear a voice boom out: \"How dare you take such a form!\"");
+            u.ualign.record -= 5;
+            /*angrygods(u.ualign.type);*/
+            u.ublessed = 0; /* lose your god's protection */
+            exercise(A_WIS, FALSE);
+        } else {
+            You("start to change into %s, but a voice booms out:", an(mons[mntmp].mname));
+            pline("\"No, I will not allow such a change!\"");
+        }
+        return 0;
+    }
+    
     if (Hidinshell)
         toggleshell();
 
