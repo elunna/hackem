@@ -5760,7 +5760,7 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
         /* Any hostiles can flank us */
         return !flanker->mpeaceful;
     } else if (youflanker) {
-        return magr->mtame;
+        return magr->mtame && !mdef->mpeaceful;
     } else {
         /* If you are not involved in the flanking, then flanking can 
          * still occur if the defender and flanker are peaceful and hostile.
