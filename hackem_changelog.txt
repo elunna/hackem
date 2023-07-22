@@ -16,6 +16,7 @@
 
 Version 1.1.5 (unreleased)
 
+Prevent the fuzzer from wishing for items of invalid materials. Fixes #384.
 Your pet can't flank peaceful monsters with you.
 Fix: Message when cold resistant monster attacks ice mage.
 Add Und-Vam as a possible combination (because Blade). Fixes #372.
