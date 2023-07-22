@@ -16,6 +16,7 @@
 
 Version 1.1.5 (unreleased)
 
+Monstrous spiders release a screech instead of a wail.
 Undead slayers cannot poly into undead or demons.
 Prevent the fuzzer from wishing for items of invalid materials. Fixes #384.
 Your pet can't flank peaceful monsters with you.

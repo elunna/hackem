@@ -3384,13 +3384,15 @@ struct attack *mattk;
             break;
         }
         break;
-    case AD_FEAR:
+    case AD_FEAR: {
+        const char *stype = (mtmp->data == &mons[PM_MONSTROUS_SPIDER])
+                          ? "screech" : "wail";
         if (Deaf)
             break;
         if (m_canseeu(mtmp)) {
-            pline("%s lets out a horrific wail!", Monnam(mtmp));
+            pline("%s lets out a horrific %s!", Monnam(mtmp), stype);
         } else {
-            You_hear("a terrible wail!");
+            You_hear("a terrible %s!", stype);
         }
         if (u.usleep && m_canseeu(mtmp)) {
             unmul("What a horrible nightmare! You wake up!");
@@ -3408,6 +3410,7 @@ struct attack *mattk;
         aggravate();
         stop_occupation();
         break;
+    }
     case AD_PIER:
         /* Mobat's have a piercing scream */
         if (Deaf)
