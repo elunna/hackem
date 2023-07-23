@@ -3873,8 +3873,11 @@ struct obj **sobjp;
         /* beatitude */
         if (scursed) 
             curse(otmp2);
-        else 
+        else {
             otmp2->blessed = otmp->blessed;
+            otmp2->cursed = otmp->cursed;
+        }
+
         /* charge / enchantment */
         if (sblessed) 
             otmp2->spe = otmp->spe;
