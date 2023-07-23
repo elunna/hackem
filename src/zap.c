@@ -22,7 +22,6 @@ extern boolean notonhead; /* for long worms */
 /* kludge to use mondied instead of killed */
 extern boolean m_using;
 
-STATIC_DCL boolean FDECL(zombie_can_dig, (XCHAR_P, XCHAR_P));
 STATIC_DCL void FDECL(polyuse, (struct obj *, int, int));
 STATIC_DCL void FDECL(create_polymon, (struct obj *, int));
 STATIC_DCL int FDECL(stone_to_flesh_obj, (struct obj *));
@@ -1004,7 +1003,7 @@ int *container_nesting;
 }
 
 /* can zombie dig the location at x, y */
-STATIC_OVL boolean
+boolean
 zombie_can_dig(x, y)
 xchar x, y;
 {
@@ -1014,7 +1013,7 @@ xchar x, y;
 
         if ((ttmp = t_at(x, y)) != 0)
             return FALSE;
-        if (typ == ROOM || typ == CORR || typ == GRAVE)
+        if (typ == ROOM || typ == CORR || typ == GRAVE || typ == GRASS)
             return TRUE;
     }
     return FALSE;

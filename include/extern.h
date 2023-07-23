@@ -3327,6 +3327,7 @@ E int FDECL(bhitm, (struct monst *, struct obj *));
 E void FDECL(probe_monster, (struct monst *));
 E boolean FDECL(get_obj_location, (struct obj *, xchar *, xchar *, int));
 E boolean FDECL(get_mon_location, (struct monst *, xchar *, xchar *, int));
+E boolean FDECL(zombie_can_dig, (XCHAR_P, XCHAR_P));
 E struct monst *FDECL(get_container_location,
                       (struct obj * obj, int *, int *));
 E struct monst *FDECL(montraits, (struct obj *, coord *, BOOLEAN_P));

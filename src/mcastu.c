@@ -680,33 +680,27 @@ int spellnum;
      * displacement.
      */
     case MGC_CREATE_POOL: 
-        if (Invisible 
-            && !perceives(mtmp->data) 
-            && (mtmp->mux != u.ux || mtmp->muy != u.uy)
-            && (levl[mtmp->mux][mtmp->muy].typ == ROOM || 
-                levl[mtmp->mux][mtmp->muy].typ == CORR)) {
+        if (Invisible && !perceives(mtmp->data)
+              && (mtmp->mux != u.ux || mtmp->muy != u.uy)
+              && zombie_can_dig(mtmp->mux, mtmp->muy)) {
             pline("A pool appears beneath a spot near you!");
             levl[mtmp->mux][mtmp->muy].typ = POOL;
             del_engr_at(mtmp->mux, mtmp->muy);
-            /*water_damage(level.objects[mtmp->mux][mtmp->muy], FALSE, TRUE);*/
             water_damage_chain(level.objects[mtmp->mux][mtmp->muy], TRUE, 0, TRUE, mtmp->mux, mtmp->muy);
             spoteffects(FALSE);
         } else if (Displaced 
                    && (mtmp->mux != u.ux || mtmp->muy != u.uy)
-                   && (levl[mtmp->mux][mtmp->muy].typ == ROOM || 
-                       levl[mtmp->mux][mtmp->muy].typ == CORR)) {
+                   && zombie_can_dig(mtmp->mux, mtmp->muy)) {
             pline("A pool appears beneath your displaced image!");
             levl[mtmp->mux][mtmp->muy].typ = POOL;
             del_engr_at(mtmp->mux, mtmp->muy);
-            /*water_damage(level.objects[mtmp->mux][mtmp->muy], FALSE, TRUE);*/
             water_damage_chain(level.objects[mtmp->mux][mtmp->muy], TRUE, 0, TRUE, mtmp->mux, mtmp->muy);
             spoteffects(FALSE);
         }
-        else if (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR) {
+        else if (zombie_can_dig(u.ux, u.uy)) {
             pline("A pool appears beneath you!");
             levl[u.ux][u.uy].typ = POOL;
             del_engr_at(u.ux, u.uy);
-            /*water_damage(level.objects[u.ux][u.uy], FALSE, TRUE);*/
             water_damage_chain(level.objects[u.ux][u.uy], TRUE, 0, TRUE, u.ux, u.uy);
             spoteffects(FALSE);  /* possibly drown, notice objects */
         }
@@ -2322,8 +2316,7 @@ int spellnum;
             impossible("create pool spell with no mtmp");
             return;
         }
-        if (levl[mtmp->mx][mtmp->my].typ == ROOM 
-            || levl[mtmp->mx][mtmp->my].typ == CORR) {
+        if (zombie_can_dig(mtmp->mx, mtmp->my)) {
             if (yours || canseemon(mtmp)) {
                 pline("A pool appears beneath %s!", mon_nam(mtmp));
             }
