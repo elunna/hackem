@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Reduce the maximum size of Gehennom from 20-24 levels to 18-19 levels.
 Prep for version 1.2 release.
 Fix: Spellcasters can't cast Make Pool on squares with traps.
 Fix: global-buffer-overflow when throwing gold diagonally from (0, 0). Fixes #401.
