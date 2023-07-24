@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Fix: Breaking a boomerang in melee could cause heap-use-after-free if it caused hated-material sear damage.
 Fix: Elven race wasn't getting the correct symbol.
 Fix possible crashes in seffect_cloning when the monster creation fails. Fixes #402.
 Stakes always explicitly show their material.

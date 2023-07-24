@@ -2293,7 +2293,7 @@ int dieroll;
         }
     }
     
-    if (hated_obj)
+    if (obj && hated_obj)
         searmsg(&youmonst, mon, hated_obj, FALSE);
 
     if (lightobj) {
