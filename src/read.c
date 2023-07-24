@@ -3815,26 +3815,24 @@ struct obj **sobjp;
                 You("momentarily feel like your kind has no future.");
                 return;
             }
-            if (sblessed) {
-                mtmp = makemon(&mons[mndx], u.ux, u.uy,
-                               NO_MINVENT | MM_REVIVE | MM_EDOG);
-                initedog(mtmp);
-                u.uconduct.pets++;
-            } else if (scursed) {
-                mtmp = makemon(&mons[mndx], u.ux, u.uy,
-                               NO_MINVENT | MM_REVIVE | MM_ANGRY);
-            } else {
-                mtmp = makemon(&mons[mndx], u.ux, u.uy, NO_MINVENT | MM_REVIVE);
-                mtmp->mpeaceful = 1; 
-            }
+            
+            mtmp = makemon(&mons[mndx], u.ux, u.uy,
+                           sblessed ? (NO_MINVENT | MM_REVIVE | MM_EDOG) 
+                                    : (scursed ? (NO_MINVENT | MM_REVIVE | MM_ANGRY) 
+                                               : NO_MINVENT | MM_REVIVE));
             if (!mtmp) {
                 pline("Never mind.");
                 return;
             }
+            if (sblessed) {
+                initedog(mtmp);
+                u.uconduct.pets++;
+            } else if (!scursed) {
+                mtmp->mpeaceful = 1; 
+            }
+            
             mtmp->mcloned = 1;
             mtmp = christen_monst(mtmp, plname);
-            /* TODO: Match race */
-            
             if (is_mplayer(mtmp->data))
                 apply_race(mtmp, urace.malenum);
             
