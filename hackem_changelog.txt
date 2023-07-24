@@ -14,8 +14,9 @@
 
 ==========================
 
-Version 1.1.5 (unreleased)
+Version 1.2.0 (unreleased)
 
+Prep for version 1.2 release.
 Fix: Spellcasters can't cast Make Pool on squares with traps.
 Fix: global-buffer-overflow when throwing gold diagonally from (0, 0). Fixes #401.
 Fix: Cloning scrolls maintains BUC status of cloned items unless the ?oCloning is cursed, in which case the item gets cursed. Reported by Mobileuser.
