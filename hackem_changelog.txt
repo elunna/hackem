@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Fix: Elven race wasn't getting the correct symbol.
 Fix possible crashes in seffect_cloning when the monster creation fails. Fixes #402.
 Stakes always explicitly show their material.
 Decrease chance of poly trap disappearing when monsters use it.
