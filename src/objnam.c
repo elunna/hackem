@@ -658,8 +658,11 @@ struct obj *obj;
  * padded gloves" would give the game away if we did not check their
  * identification status */
 #define force_material_name(typ) \
-    ((typ) == LIGHT_ARMOR || (typ) == STUDDED_ARMOR                     \
-     || (typ) == JACKET || (typ) == PLAIN_CLOAK                         \
+    ((typ) == LIGHT_ARMOR        \
+     || (typ) == STUDDED_ARMOR   \
+     || (typ) == JACKET          \
+     || (typ) == PLAIN_CLOAK     \
+     || (typ) == STAKE           \
      || ((typ) == GLOVES && objects[GLOVES].oc_name_known)        \
      || ((typ) == GAUNTLETS && objects[GAUNTLETS].oc_name_known))
 
