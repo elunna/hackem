@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Reverted Serpent's Tongue back to a dagger.
 Mana cloak only grants MC1.
 Fix: Breaking a boomerang in melee could cause heap-use-after-free if it caused hated-material sear damage.
 Fix: Elven race wasn't getting the correct symbol.

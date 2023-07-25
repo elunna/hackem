@@ -367,7 +367,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       DREN(8, 8), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, PM_INFIDEL, NON_PM,
       1000L, NO_COLOR, COPPER),
 
-    A("Serpent's Tongue", PARAZONIUM, SPFX_RESTR, 0, 0,
+    A("Serpent's Tongue", DAGGER, SPFX_RESTR, 0, 0,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_NECROMANCER, NON_PM, 
       400L, NO_COLOR, DEFAULT_MAT),
         /* See artifact.c for special poison damage */
