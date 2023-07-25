@@ -131,7 +131,7 @@ PROJECTILE("orcish arrow", "crude arrow",
 PROJECTILE("ya", "long arrow",
            0, 15, 1, 4, 7, 7, 1,        WOOD, -P_BOW, HI_WOOD),
 PROJECTILE("light arrow", None,                                /* SpliceHack */
-           1,  0, 0, 20, 12, 12, 2,     GLASS, -P_BOW, CLR_YELLOW),
+           1,  0, 1, 20, 12, 12, 2,     GLASS, -P_BOW, CLR_YELLOW),
 PROJECTILE("crossbow bolt", None,
            1, 55, 1, 2, 4, 6, 0,        IRON, -P_CROSSBOW, HI_METAL),
 

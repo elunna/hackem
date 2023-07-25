@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Light arrows have a weight of 1.
 Changed Windrider back to boomerang.
 Footbows do not appear randomly.
 Reverted Serpent's Tongue back to a dagger.
