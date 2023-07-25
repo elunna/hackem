@@ -302,6 +302,7 @@ FLAG_TO = {
     "MH_OGRE": "ogre",
     "MH_TROLL": "troll",
     "MH_GNOLL": "gnoll",
+    "MH_SPIDER": "spider",
     "MH_JABBERWOCK": "jabberwock",
     "0L": "0",
 }
