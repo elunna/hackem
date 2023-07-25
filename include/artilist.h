@@ -485,7 +485,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       10000L, NO_COLOR, DEFAULT_MAT),
     
     /*returns to your hand.*/
-    A("Windrider", CHAKRAM, (SPFX_RESTR), 0, 0,
+    A("Windrider", BOOMERANG, (SPFX_RESTR), 0, 0,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 4000L,
       NO_COLOR, DEFAULT_MAT),
     

@@ -1384,7 +1384,7 @@ int dieroll;
                     hated_obj = obj;
                 }
                 if (!thrown && obj == uwep && obj->otyp == BOOMERANG
-                    && rnl(4) == 4 - 1) {
+                    && !obj->oartifact && rnl(4) == 4 - 1) {
                     boolean more_than_1 = (obj->quan > 1L);
 
                     pline("As you hit %s, %s%s breaks into splinters.",
