@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+The End is made of bone (to match SpliceHack).
 Fix: Redcaps were not generating with their scythes.
 Changed chakrams to more closely match dnethack.
 Fix: Bad fruit #0? (Cloning slime molds caused a panic). Fixes #404

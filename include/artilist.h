@@ -385,7 +385,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("The End", SCYTHE, (SPFX_RESTR | SPFX_DEFN), 0, 0, COLD(3, 20),
       DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
-      6000L, NO_COLOR, DEFAULT_MAT),
+      6000L, NO_COLOR, BONE),
 
     /*** Unaligned artifacts ***/
 
