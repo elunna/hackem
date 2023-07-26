@@ -976,6 +976,7 @@ static NEARDATA const int rwep[] = {
 
 static NEARDATA const int pwep[] = { 
     SPIKED_CHAIN,
+    SCYTHE,
     HALBERD,
     BARDICHE,
     SPETUM,
@@ -1215,7 +1216,8 @@ struct obj *obj;
 static const NEARDATA short hwep[] = {
     CORPSE, /* cockatrice corpse */
     SPIKED_CHAIN,
-    TSURUGI, 
+    SCYTHE,
+    TSURUGI,
     RUNESWORD, 
     ROD, 
     TRIPLE_HEADED_FLAIL,

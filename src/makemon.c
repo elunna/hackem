@@ -1096,20 +1096,20 @@ register struct monst *mtmp;
     switch (ptr->mlet) {
     case S_GIANT:
         if (rn2(2))
-            (void) mongets(mtmp, (mm != PM_ETTIN) ? BOULDER : CLUB);
+            mongets(mtmp, (mm != PM_ETTIN) ? BOULDER : CLUB);
         if (mm == PM_HECATONCHEIRE) {
             for (hbold = 0; hbold < rn1(3, 4); hbold++)
-              (void) mongets(mtmp, BOULDER);
+                mongets(mtmp, BOULDER);
         }
         break;
     case S_IMP:
         if (mm == PM_REDCAP) {
-            (void) mongets(mtmp, SCYTHE);
+            mongets(mtmp, SCYTHE);
         }
         break;
     case S_HUMAN:
         if (mm == PM_SHOPKEEPER) {
-            mongets(mtmp,SHOTGUN);
+            mongets(mtmp, SHOTGUN);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
             m_initthrow(mtmp, SHOTGUN_SHELL, 20);
         }
