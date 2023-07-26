@@ -3889,9 +3889,17 @@ struct obj **sobjp;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
         otmp2->oprops = otmp->oprops;
-        
+
+        /* For slime mold names */
+        if (otmp->oextra)
+            otmp2->oextra = otmp->oextra;
+        /* but suppressing fruit details leads to "bad fruit #0" */
+        if (otmp2->otyp == SLIME_MOLD)
+            otmp2->spe = context.current_fruit;
+
         /* prevent cloning of the candelabrum yielding a gold candle */
-        if (otmp2->otyp == WAX_CANDLE) otmp2->material = WAX;
+        if (otmp2->otyp == WAX_CANDLE)
+            otmp2->material = WAX;
 
         /* Prevent exploits */
         if (otmp2->otyp == WAN_WISHING) {

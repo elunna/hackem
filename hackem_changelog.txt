@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Fix: Bad fruit #0? (Cloning slime molds caused a panic). Fixes #404
 Light arrows have a weight of 1.
 Changed Windrider back to boomerang.
 Footbows do not appear randomly.
