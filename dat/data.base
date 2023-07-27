@@ -1146,7 +1146,7 @@ rancid jelly
 	inexpressibly dear and forlorn for a bit of blue jelly, would
 	force open the outer door until I returned and rejoined it.
 		[ Beholder's Eye, by Julie E. Czerneda ]
-~spellbook of spirit bomb
+~spirit bomb
 *bomb
     Bombs are a new type of weapon in HackEM. There are three specific
     types, the fire bomb, the gas bomb, and the sonic bomb. All are
@@ -8968,6 +8968,7 @@ rust monster or disenchanter
 	These ground-dwelling monsters are known to make short
 	work out of degrading adventurers' combat equipment.
 ~saber-toothed tiger
+~charge saber
 *saber
 *sabre
 	Flashed all their sabres bare,
@@ -13335,6 +13336,7 @@ yuki-onna
 	Japanese leather archery gloves.  Gloves made for use while
 	practicing had thumbs reinforced with horn.  Those worn into
 	battle had thumbs reinforced with a double layer of leather.
+~raise zombie
 *zombi*
 * witherling
 	The zombi... is a soulless human corpse, still dead, but
@@ -13435,6 +13437,222 @@ The Ring of P\'hul
     hero is in a form that can't wear body armor or cloaks. So, we make the
     Barbarian artifact chaotic (why it was neutral before is a bit confusing
     to me as most vanilla Barbarian race/role combinations are chaotic).
+
+##
+# Techniques
+
+berserk
+    This technique allows you to fly into a berserk rage, granting you
+    additional speed, damage, and accuracy for a short period of
+    time.
+kiii
+kiiilll
+    When you use this technique, you shout a battle cry, aggravating
+    the monsters around you and granting you double damage and a
+    bonus to accuracy for a short period of time.
+research
+    Using the research technique, you can attempt to glean more
+    information about one or more items in your pack.
+surgery
+    With this technique, you can perform emergency field surgery
+    in order to heal yourself. This healing can be further bolstered
+    with the proper medical supplies.
+
+    If you posses a scalpel, you can perform painful surgery to
+    cure sickness and infections.
+reinforce*
+    When straining to recall a spell, you can use a series of simple
+    mnemonics to bolster your memory of it.
+missile flurry
+flurry
+    With this technique, you can temporarily increase the number
+    of missiles you are able to fire from your bow.
+*practice
+    By performing a complex series of weapon drills, you can improve
+    your skill with a weapon, as well as gain intimate knowledge of
+    its nature.
+
+#evicerate
+
+healing hand*
+    With healing hands, you can heal yourself of bodily harm, as
+    well of as potentially deadly ailments, such as slime and
+    terminal illness.
+calm*
+calm steed
+    This technique can be used to calm a mount down, and soothe its
+    wild heart. If you are a centaur... It can even calm your own wild
+    heart!
+turn undead
+turn undead technique
+    Those with a pure, pious heart may call upon the gods to turn
+    back a tide of evil and death.
+vanish
+    This technique makes you temporarily fleet of foot and
+    invisible to the naked eye -- perfect for last-minute escapes
+    and feats of derring-do.
+cutthroat
+cutthroat technique
+    A strike to the throat is, in many cases, instantly fatal.
+
+    The cutthroat technique allows you to strike an enemy in
+    the throat, potentially killing them instantly.
+blessing
+    Enacting a blessing allows you to bless an item, warding it against
+    curses and demonic foes.
+elemental fist
+    By manipulating the chi in your body with this technnique, you
+    can deal elemental damage with your unarmed attacks, in addition
+    to physical damage.
+
+    This technique is considered a starter for the chained blitz
+    techique. Motion: U,U,R,R,D,D,L / U,U,L,L,D,D,R
+primal roar
+    When you use this technique, you force all nearby allies to
+    instantly evolve, becoming more powerful for a short time
+    before regressing. Your own speed increases as well.
+
+    Beware, however, because your enemies are sure to take notice
+    of your actions...
+liquid leap
+    By using the liquid leap technique, you can transform yourself
+    into a ball of acid, allowing you to leap through iron bars,
+    obstacles, and even monsters.
+critical strike
+    The critical strike technique allows you to strike your foe's
+    vital organs for massive damage.
+
+    This technique is less powerful against monsters with bizarre
+    anatomies.
+
+
+raise zombie*
+    Users of this technique can enact rituals of mass zombification,
+    turning all nearby corpses into shambling undead monstrosities.
+revification
+    At the cost of a large portion of their remaining life force, a user of
+    revification can do the impossible: Return the dead to life via
+    science.
+tinker
+tinkerer
+    The tinker technique allows you to spend time upgrading an object
+    in your hands, turning it into a more useful item. Upgrading an
+    already powerful object, however, may transform it into something
+    less useful.
+
+    Note that if you are interrupted while tinkering, your creative
+    efforts will be wasted.
+rage
+rage eruption
+    The rage eruption technique allows the user to enter a rage state,
+    granting them a very large amount of health, at the exchange of
+    slowly losing that health over time.
+blink
+    The blink technique alters the flow of time, temporarily granting
+    you a burst of alacrity.
+    
+chi strike
+    By focusing your chi, you can use this technique to deal extra
+    damage with your physical strikes.
+
+    This technique is considered a starter for the chained blitz
+    techique. Motion: L,L,D,D,R / R,R,D,D,L
+draw energy
+    This technique allows you to meditate and draw energy from
+    your surroundings. Make sure that you are not be interrupted
+    while gathering energy.
+
+    Dungeon structures and natural features can be excellent
+    sources of energy.
+disarm
+    The disarm technique lets you deprive a foe of their weapon.
+
+
+dazzle
+    The dazzle technique is innate to vampires. It allows them
+    to paralyze a single foe, making them easy prey.
+blitz
+chained blitz
+    Chained blitz is a complicated but powerful technique. It allows
+    you to chain together a series of known techniques by using key
+    combinations. Note that the same combination of keys cannot be
+    used twice in a row.
+
+    Valid chained blitz techniues fall into three categories:
+    - Starter: Can be followed by any category.
+    - Chain: Can be followed by chains and finishers.
+    - Finisher: Can be followed only by finishers.
+
+    The number of techniques you can chain together starts out at
+    two, and increases for every multiple of ten levels, up to a
+    maximum of five at level 30.
+pummel
+    The pummel technique allows you to unleash a flurry of
+    rapid attacks on your foes.
+
+    This technique is considered a chain for the chained blitz
+    techique. Motion: L,R,L / R,L,R
+ground slam
+    The ground slam technique allows you to bury your opponent in
+    the earth, by means of slamming them into the ground.
+
+    This technique is considered a finisher for the chained blitz
+    techique. Motion: D,D,D,D
+air dash
+    This technique allows you to fling yourself forward twice the
+    normal amount in a turn.
+
+    This technique is considered a starter for the chained blitz
+    techique. Motion: L,L / R,R
+power surge
+    The power surge technique allows the user to enter an enlightened state,
+    granting them a very large amount of power, at the exchange of
+    slowly losing that power over time.
+
+    This technique is considered a starter for the chained blitz
+    techique. Motion: >,>,>,>
+spirit bomb
+    The spirit bomb technique creates a deadly explosion of
+    concentrated, destructive chi.
+
+    This technique is considered a finisher for the chained blitz
+    techique. Motion: U,U,U,U,D
+draw blood
+    Draw blood is a technique that allows a vampire to exchange experience
+    for potions of vampire blood.
+jedi jump
+    Every Jedi can do the Jedi Jump, channeling the force to jump forward
+    like unskilled spell at level 1, basic at level 5, skilled at level
+    10, and expert at level 15. This technique is reusable after 50 turns
+    and uses up 25 energy.
+charge saber
+    The charge saber technique lets a jedi recharge their lightsaber 
+    when it has run out of power.  If they are at least technique 
+    level 10, they have a 20% chance of channeling the force perfectly 
+    into the saber, thus giving it an additional 1500 turns. 
+    
+    In order for the technique to succeed, the Jedi must remain 
+    uninterrupted for 10 turns.
+force push
+    Force Push is a technique that Jedi can use to thrust their opponents
+    back in battle. As you gain higher levels and more control over the
+    force, the range and distance you can hurtle monsters back grows.
+curse tech*
+    Curse is a technique that Infidels start with. It can can used to
+    uncurse or curse items. 
+
+
+tumble
+    Tumbling allows the user to switch places with an opponent, and is useful for
+    getting out of dangerous situations. Note that tumbling costs at least one
+    turn, however.
+sunder
+    Sunder allows the user to attempt to destroy the weapons or equipment of a foe.
+blood magic
+    Blood magic allows you to draw on your own life force to cast spells. If you
+    would normally not have enough energy to cast a spell, you can cast it using
+    your own hit points as a power source.
+
 
 ##
 # Rank titles for the various roles.  Some of these keys won't reach here
@@ -14210,7 +14428,7 @@ pir* ranks
 pirate
 landlubber
 swabbie
-cutthroat
+cut-throat
 bosun
 second mate
 first mate
@@ -14221,7 +14439,7 @@ dread pirate
 	  title            level
     Landlubber        1 to 2
     Swabbie           3 to 5
-    Cutthroat         6 to 9
+    Cut-throat         6 to 9
     Bosun            10 to 13
     Second Mate      14 to 17
     First Mate       18 to 21

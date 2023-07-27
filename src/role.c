@@ -484,7 +484,7 @@ const struct Role roles[] = {
     { { "Pirate", 0 }, 
       { { "Landlubber", 0 },
         { "Swabbie", 0 },
-        { "Cutthroat", 0 },
+        { "Cut-throat", 0 },
         { "Bosun", 0 },
         { "Second Mate", 0 },
         { "First Mate", 0 },
