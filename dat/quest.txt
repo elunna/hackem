@@ -6663,13 +6663,14 @@ the bunker floor.  You hear him cough one last insult.
 "You scum. You think you have a chance at beating this dungeon? *cough*
 *cough*  I'll see you in Gehennom! Haa..aa....ahrhhg..."
 %E [Grund is dead.]
+
 #
-# Defeating the Goblin King
+# Unlocking Vlad's Tower
 #
 %Cc - 00306
 As you approach the menacing stairs that lead up to Vlad's lair,
-your two alignment keys start to vibrate and emit a powerful energy.
-The air around the entrance shimmers for a moment and then clears. 
+the room starts to vibrate and you feel a powerful energy take form.
+The air around the entrance stiffens for a moment and then relaxes. 
 The magical barrier that blocked access to Vlad's tower has been 
 removed, permanently.
 %E [Passage has been opened to Vlad's Tower.]
