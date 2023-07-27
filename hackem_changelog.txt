@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Suppress discovery message for firearms after they are known.
 Indestructible items can't be destroyed in BoH explosions.
 Fix: Vecna wasn't getting the Key of Chaos!
 Fix: Lookup for skeleton key matched skeleton monster.
