@@ -1031,6 +1031,9 @@ register char sym;
             if (objects[o->otyp].oc_skill == P_FIREARM 
                 && !Role_if(PM_CONVICT))
                 continue;
+            /*  Nobody knows about bombs*/
+            if (is_bomb(o))
+                continue;
         }
 
         if (objects[ct].oc_class == sym && !objects[ct].oc_magic)

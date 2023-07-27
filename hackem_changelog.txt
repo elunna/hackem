@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+No role starts knowing about bombs via knows_class.
 Only convicts start out knowing  about all firearms.
 Suppress discovery message for firearms after they are known.
 Indestructible items can't be destroyed in BoH explosions.
