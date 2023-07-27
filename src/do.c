@@ -2746,8 +2746,6 @@ STATIC_OVL int
 countkeys()
 {
     int count = 0;
-    if (carrying_arti(ART_KEY_OF_ACCESS))
-        count = 2;
     if (carrying_arti(ART_KEY_OF_NEUTRALITY))
         count++;
     if (carrying_arti(ART_KEY_OF_CHAOS))

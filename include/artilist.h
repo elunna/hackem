@@ -488,6 +488,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR, SILVER),
 
     /*** Alignment quest artifacts ***/
+#if 0
+    A("The Key Of Access", SKELETON_KEY,
+      (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN), 0, 0, 
+      NO_ATTK, NO_DFNS, NO_CARY,
+      CREATE_PORTAL, A_LAWFUL, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
+#endif 
+    
     A("Nighthorn", UNICORN_HORN,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
@@ -508,17 +515,17 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Key of Law", SKELETON_KEY,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM,
-      1000L, NO_COLOR, GEMSTONE),
+      1000L, NO_COLOR, DEFAULT_MAT),
 
     A("The Key of Neutrality", SKELETON_KEY,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM,
-      1000L, NO_COLOR, GEMSTONE),
+      1000L, NO_COLOR, DEFAULT_MAT),
 
     A("The Key of Chaos", SKELETON_KEY,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
-      1000L, NO_COLOR, GEMSTONE),
+      1000L, NO_COLOR, DEFAULT_MAT),
 
 
 
@@ -543,11 +550,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
 #endif
-    A("The Key Of Access", SKELETON_KEY,
-      (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN | SPFX_FORGED), 0, 0, 
-      NO_ATTK, NO_DFNS, NO_CARY,
-      CREATE_PORTAL, A_NONE, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
-    
     /* Created by fusing werebane and trollsbane. Original idea by Spicy.
             Prevents all monster regen. */
     A("Mortality Dial", EXECUTIONER_S_MACE,
