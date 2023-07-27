@@ -271,7 +271,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
       PHYS(3, 20), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_ROGUE, NON_PM, 
-      5000L, CLR_RED, IRON),
+      5000L, CLR_RED, DEFAULT_MAT),
 
     /* Yeenoghu's infamous triple-headed flail. A massive weapon reputed to have been created
      * from the thighbone and torn flesh of an ancient god he slew. An extremely lethal artifact */
