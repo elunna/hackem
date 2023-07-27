@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Fix: Vecna wasn't getting the Key of Chaos!
 Fix: Lookup for skeleton key matched skeleton monster.
 Message when cursed gain level is blocked at Vlad's Tower.
 Two alignment keys can be forged together to create The Key of Access.

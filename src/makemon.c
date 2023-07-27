@@ -3421,6 +3421,13 @@ long mmflags;
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;
+        struct obj *otmp;
+        otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
+                     artiname(ART_KEY_OF_CHAOS));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
     } else if (mndx == PM_GRUND_THE_ORC_KING) {
         mtmp->isgrund = TRUE;
         (void) mongets(mtmp, SUBMACHINE_GUN);
