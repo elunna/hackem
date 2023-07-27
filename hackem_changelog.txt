@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Fix: Mortality Dial had the SPFX_RESTR listed twice.
 Revert Bat from Hell back to wooden material.
 Import technique descriptions from SpliceHack.
 The End is made of bone (to match SpliceHack).
