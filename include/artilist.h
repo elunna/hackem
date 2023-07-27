@@ -441,12 +441,6 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Mystic Eyes", LENSES, (SPFX_RESTR | SPFX_SEARCH), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       2000L, NO_COLOR, GEMSTONE),
-    
-    /* Created by fusing werebane and trollsbane. Original idea by Spicy. 
-            Prevents all monster regen. */
-    A("Mortality Dial", EXECUTIONER_S_MACE, (SPFX_RESTR | SPFX_REGEN | SPFX_NOGEN),
-      0, 0, PHYS(10, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
-      5000L, NO_COLOR, DEFAULT_MAT),
 
     A("Ogresmasher", HEAVY_WAR_HAMMER, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1200L,
@@ -541,6 +535,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
 #endif
+    /* Created by fusing werebane and trollsbane. Original idea by Spicy.
+            Prevents all monster regen. */
+    A("Mortality Dial", EXECUTIONER_S_MACE,
+      (SPFX_RESTR | SPFX_REGEN | SPFX_NOGEN | SPFX_FORGED),
+      0, 0, PHYS(10, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
+      5000L, NO_COLOR, DEFAULT_MAT),
 
     /*
      *      The artifacts for the quest dungeon, all self-willed.

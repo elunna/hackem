@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Mortality Dial can be forged by combining werebane and trollsbane (from SpliceHack)
 Fix: Mortality Dial had the SPFX_RESTR listed twice.
 Revert Bat from Hell back to wooden material.
 Import technique descriptions from SpliceHack.

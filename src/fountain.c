@@ -582,6 +582,7 @@ static const struct forge_arti {
 } artifusions[] = {
     /* artifacts */
     /* { ART_SWORD_OF_ANNIHILATION, ART_FIRE_BRAND, ART_FROST_BRAND }, */
+    { ART_MORTALITY_DIAL, ART_WEREBANE, ART_TROLLSBANE },
     { 0, 0, 0 }
 };
 
