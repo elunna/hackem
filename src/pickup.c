@@ -2379,7 +2379,7 @@ boolean on_floor;
 
     for (otmp = boh->cobj; otmp; otmp = nobj) {
         nobj = otmp->nobj;
-        if (is_boh_item_gone()) {
+        if (is_boh_item_gone() && !obj_resists(otmp, 0, 0)) {
             obj_extract_self(otmp);
             mbag_item_gone(!on_floor, otmp, TRUE);
         } else {
