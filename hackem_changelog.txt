@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Two alignment keys can be forged together to create The Key of Access.
 Clarify message when Vlad's tower is unlocked.
 Switch Und-Vam blood potions for vampire blood potions.
 Acquiring two alignment keys is now mandatory to ascend Vlad's Tower.
