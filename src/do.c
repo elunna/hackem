@@ -16,6 +16,7 @@ STATIC_PTR int NDECL(wipeoff);
 STATIC_DCL int FDECL(menu_drop, (int));
 STATIC_DCL int NDECL(currentlevel_rewrite);
 STATIC_DCL void NDECL(final_level);
+STATIC_DCL int NDECL(countkeys);
 /* static boolean FDECL(badspot, (XCHAR_P,XCHAR_P)); */
 
 extern int n_dgns; /* number of dungeons, from dungeon.c */
@@ -1804,28 +1805,21 @@ boolean at_stairs, falling, portal;
         return;
     }
 
-#if 0
-    /* Prevent the player from progressing beyond Grund's until Grund is 
-     * defeated. */
-    if (at_stairs || falling) {
-        /*if ((!up && (ledger_no(&u.uz) == ledger_no(&d_grunds_level))) ) {*/
-        if (Is_grunds_level(&u.uz) && (!up || (up && u.uhave.amulet))) {
-            if (!u.uevent.ugrund) {
-                if (at_stairs) {
-                    if (Blind) {
-                        pline("A mysterious force prevents you from accessing the stairs.");
-                    } else {
-                        You_see("a magical glyph hovering in midair, preventing access to the stairs.");
-                        pline("It reads 'Access denied, by order of Grund.'.");
-                    }
-                } else if (falling) {
-                    pline("A mysterious force prevents you from falling.");
-                }
-                return;
-            }
+    /* Prevent the player from accessing Vlad's Tower until they have 
+     * defeated two of the alignment nemesis. */
+    if (In_tower(&u.uz) && up && !newdungeon) {
+        if (countkeys() < 2 && !u.uachieve.unlocked_tower) {
+            if (at_stairs && !Blind) {
+                You("see a magical glyph hovering in midair, preventing access to the stairs.");
+                pline("It reads 'Access denied, by order of the alignment quest nemeses'.");
+            } else
+                pline("A mysterious force prevents you from accessing the stairs.");
+            return;
+        } else if (!u.uevent.utower) {
+            unlockedtower();
+            u.uachieve.unlocked_tower = 1;
         }
     }
-#endif
     
     if (on_level(newlevel, &u.uz))
         return; /* this can happen */
@@ -2743,6 +2737,19 @@ int how; /* 0: ordinary, 1: dismounting steed, 2: limbs turn to stone */
         if (how == 0)
             (void) encumber_msg();
     }
+}
+
+STATIC_OVL int
+countkeys()
+{
+    int count = 0;
+    if (carrying_arti(ART_KEY_OF_NEUTRALITY))
+        count++;
+    if (carrying_arti(ART_KEY_OF_CHAOS))
+        count++;
+    if (carrying_arti(ART_KEY_OF_LAW))
+        count++;
+    return count;
 }
 
 /*do.c*/

@@ -470,6 +470,7 @@ encode_extended_achievements()
     add_achieveX(buf, "defeated_vecna", u.uachieve.killed_vecna);
     add_achieveX(buf, "defeated_grund", u.uachieve.killed_grund);
     add_achieveX(buf, "got_crowned", u.uevent.uhand_of_elbereth);
+    add_achieveX(buf, "unlocked_tower", u.uachieve.unlocked_tower);
 
 #if 0
     /* TODO 3.7 achievements
@@ -635,7 +636,8 @@ encodeachieve()
         r |= 1L << 15;
     if (u.uachieve.killed_cerberus)
         r |= 1L << 16;
-
+    if (u.uachieve.unlocked_tower)
+        r |= 1L << 17;
     return r;
 }
 

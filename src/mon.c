@@ -3494,6 +3494,13 @@ grunddead()
 }
 
 void
+unlockedtower()
+{
+    if (!u.uevent.utower)
+        u.uevent.utower = TRUE;
+    com_pager(306);
+}
+void
 mondead(mtmp)
 register struct monst *mtmp;
 {

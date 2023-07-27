@@ -4146,6 +4146,9 @@ int final;
     if (u.uachieve.enter_gehennom)
         enl_msg(You_, "have ", "",
                 "entered Gehennom", ""), ++acnt;
+    if (u.uachieve.unlocked_tower)
+        enl_msg(You_, "have ", "",
+                "unlocked Vlad's Tower", ""), ++acnt;
     if (u.uachieve.menorah)
         enl_msg(You_, "have ", "",
                 "handled the Candelabrum of Invocation", ""), ++acnt;

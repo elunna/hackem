@@ -61,6 +61,7 @@ struct u_event {
     Bitfield(udemigod, 1);          /* killed the wiz */
     Bitfield(ascended, 1);          /* has offered the Amulet */
     Bitfield(ulearned_elbereth, 1); /* learned how to write Elbereth */
+    Bitfield(utower, 1);            /* Gained access to Vlad's tower */
 };
 
 struct u_achieve {
@@ -80,7 +81,7 @@ struct u_achieve {
     Bitfield(killed_beholder, 1);       /* You defeated Beholder. */
     Bitfield(killed_vecna, 1);
     Bitfield(killed_grund, 1);
-
+    Bitfield(unlocked_tower, 1);
     Bitfield(vibrating_square, 1); /* stepped on "vibrating square" */
 };
 
