@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Switch Und-Vam blood potions for vampire blood potions.
 Acquiring two alignment keys is now mandatory to ascend Vlad's Tower.
 Imported the alignment keys from SLASH'EM.
 Fix: Give Death a weapon attack so the scythe can be used. Fixes #406. Reported by Noisytoot.

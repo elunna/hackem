@@ -354,7 +354,7 @@ struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
-struct trobj BloodPotions[] = { { POT_BLOOD, 0, POTION_CLASS, 2, 0 },
+struct trobj VampireBloodPotions[] = { { POT_VAMPIRE_BLOOD, 0, POTION_CLASS, 2, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
@@ -1423,12 +1423,17 @@ u_init()
             UndeadSlayer[U_HOLY_WAFER].trspe = 0;
             UndeadSlayer[U_HOLY_WAFER].trbless = UNDEF_BLESS;
 
+            /* Init first so weapon gets index a */
+            ini_inv(UndeadSlayer);
+
             /* Blade wears glasses, lenses are "close enough" */
             ini_inv(Lenses);
-            ini_inv(BloodPotions);
+            ini_inv(VampireBloodPotions);
+        }
+        else {
+            ini_inv(UndeadSlayer);
         }
 
-        ini_inv(UndeadSlayer);
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
         skill_init(Skill_U);
