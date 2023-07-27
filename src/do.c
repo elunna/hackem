@@ -1812,8 +1812,11 @@ boolean at_stairs, falling, portal;
             if (at_stairs && !Blind) {
                 You("see a magical glyph hovering in midair, preventing access to the stairs.");
                 pline("It reads 'Access denied, by order of the alignment quest nemeses'.");
-            } else
+            } else if (at_stairs)
                 pline("A mysterious force prevents you from accessing the stairs.");
+            else
+                pline("A mysterious force prevents you from ascending.");
+            
             return;
         } else if (!u.uevent.utower) {
             unlockedtower();
