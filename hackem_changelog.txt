@@ -16,6 +16,7 @@
 
 Version 1.2.0 (unreleased)
 
+Fix: Ctrl-a not working for ranged weapons (reported by cbus). Fixes #407.
 No role starts knowing about bombs via knows_class.
 Only convicts start out knowing  about all firearms.
 Suppress discovery message for firearms after they are known.

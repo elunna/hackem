@@ -1401,10 +1401,13 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 {
     register struct monst *mon;
     int range, urange;
-    boolean crossbowing, gunning, boomeranging, clear_thrownobj = FALSE,
+    boolean crossbowing, gunning, boomeranging, clear_thrownobj,
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
+    
+    crossbowing = gunning = boomeranging = clear_thrownobj = FALSE;
+    
     /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from
      * the Jedi's primary hand. Otherwise we run into issues later when re-
