@@ -3640,6 +3640,7 @@ const char *str;
         "wizard lock",   /* not the "wizard" monster! */
         "death wand",    /* 'of inversion', not Rider */
         "master key",    /* not the "master" rank */
+        "skeleton key",  /* not the "skeleton" monster */
         "rogues gloves", /* not the "rogue" monster */
         "ninja-to",      /* not the "ninja" rank */
         "magenta",       /* not the "mage" rank */
