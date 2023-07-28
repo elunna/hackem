@@ -1027,11 +1027,11 @@ register char sym;
             /* rogues know daggers, regardless of racial variations */
             if (Role_if(PM_ROGUE) && objects[o->otyp].oc_skill != P_DAGGER)
                 continue;
-            /* Only convicts know about all firearms*/
+            /* Only convicts know about all firearms */
             if (objects[o->otyp].oc_skill == P_FIREARM 
                 && !Role_if(PM_CONVICT))
                 continue;
-            /*  Nobody knows about bombs*/
+            /* Nobody knows about bombs */
             if (is_bomb(o))
                 continue;
         }
