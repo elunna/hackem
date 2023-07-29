@@ -593,7 +593,7 @@ encodeconduct()
     if (!u.uconduct.techuse)
         e |= 1L << 22;
     if (!u.uconduct.shk)
-        e |= 1L << 22;
+        e |= 1L << 23;
     return e;
 }
 
