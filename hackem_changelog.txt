@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Object lookup used total weight of a item stack in player's possession - not the base weight.
 Fix: Object lookup leaking info for object's in player's possession.
 
 Version 1.2.0 (released July 28, 2023)

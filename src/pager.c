@@ -1094,7 +1094,7 @@ char *usr_text;
     /* We have the object and it is reveal_info */
     boolean reveal_fullname = (obj && (oc.oc_name_known || obj->oprops_known));
     boolean reveal_info = (boolean) (!obj || (obj && oc.oc_name_known));
-    int i, mat_bon, obj_weight;
+    int i, mat_bon;
 
     struct obj dummy = { 0 };
     dummy.otyp = otyp;
@@ -1718,11 +1718,10 @@ char *usr_text;
 
     /* cost, wt should go next */
     buf[0] = '\0';
-    obj_weight = obj ? weight(obj) : oc.oc_weight;
     if (is_artifact) {
-        Sprintf(buf, "Weighs %d aum.", obj_weight);
+        Sprintf(buf, "Weighs %d aum.", oc.oc_weight);
     } else if (reveal_info) {
-        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
+        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
     } else {
         int base_cost = oc.oc_cost;
         for (i = 0; i < NUM_OBJECTS; i++) {
@@ -1737,9 +1736,9 @@ char *usr_text;
         }
 
         if (base_cost > 0) {
-            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
+            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
         } else {
-            Sprintf(buf, "Weighs %d aum.", obj_weight);
+            Sprintf(buf, "Weighs %d aum.", oc.oc_weight);
         }
     }
     OBJPUTSTR(buf);
