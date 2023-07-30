@@ -16,6 +16,7 @@
 
 Version 1.2.0 (released July 28, 2023)
 
+Fix: certain spellbooks would have the wrong weight if received via prayer. (EvilHack)
 Fix: explicitly state various materials so certain forge recipes will work. (EvilHack)
 Fix: various fixes to polyself.c (EvilHack)
 Fix: Bitfields for shopkeeper and technique conducts were the same.
