@@ -1854,6 +1854,7 @@ char *usr_text;
         free(a_info.carr_res);
         free(a_info.attack);
         free(a_info.dbldmg);
+        free(a_info.hates);
     }
 }
 
@@ -1925,7 +1926,8 @@ char *supplemental_name;
     winid datawin = WIN_ERR;
     short otyp, mat;
     boolean lookat_mon = (pm != (struct permonst *) 0);
-    
+    boolean obj_free = FALSE;
+
     fp = dlb_fopen(DATAFILE, "r");
     if (!fp) {
         pline("Cannot open 'data' file!");
@@ -2216,7 +2218,7 @@ char *supplemental_name;
                     /* we got a matching artifact for the lookup */
                     if (otyp != STRANGE_OBJECT && obj_lookup) {
                         obj = obj_lookup;
-                        /*obj_free = TRUE;*/
+                        obj_free = TRUE;
                     }
                 }
             }
@@ -2367,6 +2369,8 @@ char *supplemental_name;
     if (datawin != WIN_ERR)
         destroy_nhwindow(datawin);
     (void) dlb_fclose(fp);
+    if (obj_free)
+        obfree(obj, (struct obj *) 0);
     return;
 }
 

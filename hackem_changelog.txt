@@ -16,6 +16,7 @@
 
 Hardfought hotfixes (released July 30, 2023)
 
+Fix: Memory leaks when get_faux_artifact_obj is used.
 Fix: Object lookup used total weight of a item stack in player's possession - not the base weight.
 Fix: Object lookup leaking info for object's in player's possession.
 
