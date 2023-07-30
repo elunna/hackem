@@ -173,7 +173,6 @@ const char *name;
 
             break;
         }
-
         index++;
     }
 
