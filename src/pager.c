@@ -1090,12 +1090,10 @@ char *usr_text;
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     /* If it's an artifact, we always have it in obj. */
     boolean is_artifact = obj && obj->oartifact;
-    boolean hide_appearance = !oc.oc_name_known;
     boolean show_corpse = obj && otyp == CORPSE;
     /* We have the object and it is reveal_info */
     boolean reveal_fullname = (obj && (oc.oc_name_known || obj->oprops_known));
-    boolean reveal_info = (boolean) (!obj || (otyp != STRANGE_OBJECT
-                                              && oc.oc_name_known));
+    boolean reveal_info = (boolean) (!obj || (obj && oc.oc_name_known));
     int i, mat_bon, obj_weight;
 
     struct obj dummy = { 0 };
@@ -1124,8 +1122,8 @@ char *usr_text;
     /* OBJECT INFO HEADLINE */
 
 
-    /* We have the object but it's not reveal_info */
-    if ((obj && otyp == STRANGE_OBJECT) && !hide_appearance) {
+    /* We have the object */
+    if (obj && !is_artifact) {
         Sprintf(buf, "Object lookup for \"%s\":", xname(obj));
     } else if (show_corpse) {
         Sprintf(buf, "Object lookup for \"%s\":",
@@ -1443,7 +1441,7 @@ char *usr_text;
 
     /* SPELLBOOK INFO */
 
-    if (oc.oc_class == SPBOOK_CLASS) {
+    if (oc.oc_class == SPBOOK_CLASS && reveal_info) {
         if (otyp == SPE_BLANK_PAPER) {
             OBJPUTSTR("Spellbook.");
         } else if (otyp == SPE_NOVEL || otyp == SPE_BOOK_OF_THE_DEAD) {
@@ -1461,7 +1459,7 @@ char *usr_text;
 
     /* WAND INFO */
 
-    if (oc.oc_class == WAND_CLASS) {
+    if (oc.oc_class == WAND_CLASS && reveal_info) {
         if (otyp == STRANGE_OBJECT) {
             Strcpy(buf, "Wand.");
         } else {
@@ -1584,7 +1582,7 @@ char *usr_text;
     /* INK COST */
 
     /* Scrolls or spellbooks: ink cost */
-    if (otyp != STRANGE_OBJECT) {
+    if (reveal_info) {
         if (oc.oc_class == SCROLL_CLASS || oc.oc_class == SPBOOK_CLASS) {
             if (otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER) {
                 OBJPUTSTR("Can be written on.");
@@ -1664,7 +1662,7 @@ char *usr_text;
     /* MISC PROPERTIES */
 
     buf[0] = '\0';
-    if (otyp != STRANGE_OBJECT) {
+    if (reveal_info) {
         ADDCLASSPROP(oc.oc_magic, "inherently magical");
         ADDCLASSPROP(oc.oc_nowish, "not wishable");
     }
@@ -1723,7 +1721,7 @@ char *usr_text;
     obj_weight = obj ? weight(obj) : oc.oc_weight;
     if (is_artifact) {
         Sprintf(buf, "Weighs %d aum.", obj_weight);
-    } else if (otyp != STRANGE_OBJECT) {
+    } else if (reveal_info) {
         Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, obj_weight);
     } else {
         int base_cost = oc.oc_cost;
