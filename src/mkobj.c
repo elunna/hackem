@@ -3429,11 +3429,12 @@ struct obj *otmp2;
     }
 }
 
-/* Object material probabilities. */
+/* Object material probabilities */
 /* for objects which are normally iron or steel */
 static const struct icp metal_materials[] = {
-    {65, 0}, /* default to base type, iron or steel */
+    {60, 0}, /* default to base type, iron or steel */
     {10, METAL},
+    { 5, IRON},
     { 5, BONE},
     { 5, WOOD},
     { 4, SILVER},
@@ -3492,7 +3493,7 @@ static const struct icp dwarvish_materials[] = {
 };
 
 /* for armor objects of elven make - no iron!
- * Does not cover cloth items; those use the regular cloth probs. */
+ * Does not cover cloth items; those use the regular cloth probs */
 static const struct icp elven_materials[] = {
     {60, 0}, /* use base material */
     {20, WOOD},
@@ -3509,8 +3510,8 @@ static const struct icp orcish_materials[] = {
     {10, MINERAL}
 };
 
-/* Reflectable items - for the shield of reflection; anything that can hold a
- * polish. Amulets also arbitrarily use this list. */
+/* Reflectable items - for the shield of reflection; anything
+   that can hold a polish. Amulets also arbitrarily use this list */
 static const struct icp shiny_materials[] = {
     {50, 0}, /* use base material */
     {20, SILVER},
@@ -3522,7 +3523,7 @@ static const struct icp shiny_materials[] = {
 };
 
 /* for bells and other tools, especially instruments, which are normally copper
- * or metal.  Wood and glass in other lists precludes us from using those. */
+ * or metal.  Wood and glass in other lists precludes us from using those */
 static const struct icp resonant_materials[] = {
     {55, 0}, /* use base material */
     {20, COPPER},
@@ -3534,7 +3535,7 @@ static const struct icp resonant_materials[] = {
     { 1, PLATINUM}
 };
 
-/* for horns, currently. */
+/* for horns, currently */
 static const struct icp horn_materials[] = {
     {70, BONE},
     {10, COPPER},
@@ -3558,7 +3559,7 @@ static const struct icp bat_materials[] = {
 };
 
 /* hacks for specific objects... not great because it's a lot of data, but it's
- * a relatively clean solution */
+   a relatively clean solution */
 static const struct icp elven_helm_boots_materials[] = {
     {90, LEATHER},
     { 9, CLOTH},
@@ -3621,9 +3622,10 @@ static const struct icp sling_bullet_materials[] = {
 static const struct icp helm_speed_materials[] = {
     {30, 0}, /* default to base type, steel */
     {25, LEATHER},
-    {15, CLOTH},
-    {10, BONE},
-    { 4, WOOD},
+    {12, CLOTH},
+    { 7, BONE},
+    { 5, METAL},
+    { 5, WOOD},
     { 4, SILVER},
     { 4, COPPER},
     { 3, MITHRIL},
