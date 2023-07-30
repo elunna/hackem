@@ -16,6 +16,7 @@
 
 Version 1.2.0 (released July 28, 2023)
 
+Fix: various fixes to polyself.c (EvilHack)
 Fix: Bitfields for shopkeeper and technique conducts were the same.
 Fix: Ctrl-a not working for ranged weapons (reported by cbus). Fixes #407.
 No role starts knowing about bombs via knows_class.

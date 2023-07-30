@@ -461,7 +461,7 @@ void
 polyself(psflags)
 int psflags;
 {
-    char buf[BUFSZ] = DUMMY;
+    char buf[BUFSZ];
     int old_wither, new_wither, old_light, new_light, mntmp, class, tryct;
     boolean forcecontrol = (psflags == 1), monsterpoly = (psflags == 2),
             draconian = (!uskin && armor_to_dragon(&youmonst) != NON_PM),
@@ -505,6 +505,7 @@ int psflags;
         goto do_merge;
 
     if (controllable_poly || forcecontrol) {
+        buf[0] = '\0';
         tryct = 5;
         do {
             mntmp = NON_PM;
@@ -543,7 +544,8 @@ int psflags;
                            /* "priest" and "priestess" match the monster
                               rather than the role; override that unless
                               the text explicitly contains "aligned" */
-                           || ((u.umonster == PM_PRIEST || u.umonster == PM_PRIESTESS)
+                           || ((u.umonster == PM_PRIEST
+                                || u.umonster == PM_PRIESTESS)
                                && mntmp == PM_ALIGNED_PRIEST
                                && !strstri(buf, "aligned")))) {
                 /* in wizard mode, picking own role while poly'd reverts to
@@ -555,11 +557,14 @@ int psflags;
                                   || mntmp == counter_were(u.ulycn)
                                   || (Upolyd && mntmp == PM_HUMAN))) {
                 goto do_shift;
-                /* Note:  humans are illegal as monsters, but an
-                 * illegal monster forces newman(), which is what we
-                 * want if they specified a human.... */
             } else if (!polyok(&mons[mntmp])
-                       && !(mntmp == PM_HUMAN || your_race(&mons[mntmp])
+                       /* Note:  humans are illegal as monsters, but an
+                          illegal monster forces newman(), which is what
+                          we want if they specified a human.... (unless
+                          they specified a unique monster) */
+                       && !(mntmp == PM_HUMAN
+                            || (your_race(&mons[mntmp])
+                                && (mons[mntmp].geno & G_UNIQ) == 0)
                             || mntmp == urole.malenum
                             || mntmp == urole.femalenum)) {
                 const char *pm_name;
