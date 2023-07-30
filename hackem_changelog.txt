@@ -14,6 +14,11 @@
 
 ==========================
 
+Hardfought hotfixes (released July 30, 2023)
+
+Fix: Object lookup used total weight of a item stack in player's possession - not the base weight.
+Fix: Object lookup leaking info for object's in player's possession.
+
 Version 1.2.0 (released July 28, 2023)
 
 Tweaks to stealing from monsters (EvilHack)
