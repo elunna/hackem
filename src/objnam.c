@@ -3305,7 +3305,6 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
     { "shield", ARMOR_CLASS, SMALL_SHIELD, SHIELD_OF_MOBILITY },
     { "hat", ARMOR_CLASS, DUNCE_CAP, FEDORA },
     { "helm", ARMOR_CLASS, DUNCE_CAP, HELM_OF_TELEPATHY },
-    { "gloves", ARMOR_CLASS, GLOVES, PLASTEEL_GLOVES },
     { "gauntlets", ARMOR_CLASS, GAUNTLETS, GAUNTLETS_OF_POWER },
     { "boots", ARMOR_CLASS, LOW_BOOTS, FUMBLE_BOOTS },
     { "shoes", ARMOR_CLASS, LOW_BOOTS, ORCISH_BOOTS },
@@ -3448,7 +3447,8 @@ static const struct alt_spellings {
     { "ML", MAGIC_LAMP },
     { "MM", MAGIC_MARKER },
     { "UH", UNICORN_HORN },
-    
+    /* armor */
+    { "gloves", GLOVES },
     { (const char *) 0, 0 },
 };
 
