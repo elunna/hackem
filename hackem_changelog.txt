@@ -16,6 +16,7 @@
 
 Version 1.2.0 (released July 28, 2023)
 
+Fix: incorrect value used in determining mspec->used for monster spellcasting. (EvilHack)
 Fix: whitespace in feedback (mcastu.c). (EvilHack)
 Fix: SET_TYPLIT if/else chain broken. (EvilHack)
 Fix: curses mode - prevent spurious cursor updates. (EvilHack)
