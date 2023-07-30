@@ -1186,11 +1186,6 @@ int dieroll;
         thievery = ((Role_if(PM_ROGUE) || Role_if(PM_CONVICT))
                     && context.forcefight && !Upolyd);
 
-        /* don't increment thievery skill for regular bare handed attacks */
-        if (!uwep && (Role_if(PM_ROGUE) || Role_if(PM_CONVICT))
-            && !context.forcefight)
-            use_skill(P_THIEVERY, -1);
-
         /* monks have a chance to break their opponents wielded weapon
          * under certain conditions */
         
@@ -2058,7 +2053,9 @@ int dieroll;
             tmp += weapon_dam_bonus(wep);
             /* [this assumes that `!thrown' implies wielded...] */
             wtype = thrown ? weapon_type(wep) : uwep_skill_type();
-            use_skill(wtype, 1);
+            /* train thievery in steal_it() when we know if theft succeeded */
+            if (!(!uwep && (Role_if(PM_ROGUE) || Role_if(PM_CONVICT))))
+                use_skill(wtype, 1);
         }
     }
     
@@ -2664,27 +2661,6 @@ struct attack *mattk;
     if (!otmp || (as_mon && otmp->oclass == COIN_CLASS && !otmp->nobj))
         return; /* nothing to take */
 
-    /* greased objects are difficult to get a grip on, hence
-       the odds that an attempt at stealing it may fail */
-    if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
-        || otmp->otyp == OILSKIN_SACK
-        || (otmp->oprops & ITEM_OILSKIN))
-        && (!otmp->cursed || rn2(4))) {
-        Your("%s slip off of %s %s %s!",
-              makeplural(body_part(HAND)),
-              s_suffix(mon_nam(mdef)),
-              otmp->greased ? "greased" : "slippery",
-              (otmp->greased || objects[otmp->otyp].oc_name_known)
-                  ? xname(otmp)
-                  : cloak_simple_name(otmp));
-
-        if (otmp->greased && !rn2(2)) {
-            pline_The("grease wears off.");
-            otmp->greased = 0;
-        }
-        return;
-    }
-
     /* look for worn body armor */
     stealoid = (struct obj *) 0;
     if (as_mon) {
@@ -2704,15 +2680,6 @@ struct attack *mattk;
         gold = findgold(mdef->minvent, TRUE);
     }
 
-    if (stealoid) { /* we will be taking everything */
-        if (gender(mdef) == (int) u.mfemale && youmonst.data->mlet == S_NYMPH)
-            You("charm %s.  She gladly hands over %sher possessions.",
-                mon_nam(mdef), !gold ? "" : "most of ");
-        else
-            You("seduce %s and %s starts to take off %s clothes.",
-                mon_nam(mdef), mhe(mdef), mhis(mdef));
-    }
-
     /* prevent gold from being stolen so that steal-item isn't a superset
        of steal-gold; shuffling it out of minvent before selecting next
        item, and then back in case hero or monster dies (hero touching
@@ -2721,6 +2688,45 @@ struct attack *mattk;
        taking it out once and then trying to figure out how to put it back */
     if (as_mon && gold)
         obj_extract_self(gold);
+
+    if (stealoid) { /* we will be taking everything */
+        if (gender(mdef) == (int) u.mfemale && youmonst.data->mlet == S_NYMPH)
+            You("charm %s.  She gladly hands over %sher possessions.",
+                mon_nam(mdef), !gold ? "" : "most of ");
+        else
+            You("seduce %s and %s starts to take off %s clothes.",
+                mon_nam(mdef), mhe(mdef), mhis(mdef));
+        otmp = mdef->minvent;
+    } else { /* if only one object is taken, randomize it */
+        int tmp = 0;
+        for (otmp = mdef->minvent; otmp; otmp = otmp->nobj) {
+            ++tmp;
+        }
+        tmp = rnd(tmp);
+        for (otmp = mdef->minvent; tmp > 1; --tmp)
+            otmp = otmp->nobj;
+    }
+
+    /* greased objects are difficult to get a grip on, hence
+    the odds that an attempt at stealing it may fail */
+    if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
+        || otmp->otyp == OILSKIN_SACK
+        || (otmp->oprops & ITEM_OILSKIN))
+        && (!otmp->cursed || rn2(4))) {
+        Your("%s slip off of %s %s %s!",
+              makeplural(body_part(HAND)),
+              s_suffix(mon_nam(mdef)),
+              otmp->greased ? "greased" : "slippery",
+              (otmp->greased || objects[otmp->otyp].oc_name_known)
+                  ? xname(otmp)
+                  : cloak_simple_name(otmp));
+
+        if (otmp->greased && !rn2(2)) {
+            pline_The("grease wears off.");
+            otmp->greased = 0;
+        }
+        return;
+    }
 
     /* Rogues and Convicts can use the thievery skill;
        dexterity directly affects how successful a
@@ -2878,22 +2884,46 @@ struct attack *mattk;
                 }
             }
         }
-        /* don't increment the skill if the attempt isn't successful */
-        use_skill(P_THIEVERY, -1);
         return;
     }
 
-    while ((otmp = mdef->minvent) != 0) {
+    while (stealoid ? (otmp = mdef->minvent) : otmp) {
         if (gold) /* put 'mdef's gold back after remembering mdef->minvent */
             mpickobj(mdef, gold), gold = 0;
         if (otmp == stealoid) /* special message for final item */
             pline("%s finishes taking off %s suit.", Monnam(mdef),
                     mhis(mdef));
+
+        /* only triggered if (stealoid && items have already been stolen).
+        failing to steal a greased object will stop you from stealing
+        anything else to avoid infinite loop nastiness */
+        if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
+            || otmp->otyp == OILSKIN_SACK
+            || (otmp->oprops & ITEM_OILSKIN))
+            && (!otmp->cursed || rn2(4))) {
+            Your("%s slip off of %s %s %s!",
+                makeplural(body_part(HAND)),
+                s_suffix(mon_nam(mdef)),
+                otmp->greased ? "greased" : "slippery",
+                (otmp->greased || objects[otmp->otyp].oc_name_known)
+                    ? xname(otmp)
+                    : cloak_simple_name(otmp));
+
+            if (otmp->greased && !rn2(2)) {
+                pline_The("grease wears off.");
+                otmp->greased = 0;
+            }
+            break;
+        }
+
         if (!(otmp = really_steal(otmp, mdef))) /* hero got interrupted... */
             break;
         /* might have dropped otmp, and it might have broken or left level */
-        if (!otmp || otmp->where != OBJ_INVENT)
+        if (!otmp || otmp->where != OBJ_INVENT) {
+            if (as_mon && (gold = findgold(mdef->minvent, TRUE)) != 0)
+                obj_extract_self(gold);
             continue;
+        }
         if (theft_petrifies(otmp))
             break; /* stop thieving even though hero survived */
 
@@ -2916,13 +2946,20 @@ struct attack *mattk;
     if (gold)
         mpickobj(mdef, gold);
 
-    /* Training up thievery skill can be quite the chore, to the point
-       where many players don't bother to use it. Randomly add an
-       additional point of skill for a successful attempt to balance
-       out the drudgery, without having to revamp how skill points are
-       awarded for this specific skill */
-    if (rn2(3)) /* 66% chance in favor of the player */
+    /* only train thievery if you have the skill */
+    if (Role_if(PM_ROGUE) || Role_if(PM_CONVICT)) {
+        /* train the skill here instead of in hmon_hitmon() to avoid premature
+        messages about feeling more dangerous when theft fails */
         use_skill(P_THIEVERY, 1);
+
+        /* Training up thievery skill can be quite the chore, to the point
+        where many players don't bother to use it. Randomly add an
+        additional point of skill for a successful attempt to balance
+        out the drudgery, without having to revamp how skill points are
+        awarded for this specific skill */
+        if (rn2(3)) /* 66% chance in favor of the player */
+            use_skill(P_THIEVERY, 1);
+    }
 }
 
 /* Actual mechanics of stealing obj from mdef. This is now its own function
