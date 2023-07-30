@@ -16,6 +16,7 @@
 
 Version 1.2.0 (released July 28, 2023)
 
+Fix: curses mode - prevent spurious cursor updates. (EvilHack)
 Fix: prevent indestructible objects from being destroyed by a cursed bag of holding.
 Fix: weight of recipe stacks not recalculated when forging. (EvilHack)
 Fix: wishing for regular gloves. (EvilHack)
