@@ -19,11 +19,11 @@ STATIC_DCL void FDECL(mayberem, (struct monst *, const char *,
 STATIC_DCL int FDECL(hitmu, (struct monst *, struct attack *));
 STATIC_DCL int FDECL(gulpmu, (struct monst *, struct attack *));
 STATIC_DCL int FDECL(explmu, (struct monst *, struct attack *, BOOLEAN_P));
+STATIC_DCL int FDECL(screamu, (struct monst *, struct attack *));
 STATIC_DCL void FDECL(missmu, (struct monst *, int, int, struct attack *));
 STATIC_DCL void FDECL(mswings, (struct monst *, struct obj *));
 STATIC_DCL void FDECL(wildmiss, (struct monst *, struct attack *));
 STATIC_DCL void FDECL(hitmsg, (struct monst *, struct attack *));
-STATIC_DCL int FDECL(screamu, (struct monst*, struct attack*, int));
 
 static const char *const mwep_pierce[] = {
     "pierce", "gore", "stab", "impale", "hit"
@@ -113,8 +113,8 @@ struct attack *mattk;
                 else
                     pline("%s %ss you!", Monnam(mtmp),
                           mwep_none[rn2(SIZE(mwep_none))]);
-            } else if (MON_WEP(mtmp)->otyp == WOODEN_STAKE) {
-                /* Messages for wooden stakes are currently handled elsewhere
+            } else if (MON_WEP(mtmp)->otyp == STAKE) {
+                /* Messages for stakes are currently handled elsewhere
                  * - otherwise we get multiple messages for the same hit.
                  */
                 return;
@@ -279,7 +279,7 @@ struct attack *mattk;
                 killed(mtmp);
         }
         /* train shield skill if the shield made a block */
-        if ((blocker == uarms))
+        if (blocker == uarms)
             use_skill(P_SHIELD, 1);
     }
 end:
@@ -1206,8 +1206,7 @@ register struct monst *mtmp;
             break;
 	case AT_SCRE:
             if (ranged || !rn2(5)) /* sometimes right next to our hero */
-                sum[i] = screamu(mtmp, mattk,
-                                 d((int) mattk->damn, (int) mattk->damd));
+                sum[i] = screamu(mtmp, mattk);
 	    break;
         default: /* no attack */
             break;
@@ -1599,8 +1598,8 @@ register struct attack *mattk;
                     burnmsg = TRUE;
                 }
 
-                /* Wooden stakes vs vampires */
-                if (otmp && otmp->otyp == WOODEN_STAKE && is_vampire(youmonst.data)) {
+                /* Stakes vs vampires */
+                if (otmp && otmp->otyp == STAKE && is_vampire(youmonst.data)) {
                     if (!rn2(5)) {
                         pline("%s plunges the stake into your heart.", Monnam(mtmp));
                         killer.format = NO_KILLER_PREFIX;
@@ -1626,21 +1625,23 @@ register struct attack *mattk;
                 if (Stable) {
                     pline("%s clobbers you, but you hold %s!", Monnam(mtmp),
                               rn2(2) ? "firm" : "your ground");
-                }
-                else {
+                } else {
                     pline("%s knocks you %s with a %s %s!", Monnam(mtmp),
                         u.usteed ? "out of your saddle" : "back",
                         rn2(2) ? "forceful" : "powerful", rn2(2) ? "blow" : "strike");
                     hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, rnd(2), FALSE);
+                    /* Update monster's knowledge of your position */
+                    mtmp->mux = u.ux;
+                    mtmp->muy = u.uy;
                     if (!rn2(4))
                         make_stunned((HStun & TIMEOUT) + (long) rnd(2) + 1, TRUE);
                 }
             }
-	    if (mtmp->data == &mons[PM_WATER_ELEMENTAL]
+            if (mtmp->data == &mons[PM_WATER_ELEMENTAL]
                 || mtmp->data == &mons[PM_BABY_SEA_DRAGON]
                 || mtmp->data == &mons[PM_SEA_DRAGON])
-		goto do_rust;
-	}
+                goto do_rust;
+        }
         break;
     case AD_DISE:
         hitmsg(mtmp, mattk);
@@ -1697,46 +1698,6 @@ register struct attack *mattk;
                 destroy_item(POTION_CLASS, AD_COLD);
         } else
             dmg = 0;
-        break;
-    case AD_LOUD:
-        hitmsg(mtmp, mattk);
-
-        if (uncancelled) {
-            if (Deaf) {
-                pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
-                dmg = 1;
-            }  else if (Sonic_resistance) {
-                You("are unaffected by the noise.");
-                dmg = 0;
-                monstseesu(M_SEEN_LOUD);
-            }
-            else
-                Your("mind reels from the noise!");
-            
-            if (!Deaf && u.usleep && m_canseeu(mtmp))
-                unmul("You are frightened awake!");
-        
-            if (!rn2(6))
-                erode_armor(&youmonst, ERODE_FRACTURE);
-            if (!rn2(5))
-                erode_obj(uwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
-            if (!rn2(6))
-                erode_obj(uswapwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
-            if (rn2(2))
-                destroy_item(POTION_CLASS, AD_LOUD);
-            if (!rn2(4))
-                destroy_item(RING_CLASS, AD_LOUD);
-            if (!rn2(4))
-                destroy_item(TOOL_CLASS, AD_LOUD);
-            if (!rn2(3))
-                destroy_item(WAND_CLASS, AD_LOUD);
-        } else
-            dmg = 0;
-        
-        if (dmg > 0 && u.umonnum == PM_GLASS_GOLEM) {
-            You("shatter into a million pieces!");
-            rehumanize();
-        }
         break;
     case AD_ELEC:
         hitmsg(mtmp, mattk);
@@ -2341,8 +2302,7 @@ do_rust:
             break;
         }
         if (!uwep && !uarmu && !uarm && !uarmc
-            && !uarms && !uarmf && !uarmh
-            && (!uarmg || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA))) {
+            && !uarms && !uarmg && !uarmf && !uarmh) {
             boolean goaway = FALSE;
 
             pline("%s touches you!  (I hope you don't mind.)", Monnam(mtmp));
@@ -2467,7 +2427,7 @@ do_rust:
     case AD_DETH:
         if (mtmp && mdat == &mons[PM_DEATH])
             pline("%s reaches out with its deadly touch.", Monnam(mtmp));
-        if (immune_death_magic(youmonst.data)) {
+        if (Death_resistance || immune_death_magic(youmonst.data)) {
             /* Still does normal damage */
             You("are unaffected by death magic.");
             break;
@@ -2623,13 +2583,9 @@ do_rust:
     case AD_WTHR: {
         uchar withertime = max(2, dmg);
         boolean no_effect =
-            (nonliving(youmonst.data) /* This could use is_fleshy(), but that would
-                                         make a large set of monsters immune like
-                                         fungus, blobs, and jellies. */
-             || is_vampshifter(&youmonst) 
-             || Race_if(PM_VAMPIRIC)
-             || !uncancelled);
-        boolean lose_maxhp = (withertime >= 8); /* if already withering */
+            (nonliving(youmonst.data) || !uncancelled);
+        boolean lose_maxhp = (withertime >= 8 && !BWithering); /* if already withering */
+
         hitmsg(mtmp, mattk);
         
         if (!no_effect) {
@@ -2637,8 +2593,10 @@ do_rust:
                       * to withering, this attack deads physical damage instead. */
             if (Withering)
                 Your("withering speeds up!");
-            else
+            else if (!BWithering)
                 You("begin to wither away!");
+            else
+                You_feel("dessicated for a moment.");
             incr_itimeout(&HWithering, withertime);
 
             if (lose_maxhp) {
@@ -3027,7 +2985,10 @@ struct attack *mattk;
                 if (!(HMagical_breathing || EMagical_breathing)) {
                     /* test this one first, in case breathless and also wearing
                      * magical breathing */
-                    You_cant("breathe, but you don't need to.");
+                    if (Amphibious)
+                        You("can still breathe, though.");
+                    else
+                        You("can't breathe, but you don't need to.");
                 } else {
                     You("can still breathe, though.");
                     if (uamul && uamul->otyp == AMULET_OF_MAGICAL_BREATHING)
@@ -3222,6 +3183,12 @@ struct attack *mattk;
         pline("%s very hurriedly %s you!", Monnam(mtmp),
               is_swallower(mtmp->data) ? "regurgitates" : "expels");
         expels(mtmp, mtmp->data, FALSE);
+    } else if (Passes_walls) {
+        /* enabling phasing (artifact) or poly'd into a monster that
+           can naturally phase allows our hero to escape being engulfed */
+        expels(mtmp, mtmp->data, FALSE);
+        You("exit %s, phasing right through %s %s!", mon_nam(mtmp),
+            mhis(mtmp), mbodypart(mtmp, STOMACH));
     } else if (!u.uswldtim || youmonst.data->msize >= MZ_HUGE) {
         /* As of 3.6.2: u.uswldtim used to be set to 0 by life-saving but it
            expels now so the !u.uswldtim case is no longer possible;
@@ -3287,8 +3254,17 @@ boolean ufound;
                 make_blinded((long) tmp, FALSE);
                 if (!Blind)
                     Your1(vision_clears);
-            } else if (flags.verbose)
+            } else if (flags.verbose) {
                 You("get the impression it was not terribly bright.");
+            }
+        }
+        /* exploding light can damage light haters whether
+           they are blind or not */
+        if (ufound && hates_light(youmonst.data)) {
+            pline("Ow, that light hurts!");
+            not_affected = FALSE;
+            tmp = rnd(5);
+            mdamageu(mtmp, tmp);
         }
         break;
 
@@ -3311,6 +3287,9 @@ boolean ufound;
     case AD_WIND:
         You("are blasted by hurricane force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, tmp, TRUE);
+        /* Update monster's knowledge of your position */
+        mtmp->mux = u.ux;
+        mtmp->muy = u.uy;
         tmp = 0;
         break;
     default:
@@ -3325,6 +3304,265 @@ boolean ufound;
         mondead(mtmp);
     wake_nearto(mtmp->mx, mtmp->my, 7 * 7);
     return (!DEADMONSTER(mtmp)) ? 0 : 2;
+}
+
+/* monster uses a sonic-based attack against you */
+STATIC_OVL int
+screamu(mtmp, mattk)
+struct monst *mtmp;
+struct attack *mattk;
+{
+    int dmg = d((int) mattk->damn, (int) mattk->damd);
+    boolean wakeup;
+    int fate;
+    long lcount;
+
+    /* Assumes that the hero has to hear the monster's
+     * attack in order to be affected.
+     * Only screams when a certain distance from our hero,
+     * can see them, and has the available mspec.
+     */
+    if (distu(mtmp->mx, mtmp->my) > 128 || !m_canseeu(mtmp)
+        || mtmp->mspec_used)
+        return FALSE;
+
+    if (!mtmp->mcan && canseemon(mtmp) && Deaf) {
+        pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
+    } else if (!mtmp->mcan && !canseemon(mtmp) && Deaf) {
+        You("sense a disturbing vibration in the air.");
+    } else if (mtmp->mcan && canseemon(mtmp) && !Deaf) {
+        pline("%s croaks hoarsely.", Monnam(mtmp));
+    } else if (mtmp->mcan && !canseemon(mtmp) && !Deaf) {
+        You_hear("a hoarse croak nearby.");
+    }
+
+    /* Set mspec->mused */
+    mtmp->mspec_used = mtmp->mspec_used + (rn2(6) + 5);
+
+    if (mtmp->mcan || Deaf)
+        return FALSE;
+
+    /* scream attacks */
+    switch (mattk->adtyp) {
+    case AD_LOUD:
+        if (!Deaf) {
+            if (m_canseeu(mtmp)) {
+                pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
+                if (u.usleep)
+                    unmul("You are frightened awake!");
+            }
+            if (Sonic_resistance)
+                break; /* No inventory damage! */
+            if (!Stunned)
+                Your("mind reels from the noise!");
+            else
+                You("struggle to keep your balance.");
+            make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
+            stop_occupation();
+        }
+
+        /* being deaf won't protect objects in inventory,
+           or being made of glass */
+        if (!rn2(6))
+            erode_armor(&youmonst, ERODE_FRACTURE);
+        if (!rn2(5))
+            erode_obj(uwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
+        if (!rn2(6))
+            erode_obj(uswapwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
+        if (rn2(2))
+            destroy_item(POTION_CLASS, AD_LOUD);
+        if (!rn2(4))
+            destroy_item(RING_CLASS, AD_LOUD);
+        if (!rn2(4))
+            destroy_item(TOOL_CLASS, AD_LOUD);
+        if (!rn2(3))
+            destroy_item(WAND_CLASS, AD_LOUD);
+
+        if (u.umonnum == PM_GLASS_GOLEM) {
+            You("shatter into a million pieces!");
+            rehumanize();
+            break;
+        }
+        break;
+    case AD_FEAR: {
+        const char *stype = (mtmp->data == &mons[PM_MONSTROUS_SPIDER])
+                          ? "screech" : "wail";
+        if (Deaf)
+            break;
+        if (m_canseeu(mtmp)) {
+            pline("%s lets out a horrific %s!", Monnam(mtmp), stype);
+        } else {
+            You_hear("a terrible %s!", stype);
+        }
+        if (u.usleep && m_canseeu(mtmp)) {
+            unmul("What a horrible nightmare! You wake up!");
+        }
+        if (Sonic_resistance)
+            break;
+        if (Psychic_resistance || Role_if(PM_NECROMANCER)
+            || Role_if(PM_UNDEAD_SLAYER)) {
+            You("are not afraid.");
+            break;
+        }
+        You("are struck with a sudden, terrible fear.");
+        make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
+        u.fearedmon = mtmp;
+        aggravate();
+        stop_occupation();
+        break;
+    }
+    case AD_PIER:
+        /* Mobat's have a piercing scream */
+        if (Deaf)
+            break; /* No inventory effects */
+        if (m_canseeu(mtmp)) {
+            pline("%s lets out a piercing screech!", Monnam(mtmp));
+            if (u.usleep)
+                unmul("You are frightened awake!");
+        }
+        if (Sonic_resistance)
+            break; /* No inventory damage! */
+        Your("mind reels from the noise!");
+        make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
+        stop_occupation();
+        break;
+    case AD_SONG:
+        /* Harpies have an entracing song that paralyzes */
+        if (Deaf)
+            break; /* No inventory effects */
+        if (m_canseeu(mtmp) && !u.usleep)
+            pline("%s releases a hypnotic melody!", Monnam(mtmp));
+        else
+            You("dream of singing angels...");
+
+        if (Sonic_resistance)
+            break; /* No inventory damage! */
+        /* Copied from AD_PLYS code */
+        if (multi >= 0 && !rn2(3)) {
+            if (Free_action) {
+                You("momentarily stiffen.");
+            } else {
+                if (Blind)
+                    You("are frozen!");
+                else
+                    You("are frozen by %s!", mon_nam(mtmp));
+                nomovemsg = You_can_move_again;
+                nomul(-rnd(10));
+                multi_reason = "paralyzed by a monster";
+                exercise(A_DEX, FALSE);
+            }
+        }
+        break;
+    case AD_GIBB:
+        /* Gibberlings's emit a bunch of creepy sounds, uttering ghastly howls, clicks, shrieks and insane chattering noises. */
+        if (Deaf)
+            break; /* No inventory effects */
+        wakeup = FALSE;
+        lcount = (long) rn1(90, 10);
+        fate = rnd(30);
+        if (fate < 10) {
+            break;
+        }
+
+        switch (fate) {
+            /* TODO: Reorganize, make sure this attack wakes up sleeping players */
+        case 10:
+        case 11:
+        case 12: /* Cause confusion */
+            if (m_canseeu(mtmp))
+                pline("%s utters a ghastly howl!", Monnam(mtmp));
+            wakeup = TRUE;
+            if (Sonic_resistance)
+                break;
+            if (!Confusion)
+                You("suddenly feel %s.",
+                    Hallucination ? "trippy" : "confused");
+            make_confused((HConfusion & TIMEOUT) + lcount, TRUE);
+            break;
+        case 13:
+        case 14:
+        case 15:
+        case 16: /* Cause Stunning */
+            if (m_canseeu(mtmp))
+                pline("%s emits a series of clicks!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break;
+            make_stunned((HStun & TIMEOUT) + lcount, TRUE);
+            break;
+        case 17:
+        case 18:
+        case 19:
+        case 20: /* Cause hallucination */
+            if (m_canseeu(mtmp))
+                pline("%s bays insane chattering noises!", Monnam(mtmp));
+            if (Sonic_resistance)
+                break;
+            (void) make_hallucinated((HHallucination & TIMEOUT) + lcount,
+                                     TRUE, 0L);
+            break;
+        case 21:
+        case 22:
+        case 23:
+        case 24: /* Cause fumbling for 4-16 turns*/
+            if (m_canseeu(mtmp))
+                pline("%s ululates in your direction!", Monnam(mtmp));
+            wakeup = TRUE;
+            if (Sonic_resistance)
+                break;
+            HFumbling |= FROMOUTSIDE;
+            HFumbling &= ~TIMEOUT;
+            HFumbling += d(4, 4); /* slip on next move */
+            break;
+        case 25:
+        case 26:
+        case 27:
+        case 28: /* Cause blinding */
+            if (m_canseeu(mtmp))
+                pline("%s shrieks wildly!", Monnam(mtmp));
+            wakeup = TRUE;
+            if (Sonic_resistance)
+                break;
+            make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
+            break;
+        case 29: /* Cause vomiting */
+            if (m_canseeu(mtmp))
+                pline("%s shrills a resonant tone!", Monnam(mtmp));
+            wakeup = TRUE;
+            if (Sonic_resistance)
+                break;
+            if (Vomiting)
+                vomit();
+            else
+                make_vomiting(14L, FALSE);
+            break;
+        case 30: /* Cause deafness (rare) */
+            if (m_canseeu(mtmp))
+                pline("%s beats it's chest and howls!", Monnam(mtmp));
+            wakeup = TRUE;
+            if (Sonic_resistance)
+                break;
+
+            make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
+            break;
+        }
+        if (u.usleep && wakeup)
+            unmul("You are frightened awake!");
+        break;
+    default:
+        impossible("Bad scream type: %d", mattk->adtyp);
+        break;
+    }
+
+    if (Sonic_resistance && !Deaf) {
+        pline_The("noise doesn't seem to bother you.");
+        monstseesu(M_SEEN_LOUD);
+        return FALSE;
+    } else if (!Deaf) {
+        /* We still get damage from the noise */
+        mdamageu(mtmp, dmg);
+    }
+
+    return TRUE;
 }
 
 /* monster gazes at you */
@@ -3817,8 +4055,9 @@ struct attack *mattk;
             /* currently only Vecna has the gaze of death */
             if (mtmp && mtmp->data == &mons[PM_VECNA])
                 You("meet %s deadly gaze!", s_suffix(mon_nam(mtmp)));
-            if (immune_death_magic(youmonst.data)) {
+            if (Death_resistance || immune_death_magic(youmonst.data)) {
                 /* Still does normal damage */
+                shieldeff(u.ux, u.uy);
                 You("are unaffected by death magic.");
                 break;
             }
@@ -4258,8 +4497,7 @@ struct monst *mon;
         }
     }
 
-    naked = (!uarmc && !uarmf && (!uarmg || uarmg->oartifact == ART_HAND_OF_VECNA)
-             && !uarms && !uarmh && !uarmu);
+    naked = (!uarmc && !uarmf && !uarmg && !uarms && !uarmh && !uarmu);
     pline("%s %s%s.", Who,
           Deaf ? "seems to murmur into your ear"
                : naked ? "murmurs sweet nothings into your ear"
@@ -4445,10 +4683,6 @@ const char *str;
        (loss of levitation that leads to landing on a transport trap) */
     if (u.utotype || distu(mon->mx, mon->my) > 2)
         return;
-    /* the Hand of Vecna cannot be stolen, as it has 'merged' with
-       the wearer */
-    if (obj && obj->oartifact == ART_HAND_OF_VECNA)
-        return;
 
     /* being deaf overrides confirmation prompt for high charisma */
     if (Deaf) {
@@ -4480,267 +4714,6 @@ const char *str;
     remove_worn_item(obj, TRUE);
 }
 
-/* The Nazgul's scream attack effect, pulled from SporkHack.
- * I've modified it here to be more in-line with how 3.6.x
- * employs its gaze stun attack, which allows a bit more
- * fine-tuning */
-STATIC_OVL int
-screamu(mtmp, mattk, dmg)
-struct monst *mtmp;
-struct attack *mattk;
-int dmg;
-{
-    boolean cancelled = (mtmp->mcan != 0);
-    boolean wakeup; 
-    int fate;
-    long lcount;
-
-    /* Assumes that the hero has to hear the monster's
-     * scream in order to be affected.
-     * Only screams when a certain distance from our hero,
-     * can see them, and has the available mspec.
-     */
-    if (distu(mtmp->mx, mtmp->my) > 128
-        || !m_canseeu(mtmp) || mtmp->mspec_used)
-        return FALSE;
-    
-    /* if (m_canseeu(mtmp) && Deaf) { */
-    if (!cancelled && canseemon(mtmp) && Deaf) {
-        pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
-    } else if (!cancelled
-               && !canseemon(mtmp) && Deaf) {
-        You("sense a disturbing vibration in the air.");
-    } else if (cancelled && canseemon(mtmp) && !Deaf) {
-        pline("%s croaks hoarsely.", Monnam(mtmp));
-    } else if (cancelled && !canseemon(mtmp) && !Deaf) {
-        You_hear("a hoarse croak nearby.");
-    }
-
-    /* Set mspec->mused */
-    mtmp->mspec_used = mtmp->mspec_used + (rn2(6) + 5);
-
-    if (cancelled)
-        return FALSE;
-
-    /* scream attacks */
-    switch (mattk->adtyp) {
-    case AD_LOUD:
-        if (!Deaf) {
-            if (m_canseeu(mtmp)) {
-                pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
-                if (u.usleep)
-                    unmul("You are frightened awake!");
-            }
-            if (Sonic_resistance)
-                break; /* No inventory damage! */
-            if (!Stunned)
-                Your("mind reels from the noise!");
-            else
-                You("struggle to keep your balance.");
-            make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
-            stop_occupation();
-        }
-        
-        /* being deaf won't protect objects in inventory,
-           or being made of glass */
-        if (!rn2(6))
-            erode_armor(&youmonst, ERODE_FRACTURE);
-        if (!rn2(5))
-            erode_obj(uwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
-        if (!rn2(6))
-            erode_obj(uswapwep, (char *) 0, ERODE_FRACTURE, EF_DESTROY);
-        if (rn2(2))
-            destroy_item(POTION_CLASS, AD_LOUD);
-        if (!rn2(4))
-            destroy_item(RING_CLASS, AD_LOUD);
-        if (!rn2(4))
-            destroy_item(TOOL_CLASS, AD_LOUD);
-        if (!rn2(3))
-            destroy_item(WAND_CLASS, AD_LOUD);
-
-        if (u.umonnum == PM_GLASS_GOLEM) {
-            You("shatter into a million pieces!");
-            rehumanize();
-            break;
-        }
-        break;
-    case AD_FEAR:
-        if (Deaf)
-            break;
-        if (m_canseeu(mtmp)) {
-            pline("%s lets out a horrific wail!", Monnam(mtmp));
-        } else {
-            You_hear("a terrible wail!");
-        }
-        if (u.usleep && m_canseeu(mtmp)) {
-            unmul("What a horrible nightmare! You wake up!");
-        }
-        if (Sonic_resistance)
-            break;
-        if (Psychic_resistance 
-            || Role_if(PM_NECROMANCER) 
-            || Role_if(PM_UNDEAD_SLAYER)) {
-            You("are not afraid.");
-            break;
-        }
-        You("are struck with a sudden, terrible fear.");
-        make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
-        u.fearedmon = mtmp;
-        aggravate();
-        stop_occupation();
-        break;
-    case AD_PIER:
-        /* Mobat's have a piercing scream */
-        if (Deaf)
-            break; /* No inventory effects */
-        if (m_canseeu(mtmp)) {
-            pline("%s lets out a piercing screech!", Monnam(mtmp));
-            if (u.usleep)
-                unmul("You are frightened awake!");
-        }
-        if (Sonic_resistance)
-            break; /* No inventory damage! */
-        Your("mind reels from the noise!");
-        make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
-        stop_occupation();
-        break;
-    case AD_SONG:
-        /* Harpies have an entracing song that paralyzes */
-        if (Deaf)
-            break; /* No inventory effects */
-        if (m_canseeu(mtmp) && !u.usleep)
-            pline("%s releases a hypnotic melody!", Monnam(mtmp));
-        else
-            You("dream of singing angels...");
-                    
-        if (Sonic_resistance)
-            break; /* No inventory damage! */
-        /* Copied from AD_PLYS code */
-        if (multi >= 0 && !rn2(3)) {
-            if (Free_action) {
-                You("momentarily stiffen.");
-            } else {
-                if (Blind)
-                    You("are frozen!");
-                else
-                    You("are frozen by %s!", mon_nam(mtmp));
-                nomovemsg = You_can_move_again;
-                nomul(-rnd(10));
-                multi_reason = "paralyzed by a monster";
-                exercise(A_DEX, FALSE);
-            }
-        }
-        break;
-    case AD_GIBB:
-        /* Gibberlings's emit a bunch of creepy sounds, uttering ghastly howls,
-         * clicks, shrieks and insane chattering noises. */
-        if (Deaf)
-            break; /* No inventory effects */
-        wakeup = FALSE;
-        lcount = (long) rn1(90, 10);
-        fate = rnd(30);
-        if (fate < 10) {
-            break;
-        }
-        
-        switch (fate) {
-            /* TODO: Reorganize, make sure this attack wakes up sleeping players */
-        case 10:
-        case 11:
-        case 12: /* Cause confusion */
-            if (m_canseeu(mtmp))
-                pline("%s utters a ghastly howl!", Monnam(mtmp));
-            wakeup = TRUE;
-            if (Sonic_resistance)
-                break;
-            if (!Confusion)
-                You("suddenly feel %s.", Hallucination ? "trippy" : "confused");
-            make_confused((HConfusion & TIMEOUT) + lcount, TRUE);
-            break;
-        case 13:
-        case 14:
-        case 15:
-        case 16: /* Cause Stunning */
-            if (m_canseeu(mtmp))
-                pline("%s emits a series of clicks!", Monnam(mtmp));
-            if (Sonic_resistance)
-                break;
-            make_stunned((HStun & TIMEOUT) + lcount, TRUE);
-            break;
-        case 17:
-        case 18:
-        case 19:
-        case 20: /* Cause hallucination */
-            if (m_canseeu(mtmp))
-                pline("%s bays insane chattering noises!", Monnam(mtmp));
-            if (Sonic_resistance)
-                break;
-            (void) make_hallucinated((HHallucination & TIMEOUT) + lcount,
-                                     TRUE, 0L);
-            break;
-        case 21:
-        case 22:
-        case 23:
-        case 24: /* Cause fumbling for 4-16 turns*/
-            if (m_canseeu(mtmp))
-                pline("%s ululates in your direction!", Monnam(mtmp));
-            wakeup = TRUE;
-            if (Sonic_resistance)
-                break;
-            HFumbling |= FROMOUTSIDE;
-            HFumbling &= ~TIMEOUT;
-            HFumbling += d(4, 4); /* slip on next move */
-            break;
-        case 25:
-        case 26:
-        case 27:
-        case 28: /* Cause blinding */
-            if (m_canseeu(mtmp))
-                pline("%s shrieks wildly!", Monnam(mtmp));
-            wakeup = TRUE;
-            if (Sonic_resistance)
-                break;
-            make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
-            break;
-        case 29: /* Cause vomiting */
-            if (m_canseeu(mtmp))
-                pline("%s shrills a resonant tone!", Monnam(mtmp));
-            wakeup = TRUE;
-            if (Sonic_resistance)
-                break;
-            if (Vomiting)
-                vomit();
-            else
-                make_vomiting(14L, FALSE);
-            break;
-        case 30: /* Cause deafness (rare) */
-            if (m_canseeu(mtmp))
-                pline("%s beats it's chest and howls!", Monnam(mtmp));
-            wakeup = TRUE;
-            if (Sonic_resistance)
-                break;
-
-            make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
-            break;
-        }
-        if (u.usleep && wakeup)
-            unmul("You are frightened awake!");
-        break;
-    default:
-        impossible("Bad scream type: %d", mattk->adtyp);
-        break;
-    }
-    
-    if (Sonic_resistance && !Deaf) {
-        pline_The("noise doesn't seem to bother you.");
-        monstseesu(M_SEEN_LOUD);
-        return FALSE;
-    } else if (!Deaf) {
-        /* We still get damage from the noise */
-        mdamageu(mtmp, dmg);
-    }
-    return TRUE;
-}
 
 /* FIXME:
  *  sequencing issue:  a monster's attack might cause poly'd hero
@@ -4825,7 +4798,7 @@ struct attack *mattk;
         int icetmp = icebonus() - 3;
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
             shieldeff(mtmp->mx, mtmp->my);
-            pline_The("cold doesn't affect %s.", Monnam(mtmp));
+            pline_The("cold doesn't affect %s.", mon_nam(mtmp));
             golemeffects(mtmp, AD_COLD, tmp);
         } else if (rn2(24) <= icetmp) {
             tmp = icetmp * d(1, 4);
@@ -4882,11 +4855,11 @@ struct attack *mattk;
             break;
 
         case DEEP_DRAGON_SCALES:
+            Your("armor radiates with dark energy!");
             if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
                 if (canseemon(mtmp) && !rn2(3)) {
                     shieldeff(mtmp->mx, mtmp->my);
-                    Your("armor does not appear to affect %s",
-                         mon_nam(mtmp));
+                    pline("%s seems unaffected.", mon_nam(mtmp));
                 }
 
             } else if (!rn2(3)) {
@@ -5019,16 +4992,12 @@ struct attack *mattk;
             monable = !mtmp->mcan && (!mtmp->minvis || mon_prop(mtmp, SEE_INVIS));
             mlet = r_data(mtmp)->mlet;
             if (!mtmp->mcansee) {
-                if (vis)
-                    pline("%s can't see anything right now.", Monnam(mtmp));
+                ; /* Do nothing */
             } else if ((how_seen & SEENMON) == MONSEEN_INFRAVIS) {
-                if (vis) /* (redundant) */
-                    pline("%s is too far away to see %sself in the dark.",
-                          Monnam(mtmp), mhim(mtmp));
-                /* some monsters do special things */
+                ; /* Do nothing */
+            /* some monsters do special things */
             } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
-                if (vis)
-                    pline("%s doesn't have a reflection.", Monnam(mtmp));
+                ; /* Do nothing */
             } else if (monable && !mtmp->mcan && !mtmp->minvis
                        && mtmp->data == &mons[PM_MAGICAL_EYE]) {
                 if (vis) {
@@ -5038,15 +5007,19 @@ struct attack *mattk;
                 }
                 mtmp->mcan = 1;
                 monflee(mtmp, 0, FALSE, TRUE);
-            } else if (monable && mtmp->data == &mons[PM_UMBER_HULK]) {
+            } else if (monable && mtmp->data == &mons[PM_SLUMBER_HULK]) {
                 if (vis)
+                    pline("%s tires itself!", Monnam(mtmp));
+                slept_monst(mtmp);
+            } else if (monable && mtmp->data->mlet == S_UMBER) {
+                if (vis) {
                     pline("%s confuses itself!", Monnam(mtmp));
-                mtmp->mconf = 1;
+                    mtmp->mconf = 1;
+                }
             } else if (!is_unicorn(mtmp->data) && !humanoid(mtmp->data)
                        && (!mtmp->minvis || mon_prop(mtmp, SEE_INVIS)) && !rn2(5)) {
-                /* For the sake of balance and non-tediousness, we'll invert the mirror chances
-                 * from 80% to 20%
-                 */
+                /* For the sake of balance and non-tediousness, we'll invert
+                 * the mirror chances from 80% to 20% */
                 boolean do_react = TRUE;
 
                 if (do_react) {
@@ -5519,14 +5492,24 @@ struct attack *mattk;
                         if (mon_reflects(mtmp,
                                          "Your gaze is reflected by %s %s."))
                             return 1;
-                        pline("%s is frozen by your gaze!", Monnam(mtmp));
-                        paralyze_monst(mtmp, tmp);
+                        if (has_free_action(mtmp)) {
+                            pline("%s stiffens momentarily.", Monnam(mtmp));
+                            return 1;
+                        } else {
+                            pline("%s is frozen by your gaze!", Monnam(mtmp));
+                            paralyze_monst(mtmp, tmp);
+                        }
                         return 3;
                     }
                 }
             } else { /* gelatinous cube */
-                pline("%s is frozen by you.", Monnam(mtmp));
-                paralyze_monst(mtmp, tmp);
+                if (has_free_action(mtmp)) {
+                    pline("%s stiffens momentarily.", Monnam(mtmp));
+                    return 1;
+                } else {
+                    pline("%s is frozen by you.", Monnam(mtmp));
+                    paralyze_monst(mtmp, tmp);
+                }
                 return 3;
             }
             return 1;
@@ -5578,7 +5561,8 @@ struct attack *mattk;
             break;
         case AD_DRST:
             if (resists_poison(mtmp) || defended(mtmp, AD_DRST)) {
-                pline("%s is unaffected by your poisonous hide.", Monnam(mtmp));
+                if (!rn2(5))
+                    pline("%s is unaffected by your poisonous hide.", Monnam(mtmp));
                 tmp = 0;
                 break;
             }
@@ -5779,7 +5763,7 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
         /* Any hostiles can flank us */
         return !flanker->mpeaceful;
     } else if (youflanker) {
-        return magr->mtame;
+        return magr->mtame && !mdef->mpeaceful;
     } else {
         /* If you are not involved in the flanking, then flanking can 
          * still occur if the defender and flanker are peaceful and hostile.

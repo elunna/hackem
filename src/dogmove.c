@@ -161,7 +161,7 @@ boolean check_if_better, stashing;
              || otmp->otyp == WAN_DELUGE
              || otmp->otyp == WAN_CORROSION
              || otmp->otyp == WAN_POISON_GAS
-             || otmp->otyp == WAN_SONICS
+             || otmp->otyp == WAN_NOISE
              || otmp->otyp == WAN_HEALING
              || otmp->otyp == WAN_EXTRA_HEALING
              || otmp->otyp == POT_HEALING
@@ -188,6 +188,8 @@ boolean check_if_better, stashing;
              || otmp->otyp == RIN_INCREASE_ACCURACY
              || otmp->otyp == RIN_PROTECTION
              || otmp->otyp == RIN_LEVITATION
+             || otmp->otyp == RIN_FREE_ACTION
+             || otmp->otyp == RIN_DISPLACEMENT
              || otmp->otyp == FROST_HORN
              || otmp->otyp == FIRE_HORN
              || otmp->otyp == HORN_OF_BLASTING
@@ -1461,7 +1463,8 @@ int after; /* this is extra fast monster movement */
         allowflags |= (ALLOW_ROCK | ALLOW_WALL);
     if (passes_bars(mtmp->data))
         allowflags |= ALLOW_BARS;
-    if (racial_throws_rocks(mtmp))
+    if (racial_throws_rocks(mtmp)
+        || m_can_break_boulder(mtmp))
         allowflags |= ALLOW_ROCK;
     if (is_displacer(mtmp->data))
         allowflags |= ALLOW_MDISP;

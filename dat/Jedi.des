@@ -5,12 +5,12 @@
 #
 #	The "start" level for the quest.
 #
-#	Here you meet your (besieged) class leader, The Jedi Master
+#	Here you meet your (besieged) class leader, the Jedi Master
 #	and receive your quest assignment.
 #
 MAZE: "Jed-strt", 'A'
 FLAGS: noteleport, hardfloor
-INIT_MAP: mines, '.', '.', false, false, unlit, false
+INIT_MAP: mines, '.', 'A', false, false, unlit, false
 GEOMETRY: center, center
 #          1         2         3         4         5         6         7
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
@@ -43,6 +43,8 @@ $places = { (57,3), (17,14), (57,14) }
 # according to starwars.com the Jedi temple is a tall building high up into
 # the sky. So it seems right to have it being surrounded by Air
 
+TELEPORT_REGION:(26,05,46,15),(00,00,00,00)
+
 # Dungeon Description
 REGION: (00,00,75,20), unlit, "ordinary"
 REGION: (16,02,23,07), lit, "ordinary"
@@ -70,7 +72,7 @@ DOOR: closed, (55,13)
 DOOR: closed, (55,07)
 
 # The Jedi Master
-MONSTER: ('@', "The Jedi Master"), (37,10)
+MONSTER: ('@', "Jedi Master"), (37,10)
 
 # His treasure
 CONTAINER: ('(', "chest"), $places[1] {
@@ -84,15 +86,15 @@ MONSTER: ('@', "padawan"), (38,11), peaceful
 MONSTER: ('@', "padawan"), (38,09), peaceful
 MONSTER: ('@', "padawan"), (36,11), peaceful
 MONSTER: ('@', "padawan"), (36,09), peaceful
-MONSTER: ('@', "jedi"), (18,4), peaceful
-MONSTER: ('@', "jedi"), (19,4), peaceful
+MONSTER: ('@', "jedi trainer"), (18,4), peaceful
+MONSTER: ('@', "jedi trainer"), (19,4), peaceful
 MONSTER: ('@', "jedi"), (18,15), peaceful
 MONSTER: ('@', "jedi"), (19,15), peaceful
 MONSTER: ('@', "jedi"), (56,4), peaceful
 MONSTER: ('@', "jedi"), (57,4), peaceful
-MONSTER: ('@', "jedi"), (56,15), peaceful
-MONSTER: ('@', "jedi"), (57,15), peaceful
-MONSTER: ('@', "jedi"), (33,10), peaceful
+MONSTER: ('@', "padawan"), (56,15), peaceful
+MONSTER: ('@', "padawan"), (57,15), peaceful
+MONSTER: ('@', "padawan"), (33,10), peaceful
 
 # Non diggable walls
 NON_DIGGABLE: (00,00,75,20)
@@ -277,14 +279,14 @@ TRAP: random, random
 
 # Random monsters.
 MONSTER: ('@', "Lord Sidious"), (60,06), hostile
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
+MONSTER: ('@', "padawan"), random, peaceful
 MONSTER: ('@', "jedi"), random, peaceful
 MONSTER: ('@', "jedi"), random, peaceful
 MONSTER: ('@', "stormtrooper"), random, hostile
@@ -332,8 +334,8 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile
@@ -364,8 +366,8 @@ OBJECT: random, random
 OBJECT: random, random
 OBJECT: random, random
 
-MONSTER: ('@', "jedi"), random, peaceful
-MONSTER: ('@', "jedi"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
+MONSTER: ('@', "jedi trainer"), random, peaceful
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile
 MONSTER: ('@', "stormtrooper"), random, hostile

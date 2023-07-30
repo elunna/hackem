@@ -109,18 +109,20 @@ STATIC_VAR NEARDATA const char *const odd_skill_names[] = {
     "matter spells", 
     "lightsaber", 
 };
-/* indexed vis Role_if(PM_ROGUE) ? 2 : is_martial() */
+/* indexed vis rogue/convict role ? 2 : is_martial() */
 STATIC_VAR NEARDATA const char *const barehands_or_martial[] = {
     "bare handed combat", 
     "martial arts", 
     "thievery"
 };
 
-#define P_NAME(type)                                                           \
-    ((skill_names_indices[type] > 0)                                           \
-         ? OBJ_NAME(objects[skill_names_indices[type]])                        \
-         : (type == P_BARE_HANDED_COMBAT)                                      \
-               ? barehands_or_martial[Role_if(PM_ROGUE) ? 2 : martial_bonus()] \
+#define P_NAME(type) \
+    ((skill_names_indices[type] > 0)                                              \
+         ? OBJ_NAME(objects[skill_names_indices[type]])                           \
+         : (type == P_BARE_HANDED_COMBAT)                                         \
+               ? barehands_or_martial[(Role_if(PM_ROGUE)                          \
+                                       || Role_if(PM_CONVICT)) ? 2                \
+                                                               : martial_bonus()] \
                      : odd_skill_names[-skill_names_indices[type]])
 
 static NEARDATA const char kebabable[] = { S_XORN, S_DRAGON, S_JABBERWOCK,
@@ -242,7 +244,7 @@ struct monst *mon;
     if (is_spear(otmp) && index(kebabable, ptr->mlet))
         tmp += 2;
 
-    if (otmp->otyp == WOODEN_STAKE && is_vampire(ptr))
+    if (otmp->otyp == STAKE && is_vampire(ptr))
         tmp += 1;
 
     /* trident is highly effective against swimmers */
@@ -482,10 +484,7 @@ struct damage_info_t *damage_info)
         tmp += otmp->spe;
 
         /* adjust for various materials */
-#define is_odd_material(obj, mat) \
-    ((obj)->material == (mat) && !(objects[(obj)->otyp].oc_material == (mat)))
-        
-        if (is_odd_material(otmp, GLASS)) {
+        if (otmp->material == GLASS || otmp->material == GEMSTONE) {
             /* glass is extremely sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 3;
@@ -494,7 +493,7 @@ struct damage_info_t *damage_info)
                 tmp += 3;
                 damage_info->mat_damage = "\t+3 (glass slashing bonus).";
             }
-        } else if (is_odd_material(otmp, GEMSTONE)) {
+        } else if (otmp->material == GEMSTONE) {
             /* gemstone is extremely sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 3;
@@ -503,19 +502,19 @@ struct damage_info_t *damage_info)
                 tmp += 3;
                 damage_info->mat_damage = "\t+3 (gemstone slashing bonus).";
             }
-        } else if (is_odd_material(otmp, GOLD)) {
+        } else if (otmp->material == GOLD) {
             /* heavy metals, but softer than stone */
             if (objects[otmp->otyp].oc_dir & WHACK) {
                 tmp += 1;
                 damage_info->mat_damage = "\t+1 (gold whacking bonus).";
             }
-        } else if (is_odd_material(otmp, PLATINUM)) {
+        } else if (otmp->material == PLATINUM) {
             /* heavy metals, but softer than stone */
             if (objects[otmp->otyp].oc_dir & WHACK) {
                 tmp += 1;
                 damage_info->mat_damage = "\t+1 (platinum whacking bonus).";
             }
-        } else if (is_odd_material(otmp, MITHRIL)) {
+        } else if (otmp->material == MITHRIL) {
             /* light and sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 2;
@@ -524,7 +523,7 @@ struct damage_info_t *damage_info)
                 tmp += 2;
                 damage_info->mat_damage = "\t+2 (mithril slashing bonus).";
             }
-        } else if (is_odd_material(otmp, MINERAL)) {
+        } else if (otmp->material == MINERAL) {
             /* stone is heavy */
             if (objects[otmp->otyp].oc_dir & SLASH) {
                 tmp += 2;
@@ -533,28 +532,29 @@ struct damage_info_t *damage_info)
                 tmp += 2;
                 damage_info->mat_damage = "\t+2 (mineral whacking bonus).";
             }
-        } else if (is_odd_material(otmp, PLASTIC)) {
+        } else if (otmp->material == PLASTIC) {
             /* just terrible weapons all around */
             tmp -= 2;
             damage_info->mat_damage = "\t-2 (plastic penalty).";
         } 
-        else if (is_odd_material(otmp, PAPER)) {
+        else if (otmp->material == PAPER) {
             tmp -= 2;
             damage_info->mat_damage = "\t-2 (paper penalty).";
-        } else if (is_odd_material(otmp, WOOD) && !is_elven_weapon(otmp)) {
+        } else if (otmp->material == WOOD && !is_elven_weapon(otmp)) {
             /* poor at holding an edge */
             if (is_blade(otmp)) {
                 tmp -= 1;
                 damage_info->mat_damage = "\t-1 (wood penalty).";
             }
-        } else if (is_odd_material(otmp, METAL)) {
+        } else if (otmp->material == METAL) {
             /* steel has roughly the same density as iron,
                but is stronger and makes for a finer edge
                on bladed weapons */
-            tmp += 1;
+            if (objects[otmp->otyp].oc_dir & (PIERCE | SLASH)) {
+                tmp += 1;
+            }
             damage_info->mat_damage = "\t+1 (metal bonus).";
         }
-#undef is_odd_material
     } 
     
     /* lightsaber that isn't lit ;) */
@@ -642,7 +642,7 @@ struct damage_info_t *damage_info)
         if (artifact_light(otmp)) {
             damage_info->light_damage =
                 "\tAdditional 1d8 against light hating monsters.";
-            if (otmp->lamplit && ptr && hates_light(ptr)) {
+            if (otmp->lamplit && ptr && hates_light(r_data(mon))) {
                 bonus += rnd(8);
             }
         }
@@ -811,6 +811,9 @@ boolean minimal;        /* print a shorter message leaving out obj details */
         return;
     }
 
+    if (!youdefend && DEADMONSTER(mdef))
+        return;
+
     if (!youdefend && !canspotmon(mdef))
         return;
 
@@ -973,6 +976,7 @@ static NEARDATA const int rwep[] = {
 
 static NEARDATA const int pwep[] = { 
     SPIKED_CHAIN,
+    SCYTHE,
     HALBERD,
     BARDICHE,
     SPETUM,
@@ -1000,15 +1004,12 @@ struct obj *otmp;
     if (wep) {
         if (wep == otmp)
             return TRUE;
-
         if (wep->oartifact)
             return FALSE;
-
         if (mtmp->data->mlet == S_KOP && wep->otyp == CREAM_PIE)
             return FALSE;
         if (mtmp->data->mlet == S_KOP && otmp->otyp == CREAM_PIE)
             return TRUE;
-
         if (racial_throws_rocks(mtmp) && wep->otyp == BOULDER)
             return FALSE;
         if (racial_throws_rocks(mtmp) && otmp->otyp == BOULDER)
@@ -1049,9 +1050,9 @@ struct obj *propellor;
 /* select a ranged weapon for the monster */
 struct obj *
 select_rwep(mtmp)
-register struct monst *mtmp;
+struct monst *mtmp;
 {
-    register struct obj *otmp;
+    struct obj *otmp;
     struct obj *mwep;
     boolean mweponly;
     int i;
@@ -1069,23 +1070,23 @@ register struct monst *mtmp;
 
     /* Select polearms first; they do more damage and aren't expendable.
        But don't pick one if monster's weapon is welded, because then
-       we'd never have a chance to throw non-wielding missiles. */
-    /* The limit of 13 here is based on the monster polearm range limit
-     * (defined as 5 in mthrowu.c).  5 corresponds to a distance of 2 in
-     * one direction and 1 in another; one space beyond that would be 3 in
-     * one direction and 2 in another; 3^2+2^2=13.
-     */
+       we'd never have a chance to throw non-wielding missiles.
+       The limit of 13 here is based on the monster polearm range limit
+       (defined as 5 in mthrowu.c).  5 corresponds to a distance of 2 in
+       one direction and 1 in another; one space beyond that would be 3 in
+       one direction and 2 in another; 3^2 + 2^2 = 13 */
     mwep = MON_WEP(mtmp);
     /* NO_WEAPON_WANTED means we already tried to wield and failed */
-    mweponly = (mwelded(mwep) && mtmp->weapon_check == NO_WEAPON_WANTED);
+    mweponly = (mwelded(mwep)
+                && mtmp->data != &mons[PM_INFIDEL]
+                && mtmp->weapon_check == NO_WEAPON_WANTED);
 
     if (dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 5
         && couldsee(mtmp->mx, mtmp->my)) {
         for (i = 0; i < SIZE(pwep); i++) {
             /* Only strong monsters can wield big (esp. long) weapons.
-             * Big weapon is basically the same as bimanual.
-             * All monsters can wield the remaining weapons.
-             */
+               Big weapon is basically the same as bimanual.
+               All monsters can wield the remaining weapons */
             if ((strongmonst(mtmp->data)
                 && (mtmp->misc_worn_check & W_ARMS) == 0)
                 || !objects[pwep[i]].oc_bimanual) {
@@ -1099,15 +1100,13 @@ register struct monst *mtmp;
         }
     }
 
-    /*
-     * other than these two specific cases, always select the
-     * most potent ranged weapon to hand.
-     */
+    /* other than these two specific cases, always select the
+       most potent ranged weapon to hand */
     for (i = 0; i < SIZE(rwep); i++) {
         int prop;
 
-        /* shooting gems from slings; this goes just before the darts */
-        /* (shooting rocks is already handled via the rwep[] ordering) */
+        /* shooting gems from slings; this goes just before the darts
+           (shooting rocks is already handled via the rwep[] ordering) */
         if (rwep[i] == DART && !likes_gems(mtmp->data)
             && m_carrying(mtmp, SLING)) { /* propellor */
             for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj)
@@ -1167,24 +1166,24 @@ register struct monst *mtmp;
             
             if (!tmpprop)
                 tmpprop = propellor;
-            if ((otmp = MON_WEP(mtmp)) && mwelded(otmp) && otmp != propellor
+            if ((otmp = MON_WEP(mtmp)) && mwelded(otmp)
+                && mtmp->data != &mons[PM_INFIDEL] && otmp != propellor
                 && mtmp->weapon_check == NO_WEAPON_WANTED)
                 propellor = 0;
 
         }
         /* propellor = obj, propellor to use
-         * propellor = &zeroobj, doesn't need a propellor
-         * propellor = 0, needed one and didn't have one
-         */
+           propellor = &zeroobj, doesn't need a propellor
+           propellor = 0, needed one and didn't have one */
         if (propellor != 0) {
             /* Note: cannot use m_carrying for loadstones, since it will
-             * always select the first object of a type, and maybe the
-             * monster is carrying two but only the first is unthrowable.
-             */
+               always select the first object of a type, and maybe the
+               monster is carrying two but only the first is unthrowable */
             if (rwep[i] != LOADSTONE) {
                 /* Don't throw a cursed weapon-in-hand or an artifact */
                 if ((otmp = oselect(mtmp, rwep[i])) && !otmp->oartifact
-                    && !(otmp == MON_WEP(mtmp) && mwelded(otmp)))
+                    && !(otmp == MON_WEP(mtmp) && mwelded(otmp)
+                         && mtmp->data != &mons[PM_INFIDEL]))
                     return otmp;
             } else
                 for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
@@ -1217,7 +1216,8 @@ struct obj *obj;
 static const NEARDATA short hwep[] = {
     CORPSE, /* cockatrice corpse */
     SPIKED_CHAIN,
-    TSURUGI, 
+    SCYTHE,
+    TSURUGI,
     RUNESWORD, 
     ROD, 
     TRIPLE_HEADED_FLAIL,
@@ -1257,7 +1257,7 @@ static const NEARDATA short hwep[] = {
     ORCISH_SPEAR, 
     TORCH,
     FLAIL,
-    WOODEN_STAKE,
+    STAKE,
     QUARTERSTAFF, 
     JAVELIN,
     AKLYS, 
@@ -1290,10 +1290,8 @@ struct obj *otmp;
     if (wep) {
        if (wep == otmp)
            return TRUE;
-
        if (wep->oartifact)
            return FALSE;
-
        if (is_giant(mtmp->data) && wep->otyp == CLUB)
            return FALSE;
        if (is_giant(mtmp->data) && otmp->otyp == CLUB)
@@ -1317,10 +1315,10 @@ struct obj *otmp;
 /* select a hand to hand weapon for the monster */
 struct obj *
 select_hwep(mtmp)
-register struct monst *mtmp;
+struct monst *mtmp;
 {
-    register struct obj *otmp;
-    register int i;
+    struct obj *otmp;
+    int i;
     boolean strong = strongmonst(mtmp->data);
     boolean wearing_shield = (mtmp->misc_worn_check & W_ARMS) != 0;
 
@@ -1412,7 +1410,8 @@ boolean polyspot;
      * polymorphed into little monster.  But it's not quite clear how to
      * handle this anyway....
      */
-    if (!(mwelded(mw_tmp) && mon->weapon_check == NO_WEAPON_WANTED))
+    if (!(mwelded(mw_tmp) && mon->data != &mons[PM_INFIDEL]
+          && mon->weapon_check == NO_WEAPON_WANTED))
         mon->weapon_check = NEED_WEAPON;
     return;
 }
@@ -1480,7 +1479,8 @@ register struct monst *mon;
          * can know it's cursed and needn't even bother trying.
          * Still....
          */
-        if (mw_tmp && mwelded(mw_tmp)) {
+        if (mw_tmp && mwelded(mw_tmp)
+            && mon->data != &mons[PM_INFIDEL]) {
             if (canseemon(mon)) {
                 char welded_buf[BUFSZ];
                 const char *mon_hand = mbodypart(mon, HAND);
@@ -1517,7 +1517,7 @@ register struct monst *mon;
                in hand/claw)' appended; so we set it for the mwelded test
                and then clear it, until finally setting it for good below */
             obj->owornmask |= W_WEP;
-            newly_welded = mwelded(obj);
+            newly_welded = (mwelded(obj) && mon->data != &mons[PM_INFIDEL]);
             obj->owornmask &= ~W_WEP;
             if (newly_welded) {
                 const char *mon_hand = mbodypart(mon, HAND);
@@ -1910,11 +1910,22 @@ int skill;
         P_NAME(skill));
 
     if (!tech_known(T_DISARM)
-          && (P_SKILL(skill) == P_SKILLED) 
-          && skill <= P_LAST_WEAPON 
-          && skill != P_WHIP) {
+          && P_SKILL(skill) == P_SKILLED
+          && skill <= P_LAST_WEAPON
+          && skill != P_BOW
+          && skill != P_SLING
+          && skill != P_FIREARM
+          && skill != P_CROSSBOW
+          && skill != P_DART
+          && skill != P_SHURIKEN
+          && skill != P_BOOMERANG) {
     	learntech(T_DISARM, FROMOUTSIDE, 1);
     	You("learn how to perform disarm!");
+    }
+    if (!tech_known(T_SHIELD_BLOCK)
+        && skill == P_SHIELD && P_SKILL(skill) == P_SKILLED) {
+        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, 1);
+        You("learn how to perform shield block!");
     }
 }
 
@@ -2106,10 +2117,11 @@ int skill;
      * Same for priests, they shouldn't have edged weapons at all.
      */
 
-    if ((Role_if(PM_CAVEMAN) || Role_if(PM_PRIEST))
-        && skill >= P_DAGGER && skill <= P_SABER
-        && skill >= P_POLEARMS && skill <= P_UNICORN_HORN) {
-        return;
+    if (Role_if(PM_CAVEMAN) || Role_if(PM_PRIEST)) {
+        if (skill >= P_DAGGER && skill <= P_SABER)
+            return;
+        if (skill >= P_POLEARMS && skill <= P_UNICORN_HORN)
+            return;
     }
 
     if (skill < P_NUM_SKILLS && P_RESTRICTED(skill)) {
@@ -2152,11 +2164,35 @@ int n; /* number of slots to gain; normally one */
 }
 
 void
+maybe_lose_disarm()
+{
+    int skill;
+    if (tech_known(T_DISARM)) {
+        int i;
+        for (i = u.skills_advanced - 1; i >= 0; i--) {
+            skill = u.skill_record[i];
+            if (P_SKILL(skill) >= P_SKILLED && skill <= P_LAST_WEAPON
+                && skill != P_BOW
+                && skill != P_SLING
+                && skill != P_FIREARM
+                && skill != P_CROSSBOW
+                && skill != P_DART
+                && skill != P_SHURIKEN
+                && skill != P_BOOMERANG)
+                break;
+        }
+        if (i < 0)
+            learntech(T_DISARM, FROMOUTSIDE, -1);
+    }
+}
+
+void
 lose_weapon_skill(n)
 int n; /* number of slots to lose; normally one */
 {
     int skill;
-    boolean maybe_loose_disarm = FALSE;
+    boolean check_disarm = FALSE;
+    boolean check_shield = FALSE;
 
     while (--n >= 0) {
         /* deduct first from unused slots then from last placed one, if any */
@@ -2166,27 +2202,25 @@ int n; /* number of slots to lose; normally one */
             skill = u.skill_record[--u.skills_advanced];
             if (P_SKILL(skill) <= P_UNSKILLED)
                 panic("lose_weapon_skill (%d)", skill);
-            maybe_loose_disarm = TRUE;
+            check_disarm = check_shield = TRUE;
             P_SKILL(skill)--; /* drop skill one level */
             /* Lost skill might have taken more than one slot; refund rest. */
             u.weapon_slots = slots_required(skill) - 1;
             /* It might now be possible to advance some other pending
                skill by using the refunded slots, but giving a message
                to that effect would seem pretty confusing.... */
+
+            /* Potentially lose shield block tech */
+            if (skill == P_SHIELD && tech_known(T_SHIELD_BLOCK)
+                && P_SKILL(skill) < P_SKILLED)
+                learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
         }
     }
-    if (maybe_loose_disarm && tech_known(T_DISARM)) {
-	int i;
-	for (i = u.skills_advanced - 1; i >= 0; i--) {
-	    skill = u.skill_record[i];
-	    if (skill <= P_LAST_WEAPON 
-                  && skill != P_WHIP 
-                  && P_SKILL(skill) >= P_SKILLED)
-		break;
-	}
-	if (i < 0)
-	    learntech(T_DISARM, FROMOUTSIDE, -1);
-    }
+    if (check_disarm)
+        maybe_lose_disarm();
+    if (check_shield && tech_known(T_SHIELD_BLOCK)
+            && P_SKILL(skill) < P_SKILLED)
+        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
 }
 
 void
@@ -2194,6 +2228,8 @@ drain_weapon_skill(n)
 int n; /* number of skills to drain */
 {
     int skill, i, curradv, prevadv;
+    boolean check_disarm = FALSE;
+    boolean check_shield = FALSE;
     int tmpskills[P_NUM_SKILLS];
 
     (void) memset((genericptr_t) tmpskills, 0, sizeof(tmpskills));
@@ -2210,6 +2246,7 @@ int n; /* number of skills to drain */
             u.skills_advanced--;
             if (P_SKILL(skill) <= P_UNSKILLED)
                 panic("drain_weapon_skill (%d)", skill);
+            check_disarm = check_shield = TRUE;
             P_SKILL(skill)--;   /* drop skill one level */
             /* refund slots used for skill */
             u.weapon_slots += slots_required(skill);
@@ -2226,6 +2263,13 @@ int n; /* number of skills to drain */
             You("forget %syour training in %s.",
                 P_SKILL(skill) >= P_BASIC ? "some of " : "", P_NAME(skill));
         }
+
+    if (check_disarm)
+        maybe_lose_disarm();
+    if (check_shield && tech_known(T_SHIELD_BLOCK)
+            && P_SKILL(skill) < P_SKILLED)
+        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
+
 }
 
 void
@@ -2352,7 +2396,6 @@ struct obj *weapon;
 
         /* basically no restrictions if you're a giant, or have giant strength */
         if ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
-            || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA)
             || maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
             maxweight = 200;
 
@@ -2585,6 +2628,10 @@ const struct def_skill *class_skill;
         P_SKILL(P_ENCHANTMENT_SPELL) = P_BASIC;
     }
 
+    /* set skill for thievery */
+    if (Role_if(PM_ROGUE) || Role_if(PM_CONVICT))
+        P_SKILL(P_THIEVERY) = P_BASIC;
+
     /* walk through array to set skill maximums */
     for (; class_skill->skill != P_NONE; class_skill++) {
         skmax = class_skill->skmax;
@@ -2607,10 +2654,24 @@ const struct def_skill *class_skill;
     if (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         P_SKILL(P_RIDING) = P_NONE;
 
+    /* Und-Vam gets basic and max of expert in longswords because Blade */
+    if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_VAMPIRIC)) {
+        P_SKILL(P_LONG_SWORD) = P_BASIC;
+        P_MAX_SKILL(P_LONG_SWORD) = P_EXPERT;
+    }
+
     /* Roles that can reach expert or master in shield skill
        already have a basic understanding of how to use them */
     if (Role_if(PM_KNIGHT) || Role_if(PM_VALKYRIE))
         P_SKILL(P_SHIELD) = P_BASIC;
+
+    /* Raise tortle trident max skills */
+    if (Race_if(PM_TORTLE)) {
+        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK) || Role_if(PM_UNDEAD_SLAYER))
+            P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
+        if (Role_if(PM_HEALER) || Role_if(PM_TOURIST))
+            P_MAX_SKILL(P_TRIDENT) = P_SKILLED;
+    }
 
     /*
      * Make sure we haven't missed setting the max on a skill
@@ -2659,7 +2720,8 @@ int skill;
            && u.skills_advanced < P_SKILL_LIMIT;
 }
 
-void
+/* return true if a weapon skill has been practiced and false otherwise */
+boolean
 practice_weapon()
 {
     if (can_practice(weapon_type(uwep))
@@ -2676,11 +2738,16 @@ practice_weapon()
 
         delay = -10;
         set_occupation(practice, "practicing", 0);
-    } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep)))
+    } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep))) {
         You("cannot increase your skill in %s.", P_NAME(weapon_type(uwep)));
-    else
-        You("cannot learn much about %s right now.",
-            P_NAME(weapon_type(uwep)));
+        return 0;
+    }
+    else {
+        You("cannot learn much about %s right now.", P_NAME(weapon_type(uwep)));
+        return 0;
+    }
+
+    return 1;
 }
 
 /*WAC  weapon practice code*/

@@ -31,7 +31,6 @@ STATIC_DCL void FDECL(m_detach, (struct monst *, struct permonst *));
 STATIC_DCL void FDECL(lifesaved_monster, (struct monst *));
 STATIC_DCL void FDECL(migrate_mon, (struct monst *, XCHAR_P, XCHAR_P));
 STATIC_DCL boolean FDECL(ok_to_obliterate, (struct monst *));
-STATIC_DCL void FDECL(icequeenrevive, (struct monst *));
 STATIC_DCL void FDECL(deathwail, (struct monst *));
 
 /* note: duplicated in dog.c */
@@ -86,7 +85,7 @@ const char *msg;
             return;
         }
         if (chk_geno && (mvitals[mndx].mvflags & G_GENOD) != 0)
-            impossible("annihilated %s in play (%s)", mons[mndx].mname, msg);
+            impossible("genocided %s in play (%s)", mons[mndx].mname, msg);
     }
     if (mtmp->isshk && !has_eshk(mtmp))
         impossible("shk without eshk (%s)", msg);
@@ -407,8 +406,8 @@ int mndx;
         mndx = PM_HOBBIT;
         break;
     case PM_VAMPIRE:
-    case PM_VAMPIRE_LORD:
-    case PM_VAMPIRE_KING:
+    case PM_VAMPIRE_NOBLE:
+    case PM_VAMPIRE_ROYAL:
     case PM_VAMPIRE_MAGE:
     case PM_HUMAN_ZOMBIE:
     case PM_HUMAN_MUMMY:
@@ -443,6 +442,35 @@ int mndx;
     return mndx;
 }
 
+/* convert the monster index of an living to possible undead counterpart
+ * Unlike undead_to_corpse, this could have different outcomes. For example
+ * a gnome could be replaced by a gnome zombie or a gnome mummy.
+ * */
+int
+living_to_undead(mndx)
+int mndx;
+{
+    switch (mndx) {
+    case PM_GNOME:
+    case PM_GNOME_NOBLE:
+    case PM_ROCK_GNOME:
+    case PM_GNOME_ROYAL:
+    case PM_GNOMISH_WIZARD:
+        return rn2(2) ? PM_GNOME_MUMMY : PM_GNOME_ZOMBIE;
+    case PM_DWARF:
+    case PM_MOUNTAIN_DWARF:
+    case PM_DWARF_NOBLE:
+    case PM_DWARF_ROYAL:
+        return rn2(2) ? PM_DWARF_MUMMY : PM_GIANT_ZOMBIE;
+    case PM_HOBBIT:
+    case PM_HOBBIT_PICKPOCKET:
+        return rn2(2) ? PM_HOBBIT_MUMMY : PM_HOBBIT_ZOMBIE;
+    case PM_MOUNTAIN_CENTAUR:
+    case PM_FOREST_CENTAUR:
+        return rn2(2) ? PM_CENTAUR_MUMMY : PM_CENTAUR_ZOMBIE;
+    }
+    return 0;
+}
 /* Convert the monster index of some monsters (such as quest guardians)
  * to their generic species type.
  *
@@ -590,6 +618,7 @@ unsigned corpseflags;
     case PM_GOLD_DRAGON:
     case PM_SEA_DRAGON:
     case PM_YELLOW_DRAGON:
+    case PM_CELESTIAL_DRAGON:
         /* Make dragon scales.  This assumes that the order of the
            dragons is the same as the order of the scales.
            If the dragon is a pet, no scales generated. */
@@ -659,8 +688,8 @@ unsigned corpseflags;
 		newsym(x, y);
 		return (struct obj *)0;
     case PM_VAMPIRE:
-    case PM_VAMPIRE_LORD:
-    case PM_VAMPIRE_KING:
+    case PM_VAMPIRE_NOBLE:
+    case PM_VAMPIRE_ROYAL:
     case PM_VAMPIRE_MAGE:
     case PM_NOSFERATU:
         /* include mtmp in the mkcorpstat() call */
@@ -899,6 +928,25 @@ unsigned corpseflags;
         }
         break;
     }
+    case PM_NIGHTMARE:
+        pline("All that remains is her horn...");
+        obj = oname(mksobj(UNICORN_HORN, TRUE, FALSE),
+                    artiname(ART_NIGHTHORN));
+        goto initspecial;
+    case PM_BEHOLDER:
+        pline("All that remains is a single eye...");
+        obj = oname(mksobj(EYEBALL, TRUE, FALSE),
+                    artiname(ART_EYE_OF_THE_BEHOLDER));
+        goto initspecial;
+        
+    initspecial:
+        obj->quan = 1;
+        curse(obj);
+        place_object(obj, x, y);
+        stackobj(obj);
+        newsym(x, y);
+        return obj;
+        break;
     default_1:
     default:
         if (mvitals[mndx].mvflags & G_NOCORPSE) {
@@ -1175,10 +1223,11 @@ struct monst *mon;
      */
     if (mon->mspeed == MSLOW)
         mmove = (2 * mmove + 1) / 3;
-    /* various monsters get a slight bump in speed when in their natural element */
-    else if (is_pool(mon->mx, mon->my) && is_fast_underwater(mon->data))
-        mmove = (3 * mmove + 2) / 3;
     else if (mon->mspeed == MFAST)
+        mmove = (4 * mmove + 2) / 3;
+
+    /* various monsters get a slight bump in speed when in their natural element */
+    if (is_pool(mon->mx, mon->my) && is_fast_underwater(mon->data))
         mmove = (4 * mmove + 2) / 3;
 
     if (mon == u.usteed && u.ugallop && context.mv) {
@@ -1634,7 +1683,7 @@ struct obj *otmp;
 /*
  * Maybe eat a metallic object (not just gold).
  * Return value: 0 => nothing happened, 1 => monster ate something,
- * 2 => monster died (it must have grown into a annihilated form, but
+ * 2 => monster died (it must have grown into a genocided form, but
  * that can't happen at present because nothing which eats objects
  * has young and old forms).
  */
@@ -2947,16 +2996,22 @@ struct monst *magr, /* monster that is currently deciding where to move */
     if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_PADAWAN])
         return ALLOW_M | ALLOW_TM;
     /* Stormtroopers vs. Jedi */
-    if (ma == &mons[PM_STORMTROOPER] && md == &mons[PM_JEDI])
+    if (ma == &mons[PM_STORMTROOPER]
+            && (md == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
+
     /* and vice versa */
-    if (md == &mons[PM_STORMTROOPER] && ma == &mons[PM_JEDI])
+    if (md == &mons[PM_STORMTROOPER] 
+            && (ma == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
+    
     /* Jedi vs. Lord Sidious */
-    if (ma == &mons[PM_LORD_SIDIOUS] && md == &mons[PM_JEDI])
+    if (ma == &mons[PM_LORD_SIDIOUS] 
+            && (ma == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
     /* and vice versa */
-    if (md == &mons[PM_LORD_SIDIOUS] && ma == &mons[PM_JEDI])
+    if (md == &mons[PM_LORD_SIDIOUS] 
+            && (ma == &mons[PM_JEDI] || md == &mons[PM_JEDI_TRAINER]))
         return ALLOW_M | ALLOW_TM;
     
     /* dungeon fern spores hate everything */
@@ -3017,13 +3072,6 @@ struct monst *magr, /* monster that is currently deciding where to move */
         && !mindless(md))
         return ALLOW_M | ALLOW_TM;
 
-    /* mini-me recently had a bad encounter with a yellowjacket.
-       she now hates all things that can sting */
-    if ((ma == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-         || ma == &mons[PM_KATHRYN_THE_ENCHANTRESS])
-        && can_sting(md))
-        return ALLOW_M | ALLOW_TM;
-
     /* now test all two-way aggressions both ways */
     return (mm_2way_aggression(magr, mdef) | mm_2way_aggression(mdef, magr));
 }
@@ -3078,11 +3126,7 @@ dmonsfree()
     buf[0] = '\0';
     for (mtmp = &fmon; *mtmp;) {
         freetmp = *mtmp;
-
-        if (DEADMONSTER(freetmp)
-            && freetmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-            icequeenrevive(freetmp);
-
+        
         if (DEADMONSTER(freetmp) && !freetmp->isgd) {
             *mtmp = freetmp->nmon;
             freetmp->nmon = NULL;
@@ -3416,9 +3460,9 @@ struct monst *mtmp;
         mtmp->mhp = mtmp->mhpmax;
 
         if (!surviver) {
-            /* annihilated monster can't be life-saved */
+            /* genocided monster can't be life-saved */
             if (cansee(mtmp->mx, mtmp->my))
-                pline("Unfortunately, %s is still annihilated...",
+                pline("Unfortunately, %s is still genocided...",
                       mon_nam(mtmp));
             mtmp->mhp = 0;
         }
@@ -3450,10 +3494,18 @@ grunddead()
 }
 
 void
+unlockedtower()
+{
+    if (!u.uevent.utower)
+        u.uevent.utower = TRUE;
+    com_pager(306);
+}
+void
 mondead(mtmp)
 register struct monst *mtmp;
 {
     struct permonst *mptr;
+    struct obj *otmp;
     int tmp, i;
     coord cc;
     boolean nocorpse = (wielding_artifact(ART_SUNSWORD) || wielding_artifact(ART_MORTALITY_DIAL));
@@ -3509,69 +3561,24 @@ register struct monst *mtmp;
         newsym(mtmp->mx, mtmp->my);
         return;
     }
-    if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-        if (!u.uachieve.defeat_icequeen)
-            u.uachieve.defeat_icequeen = 1;
-        return; /* handled in dmonsfree */
-    }
-    /* our hero decided to choose poorly and attempt to kill
-       Kathryn the Enchantress */
-    if (mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {
-        if (canspotmon(mtmp)) {
-            pline("But wait!  %s is not truly dead!", mon_nam(mtmp));
-            pline("Not even death can overcome her magic!");
-            rise_msg = TRUE;
-        }
-        mtmp->mcanmove = 1;
-        mtmp->mfrozen = 0;
-        mtmp->mstone = 0;
-        mtmp->msick = 0;
-        mtmp->mdiseased = 0;
-        mtmp->mconf = 0;
-        mtmp->mstun = 0;
-        mtmp->mpeaceful = 0;
-        mtmp->m_lev = 100;
-        mtmp->mhp = mtmp->mhpmax = 7500;
-        if (mtmp == u.ustuck) {
-            if (u.uswallow)
-                expels(mtmp, mtmp->data, FALSE);
+    
+    /* special handling for Vecna and his artifacts */
+    if (mtmp->isvecna) {
+        if (!Blind) {
+            if (is_lava(mtmp->mx, mtmp->my)
+                || is_pool(mtmp->mx, mtmp->my))
+                pline("As the remnants of %s body vanish, you notice something sink into the %s...",
+                      s_suffix(mon_nam(mtmp)), surface(mtmp->mx, mtmp->my));
             else
-                uunstick();
+                pline("As the remnants of %s body vanish, you notice something was left behind...",
+                      s_suffix(mon_nam(mtmp)));
         }
-        newsym(mtmp->mx, mtmp->my);
-        if (u.ualign.type == A_NONE) {
-            adjalign(10);
-        } else {
-            You_feel("very guilty.");
-            adjalign(-15);
-        }
-        change_luck(-15);
-        return;
-    }
 
-    /* special handling for the Ice Queen's dogs */
-    if (mtmp->data == &mons[PM_BOURBON] || mtmp->data == &mons[PM_OZZY]) {
-        if (canspotmon(mtmp)) {
-            You("have made %s submit, and %s is no longer hostile.", mon_nam(mtmp), mhe(mtmp));
-        }
-        mtmp->mcanmove = 1;
-        mtmp->mfrozen = 0;
-        mtmp->mstone = 0;
-        mtmp->msick = 0;
-        mtmp->mdiseased = 0;
-        mtmp->mconf = 0;
-        mtmp->mstun = 0;
-        mtmp->mpeaceful = 1;
-        mtmp->mhp = mtmp->mhpmax;
-        if (mtmp == u.ustuck) {
-            if (u.uswallow)
-                expels(mtmp, mtmp->data, FALSE);
-            else
-                uunstick();
-        }
-        newsym(mtmp->mx, mtmp->my);
-        rise_msg = TRUE;
-        return;
+        otmp = mksobj(SEVERED_HAND, FALSE, FALSE);
+        otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
+        
+        curse(otmp);
+        place_object(otmp, mtmp->mx, mtmp->my);
     }
 
     if (is_vampshifter(mtmp) || is_changeling(mtmp)) {
@@ -3758,6 +3765,12 @@ register struct monst *mtmp;
     } else if (mtmp->isvecna && !u.uachieve.killed_vecna) {
         u.uachieve.killed_vecna = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "destroyed Vecna");
+    } else if (mtmp->data == &mons[PM_NIGHTMARE] && !u.uachieve.killed_nightmare) {
+        u.uachieve.killed_nightmare = 1;
+        livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Nightmare");
+    } else if (mtmp->data == &mons[PM_BEHOLDER] && !u.uachieve.killed_beholder) {
+        u.uachieve.killed_beholder = 1;
+        livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Beholder");
     } else if (mtmp->isgrund && !u.uachieve.killed_grund) {
         u.uachieve.killed_grund = 1;
         livelog_write_string(LL_ACHIEVE | LL_UMONST, "killed Grund");
@@ -3821,30 +3834,14 @@ struct monst *magr;    /* killer, if swallowed */
 boolean was_swallowed; /* digestion */
 {
     struct permonst *mdat = mon->data;
-    struct obj *otmp;
     int i, tmp, x, y;
     boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
     
     if (mdat == &mons[PM_VLAD_THE_IMPALER]
-        || mdat == &mons[PM_ALHOON] 
-        || mdat == &mons[PM_KAS]
+        || mdat == &mons[PM_ALHOON]
         || (mdat->mlet == S_LICH && mdat != &mons[PM_WORM_THAT_WALKS])) {
         if (cansee(mon->mx, mon->my) && !was_swallowed)
             pline("%s body crumbles into dust.", s_suffix(Monnam(mon)));
-        if (mon->isvecna) {
-            if (!Blind)
-                pline("As the remnants of %s body vanish, you notice something was left behind...",
-                      s_suffix(mon_nam(mon)));
-            if (rn2(2)) {
-                otmp = mksobj(EYEBALL, FALSE, FALSE);
-                otmp = oname(otmp, artiname(ART_EYE_OF_VECNA));
-            } else {
-                otmp = mksobj(MUMMIFIED_HAND, FALSE, FALSE);
-                otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
-            }
-            curse(otmp);
-            place_object(otmp, mon->mx, mon->my);
-        }
         return FALSE;
     }
 
@@ -4252,7 +4249,7 @@ int how;
 
     /* no corpses if digested, disintegrated or withered */
     disintegested = (how == AD_DGST || how == -AD_RBRE
-                     || how == AD_WTHR);
+                     || how == AD_WTHR || how == AD_DISN);
     
     if (disintegested) {
         /* Pre-cancel a changling so it doesn't get a chance to reconstitute
@@ -4301,8 +4298,9 @@ int how;
     else
         be_sad = (mdef->mtame != 0 && !mdef->msummoned);
 
-    /* no corpses if digested or disintegrated */
-    disintegested = (how == AD_DGST || how == -AD_RBRE);
+    /* no corpses if digested, disintegrated or withered */
+    disintegested = (how == AD_DGST || how == -AD_RBRE
+                     || how == AD_WTHR || how == AD_DISN);
     if (disintegested)
         xkilled(mdef, XKILL_NOCORPSE);
     else
@@ -4371,10 +4369,6 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     if (!noconduct) /* KMH, conduct */
         if (!u.uconduct.killer++)
             livelog_write_string (LL_CONDUCT,"killed for the first time");
-
-    if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-        && u.uachieve.defeat_icequeen)
-        return;
 
     if (mtmp->data == &mons[PM_SHAMBLING_HORROR])
         u.uevent.know_horror = TRUE;
@@ -4445,7 +4439,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     
     /* Slaughter wights release a death wail on dying */
     if (mtmp->data == &mons[PM_SLAUGHTER_WIGHT] &&
-                       !disintegested && m_canseeu(mtmp)) {
+                       !disintegested) {
         deathwail(mtmp);
     }
     
@@ -5066,7 +5060,9 @@ struct monst *mtmp;
         && is_dragon(mtmp->data) 
         && monsndx(mtmp->data) >= PM_GRAY_DRAGON
         && monsndx(mtmp->data) % 2 == 0) {
-        if (!Deaf && canseemon(mtmp)) {
+        if (!Deaf && Underwater) {
+            You("hear a muffled roar.");
+        } else if (!Deaf && canseemon(mtmp)) {
             pline("%s lets out a thunderous roar!", Monnam(mtmp));
             stop_occupation();
         } else if (!Deaf) {
@@ -5076,6 +5072,7 @@ struct monst *mtmp;
         }
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
         if ((canseemon(mtmp) || (!Deaf && !Sonic_resistance))
+            && !Underwater
             && !Confusion
             && !Role_if(PM_KNIGHT)
             && !(uarmg && uarmg->oartifact == ART_DRAGONBANE)
@@ -5137,30 +5134,7 @@ boolean via_attack;
             pline_The("engraving beneath you fades.");
         del_engr_at(u.ux, u.uy);
     }
-
-    if (via_attack
-        && (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS])) {
-        struct monst *mon;
-        struct permonst *bourbon = &mons[PM_BOURBON];
-        struct permonst *ozzy = &mons[PM_OZZY];
-
-        for (mon = fmon; mon; mon = mon->nmon) {
-            if (DEADMONSTER(mon))
-                continue;
-            if (mon->data == bourbon && mon->mpeaceful) {
-                mon->mstrategy &= ~STRAT_WAITMASK;
-                mon->mpeaceful = 0;
-                growl(mon);
-            }
-            if (mon->data == ozzy && mon->mpeaceful) {
-                mon->mstrategy &= ~STRAT_WAITMASK;
-                mon->mpeaceful = 0;
-                growl(mon);
-            }
-        }
-    }
-
+    
     /* AIS: Should this be in both places, or just in wakeup()? */
     if (!(via_attack
         && (Role_if(PM_ROGUE) && !uwep && context.forcefight && !Upolyd))) {
@@ -5190,7 +5164,8 @@ boolean via_attack;
                 adjalign(2);
             }
         } else {
-            if (u.ualign.type != A_NONE) { /* Infidels are supposed to be bad */
+            /* Prevent guilt spam in Black Market when angering everybody */
+            if (u.ualign.type != A_NONE && !Is_blackmarket(&u.uz)) { /* Infidels are supposed to be bad */
                 if (canspotmon(mtmp))
                     You_feel("guilty.");
                 else
@@ -5287,7 +5262,7 @@ boolean via_attack;
                                    perhaps reduce tameness? */
                             } else {
                                 mon->mpeaceful = 0;
-                                if (u.ualign.type != A_NONE) {
+                                if (u.ualign.type != A_NONE && !Is_blackmarket(&u.uz)) {
                                     if (canspotmon(mon))
                                         You_feel("guilty.");
                                     else
@@ -5524,7 +5499,9 @@ struct monst *mtmp;
     struct trap *t;
     boolean undetected = FALSE, is_u = (mtmp == &youmonst);
     xchar x = is_u ? u.ux : mtmp->mx, y = is_u ? u.uy : mtmp->my;
-
+    boolean valid_water = ((is_pool(x, y) || is_puddle(x, y))
+                      && !Is_waterlevel(&u.uz));
+                      
     if (mtmp == u.ustuck) {
         ; /* can't hide if holding you or held by you */
     } else if (is_u ? (u.utrap && u.utraptype != TT_PIT)
@@ -5532,8 +5509,7 @@ struct monst *mtmp;
                        && !is_pit(t->ttyp))) {
         ; /* can't hide while stuck in a non-pit trap */
     } else if (mtmp->data->mlet == S_EEL) {
-        undetected = ((is_pool(x, y) || is_puddle(x, y))
-                      && !Is_waterlevel(&u.uz));
+        undetected = valid_water;
     } else if (mtmp->data == &mons[PM_GIANT_LEECH]) {
         undetected = (is_sewage(x, y));
     } else if (hides_under(mtmp->data)) {
@@ -5548,7 +5524,7 @@ struct monst *mtmp;
                  || (concealment == 3 && resists_poison(mtmp))) { 
             undetected = TRUE;
         }
-        else if (concealment == 2) { /* object cover */
+        else if (concealment == 2 && !valid_water) { /* object cover */
             struct obj *otmp = level.objects[x][y];
             
             /* most monsters won't hide under cockatrice corpse */
@@ -5718,14 +5694,13 @@ struct monst *mon;
     boolean uppercase_only = Is_rogue_level(&u.uz);
 
     switch (mndx) {
-    case PM_KAS:
     case PM_VLAD_THE_IMPALER:
         /* ensure Vlad can keep carrying the Candelabrum */
-        if (mon_has_special(mon) || mon->data == &mons[PM_KAS])
+        if (mon_has_special(mon))
             break; /* leave mndx as is */
         wolfchance = 3;
     /*FALLTHRU*/
-    case PM_VAMPIRE_LORD: /* vampire lords/ladies, Kas, or Vlad can become wolf */
+    case PM_VAMPIRE_NOBLE: /* vampire lords/ladies, or Vlad can become wolf */
         if (!rn2(wolfchance) && !uppercase_only) {
             if (IS_AIR(levl[mon->mx][mon->my].typ))
                 mndx = (!rn2(4) && !uppercase_only) ? PM_FOG_CLOUD : PM_VAMPIRE_BAT;
@@ -5734,7 +5709,7 @@ struct monst *mon;
             break;
         }
     /*FALLTHRU*/
-    case PM_VAMPIRE_KING:
+    case PM_VAMPIRE_ROYAL:
     case PM_VAMPIRE_MAGE: /* vampire kings/queens and mages can become a warg */
         if (!rn2(wolfchance) && !uppercase_only) {
             if (IS_AIR(levl[mon->mx][mon->my].typ))
@@ -5799,10 +5774,6 @@ int *mndx_p, monclass;
     if (mon->cham == PM_VLAD_THE_IMPALER && mon_has_special(mon)) {
         /* Vlad with Candelabrum; override choice, then accept it */
         *mndx_p = PM_VLAD_THE_IMPALER;
-        return TRUE;
-    }
-    if (mon->cham == PM_KAS && mon_has_special(mon)) {
-        *mndx_p = PM_KAS;
         return TRUE;
     }
     if (*mndx_p >= LOW_PM && is_shapeshifter(&mons[*mndx_p])) {
@@ -5879,10 +5850,9 @@ struct monst *mon;
             mndx = pick_animal();
         break;
     case PM_VLAD_THE_IMPALER:
-    case PM_KAS:
     case PM_VAMPIRE_MAGE:
-    case PM_VAMPIRE_KING:
-    case PM_VAMPIRE_LORD:
+    case PM_VAMPIRE_ROYAL:
+    case PM_VAMPIRE_NOBLE:
     case PM_VAMPIRE:
     case PM_NOSFERATU:
         mndx = pickvampshape(mon);
@@ -6082,7 +6052,7 @@ boolean msg;      /* "The oldmon turns into a newmon!" */
         if (!tryct)
             return 0;
     } else if (mvitals[monsndx(mdat)].mvflags & G_GENOD)
-        return 0; /* passed in mdat is annihilated */
+        return 0; /* passed in mdat is genocided */
 
     if (mdat == olddata)
         return 0; /* still the same monster */
@@ -6238,6 +6208,12 @@ boolean msg;      /* "The oldmon turns into a newmon!" */
                    !context.mon_moving);
     check_gear_next_turn(mtmp);
 
+    if (mtmp->mwither && (nonliving(mdat) || is_vampshifter(mtmp))) {
+        if (canseemon(mtmp))
+            pline("%s is no longer withering away.", Monnam(mtmp));
+        mtmp->mwither = 0;
+    }
+
     /* This ought to re-test can_carry() on each item in the inventory
      * rather than just checking ex-giants & boulders, but that'd be
      * pretty expensive to perform.  If implemented, then perhaps
@@ -6345,7 +6321,7 @@ boolean egg;
                       || (mvitals[alt_idx].mvflags & G_GENOD) != 0);
 }
 
-/* kill off any eggs of annihilated monsters */
+/* kill off any eggs of genocided monsters */
 STATIC_OVL void
 kill_eggs(obj_list)
 struct obj *obj_list;
@@ -6376,7 +6352,7 @@ struct obj *obj_list;
         }
 }
 
-/* kill all members of annihilated species */
+/* kill all members of genocided species */
 void
 kill_genocided_monsters()
 {
@@ -6385,15 +6361,15 @@ kill_genocided_monsters()
     int mndx;
 
     /*
-     * Called during annihilation, and again upon level change.  The latter
+     * Called during genocide, and again upon level change.  The latter
      * catches up with any migrating monsters as they finally arrive at
      * their intended destinations, so possessions get deposited there.
      *
      * Chameleon handling:
-     *  1) if chameleons have been annihilated, destroy them
+     *  1) if chameleons have been genocided, destroy them
      *     regardless of current form;
      *  2) otherwise, force every chameleon which is imitating
-     *     any annihilated species to take on a new form.
+     *     any genocided species to take on a new form.
      */
     for (mtmp = fmon; mtmp; mtmp = mtmp2) {
         mtmp2 = mtmp->nmon;
@@ -6685,113 +6661,6 @@ struct permonst *mdat;
     return msg_given ? TRUE : FALSE;
 }
 
-void
-icequeenrevive(mtmp)
-struct monst *mtmp;
-{
-    struct monst *mon;
-    struct permonst *bourbon = &mons[PM_BOURBON];
-    struct permonst *ozzy = &mons[PM_OZZY];
-
-    /* our hero has freed the Ice Queen from her curse */
-    if (mtmp->data != &mons[PM_KATHRYN_THE_ICE_QUEEN])
-        return;
-
-    /* in case player kills themselves while defeating
-       the ice queen and isn't lifesaved */
-    if (u.uhp <= 0 && !Lifesaved) {
-        ; /* suppress feedback */
-    } else {
-        Your("actions have released %s from a powerful curse!", mon_nam(mtmp));
-        if (canspotmon(mtmp))
-            You("watch as %s undergoes a transformation, back into her original form.",
-                mon_nam(mtmp));
-    }
-    mtmp->mcanmove = 1;
-    mtmp->mfrozen = 0;
-    mtmp->mstone = 0;
-    mtmp->msick = 0;
-    mtmp->mdiseased = 0;
-    mtmp->mwither = 0;
-    mtmp->mconf = 0;
-    mtmp->mstun = 0;
-    mtmp->mpeaceful = 1;
-
-    if (!u.uachieve.defeat_icequeen) /* should be redundant, but in case of funky business */
-        u.uachieve.defeat_icequeen = 1;
-
-    mvitals[PM_KATHRYN_THE_ICE_QUEEN].died++;
-    livelog_printf(LL_UMONST, "defeated %s", noit_mon_nam(mtmp));
-    newcham(mtmp, &mons[PM_KATHRYN_THE_ENCHANTRESS], FALSE, FALSE);
-    if (kathryn_bday()) {
-        mtmp->mhp = mtmp->mhpmax = 15000;
-    } else {
-        mtmp->mhp = mtmp->mhpmax = 7500;
-    }
-    if (mtmp == u.ustuck) {
-        if (u.uswallow)
-            expels(mtmp, mtmp->data, FALSE);
-        else
-            uunstick();
-    }
-    newsym(mtmp->mx, mtmp->my);
-
-    /* Fix up Bourbon and Ozzy */
-    for (mon = fmon; mon; mon = mon->nmon) {
-        if (DEADMONSTER(mon))
-            continue;
-        /* cure any ailments the dogs may have also */
-        if (mon->data == bourbon || mon->data == ozzy) {
-            if (u.uhp <= 0 && !Lifesaved) {
-                ; /* suppress feedback */
-            } else {
-                if (mon->data == bourbon) {
-                    if (m_cansee(mtmp, mon->mx, mon->my))
-                        pline("%s motions for Bourbon to heel and stop %s attack.",
-                              Monnam(mtmp), mhis(mon));
-                } else {
-                    if (m_cansee(mtmp, mon->mx, mon->my))
-                        pline("%s motions for Ozzy to heel and stop %s attack.",
-                              Monnam(mtmp), mhis(mon));
-                }
-            }
-            mon->mcanmove = 1;
-            mon->mfrozen = 0;
-            mon->mstone = 0;
-            mon->msick = 0;
-            mon->mdiseased = 0;
-            mon->mwither = 0;
-            mon->mconf = 0;
-            mon->mstun = 0;
-            mon->mpeaceful = 1;
-        }
-    }
-    /* in case player kills themselves while defeating
-       the ice queen and isn't lifesaved */
-    if (u.uhp <= 0 && !Lifesaved) {
-        ; /* suppress feedback */
-    } else {
-        if (Role_if(PM_INFIDEL)) {
-            /* the enchantress will not tolerate those that serve Moloch.
-               our infidel has 100 turns to do what they're going to do
-               and get the hell out before the situation becomes dire */
-            com_pager(201);
-            mtmp->mpeaceful = 0;
-            paralyze_monst(mtmp, 100);
-        } else {
-            com_pager(200);
-        }
-    }
-    if (u.ualign.type == A_NONE) {
-        You_feel("guilty.");
-        adjalign(-2); /* doing good things as an agent of Moloch? pfft */
-    } else {
-        adjalign(2);
-    }
-    change_luck(2);
-    return;
-}
-
 /* The I_SPECIAL bit of misc_worn_check is used to flag a monster that should
  * reassess and potentially reequip gear at the start of its next move. This is
  * just a function that sets it and gives it a clear name. */
@@ -6889,11 +6758,12 @@ short mndx;
         permitted |= (MH_DWARF | MH_ELF | MH_GNOME | MH_GIANT);
         break;
     case PM_ARCHEOLOGIST:
-        permitted |= (MH_DWARF | MH_GNOME | MH_HOBBIT | MH_TORTLE);
+        permitted |= (MH_DWARF | MH_GNOME | MH_HOBBIT | MH_TORTLE
+                      | MH_VAMPIRE);
         break;
     case PM_BARBARIAN:
-        permitted |= (MH_DWARF | MH_ORC | MH_GIANT | MH_CENTAUR
-                      | MH_TORTLE);
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_GIANT | MH_ORC
+                      | MH_TORTLE | MH_VAMPIRE);
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
@@ -6901,64 +6771,72 @@ short mndx;
         break;
     case PM_CONVICT:
         permitted |=
-            (MH_DWARF | MH_ORC | MH_GNOME | MH_HOBBIT | MH_ILLITHID);
+            (MH_CENTAUR | MH_DWARF | MH_GIANT  | MH_GNOME | MH_HOBBIT
+             | MH_ILLITHID | MH_ORC | MH_VAMPIRE );
+        break;
+    case PM_FLAME_MAGE:
+        permitted |= (MH_DWARF | MH_ELF | MH_GNOME);
         break;
     case PM_HEALER:
         permitted |=
-            (MH_DWARF | MH_ELF | MH_GNOME | MH_HOBBIT | MH_CENTAUR
+            (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GNOME | MH_HOBBIT
              | MH_TORTLE);
         break;
+    case PM_ICE_MAGE:
+        permitted |= (MH_CENTAUR | MH_ORC | MH_ILLITHID | MH_VAMPIRE);
+        break;
     case PM_INFIDEL:
-        permitted |= (MH_ELF | MH_GIANT | MH_ORC | MH_ILLITHID);
+        permitted |= (MH_CENTAUR | MH_GIANT | MH_ORC | MH_ILLITHID);
+        break;
+    case PM_JEDI:
+        permitted |= (MH_DWARF | MH_ELF | MH_HOBBIT | MH_TORTLE);
         break;
     case PM_KNIGHT:
-        permitted |= (MH_DWARF | MH_ELF | MH_ORC | MH_CENTAUR);
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_ORC);
         break;
     case PM_MONK:
-        permitted |= (MH_DWARF | MH_ELF | MH_GIANT | MH_CENTAUR
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GIANT
                       | MH_TORTLE);
+        break;
+    case PM_NECROMANCER:
+        permitted |= (MH_CENTAUR | MH_ORC | MH_GIANT | MH_ILLITHID
+                      | MH_ORC | MH_VAMPIRE);
         break;
     case PM_PRIEST:
     case PM_PRIESTESS:
         permitted |=
-            (MH_DWARF | MH_ELF | MH_GIANT | MH_HOBBIT | MH_CENTAUR
-             | MH_ORC | MH_ILLITHID | MH_TORTLE);
+            (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GIANT | MH_HOBBIT
+             | MH_ILLITHID | MH_ORC  | MH_TORTLE);
+        break;
+    case PM_PIRATE:
+        permitted |= (MH_GNOME | MH_ILLITHID | MH_ORC | MH_VAMPIRE);
         break;
     case PM_RANGER:
-        permitted |= (MH_ELF | MH_GNOME | MH_HOBBIT | MH_CENTAUR | MH_ORC);
+        permitted |= (MH_CENTAUR | MH_GNOME | MH_HOBBIT | MH_ORC);
         break;
     case PM_ROGUE:
-        permitted |= (MH_ELF | MH_HOBBIT | MH_ORC | MH_GNOME);
+        permitted |= (MH_GNOME | MH_HOBBIT | MH_ORC | MH_VAMPIRE);
         break;
     case PM_SAMURAI:
         permitted |= (MH_DWARF | MH_GIANT);
         break;
     case PM_TOURIST:
-        permitted |= (MH_HOBBIT | MH_GNOME | MH_TORTLE);
+        permitted |= (MH_GNOME | MH_HOBBIT |  MH_TORTLE);
+        break;
+    case PM_UNDEAD_SLAYER:
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_ELF | MH_GNOME | MH_GIANT
+                      | MH_HOBBIT | MH_TORTLE);
         break;
     case PM_VALKYRIE:
-        permitted |= (MH_DWARF | MH_GIANT | MH_CENTAUR);
+        permitted |= (MH_CENTAUR | MH_DWARF | MH_GIANT);
         break;
     case PM_WIZARD:
         permitted |=
-          (MH_DWARF | MH_ELF | MH_GIANT | MH_GNOME | MH_HOBBIT
-           | MH_ORC | MH_ILLITHID | MH_TORTLE);
-        break;
-    case PM_FLAME_MAGE:
-        permitted |= (MH_GNOME | MH_HOBBIT | MH_GIANT | MH_DWARF | MH_ELF);
-        break;
-    case PM_ICE_MAGE: 
-        permitted |= (MH_GNOME | MH_ORC | MH_HOBBIT | MH_ILLITHID | MH_CENTAUR);
-        break;
-    case PM_NECROMANCER:
-        permitted |= (MH_ORC | MH_GIANT | MH_CENTAUR | MH_ILLITHID);
-        break;
-    case PM_UNDEAD_SLAYER:
-        permitted |= (MH_ELF | MH_DWARF | MH_GNOME | MH_HOBBIT | MH_GIANT 
-                      | MH_CENTAUR | MH_TORTLE);
+          (MH_DWARF | MH_ELF | MH_GIANT | MH_GNOME | MH_HOBBIT |
+             MH_ILLITHID | MH_ORC | MH_TORTLE | MH_VAMPIRE);
         break;
     case PM_YEOMAN:
-        permitted |= (MH_ELF | MH_HOBBIT);
+        permitted |= (MH_ELF | MH_HOBBIT | MH_CENTAUR);
         break;
     default:
         break;
@@ -7015,6 +6893,152 @@ short raceidx;
     rptr->mflags1 |= ptr->mflags1;
     rptr->mflags2 |= ptr->mflags2;
     rptr->mflags3 |= ptr->mflags3;
+
+    /* Special races get a bonus attack and certain adjustments. */
+    switch (raceidx) {
+    case PM_CENTAUR:
+        /* Centars get a kick attack */
+        rptr->mattk[2].aatyp = AT_KICK;
+        rptr->mattk[2].adtyp = AD_PHYS;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+
+        rptr->ralign = rn2(3) ? -3 : 0;
+        if (mtmp->mnum == PM_HEALER || mtmp->mnum == PM_VALKYRIE
+            || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = 0;
+
+        mtmp->data->mlet = S_CENTAUR;
+        break;
+    case PM_DOPPELGANGER:
+        rptr->ralign = 0;
+        break;
+    case PM_DWARF:
+        rptr->ralign = rn2(3) ? 3 : 0;
+        if (mtmp->mnum == PM_CONVICT)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_HEALER
+            || mtmp->mnum == PM_WIZARD)
+            rptr->ralign = 0;
+        if (mtmp->mnum == PM_KNIGHT)
+            rptr->ralign = 3;
+
+        mtmp->data->mlet = S_HUMANOID;
+        break;
+    case PM_ELF:
+        rptr->ralign = rn2(3) ? 3 : 0;
+        if (mtmp->mnum == PM_HEALER)
+            rptr->ralign = 0;
+        if (mtmp->mnum == PM_KNIGHT || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = 3;
+        mtmp->data->mlet = S_HUMAN;
+        break;
+    case PM_GIANT:
+        /* Giants get a clobber attack */
+        rptr->mattk[2].aatyp = AT_WEAP;
+        rptr->mattk[2].adtyp = AD_CLOB;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 10;
+
+        /* Only non-spellcasters get the bonus clobber */
+        if (!(mtmp->mnum == PM_WIZARD || mtmp->mnum == PM_MONK
+              || mtmp->mnum == PM_PRIEST || mtmp->mnum == PM_PRIESTESS
+              || mtmp->mnum == PM_NECROMANCER)) {
+            rptr->mattk[0].aatyp = AT_WEAP;
+            rptr->mattk[0].adtyp = AD_CLOB;
+            rptr->mattk[0].damn = 2;
+            rptr->mattk[0].damd = 8;
+        }
+        rptr->ralign = rn2(2) ? 3 : rn2(2) ? 0 : -3;
+        if (mtmp->mnum == PM_CAVEMAN || mtmp->mnum == PM_CAVEWOMAN
+            || mtmp->mnum == PM_VALKYRIE)
+            rptr->ralign = rn2(2) ? 0 : 3;
+        if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_WIZARD)
+            rptr->ralign = rn2(2) ? 0 : -3;
+
+        mtmp->data->mlet = S_GIANT;
+        break;
+    case PM_GNOME:
+        rptr->ralign = 0;
+        if (mtmp->mnum == PM_CONVICT)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_RANGER || mtmp->mnum == PM_ROGUE
+            || mtmp->mnum == PM_WIZARD || mtmp->mnum == PM_PIRATE)
+            rptr->ralign = rn2(3) ? 0 : -3;
+
+        mtmp->data->mlet = S_GNOME;
+        break;
+    case PM_HOBBIT:
+        rptr->ralign = 0;
+        if (mtmp->mnum == PM_CONVICT)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_PRIEST
+            || mtmp->mnum == PM_PRIESTESS || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = rn2(3) ? 0 : 3;
+
+        mtmp->data->mlet = S_HUMANOID;
+        break;
+    case PM_HUMAN:
+        if (mtmp->mnum == PM_CONVICT || mtmp->mnum == PM_NECROMANCER)
+            rptr->ralign = -3;
+        if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_RANGER
+            || mtmp->mnum == PM_ROGUE || mtmp->mnum == PM_WIZARD
+            || mtmp->mnum == PM_ICE_MAGE)
+            rptr->ralign = rn2(2) ? 0 : -3;
+        if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_CAVEMAN
+            || mtmp->mnum == PM_CAVEWOMAN || mtmp->mnum == PM_VALKYRIE
+            || mtmp->mnum == PM_FLAME_MAGE || mtmp->mnum == PM_UNDEAD_SLAYER
+            || mtmp->mnum == PM_YEOMAN)
+            rptr->ralign = rn2(2) ? 0 : 3;
+        if (mtmp->mnum == PM_KNIGHT)
+            rptr->ralign = rn2(2) ? 3 : -3;
+        if (mtmp->mnum == PM_MONK || mtmp->mnum == PM_PRIEST
+            || mtmp->mnum == PM_PRIESTESS)
+            rptr->ralign = rn2(2) ? 3 : rn2(2) ? 0 : -3;
+        if (mtmp->mnum == PM_JEDI)
+            rptr->ralign = 3;
+        mtmp->data->mlet = S_HUMAN;
+        break;
+    case PM_ILLITHID:
+        /* Illithids get a tentacle attack */
+        rptr->mattk[2].aatyp = AT_TENT;
+        rptr->mattk[2].adtyp = AD_DRIN;
+        rptr->mattk[2].damn = 2;
+        rptr->mattk[2].damd = 1;
+
+        rptr->ralign = -3;
+
+        mtmp->data->mlet = S_HUMANOID;
+        break;
+    case PM_ORC:
+        rptr->ralign = -3;
+
+        mtmp->data->mlet = S_ORC;
+        break;
+    case PM_TORTLE:
+        rptr->ralign = 0;
+        if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_MONK
+            || mtmp->mnum == PM_PRIEST || mtmp->mnum == PM_PRIESTESS)
+            rptr->ralign = rn2(4) ? 3 : 0;
+
+        mtmp->data->mlet = S_LIZARD;
+        break;
+    case PM_VAMPIRIC:
+        /* Vampires get a bite attack */
+        rptr->mattk[2].aatyp = AT_BITE;
+        rptr->mattk[2].adtyp = AD_DRLI;
+        rptr->mattk[2].damn = 1;
+        rptr->mattk[2].damd = 6;
+
+        rptr->ralign = -3;
+
+        mtmp->data->mlet = S_VAMPIRE;
+        break;
+    }
+
+    /* Applies to all infidels regardless */
+    if (mtmp->mnum == PM_INFIDEL)
+        rptr->ralign = -128;
 }
 
 /**
@@ -7044,26 +7068,36 @@ deathwail(mtmp)
 struct monst *mtmp;
 {
     int dmg = d(2, 18);
-    /* Mostly copied from mhitu.c */
+
+    /* Note: This attack triggers even if cancelled! */
+    if (!m_canseeu(mtmp))
+        return;
+
     if (Deaf) {
         pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
-        dmg = 1;
-    } else
+    } else {
         pline("%s releases a death wail!", Monnam(mtmp));
-    
+        if (u.usleep)
+            unmul("You are frightened awake!");
+    }
+
     if (Sonic_resistance) {
         You("are unaffected by the noise.");
-        dmg = 0;
         monstseesu(M_SEEN_LOUD);
-    } else {
+        return;
+    } else if (u.umonnum == PM_GLASS_GOLEM) {
+        You("shatter into a million pieces!");
+        rehumanize();
+        return;
+    }
+
+    if (!Deaf) {
         Your("mind reels from the noise!");
         make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
         stop_occupation();
+        mdamageu(mtmp, dmg);
     }
-    
-    if (!Deaf && u.usleep && m_canseeu(mtmp))
-        unmul("You are frightened awake!");
-        
+    /* being deaf won't protect objects in inventory, or being made of glass */
     if (!rn2(6))
         erode_armor(&youmonst, ERODE_FRACTURE);
     if (!rn2(5))
@@ -7078,15 +7112,8 @@ struct monst *mtmp;
         destroy_item(TOOL_CLASS, AD_LOUD);
     if (!rn2(3))
         destroy_item(WAND_CLASS, AD_LOUD);
-    
-    if (u.umonnum == PM_GLASS_GOLEM) {
-        You("shatter into a million pieces!");
-        rehumanize();
-    } else if (Sonic_resistance && !Deaf) {
-        monstseesu(M_SEEN_LOUD);
-    } else if (!Deaf) {
-        mdamageu(mtmp, dmg);
-    }
+
+
 }
 
 /* If mindex is -1, spirits are made off the range of player monster types.

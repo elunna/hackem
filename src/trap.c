@@ -225,8 +225,7 @@ int ef_flags;
     if (check_grease && otmp->greased) {
         grease_protect(otmp, ostr, victim);
         return ER_GREASED;
-    } else if (!erosion_matters(otmp)
-               || otmp->oartifact == ART_HAND_OF_VECNA) {
+    } else if (!erosion_matters(otmp)) {
         return ER_NOTHING;
     } else if (!vulnerable || (otmp->oerodeproof && otmp->rknown)) {
         if (flags.verbose && print && (uvictim || vismon))
@@ -1065,21 +1064,11 @@ boolean msg;
     }
 }
 
-static const char *const spearmsgs[] = {
-    "a spear trap",
-    "a sharpened bamboo stick",
-    "a tapered wooden stake",
-    "a narrow pointy spike",
-    "becoming a döner kebab",
-    "imitating a meat popsicle"
-};
-
 void
 dotrap(trap, trflags)
 register struct trap *trap;
 unsigned trflags;
 {
-    char buf[BUFSZ];
     register int ttype = trap->ttyp;
     struct obj *otmp;
     struct monst *steed = u.usteed;
@@ -1094,7 +1083,6 @@ unsigned trflags;
             adj_pit = adj_nonconjoined_pit(trap);
     int oldumort;
     int steed_article = ARTICLE_THE;
-    int lvl = level_difficulty();
 
     nomul(0);
 
@@ -1394,6 +1382,8 @@ unsigned trflags;
             pline("%s you!", A_gush_of_water_hits);
             for (otmp = invent; otmp; otmp = otmp->nobj)
                 if (otmp->lamplit && otmp != uwep
+                    && otmp->otyp != MAGIC_LAMP
+                    && otmp->otyp != MAGIC_CANDLE
                     && (otmp != uswapwep || !u.twoweap))
                     (void) snuff_lit(otmp);
             if (uarmc)
@@ -1862,14 +1852,7 @@ unsigned trflags;
               body_part(LEG));
             set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
             exercise(A_DEX, FALSE);
-            Sprintf(buf, "%s", spearmsgs[rn2(SIZE(spearmsgs))]);
-            /* currently there's no way to have random vaults spawn at
-             * certain level depths. until then, we'll curtail spear trap
-             * damage a bit, up until the level they'd normally appear at */
-            if (lvl < 6)
-                losehp(Maybe_Half_Phys(rnd(4) + 6), buf, KILLED_BY);
-            else
-                losehp(Maybe_Half_Phys(rnd(10) + 10), buf, KILLED_BY);
+            losehp(Maybe_Half_Phys(rnd(8) + 6), "spear trap", KILLED_BY);
         }
         break;
 
@@ -1920,7 +1903,6 @@ struct obj *otmp;
 {
     struct monst *steed = u.usteed;
     int tt;
-    int lvl = level_difficulty();
     boolean trapkilled, steedhit;
 
     if (!steed || !trap)
@@ -1979,7 +1961,7 @@ struct obj *otmp;
         } else {
             trapkilled = (DEADMONSTER(steed)
                           || thitm(0, steed, (struct obj*) 0,
-                                   (rnd((lvl < 6) ? 4 : 10) + 10), FALSE));
+                                   (rnd(8) + 6), FALSE));
             steedhit = TRUE;
         }
         break;
@@ -2542,8 +2524,10 @@ schar dx, dy;
     while (distance-- > 0) {
         x += dx;
         y += dy;
+        if (!isok(x, y)) /* Paranoid check */
+            return FALSE;
         typ = levl[x][y].typ;
-        if (!isok(x, y) || !ZAP_POS(typ) || closed_door(x, y))
+        if (!ZAP_POS(typ) || closed_door(x, y))
             return FALSE;
     }
     cc->x = x;
@@ -2560,7 +2544,6 @@ register struct monst *mtmp;
     struct permonst *mptr = mtmp->data;
     struct obj *otmp;
     struct monst* mtmp2;
-    int lvl = level_difficulty();
 
     if (!trap) {
         mtmp->mtrapped = 0;      /* perhaps teleported? */
@@ -2818,7 +2801,7 @@ register struct monst *mtmp;
                 if (in_sight)
                     pline("%s %s!", A_gush_of_water_hits, mon_nam(mtmp));
                 for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj)
-                    if (otmp->lamplit
+                    if (otmp->lamplit && otmp->otyp != MAGIC_LAMP
                         && (otmp->owornmask & (W_WEP | W_SWAPWEP)) == 0)
                         (void) snuff_lit(otmp);
                 if ((target = which_armor(mtmp, W_ARMC)) != 0)
@@ -3087,7 +3070,7 @@ register struct monst *mtmp;
             case PM_CYCLOPS:
             case PM_LORD_SURTUR:
             case PM_ANNAM:
-            case PM_GIANT_SQUID:
+            case PM_THING_FROM_BELOW:
                 tear_web = TRUE;
                 break;
             }
@@ -3211,7 +3194,7 @@ register struct monst *mtmp;
                 if (in_sight) {
                     seetrap(trap);
                 }
-                if (!rn2(7))
+                if (!rn2(27))
                     deltrap(trap);
             }
             break;
@@ -3254,7 +3237,7 @@ register struct monst *mtmp;
             } else {
                 if (DEADMONSTER(mtmp)
                     || thitm(0, mtmp, (struct obj *) 0,
-                             (rnd((lvl < 6) ? 4 : 10) + 10), FALSE))
+                             (rnd(8) + 6), FALSE))
                     trapkilled = TRUE;
                 else if (in_sight)
                     pline("%s is skewered!", Monnam(mtmp));
@@ -3811,7 +3794,7 @@ domagictrap()
         int cnt = rnd(4);
 
         /* blindness effects */
-        if (!resists_blnd(&youmonst)) {
+        if (!resists_blnd(&youmonst) && !defends(AD_BLND, uarm)) {
             You("are momentarily blinded by a flash of light!");
             make_blinded((long) rn1(5, 10), FALSE);
             if (!Blind)
@@ -3984,17 +3967,18 @@ xchar x, y;
     int in_sight = !Blind && couldsee(x, y); /* Don't care if it's lit */
     int dindx;
 
-    if (is_flammable(obj) && obj->oerodeproof)
-        return FALSE;
-
-    /* Container might be made of a material that isn't flammable.
-       The line below technically protects any container made of plastic,
-       but that currently isn't possible. We'll let it slide for now */
-    if (Is_container(obj) && obj->material >= DRAGON_HIDE)
-        return FALSE;
-
     /* object might light in a controlled manner */
     if (catch_lit(obj))
+        return FALSE;
+
+    /* special BotD feedback - should it be the "dark red" message?*/
+    if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
+        if (in_sight)
+            pline("Smoke rises from %s.", the(xname(obj)));
+        return FALSE;
+    }
+
+    if (!is_flammable(obj) || obj->oerodeproof)
         return FALSE;
 
     if (Is_container(obj)) {
@@ -4013,8 +3997,7 @@ xchar x, y;
             chance = 20;
             break;
         }
-        if ((!force && (Luck + 5) > rn2(chance))
-            || (is_flammable(obj) && obj->oerodeproof))
+        if (!force && (Luck + 5) > rn2(chance))
             return FALSE;
         /* Container is burnt up - dump contents out */
         if (in_sight)
@@ -4045,16 +4028,6 @@ xchar x, y;
           */
         return FALSE;
     } else if (obj->oclass == SCROLL_CLASS || obj->oclass == SPBOOK_CLASS) {
-        if (obj->otyp == SCR_FIRE 
-            || obj->otyp == SPE_FIRE_BOLT
-            || obj->otyp == SPE_FLAME_SPHERE
-            || obj->otyp == SPE_FIREBALL)
-            return FALSE;
-        if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
-            if (in_sight)
-                pline("Smoke rises from %s.", the(xname(obj)));
-            return FALSE;
-        }
         dindx = (obj->oclass == SCROLL_CLASS) ? 3 : 4;
         if (in_sight)
             pline("%s %s.", Yname2(obj),
@@ -4112,8 +4085,7 @@ lava_damage(obj, x, y)
 struct obj *obj;
 xchar x, y;
 {
-    int otyp = obj->otyp, ocls = obj->oclass,
-        oart = obj->oartifact;
+    int otyp = obj->otyp, oart = obj->oartifact;
 
     if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
         pline_The("egg starts to hatch!");
@@ -4124,18 +4096,15 @@ xchar x, y;
        (let Book of the Dead fall through to fire_damage() to get feedback) */
     if (obj_resists(obj, 0, 0) && otyp != SPE_BOOK_OF_THE_DEAD)
         return FALSE;
-    /* the artifacts that generate when Vecna is destroyed are never
+    /* the artifacts that generate when quest guardians are destroyed are never
        destroyed by lava */
-    if (oart == ART_EYE_OF_VECNA || oart == ART_HAND_OF_VECNA)
+    if (oart == ART_EYE_OF_THE_BEHOLDER || oart == ART_HAND_OF_VECNA)
         return FALSE;
     /* destroy liquid (venom), wax, veggy, flesh, paper (except for scrolls
        and books--let fire damage deal with them), cloth, leather, wood, bone
        unless it's inherently or explicitly fireproof or contains something;
        note: potions are glass so fall through to fire_damage() and boil */
-    if (obj->material < DRAGON_HIDE
-        && ocls != SCROLL_CLASS && ocls != SPBOOK_CLASS
-        && objects[otyp].oc_oprop != FIRE_RES
-        && otyp != WAN_FIRE && otyp != FIRE_HORN
+    if (is_flammable(obj)
         /* assumes oerodeproof isn't overloaded for some other purpose on
            non-eroding items */
         && !obj->oerodeproof
@@ -4160,10 +4129,11 @@ xchar x, y;
                     losehp(resist_reduce(d(2, 6), FIRE_RES),
                            "dipping a worn object into a forge", KILLED_BY);
                 }
-                pline_The("molten lava in the forge incinerates the %s.",
-                          xname(obj));
+                /* use the() to properly handle artifacts */
+                pline_The("molten lava in the forge incinerates %s.",
+                          the(xname(obj)));
             } else
-                You_see("%s hit lava and burn up!", doname(obj));
+                You_see("%s hit lava and burn up!", the(xname(obj)));
         }
         if (carried(obj)) { /* shouldn't happen */
             remove_worn_item(obj, TRUE);
@@ -4639,7 +4609,8 @@ drown()
     }
 
     if (!u.uinwater) {
-        You("%s into the %s%c", Is_waterlevel(&u.uz) ? "plunge" : "fall",
+        You("%s into the %s%c",
+            (Is_waterlevel(&u.uz) || HWwalking) ? "plunge" : "fall",
             hliquid(!is_sewage(u.ux, u.uy) ? "water" : "sewage"),
             Amphibious || Swimming ? '.' : '!');
         if (!Swimming && !Is_waterlevel(&u.uz))
@@ -5129,7 +5100,7 @@ boolean tele;
             cnv_trap_obj(DWARVISH_SPEAR, 1, ttmp, FALSE);
             break;
         case 4:
-            cnv_trap_obj(WOODEN_STAKE, 1, ttmp, FALSE);
+            cnv_trap_obj(STAKE, 1, ttmp, FALSE);
         }
     } else {
         You("broke the spear during your efforts.");
@@ -5815,7 +5786,8 @@ boolean *noticed; /* set to true iff hero notices the effect; */
     return result;
 }
 
-/* only called when the player is doing something to the chest directly */
+/* only called when the player or monster is doing something
+   to the chest directly */
 boolean
 chest_trap(mon, obj, bodypart, disarm)
 register struct monst *mon;
@@ -5837,8 +5809,8 @@ boolean disarm;
     if (yours)
         You(disarm ? "set it off!" : "trigger a trap!");
     else if (canseemon(mon))
-             pline("%s %s!", Monnam(mon),
-                   disarm ? "sets it off" : "triggers a trap");
+         pline("%s %s!", Monnam(mon),
+               disarm ? "sets it off" : "triggers a trap");
 
     display_nhwindow(WIN_MESSAGE, FALSE);
     if (Luck > -13 && rn2(13 + Luck) > 7) { /* saved by luck */
@@ -5897,11 +5869,13 @@ boolean disarm;
                 pline("%s!", Tobjnam(obj, "explode"));
                 Sprintf(buf, "exploding %s", xname(obj));
             } else if (!Deaf) {
-                       You_hear("a distant explosion.");
+                You_hear("a distant explosion.");
             }
 
             if (costly)
-                loss += stolen_value(obj, ox, oy, (boolean) shkp->mpeaceful, TRUE);
+                loss += stolen_value(obj, ox, oy, (boolean) shkp->mpeaceful,
+                                     TRUE);
+
             delete_contents(obj);
             /* unpunish() in advance if either ball or chain (or both)
                is going to be destroyed */
@@ -5910,8 +5884,6 @@ boolean disarm;
                                  && uball->ox == ox && uball->oy == oy)))
                 unpunish();
 
-            /* destroy everything at the spot (the Amulet, the
-               invocation tools, and Rider corpses will remain intact) */
             for (otmp = level.objects[ox][oy]; otmp; otmp = otmp2) {
                  otmp2 = otmp->nexthere;
                 if (costly)
@@ -5921,9 +5893,8 @@ boolean disarm;
             }
             wake_nearby();
             if (yours) {
-                losehp(d(6, 6), buf, KILLED_BY_AN);
-            losehp(Maybe_Half_Phys(d(6, 6)), buf, KILLED_BY_AN);
-            exercise(A_STR, FALSE);
+                losehp(Maybe_Half_Phys(d(6, 6)), buf, KILLED_BY_AN);
+                exercise(A_STR, FALSE);
                 if (costly && loss) {
                     if (insider)
                         You("owe %ld %s for objects destroyed.", loss,
@@ -5935,13 +5906,12 @@ boolean disarm;
                     }
                 }
             } else {
-                  mon->mhp -= d(6, 6);
-                  if (mon->mhp <= 0) {
-                      if (canseemon(mon)) {
-                          pline("%s is killed by the explosion!", Monnam(mon));
-                      }
-                      mondied(mon);
-                  }
+                mon->mhp -= d(6, 6);
+                if (mon->mhp <= 0) {
+                    if (canseemon(mon))
+                        pline("%s is killed by the explosion!", Monnam(mon));
+                    mondied(mon);
+                }
             }
             return TRUE;
         } /* case 21 */
@@ -5961,8 +5931,7 @@ boolean disarm;
                 mon->mhp -= dmg;
                 if (mon->mhp <= 0) {
                     if (canseemon(mon))
-                        pline("%s is killed!", Monnam(mon));
-                    mondied(mon);
+                        pline("%s is unaffected.", Monnam(mon));
                 }
             }
             break;
@@ -5974,12 +5943,22 @@ boolean disarm;
                 You_feel("a needle prick your %s.", body_part(bodypart));
                 poisoned("needle", A_CON, "poisoned needle", 10, FALSE);
                 exercise(A_CON, FALSE);
-            } else if (!(resists_poison(mon) || defended(mon, AD_DRST))) {
-                int dmg = rnd(10);
-                if (!rn2(10))
-                    dmg = mon->mhp;
-                mon->mhp -= dmg;
-                if (mon->mhp <= 0) {
+            } else {
+                if (canseemon(mon))
+                    pline("A needle pricks %s %s.", s_suffix(mon_nam(mon)),
+                          mbodypart(mon, bodypart));
+                if (!(resists_poison(mon) || defended(mon, AD_DRST))) {
+                    int dmg = rnd(10);
+
+                    if (!rn2(10))
+                        dmg = mon->mhp;
+                    mon->mhp -= dmg;
+                    if (mon->mhp <= 0) {
+                        if (canseemon(mon))
+                            pline("%s is killed!", Monnam(mon));
+                        mondied(mon);
+                    }
+                } else {
                     if (canseemon(mon))
                         pline("%s is killed!", Monnam(mon));
                     mondied(mon);
@@ -6094,9 +6073,16 @@ boolean disarm;
                 } else
                     You("momentarily stiffen.");
             } else {
-                if (mon->mcanmove) {
-                    mon->mcanmove = 0;
-                    mon->mfrozen = d(5, 6);
+                if (has_free_action(mon)) {
+                    if (canseemon(mon))
+                        pline("%s stiffens momentarily.", Monnam(mon));
+                } else {
+                    if (mon->mcanmove) {
+                        if (canseemon(mon))
+                            pline("%s is frozen in place!", Monnam(mon));
+                        mon->mcanmove = 0;
+                        mon->mfrozen = d(5, 6);
+                    }
                 }
             }
             break;
@@ -6495,53 +6481,6 @@ in_hell_effects()
     return FALSE;
 }
 
-/* Also derived from lava_effects(), hero can freeze in
-   the Ice Queen branch without adequate cold resistance */
-static const char in_iceq_killer[] = "freezing to death";
-
-boolean
-in_iceq_effects()
-{
-    int dmg = resist_reduce(d(1, 6), COLD_RES);
-    boolean usurvive, freeze_solid;
-
-    if (likes_iceq(youmonst.data))
-        return FALSE;
-
-    usurvive = how_resistant(COLD_RES) == 100 || (dmg < u.uhp);
-
-    if (how_resistant(COLD_RES) < 100) {
-        if (how_resistant(COLD_RES) >= 50) {
-            if (rn2(3))
-                You("are slowly freezing to death.");
-        } else if (how_resistant(COLD_RES) < 50)
-            You("are freezing to death!");
-        if (usurvive) {
-            losehp(dmg, in_iceq_killer, KILLED_BY);
-            return FALSE;
-        }
-
-        if (wizard)
-            usurvive = TRUE;
-
-        freeze_solid = (u.umonnum == PM_WATER_ELEMENTAL
-                        || u.umonnum == PM_STEAM_VORTEX
-                        || u.umonnum == PM_WATER_TROLL
-                        || u.umonnum == PM_BABY_SEA_DRAGON
-                        || u.umonnum == PM_SEA_DRAGON
-                        || u.umonnum == PM_FOG_CLOUD);
-
-        killer.format = KILLED_BY;
-        Strcpy(killer.name, in_iceq_killer);
-        You("%s...", freeze_solid ? "freeze solid" : "freeze to death");
-        done(DIED);
-
-        return TRUE;
-    }
-
-    return FALSE;
-}
-
 static const char lava_killer[] = "molten lava";
 
 boolean
@@ -6679,7 +6618,8 @@ lava_effects()
     }
 
 burn_stuff:
-    fire_damage_chain(invent, FALSE, FALSE, u.ux, u.uy);
+    if (!EFire_resistance)
+        fire_damage_chain(invent, FALSE, FALSE, u.ux, u.uy);
     return FALSE;
 }
 

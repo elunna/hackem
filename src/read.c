@@ -42,6 +42,7 @@ STATIC_DCL boolean FDECL(get_valid_stinking_cloud_pos, (int, int));
 STATIC_DCL boolean FDECL(is_valid_stinking_cloud_pos, (int, int, BOOLEAN_P));
 STATIC_PTR void FDECL(display_stinking_cloud_positions, (int));
 STATIC_PTR void FDECL(do_flood, (int, int, genericptr_t));
+STATIC_PTR void FDECL(do_iceflood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(undo_flood, (int, int, genericptr_t));
 STATIC_PTR void FDECL(set_lit, (int, int, genericptr));
 STATIC_PTR void specified_id(void);
@@ -242,7 +243,6 @@ char *buf;
         /* more random stuff */
         "Alhoons really suck",
         "I love magic lamp",
-        "The Ice Queen Snow Cone Stand, est. 2020",
         "Cerberus ate my homework",
         "My firstborn for a magic marker",
     };
@@ -1175,6 +1175,8 @@ void
 forget(howmuch)
 int howmuch;
 {
+    int i;
+    
     if (Psychic_resistance) {
         You_feel("something tugging at your thoughts, but it quickly subsides.");
         return;
@@ -1198,7 +1200,7 @@ int howmuch;
         u.uevent.know_horror = 0;
     
     /* Doppelgangers can forget what they have eaten. */
-    for (int i = LOW_PM; i < NUMMONS; i++) {
+    for (i = LOW_PM; i < NUMMONS; i++) {
         if (mvitals[i].eaten && !rn2(3)) {
             mvitals[i].eaten = FALSE;
         }
@@ -1417,7 +1419,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     if (uarm) {
                         struct obj *scales = uarmc;
                         struct obj *armor = uarm;
-
+                        if (armor->oartifact) {
+                            pline("%s refuses to meld into the %s.",
+                                  Yname2(scales), artiname(armor->oartifact));
+                            break;
+                        }
                         pline("%s hardens and melds into your %s%s", Yname2(scales),
                               suit_simple_name(armor),
                               Is_dragon_scaled_armor(armor) ? "." : "!");
@@ -1538,9 +1544,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         /* elven armor vibrates warningly when enchanted beyond a limit */
         special_armor = is_elven_armor(otmp)
-                        || otmp->oartifact == ART_HAND_OF_VECNA
                         || (Role_if(PM_WIZARD) && otmp->otyp == CORNUTHAUM)
-                        || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA);
+                        || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA)
+                        || otmp->oartifact == ART_GRANDMASTER_S_ROBE;
         if (scursed)
             same_color = (otmp->otyp == BLACK_DRAGON_SCALES);
         else
@@ -1553,31 +1559,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         s = scursed ? -otmp->spe : otmp->spe;
         if (s > (special_armor ? 5 : 3) && rn2(s)) {
             otmp->in_use = TRUE;
-            if ((otmp == uarmg) && otmp->oartifact == ART_HAND_OF_VECNA) {
-                /* The Hand of Vecna is 'merged' with the wearer,
-                   it can't be destroyed this way */
-                pline("%s violently %s%s%s for a while, but nothing else happens.",
-                      Yname2(otmp),
-                      otense(otmp, Blind ? "vibrate" : "glow"),
-                      (!Blind && !same_color) ? " " : "",
-                      (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
-                                                                  : NH_SILVER));
-            } else {
-                pline("%s violently %s%s%s for a while, then %s.", Yname2(otmp),
-                      otense(otmp, Blind ? "vibrate" : "glow"),
-                      (!Blind && !same_color) ? " " : "",
-                      (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
-                                                                  : NH_SILVER),
-                      otense(otmp, "evaporate"));
-            }
+            pline("%s violently %s%s%s for a while, then %s.", Yname2(otmp),
+                  otense(otmp, Blind ? "vibrate" : "glow"),
+                  (!Blind && !same_color) ? " " : "",
+                  (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
+                                                              : NH_SILVER),
+                  otense(otmp, "evaporate"));
             if (carried(otmp)) {
-                if ((otmp == uarmg) && otmp->oartifact == ART_HAND_OF_VECNA) {
-                    otmp->in_use = FALSE; /* nothing happens if worn */
-                } else {
-                    remove_worn_item(otmp, FALSE);
-                    useup(otmp);
-                }
-            } else if (mcarried(otmp)) {
+                remove_worn_item(otmp, FALSE);
+                useup(otmp);
+            } else {
                 /* steed barding */
                 m_useup(otmp->ocarry, otmp);
             }
@@ -2126,9 +2117,9 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
         }
         break;
-    case SCR_ANNIHILATION:
+    case SCR_GENOCIDE:
         if (!already_known)
-            You("have found a scroll of annihilation!");
+            You("have found a scroll of genocide!");
         known = TRUE;
         do_genocide((!sobj->cursed) | (2 * !!Confusion),
                     !sobj->blessed);
@@ -2377,12 +2368,19 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("Unfortunately, you can't grasp the details.");
             }
         } else {
+            /* Marauder's Map */
             if (sobj->age > monstermoves) {
                 pline_The("map is hard to see.");
                 nomul(rnd(3));
-                sobj->age += (long) d(3,10);
-            } else sobj->age = monstermoves + (long) d(3,10);
+                sobj->age += (long) d(3, 10);
+            } else if (sobj->blessed && rnl(8) == 0) {
+                sobj->age = monstermoves + (long) d(3, 10);
+                pline_The("map is clear as day!");
+                do_mapping();
+            } else {
+                sobj->age = monstermoves + (long) d(3, 10);
                 do_vicinity_map(sobj);
+            }
         }
         break;
     case SCR_AMNESIA:
@@ -2503,7 +2501,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 }
             /* Attack the player */
             if (!sblessed) {
-                drop_boulder_on_player(confused, !scursed, TRUE, FALSE);
+                drop_boulder_on_player(confused, TRUE, TRUE, FALSE);
             } else if (!nboulders)
                 pline("But nothing else happens.");
         }
@@ -2922,7 +2920,7 @@ int chg; /* recharging */
     case WAN_LIGHTNING:
     case WAN_MAGIC_MISSILE:
     case WAN_POISON_GAS:
-    case WAN_SONICS:
+    case WAN_NOISE:
     case WAN_CORROSION:
         k = 8;
         break;
@@ -3174,12 +3172,12 @@ struct obj *obj;     /* scroll, spellbook (for spell), or wand of light */
 void
 do_genocide(how, only_on_level)
 int how;
-boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
+boolean only_on_level; /**< if TRUE only genocide monsters on current level,
                             not in the complete dungeon */
-/* 0 = no annihilation; create monsters (cursed scroll) */
-/* 1 = normal annihilation */
-/* 3 = forced annihilation of player */
-/* 5 (4 | 1) = normal annihilation from throne */
+/* 0 = no genocide; create monsters (cursed scroll) */
+/* 1 = normal genocide */
+/* 3 = forced genocide of player */
+/* 5 (4 | 1) = normal genocide from throne */
 {
     char buf[BUFSZ] = DUMMY;
     register int i, killplayer = 0;
@@ -3203,10 +3201,10 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
                 pline1(thats_enough_tries);
                 return;
             }
-            getlin("What monster do you want to annihilate? [type the name]",
+            getlin("What monster do you want to genocide? [type the name]",
                    buf);
             (void) mungspaces(buf);
-            /* choosing "none" preserves annihilationless conduct */
+            /* choosing "none" preserves genocideless conduct */
             if (*buf == '\033' || !strcmpi(buf, "none")
                 || !strcmpi(buf, "nothing")) {
                 /* ... but no free pass if cursed */
@@ -3216,39 +3214,9 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
                 return;
             }
 
-            /* Liches and the like are immune to annihilation until Vecna
-               is destroyed */
-            if (!u.uevent.uvecna
-                && (!strcmpi(buf, "lich")
-                    || !strcmpi(buf, "demilich")
-                    || !strcmpi(buf, "master lich")
-                    || !strcmpi(buf, "arch-lich")
-                    || !strcmpi(buf, "arch lich")
-                    || !strcmpi(buf, "alhoon"))) {
-                pline_The("voice of Vecna fills your mind:");
-                verbalize("Thou shalt do no harm to %s whilst I exist!",
-                          makeplural(buf));
-                if (how & ONTHRONE) { /* dark magic causes the throne to burn you */
-                    pline_The("throne glows white hot!");
-                    if (how_resistant(FIRE_RES) == 100) {
-                        shieldeff(u.ux, u.uy);
-                        monstseesu(M_SEEN_FIRE);
-                    } else {
-                        losehp(rnd(3), "sitting on a searing hot throne", KILLED_BY);
-                    }
-                } else { /* the dark magic causes the scroll to burn */
-                    pline("A dark magic catches the scroll on fire and you burn your %s.",
-                          makeplural(body_part(HAND)));
-                    if (how_resistant(FIRE_RES) == 100) {
-                        shieldeff(u.ux, u.uy);
-                        monstseesu(M_SEEN_FIRE);
-                    } else {
-                        losehp(rnd(3), "burning scroll of annihilation", KILLED_BY_AN);
-                    }
-                }
-                return;
-            }
-
+            mndx = name_to_mon(buf);
+            ptr = &mons[mndx];
+            
 #ifdef WIZARD	/* to aid in topology testing; remove pesky monsters */
             if (wizard && buf[0] == '*') {
                 register struct monst *mtmp, *mtmp2;
@@ -3265,15 +3233,13 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             }
 #endif
 
-            mndx = name_to_mon(buf);
             if (mndx == NON_PM || (mvitals[mndx].mvflags & G_GENOD)) {
                 pline("Such creatures %s exist in this world.",
                       (mndx == NON_PM) ? "do not" : "no longer");
                 continue;
             }
-            ptr = &mons[mndx];
             /* Although "genus" is Latin for race, the hero benefits
-             * from both race and role; thus annihilation affects either.
+             * from both race and role; thus genocide affects either.
              */
             if (Your_Own_Role(mndx) || Your_Own_Race(mndx)) {
                 killplayer++;
@@ -3335,29 +3301,14 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
     }
     if (how & REALLY) {
         if (only_on_level) {
-            livelog_printf(LL_GENOCIDE, "annihilated %s on a level in %s",
+            livelog_printf(LL_GENOCIDE, "genocided %s on a level in %s",
                        makeplural(buf), dungeons[u.uz.dnum].dname);
         } else if (num_genocides() == 0) {
-            livelog_printf(LL_CONDUCT | LL_GENOCIDE, "performed %s first annihilation (%s)",
+            livelog_printf(LL_CONDUCT | LL_GENOCIDE, "performed %s first genocide (%s)",
                            uhis(), makeplural(buf));
         } else {
-            livelog_printf(LL_GENOCIDE, "annihilated %s", makeplural(buf));
+            livelog_printf(LL_GENOCIDE, "genocided %s", makeplural(buf));
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         /* setting no-corpse affects wishing and random tin generation */
         if (!only_on_level) { 
@@ -3381,14 +3332,14 @@ boolean only_on_level; /**< if TRUE only annihilate monsters on current level,
             u.uhp = -1;
             if (how & PLAYER) {
                 killer.format = KILLED_BY;
-                Strcpy(killer.name, "annihilation confusion");
+                Strcpy(killer.name, "genocidal confusion");
             } else if (how & ONTHRONE) {
                 /* player selected while on a throne */
                 killer.format = KILLED_BY_AN;
                 Strcpy(killer.name, "imperious order");
             } else { /* selected player deliberately, not confused */
                 killer.format = KILLED_BY_AN;
-                Strcpy(killer.name, "scroll of annihilation");
+                Strcpy(killer.name, "scroll of genocide");
             }
 
             /* Polymorphed characters will die as soon as they're rehumanized.
@@ -3864,25 +3815,26 @@ struct obj **sobjp;
                 You("momentarily feel like your kind has no future.");
                 return;
             }
-            if (sblessed) {
-                mtmp = makemon(&mons[mndx], u.ux, u.uy,
-                               NO_MINVENT | MM_REVIVE | MM_EDOG);
-                initedog(mtmp);
-                u.uconduct.pets++;
-            } else if (scursed) {
-                mtmp = makemon(&mons[mndx], u.ux, u.uy,
-                               NO_MINVENT | MM_REVIVE | MM_ANGRY);
-            } else {
-                mtmp = makemon(&mons[mndx], u.ux, u.uy, NO_MINVENT | MM_REVIVE);
-                mtmp->mpeaceful = 1; 
-            }
+            
+            mtmp = makemon(&mons[mndx], u.ux, u.uy,
+                           sblessed ? (NO_MINVENT | MM_REVIVE | MM_EDOG) 
+                                    : (scursed ? (NO_MINVENT | MM_REVIVE | MM_ANGRY) 
+                                               : NO_MINVENT | MM_REVIVE));
             if (!mtmp) {
                 pline("Never mind.");
                 return;
             }
+            if (sblessed) {
+                initedog(mtmp);
+                u.uconduct.pets++;
+            } else if (!scursed) {
+                mtmp->mpeaceful = 1; 
+            }
+            
             mtmp->mcloned = 1;
             mtmp = christen_monst(mtmp, plname);
-            /* TODO: Match race */
+            if (is_mplayer(mtmp->data))
+                apply_race(mtmp, urace.malenum);
             
             mtmp->m_lev = u.ulevel;
             mtmp->mhpmax = u.uhpmax;
@@ -3919,8 +3871,11 @@ struct obj **sobjp;
         /* beatitude */
         if (scursed) 
             curse(otmp2);
-        else 
+        else {
             otmp2->blessed = otmp->blessed;
+            otmp2->cursed = otmp->cursed;
+        }
+
         /* charge / enchantment */
         if (sblessed) 
             otmp2->spe = otmp->spe;
@@ -3934,9 +3889,17 @@ struct obj **sobjp;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
         otmp2->oprops = otmp->oprops;
-        
+
+        /* For slime mold names */
+        if (otmp->oextra)
+            otmp2->oextra = otmp->oextra;
+        /* but suppressing fruit details leads to "bad fruit #0" */
+        if (otmp2->otyp == SLIME_MOLD)
+            otmp2->spe = context.current_fruit;
+
         /* prevent cloning of the candelabrum yielding a gold candle */
-        if (otmp2->otyp == WAX_CANDLE) otmp2->material = WAX;
+        if (otmp2->otyp == WAX_CANDLE)
+            otmp2->material = WAX;
 
         /* Prevent exploits */
         if (otmp2->otyp == WAN_WISHING) {

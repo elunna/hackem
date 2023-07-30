@@ -756,7 +756,6 @@ boolean
 scrolltele(scroll)
 struct obj *scroll;
 {
-    struct monst *mtmp;
     coord cc;
     boolean result = FALSE; /* don't learn scroll */
 
@@ -767,20 +766,7 @@ struct obj *scroll;
             return TRUE;
         }
     }
-    /* Being in the presence of demon lords/princes can negate
-       teleportation most of the time */
-    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-        if (is_dlord(mtmp->data) && rn2(5)
-            && !wizard) {
-            pline("Demonic forces prevent you from teleporting.");
-            return TRUE;
-        }
-        if (is_dprince(mtmp->data) && rn2(20)
-            && !wizard) {
-            pline("Demonic forces prevent you from teleporting.");
-            return TRUE;
-        }
-    }
+
     /* don't show trap if "Sorry..." */
     if (!Blinded)
         make_blinded(0L, FALSE);
@@ -1075,7 +1061,6 @@ void
 level_tele()
 {
     static const char get_there_from[] = "get there from %s.";
-    struct monst *mtmp;
     register int newlev;
     d_level newlevel;
     const char *escape_by_flying = 0; /* when surviving dest of -N */
@@ -1089,20 +1074,6 @@ level_tele()
         && !wizard) {
         You_feel("very disoriented for a moment.");
         return;
-    }
-    /* Being in the presence of demon lords/princes can negate
-       level teleportation most of the time */
-    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-        if (is_dlord(mtmp->data) && rn2(5)
-            && !wizard) {
-            pline("Demonic forces prevent you from teleporting.");
-            return;
-        }
-        if (is_dprince(mtmp->data) && rn2(20)
-            && !wizard) {
-            pline("Demonic forces prevent you from teleporting.");
-            return;
-        }
     }
     if ((Teleport_control && !Stunned) || wizard) {
         char qbuf[BUFSZ];

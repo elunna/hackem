@@ -1404,8 +1404,6 @@ wiz_map_levltyp(VOID_ARGS)
                 Strcat(dsc, " mazelike");
             if (slev->flags.hellish)
                 Strcat(dsc, " hellish");
-            if (slev->flags.iceq)
-                Strcat(dsc, " Ice Queen branch");
             if (slev->flags.vecnad)
                 Strcat(dsc, " Vecna's branch");
 #if 0
@@ -2142,6 +2140,7 @@ int mode;  /* BASICENLIGHTENMENT | MAGICENLIGHTENMENT (| both) */
 int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
 {
     char buf[BUFSZ], tmpbuf[BUFSZ];
+    int i, cnt = 0;
 
     en_win = create_nhwindow(NHW_MENU);
     en_via_menu = !final;
@@ -2269,34 +2268,17 @@ int final; /* ENL_GAMEINPROGRESS:0, ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD */
     if (Race_if(PM_DOPPELGANGER)) { 
         buf[0] = '\0';
         enlght_out("");
-        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory:");
+        enlght_out_attr(ATR_SUBHEAD, "Eaten Memory (for Doppelganger #youpoly):");
         Strcat(buf, " ");
-        /*you_have(buf, "Eaten memory of these monsters:");*/
-        char full = 0;
-        for (int i = LOW_PM; i < NUMMONS; i++) {
-            if (mvitals[i].eaten) {
-                /*Sprintf(buf, "%s, ", mons[i].mname);*/
 
-                // Check for mname + "..." + '\0'
-                if (BUFSZ < strlen(buf) + strlen(mons[i].mname) + 3 + 1) {
-                    full = 1;
-                    break;
-                }
-                strcat(buf, mons[i].mname);
-                Strcat(buf, ", ");
+        for (i = LOW_PM; i < NUMMONS; i++) {
+            /* Don't list monsters we can't poly into */
+            if (mvitals[i].eaten && polyok(&mons[i])) {
+                cnt++;
+                enlght_out(mons[i].mname);
             }
         }
-        size_t len_buf = strlen(buf);
-        if (len_buf > 3) {
-            if (full) {
-                // Replace ", " with "...\0"
-                buf[len_buf - 2] = buf[len_buf - 1] = buf[len_buf] = '.';
-                buf[len_buf + 1] = '\0';
-            } else {
-                buf[len_buf - 2] = '\0';
-            }
-            enlght_out(buf);
-        } else {
+        if (!cnt) {
             enlght_out("None");
         }
     } 
@@ -2712,15 +2694,9 @@ int mode, final, attrindx;
     case A_STR:
         if (uarmg && uarmg->otyp == GAUNTLETS_OF_POWER && uarmg->cursed)
             hide_innate_value = TRUE;
-        if (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA && uarmg->cursed)
-            hide_innate_value = FALSE;
         if (uwep && uwep->oartifact == ART_GIANTSLAYER && uwep->cursed)
             hide_innate_value = TRUE;
         if (u.twoweap && uswapwep->oartifact == ART_GIANTSLAYER && uswapwep->cursed)
-            hide_innate_value = TRUE;
-        if (uwep && uwep->oartifact == ART_SWORD_OF_KAS && uwep->cursed)
-            hide_innate_value = TRUE;
-        if (u.twoweap && uswapwep->oartifact == ART_SWORD_OF_KAS && uswapwep->cursed)
             hide_innate_value = TRUE;
         break;
     case A_DEX:
@@ -2939,8 +2915,6 @@ int final;
         you_are("hallucinating", from_what(HALLUC));
     if (DeathVision)
         you_are("dealing double damage due to comprehending death", "");
-    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && Withering)
-        you_are("dealing double damage due to the Staff of Rot", "");
     if (Blind) {
         /* from_what() (currently wizard-mode only) checks !haseyes()
            before u.uroleplay.blind, so we should too */
@@ -3387,7 +3361,7 @@ int final;
     if (Sonic_resistance)
         you_are("sonic resistant", from_what(SONIC_RES));
     if (ESonic_resistance)
-        enl_msg("Your items ", "are", "were", " protected from sonics",
+        enl_msg("Your items ", "are", "were", " protected from sonic",
                 from_what(AD_LOUD));
     if (Drain_resistance)
         you_are("level-drain resistant", from_what(DRAIN_RES));
@@ -3395,6 +3369,8 @@ int final;
         you_are("immune to sickness", from_what(SICK_RES));
     if (Stone_resistance)
         you_are("petrification resistant", from_what(STONE_RES));
+    if (Death_resistance)
+        you_are("immune to the effects of death magic", from_what(DEATH_RES));
     if (Halluc_resistance)
         enl_msg(You_, "resist", "resisted", " hallucinations",
                 from_what(HALLUC_RES));
@@ -3627,8 +3603,6 @@ int final;
         you_can("survive without having to eat", "");
     else if (is_vampire(raceptr(&youmonst)))
         you_can("feed on blood and lifeblood", "");
-    if (immune_death_magic(raceptr(&youmonst)))
-        you_are("immune to the effects of death magic", "");
     if (u.uhitinc)
         you_have(enlght_combatinc("to hit", u.uhitinc, final, buf), "");
     if (u.udaminc)
@@ -4005,9 +3979,9 @@ int final;
 
     ngenocided = num_genocides();
     if (ngenocided == 0) {
-        you_have_never("annihilated any monsters");
+        you_have_never("genocided any monsters");
     } else {
-        Sprintf(buf, "annihilated %d type%s of monster%s", ngenocided,
+        Sprintf(buf, "genocided %d type%s of monster%s", ngenocided,
                 plur(ngenocided), plur(ngenocided));
         you_have_X(buf);
     }
@@ -4067,8 +4041,31 @@ int final;
     if (!u.uconduct.pets)
        you_have_never("owned a pet");
     
+    if (!u.uconduct.techuse) {
+       you_have_X("performed no techniques");
+    } else {
+       Sprintf(buf, "performed %ld technique%s", u.uconduct.techuse,
+               (u.uconduct.techuse > 1L) ? "s" : "");
+       you_have_X(buf);
+    }
+    
+    if (!u.uconduct.shk) {
+       you_have_X("had no dealings with shopkeepers");
+    } else {
+       Sprintf(buf, "completed %ld financial transaction%s", u.uconduct.shk,
+               (u.uconduct.shk > 1L) ? "s" : "");
+       you_have_X(buf);
+    }
+    
+    
+    
     if (!u.uconduct.uncelibate)
-        you_have_X("been celibate");
+        you_have_X("remained celibate");
+    else if (wizard) {
+        Sprintf(buf, "your vow of celibacy %ld time%s",
+                u.uconduct.uncelibate, plur(u.uconduct.uncelibate));
+        enl_msg(You_, "have broken ", "broke ", buf, "");
+    }
     
     show_achievements(final);
     
@@ -4128,6 +4125,12 @@ int final;
     if (u.uachieve.killed_medusa)
         enl_msg(You_, "have ", "",
                 "defeated Medusa", ""), ++acnt;
+    if (u.uachieve.killed_nightmare)
+        enl_msg(You_, "have ", "",
+                "defeated Nightmare", ""), ++acnt;
+    if (u.uachieve.killed_beholder)
+        enl_msg(You_, "have ", "",
+                "defeated Beholder", ""), ++acnt;
     if (u.uachieve.killed_cerberus)
         enl_msg(You_, "have ", "",
                 "defeated Cerberus", ""), ++acnt;
@@ -4137,15 +4140,15 @@ int final;
     if (u.uachieve.killed_grund)
         enl_msg(You_, "have ", "",
                 "defeated Grund", ""), ++acnt;
-    if (u.uachieve.defeat_icequeen)
-        enl_msg(You_, "have ", "",
-                "defeated Kathryn the Ice Queen", ""), ++acnt;
     if (u.uachieve.bell)
         enl_msg(You_, "have ", "",
                 "handled the Bell of Opening", ""), ++acnt;
     if (u.uachieve.enter_gehennom)
         enl_msg(You_, "have ", "",
                 "entered Gehennom", ""), ++acnt;
+    if (u.uachieve.unlocked_tower)
+        enl_msg(You_, "have ", "",
+                "unlocked Vlad's Tower", ""), ++acnt;
     if (u.uachieve.menorah)
         enl_msg(You_, "have ", "",
                 "handled the Candelabrum of Invocation", ""), ++acnt;

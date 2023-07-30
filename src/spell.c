@@ -13,10 +13,10 @@
    eligible to reread the spellbook and regain 100% retention (the threshold
    used to be 1000 turns, which was 10% of the original 10000 turn retention
    period but didn't get adjusted when that period got doubled to 20000) */
-#define KEEN            10000
-#define CAST_BOOST 	  500	/* memory increase for successful casting */
-#define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
-#define MAX_KNOW 	70000	/* Absolute Max timeout */
+#define KEEN            20000
+#define CAST_BOOST 	    500	/* memory increase for successful casting */
+#define REINFORCE_BOOST 20000	/* memory increase for reinforce memory */
+#define MAX_KNOW 	    100000	/* Absolute Max timeout */
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
@@ -449,6 +449,7 @@ learn(VOID_ARGS)
         check_unpaid(book);
     context.spbook.book = 0;
     context.spbook.o_id = 0;
+    update_inventory();
     return 0;
 }
 
@@ -1338,14 +1339,17 @@ boolean wiz_cast;
     case SPE_HEALING:
     case SPE_EXTRA_HEALING:
     case SPE_CURE_SICKNESS:
+    case SPE_RESTORE_ABILITY:
     case SPE_DRAIN_LIFE:
     case SPE_STONE_TO_FLESH:
     case SPE_PSIONIC_WAVE:
     case SPE_FIRE_BOLT:
         if (objects[otyp].oc_dir != NODIR) {
-            if (otyp == SPE_HEALING || otyp == SPE_EXTRA_HEALING) {
-                /* healing and extra healing are actually potion effects,
-                   but they've been extended to take a direction like wands */
+            if (otyp == SPE_HEALING || otyp == SPE_EXTRA_HEALING
+                || otyp == SPE_RESTORE_ABILITY) {
+                /* healing/extra healing/restore ability are actually potion
+                   effects, but they've been extended to take a direction
+                   like wands */
                 if (role_skill >= P_SKILLED)
                     pseudo->blessed = 1;
             }
@@ -1402,7 +1406,6 @@ boolean wiz_cast;
     case SPE_DETECT_TREASURE:
     case SPE_DETECT_MONSTERS:
     case SPE_LEVITATION:
-    case SPE_RESTORE_ABILITY:
         /* high skill yields effect equivalent to blessed potion */
         if (role_skill >= P_SKILLED)
             pseudo->blessed = 1;
@@ -2084,13 +2087,18 @@ int spell;
         splcaster += urole.spelarmr;
     else if (uarm && !is_robe(uarm) && uarm->otyp != CRYSTAL_PLATE_MAIL) 
         splcaster += 5;
-    else if (uarm && uarm->otyp == ROBE_OF_POWER)
+    else if (uarm && uarm->otyp == ROBE_OF_POWER) {
         splcaster -= urole.spelarmr;
+
+        if (uarm && uarm->oartifact == ART_GRANDMASTER_S_ROBE)
+            splcaster -= urole.spelarmr;
+    }
     
     if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
 
-    if (uarmh && is_metallic(uarmh) && uarmh->otyp != HELM_OF_BRILLIANCE && !paladin_bonus)
+    if (uarmh && is_metallic(uarmh)
+        && uarmh->otyp != HELM_OF_BRILLIANCE && !paladin_bonus)
         splcaster += uarmhbon;
     if (uarmg && is_metallic(uarmg) && !paladin_bonus)
         splcaster += uarmgbon;
@@ -2437,6 +2445,32 @@ cast_sphere(short otyp)
             else
                 mtmp->msummoned = rnd(50) + 50;
             mtmp->uexp = 1;
+        }
+    }
+}
+
+void
+dump_spells()
+{
+    int i;
+    char buf[BUFSZ];
+
+    if (spellid(0) == NO_SPELL) {
+        putstr(0, 0, "You didn't know any spells.");
+        return;
+    } else {
+        putstr(0, ATR_HEADING, "Spells known:");
+        Sprintf(buf, " %-20s     Level  %-12s Fail  Retention", "    Name", "Category");
+        putstr(0, ATR_PREFORM, buf);
+
+        for (i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++) {
+            Sprintf(buf, " %c - %-20s  %2d%s   %-12s %3d%%" "       %3d%%",
+                    spellet(i), spellname(i), spellev(i),
+                    (spellknow(i) > 1000) ? " " : (spellknow(i) ? "!" : "*"),
+                    spelltypemnemonic(spell_skilltype(spellid(i))),
+                    100 - percent_success(i),
+                    (spellknow(i) * 100 + (KEEN - 1)) / KEEN);
+            putstr(0, ATR_PREFORM, buf);
         }
     }
 }

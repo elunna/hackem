@@ -86,7 +86,7 @@ boolean
 poly_when_stoned(ptr)
 struct permonst *ptr;
 {
-    /* non-stone golems turn into stone golems unless latter is annihilated */
+    /* non-stone golems turn into stone golems unless latter is genocided */
     return (boolean) (is_golem(ptr) && ptr != &mons[PM_STONE_GOLEM]
                       && !(mvitals[PM_STONE_GOLEM].mvflags & G_GENOD));
     /* allow G_EXTINCT */
@@ -111,7 +111,7 @@ int adtyp;
     /* if 'mon' is an adult dragon, treat it as if it was wearing scales
        so that it has the same benefit as a hero wearing dragon scales */
     mndx = monsndx(mon->data);
-    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_YELLOW_DRAGON) {
+    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_CELESTIAL_DRAGON) {
         /* a dragon is its own suit...  if mon is poly'd hero, we don't
            care about embedded scales (uskin) because being a dragon with
            embedded scales is no better than just being a dragon */
@@ -142,7 +142,7 @@ struct monst *mon;
     long slotmask;
 
     if (resists_drain(ptr) || is_vampshifter(mon)
-        || (mon == &youmonst && u.ulycn >= LOW_PM))
+        || (mon == &youmonst && (u.ulycn >= LOW_PM || Invulnerable)))
         return TRUE;
     armor = (mon == &youmonst) ? invent : mon->minvent;
     slotmask = W_ARMOR | W_ACCESSORY;
@@ -463,7 +463,7 @@ boolean
 mon_hates_light(mon)
 struct monst *mon;
 {
-    return (boolean) (hates_light(mon->data));
+    return (boolean) (hates_light(r_data(mon)));
 }
 
 /* True iff the type of monster pass through iron bars */
@@ -937,6 +937,7 @@ unsigned mhflag;
         "ogre",
         "troll",
         "gnoll",
+        "spider",
         "jabberwock"
     };
     return mrnames[mhflag];
@@ -995,19 +996,14 @@ const char *in_str;
     /* nobles and royalty */
     if (slen > 5 && (s = strstri(term - 5, " lady")) != 0)
         Strcpy(term - 4, "lord");
-#if 0
     else if (slen > 5 && (s = strstri(term - 5, " lord")) != 0)
         Strcpy(term - 4, "noble");
-#endif
-    else if (slen > 6 && (s = strstri(term - 6, " queen")) != 0
-             && strncmpi(str, "kathryn ", 8))
+    else if (slen > 6 && (s = strstri(term - 6, " queen")) != 0)
         Strcpy(term - 5, "king");
-#if 0
     else if (slen > 5 && (s = strstri(term - 5, " king")) != 0
              && strncmpi(str, "rat ", 4) 
-            && && strncmpi(str, "grund the orc ", 14))
+             && strncmpi(str, "grund the orc ", 14))
         Strcpy(term - 4, "royal");
-#endif
     /* be careful with "ies"; "priest", "zombies" */
     else if (slen > 3 && !strcmpi(term - 3, "ies")
              && (slen < 7 || strcmpi(term - 7, "zombies")))
@@ -1042,7 +1038,7 @@ const char *in_str;
             { "master of assassin", PM_MASTER_ASSASSIN },
             /* Outdated names */
             { "invisible stalker", PM_STALKER },
-            { "high-elf", PM_ELVENKING }, /* PM_HIGH_ELF is obsolete */
+            { "high-elf", PM_ELVEN_ROYAL }, /* PM_HIGH_ELF is obsolete */
             /* other misspellings or incorrect words */
             { "wood-elf", PM_WOODLAND_ELF },
             { "wood elf", PM_WOODLAND_ELF },
@@ -1113,7 +1109,7 @@ const char *in_str;
     return mntmp;
 }
 
-/* monster class from user input; used for annihilation and controlled polymorph;
+/* monster class from user input; used for genocide and controlled polymorph;
    returns 0 rather than MAXMCLASSES if no match is found */
 int
 name_to_monclass(in_str, mndx_p)
@@ -1263,16 +1259,16 @@ static const short grownups[][2] = {
     { PM_LARGE_CAT, PM_FAT_CAT },
     { PM_PONY, PM_HORSE },
     { PM_HORSE, PM_WARHORSE },
-    { PM_LESSER_NIGHTMARE, PM_NIGHTMARE },
-    { PM_NIGHTMARE, PM_CAUCHEMAR },
+    { PM_LESSER_NIGHTMARE, PM_GREATER_NIGHTMARE },
+    { PM_GREATER_NIGHTMARE, PM_CAUCHEMAR },
     { PM_PEGASUS, PM_GREATER_PEGASUS },
     { PM_KOBOLD, PM_LARGE_KOBOLD },
-    { PM_LARGE_KOBOLD, PM_KOBOLD_LORD },
-    { PM_ROCK_GNOME, PM_GNOME_LORD },
-    { PM_GNOME_LORD, PM_GNOME_WARRIOR },
-    { PM_GNOME_WARRIOR, PM_GNOME_KING },
-    { PM_MOUNTAIN_DWARF, PM_DWARF_LORD },
-    { PM_DWARF_LORD, PM_DWARF_KING },
+    { PM_LARGE_KOBOLD, PM_KOBOLD_NOBLE },
+    { PM_ROCK_GNOME, PM_GNOME_NOBLE },
+    { PM_GNOME_NOBLE, PM_GNOME_WARRIOR },
+    { PM_GNOME_WARRIOR, PM_GNOME_ROYAL },
+    { PM_MOUNTAIN_DWARF, PM_DWARF_NOBLE },
+    { PM_DWARF_NOBLE, PM_DWARF_ROYAL },
     /* { PM_GNOLL, PM_GNOLL_HUNTER },
     { PM_GNOLL_HUNTER, PM_FLIND }, */
     { PM_GNOLL, PM_GNOLL_WARRIOR}, 
@@ -1287,18 +1283,18 @@ static const short grownups[][2] = {
     { PM_LESSER_HOMUNCULUS, PM_HOMUNCULUS },
     { PM_HOMUNCULUS, PM_GREATER_HOMUNCULUS },
     { PM_CAVE_SPIDER, PM_GIANT_SPIDER },
-    { PM_OGRE, PM_OGRE_LORD },
-    { PM_OGRE_LORD, PM_OGRE_KING },
-    { PM_WOODLAND_ELF, PM_ELF_LORD },
-    { PM_GREEN_ELF, PM_ELF_LORD },
-    { PM_GREY_ELF, PM_ELF_LORD },
-    { PM_ELF_LORD, PM_ELVENKING },
+    { PM_OGRE, PM_OGRE_NOBLE },
+    { PM_OGRE_NOBLE, PM_OGRE_ROYAL },
+    { PM_WOODLAND_ELF, PM_ELVEN_NOBLE },
+    { PM_GREEN_ELF, PM_ELVEN_NOBLE },
+    { PM_GREY_ELF, PM_ELVEN_NOBLE },
+    { PM_ELVEN_NOBLE, PM_ELVEN_ROYAL },
     { PM_LICH, PM_DEMILICH },
     { PM_DEMILICH, PM_MASTER_LICH },
     { PM_MASTER_LICH, PM_ARCH_LICH },
-    { PM_VAMPIRE, PM_VAMPIRE_LORD },
-    { PM_VAMPIRE_LORD, PM_VAMPIRE_KING },
-    { PM_VAMPIRE_KING, PM_VAMPIRE_MAGE },
+    { PM_VAMPIRE, PM_VAMPIRE_NOBLE },
+    { PM_VAMPIRE_NOBLE, PM_VAMPIRE_ROYAL },
+    { PM_VAMPIRE_ROYAL, PM_VAMPIRE_MAGE },
     { PM_BAT, PM_GIANT_BAT },
     { PM_BABY_GRAY_DRAGON, PM_GRAY_DRAGON },
     { PM_BABY_SILVER_DRAGON, PM_SILVER_DRAGON },
@@ -1313,6 +1309,7 @@ static const short grownups[][2] = {
     { PM_BABY_GOLD_DRAGON, PM_GOLD_DRAGON },
     { PM_BABY_SEA_DRAGON, PM_SEA_DRAGON },
     { PM_BABY_YELLOW_DRAGON, PM_YELLOW_DRAGON },
+    { PM_BABY_CELESTIAL_DRAGON, PM_CELESTIAL_DRAGON },
     { PM_PSEUDODRAGON, PM_ELDER_PSEUDODRAGON },
     { PM_ELDER_PSEUDODRAGON, PM_ANCIENT_PSEUDODRAGON },
     { PM_RED_NAGA_HATCHLING, PM_RED_NAGA },
@@ -1536,7 +1533,6 @@ enum on_fire_types attktype;
         break;
     case PM_ICE_VORTEX:
     case PM_SNOW_GOLEM:
-    case PM_ABOMINABLE_SNOWMAN:
     case PM_FREEZING_SPHERE:
         /* Melts and then boils away or evaporates. */    
         switch (attktype) {

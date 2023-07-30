@@ -76,6 +76,7 @@ int distance;
             else if (distm < distance / 3
                      && !resist(mtmp, TOOL_CLASS, 0, NOTELL)
                      /* some monsters are immune */
+                     && !is_elemental(mtmp->data)
                      && onscary(0, 0, mtmp))
                 monflee(mtmp, 0, FALSE, TRUE);
         }
@@ -653,7 +654,7 @@ struct obj *instr;
         break;
     case FIRE_HORN:  /* Idem wand of fire */
     case FROST_HORN: /* Idem wand of cold */
-    case HORN_OF_BLASTING: /* Idem wand of sonics */
+    case HORN_OF_BLASTING: /* Idem wand of noise */
         consume_obj_charge(instr, TRUE);
 
         if (!getdir((char *) 0)) {

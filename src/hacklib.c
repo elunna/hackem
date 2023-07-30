@@ -66,7 +66,6 @@
         boolean         friday_13th     (void)
         int             night           (void)
         int             midnight        (void)
-        boolean         kathryn_bday    (void)
         void            strbuf_init     (strbuf *, const char *)
         void            strbuf_append   (strbuf *, const char *)
         void            strbuf_reserve  (strbuf *, int)
@@ -1175,10 +1174,27 @@ midnight()
     return (getlt()->tm_hour == 0);
 }
 
-boolean
-kathryn_bday()
+static char buf_fmt_duration[BUFSZ];
+/* Returns a iso-8601 formatted duration (e.g. hh:mm:ss) */
+char *
+iso8601_duration(long int seconds)
 {
-    return (boolean) ((getmday() == 12) && (getmonth() == 2));
+    /* currently no days, months and years, as the conversion
+     * is non-trivial */
+    long minutes = seconds / 60;
+    long hours = minutes / 60;
+    long days = hours / 24;
+
+    if (days > 0) {
+        /* dddhh:mm:ss */
+        sprintf(buf_fmt_duration, "%02ldd%02ld:%02ld:%02ld",
+                days, hours % 24, minutes % 60, seconds % 60);
+    } else {
+        /* hh:mm:ss */
+        sprintf(buf_fmt_duration, "%02ldh:%02ldm:%02lds",
+                hours, minutes % 60, seconds % 60);
+    }
+    return buf_fmt_duration;
 }
 
 /* strbuf_init() initializes strbuf state for use */

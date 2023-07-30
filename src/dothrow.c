@@ -11,13 +11,16 @@ STATIC_DCL int FDECL(throw_obj, (struct obj *, int));
 STATIC_DCL boolean FDECL(ok_to_throw, (int *));
 STATIC_DCL void NDECL(autoquiver);
 STATIC_DCL int FDECL(gem_accept, (struct monst *, struct obj *));
+static boolean harmless_missile(struct obj *);
+static boolean toss_up(struct obj *, BOOLEAN_P);
+static void sho_obj_return_to_u(struct obj * obj);
+static struct obj *return_throw_to_inv(struct obj *, long, boolean,
+                                       struct obj *);
 STATIC_DCL void FDECL(tmiss, (struct obj *, struct monst *, BOOLEAN_P));
 STATIC_DCL int FDECL(throw_gold, (struct obj *));
 STATIC_DCL void FDECL(check_shop_obj, (struct obj *, XCHAR_P, XCHAR_P,
                                        BOOLEAN_P));
 static boolean harmless_missile(struct obj *);
-STATIC_DCL boolean FDECL(toss_up, (struct obj *, BOOLEAN_P));
-STATIC_DCL void FDECL(sho_obj_return_to_u, (struct obj * obj));
 STATIC_DCL boolean FDECL(mhurtle_step, (genericptr_t, int, int));
 
 /* uwep might already be removed from inventory so test for W_WEP instead;
@@ -45,7 +48,7 @@ throw_obj(obj, shotlimit)
 struct obj *obj;
 int shotlimit;
 {
-    struct obj *otmp;
+    struct obj *otmp, *oldslot;
     int multishot;
     schar skill;
     long wep_mask;
@@ -288,7 +291,9 @@ int shotlimit;
     m_shot.s = ammo_and_launcher(obj, uwep) ? TRUE : FALSE;
     /* give a message if shooting more than one, or if player
        attempted to specify a count */
-    if (multishot > 1 || shotlimit > 0) {
+    if (obj->oartifact == ART_WINDRIDER) {
+        You("throw the %s.", distant_name(obj, xname));
+    } else if (multishot > 1 || shotlimit > 0) {
         /* "You shoot N arrows." or "You throw N daggers." */
         You("%s %d %s.", m_shot.s ? "shoot" : "throw",
             multishot, /* (might be 1 if player gave shotlimit) */
@@ -296,6 +301,7 @@ int shotlimit;
     }
 
     wep_mask = obj->owornmask;
+    oldslot = 0;
     m_shot.o = obj->otyp;
     m_shot.n = multishot;
     ammo_stack = obj;
@@ -308,9 +314,10 @@ int shotlimit;
             otmp = obj;
             if (otmp->owornmask)
                 remove_worn_item(otmp, FALSE);
+            oldslot = obj->nobj;
         }
         freeinv(otmp);
-        throwit(otmp, wep_mask, twoweap);
+        throwit(otmp, wep_mask, twoweap, oldslot);
     }
     ammo_stack = (struct obj *) 0;
     m_shot.n = m_shot.i = 0;
@@ -902,6 +909,25 @@ int x, y;
     return TRUE;
 }
 
+/* used by mhurtle_step() for actual hurtling and also to vary message
+   if target will/won't change location when knocked back */
+boolean
+will_hurtle(mon, x, y)
+struct monst *mon;
+xchar x, y;
+{
+    if (!isok(x, y))
+        return FALSE;
+    /* redundant when called by mhurtle() */
+    if (r_data(mon)->msize >= MZ_HUGE || mon == u.ustuck || mon->mtrapped)
+        return FALSE;
+    /*
+     * TODO: Treat walls, doors, iron bars, etc. specially
+     * rather than just stopping before.
+     */
+    return goodpos(x, y, mon, MM_IGNOREWATER | MM_IGNORELAVA | MM_IGNOREAIR);
+}
+
 STATIC_OVL boolean
 mhurtle_step(arg, x, y)
 genericptr_t arg;
@@ -910,14 +936,10 @@ int x, y;
     struct monst *mon = (struct monst *) arg;
     struct monst *mtmp;
 
-    /* TODO: Treat walls, doors, iron bars, etc. specially
-     * rather than just stopping before.
-     */
     if (!isok(x, y))
         return FALSE;
 
-    if (goodpos(x, y, mon, MM_IGNOREWATER | MM_IGNORELAVA | MM_IGNOREAIR)
-        && m_in_out_region(mon, x, y)) {
+    if (will_hurtle(mon, x, y) && m_in_out_region(mon, x, y)) {
         int res;
 
         remove_monster(mon->mx, mon->my);
@@ -925,31 +947,53 @@ int x, y;
         place_monster(mon, x, y);
         maybe_unhide_at(mon->mx, mon->my);
         newsym(mon->mx, mon->my);
+
+        flush_screen(1);
+        delay_output();
         set_apparxy(mon);
         if (Is_waterlevel(&u.uz) && levl[x][y].typ == WATER)
             return FALSE;
         res = mintrap(mon);
         if (res == 1 || res == 2)
             return FALSE;
-
-        flush_screen(1);
-        delay_output();
         return TRUE;
     }
-    if ((mtmp = m_at(x, y)) != 0) {
+    if ((mtmp = m_at(x, y)) != 0  && mtmp != mon) {
         if (canseemon(mon) || canseemon(mtmp))
             pline("%s bumps into %s.", Monnam(mon), a_monnam(mtmp));
-        wakeup(mon, !context.mon_moving);
         wakeup(mtmp, !context.mon_moving);
+        /* check whether 'mon' is turned to stone by touching 'mtmp' */
         if (touch_petrifies(mtmp->data)
             && !which_armor(mon, W_ARMU | W_ARM | W_ARMC)) {
             minstapetrify(mon, !context.mon_moving);
             newsym(mon->mx, mon->my);
         }
+        /* and whether 'mtmp' is turned to stone by being touched by 'mon' */
         if (touch_petrifies(mon->data)
             && !which_armor(mtmp, W_ARMU | W_ARM | W_ARMC)) {
             minstapetrify(mtmp, !context.mon_moving);
             newsym(mtmp->mx, mtmp->my);
+        }
+    } else if (x == u.ux && y == u.uy) {
+        /* a monster has caused 'mon' to hurtle against hero */
+        pline("%s bumps into you.", Monnam(mon));
+        stop_occupation();
+        /* check whether 'mon' is turned to stone by touching poly'd hero */
+        if (Upolyd && touch_petrifies(youmonst.data)
+            && !which_armor(mon, W_ARMU | W_ARM | W_ARMC)) {
+            /* give poly'd hero credit/blame despite a monster causing it */
+            minstapetrify(mon, TRUE);
+            newsym(mon->mx, mon->my);
+        }
+        /* and whether hero is turned to stone by being touched by 'mon' */
+        if (touch_petrifies(mon->data) && !(uarmu || uarm || uarmc)) {
+            Sprintf(killer.name, "being hit by %s",
+                    /* combine m_monnam() and noname_monnam():
+                       "{your,a} hurtling cockatrice" w/o assigned name */
+                    x_monnam(mon, mon->mtame ? ARTICLE_YOUR : ARTICLE_A,
+                             "hurtling", EXACT_NAME | SUPPRESS_NAME, FALSE));
+            instapetrify(killer.name);
+            newsym(u.ux, u.uy);
         }
     }
 
@@ -1040,6 +1084,7 @@ int dx, dy, range;
 {
     coord mc, cc;
 
+    wakeup(mon, !context.mon_moving);
     /* At the very least, debilitate the monster */
     mon->movement = 0;
     mon->mstun = 1;
@@ -1068,7 +1113,12 @@ int dx, dy, range;
     cc.x = mon->mx + (dx * range);
     cc.y = mon->my + (dy * range);
     (void) walk_path(&mc, &cc, mhurtle_step, (genericptr_t) mon);
-    (void) minliquid(mon);
+    if (!DEADMONSTER(mon)) {
+        if (t_at(mon->mx, mon->my))
+            (void) mintrap(mon);
+        else
+            (void) minliquid(mon);
+    }
     return;
 }
 
@@ -1343,18 +1393,22 @@ struct obj *obj;
 
 /* throw an object, NB: obj may be consumed in the process */
 void
-throwit(obj, wep_mask, twoweap)
+throwit(obj, wep_mask, twoweap, oldslot)
 struct obj *obj;
 long wep_mask; /* used to re-equip returning boomerang */
 boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
+struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 {
     register struct monst *mon;
     int range, urange;
-    boolean crossbowing, gunning, clear_thrownobj = FALSE,
+    boolean crossbowing, gunning, boomeranging, clear_thrownobj,
             impaired = (Confusion || Stunned || Blind
                         || Hallucination || Fumbling || Afraid),
             tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-    /* 5lo: This gets used a lot, so put it here 
+    
+    crossbowing = gunning = boomeranging = clear_thrownobj = FALSE;
+    
+    /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from
      * the Jedi's primary hand. Otherwise we run into issues later when re-
      * wielding with wielding-artifact.
@@ -1469,23 +1523,14 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                aklys must be wielded as primary to return when thrown */
             && iflags.returning_missile
             && !impaired) {
-            pline("%s the %s and returns to your hand!", Tobjnam(obj, "hit"),
-                  ceiling(u.ux, u.uy));
-            obj = addinv(obj);
-            (void) encumber_msg();
-            if (obj->owornmask & W_QUIVER) /* in case addinv() autoquivered */
-                setuqwep((struct obj *) 0);
-            setuwep(obj);
-            u.twoweap = twoweap;
+            pline("%s the %s and returns to your %s!", Tobjnam(obj, "hit"),
+                  ceiling(u.ux, u.uy), body_part(HAND));
+            obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
+
         } else if (u.dz < 0 && jedi_forcethrow) {
             pline("%s the %s and returns to your hand!",
                   Tobjnam(obj, "hit"), ceiling(u.ux,u.uy));
-            obj = addinv(obj);
-            (void) encumber_msg();
-            if (obj->owornmask & W_QUIVER) /* in case addinv() autoquivered */
-                setuqwep((struct obj *) 0);
-            setuwep(obj);
-            u.twoweap = twoweap;
+            obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
             /*return;*/
         } else if (u.dz < 0) {
             (void) toss_up(obj, rn2(5) && !Underwater);
@@ -1501,27 +1546,20 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         goto throwit_return;
 
     } else if ((obj->otyp == BOOMERANG || obj->otyp == CHAKRAM) && !Underwater) {
+        boomeranging = TRUE;
         if (Is_airlevel(&u.uz) || Levitation)
             hurtle(-u.dx, -u.dy, 1, TRUE);
-        
-        /* Boomerang doesn't return if it hits monster, 
-         * chakrams will return (they slice through their targets) */
-        if (obj->otyp != CHAKRAM)
-            iflags.returning_missile = 0;
 
         mon = boomhit(obj, u.dx, u.dy);
+        iflags.returning_missile = 0; /* has returned or isn't going to */
+
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
-            obj = addinv(obj);
-            (void) encumber_msg();
-            if (wep_mask && !(obj->owornmask & wep_mask)) {
-                setworn(obj, wep_mask);
-                /* moot; can no longer two-weapon with missile(s) */
-                u.twoweap = twoweap;
-            }
+            obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
             clear_thrownobj = TRUE;
             goto throwit_return;
         }
+
     } else {
         /* crossbow range is independent of strength */
         crossbowing = (ammo_and_launcher(obj, uwep)
@@ -1532,6 +1570,12 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             pline("The quivered ammo doesn't fit the firearm.");
             gunning = FALSE;
         }
+        if (gunning && !objects[uwep->otyp].oc_name_known) {
+            if (!Deaf)
+                pline("Boom!");
+            makeknown_msg(uwep->otyp);
+        }
+
         urange = (crossbowing ? 18 : (int) ACURRSTR) / 2;
 
         /* hard limit this so crossbows will fire further
@@ -1592,10 +1636,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
             } else if (obj->oclass != GEM_CLASS)
                 range /= 2;
         }
-
-        if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
-            range += 2; /* Small bonus for snowball spell */
-        }
+        
         if (Is_airlevel(&u.uz) || Levitation) {
             /* action, reaction... */
             urange -= range;
@@ -1617,8 +1658,18 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         else if (obj == uball && u.utrap && u.utraptype == TT_INFLOOR)
             range = 1;
 
-        if (Underwater)
-            range = 1;
+        if (Underwater) {
+            if (rn2(5)) {
+                pline("Water turbulence prevents the %s from %s.",
+                      simpleonames(obj),
+                      ammo_and_launcher(obj, uwep) ? "firing" : "being thrown");
+                if (!iflags.returning_missile)
+                    pline("It drifts down to your %s.", makeplural(body_part(FOOT)));
+                range = 0;
+            } else {
+                range = 1;
+            }
+        }
 
         mon = bhit(u.dx, u.dy, range,
                    tethered_weapon ? THROWN_TETHERED_WEAPON : THROWN_WEAPON,
@@ -1640,7 +1691,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
         }
     }
 
-    if (mon) {
+    if (mon && !boomeranging) {
         boolean obj_gone;
 
         if (mon->isshk && obj->where == OBJ_MINVENT && obj->ocarry == mon) {
@@ -1704,8 +1755,10 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
                         sho_obj_return_to_u(obj); /* display its flight */
 
                     if (!impaired && rn2(100)) {
-                        pline("%s to your hand!", Tobjnam(obj, "return"));
-                        obj = addinv(obj);
+                        if (range > 0)
+                            pline("%s to your %s!", Tobjnam(obj, "return"),
+                                  body_part(HAND));
+                        obj = addinv_before(obj, oldslot);
                         (void) encumber_msg();
                         /* addinv autoquivers an aklys if quiver is empty;
                            if obj is quivered, remove it before wielding */
@@ -1832,6 +1885,66 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
     if (clear_thrownobj)
         thrownobj = (struct obj *) 0;
     return;
+}
+
+/* handle a throw-and-return missile coming back into inventory; makes sure
+   that if it was wielded, it will be re-wielded; if it was split off of a
+   stack (boomerang), don't let it merge with a different compatible stack */
+static struct obj *
+return_throw_to_inv(
+    struct obj *obj,        /* object to add to invent */
+    long wep_mask,          /* its owornmask before it was removed from invent */
+    boolean twoweap,        /* True if hero was dual-wielding before removal */
+    struct obj *oldslot)    /* following item in invent in case of '!fixinv' */
+{
+    struct obj *otmp = NULL;
+
+    /* if 'obj' is from a stack split, we can put it back by undoing split
+       so there's no chance of merging with some other compatable stack */
+    if (obj->o_id == context.objsplit.parent_oid
+        || obj->o_id == context.objsplit.child_oid) {
+        obj->nobj = invent;
+        invent = obj;
+        obj->where = OBJ_INVENT;
+        otmp = unsplitobj(obj);
+        if (!otmp) {
+            invent = obj->nobj;
+            obj->nobj = 0;
+            obj->where = OBJ_FREE;
+        } else {
+            obj = otmp;
+        }
+    }
+
+    /* if 'obj' wasn't from a stack split or if it wouldn't merge back
+       (maybe new erosion damage?) then it needs to be added to invent;
+       don't merge with any other stack even if there is a compatable one
+       (others with similar erosion?) */
+    if (!otmp) {
+        obj->nomerge = 1;
+        obj = addinv_before(obj, oldslot);
+        obj->nomerge = 0;
+
+        /* in case addinv() autoquivered */
+        if ((obj->owornmask & W_QUIVER) != 0
+            && ((obj->owornmask | wep_mask) & (W_WEP | W_SWAPWEP)) != 0)
+            setuqwep((struct obj *) 0);
+
+        if ((wep_mask & W_WEP) && !uwep)
+            setuwep(obj);
+        else if ((wep_mask & W_SWAPWEP) && !uswapwep)
+            setuswapwep(obj);
+        else if ((wep_mask & W_QUIVER) && !uquiver)
+            setuqwep(obj);
+
+        /* in case the throw ended dual-wielding, reinstate it after
+           successful catch (not needed for boomerang split/unsplit) */
+        if (twoweap && !u.twoweap)
+            u.twoweap = twoweap;
+    }
+
+    (void) encumber_msg();
+    return obj;
 }
 
 /* an object may hit a monster; various factors adjust chance of hitting */
@@ -1981,7 +2094,6 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         case GAUNTLETS_OF_SWIMMING:
         case ROGUES_GLOVES:
         case GLOVES:
-        case MUMMIFIED_HAND: /* the Hand of Vecna */
             break;
         case GAUNTLETS_OF_DEXTERITY: /* these gloves were made with archers in mind */
             tmp += 1;
@@ -1990,11 +2102,6 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             impossible("Unknown type of gloves (%d)", uarmg->otyp);
             break;
         }
-    }
-    if (obj->otyp == SNOWBALL && Role_if(PM_ICE_MAGE)) {
-        /* This is needed because otherwise we miss way too much */
-        if (P_SKILL(P_MATTER_SPELL) >= P_BASIC) 
-            tmp += 14;
     }
     if (obj->otyp == SPIKE)
         tmp += 5;  /* For when we are poly'd into a manticore */
@@ -2623,6 +2730,7 @@ struct obj *obj;
     case SHOTGUN_SHELL:
     case SNOWBALL:
     case SPRIG_OF_CATNIP:
+    case SPIKE:
     /* In Splice the lash breaks upon throwing, not sure why but we'll leave it. */
     case FLAMING_LASH: 
         return 1;
@@ -2693,6 +2801,9 @@ boolean in_view;
         break;
     case SNOWBALL:
         pline("Thwap!");
+        break;
+    case SPIKE:
+        /* No message needed */
         break;
     }
 }
@@ -2799,7 +2910,7 @@ struct obj *obj;
         /* see if the gold has a place to move into */
         odx = u.ux + u.dx;
         ody = u.uy + u.dy;
-        if (!ZAP_POS(levl[odx][ody].typ) || closed_door(odx, ody)) {
+        if (isok(odx, ody) && (!ZAP_POS(levl[odx][ody].typ) || closed_door(odx, ody))) {
             bhitpos.x = u.ux;
             bhitpos.y = u.uy;
         } else {

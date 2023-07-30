@@ -83,6 +83,7 @@
 #define MR2_TELEPATHY   0x00010000L /* telepathic */
 #define MR2_JUMPING     0x00020000L /* can jump */
 #define MR2_REFLECTION  0x00040000L /* has reflection */
+#define MR2_FREE_ACTION 0x00080000L /* has free action */
 
 #define M1_FLY          0x00000001L /* can fly or float */
 #define M1_SWIM         0x00000002L /* can traverse water */
@@ -130,6 +131,7 @@
 #define M2_MINION       0x00001000L /* is a minion of a deity */
 #define M2_MERC         0x00002000L /* is a guard or soldier */
 #define M2_SHAPESHIFTER 0x00004000L /* is a shapeshifting species */
+#define M2_FLANK        0x00008000L /* will attempt to outflank the player */
 #define M2_MALE         0x00010000L /* always male */
 #define M2_FEMALE       0x00020000L /* always female */
 #define M2_NEUTER       0x00040000L /* neither male nor female */
@@ -145,7 +147,7 @@
 #define M2_GREEDY       0x10000000L /* likes gold */
 #define M2_JEWELS       0x20000000L /* likes gems */
 #define M2_COLLECT      0x40000000L /* picks up weapons and food */
-#define M2_FLANK        0x80000000L /* will attempt to outflank the player */
+
 
 #ifdef NHSTDC
 #define M2_MAGIC        0x80000000UL /* picks up magic items */
@@ -173,10 +175,8 @@
 #define M3_SKITTISH     0x0800 /* tends to stay a few squares away from you */
 #define M3_ACCURATE     0x1000 /* gets an accuracy bonus to hit */
 #define M3_BERSERK      0x2000 /* extremely indiscriminate in its attacks */
-
-/* [DS] Lethe */
-#define M3_TRAITOR	0x4000			/* Capable of treachery */
-#define M3_NOTAME	0x8000			/* Cannot be tamed */
+#define M3_TRAITOR	    0x4000			/* Capable of treachery */
+#define M3_NOTAME	    0x8000			/* Cannot be tamed */
 
 #define M4_VULNERABLE_FIRE 0x0001 /* inherent elemental vulnerabilities */
 #define M4_VULNERABLE_COLD 0x0002
@@ -214,12 +214,13 @@
 #define MH_OGRE         0x00020000L
 #define MH_TROLL        0x00040000L
 #define MH_GNOLL        0x00080000L
-#define MH_JABBERWOCK   0x00100000L
+#define MH_SPIDER       0x00100000L
+#define MH_JABBERWOCK   0x00200000L
 
 #define MH_ANY          0x80000000L
 
 /* for mons[].geno (constant during game) */
-#define G_VLGROUP	0x2000	/* appear in very large groups normally */
+#define G_VLGROUP	    0x2000	/* appear in very large groups normally */
 #define G_UNIQ          0x1000     /* generated only once */
 #define G_NOHELL        0x0800   /* not generated in "hell" */
 #define G_HELL          0x0400     /* generated only in "hell" */

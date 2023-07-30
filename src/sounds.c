@@ -120,6 +120,36 @@ dosounds()
         You1(guild_msg[rn2(2) + 2 * hallu]);
         return;
     }
+    if (level.flags.spooky && !rn2(200)) {
+        static const char *spooky_msg[24] = {
+            "hear screaming in the distance!",
+            "hear a faint whisper: \"Please leave your measurements for your custom-made coffin.\"",
+            "hear a door creak ominously.",
+            "hear hard breathing just a few steps behind you!",
+            "hear dragging footsteps coming closer!",
+            "hear anguished moaning and groaning coming out of the walls!",
+            "hear mad giggling directly behind you!",
+            "smell rotting corpses.",
+            "smell chloroform!",
+            "feel ice cold fingers stroking your neck.",
+            "feel a ghostly touch caressing your face.",
+            "feel somebody dancing on your grave.",
+            "feel something breathing down your neck.",
+            "feel as if the walls were closing in on you.",
+            "just stepped on something squishy.",
+            "hear a strong voice pronouncing: \"There can only be one!\"",
+            "hear a voice booming all around you: \"Warning: self-destruction sequence activated!\"",
+            "smell your mother-in-law's cooking!",
+            "smell horse dung.",
+            "hear someone shouting: \"Who ordered the burger?\"",
+            "can faintly hear the Twilight Zone theme.",
+            "hear an outraged customer complaining: \"I'll be back!\"",
+            "hear someone praising your valor!",
+            "hear someone singing: \"Jingle bells, jingle bells...\"",
+        };
+        You1(spooky_msg[rn2(15) + hallu * 9]);
+        return;
+    }
     if (level.flags.has_vault && !rn2(200)) {
         if (!(sroom = search_special(VAULT))) {
             /* strange ... */
@@ -402,28 +432,6 @@ dosounds()
         };
         pline("%s", blkmar_msg[rn2(2)+hallu]);
     }
-#if 0
-    if (ledger_no(&u.uz) == ledger_no(&medusa_level) - 1
-        && !rn2(200)) {
-        static const char* const icequeenbranch_msg[] = {
-            "an eerie, ominous wail.",
-            "a howling wind.",
-            "someone singing \"Do You Want to Build a Snowman?\""
-        };
-        You_hear1(icequeenbranch_msg[rn2(2 + hallu)]);
-        return;
-    }
-    if (ledger_no(&u.uz) == ledger_no(&valley_level) + 1
-        && !rn2(200)) {
-        static const char* const vecnabranch_msg[] = {
-            "a mysterious chanting.",
-            "the tortured cries of the damned.",
-            "\"Dead man walking\"..."
-        };
-        You_hear1(vecnabranch_msg[rn2(2 + hallu)]);
-        return;
-    }
-#endif
 }
 
 static const char *const h_sounds[] = {
@@ -698,8 +706,8 @@ register struct monst *mtmp;
         boolean isnight = night();
 
         boolean kindred = maybe_polyd(u.umonnum == PM_VAMPIRE 
-                                      || u.umonnum == PM_VAMPIRE_LORD
-                                      || u.umonnum == PM_VAMPIRE_KING
+                                      || u.umonnum == PM_VAMPIRE_NOBLE
+                                      || u.umonnum == PM_VAMPIRE_ROYAL
                                       || u.umonnum == PM_VAMPIRE_MAGE,
                                       Race_if(PM_VAMPIRIC));
         boolean nightchild =
@@ -1069,6 +1077,15 @@ register struct monst *mtmp;
                                   QT_CHARON));
                 };
                 break;
+            case PM_JEDI_TRAINER:
+            case PM_JEDI:
+                pline_msg =
+                    "discusses the various implications of The Force.";
+                break;
+            case PM_PADAWAN:
+                pline_msg =
+                    "tells you their aspirations to become great Jedi.";
+                break;
             default:
                 pline_msg = "discusses dungeon exploration.";
                 break;
@@ -1144,8 +1161,6 @@ register struct monst *mtmp;
             cuss(mtmp);
         else if (is_lminion(mtmp))
             verbl_msg = "It's not too late.";
-        else if (mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS])
-            verbl_msg = "Ozzy!  I can't throw the stick if you won't drop it!";
         else
             verbl_msg = "We're all doomed.";
         break;

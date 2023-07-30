@@ -16,6 +16,7 @@ STATIC_PTR int NDECL(wipeoff);
 STATIC_DCL int FDECL(menu_drop, (int));
 STATIC_DCL int NDECL(currentlevel_rewrite);
 STATIC_DCL void NDECL(final_level);
+STATIC_DCL int NDECL(countkeys);
 /* static boolean FDECL(badspot, (XCHAR_P,XCHAR_P)); */
 
 extern int n_dgns; /* number of dungeons, from dungeon.c */
@@ -267,24 +268,7 @@ deletedwithboulder:
         useupf(obj, 1L);
         bury_objs(x, y);
         newsym(x, y);
-        res = TRUE;
-    } else if (obj->otyp == AMULET_OF_YENDOR
-               && (obj->cursed ? rn2(3) : obj->blessed
-                               ? !rn2(16) : !rn2(4))
-               && !(is_open_air(x, y))) {
-        /* prevent recursive call of teleportation through flooreffects */
-        if (!obj->orecursive) {
-            if (cansee(x, y))
-                pline("As the amulet touches the %s, it teleports away!",
-                      surface(x, y));
-            obj->orecursive = TRUE;
-            rloco(obj);
-            obj->orecursive = FALSE;
-            res = TRUE;
-        } else {
-            bhitpos = save_bhitpos;
-            return res;
-        }
+        return TRUE;
     } else if (is_lava(x, y)) {
         res = lava_damage(obj, x, y);
     } else if (is_damp_terrain(x, y)) {
@@ -1466,6 +1450,11 @@ dodown()
             && (uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
             dotrap(trap, TOOKPLUNGE);
             return 1;
+        } else if (IS_POOL(levl[u.ux][u.uy].typ) && HWwalking) {
+            /* Monks that have intrinsic water walking but
+               still wish to go for a dip in the pool */
+            drown();
+            return 1;
         } else if (!trap || !is_hole(trap->ttyp)
                    || !Can_fall_thru(&u.uz) || !trap->tseen) {
             if (flags.autodig && !context.nopick && uwep && is_pick(uwep)) {
@@ -1816,28 +1805,24 @@ boolean at_stairs, falling, portal;
         return;
     }
 
-#if 0
-    /* Prevent the player from progressing beyond Grund's until Grund is 
-     * defeated. */
-    if (at_stairs || falling) {
-        /*if ((!up && (ledger_no(&u.uz) == ledger_no(&d_grunds_level))) ) {*/
-        if (Is_grunds_level(&u.uz) && (!up || (up && u.uhave.amulet))) {
-            if (!u.uevent.ugrund) {
-                if (at_stairs) {
-                    if (Blind) {
-                        pline("A mysterious force prevents you from accessing the stairs.");
-                    } else {
-                        You_see("a magical glyph hovering in midair, preventing access to the stairs.");
-                        pline("It reads 'Access denied, by order of Grund.'.");
-                    }
-                } else if (falling) {
-                    pline("A mysterious force prevents you from falling.");
-                }
-                return;
-            }
+    /* Prevent the player from accessing Vlad's Tower until they have 
+     * defeated two of the alignment nemesis. */
+    if (In_tower(&u.uz) && up && !newdungeon) {
+        if (countkeys() < 2 && !u.uachieve.unlocked_tower) {
+            if (at_stairs && !Blind) {
+                You("see a magical glyph hovering in midair, preventing access to the stairs.");
+                pline("It reads 'Access denied, by order of the alignment quest nemeses'.");
+            } else if (at_stairs)
+                pline("A mysterious force prevents you from accessing the stairs.");
+            else
+                pline("A mysterious force prevents you from ascending.");
+            
+            return;
+        } else if (!u.uevent.utower) {
+            unlockedtower();
+            u.uachieve.unlocked_tower = 1;
         }
     }
-#endif
     
     if (on_level(newlevel, &u.uz))
         return; /* this can happen */
@@ -2137,18 +2122,6 @@ boolean at_stairs, falling, portal;
     if (!Is_hellc_level(&u.uz0) && Is_hellc_level(&u.uz)
         && !u.uevent.hellc_entered)
         u.uevent.hellc_entered = 1;
-
-    if (!In_icequeen_branch(&u.uz0) && Iniceq
-        && !u.uevent.iceq_entered) {
-        u.uevent.iceq_entered = 1;
-        You("arrive in a frozen, barren wasteland.");
-        pline_The("remnants of a once majestic forest stretch out before you.");
-#ifdef MICRO
-        display_nhwindow(WIN_MESSAGE, FALSE);
-#endif
-        if (!Deaf)
-            You_hear("the distant howl of hungry wolves.");
-    }
 
     if (!In_vecna_branch(&u.uz0) && Invecnad
         && !u.uevent.vecnad_entered) {
@@ -2566,8 +2539,9 @@ long timeout UNUSED;
                             || is_ice(body->ox, body->oy)
                             || MON_AT(body->ox, body->oy)
                             || sobj_at(BOULDER, body->ox, body->oy)));
-    /* maybe F are annihilated? */
-    no_eligible = (newpm == NULL);
+
+    /* maybe F are genocided? */
+     no_eligible = (newpm == NULL);
 
     /* Don't grow mold on the corpse the player is eating. */
     munching = (body == context.victual.piece);
@@ -2766,6 +2740,19 @@ int how; /* 0: ordinary, 1: dismounting steed, 2: limbs turn to stone */
         if (how == 0)
             (void) encumber_msg();
     }
+}
+
+STATIC_OVL int
+countkeys()
+{
+    int count = 0;
+    if (carrying_arti(ART_KEY_OF_NEUTRALITY))
+        count++;
+    if (carrying_arti(ART_KEY_OF_CHAOS))
+        count++;
+    if (carrying_arti(ART_KEY_OF_LAW))
+        count++;
+    return count;
 }
 
 /*do.c*/

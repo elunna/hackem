@@ -75,7 +75,7 @@ static NEARDATA const int nasties[] = {
     PM_HILL_GIANT_SHAMAN,
     PM_MAGICAL_EYE,
     PM_MASTER_MIND_FLAYER,
-    PM_OGRE_KING,
+    PM_OGRE_ROYAL,
     PM_OLOG_HAI,
     PM_RED_DRAGON,
     PM_REVENANT,
@@ -83,7 +83,7 @@ static NEARDATA const int nasties[] = {
     PM_SLAUGHTER_WIGHT,
     PM_STORM_GIANT,
     /* PM_VAMPIRE_MAGE - summoner too nasty for nasties */
-    PM_VAMPIRE_KING,
+    PM_VAMPIRE_ROYAL,
     PM_WINGED_GARGOYLE,
 
     /* lawful */
@@ -94,8 +94,8 @@ static NEARDATA const int nasties[] = {
     PM_BEARDED_DEVIL,
     PM_SPINED_DEVIL,
     PM_COUATL,
-    PM_DWARF_KING,
-    PM_ELVENKING,
+    PM_DWARF_ROYAL,
+    PM_ELVEN_ROYAL,
     PM_ELVEN_WIZARD,
     PM_FIRE_GIANT,
     PM_GOLD_DRAGON,
@@ -115,31 +115,6 @@ static NEARDATA const int nasties[] = {
        they're summoners so would aggravate excessive summoning) */
 };
 
-static NEARDATA const int ice_nasties[] = {
-    PM_FROST_GIANT,
-    PM_FROST_SALAMANDER,
-    PM_GELATINOUS_CUBE,
-    PM_GOBLIN_CAPTAIN,
-    PM_ICE_NYMPH,
-    PM_ICE_TROLL,
-    PM_ICE_VORTEX,
-    PM_LYNX,
-    PM_MASTODON,
-    PM_OWLBEAR,
-    PM_POLAR_BEAR,
-    PM_SABER_TOOTHED_TIGER,
-    PM_SASQUATCH,
-    PM_SILVER_DRAGON,
-    PM_WARG,
-    PM_WEREWOLF,
-    PM_WHITE_DRAGON,
-    PM_WINTER_WOLF,
-    PM_WOLF,
-    PM_WOOLLY_MAMMOTH,
-    PM_YETI,
-    
-};
-
 static NEARDATA const int vecna_nasties[] = {
     PM_BARROW_WIGHT,
     PM_DEMILICH,
@@ -155,17 +130,16 @@ static NEARDATA const int vecna_nasties[] = {
     PM_REVENANT,
     PM_SHADE,
     PM_SPECTRE,
-    PM_VAMPIRE_LORD,
+    PM_VAMPIRE_NOBLE,
     PM_VROCK,
     PM_WEREWOLF,
     PM_WRAITH,
-    
 };
 
 static NEARDATA const unsigned wizapp[] = {
     PM_HUMAN,
     PM_LAVA_DEMON,
-    PM_VAMPIRE_KING,
+    PM_VAMPIRE_ROYAL,
     PM_RED_DRAGON,
     PM_ROCK_TROLL,
     PM_UMBER_HULK,
@@ -776,14 +750,6 @@ int difcap; /* if non-zero, try to make difficulty be lower than this */
 }
 
 int
-pick_nasty_ice()
-{
-    int res = ice_nasties[rn2(SIZE(ice_nasties))];
-
-    return res;
-}
-
-int
 pick_nasty_vecna()
 {
     int res = vecna_nasties[rn2(SIZE(vecna_nasties))];
@@ -861,15 +827,10 @@ BOOLEAN_P centered_on_stairs;
                     if (!--trylimit)
                         goto nextj; /* break this loop, continue outer one */
                     /*makeindex = pick_nasty(difcap);*/
-
                     makeindex =
-                        ((summoner
-                          && summoner->data
-                                 == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-                             ? pick_nasty_ice()
-                         : (summoner && summoner->data == &mons[PM_VECNA])
+                        (summoner && summoner->data == &mons[PM_VECNA])
                              ? pick_nasty_vecna()
-                             : pick_nasty(difcap));
+                             : pick_nasty(difcap);
                     m_cls = mons[makeindex].mlet;
                 } while ((difcap > 0 && mons[makeindex].difficulty >= difcap
                           && attacktype(&mons[makeindex], AT_MAGC))
@@ -880,9 +841,9 @@ BOOLEAN_P centered_on_stairs;
                     && !enexto(&bypos, summoner->mux, summoner->muy,
                                &mons[makeindex]))
                     continue;
-                /* this honors annihilation but overrides extinction; it
-                   ignores inside-hell-only (G_HELL) & outside-hell-only
-                   (G_NOHELL) */
+
+                /* this honors genocide but overrides extinction; it ignores
+                   inside-hell-only (G_HELL) & outside-hell-only (G_NOHELL) */
                 if ((mtmp = makemon(&mons[makeindex], bypos.x, bypos.y,
                                     MM_ADJACENTOK))
                     != 0) {
@@ -1087,27 +1048,6 @@ const char *const random_malediction[] = {
     "Verily, thou shalt be one dead"
 };
 
-const char *const random_icequeen[] = {
-    "My magic is greater than yours", 
-    "You will never defeat me",
-    "Winter shall last forever", 
-    "The cold never bothered me anyway",
-    "Muahahahah", 
-    "I am even more powerful than the Wizard himself",
-    "Run while you still can, fool", 
-    "Let's build a snowman",
-    "The pegasus belongs to me"
-};
-
-const char *const random_enchantress[] = {
-    "Thank you again for freeing me", 
-    "I have so much damage to undo",
-    "I apologize for any harm I may have caused you",
-    "Be careful leaving this place, I have no control over the monsters that still lurk here",
-    "Please treat the pegasus well, it has been through a lot",
-    "It will take a long time to regrow the forest"
-};
-
 const char *const random_vecna[] = {
     "I am Vecna the Unholy", 
     "Kneel before me, wretched mortal",
@@ -1143,27 +1083,6 @@ register struct monst *mtmp;
                && !(mtmp->isminion && EMIN(mtmp)->renegade)) {
         com_pager(rn2(QTN_ANGELIC - 1 + (Hallucination ? 1 : 0))
                   + QT_ANGELIC);
-    } else if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-        if (!rn2(5)) {
-            pline("%s points and giggles at you.", Monnam(mtmp));
-            if (kathryn_bday())
-                verbalize("It's my birthday!  Woohoo!!");
-        } else
-            verbalize("%s!",
-                      random_icequeen[rn2(SIZE(random_icequeen))]);
-    } else if (mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {
-        if (mtmp->mpeaceful) {
-            if (!rn2(5)) {
-                pline("%s waves to you.", Monnam(mtmp));
-                if (kathryn_bday())
-                    verbalize("You freed me on my birthday!  Thank you so much!!");
-            } else
-                verbalize("%s.",
-                        random_enchantress[rn2(SIZE(random_enchantress))]);
-        } else {
-            if (!rn2(7))
-                pline("%s waves to you.", Monnam(mtmp));
-        }
     } else if (mtmp->isvecna) {
         verbalize("%s!",
                   random_vecna[rn2(SIZE(random_vecna))]);

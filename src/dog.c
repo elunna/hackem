@@ -84,7 +84,8 @@ boolean quietly;
     struct monst *mtmp = 0;
     int chance, trycnt = 100;
     boolean idol = otmp && otmp->oartifact == ART_IDOL_OF_MOLOCH;
-
+    boolean same_align;
+    
     do {
         if (otmp) { /* figurine; otherwise spell */
             int mndx = otmp->corpsenm;
@@ -128,7 +129,7 @@ boolean quietly;
 
         mtmp = makemon(pm, x, y, MM_EDOG | MM_IGNOREWATER
                                          | (!idol * NO_MINVENT));
-        if (otmp && !mtmp) { /* monster was annihilated or square occupied */
+        if (otmp && !mtmp) { /* monster was genocided or square occupied */
             if (!quietly) {
                 if (!idol)
                     pline_The("figurine writhes and then shatters "
@@ -159,17 +160,21 @@ boolean quietly;
     mtmp->msleeping = 0;
     if (otmp) { /* figurine; resulting monster might not become a pet */
         chance = rn2(10); /* 0==tame, 1==peaceful, 2==hostile */
+        same_align = (sgn(mon_aligntyp(mtmp)) == u.ualign.type);
+
         if (chance > 2)
             chance = otmp->blessed ? 0 : !otmp->cursed ? 1 : 2;
         /* 0,1,2:  b=80%,10,10; nc=10%,80,10; c=10%,10,80 */
-        if ((Role_if(PM_KNIGHT) && u.ualign.type == A_LAWFUL)
-            && (mtmp->data->mlet == S_DRAGON
-                || mtmp->data == &mons[PM_ELDRITCH_KI_RIN]))
+        if (Role_if(PM_KNIGHT) && u.ualign.type == A_LAWFUL
+            && mtmp->data == &mons[PM_ELDRITCH_KI_RIN])
             chance = 2;
 
-        if ((Role_if(PM_KNIGHT) && u.ualign.type == A_CHAOTIC)
-            && (mtmp->data->mlet == S_DRAGON
-                || mtmp->data == &mons[PM_KI_RIN]))
+        if (Role_if(PM_KNIGHT) && u.ualign.type == A_CHAOTIC
+            && mtmp->data == &mons[PM_KI_RIN])
+            chance = 2;
+
+        if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data)
+            && !same_align)
             chance = 2;
 
         if (chance > 0) {
@@ -214,7 +219,7 @@ xchar x, y;
     } while (!mtmp && --trycnt > 0);
 
     if (!mtmp)
-        return (struct monst *) 0; /* annihilated */
+        return (struct monst *) 0; /* genocided */
 
     initedog(mtmp);
     u.uconduct.pets++;
@@ -306,7 +311,7 @@ makedog()
     mtmp = makemon(&mons[pettype], u.ux, u.uy, MM_EDOG);
 
     if (!mtmp)
-        return ((struct monst *) 0); /* pets were annihilated */
+        return ((struct monst *) 0); /* pets were genocided */
 
     context.startingpet_mid = mtmp->m_id;
     /* Horses already wear a saddle */
@@ -925,7 +930,7 @@ register struct obj *obj;
     if (mptr == &mons[PM_KOALA])
         return (obj->otyp == EUCALYPTUS_LEAF ? DOGFOOD : APPORT);
 
-    if (obj->oartifact == ART_EYE_OF_VECNA)
+    if (obj->oartifact == ART_EYE_OF_THE_BEHOLDER)
         return TABU;
 
     switch (obj->oclass) {
@@ -1096,6 +1101,8 @@ tamedog(mtmp, obj)
 register struct monst *mtmp;
 register struct obj *obj;
 {
+    boolean same_align = (sgn(mon_aligntyp(mtmp)) == u.ualign.type);
+
     /* The Wiz, Vecna, Cerberus, Medusa, Grund, and the quest nemeses
      * aren't even made peaceful. */
     if (mtmp->iswiz || mtmp->isvecna
@@ -1105,8 +1112,8 @@ register struct obj *obj;
         || unique_corpstat(mtmp->data))
         return FALSE;
 
-    /* Knights can never tame dragons.  Natural enemies, y'see. */
-    if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data))
+    /* Knights can never tame dragons of differing alignment */
+    if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data) && !same_align)
         return FALSE;
 
     /* Dark knights cannot tame ki-rin, lawful knights cannot
@@ -1121,7 +1128,8 @@ register struct obj *obj;
     
     /* If wielding/wearing any of the 'banes, taming becomes
        impossible */
-    if (wielding_artifact(ART_STING) && racial_orc(mtmp))
+    if (wielding_artifact(ART_STING)
+        && (racial_orc(mtmp) || is_spider(mtmp->data)))
         return FALSE;
 
     if (wielding_artifact(ART_ORCRIST) && racial_orc(mtmp))
@@ -1257,7 +1265,7 @@ register struct obj *obj;
     if (obj) { /* thrown food */
         /* defer eating until the edog extension has been set up */
         place_object(obj, mtmp->mx, mtmp->my); /* put on floor */
-        /* devour the food (might grow into larger, annihilated monster) */
+        /* devour the food (might grow into larger, genocided monster) */
         if (dog_eat(mtmp, obj, mtmp->mx, mtmp->my, TRUE) == 2)
             return TRUE; /* oops, it died... */
         /* `obj' is now obsolete */

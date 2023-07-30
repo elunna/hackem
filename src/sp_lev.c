@@ -1410,7 +1410,8 @@ struct mkroom *broom;
                     dd->mask = D_LOCKED;
                 else
                     dd->mask = D_CLOSED;
-                if (dd->mask != D_ISOPEN && !rn2(25))
+                if (dd->mask != D_ISOPEN
+                    && level_difficulty() >= 10 && !rn2(25))
                     dd->mask |= D_TRAPPED;
             } else
                 dd->mask = D_NODOOR;
@@ -1420,7 +1421,7 @@ struct mkroom *broom;
             else
                 dd->mask = D_CLOSED;
 
-            if (!rn2(20))
+            if (level_difficulty() >= 10 && !rn2(20))
                 dd->mask |= D_TRAPPED;
         }
     }
@@ -1662,32 +1663,19 @@ struct mkroom *croom;
         /* As we go deeper the chances for undead increase - this way we retain
          * more variety and meanness, but the upper levels are still doable */
         if (In_mines(&u.uz) && (rn2(13) < depth(&u.uz) - 2)) {
-            switch (m->id) {
-            case PM_GNOME: m->id = PM_GNOME_MUMMY; break;
-            case PM_ROCK_GNOME: m->id = PM_GNOME_ZOMBIE; break;
-            case PM_GNOMISH_WIZARD: m->id = PM_ORC_SHAMAN; break;
-            case PM_GNOME_LORD: m->id = PM_GNOME_MUMMY; break;
-            case PM_GNOME_KING: m->id = PM_OGRE; break;
-            case PM_DWARF: m->id = PM_DWARF_MUMMY; break;
-            case PM_MOUNTAIN_DWARF: m->id = PM_DWARF_ZOMBIE; break;
-            case PM_DWARF_LORD: m->id = PM_DWARF_MUMMY; break;
-            case PM_DWARF_KING: m->id = PM_WAR_ORC; break;
-            case PM_HOBBIT: m->id = PM_HOBBIT_ZOMBIE; break;
-            case PM_HOBBIT_PICKPOCKET: m->id = PM_HOBBIT_ZOMBIE; break;
-            case PM_MOUNTAIN_CENTAUR: m->id = PM_CENTAUR_ZOMBIE; break;
-            case PM_FOREST_CENTAUR: m->id = PM_CENTAUR_MUMMY; break;
-            }
+            int res = living_to_undead(m->id);
+            m->id = res ? res : m->id;
         }
         pm = &mons[m->id];
         g_mvflags = (unsigned) mvitals[monsndx(pm)].mvflags;
         if ((pm->geno & G_UNIQ) && (g_mvflags & G_EXTINCT))
             return;
-        else if (g_mvflags & G_GONE)    /* annihilated or extinct */
+        else if (g_mvflags & G_GONE)    /* genocided or extinct */
             pm = (struct permonst *) 0; /* make random monster */
     } else {
         pm = mkclass(class, G_NOGEN);
         /* if we can't get a specific monster type (pm == 0) then the
-           class has been annihilated, so settle for a random monster */
+           class has been genocided, so settle for a random monster */
     }
 #if 0 /* this was from evil - the SlashEM code above should take care of this */
     if (In_mines(&u.uz) && pm && your_race(pm)
@@ -1996,7 +1984,7 @@ struct mkroom *croom;
     }
 
     /* Light up Candle of Eternal Flame and
-     * Holy Spear of Light on creation.
+     * Spear of Light on creation.
      */
     if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD) {
         begin_burn(otmp, FALSE);
@@ -2194,6 +2182,7 @@ struct mkroom *croom;
                 if (++soko_prize_count > 6)
                     impossible(prize_warning, "sokoban end");
             }
+            init_obj_material(otmp); /* prevent invalid materials for prizes */
         }
     }
 
@@ -3467,6 +3456,8 @@ struct sp_coder *coder;
         level.flags.shortsighted = 1;
     if (lflags & ARBOREAL)
         level.flags.arboreal = 1;
+    if (lflags & SPOOKY)
+        level.flags.spooky = 1;
     if (lflags & MAZELEVEL)
         level.flags.is_maze_lev = 1;
     if (lflags & PREMAPPED)

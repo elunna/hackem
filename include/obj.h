@@ -99,7 +99,6 @@ struct obj {
     Bitfield(oerodeproof, 1); /* erodeproof weapon/armor */
     Bitfield(olocked, 1);     /* object is locked */
 #define sokoprize olocked     /* special flag for sokoban prize */
-#define orecursive olocked    /* special flag for preventing recursive calls */
     Bitfield(oticking, 1);     /* object is going to blow up */
 #define oarmed oticking      /* armed explosive */
     Bitfield(obroken, 1);     /* lock has been broken */
@@ -336,14 +335,14 @@ struct obj {
 #define mlevelgain(obj) (ofood(obj) && (obj)->corpsenm == PM_WRAITH)
 #define mhealup(obj) (ofood(obj) && (obj)->corpsenm == PM_NURSE)
 #define is_royaljelly(o) (o->otyp == LUMP_OF_ROYAL_JELLY)
-#define Is_pudding(o)                                                 \
-    (o->otyp == GLOB_OF_GRAY_OOZE                                     \
-     || o->otyp == GLOB_OF_BROWN_PUDDING                              \
-     || o->otyp == GLOB_OF_GREEN_SLIME                                \
-     || o->otyp == GLOB_OF_BLOOD_PUDDING                              \
-     || o->otyp == GLOB_OF_GEL                                        \
-     || o->otyp == GLOB_OF_MOLDY_PUDDING                              \
-     || o->otyp == GLOB_OF_BLACK_PUDDING)
+#define Is_pudding(otyp)                                                 \
+    (otyp == GLOB_OF_GRAY_OOZE                                     \
+     || otyp == GLOB_OF_BROWN_PUDDING                              \
+     || otyp == GLOB_OF_GREEN_SLIME                                \
+     || otyp == GLOB_OF_BLOOD_PUDDING                              \
+     || otyp == GLOB_OF_GEL                                        \
+     || otyp == GLOB_OF_MOLDY_PUDDING                              \
+     || otyp == GLOB_OF_BLACK_PUDDING)
 
 /* Spirit stuff */
 #define MIN_SPIRIT_FADE_TIME 10 /* longest a spirit hangs around */
@@ -505,6 +504,9 @@ struct obj {
 #define pair_of(o) \
     ((o)->otyp == LENSES || (o)->otyp == GOGGLES \
      || is_gloves(o) || is_boots(o))
+
+#define bypass_forging_rules(obj) \
+    ((obj)->otyp == SADDLE)
 
 /* 'PRIZE' values override obj->corpsenm so prizes mustn't be object types
    which use that field for monster type (or other overloaded purpose) */
@@ -672,7 +674,7 @@ struct art_info_t {
     char* carr_res;
     const char* invoke;
     char* attack;
-    const char* hates;
+    char* hates;
     const char* xattack;
     const char* xinfo;
     char* dbldmg;

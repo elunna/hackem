@@ -191,13 +191,11 @@ static const struct innate_tech
     kni_tech[] = { 
         { 1, T_TURN_UNDEAD, 1 },
         { 1, T_HEAL_HANDS, 1 },
-        { 1, T_SHIELD_BLOCK, 1 },
         { 0, 0, 0 } 
     },
         /* 5lo: for Dark Knights */
     drk_tech[] = { 
         { 1, T_SOULEATER, 1 },
-        { 1, T_SHIELD_BLOCK, 1 },
         { 0, 0, 0 } 
     },
     mon_tech[] = { 
@@ -229,7 +227,6 @@ static const struct innate_tech
     pri_tech[] = { 
         { 1, T_TURN_UNDEAD, 1 },
         { 1, T_BLESSING, 1 },
-        { 7, T_SHIELD_BLOCK, 1 },
         { 10, T_HEAL_HANDS, 1 },
         { 30, T_REVIVE, 1 },
         { 0, 0, 0 } 
@@ -260,12 +257,10 @@ static const struct innate_tech
     und_tech[] = { 
         { 1, T_TURN_UNDEAD, 1 },
         { 1, T_PRACTICE, 1 },
-        { 7, T_SHIELD_BLOCK, 1 },
         { 0, 0, 0 } 
     },
     val_tech[] = { 
         { 1, T_PRACTICE, 1 },
-        { 1, T_SHIELD_BLOCK, 1 },
         { 0, 0, 0 } 
     },
     yeo_tech[] = {
@@ -297,7 +292,7 @@ static const struct innate_tech
     },
     war_tech[] = { 
         { 1, T_PRACTICE, 1 }, /* warrior */
-        { 1, T_SHIELD_BLOCK, 1 },
+        { 1, T_SHIELD_BLOCK, 1 }, /*Let them get at least skilled in shield*/
         { 0, 0, 0 } 
     },
     lun_tech[] = { 
@@ -680,69 +675,42 @@ int *tech_no;
     return FALSE;
 }
 
-#ifdef DUMP_LOG
 void 
 dump_techniques()
 {
-
-    winid tmpwin;
-    int i, n, len, tlevel;
+    int i, tlevel;
     char buf[BUFSZ];
-    const char *prefix;
 
     if (techid(0) == NO_TECH) {
-        dump("", "You didn't know any techniques.");
-        dump("", "");
+        putstr(0, 0, "You didn't know any techniques.");
         return;
     }
-    dump("", "Techniques known in the end");
 
-    Sprintf(buf, "    %-17s Level  Status", "Name");
-    dump("  ",buf);
+    putstr(0, ATR_HEADING, "Techniques known in the end");
+
+    Sprintf(buf, "%-20s      Level  Status (timeout)", "     Name");
+    putstr(0, ATR_PREFORM, buf);
+
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
             continue;
         tlevel = techlev(i);
-        if (!techtout(i) && tlevel > 0) {
-            /* Ready to use */
-            prefix = "";
-        } else {
-            prefix = "    ";
-        }
-        if (!iflags.menu_tab_sep) {		
-            Sprintf(buf, "%s%-20s %2d%c%c%c   %s(%i)",
-                    prefix, techname(i), tlevel,
-                    tech_list[i].t_intrinsic & FROMEXPER ? 'X' : ' ',
-                    tech_list[i].t_intrinsic & FROMRACE ? 'R' : ' ',
-                    tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
-                    tech_inuse(techid(i)) ? "Active" :
-                    tlevel <= 0 ? "Beyond recall" :
-                    !techtout(i) ? "Prepared" : 
-                    techtout(i) > 10000 ? "Huge timeout" :
-                    techtout(i) > 1000 ? "Not Ready" :
-                    techtout(i) > 100 ? "Reloading" : "Soon",
-                    techtout(i));
-            dump("  ", buf);
-        } else {
-            Sprintf(buf, "%s%s\t%2d%c%c%c\t%s(%i)",
-                    prefix, techname(i), tlevel,
-                    tech_list[i].t_intrinsic & FROMEXPER ? 'X' : ' ',
-                    tech_list[i].t_intrinsic & FROMRACE ? 'R' : ' ',
-                    tech_list[i].t_intrinsic & FROMOUTSIDE ? 'O' : ' ',
-                    tech_inuse(techid(i)) ? "Active" :
-                    tlevel <= 0 ? "Beyond recall" :
-                    !techtout(i) ? "Prepared" : 
-                    techtout(i) > 10000 ? "Huge timeout" :
-                    techtout(i) > 1000 ? "Not Ready" :
-                    techtout(i) > 100 ? "Reloading" : "Soon",
-                    techtout(i));
-            dump("  ", buf);
-        }
+        
+        Sprintf(buf, "     %-20s  %2d    %s (%i)",
+                techname(i),
+                tlevel,
+                tech_inuse(techid(i))
+                    ? "Active" : tlevel <= 0
+                          ? "Beyond recall" : !techtout(i)
+                                ? "Prepared" : techtout(i) > 10000
+                                      ? "Huge timeout" : techtout(i) > 1000
+                                            ? "Not Ready" : techtout(i) > 100
+                                                  ? "Reloading" : "Soon",
+                techtout(i));
+        putstr(0, ATR_PREFORM, buf);
     }
-    dump("", "");
-
 } /* dump_techniques */
-#endif
+
 
 static int
 get_tech_no(tech)
@@ -868,7 +836,6 @@ ma_break(VOID_ARGS)
     if (uarmg) {
         switch (uarmg->otyp) {
         case GAUNTLETS_OF_POWER:
-        case MUMMIFIED_HAND: /* the Hand of Vecna */
             prob -= 10;
             break;
         case GAUNTLETS_OF_FUMBLING:
@@ -977,7 +944,6 @@ int tech_no;
             res = tech_reinforce(get_tech_no(T_REINFORCE));
             if (res)
                 t_timeout = rn1(500, 500);
-
            break;
         case T_FLURRY:
             res = tech_flurry(get_tech_no(T_FLURRY));
@@ -1015,7 +981,13 @@ int tech_no;
                 t_timeout = 250;
             break;
         case T_TURN_UNDEAD:
-            return turn_undead();
+            /* Due to Undead Slayer Vampire being a playable combination */
+            if (Race_if(PM_VAMPIRIC)) {
+                You("shudder at the thought."); 
+            } else {
+                res = turn_undead();
+            }
+            break;
         case T_VANISH:
             res = tech_vanish(get_tech_no(T_VANISH));
             if (res)
@@ -1196,7 +1168,11 @@ int tech_no;
                 t_timeout = rn1(500, 500);
             break;
         case T_TELEKINESIS: {
+            /* Set t_inuse=1 temporarily so the use of telekinesis can be seen in shk.c */
+            tech_list[get_tech_no(T_TELEKINESIS)].t_inuse = 1;
             res = tech_telekinesis(get_tech_no(T_TELEKINESIS));
+            tech_list[get_tech_no(T_TELEKINESIS)].t_inuse = 0;
+
             if (res)
                 t_timeout = 250;
             break;
@@ -1230,15 +1206,18 @@ int tech_no;
         case T_BREAK_ROCK:
             if (!getdir(NULL))
                 return 0;
-            int x = u.dx + u.ux;
-            int y = u.dy + u.uy;
-            res = do_breakrock(x, y);
+            res = do_breakrock(u.dx + u.ux,  u.dy + u.uy);
             /* No timeout */
             break;
         default:
             pline ("Error!  No such effect (%i)", tech_no);
             return 0;
     }
+    if (res && !u.uconduct.techuse++)
+        livelog_printf(LL_CONDUCT, 
+                           "performed a technique for the first time - %s", 
+                           techname(tech_no));
+    
     techtout(tech_no) = (t_timeout * (100 - techlev(tech_no)) / 100);
 
     /* By default, action should take a turn */
@@ -1579,13 +1558,14 @@ int oldlevel, newlevel;
                     
         for (; tech->tech_id; tech++) {
             if (oldlevel < tech->ulevel && newlevel >= tech->ulevel) {
-                if (tech->ulevel != 1 && !tech_known(tech->tech_id))
-                    You("learn how to perform %s!", tech_names[tech->tech_id]);
-                
-                learntech(tech->tech_id, mask, tech->tech_lev);
+                if (!tech_known(tech->tech_id)) {
+                    if (tech->ulevel != 1)
+                        You("learn how to perform %s!",
+                            tech_names[tech->tech_id]);
+                    learntech(tech->tech_id, mask, tech->tech_lev);
+                }
             } else if (oldlevel >= tech->ulevel && newlevel < tech->ulevel
                         && tech->ulevel != 1) {
-                    
                 learntech(tech->tech_id, mask, -1);
                 if (!tech_known(tech->tech_id))
                     You("lose the ability to perform %s!",
@@ -1596,7 +1576,7 @@ int oldlevel, newlevel;
 }
 
 STATIC_PTR int
-charge_saber()
+charge_saber(VOID_ARGS)
 {
     int i, tlevel;
     if (delay) {
@@ -1627,7 +1607,7 @@ charge_saber()
 
 /*WAC tinker code*/
 STATIC_PTR int
-tinker()
+tinker(VOID_ARGS)
 {
     int chance;
     struct obj *otmp = uwep;
@@ -1658,7 +1638,7 @@ tinker()
 
 /*WAC  draw energy from surrounding objects */
 STATIC_PTR int
-draw_energy()
+draw_energy(VOID_ARGS)
 {
     int powbonus = 1;
     if (delay) { /* not if (delay++), so at end delay == 0 */
@@ -1761,13 +1741,12 @@ static const struct blitz_tab blitzes[] = {
 static int
 doblitz()
 {
-    int i, j, dx, dy, bdone = 0, tech_no;
-    char buf[BUFSZ];
-    char buf2[BUFSZ];
+    int i, j, dx, dy, res, bdone = 0, 
+                           tech_no = get_tech_no(T_BLITZ);
+    char buf[BUFSZ], buf2[BUFSZ];
     char *bp;
     char cmdlist[BUFSZ];
     int blitz_chain[MAX_CHAIN], blitz_num;
-    tech_no = (get_tech_no(T_BLITZ));
     int max_moves = (MIN_CHAIN + (techlev(tech_no) / 10));
     techt_inuse(T_BLITZ) = 1;
     if (tech_no == -1) {
@@ -1799,7 +1778,6 @@ doblitz()
 
     doblitzlist();
     Strcpy(cmdlist, "");
-    int res;
     for (i = 0; i < MAX_BLITZ; i++) {
         if (i == 0)
             sprintf(buf2, "%s", Enter_Blitz);
@@ -2215,16 +2193,40 @@ blitz_uppercut()
 }
 
 
-
 /* Assumes u.dx, u.dy already set up */
 static int
 blitz_dash()
 {
-    int tech_no;
+    int tech_no, cx, cy, mx, my;
+    boolean stopped = FALSE;
     tech_no = (get_tech_no(T_DASH));
+    cx = u.ux + (u.dx * 2);
+    cy = u.uy + (u.dy * 2);
 
     if (tech_no == -1) {
         return 0;
+    }
+    if (u.utrap) {
+        You("cannot air dash until you extricate yourself.");
+        return 0;
+    } else if (Underwater) {
+        pline("This is not the water dash!");
+        return 0;
+    }
+    if (Stunned || Confusion || Fumbling)
+        confdir();
+    else {
+
+        if (is_pool(cx, cy) && ParanoidSwim) {
+             if (!paranoid_query(ParanoidHit, "Really dash into the water?")) {
+                return 0;
+             }
+        } else if (is_lava(cx, cy) && ParanoidSwim) {
+             if (!paranoid_query(ParanoidHit, "Really dash into the lava?")) {
+                return 0;
+             }
+        }
+
     }
     if (!u.dx && !u.dy) {
         You("stretch.");
@@ -2232,7 +2234,26 @@ blitz_dash()
     }
     if ((!Punished || carried(uball)) && !u.utrap)
         You("dash forwards!");
-    hurtle(u.dx, u.dy, 2, FALSE);
+
+    mx = u.ux + u.dx;
+    my = u.uy + u.dy;
+
+    /* Check if we cheated in soko. Since it's only a 2 step jump we only
+     * need to check the middle space. */
+    if (isok(mx, my) && In_sokoban(&u.uz)) {
+        struct trap *ttmp = t_at(mx, my);
+        if (ttmp && (ttmp->ttyp == PIT || ttmp->ttyp == HOLE)) {
+             stopped = TRUE;
+        }
+    }
+    if (stopped) {
+        /* Using hurtle for 1 space results in double trap handling */
+        teleds(mx, my, TELEDS_ALLOW_DRAG);
+        sokoban_guilt();
+        pline("You cheater!");
+    } else
+        hurtle(u.dx, u.dy, 2, FALSE);
+
     multi = 0; /* No paralysis with dash */
     return 1;
 }
@@ -2374,8 +2395,8 @@ int
 do_pickpocket(mon)
 struct monst *mon;
 {
-    if (!Role_if(PM_ROGUE)) {
-         impossible("Attempting pickpocket technique as non-rogue.");
+    if (!(Role_if(PM_ROGUE) || Role_if(PM_CONVICT))) {
+         impossible("Attempting pickpocket technique as non-valid role.");
          return 0;
     }
     if (Upolyd) {
@@ -2539,6 +2560,7 @@ int tech_no;
             return 1;
          }
     } else if (maybe_polyd(is_centaur(youmonst.data), Race_if(PM_CENTAUR))) {
+         You("attempt to calm yourself.");
          make_afraid(0L, TRUE);
          context.botl = TRUE;
          return 1;
@@ -2875,7 +2897,7 @@ int tech_no;
          You("are not wielding a weapon!");
          return 0;
     } else if (uwep->known == TRUE) {
-         practice_weapon();
+         return practice_weapon();
     } else {
          if (not_fully_identified(uwep)) {
             You("examine %s.", doname(uwep));
@@ -2887,9 +2909,8 @@ int tech_no;
                 pline("Unfortunately, you didn't learn anything new.");
          } 
          /*WAC Added practicing code - in weapon.c*/
-         practice_weapon();
+         return practice_weapon();
     }
-    return 1;
 }
 
 int
@@ -2941,7 +2962,17 @@ int tech_no;
     struct monst *mtmp = NULL;
     coord cc;
     int dx, dy, sx, sy, range;
+    boolean shopdamage = FALSE;
     
+    if (Unchanging) {
+         if (!Hallucination)
+            pline("Your form is too rigid to leap!");
+         else
+            pline("You're feeling a little too stiff.");
+
+         return 0;
+    }
+
     pline("Where do you want to leap to?");
     cc.x = sx = u.ux;
     cc.y = sy = u.uy;
@@ -2952,6 +2983,7 @@ int tech_no;
 
     dx = cc.x - u.ux;
     dy = cc.y - u.uy;
+
     /* allow diagonals */
     if (dx && dy && dx != dy && dx != -dy) {
          You("can only leap in straight lines!");
@@ -2959,95 +2991,127 @@ int tech_no;
     } else if (distu(cc.x, cc.y) > 19 + techlev(tech_no)) {
          pline("Too far!");
          return 0;
-    } else if (m_at(cc.x, cc.y) || !isok(cc.x, cc.y) ||
-               IS_ROCK(levl[cc.x][cc.y].typ) ||
-               sobj_at(BOULDER, cc.x, cc.y) ||
-               closed_door(cc.x, cc.y)) {
+    } else if (!isok(cc.x, cc.y)
+               || m_at(cc.x, cc.y)
+               || IS_ROCK(levl[cc.x][cc.y].typ)
+               || sobj_at(BOULDER, cc.x, cc.y)
+               || closed_door(cc.x, cc.y)) {
          You_cant("flow there!"); /* MAR */
          return 0;
-    } else {
-         You("liquify!");
-         if (Punished) {
-            You("slip out of the iron chain.");
-            unpunish();
+    }
+
+    if (is_pool(cc.x, cc.y) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really leap into the water?")) {
+            return 0;
          }
-         if (u.utrap) {
-            switch (u.utraptype) {
-            case TT_BEARTRAP: 
-                You("slide out of the bear trap.");
-                break;
-            case TT_PIT:
-                You("leap from the pit!");
-                break;
-            case TT_WEB:
-                You("flow through the web!");
-                break;
-            case TT_LAVA:
-                You("separate from the lava!");
-                u.utrap = 0;
-                break;
-            case TT_INFLOOR:
-                u.utrap = 0;
-                You("ooze out of the floor!");
-            }
+    } else if (is_lava(cc.x, cc.y) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really leap into the lava?")) {
+            return 0;
+         }
+    }
+
+    You("liquify!");
+
+    if (Punished) {
+         You("slip out of the iron chain.");
+         unpunish();
+    }
+    if (u.utrap) {
+         switch (u.utraptype) {
+         case TT_BEARTRAP:
+            You("slide out of the bear trap.");
+            break;
+         case TT_PIT:
+            You("leap from the pit!");
+            break;
+         case TT_WEB:
+            You("flow through the web!");
+            break;
+         case TT_LAVA:
+            You("separate from the lava!");
             u.utrap = 0;
+            break;
+         case TT_INFLOOR:
+            u.utrap = 0;
+            You("ooze out of the floor!");
          }
-         /* Fry the things in the path ;B */
-         if (dx) 
-            range = dx;
-         else
-            range = dy;
-         if (range < 0) 
-            range = -range;
-                
-         dx = sgn(dx);
-         dy = sgn(dy);
-                
-         while (range-- > 0) {
-            int tmp_invul = 0;
-                    
-            if (!Invulnerable)
-                Invulnerable = tmp_invul = 1;
-            sx += dx; sy += dy;
-            tmp_at(DISP_BEAM, zapdir_to_glyph(dx, dy, AD_ACID-1));
-            tmp_at(sx,sy);
-            delay_output(); /* wait a little */
-            if ((mtmp = m_at(sx, sy)) != 0) {
-                int chance;
-                        
-                chance = rn2(20);
-                if (!chance || (3 - chance) > AC_VALUE(find_mac(mtmp)))
-                    break;
-                setmangry(mtmp, TRUE);
-                You("catch %s in your acid trail!", mon_nam(mtmp));
-                if (!resists_acid(mtmp)) {
-                    int tmp = 1;
-                    /* Need to add a to-hit */
-                    tmp += d(2, 4);
-                    tmp += rn2((int) (techlev(tech_no) / 5 + 1));
-                    if (!Blind) 
-                        pline_The("acid burns %s!", mon_nam(mtmp));
-                    procdmg(mtmp, tmp, AD_ACID);
-                } else if (!Blind) 
-                    pline_The("acid doesn't affect %s!", mon_nam(mtmp));
-            }
-            /* Clean up */
-            tmp_at(DISP_END, 0);
-            if (tmp_invul) 
-                Invulnerable = 0;
+         u.utrap = 0;
+    }
+
+    /* Fry the things in the path ;B */
+    if (dx)
+         range = dx;
+    else
+         range = dy;
+    if (range < 0)
+         range = -range;
+
+    dx = sgn(dx);
+    dy = sgn(dy);
+
+    while (range-- > 0) {
+         int tmp_invul = 0;
+
+         if (!Invulnerable)
+            Invulnerable = tmp_invul = 1;
+         sx += dx;
+         sy += dy;
+         tmp_at(DISP_BEAM, zapdir_to_glyph(dx, dy, AD_ACID - 1));
+         tmp_at(sx, sy);
+         delay_output(); /* wait a little */
+         if ((mtmp = m_at(sx, sy)) != 0) {
+            int chance;
+
+            chance = rn2(20);
+            if (!chance || (3 - chance) > AC_VALUE(find_mac(mtmp)))
+                break;
+            setmangry(mtmp, TRUE);
+            You("catch %s in your acid trail!", mon_nam(mtmp));
+            if (!resists_acid(mtmp)) {
+                int tmp = 1;
+                /* Need to add a to-hit */
+                tmp += d(2, 4);
+                tmp += rn2((int) (techlev(tech_no) / 5 + 1));
+                if (!Blind)
+                    pline_The("acid burns %s!", mon_nam(mtmp));
+                procdmg(mtmp, tmp, AD_ACID);
+            } else if (!Blind)
+                pline_The("acid doesn't affect %s!", mon_nam(mtmp));
          }
 
+         /* Interact with dungeon features */
+         zap_over_floor(sx, sy, (AD_ACID - 1), &shopdamage, 0, FALSE);
+         
          /* A little Sokoban guilt... */
          if (In_sokoban(&u.uz)) {
-            change_luck(-1);
-            pline("You cheater!");
+            struct trap *ttmp = t_at(sx, sy);
+            if (ttmp && (ttmp->ttyp == PIT || ttmp->ttyp == HOLE)) {
+                sokoban_guilt();
+                pline("You cheater!");
+                range = 0; /* Stop right there! */
+                cc.x = sx;
+                cc.y = sy;
+            } else if (levl[sx][sy].typ == IRONBARS) {
+                sokoban_guilt();
+                pline("You cheater!");
+            }
          }
-         You("reform!");
-         teleds(cc.x, cc.y, FALSE);
-         nomul(-1);
-         multi_reason = "liquid leaping";
-         nomovemsg = "";
+         /* Clean up */
+         tmp_at(DISP_END, 0);
+         if (tmp_invul)
+            Invulnerable = 0;
+         
+         if (shopdamage)
+            pay_for_damage("dissolve", FALSE);
+         shopdamage = FALSE;
     }
+
+    You("reform!");
+    teleds(cc.x, cc.y, FALSE);
+    nomul(-1);
+    multi_reason = "liquid leaping";
+    nomovemsg = "";
+
     return 1;
 }
 
@@ -3155,7 +3219,6 @@ int tech_no;
     /* This is passed to tamedog, reusing SPE_ANIMATE_DEAD instead of 
      * adding another case.
      * */
-    struct obj* pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
     struct monst *mtmp = NULL;
     struct obj *obj;
     int num;
@@ -3183,7 +3246,7 @@ int tech_no;
             if (mtmp->isshk)
                 make_happy_shk(mtmp, FALSE);
             else if (!resist(mtmp, SPBOOK_CLASS, 0, TELL)) {
-                pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
+                struct obj* pseudo = mksobj(SPE_COMMAND_UNDEAD, FALSE, FALSE);
                 tamedog(mtmp, pseudo);
                 mtmp->mrevived = TRUE;
                 obfree(pseudo, NULL);
@@ -3265,7 +3328,6 @@ int tech_no;
     set_occupation(draw_energy, "drawing energy", 0);         
     return 1;
 }
-
 
 int
 tech_chiheal(tech_no)
@@ -3565,7 +3627,7 @@ tech_souleater(tech_no)
 int tech_no;
 {
     struct monst *mtmp;
-    int num;
+    int num, weapon_modifier;
     num = Upolyd ? (u.mhmax / 2) : (u.uhpmax / 2);
     
     if ((!Upolyd && u.uhp <= num) || (Upolyd && u.mh <= num)) {
@@ -3590,7 +3652,7 @@ int tech_no;
     }
     /* Instead of being limited to Soulthief (which Hack'EM is not
              * importing - we will allow any artifact that drains life. */
-    int weapon_modifier = (attacks(AD_DRLI, uwep) ? 5 : 1);
+    weapon_modifier = (attacks(AD_DRLI, uwep) ? 5 : 1);
                                    
     techt_inuse(tech_no) = (techlev(tech_no) / 2) + weapon_modifier;
     /* See uhitm.c in particular for the extra damage */
@@ -3660,7 +3722,6 @@ int tech_no;
             You_cant("do anything %sthere.", ttrap ? "else " : "");
          }
     } while (TRUE);
-    
 }
 
 
@@ -3752,6 +3813,14 @@ int tech_no;
          You("tumble in place.");
          return 1;
     }
+    if (Underwater) {
+         You("cannot tumble in the water!");
+         return 0;
+    }
+    if (Levitation) {
+         You("cannot tumble in the air!");
+         return 0;
+    }
     if (u.utrap) {
          You("cannot tumble until you extricate yourself.");
          return 0;
@@ -3778,6 +3847,18 @@ int tech_no;
          You("don't see anyone to tumble past in that direction.");
          return 0;
     }
+
+    if (is_pool(mtmp->mx, mtmp->my) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really tumble into the water?")) {
+            return 0;
+         }
+    } else if (is_lava(mtmp->mx, mtmp->my) && ParanoidSwim) {
+         if (!paranoid_query(ParanoidHit, "Really tumble into the lava?")) {
+            return 0;
+         }
+    }
+
+
     You("tumble past %s.", mon_nam(mtmp));
     tx = u.ux;
     ty = u.uy;
@@ -3786,14 +3867,19 @@ int tech_no;
     remove_monster(mtmp->mx, mtmp->my);
     place_monster(mtmp, tx, ty);
     trtmp = t_at(u.ux, u.uy);
-    if (trtmp) dotrap(trtmp, FORCETRAP);
+    if (trtmp)
+         dotrap(trtmp, FORCETRAP);
+
+    newsym(u.ux, u.uy);
+    newsym(mtmp->mx, mtmp->my);
+    spoteffects(FALSE);
+
     if (roll > tumbleskill) {
          nomul(-rnd(2));
          multi_reason = "recovering from a tumble";
          nomovemsg = "You recover from your tumble.";
     }
-    newsym(u.ux, u.uy);
-    newsym(mtmp->mx, mtmp->my);
+
     return 1;
 }
 

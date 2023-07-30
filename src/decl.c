@@ -286,7 +286,7 @@ const char *materialnm[] = { "mysterious", "liquid",  "wax",        "organic",
                              "wooden",     "bone",    "dragonhide", "iron",
                              "steel",      "copper",  "silver",     "gold",
                              "platinum",   "mithril", "plastic",    "glass",
-                             "crystal",    "stone" };
+                             "gemstone",   "stone" };
 
 /* Vision */
 NEARDATA boolean vision_full_recalc = 0;

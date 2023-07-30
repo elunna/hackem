@@ -362,6 +362,7 @@ doride()
 
     if (u.usteed) {
         dismount_steed(DISMOUNT_BYCHOICE);
+        update_inventory();
     } else if (getdir((char *) 0) && isok(u.ux + u.dx, u.uy + u.dy)) {
         if (wizard && yn("Force the mount to succeed?") == 'y')
             forcemount = TRUE;
@@ -549,6 +550,7 @@ boolean force;      /* Quietly force this animal */
     remove_monster(mtmp->mx, mtmp->my);
     teleds(mtmp->mx, mtmp->my, TELEDS_ALLOW_DRAG);
     context.botl = TRUE;
+    update_inventory();
     return TRUE;
 }
 

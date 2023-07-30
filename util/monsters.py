@@ -116,7 +116,7 @@ def extract_data(text):
             mondat['gen'].append(data.genflags[i])
             
     if "G_GENO" not in gen:
-        mondat['gen'].append("can not be annihilated")
+        mondat['gen'].append("can not be genocided")
             
     # Size - Always has ()
     # Fields: weight, nut, sound, size

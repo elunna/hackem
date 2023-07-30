@@ -66,6 +66,7 @@ const struct propname {
     { PSYCHIC_RES, "psionic resistance" },
     { DRAIN_RES, "drain resistance" },
     { SICK_RES, "sickness resistance" },
+    { DEATH_RES, "death magic resistance" },
     { ANTIMAGIC, "magic resistance" },
     { HALLUC_RES, "hallucination resistance" },
     { FUMBLING, "fumbling" },
@@ -88,7 +89,7 @@ const struct propname {
     { WWALKING, "water walking" },
     { SWIMMING, "swimming" },
     { MAGICAL_BREATHING, "magical breathing" },
-    { PASSES_WALLS, "pass thru walls" },
+    { PASSES_WALLS, "phasing" },
     { SLOW_DIGESTION, "slow digestion" },
     { HALF_SPDAM, "half spell damage" },
     { HALF_PHDAM, "half physical damage" },
@@ -456,7 +457,7 @@ struct kinfo *kptr;
      * but does not perform polyself()'s light source bookkeeping.
      * No longer need to manually increment uconduct.polyselfs to reflect
      * [formerly implicit] change of form; polymon() takes care of that.
-     * Temporarily un-annihilate if necessary.
+     * Temporarily ungenocide if necessary.
      */
     if (emits_light(youmonst.data))
         del_light_source(LS_MONSTER, monst_to_any(&youmonst));
@@ -468,7 +469,7 @@ struct kinfo *kptr;
     done_timeout(TURNED_SLIME, SLIMED);
 
     /* life-saved; even so, hero still has turned into green slime;
-       player may have annihilated green slimes after being infected */
+       player may have genocided green slimes after being infected */
     if ((mvitals[PM_GREEN_SLIME].mvflags & G_GENOD) != 0) {
         char slimebuf[BUFSZ];
 
@@ -476,7 +477,7 @@ struct kinfo *kptr;
         Strcpy(killer.name, "slimicide");
         /* vary the message depending upon whether life-save was due to
            amulet or due to declining to die in explore or wizard mode */
-        Strcpy(slimebuf, "green slime has been annihilated...");
+        Strcpy(slimebuf, "green slime has been genocided...");
         if (iflags.last_msg == PLNMSG_OK_DONT_DIE)
             /* follows "OK, so you don't die." and arg is second sentence */
             pline("Yes, you do.  %s", upstart(slimebuf));
@@ -1087,11 +1088,11 @@ long timeout;
                 if (canseemon(mtmp))
                     You_see("%s engulfed in an explosion!", mon_nam(mtmp));
             }
-            mtmp->mhp -= d(2, 5);
-            if (mtmp->mhp < 1) {
+            
+            if (damage_mon(mtmp, d(2, 5), AD_PHYS)) {
                 if (!bomb->yours)
                     monkilled(mtmp, (silent ? "" : "explosion"), AD_PHYS);
-                else 
+                else
                     xkilled(mtmp, !silent);
             }
             break;
@@ -1111,50 +1112,32 @@ long timeout;
             }
             losehp(d(2, 5), "carrying live explosives", KILLED_BY);
             break;
-            case OBJ_FLOOR:
-                underwater = is_pool(x, y);
-                if (!silent) {
-                    if (x == u.ux && y == u.uy) {
-                        if (underwater && (Flying || Levitation))
-                            pline_The("water boils beneath you.");
-                        else if (underwater && Wwalking)
-                            pline_The("water erupts around you.");
-                        else 
-                            pline("A bomb explodes under your %s!",
-                                  makeplural(body_part(FOOT)));
-                    } else if (cansee(x, y)) {
-                        You(underwater ?
-                            "see a plume of water shoot up." :
-                            "see a bomb explode.");
-                    }
-
+        case OBJ_FLOOR:
+            underwater = is_pool(x, y);
+            if (!silent) {
+                if (x == u.ux && y == u.uy) {
+                    if (underwater && (Flying || Levitation))
+                        pline_The("water boils beneath you.");
+                    else if (underwater && Wwalking)
+                        pline_The("water erupts around you.");
+                    else
+                        pline("A bomb explodes under your %s!",
+                              makeplural(body_part(FOOT)));
+                    
+                    losehp(d(2, 5), "enfulfed in an explosion", KILLED_BY);
+                } else if (cansee(x, y)) {
+                    You(underwater ? "see a plume of water shoot up."
+                                   : "see a bomb explode.");
                 }
-                if (underwater && (Flying || Levitation || Wwalking)) {
-                    if (Wwalking && x == u.ux && y == u.uy) {
-                        struct trap trap;
-                        trap.ntrap = NULL;
-                        trap.tx = x;
-                        trap.ty = y;
-                        trap.launch.x = -1;
-                        trap.launch.y = -1;
-                        trap.ttyp = RUST_TRAP;
-                        trap.tseen = 0;
-                        trap.once = 0;
-                        trap.madeby_u = 0;
-                        trap.dst.dnum = -1;
-                        trap.dst.dlevel = -1;
-                        dotrap(&trap, 0);
-                    }
-                    goto free_bomb;
-                }
-                break;
-            default:	/* Buried, contained, etc. */
-                if (!silent)
-                    You_hear("a muffled explosion.");
-                goto free_bomb;
-                break;
             }
-            bomb_explode(bomb, x, y, bomb->yours);
+            break;
+        default: /* Buried, contained, etc. */
+            if (!silent)
+                You_hear("a muffled explosion.");
+            goto free_bomb;
+            break;
+        }
+        bomb_explode(bomb, x, y, bomb->yours);
 
 free_bomb:
         if (carried(bomb)) {
@@ -2021,6 +2004,11 @@ boolean already_lit;
         do_timer = FALSE;
         if (obj->otyp == MAGIC_CANDLE) 
             obj->age = 300L;
+        if (!obj->cursed) {
+            if (lightdamage(obj, FALSE, 5)) {
+                    ; /* light haters */
+            }
+        }
         break;
     case RED_DOUBLE_LIGHTSABER:
         if (obj->altmode && obj->age > 1) {

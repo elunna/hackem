@@ -37,6 +37,8 @@ d_level *lev;
                       /* only allow bones in the valley if Cerberus
                          still lives */
                       || (Is_valley(lev) && !u.uevent.ucerberus)
+                      /* no bones in the Wyrm Caves */
+                      || (In_caves(lev))
                       /* no bones in the invocation level */
                       || (In_hell(lev)
                           && lev->dlevel == dunlevs_in_dungeon(lev) - 1));
@@ -148,7 +150,9 @@ boolean restore;
             /* Prevent non-wishable artifacts that are
                meant to be found with their owners or at
                the end of a specific quest from winding up
-               in a bones pile */
+               in a bones pile. Forged artifacts also fall
+               under this category, as all of them are
+               flagged as SPFX_NOWISH */
             if (non_wishable_artifact(otmp)) {
                 struct monst *mtmp;
                 mtmp = find_owner_on_level(otmp);
@@ -237,14 +241,14 @@ boolean restore;
                 curse(otmp);
             } else if (otmp->oartifact == ART_THIEFBANE
                        || otmp->oartifact == ART_MASTER_SWORD
-                       || otmp->oartifact == ART_XANATHAR_S_RING_OF_PROOF) {
+                       || otmp->oartifact == ART_KEY_OF_LAW
+                       || otmp->oartifact == ART_KEY_OF_NEUTRALITY
+                       || otmp->oartifact == ART_KEY_OF_CHAOS
+                       || otmp->oartifact == ART_NIGHTHORN
+                       || otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
                 /* Guaranteed artifacts become ordinary objects */
                 otmp->oartifact = 0;
                 free_oname(otmp);
-            } else if (otmp->oartifact == ART_KEY_OF_ACCESS) {
-                otmp->otyp = SKELETON_KEY;
-                set_material(otmp, COPPER);
-                curse(otmp);
             } else if (is_lightsaber(otmp)) {
                 if (obj_is_burning(otmp))
                     end_burn(otmp, TRUE);
@@ -388,9 +392,8 @@ struct obj *obj;
         lair = &hellb_level;
         break;
     case ART_LIFESTEALER:
-    case ART_EYE_OF_VECNA:
+    case ART_EYE_OF_THE_BEHOLDER:
     case ART_HAND_OF_VECNA:
-    case ART_SWORD_OF_KAS:
     default:
         return FALSE;
         break;
@@ -415,12 +418,11 @@ struct obj *obj;
     case ART_LIFESTEALER:
         owner = PM_VLAD_THE_IMPALER;
         break;
-    case ART_EYE_OF_VECNA:
     case ART_HAND_OF_VECNA:
         owner = PM_VECNA;
         break;
-    case ART_SWORD_OF_KAS:
-        owner = PM_KAS;
+    case ART_EYE_OF_THE_BEHOLDER:
+        owner = PM_BEHOLDER;
         break;
     default:
         break;
@@ -529,15 +531,19 @@ struct obj *corpse;
             || (mptr == &mons[PM_MEDUSA] && !Is_medusa_level(&u.uz))
             || mptr->msound == MS_NEMESIS || mptr->msound == MS_LEADER
             || mptr == &mons[PM_VLAD_THE_IMPALER]
+            || mtmp->cham == PM_VLAD_THE_IMPALER /* in case he's vampshifted */
             || (mptr == &mons[PM_ORACLE] && !fixuporacle(mtmp))
             || (mtmp->iscerberus && !Is_valley(&u.uz))
             || (mptr == &mons[PM_CHARON] && !Is_valley(&u.uz))
-            || mptr == &mons[PM_KAS]
             || mptr == &mons[PM_RAT_KING]
+            || mtmp->cham == PM_RAT_KING /* in case he's wereshifted */
+            || mptr == &mons[PM_COUNT_DRACULA]
+            || mtmp->cham == PM_COUNT_DRACULA /* in case he's vampshifted */
+            || mptr == &mons[PM_NOSFERATU]
+            || mtmp->cham == PM_NOSFERATU /* in case he's vampshifted */
             || mptr == &mons[PM_CTHULHU]
-            || mptr == &mons[PM_ABOMINABLE_SNOWMAN]
-            || mptr == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mptr == &mons[PM_KATHRYN_THE_ENCHANTRESS]) {
+            || mptr == &mons[PM_NIGHTMARE]
+            || mptr == &mons[PM_BEHOLDER]) {
             mongone(mtmp);
             if (mtmp == ukiller)
                 ukiller = (struct monst *) 0;
@@ -585,7 +591,7 @@ struct obj *corpse;
         /* trick makemon() into allowing monster creation
          * on your location
          */
-        if (ukiller) {
+        if (ukiller == mtmp) {
             /* If you don't rise from your grave (and are thus carrying your stuff),
              * the critter that killed you gets some special handling here.
              *
@@ -642,7 +648,7 @@ struct obj *corpse;
         in_mklev = TRUE; /* use <u.ux,u.uy> as-is */
         mtmp = makemon(&mons[u.ugrave_arise], u.ux, u.uy, NO_MINVENT);
         in_mklev = FALSE;
-        if (!mtmp) { /* arise-type might have been annihilated */
+        if (!mtmp) { /* arise-type might have been genocided */
             drop_upon_death((struct monst *) 0, (struct obj *) 0, u.ux, u.uy);
             u.ugrave_arise = NON_PM; /* in case caller cares */
             return;
@@ -839,7 +845,7 @@ getbones()
              * monsters such as demon lords, and tracks the
              * birth counts of all species just as makemon()
              * does.  If a bones monster is extinct or has been
-             * subject to annihilation, their mhpmax will be
+             * subject to genocide, their mhpmax will be
              * set to the magic DEFUNCT_MONSTER cookie value.
              */
             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {

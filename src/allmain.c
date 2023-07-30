@@ -655,11 +655,6 @@ boolean resuming;
                     if (Inhell && !Is_valley(&u.uz))
                         in_hell_effects();
 
-                    /* Running around in the Ice Queen branch without
-                       100% cold resistance */
-                    if (Iniceq)
-                        in_iceq_effects();
-
                     /* If wielding/wearing any of the 'banes, make those
                        monsters that they are against hostile should they
                        be tame or peaceful */
@@ -669,7 +664,8 @@ boolean resuming;
                             || (wielding_artifact(ART_DEATHSWORD)
                                 && racial_human(mtmp))
                             || (wielding_artifact(ART_STING)
-                                && racial_orc(mtmp))
+                                && (racial_orc(mtmp)
+                                    || is_spider(mtmp->data)))
                             || (wielding_artifact(ART_ORCRIST)
                                 && racial_orc(mtmp))
                             || (wielding_artifact(ART_ELFRIST)
@@ -686,7 +682,7 @@ boolean resuming;
                                 && is_undead(mtmp->data))
                             || (wielding_artifact(ART_DISRUPTER)
                                 && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_HOLY_SPEAR_OF_LIGHT)
+                            || (wielding_artifact(ART_SPEAR_OF_LIGHT)
                                 && is_undead(mtmp->data))
                             || (wielding_artifact(ART_WEREBANE)
                                 && is_were(mtmp->data))
@@ -895,7 +891,7 @@ STATIC_OVL void
 regen_hp(wtcap)
 int wtcap;
 {
-    int heal = 0;
+    int efflev, effcon, heal = 0;
     boolean reached_full = FALSE,
             encumbrance_ok = (wtcap < MOD_ENCUMBER || !u.umoved),
             infidel_no_amulet = (u.ualign.type == A_NONE && !u.uhave.amulet
@@ -952,9 +948,9 @@ int wtcap;
             * experience level and constitution (-2 cursed, +1 uncursed,
             * +2 blessed) for the basis of regeneration calculations.
             */
-
-            int efflev = u.ulevel + u.uhealbonus;
-            int effcon = ACURR(A_CON) + u.uhealbonus;
+            
+            efflev = u.ulevel + u.uhealbonus;
+            effcon = ACURR(A_CON) + u.uhealbonus;
             heal = 0;
             
             if (efflev > 9) {
@@ -1015,8 +1011,10 @@ void
 stop_occupation()
 {
     if (occupation) {
-        if (!maybe_finished_meal(TRUE))
+        if (!maybe_finished_meal(TRUE)) {
             You("stop %s.", occtxt);
+            update_inventory(); /* meal weight has changed */
+        }
         occupation = 0;
         context.botl = TRUE; /* in case u.uhs changed */
         nomul(0);
@@ -1067,7 +1065,7 @@ newgame()
 {
     int i;
     /* Add this flag here to activate rr fuzzing */
-    /*iflags.debug_fuzzer = 1; */
+    /* iflags.debug_fuzzer = 1; */
     
 #ifdef MFLOPPY
     gameDiskPrompt();
@@ -1166,7 +1164,7 @@ boolean new_game; /* false => restoring an old game */
 
     /* skip "welcome back" if restoring a doomed character */
     if (!new_game && Upolyd && ugenocided()) {
-        /* death via self-annihilation is pending */
+        /* death via self-genocide is pending */
         pline("You're back, but you still feel %s inside.", udeadinside());
         return;
     }

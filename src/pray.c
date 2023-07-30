@@ -213,7 +213,7 @@ in_trouble()
         return TROUBLE_LAVA;
     if (Sick)
         return TROUBLE_SICK;
-    if (Withering)
+    if (HWithering && !BWithering)
         return TROUBLE_WITHERING;
     if (u.uhs >= WEAK)
         return TROUBLE_STARVING;
@@ -407,8 +407,11 @@ int trouble;
         make_sick(0L, (char *) 0, FALSE, SICK_ALL);
         break;
     case TROUBLE_WITHERING:
-        You("stop withering.");
         set_itimeout(&HWithering, (long) 0);
+        if (!Withering)
+            You("stop withering.");
+        else
+            You_feel("a little less dessicated.");
         break;
     case TROUBLE_REGION:
         /* stinking cloud, with hero vulnerable to HP loss */
@@ -829,31 +832,23 @@ gcrownu()
     xchar maxint, maxwis;
 #define ok_wep(o) ((o) && ((o)->oclass == WEAPON_CLASS || is_weptool(o)))
 
-    HSee_invisible |= FROMOUTSIDE;
-    /* small chance to obtain sick resistance, but not
-       this way if infidel (see below) */
-    if (!rn2(10) && !Role_if(PM_INFIDEL))
-        HSick_resistance |= FROMOUTSIDE;
-    incr_resistance(&HFire_resistance, 100);
-    if (!Role_if(PM_INFIDEL)) {
-        /* demons don't get all the intrinsics */
+    /* Moloch-worshippers get intrinsics from becoming a demon */
+    if (u.ualign.type != A_NONE) {
+        incr_resistance(&HFire_resistance, 100);
         incr_resistance(&HCold_resistance, 100);
         incr_resistance(&HShock_resistance, 100);
         incr_resistance(&HSleep_resistance, 100);
-    }
-    incr_resistance(&HPoison_resistance, 100);
-    if (Role_if(PM_INFIDEL)) {
-        HSick_resistance |= FROMRACE;
-        if (Race_if(PM_ILLITHID)) /* demons don't have the correct brain structure */
-            HPsychic_resistance &= ~INTRINSIC;
-        if (Race_if(PM_CENTAUR)) /* demons don't have four legs */
-            EJumping &= ~INTRINSIC;
-    }
-    if (!Role_if(PM_INFIDEL))
+        incr_resistance(&HPoison_resistance, 100);
+        HSee_invisible |= FROMOUTSIDE;
+        /* small chance to obtain sick resistance, but not
+        this way if infidel (see below) */
+        if (!rn2(10))
+            HSick_resistance |= FROMOUTSIDE;
+
         monstseesu(M_SEEN_FIRE | M_SEEN_COLD | M_SEEN_ELEC
                    | M_SEEN_SLEEP | M_SEEN_POISON);
-    else
-        monstseesu(M_SEEN_FIRE | M_SEEN_POISON);
+    }
+
     godvoice(u.ualign.type, (char *) 0);
 
     class_gift = STRANGE_OBJECT;
@@ -864,10 +859,15 @@ gcrownu()
                       && uwep->oartifact != ART_STORMBRINGER))
         && !carrying(SPE_FINGER_OF_DEATH)) {
         class_gift = SPE_FINGER_OF_DEATH;
-    } else if (Role_if(PM_MONK) && (!uwep || !uwep->oartifact)
-               && !carrying(SPE_RESTORE_ABILITY)) {
+    } else if (Role_if(PM_MONK) && (!uwep || !uwep->oartifact)) {
         /* monks rarely wield a weapon */
-        class_gift = SPE_RESTORE_ABILITY;
+        /* Disabled the spellbook because Monk's get restore ability at level 12 */
+        class_gift = MAGIC_MARKER;
+        obj = mksobj(class_gift, TRUE, FALSE);
+        obj->bknown = 1; /* ok to skip set_bknown() */
+        at_your_feet("An object");
+        place_object(obj, u.ux, u.uy);
+        newsym(u.ux, u.uy);
     }
 
     obj = ok_wep(uwep) ? uwep : 0;
@@ -877,9 +877,9 @@ gcrownu()
         u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
         in_hand = (uwep && uwep->oartifact == ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
-        verbalize("Hurrah for our Pirate King!");
-        livelog_printf(LL_DIVINEGIFT,
-                       "was granted the title of \"Pirate King\" by %s", u_gname());
+        livelog_printf(LL_DIVINEGIFT, "was granted the title of \"Pirate %s\" by %s",
+                       flags.female ? "Queen" : "King",
+                       u_gname());
     } else {
     switch (u.ualign.type) {
     case A_LAWFUL:
@@ -949,9 +949,10 @@ gcrownu()
             unrestrict_weapon_skill(P_TRIDENT);
             P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
             if (Upolyd)
-                rehumanize(); /* return to human/orcish form -- not a
-                                 demon yet */
-            pline1("Wings sprout from your back and you grow a barbed tail!");
+                rehumanize(); /* return to original form -- not a demon yet */
+
+            /* lose ALL old racial abilities */
+            adjabil(u.ulevel, 0);
             maxint = urace.attrmax[A_INT];
             maxwis = urace.attrmax[A_WIS];
             urace = race_demon;
@@ -960,9 +961,18 @@ gcrownu()
             urace.attrmax[A_WIS] = maxwis;
             youmonst.data->msize =
                 MZ_HUMAN; /* in case we started out as a giant */
+            /* gain demonic resistances */
+            adjabil(0, u.ulevel);
+            /* resistances - not shock res because that can be gained by leveling
+               up, and not cold res because demons and cold typically don't mix */
+            incr_resistance(&HSleep_resistance, 100);
+            /* move this line so adjabil doesn't flash e.g. warning on and off */
+            pline1("Wings sprout from your back and you grow a barbed tail!");
+
             set_uasmon();
             newsym(u.ux, u.uy);
             retouch_equipment(2); /* silver */
+            monstseesu(M_SEEN_FIRE | M_SEEN_POISON | M_SEEN_SLEEP);
             break;
         }
     }
@@ -993,9 +1003,19 @@ gcrownu()
         u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
         in_hand = (uwep && uwep->oartifact == ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
-        verbalize("Hurrah for our Pirate King!");
+        verbalize("Hurrah for our Pirate %s!",
+                  flags.female ? "Queen" : "King");
         livelog_printf(LL_DIVINEGIFT,
-                       "was granted the title of \"Pirate King\" by %s", u_gname());
+                       "was granted the title of \"Pirate %s\" by %s",
+                       flags.female ? "Queen" : "King",
+                       u_gname());
+
+        obj = mksobj(SCIMITAR, FALSE, FALSE);
+        obj = oname(obj, artiname(ART_REAVER));
+        obj->spe = 1;
+        at_your_feet("A cutlass");
+        dropy(obj);
+        u.ugifts++;
     } else {
         switch (u.ualign.type) {
         case A_LAWFUL:
@@ -1454,6 +1474,7 @@ aligntyp g_align;
                             break;
                     }
                     otmp->otyp = rnd_class(bases[SPBOOK_CLASS], SPE_BLANK_PAPER);
+                    otmp->material = objects[otmp->otyp].oc_material;
                     otmp->owt = weight(otmp);
                 }
                 if (!u.uconduct.literate && (otmp->otyp != SPE_BLANK_PAPER)
@@ -1667,20 +1688,23 @@ aligntyp alignment;
     
     switch ((int)alignment) {
 	case A_LAWFUL:
-            mnum = lminion();
+	    mnum = lawful_minion(u.ulevel);
 	    break;
 	case A_NEUTRAL:
 	    mnum = neutral_minion(u.ulevel);
 	    break;
 	case A_CHAOTIC:
 	case A_NONE:
-	    /*mnum = chaotic_minion(u.ulevel);*/
-            mnum = ndemon(u.ualign.type);
+	    mnum = chaotic_minion(u.ulevel);
 	    break;
 	default:
 	    impossible("unaligned player?");
 	    mnum = ndemon(A_NONE);
 	    break;
+    }
+    if (mnum == NON_PM) {
+        You("feel a powerful presence gather, but it suddenly recedes!");
+        return;
     }
     mon = makemon(&mons[mnum], u.ux, u.uy, MM_EMIN | MM_NOGRP);
     if (mon) {
@@ -1762,9 +1786,9 @@ dosacrifice()
      */
 #define MAXVALUE 24 /* Highest corpse value (besides Wiz) */
 
-    /* sacrificing the Eye of Vecna is a special case */
-    if (otmp->oartifact == ART_EYE_OF_VECNA) {
-        You("offer this evil abomination to %s...", a_gname());
+    /* sacrificing the Eye of the Beholder is a special case */
+    if (otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
+        You("offer this abomination to %s...", a_gname());
         value = MAXVALUE; /* woop */
         /* KMH, conduct */
         if (!u.uconduct.gnostic++)
@@ -2319,7 +2343,7 @@ dosacrifice()
                     godvoice(u.ualign.type, "Use my gift wisely!");
 
                     /* Light up Candle of Eternal Flame and
-                     * Holy Spear of Light on creation.
+                     * Spear of Light on creation.
                      */
                     if (artifact_light(otmp) && otmp->oartifact != ART_SUNSWORD)
                         begin_burn(otmp, FALSE);
@@ -2330,7 +2354,11 @@ dosacrifice()
                     exercise(A_WIS, TRUE);
 
                     /* make sure we can use this weapon */
-                    unrestrict_weapon_skill(weapon_type(otmp));
+                    if (otmp->oartifact == ART_GRANDMASTER_S_ROBE)
+                        unrestrict_weapon_skill(P_MARTIAL_ARTS);
+                    else
+                        unrestrict_weapon_skill(weapon_type(otmp));
+
                     if (!Hallucination && !Blind) {
                         otmp->dknown = 1;
                         makeknown(otmp->otyp);
@@ -2357,8 +2385,7 @@ dosacrifice()
              *      I'm now using the calculation from SpliceHack that considers
              *      the quantity of gifts given .
              */
-            if (u.uconduct.pets > 0 
-                && u.ulevel > 4 
+            if (u.uconduct.pets > 0
                 && u.uluck >= 0
                 && !u.uevent.qcompleted
                 && !u.uevent.qexpelled
@@ -2367,13 +2394,14 @@ dosacrifice()
                 && !rn2(10 + (4 * u.ugifts))) {
                 god_gives_pet(altaralign);
                 return 1;
-            } else if (!rnl(20 + u.ulevel)) {
+            } else if (!rnl(30 + u.ulevel)) {
                 /* Random item blessed/cursed */
                 if (Role_if(PM_INFIDEL) && u.ualign.type==A_NONE)
                     moloch_gives_curse();
                 else
                     god_gives_benefit();
 
+                update_inventory();
                 return 1;
             }
             

@@ -30,8 +30,8 @@ MONSTER: ('G', "rock gnome"), random
 MONSTER: ('G', "rock gnome"), random
 MONSTER: ('G', "rock gnome"), random
 MONSTER: ('G', "rock gnome"), random
-MONSTER: ('G', "gnome lord"), random
-MONSTER: ('G', "gnome lord"), random
+MONSTER: ('G', "gnome noble"), random
+MONSTER: ('G', "gnome noble"), random
 MONSTER: ('h', "mountain dwarf"), random
 MONSTER: ('h', "mountain dwarf"), random
 MONSTER: 'G', random
@@ -308,7 +308,7 @@ SUBROOM: "temple", lit, (19,5), (4,4) {
 
 [75%]: SUBROOM: "ordinary", lit, (18,10), (4,3) {
   ROOMDOOR: false, locked, west, random
-  MONSTER: ('G', "gnome lord"), random
+  MONSTER: ('G', "gnome noble"), random
 }
 
 # The Town Watch
@@ -642,8 +642,8 @@ MONSTER: ('G', "gnome"), random
 MONSTER: ('G', "rock gnome"), random
 MONSTER: ('G', "rock gnome"), random
 MONSTER: ('G', "rock gnome"), random
-MONSTER: ('G', "gnome lord"), random
-MONSTER: ('G', "gnome lord"), random
+MONSTER: ('G', "gnome noble"), random
+MONSTER: ('G', "gnome noble"), random
 MONSTER: ('G', "gnome thief"), random
 MONSTER: ('G', "gnome thief"), random
 MONSTER: ('h', "dwarf"), random
@@ -683,12 +683,12 @@ DOOR:closed,(67,16)
 MONSTER: ('G', "gnomish wizard"), (67,14)
 OBJECT: '=', (70,14)
 DOOR:locked,(69,18)
-MONSTER: ('G', "gnome lord"), (71,19)
+MONSTER: ('G', "gnome noble"), (71,19)
 DOOR:locked,(73,18)
 OBJECT: ('(', "chest"), (73,19)
 DOOR:locked,(50,06)
 OBJECT: '(', (50,03)
-OBJECT: ('`', "statue"), (38,15), montype:"gnome king", 1
+OBJECT: ('`', "statue"), (38,15), montype:"gnome royal", 1
 # Temple
 REGION:(29,02,33,04),lit,"temple"
 DOOR:closed,(31,05)
@@ -756,10 +756,10 @@ LOOP [4 + 1d8] {
   MONSTER: ('G', "rock gnome"), rndcoord($outside)
 }
 MONSTER: ('G', "rock gnome"), rndcoord($outside)
-MONSTER: ('G', "gnome lord"), rndcoord($outside)
+MONSTER: ('G', "gnome noble"), rndcoord($outside)
 MONSTER: ('G', "rock gnome"), rndcoord($outside)
-MONSTER: ('G', "gnome lord"), rndcoord($outside)
-MONSTER: ('G', "gnome lord"), rndcoord($outside)
+MONSTER: ('G', "gnome noble"), rndcoord($outside)
+MONSTER: ('G', "gnome noble"), rndcoord($outside)
 MONSTER: ('G', "gnome thief"), rndcoord($outside)
 MONSTER: ('G', "gnomish wizard"), rndcoord($outside)
 MONSTER: ('G', "gnomish wizard"), rndcoord($outside)
@@ -835,7 +835,7 @@ FOUNTAIN: (11, 13)
 
 [75%]: SUBROOM: "ordinary", unlit, (19,2), (2,2) {
   ROOMDOOR: false, locked, east, random
-  MONSTER: ('G',"gnome king"),random
+  MONSTER: ('G',"gnome royal"),random
 }
 
 SUBROOM: "food shop" [50%], lit, (19,5), (2,3) {
@@ -894,8 +894,8 @@ MONSTER: ('@', "watchman"), random, peaceful
 MONSTER: ('@', "watch captain"), random, peaceful
 MONSTER:('G',"rock gnome"),random
 MONSTER:('G',"rock gnome"),random
-MONSTER:('G',"gnome lord"),random
-MONSTER:('G',"gnome lord"),random
+MONSTER:('G',"gnome noble"),random
+MONSTER:('G',"gnome noble"),random
 MONSTER:('Y',"monkey"),random
 MONSTER:('Y',"monkey"),random
 
@@ -989,7 +989,7 @@ SUBROOM: "ordinary", lit, (22,10), (2,3) {
 
 SUBROOM: "ordinary", lit, (26,2), (3,3) {
   ROOMDOOR: false, closed, south, random
-  MONSTER: ('G', "gnome lord"), random
+  MONSTER: ('G', "gnome noble"), random
 }
 
 SUBROOM: "ordinary", unlit, (25,10), (4,3) {
@@ -1086,7 +1086,7 @@ MONSTER: ('@', "watchman"), (23,8), peaceful
 MONSTER: ('@', "watch captain"), (18,7), peaceful, asleep
 MONSTER: ('G', "gnomish wizard"), (25,3)
 MONSTER: ('G', "gnomish wizard"), (24,3)
-MONSTER: ('G', "gnome lord"), (11,12)
+MONSTER: ('G', "gnome noble"), (11,12)
 MONSTER: ('G', "gnome"), (12,12)
 MONSTER: ('G', "gnome"), (11,11)
 MONSTER: ('Z', "skeleton"), (15,12)
@@ -1098,8 +1098,8 @@ OBJECT: ('`', "boulder"), (34,14)
 NOMAP
 MONSTER: ('G', "gnome"), random
 MONSTER: ('h', "dwarf"), random
-MONSTER: ('h', "dwarf lord"), random
-MONSTER: ('G', "gnome lord"), random
+MONSTER: ('h', "dwarf noble"), random
+MONSTER: ('G', "gnome noble"), random
 
 # "Creek Town" by L.
 # No fountains in this town, for obvious reasons.
@@ -1176,7 +1176,7 @@ DOOR: locked, (58,12)
 OBJECT: ('(', "chest"), (18,11)
 OBJECT: ('(', "chest"), (20,10)
 OBJECT: ('(', "chest"), (21,15)
-OBJECT: ('`', "statue"), (8,7), montype:"gnome king", 1
+OBJECT: ('`', "statue"), (8,7), montype:"gnome royal", 1
 OBJECT: ('(', "chest"), (47,15)
 
 # Junk
@@ -1196,14 +1196,14 @@ MONSTER: ('d',"pit bull"),(30,8),peaceful,asleep
 
 # Citizens
 MONSTER: ('G', "gnome"), (17,10), hostile
-MONSTER: ('G', "gnome king"), (20,16), hostile
+MONSTER: ('G', "gnome royal"), (20,16), hostile
 MONSTER: 'G', (47,14)
 MONSTER: ('G', "gnome"), random
 MONSTER: ('G', "gnome"), random
-MONSTER: ('G', "gnome lord"), random
-MONSTER: ('G', "gnome lord"), random
-MONSTER: ('G', "gnome lord"), random
-MONSTER: ('h', "dwarf lord"), random
+MONSTER: ('G', "gnome noble"), random
+MONSTER: ('G', "gnome noble"), random
+MONSTER: ('G', "gnome noble"), random
+MONSTER: ('h', "dwarf noble"), random
 MONSTER: ('G', "gnome thief"), random
 MONSTER: ('h', "dwarf thief"), random
 MONSTER: ('h', "hobbit"), random
@@ -1295,7 +1295,7 @@ OBJECT: ('`', "boulder"), (20,9)
 OBJECT: ('%', "corpse"), (27,2), montype:"shopkeeper",0
 OBJECT: '(', (28,2)
 OBJECT: '(', (28,2)
-CONTAINER: ('`', "statue"), (30,8), montype:"gnome king", 1 {
+CONTAINER: ('`', "statue"), (30,8), montype:"gnome royal", 1 {
     [50%]: OBJECT: ('(', "bag of holding"), cursed, 0
 }
 
@@ -1311,8 +1311,8 @@ MONSTER: ('G', "gnome"), (5,4), hostile
 MONSTER: ('G', "gnome thief"), random
 MONSTER: ('G', "gnomish wizard"), (3,5), hostile
 MONSTER: ('G', "gnomish wizard"), (4,5), hostile
-MONSTER: ('G', "gnome king"), (5,5), hostile
-MONSTER: ('G', "gnome lord"), random, hostile
+MONSTER: ('G', "gnome royal"), (5,5), hostile
+MONSTER: ('G', "gnome noble"), random, hostile
 MONSTER: ('h', "dwarf thief"), random
 MONSTER: (';', "giant eel"), (29,7), hostile
 
@@ -1424,7 +1424,7 @@ MONSTER: ('G', "gnomish wizard"), random
 MONSTER: ('G', "gnomish wizard"), random
 MONSTER: ('G', "gnomish wizard"), random
 MONSTER: ('G', "gnome"), random
-MONSTER: ('G', "gnome king"), random
+MONSTER: ('G', "gnome royal"), random
 MONSTER: ('G', "gnome thief"), random
 
 # -- Boo!
@@ -1545,10 +1545,10 @@ TRAP:random,random
 TRAP:random,random
 TRAP:random,random
 # Random monsters
-MONSTER:('G',"gnome king"),random
-MONSTER:('G',"gnome king"),random
-MONSTER:('G',"gnome lord"),random
-MONSTER:('G',"gnome lord"),random
+MONSTER:('G',"gnome royal"),random
+MONSTER:('G',"gnome royal"),random
+MONSTER:('G',"gnome noble"),random
+MONSTER:('G',"gnome noble"),random
 MONSTER:('G',"gnomish wizard"),random
 MONSTER:('G',"gnomish wizard"),random
 MONSTER:('G',"rock gnome"),random
@@ -1649,7 +1649,7 @@ ENGRAVING:(12,04),engrave,"Trespassers will be persecuted!"
 # hired mercenaries, courtesy of the Yendorian Army
 MONSTER:('@',"sergeant"),(14,04),hostile
 MONSTER:('@',"soldier"),(14,05),hostile
-MONSTER:('G',"gnome king"),(14,08),hostile
+MONSTER:('G',"gnome royal"),(14,08),hostile
 OBJECT:('!',"booze"),(10,07)
 OBJECT:('!',"booze"),(10,07)
 OBJECT:'!',(10,07)
@@ -1700,10 +1700,10 @@ TRAP:random,random
 TRAP:random,random
 TRAP:random,random
 # Random monsters.
-MONSTER:('G',"gnome king"),random
-MONSTER:('G',"gnome lord"),random
-MONSTER:('G',"gnome lord"),random
-MONSTER:('G',"gnome lord"),random
+MONSTER:('G',"gnome royal"),random
+MONSTER:('G',"gnome noble"),random
+MONSTER:('G',"gnome noble"),random
+MONSTER:('G',"gnome noble"),random
 MONSTER:('G',"gnomish wizard"),random
 MONSTER:('G',"gnomish wizard"),random
 MONSTER:('G',"rock gnome"),random
@@ -1858,15 +1858,16 @@ MAP
                                                                         .}}{
 ENDMAP
 
-$stones = { (0,18),(0,12),(2,18),(12,14),(20,12),(16,16),(72,18),(52,14),(44,14) }
+$stones = { (0,18),(0,12),(2,18),(12,14),(22,14),
+            (16,16),(72,18),(52,14),(44,14) }
 SHUFFLE: $stones
 REGION:(0,0,75,19),lit,"ordinary"
 NON_DIGGABLE:(0,0,75,19)
 STAIR:(1,9),up
 STAIR:(73,18),down
 
-#SOME ORCS (The religious kind)
-# Hostile to anyone, regardless of race,  who disturbs their sacred temple
+# SOME ORCS (The religious kind)
+# Hostile to anyone, regardless of race, who disturbs their sacred temple
 MONSTER:('d',"wolf"),random,hostile
 MONSTER:('o',"goblin-captain"),random,hostile
 MONSTER:('d',"wolf"),random,hostile
@@ -1908,6 +1909,8 @@ TRAP:"board",random
 OBJECT:('?', "scare monster"),(70,5),cursed
 ENGRAVING:(70,5),burn,"Moloch"
 OBJECT:('(',"figurine"),(70,5),cursed,montype:"balrog",1
+# random placement of gems/stones
+# one location will always be empty
 OBJECT:('*',"luckstone"),$stones[0]
 OBJECT:('*',"flint"),$stones[1]
 OBJECT:'*',$stones[2]
@@ -1916,8 +1919,8 @@ OBJECT:'*',$stones[4]
 OBJECT:'*',$stones[5]
 OBJECT:'*',$stones[6]
 OBJECT:'*',$stones[7]
-OBJECT:'*',$stones[8]
-OBJECT:'*',$stones[9]
+
+#shamans guarding the inner temple/figurine
 MONSTER:('o',"orc shaman"),(69,3),asleep,hostile
 MONSTER:('o',"orc shaman"),(71,3),asleep,hostile
 MONSTER:('o',"orc shaman"),(68,4),asleep,hostile
@@ -2041,7 +2044,7 @@ NON_DIGGABLE: (00,00,74,18)
 # Statues
 OBJECT: ('`', "statue"), (49,09), montype: "queen bee",1
 OBJECT: ('`', "statue"), (55,09), montype: "killer bee",1
-OBJECT: ('`', "statue"), (61,09), montype: "gnome king",1
+OBJECT: ('`', "statue"), (61,09), montype: "gnome royal",1
 
 # Boulders
 OBJECT: ('`', "boulder"), (41,04)
@@ -2271,6 +2274,7 @@ DOOR:locked,(68,04)
 DOOR:locked,(67,11)
 # Stairs
 STAIR:(48,12),up
+STAIR:(6,4),down
 
 # Non diggable / non phase walls
 NON_DIGGABLE:(00,00,74,17)
@@ -2557,7 +2561,7 @@ GOLD: 1d200, random
 GOLD: 1d200, random
 
 # Set about the fountains
-OBJECT: ('`', "statue"), (13,08), montype:"gnome king",1
+OBJECT: ('`', "statue"), (13,08), montype:"gnome royal",1
 ENGRAVING: (13,08), burn, "Ruggo the Magnificent"
 
 # Barracks 1 (1,1)-(12,4) - 10 warriors
@@ -2659,12 +2663,12 @@ MONSTER: ('G', "deep gnome"), (54,07), hostile
 MONSTER: ('G', "deep gnome"), (54,09), hostile
 
 # (Historic) artwork in the hallways
-OBJECT: ('`',"statue"), (49,07), montype:"gnome king", 1
-OBJECT: ('`',"statue"), (51,07), montype:"gnome king", 1
-OBJECT: ('`',"statue"), (53,07), montype:"gnome king", 1
-OBJECT: ('`',"statue"), (49,09), montype:"gnome king", 1
-OBJECT: ('`',"statue"), (51,09), montype:"gnome king", 1
-OBJECT: ('`',"statue"), (53,09), montype:"gnome king", 1
+OBJECT: ('`',"statue"), (49,07), montype:"gnome royal", 1
+OBJECT: ('`',"statue"), (51,07), montype:"gnome royal", 1
+OBJECT: ('`',"statue"), (53,07), montype:"gnome royal", 1
+OBJECT: ('`',"statue"), (49,09), montype:"gnome royal", 1
+OBJECT: ('`',"statue"), (51,09), montype:"gnome royal", 1
+OBJECT: ('`',"statue"), (53,09), montype:"gnome royal", 1
 
 OBJECT: ')', (54,8)
 OBJECT: '/', (54,8)

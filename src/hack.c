@@ -72,13 +72,19 @@ rndmappos(x,y) /* guaranteed to return a valid coord */
 xchar *x;
 xchar *y;
 {
-   if (*x >= COLNO) *x = COLNO;
-   else if (*x == -1) *x = rn2(COLNO-1)+1;
-   else if (*x < 1) *x = 1;
-   
-   if (*y >= ROWNO) *y = ROWNO;
-   else if (*y == -1) *y = rn2(ROWNO);
-   else if (*y < 0) *y = 0;
+    if (*x >= COLNO)
+        *x = COLNO;
+    else if (*x == -1)
+        *x = rn2(COLNO - 1) + 1;
+    else if (*x < 1)
+        *x = 1;
+
+    if (*y >= ROWNO)
+        *y = ROWNO;
+    else if (*y == -1)
+        *y = rn2(ROWNO);
+    else if (*y < 0)
+        *y = 0;
 }
 
 boolean
@@ -798,8 +804,12 @@ int mode;
                 return FALSE;
             }
             if (!(Passes_walls || passes_bars(youmonst.data))) {
-                if (mode == DO_MOVE && iflags.mention_walls)
+                if ((mode == DO_MOVE && iflags.mention_walls))
                     You("cannot pass through the bars.");
+                return FALSE;
+            }
+            if (In_sokoban(&u.uz) && passes_bars(youmonst.data)) {
+                You("cannot pass through the bars.");
                 return FALSE;
             }
         } else if (tunnels(youmonst.data) && !needspick(youmonst.data)) {
@@ -1970,13 +1980,12 @@ do_nothing:
             && !(u.usteed && is_flyer(u.usteed->data)) && grounded(youmonst.data)
             && !Stunned && !Confusion && levl[x][y].seenv
             && ((is_pool(x, y) && !is_pool(u.ux, u.uy))
-                || (is_lava(x, y) && !is_lava(u.ux, u.uy)))) {
+                || (is_lava(x, y) && !is_lava(u.ux, u.uy))
+                || (is_open_air(x, y) && !is_open_air(u.ux, u.uy)))) {
             if (is_pool(x, y) && !known_wwalking) {
-                
                 if (context.nopick) {
                     /* moving with m-prefix */
                     context.swim_tip = TRUE;
-                    /*return FALSE;*/
                 } else if (ParanoidSwim) {
                     context.move = 0;
                     nomul(0);
@@ -2014,6 +2023,25 @@ do_nothing:
                                    "touching molten lava", KILLED_BY);
                         }
                     }
+                    if (!context.swim_tip) {
+                        pline("(Use 'move' prefix to step in if you really want to.)");
+                        context.swim_tip = TRUE;
+                    }
+                    return;
+                }
+            } else if (is_open_air(x, y)
+                && (!HLevitation && !ELevitation)
+                && (!EFlying && !HFlying)) {
+
+                if (context.nopick) {
+                    /* moving with m-prefix */
+                    context.swim_tip = TRUE;
+                    /*return;*/
+                } else if (ParanoidSwim) {
+                    context.move = 0;
+                    nomul(0);
+
+                    You("narrowly avoid plunging into open air.");
                     if (!context.swim_tip) {
                         pline("(Use 'move' prefix to step in if you really want to.)");
                         context.swim_tip = TRUE;
@@ -2420,7 +2448,7 @@ boolean newspot;             /* true if called by spoteffects */
             You("pop out of the %s like a cork!", hliquid("water"));
         } else if (Flying) {
             You("fly out of the %s.", hliquid("water"));
-        } else if (Wwalking) {
+        } else if (EWwalking) { /* extrinsic source only */
             You("slowly rise above the surface.");
         } else {
             still_inwater = TRUE;
@@ -2492,7 +2520,8 @@ boolean newspot;             /* true if called by spoteffects */
                       rn2(2) ? "wading" : "trudging",
                       rn2(2) ? "this sludge" : "the muck");
             }
-            if (!verysmall(youmonst.data) && !SuperStealth && !rn2(4))
+
+            if (!verysmall(youmonst.data) && !rn2(4))
                 wake_nearby();
 
             if (Upolyd && youmonst.data  == &mons[PM_GREMLIN])
@@ -2893,10 +2922,7 @@ register boolean newlev;
          * but everything else gives a message only the first time */
         switch (rt) {
         case ZOO:
-            if (Iniceq)
-                You("enter an ice cave!");
-            else
-                pline("Welcome to David's treasure zoo!");
+            pline("Welcome to David's treasure zoo!");
             break;
         case GARDEN:
             if (Blind)
@@ -2931,7 +2957,6 @@ register boolean newlev;
                 You("have an uncanny feeling...");
             break;
         case LEMUREPIT:
-            You("enter a pit of tortured lemures!");
             break;
         case BEEHIVE:
             You("enter a giant beehive!");
@@ -3247,7 +3272,8 @@ lookaround()
                 || levl[x][y].typ == ROOM
                 || levl[x][y].typ == ICE
                 || IS_GRASS(levl[x][y].typ)
-                || IS_AIR(levl[x][y].typ)) {
+                || (IS_AIR(levl[x][y].typ)
+                    && !In_V_tower(&u.uz))) {
                 continue;
             } else if (closed_door(x, y) || (mtmp && is_door_mappear(mtmp))) {
                 if (x != u.ux && y != u.uy)

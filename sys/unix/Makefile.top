@@ -87,14 +87,14 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
         knox-?.lev medusa-?.lev minend-?.lev minefill.lev \
         mineking-?.lev vlt-*.lev hella-?.lev hellb-?.lev hellc-?.lev \
         minetn-*.lev oracle-?.lev orcus.lev sanctum.lev soko?-*.lev \
-        icequeen-?.lev vecna-?.lev tower?.lev valley.lev \
+        tower?.lev valley.lev mall-?.lev giants.lev \
         wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev \
-        town-?.lev townfill.lev village.lev \
-		rats-?.lev stor.lev cavepass.lev \
+        town-?.lev townfill.lev village.lev spiders.lev \
+		rats-?.lev nymph.lev stor.lev cavepass.lev sea.lev \
         cavenest.lev cavefill.lev cavebegn.lev caveend.lev \
-        tomb-?.lev mtemple.lev grund.lev blkmar-?.lev \
+        tomb.lev mtemple.lev grund.lev blkmar-?.lev \
         qlawful.lev qneutral.lev qchaos.lev \
-        leth-*.lev nkai-*.lev ucastle.lev
+        leth-*.lev nkai-*.lev ucastle.lev kobold-?.lev
 QUEST_LEVS = ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev
 
 DATNODLB = $(VARDATND) license symbols $(CSS)

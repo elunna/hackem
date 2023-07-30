@@ -852,8 +852,6 @@ boolean artif;
     otmp->otyp = otyp;
     otmp->where = OBJ_FREE;
     otmp->dknown = index(dknowns, let) ? 0 : 1;
-    if (otmp->otyp == AMULET_OF_YENDOR)
-        otmp->orecursive = FALSE;
     if ((otmp->otyp >= ELVEN_SHIELD && otmp->otyp <= ORCISH_SHIELD)
         || (otmp->otyp >= SHIELD_OF_REFLECTION && otmp->otyp <= SHIELD_OF_MOBILITY)
         || objects[otmp->otyp].oc_merge)
@@ -962,7 +960,7 @@ boolean artif;
                 otmp->quan = (long) rnd(2);
                 break;
             }
-            if (Is_pudding(otmp)) {
+            if (Is_pudding(otmp->otyp)) {
                 otmp->quan = 1L; /* for emphasis; glob quantity is always 1 */
                 otmp->globby = 1;
                 otmp->known = otmp->dknown = 1;
@@ -2111,12 +2109,27 @@ register struct obj *otmp;
         return FALSE;
 
     /* both the eye and the hand are fleshy, but they come from
-       Vecna, and are not harmed by fire */
-    if (otmp->oartifact == ART_EYE_OF_VECNA
+       magical guardians, and are not harmed by fire */
+    if (otmp->oartifact == ART_EYE_OF_THE_BEHOLDER
         || otmp->oartifact == ART_HAND_OF_VECNA)
         return FALSE;
 
-    if (objects[otyp].oc_oprop == FIRE_RES || otyp == WAN_FIRE)
+    /* fire-related items are immune */
+    if (objects[otyp].oc_oprop == FIRE_RES
+        || otyp == WAN_FIRE
+        || otyp == SCR_FIRE
+        || otyp == SPE_FIREBALL
+        || otyp == SPE_FIRE_BOLT
+        || otyp == SPE_FLAME_SPHERE
+        || otyp == FIRE_HORN)
+        return FALSE;
+    else if (attacks(AD_FIRE, otmp) || defends(AD_FIRE, otmp))
+        return FALSE;
+    /* weapons of fire are handled above; armor is not*/
+    else if (otmp->oprops  && otmp->oprops & ITEM_FIRE)
+        return FALSE;
+
+    if (otyp == SPE_BOOK_OF_THE_DEAD)
         return FALSE;
 
     return (boolean) ((omat <= BONE && omat != LIQUID) || omat == PLASTIC);
@@ -2756,6 +2769,11 @@ obj_sanity_check()
                       (struct monst *) 0);
     if (kickedobj)
         insane_object(kickedobj, ofmt3, "kickedobj sanity",
+                      (struct monst *) 0);
+    /* returning_missile temporarily remembers thrownobj and should be
+      Null in between moves */
+    if (iflags.returning_missile)
+        insane_object(kickedobj, ofmt3, "returning_missile sanity",
                       (struct monst *) 0);
     /* current_wand isn't removed from invent while in use, but should
        be Null between moves when we're called */
@@ -3411,11 +3429,12 @@ struct obj *otmp2;
     }
 }
 
-/* Object material probabilities. */
+/* Object material probabilities */
 /* for objects which are normally iron or steel */
 static const struct icp metal_materials[] = {
-    {65, 0}, /* default to base type, iron or steel */
+    {60, 0}, /* default to base type, iron or steel */
     {10, METAL},
+    { 5, IRON},
     { 5, BONE},
     { 5, WOOD},
     { 4, SILVER},
@@ -3474,7 +3493,7 @@ static const struct icp dwarvish_materials[] = {
 };
 
 /* for armor objects of elven make - no iron!
- * Does not cover cloth items; those use the regular cloth probs. */
+ * Does not cover cloth items; those use the regular cloth probs */
 static const struct icp elven_materials[] = {
     {60, 0}, /* use base material */
     {20, WOOD},
@@ -3491,8 +3510,8 @@ static const struct icp orcish_materials[] = {
     {10, MINERAL}
 };
 
-/* Reflectable items - for the shield of reflection; anything that can hold a
- * polish. Amulets also arbitrarily use this list. */
+/* Reflectable items - for the shield of reflection; anything
+   that can hold a polish. Amulets also arbitrarily use this list */
 static const struct icp shiny_materials[] = {
     {50, 0}, /* use base material */
     {20, SILVER},
@@ -3504,7 +3523,7 @@ static const struct icp shiny_materials[] = {
 };
 
 /* for bells and other tools, especially instruments, which are normally copper
- * or metal.  Wood and glass in other lists precludes us from using those. */
+ * or metal.  Wood and glass in other lists precludes us from using those */
 static const struct icp resonant_materials[] = {
     {55, 0}, /* use base material */
     {20, COPPER},
@@ -3516,7 +3535,7 @@ static const struct icp resonant_materials[] = {
     { 1, PLATINUM}
 };
 
-/* for horns, currently. */
+/* for horns, currently */
 static const struct icp horn_materials[] = {
     {70, BONE},
     {10, COPPER},
@@ -3540,7 +3559,7 @@ static const struct icp bat_materials[] = {
 };
 
 /* hacks for specific objects... not great because it's a lot of data, but it's
- * a relatively clean solution */
+   a relatively clean solution */
 static const struct icp elven_helm_boots_materials[] = {
     {90, LEATHER},
     { 9, CLOTH},
@@ -3603,9 +3622,10 @@ static const struct icp sling_bullet_materials[] = {
 static const struct icp helm_speed_materials[] = {
     {30, 0}, /* default to base type, steel */
     {25, LEATHER},
-    {15, CLOTH},
-    {10, BONE},
-    { 4, WOOD},
+    {12, CLOTH},
+    { 7, BONE},
+    { 5, METAL},
+    { 5, WOOD},
     { 4, SILVER},
     { 4, COPPER},
     { 3, MITHRIL},
@@ -3645,7 +3665,6 @@ struct obj* obj;
         case STAFF_OF_ESCAPE:
         case STAFF_OF_WAR:
         case SILVER_CAPPED_STAFF:
-        case WOODEN_STAKE:
         case GRAPPLING_HOOK:
         case IRON_SAFE:
         case CRYSTAL_CHEST:
@@ -3658,6 +3677,9 @@ struct obj* obj;
         case LEASH:
         case SADDLE:
         case TINNING_KIT:
+        case TINFOIL_HAT:
+        case OILSKIN_SACK:
+        case OILSKIN_CLOAK:
         case BANDAGE:
         case PHIAL:
         case AMULET_OF_YENDOR:
@@ -3670,7 +3692,7 @@ struct obj* obj;
         case SHIELD_OF_LIGHT:
         case SHIELD_OF_MOBILITY:
         case CHAKRAM:
-            return shiny_materials;
+            return metal_materials;
         case BOW:
         case YUMI:
         case FOOTBOW:
@@ -3723,7 +3745,6 @@ struct obj* obj;
         case BASEBALL_BAT:
             return bat_materials;
         case SACK:
-        case OILSKIN_SACK:
         case BAG_OF_HOLDING:
         case BAG_OF_TRICKS:
             return portable_container_materials;

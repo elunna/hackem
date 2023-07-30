@@ -401,6 +401,8 @@ result:
     case 22:
         if (Luck < 0) {
             blowupforge(u.ux, u.uy);
+            /* Avoid destroying the same item twice in the later lava_damage. */
+            return;
         } else {
            pline("Molten lava surges up and splashes all over you!");
            
@@ -450,7 +452,7 @@ static const struct forge_recipe {
     { AKLYS, SPEAR, FLAIL, 1, 1 },
     { SHURIKEN, DART, DAGGER, 2, 1 },
     { CHAKRAM, BOOMERANG, SHURIKEN, 1, 1 },
-    
+
     { SPEAR, ARROW, DAGGER, 2, 1 },
     { ELVEN_SPEAR, ELVEN_ARROW, ELVEN_DAGGER, 2, 1 },
     { ORCISH_SPEAR, ORCISH_ARROW, ORCISH_DAGGER, 2, 1 },
@@ -500,8 +502,7 @@ static const struct forge_recipe {
     { HEAVY_WAR_HAMMER, WAR_HAMMER, WAR_HAMMER, 1, 1 },
     { FLAIL, MACE, MORNING_STAR, 1, 1 },
     { TRIPLE_HEADED_FLAIL, FLAIL, SPIKED_CHAIN },
-    { SPIKED_CHAIN, IRON_CHAIN, DAGGER, 1, 2 },
-    { SPIKED_CHAIN, IRON_CHAIN, KNIFE, 1, 2 },
+    { SPIKED_CHAIN, IRON_CHAIN, SHURIKEN, 1, 2 },
     
     { LANCE, JAVELIN, GLAIVE, 1, 1 },
     { PARTISAN, SPEAR, BROADSWORD, 1, 1 },
@@ -517,14 +518,19 @@ static const struct forge_recipe {
     { LUCERN_HAMMER, SPEAR, HEAVY_WAR_HAMMER, 1, 1 },
     { BEC_DE_CORBIN, SPEAR, WAR_HAMMER, 1, 1 },
     
-    /* No recipe for pistol...  */
+    { PISTOL, FLINTLOCK, IRON_CHAIN, 1, 1 },
     { SUBMACHINE_GUN, PISTOL, IRON_CHAIN, 1, 1 },
     { HEAVY_MACHINE_GUN, SUBMACHINE_GUN, IRON_CHAIN, 1, 1 },
     { RIFLE, PISTOL, CROSSBOW, 1, 1 },
     { SNIPER_RIFLE, RIFLE, IRON_CHAIN, 1, 1 },
     { SHOTGUN, PISTOL, BROADSWORD, 1, 1 },
     { AUTO_SHOTGUN, SHOTGUN, IRON_CHAIN, 1, 1 },
-    
+
+    { BULLET, IRON_CHAIN, DART, 1, 2 },
+    { BULLET, IRON_CHAIN, DAGGER, 1, 2 },
+    { BULLET, IRON_CHAIN, KNIFE, 1, 2 },
+    { SHOTGUN_SHELL, IRON_CHAIN, BULLET, 1, 2 },
+
     /* armor (helmets) */
     { ORCISH_HELM, DENTED_POT, ORCISH_DAGGER, 1, 1 },
     { DWARVISH_HELM, HELMET, DWARVISH_SHORT_SWORD, 1, 1 },
@@ -569,15 +575,28 @@ static const struct forge_recipe {
     { 0, 0, 0, 0, 0 }
 };
 
+static const struct forge_arti {
+    short result_typ;
+    short typ1;
+    short typ2;
+} artifusions[] = {
+    /* artifacts */
+    /* { ART_SWORD_OF_ANNIHILATION, ART_FIRE_BRAND, ART_FROST_BRAND }, */
+    { ART_MORTALITY_DIAL, ART_WEREBANE, ART_TROLLSBANE },
+    { 0, 0, 0 }
+};
+
+
 int
 doforging(void)
 {
     const struct forge_recipe *recipe;
+    const struct forge_arti *arti;
     struct obj* obj1;
     struct obj* obj2;
     struct obj* output;
     char allowall[2];
-    int objtype = 0;
+    int objtype = 0, artitype = 0;
 
     allowall[0] = ALL_CLASSES;
     allowall[1] = '\0';
@@ -599,8 +618,8 @@ doforging(void)
     if (!obj1) {
         You("need a base object to forge with.");
         return 0;
-    } else if (!(is_metallic(obj1)
-                 || is_crystal(obj1) || obj1->otyp == SADDLE)) {
+    } else if (!(is_metallic(obj1) || is_crystal(obj1)
+                 || bypass_forging_rules(obj1))) {
         /* object should be gemstone or metallic */
         pline_The("base object must be made of gemstone or something metallic.");
         return 0;
@@ -611,8 +630,8 @@ doforging(void)
     if (!obj2) {
         You("need more than one object.");
         return 0;
-    } else if (!(is_metallic(obj2)
-                 || is_crystal(obj2) || obj2->otyp == SADDLE)) {
+    } else if (!(is_metallic(obj2) || is_crystal(obj2)
+                 || bypass_forging_rules(obj1))) {
         /* secondary object should also be gemstone or metallic */
         pline_The("secondary object must be made of gemstone or something metallic.");
         return 0;
@@ -636,9 +655,10 @@ doforging(void)
             ((obj1->owornmask & W_ARMOR)
              || (obj2->owornmask & W_ARMOR)) ? "remove" : "unwield");
         return 0;
-    /* artifacts are off limits */
-    } else if (obj1->oartifact || obj2->oartifact) {
-        pline("Artifacts cannot be forged.");
+    /* Artifacts can never be applied to a non-arficat base. */
+    } else if ((obj2->oartifact && !obj1->oartifact)
+               || (obj1->oartifact && !obj2->oartifact)) {
+        pline("Artifacts cannot be forged with lesser objects.");
         return 0;
     /* dragon-scaled armor can never be fully metallic */
     } else if (Is_dragon_scaled_armor(obj1)
@@ -648,119 +668,180 @@ doforging(void)
     }
 
     /* start the forging process */
-    for (recipe = fusions; recipe->result_typ; recipe++) {
-        if ((obj1->otyp == recipe->typ1 && obj2->otyp == recipe->typ2
-             && obj1->quan >= recipe->quan_typ1 && obj2->quan >= recipe->quan_typ2)
-            || (obj2->otyp == recipe->typ1 && obj1->otyp == recipe->typ2
-                && obj2->quan >= recipe->quan_typ1 && obj1->quan >= recipe->quan_typ2)) {
-            objtype = recipe->result_typ;
-            break;
+    if (obj1->oartifact && obj2->oartifact) {
+        for (arti = artifusions; arti->result_typ; arti++) {
+            if ((obj1->oartifact == arti->typ1
+                 && obj2->oartifact == arti->typ2)
+                || (obj2->oartifact == arti->typ1
+                    && obj1->oartifact == arti->typ2)) {
+                artitype = arti->result_typ;
+                break;
+            }
         }
-    }
 
-    if (!objtype) {
-        /* if the objects used do not match the recipe array,
-           the forging process fails */
-        You("fail to combine these two objects.");
-        return 1;
-    } else if (objtype) {
-        /* success */
-        output = mksobj(objtype, TRUE, FALSE);
-
-        /* try to take on the material from one of the source objects */
-        if (valid_obj_material(output, obj2->material)) {
-            output->material = obj2->material;
-        } else if (valid_obj_material(output, obj1->material)) {
-            output->material = obj1->material;
-        } else {
-            /* neither material is valid for the output object, so can't
-                 * forge them successfully */
-            pline_The("%s and %s resist melding in the forge.",
-                      materialnm[obj1->material],
-                      materialnm[obj2->material]);
-            You("fail to combine the two objects.");
-            delobj(output);
+        if (!artitype) {
+            /* if the objects used do not match the recipe array,
+               the forging process fails */
+            You("fail to combine these two objects.");
             return 1;
-        }
+        } else if (artitype) {
+            /* success */
+            output = mk_particular_artifact(artitype);
 
-        You("place %s, then %s inside the forge.",
-            the(xname(obj1)), the(xname(obj2)));
-        pline("Raising your %s, you begin to forge the objects together...",
-              xname(uwep));
-        
-        /* any object properties, take secondary object property
-           over primary. if you know the object property of one
-           of the recipe objects, you'll know the object property
-           of the newly forged object */
-        if (obj2->oprops) {
-            if (!is_barding(output))
-                output->oprops = obj2->oprops;
-            if (obj2->oprops_known)
-                output->oprops_known |= output->oprops;
-        } else if (obj1->oprops) {
-            if (!is_barding(output))
-                output->oprops = obj1->oprops;
-            if (obj1->oprops_known)
-                output->oprops_known |= output->oprops;
-        }
+            You("place %s, then %s inside the forge.",
+                the(xname(obj1)), the(xname(obj2)));
+            pline("Raising your %s, you begin to forge the artifacts together...",
+                  xname(uwep));
+            /* if objects are enchanted or have charges,
+               carry that over, and use the greater of the two */
+            if (output->oclass == obj2->oclass) {
+                output->spe = obj2->spe;
+                if (output->oclass == obj1->oclass)
+                    output->spe = max(output->spe, obj1->spe);
+            } else if (output->oclass == obj1->oclass) {
+                output->spe = obj1->spe;
+            }
 
-        /* if neither recipe object have an object property,
-           ensure that the newly forged object doesn't
-           randomly have a property added at creation */
-        if ((obj1->oprops & 0L) && (obj2->oprops & 0L))
-            output->oprops = 0L;
+            /* transfer curses and blessings from secondary object */
+            output->cursed = obj2->cursed;
+            output->blessed = obj2->blessed;
+            /* ensure the final product is not degraded or poisoned
+               in any way */
+            output->oeroded = output->oeroded2 = output->opoisoned = 0;
 
-        /* if objects are enchanted or have charges,
-           carry that over, and use the greater of the two */
-        if (output->oclass == obj2->oclass) {
-            output->spe = obj2->spe;
-            if (output->oclass == obj1->oclass)
-                output->spe = max(output->spe, obj1->spe);
-        } else if (output->oclass == obj1->oclass) {
-            output->spe = obj1->spe;
-        }
 
-        /* transfer curses and blessings from secondary object */
-        output->cursed = obj2->cursed;
-        output->blessed = obj2->blessed;
-        /* ensure the final product is not degraded or poisoned
-           in any way */
-        output->oeroded = output->oeroded2 = output->opoisoned = 0;
-
-        /* toss out old objects, add new one */
-        if (obj1->otyp == recipe->typ1)
-            obj1->quan -= recipe->quan_typ1;
-        if (obj2->otyp == recipe->typ1)
-            obj2->quan -= recipe->quan_typ1;
-        if (obj1->otyp == recipe->typ2)
-            obj1->quan -= recipe->quan_typ2;
-        if (obj2->otyp == recipe->typ2)
-            obj2->quan -= recipe->quan_typ2;
-
-        /* delete recipe objects if quantity reaches zero */
-        if (obj1->quan <= 0)
+            /* delete recipe objects */
             delobj(obj1);
-        if (obj2->quan <= 0)
             delobj(obj2);
 
-        /* forged object is created */
-        output = addinv(output);
-        /* prevent large stacks of ammo-type weapons from being
-           formed */
-        if (output->quan > 3L) {
-            output->quan = 3L;
-            if (!rn2(4)) /* small chance of an extra */
-                output->quan += 1L;
+            /* forged object is created */
+            output = addinv(output);
+            output->owt = weight(output);
+            You("have successfully forged %s.", doname(output));
+            update_inventory();
+
+            /* forging an artifact is too much stress for the forge */
+            coolforge(u.ux, u.uy);
         }
-        output->owt = weight(output);
-        You("have successfully forged %s.", doname(output));
-        update_inventory();
-        if (output->oprops) {
-            /* forging magic can sometimes be too much stress */
-            if (!rn2(6))
-                coolforge(u.ux, u.uy);
-            else
-                pline_The("lava in the forge bubbles ominously.");
+    } else {
+        for (recipe = fusions; recipe->result_typ; recipe++) {
+            if ((obj1->otyp == recipe->typ1
+                 && obj2->otyp == recipe->typ2
+                 && obj1->quan >= recipe->quan_typ1
+                 && obj2->quan >= recipe->quan_typ2)
+                || (obj2->otyp == recipe->typ1
+                    && obj1->otyp == recipe->typ2
+                    && obj2->quan >= recipe->quan_typ1
+                    && obj1->quan >= recipe->quan_typ2)) {
+                objtype = recipe->result_typ;
+                break;
+            }
+        }
+        if (!objtype) {
+            /* if the objects used do not match the recipe array,
+               the forging process fails */
+            You("fail to combine these two objects.");
+            return 1;
+        } else if (objtype) {
+            /* success */
+            output = mksobj(objtype, TRUE, FALSE);
+
+            You("place %s, then %s inside the forge.",
+                the(xname(obj1)), the(xname(obj2)));
+            pline("Raising your %s, you begin to forge the objects together...",
+                  xname(uwep));
+
+            /* take on the secondary object's material */
+            if (valid_obj_material(output, obj2->material)) {
+                output->material = obj2->material;
+            } else if (valid_obj_material(output, obj1->material)) {
+                output->material = obj1->material;
+            }
+
+            /* any object properties, take secondary object property
+               over primary. if you know the object property of one
+               of the recipe objects, you'll know the object property
+               of the newly forged object */
+            if (obj2->oprops) {
+                if (!is_barding(output))
+                    output->oprops = obj2->oprops;
+                if (obj2->oprops_known)
+                    output->oprops_known |= output->oprops;
+            } else if (obj1->oprops) {
+                if (!is_barding(output))
+                    output->oprops = obj1->oprops;
+                if (obj1->oprops_known)
+                    output->oprops_known |= output->oprops;
+            }
+
+            /* if neither recipe object have an object property,
+               ensure that the newly forged object doesn't
+               randomly have a property added at creation */
+            if ((obj1->oprops & 0L) && (obj2->oprops & 0L))
+                output->oprops |= 0L;
+
+            /* if objects are enchanted or have charges,
+               carry that over, and use the greater of the two */
+            if (output->oclass == obj2->oclass) {
+                output->spe = obj2->spe;
+                if (output->oclass == obj1->oclass)
+                    output->spe = max(output->spe, obj1->spe);
+            } else if (output->oclass == obj1->oclass) {
+                output->spe = obj1->spe;
+            }
+
+            /* transfer curses and blessings from secondary object */
+            output->cursed = obj2->cursed;
+            output->blessed = obj2->blessed;
+            /* ensure the final product is not degraded or poisoned
+               in any way */
+            output->oeroded = output->oeroded2 = output->opoisoned = 0;
+
+            /* toss out old objects, add new one */
+            if (obj1->otyp == recipe->typ1)
+                obj1->quan -= recipe->quan_typ1;
+            if (obj2->otyp == recipe->typ1)
+                obj2->quan -= recipe->quan_typ1;
+            if (obj1->otyp == recipe->typ2)
+                obj1->quan -= recipe->quan_typ2;
+            if (obj2->otyp == recipe->typ2)
+                obj2->quan -= recipe->quan_typ2;
+
+            /* delete recipe objects if quantity reaches zero */
+            if (obj1->quan <= 0)
+                delobj(obj1);
+            if (obj2->quan <= 0)
+                delobj(obj2);
+
+            /* recalculate weight of the recipe objects if
+               using a stack */
+            if (obj1->quan > 0)
+                obj1->owt = weight(obj1);
+            if (obj2->quan > 0)
+                obj2->owt = weight(obj2);
+
+            /* forged object is created */
+            output = addinv(output);
+            /* prevent large stacks of ammo-type weapons from being
+               formed */
+            if (output->quan > 3L) {
+                output->quan = 3L;
+                if (output->otyp == BULLET)
+                    output->quan += 10 + rnd(5); /* More generous with bullets */
+                else if (!rn2(4)) /* small chance of an extra */
+                    output->quan += 1L;
+
+            }
+            output->owt = weight(output);
+            You("have successfully forged %s.", doname(output));
+            update_inventory();
+            if (output->oprops) {
+                /* forging magic can sometimes be too much stress */
+                if (!rn2(6))
+                    coolforge(u.ux, u.uy);
+                else
+                    pline_The("lava in the forge bubbles ominously.");
+            }
         }
     }
 
@@ -943,7 +1024,7 @@ register struct obj *obj;
     if (obj->otyp == LONG_SWORD && obj->quan == 1L && u.ulevel >= 5 && !rn2(6)
         && !(uarmh && uarmh->otyp == HELM_OF_OPPOSITE_ALIGNMENT)
         && !obj->oartifact && !exist_artifact(LONG_SWORD, artiname(ART_EXCALIBUR))) {
-        if (u.ualign.type != A_LAWFUL || !Role_if(PM_KNIGHT)) {
+        if (u.ualign.type != A_LAWFUL || (!Role_if(PM_KNIGHT) && !u.uevent.uhand_of_elbereth)) {
             /* Ha!  Trying to cheat her. */
             pline("A freezing mist rises from the %s and envelopes the sword.",
                   hliquid("water"));

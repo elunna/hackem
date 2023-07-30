@@ -289,7 +289,7 @@ extern uchar oc_syms[MAXOCLASSES];      /* current class symbols */
 #define ROCK_SYM '`'
 #define BALL_SYM '0'
 #define CHAIN_SYM '_'
-#define VENOM_SYM '*'
+#define VENOM_SYM '.'
 #define SPIRIT_SYM '~'
 
 struct fruit {

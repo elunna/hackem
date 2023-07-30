@@ -613,6 +613,130 @@ register struct obj *sobj;
 }
 
 /*
+ * Used for artifacts.  Returns:
+ *
+ *      1 - nothing was detected
+ *      0 - something was detected
+ */
+int
+artifact_detect(detector)
+struct obj *detector; /* object doing the detecting */
+{
+    register int x, y;
+    int do_dknown = (detector && detector->blessed);
+    int ct = 0;
+    register struct obj *obj;
+    register struct monst *mtmp;
+    int ter_typ = TER_DETECT | TER_OBJ;
+
+    if (do_dknown)
+        for (obj = invent; obj; obj = obj->nobj) {
+            do_dknown_of(obj, TRUE);
+            discover_artifact((xchar) obj->oartifact);
+            obj->known = 1;
+        }
+
+    for (obj = fobj; obj; obj = obj->nobj) {
+        if (obj->oartifact) {
+            if (!(obj->ox == u.ux && obj->oy == u.uy))
+                ct++;
+        }
+        if (do_dknown) {
+            do_dknown_of(obj, TRUE);
+            discover_artifact((xchar) obj->oartifact);
+            obj->known = 1;
+        }
+    }
+
+    for (obj = level.buriedobjlist; obj; obj = obj->nobj) {
+        if (obj->oartifact) {
+            if (!(obj->ox == u.ux && obj->oy == u.uy))
+                ct++;
+        }
+        if (do_dknown) {
+            do_dknown_of(obj, TRUE);
+            discover_artifact((xchar) obj->oartifact);
+            obj->known = 1;
+        }
+    }
+
+    if (u.usteed)
+        u.usteed->mx = u.ux, u.usteed->my = u.uy;
+
+    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+        if (DEADMONSTER(mtmp))
+            continue;
+        for (obj = mtmp->minvent; obj; obj = obj->nobj) {
+            if (obj->oartifact)
+                ct++;
+            if (do_dknown) {
+                do_dknown_of(obj, TRUE);
+                discover_artifact((xchar) obj->oartifact);
+                obj->known = 1;
+            }
+        }
+    }
+
+    cls();
+
+    (void) unconstrain_map();
+    /*
+     *  Map all buried objects first.
+     */
+    for (obj = level.buriedobjlist; obj; obj = obj->nobj)
+        if (obj->oartifact)
+            map_object(obj, 1);
+
+    /*
+     * If we are mapping all objects, map only the top object of a pile or
+     * the first object in a monster's inventory.  Otherwise, go looking
+     * for a matching object class and display the first one encountered
+     * at each location.
+     *
+     * Objects on the floor override buried objects.
+     */
+    for (x = 1; x < COLNO; x++)
+        for (y = 0; y < ROWNO; y++)
+            for (obj = level.objects[x][y]; obj; obj = obj->nexthere)
+                if (obj->oartifact)
+                    map_object(obj, 1);
+
+    /* Objects in the monster's inventory override floor objects. */
+    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+        if (DEADMONSTER(mtmp))
+            continue;
+
+        for (obj = mtmp->minvent; obj; obj = obj->nobj) {
+            if (obj && obj->oartifact) {
+                ct++;
+                obj->ox = mtmp->mx; /* at monster location */
+                obj->oy = mtmp->my;
+                map_object(obj, 1);
+                break;
+            }
+        }
+    }
+    if (!glyph_is_object(glyph_at(u.ux, u.uy))) {
+        newsym(u.ux, u.uy);
+        ter_typ |= TER_MON;
+    }
+    You("detect the %s of artifacts.", ct ? "presence" : "absence");
+
+    if (!ct)
+        display_nhwindow(WIN_MAP, TRUE);
+    else
+        browse_map(ter_typ, "object");
+
+    reconstrain_map();
+    docrt(); /* this will correctly reset vision */
+    if (Underwater)
+        under_water(2);
+    if (u.uburied)
+        under_ground(2);
+    return 0;
+}
+
+/*
  * Used for scrolls, potions, spells, and crystal balls.  Returns:
  *
  *      1 - nothing was detected
@@ -1350,7 +1474,7 @@ struct obj **optr;
             make_confused((HConfusion & TIMEOUT) + (long) rnd(100), FALSE);
             break;
         case 3:
-            if (!resists_blnd(&youmonst)) {
+            if (!resists_blnd(&youmonst) && !defends(AD_BLND, uarm)) {
                 pline("%s your vision!", Tobjnam(obj, "damage"));
                 make_blinded((Blinded & TIMEOUT) + (long) rnd(100), FALSE);
                 if (!Blind)

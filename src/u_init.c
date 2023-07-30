@@ -102,7 +102,6 @@ struct trobj Healer[] = {
 };
 struct trobj Ice_Mage[] = {
 #define I_BOOK          10
-#define T_SNOWBALLS     11
     { STILETTO, 2, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
@@ -114,17 +113,16 @@ struct trobj Ice_Mage[] = {
     { SPE_FREEZE_SPHERE, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { SPE_CONE_OF_COLD, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 1, 1 },
-    { SNOWBALL, 0, VENOM_CLASS, 12, 0 }, /* quan is variable */
     { 0, 0, 0, 0, 0 }
 };
-static struct trobj Jedi[] = {
+struct trobj Jedi[] = {
     { ROBE, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
     { GLOVES, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Infidel[] = {
-    { AMULET_OF_YENDOR, 0, AMULET_CLASS, 1, 0 },
     { DAGGER, 1, WEAPON_CLASS, 1, 0 },
+    { AMULET_OF_YENDOR, 0, AMULET_CLASS, 1, 0 },
     { JACKET, 1, ARMOR_CLASS, 1, CURSED },
     { CLOAK_OF_PROTECTION, 0, ARMOR_CLASS, 1, CURSED },
     { POT_WATER, 0, POTION_CLASS, 3, CURSED },
@@ -260,12 +258,15 @@ struct trobj Tourist[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj UndeadSlayer[] = {
+#define U_MAJOR 0       /* wooden stake or platinum longsword for vampires [Blade] */
 #define U_MINOR 1       /* silver spear or whip [Castlevania] 25/25% */
                         /* crossbow 50% [Buffy] */
 #define U_RANGE 2       /* silver daggers or crossbow bolts */
 #define U_MISC  3       /* +1 boots [Buffy can kick] or helmet */
 #define U_ARMOR 4       /* Tshirt/leather +1 or chain mail */
-	{ WOODEN_STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+#define U_WOLFSBANE 6   /* sprig of wolfsbane that gets replaced with medkit or lenses for vampires*/
+#define U_HOLY_WAFER 7  /* holy wafer that gets replaced with gloves for vampires */
+	{ STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
         { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
         { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
 	{ HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -321,7 +322,7 @@ struct trobj Tinopener[] = { { TIN_OPENER, 0, TOOL_CLASS, 1, 0 },
                                     { 0, 0, 0, 0, 0 } };
 struct trobj Lamp[] = { { OIL_LAMP, 1, TOOL_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
-struct trobj Torch[] = { { TORCH, 0, TOOL_CLASS, 2, 0 },
+struct trobj Torch[] = { { TORCH, 0, TOOL_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
 struct trobj Blindfold[] = { { BLINDFOLD, 0, TOOL_CLASS, 1, 0 },
                                     { 0, 0, 0, 0, 0 } };
@@ -347,9 +348,13 @@ struct trobj Pickaxe[] = { { PICK_AXE, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj AoMR[] = { { AMULET_OF_MAGIC_RESISTANCE, 0, AMULET_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
+struct trobj AoUn[] = { { AMULET_OF_UNCHANGING, 0, AMULET_CLASS, 1, CURSED },
+                               { 0, 0, 0, 0, 0 } };
 struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
+                           { 0, 0, 0, 0, 0 } };
+struct trobj VampireBloodPotions[] = { { POT_VAMPIRE_BLOOD, 0, POTION_CLASS, 2, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
@@ -406,6 +411,7 @@ struct inv_sub {
     { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD     },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, HIGH_BOOTS },
+    { PM_GIANT, ROBE_OF_POWER, HIGH_BOOTS },
     { PM_GIANT, RING_MAIL, HELMET },
     { PM_GIANT, LIGHT_ARMOR, HELMET },
     { PM_GIANT, CLOAK_OF_MAGIC_RESISTANCE, LOW_BOOTS },
@@ -434,6 +440,8 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
+    /* Blade style Undead Slayer */
+    { PM_VAMPIRIC, CHAIN_MAIL, TRENCH_COAT }, /* Undead Slayer */
     /* Centaurs */
     { PM_CENTAUR, HIGH_BOOTS, HELMET },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
@@ -529,7 +537,7 @@ static const struct def_skill Skill_Con[] = {
     { P_ESCAPE_SPELL, P_EXPERT },
     { P_RIDING, P_BASIC },
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
-    { P_BARE_HANDED_COMBAT, P_SKILLED },
+    { P_THIEVERY, P_SKILLED },
     { P_SHIELD, P_BASIC },
     { P_NONE, 0 }
 };
@@ -732,7 +740,7 @@ static const struct def_skill Skill_P[] = {
     { P_ENCHANTMENT_SPELL, P_EXPERT },
     { P_RIDING, P_BASIC },
     { P_BARE_HANDED_COMBAT, P_BASIC },
-    { P_SHIELD, P_BASIC },
+    { P_SHIELD, P_SKILLED },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_Pir[] = {
@@ -871,14 +879,14 @@ static const struct def_skill Skill_T[] = {
     { P_ENCHANTMENT_SPELL, P_BASIC },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_RIDING, P_BASIC },
-    { P_TWO_WEAPON_COMBAT, P_BASIC },
+    { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_SKILLED },
     { P_SHIELD, P_BASIC },
     { P_FIREARM, P_BASIC },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_U[] = {
-    { P_DAGGER, P_EXPERT },         /* Wooden stake and quest artifact */
+    { P_DAGGER, P_EXPERT },         /* Stakes and quest artifact */
     { P_LONG_SWORD, P_BASIC },      /* Buffy */
     { P_SHORT_SWORD, P_BASIC },      /* Buffy */
     { P_BROAD_SWORD, P_SKILLED },    /* Buffy */
@@ -1003,8 +1011,9 @@ register char sym;
 
     for (ct = bases[(uchar) sym]; ct < bases[(uchar) sym + 1]; ct++) {
         /* not flagged as magic but shouldn't be pre-discovered */
-        if (ct == CORNUTHAUM || ct == DUNCE_CAP)
+        if (ct == CORNUTHAUM || ct == DUNCE_CAP || ct == ROBE)
             continue;
+
         if (sym == WEAPON_CLASS) {
             odummy.otyp = ct; /* update 'o' */
             /* arbitrary: only knights and samurai recognize polearms */
@@ -1016,7 +1025,14 @@ register char sym;
                 && (!is_launcher(o) && !is_ammo(o) && !is_spear(o)))
                 continue;
             /* rogues know daggers, regardless of racial variations */
-            if (Role_if(PM_ROGUE) && (objects[o->otyp].oc_skill != P_DAGGER))
+            if (Role_if(PM_ROGUE) && objects[o->otyp].oc_skill != P_DAGGER)
+                continue;
+            /* Only convicts know about all firearms */
+            if (objects[o->otyp].oc_skill == P_FIREARM 
+                && !Role_if(PM_CONVICT))
+                continue;
+            /* Nobody knows about bombs */
+            if (is_bomb(o))
                 continue;
         }
 
@@ -1153,16 +1169,6 @@ u_init()
         ini_inv(Barbarian);
         if (!rn2(6))
             ini_inv(Torch);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(3)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         knows_class(WEAPON_CLASS); /* excluding polearms */
         knows_class(ARMOR_CLASS);
         skill_init(Skill_B);
@@ -1171,16 +1177,6 @@ u_init()
         u.nv_range = 2;
         Cave_man[C_AMMO].trquan = rn1(11, 10); /* 10..20 */
         ini_inv(Cave_man);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(8)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_C);
         break;
     case PM_FLAME_MAGE:
@@ -1212,15 +1208,11 @@ u_init()
         default: 
             break;
         }
-        Ice_Mage[T_SNOWBALLS].trquan = rn1(12, 8);
         ini_inv(Ice_Mage);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(2)) 
             ini_inv(Lenses);
         skill_init(Skill_I);
         break;
-        
     case PM_JEDI:
         /* Random lightsaber at start */
         switch (rnd(3)) {
@@ -1241,24 +1233,31 @@ u_init()
             ini_inv(Blindfold);
         skill_init(Skill_J);
         knows_class(WEAPON_CLASS);
-        knows_class(ARMOR_CLASS);
+        /*knows_class(ARMOR_CLASS);*/
+
+        /* Instead, Jedi will know their enemy. */
+        knows_object(PLASTEEL_HELM);
+        knows_object(PLASTEEL_ARMOR);
+        knows_object(PLASTEEL_GLOVES);
+        knows_object(PLASTEEL_BOOTS);
+        knows_object(GREEN_LIGHTSABER);
+        knows_object(RED_LIGHTSABER);
+        knows_object(BLUE_LIGHTSABER);
+        knows_object(RED_DOUBLE_LIGHTSABER);
         break;
     case PM_CONVICT:
         ini_inv(Convict);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_object(SKELETON_KEY);
         knows_object(GRAPPLING_HOOK);
         skill_init(Skill_Con);
         u.uhunger = 200;  /* On the verge of hungry */
         u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL]
             = u.ualign.type = A_CHAOTIC; /* Override racial alignment */
+        knows_class(WEAPON_CLASS); /* firearms only */
         break;
     case PM_HEALER:
         u.umoney0 = rn1(1000, 1001);
         ini_inv(Healer);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(25))
             ini_inv(Lamp);
         /* Naturally familiar with healing items in their work */
@@ -1275,19 +1274,7 @@ u_init()
     case PM_INFIDEL:
         u.umoney0 = rn1(251, 250);
         ini_inv(Infidel);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_object(SCR_CHARGING);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(4)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_Inf);
         break;
     case PM_KNIGHT:
@@ -1321,8 +1308,6 @@ u_init()
         default: break;
         }
         ini_inv(Necromancer);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         knows_class(SPBOOK_CLASS);
         if (!rn2(5)) 
             ini_inv(Blindfold);
@@ -1351,22 +1336,9 @@ u_init()
         break;
     case PM_PRIEST:
         ini_inv(Priest);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(4))
             ini_inv(Lamp);
         knows_object(POT_WATER);
-        
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(6)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_P);
         /* KMH, conduct --
          * Some may claim that this isn't agnostic, since they
@@ -1406,16 +1378,6 @@ u_init()
             ini_inv(Blindfold);
         knows_class(WEAPON_CLASS); /* all weapons */
         knows_class(ARMOR_CLASS);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(4)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         skill_init(Skill_S);
         break;
     case PM_TOURIST:
@@ -1451,17 +1413,31 @@ u_init()
             /* Silver spear and daggers */
             break;
         }
-        ini_inv(UndeadSlayer);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(3)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
+
+        /* Vampires get a longsword and a trench coat just like Blade */
+        if (Race_if(PM_VAMPIRIC)) {
+            UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
+            UndeadSlayer[U_ARMOR].trotyp = TRENCH_COAT;
+            UndeadSlayer[U_ARMOR].trspe = 2;
+
+            /* Replace the holy wafer with gloves for vampires */
+            UndeadSlayer[U_HOLY_WAFER].trclass = ARMOR_CLASS;
+            UndeadSlayer[U_HOLY_WAFER].trotyp = GLOVES;
+            UndeadSlayer[U_HOLY_WAFER].trquan = 1;
+            UndeadSlayer[U_HOLY_WAFER].trspe = 0;
+            UndeadSlayer[U_HOLY_WAFER].trbless = UNDEF_BLESS;
+
+            /* Init first so weapon gets index a */
+            ini_inv(UndeadSlayer);
+
+            /* Blade wears glasses, lenses are "close enough" */
+            ini_inv(Lenses);
+            ini_inv(VampireBloodPotions);
         }
+        else {
+            ini_inv(UndeadSlayer);
+        }
+
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
         skill_init(Skill_U);
@@ -1474,16 +1450,6 @@ u_init()
         ini_inv(Valkyrie);
         if (!rn2(6))
             ini_inv(Lamp);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(3)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
         knows_class(WEAPON_CLASS); /* excludes polearms */
         knows_class(ARMOR_CLASS);
         skill_init(Skill_V);
@@ -1492,22 +1458,11 @@ u_init()
         ini_inv(Wizard);
         if (Race_if(PM_GIANT) || Race_if(PM_TORTLE))
             ini_inv(AoMR);
-        if (Race_if(PM_ILLITHID))
-            force_learn_spell(SPE_PSIONIC_WAVE);
         if (!rn2(5))
             ini_inv(Lamp);
         if (!rn2(5))
             ini_inv(Blindfold);
-        if (Race_if(PM_GIANT)) {
-            struct trobj RandomGem = Gem[0];
-            while (!rn2(7)) {
-                int gem = rnd_class(TOPAZ, JADE);
-                Gem[0] = RandomGem;
-                Gem[0].trotyp = gem;
-                ini_inv(Gem);
-                knows_object(gem);
-            }
-        }
+        knows_object(MAGIC_MARKER);
         knows_object(MAGIC_WHISTLE);
         knows_object(MAGIC_HARP);
         knows_object(MAGIC_FLUTE);
@@ -1588,16 +1543,17 @@ u_init()
         break;
 
     case PM_GNOME:
+        break;
+
     case PM_ILLITHID:
+        /* All illithids start with spell of psionic wave. */
+        force_learn_spell(SPE_PSIONIC_WAVE);
         break;
 
     case PM_TORTLE:
         /* if their role lists trident as a trainable skill,
-           raise the max proficiency level by one */
-        if (Role_if(PM_BARBARIAN) || Role_if(PM_MONK) || Role_if(PM_UNDEAD_SLAYER))
-            P_MAX_SKILL(P_TRIDENT) = P_EXPERT;
-        if (Role_if(PM_HEALER) || Role_if(PM_TOURIST))
-            P_MAX_SKILL(P_TRIDENT) = P_SKILLED;
+           raise the max proficiency level by one:
+          this is set in weapon.c:skill_init */
 
         if (!rn2(4)) {
             /* in case they want to go for a swim */
@@ -1605,14 +1561,23 @@ u_init()
         }
         break;
 
-    case PM_GIANT:
+    case PM_GIANT: {
+        struct trobj RandomGem = Gem[0];
+        while (!rn2(3)) {
+            int gem = rnd_class(TOPAZ, JADE);
+            Gem[0] = RandomGem;
+            Gem[0].trotyp = gem;
+            ini_inv(Gem);
+            knows_object(gem);
+        }
+
         /* Giants know valuable gems from glass, and may recognize a few types of valuable gem. */
         for (i = DILITHIUM_CRYSTAL; i <= LUCKSTONE; i++) {
             if ((objects[i].oc_cost <= 1) || (rn2(100) < 5 + ACURR(A_INT)))
                 knows_object(i);
         }
         break;
-
+    }
     case PM_HOBBIT:
         /* Hobbits are always hungry; you'd be hard-pressed to come across one that didn't have
          * something to snack on or at least a means to make more food */
@@ -1694,6 +1659,13 @@ u_init()
         break;
 
     case PM_DOPPELGANGER:
+        /* Con-Dop gets a cursed amulet of unchanging so they can not easily
+         * escape the cursed striped shirt and iron ball by #youpoly/liquid leap */
+        if (Role_if(PM_CONVICT)) {
+            ini_inv(AoUn);
+            knows_object(AMULET_OF_UNCHANGING);
+        }
+
         /* Doppelgangers naturally everything know about polymorph */
         knows_object(POT_POLYMORPH);
         knows_object(WAN_POLYMORPH);
@@ -2208,6 +2180,7 @@ register struct trobj *origtrop;
                                 OBJ_NAME(objects[otyp]));
                     otyp = obj->otyp = inv_subs[i].subs_otyp;
                     obj->oclass = objects[otyp].oc_class;
+
                     /* This might have created a bad material combination, such
                      * as a dagger (which was forced to be iron earlier) turning
                      * into an elven dagger, but now remaining iron. Fix this up
@@ -2260,14 +2233,28 @@ register struct trobj *origtrop;
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
-                if (is_spear(obj) || is_ammo(obj)
+                /* no food for vampires except garlic */
+                if (urace.malenum == PM_VAMPIRIC
+                        && obj->oclass == FOOD_CLASS
+                        && obj->otyp != CLOVE_OF_GARLIC) {
+                    dealloc_obj(obj);
+                    origtrop++;
+                    memcpy(&temptrop, origtrop, sizeof(struct trobj));
+                    continue;
+                }
+                if (is_spear(obj)
                       || obj->otyp == DAGGER 
                       || obj->otyp == ELVEN_DAGGER
-                      || obj->otyp == TRIDENT)
+                      || obj->otyp == TRIDENT
+                      || obj->otyp == SLING_BULLET
+                      || (is_ammo(obj) && obj->oclass != GEM_CLASS))
                     set_material(obj, SILVER);
                 
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
+
+                if (Race_if(PM_VAMPIRIC) && obj->otyp && obj->otyp == LONG_SWORD)
+                    set_material(obj, METAL);
             }
             if (obj->otyp == STRIPED_SHIRT)
                 obj->cursed = TRUE;

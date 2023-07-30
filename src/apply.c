@@ -30,7 +30,7 @@ STATIC_DCL void FDECL(apply_medkit, (struct obj *));
 STATIC_DCL void FDECL(use_grease, (struct obj *));
 STATIC_DCL void FDECL(use_trap, (struct obj *));
 STATIC_DCL void FDECL(apply_flint, (struct obj **));
-STATIC_DCL void FDECL(use_stone, (struct obj **));
+STATIC_DCL int FDECL(use_stone, (struct obj **));
 STATIC_PTR int NDECL(set_trap); /* occupation callback */
 STATIC_DCL int FDECL(use_whip, (struct obj *));
 STATIC_DCL int FDECL(use_axe, (struct obj *));
@@ -1039,10 +1039,22 @@ struct obj *obj;
         int tmp = d((int) mtmp->m_lev, (int) mtmp->data->mattk[0].damd);
         if (!rn2(4))
             tmp = 120;
-        if (vis)
-            pline("%s is frozen by its reflection.", Monnam(mtmp));
-        else
-            You_hear("%s stop moving.", something);
+        if (vis) {
+            /* currently the only way a monster can obtain free action
+               is by wearing a magical object that grants it. Floating
+               eyes can't wear anything, but we'll future-proof this
+               now in case other sources of free action are added */
+            if (has_free_action(mtmp)) {
+                pline("%s stiffens momentarily.", Monnam(mtmp));
+            } else {
+                pline("%s is frozen by its reflection.", Monnam(mtmp));
+            }
+        } else {
+            if (!has_free_action(mtmp))
+                You_hear("%s stop moving.", something);
+        }
+        if (has_free_action(mtmp))
+            return 1;
         paralyze_monst(mtmp, (int) mtmp->mfrozen + tmp);
     } else if (monable && !mtmp->mcan && !mtmp->minvis
 	       && mtmp->data == &mons[PM_MAGICAL_EYE]) {
@@ -1371,17 +1383,15 @@ struct obj **optr;
         You("attach %ld%s %s to %s.", obj->quan, !otmp->spe ? "" : " more", s,
             the(xname(otmp)));
         if (obj->otyp == MAGIC_CANDLE) {
-		    if (was_lamplit) {
-			    pline_The("new %s %s very ordinary.", 
-                    s, vtense(s, "look"));
-            }
-		    else {
+            if (was_lamplit) {
+                pline_The("new %s %s very ordinary.", s, vtense(s, "look"));
+            } else {
                 pline("%s very ordinary.",
-                    (obj->quan > 1L) ? "They look" : "It looks");
+                      (obj->quan > 1L) ? "They look" : "It looks");
             }
             if (!otmp->spe)
-			    otmp->age = 600L;
-		} else if (!otmp->spe || otmp->age > obj->age)
+                otmp->age = 600L;
+        } else if (!otmp->spe || otmp->age > obj->age)
             otmp->age = obj->age;
         otmp->spe += (int) obj->quan;
         if (otmp->lamplit && !was_lamplit)
@@ -1415,7 +1425,7 @@ struct obj *otmp;
 {
     boolean candle = Is_candle(otmp);
     if (otmp->oartifact == ART_CANDLE_OF_ETERNAL_FLAME) {
-        pline("%s flickers briefly, but it's flame burns on!", artiname(otmp->oartifact));
+        pline("%s flickers briefly, but its flame burns on!", artiname(otmp->oartifact));
         return FALSE;
     }
     if ((candle || otmp->otyp == CANDELABRUM_OF_INVOCATION)
@@ -1715,8 +1725,7 @@ dorub()
 
     if (obj && obj->oclass == GEM_CLASS) {
         if (is_graystone(obj) || obj->otyp == ROCK) {
-            use_stone(&obj);
-            return 1;
+            return use_stone(&obj);
         } else {
             pline("Sorry, I don't know how to use that.");
             return 0;
@@ -2106,6 +2115,7 @@ int magic; /* 0=Physical, otherwise skill level */
         nomul(-1);
         multi_reason = "jumping around";
         nomovemsg = "";
+
         /* Knights get it for cheaper */
         if (Role_if(PM_KNIGHT))
             morehungry(rnd(10));
@@ -2978,6 +2988,7 @@ set_whetstone(VOID_ARGS)
                 otmp->spe++;
                 pline("%s %s more powerful now.%s", Yname2(otmp),
                   otense(otmp, Blind ? "feel" : "look"), Blind ? " (Woah!)" : "");
+                update_inventory();
             }
         }
 
@@ -3001,7 +3012,7 @@ set_whetstone(VOID_ARGS)
 
 
 /* use stone on obj. the stone doesn't necessarily need to be a whetstone. */
-STATIC_OVL void
+STATIC_OVL int
 use_whetstone(stone, obj)
 struct obj *stone, *obj;
 {
@@ -3062,14 +3073,14 @@ struct obj *stone, *obj;
     }
     if (fail_use) {
         reset_whetstone();
-        return;
+        return 0;
     }
 
     if (stone == whetstoneinfo.wsobj && obj == whetstoneinfo.tobj
         && carried(obj) && carried(stone)) {
         You("resume %s %s.", occutext, yname(obj));
         set_occupation(set_whetstone, occutext, 0);
-        return;
+        return 1;
     }
 
     if (obj) {
@@ -3086,14 +3097,17 @@ struct obj *stone, *obj;
         } else if (!is_metallic(obj)) {
             pline("That would ruin the %s %s.",
                   materialnm[objects[ttyp].oc_material], xname(obj));
+            return 0;
         } else if (!isweapon || !isedged) {
             pline("%s not something you can sharpen.",
                   is_plural(obj) ? "They are" : "It is");
+            return 0;
         } else if (obj->spe >= 1 && (stone->blessed && !obj->cursed)
                    && !obj->oeroded && !obj->oeroded2) {
             pline("%s %s sharp and pointy enough.",
                   is_plural(obj) ? "They" : "It",
                   otense(obj, Blind ? "feel" : "look"));
+            return 0;
         } else {
             if (stone->cursed) {
                 tmptime *= 2;
@@ -3107,11 +3121,12 @@ struct obj *stone, *obj;
     } else
         You("wave %s in the %s.", the(xname(stone)),
             (IS_POOL(levl[u.ux][u.uy].typ) && Underwater) ? "water" : "air");
+    return 1;
 }
 
 
 /* touchstones - by Ken Arnold */
-STATIC_OVL void
+STATIC_OVL int
 use_stone(optr)
 struct obj **optr;
 {
@@ -3138,14 +3153,14 @@ struct obj **optr;
                   : allowall;
     Sprintf(stonebuf, "rub on the stone%s", plur(tstone->quan));
     if ((obj = getobj(choices, stonebuf)) == 0)
-        return;
+        return 0;
 
     if (!u_handsy())
-        return;
+        return 0;
 
     if (obj == tstone && obj->quan == 1L) {
         You_cant("rub %s on itself.", the(xname(obj)));
-        return;
+        return 0;
     }
 
     if (tstone->otyp == TOUCHSTONE && tstone->cursed
@@ -3159,7 +3174,7 @@ struct obj **optr;
             pline("A sharp crack shatters %s%s.",
                   (obj->quan > 1L) ? "one of " : "", the(xname(obj)));
         useup(obj);
-        return;
+        return 1;
     }
 
     /* break rocks and maybe get some flint out of them */
@@ -3181,7 +3196,7 @@ struct obj **optr;
 
         if (flint_made <= 0) {
             flint_made = 0;
-            return;
+            return 1;
         }
         flint = mksobj(FLINT, TRUE, FALSE);
         flint->quan = flint_made;
@@ -3190,15 +3205,15 @@ struct obj **optr;
                                     The(aobjnam(flint, "slip")),
                                     (const char*) 0);
         useup(obj);
-        return;
+        return 1;
     }
 
     if (Blind && tstone->otyp == TOUCHSTONE) {
         pline(scritch);
-        return;
+        return 1;
     } else if (Hallucination) {
         pline("Oh wow, man: Fractals!");
-        return;
+        return 1;
     }
 
     do_scratch = FALSE;
@@ -3214,8 +3229,7 @@ struct obj **optr;
 
     if (tstone->otyp == WHETSTONE 
         && (oclass == WEAPON_CLASS || is_weptool(obj))) {
-        use_whetstone(tstone, obj);
-        return;
+        return use_whetstone(tstone, obj);
     }
     
     switch (oclass) {
@@ -3232,7 +3246,7 @@ struct obj **optr;
             makeknown(TOUCHSTONE);
             makeknown(obj->otyp);
             prinv((char *) 0, obj, 0L);
-            return;
+            return 1;
         } else {
             /* either a ring or the touchstone was not effective */
             if (obj->material == GLASS) {
@@ -3247,13 +3261,13 @@ struct obj **optr;
         switch (obj->material) {
         case CLOTH:
             pline("%s a little more polished now.", Tobjnam(tstone, "look"));
-            return;
+            return 1;
         case LIQUID:
             if (!obj->known) /* note: not "whetstone" */
                 You("must think this is a wetstone, do you?");
             else
                 pline("%s a little wetter now.", Tobjnam(tstone, "are"));
-            return;
+            return 1;
         case WAX:
             streak_color = "waxy";
             break; /* okay even if not touchstone */
@@ -3299,7 +3313,7 @@ struct obj **optr;
             makeknown(tstone->otyp);
             if (u.uinwater) {
                 pline("You'd need a flamethrower to make fire here.");
-                return;
+                return 1;
             }
             You("strike a few sparks from the flint stone!");
             if (u.uswallow) {
@@ -3312,7 +3326,7 @@ struct obj **optr;
                     if (gone)
                         *optr = (struct obj *) 0;
                 }
-                return;
+                return 1;
             }
 
             for (i = u.ux - 1; i < u.ux + 2; i++) {
@@ -3346,13 +3360,13 @@ struct obj **optr;
                 if (gone)
                     *optr = (struct obj *) 0;
             }
-            return;
+            return 1;
         }
     } else if (streak_color)
         You_see("%s streaks on the %s.", streak_color, stonebuf);
     else if (tstone->otyp == TOUCHSTONE)
         pline(scritch);
-    return;
+    return 1;
 }
 
 static struct trapinfo {
@@ -3573,7 +3587,11 @@ struct obj *obj;
         There("is too much resistance to flick your bullwhip.");
 
     } else if (u.dz < 0) {
-        You("flick a bug off of the %s.", ceiling(u.ux, u.uy));
+        /* ~Grammar~ */
+        const char *ceil_prep = (!strncmpi(ceiling(u.ux, u.uy), "sky", 3)
+                                 || !strncmpi(ceiling(u.ux, u.uy), "water above", 11))
+                                ? "out" : "off";
+        You("flick a bug %s of the %s.", ceil_prep, ceiling(u.ux, u.uy));
 
     } else if ((!u.dx && !u.dy) || (u.dz > 0)) {
         int dam;
@@ -3584,16 +3602,31 @@ struct obj *obj;
             kick_steed();
             return 1;
         }
-        if (Levitation || u.usteed) {
-            /* Have a shot at snaring something on the floor */
+        /* arguably this whole if statement should be done away with.
+         * why shouldn't you be able to pick up something when you're
+         * just standing on the square? */
+        if (Levitation || Flying || u.usteed || !grounded(youmonst.data)
+            || (Wwalking && (is_pool_or_lava(u.ux, u.uy)))) {
+            /* bullwhips and lava don't mix (usually) */
+            if (is_lava(u.ux, u.uy)) {
+                /* lava_damage() gives feedback which works surprisingly well */
+                if (lava_damage(obj, u.ux, u.uy))
+                    return 0;
+            }
+
+            /* try to grab something */
             otmp = level.objects[u.ux][u.uy];
             if (otmp && otmp->otyp == CORPSE && otmp->corpsenm == PM_HORSE) {
                 pline(Hallucination ? "Not while people are watching!" : "Why beat a dead horse?");
                 return 1;
             }
             if (otmp && proficient) {
-                You("wrap your bullwhip around %s on the %s.",
-                    an(singular(otmp, xname)), surface(u.ux, u.uy));
+                /* objects lie *in* water, lava, or sewage. 'on the fountain'
+                 * sounds a bit weird, but the object isn't in the fountain,
+                 * or else it would be wet. */
+                const char *surf_prep = is_damp_terrain(u.ux, u.uy) ? "in" : "on";
+                You("wrap your bullwhip around %s %s the %s.",
+                    an(singular(otmp, xname)), surf_prep, surface(u.ux, u.uy));
                 if (rnl(6) || pickup_object(otmp, 1L, TRUE) < 1)
                     pline1(msg_slipsfree);
                 return 1;
@@ -3687,7 +3720,7 @@ struct obj *obj;
                 mon_hand = 0; /* lint suppression */
 
             You("wrap your bullwhip around %s.", yname(otmp));
-            if (gotit && mwelded(otmp)) {
+            if (gotit && mwelded(otmp) && mtmp->data != &mons[PM_INFIDEL]) {
                 pline("%s welded to %s %s%c",
                       (otmp->quan == 1L) ? "It is" : "They are", mhis(mtmp),
                       mon_hand, !otmp->bknown ? '!' : '.');
@@ -3937,7 +3970,8 @@ struct obj *obj;
                 mon_hand = 0; /* lint suppression */
 
             You("hook your axe onto %s.", yname(otmp));
-            if (gotit && (mwelded(otmp) || cursed(otmp, TRUE))) {
+            if (gotit && (mwelded(otmp) || cursed(otmp, TRUE))
+                && mtmp->data != &mons[PM_INFIDEL]) {
                 pline("%s welded to %s %s%c",
                       (otmp->quan == 1L) ? "It is" : "They are", mhis(mtmp),
                       mon_hand, !otmp->bknown ? '!' : '.');
@@ -4615,7 +4649,7 @@ struct obj *obj;
         goto discard_broken_wand;
     case WAN_DEATH:
     case WAN_LIGHTNING:
-    case WAN_SONICS:
+    case WAN_NOISE:
         dmg *= 4;
         goto wanexpl;
     case WAN_FIRE:
@@ -5138,7 +5172,7 @@ doapply()
             && yn("Affix your flint to some arrows?") == 'y')
             apply_flint(&obj);
         else
-            use_stone(&obj);
+            res = use_stone(&obj);
         break;
     case LUCKSTONE:
     case LOADSTONE:
@@ -5146,7 +5180,7 @@ doapply()
     case HEALTHSTONE:
     case WHETSTONE:
     case ROCK:
-        use_stone(&obj);
+        res = use_stone(&obj);
         break;
     case ASSAULT_RIFLE:
         /* Switch between firing modes. */
@@ -5285,23 +5319,35 @@ boolean yourfault;
                                   (const char *) 0);
         if (obj)
             obj->nomerge = 0;
-    } else if (split1off && obj->where == OBJ_MINVENT) {
+    }
+#if 0
+    else if (split1off && obj->where == OBJ_MINVENT) {
         obj_extract_self(obj); /* free from inv */
         obj->nomerge = 1;
         if (obj)
             obj->nomerge = 0;
+        add_to_minv(mon, otmp);
     }
+#endif
 }
 
 void
 mk_wandtrap(obj)
 struct obj *obj;
 {
-    /* make appropriate trap if you broke a wand */
-    if ((obj->spe > 2) && rn2(obj->spe - 2) && !u.uswallow &&
-        !On_stairs(u.ux, u.uy) && (!IS_FURNITURE(levl[u.ux][u.uy].typ) &&
-                                   !IS_ROCK(levl[u.ux][u.uy].typ) &&
-                                   !closed_door(u.ux, u.uy) && !t_at(u.ux, u.uy))) {
+    /* make appropriate trap if you broke a wand: 
+     * Tiles that are off-limits are stairs, furniture, rock/stone,
+     * closed doors, and any deep water or lava.
+     * */
+    if ((obj->spe > 2) && rn2(obj->spe - 2) 
+          && !u.uswallow 
+          && !On_stairs(u.ux, u.uy)
+          && !is_pool(u.ux, u.uy)
+          && !is_lava(u.ux, u.uy)
+          && !IS_FURNITURE(levl[u.ux][u.uy].typ)
+          && !IS_ROCK(levl[u.ux][u.uy].typ)
+          && !closed_door(u.ux, u.uy)
+          && !t_at(u.ux, u.uy)) {
         struct trap *ttmp;
         int traptype = MAGIC_TRAP; /* Default in case of impossible */
         
@@ -5331,12 +5377,16 @@ struct obj *obj;
             traptype = ANTI_MAGIC;
             break;
         case WAN_OPENING:
+            /* Trap doors are not allowed on some levels
+             * (ie: entry level of Sokoban.) */
+            if (!Can_fall_thru(&u.uz))
+                return;
             traptype = TRAPDOOR;
             break;
             /* Shock, poison, acid, and sonic wands can make magic beam traps.*/
         case WAN_POISON_GAS:
         case WAN_CORROSION:
-        case WAN_SONICS:
+        case WAN_NOISE:
         case WAN_LIGHTNING:
             traptype = MAGIC_BEAM_TRAP;
             break;

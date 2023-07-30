@@ -76,36 +76,22 @@ set_uasmon()
     PROPSET(STONE_RES, resists_ston(&youmonst));
     PROPSET(SONIC_RES, resists_sonic(&youmonst));
     PROPSET(PSYCHIC_RES, resists_psychic(&youmonst));
-    {
-        /* resists_drli() takes wielded weapon into account; suppress it */
-        struct obj *save_uwep = uwep;
+    PROPSET(DRAIN_RES, resists_drain(racedat));
 
-        uwep = 0;
-        PROPSET(DRAIN_RES, resists_drli(&youmonst));
-        uwep = save_uwep;
-    }
     /* Vulnerablilties */
     PROPSET(VULN_FIRE, vulnerable_to(&youmonst, AD_FIRE));
     PROPSET(VULN_COLD, vulnerable_to(&youmonst, AD_COLD));
     PROPSET(VULN_ELEC, vulnerable_to(&youmonst, AD_ELEC));
     PROPSET(VULN_ACID, vulnerable_to(&youmonst, AD_ACID));
-    /* resists_magm() takes wielded, worn, and carried equipment into
-       into account; cheat and duplicate its monster-specific part */
-    PROPSET(ANTIMAGIC, (dmgtype(mdat, AD_MAGM)
-                        || mdat == &mons[PM_BABY_GRAY_DRAGON]
-                        || mdat == &mons[PM_ARCHON]
-                        || mdat == &mons[PM_ARCHANGEL]
-                        || dmgtype(mdat, AD_RBRE)));
-    PROPSET(SICK_RES, (mdat->mlet == S_FUNGUS || nonliving(mdat)
-                       || mdat == &mons[PM_ARCHANGEL]
-                       || mdat == &mons[PM_BABY_GOLD_DRAGON]
-                       || mdat == &mons[PM_GOLD_DRAGON]
-                       || mdat == &mons[PM_GIANT_LEECH]
-                       || mdat == &mons[PM_GIANT_COCKROACH]
-                       || mdat == &mons[PM_LOCUST]
-                       || mdat == &mons[PM_KATHRYN_THE_ICE_QUEEN]));
 
-    PROPSET(STUNNED, (mdat == &mons[PM_STALKER] || is_bat(mdat)));
+    PROPSET(ANTIMAGIC, resists_mgc(mdat));
+    PROPSET(SICK_RES, resists_sick(mdat));
+    PROPSET(DEATH_RES, immune_death_magic(mdat));
+
+    /* Monster vampire bats are not stunned so neither should the player be */
+    if (mdat != &mons[PM_VAMPIRE_BAT])
+        PROPSET(STUNNED, (mdat == &mons[PM_STALKER] || is_bat(mdat)));
+
     PROPSET(HALLUC_RES, dmgtype(mdat, AD_HALU));
     PROPSET(SEE_INVIS, perceives(mdat));
     PROPSET(TELEPAT, telepathic(mdat));
@@ -130,6 +116,17 @@ set_uasmon()
     PROPSET(REGENERATION, regenerates(mdat));
     PROPSET(REFLECTING, (mdat == &mons[PM_SILVER_DRAGON]));
 #undef PROPSET
+
+    /* Nonliving monsters are immune to withering.
+     * This could use is_fleshy(), but that would
+     * make a large set of monsters immune like
+     * fungus, blobs, and jellies.
+     * TODO: make is_vampshifter actually work for youmonst, and include that. */
+    if (nonliving(mdat))
+        BWithering |= FROMFORM;
+    else
+        BWithering &= ~FROMFORM;
+    /* context.botl = TRUE happens in the next line. */
 
     float_vs_flight(); /* maybe toggle (BFlying & I_SPECIAL) */
     polysense();
@@ -246,9 +243,9 @@ const char *fmt, *arg;
     newsym(u.ux, u.uy);
 
     You(fmt, arg);
-    /* check whether player foolishly annihilated self while poly'd */
+    /* check whether player foolishly genocided self while poly'd */
     if (ugenocided()) {
-        /* intervening activity might have clobbered annihilation info */
+        /* intervening activity might have clobbered genocide info */
         struct kinfo *kptr = find_delayed_killer(POLYMORPH);
 
         if (kptr != (struct kinfo *) 0 && kptr->name[0]) {
@@ -256,7 +253,7 @@ const char *fmt, *arg;
             Strcpy(killer.name, kptr->name);
         } else {
             killer.format = KILLED_BY;
-            Strcpy(killer.name, "self-annihilation");
+            Strcpy(killer.name, "self-genocide");
         }
         dealloc_killer(kptr);
         done(GENOCIDED);
@@ -464,8 +461,8 @@ void
 polyself(psflags)
 int psflags;
 {
-    char buf[BUFSZ] = DUMMY;
-    int old_light, new_light, mntmp, class, tryct;
+    char buf[BUFSZ];
+    int old_wither, new_wither, old_light, new_light, mntmp, class, tryct;
     boolean forcecontrol = (psflags == 1), monsterpoly = (psflags == 2),
             draconian = (!uskin && armor_to_dragon(&youmonst) != NON_PM),
             /* psflags = 4: enchanting dragon scales while confused; polycontrol
@@ -496,6 +493,7 @@ int psflags;
         }
     }
     old_light = emits_light(youmonst.data);
+    old_wither = Withering;
     mntmp = NON_PM;
 
     if (Hidinshell)
@@ -507,6 +505,7 @@ int psflags;
         goto do_merge;
 
     if (controllable_poly || forcecontrol) {
+        buf[0] = '\0';
         tryct = 5;
         do {
             mntmp = NON_PM;
@@ -540,15 +539,32 @@ int psflags;
                     pline("I've never heard of such monsters.");
                 else
                     You_cant("polymorph into any of those.");
+            } else if (wizard && Upolyd
+                       && (mntmp == u.umonster
+                           /* "priest" and "priestess" match the monster
+                              rather than the role; override that unless
+                              the text explicitly contains "aligned" */
+                           || ((u.umonster == PM_PRIEST
+                                || u.umonster == PM_PRIESTESS)
+                               && mntmp == PM_ALIGNED_PRIEST
+                               && !strstri(buf, "aligned")))) {
+                /* in wizard mode, picking own role while poly'd reverts to
+                   normal without newman()'s chance of level or sex change */
+                rehumanize();
+                old_light = 0; /* rehumanize() extinguishes u-as-mon light */
+                goto made_change;
             } else if (iswere && (were_beastie(mntmp) == u.ulycn
                                   || mntmp == counter_were(u.ulycn)
                                   || (Upolyd && mntmp == PM_HUMAN))) {
                 goto do_shift;
-                /* Note:  humans are illegal as monsters, but an
-                 * illegal monster forces newman(), which is what we
-                 * want if they specified a human.... */
             } else if (!polyok(&mons[mntmp])
-                       && !(mntmp == PM_HUMAN || your_race(&mons[mntmp])
+                       /* Note:  humans are illegal as monsters, but an
+                          illegal monster forces newman(), which is what
+                          we want if they specified a human.... (unless
+                          they specified a unique monster) */
+                       && !(mntmp == PM_HUMAN
+                            || (your_race(&mons[mntmp])
+                                && (mons[mntmp].geno & G_UNIQ) == 0)
                             || mntmp == urole.malenum
                             || mntmp == urole.femalenum)) {
                 const char *pm_name;
@@ -672,7 +688,7 @@ int psflags;
     if (Race_if(PM_CENTAUR))
         yourrace = (mntmp == PM_CENTAUR);
 
-    /* The below polyok() fails either if everything is annihilated, or if
+    /* The below polyok() fails either if everything is genocided, or if
      * we deliberately chose something illegal to force newman().
      */
     sex_change_ok++;
@@ -703,6 +719,19 @@ made_change:
             new_light_source(u.ux, u.uy, new_light, LS_MONSTER,
                              monst_to_any(&youmonst));
     }
+    new_wither = Withering;
+    if (old_wither && !new_wither) {
+        You("are no longer withering away.");
+        /* Currently the only way to have BWithering is to be nonliving.
+         * But I feel another source of BWithering might not necessarily
+         * cure it. Hence this arbitrary distinction. */
+        if (nonliving(youmonst.data))
+            /* intrinsic withering has no foothold on a dead body */
+            set_itimeout(&HWithering, (long) 0);
+    } else if (!old_wither && new_wither) {
+        /* only happens with extrinsic withering */
+        You("begin to wither away!");
+    }
 }
 
 /* (try to) make a mntmp monster out of the player;
@@ -719,6 +748,23 @@ int mntmp;
     if (mvitals[mntmp].mvflags & G_GENOD) { /* allow G_EXTINCT */
         You_feel("rather %s-ish.", mons[mntmp].mname);
         exercise(A_WIS, TRUE);
+        return 0;
+    }
+    
+    /* STEPHEN WHITE'S NEW CODE */
+    /* If your an Undead Slayer, you can't become undead! */
+    if (Role_if(PM_UNDEAD_SLAYER) 
+          && (is_undead(&mons[mntmp]) || is_demon(&mons[mntmp]))) {
+        if (Polymorph_control) { 
+            You("hear a voice boom out: \"How dare you take such a form!\"");
+            u.ualign.record -= 5;
+            /*angrygods(u.ualign.type);*/
+            u.ublessed = 0; /* lose your god's protection */
+            exercise(A_WIS, FALSE);
+        } else {
+            You("start to change into %s, but a voice booms out:", an(mons[mntmp].mname));
+            pline("\"No, I will not allow such a change!\"");
+        }
         return 0;
     }
     
@@ -781,7 +827,7 @@ int mntmp;
     You("%s %s!", (u.umonnum != mntmp) ? "turn into" : "feel like", an(buf));
 
     if (Stoned && poly_when_stoned(&mons[mntmp])) {
-        /* poly_when_stoned already checked stone golem annihilation */
+        /* poly_when_stoned already checked stone golem genocide */
         mntmp = PM_STONE_GOLEM;
         make_stoned(0L, "You turn to stone!", 0, (char *) 0);
     }
@@ -1175,18 +1221,11 @@ break_armor()
             if (donning(otmp))
                 cancel_don();
             /* Drop weapon along with gloves */
-            if (uarmg->oartifact == ART_HAND_OF_VECNA) {
-                if (uwep) {
-                    You("drop your weapon!");
-                    drop_weapon(0);
-                }
-            } else {
-                You("drop your gloves%s!", uwep ? " and weapon" : "");
-                drop_weapon(0);
-                (void) Gloves_off();
-                /* Glib manipulation (ends immediately) handled by Gloves_off */
-                dropp(otmp);
-            }
+            You("drop your gloves%s!", uwep ? " and weapon" : "");
+            drop_weapon(0);
+            (void) Gloves_off();
+            /* Glib manipulation (ends immediately) handled by Gloves_off */
+            dropp(otmp);
         }
         if ((otmp = uarms) != 0) {
             You("can no longer hold your shield!");
@@ -1424,33 +1463,25 @@ dovolley()
 {
     struct obj *otmp;
     struct attack *mattk;
-    int i;
-    int numattacks;
-    int otyp;
+    int i, numattacks;
 
     if (!getdir((char *) 0))
         return 0;
     mattk = attacktype_fordmg(youmonst.data, AT_VOLY, AD_ANY);
+
     if (!mattk) {
         impossible("bad spit attack?");
-    } else {
-        switch (mattk->adtyp) {
-        case AD_QUIL:
-            otyp = SPIKE;
-            break;
-        default:
-            impossible("bad attack type in dovolley");
-            otyp = SPIKE;
-        }
-        numattacks = d(mattk->damn, mattk->damd);
-        for (i = 0; i < numattacks; i++) {
-            otmp = mksobj(otyp, TRUE, FALSE);
-            otmp->spe = 1; /* to indicate it's yours */
-            throwit(otmp, 0L, FALSE);
-            obfree(otmp, (struct obj *) 0);
-            otmp = (struct obj *) 0;
-        }
+    } else if (mattk->adtyp != AD_QUIL)
+        impossible("bad attack type in dovolley");
+
+    numattacks = d(mattk->damn, mattk->damd);
+    for (i = 0; i < numattacks; i++) {
+        otmp = mksobj(SPIKE, TRUE, FALSE);
+        otmp->spe = 1; /* to indicate it's yours */
+        throwit(otmp, 0L, FALSE, (struct obj *) 0);
+        otmp = (struct obj *) 0;
     }
+
     return 1;
 }
 
@@ -1482,7 +1513,7 @@ dospit()
             break;
         }
         otmp->spe = 1; /* to indicate it's yours */
-        throwit(otmp, 0L, FALSE);
+        throwit(otmp, 0L, FALSE, (struct obj *) 0);
     }
     return 1;
 }
@@ -1779,7 +1810,7 @@ dogaze()
                     } else if (is_undead(mtmp->data) || mindless(mtmp->data) 
                                 || is_demon(mtmp->data)) {
                         pline("%s does not seem to care.", Monnam(mtmp));
-                    } else {
+                    } else if (!has_free_action(mtmp)) {
                         pline("%s reels in shock and horror!", Monnam(mtmp));
                         paralyze_monst(mtmp, rnd(10));
                     }
@@ -2356,28 +2387,28 @@ polysense()
     context.warntype.speciesidx = NON_PM;
     context.warntype.species = 0;
     context.warntype.polyd = 0;
-    HWarn_of_mon &= ~FROMRACE;
+    HWarn_of_mon &= ~FROMFORM;
 
     switch (u.umonnum) {
     case PM_PURPLE_WORM:
         warnidx = PM_SHRIEKER;
         break;
     case PM_VAMPIRE:
-    case PM_VAMPIRE_LORD:
-    case PM_VAMPIRE_KING:
+    case PM_VAMPIRE_NOBLE:
+    case PM_VAMPIRE_ROYAL:
     case PM_VAMPIRE_MAGE:
         context.warntype.polyd = MH_HUMAN | MH_ELF;
-        HWarn_of_mon |= FROMRACE;
+        HWarn_of_mon |= FROMFORM;
         return;
     }
     if (warnidx >= LOW_PM) {
         context.warntype.speciesidx = warnidx;
         context.warntype.species = &mons[warnidx];
-        HWarn_of_mon |= FROMRACE;
+        HWarn_of_mon |= FROMFORM;
     }
 }
 
-/* True iff hero's role or race has been annihilated */
+/* True iff hero's role or race has been genocided */
 boolean
 ugenocided()
 {
@@ -2389,11 +2420,11 @@ ugenocided()
                           && (mvitals[urace.femalenum].mvflags & G_GENOD)));
 }
 
-/* how hero feels "inside" after self-annihilation of role or race */
+/* how hero feels "inside" after self-genocide of role or race */
 const char *
 udeadinside()
 {
-    /* self-annihilation used to always say "you feel dead inside" but that
+    /* self-genocide used to always say "you feel dead inside" but that
        seems silly when you're polymorphed into something undead;
        monkilled() distinguishes between living (killed) and non (destroyed)
        for monster death message; we refine the nonliving aspect a bit */
@@ -2413,7 +2444,7 @@ static struct {
 
 STATIC_PTR
 int
-mage_transform()	/* called each move during transformation process */
+mage_transform(VOID_ARGS)	/* called each move during transformation process */
 {
     if (--draconic.reqtime)
         return 1;
@@ -2496,6 +2527,8 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
         && ((Role_if(PM_FLAME_MAGE) || otyp == RED_DRAGON_SCALES) 
             || (Role_if(PM_ICE_MAGE) || otyp == WHITE_DRAGON_SCALES)));
     
+    boolean polyd_fla, polyd_ice;
+    
     if (Unchanging) {
         pline("You cannot change your form.");
         return 0;
@@ -2504,12 +2537,12 @@ polyatwill()      /* Polymorph under conscious control (#youpoly) */
     /* First, if in correct polymorphed form, rehumanize (for free) 
      * Omit Lycanthropes,  who need to spend energy to change back and forth
      */
-    boolean polyd_fla = Role_if(PM_FLAME_MAGE) 
-                        && (u.umonnum == PM_RED_DRAGON 
-                            || u.umonnum == PM_BABY_RED_DRAGON);
-    boolean polyd_ice = Role_if(PM_ICE_MAGE) 
-                        && (u.umonnum == PM_WHITE_DRAGON 
-                            || u.umonnum == PM_BABY_WHITE_DRAGON);
+    polyd_fla = Role_if(PM_FLAME_MAGE) 
+                && (u.umonnum == PM_RED_DRAGON 
+                    || u.umonnum == PM_BABY_RED_DRAGON);
+    polyd_ice = Role_if(PM_ICE_MAGE) 
+                && (u.umonnum == PM_WHITE_DRAGON 
+                    || u.umonnum == PM_BABY_WHITE_DRAGON);
     
     if (Upolyd && (Race_if(PM_DOPPELGANGER) || polyd_fla || polyd_ice)) {
         rehumanize();

@@ -79,6 +79,56 @@ const char *shout;
     }
 }
 
+/* can monster mtmp break boulders? */
+boolean
+m_can_break_boulder(mtmp)
+struct monst *mtmp;
+{
+    return (!mtmp->mpeaceful
+            /* Leave the boulders in Soko alone! */
+            && !In_sokoban(&u.uz)
+            && (is_rider(mtmp->data)
+                || (MON_WEP(mtmp) && is_pick(MON_WEP(mtmp)))
+                || (!mtmp->mspec_used
+                    && (mtmp->isshk
+                        || mtmp->ispriest
+                        || mtmp->isqldr
+                        || mtmp->data == &mons[PM_ORACLE]))));
+}
+
+/* monster mtmp breaks boulder at x, y */
+void
+m_break_boulder(mtmp, x, y)
+struct monst *mtmp;
+xchar x, y;
+{
+    struct obj *otmp;
+    boolean using_pick = (MON_WEP(mtmp) && is_pick(MON_WEP(mtmp)));
+
+    if (m_can_break_boulder(mtmp)
+        && ((otmp = sobj_at(BOULDER, x, y)) != 0)) {
+        if (distu(mtmp->mx, mtmp->my) < 4 * 4) {
+            if (using_pick && cansee(x, y)) {
+                pline("%s swings %s %s.",
+                      Monnam(mtmp), mhis(mtmp),
+                      simpleonames(MON_WEP(mtmp)));
+            } else {
+                if (!Deaf)
+                    pline("%s %s %s.",
+                          Monnam(mtmp),
+                          rn2(2) ? "mutters" : "whispers",
+                          mtmp->ispriest ? "a prayer"
+                                         : "an incantation");
+            }
+        }
+        if (!is_rider(mtmp->data))
+            mtmp->mspec_used += rn1(20, 10);
+        if (cansee(x, y))
+            pline_The("boulder falls apart.");
+        fracture_rock(otmp);
+    }
+}
+
 STATIC_OVL void
 watch_on_duty(mtmp)
 register struct monst *mtmp;
@@ -524,12 +574,10 @@ register struct monst *mtmp;
         return 0;
     }
     
-    /* Dragons periodically fall asleep and wake up */
-    if (is_dragon(mtmp->data) && !mtmp->mtame && !Conflict) {
-        if (!mtmp->msleeping 
-            && mtmp->data != &mons[PM_ORANGE_DRAGON] /* Sleep Resistant */
-                && !rn2(10) 
-                && (!m_canseeu(mtmp) || mtmp->mpeaceful)) {
+    /* Orange Dragons periodically fall asleep and wake up */
+    if (mtmp->data == &mons[PM_ORANGE_DRAGON] && !mtmp->mtame && !Conflict) {
+        if (!mtmp->msleeping && !rn2(10) 
+              && (!m_canseeu(mtmp) || mtmp->mpeaceful)) {
             mtmp->msleeping = 1;
             if (canseemon(mtmp)) 
                 pline("%s curls up and goes to sleep.", Monnam(mtmp));
@@ -809,20 +857,18 @@ register struct monst *mtmp;
 toofar:
 
     /* If monster is nearby you, and has to wield a weapon, do so.
-     * This costs the monster a move, of course.
-     */
+       This costs the monster a move, of course */
     if ((!mtmp->mpeaceful || Conflict) && inrange
         && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 8
         && attacktype(mdat, AT_WEAP)) {
         struct obj *mw_tmp;
 
         /* The scared check is necessary.  Otherwise a monster that is
-         * one square near the player but fleeing into a wall would keep
-         * switching between pick-axe and weapon.  If monster is stuck
-         * in a trap, prefer ranged weapon (wielding is done in thrwmu).
-         * This may cost the monster an attack, but keeps the monster
-         * from switching back and forth if carrying both.
-         */
+           one square near the player but fleeing into a wall would keep
+           switching between pick-axe and weapon.  If monster is stuck
+           in a trap, prefer ranged weapon (wielding is done in thrwmu).
+           This may cost the monster an attack, but keeps the monster
+           from switching back and forth if carrying both */
         mw_tmp = MON_WEP(mtmp);
         if (!(scared && mw_tmp && is_pick(mw_tmp))
             && !(mw_tmp && is_pole(mw_tmp))
@@ -842,20 +888,19 @@ toofar:
         || attacktype(mtmp->data, AT_SCRE)
         || attacktype(mtmp->data, AT_VOLY)
         || (attacktype(mtmp->data, AT_MAGC)
-            && (((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp
-                <= AD_LOUD)))) && !mtmp->mspec_used)
+            && ((attacktype_fordmg(mtmp->data, AT_MAGC, AD_ANY))->adtyp
+                <= AD_LOUD)))
+          && !mtmp->mspec_used)
         || (attacktype(mtmp->data, AT_WEAP)
-            && select_rwep(mtmp) != 0)
-        || find_offensive(mtmp))
+            && select_rwep(mtmp) != 0) || find_offensive(mtmp))
         && mtmp->mlstmv != monstermoves) {
-        register struct monst *mtmp2 = mfind_target(mtmp);
+        struct monst *mtmp2 = mfind_target(mtmp);
         /* the > value is important here - if it's not just right,
            the attacking monster can get stuck in a loop switching
            back and forth between its melee weapon and launcher */
-        if (mtmp2
+        if (mtmp2 && (mtmp2 != mtmp)
             && (mtmp2 != &youmonst
-                || dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) > 4)
-            && (mtmp2 != mtmp)) {
+                || dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) > 8)) {
             int res;
             res = (mtmp2 == &youmonst) ? mattacku(mtmp)
                                        : mattackm(mtmp, mtmp2);
@@ -870,8 +915,7 @@ toofar:
     if (m_stash_items(mtmp, FALSE))
 	return 0;
 
-    /*  Now the actual movement phase
-     */
+    /* Now the actual movement phase */
 
     if (mtmp->data == &mons[PM_HEZROU]) /* stench */
         create_gas_cloud(mtmp->mx, mtmp->my, 1, 8);
@@ -979,8 +1023,7 @@ toofar:
         }
     }
 
-    /*  Now, attack the player if possible - one attack set per monst
-     */
+    /* Now, attack the player if possible - one attack set per monst */
 
     if (tmp != 3 && (!mtmp->mpeaceful
                      || (Conflict && !resist_conflict(mtmp)))) {
@@ -998,11 +1041,6 @@ toofar:
         quest_talk(mtmp);
     /* extra emotional attack for vile monsters */
     if (inrange && mtmp->data->msound == MS_CUSS && !mtmp->mpeaceful
-        && couldsee(mtmp->mx, mtmp->my) && !mtmp->minvis && !rn2(5))
-        cuss(mtmp);
-    /* freeing the Ice Queen from her curse */
-    if (inrange && mtmp->data->msound == MS_CUSS && mtmp->mpeaceful
-        && mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]
         && couldsee(mtmp->mx, mtmp->my) && !mtmp->minvis && !rn2(5))
         cuss(mtmp);
 
@@ -1085,7 +1123,8 @@ xchar nix,niy;
     if (!Is_rogue_level(&u.uz))
         can_tunnel = racial_tunnels(mtmp);
 
-    if (can_tunnel && racial_needspick(mtmp) && !mwelded(mw_tmp)
+    if (can_tunnel && racial_needspick(mtmp)
+        && !(mwelded(mw_tmp) && mtmp->data != &mons[PM_INFIDEL])
         && (may_dig(nix, niy) || closed_door(nix, niy))) {
         /* may_dig() is either IS_STWALL or IS_TREES */
         if (closed_door(nix, niy)) {
@@ -1621,9 +1660,11 @@ register int after;
         flag |= ALLOW_DIG;
     if (is_human(ptr) || ptr == &mons[PM_MINOTAUR])
         flag |= ALLOW_SSM;
-    if ((is_undead(ptr) && ptr->mlet != S_GHOST) || is_vampshifter(mtmp))
+    if ((is_undead(ptr) && ptr->mlet != S_GHOST)
+        || is_vampshifter(mtmp))
         flag |= NOGARLIC;
-    if (racial_throws_rocks(mtmp))
+    if (racial_throws_rocks(mtmp)
+        || m_can_break_boulder(mtmp))
         flag |= ALLOW_ROCK;
     if (can_open)
         flag |= OPENDOOR;
@@ -1747,6 +1788,11 @@ register int after;
 
         if (!m_in_out_region(mtmp, nix, niy))
             return 3;
+
+        if ((info[chi] & ALLOW_ROCK) && m_can_break_boulder(mtmp)) {
+            (void) m_break_boulder(mtmp, nix, niy);
+            return 3;
+        }
 
         /* move a normal monster; for a long worm, remove_monster() and
            place_monster() only manipulate the head; they leave tail as-is */
@@ -2432,11 +2478,13 @@ struct monst *mtmp;
     boolean was_lava, was_sewage, is_you = (mtmp == &youmonst);
     coord cc;
     if (!mtmp || !has_cold_feet(mtmp) || (is_you && (Flying || Levitation))
-        || !grounded(mtmp->data))
+        || !grounded(mtmp->data) || (u.usteed && !grounded(u.usteed->data)))
         return 0;
 
     if (is_you) {
         cc.x = u.ux, cc.y = u.uy;
+    } else if (u.usteed) {
+        cc.x = u.usteed->mx, cc.y = u.usteed->my;
     } else {
         cc.x = mtmp->mx, cc.y = mtmp->my;
     }
@@ -2476,11 +2524,14 @@ struct monst *mtmp;
     if (lev->icedpool != ICED_PUDDLE && lev->icedpool != ICED_SEWAGE)
         bury_objs(cc.x, cc.y);
 
-    if (is_you || canseemon(mtmp)) {
+    if (is_you || u.usteed || canseemon(mtmp)) {
         const char *liq = was_lava ? "lava" : was_sewage ? "sewage" : "water";
+
         Norep("The %s %s under %s %s.", hliquid(liq),
               was_lava ? "cools and solidifies" : "crackles and freezes",
-              is_you ? "your" : s_suffix(mon_nam(mtmp)),
+              u.usteed ? s_suffix(mon_nam(u.usteed))
+                       : is_you ? "your"
+                                : s_suffix(mon_nam(mtmp)),
               makeplural(mbodypart(mtmp, FOOT)));
     }
 

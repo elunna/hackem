@@ -114,21 +114,18 @@ register struct obj *obj;
             || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
         context.botl = 1;
 
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_SWORD_OF_KAS)
-            || (olduwep && olduwep->oartifact == ART_SWORD_OF_KAS)))
-        context.botl = 1;
-
     if (uwep && uwep == obj && (uwep->oprops & ITEM_EXCEL)) {
         uwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
+        update_inventory();
     }
 
     if (olduwep && (olduwep->oprops & ITEM_EXCEL)) {
         olduwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
+        update_inventory();
     }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
@@ -318,14 +315,11 @@ register struct obj *obj;
         context.botl = 1;
 
     if (uswapwep == obj
-        && (u.twoweap && uswapwep->oartifact == ART_SWORD_OF_KAS))
-        context.botl = 1;
-
-    if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
         uswapwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
+        update_inventory();
     }
     return;
 }
@@ -700,7 +694,7 @@ can_twoweapon()
 
 #define NOT_WEAPON(obj) (!is_weptool(obj) && obj->oclass != WEAPON_CLASS)
     if (!could_twoweap(youmonst.data)) {
-        if (Upolyd || Race_if(PM_VAMPIRIC))
+        if (Upolyd)
             You_cant("use two weapons in your current form.");
         else
             pline("%s aren't able to use two weapons at once.",
@@ -1004,11 +998,8 @@ boolean
 mwelded(obj)
 struct obj *obj;
 {
-    struct permonst *ptr = &mons[PM_INFIDEL];
-
     /* caller is responsible for making sure this is a monster's item */
-    if (obj && (obj->owornmask & W_WEP) && will_weld(obj)
-        && !ptr)
+    if (obj && (obj->owornmask & W_WEP) && will_weld(obj))
         return TRUE;
     return FALSE;
 }

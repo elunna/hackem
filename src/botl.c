@@ -56,6 +56,9 @@ do_statusline1()
     register char *nb;
     register int i, j;
 
+    if (suppress_map_output())
+        return strcpy(newbot1, "");
+
     Strcpy(newbot1, plname);
     if ('a' <= newbot1[0] && newbot1[0] <= 'z')
         newbot1[0] += 'A' - 'a';
@@ -111,6 +114,9 @@ do_statusline2()
     unsigned dln, dx, hln, xln, tln, cln;
     int hp, hpmax, cap;
     long money;
+
+    if (suppress_map_output())
+        return strcpy(newbot2, "");
 
     /*
      * Various min(x,9999)'s are to avoid having excessive values
@@ -207,6 +213,8 @@ do_statusline2()
         Strcpy(nb = eos(nb), " Fly");
     if (u.usteed)
         Strcpy(nb = eos(nb), " Ride");
+    if (Passes_walls)
+        Strcpy(nb = eos(nb), " Phasing");
     cln = strlen(cond);
 
     /*
@@ -532,11 +540,11 @@ char *buf;
     else if (Is_grunds_level(&u.uz))
         Sprintf(buf, "Stronghold:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Lawful Quest"))
-        Sprintf(buf, "Lawful:%d ", depth(&u.uz));
+        Sprintf(buf, "Nightmare:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Neutral Quest"))
-        Sprintf(buf, "Neutral:%d ", depth(&u.uz));
+        Sprintf(buf, "Beholder:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Chaotic Quest"))
-        Sprintf(buf, "Chaotic:%d ", depth(&u.uz));
+        Sprintf(buf, "Vecna:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "The Temple of Moloch"))
         Sprintf(buf, "Temple:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "The Spider Caves"))
@@ -909,6 +917,8 @@ bot_via_windowport()
         blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_RIDE;
     if (Slow)
         blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_SLOW;
+    if (Passes_walls)
+        blstats[idx][BL_CONDITION].a.a_ulong |= BL_MASK_PHASING;
     evaluate_and_notify_windowport(valset, idx);
 }
 
@@ -2503,7 +2513,8 @@ const struct condmap valid_conditions[] = {
     { "fly",      BL_MASK_FLY },
     { "ride",     BL_MASK_RIDE },
     { "slow",     BL_MASK_SLOW },
-    { "wither",   BL_MASK_WITHER }
+    { "wither",   BL_MASK_WITHER },
+    { "phasing",  BL_MASK_PHASING }
 };
 
 #ifdef STATUS_HILITES
@@ -2515,12 +2526,13 @@ const struct condmap condition_aliases[] = {
                         | BL_MASK_BLIND | BL_MASK_DEAF | BL_MASK_STUN
                         | BL_MASK_CONF | BL_MASK_HALLU | BL_MASK_LEV
                         | BL_MASK_FLY | BL_MASK_RIDE | BL_MASK_SLOW
-                        | BL_MASK_WITHER | BL_MASK_AFRAID },
+                        | BL_MASK_WITHER | BL_MASK_AFRAID | BL_MASK_PHASING },
     { "major_troubles", BL_MASK_STONE | BL_MASK_SLIME | BL_MASK_STRNGL
                         | BL_MASK_FOODPOIS | BL_MASK_TERMILL | BL_MASK_WITHER},
     { "minor_troubles", BL_MASK_BLIND | BL_MASK_DEAF | BL_MASK_STUN
                         | BL_MASK_CONF | BL_MASK_HALLU | BL_MASK_AFRAID },
-    { "movement",       BL_MASK_LEV | BL_MASK_FLY | BL_MASK_RIDE | BL_MASK_SLOW }
+    { "movement",       BL_MASK_LEV | BL_MASK_FLY | BL_MASK_RIDE | BL_MASK_SLOW
+                        | BL_MASK_PHASING }
 };
 
 unsigned long

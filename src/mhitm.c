@@ -18,6 +18,7 @@ static const char brief_feeling[] =
 STATIC_DCL int FDECL(hitmm, (struct monst *, struct monst *,
                              struct attack *, struct obj *, int));
 STATIC_DCL int FDECL(gazemm, (struct monst *, struct monst *, struct attack *));
+STATIC_DCL int FDECL(screamm, (struct monst *, struct monst *, struct attack *));
 STATIC_DCL int FDECL(gulpmm, (struct monst *, struct monst *, struct attack *));
 STATIC_DCL int FDECL(explmm, (struct monst *, struct monst *, struct attack *));
 STATIC_DCL int FDECL(mdamagem, (struct monst *, struct monst *,
@@ -705,6 +706,11 @@ register struct monst *magr, *mdef;
             res[i] = gazemm(magr, mdef, mattk);
             break;
 
+        case AT_SCRE:
+            strike = 0;
+            res[i] = screamm(magr, mdef, mattk);
+            break;
+
         case AT_EXPL:
             /* D: Prevent explosions from a distance */
             if (distmin(magr->mx, magr->my, mdef->mx, mdef->my) > 1)
@@ -722,7 +728,8 @@ register struct monst *magr, *mdef;
             break;
 
         case AT_ENGL:
-            if (noncorporeal(mdef->data)) { /* no silver teeth... */
+            if (noncorporeal(mdef->data) /* no silver teeth... */
+                || passes_walls(mdef->data)) {
                 if (vis)
                     pline("%s attempt to engulf %s is futile.",
                           s_suffix(Monnam(magr)), mon_nam(mdef));
@@ -1055,6 +1062,30 @@ struct attack *mattk;
     } else if (is_vegetation(magr->data)) {
         return (MM_MISS);
     }
+    return mdamagem(magr, mdef, mattk, (struct obj *) 0, 0, &otmp);
+}
+
+/* Returns the same values as mdamagem() */
+STATIC_OVL int
+screamm(magr, mdef, mattk)
+register struct monst *magr, *mdef;
+struct attack *mattk;
+{
+    struct obj *otmp;
+
+    if (canseemon(magr) && !Deaf) {
+        pline("%s lets out a %s!", Monnam(magr),
+              magr->data == &mons[PM_NAZGUL] ? "bloodcurdling scream"
+                                             : "deafening roar");
+        if (!mdef->mstun) {
+            if (canseemon(mdef))
+                pline("%s reels from the noise!", Monnam(mdef));
+        } else {
+            if (canseemon(mdef))
+                pline("%s struggles to keep its balance.", Monnam(mdef));
+        }
+    }
+
     return mdamagem(magr, mdef, mattk, (struct obj *) 0, 0, &otmp);
 }
 
@@ -1577,7 +1608,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             }
 
             /* Stakes do extra dmg vs vamps */
-            if (mwep && mwep->otyp == WOODEN_STAKE && is_vampire(pd)) {
+            if (mwep && mwep->otyp == STAKE && is_vampire(pd)) {
                 if (!rn2(5)) {
                     if (vis) {
                         Strcpy(buf, Monnam(magr));
@@ -1725,8 +1756,10 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
             tmp = 0;
             break;
         }
-        if (vis && canseemon(mdef) && !Deaf)
-            pline("%s reels from the noise!", Monnam(mdef));
+
+        if (!mdef->mstun)
+            mdef->mstun = 1;
+
 
         if (!rn2(6))
             erode_armor(mdef, ERODE_FRACTURE);
@@ -1969,8 +2002,14 @@ post_stone:
         if (!cancelled && mdef->mcanmove) {
             if (vis && canspotmon(mdef)) {
                 Strcpy(buf, Monnam(mdef));
-                pline("%s is frozen by %s.", buf, mon_nam(magr));
+                if (has_free_action(mdef)) {
+                    pline("%s stiffens momentarily.", Monnam(mdef));
+                } else {
+                    pline("%s is frozen by %s.", buf, mon_nam(magr));
+                }
             }
+            if (has_free_action(mdef))
+                break;
             paralyze_monst(mdef, rnd(10));
         }
         break;
@@ -2044,6 +2083,7 @@ post_stone:
         }
         break;
     case AD_BLND:
+        tmp = 0;
         if (can_blnd(magr, mdef, mattk->aatyp, (struct obj *) 0)) {
             register unsigned rnd_tmp;
 
@@ -2073,7 +2113,16 @@ post_stone:
             mdef->mcansee = 0;
             mdef->mstrategy &= ~STRAT_WAITFORU;
         }
-        tmp = 0;
+
+        /* light-haters can take damage from the intense light
+           (yellow light explosion), blind or not */
+        if (mattk->aatyp == AT_EXPL
+            && hates_light(r_data(mdef))) {
+            if (!Deaf)
+                pline("%s cries out in pain!",
+                      Monnam(mdef));
+            tmp = rnd(5);
+        }
         break;
     case AD_HALU:
         if (!magr->mcan && haseyes(pd) && mdef->mcansee
@@ -2186,9 +2235,20 @@ post_stone:
         if (magr->mcan)
             break;
         /* find an object to steal, non-cursed if magr is tame */
-        for (obj = mdef->minvent; obj; obj = obj->nobj)
+        int inv_tmp = 0;
+        for (obj = mdef->minvent; obj; obj = obj->nobj) {
             if (!magr->mtame || !obj->cursed)
-                break;
+                ++inv_tmp;
+        }
+        if (inv_tmp)
+            inv_tmp = rnd(inv_tmp);
+        for (obj = mdef->minvent; obj; obj = obj->nobj) {
+            if (!magr->mtame || !obj->cursed) {
+                --inv_tmp;
+                if (inv_tmp < 1)
+                    break;
+            }
+        }
 
         if (obj) {
             char onambuf[BUFSZ], mdefnambuf[BUFSZ];
@@ -2197,6 +2257,29 @@ post_stone:
                the saddle, and save it for later messages */
             Strcpy(mdefnambuf,
                    x_monnam(mdef, ARTICLE_THE, (char *) 0, 0, FALSE));
+
+            /* greased objects are difficult to get a grip on, hence
+               the odds that an attempt at stealing it may fail */
+            if ((obj->greased || obj->otyp == OILSKIN_CLOAK
+                 || obj->otyp == OILSKIN_SACK
+                 || (obj->oprops & ITEM_OILSKIN))
+                && (!obj->cursed || rn2(4))) {
+                if (vis && canseemon(mdef)) {
+                    pline("%s %s slip off of %s's %s %s!", s_suffix(Monnam(magr)),
+                          makeplural(mbodypart(magr, HAND)),
+                          mdefnambuf,
+                          obj->greased ? "greased" : "slippery",
+                          (obj->greased || objects[obj->otyp].oc_name_known)
+                              ? xname(obj)
+                              : cloak_simple_name(obj));
+                }
+                if (obj->greased && !rn2(2)) {
+                    if (vis && canseemon(mdef))
+                        pline_The("grease wears off.");
+                    obj->greased = 0;
+                }
+                break;
+            }
 
             if (u.usteed == mdef && obj == which_armor(mdef, W_SADDLE))
                 /* "You can no longer ride <steed>." */
@@ -2330,10 +2413,13 @@ post_stone:
                 return MM_MISS;
             }
         }
-        if (immune_death_magic(mdef->data)) {
+        if (immune_death_magic(mdef->data)
+            || defended(mdef, AD_DETH)) {
             /* Still does normal damage */
             if (vis)
-                pline("%s looks no more dead than before.", Monnam(mdef));
+                pline("%s %s.", Monnam(mdef),
+                      nonliving(mdef->data) ? "looks no more dead than before"
+                                            : "is unaffected");
             break;
         }
         switch (rn2(20)) {
@@ -3041,9 +3127,9 @@ struct obj *mwep;
     case AD_DRST:
         if (mhit && !mdef->mcan && !rn2(3)) {
             if (resists_poison(magr) || defended(magr, AD_DRST)) {
-                if (canseemon(magr) && !rn2(3)) {
-                    shieldeff(magr->mx, magr->my);
-                    pline("%s poisonous hide doesn't seem to affect %s.",
+                if (canseemon(magr)) {
+                    if (!rn2(5))
+                        pline("%s poisonous hide doesn't seem to affect %s.",
                               s_suffix(Monnam(mdef)), mon_nam(magr));
                 }
             } else {
@@ -3195,16 +3281,30 @@ struct obj *mwep;
                                      canseemon(magr) ? buf : (char *) 0))
                         return (mdead | mhit);
                     Strcpy(buf, Monnam(magr));
-                    if (canseemon(magr))
-                        pline("%s is frozen by %s gaze!", buf,
-                              s_suffix(mon_nam(mdef)));
+                    if (canseemon(magr)) {
+                        if (has_free_action(magr)) {
+                            pline("%s stiffens momentarily.", Monnam(magr));
+                        } else {
+                            pline("%s is frozen by %s gaze!", buf,
+                                  s_suffix(mon_nam(mdef)));
+                        }
+                    }
+                    if (has_free_action(magr))
+                        return 1;
                     paralyze_monst(magr, tmp);
                     return (mdead | mhit);
                 }
             } else { /* gelatinous cube */
                 Strcpy(buf, Monnam(magr));
-                if (canseemon(magr))
-                    pline("%s is frozen by %s.", buf, mon_nam(mdef));
+                if (canseemon(magr)) {
+                    if (has_free_action(magr)) {
+                        pline("%s stiffens momentarily.", Monnam(magr));
+                    } else {
+                        pline("%s is frozen by %s.", buf, mon_nam(mdef));
+                    }
+                }
+                if (has_free_action(magr))
+                    return 1;
                 paralyze_monst(magr, tmp);
                 return (mdead | mhit);
             }

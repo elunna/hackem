@@ -45,8 +45,6 @@ char msgbuf[BUFSZ];
 /* also used to see if you're allowed to eat cats and dogs */
 #define CANNIBAL_ALLOWED() (Role_if(PM_CAVEMAN) || Race_if(PM_ORC) || Race_if(PM_VAMPIRIC))
 
-/* monster types that cause hero to be turned into stone if eaten */
-#define flesh_petrifies(pm) (touch_petrifies(pm) || (pm) == &mons[PM_MEDUSA])
 
 /* Rider corpses are treated as non-rotting so that attempting to eat one
    will be sure to reach the stage of eating where that meal is fatal */
@@ -954,7 +952,8 @@ struct monst *mon;
     (((mon)->mintrinsics | (mon)->data->mresists) & intrinsic)
     int i;
     for (i = 1; i <= STONE_RES; i++) {
-        if (intrinsic_possible(i, ptr) && !mon_has_intrinsic((1 << i), mon)) {
+        if (intrinsic_possible(i, ptr)
+            && !mon_has_intrinsic((1 << (i - 1)), mon)) {
             return TRUE;
         }
     }
@@ -2026,7 +2025,7 @@ struct obj *otmp;
                          && rn2(10)
                          && ((rotted < 1) ? TRUE : !rn2(rotted+1)));
         const char *pmxnam = food_xname(otmp, FALSE);
-
+        
         if (!strncmpi(pmxnam, "the ", 4))
             pmxnam += 4;
         pline("%s%s %s %s%c",
@@ -2274,7 +2273,8 @@ struct obj *otmp;
         } else {
  give_feedback:
             pline("This %s is %s", singular(otmp, xname),
-              (otmp->cursed || otmp->otyp == FRUITCAKE)
+              (otmp->cursed || otmp->otyp == FRUITCAKE 
+                   || otmp->otyp == EYEBALL || otmp->otyp == SEVERED_HAND)
                  ? (Hallucination ? "grody!" : "terrible!")
                  : (otmp->otyp == CRAM_RATION
                     || otmp->otyp == K_RATION
@@ -2686,16 +2686,8 @@ eatspecial()
     }
 
     if (otmp->oartifact == ART_HAND_OF_VECNA) {
-        You_feel("a burning deep inside your %s!", body_part(STOMACH));
-        if (otmp->cursed)
-            u.uhp -= rn1(150, 250);
-        else
-            u.uhp -= rn1(50, 150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Hand of Vecna");
-            done(DIED);
-        }
+        You("feel the hand scrabbling around inside of you!");
+        losehp(rn1(50, 150), "eating the Hand of Vecna", KILLED_BY);
     }
 
     if (otmp == uwep && otmp->quan == 1L)
@@ -2781,15 +2773,15 @@ struct obj *otmp;
         if (!otmp->oartifact)
             break;
         You_feel("a burning deep inside your %s!", body_part(STOMACH));
-        if (otmp->cursed)
-            u.uhp -= rn1(150, 250);
-        else
-            u.uhp -= rn1(50, 150);
-        if (u.uhp <= 0) {
-            killer.format = KILLED_BY;
-            Strcpy(killer.name, "eating the Eye of Vecna");
-            done(DIED);
-        }
+        losehp((otmp->cursed) 
+                   ? rn1(150, 250) 
+                   : rn1(50, 150), "eating the Eye of the Beholder", KILLED_BY);
+        break;
+    case SEVERED_HAND:
+        if (!otmp->oartifact) 
+            break;
+        You("feel the hand scrabbling around inside of you!");
+        losehp(rn1(50, 150), "eating the Hand of Vecna", KILLED_BY);
         break;
     case LUMP_OF_ROYAL_JELLY:
         /* This stuff seems to be VERY healthy! */
@@ -2936,7 +2928,7 @@ struct obj *otmp;
         else
             return 2;
     }
-    if (stoneorslime || otmp->oartifact == ART_EYE_OF_VECNA) {
+    if (stoneorslime || otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
         Sprintf(buf, "%s like %s could be something very dangerous!  %s",
                 foodsmell, it_or_they, eat_it_anyway);
         if (yn_function(buf, ynchars, 'n') == 'n')
@@ -3084,10 +3076,7 @@ doeat()
     } else if ((otmp->owornmask & (W_ARMOR | W_TOOL | W_AMUL | W_SADDLE))
                != 0) {
         /* let them eat rings */
-        if (otmp->oartifact == ART_HAND_OF_VECNA)
-            You_cant("eat %s that's a part of you!", something);
-        else
-            You_cant("eat %s you're wearing.", something);
+        You_cant("eat %s you're wearing.", something);
         return 0;
     } else if (!(carried(otmp) ? retouch_object(&otmp, FALSE)
                                : touch_artifact(otmp, &youmonst))) {
@@ -3163,6 +3152,7 @@ doeat()
             nodelicious = TRUE;
         }
 #endif
+
         context.victual.nmod = basenutrit;
         context.victual.eating = TRUE; /* needed for lesshungry() */
 
@@ -3189,7 +3179,9 @@ doeat()
             nodelicious = TRUE;
         } else if (otmp->material == PAPER)
             nodelicious = TRUE;
-
+        else if (otmp->otyp == EYEBALL || otmp->otyp == SEVERED_HAND)
+            nodelicious = TRUE;
+        
         if (otmp->oclass == WEAPON_CLASS && otmp->opoisoned) {
             pline("Ecch - that must have been poisonous!");
             if (how_resistant(POISON_RES) < 100) {

@@ -4,8 +4,7 @@
 #
 # Nightmare's Nightmare World
 MAZE:"qlawful",' '
-#FLAGS: noteleport, hardfloor, nommap, shortsighted, spooky
-FLAGS: noteleport, hardfloor, nommap, shortsighted
+FLAGS: noteleport, hardfloor, nommap, shortsighted, spooky
 
 GEOMETRY: center, center
 #          1         2         3         4         5         6         7
@@ -278,8 +277,7 @@ CONTAINER: ('(', "chest"), (30,09) {
 }
 # forest
 
-# Replaced Nightmare with Nebuchadnezzar
-MONSTER: ('@', "Nebuchadnezzar"), (10,09), asleep
+MONSTER: ('u', "Nightmare"), (10,09), asleep
 
 [60%]: MONSTER: ('n', "pixie"), (10,09), asleep
 [60%]: MONSTER: ('n', "pixie"), (10,09), hostile

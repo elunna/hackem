@@ -82,15 +82,6 @@ register struct monst *mtmp;
     return FALSE;
 }
 
-int spelltimeout(mtmp, spl_level)
-register struct monst *mtmp;
-register int spl_level;
-{
-    if (mtmp->m_lev >= 38)
-        return 1;
-    return 5 * spl_level * ((38 - mtmp->m_lev) * 2 / 3);
-}
-
 extern const char *const flash_types[]; /* from zap.c */
 
 /* feedback when frustrated monster couldn't cast a spell */
@@ -146,10 +137,7 @@ int spellval;
         i = rn2(3);
         switch (i) {
         case 2:
-            if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-                return MGC_ICE_BOLT;
-            else
-                return MGC_FIRE_BOLT;
+            return MGC_FIRE_BOLT;
         case 1:
             return MGC_ICE_BOLT;
         case 0:
@@ -208,10 +196,7 @@ int spellval;
         i = rn2(3);
         switch (i) {
         case 2:
-            if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
-                return MGC_ICE_BOLT;
-            else
-                return MGC_FIRE_BOLT;
+            return MGC_FIRE_BOLT;
         case 1:
             return MGC_ICE_BOLT;
         case 0:
@@ -253,8 +238,7 @@ int spellnum;
     case 12:
         return CLC_GEYSER;
     case 11:
-        if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mtmp->data == &mons[PM_ASMODEUS])
+        if (mtmp->data == &mons[PM_ASMODEUS])
             return CLC_LIGHTNING;
         else
             return CLC_FIRE_PILLAR;
@@ -265,8 +249,7 @@ int spellnum;
     case 8:
         if ((is_demon(mtmp->data)
              && mtmp->data != &mons[PM_LOLTH])
-            || mtmp->mtame || mtmp->mpeaceful
-            || mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN])
+            || mtmp->mtame || mtmp->mpeaceful)
             return CLC_VULN_YOU;
         else
             return CLC_INSECTS;
@@ -349,8 +332,8 @@ boolean foundyou;
     }
 
     if (mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) {
-        register struct obj *obj;
-        mtmp->mspec_used += spelltimeout(mtmp, objects[spellnum].oc_level);
+        struct obj *obj;
+        mtmp->mspec_used = 4 - mtmp->m_lev;
         if (mtmp->mspec_used < 2)
             mtmp->mspec_used = 2;
         /* many boss-type monsters than have two or more spell attacks
@@ -363,9 +346,7 @@ boolean foundyou;
                 || mtmp->data->msound == MS_LEADER
                 || mtmp->data->msound == MS_NEMESIS
                 || mtmp->data == &mons[PM_ORACLE]
-                || mtmp->data == &mons[PM_HIGH_PRIEST]
-                || mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-                || mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS]))
+                || mtmp->data == &mons[PM_HIGH_PRIEST]))
             mtmp->mspec_used = 0;
 
         /* Having the EotA in inventory drops mspec to 0 */
@@ -398,17 +379,22 @@ boolean foundyou;
         return 0;
     }
     if (canseemon(mtmp) || !is_undirected_spell(mattk->adtyp, spellnum)) {
-        pline("%s casts a spell%s!",
-              canseemon(mtmp) ? Monnam(mtmp) : "Something",
-              is_undirected_spell(mattk->adtyp, spellnum)
-                  ? ""
-                  : (Invis && !mon_prop(mtmp, SEE_INVIS)
-                     && (mtmp->mux != u.ux || mtmp->muy != u.uy))
-                        ? " at a spot near you"
-                        : (Displaced
-                           && (mtmp->mux != u.ux || mtmp->muy != u.uy))
-                              ? " at your displaced image"
-                              : " at you");
+        if (mtmp->mpeaceful
+            && mtmp->ispriest && inhistemple(mtmp)) {
+            ; /* cut down on the temple spam */
+        } else {
+            pline("%s casts a spell%s!",
+                  canseemon(mtmp) ? Monnam(mtmp) : "Something",
+                  is_undirected_spell(mattk->adtyp, spellnum)
+                      ? ""
+                      : (Invis && !mon_prop(mtmp, SEE_INVIS)
+                         && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+                            ? " at a spot near you"
+                            : (Displaced
+                               && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+                                  ? " at your displaced image"
+                                  : " at you");
+        }
     }
 
     /*
@@ -653,8 +639,10 @@ int spellnum;
     switch (spellnum) {
     case MGC_DEATH_TOUCH:
         pline("Oh no, %s's using the touch of death!", mhe(mtmp));
-        if (immune_death_magic(youmonst.data)) {
-            You("seem no more dead than before.");
+        if (Death_resistance || immune_death_magic(youmonst.data)) {
+            You("%s.", nonliving(youmonst.data)
+                ? "seem no more dead than before"
+                : "are unaffected");
         } else {
             if (Hallucination) {
                 You("have an out of body experience.");
@@ -683,33 +671,27 @@ int spellnum;
      * displacement.
      */
     case MGC_CREATE_POOL: 
-        if (Invisible 
-            && !perceives(mtmp->data) 
-            && (mtmp->mux != u.ux || mtmp->muy != u.uy)
-            && (levl[mtmp->mux][mtmp->muy].typ == ROOM || 
-                levl[mtmp->mux][mtmp->muy].typ == CORR)) {
+        if (Invisible && !perceives(mtmp->data)
+              && (mtmp->mux != u.ux || mtmp->muy != u.uy)
+              && zombie_can_dig(mtmp->mux, mtmp->muy)) {
             pline("A pool appears beneath a spot near you!");
             levl[mtmp->mux][mtmp->muy].typ = POOL;
             del_engr_at(mtmp->mux, mtmp->muy);
-            /*water_damage(level.objects[mtmp->mux][mtmp->muy], FALSE, TRUE);*/
             water_damage_chain(level.objects[mtmp->mux][mtmp->muy], TRUE, 0, TRUE, mtmp->mux, mtmp->muy);
             spoteffects(FALSE);
         } else if (Displaced 
                    && (mtmp->mux != u.ux || mtmp->muy != u.uy)
-                   && (levl[mtmp->mux][mtmp->muy].typ == ROOM || 
-                       levl[mtmp->mux][mtmp->muy].typ == CORR)) {
+                   && zombie_can_dig(mtmp->mux, mtmp->muy)) {
             pline("A pool appears beneath your displaced image!");
             levl[mtmp->mux][mtmp->muy].typ = POOL;
             del_engr_at(mtmp->mux, mtmp->muy);
-            /*water_damage(level.objects[mtmp->mux][mtmp->muy], FALSE, TRUE);*/
             water_damage_chain(level.objects[mtmp->mux][mtmp->muy], TRUE, 0, TRUE, mtmp->mux, mtmp->muy);
             spoteffects(FALSE);
         }
-        else if (levl[u.ux][u.uy].typ == ROOM || levl[u.ux][u.uy].typ == CORR) {
+        else if (zombie_can_dig(u.ux, u.uy)) {
             pline("A pool appears beneath you!");
             levl[u.ux][u.uy].typ = POOL;
             del_engr_at(u.ux, u.uy);
-            /*water_damage(level.objects[u.ux][u.uy], FALSE, TRUE);*/
             water_damage_chain(level.objects[u.ux][u.uy], TRUE, 0, TRUE, u.ux, u.uy);
             spoteffects(FALSE);  /* possibly drown, notice objects */
         }
@@ -778,8 +760,6 @@ int spellnum;
             ; /* nothing was created? */
         } else if (mtmp->iswiz) {
             verbalize("Destroy the thief, my pet%s!", plur(count));
-        } else if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-            verbalize("Defend me, my minion%s!", plur(count));
         } else {
             boolean one = (count == 1);
             const char *mappear = one ? "A monster appears"
@@ -955,36 +935,24 @@ int spellnum;
 
     switch (spellnum) {
     case CLC_SUMMON_ELM:
-
-        if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-            coord bypos;
-            if (!enexto(&bypos, mtmp->mx, mtmp->my, mtmp->data))
-                break;
-            minion = makemon(&mons[PM_SNOW_GOLEM], bypos.x, bypos.y,
-                             MM_ANGRY);
-            if (minion && canspotmon(minion))
-                pline("A minion of %s appears!", mon_nam(mtmp));
-        } else {
-            aligntype = mon_aligntyp(mtmp);
-            minion = summon_minion(aligntype, FALSE);
-            if (minion) {
-                boolean vassal = (aligntype == A_NONE);
-                set_malign(minion);
-                if (canspotmon(minion))
-                    pline("A %s of %s appears!",
-                          vassal ? "vassal" : "servant",
-                          vassal ? Moloch : aligns[1 - aligntype].noun);
-            }
+        aligntype = mon_aligntyp(mtmp);
+        minion = summon_minion(aligntype, FALSE);
+        if (minion) {
+            boolean vassal = (aligntype == A_NONE);
+            set_malign(minion);
+            if (canspotmon(minion))
+                pline("A %s of %s appears!",
+                      vassal ? "vassal" : "servant",
+                      vassal ? Moloch : aligns[1 - aligntype].noun);
         }
+    
         dmg = 0;
         break;
     case CLC_GEYSER:
         /* this is physical damage (force not heat),
          * not magical damage or fire damage
          */
-        if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-            || mtmp->data == &mons[PM_ASMODEUS]
-            || mtmp->data == &mons[PM_VECNA]) {
+        if (mtmp->data == &mons[PM_ASMODEUS] || mtmp->data == &mons[PM_VECNA]) {
             pline("An avalanche of ice and snow slams into you from nowhere!");
             dmg = d(8, 8);
             if (Half_physical_damage)
@@ -1060,10 +1028,13 @@ int spellnum;
     case CLC_INSECTS: {
         /* Try for bugs, and if there are none
            left, go for (sticks to) snakes.  -3. */
-        boolean spiders = (mtmp->data == &mons[PM_LOLTH]);
-        struct permonst *pm = mkclass(spiders ? S_SPIDER : S_ANT, 0);
+        boolean spiders = mtmp->data == &mons[PM_LOLTH];
+        boolean spheres = mtmp->data == &mons[PM_BEHOLDER];
+        struct permonst *pm = mkclass(spiders ? S_SPIDER
+                                      : spheres ? S_EYE :S_ANT, 0);
         struct monst *mtmp2 = (struct monst *) 0;
-        char let = (pm ? (spiders ? S_SPIDER : S_ANT) : S_SNAKE);
+        char let = (pm ? (spiders ? S_SPIDER
+                          : spheres ? S_EYE: S_ANT) : S_SNAKE);
         boolean success = FALSE, seecaster;
         int i, quan, oldseen, newseen;
         coord bypos;
@@ -1121,6 +1092,8 @@ int spellnum;
             fmt = "%s transforms a clump of sticks into snakes!";
         else if (let == S_SPIDER)
             fmt = "%s summons arachnids!";
+        else if (let == S_EYE)
+            fmt = "%s summons orbs!";
         else if (Invis && !mon_prop(mtmp, SEE_INVIS)
                  && (mtmp->mux != u.ux || mtmp->muy != u.uy))
             fmt = "%s summons insects around a spot near you!";
@@ -1195,9 +1168,7 @@ int spellnum;
               Blind ? "slimy" : vulntext[dmg], body_part(SKIN));
         switch (dmg) {
         case 1:
-            if (mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]
-                || mtmp->data == &mons[PM_ASMODEUS]
-                || mtmp->data == &mons[PM_VECNA]) {
+            if (mtmp->data == &mons[PM_ASMODEUS] || mtmp->data == &mons[PM_VECNA]) {
                 if (Vulnerable_cold)
                     return;
                 incr_itimeout(&HVulnerable_cold, rnd(100) + 150);
@@ -1260,17 +1231,22 @@ int spellnum;
 
         gain = loglev - mtmp->mprotection / (4 - min(3, (10 - natac) / 10));
 
-        if (gain && canseemon(mtmp)) {
-            if (mtmp->mprotection) {
-                pline_The("%s haze around %s becomes more dense.",
-                          hcolor(NH_GOLDEN), mon_nam(mtmp));
-            } else {
-                mtmp->mprottime = (mtmp->iswiz || is_prince(mtmp->data)
-                                   || mtmp->data->msound == MS_NEMESIS
-                                   || mtmp->data->msound == MS_LEADER)
-                                   ? 20 : 10;
-                pline_The("air around %s begins to shimmer with a %s haze.",
-                          mon_nam(mtmp), hcolor(NH_GOLDEN));
+        if (mtmp->mpeaceful
+            && mtmp->ispriest && inhistemple(mtmp)) {
+            ; /* cut down on the temple spam */
+        } else {
+            if (gain && canseemon(mtmp)) {
+                if (mtmp->mprotection) {
+                    pline_The("%s haze around %s becomes more dense.",
+                              hcolor(NH_GOLDEN), mon_nam(mtmp));
+                } else {
+                    mtmp->mprottime = (mtmp->iswiz || is_prince(mtmp->data)
+                                       || mtmp->data->msound == MS_NEMESIS
+                                       || mtmp->data->msound == MS_LEADER)
+                                       ? 20 : 10;
+                    pline_The("air around %s begins to shimmer with a %s haze.",
+                              mon_nam(mtmp), hcolor(NH_GOLDEN));
+                }
             }
         }
         mtmp->mprotection += gain;
@@ -1660,8 +1636,8 @@ struct attack *mattk;
     }
 
     if (mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) {
-        register struct obj *obj;
-        mtmp->mspec_used += spelltimeout(mtmp, objects[spellnum].oc_level);
+        struct obj *obj;
+        mtmp->mspec_used = 4 - mtmp->m_lev;
         if (mtmp->mspec_used < 2)
             mtmp->mspec_used = 2;
         /* many boss-type monsters than have two or more spell attacks
@@ -1674,13 +1650,10 @@ struct attack *mattk;
                 || mtmp->data->msound == MS_LEADER
                 || mtmp->data->msound == MS_NEMESIS
                 || mtmp->data == &mons[PM_ORACLE]
-                || mtmp->data == &mons[PM_HIGH_PRIEST]
-                || mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]))
+                || mtmp->data == &mons[PM_HIGH_PRIEST]))
             mtmp->mspec_used = 0;
 
-        if (is_dprince(mtmp->data)
-            || mtmp->iswiz || mtmp->isvecna
-            || mtmp->data == &mons[PM_KATHRYN_THE_ENCHANTRESS])
+        if (is_dprince(mtmp->data) || mtmp->iswiz || mtmp->isvecna)
             /* mspec 0 always */
             mtmp->mspec_used = 0;
 
@@ -2049,7 +2022,10 @@ int spellnum;
              || resists_magm(mtmp) || defended(mtmp, AD_MAGM));
         if (immune_death_magic(mtmp->data) || is_vampshifter(mtmp)) {
             if (yours || canseemon(mtmp))
-                pline("%s seems no more dead than before.", Monnam(mtmp));
+                pline("%s %s.", Monnam(mtmp),
+                      nonliving(mtmp->data)
+                          ? "seems no more dead than before"
+                          : "is unaffected");
         } else if (!resisted) {
             mtmp->mhp = -1;
             if (yours)
@@ -2331,8 +2307,7 @@ int spellnum;
             impossible("create pool spell with no mtmp");
             return;
         }
-        if (levl[mtmp->mx][mtmp->my].typ == ROOM 
-            || levl[mtmp->mx][mtmp->my].typ == CORR) {
+        if (zombie_can_dig(mtmp->mx, mtmp->my)) {
             if (yours || canseemon(mtmp)) {
                 pline("A pool appears beneath %s!", mon_nam(mtmp));
             }

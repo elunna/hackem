@@ -227,11 +227,9 @@ boolean unchain_ball; /* whether to unpunish or just unwield */
             (void) Cloak_off();
         else if (obj == uarmf)
             (void) Boots_off();
-        else if (obj == uarmg) {
-            if (uarmg->oartifact == ART_HAND_OF_VECNA)
-                return;
+        else if (obj == uarmg)
             (void) Gloves_off();
-        } else if (obj == uarmh)
+        else if (obj == uarmh)
             (void) Helmet_off();
         else if (obj == uarms)
             (void) Shield_off();
@@ -291,8 +289,10 @@ boolean artifact;
     /* food being eaten might already be used up but will not have
        been removed from inventory yet; we don't want to steal that,
        so this will cause it to be removed now */
-    if (occupation)
+    if (occupation) {
         (void) maybe_finished_meal(FALSE);
+        update_inventory(); /* meal weight has changed */
+    }
 
     icnt = inv_cnt(FALSE); /* don't include gold */
     if (!icnt || (icnt == 1 && uskin)) {
@@ -306,7 +306,7 @@ boolean artifact;
         else
             pline("%s tries to rob you, but there is nothing to steal!",
                   Monnam(mtmp));
-        return 1; /* let her flee */
+        return 1; /* let them flee */
     }
 
     monkey_business = (is_animal(mtmp->data) || is_rogue(mtmp->data));
@@ -364,6 +364,28 @@ boolean artifact;
             goto retry;
         goto cant_take;
     }
+
+    /* greased objects are difficult to get a grip on, hence
+       the odds that an attempt at stealing it may fail */
+    if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
+        || otmp->otyp == OILSKIN_SACK
+        || (otmp->oprops & ITEM_OILSKIN))
+        && (!otmp->cursed || rn2(4))) {
+        pline("%s %s slip off of your %s %s!", s_suffix(Monnam(mtmp)),
+              makeplural(mbodypart(mtmp, HAND)),
+              otmp->greased ? "greased" : "slippery",
+              (otmp->greased || objects[otmp->otyp].oc_name_known)
+                  ? xname(otmp)
+                  : cloak_simple_name(otmp));
+
+        if (otmp->greased && !rn2(2)) {
+            pline_The("grease wears off.");
+            otmp->greased = 0;
+            update_inventory();
+        }
+        return 1; /* let them flee */
+    }
+
     /* animals and rogues can't overcome curse stickiness nor unlock chains */
     if (monkey_business) {
         boolean ostuck;
@@ -385,16 +407,11 @@ boolean artifact;
             static const char *const how[] = { "steal", "snatch", "grab",
                                                "take" };
  cant_take:
-            if ((otmp == uarmg) && uarmg->oartifact == ART_HAND_OF_VECNA) {
-                pline("%s takes one look at your decrepit %s and thinks better of it.",
-                      Monnam(mtmp), body_part(HAND));
-            } else {
-                pline("%s tries to %s %s%s but gives up.", Monnam(mtmp),
-                      how[rn2(SIZE(how))],
-                      (otmp->owornmask & W_ARMOR) ? "your " : "",
-                      (otmp->owornmask & W_ARMOR) ? equipname(otmp)
-                                                  : yname(otmp));
-            }
+            pline("%s tries to %s %s%s but gives up.", Monnam(mtmp),
+                  how[rn2(SIZE(how))],
+                  (otmp->owornmask & W_ARMOR) ? "your " : "",
+                  (otmp->owornmask & W_ARMOR) ? equipname(otmp)
+                                              : yname(otmp));
             /* the fewer items you have, the less likely the thief
                is going to stick around to try again (0) instead of
                running away (1) */
@@ -434,9 +451,6 @@ boolean artifact;
                     goto cant_take;
                 remove_worn_item(otmp, TRUE);
                 break;
-            } else if ((otmp == uarmg)
-                       && uarmg->oartifact == ART_HAND_OF_VECNA) {
-                goto cant_take;
             } else {
                 int curssv = otmp->cursed;
                 int slowly;
@@ -630,6 +644,19 @@ struct monst *mtmp;
     }
 
     if (otmp) { /* we have something to snatch */
+        if (otmp->greased
+            && (!otmp->cursed || !obj_resists(obj, 0, 0) || rn2(4))) {
+            pline("%s %s slip off of your greased %s!", s_suffix(Monnam(mtmp)),
+                  makeplural(mbodypart(mtmp, HAND)),
+                  xname(otmp));
+
+            if (otmp->greased && !rn2(2)) {
+                pline_The("grease wears off.");
+                otmp->greased = 0;
+                update_inventory();
+            }
+            return;
+        }
         /* take off outer gear if we're targetting [hypothetical]
            quest artifact suit, shirt, gloves, or rings */
         if ((otmp == uarm || otmp == uarmu) && uarmc)

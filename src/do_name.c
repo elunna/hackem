@@ -1335,6 +1335,12 @@ const char *name;
     if (obj->oartifact || (lth && exist_artifact(obj->otyp, name)))
         return obj;
 
+    if (!strcmpi(name, "Grandmaster's Robe")
+            && Is_dragon_scaled_armor(obj)) {
+        pline("While engraving, your %s slips.", body_part(HAND));
+        return obj;
+    }
+
     new_oname(obj, lth); /* removes old name if one is present */
     if (lth)
         Strcpy(ONAME(obj), name);
@@ -1352,7 +1358,7 @@ const char *name;
         /* if obj is owned by a shop, increase your bill */
         if (obj->unpaid)
             alter_cost(obj, 0L);
-        if (via_naming) {
+        if (via_naming && obj->oartifact != ART_GRANDMASTER_S_ROBE) {
             /* naming an artifact has consequences now, much like
                wishing for one... not as bad as spawning a player
                monster or quest nemesis, but you're still not
@@ -1926,7 +1932,6 @@ boolean called;
     if (name_at_start && (article == ARTICLE_YOUR || !has_adjectives)) {
         if (mdat == &mons[PM_WIZARD_OF_YENDOR]
             || mdat == &mons[PM_RAT_KING]
-            || mdat == &mons[PM_ABOMINABLE_SNOWMAN]
             || mdat == &mons[PM_ARCHBISHOP_OF_MOLOCH])
             article = ARTICLE_THE;
         else
@@ -2394,8 +2399,6 @@ static const char *const sir_Terry_novels[] = {
     "A Hat Full of Sky", "Going Postal", "Thud!", "Wintersmith",
     "Making Money", "Unseen Academicals", "I Shall Wear Midnight", "Snuff",
     "Raising Steam", "The Shepherd's Crown",
-    /* Specific journal for the Ice Queen side branch */
-    "The Adventurer's Journal",
 };
 
 const char *

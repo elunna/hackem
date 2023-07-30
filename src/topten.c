@@ -105,7 +105,7 @@ boolean incl_helpless;
         "killed by ", "betrayed by ", "choked on ", "poisoned by ", "died of ",
         /* DROWNING, BURNING, DISSOLVED, CRUSHING, */
         "drowned in ", "burned by ", "dissolved in ", "crushed to death by ",
-        /* STONING, TURNED_SLIME, ANNIHILATED, */
+        /* STONING, TURNED_SLIME, GENOCIDED, */
         "petrified by ", "turned to slime by ", "killed by ",
         /* PANICKED, TRICKED, QUIT, ESCAPED, ASCENDED */
         "", "", "", "", ""
@@ -394,9 +394,10 @@ int how;
     Fprintf(rfile, "%crealtime=%ld%cstarttime=%ld%cendtime=%ld", XLOG_SEP,
             (long) urealtime.realtime, XLOG_SEP,
             (long) ubirthday, XLOG_SEP, (long) urealtime.finish_time);
-    Fprintf(rfile, "%cgender0=%s%calign0=%s", XLOG_SEP,
+    Fprintf(rfile, "%cgender0=%s%calign0=%s%crace0=%s", XLOG_SEP,
             genders[flags.initgend].filecode, XLOG_SEP,
-            aligns[u.ualign.type == A_NONE ? 3 : 1 - u.ualign.type].filecode);
+            aligns[u.ualign.type == A_NONE ? 3 : 1 - u.ualign.type].filecode,
+            XLOG_SEP, races[flags.initrace].filecode);
     Fprintf(rfile, "%cflags=0x%lx", XLOG_SEP, encodexlogflags());
     Fprintf(rfile, "%cgold=%ld", XLOG_SEP, money_cnt(invent) + hidden_gold());
     Fprintf(rfile, "%cwish_cnt=%ld", XLOG_SEP, u.uconduct.wishes);
@@ -464,11 +465,12 @@ encode_extended_achievements()
     add_achieveX(buf, "quest_completed", u.uevent.qcompleted);
 
     /* other notable achievements */
-    add_achieveX(buf, "defeated_ice_queen", u.uachieve.defeat_icequeen);
     add_achieveX(buf, "defeated_cerberus", u.uachieve.killed_cerberus);
+    add_achieveX(buf, "defeated_nightmare", u.uachieve.killed_nightmare);
     add_achieveX(buf, "defeated_vecna", u.uachieve.killed_vecna);
     add_achieveX(buf, "defeated_grund", u.uachieve.killed_grund);
     add_achieveX(buf, "got_crowned", u.uevent.uhand_of_elbereth);
+    add_achieveX(buf, "unlocked_tower", u.uachieve.unlocked_tower);
 
 #if 0
     /* TODO 3.7 achievements
@@ -501,7 +503,7 @@ encode_extended_conducts()
     add_achieveX(buf, "polyselfless",              !u.uconduct.polyselfs);
     add_achieveX(buf, "wishless",                  !u.uconduct.wishes);
     add_achieveX(buf, "artiwishless",              !u.uconduct.wisharti);
-    add_achieveX(buf, "annihilationless",          !num_genocides());
+    add_achieveX(buf, "genocideless",              !num_genocides());
     add_achieveX(buf, "never_had_a_pet",           !u.uconduct.pets);
     add_achieveX(buf, "never_touched_an_artifact", !u.uconduct.artitouch);
     add_achieveX(buf, "elberethless",              !u.uconduct.elbereth);
@@ -512,6 +514,8 @@ encode_extended_conducts()
     add_achieveX(buf, "bonesless",                 !u.uroleplay.numbones);
     add_achieveX(buf, "never_died",                 u.umortality == 0);
     add_achieveX(buf, "celibate",                   u.uconduct.uncelibate == 0);
+    add_achieveX(buf, "techniques",                 u.uconduct.techuse == 0);
+    add_achieveX(buf, "no_shk",                     u.uconduct.shk == 0);
     add_achieveX(buf, "never_abused_alignment",     u.ualign.abuse == 0);
 
     return buf;
@@ -584,7 +588,12 @@ encodeconduct()
         e |= 1L << 19;
     if (u.ualign.abuse == 0)
         e |= 1L << 20;
-
+    if (!u.uconduct.uncelibate)
+        e |= 1L << 21;
+    if (!u.uconduct.techuse)
+        e |= 1L << 22;
+    if (!u.uconduct.shk)
+        e |= 1L << 23;
     return e;
 }
 
@@ -617,7 +626,7 @@ encodeachieve()
         r |= 1L << 10;
     if (u.uachieve.killed_medusa)
         r |= 1L << 11;
-    if (u.uachieve.defeat_icequeen)
+    if (u.uachieve.killed_grund)
         r |= 1L << 12;
     if (u.uevent.minor_oracle)
         r |= 1L << 13;
@@ -627,9 +636,8 @@ encodeachieve()
         r |= 1L << 15;
     if (u.uachieve.killed_cerberus)
         r |= 1L << 16;
-    if (u.uachieve.killed_grund)
+    if (u.uachieve.unlocked_tower)
         r |= 1L << 17;
-
     return r;
 }
 
@@ -1480,6 +1488,12 @@ struct obj *otmp;
 
     /* set race */
     racendx = raceinfo(tt->plrace, (tt->plgend[0] == 'F'));
+
+    /* Don't make corpses from races that don't make sense,
+     * ie: demons, vampires. */
+    if (otmp->otyp == CORPSE && no_corpse(&mons[racendx]))
+        return (struct obj *) 0;;
+
     if (racendx > NON_PM) {
         mtmp = makemon(&mons[classndx], 0, 0, MM_NOCOUNTBIRTH);
         apply_race(mtmp, racendx);

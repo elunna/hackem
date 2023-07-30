@@ -52,7 +52,6 @@ struct u_event {
     Bitfield(gehennom_entered, 1);  /* entered Gehennom via Valley */
     Bitfield(tower_entered, 1);     /* entered Vlad's tower (cavern level) */
     Bitfield(hellc_entered, 1);     /* entered one of the demon prince lairs */
-    Bitfield(iceq_entered, 1);      /* entered the Ice Queen's realm */
     Bitfield(vecnad_entered, 1);    /* entered Vecna's domain */
     Bitfield(grunds_entered, 1);    /* entered Grund's Stronghold */
     Bitfield(uhand_of_elbereth, 3); /* became Hand of Elbereth */
@@ -62,6 +61,7 @@ struct u_event {
     Bitfield(udemigod, 1);          /* killed the wiz */
     Bitfield(ascended, 1);          /* has offered the Amulet */
     Bitfield(ulearned_elbereth, 1); /* learned how to write Elbereth */
+    Bitfield(utower, 1);            /* Gained access to Vlad's tower */
 };
 
 struct u_achieve {
@@ -76,11 +76,12 @@ struct u_achieve {
     Bitfield(finish_sokoban, 1);  /* obtained the sokoban prize */
 
     Bitfield(killed_medusa, 1);
-    Bitfield(defeat_icequeen, 1);
     Bitfield(killed_cerberus, 1);
+    Bitfield(killed_nightmare, 1);      /* You defeated Nightmare. */
+    Bitfield(killed_beholder, 1);       /* You defeated Beholder. */
     Bitfield(killed_vecna, 1);
     Bitfield(killed_grund, 1);
-
+    Bitfield(unlocked_tower, 1);
     Bitfield(vibrating_square, 1); /* stepped on "vibrating square" */
 };
 
@@ -112,6 +113,8 @@ struct u_conduct {     /* number of times... */
     long artitouch;    /* touched an artifact */
     long pets;         /* obtained a pet */
     long uncelibate;   /* interacted with a foocubus */
+    long techuse;      /* Used your techniques */
+    long shk;       /* Did business with a shopkeeper */
     /* genocides already listed at end of game */
 };
 

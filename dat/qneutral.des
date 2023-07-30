@@ -66,8 +66,7 @@ OBJECT: ('(', "chest"), (19,4)
 LOOP [7]  { OBJECT: random, random }
 LOOP [9]  { GOLD: 1d200, (19,4) }
 
-# Replaced Beholder with Xanathar.
-MONSTER: ('e', "Xanathar"), (21,04)
+MONSTER: ('e', "Beholder"), (21,04)
 LOOP [7] 	{ MONSTER: ('e', "gas spore"),  (21,04) }
 
 # --hackem: Added a huge gas spore chamber ala Doom

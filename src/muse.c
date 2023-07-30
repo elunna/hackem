@@ -134,9 +134,15 @@ struct obj *obj;
                               mon_nam(mon),
                               Hallucination ? rndmonnam(NULL)
                                             : (const char *) "ghost");
-                        pline("%s is frightened to death, and unable to move.",
-                              Monnam(mon));
+                        if (has_free_action(mon)) {
+                            pline("%s stiffens momentarily.", Monnam(mon));
+                        } else {
+                            pline("%s is frightened to death, and unable to move.",
+                                  Monnam(mon));
+                        }
                     }
+                    if (has_free_action(mon))
+                        return 0;
                     paralyze_monst(mon, 3);
                 }
                 return 2;
@@ -1042,14 +1048,6 @@ struct monst *mtmp;
                 pline("%s seems disoriented for a moment.", Monnam(mtmp));
             return 2;
         }
-        if (Iniceq && mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-            if (vismon) {
-                pline("A powerful curse prevents %s from teleporting!",
-                      mon_nam(mtmp));
-                verbalize("Nooooo!");
-            }
-            return 2;
-        }
         if (oseen && how)
             makeknown(how);
         (void) rloc(mtmp, TRUE);
@@ -1092,14 +1090,7 @@ struct monst *mtmp;
                     pline("%s shudders for a moment.", Monnam(mtmp));
                 return 2;
             }
-            if (Iniceq && mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]) {
-                if (vismon) {
-                    pline("A powerful curse prevents %s from leaving this place!",
-                          mon_nam(mtmp));
-                    verbalize("Nooooo!");
-                }
-                return 2;
-            }
+
             get_level(&flev, nlev);
             migrate_to_level(mtmp, ledger_no(&flev), MIGR_RANDOM,
                              (coord *) 0);
@@ -1623,10 +1614,10 @@ struct monst *mtmp;
 #define MUSE_WAN_POLYMORPH      60
 #define MUSE_WAN_SLOW_MONSTER   61
 #define MUSE_WAN_WIND           62
-#define MUSE_WAN_DELUGE          63
-#define MUSE_WAN_CORROSION         64
+#define MUSE_WAN_DELUGE         63
+#define MUSE_WAN_CORROSION      64
 #define MUSE_WAN_POISON_GAS     65
-#define MUSE_WAN_SONICS         66
+#define MUSE_WAN_NOISE          66
 /*#define MUSE_WAN_UNDEAD_TURNING 24*/ /* also a defensive item so don't
                                         * redefine; nonconsecutive value is ok */
 #define MUSE_SCR_EARTH          68
@@ -1761,7 +1752,7 @@ int otyp;
     case WAN_DELUGE:
         want++;
         /*FALLTHRU*/  
-    case WAN_SONICS:
+    case WAN_NOISE:
         want++;
         /*FALLTHRU*/   
     case HORN_OF_BLASTING:
@@ -1877,11 +1868,11 @@ boolean reflection_skip;
                     m.has_offense = MUSE_WAN_DELUGE;
                 } /* Don't bother recharging */
             }
-            nomore(MUSE_WAN_SONICS);
-            if (obj->otyp == WAN_SONICS) {
+            nomore(MUSE_WAN_NOISE);
+            if (obj->otyp == WAN_NOISE) {
                 if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD)) {
                     m.offensive = obj;
-                    m.has_offense = MUSE_WAN_SONICS;
+                    m.has_offense = MUSE_WAN_NOISE;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
@@ -2060,6 +2051,13 @@ boolean reflection_skip;
             }
             continue;
         }
+        nomore(MUSE_SCR_CLONING);
+        if (obj->otyp == SCR_CLONING
+            && distu(mtmp->mx, mtmp->my) < 32
+            && mtmp->mcansee && haseyes(mtmp->data)) {
+            m.offensive = obj;
+            m.has_offense = MUSE_SCR_CLONING;
+        }
         nomore(MUSE_SCR_STINKING_CLOUD)
         if (obj->otyp == SCR_STINKING_CLOUD && m_canseeu(mtmp)
             && distu(mtmp->mx, mtmp->my) < 32
@@ -2159,15 +2157,6 @@ boolean reflection_skip;
             m.offensive = obj;
             m.has_offense = MUSE_SCR_FIRE;
         }
-#if 0 /* Disabled until a non-buggy implementation is found */
-        nomore(MUSE_SCR_CLONING);
-        if (obj->otyp == SCR_CLONING
-            && dist2(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy) <= 2
-            && mtmp->mcansee && haseyes(mtmp->data)) {
-            m.offensive = obj;
-            m.has_offense = MUSE_SCR_CLONING;
-        }
-#endif
         nomore(MUSE_CAMERA);
         if (obj->otyp == EXPENSIVE_CAMERA
             && (!Blind || hates_light(youmonst.data))
@@ -2224,6 +2213,9 @@ register struct obj *otmp;
                               u.usteed ? "out of your saddle" : "back");
                     last_hurtled = &youmonst;
                     hurtle(u.ux - zapper->mx, u.uy - zapper->my, 1, FALSE);
+                    /* Update monster's knowledge of your position */
+                    mtmp->mux = u.ux;
+                    mtmp->muy = u.uy;
                 }
                 losehp(tmp, "wand", KILLED_BY_AN);
             } else
@@ -2263,6 +2255,9 @@ register struct obj *otmp;
     case WAN_WIND:
         You("get blasted by hurricane-force winds!");
         hurtle(u.ux - mtmp->mx, u.uy - mtmp->my, 5 + rn2(5), TRUE);
+        /* Update monster's knowledge of your position */
+        mtmp->mux = u.ux;
+        mtmp->muy = u.uy;
         break;
     case WAN_DELUGE:
         reveal_invis = TRUE;
@@ -2621,7 +2616,7 @@ struct monst *mtmp;
     case MUSE_WAN_MAGIC_MISSILE:
     case MUSE_WAN_CORROSION:
     case MUSE_WAN_POISON_GAS:
-    case MUSE_WAN_SONICS:
+    case MUSE_WAN_NOISE:
         mzapwand(mtmp, otmp, FALSE);
         if (oseen)
             makeknown(otmp->otyp);
@@ -2728,7 +2723,7 @@ struct monst *mtmp;
         }
         /* Attack the player */
         if (distmin(mmx, mmy, u.ux, u.uy) == 1 && !is_cursed) {
-            drop_boulder_on_player(confused, !is_cursed, FALSE, TRUE);
+            drop_boulder_on_player(confused, TRUE, FALSE, TRUE);
         }
 
         return (DEADMONSTER(mtmp)) ? 1 : 2;
@@ -2781,7 +2776,6 @@ struct monst *mtmp;
         }
         return 2;
     } /* case MUSE_SCR_FIRE */
-#if 0 /* Disabled for now*/
     case MUSE_SCR_CLONING: {
         /* We won't bother with confused - scrolls of cloning always clone 
          * the monster iteself. */
@@ -2789,9 +2783,9 @@ struct monst *mtmp;
         mreadmsg(mtmp, otmp);
         if (clone_mon(mtmp, 0, 0) && vis)
             pline("%s multiplies!", Monnam(mtmp));
+        m_useup(mtmp, otmp);
         return 2;
     } /* case MUSE_SCR_CLONING */
-#endif
     case MUSE_CAMERA: {
         if (Hallucination)
             verbalize("Say cheese!");
@@ -2799,11 +2793,14 @@ struct monst *mtmp;
             pline("%s takes a picture of you with %s!",
                   Monnam(mtmp), an(xname(otmp)));
         m_using = TRUE;
-        if (!Blind && !ublindf) {
+        if (defends(AD_BLND, uarm))
+            Your("armor reflects the light!");
+        else if (!Blind && !ublindf) {
             You("are blinded by the flash of light!");
             make_blinded(Blinded + (long) rnd(1 + 50), FALSE);
+            lightdamage(otmp, TRUE, 5);
         }
-        lightdamage(otmp, TRUE, 5);
+
         m_using = FALSE;
         otmp->spe--;
         return 1;
@@ -2914,12 +2911,7 @@ struct monst *mtmp;
     case 9:
         return WAN_SLEEP;
     case 10:
-        if (Iniceq)
-            return rn2(6) ? WAN_SLEEP
-                          : rn2(3) ? WAN_LIGHTNING
-                                   : WAN_FIRE;
-        else
-            return rn2(30) ? WAN_FIRE : POT_OIL;
+        return rn2(30) ? WAN_FIRE : POT_OIL;
     case 11:
         return WAN_COLD;
     case 12:
@@ -3329,7 +3321,7 @@ struct monst *mtmp;
         if (!enexto(&cc, mtmp->mx, mtmp->my, &mons[mndx]))
             break;
         /* found an acceptable spot for the figurine to transform.
-         * make_familiar will take care of the various checks for annihilated,
+         * make_familiar will take care of the various checks for genocide,
          * extinction, etc, and print failure messages if appropriate. */
         if (vismon)
             pline("%s activates a figurine, and it transforms!", Monnam(mtmp));
@@ -3351,8 +3343,7 @@ struct monst *mtmp;
 
                 get_level(&tolevel, tolev);
                 /* insurance against future changes... */
-                if (on_level(&tolevel, &u.uz)
-                    || (Iniceq && mtmp->data == &mons[PM_KATHRYN_THE_ICE_QUEEN]))
+                if (on_level(&tolevel, &u.uz))
                     goto skipmsg;
                 if (vismon) {
                     pline("%s rises up, through the %s!", Monnam(mtmp),
@@ -3384,7 +3375,7 @@ struct monst *mtmp;
         m_useup(mtmp, otmp);
         if (!grow_up(mtmp, (struct monst *) 0))
             return 1;
-        /* grew into annihilated monster */
+        /* grew into genocided monster */
         return 2;
     case MUSE_WAN_MAKE_INVISIBLE:
     case MUSE_POT_INVISIBILITY:
@@ -3948,6 +3939,8 @@ struct obj *obj;
             return (!mon_prop(mon, REGENERATION));
         if (typ == RIN_LEVITATION)
             return (grounded(mon->data));
+        if (typ == RIN_FREE_ACTION)
+            return TRUE;
         /* Below this line are off-limits to uniques */
         if (mon->data->geno & G_UNIQ)
             return (FALSE);
@@ -4025,14 +4018,17 @@ const char *str;
     } else if (mon->data == &mons[PM_DIAMOND_GOLEM]
 	         || mon->data == &mons[PM_SAPPHIRE_GOLEM]
 	         || mon->data == &mons[PM_CRYSTAL_GOLEM]) {
-	    /* Some of the higher golems have intrinsic reflection */
-	    if (str)
-		    pline(str, s_suffix(mon_nam(mon)), "body");
-	    return TRUE;
-	} else if (has_reflection(mon)) {
+        /* Some of the higher golems have intrinsic reflection */
+        if (str)
+                pline(str, s_suffix(mon_nam(mon)), "body");
+        return TRUE;
+    } else if (has_reflection(mon)) {
         /* specifically for the monster spell MGC_REFLECTION */
         if (str)
-            pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
+                pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
+        return TRUE;
+    } else if (mon->data == &mons[PM_NIGHTMARE]) {
+        pline(str, s_suffix(mon_nam(mon)), "horn");
         return TRUE;
     }
     return FALSE;
@@ -4294,7 +4290,7 @@ struct monst *mon;
         return FALSE;
 
     mwep = MON_WEP(mon);
-    welded_wep = mwep && mwelded(mwep);
+    welded_wep = (mwep && mwelded(mwep) && mon->data != &mons[PM_INFIDEL]);
     /* this is different from the player; tin opener or dagger doesn't
        have to be wielded, and knife can be used instead of dagger */
     for (obj = mon->minvent; obj; obj = obj->nobj) {
@@ -4551,7 +4547,7 @@ struct monst *mon;
     case PM_LESSER_NIGHTMARE:
     case PM_LICHEN:
     case PM_LIZARD:
-    case PM_NIGHTMARE:
+    case PM_GREATER_NIGHTMARE:
     case PM_WOOD_NYMPH:
         return TRUE;
     default:

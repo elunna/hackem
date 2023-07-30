@@ -73,10 +73,6 @@ struct monst *mon;
             return 0;
         }
 
-        /* The Ice Queen's realm is too cold for almost all demons */
-        if (Iniceq && is_demon(ptr))
-            dtype = PM_ICE_DEVIL;
-
         atyp = mon_aligntyp(mon);
     } else {
         ptr = &mons[PM_WIZARD_OF_YENDOR];
@@ -344,25 +340,18 @@ int lawful_minion(int difficulty)
    difficulty = difficulty + rn2(5) - 2;
    if (difficulty < 0) 
        difficulty = 0;
-   if (difficulty > 30) 
-       difficulty = 30;
    difficulty /= 3;
-   
-   switch (difficulty) {
-      case 0: return PM_TENGU;
-      case 1: return PM_COUATL;
-      case 2: return PM_WHITE_UNICORN;
-      case 3: return PM_MOVANIC_DEVA;
-      case 4: return PM_MONADIC_DEVA;
-      case 5: return PM_KI_RIN;
-      case 6: return PM_ASTRAL_DEVA;
-      case 7: return PM_ARCHON;
-      case 8: return PM_PLANETAR;
-      case 9: return PM_SOLAR;
-      case 10: return PM_SOLAR;
 
-      default: return PM_TENGU;
-   }
+   if (difficulty < 0)
+       difficulty = 0;
+   if (difficulty < 10)
+       return rn2(3) ? PM_TENGU : PM_YUKI_ONNA;
+   if (difficulty < 25)
+       return lminion();
+   if (difficulty > 24)
+       return PM_ARCHON + rn2(3);
+
+   return PM_TENGU;
 }
 
 int neutral_minion(int difficulty)
@@ -370,16 +359,11 @@ int neutral_minion(int difficulty)
    given a difficulty rating from 1 to 30 */
 {
    difficulty = difficulty + rn2(9) - 4;
-   if (difficulty < 0) 
-       difficulty = 0;
-   if (difficulty > 30) 
-       difficulty = 30;
    if (difficulty < 6) 
        return PM_GRAY_UNICORN;
-   if (difficulty < 15) 
+   if (difficulty > 9)
        return rand_elemental();
-   
-   return (PM_DJINNI /* +rn2(4) */);
+   return PM_DJINNI;
 }
 
 int chaotic_minion(int difficulty)
@@ -396,25 +380,31 @@ int chaotic_minion(int difficulty)
 /*   difficulty = (int)((float)difficulty / 1.5);*/
    difficulty = (difficulty * 2) / 3;
    switch (difficulty) {
-      case 0: return PM_GREMLIN;
-      case 1:
-      case 2: return (PM_DRETCH + rn2(5));
-      case 3: return PM_BLACK_UNICORN;
-      case 4: return PM_BLOOD_IMP;
-      case 5: return PM_HELL_HOUND_PUP;
-      case 6: return PM_SPINED_DEVIL;
-      case 8: return PM_HORNED_DEVIL;
-      case 9: return PM_BEARDED_DEVIL;
-      case 10: return PM_BAR_LGURA;
-      case 11: return PM_CHASME;
-      case 12: return PM_BARBED_DEVIL;
-      case 13: return PM_VROCK;
-      case 14: return PM_BABAU;
-      case 15: return PM_NALFESHNEE;
-      case 16: return PM_MARILITH;
-      case 18: return PM_BONE_DEVIL;
-      case 19: return PM_ICE_DEVIL;
-      case 20: return PM_PIT_FIEND;
+        case 0: return PM_GREMLIN;
+        case 1: return PM_DRETCH;
+        case 2: return (PM_DRETCH + rn2(5));
+        case 4: return PM_BLACK_UNICORN;
+        case 5: return PM_HELL_HOUND_PUP;
+        case 6: return PM_RUTTERKIN;
+        case 8: return PM_HORNED_DEVIL;
+        case 9: return PM_BLOOD_IMP;
+        case 10: return PM_REDCAP;
+        case 11: return PM_SPINED_DEVIL;
+        case 12: return PM_BARBED_DEVIL;
+        case 13: return PM_VROCK;
+        case 14: return PM_BABAU;
+        case 15: return PM_NALFESHNEE;
+        case 16: return PM_MARILITH;
+        case 18: return PM_BONE_DEVIL;
+        case 19: return PM_ICE_DEVIL;
+        case 20: return PM_PIT_FIEND;
+        case 21: return PM_BEARDED_DEVIL;
+        case 22: return PM_BAR_LGURA;
+        case 23: return PM_CHASME;
+        case 24: return PM_DAMNED_PIRATE;
+        case 25: return PM_SLAUGHTER_WIGHT;
+        case 26: return PM_BALROG;
+
    }
    return PM_GREMLIN;
 }

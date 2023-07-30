@@ -2206,7 +2206,7 @@ boolean taking;
         } else {
             /* cursed weapons, armor, accessories, etc treated the same */
             if ((otmp->cursed && (unwornmask & ~W_WEAPONS))
-                || mwelded(otmp)) {
+                || (mwelded(otmp) && mtmp->data != &mons[PM_INFIDEL])) {
                 pline("%s won't come off!", Yname2(otmp));
                 otmp->bknown = 1;
                 continue;
@@ -2380,6 +2380,8 @@ boolean on_floor;
     for (otmp = boh->cobj; otmp; otmp = nobj) {
         nobj = otmp->nobj;
         if (is_boh_item_gone()) {
+            if (obj_resists(otmp, 0, 0))
+                return;
             obj_extract_self(otmp);
             mbag_item_gone(!on_floor, otmp, TRUE);
         } else {
@@ -2403,6 +2405,8 @@ boolean held;
         for (curr = container->cobj; curr; curr = otmp) {
             otmp = curr->nobj;
             if (is_boh_item_gone()) {
+                if (obj_resists(curr, 0, 0))
+                    return 0;
                 obj_extract_self(curr);
                 loss += mbag_item_gone(held, curr, FALSE);
             }
@@ -3680,7 +3684,8 @@ struct obj *box; /* or bag */
 
     {
         struct obj *otmp, *nobj;
-        boolean terse, highdrop = !can_reach_floor(TRUE),
+        boolean terse, explosive_combo, prevent_explosion,
+                highdrop = !can_reach_floor(TRUE),
                 altarizing = IS_ALTAR(levl[ox][oy].typ),
                 cursed_mbag = (Is_mbag(box) && box->cursed);
         long loss = 0L;
@@ -3712,6 +3717,8 @@ struct obj *box; /* or bag */
             if (box->otyp == ICE_BOX) {
                 removed_from_icebox(otmp); /* resume rotting for corpse */
             } else if (cursed_mbag && is_boh_item_gone()) {
+                if (obj_resists(otmp, 0, 0))
+                    return;
                 loss += mbag_item_gone(held, otmp, FALSE);
                 /* abbreviated drop format is no longer appropriate */
                 terse = FALSE;
@@ -3722,14 +3729,14 @@ struct obj *box; /* or bag */
                 iflags.suppress_price++; /* doname formatting */
             }
             
-            boolean explosive_combo = targetbox 
-                                      && Is_mbag(targetbox) 
-                                      && mbag_explodes(otmp, 0);
-            boolean prevent_explosion = explosive_combo 
-                                        && (Is_mbag(otmp) || otmp->otyp == WAN_CANCELLATION)
-                                        && objects[otmp->otyp].oc_name_known 
-                                        && otmp->dknown 
-                                        && targetbox->otyp == BAG_OF_HOLDING;
+            explosive_combo = targetbox 
+                              && Is_mbag(targetbox) 
+                              && mbag_explodes(otmp, 0);
+            prevent_explosion = explosive_combo 
+                                && (Is_mbag(otmp) || otmp->otyp == WAN_CANCELLATION)
+                                && objects[otmp->otyp].oc_name_known 
+                                && otmp->dknown 
+                                && targetbox->otyp == BAG_OF_HOLDING;
             
             if (prevent_explosion)
                 You("flick %s away from the %s.", ansimpleoname(otmp), 

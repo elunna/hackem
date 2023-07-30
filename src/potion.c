@@ -495,7 +495,7 @@ long xtime; /* nonzero if this is an attempt to turn on hallucination */
 boolean talk;
 long mask; /* nonzero if resistance status should change by mask */
 {
-    long old = HHallucination;
+    long old = Hallucination;
     boolean changed = 0;
     const char *message, *verb;
 
@@ -534,31 +534,35 @@ long mask; /* nonzero if resistance status should change by mask */
             }
         }
     }
-
-    if (changed) {
-        /* in case we're mimicking an orange (hallucinatory form
-           of mimicking gold) update the mimicking's-over message */
-        if (!Hallucination)
-            eatmupdate();
-
-        if (u.uswallow) {
-            swallowed(0); /* redraw swallow display */
-        } else {
-            /* The see_* routines should be called *before* the pline. */
-            see_monsters();
-            see_objects();
-            see_traps();
-        }
-
-        /* for perm_inv and anything similar
-        (eg. Qt windowport's equipped items display) */
-        update_inventory();
-
-        context.botl = TRUE;
-        if (talk)
-            pline(message, verb);
-    }
+    if (changed)
+        post_hallucination();
+    if (talk && (old != Hallucination))
+        pline(message, verb);
     return changed;
+}
+
+void
+post_hallucination()
+{
+    /* in case we're mimicking an orange (hallucinatory form
+       of mimicking gold) update the mimicking's-over message */
+    if (!Hallucination)
+        eatmupdate();
+
+    if (u.uswallow) {
+        swallowed(0); /* redraw swallow display */
+    } else {
+        /* The see_* routines should be called *before* the pline. */
+        see_monsters();
+        see_objects();
+        see_traps();
+    }
+
+    /* for perm_inv and anything similar
+    (eg. Qt windowport's equipped items display) */
+    update_inventory();
+
+    context.botl = TRUE;
 }
 
 void
@@ -822,13 +826,11 @@ peffects(otmp)
 register struct obj *otmp;
 {
     register int i, ii, lim;
-    struct monst *mtmp;
     const char *mod;
     boolean happened;
-
+    
     switch (otmp->otyp) {
     case POT_RESTORE_ABILITY:
-    case SPE_RESTORE_ABILITY:
         unkn++;
         if (otmp->cursed) {
             pline("Ulch!  This makes you feel mediocre!");
@@ -1304,20 +1306,22 @@ register struct obj *otmp;
         }
         break;
     case POT_SPEED:
-    case SPE_HASTE_SELF:
-        if (otmp->otyp != POT_SPEED) { /* haste self */
-            speed_up(rn1(10, (otmp->odiluted ? 65 : 110) + 60 * bcsign(otmp)));
-            break;
-        }
-
         /* skip when mounted; heal_legs() would heal steed's legs */
         if (Wounded_legs && !otmp->cursed && !u.usteed) {
             heal_legs(0);
             unkn++;
+            break;
         }
-        /* Only grants temporary speed */
+        /* FALLTHRU */
+    case SPE_HASTE_SELF:
         speed_up(rn1(10, 100 + 60 * bcsign(otmp)));
 
+        /* non-cursed potion grants intrinsic speed */
+        if (otmp->otyp == POT_SPEED
+            && !otmp->cursed && !(HFast & INTRINSIC)) {
+            Your("quickness feels very natural.");
+            HFast |= FROMOUTSIDE;
+        }
         break;
     case POT_BLINDNESS:
         if (Blind)
@@ -1329,21 +1333,6 @@ register struct obj *otmp;
     case POT_GAIN_LEVEL:
         if (otmp->cursed) {
             unkn++;
-
-            /* Being in the presence of demon lords/princes
-               can negate cursed potions of gain level most
-               of the time */
-            for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                if (is_dlord(mtmp->data) && rn2(5)) {
-                    pline("Demonic forces prevent you from rising up.");
-                    goto no_rise;
-                }
-                if (is_dprince(mtmp->data) && rn2(20)) {
-                    pline("Demonic forces prevent you from rising up.");
-                    goto no_rise;
-                }
-            }
-
             /* they went up a level */
             if ((ledger_no(&u.uz) == 1 && u.uhave.amulet)
                 || Can_rise_up(u.ux, u.uy, &u.uz)) {
@@ -1408,8 +1397,9 @@ no_rise:
                 !otmp->cursed, TRUE);
         if (otmp->blessed) {
             if (Withering) {
-                You("are no longer withering away.");
                 set_itimeout(&HWithering, (long) 0);
+                if (!Withering)
+                    You("are no longer withering away.");
             }
         }
         (void) make_hallucinated(0L, TRUE, 0L);
@@ -1428,8 +1418,9 @@ no_rise:
         }
         if (!otmp->cursed) {
             if (Withering) {
-                You("are no longer withering away.");
                 set_itimeout(&HWithering, (long) 0);
+                if (!Withering)
+                    You("are no longer withering away.");
             }
         }
         (void) make_hallucinated(0L, TRUE, 0L);
@@ -1617,7 +1608,7 @@ no_rise:
             } else if (!Unchanging) {
                 int successful_polymorph = FALSE;
                 if (otmp->blessed)
-                    successful_polymorph = polymon(PM_VAMPIRE_LORD);
+                    successful_polymorph = polymon(PM_VAMPIRE_NOBLE);
                 else if (otmp->cursed)
                     successful_polymorph = polymon(PM_VAMPIRE_BAT);
                 else
@@ -1992,7 +1983,7 @@ int how;
             }
             if (mon->mwither) {
                 if (canseemon(mon))
-                    pline("is no longer withering away.");
+                    pline("%s is no longer withering away.", Monnam(mon));
                 mon->mwither = 0;
             }
             /*FALLTHRU*/
@@ -2006,7 +1997,7 @@ int how;
                 }
                 if (mon->mwither) {
                     if (canseemon(mon))
-                        pline("is no longer withering away.");
+                        pline("%s is no longer withering away.", Monnam(mon));
                     mon->mwither = 0;
                 }
             }
@@ -2021,7 +2012,7 @@ int how;
                 }
                 if (mon->mwither) {
                     if (canseemon(mon))
-                        pline("is no longer withering away.");
+                        pline("%s is no longer withering away.", Monnam(mon));
                     mon->mwither = 0;
                 }
             }
@@ -2092,7 +2083,10 @@ int how;
             }
             break;
         case POT_PARALYSIS:
-            if (mon->mcanmove) {
+            if (has_free_action(mon)) {
+                pline("%s stiffens momentarily.", Monnam(mon));
+                break;
+            } else if (mon->mcanmove) {
                 /* really should be rnd(5) for consistency with players
                  * breathing potions, but...
                  */
@@ -2520,9 +2514,8 @@ register struct obj *obj;
         unambiguous = TRUE;
         break;
     case POT_SPEED:
-        if (!Fast && !Slow) {
+        if (!Fast && !Slow)
             Your("knees seem more flexible now.");
-        }
         unambiguous = TRUE;
         incr_itimeout(&HFast, rnd(5));
         exercise(A_DEX, TRUE);
@@ -3489,23 +3482,23 @@ dodip()
         useup(potion);
         return 1;
     } else if (potion->otyp == POT_GAIN_LEVEL) {
-	    int res = upgrade_obj(obj);
-	    if (res != 0) {
-		if (res == 1) {
-		    /* The object was upgraded */
-		    pline("Hmm!  You don't recall dipping that into the potion.");
-		    prinv((char *)0, obj, 0L);
-		} /* else potion exploded */
-		if (!objects[potion->otyp].oc_name_known &&
-			!objects[potion->otyp].oc_uname)
-		    docall(potion);
-		useup(potion);
-		update_inventory();
-		exercise(A_WIS, TRUE);
-		return 1;
-	    }
-	    /* no return here, go for Interesting... message */
-	}
+        int res = upgrade_obj(obj);
+        if (res != 0) {
+            if (res == 1) {
+                /* The object was upgraded */
+                pline("Hmm!  You don't recall dipping that into the potion.");
+                prinv((char *) 0, obj, 0L);
+            } /* else potion exploded */
+            if (!objects[potion->otyp].oc_name_known
+                && !objects[potion->otyp].oc_uname)
+                docall(potion);
+            useup(potion);
+            update_inventory();
+            exercise(A_WIS, TRUE);
+            return 1;
+        }
+        /* no return here, go for Interesting... message */
+    }
  more_dips:
         
     /* Allow filling of MAGIC_LAMPs to prevent identification by player */
@@ -3603,6 +3596,7 @@ dodip()
         singlepotion->blessed = singlepotion->cursed = 0;
         singlepotion->odiluted = 0;
         singlepotion->bknown = FALSE;
+
         if (Blind) {
             singlepotion->dknown = FALSE;
         } else {
@@ -3948,6 +3942,7 @@ register struct obj *obj;
     /* Check to see if object is valid */
     if (!obj)
         return 0;
+
     (void) snuff_lit(obj);
     if (obj->oartifact)
         /* WAC -- Could have some funky fx */
@@ -3956,13 +3951,29 @@ register struct obj *obj;
     newtyp = obj2upgrade(obj->otyp);
     if (!newtyp)
         return 0;
-    
+
     if (obj->otyp == FLINT) {
         split1off = (obj->quan > 1L);
-        if (split1off)
+        if (split1off) {
             obj = splitobj(obj, 1L);
+
+            if (carried(obj)) {
+                freeinv(obj);
+                if (inv_cnt(FALSE) >= 52) {
+                    sellobj_state(SELL_DONTSELL);
+                    dropy(obj);
+                    sellobj_state(SELL_NORMAL);
+                } else {
+                    obj->nomerge = 1; /* used to prevent merge */
+                    obj = addinv(obj);
+                    obj->nomerge = 0;
+                }
+            }
+        }
     }
-        
+    if (obj->otyp == LEASH && obj->leashmon)
+        o_unleash(obj);
+
     /* Convert it */
     obj->otyp = newtyp;
     
@@ -3989,6 +4000,12 @@ register struct obj *obj;
     case CHAKRAM:
         /* Maybe change the material? */
         warp_material(obj, TRUE);
+        break;
+    case SADDLE:
+        obj->corpsenm = -1;
+        break;
+    case LEASH:
+        obj->corpsenm = 0;
         break;
     }
     
@@ -4064,8 +4081,6 @@ register struct obj *obj;
             owornmask &= ~W_TOOL;
         otyp2 = obj->otyp;
         obj->otyp = otyp;
-        if (obj->otyp == LEASH && obj->leashmon)
-            o_unleash(obj);
         remove_worn_item(obj, TRUE);
         obj->otyp = otyp2;
         obj->owornmask = owornmask;
@@ -4095,6 +4110,12 @@ register struct obj *obj;
             return -1;
         }
     }
+    /* Check if the new object fits the old material.
+     * If not... */
+    if (!valid_obj_material(obj, obj->material)) {
+        init_obj_material(obj);
+    }
+
     return 1;
 }
 
@@ -4311,21 +4332,25 @@ obj2upgrade(int otyp)
     /* This object is not upgradable */
     return 0;
 }
+
 /* Character becomes very fast temporarily. */
 void
-speed_up(long duration)
+speed_up(duration)
+long duration;
 {
+    /* will fix intrinsic 'slow' */
     if (Slow) {
-        /* Cure slowness */
         HSlow = 0;
         if (!ESlow)
             You("no longer feel sluggish.");
     }
-    if (!Very_fast) {
+
+    if (!Very_fast && !Slow) {
         You("are suddenly moving %sfaster.", Fast ? "" : "much ");
-    } else {
+    } else if (!Slow) {
         Your("%s get new energy.", makeplural(body_part(LEG)));
     }
+
     exercise(A_DEX, TRUE);
     incr_itimeout(&HFast, duration);
 }

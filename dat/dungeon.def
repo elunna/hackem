@@ -14,36 +14,43 @@
 #		number of choices for its branch level _first_.
 #
 
-DUNGEON:	    "The Dungeons of Doom" "D" (35, 5)
+DUNGEON:	    "The Dungeons of Doom" "D" (42, 5)
 ALIGNMENT:	    unaligned
 BRANCH:		    "The Gnomish Mines" @ (2, 3)
-#LEVEL:		    "rogue" "R" @ (15, 4)
-#LEVELDESC:	    roguelike
-RNDLEVEL:	    "oracle" "O" @ (5, 4) 3
+RNDLEVEL:	    "mall" "T" @ (5, 2) 75 2
+LEVALIGN:	    lawful
+LEVELDESC:	    town
+RNDLEVEL:	    "oracle" "O" @ (7, 3) 3
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
-CHAINBRANCH:	"Town" "oracle" + (2, 2) up
-BRANCH:		    "Fort Ludios" @ (10, 20) portal
-RNDLEVEL:	    "bigrm" "B" @ (10, 25) 40 13
-RNDLEVEL:		"rats" "R" @ (10, 5) 3
+CHAINBRANCH:	"Town" "oracle" + (2, 0) up
+BRANCH:         "Fort Ludios" @ (10, 30) portal
+RNDLEVEL:		"rats" "R" @ (10, 2) 50 2
+RNDLEVEL:	    "kobold" "K" @ (11, 2) 50 2
 BRANCH: 	    "Grund's Stronghold" @ (12, 2)
+
+# Quest levels
 BRANCH:         "The Quest" @ (15, 5) portal
 BRANCH:         "Lawful Quest" @ (15, 5) portal
 BRANCH:         "Neutral Quest" @ (15, 5) portal
-#BRANCH:        "Chaotic Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
-ALIGNMENT:      chaotic
-DESCRIPTION:    mazelike
-#               Grunds act's as a mini-castle for the player to overcome. 
-#               Grund must be defeated to proceed down the stairs
-BRANCH: 	    "The Wyrm Caves" @ (22, 2)
-BRANCH:		    "One-eyed Sam's Market" @ (23, 2) portal
-BRANCH: 	    "The Lost Levels" @ (25, 6)
-LEVEL:	        "stor" "S" @ (22, 9) 66
-BRANCH: 	    "The Temple of Moloch" @ (31, 4)
+
+BRANCH: 	    "The Wyrm Caves" @ (20, 2)
+BRANCH:		    "One-eyed Sam's Market" @ (22, 2) portal
+BRANCH: 	    "The Lost Tomb" @ (21, 4)
+BRANCH:		    "The Spider Caves" @ (26, 4)
+BRANCH:		    "The Sunless Sea" @ (28, 4)
+BRANCH: 	    "The Temple of Moloch" @ (32, 4)
+BRANCH: 	    "The Giant Caverns" @ (32, 4)
+LEVEL:		    "nymph" "N" @ (23, 2) 35
+RNDLEVEL:	    "bigrm" "B" @ (20, 20) 75 20
+LEVEL:	        "stor" "S" @ (19, 21) 66
+# REMOVED: LEVEL:		"guild" "G" @ (26, 14) 20
+
+
+
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
 LEVALIGN:	    chaotic
-CHAINBRANCH:	"The Ice Queen's Realm" "medusa" + (-1, 0) portal
 RNDLEVEL:	    "castle" "none" @ (-1, 0) 3
 CHAINBRANCH:	"Gehennom" "castle" + (0, 0) down
 BRANCH:		    "The Elemental Planes" @ (1, 0) no_down up
@@ -66,7 +73,7 @@ BRANCH:		    "The Elemental Planes" @ (1, 0) no_down up
 #		monsters can properly migrate here under certain
 #		circumstances.
 
-DUNGEON:	    "Gehennom" "G" (20, 5)
+DUNGEON:	    "Gehennom" "G" (18, 2)
 DESCRIPTION:	mazelike
 DESCRIPTION:	hellish
 ALIGNMENT:	    noalign
@@ -76,14 +83,12 @@ RNDLEVEL:	    "hella" "A" @ (2, 6) 4
 RNDLEVEL:	    "hellb" "B" @ (5, 4) 3
 RNDLEVEL:	    "hellc" "C" @ (14, 4) 3
 LEVEL:		    "orcus" "O" @ (8, 4)
-#LEVEL:		    "sanctum" "none" @ (-1, 0)
 LEVEL:		    "wizard1" "none" @ (11, 6)
 CHAINLEVEL:	    "wizard2" "X" "wizard1" + (1, 0)
 CHAINLEVEL:	    "wizard3" "Y" "wizard1" + (2, 0)
 LEVEL:		    "fakewiz1" "F" @ (-6, 3)
 LEVEL:		    "fakewiz2" "G" @ (-6, 3)
 LEVEL:		    "sanctum" "none" @ (-1, 0)
-
 
 
 #
@@ -127,10 +132,10 @@ ALIGNMENT:		neutral
 DESCRIPTION:	mazelike
 LEVEL:			"qneutral" "none" @ (1, 0)
 
-#DUNGEON:		"Chaotic Quest" "none" (1, 0)
-#ALIGNMENT:		chaotic
-#DESCRIPTION:	mazelike
-#LEVEL:			"qchaos" "none" @ (1, 0)
+DUNGEON:		"Chaotic Quest" "none" (1, 0)
+ALIGNMENT:		chaotic
+DESCRIPTION:	mazelike
+LEVEL:			"qchaos" "none" @ (1, 0)
 
 #
 # Sokoban
@@ -144,13 +149,13 @@ RNDLEVEL:		"soko2" "none" @ (2, 0) 17
 RNDLEVEL:		"soko3" "none" @ (3, 0) 17
 RNDLEVEL:		"soko4" "none" @ (4, 0) 18
 
+
 #   The city of Angband
 #
 DUNGEON:	    "Town" "A" (3, 0)
 LEVALIGN:       lawful
 ENTRY:		    -1
-RNDLEVEL:       "town" "none" @ (1, 0) 7
-#LEVEL:          "town-7" "none" @ (1, 0)
+RNDLEVEL:       "town" "none" @ (1, 0) 3
 LEVEL:          "village" "none" @ (2, 0)
 LEVEL:          "townfill" "none" @ (3, 0)
 LEVELDESC:      town
@@ -164,18 +169,18 @@ LEVEL:          "grund" "Z" @ (1, 0)
 #
 #	The Central Vault of Croesus.
 #
-DUNGEON:	"Fort Ludios" "K" (1, 0)
+DUNGEON:	"Fort Ludios" "K" (2, 0)
 DESCRIPTION:	mazelike
 ALIGNMENT:	unaligned
-RNDLEVEL:	"knox" "K" @ (-1, 0) 3
+RNDLEVEL:	"knox" "K" @ (1, 0) 3
+LEVEL:      "ucastle" "D" @ (2, 0)
 
 ### The Wyrm Caves ###
-DUNGEON:        "The Wyrm Caves" "D" (5, 2)
+DUNGEON:        "The Wyrm Caves" "D" (2, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "cavebegn" "D" @ (1, 0)
-#LEVEL:          "cavepass" "D" @ (2, 6) 50
-LEVEL:          "caveend" "D" @ (-1, 0)
+LEVEL:          "caveend" "D" @ (2, 0)
 
 ### The Black Market ###
 DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)
@@ -184,15 +189,22 @@ DESCRIPTION:    mazelike
 RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
 ### The Lost Tomb ###
-# Includes: 
-#   The Lost Tomb, 
-#   The Spider Caves, 
-#   The Sunless Sea
-#   The Giant Caves
-DUNGEON:        "The Lost Levels" "L" (1, 0)
+DUNGEON:        "The Lost Tomb" "L" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-RNDLEVEL:       "tomb" "L" @ (1, 0) 4
+LEVEL:          "tomb" "L" @ (1, 0)
+
+### The Spider Caves ###
+DUNGEON:        "The Spider Caves" "S" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "spiders" "S" @ (1, 0)
+
+### The Sunless Sea ###
+DUNGEON:        "The Sunless Sea" "none" (1, 0)
+ALIGNMENT:      chaotic
+DESCRIPTION:    mazelike
+LEVEL:          "sea" "none" @ (1, 0)
 
 ### The Temple of Moloch ###
 DUNGEON:        "The Temple of Moloch" "none" (1, 0)
@@ -200,27 +212,11 @@ ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
 LEVEL:          "mtemple" "none" @ (1, 0)
 
-#
-#       The Ice Queen's Realm.
-#
-#DUNGEON:        "The Ice Queen's Realm" "none" (3, 0)
-#DESCRIPTION:    mazelike
-#DESCRIPTION:    iceq
-#ALIGNMENT:      unaligned
-#LEVEL:          "icequeen-1" "none" @ (1, 0)
-#LEVEL:          "icequeen-2" "none" @ (2, 0)
-#LEVEL:          "icequeen-3" "none" @ (3, 0)
-
-#
-#       Vecna's Domain.
-#
-DUNGEON:        "Chaotic Quest" "none" (3, 0)
-DESCRIPTION:    mazelike
-DESCRIPTION:    vecnad
+### The Giant Caverns ###
+DUNGEON:        "The Giant Caverns" "H" (1, 0)
 ALIGNMENT:      chaotic
-LEVEL:          "vecna-1" "none" @ (1, 0)
-LEVEL:          "vecna-2" "none" @ (2, 0)
-LEVEL:          "vecna-3" "none" @ (3, 0)
+DESCRIPTION:    mazelike
+LEVEL:          "giants" "H" @ (1, 0)
 
 #
 #	Vlad's Tower

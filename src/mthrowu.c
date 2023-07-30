@@ -97,19 +97,18 @@ const char *name; /* if null, then format `*objp' */
                                                    ? "protective shell"
                                                    : "thick hide"),
                       (rn2(2) ? "blocks" : "deflects"), onm);
+            } else if (uarms && rn2(2)) {
+                Your("%s %s %s.",
+                     uarms->oartifact ? xname(uarms)
+                                      : simple_typename(uarms->otyp),
+                     (rn2(2) ? "blocks" : "deflects"), onm);
+                use_skill(P_SHIELD, 1);
             } else {
                 pline("%s %s you.", upstart(onmbuf), vtense(onmbuf, "miss"));
             }
         } else
             You("are almost hit by %s.", onm);
 
-        if (uarms && !rn2(3)) {
-            Your("%s %s %s.",
-                 uarms->oartifact ? xname(uarms)
-                                  : simple_typename(uarms->otyp),
-                 (rn2(2) ? "blocks" : "deflects"), onm);
-            use_skill(P_SHIELD, 1);
-        }
         return 0;
     } else if (tech_inuse(T_SHIELD_BLOCK)) {
 		if (Blind || !flags.verbose) 
@@ -1098,7 +1097,7 @@ struct attack *mattk;
             otmp = mksobj(SNOWBALL, TRUE, FALSE);
             break;
         default:
-            impossible("bad attack type in spitmu");
+            impossible("bad attack type in spitmm");
             /*FALLTHRU*/
         }
         if (!rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
@@ -1123,7 +1122,11 @@ struct attack *mattk;
                 if (dog->hungrytime > 1)
                     dog->hungrytime -= 5;
             }
+
             return 1;
+        } else {
+            obj_extract_self(otmp);
+            obfree(otmp, (struct obj *) 0);
         }
     }
     return 0;
@@ -1135,7 +1138,6 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
 {
     struct obj *otmp = (struct obj*) 0;
     int i;
-    int otyp;
     int numattacks = d(mattk->damn, mattk->damd);
 
     if (mtmp->mcan) {
@@ -1144,34 +1146,20 @@ volleymm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
                   s_suffix(mon_nam(mtmp)));
         return 0;
     }
+    if (mattk->adtyp != AD_QUIL)
+        impossible("volleymm called with non AD_QUIL attack type!");
 
-    if (mlined_up(mtarg, mtmp, FALSE) 
-        && !rn2(BOLT_LIM-distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
+    if (mlined_up(mtmp, mtarg, FALSE) 
+        && !rn2(BOLT_LIM - distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my))) {
         for (i = 0; i < numattacks; i++) {
-            switch (mattk->adtyp) {
-            case AD_QUIL:
-                otyp = SPIKE;
-                break;
-            default:
-                impossible("bad attack type in volleymm");
-                break;
-            }
-            if (canseemon(mtmp)) {
-                if (otyp == SPIKE) {
-                    pline("%s fires a volley of spikes!", Monnam(mtmp));
-                } else {
-                    pline("%s fires a volley!", Monnam(mtmp));
-                }
-            }
+            if (canseemon(mtmp))
+                pline("%s fires a volley of spikes!", Monnam(mtmp));
             target = mtarg;
-            otmp = mksobj(otyp, TRUE, FALSE);
+            otmp = mksobj(SPIKE, TRUE, FALSE);
             m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
-                    distmin(mtmp->mx,mtmp->my,mtarg->mx,mtarg->my), otmp, TRUE);
+                    distmin(mtmp->mx, mtmp->my, mtarg->mx, mtarg->my), otmp, TRUE);
             target = (struct monst *)0;
-            /*nomul(0);*/
-            /*obfree(otmp, (struct obj *) 0);*/
-            /*otmp = (struct obj *) 0;*/
-            
+            otmp = (struct obj *) 0;
         }
         nomul(0);
         return 1;
@@ -1359,9 +1347,7 @@ int
 volleymu(struct monst *mtmp, struct attack *mattk)
 {
     struct obj *otmp = (struct obj*) 0;
-    int i;
-    int otyp;
-    int numattacks = d(mattk->damn, mattk->damd);
+    int i, numattacks = d(mattk->damn, mattk->damd);
 
     if (mtmp->mcan) {
         if (!Deaf)
@@ -1369,27 +1355,23 @@ volleymu(struct monst *mtmp, struct attack *mattk)
                   s_suffix(mon_nam(mtmp)));
         return 0;
     }
+
+    if (mattk->adtyp != AD_QUIL)
+        impossible("bad attack type in volleymu");
+
     if (lined_up(mtmp) && !rn2(BOLT_LIM
                  - distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy))) {
-            if (canseemon(mtmp)) {
-                pline("%s fires a volley of spikes!", Monnam(mtmp));
-            }
-            for (i = 0; i < numattacks; i++) {
-                switch (mattk->adtyp) {
-                case AD_QUIL:
-                    otyp = SPIKE;
-                    break;
-                default:
-                    impossible("bad attack type in volleymu");
-                }
-                otmp = mksobj(otyp, TRUE, FALSE);
-                m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
-                        distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp, TRUE);
-               /* obfree(otmp, (struct obj *) 0);*/
-                /*otmp = (struct obj *) 0;*/
-            }
-            nomul(0);
-            return 0;
+        if (canseemon(mtmp)) {
+            pline("%s fires a volley of spikes!", Monnam(mtmp));
+        }
+        for (i = 0; i < numattacks; i++) {
+            otmp = mksobj(SPIKE, TRUE, FALSE);
+            m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby),
+                    distmin(mtmp->mx, mtmp->my, mtmp->mux, mtmp->muy), otmp,
+                    TRUE);
+            otmp = (struct obj *) 0;
+        }
+        nomul(0);
     }
     return 0;
 }
@@ -1428,8 +1410,6 @@ struct attack *mattk;
         default:
             impossible("bad attack type in spitmu");
             /* fall through */
-        /* case AD_ACID:
-            otmp = mksobj(ACID_VENOM, TRUE, FALSE); */
             break;
         }
         if (!rn2(BOLT_LIM
@@ -1664,7 +1644,7 @@ unsigned breakflags; /* breakage control */
 {
     struct obj *otmp = *objp;
     int obj_type = otmp->otyp;
-    boolean nodissolve = ((levl[barsx][barsy].wall_info & W_NONDIGGABLE) != 0) && !Iniceq,
+    boolean nodissolve = ((levl[barsx][barsy].wall_info & W_NONDIGGABLE) != 0),
             your_fault = (breakflags & BRK_BY_HERO) != 0;
 
     if (your_fault

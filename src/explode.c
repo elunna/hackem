@@ -96,6 +96,8 @@ int expltype;
     } else if (olet == SCROLL_CLASS) {
         /* ditto */
         exploding_wand_typ = SCR_FIRE;
+    } else if (olet == TRAP_EXPLODE) {
+        type = 0; /* hardcoded to generic magic explosion */
     }
     /* muse_unslime: SCR_FIRE */
     if (expltype < 0) {
@@ -219,9 +221,8 @@ int expltype;
                     break;
                 case AD_DISN:
                     explmask[i][j] = (olet == WAND_CLASS)
-                                         ? !!(nonliving(youmonst.data)
-                                              || is_demon(raceptr(&youmonst))
-                                              || is_angel(raceptr(&youmonst)))
+                                         ? !!(Death_resistance
+                                              || immune_death_magic(youmonst.data))
                                          : (how_resistant(DISINT_RES) > 50);
                     break;
                 case AD_ELEC:
@@ -515,14 +516,6 @@ int expltype;
                        hero's spot is within explosion radius, grabber
                        gets hit by double damage */
                     if (grabbed && mtmp == u.ustuck && distu(x, y) <= 2)
-                        mdam *= 2;
-                    /* being resistant to opposite type of damage makes
-                       target more vulnerable to current type of damage
-                       (when target is also resistant to current type,
-                       we won't get here) */
-                    if (resists_cold(mtmp) && adtyp == AD_FIRE)
-                        mdam *= 2;
-                    else if (resists_fire(mtmp) && adtyp == AD_COLD)
                         mdam *= 2;
                     if (mon_underwater(mtmp)
                         && (adtyp == AD_FIRE || adtyp == AD_ACID))

@@ -11,7 +11,7 @@
 #define SPFX_RESTR      0x00000002L /* item is restricted - can't be named */
 #define SPFX_INTEL      0x00000004L /* item is self-willed - intelligent */
 #define SPFX_SPEAK      0x00000008L /* item can speak (not implemented) */
-#define SPFX_SEEK       0x00000010L /* item helps you search for things */
+#define SPFX_FORGED     0x00000010L /* forged artifact */
 #define SPFX_WARN       0x00000020L /* item warns you of danger */
 #define SPFX_ATTK       0x00000040L /* item has a special attack (attk) */
 #define SPFX_DEFN       0x00000080L /* item has a special defence (defn) */
@@ -65,19 +65,18 @@ enum invoke_prop_types {
     UNTRAP,
     CHARGE_OBJ,
     LEV_TELE,
-    SELF_TELE,
     CREATE_PORTAL,
     ENLIGHTENING,
     CREATE_AMMO,
-    PHASING,
+    FEAR,
     CHANNEL,
-    DEATH_MAGIC,
+    DEATH_GAZE,
+    SUMMON_UNDEAD,
     LIGHT_AREA,
     SUMMON_FIRE_ELEMENTAL,
     SUMMON_WATER_ELEMENTAL,
     LIGHTNING_BOLT,
-    SEFFECT, 
-    WITHER,
+    SEFFECT,
     OBJECT_DET,
     SMOKE_CLOUD
 };

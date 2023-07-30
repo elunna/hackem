@@ -778,7 +778,7 @@ doengrave()
                 postknown = TRUE;
                 }
                 break;
-            case WAN_SONICS:
+            case WAN_NOISE:
                 if (!Deaf) {
                     Strcpy(post_engr_text,
                         "The wand issues a series of loud bangs!");
@@ -1406,7 +1406,8 @@ doengrave()
         if (postknown)
             engraving_learn_wand(otmp);
     }
-    if (doblind && !resists_blnd(&youmonst)) {
+    if (doblind && !resists_blnd(&youmonst)
+                && !defends(AD_BLND, uarm)) {
         You("are blinded by the flash!");
         make_blinded((long) rnd(50), FALSE);
         if (!Blind)

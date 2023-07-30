@@ -22,7 +22,6 @@ STATIC_DCL struct mkroom *FDECL(pick_room, (BOOLEAN_P));
 STATIC_DCL void NDECL(mkshop), FDECL(mkzoo, (int)), NDECL(mkswamp);
 STATIC_DCL void NDECL(mktemple);
 STATIC_DCL void FDECL(mkgarden, (struct mkroom *));
-STATIC_DCL coord *FDECL(shrine_pos, (int));
 STATIC_DCL struct permonst *NDECL(morguemon);
 STATIC_DCL struct permonst *NDECL(squadmon);
 STATIC_DCL struct permonst *NDECL(fungus);
@@ -340,10 +339,10 @@ mk_zoo_thronemon(x,y)
 int x,y;
 {
     int i = rnd(level_difficulty());
-    int pm = (i > 9) ? PM_OGRE_KING
-        : (i > 5) ? PM_ELVENKING
-        : (i > 2) ? PM_DWARF_KING
-        : PM_GNOME_KING;
+    int pm = (i > 9) ? PM_OGRE_ROYAL
+        : (i > 5) ? PM_ELVEN_ROYAL
+        : (i > 2) ? PM_DWARF_ROYAL
+        : PM_GNOME_ROYAL;
     struct monst *mon = makemon(&mons[pm], x, y, NO_MM_FLAGS);
 
     if (mon) {
@@ -852,7 +851,7 @@ antholemon()
             mtyp = PM_GIANT_ANT;
             break;
         }
-        /* try again if chosen type has been annihilated or used up */
+        /* try again if chosen type has been genocided or used up */
     } while (++trycnt < NUMANTS && (mvitals[mtyp].mvflags & G_GONE));
 
     return ((mvitals[mtyp].mvflags & G_GONE) ? (struct permonst *) 0
@@ -880,7 +879,7 @@ guildmon()
             case 4: mtyp = PM_SEWER_RAT; break;
             }
         }
-        /* try again if chosen type has been annihilated or used up */
+        /* try again if chosen type has been genocided or used up */
     } while (++trycnt < 3 && (mvitals[mtyp].mvflags & G_GONE));
 
     return ((mvitals[mtyp].mvflags & G_GONE) ? (struct permonst *) 0
@@ -1046,49 +1045,42 @@ mkswamp() /* Michiel Huisjes & Fred de Wilde */
     }
 }
 
-STATIC_OVL coord *
-shrine_pos(roomno)
-int roomno;
-{
-    static coord buf;
-    int delta;
-    struct mkroom *troom = &rooms[roomno - ROOMOFFSET];
-
-    /* if width and height are odd, placement will be the exact center;
-       if either or both are even, center point is a hypothetical spot
-       between map locations and placement will be adjacent to that */
-    delta = troom->hx - troom->lx;
-    buf.x = troom->lx + delta / 2;
-    if ((delta % 2) && rn2(2))
-        buf.x++;
-    delta = troom->hy - troom->ly;
-    buf.y = troom->ly + delta / 2;
-    if ((delta % 2) && rn2(2))
-        buf.y++;
-    return &buf;
-}
-
 STATIC_OVL void
 mktemple()
 {
     register struct mkroom *sroom;
-    coord *shrine_spot;
+    coord ss; /* shrine spot */
+    register int tryct = 0;
     register struct rm *lev;
 
     if (!(sroom = pick_room(TRUE)))
         return;
-
-    /* set up Priest and shrine */
-    sroom->rtype = TEMPLE;
+    
     /*
      * In temples, shrines are blessed altars
      * located in the center of the room
+     * To accomodate new weirdly shaped rooms, we are using a different
+     * algorithm to find the position of the temple - as long as it has space 
+     * on all sides for the priest to move, it should be okay.
      */
-    shrine_spot = shrine_pos((int) ((sroom - rooms) + ROOMOFFSET));
-    lev = &levl[shrine_spot->x][shrine_spot->y];
+   /* shrine_spot = shrine_pos((int) ((sroom - rooms) + ROOMOFFSET));*/
+    
+    do {
+        if (++tryct > 500)
+            return;
+        if (!somexy(sroom, &ss))
+            return;
+    } while (occupied(ss.x, ss.y) 
+             || bydoor(ss.x, ss.y) 
+             || bywall(ss.x, ss.y));
+    
+    /* set up Priest and shrine (after successful spot is found) */
+    sroom->rtype = TEMPLE;
+    
+    lev = &levl[ss.x][ss.y];
     lev->typ = ALTAR;
     lev->altarmask = induced_align(80);
-    priestini(&u.uz, sroom, shrine_spot->x, shrine_spot->y, FALSE);
+    priestini(&u.uz, sroom, ss.x, ss.y, FALSE);
     lev->altarmask |= AM_SHRINE;
     level.flags.has_temple = 1;
 }

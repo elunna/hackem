@@ -215,14 +215,14 @@ char *nam;
 }
 
 void
-init_mplayer_erac(mtmp)
+init_mplayer_erac(mtmp, mndx)
 struct monst *mtmp;
+int mndx;
 {
     char nam[PL_PSIZ];
     int race;
     struct erac *rptr;
-    int mndx = mtmp->mnum;
-    struct permonst *ptr = &mons[mndx];
+    struct permonst *ptr = &mons[mtmp->mnum];
 
     newerac(mtmp);
     rptr = ERAC(mtmp);
@@ -230,7 +230,13 @@ struct monst *mtmp;
     rptr->ralign = ptr->maligntyp;
     memcpy(rptr->mattk, ptr->mattk, sizeof(struct attack) * NATTK);
 
-    /* default player monster attacks */
+    /* default player monster attacks
+     * In EvilHack the defaults were:
+     *      Attack 0: AT_WEAP, AD_PHYS 1d6
+     *      Attack 1: AT_WEAP, AD_SAMU 1d6
+     *
+     * In HackEM we are designating the 2 slot just for racial abilities.
+     * */
     rptr->mattk[0].aatyp = AT_WEAP;
     rptr->mattk[0].adtyp = AD_PHYS;
     rptr->mattk[0].damn = 1;
@@ -240,21 +246,21 @@ struct monst *mtmp;
     rptr->mattk[1].damn = 1;
     rptr->mattk[1].damd = 6;
 
-    race = m_randrace(mndx);
+    if (!mndx)
+        race = m_randrace(mtmp->mnum);
+    else
+        race = mndx;
+
     apply_race(mtmp, race);
 
     switch (mndx) {
     case PM_ARCHEOLOGIST:
         /* flags for all archeologists regardless of race */
         rptr->mflags1 |= (M1_TUNNEL | M1_NEEDPICK);
-        if (race == PM_GNOME)
-            rptr->ralign = 0;
         break;
     case PM_BARBARIAN:
         /* flags for all barbarians regardless of race */
         rptr->mflags3 |= M3_BERSERK;
-        if (race == PM_DWARF || race == PM_TORTLE)
-            rptr->ralign = 0;
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
@@ -265,8 +271,6 @@ struct monst *mtmp;
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = rptr->mattk[1].adtyp = 0;
         rptr->mattk[1].damn = rptr->mattk[1].damd = 0;
-        if (race == PM_GNOME)
-            rptr->ralign = 0;
         break;
     case PM_CONVICT:
         /* flags for all convicts regardless of race */
@@ -286,10 +290,14 @@ struct monst *mtmp;
         rptr->mattk[1].adtyp = AD_SPEL;
         mtmp->mintrinsics |= MR_FIRE;
         break;
+    case PM_JEDI:
+        /* A little bit of force magic for them */
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].aatyp = AT_MAGC;
+        rptr->mattk[1].adtyp = AD_CLRC;
+        break;
     case PM_KNIGHT:
-        if (race == PM_ELF || race == PM_ORC
-            || race == PM_CENTAUR)
-            rptr->ralign = -3;
+        /* nothing special based on role */
         break;
     case PM_MONK:
         /* flags for all monks regardless of race */
@@ -301,10 +309,6 @@ struct monst *mtmp;
         rptr->mattk[0].damd = rptr->mattk[1].damd = 8;
         rptr->mflags1 |= M1_SEE_INVIS;
         mtmp->mintrinsics |= (MR_POISON | MR_SLEEP);
-        if (race == PM_DWARF || race == PM_TORTLE)
-            rptr->ralign = 3;
-        if (race == PM_ELF)
-            rptr->ralign = -3;
         break;
     case PM_PRIEST:
     case PM_PRIESTESS:
@@ -312,24 +316,16 @@ struct monst *mtmp;
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_CLRC;
-        if (race == PM_ORC || race == PM_ILLITHID)
-            rptr->ralign = -3;
-        if (race == PM_TORTLE)
-            rptr->ralign = 0;
         break;
     case PM_RANGER:
         /* flags for all rangers regardless of race */
         rptr->mflags3 |= M3_ACCURATE;
-        if (race == PM_HOBBIT)
-            rptr->ralign = 0;
         break;
     case PM_ROGUE:
         /* flags for all rogues regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].adtyp = AD_SITM;
         rptr->mflags3 |= M3_ACCURATE;
-        if (race == PM_HOBBIT || race == PM_GNOME)
-            rptr->ralign = 0;
         break;
     case PM_SAMURAI:
         /* flags for all samurai regardless of race */
@@ -346,39 +342,24 @@ struct monst *mtmp;
         rptr->mattk[0].damn = rptr->mattk[1].damn = 1;
         rptr->mattk[0].damd = rptr->mattk[1].damd = 8;
         mtmp->mintrinsics |= MR_COLD;
-        if (race == PM_DWARF)
-            rptr->ralign = 3;
         break;
     case PM_WIZARD:
         /* flags for all wizards regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_SPEL;
-        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC)
-            rptr->ralign = -3;
-        if (race == PM_DWARF || race == PM_HOBBIT
-            || race == PM_TORTLE)
-            rptr->ralign = 0;
         break;
     case PM_FLAME_MAGE:
         /* flags for all mages regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].adtyp = AD_CLRC;
         mtmp->mintrinsics |= MR_FIRE;
-        if (race == PM_DWARF || race == PM_HOBBIT || race == PM_GNOME)
-            rptr->ralign = 0;
-        if (race == PM_TORTLE || race == PM_ELF)
-            rptr->ralign = 3;
         break;
     case PM_ICE_MAGE: 
         /* flags for all healers regardless of race */
         rptr->mattk[0].adtyp = AD_SAMU;
         rptr->mattk[1].aatyp = AT_MAGC;
         mtmp->mintrinsics |= MR_COLD;
-        if (race == PM_HOBBIT || race == PM_GNOME || race == PM_CENTAUR)
-            rptr->ralign = 0;
-        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC)
-            rptr->ralign = -3;
         break;
     case PM_NECROMANCER:
         /* flags for all necromancers regardless of race */
@@ -386,23 +367,10 @@ struct monst *mtmp;
         rptr->mattk[1].aatyp = AT_MAGC;
         rptr->mattk[1].adtyp = AD_CLRC;
         rptr->mflags1 |= (M1_TUNNEL | M1_NEEDPICK);
-        if (race == PM_ORC || race == PM_ILLITHID || race == PM_VAMPIRIC
-            || race == PM_CENTAUR)
-            rptr->ralign = -3;
-        break;
         break;
     case PM_UNDEAD_SLAYER:
-        if (race == PM_DWARF || race == PM_HOBBIT)
-            rptr->ralign = 0;
-        if (race == PM_ELF || race == PM_TORTLE || race == PM_CENTAUR)
-            rptr->ralign = 3;
-        break;
     case PM_YEOMAN:
-        if (race == PM_ELF || race == PM_HOBBIT)
-            rptr->ralign = 3;
         break;
-                
-                
     default:
         break;
     }
@@ -447,6 +415,7 @@ short typ;
     (void) mpickobj(mon, obj);
 }
 
+
 struct monst *
 mk_mplayer(ptr, x, y, special, obj)
 register struct permonst *ptr;
@@ -455,8 +424,6 @@ register boolean special;
 struct obj *obj;
 {
     register struct monst *mtmp;
-    register boolean ascending = special && (In_endgame(&u.uz) || u.uhave.amulet);
-    char nam[PL_PSIZ];
 
     if (!ptr)
         return ((struct monst *) 0);
@@ -465,302 +432,319 @@ struct obj *obj;
         (void) rloc(m_at(x, y), FALSE); /* insurance */
 
     if ((mtmp = makemon(ptr, x, y, MM_MPLAYEROK)) != 0) {
-        short weapon, armor, cloak, helm, shield;
-        int quan;
-        struct obj *otmp;
-
-        mtmp->m_lev = (special ? (ascending ? rn1(16, 15)
-                                            : min(30, u.ulevel + rn1(4, 4)))
-                               : rnd(16));
-        mtmp->mhp = mtmp->mhpmax = d((int)mtmp->m_lev, 10) +
-                    (ascending ? (30 + rnd(30)) : 30);
-        if (ascending) {
-            /* that's why they are "stuck" in the endgame :-) */
-            (void) mongets(mtmp, FAKE_AMULET_OF_YENDOR);
-        }
-        get_mplname(mtmp, nam);
-        mtmp = christen_monst(mtmp, nam);
-        mtmp->mpeaceful = 0;
-        set_malign(mtmp); /* peaceful may have changed again */
-
-        /* default equipment; much of it will be overridden below */
-        weapon = rn2(2) ? LONG_SWORD : rnd_class(SPEAR, FLY_SWATTER);
-        armor  = rnd_class(PLATE_MAIL, RING_MAIL);
-        cloak  = !rn2(8) ? STRANGE_OBJECT
-                         : rnd_class(OILSKIN_CLOAK, CLOAK_OF_DISPLACEMENT);
-        helm   = !rn2(8) ? STRANGE_OBJECT
-                         : rnd_class(ELVEN_HELM, HELM_OF_TELEPATHY);
-        shield = !rn2(8) ? STRANGE_OBJECT
-                         : rnd_class(ELVEN_SHIELD, SHIELD_OF_MOBILITY);
-
-        switch (monsndx(ptr)) {
-        case PM_ARCHEOLOGIST:
-            if (rn2(2))
-                weapon = BULLWHIP;
-            break;
-        case PM_BARBARIAN:
-            if (rn2(2)) {
-                weapon = rn2(2) ? TWO_HANDED_SWORD : BATTLE_AXE;
-                shield = STRANGE_OBJECT;
-            }
-            if (rn2(2))
-                armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
-            if (helm == HELM_OF_BRILLIANCE)
-                helm = STRANGE_OBJECT;
-            break;
-        case PM_CAVEMAN:
-        case PM_CAVEWOMAN:
-            if (rn2(4))
-                weapon = MACE;
-            else if (rn2(2))
-                weapon = CLUB;
-            if (helm == HELM_OF_BRILLIANCE)
-                helm = STRANGE_OBJECT;
-            break;
-        case PM_CONVICT:
-            if (rn2(2))
-                weapon = FLAIL;
-            break;
-        case PM_FLAME_MAGE:
-            cloak = ROBE;
-            if (!rn2(2))
-                weapon = rn2(2) ? QUARTERSTAFF : AXE;
-            break;
-        case PM_HEALER:
-            if (rn2(4))
-                weapon = QUARTERSTAFF;
-            else if (rn2(2))
-                weapon = rn2(2) ? UNICORN_HORN : SCALPEL;
-            if (rn2(4))
-                helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
-            if (rn2(2))
-                shield = STRANGE_OBJECT;
-            break;
-        case PM_ICE_MAGE:
-            cloak = ROBE;
-            if (!rn2(2))
-                weapon = rn2(2) ? STILETTO : ATHAME;
-            break;
-        case PM_INFIDEL:
-            if (!rn2(4))
-                weapon = CRYSKNIFE;
-            if (rn2(3))
-                cloak = CLOAK_OF_PROTECTION;
-            if (rn2(4))
-                helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
-            if (rn2(2))
-                shield = STRANGE_OBJECT;
-            break;
-        case PM_JEDI:
-        case PM_PADAWAN:
-            switch (rnd(3)) {
-            case 1: weapon = RED_LIGHTSABER; break;
-            case 2: weapon = BLUE_LIGHTSABER; break;
-            case 3: weapon = GREEN_LIGHTSABER; break;
-            }
-            cloak = STRANGE_OBJECT;
-            armor = rn2(2) ? ROBE : ROBE_OF_POWER;
-            helm = STRANGE_OBJECT;
-            shield = STRANGE_OBJECT;
-            break;
-        case PM_KNIGHT:
-            if (rn2(4))
-                weapon = LONG_SWORD;
-            if (rn2(2))
-                armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
-            break;
-        case PM_MONK:
-            weapon = !rn2(3) ? SHURIKEN : STRANGE_OBJECT;
-            armor = STRANGE_OBJECT;
-            cloak = ROBE;
-            if (rn2(2))
-                shield = STRANGE_OBJECT;
-            break;
-        case PM_NECROMANCER:
-            if (rn2(2))
-                weapon = DWARVISH_MATTOCK;
-            if (rn2(2))
-                armor = ROBE;
-            if (rn2(4))
-                cloak = CLOAK_OF_PROTECTION;
-            break;
-        case PM_PIRATE:
-            if (rn2(4))
-                weapon = SCIMITAR;
-            if (rn2(3))
-                armor = JACKET;
-            (void) mongets(mtmp, POT_BOOZE);
-            break;
-        case PM_PRIEST:
-        case PM_PRIESTESS:
-            if (rn2(2))
-                weapon = MACE;
-            if (rn2(2))
-                armor = ROBE;
-            if (rn2(4))
-                cloak = CLOAK_OF_PROTECTION;
-            if (rn2(4))
-                helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
-            if (rn2(2))
-                shield = STRANGE_OBJECT;
-            break;
-        case PM_RANGER:
-            if (rn2(2))
-                weapon = ELVEN_DAGGER;
-            break;
-        case PM_ROGUE:
-            if (rn2(2))
-                weapon = rn2(2) ? SHORT_SWORD : ORCISH_DAGGER;
-            break;
-        case PM_SAMURAI:
-            if (rn2(2))
-                weapon = KATANA;
-            break;
-        case PM_TOURIST:
-            (void) mongets(mtmp, EXPENSIVE_CAMERA);
-            break;
-        case PM_UNDEAD_SLAYER:
-            if (rn2(2)) {
-                weapon = SPEAR;
-                /* TODO: Figure out how to make this silver */
-                /*set_material(weapon, SILVER);*/
-            }
-            if (rn2(2)) 
-                armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
-            break;
-        case PM_VALKYRIE:
-            if (rn2(2))
-                weapon = WAR_HAMMER;
-            if (rn2(2))
-                armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
-            break;
-        case PM_WIZARD:
-            if (rn2(4))
-                weapon = rn2(2) ? QUARTERSTAFF : ATHAME;
-            if (rn2(2))
-                cloak = CLOAK_OF_MAGIC_RESISTANCE;
-            if (rn2(4))
-                helm = HELM_OF_BRILLIANCE;
-            shield = STRANGE_OBJECT;
-            break;
-        case PM_YEOMAN:
-            if (rn2(2))
-                weapon = PARTISAN;
-            else
-                weapon = SHORT_SWORD;
-            if (rn2(2))
-                cloak = GREEN_COAT;
-            if (rn2(2))
-                armor = STUDDED_ARMOR;
-            break;
-        default:
-            weapon = STRANGE_OBJECT;
-            break;
-        }
-
-        if (obj) {
-            if (obj->oclass == WEAPON_CLASS)
-                weapon = STRANGE_OBJECT;
-            if (is_shield(obj))
-                shield = STRANGE_OBJECT;
-        }
-
-        if (weapon != STRANGE_OBJECT) {
-            otmp = mksobj(weapon, TRUE, FALSE);
-            otmp->oeroded = otmp->oeroded2 = 0;
-            otmp->spe = (ascending ? rn1(5, 4) : rn2(4));
-            if (!rn2(3))
-                otmp->oerodeproof = 1;
-            else if (!rn2(2))
-                otmp->greased = 1;
-            if (special && rn2(2)) {
-                if (!obj) {
-                    if (!rn2(5))
-                        otmp = mk_artifact(otmp, A_NONE);
-                    else
-                        otmp = create_oprop(otmp, FALSE);
-                }
-            }
-            /* usually increase stack size if stackable weapon */
-            if (objects[otmp->otyp].oc_merge && !otmp->oartifact
-                && monmightthrowwep(otmp))
-                otmp->quan += (long) rn2(is_spear(otmp) ? 4 : 8);
-            /* mplayers knew better than to overenchant Magicbane */
-            if (otmp->oartifact == ART_MAGICBANE)
-                otmp->spe = rnd(4);
-            
-            /* No easy way to do this */
-            if (monsndx(ptr) == PM_UNDEAD_SLAYER)
-                set_material(otmp, SILVER);
-            
-            (void) mpickobj(mtmp, otmp);
-        }
-
-        if (ascending) {
-            if (!rn2(10))
-                (void) mongets(mtmp, rn2(3) ? LUCKSTONE : LOADSTONE);
-            if (!racial_giant(mtmp)) {
-                mk_mplayer_armor(mtmp, armor);
-                mk_mplayer_armor(mtmp, cloak);
-            }
-            mk_mplayer_armor(mtmp, helm);
-            mk_mplayer_armor(mtmp, shield);
-            if (weapon == WAR_HAMMER) /* valkyrie: wimpy weapon or Mjollnir */
-                mk_mplayer_armor(mtmp, GAUNTLETS_OF_POWER);
-            else if (rn2(8))
-                mk_mplayer_armor(mtmp, rnd_class(GLOVES,
-                                                 GAUNTLETS_OF_DEXTERITY));
-            if (!racial_centaur(mtmp) && rn2(8))
-                mk_mplayer_armor(mtmp, rnd_class(LOW_BOOTS,
-                                                 LEVITATION_BOOTS));
-            m_dowear(mtmp, TRUE);
-            mon_wield_item(mtmp);
-
-            /* done after wearing any dragon mail so the resists checks work */
-            if (rn2(8) || monsndx(ptr) == PM_WIZARD) {
-                int i, ring;
-                for (i = 0; i < 2 && (rn2(2) || monsndx(ptr) == PM_WIZARD); i++) {
-                    do ring = !rn2(9) ? RIN_INVISIBILITY :
-                              !rn2(8) ? RIN_TELEPORT_CONTROL :
-                              !rn2(7) ? RIN_FIRE_RESISTANCE :
-                              !rn2(6) ? RIN_COLD_RESISTANCE :
-                              !rn2(5) ? RIN_SHOCK_RESISTANCE :
-                              !rn2(4) ? RIN_POISON_RESISTANCE :
-                              !rn2(7) ? RIN_SONIC_RESISTANCE :
-                              !rn2(3) ? RIN_INCREASE_ACCURACY :
-                              !rn2(2) ? RIN_INCREASE_DAMAGE :
-                                        RIN_PROTECTION;
-                    while ((resists_poison(mtmp) && ring == RIN_POISON_RESISTANCE)
-                        || (resists_elec(mtmp) && ring == RIN_SHOCK_RESISTANCE)
-                        || (resists_fire(mtmp) && ring == RIN_FIRE_RESISTANCE)
-                        || (resists_cold(mtmp) && ring == RIN_COLD_RESISTANCE)
-                        || (mtmp->minvis && ring == RIN_INVISIBILITY));
-                    mk_mplayer_armor(mtmp, ring);
-                }
-            }
-
-            quan = rn2(3) ? rn2(3) : rn2(16);
-            while (quan--)
-                (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, JADE));
-            /* To get the gold "right" would mean a player can double his
-               gold supply by killing one mplayer.  Not good. */
-            mkmonmoney(mtmp, rn2(1000));
-            quan = rn2(10);
-            while (quan--)
-                (void) mpickobj(mtmp, mkobj(RANDOM_CLASS, FALSE));
-        }
-
-        quan = rnd(3);
-        while (quan--)
-            (void) mongets(mtmp, rnd_offensive_item(mtmp));
-        quan = rnd(3);
-        while (quan--)
-            (void) mongets(mtmp, rnd_defensive_item(mtmp));
-        quan = rnd(3);
-        while (quan--)
-            (void) mongets(mtmp, rnd_misc_item(mtmp));
+        outfit_mplayer(mtmp, special, obj);
     }
     return (mtmp);
+}
+
+void
+outfit_mplayer(mtmp, special, obj)
+register struct monst *mtmp;
+register boolean special;
+struct obj *obj;
+{
+    register boolean ascending = special && (In_endgame(&u.uz) || u.uhave.amulet);
+    char nam[PL_PSIZ];
+    short weapon, armor, cloak, helm, shield;
+    int quan;
+    struct obj *otmp;
+    register struct permonst *ptr = mtmp->data;
+
+    mtmp->m_lev = (special ? (ascending ? rn1(16, 15)
+                                        : min(30, u.ulevel + rn1(4, 4)))
+                           : rnd(16));
+    mtmp->mhp = mtmp->mhpmax = d((int)mtmp->m_lev, 10) +
+                               (ascending ? (30 + rnd(30)) : 30);
+    if (ascending) {
+        /* that's why they are "stuck" in the endgame :-) */
+        (void) mongets(mtmp, FAKE_AMULET_OF_YENDOR);
+    }
+    get_mplname(mtmp, nam);
+    mtmp = christen_monst(mtmp, nam);
+    mtmp->mpeaceful = 0;
+    set_malign(mtmp); /* peaceful may have changed again */
+
+    /* default equipment; much of it will be overridden below */
+    weapon = rn2(2) ? LONG_SWORD : rnd_class(SPEAR, FLY_SWATTER);
+    armor  = rnd_class(PLATE_MAIL, RING_MAIL);
+    cloak  = !rn2(8) ? STRANGE_OBJECT
+                    : rnd_class(OILSKIN_CLOAK, CLOAK_OF_DISPLACEMENT);
+    helm   = !rn2(8) ? STRANGE_OBJECT
+                   : rnd_class(ELVEN_HELM, HELM_OF_TELEPATHY);
+    shield = !rn2(8) ? STRANGE_OBJECT
+                     : rnd_class(ELVEN_SHIELD, SHIELD_OF_MOBILITY);
+
+    switch (monsndx(ptr)) {
+    case PM_ARCHEOLOGIST:
+        if (rn2(2))
+            weapon = BULLWHIP;
+        break;
+    case PM_BARBARIAN:
+        if (rn2(2)) {
+            weapon = rn2(2) ? TWO_HANDED_SWORD : BATTLE_AXE;
+            shield = STRANGE_OBJECT;
+        }
+        if (rn2(2))
+            armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
+        if (helm == HELM_OF_BRILLIANCE)
+            helm = STRANGE_OBJECT;
+        break;
+    case PM_CAVEMAN:
+    case PM_CAVEWOMAN:
+        if (rn2(4))
+            weapon = MACE;
+        else if (rn2(2))
+            weapon = CLUB;
+        if (helm == HELM_OF_BRILLIANCE)
+            helm = STRANGE_OBJECT;
+        break;
+    case PM_CONVICT:
+        if (rn2(2))
+            weapon = FLAIL;
+        break;
+    case PM_FLAME_MAGE:
+        cloak = ROBE;
+        if (!rn2(2))
+            weapon = rn2(2) ? QUARTERSTAFF : AXE;
+        break;
+    case PM_HEALER:
+        if (rn2(4))
+            weapon = QUARTERSTAFF;
+        else if (rn2(2))
+            weapon = rn2(2) ? UNICORN_HORN : SCALPEL;
+        if (rn2(4))
+            helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
+        if (rn2(2))
+            shield = STRANGE_OBJECT;
+        break;
+    case PM_ICE_MAGE:
+        cloak = ROBE;
+        if (!rn2(2))
+            weapon = rn2(2) ? STILETTO : ATHAME;
+        break;
+    case PM_INFIDEL:
+        if (!rn2(4))
+            weapon = CRYSKNIFE;
+        if (rn2(3))
+            cloak = CLOAK_OF_PROTECTION;
+        if (rn2(4))
+            helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
+        if (rn2(2))
+            shield = STRANGE_OBJECT;
+        break;
+    case PM_JEDI:
+        switch (rnd(3)) {
+        case 1:
+            weapon = RED_LIGHTSABER;
+            break;
+        case 2:
+            weapon = BLUE_LIGHTSABER;
+            break;
+        case 3:
+            weapon = GREEN_LIGHTSABER;
+            break;
+        }
+        cloak = STRANGE_OBJECT;
+        armor = rn2(2) ? ROBE : ROBE_OF_POWER;
+        helm = STRANGE_OBJECT;
+        shield = STRANGE_OBJECT;
+        break;
+    case PM_KNIGHT:
+        if (rn2(4))
+            weapon = LONG_SWORD;
+        if (rn2(2))
+            armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
+        break;
+    case PM_MONK:
+        weapon = !rn2(3) ? SHURIKEN : STRANGE_OBJECT;
+        armor = STRANGE_OBJECT;
+        cloak = ROBE;
+        if (rn2(2))
+            shield = STRANGE_OBJECT;
+        break;
+    case PM_NECROMANCER:
+        if (rn2(2))
+            weapon = DWARVISH_MATTOCK;
+        if (rn2(2))
+            armor = ROBE;
+        if (rn2(4))
+            cloak = CLOAK_OF_PROTECTION;
+        break;
+    case PM_PIRATE:
+        if (rn2(4))
+            weapon = SCIMITAR;
+        if (rn2(3))
+            armor = JACKET;
+        (void) mongets(mtmp, POT_BOOZE);
+        break;
+    case PM_PRIEST:
+    case PM_PRIESTESS:
+        if (rn2(2))
+            weapon = MACE;
+        if (rn2(2))
+            armor = ROBE;
+        if (rn2(4))
+            cloak = CLOAK_OF_PROTECTION;
+        if (rn2(4))
+            helm = rn2(2) ? HELM_OF_BRILLIANCE : HELM_OF_TELEPATHY;
+        if (rn2(2))
+            shield = STRANGE_OBJECT;
+        break;
+    case PM_RANGER:
+        if (rn2(2))
+            weapon = ELVEN_DAGGER;
+        break;
+    case PM_ROGUE:
+        if (rn2(2))
+            weapon = rn2(2) ? SHORT_SWORD : ORCISH_DAGGER;
+        break;
+    case PM_SAMURAI:
+        if (rn2(2))
+            weapon = KATANA;
+        break;
+    case PM_TOURIST:
+        (void) mongets(mtmp, EXPENSIVE_CAMERA);
+        break;
+    case PM_UNDEAD_SLAYER:
+        if (rn2(2)) {
+            weapon = SPEAR;
+            /* TODO: Figure out how to make this silver */
+            /*set_material(weapon, SILVER);*/
+        }
+        if (rn2(2))
+            armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
+        break;
+    case PM_VALKYRIE:
+        if (rn2(2))
+            weapon = WAR_HAMMER;
+        if (rn2(2))
+            armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
+        break;
+    case PM_WIZARD:
+        if (rn2(4))
+            weapon = rn2(2) ? QUARTERSTAFF : ATHAME;
+        if (rn2(2))
+            cloak = CLOAK_OF_MAGIC_RESISTANCE;
+        if (rn2(4))
+            helm = HELM_OF_BRILLIANCE;
+        shield = STRANGE_OBJECT;
+        break;
+    case PM_YEOMAN:
+        if (rn2(2))
+            weapon = PARTISAN;
+        else
+            weapon = SHORT_SWORD;
+        if (rn2(2))
+            cloak = GREEN_COAT;
+        if (rn2(2))
+            armor = STUDDED_ARMOR;
+        break;
+    default:
+        weapon = STRANGE_OBJECT;
+        break;
+    }
+
+    if (obj) {
+        if (obj->oclass == WEAPON_CLASS)
+            weapon = STRANGE_OBJECT;
+        if (is_shield(obj))
+            shield = STRANGE_OBJECT;
+    }
+
+    if (weapon != STRANGE_OBJECT) {
+        otmp = mksobj(weapon, TRUE, FALSE);
+        otmp->oeroded = otmp->oeroded2 = 0;
+        otmp->spe = (ascending ? rn1(5, 4) : rn2(4));
+        if (!rn2(3))
+            otmp->oerodeproof = 1;
+        else if (!rn2(2))
+            otmp->greased = 1;
+        if (special && rn2(2)) {
+            if (!obj) {
+                if (!rn2(5))
+                    otmp = mk_artifact(otmp, A_NONE);
+                else
+                    otmp = create_oprop(otmp, FALSE);
+            }
+        }
+        /* usually increase stack size if stackable weapon */
+        if (objects[otmp->otyp].oc_merge && !otmp->oartifact
+            && monmightthrowwep(otmp))
+            otmp->quan += (long) rn2(is_spear(otmp) ? 4 : 8);
+        /* mplayers knew better than to overenchant Magicbane */
+        if (otmp->oartifact == ART_MAGICBANE)
+            otmp->spe = rnd(4);
+
+        /* No easy way to do this */
+        if (monsndx(ptr) == PM_UNDEAD_SLAYER)
+            set_material(otmp, SILVER);
+
+        (void) mpickobj(mtmp, otmp);
+    }
+
+    if (ascending) {
+        if (!rn2(10))
+            (void) mongets(mtmp, rn2(3) ? LUCKSTONE : LOADSTONE);
+        if (!racial_giant(mtmp)) {
+            mk_mplayer_armor(mtmp, armor);
+            mk_mplayer_armor(mtmp, cloak);
+        }
+        mk_mplayer_armor(mtmp, helm);
+        mk_mplayer_armor(mtmp, shield);
+        if (weapon == WAR_HAMMER) /* valkyrie: wimpy weapon or Mjollnir */
+            mk_mplayer_armor(mtmp, GAUNTLETS_OF_POWER);
+        else if (rn2(8))
+            mk_mplayer_armor(mtmp, rnd_class(GLOVES,
+                                             GAUNTLETS_OF_DEXTERITY));
+        if (!racial_centaur(mtmp) && rn2(8))
+            mk_mplayer_armor(mtmp, rnd_class(LOW_BOOTS,
+                                             LEVITATION_BOOTS));
+        m_dowear(mtmp, TRUE);
+        mon_wield_item(mtmp);
+
+        /* done after wearing any dragon mail so the resists checks work */
+        if (rn2(8) || monsndx(ptr) == PM_WIZARD) {
+            int i, ring;
+            for (i = 0; i < 2 && (rn2(2) || monsndx(ptr) == PM_WIZARD); i++) {
+                do ring = !rn2(9) ? RIN_INVISIBILITY :
+                           !rn2(8) ? RIN_TELEPORT_CONTROL :
+                           !rn2(7) ? RIN_FIRE_RESISTANCE :
+                           !rn2(6) ? RIN_COLD_RESISTANCE :
+                           !rn2(5) ? RIN_SHOCK_RESISTANCE :
+                           !rn2(4) ? RIN_POISON_RESISTANCE :
+                           !rn2(7) ? RIN_SONIC_RESISTANCE :
+                           !rn2(3) ? RIN_INCREASE_ACCURACY :
+                           !rn2(2) ? RIN_INCREASE_DAMAGE :
+                                   RIN_PROTECTION;
+                while ((resists_poison(mtmp) && ring == RIN_POISON_RESISTANCE)
+                       || (resists_elec(mtmp) && ring == RIN_SHOCK_RESISTANCE)
+                       || (resists_fire(mtmp) && ring == RIN_FIRE_RESISTANCE)
+                       || (resists_cold(mtmp) && ring == RIN_COLD_RESISTANCE)
+                       || (mtmp->minvis && ring == RIN_INVISIBILITY));
+                mk_mplayer_armor(mtmp, ring);
+            }
+        }
+
+        quan = rn2(3) ? rn2(3) : rn2(16);
+        while (quan--)
+            (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, JADE));
+        /* To get the gold "right" would mean a player can double his
+           gold supply by killing one mplayer.  Not good. */
+        mkmonmoney(mtmp, rn2(1000));
+        quan = rn2(10);
+        while (quan--)
+            (void) mpickobj(mtmp, mkobj(RANDOM_CLASS, FALSE));
+    }
+
+    quan = rnd(3);
+    while (quan--)
+        (void) mongets(mtmp, rnd_offensive_item(mtmp));
+    quan = rnd(3);
+    while (quan--)
+        (void) mongets(mtmp, rnd_defensive_item(mtmp));
+    quan = rnd(3);
+    while (quan--)
+        (void) mongets(mtmp, rnd_misc_item(mtmp));
 }
 
 /* create the indicated number (num) of monster-players,

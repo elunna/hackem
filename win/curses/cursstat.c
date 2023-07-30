@@ -114,6 +114,7 @@ curses_status_finish()
  *              BL_MASK_SLOW            0x00002000L
  *              BL_MASK_WITHER          0x00004000L
  *              BL_MASK_AFRAID          0x00008000L
+ *              BL_MASK_PHASING         0x00010000L
  *      -- The value passed for BL_GOLD includes an encoded leading
  *         symbol for GOLD "\GXXXXNNNN:nnn". If the window port needs to use
  *         the textual gold amount without the leading "$:" the port will

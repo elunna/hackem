@@ -513,7 +513,7 @@ int type;
                 levl[x][y].doormask = D_CLOSED;
 
             if (levl[x][y].doormask != D_ISOPEN && !shdoor
-                && level_difficulty() >= 13 && !rn2(25))
+                && level_difficulty() >= 10 && !rn2(25))
                 levl[x][y].doormask |= D_TRAPPED;
         } else {
 #ifdef STUPID
@@ -552,7 +552,7 @@ int type;
         else
             levl[x][y].doormask = D_CLOSED;
 
-        if (!shdoor && level_difficulty() >= 13 && !rn2(20))
+        if (!shdoor && level_difficulty() >= 10 && !rn2(20))
             levl[x][y].doormask |= D_TRAPPED;
     }
 
@@ -869,6 +869,8 @@ clear_level_structures()
     level.flags.has_lemurepit = 0;
     level.flags.has_fungusfarm = 0;
     level.flags.has_guild = 0;
+    level.flags.has_clinic = 0;
+    level.flags.has_terrorhall = 0;
     level.flags.has_beehive = 0;
     level.flags.has_barracks = 0;
     level.flags.has_temple = 0;
@@ -1080,7 +1082,7 @@ makelevel()
             mkroom(BEEHIVE);
         else if (u_depth > 9 && !rn2(19)) 
             mkroom(REALZOO);
-        else if (depth(&u.uz) > 10 && !rn2(40)) 
+        else if (u_depth> 10 && !rn2(40)) 
             mkroom(CLINIC); /* supposed to be very rare --Amy */
         else if (u_depth > 10 && !rn2(16)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
@@ -1111,7 +1113,7 @@ makelevel()
         else if (u_depth > 18 && !rn2(20) 
                  && !(mvitals[PM_MIGO_DRONE].mvflags & G_GONE))
             mkroom(MIGOHIVE);
-        else if (depth(&u.uz) > 15 && !rn2(20))
+        else if (u_depth > 15 && !rn2(20))
             mkroom(TERRORHALL);
     }
 
@@ -1738,7 +1740,7 @@ coord *tm;
             kind = RUST_TRAP;
             break;
         }
-    } else if (Inhell && !Iniceq && !rn2(5)) {
+    } else if (Inhell && !rn2(5)) {
         /* bias the frequency of fire traps in Gehennom */
         kind = FIRE_TRAP;
     } else {

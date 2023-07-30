@@ -8,7 +8,7 @@
 #define NO_SPELL 0
 
 /* spellbook re-use control; used when reading and when polymorphing */
-#define MAX_SPELL_STUDY 3
+#define MAX_SPELL_STUDY 30
 
 struct spell {
     short sp_id;  /* spell id (== object.otyp) */

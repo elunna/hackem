@@ -274,12 +274,10 @@ xchar x, y;
         clumsy = TRUE;
  doit:
     if (Role_if(PM_MONK)
-        && (Race_if(PM_CENTAUR)
-            || Race_if(PM_TORTLE))
+        && (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         && (touch_petrifies(mon->data)
             || (how_resistant(DISINT_RES) == 0
-                && (mon->data == &mons[PM_BLACK_DRAGON]
-                    || mon->data == &mons[PM_BABY_BLACK_DRAGON]))))
+                && mon->data == &mons[PM_BLACK_DRAGON])))
         return;
     else if (Role_if(PM_MONK) || Role_if(PM_SAMURAI))
         You("%s %s!", martial_arts_kick[rn2(SIZE(martial_arts_kick))], mon_nam(mon));
@@ -900,7 +898,7 @@ boolean need_dir;
     } else if (youmonst.data->mlet == S_LIZARD) {
         Your("legs cannot kick effectively.");
         no_kick = TRUE;
-    } else if (u.uinwater && !rn2(2)) {
+    } else if (u.uinwater) {
         Your("slow motion kick doesn't hit anything.");
         no_kick = TRUE;
     } else if (u.utrap) {
@@ -1000,8 +998,8 @@ boolean need_dir;
         if (!maybe_kick_monster(mtmp, x, y))
             return context.move;
     }
-    if (!SuperStealth)
-        wake_nearby();
+
+    wake_nearby();
     u_wipe_engr(2);
 
     if (!isok(x, y)) {

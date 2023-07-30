@@ -46,6 +46,8 @@
     ((mon_resistancebits(mon) & MR2_REFLECTION) != 0)
 #define can_levitate(mon) \
     ((mon_resistancebits(mon) & MR2_LEVITATE) != 0)
+#define has_free_action(mon) \
+    ((mon_resistancebits(mon) & MR2_FREE_ACTION) != 0)
 
 #define resists_sick(ptr) \
     ((ptr)->mlet == S_FUNGUS \
@@ -53,21 +55,16 @@
      || is_angel(ptr) \
      || is_demon(ptr) \
      || is_rider(ptr) \
-     || (ptr) == &mons[PM_AIR_ELEMENTAL] \
+     || is_elemental(ptr) \
      || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
      || (ptr) == &mons[PM_CONVICT] \
-     || (ptr) == &mons[PM_EARTH_ELEMENTAL] \
-     || (ptr) == &mons[PM_FIRE_ELEMENTAL] \
      || (ptr) == &mons[PM_GIANT_LEECH] \
      || (ptr) == &mons[PM_GIANT_COCKROACH]\
      || (ptr) == &mons[PM_GOLD_DRAGON] \
      || (ptr) == &mons[PM_JUGGERNAUT] \
      || (ptr) == &mons[PM_LOCUST] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS] \
      || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
-     || (ptr) == &mons[PM_MARRASHI] \
-     || (ptr) == &mons[PM_WATER_ELEMENTAL])
+     || (ptr) == &mons[PM_MARRASHI])
 
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */
 #define resists_mgc(ptr) \
@@ -91,14 +88,13 @@
      || (ptr) == &mons[PM_UNDEAD_SLAYER] \
      || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_WATER_MAGE]       \
-     || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
-     || (ptr) == &mons[PM_KATHRYN_THE_ENCHANTRESS])
+     || (ptr) == &mons[PM_NIGHTMARE])
 /* is_were() doesn't handle hero in human form */
 
 /* is_vampshifter(mon) in handled explicitly in zap.c */
 #define immune_death_magic(ptr) \
-    (nonliving(ptr) \
+    (dmgtype((ptr), AD_DETH) \
+    || nonliving(ptr) \
     || is_demon(ptr) \
     || is_angel(ptr) \
     || (ptr)->msound == MS_LEADER \
@@ -109,8 +105,9 @@
     || (ptr) == &mons[PM_BLACK_MARKETEER] \
     || (ptr) == &mons[PM_CERBERUS] \
     || (ptr) == &mons[PM_DEATH] \
-    || (ptr) == &mons[PM_NEBUCHADNEZZAR] \
+    || (ptr) == &mons[PM_NIGHTMARE] \
     || (ptr) == &mons[PM_RAGNAROS] \
+    || (ptr) == &mons[PM_CELESTIAL_DRAGON] \
     || ((ptr) == youmonst.data && !Upolyd && Race_if(PM_VAMPIRIC)))
 
 #define immune_poisongas(ptr) \
@@ -193,6 +190,8 @@
 #define has_horns(ptr) (num_horns(ptr) > 0)
 #define is_whirly(ptr) \
     ((ptr)->mlet == S_VORTEX || (ptr) == &mons[PM_AIR_ELEMENTAL])
+#define is_elemental(ptr) \
+    ((ptr)->mlet == S_ELEMENTAL && (ptr) != &mons[PM_STALKER])
 #define flaming(ptr)                                                     \
     ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
      || (ptr) == &mons[PM_FIRE_VORTEX] \
@@ -361,7 +360,7 @@
 #define is_ogre(ptr) (((ptr)->mhflags & MH_OGRE) != 0L)
 #define is_troll(ptr) (((ptr)->mhflags & MH_TROLL) != 0L)
 #define is_gnoll(ptr) (((ptr)->mhflags & MH_GNOLL) != 0L)
-
+#define is_spider(ptr) (((ptr)->mhflags & MH_SPIDER) != 0L)
 #define is_not_zombie(ptr) \
     (is_ghoul(ptr) \
      || (ptr) == &mons[PM_SKELETON] \
@@ -460,16 +459,7 @@
 #define likes_gems(ptr) (((ptr)->mflags2 & M2_JEWELS) != 0L)
 #define likes_objs(ptr) (((ptr)->mflags2 & M2_COLLECT) != 0L || is_armed(ptr))
 #define likes_magic(ptr) (((ptr)->mflags2 & M2_MAGIC) != 0L)
-#define webmaker(ptr) \
-    ((ptr) == &mons[PM_BARKING_SPIDER] \
-     || (ptr) == &mons[PM_CAVE_SPIDER] \
-     || (ptr) == &mons[PM_GIANT_SPIDER] \
-     || (ptr) == &mons[PM_JUMPING_SPIDER] \
-     || (ptr) == &mons[PM_LOLTH] \
-     || (ptr) == &mons[PM_PHASE_SPIDER] \
-     || (ptr) == &mons[PM_RECLUSE_SPIDER] \
-     || (ptr) == &mons[PM_WERESPIDER]  \
-     || (ptr) == &mons[PM_SPIBRAWULF])
+#define webmaker(ptr) (is_spider(ptr) || (ptr) == &mons[PM_SPIBRAWULF])
 #define throws_snowballs(ptr) \
     ((ptr) == &mons[PM_SNOW_GOLEM] \
      || (ptr) == &mons[PM_ICE_ELEMENTAL])
@@ -515,57 +505,9 @@
      || (ptr) == &mons[PM_VAMPIRIC] \
      || (ptr) == &mons[PM_NYMPH])
 
-/* Ice Queen branch defines */
-#define is_iceq_only(ptr) \
-    ((ptr) == &mons[PM_SNOW_GOLEM] \
-     || (ptr) == &mons[PM_WOOLLY_MAMMOTH] \
-     || (ptr) == &mons[PM_SABER_TOOTHED_TIGER] \
-     || (ptr) == &mons[PM_ICE_NYMPH] \
-     || (ptr) == &mons[PM_FROST_SALAMANDER] \
-     || (ptr) == &mons[PM_REVENANT])
 #define freeze_step(ptr) \
     ((ptr) == &mons[PM_SNOW_GOLEM] \
-     || (ptr) == &mons[PM_FROST_SALAMANDER] \
-     || (ptr) == &mons[PM_ABOMINABLE_SNOWMAN])
-#define likes_iceq(ptr) \
-    ((ptr) == &mons[PM_SNOW_GOLEM] \
-     || (ptr) == &mons[PM_OWLBEAR] \
-     || (ptr) == &mons[PM_WOLF] \
-     || (ptr) == &mons[PM_WEREWOLF] \
-     || (ptr) == &mons[PM_WINTER_WOLF_CUB] \
-     || (ptr) == &mons[PM_WINTER_WOLF] \
-     || (ptr) == &mons[PM_WARG] \
-     || (ptr) == &mons[PM_FREEZING_SPHERE] \
-     || (ptr) == &mons[PM_LYNX] \
-     || (ptr) == &mons[PM_BLUE_JELLY] \
-     || (ptr) == &mons[PM_GOBLIN_CAPTAIN] \
-     || (ptr) == &mons[PM_MASTODON] \
-     || (ptr) == &mons[PM_WOOLLY_MAMMOTH] \
-     || (ptr) == &mons[PM_ICE_VORTEX] \
-     || (ptr) == &mons[PM_MOUNTAIN_CENTAUR] \
-     || (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
-     || (ptr) == &mons[PM_WHITE_DRAGON] \
-     || (ptr) == &mons[PM_BABY_SILVER_DRAGON] \
-     || (ptr) == &mons[PM_SILVER_DRAGON] \
-     || (ptr) == &mons[PM_BROWN_MOLD] \
-     || (ptr) == &mons[PM_FROST_GIANT] \
-     || (ptr) == &mons[PM_ICE_TROLL] \
-     || (ptr) == &mons[PM_YETI] \
-     || (ptr) == &mons[PM_SASQUATCH] \
-     || (ptr) == &mons[PM_SABER_TOOTHED_TIGER] \
-     || (ptr) == &mons[PM_FROST_SALAMANDER] \
-     || (ptr) == &mons[PM_ICE_NYMPH] \
-     || (ptr) == &mons[PM_REVENANT] \
-     || (ptr) == &mons[PM_BABY_OWLBEAR] \
-     || (ptr) == &mons[PM_HUMAN_ZOMBIE] \
-     || (ptr) == &mons[PM_GIANT_ZOMBIE] \
-     || (ptr) == &mons[PM_POLAR_BEAR] \
-     || (ptr) == &mons[PM_LICH])
-
-#define likes_gtown(ptr) \
-    ((ptr)->mlet == S_ORC \
-    || (ptr)->mlet == S_KOBOLD \
-    || is_rat(ptr))
+     || (ptr) == &mons[PM_FROST_SALAMANDER])
 
 /* macros for various monsters affected by specific types of damage */
 #define can_vaporize(ptr) \
@@ -666,6 +608,9 @@
     (ptr) == &mons[PM_CHICKATRICE] || \
     (ptr) == &mons[PM_BASILISK] || \
     (ptr) == &mons[PM_ASPHYNX])
+
+/* monster types that cause hero to be turned into stone if eaten */
+#define flesh_petrifies(pm) (touch_petrifies(pm) || (pm) == &mons[PM_MEDUSA])
 
 #define is_pirate(ptr) \
     ((ptr) == &mons[PM_PIRATE] || (ptr) == &mons[PM_SKELETAL_PIRATE] \
@@ -831,7 +776,9 @@
         || (is_rat(ptr) && (obj)->otyp == CHEESE) \
         || ((ptr) == &mons[PM_WARG] && Race_if(PM_ORC)) \
         || ((ptr) == &mons[PM_RABBIT] && (obj)->otyp == CARROT)\
-        || ((ptr) == &mons[PM_SABER_TOOTHED_TIGER] && Role_if(PM_CAVEMAN))) \
+        || (((ptr) == &mons[PM_SABER_TOOTHED_TIGER]        \
+                  || (ptr) == &mons[PM_SABER_TOOTHED_CAT]) \
+                 && Role_if(PM_CAVEMAN))) \
      && (obj)->oclass == FOOD_CLASS \
      && ((ptr)->mlet != S_UNICORN \
         || obj->material == VEGGY \
@@ -847,9 +794,7 @@
 
 /* monsters not technically killed, but defeated instead */
 #define is_defeated(ptr) \
-    ((ptr) == &mons[PM_KATHRYN_THE_ICE_QUEEN] \
-     || (ptr) == &mons[PM_BOURBON] \
-     || (ptr) == &mons[PM_OZZY])
+    ((ptr) == &mons[PM_GRUND_THE_ORC_KING])
 
 #define is_racialmon(ptr) (is_mplayer(ptr) || is_mercenary(ptr))
 

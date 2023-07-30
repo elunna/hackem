@@ -66,83 +66,13 @@ ROOM: "ordinary", random, random, random, random {
 
 RANDOM_CORRIDORS
 
-#
-# Nymph level (from UnNetHack, which came from Slash'EM)
-# Level is slightly modified from the original
-#
-LEVEL: "rats-2"
-ROOM: "ordinary", unlit, random, random, (12,7)
-{
-    TERRAIN: random, 'T'
-    TERRAIN: random, 'T'
-    LOOP [4] { [30%]: TERRAIN: random, 'T' }
-    FOUNTAIN: random
-    TRAP: "board", random
-    TRAP: "board", random
-    
-    REPLACE_TERRAIN: (0,0,12,7), '.', ',', 50%
-    
-    LOOP [3] { OBJECT:('(',"chest"), random }
-    OBJECT:('(',"crystal chest"),random
-    LOOP [4] { OBJECT:'=', random }
-    LOOP [5] { OBJECT:'*', random }
-    LOOP [4] { OBJECT:random, random }
-    LOOP [5] { MONSTER: 'n', random, hostile }
-    MONSTER:('n',"Aphrodite"), random, hostile
-}
-
-ROOM: "ordinary", random, random, random, random {
-    TERRAIN: random, 'T'
-    TRAP:"board", random
-    STAIR: random, up
-    OBJECT: random, random
-    MONSTER: 'n', random, hostile
-}
-
-ROOM: "ordinary", random, random, random, random {
-    [30%]: TERRAIN: random, 'T'
-    [30%]: TERRAIN: random, 'T'
-    TRAP: "board", random
-    TRAP: random, random
-    STAIR: random, down
-    OBJECT: random, random
-    MONSTER: 'n', random, hostile
-}
-
-ROOM: "ordinary", random, random, random, random {
-    [40%]: TERRAIN: random, 'T'
-    [30%]: TERRAIN: random, 'T'
-    TRAP: "board", random
-    OBJECT: random, random
-    OBJECT: random, random
-    MONSTER: 'n', random, hostile
-}
-
-ROOM: "ordinary", random, random, random, random {
-    [30%]: TERRAIN: random, 't'
-    [30%]: TERRAIN: random, 'T'
-    TRAP: "board", random
-    TRAP: random, random
-    OBJECT: random, random
-    MONSTER: 'n', random, hostile
-}
-
-ROOM: "ordinary", random, random, random, random {
-    TRAP: "board", random
-    OBJECT: random, random
-    TRAP: random, random
-    MONSTER: 'n', random, hostile
-}
-
-RANDOM_CORRIDORS
-
 
 #
 #    WIP revised rat king level
 #    Modification of the old mineking level.
 #
 #
-MAZE: "rats-3",' '
+MAZE: "rats-2",' '
 GEOMETRY: center,center
 #0        1         2         3         4         5         6
 #1234567890123456789012345678901234567890123456789012345678901234567890

@@ -161,7 +161,9 @@ static const struct innate {
                  { 1, &(HPoison_resistance), "", "" },
                  { 0, 0, 0, 0 } },
 
-  gia_abil[] = { { 1, &(HAggravate_monster), "", "" },
+  /* giants had it FROMFORM - make it FROMRACE like other races */
+  gia_abil[] = { { 1, &(HInfravision), "", "" },
+                 { 1, &(HAggravate_monster), "", "" },
                  { 12, &(HRegeneration), "resilient", "less resilient" },
                  { 0, 0, 0, 0 } },
 
@@ -184,12 +186,13 @@ static const struct innate {
                  /*{ 12, &(HFlying), "lighter than air", "gravity's pull" },*/
                  { 0, 0, 0, 0 } },
 
+  /* remove drain res and flying - they are FROMFORM
+   * add sick res to remain consistent with previous behavior */
   dem_abil[] = { { 1, &(HInfravision), "", "" },
                  { 1, &(HFire_resistance), "", "" },
                  { 1, &(HPoison_resistance), "", "" },
-                 { 1, &(HDrain_resistance), "", "" },
                  { 1, &(HSee_invisible), "", "" },
-                 /*{ 1, &(HFlying), "", "" },*/
+                 { 1, &(HSick_resistance), "hale", "" },
                  /* also inediate */
                  { 0, 0, 0, 0 } },
 
@@ -202,7 +205,7 @@ static const struct innate {
                    { 1, &(HSleep_resistance), "", "" },
                    { 1, &(HDrain_resistance), "", "" },
                    { 1, &(HBreathless), "breathless", "full of air" },
-                   { 10, &(HHunger), "ravenous", "more content" },
+                   /*{ 10, &(HHunger), "ravenous", "more content" },*/
                    { 10, &(HRegeneration), "resilient", "less resilient" },
                    /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
@@ -427,7 +430,7 @@ boolean thrown_weapon; /* thrown weapons are less deadly */
 
     i = !fatal ? 1 : rn2(fatal + (thrown_weapon ? 20 : 0));
     if (i == 0 && typ != A_CHA) {
-        if (how_resistant(POISON_RES) >= 35) {
+        if (how_resistant(POISON_RES) >= 25) {
             pline_The("poison was extremely toxic!");
             i = resist_reduce(d(4, 6), POISON_RES);
             losehp(i, pkiller, kprefix);
@@ -849,7 +852,8 @@ long *ability;
 {
     if (!ability)
         return;
-    if (ability == &(HWarning) || ability == &(HSee_invisible))
+    if (ability == &(HWarning) || ability == &(HSee_invisible)
+        || (ability == &(HTelepat) && Blind))
         see_monsters();
 }
 
@@ -1127,6 +1131,9 @@ get_rabil()
     case PM_TORTLE:
         return trt_abil;
         break;
+    case PM_DEMON:
+        return dem_abil;
+        break;
     case PM_VAMPIRIC:
         return vam_abil;
         break;
@@ -1134,8 +1141,16 @@ get_rabil()
         return dop_abil;
         break;
     case PM_HUMAN:
+        return hum_abil;
+        break;
+    /* explicitly write these out or else infravision will be FROMFORM
+     * (though ^x will show it as innate) */
     case PM_DWARF:
+        return dwa_abil;
+        break;
     case PM_GNOME:
+        return gno_abil;
+        break;
     default:
         return 0;
         break;
@@ -1148,6 +1163,11 @@ int oldlevel, newlevel;
 {
     register const struct innate *abil, *rabil;
     long prevabil, mask = FROMEXPER;
+    /* don't give resistance messages when demon crowning.
+     * they aren't given in normal crowning, and you can
+     * e.g. lose and regain warning, so you don't want
+     * messages about that. */
+    boolean verbose = !(oldlevel == 0 || newlevel == 0);
 
     abil = role_abil(Role_switch);
     rabil = get_rabil();
@@ -1166,18 +1186,14 @@ int oldlevel, newlevel;
         if (!(Race_if(PM_GIANT) && (abil->ability == &HStealth))) {
             if (oldlevel < abil->ulevel && newlevel >= abil->ulevel) {
                 /* Abilities gained at level 1 can never be lost
-                 * via level loss, only via means that remove _any_
-                 * sort of ability.  A "gain" of such an ability from
-                 * an outside source is devoid of meaning, so we set
-                 * FROMOUTSIDE to avoid such gains.
+                 * via level loss, but can be lost by race change via
+                 * infidel crowning. So, track separately from corpses.
                  */
-                if (abil->ulevel == 1)
-                    *(abil->ability) |= (mask | FROMOUTSIDE);
-                else
-                    *(abil->ability) |= mask;
+                *(abil->ability) |= mask;
                 if (!(*(abil->ability) & INTRINSIC & ~HAVEPARTIAL & ~mask)
                     && (!(*(abil->ability) & HAVEPARTIAL & ~mask)
-                        || (*(abil->ability) & TIMEOUT) < 100)) {
+                        || (*(abil->ability) & TIMEOUT) < 100)
+                    && verbose) {
                     if (*(abil->gainstr))
                         You_feel("%s!", abil->gainstr);
                 }
@@ -1185,7 +1201,8 @@ int oldlevel, newlevel;
                 *(abil->ability) &= ~mask;
                 if (!(*(abil->ability) & INTRINSIC & ~HAVEPARTIAL)
                     && (!(*(abil->ability) & HAVEPARTIAL)
-                        || (*(abil->ability) & TIMEOUT) < 100)) {
+                        || (*(abil->ability) & TIMEOUT) < 100)
+                    && verbose) {
                     if (*(abil->losestr))
                         You_feel("%s!", abil->losestr);
                     else if (*(abil->gainstr))
@@ -1198,7 +1215,10 @@ int oldlevel, newlevel;
         abil++;
     }
 
-    if (oldlevel > 0) {
+    /* don't lose infidel skill slots when crowning. probably good to have
+     * the symmetry regardless. (newlevel == 0 should never happen elsewhere,
+     * but if it does we probably don't want lost skill slots there either). */
+    if (oldlevel > 0 && newlevel > 0) {
         if (newlevel > oldlevel)
             add_weapon_skill(newlevel - oldlevel);
         else
@@ -1213,10 +1233,11 @@ int oldlevel, newlevel;
         context.warntype.intrins &= ~MH_UNDEAD;
     
     /* WAC -- adjust techniques */
-	adjtech(oldlevel, newlevel);
+    adjtech(oldlevel, newlevel);
 
     /* Learn your special spell! (At level 12) */
-    if (oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
+    if (urole.spelspec &&
+            oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
         && u.ulevelmax == u.ulevel) {
         int i;
         for (i = 0; i < MAXSPELL; i++)
@@ -1229,6 +1250,7 @@ int oldlevel, newlevel;
         spl_book[i].sp_know = 20000;*/
         force_learn_spell(urole.spelspec);
     }
+
     /* Inform flame mages and ice mages of their #youpoly ability */
     if (Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)) {
         if (oldlevel < YOUPOLY_SMALL && newlevel >= YOUPOLY_SMALL) {
@@ -1345,9 +1367,7 @@ int x;
 
         if (tmp >= 125
           || (((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
-          || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA)
-          || wielding_artifact(ART_GIANTSLAYER)
-          || wielding_artifact(ART_SWORD_OF_KAS))
+          || wielding_artifact(ART_GIANTSLAYER))
           && !nobonus))
             return (schar) 125;
         else if (uarm && uarm->otyp == ROBE_OF_WEAKNESS && !nobonus)
@@ -1426,9 +1446,7 @@ int attrindx;
         hilimit = STR19(25); /* 125 */
         /* lower limit for Str can also be 25 */
         if ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
-            || (uarmg && uarmg->oartifact == ART_HAND_OF_VECNA)
-            || wielding_artifact(ART_GIANTSLAYER)
-            || wielding_artifact(ART_SWORD_OF_KAS))
+            || wielding_artifact(ART_GIANTSLAYER))
             lolimit = hilimit;
     } else if (attrindx == A_CON) {
         if (wielding_artifact(ART_OGRESMASHER))

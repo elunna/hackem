@@ -741,11 +741,16 @@ struct obj **potmp, **pobj;
 
         if (!otmp->globby)
             otmp->quan += obj->quan;
+        /* recalc weight for various classes that may use
+           different materials that could make the object
+           weigh less than 1 aum*/
+        if (otmp->oclass == WEAPON_CLASS)
+            otmp->owt = weight(otmp);
         /* temporary special case for gold objects!!!! */
-        if (otmp->oclass == COIN_CLASS)
+        else if (otmp->oclass == COIN_CLASS)
             otmp->owt = weight(otmp), otmp->bknown = 0;
         /* and puddings!!!1!!one! */
-        else if (!Is_pudding(otmp))
+        else if (!Is_pudding(otmp->otyp))
             otmp->owt += obj->owt;
         if (!has_oname(otmp) && has_oname(obj))
             otmp = *potmp = oname(otmp, ONAME(obj));
@@ -925,17 +930,16 @@ struct obj *obj;
  * Add obj to the hero's inventory.  Make sure the object is "free".
  * Adjust hero attributes as necessary.
  */
-struct obj *
-addinv(obj)
-struct obj *obj;
+static struct obj *
+addinv_core0(struct obj *obj, struct obj *other_obj,
+             boolean update_perm_invent)
 {
     struct obj *otmp, *prev;
     int saved_otyp = (int) obj->otyp; /* for panic */
     boolean obj_was_thrown;
 
     if (obj->where != OBJ_FREE)
-        panic("addinv: obj not free (%d, %d, %d)",
-              obj->where, obj->otyp, obj->invlet);
+        panic("addinv: obj not free");
     /* normally addtobill() clears no_charge when items in a shop are
        picked up, but won't do so if the shop has become untended */
     obj->no_charge = 0; /* should not be set in hero's invent */
@@ -944,7 +948,28 @@ struct obj *obj;
     obj_was_thrown = obj->was_thrown;
     obj->was_thrown = 0;       /* not meaningful for invent */
 
+#if 0 /* TODO: 3.7 */
+    if (gl.loot_reset_justpicked) {
+        gl.loot_reset_justpicked = FALSE;
+        reset_justpicked(gi.invent);
+    }
+#endif
+
     addinv_core1(obj);
+
+    /* for addinv_before(); if something has been removed and is now being
+       reinserted, try to put it in the same place instead of merging or
+       placing at end; for thrown-and-return weapon with !fixinv setting */
+    if (other_obj) {
+        for (otmp = invent; otmp; otmp = otmp->nobj) {
+            if (otmp->nobj == other_obj) {
+                obj->nobj = other_obj;
+                otmp->nobj = obj;
+                obj->where = OBJ_INVENT;
+                goto added;
+            }
+        }
+    }
 
     /* merge with quiver in preference to any other inventory slot
        in case quiver and wielded weapon are both eligible; adding
@@ -978,9 +1003,9 @@ struct obj *obj;
 
     /* fill empty quiver if obj was thrown */
     if (obj_was_thrown && flags.pickup_thrown && !uquiver
-        /* if Mjollnir is thrown and fails to return,
-           we want to auto-pick it when we move to its spot, but not
-           into quiver because it needs to be wielded to be re-thrown;
+        /* if Mjollnir is thrown and fails to return, we want to
+           auto-pick it when we move to its spot, but not into quiver
+           because it needs to be wielded to be re-thrown;
            aklys likewise because player using 'f' to throw it might
            not notice that it isn't wielded until it fails to return
            several times; we never auto-wield, just omit from quiver
@@ -991,10 +1016,26 @@ struct obj *obj;
         && (throwing_weapon(obj) || is_ammo(obj)))
         setuqwep(obj);
  added:
+    /* obj->pickup_prev = 1; */
     addinv_core2(obj);
     carry_obj_effects(obj); /* carrying affects the obj */
-    update_inventory();
+    if (update_perm_invent)
+        update_inventory();
     return obj;
+}
+
+/* add obj to the hero's inventory in the default fashion */
+struct obj *
+addinv(struct obj *obj)
+{
+    return addinv_core0(obj, (struct obj *) 0, TRUE);
+}
+
+/* add obj to the hero's inventory by inserting in front of a specific item */
+struct obj *
+addinv_before(struct obj *obj, struct obj *other_obj)
+{
+    return addinv_core0(obj, other_obj, TRUE);
 }
 
 /*
@@ -2563,7 +2604,12 @@ update_inventory()
 {
     if (program_state.saving || program_state.restoring)
         return;
-
+#if 0
+    if (!program_state.in_moveloop) /* not covered by suppress_map_output */
+        return;
+    if (suppress_map_output()) /* despite name, used for perm_invent too */
+        return;
+#endif
     /*
      * Ought to check (windowprocs.wincap2 & WC2_PERM_INVENT) here....
      *
@@ -3708,7 +3754,7 @@ boolean picked_some;
 
     if (dfeature) {
         if (bloody) {
-            if (!strncmp(dfeature, "grass ", 6))
+            if (!strncmp(dfeature, "grass", 6))
                 Sprintf(fbuf, "There is bloody %s here.", dfeature);
             else
                 Sprintf(fbuf, "There is a bloody %s here.", dfeature);
@@ -3982,10 +4028,7 @@ register struct obj *otmp, *obj;
     if (obj->oartifact != otmp->oartifact)
         return FALSE;
 
-    if (obj->known == otmp->known || !objects[otmp->otyp].oc_uses_known) {
-        return (boolean) objects[obj->otyp].oc_merge;
-    } else
-        return FALSE;
+    return (obj->known == otmp->known) ? TRUE : FALSE;
 }
 
 /* the '$' command */

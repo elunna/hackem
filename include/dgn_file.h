@@ -55,8 +55,7 @@ struct tmpbranch {
 #define HELLISH 2
 #define MAZELIKE 4
 #define ROGUELIKE 8
-#define ICEQ 16
-#define VECNAD 32
+#define VECNAD 16
 
 
 /* if you add flags up above, the values for bit shifting

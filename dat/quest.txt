@@ -2042,11 +2042,10 @@ magic portal which brought you here."
 "You have returned, %p.  And with %o, I see.
 Congratulations.
 
-"Well done, %p.  You have defeated %n and
-recovered %o, and I have lifted the curse from
-the silver bell.  However, %d has
-directed that %o shall be kept
-here with us at %H.
+"Well done, %p.  You have defeated %n and recovered
+%o, and I have lifted the curse from
+the silver bell.  However, %d has directed that
+%o shall be kept here with us at %H.
 
 Please %p, return %o to us now.
 %E ["%lC asks you to forfeit %o."]
@@ -2634,7 +2633,7 @@ Well, I can give you a choice: Join me!"
 %E  ["Now, %p, you shall die!"]
 %Cp Jed 00051
 "Again, you challenge me, %r? You can't beat the dark side of the force!"
-%E ["Your feeble skills are no match for the power of the Dark Side."]
+%E
 %Cp Jed 00052
 "Haven't you learned your lesson yet? I shall teach it to you now!"
 %E
@@ -2726,7 +2725,7 @@ on this day.  %o will be safe with us."
 %E ["You give %o to %l."]
 %Cp Jed 00090
 "Welcome back, %p. How is the search for the Amulet of Yendor?"
-%E ["Have you progressed with your quest to regain the Amulet of Yendor for %d?"]
+%E
 %Cc Jed 00091
 "You really are a %S of %H."
 
@@ -3267,9 +3266,9 @@ here with us at %H.
 Please %p, return %o to us now.
 %E ["%lC asks you to forfeit %o."]
 %Cc Mon 00084
-"Thank you %p for your sacrifice, I know this must have been
-difficult to do. Rest assured, %d smiles down
-upon you this day.  %o will be safe with us."
+"Thank you %p for your sacrifice, I know this must have
+been difficult to do.  Rest assured, %d smiles down
+upon you this day.  %oC will be safe with us."
 %E ["You give %o to %l."]
 %Cp Mon 00090
 "Welcome back, %p.  How is your quest for the Amulet going?"
@@ -6628,53 +6627,8 @@ determined to recover the Amulet for your deity, or die
 in the attempt.  Your hour of destiny has come.  For
 the sake of us all:  Go bravely with %d!
 %E [%dC has chosen you to recover the Amulet of Yendor for %dI.]
-#
-# Ice Queen branch text (lifting the curse)
-#
-%Cc - 00200
-Thank you for freeing me from this awful curse, %p!
-Long ago, a powerful and evil witch cast a spell on me, which
-transformed me into the Ice Queen.  She controlled my every
-thought, causing me to bring winter permanently to this land.
-Only by being defeated in combat could I be free from her
-wretched malediction.  I am forever in your debt.  But before
-I can repay that debt, I must undo the damage I have caused
-here.  And please free the captive pegasus, I am certain it
-will be extremely grateful.  Fare thee well, brave %r.
-Until we meet again...
-%E [You have freed Kathryn the Enchantress from a terrible curse.]
-%Cc - 00201
-I suppose I should thank you for freeing me %p,
-but in good conscience, I cannot!  I do not know what your
-motives are %c, but you are in the service of Moloch!
-It was one of his witches that put this wretched curse upon
-me in the first place.  Because you freed me, I will spare
-you %p, but only for a few moments.  Leave this place
-while you are still able to do so.
-%E [You have freed Kathryn the Enchantress from a terrible curse.]
-#
-# Putting on the Hand of Vecna
-#
-%Cc - 00301
-As you move the Hand of Vecna closer to your own, your left
-hand suddenly shrivels up and falls off at the wrist!  Before
-you can react, the Hand of Vecna attaches itself to where your
-own hand used to be, infusing your entire body with an evil
-magic.  Exhilarated, you raise the Hand high above your head,
-reveling in your new-found power.  You realize that the Hand
-of Vecna has merged itself to your body, and that you will
-never be free of it.  An evil smile slowly spreads across your
-face at this revelation.
-%E [The Hand of Vecna has permanently affixed itself to your left arm.]
-%Cc - 00302
-As you move the Hand of Vecna closer to your own, your left
-hand suddenly shrivels up and falls off at the wrist!  Before
-you can react, the Hand of Vecna attaches itself to where your
-own hand used to be, infusing your entire body with an evil
-magic.  In a panic, you struggle to remove it from your arm,
-but it has merged itself to you completely.  It slowly dawns on
-you that you will never be able to free yourself from it.
-%E [The Hand of Vecna has permanently affixed itself to your left arm.]
+
+
 #
 # Defeating Vecna
 #
@@ -6708,3 +6662,15 @@ the bunker floor.  You hear him cough one last insult.
 
 "You scum. You think you have a chance at beating this dungeon? *cough*
 *cough*  I'll see you in Gehennom! Haa..aa....ahrhhg..."
+%E [Grund is dead.]
+
+#
+# Unlocking Vlad's Tower
+#
+%Cc - 00306
+As you approach the menacing stairs that lead up to Vlad's lair,
+the room starts to vibrate and you feel a powerful energy take form.
+The air around the entrance stiffens for a moment and then relaxes. 
+The magical barrier that blocked access to Vlad's tower has been 
+removed, permanently.
+%E [Passage has been opened to Vlad's Tower.]

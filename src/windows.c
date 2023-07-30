@@ -1020,6 +1020,8 @@ unsigned long *colormasks UNUSED;
                 Strcpy(nb = eos(nb), " Ride");
             if (cond & BL_MASK_SLOW)
                 Strcpy(nb = eos(nb), " Slow");
+            if (cond & BL_MASK_PHASING)
+                Strcpy(nb = eos(nb), " Phasing");
             break;
         default:
             Sprintf(status_vals[idx],
@@ -1684,7 +1686,8 @@ dump_render_status()
         { BL_MASK_LEV,       "Lev"      },
         { BL_MASK_FLY,       "Fly"      },
         { BL_MASK_RIDE,      "Ride"     },
-        { BL_MASK_RIDE,      "Slow"     }
+        { BL_MASK_SLOW,      "Slow"     },
+        { BL_MASK_PHASING,   "Phasing"  }
     };
 
     num_rows = (iflags.wc2_statuslines < 3) ? 2 : 3;

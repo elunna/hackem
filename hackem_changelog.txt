@@ -7,15 +7,529 @@
 - My wife - for being endlessly patient with this time-consuming endeavor!
 - K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
 - amateurhour and qt for their endless debugging advice.
+- cbus for co-maintaining and developing ideas for this project.
 
-### Thanks: 
-- nh2465, cbus, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, Umbire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
+### Thanks:
+- nh2465, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
 
 ==========================
 
+Version 1.2.0 (released July 28, 2023)
+
+Tweaks to stealing from monsters (EvilHack)
+Fix: ukiller can't be null if killer wants to go through player inventory. (EvilHack)
+Fix: incorrect value used in determining mspec->used for monster spellcasting. (EvilHack)
+Fix: whitespace in feedback (mcastu.c). (EvilHack)
+Fix: SET_TYPLIT if/else chain broken. (EvilHack)
+Fix: curses mode - prevent spurious cursor updates. (EvilHack)
+Fix: prevent indestructible objects from being destroyed by a cursed bag of holding.
+Fix: weight of recipe stacks not recalculated when forging. (EvilHack)
+Fix: wishing for regular gloves. (EvilHack)
+Fix: certain spellbooks would have the wrong weight if received via prayer. (EvilHack)
+Fix: explicitly state various materials so certain forge recipes will work. (EvilHack)
+Fix: various fixes to polyself.c (EvilHack)
+Fix: Bitfields for shopkeeper and technique conducts were the same.
+Fix: Ctrl-a not working for ranged weapons (reported by cbus). Fixes #407.
+No role starts knowing about bombs via knows_class.
+Only convicts start out knowing  about all firearms.
+Suppress discovery message for firearms after they are known.
+Indestructible items can't be destroyed in BoH explosions.
+Fix: Vecna wasn't getting the Key of Chaos!
+Fix: Lookup for skeleton key matched skeleton monster.
+Message when cursed gain level is blocked at Vlad's Tower.
+Clarify message when Vlad's tower is unlocked.
+Switch Und-Vam blood potions for vampire blood potions.
+Acquiring two alignment keys is now mandatory to ascend Vlad's Tower.
+Imported the alignment keys from SLASH'EM.
+Fix: Give Death a weapon attack so the scythe can be used. Fixes #406. Reported by Noisytoot.
+Mortality Dial can be forged by combining werebane and trollsbane (from SpliceHack)
+Fix: Mortality Dial had the SPFX_RESTR listed twice.
+Revert Bat from Hell back to wooden material.
+Import technique descriptions from SpliceHack.
+The End is made of bone (to match SpliceHack).
+Fix: Redcaps were not generating with their scythes.
+Changed chakrams to more closely match dnethack.
+Fix: Bad fruit #0? (Cloning slime molds caused a panic). Fixes #404
+Light arrows have a weight of 1.
+Changed Windrider back to boomerang.
+Footbows do not appear randomly.
+Reverted Serpent's Tongue back to a dagger.
+Mana cloak only grants MC1.
+Fix: Breaking a boomerang in melee could cause heap-use-after-free if it caused hated-material sear damage.
+Fix: Elven race wasn't getting the correct symbol.
+Fix possible crashes in seffect_cloning when the monster creation fails. Fixes #402.
+Stakes always explicitly show their material.
+Decrease chance of poly trap disappearing when monsters use it.
+The Storm Whistle grants shock resistance instead of cold resistance, and also grants searching when carried.
+Reduce the maximum size of Gehennom from 20-24 levels to 18-19 levels.
+Prep for version 1.2 release.
+Fix: Spellcasters can't cast Make Pool on squares with traps.
+Fix: global-buffer-overflow when throwing gold diagonally from (0, 0). Fixes #401.
+Fix: Cloning scrolls maintains BUC status of cloned items unless the ?oCloning is cursed, in which case the item gets cursed. Reported by Mobileuser.
+Monstrous spiders release a screech instead of a wail.
+Undead slayers cannot poly into undead or demons.
+Prevent the fuzzer from wishing for items of invalid materials. Fixes #384.
+Your pet can't flank peaceful monsters with you.
+Fix: Message when cold resistant monster attacks ice mage.
+Add Und-Vam as a possible combination (because Blade). Fixes #372.
+Lower weight of phials to 1.
+Fix: Dream thief could continue attacking after killing something with their magic attack. Fixes #397.
+Fix: Human NPCs didn't have the correct symbol. Fixes #396.
+Fix: Upgrading saddles to leashes caused panic. Fixes #395.
+Fix issues with canwearobj and can_wear_armor.
+Caveppl can tame saber-toothed cats (reported by mobileuser).
+Fix: Force-fighting flyers while underwater.
+Dragon roars sound muffled if underwater.
+Fix: Breaking wands could create traps on deep water/lava squares. 
+Fix: A trap could generate on Master Kaen's altar (reported by arahael).
+Small tweak to bomb_blow when bomb blows up on floor.
+Fix: Bombs disappeared when their fuse ignited in a monster's inventory.
+Fixed placement of portal in pirate quest.
+bomb_blow should use damage_mon instead of manipulating the monster hp directly.
+Remove potential trap creation when bomb explodes in water. 
+Fix: Swimming under invisible ghosts caused Mon is not there panics. Fixes #322.
+Fix some memory leaks in mk_artifact.
+Fix: Error in mk_artifact, PM_CENTAUR listed twice in checking boot gifts.
+Cleanup techniques display in dumplog.
+Fix: eating damaging foods when polymorphed (submitted by Ardub23)
+Fix: Iron ball sticks to adherer in combat while punished, causes panic. Fixes #389.
+Conduct for paying or being paid by shopkeepers.
+Add technique conduct details in a couple missing spots.
+Hand of Vecna invoke uses change_luck (reported by Noisytoot).
+Message for calm steed tech when centaurs use it.
+Add conduct for techniques performed.
+Fix celibacy conduct description in dumplog.
+Fix: Do not allow a dragonscaled robe of power to be named Grandmaster's Robe.
+Revert god_gives_blessing chance to same as slashem.
+Fix: Items were not being cancelled by cancellation (reported by mobileuser/hothraxxa).
+Include oilskin sacks and the like to have a chance to resist being stolen. (from EvilHack)
+Adjust some probabilities with grease wearing off during theft attempt. (from EvilHack)
+Fix: material sear messages were being suppressed vs the player. (from EvilHack)
+Greased objects have a chance to resist being stolen. (from EvilHack)
+Small refactor in jedi forcethrowing their lightsaber.
+Silence more compiler warnings.
+Handle possible shop damages with liquid leap.
+Silence a lot of compiler warnings.
+Fix Makefile.msc: 2 char added by accident.
+Fix severed hand tile name.
+Fix nightmare tile to greater nightmare.
+Fix Windows makefiles.
+Silence compiler warning for the hand of vecna invoke.
+Revert "Being in the presence of demon lords or princes negates self teleportation." 
+Revert "Being in the presence of demon lords or princes negates the effects of cursed gain level"
+Revert "Graz'zt no longer has an item stealing attack - replaced with physical attack instead."
+Silence compiler warning for spooky messages.
+Fix tab issues in unix makefile.
+Celibate tracking missing from encodeconduct.
+Revert "The Crown of Saint Edward now only grants MR when worn."
+Revert "The Stake of Van Helsing must be wielded now to get magic resistance."
+Revert "The Great Dagger of Glaurgnaa must be wielded to get magic resistance."
+Organized some of the makefiles.
+Imported more big room variants from SlashTHEM.
+Added spooky sounds to nightmare level (Tina Hall).
+Added giant caverns to the dungeon (from SLASHEM)
+Added the castle dungeon level under Fort Ludios.
+Re-slashify the dungeon.
+Removed protection and dragonhide material from Wallet of Perseus.
+Fix feedback for eating the Eye of the Beholder or Hand of Vecna.
+Removed leftover database bit for Hand/Eye of Vecna.
+Remove some bits leftover from Ice Mage's snowball spell.
+Completely remove Ice Queen branch.
+Vecna no longer has to be defeated to genocide liches/alhoons.
+Removed the Eye of Vecna and reverted the Hand of Vecna to SLASH'EM's behavior.
+The Eye of the Beholder is intelligent.
+Removed Acererak.
+Remove SELF_TELE invoke (leftover from Xanathar's Ring).
+Remove super stealth mechanic. Revert digging noise and sync most noise wakeups to EvilHack.
+Removed beholders. Replaced Xanathar with Beholder.
+Replaced Nebuchadnezzar with Nightmare.
+Fix: Applying wands of opening could make trap doors on invalid levels. Fixes #386.
+Staff of Rot revamp: Remove invoke/double damage effects. Make it +0 tohit, +12 wither attack instead.
+Silence warning: promoted argument ‘hitsroof’ doesn’t match prototype in dothrow.c
+Silence warning in objname about discarding const qualifier.
+Bullets and shotgun shells can be forged now. Recipe for spike chain is now iron chain + 2 shuriken.
+Fix: Races with armor restrictions can receive unusable armor from their god (reported by Ardub23). Fixes #385.
+Boomerangs have a higher chance of slicing through enemies the higher your skill in boomerang.
+Instead of getting Shield Block tech at level 7, Priests can reach skilled in shields.
+Clean up the artifact lookup a bit, format damage better.
+Add infidel blurb to guidebook.txt
+Consolidate associated race and role info for artifact lookup.
+Show correct base cost for artifact lookup.
+get_faux_artifact_obj handles default material for the artifact.
+Object lookup doesn't hide properties for artifacts if the base object isn't known.
+Fix: get_faux_artifact_obj could use a random material instead of the artifact material.
+Fix: Lookup for artifacts could leak the item's base object appearance.
+Get artifact lookups working for /? and on ground. Limit to single dialog popup.
+Fix some more issues with losing/gaining shield block and disarm.
+Fix: Prevent 'Tech not known.' panic with shield block tech.
+Fix: Prevent 'Tech already known' panic when Infidel is crowned.
+Lower undead slayer weapon damage from d8 to d6.
+Re-add ranged weapon exceptions to disarm tech.
+Fix: Disarm tech wasn't earned with certain weapon skill advancements.
+Fix: Disarm tech wasn't lost when amnesia took away weapon skills.
+Players get the Shield Block technique when they reach skilled in Shields.
+Refine some places where Xanathar's ring stealth should apply.
+mplayer symbols reflect their actual race.
+Fix: Boulder trap pathing could go out of bounds. Fixes #363.
+Clean up tool and property info in add_obj_info.
+Factored out olet from add_obj_info.
+Fix: We can't swim under monsters while engulfed or swallowed. Fixes #322.
+Fix knows_class bug from 9aaaf566c. Oops.
+Convicts start out knowing all firearms.
+Gun shops can also carry assault rifles, flintlocks, grease, and towels.
+Firearms start out with unknown appearances but are identified on use.
+All bombs start out unknown as 'bomb' appearance.
+Fixed lookup issues with bombs.
+Fixed some food lookup issues with puddings.
+Plasteel gloves should always have the white gloves appearance.
+Fix: Ornate mace was displaying as Rod Stone in discoveries.
+Added genocide info to the monster lookup.
+Firearms display their modes in the player inventory.
+Jedi start out knowing all plasteel items and lightsabers instead of all armors.
+Robes shouldn't be pre-discovered by roles that know armor.
+Added more lookup info for effects caused by eating corpses and tins.
+Replace troublesome dashes in data.base
+crystal description in materialnm didn't really fit, changed to gemstone.
+Fix: Undead was incorrectly pluralized.
+Fix: Artifact lookup didn't handle multiple hated monster types. Fixes #374.
+Boomerang type weapons can pass through enemies on hit. Fixes #323.
+Fix: Bad armor check in grandmaster's robe bonus hit. Fixes #375.
+Fix: Artifact lookup with `/?` and `;:`. Fixes #177.
+Added database entries for gauntlets of swimming, and gauntlets/robe of protection.
+Fix: Invalid materials resulting from item upgrades are reset to a random valid material. Fixes #381.
+Fix: Morgues don't make corpses from races that don't make sense (reported by mobileuser). Fixes #380.
+Added database entry for rogues gloves.
+Fix: Renamed latex gloves to gardening gloves to avoid awkward material combinations (Reported by hothraxxa). Fixes #378.
+Fix: Could not wish for rogues gloves.
+Wooden stakes now just stakes and can be different materials.
+Remove tile for Kas.
+Remove Kas, Sword of Kas, and Vecna's branch (from EvilHack).
+Revert luck blade back to a short sword (SLASH'EM).
+Remove Keolewa from being caveman second sac gift.
+Fix: Found and corrected colors on stormtrooper. Fixes #377.
+Fix: mon_race_name didn't handle spiders.
+Fix: Mixed indent in dat/data.base causing bad alignment when displaying.
+Tidy up behavior when silver dragon armor reflects and has no effect. Added effects for new hulks.
+Fix: silver dragon scaled armor wasn't protecting against blindness in some situations (reported by mobileuser). Fixes #373.
+Fix: Farlook info repeats for multiple uses (reported by Umbire). Fixes #361.
+More hurtle updates so monsters know where we hurtled.
+Celestial dragons get sonic resistance too.
+Fix: boomerang bits (from 3.7).
+Fix: boomerang equiped in multiple slots (from 3.7)
+Fix: Impossible when Convict attempted pickpocket technique. Fixes #370.
+Monsters cannot break boulders in Sokoban (requested by cbus).
+Fix: Skip cavepeople's special spell when they reach level 12 since they don't have one. Fixes #364.
+Suppress excessive guilt messages in Black Market. Fixes #368.
+Feedback for trying to wear gloves/gauntlets over the Hand of Vecna. (from EvilHack)
+Allow monsters wielding a digging tool to break boulders. (from EvilHack)
+Player monster racial settings refactor. (from EvilHack)
+Fix: bug with how pets consider intrinsic-granting corpses as treats. (from EvilHack)
+Fix: Confused giants lost track of player position after clobber attack. Fixes #369.
+Any race can wear the Grandmaster's Robe (potential sac gift for tortles or giants).
+Giant and tortle monks can always wear the Grandmaster's Robe.
+Sonic rays will shatter toilets.
+Players polyd into slithy monsters can't slither though iron bars in sokoban. Fixes #365.
+Liquid leaping through sokoban iron bars incurrs luck penalty.
+Paranoid confirm for air dashing into water or lava.
+Handle cheating in sokoban with air dash.
+Handle cheating in sokoban with liquid leap (reported by cbus and umbire)
+Liquid leap affects all squares the same as being zapped with acid.
+Paranoid confirm for liquid leaping into water or lava.
+Cannot air dash while trapped or underwater. Air dashing while fumbling goes in random direction.
+Using the air dash tech while confused or stunned goes in a random direction.
+Fix effects when tumbling into water and lava. Add paranoid swim prompts.
+Tumble tech cannot be used underwater or while levitating.
+Disallow Wyrm Caves from generating bones. Fixes #362.
+Marauder's Map detects monsters on invoke.
+Marauder's Map artifact detect also discovers the artifact.
+Removed hard floors of wyrm caves (below the entrance level).
+Refactored undead generation for mines denizens.
+Consolidated psionic wave granting in u_unit.c for illithids.
+Consolidated all gem generation code in u_unit.c for the giant player race.
+Refactor some flame-ice mage stuff.
+Refactor deathwail, protect items if player has sonic resistance.
+Doppelganger options: Remove arc, tourist, necro. Add undead slayer.
+Allow illithid Pirate.
+Allow dwarven Jedi.
+Refactor racial alignment adjustments from init_mplayer_erac() to apply_race().
+mplayers might get an additional attack depending on their race.
+Cleaned up m_randrace so it matches with the role info.
+Simplify the manticore spike volley code.
+wizard mode light source bug (From 3.7)
+Wielding Disrupter grants warning vs undead.
+Priests now get Disrupter for first sacrifice gift instead of Demonbane as per SLASH'EM.
+Fix: Change Thiefbane back to a long sword like in SLASHEM.
+Fix: Crash when showing info on Thiefbane.
+Fix: One-eyed Sam generating with a long sword Thiefbane. Reported by shadowrider38/mobileuser.
+Add override to invocation of artifacts in wizmode.
+Fix a couple things in spirit tile.
+Silence compiler warnings in tech.c for misc occupations.
+Silence compiler warning C4113 for bomb_blow.
+Silence compiler warning C4113 for do_iceflood.
+Silence compiler warning for mage_transform.
+Fix: Run update_inventory() after succesful whetstone use.
+Cloned mplayers generate new inventory specific to their race/role. Fixes #335.
+Cloned mplayers will inherit the same race as the parent.
+Fix: Cloned monsters were sharing same mw reference. Fixes #75.
+Fix: Monsters using scrolls of cloning didn't use up the scroll.
+Revert: mplayers cannot clone themselves.
+Add artifact_detect and use it for invocation of Marauders's Map. Fixes #327.
+Artifact armor cannot be fused with dragon scales.
+Change how Grandmaster's Robe bonus attack work. If the all normal punches hit the bonus attack chain starts. The second bonus attack only happens if the first hits.
+Fix: There is a bloody grass here (reported by Umbire).
+Clarify object lookup info for bombs (reported by hothraxxa).
+Fix: Curses inventory blank from bones fix (95fc05fdf).
+Fix: Incorrect pager info for bombs. Reported by hothraxxa.
+Fix: Crash when reloading bones (credit to Bhaak). Fixes #349.
+Fix: Messages between gaining and losing intrinsic and/or extrinsic hallucination. Fixes #342.
+Refactored how Helm of Madness and Mystic Eyes grant extrinsic hallucination.
+Fix: Inconsistencies in titles in "forging weapons" and "forging armor" pokedex entries.
+Fix: Cursed Cleaver does not have protection of friendlies.
+Copy should_cleave() from xNethack and add prevention of cleaver attacking friendlies.
+Fix: Message for trying to put gloves over Hand of Vecna.
+The Iron Spoon of Liberation grants phasing with no timeout. Fixes #358.
+Fix: Added teleport region to Jedi quest home so players can't randomly appear over air. Fixes #360.
+Fix: Sides of Jedi quest home had floor spaces instead of air.
+Fix: Gnome and dwarf thieves were stealing by seducing (reported by mobileuser).
+Show techniques known in the dumplog (text and html).
+Add -DEDIT_GETLIN to sys/unix/hints/linux.
+Couple disintegested updates from EvilHack for mhitm.c
+Fix: #wizbury cannot be used on open air spaces. Fixes #353.
+Fix: display of eaten_memory for doppelganger ctrl-X display (reported by cbus). Fixes #340.
+Handle weapons with the acidic property and reveal in inventory when used.
+Add Grandmaster's Robe from dNethack. Fixes #346.
+Fix: Null mdef in explum when yellow light exploded.
+Disabled the Sword of Annihilation.
+Allow a worn not cursed amulet of life saving to save the player if they fall in an 'open air' space. (EvilHack)
+Cut down on feedback when melee attacking a green dragon and not being affected by its hide. (EvilHack)
+Spear trap tweaks, remove multiple random death messages. (EvilHack)
+Allow knights to tame dragons of the same alignment. (EvilHack)
+Fix: memory leak and typo in spitmm(). (EvilHack)
+Crowned infidel receives sleep resistance. (EvilHack)
+Fix: celestial dragon scales/dragon-scaled armor and flying. (EvilHack)
+Fix: ogresmasher knockback monster vs player, some feedback formatting. (EvilHack)
+Formatting fixes. (EvilHack)
+Fix monster hurtling back player with Ogresmasher. (EvilHack)
+Ogresmasher knockback. (EvilHack)
+Fix: refactor and fix various bugs in artifact_hit() function. (EvilHack)
+Fix: monsters sonic attack subject to passive attacks from player. (EvilHack)
+Create new artifact flag and macro (SPFX_FORGED and is_forged_artifact()). (EvilHack)
+Fix: AT_SCRE / AD_LOUD in mhitm.c (EvilHack)
+Fix: boolean statement in AD_LOUD (mhitu.c) (EvilHack)
+Fix: AD_LOUD not doing damage; new monster - celestial dragon. (EvilHack)
+Fix: x-ray vision issues when using multiple objects that grant it at the same time. (EvilHack)
+Monsters flagged as a lord/prince don't spawn with eroded gear. (EvilHack)
+Fix: logic in amulet/tool naming after 3.6.7 merge (matching EvilHack).
+Typo fix. (EvilHack)
+Fix: missing a couple cases where Death_resistance should have been included. (EvilHack)
+Fix: various issues with the Sword of Annihilation's attack. (EvilHack)
+Ported death resistance from EvilHack.
+Ported the fear invoke from Shadowblade (from EvilHack ef63e53ad).
+Forging artifacts. (EvilHack)
+Fix: Only 3 wish attempts allowed when it should be 5 (reported by hothraxxa). Fixes #357.
+Updates from EvilHack commit d5ffd4b5d pertaining to monsters that hate light.
+Fix placement of spike tile in objects.txt
+Changed manticore spikes to VENOM_CLASS and moved with other venom objects in objects.c.
+Updated neutral minions gifted by altar sacrifice.
+Updated list of lawful minions gifted by altar sacrifice.
+Revert d396169a1... Lawful minions are granted using lminion
+Removed level 5 requirement for getting minion pets from altar sacrifice.
+Fix: Typo in god_gives_pet.
+Updated list of chaotic minions gifted by altar sacrifice.
+Revert c424a80 Chaotic minions are granted using ndemon
+Fix: Memory leak in mongets if invalid object is created. Fixes #355.
+Fix: Manticore spikes falling down stairs and a few other memory leaks. Fixes #354.
+Fix: Memory leak in tech_revive. Fixes #356.
+Fix: Swimmers that also conceal themselves cannot hide under objects in the water. Fixes #345.
+Xanathar can now summon eyes and spheres.
+Allow pets/monsters to wear ring of displacement (suggested by mobileuser). Fixes #235.
+Fix: one compile warning, formatting cleanup from last commit. (EvilHack)
+Adjustments to racial abilities. (EvilHack)
+Allow some monsters to break boulders. (EvilHack)
+Add phasing status to botl. (EvilHack)
+Fix: various issues with monsters setting off container traps. (EvilHack)
+Monsters can utilize free action. (EvilHack)
+Fix: weapon material damage adjustments. (EvilHack)
+Fix: double message when entering the lemure pits (hellc demon boss level). (EvilHack)
+Fix: dialogue formatting with the Priest quest. (EvilHack)
+Fix: racial weapon selection flub for lieutenants. (EvilHack)
+Fix: material damage message firing after target was already killed. (EvilHack)
+Fix: wishing for a string with mismatched parens, that doesn't contain any actual wish before them. (EvilHack)
+Fix: separate monster from player when determining number of objects in inventory to cancel. (EvilHack)
+Fix: oilskin sacks/cloaks spawning with materials other than cloth. (EvilHack)
+Phasing allows escape from being engulfed. (EvilHack)
+Tweak to 'restore ability spell is now directional'. (EvilHack)
+Restore ability spell is now directional. (EvilHack)
+Fix: cavepersons/priests could still have certain weapon  skills unrestricted that shouldn't have been. (EvilHack)
+Show play time/wallclock time in the dumplog (text and html). (EvilHack)
+Show spells known in the dumplog (text and html). (EvilHack)
+Git info formatting in dumplog. (EvilHack)
+Fix: blanked spellbooks from reading not updating in permanent inventory. (EvilHack)
+Fix: the Wizard of Yendor could be awakened prematurely on wizard1 level. (EvilHack)
+Fix: The 'weapon' welds itself to the 'monsters' hand! (EvilHack)
+Convict thievery skill adjustment. (EvilHack)
+Magic lamps/candles won't be extinguished by a rust trap. (EvilHack)
+Convicts can use and train up thievery skill. (EvilHack)
+Fix: dragon-scaled armor that was lit would still shine after taken off. (EvilHack)
+Ranger quest artifact, if blessed, has a chance to produce ammo with an object property. (EvilHack)
+Fix: proper handling of flying/clinging u.usteed from last commit. (EvilHack)
+Fix: dismounting crash from last commit. (EvilHack)
+Adjust feedback when freezing a liquid underfoot while riding a steed. (EvilHack)
+Make elemental vulnerability more consistent (EvilHack)
+Fix: some doors would spawn booby-trapped as early as dungeon level one. (EvilHack)
+Fix: locking/unlocking containers in sokoban. (EvilHack)
+Fix: minor feedback bug when player's shield blocks a ranged attack. (EvilHack)
+Fix: minor issues with Mines' End 'Orc Temple' map. (EvilHack)
+Fix: hurtled monster logic. (EvilHack)
+Fix: stacked food objects, weight not updating for split object in curses mode if eating was interrupted. (EvilHack)
+Fix: zapping cancellation at magical trap. (EvilHack)
+Allow monks with intrinsic water walking to enter into and stay in pools/moats. (EvilHack)
+Fix: feedback when engulfed by a water elemental/sea dragon and the player is amphibious. (EvilHack)
+Fix: worn glass helmets would never break when boulders hit them. (EvilHack)
+Fix: permanent inventory not updating various object property discoveries (curses mode). (EvilHack)
+Adjust weight of large/monstrous spiders. (EvilHack)
+Sting warns of spiders. (EvilHack)
+withering feedback wording: drier->dessicated (EvilHack)
+Implement 'race0' field to xlogfile, denoting starting race. (EvilHack)
+Small correction to last commit. (EvilHack)
+Add a couple more sources of cancellation protection. (EvilHack)
+Fix: account for EWithering when curing HWithering (EvilHack)
+Make 'Make withering more consistent' more consistent (EvilHack)
+Fix: sokoban prizes could still spawn with an invalid material. (EvilHack)
+Cure monsters of withering when applicable (EvilHack)
+Fix: Cure withering when polymorphing into something nonliving (EvilHack)
+Fix: monster not mentioned when cured of withering (EvilHack)
+Restore Tourists skill in twoweaponing to 'skilled'. (EvilHack)
+Fix: two compile warnings, a bit of formatting cleanup from last commit. (EvilHack)
+Consolidate some fire_ and lava_damage() code, and make fiery items fireproof (EvilHack)
+Changes to 'a'pplying whips. (EvilHack)
+Match Wand/Potion of speed behavior from EvilHack.
+Don't drop aklys on the floor due to slippery fingers. (EvilHack)
+Fix: various monsters movement speed while underwater. (EvilHack)
+Defending against cancellation odds adjusted when wearing gray dragon-scaled armor. (EvilHack)
+Fix: monsters stuck in a loop switching between melee and ranged weapon. (EvilHack)
+Fix: Vecna's artifacts never forming if destroyed over lava or a pool (EvilHack)
+Fix: help prevent inherently fixed objects from spawning eroded/corroded. (EvilHack)
+Follow up to 'inconsistent attack behavior while submerged in  water'. (EvilHack)
+Fix: Memory leak: spitmm with acid and venom. Fixes #351.
+Fix: Confused scroll of cloning on self does not copy race (reported by cbus). Fixes #350.
+mplayers cannot clone themselves.
+Revert "Disabled monsters using scrolls of cloning - fixes #75."
+Players can use gaze attacks in melee range when poly'd into a form with one. Fixes #329.
+Fix: Use Pirate King/Queen properly when crowned as pirate.
+Revert "Fix: Crash when reloading vampiric bones. Fixes #349."
+Fix: Crash when reloading vampiric bones. Fixes #349.
+Fix: DYWYPI screen does not list contents of bags of rats or tricks (reported by hothraxxa). Fixes #348.
+Fix: Exiting the whetstone rubbing prompt wastes a turn. Fixes #341.
+Fix: Memory leak when manticore volleys spikes at another monsther.
+Fix: Pet manticore fires spikes the opposite direction of target. Fixes #343.
+Fix: Memory leak when manticore volleys spikes at player. Fixes #347.
+Fix: Missing hit message from Master Sword (reported by mobileuser & shadowrider38). Fixes #344.
+Fix: Panic when saving immediately after thrown bomb explosion. Fixes #337.
+Fix: Sewers of Waterdeep missing stairs down (reported by mobileuser). Fixes #331.
+All elementals resist sickness.
+Elementals should ignore musical instruments. Fixes #334.
+Reverted the Dark One back to a human.
+Lowered poison insta death resistance threshold from 35% to 25%.
+Rename wand of sonics to wand of noise. Fixes #332.
+Added some other fish to the Sunless Sea.
+Renamed Giant Squid to Thing from Below (as it was in SpliceHack).
+Remove kill/cut pirate speak replacement (suggested by mobileuser).
+Fix: Any artifact blast could unpunish a player. Fixes #325.
+Fix: Duplicate "Hurrah for our Pirate King!" message when Pirates get crowned. Fixed in #326.
+Fix: Pirates get Reaver as their crowning gift (reported by Mobileuser). Fixed in #326.
+If blessed, the Marauder's Map gets a luck dependent chance to map the entire level.
+Fix: Marauder's Map was missing invoke ability (reported by mobileuser). Fixes #324.
+Fix: heap-use-after-free caused by exploding forge destroying same item twice. Fixes #270.
+boomhit() comments.
+Fix: Broken replace definition from 0c505a059.
+Followup to last commit, any role can wish for bottles in place of potions.
+Fix: Potions display as bottles in inventory when playing as pirate (reported by mobileuser). Fixes #306
+Removed unused shrine_pos function.
+Silence bydoor and bywall compiler warnings.
+Fix: M2_FLANK flag was using same slot as M2_MAGIC. Fixes #313.
+Fix: heap-use-after-free when long worms where slimed by a player polyd as green slime mid worm hit loop. Fixes #224.
+Fix: Temple altars can be placed anywhere in a room to accomodate non-symmetrical room styles. Fixes #314.
+Fix: Minion gifts could potentially be NON_PM, which was not handled correctly (reported by oh6). Fixes #296.
+Replaced Vecna's branch from Evil with Vecna's Manse from SlashTHEM.
+Shopkeepers will only pay the standard vanilla amount for wands of nothing (suggested by disperse). Fixes #320.
+Fix: Invoke ability for Demonbane and Helmet of Hermes is now levitation instead of flying. Fixes #295.
+Raised Kas's starting AC from -5 to 5 (suggested by mobileuser). Fixes #298.
+Wielding/wearing item giving stoning res will cure stoning (EvilHack).
+Fix: Remove peaceful temple priest protection spell spam (EvilHack).
+Mood rings can generate in junk shops.
+Fix: Some roles could start with 2 torches.
+Vampires no longer get hunger intrinsic at level 10.
+Fix: quest leader dying by means other than by the player directly (EvilHack).
+Fix: stealth and waking nearby monsters during combat (EvilHack).
+Fix: Do not save Count Dracula or Nosferatu in bones. 
+Fix: vampshifted Vlad/Kas/Rat king in bones (EvilHack).
+Fix: Windrider crashed when it hit a monster (reported by cbus). Fixes #319.
+Reaver will not steal weapons if it causes you to become burdened. Fixes #316.
+Revert: Thrown chakrams slice through monsters and always return to you.
+Moved stair placement for Angband levels to the end to avoid stair issues (reported by VaderFLAG). Fixes #305.
+Potions of invulnerability now protect from drain life attacks while active. Fixes #315.
+Reverted a19c091cb Chance the Amulet of Yendor will teleport away if dropped.
+Removed Spear of Light from Undead Slayer's first sac gift, causes blasting with other lawfuls. Fixes #255.
+Reverted name of Holy Spear of Light back to Spear of Light. Also reverted wishing for holy items. Reported by hothraxxa. Fixes #287.
+Fix typo in monsters.txt for jedi trainer.
+Added message when Helm of Hermes or Demonbane is invoked.
+Fix: Polymorphing into vampire bat shape should not cause stun. Fixes #272.
+Increased the chance of vampire blood-feeding from 2/5 to 2/3.
+Fix: Jedi counted as quest guardians (reported by Umbire). Fixes #248.
+Added crafting recipes for most armors to the database.
+Added a crafting recipe for pistols using the flintlock.
+Added more crafting info to the database for weapons. Fixes #307.
+Updated database with entries for crafting some weapons.
+Fix: missing block message summary when Grund is killed (reported by Janis). Fixes #256.
+Increased starting spell retention and reinforce memory to 20000. MAX_SPELL_STUDY is now 30 to match SLASHEM. Fixes #289.
+Fix: Clinic and Terror Hall flags not being reset for different levels (reported by VaderFLAG). Fixes #299.
+Updated the SLASHEM golems so they deal claw damage instead of weapon damage (reported by shadowrider38). Fixes #283.
+Fix: Run update_inventory() on successful #ride to update the weight in perm_invent.
+Clarified messages when deep dragon scales deals passive attack (reported by janis). Fixes #288.  
+Fix: Removed unnecessary The from Jedi Master's title. Fixes #276.
+Monks get a magic marker for their crowning gift instead of a Spellbook of Restore Ability (suggested by Noisytoot). Fixes #278.
+Make paranoid swim warn about open air. Fixes #290.
+Fix: Tinfoil hats can only be metal to prevent weird material clashes (reported by hothraxxa). Fixes #277.
+Re-added candles to Vlad's tower (reported by shadowrider). Fixes #280.
+Fix: Tiamat could fall asleep. Limited the dragon slumbering so only orange dragons can fall asleep now (reported by shadowrider38). Fixes #282.
+Fix: Having extrinsic fire res prevents items burning when walking on lava with water walking (Reported by Noisytoot). Fixes #291.
+Fix: Pets and certain polyforms would not attack baby black dragons (reported by Noisytoot). Fixes #286.
+Fix: Inappropriate messages for wooden stakes when thrown (reported by VaderFLAG). Fixes #294. 
+Correct typo in Eternal Flame resisting being extinguished (reported by Noisytoot). Fixes #292.
+Fix: genociding all lich types and alhoons before destroying Vecna (From EvilHack) Fixes #309.
+Reverted 5966c08f8. Updated message for twoweaponing denial if you are a vampire.
+Reverted: Fix: Vampires are now restricted in two weapon combat.
+Fix: Remove Gungnir as being Val first gift. Fixes #293.
+Added tinker to database lookup. Fixes #308. 
+Changed Nebuchadnezzar's alignment to lawful (Suggested by mobileuser). Fixes #311.
+Fix: Run update_inventory() after blessing/cursing of item from sacrifice to update perm_invent.
+Fix: Giant Undead Slayers starting inventory attempted to set gems to silver. Fixes #268. Reported by transcendreamer.
+Removed snowballs from ice mage starting inventory; too buggy (reported by transcendreamer). Fixes #264.
+Move tortle max skill in tridents from u_init() to skill_init(). Bar/Mon/Und can get Expert and Hea/Tou can get skilled in tridents (Reported by Disperse).
+Fix order of rock mole tile.
+Fixed order of monsters in monst.c to obey the designated rules. Fixes #247. 
+Allow lawful non knights to dip for excalibur if crowned hand of Elbereth (suggested by Noisytoot).
+Prevent liquid leap #tech when wearing "oUnchanging.
+Con-Dop start with a cursed "oUnchanging to prevent escaping the striped shirt using #youpoly.
+Fix: Duplicate decrepit spellbooks (reported by hothraxxa).
+Fix: Upgrading a stack of flintstones would give same index to upgraded stone (reported by shadowrider).
+Fix: Telekinesis stealing caused program in disorder.
+Move daggers to first entry in Inf starting equipment.
+Fix: If weapon practice #tech fails because maxed skill and known weapon don't apply the cooldown.
+Fix: Vampires are now restricted in two weapon combat.
+Make magic markers pre identified on wizards (they already showed up as "magical markers").
+Fix: When calling robes their base name should be "robe" and not "armor".
+Fix: Do not learn the disarm #tech from ranged weapon skills.
+Fix: Add robe of power for PM_GIANT to race-based substitution for initial inventory.
+
+Hardfought hotfixes (released May 29, 2023)
+
+Fix: Crash when lit lightsaber auto-returns to Jedi (reported by disperse). Fixes #271.
+Fix: Fix segfault when reading confused ?oEnchantArmor with dragon scales (reported by Noisytoot).
+
 Version 1.1.4 (released May 28, 2023)
 
-Fix: heap-use-after-free when long worms where slimed by a player polyd as green slime mid worm hit loop. Fixes #224.
 Fix: Crash when lit lightsaber auto-returns to Jedi (reported by disperse). Fixes #271.
 Fix: Allow wand of cancellation without charges to be put into BoH, this is already allowed for bag of tricks/rats (reported by mobileuser).
 Reflection spell improvements (EvilHack).

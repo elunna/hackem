@@ -93,6 +93,10 @@
 #define EStone_resistance u.uprops[STONE_RES].extrinsic
 #define Stone_resistance (HStone_resistance || EStone_resistance)
 
+#define HDeath_resistance u.uprops[DEATH_RES].intrinsic
+#define EDeath_resistance u.uprops[DEATH_RES].extrinsic
+#define Death_resistance (HDeath_resistance || EDeath_resistance)
+
 /* Intrinsics only */
 #define HSick_resistance u.uprops[SICK_RES].intrinsic
 #define ESick_resistance u.uprops[SICK_RES].extrinsic
@@ -117,9 +121,6 @@
                      && ublindf->oartifact == ART_MYSTIC_EYES \
                      && !Blind                                \
                      && !Halluc_resistance)
-
-#define SuperStealth ((uright && uright->oartifact == ART_XANATHAR_S_RING_OF_PROOF) \
- || (uleft && uleft->oartifact == ART_XANATHAR_S_RING_OF_PROOF))
 
 /*** Troubles ***/
 /* Pseudo-property */
@@ -166,11 +167,11 @@
 
 /* Hallucination is solely a timeout */
 #define HHallucination u.uprops[HALLUC].intrinsic
+#define EHallucination u.uprops[HALLUC].extrinsic
 #define HHalluc_resistance u.uprops[HALLUC_RES].intrinsic
 #define EHalluc_resistance u.uprops[HALLUC_RES].extrinsic
 #define Halluc_resistance (HHalluc_resistance || EHalluc_resistance)
-#define Hallucination (((HHallucination || DeathVision \
-                         || (uarmh && uarmh->otyp == HELM_OF_MADNESS)) \
+#define Hallucination (((HHallucination || EHallucination || DeathVision) \
                          && !Halluc_resistance) \
                        || u.uroleplay.hallu)
 
@@ -212,6 +213,11 @@
 #define HFood_sense u.uprops[FOOD_SENSE].intrinsic
 #define EFood_sense u.uprops[FOOD_SENSE].extrinsic
 #define Food_sense (HFood_sense || EFood_sense)
+
+/* (intrinsic x-ray vision prop is not currently used) */
+#define HXray_vision u.uprops[XRAY_VISION].intrinsic
+#define EXray_vision u.uprops[XRAY_VISION].extrinsic
+#define Xray_vision (HXray_vision || EXray_vision)
 
 /* Warning for a specific type of monster */
 #define HWarn_of_mon u.uprops[WARN_OF_MON].intrinsic
@@ -452,7 +458,8 @@
 
 #define HWithering u.uprops[WITHERING].intrinsic
 #define EWithering u.uprops[WITHERING].extrinsic
-#define Withering (HWithering || EWithering)
+#define BWithering u.uprops[WITHERING].blocked
+#define Withering ((HWithering || EWithering) && !BWithering)
 
 #define HStable u.uprops[STABLE].intrinsic
 #define EStable u.uprops[STABLE].extrinsic

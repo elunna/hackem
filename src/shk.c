@@ -1196,6 +1196,10 @@ register struct monst *shkp;
     else if (balance < 0)
         money2u(shkp, -balance);
     context.botl = 1;
+    
+    if (!u.uconduct.shk++)
+        livelog_printf(LL_CONDUCT, "participated in the Yendorian economy for the first time");
+    
     if (robbed) {
         robbed -= tmp;
         if (robbed < 0)
@@ -2915,8 +2919,11 @@ register struct monst *shkp;
                 tmp = (obj->otyp % (6 - shkp->m_id % 3));
                 tmp = (tmp + 3) * obj->quan;
             }
-        } else if (tmp > 1L && !(shkp->m_id % 4))
+        } else if (obj->otyp == WAN_NOTHING) {
+            tmp = 100; /* Standard cost */
+        } else if (tmp > 1L && !(shkp->m_id % 4)) {
             multiplier *= 3L, divisor *= 4L;
+        }
     }
 
    
@@ -3041,7 +3048,7 @@ boolean include_contents;
     }
 
     /* onbill() gave no message if unexpected problem occurred */
-    if (!shkp || (unp_obj->unpaid && !bp))
+    if (!tech_inuse(T_TELEKINESIS) && (!shkp || (unp_obj->unpaid && !bp)))
         impossible("unpaid_cost: object wasn't on any bill.");
     return amt;
 }
@@ -4801,7 +4808,10 @@ struct monst *shkp;
         verbalize("Cash on the spot, %s, and you ain't got the dough!", slang);
         return FALSE;
     }
-
+    
+    if (!u.uconduct.shk++)
+        livelog_printf(LL_CONDUCT, "participated in the Yendorian economy for the first time");
+    
     /* Charge the customer */
     charge = check_credit(charge, shkp); /* Deduct the credit first */
 
