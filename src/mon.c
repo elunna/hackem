@@ -6907,8 +6907,6 @@ short raceidx;
         if (mtmp->mnum == PM_HEALER || mtmp->mnum == PM_VALKYRIE
             || mtmp->mnum == PM_YEOMAN)
             rptr->ralign = 0;
-
-        mtmp->data->mlet = S_CENTAUR;
         break;
     case PM_DOPPELGANGER:
         rptr->ralign = 0;
@@ -6922,8 +6920,6 @@ short raceidx;
             rptr->ralign = 0;
         if (mtmp->mnum == PM_KNIGHT)
             rptr->ralign = 3;
-
-        mtmp->data->mlet = S_HUMANOID;
         break;
     case PM_ELF:
         rptr->ralign = rn2(3) ? 3 : 0;
@@ -6931,7 +6927,6 @@ short raceidx;
             rptr->ralign = 0;
         if (mtmp->mnum == PM_KNIGHT || mtmp->mnum == PM_YEOMAN)
             rptr->ralign = 3;
-        mtmp->data->mlet = S_HUMAN;
         break;
     case PM_GIANT:
         /* Giants get a clobber attack */
@@ -6955,8 +6950,6 @@ short raceidx;
             rptr->ralign = rn2(2) ? 0 : 3;
         if (mtmp->mnum == PM_BARBARIAN || mtmp->mnum == PM_WIZARD)
             rptr->ralign = rn2(2) ? 0 : -3;
-
-        mtmp->data->mlet = S_GIANT;
         break;
     case PM_GNOME:
         rptr->ralign = 0;
@@ -6965,8 +6958,6 @@ short raceidx;
         if (mtmp->mnum == PM_RANGER || mtmp->mnum == PM_ROGUE
             || mtmp->mnum == PM_WIZARD || mtmp->mnum == PM_PIRATE)
             rptr->ralign = rn2(3) ? 0 : -3;
-
-        mtmp->data->mlet = S_GNOME;
         break;
     case PM_HOBBIT:
         rptr->ralign = 0;
@@ -6975,8 +6966,6 @@ short raceidx;
         if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_PRIEST
             || mtmp->mnum == PM_PRIESTESS || mtmp->mnum == PM_YEOMAN)
             rptr->ralign = rn2(3) ? 0 : 3;
-
-        mtmp->data->mlet = S_HUMANOID;
         break;
     case PM_HUMAN:
         if (mtmp->mnum == PM_CONVICT || mtmp->mnum == PM_NECROMANCER)
@@ -6997,7 +6986,6 @@ short raceidx;
             rptr->ralign = rn2(2) ? 3 : rn2(2) ? 0 : -3;
         if (mtmp->mnum == PM_JEDI)
             rptr->ralign = 3;
-        mtmp->data->mlet = S_HUMAN;
         break;
     case PM_ILLITHID:
         /* Illithids get a tentacle attack */
@@ -7007,21 +6995,15 @@ short raceidx;
         rptr->mattk[2].damd = 1;
 
         rptr->ralign = -3;
-
-        mtmp->data->mlet = S_HUMANOID;
         break;
     case PM_ORC:
         rptr->ralign = -3;
-
-        mtmp->data->mlet = S_ORC;
         break;
     case PM_TORTLE:
         rptr->ralign = 0;
         if (mtmp->mnum == PM_ARCHEOLOGIST || mtmp->mnum == PM_MONK
             || mtmp->mnum == PM_PRIEST || mtmp->mnum == PM_PRIESTESS)
             rptr->ralign = rn2(4) ? 3 : 0;
-
-        mtmp->data->mlet = S_LIZARD;
         break;
     case PM_VAMPIRIC:
         /* Vampires get a bite attack */
@@ -7031,8 +7013,6 @@ short raceidx;
         rptr->mattk[2].damd = 6;
 
         rptr->ralign = -3;
-
-        mtmp->data->mlet = S_VAMPIRE;
         break;
     }
 
