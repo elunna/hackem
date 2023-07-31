@@ -594,6 +594,8 @@ CLOAK("green coat", None,
       1, 0,          0,  0, 0, 45, 50,  9, 2,  LEATHER, CLR_BRIGHT_GREEN),
 CLOAK("plain cloak", None,
       1, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BROWN),
+CLOAK("trench coat", "black cloak",
+      0, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BLACK),
 /* with shuffled appearances... */
 CLOAK("cloak of protection", "tattered cape",                  /* EvilHack */
       0, 1, PROTECTION,  9, 0, 10, 50,  7, 3,  CLOTH, HI_CLOTH),
@@ -610,8 +612,6 @@ CLOAK("mana cloak", "funeral shroud",
       0, 1, ENERGY_REGENERATION, 4, 0, 10, 50,  9, 1, CLOTH, CLR_BLACK),
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
-CLOAK("trench coat", "black cloak",
-      0, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BLACK),
 
 /* shields */
 SHIELD("small shield", None,
