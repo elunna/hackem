@@ -14,6 +14,9 @@
 
 ==========================
 
+Version 1.2.1 (unreleased)
+Fix: heap-buffer-overflow when "play time" is used as realtime option. Fixes #408.
+
 Hardfought hotfixes (released July 30, 2023)
 
 Revert mplayer symbols reflect their actual race.

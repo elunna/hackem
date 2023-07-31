@@ -478,7 +478,10 @@ botl_realtime(void)
     
     if (iflags.show_realtime == 'p') {
         /* play time */
-        currenttime = urealtime.realtime + (getnow() - urealtime.start_timing);
+        if (moves == 1)
+            currenttime = 0;
+        else
+            currenttime = urealtime.realtime + (getnow() - urealtime.start_timing);
     } else if (iflags.show_realtime == 'w') {
         /* wallclock time */
         currenttime = getnow() - ubirthday;
