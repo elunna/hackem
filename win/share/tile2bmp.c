@@ -45,7 +45,8 @@
 
 extern char *FDECL(tilename, (int, int));
 
-#define MAGICTILENO (340 + 440 + 231 + 340)
+/* monsters.txt + objects.txt + other.txt + monsters.txt */
+#define MAGICTILENO (835 + 691 + 259 + 835)
 
 #if BITCOUNT == 4
 #define MAX_X 320 /* 2 per byte, 4 bits per pixel */
