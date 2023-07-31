@@ -2654,12 +2654,6 @@ const struct def_skill *class_skill;
     if (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         P_SKILL(P_RIDING) = P_NONE;
 
-    /* Und-Vam gets basic and max of expert in longswords because Blade */
-    if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_VAMPIRIC)) {
-        P_SKILL(P_LONG_SWORD) = P_BASIC;
-        P_MAX_SKILL(P_LONG_SWORD) = P_EXPERT;
-    }
-
     /* Roles that can reach expert or master in shield skill
        already have a basic understanding of how to use them */
     if (Role_if(PM_KNIGHT) || Role_if(PM_VALKYRIE))

@@ -690,7 +690,7 @@ const struct Role roles[] = {
     PM_HUMAN_MUMMY, PM_VAMPIRE, S_MUMMY, S_VAMPIRE,
     ART_STAKE_OF_VAN_HELSING,
     MH_HUMAN | MH_CENTAUR | MH_DWARF | MH_ELF |  MH_GNOME | MH_GIANT
-          | MH_HOBBIT | MH_SHIFTER | MH_TORTLE | MH_VAMPIRE,
+          | MH_HOBBIT | MH_SHIFTER | MH_TORTLE,
     ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
     /* Str Int Wis Dex Con Cha */ /* Modified from Knight */
     {  13,  7, 14,  8, 10, 10 },

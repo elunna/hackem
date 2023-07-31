@@ -258,14 +258,11 @@ struct trobj Tourist[] = {
     { 0, 0, 0, 0, 0 }
 };
 struct trobj UndeadSlayer[] = {
-#define U_MAJOR 0       /* wooden stake or platinum longsword for vampires [Blade] */
 #define U_MINOR 1       /* silver spear or whip [Castlevania] 25/25% */
                         /* crossbow 50% [Buffy] */
 #define U_RANGE 2       /* silver daggers or crossbow bolts */
 #define U_MISC  3       /* +1 boots [Buffy can kick] or helmet */
 #define U_ARMOR 4       /* Tshirt/leather +1 or chain mail */
-#define U_WOLFSBANE 6   /* sprig of wolfsbane that gets replaced with medkit or lenses for vampires*/
-#define U_HOLY_WAFER 7  /* holy wafer that gets replaced with gloves for vampires */
 	{ STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
         { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
         { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
@@ -354,8 +351,6 @@ struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
-struct trobj VampireBloodPotions[] = { { POT_VAMPIRE_BLOOD, 0, POTION_CLASS, 2, 0 },
-                           { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
 struct trobj GreenSaber[] = { { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
@@ -440,8 +435,6 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
-    /* Blade style Undead Slayer */
-    { PM_VAMPIRIC, CHAIN_MAIL, TRENCH_COAT }, /* Undead Slayer */
     /* Centaurs */
     { PM_CENTAUR, HIGH_BOOTS, HELMET },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
@@ -1413,31 +1406,7 @@ u_init()
             /* Silver spear and daggers */
             break;
         }
-
-        /* Vampires get a longsword and a trench coat just like Blade */
-        if (Race_if(PM_VAMPIRIC)) {
-            UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
-            UndeadSlayer[U_ARMOR].trotyp = TRENCH_COAT;
-            UndeadSlayer[U_ARMOR].trspe = 2;
-
-            /* Replace the holy wafer with gloves for vampires */
-            UndeadSlayer[U_HOLY_WAFER].trclass = ARMOR_CLASS;
-            UndeadSlayer[U_HOLY_WAFER].trotyp = GLOVES;
-            UndeadSlayer[U_HOLY_WAFER].trquan = 1;
-            UndeadSlayer[U_HOLY_WAFER].trspe = 0;
-            UndeadSlayer[U_HOLY_WAFER].trbless = UNDEF_BLESS;
-
-            /* Init first so weapon gets index a */
-            ini_inv(UndeadSlayer);
-
-            /* Blade wears glasses, lenses are "close enough" */
-            ini_inv(Lenses);
-            ini_inv(VampireBloodPotions);
-        }
-        else {
-            ini_inv(UndeadSlayer);
-        }
-
+        ini_inv(UndeadSlayer);
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
         skill_init(Skill_U);
@@ -2180,7 +2149,6 @@ register struct trobj *origtrop;
                                 OBJ_NAME(objects[otyp]));
                     otyp = obj->otyp = inv_subs[i].subs_otyp;
                     obj->oclass = objects[otyp].oc_class;
-
                     /* This might have created a bad material combination, such
                      * as a dagger (which was forced to be iron earlier) turning
                      * into an elven dagger, but now remaining iron. Fix this up
@@ -2233,15 +2201,6 @@ register struct trobj *origtrop;
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
             if (Role_if(PM_UNDEAD_SLAYER)) { 
-                /* no food for vampires except garlic */
-                if (urace.malenum == PM_VAMPIRIC
-                        && obj->oclass == FOOD_CLASS
-                        && obj->otyp != CLOVE_OF_GARLIC) {
-                    dealloc_obj(obj);
-                    origtrop++;
-                    memcpy(&temptrop, origtrop, sizeof(struct trobj));
-                    continue;
-                }
                 if (is_spear(obj)
                       || obj->otyp == DAGGER 
                       || obj->otyp == ELVEN_DAGGER
@@ -2252,9 +2211,6 @@ register struct trobj *origtrop;
                 
                 if (obj->otyp == JACKET) 
                     set_material(obj, LEATHER);
-
-                if (Race_if(PM_VAMPIRIC) && obj->otyp && obj->otyp == LONG_SWORD)
-                    set_material(obj, METAL);
             }
             if (obj->otyp == STRIPED_SHIRT)
                 obj->cursed = TRUE;

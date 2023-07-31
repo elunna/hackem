@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert Und-Vam
 Put trench coat with non-randomized cloaks.
 Fix: Update MAGICTILENO.
 Fix: heap-buffer-overflow when "play time" is used as realtime option. Fixes #408.
