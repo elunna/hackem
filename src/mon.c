@@ -6931,7 +6931,6 @@ short raceidx;
             rptr->ralign = 0;
         if (mtmp->mnum == PM_KNIGHT || mtmp->mnum == PM_YEOMAN)
             rptr->ralign = 3;
-        mtmp->data->mlet = S_HUMAN;
         break;
     case PM_GIANT:
         /* Giants get a clobber attack */
