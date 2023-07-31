@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: heap-use-after-free in doforging. Fixes #416.
 Revert Und-Vam
 Put trench coat with non-randomized cloaks.
 Fix: Update MAGICTILENO.
