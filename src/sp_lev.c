@@ -3456,6 +3456,8 @@ struct sp_coder *coder;
         level.flags.shortsighted = 1;
     if (lflags & ARBOREAL)
         level.flags.arboreal = 1;
+    if (lflags & SPOOKY)
+        level.flags.spooky = 1;
     if (lflags & MAZELEVEL)
         level.flags.is_maze_lev = 1;
     if (lflags & PREMAPPED)
