@@ -524,11 +524,8 @@ struct obj *corpse;
         remove_fearedmon();
     /* in case these characters are not in their home bases */
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-        if (DEADMONSTER(mtmp)) {
-            if (ukiller == mtmp)
-                ukiller = (struct monst *) 0;
+        if (DEADMONSTER(mtmp))
             continue;
-        }
         mptr = mtmp->data;
         if (mtmp->iswiz || mtmp->isvecna || mtmp->isgrund
             || (mptr == &mons[PM_MEDUSA] && !Is_medusa_level(&u.uz))
@@ -594,7 +591,7 @@ struct obj *corpse;
         /* trick makemon() into allowing monster creation
          * on your location
          */
-        if (ukiller) {
+        if (ukiller == mtmp) {
             /* If you don't rise from your grave (and are thus carrying your stuff),
              * the critter that killed you gets some special handling here.
              *

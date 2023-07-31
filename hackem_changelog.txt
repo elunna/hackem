@@ -23,7 +23,6 @@ Fix: heap-buffer-overflow when "play time" is used as realtime option. Fixes #40
 
 Hardfought hotfixes (released July 30, 2023)
 
-Fix: update to 'ukiller can't be null' fix. (EvilHack)
 Revert mplayer symbols reflect their actual race.
 Revert Fix: Human NPCs didn't have the correct symbol. Fixes #396.
 Revert Fix: Elven race wasn't getting the correct symbol.
