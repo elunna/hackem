@@ -3906,12 +3906,12 @@ struct obj **sobjp;
             otmp2->otyp = WAN_WONDER;
             otmp2->spe = rn1(10, 15);
         } else if (otmp2->otyp == MAGIC_LAMP) {
-            otmp2->otyp = MAGIC_CANDLE;
-            otmp2->material = WAX;
+            otmp2->otyp = OIL_LAMP;
         } else if (otmp2->otyp == MAGIC_MARKER) {
             otmp2->otyp = ATHAME;
             otmp2->material = METAL;
-            if (sblessed) otmp2->spe = rnd(otmp->spe / 10);
+            if (sblessed)
+                otmp2->spe = rnd(otmp->spe / 10);
         }
 
         otmp2->quan = 1;
