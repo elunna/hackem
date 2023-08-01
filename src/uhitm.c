@@ -1133,7 +1133,6 @@ int dieroll;
     boolean ispotion = FALSE;
     boolean lightobj = FALSE;
     boolean thievery = FALSE;
-    boolean iskas = FALSE;
     boolean issecespita = FALSE;
     boolean isvenom  = FALSE;
     boolean valid_weapon_attack = FALSE;
@@ -2064,7 +2063,7 @@ int dieroll;
     }
 
     if (!ispotion && obj /* potion obj will have been freed by here */
-        && (ispoisoned || iskas || isvenom)) {
+        && (ispoisoned || isvenom)) {
         int nopoison = (10 - (obj->owt / 10));
 
         if (nopoison < 2)
@@ -2076,9 +2075,7 @@ int dieroll;
             You_feel("like an evil coward for using a poisoned weapon.");
             adjalign(Role_if(PM_KNIGHT) ? -3 : -1);
         }
-        if (obj && !rn2(nopoison)
-            && !iskas && !isvenom
-            && !is_bullet(obj)) {
+        if (obj && !rn2(nopoison) && !isvenom && !is_bullet(obj)) {
             /* remove poison now in case obj ends up in a bones file */
             obj->opoisoned = FALSE;
             /* defer "obj is no longer poisoned" until after hit message */
