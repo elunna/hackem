@@ -1045,9 +1045,21 @@ doengrave()
         break;
 
     case WEAPON_CLASS:
-        if (otmp->oartifact == ART_FIRE_BRAND)
+        if (otmp->otyp == SHARPENED_PENCIL) {
+            if (otmp->spe > -1) {
+                if (!otmp->blessed && (rnl(10) > 5)) {
+                    Your("pencil lead breaks!");
+                    otmp->spe = -1;
+                    return 0;
+                } else
+                    type = ENGRAVE;
+            } else {
+                Your("pencil lead is broken!");
+                return 0;
+            }
+        } else if (otmp->oartifact == ART_FIRE_BRAND)
             type = BURN;
-        if (is_lightsaber(otmp)) {
+        else if (is_lightsaber(otmp)) {
             if (otmp->lamplit) 
                 type = BURN;
             else
@@ -1327,7 +1339,7 @@ doengrave()
     case ENGRAVE:
         multi = -(len / 10);
         if (otmp->oclass == WEAPON_CLASS
-            && (otmp->otyp != ATHAME || otmp->cursed)) {
+            && ((otmp->otyp != ATHAME && otmp->otyp != SHARPENED_PENCIL) || otmp->cursed)) {
             multi = -len;
             maxelen = ((otmp->spe + 3) * 2) + 1;
             /* -2 => 3, -1 => 5, 0 => 7, +1 => 9, +2 => 11

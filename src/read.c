@@ -3908,8 +3908,9 @@ struct obj **sobjp;
         } else if (otmp2->otyp == MAGIC_LAMP) {
             otmp2->otyp = OIL_LAMP;
         } else if (otmp2->otyp == MAGIC_MARKER) {
-            otmp2->otyp = ATHAME;
-            otmp2->material = METAL;
+            otmp2->otyp = SHARPENED_PENCIL;
+            otmp2->material = WOOD;
+            otmp2->spe = 0;
             if (sblessed)
                 otmp2->spe = rnd(otmp->spe / 10);
         }

@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Ported the sharpened pencil from SlashTHEM. Cloned magic markers become pencils.
 Recalculate item weight after cloning process.
 Cloning a magic lamp just creates an oil lamp.
 Add reflection to Nighthorn when wielded.
