@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add reflection to Nighthorn when wielded.
 Remove unused iskas bool.
 Fix: heap-use-after-free in doforging. Fixes #416.
 Revert Und-Vam
