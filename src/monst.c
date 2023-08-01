@@ -6853,9 +6853,9 @@ struct permonst _mons2[] = {
      */
     MON("Death", S_DEMON,
         LVL(40, 12, -5, 100, 0), (G_UNIQ | G_NOGEN),
-        A(ATTK(AT_TUCH, AD_DETH, 8, 8), 
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 6),
           ATTK(AT_TUCH, AD_DETH, 8, 8), 
-          ATTK(AT_WEAP, AD_PHYS, 1, 6),
+          ATTK(AT_TUCH, AD_DETH, 8, 8),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 1, MS_RIDER, MZ_HUMAN),
         MR_FIRE | MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON
