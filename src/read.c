@@ -3915,6 +3915,10 @@ struct obj **sobjp;
         }
 
         otmp2->quan = 1;
+        
+        /* Weight could change due to material/type */
+        otmp2->owt = weight(otmp2); 
+        
         obj_extract_self(otmp2);
         (void) hold_another_object(otmp2, "Whoops! %s out of your grasp.",
                                 The(aobjnam(otmp2, "tumbles")),
