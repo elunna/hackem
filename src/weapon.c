@@ -2734,14 +2734,13 @@ practice_weapon()
         set_occupation(practice, "practicing", 0);
     } else if (P_SKILL(weapon_type(uwep)) >= P_MAX_SKILL(weapon_type(uwep))) {
         You("cannot increase your skill in %s.", P_NAME(weapon_type(uwep)));
-        return 0;
+        return FALSE;
     }
     else {
         You("cannot learn much about %s right now.", P_NAME(weapon_type(uwep)));
-        return 0;
+        return FALSE;
     }
-
-    return 1;
+    return TRUE;
 }
 
 /*WAC  weapon practice code*/

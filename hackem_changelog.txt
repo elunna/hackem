@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+practice_weapon bools.
 Trim wiki info added to database.<
 Ported the sharpened pencil from SlashTHEM. Cloned magic markers become pencils.
 Recalculate item weight after cloning process.
