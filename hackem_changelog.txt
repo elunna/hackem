@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+When boomerang is upgraded to chakram, don't change material unless necessary. 
 More refactoring of blitz techs.
 Rename tech_callundead to tech_whistledead.
 Move Death's weapon attack to be first in the attack chain.

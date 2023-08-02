@@ -3997,10 +3997,6 @@ register struct obj *obj;
         /*if (obj->spe > chg) obj->spe = chg;*/
         obj->known = 0;
         break;
-    case CHAKRAM:
-        /* Maybe change the material? */
-        warp_material(obj, TRUE);
-        break;
     case SADDLE:
         obj->corpsenm = -1;
         break;
