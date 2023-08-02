@@ -4864,158 +4864,111 @@ artifact_info(int anum)
     /* Extra hard-coded info (not possible to automate into the lookup) */ 
     switch (anum) {
     case ART_BALMUNG:
-        art_info.xattack = "Shreds the armor of opponents.";
+        art_info.xattack = "Shreds armor";
         /*Balmung always resists destruction */
         break;
     case ART_DRAMBORLEG:
-        art_info.xattack = "Can destroy any balrog in one hit.";
+        art_info.xattack = "instakills balrog";
         break;
     case ART_DEMONBANE:
-        art_info.wielded[16] = "Angers demons princes and lords.";
-        art_info.wielded[17] = "Blocks demon gating while wielded. ";
+        art_info.wielded[16] = "angers demons princes and lords";
+        art_info.wielded[17] = "blocks demon gating";
         break;
     case ART_EXCALIBUR:
-        art_info.wielded[16] = "Angers demons princes and lords.";
-        break;
-    case ART_HAND_GRENADE_OF_ANTIOCH: 
-        art_info.xattack = "Explodes dealing 6d50 magical damage.";
-        /* Once applied, the timer is always 3 turns - unless it hits a 
-monster then the grenade will instantly explode.  */
+        art_info.wielded[16] = "angers demons princes and lords";
         break;
     case ART_MASTER_SWORD: 
-        art_info.xattack = "10% of bonus magic attack on each successful hit.\n";
-        art_info.xinfo = "If at full health, each hit has a 75% chance of shooting a magic missile for 2d6 damage.";
+        art_info.xattack = "shoots magic missiles";
         break;
     case ART_BRADAMANTE_S_FURY: 
-        art_info.xattack = "Stuns monsters.";
+        art_info.xattack = "stuns monsters";
         break;
     case ART_CIRCE_S_WITCHSTAFF: 
-        art_info.xattack = "1/20 chance of turning target into a pig.";
+        art_info.xattack = "transforms enemies into pigs";
         break;
     case ART_CLEAVER: 
-        art_info.xattack = "Hits in a wide slashing arc; covers the 2 spots 45 degrees from the direction you attack. ";
-        break;
-    case ART_GUNGNIR: 
-        art_info.xinfo = "Can be created via a successful prayer by a lawful or neutral \n"
-                         "pious Valkyrie, while wielding a non-artifact spear-like (spear \n"
-                         "skill) weapon that is at least +5. Beatitude and erosion do not \n"
-                         "matter. The spear will be turned into the atgeir Gungnir with no \n"
-                         "other changes made.";
+        art_info.xattack = "wide slashing arc";
         break;
     case ART_IMHULLU: 
-        art_info.xattack = "1/3 of the time Imhullu releases a tornado which\n"
-                         "does 3d4 bonus damage (Does not affect big monsters.)";
+        art_info.xattack = "shoots wind rays";
         break;
     case ART_MAGICBANE: 
-        art_info.wielded[16] = "Absorbs and negate 95% of of curses directed at its wielder.";
+        art_info.wielded[16] = "negates curses";
         break;
     case ART_MIRRORBRIGHT: 
-        art_info.wielded[16] = "Does not impede spellcasting while worn.";
-        break;
-    case ART_MJOLLNIR: 
-        art_info.xinfo = "Mjollnir can be thrown when wielded if hero has 25 Strength\n"
-                         "(usually via gauntlets of power but possible with rings of\n"
-                         "gain strength).  If the thrower is a Valkyrie, Mjollnir will\n"
-                         "usually (99%) return and then usually (separate 99%) be caught\n"
-                         "and automatically be re-wielded.  When returning Mjollnir is\n"
-                         "not caught, there is a 50:50 chance of hitting hero for damage\n"
-                         "and its lightning shock might destroy some wands and/or rings.";
+        art_info.wielded[16] = "does not impede spellcasting";
         break;
     case ART_DOOMBLADE: 
-        art_info.xattack = "On each hit there is a 25% chance Doomblade deals an extra (1d4 * 5) damage.";
+        art_info.xattack = "bonus damage";
         break;
     case ART_ELFRIST:
-        art_info.xattack = "10% chance of instakill vs elves";
+        art_info.xattack = "instakills elves";
         break;
     case ART_GRIMTOOTH: 
-        art_info.xattack = "10% chance to instakill any elf it hits. \n"
-                         "Has a 1⁄6 chance to inflict sickness on any target.";
+        art_info.xattack = "sickness attack";
         break;
     case ART_LUCKLESS_FOLLY: 
-        art_info.xinfo = "Acts as a cursed luckstone regardless of its BCU status. It gets \n"
-                         "bonuses to-hit and damage based on the opposite of your luck value. \n"
-                         "Obtaining luck of -13 will give this weapon an automatic +26\n"
-                         "to-hit and damage bonus.";
+        art_info.xinfo = "cursed luck bonuses";
         break;
     case ART_PLAGUE: 
-        art_info.xattack = "All arrows show from Plague are auto-poisoned.";
+        art_info.xattack = "auto-poisons arrows";
         break;
     case ART_ORCRIST:
-        art_info.xattack = "10% chance of instakill vs orcs";
+        art_info.xattack = "instakills orcs";
         break;
     case ART_SECESPITA: 
-        art_info.wielded[16] = "Increases sacrifice value by ~50%.";
+        art_info.wielded[16] = "sacrifice bonus";
         /* The energy drain only works if the artifact kills its victim. */
         break;
     case ART_SERPENT_S_TONGUE: 
-        art_info.xattack = "Vs non-poison-resistant enemies: "
-                         "40% chance of 2 + d6 damage;"
-                         "30% chance of 4 + 2d6 damage;"
-                         "20% chance of 6 + 3d6 damage;"
-                         "10% chance of poison instadeath";
+        art_info.xattack = "always poisoned";
         break;
     case ART_STING:
-        art_info.xattack = "10% chance of instakill vs orcs";
-        break;
-    case ART_ANGELSLAYER:
-        art_info.xattack = "Fire damage applies to all monsters.";
+        art_info.xattack = "instakills orcs";
         break;
     case ART_CHAINS_OF_MALCANTHET: 
-        art_info.xattack = "Has a 1/5 chance of paralyzing a monster for 1-4 turns on hit.";
-        art_info.wielded[16] = "Boosts charisma to 25 when wielded.";
+        art_info.xattack = "paralyzes monster";
+        art_info.wielded[16] = "boosts charisma";
         break;
     case ART_DROWSING_ROD: 
-        art_info.xattack = "On hit, there is a 19/20 chance of spraying"
-                         "a sleep inducing mist at the enemy.";
+        art_info.xattack = "sleep attack";
         break;
     case ART_GLEIPNIR: 
-        art_info.xinfo = "Based on the bindings used to trap Fenrir. This hook can \n"
-                         "grapple things regardless of size, and has a massive range \n"
-                         "(3x a regular grappling hook.)";
+        art_info.xinfo = "extended and stronger grapple";
         break;
     case ART_MYSTIC_EYES: 
-        art_info.wielded[16] = "While worn, confers Death Vision - which makes your attacks (both";
-        art_info.wielded[17] = "physical and magical) deal double damage, but also makes you hallucinate.";
+        art_info.wielded[16] = "confers Death Vision";
+        art_info.wielded[17] = "confers hallucination";
         break;
     case ART_MORTALITY_DIAL: 
-        art_info.wielded[16] = "Prevents monsters from regenerating.";
-        art_info.wielded[17] = "Prevents trolls and zombies from reviving.";
+        art_info.wielded[16] = "prevents monster regeneration";
+        art_info.wielded[17] = "prevents corpse revival";
         break;
     case ART_OGRESMASHER: 
-        art_info.wielded[16] = "Wielding Ogresmasher grants 25 constitution";
+        art_info.wielded[16] = "boosts constitution";
         break;
     case ART_ORIGIN: 
-        art_info.wielded[16] = "Greatly increases spellcasting ability (as a robe)";
+        art_info.wielded[16] = "boosts spellcasting";
         break;
     case ART_SUNSPOT: 
-        art_info.xattack = "Has a 1/3 chance of blinding monsters it hits for 17 turns.";
+        art_info.xattack = "blinds monsters";
         break;
     case ART_THUNDERSTRUCK: 
-        art_info.xattack = "25% chance of shooting out a sonic beam on each hit.";
+        art_info.xattack = "shoots sonic beams";
         break;
     case ART_TROLLSBANE: 
-        art_info.wielded[16] = "Prevents troll corpses from reviving.";
+        art_info.wielded[16] = "Prevents troll revival";
         break;
     case ART_CANDLE_OF_ETERNAL_FLAME: 
-        art_info.carried[16] = "Deals 2d10 passive fire damage to attackers";
+        art_info.carried[16] = "passive fire damage";
         break;
     case ART_MITRE_OF_HOLINESS:
         art_info.wielded[16] = "1/2 physical damage from undead and demons (Priests only)";
-        art_info.wielded[17] = "allows #pray and turn tech to function in Gehennom when worn.";
-        art_info.xinfo = "Doesn't block illithids from casting psionic wave when worn.";
-        break;
-    case ART_MASTER_KEY_OF_THIEVERY: 
-        art_info.xinfo = "additional carry property if the Key is not cursed\n"
-                         "(for rogues) or blessed (for non-rogues):  #untrap of doors and\n"
-                         "chests will always find any traps; disarming those will always \n"
-                         "succeed.";
-        break;
-    case ART_IRON_SPOON_OF_LIBERATION: 
-        art_info.xattack = "+1d5 to-hit bonus and double damage vs all monsters. ";
+        art_info.wielded[17] = "allows #pray and turn undead in Gehennom";
         break;
     case ART_TREASURY_OF_PROTEUS:
-        art_info.xinfo = "Occasionally polymorphs items that have been placed inside.";
-        art_info.carried[17] = "Protects items in your inventory from becoming cursed.";
+        art_info.xinfo = "polymorphs contents";
+        art_info.carried[17] = "negates curses";
         break;
     default:
         art_info.xinfo = "";
