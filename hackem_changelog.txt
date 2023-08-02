@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Rename sharpened pencil to just pencil - it's description depends on it's enchantment.
 When boomerang is upgraded to chakram, don't change material unless necessary. 
 More refactoring of blitz techs.
 Rename tech_callundead to tech_whistledead.

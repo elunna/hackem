@@ -1523,6 +1523,13 @@ unsigned doname_flags;
         if (is_bomb(obj))
             if (obj->oarmed) 
                 Strcat(bp, " (armed)");
+        
+        if (obj->otyp == PENCIL) {
+            if (obj->spe > 0)
+                Strcat(prefix, "sharpened ");
+            else if (obj->spe < 0)
+                Strcat(prefix, "stubby ");
+        }
         break;
     case TOOL_CLASS:
         add_erosion_words(obj, prefix);

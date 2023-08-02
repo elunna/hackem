@@ -3658,7 +3658,7 @@ struct obj* obj;
         case FLAMING_LASH:
         case WORM_TOOTH:
         case CRYSKNIFE:
-        case SHARPENED_PENCIL:
+        case PENCIL:
         case STAFF_OF_DIVINATION:
         case STAFF_OF_HEALING:
         case STAFF_OF_NECROMANCY:

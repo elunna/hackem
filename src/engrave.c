@@ -1045,7 +1045,7 @@ doengrave()
         break;
 
     case WEAPON_CLASS:
-        if (otmp->otyp == SHARPENED_PENCIL) {
+        if (otmp->otyp == PENCIL) {
             if (otmp->spe > -1) {
                 if (!otmp->blessed && (rnl(10) > 5)) {
                     Your("pencil lead breaks!");
@@ -1339,7 +1339,7 @@ doengrave()
     case ENGRAVE:
         multi = -(len / 10);
         if (otmp->oclass == WEAPON_CLASS
-            && ((otmp->otyp != ATHAME && otmp->otyp != SHARPENED_PENCIL) || otmp->cursed)) {
+            && ((otmp->otyp != ATHAME && otmp->otyp != PENCIL) || otmp->cursed)) {
             multi = -len;
             maxelen = ((otmp->spe + 3) * 2) + 1;
             /* -2 => 3, -1 => 5, 0 => 7, +1 => 9, +2 => 11

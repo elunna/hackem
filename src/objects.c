@@ -183,7 +183,7 @@ WEAPON("stake", None,                               /* Slash'EM */
        1, 0, 0, 0,  5,  20,  20,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
 WEAPON("great dagger", None,                               /* Slash'EM */
        1, 0, 0, 0,  0,  20,  30,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
-WEAPON("sharpened pencil", None,
+WEAPON("pencil", None,
        1, 1, 0, 0,  3,   2,   4,  2,  2, 1, P,   P_DAGGER, WOOD, CLR_YELLOW),
 WEAPON("scalpel", None,
        1, 1, 0, 0,  0,   5,   6,  3,  3, 2, S,   P_KNIFE, METAL, HI_METAL),

@@ -3908,7 +3908,7 @@ struct obj **sobjp;
         } else if (otmp2->otyp == MAGIC_LAMP) {
             otmp2->otyp = OIL_LAMP;
         } else if (otmp2->otyp == MAGIC_MARKER) {
-            otmp2->otyp = SHARPENED_PENCIL;
+            otmp2->otyp = PENCIL;
             otmp2->material = WOOD;
             otmp2->spe = 0;
             if (sblessed)
