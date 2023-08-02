@@ -46,7 +46,6 @@ static int NDECL(tech_reinforce);
 static int NDECL(tech_flurry);
 static int NDECL(tech_appraisal);
 static int NDECL(tech_practice);
-static int NDECL(tech_efist);
 static int NDECL(tech_primalroar);
 static int NDECL(tech_liquidleap);
 static int NDECL(tech_raisezombies);
@@ -924,289 +923,292 @@ int tech_no;
 
     /* switch to the tech and do stuff */
     switch (techid(tech_no)) {
-        case T_RESEARCH:
-            res = tech_research();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_EVISCERATE:
-            res = tech_eviscerate();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_BERSERK:
-            res = tech_berserk();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_REINFORCE:
-            res = tech_reinforce();
-            if (res)
-                t_timeout = rn1(500, 500);
-           break;
-        case T_FLURRY:
-            res = tech_flurry();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_APPRAISAL:
-            res = tech_appraisal();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_PRACTICE:
-            res = tech_practice();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_SURGERY:
-            res = tech_surgery();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_HEAL_HANDS:
-            res = tech_healhands();
-            if (res)
-                t_timeout = rn1(500, 500);;
-            break;
-        case T_KIII:
-            res = tech_kiii();
-            if (res)    
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_CALM_STEED:
-            res = tech_calmsteed();
-            if (res)
-                t_timeout = 250;
-            break;
-        case T_TURN_UNDEAD:
-            res = turn_undead();
-            break;
-        case T_VANISH:
-            res = tech_vanish();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_CRIT_STRIKE:
-            res = tech_critstrike();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_CUTTHROAT:
-            res = tech_cutthroat();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_BLESSING:
-            res = tech_blessing();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_CURSE:
-            res = tech_curse();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_E_FIST: 
-            res = tech_efist();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_PRIMAL_ROAR:	    	
-            res = tech_primalroar();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_LIQUID_LEAP: {
-            res = tech_liquidleap();
-            if (res)
-                t_timeout = rn1(250, 250);
-            break;
-        }
-        case T_RAISE_ZOMBIES: {
-            res = tech_raisezombies();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        }
-        case T_WHISTLE_UNDEAD: {
-            res = tech_whistledead();
-            if (res)
-                t_timeout = rn1(100, 100);
-            break;
-        }
-        case T_REVIVE: 
-            res = tech_revive();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_TINKER:
-            res = tech_tinker();
-            /* No timeout */
-            break;
-        case T_RAGE:     	
-            res = tech_rage();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;	    
-        case T_BLINK:
-            res = tech_blink();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_CHI_STRIKE:
-            res = blitz_chi_strike();
-            if (res) 
-                t_timeout = rn1(500, 500);
-            break;
-        case T_DRAW_ENERGY:
-            res = tech_drawenergy();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_CHI_HEALING:
-            res = tech_chiheal();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_PICKPOCKET:
-            res = tech_pickpocket();
-            /* No timeout */
-            break;
-        case T_DISARM:
-            res = tech_disarm(); /* No timeout */
-            break;
-        case T_DAZZLE:
-            res = tech_dazzle();
-            if (res)
-                t_timeout = rn1(50, 25);
-            break;
-        case T_BLITZ:
-            res = doblitz();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;
-        case T_PUMMEL:
-            /* Called outside of blitz_pummel to work with doblitz */
-            if (!getdir((char *)0)) 
-                return 0;
-            res = blitz_pummel();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_G_SLAM:
-            /* Called outside of blitz_pummel to work with doblitz */
-            if (!getdir((char *)0))
-                return 0;
-            res = blitz_g_slam();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_UPPERCUT:
-            /* Called outside of blitz_pummel to work with doblitz */
-            if (!getdir((char *)0))
-                return 0;
-            res = blitz_uppercut();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_DASH:
-            /* Called outside of blitz_pummel to work with doblitz */
-            if (!getdir((char *)0))
-                return 0;
-            res = blitz_dash();
-            if (res)
-                t_timeout = rn1(50, 25);
-            break;
-        case T_POWER_SURGE:
-            res = blitz_power_surge();
-            if (res)
-                t_timeout = rn1(1000, 500);
-            break;            	
-        case T_SPIRIT_BOMB:
-            /* Called outside of blitz_pummel to work with doblitz */
-            if (!getdir(NULL))
-                return 0;
-            res = blitz_spirit_bomb();
-            if (res)
-                t_timeout = rn1(250, 250);
-            break;
-        case T_SPIRIT_TEMPEST:
-            res = tech_spirittempest();
-            if (res)
-                t_timeout = rn1(250, 250);
-            break;
-        case T_DRAW_BLOOD:
-            res = tech_drawblood();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_JEDI_JUMP:
-            res = tech_jedijump();
-            if (res)
-                t_timeout = rn1(50, 25);
-            break;
-        case T_BOOZE:
-             res = tech_booze();
-             if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_SOULEATER:
-            res = tech_souleater();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_SHIELD_BLOCK:
-            res = tech_shieldblock();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_TELEKINESIS: {
-            /* Set t_inuse=1 temporarily so the use of telekinesis can be seen in shk.c */
-            tech_list[tech_no].t_inuse = 1;
-            res = tech_telekinesis();
-            tech_list[tech_no].t_inuse = 0;
+        /* --- BLITZ TECHS --- */
 
-            if (res)
-                t_timeout = 250;
-            break;
-        }
-        case T_FORCE_PUSH: {
-            res = tech_forcepush();
-            if (res)
-                t_timeout = rn1(250, 250);
-            break;
-        }
-        case T_CHARGE_SABER:
-            res = tech_chargesaber();
-            if (res)
-                t_timeout = rn1(500, 500);
-            break;
-        case T_TUMBLE:
-            res = tech_tumble();
-            if (res)
-                t_timeout = rn1(10, 5);
-            break;
-        case T_SUNDER:
-            res = tech_sunder();
-            if (res)
-                t_timeout = rn1(10, 5);
-            break;
-        case T_BLOOD_MAGIC:
-            res = tech_bloodmagic();
-            if (res)
-                t_timeout = rn1(250, 250);
-            break;
-        case T_BREAK_ROCK:
-            if (!getdir(NULL))
-                return 0;
-            res = do_breakrock(u.dx + u.ux,  u.dy + u.uy);
-            /* No timeout */
-            break;
-        default:
-            pline ("Error!  No such effect (%i)", tech_no);
-            return 0;
+    case T_PUMMEL:
+        /* Called outside of blitz_pummel to work with doblitz */
+        if (!getdir((char *) 0))
+        return 0;
+        res = blitz_pummel();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_BLITZ:
+        res = doblitz();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_E_FIST:
+        res = blitz_e_fist();
+        ;
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_CHI_STRIKE:
+        res = blitz_chi_strike();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_CHI_HEALING:
+        res = tech_chiheal();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_G_SLAM:
+        /* Called outside of blitz_pummel to work with doblitz */
+        if (!getdir((char *) 0))
+        return 0;
+        res = blitz_g_slam();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_UPPERCUT:
+        /* Called outside of blitz_pummel to work with doblitz */
+        if (!getdir((char *) 0))
+        return 0;
+        res = blitz_uppercut();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_DASH:
+        /* Called outside of blitz_pummel to work with doblitz */
+        if (!getdir((char *) 0))
+        return 0;
+        res = blitz_dash();
+        if (res)
+        t_timeout = rn1(50, 25);
+        break;
+    case T_POWER_SURGE:
+        res = blitz_power_surge();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_SPIRIT_BOMB:
+        /* Called outside of blitz_pummel to work with doblitz */
+        if (!getdir(NULL))
+        return 0;
+        res = blitz_spirit_bomb();
+        if (res)
+        t_timeout = rn1(250, 250);
+        break;
+
+        /* --- REGULAR TECHS --- */
+
+    case T_RESEARCH:
+        res = tech_research();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_EVISCERATE:
+        res = tech_eviscerate();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_BERSERK:
+        res = tech_berserk();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_REINFORCE:
+        res = tech_reinforce();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_FLURRY:
+        res = tech_flurry();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_APPRAISAL:
+        res = tech_appraisal();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_PRACTICE:
+        res = tech_practice();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_SURGERY:
+        res = tech_surgery();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_HEAL_HANDS:
+        res = tech_healhands();
+        if (res)
+        t_timeout = rn1(500, 500);
+        ;
+        break;
+    case T_KIII:
+        res = tech_kiii();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_CALM_STEED:
+        res = tech_calmsteed();
+        if (res)
+        t_timeout = 250;
+        break;
+    case T_TURN_UNDEAD:
+        res = turn_undead();
+        break;
+    case T_VANISH:
+        res = tech_vanish();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_CRIT_STRIKE:
+        res = tech_critstrike();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_CUTTHROAT:
+        res = tech_cutthroat();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_BLESSING:
+        res = tech_blessing();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_CURSE:
+        res = tech_curse();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_PRIMAL_ROAR:
+        res = tech_primalroar();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_LIQUID_LEAP:
+        res = tech_liquidleap();
+        if (res)
+        t_timeout = rn1(250, 250);
+        break;
+    case T_RAISE_ZOMBIES:
+        res = tech_raisezombies();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_WHISTLE_UNDEAD:
+        res = tech_whistledead();
+        if (res)
+        t_timeout = rn1(100, 100);
+        break;
+    case T_REVIVE:
+        res = tech_revive();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_TINKER:
+        res = tech_tinker();
+        /* No timeout */
+        break;
+    case T_RAGE:
+        res = tech_rage();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_BLINK:
+        res = tech_blink();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_DRAW_ENERGY:
+        res = tech_drawenergy();
+        if (res)
+        t_timeout = rn1(1000, 500);
+        break;
+    case T_PICKPOCKET:
+        res = tech_pickpocket();
+        /* No timeout */
+        break;
+    case T_DISARM:
+        res = tech_disarm(); /* No timeout */
+        break;
+    case T_DAZZLE:
+        res = tech_dazzle();
+        if (res)
+        t_timeout = rn1(50, 25);
+        break;
+    case T_SPIRIT_TEMPEST:
+        res = tech_spirittempest();
+        if (res)
+        t_timeout = rn1(250, 250);
+        break;
+    case T_DRAW_BLOOD:
+        res = tech_drawblood();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_JEDI_JUMP:
+        res = tech_jedijump();
+        if (res)
+        t_timeout = rn1(50, 25);
+        break;
+    case T_BOOZE:
+        res = tech_booze();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_SOULEATER:
+        res = tech_souleater();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_SHIELD_BLOCK:
+        res = tech_shieldblock();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_TELEKINESIS:
+        /* Set t_inuse=1 temporarily so the use of telekinesis can be seen in shk.c */
+        tech_list[tech_no].t_inuse = 1;
+        res = tech_telekinesis();
+        tech_list[tech_no].t_inuse = 0;
+
+        if (res)
+        t_timeout = 250;
+        break;
+    case T_FORCE_PUSH:
+        res = tech_forcepush();
+        if (res)
+        t_timeout = rn1(250, 250);
+        break;
+    case T_CHARGE_SABER:
+        res = tech_chargesaber();
+        if (res)
+        t_timeout = rn1(500, 500);
+        break;
+    case T_TUMBLE:
+        res = tech_tumble();
+        if (res)
+        t_timeout = rn1(10, 5);
+        break;
+    case T_SUNDER:
+        res = tech_sunder();
+        if (res)
+        t_timeout = rn1(10, 5);
+        break;
+    case T_BLOOD_MAGIC:
+        res = tech_bloodmagic();
+        if (res)
+        t_timeout = rn1(250, 250);
+        break;
+    case T_BREAK_ROCK:
+        if (!getdir(NULL))
+        return 0;
+        res = do_breakrock(u.dx + u.ux, u.dy + u.uy);
+        /* No timeout */
+        break;
+    default:
+        pline("Error!  No such effect (%i)", tech_no);
+        return 0;
     }
+    
     if (res && !u.uconduct.techuse++)
         livelog_printf(LL_CONDUCT, 
                            "performed a technique for the first time - %s", 
@@ -2848,18 +2850,6 @@ tech_practice()
          /*WAC Added practicing code - in weapon.c*/
          return practice_weapon();
     }
-}
-
-int
-tech_efist()
-{
-    blitz_e_fist();
-#if 0
-    str = makeplural(body_part(HAND));
-    You("focus the powers of the elements into your %s", str);
-    techt_inuse(tech_no) = rnd((int) (techlev(tech_no) / 3 + 1)) + d(1, 4) + 2;
-#endif
-    return 0;
 }
 
 int
