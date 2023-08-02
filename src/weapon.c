@@ -2747,18 +2747,14 @@ practice_weapon()
 STATIC_PTR int
 practice()
 {
-    int amt;
     if (delay) {    /* not if (delay++), so at end delay == 0 */
         delay++;
         use_skill(weapon_type(uwep), 1);
         /*WAC a bit of practice so even if you're interrupted
-          you won't be wasting your time ;B*/
+          you won't be wasting your time */
         return 1; /* still busy */
     }
     You("finish your practice session.");
-    /* Grant 1/3 of the total skill needed to reach the next skill threshold. */
-    amt = practice_needed_to_advance(P_SKILL(weapon_type(uwep))) / 3;
-    use_skill(weapon_type(uwep), amt);
-    return(0);
+    return 0;
 }
 /*weapon.c*/
