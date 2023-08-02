@@ -251,7 +251,7 @@ forcelock(VOID_ARGS)
         return ((xlock.usedtime = 0));
     }
 
-    if (xlock.picktyp) { /* blade */
+    if (xlock.picktyp == 1) { /* blade (not lightsaber) */
         if (rn2(1000 - (int) uwep->spe) > (992 - greatest_erosion(uwep) * 10)
             && !uwep->cursed && !obj_resists(uwep, 0, 99)) {
             /* for a +0 weapon, probability that it survives an unsuccessful
@@ -264,7 +264,7 @@ forcelock(VOID_ARGS)
             exercise(A_DEX, TRUE);
             return ((xlock.usedtime = 0));
         }
-    } else             /* blunt */
+    } else if (xlock.picktyp == 0) /* blunt */
         wake_nearby(); /* due to hammering on the container */
 
     if (rn2(100) >= xlock.chance)

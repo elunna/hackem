@@ -1775,12 +1775,17 @@ domove_core()
     trap = t_at(x, y);
     if (context.forcefight && trap && trap->ttyp == WEB
         && trap->tseen && uwep) {
-        if (uwep->oartifact == ART_STING) {
+        if (uwep->oartifact == ART_STING
+            || (is_lightsaber(uwep) && uwep->lamplit)) {
             /* guaranteed success */
-            pline("Sting cuts through the web!");
+            pline("%s cuts through the web!", Yname2(uwep));
+        }
+        else if (is_lightsaber(uwep)) { /* deactivated */
+            You_cant("cut a web with a deactivated %s!", simpleonames(uwep));
+            return;
         }
         else if (!is_blade(uwep)) {
-            You_cant("cut a web with a %s!", xname(uwep));
+            You_cant("cut a web with %s!", ansimpleoname(uwep));
             return;
         }
         /* TODO: if failing to cut the web is going to be a thing, it should
