@@ -1745,9 +1745,7 @@ doblitz()
     int blitz_chain[MAX_CHAIN], blitz_num;
     int max_moves = (MIN_CHAIN + (techlev(tech_no) / 10));
     techt_inuse(T_BLITZ) = 1;
-    if (tech_no == -1) {
-        return 0;
-    }
+
     if (uwep || (u.twoweap && uswapwep)) {
         You("can't do this while wielding a weapon!");
         return 0;
