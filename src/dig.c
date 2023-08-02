@@ -1094,18 +1094,21 @@ struct obj *obj;
     struct trap *trap, *trap_with_u;
     int dig_target;
     boolean ispick = is_pick(obj);
-
-	const char *verbing = ispick ? "digging" : is_lightsaber(uwep)
-        ? "cutting" : "chopping";
-
+    const char *verbing = ispick ? "digging" 
+                          : is_lightsaber(uwep) ? "cutting" 
+                                                : "chopping";
+    
     if (u.uswallow && attack(u.ustuck)) {
         ; /* return 1 */
     } else if (Underwater) {
         pline("Turbulence torpedoes your %s attempts.", verbing);
+    } else if (is_lightsaber(uwep) && !uwep->lamplit) {
+        Your("lightsaber is deactivated!");
+        return 1;
     } else if (u.dz < 0) {
         if (Levitation)
             if (is_lightsaber(uwep))
-			    pline_The("ceiling is too hard to cut through.");
+                pline_The("ceiling is too hard to cut through.");
             else
                 You("don't have enough leverage.");
         else
@@ -1200,14 +1203,14 @@ struct obj *obj;
                 You("swing %s through thin air.", yobjnam(obj, (char *) 0));
             }
         } else {
-            static const char * const d_action[6][2] = {
-			    {"swinging","slicing the air"},
-			    {"digging","cutting through the wall"},
-			    {"chipping the statue","cutting the statue"},
-			    {"hitting the boulder","cutting through the boulder"},
-			    {"chopping at the door","burning through the door"},
-			    {"cutting the tree","razing the tree"}
-			};
+            static const char *const d_action[6][2] = {
+                { "swinging", "slicing the air" },
+                { "digging", "cutting through the wall" },
+                { "chipping the statue", "cutting the statue" },
+                { "hitting the boulder", "cutting through the boulder" },
+                { "chopping at the door", "burning through the door" },
+                { "cutting the tree", "razing the tree" }
+            };
 
             did_dig_msg = FALSE;
             context.digging.quiet = FALSE;
@@ -1215,8 +1218,7 @@ struct obj *obj;
                 || !on_level(&context.digging.level, &u.uz)
                 || context.digging.down) {
                 if (flags.autodig && dig_target == DIGTYP_ROCK
-                    && !context.digging.down
-                    && context.digging.pos.x == u.ux
+                    && !context.digging.down && context.digging.pos.x == u.ux
                     && context.digging.pos.y == u.uy
                     && (moves <= context.digging.lastdigtime + 2
                         && moves >= context.digging.lastdigtime)) {
@@ -1231,10 +1233,11 @@ struct obj *obj;
                 assign_level(&context.digging.level, &u.uz);
                 context.digging.effort = 0;
                 if (!context.digging.quiet)
-                    You("start %s.", d_action[dig_target][is_lightsaber(uwep)]);
+                    You("start %s.",
+                        d_action[dig_target][is_lightsaber(uwep)]);
             } else {
                 You("%s %s.", context.digging.chew ? "begin" : "continue",
-					d_action[dig_target][is_lightsaber(uwep)]);
+                    d_action[dig_target][is_lightsaber(uwep)]);
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);

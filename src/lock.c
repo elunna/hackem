@@ -908,73 +908,70 @@ doforce()
 
         door = &levl[x][y];
         if ((mtmp = m_at(x, y)) && canseemon(mtmp)
-                  && mtmp->m_ap_type != M_AP_FURNITURE
-                  && mtmp->m_ap_type != M_AP_OBJECT) {
-
+            && mtmp->m_ap_type != M_AP_FURNITURE
+            && mtmp->m_ap_type != M_AP_OBJECT) {
             if (mtmp->isshk || mtmp->data == &mons[PM_ORACLE]) {
                 if (Role_if(PM_JEDI)) /* Return of the Jedi */
-                    verbalize( "Your puny Jedi tricks won't work on me!");
-                else /* Phantom Menace */
-                    verbalize( "What do you think you are, a Jedi?");
+                    verbalize("Your puny Jedi tricks won't work on me!");
+                else                  /* Phantom Menace */
+                    verbalize("What do you think you are, a Jedi?");
             } else
-                pline("I don't think %s would appreciate that.", mon_nam(mtmp));
+                pline("I don't think %s would appreciate that.",
+                      mon_nam(mtmp));
             return 0;
         }
 
         /* Lightsabers dig through doors and walls via dig.c */
-        if (is_pick(uwep) || is_lightsaber(uwep) || is_axe(uwep))
+        if (is_pick(uwep) || is_axe(uwep) || is_lightsaber(uwep))
             return use_pick_axe2(uwep);
 
         if (!IS_DOOR(door->typ)) {
-        if (is_drawbridge_wall(x,y) >= 0)
+            if (is_drawbridge_wall(x, y) >= 0)
                 pline_The("drawbridge is too solid to force open.");
-        else
-            You("%s no door there.", Blind ? "feel" : "see");
-        return 0;
-        }
-
-        /* ALI - artifact doors */
-#if 0
-        if (artifact_door(x, y)) {
-            pline("This door is too solid to force open.");
+            else
+                You("%s no door there.", Blind ? "feel" : "see");
             return 0;
         }
-#endif
 
         switch (door->doormask) {
-            case D_NODOOR:
-                pline("This doorway has no door.");
+        case D_NODOOR:
+            pline("This doorway has no door.");
+            return 0;
+        case D_ISOPEN:
+            You("cannot force an open door.");
+            return 0;
+        case D_BROKEN:
+            pline("This door is broken.");
+            return 0;
+        default:
+            c = yn("Break down the door?");
+            if (c == 'n')
                 return 0;
-            case D_ISOPEN:
-                You("cannot force an open door.");
-                return 0;
-            case D_BROKEN:
-                pline("This door is broken.");
-                return 0;
-            default:
-                c = yn("Break down the door?");
-                if(c == 'n') 
-                    return 0;
 
-                if (picktyp == 1)
-                    You("force your %s into a crack and pry.", xname(uwep));
-                else
-                    You("start bashing it with your %s.", xname(uwep));
+            if (picktyp == 1)
+                You("force your %s into a crack and pry.", xname(uwep));
+            else
+                You("start bashing it with your %s.", xname(uwep));
 
-                if (is_lightsaber(uwep))
+            if (is_lightsaber(uwep)) {
+                if (uwep->lamplit)
                     xlock.chance = uwep->spe + 38;
-                else
-                    xlock.chance = uwep->spe + objects[uwep->otyp].oc_wldam;
-                
-                xlock.picktyp = picktyp;
-                xlock.usedtime = 0;    
-                xlock.door = door;
-                xlock.box = 0;
-                set_occupation(forcedoor, "forcing the door", 0);
-                return 1;
-	    }
-	}
-	return 0;
+                else {
+                    Your("lightsaber is deactivated!");
+                    return 0;
+                }
+            } else
+                xlock.chance = uwep->spe + objects[uwep->otyp].oc_wldam;
+
+            xlock.picktyp = picktyp;
+            xlock.usedtime = 0;
+            xlock.door = door;
+            xlock.box = 0;
+            set_occupation(forcedoor, "forcing the door", 0);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 boolean
