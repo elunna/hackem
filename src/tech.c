@@ -50,7 +50,7 @@ static int NDECL(tech_efist);
 static int NDECL(tech_primalroar);
 static int NDECL(tech_liquidleap);
 static int NDECL(tech_raisezombies);
-static int NDECL(tech_callundead);
+static int NDECL(tech_whistledead);
 static int NDECL(tech_revive);
 static int NDECL(tech_tinker);
 static int NDECL(tech_rage);
@@ -1030,7 +1030,7 @@ int tech_no;
             break;
         }
         case T_WHISTLE_UNDEAD: {
-            res = tech_callundead();
+            res = tech_whistledead();
             if (res)
                 t_timeout = rn1(100, 100);
             break;
@@ -3102,7 +3102,7 @@ tech_raisezombies()
 }
 
 int
-tech_callundead()
+tech_whistledead()
 {
     register struct monst *nextmon;
     struct monst *mtmp = NULL;

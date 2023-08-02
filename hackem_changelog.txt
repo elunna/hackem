@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Rename tech_callundead to tech_whistledead.
 Move Death's weapon attack to be first in the attack chain.
 practice_weapon bools.
 Trim wiki info added to database.<
