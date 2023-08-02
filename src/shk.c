@@ -4702,7 +4702,7 @@ struct monst *shkp;
 {
     register struct obj *obj;       /* The object to identify       */
     int charge = 500;                     /* Cost to identify             */
-    int res;
+    int res = 0;
     /* Pick object */
     if (!(obj = getobj(identify_types, "have tinkered")))
         return 0;
@@ -4741,10 +4741,11 @@ struct monst *shkp;
         return 1;
     } else if (Confusion) {
         pline("%s dunks the thing in some water and hands it back to you.", mon_nam(shkp));
+        (void) water_damage(obj, NULL, TRUE, shkp->mx, shkp->my);
         return 1;
     }
     
-    res = upgrade_obj(obj);
+    obj = upgrade_obj(obj, &res);
     if (res != 0) {
         if (res == 1) {
             /* The object was upgraded */
