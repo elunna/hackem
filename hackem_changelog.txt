@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Upgrade/tinker revisions.
 Fix: Giant zombies appearing too early in mines.
 Fix: weapon practice tech was granting too many skill points.
 Rename sharpened pencil to just pencil - it's description depends on it's enchantment.

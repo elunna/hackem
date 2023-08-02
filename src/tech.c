@@ -1605,7 +1605,7 @@ charge_saber(VOID_ARGS)
 STATIC_PTR int
 tinker(VOID_ARGS)
 {
-    int chance;
+    int res = 0;
     struct obj *otmp = uwep;
 
     if (delay) { /* not if (delay++), so at end delay == 0 */
@@ -1619,16 +1619,23 @@ tinker(VOID_ARGS)
         return 0;
 
     You("finish your tinkering.");
-    chance = 5;
-    /*	chance += PSKILL(P_TINKER); */
-    if (rnl(10) < chance) {
-        upgrade_obj(otmp);
-    } else {
-        /* object downgrade  - But for now,  nothing :) */
-    }
 
-    setuwep(otmp);
-    You("now hold %s!", doname(otmp));
+    if (rnl(10) < 5) {
+        otmp = upgrade_obj(otmp, &res);
+        if (res != 0) {
+             if (res == 1) {
+                /* The object was upgraded */
+                if (carried(otmp)) {
+                    setuwep(otmp);
+                    You("now hold %s!", doname(otmp));
+                }
+                
+                /* Wisdom on successful upgrades */
+                exercise(A_WIS, TRUE);
+             }
+             update_inventory();
+        }
+    }
     return 0;
 }
 

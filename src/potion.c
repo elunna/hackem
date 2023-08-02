@@ -3482,19 +3482,23 @@ dodip()
         useup(potion);
         return 1;
     } else if (potion->otyp == POT_GAIN_LEVEL) {
-        int res = upgrade_obj(obj);
+        int res = 0;
+        obj = upgrade_obj(obj, &res);
         if (res != 0) {
             if (res == 1) {
                 /* The object was upgraded */
                 pline("Hmm!  You don't recall dipping that into the potion.");
-                prinv((char *) 0, obj, 0L);
+                
+                if (carried(obj))
+                    prinv((char *) 0, obj, 0L);
+                /* Wisdom on successful upgrades */
+                exercise(A_WIS, TRUE);
             } /* else potion exploded */
             if (!objects[potion->otyp].oc_name_known
                 && !objects[potion->otyp].oc_uname)
                 docall(potion);
             useup(potion);
             update_inventory();
-            exercise(A_WIS, TRUE);
             return 1;
         }
         /* no return here, go for Interesting... message */
@@ -3923,12 +3927,13 @@ struct monst *mon,  /* monster being split */
  * potions, rings, and wands) should NOT be supported.
  * Polearms are not currently implemented.
  */
-int
-upgrade_obj(obj)
-register struct obj *obj;
-/* returns 1 if something happened (potion should be used up) 
- * returns 0 if nothing happened
- * returns -1 if object exploded (potion should be used up) 
+struct obj *
+upgrade_obj(obj, res)
+struct obj *obj;
+int *res;
+/* res = 1 if something happened (potion should be used up) 
+ * res = 0 if nothing happened (default)
+ * res = -1 if object exploded (potion should be used up) 
  */
 {
     short otyp = obj->otyp, otyp2;
@@ -3936,41 +3941,43 @@ register struct obj *obj;
     long owornmask;
     struct obj *otmp;
     int newtyp;
-    boolean explodes;
-    boolean split1off;
+    boolean split1off, explodes = FALSE, dropped = FALSE;
+    *res = 0;
 
     /* Check to see if object is valid */
     if (!obj)
-        return 0;
+        return obj;
 
     (void) snuff_lit(obj);
     if (obj->oartifact)
         /* WAC -- Could have some funky fx */
-        return 0;
+        return obj;
 
     newtyp = obj2upgrade(obj->otyp);
     if (!newtyp)
-        return 0;
+        return obj;
+    
+    /* Only one item can be upgraded at a time */
+    split1off = (obj->quan > 1L);
+    if (split1off) {
+        obj = splitobj(obj, 1L);
 
-    if (obj->otyp == FLINT) {
-        split1off = (obj->quan > 1L);
-        if (split1off) {
-            obj = splitobj(obj, 1L);
-
-            if (carried(obj)) {
-                freeinv(obj);
-                if (inv_cnt(FALSE) >= 52) {
-                    sellobj_state(SELL_DONTSELL);
-                    dropy(obj);
-                    sellobj_state(SELL_NORMAL);
-                } else {
-                    obj->nomerge = 1; /* used to prevent merge */
-                    obj = addinv(obj);
-                    obj->nomerge = 0;
-                }
+        if (carried(obj)) {
+            freeinv(obj);
+            /* TODO: Use hold_another_object here */
+            if (inv_cnt(FALSE) >= 52) {
+                sellobj_state(SELL_DONTSELL);
+                dropy(obj);
+                sellobj_state(SELL_NORMAL);
+                dropped = TRUE;
+            } else {
+                obj->nomerge = 1; /* used to prevent merge */
+                obj = addinv(obj);
+                obj->nomerge = 0;
             }
         }
     }
+    
     if (obj->otyp == LEASH && obj->leashmon)
         o_unleash(obj);
 
@@ -4085,25 +4092,36 @@ register struct obj *obj;
         /* puton_worn_item(obj); */
     }
 
-    /* if (obj->otyp == BAG_OF_HOLDING && Has_contents(obj)) { */
-    if (Is_mbag(obj) && Has_contents(obj)) {
-            explodes = FALSE;
-
-        for (otmp = obj->cobj; otmp; otmp = otmp->nobj) {
-            if (mbag_explodes(otmp, 0)) {
-                explodes = TRUE;
-                break;
+    
+     if ((obj->otyp == BAG_OF_HOLDING || Bad_bag(obj)) 
+          && Has_contents(obj)) {
+        
+        /* In the strange case that an upgraded sack has charged... */
+        if (Bad_bag(obj))
+            explodes = TRUE;
+        else {
+            for (otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+                if (mbag_explodes(otmp, 0)) {
+                    explodes = TRUE;
+                    break;
+                }
             }
         }
+        
         if (explodes) {
-            pline("As you upgrade your bag, you are blasted by a magical explosion!");
-            delete_contents(obj);
+            You("are blasted by a magical explosion!");
+            do_boh_explosion(obj, (obj->where == OBJ_FLOOR));
             if (carried(obj))
                 useup(obj);
             else
                 useupf(obj, obj->quan);
-            losehp(d(6,6), "magical explosion", KILLED_BY_AN);
-            return -1;
+            livelog_printf(LL_ACHIEVE, "just blew up %s %s", uhis(),
+                           "bag of holding");
+            losehp(Maybe_Half_Phys(d(8, 10)),
+                   "exploding magical bag", KILLED_BY_AN);
+            
+            *res = -1;
+            return (struct obj *) 0;
         }
     }
     /* Check if the new object fits the old material.
@@ -4111,8 +4129,11 @@ register struct obj *obj;
     if (!valid_obj_material(obj, obj->material)) {
         init_obj_material(obj);
     }
-
-    return 1;
+    if (dropped)
+        pline("You drop %s.", doname(obj));
+    
+    *res = 1;
+    return obj;
 }
 
 int
