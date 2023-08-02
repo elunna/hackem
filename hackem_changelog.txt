@@ -16,6 +16,8 @@
 
 Version 1.2.1 (unreleased)
 
+Lightsabers cutting webs (submitted by Ardub23)
+Lightsabers don't break when forcing locks (submitted by Ardub23)
 Upgrade/tinker revisions.
 Fix: Giant zombies appearing too early in mines.
 Fix: weapon practice tech was granting too many skill points.
