@@ -181,6 +181,7 @@
     <Levfiles Include = "oracle-1.lev"/>
     <Levfiles Include = "oracle-2.lev"/>
     <Levfiles Include = "oracle-3.lev"/>
+    <Levfiles Include = "oracle-4.lev"/>
     <Levfiles Include = "qchaos.lev"/>
     <Levfiles Include = "qlawful.lev"/>
     <Levfiles Include = "qneutral.lev"/>

@@ -4434,6 +4434,11 @@ genericptr_t arg;
         if (x && (IS_WALL(levl[x - 1][y].typ) || levl[x - 1][y].horizontal))
             levl[x][y].horizontal = 1;
     }
+    
+    /* Vents need to be manually started. */
+    if (IS_VENT(levl[x][y].typ))
+        (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
+                           long_to_any(((long) x << 16) | (long) y));
 }
 
 void

@@ -1391,6 +1391,8 @@ char c;
         return (SINK);
     case 'Z':
         return (TOILET);
+    case 'V':
+        return (VENT);
     case '}':
         return (MOAT);
     case 'w':

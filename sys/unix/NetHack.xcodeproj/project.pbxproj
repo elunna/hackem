@@ -1615,6 +1615,7 @@
 				"$(NH_DAT_DIR)/oracle-1.lev",
 				"$(NH_DAT_DIR)/oracle-2.lev",
 				"$(NH_DAT_DIR)/oracle-3.lev",
+				"$(NH_DAT_DIR)/oracle-4.lev",
 				"$(NH_DAT_DIR)/oracles",
 				"$(NH_DAT_DIR)/orcus.lev",
 				"$(NH_DAT_DIR)/quest.dat",
@@ -1700,9 +1701,9 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 <<<<<<< HEAD
-			shellScript = "cd ${NH_DAT_DIR}\n${NH_UTIL_DIR}/dlb cf nhdat help hh cmdhelp keyhelp history opthelp wizhelp dungeon tribute bigrm-*.lev castle-?.lev fakewiz?.lev hella-?.lev hellb-?.lev hellc-?.lev hellfill.lev knox-?.lev medusa-?.lev minend-?.lev minefill.lev minetn-?.lev oracle-1.lev oracle-2.lev oracle-3.lev orcus.lev sanctum.lev soko?-*.lev tower?.lev valley.lev vlt-????.lev wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev cavefill.lev bogusmon data engrave epitaph oracles options quest.dat rumors vaults.dat\n\n";
+			shellScript = "cd ${NH_DAT_DIR}\n${NH_UTIL_DIR}/dlb cf nhdat help hh cmdhelp keyhelp history opthelp wizhelp dungeon tribute bigrm-*.lev castle-?.lev fakewiz?.lev hella-?.lev hellb-?.lev hellc-?.lev hellfill.lev knox-?.lev medusa-?.lev minend-?.lev minefill.lev minetn-?.lev oracle-1.lev oracle-2.lev oracle-3.lev oracle-4.lev orcus.lev sanctum.lev soko?-*.lev tower?.lev valley.lev vlt-????.lev wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev cavefill.lev bogusmon data engrave epitaph oracles options quest.dat rumors vaults.dat\n\n";
 =======
-			shellScript = "cd ${NH_DAT_DIR}\n${NH_UTIL_DIR}/dlb cf nhdat help hh cmdhelp keyhelp history opthelp wizhelp dungeon tribute bigrm-*.lev castle-?.lev fakewiz?.lev hella-?.lev hellb-?.lev hellc-?.lev hellfill.lev knox-?.lev medusa-?.lev minend-?.lev minefill.lev minetn-?.lev nymph.lev oracle-1.lev oracle-2.lev oracle-3.lev orcus.lev sanctum.lev soko?-?.lev tower?.lev valley.lev vlt-????.lev wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev cavefill.lev bogusmon data engrave epitaph oracles options quest.dat rumors vaults.dat\n\n";
+			shellScript = "cd ${NH_DAT_DIR}\n${NH_UTIL_DIR}/dlb cf nhdat help hh cmdhelp keyhelp history opthelp wizhelp dungeon tribute bigrm-*.lev castle-?.lev fakewiz?.lev hella-?.lev hellb-?.lev hellc-?.lev hellfill.lev knox-?.lev medusa-?.lev minend-?.lev minefill.lev minetn-?.lev nymph.lev oracle-1.lev oracle-2.lev oracle-3.lev oracle-4.lev orcus.lev sanctum.lev soko?-?.lev tower?.lev valley.lev vlt-????.lev wizard?.lev astral.lev air.lev earth.lev fire.lev water.lev ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev cavefill.lev bogusmon data engrave epitaph oracles options quest.dat rumors vaults.dat\n\n";
 >>>>>>> parent of 2a3f81bf8 (Consolidated nymph and jermlaine levels into the rats levels.)
 		};
 		3192867021A39F6A00325BEB /* Install */ = {
