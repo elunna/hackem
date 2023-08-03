@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Wearing an oilskin or greased cloak will let you pass through tight diagonals.
 If giants sit on toilets, they break. 
 Bullet ants have a chance to drop bullets.
 Changed tower shield to grant 4AC so it matches dNetHack.

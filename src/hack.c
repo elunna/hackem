@@ -744,7 +744,11 @@ struct monst *mon;
         && !(amorphous(ptr) || is_whirly(ptr) || noncorporeal(ptr)
              || slithy(ptr) || can_fog(mon) || Passes_walls))
         return 1;
-
+    
+    /* Greased cloaks let us pass through tight spots */
+    if (!Sokoban && uarmc && (uarmc->otyp == OILSKIN_CLOAK || uarmc->greased))
+        return 0;
+    
     /* lugging too much junk? */
     amt = (mon == &youmonst) ? inv_weight() + weight_cap()
                              : curr_mon_load(mon);
