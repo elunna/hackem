@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Upgraded items rarely carry over properties if the result is a magical item.
 Two alignment keys can be forged together to create The Key of Access.
 Indestructible artifacts are able to be forged now (from EvilHack). 
 Fix shadowed variable in xkilled.

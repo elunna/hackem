@@ -4060,6 +4060,15 @@ int *res;
     if (!objects[obj->otyp].oc_uses_known)
         obj->known = 1;
 
+    /* Properties rarely carry over to magic items;
+     * we will use the same odds as a magic item getting a property.*/
+    if (objects[obj->otyp].oc_magic &&  obj->oprops) {
+        if (rn2(10)) {
+            obj->oprops = 0;
+            You_feel("a sense of loss.");
+        }
+    }
+    
     if (carried(obj)) {
         if (obj == uskin) 
             rehumanize();
