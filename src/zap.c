@@ -1567,9 +1567,7 @@ int ochance, achance; /* percent chance for ordinary objects, artifacts */
         || (obj->otyp == CORPSE && is_rider(&mons[obj->corpsenm]))
         || (obj->oartifact & (obj->oartifact == ART_BALMUNG
                               || obj->oartifact == ART_BRADAMANTE_S_FURY
-                              || obj->oartifact == ART_KEY_OF_LAW
-                              || obj->oartifact == ART_KEY_OF_NEUTRALITY
-                              || obj->oartifact == ART_KEY_OF_CHAOS))) {
+                              || is_artikey(obj)))) {
         return TRUE;
     } else {
         int chance = rn2(100);
@@ -7492,5 +7490,4 @@ int tmp;
         erode_armor(mon, ERODE_RUST);
     return tmp;
 }
-
 /*zap.c*/

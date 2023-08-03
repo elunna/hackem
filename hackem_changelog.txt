@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Two alignment keys can be forged together to create The Key of Access.
 Indestructible artifacts are able to be forged now (from EvilHack). 
 Fix shadowed variable in xkilled.
 More 'gnomes hate eggs'. (from EvilHack)

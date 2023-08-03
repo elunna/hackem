@@ -252,6 +252,13 @@ struct obj {
 #define is_chaotic_artifact(otmp) \
     (otmp->oartifact && arti_align(otmp->oartifact) == A_CHAOTIC)
 
+#define is_artikey(otmp) \
+    (otmp->oartifact && (otmp->oartifact == ART_KEY_OF_LAW \
+        || otmp->oartifact == ART_KEY_OF_NEUTRALITY \
+        || otmp->oartifact == ART_KEY_OF_CHAOS \
+        || otmp->oartifact == ART_KEY_OF_ACCESS))
+
+        
 #define is_magical_staff(otmp) \
     (   otmp->otyp == STAFF_OF_DIVINATION \
      || otmp->otyp == STAFF_OF_ESCAPE  \

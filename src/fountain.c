@@ -583,6 +583,9 @@ static const struct forge_arti {
     /* artifacts */
     /* { ART_SWORD_OF_ANNIHILATION, ART_FIRE_BRAND, ART_FROST_BRAND }, */
     { ART_MORTALITY_DIAL, ART_WEREBANE, ART_TROLLSBANE },
+    { ART_KEY_OF_ACCESS, ART_KEY_OF_LAW, ART_KEY_OF_CHAOS },
+    { ART_KEY_OF_ACCESS, ART_KEY_OF_LAW, ART_KEY_OF_NEUTRALITY },
+    { ART_KEY_OF_ACCESS, ART_KEY_OF_CHAOS, ART_KEY_OF_NEUTRALITY },
     { 0, 0, 0 }
 };
 
@@ -644,8 +647,8 @@ doforging(void)
     /* not that the Amulet of Yendor or invocation items would
        ever be part of a forging recipe, but these should be
        protected in any case */
-    } else if (obj_resists(obj1, 0, 0)
-               || obj_resists(obj2, 0, 0)) {
+    } else if ((obj_resists(obj1, 0, 0) && !is_artikey(obj1))
+               || (obj_resists(obj2, 0, 0) && !is_artikey(obj2))) {
         You_cant("forge such a thing!");
         blowupforge(u.ux, u.uy);
         return 0;
