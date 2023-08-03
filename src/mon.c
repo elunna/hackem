@@ -4664,8 +4664,6 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
                                mtmp->former_rank.female));
     }
     if (is_gnome(mtmp->data) && !is_undead(mtmp->data)) {
-        struct obj *otmp;
-
         if (!rn2(25) && !(mtmp->mflee || mtmp->msleeping
                           || mtmp->mstun || mtmp->mconf || mtmp->mfrozen)) {
             for (otmp = invent; otmp; otmp = otmp->nobj) {
