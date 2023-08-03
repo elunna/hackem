@@ -5,6 +5,7 @@
 
 #include "hack.h"
 #include "artifact.h"
+#include "mfndpos.h"
 #include <limits.h>
 
 extern boolean notonhead; /* for long worms */
@@ -5665,17 +5666,20 @@ int aatyp;
     return 0;
 }
 
+/* Returns TRUE if mdef will be flanked by magr and another monster,
+ * otherwise return FALSE. */
 boolean
-calculate_flankers(struct monst *magr, struct monst *mdef)
+calculate_flankers(magr, mdef)
+struct monst *magr;
+struct monst *mdef;
 {
     struct monst* flanker;
-    boolean youflanker = FALSE;
-    boolean youattack = FALSE;
-    boolean youdefend = FALSE;
+    boolean grudge, youflanker, youattack, youdefend;
     int ax, ay; /* Attacker coords */
     int dx, dy; /* Defender coords */
     int fx, fy; /* Flanker coords */
-
+    grudge = youflanker = youattack = youdefend = FALSE;
+    
     if (magr == &youmonst) 
         youattack = TRUE;
     if (mdef == &youmonst) 
@@ -5758,9 +5762,14 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
         /* Impaired monsters don't make good flankers */
         return FALSE;
     }
+
+    /* Peaceful monsters will help others depending on their Grudges. */
+    if ((mm_aggression(mdef, flanker) & ALLOW_M))
+        grudge = TRUE;
+    
     if (youattack) {
-        /* Only pets can help us flank */
-        return flanker->mtame; 
+        /* Pets and non-hostile monsters with a grudge can help us flank */
+        return flanker->mtame || (flanker->mpeaceful && grudge); 
     } else if (youdefend) {
         /* Any hostiles can flank us */
         return !flanker->mpeaceful;
@@ -5768,12 +5777,9 @@ calculate_flankers(struct monst *magr, struct monst *mdef)
         return magr->mtame && !mdef->mpeaceful;
     } else {
         /* If you are not involved in the flanking, then flanking can 
-         * still occur if the defender and flanker are peaceful and hostile.
-         * Both must be different.
-         */
-        return mdef->mpeaceful != flanker->mpeaceful;
+         * still occur if the defender and flanker have a grudge vs each other. */
+        return grudge;
     }
-    
 }
 
 /*mhitu.c*/

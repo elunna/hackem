@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Flanking issues with peaceful monsters. Reported by mobileuser. Fixes #418.
 Vlad's Tower now shows the branch level in the status line not the dungeon level.
 Wands of probing can probe the contents of tins.
 Undead slayer mplayers usually start with a stake.
