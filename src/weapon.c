@@ -430,7 +430,6 @@ struct damage_info_t *damage_info)
         case TRIPLE_HEADED_FLAIL:
         case SPETUM:
         case SPIKED_CHAIN:
-        case ATGEIR:
         case TRIDENT:
             tmp++;
             damage_info->bonus_small = "+1";
@@ -449,6 +448,7 @@ struct damage_info_t *damage_info)
         case RUNESWORD:
         case SCYTHE:
         case VOULGE:
+        case ATGEIR:
             tmp += rnd(4);
             damage_info->bonus_small = "+1d4";
             break;
