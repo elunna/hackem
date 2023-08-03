@@ -1314,6 +1314,9 @@ struct monst *mtmp;
             return !(yours ? Disint_resistance : resists_disint(mtmp));
         case AD_WTHR:
             return !(nonliving(mtmp->data) && is_vampshifter(mtmp));
+        case AD_PHYS:
+            /* Only case that uses this is slinging from David's Sling. */
+            return TRUE;
         default:
             impossible("Weird weapon special attack.");
         }

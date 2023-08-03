@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Imported David's Sling from SlashTHEM. Added warning vs giants and +6 damage to projectiles.
 Object lookup now shows the nutrition-to-weight ratio for food.
 Fix: Screamers attack wasn't working properly.
 Fix: Flanking issues with peaceful monsters. Reported by mobileuser. Fixes #418.
