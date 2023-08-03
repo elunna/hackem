@@ -501,7 +501,7 @@ static const struct forge_recipe {
     { WAR_HAMMER,           MACE, FLAIL,                1, 1 },
     { HEAVY_WAR_HAMMER,     WAR_HAMMER, WAR_HAMMER,     1, 1 },
     { FLAIL,                MACE, MORNING_STAR,         1, 1 },
-    { TRIPLE_HEADED_FLAIL,  FLAIL, SPIKED_CHAIN         1, 1 },
+    { TRIPLE_HEADED_FLAIL,  FLAIL, SPIKED_CHAIN,        1, 1 },
     { SPIKED_CHAIN,         IRON_CHAIN, SHURIKEN,       1, 2 },
     
     { LANCE,                JAVELIN, GLAIVE,            1, 1 },
