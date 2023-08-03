@@ -1391,6 +1391,8 @@ char *usr_text;
         } else {
             Sprintf(buf, "Comestible providing %d nutrition.", oc.oc_nutrition);
             OBJPUTSTR(buf);
+            Sprintf(buf, "Nutrition-to-weight ratio: %d-to-1", (oc.oc_nutrition / oc.oc_weight));
+            OBJPUTSTR(buf);
             Sprintf(buf, "Takes %d turn%s to eat.", oc.oc_delay,
                     (oc.oc_delay == 1 ? "" : "s"));
             OBJPUTSTR(buf);
