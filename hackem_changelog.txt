@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Reformatted the forging recipes and fixed some flipped ones. Closes #415.
 Object lookup now shows the nutrition-to-weight ratio for food.
 Fix: Screamers attack wasn't working properly.
 Fix: Flanking issues with peaceful monsters. Reported by mobileuser. Fixes #418.
