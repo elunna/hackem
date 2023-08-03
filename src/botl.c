@@ -557,7 +557,7 @@ char *buf;
     else if (!strcmp(dungeons[u.uz.dnum].dname, "The Wyrm Caves"))
         Sprintf(buf, "Wyrm Caves:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Vlad's Tower"))
-        Sprintf(buf, "Vlad Tower:%d ", depth(&u.uz));
+        Sprintf(buf, "Vlad Tower:%d ", dunlev(&u.uz));
     else if (In_endgame(&u.uz))
         Sprintf(buf, Is_astralevel(&u.uz) ? "Astral Plane " : "End Game ");
     else {

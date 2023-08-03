@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Vlad's Tower now shows the branch level in the status line not the dungeon level.
 Wands of probing can probe the contents of tins.
 Undead slayer mplayers usually start with a stake.
 The Eye of the Beholder grants warning when wielded.
