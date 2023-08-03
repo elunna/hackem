@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+The Eye of the Beholder grants warning when wielded.
 The Dragon of Bactria gets its proper Fourk dragon.
 Removed the no_gen tag from Luckless Folly so it can appear in the dungeon or for sacrifice gifts.
 Weapons cannot have the acid or sonic property.
