@@ -4909,8 +4909,7 @@ TRAP: "hole", (17,15)
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
-# Changed from an adult dragon for fairness.
-MONSTER:('D',"baby green dragon"), $place[1]
+MONSTER:('D',"green dragon"), $place[1]
 
 # Random objects
 OBJECT: '%', random
