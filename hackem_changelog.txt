@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Atgeir's appearance always started out known.
 Change atgeir's damage vs small to 2d4 so it matches dNetHack.
 Fix: Lightsabers could burn through doors when not lit.
 Lightsabers cutting webs (submitted by Ardub23)

@@ -161,7 +161,7 @@ WEAPON("javelin", "throwing spear",
        0, 1, 0, 0, 10,  20,   3,  6,  6, 0, P,   P_SPEAR, IRON, HI_METAL),
 /* Base weapon for the artifact weapon Gungnir */
 WEAPON("atgeir", "bladed spear",                                /* dNethack */
-       1, 0, 0, 0,  5,  45,  15,  4, 12, 0, P,   P_SPEAR, IRON, HI_METAL),
+       0, 0, 0, 0,  5,  45,  15,  4, 12, 0, P,   P_SPEAR, IRON, HI_METAL),
 
 /* spearish; doesn't stack, not intended to be thrown */
 WEAPON("trident", None,
