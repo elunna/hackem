@@ -3312,10 +3312,12 @@ screamu(mtmp, mattk)
 struct monst *mtmp;
 struct attack *mattk;
 {
-    int dmg = d((int) mattk->damn, (int) mattk->damd);
-    boolean wakeup;
-    int fate;
+    int fate, dmg = d((int) mattk->damn, (int) mattk->damd);
     long lcount;
+    boolean wakeup, has_toque = uarmh && uarmh->otyp == TOQUE;
+    /* TODO: Are there polyforms that are deaf too? */
+    boolean can_hear = !Deaf && !has_toque;
+    
 
     /* Assumes that the hero has to hear the monster's
      * attack in order to be affected.
@@ -3326,13 +3328,13 @@ struct attack *mattk;
         || mtmp->mspec_used)
         return FALSE;
 
-    if (!mtmp->mcan && canseemon(mtmp) && Deaf) {
+    if (!mtmp->mcan && canseemon(mtmp) && !can_hear) {
         pline("It looks as if %s is yelling at you.", mon_nam(mtmp));
-    } else if (!mtmp->mcan && !canseemon(mtmp) && Deaf) {
+    } else if (!mtmp->mcan && !canseemon(mtmp) && !can_hear) {
         You("sense a disturbing vibration in the air.");
-    } else if (mtmp->mcan && canseemon(mtmp) && !Deaf) {
+    } else if (mtmp->mcan && canseemon(mtmp) && can_hear) {
         pline("%s croaks hoarsely.", Monnam(mtmp));
-    } else if (mtmp->mcan && !canseemon(mtmp) && !Deaf) {
+    } else if (mtmp->mcan && !canseemon(mtmp) && can_hear) {
         You_hear("a hoarse croak nearby.");
     }
 
@@ -3345,7 +3347,7 @@ struct attack *mattk;
     /* scream attacks */
     switch (mattk->adtyp) {
     case AD_LOUD:
-        if (!Deaf) {
+        if (can_hear) {
             if (m_canseeu(mtmp)) {
                 pline("%s lets out a bloodcurdling scream!", Monnam(mtmp));
                 if (u.usleep)
@@ -3387,7 +3389,7 @@ struct attack *mattk;
     case AD_FEAR: {
         const char *stype = (mtmp->data == &mons[PM_MONSTROUS_SPIDER])
                           ? "screech" : "wail";
-        if (Deaf)
+        if (!can_hear)
             break;
         if (m_canseeu(mtmp)) {
             pline("%s lets out a horrific %s!", Monnam(mtmp), stype);
@@ -3413,7 +3415,7 @@ struct attack *mattk;
     }
     case AD_PIER:
         /* Mobat's have a piercing scream */
-        if (Deaf)
+        if (!can_hear)
             break; /* No inventory effects */
         if (m_canseeu(mtmp)) {
             pline("%s lets out a piercing screech!", Monnam(mtmp));
@@ -3428,7 +3430,7 @@ struct attack *mattk;
         break;
     case AD_SONG:
         /* Harpies have an entracing song that paralyzes */
-        if (Deaf)
+        if (!can_hear)
             break; /* No inventory effects */
         if (m_canseeu(mtmp) && !u.usleep)
             pline("%s releases a hypnotic melody!", Monnam(mtmp));
@@ -3455,7 +3457,7 @@ struct attack *mattk;
         break;
     case AD_GIBB:
         /* Gibberlings's emit a bunch of creepy sounds, uttering ghastly howls, clicks, shrieks and insane chattering noises. */
-        if (Deaf)
+        if (!can_hear)
             break; /* No inventory effects */
         wakeup = FALSE;
         lcount = (long) rn1(90, 10);
@@ -3553,11 +3555,11 @@ struct attack *mattk;
         break;
     }
 
-    if (Sonic_resistance && !Deaf) {
+    if (Sonic_resistance && can_hear) {
         pline_The("noise doesn't seem to bother you.");
         monstseesu(M_SEEN_LOUD);
         return FALSE;
-    } else if (!Deaf) {
+    } else if (can_hear) {
         /* We still get damage from the noise */
         mdamageu(mtmp, dmg);
     }

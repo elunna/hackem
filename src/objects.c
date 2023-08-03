@@ -467,7 +467,7 @@ HELM("cornuthaum", "conical hat",
 HELM("fedora", None,
      1, 0,           0,  0, 0,  3,  1, 10, 0, CLOTH, CLR_BROWN),
 HELM("toque", None,                                            /* EvilHack */
-     1, 0,   SONIC_RES,  0, 0,  3,  1, 10, 0, CLOTH, CLR_ORANGE),
+     1, 0,           0,  0, 0,  3,  1, 10, 0, CLOTH, CLR_ORANGE),
 HELM("elven helm", "hat",
      0, 0,           0,  6, 1,  3,  8,  9, 0, LEATHER, HI_LEATHER),
 HELM("orcish helm", "skull cap",
