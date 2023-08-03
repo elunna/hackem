@@ -579,7 +579,7 @@ struct obj {
 #define ITEM_FROST     0x00000002L /* frost damage or resistance */
 #define ITEM_SHOCK     0x00000004L /* shock damage or resistance */
 #define ITEM_VENOM     0x00000008L /* poison damage or resistance */
-#define ITEM_ACID      0x00000010L /* poison damage or resistance */
+#define ITEM_ACID      0x00000010L /* acid damage or resistance */
 #define ITEM_SCREAM    0x00000020L /* sonic damage or resistance */
 #define ITEM_DRLI      0x00000040L /* drains life or resists it */
 #define ITEM_OILSKIN   0x00000080L /* permanently greased */

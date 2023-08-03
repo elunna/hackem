@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+Weapons cannot have the acid or sonic property.
 Revert the sonic protection a toque grants back to just deafness.
 Upgraded items rarely carry over properties if the result is a magical item.
 Two alignment keys can be forged together to create The Key of Access.

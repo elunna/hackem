@@ -450,7 +450,7 @@ boolean allow_detrimental;
 
         /* check for restrictions */
         if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            && (j & (ITEM_DRLI | ITEM_FUMBLING | ITEM_HUNGER)))
+            && (j & (ITEM_DRLI | ITEM_SCREAM | ITEM_ACID | ITEM_FUMBLING | ITEM_HUNGER )))
             continue;
 
         if (is_launcher(otmp)
