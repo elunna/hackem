@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+If giants sit on toilets, they break. 
 Bullet ants have a chance to drop bullets.
 Changed tower shield to grant 4AC so it matches dNetHack.
 Fix: Atgeir's appearance always started out known.

@@ -139,11 +139,12 @@ dosit()
     } else if(IS_TOILET(typ)) {
         You(sit_message, defsyms[S_toilet].explanation);
 
-        if ((!Sick) && (u.uhs > 0))
+        if maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)) {
+            breaktoilet(u.ux, u.uy);
+        }
+        else if ((!Sick) && (u.uhs > 0))
             You("don't have to go...");
         else {
-            /* --hackem: Yes... This was originally in Slash'EM...
-             * Leaving it for posterity. */
             if (Role_if(PM_BARBARIAN) || Role_if(PM_CAVEMAN))
                 You("miss...");
             else
