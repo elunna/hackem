@@ -785,6 +785,8 @@ struct monst *mtmp;
                 otmp->lknown = 1;
                 if (!SchroedingersBox(otmp))
                     otmp->cknown = 1;
+            } else if (otmp->otyp == TIN && !otmp->known) {
+                otmp->known = 1;
             }
         }
         (void) display_minventory(mtmp, MINV_ALL | MINV_NOLET | PICK_NONE,
@@ -2379,6 +2381,8 @@ struct obj *obj, *otmp;
                     (void) display_cinventory(obj);
                 }
                 res = 1;
+            }  else if (obj->otyp == TIN && !obj->known) {
+                obj->known = res = 1;
             }
             if (res)
                 learn_it = TRUE;
@@ -3286,11 +3290,13 @@ boolean ordinary;
 
         for (otmp = invent; otmp; otmp = otmp->nobj) {
             otmp->dknown = 1;
-            if (Is_container(otmp) || otmp->otyp == STATUE) {
+            if (Is_container(otmp) 
+                  || otmp->otyp == STATUE) {
                 otmp->lknown = 1;
                 if (!SchroedingersBox(otmp))
                     otmp->cknown = 1;
-            }
+            } else if (otmp->otyp == TIN)
+                otmp->known = 1;
         }
         update_inventory();
         learn_it = TRUE;
