@@ -16,6 +16,8 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: some 'gnomes hate eggs' tweaks.(from EvilHack)
+Gnomes hate eggs (from EvilHack)
 Wearing an oilskin or greased cloak will let you pass through tight diagonals.
 If giants sit on toilets, they break. 
 Bullet ants have a chance to drop bullets.
