@@ -618,7 +618,7 @@ SHIELD("small shield", None,
 SHIELD("elven shield", "blue and green shield",
        0, 0, 0,           0, 2, 0,  40,   7, 8, 0,  WOOD, CLR_GREEN),
 SHIELD("tower shield", None,                                   /* SpliceHack */
-       1, 0, 1,           0, 2, 0, 200,  20, 7, 0,  IRON, HI_METAL),
+       1, 0, 1,           0, 2, 0, 200,  20, 6, 0,  IRON, HI_METAL),
 SHIELD("Uruk-hai shield", "white-handed shield",
        0, 0, 0,           0, 2, 0,  50,   7, 9, 0,  IRON, HI_METAL),
 SHIELD("orcish shield", "red-eyed shield",
