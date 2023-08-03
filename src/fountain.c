@@ -710,14 +710,18 @@ doforging(void)
             output->oeroded = output->oeroded2 = output->opoisoned = 0;
 
 
-            /* delete recipe objects */
-            delobj(obj1);
-            delobj(obj2);
+            /* delete recipe objects - use delobj_core() directly
+               to handle the Sword of Annihilation potentially
+               being one of the recipe objects */
+            delobj_core(obj1, TRUE);
+            delobj_core(obj2, TRUE);
 
             /* forged object is created */
             output = addinv(output);
             output->owt = weight(output);
             You("have successfully forged %s.", doname(output));
+            livelog_printf(LL_ARTIFACT, "used a forge to create %s", 
+                           artiname(output->oartifact));
             update_inventory();
 
             /* forging an artifact is too much stress for the forge */
