@@ -16,6 +16,7 @@
 
 Version 1.2.1 (unreleased)
 
+More 'gnomes hate eggs'. (from EvilHack)
 Regular eggs have a small chance to cancel gnomes. (from EvilHack)
 Fix: some 'gnomes hate eggs' tweaks.(from EvilHack)
 Gnomes hate eggs (from EvilHack)
