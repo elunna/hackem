@@ -741,6 +741,10 @@ unsigned corpseflags;
         if (!rn2(10))
             obj = mksobj_at(BOOMERANG, x, y, TRUE, FALSE);
         goto default_1;
+    case PM_BULLET_ANT:
+        if (!rn2(10))
+            obj = mksobj_at(BULLET, x, y, TRUE, FALSE);
+        goto default_1;
     case PM_NURSE:
         if (!rn2(10))
             obj = mksobj_at(PILL, x, y, TRUE, FALSE);
