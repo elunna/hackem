@@ -3792,7 +3792,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 5, CLR_MAGENTA),
     MON("screamer", S_FUNGUS,                                 /* SpliceHack */
         LVL(4, 4, 7, 0, 0), (G_GENO | 1),
-        A(ATTK(AT_TUCH, AD_LOUD, 3, 3),
+        A(ATTK(AT_SCRE, AD_LOUD, 3, 3),
         NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 100, MS_SHRIEK, MZ_SMALL), MR_POISON | MR_SONIC, 0,
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS

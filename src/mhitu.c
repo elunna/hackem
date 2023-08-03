@@ -82,7 +82,7 @@ struct attack *mattk;
         case AT_TUCH:
             if (mtmp->data == &mons[PM_GIANT_CENTIPEDE])
                 pline("%s coils its body around you!", Monnam(mtmp));
-            else if (mtmp->data != &mons[PM_SCREAMER])
+            else
                 pfmt = "%s touches you!";
             break;
         case AT_TENT:
