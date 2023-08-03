@@ -210,6 +210,7 @@ extern struct trobj Towel[];
 extern struct trobj Wishing[];
 extern struct trobj Money[];
 extern struct trobj Pickaxe[];
+extern struct trobj Stake[];
 
 /* We can't set up an external struct for an actual
  * Infidel's starting inventory, as they start with
@@ -1022,6 +1023,8 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, tortleUndeadSlayer, 1);
             else
                 ini_mon_inv(mtmp, UndeadSlayer, 1);
+            if (rn2(4))
+                ini_mon_inv(mtmp, Stake, 1);
             break;
         case PM_VALKYRIE:
             ini_mon_inv(mtmp, Valkyrie, 1);
