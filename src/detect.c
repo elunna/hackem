@@ -629,34 +629,37 @@ struct obj *detector; /* object doing the detecting */
     register struct monst *mtmp;
     int ter_typ = TER_DETECT | TER_OBJ;
 
-    if (do_dknown)
+    if (do_dknown) {
         for (obj = invent; obj; obj = obj->nobj) {
-            do_dknown_of(obj, TRUE);
-            discover_artifact((xchar) obj->oartifact);
-            obj->known = 1;
+            if (obj->oartifact) {
+                do_dknown_of(obj, TRUE);
+                discover_artifact((xchar) obj->oartifact);
+                obj->known = 1;
+            }
         }
-
+    }
     for (obj = fobj; obj; obj = obj->nobj) {
         if (obj->oartifact) {
             if (!(obj->ox == u.ux && obj->oy == u.uy))
                 ct++;
-        }
-        if (do_dknown) {
-            do_dknown_of(obj, TRUE);
-            discover_artifact((xchar) obj->oartifact);
-            obj->known = 1;
+            if (do_dknown) {
+                do_dknown_of(obj, TRUE);
+                discover_artifact((xchar) obj->oartifact);
+                obj->known = 1;
+            }
         }
     }
 
     for (obj = level.buriedobjlist; obj; obj = obj->nobj) {
         if (obj->oartifact) {
-            if (!(obj->ox == u.ux && obj->oy == u.uy))
+            if (!(obj->ox == u.ux && obj->oy == u.uy)) {
                 ct++;
-        }
-        if (do_dknown) {
-            do_dknown_of(obj, TRUE);
-            discover_artifact((xchar) obj->oartifact);
-            obj->known = 1;
+                if (do_dknown) {
+                    do_dknown_of(obj, TRUE);
+                    discover_artifact((xchar) obj->oartifact);
+                    obj->known = 1;
+                }
+            }
         }
     }
 
@@ -667,12 +670,13 @@ struct obj *detector; /* object doing the detecting */
         if (DEADMONSTER(mtmp))
             continue;
         for (obj = mtmp->minvent; obj; obj = obj->nobj) {
-            if (obj->oartifact)
+            if (obj->oartifact) {
                 ct++;
-            if (do_dknown) {
-                do_dknown_of(obj, TRUE);
-                discover_artifact((xchar) obj->oartifact);
-                obj->known = 1;
+                if (do_dknown) {
+                    do_dknown_of(obj, TRUE);
+                    discover_artifact((xchar) obj->oartifact);
+                    obj->known = 1;
+                }
             }
         }
     }
