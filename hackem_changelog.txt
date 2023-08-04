@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Wand of create horde only generates with 1-3 charges.
 Made the neutral and chaotic quests unmappable.
 Fix: Marauder's Map invoke was revealing too much info (reported by mobileuser). Fixes #419. 
 Fixed some flipped forging recipes. Closes #415.
