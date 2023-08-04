@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Made the neutral and chaotic quests unmappable.
 Fix: Marauder's Map invoke was revealing too much info (reported by mobileuser). Fixes #419. 
 Fixed some flipped forging recipes. Closes #415.
 Object lookup now shows the nutrition-to-weight ratio for food.
