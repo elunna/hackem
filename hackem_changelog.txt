@@ -7,10 +7,41 @@
 - My wife - for being endlessly patient with this time-consuming endeavor!
 - K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
 - amateurhour and qt for their endless debugging advice.
-- cbus for co-maintaining and developing ideas for this project.
 
 ### Thanks:
-- nh2465, riker, bhaak, kes, shadowrider, aosdict, paxxed, mobileuser, krm26, Umbire, mobileuser, bouquet, NetSysFire, stenno, notifico, NoisyToot, malor, transcendreamer, Loggers_VIII.
+- amateurhour
+- aosdict
+- arahael
+- Ardub23
+- bhaak
+- bouquet
+- cbus
+- Chris_ANG
+- disperse
+- hothraxxa
+- Janis
+- K2
+- kes
+- krm26
+- Loggers_VIII
+- malor
+- mobileuser
+- Nat Hall
+- NetSysFire
+- nh2465
+- NoisyToot
+- notifico
+- oh6
+- paxxed
+- qt
+- riker
+- shadowrider38
+- stenno
+- terrapin
+- transcendreamer
+- Umbire
+- VaderFLAG
+- YesLaching
 
 ==========================
 
@@ -55,7 +86,7 @@ More refactoring of blitz techs.
 Rename tech_callundead to tech_whistledead.
 Move Death's weapon attack to be first in the attack chain.
 practice_weapon bools.
-Trim wiki info added to database.<
+Trim wiki info added to database.
 Ported the sharpened pencil from SlashTHEM. Cloned magic markers become pencils.
 Recalculate item weight after cloning process.
 Cloning a magic lamp just creates an oil lamp.
