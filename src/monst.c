@@ -431,7 +431,7 @@ NEARDATA struct permonst mons[] = {
         LVL(3, 15, 6, 0, 0), (G_GENO | G_SGROUP | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(75, 30, MS_PARROT, MZ_TINY), 0, 0, 
+        SIZ(75, 30, MS_SQAWK, MZ_TINY), 0, 0, 
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, M2_WANDER | M2_DOMESTIC,
         M3_INFRAVISIBLE, 0, 0, 4, CLR_WHITE),
     MON("parrot", S_COCKATRICE,                                 /* Slash'EM */
@@ -439,7 +439,7 @@ NEARDATA struct permonst mons[] = {
         A(ATTK(AT_BITE, AD_PHYS, 1, 4),
           ATTK(AT_CLAW, AD_PHYS, 1, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(40, 20, MS_SQAWK, MZ_SMALL), 0, 0,
+        SIZ(40, 20, MS_PARROT, MZ_SMALL), 0, 0,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE, 
         M2_WANDER | M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 4, CLR_GREEN),

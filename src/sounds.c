@@ -853,25 +853,25 @@ register struct monst *mtmp;
 		    verbl_msg = "squaarks louldly!";
 		    break;
 		case 1:
-		    verbl_msg = "says 'Polly want a lembas wafer!'";
+            pline("%s says 'Polly want a lembas wafer!'", Monnam(mtmp));
 		    break;
 		case 2:
-		    verbl_msg = "says 'Nobody expects the Spanish Inquisition!'";
+		    pline("%s says 'Nobody expects the Spanish Inquisition!'", Monnam(mtmp));
 		    break;
 		case 3:
-		    verbl_msg = "says 'Who's a good boy, then?'";
+            pline("%s says 'Who's a good boy, then?'", Monnam(mtmp));
 		    break;
 		case 4:
-		    verbl_msg = "says 'Show us yer knickers!'";
+            pline("%s says 'Show us yer knickers!'", Monnam(mtmp));
 		    break;
 		case 5:
-		    verbl_msg = "says 'You'll never make it!'";
+            pline("%s says 'You'll never make it!'", Monnam(mtmp));
 		    break;
 		case 6:
-		    verbl_msg = "whistles suggestively!";
+            pline("%s whistles suggestively!", Monnam(mtmp));
 		    break;
 		case 7:
-		    verbl_msg = "says 'What sort of a sword do you call that!'";
+            pline("%s says 'What sort of a sword do you call that!'", Monnam(mtmp));
 		    break;
 	    }
 	    break;
