@@ -764,6 +764,7 @@
 
 /* monkeys are tameable via bananas but not pacifiable via food,
    otherwise their theft attack could be nullified too easily;
+   parrots are tameable via veggies, but only by pirates.
    dogs and cats can be tamed by anything they like to eat and are
    pacified by any other food;
    horses can be tamed by always-veggy food or lichen corpses but
@@ -771,7 +772,9 @@
 #define befriend_with_obj(ptr, obj) \
     (((ptr) == &mons[PM_MONKEY] || (ptr) == &mons[PM_APE]) \
      ? (obj)->otyp == BANANA \
-     : ((is_domestic(ptr) \
+     : ((is_domestic(ptr)           \
+        || ((ptr) == &mons[PM_PARROT] && Role_if(PM_PIRATE)\
+            && obj->material == VEGGY) \
         || (is_rat(ptr) && Role_if(PM_CONVICT)) \
         || (is_rat(ptr) && (obj)->otyp == CHEESE) \
         || ((ptr) == &mons[PM_WARG] && Race_if(PM_ORC)) \
