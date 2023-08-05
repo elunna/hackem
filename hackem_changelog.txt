@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Change wand of wind price to 175.
 Wand of wind: message fixes, zap up/down fix, zap down surfaces.
 Fix missing whitespace in death message.
 Fixed parrot speaking lines.

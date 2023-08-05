@@ -1281,7 +1281,7 @@ WAND("fear",            "rusty",  25, 200, 1, NODIR, IRON, CLR_RED),            
 WAND("wishing",          "pine",   2, 500, 1, NODIR, WOOD, HI_WOOD),
 WAND("nothing",           "oak",  75, 500, 0, IMMEDIATE, WOOD, HI_WOOD),
 WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
-WAND("wind",            "green", 15, 300, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
+WAND("wind",            "green", 15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
                                                             CLR_BRIGHT_GREEN),
 WAND("striking",        "ebony", 225, 150, 1, IMMEDIATE, WOOD, HI_WOOD),
 
