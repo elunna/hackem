@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Ghosts/shades couldn't be kicked with bone boots (reported by YesLaching. Fixes #422.
 Change wand of wind price to 175.
 Wand of wind: message fixes, zap up/down fix, zap down surfaces.
 Fix missing whitespace in death message.

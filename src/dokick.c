@@ -43,6 +43,8 @@ boolean clumsy;
     int dmg = (ACURRSTR + ACURR(A_DEX) + ACURR(A_CON)) / 15;
     int specialdmg, kick_skill = P_NONE;
     boolean trapkilled = FALSE;
+    boolean hitshade = uarmf && (uarmf->material == SILVER 
+            || uarmf->material == BONE);
     struct obj* hated_obj = NULL;
 
     if (uarmf && uarmf->otyp == KICKING_BOOTS)
@@ -62,12 +64,12 @@ boolean clumsy;
         dmg = 0;
 
     /* attacking a shade is normally useless */
-    if (noncorporeal(mon->data))
+    if (noncorporeal(mon->data) && !hitshade)
         dmg = 0;
 
     specialdmg = special_dmgval(&youmonst, mon, W_ARMF, &hated_obj);
 
-    if (noncorporeal(mon->data) && !specialdmg) {
+    if (noncorporeal(mon->data) && !specialdmg && !hitshade) {
         pline_The("%s.", kick_passes_thru);
         /* doesn't exercise skill or abuse alignment or frighten pet,
            and shades have no passive counterattack */
