@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix missing whitespace in death message.
 Fixed parrot speaking lines.
 Parrots are now tameable and feedable by pirates. Fixes #420.
 Wand of create horde only generates with 1-3 charges.
