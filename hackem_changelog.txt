@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Wand of wind: message fixes, zap up/down fix, zap down surfaces.
 Fix missing whitespace in death message.
 Fixed parrot speaking lines.
 Parrots are now tameable and feedable by pirates. Fixes #420.

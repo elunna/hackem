@@ -3782,11 +3782,23 @@ struct obj *obj; /* wand or spell */
             Your("probe reveals nothing.");
         return TRUE; /* we've done our own bhitpile */
     case WAN_WIND:
-        if (u.dz > 0) {
+        if (u.dz < 0) {
             You("stir up a whirlwind above you!");
-        } else {
-            You("scour the floor with wind!");
-        }
+        } else if (is_pool(x, y)) {
+            pline("Water splashes all over you!");
+            /* using two weapons at once makes both of them more vulnerable */
+            if (!rn2(u.twoweap ? 3 : 6))
+                water_damage(uwep, 0, TRUE, u.ux, u.uy);
+            if (u.twoweap && !rn2(3))
+                water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
+            if (!rn2(6))
+                erode_armor(&youmonst, ERODE_RUST);
+            uwatereffects();
+        } else if (is_lava(x, y)) {
+            pline("Molten lava splashes all over you!");
+            losehp(resist_reduce(d(3, 8), FIRE_RES), "zapping lava with wind", KILLED_BY);
+        } else
+            You("scour the %s with wind!", surface(x, y));
         break;
     case WAN_DELUGE:
         if (u.dz > 0) {
@@ -4453,7 +4465,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 learn_it = TRUE;
                 break;
             case WAN_WIND:
-                if (typ != DRAWBRIDGE_UP)
+                if (typ == DRAWBRIDGE_UP)
                     pline("For all your huffing and puffing, you cannot blow this drawbridge down.");
                 learn_it = TRUE;
                 break;
