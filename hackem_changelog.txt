@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Undo steel/iron golem death with unchanging vs deluge.
 Fix: Thrones are very comfortable if you are crowned. Reported by Umbire. From xNethack commit c59387d.
 Various tweaks and cleanup for the wand of deluge.
 Fix: Wand of water had message for zapping up when zapping down.

@@ -5285,11 +5285,6 @@ xchar sx, sy;
             break;
         } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
             You("rust!");
-            if (Unchanging) {
-                Strcpy(killer.name, "rusted away");
-                killer.format = NO_KILLER_PREFIX;
-                done(DIED);
-            }
             rehumanize();
             dam = 0; /* Prevent more damage after rehumanize */
             break;
