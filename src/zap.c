@@ -316,9 +316,6 @@ struct obj *otmp;
         }
         learn_it = TRUE;
         break;
-    case WAN_DELUGE:
-        dmg = delugehitsm(mtmp, d(6, 8));
-        break;
     case WAN_SLOW_MONSTER:
     case SPE_SLOW_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {
@@ -2427,11 +2424,6 @@ struct obj *obj, *otmp;
             scatter(obj->ox, obj->oy, 4, MAY_HIT | MAY_DESTROY | VIS_EFFECTS,
                     obj);
             break;
-        case WAN_DELUGE:
-            if (obj->lamplit) {
-                snuff_lit(obj);
-            }
-            break;
         case WAN_CANCELLATION:
         case SPE_CANCELLATION:
             cancel_item(obj);
@@ -3800,11 +3792,6 @@ struct obj *obj; /* wand or spell */
         } else
             You("scour the %s with wind!", surface(x, y));
         break;
-    case WAN_DELUGE:
-        if (u.dz < 0) {
-            pline("Rain? Here?");
-        }
-        break;
     case WAN_OPENING:
     case SPE_KNOCK:
         /* up or down, but at closed portcullis only */
@@ -3979,7 +3966,6 @@ struct obj *obj; /* wand or spell */
             case WAN_STRIKING:
             case SPE_FORCE_BOLT:
             case WAN_WIND:
-            case WAN_DELUGE:
                 wipe_engr_at(x, y, d(2, 4), TRUE);
                 break;
             default:
@@ -4458,10 +4444,6 @@ struct obj **pobj; /* object tossed/used, set to NULL
             case SPE_FORCE_BOLT:
                 if (typ != DRAWBRIDGE_UP)
                     destroy_drawbridge(x, y);
-                learn_it = TRUE;
-                break;
-            case WAN_DELUGE:
-                pline("Splash!");
                 learn_it = TRUE;
                 break;
             case WAN_WIND:
@@ -5285,18 +5267,38 @@ xchar sx, sy;
         dam = d(nd, 8);
         if (Half_physical_damage)
             dam = (dam + 1) / 2;
-        if (u.umonnum == PM_WATER_ELEMENTAL
-            || u.umonnum == PM_BABY_SEA_DRAGON
-            || u.umonnum == PM_SEA_DRAGON) {
+        if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
             You("%sabsorb the blast of water into your body.",
                 Reflecting ? "partially " : "");
             dam = 0;
             break;
-        }
-        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
-            You("rust!");
-            rehumanize();
+        } else if (u.umonnum == PM_WATER_ELEMENTAL) {
+            You_feel("better!");
+            healup(d(6, 6), 0, FALSE, FALSE);
+            dam = 0;
             break;
+        } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
+            if (!Unchanging) {
+                polymon(PM_MUD_ELEMENTAL);
+                dam = 0;
+            }
+            break;
+        } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+            You("rust!");
+            if (Unchanging) {
+                Strcpy(killer.name, "rusted away");
+                killer.format = NO_KILLER_PREFIX;
+                done(DIED);
+            }
+            rehumanize();
+            dam = 0; /* Prevent more damage after rehumanize */
+            break;
+        } else if (likes_fire(youmonst.data)) {
+            You("are being extinguished!");
+            dam += d(6, 6);
+        } else if (amphibious(youmonst.data)) {
+            You("don't mind the water.");
+            dam = 0;
         }
         if (!Reflecting) {
             /* using two weapons at once makes both of them more vulnerable */
@@ -6144,8 +6146,8 @@ boolean moncast;
          /* Clean up blood with water. */
         if (levl[x][y].splatpm) {
             levl[x][y].splatpm = 0;
-            wipe_engr_at(x, y, d(2, 4), TRUE);
         }
+        wipe_engr_at(x, y, d(2, 4), TRUE);
         break; /* ZT_WATER */
     case ZT_COLD:
         rangemod = freeze_tile(lev, x, y, rangemod);
@@ -6385,6 +6387,10 @@ boolean moncast;
             newsym(x, y);
             You("%s of smoke.", !Blind ? "see a puff" : "smell a whiff");
         }
+    if (OBJ_AT(x, y) && abstype == ZT_WATER) {
+        water_damage_chain(level.objects[x][y], TRUE, 0, FALSE, x, y);
+        newsym(x, y);
+    }
     if ((mon = m_at(x, y)) != 0) {
         wakeup(mon, FALSE);
         if (type >= 0 && !moncast) {
@@ -7464,14 +7470,12 @@ delugehitsm(mon, tmp)
 struct monst *mon;
 int tmp;
 {
-    if (mon->data == &mons[PM_IRON_GOLEM] 
-        || mon->data == &mons[PM_STEEL_GOLEM]) {
+    if (mon->data == &mons[PM_IRON_GOLEM] || mon->data == &mons[PM_STEEL_GOLEM]) {
         if (canseemon(mon))
             pline("%s falls to pieces!", Monnam(mon));
         if (mon->mtame)
             pline("May %s rust in peace.", mon_nam(mon));
-        return 500;
-
+        return 1000;
     } else if (u.uswallow && mon->data == &mons[PM_ICE_VORTEX]) {
         The("water is quickly turning to ice!");
         losehp(Maybe_Half_Phys(d(6, 6)), "turning into a block of ice", KILLED_BY);

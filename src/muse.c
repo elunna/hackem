@@ -2259,42 +2259,6 @@ register struct obj *otmp;
         mtmp->mux = u.ux;
         mtmp->muy = u.uy;
         break;
-    case WAN_DELUGE:
-        reveal_invis = TRUE;
-        if (mtmp == &youmonst) {
-            if (zap_oseen)
-                makeknown(WAN_DELUGE);
-            if (rnd(20) < 10 + u.uac) {
-                tmp = d(likes_fire(youmonst.data) ? 12 : 1, 6);
-                pline_The("jet of water hits you!");
-                erode_armor(&youmonst, ERODE_RUST);
-                losehp(tmp, "jet of water", KILLED_BY_AN);
-            } else
-                pline_The("jet of water misses you.");
-            stop_occupation();
-            nomul(0);
-        } else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]) {
-            mtmp->mhp += d(6, 6);
-            if (mtmp->mhp > mtmp->mhpmax)
-                mtmp->mhp = mtmp->mhpmax;
-            if (canseemon(mtmp)) {
-                pline("%s looks a lot better.", Monnam(mtmp));
-            }
-        }
-        else if (mtmp->data == &mons[PM_EARTH_ELEMENTAL]) {
-            if (canseemon(mtmp))
-                pline("%s turns into a roiling pile of mud!", Monnam(mtmp));
-            (void) newcham(mtmp, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
-        }
-        else if (rnd(20) < 10 + find_mac(mtmp)) {
-            tmp = d(likes_fire(mtmp->data) ? 12 : 1, 6);
-            hit("jet of water", mtmp, exclam(tmp));
-        } else {
-            miss("jet of water", mtmp);
-            if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
-                makeknown(WAN_DELUGE);
-        }
-        break;
    /* disabled because find_offensive() never picks WAN_TELEPORTATION */
     case WAN_TELEPORTATION:
         if (hits_you) {
@@ -2617,6 +2581,7 @@ struct monst *mtmp;
     case MUSE_WAN_CORROSION:
     case MUSE_WAN_POISON_GAS:
     case MUSE_WAN_NOISE:
+    case MUSE_WAN_DELUGE:
         mzapwand(mtmp, otmp, FALSE);
         if (oseen)
             makeknown(otmp->otyp);
@@ -2672,7 +2637,6 @@ struct monst *mtmp;
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
     case MUSE_WAN_WIND:
-    case MUSE_WAN_DELUGE:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
