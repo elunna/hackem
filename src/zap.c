@@ -3801,7 +3801,7 @@ struct obj *obj; /* wand or spell */
             You("scour the %s with wind!", surface(x, y));
         break;
     case WAN_DELUGE:
-        if (u.dz > 0) {
+        if (u.dz < 0) {
             pline("Rain? Here?");
         }
         break;
