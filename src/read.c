@@ -2143,11 +2143,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SCR_CLONING:
         seffect_cloning(&sobj);
         break;
-    case SCR_TIME:
+    case SCR_TIME: {
+        int bonus = 0;
         known = TRUE;
         if (confused || scursed) {
             You("are frozen in time!");
-            nomul(-(rn1(5, 10 - 5 * bcsign(sobj))));
+            bonus = rn1(5, 10 - 5 * bcsign(sobj));
+            nomul(-(bonus));
             multi_reason = "frozen in time";
             nomovemsg = "Your natural flow of time reasserts itself.";
         } else {
@@ -2155,11 +2157,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("ZA WARUDO!");
             else
                 pline("Time slows down to a crawl around you!");
-            youmonst.movement += 50 + bcsign(sobj) * 25;
-            morehungry(rn1(30, 30));
+            bonus = 50 + bcsign(sobj) * 25;
+            youmonst.movement += bonus;
             u.utimestop = TRUE;
         }
+        /* Time is an illusion. Lunchtime doubly so. 
+         * ― Douglas Adams, The Hitchhiker's Guide to the Galaxy */
+        morehungry(rn1(30, abs(bonus) * 5));
         break;
+    }
     case SCR_TELEPORTATION:
         if (confused || scursed) {
             level_tele();
