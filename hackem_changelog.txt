@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Celestial dragons also get a sonic breath attack.
 Scrolls of time cost much more hunger when read.
 Sonic rays can also destroy sinks.
 Use SlashTHEM message for engraving with wand of corrosion.
