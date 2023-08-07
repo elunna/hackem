@@ -1000,10 +1000,15 @@ doengrave()
             case WAN_CORROSION:
                 ptext = TRUE;
                 type = BURN;
-                if (!objects[otmp->otyp].oc_name_known && !Blind) {
-                    if (flags.verbose && !wonder)
-                        pline("This %s is a wand of corrosion!", xname(otmp));
-                    preknown = TRUE;
+                if (!Blind) {
+                    Sprintf(post_engr_text,
+                            "The bugs on the %s seem to be covered with goo!",
+                            surface(u.ux, u.uy));
+                    if (!objects[otmp->otyp].oc_name_known) {
+                        if (flags.verbose && !wonder)
+                            pline("This %s is a wand of corrosion!", xname(otmp));
+                        preknown = TRUE;
+                    }
                 } else if (!Deaf) {
                     Sprintf(post_engr_text, "Something sprays from the wand.");
                 }
