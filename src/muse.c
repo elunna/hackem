@@ -1870,7 +1870,8 @@ boolean reflection_skip;
             }
             nomore(MUSE_WAN_NOISE);
             if (obj->otyp == WAN_NOISE) {
-                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD)) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD) 
+                      && !resists_sonic(&youmonst)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_NOISE;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {

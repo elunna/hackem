@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Monsters won't target you with wand of noise if you polyd into a form that resists sonic.
 Fix: Vampiric race was susceptible to withering (reported by hothraxxa). Fixes #424.
 Fix: Artifacts could have their material changed by scrolls of transmogrify (reported by Ardub23). Fixes #425.
 Undo steel/iron golem death with unchanging vs deluge.
