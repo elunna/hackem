@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Artifacts could have their material changed by scrolls of transmogrify (reported by Ardub23). Fixes #425.
 Undo steel/iron golem death with unchanging vs deluge.
 Fix: Thrones are very comfortable if you are crowned. Reported by Umbire. From xNethack commit c59387d.
 Various tweaks and cleanup for the wand of deluge.

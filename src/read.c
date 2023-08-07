@@ -2273,6 +2273,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         } else {
             otmp = getobj(all_count, "change material");
         }
+        
+        if (otmp->oartifact) {
+            Your("%s resists the transformation!", xname(otmp));
+            break;
+        }
             
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
