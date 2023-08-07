@@ -4694,30 +4694,28 @@ struct monst *shkp;
 **
 ** Pay the shopkeeper to tinker an item.
 */
-
 static int
 shk_tinker(slang, shkp)
 const char *slang;
 struct monst *shkp;
 {
-    register struct obj *obj;       /* The object to identify       */
-    int charge = 500;                     /* Cost to identify             */
+    register struct obj *obj;
+    int charge = 2000; /* Gnomes are greedy pricks */
     int res = 0;
     /* Pick object */
     if (!(obj = getobj(identify_types, "have tinkered")))
         return 0;
     
     if (ACURR(A_INT) < 13) {
-       charge += 250;
+       charge += 1000;
     } 
     if (ACURR(A_INT) < 18) {
-        charge += 100;
+        charge += 500;
     }
     if (!Race_if(PM_GNOME))
         charge *= 2;
     
-    /* Artifacts cost more to deal with */
-
+    /* Artifacts cannot be tinkered */
     if (obj->oartifact) {
         verbalize("That item is as good as it'll get!");
         return 0;
@@ -4729,7 +4727,7 @@ struct monst *shkp;
         return 0;
     }
     /* Smooth out the charge a bit (lower bound only) */
-    shk_smooth_charge(&charge, 25, 1500);
+    shk_smooth_charge(&charge, 25, 7500);
     
     /* Go ahead? */
     if (shk_offer_price(slang, charge, shkp) == FALSE) 
@@ -4753,30 +4751,10 @@ struct monst *shkp;
             prinv((char *)0, obj, 0L);
         } else
             verbalize("Huh.");
-          
         update_inventory();
     }
     return 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 ** Tell customer how much it'll cost, ask if he wants to pay,
