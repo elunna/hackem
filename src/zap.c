@@ -6134,6 +6134,9 @@ boolean moncast;
         } else if (IS_TOILET(lev->typ)) {
             rangemod -= 1;
             breaktoilet(x, y);
+        } else if (IS_SINK(lev->typ)) {
+            rangemod -= 1;
+            breaksink(x, y);
         }
         break;
     }

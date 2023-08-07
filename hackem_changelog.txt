@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Sonic rays can also destroy sinks.
 Use SlashTHEM message for engraving with wand of corrosion.
 Monsters won't target you with wand of noise if you polyd into a form that resists sonic.
 Fix: Vampiric race was susceptible to withering (reported by hothraxxa). Fixes #424.
