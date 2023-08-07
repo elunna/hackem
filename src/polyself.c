@@ -1362,7 +1362,7 @@ rehumanize()
 {
     boolean was_flying = (Flying != 0);
     boolean forced = (u.mh < 1);
-
+    
     /* You can't revert back while unchanging */
     if (Unchanging && forced) {
         if (u.mh < 1) {
@@ -1397,10 +1397,10 @@ rehumanize()
     }
     if (forced 
         || (!Race_if(PM_DOPPELGANGER) && (rn2(20) > ACURR(A_CON)))) { 
-	/* Exhaustion for "forced" rehumaization & must pass con check for 
+	    /* Exhaustion for "forced" rehumaization & must pass con check for 
         * non-doppelgangers 
         * Don't penalize doppelgangers/polymorph running out */
-   	/* WAC Polymorph Exhaustion 1/2 HP to prevent abuse */
+   	    /* WAC Polymorph Exhaustion 1/2 HP to prevent abuse */
 	    u.uhp = (u.uhp / 2) + 1;
 	}
 
@@ -1417,6 +1417,12 @@ rehumanize()
         selftouch(no_longer_petrify_resistant);
     if (ublindf && ublindf->otyp == MASK) {
         remove_worn_item(ublindf, FALSE);
+    }
+    
+    /* Polymorphed vampirics who rehumanized from withering will stop withering */
+    if (Race_if(PM_VAMPIRIC) && Withering) {
+        You("are no longer withering away.");
+        set_itimeout(&HWithering, (long) 0);
     }
 }
 

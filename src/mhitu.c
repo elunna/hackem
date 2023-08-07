@@ -2584,7 +2584,8 @@ do_rust:
     case AD_WTHR: {
         uchar withertime = max(2, dmg);
         boolean no_effect =
-            (nonliving(youmonst.data) || !uncancelled);
+            (nonliving(youmonst.data) || (!Upolyd && Race_if(PM_VAMPIRIC)) 
+              || !uncancelled);
         boolean lose_maxhp = (withertime >= 8 && !BWithering); /* if already withering */
 
         hitmsg(mtmp, mattk);
