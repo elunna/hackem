@@ -47,6 +47,8 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Make elven boots/ring of stealth autoid on giants when worn.
+Fix: Run update_inventory() on curse #tech.
 Fix: Force learning a spell makes you also discover the associated spellbook. Fixes #427.
 Fix: Pirate crowning livelogged twice. Fixes #426.
 Scrolls of transmogrify can make items into materials the hero hates.
