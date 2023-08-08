@@ -1163,6 +1163,7 @@ int oldlevel, newlevel;
 {
     register const struct innate *abil, *rabil;
     long prevabil, mask = FROMEXPER;
+    int i;
     /* don't give resistance messages when demon crowning.
      * they aren't given in normal crowning, and you can
      * e.g. lose and regain warning, so you don't want
@@ -1236,18 +1237,13 @@ int oldlevel, newlevel;
     adjtech(oldlevel, newlevel);
 
     /* Learn your special spell! (At level 12) */
-    if (urole.spelspec &&
-            oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
-        && u.ulevelmax == u.ulevel) {
-        int i;
+    if (urole.spelspec && u.ulevelmax == u.ulevel
+          && oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV) {
         for (i = 0; i < MAXSPELL; i++)
             if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
                 break;
         if (spellid(i) == NO_SPELL)
             You("learn how to cast %s!", OBJ_NAME(objects[urole.spelspec]));
-        /*spl_book[i].sp_id = urole.spelspec;
-        spl_book[i].sp_lev = objects[urole.spelspec].oc_level;
-        spl_book[i].sp_know = 20000;*/
         force_learn_spell(urole.spelspec);
     }
 

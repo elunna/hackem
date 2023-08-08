@@ -497,8 +497,7 @@ register struct obj *spellbook;
         }
 
         /* Only Illithids get this 'ability' */
-        if (booktype == SPE_PSIONIC_WAVE
-            && !Race_if(PM_ILLITHID)) {
+        if (booktype == SPE_PSIONIC_WAVE && !Race_if(PM_ILLITHID)) {
             You("do not understand the strange language this book is written in.");
             pline_The("inscriptions in the book start to fade away!");
             spellbook->otyp = booktype = SPE_BLANK_PAPER;
@@ -2406,6 +2405,8 @@ short otyp;
         spl_book[i].sp_id = otyp;
         spl_book[i].sp_lev = objects[otyp].oc_level;
         incrnknow(i, 1);
+        if (!objects[otyp].oc_name_known)
+            makeknown(otyp);
         return TRUE;
     }
     return FALSE;
