@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Scrolls of transmogrify can make items into materials the hero hates.
 It's now possible to get a wand of polymorph from acquirement.
 Refactor scroll of acquirement code.
 Blessed scroll of acquirement requires more luck to get bonus item.

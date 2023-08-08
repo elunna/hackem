@@ -3925,11 +3925,12 @@ int material;
 boolean
 warp_material(struct obj* obj, boolean by_you)
 {
-    int origmat, newmat;
-    int j = 0;
+    int origmat, newmat, j = 0;
     
-    if (obj->oartifact && rn2(20))
+    /* Artifacts can not be transmogrified. */
+    if (obj->oartifact)
         return FALSE;
+    
     origmat = obj->material;
     
     while (j < 200) {
@@ -3942,7 +3943,7 @@ warp_material(struct obj* obj, boolean by_you)
     /* Does the hero hate the material? */
     /* Also we need to check if valid again if the above loop went through 
      * all tries. */
-    if (!Hate_material(newmat) && valid_obj_material(obj, newmat))
+    if (valid_obj_material(obj, newmat))
         obj->material = newmat;
     else
         /* can use a 0 in the list to default to the base material */
