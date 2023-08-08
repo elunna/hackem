@@ -4034,7 +4034,7 @@ int class_type;
         item->recharged = 1;
     }
     
-    while (item->otyp == WAN_WISHING || item->otyp == WAN_POLYMORPH) {
+    while (item->otyp == WAN_WISHING) {
         item->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
     }
 

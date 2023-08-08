@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+It's now possible to get a wand of polymorph from acquirement.
 Refactor scroll of acquirement code.
 Blessed scroll of acquirement requires more luck to get bonus item.
 Typo reading scroll of acquirement.
