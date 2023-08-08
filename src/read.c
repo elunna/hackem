@@ -4020,121 +4020,89 @@ create_particular_from_buffer(const char* bufp)
 /* 5lo: A menu for acquirement instead of the awful, terrible way
  * SlashEM-Extended handles this.
  */
-static void
-do_acquirement()
+static void mk_acquired_item(class_type)
+int class_type;
 {
-    struct obj *acqo;
-    menu_item *pick_list = (menu_item *) 0;
+    struct obj *item = mkobj(class_type, FALSE);
+
+    if (item->otyp == GOLD_PIECE) {
+        item->quan = rnd(1000);
+    } else if (item->otyp == MAGIC_LAMP) {
+        item->otyp = OIL_LAMP;
+        item->age = 1500L;
+    } else if (item->otyp == MAGIC_MARKER) {
+        item->recharged = 1;
+    }
+    
+    while (item->otyp == WAN_WISHING || item->otyp == WAN_POLYMORPH) {
+        item->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
+    }
+
+    while (item->otyp == SCR_ACQUIREMENT) {
+        item->otyp = rnd_class(SCR_CREATE_MONSTER, SCR_BLANK_PAPER);
+    }
+    /* Copied from zap.c wishing code */
+    if (item != &zeroobj) {
+        const char
+                *verb = ((Is_airlevel(&u.uz) || u.uinwater) ? "slip" : "drop"),
+                *oops_msg = (u.uswallow
+                             ? "Oops!  %s out of your reach!"
+                             : (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)
+                                || levl[u.ux][u.uy].typ < IRONBARS
+                                || levl[u.ux][u.uy].typ >= ICE)
+                               ? "Oops!  %s away from you!"
+                               : "Oops!  %s to the floor!");
+        /* The(aobjnam()) is safe since otmp is unidentified -dlc */
+        item = hold_another_object(item, oops_msg,
+                                   The(aobjnam(item, verb)),
+                                   (const char *) 0);
+    }
+}
+
+static void do_acquirement() {
     winid win;
     anything any;
     char ch = 'q';
 
     win = create_nhwindow(NHW_MENU);
     start_menu(win);
-    any.a_void = 0;
-    any.a_char = 'r';
-    add_menu(win, NO_GLYPH, &any, 'r', 0, ATR_NONE, "Random item",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = ')';
-    add_menu(win, NO_GLYPH, &any, ')', 0, ATR_NONE, "Weapon",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '[';
-    add_menu(win, NO_GLYPH, &any, '[', 0, ATR_NONE, "Armor", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '%';
-    add_menu(win, NO_GLYPH, &any, '%', 0, ATR_NONE, "Comestible",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '?';
-    add_menu(win, NO_GLYPH, &any, '?', 0, ATR_NONE, "Scroll",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '+';
-    add_menu(win, NO_GLYPH, &any, '+', 0, ATR_NONE, "Spellbook",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '!';
-    add_menu(win, NO_GLYPH, &any, '!', 0, ATR_NONE, "Potion",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '"';
-    add_menu(win, NO_GLYPH, &any, '"', 0, ATR_NONE, "Amulet",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '=';
-    add_menu(win, NO_GLYPH, &any, '=', 0, ATR_NONE, "Ring", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '/';
-    add_menu(win, NO_GLYPH, &any, '/', 0, ATR_NONE, "Wand", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '(';
-    add_menu(win, NO_GLYPH, &any, '(', 0, ATR_NONE, "Tool", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '*';
-    add_menu(win, NO_GLYPH, &any, '*', 0, ATR_NONE, "Gem", MENU_UNSELECTED);
+
+    char item_chars[] = { 'r', '"', ')', '[', '%', '?', '+', '!', '=', '/', '(', '*' };
+    const char *item_names[] = {
+            "Random item",  "Amulet", "Weapon", "Armor", "Comestible", "Scroll",
+            "Spellbook", "Potion", "Ring", "Wand", "Tool", "Gem"
+    };
+
+    for (int i = 0; i < (int) sizeof(item_chars); i++) {
+        any.a_void = 0;
+        any.a_char = item_chars[i];
+        add_menu(win, NO_GLYPH, &any, item_chars[i], 0, ATR_NONE, item_names[i], MENU_UNSELECTED);
+    }
+
     end_menu(win, "Select a type of item to create:");
-    /* No chains, iron balls, venom, boulders or gold */
+
+    menu_item *pick_list = NULL;
     if (select_menu(win, PICK_ONE, &pick_list) > 0) {
         ch = pick_list->item.a_char;
-        free((genericptr_t) pick_list);
+        free(pick_list);
     }
     destroy_nhwindow(win);
 
     switch (ch) {
-    default:
-    case 'r':
-        acqo = mkobj_at(RANDOM_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case ')':
-        acqo = mkobj_at(WEAPON_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '[':
-        acqo = mkobj_at(ARMOR_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '%':
-        acqo = mkobj_at(FOOD_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '?':
-        acqo = mkobj_at(SCROLL_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '+':
-        acqo = mkobj_at(SPBOOK_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '!':
-        acqo = mkobj_at(POTION_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '"':
-        acqo = mkobj_at(AMULET_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '=':
-        acqo = mkobj_at(RING_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '/':
-        acqo = mkobj_at(WAND_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '(':
-        acqo = mkobj_at(TOOL_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '*':
-        acqo = mkobj_at(GEM_CLASS, u.ux, u.uy, FALSE);
-        break;
+        case 'r': mk_acquired_item(RANDOM_CLASS); break;
+        case ')': mk_acquired_item(WEAPON_CLASS); break;
+        case '[': mk_acquired_item(ARMOR_CLASS); break;
+        case '%': mk_acquired_item(FOOD_CLASS); break;
+        case '?': mk_acquired_item(SCROLL_CLASS); break;
+        case '+': mk_acquired_item(SPBOOK_CLASS); break;
+        case '!': mk_acquired_item(POTION_CLASS); break;
+        case '"': mk_acquired_item(AMULET_CLASS); break;
+        case '=': mk_acquired_item(RING_CLASS); break;
+        case '/': mk_acquired_item(WAND_CLASS); break;
+        case '(': mk_acquired_item(TOOL_CLASS); break;
+        case '*': mk_acquired_item(GEM_CLASS); break;
     }
-    if (acqo->otyp == GOLD_PIECE)
-        acqo->quan = rnd(1000);
-    if (acqo->otyp == MAGIC_LAMP) {
-        acqo->otyp = OIL_LAMP;
-        acqo->age = 1500L;
-    }
-    if (acqo->otyp == MAGIC_MARKER)
-        acqo->recharged = 1;
-    while (acqo->otyp == WAN_WISHING || acqo->otyp == WAN_POLYMORPH)
-        acqo->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
-    while (acqo->otyp == SCR_ACQUIREMENT)
-        acqo->otyp = rnd_class(SCR_CREATE_MONSTER, SCR_BLANK_PAPER);
-
-    pline("An item has appeared on the ground just beneath you.");
 }
+
 
 /*read.c*/
