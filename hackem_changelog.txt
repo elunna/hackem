@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Typo reading scroll of acquirement.
 Shopkeeper tinkering costs a lot more.
 Celestial dragons also get a sonic breath attack.
 Scrolls of time cost much more hunger when read.

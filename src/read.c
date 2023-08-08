@@ -2530,7 +2530,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         
         pline("You have found a scroll of acquirement!");
         if (sobj->cursed) {
-            pline("Unfortuantely, nothing happens.");
+            pline("Unfortunately, nothing happens.");
             break;
         }
         do_acquirement();
