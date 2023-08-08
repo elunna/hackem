@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Run update_inventory() on curse #tech.
 Fix: Pirate crowning livelogged twice. Fixes #426.
 Scrolls of transmogrify can make items into materials the hero hates.
 It's now possible to get a wand of polymorph from acquirement.

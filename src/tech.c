@@ -2714,6 +2714,7 @@ tech_curse()
          obj->blessed = 0;
          unbless(obj);
          obj->bknown = 1;
+         update_inventory();
     } else if (!obj->cursed) {
          if (!Blind) {
             str = hcolor(NH_RED);
@@ -2723,6 +2724,7 @@ tech_curse()
          }
          curse(obj);
          obj->bknown = 1;
+         update_inventory();
     } else {
          if (obj->bknown) {
             pline ("That object is already cursed!");
@@ -2730,6 +2732,7 @@ tech_curse()
          }
          obj->bknown = 1;
          pline("The aura fades.");
+         update_inventory();
     }
     return 1;
 }
