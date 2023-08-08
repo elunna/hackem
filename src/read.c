@@ -2535,7 +2535,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         do_acquirement();
         
-        if (sobj->blessed && Luck + rn2(5) > 3)
+        if (sobj->blessed && Luck + rn2(5) > 10)
             do_acquirement(); /* Bonus! */
         break;
     case SCR_STINKING_CLOUD: {

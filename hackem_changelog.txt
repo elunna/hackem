@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Blessed scroll of acquirement requires more luck to get bonus item.
 Typo reading scroll of acquirement.
 Shopkeeper tinkering costs a lot more.
 Celestial dragons also get a sonic breath attack.
