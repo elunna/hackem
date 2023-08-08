@@ -318,6 +318,7 @@ Boots_on(VOID_ARGS)
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
                   xname(uarmf), rn2(2) ? "as large as you" : "of your stature");
+            makeknown(uarmf->otyp);
             EStealth &= ~W_ARMF;
         } else {
             toggle_stealth(uarmf, oldprop, TRUE);
@@ -1702,6 +1703,7 @@ register struct obj *obj;
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
                   xname(obj), rn2(2) ? "as large as you" : "of your stature");
+            learnring(obj, TRUE);
             EStealth &= ~W_RING;
         } else {
             toggle_stealth(obj, oldprop, TRUE);
