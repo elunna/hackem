@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Hiding monster still concealed under egg after it hatches. Fixes #414.
 Fix: Komodo dragons were covetous (reported by mobileuser). Fixes #431.
 Missing parentheses in tengu/phase spider teleporting.
 Fix: Dungeon under Ludios was missing upstair (reported by hothraxxa). Fixes #429. 
