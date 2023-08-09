@@ -7156,7 +7156,7 @@ struct permonst _mons2[] = {
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_HISS, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE | M1_SWIM, 
-        M2_STRONG | M2_HOSTILE, M4_VULNERABLE_COLD, 0, 0, 11, CLR_GREEN),
+        M2_STRONG | M2_HOSTILE, 0, M4_VULNERABLE_COLD, 0, 11, CLR_GREEN),
     MON("salamander", S_LIZARD,
         LVL(8, 12, -1, 0, -9), (G_HELL | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 8), 

@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Komodo dragons were covetous (reported by mobileuser). Fixes #431.
 Missing parentheses in tengu/phase spider teleporting.
 Fix: Dungeon under Ludios was missing upstair (reported by hothraxxa). Fixes #429. 
 Fix: Make elven boots/ring of stealth autoid on giants when worn.
