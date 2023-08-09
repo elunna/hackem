@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Dexcellence (From EvilHack)
 Allow self-targeting advanced spells when blind. (From EvilHack)
 Fix: Hiding monster still concealed under egg after it hatches. Fixes #414.
 Fix: Komodo dragons were covetous (reported by mobileuser). Fixes #431.

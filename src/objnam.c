@@ -5475,7 +5475,8 @@ struct obj *no_wish;
             objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_ACID)
             objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
-        if (objects[otmp->otyp].oc_magic)
+
+        if (objects[otmp->otyp].oc_magic && !wizard)
             objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM
                           | ITEM_VENOM | ITEM_ACID | ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING
                           | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_EXCEL);
