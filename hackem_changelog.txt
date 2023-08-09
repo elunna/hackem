@@ -47,6 +47,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Dungeon under Ludios was missing upstair (reported by hothraxxa). Fixes #429. 
 Fix: Make elven boots/ring of stealth autoid on giants when worn.
 Fix: Run update_inventory() on curse #tech.
 Fix: Force learning a spell makes you also discover the associated spellbook. Fixes #427.
