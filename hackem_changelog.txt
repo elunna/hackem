@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Gloves shouldn't allow you to wield banes (From EvilHack)
 Make retouch_object more consistent (From EvilHack)
 Fix: tortles should feel comfortable in fog clouds (From EvilHack)
 Fix: Demon lords of your alignment should demand less bribe money (From EvilHack)

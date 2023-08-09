@@ -4351,7 +4351,7 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
          * which protect them from directly touching a weapon of a material
          * they hate or wearing boots that prevent them touching a kicked
         * object. demons will always get blasted, though. */
-        if (!(direct || is_demon(raceptr(&youmonst))))
+        if (!bane && !(direct || is_demon(raceptr(&youmonst))))
             return 1;
 
         /* hero can't handle this object, but didn't get touch_artifact()'s
@@ -4369,7 +4369,7 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
         }
         /* damage is somewhat arbitrary: 1d10 magical for <foo>bane,
             * half of the usual damage for materials */
-        if (hatemat)
+        if (hatemat && (direct || is_demon(raceptr(&youmonst))))
             dmg += rnd(sear_damage(obj->material) / 2);
         if (bane)
             dmg += rnd(10);
