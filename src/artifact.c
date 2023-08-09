@@ -1167,9 +1167,6 @@ struct monst *mon;
         You("are blasted by %s power!", s_suffix(the(xname(obj))));
         touch_blasted = TRUE;
         dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
-        /* add half of the usual material damage bonus */
-        if (Hate_material(obj->material))
-            dmg += (rnd(sear_damage(obj->material)) / 2) + 1;
         Sprintf(buf, "touching %s", oart->name);
         losehp(dmg, buf, KILLED_BY); /* magic damage, not physical */
         exercise(A_WIS, FALSE);
@@ -3260,7 +3257,7 @@ doinvoke()
                  the(distant_name(obj, xname)));
         return 0;
     }
-    if (!retouch_object(&obj, FALSE))
+    if (!retouch_object(&obj, FALSE, FALSE))
         return 1;
     return arti_invoke(obj);
 }
@@ -4326,8 +4323,9 @@ blind_glow_warnings(VOID_ARGS)
    after undergoing a transformation (alignment change, lycanthropy,
    polymorph) which might affect item access */
 int
-retouch_object(objp, loseit)
+retouch_object(objp, direct, loseit)
 struct obj **objp; /* might be destroyed or unintentionally dropped */
+boolean direct; /* whether player has physical protection from artifact */
 boolean loseit;    /* whether to drop it if hero can longer touch it */
 {
     struct obj *obj = *objp;
@@ -4350,12 +4348,10 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
             return 1;
 
         /* another case where nothing should happen: hero is wearing gloves
-         * which protect them from directly touching a weapon of a material they
-         * hate
-         * (no other gear slots are considered to completely block touching an
-         * outer piece of gear; e.g. wearing body armor doesn't protect from
-         * touching a worn cloak) */
-        if (!bane && obj == uwep && uarmg)
+         * which protect them from directly touching a weapon of a material
+         * they hate or wearing boots that prevent them touching a kicked
+        * object. demons will always get blasted, though. */
+        if (!(direct || is_demon(raceptr(&youmonst))))
             return 1;
 
         /* hero can't handle this object, but didn't get touch_artifact()'s
@@ -4371,19 +4367,16 @@ boolean loseit;    /* whether to drop it if hero can longer touch it */
             You_cant("handle %s%s!", yname(obj),
                      obj->owornmask ? " anymore" : "");
         }
-        /* also inflict damage unless touch_artifact() already did so */
-        if (!touch_blasted) {
-            /* damage is somewhat arbitrary: 1d10 magical for <foo>bane,
-             * half of the usual damage for materials */
-            if (hatemat)
-                dmg += rnd(sear_damage(obj->material) / 2);
-            if (bane)
-                dmg += rnd(10);
-            Sprintf(buf, "handling %s that was made of %s",
-                    killer_xname(obj), materialnm[obj->material]);
-            losehp(dmg, buf, KILLED_BY);
-            exercise(A_CON, FALSE);
-        }
+        /* damage is somewhat arbitrary: 1d10 magical for <foo>bane,
+            * half of the usual damage for materials */
+        if (hatemat)
+            dmg += rnd(sear_damage(obj->material) / 2);
+        if (bane)
+            dmg += rnd(10);
+        Sprintf(buf, "handling %s that was made of %s",
+                killer_xname(obj), materialnm[obj->material]);
+        losehp(dmg, buf, KILLED_BY);
+        exercise(A_CON, FALSE);
         /* concession to those wishing to use gear made of an adverse material:
          * don't make them totally unable to use them. In fact, they can touch
          * them just fine as long as they're willing to.
@@ -4457,7 +4450,8 @@ boolean drop_untouchable;
     }
 
     if (beingworn || carryeffect || invoked) {
-        if (!retouch_object(&obj, drop_untouchable)) {
+        boolean direct = beingworn && will_touch_skin(obj->owornmask);
+        if (!retouch_object(&obj, direct, drop_untouchable)) {
             /* "<artifact> is beyond your control" or "you can't handle
                <object>" has been given and it is now unworn/unwielded
                and possibly dropped (depending upon caller); if dropped,

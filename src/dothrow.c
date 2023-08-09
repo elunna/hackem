@@ -95,10 +95,8 @@ int shotlimit;
         You("cannot throw an object at yourself.");
         return 0;
     }
-    if (is_demon(raceptr(&youmonst)) && obj->material == SILVER) {
-        retouch_object(&obj, TRUE);
-        return 0;
-    }
+    if (!retouch_object(&obj, !uarmg, TRUE))
+        return 1;
     u_wipe_engr(2);
     if (!uarmg && obj->otyp == CORPSE && touch_petrifies(&mons[obj->corpsenm])
         && !Stone_resistance) {
@@ -1766,7 +1764,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                             setuqwep((struct obj *) 0);
                         setuwep(obj);
                         u.twoweap = twoweap;
-                        retouch_object(&obj, TRUE);
+                        retouch_object(&obj, !uarmg, TRUE);
                         if (cansee(bhitpos.x, bhitpos.y))
                             newsym(bhitpos.x, bhitpos.y);
                     } else {
