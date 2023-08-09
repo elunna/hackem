@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Demon lords of your alignment should demand less bribe money (From EvilHack)
 Black dragon breath documentation (From EvilHack)
 Stunned/confused jumping (From EvilHack)
 Fix: Dexcellence (From EvilHack)
