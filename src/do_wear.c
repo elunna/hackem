@@ -453,27 +453,6 @@ Cloak_on(VOID_ARGS)
     case MANA_CLOAK:
         makeknown(uarmc->otyp);
         break;
-    case CLOAK_OF_FLIGHT:
-        /* Copied from Amulet of Flying */
-        float_vs_flight(); /* block flying if levitating */
-        check_wings(TRUE); /* are we in a form that has wings and can already fly? */
-                           
-        if (Flying) {
-            boolean already_flying;
-
-            /* to determine whether this flight is new we have to muck
-               about in the Flying intrinsic (actually extrinsic) */
-            EFlying &= ~W_ARMC;
-            already_flying = !!Flying;
-            EFlying |= W_ARMC;
-
-            if (!already_flying) {
-                makeknown(uarmc->otyp);
-                context.botl = TRUE; /* status: 'Fly' On */
-                pline("%s you up into the air!", Tobjnam(uarmc, "hoist"));
-            }
-        }
-        break;
     case ELVEN_CLOAK:
         toggle_stealth(uarmc, oldprop, TRUE);
         break;
@@ -481,6 +460,7 @@ Cloak_on(VOID_ARGS)
     case SHIMMERING_DRAGON_SCALES:
         toggle_displacement(uarmc, oldprop, TRUE);
         break;
+    case CLOAK_OF_FLIGHT:
     case CELESTIAL_DRAGON_SCALES:
         /* setworn() has already set extrinisic flying */
         float_vs_flight(); /* block flying if levitating */
@@ -578,7 +558,7 @@ Cloak_off(VOID_ARGS)
     case DWARVISH_CLOAK:
     case CLOAK_OF_PROTECTION:
     case CLOAK_OF_MAGIC_RESISTANCE:
-    case CLOAK_OF_FLIGHT:
+
     case OILSKIN_CLOAK:
     case POISONOUS_CLOAK:
     case PLAIN_CLOAK:
@@ -593,6 +573,7 @@ Cloak_off(VOID_ARGS)
     case SHIMMERING_DRAGON_SCALES:
         toggle_displacement(otmp, oldprop, FALSE);
         break;
+    case CLOAK_OF_FLIGHT:
     case CELESTIAL_DRAGON_SCALES: {
         boolean was_flying = !!Flying;
 
@@ -1199,6 +1180,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         break;
     case CELESTIAL_DRAGON_SCALES: {
         boolean already_flying, was_flying;
+        long cramped_wings = BFlying;
         if (puton) {
             ESleep_resistance |= W_ARM;
             EShock_resistance |= W_ARM;
@@ -1212,7 +1194,9 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
                 /* to determine whether this flight is new we have to muck
                    about in the Flying intrinsic (actually extrinsic) */
                 EFlying &= ~W_ARM;
+                BFlying &= ~W_ARM;
                 already_flying = !!Flying;
+                BFlying |= cramped_wings;
                 EFlying |= W_ARM;
 
                 if (!already_flying) {
@@ -1321,11 +1305,11 @@ Armor_off(VOID_ARGS)
     context.takeoff.mask &= ~W_ARM;
     context.takeoff.cancelled_don = FALSE;
 
-    check_wings(FALSE);
-
     dragon_armor_handling(otmp, FALSE);
 
     setworn((struct obj *) 0, W_ARM);
+
+    check_wings(FALSE);
 
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
@@ -1389,10 +1373,7 @@ boolean silent; /* we assume a wardrobe change if false */
         if (!silent && uarm != last_worn_armor)
             Your("%s seems to have holes for wings.", simpleonames(uarm));
     } else {
-        if (!(uamul && uamul->otyp == AMULET_OF_FLYING))
-            BFlying |= W_ARM;
-        else if (!(uarmc && uarmc->otyp == CLOAK_OF_FLIGHT))
-            BFlying |= W_ARM;
+        BFlying |= W_ARM;
         if (!silent)
             You("fold your wings under your suit.");
     }
@@ -1512,9 +1493,9 @@ Amulet_on()
         find_ac();
         break;
     case AMULET_VERSUS_STONE:
-		if (Stoned)
+        if (Stoned)
             fix_petrification();
-		break;
+        break;
     case AMULET_OF_YENDOR:
         break;
     }
