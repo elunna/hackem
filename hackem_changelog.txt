@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Black dragon breath documentation (From EvilHack)
 Stunned/confused jumping (From EvilHack)
 Fix: Dexcellence (From EvilHack)
 Allow self-targeting advanced spells when blind. (From EvilHack)

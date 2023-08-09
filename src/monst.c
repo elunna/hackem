@@ -3503,10 +3503,9 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         0, 0, MH_DRAGON, 30, CLR_ORANGE),
-    /* disintegration breath is actually all or nothing, not 1d255 */
     MON("black dragon", S_DRAGON,
         LVL(18, 9, -1, 20, -6), (G_GENO | 1),
-        A(ATTK(AT_BREA, AD_DISN, 1, 255), 
+        A(ATTK(AT_BREA, AD_DISN, 12, 6),
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
