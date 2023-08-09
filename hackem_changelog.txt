@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: rusty rusty wand (reported by Umbire). Fixes #432.
 Fix: Gloves shouldn't allow you to wield banes (From EvilHack)
 Make retouch_object more consistent (From EvilHack)
 Fix: tortles should feel comfortable in fog clouds (From EvilHack)
