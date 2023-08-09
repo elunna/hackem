@@ -1,48 +1,6 @@
 
 # Hack'EM Changelog
 
-## Credits
-
-### Special thanks to:
-- My wife - for being endlessly patient with this time-consuming endeavor!
-- K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
-- amateurhour and qt for their endless debugging advice.
-
-### Thanks:
-- amateurhour
-- aosdict
-- arahael
-- Ardub23
-- bhaak
-- bouquet
-- cbus
-- Chris_ANG
-- disperse
-- hothraxxa
-- Janis
-- K2
-- kes
-- krm26
-- Loggers_VIII
-- malor
-- mobileuser
-- Nat Hall
-- NetSysFire
-- nh2465
-- NoisyToot
-- notifico
-- oh6
-- paxxed
-- qt
-- riker
-- shadowrider38
-- stenno
-- terrapin
-- transcendreamer
-- Umbire
-- VaderFLAG
-- YesLaching
-
 ==========================
 
 Version 1.2.1 (unreleased)
@@ -4218,3 +4176,45 @@ a6be6a7a4 2022-07-07: "Imported tsetse flies.",
 badac3bd7 2022-07-06: "One more minor README.md tweak.",
 216352cee 2022-07-06: "README.md formatting tweak.",
 1b4eea232 2022-07-06: "Update README file (install instructions), tweak a couple hints files.",
+
+## Credits
+
+### Special thanks to:
+- My wife - for being endlessly patient with this time-consuming endeavor!
+- K2, for making the epic EvilHack, all his help during development, and pushing Hack'EM up to hardfought.
+- amateurhour and qt for their endless debugging advice.
+
+### Thanks:
+- amateurhour
+- aosdict
+- arahael
+- Ardub23
+- bhaak
+- bouquet
+- cbus
+- Chris_ANG
+- disperse
+- hothraxxa
+- Janis
+- K2
+- kes
+- krm26
+- Loggers_VIII
+- malor
+- mobileuser
+- Nat Hall
+- NetSysFire
+- nh2465
+- NoisyToot
+- notifico
+- oh6
+- paxxed
+- qt
+- riker
+- shadowrider38
+- stenno
+- terrapin
+- transcendreamer
+- Umbire
+- VaderFLAG
+- YesLaching
