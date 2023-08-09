@@ -3013,7 +3013,8 @@ boolean printdun;
     /* calculate level number */
     i = depthstart + mptr->lev.dlevel - 1;
     if (In_endgame(&mptr->lev))
-        Sprintf(buf, "%s%s:", TAB, endgamelevelname(tmpbuf, i));
+        Sprintf(buf, "%s%s:", TAB, 
+                endgamelevelname(tmpbuf, observable_depth(&mptr->lev)));
     else
         Sprintf(buf, "%sLevel %d:", TAB, i);
 
