@@ -2277,13 +2277,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else
                 otmp = some_armor(&youmonst);
         } else {
-            otmp = getobj(all_count, "change material");
+            otmp = getobj(all_count, "transmogrify");
         }
         
-        if (otmp->oartifact) {
-            Your("%s resists the transformation!", xname(otmp));
-            break;
-        }
+
             
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
@@ -2291,7 +2288,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             exercise(A_CON, !scursed);
             exercise(A_STR, !scursed);
             break;
+        } else if (otmp->oartifact) {
+            Your("%s resists the transformation!", xname(otmp));
+            break;
         }
+
         if (confused || scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
             curse(otmp);

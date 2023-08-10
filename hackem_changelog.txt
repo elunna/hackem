@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Scroll of transmogrify could check null obj when checking for artifacts.
 Fix: Elemental Planes Overview From EvilHack)
 Fix: Flying stuff (From EvilHack) and cloak of flight code consolidation.
 Fix: rusty rusty wand (reported by Umbire). Fixes #432.
