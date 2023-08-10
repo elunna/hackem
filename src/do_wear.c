@@ -1184,6 +1184,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         if (puton) {
             ESleep_resistance |= W_ARM;
             EShock_resistance |= W_ARM;
+            ESonic_resistance |= W_ARM;
 
             /* setworn() has already set extrinisic flying */
             float_vs_flight(); /* block flying if levitating */
@@ -1207,6 +1208,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         } else {
             ESleep_resistance &= ~W_ARM;
             EShock_resistance &= ~W_ARM;
+            ESonic_resistance &= ~W_ARM;
 
             was_flying = !!Flying;
 

@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Celestial dragon scaled armor wasn't granting sonic resistance (reported by mobileuser). Fixes #435.
 Make potions of invulnerability more rare.
 Fix: Wielding stakes makes thrown daggers act like stakes (reported by Umbire). Fixes #434.
 Allow tipping into containers on the ground (reported by hothraxxa). Fixes #433.
