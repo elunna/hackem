@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Hobbit pickpockets are always hostile.
 Elvenkings won't appear until after level 10 in throne rooms. 
 Fix: Celestial dragon scaled armor wasn't granting sonic resistance (reported by mobileuser). Fixes #435.
 Make potions of invulnerability more rare.
