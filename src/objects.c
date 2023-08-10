@@ -1038,7 +1038,7 @@ POTION("see invisible",       "magenta",  1, SEE_INVIS, 42, 50, CLR_MAGENTA),
 POTION("healing",               "amber",  1, 0, 57, 100, CLR_BROWN),
 POTION("extra healing",          "puce",  1, 0, 47, 100, CLR_RED),
 POTION("gain level",            "milky",  1, 0, 20, 300, CLR_WHITE),
-POTION("invulnerability",         "icy",  1, 0,  5, 300, CLR_BRIGHT_BLUE),   /* Slash'EM */
+POTION("invulnerability",         "icy",  1, 0,  2, 300, CLR_BRIGHT_BLUE),   /* Slash'EM */
 POTION("enlightenment",        "swirly",  1, 0, 20, 200, CLR_ORANGE),
 POTION("monster detection",    "bubbly",  1, 0, 40, 150, CLR_WHITE),
 POTION("object detection",      "smoky",  1, 0, 42, 150, CLR_GRAY),
