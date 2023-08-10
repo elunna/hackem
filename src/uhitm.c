@@ -1995,12 +1995,12 @@ int dieroll;
 	tmp += rnd(6);
 
     /* Stakes vs vampires */
-    if (uwep && uwep->otyp == STAKE && is_vampire(mdat)) {
-        int skill = P_SKILL(weapon_type(uwep));
+    if (obj && obj->otyp == STAKE && is_vampire(mdat)) {
+        int skill = P_SKILL(weapon_type(obj));
 
         if (Role_if(PM_UNDEAD_SLAYER))
             skill += 1;
-        if (uwep->oartifact == ART_STAKE_OF_VAN_HELSING)
+        if (obj->oartifact == ART_STAKE_OF_VAN_HELSING)
             skill += 2;
         if (P_SKILL(weapon_type(obj)) >= P_BASIC) {
             /* Scale instakill rate with skill level
