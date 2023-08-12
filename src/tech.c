@@ -2002,11 +2002,13 @@ blitz_pummel()
 
     if (!mtmp) {
         You("strike nothing.");
-        return 0;
+        return 1;
     }
     context.forcefight = TRUE; 
-    if (!attack(mtmp))
-        return 0;
+    if (!attack(mtmp)) {
+        return 1;
+        context.forcefight = FALSE;
+    }
     
     /* Perform the extra attacks */
     for (i = 0; (i < 4); i++) {
@@ -2053,9 +2055,11 @@ blitz_g_slam()
     }
     /* Required for the first attack, otherwise nothing happens if we attempt
      * to attack peacefuls. */
-    context.forcefight = TRUE; 
-    if (!attack(mtmp))
+    context.forcefight = TRUE;
+    if (!attack(mtmp)) {
+        context.forcefight = FALSE;
         return 0;
+    }
     
     /* Slam the monster into the ground */
     mtmp = m_at(u.ux + u.dx, u.uy + u.dy);

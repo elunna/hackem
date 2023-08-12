@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Pummel and ground slam techs could leave forcefight on after use. 
 tech.c indentation.
 Adjust odds for general store services.
 Group all rats together in monst.c
