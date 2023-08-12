@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+The Wizard of Yendor and Quest Nemesis also steal common artifacts (from UnNetHack)
 The Wizard of Yendor will never steal the quest artifact of the current role (from UnNetHack)
 Revert: Scrolls of charging and bag of tricks.
 Uncharged bags of tricks or rats can be destination for tipping containers.
