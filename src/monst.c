@@ -807,6 +807,14 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
             | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 8, CLR_BRIGHT_CYAN),
+    MON("acid sphere", S_EYE,                                   /* EvilHack */
+        LVL(7, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2),
+        A(ATTK(AT_EXPL, AD_ACID, 5, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(10, 10, MS_SILENT, MZ_SMALL), MR_ACID, MR_ACID,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
+        | M1_NOTAKE,
+        M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 10, CLR_YELLOW),
     MON("bloodshot eye", S_EYE,                                 /* Slash'EM */
         LVL(6, 3, 4, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_GAZE, AD_STUN, 3, 4), 
@@ -821,14 +829,6 @@ NEARDATA struct permonst mons[] = {
         SIZ(10, 10, MS_SILENT, MZ_SMALL), 0, 0,
         M1_FLY | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_TPORT, M2_HOSTILE | M2_NEUTER, 
         M3_INFRAVISIBLE | M3_SKITTISH, 0, 0, 10, CLR_CYAN),
-    MON("acid sphere", S_EYE,                                   /* EvilHack */
-        LVL(7, 13, 4, 0, 0), (G_NOCORPSE | G_GENO | 2),
-        A(ATTK(AT_EXPL, AD_ACID, 5, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(10, 10, MS_SILENT, MZ_SMALL), MR_ACID, MR_ACID,
-        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS
-            | M1_NOTAKE,
-        M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 10, CLR_YELLOW),
     MON("magical eye", S_EYE,                                    /* EvilHack */
         LVL(8, 6, 0, 90, -10), (2),      
         A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 

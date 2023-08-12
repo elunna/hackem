@@ -1902,23 +1902,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         /* create the critter */
         if (confused) {
-            /* Normally you get an elemental... */
-            switch (rn2(4)) {
-            case 0: /* Air */
-                critter = &mons[PM_GAS_SPORE];
-                break;
-            case 1: /* Fire */
-                critter = &mons[PM_FLAMING_SPHERE];
-                break;
-            case 2: /* Water */
-                critter = &mons[PM_FREEZING_SPHERE];
-                break;
-            default:
-            case 3: /* Earth */
-                critter = &mons[PM_SHOCKING_SPHERE];
-                break;
-            }
+            /* All spheres are available as all elementals are. */
+            critter = &mons[PM_FREEZING_SPHERE + rn2(5)];
         } else {
+            /* Normally you get an elemental... */
             critter = &mons[rand_elemental()];
         }
         /* Summoning demons is a chaotic thing... */
