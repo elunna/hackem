@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Monsters can also use the bag of rats defensively.
 Fix: Elemental fist tech message capitalization.
 Hobbit pickpockets are always hostile.
 Elvenkings won't appear until after level 10 in throne rooms. 

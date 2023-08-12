@@ -798,7 +798,8 @@ struct monst *mtmp;
             }
         }
         nomore(MUSE_BAG_OF_TRICKS);
-        if (obj->otyp == BAG_OF_TRICKS && obj->spe > 0) {
+        if ((obj->otyp == BAG_OF_TRICKS || obj->otyp == BAG_OF_RATS) 
+              && obj->spe > 0) {
             m.defensive = obj;
             m.has_defense = MUSE_BAG_OF_TRICKS;
         }
@@ -954,7 +955,8 @@ struct obj *start;
             m.has_defense = MUSE_POT_RESTORE_ABILITY;
         }
         nomore(MUSE_BAG_OF_TRICKS);
-        if (obj->otyp == BAG_OF_TRICKS && obj->spe > 0) {
+        if ((obj->otyp == BAG_OF_TRICKS || obj->otyp == BAG_OF_RATS) 
+              && obj->spe > 0) {
             m.defensive = obj;
             m.has_defense = MUSE_BAG_OF_TRICKS;
         }
@@ -1259,17 +1261,21 @@ struct monst *mtmp;
     case MUSE_BAG_OF_TRICKS: {
         coord cc;
         struct monst *mon;
-        /* pm: 0 => random, eel => aquatic, croc => amphibious */
-        struct permonst *pm = !is_pool(mtmp->mx, mtmp->my) ? 0
-                                                           : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
+        struct permonst *pm;
+        
+        if (otmp->otyp == BAG_OF_RATS)
+            pm = &mons[PM_SEWER_RAT + rn2(2)];
+        else /* pm: 0 => random, eel => aquatic, croc => amphibious */
+            pm = !is_pool(mtmp->mx, mtmp->my) ? 0
+                    : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
         
         if (!enexto(&cc, mtmp->mx, mtmp->my, pm))
             return 0;
         mbagmsg(mtmp, otmp);
         otmp->spe--;
-        mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
+        mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
         if (mon && canspotmon(mon) && oseen)
-            makeknown(BAG_OF_TRICKS);
+            makeknown(otmp->otyp);
         return 2;
     }
     case MUSE_SCR_ELEMENTALISM: {
