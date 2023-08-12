@@ -117,8 +117,6 @@ agent of *
 	it happened.  Regret was unprofessional -- worse, it was
 	death-watch beetle in the soul.
 		[ Goldfinger, by Ian Fleming ]
-alchemy smock
-    Provides acid resistance and poison resistance.
 alchemist
 	Humankind cannot gain anything without first giving something in
 	return. To obtain, something of equal value must be lost. That is
@@ -216,6 +214,11 @@ angel
 	and shall cast them into the furnace of fire; there shall be
 	wailing and gnashing of teeth.
 		[ The Gospel According to Matthew, 13:37-42, 49-50 ]
+angelslayer
+	An artifact trident that warns of Angels, confers automatic
+	searching and half-spell damage, and does extra fire damage
+	to targets that are susceptible.  Rumor has is that demons,
+	especially Balrogs, are fond of this weapon.
 angry god*
 	Cold wind blows.
 	The gods look down in anger on this poor child.
@@ -372,6 +375,13 @@ ashikaga takauji
 	government in the town of Yoshino.  This period of dual
 	governments was known as the Nambokucho.
 		[ Samurai - The Story of a Warrior Tradition, by Cook ]
+ashmar
+	The Guardian, or 'Ashmar' as spoken in the dwarvish tongue.
+	Arguably the best defense a warrior could ever hope to
+	have.  Rumor has it, the bearer of this magical shield
+	could never be forced to retreat, and that its foes would
+	be repelled should they dare to attack.
+		[]
 asphynx
 	This small,  inoffensive-looking snake shares the feared power
 	of petrification with its distant relatives the cockatrice and
@@ -460,8 +470,10 @@ double?headed?axe
 		[ Malcolm's Katie, by Isabella Valancey Crawford ]
 axolotl
 	A mundane salamander, harmless.
-~bag of*
-bag
+bag*
+back of *
+sack
+ditty bag
 	"Now, this third handkerchief," Mein Herr proceeded, "has also
 	four edges, which you can trace continuously round and round:
 	all you need do is to join its four edges to the four edges of
@@ -478,19 +490,6 @@ bag
 	is outside it; and whatever is outside it, is inside it.  So
 	you have all the wealth of the world in that leetle Purse!"
 		[ Sylvie and Bruno Concluded, by Lewis Carroll ]
-bag of holding
-~oilskin sack
-sack
-ditty bag
-    The sack is the most basic form of container in NetHack. A sack
-    stores items beyond the 52-character limit, and protects its
-    contents from fire, cold, and many other forms of damage; it is
-    also among the lightest of the containers in the game. However,
-    throwing a sack may break or damage some of its contents; if a
-    sack gets wet (e.g. from falling into a pool), it contents may
-    become wet as well.
-
-    Can be greased to offer some protection against water damage.
 b*lzebub
 	The "lord of the flies" is a translation of the Hebrew
 	Ba'alzevuv (Beelzebub in Greek).  It has been suggested that
@@ -1887,7 +1886,6 @@ dramborleg
 		[ The Book of Lost Tales: Part Two,
 			by J.R.R. Tolkien ]
 *drum
-~drum of earthquake
 	Many travelers have seen the drums of the great apes, and
 	some have heard the sounds of their beating and the noise of
 	the wild, weird revelry of these first lords of the jungle,
@@ -2124,8 +2122,6 @@ elwing
 	offspring of elf and mortal, Earendil, and Elwing, and Elrond
 	their child.
 		[ The Silmarillion, by J.R.R. Tolkien ]
-earmuffs
-	For when you just don't want to listen to anyone.
 landshark
 	Some sharks swim not through water, but through land. These beasts
 	are also notable for their uncommonly good jumping ability.
@@ -2310,6 +2306,15 @@ expensive camera
 	colour and a speedy hand with a paintbrush.  He had been very
 	upset to find that out.
 		[ The Light Fantastic, by Terry Pratchett ]
+eye of the aethiopica
+	This is a powerful amulet of ESP.  In addition to its standard
+	powers, it regenerates the energy of anyone who carries
+	it, allowing them to cast spells more often.  It also reduces
+	any spell damage to the person who carries it by half, and
+	protects from magic missiles.  Finally, when invoked it has
+	the power to instantly open a portal to any other area of the
+	dungeon, allowing its invoker to travel quickly between
+	areas.
 # note:  The Eyes of the Overworld is the title of Jack Vance's sequel
 # to The Dying Earth and in it the 'Eyes' were separate "cusps" that
 # needed to be worn like contact lenses, one on each eyeball.  Wearing
@@ -3308,7 +3313,7 @@ grappling hook
 	beefsteaks towards him.
 		[ Moby Dick, by Herman Melville ]
 ~unicorn horn
-tooled horn
+*horn
 	Roland hath set the Olifant to his mouth,
 	He grasps it well, and with great virtue sounds.
 	High are those peaks, afar it rings and loud,
@@ -3772,6 +3777,13 @@ kelp*
 	vitamin and mineral content. Kelps are especially abundant in Japan,
 	and various foods known as kombu are made from them.
 		[ The Columbia Encyclopedia, Sixth Edition ]
+keolewa
+	At the place ever afterwards famous as Lamakee he kills with
+	his spear the warrior Paopele, who wields a club named Keolewa
+	so great that it extends over a whole district in length,
+	reaches up to the clouds of heaven, and takes four thousand men
+	to carry.
+		[ Hawaiian Mythology, by Martha Beckwith ]
 *ki-rin
 	The ki-rin is a strange-looking wingless flying creature.
 	It has scales, a mane like a lion, a tail, four legs with
@@ -3962,8 +3974,6 @@ lamassu
 	Honorable winged lions possessed of mystical powers.
 oil lamp
 magic lamp
-	Radius 3, Duration: infinite
-
     When he came to himself he told his mother what had passed,
     and showed her the lamp and the fruits he had gathered in the
     garden, which were in reality precious stones.  He then asked
@@ -4273,6 +4283,9 @@ lolth
 	do not look with ill favor upon ambitious individuals wielding
 	poisoned daggers.
 		[ Drizzt Do'Urden ]
+*longbow of diana
+	This legendary bow grants ESP when carried and can reflect magical
+	attacks when wielded.  When invoked it provides a supply of arrows.
 # long worm -- see "worm"
 looking glass
 mirror
@@ -5348,7 +5361,7 @@ phoenix
 		[ The Garden of Sinners ]
 pick*ax*
 broad pick
-dwarvish mattock
+*mattock
 	The mine is full of holes;
 	With the wound of pickaxes.
 	But look at the goldsmith's store.
@@ -5578,6 +5591,7 @@ hedgehog
 	continent and to and from our own world.  The precise manner
 	of their working is a Management secret.
 		[ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
+trident
 poseido*n
 	Poseido(o)n, lord of the seas and father of rivers and
 	fountains, was the son of Chronos and Rhea, brother of Zeus,
@@ -5617,7 +5631,6 @@ potion of amnesia
 	May God make me more wretched
 	Than ever I have been yet!
 		[ Maud, And Other Poems by Alfred, Lord Tennyson ]
-
 potion of sake
 potion of rum
 potion of booze
@@ -5725,6 +5738,7 @@ quadruped
 quantum mechanic
 	These creatures are not native to this universe; they seem
 	to have strangely derived powers, and unknown motives.
+		[]
 
 	_Uncertainty Principle_  The principle that it is not possible
 	to know with unlimited accuracy both the position and momentum
@@ -5870,7 +5884,11 @@ revenant
 	then tightened around his throat.  They were gloved in the finest
 	moleskin and sticky with blood, yet the touch was icy cold.
 		[ A Game of Thrones, by George R. R. Martin ]
-ring*
+~*invisibility
+~*p'hul
+ring
+* ring
+ring of *
 	Three Rings for the Elven-kings under the sky,
 	Seven for the Dwarf-lords in their halls of stone,
 	Nine for Mortal Men doomed to die,
@@ -6210,6 +6228,26 @@ scorpius
 	on opposite sides of the sky so they would never fight again.
 	As Scorpius rises in the east, Orion sets in the west.
 		[ 365 Starry Nights, by Chet Raymo ]
+*scroll
+scroll *
+	And I was gazing on the surges prone,
+	With many a scalding tear and many a groan,
+	When at my feet emerg'd an old man's hand,
+	Grasping this scroll, and this same slender wand.
+	I knelt with pain--reached out my hand--had grasp'd
+	Those treasures--touch'd the knuckles--they unclasp'd--
+	I caught a finger: but the downward weight
+	O'erpowered me--it sank. Then 'gan abate
+	The storm, and through chill aguish gloom outburst
+	The comfortable sun. I was athirst
+	To search the book, and in the warming air
+	Parted its dripping leaves with eager care.
+	Strange matters did it treat of, and drew on
+	My soul page after page, till well-nigh won
+	Into forgetfulness; when, stupefied,
+	I read these words, and read again, and tried
+	My eyes against the heavens, and read again.
+		[ Endymion, by John Keats ]
 secespita
 	The secespita is a long iron sacrificial knife, made of brass
 	and copper from Cyprus, with a solid and rounded ivory handle,
@@ -6358,8 +6396,6 @@ spibrawulf
 		[Virginia Woolf]
 throwing star
 shuriken
-    Monks receive a multishot bonus when throwing shuriken.
-
 	You know, that's what I hate most about fighting against magic:
 	you never know what they're trying to do to you until it hits.
 	The sorceress knew what hit her, however.  Two of the shuriken
@@ -6553,7 +6589,24 @@ javelin
 	say 'Town burned down; no insurance; boy brast a window,
 	fireman brake his neck!'  Why, that ain't a picture!
 		[ A Connecticut Yankee in King Arthur's Court,
-		  by Mark Twain ]
+		    by Mark Twain ]
+*spellbook*
+	The Book of Three lay closed on the table.  Taran had never
+	been allowed to read the volume for himself; now he was sure
+	it held more than Dallben chose to tell him.  In the sun-
+	filled room, with Dallben still meditating and showing no
+	sign of stopping, Taran rose and moved through the shimmering
+	beams.  From the forest came the monotonous tick of a beetle.
+	His hands reached for the cover.  Taran gasped in pain and
+	snatched them away.  They smarted as if each of his fingers
+	had been stung by hornets.  He jumped back, stumbled against
+	the bench, and dropped to the floor, where he put his fingers
+	woefully into his mouth.
+	Dallben's eyes blinked open.  He peered at Taran and yawned
+	slowly.  "You had better see Coll about a lotion for those
+	hands," he advised.  "Otherwise, I shouldn't be surprised if
+	they blistered."
+		[ The Book of Three, by Lloyd Alexander ]
 *spider
 	Eight legged creature capable of spinning webs to trap prey.
 		[]
@@ -6887,19 +6940,6 @@ tinning kit
 	"Interesting point, Nobby.  I think-"
 		[ Soul Music, by Terry Pratchett ]
 tin opener
-	You can only apply a tin opener if you have at least one tin in
-	your inventory - doing so will prompt you to choose which tin you
-	then want to open and eat. You can also wield it before manually
-	opening the tin via e. Wielding a tin opener by applying it will
-	not take up an additional turn if you immediately open a tin when
-	prompted. Though a tin opener is not a weapon or weapon-tool, a
-	cursed one will weld to the player's hand when wielded.
-
-	Opening a tin with this tool will do so quickly regardless of the
-	tin's BUC status. The exact number of turns required to open a tin
-	depends on the BUC status of the tin opener: 0-2 turns if cursed,
-	0 or 1 turns if uncursed, and 0 turns if blessed.
-
 	Less than thirty Cat tribes now survived, roaming the cargo
 	decks on their hind legs in a desperate search for food.
 	But the food had gone.
@@ -7176,6 +7216,7 @@ tyr
 	beneath their thick, scaly hides and their powerful arms and
 	legs all end in great claws.
 *unicorn
+unicorn horn
 	Men have always sought the elusive unicorn, for the single
 	twisted horn which projected from its forehead was thought to
 	be a powerful talisman.  It was said that the unicorn had
@@ -7354,7 +7395,6 @@ vampire mage
 	eyes you peer into? No, I am not the unknown. You an I are closer
 	kin than you and it were.
 		[ Vampire the Masquerade: Bloodlines ]
-~eye of vecna
 ~hand of vecna
 vecna
 	Vecna's early life was clouded in legend and contradiction.
@@ -7364,12 +7404,6 @@ vecna
 	fear for his own mortality, Vecna was taught by Orcus how to
 	achieve undeath, later becoming one of the most powerful liches
 	ever in existence.
-
-	During his reign, Vecna trusted his lieutenant Kas with most
-	administrative tasks.  He forged the powerful Sword of Kas as an
-	instrument of his lieutenant's authority.  However, Vecna's evil,
-	manifested in the sword, seduced Kas into usurping and killing his
-	master.
 venus
 	Venus, the goddess of love and beauty, was the daughter of
 	Jupiter and Dione.  Others say that Venus sprang from the
@@ -7449,6 +7483,20 @@ wakizashi
 	and especially during times of civil wars, a tanto was worn
 	in place of a wakizashi.
 		[ Wikipedia, the free encyclopedia ]
+# takes "wand or a wall" when specifying '/'
+~*sleep
+wand *
+*wand
+	'Saruman!' he cried, and his voice grew in power and authority.
+	'Behold, I am not Gandalf the Grey, whom you betrayed.  I am
+	Gandalf the White, who has returned from death.  You have no
+	colour now, and I cast you from the order and from the Council.'
+	He raised his hand, and spoke slowly in a clear cold voice.
+	'Saruman, your staff is broken.'  There was a crack, and the
+	staff split asunder in Saruman's hand, and the head of it
+	fell down at Gandalf's feet.  'Go!' said Gandalf.  With a cry
+	Saruman fell back and crawled away.
+		[ The Two Towers, by J.R.R. Tolkien ]
 warden arianna
 	I believe in two things: discipline and the Bible.  Here you'll
 	receive both.  Put your trust in the Lord; your ass belongs to me.
@@ -8072,9 +8120,6 @@ spelunker
 speleologist
 collector
 curator
-    Archeologists get a luck bonus for wearing a fedora.
-    Archeologists can also safely enchant fedoras from a maximum of +5.
-
 	Archelogist ranks
 	  title            level
 	Digger            1 to 2
@@ -8160,9 +8205,6 @@ nomad
 rover
 pioneer
 neanderthal*
-    Cavemen/Cavewomen receive a multishot bonus when throwing spears
-    or shooting missiles from a sling.
-
 	Caveman/Cavewoman ranks
 	  title            level
 	Troglodyte        1 to 2
@@ -8222,9 +8264,6 @@ magister
 magistra
 physician
 chirurgeon
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-        Note: Doesn't apply to knives
-
 	Healer ranks
 	  title            level
 	Rhizotomist       1 to 2
@@ -8272,9 +8311,6 @@ splanchomancer
 malefic*
 demonologist
 heresiarch
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-        Note: Doesn't apply to daggers.
-
 	Infidel ranks
 	  title            level
 	Apostate          1 to 2
@@ -8380,8 +8416,6 @@ student of metals
 student of winds
 student of fire
 master
-    Monks receive a multishot bonus when throwing shuriken.
-
 	Monk ranks
 	  title            level
 	Candidate         1 to 2
@@ -8446,8 +8480,6 @@ canon*
 lama
 ?atriarch
 high priest*
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-
 	Priest/Priestess/Cleric ranks
 	  title            level
 	Aspirant          1 to 2
@@ -8492,8 +8524,6 @@ arbalester
 archer
 sharpshooter
 marks*man
-    Rangers receive a multishot bonus in all thrown weapons, except daggers.
-
 	Ranger ranks
 	  title            level
 	Tenderfoot        1 to 2
@@ -8533,8 +8563,6 @@ burglar
 filcher
 mags*man
 thief
-    Rogues receive a multishot bonus when throwing daggers.
-
 	Rogue ranks
 	  title            level
 	Footpad           1 to 2
@@ -8572,8 +8600,6 @@ kokushu
 daimyo
 kuge
 shogun
-    Samurai receive a multishot bonus when shooting ya from yumi.
-
 	Samurai ranks
 	  title            level
 	Hatamoto          1 to 2
@@ -8611,12 +8637,6 @@ journeyer
 voyager
 explorer
 adventurer
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-        Note: Doesn't apply to darts.
-
-    For a Tourist, 1⁄3 of conical hats can be read; a dunce cap will
-    be labeled "DUNCE". A cornuthaum will be labeled "WIZZARD".
-
 	Tourist ranks
 	  title            level
 	Rambler           1 to 2
@@ -8705,8 +8725,6 @@ sorceress
 warlock
 witch
 mage
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-
 	Wizard ranks
 	  title            level
 	Evoker            1 to 2
@@ -8768,9 +8786,6 @@ icer
 freezer
 sublimer
 ice-master
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-        Note: Doesn't apply to knives
-
 	Ice Mage ranks
 	  title            level
 	Cooler            1 to 2
@@ -8801,8 +8816,6 @@ ghoul master
 necromancer
 undead master
 lich lord
-    Weak multishot (doesn't get a volley bonus until becoming expert)
-
 	Necromancer ranks
 	  title            level
 	Gravedigger       1 to 2
