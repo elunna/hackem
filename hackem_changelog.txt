@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert: Reduce the maximum size of Gehennom from 20-24 levels to 18-19 levels.
 Fix: Monsters' bombs are always marked as theirs, even if you lit it.
 Reading scroll of acquirement while cursed or confused makes you lose luck and gold. 
 Fix: Pummel and ground slam techs could leave forcefight on after use. 
