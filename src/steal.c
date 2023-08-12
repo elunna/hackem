@@ -590,6 +590,22 @@ register struct obj *otmp;
     return freed_otmp;
 }
 
+static boolean
+is_stealable_item(struct obj *obj, struct monst *mtmp)
+{
+    /* the Wizard is not allowed to steal the player's quest artifact */
+    if (mtmp->iswiz && is_quest_artifact(obj)) {
+        return FALSE;
+    }
+
+    /* every other quest artifact is fine */
+    if (any_quest_artifact(obj)) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 /* called for AD_SAMU (the Wizard and quest nemeses) */
 void
 stealamulet(mtmp)
@@ -605,18 +621,18 @@ struct monst *mtmp;
        ordering to influence the theft */
     if (!is_mplayer(mtmp->data)) {
         for (n = 0, obj = invent; obj; obj = obj->nobj)
-            if (any_quest_artifact(obj))
+            if (is_stealable_item(obj, mtmp))
                 ++n, otmp = obj;
         if (n > 1) {
             n = rnd(n);
             for (otmp = invent; otmp; otmp = otmp->nobj)
-                if (any_quest_artifact(otmp) && !--n)
+                if (is_stealable_item(otmp, mtmp) && !--n)
                     break;
         }
     }
 
     if (!otmp) {
-        /* if we didn't find any quest arifact, find another valuable item */
+        /* if we didn't find any quest artifact, find another valuable item */
         if (u.uhave.amulet) {
             real = AMULET_OF_YENDOR;
             fake = FAKE_AMULET_OF_YENDOR;
@@ -657,7 +673,7 @@ struct monst *mtmp;
             }
             return;
         }
-        /* take off outer gear if we're targetting [hypothetical]
+        /* take off outer gear if we're targeting [hypothetical]
            quest artifact suit, shirt, gloves, or rings */
         if ((otmp == uarm || otmp == uarmu) && uarmc)
             remove_worn_item(uarmc, FALSE);
