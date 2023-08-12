@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Reading scroll of acquirement while cursed or confused makes you lose luck and gold. 
 Fix: Pummel and ground slam techs could leave forcefight on after use. 
 tech.c indentation.
 Adjust odds for general store services.

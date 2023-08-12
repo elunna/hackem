@@ -2528,12 +2528,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_ACQUIREMENT: 
         known = TRUE;
-        
-        pline("You have found a scroll of acquirement!");
-        if (sobj->cursed) {
-            pline("Unfortunately, nothing happens.");
+        if (sobj->cursed || Confusion) {
+            /* The opposite of acquirement ... is loss */
+            change_luck((Luck > 1) ? -rnd(2) : -1);
+            take_gold();
             break;
         }
+        pline("You have found a scroll of acquirement!");
         do_acquirement();
         
         if (sobj->blessed && Luck + rn2(5) > 10)
