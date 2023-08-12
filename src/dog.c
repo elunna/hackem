@@ -890,6 +890,18 @@ coord *cc;   /* optional destination coordinates */
         mtmp->mtame--;
         m_unleash(mtmp, TRUE);
     }
+    
+    /* Armed bombs need to be snuffed - otherwise we get weird armed bombs that 
+     * never explode after they migrate. This solution isn't perfect, but the
+     * alternative is much more complicated. */
+    for (obj = mtmp->minvent; obj; obj = obj->nobj) {
+        if (is_bomb(obj) && obj_has_timer(obj, BOMB_BLOW)) {
+            /* (quietly) stop previous timer, if any */
+            (void) stop_timer(BOMB_BLOW, obj_to_any(obj));
+            obj->oarmed = 0;
+        }
+    }
+    
     relmon(mtmp, &migrating_mons); /* move it from map to migrating_mons */
 
     new_lev.dnum = ledger_to_dnum((xchar) tolev);
