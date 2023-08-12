@@ -16,6 +16,7 @@
 
 Hardfought hotfixes (released July 30, 2023)
 
+Revert: Reduce the maximum size of Gehennom from 20-24 levels to 18-19 levels.
 Fix: Marauder's Map invoke was revealing too much info (reported by mobileuser). Fixes #419. 
 Fix: Giant zombies appearing too early in mines.
 Fix: update to 'ukiller can't be null' fix. (EvilHack)
