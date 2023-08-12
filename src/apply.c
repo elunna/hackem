@@ -5312,6 +5312,10 @@ boolean yourfault;
     boolean split1off = (obj->quan > 1L);
     boolean artibomb = obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH;
     
+    /* If a bomb is in a monster's inventory - it's always their fault */
+    if (obj->where == OBJ_MINVENT)
+        yourfault = FALSE;
+    
     if (split1off)
         obj = splitobj(obj, 1L); /* Also works when on the floor */
         
