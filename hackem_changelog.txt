@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Group all rats together in monst.c
 Monsters can also use the bag of rats defensively.
 Fix: Elemental fist tech message capitalization.
 Hobbit pickpockets are always hostile.

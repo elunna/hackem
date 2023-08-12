@@ -1264,7 +1264,7 @@ struct monst *mtmp;
         struct permonst *pm;
         
         if (otmp->otyp == BAG_OF_RATS)
-            pm = &mons[PM_SEWER_RAT + rn2(2)];
+            pm = &mons[PM_SEWER_RAT + rn2(8)]; /* ANY rat is fair game */
         else /* pm: 0 => random, eel => aquatic, croc => amphibious */
             pm = !is_pool(mtmp->mx, mtmp->my) ? 0
                     : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
