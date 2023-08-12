@@ -2565,7 +2565,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         } else {
             int i;
             if (!sblessed) {
-                for (i = 0; i < 30 + rn2(70); i++)
+                for (i = 0; i < rn1(9, 6); i++)
                     makemon(&mons[PM_GAS_SPORE], 0, 0, NO_MM_FLAGS);
             } else {
                 for (i = 0; i < rnd(3); i++)
