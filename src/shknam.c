@@ -1226,14 +1226,10 @@ struct monst *shk;
      * they can identify (at premier level). 
      */
     if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL) {
-        /* General stores can start with 0-2 identify services 
-         * 10% chance of adding 1 extra. */
-        /*int num_svc = rnd(4) + 1;*/
-        int num_svc = rn2(3);
-        if (rn2(10))
-            num_svc += 1;
-        while (num_svc > 0) {
-            switch (rn2(11)) {
+        /* General stores run through a loop, each time there is a 1 in 10 
+         * chance of adding 1 extra. */
+        while (!rn2(6)) {
+            switch (rn2(10)) {
             case 0: maybe_add_svc(shk, SHK_ID_WEAPON); break; 
             case 1: maybe_add_svc(shk, SHK_ID_ARMOR); break; 
             case 2: maybe_add_svc(shk, SHK_ID_SCROLL); break; 
@@ -1243,10 +1239,8 @@ struct monst *shk;
             case 6: maybe_add_svc(shk, SHK_ID_AMULET); break; 
             case 7: maybe_add_svc(shk, SHK_ID_WAND); break; 
             case 8: maybe_add_svc(shk, SHK_ID_TOOL); break; 
-            case 9: maybe_add_svc(shk, SHK_ID_GEM); break; 
-            case 10: maybe_add_svc(shk, SHK_ID_FOOD); break;
+            case 9: maybe_add_svc(shk, SHK_ID_GEM); break;
             }
-            num_svc--;
         }
         /* 1 in 10 offer firearms training */
         if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
