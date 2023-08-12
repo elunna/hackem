@@ -1090,7 +1090,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
 
     switch (Dragon_armor_to_scales(otmp)) {
         /* gray: no extra effect */
-        /* silver: no extra effect */
+
     case BLACK_DRAGON_SCALES:
         if (puton) {
             ESlow_digestion |= W_ARM;
@@ -1103,6 +1103,13 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             ESearching |= W_ARM;
         } else {
             ESearching &= ~W_ARM;
+        }
+        break;
+    case SILVER_DRAGON_SCALES:
+        if (puton) {
+            ECold_resistance |= W_ARM;
+        } else {
+            ECold_resistance &= ~W_ARM;
         }
         break;
     case ORANGE_DRAGON_SCALES:

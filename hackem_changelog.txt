@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Silver dragon scales now grant cold resistance instead of blinding resistance.
 Confused scroll of elementalism can create any sphere.
 Reduced quantity of gas spores produced by confused scroll of stinking cloud. 
 The Wizard of Yendor and Quest Nemesis also steal common artifacts (from UnNetHack)
