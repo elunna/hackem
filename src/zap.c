@@ -2384,7 +2384,6 @@ struct obj *obj, *otmp;
             if (res)
                 learn_it = TRUE;
             break;
-        case WAN_NOISE:
         case WAN_STRIKING:
         case SPE_FORCE_BOLT:
             /* learn the type if you see or hear something break
@@ -5388,6 +5387,78 @@ boolean u_caused;
     return cnt;
 }
 
+
+
+
+
+/*
+ * Shatter objects (such as scrolls and spellbooks) on floor
+ * at position x,y; return the number of objects shattered.
+ * This is copied from burn_floor_objects
+ * TODO: Create a zap_ray_over_floor_objects to consolidate these functions.
+ */
+int
+sonic_floor_objects(x, y, give_feedback, u_caused)
+int x, y;
+boolean give_feedback; /* caller needs to decide about visibility checks */
+boolean u_caused;
+{
+    struct obj *obj, *obj2;
+    long i, scrquan, delquan;
+    char buf1[BUFSZ], buf2[BUFSZ];
+    int cnt = 0;
+
+    for (obj = level.objects[x][y]; obj; obj = obj2) {
+        obj2 = obj->nexthere;
+        
+        if (is_glass(obj)
+            || obj->otyp == STATUE
+              || obj->otyp == BOULDER) {
+            
+            if (obj_resists(obj, 2, 100))
+                continue;
+            
+            scrquan = obj->quan; /* number present */
+            delquan = 0L;        /* number to destroy */
+            for (i = scrquan; i > 0L; i--)
+                if (!rn2(3))
+                    delquan++;
+            if (delquan) {
+                /* save name before potential delobj() */
+                if (give_feedback) {
+                    obj->quan = 1L;
+                    Strcpy(buf1, (x == u.ux && y == u.uy)
+                                     ? xname(obj)
+                                     : distant_name(obj, xname));
+                    obj->quan = 2L;
+                    Strcpy(buf2, (x == u.ux && y == u.uy)
+                                     ? xname(obj)
+                                     : distant_name(obj, xname));
+                    obj->quan = scrquan;
+                }
+                /* useupf(), which charges, only if hero caused damage */
+                if (u_caused)
+                    useupf(obj, delquan);
+                else if (delquan < scrquan)
+                    obj->quan -= delquan;
+                else
+                    delobj(obj);
+                cnt += delquan;
+                if (give_feedback) {
+                    if (delquan > 1L)
+                        pline("%ld %s shatter.", delquan, buf2);
+                    else
+                        pline("%s shatters.", An(buf1));
+                }
+            }
+        }
+    }
+    return cnt;
+}
+
+
+
+
 /* will zap/spell/breath attack score a hit against armor class `ac'? */
 STATIC_OVL int
 zap_hit(ac, type, is_wand)
@@ -6384,6 +6455,15 @@ boolean moncast;
         if (burn_floor_objects(x, y, FALSE, (type > 0 && !moncast)) && couldsee(x, y)) {
             newsym(x, y);
             You("%s of smoke.", !Blind ? "see a puff" : "smell a whiff");
+        }
+
+    if (OBJ_AT(x, y) && abstype == ZT_SONIC)
+        if (sonic_floor_objects(x, y, FALSE, (type > 0 && !moncast)) && couldsee(x, y)) {
+            newsym(x, y);
+            if (!Deaf)
+                You("%s something shatter.", !Blind 
+                    ? "see"
+                    : "hear");
         }
     if (OBJ_AT(x, y) && abstype == ZT_WATER) {
         water_damage_chain(level.objects[x][y], TRUE, 0, FALSE, x, y);
@@ -7510,4 +7590,6 @@ int tmp;
         erode_armor(mon, ERODE_RUST);
     return tmp;
 }
+
+
 /*zap.c*/

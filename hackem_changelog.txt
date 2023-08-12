@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Sonic rays can shatter glass objects on the floor, including boulders and statues.
 More database cleanup.
 Bombs fuses are snuffed if monsters/you go through portals or migrate levels.
 Revert: Reduce the maximum size of Gehennom from 20-24 levels to 18-19 levels.
