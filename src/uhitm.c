@@ -5321,27 +5321,14 @@ boolean wep_was_destroyed;
                               s_suffix(mon_nam(mon)));
                         break;
                     }
-                    switch (rn2(3)) {
-                    case 0:
-                        /* Passive slow */
-                        if (!Slow && !defends(AD_SLOW, uarm)) {
-                            You_feel("a little sluggish...");
-                            u_slow_down();
-                        }
-                        break;
-                    case 1:
-                        /* Passive confuse */
+                    if (rn2(2)) {
                         if (Confusion)
                             You("are getting even more confused.");
                         else
                             You("are getting confused.");
                         make_confused(HConfusion + d(3, 6), FALSE);
-                        break;
-                    case 2:
-                        /* Passive stun */
-                        make_stunned((HStun & TIMEOUT) + (long) d(2, 6),
-                                     TRUE);
-                        break;
+                    } else {
+                        make_stunned((HStun & TIMEOUT) + (long) d(2, 6), TRUE);
                     }
                 }
                 break;

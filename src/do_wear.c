@@ -1160,10 +1160,11 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             toggle_displacement(uarm, (EDisplaced & ~W_ARM), TRUE);
             toggle_stealth(uarm, (EStealth & ~W_ARM), TRUE);
             EStealth |= W_ARM;
+            EPsychic_resistance |= W_ARM;
         } else {
             toggle_displacement(otmp, (EDisplaced & ~W_ARM), FALSE);
             toggle_stealth(otmp, (EStealth & ~W_ARM), FALSE);
-            EStealth &= ~W_ARM;
+            EPsychic_resistance &= ~W_ARM;
         }
         break;
     case SEA_DRAGON_SCALES:

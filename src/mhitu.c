@@ -4949,37 +4949,22 @@ struct attack *mattk;
             }
             break;
         case SHIMMERING_DRAGON_SCALES:
-            /* These can have a few random effects: confuse, stun, and slow */
+            /* Confuse or stun */
             if (!rn2(3)) {
-                switch (rn2(3)) {
-                case 0:
-                    /* Passive slow */
-                    if (mtmp->mspeed != MSLOW) {
-                        if (canseemon(mtmp))
-                            pline("%s looks a little sluggish...",
-                                  Monnam(mtmp));
-                        mtmp->mspeed = MSLOW;
-                    }
-                    break;
-                case 1:
-                    /* Passive confuse */
-                    if (!mtmp->mconf) {
-                        if (canseemon(mtmp))
-                            pline("%s looks confused.", Monnam(mtmp));
-                        mtmp->mconf = 1;
-                    }
-                    break;
-                case 2:
-                    /* Passive stun */
+               if (rn2(2)) {
+                   if (!mtmp->mconf) {
+                       if (canseemon(mtmp))
+                           pline("%s looks confused.", Monnam(mtmp));
+                       mtmp->mconf = 1;
+                   }
+               } else {
                     if (!Blind)
                         pline("%s %s for a moment.", Monnam(mtmp),
                               makeplural(stagger(mtmp->data, "stagger")));
                     mtmp->mstun = 1;
-                    break;
                 }
             }
             break;
-
         case SILVER_DRAGON_SCALES:
             if (!mtmp || !haseyes(mtmp->data) || notonhead)
                 return 1;
