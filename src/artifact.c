@@ -782,7 +782,6 @@ struct obj *otmp;
         case AD_FIRE:
             return (otyp == RED_DRAGON_SCALES); /* red but not gold */
         case AD_DRLI:
-        case AD_CLOB: /* Knockback/hurtle */
             return (otyp == DEEP_DRAGON_SCALES); /* Deep roots hold you firm */
         case AD_COLD:
             return (otyp == WHITE_DRAGON_SCALES 
@@ -801,7 +800,8 @@ struct obj *otmp;
         case AD_STON: /* petrification resistance */
             return (otyp == YELLOW_DRAGON_SCALES);
         case AD_LOUD: /* sonic */
-            return (otyp == CELESTIAL_DRAGON_SCALES);
+            return (otyp == CELESTIAL_DRAGON_SCALES 
+                    || otyp == DEEP_DRAGON_SCALES);
         default:
             break;
         }

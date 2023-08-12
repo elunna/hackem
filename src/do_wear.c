@@ -1167,6 +1167,13 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             EPsychic_resistance &= ~W_ARM;
         }
         break;
+    case DEEP_DRAGON_SCALES:
+        if (puton) {
+            ESonic_resistance |= W_ARM;
+        } else {
+            ESonic_resistance &= ~W_ARM;
+        }
+        break;
     case SEA_DRAGON_SCALES:
         if (puton) {
             if (Strangled) {
