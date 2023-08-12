@@ -2970,6 +2970,11 @@ const char *mesg;
 
     if (!Has_contents(container))
         return;
+    
+    if (Bad_bag(container) && container->spe > 0)
+        /* Charged bad bags should always be empty */
+        insane_object(container, "%s charged bag of tricks/rats contains something! %s %s: %s",
+                      mesg, (struct monst *) 0);
     /* change "invent sanity" to "contained invent sanity"
        but leave "nested contained invent sanity" as is */
     if (!strstri(mesg, "contained"))

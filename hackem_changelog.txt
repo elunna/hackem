@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert: Scrolls of charging and bag of tricks.
 Uncharged bags of tricks or rats can be destination for tipping containers.
 Sonic rays can shatter glass objects on the floor, including boulders and statues.
 More database cleanup.
