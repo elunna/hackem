@@ -1287,7 +1287,7 @@ int dieroll;
                     pline("%s is covered in acid!", Monnam(mon));
                 if (resists_acid(mon)) {
                     if (!Blind)
-                        pline_The("acid doesn't burn %s!", Monnam(mon));
+                        pline_The("acid doesn't burn %s!", mon_nam(mon));
                     dmgbonus = 0;
                 } else if (!rn2(100)) {
                     dmgbonus += rnd(20);
@@ -1297,7 +1297,7 @@ int dieroll;
                 damage_mon(mon, dmgbonus, AD_ACID);
                 break;
             case 4: /* Sonic */
-                You("hit the %s with a loud bang!", Monnam(mon));
+                You("hit the %s with a loud bang!", mon_nam(mon));
                 if (resists_sonic(mon)) {
                     shieldeff(mon->mx, mon->my);
                     golemeffects(mon, AD_LOUD, dmgbonus);
@@ -1306,7 +1306,7 @@ int dieroll;
                     pline("A sonic boom erupts from your fist!");
                     dmgbonus += d(2, 16);
                     if (canseemon(mon))
-                        pline("%s is severely burned!", Monnam(mon));
+                        pline("%s is severely shaken!", Monnam(mon));
                 }
                 dmgbonus += destroy_mitem(mon, RING_CLASS, AD_LOUD);
                 dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_LOUD);
