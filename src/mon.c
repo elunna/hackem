@@ -461,7 +461,7 @@ int mndx;
     case PM_MOUNTAIN_DWARF:
     case PM_DWARF_NOBLE:
     case PM_DWARF_ROYAL:
-        return rn2(2) ? PM_DWARF_MUMMY : PM_GIANT_ZOMBIE;
+        return rn2(2) ? PM_DWARF_MUMMY : PM_DWARF_ZOMBIE;
     case PM_HOBBIT:
     case PM_HOBBIT_PICKPOCKET:
         return rn2(2) ? PM_HOBBIT_MUMMY : PM_HOBBIT_ZOMBIE;
