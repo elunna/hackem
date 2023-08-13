@@ -1566,35 +1566,44 @@ register struct monst *mtmp;
     for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
         if (otmp->otyp == AMULET_OF_YENDOR && In_endgame(&u.uz)
             && a_align(mtmp->mx, mtmp->my) == check_malign(mtmp)) {
-        pline("%s raises the Amulet of Yendor high above the altar!",
-              Monnam(mtmp));
-        /* game is now unwinnable... oops */
-        m_useup(mtmp, otmp);
-        livelog_printf(LL_ARTIFACT, "failed their quest! %s sacrificed the Amulet of Yendor, ascending!",
-                       Monnam(mtmp));
-        if (is_demon(mtmp->data) || mtmp->iswiz) {
-            pline("%s gains ultimate power, laughs fiendishly, and erases you from existence.",
+            pline("%s raises the Amulet of Yendor high above the altar!",
                   Monnam(mtmp));
-            Sprintf(killer.name, "%s wrath", s_suffix(mon_nam(mtmp)));
-            killer.format = KILLED_BY;
-            done(DIED);
-        } else {
-            pline("%s accepts the Amulet and gains dominion over the gods, and %s ascends to demigodhood!",
-                  a_gname_at(mtmp->mx, mtmp->my), mon_nam(mtmp));
-            if (Luck >= 10) {
-                pline("Luckily for you, %s does not smite you with their newfound power, and you are allowed to live.",
-                      mon_nam(mtmp));
-                pline("However, your quest ends here...");
-                done(ESCAPED);
-            } else {
-                pline_The("Demigod of %s looks down upon you, and squashes you like the ant that you are.",
-                      a_gname_at(mtmp->mx, mtmp->my));
-                Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
+            /* game is now unwinnable... oops */
+            m_useup(mtmp, otmp);
+            livelog_printf(LL_ARTIFACT, "failed their quest! %s sacrificed the Amulet of Yendor, ascending!",
+                           Monnam(mtmp));
+            if (is_demon(mtmp->data) || mtmp->iswiz) {
+                pline("%s gains ultimate power, laughs fiendishly, and erases you from existence.",
+                      Monnam(mtmp));
+                Sprintf(killer.name, "%s wrath", s_suffix(mon_nam(mtmp)));
                 killer.format = KILLED_BY;
                 done(DIED);
+                /* life-saved, try again */
+                pline("%s is not deterred...", Monnam(mtmp));
+                Sprintf(killer.name, "%s fury", s_suffix(mon_nam(mtmp)));
+                done(DIED);
+            } else {
+                pline("%s accepts the Amulet and gains dominion over the gods, and %s ascends to demigodhood!",
+                      a_gname_at(mtmp->mx, mtmp->my), mon_nam(mtmp));
+                if (Luck >= 10 || mtmp->mpeaceful || mtmp->mtame || peace_minded(mtmp)) {
+                    pline("Luckily for you, %s does not smite you with %s newfound power, and you are allowed to live.",
+                          mon_nam(mtmp), mhis(mtmp));
+                    pline("However, your quest ends here...");
+                    done(ESCAPED);
+                } else {
+                    pline_The("Demigod%s of %s looks down upon you and squashes you like the ant that you are.",
+                          is_female(mtmp) ? "dess" : "",
+                          a_gname_at(mtmp->mx, mtmp->my));
+                    Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
+                    killer.format = KILLED_BY;
+                    done(DIED);
+                }
             }
-        }
-        return 3;
+            /* life-saved, or refusing to die in explore/debug mode */
+            pline("%s frowns, but permits you to live.", Monnam(mtmp));
+            pline(cloud_of_smoke, hcolor(NH_ORANGE));
+            done(ESCAPED);
+            return 3;
         }
     }
     return 0;
