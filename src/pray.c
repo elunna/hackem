@@ -1592,7 +1592,7 @@ register struct monst *mtmp;
                     done(ESCAPED);
                 } else {
                     pline_The("Demigod%s of %s looks down upon you and squashes you like the ant that you are.",
-                          is_female(mtmp) ? "dess" : "",
+                          mtmp->female ? "dess" : "",
                           a_gname_at(mtmp->mx, mtmp->my));
                     Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
                     killer.format = KILLED_BY;
@@ -1600,8 +1600,7 @@ register struct monst *mtmp;
                 }
             }
             /* life-saved, or refusing to die in explore/debug mode */
-            pline("%s frowns, but permits you to live.", Monnam(mtmp));
-            pline(cloud_of_smoke, hcolor(NH_ORANGE));
+            pline("%s frowns and casts you back to the mortal realm.", Monnam(mtmp));
             done(ESCAPED);
             return 3;
         }
