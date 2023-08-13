@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Monsters digging through boulders had wrong message when out of sight (reported by mobileuser). Fixes #439.
 Fix: Stormbringer should heal its wielder, not you (from EvilHack)
 Pets will eat lizards when turning to stone (from EvilHack)
 Deep dragon scales grant sonic resistance as secondary effect instead of extreme stability.
