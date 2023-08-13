@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Pets will eat lizards when turning to stone (from EvilHack)
 Deep dragon scales grant sonic resistance as secondary effect instead of extreme stability.
 Shimmering dragon scales grant psychic resistance as a secondary effect.
 Silver dragon scales now grant cold resistance instead of blinding resistance.
