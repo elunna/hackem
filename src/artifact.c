@@ -2982,8 +2982,13 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 mdef->m_lev--;
                 drain /= 2;
                 if (drain) {
-                    healup(drain, 0, FALSE, FALSE);
-                
+                    if (youattack)
+                        healup(drain, 0, FALSE, FALSE);
+                    else if (magr && magr->mhp < magr->mhpmax) {
+                        magr->mhp += drain;
+                        if (magr->mhp > magr->mhpmax)
+                            magr->mhp = magr->mhpmax;
+                    }
                     if (mdef->data == &mons[PM_HYDRA])
                         pline("One of %s heads swells up and explodes!", 
                         s_suffix(mon_nam(mdef)));
