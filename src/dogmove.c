@@ -1324,6 +1324,7 @@ boolean ranged;
        /* Monsters with dangerous passive attacks */
        || (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE] 
                           || mtmp2->data == &mons[PM_HEDGEHOG]
+                          || mtmp2->data == &mons[PM_MANTICORE]
                           || mtmp2->data == &mons[PM_GREEN_SLIME]) 
               && rn2(10))
        /* Disintegrators */

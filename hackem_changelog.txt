@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Pets would not hesitate to melee attack manticores (reported by Umbire) 
 Fix: Monster with teleporting theft attack continues routine after warping away (reported by Umbire). Fixes #440.
 Fix: Monsters digging through boulders had wrong message when out of sight (reported by mobileuser). Fixes #439.
 Fix: Stormbringer should heal its wielder, not you (from EvilHack)
