@@ -1531,8 +1531,8 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_GREEDY, M3_INFRAVISIBLE, 0, 0, 4, CLR_GREEN),
     MON("leprechaun wizard", S_LEPRECHAUN,                      /* Slash'EM */
         LVL(8, 15, 6, 20, 0), (G_NOHELL | G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_SGLD, 1, 2), 
-          ATTK(AT_MAGC, AD_SPEL, 0, 0), 
+        A(ATTK(AT_MAGC, AD_SPEL, 0, 0),
+          ATTK(AT_CLAW, AD_SGLD, 1, 2),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
         M1_HUMANOID | M1_TPORT | M1_CARNIVORE,
@@ -1640,8 +1640,8 @@ NEARDATA struct permonst mons[] = {
         M3_INFRAVISIBLE, 0, 0, 14, CLR_WHITE),
     MON("brownie", S_NYMPH,                                     /* Slash'EM */
         LVL(8, 15, 3, 20, 0), (G_NOHELL | G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
-          ATTK(AT_MAGC, AD_SPEL, 0, 0),
+        A(ATTK(AT_MAGC, AD_SPEL, 0, 0),
+          ATTK(AT_CLAW, AD_SITM, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(60, 30, MS_LAUGH, MZ_TINY), 0, 0,
         M1_HUMANOID | M1_TPORT | M1_HERBIVORE, M2_HOSTILE | M2_GREEDY | M2_MAGIC | M1_HERBIVORE, 
@@ -1659,9 +1659,9 @@ NEARDATA struct permonst mons[] = {
      * replaced them with spellcasting and more stealing instead. */ 
     MON("dream thief", S_NYMPH,                               /* SpliceHack */
         LVL(14, 15, 4, 40, 0), (G_NOHELL | 1),
-        A(ATTK(AT_CLAW, AD_SITM, 0, 0),
-          ATTK(AT_CLAW, AD_CURS, 0, 0), 
+        A(ATTK(AT_CLAW, AD_CURS, 0, 0), 
           ATTK(AT_MAGC, AD_SPEL, 5, 5),
+          ATTK(AT_CLAW, AD_SITM, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0,
         M1_HUMANOID | M1_TPORT | M1_FLY,
@@ -5375,7 +5375,7 @@ struct permonst _mons2[] = {
     /* not to be confused with lemure */
     MON("lemur", S_YETI,                                      /* SpliceHack */
         LVL(0, 12, 8, 0, 0), (G_GENO | 2),
-        A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
+        A(ATTK(AT_CLAW, AD_SITM, 0, 0),
           ATTK(AT_BITE, AD_PHYS, 1, 3), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 50, MS_GROWL, MZ_SMALL), 0, 0,
@@ -5383,8 +5383,8 @@ struct permonst _mons2[] = {
         M3_INFRAVISIBLE, 0, 0, 2, CLR_GRAY),
     MON("monkey", S_YETI,
         LVL(2, 12, 6, 0, 0), (G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_SITM, 0, 0), 
-          ATTK(AT_BITE, AD_PHYS, 1, 3), 
+        A(ATTK(AT_CLAW, AD_SITM, 0, 0),
+          ATTK(AT_BITE, AD_PHYS, 1, 3),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 50, MS_GROWL, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_HUMANOID | M1_OMNIVORE, 0, M3_INFRAVISIBLE, 0, 0, 4, CLR_GRAY),
