@@ -71,7 +71,7 @@
 # 
 # This rc file has been designed to be as user friendly as possible, with 
 # copious comments to guide you (and me). If you are new to NetHack, I DO NOT 
-# recommmend copying it in full and using it as is. I suggest incorporating one
+# recommend copying it in full and using it as is. I suggest incorporating one
 # change at a time and re-evaluating as you go, keeping what feels comfortable 
 # and discarding what doesn't. Or... If you feel lucky, copy the whole thing
 # and let me know how it feels to walk the dungeon in my shoes!
@@ -143,6 +143,9 @@ OPTIONS=news
 
 # Petless
 #OPTIONS=nopet
+
+# For debugging (non-devs can just turn this off)
+OPTIONS=sanity_check
 
 # -----------------------------------------------------------------------------
 # C) Gameplay settings
@@ -605,18 +608,23 @@ AUTOPICKUP_EXCEPTION=">.*unpaid.*"
 
 # Instead of #untrap, use 'v'
 BIND=v:untrap
-#BIND=v:wizmakemap
+
 # Instead of #force, use '~'
 BIND=~:force
+
 # Instead of #dip, use '!'
 BIND=!:dip
 
+#BIND=v:wizmakemap
 # -----------------------------------------------------------------------------
 # F) Interface settings
 
 # Pack order
 # Standard pack order
 OPTIONS=packorder:$")[%?+!=/(*`0_
+
+# Show inventory weights
+OPTIONS=invweight
 
 # This let's viewers see worn items a little easier
 #OPTIONS=packorder:")[=%?+!/(*`0_$
