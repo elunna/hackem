@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Graz'zt MR too high (reported by mobileuser). Fixes #447.
 Cloning objects also clones the times recharged (reported by mobileuser). Fixes #448.
 Gnomes get a tinkering bonus when they reach level 10 (suggested by mobileuser).
 Fix: Nazgul could be summoned by mkundead without rings (reported by Umbire). Fixes #452.
