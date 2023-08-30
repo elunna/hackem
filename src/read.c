@@ -3886,6 +3886,7 @@ struct obj **sobjp;
         otmp2->greased = otmp->greased;
         otmp2->oeroded = otmp->oeroded;
         otmp2->oeroded2 = otmp->oeroded2;
+        otmp2->recharged = otmp->recharged;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
         otmp2->oprops = otmp->oprops;
