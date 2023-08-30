@@ -3207,7 +3207,11 @@ long mmflags;
         impossible("makemon trying to create a monster at <%d,%d>?", x, y);
         return (struct monst *) 0;
     }
-
+    
+    /* No Nazgul from mkundead */
+    if (ptr == &mons[PM_NAZGUL] && !allow_minvent)
+        return (struct monst *) 0;
+    
     /* Does monster already exist at the position? */
     if (MON_AT(x, y)) {
         if (!(mmflags & MM_ADJACENTOK)
