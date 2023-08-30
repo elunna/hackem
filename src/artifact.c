@@ -1425,7 +1425,7 @@ int tmp;
         spec_dbon_applies = spec_applies(weap, mon);
 
     if (spec_dbon_applies) {
-        dbon = weap->attk.damd ? rnd((int) weap->attk.damd) : max(tmp, 1);
+        dbon = weap->attk.damd ? (int) weap->attk.damd : max(tmp, 1);
         /* we want to possibly increase dbon, not the whole attack's damage,
            since only this bit is elemental. can't call damage_mon() because
            it would double-count the damage when the weapon hits */
