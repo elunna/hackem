@@ -1603,7 +1603,7 @@ charge_saber(VOID_ARGS)
 STATIC_PTR int
 tinker(VOID_ARGS)
 {
-    int res = 0;
+    int c = 5, res = 0;
     struct obj *otmp = uwep;
 
     if (delay) { /* not if (delay++), so at end delay == 0 */
@@ -1618,7 +1618,10 @@ tinker(VOID_ARGS)
 
     You("finish your tinkering.");
 
-    if (rnl(10) < 5) {
+    if (techlev(get_tech_no(T_TINKER)) >= 10)
+        c++;
+    
+    if (rnl(10) < c) {
         otmp = upgrade_obj(otmp, &res);
         if (res != 0) {
              if (res == 1) {
@@ -3196,7 +3199,11 @@ tech_tinker()
     if (yn("Start tinkering on this?") != 'y') 
          return 0;
     You("start working on %s", doname(uwep));
-    delay = -150 + techlev(tech_no);
+    if (techlev(tech_no) >= 10)
+        delay = -75 + techlev(tech_no);
+    else
+        delay = -150 + techlev(tech_no);
+    
     set_occupation(tinker, "tinkering", 0);
     return 1;
 }

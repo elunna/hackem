@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Gnomes get a tinkering bonus when they reach level 10 (suggested by mobileuser).
 Fix: Nazgul could be summoned by mkundead without rings (reported by Umbire). Fixes #452.
 Fix: Pets would not hesitate to melee attack manticores (reported by Umbire) 
 Fix: Monster with teleporting theft attack continues routine after warping away (reported by Umbire). Fixes #440.
