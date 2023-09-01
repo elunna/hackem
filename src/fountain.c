@@ -556,7 +556,7 @@ static const struct forge_recipe {
     
     /* armor (shields) */
     { SMALL_SHIELD, DAGGER, HELMET, 1, 1 },
-    { ELVEN_SHIELD, SMALL_SHIELD + ELVEN_DAGGER, 1, 1 },
+    { ELVEN_SHIELD, SMALL_SHIELD, ELVEN_DAGGER, 1, 1 },
     { URUK_HAI_SHIELD, ORCISH_SHIELD, ORCISH_SHIELD, 1, 1 },
     { ORCISH_SHIELD, ORCISH_HELM, ORCISH_BOOTS, 1, 1 },
     { LARGE_SHIELD, HELMET, HELMET, 1, 1 },
