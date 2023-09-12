@@ -181,7 +181,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
       0, A_NEUTRAL, PM_BARBARIAN, NON_PM, 1500L, NO_COLOR, DEFAULT_MAT),
 
-    A("Deluder", CLOAK_OF_DISPLACEMENT, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
+    A("Deluder", CLOAK_OF_DISPLACEMENT, (SPFX_RESTR | SPFX_STLTH), SPFX_LUCK, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_JEDI, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
 
@@ -254,7 +254,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, MH_JABBERWOCK, PHYS(5, 6), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5000L,
       NO_COLOR, METAL),
 
-    A("Whisperfeet", SPEED_BOOTS, (SPFX_RESTR | SPFX_STLTH | SPFX_LUCK), 0, 0,
+    A("Whisperfeet", SPEED_BOOTS, (SPFX_RESTR | SPFX_STLTH), SPFX_LUCK, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_TOURIST, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
     
@@ -328,7 +328,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NON_PM, 10000L, NO_COLOR, DEFAULT_MAT),
 
     /* Convict first artifact weapon. Acts like a luckstone. */
-    A("Luck Blade", SHORT_SWORD, (SPFX_RESTR | SPFX_LUCK), 0, 0,
+    A("Luck Blade", SHORT_SWORD, (SPFX_RESTR), SPFX_LUCK, 0,
       PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_CHAOTIC, PM_CONVICT, NON_PM, 3000L,
       NO_COLOR, METAL),
 
@@ -339,7 +339,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     *       since getting luck of -13 will give this weapon an automatic +13
     *       to damage and hit, but playing with -13 luck would be really hard.
     */
-    A("Luckless Folly", SHORT_SWORD, (SPFX_RESTR | SPFX_LUCK), 0,
+    A("Luckless Folly", SHORT_SWORD, (SPFX_RESTR), SPFX_LUCK,
       0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
       3000L, NO_COLOR, DEFAULT_MAT),
 
@@ -661,8 +661,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       UNTRAP, A_CHAOTIC, PM_ROGUE, NON_PM, 3500L, NO_COLOR, DEFAULT_MAT),
 
     A("The Tsurugi of Muramasa", TSURUGI,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_BEHEAD | SPFX_LUCK
-       | SPFX_PROTECT | SPFX_HPHDAM), 0, 0,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_BEHEAD
+       | SPFX_PROTECT | SPFX_HPHDAM), SPFX_LUCK, 0,
       PHYS(3, 8), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_SAMURAI, NON_PM,
       6000L, NO_COLOR, DEFAULT_MAT),
 
@@ -681,14 +681,14 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
 #if 0 /* Replaced by Gjallar */
     A("The Orb of Fate", CRYSTAL_BALL,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_LUCK),
-      (SPFX_WARN | SPFX_HPHDAM), 0, NO_ATTK, NO_DFNS, NO_CARY,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
+      (SPFX_WARN | SPFX_HPHDAM | SPFX_LUCK), 0, NO_ATTK, NO_DFNS, NO_CARY,
       LEV_TELE, A_NEUTRAL, PM_VALKYRIE, NON_PM, 3500L, NO_COLOR, DEFAULT_MAT),
 #endif
 
     A("Gjallar", TOOLED_HORN,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_LUCK),
-      (SPFX_WARN | SPFX_HPHDAM), 0, NO_ATTK, NO_DFNS, NO_CARY,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
+      (SPFX_WARN | SPFX_HPHDAM | SPFX_LUCK), 0, NO_ATTK, NO_DFNS, NO_CARY,
       LEV_TELE, A_NEUTRAL, PM_VALKYRIE, NON_PM, 5000L, NO_COLOR, BONE),
 
     A("The Eye of the Aethiopica", AMULET_OF_ESP,
