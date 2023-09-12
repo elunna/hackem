@@ -3775,6 +3775,12 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     boolean feeding = !strcmp(verb, "eat"),    /* corpsecheck==0 */
         offering = (!strcmp(verb, "sacrifice")); /* corpsecheck==1 */
 
+    if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
+        You("can't eat.");
+        if (flags.verbose)
+            pline("You can feed on lifeblood by attacking and biting other monsters.");
+        return (struct obj *) 0;
+    }
     /* if we can't touch floor objects then use invent food only */
     if (iflags.menu_requested /* command was preceded by 'm' prefix */
         || !can_reach_floor(TRUE) || (feeding && u.usteed)
