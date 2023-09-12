@@ -2724,7 +2724,7 @@ practice_weapon()
 #endif
     ) {
         if (uwep)
-            You("start practicing intensely with %s", doname(uwep));
+            You("start practicing intensely with %s.", doname(uwep));
         else
             You("start practicing intensely with your %s %s.",
                 uarmg ? "gloved" : "bare", /* Del Lamb */

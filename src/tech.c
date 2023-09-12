@@ -2831,13 +2831,15 @@ tech_appraisal()
     } else if (weapon_type(uwep) == P_NONE) {
          You("examine %s.", doname(uwep));
          uwep->known = TRUE;
-         You("discover it is %s", doname(uwep));
+         You("discover it is %s.", doname(uwep));
+         update_inventory();
          return 1;
     } else {
-         You("examine %s.", doname(uwep));
-         uwep->known = TRUE;
-         You("discover it is %s", doname(uwep));
-         return 1;
+        You("examine %s.", doname(uwep));
+        uwep->known = TRUE;
+        You("discover it is %s.", doname(uwep));
+        update_inventory();
+        return 1;
     }
     return 0;
 }
@@ -2856,7 +2858,8 @@ tech_practice()
             if (rnd(15) <= ACURR(A_INT)) {
                 makeknown(uwep->otyp);
                 uwep->known = TRUE;
-                You("discover it is %s", doname(uwep));
+                You("discover it is %s.", doname(uwep));
+                update_inventory();
             } else
                 pline("Unfortunately, you didn't learn anything new.");
          } 
