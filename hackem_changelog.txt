@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: the scroll blasts your heads with freezing air! (reported by mobileuser). Fixes #462.
 Fix: Update stale perm_invent when picking up sokoban prize.
 Fix an incorrect forge crafting recipe.
 Fix: Flat artifact damage had been accidentally reverted (reported by mobileuser). Fixes #444.
