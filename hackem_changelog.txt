@@ -4,6 +4,8 @@
 ==========================
 
 Version 1.2.1 (unreleased)
+
+Fix: Update stale perm_invent when picking up sokoban prize.
 Fix an incorrect forge crafting recipe.
 Fix: Flat artifact damage had been accidentally reverted (reported by mobileuser). Fixes #444.
 Graz'zt MR too high (reported by mobileuser). Fixes #447.
