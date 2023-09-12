@@ -1351,7 +1351,7 @@ register struct monst *mtmp;
     int udist = distu(mtmp->mx, mtmp->my);
 
     /* Undead won't betray necros */
-    if (Role_if(PM_NECROMANCER && is_undead(mtmp->data)))
+    if (Role_if(PM_NECROMANCER) && is_undead(mtmp->data))
         return FALSE;
     
     /* if (udist < 4 && has_edog && !mtmp->isspell && !rn2(3) */
