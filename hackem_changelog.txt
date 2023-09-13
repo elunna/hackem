@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Always give a message when dipping an item into a fountain (from NetHack 3.7.0)
 Fix: Undead could still betray Necromancers(reported by mobileuser). Fixes #464.
 Fix: Eating message for vampires (suggested by transcendreamer). Fixes #459.
 All artifacts that grant luck now conform to granting it while carried (reported by mobileuser).

@@ -1021,6 +1021,8 @@ void
 dipfountain(obj)
 register struct obj *obj;
 {
+    int er = ER_NOTHING;
+
     if (Levitation) {
         floating_above("fountain");
         return;
@@ -1084,7 +1086,7 @@ dip_end:
             (void) angry_guards(FALSE);
         return;
     } else {
-        int er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
+        er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
 
         if (er == ER_DESTROYED || (er != ER_NOTHING && !rn2(2))) {
             return; /* no further effect */
@@ -1178,6 +1180,10 @@ dip_end:
                   hliquid("water"));
         exercise(A_WIS, TRUE);
         newsym(u.ux, u.uy);
+        break;
+    default:
+        if (er == ER_NOTHING)
+            pline("Nothing seems to happen.");
         break;
     }
     update_inventory();
