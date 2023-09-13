@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: The End doesn't give message feedback on hit (reported by mobileuser). Fixes #465.
 Fix: Cannot wield crossbow while wearing a shield as a giant (reported by Umbire). Fixes #455.
 Always give a message when dipping an item into a fountain (from NetHack 3.7.0)
 Fix: Undead could still betray Necromancers(reported by mobileuser). Fixes #464.

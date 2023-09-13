@@ -1875,8 +1875,9 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
     if (attacks(AD_COLD, otmp)) {
         if (realizes_damage) {
-            if (otmp->oartifact == ART_FROST_BRAND 
-             || otmp->oartifact == ART_DEEP_FREEZE) {
+            if (otmp->oartifact == ART_FROST_BRAND
+                || otmp->oartifact == ART_DEEP_FREEZE
+                || otmp->oartifact == ART_END) {
                 pline_The("ice-cold blade %s %s%c",
                           !spec_dbon_applies
                               ? "hits"
