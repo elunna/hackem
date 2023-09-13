@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: polyform twoweaponing opposite-aligned artifacts (From EvilHack).
 Fix: Change scroll of ice to blast your hands(or equivalent) instead of head(s).
 Fix: Allow twoweaponing artifacts in polyform (From EvilHack).
 Fix: Giant crabs always flee on land (reported by Umbire). Fixes #446.
