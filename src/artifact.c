@@ -1429,10 +1429,14 @@ int tmp;
     if (spec_dbon_applies) {
         dbon = weap->attk.damd ? (int) weap->attk.damd : max(tmp, 1);
         /* we want to possibly increase dbon, not the whole attack's damage,
-           since only this bit is elemental. can't call damage_mon() because
+           since only dbon is elemental. can't call damage_mon() because
            it would double-count the damage when the weapon hits */
         if (vulnerable_to(mon, weap->attk.adtyp))
             dbon = ((3 * dbon) + 1) / 2;
+        /* hellfire is mitigated by fire resistance */
+        if (otmp->oartifact == ART_ANGELSLAYER
+            && (yours ? Fire_resistance : resists_fire(mon)))
+            dbon = (dbon + 1) / 2;
         return dbon;
     }
     return 0;
@@ -1802,15 +1806,13 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 pline_The("fiery blade %s %s%c",
                           !spec_dbon_applies         ? "hits"
                           : can_vaporize(mdef->data) ? "vaporizes part of"
-                          : mon_underwater(mdef)     ? "hits"
-                                                     : "burns",
+                          : mon_underwater(mdef)     ? "hits" : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
 
             } else if (otmp->oartifact == ART_ANGELSLAYER) {
                 pline_The("infernal trident %s %s%c",
                           !spec_dbon_applies         ? "hits"
                           : can_vaporize(mdef->data) ? "vaporizes part of"
-                          : mon_underwater(mdef)     ? "hits"
                                                      : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
             } else if (otmp->oclass == WEAPON_CLASS
@@ -1818,8 +1820,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 pline_The("%s %s %s%c", distant_name(otmp, xname),
                           !spec_dbon_applies         ? "hits"
                           : can_vaporize(mdef->data) ? "vaporizes part of"
-                          : mon_underwater(mdef)     ? "hits"
-                                                     : "burns",
+                          : mon_underwater(mdef)     ? "hits" : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
             }
         }
@@ -1829,7 +1830,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             update_inventory();
         }
 
-        if (youdefend ? !Underwater : !mon_underwater(mdef)) {
+        if ((youdefend ? !Underwater : !mon_underwater(mdef))
+            || otmp->oartifact == ART_ANGELSLAYER) {
             if (!rn2(4))
                 (void) destroy_mitem(mdef, POTION_CLASS, AD_FIRE);
             if (!rn2(4))
@@ -1839,7 +1841,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             if (rn2(3))
                 (void) destroy_mitem(mdef, WEAPON_CLASS, AD_FIRE);
         }
-        if (youdefend && Slimed && !Underwater)
+        if (youdefend && Slimed && (!Underwater || otmp->oartifact == ART_ANGELSLAYER))
             burn_away_slime();
 
         angel = youdefend ? is_angel(youmonst.data) : is_angel(mdef->data);
@@ -1848,7 +1850,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             && ((completelyburns(mdef->data) || is_wooden(mdef->data)
                  || mdef->data == &mons[PM_GREEN_SLIME])
                 || (!rn2(10) && angel))) {
-            if (youdefend && !Underwater) {
+            if (youdefend) {
                 if (angel) {
                     pline("Angelslayer's eldritch flame consumes %s!",
                           hittee);
@@ -1861,18 +1863,16 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            NO_KILLER_PREFIX);
                 }
             } else {
-                if (!mon_underwater(mdef)) {
-                    if (show_instakill) {
-                        if (angel)
-                            pline("Angelslayer's eldritch flame consumes %s!", hittee);
-                        else
-                            pline("%s ignites and turns to ash!", Monnam(mdef));
-                    }
-                    if (youattack)
-                        xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
+                if (show_instakill) {
+                    if (angel)
+                        pline("Angelslayer's eldritch flame consumes %s!", hittee);
                     else
-                        monkilled(mdef, 0, AD_FIRE);
+                        pline("%s ignites and turns to ash!", Monnam(mdef));
                 }
+                if (youattack)
+                    xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
+                else
+                    monkilled(mdef, 0, AD_FIRE);
             }
             return TRUE;
         }

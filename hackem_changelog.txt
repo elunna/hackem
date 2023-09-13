@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+More hellfire tweaks (From EvilHack).
 Fix: Grease shouldn't protect invocation items from Rodney (From EvilHack).
 Artifact Messages, Angelslayer/Grimtooth tweaks (From EvilHack).
 Fix: typo when a monster is protected from a clobber attack.
