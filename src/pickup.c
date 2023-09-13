@@ -1813,7 +1813,8 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
 
     if (Hate_material(cobj->material) && !uarmg) {
         char kbuf[BUFSZ];
-        pline_The("%s lid %s!", materialnm[cobj->material],
+        pline("The %s %s %s!", materialnm[cobj->material],
+              cobj->otyp == IRON_SAFE ? "safe door" : Is_box(cobj) ? "lid" : "container",
               cobj->material == SILVER ? "sears your flesh" : "hurts to touch");
         Sprintf(kbuf, "opening a %s container", materialnm[cobj->material]);
         losehp(rnd(sear_damage(cobj->material)), kbuf, KILLED_BY);

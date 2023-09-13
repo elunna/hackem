@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Safes don't have lids (From EvilHack).
 Monsters zapping wands of striking can break iron bars (From EvilHack).
 Fix: polyform twoweaponing opposite-aligned artifacts (From EvilHack).
 Fix: Change scroll of ice to blast your hands(or equivalent) instead of head(s).
