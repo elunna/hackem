@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Giant crabs always flee on land (reported by Umbire). Fixes #446.
 Fix: Missing parentheses when giants break toilets.
 Fix: The End doesn't give message feedback on hit (reported by mobileuser). Fixes #465.
 Fix: Cannot wield crossbow while wearing a shield as a giant (reported by Umbire). Fixes #455.

@@ -1208,7 +1208,9 @@ register struct monst *mtmp;
             /* as mhp gets lower, the rate of further loss slows down */
             if (mtmp->mhp > 1 && rn2(mtmp->mhp) > rn2(8))
                 damage_mon(mtmp, 1, AD_PHYS);
-            monflee(mtmp, 2, FALSE, FALSE);
+            
+            if (mtmp->data != &mons[PM_GIANT_CRAB])
+                monflee(mtmp, 2, FALSE, FALSE);
         }
     }
     return 0;
