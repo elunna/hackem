@@ -2654,7 +2654,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     monstseesu(M_SEEN_COLD);
                 } else {
                     pline_The("scroll blasts your %s with freezing air!",
-                              body_part(HEAD));
+                              makeplural(body_part(HAND)));
                     losehp(d(scursed ? 1 : 2, 3), "scroll of ice", KILLED_BY_AN);
                 }
             }
