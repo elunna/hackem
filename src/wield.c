@@ -180,7 +180,9 @@ struct obj *wep;
     } else if (wep->otyp == CORPSE && cant_wield_corpse(wep)) {
         /* hero must have been life-saved to get here; use a turn */
         res++; /* corpse won't be wielded */
-    } else if (uarms && bimanual(wep)) {
+    } else if (uarms && bimanual(wep)
+          && !maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)) ) {
+        /* Giants can use a shield and a two-handed weapon simultaneously */
         You("cannot wield a two-handed %s while wearing a shield.",
             is_sword(wep) ? "sword" : wep->otyp == BATTLE_AXE ? "axe"
                                                               : "weapon");
