@@ -136,13 +136,12 @@ dosit()
     } else if (IS_SINK(typ)) {
         You(sit_message, defsyms[S_sink].explanation);
         Your("%s gets wet.", humanoid(youmonst.data) ? "rump" : "underside");
-    } else if(IS_TOILET(typ)) {
+    } else if (IS_TOILET(typ)) {
         You(sit_message, defsyms[S_toilet].explanation);
 
-        if maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)) {
+        if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             breaktoilet(u.ux, u.uy);
-        }
-        else if ((!Sick) && (u.uhs > 0))
+        } else if (!Sick && u.uhs > 0)
             You("don't have to go...");
         else {
             if (Role_if(PM_BARBARIAN) || Role_if(PM_CAVEMAN))
@@ -150,7 +149,7 @@ dosit()
             else
                 You("grunt.");
             if (Sick)
-                make_sick(0L, (char *)0, TRUE, SICK_ALL);
+                make_sick(0L, (char *) 0, TRUE, SICK_ALL);
             if (u.uhs == 0)
                 morehungry(rn2(400) + 200);
         }
