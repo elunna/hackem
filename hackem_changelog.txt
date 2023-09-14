@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Make elf zombies and mummies color bright green (From EvilHack).
 Allow vorpal jabberwocks to be steeds (From EvilHack).
 Fix: Flag alhoon as M2_NOPOLY (From EvilHack).
 Move the Wizard's Tower into its own branch (From EvilHack).
