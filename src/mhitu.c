@@ -5069,6 +5069,8 @@ struct attack *mattk;
             }
             break;
         case GOLD_DRAGON_SCALES:
+            if (rn2(20))
+                break;
             /* Using AT_EXPL to simulate yellow light explosion. */
             if (can_blnd(&youmonst, mtmp, AT_EXPL, (struct obj *) 0)) {
                 if (!Blind && mtmp->mcansee)

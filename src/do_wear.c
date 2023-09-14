@@ -1098,18 +1098,18 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             ESlow_digestion &= ~W_ARM;
         }
         break;
-    case GOLD_DRAGON_SCALES:
-        if (puton) {
-            ESearching |= W_ARM;
-        } else {
-            ESearching &= ~W_ARM;
-        }
-        break;
     case SILVER_DRAGON_SCALES:
         if (puton) {
             ECold_resistance |= W_ARM;
         } else {
             ECold_resistance &= ~W_ARM;
+        }
+        break;
+    case GOLD_DRAGON_SCALES:
+        if (puton) {
+            EInfravision |= W_ARM;
+        } else {
+            EInfravision &= ~W_ARM;
         }
         break;
     case ORANGE_DRAGON_SCALES:
