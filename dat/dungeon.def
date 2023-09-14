@@ -73,7 +73,7 @@ BRANCH:		    "The Elemental Planes" @ (1, 0) no_down up
 #		monsters can properly migrate here under certain
 #		circumstances.
 
-DUNGEON:	"Gehennom" "G" (15, 5)
+DUNGEON:	    "Gehennom" "G" (20, 5)
 DESCRIPTION:	mazelike
 DESCRIPTION:	hellish
 ALIGNMENT:	    noalign
@@ -83,11 +83,12 @@ RNDLEVEL:	    "hella" "A" @ (2, 6) 4
 RNDLEVEL:	    "hellb" "B" @ (5, 4) 3
 RNDLEVEL:	    "hellc" "C" @ (14, 4) 3
 LEVEL:		    "orcus" "O" @ (8, 4)
+LEVEL:		    "wizard1" "none" @ (11, 6)
+CHAINLEVEL:	    "wizard2" "X" "wizard1" + (1, 0)
+CHAINLEVEL:	    "wizard3" "Y" "wizard1" + (2, 0)
 LEVEL:		    "fakewiz1" "F" @ (-6, 3)
 LEVEL:		    "fakewiz2" "G" @ (-6, 3)
 LEVEL:		    "sanctum" "none" @ (-1, 0)
-CHAINBRANCH:	"The Wizard's Tower" "fakewiz1" + (0, 0) portal up
-
 
 
 #
@@ -233,20 +234,6 @@ LEVEL:		"tower1" "none" @ (1, 0)
 # show up in ^O output and in the level teleport menu
 LEVEL:		"tower2" "none" @ (2, 0)
 LEVEL:		"tower3" "none" @ (3, 0)
-
-#
-#   The Wizards Tower
-#
-#   It has been removed from Gehennom, and it is surrounded by stone.
-#   Must not allow bones files for its top level.
-#
-DUNGEON:     "The Wizard's Tower" "W" (3, 0)
-DESCRIPTION: mazelike
-ALIGNMENT:   chaotic
-ENTRY:       3
-LEVEL:       "wizard1" "none" @ (1, 0)
-LEVEL:       "wizard2" "X"    @ (2, 0)
-LEVEL:       "wizard3" "Y"    @ (3, 0)
 
 #
 #	The Endgame levels
