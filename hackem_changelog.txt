@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert 'Allow helm of speed to be made of more materials' (From EvilHack).
 Rangers gain broadsword skill (From EvilHack).
 Forges are always lit (From EvilHack).
 Add archangels to the non-tameable monster list (From EvilHack).
