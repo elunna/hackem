@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: various 'monster hiding under objects' bugs (From EvilHack).
 Wearing a helm of telepathy can focus psychic attacks, tweak to ESP object property (From EvilHack).
 Add #genocided command (From 3.7/EvilHack)
 New race/role combination: tortle samurai (From EvilHack).
