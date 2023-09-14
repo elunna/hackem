@@ -987,7 +987,7 @@ struct permonst * pm;
     
     APPENDC(is_berserker(pm), "berserk");
     APPENDC(can_betray(pm), "betray you");
-    APPENDC(cannot_be_tamed(pm), "not be tamed");
+    APPENDC(non_tameable(pm), "not be tamed");
     
     APPENDC(webmaker(pm), "spin webs");
     APPENDC(needspick(pm), "mine");

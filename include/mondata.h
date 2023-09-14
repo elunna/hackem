@@ -118,6 +118,11 @@
     ((ptr) == &mons[PM_HEZROU] \
      || (ptr) == &mons[PM_SKUNK])
 
+#define non_tameable(ptr) \
+    (unique_corpstat(ptr) \
+     || ((ptr)->mflags3 & M3_WANTSARTI) \
+     || (ptr->mflags3 & M3_NOTAME))
+
 #define is_lminion(mon) \
     (is_minion((mon)->data) && mon_aligntyp(mon) == A_LAWFUL)
 #define is_jumper(ptr) (((ptr)->mflags2 & M2_JUMPER) != 0L)
@@ -482,7 +487,6 @@
 #define infravision(ptr) (((ptr)->mflags3 & M3_INFRAVISION))
 #define infravisible(ptr) (((ptr)->mflags3 & M3_INFRAVISIBLE))
 #define can_betray(ptr)		((ptr->mflags3 & M3_TRAITOR))
-#define cannot_be_tamed(ptr)	((ptr->mflags3 & M3_NOTAME))
 #define is_displacer(ptr) (((ptr)->mflags3 & M3_DISPLACES) != 0L)
 #define is_displaced(ptr) \
     ((ptr) == &mons[PM_SHIMMERING_DRAGON]         \

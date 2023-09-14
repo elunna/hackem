@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: close a loophole being able to produce tame non-tameable monsters (From EvilHack).
 Fix: Offhand artifact intrinsics (From EvilHack).
 Make some artifacts more indestructible (From EvilHack).
 Fix: warning: the comparison will always evaluate as ‘true’ (botl.c) (From EvilHack).

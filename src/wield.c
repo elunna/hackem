@@ -934,8 +934,8 @@ register int amount;
     if (!Blind) {
         xtime = (amount * amount == 1) ? "moment" : "while";
         pline("%s %s for a %s.",
-              Yobjnam2(uwep, amount == 0 ? "violently glow" : "glow"), color,
-              xtime);
+              Yobjnam2(uwep, amount == 0 ? "violently glow" : "glow"),
+              color, xtime);
         if (otyp != STRANGE_OBJECT && uwep->known
             && (amount > 0 || (amount < 0 && otmp->bknown)))
             makeknown(otyp);

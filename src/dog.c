@@ -165,6 +165,13 @@ boolean quietly;
         if (chance > 2)
             chance = otmp->blessed ? 0 : !otmp->cursed ? 1 : 2;
         /* 0,1,2:  b=80%,10,10; nc=10%,80,10; c=10%,10,80 */
+
+        /* Unique monsters, monsters that covet the Amulet,
+           and various other creatures (see mondata.h) can't
+           be tamed */
+        if (non_tameable(mtmp->data))
+            chance = 2;
+
         if (Role_if(PM_KNIGHT) && u.ualign.type == A_LAWFUL
             && mtmp->data == &mons[PM_ELDRITCH_KI_RIN])
             chance = 2;
@@ -1119,22 +1126,28 @@ register struct obj *obj;
  */
 boolean
 tamedog(mtmp, obj)
-register struct monst *mtmp;
-register struct obj *obj;
+struct monst *mtmp;
+struct obj *obj;
 {
     boolean same_align = (sgn(mon_aligntyp(mtmp)) == u.ualign.type);
 
-    /* The Wiz, Vecna, Cerberus, Medusa, Grund, and the quest nemeses
-     * aren't even made peaceful. */
-    if (mtmp->iswiz || mtmp->isvecna
-        || mtmp->iscerberus || mtmp->isgrund
-        || mtmp->data == &mons[PM_MEDUSA]
-        || (mtmp->data->mflags3 & M3_WANTSARTI)
-        || unique_corpstat(mtmp->data))
+    /* reduce timed sleep or paralysis, leaving mtmp->mcanmove as-is
+       (note: if mtmp is donning armor, this will reduce its busy time) */
+    if (mtmp->mfrozen)
+        mtmp->mfrozen = (mtmp->mfrozen + 1) / 2;
+    /* end indefinite sleep; using distance==1 limits the waking to mtmp */
+    if (mtmp->msleeping)
+        wake_nearto(mtmp->mx, mtmp->my, 1); /* [different from wakeup()] */
+
+    /* Unique monsters, monsters that covet the Amulet,
+       and various other creatures (see mondata.h) aren't
+       even made peaceful */
+    if (non_tameable(mtmp->data))
         return FALSE;
 
     /* Knights can never tame dragons of differing alignment */
-    if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data) && !same_align)
+    if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data)
+        && !same_align)
         return FALSE;
 
     /* Dark knights cannot tame ki-rin, lawful knights cannot
@@ -1162,8 +1175,7 @@ register struct obj *obj;
     if (wielding_artifact(ART_GIANTSLAYER) && racial_giant(mtmp))
         return FALSE;
 
-    if ((wielding_artifact(ART_TROLLSBANE)) 
-        && is_troll(mtmp->data))
+    if ((wielding_artifact(ART_TROLLSBANE)) && is_troll(mtmp->data))
         return FALSE;
 
     if (wielding_artifact(ART_OGRESMASHER) && is_ogre(mtmp->data))
@@ -1258,8 +1270,20 @@ register struct obj *obj;
             return FALSE;
     }
 
-    if (mtmp->mtame 
-        || !mtmp->mcanmove
+    /* if already tame, taming magic might make it become tamer */
+    if (mtmp->mtame) {
+        /* maximum tameness is 20, only reachable via eating */
+        if (rnd(10) > mtmp->mtame)
+            mtmp->mtame++;
+        return FALSE; /* didn't just get tamed */
+    }
+    /* pacify angry shopkeeper but don't tame him/her/it/them */
+    if (mtmp->isshk) {
+        make_happy_shk(mtmp, FALSE);
+        return FALSE;
+    }
+
+    if (!mtmp->mcanmove
         /* monsters with conflicting structures cannot be tamed */
         || mtmp->isshk 
         || mtmp->isgd 
@@ -1270,8 +1294,6 @@ register struct obj *obj;
         || racial_human(mtmp)
         || (is_demon(mtmp->data) && mtmp->data != &mons[PM_LAVA_DEMON]
             && !is_demon(raceptr(&youmonst)))
-         /* Mik -- New flag to indicate which things cannot be tamed... */
-        || cannot_be_tamed(mtmp->data)
         || (obj && dogfood(mtmp, obj) >= MANFOOD))
         return FALSE;
 
