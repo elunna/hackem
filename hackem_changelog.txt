@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Rangers gain broadsword skill (From EvilHack).
 Forges are always lit (From EvilHack).
 Add archangels to the non-tameable monster list (From EvilHack).
 Fix: don't hilite globs of pudding after they merge (From EvilHack).
