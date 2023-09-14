@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Autodigging and forcefight-digging can sear you (From EvilHack).
 Fix: Messages for unseen events (From EvilHack).
 Fix: Attempts to engulf spectres &c. from a distance (From EvilHack).
 More hellfire tweaks (From EvilHack).
