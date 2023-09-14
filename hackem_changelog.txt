@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: release obufs used by sortloot (From EvilHack).
 Fix: feedback for gaining telepathy via food when already telepathic via race (From EvilHack).
 Fix: Autodigging and forcefight-digging can sear you (From EvilHack).
 Fix: Messages for unseen events (From EvilHack).
