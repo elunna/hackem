@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Allow tortles to wear rigid gloves/helmets (From EvilHack).
 Make elf zombies and mummies color bright green (From EvilHack).
 Allow vorpal jabberwocks to be steeds (From EvilHack).
 Fix: Flag alhoon as M2_NOPOLY (From EvilHack).

@@ -2617,13 +2617,14 @@ boolean noisy;
                           plur(num_horns(youmonst.data)));
             err++;
         } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)
+                   && otmp->cursed && otmp->bknown
                    && !(Role_if(PM_PRIEST)
                         && otmp->oartifact == ART_MITRE_OF_HOLINESS)) {
             /* Tortles can't retreat back into their shells
-               whilst wearing rigid head gear */
+               whilst wearing cursed rigid head gear */
             if (noisy)
-                pline_The("%s is too rigid to wear.",
-                          helm_simple_name(otmp));
+                Your("%s is cursed, and won't allow you to retreat into your shell.",
+                     helm_simple_name(otmp));
             err++;
         } else if (((Upolyd && is_mind_flayer(youmonst.data)) || Race_if(PM_ILLITHID)) 
                    && otmp->otyp == PLASTEEL_HELM) {
@@ -2712,12 +2713,13 @@ boolean noisy;
                 Your("%s are too slippery to pull on %s.",
                      fingers_or_gloves(FALSE), gloves_simple_name(otmp));
             err++;
-        } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)) {
+        } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)
+                    && otmp->cursed && otmp->bknown) {
             /* Tortles can't retreat back into their shells
-               whilst wearing rigid gauntlets */
+               whilst wearing cursed rigid gauntlets */
             if (noisy)
-                pline_The("%s are too rigid to wear.",
-                          gloves_simple_name(otmp));
+                Your("%s are cursed, and won't allow you to retreat into your shell.",
+                     gloves_simple_name(otmp));
             err++;
         } else
             *mask = W_ARMG;
