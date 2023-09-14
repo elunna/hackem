@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: objects embedded in wall in Croesus' throne room with one map variant (From EvilHack).
 Fix: throwing an attached ball & chain at a metalvore and it tries to catch and eat it (From EvilHack).
 Fix: enshelling tortle feedback (From EvilHack).
 Fix: certain armor would disappear on save/reload under specific conditions (From EvilHack).
