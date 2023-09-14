@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: enshelling tortle feedback (From EvilHack).
 Fix: certain armor would disappear on save/reload under specific conditions (From EvilHack).
 Don't prevent tortles from wearing certain cursed armor (From EvilHack).
 The Rat King will sometimes spawn with a ring of teleport control (From EvilHack).
