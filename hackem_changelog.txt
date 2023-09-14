@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: wearing dragon scales and reading an unidentified scroll of enchant armor (From EvilHack).
 Fix: tweaks to objnam.c (dragon-scaled armor) (From xNetHack/EvilHack).
 Fix: release obufs used by sortloot (From EvilHack).
 Fix: feedback for gaining telepathy via food when already telepathic via race (From EvilHack).
