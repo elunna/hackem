@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: monsters ransacking players possessions on death from a distance (From EvilHack).
 Fix: illithid corpses can boost intelligence when eaten (From EvilHack).
 Fix: rising from the grave as a zombie (From EvilHack).
 avoid crash in curses during #quit
