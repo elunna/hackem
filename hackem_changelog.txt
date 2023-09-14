@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Move the Wizard's Tower into its own branch (From EvilHack).
 Fix: player objects destroyed via passive disintegration handling (From EvilHack).
 Fix: wearing dragon scales and reading an unidentified scroll of enchant armor (From EvilHack).
 Fix: tweaks to objnam.c (dragon-scaled armor) (From xNetHack/EvilHack).
