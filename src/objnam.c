@@ -7,8 +7,9 @@
 #include <ctype.h>
 #include <assert.h>
 
-/* "an uncursed greased partly eaten guardian naga hatchling [corpse]" */
-#define PREFIX 80 /* (56) */
+/* "an uncursed greased magical shimmering-scaled thoroughly rusty
+    thoroughly corroded rustproof +0 [chain mail]" (95 characters) */
+#define PREFIX 100
 #define SCHAR_LIM 127
 #define NUMOBUF 12
 
@@ -1506,9 +1507,10 @@ unsigned doname_flags;
                 Strcpy(rindex(bp, ')'), "; slippery)");
         }
         if (Is_dragon_scaled_armor(obj)) {
-            char scalebuf[30];
-            Sprintf(scalebuf, "%s-scaled ", dragon_scales_color(obj));
+            char scalebuf[30], *colorstr = dragon_scales_color(obj);
+            Sprintf(scalebuf, "%s-scaled ", colorstr);
             Strcat(prefix, scalebuf);
+            releaseobuf(colorstr); /* don't consume an extra obuf */
         }
         /*FALLTHRU*/
     case WEAPON_CLASS:
@@ -5644,7 +5646,7 @@ char *
 dragon_scales_color(obj)
 struct obj *obj;
 {
-    char* buf = nextobuf();
+    char *buf = nextobuf();
     const struct permonst *pm;
     const char* endp;
     int colorlen;
