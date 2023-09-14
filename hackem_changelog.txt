@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+If a monster you are afraid of dies, your fear will subside as well (reported by Loggers_VIII).
 Revert: Move the Wizard's Tower into its own branch.
 Fix: gaining certain resistances would not cure current effect they protect against / Snickersnee grants stun resistance when wielded (From EvilHack).
 Fix: Dragon scale passive attacks and more slowing stuff (From EvilHack).

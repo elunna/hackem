@@ -5122,6 +5122,7 @@ struct monst *mtmp;
 void
 remove_fearedmon() {
     u.fearedmon = (struct monst *) 0;
+    make_afraid(0L, TRUE);
     if (u.ugrave_arise == PM_BODAK)
         u.ugrave_arise = NON_PM;
 }
