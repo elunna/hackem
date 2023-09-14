@@ -66,6 +66,10 @@
      || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
      || (ptr) == &mons[PM_MARRASHI])
 
+#define resists_slow(ptr) \
+    ((ptr) == &mons[PM_BABY_BLUE_DRAGON] \
+     || (ptr) == &mons[PM_BLUE_DRAGON])
+
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */
 #define resists_mgc(ptr) \
     (dmgtype((ptr), AD_MAGM) \
