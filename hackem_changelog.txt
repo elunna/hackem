@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Make some artifacts more indestructible (From EvilHack).
 Fix: warning: the comparison will always evaluate as ‘true’ (botl.c) (From EvilHack).
 Keep movement points through save/restore (from Nethack 3.7)
 Fix: monsters ransacking players possessions on death from a distance (From EvilHack).
