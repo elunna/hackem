@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add archangels to the non-tameable monster list (From EvilHack).
 Fix: don't hilite globs of pudding after they merge (From EvilHack).
 Fix: undoing monsters' permablindness by accident (From NetHack 3.7).
 Fix: container trap outcomes for monsters using them was determined by the players luck (From EvilHack).
