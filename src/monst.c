@@ -1246,10 +1246,12 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_TENT, AD_DRIN, 2, 1),
           ATTK(AT_MAGC, AD_SPEL, 0, 0),
           NO_ATTK),
-        SIZ(1200, 250, MS_HISS, MZ_HUMAN), MR_PSYCHIC | MR_FIRE | MR_COLD
-                                               | MR_SLEEP | MR_ELEC | MR_POISON, MR_FIRE | MR_COLD,
+        SIZ(1200, 250, MS_HISS, MZ_HUMAN),
+        MR_PSYCHIC | MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_POISON, 
+        MR_FIRE | MR_COLD,
         M1_BREATHLESS | M1_HUMANOID | M1_FLY | M1_SEE_INVIS | M1_POIS | M1_REGEN,
-        M2_HOSTILE | M2_NASTY | M2_MAGIC | M2_GREEDY | M2_JEWELS | M2_COLLECT,
+        M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_MAGIC | M2_GREEDY 
+            | M2_JEWELS | M2_COLLECT,
         M3_WANTSBOOK | M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0,
         MH_ILLITHID | MH_UNDEAD, 30, CLR_GRAY),
     MON("deepest one", S_HUMANOID,                              /* Slash'EM */
