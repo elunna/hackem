@@ -5505,6 +5505,9 @@ struct obj *no_wish;
         if (otmp->otyp == OILSKIN_CLOAK)
             objprops &= ~ITEM_OILSKIN;
 
+        if (is_helmet(otmp))
+            objprops &= ~ITEM_ESP;
+
         otmp->oprops |= objprops;
     }
 

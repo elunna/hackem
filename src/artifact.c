@@ -459,12 +459,15 @@ boolean allow_detrimental;
             continue;
 
         if ((is_ammo(otmp) || is_missile(otmp))
-            && (j & (ITEM_DRLI | ITEM_OILSKIN | ITEM_ESP | ITEM_EXCEL
-                     | ITEM_SEARCHING | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER)))
+            && (j & (ITEM_DRLI | ITEM_OILSKIN | ITEM_ESP
+                     | ITEM_EXCEL | ITEM_SEARCHING | ITEM_WARNING
+                     | ITEM_FUMBLING | ITEM_HUNGER)))
             continue;
 
-        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID | ITEM_DRLI))
-                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
+        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
+                             | ITEM_VENOM | ITEM_ACID | ITEM_DRLI))
+                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
+                             | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
             continue; /* these are mutually exclusive */
 
         if (otmp->material != CLOTH && (j & ITEM_OILSKIN))
@@ -474,6 +477,11 @@ boolean allow_detrimental;
             continue;
         
         if (otmp->otyp == ROGUES_GLOVES && (j & ITEM_SEARCHING))
+            continue;
+
+        /* helm of telepathy already exists */
+        if (is_helmet(otmp)
+            && (j & ITEM_ESP))
             continue;
 
         otmp->oprops |= j;

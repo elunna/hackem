@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Wearing a helm of telepathy can focus psychic attacks, tweak to ESP object property (From EvilHack).
 Add #genocided command (From 3.7/EvilHack)
 New race/role combination: tortle samurai (From EvilHack).
 Stop handing out blank spellbooks as a prayer/sacrifice gift (From EvilHack).
