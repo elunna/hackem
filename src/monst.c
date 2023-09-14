@@ -4345,7 +4345,7 @@ struct permonst _mons2[] = {
         M3_INFRAVISIBLE, 0, 0, 21, CLR_YELLOW),
     /* This is an upgraded monster from SlashEM that actually beheads. */
     MON("vorpal jabberwock", S_JABBERWOCK,                      /* EvilHack */
-        LVL(20, 12, -2, 50, 0), (1),
+        LVL(20, 12, -2, 70, 0), (1),
         A(ATTK(AT_BITE, AD_PHYS, 3, 10), 
           ATTK(AT_BITE, AD_PHYS, 3, 10),
           ATTK(AT_CLAW, AD_BHED, 3, 10), 
