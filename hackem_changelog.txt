@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Attempts to engulf spectres &c. from a distance (From EvilHack).
 More hellfire tweaks (From EvilHack).
 Fix: Grease shouldn't protect invocation items from Rodney (From EvilHack).
 Artifact Messages, Angelslayer/Grimtooth tweaks (From EvilHack).

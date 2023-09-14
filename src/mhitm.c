@@ -642,11 +642,11 @@ register struct monst *magr, *mdef;
                     material = mwep->material;
 
                 res[i] = hitmm(magr, mdef, mattk, mwep, dieroll);
-		if ((res[i]) == MM_HIT && mwep
+                if ((res[i]) == MM_HIT && mwep
                     && type == CORPSE
                     && corpsenm
                     && touch_petrifies(&mons[corpsenm])
-	            && !(resists_ston(mdef) || defended(mdef, AD_STON))) {
+                    && !(resists_ston(mdef) || defended(mdef, AD_STON))) {
                     if (poly_when_stoned(mdef->data)) {
                         mon_to_stone(mdef);
                     } else if (!mdef->mstone) {
@@ -728,6 +728,10 @@ register struct monst *magr, *mdef;
             break;
 
         case AT_ENGL:
+            /* D: Prevent engulf from a distance */
+            if (distmin(magr->mx, magr->my, mdef->mx, mdef->my) > 1)
+                continue;
+
             if (noncorporeal(mdef->data) /* no silver teeth... */
                 || passes_walls(mdef->data)) {
                 if (vis)
@@ -745,9 +749,6 @@ register struct monst *magr, *mdef;
                 strike = 0;
                 break;
             }
-            /* D: Prevent engulf from a distance */
-            if (distmin(magr->mx, magr->my, mdef->mx, mdef->my) > 1)
-                continue;
             /* Engulfing attacks are directed at the hero if possible. -dlc */
             if (u.uswallow && magr == u.ustuck)
                 strike = 0;
