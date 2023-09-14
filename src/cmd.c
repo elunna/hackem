@@ -133,6 +133,7 @@ extern int NDECL(doremoveimarkers);   /**/
 
 static int NDECL((*timed_occ_fn));
 
+STATIC_PTR int NDECL(doenshelling);
 STATIC_PTR int NDECL(dosuspend_core);
 STATIC_PTR int NDECL(dosh_core);
 STATIC_PTR int NDECL(doherecmdmenu);
@@ -734,7 +735,7 @@ domonability(VOID_ARGS)
         return dohide();
     else if (maybe_polyd(is_tortle(youmonst.data),
              Race_if(PM_TORTLE)))
-        return toggleshell();
+        return doenshelling();
     else if (is_mind_flayer(youmonst.data))
         return domindblast();
     else if (u.umonnum == PM_GREMLIN) {
@@ -7028,6 +7029,57 @@ dotravel(VOID_ARGS)
     cmd[0] = Cmd.spkeys[NHKF_TRAVEL];
     readchar_queue = cmd;
     return 0;
+}
+
+/* tortle #monster action */
+STATIC_PTR int
+doenshelling(VOID_ARGS)
+{
+    int delay = 0;
+
+    if (!Hidinshell && u.uinshell) {
+        You_cant("retreat into your shell again so soon.");
+        return 0;
+    } else if (!Hidinshell && Punished) {
+        You_cant("retreat into your shell with an iron ball chained to your %s!",
+                 body_part(LEG));
+        return 0;
+    } else if (uarmg && is_hard(uarmg) && uarmg->cursed) {
+        Your("cursed %s prevent you from retreating into your shell.",
+             gloves_simple_name(uarmg));
+        return 0;
+    } else if (uarmh && is_hard(uarmh) && uarmh->cursed
+               && !(Role_if(PM_PRIEST)
+                    && uarmh->oartifact == ART_MITRE_OF_HOLINESS)) {
+        Your("cursed %s prevents you from retreating into your shell.",
+             helm_simple_name(uarmh));
+        return 0;
+    }
+
+    /* varible delay when enshelling if wearing rigid armor
+       (gauntlets/helmet) */
+    if (uarmg && is_hard(uarmg))
+        delay += rn2(3) + 2;
+    if (uarmh && is_hard(uarmh))
+        delay += rn2(3) + 2;
+
+    You("%s%s your shell.", delay ? "begin to " : "",
+        Hidinshell ? "emerge from" : "retreat into");
+
+    if (delay) {
+        afternmv = toggleshell;
+        nomul(-delay);
+        if (Hidinshell) {
+            nomovemsg = "You finish emerging from your shell.";
+            multi_reason = "emerging from a tortle shell";
+        } else {
+            nomovemsg = "You finish hiding in your shell.";
+            multi_reason = "retreating into a tortle shell";
+        }
+        return 1;
+    } else {
+        return toggleshell();
+    }
 }
 
 /*
