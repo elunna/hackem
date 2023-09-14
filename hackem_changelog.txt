@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Offhand artifact intrinsics (From EvilHack).
 Make some artifacts more indestructible (From EvilHack).
 Fix: warning: the comparison will always evaluate as ‘true’ (botl.c) (From EvilHack).
 Keep movement points through save/restore (from Nethack 3.7)
