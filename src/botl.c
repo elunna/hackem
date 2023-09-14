@@ -2266,7 +2266,7 @@ boolean from_configfile;
         return parse_condition(s, sidx);
 
     ++sidx;
-    while (s[sidx]) {
+    while (s[sidx][0]) {
         char buf[BUFSZ], **subfields;
         int sf = 0;     /* subfield count */
         int kidx;
@@ -2691,7 +2691,7 @@ int sidx;
      */
 
     sidx++;
-    while(s[sidx]) {
+    while(s[sidx][0]) {
         int sf = 0;     /* subfield count */
         char buf[BUFSZ], **subfields;
 
