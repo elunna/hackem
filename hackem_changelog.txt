@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add #genocided command (From 3.7/EvilHack)
 New race/role combination: tortle samurai (From EvilHack).
 Stop handing out blank spellbooks as a prayer/sacrifice gift (From EvilHack).
 Fix: mind flayer attacking without knowing your location (From NetHack 3.7)

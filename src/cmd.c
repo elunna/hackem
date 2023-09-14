@@ -75,7 +75,7 @@ extern int NDECL(dofire);             /**/
 extern int NDECL(dothrow);            /**/
 extern int NDECL(doeat);              /**/
 extern int NDECL(done2);              /**/
-extern int NDECL(vanquished);         /**/
+extern int NDECL(dovanquished);       /**/
 extern int NDECL(doengrave);          /**/
 extern int NDECL(dopickup);           /**/
 extern int NDECL(ddoinv);             /**/
@@ -4221,6 +4221,9 @@ struct ext_func_tab extcmdlist[] = {
     { M('F'), "craft", "combine two objects to create a new object", doforging, AUTOCOMPLETE },
     { ';', "glance", "show what type of thing a map symbol corresponds to",
             doquickwhatis, IFBURIED | GENERALCMD },
+    { M('g'), "genocided",
+              "list monsters that have been genocided or become extinct",
+              dogenocided, IFBURIED | AUTOCOMPLETE },
     { '?', "help", "give a help message", dohelp, IFBURIED | GENERALCMD },
     { '\0', "herecmdmenu", "show menu of commands you can do here",
             doherecmdmenu, IFBURIED },

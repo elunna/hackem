@@ -2154,7 +2154,7 @@ set_vanq_order()
     return (n < 0) ? -1 : vanq_sortmode;
 }
 
-/* #vanquished command */
+/* #dovanquished command */
 int
 dovanquished()
 {
@@ -2288,7 +2288,7 @@ boolean ask;
             destroy_nhwindow(klwin);
         }
     } else if (defquery == 'a') {
-        /* #dovanquished rather than final disclosure, so pline() is ok */
+        /* #vanquished rather than final disclosure, so pline() is ok */
         pline("No creatures have been vanquished.");
 #if defined(DUMPLOG) || defined(DUMPHTML)
     } else if (dumping) {
@@ -2314,6 +2314,7 @@ num_genocides()
     return n;
 }
 
+/* return a count of the number of extinct species */
 STATIC_OVL int
 num_extinct()
 {
@@ -2328,6 +2329,8 @@ num_extinct()
     return n;
 }
 
+/* show genocided and extinct monster types for final disclosure/dumplog
+   or for the #genocided command */
 STATIC_OVL void
 list_genocided(defquery, ask)
 char defquery;
@@ -2397,11 +2400,24 @@ boolean ask;
             display_nhwindow(klwin, TRUE);
             destroy_nhwindow(klwin);
         }
+
+    /* See the comment for similar code near the end of list_vanquished(). */
+    } else if (defquery == 'a') {
+        /* #genocided rather than final disclosure, so pline() is ok */
+        pline("No creatures have been genocided or become extinct.");
 #if defined (DUMPLOG) || defined (DUMPHTML)
     } else if (dumping) {
         putstr(0, 0, "No species were genocided or became extinct.");
 #endif
     }
+}
+
+/* M-g - #genocided command */
+int
+dogenocided(void)
+{
+    list_genocided('y', FALSE);
+    return 0;
 }
 
 /* set a delayed killer, ensure non-delayed killer is cleared out */

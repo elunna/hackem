@@ -115,6 +115,7 @@ M-d     dip     dip an object into something
 M-e     enhance advance or check weapon and spell skills
 M-f     force   force a lock
 M-F     craft   craft an item (on a forge)
+M-g   genocided list genocided and extinct monster types, if any
 M-i     invoke  invoke an object's special powers
 M-j     jump    jump to another location
 M-l     loot    loot a box on the floor
