@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+New race/role combination: tortle samurai (From EvilHack).
 Stop handing out blank spellbooks as a prayer/sacrifice gift (From EvilHack).
 Fix: mind flayer attacking without knowing your location (From NetHack 3.7)
 Revert 'Allow helm of speed to be made of more materials' (From EvilHack).

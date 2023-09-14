@@ -429,6 +429,7 @@ struct inv_sub {
     /* Tortles also have special considerations */
     { PM_TORTLE, JACKET, GLOVES },
     { PM_TORTLE, RING_MAIL, TOQUE },
+    { PM_TORTLE, SPLINT_MAIL, TOQUE },
     { PM_TORTLE, BATTLE_AXE, TRIDENT },
     { PM_TORTLE, ROBE, TOQUE },
     { PM_TORTLE, ROBE_OF_POWER, TOQUE },

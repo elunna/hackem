@@ -6843,7 +6843,7 @@ short mndx;
         permitted |= (MH_GNOME | MH_HOBBIT | MH_ORC | MH_VAMPIRE);
         break;
     case PM_SAMURAI:
-        permitted |= (MH_DWARF | MH_GIANT);
+        permitted |= (MH_DWARF | MH_GIANT | MH_TORTLE);
         break;
     case PM_TOURIST:
         permitted |= (MH_GNOME | MH_HOBBIT |  MH_TORTLE);
