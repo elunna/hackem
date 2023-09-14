@@ -385,7 +385,7 @@ int trouble;
             useup(uamul);
         }
         You("can breathe again.");
-        Strangled = 0;
+        Strangled = 0L;
         context.botl = 1;
         break;
     case TROUBLE_LAVA:

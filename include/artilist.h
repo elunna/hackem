@@ -132,9 +132,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(3, 10), NO_DFNS, NO_CARY, 0, A_LAWFUL, PM_CAVEMAN, NON_PM, 
       2000L, NO_COLOR, MINERAL),
 
-    A("Snickersnee", KATANA, 
-      SPFX_RESTR, 0, 0, PHYS(5, 8), NO_DFNS, NO_CARY,
-      0, A_LAWFUL, NON_PM, NON_PM, 1200L, NO_COLOR, DEFAULT_MAT),
+    A("Snickersnee", KATANA, (SPFX_RESTR | SPFX_DEFN), 0, 0, 
+      PHYS(5, 8), DFNS(AD_STUN), NO_CARY, 0, A_LAWFUL, NON_PM, 
+      NON_PM, 1800L, NO_COLOR, DEFAULT_MAT),
 
     A("Kiku-ichimonji", KATANA, /* 5lo: New sacrifice gift for Samurai */
       SPFX_RESTR, 0, 0, PHYS(4, 12), NO_DFNS, NO_CARY, 
