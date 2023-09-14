@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+The Rat King will sometimes spawn with a ring of teleport control (From EvilHack).
 Allow tortles to wear rigid gloves/helmets (From EvilHack).
 Make elf zombies and mummies color bright green (From EvilHack).
 Allow vorpal jabberwocks to be steeds (From EvilHack).
