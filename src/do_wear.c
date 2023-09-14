@@ -2616,16 +2616,6 @@ boolean noisy;
                           helm_simple_name(otmp),
                           plur(num_horns(youmonst.data)));
             err++;
-        } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)
-                   && otmp->cursed && otmp->bknown
-                   && !(Role_if(PM_PRIEST)
-                        && otmp->oartifact == ART_MITRE_OF_HOLINESS)) {
-            /* Tortles can't retreat back into their shells
-               whilst wearing cursed rigid head gear */
-            if (noisy)
-                Your("%s is cursed, and won't allow you to retreat into your shell.",
-                     helm_simple_name(otmp));
-            err++;
         } else if (((Upolyd && is_mind_flayer(youmonst.data)) || Race_if(PM_ILLITHID)) 
                    && otmp->otyp == PLASTEEL_HELM) {
             if (noisy)
@@ -2670,9 +2660,7 @@ boolean noisy;
                                    "rear hooves" which sounds odd */
             err++;
         } else if (!Upolyd && Race_if(PM_TORTLE)) {
-            /* Tortles can't retreat back into their shells
-               whilst wearing footwear, plus their shape is
-               all wrong */
+            /* Tortles foot shape is all wrong */
             if (noisy)
                 Your ("%s are not shaped correctly to wear %s.",
                       makeplural(body_part(FOOT)), c_boots);
@@ -2712,14 +2700,6 @@ boolean noisy;
             if (noisy)
                 Your("%s are too slippery to pull on %s.",
                      fingers_or_gloves(FALSE), gloves_simple_name(otmp));
-            err++;
-        } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)
-                    && otmp->cursed && otmp->bknown) {
-            /* Tortles can't retreat back into their shells
-               whilst wearing cursed rigid gauntlets */
-            if (noisy)
-                Your("%s are cursed, and won't allow you to retreat into your shell.",
-                     gloves_simple_name(otmp));
             err++;
         } else
             *mask = W_ARMG;

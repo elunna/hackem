@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Don't prevent tortles from wearing certain cursed armor (From EvilHack).
 The Rat King will sometimes spawn with a ring of teleport control (From EvilHack).
 Allow tortles to wear rigid gloves/helmets (From EvilHack).
 Make elf zombies and mummies color bright green (From EvilHack).
