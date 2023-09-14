@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: mind flayer attacking without knowing your location (From NetHack 3.7)
 Revert 'Allow helm of speed to be made of more materials' (From EvilHack).
 Rangers gain broadsword skill (From EvilHack).
 Forges are always lit (From EvilHack).

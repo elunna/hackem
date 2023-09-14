@@ -840,6 +840,7 @@ register struct monst *mtmp;
                     m2->msleeping = 0;
             }
         }
+        distfleeck(mtmp, &inrange, &nearby, &scared);
     }
 
     /* ghosts prefer turning invisible instead of moving if they can */
