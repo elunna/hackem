@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Dragon scale passive attacks and more slowing stuff (From EvilHack).
 A couple more dragon-scaled secondary changes (From EvilHack).
 Adjust some dragon-scaled secondary resistances/passive defenses (From EvilHack).
 Fix: armor-based artifacts could come with an object property (From EvilHack).

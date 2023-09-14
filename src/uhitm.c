@@ -3651,7 +3651,7 @@ do_rust:
         /* if (negated) break; */
         break;
     case AD_SLOW:
-        if (!negated && mdef->mspeed != MSLOW) {
+        if (!negated && mdef->mspeed != MSLOW && !rn2(3)) {
             mon_adjust_speed(mdef, -1, (struct obj *) 0);
         }
         break;
@@ -4671,7 +4671,6 @@ boolean wep_was_destroyed;
 {
     register int i, t, tmp;
     register struct permonst *ptr = mon->data;
-    register struct obj *m_armor;
     struct obj *otmp;
     register struct attack *mattk = has_erac(mon) 
                                         ? ERAC(mon)->mattk : ptr->mattk;
@@ -5151,7 +5150,8 @@ boolean wep_was_destroyed;
             }
             break;
         case AD_SLOW: /* specifically orange dragons */
-            if (!Slow && !defended(&youmonst, AD_SLOW) && !resists_slow(youmonst.data))
+            if (!Slow && !defended(&youmonst, AD_SLOW)
+                && !resists_slow(youmonst.data) && !rn2(3))
                 u_slow_down();
             break;
         default:
@@ -5159,12 +5159,13 @@ boolean wep_was_destroyed;
         }
     }
 
+    struct obj *passive_armor;
     /* Humanoid monsters wearing various dragon-scaled armor */
-    for (m_armor = mon->minvent; m_armor; m_armor = m_armor->nobj) {
+    if ((passive_armor = which_armor(mon, W_ARM))) {
         t = rnd(6) + 1;
         if (mhit && !rn2(3)
-            && Is_dragon_scaled_armor(m_armor)) {
-            int otyp = Dragon_armor_to_scales(m_armor);
+            && Is_dragon_scaled_armor(passive_armor)) {
+            int otyp = Dragon_armor_to_scales(passive_armor);
 
             switch (otyp) {
             case GREEN_DRAGON_SCALES:
@@ -5404,12 +5405,9 @@ boolean wep_was_destroyed;
 
                 break;
             case ORANGE_DRAGON_SCALES:
-                if (how_resistant(SLEEP_RES) == 100) {
-                    break;
-                } else {
-                    if (!Slow && !defended(&youmonst, AD_SLOW)
-                        && !resists_slow(youmonst.data))
-                        u_slow_down();
+                if (!Slow && !defended(&youmonst, AD_SLOW)
+                    && !resists_slow(youmonst.data) && !rn2(3)) {
+                    u_slow_down();
                 }
                 break;
             case GOLD_DRAGON_SCALES:
@@ -5530,6 +5528,17 @@ boolean wep_was_destroyed;
                 break;
             default: /* all other types of armor, just pass on through */
                 break;
+            }
+        }
+    }
+    if  ((passive_armor = which_armor(mon, W_ARMG))) {
+        switch (passive_armor->otyp) {
+        case GLOVES:
+            if (!is_dragon(youmonst.data))
+                break;
+            if (!rn2(3) && passive_armor->oartifact == ART_DRAGONBANE) {
+                pline("Dragonbane sears your scaly hide!");
+                mdamageu(mon, rnd(6) + 2);
             }
         }
     }

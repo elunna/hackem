@@ -4835,7 +4835,7 @@ struct attack *mattk;
         }
     }
     
-    if (uarm && Is_dragon_scaled_armor(uarm)) {
+    if (uarm && Is_dragon_scaled_armor(uarm) && !rn2(3)) {
         int otyp = Dragon_armor_to_scales(uarm);
 
         switch (otyp) {
@@ -4889,23 +4889,19 @@ struct attack *mattk;
                     if (canseemon(mtmp))
                         pline("%s dies!", Monnam(mtmp));
                     xkilled(mtmp, XKILL_NOMSG);
+                    return 1;
                 } else
                     mtmp->m_lev--;
             }
-            if (!DEADMONSTER(mtmp)) {
-                    return 1;
-                return 2;
-            }
             break;
-
         case BLACK_DRAGON_SCALES:
             if (resists_disint(mtmp) || defended(mtmp, AD_DISN)) {
-                break;
                 if (canseemon(mtmp) && !rn2(3)) {
                     shieldeff(mtmp->mx, mtmp->my);
                     Your("armor does not appear to affect %s",
                          mon_nam(mtmp));
                 }
+                break;
             } else if (mattk->aatyp == AT_WEAP || mattk->aatyp == AT_CLAW
                        || mattk->aatyp == AT_TUCH || mattk->aatyp == AT_KICK
                        || mattk->aatyp == AT_BITE || mattk->aatyp == AT_HUGS
@@ -4927,7 +4923,8 @@ struct attack *mattk;
                 } else if ((mtmp->misc_worn_check & W_ARMG)
                            && (mattk->aatyp == AT_WEAP || mattk->aatyp == AT_CLAW
                                || mattk->aatyp == AT_TUCH)
-                           && !MON_WEP(mtmp) && !rn2(12)) {
+                           && !MON_WEP(mtmp) && !rn2(12)
+                           && !((which_armor(mtmp, W_ARMG))->oartifact == ART_DRAGONBANE)) {
                     if (canseemon(mtmp))
                         pline("%s %s are disintegrated!",
                               s_suffix(Monnam(mtmp)), xname(which_armor(mtmp, W_ARMG)));
