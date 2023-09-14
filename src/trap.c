@@ -3256,9 +3256,9 @@ register struct monst *mtmp;
             if (isok(trap->launch.x, trap->launch.y)
                 && IS_STWALL(levl[trap->launch.x][trap->launch.y].typ)) {
                 dobuzz(randomray(), 8,
-                     trap->launch.x, trap->launch.y,
-                     sgn(trap->tx - trap->launch.x), sgn(trap->ty - trap->launch.y),
-                     FALSE);
+                       trap->launch.x, trap->launch.y,
+                       sgn(trap->tx - trap->launch.x),
+                       sgn(trap->ty - trap->launch.y), FALSE);
                 trap->once = 1;
                 if (DEADMONSTER(mtmp))
                     trapkilled = TRUE;
@@ -6113,7 +6113,7 @@ boolean disarm;
                       the(xname(obj)));
             }
             if (yours) {
-                if (!Stunned) {
+                if (!Stunned || Stun_resistance) {
                     if (Hallucination)
                         pline("What a groovy feeling!");
                     else
@@ -6126,7 +6126,9 @@ boolean disarm;
                 (void) make_hallucinated(
                     (HHallucination & TIMEOUT) + (long) rn1(5, 16), FALSE, 0L);
             } else {
-                mon->mstun = mon->mconf = 1;
+                if (!(resists_stun(mon->data) || defended(mon, AD_STUN)))
+                    mon->mstun = 1;
+                mon->mconf = 1;
                 if (canseemon(mon))
                     pline("%s staggers for a moment.", Monnam(mon));
             }
@@ -6371,7 +6373,8 @@ int bodypart;
     exercise(A_STR, FALSE);
     if (bodypart)
         exercise(A_CON, FALSE);
-    make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
+    if (!Stun_resistance)
+        make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
 }
 
 /* Monster is hit by trap. */

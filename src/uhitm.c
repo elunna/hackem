@@ -2233,7 +2233,8 @@ int dieroll;
                     mon_nam(mon), ysimple_name(obj),
                     canseemon(mon) ? exclam(tmp) : ".");
                 /* placing this here, because order of events */
-                if (!rn2(10) && P_SKILL(P_SHIELD) >= P_EXPERT) {
+                if (!rn2(10) && P_SKILL(P_SHIELD) >= P_EXPERT 
+                      && (!(resists_stun(mon->data) || defended(mon, AD_STUN)))) {
                     if (canspotmon(mon))
                         pline("%s %s from the force of your blow!",
                               Monnam(mon), makeplural(stagger(mdat, "stagger")));
@@ -3058,6 +3059,10 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         break;
     }
     case AD_STUN:
+        if (resists_stun(mdef->data) || defended(mdef, AD_STUN)) {
+            ; /* immune */
+            break;
+        }
         if (!Blind)
             pline("%s %s for a moment.", Monnam(mdef),
                   makeplural(stagger(pd, "stagger")));
@@ -4736,11 +4741,21 @@ boolean wep_was_destroyed;
         break;
     case AD_ACID:
         if (mhit && rn2(2)) {
-            if (Blind || !flags.verbose)
-                You("are splashed!");
-            else
-                You("are splashed by %s %s!", s_suffix(mon_nam(mon)),
-                    hliquid("acid"));
+            if (Blind || !flags.verbose) {
+                if (mon->data == &mons[PM_YELLOW_DRAGON])
+                    You("are%s seared!",
+                        (Acid_resistance || Underwater) ? " mildly" : "");
+                else
+                    You("are splashed!");
+            } else {
+                if (mon->data == &mons[PM_YELLOW_DRAGON])
+                    You("are%s seared by %s acidic hide!",
+                        (Acid_resistance || Underwater) ? " mildly" : "",
+                        s_suffix(mon_nam(mon)));
+                else
+                    You("are splashed by %s %s!", s_suffix(mon_nam(mon)),
+                        hliquid("acid"));
+            }
 
             if (!(Acid_resistance || Underwater))
                 mdamageu(mon, tmp);
@@ -4757,8 +4772,9 @@ boolean wep_was_destroyed;
                     (void) erode_obj(uarmf, xname(uarmf), ERODE_CORRODE,
                                      EF_GREASE | EF_DESTROY);
             } else if (aatyp == AT_WEAP || aatyp == AT_CLAW
-                       || aatyp == AT_MAGC || aatyp == AT_TUCH)
+                       || aatyp == AT_MAGC || aatyp == AT_TUCH) {
                 (void) passive_obj(mon, weapon, &(mattk[i]));
+            }
         }
         exercise(A_STR, FALSE);
         break;
@@ -5434,38 +5450,32 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
-            case YELLOW_DRAGON_SCALES:
-                if (rn2(3))
+                case YELLOW_DRAGON_SCALES:
+                    if (how_resistant(ACID_RES) == 100
+                        || Underwater) {
+                        shieldeff(u.ux, u.uy);
+                        monstseesu(M_SEEN_ACID);
+                        You_feel("a mild sting from %s armor.",
+                                 s_suffix(mon_nam(mon)));
+                        ugolemeffects(AD_ACID, t);
+                        break;
+                    } else {
+                        if (rn2(20)) {
+                            You_feel("a searing sensation!");
+                            t = resist_reduce(t, ACID_RES);
+                            mdamageu(mon, t);
+                        } else {
+                            pline("%s acidic armor critically sears you!",
+                                  s_suffix(Monnam(mon)));
+                            t = resist_reduce(t, ACID_RES);
+                            mdamageu(mon, d(3, 6) + t);
+                        }
+                    }
+                    if (rn2(u.twoweap ? 2 : 3))
+                        acid_damage(uwep);
+                    if (u.twoweap && rn2(2))
+                        acid_damage(uswapwep);
                     break;
-
-                if (how_resistant(ACID_RES) == 100) {
-                    shieldeff(u.ux, u.uy);
-                    monstseesu(M_SEEN_ACID);
-                    You("are covered in %s, but it seems harmless.",
-                          hliquid("acid"));
-                    ugolemeffects(AD_ACID, t);
-                    break;
-                }
-                if (rn2(10)) {
-                    You("are splashed with caustic goo!");
-                    t = resist_reduce(t, ACID_RES);
-                    mdamageu(mon, t);
-                } else {
-                    You("are covered in %s!", hliquid("acid"));
-                    You("are severely burned!");
-                    t = resist_reduce(t, ACID_RES);
-                    /* Same damage a spotted jelly would do */
-                    mdamageu(mon, d((int) mon->m_lev, 6) + t);
-                }
-
-                /* Inventory damage */
-                if (rn2(u.twoweap ? 2 : 3))
-                    acid_damage(uwep);
-                if (u.twoweap && rn2(2))
-                    acid_damage(uswapwep);
-                if (rn2(4))
-                    erode_armor(&youmonst, ERODE_CORRODE);
-                break;
             case RED_DRAGON_SCALES:
                 if (how_resistant(FIRE_RES) == 100
                     || Underwater) {

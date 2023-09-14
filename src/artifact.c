@@ -811,6 +811,8 @@ struct obj *otmp;
         case AD_LOUD: /* sonic */
             return (otyp == CELESTIAL_DRAGON_SCALES 
                     || otyp == DEEP_DRAGON_SCALES);
+        case AD_STUN: /* stun resistance */
+            return (otyp == SHIMMERING_DRAGON_SCALES);
         default:
             break;
         }
@@ -1694,8 +1696,10 @@ char *hittee;              /* target's name: "you" or mon_nam(mdef) */
     if (do_stun) {
         if (youdefend)
             make_stunned(((HStun & TIMEOUT) + 3L), FALSE);
-        else
-            mdef->mstun = 1;
+        else {
+            if (!(resists_stun(mdef->data) || defended(mdef, AD_STUN)))
+                mdef->mstun = 1;
+        }
         /* avoid extra stun message below if we used mb_verb["stun"] above */
         if (attack_indx == MB_INDEX_STUN)
             do_stun = FALSE;

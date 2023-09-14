@@ -1362,7 +1362,8 @@ unturn_you()
     (void) unturn_dead(&youmonst); /* hit carried corpses and eggs */
 
     if (is_undead(youmonst.data) || (Race_if(PM_VAMPIRIC) && !Upolyd)) {
-        You_feel("frightened and %sstunned.", Stunned ? "even more " : "");
+        if (!Stun_resistance)
+            You_feel("frightened and %sstunned.", Stunned ? "even more " : "");
         make_stunned((HStun & TIMEOUT) + (long) rnd(30), FALSE);
     } else {
         You("shudder in dread.");
@@ -3005,6 +3006,7 @@ boolean ordinary;
                 ugolemeffects(AD_PSYC, d(2, 6));
             } else {
                 You("assault your own mind!");
+                /* No protection from this... */
                 make_stunned((HStun & TIMEOUT) + (long) rnd(10), FALSE);
                 if (u.ulevel >= 26)
                     damage = d(4, 6);

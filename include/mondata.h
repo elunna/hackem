@@ -70,6 +70,10 @@
     ((ptr) == &mons[PM_BABY_BLUE_DRAGON] \
      || (ptr) == &mons[PM_BLUE_DRAGON])
 
+#define resists_stun(ptr) \
+    ((ptr) == &mons[PM_BABY_SHIMMERING_DRAGON] \
+     || (ptr) == &mons[PM_SHIMMERING_DRAGON])
+
 /* as of 3.2.0:  gray dragons, Angels, Oracle, Yeenoghu */
 #define resists_mgc(ptr) \
     (dmgtype((ptr), AD_MAGM) \

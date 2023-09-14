@@ -842,11 +842,12 @@ int spellnum;
     case MGC_STUN_YOU:
         if (Antimagic || Free_action || Hidinshell) {
             shieldeff(u.ux, u.uy);
-            if (!Stunned)
+            if (!(Stunned || Stun_resistance))
                 You_feel("momentarily disoriented.");
             make_stunned(1L, FALSE);
         } else {
-            You(Stunned ? "struggle to keep your balance." : "reel...");
+            if (!(Stun_resistance))
+                You(Stunned ? "struggle to keep your balance." : "reel...");
             dmg = d(ACURR(A_DEX) < 12 ? 6 : 4, 4);
             if (Half_spell_damage)
                 dmg = (dmg + 1) / 2;
@@ -2257,7 +2258,8 @@ int spellnum;
         }
         if (resist(mtmp, 0, 0, FALSE)) {
             shieldeff(mtmp->mx, mtmp->my);
-            if (yours || canseemon(mtmp))
+            if (yours || canseemon(mtmp) 
+                  || resists_stun(mtmp->data) || defended(mtmp, AD_STUN))
                 pline("%s seems momentarily disoriented.", Monnam(mtmp));
         } else {
             if (yours || canseemon(mtmp)) {

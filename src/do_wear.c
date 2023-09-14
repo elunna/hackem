@@ -1158,12 +1158,11 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     case SHIMMERING_DRAGON_SCALES:
         if (puton) {
             toggle_displacement(uarm, (EDisplaced & ~W_ARM), TRUE);
-            toggle_stealth(uarm, (EStealth & ~W_ARM), TRUE);
-            EStealth |= W_ARM;
+            EStun_resistance |= W_ARM;
             EPsychic_resistance |= W_ARM;
         } else {
             toggle_displacement(otmp, (EDisplaced & ~W_ARM), FALSE);
-            toggle_stealth(otmp, (EStealth & ~W_ARM), FALSE);
+            EStun_resistance &= ~W_ARM;
             EPsychic_resistance &= ~W_ARM;
         }
         break;

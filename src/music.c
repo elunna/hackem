@@ -707,9 +707,11 @@ struct obj *instr;
                 if ((distm = distu(mtmp->mx, mtmp->my)) <= 3
                     && instr->blessed && !rn2(5)) {
                     if (!mtmp->mstun) {
-                        pline("%s %s from the intense blast of sound!", Monnam(mtmp),
-                              makeplural(stagger(mtmp->data, "stagger")));
-                        mtmp->mstun = 1;
+                        if (!(resists_stun(mtmp->data) || defended(mtmp, AD_STUN))) {
+                            pline("%s %s from the intense blast of sound!", Monnam(mtmp),
+                                  makeplural(stagger(mtmp->data, "stagger")));
+                            mtmp->mstun = 1;
+                        }
                     }
                 }
             }

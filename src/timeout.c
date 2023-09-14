@@ -65,6 +65,7 @@ const struct propname {
     { STONE_RES, "stoning resistance" },
     { PSYCHIC_RES, "psionic resistance" },
     { DRAIN_RES, "drain resistance" },
+    { STUN_RES, "stun resistance" },
     { SICK_RES, "sickness resistance" },
     { DEATH_RES, "death magic resistance" },
     { ANTIMAGIC, "magic resistance" },

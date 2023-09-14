@@ -2656,8 +2656,9 @@ do_rust:
 
     /* player monster monks can sometimes stun with their kick attack */
     if (mattk->aatyp == AT_KICK && mdat == &mons[PM_MONK]
-        && !rn2(10) && youmonst.data->msize < MZ_HUGE) {
-        You("reel from %s powerful kick!", s_suffix(mon_nam(mtmp)));
+           && !rn2(10) && youmonst.data->msize < MZ_HUGE) {
+        if (!Stun_resistance)
+            You("reel from %s powerful kick!", s_suffix(mon_nam(mtmp)));
         make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
         dmg /= 2;
     }
@@ -3362,10 +3363,12 @@ struct attack *mattk;
             }
             if (Sonic_resistance)
                 break; /* No inventory damage! */
-            if (!Stunned)
-                Your("mind reels from the noise!");
-            else
-                You("struggle to keep your balance.");
+            if (!Stun_resistance) {
+                if (!Stunned)
+                    Your("mind reels from the noise!");
+                else
+                    You("struggle to keep your balance.");
+            }
             make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
             stop_occupation();
         }
@@ -5106,49 +5109,7 @@ struct attack *mattk;
                 return 2;
             }
             break;
-        case YELLOW_DRAGON_SCALES:
-            if (rn2(3))
-                break;
-
-            if (resists_acid(mtmp) || defended(mtmp, AD_ACID)) {
-                pline("%s is covered in %s, but it seems harmless.",
-                      Monnam(mtmp), hliquid("acid"));
-                tmp = 0;
-                break;
-            }
-
-            if (rn2(10)) {
-                pline("%s is spashed with goo!", Monnam(mtmp));
-                if (canseemon(mtmp)) {
-                    pline("%s winces from the caustic burn!", Monnam(mtmp));
-                damage_mon(mtmp, rnd(3), AD_ACID);
-            }
-            } else {
-                if (canseemon(mtmp)) {
-                    pline("%s is covered in %s!", Monnam(mtmp), hliquid("acid"));
-                    pline("%s is severely burned!", Monnam(mtmp));
-                }
-                /* Simulate the spotted jelly spotted passive attack
-                 * This is probably overpowered, but 1 in 10 times we'll
-                 * get a Passive (level + 1)d6 acid - not bad!
-                 */
-                damage_mon(mtmp, d(u.ulevel, 6), AD_ACID);
-            }
-            /* Corrode */
-            if (!rn2(12))
-                erode_armor(mtmp, ERODE_CORRODE);
-            if (!rn2(6))
-                acid_damage(MON_WEP(mtmp));
-
-            if (mtmp->mhp < 1) {
-                if (canseemon(mtmp))
-                    pline("%s dies!", Monnam(mtmp));
-                xkilled(mtmp, XKILL_NOMSG);
-                if (!DEADMONSTER(mtmp))
-                    return 1;
-                return 2;
-            }
-            break;
+        
         case RED_DRAGON_SCALES:
             if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)
                 || mon_underwater(mtmp))
@@ -5208,6 +5169,30 @@ struct attack *mattk;
                 tmp += destroy_mitem(mtmp, WAND_CLASS, AD_ELEC);
                 /* only rings damage resistant players in destroy_item */
                 tmp += destroy_mitem(mtmp, RING_CLASS, AD_ELEC);
+            }
+            if (mtmp->mhp < 1) {
+                if (canseemon(mtmp))
+                    pline("%s dies!", Monnam(mtmp));
+                xkilled(mtmp, XKILL_NOMSG);
+                if (!DEADMONSTER(mtmp))
+                    return 1;
+                return 2;
+            }
+            break;
+        case YELLOW_DRAGON_SCALES:
+            if (resists_acid(mtmp) || defended(mtmp, AD_ACID)
+                || mon_underwater(mtmp))
+                break;
+            if (rn2(20)) {
+                if (!rn2(3)) {
+                    if (canseemon(mtmp))
+                        pline("%s is seared!", Monnam(mtmp));
+                    damage_mon(mtmp, rnd(4), AD_ACID);
+                }
+            } else {
+                if (canseemon(mtmp))
+                    pline("%s is critically seared!", Monnam(mtmp));
+                damage_mon(mtmp, d(6, 6), AD_ACID);
             }
             if (mtmp->mhp < 1) {
                 if (canseemon(mtmp))
@@ -5279,11 +5264,16 @@ struct attack *mattk;
     switch (oldu_mattk->adtyp) {
     case AD_ACID:
         if (!rn2(2)) {
-            pline("%s is splashed by %s%s!", Monnam(mtmp),
-                  /* temporary? hack for sequencing issue:  "your acid"
-                     looks strange coming immediately after player has
-                     been told that hero has reverted to normal form */
-                  !Upolyd ? "" : "your ", hliquid("acid"));
+            if (youmonst.data == &mons[PM_YELLOW_DRAGON]
+                || youmonst.data == &mons[PM_BABY_YELLOW_DRAGON]) {
+                pline("%s is seared by your acidic hide!", Monnam(mtmp));
+            } else {
+                pline("%s is splashed by %s%s!", Monnam(mtmp),
+                      /* temporary? hack for sequencing issue:  "your acid"
+                         looks strange coming immediately after player has
+                         been told that hero has reverted to normal form */
+                      !Upolyd ? "" : "your ", hliquid("acid"));
+            }
             if (resists_acid(mtmp) || defended(mtmp, AD_ACID)
                 || mon_underwater(mtmp)) {
                 pline("%s is not affected.", Monnam(mtmp));
@@ -5520,6 +5510,10 @@ struct attack *mattk;
                 (void) split_mon(&youmonst, mtmp);
             break;
         case AD_STUN: /* Yellow mold */
+            if (resists_stun(mtmp->data) || defended(mtmp, AD_STUN)) {
+                ; /* immune */
+                break;
+            }
             if (!mtmp->mstun) {
                 mtmp->mstun = 1;
                 pline("%s %s.", Monnam(mtmp),

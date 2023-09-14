@@ -1450,6 +1450,10 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     case AD_STUN:
         if (magr->mcan)
             break;
+        if (resists_stun(mdef->data) || defended(mdef, AD_STUN)) {
+            ; /* immune */
+            break;
+        }
         if (mattk->aatyp == AT_GAZE) {
             if (vis) {
                 if (mdef->data->mlet == S_MIMIC
@@ -1761,7 +1765,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
 
         if (!mdef->mstun)
-            mdef->mstun = 1;
+            if (!(resists_stun(mdef->data) || defended(mdef, AD_STUN)))
+                mdef->mstun = 1;
 
 
         if (!rn2(6))
@@ -3032,9 +3037,15 @@ struct obj *mwep;
     case AD_ACID:
         if (mhit && !rn2(2)) {
             Strcpy(buf, Monnam(magr));
-            if (canseemon(magr))
-                pline("%s is splashed by %s %s!", buf,
-                      s_suffix(mon_nam(mdef)), hliquid("acid"));
+            if (canseemon(magr)) {
+                if (mdef->data == &mons[PM_YELLOW_DRAGON]) {
+                    pline("%s is seared by %s acidic hide!", buf,
+                          s_suffix(mon_nam(mdef)));
+                } else {
+                    pline("%s is splashed by %s %s!", buf,
+                          s_suffix(mon_nam(mdef)), hliquid("acid"));
+                }
+            }
             if (resists_acid(magr) || defended(magr, AD_ACID)
                 || mon_underwater(magr)) {
                 if (canseemon(magr))

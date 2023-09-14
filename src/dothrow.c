@@ -1085,7 +1085,8 @@ int dx, dy, range;
     wakeup(mon, !context.mon_moving);
     /* At the very least, debilitate the monster */
     mon->movement = 0;
-    mon->mstun = 1;
+    if (!(resists_stun(mon->data) || defended(mon, AD_STUN)))
+        mon->mstun = 1;
 
     /* Is the monster stuck or too heavy to push?
      * (very large monsters have too much inertia, even floaters and flyers)
