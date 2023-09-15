@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert Fix: Wielding stakes makes thrown daggers act like stakes (reported by Umbire). Fixes #434.
 Fix: starting/ending alignment reporting in xlogfile (From EvilHack).
 If a monster you are afraid of dies, your fear will subside as well (reported by Loggers_VIII).
 Revert: Move the Wizard's Tower into its own branch.
