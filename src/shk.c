@@ -4054,6 +4054,7 @@ long ident_type;
         obj->dknown = 1;
         prinv((char *)0, obj, 0L); /* Print result */
     }
+    update_inventory();
     return 1;
 }
 
@@ -4103,10 +4104,9 @@ struct monst *shkp;
         obj->bknown = FALSE;
     } else if (Confusion) {
         /* Curse the item! */
-        You("accidentally ask for the item to be cursed");
+        You("accidentally ask for the item to be cursed.");
         curse(obj);
-    }
-    else if (Hallucination) {
+    } else if (Hallucination) {
         /*
         ** Let's have some fun:  If you're hallucinating,
         ** then there's a chance for the object to be blessed!
@@ -4116,12 +4116,13 @@ struct monst *shkp;
                 makeplural(body_part(EYE)));
             bless(obj);
         } else {
-            You_cant("see straight and point to the wrong item");
+            You_cant("see straight and point to the wrong item.");
         }
     } else {
         verbalize("All done - safe to handle, now!");
         uncurse(obj);
     }
+    update_inventory();
     return 1;
 }
 
@@ -4240,11 +4241,11 @@ long svc_type;
         /* Costs more the more eroded it is (oeroded 0-3 * 2) */
         charge = 500 * (obj->oeroded + obj->oeroded2 + 1);
         if (obj->oeroded + obj->oeroded2 > 2)
-            verbalize("This thing's in pretty sad condition, %s", slang);
+            verbalize("This thing's in pretty sad condition, %s.", slang);
 
         /* Another warning if object is naturally rustproof */
         if (obj->oerodeproof || !is_damageable(obj))
-            pline("%s gives you a suspciously happy smile...", mon_nam(shkp));
+            pline("%s gives you a suspiciously happy smile...", mon_nam(shkp));
 
         /* Artifacts cost more to deal with */
         if (obj->oartifact)
@@ -4258,20 +4259,21 @@ long svc_type;
 
         /* Have some fun, but for this $$$ it better work. */
         if (Confusion)
-            You("fall over in appreciation");
+            You("fall over in appreciation.");
         else if (Hallucination)
-            Your(" - tin roof, un-rusted!");
+            Your("tin roof, un-rusted!");
 
         obj->oeroded = obj->oeroded2 = 0;
         obj->rknown = TRUE;
         obj->oerodeproof = TRUE;
+        update_inventory();
         break;
 
     case SHK_WEP_ENC:
         verbalize("Guaranteed not to harm your weapon, or your money back!");
         /*
         ** The higher the enchantment, the more costly!
-        ** Gets to the point where you need to rob fort ludios
+        ** Gets to the point where you need to rob fort Ludios
         ** in order to get it to +5!!
         */
         charge = (obj->spe + 1) * (obj->spe + 1) * 625;
@@ -4304,30 +4306,30 @@ long svc_type;
             obj->otyp = CRYSKNIFE;
             Your("weapon seems sharper now.");
             obj->cursed = 0;
+            update_inventory();
             break;
         }
 
         obj->spe++;
+        update_inventory();
         break;
-
     case SHK_WEP_POI:
         verbalize("Just imagine what poisoned %s can do!", xname(obj));
         charge = 10 * obj->quan;
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         obj->opoisoned = TRUE;
+            update_inventory();
         break;
-
     case SHK_PROP:
         if (obj->oprops) {
             verbalize("Your weapon already has a property.");
             return 0;
         } else if (obj->oartifact) {
-            verbalize("That weapon is already pretty special!");
+            verbalize("That weapon is already pretty special.");
         }
         verbalize("Imbue your weapon with special power!");
         charge = 9 * 625;
-        /* What if it already has a property? */
         
         if (shk_offer_price(slang, charge, shkp) == FALSE) 
             return 0;
@@ -4335,14 +4337,12 @@ long svc_type;
         /* Have some fun! */
         if (Confusion) {
             Your("%s weirdly!", aobjnam(obj, "vibrate"));
-            
-            /* TODO: This might result in random enchantment, blessing, or
-             * cursing. */
             create_oprop(obj, TRUE);
         } else if (Hallucination) {
             Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
         } else
             create_oprop(obj, FALSE);
+        update_inventory();
         break;
         
     default:
@@ -4400,6 +4400,7 @@ long svc_type;
         obj->oeroded = 0;
         obj->rknown = TRUE;
         obj->oerodeproof = TRUE;
+        update_inventory();
         break;
 
     case SHK_ARM_ENC:
@@ -4435,6 +4436,7 @@ long svc_type;
         
         obj->spe++;
         adj_abon(obj, 1);
+        update_inventory();
         break;
 
     default:
@@ -4472,19 +4474,6 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
     if (!obj) 
         return 0;
     
-#if 0 /* This isn't working */
-    if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH)
-        obj = getobj(wand_types, "charge");
-    else if (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH)
-        obj = getobj(tool_types, "charge");
-    else if (shk_class_match(RING_CLASS, shkp) == SHK_MATCH)
-        obj = getobj(ring_types, "charge");
-    else if (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH)
-        obj = getobj(spbook_types, "charge");
-    if (!obj) 
-        return;
-#endif
-
     /* Verify the item we picked matches the shop type */
     if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH 
             && obj->oclass != WAND_CLASS ) {
@@ -4531,7 +4520,7 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
 
     /* Shopkeeper deviousness */
     if ((Confusion || Hallucination) && !no_cheat) {
-        pline("%s says it's charged and pushes you toward the door", Monnam(shkp));
+        pline("%s says it's charged and pushes you toward the door.", Monnam(shkp));
         return 1;
     }
     
@@ -4579,6 +4568,7 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
                 obj->spe += 1;
         }
     }
+    update_inventory();
     return 1;
 }
 
@@ -4679,13 +4669,12 @@ struct monst *shkp;
             makeknown(uwep->otyp);
             uwep->known = TRUE;
             verbalize("This is %s", doname(uwep));
+            update_inventory();
         } else
             pline("Unfortunately, nothing new turns up.");
     }
     
     pline("%s trains you intensely in the way of %s.", doname(uwep), mon_nam(shkp));
-    /*delay = -10;*/
-    /*set_occupation(practice, "practicing", 0);*/
     use_skill(weptype, required);
     return 1;
 }
