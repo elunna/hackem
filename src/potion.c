@@ -4238,13 +4238,13 @@ obj2upgrade(int otyp)
     case GLOVES:
         switch (rn2(3)) {
         case 0: return ROGUES_GLOVES;
-        case 1: return BOXING_GLOVES;
+        case 1: return GAUNTLETS_OF_FORCE;
         case 2: return GAUNTLETS;
         }
         break;
             
     case ROGUES_GLOVES:
-    case BOXING_GLOVES:
+    case GAUNTLETS_OF_FORCE:
         return GLOVES;
         
     case GAUNTLETS:

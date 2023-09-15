@@ -833,7 +833,7 @@ Gloves_on(VOID_ARGS)
     case GLOVES:
     case GAUNTLETS:
     case ROGUES_GLOVES:
-    case BOXING_GLOVES:
+    case GAUNTLETS_OF_FORCE:
     case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_FUMBLING:
@@ -907,7 +907,7 @@ Gloves_off(VOID_ARGS)
     case GAUNTLETS:
     case GAUNTLETS_OF_PROTECTION:
     case ROGUES_GLOVES:
-    case BOXING_GLOVES:
+    case GAUNTLETS_OF_FORCE:
     case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_SWIMMING:

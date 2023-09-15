@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Renamed boxing gloves, fixed stun mechanic. Fixes #473.
 Removed sickness resistance from Plague.
 Fix: Many shopkeeper services didn't update curses inventory.
 Added a couple of things to sysconf to make debugging easier.

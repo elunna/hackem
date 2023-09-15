@@ -651,7 +651,7 @@ GLOVES("gauntlets of power", "riding gloves",
        0, 1,          0,  8, 1, 30,  50, 9, 0,  IRON, CLR_BROWN),
 GLOVES("rogues gloves", "fine gloves",                   /* SpliceHack */
        0, 1,  SEARCHING,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
-GLOVES("boxing gloves", "boiled gloves",                      /* SpliceHack */
+GLOVES("gauntlets of force", "boxing gloves",                      /* SpliceHack */
        0, 1,          0,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of protection", "gardening gloves",           /* EvilHack */
        0, 1, PROTECTION,  4, 1, 10,  60, 8, 3,  CLOTH, CLR_BROWN),

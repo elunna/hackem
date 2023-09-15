@@ -2131,7 +2131,7 @@ int dieroll;
     } else if (unarmed && tmp > 1 && !thrown && !obj && !Upolyd && !thievery) {
         /* VERY small chance of stunning or confusing opponent if unarmed. */
         if ((rnd(Race_if(PM_GIANT) ? 40 : 100) < P_SKILL(P_BARE_HANDED_COMBAT)
-                || (rnd(25) && uarmg && uarmg->otyp == BOXING_GLOVES))
+                || (!rnd(20) && uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE))
               && !biggermonst(mdat) 
               && !thick_skinned(mdat) 
               && !unsolid(mdat)) {

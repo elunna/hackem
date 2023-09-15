@@ -2082,7 +2082,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     if (uarmg && uwep && objects[uwep->otyp].oc_skill == P_BOW) {
         switch (uarmg->otyp) {
         case GAUNTLETS_OF_POWER: /* metal */
-        case BOXING_GLOVES: /* bulky */
+        case GAUNTLETS_OF_FORCE: /* bulky */
         case GAUNTLETS:
             tmp -= 2;
             break;
