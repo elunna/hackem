@@ -348,12 +348,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_COLOR, DEFAULT_MAT),
     
     A("Plague", ORCISH_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
-      PHYS(5, 7), DFNS(AD_DISE), DFNS(AD_DRST), 0, A_CHAOTIC, NON_PM, NON_PM, 
-      6000L, NO_COLOR, DEFAULT_MAT),
+      PHYS(5, 7), DFNS(AD_DRST), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
+      4000L, NO_COLOR, DEFAULT_MAT),
         /* Auto-poison code in dothrow.c */
     
-    /* Grants waterbreathing.
-          Invoke for water-walking and an earthquake. */
+    /* Grants waterbreathing. Invoke for water-walking and an earthquake. */
     A("Poseidon\'s Trident", TRIDENT, (SPFX_RESTR | SPFX_BREATHE), 0, 0, PHYS(3, 7),
       NO_DFNS, NO_CARY, WWALKING, A_CHAOTIC, NON_PM, NON_PM, 1500L, NO_COLOR, GOLD),
     
