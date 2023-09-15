@@ -1900,6 +1900,8 @@ struct monst *mtmp;
         } else if ((otmp->otyp == CORPSE
                     && touch_petrifies(&mons[otmp->corpsenm])
                     && !(resists_ston(mtmp) || defended(mtmp, AD_STON)))
+                   /* don't engulf spirits */
+                   || otmp->oclass == SPIRIT_CLASS
                    /* don't engulf boulders and statues or ball&chain */
                    || otmp->oclass == ROCK_CLASS
                    || otmp == uball || otmp == uchain
