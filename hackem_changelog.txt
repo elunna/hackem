@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix some unintentional zap changes from 3db511c10. Fixes #469.
 Redo fix for #434. Fixes #468.
 Revert Fix: Wielding stakes makes thrown daggers act like stakes (reported by Umbire). Fixes #434.
 Fix: starting/ending alignment reporting in xlogfile (From EvilHack).
