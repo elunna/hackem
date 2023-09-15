@@ -1995,7 +1995,7 @@ int dieroll;
 	tmp += rnd(6);
 
     /* Stakes vs vampires */
-    if (uwep && uwep->otyp == STAKE && is_vampire(mdat)) {
+    if (uwep && uwep->otyp == STAKE && is_vampire(mdat) && !thrown) {
         int skill = P_SKILL(weapon_type(uwep));
 
         if (Role_if(PM_UNDEAD_SLAYER))
