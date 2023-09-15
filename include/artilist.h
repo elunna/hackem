@@ -346,9 +346,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Marauder's Map", SCR_MAGIC_MAPPING, SPFX_RESTR, 0, 0, NO_ATTK,
       NO_DFNS,	NO_CARY, OBJECT_DET, A_CHAOTIC, PM_PIRATE, NON_PM, 2000L,
       NO_COLOR, DEFAULT_MAT),
-
+    
     A("Plague", ORCISH_BOW, (SPFX_RESTR | SPFX_DEFN), 0, 0,
-      PHYS(5,7), DFNS(AD_DRST), DFNS(AD_DISE), 0, A_CHAOTIC, NON_PM, NON_PM, 
+      PHYS(5, 7), DFNS(AD_DISE), DFNS(AD_DRST), 0, A_CHAOTIC, NON_PM, NON_PM, 
       6000L, NO_COLOR, DEFAULT_MAT),
         /* Auto-poison code in dothrow.c */
     

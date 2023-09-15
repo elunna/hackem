@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Plague now grants sickness resistance when wielded and poison res when carried.
 Fix: Many shopkeeper services didn't update curses inventory.
 Added a couple of things to sysconf to make debugging easier.
 Fix: Allow autopickup of spirits in abandoned shops (reported by mobileuser). Fixes #471.
