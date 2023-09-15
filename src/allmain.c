@@ -551,7 +551,8 @@ boolean resuming;
                             }
                         }
                     }
-                    
+
+                    char *p;
                     /* Autopickup spirits for Necromancer */
                     if (Role_if(PM_NECROMANCER)) {
                         struct obj *obj;
@@ -566,7 +567,13 @@ boolean resuming;
 
                                 /* count the objects here */
                                 for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
-                                    if (obj->otyp == SPIRIT && !inside_shop(x, y)) {
+                                    if (obj->otyp == SPIRIT) {
+                                        /* Don't allow auto-pickup of spirits in shops unless
+                                         * the shop is abandoned. */
+                                        if (inside_shop(x, y) && *(p = in_rooms(x, y, SHOPBASE))
+                                              && tended_shop(&rooms[*p - ROOMOFFSET]))
+                                            continue;
+
                                         pickup_object(obj, obj->quan, TRUE);
                                         newsym_force(x, y);
                                         break;
