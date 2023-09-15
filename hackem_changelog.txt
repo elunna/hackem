@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Undead and demons will avoid blessed items (from SLASH'EM)
 Fix: Allow autopickup of spirits in abandoned shops (reported by mobileuser). Fixes #471.
 Fix: Gelatinous cubes can eat spirits (reported by mobileuser). Fixes #470.
 Fix some unintentional zap changes from 3db511c10. Fixes #469.

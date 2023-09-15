@@ -422,13 +422,17 @@ STATIC_VAR xchar gtyp, gx, gy; /* type and position of dog's current goal */
 STATIC_PTR void FDECL(wantdoor, (int, int, genericptr_t));
 
 boolean
-cursed_object_at(x, y)
+cursed_object_at(mtmp, x, y)
+struct monst *mtmp;
 int x, y;
 {
     struct obj *otmp;
 
     for (otmp = level.objects[x][y]; otmp; otmp = otmp->nexthere)
-        if (otmp->cursed)
+        /* [ALI] demons & undead avoid blessed items instead */
+        if ((is_demon(mtmp->data) || is_undead(mtmp->data))
+                ? otmp->blessed
+                : otmp->cursed)
             return TRUE;
     return FALSE;
 }
@@ -949,7 +953,7 @@ int after, udist, whappr;
                 if (otyp > gtyp || otyp == UNDEF)
                     continue;
                 /* avoid cursed items unless starving */
-                if (cursed_object_at(nx, ny)
+                if (cursed_object_at(mtmp, nx, ny)
                     && !(edog->mhpmax_penalty && otyp < MANFOOD))
                     continue;
                 /* skip completely unreachable goals */
@@ -1549,7 +1553,7 @@ int after; /* this is extra fast monster movement */
         ny = poss[i].y;
         if (MON_AT(nx, ny) && !((info[i] & ALLOW_M) || info[i] & ALLOW_MDISP))
             continue;
-        if (cursed_object_at(nx, ny))
+        if (cursed_object_at(mtmp, nx, ny))
             continue;
         uncursedcnt++;
     }

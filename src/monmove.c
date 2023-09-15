@@ -2337,7 +2337,7 @@ xchar x, y; /* spot 'mtmp' is considering moving to */
         if (trap && trap->tseen && rn2(40))
             return TRUE;
         /* Pets avoid cursed locations */
-        if (cursed_object_at(x, y))
+        if (cursed_object_at(mtmp, x, y))
             return TRUE;
 
     /* Monsters avoid a trap if they've seen that type before */

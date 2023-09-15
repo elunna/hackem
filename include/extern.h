@@ -681,7 +681,7 @@ E void FDECL(update_primary_symset, (struct symparse *, int));
 E void FDECL(update_rogue_symset, (struct symparse *, int));
 E void FDECL(update_ov_primary_symset, (struct symparse *, int));
 E void FDECL(update_ov_rogue_symset, (struct symparse *, int));
-E boolean FDECL(cursed_object_at, (int, int));
+E boolean FDECL(cursed_object_at, (struct monst *, int, int));
 E nhsym FDECL(get_othersym, (int, int));
 
 /* ### dungeon.c ### */
