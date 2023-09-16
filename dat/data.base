@@ -2044,7 +2044,6 @@ armor recipe*
     dwarvish helm           = helmet + dwarvish short sword
     dented pot              = knife + war hammer
     helmet                  = dented pot + dagger
-    tinfoil hat             = dented pot + dunce cap
     small shield            = helmet + dagger
     elven shield            = small shield + elven dagger
     uruk-hai shield         = orcish shield + orcish shield
