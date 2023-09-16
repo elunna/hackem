@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: issue with resurrected minion hunger (reported by Umbire). Fixes #441.
 Fix: Attempted to start duplicate rot_corpse timer, aborted (reported by mobileuser). Fixes #302.
 Renamed boxing gloves, fixed stun mechanic. Fixes #473.
 Removed sickness resistance from Plague.
