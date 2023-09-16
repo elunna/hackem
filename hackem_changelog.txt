@@ -5,6 +5,10 @@
 
 Version 1.2.1 (unreleased)
 
+Imported the shopkeeper hollering from SlashTHEM.
+Imported the SLASH'EM behavior of unicorn horns.
+The Ranger's quest bow/crossbow gets same flat damage bonus as other artifacts.
+Imported David's Sling from SlashTHEM. Added warning vs giants and +6 damage to projectiles.
 Fix: Attempted to start duplicate rot_corpse timer, aborted (reported by mobileuser). Fixes #302.
 Renamed boxing gloves, fixed stun mechanic. Fixes #473.
 Removed sickness resistance from Plague.

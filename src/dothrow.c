@@ -1627,6 +1627,8 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                         break;
                     case SLING:
                         range += (int) urange / 2;
+                        if (uwep->oartifact == ART_DAVID_S_SLING)
+                            range += urange + 1; /* divine workmanship */
                         break;
                     default:
                         break;

@@ -1612,14 +1612,22 @@ int dieroll;
                     && (is_ammo(obj) || is_missile(obj))) {
                     if (ammo_and_launcher(obj, uwep)) {
                         /* Slings hit giants harder (as Goliath) */
-                        if ((uwep->otyp == SLING) && racial_giant(mon))
-                            tmp *= 2;
+                        if (uwep->otyp == SLING) {
+                            if (racial_giant(mon)) {
+                                /* Instakill giants */
+                                if (uwep->oartifact == ART_DAVID_S_SLING)
+                                    tmp = (2 * mon->mhp + 200);
+                                else
+                                    tmp *= 2;
+                            } else if (uwep->oartifact == ART_DAVID_S_SLING)
+                                tmp += 6;
+                        }
                         /* The Longbow of Diana and the Crossbow of Carl
                            impart a damage bonus to the ammo fired from
                            them */
                         if (uwep->oartifact == ART_LONGBOW_OF_DIANA
                             || uwep->oartifact == ART_CROSSBOW_OF_CARL)
-                            tmp += rnd(6);
+                            tmp += 6;
                         /* Elves and Samurai do extra damage using
                          * their bows&arrows; they're highly trained.
                          */
@@ -1631,7 +1639,7 @@ int dieroll;
                             tmp++;
                             /* WAC Extra damage if in special ability*/
 						    if (tech_inuse(T_FLURRY)) 
-                            tmp += 2;
+                                tmp += 2;
                         } else if (objects[obj->otyp].oc_skill == P_BOW
 					             && tech_inuse(T_FLURRY)) {
                             tmp++;
