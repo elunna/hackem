@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Removed the forging recipe for tinfoil hat.
 Revert f78413548 - The Wizard of Yendor and Quest Nemesis also steal common artifacts (from UnNetHack)
 Nightmare can't be awoken by cursed potions of invisibility (reported by mobileuser).
 Imported the shopkeeper hollering from SlashTHEM.

@@ -536,7 +536,6 @@ static const struct forge_recipe {
     { DWARVISH_HELM,        HELMET, DWARVISH_SHORT_SWORD, 1, 1 },
     { DENTED_POT,           WAR_HAMMER, KNIFE,          1, 1 },
     { HELMET,               DENTED_POT, DAGGER,         1, 1 },
-    { TINFOIL_HAT,          DENTED_POT, DUNCE_CAP,      1, 1 },
     
     /* armor (body armor) */
     { PLATE_MAIL,           SPLINT_MAIL, CHAIN_MAIL,    1, 1 },
