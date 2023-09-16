@@ -2672,7 +2672,7 @@ steal_it(mdef, mattk)
 struct monst *mdef;
 struct attack *mattk;
 {
-    struct obj *otmp, *gold = 0, *stealoid, **minvent_ptr;
+    struct obj *otmp, *gold = 0, *stealoid, **minvent_ptr, *mwep = MON_WEP(mdef);
     int i = rn2(10), dex_pick = 0, no_vis = 0,
         size = 0, enc = 0, other = 0, cap;
     boolean as_mon = could_seduce(&youmonst, mdef, mattk);
@@ -2681,6 +2681,11 @@ struct attack *mattk;
     if (!otmp || (as_mon && otmp->oclass == COIN_CLASS && !otmp->nobj))
         return; /* nothing to take */
 
+    /* Thiefbane banes thieves */
+    if (mwep && mwep->oartifact == ART_THIEFBANE) {
+        pline("Thiefbane blocks your attempt at theft!");
+        return;
+    }
     /* look for worn body armor */
     stealoid = (struct obj *) 0;
     if (as_mon) {
