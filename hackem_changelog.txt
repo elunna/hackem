@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Nightmare can't be awoken by cursed potions of invisibility (reported by mobileuser).
 Imported the shopkeeper hollering from SlashTHEM.
 Imported the SLASH'EM behavior of unicorn horns.
 The Ranger's quest bow/crossbow gets same flat damage bonus as other artifacts.

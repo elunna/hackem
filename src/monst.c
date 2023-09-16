@@ -7510,7 +7510,7 @@ struct permonst _mons2[] = {
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
         M2_NOPOLY | M2_PNAME | M2_FEMALE | M2_HOSTILE | M2_NASTY | M2_STALK |
             M2_WANDER | M2_STRONG,
-        M3_WAITFORU | M3_WANTSALL, 0, 0, 20, CLR_RED),
+        M3_WAITFORU | M3_CLOSE | M3_WANTSALL, 0, 0, 20, CLR_RED),
     MON("Beholder", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
         A(ATTK(AT_MAGC, AD_CLRC, 4, 6),
