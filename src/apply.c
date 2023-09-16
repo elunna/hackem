@@ -2224,6 +2224,7 @@ struct obj *obj;
 #define ATTR_COUNT (A_MAX * 3) /* number of attribute points we might fix */
     int idx, val, val_limit, trouble_count, unfixable_trbl, did_prop;
     int trouble_list[PROP_COUNT + ATTR_COUNT];
+    int chance;	/* KMH */
 
     if (Hidinshell) {
         You_cant("use your %s while hiding in your shell.",
@@ -2320,6 +2321,7 @@ end:
         }
     }
 
+#if 0	/* Old NetHack success rate */
     /*
      *  Chances for number of troubles to be fixed
      *               0      1      2      3      4      5      6      7
@@ -2329,43 +2331,58 @@ end:
     val_limit = rn2(d(2, (obj && obj->blessed) ? 4 : 2));
     if (val_limit > trouble_count)
         val_limit = trouble_count;
-
+#else	/* KMH's new success rate */
+    /*
+     * blessed:  Tries all problems, each with chance given below.
+     * uncursed: Tries one problem, with chance given below.
+     * ENCHANT  +0 or less  +1   +2   +3   +4   +5   +6 or more
+     * CHANCE       30%     40%  50%  60%  70%  80%     90%
+     */
+    val_limit = (obj && obj->blessed) ? trouble_count : 1;
+    if (obj && obj->spe > 0)
+        chance = (obj->spe < 6) ? obj->spe+3 : 9;
+    else
+        chance = 3;
+#endif
+    
     /* fix [some of] the troubles */
     for (val = 0; val < val_limit; val++) {
         idx = trouble_list[val];
 
-        switch (idx) {
-        case prop2trbl(SICK):
-            make_sick(0L, (char *) 0, TRUE, SICK_ALL);
-            did_prop++;
-            break;
-        case prop2trbl(BLINDED):
-            make_blinded((long) u.ucreamed, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(HALLUC):
-            (void) make_hallucinated(0L, TRUE, 0L);
-            did_prop++;
-            break;
-        case prop2trbl(VOMITING):
-            make_vomiting(0L, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(CONFUSION):
-            make_confused(0L, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(STUNNED):
-            make_stunned(0L, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(DEAF):
-            make_deaf(0L, TRUE);
-            did_prop++;
-            break;
-        default:
-            panic("use_unicorn_horn: bad trouble? (%d)", idx);
-            break;
+        if (rn2(10) < chance) {    /* KMH */
+            switch (idx) {
+                case prop2trbl(SICK):
+                    make_sick(0L, (char *) 0, TRUE, SICK_ALL);
+                    did_prop++;
+                    break;
+                case prop2trbl(BLINDED):
+                    make_blinded((long) u.ucreamed, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(HALLUC):
+                    (void) make_hallucinated(0L, TRUE, 0L);
+                    did_prop++;
+                    break;
+                case prop2trbl(VOMITING):
+                    make_vomiting(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(CONFUSION):
+                    make_confused(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(STUNNED):
+                    make_stunned(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(DEAF):
+                    make_deaf(0L, TRUE);
+                    did_prop++;
+                    break;
+                default:
+                    panic("use_unicorn_horn: bad trouble? (%d)", idx);
+                    break;
+            }
         }
     }
 
