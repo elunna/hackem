@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: issue with resurrected minion hunger (reported by Umbire). Fixes #441.
 Monsters wielding Thiefbane cannot be stolen from.
 Fix: #offer was broken for vampires as a result of commit 98d4e4432.
 Removed the forging recipe for tinfoil hat.

@@ -1139,7 +1139,7 @@ boolean by_hero;
         /* use saved traits */
         xy.x = x, xy.y = y;
         mtmp = montraits(corpse, &xy, FALSE);
-        if (mtmp && mtmp->mtame && !mtmp->isminion)
+        if (mtmp && mtmp->mtame)
             wary_dog(mtmp, TRUE);
     } else {
         /* make a new monster */
