@@ -603,11 +603,6 @@ is_stealable_item(struct obj *obj, struct monst *mtmp)
         return TRUE;
     }
 
-    /* target common artifacts */
-    if (obj->oartifact) {
-        return TRUE;
-    }
-
     return FALSE;
 }
 
