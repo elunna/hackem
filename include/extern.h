@@ -2598,6 +2598,7 @@ E char *FDECL(shk_your, (char *, struct obj *));
 E char *FDECL(Shk_Your, (char *, struct obj *));
 E void FDECL(globby_bill_fixup, (struct obj *, struct obj *));
 E void FDECL(globby_donation, (struct obj *, struct obj *));
+E void FDECL(shk_holler, (struct monst *));
 
 /* ### shknam.c ### */
 
