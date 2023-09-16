@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: #offer was broken for vampires as a result of commit 98d4e4432.
 Removed the forging recipe for tinfoil hat.
 Revert f78413548 - The Wizard of Yendor and Quest Nemesis also steal common artifacts (from UnNetHack)
 Nightmare can't be awoken by cursed potions of invisibility (reported by mobileuser).
