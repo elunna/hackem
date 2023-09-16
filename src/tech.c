@@ -42,6 +42,7 @@ static int NDECL(tech_curse);
 static int NDECL(tech_research);
 static int NDECL(tech_eviscerate);
 static int NDECL(tech_berserk);
+static int NDECL(tech_icearmor);
 static int NDECL(tech_reinforce);
 static int NDECL(tech_flurry);
 static int NDECL(tech_appraisal);
@@ -139,7 +140,8 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "blood magic",      /* 52 */
     "break rock",       /* 53 */
     "uppercut",         /* 54 */
-    "",            /* 55 */
+    "ice armor",        /* 55 */
+    "",                 /* 56 */
     ""
 };
 
@@ -170,6 +172,7 @@ static const struct innate_tech
     },
     ice_tech[] = { 
         { 1, T_REINFORCE, 1 },
+        { 3, T_ICEARMOR, 1 },
         { 5, T_DRAW_ENERGY, 1 },
         { 12, T_POWER_SURGE, 1 },
         { 0, 0, 0 } 
@@ -1008,6 +1011,11 @@ int tech_no;
             if (res)
                 t_timeout = rn1(1000, 500);
             break;
+        case T_ICEARMOR:
+            res = tech_icearmor();
+            if (res)
+                t_timeout = rn1(500, 500);
+            break;
         case T_REINFORCE:
             res = tech_reinforce();
             if (res)
@@ -1313,6 +1321,7 @@ tech_timeout()
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
               continue;
+        
         /* Check if technique is done */
         if (techt_inuse(i)) {
             if (!(--techt_inuse(i))) {
@@ -1331,6 +1340,9 @@ tech_timeout()
                     break;
                 case T_BERSERK:
                     The("red haze in your mind clears.");
+                    break;
+                case T_ICEARMOR:
+                    Your("icy armor melts away.");
                     break;
                 case T_KIII:
                     You("calm down.");
@@ -2794,6 +2806,16 @@ tech_berserk()
     techt_inuse(tech_no) = d(2, 8) +
                            (techlev(tech_no) / 5) + 2;
     incr_itimeout(&HFast, techt_inuse(tech_no));
+    return 1;
+}
+
+int
+tech_icearmor()
+{
+    int tech_no = get_tech_no(T_ICEARMOR);
+    int multiplier = techlev(tech_no) + 2;
+    pline("A layer of ice forms around you!");
+    techt_inuse(tech_no) = d(multiplier, 6) + d(1, 8) + 2;
     return 1;
 }
 

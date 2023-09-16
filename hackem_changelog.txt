@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Ice armor technique for ice mage and intrinsic AC for monk.
 Merged the mall maps back in with the town level.
 Fix: issue with resurrected minion hunger (reported by Umbire). Fixes #441.
 Monsters wielding Thiefbane cannot be stolen from.

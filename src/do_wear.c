@@ -3237,24 +3237,31 @@ find_ac()
         else if (u.ulevel == 30)
             tortle_ac -= 10;
     }
-
-    /* --hackem: The Ice Mage is inheriting the generous AC bonus that the 
-     * SlashEM monk enjoyed. The Ice Mage probably has a better argument since
-     * they are "growing" an ice armor as they increase in power - kind of 
-     * like the tortle. The Ice Mage has a bit of a deficit compared to the 
-     * Flame Mage, so hopefully this helps offset the imbalance. 
-     * We'll impose similar restrictions - no armor (except robes) and no 
-     * shields allowed */
-    if (Role_if(PM_ICE_MAGE)) {
-        uac -= icebonus();
-    }
+    
     /* Doppelganger no-armor bonus. */
-    if (Race_if(PM_DOPPELGANGER) && !uarm) 
+    else if (Race_if(PM_DOPPELGANGER) && !uarm) 
         uac -= (u.ulevel / 4) + 1;
     
+    /* Monk's intrinsic AC bonus from SLASH'EM. Slightly modified.
+     * This cannot stack with the other racial AC bonuses. 
+     */
+    else if (Role_if(PM_MONK) && !uwep
+          && (!uarm || is_robe(uarm)) && !uarms) {
+        /* hackemslashem: cap off the Monk's ac bonus to -10 */
+        if (u.ulevel > 18) 
+            uac -= 10;
+        else
+            uac -= (u.ulevel / 2); /* Was (u.ulevel / 2)+2 */
+    }
+
     /* Drunken boxing */
     if (Role_if(PM_MONK) && Confusion && !uarm) {
         uac -= 1;
+    }
+    
+    if (tech_inuse(T_ICEARMOR)) {
+        /* Armor and shield restrictions are checked in icebonus() */
+        uac -= icebonus();
     }
     
     /* Dexterity affects your base AC */
@@ -3310,12 +3317,8 @@ int
 icebonus()
 {
     /* No non-robe body armor and no shield allowed */
-    if ((!uarm || is_robe(uarm)) && !uarms) {
-        if (u.ulevel > 18) 
-            return 11;
-        else 
-            return (u.ulevel / 2) + 2;
-    }
+    if ((!uarm || is_robe(uarm)) && !uarms)
+        return (u.ulevel / 2) + 2;
     return 0;
 }
 

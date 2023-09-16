@@ -4807,8 +4807,8 @@ struct attack *mattk;
     /* Ice Mage gets a passive cold attack that grows as they get stronger
      * and their ice armor becomes more powerful. We'll delay it a few levels
      * so really low level ice mages have to work for it. */
-    if (Role_if(PM_ICE_MAGE)) {
-        int icetmp = icebonus() - 3;
+    if (tech_inuse(T_ICEARMOR)) {
+        int icetmp = icebonus();
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
             shieldeff(mtmp->mx, mtmp->my);
             pline_The("cold doesn't affect %s.", mon_nam(mtmp));
@@ -4826,7 +4826,6 @@ struct attack *mattk;
             if (wizard)
                 showdmg(tmp);
             if ((mtmp->mhp -= tmp) <= 0) {
-                pline("%s dies!", Monnam(mtmp));
                 xkilled(mtmp, 0);
                 if (mtmp->mhp > 0)
                     return 1;
